@@ -91,6 +91,9 @@ export const PlayerPanel = (_, context) => {
     use_view,
     search_text,
     update_interval,
+    mapRef,
+    map_range,
+    metacurrency_name,
   } = data;
   const selected_player = players[selected_ckey];
   return (
@@ -159,6 +162,10 @@ export const PlayerPanel = (_, context) => {
             <Flex.Item style={{ "resize": "vertical" }} mt={1} height={`${PANEL_HEIGHT}px`}>
               <Box height="100%">
                 <PlayerDetails
+                  mapRef={mapRef}
+                  map_range={map_range}
+                  use_view={use_view}
+                  metacurrency_name={metacurrency_name}
                   ckey={selected_player.ckey}
                   previous_names={selected_player.previous_names}
                   has_mind={selected_player.has_mind}
@@ -194,241 +201,395 @@ export const PlayerPanel = (_, context) => {
 **/
 
 
-const PlayerDetails = (props, context) => {
-  const { data, act } = useBackend(context);
-  const {
-    mapRef,
-    map_range,
-    use_view,
-    metacurrency_name = "BeeCoin", // sorry downstreams
-  } = data;
-
-  const {
-    ckey,
-    previous_names = [],
-    has_mind,
-    log_client = {},
-    log_mob = {},
-    is_cyborg,
-    register_date = "N/A",
-    first_seen = "N/A",
-    mob_type = "N/A",
-    byond_version = "N/A",
-    metacurrency_balance = 0,
-    antag_rep = 0,
-    antag_tokens = 0,
-    cid = "N/A",
-    ip = "N/A",
-    related_accounts_ip = "N/A",
-    related_accounts_cid = "N/A",
-    photo_path,
-  } = props;
-
-
-  let action_button_data = {
-    "Info": {
-      "PP": "open_player_panel",
-      "Notes": "open_notes",
-      "Logs": "open_logs",
-      "Hours": "open_hours",
-      "Telem": "open_telemetry",
-    },
-    "Message": {
-      "PM": "pm",
-      "SM": "subtle_message",
-      "HM": "headset_message",
-      "NRT": "narrate_to",
-    },
-    "Action": {
-      "FLW": "follow",
-      "VV": "open_view_variables",
-      "Lang": "open_language_panel",
-      "Heal": "revive",
-      "Lobby": "send_to_lobby",
-    },
-    "Punish": {
-      "Kick": "kick",
-      "Ban": "open_ban",
-      "Smite": "smite",
-      "Prison": "jail",
-    },
-  };
-  if (!has_mind) {
-    action_button_data["Action"]["IM"] = "init_mind";
-  } else {
-    action_button_data["Action"]["TP"] = "open_traitor_panel";
-  }
-  if (is_cyborg) {
-    action_button_data["Info"]["Borg"] = "open_cyborg_panel";
+class PlayerDetails extends Component {
+  countEntries = (log1, log2) => {
+    let total = 0;
+    for (let log of Object.values(log1)) {
+      total += Object.keys(log).length;
+    }
+    for (let log of Object.values(log2)) {
+      total += Object.keys(log).length;
+    }
+    return total;
   }
 
-  const action_button_list = [];
-  for (let [name, val] of Object.entries(action_button_data)) {
-    action_button_list.push(
-      <Flex key={name} direction="column">
-        <Flex.Item mt={name === "Message" ? 4.64 : 1}>
-          <strong>{name}</strong>
+  shouldComponentUpdate(new_props, new_state) {
+    return shallow_diff(this.props, new_props, ["log_client", "log_mob", "previous_names"])
+    || this.countEntries(this.props.log_client, this.props.log_mob)
+    !== this.countEntries(new_props.log_client, new_props.log_mob)
+    || this.props.previous_names.join("") !== new_props.previous_names.join("")
+    || shallow_diff(this.state, new_state);
+  }
+
+  render() {
+    const {
+      mapRef,
+      map_range,
+      use_view,
+      metacurrency_name = "BeeCoin", // sorry downstreams
+      ckey,
+      previous_names = [],
+      has_mind,
+      log_client = {},
+      log_mob = {},
+      is_cyborg,
+      register_date = "N/A",
+      first_seen = "N/A",
+      mob_type = "N/A",
+      byond_version = "N/A",
+      metacurrency_balance = 0,
+      antag_rep = 0,
+      antag_tokens = 0,
+      cid = "N/A",
+      ip = "N/A",
+      related_accounts_ip = "N/A",
+      related_accounts_cid = "N/A",
+      photo_path,
+    } = this.props;
+
+    return (
+      <Flex height="100%">
+        <Flex.Item grow={1} minWidth="125px">
+          <PlayerDetailsSection
+            ckey={ckey}
+            mob_type={mob_type}
+            byond_version={byond_version}
+            antag_rep={antag_rep}
+            antag_tokens={antag_tokens}
+            metacurrency_name={metacurrency_name}
+            metacurrency_balance={metacurrency_balance}
+            previous_names={previous_names} />
         </Flex.Item>
-        {Object.entries(val).map(([key, action]) => (
-          <Flex.Item key={key} mt={0.35} ml={0.5}>
-            <Button fluid color="yellow" content={key} tooltip={action} onClick={() => act(action, { who: ckey })} />
-          </Flex.Item>
+        <Flex.Item height={use_view ? "170px" : "150px"} ml={1}>
+          <PlayerDetailsViewSection
+            use_view={use_view}
+            map_range={map_range}
+            mapRef={mapRef}
+            photo_path={photo_path} />
+        </Flex.Item>
+        <Flex.Item grow={1} ml={1} mr={0.5}>
+          <PlayerCKEYDetailsSection
+            ckey={ckey}
+            first_seen={first_seen}
+            register_date={register_date}
+            ip={ip}
+            cid={cid}
+            related_accounts_ip={related_accounts_ip}
+            related_accounts_cid={related_accounts_cid} />
+        </Flex.Item>
+        <Flex.Item>
+          <PlayerDetailsActionButtons
+            ckey={ckey}
+            is_cyborg={is_cyborg}
+            has_mind={has_mind} />
+        </Flex.Item>
+        <Flex.Item grow={2} ml={1} minWidth="400px">
+          <LogViewer ckey={ckey} log_mob={log_mob} log_client={log_client} />
+        </Flex.Item>
+      </Flex>
+    );
+  }
+}
+
+class PlayerDetailsSection extends Component {
+
+  shouldComponentUpdate(new_props, new_state) {
+    if (this.props.previous_names.join("") !== new_props.previous_names.join("")) {
+      return true;
+    }
+    return shallow_diff(this.props, new_props, ["previous_names"])
+    || shallow_diff(this.state, new_state);
+  }
+
+  render() {
+    const { act } = useBackend(this.context);
+    const {
+      ckey,
+      mob_type,
+      byond_version,
+      antag_rep,
+      antag_tokens,
+      metacurrency_name,
+      metacurrency_balance,
+      previous_names,
+    } = this.props;
+    return (
+      <Section fill fitted scrollable
+        buttons={
+          <Button color="green" icon="circle" tooltip="Deselect"
+            style={{ "font-weight": "normal", "font-size": "12px" }}
+            onClick={() => act('select_player', { who: null })}
+          />
+        }
+        title={
+          <Box style={{
+            "white-space": "nowrap",
+            "text-overflow": "ellipsis",
+            "overflow": "hidden",
+            "color": "#ffbf00",
+            "width": "calc(100% - 25px)",
+            "display": "inline-block",
+          }}>
+            <TooltipWrap text={
+              ckey.charAt(0).toUpperCase() + ckey.slice(1)
+            } />
+          </Box>
+        }>
+        <Box style={{ "white-space": "pre-wrap", "padding": "5px", "overflow-wrap": "anywhere" }}>
+          <strong>Mob Type:</strong><br />
+          <Box color="#d8d8d8" style={{ "display": "inline-block",
+            "word-break": "break-all", "width": "100%" }}>
+            {mob_type}
+          </Box>
+          <strong>BYOND:</strong>{" "}
+          <Box inline color="#d8d8d8">
+            {byond_version}
+          </Box><br />
+          <strong>Antag Tokens:</strong>{" "}
+          <Box inline color="#d8d8d8">
+            {antag_tokens}
+          </Box><br />
+          <strong>Antag Rep:</strong>{" "}
+          <Box inline color="#d8d8d8">
+            {antag_rep}
+          </Box><br />
+          <strong>{metacurrency_name}s:</strong>{" "}
+          <Box inline color="#d8d8d8">
+            {metacurrency_balance}
+          </Box><br />
+          <hr style={{ "border": "1px solid #ffbf00", "height": 0, "opacity": 0.8 }} />
+          <Box textAlign="center" bold>
+            Names
+          </Box>
+          <Box inline color="#d8d8d8" textAlign="center">
+            {previous_names.map(name =>
+              <Box inline key={name}>{name}</Box>
+            )}
+          </Box>
+        </Box>
+      </Section>
+    );
+  }
+}
+
+class PlayerDetailsViewSection extends PureComponent {
+  render() {
+    const { act } = useBackend(this.context);
+    const {
+      use_view,
+      map_range,
+      mapRef,
+      photo_path,
+    } = this.props;
+    return (
+      <Section fill fitted title={
+        <>
+          View
+          {use_view ? (
+            <>
+              <Box inline width={1.2} />
+              <Button style={{ "font-weight": "normal", "font-size": "12px" }}
+                mt={0} mb={0} icon="search-minus" onClick={() => act("set_map_range", { range: map_range + 1 })} />
+              <Button
+                style={{ "font-weight": "normal", "font-size": "12px" }}
+                icon="sync-alt"
+                tooltip="Refresh view window in case it breaks"
+                onClick={() => act('refresh_view')}
+              />
+              <Button style={{ "font-weight": "normal", "font-size": "12px" }}
+                mt={0} mb={0} icon="search-plus" onClick={() => act("set_map_range", { range: map_range - 1 })} />
+            </>
+          ) : (
+            <>
+              <Box inline width={3} />
+              <Button
+                style={{ "font-weight": "normal", "font-size": "12px" }}
+                icon="sync-alt"
+                tooltip="Refresh mob icon cache"
+                onClick={() => act('reload_images')}
+              />
+            </>
+          )}
+        </>
+      }>
+        <Box width="100%" height="100%">
+          {(
+            use_view ? (
+              <ByondUi
+                width="100%"
+                height="100%"
+                params={{
+                  zoom: 0,
+                  "view-size": 169,
+                  id: mapRef,
+                  type: 'map',
+                }} />
+            ) : (
+              <Box width="110px" height="100%" style={{ "overflow": "hidden" }}>
+                <img width="100%" src={photo_path}
+                  style={{
+                    "overflow": "hidden",
+                    "-ms-interpolation-mode": "nearest-neighbor", // IE
+                    "image-rendering": "crisp-edges",
+                  }} />
+              </Box>
+            )
+          )}
+        </Box>
+      </Section>
+    );
+  }
+}
+
+class PlayerCKEYDetailsSection extends PureComponent {
+  render() {
+    const { act } = useBackend(this.context);
+    const {
+      ckey,
+      first_seen,
+      register_date,
+      ip,
+      cid,
+      related_accounts_ip,
+      related_accounts_cid,
+    } = this.props;
+    return (
+      <Section fill scrollable
+        title={(
+          <>
+            CKEY Data
+            <Box inline width={1.1} />
+            <Button style={{ "font-weight": "normal", "font-size": "12px" }} mt={0} mb={0} color="yellow"
+              content="CentCom" tooltip="Search CentCom Galactic Ban DB"
+              onClick={() => act("open_centcom_bans_database", { who: ckey })} />
+          </>
+        )}
+        style={{ "white-space": "pre-wrap" }}>
+        <strong>First Join:</strong><br />
+        <font color="#d8d8d8">{first_seen}</font>
+        <br />
+        <strong>Account Registered:</strong><br />
+        <font color="#d8d8d8">{register_date}</font><br />
+        <strong>IP: </strong><font color="#d8d8d8">{ip}</font><br />
+        <strong>CID: </strong><font color="#d8d8d8">{cid}</font><br />
+        <strong>Accounts (IP):</strong><br />
+        <font color="#d8d8d8">{related_accounts_ip.split(", ").join("\n")}</font><br />
+        <strong>Accounts (CID):</strong><br />
+        <font color="#d8d8d8">{related_accounts_cid.split(", ").join("\n")}</font>
+      </Section>
+    );
+  }
+}
+
+class PlayerDetailsActionButtons extends PureComponent {
+  render() {
+    const {
+      is_cyborg,
+      has_mind,
+      ckey,
+    } = this.props;
+    let action_button_data = {
+      "Info": {
+        "PP": "open_player_panel",
+        "Notes": "open_notes",
+        "Logs": "open_logs",
+        "Hours": "open_hours",
+        "Telem": "open_telemetry",
+      },
+      "Message": {
+        "PM": "pm",
+        "SM": "subtle_message",
+        "HM": "headset_message",
+        "NRT": "narrate_to",
+      },
+      "Action": {
+        "FLW": "follow",
+        "VV": "open_view_variables",
+        "Lang": "open_language_panel",
+        "Heal": "revive",
+        "Lobby": "send_to_lobby",
+      },
+      "Punish": {
+        "Kick": "kick",
+        "Ban": "open_ban",
+        "Smite": "smite",
+        "Prison": "jail",
+      },
+    };
+    if (!has_mind) {
+      action_button_data["Action"]["IM"] = "init_mind";
+    } else {
+      action_button_data["Action"]["TP"] = "open_traitor_panel";
+    }
+    if (is_cyborg) {
+      action_button_data["Info"]["Borg"] = "open_cyborg_panel";
+    }
+    return (
+      <Flex height={`${PANEL_HEIGHT + 5}px`} wrap="wrap" direction="column" textAlign="center">
+        {Object.entries(action_button_data).map(([name, actions]) => (
+          <PlayerDetailsActionButtonContainer
+            key={name}
+            name={name}
+            ckey={ckey}
+            is_cyborg={is_cyborg}
+            actions={actions} />
         ))}
       </Flex>
     );
   }
+}
 
-  return (
-    <Flex height="100%">
-      <Flex.Item grow={1} minWidth="125px">
-        <Section fill fitted scrollable
-          buttons={
-            <Button color="green" icon="circle" tooltip="Deselect"
-              style={{ "font-weight": "normal", "font-size": "12px" }}
-              onClick={() => act('select_player', { who: null })}
-            />
-          }
-          title={
-            <Box style={{
-              "white-space": "nowrap",
-              "text-overflow": "ellipsis",
-              "overflow": "hidden",
-              "color": "#ffbf00",
-              "width": "calc(100% - 25px)",
-              "display": "inline-block",
-            }}>
-              <TooltipWrap text={
-                ckey.charAt(0).toUpperCase() + ckey.slice(1)
-              } />
-            </Box>
-          }>
-          <Box style={{ "white-space": "pre-wrap", "padding": "5px", "overflow-wrap": "anywhere" }}>
-            <strong>Mob Type:</strong><br />
-            <Box color="#d8d8d8" style={{ "display": "inline-block",
-              "word-break": "break-all", "width": "100%" }}>
-              {mob_type}
-            </Box>
-            <strong>BYOND:</strong>{" "}
-            <Box inline color="#d8d8d8">
-              {byond_version}
-            </Box><br />
-            <strong>Antag Tokens:</strong>{" "}
-            <Box inline color="#d8d8d8">
-              {antag_tokens}
-            </Box><br />
-            <strong>Antag Rep:</strong>{" "}
-            <Box inline color="#d8d8d8">
-              {antag_rep}
-            </Box><br />
-            <strong>{metacurrency_name}s:</strong>{" "}
-            <Box inline color="#d8d8d8">
-              {metacurrency_balance}
-            </Box><br />
-            <hr style={{ "border": "1px solid #ffbf00", "height": 0, "opacity": 0.8 }} />
-            <Box textAlign="center" bold>
-              Names
-            </Box>
-            <Box inline color="#d8d8d8" textAlign="center">
-              {previous_names.map(name =>
-                <Box inline key={name}>{name}</Box>
-              )}
-            </Box>
-          </Box>
-        </Section>
+class PlayerDetailsActionButtonContainer extends Component {
+
+  shouldComponentUpdate(new_props, new_state) {
+    if (!Object.keys(this.props.actions)
+      .equals(Object.keys(new_props.actions))) {
+      return true;
+    }
+    return shallow_diff(this.props, new_props, ["actions"])
+    || shallow_diff(this.state, new_state);
+  }
+
+  render() {
+    const {
+      ckey,
+      name,
+      is_cyborg,
+      actions,
+    } = this.props;
+    return (
+      <Flex key={name} direction="column">
+        <Flex.Item mt={name === "Message" && !is_cyborg ? 4.64 : 1}>
+          <strong>{name}</strong>
+        </Flex.Item>
+        {Object.entries(actions).map(([key, action]) => (
+          <PlayerDetailsActionButton
+            key={key}
+            name={key}
+            action={action}
+            ckey={ckey} />
+        ))}
+      </Flex>
+    );
+  }
+}
+
+class PlayerDetailsActionButton extends PureComponent {
+  render() {
+    const { act } = useBackend(this.context);
+    const {
+      ckey,
+      name,
+      action,
+    } = this.props;
+    return (
+      <Flex.Item mt={0.35} ml={0.5}>
+        <Button fluid color="yellow" content={name} tooltip={action} onClick={() => act(action, { who: ckey })} />
       </Flex.Item>
-      <Flex.Item height={use_view ? "170px" : "150px"} ml={1}>
-        <Section fill fitted title={
-          <>
-            View
-            {use_view ? (
-              <>
-                <Box inline width={1.2} />
-                <Button style={{ "font-weight": "normal", "font-size": "12px" }}
-                  mt={0} mb={0} icon="search-minus" onClick={() => act("set_map_range", { range: map_range + 1 })} />
-                <Button
-                  style={{ "font-weight": "normal", "font-size": "12px" }}
-                  icon="sync-alt"
-                  tooltip="Refresh view window in case it breaks"
-                  onClick={() => act('refresh_view')}
-                />
-                <Button style={{ "font-weight": "normal", "font-size": "12px" }}
-                  mt={0} mb={0} icon="search-plus" onClick={() => act("set_map_range", { range: map_range - 1 })} />
-              </>
-            ) : (
-              <>
-                <Box inline width={3} />
-                <Button
-                  style={{ "font-weight": "normal", "font-size": "12px" }}
-                  icon="sync-alt"
-                  tooltip="Refresh mob icon cache"
-                  onClick={() => act('reload_images')}
-                />
-              </>
-            )}
-          </>
-        }>
-          <Box width="100%" height="100%">
-            {(
-              use_view ? (
-                <ByondUi
-                  width="100%"
-                  height="100%"
-                  params={{
-                    zoom: 0,
-                    "view-size": 169,
-                    id: mapRef,
-                    type: 'map',
-                  }} />
-              ) : (
-                <Box width="110px" height="100%" style={{ "overflow": "hidden" }}>
-                  <img width="100%" src={photo_path}
-                    style={{
-                      "overflow": "hidden",
-                      "-ms-interpolation-mode": "nearest-neighbor", // IE
-                      "image-rendering": "crisp-edges",
-                    }} />
-                </Box>
-              )
-            )}
-          </Box>
-        </Section>
-      </Flex.Item>
-      <Flex.Item grow={1} ml={1} mr={0.5}>
-        <Section fill scrollable
-          title={(
-            <>
-              CKEY Data
-              <Box inline width={1.1} />
-              <Button style={{ "font-weight": "normal", "font-size": "12px" }} mt={0} mb={0} color="yellow"
-                content="CentCom" tooltip="Search CentCom Galactic Ban DB"
-                onClick={() => act("open_centcom_bans_database", { who: ckey })} />
-            </>
-          )}
-          style={{ "white-space": "pre-wrap" }}>
-          <strong>First Join:</strong><br />
-          <font color="#d8d8d8">{first_seen}</font>
-          <br />
-          <strong>Account Registered:</strong><br />
-          <font color="#d8d8d8">{register_date}</font><br />
-          <strong>IP: </strong><font color="#d8d8d8">{ip}</font><br />
-          <strong>CID: </strong><font color="#d8d8d8">{cid}</font><br />
-          <strong>Accounts (IP):</strong><br />
-          <font color="#d8d8d8">{related_accounts_ip.split(", ").join("\n")}</font><br />
-          <strong>Accounts (CID):</strong><br />
-          <font color="#d8d8d8">{related_accounts_cid.split(", ").join("\n")}</font>
-        </Section>
-      </Flex.Item>
-      <Flex.Item>
-        <Flex height={`${PANEL_HEIGHT + 5}px`} wrap="wrap" direction="column" textAlign="center">
-          {action_button_list}
-        </Flex>
-      </Flex.Item>
-      <Flex.Item grow={2} ml={1} minWidth="400px">
-        <LogViewer log_mob={log_mob} log_client={log_client} />
-      </Flex.Item>
-    </Flex>
-  );
-};
+    );
+  }
+}
+
 
 class LogViewer extends Component {
 
@@ -456,7 +617,8 @@ class LogViewer extends Component {
     if (shallow_diff(this.state, new_state)) {
       return true;
     }
-    return this.countEntries(this.props.log_client, this.props.log_mob)
+    return this.props.ckey !== new_props.ckey
+    || this.countEntries(this.props.log_client, this.props.log_mob)
     !== this.countEntries(new_props.log_client, new_props.log_mob);
   }
 
@@ -621,45 +783,47 @@ const PlayerTable = (_, context) => {
   const { data } = useBackend(context);
   const {
     selected_ckey,
+    players = {},
   } = data;
   const [hourSort, setHourSort] = useLocalState(context, "player_panel_hour_sort", 0);
-  const players = Object.values(data.players).sort((a, b) => a.ijob - b.ijob)
-    .sort((a, b) => {
-      let aTime = a.living_playtime === undefined ? 999999 : a.living_playtime;
-      let bTime = b.living_playtime === undefined ? 999999 : b.living_playtime;
-      if (hourSort === 1) {
-        return aTime - bTime;
-      } else if (hourSort === -1) {
-        return bTime - aTime;
-      }
-      return 0;
-    });
   return (
     <Table>
       <PlayerTableHeadings hourSort={hourSort} setHourSort={setHourSort} />
-      {players.map(player => (
-        <PlayerTableEntry key={player.ckey}
-          selected_ckey={selected_ckey}
-          name={player.name}
-          real_name={player.real_name}
-          job={player.job}
-          ijob={player.ijob}
-          ckey={player.ckey}
-          has_mind={player.has_mind}
-          oxydam={player.oxydam}
-          toxdam={player.toxdam}
-          burndam={player.burndam}
-          brutedam={player.brutedam}
-          health={player.health}
-          health_max={player.health_max}
-          position={player.position}
-          living_playtime={player.living_playtime}
-          is_antagonist={player.is_antagonist}
-          antag_hud={player.antag_hud}
-          telemetry={player.telemetry}
-          connected={player.connected}
-        />
-      ))}
+      {Object.values(players).sort((a, b) => a.ijob - b.ijob)
+        .sort((a, b) => {
+          let aTime = a.living_playtime === undefined
+            ? 999999 : a.living_playtime;
+          let bTime = b.living_playtime === undefined
+            ? 999999 : b.living_playtime;
+          if (hourSort === 1) {
+            return aTime - bTime;
+          } else if (hourSort === -1) {
+            return bTime - aTime;
+          }
+          return 0;
+        }).map(player => (
+          <PlayerTableEntry key={player.ckey}
+            selected_ckey={selected_ckey}
+            name={player.name}
+            real_name={player.real_name}
+            job={player.job}
+            ijob={player.ijob}
+            ckey={player.ckey}
+            has_mind={player.has_mind}
+            oxydam={player.oxydam}
+            toxdam={player.toxdam}
+            burndam={player.burndam}
+            brutedam={player.brutedam}
+            health={player.health}
+            health_max={player.health_max}
+            position={player.position}
+            living_playtime={player.living_playtime}
+            is_antagonist={player.is_antagonist}
+            antag_hud={player.antag_hud}
+            telemetry={player.telemetry}
+            connected={player.connected}
+          />
+        ))}
     </Table>
   );
 };
