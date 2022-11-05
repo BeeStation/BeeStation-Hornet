@@ -19366,7 +19366,6 @@
 "bgU" = (
 /obj/docking_port/stationary{
 	dir = 4;
-	dwidth = 3;
 	height = 5;
 	id = "mining_home";
 	name = "mining shuttle bay";
