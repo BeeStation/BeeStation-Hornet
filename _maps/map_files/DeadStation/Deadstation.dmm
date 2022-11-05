@@ -6544,11 +6544,11 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "fUa" = (
-/obj/machinery/conveyor/inverted{
-	dir = 8;
+/obj/machinery/door/window/northleft,
+/obj/machinery/conveyor{
+	dir = 4;
 	id = "trash_grind"
 	},
-/obj/machinery/door/window/northleft,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "fUP" = (
@@ -6715,12 +6715,12 @@
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/heads/chief)
 "ggK" = (
-/obj/machinery/conveyor/inverted{
-	dir = 8;
-	id = "trash_grind"
-	},
 /obj/structure/window/reinforced/spawner/north,
 /obj/machinery/recycler,
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "trash_grind"
+	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "ghk" = (
@@ -17200,12 +17200,12 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "qob" = (
-/obj/machinery/conveyor/inverted{
-	dir = 8;
-	id = "trash_grind"
-	},
 /obj/structure/window/reinforced/spawner/north,
 /obj/structure/plasticflaps,
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "trash_grind"
+	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "qoy" = (
@@ -24156,10 +24156,6 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "wLU" = (
-/obj/machinery/conveyor/inverted{
-	dir = 8;
-	id = "trash_grind"
-	},
 /obj/structure/window/reinforced/spawner/north,
 /obj/machinery/mass_driver{
 	dir = 4;
