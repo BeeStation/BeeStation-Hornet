@@ -11,8 +11,10 @@
 	var/map_range = 1
 	// Icon stuff
 	var/list/cached_mob_icons = list()
-	// It updates every max(population / 5, 5) seconds
+	/// Updates every max(population / 5, 5) seconds
 	COOLDOWN_DECLARE(update_cooldown)
+	/// The text to filter players by, contains name, realname, previous names, job, and ckey
+	var/search_text
 
 /datum/admin_player_panel/New(user)
 	if(!user)
@@ -189,9 +191,13 @@
 		var/ckey = ckey(player.ckey)
 		data_entry["ckey"] = ckey
 		var/datum/player_details/P = GLOB.player_details[ckey]
+		var/search_data = "[player.name] [player.real_name] [ckey] [data_entry["job"]] "
 		// no using ?. or it breaks shit, it should be undefined, NOT NULL
 		if(P)
 			data_entry["previous_names"] = P.played_names
+			search_data += P.played_names.Join(" ")
+		if(length(search_text) && !findtextEx(search_data, search_text)) // skip this player, not included in query
+			continue
 		data_entry["last_ip"] = player.lastKnownIP
 		data_entry["is_antagonist"] = is_special_character(player)
 		if(ishuman(player))
@@ -260,11 +266,15 @@
 	data["selected_ckey"] = selected_ckey
 	data["map_range"] = map_range
 	data["use_view"] = use_view
+	data["search_text"] = search_text
 	return data
 
 /datum/admin_player_panel/ui_act(action, params)
 	. = ..()
 	switch(action)
+		if("set_search_text")
+			search_text = params["text"]
+			return TRUE
 		if("set_map_range")
 			map_range = min(max(params["range"], 0), 5)
 			refresh_view(force = TRUE)

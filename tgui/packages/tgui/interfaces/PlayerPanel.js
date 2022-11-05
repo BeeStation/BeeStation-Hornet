@@ -1,12 +1,20 @@
+/* eslint-disable react/prefer-stateless-function */
 import { useBackend, useLocalState } from '../backend';
-import { Box, ColorBox, Input, Section, Table, Tooltip, Button, Flex, ByondUi, Icon, Stack, Dropdown, Tabs } from '../components';
-import { jobIsHead, jobToColor, healthToColor, HealthStat, HEALTH_COLOR_BY_LEVEL } from './CrewConsole';
+import { Box, ColorBox, Input, Section, Table, Tooltip, Button, Flex, ByondUi, Tabs } from '../components';
+import { COLORS } from '../constants';
+import { jobIsHead, jobToColor, healthToColor, HEALTH_COLOR_BY_LEVEL } from './CrewConsole';
 import { Window } from '../layouts';
-import { sortBy } from 'common/collections';
 import { sanitizeText } from '../sanitize';
 import { ButtonCheckbox } from '../components/Button';
+import { Component } from 'inferno';
 
-const ellipsis_style = { // enforces overflow ellipsis
+/**
+--------------------
+     Constants
+--------------------
+**/
+
+const ELLIPSIS_STYLE = { // enforces overflow ellipsis
   "max-width": "1px",
   "white-space": "nowrap",
   "text-overflow": "ellipsis",
@@ -23,9 +31,9 @@ const TELEMETRY_COLOR_MAP = {
   "DC": "#aaaaaa",
 };
 
-const key_regex = /^(\[[\d:]+\]) ([\S\s]+?)\/\(([\S\s]+?)\) \(([\s\S]+?) \((\d+, \d+, \d+)\)\) \(Event #(\d+)\)$/;
+const KEY_REGEX = /^(\[[\d:]+\]) ([\S\s]+?)\/\(([\S\s]+?)\) \(([\s\S]+?) \((\d+, \d+, \d+)\)\) \(Event #(\d+)\)$/;
 
-const timestamp_parse = /^\[(\d+):(\d+):(\d+)\]/;
+const TIMESTAMP_PARSE_REGEX = /^\[(\d+):(\d+):(\d+)\]/;
 
 const LOG_TYPES_REVERSE = {
   "Attack": [1],
@@ -37,16 +45,53 @@ const LOG_TYPES_REVERSE = {
 
 const LOG_TYPES_LIST = Object.keys(LOG_TYPES_REVERSE);
 
+const PANEL_HEIGHT = 260;
+
+
+/**
+--------------------
+      Utilities
+ (for performance)
+--------------------
+**/
+
+const shallow_diff = (a, b, ignore = []) => {
+  for (const key in a) {
+    if (ignore.indexOf(key) === -1 && !(key in b)) {
+      return true;
+    }
+  }
+  for (const key in b) {
+    if (ignore.indexOf(key) === -1 && a[key] !== b[key]) {
+      return true;
+    }
+  }
+  return false;
+};
+
+class PureComponent extends Component {
+  shouldComponentUpdate(new_props, new_state) {
+    return shallow_diff(this.props, new_props)
+    || shallow_diff(this.state, new_state);
+  }
+}
+
+
+/**
+--------------------
+  Main Window
+--------------------
+**/
+
 export const PlayerPanel = (_, context) => {
-  const [searchText, setSearchText] = useLocalState(context, "playerpanel_search_text", "");
   const { data, act } = useBackend(context);
   const {
     players = {},
     selected_ckey,
     use_view,
+    search_text,
   } = data;
   const selected_player = players[selected_ckey];
-  const panel_height = 260;
   return (
     <Window
       width={1000}
@@ -57,7 +102,8 @@ export const PlayerPanel = (_, context) => {
           <Input
             placeholder="Search name, job, or CKEY"
             width={30}
-            onInput={(e, value) => setSearchText(value)}
+            value={search_text}
+            onInput={(_, value) => act("set_search_text", { text: value })}
           />
           <Button
             ml={1}
@@ -90,16 +136,31 @@ export const PlayerPanel = (_, context) => {
         <Flex direction="column" wrap="wrap" height="100%">
           <Flex.Item grow={1}>
             <Section fill scrollable>
-              <PlayerTable
-                searchText={searchText} />
+              <PlayerTable />
             </Section>
           </Flex.Item>
           {selected_player && (
-            <Flex.Item style={{ "resize": "vertical" }} mt={1} height={`${panel_height}px`}>
+            <Flex.Item style={{ "resize": "vertical" }} mt={1} height={`${PANEL_HEIGHT}px`}>
               <Box height="100%">
                 <PlayerDetails
-                  player={selected_player}
-                  panel_height={panel_height} />
+                  ckey={selected_player.ckey}
+                  previous_names={selected_player.previous_names}
+                  has_mind={selected_player.has_mind}
+                  log_client={selected_player.log_client}
+                  log_mob={selected_player.log_mob}
+                  is_cyborg={selected_player.is_cyborg}
+                  register_date={selected_player.register_date}
+                  first_seen={selected_player.first_seen}
+                  mob_type={selected_player.mob_type}
+                  byond_version={selected_player.byond_version}
+                  metacurrency_balance={selected_player.metacurrency_balance}
+                  antag_rep={selected_player.antag_rep}
+                  antag_tokens={selected_player.antag_tokens}
+                  cid={selected_player.cid}
+                  ip={selected_player.ip}
+                  related_accounts_ip={selected_player.related_accounts_ip}
+                  related_accounts_cid={selected_player.related_accounts_cid}
+                  photo_path={selected_player.photo_path} />
               </Box>
             </Flex.Item>
           )}
@@ -108,6 +169,13 @@ export const PlayerPanel = (_, context) => {
     </Window>
   );
 };
+
+/**
+--------------------
+  Bottom View
+--------------------
+**/
+
 
 const PlayerDetails = (props, context) => {
   const { data, act } = useBackend(context);
@@ -139,12 +207,10 @@ const PlayerDetails = (props, context) => {
     related_accounts_ip = "N/A",
     related_accounts_cid = "N/A",
     photo_path,
-  } = props.player;
-  const panel_height = props.panel_height;
-
+  } = props;
 
   const key_parse = (key) => {
-    let results = key_regex.exec(key);
+    let results = KEY_REGEX.exec(key);
     if (results && results.length === 7) {
       let key_obj = {
         timestamp: results[1],
@@ -155,14 +221,14 @@ const PlayerDetails = (props, context) => {
         event_number: results[6],
       };
       return (
-        <Table.Row>
+        <Table.Row key={key}>
           <Table.Cell collapsing>
             {key_obj.timestamp}
           </Table.Cell>
           <Table.Cell collapsing>
             #{key_obj.event_number}
           </Table.Cell>
-          <Table.Cell style={ellipsis_style}>
+          <Table.Cell style={ELLIPSIS_STYLE}>
             <TooltipWrap text={key_obj.character_name} />
           </Table.Cell>
           <Table.Cell collapsing textAlign="center" style={{
@@ -193,12 +259,12 @@ const PlayerDetails = (props, context) => {
     log_data = { ...log_data, ...log_source[log_type_id] };
   }
   let sorted = Object.keys(log_data).sort((a, b) => {
-    let groups = timestamp_parse.exec(a);
+    let groups = TIMESTAMP_PARSE_REGEX.exec(a);
     if (!groups) {
       return 0;
     }
     let aT = groups[1] * 3600 + groups[2] * 60 + groups[3];
-    let groups2 = timestamp_parse.exec(b);
+    let groups2 = TIMESTAMP_PARSE_REGEX.exec(b);
     if (!groups2) {
       return 0;
     }
@@ -210,7 +276,7 @@ const PlayerDetails = (props, context) => {
       log_entries.push(key_parse(key));
     }
     log_entries.push(
-      <Table.Row style={{ "color": "#d8d8d8" }}>
+      <Table.Row key={key} style={{ "color": "#d8d8d8" }}>
         <Table.Cell colspan="4">
           {sanitizeText(log_data[key], [])}
         </Table.Cell>
@@ -404,7 +470,7 @@ const PlayerDetails = (props, context) => {
         </Section>
       </Flex.Item>
       <Flex.Item>
-        <Flex height={`${panel_height + 5}px`} wrap="wrap" direction="column" textAlign="center">
+        <Flex height={`${PANEL_HEIGHT + 5}px`} wrap="wrap" direction="column" textAlign="center">
           {action_button_list}
         </Flex>
       </Flex.Item>
@@ -446,22 +512,67 @@ const PlayerDetails = (props, context) => {
   );
 };
 
+/**
+--------------------
+   Top Table
+--------------------
+**/
+
 const PlayerTable = (props, context) => {
   const { data } = useBackend(context);
-  const [hourSort, setHourSort] = useLocalState(context, "player_panel_hour_sort", 0);
   const {
-    searchText,
-  } = props;
+    selected_ckey,
+  } = data;
+  const [hourSort, setHourSort] = useLocalState(context, "player_panel_hour_sort", 0);
   const players = Object.values(data.players).sort((a, b) => a.ijob - b.ijob)
-    .sort((a, b) => (
-      hourSort === 1
-        ? (a.living_playtime || 99999) - (b.living_playtime || 99999)
-        : (
-          hourSort === -1 ? (b.living_playtime || 99999)
-          - (a.living_playtime || 99999) : 0
-        )));
+    .sort((a, b) => {
+      let aTime = a.living_playtime === undefined ? 999999 : a.living_playtime;
+      let bTime = b.living_playtime === undefined ? 999999 : b.living_playtime;
+      if (hourSort === 1) {
+        return aTime - bTime;
+      } else if (hourSort === -1) {
+        return bTime - aTime;
+      }
+      return 0;
+    });
   return (
     <Table>
+      <PlayerTableHeadings hourSort={hourSort} setHourSort={setHourSort} />
+      {players.map(player => (
+        <PlayerTableEntry key={player.ckey}
+          selected_ckey={selected_ckey}
+          name={player.name}
+          real_name={player.real_name}
+          job={player.job}
+          ijob={player.ijob}
+          ckey={player.ckey}
+          has_mind={player.has_mind}
+          oxydam={player.oxydam}
+          toxdam={player.toxdam}
+          burndam={player.burndam}
+          brutedam={player.brutedam}
+          health={player.health}
+          health_max={player.health_max}
+          position={player.position}
+          living_playtime={player.living_playtime}
+          is_antagonist={player.is_antagonist}
+          antag_hud={player.antag_hud}
+          telemetry={player.telemetry}
+          connected={player.connected}
+        />
+      ))}
+    </Table>
+  );
+};
+
+class PlayerTableHeadings extends PureComponent {
+
+  render() {
+    const {
+      hourSort,
+      setHourSort,
+    } = this.props;
+    return (
       <Table.Row height={1.5}>
         <Table.Cell collapsing />
         <Table.Cell bold collapsing textAlign="center">
@@ -477,21 +588,9 @@ const PlayerTable = (props, context) => {
           style={{
             "min-width": "5em",
           }}>
-          <Button
-            icon={hourSort === 1 ? "chevron-up" : (hourSort === -1 ? "chevron-down" : null)}
-            fluid
-            color="transparent"
-            content="Hrs"
-            onClick={() => {
-              if (hourSort === 0) {
-                setHourSort(1);
-              } else if (hourSort === -1) {
-                setHourSort(0);
-              } else if (hourSort === 1) {
-                setHourSort(-1);
-              }
-            }}
-          />
+          <HourSortButton
+            hourSort={hourSort}
+            setHourSort={setHourSort} />
         </Table.Cell>
         <Table.Cell bold collapsing textAlign="center">
           TP
@@ -505,7 +604,10 @@ const PlayerTable = (props, context) => {
         <Table.Cell bold>
           Name (PM)
         </Table.Cell>
-        <Table.Cell bold collapsing textAlign="center">
+        <Table.Cell bold collapsing textAlign="center"
+          style={{
+            "min-width": "12.5em",
+          }}>
           Vitals (VV)
         </Table.Cell>
         <Table.Cell bold collapsing
@@ -515,229 +617,426 @@ const PlayerTable = (props, context) => {
           Position (FLW)
         </Table.Cell>
       </Table.Row>
-      {players.filter(player => searchText === undefined || searchText === ""
-      || `${player.name} ${player.real_name} ${player.ckey} \
-      ${player.job} ${player.previous_names}`
-        .toLowerCase().includes(searchText.toLowerCase()))
-        .map(player => (
-          <PlayerTableEntry player={player} key={player.ckey} />
-        ))}
-    </Table>
-  );
-};
-
-const PlayerTableEntry = (props, context) => {
-  const { act, data } = useBackend(context);
-  const {
-    selected_ckey,
-  } = data;
-  const { player } = props;
-  const {
-    name,
-    real_name,
-    job,
-    ijob = -1,
-    ckey,
-    has_mind,
-    oxydam,
-    toxdam,
-    burndam,
-    brutedam,
-    health,
-    health_max,
-    position,
-    living_playtime,
-    is_antagonist,
-    telemetry = "N/A",
-    connected = false,
-  } = player;
-  let antag_hud = player.antag_hud;
-  if (!antag_hud) {
-    antag_hud = is_antagonist ? "some_antag" : "none_antag";
+    );
   }
-  const telemetry_color = TELEMETRY_COLOR_MAP[telemetry];
-  const telemetry_bold = telemetry?.includes("!");
-  const has_playtime = living_playtime !== undefined
-  && living_playtime !== null;
-  return (
-    <Table.Row height={2}>
-      <Table.Cell collapsing textAlign="center">
-        <Button
-          icon="circle"
-          tooltip="Select Player"
-          color={ckey === selected_ckey ? "green" : null}
-          onClick={(e) => {
-            act('select_player', { who: ckey === selected_ckey ? null : ckey });
-            e.preventDefault();
-          }} />
-      </Table.Cell>
-      <Table.Cell collapsing textAlign="center">
-        <Button
-          fluid
-          style={{
-            "color": telemetry_color,
-          }}
-          bold={telemetry_bold}
-          content={telemetry !== undefined ? telemetry : "ERR"}
-          tooltip="Open Telemetry"
-          onClick={(e) => {
-            act('open_telemetry', { who: ckey });
-            e.preventDefault();
-          }} />
-      </Table.Cell>
-      <Table.Cell collapsing textAlign="right" bold={telemetry_bold}
-        style={{ // enforces overflow ellipsis
-          "max-width": "1px",
-          "white-space": "nowrap",
-          "text-overflow": "ellipsis",
-          "overflow": "hidden",
-        }}>
-        <Button
-          fluid
-          className="button-ellipsis"
-          style={{
-            "color": telemetry_color,
-            "font-style": !connected ? "italic" : null,
-          }}
-          content={ckey}
-          tooltip={"Open Player Panel - " + ckey}
-          onClick={(e) => {
-            act('open_player_panel', { who: ckey });
-            e.preventDefault();
-          }} />
-      </Table.Cell>
-      <Table.Cell collapsing textAlign="center">
-        <Button
-          textAlign={!has_playtime ? "center" : "right"}
-          fluid
-          content={
-            has_playtime ? `${living_playtime}h` : "N/A"
+}
+
+class HourSortButton extends Component {
+
+  shouldComponentUpdate(new_props, _) {
+    return new_props.hourSort !== this.props.hourSort;
+  }
+
+  render() {
+    const {
+      hourSort,
+      setHourSort,
+    } = this.props;
+    return (
+      <Button
+        icon={hourSort === 1 ? "chevron-up" : (hourSort === -1 ? "chevron-down" : null)}
+        fluid
+        color="transparent"
+        content="Hrs"
+        onClick={() => {
+          if (hourSort === 0) {
+            setHourSort(1);
+          } else if (hourSort === -1) {
+            setHourSort(0);
+          } else if (hourSort === 1) {
+            setHourSort(-1);
           }
-          disabled={!has_playtime}
-          color={living_playtime >= 12 ? "default" : (living_playtime >= 1 ? "orange" : "danger")}
-          onClick={(e) => {
-            act('open_hours', { who: ckey });
-            e.preventDefault();
-          }} />
-      </Table.Cell>
-      <Table.Cell collapsing textAlign="center">
-        <Button
-          style={{
-            "padding": "0px 2px",
-          }}
-          content={<Box style={{ "transform": "translateY(2.5px)" }} className={`antag-hud16x16 antag-hud-${antag_hud}`} />}
-          tooltip={has_mind ? "Open Traitor Panel" : "Initialize Mind"}
-          onClick={(e) => {
-            act(has_mind ? 'open_traitor_panel' : 'init_mind', { who: ckey });
-            e.preventDefault();
-          }}
-        />
-      </Table.Cell>
-      <Table.Cell collapsing textAlign="center"
+        }}
+      />
+    );
+  }
+}
+
+const color_from_telemetry = telemetry => TELEMETRY_COLOR_MAP[telemetry];
+const bold_from_telemetry = telemetry => telemetry?.includes("!");
+
+/*
+------------
+  Top View
+------------
+*/
+
+class PlayerTableEntry extends PureComponent {
+  render() {
+    const {
+      selected_ckey,
+      name,
+      real_name,
+      job,
+      ijob = -1,
+      ckey,
+      has_mind,
+      oxydam,
+      toxdam,
+      burndam,
+      brutedam,
+      health,
+      health_max,
+      position,
+      living_playtime,
+      is_antagonist,
+      antag_hud,
+      telemetry = "N/A",
+      connected = false,
+    } = this.props;
+    return (
+      <Table.Row height={2}>
+        <Table.Cell collapsing textAlign="center">
+          <PlayerSelectButton
+            is_selected={selected_ckey === ckey}
+            ckey={ckey} />
+        </Table.Cell>
+        <Table.Cell collapsing textAlign="center">
+          <PlayerTelemetryButton telemetry={telemetry} ckey={ckey} />
+        </Table.Cell>
+        <Table.Cell collapsing textAlign="right" style={ELLIPSIS_STYLE}>
+          <PlayerCKEYButton
+            telemetry={telemetry}
+            connected={connected}
+            ckey={ckey} />
+        </Table.Cell>
+        <Table.Cell collapsing textAlign="center">
+          <PlayerHoursButton
+            living_playtime={living_playtime}
+            ckey={ckey} />
+        </Table.Cell>
+        <Table.Cell collapsing textAlign="center">
+          <PlayerTraitorPanelButton
+            antag_hud={antag_hud || (is_antagonist ? "some_antag" : "none_antag")}
+            has_mind={has_mind}
+            ckey={ckey} />
+        </Table.Cell>
+        <Table.Cell collapsing textAlign="center" style={ELLIPSIS_STYLE}>
+          <PlayerJobSelectButton
+            job={job}
+            ijob={ijob}
+            ckey={ckey}
+            is_selected={selected_ckey === ckey} />
+        </Table.Cell>
+        <Table.Cell style={ELLIPSIS_STYLE}>
+          <PlayerNameButton
+            name={name}
+            real_name={real_name}
+            ijob={ijob}
+            ckey={ckey} />
+        </Table.Cell>
+        <Table.Cell collapsing textAlign="center">
+          <PlayerVitalsButton
+            ckey={ckey}
+            oxydam={oxydam}
+            toxdam={toxdam}
+            burndam={burndam}
+            brutedam={brutedam}
+            health={health}
+            health_max={health_max} />
+        </Table.Cell>
+        <Table.Cell collapsing style={ELLIPSIS_STYLE}>
+          <PlayerLocationButton
+            position={position}
+            ckey={ckey} />
+        </Table.Cell>
+      </Table.Row>
+    );
+  }
+}
+
+/**
+-----------------------------------------
+    A bunch of parts of the top table
+     (but split into "Pure" units)
+-----------------------------------------
+**/
+
+class PlayerSelectButton extends PureComponent {
+  render() {
+    const { act } = useBackend(this.context);
+    const {
+      ckey,
+      is_selected,
+    } = this.props;
+    return (
+      <Button
+        icon="circle"
+        tooltip="Select Player"
+        color={is_selected ? "green" : null}
+        onClick={() => act('select_player', { who: is_selected ? null : ckey })} />
+    );
+  }
+}
+
+class PlayerTelemetryButton extends PureComponent {
+  render() {
+    const { act } = useBackend(this.context);
+    const {
+      telemetry,
+      ckey,
+    } = this.props;
+    return (
+      <Button
+        fluid
+        style={{
+          "color": color_from_telemetry(telemetry),
+        }}
+        bold={bold_from_telemetry(telemetry)}
+        content={telemetry !== undefined ? telemetry : "ERR"}
+        tooltip="Open Telemetry"
+        onClick={() => act('open_telemetry', { who: ckey })} />
+    );
+  }
+}
+
+class PlayerCKEYButton extends PureComponent {
+  render() {
+    const { act } = useBackend(this.context);
+    const {
+      telemetry,
+      connected,
+      ckey,
+    } = this.props;
+    return (
+      <Button
+        fluid
+        className="button-ellipsis"
+        bold={bold_from_telemetry(telemetry)}
+        style={{
+          "color": color_from_telemetry(telemetry),
+          "font-style": !connected ? "italic" : null,
+        }}
+        content={ckey}
+        tooltip={"Open Player Panel - " + ckey}
+        onClick={() => act('open_player_panel', { who: ckey })} />
+    );
+  }
+}
+
+class PlayerHoursButton extends PureComponent {
+  render() {
+    const { act } = useBackend(this.context);
+    const {
+      living_playtime,
+      ckey,
+    } = this.props;
+    const has_playtime = living_playtime !== undefined
+      && living_playtime !== null;
+    return (
+      <Button
+        textAlign={!has_playtime ? "center" : "right"}
+        fluid
+        content={has_playtime ? `${living_playtime}h` : "N/A"}
+        disabled={!has_playtime}
+        color={living_playtime >= 12 ? "default" : (living_playtime >= 1 ? "orange" : "danger")}
+        onClick={() => act('open_hours', { who: ckey })} />
+    );
+  }
+}
+
+class PlayerTraitorPanelButton extends PureComponent {
+  render() {
+    const { act } = useBackend(this.context);
+    const {
+      antag_hud,
+      has_mind,
+    } = this.props;
+    return (
+      <Button
+        style={{
+          "padding": "0px 2px",
+        }}
+        content={<Box style={{ "transform": "translateY(2.5px)" }} className={`antag-hud16x16 antag-hud-${antag_hud}`} />}
+        tooltip={has_mind ? "Open Traitor Panel" : "Initialize Mind"}
+        onClick={() => act(has_mind ? 'open_traitor_panel' : 'init_mind', { who: ckey })}
+      />
+    );
+  }
+}
+
+class PlayerJobSelectButton extends Component {
+
+  render() {
+    const { act } = useBackend(this.context);
+    const {
+      job,
+      ijob,
+      ckey,
+      is_selected,
+    } = this.props;
+    return (
+      <Button fluid
+        className="button-ellipsis"
+        color="transparent"
+        content={job}
+        tooltip={"Select Player - " + job}
+        style={{
+          "color": jobToColor(ijob),
+        }}
         bold={jobIsHead(ijob)}
-        style={ellipsis_style}>
-        <Button fluid
-          className="button-ellipsis"
-          color="transparent"
-          content={job}
-          tooltip={"Select Player - " + job}
-          style={{
-            "color": jobToColor(ijob),
-          }}
-          onClick={(e) => {
-            act('select_player', { who: ckey === selected_ckey ? null : ckey });
-            e.preventDefault();
-          }} />
-      </Table.Cell>
-      <Table.Cell
+        onClick={() => act('select_player', { who: is_selected ? null : ckey })} />
+    );
+  }
+}
+
+class PlayerNameButton extends PureComponent {
+  render() {
+    const { act } = useBackend(this.context);
+    const {
+      real_name,
+      name,
+      ijob,
+      ckey,
+    } = this.props;
+    return (
+      <Button
+        fluid
+        className="button-ellipsis"
+        content={`${real_name || name}${(real_name === name || !real_name ? "" : ` (as ${name})`)}`}
+        tooltip={`Admin PM - ${real_name || name}${(real_name === name || !real_name ? "" : ` (as ${name})`)}`}
+        style={{
+          "color": jobToColor(ijob),
+        }}
         bold={jobIsHead(ijob)}
-        style={ellipsis_style}>
-        <Button
-          fluid
-          className="button-ellipsis"
-          content={`${real_name || name}${(real_name === name || !real_name ? "" : ` (as ${name})`)}`}
-          tooltip={`Admin PM - ${real_name || name}${(real_name === name || !real_name ? "" : ` (as ${name})`)}`}
-          style={{
-            "color": jobToColor(ijob),
-          }}
-          onClick={(e) => {
-            act('pm', { who: ckey });
-            e.preventDefault();
-          }}
-        />
-      </Table.Cell>
-      <Table.Cell collapsing textAlign="center" style={{
-        "min-width": "12.5em", // prevent layout shift
-      }}>
-        <Button
-          fluid
-          tooltip="View Variables"
-          onClick={(e) => {
-            act('open_view_variables', { who: ckey });
-            e.preventDefault();
-          }}
-          content={
-            <Box inline style={{ "width": "100%" }}>
-              {oxydam !== undefined ? (
-                <Box inline style={{ "display": "inline-flex", "align-items": "center", "width": "100%" }}>
-                  <ColorBox
-                    color={healthToColor(
-                      oxydam,
-                      toxdam,
-                      burndam,
-                      brutedam)} />
-                  <Box inline style={{ "flex": "1" }} />
-                  <Box inline style={{ "overflow": "hidden" }}>
-                    <HealthStat type="oxy" value={oxydam} />
-                    {'/'}
-                    <HealthStat type="toxin" value={toxdam} />
-                    {'/'}
-                    <HealthStat type="burn" value={burndam} />
-                    {'/'}
-                    <HealthStat type="brute" value={brutedam} />
-                  </Box>
-                </Box>
+        onClick={() => act('pm', { who: ckey })}
+      />
+    );
+  }
+}
+
+class PlayerVitalsButton extends PureComponent {
+  render() {
+    const { act } = useBackend(this.context);
+    const {
+      ckey,
+      oxydam,
+      toxdam,
+      burndam,
+      brutedam,
+      health,
+      health_max,
+    } = this.props;
+    return (
+      <Button
+        fluid
+        tooltip="View Variables"
+        onClick={() => act('open_view_variables', { who: ckey })}
+        content={
+          <Box inline style={{ "width": "100%" }}>
+            {oxydam !== undefined ? (
+              <PlayerHumanVitals
+                oxydam={oxydam}
+                toxdam={toxdam}
+                burndam={burndam}
+                brutedam={brutedam} />
+            ) : (
+              health !== undefined ? (
+                <PlayerNonHumanVitals
+                  health={health}
+                  health_max={health_max} />
               ) : (
-                health !== undefined ? (
-                  <Box inline style={{ "display": "inline-flex", "align-items": "center", "width": "100%" }}>
-                    <ColorBox color={
-                      HEALTH_COLOR_BY_LEVEL[Math.min(Math.max(
-                        Math.ceil(
-                          (health_max - health) / (health_max / 5)
-                        ), 0), 5)]
-                    } />
-                    <Box inline style={{ "flex": "1" }} />
-                    <Box inline style={{ "overflow": "hidden" }}>
-                      {`${health} of ${health_max} (${
-                        Math.round((health/health_max)*100)
-                      }%)`}
-                    </Box>
-                  </Box>
-                ) : (
-                  <Box inline>
-                    N/A
-                  </Box>
-                )
-              )}
-            </Box>
-          }
-        />
-      </Table.Cell>
-      <Table.Cell collapsing style={ellipsis_style}>
-        <Button
-          fluid
-          className="button-ellipsis"
-          disabled={!position}
-          content={position || 'Nullspace (wtf)'}
-          tooltip={"Follow player - " + position}
-          onClick={(e) => {
-            act('follow', { who: ckey });
-            e.preventDefault();
-          }} />
-      </Table.Cell>
-    </Table.Row>
-  );
-};
+                <Box inline>
+                  N/A
+                </Box>
+              )
+            )}
+          </Box>
+        }
+      />
+    );
+  }
+}
+
+class PlayerHumanVitals extends PureComponent {
+  render() {
+    const {
+      oxydam,
+      toxdam,
+      burndam,
+      brutedam,
+    } = this.props;
+    return (
+      <Box inline style={{ "display": "inline-flex", "align-items": "center", "width": "100%" }}>
+        <ColorBox
+          color={healthToColor(
+            oxydam,
+            toxdam,
+            burndam,
+            brutedam)} />
+        <Box inline style={{ "flex": "1" }} />
+        <Box inline style={{ "overflow": "hidden" }}>
+          <HealthStatPure type="oxy" value={oxydam} />
+          {'/'}
+          <HealthStatPure type="toxin" value={toxdam} />
+          {'/'}
+          <HealthStatPure type="burn" value={burndam} />
+          {'/'}
+          <HealthStatPure type="brute" value={brutedam} />
+        </Box>
+      </Box>
+    );
+  }
+}
+
+class HealthStatPure extends PureComponent {
+  render() {
+    const { type, value } = props;
+    return (
+      <Box
+        inline
+        width={2}
+        color={COLORS.damageType[type]}
+        textAlign="center">
+        {value}
+      </Box>
+    );
+  }
+}
+
+class PlayerNonHumanVitals extends PureComponent {
+  render() {
+    const {
+      health,
+      health_max,
+    } = this.props;
+    return (
+      <Box inline style={{ "display": "inline-flex", "align-items": "center", "width": "100%" }}>
+        <ColorBox color={
+          HEALTH_COLOR_BY_LEVEL[Math.min(Math.max(
+            Math.ceil(
+              (health_max - health) / (health_max / 5)
+            ), 0), 5)]
+        } />
+        <Box inline style={{ "flex": "1" }} />
+        <Box inline style={{ "overflow": "hidden" }}>
+          {`${health} of ${health_max} (${
+            Math.round((health/health_max)*100)
+          }%)`}
+        </Box>
+      </Box>
+    );
+  }
+}
+
+class PlayerLocationButton extends PureComponent {
+  render() {
+    const { act } = useBackend(this.context);
+    const {
+      position,
+      ckey,
+    } = this.props;
+    return (
+      <Button
+        fluid
+        className="button-ellipsis"
+        disabled={!position}
+        content={position || 'Nullspace (wtf)'}
+        tooltip={"Follow player - " + position}
+        onClick={() => act('follow', { who: ckey })} />
+    );
+  }
+}
 
 const TooltipWrap = (props) => {
   return (
