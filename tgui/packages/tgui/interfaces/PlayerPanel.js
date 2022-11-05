@@ -550,6 +550,7 @@ class LogViewer extends Component {
 
 class LogEntryKey extends PureComponent {
   render() {
+    const { act } = useBackend(context);
     const {
       key_data,
     } = this.props;
@@ -616,7 +617,7 @@ class LogEntryValue extends PureComponent {
 --------------------
 **/
 
-const PlayerTable = (props, context) => {
+const PlayerTable = (_, context) => {
   const { data } = useBackend(context);
   const {
     selected_ckey,
