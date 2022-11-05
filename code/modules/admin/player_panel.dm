@@ -192,6 +192,7 @@
 		data_entry["real_name"] = player.real_name
 		var/ckey = ckey(player.ckey)
 		data_entry["ckey"] = ckey
+		var/search_data = "[player.name] [player.real_name] [ckey] [data_entry["job"]] "
 		var/datum/player_details/P = GLOB.player_details[ckey]
 		// no using ?. or it breaks shit, it should be undefined, NOT NULL
 		if(P)
