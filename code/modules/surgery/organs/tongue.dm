@@ -8,7 +8,7 @@
 	var/list/languages_possible
 	var/say_mod = "says"   // normal talk
 	var/ask_mod = "asks"   // ends with "?"                  -- ideas pool: softly, inquisitively, inquiringly
-	var/exclaim_mod = "exclaims" // ends with single "!"     -- ideas pool: sharply, surprisingly, exclamingly, clamingly
+	var/exclaim_mod = "exclaims" // ends with single "!"     -- ideas pool: sharply, surprisingly, exclamingly
 	var/yell_mod = "yells"       // ends with multiple "!!" -- ideas pool: loudly, greatly, roaringly
 	var/liked_food = JUNKFOOD | FRIED
 	var/disliked_food = GROSS | RAW
@@ -62,9 +62,9 @@
 	desc = "A thin and long muscle typically found in reptilian races, apparently moonlights as a nose."
 	icon_state = "tonguelizard"
 	say_mod = "hisses"
-	ask_mod = "hissingly asks"
+	ask_mod = "curiously hisses"
 	exclaim_mod = "surprisingly hisses"
-	yell_mod = "hissingly roars"
+	yell_mod = "roaringly hisses"
 	taste_sensitivity = 10 // combined nose + tongue, extra sensitive
 	modifies_speech = TRUE
 	disliked_food = GRAIN | DAIRY
@@ -110,7 +110,7 @@
 	say_mod = "meows"
 	ask_mod = "imploringly meows"
 	exclaim_mod = "sharply meows"
-	yell_mod = "meowingly roars"
+	yell_mod = "roaringly meows"
 	disliked_food = VEGETABLES | SUGAR
 	liked_food = DAIRY | MEAT
 
@@ -120,7 +120,7 @@
 	desc = "A mysterious structure that allows for instant communication between users. Pretty impressive until you need to eat something."
 	icon_state = "tongueayylmao"
 	say_mod = "gibbers" // I don't think they can talk, but let's put something anyways just in case
-	ask_mod = "sofly gibbers"
+	ask_mod = "softly gibbers"
 	exclaim_mod = "surprisingly gibbers"
 	yell_mod = "loudly gibbers"
 	taste_sensitivity = 101 // ayys cannot taste anything.
@@ -171,8 +171,6 @@
 		var/link = FOLLOW_LINK(M, user)
 		to_chat(M, "[link] [rendered]")
 
-	speech_args[SPEECH_MESSAGE] = ""
-
 // undead species
 /obj/item/organ/tongue/zombie
 	name = "rotting tongue"
@@ -207,9 +205,9 @@
 	desc = "Apparently skeletons alter the sounds they produce through oscillation of their teeth, hence their characteristic rattling."
 	icon_state = "tonguebone"
 	say_mod = "rattles"
-	ask_mod = "rattly asks"
-	exclaim_mod = "rattly exclaims"
-	yell_mod = "rattly yells"
+	ask_mod = "curiously rattles"
+	exclaim_mod = "sharply rattles"
+	yell_mod = "shrilly rattles"
 	attack_verb = list("bitten", "chattered", "chomped", "enamelled", "boned")
 	taste_sensitivity = 101 // skeletons cannot taste anything
 	modifies_speech = TRUE
@@ -248,7 +246,7 @@
 	icon_state = "tonguerobot"
 	say_mod = "states"
 	ask_mod = "queries"
-	exclaim_mod = "loudly states"
+	exclaim_mod = "loudly notifies"
 	yell_mod = "alarmingly states"
 	attack_verb = list("beeped", "booped")
 	modifies_speech = TRUE
@@ -271,9 +269,9 @@
 	name = "snail tongue"
 	modifies_speech = TRUE
 	say_mod = list("slowly says", "slurs")
-	ask_mod = list("slowly asks", "slurringly asks")
-	exclaim_mod = list("slowly exclaims", "slurringly exclaims")
-	yell_mod = list("slowly yells", "slurringly yells")
+	ask_mod = list("slowly asks")
+	exclaim_mod = list("slowly exclaims")
+	yell_mod = list("slowly yells")
 
 /obj/item/organ/tongue/snail/handle_speech(datum/source, list/speech_args)
 	var/new_message
@@ -290,9 +288,9 @@
 	desc = "A sophisticated ethereal organ, capable of synthesising speech via electrical discharge."
 	icon_state = "electrotongue"
 	say_mod = list("sparks", "crackles")
-	ask_mod = list("sparkly asks", "crackly asks")
-	exclaim_mod = list("sparkly exclaims", "crackly exclaims")
-	yell_mod = list("sparkly yells", "crackly yells")
+	ask_mod = list("curiously sparks", "inquiringly crackles")
+	exclaim_mod = list("sharply sparks", "surprisingly crackles")
+	yell_mod = list("thunders", "thunderingly sparks", "thunderingly crackles")
 	attack_verb = list("shocked", "jolted", "zapped")
 	taste_sensitivity = 101 // Not a tongue, they can't taste shit
 	toxic_food = NONE
@@ -323,20 +321,20 @@
 	exclaim_mod = "surprisingly honks"
 	yell_mod = "honkingly honks"
 
-/obj/item/organ/tongue/golem/clockwork
+/obj/item/organ/tongue/golem/clockwork // check 'clockwork.dm' for another clockwork tongue
 	name = "clockwork tongue"
 	desc = "It's a tongue made out of many tiny cogs. You can hear a very subtle clicking noise emanating from it."
 	say_mod = "clicks"
-	ask_mod = "tickly asks"
-	exclaim_mod = "tickly alarms" // this has similar verb type with IPC's
+	ask_mod = "timely asks"
+	exclaim_mod = "timely alarms"
 	yell_mod = "alarmingly clicks"
 
 /obj/item/organ/tongue/slime
 	name = "slimey tongue"
 	desc = "It's a piece of slime, shaped like a tongue."
 	say_mod = list("blorbles", "bubbles")
-	ask_mod = list("inquisitively blorbles", "inquisitively blorbles")
-	yell_mod = list("shrilly blorbles", "shrilly blorbles")
+	ask_mod = list("inquisitively blorbles", "inquisitively bubbles")
+	yell_mod = list("shrilly blorbles", "shrilly bubbles")
 	exclaim_mod = list("loudly blorbles", "loudly bubbles")
 	toxic_food = NONE
 	disliked_food = NONE
@@ -389,7 +387,7 @@
 
 /obj/item/organ/tongue/bee
 	name = "proboscis"
-	desc = "A freakish looking meat tube that apparently can take in liquids, this one smells slighlty like flowers."
+	desc = "A freakish looking meat tube that apparently can take in liquids, this one smells slightly like flowers."
 	icon_state = "tonguefly"
 	say_mod = "buzzes" // nothing different from fly's
 	ask_mod = "inquisitively buzzes"
@@ -404,8 +402,8 @@
 	name = "mothic tongue"
 	desc = "It's long and noodly."
 	say_mod = "flutters"
-	ask_mod = "vaguely flutters"
-	exclaim_mod = "clamingly flutters"
+	ask_mod = "curiously flutters"
+	exclaim_mod = "surprisingly flutters"
 	yell_mod = "explosively flutters"
 	icon_state = "tonguemoth"
 	liked_food = VEGETABLES | DAIRY | CLOTH

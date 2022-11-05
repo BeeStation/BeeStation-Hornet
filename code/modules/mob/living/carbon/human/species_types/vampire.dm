@@ -68,6 +68,7 @@
 	actions_types = list(/datum/action/item_action/organ_action/vampire)
 	color = "#1C1C1C"
 	var/drain_cooldown = 0
+	// note: their tongue is nothing different from human's, so they have normal say verbs
 
 #define VAMP_DRAIN_AMOUNT 50
 

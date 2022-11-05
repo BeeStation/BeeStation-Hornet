@@ -69,6 +69,10 @@
 /obj/item/organ/tongue/dullahan
 	zone = "abstract"
 	modifies_speech = TRUE
+	say_mod = "haunts"
+	ask_mod = "inquisitively haunts"
+	exclaim_mod = "exclamingly haunts"
+	yell_mod = "shirilly haunts"
 
 /obj/item/organ/tongue/dullahan/handle_speech(datum/source, list/speech_args)
 	if(ishuman(owner))

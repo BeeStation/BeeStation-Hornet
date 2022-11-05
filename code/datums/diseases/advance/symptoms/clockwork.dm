@@ -270,6 +270,10 @@
 	name = "dynamic micro-phonograph"
 	desc = "An old-timey looking device connected to an odd, shifting cylinder."
 	icon_state = "tongueclock"
+	say_mod = "timely states" // mix of clockwork and robot
+	ask_mod = "timely queires"
+	exclaim_mod = "timely alarms"
+	yell_mod = "alarmingly clicks"
 
 /obj/item/organ/tongue/robot/clockwork/better
 	name = "amplified dynamic micro-phonograph"
