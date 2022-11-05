@@ -67,12 +67,12 @@
 /obj/item/clothing/mask/fakemoustache/italian/equipped(mob/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_MASK)
-		if(user.mind?.assigned_role == JOB_NAME_COOK)
+		if(user.mind?.assigned_role == "Cook")
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "cook_italian_moustache", /datum/mood_event/cook_italian_moustache)
 
 /obj/item/clothing/mask/fakemoustache/italian/dropped(mob/user)
 	..()
-	if(user.mind?.assigned_role == JOB_NAME_COOK)
+	if(user.mind?.assigned_role == "Cook")
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "cook_italian_moustache")
 
 /obj/item/clothing/mask/joy
