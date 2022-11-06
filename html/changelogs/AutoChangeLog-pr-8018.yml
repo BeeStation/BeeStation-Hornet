@@ -1,8 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - bugfix: compression box no longer keeps you slowdown when you remove those in
-      specific situations (put it into safe, fold, etc)
-  - bugfix: Captain's comp box is now properly named
-  - bugfix: encryption keys no longer say "This is nothing special. ask coder!" description
-      even if it is special
