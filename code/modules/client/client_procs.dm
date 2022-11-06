@@ -1102,6 +1102,11 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		holder.filteriffic = new /datum/filter_editor(in_atom)
 		holder.filteriffic.ui_interact(mob)
 
+/client/proc/open_particle_editor(atom/in_atom)
+	if(holder)
+		holder.particool = new /datum/particle_editor(in_atom)
+		holder.particool.ui_interact(mob)
+
 /client/proc/update_ambience_pref()
 	if(prefs.toggles & PREFTOGGLE_SOUND_AMBIENCE)
 		if(SSambience.ambience_listening_clients[src] > world.time)
