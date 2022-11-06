@@ -322,13 +322,13 @@ class PlayerDetailsSection extends Component {
           <Box color="#d8d8d8" style={{ "display": "inline-block",
             "word-break": "break-all", "width": "100%" }}>
             {mob_type}
-          </Box>
+          </Box><br />
           {species && (
             <>
               <strong>Species:</strong>{" "}
               <Box inline color="#d8d8d8">
                 {species}
-              </Box>
+              </Box><br />
             </>
           )}
           <strong>BYOND:</strong>{" "}
