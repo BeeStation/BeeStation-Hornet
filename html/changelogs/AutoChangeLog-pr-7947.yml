@@ -1,9 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Fixed newscasters not updating UI when a channel is created.
-  - bugfix: Fixed pAIs being unable to use their newscaster.
-  - tweak: All silicon picture selections now use a TGUI menu with image previews
-      and descriptions instead of a list of image names.
-  - bugfix: Fixed an exploit allowing you to submit a wanted issue without permission.
-  - bugfix: Fixed submitting a picture to sec records being super broken.
