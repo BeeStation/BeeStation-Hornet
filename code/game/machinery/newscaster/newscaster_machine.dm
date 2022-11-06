@@ -141,7 +141,7 @@
 		data["user"]["silicon"] = TRUE
 		data["user"]["name"] = user.name
 		data["user"]["job"] = user.job
-		data["security_mode"] = TRUE
+		data["security_mode"] = !ispAI(user)
 	else
 		data["user"]["name"] = "Unknown"
 		data["user"]["job"] = "N/A"
@@ -237,10 +237,6 @@
 	data["bountyValue"] = bounty_value
 	data["bountyText"] = bounty_text
 
-	return data
-
-/obj/machinery/newscaster/ui_static_data(mob/user)
-	var/list/data = list()
 	var/list/channel_list = list()
 	for(var/datum/feed_channel/channel as anything in GLOB.news_network.network_channels)
 		channel_list += list(list(
@@ -252,6 +248,7 @@
 		))
 
 	data["channels"] = channel_list
+
 	return data
 
 
@@ -335,6 +332,8 @@
 			return TRUE
 
 		if("storyCensor")
+			if(ispAI(usr))
+				return TRUE
 			if(!silicon)
 				var/obj/item/card/id/id_card
 				if(isliving(usr))
@@ -350,6 +349,8 @@
 					break
 
 		if("authorCensor")
+			if(ispAI(usr))
+				return TRUE
 			if(!silicon)
 				var/obj/item/card/id/id_card
 				if(isliving(usr))
@@ -365,6 +366,8 @@
 					break
 
 		if("channelDNotice")
+			if(ispAI(usr))
+				return TRUE
 			if(!silicon)
 				var/obj/item/card/id/id_card
 				if(isliving(usr))
@@ -379,8 +382,6 @@
 					current_channel = potential_channel
 					break
 			current_channel.toggle_censor_D_class()
-			// Channel censor is part of static data
-			update_static_data(usr)
 			return TRUE
 
 		if("startComment")
@@ -437,6 +438,8 @@
 			return TRUE
 
 		if("submitWantedIssue")
+			if(ispAI(usr))
+				return TRUE
 			if(!crime_description || !criminal_name)
 				say("ERROR: Missing crime details.")
 				return TRUE
@@ -444,6 +447,14 @@
 			if(!istype(account) && !silicon)
 				say("ERROR: Cannot locate linked account ID.")
 				return TRUE
+			if(!silicon)
+				var/obj/item/card/id/id_card
+				if(isliving(usr))
+					var/mob/living/living_user = usr
+					id_card = living_user.get_idcard(hand_first = TRUE)
+				if(!(ACCESS_ARMORY in id_card?.GetAccess()))
+					say("ERROR: Unauthorized request.")
+					return TRUE
 			GLOB.news_network.submit_wanted(criminal_name, crime_description, silicon ? usr.name : account.account_holder, current_image, adminMsg = FALSE, newMessage = TRUE, has_image = wanted_image)
 			current_image = null
 			viewing_wanted = FALSE
@@ -454,6 +465,16 @@
 			return TRUE
 
 		if("clearWantedIssue")
+			if(ispAI(usr))
+				return TRUE
+			if(!silicon)
+				var/obj/item/card/id/id_card
+				if(isliving(usr))
+					var/mob/living/living_user = usr
+					id_card = living_user.get_idcard(hand_first = TRUE)
+				if(!(ACCESS_ARMORY in id_card?.GetAccess()))
+					say("ERROR: Unauthorized request.")
+					return TRUE
 			clear_wanted_issue(user = usr)
 			for(var/obj/machinery/newscaster/other_newscaster in GLOB.allCasters)
 				other_newscaster.update_icon()
@@ -582,25 +603,8 @@
  */
 /obj/machinery/newscaster/proc/attach_photo(mob/user)
 	if(issilicon(user))
-		var/obj/item/camera/siliconcam/targetcam
-		if(isAI(user))
-			var/mob/living/silicon/ai/R = user
-			targetcam = R.aicamera
-		else if(ispAI(user))
-			var/mob/living/silicon/pai/R = user
-			targetcam = R.aicamera
-		else if(iscyborg(user))
-			var/mob/living/silicon/robot/R = user
-			if(R.connected_ai)
-				targetcam = R.connected_ai.aicamera
-			else
-				targetcam = R.aicamera
-		else
-			to_chat(user, "<span class='warning'>You cannot interface with silicon photo uploading!</span>")
-		if(!length(targetcam.stored))
-			to_chat(usr, "<span class='boldannounce'>No images saved.</span>")
-			return
-		var/datum/picture/selection = targetcam.selectpicture(user)
+		var/mob/living/silicon/S = user
+		var/datum/picture/selection = S.aicamera?.selectpicture(user)
 		if(selection)
 			current_image = selection
 	else
@@ -678,7 +682,6 @@
 		GLOB.news_network.create_feed_channel(channel_name, issilicon(usr) ? usr.name : account.account_holder, channel_desc, locked = channel_locked)
 		SSblackbox.record_feedback("text", "newscaster_channels", 1, "[channel_name]")
 	stop_creating_channel()
-	update_static_data(usr)
 
 /obj/machinery/newscaster/proc/edit_channel()
 	if(!channel_name)
@@ -703,7 +706,6 @@
 	current_channel.channel_desc = channel_desc
 	current_channel.locked = channel_locked
 	stop_editing_channel()
-	update_static_data(usr)
 
 /obj/machinery/newscaster/proc/stop_editing_channel()
 	editing_channel = FALSE
@@ -835,6 +837,8 @@
 			balloon_alert(usr, "no photo identified.")
 
 /obj/machinery/newscaster/proc/clear_wanted_issue(user)
+	if(ispAI(usr))
+		return FALSE
 	if(!issilicon(usr))
 		var/obj/item/card/id/id_card
 		if(isliving(usr))
