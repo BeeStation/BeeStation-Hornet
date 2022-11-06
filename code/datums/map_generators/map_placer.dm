@@ -330,3 +330,9 @@
 	//then fill the members_attributes list with the corresponding variables
 	members_attributes.len++
 	members_attributes[index++] = fields
+
+#undef GENERATE_STAGE_BUILD_CACHE_START
+#undef GENERATE_STAGE_BUILD_CACHE
+#undef GENERATE_STAGE_BUILD_COORDINATES_START
+#undef GENERATE_STAGE_BUILD_COORDINATES
+#undef GENERATE_STAGE_COMPLETED

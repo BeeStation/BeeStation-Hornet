@@ -419,12 +419,6 @@
 	if(GLOB.use_preloader && .)//second preloader pass, for those atoms that don't ..() in New()
 		world.preloader_load(.)
 
-	//custom CHECK_TICK here because we don't want things created while we're sleeping to not initialize
-	//if(TICK_CHECK)
-	//	SSatoms.map_loader_stop()
-	//	stoplag()
-	//	SSatoms.map_loader_begin()
-
 /datum/parsed_map/proc/create_atom(path, crds)
 	set waitfor = FALSE
 	. = new path (crds)
