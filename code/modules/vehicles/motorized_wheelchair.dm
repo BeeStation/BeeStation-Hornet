@@ -2,6 +2,7 @@
 	name = "motorized wheelchair"
 	desc = "A chair with big wheels. It seems to have a motor in it."
 	max_integrity = 150
+	move_resist = MOVE_FORCE_DEFAULT
 	var/speed = 2
 	var/power_efficiency = 1
 	var/power_usage = 25
