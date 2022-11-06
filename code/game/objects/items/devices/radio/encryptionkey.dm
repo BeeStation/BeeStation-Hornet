@@ -32,7 +32,7 @@
 
 /obj/item/encryptionkey/binary
 	name = "binary translator key"
-	desc = "An encryption key that interchanges the form of anaologue sounds and binary electric signals."
+	desc = "An encryption key that interchanges the form of anaologue brainwave and binary electric signals."
 	icon_state = "bin_cypherkey"
 	translate_binary = TRUE
 
