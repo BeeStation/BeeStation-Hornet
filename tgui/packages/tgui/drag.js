@@ -10,7 +10,7 @@ import { createLogger } from './logging';
 
 const logger = createLogger('drag');
 
-let windowKey = window.__windowId__;
+let windowKey = Byond.windowId;
 let dragging = false;
 let resizing = false;
 let screenOffset = [0, 0];
@@ -36,13 +36,13 @@ export const getWindowSize = () => [
 
 export const setWindowPosition = vec => {
   const byondPos = vecAdd(vec, screenOffset);
-  return Byond.winset(window.__windowId__, {
+  return Byond.winset(Byond.windowId, {
     pos: byondPos[0] + ',' + byondPos[1],
   });
 };
 
 export const setWindowSize = vec => {
-  return Byond.winset(window.__windowId__, {
+  return Byond.winset(Byond.windowId, {
     size: vec[0] + 'x' + vec[1],
   });
 };
@@ -143,10 +143,12 @@ export const recallWindowGeometry = async (options = {}) => {
 
 export const setupDrag = async () => {
   // Calculate screen offset caused by the windows taskbar
-  screenOffsetPromise = Byond.winget(window.__windowId__, 'pos')
+  let windowPosition = getWindowPosition();
+
+  screenOffsetPromise = Byond.winget(Byond.windowId, 'pos')
     .then(pos => [
-      pos.x - window.screenLeft,
-      pos.y - window.screenTop,
+      pos.x - windowPosition[0],
+      pos.y - windowPosition[1],
     ]);
   screenOffset = await screenOffsetPromise;
   logger.debug('screen offset', screenOffset);

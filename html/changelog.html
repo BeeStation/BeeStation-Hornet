@@ -56,6 +56,134 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">06 November 2022</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">compression box no longer keeps you slowdown when you remove those in specific situations (put it into safe, fold, etc)</li>
+				<li class="bugfix">Captain's comp box is now properly named</li>
+				<li class="bugfix">encryption keys no longer say "This is nothing special. ask coder!" description even if it is special</li>
+			</ul>
+			<h3 class="author">benbot16 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Brain surgery is now repeatable.</li>
+				<li class="balance">Brain death can now be repaired with mannitol/surgery without needing revival surgery.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed newscasters not updating UI when a channel is created.</li>
+				<li class="bugfix">Fixed pAIs being unable to use their newscaster.</li>
+				<li class="tweak">All silicon picture selections now use a TGUI menu with image previews and descriptions instead of a list of image names.</li>
+				<li class="bugfix">Fixed an exploit allowing you to submit a wanted issue without permission.</li>
+				<li class="bugfix">Fixed submitting a picture to sec records being super broken.</li>
+			</ul>
+
+			<h2 class="date">04 November 2022</h2>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Updated development-side TGUI bootstrapping, updated internal TGUI API</li>
+				<li class="bugfix">Fixed some bugs related to TGUI Boxes not computing class names properly.</li>
+				<li class="refactor">Refactored TGUI asset loading.</li>
+			</ul>
+
+			<h2 class="date">02 November 2022</h2>
+			<h3 class="author">Crossedfall updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="server">Adds time dilation tracking and harddel counts to the elastic metrics blob</li>
+			</ul>
+
+			<h2 class="date">01 November 2022</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed the capitalization of two research nodes</li>
+			</ul>
+			<h3 class="author">Tyranicranger4 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added biohazard storage closets to xenobio (MetaStation)</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed abductors ignoring their muteness due to tourette's</li>
+				<li class="bugfix">Reduced the amount that newscaster images error out.</li>
+				<li class="tweak">Added a success sound when a newscaster scans a photo.</li>
+				<li class="bugfix">Fixed emagging a cyborg not unlocking the cover.</li>
+				<li class="bugfix">Fixed selection of 4th character slot resetting every round.</li>
+			</ul>
+
+			<h2 class="date">31 October 2022</h2>
+			<h3 class="author">Archanial updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">undefined 2 things in chatmessage.dm</li>
+			</ul>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added Toxins Storage access to the Exploration team on skeleton crew</li>
+			</ul>
+			<h3 class="author">benbot16 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Oozeling water melting is now affected by the clothing/suit the oozeling is wearing.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Refactored emagging to have a SHOULD_EMAG signal, properly use signals, and enforce parent calls.</li>
+				<li class="tweak">Tweaked wording on emag action visible_messages.</li>
+				<li class="bugfix">Fixed some visible_messages on emagged items not showing.</li>
+			</ul>
+
+			<h2 class="date">30 October 2022</h2>
+			<h3 class="author">Archanial updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed runtime when praying</li>
+			</ul>
+			<h3 class="author">DrDuckedGoose updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Tweaks ``Hypodermic`` injections rates from ``5, 10, 15`` > (``7, 14 , 21`` * ``metabolization_rate``).</li>
+				<li class="tweak">Changes ``C.D.E`` knockout from ``5 Seconds`` > ``2 Seconds``</li>
+				<li class="tweak">Changes logging ``xyz`` > ``area``</li>
+				<li class="tweak">Change research point reward from ``2.3 * final price`` > ``2.5 * final price``</li>
+				<li class="tweak">Change discovery point reward from ``350*final_price/initial_price`` > ``350*(final price/initial price)) * max(1, final price/1000)``</li>
+				<li class="tweak">Aggressively lowers stun times on all related traits</li>
+				<li class="tweak">Artifacts will now target the user too. The only way to avoid this is to be inside science & wearing safety-pinchers.</li>
+				<li class="tweak">Slightly lower sentient buffs to arfiacts</li>
+				<li class="tweak">Blacklist aura from destabilizing.</li>
+				<li class="tweak">Artifacts malfunction more often.</li>
+				<li class="tweak">All artifacts get an extra slot for malfunctions, ``1`` > ``2``</li>
+				<li class="tweak">Extend sentient play offer</li>
+				<li class="tweak">Wall trait now points randomly east or north if it is 3x1</li>
+				<li class="tweak">Increase bananium malfunction chance</li>
+				<li class="tweak">Ghosts can take control of player-less artifacts</li>
+				<li class="tweak">Artifact consoles now have a stability meter that stops spam-buying.</li>
+				<li class="tweak">Sentient artifacts are more common, slightly,</li>
+				<li class="tweak">Ghosts can activate haunted artifacts.</li>
+				<li class="tweak">Tweaks labeler UI to show elements in alphabetical order.</li>
+				<li class="tweak">Tweak console UI to have less clutter.</li>
+				<li class="bugfix">Swaps over to AREACOORD for logging.</li>
+				<li class="bugfix">Fix cheeky runtime on ``Weighted``. No longer checks all gloves for ``safety`` variable.</li>
+				<li class="bugfix">Fix issue with ``weighted`` signal order preventing activation.</li>
+				<li class="bugfix">Fix ``lamp`` trait runtiming</li>
+				<li class="bugfix">Fix ``anti_artifact`` runtiming</li>
+				<li class="bugfix">Fix fragile artifacts not breaking due to byond being beyond illogical.</li>
+				<li class="bugfix">Fix strip malfunction from stripping non-removable clothing..</li>
+				<li class="rscadd">Adds ``anti-clone`` malfunction. Creates an evil twin of the target.</li>
+				<li class="rscadd">Add better functions for adding malfunctions that support typing</li>
+				<li class="rscadd">Add exploding malfunction ``delaminating``, unique to bananium.</li>
+				<li class="rscadd">Add all artifact smoke screen trait.</li>
+				<li class="rscadd">Add Plasma & Bluespace trait, ``Marker`` trait, colors the target</li>
+				<li class="rscadd">Add all artifact malfunction ``absorbing``. Absorbs nearby gasses, suffocating small rooms. Will spit gasses back out when destroyed.</li>
+				<li class="rscadd">Add ``Honked`` activator. Only clowns, and clown related items, can activate this artifact.</li>
+				<li class="rscadd">Add ``Emotional`` major. Makes target perform a random emote, from a curated list.</li>
+				<li class="rscadd">Add ``Desynced`` minor. Makes the artifact disappear for a short period after activating.</li>
+				<li class="rscadd">Add ``Hallucinogenic`` malfunction. Makes the target experience a random hallucination.</li>
+				<li class="rscadd">Add bar to UI that shows thread stability.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Flashes now cause confusion instead of paralysis if a target has no stamina damage.</li>
+				<li class="balance">Flashes will cause knockdown with the length of the knockdown proportional to the target's stamina damage if they have less than 40% stamina damage.</li>
+				<li class="balance">Flashes will cause paralysis with the length of the paralysis proportional to the target's stamina damage if they have more than 40% stamina damage.</li>
+				<li class="balance">Flashes will paralyse for 7 seconds if a target is lying down.</li>
+				<li class="tweak">Ghost alert to control a mob will now jump you to the target</li>
+			</ul>
+
 			<h2 class="date">29 October 2022</h2>
 			<h3 class="author">Tyranicranger4 updated:</h3>
 			<ul class="changes bgimages16">
@@ -1106,228 +1234,6 @@
 			<h3 class="author">etherware-novice updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="tweak">pai cards chime when new personalities are submitted</li>
-			</ul>
-
-			<h2 class="date">04 September 2022</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added a new mind trait for the medical staff</li>
-				<li class="tweak">Tweaked the Doctor's Delight to not drain hunger from all medical staff</li>
-			</ul>
-			<h3 class="author">Dejaku51, Kylerace, LemonInTheDark updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="refactor">Optimized icon2html code</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">agent card 'forge' option shows a hud/card style menu so that you don't still have syndicate hud accidentally.</li>
-				<li class="code_imp">adjusted some code that doesn't use job-defines to use job-defines, and adjusted its incorrect code indentation.</li>
-			</ul>
-			<h3 class="author">Hardly updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Abductees no longer get random deep rooted traumas</li>
-			</ul>
-			<h3 class="author">LemonLimeSoda updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">added a new midround event with the same weight as xenos and blobs: spontaneous zombie infection</li>
-				<li class="tweak">changed the wizard blob zombies event's name to avoid confusion</li>
-			</ul>
-			<h3 class="author">Penwin0 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Bulldog shotguns have in hand sprites again</li>
-			</ul>
-			<h3 class="author">etherware-novice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Heads and QM get spare radio key boxes</li>
-				<li class="rscadd">Clown has ordered some fake encryption keys for their pranks</li>
-				<li class="rscadd">Added the bluespace light replacer</li>
-				<li class="tweak">Moved the standard light replacer to a round-start item</li>
-			</ul>
-
-			<h2 class="date">03 September 2022</h2>
-			<h3 class="author">Dejaku51, out-of-phaze, LemonInTheDark, MrStonedOne updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Fix client timers having invalid <1ds waits</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">removed an unused proc '/obj/item/proc/GetJobName()'</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Adds entropic plume spell to heretics</li>
-				<li class="rscdel">Removes rust wave spell from heretics</li>
-				<li class="bugfix">The ash man and rust walker nodes now link to the correct nodes.</li>
-				<li class="bugfix">Rust's rune visual effect does not appear on reinforced walls.</li>
-				<li class="bugfix">Animated sprites in custom vendors and display cases no longer expand into all their frames</li>
-				<li class="bugfix">Pirates event no longer spawns two pirate ships.</li>
-				<li class="refactor">Comms console message responses now use string keys so that DEFINES can be used.</li>
-			</ul>
-
-			<h2 class="date">02 September 2022</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">New wizard ritual - Wild Magic Manipulation. Simply, Wizard version of Surplus crate. Your spell points are multiplied by 70%(round down) and You get random spells and items, including any available ritual.</li>
-				<li class="rscadd">New wizard apprentice - Wild Magic school. They get 2 random wizard spells.</li>
-				<li class="rscadd">Wizard rituals now let the wizards say spell words. It's actually nothing, but a flavor for ghosts observing a wizard</li>
-				<li class="refactor">minor change to wizard related description for codewise</li>
-				<li class="bugfix">curse of madness is not revertable when you have a window to write your mad message. This won't let you get free +4 spell points when wild magic picked curse of madness.</li>
-				<li class="rscadd">Nanotrasen VIP Expense Account Budget has been added. VIPs will be paid from this budget directly from Nanotrasen rather than the station budget.</li>
-				<li class="tweak">Station heads can't change VIP's payment anymore. (but they can't give bonus to them also.)</li>
-				<li class="tweak">VIP bank accounts are all fixated to Nanotrasen VIP budget department, and changing department will not change their assigned department.</li>
-				<li class="tweak">VIP payment is now 2000 credits, and roundstarts with 10000 credits</li>
-				<li class="tweak">VIP mail from cargo is now yellow</li>
-				<li class="bugfix">cargo ordering app through a tablet will not accept improper id card</li>
-				<li class="tweak">department change lock feature - even if you change your department, some jobs (VIP, Captain, HoS) don't have a newly changed department as your bank account paying department.</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend, JOYK1LLZ updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Beer goggles (and some special goggles like eye of god, omni hud) now can see Total Booze power of chemicals, but also expect the tastes of the chemicals in a container.</li>
-				<li class="rscadd">mob trait "sommelier" - tells different flavour texts when you examine drinks. it's given to bar-related spawns including station bartender.</li>
-				<li class="rscadd">mob trait "bar master" - tells the exact amount of reagent even if you don't have beer googles. it's given to bar-related non-human without beer goggles.</li>
-			</ul>
-			<h3 class="author">PigeonVerde322, PositiveEntropy  updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">FORGOT to credit PositiveEntropy for the Wooden chairs icons and the armchair/Sofa icons in the previous PR, apoligies!</li>
-				<li class="rscadd">Added time-to-build to all the chairs</li>
-				<li class="rscadd">Courtesy of para, now benches can be coloured</li>
-				<li class="bugfix">fixed a bug that, if you moved while deconstructing any chair, it would override the deconstruction time</li>
-				<li class="bugfix">fixed Corporate benches being broken, now they use a different system than GAGs, also courtesy of para, now benches padding can be coloured!</li>
-			</ul>
-			<h3 class="author">benbot16 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Changelings no longer lose extra genetic points when readapting.</li>
-			</ul>
-			<h3 class="author">etherware-novice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added the toy captains card</li>
-				<li class="rscadd">Adds the all access dispenser</li>
-				<li class="rscadd">Adds an admin-only version that actually creates captains spare ids</li>
-				<li class="tweak">Adds the card to the arcade prizes</li>
-				<li class="tweak">Adds the dispenser to maint spawns</li>
-				<li class="tweak">oozelings have 50% more blorbles</li>
-				<li class="refactor">tounges can now modify your ask, yell, and exclaim verbs</li>
-				<li class="refactor">area mood buffs can now be applied to only certain jobs</li>
-				<li class="rscadd">added new job restricted area mood buffs</li>
-			</ul>
-
-			<h2 class="date">01 September 2022</h2>
-			<h3 class="author">Impish_Delights updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Two hydro trays to botany maint to replace missing service lathe</li>
-				<li class="rscdel">Random airlock in dorm maint room removed</li>
-				<li class="rscdel">Botany private service protolathe removed</li>
-				<li class="tweak">Rearranged botany maint slightly</li>
-				<li class="tweak">Bartender and Curator can now access their respective maintenance airlocks</li>
-				<li class="bugfix">Shaft Miners can now access the Aux Base construction room via the bar maint airlock</li>
-				<li class="bugfix">cargo maintenance by brig now has proper access set on airlock, maintenance can be traversed without cargo access</li>
-			</ul>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added the plastic chair, steel bench, folding chair, chair with arms (aka fancy chair), corporate armchair, dirty mattress</li>
-				<li class="rscadd">Added king sized variants of all the beds with their respective bedsheets, remember, you're constantly under observation by the administration team</li>
-				<li class="rscadd">Added concave corners for all the sofas.</li>
-				<li class="imageadd">added brand new icons for chairs, beds, bedsheets and some benches, including renewed in-hand icons</li>
-				<li class="code_imp">Restructured how chairs are really sorted out</li>
-			</ul>
-			<h3 class="author">itsmeow, Timberpoes, cacogen, MTandi, Fhaxaris, vincentiusvin, ArcaneMusic, LemonInTheDark, GuillaumePrata, Cheshify, Jackraxxus, OneAsianTortoise, Profakos, tralezab, jlsnow301 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">The title bar of Modular PC programs now contains the program's name instead of the file name.</li>
-				<li class="bugfix">Fixed a bunch of modular PC runtimes with try_eject.</li>
-				<li class="tweak">Anyone can now download BotKeeper (tablet app). Only bots your current ID can unlock will be listed to control.</li>
-				<li class="bugfix">Fixed NTOS File Manager renaming/deleting wrong programs when used with external disk.</li>
-				<li class="code_imp">Improved ID console name/job sanitization code, and added feedback for when sanitization fails.</li>
-				<li class="bugfix">Modular ID console will no longer insert/eject ID card for AI or to telekinesis players.</li>
-				<li class="code_imp">Supermatter's defines have been moved into it's own file in the __DEFINES folder.</li>
-				<li class="rscadd">Modular Computers equipped with the new integrated radio card chip can now be used as a remote signaller.</li>
-				<li class="rscadd">Scientists now start with tablets pre-equipped with a signaller chip and the program downloaded.</li>
-				<li class="bugfix">Fixed a bug preventing the Job Management app from de-prioritising jobs when 5 or more jobs were prioritised.</li>
-				<li class="code_imp">Improved computer hardware code and delete management.</li>
-				<li class="bugfix">Signaller code transmissions on the 145.7 frequency are no longer received by all signallers, even if they are tuned to another frequency.</li>
-				<li class="bugfix">Fixes tablet not updating appearance immediately after it is repaired.</li>
-				<li class="refactor">Modernized NTChat, now with muting and pinging!</li>
-				<li class="admin">NTChat now has a filter check.</li>
-				<li class="bugfix">Brig physician slots can no longer be increased through the Job Management tablet app.</li>
-				<li class="tweak">The Software Downloader will now say "Insert ID" instead of "No Access" if no ID is inserted, and no longer responds to hovering the button.</li>
-			</ul>
-			<h3 class="author">ro5490 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added a new rite to the Technophile Sect - Machine Implantation - Add cybernetics to your followers with ease!</li>
-				<li class="tweak">Technophile Sect favor is gained a little easier and rite costs have been lowered a little</li>
-				<li class="tweak">Tech Sect Machine Blessing rite now has a chance to create nutriment, toolset, and wing implants</li>
-				<li class="rscadd">The Chaplain now has access to a Space Carp Sect!</li>
-				<li class="rscadd">Flood Area rite for the Carp Sect, flood the chapel with water - 200 Favor Cost</li>
-				<li class="rscadd">Summon Carp-Suit rite for the Carp Sect, Summons a Space-Carp suit! - 300 Favor cost</li>
-				<li class="rscadd">Summon Carp rite for the Carp Sect, Summon a Holy Space-Carp from the observer pool - 500 Favor cost</li>
-				<li class="rscadd">Carp Sect uses the blue altar</li>
-				<li class="rscadd">Summoned Carp are sub-chaplains and as such, are holy!</li>
-			</ul>
-
-			<h2 class="date">31 August 2022</h2>
-			<h3 class="author">LodedDiper69 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added a new type of food, Pingles</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Wizards now get pierce protection on their standard robes.</li>
-			</ul>
-			<h3 class="author">benbot16 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Tweaks minebot HUDs a bit.</li>
-				<li class="tweak">Minebots can now use all of the silicon emotes, instead of just beep.</li>
-				<li class="bugfix">Fixes minebot radio implants.</li>
-				<li class="balance">Minebots can now use computer and shuttle consoles.</li>
-				<li class="balance">Minebots are now slightly faster.</li>
-			</ul>
-
-			<h2 class="date">30 August 2022</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Adds 9 new emojis</li>
-				<li class="bugfix">Centers the green face emojis</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Custom command job now has blue chat colour rather than assistant-like white</li>
-			</ul>
-			<h3 class="author">Mat05usz updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Refresh rate for crew monitor goes up from 10 seconds to 60 seconds</li>
-			</ul>
-			<h3 class="author">Penwin0 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">You can't remotely slap tables anymore</li>
-			</ul>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="soundadd">Energy and Magic gunfire sound pitch now varies based on how much ammo is left.</li>
-				<li class="soundadd">Ballistic and Energy gunfire now has a low-ammo click/fuse sound.</li>
-			</ul>
-			<h3 class="author">benbot16 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes a bunch of autofire-related bugs.</li>
-			</ul>
-			<h3 class="author">etherware-novice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">new VV to trigger a payday</li>
-				<li class="rscadd">Nanotrasen has implemented kickflip skills into all employees, in an attempt to boost skateboard sales.</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">All forms of mind-to-mind communication now properly capitalize and auto-punctuate text.</li>
-				<li class="tweak">MMIs and posibrains now auto-punctuate speech.</li>
-				<li class="admin">Added logging to blob telepathy speech from non-overminds.</li>
-				<li class="tweak">Heads of staff can now message CentCom during Red Alert.</li>
-			</ul>
-
-			<h2 class="date">29 August 2022</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Moves the 'give' action code to the proper file</li>
-				<li class="rscadd">Adds a transparent PDA colorizer</li>
-				<li class="rscadd">Adds said colorizer to the BeeCoin store</li>
-				<li class="rscadd">Adds a blacklist to colorizers</li>
 			</ul>
 		</div>
 

@@ -188,6 +188,9 @@
 
 //Chair movement loop
 /obj/item/extinguisher/proc/move_chair(obj/buckled_object, movementdirection)
+	//Only move things with weak move resist
+	if (buckled_object.move_resist > MOVE_FORCE_NORMAL)
+		return
 	var/datum/move_loop/loop = SSmove_manager.move(buckled_object, movementdirection, 1, timeout = 9, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 	//This means the chair slowing down is dependant on the extinguisher existing, which is weird
 	//Couldn't figure out a better way though
@@ -195,11 +198,18 @@
 
 /obj/item/extinguisher/proc/manage_chair_speed(datum/move_loop/move/source)
 	SIGNAL_HANDLER
+	var/multiplier = 3
+	if (source.moving.move_resist <= MOVE_FORCE_VERY_WEAK)
+		multiplier = 1
+	else if(source.moving.move_resist <= MOVE_FORCE_WEAK)
+		multiplier = 2
 	switch(source.lifetime)
-		if(5 to 4)
-			source.delay = 2
-		if(3 to 1)
-			source.delay = 3
+		if(6 to INFINITY)
+			source.delay = multiplier
+		if(4 to 5)
+			source.delay = multiplier + 1
+		if(1 to 3)
+			source.delay = multiplier + 2
 
 /obj/item/extinguisher/AltClick(mob/user)
 	if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))

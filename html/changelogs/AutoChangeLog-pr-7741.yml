@@ -1,0 +1,7 @@
+author: Pigeonverde322, Dwasint
+delete-after: true
+changes:
+  - rscadd: Added a brand new Particle system, the Particool from Monkestation
+  - rscadd: Added a particle editor and a particle loader system
+  - rscadd: Added the particles to the Bonfire and flares
+  - code_imp: increased the size for the tgui error maximum line length
