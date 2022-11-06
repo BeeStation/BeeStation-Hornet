@@ -1,6 +1,0 @@
-author: benbot16
-delete-after: true
-changes:
-  - tweak: Brain surgery is now repeatable.
-  - balance: Brain death can now be repaired with mannitol/surgery without needing
-      revival surgery.
