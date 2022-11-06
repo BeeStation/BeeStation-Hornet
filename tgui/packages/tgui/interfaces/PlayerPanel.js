@@ -166,6 +166,7 @@ export const PlayerPanel = (_, context) => {
                   register_date={selected_player.register_date}
                   first_seen={selected_player.first_seen}
                   mob_type={selected_player.mob_type}
+                  species={selected_player.species}
                   byond_version={selected_player.byond_version}
                   metacurrency_balance={selected_player.metacurrency_balance}
                   antag_rep={selected_player.antag_rep}
@@ -222,6 +223,7 @@ class PlayerDetails extends Component {
       register_date = "N/A",
       first_seen = "N/A",
       mob_type = "N/A",
+      species,
       byond_version = "N/A",
       metacurrency_balance = 0,
       antag_rep = 0,
@@ -238,6 +240,7 @@ class PlayerDetails extends Component {
           <PlayerDetailsSection
             ckey={ckey}
             mob_type={mob_type}
+            species={species}
             byond_version={byond_version}
             antag_rep={antag_rep}
             antag_tokens={antag_tokens}
@@ -284,6 +287,7 @@ class PlayerDetailsSection extends Component {
     const {
       ckey,
       mob_type,
+      species,
       byond_version,
       antag_rep,
       antag_tokens,
@@ -319,6 +323,14 @@ class PlayerDetailsSection extends Component {
             "word-break": "break-all", "width": "100%" }}>
             {mob_type}
           </Box>
+          {species && (
+            <>
+              <strong>Species:</strong>{" "}
+              <Box inline color="#d8d8d8">
+                {species}
+              </Box>
+            </>
+          )}
           <strong>BYOND:</strong>{" "}
           <Box inline color="#d8d8d8">
             {byond_version}

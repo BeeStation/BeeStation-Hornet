@@ -135,6 +135,11 @@
 			data_entry["is_cyborg"] = iscyborg(player)
 			data_entry["mob_type"] = player.type
 			data_entry["antag_rep"] = SSpersistence.antag_rep[ckey]
+			if(ishuman(player))
+				var/mob/living/carbon/human/tracked_human = player
+				// no replacing ?. or I will end you
+				if(tracked_human.dna?.species?.name)
+					data_entry["species"] = tracked_human.dna.species.name
 		players[ckey] = data_entry
 	data["players"] = players
 	data["selected_ckey"] = selected_ckey
@@ -182,6 +187,24 @@
 
 	var/target_ckey = ckey(params["who"])
 	var/client/target_client = GLOB.directory[target_ckey]
+	switch(action)
+		if("open_telemetry")
+			if(target_client?.tgui_panel?.client)
+				user.client.debug_variables(target_client.tgui_panel)
+			else
+				var/list/found = list()
+				for(var/datum/tgui_panel/panel in GLOB.tgui_panels)
+					if(panel.owner_ckey == target_ckey)
+						found += "[REF(panel)]"
+				if(!length(found))
+					return
+				var/choice = input(user, "Select matched telemetry") in found
+				if(!choice)
+					return
+				var/datum/tgui_panel/selected = locate(choice)
+				if(selected)
+					user.client.debug_variables(selected)
+				return
 	var/mob/target_mob
 	if(target_client)
 		target_mob = target_client.mob
@@ -194,9 +217,6 @@
 	if(!target_mob)
 		return
 	switch(action)
-		if("open_telemetry")
-			if(target_client)
-				user.client.debug_variables(target_client.tgui_panel)
 		if("open_player_panel")
 			holder.show_player_panel(target_mob)
 		if("open_hours")
