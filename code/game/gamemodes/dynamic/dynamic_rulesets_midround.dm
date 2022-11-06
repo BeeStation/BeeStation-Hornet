@@ -404,7 +404,7 @@
 	cost = 10
 	minimum_players = 25
 	repeatable = TRUE
-	var/list/vents = list()
+
 
 /datum/dynamic_ruleset/midround/from_ghosts/xenomorph/execute()
 	// 50% chance of being incremented by one
