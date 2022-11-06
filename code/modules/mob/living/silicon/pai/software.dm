@@ -282,3 +282,11 @@
  */
 /mob/living/silicon/pai/proc/refresh_again()
 	refresh_spam = FALSE
+
+/obj/machinery/newscaster/pai/ui_data(mob/user)
+	var/list/data = ..()
+	data["user"]["pai"] = TRUE
+	return data
+
+/obj/machinery/newscaster/pai/ui_state(mob/user)
+	return GLOB.reverse_contained_state

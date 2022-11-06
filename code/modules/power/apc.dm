@@ -803,22 +803,28 @@
 			visible_message("<span class='warning'>The APC cover is knocked down!</span>")
 			update_icon()
 
-/obj/machinery/power/apc/emag_act(mob/user)
-	if(!(obj_flags & EMAGGED) && !malfhack)
-		if(opened)
-			to_chat(user, "<span class='warning'>You must close the cover to swipe an ID card!</span>")
-		else if(panel_open)
-			to_chat(user, "<span class='warning'>You must close the panel first!</span>")
-		else if(machine_stat & (BROKEN|MAINT))
-			to_chat(user, "<span class='warning'>Nothing happens!</span>")
-		else
-			flick("apc-spark", src)
-			playsound(src, "sparks", 75, 1)
-			obj_flags |= EMAGGED
-			locked = FALSE
-			wires.ui_update()
-			to_chat(user, "<span class='notice'>You emag the APC interface.</span>")
-			update_icon()
+/obj/machinery/power/apc/should_emag(mob/user)
+	if(!..() || malfhack)
+		return FALSE
+	if(opened)
+		to_chat(user, "<span class='warning'>You must close the cover to swipe an ID card!</span>")
+		return FALSE
+	if(panel_open)
+		to_chat(user, "<span class='warning'>You must close the panel first!</span>")
+		return FALSE
+	if(machine_stat & (BROKEN | MAINT))
+		to_chat(user, "<span class='warning'>Nothing happens!</span>")
+		return FALSE
+	return TRUE
+
+/obj/machinery/power/apc/on_emag(mob/user)
+	..()
+	flick("apc-spark", src)
+	playsound(src, "sparks", 75, 1)
+	locked = FALSE
+	wires.ui_update()
+	to_chat(user, "<span class='notice'>You emag the APC interface.</span>")
+	update_icon()
 
 
 // attack with hand - remove cell (if cover open) or interact with the APC

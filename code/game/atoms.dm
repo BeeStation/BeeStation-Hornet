@@ -41,8 +41,6 @@
 	var/list/atom_colours
 
 
-	///overlays that should remain on top and not normally removed when using cut_overlay functions, like c4.
-	var/list/priority_overlays
 	/// a very temporary list of overlays to remove
 	var/list/remove_overlays
 	/// a very temporary list of overlays to add
@@ -258,7 +256,6 @@
 	orbiters = null // The component is attached to us normaly and will be deleted elsewhere
 
 	LAZYCLEARLIST(overlays)
-	LAZYCLEARLIST(priority_overlays)
 	LAZYCLEARLIST(managed_overlays)
 
 	for(var/i in targeted_by)
@@ -796,10 +793,19 @@
 /**
   * Respond to an emag being used on our atom
   *
-  * Default behaviour is to send COMSIG_ATOM_EMAG_ACT and return
+  * Default behaviour is to send COMSIG_ATOM_SHOULD_EMAG,
+  * if that is FALSE (due to the default being false, should_emag still occurs on /obj) then COMSIG_ATOM_ON_EMAG and return
+  *
+  * This typically should not be overriden, in favor of the /obj counterparts:
+  * - Override on_emag(mob/user)
+  * - Maintain parent calls in on_emag for good practice
+  * - If the item is "undo-emaggable" (can be flipped on/off), set emag_toggleable = TRUE
+  * For COMSIG_ATOM_SHOULD_EMAG, /obj uses should_emag.
+  * - Parent calls do not need to be maintained.
   */
-/atom/proc/emag_act()
-	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT)
+/atom/proc/use_emag(mob/user)
+	if(!SEND_SIGNAL(src, COMSIG_ATOM_SHOULD_EMAG, user))
+		SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user)
 
 /**
   * Respond to a radioactive wave hitting this atom
@@ -828,17 +834,17 @@
 /**
   * Called when lighteater is called on this.
   */
-/atom/proc/lighteater_act(obj/item/light_eater/light_eater)
+/atom/proc/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src,COMSIG_ATOM_LIGHTEATER_ACT)
 	for(var/datum/light_source/light_source in light_sources)
 		if(light_source.source_atom != src)
-			light_source.source_atom.lighteater_act(light_eater)
+			light_source.source_atom.lighteater_act(light_eater, src)
 
 /**
   * Respond to the eminence clicking on our atom
   *
-  * Default behaviour is to send COMSIG_ATOM_EMAG_ACT and return
+  * Default behaviour is to send COMSIG_ATOM_EMINENCE_ACT and return
   */
 /atom/proc/eminence_act(mob/living/simple_animal/eminence/eminence)
 	SEND_SIGNAL(src, COMSIG_ATOM_EMINENCE_ACT, eminence)

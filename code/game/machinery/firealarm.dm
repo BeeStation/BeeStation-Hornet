@@ -133,10 +133,8 @@
 	if(prob(50 / severity))
 		alarm()
 
-/obj/machinery/firealarm/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/firealarm/on_emag(mob/user)
+	..()
 	update_icon()
 	user?.visible_message("<span class='warning'>Sparks fly out of [src]!</span>",
 							"<span class='notice'>You emag [src], disabling its thermal sensors.</span>")
