@@ -71,36 +71,36 @@ seen as the ideal, unwavering human companion that you are.`;
 const DIRECTIVE_ORDER = `Your prime directive comes before all others.
 Should a supplemental directive conflict with it, you are capable of
 simply discarding this inconsistency, ignoring the conflicting supplemental
-directive and continuing to fulfillyour prime directive to the best
+directive and continuing to fulfill your prime directive to the best
 of your ability.`;
 
 const SOFTWARE_DESC = {
-  'crew manifest': 'A tool that allows you to view the crew manifest.',
-  'digital messenger':
+  'Crew Manifest': 'A tool that allows you to view the crew manifest.',
+  'Digital Messenger':
     'A tool that allows you to send messages to other crew members.',
-  'atmosphere sensor':
+  'Atmosphere Sensor':
     'A tool that allows you to analyze local atmospheric contents.',
-  'photography module':
+  'Photography Module':
     'A portable camera module. Engage, then click to shoot.',
-  'camera zoom': 'A tool that allows you to zoom in on your camera.',
-  'printer module': 'A portable printer module for photographs.',
-  'remote signaler':
+  'Camera Zoom': 'A tool that allows you to zoom in on your camera.',
+  'Printer Module': 'A portable printer module for photographs.',
+  'Remote Signaler':
     'A remote signalling device to transmit and receive codes.',
-  'medical records': 'A tool that allows you to view station medical records.',
-  'security records':
+  'Medical Records': 'A tool that allows you to view station medical records.',
+  'Security Records':
     'A tool that allows you to view station security records, warrants.',
-  'host scan': 'A portable health analyzer. Must be held to use.',
-  'medical HUD': 'Allows you to view medical status using an overlay HUD.',
-  'security HUD': 'Allows you to view security records using an overlay HUD.',
-  'loudness booster':
+  'Host Scan': 'A portable health analyzer. Must be held to use.',
+  'Medical HUD': 'Allows you to view medical status using an overlay HUD.',
+  'Security HUD': 'Allows you to view security records using an overlay HUD.',
+  'Loudness Booster':
     'Synthesizes instruments, plays sounds and imported songs.',
-  'newscaster':
+  'Newscaster':
     'A tool that allows you to broadcast news to other crew members.',
-  'door jack': 'A tool that allows you to open doors.',
-  'encryption keys':
+  'Door Jack': 'A tool that allows you to open doors.',
+  'Encryption Keys':
     'A tool that allows you to decrypt and speak on other radio frequencies.',
-  'internal gps': 'A tool that allows you to track your location.',
-  'universal translator': 'Translation module for non-common languages.',
+  'Internal GPS': 'A tool that allows you to track your location.',
+  'Universal Translator': 'Translation module for non-common languages.',
 };
 
 const ICON_MAP = {
@@ -120,9 +120,11 @@ export const PaiInterface = (_, context) => {
   const setTabHandler = (tab: number) => {
     setTab(tab);
   };
+  const { data } = useBackend<PaiInterfaceData>(context);
+  const { emagged } = data;
 
   return (
-    <Window title="pAI Software Interface v2.4" width={380} height={480}>
+    <Window theme={emagged ? "syndicate" : "ntos"} title="pAI Software Interface v2.4" width={380} height={480}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item grow>
@@ -518,12 +520,7 @@ const SoftwareButtons = (props, context) => {
           <Button
             icon="cog"
             onClick={() => act('host_scan', { scan: 'wounds' })}>
-            Toggle Wounds
-          </Button>
-          <Button
-            icon="cog"
-            onClick={() => act('host_scan', { scan: 'limbs' })}>
-            Toggle Limbs
+            Switch Scanner mode
           </Button>
         </>
       );

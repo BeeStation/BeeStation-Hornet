@@ -147,6 +147,7 @@
 	module.rebuild_modules()
 	update_icons()
 	. = ..()
+	add_sensors()
 
 	//If this body is meant to be a borg controlled by the AI player
 	if(shell)
