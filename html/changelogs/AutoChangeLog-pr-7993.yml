@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - balance: Fire extinguisher propel speed on secways has been significantly decreased.
-  - balance: Fire extinguisher propel speed on office chairs and other movables has
-      been decreased.
-  - bugfix: Fixes fire extinguisher propel speed not slowing down over time.
