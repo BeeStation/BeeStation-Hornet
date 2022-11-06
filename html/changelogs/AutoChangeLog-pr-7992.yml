@@ -1,4 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - bugfix: fixed possible null reference when release mob from holder
