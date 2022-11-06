@@ -76,7 +76,7 @@
 /obj/item/assembly/flash
 	name = "flash"
 	desc = "A powerful and versatile flashbulb device, with applications ranging from disorienting attackers to acting as visual receptors in robot production. \
-		It is highly effective against targets who aren't standing or suffering from exhaustion."
+		It is highly effective against targets who aren't standing or are suffering from exhaustion."
 	icon_state = "flash"
 	item_state = "flashtool"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
