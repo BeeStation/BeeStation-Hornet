@@ -240,7 +240,6 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 		SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_MEDISIM] = TRUE
 
 	nerf(!(obj_flags & EMAGGED))
-	finish_spawn()
 
 	for(var/atom/holo_atom as anything in spawned)
 		if(QDELETED(holo_atom))
