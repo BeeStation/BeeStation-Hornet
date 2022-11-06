@@ -76,7 +76,7 @@
 
 /obj/item/organ/brain/setOrganDamage(d)
 	. = ..()
-	if(!(organ_flags & ORGAN_FAILING))
+	if(brain_death && !(organ_flags & ORGAN_FAILING))
 		brain_death = FALSE
 		brainmob.revive(TRUE) // We fixed the brain, fix the brainmob too.
 
