@@ -20,7 +20,7 @@
 
 /datum/music/New(client/C, _fade_volume = 1)
 	..()
-	C.active_music += src
+	LAZYADD(C.active_music, src)
 	target = C
 	fade_volume = _fade_volume
 	START_PROCESSING(SSprocessing, src)
@@ -38,7 +38,7 @@
 	else
 		STOP_PROCESSING(SSprocessing, src)
 	if(target)
-		target.active_music -= src
+		LAZYREMOVE(target.active_music, src)
 		target.update_playing_music()
 		target = null
 
@@ -60,8 +60,7 @@
 		if(sound_datum)
 			SEND_SOUND(target, sound(null, repeat = 0, wait = 0, channel = CHANNEL_AMBIENT_MUSIC))
 			sound_datum = null
-	if(!does_loop)
-		qdel(src)
+
 
 /datum/music/proc/fade(target, time)
 	fade_volume_target = target
@@ -87,7 +86,7 @@
 			playing_music.mask()
 	else if(!playing_music)
 		var/datum/music/highest_priorty = null
-		for(var/M in active_music)
+		for(var/M in SANITIZE_LIST(active_music))
 			var/datum/music/as_music = M
 			if(!highest_priorty || as_music.priority > highest_priorty.priority)
 				highest_priorty = as_music
@@ -201,7 +200,7 @@
 			continue
 		var/did_find = FALSE
 		if(shared)
-			for(var/_music in M.client.active_music)
+			for(var/_music in SANITIZE_LIST(M.client.active_music))
 				var/datum/music/sourced/music = _music
 				if(istype(music, music_path))
 					mob_players[M] = music
