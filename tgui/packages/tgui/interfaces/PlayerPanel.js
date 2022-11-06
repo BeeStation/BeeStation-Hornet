@@ -101,10 +101,11 @@ export const PlayerPanel = (_, context) => {
       buttons={
         <>
           <Input
+            autoFocus
             placeholder="Search name, job, or CKEY"
             width={20}
             value={search_text}
-            onChange={(_, value) => act("set_search_text", { text: value })}
+            onInput={(_, value) => act("set_search_text", { text: value })}
           />
           <Button
             ml={1}
