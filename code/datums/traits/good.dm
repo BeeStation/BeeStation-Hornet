@@ -98,10 +98,10 @@
 
 /datum/quirk/linguist
 	name = "Linguist"
-	desc = "Although you don't know every language, you have spent your interest into languages. You can recognise linguistic features for each language."
+	desc = "Although you don't know every language, your intense interest in languages allows you to recognise the features of most languages."
 	value = 1
 	mob_trait = TRAIT_LINGUIST
-	gain_text = "span class='notice'>You can recognise linguistic features for each language.</span>"
+	gain_text = "span class='notice'>You can recognise the linguistic features of every language.</span>"
 	lose_text = "span class='danger'>You can no longer recognise linguistic features for each language.</span>"
 
 /datum/quirk/multilingual
