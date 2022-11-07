@@ -707,7 +707,9 @@
 	cost = 8
 	repeatable = TRUE
 	minimum_players = 27
+	var/fed = 1
 	var/list/vents = list()
+	var/datum/team/spiders/spider_team
 
 /datum/dynamic_ruleset/midround/from_ghosts/spiders/execute()
 	for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in GLOB.machines)
@@ -722,13 +724,19 @@
 	if(!length(vents))
 		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations.")
 		return FALSE
+	spider_team = new()
+	spider_team.directive ="Ensure the survival of your brood and overtake whatever structure you find yourself in."
 	. = ..()
 
 /datum/dynamic_ruleset/midround/from_ghosts/spiders/generate_ruleset_body(mob/applicant)
 	var/obj/vent = pick_n_take(vents)
 	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/spider = new(vent.loc)
 	spider.directive = "Ensure the survival of your brood and overtake whatever structure you find yourself in."
+	spider.mind.add_antag_datum(/datum/antagonist/spider, spider_team)
 	spider.key = applicant.key
+	if(fed)
+		spider.enriched_fed++
+		fed--
 	message_admins("[ADMIN_LOOKUPFLW(spider)] has been made into a spider by the midround ruleset.")
 	log_game("DYNAMIC: [key_name(spider)] was spawned as a spider by the midround ruleset.")
 	return spider

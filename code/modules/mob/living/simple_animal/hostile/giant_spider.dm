@@ -85,6 +85,20 @@
 		log_game("[key_name(src)] took control of [name] with the objective: '[directive]'.")
 	return TRUE
 
+/mob/living/simple_animal/hostile/poison/giant_spider/sentience_act(mob/user)
+	. = ..()
+	var/datum/team/spiders/spiders
+	for(var/datum/team/spiders/team in GLOB.antagonist_teams)
+		if(team.master == user)
+			spiders = team
+			break
+	if(!spiders)
+		spiders = new()
+		spiders.master = user
+	var/datum/antagonist/spider/spider = mind.add_antag_datum(/datum/antagonist/spider, spiders)
+	if(spider.spider_team.directive)
+		directive = spider.spider_team.directive
+
 // Allows spiders to take damage slowdown. 2 max, but they don't start moving slower until under 75% health
 /mob/living/simple_animal/hostile/poison/giant_spider/updatehealth()
 	. = ..()
@@ -124,7 +138,7 @@
 	maxHealth = 40
 	health = 40
 	melee_damage = 10
-	poison_per_bite = 3
+	poison_per_bite = 5
 	speed = 1 // A bit faster than midwives
 	var/atom/movable/cocoon_target
 	var/mob/living/simple_animal/hostile/poison/giant_spider/heal_target
@@ -160,7 +174,12 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/AttackingTarget()
 	if(is_busy)
 		return
-	if(!istype(target, /mob/living/simple_animal/hostile/poison/giant_spider))
+	var/mob/target_mob = target
+	if(!istype(target_mob))
+		return ..()
+	var/datum/antagonist/spider/target_spider_antag = target_mob.mind?.has_antag_datum(/datum/antagonist/spider)
+	var/datum/antagonist/spider/spider_antag = mind?.has_antag_datum(/datum/antagonist/spider)
+	if(!istype(target, /mob/living/simple_animal/hostile/poison/giant_spider) || target_spider_antag?.spider_team != spider_antag?.spider_team)
 		return ..()
 	var/mob/living/simple_animal/hostile/poison/giant_spider/hurt_spider = target
 	if(hurt_spider == src)
@@ -185,8 +204,11 @@
 		if(!busy)
 			//first, check for potential food nearby to cocoon
 			for(var/mob/living/C in can_see)
-				if(istype(C, /mob/living/simple_animal/hostile/poison/giant_spider) && C.stat != DEAD && C.health < C.maxHealth)
-					heal_target = C
+				if(istype(C, /mob/living/simple_animal/hostile/poison/giant_spider))
+					var/datum/antagonist/spider/target_spider_antag = C.mind?.has_antag_datum(/datum/antagonist/spider)
+					var/datum/antagonist/spider/spider_antag = mind?.has_antag_datum(/datum/antagonist/spider)
+					if(target_spider_antag?.spider_team == spider_antag?.spider_team)
+						heal_target = C
 				else if(C.stat && !C.anchored)
 					cocoon_target = C
 				if(cocoon_target || heal_target)
@@ -293,6 +315,7 @@
 	health = 80
 	speed = 2
 	web_speed = 0.15 // Easily able to web
+	poison_per_bite = 10 // A lot of poison for defense purposes
 	// Allows the spider to use spider comms
 	var/datum/action/innate/spider/comm/letmetalkpls
 
@@ -313,10 +336,10 @@
 	icon_state = "hunter"
 	icon_living = "hunter"
 	icon_dead = "hunter_dead"
-	maxHealth = 60
-	health = 60
+	maxHealth = 70
+	health = 70
 	melee_damage = 15
-	poison_per_bite = 5
+	poison_per_bite = 8
 	move_to_delay = 3
 	speed = 0
 
@@ -499,7 +522,8 @@
 		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
 			return FALSE
 		var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/S = owner
-		if((S.fed || S.enriched_fed) && (S.directive || !S.ckey))
+		var/datum/antagonist/spider/spider_antag = S.mind?.has_antag_datum(/datum/antagonist/spider)
+		if((S.fed || S.enriched_fed) && (spider_antag?.spider_team.directive || !S.ckey))
 			return TRUE
 		return FALSE
 
@@ -530,9 +554,8 @@
 						spider.enriched_fed--
 					else
 						spider.fed--
-					new_cluster.directive = spider.directive
-					new_cluster.poison_type = spider.poison_type
-					new_cluster.poison_per_bite = spider.poison_per_bite
+					var/datum/antagonist/spider/spider_antag = spider.mind?.has_antag_datum(/datum/antagonist/spider)
+					new_cluster.spider_team = spider_antag?.spider_team
 					new_cluster.faction = spider.faction.Copy()
 					UpdateButtonIcon(TRUE)
 		spider.busy = SPIDER_IDLE
@@ -550,7 +573,8 @@
 		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider))
 			return FALSE
 		var/mob/living/simple_animal/hostile/poison/giant_spider/S = owner
-		if(S.directive)
+		var/datum/antagonist/spider/spider_antag = S.mind?.has_antag_datum(/datum/antagonist/spider)
+		if(spider_antag?.spider_team.directive)
 			return FALSE
 		return TRUE
 
@@ -558,13 +582,16 @@
 	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
 		return
 	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/S = owner
-	if(!S.playable)
-		var/new_directive = stripped_input(S, "Enter the new directive", "Create directive", "[S.directive]")
-		if(new_directive)
-			S.directive = new_directive
-			message_admins("[ADMIN_LOOKUPFLW(owner)] set its directive to: '[S.directive]'.")
-			log_game("[key_name(owner)] set its directive to: '[S.directive]'.")
-			S.lay_eggs.UpdateButtonIcon(TRUE)
+	var/new_directive = stripped_input(S, "Enter the new directive", "Create directive", "[S.directive]")
+	if(new_directive)
+		S.directive = new_directive
+		var/datum/antagonist/spider/spider_antag = S.mind.has_antag_datum(/datum/antagonist/spider)
+		if(!spider_antag)
+			spider_antag = S.mind.add_antag_datum(/datum/antagonist/spider)
+		spider_antag.spider_team.directive = new_directive
+		message_admins("[ADMIN_LOOKUPFLW(owner)] set its directive to: '[S.directive]'.")
+		log_game("[key_name(owner)] set its directive to: '[S.directive]'.")
+		S.lay_eggs.UpdateButtonIcon(TRUE)
 
 // Spider command ability for broodmothers
 /datum/action/innate/spider/comm

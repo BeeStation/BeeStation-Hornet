@@ -53,12 +53,10 @@
 	desc = "They seem to pulse slightly with an inner life."
 	icon_state = "eggs"
 	var/amount_grown = 0
-	var/spawns_remaining = 4
+	var/spawns_remaining = 3
 	var/enriched_spawns = 0
 	// The mother's directive
-	var/directive = ""
-	var/poison_type = /datum/reagent/toxin
-	var/poison_per_bite = 5
+	var/datum/team/spiders/spider_team
 	var/list/faction = list("spiders")
 	// Whether or not a ghost can use the cluster to become a spider.
 	var/ghost_ready = FALSE
@@ -121,6 +119,8 @@
 	// Get what spiders the user can choose, and check to make sure their choice makes sense
 	var/list/to_spawn = list()
 	var/list/spider_list = list()
+	if(!spider_team) // We don't have a team, just make one up
+		spider_team = new()
 	if(enriched_spawns)
 		to_spawn = potential_enriched_spawns
 	else
@@ -143,8 +143,10 @@
 	var/spider_to_spawn = spider_list[chosen_spider]
 	var/mob/living/simple_animal/hostile/poison/giant_spider/new_spider = new spider_to_spawn(get_turf(src))
 	new_spider.faction = faction.Copy()
-	new_spider.directive = directive
 	new_spider.key = user.key
+	new_spider.mind.add_antag_datum(/datum/antagonist/spider, spider_team)
+	var/datum/antagonist/spider/spider_antag = new_spider.mind.has_antag_datum(/datum/antagonist/spider)
+	new_spider.directive = spider_antag.spider_team.directive
 	new_spider.set_playable()
 
 	// Check to see if we need to delete ourselves

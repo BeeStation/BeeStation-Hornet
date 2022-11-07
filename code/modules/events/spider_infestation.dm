@@ -12,6 +12,7 @@
 	fakeable = TRUE
 	minimum_required = 1
 	var/spawncount = 2
+	var/fed = 1
 
 /datum/round_event/ghost_role/spider_infestation/setup()
 	announceWhen = rand(announceWhen, announceWhen + 50)
@@ -41,6 +42,8 @@
 	if(!length(candidates))
 		return NOT_ENOUGH_PLAYERS
 
+	var/datum/team/spiders/spider_team = new()
+	spider_team.directive = "Ensure the survival of your brood and overtake whatever structure you find yourself in."
 	while(spawncount > 0 && length(vents) && length(candidates))
 		var/obj/vent = pick_n_take(vents)
 		var/client/C = pick_n_take(candidates)
@@ -48,8 +51,10 @@
 		var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/spooder = new(vent.loc)
 		spooder.directive = "Ensure the survival of your brood and overtake whatever structure you find yourself in."
 		spooder.key = C.key
-		spooder.enriched_fed++ // Give our spiders some friends to help them get started
-
+		spooder.mind.add_antag_datum(/datum/antagonist/spider, spider_team)
+		if(fed)
+			spooder.enriched_fed++ // Give our spiders some friends to help them get started
+			fed--
 		spawncount--
 		message_admins("[ADMIN_LOOKUPFLW(spooder)] has been made into a spider by an event.")
 		log_game("[key_name(spooder)] was spawned as a spider by an event.")
