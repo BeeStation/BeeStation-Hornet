@@ -55,6 +55,7 @@
 	var/datum/action/innate/spider/lay_web/lay_web // Web action
 	var/web_speed = 1 // How quickly a spider lays down webs (percentage)
 	var/directive = "" // Message passed down to children, to relay the creator's orders
+	var/mob/master // The spider's master, used by sentience
 
 	do_footstep = TRUE
 	discovery_points = 1000
@@ -76,6 +77,10 @@
 		to_chat(src, "<span class='spiderlarge'><b>Directive: [directive]</b></span>")
 		if(mind)
 			mind.store_memory("<span class='spiderlarge'><b>Directive: [directive]</b></span>")
+	if(master)
+		to_chat(src, "<span class='spiderlarge'>Your master is: [master]. Follow their orders when they do not conflict with your directives.")
+		if(mind)
+			mind.store_memory("<span class='spiderlarge'><b>Master: [master]]</b></span>")
 	SSmove_manager.stop_looping(src) // Just in case the AI's doing anything when we give them the mind
 	GLOB.spidermobs[src] = TRUE
 
