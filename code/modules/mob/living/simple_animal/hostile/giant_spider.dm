@@ -98,8 +98,7 @@
 			spiders = team
 			break
 	if(!spiders)
-		spiders = new()
-		spiders.master = user
+		spiders = new(null, user)
 	var/datum/antagonist/spider/spider = mind.add_antag_datum(/datum/antagonist/spider, spiders)
 	if(spider.spider_team.directive)
 		directive = spider.spider_team.directive
@@ -320,7 +319,7 @@
 	health = 80
 	speed = 2
 	web_speed = 0.15 // Easily able to web
-	poison_per_bite = 10 // A lot of poison for defense purposes
+	poison_per_bite = 8 // A lot of poison for defense purposes
 	// Allows the spider to use spider comms
 	var/datum/action/innate/spider/comm/letmetalkpls
 
