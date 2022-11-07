@@ -1,0 +1,4 @@
+author: Loorey
+delete-after: true
+changes:
+  - bugfix: removed unnecesary text macros in strings without interpolation
