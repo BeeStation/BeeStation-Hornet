@@ -1867,7 +1867,7 @@
 		host, upon which, the secondary structures activate and take control \
 		of the host body."
 	color = "#123524" // RGB (18, 53, 36)
-	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN // romerol zombie outbreak from a maint pill? how can this go not fun.
+	chem_flags = CHEMICAL_NOT_SYNTH // romerol zombie outbreak from a maint pill? how can this go not fun.
 	metabolization_rate = INFINITY
 	taste_description = "brains"
 
