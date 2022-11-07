@@ -10,10 +10,11 @@
 	var/list/bears = list() //bear per bears
 
 /datum/xenoartifact_trait/malfunction/bear/activate(obj/item/xenoartifact/X)
-	if(bears.len >= XENOA_MAX_BEARS)
+	if(length(bears) >= XENOA_MAX_BEARS)
 		return
-	var/mob/living/simple_animal/hostile/bear/new_bear = new(get_turf(X.loc))
-	new_bear.name = pick("Freddy", "Bearington", "Smokey", "Beorn", "Pooh", "Paddington", "Winnie", "Baloo", "Rupert", "Yogi", "Fozzie", "Boo") //Why not?
+	var/turf/T = get_turf(X)
+	var/mob/living/simple_animal/hostile/bear/new_bear = new(T)
+	new_bear.name = pick("Freddy", "Bearington", "Smokey", "Beorn", "Pooh", "Winnie", "Baloo", "Rupert", "Yogi", "Fozzie", "Boo") //Why not?
 	bears += new_bear
 	RegisterSignal(new_bear, COMSIG_MOB_DEATH, .proc/handle_death)
 	log_game("[X] spawned a (/mob/living/simple_animal/hostile/bear) at [world.time]. [X] located at [AREACOORD(X)]")
@@ -161,7 +162,7 @@
 
 /datum/xenoartifact_trait/malfunction/twin/activate(obj/item/xenoartifact/X, mob/living/target, atom/user, setup)
 	//Stop artifact making one morbillion clones
-	if(clones.len >= XENOA_MAX_CLONES)
+	if(length(clones) >= XENOA_MAX_CLONES)
 		return
 	//Twin setup
 	var/mob/living/simple_animal/hostile/twin/T = new(get_turf(X))
