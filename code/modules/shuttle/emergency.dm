@@ -420,12 +420,11 @@
 		if(isbrain(player)) //also technically dead
 			continue
 		if(shuttle_areas[get_area(player)])
-			//Non-xeno present. Can't hijack.
-			if(!istype(player, /mob/living/carbon/alien))
-				return FALSE
-			has_xenos = TRUE
+			if(istype(player, /mob/living/carbon/alien))
+				has_xenos = TRUE
+				break
 
-	return has_xenos
+	return has_xenos && SSshuttle.emergency.is_hijacked()
 
 /obj/docking_port/mobile/emergency/proc/is_hijacked()
 	return hijack_status == HIJACKED
