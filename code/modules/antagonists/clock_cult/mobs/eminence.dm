@@ -1,5 +1,5 @@
 /mob/living/simple_animal/eminence
-	name = "\the Eminence"
+	name = "the Eminence"
 	desc = "A glowing ball of light."
 	icon = 'icons/effects/clockwork_effects.dmi'
 	icon_state = "eminence"
