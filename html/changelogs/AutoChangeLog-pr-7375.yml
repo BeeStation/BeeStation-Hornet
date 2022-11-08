@@ -1,0 +1,6 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - rscadd: Changed radically flandstation, the whole map is radically different now
+  - rscadd: New area defining drydocks.
+  - imageadd: added holoshutters icons
