@@ -421,7 +421,7 @@
 ///Used for ghost command
 /datum/xenoartifact_trait/minor/haunted/proc/activate_parent(obj/item/xenoartifact/ref)
 	//Get a target to style on
-	ref.true_target = list(ref.get_target_in_proximity(min(ref.max_range+1, 5)))
+	ref.true_target = ref.get_target_in_proximity(min(ref.max_range+1, 5))
 	if(ref.true_target.len)
 		ref.check_charge(ref.true_target[1])
 

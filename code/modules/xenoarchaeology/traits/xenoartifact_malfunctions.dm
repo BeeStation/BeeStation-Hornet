@@ -7,20 +7,22 @@
 	label_desc = "Parallel Bearspace Retrieval: A strange malfunction causes the Artifact to open a gateway to deep bearspace."
 	weight = 15
 	flags = URANIUM_TRAIT
-	var/bears //bear per bears
+	var/list/bears = list() //bear per bears
 
 /datum/xenoartifact_trait/malfunction/bear/activate(obj/item/xenoartifact/X)
-	if(bears < XENOA_MAX_BEARS)
-		bears++
-		var/mob/living/simple_animal/hostile/bear/new_bear = new(get_turf(X.loc))
-		new_bear.name = pick("Freddy", "Bearington", "Smokey", "Beorn", "Pooh", "Paddington", "Winnie", "Baloo", "Rupert", "Yogi", "Fozzie", "Boo") //Why not?
-		log_game("[X] spawned a (/mob/living/simple_animal/hostile/bear) at [world.time]. [X] located at [AREACOORD(X)]")
-	else
-		X.visible_message("<span class='danger'>The [X.name] shatters as bearspace collapses! Too many bears!</span>")
-		var/obj/effect/decal/cleanable/ash/A = new(get_turf(X))
-		A.color = X.material
-		qdel(X)
+	if(length(bears) >= XENOA_MAX_BEARS)
+		return
+	var/turf/T = get_turf(X)
+	var/mob/living/simple_animal/hostile/bear/new_bear = new(T)
+	new_bear.name = pick("Freddy", "Bearington", "Smokey", "Beorn", "Pooh", "Winnie", "Baloo", "Rupert", "Yogi", "Fozzie", "Boo") //Why not?
+	bears += new_bear
+	RegisterSignal(new_bear, COMSIG_MOB_DEATH, .proc/handle_death)
+	log_game("[X] spawned a (/mob/living/simple_animal/hostile/bear) at [world.time]. [X] located at [AREACOORD(X)]")
 	X.cooldown += 20 SECONDS
+
+/datum/xenoartifact_trait/malfunction/bear/proc/handle_death(datum/source)
+	bears -= source
+	UnregisterSignal(source, COMSIG_MOB_DEATH)
 
 //============
 // Badtarget, changes target to user
@@ -156,8 +158,13 @@
 	label_name = "Anti-Cloning"
 	label_desc = "Anti-Cloning: The Artifact produces an arguably maleviolent clone of target."
 	flags = BLUESPACE_TRAIT | URANIUM_TRAIT | PLASMA_TRAIT
+	var/list/clones = list()
 
 /datum/xenoartifact_trait/malfunction/twin/activate(obj/item/xenoartifact/X, mob/living/target, atom/user, setup)
+	//Stop artifact making one morbillion clones
+	if(length(clones) >= XENOA_MAX_CLONES)
+		return
+	//Twin setup
 	var/mob/living/simple_animal/hostile/twin/T = new(get_turf(X))
 	//Setup appearence for evil twin
 	T.name = target.name
@@ -168,6 +175,13 @@
 	T.pixel_y = initial(T.pixel_y)
 	T.pixel_x = initial(T.pixel_x)
 	T.color = COLOR_BLUE
+	//Handle limit and hardel
+	clones += T
+	RegisterSignal(T, COMSIG_PARENT_QDELETING, .proc/handle_death)
+
+/datum/xenoartifact_trait/malfunction/twin/proc/handle_death(datum/source)
+	clones -= source
+	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 
 /mob/living/simple_animal/hostile/twin
 	name = "evil twin"
@@ -199,6 +213,7 @@
 /datum/xenoartifact_trait/malfunction/explode
 	label_name = "Delaminating"
 	label_desc = "Delaminating: The Artifact violently collapses, exploding."
+	flags = URANIUM_TRAIT
 
 /datum/xenoartifact_trait/malfunction/explode/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
 	. = ..()
