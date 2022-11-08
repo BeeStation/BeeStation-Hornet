@@ -411,20 +411,16 @@
 	return has_people && ((hijacker_count == 1) || (hijacker_count && !solo_hijack))
 
 /obj/docking_port/mobile/emergency/proc/is_hijacked_by_xenos()
-	var/has_xenos = FALSE
+	var/living_xenos = 0
+	var/has_queen = FALSE
 	for(var/mob/living/player in GLOB.alive_mob_list)
-		if(issilicon(player)) //Borgs are technically dead anyways
-			continue
-		if(isanimal(player)) //animals don't count
-			continue
-		if(isbrain(player)) //also technically dead
-			continue
 		if(shuttle_areas[get_area(player)])
-			if(istype(player, /mob/living/carbon/alien))
-				has_xenos = TRUE
-				break
+			if(istype(player, /mob/living/carbon/alien) && player.stat != DEAD)
+				living_xenos++
+			if(istype(player, /mob/living/carbon/alien/humanoid/royal/queen) && player.stat != DEAD)
+				has_queen = TRUE
 
-	return has_xenos && SSshuttle.emergency.is_hijacked()
+	return (has_queen || (living_xenos > 2)) && SSshuttle.emergency.is_hijacked()
 
 /obj/docking_port/mobile/emergency/proc/is_hijacked()
 	return hijack_status == HIJACKED
