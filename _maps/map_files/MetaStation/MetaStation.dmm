@@ -36222,7 +36222,7 @@
 	dir = 6;
 	layer = 3.2
 	},
-/obj/effect/turf_decal/trimline/darkblue/filled/line{
+/obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 9
 	},
 /turf/open/floor/plasteel/dark,
@@ -36252,14 +36252,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/effect/turf_decal/trimline/darkblue/filled/line{
+/obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/server)
 "cti" = (
 /obj/machinery/computer/rdservercontrol,
-/obj/effect/turf_decal/trimline/darkblue/filled/line{
+/obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
@@ -36274,7 +36274,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/turf_decal/trimline/darkblue/filled/line{
+/obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
@@ -36505,7 +36505,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/effect/turf_decal/trimline/darkblue/filled/corner,
+/obj/effect/turf_decal/trimline/dark_blue/filled/corner,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 26;
 	pixel_y = -32
@@ -36522,7 +36522,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/effect/turf_decal/trimline/darkblue/filled/line,
+/obj/effect/turf_decal/trimline/dark_blue/filled/line,
 /turf/open/floor/plasteel/dark,
 /area/science/server)
 "ctZ" = (
@@ -36533,14 +36533,14 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/effect/turf_decal/trimline/darkblue/filled/line,
+/obj/effect/turf_decal/trimline/dark_blue/filled/line,
 /turf/open/floor/plasteel/dark,
 /area/science/server)
 "cua" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/obj/effect/turf_decal/trimline/darkblue/filled/line,
+/obj/effect/turf_decal/trimline/dark_blue/filled/line,
 /turf/open/floor/plasteel/dark,
 /area/science/server)
 "cue" = (
@@ -36936,7 +36936,7 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
 	},
-/obj/effect/turf_decal/trimline/darkblue/filled/warning{
+/obj/effect/turf_decal/trimline/dark_blue/filled/warning{
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
@@ -37330,7 +37330,7 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 6
 	},
-/obj/effect/turf_decal/trimline/darkblue/filled/line{
+/obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
@@ -37716,13 +37716,13 @@
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on{
 	dir = 1
 	},
-/obj/effect/turf_decal/trimline/darkblue/filled/line{
+/obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 10
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/server)
 "cwW" = (
-/obj/effect/turf_decal/trimline/darkblue/filled/line{
+/obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 6
 	},
 /turf/open/floor/plasteel/dark,
@@ -49187,7 +49187,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "fkC" = (
-/obj/effect/turf_decal/trimline/darkblue/filled/warning{
+/obj/effect/turf_decal/trimline/dark_blue/filled/warning{
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
@@ -57550,7 +57550,7 @@
 /turf/open/floor/plasteel,
 /area/gateway)
 "jUn" = (
-/obj/effect/turf_decal/trimline/darkblue/filled/line{
+/obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
@@ -58591,7 +58591,7 @@
 /obj/machinery/light_switch{
 	pixel_x = 23
 	},
-/obj/effect/turf_decal/trimline/darkblue/filled/line{
+/obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 5
 	},
 /obj/machinery/camera{
@@ -59923,7 +59923,7 @@
 	dir = 1
 	},
 /obj/structure/reagent_dispensers/water_cooler,
-/obj/effect/turf_decal/trimline/darkblue/filled/line{
+/obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
@@ -64356,7 +64356,7 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "nEb" = (
-/obj/effect/turf_decal/trimline/darkblue/filled/line{
+/obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
@@ -72460,7 +72460,7 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 9
 	},
-/obj/effect/turf_decal/trimline/darkblue/filled/line{
+/obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
@@ -76806,7 +76806,7 @@
 /obj/item/radio/intercom{
 	pixel_x = 29
 	},
-/obj/effect/turf_decal/trimline/darkblue/filled/line{
+/obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 6
 	},
 /turf/open/floor/plasteel/dark,
@@ -76859,16 +76859,16 @@
 	name = "Euthanization Chamber";
 	req_access_txt = "55"
 	},
-/obj/effect/turf_decal/tile/darkblue{
+/obj/effect/turf_decal/tile/dark_blue{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/darkblue{
+/obj/effect/turf_decal/tile/dark_blue{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/darkblue{
+/obj/effect/turf_decal/tile/dark_blue{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/darkblue,
+/obj/effect/turf_decal/tile/dark_blue,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/science/xenobiology)
 "uxg" = (
