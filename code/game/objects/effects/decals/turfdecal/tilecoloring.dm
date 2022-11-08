@@ -135,6 +135,49 @@
 	icon_state = "diagonal_edge"
 	name = "dark blue diagonal edge"
 
+
+// Black tiles
+
+/obj/effect/turf_decal/tile/black
+	name = "black corner"
+	color = "#000000"
+
+/obj/effect/turf_decal/tile/black/opposingcorners
+	icon_state = "tile_opposing_corners"
+	name = "opposing black corners"
+
+/obj/effect/turf_decal/tile/black/half
+	icon_state = "tile_half"
+	name = "black half"
+
+/obj/effect/turf_decal/tile/black/half/contrasted
+	icon_state = "tile_half_contrasted"
+	name = "contrasted black half"
+
+/obj/effect/turf_decal/tile/black/anticorner
+	icon_state = "tile_anticorner"
+	name = "black anticorner"
+
+/obj/effect/turf_decal/tile/black/anticorner/contrasted
+	icon_state = "tile_anticorner_contrasted"
+	name = "contrasted black anticorner"
+
+/obj/effect/turf_decal/tile/black/fourcorners/contrasted
+	icon_state = "tile_fourcorners_contrasted"
+	name = "black fourcorners"
+
+/obj/effect/turf_decal/tile/black/fourcorners
+	icon_state = "tile_fourcorners"
+	name = "black full"
+
+/obj/effect/turf_decal/tile/black/diagonal_centre
+	icon_state = "diagonal_centre"
+	name = "black diagonal centre"
+
+/obj/effect/turf_decal/tile/black/diagonal_edge
+	icon_state = "diagonal_edge"
+	name = "black diagonal edge"
+
 /// Green tiles
 
 /obj/effect/turf_decal/tile/green
@@ -1286,4 +1329,61 @@
 	icon_state = "trimline_shrink_cw"
 
 /obj/effect/turf_decal/trimline/dark/filled/shrink_ccw
+	icon_state = "trimline_shrink_ccw"
+
+/// Black trimlines
+
+/obj/effect/turf_decal/trimline/black
+	color = "#000000"
+
+/obj/effect/turf_decal/trimline/black/line
+	name = "trim decal"
+	icon_state = "trimline"
+
+/obj/effect/turf_decal/trimline/black/corner
+	icon_state = "trimline_corner"
+
+/obj/effect/turf_decal/trimline/black/end
+	icon_state = "trimline_end"
+
+/obj/effect/turf_decal/trimline/black/arrow_cw
+	icon_state = "trimline_arrow_cw"
+
+/obj/effect/turf_decal/trimline/black/arrow_ccw
+	icon_state = "trimline_arrow_ccw"
+
+/obj/effect/turf_decal/trimline/black/warning
+	icon_state = "trimline_warn"
+
+/obj/effect/turf_decal/trimline/black/mid_joiner
+	icon_state = "trimline_mid"
+
+/obj/effect/turf_decal/trimline/black/filled
+	icon_state = "trimline_box_fill"
+
+/obj/effect/turf_decal/trimline/black/filled/line
+	icon_state = "trimline_fill"
+
+/obj/effect/turf_decal/trimline/black/filled/corner
+	icon_state = "trimline_corner_fill"
+
+/obj/effect/turf_decal/trimline/black/filled/end
+	icon_state = "trimline_end_fill"
+
+/obj/effect/turf_decal/trimline/black/filled/arrow_cw
+	icon_state = "trimline_arrow_cw_fill"
+
+/obj/effect/turf_decal/trimline/black/filled/arrow_ccw
+	icon_state = "trimline_arrow_ccw_fill"
+
+/obj/effect/turf_decal/trimline/black/filled/warning
+	icon_state = "trimline_warn_fill"
+
+/obj/effect/turf_decal/trimline/black/filled/mid_joiner
+	icon_state = "trimline_mid_fill"
+
+/obj/effect/turf_decal/trimline/black/filled/shrink_cw
+	icon_state = "trimline_shrink_cw"
+
+/obj/effect/turf_decal/trimline/black/filled/shrink_ccw
 	icon_state = "trimline_shrink_ccw"
