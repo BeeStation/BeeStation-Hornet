@@ -1,27 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/suit/jacket{
-	desc = "All the class of a trenchcoat without the security fibers.";
-	icon_state = "greydet";
-	name = "trenchcoat"
-	},
-/obj/item/clothing/suit/jacket{
-	desc = "All the class of a trenchcoat without the security fibers.";
-	icon_state = "detective";
-	name = "trenchcoat"
-	},
-/obj/item/clothing/head/fedora,
-/obj/item/clothing/head/fedora{
-	icon_state = "detective"
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
 "b" = (
 /turf/open/floor/wood,
 /area/template_noop)
@@ -38,32 +15,6 @@
 	icon_state = "wood-broken6"
 	},
 /area/template_noop)
-"d" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/structure/frame/computer{
-	anchored = 1;
-	dir = 4;
-	icon_state = "0"
-	},
-/obj/effect/turf_decal/bot_white,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
-"e" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot_white,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
 "f" = (
 /obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/wood,
@@ -74,24 +25,6 @@
 	},
 /obj/effect/trap/nexus/trickyspawner/shitsec,
 /turf/open/floor/carpet/green,
-/area/template_noop)
-"h" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/structure/frame/computer{
-	anchored = 1;
-	dir = 4;
-	icon_state = "0"
-	},
-/obj/effect/turf_decal/bot_white,
-/obj/structure/noticeboard{
-	dir = 4;
-	pixel_x = -27
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
 /area/template_noop)
 "i" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -108,10 +41,86 @@
 	},
 /turf/open/floor/carpet/green,
 /area/template_noop)
-"k" = (
-/obj/effect/turf_decal/tile/neutral{
+"l" = (
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/spawner/lootdrop/trap,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"u" = (
+/obj/structure/closet/secure_closet/personal/cabinet,
+/obj/item/clothing/suit/jacket{
+	desc = "All the class of a trenchcoat without the security fibers.";
+	icon_state = "greydet";
+	name = "trenchcoat"
+	},
+/obj/item/clothing/suit/jacket{
+	desc = "All the class of a trenchcoat without the security fibers.";
+	icon_state = "detective";
+	name = "trenchcoat"
+	},
+/obj/item/clothing/head/fedora,
+/obj/item/clothing/head/fedora{
+	icon_state = "detective"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"x" = (
+/obj/structure/filingcabinet,
+/obj/effect/turf_decal/bot_white,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"H" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"T" = (
+/obj/structure/frame/computer{
+	anchored = 1;
+	dir = 4;
+	icon_state = "0"
+	},
+/obj/effect/turf_decal/bot_white,
+/obj/structure/noticeboard{
+	dir = 4;
+	pixel_x = -27
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"X" = (
+/obj/structure/frame/computer{
+	anchored = 1;
+	dir = 4;
+	icon_state = "0"
+	},
+/obj/effect/turf_decal/bot_white,
+/obj/machinery/newscaster{
+	pixel_x = -30
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"Y" = (
+/obj/effect/turf_decal/bot_white,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"Z" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/evidence{
 	pixel_y = 4
@@ -122,57 +131,30 @@
 	},
 /obj/item/grenade/flashbang,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
-"l" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/spawner/lootdrop/trap,
-/turf/open/floor/carpet/green,
-/area/template_noop)
-"m" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/structure/filingcabinet,
-/obj/effect/turf_decal/bot_white,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
-"n" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 
 (1,1,1) = {"
-a
-d
-e
-h
-k
+u
+X
+Y
+T
+Z
 "}
 (2,1,1) = {"
 f
 b
 g
 i
-n
+H
 "}
 (3,1,1) = {"
 c
 b
 l
 j
-m
+x
 "}
