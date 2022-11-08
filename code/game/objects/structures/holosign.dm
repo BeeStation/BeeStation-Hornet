@@ -96,6 +96,13 @@
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_LIGHT_INSULATION
 
+/obj/structure/holosign/barrier/atmos/robust
+	name = "holo blast door"
+	desc = "A really robust holographic barrier resembling a blast door. Though it does not prevent solid objects from passing through, gas is kept out."
+	icon_state = "holo_blastlock"
+	max_integrity = 500
+
+
 /obj/structure/holosign/barrier/atmos/Initialize(mapload)
 	. = ..()
 	var/turf/local = get_turf(loc)
