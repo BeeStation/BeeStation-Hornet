@@ -12,7 +12,6 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/xeno = 20, /obj/item/stack/sheet/animalhide/xeno = 3)
 
 	var/alt_inhands_file = 'icons/mob/alienqueen.dmi'
-	var/game_end_timer
 
 /mob/living/carbon/alien/humanoid/royal/can_inject()
 	return FALSE
@@ -42,8 +41,6 @@
 	var/datum/action/small_sprite/smallsprite = new/datum/action/small_sprite/queen()
 
 /mob/living/carbon/alien/humanoid/royal/queen/Initialize(mapload)
-	RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, .proc/check_hostile)
-	check_hostile() //still need to call this
 	//there should only be one queen
 	for(var/mob/living/carbon/alien/humanoid/royal/queen/Q in GLOB.carbon_list)
 		if(Q == src)
@@ -67,42 +64,6 @@
 	internal_organs += new /obj/item/organ/alien/acid
 	internal_organs += new /obj/item/organ/alien/neurotoxin
 	internal_organs += new /obj/item/organ/alien/eggsac
-	..()
-
-/mob/living/carbon/alien/humanoid/royal/queen/proc/check_hostile()
-	SIGNAL_HANDLER
-	if(is_station_level(src.z)) //we don't want the hostile environment if the xenos aren't actually on station
-		SSshuttle.registerHostileEnvironment(src) //aliens delay shuttle
-		if(game_end_timer)	//clear the timer if it exists
-			deltimer(game_end_timer)
-		game_end_timer = addtimer(CALLBACK(src, .proc/game_end), 30 MINUTES, TIMER_STOPPABLE) //time until shuttle is freed/called
-		return
-	if(src in SSshuttle.hostileEnvironments)
-		SSshuttle.clearHostileEnvironment(src) //left the z level, no longer matters
-
-/mob/living/carbon/alien/humanoid/royal/queen/proc/game_end()
-	var/turf/T = get_turf(src)
-	if(stat != DEAD && is_station_level(T.z))
-		SSshuttle.clearHostileEnvironment(src)
-		if(EMERGENCY_IDLE_OR_RECALLED)
-			priority_announce("Xenomorph infestation detected: crisis shuttle protocols activated - jamming recall signals across all frequencies.", SSstation.announcer.get_rand_alert_sound())
-			SSshuttle.emergency.request(null, set_coefficient=0.5)
-			SSshuttle.emergencyNoRecall = TRUE
-			UnregisterSignal(src, COMSIG_MOVABLE_Z_CHANGED) // we don't care anymore
-
-/mob/living/carbon/alien/humanoid/royal/queen/death() //dead queen doesnt stop shuttle
-	UnregisterSignal(src, COMSIG_MOVABLE_Z_CHANGED)
-	SSshuttle.clearHostileEnvironment(src)
-	..()
-
-/mob/living/carbon/alien/humanoid/royal/queen/revive(full_heal = 0, admin_revive = 0)
-	if(..())
-		RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, .proc/check_hostile)
-		check_hostile()
-
-/mob/living/carbon/alien/humanoid/royal/queen/Destroy()
-	UnregisterSignal(src, COMSIG_MOVABLE_Z_CHANGED)
-	SSshuttle.clearHostileEnvironment(src)
 	..()
 
 //Queen verbs
