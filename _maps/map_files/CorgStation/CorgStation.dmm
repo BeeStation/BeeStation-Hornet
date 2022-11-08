@@ -5821,7 +5821,7 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "bFR" = (
 /obj/machinery/light/small{
@@ -8678,8 +8678,7 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/white,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "cHq" = (
 /obj/structure/table/reinforced,
@@ -9243,7 +9242,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "cSR" = (
 /obj/structure/cable/yellow{
@@ -9927,8 +9926,7 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/white,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "dfb" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -10669,7 +10667,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "doY" = (
 /obj/machinery/door/window/southleft{
@@ -19916,8 +19914,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/effect/turf_decal/tile/white/fourcorners/contrasted,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "gyf" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -24193,8 +24190,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/white/half/contrasted,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "hUp" = (
 /obj/effect/turf_decal/stripes/line{
@@ -25536,10 +25532,7 @@
 	pixel_y = 4
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
-/obj/effect/turf_decal/tile/white/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "ipz" = (
 /obj/machinery/light,
@@ -26681,10 +26674,7 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/white{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "iIy" = (
 /obj/effect/turf_decal/tile/yellow,
@@ -28114,10 +28104,7 @@
 "jiR" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
-/obj/effect/turf_decal/tile/white{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "jiV" = (
 /obj/effect/turf_decal/stripes/line{
@@ -30383,8 +30370,7 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/white,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "jXm" = (
 /obj/structure/cable/yellow{
@@ -30869,10 +30855,7 @@
 	req_access_txt = "5"
 	},
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
-/obj/effect/turf_decal/tile/white{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "kgL" = (
 /obj/effect/turf_decal/stripes/line,
@@ -31572,10 +31555,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/white/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "ksW" = (
 /obj/machinery/atmospherics/pipe/manifold/yellow/visible{
@@ -33170,8 +33150,7 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/white,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "kVl" = (
 /turf/closed/wall,
@@ -38103,8 +38082,7 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/white,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "muO" = (
 /obj/structure/closet/secure_closet/brig,
@@ -41997,8 +41975,7 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/white,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "nMg" = (
 /obj/machinery/button/ignition{
@@ -44004,8 +43981,7 @@
 /area/engine/atmos)
 "ouS" = (
 /obj/machinery/holopad,
-/obj/effect/turf_decal/tile/white/fourcorners/contrasted,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "ouW" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
@@ -44287,10 +44263,7 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/white{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "oze" = (
 /obj/effect/turf_decal/stripes/line{
@@ -44805,8 +44778,7 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/white,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "oGY" = (
 /obj/structure/lattice/catwalk,
@@ -46016,10 +45988,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
-/obj/effect/turf_decal/tile/white{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "pga" = (
 /turf/closed/wall/r_wall,
@@ -47447,7 +47416,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "pFf" = (
 /obj/structure/cable/yellow{
@@ -50925,8 +50894,7 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/white,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "qKs" = (
 /obj/effect/turf_decal/stripes/line,
@@ -52466,8 +52434,7 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/white/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "rkP" = (
 /obj/structure/chair/office{
@@ -53995,10 +53962,7 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/white{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "rLT" = (
 /obj/structure/cable/yellow{
@@ -56026,10 +55990,7 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
-/obj/effect/turf_decal/tile/white{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "stg" = (
 /obj/effect/turf_decal/stripes/line{
@@ -56844,7 +56805,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "sJj" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -57332,7 +57293,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "sRw" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -61896,13 +61857,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/effect/turf_decal/tile/white/half/contrasted{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "uwe" = (
 /obj/machinery/camera/autoname{
@@ -62178,10 +62136,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
-/obj/effect/turf_decal/tile/white/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "uAy" = (
 /obj/machinery/telecomms/server/presets/exploration,
@@ -63367,10 +63322,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
-/obj/effect/turf_decal/tile/white{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "uTo" = (
 /obj/structure/window/reinforced/spawner,
@@ -63574,10 +63526,7 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/white{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "uWc" = (
 /obj/machinery/modular_computer/console/preset/civilian{
@@ -64085,8 +64034,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/white/half/contrasted,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "vft" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
@@ -66266,8 +66214,7 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/white/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "vNh" = (
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
@@ -71888,10 +71835,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
-/obj/effect/turf_decal/tile/white{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "xJH" = (
 /obj/structure/chair{
@@ -73204,7 +73148,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "yfC" = (
 /turf/open/floor/circuit/green,
