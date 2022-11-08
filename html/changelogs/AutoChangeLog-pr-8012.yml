@@ -1,0 +1,7 @@
+author: DrDuckedGoose
+delete-after: true
+changes:
+  - bugfix: Fix flammable trait not activating
+  - bugfix: Fix haunted activation.
+  - bugfix: Fix blacklisting on explosive malfunction
+  - tweak: Add limit to clone & bear malfunction.
