@@ -205,16 +205,6 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"K" = (
-/obj/structure/table,
-/obj/item/clothing/under/costume/maid,
-/obj/item/grenade/chem_grenade/cleaner,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/template_noop)
 "L" = (
 /obj/item/coin/silver,
 /obj/effect/decal/cleanable/oil{
@@ -298,6 +288,13 @@
 	pixel_x = 11
 	},
 /obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"Y" = (
+/obj/structure/table,
+/obj/item/clothing/under/costume/maid,
+/obj/item/grenade/chem_grenade/cleaner,
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plating,
 /area/template_noop)
 
@@ -417,7 +414,7 @@ d
 d
 D
 c
-K
+Y
 P
 V
 "}

@@ -56,6 +56,78 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">09 November 2022</h2>
+			<h3 class="author">benbot16 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Slimes can now use custom emotes.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">All mapping tile decals have been aggregated into single effects instead of using individual corners.</li>
+				<li class="rscadd">Added additional trimlines and tile decals for use in mapping.</li>
+				<li class="bugfix">Fixed CorgStation CMO office using the wrong flooring type.</li>
+			</ul>
+
+			<h2 class="date">08 November 2022</h2>
+			<h3 class="author">DrDuckedGoose updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fix flammable trait not activating</li>
+				<li class="bugfix">Fix haunted activation.</li>
+				<li class="bugfix">Fix blacklisting on explosive malfunction</li>
+				<li class="tweak">Add limit to clone & bear malfunction.</li>
+			</ul>
+			<h3 class="author">PestoVerde322 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Changed radically flandstation, the whole map is radically different now</li>
+				<li class="rscadd">New area defining drydocks.</li>
+				<li class="imageadd">added holoshutters icons</li>
+			</ul>
+
+			<h2 class="date">07 November 2022</h2>
+			<h3 class="author">Loorey updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">removed unnecesary text macros in strings without interpolation</li>
+			</ul>
+
+			<h2 class="date">06 November 2022</h2>
+			<h3 class="author">Archanial updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed null reference when spraying</li>
+				<li class="bugfix">fixed possible null reference when release mob from holder</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">compression box no longer keeps you slowdown when you remove those in specific situations (put it into safe, fold, etc)</li>
+				<li class="bugfix">Captain's comp box is now properly named</li>
+				<li class="bugfix">encryption keys no longer say "This is nothing special. ask coder!" description even if it is special</li>
+			</ul>
+			<h3 class="author">Pigeonverde322, Dwasint updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a brand new Particle system, the Particool from Monkestation</li>
+				<li class="rscadd">Added a particle editor and a particle loader system</li>
+				<li class="rscadd">Added the particles to the Bonfire and flares</li>
+				<li class="code_imp">increased the size for the tgui error maximum line length</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Fire extinguisher propel speed on secways has been significantly decreased.</li>
+				<li class="balance">Fire extinguisher propel speed on office chairs and other movables has been decreased.</li>
+				<li class="bugfix">Fixes fire extinguisher propel speed not slowing down over time.</li>
+			</ul>
+			<h3 class="author">benbot16 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Brain surgery is now repeatable.</li>
+				<li class="balance">Brain death can now be repaired with mannitol/surgery without needing revival surgery.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed newscasters not updating UI when a channel is created.</li>
+				<li class="bugfix">Fixed pAIs being unable to use their newscaster.</li>
+				<li class="tweak">All silicon picture selections now use a TGUI menu with image previews and descriptions instead of a list of image names.</li>
+				<li class="bugfix">Fixed an exploit allowing you to submit a wanted issue without permission.</li>
+				<li class="bugfix">Fixed submitting a picture to sec records being super broken.</li>
+			</ul>
+
 			<h2 class="date">04 November 2022</h2>
 			<h3 class="author">itsmeow updated:</h3>
 			<ul class="changes bgimages16">
@@ -1183,72 +1255,6 @@
 			<h3 class="author">etherware-novice updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="admin">make pai button</li>
-			</ul>
-
-			<h2 class="date">07 September 2022</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added the Magic Eightball to the BeeCoin store</li>
-			</ul>
-			<h3 class="author">ike709 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="server">Fixed atmos performance problems on linux servers</li>
-			</ul>
-
-			<h2 class="date">06 September 2022</h2>
-			<h3 class="author">PestoVerde322, PacifistDalek updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="imageadd">updates the turbine sprites and overlays</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Restoring an AI through the modular computer app now properly informs their ghost.</li>
-				<li class="bugfix">If you wrench an emitter or shuttle engine before adding the board to the machine frame, it now lets you weld the frame as expected.</li>
-				<li class="bugfix">Verbs with ! in the name have had it removed, and can now be run from TGUI chat (Server Hop)</li>
-				<li class="code_imp">Added a linter check for to prevent verbs with ! in the name</li>
-				<li class="code_imp">Improved clarity of check_grep</li>
-			</ul>
-
-			<h2 class="date">05 September 2022</h2>
-			<h3 class="author">etherware-novice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">pai cards chime when new personalities are submitted</li>
-			</ul>
-
-			<h2 class="date">04 September 2022</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added a new mind trait for the medical staff</li>
-				<li class="tweak">Tweaked the Doctor's Delight to not drain hunger from all medical staff</li>
-			</ul>
-			<h3 class="author">Dejaku51, Kylerace, LemonInTheDark updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="refactor">Optimized icon2html code</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">agent card 'forge' option shows a hud/card style menu so that you don't still have syndicate hud accidentally.</li>
-				<li class="code_imp">adjusted some code that doesn't use job-defines to use job-defines, and adjusted its incorrect code indentation.</li>
-			</ul>
-			<h3 class="author">Hardly updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Abductees no longer get random deep rooted traumas</li>
-			</ul>
-			<h3 class="author">LemonLimeSoda updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">added a new midround event with the same weight as xenos and blobs: spontaneous zombie infection</li>
-				<li class="tweak">changed the wizard blob zombies event's name to avoid confusion</li>
-			</ul>
-			<h3 class="author">Penwin0 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Bulldog shotguns have in hand sprites again</li>
-			</ul>
-			<h3 class="author">etherware-novice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Heads and QM get spare radio key boxes</li>
-				<li class="rscadd">Clown has ordered some fake encryption keys for their pranks</li>
-				<li class="rscadd">Added the bluespace light replacer</li>
-				<li class="tweak">Moved the standard light replacer to a round-start item</li>
 			</ul>
 		</div>
 
