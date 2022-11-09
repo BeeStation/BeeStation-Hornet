@@ -1,7 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - refactor: All mapping tile decals have been aggregated into single effects instead
-      of using individual corners.
-  - rscadd: Added additional trimlines and tile decals for use in mapping.
-  - bugfix: Fixed CorgStation CMO office using the wrong flooring type.
