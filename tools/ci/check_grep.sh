@@ -49,7 +49,7 @@ if grep -P '\td[1-2] =' _maps/**/*.dmm;    then
     st=1
 fi;
 echo -e "${BLUE}Checking for stacked cables...${NC}"
-if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/lattice[/\w,\n]*?[^)]*?\n?/obj/structure/lattice[/\w,\n]*?[^)]*?\n?/area/.+?\)' _maps/**/*.dmm;	then
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/lattice[/\w,\n]*?[^)]*?\n/obj/structure/lattice[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found multiple lattices on the same tile, please remove them.${NC}"
     st=1
@@ -69,12 +69,12 @@ if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/chair(?<type>[/\w]*),\n[^)]*?/obj
     echo -e "${RED}ERROR: Found multiple identical chairs on the same tile, please remove them.${NC}"
     st=1
 fi;
-if grep -Pzo '"\w+" = \(\n[^)]*?/obj/machinery/door/airlock[/\w,\n]*?[^)]*?\n?/obj/machinery/door/airlock[/\w,\n]*?[^)]*?\n?/area/.+\)' _maps/**/*.dmm;	then
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/machinery/door/airlock[/\w,\n]*?[^)]*?\n/obj/machinery/door/airlock[/\w,\n]*?[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found multiple airlocks on the same tile, please remove them.${NC}"
     st=1
 fi;
-if grep -Pzo '"\w+" = \(\n[^)]*?/obj/machinery/door/firedoor[/\w,\n]*?[^)]*?\n?/obj/machinery/door/firedoor[/\w,\n]*?[^)]*?\n?/area/.+\)' _maps/**/*.dmm;	then
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/machinery/door/firedoor[/\w,\n]*?[^)]*?\n/obj/machinery/door/firedoor[/\w,\n]*?[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found multiple firelocks on the same tile, please remove them.${NC}"
     st=1
@@ -129,7 +129,7 @@ if grep -P 'set name\s*=\s*"[\S\s]*![\S\s]*"' code/**/*.dm; then
     echo -e "${RED}ERROR: Verb with name containing an exclamation point found. These verbs are not compatible with TGUI chat's statpanel or chat box.${NC}"
     st=1
 fi;
-if grep -Pzo '"\w+" = \(\n[^)]*?/turf/[/\w,\n]*?[^)]*?\n?/turf/[/\w,\n]*?[^)]*?\n?/area/.+?\)' _maps/**/*.dmm; then
+if grep -Pzo '"\w+" = \(\n[^)]*?/turf/[/\w,\n]*?[^)]*?\n/turf/[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm; then
 	echo
     echo -e "${RED}ERROR: Multiple turfs detected on the same tile! Please choose only one turf!${NC}"
     st=1
@@ -139,27 +139,27 @@ if grep -Pzo '"\w+" = \(\n[^)]*?/area/.+?,\n[^)]*?/area/.+?\)' _maps/**/*.dmm; t
     echo -e "${RED}ERROR: Multiple areas detected on the same tile! Please choose only one area!${NC}"
     st=1
 fi;
-if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/lattice[/\w,\n]*?[^)]*?\n?/turf/closed/wall[/\w,\n]*?[^)]*?\n?/area/.+?\)' _maps/**/*.dmm;	then
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/lattice[/\w,\n]*?[^)]*?\n/turf/closed/wall[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found a lattice stacked with a wall, please remove them.${NC}"
     st=1
 fi;
-if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/lattice[/\w,\n]*?[^)]*?\n?/turf/closed[/\w,\n]*?[^)]*?\n?/area/.+?\)' _maps/**/*.dmm;	then
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/lattice[/\w,\n]*?[^)]*?\n/turf/closed[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found a lattice stacked within a wall, please remove them.${NC}"
     st=1
 fi;
-if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/window[/\w,\n]*?[^)]*?\n?/turf/closed[/\w,\n]*?[^)]*?\n?/area/.+?\)' _maps/**/*.dmm;	then
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/window[/\w,\n]*?[^)]*?\n/turf/closed[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found a window stacked within a wall, please remove it.${NC}"
     st=1
 fi;
-if grep -Pzo '"\w+" = \(\n[^)]*?/obj/machinery/door/airlock[/\w,\n]*?[^)]*?\n?/turf/closed[/\w,\n]*?[^)]*?\n?/area/.+?\)' _maps/**/*.dmm;	then
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/machinery/door/airlock[/\w,\n]*?[^)]*?\n/turf/closed[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found an airlock stacked within a wall, please remove it.${NC}"
     st=1
 fi;
-if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/stairs[/\w,\n]*?[^)]*?\n?/turf/open/genturf[/\w,\n]*?[^)]*?\n?/area/.+?\)' _maps/**/*.dmm;	then
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/stairs[/\w,\n]*?[^)]*?\n/turf/open/genturf[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found a staircase on top of a gen_turf. Please replace the gen_turf with a proper turf.${NC}"
     st=1
