@@ -129,6 +129,21 @@
 	stop_automated_movement = FALSE
 	SSmove_manager.stop_looping(src)
 
+/mob/living/simple_animal/hostile/poison/giant_spider/AttackingTarget()
+	if(is_busy)
+		return
+	var/mob/target_mob = target
+	if(!istype(target_mob))
+		return ..()
+	// Spider IFF
+	var/datum/antagonist/spider/target_spider_antag = target_mob.mind?.has_antag_datum(/datum/antagonist/spider)
+	var/datum/antagonist/spider/spider_antag = mind?.has_antag_datum(/datum/antagonist/spider)
+	if(target_spider_antag?.spider_team == spider_antag?.spider_team)
+		visible_message("<span class='notice'>[src] nuzzles [target_mob.name]!</span>", \
+			"<span class='notice'>You nuzzle [target_mob.name]!</span>", null, COMBAT_MESSAGE_RANGE)
+		return
+	return ..()
+
 // Nurses lay eggs and can heal other spiders. However, they're squishy and less powerful.
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
 	name = "nurse"
@@ -183,7 +198,7 @@
 		return ..()
 	var/datum/antagonist/spider/target_spider_antag = target_mob.mind?.has_antag_datum(/datum/antagonist/spider)
 	var/datum/antagonist/spider/spider_antag = mind?.has_antag_datum(/datum/antagonist/spider)
-	if(!istype(target, /mob/living/simple_animal/hostile/poison/giant_spider) || target_spider_antag?.spider_team != spider_antag?.spider_team)
+	if(mind && (!istype(target, /mob/living/simple_animal/hostile/poison/giant_spider) || target_spider_antag?.spider_team != spider_antag?.spider_team))
 		return ..()
 	var/mob/living/simple_animal/hostile/poison/giant_spider/hurt_spider = target
 	if(hurt_spider == src)
@@ -191,7 +206,7 @@
 		return
 	if(hurt_spider.health >= hurt_spider.maxHealth)
 		to_chat(src, "<span class='warning'>You can't find any wounds to wrap up.</span>")
-		return
+		return ..() // IFF is handled in parent
 	visible_message("<span class='notice'>[src] begins wrapping the wounds of [hurt_spider].</span>","<span class='notice'>You begin wrapping the wounds of [hurt_spider].</span>")
 	is_busy = TRUE
 	if(do_after(src, 20, target = hurt_spider))
@@ -208,11 +223,8 @@
 		if(!busy)
 			//first, check for potential food nearby to cocoon
 			for(var/mob/living/C in can_see)
-				if(istype(C, /mob/living/simple_animal/hostile/poison/giant_spider))
-					var/datum/antagonist/spider/target_spider_antag = C.mind?.has_antag_datum(/datum/antagonist/spider)
-					var/datum/antagonist/spider/spider_antag = mind?.has_antag_datum(/datum/antagonist/spider)
-					if(target_spider_antag?.spider_team == spider_antag?.spider_team)
-						heal_target = C
+				if(istype(C, /mob/living/simple_animal/hostile/poison/giant_spider)) // AI spiders are equal opportunity medics
+					heal_target = C
 				else if(C.stat && !C.anchored)
 					cocoon_target = C
 				if(cocoon_target || heal_target)
@@ -621,8 +633,11 @@
 		return
 	message = user.treat_message_min(message)
 	var/my_message = "<span class='spider'><b>Command from [user]:</b> [message]</span>"
+	var/datum/antagonist/spider/spider_antag = user.mind?.has_antag_datum(/datum/antagonist/spider)
 	for(var/mob/living/simple_animal/hostile/poison/giant_spider/M in GLOB.spidermobs)
-		to_chat(M, my_message)
+		var/datum/antagonist/spider/target_spider_antag = M.mind?.has_antag_datum(/datum/antagonist/spider)
+		if(spider_antag?.spider_team == target_spider_antag?.spider_team)
+			to_chat(M, my_message)
 	for(var/M in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(M, user)
 		to_chat(M, "[link] [my_message]")
