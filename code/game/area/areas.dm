@@ -102,6 +102,9 @@
 	/// Area network id when you want to find all devices hooked up to this area
 	var/network_area_id = null
 
+	/// Lazy list of border lighting overlays applied
+	var/list/adjacent_lighting_overlays = null
+
 /**
   * A list of teleport locations
   *
@@ -187,10 +190,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(!IS_DYNAMIC_LIGHTING(src))
 		add_overlay(/obj/effect/fullbright)
 	else if(lighting_overlay_opacity && lighting_overlay_colour)
-		lighting_overlay = new /obj/effect/fullbright
-		lighting_overlay.color = lighting_overlay_colour
-		lighting_overlay.alpha = lighting_overlay_opacity
-		add_overlay(lighting_overlay)
+		generate_lighting_overlay()
 	reg_in_areas_in_z()
 	if(!mapload)
 		if(!network_root_id)
@@ -204,6 +204,25 @@ GLOBAL_LIST_EMPTY(teleportlocs)
   */
 /area/LateInitialize()
 	power_change()		// all machines set to current power level, also updates icon
+
+/**
+ * Performs initial setup of the lighting overlays.
+ */
+/area/proc/generate_lighting_overlay()
+	if(lighting_overlay)
+		//Remove the old lighting overlay
+		cut_overlay(lighting_overlay)
+		//Delete the old lighting overlay object
+		QDEL_NULL(lighting_overlay)
+	//Create the lighting overlay object for this area
+	lighting_overlay = new /obj/effect/fullbright
+	lighting_overlay.color = lighting_overlay_colour
+	lighting_overlay.alpha = lighting_overlay_opacity
+	//Areas with a lighting overlay should be fully visible, and the tiles adjacent to them should also
+	//be luminous
+	luminosity = 1
+	//Add the lighting overlay
+	add_overlay(lighting_overlay)
 
 /area/proc/RunGeneration()
 	if(map_generator)

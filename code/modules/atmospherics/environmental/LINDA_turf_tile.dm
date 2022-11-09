@@ -29,9 +29,20 @@
 
 /turf/open/Initialize(mapload)
 	if(!blocks_air)
-		air = new(2500,src)
-		air.copy_from_turf(src)
-		update_air_ref(planetary_atmos ? 1 : 2)
+		//If debugging is enabled, make planetary atmos share gas
+		if (planetary_atmos && Debugger?.enabled)
+			var/static/list/planet_atmos_types = list()
+			if(planet_atmos_types[type])
+				air = planet_atmos_types[type]
+			else
+				air = new(2500,src)
+				air.copy_from_turf(src)
+				update_air_ref(1)
+				planet_atmos_types[type] = air
+		else
+			air = new(2500,src)
+			air.copy_from_turf(src)
+			update_air_ref(planetary_atmos ? 1 : 2)
 	. = ..()
 
 /turf/open/Destroy()
