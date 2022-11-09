@@ -1,0 +1,4 @@
+author: benbot16
+delete-after: true
+changes:
+  - rscadd: Slimes can now use custom emotes.
