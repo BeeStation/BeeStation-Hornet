@@ -1,0 +1,5 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - rscadd: The notes menu now shows how many living hours the player had at the time
+      the note was applied
