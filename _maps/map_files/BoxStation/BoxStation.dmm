@@ -13201,20 +13201,6 @@
 /obj/structure/chair/stool{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/chair/stool{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/chair/stool{
-	dir = 4
-	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "bIx" = (
@@ -18839,22 +18825,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
-/obj/effect/landmark/event_spawn,
-/obj/effect/spawner/xmastree,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
-/obj/effect/landmark/event_spawn,
-/obj/effect/spawner/xmastree,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "cml" = (
@@ -23923,8 +23893,6 @@
 /area/ai_monitored/turret_protected/ai)
 "dvI" = (
 /obj/machinery/light/small,
-/obj/machinery/light/small,
-/obj/machinery/light/small,
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "dwb" = (
@@ -24299,10 +24267,6 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/hor)
 "dIn" = (
-/obj/structure/table,
-/obj/item/kitchen/fork,
-/obj/structure/table,
-/obj/item/kitchen/fork,
 /obj/structure/table,
 /obj/item/kitchen/fork,
 /turf/open/floor/plasteel/cafeteria_red,
@@ -25051,18 +25015,10 @@
 /turf/open/floor/plasteel,
 /area/science/research)
 "eeU" = (
-/obj/effect/landmark/start/assistant,
 /obj/structure/chair/stool/bar{
 	dir = 1
 	},
 /obj/effect/landmark/start/assistant,
-/obj/structure/chair/stool/bar{
-	dir = 1
-	},
-/obj/effect/landmark/start/assistant,
-/obj/structure/chair/stool/bar{
-	dir = 1
-	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "efX" = (
@@ -25084,8 +25040,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "egL" = (
-/obj/structure/chair,
-/obj/structure/chair,
 /obj/structure/chair,
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
@@ -26221,22 +26175,6 @@
 	dir = 4;
 	network = list("ss13, engine")
 	},
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = -22
-	},
-/obj/machinery/camera/autoname{
-	dir = 4;
-	network = list("ss13, engine")
-	},
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = -22
-	},
-/obj/machinery/camera/autoname{
-	dir = 4;
-	network = list("ss13, engine")
-	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "eOR" = (
@@ -26312,18 +26250,6 @@
 /obj/structure/chair/stool{
 	dir = 1
 	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/chair/stool{
-	dir = 1
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/chair/stool{
-	dir = 1
-	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "eQc" = (
@@ -26337,18 +26263,6 @@
 /turf/open/floor/plasteel/dark/telecomms,
 /area/quartermaster/exploration_dock)
 "eQd" = (
-/obj/structure/table/reinforced,
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_x = 32
-	},
-/obj/item/book/manual/wiki/barman_recipes,
-/obj/item/reagent_containers/glass/rag,
-/obj/structure/table/reinforced,
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_x = 32
-	},
-/obj/item/book/manual/wiki/barman_recipes,
-/obj/item/reagent_containers/glass/rag,
 /obj/structure/table/reinforced,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 32
@@ -26514,14 +26428,6 @@
 /obj/structure/chair/stool/bar{
 	dir = 1
 	},
-/obj/effect/landmark/event_spawn,
-/obj/structure/chair/stool/bar{
-	dir = 1
-	},
-/obj/effect/landmark/event_spawn,
-/obj/structure/chair/stool/bar{
-	dir = 1
-	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "eXl" = (
@@ -26632,32 +26538,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "fcd" = (
-/obj/machinery/requests_console{
-	department = "Bar";
-	departmentType = 2;
-	pixel_x = 30;
-	receive_ore_updates = 1
-	},
-/obj/structure/table,
-/obj/machinery/chem_dispenser/drinks{
-	dir = 8
-	},
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
-/obj/machinery/requests_console{
-	department = "Bar";
-	departmentType = 2;
-	pixel_x = 30;
-	receive_ore_updates = 1
-	},
-/obj/structure/table,
-/obj/machinery/chem_dispenser/drinks{
-	dir = 8
-	},
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
 /obj/machinery/requests_console{
 	department = "Bar";
 	departmentType = 2;
@@ -27288,8 +27168,6 @@
 /area/security/main)
 "fxQ" = (
 /obj/machinery/light,
-/obj/machinery/light,
-/obj/machinery/light,
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "fxY" = (
@@ -27523,14 +27401,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "fEr" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/effect/landmark/start/assistant,
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/effect/landmark/start/assistant,
 /obj/structure/chair{
 	dir = 1
 	},
@@ -28177,16 +28047,8 @@
 /obj/machinery/status_display/evac{
 	pixel_x = 32
 	},
-/obj/machinery/computer/slot_machine,
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/machinery/status_display/evac{
 	pixel_x = 32
-	},
-/obj/machinery/computer/slot_machine,
-/obj/machinery/light/small{
-	dir = 4
 	},
 /obj/machinery/status_display/evac{
 	pixel_x = 32
@@ -29632,14 +29494,6 @@
 	dir = 1;
 	pixel_y = -22
 	},
-/obj/machinery/airalarm{
-	dir = 1;
-	pixel_y = -22
-	},
-/obj/machinery/airalarm{
-	dir = 1;
-	pixel_y = -22
-	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "gRK" = (
@@ -29654,16 +29508,6 @@
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
 "gSD" = (
-/obj/machinery/light,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
-/obj/machinery/light,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/machinery/light,
 /obj/machinery/firealarm{
 	dir = 1;
@@ -29708,14 +29552,6 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/main)
 "gTr" = (
-/obj/item/kirbyplants/random,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/item/kirbyplants/random,
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/item/kirbyplants/random,
 /obj/machinery/light{
 	dir = 1
@@ -29872,12 +29708,6 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "gWz" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -30140,16 +29970,6 @@
 	req_access_txt = "28"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Kitchen";
-	req_access_txt = "28"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Kitchen";
-	req_access_txt = "28"
-	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "hbA" = (
@@ -30282,12 +30102,6 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/gravity_generator)
 "heI" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
@@ -30454,10 +30268,6 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_dock)
 "hjP" = (
-/obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck,
-/obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck,
 /obj/structure/table/wood/poker,
 /obj/item/toy/cards/deck,
 /turf/open/floor/plasteel/cafeteria_red,
@@ -30717,20 +30527,6 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "hqO" = (
-/obj/structure/chair/stool,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/structure/chair/stool,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
 /obj/structure/chair/stool,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -31908,12 +31704,6 @@
 /obj/structure/chair/stool{
 	dir = 1
 	},
-/obj/structure/chair/stool{
-	dir = 1
-	},
-/obj/structure/chair/stool{
-	dir = 1
-	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "ict" = (
@@ -32289,12 +32079,6 @@
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "inb" = (
-/obj/machinery/camera/autoname{
-	dir = 1
-	},
-/obj/machinery/camera/autoname{
-	dir = 1
-	},
 /obj/machinery/camera/autoname{
 	dir = 1
 	},
@@ -33038,24 +32822,6 @@
 	pixel_x = -2;
 	pixel_y = 2
 	},
-/obj/structure/table,
-/obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = 5;
-	pixel_y = -2
-	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/structure/table,
-/obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = 5;
-	pixel_y = -2
-	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -2;
-	pixel_y = 2
-	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "iKJ" = (
@@ -33256,8 +33022,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "iQr" = (
-/obj/structure/chair/stool,
-/obj/structure/chair/stool,
 /obj/structure/chair/stool,
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
@@ -33611,12 +33375,6 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "jaj" = (
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
@@ -38038,12 +37796,6 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "lvX" = (
@@ -38581,12 +38333,6 @@
 	},
 /area/maintenance/starboard/aft)
 "lLR" = (
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
 /obj/structure/chair/stool/bar{
 	dir = 4
 	},
@@ -39209,12 +38955,6 @@
 /turf/open/floor/plasteel,
 /area/hydroponics/garden)
 "mff" = (
-/obj/structure/table/wood/poker,
-/obj/item/clothing/mask/cigarette/cigar,
-/obj/item/toy/cards/deck,
-/obj/structure/table/wood/poker,
-/obj/item/clothing/mask/cigarette/cigar,
-/obj/item/toy/cards/deck,
 /obj/structure/table/wood/poker,
 /obj/item/clothing/mask/cigarette/cigar,
 /obj/item/toy/cards/deck,
@@ -41930,12 +41670,6 @@
 /obj/structure/chair/stool{
 	dir = 8
 	},
-/obj/structure/chair/stool{
-	dir = 8
-	},
-/obj/structure/chair/stool{
-	dir = 8
-	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "nyl" = (
@@ -43086,8 +42820,6 @@
 /area/hallway/primary/starboard)
 "ohO" = (
 /mob/living/carbon/monkey/punpun,
-/mob/living/carbon/monkey/punpun,
-/mob/living/carbon/monkey/punpun,
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "ohP" = (
@@ -44145,8 +43877,6 @@
 /area/hallway/primary/aft)
 "oLW" = (
 /obj/machinery/vending/boozeomat,
-/obj/machinery/vending/boozeomat,
-/obj/machinery/vending/boozeomat,
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "oMw" = (
@@ -44408,18 +44138,6 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "oXT" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_x = -31
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_x = -31
-	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -46099,16 +45817,12 @@
 	pixel_x = -31
 	},
 /obj/item/clothing/head/hardhat/cakehat,
-/obj/structure/table,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -31
 	},
-/obj/item/clothing/head/hardhat/cakehat,
-/obj/structure/table,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -31
 	},
-/obj/item/clothing/head/hardhat/cakehat,
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "qap" = (
@@ -47307,8 +47021,6 @@
 /area/medical/medbay/central)
 "qMS" = (
 /obj/machinery/vending/cigarette,
-/obj/machinery/vending/cigarette,
-/obj/machinery/vending/cigarette,
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "qNd" = (
@@ -47632,14 +47344,6 @@
 	pixel_y = -28
 	},
 /obj/item/kirbyplants/random,
-/obj/machinery/newscaster{
-	pixel_y = -28
-	},
-/obj/item/kirbyplants/random,
-/obj/machinery/newscaster{
-	pixel_y = -28
-	},
-/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "qXM" = (
@@ -47855,34 +47559,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "rdm" = (
-/obj/machinery/disposal/bin,
-/obj/structure/sign/plaques/deempisi{
-	pixel_x = -28;
-	pixel_y = -4
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/machinery/button/door{
-	id = "barShutters";
-	name = "bar shutters";
-	pixel_x = 4;
-	pixel_y = 28
-	},
-/obj/machinery/disposal/bin,
-/obj/structure/sign/plaques/deempisi{
-	pixel_x = -28;
-	pixel_y = -4
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/machinery/button/door{
-	id = "barShutters";
-	name = "bar shutters";
-	pixel_x = 4;
-	pixel_y = 28
-	},
 /obj/machinery/disposal/bin,
 /obj/structure/sign/plaques/deempisi{
 	pixel_x = -28;
@@ -48283,18 +47959,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 6
-	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "rnF" = (
@@ -48623,16 +48287,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "rxy" = (
-/obj/machinery/door/airlock{
-	name = "Kitchen";
-	req_access_txt = "28"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock{
-	name = "Kitchen";
-	req_access_txt = "28"
-	},
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock{
 	name = "Kitchen";
 	req_access_txt = "28"
@@ -50296,12 +49950,6 @@
 /obj/structure/noticeboard{
 	pixel_y = -27
 	},
-/obj/structure/noticeboard{
-	pixel_y = -27
-	},
-/obj/structure/noticeboard{
-	pixel_y = -27
-	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "sue" = (
@@ -51368,14 +51016,6 @@
 	name = "Bar Door";
 	req_one_access_txt = "25;28"
 	},
-/obj/machinery/door/window/southright{
-	name = "Bar Door";
-	req_one_access_txt = "25;28"
-	},
-/obj/machinery/door/window/southright{
-	name = "Bar Door";
-	req_one_access_txt = "25;28"
-	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "sSh" = (
@@ -51491,12 +51131,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "sUF" = (
-/obj/structure/chair/stool{
-	dir = 4
-	},
-/obj/structure/chair/stool{
-	dir = 4
-	},
 /obj/structure/chair/stool{
 	dir = 4
 	},
@@ -52818,10 +52452,6 @@
 "tIr" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/head/that,
-/obj/structure/table/reinforced,
-/obj/item/clothing/head/that,
-/obj/structure/table/reinforced,
-/obj/item/clothing/head/that,
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "tIx" = (
@@ -53089,8 +52719,6 @@
 /area/security/warden)
 "tSL" = (
 /obj/machinery/computer/arcade,
-/obj/machinery/computer/arcade,
-/obj/machinery/computer/arcade,
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "tSV" = (
@@ -53319,18 +52947,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 9
-	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "uaW" = (
@@ -53480,8 +53096,6 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "ugy" = (
-/obj/effect/landmark/start/bartender,
-/obj/effect/landmark/start/bartender,
 /obj/effect/landmark/start/bartender,
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
@@ -54131,20 +53745,6 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "uyz" = (
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
@@ -55211,20 +54811,6 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "vjh" = (
@@ -55720,18 +55306,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "vAl" = (
@@ -55881,28 +55455,6 @@
 /obj/item/radio/intercom{
 	pixel_y = 25
 	},
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/obj/structure/table,
-/obj/machinery/chem_dispenser/drinks/beer{
-	dir = 8
-	},
-/obj/item/radio/intercom{
-	pixel_y = 25
-	},
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/obj/structure/table,
-/obj/machinery/chem_dispenser/drinks/beer{
-	dir = 8
-	},
-/obj/item/radio/intercom{
-	pixel_y = 25
-	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "vFu" = (
@@ -55923,8 +55475,6 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
 "vFZ" = (
-/obj/machinery/holopad,
-/obj/machinery/holopad,
 /obj/machinery/holopad,
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
@@ -56233,10 +55783,6 @@
 /turf/open/floor/engine/vacuum,
 /area/maintenance/disposal/incinerator)
 "vOS" = (
-/obj/structure/table/reinforced,
-/obj/structure/displaycase/forsale/kitchen,
-/obj/structure/table/reinforced,
-/obj/structure/displaycase/forsale/kitchen,
 /obj/structure/table/reinforced,
 /obj/structure/displaycase/forsale/kitchen,
 /turf/open/floor/plasteel/cafeteria_red,
@@ -57032,12 +56578,6 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/structure/chair{
-	dir = 4
-	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "wsW" = (
@@ -57311,12 +56851,6 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/structure/chair{
-	dir = 8
-	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "wCW" = (
@@ -57458,10 +56992,6 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "wHD" = (
-/obj/structure/chair,
-/obj/effect/landmark/start/assistant,
-/obj/structure/chair,
-/obj/effect/landmark/start/assistant,
 /obj/structure/chair,
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/plasteel/cafeteria_red,
@@ -57997,14 +57527,6 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "xaZ" = (
@@ -58139,12 +57661,6 @@
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "xfT" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/structure/chair{
 	dir = 1
 	},
@@ -58900,8 +58416,6 @@
 /area/quartermaster/office)
 "xAd" = (
 /obj/structure/table/reinforced,
-/obj/structure/table/reinforced,
-/obj/structure/table/reinforced,
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "xAx" = (
@@ -59189,10 +58703,6 @@
 "xJR" = (
 /obj/structure/table/reinforced,
 /obj/item/lighter,
-/obj/structure/table/reinforced,
-/obj/item/lighter,
-/obj/structure/table/reinforced,
-/obj/item/lighter,
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "xJU" = (
@@ -59241,12 +58751,6 @@
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/dorms)
 "xKA" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
@@ -60039,8 +59543,6 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "ygj" = (
-/obj/machinery/computer/slot_machine,
-/obj/machinery/computer/slot_machine,
 /obj/machinery/computer/slot_machine,
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
