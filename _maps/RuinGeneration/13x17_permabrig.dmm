@@ -1,4 +1,10 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ad" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/turf_decal/tile/red,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "aW" = (
 /turf/template_noop,
 /area/template_noop)
@@ -15,26 +21,17 @@
 /obj/machinery/vending/cola/random,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"dG" = (
+/obj/structure/closet/secure_closet/brig,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "dQ" = (
 /obj/machinery/computer/libraryconsole/bookmanagement,
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"ee" = (
-/obj/effect/turf_decal/tile/red,
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/ruinloot/security,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"fL" = (
-/obj/structure/window/reinforced,
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/grass,
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "fZ" = (
@@ -49,10 +46,33 @@
 /obj/effect/spawner/lootdrop/ruinloot/security,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"hu" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
 "hU" = (
 /obj/structure/bookcase,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"jj" = (
+/obj/structure/window/reinforced,
+/obj/machinery/hydroponics/soil,
+/obj/item/cultivator,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"jn" = (
+/obj/machinery/washing_machine,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "jz" = (
 /turf/open/floor/plating,
@@ -80,12 +100,24 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"mj" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
+"mv" = (
+/obj/structure/sign/warning/electricshock{
+	pixel_y = 32
+	},
+/obj/machinery/hydroponics/soil,
+/obj/item/plant_analyzer,
+/obj/machinery/camera/autoname,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"mW" = (
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "pC" = (
 /obj/structure/table,
@@ -106,16 +138,18 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"pR" = (
-/obj/structure/table,
-/obj/structure/bedsheetbin,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
+"qb" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"qh" = (
+/obj/item/kirbyplants/random,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "rp" = (
 /obj/machinery/door/airlock/public/glass{
@@ -126,25 +160,43 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"sa" = (
-/obj/structure/window/reinforced,
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/potato,
-/obj/effect/turf_decal/tile/green{
-	dir = 1
+"sf" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 1;
+	pixel_y = -27
 	},
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
+/obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"sx" = (
+"si" = (
+/obj/structure/table,
+/obj/structure/bedsheetbin,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"sk" = (
+/obj/structure/table,
+/obj/item/razor{
+	pixel_x = -6
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"su" = (
 /obj/structure/window/reinforced,
 /obj/machinery/hydroponics/soil,
 /obj/item/cultivator,
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
+/obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -169,19 +221,26 @@
 /obj/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
-"wg" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 1;
-	pixel_y = -27
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
+"xe" = (
+/obj/structure/window/reinforced,
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/potato,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "xh" = (
 /turf/open/floor/plasteel/freezer,
+/area/ruin/unpowered)
+"xP" = (
+/obj/structure/window/reinforced,
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/grass,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "xS" = (
 /obj/machinery/shower{
@@ -203,22 +262,18 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/unpowered)
+"zp" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/carrot,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "zq" = (
 /obj/structure/table,
 /obj/item/toy/cards/deck,
 /turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"zE" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "AG" = (
 /obj/effect/abstract/open_area_marker{
@@ -235,17 +290,6 @@
 "Be" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/plasteel/dark,
-/area/ruin/unpowered)
-"Bh" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/glowshroom,
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "BT" = (
 /obj/structure/table,
@@ -276,19 +320,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"EM" = (
-/obj/machinery/washing_machine,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/cafeteria,
-/area/ruin/unpowered)
 "EW" = (
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
@@ -299,16 +330,14 @@
 /obj/item/pen,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"FW" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/carrot,
-/obj/effect/turf_decal/tile/green{
+"Gr" = (
+/obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/green{
-	dir = 4
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "Ha" = (
 /obj/machinery/light,
@@ -316,44 +345,17 @@
 /obj/machinery/vending/sustenance,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"HD" = (
-/obj/structure/window/reinforced,
-/obj/machinery/hydroponics/soil,
-/obj/item/cultivator,
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"Jw" = (
+"KP" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/ambrosia,
-/obj/effect/turf_decal/tile/green{
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 1
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Le" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/arcade,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"Me" = (
-/obj/structure/closet/secure_closet/brig,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "My" = (
@@ -372,15 +374,6 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/ruin/unpowered)
-"NC" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "NR" = (
 /obj/effect/decal/cleanable/dirt,
@@ -401,34 +394,9 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
-"Pb" = (
-/obj/structure/window/reinforced,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/cafeteria,
-/area/ruin/unpowered)
 "PN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"PW" = (
-/obj/structure/table,
-/obj/item/razor{
-	pixel_x = -6
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
-	},
-/obj/effect/spawner/lootdrop/ruinloot/security,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Qh" = (
@@ -438,6 +406,22 @@
 	pixel_y = 2
 	},
 /turf/open/floor/plasteel/freezer,
+/area/ruin/unpowered)
+"QQ" = (
+/obj/structure/table,
+/obj/item/electropack,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Ra" = (
+/obj/machinery/washing_machine,
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "RC" = (
 /obj/structure/chair/stool,
@@ -453,17 +437,6 @@
 "SX" = (
 /obj/item/reagent_containers/glass/bucket,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
-"Ty" = (
-/obj/machinery/washing_machine,
-/obj/structure/window/reinforced,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "TT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -489,36 +462,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"VT" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/item/kirbyplants/random,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"Wr" = (
-/obj/structure/sign/warning/electricshock{
-	pixel_y = 32
-	},
+"Wj" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/plant_analyzer,
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
+/obj/item/seeds/glowshroom,
+/obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
-	},
-/obj/machinery/camera/autoname,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"Xh" = (
-/obj/structure/table,
-/obj/item/electropack,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -543,7 +491,7 @@ TT
 lv
 bO
 xV
-ee
+ad
 lv
 "}
 (2,1,1) = {"
@@ -562,14 +510,14 @@ NR
 VE
 bO
 bO
-wg
+sf
 lv
 "}
 (3,1,1) = {"
 EW
-Jw
+KP
 Nf
-sa
+xe
 NR
 RC
 NR
@@ -581,14 +529,14 @@ vM
 lv
 bO
 bO
-mj
+qb
 Be
 "}
 (4,1,1) = {"
 My
-FW
+zp
 jz
-fL
+xP
 NR
 NR
 NR
@@ -600,7 +548,7 @@ lv
 lv
 bO
 bO
-VT
+qh
 lv
 "}
 (5,1,1) = {"
@@ -619,14 +567,14 @@ NR
 lv
 bO
 bO
-Xh
+QQ
 lv
 "}
 (6,1,1) = {"
 My
-Bh
+Wj
 jz
-sx
+su
 NR
 pC
 zq
@@ -638,14 +586,14 @@ NR
 NZ
 bO
 bO
-PW
+sk
 lv
 "}
 (7,1,1) = {"
 EW
-Wr
+mv
 jz
-HD
+jj
 RC
 hq
 CE
@@ -676,7 +624,7 @@ lv
 lv
 bO
 bO
-Me
+dG
 lv
 "}
 (9,1,1) = {"
@@ -695,7 +643,7 @@ Fz
 lv
 bO
 bO
-Me
+dG
 lv
 "}
 (10,1,1) = {"
@@ -703,9 +651,9 @@ My
 NR
 NR
 NR
-zE
-NC
-Pb
+Gr
+hu
+mW
 Le
 NR
 CC
@@ -714,7 +662,7 @@ NR
 pO
 bO
 bO
-Me
+dG
 lv
 "}
 (11,1,1) = {"
@@ -722,9 +670,9 @@ EW
 cK
 kJ
 NR
-EM
-pR
-Ty
+jn
+si
+Ra
 zd
 ve
 lv

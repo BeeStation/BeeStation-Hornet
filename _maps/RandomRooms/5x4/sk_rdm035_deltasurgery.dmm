@@ -15,125 +15,20 @@
 /obj/structure/cable/white,
 /turf/open/floor/plating,
 /area/template_noop)
-"c" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
-"d" = (
-/obj/item/crowbar/red,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
 "e" = (
 /obj/item/kirbyplants/random,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/template_noop)
-"f" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
 /area/template_noop)
 "g" = (
 /obj/item/wrench,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
 /area/template_noop)
-"h" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/spawner/lootdrop/trap,
-/turf/open/floor/plasteel,
-/area/template_noop)
-"i" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/spawner/lootdrop/trap,
-/turf/open/floor/plasteel,
-/area/template_noop)
 "j" = (
 /obj/machinery/iv_drip,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/template_noop)
-"k" = (
-/obj/structure/table/optable,
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/surgical_drapes,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
-"l" = (
-/obj/structure/frame/computer,
-/obj/item/circuitboard/computer/operating,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
 /area/template_noop)
 "m" = (
 /obj/structure/chair{
@@ -147,27 +42,6 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/template_noop)
-"n" = (
-/obj/structure/table/reinforced,
-/obj/machinery/status_display/evac{
-	pixel_y = -32
-	},
-/obj/item/storage/firstaid/regular,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/clothing/suit/apron/surgical,
-/obj/item/clothing/mask/surgical,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
 "o" = (
 /obj/structure/table/reinforced,
 /obj/machinery/newscaster{
@@ -177,32 +51,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/template_noop)
-"p" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/spawner/lootdrop/trap,
-/turf/open/floor/plasteel/white,
-/area/template_noop)
-"q" = (
-/obj/structure/table/reinforced,
-/obj/machinery/light/small,
-/obj/structure/bedsheetbin,
-/obj/item/gun/syringe,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
 /area/template_noop)
 "r" = (
 /obj/structure/chair{
@@ -221,34 +69,105 @@
 /obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plating,
 /area/template_noop)
+"u" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/trap,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"x" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/trap,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/template_noop)
+"y" = (
+/obj/structure/table/reinforced,
+/obj/machinery/status_display/evac{
+	pixel_y = -32
+	},
+/obj/item/storage/firstaid/regular,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/clothing/suit/apron/surgical,
+/obj/item/clothing/mask/surgical,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"A" = (
+/obj/item/crowbar/red,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"G" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"K" = (
+/obj/structure/table/optable,
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/surgical_drapes,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"O" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light/small,
+/obj/structure/bedsheetbin,
+/obj/item/gun/syringe,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"Q" = (
+/obj/effect/spawner/lootdrop/trap,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"T" = (
+/obj/structure/frame/computer,
+/obj/item/circuitboard/computer/operating,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"U" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/template_noop)
 
 (1,1,1) = {"
 a
-i
+u
 j
-n
+y
 "}
 (2,1,1) = {"
 b
-k
-f
+K
+U
 o
 "}
 (3,1,1) = {"
-h
-l
+Q
+T
 s
 t
 "}
 (4,1,1) = {"
-d
-c
+A
+G
 g
-q
+O
 "}
 (5,1,1) = {"
 e
-p
+x
 m
 r
 "}

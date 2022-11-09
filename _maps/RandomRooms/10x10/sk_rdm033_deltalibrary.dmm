@@ -59,22 +59,6 @@
 /obj/structure/table_frame/wood,
 /turf/open/floor/plating,
 /area/template_noop)
-"k" = (
-/obj/structure/chair/office{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
 "l" = (
 /obj/structure/bookcase,
 /obj/effect/decal/cleanable/cobweb,
@@ -241,21 +225,19 @@
 	icon_state = "wood-broken4"
 	},
 /area/template_noop)
-"P" = (
+"Q" = (
+/obj/structure/chair/office{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"R" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/morgue{
 	name = "Occult Study"
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "S" = (
@@ -325,7 +307,7 @@ S
 "}
 (2,1,1) = {"
 b
-k
+Q
 p
 p
 e
@@ -404,7 +386,7 @@ e
 B
 D
 D
-P
+R
 D
 "}
 (9,1,1) = {"

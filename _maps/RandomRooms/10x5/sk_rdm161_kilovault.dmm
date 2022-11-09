@@ -1,8 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
+"aa" = (
 /turf/closed/wall/r_wall,
 /area/template_noop)
-"b" = (
+"ab" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -17,11 +17,23 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"d" = (
+"ac" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/item/kirbyplants{
+	icon_state = "plant-16"
+	},
+/obj/structure/spider/stickyweb,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"ad" = (
 /obj/structure/sign/poster/contraband/random,
 /turf/closed/wall/r_wall,
 /area/template_noop)
-"e" = (
+"ae" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/safe{
 	pixel_x = 3
@@ -39,7 +51,7 @@
 /obj/item/gun/ballistic/shotgun/toy/unrestricted,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"f" = (
+"af" = (
 /obj/machinery/door/airlock/vault{
 	id_tag = "bank";
 	name = "Bank Vault";
@@ -48,7 +60,7 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"g" = (
+"ag" = (
 /obj/structure/table,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -62,7 +74,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"h" = (
+"ah" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
@@ -74,7 +86,19 @@
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"j" = (
+"ai" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"aj" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -82,7 +106,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"k" = (
+"ak" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
@@ -93,10 +117,10 @@
 /obj/effect/decal/cleanable/blood/gibs/old,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"l" = (
+"al" = (
 /turf/closed/wall,
 /area/template_noop)
-"m" = (
+"am" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -107,7 +131,7 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"n" = (
+"an" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -120,7 +144,18 @@
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"p" = (
+"ao" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"ap" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -137,7 +172,38 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"s" = (
+"aq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/old,
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter{
+	desc = "Furry and black, it makes you shudder to look at it. This one has sparkling purple eyes, and looks abnormally thin and frail.";
+	environment_smash = 0;
+	health = 60;
+	maxHealth = 60;
+	melee_damage = 10;
+	name = "scrawny spider"
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"ar" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter{
+	desc = "Furry and black, it makes you shudder to look at it. This one has sparkling purple eyes, and looks abnormally thin and frail.";
+	environment_smash = 0;
+	health = 60;
+	maxHealth = 60;
+	melee_damage = 10;
+	name = "scrawny spider"
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"as" = (
 /obj/machinery/button/door{
 	id = "bank";
 	name = "Bank Vault Lock";
@@ -171,7 +237,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"u" = (
+"at" = (
+/obj/structure/spider/stickyweb,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"au" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -180,7 +251,7 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"v" = (
+"av" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -191,7 +262,28 @@
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"y" = (
+"aw" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/safe{
+	pixel_x = 3
+	},
+/obj/item/stack/spacecash/c500{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/item/lazarus_injector,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/spider/stickyweb,
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"ax" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"ay" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
@@ -202,7 +294,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
 /area/template_noop)
-"z" = (
+"az" = (
 /obj/structure/table,
 /obj/machinery/light/small{
 	dir = 1
@@ -218,7 +310,15 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"B" = (
+"aA" = (
+/obj/structure/spider/stickyweb,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"aB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -238,11 +338,16 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"C" = (
+"aC" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall/r_wall,
 /area/template_noop)
-"E" = (
+"aD" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"aE" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -250,7 +355,7 @@
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"F" = (
+"aF" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -261,7 +366,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"G" = (
+"aG" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -270,7 +375,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"H" = (
+"aH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -284,7 +389,7 @@
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"I" = (
+"aI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -299,7 +404,7 @@
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"J" = (
+"aJ" = (
 /obj/structure/table,
 /obj/machinery/button/door{
 	id = "bankshutter";
@@ -331,7 +436,19 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"L" = (
+"aK" = (
+/obj/effect/turf_decal/stripes/corner,
+/obj/item/radio/intercom{
+	pixel_y = 22
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"aL" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -342,7 +459,7 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"M" = (
+"aM" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -350,11 +467,32 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"O" = (
+"aN" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/safe{
+	pixel_x = 3
+	},
+/obj/item/stack/spacecash/c500{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/item/storage/belt/bandolier,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/gun/ballistic/shotgun/toy/unrestricted,
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"aO" = (
 /obj/structure/sign/poster/contraband/random,
 /turf/closed/wall,
 /area/template_noop)
-"Q" = (
+"aP" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"aQ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
@@ -369,7 +507,7 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"R" = (
+"aR" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/safe{
 	pixel_x = 3
@@ -387,7 +525,7 @@
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"S" = (
+"aS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -397,7 +535,15 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"U" = (
+"aT" = (
+/obj/structure/spider/stickyweb,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"aU" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -406,7 +552,21 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"X" = (
+"aV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"aW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"aX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -418,7 +578,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"Y" = (
+"aY" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -433,74 +593,210 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
+"aZ" = (
+/obj/structure/table,
+/obj/item/clipboard,
+/obj/item/paper/crumpled{
+	info = "The safes have been locked and scrambled. Three thousand space dollars, a bandolier, a custom shotgun, and a lazarus injector have been safely deposited.";
+	name = "bank statement"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"dr" = (
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/gloves/color/black,
+/obj/item/crowbar/red,
+/obj/item/flashlight/seclite,
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"gO" = (
+/obj/machinery/button/door{
+	id = "bank";
+	name = "Bank Vault Lock";
+	normaldoorcontrol = 1;
+	pixel_x = -24;
+	pixel_y = -8;
+	specialfunctions = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/effect/decal/cleanable/cobweb,
+/obj/item/clothing/neck/tie/black{
+	pixel_x = 6
+	},
+/obj/item/clothing/neck/tie/red,
+/obj/item/clothing/mask/rat/jackal{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/clothing/mask/rat/jackal,
+/obj/structure/spider/stickyweb,
+/obj/machinery/newscaster{
+	pixel_y = 30
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"hm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/obj/machinery/vending/cola/random,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/structure/spider/stickyweb,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"pk" = (
+/obj/structure/table,
+/obj/machinery/button/door{
+	id = "bankshutter";
+	name = "Bank Shutter Toggle";
+	pixel_x = 24;
+	pixel_y = -8;
+	req_access_txt = "0"
+	},
+/obj/item/paper_bin{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/pen,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/structure/spider/stickyweb,
+/obj/machinery/button/door{
+	id = "bankvault";
+	name = "Bank Door Lock";
+	normaldoorcontrol = 1;
+	pixel_x = 24;
+	pixel_y = 8;
+	specialfunctions = 4
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"qt" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/spider/stickyweb,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"CL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"ED" = (
+/obj/structure/sign/warning/nosmoking{
+	pixel_y = 30
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"Kv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/gibs/limb,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
+aa
+aa
+aa
+aa
+aa
 "}
 (2,1,1) = {"
-a
-R
-g
-e
-a
+aa
+aw
+aZ
+aN
+aa
 "}
 (3,1,1) = {"
-a
-h
-Y
-F
-a
+aa
+aK
+ai
+ao
+aa
 "}
 (4,1,1) = {"
-a
-a
-f
-C
-d
+aa
+aa
+af
+aC
+ad
 "}
 (5,1,1) = {"
-s
-n
-I
-G
-E
+gO
+Kv
+ac
+aP
+at
 "}
 (6,1,1) = {"
-z
-k
-u
-M
-M
+dr
+CL
+ax
+aW
+aW
 "}
 (7,1,1) = {"
-J
-v
-S
-L
-j
+pk
+qt
+aS
+aT
+aD
 "}
 (8,1,1) = {"
-l
-O
-y
-Q
-l
+al
+aO
+ay
+aQ
+al
 "}
 (9,1,1) = {"
-b
-H
-B
-X
-m
+ED
+hm
+aq
+aV
+aA
 "}
 (10,1,1) = {"
-E
-U
-E
-E
-p
+at
+ax
+at
+at
+ar
 "}

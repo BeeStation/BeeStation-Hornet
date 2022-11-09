@@ -33,6 +33,10 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/space)
+"l" = (
+/obj/effect/turf_decal/tile/green/half/contrasted,
+/turf/open/floor/plasteel/techmaint,
+/area/space)
 "m" = (
 /obj/machinery/computer{
 	dir = 1
@@ -52,14 +56,6 @@
 /obj/machinery/computer,
 /turf/open/floor/circuit/green,
 /area/space)
-"v" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/green,
-/obj/structure/AIcore/deactivated,
-/turf/open/floor/plasteel/techmaint,
-/area/space)
 "w" = (
 /obj/effect/temp_visual/ratvar/door/window,
 /turf/open/floor/circuit/green,
@@ -75,13 +71,6 @@
 /area/space)
 "z" = (
 /obj/machinery/camera,
-/turf/open/floor/plasteel/techmaint,
-/area/space)
-"A" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel/techmaint,
 /area/space)
 "B" = (
@@ -101,23 +90,17 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/space)
-"J" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
+"K" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/space)
-"O" = (
-/obj/effect/turf_decal/tile/red{
+"Q" = (
+/obj/structure/AIcore/deactivated,
+/obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/structure/AIcore/deactivated,
 /turf/open/floor/plasteel/techmaint,
 /area/space)
 "R" = (
@@ -132,16 +115,6 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/open/floor/plasteel/techmaint,
-/area/space)
-"S" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/structure/AIcore/deactivated,
 /turf/open/floor/plasteel/techmaint,
 /area/space)
 "T" = (
@@ -164,6 +137,11 @@
 /obj/machinery/ai_slipper,
 /turf/open/floor/monotile/steel,
 /area/space)
+"Y" = (
+/obj/structure/AIcore/deactivated,
+/obj/effect/turf_decal/tile/green/half/contrasted,
+/turf/open/floor/plasteel/techmaint,
+/area/space)
 "Z" = (
 /obj/effect/temp_visual/ratvar/window/single,
 /obj/effect/temp_visual/ratvar/window/single,
@@ -174,14 +152,14 @@
 /area/space)
 
 (1,1,1) = {"
-O
-J
-J
-J
-J
-J
-J
-S
+Q
+K
+K
+K
+K
+K
+K
+Q
 "}
 (2,1,1) = {"
 z
@@ -314,12 +292,12 @@ h
 x
 "}
 (15,1,1) = {"
-v
-A
-A
-A
-A
-A
-A
-v
+Y
+l
+l
+l
+l
+l
+l
+Y
 "}

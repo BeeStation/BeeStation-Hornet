@@ -31,6 +31,11 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
+"g" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/template_noop)
 "h" = (
 /obj/machinery/light{
 	dir = 4
@@ -64,11 +69,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"m" = (
+"l" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"n" = (
-/obj/effect/turf_decal/tile/neutral/tile_full,
+"m" = (
 /turf/open/floor/plasteel,
 /area/template_noop)
 "o" = (
@@ -137,11 +143,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"y" = (
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel,
-/area/template_noop)
 "z" = (
 /obj/structure/chair/fancy/sofa/old/right{
 	dir = 8
@@ -164,11 +165,6 @@
 /obj/machinery/paystand,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/dark,
-/area/template_noop)
-"D" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/turf/open/floor/plasteel,
 /area/template_noop)
 "F" = (
 /obj/effect/decal/cleanable/oil,
@@ -209,6 +205,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
+"P" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/template_noop)
 "R" = (
 /obj/item/kirbyplants/random,
 /obj/item/radio/intercom{
@@ -222,11 +222,6 @@
 	name = "Scooter Rental"
 	},
 /turf/open/floor/plasteel/dark,
-/area/template_noop)
-"T" = (
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/turf/open/floor/plasteel,
 /area/template_noop)
 "U" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -247,6 +242,11 @@
 "X" = (
 /turf/closed/wall/r_wall,
 /area/template_noop)
+"Y" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/template_noop)
 
 (1,1,1) = {"
 U
@@ -264,8 +264,8 @@ a
 (2,1,1) = {"
 W
 m
-D
-n
+Y
+P
 s
 q
 e
@@ -277,8 +277,8 @@ J
 (3,1,1) = {"
 W
 m
-T
-y
+l
+g
 t
 C
 F

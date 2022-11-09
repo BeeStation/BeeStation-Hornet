@@ -114,19 +114,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter3)
-"aw" = (
-/obj/structure/rack,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/flashlight,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark{
-	initial_gas_mix = "TEMP=2.7"
-	},
-/area/shuttle/caravan/freighter3)
 "aD" = (
 /obj/item/stack/rods,
 /turf/template_noop,
@@ -142,22 +129,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
-	},
-/turf/open/floor/plasteel/dark{
-	initial_gas_mix = "TEMP=2.7"
-	},
-/area/shuttle/caravan/freighter3)
-"aI" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/frame/computer{
-	dir = 8
-	},
-/obj/item/shard,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
 	},
 /turf/open/floor/plasteel/dark{
 	initial_gas_mix = "TEMP=2.7"
@@ -194,20 +165,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/airless,
 /area/shuttle/caravan/freighter2)
-"aQ" = (
-/obj/structure/rack,
-/obj/item/tank/jetpack/carbondioxide,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/clothing/mask/gas,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark{
-	initial_gas_mix = "TEMP=2.7"
-	},
-/area/shuttle/caravan/freighter3)
 "aR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
@@ -365,6 +322,15 @@
 /obj/item/stack/sheet/iron,
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
+"eE" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted,
+/turf/open/floor/plasteel{
+	initial_gas_mix = "TEMP=2.7"
+	},
+/area/shuttle/caravan/freighter3)
 "eG" = (
 /obj/item/stack/cable_coil/yellow{
 	amount = 1
@@ -509,44 +475,12 @@
 	icon_state = "floorscorched1"
 	},
 /area/shuttle/caravan/freighter3)
-"gW" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel{
-	initial_gas_mix = "TEMP=2.7"
-	},
-/area/shuttle/caravan/freighter3)
 "gY" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/airless/dark,
-/area/shuttle/caravan/freighter3)
-"ha" = (
-/obj/structure/table/reinforced,
-/obj/item/folder/yellow,
-/obj/item/pen{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark{
-	initial_gas_mix = "TEMP=2.7"
-	},
 /area/shuttle/caravan/freighter3)
 "hm" = (
 /turf/closed/wall/mineral/titanium,
@@ -859,19 +793,6 @@
 	icon_state = "damaged3"
 	},
 /area/shuttle/caravan/freighter2)
-"iv" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel{
-	initial_gas_mix = "TEMP=2.7"
-	},
-/area/shuttle/caravan/freighter2)
 "ix" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 10
@@ -928,15 +849,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter3)
-"iH" = (
-/obj/structure/table/reinforced,
-/obj/machinery/cell_charger,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
+"iL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/frame/computer{
 	dir = 8
+	},
+/obj/item/shard,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark{
 	initial_gas_mix = "TEMP=2.7"
@@ -1290,6 +1210,16 @@
 	},
 /turf/template_noop,
 /area/template_noop)
+"lk" = (
+/obj/structure/table/reinforced,
+/obj/machinery/cell_charger,
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "TEMP=2.7"
+	},
+/area/shuttle/caravan/freighter3)
 "lB" = (
 /turf/closed/mineral/random/high_chance,
 /area/ruin/unpowered)
@@ -1313,6 +1243,51 @@
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
+/area/shuttle/caravan/freighter3)
+"BN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted,
+/turf/open/floor/plasteel{
+	initial_gas_mix = "TEMP=2.7"
+	},
+/area/shuttle/caravan/freighter2)
+"CW" = (
+/obj/structure/table/reinforced,
+/obj/item/folder/yellow,
+/obj/item/pen{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "TEMP=2.7"
+	},
+/area/shuttle/caravan/freighter3)
+"Da" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/flashlight,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/blue/half/contrasted,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "TEMP=2.7"
+	},
+/area/shuttle/caravan/freighter3)
+"Gh" = (
+/obj/structure/rack,
+/obj/item/tank/jetpack/carbondioxide,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/clothing/mask/gas,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/blue/half/contrasted,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "TEMP=2.7"
+	},
 /area/shuttle/caravan/freighter3)
 "GL" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3848,7 +3823,7 @@ aa
 aa
 hn
 hW
-iv
+BN
 iY
 ju
 bi
@@ -5561,7 +5536,7 @@ aa
 aa
 ga
 gw
-gW
+eE
 hz
 ie
 aR
@@ -5716,12 +5691,12 @@ aa
 aa
 aa
 gd
-aw
+Da
 aG
 hB
 ig
 aM
-aQ
+Gh
 gd
 aa
 aa
@@ -5769,10 +5744,10 @@ aa
 aa
 gd
 gd
-ha
-aI
+CW
+iL
 ih
-iH
+lk
 gd
 gd
 aa

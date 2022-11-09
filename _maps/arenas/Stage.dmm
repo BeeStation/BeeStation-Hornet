@@ -147,26 +147,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel/dark,
 /area/tdome/arena)
-"v" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/tdome/arena)
-"w" = (
-/obj/structure/railing/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/trimline/neutral/filled/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/tdome/arena)
 "x" = (
 /obj/structure/curtain{
 	color = "#c45c57"
@@ -221,6 +201,20 @@
 	},
 /turf/open/floor/wood,
 /area/tdome/arena)
+"V" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/neutral/filled/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/tdome/arena)
+"X" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/tdome/arena)
 
 (1,1,1) = {"
 a
@@ -267,7 +261,7 @@ e
 d
 G
 q
-v
+X
 y
 A
 A
@@ -277,7 +271,7 @@ l
 E
 m
 r
-v
+X
 y
 A
 A
@@ -287,7 +281,7 @@ e
 f
 G
 q
-v
+X
 y
 A
 A
@@ -297,7 +291,7 @@ e
 c
 G
 q
-v
+X
 y
 A
 A
@@ -307,7 +301,7 @@ e
 g
 G
 q
-v
+X
 z
 A
 A
@@ -317,7 +311,7 @@ l
 E
 m
 r
-v
+X
 y
 A
 A
@@ -327,7 +321,7 @@ e
 f
 G
 q
-v
+X
 y
 A
 A
@@ -337,7 +331,7 @@ e
 c
 G
 s
-w
+V
 y
 A
 A

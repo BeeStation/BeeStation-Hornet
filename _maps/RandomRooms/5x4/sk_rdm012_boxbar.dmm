@@ -26,14 +26,6 @@
 /obj/effect/spawner/lootdrop/maintenance/four,
 /turf/open/floor/wood,
 /area/template_noop)
-"h" = (
-/obj/machinery/vending/boozeomat/all_access,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
 "i" = (
 /turf/open/floor/wood{
 	icon_state = "wood-broken5"
@@ -48,12 +40,17 @@
 /obj/effect/decal/cleanable/vomit/old,
 /turf/open/floor/wood,
 /area/template_noop)
+"M" = (
+/obj/machinery/vending/boozeomat/all_access,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/template_noop)
 
 (1,1,1) = {"
 a
 j
 c
-h
+M
 "}
 (2,1,1) = {"
 a

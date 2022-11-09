@@ -8,6 +8,16 @@
 /obj/machinery/door/airlock/shuttle,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"aO" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "aS" = (
 /obj/structure/bed,
 /obj/effect/decal/cleanable/blood/old{
@@ -62,6 +72,12 @@
 /obj/machinery/computer/crew,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"dL" = (
+/obj/structure/table/reinforced,
+/obj/item/toy/plush/beeplushie,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "dT" = (
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 1
@@ -85,6 +101,19 @@
 	dir = 4
 	},
 /turf/open/floor/carpet,
+/area/shuttle/exploration)
+"eJ" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"eM" = (
+/obj/machinery/vending/cigarette,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "fo" = (
 /obj/structure/table/reinforced,
@@ -164,42 +193,46 @@
 /obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
 /turf/open/floor/wood,
 /area/shuttle/exploration)
+"iy" = (
+/obj/machinery/vending/boozeomat/pubby_maint,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "iF" = (
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/exploration)
-"jB" = (
+"kt" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/glass/rag{
-	pixel_y = 5
+/obj/item/stack/sheet/mineral/plastitanium{
+	amount = 30
 	},
-/obj/item/reagent_containers/food/drinks/shaker{
-	pixel_x = 4;
-	pixel_y = 1
+/obj/item/stack/cable_coil/red,
+/obj/item/assembly/prox_sensor{
+	desc = "Used for scanning and alerting when someone enters a certain proximity. This one is slightly shifted to the left.";
+	pixel_x = -6;
+	pixel_y = 6
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"jP" = (
-/obj/machinery/vending/boozeomat/pubby_maint,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"kB" = (
-/obj/structure/railing/corner{
-	dir = 4
+/obj/item/storage/belt/utility{
+	pixel_y = -3
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/decal/cleanable/generic{
+	pixel_x = -12;
+	pixel_y = 14
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/mineral/titanium,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "kV" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -343,13 +376,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
-"vh" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "vp" = (
 /obj/structure/tank_dispenser/oxygen,
 /obj/effect/turf_decal/delivery,
@@ -372,6 +398,18 @@
 	pixel_y = 26
 	},
 /turf/open/floor/plasteel/grid/steel,
+/area/shuttle/exploration)
+"wo" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/regular{
+	pixel_x = -3;
+	pixel_y = 9
+	},
+/obj/item/toy/cards/deck{
+	pixel_x = 2
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "wy" = (
 /obj/effect/decal/cleanable/glass,
@@ -413,15 +451,6 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/shuttle/exploration)
-"xL" = (
-/obj/machinery/vending/cigarette,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "yx" = (
 /obj/structure/chair/office{
 	dir = 4;
@@ -441,39 +470,6 @@
 	pixel_y = 32
 	},
 /turf/open/floor/plating,
-/area/shuttle/exploration)
-"zd" = (
-/obj/effect/turf_decal/tile/neutral/tile_side{
-	dir = 4
-	},
-/obj/structure/table/reinforced,
-/obj/item/stack/sheet/mineral/plastitanium{
-	amount = 30
-	},
-/obj/item/stack/cable_coil/red,
-/obj/item/assembly/prox_sensor{
-	desc = "Used for scanning and alerting when someone enters a certain proximity. This one is slightly shifted to the left.";
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/storage/belt/utility{
-	pixel_y = -3
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/generic{
-	pixel_x = -12;
-	pixel_y = 14
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 32
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "zC" = (
 /obj/effect/turf_decal/stripes/line{
@@ -556,6 +552,12 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
+"CZ" = (
+/obj/structure/chair/stool/bar,
+/obj/effect/decal/cleanable/vomit,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "Df" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -569,6 +571,11 @@
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"Ec" = (
+/obj/machinery/light,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Fm" = (
 /obj/structure/railing/corner{
@@ -610,15 +617,20 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
-"IC" = (
-/obj/structure/table,
-/obj/machinery/chem_dispenser/drinks/beer{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
+"It" = (
+/obj/structure/railing/corner{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Iv" = (
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 24
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "IM" = (
@@ -636,15 +648,16 @@
 /obj/machinery/door/airlock/shuttle,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"JM" = (
-/obj/structure/table,
-/obj/machinery/chem_dispenser/drinks{
-	dir = 8
+"JR" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/glass/rag{
+	pixel_y = 5
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
+/obj/item/reagent_containers/food/drinks/shaker{
+	pixel_x = 4;
+	pixel_y = 1
 	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Kh" = (
@@ -688,6 +701,11 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/grid/steel,
 /area/shuttle/exploration)
+"Mk" = (
+/obj/structure/chair/stool/bar,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "Nj" = (
 /obj/effect/turf_decal/box,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -717,16 +735,6 @@
 	},
 /obj/machinery/door/window,
 /turf/open/floor/plasteel/techmaint,
-/area/shuttle/exploration)
-"NI" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Oa" = (
 /obj/effect/turf_decal/stripes/line{
@@ -840,17 +848,6 @@
 /obj/item/reagent_containers/spray/cleaner,
 /turf/open/floor/plasteel/grid/steel,
 /area/shuttle/exploration)
-"Sv" = (
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "Sw" = (
 /obj/machinery/door/airlock/shuttle,
 /obj/effect/turf_decal/stripes/line{
@@ -867,28 +864,8 @@
 "SO" = (
 /turf/open/floor/wood,
 /area/shuttle/exploration)
-"Tj" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"TI" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
+"Tf" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "TJ" = (
@@ -898,29 +875,6 @@
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/stairs,
-/area/shuttle/exploration)
-"Ug" = (
-/obj/structure/chair/stool/bar,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"Us" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid/regular{
-	pixel_x = -3;
-	pixel_y = 9
-	},
-/obj/item/toy/cards/deck{
-	pixel_x = 2
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "UN" = (
 /obj/structure/table/reinforced,
@@ -938,15 +892,6 @@
 	pixel_y = 7
 	},
 /turf/open/floor/carpet,
-/area/shuttle/exploration)
-"Vz" = (
-/obj/structure/chair/stool/bar,
-/obj/effect/decal/cleanable/vomit,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "VZ" = (
 /turf/open/floor/mineral/titanium,
@@ -972,6 +917,14 @@
 	dir = 4
 	},
 /turf/open/floor/carpet,
+/area/shuttle/exploration)
+"Xk" = (
+/obj/structure/table,
+/obj/machinery/chem_dispenser/drinks{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Xm" = (
 /obj/structure/closet/crate,
@@ -1011,27 +964,26 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
+"XD" = (
+/obj/structure/table,
+/obj/machinery/chem_dispenser/drinks/beer{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "XP" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/carpet,
 /area/shuttle/exploration)
-"YA" = (
-/obj/structure/table/reinforced,
-/obj/item/toy/plush/beeplushie,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
+"YJ" = (
+/obj/structure/railing/corner{
+	dir = 4
 	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"YN" = (
-/obj/machinery/light,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Zf" = (
@@ -1219,12 +1171,12 @@ VZ
 VZ
 Fm
 TJ
-Sv
-NI
-vh
-vh
-vh
-vh
+It
+eJ
+Tf
+Tf
+Tf
+Tf
 JF
 ZU
 HU
@@ -1243,12 +1195,12 @@ BR
 BR
 Pb
 Rm
-kB
-TI
-vh
-Ug
-Vz
-Ug
+YJ
+Iv
+Tf
+Mk
+CZ
+Mk
 nG
 Nv
 Gb
@@ -1269,10 +1221,10 @@ nG
 nG
 Sw
 nG
-vh
-Us
-jB
-YA
+Tf
+wo
+JR
+dL
 nG
 Xo
 HU
@@ -1293,12 +1245,12 @@ nG
 RB
 SO
 nG
-Tj
-vh
-vh
-YN
+aO
+Tf
+Tf
+Ec
 nG
-zd
+kt
 yx
 sy
 WU
@@ -1317,10 +1269,10 @@ nG
 ik
 aS
 nG
-xL
-JM
-IC
-jP
+eM
+Xk
+XD
+iy
 nG
 Cx
 ck

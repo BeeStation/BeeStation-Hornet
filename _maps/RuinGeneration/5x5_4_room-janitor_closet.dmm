@@ -3,32 +3,30 @@
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"d" = (
+/obj/effect/turf_decal/tile/green/anticorner/contrasted,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"j" = (
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 12
+	},
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "l" = (
 /obj/structure/mopbucket,
 /obj/item/mop/cyborg,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"n" = (
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"x" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green{
+"w" = (
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/green,
-/obj/structure/reagent_dispensers/watertank,
-/obj/item/reagent_containers/glass/bucket,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "y" = (
@@ -37,44 +35,23 @@
 /obj/item/soap/nanotrasen,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"E" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 8
+"H" = (
+/obj/structure/sign/poster/contraband/lusty_xenomorph{
+	pixel_y = 32
 	},
-/obj/effect/turf_decal/tile/green{
+/obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "M" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
-"P" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"V" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/structure/sign/poster/contraband/lusty_xenomorph{
-	pixel_y = 32
+"S" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/item/reagent_containers/glass/bucket,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -92,13 +69,13 @@ M
 (2,1,1) = {"
 M
 y
-E
-x
+w
+S
 M
 "}
 (3,1,1) = {"
 M
-V
+H
 W
 W
 b
@@ -106,8 +83,8 @@ b
 (4,1,1) = {"
 M
 l
-P
-n
+j
+d
 M
 "}
 (5,1,1) = {"
