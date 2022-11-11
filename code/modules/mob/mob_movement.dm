@@ -199,7 +199,7 @@
 			if(T)
 				L.forceMove(T)
 			else
-				to_chat(L, "<span class='warning'>There's nothing in that direction!</span>")
+				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
 			L.setDir(direct)
 		if(INCORPOREAL_MOVE_SHADOW)
 			if(prob(50))
@@ -261,7 +261,7 @@
 					return
 				L.forceMove(stepTurf)
 			else
-				to_chat(L, "<span class='warning'>There's nothing in that direction!</span>")
+				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
 			L.setDir(direct)
 
 		if(INCORPOREAL_MOVE_EMINENCE) //Incorporeal move for emincence. Blocks move like Jaunt but lets it pass through clockwalls
@@ -280,7 +280,7 @@
 					return
 				L.forceMove(stepTurf)
 			else
-				to_chat(L, "<span class='warning'>There's nothing in that direction!</span>")
+				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
 			L.setDir(direct)
 	return TRUE
 
@@ -502,7 +502,7 @@
 	var/turf/target = get_step_multiz(src, dir)
 	if(!target)
 		if(feedback)
-			to_chat(src, "<span class='warning'>There's nothing in that direction!</span>")
+			to_chat(src, "<span class='warning'>There's nowhere to go in that direction!</span>")
 		return FALSE
 	if(!canZMove(dir, target))
 		if(feedback)
