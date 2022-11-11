@@ -158,7 +158,7 @@
 				to_chat(user, "<span class='notice'>You fill [src] to the brim.</span>")
 		return TRUE
 
-	if(!I.grind_results && !I.juice_results)
+	if(!I.grind_results && !I.juice_results && !I.is_grindable())
 		if(user.a_intent == INTENT_HARM)
 			return ..()
 		else
@@ -287,7 +287,7 @@
 			break
 		var/obj/item/I = i
 		check_trash(I)
-		if(I.grind_results)
+		if(I.grind_results || I.is_grindable())
 			if(istype(I, /obj/item/reagent_containers))
 				var/obj/item/reagent_containers/p = I
 				if(!p.prevent_grinding)
