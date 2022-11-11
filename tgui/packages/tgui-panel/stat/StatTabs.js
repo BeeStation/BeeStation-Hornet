@@ -6,7 +6,6 @@ import { selectStatPanel } from './selectors';
 import { StatStatus, HoboStatStatus } from './StatStatus';
 import { StatText, HoboStatText } from './StatText';
 import { StatTicket } from './StatTicket';
-import { sendMessage } from 'tgui/backend';
 
 // =======================
 // Flex Supported
@@ -46,15 +45,14 @@ export const StatTabs = (props, context) => {
           <Input
             fluid
             selfClear
-            onEnter={(e, value) => sendMessage({
-              type: 'stat/pressed',
-              payload: {
+            onEnter={(e, value) => Byond.sendMessage('stat/pressed',
+              {
                 action_id: "ticket_message",
                 params: {
                   msg: value,
                 },
-              },
-            })} />
+              }
+            )} />
         </Fragment>
       )}
     </Fragment>
@@ -146,13 +144,14 @@ export const HoboStatTabs = (props, context) => {
           <Input
             fluid
             selfClear
-            onEnter={(e, value) => sendMessage({
-              type: 'stat/pressed',
-              payload: {
+            onEnter={(e, value) => Byond.sendMessage('stat/pressed',
+              {
                 action_id: "ticket_message",
-                params: value,
-              },
-            })} />
+                params: {
+                  msg: value,
+                },
+              }
+            )} />
         </Fragment>
       )}
     </Box>
