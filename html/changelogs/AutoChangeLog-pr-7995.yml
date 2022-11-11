@@ -1,0 +1,12 @@
+author: DrDuckedGoose
+delete-after: true
+changes:
+  - tweak: Resprite floor.dm
+  - tweak: Resprite decals.dm - turf variant
+  - tweak: Changes hazard color in- disposal.dmi, shutters.dmi, catwalk.dmi
+  - rscadd: Add mapping-option tiles- Cafeteria-Dark, Cafeteria-Red, DarkBlueFull,
+      SmartChecker
+  - tweak: Change mapping instances of bar floor with red decals to Cafeteria-Red
+      - BoxStation & MetaStation
+  - tweak: Change regular tiles with decals to light-ish tiles with decals where necessary
+      - MetaStation
