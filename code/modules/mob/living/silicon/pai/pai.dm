@@ -202,7 +202,7 @@
 		hackprogress = 0
 		hacking = FALSE
 		var/obj/machinery/door/door = hacking_cable.machine
-		door.attack_ai()
+		door.open()
 		QDEL_NULL(hackbar)
 		QDEL_NULL(hacking_cable)
 
