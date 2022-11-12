@@ -204,7 +204,7 @@
 	if(!istype(master))
 		return
 	to_chat(pai, "<span class='notice'>Requesting a DNA sample.</span>")
-	var/confirm = input(master, "[pai] is requesting a DNA sample from you. Will you allow it to confirm your identity?", "Checking DNA") in list("Yes", "No")
+	var/confirm = alert(master, "[pai] is requesting a DNA sample from you. Will you allow it to confirm your identity?", "Checking DNA", "Yes", "No")
 	if(confirm == "Yes")
 		master.visible_message("<span class='notice'>[master] presses [master.p_their()] thumb against [pai].</span>",\
 						"<span class='notice'>You press your thumb against [pai].</span>",\
