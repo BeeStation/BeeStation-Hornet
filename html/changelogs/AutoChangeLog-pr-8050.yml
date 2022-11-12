@@ -1,0 +1,5 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - bugfix: Fixed staffwho using "a" wrongly in the rank text.
+  - code_imp: Merged Staffwho and Mentorwho's code
