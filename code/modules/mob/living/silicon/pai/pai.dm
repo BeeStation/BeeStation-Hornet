@@ -193,7 +193,6 @@
 		hackprogress = 0
 		hacking = FALSE
 		hackdoor = null
-		hackbar.Destroy()
 		QDEL_NULL(hackbar)
 		QDEL_NULL(hacking_cable)
 		if(!QDELETED(card))
@@ -202,9 +201,8 @@
 	if(hackprogress >= 100)
 		hackprogress = 0
 		hacking = FALSE
-		hackbar.Destroy()
 		var/obj/machinery/door/door = hacking_cable.machine
-		door.open()
+		door.attack_ai()
 		QDEL_NULL(hackbar)
 		QDEL_NULL(hacking_cable)
 
@@ -375,7 +373,7 @@
 	return ..()
 
 /obj/item/paicard/should_emag(mob/user)
-	return pai && ..()
+	return TRUE
 
 /obj/item/paicard/on_emag(mob/user) // Emag to wipe the master DNA and supplemental directive
 	..()

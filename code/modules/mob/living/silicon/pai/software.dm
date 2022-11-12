@@ -4,24 +4,24 @@
 															//radiation eyes
 															//chem goggs
 															//mesons
-															"Crew Manifest" = 5,
-															"Digital Messenger" = 5,
-															"Atmosphere Sensor" = 5,
-															"Photography Module" = 5,
-															"Camera Zoom" = 10,
-															"Printer Module" = 10,
-															"Remote Signaler" = 10,
-															"Medical Records" = 10,
-															"Security Records" = 10,
-															"Host Scan" = 10,
-															"Medical HUD" = 20,
-															"Security HUD" = 20,
-															"Loudness Booster" = 20,
-															"Newscaster" = 20,
-															"Door Jack" = 25,
-															"Encryption Keys" = 25,
-															"Internal GPS" = 35,
-															"Universal Translator" = 35
+															PAI_PROGRAM_CREW_MANIFEST = 5,
+															PAI_PROGRAM_DIGITAL_MESSENGER = 5,
+															PAI_PROGRAM_ATMOSPHERE_SENSOR = 5,
+															PAI_PROGRAM_PHOTOGRAPHY_MODULE = 5,
+															PAI_PROGRAM_CAMERA_ZOOM = 10,
+															PAI_PROGRAM_PRINTER_MODULE = 10,
+															PAI_PROGRAM_REMOTE_SIGNALER = 10,
+															PAI_PROGRAM_MEDICAL_RECORDS = 10,
+															PAI_PROGRAM_SECURITY_RECORDS = 10,
+															PAI_PROGRAM_HOST_SCAN = 10,
+															PAI_PROGRAM_MEDICAL_HUD = 20,
+															PAI_PROGRAM_SECURITY_HUD = 20,
+															PAI_PROGRAM_LOUDNESS_BOOSTER = 20,
+															PAI_PROGRAM_NEWSCASTER = 20,
+															PAI_PROGRAM_DOOR_JACK = 25,
+															PAI_PROGRAM_ENCRYPTION_KEYS = 25,
+															PAI_PROGRAM_INTERNAL_GPS = 35,
+															PAI_PROGRAM_UNIVERSAL_TRANSLATOR = 35
 															)
 /// Bool that determines if the pAI can refresh medical/security records.
 /mob/living/silicon/pai/var/refresh_spam = FALSE
@@ -204,7 +204,7 @@
 	if(!istype(master))
 		return
 	to_chat(pai, "<span class='notice'>Requesting a DNA sample.</span>")
-	var/confirm = input(master, "[pai] is requesting a DNA sample from you. Will you allow it to confirm your identity?", "Checking DNA") as anything in list("Yes", "No")
+	var/confirm = input(master, "[pai] is requesting a DNA sample from you. Will you allow it to confirm your identity?", "Checking DNA") in list("Yes", "No")
 	if(confirm == "Yes")
 		master.visible_message("<span class='notice'>[master] presses [master.p_their()] thumb against [pai].</span>",\
 						"<span class='notice'>You press your thumb against [pai].</span>",\

@@ -23,7 +23,6 @@ type PaiInterfaceData = {
   installed: string[];
   languages: number;
   master: Master;
-  pda: PDA;
   ram: number;
   records: Records;
   refresh_spam: number;
@@ -37,11 +36,6 @@ type Available = {
 type Master = {
   name: string;
   dna: string;
-};
-
-type PDA = {
-  power: number;
-  silent: number;
 };
 
 type Records = {
@@ -458,34 +452,11 @@ const RecordRow = (props) => {
  */
 const SoftwareButtons = (props, context) => {
   const { act, data } = useBackend<PaiInterfaceData>(context);
-  const { door_jack, languages, pda } = data;
+  const { door_jack, languages } = data;
   const { software } = props;
 
   switch (software) {
-    case 'digital messenger':
-      return (
-        <>
-          <Button
-            icon="power-off"
-            onClick={() => act('pda', { pda: 'power' })}
-            selected={pda.power}>
-            Power
-          </Button>
-          <Button
-            icon="volume-mute"
-            onClick={() => act('pda', { pda: 'silent' })}
-            selected={pda.silent}>
-            Silent
-          </Button>
-          <Button
-            disabled={!pda.power}
-            icon="envelope"
-            onClick={() => act('pda', { pda: 'message' })}>
-            Message
-          </Button>
-        </>
-      );
-    case 'door jack':
+    case 'Door Jack':
       return (
         <>
           <Button
@@ -509,7 +480,7 @@ const SoftwareButtons = (props, context) => {
           </Button>
         </>
       );
-    case 'host scan': {
+    case 'Host Scan': {
       return (
         <>
           <Button
@@ -525,7 +496,7 @@ const SoftwareButtons = (props, context) => {
         </>
       );
     }
-    case 'universal translator':
+    case 'Universal Translator':
       return (
         <Button
           icon="download"

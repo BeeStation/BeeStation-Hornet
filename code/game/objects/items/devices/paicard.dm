@@ -14,7 +14,6 @@
 	///what emotion icon we have. handled in /mob/living/silicon/pai/Topic()
 	var/emotion_icon = "off"
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
-	emag_toggleable = TRUE
 
 /obj/item/paicard/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is staring sadly at [src]! [user.p_they()] can't keep living without real human intimacy!</span>")
@@ -134,9 +133,9 @@
 				pai.laws.set_zeroth_law("Serve your master.")
 				pai.emittersemicd = FALSE
 		if("set_laws")
+			var/newlaws = stripped_multiline_input(usr, "Enter any additional directives you would like your pAI personality to follow. Note that these directives will not override the personality's allegiance to its imprinted master. Conflicting directives will be ignored.", "pAI Directive Configuration", pai.laws.supplied[1])
 			if(!in_range(src, usr))
 				return FALSE
-			var/newlaws = stripped_multiline_input(usr, "Enter any additional directives you would like your pAI personality to follow. Note that these directives will not override the personality's allegiance to its imprinted master. Conflicting directives will be ignored.", "pAI Directive Configuration", pai.laws.supplied[1])
 			if(newlaws && pai)
 				pai.add_supplied_law(0,newlaws)
 		if("toggle_holo")
