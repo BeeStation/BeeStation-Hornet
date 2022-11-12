@@ -820,6 +820,7 @@
 /area/shuttle/abandoned)
 "YN" = (
 /obj/structure/table,
+/obj/item/gun/energy/floragun,
 /turf/open/floor/wood,
 /area/shuttle/abandoned)
 "Zd" = (
