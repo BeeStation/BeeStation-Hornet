@@ -42,77 +42,10 @@
 /obj/item/melee/skateboard,
 /turf/open/floor/plasteel/cafeteria,
 /area/template_noop)
-"h" = (
-/obj/structure/mirror{
-	pixel_x = -28
-	},
-/obj/structure/table/wood,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/suit/suspenders,
-/obj/effect/spawner/lootdrop/costume,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
-"i" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
 "j" = (
 /obj/structure/dresser,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/cafeteria,
-/area/template_noop)
-"k" = (
-/obj/structure/table_frame/wood,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
-"l" = (
-/obj/machinery/light/small,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/autodrobe/all_access,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
 /area/template_noop)
 "m" = (
 /obj/structure/table/wood,
@@ -140,18 +73,58 @@
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/template_noop)
+"s" = (
+/obj/structure/mirror{
+	pixel_x = -28
+	},
+/obj/structure/table/wood,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/suit/suspenders,
+/obj/effect/spawner/lootdrop/costume,
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"I" = (
+/obj/machinery/light/small,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/autodrobe/all_access,
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"M" = (
+/obj/structure/table_frame/wood,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"T" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
 
 (1,1,1) = {"
 a
 d
-h
-k
+s
+M
 "}
 (2,1,1) = {"
 b
 b
-i
-l
+T
+I
 "}
 (3,1,1) = {"
 c
