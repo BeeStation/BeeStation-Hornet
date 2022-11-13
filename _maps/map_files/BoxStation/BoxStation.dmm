@@ -24628,7 +24628,7 @@
 /area/quartermaster/miningdock)
 "eVX" = (
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "hop_shutter";
+	id = "hopshutter";
 	name = "Privacy Shutters"
 	},
 /obj/structure/cable/yellow{
@@ -28532,7 +28532,7 @@
 	pixel_y = 28
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "hop_shutter";
+	id = "hopshutter";
 	name = "Privacy Shutters"
 	},
 /obj/machinery/door/firedoor,
@@ -35904,7 +35904,7 @@
 /area/hallway/secondary/command)
 "kPV" = (
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "hop_shutter";
+	id = "hopshutter";
 	name = "Privacy Shutters"
 	},
 /obj/structure/cable/yellow{
@@ -58566,14 +58566,14 @@
 	dir = 5
 	},
 /obj/machinery/button/door{
-	id = "hop_shutter";
+	id = "hopshutter";
 	name = "Privacy Shutter Control";
 	pixel_x = 6;
 	pixel_y = 26;
 	req_access_txt = "57"
 	},
 /obj/machinery/button/door{
-	id = hopqueue;
+	id = "hopqueue";
 	name = "Queue Shutter Control";
 	pixel_x = -5;
 	pixel_y = 26;
