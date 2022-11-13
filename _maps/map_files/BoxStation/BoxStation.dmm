@@ -7662,6 +7662,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/techmaint,
 /area/storage/tech)
 "bfP" = (
@@ -13603,7 +13604,7 @@
 /turf/open/floor/plasteel/white/corner{
 	dir = 1
 	},
-/area/engine/atmos)
+/area/hallway/primary/aft)
 "bUG" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/manifold/cyan/visible,
@@ -13984,7 +13985,7 @@
 /turf/open/floor/plasteel/white/corner{
 	dir = 1
 	},
-/area/engine/atmos)
+/area/hallway/primary/aft)
 "bWN" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
@@ -14176,7 +14177,7 @@
 /turf/open/floor/plasteel/white/corner{
 	dir = 1
 	},
-/area/engine/atmos)
+/area/hallway/primary/aft)
 "bXK" = (
 /obj/structure/sign/poster/official/build,
 /turf/closed/wall/r_wall,
@@ -16947,9 +16948,6 @@
 /turf/open/space,
 /area/solar/starboard/aft)
 "cpq" = (
-/obj/structure/sign/warning/electricshock{
-	pixel_x = -32
-	},
 /obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -17678,6 +17676,9 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/structure/sign/warning/electricshock{
+	pixel_x = -32
 	},
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
@@ -21147,6 +21148,7 @@
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 5
 	},
+/obj/machinery/vending/snack/random,
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/command)
 "djC" = (
@@ -27139,7 +27141,7 @@
 /turf/open/floor/plasteel/white/corner{
 	dir = 1
 	},
-/area/engine/atmos)
+/area/hallway/primary/aft)
 "guS" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -30952,6 +30954,9 @@
 "iuQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/structure/sign/warning/electricshock{
+	pixel_x = -32
 	},
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
@@ -40114,6 +40119,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/courtroom)
+"mWe" = (
+/obj/effect/spawner/structure/window/depleteduranium,
+/turf/open/floor/plating,
+/area/engine/gravity_generator)
 "mWp" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -45696,6 +45705,9 @@
 /obj/structure/disposalpipe/junction,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
+"pTx" = (
+/turf/closed/wall,
+/area/hallway/primary/aft)
 "pTR" = (
 /obj/machinery/meter,
 /obj/effect/decal/cleanable/dirt,
@@ -47476,9 +47488,6 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "qPC" = (
-/obj/structure/sign/warning/electricshock{
-	pixel_x = -32
-	},
 /obj/effect/turf_decal/loading_area,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -48735,6 +48744,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
 "rsX" = (
@@ -60239,6 +60249,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/engine/gravity_generator)
 "xuU" = (
@@ -86185,9 +86196,9 @@ bSs
 ceY
 ccw
 ccw
-btG
+mWe
 rsz
-btG
+mWe
 ccw
 ccw
 ccw
@@ -91307,7 +91318,7 @@ guz
 bUE
 bWM
 bXJ
-bMK
+pTx
 bYH
 bYH
 bYH
