@@ -150,7 +150,7 @@
 
 /datum/action/proc/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force = FALSE)
 	if(icon_icon && button_icon_state && ((current_button.button_icon_state != button_icon_state) || force))
-		current_button.cut_overlays(TRUE)
+		current_button.cut_overlays()
 		current_button.add_overlay(mutable_appearance(icon_icon, button_icon_state))
 		current_button.button_icon_state = button_icon_state
 
@@ -203,9 +203,9 @@
 	name = "Toggle Light"
 
 /datum/action/item_action/toggle_light/Trigger()
-	if(istype(target, /obj/item/pda))
-		var/obj/item/pda/P = target
-		P.toggle_light(owner)
+	if(istype(target, /obj/item/modular_computer))
+		var/obj/item/modular_computer/mc = target
+		mc.toggle_flashlight()
 		return
 	..()
 
@@ -227,6 +227,9 @@
 
 /datum/action/item_action/startchainsaw
 	name = "Pull The Starting Cord"
+
+/datum/action/item_action/toggle_computer_light
+	name = "Toggle Flashlight"
 
 /datum/action/item_action/toggle_gunlight
 	name = "Toggle Gunlight"

@@ -31,7 +31,7 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/security_officer
 	)
-	biohazard = 15 //clean your baton, man
+	biohazard = 25 //clean your baton, man
 
 /datum/job/security_officer/get_access()
 	var/list/L = list()
@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	jobtype = /datum/job/security_officer
 
 	id = /obj/item/card/id/job/security_officer
-	belt = /obj/item/pda/security
+	belt = /obj/item/modular_computer/tablet/pda/security
 	ears = /obj/item/radio/headset/headset_sec/alt
 	uniform = /obj/item/clothing/under/rank/security/officer
 	gloves = /obj/item/clothing/gloves/color/black

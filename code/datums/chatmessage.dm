@@ -492,7 +492,8 @@
 		qdel(src)
 		return
 	//handle color
-	tgt_color = color
+	if(color)
+		tgt_color = color
 	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner)
 
 /datum/chatmessage/balloon_alert/Destroy()
@@ -577,3 +578,5 @@
 #undef CHATMESSAGE_CANNOT_HEAR
 #undef CHATMESSAGE_HEAR
 #undef CHATMESSAGE_SHOW_LANGUAGE_ICON
+#undef COLOR_PERSON_UNKNOWN
+#undef COLOR_CHAT_EMOTE

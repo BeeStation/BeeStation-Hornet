@@ -626,6 +626,7 @@
 
 /obj/item/circuitboard/machine/chem_dispenser/botany				//probably should be generic but who cares
 	name = "minor botanical chem dispenser (Machine Board)"
+	icon_state = "service"
 	build_path = /obj/machinery/chem_dispenser/mutagensaltpetersmall
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
@@ -1279,11 +1280,3 @@
 /obj/item/circuitboard/machine/clockwork
 	name = "clockwork board (Report This)"
 	icon_state = "clock_mod"
-
-/obj/item/circuitboard/machine/allaccess
-	name = "all access dispenser"
-	icon_state = "generic"
-	build_path = /obj/machinery/allaccess
-	req_components = list(
-		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/stock_parts/micro_laser = 1)

@@ -36,23 +36,10 @@
 /obj/machinery/chem_master,
 /turf/open/floor/plasteel/grid,
 /area/survivalpod)
-"k" = (
+"B" = (
 /obj/machinery/sleeper/survival_pod,
-/obj/effect/turf_decal/tile/blue{
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel/grid,
-/area/survivalpod)
-"l" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
 	},
 /turf/open/floor/plasteel/grid,
 /area/survivalpod)
@@ -65,6 +52,12 @@
 /obj/structure/sign/departments/minsky/medical/medical2,
 /obj/structure/sign/departments/medbay/alt2,
 /turf/closed/wall/mineral/titanium/survival,
+/area/survivalpod)
+"S" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel/grid,
 /area/survivalpod)
 "U" = (
 /obj/machinery/door/airlock/survival_pod/glass,
@@ -83,14 +76,14 @@ a
 N
 d
 f
-k
+B
 a
 "}
 (3,1,1) = {"
 a
 e
 f
-l
+S
 a
 "}
 (4,1,1) = {"
