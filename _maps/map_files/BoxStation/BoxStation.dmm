@@ -57285,11 +57285,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
-"wel" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/open/space,
-/area/space/nearstation)
 "wen" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 5
@@ -87048,7 +87043,7 @@ aaf
 aaf
 gXs
 gXs
-wel
+aaf
 gXs
 bCq
 bCq
