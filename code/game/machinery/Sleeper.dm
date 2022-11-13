@@ -208,14 +208,17 @@
 	//Display the names of the inserted vials
 	data["chems"] = list()
 	var/i = 1
-	for(var/atom/chem_vial as() in inserted_vials)
-		var/dominant_chemical = "Empty"
-		var/dominant_amount = 0
-		for(var/datum/reagent/reagent in chem_vial.reagents.reagent_list)
-			if (reagent.volume > dominant_amount)
-				dominant_amount = reagent.volume
-				dominant_chemical = reagent.name
-		data["chems"] += list(list("name" = dominant_chemical, "id" = i, "allowed" = chem_allowed(i), "amount" = chem_vial.reagents?.total_volume || 0))
+	for(var/obj/chem_vial as() in inserted_vials)
+		var/chem_name = chem_vial.name
+		if (!chem_vial.renamedByPlayer)
+			var/dominant_chemical = "Empty"
+			var/dominant_amount = 0
+			for(var/datum/reagent/reagent in chem_vial.reagents.reagent_list)
+				if (reagent.volume > dominant_amount)
+					dominant_amount = reagent.volume
+					dominant_chemical = reagent.name
+			chem_name = dominant_chemical
+		data["chems"] += list(list("name" = chem_name, "id" = i, "allowed" = chem_allowed(i), "amount" = chem_vial.reagents?.total_volume || 0))
 		i++
 
 	data["occupant"] = list()
