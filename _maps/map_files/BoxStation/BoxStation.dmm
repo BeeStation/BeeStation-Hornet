@@ -33366,6 +33366,9 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /obj/effect/spawner/lootdrop/techstorage/security,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/airalarm{
+	pixel_y = 23
+	},
 /turf/open/floor/plasteel/dark,
 /area/storage/tech)
 "jJg" = (
