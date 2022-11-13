@@ -1954,10 +1954,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
-/obj/machinery/door/firedoor,
+/obj/machinery/camera/autoname,
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
 "aiR" = (
@@ -43053,7 +43050,6 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -50700,7 +50696,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
 "stz" = (
