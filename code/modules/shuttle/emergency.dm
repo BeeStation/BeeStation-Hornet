@@ -46,10 +46,6 @@
 		say("Please equip your ID card into your ID slot to authenticate.")
 	. = ..()
 
-/obj/machinery/computer/emergency_shuttle/attack_alien(mob/living/carbon/alien/humanoid/royal/queen/user)
-	if(istype(user))
-		SSshuttle.clearHostileEnvironment(user)
-
 /obj/machinery/computer/emergency_shuttle/ui_state(mob/user)
 	return GLOB.human_adjacent_state
 
@@ -306,6 +302,7 @@
 	dir = EAST
 	port_direction = WEST
 	var/hijack_status = NOT_BEGUN
+	var/infestation_alert_timer
 
 /obj/docking_port/mobile/emergency/canDock(obj/docking_port/stationary/S)
 	return SHUTTLE_CAN_DOCK //If the emergency shuttle can't move, the whole game breaks, so it will force itself to land even if it has to crush a few departments in the process
@@ -352,6 +349,13 @@
 
 	priority_announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ][SSshuttle.adminEmergencyNoRecall ? "\n\nWarning: Shuttle recall subroutines disabled; Recall not possible." : ""]", null, ANNOUNCER_SHUTTLECALLED, "Priority", null, TRUE)
 
+	if(SSshuttle.checkInfestedEnvironment()) //If an Alien Queen exists, set a delayed alert
+		infestation_alert_timer = addtimer(CALLBACK(src, .proc/infested_shuttle), rand(150 SECONDS, call_time), TIMER_STOPPABLE) //Delay timer is random from 2:30 to the full duration of the shuttle call
+
+/obj/docking_port/mobile/emergency/proc/infested_shuttle()
+	if(SSshuttle.checkInfestedEnvironment()) //Check again to ensure the queen is still present
+		SSshuttle.delayForInfestedStation() //And delay the shuttle if they are
+
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
 	if(mode != SHUTTLE_CALL)
 		return
@@ -360,6 +364,8 @@
 
 	invertTimer()
 	mode = SHUTTLE_RECALL
+	if(infestation_alert_timer)
+		deltimer(infestation_alert_timer)
 
 	if(prob(70))
 		SSshuttle.emergencyLastCallLoc = signalOrigin

@@ -44,6 +44,7 @@
 /mob/living/carbon/alien/humanoid/royal/queen/Initialize(mapload)
 	RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, .proc/set_countdown)
 	set_countdown() //still need to call this
+	SSshuttle.registerInfestation(src)
 	//there should only be one queen
 	for(var/mob/living/carbon/alien/humanoid/royal/queen/Q in GLOB.carbon_list)
 		if(Q == src)
@@ -71,33 +72,30 @@
 
 /mob/living/carbon/alien/humanoid/royal/queen/proc/set_countdown()
 	SIGNAL_HANDLER
-	if(is_station_level(src.z)) //we don't want to force evacuation if the infestation isn't on the station
-		if(game_end_timer)	//clear the timer if it exists, only one queen can exist at a time so resetting this means the old queen has died.
-			deltimer(game_end_timer)
-		game_end_timer = addtimer(CALLBACK(src, .proc/game_end), 20 MINUTES, TIMER_STOPPABLE) //If Queen isn't killed within 20 minutes, shuttle is force-called
-		return
+	if(game_end_timer)	//clear the timer if it exists, only one queen can normally exist at a time so resetting this means the old queen has died or an admin is involved
+		deltimer(game_end_timer)
+	game_end_timer = addtimer(CALLBACK(src, .proc/game_end), 30 MINUTES, TIMER_STOPPABLE) //If Queen isn't killed within 30 minutes, shuttle is force-called
 
 /mob/living/carbon/alien/humanoid/royal/queen/proc/game_end()
 	var/turf/T = get_turf(src)
-	if(stat != DEAD && is_station_level(T.z))
-		priority_announce("Xenomorph infestation detected: crisis shuttle protocols activated - jamming recall signals across all frequencies.")
-		SSshuttle.emergencyNoRecall = TRUE
-		play_soundtrack_music(/datum/soundtrack_song/bee/mind_crawler, only_station = TRUE) //No more hostile environment, moving the soundtrack to the forced game end here
+	if(stat != DEAD && is_station_level(T.z)) //If the queen is not on the station, the infestation event will not auto-trigger
+		SSshuttle.delayForInfestedStation()
 		UnregisterSignal(src, COMSIG_MOVABLE_Z_CHANGED)
-		if(EMERGENCY_IDLE_OR_RECALLED)
-			SSshuttle.emergency.request(null, set_coefficient=0.5) //If a shuttle wasn't already called, call one now
 
 /mob/living/carbon/alien/humanoid/royal/queen/death() //dead queen doesnt cause shuttle
 	UnregisterSignal(src, COMSIG_MOVABLE_Z_CHANGED)
+	SSshuttle.clearInfestation(src)
 	..()
 
 /mob/living/carbon/alien/humanoid/royal/queen/revive(full_heal = 0, admin_revive = 0)
 	if(..())
 		RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, .proc/set_countdown)
 		set_countdown()
+		SSshuttle.registerInfestation(src)
 
 /mob/living/carbon/alien/humanoid/royal/queen/Destroy()
 	UnregisterSignal(src, COMSIG_MOVABLE_Z_CHANGED)
+	SSshuttle.clearInfestation(src)
 	..()
 
 //Queen verbs
