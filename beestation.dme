@@ -3515,6 +3515,7 @@
 #include "code\modules\tgui\tgui_select_picture.dm"
 #include "code\modules\tgui\tgui_window.dm"
 #include "code\modules\tgui\states\admin.dm"
+#include "code\modules\tgui\states\admin_holder.dm"
 #include "code\modules\tgui\states\always.dm"
 #include "code\modules\tgui\states\clockcult_state.dm"
 #include "code\modules\tgui\states\conscious.dm"
