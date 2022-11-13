@@ -2135,7 +2135,7 @@
 /area/engine/atmos)
 "akZ" = (
 /obj/machinery/door/poddoor/preopen{
-	id = "bridge_entrance";
+	id = "bridgeentrance";
 	name = "bridge blast door"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -17925,7 +17925,7 @@
 /area/engine/engineering)
 "csU" = (
 /obj/machinery/door/poddoor/preopen{
-	id = "bridge_entrance";
+	id = "bridgeentrance";
 	name = "bridge blast door"
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -18595,7 +18595,7 @@
 	dir = 1
 	},
 /obj/machinery/door/poddoor/preopen{
-	id = "bridge_entrance";
+	id = "bridgeentrance";
 	name = "bridge blast door"
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -22638,7 +22638,7 @@
 /area/science/research)
 "dRK" = (
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = command_window_01
+	id = "commandwindow"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -24275,7 +24275,7 @@
 /area/teleporter)
 "eLa" = (
 /obj/machinery/door/poddoor/preopen{
-	id = "bridge_entrance";
+	id = "bridgeentrance";
 	name = "bridge blast door"
 	},
 /obj/structure/cable/yellow{
@@ -28051,7 +28051,7 @@
 "gTz" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "meeting_shutter";
+	id = "meetingshutter";
 	name = "Privacy Shutters"
 	},
 /obj/structure/cable/yellow{
@@ -28687,7 +28687,7 @@
 "hhB" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "meeting_shutter";
+	id = "meetingshutter";
 	name = "Privacy Shutters"
 	},
 /obj/structure/cable/yellow,
@@ -29278,7 +29278,7 @@
 /area/security/processing)
 "hxD" = (
 /obj/machinery/door/poddoor/shutters{
-	id = eva_shutter;
+	id = "evashutter";
 	name = "EVA Storage Shutters"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -30705,11 +30705,11 @@
 /area/crew_quarters/bar)
 "ikX" = (
 /obj/machinery/door/poddoor/shutters{
-	id = eva_shutter;
+	id = "evashutter";
 	name = "EVA Storage Shutters"
 	},
 /obj/machinery/button/door{
-	id = eva_shutter;
+	id = "evashutter";
 	name = "EVA Shutter Control";
 	pixel_y = -26
 	},
@@ -30866,7 +30866,7 @@
 "ipZ" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/door/poddoor/preopen{
-	id = "bridge_entrance";
+	id = "bridgeentrance";
 	name = "bridge blast door"
 	},
 /obj/structure/cable/yellow{
@@ -31070,7 +31070,7 @@
 "ivy" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
-	id = "bridge_window";
+	id = "bridgewindow";
 	name = "bridge blast door"
 	},
 /obj/structure/cable/yellow{
@@ -33734,7 +33734,7 @@
 "jPI" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
-	id = "bridge_window";
+	id = "bridgewindow";
 	name = "bridge blast door"
 	},
 /obj/structure/cable/yellow{
@@ -34273,7 +34273,7 @@
 	pixel_x = 32
 	},
 /obj/machinery/door/poddoor/preopen{
-	id = "bridge_entrance";
+	id = "bridgeentrance";
 	name = "bridge blast door"
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -36617,7 +36617,7 @@
 "lhO" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
-	id = "bridge_window";
+	id = "bridgewindow";
 	name = "bridge blast door"
 	},
 /obj/structure/cable/yellow{
@@ -37335,7 +37335,7 @@
 /area/hallway/primary/fore)
 "lyg" = (
 /obj/machinery/door/poddoor/preopen{
-	id = "bridge_entrance";
+	id = "bridgeentrance";
 	name = "bridge blast door"
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -38575,7 +38575,7 @@
 "mgE" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "meeting_shutter";
+	id = "meetingshutter";
 	name = "Privacy Shutters"
 	},
 /obj/structure/cable/yellow{
@@ -41702,7 +41702,7 @@
 "nMN" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
-	id = "bridge_window";
+	id = "bridgewindow";
 	name = "bridge blast door"
 	},
 /obj/structure/cable/yellow{
@@ -46029,7 +46029,7 @@
 "qiD" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "meeting_shutter";
+	id = "meetingshutter";
 	name = "Privacy Shutters"
 	},
 /obj/structure/cable/yellow{
@@ -46226,7 +46226,7 @@
 	dir = 4
 	},
 /obj/machinery/button/door{
-	id = command_window_02;
+	id = "commandwindow2";
 	name = "Window shutters control";
 	pixel_y = -28
 	},
@@ -46614,7 +46614,7 @@
 "qwY" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "meeting_shutter";
+	id = "meetingshutter";
 	name = "Privacy Shutters"
 	},
 /obj/structure/cable/yellow,
@@ -46893,7 +46893,7 @@
 "qDq" = (
 /obj/structure/table/wood,
 /obj/machinery/button/door{
-	id = command_window_01;
+	id = "commandwindow";
 	name = "Window shutters control";
 	pixel_x = 32;
 	pixel_y = -28
@@ -48554,7 +48554,7 @@
 "rsX" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/machinery/door/poddoor/preopen{
-	id = "bridge_entrance";
+	id = "bridgeentrance";
 	name = "bridge blast door"
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -49157,7 +49157,7 @@
 	dir = 4
 	},
 /obj/machinery/button/door{
-	id = "meeting_shutter";
+	id = "meetingshutter";
 	name = "Privacy Shutter Control";
 	pixel_x = 26;
 	pixel_y = 2
@@ -49447,7 +49447,7 @@
 "rQV" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "meeting_shutter";
+	id = "meetingshutter";
 	name = "Privacy Shutters"
 	},
 /obj/structure/cable/yellow{
@@ -50391,7 +50391,7 @@
 "srV" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
-	id = "bridge_window";
+	id = "bridgewindow";
 	name = "bridge blast door"
 	},
 /obj/structure/cable/yellow{
@@ -51902,7 +51902,7 @@
 "tci" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "meeting_shutter";
+	id = "meetingshutter";
 	name = "Privacy Shutters"
 	},
 /obj/structure/cable/yellow{
@@ -51958,7 +51958,7 @@
 "tda" = (
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/door/poddoor/preopen{
-	id = "bridge_entrance";
+	id = "bridgeentrance";
 	name = "bridge blast door"
 	},
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
@@ -52014,7 +52014,7 @@
 /area/ai_monitored/nuke_storage)
 "tee" = (
 /obj/machinery/button/door{
-	id = "bridge_entrance";
+	id = "bridgeentrance";
 	name = "Bridge Entrance Shutter Control";
 	pixel_x = 26;
 	pixel_y = -2;
@@ -52025,7 +52025,7 @@
 	pixel_y = 37
 	},
 /obj/machinery/button/door{
-	id = "bridge_window";
+	id = "bridgewindow";
 	name = "Window Shutters Control";
 	pixel_x = 39;
 	pixel_y = -2;
@@ -52039,14 +52039,14 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/button/door{
-	id = stationgate;
+	id = "stationgate";
 	name = "Gateway Shutter Control";
 	pixel_x = 26;
 	pixel_y = 7;
 	req_access_txt = "62"
 	},
 /obj/machinery/button/door{
-	id = "eva_shutter";
+	id = "evashutter";
 	name = "EVA Shutters Control";
 	pixel_x = 39;
 	pixel_y = 7;
@@ -54379,7 +54379,7 @@
 "uos" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
-	id = "bridge_window";
+	id = "bridgewindow";
 	name = "bridge blast door"
 	},
 /obj/structure/cable/yellow{
@@ -54739,7 +54739,7 @@
 	pixel_x = -32
 	},
 /obj/machinery/door/poddoor/preopen{
-	id = "bridge_entrance";
+	id = "bridgeentrance";
 	name = "bridge blast door"
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -56941,7 +56941,7 @@
 "vRp" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "meeting_shutter";
+	id = "meetingshutter";
 	name = "Privacy Shutters"
 	},
 /obj/structure/cable/yellow{
@@ -57079,7 +57079,7 @@
 "vWd" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
-	id = "bridge_window";
+	id = "bridgewindow";
 	name = "bridge blast door"
 	},
 /turf/open/floor/plating,
@@ -57186,7 +57186,7 @@
 "waL" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "meeting_shutter";
+	id = "meetingshutter";
 	name = "Privacy Shutters"
 	},
 /obj/structure/cable/yellow{
@@ -57199,7 +57199,7 @@
 /area/bridge/meeting_room)
 "waT" = (
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = command_window_02
+	id = "commandwindow2"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -59945,7 +59945,7 @@
 "xwN" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
-	id = "bridge_window";
+	id = "bridgewindow";
 	name = "bridge blast door"
 	},
 /obj/structure/cable/yellow{
