@@ -11,6 +11,7 @@
 	var/total = 0
 	for (var/job_name in jobs)
 		var/datum/job/located = SSjob.GetJob(job_name)
-		lootcount += located.current_positions
+		total += located.current_positions
 	total = CEILING(CLAMP(total * linear_scaling_rate, minimum, maximum), 1)
+	lootcount = total
 	. = ..()
