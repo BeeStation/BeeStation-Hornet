@@ -7021,6 +7021,9 @@
 	name = "Hydroponics Desk";
 	req_access_txt = "35"
 	},
+/obj/structure/desk_bell{
+	pixel_x = 8
+	},
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "bar" = (
@@ -7962,15 +7965,20 @@
 	req_access_txt = "29"
 	},
 /obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
+	pixel_x = -4;
+	pixel_y = 4
 	},
-/obj/item/pen,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "robotics";
 	name = "robotics lab shutters"
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell{
+	pixel_x = 8
+	},
+/obj/item/pen{
+	pixel_x = -4
+	},
 /turf/open/floor/plating,
 /area/science/robotics/lab)
 "bhA" = (
@@ -7995,6 +8003,9 @@
 	name = "research lab shutters"
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell{
+	pixel_x = 8
+	},
 /turf/open/floor/plating,
 /area/science/lab)
 "bhE" = (
@@ -9140,6 +9151,9 @@
 	req_access_txt = "31"
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell{
+	pixel_y = 8
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "boW" = (
@@ -12834,6 +12848,9 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell{
+	pixel_y = 8
+	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bRs" = (
@@ -19879,6 +19896,7 @@
 /obj/structure/chair/office/light{
 	dir = 1
 	},
+/obj/item/pen,
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
 "cHO" = (
@@ -23243,7 +23261,6 @@
 	},
 /obj/effect/landmark/start/detective,
 /obj/structure/chair/fancy/comfy{
-	buildstackamount = 2;
 	color = "#742925";
 	dir = 1
 	},
@@ -24190,6 +24207,9 @@
 /obj/item/coin/diamond{
 	pixel_x = 6;
 	pixel_y = 7
+	},
+/obj/structure/desk_bell/speed_demon{
+	pixel_x = -8
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/captain)
@@ -28376,6 +28396,9 @@
 	name = "Privacy Shutters"
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell{
+	pixel_y = 8
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/hop)
 "hcR" = (
@@ -36228,6 +36251,9 @@
 	req_access_txt = "1"
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell{
+	pixel_x = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "kZO" = (
@@ -36998,6 +37024,13 @@
 /obj/item/flashlight/lantern,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
+"lrf" = (
+/obj/structure/table/reinforced,
+/obj/structure/desk_bell{
+	pixel_x = 8
+	},
+/turf/open/floor/plasteel/cafeteria_red,
+/area/crew_quarters/bar)
 "lrg" = (
 /obj/structure/girder,
 /obj/structure/grille,
@@ -42893,8 +42926,13 @@
 /area/crew_quarters/dorms)
 "osb" = (
 /obj/structure/table/reinforced,
+/obj/structure/desk_bell{
+	pixel_y = 8
+	},
 /obj/item/reagent_containers/food/drinks/britcup{
-	desc = "Kingston's personal cup."
+	desc = "Kingston's personal cup.";
+	pixel_x = 10;
+	pixel_y = -4
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -44214,9 +44252,7 @@
 /obj/machinery/computer/rdconsole{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -49133,6 +49169,18 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/ai_monitored/turret_protected/ai_upload)
+"rDd" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "kitchen";
+	name = "kitchen shutters"
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/desk_bell{
+	pixel_x = 8
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/crew_quarters/kitchen)
 "rDh" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -58820,9 +58868,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "wPp" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -61422,7 +61468,6 @@
 /area/security/detectives_office)
 "yaV" = (
 /obj/structure/chair/fancy/comfy{
-	buildstackamount = 2;
 	color = "#742925";
 	dir = 1
 	},
@@ -98372,7 +98417,7 @@ fRF
 fRF
 dWa
 fRF
-mvz
+lrf
 jOB
 qIB
 aJC
@@ -100687,7 +100732,7 @@ aTO
 cCq
 aVz
 aVz
-kVI
+rDd
 bbz
 aYV
 aYV

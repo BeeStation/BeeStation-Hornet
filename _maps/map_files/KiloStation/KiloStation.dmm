@@ -885,14 +885,15 @@
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/pen,
-/obj/item/toy/figure/md{
-	pixel_x = 8;
-	pixel_y = 6
-	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "emmd";
 	name = "Emergency Medical Lockdown Shutters"
+	},
+/obj/structure/desk_bell{
+	pixel_x = 8
+	},
+/obj/item/pen{
+	pixel_x = -4
 	},
 /turf/open/floor/plating,
 /area/medical/medbay/central)
@@ -7250,6 +7251,10 @@
 /obj/item/reagent_containers/glass/beaker,
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/dropper,
+/obj/item/toy/figure/md{
+	pixel_x = 8;
+	pixel_y = 6
+	},
 /turf/open/floor/plating,
 /area/medical/medbay/central)
 "avJ" = (
@@ -8192,8 +8197,6 @@
 "aza" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
-/obj/item/folder/white,
-/obj/item/pen,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "chemistry_shutters";
 	name = "Chemistry Lobby Shutters"
@@ -8203,6 +8206,16 @@
 	dir = 2;
 	name = "Chemistry Desk";
 	req_access_txt = "5; 33"
+	},
+/obj/structure/desk_bell{
+	pixel_x = 8
+	},
+/obj/item/folder/white{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/obj/item/pen{
+	pixel_x = -4
 	},
 /turf/open/floor/plating,
 /area/medical/chemistry)
@@ -12008,7 +12021,6 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/obj/item/folder/yellow,
 /obj/machinery/door/poddoor/preopen{
 	id = "atmos";
 	name = "Atmospherics Blast Door"
@@ -12017,13 +12029,18 @@
 	name = "Atmospherics Desk";
 	req_access_txt = "24"
 	},
+/obj/item/folder/yellow{
+	pixel_x = -4
+	},
+/obj/structure/desk_bell{
+	pixel_x = 8
+	},
 /turf/open/floor/plating,
 /area/engine/break_room)
 "aSt" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/obj/item/folder/yellow,
 /obj/machinery/door/poddoor/preopen{
 	id = "Engineering";
 	name = "Engineering Blast Doors"
@@ -12031,6 +12048,12 @@
 /obj/machinery/door/window/eastleft{
 	name = "Engineering Desk";
 	req_access_txt = "10"
+	},
+/obj/item/folder/yellow{
+	pixel_x = 4
+	},
+/obj/structure/desk_bell{
+	pixel_x = -8
 	},
 /turf/open/floor/plating,
 /area/engine/break_room)
@@ -13325,8 +13348,6 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/obj/item/folder,
-/obj/item/pen,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "robotics_shutters";
 	name = "Robotics Privacy Shutters"
@@ -13334,6 +13355,15 @@
 /obj/machinery/door/window/northleft{
 	name = "Robotics Desk";
 	req_access_txt = "29"
+	},
+/obj/structure/desk_bell{
+	pixel_x = 8
+	},
+/obj/item/folder{
+	pixel_x = -6
+	},
+/obj/item/pen{
+	pixel_x = -4
 	},
 /turf/open/floor/plating,
 /area/science/robotics/lab)
@@ -13379,8 +13409,6 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/obj/item/folder,
-/obj/item/pen,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "research_shutters";
 	name = "Research Privacy Shutter"
@@ -13388,6 +13416,16 @@
 /obj/machinery/door/window/eastright{
 	name = "Research Lab Desk";
 	req_one_access_txt = "7;29"
+	},
+/obj/structure/desk_bell{
+	pixel_x = 8
+	},
+/obj/item/folder{
+	pixel_x = -6
+	},
+/obj/item/pen{
+	pixel_x = -4;
+	pixel_y = 4
 	},
 /turf/open/floor/plating,
 /area/science/lab)
@@ -15242,11 +15280,13 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
 /obj/item/folder/yellow,
-/obj/item/flashlight,
 /obj/machinery/door/window/westleft{
 	dir = 4;
 	name = "Cargo Desk";
 	req_access_txt = "50"
+	},
+/obj/item/storage/box/lights/mixed{
+	pixel_y = 6
 	},
 /turf/open/floor/plating,
 /area/quartermaster/office)
@@ -15564,14 +15604,15 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/obj/item/storage/box/lights/mixed{
-	pixel_y = 6
-	},
 /obj/machinery/door/window/westright{
 	dir = 4;
 	name = "Cargo Desk";
 	req_access_txt = "50"
 	},
+/obj/structure/desk_bell{
+	pixel_y = 8
+	},
+/obj/item/flashlight,
 /turf/open/floor/plating,
 /area/quartermaster/office)
 "biO" = (
@@ -15998,13 +16039,20 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/obj/item/folder/yellow,
-/obj/item/pen,
 /obj/structure/window/reinforced,
 /obj/machinery/door/window/westleft{
 	dir = 4;
 	name = "Delivery Desk";
 	req_access_txt = "50"
+	},
+/obj/item/folder/yellow{
+	pixel_x = 4
+	},
+/obj/item/pen{
+	pixel_x = 4
+	},
+/obj/structure/desk_bell{
+	pixel_x = -8
 	},
 /turf/open/floor/plating,
 /area/quartermaster/sorting)
@@ -16523,9 +16571,6 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/obj/item/reagent_containers/food/snacks/grown/corn{
-	pixel_y = 6
-	},
 /obj/item/reagent_containers/food/snacks/grown/pumpkin{
 	pixel_y = 6
 	},
@@ -16535,6 +16580,12 @@
 	dir = 8;
 	name = "Hydroponics Desk";
 	req_access_txt = "35"
+	},
+/obj/structure/desk_bell{
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/snacks/grown/corn{
+	pixel_y = 6
 	},
 /turf/open/floor/plating,
 /area/hydroponics)
@@ -16911,10 +16962,15 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/reagent_containers/food/snacks/pie/cream{
+	pixel_y = 7
+	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "kitchen";
 	name = "Serving Hatch"
+	},
+/obj/structure/desk_bell{
+	pixel_x = 8
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/kitchen)
@@ -25049,7 +25105,6 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/obj/item/folder/blue,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "hop";
 	name = "Privacy Shutters"
@@ -25063,6 +25118,13 @@
 	},
 /obj/machinery/door/window/southright{
 	name = "Reception Desk"
+	},
+/obj/structure/desk_bell{
+	pixel_x = -8
+	},
+/obj/item/folder/blue{
+	pixel_x = 4;
+	pixel_y = 4
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/hop)
@@ -43552,8 +43614,8 @@
 /area/hydroponics)
 "enr" = (
 /obj/structure/closet/crate/secure/plasma{
-	req_access_txt = "39";
-	name = "virology crate"
+	name = "virology crate";
+	req_access_txt = "39"
 	},
 /obj/item/extrapolator,
 /obj/item/book/manual/wiki/infections,
@@ -45225,8 +45287,8 @@
 /obj/item/circuitboard/machine/chem_heater,
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate/secure/plasma{
-	req_access_txt = "39";
-	name = "virology crate"
+	name = "virology crate";
+	req_access_txt = "39"
 	},
 /obj/machinery/light{
 	dir = 1
@@ -49312,6 +49374,14 @@
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"gHR" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/desk_bell{
+	pixel_x = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/bar)
 "gHT" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
@@ -54876,16 +54946,16 @@
 	pixel_y = -1
 	},
 /obj/item/paper_bin{
-	pixel_y = 3;
-	pixel_x = -9
+	pixel_x = -9;
+	pixel_y = 3
 	},
 /obj/item/reagent_containers/glass/bottle/spaceacillin{
 	pixel_x = 9;
 	pixel_y = -7
 	},
 /obj/item/pen{
-	pixel_y = 3;
-	pixel_x = -8
+	pixel_x = -8;
+	pixel_y = 3
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
@@ -60306,9 +60376,9 @@
 /obj/machinery/button/door{
 	id = "quarantineshutters";
 	name = "Quarantine Lockdown";
+	pixel_x = -7;
 	pixel_y = 23;
-	req_access_txt = "39";
-	pixel_x = -7
+	req_access_txt = "39"
 	},
 /obj/machinery/button/flasher{
 	id = "monkeypen";
@@ -60317,9 +60387,9 @@
 /obj/machinery/button/door{
 	id = "monkeyshutters";
 	name = "Monkey Pen Lockdown";
+	pixel_x = 8;
 	pixel_y = 23;
-	req_access_txt = "39";
-	pixel_x = 8
+	req_access_txt = "39"
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
@@ -60618,8 +60688,8 @@
 	light_color = "#e8eaff"
 	},
 /obj/item/radio/intercom{
-	pixel_y = -4;
-	pixel_x = -26
+	pixel_x = -26;
+	pixel_y = -4
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel/dark,
@@ -61236,9 +61306,9 @@
 	id = "ViroA";
 	name = "Quarantine Bolts A";
 	normaldoorcontrol = 1;
+	pixel_x = 31;
 	req_access_txt = "39";
-	specialfunctions = 4;
-	pixel_x = 31
+	specialfunctions = 4
 	},
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/table,
@@ -65011,8 +65081,8 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "39";
-	name = "virology storage"
+	name = "virology storage";
+	req_access_txt = "39"
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port)
@@ -66589,7 +66659,6 @@
 /area/security/warden)
 "nTH" = (
 /obj/structure/table/wood,
-/obj/machinery/recharger,
 /obj/machinery/power/apc{
 	areastring = "/area/crew_quarters/heads/captain";
 	dir = 4;
@@ -66601,6 +66670,12 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
+	},
+/obj/structure/desk_bell/speed_demon{
+	pixel_x = -8
+	},
+/obj/machinery/recharger{
+	pixel_x = 7
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/captain)
@@ -69120,9 +69195,9 @@
 	},
 /obj/effect/turf_decal/bot_white/left,
 /obj/machinery/door/window/eastleft{
+	dir = 2;
 	name = "Quarantine Pen A";
-	req_access_txt = "39";
-	dir = 2
+	req_access_txt = "39"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
@@ -74996,8 +75071,8 @@
 	id = "quarantineshutters";
 	name = "Quarantine Lockdown";
 	pixel_x = 32;
-	req_access_txt = "39";
-	pixel_y = -37
+	pixel_y = -37;
+	req_access_txt = "39"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -76329,8 +76404,8 @@
 /obj/machinery/button/door{
 	id = "quarantineshutters";
 	name = "Quarantine Lockdown";
-	req_access_txt = "39";
-	pixel_x = -24
+	pixel_x = -24;
+	req_access_txt = "39"
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -76896,9 +76971,9 @@
 /area/medical/genetics/cloning)
 "slT" = (
 /obj/machinery/door/window/eastleft{
+	dir = 1;
 	name = "Testing Pen";
-	req_access_txt = "39";
-	dir = 1
+	req_access_txt = "39"
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -88696,9 +88771,9 @@
 /area/quartermaster/warehouse)
 "xtT" = (
 /obj/structure/disposalpipe/sorting/mail/flip{
-	sortType = 27;
+	dir = 1;
 	name = "virology sorting disposals pipe";
-	dir = 1
+	sortType = 27
 	},
 /obj/machinery/airalarm/directional/east,
 /obj/effect/turf_decal/tile/green/opposingcorners,
@@ -116642,7 +116717,7 @@ fMx
 gLP
 btE
 vzs
-vrF
+gHR
 vrF
 ris
 vrF

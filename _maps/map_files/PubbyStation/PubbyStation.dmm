@@ -3389,6 +3389,9 @@
 	req_access_txt = "1"
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell{
+	pixel_x = 8
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "awR" = (
@@ -4935,6 +4938,9 @@
 	name = "privacy shutters"
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell{
+	pixel_x = 8
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/hop)
 "aFC" = (
@@ -10643,13 +10649,22 @@
 	name = "Robotics Desk";
 	req_access_txt = "29"
 	},
-/obj/item/paper_bin,
-/obj/item/pen,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "robotics";
 	name = "robotics lab shutters"
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell{
+	pixel_x = -8
+	},
+/obj/item/paper_bin{
+	pixel_x = 6;
+	pixel_y = 1
+	},
+/obj/item/pen{
+	pixel_x = 8;
+	pixel_y = 2
+	},
 /turf/open/floor/plating,
 /area/science/robotics/lab)
 "bkw" = (
@@ -11559,9 +11574,6 @@
 /area/science/lab)
 "bqc" = (
 /obj/structure/table/reinforced,
-/obj/item/pen{
-	layer = 3.1
-	},
 /obj/machinery/door/window/eastright{
 	dir = 2;
 	name = "Research and Development Desk";
@@ -11571,8 +11583,18 @@
 	id = "research_shutters_2";
 	name = "research shutters"
 	},
-/obj/item/folder/white,
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell{
+	pixel_x = -8
+	},
+/obj/item/folder/white{
+	pixel_x = 4;
+	pixel_y = -3
+	},
+/obj/item/pen{
+	pixel_x = 4;
+	pixel_y = 4
+	},
 /turf/open/floor/plating,
 /area/science/lab)
 "bqe" = (
@@ -21892,6 +21914,19 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
+"duO" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/westleft{
+	dir = 2;
+	name = "Cargo Desk";
+	req_access_txt = "50"
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/desk_bell{
+	pixel_x = 8
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "duQ" = (
 /obj/machinery/camera{
 	c_tag = "Departure Lounge Aft";
@@ -26882,6 +26917,9 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
+	},
+/obj/structure/desk_bell{
+	pixel_x = -8
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -46417,6 +46455,24 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
+"qMc" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/northleft{
+	dir = 2;
+	name = "Chemistry Desk";
+	req_access_txt = "5; 33"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "chemistry_shutters";
+	name = "chemistry shutters"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/structure/desk_bell{
+	pixel_x = -8
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/chemistry)
 "qMi" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -47960,6 +48016,24 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"rEb" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/northleft{
+	dir = 4;
+	name = "Atmospherics Desk";
+	req_access_txt = "24"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "atmos";
+	name = "atmospherics security door"
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor,
+/obj/structure/desk_bell{
+	pixel_y = 8
+	},
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "rEh" = (
 /obj/effect/spawner/room/fivexfour,
 /turf/open/floor/plating,
@@ -49476,6 +49550,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
+"stt" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/structure/desk_bell,
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/bar)
 "stu" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -56961,6 +57043,19 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/explab)
+"wTz" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "kitchenshutters";
+	name = "kitchen shutters"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/obj/structure/desk_bell,
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/kitchen)
 "wTD" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
@@ -89959,7 +90054,7 @@ aRN
 gIW
 tCY
 chz
-chz
+wTz
 chz
 chz
 aRN
@@ -90487,7 +90582,7 @@ bkh
 cqs
 aDD
 teY
-qrh
+qMc
 dkd
 bsK
 buk
@@ -92268,7 +92363,7 @@ aPE
 cpb
 bah
 rfF
-eBy
+stt
 cpi
 anI
 bbr
@@ -93850,7 +93945,7 @@ bJP
 bJP
 bJP
 bJP
-bQE
+rEb
 bQE
 bSa
 bJP
@@ -96379,7 +96474,7 @@ aPY
 nMr
 aPY
 aWu
-aXt
+duO
 jJJ
 qRm
 bau

@@ -15777,6 +15777,9 @@
 	id = "hop";
 	name = "Privacy Shutters"
 	},
+/obj/structure/desk_bell{
+	pixel_x = -8
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/crew_quarters/heads/hop)
 "eaK" = (
@@ -29774,7 +29777,6 @@
 /area/crew_quarters/heads/hop)
 "hFT" = (
 /obj/structure/table/reinforced,
-/obj/item/pen,
 /obj/machinery/door/window/eastright{
 	dir = 2;
 	name = "Robotics Desk";
@@ -29790,6 +29792,13 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/structure/desk_bell{
+	pixel_x = -8
+	},
+/obj/item/pen{
+	pixel_x = 4;
+	pixel_y = 4
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/science/robotics/lab)
 "hGf" = (
@@ -34917,11 +34926,11 @@
 "iYe" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
-/obj/item/pen,
 /obj/machinery/keycard_auth{
 	pixel_x = 26;
 	pixel_y = 8
 	},
+/obj/item/pen/fourcolor,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "iYw" = (
@@ -39778,9 +39787,15 @@
 /area/engine/engine_room)
 "knX" = (
 /obj/structure/table/wood,
-/obj/item/folder/blue,
-/obj/item/pen/fourcolor,
-/obj/item/stamp/captain,
+/obj/item/folder/blue{
+	pixel_x = 8
+	},
+/obj/item/stamp/captain{
+	pixel_x = 8
+	},
+/obj/structure/desk_bell/speed_demon{
+	pixel_x = -8
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "kob" = (
@@ -45373,10 +45388,17 @@
 	name = "Apothecary Desk";
 	req_access_txt = "5;33"
 	},
-/obj/item/folder/white,
-/obj/item/pen,
+/obj/item/folder/white{
+	pixel_x = 4
+	},
+/obj/item/pen{
+	pixel_x = 4
+	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell{
+	pixel_x = -8
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/medical/apothecary)
 "lIM" = (
@@ -48794,7 +48816,9 @@
 /area/hallway/primary/central)
 "mEr" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/britcup,
+/obj/item/reagent_containers/food/drinks/britcup{
+	pixel_x = 8
+	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "emmd";
 	name = "Emergency Medical Lockdown Shutters"
@@ -48802,6 +48826,9 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/obj/structure/desk_bell{
+	pixel_x = -8
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay/lobby)
 "mEw" = (
@@ -49333,7 +49360,7 @@
 /area/crew_quarters/dorms)
 "mKM" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
+/obj/structure/desk_bell,
 /obj/machinery/door/poddoor/shutters{
 	id = "barcounter";
 	name = "Bar Counter Shutters"
@@ -53787,7 +53814,6 @@
 /area/science/shuttledock)
 "nTg" = (
 /obj/structure/table/reinforced,
-/obj/item/pen,
 /obj/item/folder/white{
 	pixel_x = 4;
 	pixel_y = -3
@@ -53801,7 +53827,13 @@
 	name = "External research shutters"
 	},
 /obj/machinery/door/firedoor,
-/obj/item/assembly/infra,
+/obj/structure/desk_bell{
+	pixel_x = -8
+	},
+/obj/item/pen{
+	pixel_x = 4;
+	pixel_y = 4
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/science/lab)
 "nTs" = (
@@ -53994,6 +54026,9 @@
 	name = "Hydroponic Shutters"
 	},
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/obj/structure/desk_bell{
+	pixel_x = 8
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/hydroponics)
 "nWQ" = (
@@ -63077,6 +63112,9 @@
 /obj/machinery/door/poddoor/shutters{
 	id = "kitchencounter";
 	name = "Kitchen Bar Counter Shutters"
+	},
+/obj/structure/desk_bell{
+	pixel_x = -8
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/crew_quarters/kitchen)
@@ -78638,7 +78676,6 @@
 "ueo" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
-/obj/item/folder/yellow,
 /obj/machinery/door/poddoor/preopen{
 	id = "atmos";
 	name = "Atmospherics Blast Door"
@@ -78648,11 +78685,14 @@
 	name = "Atmospherics Desk";
 	req_access_txt = "24"
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/structure/desk_bell{
+	pixel_x = -8
+	},
+/obj/item/folder/yellow{
+	pixel_x = 4
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/engine/atmos)
 "ueu" = (
@@ -81318,10 +81358,17 @@
 	name = "Genetics Desk";
 	req_access_txt = "9"
 	},
-/obj/item/folder/white,
-/obj/item/pen,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell{
+	pixel_x = -8
+	},
+/obj/item/folder/white{
+	pixel_x = 4
+	},
+/obj/item/pen{
+	pixel_x = 4
+	},
 /turf/open/floor/plasteel,
 /area/medical/genetics)
 "uLe" = (
@@ -84692,9 +84739,16 @@
 /obj/machinery/door/window/southleft{
 	req_access_txt = "31"
 	},
-/obj/item/folder/yellow,
-/obj/item/pen,
+/obj/item/folder/yellow{
+	pixel_x = 4
+	},
+/obj/item/pen{
+	pixel_x = 4
+	},
 /obj/effect/turf_decal/stripes/closeup,
+/obj/structure/desk_bell{
+	pixel_x = -8
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/quartermaster/office)
 "vxE" = (
@@ -88403,6 +88457,7 @@
 	id = "brigsidedoor";
 	name = "Front Security Blast door"
 	},
+/obj/structure/desk_bell,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "wqF" = (
@@ -88454,11 +88509,11 @@
 "wqY" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
+/obj/structure/disposalpipe/segment,
 /obj/machinery/door/poddoor/shutters{
 	id = "barcounter";
 	name = "Bar Counter Shutters"
 	},
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar)
 "wra" = (
