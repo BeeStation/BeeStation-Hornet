@@ -467,6 +467,10 @@
 /atom/proc/is_drainable()
 	return reagents && (reagents.flags & DRAINABLE)
 
+/// Is this atom grindable to get reagents
+/atom/proc/is_grindable()
+	return reagents && (reagents.flags & ABSOLUTELY_GRINDABLE)
+
 /// Are you allowed to drop this atom
 /atom/proc/AllowDrop()
 	return FALSE
