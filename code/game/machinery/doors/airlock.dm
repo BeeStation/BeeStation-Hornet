@@ -112,8 +112,9 @@
 	. = ..()
 
 	//Get the area hack difficulty
-	var/area/A = get_area(src)
-	wire_security_level = max(wire_security_level, A.airlock_hack_difficulty)
+	if (mapload)
+		var/area/A = get_area(src)
+		wire_security_level = max(wire_security_level, A.airlock_hack_difficulty)
 
 	wires = new /datum/wires/airlock(src, wire_security_level)
 	if(frequency)
