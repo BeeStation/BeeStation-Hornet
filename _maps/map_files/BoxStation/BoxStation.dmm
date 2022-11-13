@@ -17165,6 +17165,11 @@
 	dir = 8
 	},
 /obj/structure/table,
+/obj/item/clothing/shoes/magboots,
+/obj/item/clothing/shoes/magboots{
+	pixel_x = 4;
+	pixel_y = -3
+	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "cqx" = (
