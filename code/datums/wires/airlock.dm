@@ -14,28 +14,28 @@
 	)
 	src.security_level = security_level
 	//Add more power wires
-	if (security_level <= 4)
+	if (security_level <= AIRLOCK_WIRE_SECURITY_ELITE)
 		wires |= WIRE_POWER2
 		wires |= WIRE_BACKUP2
 	//Add zap wires
-	if (security_level >= 2)
+	if (security_level >= AIRLOCK_WIRE_SECURITY_PROTECTED)
 		wires |= WIRE_ZAP1
-	if (security_level >= 4)
+	if (security_level >= AIRLOCK_WIRE_SECURITY_ELITE)
 		wires |= WIRE_ZAP2
 	//Add dud wires
-	if (security_level >= 3)
+	if (security_level >= AIRLOCK_WIRE_SECURITY_ADVANCED)
 		add_duds(2)
-	else if (security_level >= 1)
+	else if (security_level >= AIRLOCK_WIRE_SECURITY_SIMPLE)
 		add_duds(1)
 
 	//Add labelled wires
-	if (security_level <= 0)
+	if (security_level <= AIRLOCK_WIRE_SECURITY_NONE)
 		//At security level 0, the following wires could be unknowns:
 		//POWER1, BACKUP1, IDSCAN, AI WIRE, LIGHT
 		labelled_wires[WIRE_OPEN] = TRUE
 		labelled_wires[WIRE_BOLTS] = TRUE
 		labelled_wires[WIRE_SHOCK] = TRUE
-	if (security_level <= 1)
+	if (security_level <= AIRLOCK_WIRE_SECURITY_SIMPLE)
 		//At security level 1, there are duds and the open, bolt and shock wires are not revealed.
 		labelled_wires[WIRE_SAFETY] = TRUE
 		labelled_wires[WIRE_TIMING] = TRUE
