@@ -23,6 +23,13 @@ This project uses **Inferno** - a very fast UI rendering engine with a similar A
 
 If you were already familiar with an older, Ractive-based tgui, and want to translate concepts between old and new tgui, read this [interface conversion guide](docs/converting-old-tgui-interfaces.md).
 
+### Other Documentation
+
+- [Component Reference](docs/component-reference.md) - UI building blocks
+- [Using TGUI and Byond API for custom HTML popups](docs/tgui-for-custom-html-popups.md)
+- [Chat Embedded Components](docs/chat-embedded-components.md)
+- [Writing Tests](docs/writing-tests.md)
+
 ## Pre-requisites
 
 If you are using the tooling provided in this repo, everything is included! Feel free to skip this step.
@@ -32,10 +39,11 @@ If you are using the tooling provided in this repo, everything is included! Feel
 - [Git Bash](https://git-scm.com/downloads)
   or [MSys2](https://www.msys2.org/) (optional)
 
-- [Node v12.20+](https://nodejs.org/en/download/)
+- [Node v16.13+](https://nodejs.org/en/download/)
+  - **LTS** release is recommended instead of latest
   - **DO NOT install Chocolatey if Node installer asks you to!**
 - [Yarn v1.22.4+](https://yarnpkg.com/getting-started/install)
-  - You only need to run `npm install -g yarn`.
+  - You can run `npm install -g yarn` to install it.
 
 ## Usage
 
@@ -86,8 +94,10 @@ Run `yarn install` once to install tgui dependencies.
 - `yarn tgui:test` - Run unit and integration tests.
 - `yarn tgui:analyze` - Run a bundle analyzer.
 - `yarn tgui:bench` - Run benchmarks.
+- `yarn tgfont:build` - Build icon fonts.
+- `yarn tgui-polyfill:build` - Build polyfills. You need to run it when updating any of the static (numbered) polyfills.
 
-## Important memo
+## Important Memo
 
 Remember to always run a full build of tgui before submitting a PR, because it comes with the full suite of CI checks, and runs much faster on your computer than on GitHub servers. It will save you some time and possibly a few broken commits! Address the issues that are reported by the tooling as much as possible, because maintainers will beat you with a ruler and force you to address them anyway (unless it's a false positive or something unfixable).
 
@@ -141,10 +151,6 @@ When developing with `tgui-dev-server`, you will have access to certain developm
 - `/packages/tgui/styles/interfaces` - Custom stylesheets for your interfaces. Add stylesheets here if you really need a fine control over your UI styles.
 - `/packages/tgui/styles/layouts` - Layout-related styles.
 - `/packages/tgui/styles/themes` - Contains themes that you can use in tgui. Each theme must be registered in `/packages/tgui/index.js` file.
-
-## Component Reference
-
-See: [Component Reference](docs/component-reference.md).
 
 ## License
 

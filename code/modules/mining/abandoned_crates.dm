@@ -103,9 +103,12 @@
 	to_chat(user, "<span class='notice'>That seems like a stupid idea.</span>")
 	return FALSE
 
-/obj/structure/closet/crate/secure/loot/emag_act(mob/user)
-	if(locked)
-		boom(user)
+/obj/structure/closet/crate/secure/loot/should_emag(mob/user)
+	return locked && ..()
+
+/obj/structure/closet/crate/secure/loot/on_emag(mob/user)
+	..()
+	boom(user)
 
 /obj/structure/closet/crate/secure/loot/togglelock(mob/user)
 	if(locked)
