@@ -14,12 +14,12 @@
 		return
 
 	log_mentor("MSAY: [key_name(src)] : [msg]")
-	msg = keywords_lookup(msg)
 	if(check_rights_for(src, R_ADMIN,0))
 		msg = "<b><span class='mentorsay'><font color ='#8A2BE2'><span class='prefix'>MENTOR:</span> <EM>[key_name(src, 0, 0)]</EM>: <span class='message'>[msg]</span></font></b>"
 	else
 		msg = "<b><span class='mentorsay'><span class='prefix'>MENTOR:</span> <EM>[key_name(src, 0, 0)]</EM>: <span class='message'>[msg]</span></font></b>"
-	to_chat(GLOB.admins | GLOB.mentors, msg)
+	to_chat(GLOB.mentors, msg)
+	to_chat(GLOB.admins, keywords_lookup(msg))
 
 	SSblackbox.record_feedback("tally", "mentor_verb", 1, "Msay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
