@@ -23,8 +23,6 @@
 		else
 			. += "<span class='notice'>It seems [round(reagents.total_volume/volume*100)]% filled.</span>"
 
-
-// Format example: use `label_name` instead of using `name` directly.
 /obj/item/reagent_containers/chem_bag/epinephrine
 	name = "epinephrine chemical bag"
 	label_name = "epinephrine"
