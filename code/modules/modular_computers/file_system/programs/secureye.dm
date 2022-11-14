@@ -177,7 +177,7 @@
 // Returns the list of cameras accessible from this computer
 /datum/computer_file/program/secureye/proc/get_available_cameras()
 	var/list/camlist = list()
-	for(var/obj/machinery/camera/cam in GLOB.cameranet.cameras)
+	for(var/obj/machinery/camera/cam as() in GLOB.cameranet.cameras)
 		if(!is_station_level(cam.z))//Only show station cameras.
 			continue
 		if(!islist(cam.network))
