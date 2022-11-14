@@ -204,10 +204,20 @@ class PlayerDetails extends Component {
   }
 
   shouldComponentUpdate(new_props, new_state) {
+    const {
+      previous_names = [],
+      log_client = {},
+      log_mob = {},
+    } = this.props;
+    const {
+      previous_names_new = [],
+      log_client_new = {},
+      log_mob_new = {},
+    } = new_props;
     return shallow_diff(this.props, new_props, ["log_client", "log_mob", "previous_names"])
-    || this.countEntries(this.props.log_client, this.props.log_mob)
-    !== this.countEntries(new_props.log_client, new_props.log_mob)
-    || this.props.previous_names.join("") !== new_props.previous_names.join("")
+    || this.countEntries(log_client, log_mob)
+    !== this.countEntries(log_client_new, log_mob_new)
+    || previous_names.join("") !== previous_names_new.join("")
     || shallow_diff(this.state, new_state);
   }
 
