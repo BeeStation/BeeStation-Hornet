@@ -52,7 +52,7 @@
 	return ..()
 
 /mob/living/proc/ZImpactDamage(turf/T, levels)
-	visible_message("<span class='danger'>[src] falls [levels] level[levels > 1 ? "s" : ""] into [T] with a sickening noise!</span>")
+	visible_message("<span class='danger'>[src] falls [levels - 1] level\s into [T] with a sickening noise!</span>")
 	adjustBruteLoss((levels * 5) ** 1.5)
 	Knockdown(levels * 50)
 
@@ -1376,99 +1376,135 @@
 		eminence.selected_mob = src
 		to_chat(eminence, "<span class='brass'>You select [src].</span>")
 
-///Checks if the user is incapacitated or on cooldown.
-/mob/living/proc/can_look_up()
+#define LOOKING_DIRECTION_UP 1
+#define LOOKING_DIRECTION_NONE 0
+#define LOOKING_DIRECTION_DOWN -1
+
+/// The current direction the player is ACTUALLY looking, regardless of intent.
+/mob/living/var/looking_direction = LOOKING_DIRECTION_NONE
+/// The current direction the player is trying to look.
+/mob/living/var/attempt_looking_direction = LOOKING_DIRECTION_NONE
+
+///Checks if the user is incapacitated and cannot look up/down
+/mob/living/proc/can_look_direction()
 	return !(incapacitated(ignore_restraints = TRUE))
+
+/// Tell the mob to attempt to look this direction until it's set back to NONE
+/mob/living/proc/set_attempted_looking_direction(direction)
+	if(attempt_looking_direction == direction && direction != LOOKING_DIRECTION_NONE) // we are already trying to look this way, reset
+		set_attempted_looking_direction(LOOKING_DIRECTION_NONE)
+		return
+	attempt_looking_direction = direction
+	set_look_direction(attempt_looking_direction)
+
+/// Actually sets the looking direction, but it won't try to stay that way if we move out of range
+/mob/living/proc/set_look_direction(direction, automatic = FALSE)
+	// Handle none/failure
+	if(direction == LOOKING_DIRECTION_NONE || !can_look_direction(direction))
+		looking_direction = LOOKING_DIRECTION_NONE
+		reset_perspective()
+		return
+	// Automatic attempts should not trigger the cooldown
+	if(!automatic)
+		changeNext_move(CLICK_CD_LOOK_DIRECTION)
+	looking_direction = direction
+	var/look_str = direction == LOOKING_DIRECTION_UP ? "up" : "down"
+	if(update_looking_move(automatic))
+		visible_message("<span class='notice'>[src] looks [look_str].</span>", "<span class='notice'>You look [look_str].</span>")
+
+/// Called by /mob/living/Move()
+/mob/living/proc/update_looking_move(automatic = FALSE)
+	// Try looking the attempted direction now that we've moved
+	if(attempt_looking_direction != LOOKING_DIRECTION_NONE && looking_direction == LOOKING_DIRECTION_NONE)
+		set_look_direction(attempt_looking_direction, automatic = TRUE) // this won't loop recursively because looking_direction cannot be NONE above
+	// We can't try looking nowhere!
+	if(looking_direction == LOOKING_DIRECTION_NONE)
+		return FALSE
+	// Something changed, stop looking
+	if(!can_look_direction(looking_direction))
+		set_look_direction(LOOKING_DIRECTION_NONE)
+	// Update perspective
+	var/turf/base = find_visible_hole_in_direction(looking_direction)
+	if(!isturf(base))
+		if(!automatic)
+			to_chat(src, "<span class='warning'>You can't see through the [looking_direction == LOOKING_DIRECTION_UP ? "ceiling above" : "floor below"] you.</span>")
+		set_look_direction(LOOKING_DIRECTION_NONE)
+		return FALSE
+	reset_perspective(base)
+	return TRUE
+
+/mob/living/verb/look_up_short()
+	set name = "Look Up"
+	set category = "IC"
+	// you pressed the verb while holding a keybind, unlock!
+	attempt_looking_direction = LOOKING_DIRECTION_NONE
+	if(looking_direction == LOOKING_DIRECTION_UP)
+		set_look_direction(LOOKING_DIRECTION_NONE)
+		return
+	look_up()
 
 /**
  * look_up Changes the perspective of the mob to any openspace turf above the mob
- *
- * This also checks if an openspace turf is above the mob before looking up or resets the perspective if already looking up
- *
+ * lock: If it should continue to try looking even if there is no seethrough turf
  */
-/mob/living/proc/look_up()
-	if(client.perspective != MOB_PERSPECTIVE) //We are already looking up.
-		stop_look_up()
-	if(!can_look_up())
+/mob/living/proc/look_up(lock = FALSE)
+	if(lock)
+		set_attempted_looking_direction(LOOKING_DIRECTION_UP)
+	else
+		set_look_direction(LOOKING_DIRECTION_UP)
+
+/mob/living/verb/look_down_short()
+	set name = "Look Down"
+	set category = "IC"
+	// you pressed the verb while holding a keybind, unlock!
+	attempt_looking_direction = LOOKING_DIRECTION_NONE
+	if(looking_direction == LOOKING_DIRECTION_DOWN)
+		set_look_direction(LOOKING_DIRECTION_NONE)
 		return
-	changeNext_move(CLICK_CD_LOOK_UP)
-	RegisterSignal(src, COMSIG_MOVABLE_PRE_MOVE, .proc/stop_look_up) //We stop looking up if we move.
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/start_look_up) //We start looking again after we move.
-	start_look_up()
-
-/mob/living/proc/start_look_up()
-	var/turf/ceiling = get_step_multiz(src, UP)
-	if(!ceiling) //We are at the highest z-level.
-		to_chat(src, "<span class='warning'>There's nothing above you to look at.</span>")
-		return
-	else if(!isopenspace(ceiling)) //There is no openspace turf above us.
-		var/turf/front_hole = get_step(ceiling, dir)
-		if(istransparentturf(front_hole))
-			ceiling = front_hole
-		else
-			var/list/checkturfs = block(locate(x-1,y-1,ceiling.z),locate(x+1,y+1,ceiling.z))-ceiling-front_hole //Try find hole near of us
-			for(var/turf/checkhole in checkturfs)
-				if(istransparentturf(checkhole))
-					ceiling = checkhole
-					break
-		if(!istransparentturf(ceiling))
-			to_chat(src, "<span class='warning'>You can't see through the ceiling above you.</span>")
-			return
-
-	reset_perspective(ceiling)
-
-/mob/living/proc/stop_look_up()
-	reset_perspective()
-
-/mob/living/proc/end_look_up()
-	stop_look_up()
-	UnregisterSignal(src, COMSIG_MOVABLE_PRE_MOVE)
-	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
+	look_down()
 
 /**
  * look_down Changes the perspective of the mob to any openspace turf below the mob
- *
- * This also checks if an openspace turf is below the mob before looking down or resets the perspective if already looking up
- *
+ * lock: If it should continue to try looking even if there is no seethrough turf
  */
-/mob/living/proc/look_down()
-	if(client.perspective != MOB_PERSPECTIVE) //We are already looking down.
-		stop_look_down()
-	if(!can_look_up()) //if we cant look up, we cant look down.
-		return
-	changeNext_move(CLICK_CD_LOOK_UP)
-	RegisterSignal(src, COMSIG_MOVABLE_PRE_MOVE, .proc/stop_look_down) //We stop looking down if we move.
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/start_look_down) //We start looking again after we move.
-	start_look_down()
+/mob/living/proc/look_down(lock = FALSE)
+	if(lock)
+		set_attempted_looking_direction(LOOKING_DIRECTION_DOWN)
+	else
+		set_look_direction(LOOKING_DIRECTION_DOWN)
 
-/mob/living/proc/start_look_down()
-	var/turf/floor = get_turf(src)
-	var/turf/lower_level = get_step_multiz(floor, DOWN)
-	if(!lower_level) //We are at the lowest z-level.
-		to_chat(src, "<span class='warning'>You can't see through the floor below you.</span>")
-		return
-	else if(!istransparentturf(floor)) //There is no turf we can look through below us
-		var/turf/front_hole = get_step(floor, dir)
-		if(istransparentturf(front_hole))
-			floor = front_hole
-			lower_level = get_step_multiz(front_hole, DOWN)
-		else
-			var/list/checkturfs = block(locate(x-1,y-1,z),locate(x+1,y+1,z))-floor //Try find hole near of us
-			for(var/turf/checkhole in checkturfs)
-				if(istransparentturf(checkhole))
-					floor = checkhole
-					lower_level = get_step_multiz(checkhole, DOWN)
-					break
-		if(!istransparentturf(floor))
-			to_chat(src, "<span class='warning'>You can't see through the floor below you.</span>")
-			return
+/// Helper, resets from looking up or down, and unlocks the view.
+/mob/living/proc/look_reset()
+	set_attempted_looking_direction(LOOKING_DIRECTION_NONE)
 
-	reset_perspective(lower_level)
+/mob/living/proc/find_visible_hole_in_direction(direction)
+	// Our current z-level turf
+	var/turf/turf_base = get_turf(src)
+	// The target z-level turf
+	var/turf/turf_other = get_step_multiz(turf_base, LOOKING_DIRECTION_UP ? UP : DOWN)
+	if(!turf_other) // There is nothing above/below
+		return FALSE
+	// This turf is the one we are looking through
+	var/turf/seethrough_turf = direction == LOOKING_DIRECTION_UP ? turf_other : turf_base
+	// The turf we should end up looking at.
+	var/turf/end_turf = turf_other
+	if(istransparentturf(seethrough_turf)) //There is no turf we can look through directly above/below us, look for nearby turfs
+		return end_turf
+	// Turf in front of you to try to look through before anything else
+	var/turf/seethrough_turf_front = get_step(seethrough_turf, dir)
+	if(istransparentturf(seethrough_turf_front))
+		return direction == LOOKING_DIRECTION_UP ? seethrough_turf_front : get_step_multiz(seethrough_turf_front, DOWN)
+	var/target_z = direction == LOOKING_DIRECTION_UP ? turf_other.z : z
+	var/list/checkturfs = block(locate(x-1,y-1,target_z),locate(x+1,y+1,target_z))-turf_base-turf_other
+	for(var/turf/checkhole in checkturfs)
+		if(istransparentturf(checkhole))
+			seethrough_turf = checkhole
+			end_turf = direction == LOOKING_DIRECTION_UP ? checkhole : get_step_multiz(checkhole, DOWN)
+			break
+	if(!istransparentturf(seethrough_turf))
+		return FALSE
+	return end_turf
 
-/mob/living/proc/stop_look_down()
-	reset_perspective()
-
-/mob/living/proc/end_look_down()
-	stop_look_down()
-	UnregisterSignal(src, COMSIG_MOVABLE_PRE_MOVE)
-	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
+#undef LOOKING_DIRECTION_UP
+#undef LOOKING_DIRECTION_NONE
+#undef LOOKING_DIRECTION_DOWN

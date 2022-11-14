@@ -1,6 +1,7 @@
 /mob/living/Moved()
 	. = ..()
 	update_turf_movespeed(loc)
+	update_looking_move()
 
 /mob/living/CanAllowThrough(atom/movable/mover, turf/target)
 	. = ..()

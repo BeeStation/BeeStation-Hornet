@@ -439,7 +439,7 @@ RLD
 
 /obj/item/construction/rcd/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
 	if(proximity_flag)
-		mode = construction_mode
+		mode = RCD_FLOORWALL
 		rcd_create(target, user)
 
 /obj/item/construction/rcd/attack_self(mob/user)
@@ -637,7 +637,7 @@ RLD
 
 /obj/item/construction/rcd/arcd/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
 	if(ranged && range_check(target, user))
-		mode = construction_mode
+		mode = RCD_FLOORWALL
 		rcd_create(target, user)
 
 // RAPID LIGHTING DEVICE
