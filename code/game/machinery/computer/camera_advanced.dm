@@ -78,20 +78,12 @@
 		user.reset_perspective(null)
 		if(eyeobj.visible_icon && user.client)
 			user.client.images -= eyeobj.user_image
-<<<<<<< HEAD
-
-=======
->>>>>>> 2b1efdd4c62 (MultiZ camera console actions (#54043))
 		user.client.view_size.unsupress()
 
 	eyeobj.eye_user = null
 	user.remote_control = null
 	current_user = null
 	user.unset_machine()
-<<<<<<< HEAD
-
-=======
->>>>>>> 2b1efdd4c62 (MultiZ camera console actions (#54043))
 	playsound(src, 'sound/machines/terminal_off.ogg', 25, FALSE)
 
 /obj/machinery/computer/camera_advanced/check_eye(mob/user)

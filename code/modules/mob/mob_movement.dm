@@ -492,7 +492,7 @@
 	set name = "Move Down"
 	set category = "IC"
 
-	if(zMove(DOWN, TRUE, movement_type & VENTCRAWLING)))
+	if(zMove(DOWN, TRUE, movement_type & VENTCRAWLING))
 		to_chat(src, "<span class='notice'>You move down.</span>")
 
 ///Move a mob between z levels, if it's valid to move z's on this turf
