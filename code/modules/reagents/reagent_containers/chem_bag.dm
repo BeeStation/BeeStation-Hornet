@@ -28,6 +28,7 @@
 
 // Format example: use `label_name` instead of using `name` directly.
 /obj/item/reagent_containers/chem_bag/epinephrine
+	name = "epinephrine chemical bag"
 	label_name = "epinephrine"
 	// with label_name, name variable will become "epinephrine chemical bag"
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 200)
