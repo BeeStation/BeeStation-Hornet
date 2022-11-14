@@ -7242,6 +7242,7 @@
 	dir = 4;
 	pixel_x = -24
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bch" = (
@@ -9628,12 +9629,15 @@
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "buy" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer2,
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 1;
+	sortType = 15
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "buB" = (
@@ -11160,6 +11164,13 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"bHq" = (
+/obj/machinery/door/firedoor,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "bHs" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -18624,6 +18635,9 @@
 /area/quartermaster/storage)
 "cBq" = (
 /obj/effect/landmark/event_spawn,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "cBr" = (
@@ -22814,6 +22828,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "efF" = (
@@ -25200,6 +25215,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -27713,6 +27731,10 @@
 /obj/effect/turf_decal/trimline/dark_blue/filled/warning,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
+"gMk" = (
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/plasteel,
+/area/hallway/primary/central)
 "gMy" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
@@ -33234,6 +33256,9 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "jBu" = (
@@ -35612,7 +35637,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "kJC" = (
-/obj/machinery/porta_turret/ai,
 /obj/structure/sign/plaques/kiddie{
 	pixel_y = 32
 	},
@@ -37722,6 +37746,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -40887,6 +40914,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"nlP" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "nlV" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -41079,9 +41112,6 @@
 /area/maintenance/port)
 "nrB" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "nrJ" = (
@@ -42189,10 +42219,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/sorting/mail{
-	dir = 1;
-	sortType = 15
-	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "nXq" = (
@@ -46386,6 +46413,13 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"qnI" = (
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/plasteel,
+/area/hallway/primary/central)
 "qnN" = (
 /obj/structure/bookcase/random,
 /turf/open/floor/wood,
@@ -50882,7 +50916,6 @@
 /area/hydroponics)
 "sxy" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
-/obj/structure/rack,
 /obj/item/flashlight/flare{
 	pixel_x = -3;
 	pixel_y = -3
@@ -50904,6 +50937,7 @@
 	pixel_y = 3
 	},
 /obj/item/flashlight/flare,
+/obj/structure/closet/crate,
 /turf/open/floor/plasteel/techmaint,
 /area/gateway)
 "sxD" = (
@@ -58726,6 +58760,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "wKA" = (
@@ -85908,7 +85943,7 @@ aZK
 bnJ
 bbR
 bbR
-bbR
+nlP
 bty
 bty
 qJM
@@ -86165,7 +86200,7 @@ aZK
 bnK
 bnK
 pVd
-pVd
+bHq
 bnK
 bnK
 sdX
@@ -86410,19 +86445,19 @@ aJq
 aJq
 qVS
 exD
-hzi
-aJq
+gMk
+gMk
 bbV
-bfo
-bfo
-bfo
+qnI
+qnI
+qnI
 efv
-bfo
+qnI
 wKs
-bfo
-bfo
-aJq
-aJq
+qnI
+qnI
+gMk
+hzi
 bfo
 bfo
 ftu
