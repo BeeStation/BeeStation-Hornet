@@ -12158,6 +12158,7 @@
 /obj/machinery/airalarm{
 	pixel_y = 23
 	},
+/obj/machinery/camera/autoname,
 /turf/open/floor/plasteel/techmaint,
 /area/gateway)
 "bNM" = (
@@ -55208,7 +55209,6 @@
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 9
 	},
-/obj/machinery/camera/autoname,
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "uEN" = (
