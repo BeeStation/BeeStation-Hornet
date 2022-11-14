@@ -241,7 +241,7 @@
 /obj/item/wisp_lantern/Destroy()
 	if(wisp)
 		if(wisp.loc == src)
-			qdel(wisp)
+			QDEL_NULL(wisp)
 		else
 			wisp.visible_message("<span class='notice'>[wisp] has a sad feeling for a moment, then it passes.</span>")
 	return ..()
@@ -260,6 +260,11 @@
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	COOLDOWN_DECLARE(wisp_tired)
 	var/time
+
+/obj/effect/wisp/Destroy(force)
+	home = null
+	return ..()
+
 
 /obj/effect/wisp/orbit(atom/thing, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lockinorbit)
 	. = ..()
