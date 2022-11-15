@@ -1576,6 +1576,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_moth_wings)
 						active_character.features["moth_wings"] = new_moth_wings
 
+				if("moth_antennae")
+					var/new_moth_antennae
+
+					new_moth_antennae = input(user, "Choose your character's antennae:", "Character Preference") as null|anything in GLOB.moth_antennae_list
+
+					if(new_moth_antennae)
+						active_character.features["moth_antennae"] = new_moth_antennae
+
 				if("ipc_screen")
 					var/new_ipc_screen
 

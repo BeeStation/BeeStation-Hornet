@@ -718,6 +718,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		else if ("wings" in mutant_bodyparts)
 			bodyparts_to_add -= "wings_open"
 
+	if("moth_antennae" in mutant_bodyparts)
+		if(!H.dna.features["moth_antennae"] || H.dna.features["moth_antennae"] == "None" || !HD)
+			bodyparts_to_add -= "moth_antennae"
+
 	if("ipc_screen" in mutant_bodyparts)
 		if(!H.dna.features["ipc_screen"] || H.dna.features["ipc_screen"] == "None" || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || !HD)
 			bodyparts_to_add -= "ipc_screen"
@@ -794,6 +798,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					S = GLOB.legs_list[H.dna.features["legs"]]
 				if("moth_wings")
 					S = GLOB.moth_wings_list[H.dna.features["moth_wings"]]
+				if("moth_antennae")
+					S = GLOB.moth_antennae_list[H.dna.features["moth_antennae"]]
 				if("moth_wingsopen")
 					S = GLOB.moth_wingsopen_list[H.dna.features["moth_wings"]]
 				if("caps")
