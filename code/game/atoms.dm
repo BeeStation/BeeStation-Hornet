@@ -246,9 +246,9 @@
   */
 /atom/Destroy()
 	if(alternate_appearances)
-		for(var/K in alternate_appearances)
-			var/datum/atom_hud/alternate_appearance/AA = alternate_appearances[K]
-			AA.remove_from_hud(src)
+		for(var/current_alternate_appearance in alternate_appearances)
+			var/datum/atom_hud/alternate_appearance/selected_alternate_appearance = alternate_appearances[current_alternate_appearance]
+			selected_alternate_appearance.remove_from_hud(src)
 
 	if(reagents)
 		QDEL_NULL(reagents)
@@ -256,16 +256,16 @@
 	orbiters = null // The component is attached to us normaly and will be deleted elsewhere
 
 	LAZYCLEARLIST(overlays)
-	LAZYCLEARLIST(managed_overlays)
+	LAZYNULL(managed_overlays)
+
+	QDEL_NULL(light)
+	QDEL_NULL(ai_controller)
 
 	for(var/i in targeted_by)
 		var/mob/M = i
 		LAZYREMOVE(M.do_afters, src)
 
 	targeted_by = null
-
-	QDEL_NULL(light)
-	QDEL_NULL(ai_controller)
 
 	return ..()
 
