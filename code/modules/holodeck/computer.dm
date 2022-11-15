@@ -189,7 +189,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	if (program == map_id)
 		return
 
-	if (!is_operational())//load_program is called once with a timer (in toggle_power) we dont want this to load anything if its off
+	if (!is_operational)//load_program is called once with a timer (in toggle_power) we dont want this to load anything if its off
 		map_id = offline_program
 		force = TRUE
 
@@ -344,7 +344,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 
 /obj/machinery/computer/holodeck/power_change()
 	. = ..()
-	INVOKE_ASYNC(src, .proc/toggle_power, !stat)
+	INVOKE_ASYNC(src, .proc/toggle_power, !machine_stat)
 
 ///shuts down the holodeck and force loads the offline_program
 /obj/machinery/computer/holodeck/proc/emergency_shutdown()
@@ -371,18 +371,21 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	for(var/obj/effect/holodeck_effect/holo_effect as anything in effects)
 		holo_effect.safety(nerf_this)
 
-/obj/machinery/computer/holodeck/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/computer/holodeck/should_emag(mob/user)
+	if(!..())
+		return FALSE
 	if(!LAZYLEN(emag_programs))
 		to_chat(user, "[src] does not seem to have a card swipe port. It must be an inferior model.")
-		return
+		return FALSE
+	return TRUE
+
+/obj/machinery/computer/holodeck/on_emag(mob/user)
+	..()
 	playsound(src, "sparks", 75, TRUE)
-	obj_flags |= EMAGGED
 	to_chat(user, "<span class='warning'>You vastly increase projector power and override the safety and security protocols.</span>")
 	say("Warning. Automatic shutoff and derezzing protocols have been corrupted. Please call Nanotrasen maintenance and do not use the simulator.")
 	log_game("[key_name(user)] emagged the Holodeck Control Console")
-	nerf(!(obj_flags & EMAGGED),FALSE)
+	nerf(FALSE, FALSE)
 	ui_update()
 
 /obj/machinery/computer/holodeck/emp_act(severity)

@@ -223,6 +223,27 @@
 		itemState += "[ratio]"
 		item_state = itemState
 
+	if(gun_light)
+		var/mutable_appearance/flashlight_overlay
+		var/state = "[gunlight_state][gun_light.on? "_on":""]" //Generic state.
+		if(gun_light.icon_state in icon_states('icons/obj/guns/flashlights.dmi')) //Snowflake state?
+			state = gun_light.icon_state
+		flashlight_overlay = mutable_appearance('icons/obj/guns/flashlights.dmi', state)
+		flashlight_overlay.pixel_x = flight_x_offset
+		flashlight_overlay.pixel_y = flight_y_offset
+		add_overlay(flashlight_overlay)
+
+	if(bayonet)
+		var/mutable_appearance/knife_overlay
+		var/state = "bayonet" //Generic state.
+		if(bayonet.icon_state in icon_states('icons/obj/guns/bayonets.dmi')) //Snowflake state?
+			state = bayonet.icon_state
+		var/icon/bayonet_icons = 'icons/obj/guns/bayonets.dmi'
+		knife_overlay = mutable_appearance(bayonet_icons, state)
+		knife_overlay.pixel_x = knife_x_offset
+		knife_overlay.pixel_y = knife_y_offset
+		add_overlay(knife_overlay)
+
 /obj/item/gun/energy/suicide_act(mob/living/user)
 	if (istype(user) && can_shoot() && can_trigger_gun(user) && user.get_bodypart(BODY_ZONE_HEAD))
 		user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!</span>")

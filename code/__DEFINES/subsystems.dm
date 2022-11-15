@@ -11,7 +11,7 @@
   *
   * make sure you add an update to the schema_version stable in the db changelog
   */
-#define DB_MAJOR_VERSION 5
+#define DB_MAJOR_VERSION 6
 
 /**
   * DB minor schema version
@@ -20,7 +20,7 @@
   *
   * make sure you add an update to the schema_version stable in the db changelog
   */
-#define DB_MINOR_VERSION 10
+#define DB_MINOR_VERSION 1
 
 
 //! ## Timing subsystem
@@ -232,7 +232,6 @@
 	if (A) {\
 		var/list/ad = A.add_overlays;\
 		var/list/rm = A.remove_overlays;\
-		var/list/po = A.priority_overlays;\
 		if(LAZYLEN(rm)){\
 			A.overlays -= rm;\
 			rm.Cut();\
@@ -240,9 +239,6 @@
 		if(LAZYLEN(ad)){\
 			A.overlays |= ad;\
 			ad.Cut();\
-		}\
-		if(LAZYLEN(po)){\
-			A.overlays |= po;\
 		}\
 		for(var/I in A.alternate_appearances){\
 			var/datum/atom_hud/alternate_appearance/AA = A.alternate_appearances[I];\

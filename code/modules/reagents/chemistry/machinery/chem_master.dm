@@ -22,6 +22,13 @@
 	var/useramount = 30 // Last used amount
 	var/list/pillStyles = null
 
+	// Persistent UI states
+	var/saved_name_state = "Auto"
+	var/saved_volume_state = "Auto"
+	/// UNSANITIZED. DO NOT DISPLAY OUTSIDE TGUI WITHOUT HTML_ENCODE AND TRIM.
+	var/saved_name = ""
+	var/saved_volume = 10
+
 /obj/machinery/chem_master/Initialize(mapload)
 	create_reagents(100)
 
@@ -82,7 +89,7 @@
 
 /obj/machinery/chem_master/update_icon()
 	cut_overlays()
-	if (stat & BROKEN)
+	if (machine_stat & BROKEN)
 		add_overlay("waitlight")
 	if(beaker)
 		icon_state = "mixer1"
@@ -177,6 +184,10 @@
 	data["mode"] = mode
 	data["condi"] = condi
 	data["screen"] = screen
+	data["saved_name"] = saved_name
+	data["saved_volume"] = saved_volume
+	data["saved_name_state"] = saved_name_state
+	data["saved_volume_state"] = saved_volume_state
 	data["analyzeVars"] = analyzeVars
 	data["chosenPillStyle"] = chosenPillStyle
 	data["isPillBottleLoaded"] = bottle ? 1 : 0
@@ -206,6 +217,32 @@
 		return
 
 	switch(action)
+		if("setSavedNameState")
+			var/state = params["name_state"]
+			if(!state || (state != "Auto" && state != "Manual"))
+				return
+			saved_name_state = state
+			. = TRUE
+		if("setSavedName")
+			var/name = trim(params["name"], MAX_NAME_LEN)
+			if(!name)
+				return
+			if(CHAT_FILTER_CHECK(name))
+				to_chat(usr, "<span class='warning'>ERROR: Packaging name contains prohibited word(s).</span>")
+				return
+			saved_name = name
+			. = TRUE
+		if("setSavedVolumeState")
+			if(!params["volume_state"] || (params["volume_state"] != "Auto" && params["volume_state"] != "Exact"))
+				return
+			saved_volume_state = params["volume_state"]
+			. = TRUE
+		if("setSavedVolume")
+			var/vol = text2num(params["volume"])
+			if(!vol || vol < 0.01 || vol > 50)
+				return
+			saved_volume = vol
+			. = TRUE
 		if("eject")
 			replace_beaker(usr)
 			. = TRUE
@@ -268,6 +305,8 @@
 				vol_each_max = min(40, vol_each_max)
 			else if (item_type == "bottle" && !condi)
 				vol_each_max = min(30, vol_each_max)
+			else if (item_type == "bag" && !condi)
+				vol_each_max = min(200, vol_each_max)
 			else if (item_type == "condimentPack" && condi)
 				vol_each_max = min(10, vol_each_max)
 			else if (item_type == "condimentBottle" && condi)
@@ -286,6 +325,14 @@
 				return
 			// Get item name
 			var/name = params["name"]
+			if(CHAT_FILTER_CHECK(name))
+				to_chat(usr, "<span class='warning'>ERROR: Packaging name contains prohibited word(s).</span>")
+				return
+			if(name) // if we were passed a name from UI, html_encode it before adding to the world.
+				name = trim(html_encode(name), MAX_NAME_LEN)
+				if(!name) // our saved name was bad, clear it
+					saved_name = ""
+					return TRUE
 			var/name_has_units = item_type == "pill" || item_type == "patch"
 			if(!name)
 				var/name_default = reagents.get_master_reagent_name()
@@ -316,6 +363,7 @@
 						else
 							P = new/obj/item/reagent_containers/pill(drop_location())
 						P.name = trim("[name] pill")
+						P.label_name = trim(name)
 						if(chosenPillStyle == RANDOM_PILL_STYLE)
 							P.icon_state ="pill[rand(1,21)]"
 						else
@@ -330,6 +378,7 @@
 					for(var/i = 0; i < amount; i++)
 						P = new/obj/item/reagent_containers/pill/patch(drop_location())
 						P.name = trim("[name] patch")
+						P.label_name = trim(name)
 						adjust_item_drop_location(P)
 						reagents.trans_to(P, vol_each, transfered_by = usr)
 					. = TRUE
@@ -338,6 +387,16 @@
 					for(var/i = 0; i < amount; i++)
 						P = new/obj/item/reagent_containers/glass/bottle(drop_location())
 						P.name = trim("[name] bottle")
+						P.label_name = trim(name)
+						adjust_item_drop_location(P)
+						reagents.trans_to(P, vol_each, transfered_by = usr)
+					. = TRUE
+				if("bag")
+					var/obj/item/reagent_containers/chem_bag/P
+					for(var/i = 0; i < amount; i++)
+						P = new/obj/item/reagent_containers/chem_bag(drop_location())
+						P.name = trim("[name] chemical bag")
+						P.label_name = trim(name)
 						adjust_item_drop_location(P)
 						reagents.trans_to(P, vol_each, transfered_by = usr)
 					. = TRUE
@@ -347,6 +406,7 @@
 						P = new/obj/item/reagent_containers/food/condiment/pack(drop_location())
 						P.originalname = name
 						P.name = trim("[name] pack")
+						P.label_name = trim(name)
 						P.desc = "A small condiment pack. The label says it contains [name]."
 						reagents.trans_to(P, vol_each, transfered_by = usr)
 					. = TRUE
@@ -356,6 +416,7 @@
 						P = new/obj/item/reagent_containers/food/condiment(drop_location())
 						P.originalname = name
 						P.name = trim("[name] bottle")
+						P.label_name = trim(name)
 						reagents.trans_to(P, vol_each, transfered_by = usr)
 					. = TRUE
 		if("analyze")

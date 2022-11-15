@@ -33,7 +33,7 @@
 	jobtype = /datum/job/clown
 
 	id = /obj/item/card/id/job/clown
-	belt = /obj/item/pda/clown
+	belt = /obj/item/modular_computer/tablet/pda/clown
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/clown
 	shoes = /obj/item/clothing/shoes/clown_shoes

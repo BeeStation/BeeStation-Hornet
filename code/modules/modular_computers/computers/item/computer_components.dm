@@ -13,9 +13,9 @@
 		if(LAZYACCESS(expansion_bays, try_install.device_type))
 			to_chat(user, "<span class='warning'>The computer immediately ejects /the [try_install] and flashes an error: \"Hardware Address Conflict\".</span>")
 			return FALSE
-
-	if(all_components[try_install.device_type])
-		to_chat(user, "<span class='warning'>This computer's hardware slot is already occupied by \the [all_components[try_install.device_type]].</span>")
+	var/obj/item/computer_hardware/existing = all_components[try_install.device_type]
+	if(existing && (!istype(existing) || !existing.hotswap))
+		to_chat(user, "<span class='warning'>This computer's hardware slot is already occupied by \the [existing].</span>")
 		return FALSE
 	return TRUE
 
@@ -28,6 +28,13 @@
 	if(user && !user.transferItemToLoc(install, src))
 		return FALSE
 
+	var/obj/item/computer_hardware/existing = all_components[install.device_type]
+	if(istype(existing) && existing.hotswap)
+		if(!uninstall_component(existing, user, TRUE))
+			// ABORT!!
+			install.forceMove(get_turf(user))
+			return FALSE
+
 	if(install.expansion_hw)
 		LAZYSET(expansion_bays, install.device_type, install)
 	all_components[install.device_type] = install
@@ -36,16 +43,19 @@
 	install.holder = src
 	install.forceMove(src)
 	install.on_install(src, user)
-
+	return TRUE
 
 /// Uninstalls component.
-/obj/item/modular_computer/proc/uninstall_component(obj/item/computer_hardware/yeet, mob/living/user = null)
+/obj/item/modular_computer/proc/uninstall_component(obj/item/computer_hardware/yeet, mob/living/user = null, put_in_hands)
 	if(yeet.holder != src) // Not our component at all.
 		return FALSE
 
 	to_chat(user, "<span class='notice'>You remove \the [yeet] from \the [src].</span>")
 
-	yeet.forceMove(get_turf(src))
+	if(put_in_hands)
+		user.put_in_hands(yeet)
+	else
+		yeet.forceMove(get_turf(src))
 	forget_component(yeet)
 	yeet.on_remove(src, user)
 	if(enabled && !use_power())

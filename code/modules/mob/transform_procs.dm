@@ -1,6 +1,6 @@
 #define TRANSFORMATION_DURATION 22
 
-/mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI))
+/mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), skip_animation = FALSE)
 	if (notransform || transformation_timer)
 		return
 
@@ -31,11 +31,12 @@
 	cut_overlays()
 	invisibility = INVISIBILITY_MAXIMUM
 
-	new /obj/effect/temp_visual/monkeyify(loc)
+	if(!skip_animation)
+		new /obj/effect/temp_visual/monkeyify(loc)
 
-	transformation_timer = TRUE
-	sleep(TRANSFORMATION_DURATION)
-	transformation_timer = FALSE
+		transformation_timer = TRUE
+		sleep(TRANSFORMATION_DURATION)
+		transformation_timer = FALSE
 
 	var/mob/living/carbon/monkey/O = new /mob/living/carbon/monkey( loc )
 
@@ -350,6 +351,8 @@
 
 	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
 	O.dna.set_se(FALSE, GET_INITIALIZED_MUTATION(RACEMUT))
+	//Reset offsets to match human settings, in-case they have been changed
+	O.dna.species.offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
 	O.updateappearance(mutcolor_update=1)
 
 	if(findtext(O.dna.real_name, "monkey", 1, 7)) //7 == length("monkey") + 1
@@ -646,7 +649,7 @@
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
 	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in sortList(mobtypes, /proc/cmp_typepaths_asc)
 
-	if(!safe_animal(mobpath))
+	if(!mobpath)
 		to_chat(usr, "<span class='danger'>Sorry but this mob type is currently unavailable.</span>")
 		return
 
@@ -664,11 +667,10 @@
 	qdel(src)
 
 /mob/proc/Animalize()
-
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
 	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in sortList(mobtypes, /proc/cmp_typepaths_asc)
 
-	if(!safe_animal(mobpath))
+	if(!mobpath)
 		to_chat(usr, "<span class='danger'>Sorry but this mob type is currently unavailable.</span>")
 		return
 
@@ -680,52 +682,5 @@
 
 	. = new_mob
 	qdel(src)
-
-/* Certain mob types have problems and should not be allowed to be controlled by players.
- *
- * This proc is here to force coders to manually place their mob in this list, hopefully tested.
- * This also gives a place to explain -why- players shouldn't be turn into certain mobs and hopefully someone can fix them.
- */
-/mob/proc/safe_animal(MP)
-
-//Bad mobs! - Remember to add a comment explaining what's wrong with the mob
-	if(!MP)
-		return 0	//Sanity, this should never happen.
-
-	if(ispath(MP, /mob/living/simple_animal/hostile/construct))
-		return 0 //Verbs do not appear for players.
-
-//Good mobs!
-	if(ispath(MP, /mob/living/simple_animal/pet/cat))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/dog/corgi))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/crab))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/hostile/carp))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/hostile/mushroom))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/shade))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/hostile/killertomato))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/mouse))
-		return 1 //It is impossible to pull up the player panel for mice (Fixed! - Nodrak)
-	if(ispath(MP, /mob/living/simple_animal/hostile/bear))
-		return 1 //Bears will auto-attack mobs, even if they're player controlled (Fixed! - Nodrak)
-	if(ispath(MP, /mob/living/simple_animal/parrot))
-		return 1 //Parrots are no longer unfinished! -Nodrak
-	if(ispath(MP, /mob/living/simple_animal/slaughter))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/revenant))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/cluwne))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/cluwne))
-		return 1
-
-	//Not in here? Must be untested!
-	return 0
 
 #undef TRANSFORMATION_DURATION

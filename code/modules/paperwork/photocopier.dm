@@ -167,7 +167,7 @@
 			if(tempAI.aicamera.stored.len == 0)
 				to_chat(usr, "<span class='boldannounce'>No images saved.</span>")
 				return
-			var/datum/picture/selection = tempAI.aicamera.selectpicture(usr)
+			var/datum/picture/selection = tempAI.aicamera?.selectpicture(usr)
 			var/obj/item/photo/photo = new(loc, selection)
 			photo.pixel_x = rand(-10, 10)
 			photo.pixel_y = rand(-10, 10)
@@ -250,10 +250,10 @@
 		return ..()
 
 /obj/machinery/photocopier/obj_break(damage_flag)
-	if(!(flags_1 & NODECONSTRUCT_1))
-		if(toner > 0)
-			new /obj/effect/decal/cleanable/oil(get_turf(src))
-			toner = 0
+	. = ..()
+	if(. && toner > 0)
+		new /obj/effect/decal/cleanable/oil(get_turf(src))
+		toner = 0
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/user)
 	check_ass() //Just to make sure that you can re-drag somebody onto it after they moved off.

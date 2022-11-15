@@ -186,7 +186,7 @@
 	for(var/direction in GLOB.cardinals)
 		test_scanner = locate(/obj/machinery/dna_scannernew, get_step(src, direction))
 		if(!isnull(test_scanner))
-			if(test_scanner.is_operational())
+			if(test_scanner.is_operational)
 				connect_scanner(test_scanner)
 				return
 			else
@@ -1566,7 +1566,7 @@
 	if(!connected_scanner)
 		return FALSE
 
-	return (connected_scanner && connected_scanner.is_operational() && !connected_scanner.wires.is_cut(WIRE_LIMIT))
+	return (connected_scanner && connected_scanner.is_operational && !connected_scanner.wires.is_cut(WIRE_LIMIT))
 
 /**
   * Checks if there is a valid DNA Scanner occupant for genetic modification
@@ -2063,11 +2063,10 @@
 		diskette.forceMove(drop_location())
 	diskette = null
 
-/obj/machinery/computer/scan_consolenew/emag_act(mob/user)
-	obj_flags |= EMAGGED
-	if(req_access)
-		req_access = list()
-		to_chat(user, "<span class='warning'>You bypass [src]'s access requirements.</span>")
+/obj/machinery/computer/scan_consolenew/on_emag(mob/user)
+	..()
+	req_access = list()
+	to_chat(user, "<span class='warning'>You bypass [src]'s access requirements.</span>")
 
 /////////////////////////// DNA MACHINES
 #undef INJECTOR_TIMEOUT

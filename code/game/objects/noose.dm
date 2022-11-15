@@ -35,7 +35,7 @@
 	pixel_y += 16 //Noose looks like it's "hanging" in the air
 	overlay = image(icon, "noose_overlay")
 	overlay.layer = FLY_LAYER
-	add_overlay(overlay, priority = 0)
+	add_overlay(overlay)
 
 /obj/structure/chair/noose/Destroy()
 	STOP_PROCESSING(SSobj, src)

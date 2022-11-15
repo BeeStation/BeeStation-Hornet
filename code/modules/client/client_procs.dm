@@ -103,14 +103,16 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		cmd_admin_pm(href_list["priv_msg"],null)
 		return
 
-	// hippie start -- Mentor PM
-	if (hippie_client_procs(href_list))
-		return
-	// hippie end
+	// Mentor PM
+	if(href_list["mentor_msg"])
+		cmd_mentor_pm(href_list["mentor_msg"], null)
+		return TRUE
 
 	switch(href_list["_src_"])
 		if("holder")
 			hsrc = holder
+		if("mentor")
+			hsrc = mentor_datum
 		if("usr")
 			hsrc = mob
 		if("prefs")
@@ -206,6 +208,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	tgui_panel = new(src)
 
 	GLOB.ahelp_tickets.ClientLogin(src)
+	GLOB.mhelp_tickets.ClientLogin(src)
 	GLOB.interviews.client_login(src)
 	GLOB.requests.client_login(src)
 	var/connecting_admin = FALSE //because de-admined admins connecting should be treated like admins.
@@ -510,6 +513,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 /client/Del()
 	log_access("Logout: [key_name(src)]")
 	GLOB.ahelp_tickets.ClientLogout(src)
+	GLOB.mhelp_tickets.ClientLogout(src)
 	GLOB.interviews.client_logout(src)
 
 	if(holder)
@@ -913,7 +917,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			to_chat(src, "<span class='danger'>Your previous click was ignored because you've done too many in a second</span>")
 			return
 
-	if (prefs.hotkeys)
+	if (prefs.toggles2 & PREFTOGGLE_2_HOTKEYS)
 		// If hotkey mode is enabled, then clicking the map will automatically
 		// unfocus the text bar. This removes the red color from the text bar
 		// so that the visual focus indicator matches reality.
@@ -996,7 +1000,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if (isliving(mob))
 		var/mob/living/M = mob
 		M.update_damage_hud()
-	if (prefs.auto_fit_viewport)
+	if (prefs.toggles2 & PREFTOGGLE_2_AUTO_FIT_VIEWPORT)
 		addtimer(CALLBACK(src,.verb/fit_viewport,10)) //Delayed to avoid wingets from Login calls.
 
 /client/proc/generate_clickcatcher()
@@ -1098,8 +1102,13 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		holder.filteriffic = new /datum/filter_editor(in_atom)
 		holder.filteriffic.ui_interact(mob)
 
+/client/proc/open_particle_editor(atom/in_atom)
+	if(holder)
+		holder.particool = new /datum/particle_editor(in_atom)
+		holder.particool.ui_interact(mob)
+
 /client/proc/update_ambience_pref()
-	if(prefs.toggles & SOUND_AMBIENCE)
+	if(prefs.toggles & PREFTOGGLE_SOUND_AMBIENCE)
 		if(SSambience.ambience_listening_clients[src] > world.time)
 			return // If already properly set we don't want to reset the timer.
 		SSambience.ambience_listening_clients[src] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.

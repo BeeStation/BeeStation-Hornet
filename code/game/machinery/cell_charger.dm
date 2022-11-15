@@ -17,7 +17,7 @@
 	cut_overlays()
 	if(charging)
 		add_overlay("ccharger-on")
-		if(!(stat & (BROKEN|NOPOWER)))
+		if(!(machine_stat & (BROKEN|NOPOWER)))
 			var/newlevel = 	round(charging.percent() * 4 / 100)
 			chargelevel = newlevel
 			add_overlay("ccharger-o[newlevel]")
@@ -32,7 +32,7 @@
 
 /obj/machinery/cell_charger/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell) && !panel_open)
-		if(stat & BROKEN)
+		if(machine_stat & BROKEN)
 			to_chat(user, "<span class='warning'>[src] is broken!</span>")
 			return
 		if(!anchored)
@@ -108,7 +108,7 @@
 /obj/machinery/cell_charger/emp_act(severity)
 	. = ..()
 
-	if(stat & (BROKEN|NOPOWER) || . & EMP_PROTECT_CONTENTS)
+	if(machine_stat & (BROKEN|NOPOWER) || . & EMP_PROTECT_CONTENTS)
 		return
 
 	if(charging)
@@ -120,7 +120,7 @@
 		charge_rate *= C.rating
 
 /obj/machinery/cell_charger/process(delta_time)
-	if(!charging || !anchored || (stat & (BROKEN|NOPOWER)))
+	if(!charging || !anchored || (machine_stat & (BROKEN|NOPOWER)))
 		return
 
 	if(charging.percent() >= 100)

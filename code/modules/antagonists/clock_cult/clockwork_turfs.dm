@@ -396,7 +396,9 @@
 	return TRUE //yes we do have power
 
 /obj/machinery/door/airlock/clockwork/obj_break(damage_flag)
-	return
+	. = ..()
+	if(!.) //not a clue if this will work out propely...
+		return
 
 /obj/machinery/door/airlock/clockwork/deconstruct(disassembled = TRUE)
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)

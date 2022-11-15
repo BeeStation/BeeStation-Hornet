@@ -297,12 +297,8 @@
 	else
 		update_brightness(null)
 
-/obj/item/flashlight/flare/update_brightness(mob/user = null)
-	..()
-	if(on)
-		item_state = "[initial(item_state)]-on"
-	else
-		item_state = "[initial(item_state)]"
+	remove_emitter("spark")
+	remove_emitter("smoke")
 
 /obj/item/flashlight/flare/attack_self(mob/user)
 
@@ -320,6 +316,9 @@
 		user.visible_message("<span class='notice'>[user] lights \the [src].</span>", "<span class='notice'>You light \the [src]!</span>")
 		force = on_damage
 		damtype = "fire"
+		if(!istype(src, /obj/item/flashlight/flare/torch))
+			add_emitter(/obj/emitter/sparks/flare, "spark", 10)
+			add_emitter(/obj/emitter/flare_smoke, "smoke", 9)
 		START_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/flare/is_hot()
@@ -550,11 +549,9 @@
 	if(!found)
 		return
 	found.on = TRUE
-	found.icon_state = "[initial(found.icon_state)]-on"
-	if(found.on)
-		set_light_on(TRUE)
-	else
-		set_light_on(FALSE)
+	found.update_icon()
+	found.update_brightness()
+
 	for(var/X in found.actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()

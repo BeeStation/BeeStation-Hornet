@@ -76,6 +76,10 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	clothing_flags = THICKMATERIAL
 
+/obj/item/clothing/suit/wizrobe/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
+
 /obj/item/clothing/suit/wizrobe/red
 	name = "red wizard robe"
 	desc = "A magnificent red gem-lined robe that seems to radiate power."
@@ -172,7 +176,7 @@
 	if(!isliving(usr))
 		return
 	if(!robe_charge)
-		to_chat(usr, "<span class='warning'>\The robe's internal magic supply is still recharging!</span>")
+		to_chat(usr, "<span class='warning'>The robe's internal magic supply is still recharging!</span>")
 		return
 
 	usr.say("Rise, my creation! Off your page into this realm!", forced = "stickman summoning")
@@ -183,7 +187,7 @@
 	src.robe_charge = FALSE
 	sleep(30)
 	src.robe_charge = TRUE
-	to_chat(usr, "<span class='notice'>\The robe hums, its internal magic supply restored.</span>")
+	to_chat(usr, "<span class='notice'>The robe hums, its internal magic supply restored.</span>")
 
 
 //Shielded Armour
