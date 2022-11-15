@@ -1972,6 +1972,14 @@
 	icon = 'icons/mob/moth_wings.dmi'
 	color_src = null
 
+/datum/sprite_accessory/moth_markings
+	icon = 'icons/mob/moth_markings.dmi'
+	color_src = null
+
+/datum/sprite_accessory/moth_antennae
+	icon = 'icons/mob/moth_antennae.dmi'
+	color_src = null
+
 /datum/sprite_accessory/moth_wingsopen
 	icon = 'icons/mob/moth_wingsopen.dmi'
 	color_src = null
