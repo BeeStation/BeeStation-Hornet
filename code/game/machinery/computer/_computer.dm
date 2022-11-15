@@ -47,7 +47,7 @@
 		icon_keyboard = "ratvar_key[rand(1, 2)]"
 		icon_state = "ratvarcomputer"
 		broken_overlay_emissive = TRUE
-		update_icon()
+		update_appearance()
 
 /obj/machinery/computer/narsie_act()
 	if(clockwork && clockwork != initial(clockwork)) //if it's clockwork but isn't normally clockwork
@@ -56,28 +56,26 @@
 		icon_keyboard = initial(icon_keyboard)
 		icon_state = initial(icon_state)
 		broken_overlay_emissive = initial(broken_overlay_emissive)
-		update_icon()
+		update_appearance()
 
-/obj/machinery/computer/update_icon()
-	cut_overlays()
-	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
-	if(machine_stat & NOPOWER)
-		add_overlay("[icon_keyboard]_off")
-		return
-	add_overlay(icon_keyboard)
+/obj/machinery/computer/update_overlays()
+	. = ..()
+	if(icon_keyboard)
+		if(machine_stat & NOPOWER)
+			. += "[icon_keyboard]_off"
+		else
+			. += icon_keyboard
 
 	// This whole block lets screens ignore lighting and be visible even in the darkest room
-	var/overlay_state = icon_screen
 	if(machine_stat & BROKEN)
-		if(broken_overlay_emissive)
-			overlay_state = "[icon_state]_broken"
-		else
-			add_overlay("[icon_state]_broken")
-			overlay_state = null
+		. += mutable_appearance(icon, "[icon_state]_broken")
+		return // If we don't do this broken computers glow in the dark.
 
-	if(overlay_state)
-		. += mutable_appearance(icon, icon_screen)
-		. += emissive_appearance(icon, icon_screen)
+	if(machine_stat & NOPOWER) // Your screen can't be on if you've got no damn charge
+		return
+
+	. += mutable_appearance(icon, icon_screen)
+	. += emissive_appearance(icon, icon_screen)
 
 /obj/machinery/computer/power_change()
 	..()
@@ -85,7 +83,7 @@
 		set_light(FALSE)
 	else
 		set_light(TRUE)
-	update_icon()
+	update_appearance()
 	return
 
 /obj/machinery/computer/screwdriver_act(mob/living/user, obj/item/I)
