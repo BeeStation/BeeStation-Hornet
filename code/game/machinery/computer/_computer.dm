@@ -76,8 +76,8 @@
 			overlay_state = null
 
 	if(overlay_state)
-		SSvis_overlays.add_vis_overlay(src, icon, overlay_state, layer, plane, dir)
-		SSvis_overlays.add_vis_overlay(src, icon, overlay_state, layer, EMISSIVE_PLANE, dir)
+		. += mutable_appearance(icon, icon_screen)
+		. += emissive_appearance(icon, icon_screen)
 
 /obj/machinery/computer/power_change()
 	..()
