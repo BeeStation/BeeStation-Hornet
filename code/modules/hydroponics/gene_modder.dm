@@ -450,7 +450,7 @@
 	src.pixel_y = rand(-5, 5)
 
 /obj/item/disk/plantgene/update_name()
-	.=..()
+	. = ..()
 	if(gene)
 		name = "[gene.get_name()] (plant data disk)"
 	else
