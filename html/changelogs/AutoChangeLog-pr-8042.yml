@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Fixed some CI tooling not detecting issues properly.
-  - bugfix: Fixed a few double firelocks in ruins.
