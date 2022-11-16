@@ -22,15 +22,24 @@
 	COOLDOWN_DECLARE(attack_cooldown)
 
 /datum/ai_behavior/tamed_follow/attack/perform(delta_time, datum/ai_controller/controller)
+	// Pawn + target
 	var/mob/living/simple_animal/pawn = controller.pawn
-	//If pawn can't access target, finish
+	var/mob/living/simple_animal/hostile/hostile_pawn
+	var/mob/living/target = controller.blackboard[BB_ATTACK_TARGET]
+	if(istype(pawn, /mob/living/simple_animal/hostile))
+		hostile_pawn = pawn
+
+	// Dead? finish
+	if(istype(target) && IS_DEAD_OR_INCAP(target))
+		finish_action(controller, TRUE)
+
+	// If pawn can't access target, finish
 	if(get_dist(pawn, controller.blackboard[BB_ATTACK_TARGET]) > FOLLOW_TOLERANCE)
 		finish_action(controller, TRUE)
-	else if(get_dist(pawn, controller.blackboard[BB_ATTACK_TARGET]) <= 1 && COOLDOWN_FINISHED(src, attack_cooldown))
-		var/mob/living/target = controller.blackboard[BB_ATTACK_TARGET]
-		if(istype(target) && IS_DEAD_OR_INCAP(target))
-			finish_action(controller, TRUE)
-		target.attack_animal(pawn)
+
+	// Attack
+	else if((hostile_pawn?.ranged || get_dist(pawn, controller.blackboard[BB_ATTACK_TARGET]) <= 1) && COOLDOWN_FINISHED(src, attack_cooldown))
+		pawn.UnarmedAttack(target)
 		COOLDOWN_START(src, attack_cooldown, 1.3 SECONDS)
 	..()
 

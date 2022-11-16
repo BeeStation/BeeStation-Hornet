@@ -7,6 +7,8 @@
 	var/timer
 	///Ref to lasso'd carp
 	var/mob/living/simple_animal/mob_target
+	///Range we can lasso things at
+	var/range = 8
 	///Whitelist of allowed animals
 	var/list/whitelist_mobs
 
@@ -23,7 +25,7 @@
 		failed = TRUE
 	if(iscarbon(target) || issilicon(target))
 		failed = TRUE
-	if(!(locate(target) in oview(9, get_turf(src))))
+	if(!(locate(target) in oview(range, user)))
 		failed = TRUE
 	if(failed)
 		to_chat(user, "<span class='notice'>[target] seems a bit big for this...</span>")
@@ -88,6 +90,15 @@
 	whitelist_mobs = typecacheof(list(/mob/living/simple_animal/hostile/asteroid/goliath, /mob/living/simple_animal/hostile/asteroid/goldgrub,\
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher, /mob/living/simple_animal/hostile/asteroid/gutlunch))
 
+/obj/item/mob_lasso/drake
+	name = "drake lasso"
+	desc = "A lasso fashioned out of the scaly hide of an ash drake.\nCan be used to tame one, if you can get close enough."
+	range = 3
+
+/obj/item/mob_lasso/drake/Initialize(mapload)
+	. = ..()
+	whitelist_mobs = typecacheof(list(/mob/living/simple_animal/hostile/megafauna/dragon), only_root_path = TRUE)
+
 /obj/item/mob_lasso/antag
 	name = "bluespace lasso"
 	desc = "Comes standard with every evil space-cowboy!\nCan be used to tame almost anything."
@@ -104,5 +115,8 @@
 /obj/item/mob_lasso/antag/debug
 	name = "debug lasso"
 	desc = "Comes standard with every administrator space-cowboy!\nCan be used to tame anything."
-	blacklist_mobs = list() //anything goes
+
+/obj/item/mob_lasso/antag/debug/Initialize(mapload)
+	. = ..()
+	blacklist_mobs = list()
 
