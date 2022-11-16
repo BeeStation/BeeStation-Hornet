@@ -80,6 +80,7 @@
 
 /obj/item/mob_lasso/proc/handle_hard_del()
 	mob_target = null
+	timer = null
 
 ///Primal version, allows lavaland goobers to tame goliaths
 /obj/item/mob_lasso/primal
