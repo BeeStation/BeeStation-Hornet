@@ -14,7 +14,7 @@
 
 /obj/item/mob_lasso/Initialize(mapload)
 	. = ..()
-	whitelist_mobs = typecacheof(list(/mob/living/simple_animal/hostile/carp, /mob/living/simple_animal/cow, /mob/living/simple_animal/hostile/retaliate/dolphin))
+	whitelist_mobs = typecacheof(list(/mob/living/simple_animal/hostile/carp, /mob/living/simple_animal/cow, /mob/living/simple_animal/hostile/retaliate/dolphin), only_root_path = TRUE)
 
 /obj/item/mob_lasso/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -28,7 +28,8 @@
 	if(!(locate(target) in oview(range, user)))
 		failed = TRUE
 	if(failed)
-		to_chat(user, "<span class='notice'>[target] seems a bit big for this...</span>")
+		if(ismob(target))
+			to_chat(user, "<span class='notice'>[target] seems a bit big for this...</span>")
 		return
 	var/mob/living/simple_animal/C = target
 	if(IS_DEAD_OR_INCAP(C))
@@ -94,6 +95,12 @@
 	name = "drake lasso"
 	desc = "A lasso fashioned out of the scaly hide of an ash drake.\nCan be used to tame one, if you can get close enough."
 	range = 3
+
+/obj/item/mob_lasso/drake/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(!user.mind?.has_antag_datum(/datum/antagonist/ashwalker))
+		to_chat(user, "<span class='warning'>You don't know how to use this!</span>")
+		return
+	. = ..()
 
 /obj/item/mob_lasso/drake/Initialize(mapload)
 	. = ..()
