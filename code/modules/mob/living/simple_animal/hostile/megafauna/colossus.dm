@@ -24,8 +24,8 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/colossus
 	name = "colossus"
 	desc = "A monstrous creature protected by heavy shielding."
-	health = 2500
-	maxHealth = 2500
+	health = 1250
+	maxHealth = 1250
 	attacktext = "judges"
 	attack_sound = 'sound/magic/clockwork/ratvar_attack.ogg'
 	icon_state = "eva"
