@@ -620,7 +620,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		var/obj/item/bodypart/r_arm/right_arm = H.get_bodypart(BODY_ZONE_R_ARM)
 		var/obj/item/bodypart/l_arm/left_arm = H.get_bodypart(BODY_ZONE_L_ARM)
 		var/obj/item/bodypart/r_leg/right_leg = H.get_bodypart(BODY_ZONE_R_LEG)
-		var/obj/item/bodypart/l_leg/left_arm = H.get_bodypart(BODY_ZONE_L_LEG)
+		var/obj/item/bodypart/l_leg/left_leg = H.get_bodypart(BODY_ZONE_L_LEG)
 		var/datum/sprite_accessory/markings = GLOB.moth_markings_list[H.dna.features["moth_markings"]]
 
 		if(!HAS_TRAIT(H, TRAIT_HUSK))
@@ -643,6 +643,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			if(right_leg && (IS_ORGANIC_LIMB(right_leg)))
 				var/mutable_appearance/markings_r_leg_overlay = mutable_appearance(markings.icon, "[markings.icon_state]_r_leg", -BODY_LAYER)
 				standing += markings_r_leg_overlay
+
+			if(left_leg && (IS_ORGANIC_LIMB(left_leg)))
+				var/mutable_appearance/markings_l_leg_overlay = mutable_appearance(markings.icon, "[markings.icon_state]_l_leg", -BODY_LAYER)
+				standing += markings_l_leg_overlay
 
 
 	//Underwear, Undershirts & Socks
