@@ -25,8 +25,8 @@
 	var/list/trophies = list()
 	var/charged = TRUE
 	var/charge_time = 15
-	var/detonation_damage = 50
-	var/backstab_bonus = 30
+	var/detonation_damage = 25
+	var/backstab_bonus = 15
 
 /obj/item/kinetic_crusher/ComponentInitialize()
 	. = ..()
