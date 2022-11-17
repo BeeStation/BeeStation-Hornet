@@ -9,7 +9,6 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	icon_state      = "grey"
 	plane           = OPENSPACE_BACKDROP_PLANE
 	mouse_opacity 	= MOUSE_OPACITY_TRANSPARENT
-	plane 			= SPLASHSCREEN_PLANE
 	vis_flags = VIS_INHERIT_ID
 
 /turf/open/openspace
