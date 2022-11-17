@@ -8,9 +8,6 @@
 
 #define SANITIZE_FILENAME(text) (GLOB.filename_forbidden_chars.Replace(text, ""))
 
-// Used by PDA and cartridge code to reduce repetitiveness of spritesheets
-#define PDAIMG(what) {"<span class="pda16x16 [#what]"></span>"}
-
 ///Base layer of chat elements
 #define CHAT_LAYER 1
 ///Highest possible layer of chat elements
