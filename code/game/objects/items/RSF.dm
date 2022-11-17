@@ -10,7 +10,7 @@ RSF
 	icon_state = "rcd"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	opacity = FALSE
+	opacity = 0
 	density = FALSE
 	anchored = FALSE
 	item_flags = NOBLUDGEON

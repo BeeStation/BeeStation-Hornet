@@ -4,7 +4,7 @@
 	icon = 'icons/obj/machines/implantchair.dmi'
 	icon_state = "implantchair"
 	density = TRUE
-	opacity = FALSE
+	opacity = 0
 
 	var/ready = TRUE
 	var/replenishing = FALSE

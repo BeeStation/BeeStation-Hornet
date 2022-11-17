@@ -190,7 +190,7 @@
 		newI.loc = I.loc //It is highly unlikely that any landing spot including a null tile will get this far, but better safe than sorry.
 		newI.layer = ABOVE_OPEN_TURF_LAYER
 		newI.plane = 0
-		newI.mouse_opacity = FALSE
+		newI.mouse_opacity = 0
 		the_eye.placed_images += newI
 
 	//Go to destination

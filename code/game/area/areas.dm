@@ -89,7 +89,7 @@
 	//Lighting overlay
 	var/obj/effect/lighting_overlay
 	var/lighting_overlay_colour = "#FFFFFF"
-	var/lighting_overlay_opacity = FALSE
+	var/lighting_overlay_opacity = 0
 
 	///This datum, if set, allows terrain generation behavior to be ran on Initialize()
 	var/datum/map_generator/map_generator

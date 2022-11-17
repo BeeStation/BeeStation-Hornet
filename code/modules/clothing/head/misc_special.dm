@@ -357,7 +357,7 @@
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | EFFECT_HAT | SNUG_FIT
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 50)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = MOVABLE_LIGHT
 	light_range = 4
 	light_power = 1
 	light_on = TRUE

@@ -55,7 +55,7 @@
 	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
 	icon_state = "smooth"
 	density = TRUE
-	opacity = TRUE
+	opacity = 1
 	anchored = TRUE
 	canSmoothWith = list(/obj/structure/alien/resin)
 	max_integrity = 200
@@ -89,7 +89,7 @@
 	desc = "Resin just thin enough to let light pass through."
 	icon = 'icons/obj/smooth_structures/alien/resin_membrane.dmi'
 	icon_state = "smooth"
-	opacity = FALSE
+	opacity = 0
 	max_integrity = 160
 	resintype = "membrane"
 	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)

@@ -397,7 +397,7 @@
 	alpha = 200 //Mappers can also just set this to 255 if they want curtains that can't be seen through
 	layer = SIGN_LAYER
 	anchored = TRUE
-	opacity = FALSE
+	opacity = 0
 	density = FALSE
 	var/open = TRUE
 

@@ -112,37 +112,3 @@
 		lighting_corner_NW = new/datum/lighting_corner(src, NORTH|WEST)
 
 	lighting_corners_initialised = TRUE
-
-///Proc to add movable sources of opacity on the turf and let it handle lighting code.
-/turf/proc/add_opacity_source(atom/movable/new_source)
-	LAZYADD(opacity_sources, new_source)
-	if(opacity)
-		return
-	recalculate_directional_opacity()
-
-
-///Proc to remove movable sources of opacity on the turf and let it handle lighting code.
-/turf/proc/remove_opacity_source(atom/movable/old_source)
-	LAZYREMOVE(opacity_sources, old_source)
-	if(opacity) //Still opaque, no need to worry on updating.
-		return
-	recalculate_directional_opacity()
-
-
-///Calculate on which directions this turfs block view.
-/turf/proc/recalculate_directional_opacity()
-	. = directional_opacity
-	if(opacity)
-		directional_opacity = ALL_CARDINALS
-		if(. != directional_opacity)
-			reconsider_lights()
-		return
-	directional_opacity = NONE
-	for(var/atom/movable/opacity_source as anything in opacity_sources)
-		if(opacity_source.flags_1 & ON_BORDER_1)
-			directional_opacity |= opacity_source.dir
-		else //If fulltile and opaque, then the whole tile blocks view, no need to continue checking.
-			directional_opacity = ALL_CARDINALS
-			break
-	if(. != directional_opacity && (. == ALL_CARDINALS || directional_opacity == ALL_CARDINALS))
-		reconsider_lights() //The lighting system only cares whether the tile is fully concealed from all directions or not.
