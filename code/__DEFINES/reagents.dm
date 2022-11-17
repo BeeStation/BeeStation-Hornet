@@ -12,6 +12,8 @@
 #define AMOUNT_VISIBLE	(1<<5)	//! For non-transparent containers that still have the general amount of reagents in them visible.
 #define NO_REACT        (1<<6)  //! Applied to a reagent holder, the contents will not react with each other.
 
+#define ABSOLUTELY_GRINDABLE   (1<<7)  //! used in 'All-In-One Grinder' that it can grind anything if it has this bitflag
+
 /// Is an open container for all intents and purposes.
 #define OPENCONTAINER 	(REFILLABLE | DRAINABLE | TRANSPARENT)
 

@@ -544,9 +544,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	GLOB.mentors -= src
 	SSambience.ambience_listening_clients -= src
 	QDEL_LIST_ASSOC_VAL(char_render_holders)
-	if(movingmob != null)
-		movingmob.client_mobs_in_contents -= mob
-		UNSETEMPTY(movingmob.client_mobs_in_contents)
 	Master.UpdateTickRate()
 	return ..()
 
@@ -1101,6 +1098,11 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(holder)
 		holder.filteriffic = new /datum/filter_editor(in_atom)
 		holder.filteriffic.ui_interact(mob)
+
+/client/proc/open_particle_editor(atom/in_atom)
+	if(holder)
+		holder.particool = new /datum/particle_editor(in_atom)
+		holder.particool.ui_interact(mob)
 
 /client/proc/update_ambience_pref()
 	if(prefs.toggles & PREFTOGGLE_SOUND_AMBIENCE)

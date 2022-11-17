@@ -50,7 +50,7 @@
 /datum/objective/crew/points/check_completion()
 	if(..())
 		return TRUE
-	var/datum/bank_account/C = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	var/datum/bank_account/C = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	return C.account_balance >= target_amount
 
 /datum/objective/crew/bubblegum

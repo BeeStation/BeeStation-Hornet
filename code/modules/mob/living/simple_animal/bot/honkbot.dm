@@ -130,7 +130,7 @@ Maintenance panel panel is [open ? "opened" : "closed"]"},
 		addtimer(CALLBACK(src, .proc/react_buzz), 5)
 	..()
 
-/mob/living/simple_animal/bot/honkbot/emag_act(mob/user)
+/mob/living/simple_animal/bot/honkbot/on_emag(atom/target, mob/user)
 	..()
 	if(emagged == 2)
 		if(user)

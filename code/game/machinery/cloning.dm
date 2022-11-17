@@ -41,7 +41,7 @@
 	var/flesh_number = 0
 	var/datum/bank_account/current_insurance
 	fair_market_price = 5 // He nodded, because he knew I was right. Then he swiped his credit card to pay me for arresting him.
-	payment_department = ACCOUNT_MED
+	dept_req_for_free = ACCOUNT_MED_BITFLAG
 	var/experimental_pod = FALSE //experimental cloner will have true. TRUE allows you to clone a weird brain after scanning it.
 
 /obj/machinery/clonepod/Initialize(mapload)
@@ -340,9 +340,13 @@
 				if(internal_radio)
 					SPEAK("The cloning of [mob_occupant.real_name] has been ended prematurely due to being unable to pay.")
 			else
-				var/datum/bank_account/department/D = SSeconomy.get_dep_account(payment_department)
-				if(D && !D.is_nonstation_account())
-					D.adjust_money(fair_market_price)
+				// there's the same code in `_machinery.dm`
+				if(fair_market_price && seller_department)
+					var/list/dept_list = SSeconomy.get_dept_id_by_bitflag(seller_department)
+					if(length(dept_list))
+						fair_market_price = round(fair_market_price/length(dept_list))
+						for(var/datum/bank_account/department/D in dept_list)
+							D.adjust_money(fair_market_price)
 		if(mob_occupant && (mob_occupant.stat == DEAD) || (mob_occupant.suiciding) || mob_occupant.ishellbound())  //Autoeject corpses and suiciding dudes.
 			connected_message("Clone Rejected: Deceased.")
 			if(internal_radio)
@@ -452,9 +456,11 @@
 	else
 		return ..()
 
-/obj/machinery/clonepod/emag_act(mob/user)
-	if(!occupant)
-		return
+/obj/machinery/clonepod/should_emag(mob/user)
+	return !!occupant
+
+/obj/machinery/clonepod/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='warning'>You corrupt the genetic compiler.</span>")
 	malfunction()
 	add_fingerprint(user)

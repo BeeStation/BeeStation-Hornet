@@ -39,7 +39,7 @@
 	report_message = "Your station has been selected for a special grant. Some extra funds has been made available to your cargo department."
 
 /datum/station_trait/galactic_grant/on_round_start()
-	var/datum/bank_account/cargo_bank = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	var/datum/bank_account/cargo_bank = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	cargo_bank.adjust_money(rand(2000, 5000))
 
 /datum/station_trait/premium_internals_box
