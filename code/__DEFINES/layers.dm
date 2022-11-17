@@ -16,7 +16,6 @@
 
 #define FLOOR_PLANE -7
 #define FLOOR_PLANE_RENDER_TARGET "FLOOR_PLANE"
-#define GAME_PLANE -1
 #define OVER_TILE_PLANE -6
 #define WALL_PLANE -5
 #define GAME_PLANE -4
@@ -152,6 +151,8 @@
 
 ///Popup Chat Messages
 #define RUNECHAT_PLANE 250
+/// Plane for balloon text (text that fades up)
+#define BALLOON_CHAT_PLANE 31
 
 ///--------------- FULLSCREEN IMAGES ------------
 #define FULLSCREEN_PLANE 500

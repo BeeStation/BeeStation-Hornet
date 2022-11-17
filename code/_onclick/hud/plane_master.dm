@@ -182,6 +182,10 @@
 	if(istype(mymob) && (mymob.client?.prefs?.toggles2 & PREFTOGGLE_2_AMBIENT_OCCLUSION))
 		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
 
+/atom/movable/screen/plane_master/balloon_chat
+	name = "Balloon chat"
+	plane = BALLOON_CHAT_PLANE
+	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
 /atom/movable/screen/plane_master/o_light_visual
 	name = "overlight light visual plane master"
 	plane = O_LIGHTING_VISUAL_PLANE
