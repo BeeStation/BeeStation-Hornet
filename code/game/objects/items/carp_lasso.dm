@@ -26,10 +26,12 @@
 	if(iscarbon(target) || issilicon(target))
 		failed = TRUE
 	if(!(locate(target) in oview(range, user)))
-		failed = TRUE
+		if(ismob(target))
+			to_chat(user, "<span class='warning'>you can't lasso [target] from here!</span>")
+		return
 	if(failed)
 		if(ismob(target))
-			to_chat(user, "<span class='notice'>[target] seems a bit big for this...</span>")
+			to_chat(user, "<span class='warning'>[target] seems a bit big for this...</span>")
 		return
 	var/mob/living/simple_animal/C = target
 	if(IS_DEAD_OR_INCAP(C))
