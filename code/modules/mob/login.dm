@@ -41,9 +41,6 @@
 
 	..()
 
-	//We do this here to prevent hanging refs from ghostize or whatever, since if we were in another mob before this'll take care of it
-	clear_client_in_contents()
-
 	if (client && key != client.key)
 		key = client.key
 	reset_perspective(loc)
@@ -93,6 +90,9 @@
 
 	//Sort verbs
 	add_verb(verbs.Copy(), TRUE)	//verbs.Copy() because otherwise you can't see the list
+
+	//Add the move relay
+	AddComponent(/datum/component/moved_relay)
 
 	log_message("Client [key_name(src)] has taken ownership of mob [src]([src.type])", LOG_OWNERSHIP)
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)

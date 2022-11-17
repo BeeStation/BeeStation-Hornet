@@ -82,3 +82,6 @@
 // Radio jammer signals
 /// Calls something to toggle its jamming ability. (mob/user, silent = FALSE)
 #define COMSIG_TOGGLE_JAMMER "toggle_jammer"
+
+///Called to all children when a parent moves, as long as it has the moved relay component.
+#define COMSIG_PARENT_MOVED_RELAY "parent_moved_relay"
