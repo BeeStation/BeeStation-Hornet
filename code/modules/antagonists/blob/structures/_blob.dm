@@ -5,7 +5,7 @@
 	light_range = 2
 	desc = "A thick wall of writhing tendrils."
 	density = TRUE
-	opacity = FALSE
+	opacity = 0
 	anchored = TRUE
 	layer = BELOW_MOB_LAYER
 	pass_flags_self = PASSBLOB

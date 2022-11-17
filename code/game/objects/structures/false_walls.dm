@@ -9,7 +9,7 @@
 	icon_state = "wall"
 	layer = LOW_OBJ_LAYER
 	density = TRUE
-	opacity = TRUE
+	opacity = 1
 	max_integrity = 100
 
 	canSmoothWith = list(

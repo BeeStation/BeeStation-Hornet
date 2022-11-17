@@ -144,6 +144,3 @@
 #define COMSIG_ATOM_SHOULD_EMAG "atom_should_emag"
 /// Do the emag action (if CHECK is FALSE)
 #define COMSIG_ATOM_ON_EMAG "atom_on_emag"
-
-///from base of atom/set_opacity(): (new_opacity)
-#define COMSIG_ATOM_SET_OPACITY "atom_set_opacity"

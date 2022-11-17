@@ -19,7 +19,7 @@
 	attack_verb = list("smashed", "crushed", "cleaved", "chopped", "pulped")
 	sharpness = IS_SHARP
 	actions_types = list(/datum/action/item_action/toggle_light)
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = MOVABLE_LIGHT
 	light_range = 5
 	light_on = FALSE
 	var/list/trophies = list()
