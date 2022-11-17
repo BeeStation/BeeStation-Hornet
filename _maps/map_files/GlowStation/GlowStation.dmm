@@ -33658,7 +33658,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
-/turf/closed/wall,
+/turf/open/floor/plating,
 /area/maintenance/upper/central)
 "huf" = (
 /obj/effect/landmark/start/janitor,
@@ -48444,7 +48444,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
-/turf/open/floor/plating/asteroid/snow,
+/turf/open/floor/plating,
 /area/maintenance/upper/central)
 "kFa" = (
 /obj/structure/cable/yellow{
@@ -98871,10 +98871,6 @@
 /obj/item/reagent_containers/glass/bucket,
 /turf/open/floor/plasteel/dark,
 /area/hydroponics/garden/monastery)
-"vGG" = (
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plasteel/dark,
-/area/maintenance/upper/central)
 "vGM" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -108182,7 +108178,7 @@
 /obj/machinery/space_heater{
 	on = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/maintenance/upper/central)
 "xOz" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -347072,7 +347068,7 @@ qnB
 qnB
 qnB
 htY
-vGG
+qnB
 kEW
 ebA
 lTU
