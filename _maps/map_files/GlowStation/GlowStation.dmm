@@ -7911,7 +7911,7 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/plating/asteroid/snow,
+/turf/open/floor/plating,
 /area/maintenance/upper/central/secondary)
 "bME" = (
 /obj/structure/cable/yellow{
@@ -10482,12 +10482,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
-"cqD" = (
-/obj/machinery/space_heater{
-	on = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/maintenance/department/medical)
 "cqG" = (
 /obj/structure/closet/crate,
 /obj/effect/turf_decal/delivery,
@@ -44804,7 +44798,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/firedoor,
-/turf/closed/wall,
+/turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
 "jOV" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
@@ -50743,7 +50737,7 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/plating/asteroid/snow,
+/turf/open/floor/plating,
 /area/maintenance/department/medical)
 "les" = (
 /obj/structure/lattice/catwalk/over,
@@ -57410,9 +57404,6 @@
 	dir = 10
 	},
 /area/hallway/primary/aft)
-"mCX" = (
-/turf/open/floor/plasteel/dark,
-/area/maintenance/department/medical)
 "mDi" = (
 /obj/structure/railing{
 	dir = 4
@@ -66496,7 +66487,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/firedoor,
-/turf/closed/wall,
+/turf/open/floor/plating,
 /area/maintenance/upper/central/secondary)
 "ozx" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -71095,7 +71086,7 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/plating/asteroid/snow,
+/turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
 "pEk" = (
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -82804,7 +82795,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/firedoor,
-/turf/closed/wall,
+/turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
 "sjr" = (
 /obj/effect/turf_decal/stripes/corner,
@@ -105716,7 +105707,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/firedoor,
-/turf/closed/wall,
+/turf/open/floor/plating,
 /area/maintenance/department/medical)
 "xiy" = (
 /obj/structure/lattice/catwalk,
@@ -353269,7 +353260,7 @@ cus
 cus
 lDo
 oBt
-cqD
+kFh
 wfM
 kUk
 wpB
@@ -353526,7 +353517,7 @@ lDo
 lDo
 lDo
 xig
-mCX
+lDo
 lej
 dOg
 qxS
