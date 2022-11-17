@@ -1,0 +1,7 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - refactor: Refactored parallax background to use a subsystem for updates.
+  - balance: Telekenisis can now pick up closets with mobs inside them (The reason
+      for this change is due to the code misusing an internal variable that no longer
+      exists).
