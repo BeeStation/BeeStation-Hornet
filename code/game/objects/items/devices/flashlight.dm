@@ -12,7 +12,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(/datum/material/iron=50, /datum/material/glass=20)
 	actions_types = list(/datum/action/item_action/toggle_light)
-	light_system = MOVABLE_LIGHT
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 4
 	light_power = 1
 	light_on = FALSE
@@ -220,6 +220,7 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 10
 	light_range = 5
+	light_system = STATIC_LIGHT
 	w_class = WEIGHT_CLASS_BULKY
 	flags_1 = CONDUCT_1
 	materials = list()
@@ -265,6 +266,7 @@
 	var/produce_heat = 1500
 	heat = 1000
 	light_color = LIGHT_COLOR_FLARE
+	light_system = MOVABLE_LIGHT
 	grind_results = list(/datum/reagent/sulfur = 15)
 
 /obj/item/flashlight/flare/Initialize(mapload)
@@ -344,6 +346,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/mining_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/mining_righthand.dmi'
 	desc = "A mining lantern."
+	light_system = MOVABLE_LIGHT
 	light_range = 6			// luminosity when on
 
 /obj/item/flashlight/lantern/heirloom_moth
@@ -433,6 +436,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	light_range = 4
 	color = LIGHT_COLOR_GREEN
+	light_system = MOVABLE_LIGHT
 	icon_state = "glowstick"
 	item_state = "glowstick"
 	grind_results = list(/datum/reagent/phenol = 15, /datum/reagent/hydrogen = 10, /datum/reagent/oxygen = 5) //Meth-in-a-stick
@@ -561,7 +565,7 @@
 	name = "disco light"
 	desc = "Groovy..."
 	icon_state = null
-	light_system = STATIC_LIGHT
+	light_system = MOVABLE_LIGHT
 	light_range = 4
 	light_power = 10
 	alpha = 0
@@ -612,6 +616,7 @@
 	desc = "This shouldn't exist outside of someone's head, how are you seeing this?"
 	light_range = 15
 	light_power = 1
+	light_system = MOVABLE_LIGHT
 	flags_1 = CONDUCT_1
 	item_flags = DROPDEL
 	actions_types = list()
