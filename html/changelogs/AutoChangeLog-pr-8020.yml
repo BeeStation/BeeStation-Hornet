@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - balance: The flash can now blind (but can't stun) targets with basic flash protection.
-  - balance: The flash will now always apply knockdown, even on targets with no stamina
-      damage. (For half a second minimum)

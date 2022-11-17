@@ -1,7 +1,0 @@
-author: PestoVerde322
-delete-after: true
-changes:
-  - rscadd: Added functional directional lighting. You can notice them with flashlights,
-      hardsuit lamps, hardhats and the likes.
-  - code_imp: Opacity has been reworked. It's a non-trivial cost for the lighting
-      system with little to no gain.
