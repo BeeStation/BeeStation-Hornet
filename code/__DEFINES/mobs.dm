@@ -134,6 +134,7 @@
 #define SPECIES_GOLEM_GOLD "gold_golem"
 #define SPECIES_GOLEM_IRON "iron_golem"
 #define SPECIES_GOLEM_LEATHER "leather_golem"
+#define SPECIES_GOLEM_PLASMA "plasma_golem"
 #define SPECIES_GOLEM_PLASTEEL "plasteel_golem"
 #define SPECIES_GOLEM_PLASTIC "plastic_golem"
 #define SPECIES_GOLEM_PLASTITANIUM "plastitanium_golem"
