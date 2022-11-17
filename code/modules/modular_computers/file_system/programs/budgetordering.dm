@@ -51,12 +51,12 @@
 	. = ..()
 	var/list/data = get_header_data()
 	data["location"] = SSshuttle.supply.getStatusText()
-	var/datum/bank_account/buyer = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	var/datum/bank_account/buyer = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	var/obj/item/card/id/id_card = get_buyer_id(user)
 	if(get_buyer_id(user))
 		if((ACCESS_HEADS in id_card.access) || (ACCESS_QM in id_card.access))
 			requestonly = FALSE
-			buyer = SSeconomy.get_dep_account(id_card?.registered_account?.account_department)
+			buyer = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 			can_approve_requests = TRUE
 		else
 			requestonly = TRUE
@@ -64,9 +64,9 @@
 	else
 		requestonly = TRUE
 	if(isnull(buyer))
-		buyer = SSeconomy.get_dep_account(ACCOUNT_CAR)
-	else if(buyer.is_nonstation_account())
-		buyer = SSeconomy.get_dep_account(ACCOUNT_CAR)
+		buyer = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
+	else if(SSeconomy.is_nonstation_account(buyer))
+		buyer = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	if(buyer)
 		data["points"] = buyer.account_balance
 
@@ -219,11 +219,11 @@
 					computer.say("The application rejects [id_card].")
 					return
 				else
-					account = SSeconomy.get_dep_account(id_card?.registered_account?.account_department)
+					account = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 					if(isnull(account))
 						computer.say("The application failed to identify [id_card].")
 						return
-					else if(account.is_nonstation_account())
+					else if(SSeconomy.is_nonstation_account(account))
 						computer.say("The application rejects [id_card].")
 						return
 
@@ -254,8 +254,8 @@
 				if(SO.id == id)
 					var/obj/item/card/id/id_card = get_buyer_id(usr)
 					if(id_card && id_card?.registered_account)
-						SO.paying_account = SSeconomy.get_dep_account(id_card?.registered_account?.account_department)
-					if(SO.paying_account.is_nonstation_account())
+						SO.paying_account = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
+					if(SSeconomy.is_nonstation_account(SO.paying_account))
 						return
 					SSshuttle.requestlist -= SO
 					SSshuttle.shoppinglist += SO

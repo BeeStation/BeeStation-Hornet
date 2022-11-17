@@ -127,7 +127,7 @@
 			// This is slightly delayed because of the sleep calls above to handle the narrative.
 			// We don't want to tell the station instantly.
 			var/points_to_check
-			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+			var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 			if(D)
 				points_to_check = D.account_balance
 			if(points_to_check >= ransom)

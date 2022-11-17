@@ -3,12 +3,11 @@
 	flag = HOS
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD|PREFTOGGLE_DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_CAPTAIN)
-	department_flag = ENGSEC
+	supervisors = "the captain"
 	head_announce = list(RADIO_CHANNEL_SECURITY)
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the captain"
 	selection_color = "#ffdddd"
 	req_admin_notify = 1
 	minimal_player_age = 14
@@ -27,11 +26,15 @@
 			            ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_AUX_BASE,
 			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
 			            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
-	paycheck = PAYCHECK_COMMAND
-	paycheck_department = ACCOUNT_SEC
+
+	department_flag = ENGSEC
+	departments = DEPT_BITFLAG_SEC | DEPT_BITFLAG_COM
+	bank_account_department = ACCOUNT_SEC_BITFLAG | ACCOUNT_COM_BITFLAG
+	payment_per_department = list(
+		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
+		ACCOUNT_SEC_ID = PAYCHECK_COMMAND_DEPT)
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_SECURITY
-	departments = DEPARTMENT_BITFLAG_SECURITY | DEPARTMENT_BITFLAG_COMMAND
 	rpg_title = "Guard Leader"
 
 	species_outfits = list(

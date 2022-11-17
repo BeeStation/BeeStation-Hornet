@@ -130,9 +130,13 @@
 	if(card?.registered_account)
 		data["user"]["authenticated"] = TRUE
 		data["user"]["name"] = card.registered_account.account_holder
-		if(card?.registered_account.account_job)
+		var/datum/data/record/R = find_record("name", card.registered_account.account_holder, GLOB.data_core.general)
+		if(R)
+			data["user"]["job"] = R.fields["name"]
+			data["user"]["department"] = R.fields[""]
+		else if(card.registered_account.account_job)
 			data["user"]["job"] = card.registered_account.account_job.title
-			data["user"]["department"] = card.registered_account.account_job.paycheck_department
+			data["user"]["department"] = card.registered_account.account_job.bank_account_department
 		else
 			data["user"]["job"] = "No Job"
 			data["user"]["department"] = "No Department"

@@ -25,7 +25,7 @@
 	icon_screen = "xenoartifact_console"
 	icon_keyboard = "rd_key"
 	circuit = /obj/item/circuitboard/computer/xenoartifact_console
-	
+
 	///Sellers give artifacts
 	var/list/sellers = list()
 	///Buyers take artifacts
@@ -50,7 +50,7 @@
 /obj/machinery/computer/xenoartifact_console/Initialize()
 	. = ..()
 	linked_techweb = SSresearch.science_tech
-	budget = SSeconomy.get_dep_account(ACCOUNT_SCI)
+	budget = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
 	sync_devices()
 	for(var/I in 1 to XENOA_MAX_VENDORS) //Add initial buyers and sellers
 		var/datum/xenoartifact_seller/S = new
@@ -108,7 +108,7 @@
 			"main" = E.main, //Sold time
 			"gain" = E.gain, //Profits
 			"traits" = E.traits //traits
-		))	
+		))
 	data["tab_index"] = tab_index
 	data["current_tab"] = current_tab
 	data["tab_info"] = current_tab_info
@@ -220,7 +220,7 @@
 			budget.adjust_money(final_price)
 			sold_artifacts += info
 			qdel(selling_item)
-	if(info)	
+	if(info)
 		say(info)
 
 
@@ -300,7 +300,7 @@
 /datum/xenoartifact_seller/proc/change_item()
 	generate()
 
-/datum/xenoartifact_seller/buyer //Buyer off shoot, for player-selling 
+/datum/xenoartifact_seller/buyer //Buyer off shoot, for player-selling
 	var/obj/buying
 
 /datum/xenoartifact_seller/buyer/generate()
@@ -309,7 +309,7 @@
 	if(buying == /obj/item/xenoartifact) //Don't bother trying to use istype here
 		dialogue = "[name] is requesting: Anomaly : Class : Artifact"
 	addtimer(CALLBACK(src, .proc/change_item), (rand(1,3)*60) SECONDS)
-	
+
 //Used to hold information about artifact transactions. Might get standrardized sooner or later.
 /datum/xenoartifact_info_entry
 	var/main =""

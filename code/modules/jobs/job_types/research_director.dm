@@ -3,12 +3,11 @@
 	flag = RD_JF
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
-	department_flag = MEDSCI
+	supervisors = "the captain"
 	head_announce = list("Science")
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the captain"
 	selection_color = "#ffddff"
 	req_admin_notify = 1
 	minimal_player_age = 7
@@ -28,11 +27,15 @@
 			            ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
 			            ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_MINERAL_STOREROOM,
 			            ACCESS_TECH_STORAGE, ACCESS_MINISAT, ACCESS_MAINT_TUNNELS, ACCESS_NETWORK, ACCESS_AUX_BASE, ACCESS_RD_SERVER, ACCESS_WEAPONS)
-	paycheck = PAYCHECK_COMMAND
-	paycheck_department = ACCOUNT_SCI
+
+	department_flag = MEDSCI
+	departments = DEPT_BITFLAG_SCI | DEPT_BITFLAG_COM
+	bank_account_department = ACCOUNT_SCI_BITFLAG | ACCOUNT_COM_BITFLAG
+	payment_per_department = list(
+		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
+		ACCOUNT_SCI_ID = PAYCHECK_COMMAND_DEPT)
 
 	display_order = JOB_DISPLAY_ORDER_RESEARCH_DIRECTOR
-	departments = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_COMMAND
 	rpg_title = "Archmagister"
 
 	species_outfits = list(

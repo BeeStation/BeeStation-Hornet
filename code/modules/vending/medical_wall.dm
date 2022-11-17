@@ -19,7 +19,7 @@
 	refill_canister = /obj/item/vending_refill/wallmed
 	default_price = 25
 	extra_price = 100
-	payment_department = ACCOUNT_MED
+	dept_req_for_free = ACCOUNT_MED_BITFLAG
 	tiltable = FALSE
 
 /obj/item/vending_refill/wallmed
