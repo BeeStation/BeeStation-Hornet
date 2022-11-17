@@ -13292,7 +13292,7 @@
 /turf/open/floor/plasteel/dark/side{
 	dir = 1
 	},
-/area/maintenance/port/fore)
+/area/hallway/primary/fore)
 "cZQ" = (
 /obj/machinery/light{
 	dir = 8;
@@ -28435,10 +28435,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
-"grg" = (
-/obj/machinery/door/airlock/maintenance_hatch,
-/turf/closed/wall,
-/area/maintenance/fore)
 "grh" = (
 /obj/structure/lattice/catwalk,
 /turf/open/openspace,
@@ -46735,7 +46731,7 @@
 /turf/open/floor/plasteel/dark/side{
 	dir = 5
 	},
-/area/maintenance/port/fore)
+/area/hallway/primary/fore)
 "kjX" = (
 /obj/machinery/conveyor_switch/oneway{
 	dir = 8;
@@ -56155,7 +56151,7 @@
 /turf/open/floor/plasteel/dark/side{
 	dir = 9
 	},
-/area/maintenance/port/fore)
+/area/hallway/primary/fore)
 "mnA" = (
 /obj/machinery/teleport/station,
 /turf/open/floor/plasteel/dark,
@@ -59720,7 +59716,7 @@
 	name = "Secure Tech Storage";
 	req_access_txt = "23"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/maintenance/fore)
 "ndM" = (
 /obj/structure/cable/yellow{
@@ -62791,7 +62787,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plating,
 /area/maintenance/port/fore)
 "nOo" = (
 /obj/machinery/shower{
@@ -73028,9 +73024,6 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/iceland/shaded)
-"pZZ" = (
-/turf/open/floor/plating/asteroid/snow,
-/area/maintenance/port/fore)
 "qaj" = (
 /obj/item/storage/box/lights/mixed,
 /obj/structure/closet,
@@ -198237,7 +198230,7 @@ kIX
 kIX
 kIX
 kIX
-nZK
+crn
 kIX
 kIX
 kIX
@@ -205913,7 +205906,7 @@ hgc
 hgc
 hgc
 hgc
-pZZ
+hgc
 iyH
 qSV
 tWK
@@ -280697,7 +280690,7 @@ kSj
 kSj
 kSj
 kSj
-grg
+eqc
 kSj
 kSj
 ohY
