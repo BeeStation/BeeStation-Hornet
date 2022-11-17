@@ -78,7 +78,7 @@
 /obj/machinery/door/poddoor/preopen
 	icon_state = "blast_open"
 	density = FALSE
-	opacity = 0
+	opacity = FALSE
 
 /obj/machinery/door/poddoor/ert
 	name = "hardened blast door"

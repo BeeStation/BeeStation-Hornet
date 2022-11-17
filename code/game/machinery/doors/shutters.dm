@@ -15,7 +15,7 @@
 /obj/machinery/door/poddoor/shutters/preopen
 	icon_state = "shut_open"
 	density = FALSE
-	opacity = 0
+	opacity = FALSE
 
 /obj/machinery/door/poddoor/shutters/indestructible
 	name = "hardened shutters"

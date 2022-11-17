@@ -140,7 +140,7 @@
 		to_chat(user, "<span class='notice'>This object is too heavy to move with something buckled to it!</span>")
 		return
 
-	if(length(focus.client_mobs_in_contents))
+	if(locate(/mob/living) in target)
 		to_chat(user, "<span class='notice'>This object is too heavy to move with something inside of it!</span>")
 		return
 
