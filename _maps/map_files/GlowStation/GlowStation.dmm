@@ -5467,7 +5467,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
 	},
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating,
 /area/maintenance/department/medical)
 "bkS" = (
 /obj/item/kirbyplants/random,
@@ -32112,7 +32112,7 @@
 "hem" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /obj/effect/spawner/structure/window/plasma/reinforced,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/engine/atmospherics_engine)
 "hep" = (
 /obj/machinery/power/smes{
@@ -43129,13 +43129,6 @@
 /obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/engine,
 /area/engine/atmospherics_engine)
-"jxR" = (
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Server Room";
-	req_access_txt = "61"
-	},
-/turf/open/floor/plating/snowed,
-/area/tcommsat/relay)
 "jxT" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -84439,10 +84432,6 @@
 "sBw" = (
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"sBA" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
-/turf/open/floor/plasteel,
-/area/engine/atmospherics_engine)
 "sBB" = (
 /obj/item/radio/intercom{
 	pixel_y = -28
@@ -91506,12 +91495,6 @@
 "ubo" = (
 /turf/closed/wall,
 /area/maintenance/fore)
-"ubp" = (
-/obj/structure/window/plasma/reinforced{
-	dir = 4
-	},
-/turf/closed/wall/r_wall,
-/area/engine/atmospherics_engine)
 "ubq" = (
 /obj/effect/spawner/lootdrop/ruinloot/medical,
 /obj/effect/spawner/lootdrop/ruinloot/science,
@@ -96430,7 +96413,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plating,
+/turf/open/floor/engine,
 /area/engine/atmospherics_engine)
 "vdm" = (
 /obj/machinery/light{
@@ -141721,7 +141704,7 @@ byW
 cZQ
 bcp
 ibe
-sBA
+cEA
 ohX
 tfK
 ruC
@@ -144787,7 +144770,7 @@ bin
 jGE
 jrG
 etd
-ubp
+hyh
 hyh
 hyh
 hyh
@@ -344195,7 +344178,7 @@ wOD
 wOD
 vFJ
 wOD
-jxR
+vFJ
 kUk
 xBN
 vmG
