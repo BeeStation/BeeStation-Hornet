@@ -1,6 +1,6 @@
 /datum/species/pod/pumpkin_man
 	name = "\improper Pumpkinperson"
-	id = "pumpkin_man"
+	id = SPECIES_PUMPKINPERSON
 	sexes = 0
 	meat = /obj/item/reagent_containers/food/snacks/pumpkinpieslice
 	species_traits = list(NOEYESPRITES)
