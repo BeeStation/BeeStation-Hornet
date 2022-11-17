@@ -469,6 +469,19 @@
 /obj/effect/spawner/lootdrop/maintenance/three,
 /turf/open/floor/plating,
 /area/iceland/underground)
+"aeI" = (
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station... Its all just engineering and atmos";
+	icon_state = "map-right-glow1";
+	pixel_y = 32
+	},
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station... Its all just engineering and atmos";
+	icon_state = "map-right-glow1";
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/elevatorshaft,
+/area/engineering/hallway)
 "aeJ" = (
 /obj/item/radio/intercom{
 	pixel_x = 26
@@ -1533,6 +1546,11 @@
 /obj/machinery/light{
 	light_color = "#7AC3FF"
 	},
+/obj/machinery/camera{
+	c_tag = "Dormitories Upper - Garden Starboard";
+	name = "recreation camera";
+	dir = 10
+	},
 /turf/open/floor/grass,
 /area/crew_quarters/dorms)
 "aqC" = (
@@ -2284,6 +2302,10 @@
 /obj/effect/spawner/room/threexfive,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"aAe" = (
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/plasteel/elevatorshaft,
+/area/hallway/primary/central)
 "aAf" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
@@ -3239,6 +3261,22 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/port)
+"aMz" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 5
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/turf/open/openspace,
+/area/hallway/primary/central)
 "aMB" = (
 /turf/closed/indestructible{
 	desc = "A wall impregnated with Fixium, able to withstand massive explosions with ease";
@@ -4610,7 +4648,7 @@
 	dir = 1
 	},
 /obj/machinery/camera{
-	c_tag = "SMshaft - 3";
+	c_tag = "Supermatter Engine - SMshaft - 2";
 	name = "service camera"
 	},
 /turf/open/openspace/cold,
@@ -5624,6 +5662,13 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/obj/machinery/camera{
+	c_tag = "AI - Primary turret chamber";
+	dir = 8;
+	name = "ai camera";
+	network = list("minisat");
+	start_active = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "bnS" = (
@@ -5734,6 +5779,10 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/maintenance{
+	name = "Cargo Bay Maintenance";
+	req_one_access_txt = "31;48"
+	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
 "bpe" = (
@@ -5786,7 +5835,7 @@
 /area/hallway/secondary/exit/departure_lounge)
 "bpu" = (
 /obj/machinery/camera{
-	c_tag = "Bridge - Council Chamber";
+	c_tag = "Bridge - Council Chamber - Port";
 	dir = 4;
 	name = "command camera"
 	},
@@ -6461,11 +6510,14 @@
 	dir = 1
 	},
 /obj/machinery/camera{
-	c_tag = "Engineering - Foyer";
+	c_tag = "Engineering - Foyer Central";
 	name = "engineering camera"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
+	},
+/obj/machinery/status_display/ai{
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/break_room)
@@ -6536,6 +6588,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/balcony)
+"bxM" = (
+/obj/structure/ladder,
+/obj/structure/lattice/catwalk/over,
+/turf/open/openspace/cold,
+/area/engine/atmospherics_engine)
 "bxR" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	name = "Pure to Mix"
@@ -6574,6 +6631,12 @@
 /area/science/xenobiology)
 "byl" = (
 /obj/machinery/vending/cigarette,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/railing/corner{
+	dir = 8
+	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/central)
 "byx" = (
@@ -8065,7 +8128,6 @@
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "bOg" = (
-/obj/structure/closet/crate/freezer/surplus_limbs,
 /obj/structure/sign/warning/nosmoking{
 	pixel_x = -28
 	},
@@ -8075,6 +8137,7 @@
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 10
 	},
+/obj/structure/closet/crate/freezer/blood,
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "bOl" = (
@@ -9071,6 +9134,10 @@
 	dir = 1
 	},
 /obj/structure/flora/ausbushes/sparsegrass,
+/obj/machinery/camera{
+	c_tag = "Dormitories Upper - Garden Bow";
+	name = "recreation camera"
+	},
 /turf/open/floor/grass,
 /area/crew_quarters/dorms)
 "caz" = (
@@ -9098,6 +9165,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
+"caD" = (
+/obj/structure/disposalpipe/segment,
+/turf/closed/wall,
+/area/quartermaster/office)
 "caE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -9648,6 +9719,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "chf" = (
@@ -9896,6 +9968,12 @@
 	},
 /turf/open/floor/plasteel/ridged/steel,
 /area/science/xenobiology)
+"cjM" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/turf/open/floor/plasteel/elevatorshaft,
+/area/hallway/upper/secondary/command)
 "cjQ" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 4
@@ -10617,6 +10695,14 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
+/obj/structure/railing{
+	layer = 3
+	},
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see Cargo in brown,Dorms south of it in lime, Science in the middle in purple, Engineering desk north in yellow and chapel to the east in green";
+	icon_state = "map-right-glow2";
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 1
 	},
@@ -11119,10 +11205,13 @@
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/theatre)
 "cAO" = (
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/stairs{
 	dir = 8
 	},
+/obj/structure/railing,
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "cAQ" = (
@@ -11591,6 +11680,14 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/genetics)
+"cGy" = (
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see arrivals south of the main entrance hall, Mining and QM - brown, Courtroom - red and lime, Dorms - lime, Science - purple, Chapel,Library and bar - green&lime";
+	icon_state = "map-right-glow3";
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
 "cGK" = (
 /obj/structure/bookcase/random/fiction,
 /obj/machinery/light{
@@ -11972,7 +12069,7 @@
 /area/maintenance/department/chapel/monastery)
 "cKX" = (
 /obj/machinery/camera{
-	c_tag = "Floor 3 Central Primary Hallway - Starboard Bow";
+	c_tag = "Floor 3 Central Primary Hallway - Starboard Bow staircase";
 	dir = 9;
 	name = "hallway camera"
 	},
@@ -12285,6 +12382,14 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/openspace,
 /area/maintenance/upper/port/fore)
+"cPm" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/machinery/disposal/bin,
+/obj/structure/railing/corner,
+/turf/open/floor/plasteel,
+/area/hallway/primary/starboard)
 "cPu" = (
 /obj/machinery/shieldwallgen,
 /obj/effect/turf_decal/delivery,
@@ -12539,6 +12644,9 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/railing{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark/side,
 /area/hallway/primary/starboard)
 "cRU" = (
@@ -12748,6 +12856,9 @@
 /obj/item/folder/yellow,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
+/obj/item/radio/intercom{
+	pixel_y = 24
+	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
 "cTP" = (
@@ -13065,6 +13176,11 @@
 /area/hallway/primary/central)
 "cXM" = (
 /obj/structure/railing,
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station... Its all just engineering and atmos";
+	icon_state = "map-right-glow1";
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel,
 /area/engine/storage)
 "cXY" = (
@@ -13171,6 +13287,18 @@
 	dir = 1
 	},
 /area/hallway/primary/aft)
+"cZN" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/maintenance/port/fore)
 "cZQ" = (
 /obj/machinery/light{
 	dir = 8;
@@ -13577,8 +13705,10 @@
 /turf/open/floor/wood,
 /area/crew_quarters/dorms/upper)
 "dgg" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/obj/structure/railing{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -13885,6 +14015,14 @@
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/hallway/upper/primary/aft)
+"dkW" = (
+/obj/structure/table/wood,
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see arrivals south of the main entrance hall, Mining and QM - brown, Courtroom - red and lime, Dorms - lime, Science - purple, Chapel,Library and bar - green&lime";
+	icon_state = "map-left-glow3"
+	},
+/turf/open/floor/carpet/royalblue,
+/area/bridge/meeting_room/council)
 "dlf" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -14052,6 +14190,17 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
+"dnj" = (
+/obj/structure/table/wood,
+/obj/item/book/manual/wiki/security_space_law{
+	pixel_x = 3;
+	pixel_y = 5
+	},
+/obj/item/book/manual/wiki/surgery{
+	pixel_x = -4
+	},
+/turf/open/floor/carpet/royalblack,
+/area/bridge/meeting_room/council)
 "dnp" = (
 /obj/structure/chair{
 	dir = 4;
@@ -14548,11 +14697,12 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/item/clothing/glasses/meson/engine,
+/obj/item/stack/sheet/plasteel/fifty,
 /obj/item/clothing/glasses/meson/engine{
 	pixel_y = 3;
 	pixel_x = 1
 	},
+/obj/item/clothing/glasses/meson/engine,
 /turf/open/floor/plasteel/dark,
 /area/engine/storage)
 "dsA" = (
@@ -15161,20 +15311,14 @@
 /turf/open/openspace,
 /area/maintenance/upper/aft)
 "dyu" = (
-/obj/machinery/camera{
-	c_tag = "Floor 2 Central Primary Hallway - Bow";
-	dir = 6;
-	name = "hallway camera"
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark/side{
+/obj/structure/stairs{
 	dir = 1
+	},
+/turf/open/floor/plasteel/dark/corner{
+	dir = 4
 	},
 /area/hallway/primary/fore)
 "dyv" = (
@@ -15953,12 +16097,6 @@
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "dHA" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face... Wasn't this used also for the cleaning dishes?";
-	dir = 8;
-	name = "medical sink";
-	pixel_x = 11
-	},
 /obj/effect/turf_decal/trimline/blue/filled/line,
 /obj/effect/turf_decal/trimline/red/line,
 /turf/open/floor/plasteel/white,
@@ -17004,6 +17142,15 @@
 /area/crew_quarters/kitchen/coldroom)
 "dTy" = (
 /obj/structure/table/wood,
+/obj/machinery/camera{
+	c_tag = "Bridge - Council Chamber - Starboard";
+	dir = 8;
+	name = "command camera"
+	},
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see arrivals south of the main entrance hall, Mining and QM - brown, Courtroom - red and lime, Dorms - lime, Science - purple, Chapel,Library and bar - green&lime";
+	icon_state = "map-right-glow3"
+	},
 /turf/open/floor/wood,
 /area/bridge/meeting_room/council)
 "dTz" = (
@@ -18168,6 +18315,15 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
+"egq" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/hallway/primary/fore)
 "egt" = (
 /turf/open/floor/plasteel/grid/steel,
 /area/science/research)
@@ -18386,6 +18542,11 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/exam_room)
+"eiC" = (
+/obj/machinery/door/firedoor,
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/plasteel/white,
+/area/hallway/upper/primary/starboard)
 "eiK" = (
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 1
@@ -18435,7 +18596,7 @@
 	light_color = "#7AC3FF"
 	},
 /obj/machinery/camera{
-	c_tag = "SMshaft - 3";
+	c_tag = "Supermatter Engine - SMshaft - 2";
 	name = "service camera";
 	dir = 10
 	},
@@ -18601,6 +18762,14 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
+"elw" = (
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see the AI SAT and the command staircase to the north, Bridge&Command - dark blue, upper medical - blue, Tcomms - yellow";
+	icon_state = "map-left-glow5";
+	pixel_y = 32
+	},
+/turf/open/openspace,
+/area/hallway/upper/secondary/command)
 "elx" = (
 /obj/machinery/camera{
 	c_tag = "Bar - Aft";
@@ -19500,6 +19669,17 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
+"evw" = (
+/obj/machinery/light{
+	light_color = "#7AC3FF"
+	},
+/obj/machinery/camera{
+	c_tag = "Floor 5 Aft Primary Hallway - Elevator room";
+	dir = 10;
+	name = "hallway camera"
+	},
+/turf/open/floor/plasteel/white,
+/area/hallway/upper/secondary/command)
 "evC" = (
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 8
@@ -19595,8 +19775,12 @@
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "ewI" = (
-/obj/structure/disposalpipe/junction/yjunction{
-	dir = 1
+/obj/structure/railing/corner,
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/obj/structure/railing{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
@@ -20101,6 +20285,22 @@
 	},
 /turf/open/floor/plating/snowed/smoothed,
 /area/engine/atmospherics_engine)
+"eDB" = (
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see Cargo in brown,Dorms south of it in lime, Science in the middle in purple, Engineering desk north in yellow and chapel to the east in green";
+	icon_state = "map-left-glow2";
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
+/area/hallway/primary/starboard)
 "eDG" = (
 /obj/structure/sign/poster/random{
 	pixel_y = 32
@@ -20920,6 +21120,9 @@
 /obj/effect/turf_decal/trimline/purple/filled/corner{
 	dir = 8
 	},
+/obj/structure/railing{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark/side,
 /area/hallway/primary/starboard)
 "eNu" = (
@@ -21569,6 +21772,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
+"eUu" = (
+/obj/machinery/camera{
+	c_tag = "Atmospherics - Toxins staircase";
+	dir = 5;
+	name = "atmospherics camera"
+	},
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "eUv" = (
 /obj/effect/turf_decal/box,
 /obj/effect/turf_decal/numbers/two_nine{
@@ -22031,6 +22242,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see Cargo in brown,Dorms south of it in lime, Science in the middle in purple, Engineering desk north in yellow and chapel to the east in green";
+	icon_state = "map-left-glow2";
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 1
 	},
@@ -22277,6 +22493,24 @@
 "fdD" = (
 /turf/closed/wall,
 /area/storage/primary)
+"fdK" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/starboard)
 "fdS" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -23621,6 +23855,20 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
+"fqR" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Primary Tool Storage"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	pixel_x = -1
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/storage/primary)
 "fqZ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -24157,9 +24405,9 @@
 /area/hallway/primary/starboard)
 "fwe" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/wiki/research_and_development{
-	pixel_y = 7;
-	pixel_x = 3
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see Cargo in brown,Dorms south of it in lime, Science in the middle in purple, Engineering desk north in yellow and chapel to the east in green";
+	icon_state = "map-right-glow2"
 	},
 /turf/open/floor/wood,
 /area/bridge/meeting_room/council)
@@ -25198,8 +25446,10 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/quartermaster/exploration_prep)
 "fJp" = (
-/obj/structure/railing,
 /obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/structure/railing/corner{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -25924,12 +26174,8 @@
 /turf/open/openspace/cold,
 /area/maintenance/disposal)
 "fRb" = (
-/obj/effect/landmark/start/station_engineer,
-/obj/structure/sign/poster/official/moth3{
-	pixel_x = 32
-	},
-/turf/open/floor/plasteel/dark,
-/area/engine/break_room)
+/turf/open/openspace/cold,
+/area/hallway/primary/starboard)
 "fRc" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -26344,7 +26590,9 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "fVj" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/warning/cold{
+	pixel_x = 32
+	},
 /obj/machinery/space_heater{
 	on = 1
 	},
@@ -26860,6 +27108,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
+	},
+/obj/structure/railing/corner{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/starboard)
@@ -28375,6 +28626,21 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/secondary/command)
+"gso" = (
+/obj/effect/turf_decal/trimline/blue/filled/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/red/line{
+	dir = 1
+	},
+/obj/structure/sink/kitchen{
+	desc = "A sink used for washing one's hands and face... Wasn't this used also for the cleaning dishes?";
+	dir = 1;
+	name = "medical sink";
+	pixel_y = 28
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/surgery)
 "gsA" = (
 /obj/machinery/door/window/westleft{
 	dir = 4;
@@ -28640,6 +28906,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/vacant_room/commissary/commissary1)
+"gvK" = (
+/obj/machinery/vending/cola/random,
+/turf/open/floor/plasteel,
+/area/hallway/primary/central)
 "gvL" = (
 /obj/structure/ladder,
 /turf/open/floor/plating,
@@ -28792,9 +29062,6 @@
 	},
 /area/tcommsat/server)
 "gxf" = (
-/obj/structure/sign/poster/random{
-	pixel_y = -32
-	},
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -28872,8 +29139,8 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "gyq" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
+/obj/structure/stairs{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/central)
@@ -29260,7 +29527,7 @@
 /area/medical/exam_room)
 "gDa" = (
 /obj/machinery/camera{
-	c_tag = "SMshaft - 4";
+	c_tag = "Supermatter Engine - SMshaft - 4";
 	name = "service camera"
 	},
 /turf/open/openspace,
@@ -29502,6 +29769,11 @@
 	light_color = "#e8eaff"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/camera{
+	c_tag = "Floor 4 Aft Primary Hallway - central hallway Bow";
+	dir = 5;
+	name = "hallway camera"
+	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/aft)
 "gFJ" = (
@@ -29825,10 +30097,11 @@
 	},
 /area/storage/primary)
 "gIF" = (
-/obj/effect/turf_decal/numbers/two_nine,
-/obj/effect/turf_decal/box,
-/turf/closed/wall,
-/area/security/courtroom)
+/obj/effect/turf_decal/trimline/blue/filled/line,
+/obj/effect/turf_decal/trimline/red/line,
+/obj/structure/closet/crate/freezer/surplus_limbs,
+/turf/open/floor/plasteel/white,
+/area/medical/surgery)
 "gJa" = (
 /obj/machinery/status_display/evac,
 /turf/closed/wall,
@@ -29993,6 +30266,20 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
+"gLl" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see arrivals south of the main entrance hall, Mining and QM - brown, Courtroom - red and lime, Dorms - lime, Science - purple, Chapel,Library and bar - green&lime";
+	icon_state = "map-left-glow3";
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/starboard)
 "gLn" = (
 /obj/effect/landmark/start/station_engineer,
 /obj/structure/cable/yellow{
@@ -30342,8 +30629,17 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
-/area/medical/surgery)
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/hallway/upper/primary/starboard)
 "gPl" = (
 /obj/effect/turf_decal/trimline/blue/filled/warning,
 /obj/effect/turf_decal/trimline/green/warning,
@@ -30622,6 +30918,16 @@
 	dir = 4
 	},
 /area/security/main)
+"gSA" = (
+/obj/effect/landmark/start/station_engineer,
+/obj/structure/sign/poster/random{
+	pixel_y = 32
+	},
+/obj/structure/sign/poster/official/moth3{
+	pixel_x = 32
+	},
+/turf/open/floor/plasteel/dark,
+/area/engine/break_room)
 "gSC" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
@@ -32107,8 +32413,16 @@
 /turf/open/openspace,
 /area/hallway/upper/secondary/command)
 "hhL" = (
-/turf/open/floor/plasteel/dark,
-/area/medical/surgery)
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Floor 3 Central Primary Hallway - Starboard Bow";
+	dir = 9;
+	name = "hallway camera"
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/central)
 "hhN" = (
 /obj/machinery/door/airlock/external{
 	name = "External Airlock";
@@ -32237,6 +32551,22 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/gateway)
+"hjo" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/openspace,
+/area/hallway/primary/central)
 "hjt" = (
 /obj/structure/closet/firecloset,
 /obj/machinery/status_display/evac{
@@ -32705,6 +33035,13 @@
 	},
 /turf/open/floor/carpet/royalblack,
 /area/crew_quarters/heads/cmo)
+"hni" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/sign/warning/cold{
+	pixel_x = 32
+	},
+/turf/open/openspace,
+/area/maintenance/department/medical)
 "hnp" = (
 /obj/structure/railing{
 	dir = 8
@@ -32942,6 +33279,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"hpE" = (
+/obj/structure/table/wood,
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see Departures to the northwest, Security - red, Exploation Dock - purple, Medical - blue, Theater - green, ShuttleConstructionYards,TechStorage,ToolStorage - yellow";
+	icon_state = "map-left-glow4"
+	},
+/turf/open/floor/carpet/royalblue,
+/area/bridge/meeting_room/council)
 "hpI" = (
 /obj/structure/sign/warning/explosives,
 /turf/closed/wall/r_wall,
@@ -34028,7 +34373,7 @@
 	dir = 1
 	},
 /obj/machinery/camera{
-	c_tag = "SMshaft - 3";
+	c_tag = "Supermatter Engine - SMshaft - 3";
 	name = "service camera"
 	},
 /turf/open/floor/engine,
@@ -34344,6 +34689,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/upper/aft)
+"hFK" = (
+/obj/structure/table,
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see Departures to the northwest, Security - red, Exploation Dock - purple, Medical - blue, Theater - green, ShuttleConstructionYards,TechStorage,ToolStorage - yellow";
+	icon_state = "map-right-glow4";
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/white,
+/area/hallway/upper/primary/central)
 "hFL" = (
 /obj/structure/railing{
 	dir = 8
@@ -34637,6 +34991,14 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
+"hJk" = (
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see arrivals south of the main entrance hall, Mining and QM - brown, Courtroom - red and lime, Dorms - lime, Science - purple, Chapel,Library and bar - green&lime";
+	icon_state = "map-right-glow3";
+	pixel_y = 32
+	},
+/turf/open/openspace,
+/area/crew_quarters/dorms)
 "hJl" = (
 /obj/machinery/camera{
 	c_tag = "Chapel - Funeral Parlour";
@@ -35013,6 +35375,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"hMW" = (
+/obj/structure/stairs{
+	dir = 8
+	},
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see Departures to the northwest, Security - red, Exploation Dock - purple, Medical - blue, Theater - green, ShuttleConstructionYards,TechStorage,ToolStorage - yellow";
+	icon_state = "map-right-glow4";
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/elevatorshaft,
+/area/hallway/upper/primary/aft)
 "hNb" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -35160,7 +35533,10 @@
 	codes_txt = "patrol;next_patrol=3-7"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 10
+	dir = 4
+	},
+/obj/structure/railing/corner{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -35287,6 +35663,9 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "hPb" = (
+/obj/structure/sign/poster/random{
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
 "hPz" = (
@@ -36089,7 +36468,10 @@
 /area/quartermaster/storage)
 "hYr" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/wiki/engineering_construction,
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station... Its all just engineering and atmos";
+	icon_state = "map-right-glow1"
+	},
 /turf/open/floor/wood,
 /area/bridge/meeting_room/council)
 "hYw" = (
@@ -36814,23 +37196,11 @@
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/port)
 "igm" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+/obj/structure/railing{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/hallway/upper/primary/central)
+/turf/open/floor/plasteel,
+/area/hallway/primary/central)
 "igH" = (
 /obj/structure/ladder,
 /obj/machinery/light{
@@ -37265,10 +37635,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/airlock/mining/glass{
-	name = "mining office";
-	req_one_access_txt = "48"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -37280,6 +37646,10 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
+/obj/machinery/door/airlock/mining{
+	name = "Cargo Warehouse";
+	req_access_txt = "31"
+	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/warehouse)
 "ilS" = (
@@ -38985,6 +39355,14 @@
 "iEJ" = (
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/medical)
+"iES" = (
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see arrivals south of the main entrance hall, Mining and QM - brown, Courtroom - red and lime, Dorms - lime, Science - purple, Chapel,Library and bar - green&lime";
+	icon_state = "map-left-glow3";
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
 "iEZ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -39240,6 +39618,14 @@
 	},
 /turf/open/floor/plating,
 /area/chapel/main/monastery)
+"iIf" = (
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see the AI SAT and the command staircase to the north, Bridge&Command - dark blue, upper medical - blue, Tcomms - yellow";
+	icon_state = "map-right-glow5";
+	pixel_y = 32
+	},
+/turf/open/openspace,
+/area/hallway/upper/secondary/command)
 "iIg" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -39267,6 +39653,15 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/security/prison)
+"iIB" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/white,
+/area/hallway/upper/primary/central)
 "iIG" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -41358,6 +41753,13 @@
 	},
 /turf/open/floor/engine/vacuum,
 /area/science/mixing)
+"jfX" = (
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see arrivals south of the main entrance hall, Mining and QM - brown, Courtroom - red and lime, Dorms - lime, Science - purple, Chapel,Library and bar - green&lime";
+	icon_state = "map-right-glow3"
+	},
+/turf/closed/wall/r_wall,
+/area/hallway/primary/aft)
 "jgb" = (
 /obj/machinery/camera{
 	c_tag = "Floor 3 Starboard Primary Hallway - PortQuarter";
@@ -43451,6 +43853,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/storage)
+"jEz" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/lattice/catwalk/over,
+/turf/open/openspace/cold,
+/area/engine/atmospherics_engine)
 "jEA" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -45647,6 +46056,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "kck" = (
@@ -46338,6 +46748,14 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/secondary/command)
+"kjH" = (
+/obj/structure/stairs{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 5
+	},
+/area/maintenance/port/fore)
 "kjX" = (
 /obj/machinery/conveyor_switch/oneway{
 	dir = 8;
@@ -47294,7 +47712,6 @@
 "kvL" = (
 /obj/structure/railing,
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
@@ -47595,6 +48012,19 @@
 	},
 /turf/open/floor/plasteel/dark/snowdin,
 /area/iceland/shaded)
+"kzm" = (
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see arrivals south of the main entrance hall, Mining and QM - brown, Courtroom - red and lime, Dorms - lime, Science - purple, Chapel,Library and bar - green&lime";
+	icon_state = "map-left-glow3";
+	pixel_y = 32
+	},
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see arrivals south of the main entrance hall, Mining and QM - brown, Courtroom - red and lime, Dorms - lime, Science - purple, Chapel,Library and bar - green&lime";
+	icon_state = "map-left-glow3";
+	pixel_y = 32
+	},
+/turf/open/openspace,
+/area/hallway/primary/aft)
 "kzw" = (
 /obj/structure/railing/corner,
 /obj/structure/disposalpipe/segment{
@@ -47848,6 +48278,9 @@
 /obj/machinery/newscaster{
 	pixel_x = -28;
 	pixel_y = 1
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/toilet/restrooms)
@@ -48896,6 +49329,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -26
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "kOn" = (
@@ -49835,7 +50272,7 @@
 	pixel_y = 26
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/plasteel/dark/corner{
 	dir = 1
 	},
 /area/hallway/primary/fore)
@@ -49993,11 +50430,13 @@
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "kZG" = (
-/obj/structure/disposalpipe/segment{
-	dir = 6
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see Departures to the northwest, Security - red, Exploation Dock - purple, Medical - blue, Theater - green, ShuttleConstructionYards,TechStorage,ToolStorage - yellow";
+	icon_state = "map-right-glow4";
+	pixel_y = 32
 	},
-/turf/open/floor/plasteel,
-/area/hallway/primary/starboard)
+/turf/open/openspace/cold,
+/area/hallway/upper/primary/starboard)
 "kZI" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Security Maintenance";
@@ -50596,10 +51035,6 @@
 /turf/open/floor/plating,
 /area/iceland/shaded)
 "lie" = (
-/obj/machinery/door/airlock{
-	name = "Kitchen";
-	req_access_txt = "28"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -50613,6 +51048,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8;
 	pixel_x = -1
+	},
+/obj/machinery/door/airlock{
+	name = "Hydroponics Backroom";
+	req_access_txt = "35"
 	},
 /turf/open/floor/plasteel/dark,
 /area/hydroponics)
@@ -50756,6 +51195,11 @@
 "lki" = (
 /obj/structure/stairs{
 	dir = 8
+	},
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see Departures to the northwest, Security - red, Exploation Dock - purple, Medical - blue, Theater - green, ShuttleConstructionYards,TechStorage,ToolStorage - yellow";
+	icon_state = "map-left-glow4";
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel/elevatorshaft,
 /area/hallway/upper/primary/aft)
@@ -51161,9 +51605,13 @@
 /turf/open/floor/plasteel/white,
 /area/medical/genetics/cloning)
 "lno" = (
-/obj/structure/table/glass,
-/turf/open/floor/plasteel/dark,
-/area/medical/surgery)
+/obj/structure/table/wood,
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station... Its all just engineering and atmos";
+	icon_state = "map-left-glow1"
+	},
+/turf/open/floor/wood,
+/area/bridge/meeting_room/council)
 "lns" = (
 /obj/machinery/airalarm{
 	dir = 1;
@@ -51842,9 +52290,6 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/upper/secondary/command)
 "luE" = (
-/obj/structure/sign/poster/official/ian{
-	pixel_y = -32
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -52443,6 +52888,20 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/wood,
 /area/vacant_room/office)
+"lDh" = (
+/obj/structure/stairs{
+	dir = 4
+	},
+/obj/structure/sign/directions/science{
+	dir = 1;
+	pixel_y = 38
+	},
+/obj/structure/sign/directions/engineering{
+	dir = 1;
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/elevatorshaft,
+/area/hallway/primary/aft)
 "lDo" = (
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
@@ -52800,7 +53259,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Floor 5 Aft Primary Hallway - central hallway";
+	c_tag = "Floor 5 Aft Primary Hallway - StarboardBow";
 	dir = 9;
 	name = "hallway camera"
 	},
@@ -52832,6 +53291,9 @@
 "lHL" = (
 /obj/structure/toilet{
 	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/toilet/restrooms)
@@ -53191,6 +53653,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"lKU" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/central)
 "lLe" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
@@ -53652,6 +54120,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/central)
+"lPR" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/openspace,
+/area/hallway/primary/starboard)
 "lPV" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/structure/disposalpipe/segment{
@@ -54891,7 +55363,7 @@
 /area/crew_quarters/locker)
 "mdC" = (
 /obj/machinery/camera{
-	c_tag = "SMshaft - 5";
+	c_tag = "Supermatter Engine - SMshaft - 5";
 	name = "service camera";
 	dir = 10
 	},
@@ -54957,6 +55429,12 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/engine/engine_smes)
+"mev" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/central)
 "meC" = (
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "MedbayFoyer";
@@ -55685,6 +56163,19 @@
 	dir = 8
 	},
 /area/chapel/main/monastery)
+"mny" = (
+/obj/machinery/camera{
+	c_tag = "Floor 2 Central Primary Hallway - Bow";
+	dir = 6;
+	name = "hallway camera"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 9
+	},
+/area/maintenance/port/fore)
 "mnA" = (
 /obj/machinery/teleport/station,
 /turf/open/floor/plasteel/dark,
@@ -55789,6 +56280,15 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engineering/hallway)
+"moX" = (
+/obj/structure/railing,
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station... Its all just engineering and atmos";
+	icon_state = "map-left-glow1";
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel,
+/area/engine/storage)
 "moY" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -56725,6 +57225,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see Departures to the northwest, Security - red, Exploation Dock - purple, Medical - blue, Theater - green, ShuttleConstructionYards,TechStorage,ToolStorage - yellow";
+	icon_state = "map-right-glow4";
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel/white,
 /area/hallway/secondary/exit/departure_lounge)
 "mAH" = (
@@ -56796,10 +57301,7 @@
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hos)
 "mBs" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/structure/stairs,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "mBA" = (
@@ -58809,6 +59311,10 @@
 /obj/item/weldingtool,
 /obj/item/weldingtool,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -26
+	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "mZg" = (
@@ -59832,6 +60338,9 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/railing/corner{
+	dir = 8
+	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/secondary/command)
 "nku" = (
@@ -59933,6 +60442,14 @@
 /obj/structure/window/reinforced,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/theatre)
+"nmv" = (
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see Departures to the northwest, Security - red, Exploation Dock - purple, Medical - blue, Theater - green, ShuttleConstructionYards,TechStorage,ToolStorage - yellow";
+	icon_state = "map-left-glow4";
+	pixel_y = 32
+	},
+/turf/open/openspace/cold,
+/area/hallway/upper/primary/starboard)
 "nmF" = (
 /obj/machinery/button/door{
 	id = "QuarantineA";
@@ -60277,6 +60794,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
+/obj/machinery/door/airlock/mining/glass{
+	name = "Delivery Office";
+	req_access_txt = "50"
+	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
 "nrm" = (
@@ -60341,6 +60862,10 @@
 /obj/machinery/door/airlock/maintenance_hatch,
 /turf/open/floor/plating,
 /area/maintenance/upper/aft)
+"nsp" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plasteel/dark,
+/area/hallway/primary/starboard)
 "nsu" = (
 /obj/effect/turf_decal/trimline/purple/filled/warning,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
@@ -60494,6 +61019,17 @@
 	},
 /turf/open/floor/plasteel/ridged/steel,
 /area/science/xenobiology)
+"ntK" = (
+/obj/structure/stairs{
+	dir = 4
+	},
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see Cargo in brown,Dorms south of it in lime, Science in the middle in purple, Engineering desk north in yellow and chapel to the east in green";
+	icon_state = "map-right-glow2";
+	pixel_y = 32
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/locker)
 "ntL" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -60687,6 +61223,15 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/locker)
+"nxI" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/turf/open/floor/plasteel/white,
+/area/hallway/upper/primary/starboard)
 "nxJ" = (
 /obj/structure/railing{
 	dir = 8
@@ -62303,6 +62848,15 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/dark,
 /area/security/nuke_storage)
+"nOO" = (
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/central)
 "nOP" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -63870,6 +64424,24 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"ofa" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/stairs{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/starboard)
 "ofg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -64701,6 +65273,9 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/stairs{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "olP" = (
@@ -65064,6 +65639,10 @@
 /area/medical/exam_room)
 "ooR" = (
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	pixel_x = -1
+	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "ooS" = (
@@ -67145,6 +67724,11 @@
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 8
 	},
+/obj/machinery/camera{
+	c_tag = "Floor 5 Aft Primary Hallway - Port";
+	dir = 5;
+	name = "hallway camera"
+	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/secondary/command)
 "oOx" = (
@@ -67776,6 +68360,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/aft)
+"oVv" = (
+/obj/structure/table/wood,
+/obj/item/book/manual/wiki/research_and_development{
+	pixel_y = 7;
+	pixel_x = 3
+	},
+/turf/open/floor/carpet/royalblack,
+/area/bridge/meeting_room/council)
 "oVw" = (
 /obj/machinery/holopad,
 /turf/open/floor/plasteel/dark,
@@ -68338,6 +68930,9 @@
 	pixel_x = -1
 	},
 /obj/effect/turf_decal/tile/green/half/contrasted,
+/obj/structure/sign/poster/official/ian{
+	pixel_y = -32
+	},
 /turf/open/floor/plasteel/dark,
 /area/hydroponics)
 "pdX" = (
@@ -68416,6 +69011,11 @@
 	light_color = "#1C748A"
 	},
 /obj/machinery/vending/snack/random,
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see Departures to the northwest, Security - red, Exploation Dock - purple, Medical - blue, Theater - green, ShuttleConstructionYards,TechStorage,ToolStorage - yellow";
+	icon_state = "map-left-glow4";
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "pez" = (
@@ -69345,6 +69945,11 @@
 "ppF" = (
 /turf/closed/wall,
 /area/maintenance/upper/aft)
+"ppL" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plasteel/white,
+/area/storage/primary)
 "ppO" = (
 /obj/structure/railing{
 	dir = 6
@@ -69472,6 +70077,12 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Science - Toxins Mixing Lab - Port";
+	dir = 5;
+	name = "science camera";
+	network = list("ss13","rd")
 	},
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
@@ -70086,8 +70697,14 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "pxR" = (
-/obj/machinery/light{
-	dir = 1
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/central)
@@ -70548,9 +71165,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plasteel/dark/side{
-	dir = 1
+/obj/structure/railing{
+	dir = 4
 	},
+/turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "pFc" = (
 /obj/machinery/light/floor,
@@ -70562,6 +71180,13 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/iceland/shaded)
+"pFe" = (
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see arrivals south of the main entrance hall, Mining and QM - brown, Courtroom - red and lime, Dorms - lime, Science - purple, Chapel,Library and bar - green&lime";
+	icon_state = "map-left-glow3"
+	},
+/turf/closed/wall/r_wall,
+/area/hallway/primary/aft)
 "pFj" = (
 /obj/machinery/power/apc/auto_name/west,
 /obj/structure/cable/yellow{
@@ -70699,6 +71324,9 @@
 "pGo" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
+	},
+/obj/structure/railing{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -70905,6 +71533,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
+/obj/structure/railing/corner{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/starboard)
 "pIU" = (
@@ -71082,7 +71713,10 @@
 /turf/open/floor/plating/snowed,
 /area/iceland/shaded)
 "pKF" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/structure/chair/fancy/comfy{
+	color = "#354562";
+	dir = 4
+	},
 /obj/item/radio/intercom{
 	pixel_y = 24;
 	name = "station intercom up"
@@ -71529,7 +72163,7 @@
 /area/maintenance/port)
 "pPV" = (
 /obj/machinery/camera{
-	c_tag = "SMshaft - 4";
+	c_tag = "Supermatter Engine - SMshaft - 4";
 	name = "service camera";
 	dir = 10
 	},
@@ -71650,6 +72284,14 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/quartermaster/exploration_prep)
+"pRp" = (
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see Departures to the northwest, Security - red, Exploation Dock - purple, Medical - blue, Theater - green, ShuttleConstructionYards,TechStorage,ToolStorage - yellow";
+	icon_state = "map-left-glow4";
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/white,
+/area/hallway/secondary/exit/departure_lounge)
 "pRu" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/railing/corner{
@@ -72782,6 +73424,17 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/maintenance/upper/central)
+"qeE" = (
+/obj/machinery/sleeper{
+	dir = 1
+	},
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see Departures to the northwest, Security - red, Exploation Dock - purple, Medical - blue, Theater - green, ShuttleConstructionYards,TechStorage,ToolStorage - yellow";
+	icon_state = "map-left-glow4";
+	pixel_y = -32
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/medical/medbay/central)
 "qeH" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -72849,6 +73502,17 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
+"qfH" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see arrivals south of the main entrance hall, Mining and QM - brown, Courtroom - red and lime, Dorms - lime, Science - purple, Chapel,Library and bar - green&lime";
+	icon_state = "map-left-glow3";
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/port)
 "qfK" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
@@ -73645,6 +74309,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hydroponics)
+"qov" = (
+/obj/structure/table/wood,
+/turf/open/floor/plasteel,
+/area/hallway/primary/central)
 "qoG" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light/small,
@@ -75258,14 +75926,16 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/radio/intercom{
-	pixel_y = 24
-	},
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
+	},
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see Cargo in brown,Dorms south of it in lime, Science in the middle in purple, Engineering desk north in yellow and chapel to the east in green";
+	icon_state = "map-right-glow2";
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
@@ -75386,11 +76056,20 @@
 /turf/open/floor/plasteel/techmaint,
 /area/science/nanite)
 "qIh" = (
-/obj/structure/sign/directions/engineering{
+/obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 1
 	},
-/turf/closed/wall/r_wall,
-/area/hallway/primary/aft)
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment,
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see Cargo in brown,Dorms south of it in lime, Science in the middle in purple, Engineering desk north in yellow and chapel to the east in green";
+	icon_state = "map-right-glow2";
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/dark,
+/area/hallway/primary/port)
 "qIi" = (
 /obj/machinery/airalarm{
 	dir = 8;
@@ -75560,6 +76239,12 @@
 /obj/machinery/atmospherics/components/binary/pump{
 	name = "Gas to Chamber"
 	},
+/obj/machinery/camera{
+	c_tag = "Supermatter Engine - gas in/out";
+	dir = 9;
+	name = "engineering camera";
+	network = list("ss13","engine")
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/engine/supermatter)
 "qJC" = (
@@ -75726,15 +76411,20 @@
 "qLD" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/railing,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
+/obj/structure/railing{
+	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 6
+	},
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8
+	dir = 6
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -76124,6 +76814,15 @@
 /obj/structure/railing/corner,
 /turf/open/openspace,
 /area/maintenance/upper/fore/secondary)
+"qQe" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "qQf" = (
 /obj/structure/bed,
 /obj/effect/turf_decal/trimline/blue/filled/line{
@@ -76798,6 +77497,23 @@
 	},
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary/commissary1)
+"qYP" = (
+/obj/structure/window/plasma/reinforced/spawner/west,
+/obj/machinery/power/rad_collector/anchored,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/general/visible{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Supermatter Engine - Crystal monitoring";
+	dir = 10;
+	name = "engineering camera";
+	network = list("ss13","engine")
+	},
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "qYU" = (
 /obj/structure/ladder,
 /obj/structure/lattice/catwalk/over,
@@ -76891,9 +77607,6 @@
 /obj/machinery/navbeacon{
 	location = "4-5";
 	codes_txt = "patrol;next_patrol=4-6"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -77259,6 +77972,26 @@
 /obj/item/vending_refill/coffee,
 /turf/open/floor/plating,
 /area/maintenance/upper/aft)
+"reT" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/railing,
+/obj/structure/railing{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/central)
 "rfg" = (
 /obj/structure/railing{
 	dir = 8
@@ -77879,7 +78612,7 @@
 /area/medical/storage)
 "rmM" = (
 /obj/machinery/camera{
-	c_tag = "Science - lower hallway Starboard";
+	c_tag = "Science - Entrance hall";
 	dir = 8;
 	name = "science camera";
 	network = list("ss13","rd")
@@ -77917,6 +78650,14 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/crew_quarters/heads/hor)
+"rmQ" = (
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see arrivals south of the main entrance hall, Mining and QM - brown, Courtroom - red and lime, Dorms - lime, Science - purple, Chapel,Library and bar - green&lime";
+	icon_state = "map-right-glow3";
+	pixel_y = 32
+	},
+/turf/open/openspace,
+/area/hallway/primary/aft)
 "rmZ" = (
 /obj/machinery/door/airlock/research{
 	name = "Shuttle dock";
@@ -78206,12 +78947,20 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "rpF" = (
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/delivery/white,
-/turf/open/floor/plasteel/dark,
-/area/engine/engineering)
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/toilet/restrooms)
 "rpT" = (
 /obj/structure/chair/wood/normal{
 	dir = 8
@@ -78800,15 +79549,13 @@
 /turf/open/floor/stone,
 /area/crew_quarters/heads/captain/private)
 "rwP" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see arrivals south of the main entrance hall, Mining and QM - brown, Courtroom - red and lime, Dorms - lime, Science - purple, Chapel,Library and bar - green&lime";
+	icon_state = "map-right-glow3";
+	pixel_y = 32
 	},
-/obj/machinery/light{
-	light_color = "#7AC3FF"
-	},
-/turf/open/floor/plasteel/dark,
-/area/hallway/primary/aft)
+/turf/open/floor/plasteel,
+/area/hallway/primary/starboard)
 "rwU" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -79546,7 +80293,7 @@
 	dir = 1
 	},
 /obj/machinery/camera{
-	c_tag = "SMshaft - 4";
+	c_tag = "Supermatter Engine - SMshaft - 4";
 	name = "service camera";
 	dir = 8
 	},
@@ -79602,6 +80349,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
+	},
+/obj/structure/sign/departments/minsky/research/robotics{
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 1
@@ -81704,10 +82454,10 @@
 /turf/closed/wall/r_wall,
 /area/maintenance/disposal/incinerator)
 "sgE" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "sgG" = (
@@ -82204,6 +82954,24 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/aft)
+"sli" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plasteel/white,
+/area/hallway/upper/primary/central)
 "slm" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -82372,6 +83140,7 @@
 	pixel_y = -26
 	},
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "snj" = (
@@ -82990,6 +83759,16 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/engine/atmospherics_engine)
+"stY" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/machinery/door/airlock/maintenance{
+	name = "Cargo Bay Maintenance";
+	req_one_access_txt = "31;48"
+	},
+/turf/open/floor/plating,
+/area/quartermaster/office)
 "sua" = (
 /obj/structure/railing{
 	dir = 8
@@ -83107,6 +83886,18 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/engine/atmospherics_engine)
+"svA" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/hallway/upper/secondary/command)
 "svB" = (
 /obj/structure/lattice/catwalk/over,
 /obj/structure/sign/warning{
@@ -83813,6 +84604,9 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/machinery/firealarm{
+	pixel_y = 26
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "sDc" = (
@@ -83820,6 +84614,12 @@
 	c_tag = "Floor 4 Central Primary Hallway - Bow";
 	dir = 6;
 	name = "hallway camera"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/railing{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/central)
@@ -84050,6 +84850,11 @@
 	},
 /obj/item/radio/intercom{
 	pixel_x = -29
+	},
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see Departures to the northwest, Security - red, Exploation Dock - purple, Medical - blue, Theater - green, ShuttleConstructionYards,TechStorage,ToolStorage - yellow";
+	icon_state = "map-left-glow4";
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/central)
@@ -85717,6 +86522,12 @@
 	},
 /turf/open/floor/plating,
 /area/iceland)
+"sWj" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/openspace,
+/area/hallway/primary/starboard)
 "sWl" = (
 /mob/living/simple_animal/crab{
 	name = "halo";
@@ -86078,6 +86889,11 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see Cargo in brown,Dorms south of it in lime, Science in the middle in purple, Engineering desk north in yellow and chapel to the east in green";
+	icon_state = "map-left-glow2";
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
 "tap" = (
@@ -86241,6 +87057,10 @@
 	},
 /turf/open/floor/plating,
 /area/engine/storage)
+"tbJ" = (
+/obj/structure/lattice/catwalk,
+/turf/open/openspace,
+/area/hallway/primary/central)
 "tbW" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
@@ -86255,15 +87075,12 @@
 /area/hallway/primary/central)
 "tcd" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/wiki/surgery{
-	pixel_x = -4
-	},
-/obj/item/book/manual/wiki/security_space_law{
-	pixel_x = 3;
-	pixel_y = 5
-	},
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see Departures to the northwest, Security - red, Exploation Dock - purple, Medical - blue, Theater - green, ShuttleConstructionYards,TechStorage,ToolStorage - yellow";
+	icon_state = "map-right-glow4"
 	},
 /turf/open/floor/wood,
 /area/bridge/meeting_room/council)
@@ -86471,6 +87288,17 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
+"teE" = (
+/obj/structure/stairs{
+	dir = 8
+	},
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see Cargo in brown,Dorms south of it in lime, Science in the middle in purple, Engineering desk north in yellow and chapel to the east in green";
+	icon_state = "map-left-glow2";
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/elevatorshaft,
+/area/hallway/primary/aft)
 "teK" = (
 /obj/effect/turf_decal/trimline/red/filled/warning{
 	dir = 1
@@ -86637,6 +87465,15 @@
 	dir = 6
 	},
 /area/hallway/primary/aft)
+"thw" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/central)
 "thz" = (
 /obj/structure/table/reinforced,
 /obj/item/stamp/denied{
@@ -86670,7 +87507,7 @@
 	light_color = "#e8eaff"
 	},
 /obj/machinery/camera{
-	c_tag = "AI - turret chamber";
+	c_tag = "AI - Secondary turret chamber";
 	dir = 8;
 	name = "ai camera";
 	network = list("minisat");
@@ -87697,6 +88534,18 @@
 	},
 /turf/open/floor/plating,
 /area/science/xenobiology)
+"tsg" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/hallway/upper/secondary/command)
 "tsh" = (
 /obj/structure/sign/directions/medical{
 	dir = 1;
@@ -87705,13 +88554,11 @@
 /turf/closed/wall,
 /area/storage/primary)
 "tsv" = (
-/obj/machinery/camera{
-	c_tag = "Floor 5 Aft Primary Hallway - Elevator room";
-	dir = 10;
-	name = "hallway camera"
-	},
-/turf/open/floor/plasteel/white,
-/area/hallway/upper/secondary/command)
+/obj/structure/lattice/catwalk/over,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/turf/open/openspace/cold,
+/area/engine/atmospherics_engine)
 "tsI" = (
 /obj/structure/chair/wood/normal{
 	dir = 1
@@ -87756,6 +88603,11 @@
 	dir = 1
 	},
 /obj/machinery/vending/coffee,
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see Departures to the northwest, Security - red, Exploation Dock - purple, Medical - blue, Theater - green, ShuttleConstructionYards,TechStorage,ToolStorage - yellow";
+	icon_state = "map-right-glow4";
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "ttl" = (
@@ -88347,6 +89199,11 @@
 /obj/machinery/sleeper{
 	dir = 1
 	},
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see Departures to the northwest, Security - red, Exploation Dock - purple, Medical - blue, Theater - green, ShuttleConstructionYards,TechStorage,ToolStorage - yellow";
+	icon_state = "map-right-glow4";
+	pixel_y = -32
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/medbay/central)
 "tAX" = (
@@ -88563,7 +89420,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/engineering)
 "tDM" = (
-/obj/item/kirbyplants/random,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel/dark,
 /area/medical/surgery)
 "tDP" = (
@@ -88824,7 +89681,7 @@
 	light_color = "#7AC3FF"
 	},
 /obj/machinery/camera{
-	c_tag = "SMshaft - 3";
+	c_tag = "Supermatter Engine - SMshaft - 3";
 	name = "service camera";
 	dir = 10
 	},
@@ -89102,6 +89959,10 @@
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	pixel_x = -1
 	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
@@ -90666,6 +91527,24 @@
 /obj/structure/closet,
 /turf/open/floor/plasteel/dark/snowdin,
 /area/iceland/shaded)
+"ubt" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/starboard)
 "ubA" = (
 /obj/effect/turf_decal/trimline/green/filled/warning{
 	dir = 1
@@ -91021,6 +91900,20 @@
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/open/floor/engine,
 /area/science/storage)
+"ufl" = (
+/obj/effect/turf_decal/trimline/brown/filled/line{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see Cargo in brown,Dorms south of it in lime, Science in the middle in purple, Engineering desk north in yellow and chapel to the east in green";
+	icon_state = "map-left-glow2";
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/dark,
+/area/hallway/primary/port)
 "ufq" = (
 /obj/machinery/space_heater{
 	on = 1
@@ -91221,17 +92114,19 @@
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/port)
 "uhF" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 6;
-	height = 8;
-	id = "exploration_home";
-	name = "Exploration Dock";
-	roundstart_template = /datum/map_template/shuttle/exploration/delta;
-	width = 16
+/obj/structure/stairs{
+	dir = 4
 	},
-/turf/open/floor/plating/snowed,
-/area/quartermaster/exploration_dock)
+/obj/structure/sign/directions/evac{
+	dir = 8;
+	pixel_y = 32
+	},
+/obj/structure/sign/directions/security{
+	dir = 1;
+	pixel_y = 38
+	},
+/turf/open/floor/plasteel/elevatorshaft,
+/area/hallway/upper/primary/aft)
 "uhJ" = (
 /obj/structure/chair{
 	name = "Prosecution"
@@ -91689,12 +92584,14 @@
 /turf/open/openspace,
 /area/hallway/primary/central)
 "umO" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
+/obj/structure/sign/poster/official/report_crimes{
+	pixel_y = 32
 	},
-/turf/open/floor/plasteel,
-/area/quartermaster/storage)
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/hallway/upper/primary/starboard)
 "umP" = (
 /obj/machinery/power/apc/auto_name/east,
 /obj/effect/turf_decal/bot_red/left,
@@ -91819,6 +92716,14 @@
 /obj/effect/turf_decal/bot_white/left,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/warehouse)
+"uox" = (
+/obj/structure/table/wood,
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see Cargo in brown,Dorms south of it in lime, Science in the middle in purple, Engineering desk north in yellow and chapel to the east in green";
+	icon_state = "map-left-glow2"
+	},
+/turf/open/floor/carpet/royalblue,
+/area/bridge/meeting_room/council)
 "uoy" = (
 /obj/machinery/status_display/ai{
 	pixel_y = 32
@@ -92016,6 +92921,11 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see arrivals south of the main entrance hall, Mining and QM - brown, Courtroom - red and lime, Dorms - lime, Science - purple, Chapel,Library and bar - green&lime";
+	icon_state = "map-left-glow3";
+	pixel_y = 32
+	},
 /turf/open/openspace,
 /area/crew_quarters/dorms)
 "urx" = (
@@ -92024,6 +92934,13 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/balcony)
+"ury" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/structure/lattice/catwalk/over,
+/turf/open/openspace/cold,
+/area/engine/atmospherics_engine)
 "urC" = (
 /obj/structure/chair/wood/normal,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -92370,10 +93287,12 @@
 /area/medical/storage)
 "uvK" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/toolbox/mechanical,
 /obj/effect/turf_decal/trimline/yellow/filled/warning{
 	dir = 4
 	},
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/storage/toolbox/mechanical,
 /turf/open/floor/plasteel/dark,
 /area/engine/storage)
 "uvV" = (
@@ -92854,6 +93773,9 @@
 "uAU" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
+	},
+/obj/structure/railing{
+	layer = 3
 	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 1
@@ -93352,14 +94274,14 @@
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "uFw" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 6
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -95186,11 +96108,11 @@
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
 "vaq" = (
-/obj/machinery/atmospherics/pipe/manifold/cyan/visible{
-	dir = 4
+/obj/structure/railing{
+	dir = 10
 	},
-/turf/open/floor/plasteel/dark,
-/area/engine/engineering)
+/turf/open/openspace,
+/area/hallway/primary/starboard)
 "vat" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -95227,6 +96149,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/sign/poster/official/report_crimes{
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel/dark,
 /area/storage/primary)
 "vaW" = (
@@ -95242,6 +96167,12 @@
 	},
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Science - lower hallway Starboard";
+	dir = 8;
+	name = "science camera";
+	network = list("ss13","rd")
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/research)
@@ -95559,8 +96490,14 @@
 /obj/item/stock_parts/cell/high,
 /obj/item/stock_parts/cell/high,
 /obj/machinery/cell_charger,
-/obj/structure/sign/poster/random{
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see Cargo in brown,Dorms south of it in lime, Science in the middle in purple, Engineering desk north in yellow and chapel to the east in green";
+	icon_state = "map-left-glow2";
 	pixel_y = 32
+	},
+/obj/machinery/camera{
+	c_tag = "Engineering - Foyer Port";
+	name = "engineering camera"
 	},
 /turf/open/floor/carpet/orange,
 /area/engine/break_room)
@@ -95627,6 +96564,12 @@
 /obj/effect/turf_decal/bot_white/left,
 /turf/open/floor/carpet/black,
 /area/chapel/office)
+"vez" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/hallway/primary/starboard)
 "veC" = (
 /obj/effect/turf_decal/trimline/blue/filled/warning{
 	dir = 1
@@ -95909,7 +96852,6 @@
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
 "vhz" = (
-/obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
@@ -97402,6 +98344,15 @@
 /obj/structure/ladder,
 /turf/open/openspace/cold,
 /area/iceland/shaded)
+"vzB" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/starboard)
 "vzE" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -97633,6 +98584,9 @@
 	icon_state = "0-2"
 	},
 /obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/railing{
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark/side{
@@ -97868,9 +98822,15 @@
 /obj/structure/stairs{
 	dir = 8
 	},
-/obj/structure/sign/directions/science{
-	dir = 1;
-	pixel_y = 38
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see Cargo in brown,Dorms south of it in lime, Science in the middle in purple, Engineering desk north in yellow and chapel to the east in green";
+	icon_state = "map-right-glow2";
+	pixel_y = 32
+	},
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see Cargo in brown,Dorms south of it in lime, Science in the middle in purple, Engineering desk north in yellow and chapel to the east in green";
+	icon_state = "map-right-glow2";
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel/elevatorshaft,
 /area/hallway/primary/aft)
@@ -98146,6 +99106,12 @@
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/closed/wall/r_wall,
 /area/science/mixing)
+"vJK" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin,
+/obj/item/pen,
+/turf/open/floor/carpet/royalblack,
+/area/bridge/meeting_room/council)
 "vJX" = (
 /obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 8
@@ -98236,6 +99202,7 @@
 /area/iceland/underground)
 "vKN" = (
 /obj/structure/table/wood,
+/obj/item/book/manual/wiki/engineering_construction,
 /turf/open/floor/carpet/royalblack,
 /area/bridge/meeting_room/council)
 "vKV" = (
@@ -98751,7 +99718,6 @@
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
 "vRp" = (
-/obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -98857,6 +99823,11 @@
 	dir = 9
 	},
 /area/hydroponics/garden/monastery)
+"vSE" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/railing,
+/turf/open/openspace,
+/area/hallway/primary/central)
 "vSQ" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/ids,
@@ -99762,9 +100733,6 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/flashlight,
-/obj/structure/sign/poster/official/report_crimes{
-	pixel_y = -32
-	},
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/storage/primary)
@@ -100192,6 +101160,11 @@
 	dir = 5
 	},
 /obj/machinery/vending/cola/random,
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see the AI SAT and the command staircase to the north, Bridge&Command - dark blue, upper medical - blue, Tcomms - yellow";
+	icon_state = "map-right-glow5";
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/balcony)
 "wgP" = (
@@ -100411,6 +101384,10 @@
 /area/engine/atmospherics_engine)
 "wjT" = (
 /obj/item/kirbyplants/random,
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -26
+	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/aft)
 "wkk" = (
@@ -100515,7 +101492,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Science - Toxins Mixing Lab";
+	c_tag = "Science - Toxins Mixing Lab - Aft";
 	dir = 10;
 	name = "science camera";
 	network = list("ss13","rd")
@@ -101048,7 +102025,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/closed/wall,
+/turf/open/floor/plasteel/dark,
 /area/maintenance/port)
 "wrU" = (
 /obj/machinery/airalarm{
@@ -101253,6 +102230,11 @@
 	dir = 1
 	},
 /obj/structure/closet/firecloset,
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see the AI SAT and the command staircase to the north, Bridge&Command - dark blue, upper medical - blue, Tcomms - yellow";
+	icon_state = "map-left-glow5";
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/balcony)
 "wtF" = (
@@ -101353,6 +102335,11 @@
 "wuN" = (
 /obj/structure/stairs{
 	dir = 4
+	},
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see Cargo in brown,Dorms south of it in lime, Science in the middle in purple, Engineering desk north in yellow and chapel to the east in green";
+	icon_state = "map-left-glow2";
+	pixel_y = 32
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/locker)
@@ -101693,6 +102680,9 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
 	},
+/obj/structure/railing/corner{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "wyi" = (
@@ -101943,10 +102933,10 @@
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "wAL" = (
-/obj/structure/railing,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
 	},
+/obj/structure/railing/corner,
 /turf/open/floor/mineral/plastitanium,
 /area/hallway/primary/aft)
 "wAO" = (
@@ -102192,6 +103182,14 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
+"wDq" = (
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station... Its all just engineering and atmos";
+	icon_state = "map-left-glow1";
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/elevatorshaft,
+/area/engineering/hallway)
 "wDt" = (
 /obj/structure/chair/fancy/comfy{
 	color = "#354562"
@@ -102771,7 +103769,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/turf/closed/wall,
+/turf/open/floor/plating,
 /area/maintenance/port/fore)
 "wKn" = (
 /obj/structure/window/plasma/reinforced/spawner/east,
@@ -103146,6 +104144,12 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/bridge)
+"wPz" = (
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/starboard)
 "wPM" = (
 /obj/machinery/light{
 	dir = 1;
@@ -104513,6 +105517,9 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/railing{
+	dir = 8
+	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/secondary/command)
 "xgg" = (
@@ -105045,7 +106052,9 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/item/toy/figure/engineer,
-/obj/machinery/status_display/ai{
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see Cargo in brown,Dorms south of it in lime, Science in the middle in purple, Engineering desk north in yellow and chapel to the east in green";
+	icon_state = "map-right-glow2";
 	pixel_y = 32
 	},
 /turf/open/floor/carpet/orange,
@@ -105445,6 +106454,21 @@
 	},
 /turf/closed/wall/r_wall,
 /area/hallway/upper/secondary/command)
+"xtv" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 16;
+	height = 15;
+	id = "exploration_home";
+	name = "Exploration Dock";
+	roundstart_template = /datum/map_template/shuttle/exploration/corg;
+	width = 23
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/quartermaster/exploration_dock)
 "xtz" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/brflowers,
@@ -105914,11 +106938,8 @@
 /area/crew_quarters/bar/atrium)
 "xyg" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/obj/machinery/seed_extractor,
 /turf/open/floor/plasteel/dark,
 /area/hydroponics)
 "xyi" = (
@@ -106786,6 +107807,14 @@
 	},
 /turf/open/floor/carpet,
 /area/chapel/office)
+"xKa" = (
+/obj/structure/table/wood,
+/obj/structure/sign/map/left{
+	desc = "A framed detailed picture of the station. You can see the AI SAT and the command staircase to the north, Bridge&Command - dark blue, upper medical - blue, Tcomms - yellow";
+	icon_state = "map-left-glow5"
+	},
+/turf/open/floor/wood,
+/area/bridge/meeting_room/council)
 "xKg" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -106833,7 +107862,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/structure/railing,
+/obj/structure/railing/corner,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/starboard)
 "xKB" = (
@@ -107157,9 +108186,16 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "xOd" = (
-/obj/effect/turf_decal/numbers/two_nine,
-/turf/closed/wall/r_wall,
-/area/hallway/primary/aft)
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see arrivals south of the main entrance hall, Mining and QM - brown, Courtroom - red and lime, Dorms - lime, Science - purple, Chapel,Library and bar - green&lime";
+	icon_state = "map-right-glow3";
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/port)
 "xOr" = (
 /obj/effect/turf_decal/trimline/blue/filled/warning{
 	dir = 1
@@ -107562,6 +108598,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
+"xTE" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/closed/wall/r_wall,
+/area/security/checkpoint)
 "xTH" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -107629,6 +108671,22 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
+"xVu" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 9
+	},
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 9
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/turf/open/openspace,
+/area/hallway/primary/central)
 "xVv" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/security_space_law,
@@ -107873,8 +108931,10 @@
 /area/vacant_room/office)
 "xYi" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/pen,
+/obj/structure/sign/map/right{
+	desc = "A framed detailed picture of the station. You can see the AI SAT and the command staircase to the north, Bridge&Command - dark blue, upper medical - blue, Tcomms - yellow";
+	icon_state = "map-right-glow5"
+	},
 /turf/open/floor/wood,
 /area/bridge/meeting_room/council)
 "xYm" = (
@@ -141464,7 +142524,7 @@ xuR
 omc
 xTb
 rQL
-tfp
+wDq
 cXC
 jwi
 rQL
@@ -141720,8 +142780,8 @@ aDk
 lri
 omc
 rWQ
-nbq
-tfp
+rQL
+aeI
 qMB
 irh
 rQL
@@ -142461,7 +143521,7 @@ lky
 fYy
 szT
 aDI
-aDI
+qYP
 svn
 fYy
 fYy
@@ -142491,7 +143551,7 @@ rxt
 xjp
 omc
 jmv
-rQL
+nbq
 tfp
 cXC
 jtG
@@ -144023,7 +145083,7 @@ tLg
 avC
 eMC
 sVn
-sBw
+eUu
 cev
 cev
 aQd
@@ -145265,7 +146325,7 @@ nNO
 tQO
 tQO
 aMp
-cXM
+moX
 eNH
 eNH
 tuf
@@ -147853,7 +148913,7 @@ exB
 wlq
 iuq
 iuq
-rpF
+iuq
 cXp
 ulo
 aQd
@@ -148110,7 +149170,7 @@ vMx
 fVJ
 hEv
 hEv
-vaq
+nnC
 onX
 yfo
 aQd
@@ -198997,7 +200057,7 @@ vyJ
 cbp
 cbp
 cbp
-okA
+stY
 cbp
 cbp
 uPN
@@ -199753,7 +200813,7 @@ vIY
 rfE
 xDZ
 rLs
-umO
+dmo
 tUk
 tai
 fhO
@@ -199771,7 +200831,7 @@ vNj
 quE
 hvh
 cbp
-jfD
+ufl
 qCu
 hio
 nZK
@@ -200027,8 +201087,8 @@ hRt
 kSf
 wpq
 grf
-sNE
-uAu
+caD
+qIh
 gVR
 bNj
 nZK
@@ -203120,7 +204180,7 @@ lJj
 iVV
 xyn
 xvY
-wuN
+ntK
 guK
 mai
 bvp
@@ -206953,9 +208013,9 @@ dQV
 tWK
 tWK
 tWK
-tWK
 azQ
 xEJ
+mny
 kYE
 npk
 aCq
@@ -207000,7 +208060,7 @@ lHz
 eBT
 eju
 tXa
-kee
+teE
 vZm
 mBg
 tXa
@@ -207211,8 +208271,8 @@ dKL
 dKL
 dKL
 dKL
-dKL
 nOi
+cZN
 pEY
 tKM
 oBs
@@ -207256,7 +208316,7 @@ eBT
 sld
 hdh
 eBT
-qIh
+tXa
 vFz
 hWe
 bNd
@@ -207468,8 +208528,8 @@ tWK
 tWK
 tWK
 tWK
-tWK
 xEJ
+kjH
 dyu
 sgE
 hGy
@@ -207726,7 +208786,7 @@ lLM
 dWg
 dWg
 dWg
-dWg
+xTE
 vBX
 jqc
 ddE
@@ -207984,7 +209044,7 @@ nzo
 hIa
 nNU
 dWg
-gyt
+egq
 chd
 kbY
 awg
@@ -208026,9 +209086,9 @@ sKk
 cgz
 iHS
 eBT
-rwP
+eju
 tXa
-haF
+lDh
 vZm
 tlX
 tXa
@@ -210288,8 +211348,8 @@ noJ
 hgc
 hgc
 lMZ
+gSA
 wNU
-fRb
 eJj
 aWK
 cpb
@@ -213391,8 +214451,8 @@ iRa
 oMD
 wBn
 odm
-rSz
-uVW
+qbR
+eDB
 uGv
 qrO
 wdj
@@ -213650,7 +214710,7 @@ qbR
 qbR
 qbR
 ctP
-uGv
+ofa
 eNs
 sKk
 jTP
@@ -218022,10 +219082,10 @@ xtZ
 xtZ
 xtZ
 xtZ
-iJT
+pQJ
 vcG
 xKz
-uqt
+vez
 iJT
 qhG
 qhG
@@ -218279,7 +219339,7 @@ xtZ
 xtZ
 xtZ
 xtZ
-iJT
+nsp
 qqj
 psp
 uqt
@@ -218536,7 +219596,7 @@ xtZ
 xtZ
 xtZ
 xtZ
-iJT
+nsp
 rlu
 fDB
 uqt
@@ -218793,7 +219853,7 @@ xtZ
 xtZ
 xtZ
 xtZ
-iJT
+pQJ
 lSp
 sQE
 huN
@@ -265306,8 +266366,8 @@ fgw
 fgw
 fgw
 fgw
-gIF
-eAy
+fgw
+qfH
 dQe
 fGT
 nkK
@@ -265564,7 +266624,7 @@ jiU
 bEm
 iFT
 fgw
-miB
+xOd
 sNW
 gsQ
 nkK
@@ -267646,7 +268706,7 @@ vOB
 ucb
 lns
 qJc
-mPs
+rpF
 amU
 uhp
 lHL
@@ -268656,7 +269716,7 @@ iLK
 auv
 fTu
 xvY
-ovS
+hJk
 xgI
 jiv
 lzf
@@ -268939,7 +269999,7 @@ dWg
 dWg
 bAw
 aZp
-kmQ
+iES
 wFy
 kmQ
 dXu
@@ -269196,7 +270256,7 @@ xXA
 dWg
 jLv
 aZp
-kmQ
+cGy
 wFy
 kmQ
 dXu
@@ -270727,7 +271787,7 @@ ooK
 flm
 ciJ
 fJp
-iTZ
+pFe
 dcF
 bFR
 lpA
@@ -270984,7 +272044,7 @@ nlZ
 ooK
 flm
 wAL
-iTZ
+jfX
 cbA
 iBA
 vGy
@@ -272484,11 +273544,11 @@ ohO
 xyi
 jAU
 irs
-gVf
-pKC
-pKC
 exG
 uVM
+jDu
+tMY
+gvK
 jDu
 oBC
 lqK
@@ -272535,8 +273595,8 @@ bNZ
 beq
 xNV
 wEy
-xOd
-mhT
+tXa
+kzm
 vZm
 rDD
 tXa
@@ -272741,16 +273801,16 @@ eTW
 lOW
 pGj
 hjT
-wBq
-qbX
-qbX
 umC
 jJb
 tUh
+tUh
+aAe
+aAe
 gaR
 pGo
-oCa
-cdG
+reT
+aMz
 cdG
 tbY
 lpa
@@ -272793,7 +273853,7 @@ qmC
 pkI
 rZz
 tXa
-mhT
+rmQ
 dxs
 wvt
 tXa
@@ -272998,17 +274058,17 @@ eTW
 eTW
 jAU
 ohO
-gVf
-pKC
-pKC
 exG
 abL
 jDu
+jDu
+igm
+igm
 hNG
-kib
-oCa
-umJ
-umJ
+cdG
+vSE
+hjo
+tbJ
 eSf
 gYS
 gYS
@@ -273255,16 +274315,16 @@ eTW
 iAn
 pGj
 ohO
-gVf
-pKC
 ruc
 ruc
+vfQ
+jDu
 mBs
-xdN
-xdN
+mBs
+nOO
 dgg
 qLD
-cdG
+xVu
 cdG
 tbY
 lpa
@@ -273513,12 +274573,12 @@ xyi
 jAU
 ohO
 ohO
-gVf
 exG
+uVM
 jDu
-jDu
-jDu
-jDu
+thw
+lKU
+mev
 oBC
 oCa
 cdG
@@ -273770,8 +274830,8 @@ hiK
 kFC
 xPY
 ohO
-gVf
 exG
+qov
 byR
 uFw
 vTQ
@@ -274027,12 +275087,12 @@ noJ
 kFC
 xPY
 ohO
-gVf
 exG
+abL
 knX
 bcO
 jDu
-gyh
+hhL
 oBC
 dvv
 cdG
@@ -276870,9 +277930,9 @@ ghB
 ghB
 uGv
 kMS
-kMS
-kMS
-kMS
+mFt
+xVF
+qcm
 hQl
 fgV
 sKk
@@ -278669,9 +279729,9 @@ xRL
 bDi
 idF
 kCw
-kZG
-mKT
-pbJ
+kMS
+kMS
+kMS
 hQl
 cSY
 kjC
@@ -278926,11 +279986,11 @@ xRL
 bDi
 sgP
 mJJ
-mJJ
-mKT
+wPz
+cPm
 ewI
-hQl
-uGv
+vzB
+fdK
 kjC
 kkL
 cVQ
@@ -279186,8 +280246,8 @@ uSu
 xxA
 rQs
 cAO
-hQl
-uGv
+fRb
+ubt
 kjC
 uTo
 mrA
@@ -279442,9 +280502,9 @@ hRv
 hst
 wus
 oVh
-qcm
-hQl
-uGv
+cAO
+fRb
+ubt
 kjC
 lNu
 tRE
@@ -279699,8 +280759,8 @@ bNW
 enN
 bpk
 oVh
-mFt
-hQl
+gLl
+pbJ
 wyg
 kjC
 xTX
@@ -279956,7 +281016,7 @@ ehD
 gTx
 nZd
 oVh
-xVF
+rwP
 hQl
 uGv
 kjC
@@ -282004,7 +283064,7 @@ rFC
 pCX
 pYX
 luE
-oVh
+jeh
 cLM
 brk
 brk
@@ -282261,7 +283321,7 @@ kNa
 xhk
 aHv
 bVr
-oVh
+jeh
 cLM
 brk
 brk
@@ -283558,10 +284618,10 @@ brk
 brk
 brk
 brk
-iJT
-lvJ
-lvJ
-lvJ
+pQJ
+kMS
+kMS
+kMS
 iJT
 qvk
 blz
@@ -283815,9 +284875,9 @@ brk
 brk
 brk
 brk
-iJT
-lvJ
-lvJ
+lPR
+sWj
+vaq
 lvJ
 iJT
 qvk
@@ -284072,7 +285132,7 @@ brk
 brk
 brk
 brk
-iJT
+lPR
 lvJ
 lvJ
 lvJ
@@ -284329,7 +285389,7 @@ xtZ
 xtZ
 xtZ
 tSl
-iJT
+pQJ
 lvJ
 pXb
 mgE
@@ -328251,7 +329311,7 @@ xZa
 xZa
 xZa
 xZa
-grd
+fru
 oye
 grd
 jmN
@@ -328765,7 +329825,7 @@ cSB
 fEa
 sNH
 xZa
-fru
+pRp
 rGQ
 grd
 grd
@@ -337767,7 +338827,7 @@ vnb
 uJA
 qZc
 ucN
-qZU
+hFK
 nNa
 qvM
 bvz
@@ -338021,11 +339081,11 @@ tSl
 tSl
 dUa
 ajP
-wIC
+rJY
 qZc
 ucN
 sDc
-nNa
+kii
 sew
 shH
 dqY
@@ -338038,11 +339098,11 @@ rTP
 aZP
 lpa
 lpa
+hyh
 tsV
 tsV
 tsV
-tsV
-tsV
+hyh
 lpa
 lpa
 epS
@@ -338279,12 +339339,12 @@ bdI
 dUa
 ajP
 wIC
-kFa
-lvo
+qZc
+ucN
 gyq
 gyq
 raq
-igm
+shH
 dqY
 hrb
 hrb
@@ -338300,8 +339360,8 @@ tsV
 tsV
 tsV
 tsV
-lpa
-lpa
+gYS
+gYS
 eUU
 gGz
 gYS
@@ -338328,8 +339388,8 @@ wKX
 vGc
 mgy
 otx
-xyy
-lki
+smN
+hMW
 bco
 rZR
 smN
@@ -338536,12 +339596,12 @@ xaP
 hKJ
 ajP
 wIC
-rJY
-ucN
+kFa
+lvo
 pxR
-nNa
-sew
-shH
+pxR
+iIB
+sli
 dqY
 hrb
 hrb
@@ -338554,11 +339614,11 @@ lpa
 lpa
 tsV
 tsV
+jyf
 tsV
 tsV
-tsV
-lpa
-lpa
+bxM
+gYS
 eUU
 ecF
 gYS
@@ -338795,8 +339855,8 @@ vnb
 vLZ
 ucN
 ucN
-nNa
-nNa
+hrb
+hrb
 bCa
 qlH
 dqY
@@ -338814,8 +339874,8 @@ tsV
 tsV
 tsV
 tsV
-lpa
-lpa
+gYS
+gYS
 eUU
 tjV
 gYS
@@ -338842,8 +339902,8 @@ dOk
 hXN
 gFa
 puY
-xyy
-jvE
+smN
+uhF
 bco
 nUD
 smN
@@ -339052,8 +340112,8 @@ ucN
 ucN
 ucN
 byl
-nNa
-nNa
+cfB
+cfB
 sew
 psn
 dqY
@@ -339066,11 +340126,11 @@ mcV
 epZ
 lpa
 lpa
+hyh
 tsV
 tsV
 tsV
-tsV
-tsV
+hyh
 lpa
 lpa
 bpp
@@ -343733,7 +344793,7 @@ hGb
 hGb
 hGb
 hGb
-uhF
+hGb
 hGb
 hGb
 hGb
@@ -344461,10 +345521,10 @@ xZP
 lHU
 rPB
 vog
-mJw
+qQe
 snh
-fdD
-hcP
+ppL
+nxI
 pIT
 mQH
 cjr
@@ -344721,8 +345781,8 @@ xrJ
 tJy
 wch
 fdD
-eGP
-ich
+nmv
+gOY
 rXR
 dKg
 sJY
@@ -344759,7 +345819,7 @@ pyB
 pyB
 pyB
 pyB
-pyB
+xtv
 pyB
 pyB
 pyB
@@ -344978,8 +346038,8 @@ rnN
 ooR
 nue
 fdD
-eGP
-ich
+kZG
+gOY
 qLw
 vtJ
 fYL
@@ -345232,10 +346292,10 @@ wFd
 wFd
 wFd
 jSX
-jSX
+fqR
 wFd
 fdD
-eGP
+umO
 gbK
 uKM
 cDq
@@ -345489,10 +346549,10 @@ xYm
 xYm
 kRr
 xYm
-xYm
-xYm
-plh
-eGP
+sqy
+cwu
+eiC
+gPT
 ich
 vpY
 quQ
@@ -349109,7 +350169,7 @@ abT
 aaG
 lcX
 vLc
-tAW
+qeE
 kDW
 kDW
 kDW
@@ -349369,9 +350429,9 @@ veC
 tAW
 kDW
 tDM
-hhL
-gOY
-lno
+nWW
+kda
+iiK
 kDW
 dGq
 jGo
@@ -349626,9 +350686,9 @@ veC
 ljp
 kDW
 pKF
-nWW
-kda
-iiK
+jvN
+jvN
+jvN
 kDW
 iwj
 bgN
@@ -349882,10 +350942,10 @@ lcX
 wpt
 mAz
 kDW
-jvN
-jvN
-jvN
-jvN
+enz
+enz
+enz
+enz
 kDW
 kkC
 sNA
@@ -350139,10 +351199,10 @@ vea
 oXZ
 oXZ
 kDW
-enz
-enz
-enz
-enz
+jiO
+dxL
+dxL
+vEB
 kDW
 mxt
 eiK
@@ -350396,10 +351456,10 @@ aXm
 uDh
 nmI
 kDW
-jiO
-dxL
-dxL
-vEB
+iNF
+gWu
+lsS
+rDx
 kDW
 tYH
 eiK
@@ -350653,10 +351713,10 @@ vkN
 nUw
 hSO
 kDW
-iNF
-gWu
-lsS
-rDx
+jQJ
+vjS
+hFk
+eRZ
 cwH
 lqn
 prm
@@ -350910,10 +351970,10 @@ bHs
 kDW
 kDW
 kDW
-jQJ
-vjS
+iEB
+cNT
 hFk
-eRZ
+bNV
 kDW
 iwj
 iwj
@@ -351167,10 +352227,10 @@ wgi
 fhN
 bOg
 kDW
-iEB
-cNT
+gso
+vjS
 hFk
-bNV
+gIF
 kDW
 lDo
 lDo
@@ -352450,7 +353510,7 @@ snj
 sIs
 lDo
 lDo
-cus
+hni
 cus
 cus
 lDo
@@ -399478,7 +400538,7 @@ jii
 cEk
 gUO
 ljH
-vKN
+vJK
 vKN
 bpD
 maO
@@ -399992,8 +401052,8 @@ jii
 gAz
 gUO
 ljH
-vKN
-vKN
+oVv
+dnj
 mYz
 maO
 bdk
@@ -401019,11 +402079,11 @@ vTo
 jii
 knP
 knP
-knP
-lKR
-lKR
-lKR
-knP
+xKa
+hpE
+dkW
+uox
+lno
 sXi
 oix
 sXi
@@ -402805,7 +403865,7 @@ lpa
 lpa
 bpp
 dbv
-krI
+ury
 dbv
 epZ
 lpa
@@ -403062,7 +404122,7 @@ lpa
 lpa
 lpa
 kkZ
-lpa
+gYS
 kkZ
 lpa
 lpa
@@ -403319,7 +404379,7 @@ lpa
 lpa
 lpa
 kkZ
-lpa
+gYS
 kkZ
 lpa
 lpa
@@ -403559,10 +404619,10 @@ dST
 pLP
 jyM
 liK
-tBx
-tBx
-tBx
-tBx
+llt
+wgS
+wgS
+uHh
 awN
 tBx
 uBR
@@ -403608,7 +404668,7 @@ qkU
 etY
 jqx
 lgz
-hhJ
+elw
 nSm
 fBk
 lgz
@@ -403817,9 +404877,9 @@ tBx
 lxE
 aTX
 nZN
-tBx
-tBx
-tBx
+qkU
+qkU
+etY
 jxT
 tBx
 uBR
@@ -403864,8 +404924,8 @@ qkU
 qkU
 ihC
 tBx
-iJf
-qkU
+lgz
+iIf
 nSm
 rKv
 lgz
@@ -404075,8 +405135,8 @@ oaa
 eHg
 nkf
 xgf
-lkI
-dPX
+tsg
+svA
 aUU
 lQS
 vpJ
@@ -404090,7 +405150,7 @@ lpa
 lpa
 tsV
 tsV
-tsV
+jyf
 tsV
 tsV
 lpa
@@ -404120,7 +405180,7 @@ qkU
 qkU
 qkU
 tLM
-tsv
+tBx
 iJf
 tHR
 uhU
@@ -404331,8 +405391,8 @@ tBx
 wkx
 qgZ
 xnr
-dQO
-tBx
+cjM
+rdV
 tBx
 tBx
 uBR
@@ -404378,7 +405438,7 @@ qkU
 qkU
 olv
 tBx
-iJf
+lgz
 qkU
 nSm
 apb
@@ -404634,9 +405694,9 @@ qkU
 qkU
 qkU
 olv
-jqx
+evw
 lgz
-qkU
+hhJ
 nSm
 rUL
 lgz
@@ -404861,7 +405921,7 @@ lpa
 lpa
 lpa
 kkZ
-lpa
+gYS
 kkZ
 lpa
 lpa
@@ -405118,7 +406178,7 @@ lpa
 lpa
 lpa
 kkZ
-lpa
+gYS
 kkZ
 lpa
 lpa
@@ -405375,7 +406435,7 @@ lpa
 qzB
 epS
 dRs
-hXk
+jEz
 dRs
 aZP
 lpa
@@ -405631,8 +406691,8 @@ hyh
 gGe
 gGe
 njR
+tsv
 gYS
-gGz
 pFG
 rTP
 hXk
