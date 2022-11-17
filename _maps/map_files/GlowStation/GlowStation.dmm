@@ -8314,7 +8314,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/turf/open/floor/plating/asteroid/snow,
+/turf/open/floor/plating,
 /area/maintenance/department/science)
 "bQx" = (
 /obj/effect/turf_decal/trimline/blue/filled/line{
@@ -36572,9 +36572,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/secondary/command)
-"hZg" = (
-/turf/open/floor/plasteel/dark,
-/area/maintenance/department/science)
 "hZx" = (
 /obj/structure/disposalpipe/trunk/multiz{
 	dir = 2
@@ -45553,10 +45550,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/security/brig)
-"jXy" = (
-/obj/structure/closet/emcloset,
-/turf/open/floor/plasteel/dark,
-/area/maintenance/department/science)
 "jXB" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "hosprivacyexterior";
@@ -48355,7 +48348,7 @@
 	req_one_access_txt = "13;24;10"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/turf/closed/wall,
+/turf/open/floor/plating,
 /area/maintenance/department/science)
 "kDo" = (
 /obj/structure/lattice/catwalk,
@@ -96331,7 +96324,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/maintenance/department/science)
 "vcE" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -99852,7 +99845,7 @@
 /obj/machinery/space_heater{
 	on = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/maintenance/department/science)
 "vTz" = (
 /turf/closed/wall,
@@ -275129,7 +275122,7 @@ jLv
 qaO
 nGb
 vTy
-jXy
+crS
 pLN
 rna
 rna
@@ -275386,7 +275379,7 @@ jLv
 jLv
 kDk
 vcB
-hZg
+jLv
 bQf
 xtZ
 xtZ
