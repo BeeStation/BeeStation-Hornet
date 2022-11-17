@@ -48,6 +48,18 @@
 	if(istype(mymob) && mymob.eye_blurry)
 		add_filter("eye_blur", 1, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
 
+/atom/movable/screen/plane_master/over_tile
+	name = "over tile world plane master"
+	plane = OVER_TILE_PLANE
+	appearance_flags = PLANE_MASTER //should use client color
+	blend_mode = BLEND_OVERLAY
+
+/atom/movable/screen/plane_master/wall
+	name = "wall plane master"
+	plane = WALL_PLANE
+	appearance_flags = PLANE_MASTER //should use client color
+	blend_mode = BLEND_OVERLAY
+
 ///Contains most things in the game world
 /atom/movable/screen/plane_master/game_world
 	name = "game world plane master"
@@ -65,6 +77,49 @@
 /atom/movable/screen/plane_master/data_hud
 	name = "data_hud plane master"
 	plane = DATA_HUD_PLANE
+	appearance_flags = PLANE_MASTER //should use client color
+	blend_mode = BLEND_OVERLAY
+
+/atom/movable/screen/plane_master/wall
+	name = "wall plane master"
+	plane = WALL_PLANE
+	appearance_flags = PLANE_MASTER //should use client color
+	blend_mode = BLEND_OVERLAY
+
+
+/atom/movable/screen/plane_master/under_frill
+	name = "under frill plane master"
+	plane = UNDER_FRILL_PLANE
+	appearance_flags = PLANE_MASTER //should use client color
+	blend_mode = BLEND_OVERLAY
+
+/atom/movable/screen/plane_master/frill
+	name = "frill plane master"
+	plane = FRILL_PLANE
+	appearance_flags = PLANE_MASTER //should use client color
+	blend_mode = BLEND_OVERLAY
+
+/atom/movable/screen/plane_master/area
+	name = "area plane master"
+	plane = AREA_PLANE
+	appearance_flags = PLANE_MASTER //should use client color
+	blend_mode = BLEND_OVERLAY
+
+/atom/movable/screen/plane_master/massive_obj
+	name = "massive object plane master"
+	plane = MASSIVE_OBJ_PLANE
+	appearance_flags = PLANE_MASTER //should use client color
+	blend_mode = BLEND_OVERLAY
+
+/atom/movable/screen/plane_master/ghost
+	name = "ghost plane master"
+	plane = GHOST_PLANE
+	appearance_flags = PLANE_MASTER //should use client color
+	blend_mode = BLEND_OVERLAY
+
+/atom/movable/screen/plane_master/point
+	name = "point plane master"
+	plane = POINT_PLANE
 	appearance_flags = PLANE_MASTER //should use client color
 	blend_mode = BLEND_OVERLAY
 
@@ -129,7 +184,6 @@
 
 /atom/movable/screen/plane_master/o_light_visual
 	name = "overlight light visual plane master"
-	layer = O_LIGHTING_VISUAL_LAYER
 	plane = O_LIGHTING_VISUAL_PLANE
 	render_target = O_LIGHTING_VISUAL_RENDER_TARGET
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
