@@ -2,7 +2,7 @@
 	name = "glass alarm airlock"
 	icon = 'icons/obj/doors/airlocks/station2/glass.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/station2/overlays.dmi'
-	opacity = FALSE
+	opacity = 0
 	assemblytype = /obj/structure/door_assembly/door_assembly_public
 	glass = TRUE
 
