@@ -12,8 +12,6 @@
 	if(!icon_state)
 		icon_state = "bloodpack"
 		update_icon()
-	if(initial(label_name))
-		name = "[label_name] chemical bag"
 
 /obj/item/reagent_containers/chem_bag/examine(mob/user)
 	. = ..()
@@ -25,9 +23,7 @@
 		else
 			. += "<span class='notice'>It seems [round(reagents.total_volume/volume*100)]% filled.</span>"
 
-
-// Format example: use `label_name` instead of using `name` directly.
 /obj/item/reagent_containers/chem_bag/epinephrine
+	name = "epinephrine chemical bag"
 	label_name = "epinephrine"
-	// with label_name, name variable will become "epinephrine chemical bag"
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 200)
