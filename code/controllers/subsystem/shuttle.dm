@@ -390,9 +390,9 @@ SUBSYSTEM_DEF(shuttle)
 			null, ANNOUNCER_SHUTTLEDOCK, "Priority")
 
 /datum/controller/subsystem/shuttle/proc/checkInfestedEnvironment()
-	for(var/datum/d in infestedEnvironments)
+	for(var/mob/d in infestedEnvironments)
 		var/turf/T = get_turf(d)
-		if(!istype(d) || QDELETED(d) || !is_station_level(T.z)) //If they have been destroyed or left the station Z level, the queen will not trigger this check
+		if(QDELETED(d) || !is_station_level(T.z)) //If they have been destroyed or left the station Z level, the queen will not trigger this check
 			infestedEnvironments -= d
 	emergencyDelayArrival = length(infestedEnvironments)
 	return emergencyDelayArrival
