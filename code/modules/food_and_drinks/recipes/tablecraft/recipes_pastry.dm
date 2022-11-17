@@ -435,10 +435,10 @@
 	name = "Moffin"
 	reqs = list(
 		/datum/reagent/consumable/milk = 5,
-		/obj/item/food/pastrybase = 1,
-		/obj/item/stack/sheet/cloth = 1,
+		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
+		/obj/item/stack/sheet/cotton/cloth = 1,
 	)
-	result = /obj/item/food/muffin/moffin
+	result = /obj/item/reagent_containers/food/snacks/muffin/moffin
 	subcategory = CAT_PASTRY
 
 /datum/crafting_recipe/food/chawanmushi
