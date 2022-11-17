@@ -9,7 +9,7 @@
 
 	//--rendering relay vars--
 	///integer: what plane we will relay this planes render to
-	var/
+	var/render_relay_plane = RENDER_PLANE_GAME
 	///bool: Whether this plane should get a render target automatically generated
 	var/generate_render_target = TRUE
 	///integer: blend mode to apply to the render relay in case you dont want to use the plane_masters blend_mode
