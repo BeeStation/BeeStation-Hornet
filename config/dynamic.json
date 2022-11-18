@@ -34,14 +34,12 @@
 			]
 		},
 		"Revolution": {
-			"weight": 0,
 			"cost": 110
 		}
 	},
 	"Midround": {},
 	"Latejoin": {
 		"Provocateur": {
-			"weight": 0,
 			"cost": 110
 		}
 	}
