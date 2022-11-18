@@ -16,6 +16,8 @@ $include antag_rep.txt
 # Asset Transport (TGUI)
 $include resources.txt
 $include interviews.txt
+# Performance stuff
+$include performance.txt
 
 # You can use the @ character at the beginning of a config option to lock it from being edited in-game
 # Example usage:
