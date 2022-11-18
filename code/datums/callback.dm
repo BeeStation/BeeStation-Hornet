@@ -44,7 +44,7 @@
   *
   * proc defined on a parent of a some type
   *
-  * `/some/type/.proc/some_proc_here`
+  * `TYPE_PROC_REF(/some/type, some_proc_here)`
   *
   * Otherwise you must always provide the full typepath of the proc (/type/of/thing/proc/procname)
   */
