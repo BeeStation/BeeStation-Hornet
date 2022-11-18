@@ -48,6 +48,9 @@
 	#define SPEECH_LANGUAGE 5
 	#define SPEECH_IGNORE_SPAM 6
 	#define SPEECH_FORCED 7 */
+#define COMSIG_MOB_AUTOMUTE_CHECK "client_automute_check" // The check is performed by the client.
+	/// Prevents the automute system checking this client for repeated messages.
+	#define WAIVE_AUTOMUTE_CHECK (1<<0)
 #define COMSIG_MOB_EMOTE "mob_emote" // from /mob/living/emote(): ()
 #define COMSIG_MOB_SWAP_HANDS "mob_swap_hands"        //from base of mob/swap_hand()
   #define COMPONENT_BLOCK_SWAP 1

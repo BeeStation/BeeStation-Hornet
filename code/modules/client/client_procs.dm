@@ -151,8 +151,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
  *
  */
 /client/proc/handle_spam_prevention(message, mute_type)
+
 	if(!(CONFIG_GET(flag/automute_on)))
-		return FALSE
+		if(SEND_SIGNAL(mob, COMSIG_MOB_AUTOMUTE_CHECK, src, last_message, mute_type) & WAIVE_AUTOMUTE_CHECK)
+			return FALSE
 
 	if(COOLDOWN_FINISHED(src, total_count_reset))
 		total_message_count = 0 //reset the count if it's been more than 5 seconds since the first message
@@ -161,7 +163,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	total_message_count++
 
 	if(total_message_count >= SPAM_TRIGGER_AUTOMUTE)
-		to_chat(src, "<span class='userdanger'>You have exceeded the spam filter limit for too many messages. An auto-mute was applied. Make an adminhelp ticket if you think this was in error.</span>")
+		to_chat(src, "<span class='userdanger'>You have exceeded the spam filter limit for too many messages. An auto-mute was applied for the current round. Make an adminhelp ticket if you think this was in error.</span>")
 		cmd_admin_mute(src, mute_type, TRUE)
 		return TRUE
 
