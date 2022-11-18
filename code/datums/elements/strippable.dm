@@ -53,7 +53,7 @@
 		if(cyborg_user.a_intent != INTENT_HARM)
 			return
 
-	if(!isnull(should_strip_proc_path) && !LIBCALL(source, should_strip_proc_path)(user))
+	if(!isnull(should_strip_proc_path) && !call(source, should_strip_proc_path)(user))
 		return
 
 	var/datum/strip_menu/strip_menu = LAZYACCESS(strip_menus, source)

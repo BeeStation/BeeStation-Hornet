@@ -112,9 +112,9 @@ GLOBAL_PROTECT(LastAdminCalledProc)
 //adv proc call this, ya nerds
 /world/proc/WrapAdminProcCall(datum/target, procname, list/arguments)
 	if(target == GLOBAL_PROC)
-		return LIBCALL("/proc/[procname]")(arglist(arguments))
+		return call("/proc/[procname]")(arglist(arguments))
 	else if(target != world)
-		return LIBCALL(target, procname)(arglist(arguments))
+		return call(target, procname)(arglist(arguments))
 	else
 		log_admin("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]")
 

@@ -331,7 +331,7 @@
 
 /proc/sorted_insert(list/L, thing, comparator)
 	var/pos = L.len
-	while(pos > 0 && LIBCALL(comparator)(thing, L[pos]) > 0)
+	while(pos > 0 && call(comparator)(thing, L[pos]) > 0)
 		pos--
 	L.Insert(pos+1, thing)
 
