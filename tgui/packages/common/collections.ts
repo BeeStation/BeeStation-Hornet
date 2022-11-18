@@ -21,7 +21,7 @@ export const toArray = collection => {
     const hasOwnProperty = Object.prototype.hasOwnProperty;
     const result = [];
     for (let i in collection) {
-      if (hasOwnProperty.LIBCALL(collection, i)) {
+      if (hasOwnProperty.call(collection, i)) {
         result.push(collection[i]);
       }
     }
@@ -114,7 +114,7 @@ export const map = iterateeFn => collection => {
     const hasOwnProperty = Object.prototype.hasOwnProperty;
     const result = [];
     for (let i in collection) {
-      if (hasOwnProperty.LIBCALL(collection, i)) {
+      if (hasOwnProperty.call(collection, i)) {
         result.push(iterateeFn(collection[i], i, collection));
       }
     }
