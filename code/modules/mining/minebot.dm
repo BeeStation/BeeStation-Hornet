@@ -170,7 +170,7 @@
 		return
 	if(maxHealth == health)
 		to_chat(user, "<span class='info'>[src] is at full integrity.</span>")
-		return
+		return TRUE
 	if(welder.use_tool(src, user, 0, volume = 40))
 		if(stat == DEAD && health > 0)
 			to_chat(user, "<span class='info'>You restart [src].</span>")
@@ -578,6 +578,7 @@
 
 /// Handles adding upgrades. This checks for any duplicate mods and links the mod to the minebot. Returns FALSE if the upgrade fails, otherwise returns TRUE
 /obj/item/minebot_upgrade/proc/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/minebot, mob/user)
+	SHOULD_CALL_PARENT(TRUE)
 	if(is_type_in_list(src, minebot.installed_upgrades))
 		minebot.balloon_alert(user, "A similar mod has already been installed.")
 		return FALSE
@@ -591,6 +592,7 @@
 
 /// Handles removing upgrades. This handles unlinking the minebot as well, so it should be called after any upgrade-specific unequip actions.
 /obj/item/minebot_upgrade/proc/unequip()
+	SHOULD_CALL_PARENT(TRUE)
 	LAZYREMOVE(linked_bot.installed_upgrades, src)
 	forceMove(get_turf(linked_bot))
 	linked_bot = null
