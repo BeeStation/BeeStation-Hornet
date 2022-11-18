@@ -352,15 +352,16 @@
 	icon_state = "[icon_state]_[rand(1, 3)]"
 
 /obj/item/reagent_containers/food/snacks/muffin/moffin/examine(mob/user)
-	if(!ishuman(user))
+	. = ..()
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
 
-		if(!T)
+		if(!T) ///no tongue means no taste
 			return
 
 		if(!HAS_TRAIT(H, TRAIT_AGEUSIA))
-			if(foodtype & T.disliked_food)
+			if(foodtype & T.toxic_food & T.disliked_food)
 				to_chat(H,"<span class='warning'>You're not too sure what's on top though...</span>")
 			else if(foodtype & T.liked_food)
 				to_chat(H,"<span class='nicegreen'>Ooh! It's even got bits of clothes on it! Yummy!</span>")
