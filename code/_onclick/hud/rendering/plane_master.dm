@@ -220,10 +220,6 @@
 	plane = FULLSCREEN_PLANE
 	render_relay_plane = RENDER_PLANE_NON_GAME
 
-/atom/movable/screen/plane_master/balloon_chat
-	name = "Balloon chat"
-	plane = BALLOON_CHAT_PLANE
-	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
 /atom/movable/screen/plane_master/o_light_visual
 	name = "overlight light visual plane master"
 	plane = O_LIGHTING_VISUAL_PLANE
