@@ -156,7 +156,7 @@ const AlertButton = (props, context) => {
       pt={large_buttons ? 0.33 : 0}
       selected={selected}
       textAlign="center">
-      {!large_buttons ? button : button.toUpperCase()}
+      {button}
     </Button>
   );
 };
