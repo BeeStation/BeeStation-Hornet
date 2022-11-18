@@ -39,7 +39,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 /obj/effect/warped_rune/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -76,7 +76,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	. = ..()
 	add_overlay("blank")
 	rune_turf = get_turf(src)
-	RegisterSignal(rune_turf, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_rune)
+	RegisterSignal(rune_turf, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_rune))
 
 /obj/effect/warped_rune/proc/clean_rune()
 	SIGNAL_HANDLER
@@ -326,7 +326,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 				break
 	if(C?.charge)
 		do_sparks(5,FALSE,C)
-		INVOKE_ASYNC(src, .proc/empulse, rune_turf, 1, 1, FALSE, TRUE, FALSE)
+		INVOKE_ASYNC(src, PROC_REF(empulse), rune_turf, 1, 1, FALSE, TRUE, FALSE)
 		C.use(C.charge)
 		activated_on_step = TRUE
 	. = ..()
@@ -437,7 +437,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/effect/warped_rune/ceruleanspace/proc/holo_talk()
 	if(holotile && length(recent_speech)) //the proc should'nt be called if the list is empty in the first place but we might as well make sure.
 		holotile.say(recent_speech[pick(recent_speech)]) //say one of the 10 latest sentence said by the holo_host
-		addtimer(CALLBACK(src, .proc/holo_talk), 10 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(holo_talk)), 10 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
 
 /obj/effect/warped_rune/ceruleanspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	. = ..()
@@ -452,7 +452,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		playsound(rune_turf, dir_sound, 20, TRUE)
 
 /obj/effect/warped_rune/ceruleanspace/proc/holo_creation()
-	addtimer(CALLBACK(src, .proc/holo_talk), 10 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(holo_talk)), 10 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
 
 	if(locate(holotile) in rune_turf)//here to delete the previous hologram,
 		QDEL_NULL(holotile)

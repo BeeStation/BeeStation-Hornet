@@ -39,11 +39,11 @@
 		debris += new /obj/item/stack/cable_coil(src, cable)
 
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXIT = .proc/on_exit,
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
 	)
 
 	AddElement(/datum/element/connect_loc, loc_connections)
-	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, .proc/ntnet_receive)
+	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
 
 /obj/machinery/door/window/Destroy()
 	density = FALSE
@@ -223,7 +223,7 @@
 	operating = TRUE
 	flick("[base_state]spark", src)
 	playsound(src, "sparks", 75, 1)
-	addtimer(CALLBACK(src, .proc/after_emag), 6)
+	addtimer(CALLBACK(src, PROC_REF(after_emag)), 6)
 
 /obj/machinery/door/window/proc/after_emag()
 	if(QDELETED(src))
@@ -348,11 +348,11 @@
 				return
 
 			if(density)
-				INVOKE_ASYNC(src, .proc/open)
+				INVOKE_ASYNC(src, PROC_REF(open))
 			else
-				INVOKE_ASYNC(src, .proc/close)
+				INVOKE_ASYNC(src, PROC_REF(close))
 		if("touch")
-			INVOKE_ASYNC(src, .proc/open_and_close)
+			INVOKE_ASYNC(src, PROC_REF(open_and_close))
 
 /obj/machinery/door/window/brigdoor
 	name = "secure door"

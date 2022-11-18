@@ -42,7 +42,7 @@
 	var/datum/action/small_sprite/smallsprite = new/datum/action/small_sprite/queen()
 
 /mob/living/carbon/alien/humanoid/royal/queen/Initialize(mapload)
-	RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, .proc/check_hostile)
+	RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(check_hostile))
 	check_hostile() //still need to call this
 	//there should only be one queen
 	for(var/mob/living/carbon/alien/humanoid/royal/queen/Q in GLOB.carbon_list)
@@ -75,7 +75,7 @@
 		SSshuttle.registerHostileEnvironment(src) //aliens delay shuttle
 		if(game_end_timer)	//clear the timer if it exists
 			deltimer(game_end_timer)
-		game_end_timer = addtimer(CALLBACK(src, .proc/game_end), 30 MINUTES, TIMER_STOPPABLE) //time until shuttle is freed/called
+		game_end_timer = addtimer(CALLBACK(src, PROC_REF(game_end)), 30 MINUTES, TIMER_STOPPABLE) //time until shuttle is freed/called
 		return
 	if(src in SSshuttle.hostileEnvironments)
 		SSshuttle.clearHostileEnvironment(src) //left the z level, no longer matters
@@ -97,7 +97,7 @@
 
 /mob/living/carbon/alien/humanoid/royal/queen/revive(full_heal = 0, admin_revive = 0)
 	if(..())
-		RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, .proc/check_hostile)
+		RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(check_hostile))
 		check_hostile()
 
 /mob/living/carbon/alien/humanoid/royal/queen/Destroy()

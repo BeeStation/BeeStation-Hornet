@@ -31,7 +31,7 @@
 	if(isopenturf(loc))
 		hide(TRUE)
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -45,7 +45,7 @@
 	else if(!trigger_item)
 		return
 	can_trigger = FALSE
-	addtimer(CALLBACK(src, .proc/trigger), trigger_delay)
+	addtimer(CALLBACK(src, PROC_REF(trigger)), trigger_delay)
 
 /obj/item/pressure_plate/proc/trigger()
 	can_trigger = TRUE

@@ -10,7 +10,7 @@
 
 /obj/structure/big_delivery/Initialize()
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, .proc/disposal_handling)
+	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
 
 /obj/structure/big_delivery/interact(mob/user)
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
@@ -164,7 +164,7 @@
 
 /obj/item/small_delivery/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, .proc/disposal_handling)
+	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
 
 /obj/item/small_delivery/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
 	SIGNAL_HANDLER

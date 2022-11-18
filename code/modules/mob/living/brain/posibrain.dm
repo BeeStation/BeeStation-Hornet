@@ -58,7 +58,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	next_ask = world.time + askDelay
 	searching = TRUE
 	update_icon()
-	addtimer(CALLBACK(src, .proc/check_success), askDelay)
+	addtimer(CALLBACK(src, PROC_REF(check_success)), askDelay)
 
 /obj/item/mmi/posibrain/proc/check_success()
 	searching = FALSE

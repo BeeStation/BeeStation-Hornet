@@ -107,7 +107,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		UnregisterSignal(target, COMSIG_MIND_CRYOED)
 	target = new_target
 	if(istype(target, /datum/mind))
-		RegisterSignal(target, COMSIG_MIND_CRYOED, .proc/on_target_cryo)
+		RegisterSignal(target, COMSIG_MIND_CRYOED, PROC_REF(on_target_cryo))
 		target.isAntagTarget = TRUE
 
 /datum/objective/proc/get_crewmember_minds()

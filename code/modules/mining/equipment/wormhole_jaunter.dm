@@ -73,7 +73,7 @@
 	if(user.get_item_by_slot(ITEM_SLOT_BELT) == src)
 		to_chat(user, "Your [name] activates, saving you from the chasm!</span>")
 		SSblackbox.record_feedback("tally", "jaunter", 1, "Chasm") // chasm automatic activation
-		INVOKE_ASYNC(user.client, /client.proc/give_award, /datum/award/achievement/misc/chasmjaunt, user)
+		INVOKE_ASYNC(user.client, TYPE_PROC_REF(/client, give_award), /datum/award/achievement/misc/chasmjaunt, user)
 		activate(user, FALSE)
 	else
 		to_chat(user, "[src] is not attached to your belt, preventing it from saving you from the chasm. RIP.</span>")
@@ -97,4 +97,4 @@
 			L.Paralyze(60)
 			if(ishuman(L))
 				shake_camera(L, 20, 1)
-				addtimer(CALLBACK(L, /mob/living/carbon.proc/vomit), 20)
+				addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living/carbon, vomit)), 20)

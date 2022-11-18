@@ -69,7 +69,7 @@
 	if(remote_materials)
 		AddComponent(/datum/component/remote_materials, "modfab", mapload, TRUE, auto_link)
 	else
-		AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/gold, /datum/material/gold, /datum/material/silver, /datum/material/diamond, /datum/material/uranium, /datum/material/plasma, /datum/material/bluespace, /datum/material/bananium, /datum/material/titanium), 0, TRUE, null, null, CALLBACK(src, .proc/AfterMaterialInsert))
+		AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/gold, /datum/material/gold, /datum/material/silver, /datum/material/diamond, /datum/material/uranium, /datum/material/plasma, /datum/material/bluespace, /datum/material/bananium, /datum/material/titanium), 0, TRUE, null, null, CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	. = ..()
 	stored_research = new stored_research_type
 
@@ -340,7 +340,7 @@
 				for(var/i in SSmaterials.materials_by_category[used_material])
 					if(materials.materials[i] > 0)
 						list_to_show += i
-				used_material = input("Choose [used_material]", "Custom Material") as null|anything in sortList(list_to_show, /proc/cmp_typepaths_asc)
+				used_material = input("Choose [used_material]", "Custom Material") as null|anything in sortList(list_to_show, GLOBAL_PROC_REF(cmp_typepaths_asc))
 				if(!used_material)
 					return //Didn't pick any material, so you can't build shit either.
 
@@ -391,7 +391,7 @@
 		playsound(src, 'sound/machines/buzz-two.ogg', 50)
 		say("Unknown design requested, removing from queue.")
 		item_queue -= requested_design_id
-		addtimer(CALLBACK(src, .proc/restart_process), 50)
+		addtimer(CALLBACK(src, PROC_REF(restart_process)), 50)
 		return
 
 	var/multiplier = 1
@@ -423,7 +423,7 @@
 			used_material = item_queue[requested_design_id]["build_mat"]
 			if(!used_material)
 				item_queue -= requested_design_id
-				addtimer(CALLBACK(src, .proc/restart_process), 50)
+				addtimer(CALLBACK(src, PROC_REF(restart_process)), 50)
 				return //Didn't pick any material, so you can't build shit either.
 			custom_materials[used_material] += amount_needed
 
@@ -453,8 +453,8 @@
 		//Create item and restart
 		process_completion_world_tick = world.time + time
 		total_build_time = time
-		addtimer(CALLBACK(src, .proc/make_item, power, materials_used, custom_materials, multiplier, coeff, is_stack, requested_design_id, queue_data), time)
-		addtimer(CALLBACK(src, .proc/restart_process), time + 5)
+		addtimer(CALLBACK(src, PROC_REF(make_item), power, materials_used, custom_materials, multiplier, coeff, is_stack, requested_design_id, queue_data), time)
+		addtimer(CALLBACK(src, PROC_REF(restart_process)), time + 5)
 	else
 		say("Insufficient materials, operation will proceed when sufficient materials are available.")
 		operating = FALSE

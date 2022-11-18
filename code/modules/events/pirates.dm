@@ -34,8 +34,8 @@
 		PIRATE_RESPONSE_PAY = "We'll pay.",
 		PIRATE_RESPONSE_NO_PAY = "No way.",
 	)
-	threat.answer_callback = CALLBACK(GLOBAL_PROC, .proc/pirates_answered, threat, payoff, ship_name, initial_send_time, response_max_time)
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/spawn_pirates, threat, FALSE), response_max_time)
+	threat.answer_callback = CALLBACK(GLOBAL_PROC, PROC_REF(pirates_answered), threat, payoff, ship_name, initial_send_time, response_max_time)
+	addtimer(CALLBACK(GLOBAL_PROC, PROC_REF(spawn_pirates), threat, FALSE), response_max_time)
 	SScommunications.send_message(threat,unique = TRUE)
 
 /proc/pirates_answered(datum/comm_message/threat, payoff, ship_name, initial_send_time, response_max_time)
@@ -282,7 +282,7 @@
 	pad = newpad
 
 	if(pad)
-		RegisterSignal(pad, COMSIG_PARENT_QDELETING, .proc/handle_pad_deletion)
+		RegisterSignal(pad, COMSIG_PARENT_QDELETING, PROC_REF(handle_pad_deletion))
 
 /obj/machinery/computer/piratepad_control/proc/handle_pad_deletion()
 	pad = null
@@ -391,7 +391,7 @@
 	status_report = "Sending..."
 	pad.visible_message("<span class='notice'>[pad] starts charging up.</span>")
 	pad.icon_state = pad.warmup_state
-	sending_timer = addtimer(CALLBACK(src,.proc/send),warmup_time, TIMER_STOPPABLE)
+	sending_timer = addtimer(CALLBACK(src,PROC_REF(send)),warmup_time, TIMER_STOPPABLE)
 
 /obj/machinery/computer/piratepad_control/proc/stop_sending()
 	if(!sending)

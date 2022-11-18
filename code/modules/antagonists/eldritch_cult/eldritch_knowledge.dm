@@ -165,7 +165,7 @@
 		to_chat(user, "<span class='warning'>These items don't possess the required fingerprints or DNA.</span>")
 		return FALSE
 
-	var/chosen_mob = input("Select the person you wish to curse","Your target") as null|anything in sortList(compiled_list, /proc/cmp_mob_realname_dsc)
+	var/chosen_mob = input("Select the person you wish to curse","Your target") as null|anything in sortList(compiled_list, GLOBAL_PROC_REF(cmp_mob_realname_dsc))
 	if(!chosen_mob)
 		return FALSE
 	var/mob/living/living_mob = chosen_mob
@@ -173,7 +173,7 @@
 		to_chat(user, "<span class='warning'>The curse failed! The target is warded against curses.</span>")
 		return FALSE
 	curse(compiled_list[chosen_mob])
-	addtimer(CALLBACK(src, .proc/uncurse, compiled_list[chosen_mob]),timer)
+	addtimer(CALLBACK(src, PROC_REF(uncurse), compiled_list[chosen_mob]),timer)
 	return TRUE
 
 /datum/eldritch_knowledge/curse/proc/curse(mob/living/chosen_mob)

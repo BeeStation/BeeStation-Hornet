@@ -58,7 +58,7 @@
 	// Will help make emagging the console not so easy to get away with.
 	MK.info += "<br><br><font color='red'>£%@%(*$%&(£&?*(%&£/{}</font>"
 	var/time = 100 * length(linkedServer.decryptkey)
-	addtimer(CALLBACK(src, .proc/UnmagConsole), time)
+	addtimer(CALLBACK(src, PROC_REF(UnmagConsole)), time)
 	message = rebootmsg
 
 /obj/machinery/computer/message_monitor/New()

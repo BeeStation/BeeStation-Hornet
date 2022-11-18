@@ -61,9 +61,9 @@
 	r1 = GETREDPART(default_color)
 	g1 = GETGREENPART(default_color)
 	b1 = GETBLUEPART(default_color)
-	RegisterSignal(ethereal, COMSIG_ATOM_SHOULD_EMAG, .proc/should_emag)
-	RegisterSignal(ethereal, COMSIG_ATOM_ON_EMAG, .proc/on_emag)
-	RegisterSignal(ethereal, COMSIG_ATOM_EMP_ACT, .proc/on_emp_act)
+	RegisterSignal(ethereal, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
+	RegisterSignal(ethereal, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
+	RegisterSignal(ethereal, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
 
 	spec_updatehealth(ethereal)
 
@@ -114,9 +114,9 @@
 	to_chat(H, "<span class='notice'>You feel the light of your body leave you.</span>")
 	switch(severity)
 		if(EMP_LIGHT)
-			addtimer(CALLBACK(src, .proc/stop_emp, H), 10 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE) //We're out for 10 seconds
+			addtimer(CALLBACK(src, PROC_REF(stop_emp), H), 10 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE) //We're out for 10 seconds
 		if(EMP_HEAVY)
-			addtimer(CALLBACK(src, .proc/stop_emp, H), 20 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE) //We're out for 20 seconds
+			addtimer(CALLBACK(src, PROC_REF(stop_emp), H), 20 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE) //We're out for 20 seconds
 
 /datum/species/ethereal/proc/should_emag(mob/living/carbon/human/H, mob/user)
 	SIGNAL_HANDLER
@@ -130,7 +130,7 @@
 		to_chat(user, "<span class='notice'>You tap [H] on the back with your card.</span>")
 	H.visible_message("<span class='danger'>[H] starts flickering in an array of colors!</span>")
 	handle_emag(H)
-	addtimer(CALLBACK(src, .proc/stop_emag, H), 30 SECONDS) //Disco mode for 30 seconds! This doesn't affect the ethereal at all besides either annoying some players, or making someone look badass.
+	addtimer(CALLBACK(src, PROC_REF(stop_emag), H), 30 SECONDS) //Disco mode for 30 seconds! This doesn't affect the ethereal at all besides either annoying some players, or making someone look badass.
 
 /datum/species/ethereal/proc/stop_emp(mob/living/carbon/human/H)
 	EMPeffect = FALSE
@@ -142,7 +142,7 @@
 		return
 	current_color = "#[GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]]"	//Picks a random colour from the Ethereal colour list
 	spec_updatehealth(H)
-	addtimer(CALLBACK(src, .proc/handle_emag, H), 5) //Call ourselves every 0.5 seconds to change color
+	addtimer(CALLBACK(src, PROC_REF(handle_emag), H), 5) //Call ourselves every 0.5 seconds to change color
 
 /datum/species/ethereal/proc/stop_emag(mob/living/carbon/human/H)
 	emageffect = FALSE

@@ -25,7 +25,7 @@
 			lose_text = ""
 			qdel(src)
 			return
-	RegisterSignal(obsession.mind, COMSIG_MIND_CRYOED, .proc/on_obsession_cryoed)
+	RegisterSignal(obsession.mind, COMSIG_MIND_CRYOED, PROC_REF(on_obsession_cryoed))
 	gain_text = "<span class='warning'>You hear a sickening, raspy voice in your head. It wants one small task of you...</span>"
 	owner.mind.add_antag_datum(/datum/antagonist/obsessed)
 	antagonist = owner.mind.has_antag_datum(/datum/antagonist/obsessed)
@@ -91,7 +91,7 @@
 		lose_text = "<span class='warning'>[message] The voices in your head fall silent.</span>"
 		qdel(src)
 		return
-	RegisterSignal(obsession.mind, COMSIG_MIND_CRYOED, .proc/on_obsession_cryoed)
+	RegisterSignal(obsession.mind, COMSIG_MIND_CRYOED, PROC_REF(on_obsession_cryoed))
 	to_chat(owner, "<span class='warning'>[message] The voices have a new task for you...</span>")
 	antagonist.objectives = list()
 	antagonist.forge_objectives(obsession.mind)
@@ -108,7 +108,7 @@
 			owner.vomit()
 			fail = TRUE
 		if(2)
-			INVOKE_ASYNC(owner, /mob.proc/emote, "cough")
+			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "cough")
 			owner.dizziness += 10
 			fail = TRUE
 		if(3)

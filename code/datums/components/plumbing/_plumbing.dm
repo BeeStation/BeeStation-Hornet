@@ -25,8 +25,8 @@
 	reagents = AM.reagents
 	turn_connects = _turn_connects
 
-	RegisterSignal(parent, list(COMSIG_MOVABLE_MOVED,COMSIG_PARENT_PREQDELETED), .proc/disable)
-	RegisterSignal(parent, list(COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH), .proc/toggle_active)
+	RegisterSignal(parent, list(COMSIG_MOVABLE_MOVED,COMSIG_PARENT_PREQDELETED), PROC_REF(disable))
+	RegisterSignal(parent, list(COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH), PROC_REF(toggle_active))
 
 	if(start)
 		enable()

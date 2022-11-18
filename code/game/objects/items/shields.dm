@@ -272,7 +272,7 @@
 	src.attack_self(owner)
 	to_chat(owner, "<span class='warning'>The [src] overheats!.</span>")
 	cooldown_timer = world.time + cooldown_duration
-	addtimer(CALLBACK(src, .proc/recharged, owner), cooldown_duration)
+	addtimer(CALLBACK(src, PROC_REF(recharged), owner), cooldown_duration)
 
 /obj/item/shield/energy/proc/recharged(mob/living/carbon/human/owner)//ree. i hate addtimer. ree.
 	playsound(owner, 'sound/effects/beepskyspinsabre.ogg', 35, 1)

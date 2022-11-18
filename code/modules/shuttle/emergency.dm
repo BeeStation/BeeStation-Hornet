@@ -107,7 +107,7 @@
 		return
 
 	var/old_len = authorized.len
-	addtimer(CALLBACK(src, .proc/clear_recent_action, user), SHUTTLE_CONSOLE_ACTION_DELAY)
+	addtimer(CALLBACK(src, PROC_REF(clear_recent_action), user), SHUTTLE_CONSOLE_ACTION_DELAY)
 
 	switch(action)
 		if("authorize")
@@ -617,7 +617,7 @@
 
 /obj/machinery/computer/shuttle_flight/pod/Initialize()
 	. = ..()
-	RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, .proc/handle_alert)
+	RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, PROC_REF(handle_alert))
 
 /obj/machinery/computer/shuttle_flight/pod/proc/handle_alert(datum/source, new_alert)
 	SIGNAL_HANDLER

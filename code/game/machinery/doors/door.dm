@@ -67,7 +67,7 @@
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
 	if(red_alert_access)
-		RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, .proc/handle_alert)
+		RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, PROC_REF(handle_alert))
 
 /obj/machinery/door/proc/handle_alert(datum/source, new_alert)
 	SIGNAL_HANDLER
@@ -265,12 +265,12 @@
 	if (. & EMP_PROTECT_SELF)
 		return
 	if(prob(20/severity) && (istype(src, /obj/machinery/door/airlock) || istype(src, /obj/machinery/door/window)) )
-		INVOKE_ASYNC(src, .proc/open)
+		INVOKE_ASYNC(src, PROC_REF(open))
 	if(prob(severity*10 - 20))
 		if(secondsElectrified == MACHINE_NOT_ELECTRIFIED)
 			secondsElectrified = MACHINE_ELECTRIFIED_PERMANENT
 			LAZYADD(shockedby, "\[[time_stamp()]\]EM Pulse")
-			addtimer(CALLBACK(src, .proc/unelectrify), 300)
+			addtimer(CALLBACK(src, PROC_REF(unelectrify)), 300)
 
 /obj/machinery/door/proc/unelectrify()
 	secondsElectrified = MACHINE_NOT_ELECTRIFIED
@@ -389,7 +389,7 @@
 		close()
 
 /obj/machinery/door/proc/autoclose_in(wait)
-	addtimer(CALLBACK(src, .proc/autoclose), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, PROC_REF(autoclose)), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
 
 /// Is the ID Scan wire cut, or has the AI disabled it?
 /// This has a variety of non-uniform effects - it doesn't simply grant access.

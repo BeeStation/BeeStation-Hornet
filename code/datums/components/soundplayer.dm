@@ -22,7 +22,7 @@
 	if(!isnull(amount))
 		amount_left = amount
 
-	RegisterSignal(parent, signal_or_sig_list, .proc/play_sound) //Registers all the signals in signal_or_sig_list.
+	RegisterSignal(parent, signal_or_sig_list, PROC_REF(play_sound)) //Registers all the signals in signal_or_sig_list.
 
 
 

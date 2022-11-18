@@ -188,7 +188,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/double_spiral()
 	SLEEP_CHECK_DEATH(10)
-	INVOKE_ASYNC(src, .proc/spiral_shoot, FALSE, 16)
+	INVOKE_ASYNC(src, PROC_REF(spiral_shoot), FALSE, 16)
 	spiral_shoot(FALSE, 8)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/final_attack() //not actually necessarily the final attack, but has a very long cooldown.

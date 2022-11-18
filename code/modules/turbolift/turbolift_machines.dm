@@ -182,7 +182,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 		for(var/datum/weakref/T in airlocks) //Just in case. Don't want anybody to get locked in.
 			var/obj/machinery/door/airlock/turbolift/A = T.resolve()
 			if(A)
-				INVOKE_ASYNC(src, .proc/open_airlock, A)
+				INVOKE_ASYNC(src, PROC_REF(open_airlock), A)
 			else
 				airlocks -= T
 		return
@@ -204,11 +204,11 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	for(var/datum/weakref/T in airlocks)
 		var/obj/machinery/door/airlock/turbolift/A = T.resolve()
 		if(A)
-			INVOKE_ASYNC(src, .proc/close_airlock, A)
+			INVOKE_ASYNC(src, PROC_REF(close_airlock), A)
 		else
 			airlocks -= T
 
-	addtimer(CALLBACK(src, .proc/move, destination_id), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(move), destination_id), 5 SECONDS)
 
 /obj/machinery/computer/turbolift/proc/move(var/destination_id)
 	var/obj/docking_port/mobile/turbolift/M = SSshuttle.getShuttle(shuttle_id)
@@ -229,7 +229,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 		return
 
 	SSshuttle.moveShuttle(shuttle_id, dock.id, 0)
-	addtimer(CALLBACK(src, .proc/post_move, destination_id), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(post_move), destination_id), 5 SECONDS)
 
 /obj/machinery/computer/turbolift/proc/post_move(var/destination_id)
 	var/obj/docking_port/stationary/turbolift/dock = SSshuttle.getDock(destination_id)
@@ -237,7 +237,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	for(var/datum/weakref/T in airlocks)
 		var/obj/machinery/door/airlock/turbolift/A = T.resolve()
 		if(A)
-			INVOKE_ASYNC(src, .proc/open_airlock, A)
+			INVOKE_ASYNC(src, PROC_REF(open_airlock), A)
 		else
 			airlocks -= T
 

@@ -75,8 +75,8 @@
 	var/side = zone == BODY_ZONE_R_ARM ? 2 : 1
 	hand = owner.hand_bodyparts[side]
 	if(hand)
-		RegisterSignal(hand, COMSIG_ITEM_ATTACK_SELF, .proc/on_item_attack_self) //If the limb gets an attack-self, open the menu. Only happens when hand is empty
-		RegisterSignal(M, COMSIG_KB_MOB_DROPITEM_DOWN, .proc/dropkey) //We're nodrop, but we'll watch for the drop hotkey anyway and then stow if possible.
+		RegisterSignal(hand, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_item_attack_self)) //If the limb gets an attack-self, open the menu. Only happens when hand is empty
+		RegisterSignal(M, COMSIG_KB_MOB_DROPITEM_DOWN, PROC_REF(dropkey)) //We're nodrop, but we'll watch for the drop hotkey anyway and then stow if possible.
 
 /obj/item/organ/cyberimp/arm/Remove(mob/living/carbon/M, special = 0)
 	Retract()
@@ -87,7 +87,7 @@
 
 /obj/item/organ/cyberimp/arm/proc/on_item_attack_self()
 	SIGNAL_HANDLER
-	INVOKE_ASYNC(src, .proc/ui_action_click)
+	INVOKE_ASYNC(src, PROC_REF(ui_action_click))
 
 /**
   * Called when the mob uses the "drop item" hotkey

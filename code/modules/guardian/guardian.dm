@@ -608,8 +608,8 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			return
 		forceMove(new_body)
 		Reviveify()
-		RegisterSignal(new_body, COMSIG_MOVABLE_MOVED, /mob/living/simple_animal/hostile/guardian.proc/OnMoved)
-		RegisterSignal(new_body, COMSIG_LIVING_REVIVE, /mob/living/simple_animal/hostile/guardian.proc/Reviveify)
+		RegisterSignal(new_body, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, OnMoved))
+		RegisterSignal(new_body, COMSIG_LIVING_REVIVE, TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, Reviveify))
 		to_chat(src, "<span class='notice'>You manifest into existence, as your master's soul appears in a new body!</span>")
 		new_body.add_verb(/mob/living/proc/guardian_comm)
 		new_body.add_verb(/mob/living/proc/guardian_recall)

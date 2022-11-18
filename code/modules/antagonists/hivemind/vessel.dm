@@ -24,7 +24,7 @@
 		brainwash(user, directive)
 		to_chat(user, "<span class='assimilator'>A figment of your subconscious stays firm, you would be incapable of killing yourself if ordered!</span>")
 		user.overlay_fullscreen("hive_mc", /atom/movable/screen/fullscreen/hive_mc)
-		addtimer(CALLBACK(user, .proc/hive_weak_clear, user.mind), 1800, TIMER_STOPPABLE)
+		addtimer(CALLBACK(user, PROC_REF(hive_weak_clear), user.mind), 1800, TIMER_STOPPABLE)
 
 /mob/living/proc/hive_weak_clear()
 	if(!mind)

@@ -68,7 +68,7 @@
 			return
 
 		to_chat(occupant, "<span class='notice'>You enter [src]</span>")
-		addtimer(CALLBACK(src, .proc/start_extracting), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(start_extracting)), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
 		update_icon()
 
 /obj/machinery/fat_sucker/open_machine(mob/user)

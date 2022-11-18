@@ -138,7 +138,7 @@
 			new_corgi.place_on_head(hat,null,FALSE)
 	H = new(new_corgi,src,L)
 	//Restore after this time
-	addtimer(CALLBACK(src, .proc/restore, L), 5 * (volume / metabolization_rate))
+	addtimer(CALLBACK(src, PROC_REF(restore), L), 5 * (volume / metabolization_rate))
 
 /datum/reagent/corgium/proc/restore(mob/living/L)
 	//The mob was qdeleted by an explosion or something
