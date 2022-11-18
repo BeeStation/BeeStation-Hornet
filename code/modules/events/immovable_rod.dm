@@ -175,3 +175,16 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 				new /obj/structure/festivus/anchored(drop_location())
 				new /obj/effect/anomaly/flux(drop_location())
 				qdel(src)
+
+/obj/effect/immovablerod/deadchat_plays(mode = DEMOCRACY_MODE, cooldown = 6 SECONDS)
+	return AddComponent(/datum/component/deadchat_control/immovable_rod, mode, list(), cooldown)
+
+/**
+ * Rod will walk towards edge turf in the specified direction.
+ *
+ * Arguements:
+ * * direction - the direct to walk the rod towards: NORTH, SOUTH, EAST, WEST
+ */
+/obj/effect/immovablerod/proc/walk_in_direction(direction)
+	destination = get_edge_target_turf(src, direction)
+	SSmove_manager.move_towards(src, destination)

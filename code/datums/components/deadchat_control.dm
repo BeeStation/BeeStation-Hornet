@@ -77,7 +77,7 @@
 
 	if(deadchat_mode & DEMOCRACY_MODE)
 		ckey_to_cooldown[source.ckey] = message
-		to_chat(source, span_notice("You have voted for \"[message]\"."))
+		to_chat(source, "<span class='notice'>You have voted for \"[message]\".</span>")
 		return MOB_DEADSAY_SIGNAL_INTERCEPT
 
 /datum/component/deadchat_control/proc/democracy_loop()
@@ -178,9 +178,9 @@
 		if(QDELETED(src))
 			return
 
-		to_chat(user, span_notice("Deadchat can no longer control [parent]."))
+		to_chat(user, "<span class='notice'>Deadchat can no longer control [parent].</span>")
 		log_admin("[key_name(user)] has removed deadchat control from [parent]")
-		message_admins(span_notice("[key_name(user)] has removed deadchat control from [parent]"))
+		message_admins("<span class='notice'>[key_name(user)] has removed deadchat control from [parent]</span>")
 
 		qdel(src)
 
@@ -191,12 +191,12 @@
 	if(!isobserver(user))
 		return
 
-	examine_list += span_notice("[A.p_theyre(TRUE)] currently under deadchat control using the [(deadchat_mode & DEMOCRACY_MODE) ? "democracy" : "anarchy"] ruleset!")
+	examine_list += "<span class='notice'>[A.p_theyre(TRUE)] currently under deadchat control using the [(deadchat_mode & DEMOCRACY_MODE) ? "democracy" : "anarchy"] ruleset!</span>"
 
 	if(deadchat_mode & DEMOCRACY_MODE)
-		examine_list += span_notice("Type a command into chat to vote on an action. This happens once every [input_cooldown * 0.1] second\s.")
+		examine_list += "<span class='notice'>Type a command into chat to vote on an action. This happens once every [input_cooldown * 0.1] second\s.</span>"
 	else if(deadchat_mode & ANARCHY_MODE)
-		examine_list += span_notice("Type a command into chat to perform. You may do this once every [input_cooldown * 0.1] second\s.")
+		examine_list += "<span class='notice'>Type a command into chat to perform. You may do this once every [input_cooldown * 0.1] second\s.</span>"
 
 	var/extended_examine = "<span class='notice'>Command list:"
 

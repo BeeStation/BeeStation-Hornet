@@ -89,6 +89,9 @@
 #define VV_HK_REMOVE_EMITTER "remove_emitter"
 #define VV_HK_ADD_AI "add_ai"
 
+// /atmo/movable
+#define VV_HK_DEADCHAT_PLAYS "deadchat_plays"
+
 // /datum/gas_mixture
 #define VV_HK_SET_MOLES "set_moles"
 #define VV_HK_EMPTY "empty"
