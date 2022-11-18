@@ -112,7 +112,7 @@ export const ListInputModal = (_, context) => {
   }
 
   return (
-    <Window title={title} width={325} height={windowHeight}>
+    <Window title={title} width={325} height={windowHeight} theme="generic">
       {timeout && <Loader value={timeout} />}
       <Window.Content
         onKeyDown={(event) => {

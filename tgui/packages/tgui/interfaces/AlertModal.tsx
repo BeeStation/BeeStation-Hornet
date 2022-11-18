@@ -53,7 +53,7 @@ export const AlertModal = (_, context) => {
   };
 
   return (
-    <Window height={windowHeight} title={title} width={325}>
+    <Window height={windowHeight} title={title} width={325} theme="generic">
       {timeout && <Loader value={timeout} />}
       <Window.Content
         onKeyDown={(e) => {
