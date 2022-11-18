@@ -220,7 +220,7 @@ rules:
   # no-unused-expressions: error
   ## Disallow unused labels
   no-unused-labels: warn
-  ## Disallow unnecessary calls to .LIBCALL() and .apply()
+  ## Disallow unnecessary calls to .call() and .apply()
   # no-useless-call: error
   ## Disallow unnecessary catch clauses
   # no-useless-catch: error

@@ -72,7 +72,7 @@ type ByondType = {
    *
    * See: https://secure.byond.com/docs/ref/skinparams.html
    */
-  LIBCALL(path: string, params: object): void;
+  call(path: string, params: object): void;
 
   /**
    * Makes an asynchronous BYOND call. Returns a promise.

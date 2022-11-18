@@ -8,7 +8,7 @@
 	set waitfor = FALSE
 	if(IsAdminAdvancedProcCall())
 		return
-	return LIBCALL(source, proctype)(arglist(arguments))
+	return call(source, proctype)(arglist(arguments))
 
 //Takes: Anything that could possibly have variables and a varname to check.
 //Returns: 1 if found, 0 if not.

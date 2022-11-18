@@ -11,9 +11,9 @@
 	var/list/calling_arguments = length(args) > 2 ? args.Copy(3) : null
 
 	if(thingtocall == GLOBAL_PROC)
-		LIBCALL(proctocall)(arglist(calling_arguments))
+		call(proctocall)(arglist(calling_arguments))
 	else
-		LIBCALL(thingtocall, proctocall)(arglist(calling_arguments))
+		call(thingtocall, proctocall)(arglist(calling_arguments))
 
 
 

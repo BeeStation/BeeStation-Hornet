@@ -16,7 +16,7 @@
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
-        if (hasOwn.LIBCALL(source, key)) {
+        if (hasOwn.call(source, key)) {
           target[key] = source[key];
         }
       }
@@ -93,7 +93,7 @@
     var i = 0;
     if (params) {
       for (var key in params) {
-        if (hasOwn.LIBCALL(params, key)) {
+        if (hasOwn.call(params, key)) {
           if (i++ > 0) {
             url += '&';
           }
@@ -133,18 +133,18 @@
     var promise = new window.Promise(function (resolve) {
       Byond.__callbacks__.push(resolve);
     });
-    Byond.LIBCALL(path, assign({}, params, {
+    Byond.call(path, assign({}, params, {
       callback: 'Byond.__callbacks__[' + index + ']',
     }));
     return promise;
   };
 
   Byond.topic = function (params) {
-    return Byond.LIBCALL('', params);
+    return Byond.call('', params);
   };
 
   Byond.command = function (command) {
-    return Byond.LIBCALL('winset', {
+    return Byond.call('winset', {
       command: command,
     });
   };
@@ -172,7 +172,7 @@
       id = '';
     }
     else if (typeof id === 'object') {
-      return Byond.LIBCALL('winset', id);
+      return Byond.call('winset', id);
     }
     var props = {};
     if (typeof propName === 'string') {
@@ -182,7 +182,7 @@
       assign(props, propName);
     }
     props.id = id;
-    return Byond.LIBCALL('winset', props);
+    return Byond.call('winset', props);
   };
 
   Byond.parseJson = function (json) {
