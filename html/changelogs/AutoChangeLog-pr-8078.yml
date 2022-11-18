@@ -1,5 +1,0 @@
-author: DoctorSquishy
-delete-after: true
-changes:
-  - tweak: Tweaked Experimentor linking range, so now BoxStation's Experimentor can
-      detect the console.
