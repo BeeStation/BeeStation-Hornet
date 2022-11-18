@@ -267,14 +267,11 @@
 /datum/objective/crew/reporter/check_completion()
 	if(..())
 		return TRUE
-	var/mob/living/carbon/human/body = owner?.current
-	if(!istype(body))
-		return FALSE
 	for(var/datum/feed_channel/channel in GLOB.news_network.network_channels)
 		for(var/datum/feed_message/message in channel.messages)
 			if(!istype(message.author_account, /datum/bank_account))
 				continue
-			if(message.author_account.account_id == body.account_id)
+			if(message.author_account.account_id == owner.account_id)
 				if(length(splittext(message.return_body(), " ")) >= word_count)
 					target_amount--
 	return target_amount <= 0
