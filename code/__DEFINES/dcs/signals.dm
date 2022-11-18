@@ -1,3 +1,2 @@
-/// Signifies that this proc is used to handle signals.
-/// Every proc you pass to RegisterSignal must have this.
-#define SIGNAL_HANDLER SHOULD_NOT_SLEEP(TRUE)
+#define COMSIG_VV_TOPIC "vv_topic"
+	#define COMPONENT_VV_HANDLED (1<<0)
