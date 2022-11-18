@@ -43,7 +43,7 @@
 	explanation_text = "Make sure the station has at least [target_amount] station credits at the end of the shift."
 
 /datum/objective/crew/points/check_completion()
-	var/datum/bank_account/C = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	var/datum/bank_account/C = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	if(C.account_balance >= target_amount)
 		return TRUE
 	else

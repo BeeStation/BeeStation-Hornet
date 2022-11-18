@@ -2,22 +2,24 @@
 	title = JOB_NAME_CLOWN
 	flag = CLOWN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	department_flag = CIVILIAN
+	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 
 	outfit = /datum/outfit/job/clown
 
 	access = list(ACCESS_THEATRE)
 	minimal_access = list(ACCESS_THEATRE)
-	paycheck = PAYCHECK_MINIMAL
-	paycheck_department = ACCOUNT_SRV
+
+	department_flag = CIVILIAN
+	departments = DEPT_BITFLAG_SRV
+	bank_account_department = ACCOUNT_SRV_BITFLAG
+	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)
+
 
 	display_order = JOB_DISPLAY_ORDER_CLOWN
-	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Jester"
 
 	species_outfits = list(

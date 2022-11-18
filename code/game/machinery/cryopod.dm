@@ -313,6 +313,17 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		qdel(W)//because we moved all items to preserve away
 		//and yes, this totally deletes their bodyparts one by one, I just couldn't bother
 
+	// Suspend their bank payment
+	if(mob_occupant.mind?.account_id)
+		var/datum/bank_account/target_account = SSeconomy.get_bank_account_by_id(mob_occupant.mind.account_id)
+		if(target_account)
+			for(var/D in target_account.payment_per_department)
+				target_account.payment_per_department[D] = 0
+				target_account.bonus_per_department[D] = 0
+			target_account.suspended = TRUE // bank account will not be deleted, just suspended
+
+	// This should be done after item removal because it checks if your ID card still exists
+
 	if(iscyborg(mob_occupant))
 		var/mob/living/silicon/robot/R = occupant
 		if(!istype(R)) return
