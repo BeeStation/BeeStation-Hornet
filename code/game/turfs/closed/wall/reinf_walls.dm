@@ -211,6 +211,7 @@
 		icon_state = "r_wall-[d_state]"
 	else
 		icon_state = "r_wall"
+	return ..()
 
 /turf/closed/wall/r_wall/wall_singularity_pull(current_size)
 	if(current_size >= STAGE_FIVE)
