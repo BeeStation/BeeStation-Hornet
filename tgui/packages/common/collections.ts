@@ -21,7 +21,7 @@ export const toArray = collection => {
     const hasOwnProperty = Object.prototype.hasOwnProperty;
     const result = [];
     for (let i in collection) {
-      if (hasOwnProperty.call(collection, i)) {
+      if (hasOwnProperty.LIBCALL(collection, i)) {
         result.push(collection[i]);
       }
     }
@@ -114,7 +114,7 @@ export const map = iterateeFn => collection => {
     const hasOwnProperty = Object.prototype.hasOwnProperty;
     const result = [];
     for (let i in collection) {
-      if (hasOwnProperty.call(collection, i)) {
+      if (hasOwnProperty.LIBCALL(collection, i)) {
         result.push(iterateeFn(collection[i], i, collection));
       }
     }
@@ -172,7 +172,7 @@ export const sortBy = (...iterateeFns) => array => {
 };
 
 /**
- * 
+ *
  * returns a range of numbers from start to end, exclusively.
  * for example, range(0, 5) will return [0, 1, 2, 3, 4].
  */

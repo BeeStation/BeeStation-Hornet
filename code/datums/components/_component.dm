@@ -178,7 +178,7 @@
 	var/target = comp_lookup[sigtype]
 	if(!length(target))
 		var/datum/listening_datum = target
-		return NONE | call(listening_datum, listening_datum.signal_procs[src][sigtype])(arglist(arguments))
+		return NONE | LIBCALL(listening_datum, listening_datum.signal_procs[src][sigtype])(arglist(arguments))
 	. = NONE
 	// This exists so that even if one of the signal receivers unregisters the signal,
 	// all the objects that are receiving the signal get the signal this final time.
@@ -187,7 +187,7 @@
 	for(var/datum/listening_datum as anything in target)
 		queued_calls[listening_datum] = listening_datum.signal_procs[src][sigtype]
 	for(var/datum/listening_datum as anything in queued_calls)
-		. |= call(listening_datum, queued_calls[listening_datum])(arglist(arguments))
+		. |= LIBCALL(listening_datum, queued_calls[listening_datum])(arglist(arguments))
 
 /datum/proc/GetComponent(datum/component/c_type)
 	RETURN_TYPE(c_type)

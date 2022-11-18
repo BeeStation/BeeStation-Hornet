@@ -314,7 +314,7 @@
 			return
 	// Pass message to the subscriber
 	else if(subscriber_object)
-		var/prevent_default = call(
+		var/prevent_default = LIBCALL(
 			subscriber_object,
 			subscriber_delegate)(type, payload, href_list)
 		if(prevent_default)

@@ -13,7 +13,7 @@
 #error TGS API unconfigured
 
 // Uncomment this if you wish to allow the game to interact with TGS 3.
-// This will raise the minimum required security level of your game to TGS_SECURITY_TRUSTED due to it utilizing call()()
+// This will raise the minimum required security level of your game to TGS_SECURITY_TRUSTED due to it utilizing LIBCALL()()
 //#define TGS_V3_API
 
 // Required interfaces (fill in with your codebase equivalent):

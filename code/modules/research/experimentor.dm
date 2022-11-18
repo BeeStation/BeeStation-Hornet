@@ -570,7 +570,7 @@
 			return
 		else if(loc == user)
 			cooldown = TRUE
-			call(src,realProc)(user)
+			LIBCALL(src,realProc)(user)
 			if(!QDELETED(src))
 				addtimer(CALLBACK(src, PROC_REF(cd)), cooldownMax)
 	else
