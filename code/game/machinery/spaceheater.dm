@@ -63,13 +63,12 @@
 /obj/machinery/space_heater/examine(mob/user)
 	. = ..()
 	. += "\The [src] is [on ? "on" : "off"], and the hatch is [panel_open ? "open" : "closed"]."
-
 	if(cell)
 		. += "The charge meter reads [cell ? round(cell.percent(), 1) : 0]%."
 	else
 		. += "There is no power cell installed."
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'("The status display reads: Temperature range at <b>[settable_temperature_range]C</b>.<br>Heating power at <b>[siunit(heating_power, "W", 1)]</b>.<br>Power consumption at <b>[(efficiency*-0.0025)+150]%</b>.") //100%, 75%, 50%, 25%
+		. += "<span class='notice'>The status display reads: Temperature range at <b>[settable_temperature_range]°C</b>.<br>Heating power at <b>[heating_power*0.001]kJ</b>.<br>Power consumption at <b>[(efficiency*-0.0025)+150]%</b>.</span>" //100%, 75%, 50%, 25%
 
 /obj/machinery/space_heater/update_icon_state()
 	. = ..()
@@ -161,7 +160,7 @@
 	add_fingerprint(user)
 
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
-		user.visible_message("<span class='notice'>\The [user] [panel_open ? "opens" : "closes"] the hatch on \the [src]. <span>("You [panel_open ? "open" : "close"] the hatch on \the [src].)
+		user.visible_message("<span class='notice'>\The [user] [panel_open ? "opens" : "closes"] the hatch on \the [src].</span>", "<span class='notice'>You [panel_open ? "open" : "close"] the hatch on \the [src].</span>")
 		update_appearance()
 		return TRUE
 
@@ -179,7 +178,7 @@
 			return
 		cell = I
 		I.add_fingerprint(usr)
-		user.visible_message(span_notice("\The [user] inserts a power cell into \the [src]."), span_notice("You insert the power cell into \the [src]."))
+		user.visible_message("<span class='notice'>\The [user] inserts a power cell into \the [src].</span>", "<span class ='notice'>You insert the power cell into \the [src].<span>")
 		SStgui.update_uis(src)
 		return TRUE
 	return ..()
@@ -193,7 +192,7 @@
 	on = !on
 	mode = HEATER_MODE_STANDBY
 	balloon_alert(usr, "[on ? "on" : "off"]")
-	usr.visible_message(span_notice("[usr] switches [on ? "on" : "off"] \the [src]."), span_notice("You switch [on ? "on" : "off"] \the [src]."))
+	usr.visible_message("<span class='notice'>[usr] switches [on ? "on" : "off"] \the [src].</span>", "<span class='notice'>You switch [on ? "on" : "off"] \the [src].</span>")
 	update_appearance()
 	if(on)
 		SSair.atmos_air_machinery += src
@@ -259,7 +258,7 @@
 				target_temperature = clamp(round(target),
 					max(settable_temperature_median - settable_temperature_range, TCMB),
 					settable_temperature_median + settable_temperature_range)
-		if('eject')
+		if("eject")
 			if(panel_open && cell)
 				cell.forceMove(drop_location())
 				cell = null
