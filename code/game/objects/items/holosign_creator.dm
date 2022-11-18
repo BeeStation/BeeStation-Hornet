@@ -12,7 +12,7 @@
 	throw_speed = 3
 	throw_range = 7
 	item_flags = NOBLUDGEON
-	var/sign_name = "\improper sign"
+	var/sign_name = "sign"
 	var/list/signs = list()
 	var/max_signs = 10
 	var/creation_time = 0 //time to create a holosign in deciseconds.
@@ -47,7 +47,10 @@
 						if(is_blocked_turf(T, TRUE)) //don't try to sneak dense stuff on our tile during the wait.
 							return
 					H = new holosign_type(get_turf(target), src)
-					to_chat(user, "<span class='notice'>You create \a [H] with [src].</span>")
+					if(length(signs) == max_signs)
+						to_chat(user, "<span class='notice'>You create \a [H] with [src]. It cannot project any more [sign_name]\s!</span>")
+					else
+						to_chat(user, "<span class='notice'>You create \a [H] with [src]. It can project [max_signs - length(signs)] more [sign_name]\s</span>")
 				else
 					to_chat(user, "<span class='notice'>[src] is projecting at max capacity!</span>")
 
@@ -63,14 +66,15 @@
 
 /obj/item/holosign_creator/examine(mob/user)
 	. = ..()
+	. += "It has a maximum capacity of [max_signs] [sign_name]\s"
 	if(!length(signs))
-		. += "\A [src]. It is currently not projecting any [length(signs)]s."
+		. += "It is currently not projecting any [sign_name]\s."
 		return
 	if(length(signs) < max_signs)
-		. += "\A [src]. It is currently projecting [length(signs)] [sign_name]\s."
+		. += "It is currently projecting [length(signs)] [sign_name]\s."
 		return
 	if(length(signs) == max_signs)
-		. += "\A [src]. It is currently projecting at maximum capacity!."
+		. += "It is currently projecting at maximum capacity!."
 
 /obj/item/holosign_creator/janibarrier
 	name = "custodial holobarrier projector"
