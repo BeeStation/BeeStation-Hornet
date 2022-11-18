@@ -70,7 +70,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_EXITED = PROC_REF(conveyable_exit),
 		COMSIG_ATOM_ENTERED = PROC_REF(conveyable_enter),
-		COMSIG_ATOM_CREATED = .proc/conveyable_enter
+		COMSIG_ATOM_CREATED = PROC_REF(conveyable_enter)
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	update_move_direction()

@@ -34,10 +34,10 @@
   * ### proc defined on current(src) object (when in a /proc/ and not an override) OR overridden at src or any of it's parents:
   * .procname
   *
-  * `CALLBACK(src, .some_proc_here)`
+  * `CALLBACK(src, PROC_REF(some_proc_here)`
   *
   * ### when the above doesn't apply:
-  *.proc/procname
+  *	PROC_REF(procname)
   *
   * `CALLBACK(src, PROC_REF(some_proc_here))`
   *
