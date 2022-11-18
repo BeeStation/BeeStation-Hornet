@@ -36,13 +36,6 @@
 	blend_mode = BLEND_MULTIPLY
 	alpha = 255
 
-
-/atom/movable/screen/plane_master/openspace/backdrop(mob/mymob)
-	filters = list()
-	add_filter("first_stage_openspace", 1, drop_shadow_filter(color = "#04080FAA", size = -10))
-	add_filter("second_stage_openspace", 2, drop_shadow_filter(color = "#04080FAA", size = -15))
-	add_filter("third_stage_openspace", 2, drop_shadow_filter(color = "#04080FAA", size = -20))
-
 /atom/movable/screen/plane_master/openspace/Initialize(mapload)
 	. = ..()
 	add_filter("first_stage_openspace", 1, drop_shadow_filter(color = "#04080FAA", size = -10))
@@ -73,10 +66,14 @@
 
 /atom/movable/screen/plane_master/game_world/backdrop(mob/mymob)
 	. = ..()
-	if(istype(mymob) && mymob.client && mymob.client.prefs && mymob.client.prefs.ambientocclusion)
-		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
 	if(istype(mymob) && mymob.eye_blurry)
 		add_filter("eye_blur", 1, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
+
+/atom/movable/screen/plane_master/data_hud
+	name = "data_hud plane master"
+	plane = DATA_HUD_PLANE
+	appearance_flags = PLANE_MASTER //should use client color
+	blend_mode = BLEND_OVERLAY
 
 /atom/movable/screen/plane_master/massive_obj
 	name = "massive object plane master"
@@ -167,11 +164,6 @@
 /atom/movable/screen/plane_master/parallax_white
 	name = "parallax whitifier plane master"
 	plane = PLANE_SPACE
-
-
-/atom/movable/screen/plane_master/lighting/backdrop(mob/mymob)
-	mymob.overlay_fullscreen("lighting_backdrop_lit", /atom/movable/screen/fullscreen/lighting_backdrop/lit)
-	mymob.overlay_fullscreen("lighting_backdrop_unlit", /atom/movable/screen/fullscreen/lighting_backdrop/unlit)
 
 /atom/movable/screen/plane_master/camera_static
 	name = "camera static plane master"

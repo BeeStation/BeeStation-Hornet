@@ -182,7 +182,6 @@
 			I.pickup(src)
 		I.forceMove(src)
 		held_items[hand_index] = I
-		I.layer = ABOVE_HUD_LAYER
 		I.plane = ABOVE_HUD_PLANE
 		I.equipped(src, ITEM_SLOT_HANDS)
 		if(I.pulledby)

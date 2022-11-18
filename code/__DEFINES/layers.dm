@@ -98,6 +98,8 @@
 
 #define RAD_TEXT_PLANE 90
 
+#define DATA_HUD_PLANE 15
+
 //---------- LIGHTING -------------
 ///Normal 1 per turf dynamic lighting objects
 #define LIGHTING_PLANE 100

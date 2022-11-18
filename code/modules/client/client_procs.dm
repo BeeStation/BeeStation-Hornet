@@ -1032,7 +1032,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			O = new
 			LAZYSET(char_render_holders, "[D]", O)
 			screen |= O
-		O.appearance = MA
+		O.appearance = source
 		O.dir = D
 		O.screen_loc = "character_preview_map:0,[pos]"
 
