@@ -30,7 +30,8 @@
 		smartguy = TRUE
 	. += "It contains:\n100 units of [smartguy ? initial(rand_cont.name) : "various reagents"]" //Luckily science goggles say nothing if there's no reagents
 
-/obj/item/reagent_containers/glass/chem_heirloom/proc/update_name() //This has to be done after init, since the heirloom component is added after.
+/obj/item/reagent_containers/glass/chem_heirloom/update_name() //This has to be done after init, since the heirloom component is added after.
+	. = ..()
 	rand_cont = get_random_reagent_id(CHEMICAL_RNG_FUN)
 	name ="hard locked bottle of [initial(rand_cont.name)]"
 	var/datum/component/heirloom/H = GetComponent(/datum/component/heirloom)

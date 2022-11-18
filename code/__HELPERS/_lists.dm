@@ -19,6 +19,8 @@
 #define LAZYACCESS(L, I) (L ? (isnum_safe(I) ? (I > 0 && I <= length(L) ? L[I] : null) : L[I]) : null)
 #define LAZYSET(L, K, V) if(!L) { L = list(); } L[K] = V;
 #define LAZYLEN(L) length(L) // should only be used for lazy lists. Using this with non-lazy lists is bad
+///Sets a list to null
+#define LAZYNULL(L) L = null
 #define LAZYCLEARLIST(L) if(L) L.Cut()
 #define SANITIZE_LIST(L) ( islist(L) ? L : list() )
 #define reverseList(L) reverseRange(L.Copy())
