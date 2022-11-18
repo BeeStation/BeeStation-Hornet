@@ -25,6 +25,10 @@
 	volume = 35 * device_type
 	..()
 
+/obj/machinery/atmospherics/pipe/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[src] is on layer [piping_layer].</span>"
+
 /obj/machinery/atmospherics/pipe/nullifyNode(i)
 	var/obj/machinery/atmospherics/oldN = nodes[i]
 	..()
