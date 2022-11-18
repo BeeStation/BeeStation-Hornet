@@ -1,0 +1,5 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - tweak: Moved some wiring on PubbyStation.
+  - tweak: Connected the tcomms SMES to the main power grid on PubbyStation
