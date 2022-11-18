@@ -18287,10 +18287,10 @@
 	name = "Telecommunications External Access";
 	req_access_txt = "61"
 	},
-/obj/structure/cable{
+/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/structure/cable/cyan{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plating,
 /area/tcommsat/computer)
 "clF" = (
@@ -18321,10 +18321,10 @@
 /turf/open/floor/plating,
 /area/tcommsat/computer)
 "clS" = (
-/obj/structure/cable{
-	icon_state = "6-9"
-	},
 /obj/machinery/airalarm/directional/north,
+/obj/structure/cable/cyan{
+	icon_state = "6-8"
+	},
 /turf/open/floor/plasteel,
 /area/tcommsat/computer)
 "clU" = (
@@ -19551,6 +19551,9 @@
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/structure/cable/cyan{
 	icon_state = "4-8"
+	},
+/obj/structure/cable/cyan{
+	icon_state = "2-4"
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/chapel/monastery)
@@ -20779,13 +20782,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
-"cSN" = (
-/obj/structure/cable/cyan{
-	icon_state = "2-5"
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/chapel/main/monastery)
 "cSZ" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -20878,13 +20874,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/shuttledock)
-"cVz" = (
-/obj/structure/cable/cyan{
-	icon_state = "4-9"
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/chapel/main/monastery)
 "cVX" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -22217,9 +22206,6 @@
 /turf/open/floor/plasteel/white,
 /area/ai_monitored/turret_protected/ai)
 "dFH" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
 	},
@@ -22493,6 +22479,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "6-8"
+	},
+/obj/structure/cable/cyan{
+	icon_state = "0-4"
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/chapel/monastery)
@@ -24214,11 +24203,11 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "eJL" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
+	},
+/obj/structure/cable/cyan{
+	icon_state = "2-8"
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
@@ -26744,9 +26733,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/cable/cyan{
-	icon_state = "1-2"
-	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
 "geY" = (
@@ -27352,11 +27338,11 @@
 	name = "Telecommunications Maintenance";
 	req_access_txt = "61"
 	},
-/obj/structure/cable{
-	icon_state = "6-9"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
+	},
+/obj/structure/cable/cyan{
+	icon_state = "6-9"
 	},
 /turf/open/floor/plating,
 /area/tcommsat/computer)
@@ -27956,6 +27942,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/cable/cyan{
+	icon_state = "1-8"
+	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
 "gOI" = (
@@ -35837,6 +35826,9 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/supply)
 "ldQ" = (
@@ -38372,7 +38364,7 @@
 /obj/machinery/power/terminal{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/cyan{
 	icon_state = "0-9"
 	},
 /turf/open/floor/plating,
@@ -39013,10 +39005,10 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/captain)
 "mRw" = (
-/obj/structure/cable/cyan{
-	icon_state = "5-8"
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/cable/cyan{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
 "mRC" = (
@@ -39661,11 +39653,11 @@
 	name = "Telecommunications External Access";
 	req_access_txt = "61"
 	},
-/obj/structure/cable{
-	icon_state = "1-6"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/cable/cyan{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/tcommsat/computer)
 "nly" = (
@@ -39756,10 +39748,10 @@
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
 "nnB" = (
-/obj/structure/cable/cyan{
-	icon_state = "1-10"
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/cable/cyan{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
 "nop" = (
@@ -41376,10 +41368,6 @@
 "ofY" = (
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard)
-"ohf" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "ohj" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
@@ -43225,9 +43213,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "paQ" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
@@ -43412,9 +43397,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /turf/open/floor/plating,
 /area/security/execution/transfer)
 "pfG" = (
@@ -43449,9 +43431,6 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/nuke_storage)
 "pgo" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
@@ -44529,10 +44508,10 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer2,
-/obj/structure/cable/cyan{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/tile/neutral,
+/obj/structure/cable/cyan{
+	icon_state = "2-4"
+	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "pGL" = (
@@ -45205,6 +45184,9 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/structure/cable/cyan{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plasteel,
 /area/tcommsat/computer)
 "qaH" = (
@@ -45225,9 +45207,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
-	},
-/obj/structure/cable/cyan{
-	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
@@ -45766,7 +45745,7 @@
 	dir = 8
 	},
 /obj/structure/cable/cyan{
-	icon_state = "1-6"
+	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
@@ -46443,15 +46422,6 @@
 /obj/structure/transit_tube/crossing,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
-"qMr" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/cable/cyan{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/chapel/main/monastery)
 "qMu" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -47560,8 +47530,10 @@
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "ruF" = (
-/obj/structure/cable/cyan,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/cyan{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "ruT" = (
@@ -47667,14 +47639,9 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "rxW" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/cyan{
-	icon_state = "6-10"
+	icon_state = "1-4"
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
@@ -48242,10 +48209,10 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/obj/structure/cable/cyan{
-	icon_state = "6-9"
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/cable/cyan{
+	icon_state = "2-8"
+	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
 "rMw" = (
@@ -51784,9 +51751,6 @@
 "tGQ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/cable/cyan{
-	icon_state = "1-10"
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
@@ -53820,9 +53784,11 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "vdJ" = (
-/obj/structure/cable/yellow,
-/turf/closed/wall,
-/area/security/execution/transfer)
+/obj/structure/cable/cyan{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/chapel/monastery)
 "vdW" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -56065,14 +56031,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"wxb" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/cable/cyan{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plasteel/dark,
-/area/chapel/main/monastery)
 "wxE" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -56458,9 +56416,6 @@
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = 26
-	},
-/obj/structure/cable/cyan{
-	icon_state = "2-9"
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
@@ -57008,12 +56963,12 @@
 	brightness = 3;
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
 	dir = 1
+	},
+/obj/structure/cable/cyan{
+	icon_state = "1-2"
 	},
 /turf/open/floor/plating,
 /area/tcommsat/computer)
@@ -59016,6 +58971,9 @@
 "xYd" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
+	},
+/obj/structure/cable/cyan{
+	icon_state = "1-4"
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
@@ -75125,7 +75083,7 @@ cvC
 bXT
 cwa
 cwm
-cwA
+vdJ
 vMe
 ckO
 cjm
@@ -76653,7 +76611,7 @@ kBv
 nar
 bWX
 qpg
-iUI
+rxW
 mci
 cuo
 ciV
@@ -76910,7 +76868,7 @@ rAU
 cth
 cfm
 yax
-cVz
+mRw
 bWV
 cup
 cuE
@@ -77061,7 +77019,7 @@ aaa
 afU
 afU
 pfz
-vdJ
+afU
 afU
 afU
 gYA
@@ -77680,8 +77638,8 @@ bWV
 qGw
 bWV
 cfm
-rxW
-iUI
+rAU
+mRw
 bWV
 mci
 mci
@@ -77939,13 +77897,13 @@ bXJ
 cel
 rAU
 rMv
-iUI
-iUI
-iUI
-iUI
-bXJ
-iUI
-cSN
+nnB
+nnB
+nnB
+nnB
+nar
+nnB
+nnB
 kyj
 nnB
 gOG
@@ -78199,8 +78157,8 @@ gGE
 wGO
 geU
 qaS
-qMr
-wxb
+tGQ
+gmh
 tGQ
 nqj
 pxh
@@ -87718,18 +87676,18 @@ jem
 jem
 jem
 ruF
-ohf
-ohf
-ohf
-ohf
-ohf
-ohf
-ohf
-ohf
-ohf
-ohf
-ohf
-ohf
+ruF
+ruF
+ruF
+ruF
+ruF
+ruF
+ruF
+ruF
+ruF
+ruF
+ruF
+ruF
 xYd
 clw
 clw
