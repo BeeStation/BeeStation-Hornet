@@ -1,4 +1,0 @@
-author: benbot16
-delete-after: true
-changes:
-  - bugfix: You don't hit minebots when trying to repair them at full health anymore.
