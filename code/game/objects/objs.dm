@@ -51,6 +51,8 @@
 
 	var/investigate_flags = NONE
 	// ADMIN_INVESTIGATE_TARGET: investigate_log on pickup/drop
+	/// If the emag behavior should be toggleable
+	var/emag_toggleable = FALSE
 
 /obj/vv_edit_var(vname, vval)
 	switch(vname)
@@ -435,3 +437,27 @@
 	. = ..()
 	if(. && ricochet_damage_mod)
 		take_damage(P.damage * ricochet_damage_mod, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration) // pass along ricochet_damage_mod damage to the structure for the ricochet
+
+/obj/update_overlays()
+	. = ..()
+	if(acid_level)
+		. += GLOB.acid_overlay
+	if(resistance_flags & ON_FIRE)
+		. += GLOB.fire_overlay
+
+/obj/use_emag(mob/user)
+	if(should_emag(user) && !SEND_SIGNAL(src, COMSIG_ATOM_SHOULD_EMAG, user))
+		SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user)
+		on_emag(user)
+
+/// Unlike COMSIG_ATOM_SHOULD_EMAG, this is not inverted. If this is true, on_emag is called.
+/obj/proc/should_emag(mob/user)
+	return emag_toggleable || !(obj_flags & EMAGGED)
+
+/// Performs the actions to emag something, given that should_emag succeeded. You should NOT call this directly. Call use_emag.
+/obj/proc/on_emag(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
+	if(emag_toggleable)
+		obj_flags ^= EMAGGED
+	else
+		obj_flags |= EMAGGED

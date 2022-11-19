@@ -453,7 +453,7 @@
 		//Create item and restart
 		process_completion_world_tick = world.time + time
 		total_build_time = time
-		addtimer(CALLBACK(src, .proc/make_item, power, materials_used, custom_materials, multiplier, coeff, is_stack), time)
+		addtimer(CALLBACK(src, .proc/make_item, power, materials_used, custom_materials, multiplier, coeff, is_stack, requested_design_id, queue_data), time)
 		addtimer(CALLBACK(src, .proc/restart_process), time + 5)
 	else
 		say("Insufficient materials, operation will proceed when sufficient materials are available.")
@@ -467,14 +467,28 @@
 		return
 	begin_process()
 
-/obj/machinery/modular_fabricator/proc/make_item(power, var/list/materials_used, var/list/picked_materials, multiplier, coeff, is_stack)
+/obj/machinery/modular_fabricator/proc/make_item(power, var/list/materials_used, var/list/picked_materials, multiplier, coeff, is_stack, requested_design_id, queue_data)
 	if(QDELETED(src))
 		return
 	//Stops the queue
 	if(disabled)
 		operating = FALSE
+		busy = FALSE
+		set_default_sprite()
+		// requeue the item
+		add_to_queue(item_queue, requested_design_id, stored_item_amount + 1, queue_data["build_mat"])
+		stored_item_amount = 0
 		return
 	var/datum/component/material_container/materials = get_material_container()
+	if(!materials.has_materials(materials_used))
+		operating = FALSE
+		wants_operate = TRUE
+		busy = FALSE
+		set_default_sprite()
+		// requeue the item
+		add_to_queue(item_queue, requested_design_id, stored_item_amount + 1, queue_data["build_mat"])
+		stored_item_amount = 0
+		return
 	var/turf/A = get_release_turf()
 	use_power(power)
 	materials.use_materials(materials_used)

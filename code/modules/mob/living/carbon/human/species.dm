@@ -1336,9 +1336,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 /datum/species/proc/spec_emp_act(mob/living/carbon/human/H, severity)
 	return
 
-/datum/species/proc/spec_emag_act(mob/living/carbon/human/H, mob/user)
-	return
-
 /datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, obj/source, siemens_coeff = 1, safety = 0, override = 0, tesla_shock = 0, illusion = 0, stun = TRUE)
 	return
 

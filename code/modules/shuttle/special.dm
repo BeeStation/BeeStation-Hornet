@@ -49,9 +49,6 @@
 /obj/machinery/power/emitter/energycannon/magical/ex_act(severity)
 	return
 
-/obj/machinery/power/emitter/energycannon/magical/emag_act(mob/user)
-	return
-
 /obj/structure/table/abductor/wabbajack
 	name = "wabbajack altar"
 	desc = "Whether you're sleeping or waking, it's going to be quite chaotic."
