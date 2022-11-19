@@ -1,6 +1,6 @@
 /obj/item/mob_lasso
 	name = "space lasso"
-	desc = "Comes standard with every space-cowboy.\nCan be used to tame space carp."
+	desc = "Comes standard with every space-cowboy.\n<span class='notice'>Can be used to tame space carp.</span>"
 	icon = 'icons/obj/carp_lasso.dmi'
 	icon_state = "lasso"
 	///Ref to timer
@@ -11,10 +11,13 @@
 	var/range = 8
 	///Whitelist of allowed animals
 	var/list/whitelist_mobs
+	///blacklist of disallowed animals
+	var/list/blacklist_mobs
 
 /obj/item/mob_lasso/Initialize(mapload)
 	. = ..()
 	whitelist_mobs = typecacheof(list(/mob/living/simple_animal/hostile/carp, /mob/living/simple_animal/cow, /mob/living/simple_animal/hostile/retaliate/dolphin), only_root_path = TRUE)
+	blacklist_mobs = list()
 
 /obj/item/mob_lasso/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -25,13 +28,13 @@
 		failed = TRUE
 	if(iscarbon(target) || issilicon(target))
 		failed = TRUE
-	if(!(locate(target) in oview(range, user)))
-		if(ismob(target))
-			to_chat(user, "<span class='warning'>you can't lasso [target] from here!</span>")
-		return
 	if(failed)
 		if(ismob(target))
 			to_chat(user, "<span class='warning'>[target] seems a bit big for this...</span>")
+		return
+	if(!(locate(target) in oview(range, user)))
+		if(ismob(target))
+			to_chat(user, "<span class='warning'>You can't lasso [target] from here!</span>")
 		return
 	var/mob/living/simple_animal/C = target
 	if(IS_DEAD_OR_INCAP(C))
@@ -70,7 +73,7 @@
 	timer = addtimer(CALLBACK(src, .proc/fail_ally), 6 SECONDS, TIMER_STOPPABLE) //after 6 seconds set the carp back
 
 /obj/item/mob_lasso/proc/check_allowed(atom/target)
-	return is_type_in_typecache(target, whitelist_mobs)
+	return (is_type_in_typecache(target, whitelist_mobs) && !is_type_in_typecache(target, blacklist_mobs))
 
 /obj/item/mob_lasso/proc/fail_ally()
 	visible_message("<span class='warning'>[mob_target] breaks free!</span>")
@@ -87,7 +90,8 @@
 ///Primal version, allows lavaland goobers to tame goliaths
 /obj/item/mob_lasso/primal
 	name = "primal lasso"
-	desc = "A lasso fashioned out of goliath plating that is often found in the possession of Ash Walkers.\nCan be used to tame some lavaland animals."
+	desc = "A lasso fashioned out of goliath plating that is often found in the possession of Ash Walkers.\n\
+		<span class='notice'>Can be used to tame some lavaland animals</span>."
 
 /obj/item/mob_lasso/primal/Initialize(mapload)
 	. = ..()
@@ -96,7 +100,8 @@
 
 /obj/item/mob_lasso/drake
 	name = "drake lasso"
-	desc = "A lasso fashioned out of the scaly hide of an ash drake.\nCan be used to tame one, if you can get close enough."
+	desc = "A lasso fashioned out of the scaly hide of an ash drake.\n\
+		<span class='notice'>Can be used to tame one, if you can get close enough.</span>"
 	range = 3
 
 /obj/item/mob_lasso/drake/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -109,24 +114,19 @@
 	. = ..()
 	whitelist_mobs = typecacheof(list(/mob/living/simple_animal/hostile/megafauna/dragon), only_root_path = TRUE)
 
-/obj/item/mob_lasso/antag
+/obj/item/mob_lasso/traitor
 	name = "bluespace lasso"
-	desc = "Comes standard with every evil space-cowboy!\nCan be used to tame almost anything."
-	///blacklist of disallowed mobs
-	var/list/blacklist_mobs
+	desc = "Comes standard with every evil space-cowboy!\n<span class='notice'>Can be used to tame almost anything.</span>"
 
 /obj/item/mob_lasso/antag/Initialize(mapload)
 	. = ..()
 	blacklist_mobs = typecacheof(list(/mob/living/simple_animal/hostile/megafauna, /mob/living/simple_animal/hostile/alien, /mob/living/simple_animal/hostile/syndicate))
 
-/obj/item/mob_lasso/antag/check_allowed(atom/target)
-	return !is_type_in_typecache(target, blacklist_mobs)
-
-/obj/item/mob_lasso/antag/debug
+/obj/item/mob_lasso/debug
 	name = "debug lasso"
-	desc = "Comes standard with every administrator space-cowboy!\nCan be used to tame anything."
+	desc = "Comes standard with every administrator space-cowboy!\n<span class='notice'>Can be used to tame anything.</span>"
 
-/obj/item/mob_lasso/antag/debug/Initialize(mapload)
+/obj/item/mob_lasso/debug/Initialize(mapload)
 	. = ..()
-	blacklist_mobs = list()
+	whitelist_mobs = list()
 
