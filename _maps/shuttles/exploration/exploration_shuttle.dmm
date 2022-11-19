@@ -6,9 +6,6 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "b" = (
@@ -310,9 +307,6 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "T" = (
