@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: 'BoxStation: Moved a fire alarm out from under the atmos sign in atmos
+      storage.'
