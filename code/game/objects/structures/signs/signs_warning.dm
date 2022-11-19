@@ -48,7 +48,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/structure/sign/warning/cold
-	name = "\improper DANGER: Extreeme cold"
+	name = "\improper DANGER: Extreme cold"
 	desc = "A warning sign which reads 'DANGER: Extreme cold'."
 	icon_state = "cold"
 	resistance_flags = FIRE_PROOF

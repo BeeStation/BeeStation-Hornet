@@ -121,7 +121,7 @@
 	planetary_atmos = TRUE
 	baseturfs = /turf/open/lava/smooth/lava_land_surface
 
-/turf/open/floor/plating/asteroid/basalt/Iceland_surface
+/turf/open/floor/plating/asteroid/basalt/iceland_surface
 	initial_gas_mix = FROZEN_ATMOS
 	planetary_atmos = TRUE
 	baseturfs = /turf/open/lava/smooth/cold
