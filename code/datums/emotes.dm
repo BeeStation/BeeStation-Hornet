@@ -75,7 +75,10 @@
 			continue
 		var/T = get_turf(user)
 		if(M.stat == DEAD && M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTSIGHT) && !(M in viewers(T, null)))
-			M.show_message("[FOLLOW_LINK(M, user)] [dchatmsg]")
+			if(user.mind)
+				M.show_message("[FOLLOW_LINK(M, user)] [dchatmsg]")
+			else
+				M.show_message("[dchatmsg]")
 
 	if(emote_type == EMOTE_AUDIBLE)
 		user.audible_message(msg, audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
@@ -175,7 +178,10 @@
 			if(!ghost.client || isnewplayer(ghost))
 				continue
 			if(ghost.client.prefs.chat_toggles & CHAT_GHOSTSIGHT && !(ghost in viewers(origin_turf, null)))
-				ghost.show_message("[FOLLOW_LINK(ghost, src)] [ghost_text]")
+				if(mind)
+					ghost.show_message("[FOLLOW_LINK(ghost, src)] [ghost_text]")
+				else
+					ghost.show_message("[ghost_text]")
 
 	visible_message(text, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
 
