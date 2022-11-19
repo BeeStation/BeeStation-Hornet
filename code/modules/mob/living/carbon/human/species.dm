@@ -33,6 +33,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/fixed_mut_color = ""
 	//Blood color for decals
 	var/blood_color // this may become un-needed we should be able to read the color of the reagent
+	/// does it use skintones or not? (spoiler alert this is only used by humans)
+	var/use_skintones = FALSE
 //----------------------------------------------------------
 
 //LISTS-----------------------------------------------------
@@ -186,7 +188,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 //----------------------------------------------------------
 
 	//What the species drops on gibbing
-	var/meat = /obj/item/food/meat/slab/human
+	var/meat = /obj/item/reagent_containers/food/snacks/meat/slab/human
 	//what the skin type is when butchered
 	var/skinned_type
 	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
@@ -875,8 +877,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			accessory_type = GLOB.ipc_chassis_list[human_host.dna.features["ipc_chassis"]]
 		if("insect_type")
 			accessory_type = GLOB.insect_type_list[human_host.dna.features["insect_type"]]
-		if("tail_monkey")
-			accessory_type = GLOB.tails_list_monkey[human_host.dna.features["tail_monkey"]]
 
 	return accessory_type
 
@@ -1805,7 +1805,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				if(istype(location))
 					human_host.add_splatter_floor(location)
 				if(get_dist(user, human_host) <= 1)	//people with TK won't get smeared with blood
-					user.add_mob_blood(H)
+					user.add_mob_blood(human_host)
 
 		switch(hit_area)
 			if(BODY_ZONE_HEAD)

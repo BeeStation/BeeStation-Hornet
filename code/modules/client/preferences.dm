@@ -1509,7 +1509,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_bellycolor)
 						var/temp_hsv = RGBtoHSV(new_bellycolor)
 						if(new_bellycolor == "#000000")
-							active_character.features["bellycolor"] = pref_species.default_color
+							active_character.features["bellycolor"] = active_character.pref_species.default_color
 						else if((MUTCOLORS_PARTSONLY in active_character.pref_species.species_traits) || ReadHSV(temp_hsv)[3] >= ReadHSV("#7F7F7F")[3]) // mutantcolors must be bright, but only if they affect the skin
 							active_character.features["bellycolor"] = sanitize_hexcolor(new_bellycolor)
 						else
