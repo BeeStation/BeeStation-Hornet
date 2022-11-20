@@ -32,10 +32,12 @@
 	return
 
 /turf/open/floor/plating/ashplanet
-	icon = 'icons/turf/mining.dmi'
+	icon = 'monkestation/code/modules/bitmask_smoothing/turf/mining.dmi'
+	icon_state = "ash"
+	base_icon_state = "ash"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
 	gender = PLURAL
 	name = "ash"
-	icon_state = "ash"
 	var/smooth_icon = 'icons/turf/floors/ash.dmi'
 	desc = "The ground is covered in volcanic ash."
 	baseturfs = /turf/open/floor/plating/ashplanet/wateryrock //I assume this will be a chasm eventually, once this becomes an actual surface
@@ -66,6 +68,8 @@
 	return
 
 /turf/open/floor/plating/ashplanet/ash
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_ASH)
+	canSmoothWith = list(SMOOTH_GROUP_FLOOR_ASH, SMOOTH_GROUP_CLOSED_TURFS)
 	layer = HIGH_TURF_LAYER
 	slowdown = 1
 
@@ -89,6 +93,7 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	smoothing_flags = NONE
 
 /turf/open/floor/plating/ashplanet/wateryrock/Initialize(mapload)
 	icon_state = "[icon_state][rand(1, 9)]"
@@ -185,7 +190,9 @@
 	return
 
 /turf/open/floor/plating/ice/smooth
-	icon_state = "smooth"
+	icon_state = "ice_turf-255"
+	base_icon_state = "ice_turf"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
 
 /turf/open/floor/plating/ice/colder
 	initial_temperature = 140
@@ -219,8 +226,12 @@
 
 /turf/open/floor/plating/snowed/smoothed
 	planetary_atmos = TRUE
-	icon = 'icons/turf/floors/snow_turf.dmi'
-	icon_state = "smooth"
+	icon = 'monkestation/code/modules/bitmask_smoothing/turf/floors/snow_turf.dmi'
+	icon_state = "snow_turf-0"
+	base_icon_state = "snow_turf"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_SNOWED)
+	canSmoothWith = list(SMOOTH_GROUP_FLOOR_SNOWED)
 
 /turf/open/floor/plating/snowed/colder
 	initial_temperature = 140

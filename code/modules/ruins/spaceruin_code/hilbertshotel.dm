@@ -200,6 +200,8 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	desc = "A wall designed to protect the security of the hotel's guests."
 	icon_state = "hotelwall"
 	explosion_block = INFINITY
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_HOTEL_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_HOTEL_WALLS)
 
 /turf/open/indestructible/hotelwood
     desc = "Stylish dark wood with extra reinforcement. Secured firmly to the floor to prevent tampering."

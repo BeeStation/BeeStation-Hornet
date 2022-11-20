@@ -53,7 +53,11 @@
 	name = "resin"
 	desc = "Looks like some kind of thick resin."
 	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi' //See code/modules/bitmask_smoothing/code for all code pertaining to new smooth objects
-	icon_state = "smooth"
+	icon_state = "resin_wall-0"
+	base_icon_state = "resin_wall"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN)
+	canSmoothWith = list(SMOOTH_GROUP_ALIEN_RESIN)
 	density = TRUE
 	opacity = 1
 	anchored = TRUE
@@ -75,7 +79,10 @@
 	name = "resin wall"
 	desc = "Thick resin solidified into a wall."
 	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi' //See code/modules/bitmask_smoothing/code for all code pertaining to new smooth objects
-	icon_state = "smooth"	//same as resin, but consistency ho!
+	icon_state = "resin_wall-0" //same as resin, but consistency ho!
+	base_icon_state = "resin_wall"
+	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
 
 /obj/structure/alien/resin/wall/BlockThermalConductivity()
 	return 1
@@ -83,8 +90,11 @@
 /obj/structure/alien/resin/membrane
 	name = "resin membrane"
 	desc = "Resin just thin enough to let light pass through."
-	icon = 'icons/obj/smooth_structures/alien/resin_membrane.dmi' //See code/modules/bitmask_smoothing/code for all code pertaining to new smooth objects
-	icon_state = "smooth"
+	icon = 'monkestation/code/modules/bitmask_smoothing/obj/smooth_structures/alien/resin_membrane.dmi'
+	icon_state = "resin_membrane-0"
+	base_icon_state = "resin_membrane"
+	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
 	opacity = 0
 	max_integrity = 160
 
@@ -105,8 +115,13 @@
 	density = FALSE
 	layer = TURF_LAYER
 	plane = FLOOR_PLANE
-	icon = 'icons/obj/smooth_structures/alien/weeds1.dmi' //See code/modules/bitmask_smoothing/code for all code pertaining to new smooth objects
-	icon_state = "weeds"
+	icon = 'monkestation/code/modules/bitmask_smoothing/obj/smooth_structures/alien/weeds1.dmi'
+	icon_state = "weeds1-0"
+	base_icon_state = "weeds1"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WEEDS)
+	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WEEDS)
+	transform = matrix(1, 0, -4, 0, 1, -4)
 	max_integrity = 15
 	var/last_expand = 0 //last world.time this weed expanded
 	var/growth_cooldown_low = 150

@@ -127,8 +127,12 @@
 /turf/open/floor/holofloor/carpet
 	name = "carpet"
 	desc = "Electrically inviting."
-	icon = 'icons/turf/floors/carpet.dmi'
-	icon_state = "carpet"
+	icon = 'monkestation/code/modules/bitmask_smoothing/turf/floors/carpet.dmi'
+	icon_state = "carpet-255"
+	base_icon_state = "carpet"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_CARPET)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET)
 	floor_tile = /obj/item/stack/tile/carpet
 	bullet_bounce_sound = null
 	tiled_dirt = FALSE

@@ -2,7 +2,9 @@
 	name = "runed metal wall"
 	desc = "A cold metal wall engraved with indecipherable symbols. Studying them causes your head to pound."
 	icon = 'icons/turf/walls/cult_wall.dmi'
-	icon_state = "cult"
+	icon_state = "cult_wall-0"
+	base_icon_state = "cult_wall"
+	smoothing_flags = SMOOTH_BITMASK
 	canSmoothWith = null
 	sheet_type = /obj/item/stack/sheet/runed_metal
 	sheet_amount = 1
@@ -45,7 +47,9 @@
 
 /turf/closed/wall/ice
 	icon = 'icons/turf/walls/icedmetal_wall.dmi'
-	icon_state = "iced"
+	icon_state = "icedmetal_wall-0"
+	base_icon_state = "icedmetal_wall"
+	smoothing_flags = SMOOTH_BITMASK
 	desc = "A wall covered in a thick sheet of ice."
 	canSmoothWith = null
 	hardness = 35
