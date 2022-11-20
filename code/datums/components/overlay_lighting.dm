@@ -29,9 +29,7 @@
 	///Ceiling of range, integer without decimal entries.
 	var/lumcount_range = 0
 	///How much this light affects the dynamic_lumcount of turfs.
-	var/real_lum_power = 0.5
-	///The lum power being used
-	var/used_lum_power = 0.5
+	var/lum_power = 0.5
 	///Transparency value.
 	var/set_alpha = 0
 	///For light sources that can be turned on and off.
@@ -174,7 +172,7 @@
 ///Clears the affected_turfs lazylist, removing from its contents the effects of being near the light.
 /datum/component/overlay_lighting/proc/clean_old_turfs()
 	for(var/turf/lit_turf as anything in affected_turfs)
-		lit_turf.dynamic_lumcount -= used_lum_power
+		lit_turf.dynamic_lumcount -= lum_power
 	affected_turfs = null
 
 ///Populates the affected_turfs lazylist, adding to its contents the effects of being near the light.
@@ -183,7 +181,7 @@
 		return
 	. = list()
 	for(var/turf/lit_turf in view(lumcount_range, get_turf(current_holder)))
-		lit_turf.dynamic_lumcount += used_lum_power
+		lit_turf.dynamic_lumcount += lum_power
 		. += lit_turf
 	if(length(.))
 		affected_turfs = .
@@ -258,7 +256,8 @@
 			RegisterSignal(new_holder, COMSIG_MOVABLE_MOVED, .proc/on_holder_moved)
 		if(directional)
 			RegisterSignal(new_holder, COMSIG_ATOM_DIR_CHANGE, .proc/on_holder_dir_change)
-			set_direction(new_holder.dir)
+	if(directional && current_direction != new_holder.dir)
+		current_direction = new_holder.dir
 	if(overlay_lighting_flags & LIGHTING_ON)
 		add_dynamic_lumi()
 		make_luminosity_update()
@@ -290,13 +289,14 @@
 
 ///Called when current_holder changes loc.
 /datum/component/overlay_lighting/proc/on_holder_moved(atom/movable/source, OldLoc, Dir, Forced)
+	SIGNAL_HANDLER
 	if(!(overlay_lighting_flags & LIGHTING_ON))
 		return
 	make_luminosity_update()
 
-
 ///Called when parent changes loc.
 /datum/component/overlay_lighting/proc/on_parent_moved(atom/movable/source, OldLoc, Dir, Forced)
+	SIGNAL_HANDLER
 	var/atom/movable/movable_parent = parent
 	if(overlay_lighting_flags & LIGHTING_ATTACHED)
 		set_parent_attached_to(ismovable(movable_parent.loc) ? movable_parent.loc : null)
@@ -308,6 +308,7 @@
 
 ///Called when the current_holder is qdeleted, to remove the light effect.
 /datum/component/overlay_lighting/proc/on_parent_attached_to_qdel(atom/movable/source, force)
+	SIGNAL_HANDLER
 	UnregisterSignal(parent_attached_to, list(COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_MOVED))
 	if(directional)
 		UnregisterSignal(parent_attached_to, COMSIG_ATOM_DIR_CHANGE)
@@ -317,11 +318,11 @@
 
 ///Called when parent_attached_to changes loc.
 /datum/component/overlay_lighting/proc/on_parent_attached_to_moved(atom/movable/source, OldLoc, Dir, Forced)
+	SIGNAL_HANDLER
 	check_holder()
 	if(!(overlay_lighting_flags & LIGHTING_ON) || !current_holder)
 		return
 	make_luminosity_update()
-
 
 ///Changes the range which the light reaches. 0 means no light, 6 is the maximum value.
 /datum/component/overlay_lighting/proc/set_range(atom/source, old_range)
@@ -399,27 +400,21 @@
 	turn_on() //Falsey value, turn off.
 
 
-///Triggered right before the parent light flags change.
-/datum/component/overlay_lighting/proc/on_light_flags_change(atom/source, new_value)
+///Triggered right after the parent light flags change.
+/datum/component/overlay_lighting/proc/on_light_flags_change(atom/source, old_flags)
+	SIGNAL_HANDLER
+	var/new_flags = source.light_flags
 	var/atom/movable/movable_parent = parent
-	if(new_value & LIGHT_ATTACHED)
-		if(!(movable_parent.light_flags & LIGHT_ATTACHED)) //Gained the LIGHT_ATTACHED property.
-			overlay_lighting_flags |= LIGHTING_ATTACHED
-			if(ismovable(movable_parent.loc))
-				set_parent_attached_to(movable_parent.loc)
-	else if(movable_parent.light_flags & LIGHT_ATTACHED) //Lost the LIGHT_ATTACHED property.
+	if(!((new_flags ^ old_flags) & LIGHT_ATTACHED))
+		return
+
+	if(new_flags & LIGHT_ATTACHED) // Gained the [LIGHT_ATTACHED] property
+		overlay_lighting_flags |= LIGHTING_ATTACHED
+		if(ismovable(movable_parent.loc))
+			set_parent_attached_to(movable_parent.loc)
+	else // Lost the [LIGHT_ATTACHED] property
 		overlay_lighting_flags &= ~LIGHTING_ATTACHED
 		set_parent_attached_to(null)
-
-	if(new_value & LIGHT_NO_LUMCOUNT)
-		if(!(movable_parent.light_flags & LIGHT_NO_LUMCOUNT)) //Gained the NO_LUMCOUNT property
-			overlay_lighting_flags |= LIGHT_NO_LUMCOUNT
-			//Recalculate affecting
-			set_lum_power(real_lum_power)
-	else if(movable_parent.light_flags & LIGHT_NO_LUMCOUNT)	//Lost the NO_LUMCOUNT property
-		overlay_lighting_flags &= ~LIGHT_NO_LUMCOUNT
-		//Recalculate affecting
-		set_lum_power(real_lum_power)
 
 ///Toggles the light on.
 /datum/component/overlay_lighting/proc/turn_on()
@@ -442,18 +437,18 @@
 	if(current_holder)
 		remove_dynamic_lumi()
 	overlay_lighting_flags &= ~LIGHTING_ON
-	if(current_holder)
+	if(current_holder && current_holder != parent && current_holder != parent_attached_to)
 		UnregisterSignal(current_holder, COMSIG_MOVABLE_MOVED)
 	clean_old_turfs()
 
 
 ///Here we append the behavior associated to changing lum_power.
 /datum/component/overlay_lighting/proc/set_lum_power(new_lum_power)
-	if(real_lum_power == new_lum_power)
+	if(lum_power == new_lum_power)
 		return
-	. = real_lum_power
-	real_lum_power = new_lum_power
-	var/difference = . - real_lum_power
+	. = lum_power
+	lum_power = new_lum_power
+	var/difference = . - lum_power
 	for(var/turf/lit_turf as anything in affected_turfs)
 		lit_turf.dynamic_lumcount -= difference
 

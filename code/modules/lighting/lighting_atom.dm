@@ -14,7 +14,7 @@
 	if(l_range > 0 && l_range < MINIMUM_USEFUL_LIGHT_RANGE)
 		l_range = MINIMUM_USEFUL_LIGHT_RANGE //Brings the range up to 1.4, which is just barely brighter than the soft lighting that surrounds players.
 
-	if(SEND_SIGNAL(src, COMSIG_ATOM_SET_LIGHT, l_range, l_power, l_color, l_on) & COMPONENT_BLOCK_LIGHT_UPDATE)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_SET_LIGHT, l_range, l_power, l_color, l_on))
 		return
 
 	if(!isnull(l_power))
@@ -66,63 +66,34 @@
 		if (old_has_opaque_atom != T.has_opaque_atom)
 			T.reconsider_lights()
 
-// Should always be used to change the opacity of an atom.
-// It notifies (potentially) affected light sources so they can update (if needed).
-/atom/proc/set_opacity(var/new_opacity)
+/**
+  * Updates the atom's opacity value.
+  *
+  * This exists to act as a hook for associated behavior.
+  * It notifies (potentially) affected light sources so they can update (if needed).
+  */
+/atom/proc/set_opacity(new_opacity)
 	if (new_opacity == opacity)
 		return
-
+	SEND_SIGNAL(src, COMSIG_ATOM_SET_OPACITY, new_opacity)
+	. = opacity
 	opacity = new_opacity
-	var/turf/T = loc
-	if (!isturf(T))
+
+/atom/movable/set_opacity(new_opacity)
+	. = ..()
+	if(isnull(.) || !isturf(loc))
 		return
 
-	if (new_opacity == TRUE)
-		T.has_opaque_atom = TRUE
-		T.reconsider_lights()
+	if(opacity)
+		AddElement(/datum/element/light_blocking)
 	else
-		var/old_has_opaque_atom = T.has_opaque_atom
-		T.recalc_atom_opacity()
-		if (old_has_opaque_atom != T.has_opaque_atom)
-			T.reconsider_lights()
+		RemoveElement(/datum/element/light_blocking)
 
-
-/atom/movable/Moved(atom/OldLoc, Dir)
+/turf/set_opacity(new_opacity)
 	. = ..()
-	var/datum/light_source/L
-	var/thing
-	for (thing in light_sources) // Cycle through the light sources on this atom and tell them to update.
-		L = thing
-		L.source_atom.update_light()
-
-/atom/vv_edit_var(var_name, var_value)
-	switch (var_name)
-		if (NAMEOF(src, light_range))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_range = var_value)
-			else
-				set_light_range(var_value)
-			datum_flags |= DF_VAR_EDITED
-			return TRUE
-
-		if (NAMEOF(src, light_power))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_power = var_value)
-			else
-				set_light_power(var_value)
-			datum_flags |= DF_VAR_EDITED
-			return TRUE
-
-		if (NAMEOF(src, light_color))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_color = var_value)
-			else
-				set_light_color(var_value)
-			datum_flags |= DF_VAR_EDITED
-			return TRUE
-
-	return ..()
-
+	if(isnull(.))
+		return
+	recalculate_directional_opacity()
 
 /atom/proc/flash_lighting_fx(_range = FLASH_LIGHT_RANGE, _power = FLASH_LIGHT_POWER, _color = COLOR_WHITE, _duration = FLASH_LIGHT_DURATION)
 	return
