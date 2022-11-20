@@ -165,7 +165,7 @@
 /obj/structure/falsewall/uranium
 	name = "uranium wall"
 	desc = "A wall with uranium plating. This is probably a bad idea."
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/walls/uranium_wall.dmi'
+	icon = 'icons/turf/walls/uranium_wall.dmi'
 	icon_state = "uranium_wall-0"
 	base_icon_state = "uranium_wall"
 	smoothing_flags = SMOOTH_BITMASK
@@ -202,7 +202,7 @@
 /obj/structure/falsewall/gold
 	name = "gold wall"
 	desc = "A wall with gold plating. Swag!"
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/walls/gold_wall.dmi'
+	icon = 'icons/turf/walls/gold_wall.dmi'
 	icon_state = "gold_wall-0"
 	base_icon_state = "gold_wall"
 	smoothing_flags = SMOOTH_BITMASK
@@ -214,7 +214,7 @@
 /obj/structure/falsewall/silver
 	name = "silver wall"
 	desc = "A wall with silver plating. Shiny."
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/walls/silver_wall.dmi'
+	icon = 'icons/turf/walls/silver_wall.dmi'
 	icon_state = "silver_wall-0"
 	base_icon_state = "silver_wall"
 	smoothing_flags = SMOOTH_BITMASK
@@ -226,7 +226,7 @@
 /obj/structure/falsewall/copper
 	name = "copper wall"
 	desc = "A wall with copper plating. Shiny!"
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/walls/copper_wall.dmi'
+	icon = 'icons/turf/walls/copper_wall.dmi'
 	icon_state = "copper_wall-0"
 	base_icon_state = "copper_wall"
 	smoothing_flags = SMOOTH_BITMASK
@@ -238,7 +238,7 @@
 /obj/structure/falsewall/diamond
 	name = "diamond wall"
 	desc = "A wall with diamond plating. You monster."
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/walls/diamond_wall.dmi'
+	icon = 'icons/turf/walls/diamond_wall.dmi'
 	icon_state = "diamond_wall-0"
 	base_icon_state = "diamond_wall"
 	smoothing_flags = SMOOTH_BITMASK
@@ -251,7 +251,7 @@
 /obj/structure/falsewall/plasma
 	name = "plasma wall"
 	desc = "A wall with plasma plating. This is definitely a bad idea."
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/walls/plasma_wall.dmi'
+	icon = 'icons/turf/walls/plasma_wall.dmi'
 	icon_state = "plasma_wall-0"
 	base_icon_state = "plasma_wall"
 	smoothing_flags = SMOOTH_BITMASK
@@ -282,7 +282,7 @@
 /obj/structure/falsewall/bananium
 	name = "bananium wall"
 	desc = "A wall with bananium plating. Honk!"
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/walls/bananium_wall.dmi'
+	icon = 'icons/turf/walls/bananium_wall.dmi'
 	icon_state = "bananium_wall-0"
 	base_icon_state = "bananium_wall"
 	smoothing_flags = SMOOTH_BITMASK
@@ -294,7 +294,7 @@
 /obj/structure/falsewall/sandstone
 	name = "sandstone wall"
 	desc = "A wall with sandstone plating. Rough."
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/walls/sandstone_wall.dmi'
+	icon = 'icons/turf/walls/sandstone_wall.dmi'
 	icon_state = "sandstone_wall-0"
 	base_icon_state = "sandstone_wall"
 	smoothing_flags = SMOOTH_BITMASK
@@ -307,7 +307,7 @@
 /obj/structure/falsewall/wood
 	name = "wooden wall"
 	desc = "A wall with wooden plating. Stiff."
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/walls/wood_wall.dmi'
+	icon = 'icons/turf/walls/wood_wall.dmi'
 	icon_state = "wood_wall-0"
 	base_icon_state = "wood_wall"
 	smoothing_flags = SMOOTH_BITMASK
@@ -319,7 +319,7 @@
 /obj/structure/falsewall/bamboo
 	name = "bamboo wall"
 	desc = "A wall with bamboo finish. Zen."
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/walls/bamboo_wall.dmi'
+	icon = 'icons/turf/walls/bamboo_wall.dmi'
 	icon_state = "wall-0"
 	base_icon_state = "wall"
 	smoothing_flags = SMOOTH_BITMASK
@@ -331,7 +331,7 @@
 /obj/structure/falsewall/iron
 	name = "rough iron wall"
 	desc = "A wall with rough iron plating."
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/walls/iron_wall.dmi'
+	icon = 'icons/turf/walls/iron_wall.dmi'
 	icon_state = "iron_wall-0"
 	base_icon_state = "iron_wall"
 	smoothing_flags = SMOOTH_BITMASK
@@ -344,7 +344,7 @@
 /obj/structure/falsewall/abductor
 	name = "alien wall"
 	desc = "A wall with alien alloy plating."
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/walls/abductor_wall.dmi'
+	icon = 'icons/turf/walls/abductor_wall.dmi'
 	icon_state = "abductor_wall-0"
 	base_icon_state = "abductor_wall"
 	smoothing_flags = SMOOTH_BITMASK
@@ -356,7 +356,7 @@
 /obj/structure/falsewall/titanium
 	name = "wall"
 	desc = "A light-weight titanium wall used in shuttles."
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/walls/shuttle_wall.dmi'
+	icon = 'icons/turf/walls/shuttle_wall.dmi'
 	icon_state = "shuttle_wall-0"
 	base_icon_state = "shuttle_wall"
 	smoothing_flags = SMOOTH_BITMASK
@@ -368,7 +368,7 @@
 /obj/structure/falsewall/plastitanium
 	name = "wall"
 	desc = "An evil wall of plasma and titanium."
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/walls/plastitanium_wall.dmi'
+	icon = 'icons/turf/walls/plastitanium_wall.dmi'
 	icon_state = "plastitanium_wall-0"
 	base_icon_state = "plastitanium_wall"
 	smoothing_flags = SMOOTH_BITMASK
@@ -380,7 +380,7 @@
 /obj/structure/falsewall/brass
 	name = "clockwork wall"
 	desc = "A huge chunk of warm metal. The clanging of machinery emanates from within."
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/walls/clockwork_wall.dmi'
+	icon = 'icons/turf/walls/clockwork_wall.dmi'
 	icon_state = "clockwork_wall-0"
 	base_icon_state = "clockwork_wall"
 	smoothing_flags = SMOOTH_BITMASK

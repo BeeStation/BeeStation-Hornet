@@ -48,7 +48,7 @@
 /obj/effect/decal/cleanable/dirt
 	name = "dirt"
 	desc = "Someone should clean that up."
-	icon = 'monkestation/code/modules/bitmask_smoothing/effects/dirt.dmi' /*###*/
+	icon = 'icons/effects/dirt.dmi' /*###*/
 	icon_state = "dirt"
 	base_icon_state = "dirt"
 	smoothing_flags = NONE

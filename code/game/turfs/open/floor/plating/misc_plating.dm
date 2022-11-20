@@ -32,7 +32,7 @@
 	return
 
 /turf/open/floor/plating/ashplanet
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/mining.dmi'
+	icon = 'icons/turf/mining.dmi'
 	icon_state = "ash"
 	base_icon_state = "ash"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
@@ -226,7 +226,7 @@
 
 /turf/open/floor/plating/snowed/smoothed
 	planetary_atmos = TRUE
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/floors/snow_turf.dmi'
+	icon = 'icons/turf/floors/snow_turf.dmi'
 	icon_state = "snow_turf-0"
 	base_icon_state = "snow_turf"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER

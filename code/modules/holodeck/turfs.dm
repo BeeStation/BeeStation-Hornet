@@ -127,7 +127,7 @@
 /turf/open/floor/holofloor/carpet
 	name = "carpet"
 	desc = "Electrically inviting."
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/floors/carpet.dmi'
+	icon = 'icons/turf/floors/carpet.dmi'
 	icon_state = "carpet-255"
 	base_icon_state = "carpet"
 	smoothing_flags = SMOOTH_BITMASK

@@ -189,7 +189,7 @@
 /turf/closed/wall/mineral/bamboo
 	name = "bamboo wall"
 	desc = "A wall with a bamboo finish."
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/walls/bamboo_wall.dmi' /*###*/
+	icon = 'icons/turf/walls/bamboo_wall.dmi' /*###*/
 	icon_state = "bamboo"
 	sheet_type = /obj/item/stack/sheet/mineral/bamboo
 	hardness = 60
@@ -212,7 +212,7 @@
 /turf/closed/wall/mineral/snow
 	name = "packed snow wall"
 	desc = "A wall made of densely packed snow blocks."
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/walls/snow_wall.dmi' /*###*/
+	icon = 'icons/turf/walls/snow_wall.dmi' /*###*/
 	icon_state = "snow_wall-0"
 	base_icon_state = "snow_wall"
 	smoothing_flags = SMOOTH_BITMASK

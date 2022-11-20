@@ -1,7 +1,7 @@
 /obj/structure/lattice
 	name = "lattice"
 	desc = "A lightweight support lattice. These hold our station together."
-	icon = 'monkestation/code/modules/bitmask_smoothing/obj/smooth_structures/lattice.dmi'
+	icon = 'icons/obj/smooth_structures/lattice.dmi'
 	icon_state = "lattice-255"
 	base_icon_state = "lattice"
 	smoothing_flags = SMOOTH_BITMASK

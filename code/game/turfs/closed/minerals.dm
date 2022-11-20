@@ -240,7 +240,7 @@
 	environment_type = "snow_cavern"
 	icon_state = "icerock_iron"
 	base_icon_state = "icerock_wall"
-	smooth_icon = 'monkestation/code/modules/bitmask_smoothing/turf/walls/icerock_wall.dmi'
+	smooth_icon = 'icons/turf/walls/icerock_wall.dmi'
 	turf_type = /turf/open/floor/plating/asteroid/snow/ice
 	baseturfs = /turf/open/floor/plating/asteroid/snow/ice
 	initial_gas_mix = FROZEN_ATMOS

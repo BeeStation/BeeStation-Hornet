@@ -90,7 +90,7 @@
 /obj/structure/alien/resin/membrane
 	name = "resin membrane"
 	desc = "Resin just thin enough to let light pass through."
-	icon = 'monkestation/code/modules/bitmask_smoothing/obj/smooth_structures/alien/resin_membrane.dmi'
+	icon = 'icons/obj/smooth_structures/alien/resin_membrane.dmi'
 	icon_state = "resin_membrane-0"
 	base_icon_state = "resin_membrane"
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
@@ -115,7 +115,7 @@
 	density = FALSE
 	layer = TURF_LAYER
 	plane = FLOOR_PLANE
-	icon = 'monkestation/code/modules/bitmask_smoothing/obj/smooth_structures/alien/weeds1.dmi'
+	icon = 'icons/obj/smooth_structures/alien/weeds1.dmi'
 	icon_state = "weeds1-0"
 	base_icon_state = "weeds1"
 	smoothing_flags = SMOOTH_BITMASK
@@ -144,13 +144,13 @@
 	if(icon == initial(icon))
 		switch(rand(1,3))
 			if(1)
-				icon = 'monkestation/code/modules/bitmask_smoothing/obj/smooth_structures/alien/weeds1.dmi' /*###*/
+				icon = 'icons/obj/smooth_structures/alien/weeds1.dmi' /*###*/
 				base_icon_state = "weeds1"
 			if(2)
-				icon = 'monkestation/code/modules/bitmask_smoothing/obj/smooth_structures/alien/weeds2.dmi' /*###*/
+				icon = 'icons/obj/smooth_structures/alien/weeds2.dmi' /*###*/
 				base_icon_state = "weeds2"
 			if(3)
-				icon = 'monkestation/code/modules/bitmask_smoothing/obj/smooth_structures/alien/weeds3.dmi' /*###*/
+				icon = 'icons/obj/smooth_structures/alien/weeds3.dmi' /*###*/
 				base_icon_state = "weeds3"
 
 /obj/structure/alien/weeds/proc/expand()
@@ -185,7 +185,7 @@
 	var/node_range = NODERANGE
 
 /obj/structure/alien/weeds/node/Initialize(mapload)
-	icon = 'monkestation/code/modules/bitmask_smoothing/obj/smooth_structures/alien/weednode.dmi' /*###*/
+	icon = 'icons/obj/smooth_structures/alien/weednode.dmi' /*###*/
 	. = ..()
 	set_light(lon_range)
 	var/obj/structure/alien/weeds/W = locate(/obj/structure/alien/weeds) in loc

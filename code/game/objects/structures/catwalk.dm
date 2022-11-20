@@ -1,7 +1,7 @@
 /obj/structure/lattice/catwalk
 	name = "catwalk"
 	desc = "A catwalk for easier EVA maneuvering and cable placement."
-	icon = 'monkestation/code/modules/bitmask_smoothing/obj/smooth_structures/catwalk.dmi'
+	icon = 'icons/obj/smooth_structures/catwalk.dmi'
 	icon_state = "catwalk-0"
 	base_icon_state = "catwalk"
 	smoothing_flags = SMOOTH_BITMASK

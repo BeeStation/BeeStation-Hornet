@@ -766,7 +766,7 @@
 	anchored = FALSE
 
 /obj/structure/window/bronze/fulltile
-	icon = 'monkestation/code/modules/bitmask_smoothing/obj/smooth_structures/clockwork_window.dmi'
+	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
 	icon_state = "clockwork_window-0"
 	base_icon_state = "clockwork_window"
 	smoothing_flags = SMOOTH_BITMASK

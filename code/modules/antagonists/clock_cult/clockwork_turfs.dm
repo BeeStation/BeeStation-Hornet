@@ -302,7 +302,7 @@
 
 /obj/structure/lattice/catwalk/clockwork
 	name = "clockwork catwalk"
-	icon = 'monkestation/code/modules/bitmask_smoothing/obj/smooth_structures/catwalk_clockwork.dmi'
+	icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_CATWALK)
@@ -556,7 +556,7 @@
 	anchored = FALSE
 
 /obj/structure/window/reinforced/clockwork/fulltile
-	icon = 'monkestation/code/modules/bitmask_smoothing/obj/smooth_structures/clockwork_window.dmi'
+	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
 	icon_state = "clockwork_window-0"
 	base_icon_state = "clockwork_window"
 	smoothing_flags = SMOOTH_BITMASK

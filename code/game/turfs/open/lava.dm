@@ -169,7 +169,7 @@
 /turf/open/lava/smooth
 	name = "lava"
 	baseturfs = /turf/open/lava/smooth
-	icon = 'monkestation/code/modules/bitmask_smoothing/turf/floors/lava.dmi'
+	icon = 'icons/turf/floors/lava.dmi'
 	icon_state = "lava-255"
 	base_icon_state = "lava"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
