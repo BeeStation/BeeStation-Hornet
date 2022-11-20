@@ -144,13 +144,13 @@
 	if(icon == initial(icon))
 		switch(rand(1,3))
 			if(1)
-				icon = 'icons/obj/smooth_structures/alien/weeds1.dmi' /*###*/
+				icon = 'icons/obj/smooth_structures/alien/weeds1.dmi'
 				base_icon_state = "weeds1"
 			if(2)
-				icon = 'icons/obj/smooth_structures/alien/weeds2.dmi' /*###*/
+				icon = 'icons/obj/smooth_structures/alien/weeds2.dmi'
 				base_icon_state = "weeds2"
 			if(3)
-				icon = 'icons/obj/smooth_structures/alien/weeds3.dmi' /*###*/
+				icon = 'icons/obj/smooth_structures/alien/weeds3.dmi'
 				base_icon_state = "weeds3"
 
 /obj/structure/alien/weeds/proc/expand()
@@ -185,7 +185,7 @@
 	var/node_range = NODERANGE
 
 /obj/structure/alien/weeds/node/Initialize(mapload)
-	icon = 'icons/obj/smooth_structures/alien/weednode.dmi' /*###*/
+	icon = 'icons/obj/smooth_structures/alien/weednode.dmi'
 	. = ..()
 	set_light(lon_range)
 	var/obj/structure/alien/weeds/W = locate(/obj/structure/alien/weeds) in loc

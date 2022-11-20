@@ -132,7 +132,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 /turf/closed/indestructible/turbolift
 	name = "turbolift wall"
 	desc = "A turbolift wall. One of the strongest walls known to man."
-	icon = 'icons/turf/walls/riveted.dmi' /*###*/
+	icon = 'icons/turf/walls/riveted.dmi'
 	icon_state = "riveted-0"
 	base_icon_state = "riveted"
 	smoothing_flags = SMOOTH_BITMASK

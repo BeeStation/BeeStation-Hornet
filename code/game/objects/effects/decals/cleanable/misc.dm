@@ -48,7 +48,7 @@
 /obj/effect/decal/cleanable/dirt
 	name = "dirt"
 	desc = "Someone should clean that up."
-	icon = 'icons/effects/dirt.dmi' /*###*/
+	icon = 'icons/effects/dirt.dmi'
 	icon_state = "dirt"
 	base_icon_state = "dirt"
 	smoothing_flags = NONE
