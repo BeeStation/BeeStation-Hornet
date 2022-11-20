@@ -42,8 +42,8 @@
 	else
 		signal.send_to_receivers()
 	var/turf/source_turf = signal_source ? get_turf(signal_source) : null
-	usr.log_message("(PDA: [pda_input.name] | [usr.real_name]) sent \"[pda_input.text]\"[signal.photo ? " (Photo Attached)" : ""] to [signal.format_target()] via [signal_source ? "[signal_source] at [AREACOORD(source_turf)]" : "Admin UI"]", LOG_PDA)
-	message_admins("[key_name_admin(usr)][ADMIN_FLW(usr)] sent PDA message: \"[pda_input.text]\"[signal.photo ? " (Photo Attached)" : ""] to [signal.format_target()] via [signal_source ? "[signal_source] at [ADMIN_VERBOSEJMP(source_turf)]" : "Admin UI"]")
+	usr.log_message("(PDA: [pda_input.name] | [usr.real_name]) sent \"[pda_input.text]\"[signal["photo"] ? " (Photo Attached)" : ""] to [signal.format_target()] via [signal_source ? "[signal_source] at [AREACOORD(source_turf)]" : "Admin UI"]", LOG_PDA)
+	message_admins("[key_name_admin(usr)][ADMIN_FLW(usr)] sent PDA message: \"[pda_input.text]\"[signal["photo"] ? " (Photo Attached)" : ""] to [signal.format_target()] via [signal_source ? "[signal_source] at [ADMIN_VERBOSEJMP(source_turf)]" : "Admin UI"]")
 	qdel(pda_input)
 
 /datum/tgui_input_pda_message
