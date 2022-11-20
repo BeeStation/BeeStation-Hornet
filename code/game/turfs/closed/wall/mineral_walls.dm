@@ -10,7 +10,6 @@
 	var/active = null
 	smoothing_flags = SMOOTH_BITMASK
 	canSmoothWith = null
-	smooth = SMOOTH_TRUE
 
 /turf/closed/wall/mineral/gold
 	name = "gold wall"
@@ -231,7 +230,6 @@
 	icon = 'icons/turf/walls/abductor_wall.dmi'
 	icon_state = "abductor_wall-0"
 	base_icon_state = "abductor_wall"
-	smooth = SMOOTH_TRUE|SMOOTH_DIAGONAL
 	sheet_type = /obj/item/stack/sheet/mineral/abductor
 	slicing_duration = 200   //alien wall takes twice as much time to slice
 	explosion_block = 3

@@ -69,10 +69,6 @@
 	return ..()
 
 /obj/effect/decal/cleanable/dirt/dust
-	queue_smooth_neighbors(src)
-	return ..()
-
-/obj/effect/decal/cleanable/dirt/dust
 	name = "dust"
 	desc = "A thin layer of dust coating the floor."
 

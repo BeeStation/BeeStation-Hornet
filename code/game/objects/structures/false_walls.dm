@@ -15,8 +15,6 @@
 	density = TRUE
 	opacity = 1
 	max_integrity = 100
-
-	smooth = SMOOTH_TRUE
 	can_be_unanchored = FALSE
 	CanAtmosPass = ATMOS_PASS_DENSITY
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE

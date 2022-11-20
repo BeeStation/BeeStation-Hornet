@@ -287,7 +287,7 @@
 	icon_state = "carpet_blue-255"
 	base_icon_state = "carpet_blue"
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_CARPET_BLUE)
-	ccanSmoothWith = list(SMOOTH_GROUP_CARPET_BLUE)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET_BLUE)
 	floor_tile = /obj/item/stack/tile/carpet/blue
 
 /turf/open/floor/carpet/cyan

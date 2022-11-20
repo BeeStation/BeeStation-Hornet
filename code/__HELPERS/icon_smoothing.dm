@@ -273,7 +273,6 @@ DEFINE_BITFIELD(smoothing_junction, list(
 
 	var/area/target_area = get_area(target_turf)
 	var/area/source_area = get_area(src)
-	  START
 	if((source_area.area_limited_icon_smoothing && !istype(target_area, source_area.area_limited_icon_smoothing)) || (target_area.area_limited_icon_smoothing && !istype(source_area, target_area.area_limited_icon_smoothing)))
 		return NO_ADJ_FOUND
 
@@ -300,7 +299,6 @@ DEFINE_BITFIELD(smoothing_junction, list(
 				return ADJ_FOUND
 
 	return NO_ADJ_FOUND
-	  END
 /**
   * Basic smoothing proc. The atom checks for adjacent directions to smooth with and changes the icon_state based on that.
   *
