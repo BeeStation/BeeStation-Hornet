@@ -1,4 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: runtime station (debug station) now has synthflesh prefilled clone pod
