@@ -13144,10 +13144,6 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bSC" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/structure/table,
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = -8
@@ -33303,6 +33299,13 @@
 /obj/structure/sign/warning/fire,
 /turf/closed/wall/r_wall,
 /area/maintenance/disposal/incinerator)
+"jFV" = (
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -24
+	},
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "jGm" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -92100,7 +92103,7 @@ cwm
 cwr
 fSm
 lig
-bOd
+jFV
 bMK
 gXu
 bOd
