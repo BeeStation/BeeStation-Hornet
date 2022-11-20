@@ -202,6 +202,7 @@
 #include "code\__HELPERS\filters.dm"
 #include "code\__HELPERS\game.dm"
 #include "code\__HELPERS\global_lists.dm"
+#include "code\__HELPERS\grammar.dm"
 #include "code\__HELPERS\guid.dm"
 #include "code\__HELPERS\heap.dm"
 #include "code\__HELPERS\icon_smoothing.dm"

@@ -142,28 +142,6 @@
 		};\
 	} while(FALSE)
 
-/// Returns a list in plain english as a string
-/proc/english_list(list/input, nothing_text = "nothing", and_text = " and ", comma_text = ", ", final_comma_text = "" )
-	var/total = length(input)
-	switch(total)
-		if (0)
-			return "[nothing_text]"
-		if (1)
-			return "[input[1]]"
-		if (2)
-			return "[input[1]][and_text][input[2]]"
-		else
-			var/output = ""
-			var/index = 1
-			while (index < total)
-				if (index == total - 1)
-					comma_text = final_comma_text
-
-				output += "[input[index]][comma_text]"
-				index++
-
-			return "[output][and_text][input[index]]"
-
 /// Return either pick(list) or null if list is not of type /list or is empty
 /proc/safepick(list/L)
 	if(LAZYLEN(L))
