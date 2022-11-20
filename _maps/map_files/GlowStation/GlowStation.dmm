@@ -5937,13 +5937,10 @@
 /turf/open/floor/plasteel/techmaint,
 /area/engineering/hallway)
 "bre" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/turf/open/floor/mineral/plastitanium/red,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer2,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer4,
+/turf/open/floor/plating/ice/smooth,
 /area/engine/atmospherics_engine)
 "brg" = (
 /obj/structure/railing{
@@ -6533,11 +6530,13 @@
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/miningdock)
 "bxn" = (
-/obj/machinery/atmospherics/components/trinary/filter/critical{
-	dir = 4;
-	filter_type = "n2"
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
-/turf/open/floor/engine,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mineral/plastitanium/red,
 /area/engine/atmospherics_engine)
 "bxo" = (
 /turf/closed/wall,
@@ -7652,13 +7651,9 @@
 /turf/open/floor/plasteel,
 /area/security/checkpoint)
 "bIJ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/cyan/visible{
-	dir = 5
-	},
-/turf/open/floor/engine,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
+/obj/machinery/meter,
+/turf/open/floor/mineral/plastitanium,
 /area/engine/atmospherics_engine)
 "bJl" = (
 /obj/structure/railing{
@@ -14926,15 +14921,10 @@
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/aft)
 "duB" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/green/visible{
-	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/engine/atmospherics_engine)
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plating,
+/area/iceland/underground)
 "duG" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plasteel/techmaint,
@@ -16758,10 +16748,17 @@
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary/commissary2)
 "dPe" = (
-/obj/machinery/atmospherics/pipe/simple/green/visible{
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/obj/machinery/meter,
+/obj/machinery/atmospherics/pipe/manifold/green/visible{
 	dir = 4
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/mineral/plastitanium/red,
 /area/engine/atmospherics_engine)
 "dPi" = (
 /obj/machinery/vending/coffee,
@@ -26230,6 +26227,13 @@
 	},
 /turf/open/openspace/cold,
 /area/maintenance/disposal)
+"fQX" = (
+/obj/structure/lattice/catwalk/over,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
+	dir = 6
+	},
+/turf/open/openspace/cold,
+/area/engine/atmospherics_engine)
 "fRb" = (
 /turf/open/openspace/cold,
 /area/hallway/primary/starboard)
@@ -31468,11 +31472,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/janitor)
-"gXi" = (
-/obj/effect/spawner/lootdrop/maintenance/three,
-/obj/structure/closet/cardboard,
-/turf/open/floor/plating,
-/area/iceland/underground)
 "gXj" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
@@ -43256,9 +43255,17 @@
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/central)
 "jxG" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer,
-/turf/open/floor/plating,
+/obj/item/stack/marker_beacon{
+	anchored = 1;
+	icon_state = "markerburgundy-on";
+	light_color = "#FA644B";
+	light_power = 3;
+	light_range = 2;
+	name = "landing marker";
+	picked_color = "Burgundy"
+	},
+/obj/structure/lattice/catwalk,
+/turf/open/openspace/cold,
 /area/engine/atmospherics_engine)
 "jxT" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -43512,20 +43519,10 @@
 /turf/open/floor/carpet/royalblue,
 /area/bridge/showroom/corporate)
 "jAu" = (
-/obj/structure/lattice/catwalk/over,
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/turf/open/openspace/cold,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer2,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer4,
+/turf/open/floor/plating/ice,
 /area/engine/atmospherics_engine)
 "jAx" = (
 /obj/structure/cable/yellow{
@@ -55247,6 +55244,19 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/secondary/command)
+"lZP" = (
+/obj/structure/lattice/catwalk,
+/obj/item/stack/marker_beacon{
+	anchored = 1;
+	icon_state = "markerburgundy-on";
+	light_color = "#FA644B";
+	light_power = 3;
+	light_range = 2;
+	name = "landing marker";
+	picked_color = "Burgundy"
+	},
+/turf/open/openspace/cold,
+/area/engine/atmospherics_engine)
 "lZR" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
@@ -59083,7 +59093,8 @@
 /area/science/xenobiology)
 "mVe" = (
 /obj/machinery/atmospherics/components/trinary/filter/critical{
-	dir = 4
+	dir = 4;
+	filter_type = "n2"
 	},
 /turf/open/floor/engine,
 /area/engine/atmospherics_engine)
@@ -59553,7 +59564,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/closed/wall/r_wall,
+/turf/open/floor/plating,
 /area/medical/medbay/central)
 "mZm" = (
 /turf/closed/wall/r_wall,
@@ -60699,10 +60710,10 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/medbay/central)
 "nmV" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer2,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer4,
-/turf/open/floor/plating/ice/smooth,
+/obj/machinery/atmospherics/components/trinary/filter/critical{
+	dir = 4
+	},
+/turf/open/floor/engine,
 /area/engine/atmospherics_engine)
 "nmW" = (
 /obj/structure/closet/firecloset,
@@ -61069,8 +61080,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/chapel/monastery)
 "nsk" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/engine/atmospherics_engine)
 "nsm" = (
@@ -64522,17 +64534,11 @@
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/dorms)
 "ocT" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
+/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 4
 	},
-/obj/structure/lattice/catwalk,
-/turf/open/openspace/cold,
+/turf/open/floor/plating/asteroid/snow/atmosphere,
 /area/engine/atmospherics_engine)
 "ocU" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -67304,10 +67310,10 @@
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "oGp" = (
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer,
 /turf/open/floor/plating,
-/area/iceland/underground)
+/area/engine/atmospherics_engine)
 "oGt" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -69878,6 +69884,21 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/port)
+"pmo" = (
+/obj/machinery/door/airlock/engineering{
+	name = "Engineering";
+	req_one_access_txt = "32;19"
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/turf/open/floor/plasteel/dark,
+/area/engineering/hallway)
 "pmp" = (
 /obj/structure/lattice/catwalk/over,
 /obj/structure/railing{
@@ -72290,9 +72311,10 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hos)
 "pOe" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
+	dir = 5
 	},
+/obj/item/wrench,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/engine/atmospherics_engine)
@@ -72978,16 +73000,6 @@
 	},
 /turf/open/floor/carpet/orange,
 /area/engine/break_room)
-"pVG" = (
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/multiz{
-	dir = 8
-	},
-/obj/structure/lattice/catwalk/over,
-/turf/open/openspace/cold,
-/area/engine/atmospherics_engine)
 "pVJ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 9
@@ -74422,11 +74434,14 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/balcony)
 "qnk" = (
-/obj/machinery/portable_atmospherics/scrubber,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 4
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
 	},
-/turf/open/floor/plating/asteroid/snow/atmosphere,
+/obj/machinery/atmospherics/components/trinary/filter/critical{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium/red,
 /area/engine/atmospherics_engine)
 "qnn" = (
 /obj/structure/closet/crate,
@@ -83578,10 +83593,11 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "snJ" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer2,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple/layer4,
-/turf/open/floor/plating/ice,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/plastitanium,
 /area/engine/atmospherics_engine)
 "snP" = (
 /obj/structure/lattice/catwalk,
@@ -84312,11 +84328,6 @@
 	},
 /turf/open/floor/noslip/dark,
 /area/crew_quarters/fitness/recreation)
-"swU" = (
-/obj/effect/spawner/lootdrop/maintenance/three,
-/obj/structure/closet,
-/turf/open/floor/plating,
-/area/iceland/underground)
 "swZ" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment,
@@ -86001,17 +86012,8 @@
 /turf/open/floor/plating,
 /area/maintenance/upper/fore)
 "sNt" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
-/obj/machinery/meter,
-/obj/machinery/atmospherics/pipe/manifold/green/visible{
-	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium/red,
+/obj/machinery/atmospherics/pipe/layer_manifold/visible,
+/turf/open/floor/plating/ice/smooth,
 /area/engine/atmospherics_engine)
 "sNv" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -87750,14 +87752,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
-"tfS" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 5
-	},
-/obj/item/wrench,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/mineral/plastitanium,
-/area/engine/atmospherics_engine)
 "tfV" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/disposalpipe/segment{
@@ -96932,18 +96926,10 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "veo" = (
-/obj/structure/lattice/catwalk,
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
-/turf/open/openspace/cold,
-/area/engine/atmospherics_engine)
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/structure/closet,
+/turf/open/floor/plating,
+/area/iceland/underground)
 "vep" = (
 /obj/machinery/airalarm{
 	dir = 8;
@@ -99005,8 +98991,13 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/toilet/restrooms)
 "vCu" = (
-/obj/machinery/atmospherics/pipe/layer_manifold/visible,
-/turf/open/floor/plating/ice/smooth,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/visible{
+	dir = 5
+	},
+/turf/open/floor/engine,
 /area/engine/atmospherics_engine)
 "vCz" = (
 /obj/effect/turf_decal/stripes/line{
@@ -100116,8 +100107,17 @@
 /area/hallway/primary/fore)
 "vRG" = (
 /obj/structure/lattice/catwalk/over,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 6
+/obj/item/stack/marker_beacon{
+	anchored = 1;
+	icon_state = "markerburgundy-on";
+	light_color = "#FA644B";
+	light_power = 3;
+	light_range = 2;
+	name = "landing marker";
+	picked_color = "Burgundy"
+	},
+/obj/structure/railing/corner{
+	dir = 8
 	},
 /turf/open/openspace/cold,
 /area/engine/atmospherics_engine)
@@ -103743,6 +103743,11 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engine_smes)
+"wFw" = (
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/structure/closet/cardboard,
+/turf/open/floor/plating,
+/area/iceland/underground)
 "wFy" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -104612,8 +104617,8 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/components/trinary/filter/critical{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/engine/atmospherics_engine)
@@ -104744,21 +104749,6 @@
 /obj/structure/lattice,
 /turf/open/openspace/cold,
 /area/engine/atmospherics_engine)
-"wSR" = (
-/obj/machinery/door/airlock/engineering{
-	name = "Engineering";
-	req_one_access_txt = "32;19"
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/turf/open/floor/plasteel/dark,
-/area/engineering/hallway)
 "wSS" = (
 /obj/structure/rack,
 /obj/item/wrench,
@@ -109081,6 +109071,16 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
 /area/maintenance/port)
+"xUv" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/multiz{
+	dir = 8
+	},
+/obj/structure/lattice/catwalk/over,
+/turf/open/openspace/cold,
+/area/engine/atmospherics_engine)
 "xVa" = (
 /obj/structure/fence,
 /turf/open/floor/plating/asteroid/snow,
@@ -141387,13 +141387,13 @@ hyh
 rYa
 lGb
 fjG
-nmV
-snJ
-snJ
+bre
+jAu
+jAu
 rlj
-snJ
-snJ
-nmV
+jAu
+jAu
+bre
 iEi
 cvu
 ibe
@@ -141645,11 +141645,11 @@ hyh
 jue
 qFs
 cQh
-vCu
+sNt
 rcV
 oXa
 pph
-vCu
+sNt
 mqO
 kVm
 jue
@@ -141902,7 +141902,7 @@ hyh
 hju
 vVm
 ttG
-qnk
+ocT
 lKN
 fiB
 sGo
@@ -142160,7 +142160,7 @@ fKf
 dJW
 jQF
 vPy
-sNt
+dPe
 ost
 nAt
 sId
@@ -142413,8 +142413,8 @@ hyh
 bcp
 bcp
 bcp
-bre
-dPe
+bxn
+nsk
 jKa
 nTs
 brB
@@ -142422,8 +142422,8 @@ dLG
 epY
 qwI
 wfy
-tfS
-duB
+pOe
+wQX
 bcp
 bcp
 ibe
@@ -142670,17 +142670,17 @@ qLR
 deH
 bcp
 bcp
-bre
 bxn
-bIJ
+mVe
+vCu
 fYy
 erz
 erz
 erz
 fYy
 wfy
-pOe
-wQX
+snJ
+qnk
 iMD
 bcp
 bcp
@@ -143185,7 +143185,7 @@ mOf
 haS
 xWV
 tAX
-mVe
+nmV
 cXF
 fYy
 fFd
@@ -143465,7 +143465,7 @@ wuv
 eBX
 ggY
 nNg
-wSR
+pmo
 hYN
 aEc
 ckn
@@ -143698,8 +143698,8 @@ jgc
 jgc
 jgc
 bES
-bre
-mVe
+bxn
+nmV
 cXF
 fYy
 arT
@@ -143955,7 +143955,7 @@ uwI
 mlc
 bcp
 bES
-bre
+bxn
 huK
 lky
 fYy
@@ -144213,7 +144213,7 @@ mlc
 bcp
 iMD
 tAX
-mVe
+nmV
 cXF
 fYy
 tlH
@@ -145022,7 +145022,7 @@ kGA
 kGA
 iyd
 dYv
-gXi
+wFw
 yey
 otv
 rhB
@@ -145276,7 +145276,7 @@ otv
 otv
 pMo
 kKH
-swU
+veo
 otv
 nXO
 aeA
@@ -146018,7 +146018,7 @@ cEA
 kvm
 hyh
 kvm
-jxG
+oGp
 cEA
 cKc
 vuq
@@ -146561,7 +146561,7 @@ otv
 fci
 fci
 kKH
-oGp
+duB
 jHc
 kKH
 otv
@@ -207695,11 +207695,11 @@ bho
 lpa
 lpa
 lpa
-veo
+lZP
 lpa
 lpa
 lpa
-ocT
+jxG
 lpa
 lpa
 lpa
@@ -210006,7 +210006,7 @@ awg
 gYS
 gYS
 kUr
-pVG
+xUv
 dbv
 krI
 krI
@@ -274769,10 +274769,10 @@ cdG
 tbY
 kkZ
 kkZ
-jAu
-rjt
 vRG
-nsk
+rjt
+fQX
+bIJ
 lrv
 dRG
 tsV
