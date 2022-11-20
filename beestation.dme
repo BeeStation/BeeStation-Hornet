@@ -3517,6 +3517,7 @@
 #include "code\modules\tgui\status_composers.dm"
 #include "code\modules\tgui\tgui.dm"
 #include "code\modules\tgui\tgui_input_emoji.dm"
+#include "code\modules\tgui\tgui_input_pda_message.dm"
 #include "code\modules\tgui\tgui_select_picture.dm"
 #include "code\modules\tgui\tgui_window.dm"
 #include "code\modules\tgui\states\admin.dm"

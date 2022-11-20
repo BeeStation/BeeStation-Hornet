@@ -11,13 +11,15 @@ export const PDAInputModal = (props, context) => {
     text,
     image,
     target = "Select PDA",
+    everyone,
+    theme,
   } = data;
   return (
-    <Window title="Send PDA Message" width={600} height={290}>
+    <Window title="Send PDA Message" theme={theme} width={600} height={290}>
       <Window.Content>
         <Box>
           <Box inline color="label">To: </Box>
-          <Button ml={1} icon={target !== "Select PDA" ? "envelope" : null} content={target} onClick={() => act("select")} />
+          <Button ml={1} icon={target !== "Select PDA" || everyone ? "envelope" : null} content={everyone ? "Everyone" : target} onClick={() => act("select")} />
         </Box>
         <Box mt={1}>
           <Box inline color="label">Name:</Box>
