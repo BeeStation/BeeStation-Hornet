@@ -50,7 +50,7 @@
 					if(length(signs) == max_signs)
 						to_chat(user, "<span class='notice'>You create \a [H] with [src]. It cannot project any more [sign_name]\s!</span>")
 					else
-						to_chat(user, "<span class='notice'>You create \a [H] with [src]. It can project [max_signs - length(signs)] more [sign_name]\s</span>")
+						to_chat(user, "<span class='notice'>You create \a [H] with [src]. It can project [max_signs - length(signs)] more [sign_name]\s.</span>")
 				else
 					to_chat(user, "<span class='notice'>[src] is projecting at max capacity!</span>")
 
@@ -74,7 +74,7 @@
 		. += "It is currently projecting [length(signs)] [sign_name]\s."
 		return
 	if(length(signs) == max_signs)
-		. += "It is currently projecting at maximum capacity!."
+		. += "It is currently projecting at maximum capacity!"
 
 /obj/item/holosign_creator/janibarrier
 	name = "custodial holobarrier projector"
