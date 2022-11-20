@@ -3,12 +3,10 @@
 /obj/structure/bed/nest
 	name = "alien nest"
 	desc = "It's a gruesome pile of thick, sticky resin shaped like a nest."
-	icon = 'icons/obj/smooth_structures/alien/nest.dmi'
+	icon = 'icons/obj/smooth_structures/alien/nest.dmi'//See code/modules/bitmask_smoothing/code for all code pertaining to new smooth objects
 	icon_state = "nest"
 	max_integrity = 120
-	smooth = SMOOTH_TRUE
 	can_be_unanchored = FALSE
-	canSmoothWith = null
 	buildstacktype = null
 	flags_1 = NODECONSTRUCT_1
 	bolts = FALSE
