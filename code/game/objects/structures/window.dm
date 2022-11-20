@@ -511,8 +511,8 @@
 
 /obj/structure/window/fulltile
 	icon = 'icons/obj/smooth_structures/window.dmi'
-	icon_state = "window-0"
-	base_icon_state = "window"
+	icon_state = "plasma_window-0"
+	base_icon_state = "plasma_window"
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE)
@@ -527,7 +527,11 @@
 
 /obj/structure/window/depleteduranium/fulltile
 	icon = 'icons/obj/smooth_structures/du_window.dmi'
-	icon_state = "du_window"
+	icon_state = "plasma_window-0"
+	base_icon_state = "plasma_window"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE)
+	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE)
 	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 500
 	fulltile = TRUE
