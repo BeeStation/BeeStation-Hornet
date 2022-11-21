@@ -1567,6 +1567,7 @@
 #include "code\modules\actionspeed\modifiers\race.dm"
 #include "code\modules\actionspeed\modifiers\status_effects.dm"
 #include "code\modules\admin\admin.dm"
+#include "code\modules\admin\admin_fax_panel.dm"
 #include "code\modules\admin\admin_follow.dm"
 #include "code\modules\admin\admin_investigate.dm"
 #include "code\modules\admin\admin_more_info.dm"

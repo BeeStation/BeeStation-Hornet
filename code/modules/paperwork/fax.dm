@@ -55,6 +55,11 @@
 	var/radio_channel
 	/// Cooldown for aformentioned radio, prevents radio spam
 	COOLDOWN_DECLARE(radio_cooldown)
+	/// List with a fake-networks(not a fax actually), for request manager.
+	var/list/special_networks = list(
+		list(fax_name = "Central Command", fax_id = "central_command", color = "teal", emag_needed = FALSE),
+		list(fax_name = "Sabotage Department", fax_id = "syndicate", color = "red", emag_needed = TRUE),
+	)
 
 /obj/machinery/fax/Initialize(mapload)
 	. = ..()
@@ -266,6 +271,7 @@
 	data["syndicate_network"] = (syndicate_network || (obj_flags & EMAGGED))
 	data["has_paper"] = !!loaded_item_ref?.resolve()
 	data["fax_history"] = fax_history
+	data["special_faxes"] = special_networks
 	return data
 
 /obj/machinery/fax/ui_act(action, list/params)
@@ -284,6 +290,7 @@
 			playsound(src, 'sound/machines/terminal_eject.ogg', 50, FALSE)
 			update_icon()
 			return TRUE
+
 		if("send")
 			var/obj/item/loaded = loaded_item_ref?.resolve()
 			if(!loaded)
@@ -294,6 +301,30 @@
 				loaded_item_ref = null
 				update_icon()
 				return TRUE
+
+		if("send_special")
+			var/obj/item/paper/fax_paper = loaded_item_ref?.resolve()
+			if(!istype(fax_paper))
+				to_chat(usr, icon2html(src.icon, usr) + "<span class='warning'>ERROR: Failed to send fax.</span>")
+				return
+
+			fax_paper.request_state = TRUE
+			fax_paper.loc = null
+
+			INVOKE_ASYNC(src, PROC_REF(animate_object_travel), fax_paper, "fax_receive", find_overlay_state(fax_paper, "send"))
+			history_add("Send", params["name"])
+
+			GLOB.requests.fax_request(usr.client, "sent a fax message from [fax_name]/[fax_id] to [params["name"]]", fax_paper)
+			to_chat(GLOB.admins, "<span class='adminnotice'>[icon2html(src.icon, GLOB.admins)]<b><font color=green>FAX REQUEST: </font>[ADMIN_FULLMONTY(usr)]:</b> <span class='linkify'>sent a fax message from [fax_name]/[fax_id][ADMIN_FLW(src)] to [params["name"]]</span> [ADMIN_SHOW_PAPER(fax_paper)]")
+			log_fax(fax_paper, params["id"], params["name"])
+			loaded_item_ref = null
+
+			for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
+				if(fax.radio_channel == RADIO_CHANNEL_CENTCOM)
+					fax.receive(fax_paper, fax_name)
+					break
+			update_appearance()
+
 		if("history_clear")
 			history_clear()
 			return TRUE

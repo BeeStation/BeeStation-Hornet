@@ -61,6 +61,9 @@
 	/// state checking on if it should be shown to a viewer.
 	var/datum/weakref/camera_holder
 
+	///If TRUE, staff can read paper everywhere, but usually from requests panel.
+	var/request_state = FALSE
+
 /obj/item/paper/Initialize(mapload)
 	. = ..()
 	pixel_y = rand(-8, 8)
@@ -316,7 +319,7 @@
 		// Are we on fire?  Hard ot read if so
 	if(resistance_flags & ON_FIRE)
 		return UI_CLOSE
-	if(camera_holder && can_show_to_mob_through_camera(user))
+	if(camera_holder && can_show_to_mob_through_camera(user) || request_state)
 		return UI_UPDATE
 	if(!in_range(user,src))
 		return UI_CLOSE
