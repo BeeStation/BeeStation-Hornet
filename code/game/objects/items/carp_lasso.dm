@@ -118,7 +118,7 @@
 	name = "bluespace lasso"
 	desc = "Comes standard with every evil space-cowboy!\n<span class='notice'>Can be used to tame almost anything.</span>"
 
-/obj/item/mob_lasso/antag/Initialize(mapload)
+/obj/item/mob_lasso/traitor/Initialize(mapload)
 	. = ..()
 	blacklist_mobs = typecacheof(list(/mob/living/simple_animal/hostile/megafauna, /mob/living/simple_animal/hostile/alien, /mob/living/simple_animal/hostile/syndicate))
 
