@@ -1,9 +1,0 @@
-author: ArcaneDefence, tmtmtl30, Mothblocks, and RKz
-delete-after: true
-changes:
-  - rscadd: Added Mothperson markings.
-  - rscadd: Mothpeople now have a preference to choose their antennae type from.
-  - bugfix: Mothpeople will no longer have floating antennae when decapitated.
-  - bugfix: The markings on mothpeople will not show over missing or augmented limbs
-      any more.
-  - bugfix: cut initialization time by 0.18s due to unecessary crop size of moth_wing.dmi
