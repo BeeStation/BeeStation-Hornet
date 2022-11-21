@@ -1481,7 +1481,7 @@
 	// Our current z-level turf
 	var/turf/turf_base = get_turf(src)
 	// The target z-level turf
-	var/turf/turf_other = get_step_multiz(turf_base, LOOKING_DIRECTION_UP ? UP : DOWN)
+	var/turf/turf_other = get_step_multiz(turf_base, direction == LOOKING_DIRECTION_UP ? UP : DOWN)
 	if(!turf_other) // There is nothing above/below
 		return FALSE
 	// This turf is the one we are looking through
