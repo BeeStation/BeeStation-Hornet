@@ -1,4 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - tweak: The admin player panel now empties the search bar on open.
