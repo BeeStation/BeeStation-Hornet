@@ -2510,7 +2510,7 @@
 /area/engine/gravity_generator)
 "wO" = (
 /obj/machinery/light,
-/obj/machinery/clonepod,
+/obj/machinery/clonepod/prefilled,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
