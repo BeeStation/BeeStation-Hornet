@@ -77724,10 +77724,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/storage/tools)
-"qUL" = (
-/obj/structure/lattice/catwalk/over,
-/turf/open/floor/plating/snowed/smoothed,
-/area/iceland)
 "qUN" = (
 /obj/structure/chair/fancy/sofa/corp/left{
 	dir = 4
@@ -81006,7 +81002,6 @@
 /turf/open/floor/plating,
 /area/maintenance/upper/port/fore)
 "rKt" = (
-/turf/open/openspace/cold,
 /turf/closed/mineral/snowmountain/cavern,
 /area/iceland)
 "rKv" = (
@@ -95981,7 +95976,6 @@
 /obj/structure/railing{
 	dir = 6
 	},
-/obj/structure/lattice,
 /obj/structure/lattice,
 /turf/open/openspace/cold,
 /area/iceland)
@@ -340718,7 +340712,7 @@ hiK
 noJ
 qkA
 kDV
-lIJ
+hiK
 noJ
 dwz
 xPY
@@ -405738,7 +405732,7 @@ hjc
 hjc
 hjc
 xPY
-qUL
+hjc
 xPY
 xPY
 hEp
