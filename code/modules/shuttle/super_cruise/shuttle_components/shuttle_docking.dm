@@ -11,7 +11,7 @@
 	var/obj/docking_port/stationary/my_port //the custom docking port placed by this console
 	var/obj/docking_port/mobile/shuttle_port //the mobile docking port of the connected shuttle
 	var/view_range = 0
-	var/list/whitelist_turfs = list(/turf/open/space, /turf/open/floor/plating/lavaland, /turf/open/floor/plating/asteroid, /turf/open/lava, /turf/open/floor/dock)
+	var/list/whitelist_turfs = list(/turf/open/space, /turf/open/floor/plating/lavaland, /turf/open/floor/plating/asteroid, /turf/open/lava, /turf/open/floor/dock, /turf/open/floor/plating/asteroid/snow, /turf/open/floor/plating/snowed, /turf/open/floor/plating/snowed/smoothed)
 	var/designate_time = 50
 	var/turf/designating_target_loc
 	var/datum/action/innate/camera_jump/shuttle_docker/docker_action = new

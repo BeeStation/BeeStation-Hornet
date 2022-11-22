@@ -197,6 +197,25 @@
 		/turf/closed/mineral/gibtonite = 2, /obj/item/stack/ore/bluespace_crystal = 1)
 
 
+/turf/closed/mineral/random/snowmountain/cavern
+	name = "snowy mountainside"
+	icon = 'icons/turf/mining.dmi'
+	smooth_icon = 'icons/turf/walls/mountain_wall.dmi'
+	icon_state = "icerock"
+	smooth = SMOOTH_MORE|SMOOTH_BORDER
+	canSmoothWith = list (/turf/closed)
+	baseturfs = /turf/open/floor/plating/asteroid/snow
+	initial_gas_mix = FROZEN_ATMOS
+	environment_type = "snow"
+	turf_type = /turf/open/floor/plating/asteroid/snow
+	defer_change = TRUE
+	mineralChance = 6
+	mineralSpawnChanceList = list(
+		/obj/item/stack/ore/uranium = 2, /obj/item/stack/ore/diamond = 1, /obj/item/stack/ore/gold = 4, /obj/item/stack/ore/titanium = 4,
+		/obj/item/stack/ore/silver = 6, /obj/item/stack/ore/copper = 6, /obj/item/stack/ore/plasma = 15, /obj/item/stack/ore/iron = 40,
+		/turf/closed/mineral/gibtonite = 2, /obj/item/stack/ore/bluespace_crystal = 1)
+
+
 /turf/closed/mineral/random/volcanic
 	environment_type = "basalt"
 	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
