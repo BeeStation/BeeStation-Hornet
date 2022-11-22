@@ -207,27 +207,19 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		if("Down")
 			travel_z(user, below, FALSE)
 
-/turf/proc/travel_z(mob/user, turf/target, upwards = TRUE)
-	if(!target)
-		to_chat(user, "<span class='warning'>There is nothing in that direction!</span>")
-		return
-	//Check if we can travel in that direction
-	var/mob/living/L = user
-	var/jaunting = isliving(user) && L.incorporeal_move
-
-	if(!jaunting && ((upwards && !target.allow_z_travel) || (!upwards && !allow_z_travel)))
-		to_chat(user, "<span class='warning'>Something is blocking you!</span>")
-		return
-	user.visible_message("<span class='notice'>[user] begins floating [upwards ? "upwards" : "downwards"]!</span>", "<span class='notice'>You begin floating [upwards ? "upwards" : "downwards"].")
+/turf/proc/travel_z(mob/user, turf/target, upwards = TRUE, climbing = FALSE)
+	user.visible_message("<span class='notice'>[user] begins [climbing ? "climbing" : "floating"] [upwards ? "upwards" : "downwards"]!</span>", "<span class='notice'>You begin [climbing ? "climbing" : "floating"] [upwards ? "upwards" : "downwards"].")
 	var/matrix/M = user.transform
-	//Animation is inverted due to immediately resetting user vars.
 	animate(user, 30, pixel_y = upwards ? 32 : -32, transform = matrix() * (upwards ? 1.3 : 0.7))
-	user.pixel_y = 0
-	user.transform = M
 	if(!do_after(user, 30, FALSE, get_turf(user)))
 		animate(user, 0, flags = ANIMATION_END_NOW)
+		user.pixel_y = 0
+		user.transform = M
 		return
-	if(jaunting) // Allow most jaunting
+	user.pixel_y = 0
+	user.transform = M
+	var/mob/living/L = user
+	if(istype(L) && L.incorporeal_move) // Allow most jaunting
 		user.client?.Process_Incorpmove(upwards ? UP : DOWN)
 		return
 	var/atom/movable/AM
@@ -264,11 +256,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 //zPassIn doesn't necessarily pass an atom!
 //direction is direction of travel of air
-/turf/proc/zPassIn(atom/movable/A, direction, turf/source)
+/turf/proc/zPassIn(atom/movable/A, direction, turf/source, falling = FALSE)
 	return FALSE
 
 //direction is direction of travel of air
-/turf/proc/zPassOut(atom/movable/A, direction, turf/destination)
+/turf/proc/zPassOut(atom/movable/A, direction, turf/destination, falling = FALSE)
 	return FALSE
 
 //direction is direction of travel of air
@@ -279,26 +271,25 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/proc/zAirOut(direction, turf/source)
 	return FALSE
 
-/turf/proc/zImpact(atom/movable/A, levels = 1, turf/prev_turf)
+/turf/proc/attempt_z_impact(atom/movable/A, levels = 1, turf/prev_turf)
 	var/flags = NONE
-	var/mov_name = A.name
 	for(var/i in contents)
 		var/atom/thing = i
 		flags |= thing.intercept_zImpact(A, levels)
 		if(flags & FALL_STOP_INTERCEPTING)
 			break
 	if(prev_turf && !(flags & FALL_NO_MESSAGE))
-		prev_turf.visible_message("<span class='danger'>[mov_name] falls through [prev_turf]!</span>")
+		prev_turf.visible_message("<span class='danger'>[A] falls through [prev_turf]!</span>")
 	if(flags & FALL_INTERCEPTED)
-		return
-	if(zFall(A, ++levels))
+		return FALSE
+	if(zFall(A, levels + 1))
 		return FALSE
 	A.visible_message("<span class='danger'>[A] crashes into [src]!</span>")
 	A.onZImpact(src, levels)
 	return TRUE
 
 /turf/proc/can_zFall(atom/movable/A, levels = 1, turf/target)
-	return zPassOut(A, DOWN, target) && target.zPassIn(A, DOWN, src)
+	return zPassOut(A, DOWN, target, falling = TRUE) && target.zPassIn(A, DOWN, src, falling = TRUE)
 
 /turf/proc/zFall(atom/movable/A, levels = 1, force = FALSE, old_loc = null)
 	var/turf/target = get_step_multiz(src, DOWN)
@@ -306,17 +297,18 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		return FALSE
 	if(!force && (!can_zFall(A, levels, target) || !A.can_zFall(src, levels, target, DOWN)))
 		return FALSE
-	. = TRUE
-	if(!A.zfalling)
-		A.zfalling = TRUE
-		if(A.pulling && old_loc) // Moves whatever we're pulling to where we were before so we're still adjacent
-			A.pulling.moving_from_pull = A
-			A.pulling.Move(old_loc)
-			A.pulling.moving_from_pull = null
-		if(!A.Move(target))
-			A.doMove(target)
-		. = target.zImpact(A, levels, src)
-		A.zfalling = FALSE
+	A.zfalling = TRUE
+	if(A.pulling && old_loc) // Moves whatever we're pulling to where we were before so we're still adjacent
+		A.pulling.moving_from_pull = A
+		A.pulling.Move(old_loc)
+		A.pulling.moving_from_pull = null
+	if(!A.Move(target))
+		A.doMove(target)
+	// Returns false if we continue falling - which calls zfall again
+	// which calls attempt_z_impact (which returns true) if it impacts
+	// basically, check if we should hit the ground, otherwise call zFall again.
+	. = target.attempt_z_impact(A, levels, src)
+	A.zfalling = FALSE
 
 /turf/proc/handleRCL(obj/item/rcl/C, mob/user)
 	if(C.loaded)

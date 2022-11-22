@@ -52,8 +52,8 @@
 	return ..()
 
 /mob/living/proc/ZImpactDamage(turf/T, levels)
-	visible_message("<span class='danger'>[src] falls [levels - 1] level\s into [T] with a sickening noise!</span>")
-	adjustBruteLoss((levels * 5) ** 1.5)
+	visible_message("<span class='danger'>[src] falls [levels] level\s into [T] with a sickening noise!</span>")
+	adjustBruteLoss((levels * 10) ** 1.5)
 	Knockdown(levels * 50)
 
 /mob/living/proc/OpenCraftingMenu()

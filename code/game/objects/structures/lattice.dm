@@ -68,3 +68,9 @@
 /obj/structure/lattice/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FOUR)
 		deconstruct()
+
+/obj/structure/lattice/can_climb_through()
+	return TRUE
+
+/obj/structure/lattice/can_climb_around()
+	return TRUE

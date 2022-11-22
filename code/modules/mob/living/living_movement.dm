@@ -58,10 +58,38 @@
 	remove_movespeed_modifier(MOVESPEED_ID_BULKY_DRAGGING)
 
 /mob/living/canZMove(dir, turf/target)
-	return can_zTravel(target, dir) && (movement_type & FLYING)
+	return can_zTravel(target, dir)
 
 /mob/living/zMove(dir, feedback = FALSE)
 	if(dir != UP && dir != DOWN)
 		return FALSE
 	var/turf/source = get_turf(src)
-	source.travel_z(src, get_step_multiz(src, dir), (dir == UP))
+	var/turf/target = get_step_multiz(src, dir)
+	if(!target)
+		to_chat(src, "<span class='warning'>There is nothing in that direction!</span>")
+		return FALSE
+	var/upwards = dir == UP
+	var/climbing = FALSE
+	if(!incorporeal_move)
+		//Check if we can travel in that direction
+		if(((upwards && !target.allow_z_travel) || (!upwards && !source.allow_z_travel)))
+			to_chat(src, "<span class='warning'>Something is blocking you!</span>")
+			return
+		var/can_climb = turf_can_climb(upwards ? target : source)
+		if(!canZMove(dir, target) && !can_climb)
+			to_chat(src, "<span class='warning'>Something is blocking you!</span>")
+			return FALSE
+		if(has_gravity(source))
+			if(upwards)
+				// If there's gravity and the space above is not climbable, don't travel
+				if(!(movement_type & FLYING) && !can_climb)
+					visible_message("<span class='warning'>[src] jumps into the air, as if [p_they()] expected to float... Gravity pulls [p_them()] back down quickly.</span>", "<span class='warning'>You try jumping into the space above you. Gravity pulls you back down quickly.</span>")
+					return
+				else if(can_climb)
+					climbing = TRUE
+			else
+				if(!can_climb)
+					to_chat(src, "<span class='warning'>Something is blocking you!</span>")
+					return
+				climbing = TRUE // "Floating" down in gravity is weird
+	return source.travel_z(src, target, upwards, climbing)

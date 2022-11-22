@@ -122,7 +122,7 @@
 		if(!A.density)
 			continue
 		if(isobj(A) || ismob(A))
-			if(A.layer > highest.layer)
+			if(!highest || A.layer > highest.layer)
 				highest = A
 	INVOKE_ASYNC(src, .proc/SpinAnimation, 5, 2)
 	if(highest)

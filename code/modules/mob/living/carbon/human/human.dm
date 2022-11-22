@@ -1085,10 +1085,16 @@
 	var/obj/item/bodypart/right_leg = get_bodypart(BODY_ZONE_R_LEG)
 	if(!left_leg || !right_leg || left_leg.disabled || right_leg.disabled)
 		return ..()
-	//Nailed it!
-	visible_message("<span class='notice'>[src] lands elegantly on [p_their()] feet!</span>",
-		"<span class='warning'>You fall [levels] level[levels > 1 ? "s" : ""] into [T], perfecting the landing!</span>")
-	Stun(levels * 50)
+	if(levels == 1)
+		//Nailed it!
+		visible_message("<span class='notice'>[src] lands elegantly on [p_their()] feet!</span>",
+			"<span class='warning'>You fall [levels] level\s into [T], perfecting the landing!</span>")
+		Stun(levels * 35)
+	else
+		visible_message("<span class='danger'>[src] falls [levels] level\s into [T], barely landing on [p_their()] feet, with a sickening crunch!</span>")
+		adjustBruteLoss((levels * 3) ** 1.5)
+		Stun(levels * 50)
+
 
 /mob/living/carbon/human/proc/stub_toe(var/power)
 	if(HAS_TRAIT(src, TRAIT_LIGHT_STEP))
