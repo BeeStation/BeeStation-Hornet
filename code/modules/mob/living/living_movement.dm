@@ -88,8 +88,5 @@
 				else if(can_climb)
 					climbing = TRUE
 			else
-				if(!can_climb)
-					to_chat(src, "<span class='warning'>Something is blocking you!</span>")
-					return
 				climbing = TRUE // "Floating" down in gravity is weird
 	return source.travel_z(src, target, upwards, climbing)

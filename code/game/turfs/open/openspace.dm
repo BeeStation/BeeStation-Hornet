@@ -101,8 +101,8 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	return FALSE
 
 /turf/open/openspace/zPassOut(atom/movable/A, direction, turf/destination, falling = FALSE)
-	//Check if our fall location has gravity
-	if(falling && !A.has_gravity(destination))
+	//Check if our current location has gravity
+	if(falling && !A.has_gravity(src))
 		return FALSE
 	if(A.anchored)
 		return FALSE

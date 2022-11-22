@@ -284,7 +284,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		return FALSE
 	if(zFall(A, levels + 1))
 		return FALSE
-	A.visible_message("<span class='danger'>[A] crashes into [src]!</span>")
+	// You can "crash into" openspace above zero gravity, but it looks weird to say that
+	if(!isopenspace(src))
+		A.visible_message("<span class='danger'>[A] crashes into [src]!</span>")
 	A.onZImpact(src, levels)
 	return TRUE
 
