@@ -1221,6 +1221,16 @@
 	build_path = /obj/machinery/ore_silo
 	req_components = list()
 
+/obj/item/circuitboard/machine/bluespace_miner
+	name = "ore silo (Bluespace Miner)"
+	icon_state = "supply"
+	build_path = /obj/machinery/mineral/bluespace_miner
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 5,
+		/obj/item/stock_parts/micro_laser = 5,
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stack/ore/bluespace_crystal = 20)
+
 /obj/item/circuitboard/machine/protolathe/department/cargo
 	name = "departmental protolathe - cargo (Machine Board)"
 	icon_state = "supply"
