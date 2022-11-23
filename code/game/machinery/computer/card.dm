@@ -893,7 +893,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				var/t1 = "<B>Crew Manifest:</B><BR>"
 				for(var/datum/data/record/t in sortRecord(GLOB.data_core.general))
 					t1 += t.fields["name"] + " - " + t.fields["rank"] + "<br>"
-				P.info = t1
+				P.default_raw_text = t1
 				P.name = "paper- 'Crew Manifest'"
 				printing = null
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
@@ -932,9 +932,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				sleep(50)
 				var/obj/item/paper/P = new /obj/item/paper( loc )
 				P.name = "New bank account information"
-				P.info += "<b>* Owner:</b> [target_name]<br>"
-				P.info += "<b>* Bank ID:</b> [B.account_id]<br>"
-				P.info += "--- Created by Nanotrasen Space Finance ---"
+				P.default_raw_text += "<b>* Owner:</b> [target_name]<br>"
+				P.default_raw_text += "<b>* Bank ID:</b> [B.account_id]<br>"
+				P.default_raw_text += "--- Created by Nanotrasen Space Finance ---"
 				printing = null
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 

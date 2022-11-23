@@ -320,7 +320,7 @@
 	pixel_y = 32
 	},
 /obj/item/paper/fluff{
-	info = "We congratulate you on the purchase of the SF-1000 'Slimer' class exploration and pioneer shuttle, this shuttle features a minibar and an expanded cargo bay for your exploration needs, alongside a sleeping room for longer trips.";
+	default_raw_text = "We congratulate you on the purchase of the SF-1000 'Slimer' class exploration and pioneer shuttle, this shuttle features a minibar and an expanded cargo bay for your exploration needs, alongside a sleeping room for longer trips.";
 	name = "Congratulation on the New shuttle";
 	pixel_x = 9;
 	pixel_y = 6

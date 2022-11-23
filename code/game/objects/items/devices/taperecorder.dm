@@ -224,7 +224,7 @@
 	var/t1 = "<B>Transcript:</B><BR><BR>"
 	for(var/i = 1, mytape.storedinfo.len >= i, i++)
 		t1 += "[mytape.storedinfo[i]]<BR>"
-	P.info = t1
+	P.default_raw_text = t1
 	P.name = "paper- 'Transcript'"
 	usr.put_in_hands(P)
 	canprint = FALSE

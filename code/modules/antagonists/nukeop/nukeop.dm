@@ -179,7 +179,7 @@
 	..()
 	if(nuke_team?.memorized_code)
 		var/obj/item/paper/P = new
-		P.info = "The nuclear authorization code is: <b>[nuke_team.memorized_code]</b>"
+		P.default_raw_text = "The nuclear authorization code is: <b>[nuke_team.memorized_code]</b>"
 		P.name = "nuclear bomb code"
 		var/mob/living/carbon/human/H = owner.current
 		if(!istype(H))

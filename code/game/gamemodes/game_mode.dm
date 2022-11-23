@@ -407,9 +407,12 @@
 	if(!station_goals.len)
 		return
 	. = "<hr><b>Special Orders for [station_name()]:</b><BR>"
+	var/list/goal_reports = list()
 	for(var/datum/station_goal/station_goal in station_goals)
 		station_goal.on_report()
-		. += station_goal.get_report()
+		goal_reports += station_goal.get_report()
+
+	. += goal_reports.Join("<hr>")
 	return
 
 // This is a frequency selection system. You may imagine it like a raffle where each player can have some number of tickets. The more tickets you have the more likely you are to

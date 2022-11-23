@@ -29580,11 +29580,11 @@
 "hCC" = (
 /obj/structure/table/wood,
 /obj/item/paper/fluff{
-	info = "We have heard of your complaints of the office being located in such a poor location, the next shifts we will work on moving you office -NT official";
+	default_raw_text = "We have heard of your complaints of the office being located in such a poor location, the next shifts we will work on moving you office -NT official";
 	name = "Deepest apoligies"
 	},
 /obj/item/paper/fluff{
-	info = "We have recived your latest mails requiring to hasten the transfering process, unfortunateley, due to your rather... noteworthy language, we had to rediscuss the transfer to your office closer to security, however due to the most recent rennovation of the security department, the northen access has been made closer to your office, thus making your request to move your office not viable due to financial reasons. Thanks for your cooperation. -NT official";
+	default_raw_text = "We have recived your latest mails requiring to hasten the transfering process, unfortunateley, due to your rather... noteworthy language, we had to rediscuss the transfer to your office closer to security, however due to the most recent rennovation of the security department, the northen access has been made closer to your office, thus making your request to move your office not viable due to financial reasons. Thanks for your cooperation. -NT official";
 	name = "re:re:Deepest apoligies";
 	pixel_x = 9;
 	pixel_y = 6
@@ -29592,7 +29592,7 @@
 /obj/item/taperecorder,
 /obj/item/hand_labeler,
 /obj/item/paper/fluff{
-	info = "We have recived your latest mails requiring to hasten the transfering process, unfortunateley, due to your rather... noteworthy language, we had to rediscuss the transfer to your office closer to security, however due to the most recent rennovation of the security department, the northen access has been made closer to your office, thus making your request to move your office not viable due to financial reasons. Thanks for your cooperation. -NT official";
+	default_raw_text = "We have recived your latest mails requiring to hasten the transfering process, unfortunateley, due to your rather... noteworthy language, we had to rediscuss the transfer to your office closer to security, however due to the most recent rennovation of the security department, the northen access has been made closer to your office, thus making your request to move your office not viable due to financial reasons. Thanks for your cooperation. -NT official";
 	name = "re:re:Deepest apoligies";
 	pixel_x = 9;
 	pixel_y = 6
@@ -38612,7 +38612,7 @@
 	dir = 8
 	},
 /obj/item/paper/fluff{
-	info = "I used the shotgun. You know why? Cause the shot gun doesn't miss, and unlike the shitty hybrid taser it stops a criminal in their tracks in two hits. Bang, bang, and they're fucking done. I use four shots just to make damn sure. Because, once again, I'm not there to coddle a buncha criminal scum sucking f------, I'm there to 1) Survive the fucking round. 2) Guard the armory. So you can absolutely get fucked. If I get unbanned, which I won't, you can guarantee I will continue to use the shotgun to apprehend criminals. Because it's quick, clean and effective as fuck. Why in the seven hells would I fuck around with the disabler shots, which take half a clip just to bring someone down, or with the tazer bolts which are slow as balls, impossible to aim and do about next to jack shit, fuck all. The shotgun is the superior law enforcement weapon. Because it stops crime. And it stops crime by reducing the number of criminals roaming the fucking halls.";
+	default_raw_text = "I used the shotgun. You know why? Cause the shot gun doesn't miss, and unlike the shitty hybrid taser it stops a criminal in their tracks in two hits. Bang, bang, and they're fucking done. I use four shots just to make damn sure. Because, once again, I'm not there to coddle a buncha criminal scum sucking f------, I'm there to 1) Survive the fucking round. 2) Guard the armory. So you can absolutely get fucked. If I get unbanned, which I won't, you can guarantee I will continue to use the shotgun to apprehend criminals. Because it's quick, clean and effective as fuck. Why in the seven hells would I fuck around with the disabler shots, which take half a clip just to bring someone down, or with the tazer bolts which are slow as balls, impossible to aim and do about next to jack shit, fuck all. The shotgun is the superior law enforcement weapon. Because it stops crime. And it stops crime by reducing the number of criminals roaming the fucking halls.";
 	name = "Shotgun manifesto"
 	},
 /obj/machinery/door/window/southright{
@@ -55218,7 +55218,7 @@
 	pixel_y = 2
 	},
 /obj/item/paper/fluff{
-	info = "Been here before - Love is when I freeze - Somebody's bloodShot down on his knees - Take whatcha learn and whatcha need.";
+	default_raw_text = "Been here before - Love is when I freeze - Somebody's bloodShot down on his knees - Take whatcha learn and whatcha need.";
 	name = "Lawyer's poem";
 	pixel_x = 9;
 	pixel_y = 6
@@ -91822,7 +91822,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
 /obj/item/paper/crumpled{
-	info = "This isn't funny, I'm trapped on the least fun room on the station.";
+	default_raw_text = "This isn't funny, I'm trapped on the least fun room on the station.";
 	name = "poorly written complaint"
 	},
 /turf/open/floor/plating,

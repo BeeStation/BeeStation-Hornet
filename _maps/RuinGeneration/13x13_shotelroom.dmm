@@ -196,7 +196,7 @@
 /area/ruin/unpowered)
 "O" = (
 /obj/item/paper/crumpled/bloody/ruins/lavaland/clown_planet/escape{
-	info = "lol";
+	default_raw_text = "lol";
 	pixel_x = 3;
 	pixel_y = 3
 	},

@@ -35909,7 +35909,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
 /obj/item/paper/crumpled{
-	info = "This isn't funny, I'm trapped on the least fun room on the station.";
+	default_raw_text = "This isn't funny, I'm trapped on the least fun room on the station.";
 	name = "poorly written complaint"
 	},
 /turf/open/floor/plasteel/dark,
@@ -83323,7 +83323,7 @@
 "veu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/paper/crumpled/bloody/docsdeathnote{
-	info = "Fuck whoever keeps cutting my cables, I'd rather die than fix the entire network again.";
+	default_raw_text = "Fuck whoever keeps cutting my cables, I'd rather die than fix the entire network again.";
 	pixel_x = 9;
 	pixel_y = 9
 	},

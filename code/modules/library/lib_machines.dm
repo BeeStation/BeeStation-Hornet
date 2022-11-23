@@ -636,7 +636,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 		if(!machine_stat)
 			visible_message("[src] whirs as it prints and binds a new book.")
 			var/obj/item/book/B = new(src.loc)
-			B.dat = P.info
+			B.dat = P.default_raw_text
 			B.name = "Print Job #" + "[rand(100, 999)]"
 			B.icon_state = "book[rand(1,7)]"
 			qdel(P)

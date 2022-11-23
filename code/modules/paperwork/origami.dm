@@ -44,7 +44,7 @@
 
 /obj/item/origami/update_icon()
 	cut_overlays()
-	var/list/stamped = internalPaper.stamped
+	var/list/stamped = internalPaper.stamp_cache
 	if(stamped)
 		for(var/S in stamped)
 			add_overlay("paper_[S]")
