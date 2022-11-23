@@ -1,0 +1,6 @@
+author: Xkeeper0,RKz
+delete-after: true
+changes:
+  - tweak: atmos analyzers/gas scan now reports volume of a container, even if it
+      is empty
+  - bugfix: made gas analyzer description accurate for its use
