@@ -122,7 +122,7 @@
 	max_signs = 3
 
 /obj/item/holosign_creator/cyborg
-	name = "\improper Energy Barrier Projector"
+	name = "energy barrier projector"
 	desc = "A holographic projector that creates fragile energy fields."
 	creation_time = 15
 	max_signs = 9
