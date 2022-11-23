@@ -99,3 +99,9 @@ GLOBAL_VAR_INIT(rollovercheck_last_timeofday, 0)
 /// Returns the time in an ISO-8601 friendly format. Used when dumping data into external services such as ElasticSearch
 /proc/iso_timestamp(timevar)
     return time2text(timevar || world.timeofday, "YYYY-MM-DDThh:mm:ss")
+
+/// checks `given_time + timer` has been passed at this point.
+/proc/check_if_time_passed(given_time, timer)
+	if(world.time > given_time + timer)
+		return TRUE
+	return FALSE
