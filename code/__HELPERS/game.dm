@@ -631,7 +631,7 @@
 		return candidates
 
 	for(var/mob/dead/observer/G in GLOB.player_list)
-		if(G.client.is_mentor())
+		if(G.client?.is_mentor())
 			candidates += G
 
 	return pollCandidates(Question, jobbanType, gametypeCheck, be_special_flag, poll_time, ignore_category, flashwindow, candidates)
