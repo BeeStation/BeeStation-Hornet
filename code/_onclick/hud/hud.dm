@@ -52,6 +52,8 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	var/list/atom/movable/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
 	///Assoc list of controller groups, associated with key string group name with value of the plane master controller ref
 	var/list/atom/movable/plane_master_controller/plane_master_controllers = list()
+	///UI for screentips that appear when you mouse over things
+	var/atom/movable/screen/screentip/screentip_text
 	var/list/team_finder_arrows = list()
 
 	var/atom/movable/screen/movable/action_button/hide_toggle/hide_actions_toggle
@@ -82,6 +84,9 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 		var/atom/movable/screen/plane_master/instance = new mytype()
 		plane_masters["[instance.plane]"] = instance
 		instance.backdrop(mymob)
+
+	screentip_text = new(null, src)
+	static_inventory += screentip_text
 
 	for(var/mytype in subtypesof(/atom/movable/plane_master_controller))
 		var/atom/movable/plane_master_controller/controller_instance = new mytype(null, src)
@@ -120,6 +125,7 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	QDEL_LIST_ASSOC_VAL(plane_masters)
 	QDEL_LIST_ASSOC_VAL(plane_master_controllers)
 	QDEL_LIST(screenoverlays)
+	QDEL_NULL(screentip_text)
 	mymob = null
 
 	return ..()

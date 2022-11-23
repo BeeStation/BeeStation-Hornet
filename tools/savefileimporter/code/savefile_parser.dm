@@ -93,6 +93,7 @@
 	READ_FILE(S["inquisitive_ghost"], inquisitive_ghost, TRUE)
 	READ_FILE(S["uses_glasses_colour"], uses_glasses_colour, TRUE)
 	READ_FILE(S["ambientocclusion"], ambientocclusion, TRUE)
+	READ_FILE(S["screentip_pref"], screentip_pref, TRUE)
 	READ_FILE(S["auto_fit_viewport"], auto_fit_viewport, TRUE)
 	READ_FILE(S["enable_tips"], enable_tips, TRUE)
 	READ_FILE(S["show_credits"], show_credits, TRUE)
@@ -137,6 +138,8 @@
 
 	READ_FILE(S["ooccolor"], ooccolor, "#c43b23")
 	NEW_QUERY(PREFERENCE_TAG_OOC_COLOUR, owning_ckey, ooccolor)
+
+	READ_FILE(S["screentip_color"], screentip_color)
 
 	READ_FILE(S["lastchangelog"], lastchangelog, null)
 	NEW_QUERY(PREFERENCE_TAG_LAST_CL, owning_ckey, lastchangelog)

@@ -145,6 +145,12 @@
 #define HELMET_MK2 "Mark II"
 #define HELMET_PROTECTIVE "Protective"
 
+///Screentip settings
+#define SCREENTIP_OFF 0
+#define SCREENTIP_SMALL 1
+#define SCREENTIP_MEDIUM 1
+#define SCREENTIP_BIG 1
+
 // All DB preference entries go here
 // --- DO NOT EVER CHANGE OR RE-USE VALUES HERE ---
 // If you remove an entry, comment it out and leave it for preservation sake

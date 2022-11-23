@@ -68,6 +68,7 @@
 
 	READPREF_RAW(asaycolor, PREFERENCE_TAG_ASAY_COLOUR)
 	READPREF_RAW(ooccolor, PREFERENCE_TAG_OOC_COLOUR)
+	READPREF_RAW(screentip_color, PREFERENCE_TAG_SCREENTIP_COLOR)
 	READPREF_RAW(lastchangelog, PREFERENCE_TAG_LAST_CL)
 	READPREF_RAW(UI_style, PREFERENCE_TAG_UI_STYLE)
 	READPREF_RAW(outline_color, PREFERENCE_TAG_OUTLINE_COLOUR)
@@ -88,6 +89,7 @@
 	//Sanitize
 	asaycolor		= sanitize_ooccolor(sanitize_hexcolor(asaycolor, 6, TRUE, initial(asaycolor)))
 	ooccolor		= sanitize_ooccolor(sanitize_hexcolor(ooccolor, 6, TRUE, initial(ooccolor)))
+	screentip_color = sanitize_ooccolor(sanitize_hexcolor(screentip_color, 6, 1, initial(screentip_color)))
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	UI_style		= sanitize_inlist(UI_style, GLOB.available_ui_styles, GLOB.available_ui_styles[1])
 
@@ -96,6 +98,7 @@
 	toggles2		= sanitize_integer(toggles2, FALSE, INFINITY, initial(toggles2))
 	clientfps		= sanitize_integer(clientfps, FALSE, 1000, FALSE)
 	parallax		= sanitize_integer(parallax, PARALLAX_INSANE, PARALLAX_DISABLE, null)
+	screentip_pref = sanitize_integer(screentip_pref, FALSE, TRUE, initial(screentip_pref))
 
 	pixel_size		= sanitize_float(pixel_size, PIXEL_SCALING_AUTO, PIXEL_SCALING_3X, 0.5, initial(pixel_size))
 	scaling_method  = sanitize_text(scaling_method, initial(scaling_method))

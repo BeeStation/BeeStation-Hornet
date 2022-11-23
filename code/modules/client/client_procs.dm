@@ -549,6 +549,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /client/Destroy()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
+	SSmouse_entered.hovers -= src
 	return QDEL_HINT_HARDDEL_NOW
 
 /client/proc/set_client_age_from_db(connectiontopic)
@@ -992,6 +993,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		CRASH("change_view called without argument.")
 
 	view = new_size
+	mob.hud_used.screentip_text.update_view()
 	apply_clickcatcher()
 	mob.reload_fullscreen()
 	if (isliving(mob))
