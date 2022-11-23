@@ -1092,7 +1092,11 @@
 		Stun(levels * 35)
 	else
 		visible_message("<span class='danger'>[src] falls [levels] level\s into [T], barely landing on [p_their()] feet, with a sickening crunch!</span>")
-		adjustBruteLoss((levels * 3) ** 1.5)
+		apply_damage()
+		var/amount_total = get_distributed_zimpact_damage(levels) * 0.5
+		apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_L_LEG)
+		apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_R_LEG)
+		adjustBruteLoss(amount_total * 0.1)
 		Stun(levels * 50)
 
 

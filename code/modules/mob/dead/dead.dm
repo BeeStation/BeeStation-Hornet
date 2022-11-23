@@ -119,3 +119,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 /mob/dead/onTransitZ(old_z,new_z)
 	..()
 	update_z(new_z)
+
+// Ghosts cannot fall
+/mob/dead/has_gravity(turf/T)
+	return FALSE

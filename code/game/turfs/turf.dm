@@ -209,15 +209,14 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 /turf/proc/travel_z(mob/user, turf/target, upwards = TRUE, climbing = FALSE)
 	user.visible_message("<span class='notice'>[user] begins [climbing ? "climbing" : "floating"] [upwards ? "upwards" : "downwards"]!</span>", "<span class='notice'>You begin [climbing ? "climbing" : "floating"] [upwards ? "upwards" : "downwards"].")
-	var/matrix/M = user.transform
-	animate(user, 30, pixel_y = upwards ? 32 : -32, transform = matrix() * (upwards ? 1.3 : 0.7))
+	animate(user, 30, pixel_y = upwards ? 32 : -32, transform = matrix() * 0.8)
 	if(!do_after(user, 30, FALSE, get_turf(user)))
 		animate(user, 0, flags = ANIMATION_END_NOW)
 		user.pixel_y = 0
-		user.transform = M
+		user.transform = matrix()
 		return
 	user.pixel_y = 0
-	user.transform = M
+	user.transform = matrix()
 	var/mob/living/L = user
 	if(istype(L) && L.incorporeal_move) // Allow most jaunting
 		user.client?.Process_Incorpmove(upwards ? UP : DOWN)

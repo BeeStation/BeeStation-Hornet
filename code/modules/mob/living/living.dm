@@ -51,9 +51,26 @@
 			buckled.unbuckle_mob(src)
 	return ..()
 
+// The goal here:
+// 1 level: Your legs are mildly injured. Probably a bit slow
+// 2 levels: Your legs are broken, but you are still concious
+// 3+ levels: You ded/near ded
+/mob/living/proc/get_distributed_zimpact_damage(levels)
+	return (levels * 15) ** 1.4
+
 /mob/living/proc/ZImpactDamage(turf/T, levels)
 	visible_message("<span class='danger'>[src] falls [levels] level\s into [T] with a sickening noise!</span>")
-	adjustBruteLoss((levels * 10) ** 1.5)
+	var/amount_total = get_distributed_zimpact_damage(levels)
+	var/total_damage_percent_left = 1
+	var/obj/item/bodypart/left_leg = get_bodypart(BODY_ZONE_L_LEG)
+	var/obj/item/bodypart/right_leg = get_bodypart(BODY_ZONE_R_LEG)
+	if(left_leg && !left_leg.disabled)
+		total_damage_percent_left -= 0.45
+		apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_L_LEG)
+	if(right_leg && !right_leg.disabled)
+		total_damage_percent_left -= 0.45
+		apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_R_LEG)
+	adjustBruteLoss(amount_total * total_damage_percent_left)
 	Knockdown(levels * 50)
 
 /mob/living/proc/OpenCraftingMenu()
