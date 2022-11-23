@@ -192,7 +192,7 @@
 	if(!check_if_time_passed(last_time_notified, 2 SECONDS))
 		return // do not spam this from multiple hosts to ghosts
 	last_time_notified = world.time
-	var/ghost_message = "<font color=\"[notice_colour]\"><b><i>Nanites -> Hosts in No.[nanites.cloud_id] cloud:</i></b></font> [sent_message]"
+	var/ghost_message = "<font color=\"[notice_colour]\"><b><i>Nanites -> Hosts in No.[nanites.cloud_id] cloud:</i></b></font> [html_encode(sent_message)]"
 	for(var/M in GLOB.dead_mob_list)
 		to_chat(M, "[ghost_message]")
 
