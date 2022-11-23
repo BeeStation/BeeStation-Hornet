@@ -27,7 +27,7 @@
 	if(!unscrewed)
 		. += "<span class='notice'>It's <b>screwed</b> and secured to the wall.</span>"
 	else
-		. += "<span class='notice'>It's <i>unscrewed</i> from the wall, and can be <b>detached</b>.</span>"
+		. += "<span class='notice'>It's <i>unscrewed</i> from the wall, and can be <b>detached</b> with a wrench.</span>"
 
 /obj/item/radio/intercom/attackby(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)

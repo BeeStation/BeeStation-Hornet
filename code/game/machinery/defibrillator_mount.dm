@@ -23,11 +23,18 @@
 
 /obj/machinery/defibrillator_mount/Destroy()
 	if(defib)
-		defib.forceMove(get_turf(src))
-		defib.visible_message("<span class='notice'>[defib] falls to the ground from the broken [src].</span>")
-		defib = null
+		QDEL_NULL(defib)
 		end_processing()
 	. = ..()
+
+/obj/machinery/defibrillator_mount/obj_destruction()
+	if(defib)
+		defib.forceMove(get_turf(src))
+		defib.visible_message("<span class='notice'>[defib] falls to the ground from the destroyed wall mount.</span>")
+		defib = null
+		end_processing()
+	return ..()
+
 
 /obj/machinery/defibrillator_mount/examine(mob/user)
 	. = ..()
@@ -37,6 +44,8 @@
 			. += "<span class='notice'>Due to a security situation, its locking clamps can be toggled by swiping any ID.</span>"
 		else
 			. += "<span class='notice'>Its locking clamps can be [clamps_locked ? "dis" : ""]engaged by swiping an ID with access.</span>"
+	else
+		. += "<span class='notice'>It's <i>empty</i> and can be <b>pried</b> off with a crowbar.</span>"
 
 /obj/machinery/defibrillator_mount/process()
 	if(defib?.cell && defib.cell.charge < defib.cell.maxcharge && is_operational)
