@@ -1,0 +1,5 @@
+author: nednaZ, Imenvs, RKz
+delete-after: true
+changes:
+  - bugfix: ghosts are now 50% more spooky (they now properly float)
+  - bugfix: ghosts remember they can float after orbiting
