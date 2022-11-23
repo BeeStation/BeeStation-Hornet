@@ -149,6 +149,7 @@
 	.["max_value"] = max_value
 	.["message"] = message
 	.["min_value"] = min_value
+	.["round_value"] = round_value
 	.["preferences"] = list()
 	if(!user.client || !user.client.prefs)
 		.["preferences"]["large_buttons"] = TRUE
