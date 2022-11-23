@@ -228,7 +228,7 @@
 
 	. += "<span class='notice'>[attached ? attached : "No one"] is attached.</span>"
 	if(!attached && !beaker)
-		. += "<span class='notice'>It can be converted into an Anesthetic Tank Holder with a screwdriver and a breath mask.</span>"
+		. += "<span class='notice'>A breath mask could be <b>attached</b> to it.</span>"
 
 
 /obj/machinery/iv_drip/screwdriver_act(mob/living/user, obj/item/I)

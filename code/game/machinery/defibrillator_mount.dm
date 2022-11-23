@@ -45,7 +45,7 @@
 		else
 			. += "<span class='notice'>Its locking clamps can be [clamps_locked ? "dis" : ""]engaged by swiping an ID with access.</span>"
 	else
-		. += "<span class='notice'>It's <i>empty</i> and can be <b>pried</b> off with a crowbar.</span>"
+		. += "<span class='notice'>It's <i>empty</i> and can be <b>pried</b> off the wall.</span>"
 
 /obj/machinery/defibrillator_mount/process()
 	if(defib?.cell && defib.cell.charge < defib.cell.maxcharge && is_operational)
