@@ -1222,7 +1222,7 @@
 	req_components = list()
 
 /obj/item/circuitboard/machine/bluespace_miner
-	name = "ore silo (Bluespace Miner)"
+	name = "bluespace miner (Machine Board)"
 	icon_state = "supply"
 	build_path = /obj/machinery/mineral/bluespace_miner
 	req_components = list(
