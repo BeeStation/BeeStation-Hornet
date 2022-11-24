@@ -1,0 +1,4 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - tweak: Demoted job title is now "Demoted" instead of "Unassigned"
