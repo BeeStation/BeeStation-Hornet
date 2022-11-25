@@ -1657,6 +1657,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_s_tone)
 						active_character.skin_tone = new_s_tone
 
+				if("screentipmode")
+					screentip_pref = !screentip_pref
+
+				if("screentipcolor")
+					var/new_screentipcolor = input(user, "Choose your screentip color:", "Character Preference", screentip_color) as color|null
+					if(new_screentipcolor)
+						screentip_color = sanitize_ooccolor(new_screentipcolor)
+
 				if("ooccolor")
 					var/new_ooccolor = input(user, "Choose your OOC colour:", "Game Preference",ooccolor) as color|null
 					if(new_ooccolor)
@@ -1861,14 +1869,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					parallax = WRAP(parallax - 1, PARALLAX_INSANE, PARALLAX_DISABLE + 1)
 					if (parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref(parent.mob)
-
-				if("screentipmode")
-					screentip_pref = !screentip_pref
-
-				if("screentipcolor")
-					var/new_screentipcolor = input(user, "Choose your screentip color:", "Character Preference", screentip_color) as color|null
-					if(new_screentipcolor)
-						screentip_color = sanitize_ooccolor(new_screentipcolor)
 
 				if("ambientocclusion")
 					toggles2 ^= PREFTOGGLE_2_AMBIENT_OCCLUSION

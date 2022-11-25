@@ -140,8 +140,8 @@
 	READ_FILE(S["ooccolor"], ooccolor, "#c43b23")
 	NEW_QUERY(PREFERENCE_TAG_OOC_COLOUR, owning_ckey, ooccolor)
 
-	READ_FILE(S["screentip_color"], screentip_color)
-	NEW_QUERY(PREFERENCE_TAG_SCREENTIP_COLOR)
+	READ_FILE(S["screentip_color"], screentip_color, "#f6ac19")
+	NEW_QUERY(PREFERENCE_TAG_SCREENTIP_COLOR, owning_ckey, screentip_color)
 
 	READ_FILE(S["lastchangelog"], lastchangelog, null)
 	NEW_QUERY(PREFERENCE_TAG_LAST_CL, owning_ckey, lastchangelog)
