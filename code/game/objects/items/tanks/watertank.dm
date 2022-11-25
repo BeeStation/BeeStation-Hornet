@@ -176,6 +176,8 @@
 #define EXTINGUISHER 0
 #define RESIN_LAUNCHER 1
 #define RESIN_FOAM 2
+#define FIREPACK_UPGRADE_SIZE (1<<0)
+#define FIREPACK_UPGRADE_EFFICIENCY (1<<1)
 
 /obj/item/watertank/atmos
 	name = "backpack firefighter tank"
@@ -184,6 +186,9 @@
 	icon_state = "waterbackpackatmos"
 	volume = 200
 	slowdown = 0
+	var/nozzle_cooldown = 8 SECONDS
+	var/resin_cost = 100
+	var/upgrade_flags = FALSE
 
 /obj/item/watertank/atmos/Initialize(mapload)
 	. = ..()
@@ -197,7 +202,74 @@
 	icon_state = "waterbackpackatmos"
 	if(istype(noz, /obj/item/extinguisher/mini/nozzle))
 		var/obj/item/extinguisher/mini/nozzle/N = noz
+		N.update_nozzle_stats()
 		N.nozzle_mode = 0
+		icon_state = "waterbackpackatmos_0"
+
+/obj/item/watertank/atmos/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/firepack_upgrade))
+		install_upgrade(W, user)
+		return TRUE
+	return ..()
+
+/obj/item/watertank/atmos/proc/install_upgrade(obj/item/firepack_upgrade/frp_up, mob/user)
+	if(frp_up.upgrade_flags & upgrade_flags)
+		to_chat(user, "<span class='warning'>[src] already has this upgrade installed!</span>")
+		return
+	switch(frp_up.upgrade_flags)
+		if(FIREPACK_UPGRADE_SIZE)
+			volume = 400
+		if(FIREPACK_UPGRADE_EFFICIENCY)
+			nozzle_cooldown = 4 SECONDS
+			resin_cost = 50
+	upgrade_flags |= frp_up.upgrade_flags
+	var/obj/item/extinguisher/mini/nozzle/N = noz
+	N.update_nozzle_stats()
+	to_chat(user, "<span class='notice'>You install this upgrade into [src].</span>")
+	playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
+	qdel(frp_up)
+
+/obj/item/watertank/atmos/toggle_mister(mob/living/user)
+	if(!istype(user))
+		return
+	if(user.get_item_by_slot(user.getBackSlot()) != src)
+		to_chat(user, "<span class='warning'>The watertank must be worn properly to use!</span>")
+		return
+	if(user.incapacitated())
+		return
+
+	if(QDELETED(noz))
+		noz = make_noz()
+	if(noz in src)
+		//Detach the nozzle into the user's hands
+		var/obj/item/extinguisher/mini/nozzle/N = noz
+		N.update_nozzle_stats()
+		if(!user.put_in_hands(noz))
+			to_chat(user, "<span class='warning'>You need a free hand to hold the mister!</span>")
+			return
+	else
+		//Remove from their hands and put back "into" the tank
+		remove_noz()
+
+/obj/item/watertank/atmos/examine(mob/user)
+	. = ..()
+	if(upgrade_flags & FIREPACK_UPGRADE_SIZE)
+		. += "Its maximum tank volume was increased."
+
+/obj/item/firepack_upgrade
+	name = "Firefighter upgrade disk"
+	desc = "It seems to be empty."
+	icon = 'icons/obj/module.dmi'
+	icon_state = "datadisk4"
+	var/upgrade_flags
+
+/obj/item/firepack_upgrade/size
+	desc = "It increases the maximum volume of the tank"
+	upgrade_flags = FIREPACK_UPGRADE_SIZE
+
+/obj/item/firepack_upgrade/efficiency
+	desc = "It improves the nozzle of the firepack, increasing its efficiency and decreasing the downtime between uses"
+	upgrade_flags = FIREPACK_UPGRADE_EFFICIENCY
 
 /obj/item/extinguisher/mini/nozzle
 	name = "extinguisher nozzle"
@@ -215,9 +287,11 @@
 	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE
 	item_flags = ABSTRACT  // don't put in storage
-	var/obj/item/watertank/tank
+	var/obj/item/watertank/atmos/tank
 	var/nozzle_mode = 0
 	var/metal_synthesis_cooldown = 0
+	var/nozzle_cooldown
+	var/resin_cost
 	COOLDOWN_DECLARE(resin_cooldown)
 
 /obj/item/extinguisher/mini/nozzle/Initialize(mapload)
@@ -225,8 +299,13 @@
 	tank = loc
 	if (!istype(tank))
 		return INITIALIZE_HINT_QDEL
+	update_nozzle_stats()
+
+/obj/item/extinguisher/mini/nozzle/proc/update_nozzle_stats()
 	reagents = tank.reagents
 	max_water = tank.volume
+	nozzle_cooldown = tank.nozzle_cooldown
+	resin_cost = tank.resin_cost
 
 /obj/item/extinguisher/mini/nozzle/Destroy()
 	reagents = null
@@ -270,14 +349,14 @@
 		if(Adj)
 			return //Safety check so you don't blast yourself trying to refill your tank
 		var/datum/reagents/R = reagents
-		if(R.total_volume < 100)
-			to_chat(user, "<span class='warning'>You need at least 100 units of water to use the resin launcher!</span>")
+		if(R.total_volume < resin_cost)
+			to_chat(user, "<span class='warning'>You need at least [resin_cost] units of water to use the resin launcher!</span>")
 			return
 		if(!COOLDOWN_FINISHED(src, resin_cooldown))
 			to_chat(user, "<span class='warning'>Resin launcher is still recharging...</span>")
 			return
-		COOLDOWN_START(src, resin_cooldown, 10 SECONDS)
-		R.remove_any(100)
+		COOLDOWN_START(src, resin_cooldown, nozzle_cooldown)
+		R.remove_any(resin_cost)
 		var/obj/effect/resin_container/resin = new (get_turf(src))
 		log_game("[key_name(user)] used Resin Launcher at [AREACOORD(user)].")
 		playsound(src,'sound/items/syringeproj.ogg',40,1)
@@ -298,7 +377,7 @@
 			var/obj/effect/particle_effect/foam/metal/resin/F = new (get_turf(target))
 			F.amount = 0
 			metal_synthesis_cooldown++
-			addtimer(CALLBACK(src, .proc/reduce_metal_synth_cooldown), 10 SECONDS)
+			addtimer(CALLBACK(src, .proc/reduce_metal_synth_cooldown), nozzle_cooldown)
 		else
 			to_chat(user, "<span class='warning'>Resin foam mix is still being synthesized...</span>")
 			return
@@ -320,6 +399,11 @@
 /obj/item/extinguisher/mini/nozzle/proc/reduce_metal_synth_cooldown()
 	metal_synthesis_cooldown--
 
+/obj/item/extinguisher/mini/nozzle/examine(mob/user)
+	. = ..()
+	if(nozzle_mode == RESIN_LAUNCHER)
+		. += "It uses [resin_cost] units of reagents per resin launch"
+
 /obj/effect/resin_container
 	name = "resin container"
 	desc = "A compacted ball of expansive resin, used to repair the atmosphere in a room, or seal off breaches."
@@ -338,9 +422,12 @@
 /obj/effect/resin_container/newtonian_move(direction, instant = FALSE) // Please don't spacedrift thanks
 	return TRUE
 
+
 #undef EXTINGUISHER
 #undef RESIN_LAUNCHER
 #undef RESIN_FOAM
+#undef FIREPACK_UPGRADE_SIZE
+#undef FIREPACK_UPGRADE_EFFICIENCY
 
 /obj/item/reagent_containers/chemtank
 	name = "backpack chemical injector"
