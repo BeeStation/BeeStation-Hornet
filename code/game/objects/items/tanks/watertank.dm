@@ -204,7 +204,6 @@
 		var/obj/item/extinguisher/mini/nozzle/N = noz
 		N.update_nozzle_stats()
 		N.nozzle_mode = 0
-		icon_state = "waterbackpackatmos_0"
 
 /obj/item/watertank/atmos/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/firepack_upgrade))
@@ -257,7 +256,7 @@
 		. += "Its maximum tank volume was increased."
 
 /obj/item/firepack_upgrade
-	name = "Firefighter upgrade disk"
+	name = "Backpack Firefighter Tank upgrade disk"
 	desc = "It seems to be empty."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk4"
@@ -302,8 +301,8 @@
 	update_nozzle_stats()
 
 /obj/item/extinguisher/mini/nozzle/proc/update_nozzle_stats()
-	reagents = tank.reagents
 	max_water = tank.volume
+	reagents = tank.reagents
 	nozzle_cooldown = tank.nozzle_cooldown
 	resin_cost = tank.resin_cost
 
@@ -379,7 +378,7 @@
 			metal_synthesis_cooldown++
 			addtimer(CALLBACK(src, .proc/reduce_metal_synth_cooldown), nozzle_cooldown)
 		else
-			to_chat(user, "<span class='warning'>Resin foam mix is still being synthesized...</span>")
+			to_chat(user, "<span class='warning'>The resin foam mix is still being synthesized...</span>")
 			return
 
 /obj/item/extinguisher/mini/nozzle/proc/resin_stop_check(datum/move_loop/source, succeeded)

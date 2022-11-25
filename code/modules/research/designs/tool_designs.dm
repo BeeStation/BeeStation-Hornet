@@ -113,6 +113,26 @@
 	category = list("Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
+/datum/design/rpd_upgrade/size
+	name = "Backpack Firefighter Tank size upgrade"
+	desc = "Doubles the tank volume of the backpack."
+	id = "bft_upgrade_size"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 10000, /datum/material/glass = 5000)
+	build_path = /obj/item/firepack_upgrade/size
+	category = list("Tool Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/rpd_upgrade/efficiency
+	name = "Backpack Firefighter Tank efficiency upgrade"
+	desc = "Improves the nozzle's efficiency, decreasing the amount of water used per resin launch and shortets the time it takes to synthesize the resin."
+	id = "bft_upgrade_efficiency"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 5000, /datum/material/glass = 2500, /datum/material/silver = 1000)
+	build_path = /obj/item/firepack_upgrade/efficiency
+	category = list("Tool Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
 /////////////////////////////////////////
 //////////////Alien Tools////////////////
 /////////////////////////////////////////

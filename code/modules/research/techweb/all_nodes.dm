@@ -845,6 +845,15 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
+/datum/techweb_node/rcd_upgrade
+	id = "firepack_upgrades"
+	tech_tier = 2
+	display_name = "Backpack Firefighter Tank Upgrade Designs"
+	description = "Unlocks new designs that improve backpack firefighter tanks."
+	design_ids = list("bft_upgrade_size", "bft_upgrade_efficiency")
+	prereq_ids = list("engineering")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 5000
 
 /////////////////////////weaponry tech/////////////////////////
 /datum/techweb_node/landmine
