@@ -3,6 +3,7 @@
 #define ALUMINUM_FOAM 1
 #define IRON_FOAM 2
 #define RESIN_FOAM 3
+#define RESIN_FOAM_SELFDESTRUCT 4
 
 
 /obj/effect/particle_effect/foam
@@ -84,6 +85,10 @@
 	name = "resin foam"
 	metal = RESIN_FOAM
 
+/obj/effect/particle_effect/foam/metal/resin
+	name = "self-destruct resin foam"
+	metal = RESIN_FOAM_SELFDESTRUCT
+
 /obj/effect/particle_effect/foam/long_life
 	lifetime = 150
 
@@ -112,6 +117,8 @@
 			new /obj/structure/foamedmetal/iron(get_turf(src))
 		if(RESIN_FOAM)
 			new /obj/structure/foamedmetal/resin(get_turf(src))
+		if(RESIN_FOAM_SELFDESTRUCT)
+			new /obj/structure/foamedmetal/resin/selfdestruct(get_turf(src))
 	flick("[icon_state]-disolve", src)
 	QDEL_IN(src, 5)
 
@@ -329,6 +336,51 @@
 			L.ExtinguishMob()
 		for(var/obj/item/Item in O)
 			Item.extinguish()
+
+/obj/structure/foamedmetal/resin/selfdestruct
+	name = "\improper Advanced ATMOS Resin"
+	desc = "A lightweight, transparent resin used to suffocate fires, scrub the air of toxins, and restore the air to a safe temperature.\
+	 Will begin a self-descruction sequence if touched by the firefighting backpack's nozzle."
+	opacity = FALSE
+	icon_state = "atmos_resin_selfdestruct"
+	alpha = 120
+	max_integrity = 10
+	pass_flags_self = PASSGLASS
+	var/dissolving = FALSE
+
+/obj/structure/foamedmetal/resin/selfdestruct/proc/find_nearby_foam(var/loc_direction, var/count)
+	var/obj/structure/foamedmetal/resin/selfdestruct/R = locate(/obj/structure/foamedmetal/resin/selfdestruct) in get_step(get_turf(src), loc_direction)
+	if(istype(R))
+		R.start_the_chain(count)
+	return
+
+/obj/structure/foamedmetal/resin/selfdestruct/proc/start_the_chain(var/count)
+	count = count + 1
+	if(count > 5)
+		dissapear()
+		return
+	if(dissolving)
+		return
+	find_nearby_foam(NORTH, count)
+	find_nearby_foam(EAST, count)
+	find_nearby_foam(SOUTH, count)
+	find_nearby_foam(WEST, count)
+	dissapear()
+
+/obj/structure/foamedmetal/resin/selfdestruct/proc/dissapear()
+	if(dissolving)
+		return
+	dissolving = TRUE
+	addtimer(CALLBACK(src, explosion(get_turf(src), 0, 0, 1)),5000)
+
+/obj/structure/foamedmetal/resin/selfdestruct/attackby(obj/item/I, mob/living/user, )
+	if(!istype(I, /obj/item/extinguisher/mini/nozzle))
+		return
+		//explosion(get_turf(src), 0, 0, 1)
+	start_the_chain(0)
+	dissapear()
+	return ..()
+
 
 #undef ALUMINUM_FOAM
 #undef IRON_FOAM

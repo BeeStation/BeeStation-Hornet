@@ -362,13 +362,22 @@
 			return
 		COOLDOWN_START(src, resin_cooldown, nozzle_cooldown)
 		R.remove_any(resin_cost)
-		var/obj/effect/resin_container/resin = new (get_turf(src))
-		log_game("[key_name(user)] used Resin Launcher at [AREACOORD(user)].")
-		playsound(src,'sound/items/syringeproj.ogg',40,1)
-		var/delay = 2
-		var/datum/move_loop/loop = SSmove_manager.move_towards(resin, target, delay, timeout = delay * 5, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
-		RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, .proc/resin_stop_check)
-		RegisterSignal(loop, COMSIG_PARENT_QDELETING, .proc/resin_landed)
+		if(tank.upgrade_flags == FIREPACK_UPGRADE_EFFICIENCY)
+			var/obj/effect/resin_container/selfdestruct/resin = new (get_turf(src))
+			log_game("[key_name(user)] used Advanced Resin Launcher at [AREACOORD(user)].")
+			playsound(src,'sound/items/syringeproj.ogg',40,1)
+			var/delay = 2
+			var/datum/move_loop/loop = SSmove_manager.move_towards(resin, target, delay, timeout = delay * 5, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+			RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, .proc/resin_stop_check)
+			RegisterSignal(loop, COMSIG_PARENT_QDELETING, .proc/resin_landed)
+		else
+			var/obj/effect/resin_container/resin = new (get_turf(src))
+			log_game("[key_name(user)] used Resin Launcher at [AREACOORD(user)].")
+			playsound(src,'sound/items/syringeproj.ogg',40,1)
+			var/delay = 2
+			var/datum/move_loop/loop = SSmove_manager.move_towards(resin, target, delay, timeout = delay * 5, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+			RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, .proc/resin_stop_check)
+			RegisterSignal(loop, COMSIG_PARENT_QDELETING, .proc/resin_landed)
 		return
 
 	if(nozzle_mode == RESIN_FOAM)
@@ -398,8 +407,12 @@
 	SIGNAL_HANDLER
 	if(!istype(source.moving, /obj/effect/resin_container) || QDELETED(source.moving))
 		return
-	var/obj/effect/resin_container/resin = source.moving
-	resin.Smoke()
+	if(tank.upgrade_flags == FIREPACK_UPGRADE_EFFICIENCY)
+		var/obj/effect/resin_container/selfdestruct/resin = source.moving
+		resin.Smoke()
+	else
+		var/obj/effect/resin_container/resin = source.moving
+		resin.Smoke()
 
 /obj/item/extinguisher/mini/nozzle/proc/reduce_metal_synth_cooldown()
 	resin_synthesis_cooldown--
@@ -427,6 +440,20 @@
 /obj/effect/resin_container/newtonian_move(direction, instant = FALSE) // Please don't spacedrift thanks
 	return TRUE
 
+/obj/effect/resin_container/selfdestruct
+	name = "advanced resin container"
+	desc = "A compacted ball of expansive resin, used to repair the atmosphere in a room, or seal off breaches."
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "frozen_smoke_capsule_selfdestruct"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	pass_flags = PASSTABLE
+	anchored = TRUE
+
+/obj/effect/resin_container/selfdestruct/Smoke()
+	var/obj/effect/particle_effect/foam/metal/resin/S = new /obj/effect/particle_effect/foam/metal/resin(get_turf(loc))
+	S.amount = 4
+	playsound(src,'sound/effects/bamf.ogg',100,1)
+	qdel(src)
 
 #undef EXTINGUISHER
 #undef RESIN_LAUNCHER
