@@ -153,12 +153,12 @@
 /obj/machinery/defibrillator_mount/crowbar_act(mob/living/user, obj/item/W)
 	if(!defib)
 		W.play_tool_sound(src, 75)
-		user.visible_message("[user.name] starts prying the [src] off the wall.", \
+		user.visible_message("<span class='notice'>[user.name] starts prying the [src] off the wall.</span>", \
 							"<span class='notice'>You start prying the defibrillator mount off the wall.</span>")
 		if(W.use_tool(src, user, 30, volume=50, amount = 0))
 			new /obj/item/wallframe/defib_mount(loc)
 			user.visible_message(\
-				"[user.name] has pried [src] off the wall with [W].",\
+				"<span class='notice'>[user.name] pries the [src] off the wall with [W].</span>",\
 				"<span class='notice'>You pry the defibrillator mount off the wall.</span>")
 			qdel(src)
 			return TRUE
