@@ -186,9 +186,10 @@
 	icon_state = "waterbackpackatmos"
 	volume = 200
 	slowdown = 0
-	var/nozzle_cooldown = 8 SECONDS
-	var/resin_cost = 100
+	var/nozzle_cooldown = 8 SECONDS //Delay between the uses of launcher and foamer mode, all of these are used for the nozzle
+	var/resin_cost = 100 //How many reagents are used per resin launch
 	var/upgrade_flags = FALSE
+	var/max_foam = 5//Controls the amout of foam the nozzle can output at once
 
 /obj/item/watertank/atmos/Initialize(mapload)
 	. = ..()
@@ -218,6 +219,7 @@
 	switch(frp_up.upgrade_flags)
 		if(FIREPACK_UPGRADE_SIZE)
 			volume = 400
+			max_foam = 10
 		if(FIREPACK_UPGRADE_EFFICIENCY)
 			nozzle_cooldown = 4 SECONDS
 			resin_cost = 50
@@ -288,9 +290,10 @@
 	item_flags = ABSTRACT  // don't put in storage
 	var/obj/item/watertank/atmos/tank
 	var/nozzle_mode = 0
-	var/metal_synthesis_cooldown = 0
-	var/nozzle_cooldown
-	var/resin_cost
+	var/resin_synthesis_cooldown = 0
+	var/nozzle_cooldown //Delay between the uses of launcher and foamer mode
+	var/resin_cost //How many reagents are used per resin launch
+	var/max_foam //Controls the amout of foam the nozzle can output at once
 	COOLDOWN_DECLARE(resin_cooldown)
 
 /obj/item/extinguisher/mini/nozzle/Initialize(mapload)
@@ -305,6 +308,7 @@
 	reagents = tank.reagents
 	nozzle_cooldown = tank.nozzle_cooldown
 	resin_cost = tank.resin_cost
+	max_foam = tank.max_foam
 
 /obj/item/extinguisher/mini/nozzle/Destroy()
 	reagents = null
@@ -372,10 +376,10 @@
 			if(istype(S, /obj/effect/particle_effect/foam/metal/resin) || istype(S, /obj/structure/foamedmetal/resin))
 				to_chat(user, "<span class='warning'>There's already resin here!</span>")
 				return
-		if(metal_synthesis_cooldown < 5)
+		if(resin_synthesis_cooldown < max_foam)
 			var/obj/effect/particle_effect/foam/metal/resin/F = new (get_turf(target))
 			F.amount = 0
-			metal_synthesis_cooldown++
+			resin_synthesis_cooldown++
 			addtimer(CALLBACK(src, .proc/reduce_metal_synth_cooldown), nozzle_cooldown)
 		else
 			to_chat(user, "<span class='warning'>The resin foam mix is still being synthesized...</span>")
@@ -396,7 +400,7 @@
 	resin.Smoke()
 
 /obj/item/extinguisher/mini/nozzle/proc/reduce_metal_synth_cooldown()
-	metal_synthesis_cooldown--
+	resin_synthesis_cooldown--
 
 /obj/item/extinguisher/mini/nozzle/examine(mob/user)
 	. = ..()
