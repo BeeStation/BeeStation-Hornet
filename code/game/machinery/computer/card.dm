@@ -344,9 +344,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					dat += "<td>(Auth-denied)</td>"
 				else
 					if(B.active_departments & SSeconomy.get_budget_acc_bitflag(target_paycheck))
-						dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[target_paycheck]'><font color=\"6bc473\">Free Vendor Access</font></a></td>"
+						dat += "<td><a href='?src=[REF(src)];check_card=1;choice=turn_on_off_department_bank;'><font color=\"6bc473\">Free Vendor Access</font></a></td>"
 					else
-						dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[target_paycheck]'>No Free Vendor Access</a></td>"
+						dat += "<td><a href='?src=[REF(src)];check_card=1;choice=turn_on_off_department_bank;paycheck_t=[target_paycheck]'>No Free Vendor Access</a></td>"
 				if(B.suspended)
 					dat += "<td>Closed</td>"
 					dat += "<td>$0</td>"
@@ -682,7 +682,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							B.payment_per_department[each] = 0
 							B.bonus_per_department[each] = 0
 						B.active_departments &= ~SSeconomy.get_budget_acc_bitflag(ACCOUNT_COM_ID) // micromanagement
-					if(R)
+					if(B && R)
 						for(var/each in B.payment_per_department)
 							if(SSeconomy.is_nonstation_account(each))
 								continue
@@ -852,7 +852,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			B.bonus_per_department[paycheck_t] = new_bonus
 
 		if ("turn_on_off_department_bank")
-			if(!inserted_scan_id)
+			var/check_card = href_list["check_card"]
+			if(!inserted_scan_id && check_card)
 				updateUsrDialog()
 				return
 			var/paycheck_t = href_list["paycheck_t"]
