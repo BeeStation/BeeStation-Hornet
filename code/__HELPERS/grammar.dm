@@ -31,7 +31,7 @@
 	var/count = 1
 	for(var/each in splittext(string,1))
 		if(count)
-			count-- // I don't know what, but putting count-- to if condition doesn't work this.
+			count-- // I don't know why, but putting count-- to if condition doesn't work this.
 			continue
 		return_string += each
 	return return_string
