@@ -485,7 +485,7 @@ update_label("John Doe", "Clowny")
 
 			log_id("[key_name(user)] forged agent ID [src] name to [input_name] and occupation to [target_occupation][target_id_style ? " with [target_id_style] card style" : " with non changed [icon_state] shape, [hud_state] hud style"] at [AREACOORD(user)].")
 			registered_name = input_name
-			assignment = replace_first_letter_to_capital(target_occupation)
+			assignment = capitalize(target_occupation)
 			if(target_id_style)
 				icon_state = get_cardstyle_by_jobname(target_id_style)
 				hud_state = get_hud_by_jobname(target_id_style)
