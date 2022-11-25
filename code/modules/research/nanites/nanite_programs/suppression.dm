@@ -147,7 +147,8 @@
 	if(host_mob.stat == DEAD)
 		return
 
-	for(var/datum/nanite_program/comm/speech/N in nanites.programs) // do not spam with multiple programs
+	// do not spam with multiple programs
+	for(var/datum/nanite_program/comm/speech/N in nanites.programs)
 		N.next_trigger = world.time + trigger_cooldown
 
 	var/sent_message = comm_message
@@ -167,7 +168,7 @@
 	trigger_cooldown = 20
 	rogue_types = list(/datum/nanite_program/brain_misfire, /datum/nanite_program/brain_decay)
 	var/notice_colour = "#6c8086"
-	var/static/last_time_notified // to prevent ghost spam
+	COOLDOWN_STATIC_DECLARE(ghost_notification_time) // to prevent ghost spam
 
 /datum/nanite_program/comm/voice/register_extra_settings()
 	. = ..()
@@ -189,9 +190,9 @@
 	to_chat(host_mob, "<i>You hear a strange, robotic voice in your head...</i> \"<span class='robot'>[html_encode(sent_message)]</span>\"")
 
 	// send message to ghosts
-	if(!check_if_time_passed(last_time_notified, 2 SECONDS))
+	if(!COOLDOWN_FINISHED(src, ghost_notification_time))
 		return // do not spam this from multiple hosts to ghosts
-	last_time_notified = world.time
+	COOLDOWN_START(src, ghost_notification_time, 2 SECONDS)
 	var/ghost_message = "<font color=\"[notice_colour]\"><b><i>Nanites -> Hosts in No.[nanites.cloud_id] cloud:</i></b></font> [html_encode(sent_message)]"
 	for(var/M in GLOB.dead_mob_list)
 		to_chat(M, "[ghost_message]")
