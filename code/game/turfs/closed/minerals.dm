@@ -198,16 +198,16 @@
 
 
 /turf/closed/mineral/random/snowmountain/cavern
-	name = "snowy mountainside"
+	name = "ice cavern rock"
 	icon = 'icons/turf/mining.dmi'
 	smooth_icon = 'icons/turf/walls/mountain_wall.dmi'
 	icon_state = "icerock"
 	smooth = SMOOTH_MORE|SMOOTH_BORDER
 	canSmoothWith = list (/turf/closed)
-	baseturfs = /turf/open/floor/plating/asteroid/snow
+	baseturfs = /turf/open/floor/plating/asteroid/basalt/iceland_surface
 	initial_gas_mix = FROZEN_ATMOS
-	environment_type = "snow"
-	turf_type = /turf/open/floor/plating/asteroid/snow
+	environment_type = "snow_cavern"
+	turf_type = /turf/open/floor/plating/asteroid/basalt/iceland_surface
 	defer_change = TRUE
 	mineralChance = 6
 	mineralSpawnChanceList = list(

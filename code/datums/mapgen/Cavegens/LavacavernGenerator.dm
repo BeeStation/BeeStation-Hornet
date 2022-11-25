@@ -1,7 +1,7 @@
 /datum/map_generator/cave_generator/lavacavern
 	//simular to lavaland but less lethal
 	open_turf_types = list(/turf/open/floor/plating/asteroid/basalt/iceland_surface = 1)
-	closed_turf_types =  list(/turf/closed/mineral/snowmountain/cavern = 1)
+	closed_turf_types =  list(/turf/closed/mineral/random/snowmountain/cavern = 1)
 	blacklisted_turf_types = list(/turf/open/lava) // Don't override lava rivers
 
 
