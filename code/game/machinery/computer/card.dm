@@ -344,9 +344,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					dat += "<td>(Auth-denied)</td>"
 				else
 					if(B.active_departments & SSeconomy.get_budget_acc_bitflag(target_paycheck))
-						dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;check_card=1'><font color=\"6bc473\">Free Vendor Access</font></a></td>"
+						dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;bank_account=[B.account_id];check_card=1'><font color=\"6bc473\">Free Vendor Access</font></a></td>"
 					else
-						dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;check_card=1;paycheck_t=[target_paycheck]'>No Free Vendor Access</a></td>"
+						dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;bank_account=[B.account_id];check_card=1;paycheck_t=[target_paycheck]'>No Free Vendor Access</a></td>"
 				if(B.suspended)
 					dat += "<td>Closed</td>"
 					dat += "<td>$0</td>"
@@ -354,8 +354,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					dat += "<td>$[B.payment_per_department[target_paycheck]] (Auth-denied)</td>"
 					dat += "<td>$[B.bonus_per_department[target_paycheck]]</td>"
 				else
-					dat += "<td><a href='?src=[REF(src)];choice=adjust_pay;paycheck_t=[target_paycheck]'>$[B.payment_per_department[target_paycheck]]</a></td>"
-					dat += "<td><a href='?src=[REF(src)];choice=adjust_bonus;paycheck_t=[target_paycheck]'>$[B.bonus_per_department[target_paycheck]]</a></td>"
+					dat += "<td><a href='?src=[REF(src)];choice=adjust_pay;paycheck_t=[target_paycheck];bank_account=[B.account_id]'>$[B.payment_per_department[target_paycheck]]</a></td>"
+					dat += "<td><a href='?src=[REF(src)];choice=adjust_bonus;paycheck_t=[target_paycheck];bank_account=[B.account_id]'>$[B.bonus_per_department[target_paycheck]]</a></td>"
 				dat += "</tr>"
 	else
 		var/header = ""
@@ -815,7 +815,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				updateUsrDialog()
 				return
 			var/paycheck_t = href_list["paycheck_t"]
-			var/datum/bank_account/B = inserted_modify_id?.registered_account
+			var/datum/bank_account/B = SSeconomy.get_bank_account_by_id(href_list["bank_account"]) || inserted_modify_id?.registered_account
 			if(isnull(B))
 				updateUsrDialog()
 				return
@@ -838,7 +838,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				updateUsrDialog()
 				return
 			var/paycheck_t = href_list["paycheck_t"]
-			var/datum/bank_account/B = inserted_modify_id?.registered_account
+			var/datum/bank_account/B = SSeconomy.get_bank_account_by_id(href_list["bank_account"]) || inserted_modify_id?.registered_account
 			if(isnull(B))
 				updateUsrDialog()
 				return
@@ -857,7 +857,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				updateUsrDialog()
 				return
 			var/paycheck_t = href_list["paycheck_t"]
-			var/datum/bank_account/B = inserted_modify_id?.registered_account
+			var/datum/bank_account/B = SSeconomy.get_bank_account_by_id(href_list["bank_account"]) || inserted_modify_id?.registered_account
 			if(!B)
 				updateUsrDialog()
 				return
