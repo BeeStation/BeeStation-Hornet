@@ -67,9 +67,9 @@
 	var/static/list/html_codes = list(
 		"&#39;" = "'",
 		"&#34;" = "\"",
-		"&lt;" = "＜", // using different character to prevent possible exploit
-		"&gt;" = "＞", // this one too
-		"&amp;" = "＆" // and this too
+		"&lt;" = "(", // these can be exploitable in html. <> will be replaced into ()
+		"&gt;" = ")",
+		"&amp;" = "&"
 	)
 	for(var/each in html_codes)
 		t = replacetext(t, each, html_codes[each])
