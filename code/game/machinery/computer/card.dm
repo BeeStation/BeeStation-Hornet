@@ -871,9 +871,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				B.active_departments |= SSeconomy.get_budget_acc_bitflag(paycheck_t) // turn on
 
 		if ("turn_on_off_department_manifest")
-			if(!inserted_scan_id)
-				updateUsrDialog()
-				return
 			var/target_bitflag = text2num(href_list["target_bitflag"])
 			var/datum/data/record/R = find_record("name", inserted_modify_id.registered_name, GLOB.data_core.general)
 			if(!R)
