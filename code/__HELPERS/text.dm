@@ -62,6 +62,18 @@
 /proc/adminscrub(t,limit=MAX_MESSAGE_LEN)
 	return copytext((html_encode(strip_html_simple(t))),1,limit)
 
+/// replaces html codes such as &#39; into ' to chat
+/proc/replace_html_codes(t)
+	var/static/list/html_codes = list(
+		"&#39;" = "'",
+		"&#34;" = "\"",
+		"&lt;" = "＜", // using different character to prevent possible exploit
+		"&gt;" = "＞", // this one too
+		"&amp;" = "＆" // and this too
+	)
+	for(var/each in html_codes)
+		t = replacetext(t, each, html_codes[each])
+	return t
 
 //Returns null if there is any bad text in the string
 /proc/reject_bad_text(text, max_length = 512, ascii_only = TRUE, alphanumeric_only = FALSE, underscore_allowed = TRUE)

@@ -56,6 +56,8 @@
 	log_game("[key_name(user)] has proposed to name the station as \
 		[new_name]")
 
+	new_name = replace_html_codes(new_name) // we don't want to see &#39;
+
 	if(standard_station_regex.Find(new_name))
 		to_chat(user, "Your name has been automatically approved.")
 		rename_station(new_name, user.name, user.real_name, key_name(user))
