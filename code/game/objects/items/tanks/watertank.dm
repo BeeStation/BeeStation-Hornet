@@ -219,6 +219,7 @@
 	switch(frp_up.upgrade_flags)
 		if(FIREPACK_UPGRADE_SIZE)
 			volume = 400
+			reagents.maximum_volume = 400
 			max_foam = 10
 		if(FIREPACK_UPGRADE_EFFICIENCY)
 			nozzle_cooldown = 4 SECONDS
@@ -265,7 +266,7 @@
 	var/upgrade_flags
 
 /obj/item/firepack_upgrade/size
-	desc = "It increases the maximum volume of the tank"
+	desc = "It upgrades the maximum volume of the tank, increasing the amount of reagents and resin foam mix it can hold"
 	upgrade_flags = FIREPACK_UPGRADE_SIZE
 
 /obj/item/firepack_upgrade/efficiency
@@ -305,6 +306,7 @@
 
 /obj/item/extinguisher/mini/nozzle/proc/update_nozzle_stats()
 	max_water = tank.volume
+	reagents.maximum_volume = tank.reagents.maximum_volume
 	reagents = tank.reagents
 	nozzle_cooldown = tank.nozzle_cooldown
 	resin_cost = tank.resin_cost

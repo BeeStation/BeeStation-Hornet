@@ -115,7 +115,7 @@
 
 /datum/design/rpd_upgrade/size
 	name = "Backpack Firefighter Tank size upgrade"
-	desc = "Doubles the tank volume of the backpack."
+	desc = "Upgrades the tank volume of the backpack, increasing the amount of reagents held and how much resin foam mix can be synthesized."
 	id = "bft_upgrade_size"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 10000, /datum/material/glass = 5000)
