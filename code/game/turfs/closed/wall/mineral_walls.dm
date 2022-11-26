@@ -124,8 +124,8 @@
 	name = "plasma wall"
 	desc = "A wall with plasma plating. This is definitely a bad idea."
 	icon = 'icons/turf/walls/plasma_wall.dmi'
-	icon_state = "plasma-0"
-	base_icon_state = "plasma"
+	icon_state = "plasma_wall-0"
+	base_icon_state = "plasma_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/plasma
 	thermal_conductivity = 0.04
 	canSmoothWith = list(/turf/closed/wall/mineral/plasma, /obj/structure/falsewall/plasma)
