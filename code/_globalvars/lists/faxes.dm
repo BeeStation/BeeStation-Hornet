@@ -11,9 +11,11 @@
  */
 GLOBAL_LIST_INIT(additional_faxes_list, list(
 	list("fax_name" = "Central Command", "button_color" = "#34c924"),
-	list("fax_name" = "Whiterapids HQ", "button_color" = "#0041f4"),
+	list("fax_name" = "Clown Planet", "button_color" = "#f4c800"),
 ))
 
 GLOBAL_LIST_INIT(syndicate_faxes_list, list(
-	list("fax_name" = "Syndicate Naval Command", "button_color" = "#ff0000"),
+	list("fax_name" = "Syndicate Coordination Center", "button_color" = "#ff0000"),
+	list("fax_name" = "Federation of Wizards", "button_color" = "#8b00ff"),
+	list("fax_name" = "Nar-Sie Church", "button_color" = "#8b0000"),
 ))

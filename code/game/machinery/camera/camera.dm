@@ -281,7 +281,7 @@
 					to_chat(AI, "<b><a href='?src=[REF(AI)];track=[html_encode(user.name)]'>[user]</a></b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
 				continue
 
-			if (O.client && O.client.eye == src)
+			if (O.client?.eye == src)
 				to_chat(O, "[user] holds \a [itemname] up to one of the cameras ...")
 				O << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", itemname, info), text("window=[]", itemname))
 		return
@@ -291,7 +291,7 @@
 		var/obj/item/paper/paper = attacking_item
 
 		// Make a complete copy of the paper, store a ref to it locally on the camera.
-		last_shown_paper = paper.copy(paper.type, null);
+		last_shown_paper = paper.copy(paper.type, null)
 
 		// Then sanitise the name because we're putting it directly in chat later.
 		var/item_name = sanitize(last_shown_paper.name)

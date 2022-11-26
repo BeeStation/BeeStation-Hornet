@@ -1498,6 +1498,7 @@
 /area/security/main)
 "agB" = (
 /obj/structure/table,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/item/assembly/flash/handheld,
 /turf/open/floor/plasteel,
 /area/security/main)
@@ -1583,8 +1584,10 @@
 /area/security/main)
 "ahd" = (
 /obj/structure/table,
-/obj/item/book/manual/wiki/security_space_law,
-/obj/item/book/manual/wiki/security_space_law,
+/obj/machinery/fax{
+	name = "Security Fax Machine";
+	fax_name = "Security"
+	},
 /turf/open/floor/plasteel,
 /area/security/main)
 "ahe" = (
@@ -1613,6 +1616,8 @@
 	pixel_x = -3;
 	pixel_y = 7
 	},
+/obj/item/book/manual/wiki/security_space_law,
+/obj/item/book/manual/wiki/security_space_law,
 /turf/open/floor/plasteel,
 /area/security/main)
 "ahj" = (
@@ -2880,9 +2885,9 @@
 /area/lawoffice)
 "are" = (
 /obj/structure/table/wood,
-/obj/item/flashlight/lamp/green{
-	pixel_x = 1;
-	pixel_y = 5
+/obj/machinery/fax{
+	name = "Lawyer Fax Machine";
+	fax_name = "Lawyer"
 	},
 /turf/open/floor/wood,
 /area/lawoffice)
@@ -9162,6 +9167,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/fax{
+	name = "Science Fax Machine";
+	fax_name = "Science"
+	},
+/obj/structure/table/glass,
 /turf/open/floor/plasteel/white/side{
 	dir = 8
 	},
@@ -9662,6 +9672,10 @@
 	dir = 4;
 	pixel_x = -22
 	},
+/obj/item/storage/firstaid/regular{
+	pixel_x = 6;
+	pixel_y = -5
+	},
 /obj/item/multitool,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -9792,9 +9806,9 @@
 /area/quartermaster/storage)
 "bvZ" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/regular{
-	pixel_x = 6;
-	pixel_y = -5
+/obj/machinery/fax{
+	name = "Cargo Fax Machine";
+	fax_name = "Cargo"
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -13752,7 +13766,11 @@
 /turf/closed/wall/r_wall,
 /area/tcommsat/computer)
 "bVK" = (
-/obj/machinery/vending/snack/random,
+/obj/machinery/fax{
+	name = "Engineering Fax Machine";
+	fax_name = "Engineering"
+	},
+/obj/structure/table,
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "bVO" = (
@@ -18024,6 +18042,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
+/obj/item/storage/pill_bottle/dice,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "cvO" = (
@@ -26919,7 +26938,6 @@
 /obj/structure/table/wood,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/book/manual/wiki/security_space_law,
-/obj/item/pen/red,
 /obj/machinery/button/door{
 	id = "lawyer_blast";
 	name = "Privacy Shutters";
@@ -26927,6 +26945,11 @@
 	pixel_y = 8
 	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/item/flashlight/lamp/green{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/pen/red,
 /turf/open/floor/wood,
 /area/lawoffice)
 "gpT" = (
@@ -37586,6 +37609,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
+/obj/item/shovel/spade,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "lCi" = (
@@ -42063,8 +42087,10 @@
 /obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
 	dir = 1
 	},
-/obj/item/aicard,
-/obj/item/multitool,
+/obj/machinery/fax{
+	name = "Bridge Fax Machine";
+	fax_name = "Bridge"
+	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "nUh" = (
@@ -42951,6 +42977,8 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
+/obj/item/aicard,
+/obj/item/multitool,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "oqX" = (
@@ -58172,9 +58200,12 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/storage/pill_bottle/dice,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
+	},
+/obj/machinery/fax{
+	name = "Medical Fax Machine";
+	fax_name = "Medical"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -61183,9 +61214,12 @@
 /area/medical/medbay/central)
 "xRb" = (
 /obj/structure/table,
-/obj/item/shovel/spade,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
+	},
+/obj/machinery/fax{
+	name = "Service Fax Machine";
+	fax_name = "Service"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)

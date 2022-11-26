@@ -7182,6 +7182,10 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/machinery/fax{
+	name = "Medical Fax Machine";
+	fax_name = "Medical"
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "cdb" = (
@@ -26918,6 +26922,10 @@
 /obj/item/clothing/glasses/science,
 /obj/item/clothing/glasses/science,
 /obj/effect/turf_decal/tile/purple/opposingcorners,
+/obj/machinery/fax{
+	name = "Science Fax Machine";
+	fax_name = "Science"
+	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "iNV" = (
@@ -32886,12 +32894,13 @@
 /area/engine/atmos)
 "kOy" = (
 /obj/structure/table,
-/obj/machinery/recharger{
-	pixel_y = 4
-	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/fax{
+	name = "Security Fax Machine";
+	fax_name = "Security"
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
@@ -40149,7 +40158,10 @@
 /area/maintenance/starboard/aft)
 "ngu" = (
 /obj/structure/table/reinforced,
-/obj/item/beacon,
+/obj/machinery/fax{
+	name = "Engineering Fax Machine";
+	fax_name = "Engineering"
+	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "ngv" = (
@@ -54920,6 +54932,7 @@
 	},
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/hyper,
+/obj/item/beacon,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "sbD" = (
@@ -59496,6 +59509,10 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/machinery/fax{
+	name = "Bridge Fax Machine";
+	fax_name = "Bridge"
+	},
 /turf/open/floor/plasteel,
 /area/bridge)
 "tHs" = (
@@ -62688,6 +62705,10 @@
 /obj/item/clothing/accessory/lawyers_badge,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
+	},
+/obj/machinery/fax{
+	name = "Lawyer Fax Machine";
+	fax_name = "Lawyer"
 	},
 /turf/open/floor/plasteel/dark,
 /area/lawoffice)
@@ -69564,6 +69585,11 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
+/obj/machinery/fax{
+	name = "Cargo Fax Machine";
+	fax_name = "Cargo"
+	},
+/obj/structure/table,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
 "wWe" = (
