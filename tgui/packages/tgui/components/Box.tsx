@@ -92,7 +92,9 @@ export const halfUnit = (value: unknown): string | undefined => {
 const isColorCode = (str: unknown) => !isColorClass(str);
 
 const isColorClass = (str: unknown): boolean => {
-  return typeof str === "string" && CSS_COLORS.includes(str);
+  if (typeof str === 'string') {
+    return CSS_COLORS.includes(str);
+  }
 };
 
 const mapRawPropTo = attrName => (style, value) => {
