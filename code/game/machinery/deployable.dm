@@ -84,7 +84,7 @@
 /obj/structure/barricade/wooden/crude
 	name = "crude plank barricade"
 	desc = "This space is blocked off by a crude assortment of planks."
-	icon_state = "woodenbarricade-old"
+	icon_state = "woodenbarricade-old" //REPLACE NAME WITH SOMETHING MORE FITTING
 	drop_amount = 1
 	max_integrity = 50
 	proj_pass_rate = 65

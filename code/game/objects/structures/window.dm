@@ -477,11 +477,11 @@
 
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
-	icon_state = "twindow"
+	icon_state = "twindow" //what what, hon hon
 	opacity = 1
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"
-	icon_state = "fwindow"
+	icon_state = "twindow"
 
 /obj/structure/window/depleteduranium
 	name = "depleted uranium window"
@@ -510,9 +510,9 @@
 /* Full Tile Windows (more obj_integrity) */
 
 /obj/structure/window/fulltile
-	icon = 'icons/obj/smooth_structures/window.dmi'
-	icon_state = "plasma_window-0"
-	base_icon_state = "plasma_window"
+	icon = 'icons/obj/smooth_structures/windows/window.dmi'
+	icon_state = "window-0"
+	base_icon_state = "window"
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE)
@@ -526,9 +526,9 @@
 	anchored = FALSE
 
 /obj/structure/window/depleteduranium/fulltile
-	icon = 'icons/obj/smooth_structures/du_window.dmi'
-	icon_state = "plasma_window-0"
-	base_icon_state = "plasma_window"
+	icon = 'icons/obj/smooth_structures/windows/du_window.dmi'
+	icon_state = "du_window-0"
+	base_icon_state = "du_window"
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE)
@@ -543,9 +543,9 @@
 	anchored = FALSE
 
 /obj/structure/window/plasma/fulltile
-	icon = 'icons/obj/smooth_structures/plasma_window.dmi'
-	icon_state = "window-0"
-	base_icon_state = "window"
+	icon = 'icons/obj/smooth_structures/windows/plasma_window.dmi'
+	icon_state = "plasma_window-0"
+	base_icon_state = "plasma_window"
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE)
@@ -559,9 +559,9 @@
 	anchored = FALSE
 
 /obj/structure/window/plasma/reinforced/fulltile
-	icon = 'icons/obj/smooth_structures/rplasma_window.dmi'
-	icon_state = "reinforced_window-0"
-	base_icon_state = "reinforced_window"
+	icon = 'icons/obj/smooth_structures/windows/rplasma_window.dmi'
+	icon_state = "rplasma_window-0"
+	base_icon_state = "rplasma_window"
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE)
@@ -575,7 +575,7 @@
 	anchored = FALSE
 
 /obj/structure/window/reinforced/fulltile
-	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/reinforced_window.dmi'
 	icon_state = "reinforced_window-0"
 	base_icon_state = "reinforced_window"
 	smoothing_flags = SMOOTH_BITMASK
@@ -592,7 +592,7 @@
 	anchored = FALSE
 
 /obj/structure/window/reinforced/tinted/fulltile
-	icon = 'icons/obj/smooth_structures/tinted_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/tinted_window.dmi'
 	icon_state = "tinted_window-0"
 	base_icon_state = "tinted_window"
 	smoothing_flags = SMOOTH_BITMASK
@@ -605,7 +605,7 @@
 	glass_amount = 2
 
 /obj/structure/window/reinforced/fulltile/ice
-	icon = 'icons/obj/smooth_structures/rice_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/rice_window.dmi'
 	icon_state = "rice_window-0"
 	base_icon_state = "rice_window"
 	smoothing_flags = SMOOTH_BITMASK
@@ -619,7 +619,7 @@
 /obj/structure/window/shuttle
 	name = "shuttle window"
 	desc = "A reinforced, air-locked pod window."
-	icon = 'icons/obj/smooth_structures/shuttle_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/shuttle_window.dmi'
 	icon_state = "shuttle_window-0"
 	base_icon_state = "shuttle_window"
 	smoothing_flags = SMOOTH_BITMASK
@@ -651,7 +651,7 @@
 /obj/structure/window/plastitanium
 	name = "plastitanium window"
 	desc = "A durable looking window made of an alloy of of plasma and titanium."
-	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/plastitanium_window.dmi'
 	icon_state = "plastitanium_window-0"
 	base_icon_state = "plastitanium_window"
 	smoothing_flags = SMOOTH_BITMASK
@@ -676,7 +676,7 @@
 /obj/structure/window/paperframe
 	name = "paper frame"
 	desc = "A fragile separator made of thin wood and paper."
-	icon = 'icons/obj/smooth_structures/paperframes.dmi'
+	icon = 'icons/obj/smooth_structures/windows/paperframes.dmi'
 	icon_state = "paperframes-0"
 	base_icon_state = "paperframes"
 	smoothing_flags = SMOOTH_BITMASK
@@ -696,8 +696,8 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	breaksound = 'sound/items/poster_ripped.ogg'
 	hitsound = 'sound/weapons/slashmiss.ogg'
-	var/static/mutable_appearance/torn = mutable_appearance('icons/obj/smooth_structures/paperframes.dmi',icon_state = "torn", layer = ABOVE_OBJ_LAYER - 0.1)
-	var/static/mutable_appearance/paper = mutable_appearance('icons/obj/smooth_structures/paperframes.dmi',icon_state = "paper", layer = ABOVE_OBJ_LAYER - 0.1)
+	var/static/mutable_appearance/torn = mutable_appearance('icons/obj/smooth_structures/windows/paperframes.dmi',icon_state = "torn", layer = ABOVE_OBJ_LAYER - 0.1)
+	var/static/mutable_appearance/paper = mutable_appearance('icons/obj/smooth_structures/windows/paperframes.dmi',icon_state = "paper", layer = ABOVE_OBJ_LAYER - 0.1)
 
 /obj/structure/window/paperframe/Initialize(mapload)
 	. = ..()
@@ -762,7 +762,7 @@
 /obj/structure/window/bronze
 	name = "brass window"
 	desc = "A paper-thin pane of translucent yet reinforced brass. Nevermind, this is just weak bronze!"
-	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/clockwork_window.dmi'
 	icon_state = "clockwork_window_single"
 	glass_type = /obj/item/stack/tile/bronze
 
@@ -770,7 +770,7 @@
 	anchored = FALSE
 
 /obj/structure/window/bronze/fulltile
-	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/clockwork_window.dmi'
 	icon_state = "clockwork_window-0"
 	base_icon_state = "clockwork_window"
 	smoothing_flags = SMOOTH_BITMASK
