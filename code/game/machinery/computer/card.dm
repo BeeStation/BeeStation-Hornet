@@ -66,20 +66,17 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	// This determines which department payment list the console will show to you.
 	if(!target_dept)
-		available_paycheck_departments |= list(ACCOUNT_COM_ID = ACCOUNT_COM_BITFLAG)
+		available_paycheck_departments |= list(ACCOUNT_COM_ID)
 	if((target_dept == DEPT_GEN) || !target_dept)
-		available_paycheck_departments |= list(
-			ACCOUNT_CIV_ID = ACCOUNT_CIV_BITFLAG,
-			ACCOUNT_SRV_ID = ACCOUNT_SRV_BITFLAG,
-			ACCOUNT_CAR_ID = ACCOUNT_CAR_BITFLAG)
+		available_paycheck_departments |= list(ACCOUNT_CIV_ID, ACCOUNT_SRV_ID, ACCOUNT_CAR_ID)
 	if((target_dept == DEPT_ENG) || !target_dept)
-		available_paycheck_departments |= list(ACCOUNT_ENG_ID = ACCOUNT_ENG_BITFLAG)
+		available_paycheck_departments |= list(ACCOUNT_ENG_ID)
 	if((target_dept == DEPT_SCI) || !target_dept)
-		available_paycheck_departments |= list(ACCOUNT_SCI_ID = ACCOUNT_SCI_BITFLAG)
+		available_paycheck_departments |= list(ACCOUNT_SCI_ID)
 	if((target_dept == DEPT_MED) || !target_dept)
-		available_paycheck_departments |= list(ACCOUNT_MED_ID = ACCOUNT_MED_BITFLAG)
+		available_paycheck_departments |= list(ACCOUNT_MED_ID)
 	if((target_dept == DEPT_SEC) || !target_dept)
-		available_paycheck_departments |= list(ACCOUNT_SEC_ID = ACCOUNT_SEC_BITFLAG)
+		available_paycheck_departments |= list(ACCOUNT_SEC_ID)
 
 
 /obj/machinery/computer/card/examine(mob/user)
@@ -450,10 +447,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				for(var/each in available_paycheck_departments)
 					if(!(SSeconomy.get_budget_acc_bitflag(each) & region_access_payment))
 						continue
-					if(R.fields["active_dept"] & available_paycheck_departments[each])
-						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[available_paycheck_departments[each]]'><font color=\"6bc473\">[each]</a></font></td>"
+					if(R.fields["active_dept"] & SSeconomy.get_budget_acc_bitflag(each))
+						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[SSeconomy.get_budget_acc_bitflag(each)]'><font color=\"6bc473\">[each]</a></font></td>"
 					else
-						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[available_paycheck_departments[each]]'>[each]</a></td>"
+						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[SSeconomy.get_budget_acc_bitflag(each)]'>[each]</a></td>"
 			else
 				banking += "<td colspan=\"8\"><b>Error: Cannot locate user entry in data core</b></td>"
 			banking += "</tr>"
@@ -466,7 +463,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				for(var/each in available_paycheck_departments)
 					if(!(SSeconomy.get_budget_acc_bitflag(each) & region_access_payment))
 						continue
-					if(B.active_departments & available_paycheck_departments[each])
+					if(B.active_departments & SSeconomy.get_budget_acc_bitflag(each))
 						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[each]'><font color=\"6bc473\">[each]</a></font></td>"
 					else
 						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[each]'>[each]</a></td>"
@@ -673,8 +670,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 					inserted_modify_id.access = ( istype(src, /obj/machinery/computer/card/centcom) ? get_centcom_access(t1) : jobdatum.get_access() )
 
-					// reseting theirs first
-					if(B)
+					// Step 1: reseting theirs first
+					if(B) // 1-A: reseting bank payment
 						for(var/each in inserted_modify_id.registered_account.payment_per_department)
 							if(SSeconomy.is_nonstation_account(each))
 								continue
@@ -682,20 +679,21 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							B.payment_per_department[each] = 0
 							B.bonus_per_department[each] = 0
 						B.active_departments &= ~SSeconomy.get_budget_acc_bitflag(ACCOUNT_COM_ID) // micromanagement
-					if(B && R)
-						for(var/each in B.payment_per_department)
+					if(R) // 1-B: reseting crew manifest
+						for(var/each in available_paycheck_departments)
 							if(SSeconomy.is_nonstation_account(each))
 								continue
 							R.fields["active_dept"] &= ~SSeconomy.get_budget_acc_bitflag(each)
 						R.fields["active_dept"] &= ~DEPT_BITFLAG_COM  // micromanagement2
-					// giving the job info into their bank and record
-					if(B)
+						// Note: `fields["active_dept"] = NONE` is a bad idea because you should keep VIP_BITFLAG.
+					// Step 2: giving the job info into their bank and record
+					if(B) // 2-A: setting bank payment
 						for(var/each in jobdatum.payment_per_department)
 							if(SSeconomy.is_nonstation_account(each))
 								continue
 							B.payment_per_department[each] = jobdatum.payment_per_department[each]
 						B.active_departments |= jobdatum.bank_account_department
-					if(R)
+					if(R) // 2-B: setting crew manifest
 						R.fields["active_dept"] |= jobdatum.departments
 
 					log_id("[key_name(usr)] assigned [jobdatum] job to [inserted_modify_id], overriding all previous access using [inserted_scan_id] at [AREACOORD(usr)].")
