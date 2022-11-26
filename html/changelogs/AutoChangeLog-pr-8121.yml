@@ -1,7 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - bugfix: fixed that people couldn't change people's bank and crew manifest status
-      through a HoP console without an inserted proper-access ID card in the logged-in
-      status
-  - bugfix: fixed that heads can't adjust crews payment in their own console
