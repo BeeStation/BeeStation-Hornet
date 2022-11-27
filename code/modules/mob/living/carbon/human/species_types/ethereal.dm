@@ -50,10 +50,8 @@
 	return ..()
 
 /datum/species/ethereal/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
-	ethereal_light = C.mob_light()
-
+	//ethereal_light = C.mob_light()
 	. = ..()
-
 	if(!ishuman(C))
 		return
 	var/mob/living/carbon/human/ethereal = C
@@ -64,12 +62,12 @@
 	RegisterSignal(ethereal, COMSIG_ATOM_SHOULD_EMAG, .proc/should_emag)
 	RegisterSignal(ethereal, COMSIG_ATOM_ON_EMAG, .proc/on_emag)
 	RegisterSignal(ethereal, COMSIG_ATOM_EMP_ACT, .proc/on_emp_act)
-
+	ethereal_light = ethereal.mob_light()
 	spec_updatehealth(ethereal)
-
 
 	//The following code is literally only to make admin-spawned ethereals not be black.
 	C.dna.features["mcolor"] = C.dna.features["ethcolor"] //Ethcolor and Mut color are both dogshit and will be replaced
+
 	for(var/obj/item/bodypart/BP as() in C.bodyparts)
 		if(BP.limb_id == SPECIES_ETHEREAL)
 			BP.update_limb(is_creating = TRUE)
