@@ -630,6 +630,7 @@
 	var/obj/item/I = pick(subtype_boxes)
 	name = initial(I.name)
 	desc = initial(I.desc)
+	SSblackbox.record_feedback("tally", "random_spawn_track", 1, "false_alerting_box")
 
 /obj/item/storage/box/syndie_kit/random_fake/PopulateContents()
 	// just in case when it spawns something due to override.

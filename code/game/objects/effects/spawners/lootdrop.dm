@@ -135,6 +135,7 @@
 	else if(HAS_TRAIT(SSstation, STATION_TRAIT_EMPTY_MAINT))
 		lootcount = FLOOR(lootcount * 0.5, 1)
 
+	SSblackbox.record_feedback("tally", "random_spawn_track", lootcount, "maint_total_lootcount")
 	. = ..()
 
 /obj/effect/spawner/lootdrop/maintenance/two
