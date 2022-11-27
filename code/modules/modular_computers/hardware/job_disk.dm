@@ -229,3 +229,58 @@
 	name = "\improper FACEBUCKS disk"
 	icon_state = "cart-signal" // might need a new sprite
 	spam_delay = 5
+
+// maint spawn disks (including FACEBUCKS disk, and viruses)
+// Some of these are possibly inferior than its original version
+/obj/item/computer_hardware/hard_drive/role/random_maint_spawn
+	name = "random job disk"
+
+/obj/item/computer_hardware/hard_drive/role/random_maint_spawn/Initialize(mapload)
+	..()
+	var/static/disk_list = list(
+		/obj/item/computer_hardware/hard_drive/role/maint, // putting the same ones to make it higher spawn chance
+		/obj/item/computer_hardware/hard_drive/role/maint,
+		/obj/item/computer_hardware/hard_drive/role/maint,
+		/obj/item/computer_hardware/hard_drive/role/maint,
+		/obj/item/computer_hardware/hard_drive/role/maint,
+		/obj/item/computer_hardware/hard_drive/role/medical,
+		/obj/item/computer_hardware/hard_drive/role/chemistry,
+		/obj/item/computer_hardware/hard_drive/role/signal/toxins,
+		/obj/item/computer_hardware/hard_drive/role/security,
+		/obj/item/computer_hardware/hard_drive/role/quartermaster,
+		/obj/item/computer_hardware/hard_drive/role/virus/clown,
+		/obj/item/computer_hardware/hard_drive/role/virus/mime,
+		/obj/item/computer_hardware/hard_drive/role/virus/syndicate
+	)
+	var/obj/item/computer_hardware/hard_drive/role/chosen_disk = pick(disk_list)
+	chosen_disk = new chosen_disk(loc)
+	switch(chosen_disk.type) // let's not make much subtype items
+		if(/obj/item/computer_hardware/hard_drive/role/medical)
+			chosen_disk.name = "\improper Outdated Med-U disk"
+			chosen_disk.disk_flags = DISK_MED // no robot access
+		if(/obj/item/computer_hardware/hard_drive/role/chemistry)
+			chosen_disk.name = "\improper Weathered ChemWhiz disk"
+			chosen_disk.disk_flags = DISK_CHEM // nothing different, but just in case
+		if(/obj/item/computer_hardware/hard_drive/role/signal/toxins)
+			chosen_disk.name = "\improper Outdated Signal Ace 2 disk"
+			chosen_disk.disk_flags = DISK_ATMOS | DISK_SIGNAL  // no chem
+		if(/obj/item/computer_hardware/hard_drive/role/security)
+			chosen_disk.name = "\improper Outdated R.O.B.U.S.T. disk"
+			chosen_disk.disk_flags = DISK_MANIFEST // only crew manifest
+		if(/obj/item/computer_hardware/hard_drive/role/quartermaster)
+			chosen_disk.name = "\improper Outdated space parts DELUXE disk"
+			chosen_disk.disk_flags = DISK_SILO_LOG // only silo log check
+		if(/obj/item/computer_hardware/hard_drive/role/virus/clown)
+			var/obj/item/computer_hardware/hard_drive/role/virus/temp = chosen_disk
+			temp.name = "\improper H.??. disk"
+			temp.charges = 1
+		if(/obj/item/computer_hardware/hard_drive/role/virus/mime)
+			var/obj/item/computer_hardware/hard_drive/role/virus/temp = chosen_disk
+			temp.name = "\improper sound of ... disk"
+			temp.charges = 1
+		if(/obj/item/computer_hardware/hard_drive/role/virus/syndicate)
+			var/obj/item/computer_hardware/hard_drive/role/virus/temp = chosen_disk
+			temp.name = "\improper D.E.T.O.M.A.T.I.X. disk"
+			temp.charges = 0 // that's not real.
+
+	return INITIALIZE_HINT_QDEL

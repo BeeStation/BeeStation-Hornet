@@ -613,3 +613,23 @@
 	new /obj/item/disk/nuclear/fake/obvious
 	for(var/i in 1 to 4)
 		new /obj/item/toy/reality_pierce(src)
+
+/obj/item/storage/box/syndie_kit/random_fake
+	name = "Random false-alerting syndi box"
+
+/obj/item/storage/box/syndie_kit/random_fake/Initialize()
+	..()
+	var/static/subtype_boxes = list()
+	if(!length(subtype_boxes))
+		for(var/each in subtypesof(/obj/item/storage/box/syndie_kit)-list(/obj/item/storage/box/syndie_kit/toy_box, /obj/item/storage/box/syndie_kit/random_fake))
+			var/obj/item/each_temp = each
+			if(initial(each_temp.name) == "box") // begone lame stuff
+				continue
+			subtype_boxes += each
+
+	var/obj/item/I = pick(subtype_boxes)
+	name = initial(I.name)
+	desc = initial(I.desc)
+
+/obj/item/storage/box/syndie_kit/random_fake/PopulateContents()
+	// just in case when it spawns something due to override.
