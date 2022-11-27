@@ -617,7 +617,7 @@
 /obj/item/storage/box/syndie_kit/random_fake
 	name = "Random false-alerting syndi box"
 
-/obj/item/storage/box/syndie_kit/random_fake/Initialize()
+/obj/item/storage/box/syndie_kit/random_fake/Initialize(mapload)
 	..()
 	var/static/subtype_boxes = list()
 	if(!length(subtype_boxes))
@@ -630,7 +630,8 @@
 	var/obj/item/I = pick(subtype_boxes)
 	name = initial(I.name)
 	desc = initial(I.desc)
-	SSblackbox.record_feedback("tally", "random_spawn_track", 1, "false_alerting_box")
+	if(mapload)
+		SSblackbox.record_feedback("tally", "random_spawn_track", 1, "false_alerting_box")
 
 /obj/item/storage/box/syndie_kit/random_fake/PopulateContents()
 	// just in case when it spawns something due to override.
