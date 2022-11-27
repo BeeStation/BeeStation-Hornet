@@ -388,7 +388,7 @@
 
 
 /obj/structure/curtain
-	name = "curtain"
+	name = "plastic curtain"
 	desc = "Contains less than 1% mercury."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "bathroom-open"

@@ -157,10 +157,8 @@
 		visible_message("<span class='notice'>[usr] pries open \the [src].</span>", "<span class='notice'>You pry open [src].</span>")
 		open_machine()
 
-/obj/machinery/harvester/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/harvester/on_emag(mob/user)
+	..()
 	allow_living = TRUE
 	to_chat(user, "<span class='warning'>You overload [src]'s lifesign scanners.</span>")
 

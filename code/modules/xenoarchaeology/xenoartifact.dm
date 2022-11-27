@@ -45,7 +45,9 @@
 	///Everytime the artifact is used this increases. When this is successfully proc'd the artifact gains a malfunction and this is lowered.
 	var/malfunction_chance = 0
 	///How much the chance can change in a sinlge itteration
-	var/malfunction_mod = 0.3
+	var/malfunction_mod = 1
+	///Ref to trait list for malfunctions
+	var/list/blacklist_ref
 
 	//snowflake variable for shaped
 	var/transfer_prints = FALSE
@@ -60,6 +62,7 @@
 
 	generate_xenoa_statics() //This wont load if it's already done, aka this wont spam
 
+	blacklist_ref = GLOB.xenoa_bluespace_blacklist
 	material = difficulty //Difficulty is set, in most cases
 	if(!material)
 		material = pickweight(list(XENOA_BLUESPACE = 8, XENOA_PLASMA = 5, XENOA_URANIUM = 3, XENOA_BANANIUM = 1)) //Maint artifacts and similar situations
@@ -76,18 +79,20 @@
 
 		if(XENOA_PLASMA)
 			name = "plasma [name]"
+			blacklist_ref = GLOB.xenoa_plasma_blacklist
 			generate_traits(GLOB.xenoa_plasma_blacklist)
 			if(!price)
 				price = pick(200, 300, 500)
-			malfunction_mod = 0.5
+			malfunction_mod = 3
 			extra_masks = pick(1)
 
 		if(XENOA_URANIUM)
 			name = "uranium [name]"
+			blacklist_ref = GLOB.xenoa_uranium_blacklist
 			generate_traits(GLOB.xenoa_uranium_blacklist, TRUE) 
 			if(!price)
 				price = pick(300, 500, 800) 
-			malfunction_mod = 1
+			malfunction_mod = 5
 			extra_masks = pick(1)
 
 		if(XENOA_BANANIUM)
@@ -95,7 +100,8 @@
 			generate_traits()
 			if(!price)
 				price = pick(500, 800, 1000)
-			extra_masks = pick(0)
+			malfunction_mod = 5
+			extra_masks = 0
 	SEND_SIGNAL(src, XENOA_CHANGE_PRICE, price) //update price, bacon requested signals
 
 	//Initialize traits that require that.
@@ -217,12 +223,12 @@
 
 ///Run traits. Used to activate all minor, major, and malfunctioning traits in the artifact's trait list. Sets cooldown when properly finished.
 /obj/item/xenoartifact/proc/check_charge(mob/user, charge_mod)
-	log_game("[user] attempted to activate [src] at [world.time]. Located at [x] [y] [z].")
+	log_game("[user] attempted to activate [src] at [world.time]. Located at [AREACOORD(src)].")
 
 	if(COOLDOWN_FINISHED(src, xenoa_cooldown) && !istype(loc, /obj/item/storage))
 		COOLDOWN_START(src, xenoa_cooldown, cooldown+cooldownmod)
-		if(prob(malfunction_chance) && traits.len < 6 + (material == XENOA_URANIUM ? 1 : 0)) //See if we pick up an malfunction
-			generate_trait_unique(GLOB.xenoa_malfs)
+		if(prob(malfunction_chance) && traits.len < 7 + (material == XENOA_URANIUM ? 1 : 0)) //See if we pick up an malfunction
+			generate_malfunction_unique()
 			malfunction_chance = 0 //Lower chance after contracting 
 		else //otherwise increase chance.
 			malfunction_chance = min(malfunction_chance + malfunction_mod, 100)
@@ -232,17 +238,27 @@
 
 		for(var/datum/xenoartifact_trait/minor/t in traits)//Minor traits aren't apart of the target loop, specifically becuase they pass data into it.
 			t.activate(src, user, user)
-			log_game("[src] activated minor trait [t] at [world.time]. Located at [x] [y] [z]")
+			log_game("[src] activated minor trait [t] at [world.time]. Located at [AREACOORD(src)]")
 
 		//Clamp charge to avoid fucky wucky
 		charge = max(10, charge)
+
+		//Add holder for muh balance
+		/*
+		Uncomment this if artifact abuse becomes a huge issue
+
+		if(isliving(loc) || isliving(pulledby))
+			var/mob/living/M = isliving(loc) ? loc : pulledby
+			if(!istype(M.get_item_by_slot(ITEM_SLOT_GLOVES), /obj/item/clothing/gloves/artifact_pinchers) && !istype(get_area(M), /area/science))
+				true_target |= list(M)
+		*/
    
 		for(var/atom/M in true_target) //target loop, majors & malfunctions
 			if(get_dist(get_turf(src), get_turf(M)) <= max_range) 
 				create_beam(M) //Indicator beam, points to target, M
 				for(var/datum/xenoartifact_trait/t as() in traits) //Major traits
 					if(!istype(t, /datum/xenoartifact_trait/minor))
-						log_game("[src] activated trait [t] at [world.time]. Located at [x] [y] [z]")
+						log_game("[src] activated trait [t] at [world.time]. Located at [AREACOORD(src)]")
 						t.activate(src, M, user)
 		if(!get_trait(/datum/xenoartifact_trait/major/horn))
 			playsound(get_turf(src), 'sound/magic/blink.ogg', 25, TRUE)
@@ -294,13 +310,26 @@
 	blacklist += new_trait.blacklist_traits //Cant use initial() to access lists without bork'ing it
 	return new_trait
 	
+///generates a malfunction respective to the artifact's type - don't use anywhere but for check_charge malfunctions
+/obj/item/xenoartifact/proc/generate_malfunction_unique(list/blacklist)
+	var/list/malfunctions = GLOB.xenoa_malfs.Copy()
+	malfunctions -= blacklist
+	malfunctions -= traits
+	if(!malfunctions.len)
+		return
+	//Pick one to use
+	var/datum/xenoartifact_trait/T = pick(malfunctions)
+	T = new T
+	traits += T
+
 ///Gets a singular entity, there's a specific traits that handles multiple.
 /obj/item/xenoartifact/proc/get_target_in_proximity(range)
 	for(var/mob/living/M in oview(range, get_turf(src)))
 		. = process_target(M)
 	if(isliving(loc) && !.)
 		. = process_target(loc)
-	return
+	//Return a list becuase byond is fucky and WILL overwrite the typing
+	return list(.)
 
 ///Returns the desired trait and it's values if it's in the artifact's list
 /obj/item/xenoartifact/proc/get_trait(typepath)
@@ -321,13 +350,13 @@
 		. = M?.pulling ? M.pulling : M
 	else
 		. = target
-	RegisterSignal(., COMSIG_PARENT_QDELETING, .proc/on_target_del)
+	RegisterSignal(., COMSIG_PARENT_QDELETING, .proc/on_target_del, TRUE)
 	return
 
 ///Hard del handle
 /obj/item/xenoartifact/proc/on_target_del(atom/target)
 	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
-	true_target -= target
+	true_target -= list(target)
 
 ///Helps show how the artifact is working. Hint stuff. Draws a beam between artifact and target
 /obj/item/xenoartifact/proc/create_beam(atom/target)
@@ -372,8 +401,8 @@
 /obj/item/xenoartifact/process(delta_time)
 	switch(process_type)
 		if(PROCESS_TYPE_LIT) //Burning
-			true_target = list(get_target_in_proximity(min(max_range, 5)))
-			if(isliving(true_target[1]))
+			true_target = get_target_in_proximity(min(max_range, 5))
+			if(true_target[1])
 				visible_message("<span class='danger' size='4'>The [name] flicks out.</span>")
 				default_activate(25, null, null)
 				process_type = null
@@ -381,7 +410,7 @@
 		if(PROCESS_TYPE_TICK) //Clock-ing
 			playsound(get_turf(src), 'sound/effects/clock_tick.ogg', 50, TRUE) 
 			visible_message("<span class='danger' size='10'>The [name] ticks.</span>")
-			true_target = list(get_target_in_proximity(min(max_range, 5)))
+			true_target = get_target_in_proximity(min(max_range, 5))
 			default_activate(25, null, null)
 			if(DT_PROB(XENOA_TICK_CANCEL_PROB, delta_time) && COOLDOWN_FINISHED(src, xenoa_cooldown))
 				process_type = null

@@ -93,6 +93,10 @@
 
 /obj/item/storage/box/suitbox/dropped(mob/living/user)
 	..()
+	addtimer(CALLBACK(src, .proc/box_check, user), 1 SECONDS)
+	// character's contents are checked too earlier than when it supposed to be done, making you perma-slow down.
+
+/obj/item/storage/box/suitbox/proc/box_check(mob/living/user)
 	var/box_exists = FALSE
 	for(var/obj/item/storage/box/suitbox/B in user.get_contents())
 		box_exists = TRUE // `var/obj/item/storage/box/suitbox/B` is already type check
