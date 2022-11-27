@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: If a keybind entry is missing in the preferences database, it will default
-      to its default value instead of unbound.
