@@ -1596,19 +1596,19 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("moth_wings")
 					var/new_moth_wings
-					new_moth_wings = input(user, "Choose your character's wings:", "Character Preference") as null|anything in GLOB.moth_wings_list
+					new_moth_wings = input(user, "Choose your character's wings:", "Character Preference") as null|anything in GLOB.moth_wings_roundstart_list
 					if(new_moth_wings)
 						active_character.features["moth_wings"] = new_moth_wings
 
 				if("moth_antennae")
 					var/new_moth_antennae
-					new_moth_antennae = input(user, "Choose your character's antennae:", "Character Preference") as null|anything in GLOB.moth_antennae_list
+					new_moth_antennae = input(user, "Choose your character's antennae:", "Character Preference") as null|anything in GLOB.moth_antennae_roundstart_list
 					if(new_moth_antennae)
 						active_character.features["moth_antennae"] = new_moth_antennae
 
 				if("moth_markings")
 					var/new_moth_markings
-					new_moth_markings = input(user, "Choose your character's markings:", "Character Preference") as null|anything in GLOB.moth_markings_list
+					new_moth_markings = input(user, "Choose your character's markings:", "Character Preference") as null|anything in GLOB.moth_markings_roundstart_list
 					if(new_moth_markings)
 						active_character.features["moth_markings"] = new_moth_markings
 

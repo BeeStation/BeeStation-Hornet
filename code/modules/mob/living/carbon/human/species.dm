@@ -837,6 +837,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					S = GLOB.moth_antennae_list[H.dna.features["moth_antennae"]]
 				if("moth_wingsopen")
 					S = GLOB.moth_wingsopen_list[H.dna.features["moth_wings"]]
+				if("moth_markings")
+					S = GLOB.moth_markings_list[H.dna.features["moth_markings"]]
 				if("caps")
 					S = GLOB.caps_list[H.dna.features["caps"]]
 				if("ipc_screen")

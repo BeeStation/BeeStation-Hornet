@@ -38,8 +38,11 @@ GLOBAL_LIST_EMPTY(wings_list)
 GLOBAL_LIST_EMPTY(wings_open_list)
 GLOBAL_LIST_EMPTY(r_wings_list)
 GLOBAL_LIST_EMPTY(moth_wings_list)
+GLOBAL_LIST_EMPTY(moth_wings_roundstart_list)//this lacks the blacklisted wings such as burned, clockwork and angel
 GLOBAL_LIST_EMPTY(moth_antennae_list)
+GLOBAL_LIST_EMPTY(moth_antennae_roundstart_list)//this lacks the blacklisted antennae such as burned, clockwork and angel
 GLOBAL_LIST_EMPTY(moth_markings_list)
+GLOBAL_LIST_EMPTY(moth_markings_roundstart_list)//this lacks the blacklisted markings such as burned, clockwork and angel
 GLOBAL_LIST_EMPTY(moth_wingsopen_list)
 GLOBAL_LIST_EMPTY(caps_list)
 GLOBAL_LIST_EMPTY(ipc_screens_list)

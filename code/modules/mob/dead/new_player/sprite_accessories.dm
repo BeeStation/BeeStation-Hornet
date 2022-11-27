@@ -2065,7 +2065,7 @@
 
 /datum/sprite_accessory/moth_wings/punished
 	name = "Burnt Off"
-	icon_state = "punished"
+	icon_state = "burnt_off"
 	locked = TRUE
 
 /datum/sprite_accessory/moth_wings/firewatch
@@ -2133,6 +2133,18 @@
 	name = "Plain"
 	icon_state = "plain"
 
+/datum/sprite_accessory/moth_antennae/monarch
+	name = "Monarch"
+	icon_state = "monarch"
+
+/datum/sprite_accessory/moth_antennae/luna
+	name = "Luna"
+	icon_state = "luna"
+
+/datum/sprite_accessory/moth_antennae/atlas
+	name = "Atlas"
+	icon_state = "atlas"
+
 /datum/sprite_accessory/moth_antennae/reddish
 	name = "Reddish"
 	icon_state = "reddish"
@@ -2153,9 +2165,15 @@
 	name = "Lovers"
 	icon_state = "lovers"
 
-/datum/sprite_accessory/moth_antennae/burnt_off
+/datum/sprite_accessory/moth_antennae/clockwork
+	name = "Clockwork"
+	icon_state = "clockwork"
+	locked = TRUE
+
+/datum/sprite_accessory/moth_antennae/punished
 	name = "Burnt Off"
 	icon_state = "burnt_off"
+	locked = TRUE
 
 /datum/sprite_accessory/moth_antennae/firewatch
 	name = "Firewatch"
@@ -2177,9 +2195,9 @@
 	name = "Moon Fly"
 	icon_state = "moonfly"
 
-/datum/sprite_accessory/moth_antennae/regal
-	name = "Regal"
-	icon_state = "regal"
+/datum/sprite_accessory/moth_antennae/snow
+	name = "Snow"
+	icon_state = "snow"
 
 /datum/sprite_accessory/moth_markings // the markings that moths can have. finally something other than the boring tan
 	icon = 'icons/mob/moth_markings.dmi'
@@ -2212,6 +2230,7 @@
 /datum/sprite_accessory/moth_markings/burnt_off
 	name = "Burnt Off"
 	icon_state = "burnt_off"
+	locked = TRUE
 
 /datum/sprite_accessory/moth_markings/firewatch
 	name = "Firewatch"
