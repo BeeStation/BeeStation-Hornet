@@ -17,12 +17,12 @@
 					/obj/item/computer_hardware/hard_drive/role/signal = 5,
 					/obj/item/computer_hardware/hard_drive/role/signal/toxins = 5,
 					/obj/item/computer_hardware/hard_drive/role/roboticist = 5,
-					/obj/item/computer_hardware/hard_drive/role/lawyer = 2,
-					/obj/item/computer_hardware/hard_drive/role/curator = 2,
-					/obj/item/computer_hardware/hard_drive/role/janitor = 10,
+					/obj/item/computer_hardware/hard_drive/role/lawyer = 3,
+					/obj/item/computer_hardware/hard_drive/role/curator = 3,
+					/obj/item/computer_hardware/hard_drive/role/janitor = 5,
 					/obj/item/computer_hardware/hard_drive/role/quartermaster = 3,
 					/obj/item/computer_hardware/hard_drive/role/cargo_technician = 5,
-					/obj/item/computer_hardware/hard_drive/role/maint = 3,
+					/obj/item/computer_hardware/hard_drive/role/maint = 5,
 					/obj/item/computer_hardware/hard_drive/role/head = 5)
 	premium = list(/obj/item/computer_hardware/hard_drive/role/captain = 3)
 	contraband = list(/obj/item/computer_hardware/hard_drive/role/virus/clown = 2,
