@@ -6,15 +6,27 @@
 	icon_state = "cart"
 	icon_deny = "cart-deny"
 	light_color = LIGHT_COLOR_WHITE
-	products = list(/obj/item/computer_hardware/hard_drive/role/medical = 10,
-					/obj/item/computer_hardware/hard_drive/role/engineering = 10,
-					/obj/item/computer_hardware/hard_drive/role/security = 10,
+	products = list(/obj/item/modular_computer/tablet/pda = 15,
+					/obj/item/computer_hardware/hard_drive/role/medical = 5,
+					/obj/item/computer_hardware/hard_drive/role/chemistry = 5,
+					/obj/item/computer_hardware/hard_drive/role/brig_physician = 3,
+					/obj/item/computer_hardware/hard_drive/role/security = 5,
+					/obj/item/computer_hardware/hard_drive/role/detective = 3,
+					/obj/item/computer_hardware/hard_drive/role/engineering = 5,
+					/obj/item/computer_hardware/hard_drive/role/atmos = 5,
+					/obj/item/computer_hardware/hard_drive/role/signal = 5,
+					/obj/item/computer_hardware/hard_drive/role/signal/toxins = 5,
+					/obj/item/computer_hardware/hard_drive/role/roboticist = 5,
+					/obj/item/computer_hardware/hard_drive/role/lawyer = 2,
+					/obj/item/computer_hardware/hard_drive/role/curator = 2,
 					/obj/item/computer_hardware/hard_drive/role/janitor = 10,
-					/obj/item/computer_hardware/hard_drive/role/signal/toxins = 10,
-					/obj/item/modular_computer/tablet/pda/heads = 10,
-					/obj/item/computer_hardware/hard_drive/role/cargo_technician = 10,
-					/obj/item/computer_hardware/hard_drive/role/maint = 3)
+					/obj/item/computer_hardware/hard_drive/role/quartermaster = 3,
+					/obj/item/computer_hardware/hard_drive/role/cargo_technician = 5,
+					/obj/item/computer_hardware/hard_drive/role/maint = 3,
+					/obj/item/computer_hardware/hard_drive/role/head = 5)
 	premium = list(/obj/item/computer_hardware/hard_drive/role/captain = 3)
+	contraband = list(/obj/item/computer_hardware/hard_drive/role/virus/clown = 2,
+					/obj/item/computer_hardware/hard_drive/role/virus/mime = 2)
 	refill_canister = /obj/item/vending_refill/cart
 	default_price = 100
 	extra_price = 300
