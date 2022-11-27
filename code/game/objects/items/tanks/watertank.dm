@@ -362,6 +362,17 @@
 			return
 		COOLDOWN_START(src, resin_cooldown, nozzle_cooldown)
 		R.remove_any(resin_cost)
+		var/obj/effect/resin_container/resin = new (get_turf(src))
+		if(tank.upgrade_flags == FIREPACK_UPGRADE_EFFICIENCY)
+			qdel(resin)
+			var/obj/effect/resin_container/selfdestruct/resin = new (get_turf(src))
+		log_game("[key_name(user)] used Resin Launcher at [AREACOORD(user)].")
+		playsound(src,'sound/items/syringeproj.ogg',40,1)
+		var/delay = 2
+		var/datum/move_loop/loop = SSmove_manager.move_towards(resin, target, delay, timeout = delay * 5, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+		RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, .proc/resin_stop_check)
+		RegisterSignal(loop, COMSIG_PARENT_QDELETING, .proc/resin_landed)
+
 		if(tank.upgrade_flags == FIREPACK_UPGRADE_EFFICIENCY)
 			var/obj/effect/resin_container/selfdestruct/resin = new (get_turf(src))
 			log_game("[key_name(user)] used Advanced Resin Launcher at [AREACOORD(user)].")
@@ -378,6 +389,7 @@
 			var/datum/move_loop/loop = SSmove_manager.move_towards(resin, target, delay, timeout = delay * 5, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 			RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, .proc/resin_stop_check)
 			RegisterSignal(loop, COMSIG_PARENT_QDELETING, .proc/resin_landed)
+
 		return
 
 	if(nozzle_mode == RESIN_FOAM)
@@ -450,7 +462,7 @@
 	anchored = TRUE
 
 /obj/effect/resin_container/selfdestruct/Smoke()
-	var/obj/effect/particle_effect/foam/metal/resin/S = new /obj/effect/particle_effect/foam/metal/resin(get_turf(loc))
+	var/obj/effect/particle_effect/foam/metal/selfdestruct_resin/S = new /obj/effect/particle_effect/foam/metal/selfdestruct_resin(get_turf(loc))
 	S.amount = 4
 	playsound(src,'sound/effects/bamf.ogg',100,1)
 	qdel(src)

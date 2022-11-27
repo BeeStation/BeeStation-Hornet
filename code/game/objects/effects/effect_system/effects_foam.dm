@@ -85,7 +85,7 @@
 	name = "resin foam"
 	metal = RESIN_FOAM
 
-/obj/effect/particle_effect/foam/metal/resin
+/obj/effect/particle_effect/foam/metal/selfdestruct_resin
 	name = "self-destruct resin foam"
 	metal = RESIN_FOAM_SELFDESTRUCT
 
@@ -356,29 +356,36 @@
 
 /obj/structure/foamedmetal/resin/selfdestruct/proc/start_the_chain(var/count)
 	count = count + 1
-	if(count > 5)
+	if(count > 40)
 		dissapear()
 		return
 	if(dissolving)
 		return
+	dissapear()
 	find_nearby_foam(NORTH, count)
 	find_nearby_foam(EAST, count)
 	find_nearby_foam(SOUTH, count)
 	find_nearby_foam(WEST, count)
-	dissapear()
+	return
 
 /obj/structure/foamedmetal/resin/selfdestruct/proc/dissapear()
 	if(dissolving)
 		return
 	dissolving = TRUE
-	addtimer(CALLBACK(src, explosion(get_turf(src), 0, 0, 1)),5000)
+	addtimer(CALLBACK(src, .proc/explosion, get_turf(src), 0, 0, 1), 10)
+	//explosion(get_turf(src), 0, 0, 1)
+	//addtimer(CALLBACK(src, explosion(get_turf(src), 0, 0, 1)),100)
+	dissolving = null
+	return
 
-/obj/structure/foamedmetal/resin/selfdestruct/attackby(obj/item/I, mob/living/user, )
+
+/obj/structure/foamedmetal/resin/selfdestruct/attackby(obj/item/I, mob/living/user)
 	if(!istype(I, /obj/item/extinguisher/mini/nozzle))
 		return
 		//explosion(get_turf(src), 0, 0, 1)
-	start_the_chain(0)
-	dissapear()
+	addtimer(CALLBACK(src, .proc/explosion, get_turf(src), 0, 0, 1), 10)
+	//dissapear()
+	//start_the_chain(0)
 	return ..()
 
 
