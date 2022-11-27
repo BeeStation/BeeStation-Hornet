@@ -9,6 +9,7 @@
 	desc = "A little fire extinguishing bot. He looks rather anxious."
 	icon = 'icons/mob/aibots.dmi'
 	icon_state = "firebot"
+	reference_icon_state = "firebot0"
 	density = FALSE
 	anchored = FALSE
 	health = 25

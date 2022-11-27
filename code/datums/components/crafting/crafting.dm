@@ -436,7 +436,7 @@
 	var/atom/movable/I = R.result
 	if(ispath(I, /atom/movable))
 		var/base64 = null
-		var/icon_state_temp = initial(I.icon_state)
+		var/icon_state_temp = initial(I.reference_icon_state) || initial(I.icon_state)
 		if(icon_state_temp != "" && icon_state_temp != null)
 			var/icon_key = "[initial(I.icon)]-[icon_state_temp]"
 			if(base64_cache[icon_key] != null)

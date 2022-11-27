@@ -432,6 +432,7 @@
 /obj/item/clothing/head/rainbowbunchcrown
 	name = "rainbow flower crown"
 	desc = "A flower crown made out of the flowers of the rainbow bunch plant."
+	reference_icon_state = "rainbow_bunch_crown_1"
 	dynamic_hair_suffix = ""
 	attack_verb = list("crowned")
 
