@@ -140,6 +140,7 @@
 			to_chat(H, "<span class='danger'>Your precious wings burn to a crisp!</span>")
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "burnt_wings", /datum/mood_event/burnt_wings)
 			H.dna.features["moth_wings"] = "Burnt Off"
+			H.dna.features["moth_antennae"] = "Burnt Off"
 			wing_type = "Burnt Off"
 			H.dna.species.handle_mutant_bodyparts(H)
 
