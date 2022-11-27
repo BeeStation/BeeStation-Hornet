@@ -111,6 +111,24 @@
 	key_bindings 	= sanitize_islist(key_bindings, deepCopyList(GLOB.keybinding_list_by_key))
 	if (!length(key_bindings))
 		key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
+	else
+		var/any_changed = FALSE
+		for(var/key_name in GLOB.keybindings_by_name)
+			var/datum/keybinding/keybind = GLOB.keybindings_by_name[key_name]
+			var/in_binds = FALSE
+			for(var/bind in key_bindings)
+				if(key_name in key_bindings[bind])
+					in_binds = TRUE
+					break
+			if(in_binds)
+				continue
+			any_changed = TRUE
+			if(!islist(key_bindings[keybind.key]))
+				key_bindings[keybind.key] = list(key_name)
+			else
+				key_bindings[keybind.key] += key_name
+		if(any_changed)
+			save_keybinds()
 
 	if(!purchased_gear)
 		purchased_gear = list()
@@ -125,6 +143,10 @@
 #define PREP_WRITEPREF_RAW(value, tag) write_queries += SSdbcore.NewQuery("INSERT INTO [format_table_name("preferences")] (ckey, preference_tag, preference_value) VALUES (:ckey, :ptag, :pvalue) ON DUPLICATE KEY UPDATE preference_value=:pvalue2", list("ckey" = parent.ckey, "ptag" = tag, "pvalue" = value, "pvalue2" = value))
 #define PREP_WRITEPREF_JSONENC(value, tag) PREP_WRITEPREF_RAW(json_encode(value), tag)
 
+/datum/preferences/proc/save_keybinds()
+	var/list/datum/DBQuery/write_queries = list()
+	PREP_WRITEPREF_JSONENC(key_bindings, PREFERENCE_TAG_KEYBINDS)
+	SSdbcore.QuerySelect(write_queries, TRUE, TRUE)
 
 // Writes all prefs to the DB
 /datum/preferences/proc/save_preferences()
