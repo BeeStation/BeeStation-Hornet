@@ -131,7 +131,22 @@ const CraftingList = (props, context) => {
       return (
         <LabeledList.Item
           key={craftable.name}
-          label={craftable.name}
+          label={
+            <>
+              {craftable.img ? (
+                <img
+                  src={`data:image/jpeg;base64,${craftable.img}`}
+                  style={{
+                    'vertical-align': 'middle',
+                    'horizontal-align': 'middle',
+                  }}
+                />
+              ) : null}
+              <span title={craftable.name}>
+                {craftable.name}
+              </span>
+            </>
+          }
           className="candystripe"
           buttons={(
             <Button
@@ -154,7 +169,22 @@ const CraftingList = (props, context) => {
     return (
       <Section
         key={craftable.name}
-        title={craftable.name}
+        title={
+          <>
+            {craftable.img ? (
+              <img
+                src={`data:image/jpeg;base64,${craftable.img}`}
+                style={{
+                  'vertical-align': 'middle',
+                  'horizontal-align': 'middle',
+                }}
+              />
+            ) : null}
+            <span title={craftable.name}>
+              {craftable.name}
+            </span>
+          </>
+        }
         level={2}
         buttons={(
           <Button

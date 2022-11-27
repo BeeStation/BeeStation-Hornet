@@ -47,6 +47,7 @@
 	var/datum/action/innate/crafting/button
 	var/display_craftable_only = FALSE
 	var/display_compact = TRUE
+	var/list/base64_cache = list()
 
 /*	This is what procs do:
 	get_environment - gets a list of things accessable for crafting by user
@@ -430,6 +431,20 @@
 	var/req_text = ""
 	var/tool_text = ""
 	var/catalyst_text = ""
+
+	// get icon
+	var/atom/movable/I = R.result
+	if(ispath(I, /atom/movable))
+		var/base64 = null
+		var/icon_state_temp = initial(I.icon_state)
+		if(icon_state_temp != "" && icon_state_temp != null)
+			var/icon_key = "[initial(I.icon)]-[icon_state_temp]"
+			if(base64_cache[icon_key] != null)
+				base64 = base64_cache[icon_key]
+			else
+				base64 = icon2base64(icon(initial(I.icon), icon_state_temp, frame=1, dir=SOUTH))
+				base64_cache[icon_key] = base64
+			data["img"] = base64
 
 	for(var/a in R.reqs)
 		//We just need the name, so cheat-typecast to /atom for speed (even tho Reagents are /datum they DO have a "name" var)
