@@ -23,7 +23,7 @@
   visibility: visible;\
 }\
 </style>"
-// I tried `width: max-content;` in css, but it's not working. giving custom width_px only works for now.
+// IE11 does not support the max-content attribute, so 'width: max-content;' doesn't work.
 
 #define TOOLTIP_WRAPPER(hover_me, width_px, tooltip_text) \
 "<div class=\"tooltip\">[hover_me]<span class=\"tooltiptext\" style=\"width: [width_px]px\">[tooltip_text]</span></div>"
