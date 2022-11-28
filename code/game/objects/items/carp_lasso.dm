@@ -16,7 +16,8 @@
 
 /obj/item/mob_lasso/Initialize(mapload)
 	. = ..()
-	whitelist_mobs = typecacheof(list(/mob/living/simple_animal/hostile/carp, /mob/living/simple_animal/cow, /mob/living/simple_animal/hostile/retaliate/dolphin), only_root_path = TRUE)
+	whitelist_mobs = typecacheof(list(/mob/living/simple_animal/hostile/carp, /mob/living/simple_animal/hostile/carp/megacarp, /mob/living/simple_animal/hostile/carp/lia,\
+	 /mob/living/simple_animal/cow, /mob/living/simple_animal/hostile/retaliate/dolphin), only_root_path = TRUE)
 	blacklist_mobs = list()
 
 /obj/item/mob_lasso/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -78,7 +79,7 @@
 /obj/item/mob_lasso/proc/fail_ally()
 	visible_message("<span class='warning'>[mob_target] breaks free!</span>")
 	mob_target?.transform = transform.Turn(0)
-	mob_target.toggle_ai(AI_ON)
+	mob_target?.toggle_ai(AI_ON)
 	UnregisterSignal(mob_target, COMSIG_PARENT_QDELETING)
 	mob_target = null
 	timer = null
