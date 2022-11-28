@@ -66,7 +66,7 @@
 		"ERT" = "ert",
 		JOB_NAME_VIP = "gold",
 		JOB_NAME_KING = "gold",
-		"Syndicate" = "syndicate",
+		"Syndicate Agent" = "syndicate",
 		"Clown Operative" = "clown_op",
 		"Unknown" = "unknown",
 		// ETC2
@@ -148,7 +148,7 @@
 		// ETC
 		JOB_NAME_VIP = JOB_HUD_VIP,
 		JOB_NAME_KING = JOB_HUD_KING,
-		"Syndicate" = JOB_HUD_SYNDICATE,
+		"Syndicate Agent" = JOB_HUD_SYNDICATE,
 		"Clown Operative" = JOB_HUD_SYNDICATE,
 		"Unassigned" = JOB_HUD_UNKNOWN,
 		JOB_NAME_PRISONER = JOB_HUD_PRISONER
