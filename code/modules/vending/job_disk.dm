@@ -1,5 +1,5 @@
 //This one's from bay12
-/obj/machinery/vending/cart
+/obj/machinery/vending/job_disk
 	name = "\improper PTech"
 	desc = "Job disks for PDAs."
 	product_slogans = "Disks to go!"
