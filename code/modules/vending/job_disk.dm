@@ -10,7 +10,7 @@
 					/obj/item/computer_hardware/hard_drive/role/medical = 5,
 					/obj/item/computer_hardware/hard_drive/role/chemistry = 5,
 					/obj/item/computer_hardware/hard_drive/role/brig_physician = 3,
-					/obj/item/computer_hardware/hard_drive/role/security = 5,
+					/obj/item/computer_hardware/hard_drive/role/security = 3,
 					/obj/item/computer_hardware/hard_drive/role/detective = 3,
 					/obj/item/computer_hardware/hard_drive/role/engineering = 5,
 					/obj/item/computer_hardware/hard_drive/role/atmos = 5,
