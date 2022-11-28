@@ -14,7 +14,6 @@
 					/obj/item/computer_hardware/hard_drive/role/detective = 3,
 					/obj/item/computer_hardware/hard_drive/role/engineering = 5,
 					/obj/item/computer_hardware/hard_drive/role/atmos = 5,
-					/obj/item/computer_hardware/hard_drive/role/signal = 5,
 					/obj/item/computer_hardware/hard_drive/role/signal/toxins = 5,
 					/obj/item/computer_hardware/hard_drive/role/roboticist = 3,
 					/obj/item/computer_hardware/hard_drive/role/lawyer = 3,
