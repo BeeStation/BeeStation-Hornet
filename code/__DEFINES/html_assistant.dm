@@ -8,15 +8,13 @@
 \
 .tooltip .tooltiptext {\
   visibility: hidden;\
-  width: 120px;\
   background-color: black;\
   color: #fff;\
   text-align: center;\
   border-radius: 3px;\
   border: 1px solid grey;\
-  padding: 5px 0;\
-\
-  /* Position the tooltip */\
+  padding: 10px 17px;\
+  \
   position: absolute;\
   z-index: 1;\
 }\
@@ -25,6 +23,7 @@
   visibility: visible;\
 }\
 </style>"
+// I tried `width: max-content;` in css, but it's not working. giving custom width_px only works for now.
 
-#define TOOLTIP_WRAPPER(hover_me, tooltip_text) \
-"<div class=\"tooltip\">[hover_me]<span class=\"tooltiptext\">[tooltip_text]</span></div>"
+#define TOOLTIP_WRAPPER(hover_me, width_px, tooltip_text) \
+"<div class=\"tooltip\">[hover_me]<span class=\"tooltiptext\" style=\"width: [width_px]px\">[tooltip_text]</span></div>"
