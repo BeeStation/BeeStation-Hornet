@@ -112,6 +112,8 @@ const fieldRegex: RegExp = /\[((?:_+))\]/gi;
 // Handles the ghost stamp when attempting to stamp paper sheets.
 class PaperSheetStamper extends Component<PaperSheetStamperProps> {
    style: null;
+   // It works on TG for almost 4 months as of November 2022, so it's probably fine.
+   // eslint-disable-next-line react/state-in-constructor
    state: PaperSheetStamperState = { x: 0, y: 0, rotation: 0, yOffset: 0 };
    scrollableRef: RefObject<HTMLDivElement>;
 
