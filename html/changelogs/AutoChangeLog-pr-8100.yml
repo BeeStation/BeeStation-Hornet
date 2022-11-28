@@ -1,7 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: moved some HoP card painter feature to global proc
-  - rscdel: Reset feature in agent cards has been removed - it does actually nothing.
-  - tweak: Agent card forging in the user experience aspect is now greatly improved
-      - You'll forge a card flawlessly.
