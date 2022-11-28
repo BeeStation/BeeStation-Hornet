@@ -622,30 +622,33 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		var/obj/item/bodypart/r_leg/right_leg = H.get_bodypart(BODY_ZONE_R_LEG)
 		var/obj/item/bodypart/l_leg/left_leg = H.get_bodypart(BODY_ZONE_L_LEG)
 		var/datum/sprite_accessory/markings = GLOB.moth_markings_list[H.dna.features["moth_markings"]]
+		var/markings_icon_state = markings.icon_state
+		if(ismoth(H) && HAS_TRAIT(H, TRAIT_MOTH_BURNT))
+			markings_icon_state = "burnt_off"
 
 		if(!HAS_TRAIT(H, TRAIT_HUSK))
 			if(HD && (IS_ORGANIC_LIMB(HD)))
-				var/mutable_appearance/markings_head_overlay = mutable_appearance(markings.icon, "[markings.icon_state]_head", -BODY_LAYER)
+				var/mutable_appearance/markings_head_overlay = mutable_appearance(markings.icon, "[markings_icon_state]_head", -BODY_LAYER)
 				standing += markings_head_overlay
 
 			if(chest && (IS_ORGANIC_LIMB(chest)))
-				var/mutable_appearance/markings_chest_overlay = mutable_appearance(markings.icon, "[markings.icon_state]_chest", -BODY_LAYER)
+				var/mutable_appearance/markings_chest_overlay = mutable_appearance(markings.icon, "[markings_icon_state]_chest", -BODY_LAYER)
 				standing += markings_chest_overlay
 
 			if(right_arm && (IS_ORGANIC_LIMB(right_arm)))
-				var/mutable_appearance/markings_r_arm_overlay = mutable_appearance(markings.icon, "[markings.icon_state]_r_arm", -BODY_LAYER)
+				var/mutable_appearance/markings_r_arm_overlay = mutable_appearance(markings.icon, "[markings_icon_state]_r_arm", -BODY_LAYER)
 				standing += markings_r_arm_overlay
 
 			if(left_arm && (IS_ORGANIC_LIMB(left_arm)))
-				var/mutable_appearance/markings_l_arm_overlay = mutable_appearance(markings.icon, "[markings.icon_state]_l_arm", -BODY_LAYER)
+				var/mutable_appearance/markings_l_arm_overlay = mutable_appearance(markings.icon, "[markings_icon_state]_l_arm", -BODY_LAYER)
 				standing += markings_l_arm_overlay
 
 			if(right_leg && (IS_ORGANIC_LIMB(right_leg)))
-				var/mutable_appearance/markings_r_leg_overlay = mutable_appearance(markings.icon, "[markings.icon_state]_r_leg", -BODY_LAYER)
+				var/mutable_appearance/markings_r_leg_overlay = mutable_appearance(markings.icon, "[markings_icon_state]_r_leg", -BODY_LAYER)
 				standing += markings_r_leg_overlay
 
 			if(left_leg && (IS_ORGANIC_LIMB(left_leg)))
-				var/mutable_appearance/markings_l_leg_overlay = mutable_appearance(markings.icon, "[markings.icon_state]_l_leg", -BODY_LAYER)
+				var/mutable_appearance/markings_l_leg_overlay = mutable_appearance(markings.icon, "[markings_icon_state]_l_leg", -BODY_LAYER)
 				standing += markings_l_leg_overlay
 
 
@@ -832,11 +835,21 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				if("legs")
 					S = GLOB.legs_list[H.dna.features["legs"]]
 				if("moth_wings")
-					S = GLOB.moth_wings_list[H.dna.features["moth_wings"]]
+					if(HAS_TRAIT(H, TRAIT_MOTH_BURNT))
+						S = GLOB.moth_wings_list["Burnt Off"]
+					else
+						S = GLOB.moth_wings_list[H.dna.features["moth_wings"]]
 				if("moth_antennae")
-					S = GLOB.moth_antennae_list[H.dna.features["moth_antennae"]]
+					if(HAS_TRAIT(H, TRAIT_MOTH_BURNT))
+						S = GLOB.moth_antennae_list["Burnt Off"]
+					else
+						S = GLOB.moth_antennae_list[H.dna.features["moth_antennae"]]
 				if("moth_wingsopen")
-					S = GLOB.moth_wingsopen_list[H.dna.features["moth_wings"]]
+					if(HAS_TRAIT(H, TRAIT_MOTH_BURNT))
+						S = GLOB.moth_wings_list["Burnt Off"] //Burnt off wings don't have an open sprite \
+						so I'll just make them display the regural one to avoid having them dissapear alltogether
+					else
+						S = GLOB.moth_wingsopen_list[H.dna.features["moth_wings"]]
 				if("moth_markings")
 					S = GLOB.moth_markings_list[H.dna.features["moth_markings"]]
 				if("caps")
