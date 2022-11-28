@@ -51,7 +51,9 @@
 	// calculate each pickweight
 	var/total_value
 	for(var/each in random_list)
-		if(random_list[each] < 0 || !isnum(random_list[each]))
+		if(!isnum(random_list[each]))
+			CRASH("item pick weight is wrong - not a number: [random_list[each]]")
+		if(random_list[each] < 0)
 			CRASH("item pick weight is wrong - should be more than 0: [random_list[each]]")
 		total_value += random_list[each]
 	if(!total_value)
