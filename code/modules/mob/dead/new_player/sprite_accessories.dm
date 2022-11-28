@@ -1972,14 +1972,6 @@
 	icon = 'icons/mob/moth_wings.dmi'
 	color_src = null
 
-/datum/sprite_accessory/moth_markings
-	icon = 'icons/mob/moth_markings.dmi'
-	color_src = null
-
-/datum/sprite_accessory/moth_antennae
-	icon = 'icons/mob/moth_antennae.dmi'
-	color_src = null
-
 /datum/sprite_accessory/moth_wingsopen
 	icon = 'icons/mob/moth_wingsopen.dmi'
 	color_src = null
@@ -2065,7 +2057,7 @@
 
 /datum/sprite_accessory/moth_wings/punished
 	name = "Burnt Off"
-	icon_state = "burnt_off"
+	icon_state = "punished"
 	locked = TRUE
 
 /datum/sprite_accessory/moth_wings/firewatch
@@ -2124,133 +2116,6 @@
 	center = TRUE
 	dimension_y = 34
 	locked = TRUE
-
-/datum/sprite_accessory/moth_antennae //Finally splitting the sprite
-	icon = 'icons/mob/moth_antennae.dmi'
-	color_src = null
-
-/datum/sprite_accessory/moth_antennae/plain
-	name = "Plain"
-	icon_state = "plain"
-
-/datum/sprite_accessory/moth_antennae/monarch
-	name = "Monarch"
-	icon_state = "monarch"
-
-/datum/sprite_accessory/moth_antennae/luna
-	name = "Luna"
-	icon_state = "luna"
-
-/datum/sprite_accessory/moth_antennae/atlas
-	name = "Atlas"
-	icon_state = "atlas"
-
-/datum/sprite_accessory/moth_antennae/reddish
-	name = "Reddish"
-	icon_state = "reddish"
-
-/datum/sprite_accessory/moth_antennae/royal
-	name = "Royal"
-	icon_state = "royal"
-
-/datum/sprite_accessory/moth_antennae/gothic
-	name = "Gothic"
-	icon_state = "gothic"
-
-/datum/sprite_accessory/moth_antennae/whitefly
-	name = "White Fly"
-	icon_state = "whitefly"
-
-/datum/sprite_accessory/moth_antennae/lovers
-	name = "Lovers"
-	icon_state = "lovers"
-
-/datum/sprite_accessory/moth_antennae/clockwork
-	name = "Clockwork"
-	icon_state = "clockwork"
-	locked = TRUE
-
-/datum/sprite_accessory/moth_antennae/punished
-	name = "Burnt Off"
-	icon_state = "burnt_off"
-	locked = TRUE
-
-/datum/sprite_accessory/moth_antennae/firewatch
-	name = "Firewatch"
-	icon_state = "firewatch"
-
-/datum/sprite_accessory/moth_antennae/deathhead
-	name = "Deathshead"
-	icon_state = "deathhead"
-
-/datum/sprite_accessory/moth_antennae/poison
-	name = "Poison"
-	icon_state = "poison"
-
-/datum/sprite_accessory/moth_antennae/ragged
-	name = "Ragged"
-	icon_state = "ragged"
-
-/datum/sprite_accessory/moth_antennae/moonfly
-	name = "Moon Fly"
-	icon_state = "moonfly"
-
-/datum/sprite_accessory/moth_antennae/snow
-	name = "Snow"
-	icon_state = "snow"
-
-/datum/sprite_accessory/moth_markings // the markings that moths can have. finally something other than the boring tan
-	icon = 'icons/mob/moth_markings.dmi'
-	color_src = null
-
-/datum/sprite_accessory/moth_markings/none
-	name = "None"
-	icon_state = "none"
-
-/datum/sprite_accessory/moth_markings/reddish
-	name = "Reddish"
-	icon_state = "reddish"
-
-/datum/sprite_accessory/moth_markings/royal
-	name = "Royal"
-	icon_state = "royal"
-
-/datum/sprite_accessory/moth_markings/gothic
-	name = "Gothic"
-	icon_state = "gothic"
-
-/datum/sprite_accessory/moth_markings/whitefly
-	name = "White Fly"
-	icon_state = "whitefly"
-
-/datum/sprite_accessory/moth_markings/lovers
-	name = "Lovers"
-	icon_state = "lovers"
-
-/datum/sprite_accessory/moth_markings/burnt_off
-	name = "Burnt Off"
-	icon_state = "burnt_off"
-	locked = TRUE
-
-/datum/sprite_accessory/moth_markings/firewatch
-	name = "Firewatch"
-	icon_state = "firewatch"
-
-/datum/sprite_accessory/moth_markings/deathhead
-	name = "Deathshead"
-	icon_state = "deathhead"
-
-/datum/sprite_accessory/moth_markings/poison
-	name = "Poison"
-	icon_state = "poison"
-
-/datum/sprite_accessory/moth_markings/ragged
-	name = "Ragged"
-	icon_state = "ragged"
-
-/datum/sprite_accessory/moth_markings/moonfly
-	name = "Moon Fly"
-	icon_state = "moonfly"
 
 // IPC accessories.
 
@@ -2493,3 +2358,165 @@
 /datum/sprite_accessory/ipc_chassis/zenghupharmaceuticals
 	name = "Zeng-Hu Pharmaceuticals"
 	limbs_id = "zhpipc"
+
+//apids
+
+/datum/sprite_accessory/apid_antenna
+	icon = 'icons/mob/apid_accessories.dmi'
+
+/datum/sprite_accessory/apid_antenna/moth
+	name = "mothlike antenna"
+	icon_state = "moth"
+
+/datum/sprite_accessory/apid_antenna/fluffy
+	name = "fluffy antenna"
+	icon_state = "fluffy"
+
+/datum/sprite_accessory/apid_antenna/wavy
+	name = "wavy antenna"
+	icon_state = "wavy"
+
+/datum/sprite_accessory/apid_antenna/slickback
+	name = "slickback antenna"
+	icon_state = "slickback"
+
+/datum/sprite_accessory/apid_antenna/horns
+	name = "horned antenna"
+	icon_state = "horns"
+
+/datum/sprite_accessory/apid_antenna/straight
+	name = "straight antenna"
+	icon_state = "straight"
+
+/datum/sprite_accessory/apid_antenna/triangle
+	name = "triangle antenna"
+	icon_state = "triangle"
+
+/datum/sprite_accessory/apid_antenna/electric
+	name = "electric antenna"
+	icon_state = "electric"
+
+/datum/sprite_accessory/apid_antenna/leafy
+	name = "leafy antenna"
+	icon_state = "leafy"
+
+/datum/sprite_accessory/apid_antenna/royal
+	name = "royal antenna"
+	icon_state = "royal"
+
+/datum/sprite_accessory/apid_antenna/wisp
+	name = "wispy antenna"
+	icon_state = "wisp"
+
+/datum/sprite_accessory/apid_antenna/plug
+	name = "pluged antenna"
+	icon_state = "plug"
+
+/datum/sprite_accessory/apid_antenna/warior
+	name = "warior antenna"
+	icon_state = "warior"
+
+/datum/sprite_accessory/apid_antenna/sidelights
+	name = "sidelighted antenna"
+	icon_state = "sidelights"
+
+/datum/sprite_accessory/apid_antenna/sprouts
+	name = "sprouting antenna"
+	icon_state = "sprouts"
+
+/datum/sprite_accessory/apid_antenna/nubs
+	name = "nubby antenna"
+	icon_state = "nubs"
+
+/datum/sprite_accessory/apid_antenna/ant
+	name = "antlike antenna"
+	icon_state = "ant"
+
+/datum/sprite_accessory/apid_antenna/crooked
+	name = "crooked antenna"
+	icon_state = "crooked"
+
+/datum/sprite_accessory/apid_antenna/curled
+	name = "curled antenna"
+	icon_state = "curled"
+
+/datum/sprite_accessory/apid_antenna/snapped
+	name = "snapped antenna"
+	icon_state = "snapped"
+
+/datum/sprite_accessory/apid_antenna/budding
+	name = "budding antenna"
+	icon_state = "budding"
+
+/datum/sprite_accessory/apid_antenna/bumpers
+	name = "bumpery antenna"
+	icon_state = "bumpers"
+
+/datum/sprite_accessory/apid_antenna/split
+	name = "split antenna"
+	icon_state = "split"
+
+/datum/sprite_accessory/apid_stripes
+	icon = 'icons/mob/apid_accessories.dmi'
+	gender_specific = 1
+
+/datum/sprite_accessory/apid_stripes/none
+	name = "no stripes"
+	icon_state = "none"
+
+/datum/sprite_accessory/apid_stripes/full
+	name = "full color"
+	icon_state = "full"
+
+/datum/sprite_accessory/apid_stripes/thick
+	name = "thick stripes"
+	icon_state = "thick"
+
+/datum/sprite_accessory/apid_stripes/thin
+	name = "thin stripes"
+	icon_state = "thin"
+
+/datum/sprite_accessory/apid_stripes/wasp
+	name = "wasp stripes"
+	icon_state = "wasp"
+
+/datum/sprite_accessory/apid_stripes/arachnid
+	name = "arachnid stripes"
+	icon_state = "arachnid"
+
+/datum/sprite_accessory/apid_headstripes
+	icon = 'icons/mob/apid_accessories.dmi'
+	gender_specific = 1
+
+/datum/sprite_accessory/apid_headstripes/none
+	name = "no headstripes"
+	icon_state = "none"
+
+/datum/sprite_accessory/apid_headstripes/full
+	name = "full headcolor"
+	icon_state = "full"
+
+/datum/sprite_accessory/apid_headstripes/thick
+	name = "thick headstripes"
+	icon_state = "thick"
+
+/datum/sprite_accessory/apid_headstripes/thin
+	name = "thin headstripes"
+	icon_state = "thin"
+
+/datum/sprite_accessory/apid_headstripes/cap
+	name = "headstripe cap"
+	icon_state = "cap"
+
+/datum/sprite_accessory/apid_headstripes/neck
+	name = "neck headstripe"
+	icon_state = "neck"
+
+
+/datum/sprite_accessory/apid_headstripes/wasp
+	name = "wasp headstripes"
+	icon_state = "wasp"
+
+/datum/sprite_accessory/apid_headstripes/arachnid
+	name = "arachnid headstripes"
+	icon_state = "arachnid"
