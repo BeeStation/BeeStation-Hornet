@@ -1,0 +1,14 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added the ability to pry the Defibrillator Wall Mount off the wall with
+      a crowbar when it's empty
+  - rscadd: Added deconstruction tooltips to the Defibrillator Wall Mount, Fire Extinguisher
+      Cabinet and Anesthetic Tank Holder
+  - rscadd: Added the ability to convert the Anesthetic Tank Holder into an IV drip
+      by using a screwdriver on it
+  - rscadd: Added the attached tank and the gas pressure and volume of the tank to
+      the description of the Anesthetic Tank Holder
+  - tweak: Defibrillator Wall Mount, IV Drip and Anesthetic Tank Holder now drop their
+      respective attached items when destroyed
+  - bugfix: Fixed the defibrillator not updating its icon upon being emagged
