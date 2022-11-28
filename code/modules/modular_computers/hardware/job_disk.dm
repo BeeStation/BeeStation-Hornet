@@ -238,49 +238,41 @@
 /obj/item/computer_hardware/hard_drive/role/random_maint_spawn/Initialize(mapload)
 	..()
 	var/static/disk_list = list(
-		/obj/item/computer_hardware/hard_drive/role/maint, // putting the same ones to make it higher spawn chance
-		/obj/item/computer_hardware/hard_drive/role/maint,
-		/obj/item/computer_hardware/hard_drive/role/maint,
-		/obj/item/computer_hardware/hard_drive/role/maint,
-		/obj/item/computer_hardware/hard_drive/role/maint,
-		/obj/item/computer_hardware/hard_drive/role/medical,
-		/obj/item/computer_hardware/hard_drive/role/chemistry,
-		/obj/item/computer_hardware/hard_drive/role/signal/toxins,
-		/obj/item/computer_hardware/hard_drive/role/security,
-		/obj/item/computer_hardware/hard_drive/role/quartermaster,
-		/obj/item/computer_hardware/hard_drive/role/virus/clown,
-		/obj/item/computer_hardware/hard_drive/role/virus/mime,
-		/obj/item/computer_hardware/hard_drive/role/virus/syndicate
+		/obj/item/computer_hardware/hard_drive/role/maint = 5, // value is pickweight
+		/obj/item/computer_hardware/hard_drive/role/medical = 1,
+		/obj/item/computer_hardware/hard_drive/role/chemistry = 1,
+		/obj/item/computer_hardware/hard_drive/role/signal/toxins = 1,
+		/obj/item/computer_hardware/hard_drive/role/security = 1,
+		/obj/item/computer_hardware/hard_drive/role/quartermaster = 1,
+		/obj/item/computer_hardware/hard_drive/role/virus/clown = 1,
+		/obj/item/computer_hardware/hard_drive/role/virus/mime = 1
 	)
-	var/obj/item/computer_hardware/hard_drive/role/chosen_disk = pick(disk_list)
+	var/static/adj_list = list("old", "weathered", "outdated")
+	var/obj/item/computer_hardware/hard_drive/role/chosen_disk = pick_by_weight(disk_list)
 	chosen_disk = new chosen_disk(loc)
 	switch(chosen_disk.type) // let's not make much subtype items
 		if(/obj/item/computer_hardware/hard_drive/role/medical)
-			chosen_disk.name = "\improper Outdated Med-U disk"
+			chosen_disk.name = "\improper [pick(adj_list)] Med-U disk"
 			chosen_disk.disk_flags = DISK_MED // no robot access
 		if(/obj/item/computer_hardware/hard_drive/role/chemistry)
-			chosen_disk.name = "\improper Weathered ChemWhiz disk"
+			chosen_disk.name = "\improper [pick(adj_list)] ChemWhiz disk"
 			chosen_disk.disk_flags = DISK_CHEM // nothing different, but just in case
 		if(/obj/item/computer_hardware/hard_drive/role/signal/toxins)
-			chosen_disk.name = "\improper Outdated Signal Ace 2 disk"
+			chosen_disk.name = "\improper [pick(adj_list)] Signal Ace 2 disk"
 			chosen_disk.disk_flags = DISK_ATMOS | DISK_SIGNAL  // no chem
 		if(/obj/item/computer_hardware/hard_drive/role/security)
-			chosen_disk.name = "\improper Outdated R.O.B.U.S.T. disk"
+			chosen_disk.name = "\improper [pick(adj_list)] R.O.B.U.S.T. disk"
 			chosen_disk.disk_flags = DISK_MANIFEST // only crew manifest
 		if(/obj/item/computer_hardware/hard_drive/role/quartermaster)
-			chosen_disk.name = "\improper Outdated space parts DELUXE disk"
+			chosen_disk.name = "\improper [pick(adj_list)] space parts DELUXE disk"
 			chosen_disk.disk_flags = DISK_SILO_LOG // only silo log check
 		if(/obj/item/computer_hardware/hard_drive/role/virus/clown)
 			var/obj/item/computer_hardware/hard_drive/role/virus/temp = chosen_disk
-			temp.name = "\improper H.??. disk"
+			temp.name = pick_by_weight(list("\improper H.??. disk"=25, "\improper [pick(adj_list)] H.O.N.K. disk"=75))
 			temp.charges = 1
 		if(/obj/item/computer_hardware/hard_drive/role/virus/mime)
 			var/obj/item/computer_hardware/hard_drive/role/virus/temp = chosen_disk
-			temp.name = "\improper sound of ... disk"
+			temp.name = pick_by_weight(list("\improper sound of ... disk"=25, "\improper [pick(adj_list)] sound of silence disk"=75))
 			temp.charges = 1
-		if(/obj/item/computer_hardware/hard_drive/role/virus/syndicate)
-			var/obj/item/computer_hardware/hard_drive/role/virus/temp = chosen_disk
-			temp.name = "\improper D.E.T.O.M.A.T.I.X. disk"
-			temp.charges = 0 // that's not real.
 
 	return INITIALIZE_HINT_QDEL

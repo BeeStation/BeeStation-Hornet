@@ -631,7 +631,8 @@
 	name = initial(I.name)
 	desc = initial(I.desc)
 	if(mapload)
-		SSblackbox.record_feedback("tally", "random_spawn_track", 1, "false_alerting_box")
+		if(is_station_level(z))
+			SSblackbox.record_feedback("tally", "random_spawn_track", 1, "false_alerting_box")
 
 /obj/item/storage/box/syndie_kit/random_fake/PopulateContents()
 	// just in case when it spawns something due to override.
