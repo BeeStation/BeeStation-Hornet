@@ -1,0 +1,7 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added the maximum sigh capacity and current amount of holo signs active
+      to the description of holo projectors.
+  - rscadd: Adds a text saying how many holo signs are left after each successful
+      holo sign placement.
