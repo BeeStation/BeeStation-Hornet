@@ -352,6 +352,10 @@
 		parts += "[GLOB.TAB]Round ID: <b>[info]</b>"
 	parts += "[GLOB.TAB]Shift Duration: <B>[DisplayTimeText(world.time - SSticker.round_start_time)]</B>"
 	parts += "[GLOB.TAB]Station Integrity: <B>[mode.station_was_nuked ? "<span class='redtext'>Destroyed</span>" : "[popcount["station_integrity"]]%"]</B>"
+	var/list/station_trait_list = list()
+	for(var/datum/station_trait/each in SSstation.station_traits)
+		station_trait_list += each.name
+	parts += "[GLOB.TAB]Station Traits: <B>[english_list(station_trait_list)]</B>"
 	var/total_players = GLOB.joined_player_list.len
 	if(total_players)
 		parts+= "[GLOB.TAB]Total Population: <B>[total_players]</B>"
