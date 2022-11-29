@@ -1,0 +1,5 @@
+#These are tooltips for ingame html.
+#if you don't want to use it, comment a line
+#[[ ]] is wiki format. for example, [[Guide_to_chemistry Take a look on a chemistry guide!]] will become "Take a look on a chemistry guide!"
+
+naming_policy Each species must follow a naming policy. Please read the [[Naming_Guidelines "Naming Guidelines"]] page on the wiki and [[Rules#1_You_Must_Roleplay Rule 1.7]].

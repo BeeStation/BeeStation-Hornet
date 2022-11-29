@@ -73,6 +73,41 @@
 
 	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)
 
+/proc/make_datum_references_lists_late_setup()
+	// this should be done lately because it needs something pre-setup
+
+	// Tooltips - this one needs config but config is loaded before this
+	for(var/each in world.file2list("config/tooltips.txt"))
+		world.log << "config: [each]"
+		if(!each)
+			continue
+		if(each[1] == "#")
+			continue
+		var/cutvalue = findtext(each, " ")
+		var/key = copytext(each, 1, cutvalue)
+		var/basic_value = copytext(each, cutvalue+1)
+
+		// replaces [[ ]] into wiki link format
+		// "you need to [[guide_to_chemisty read this guide]]."" will become
+		// "you need to <a href='wiki://guide_to_chemisty'>read this guide</a>."
+		cutvalue = findtext(basic_value, "\[\[")
+		while(cutvalue)
+			var/list/stacker = list()
+			stacker += copytext(basic_value, 1, cutvalue)
+			basic_value = splicetext(basic_value, 1, cutvalue+1)
+			var/spacecut = findtext(basic_value, " ")
+			var/closecut = findtext(basic_value, "\]\]")
+			stacker += (get_wiki_url() ? "<a href='[get_wiki_url()]/" : "")
+			stacker += (get_wiki_url() ? copytext(basic_value, 2, spacecut) : "")
+			stacker += (get_wiki_url() ? "' target='_blank'>" : "")
+			stacker += copytext(basic_value, spacecut+1, closecut)
+			stacker += (get_wiki_url() ? "</a>" : "")
+			stacker += copytext(basic_value, closecut+2)
+			basic_value = jointext(stacker, "")
+			cutvalue = findtext(basic_value, "\[\[")
+		GLOB.tooltips += list("[key]" = basic_value)
+		// if runtime error happens, that means your config file is wrong
+
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
 //if no list/L is provided, one is created.
 /proc/init_subtypes(prototype, list/L)

@@ -41,3 +41,5 @@ GLOBAL_LIST_EMPTY(topic_tokens)
 GLOBAL_PROTECT(topic_tokens)
 GLOBAL_LIST_EMPTY(topic_servers)
 GLOBAL_PROTECT(topic_servers)
+
+GLOBAL_LIST_EMPTY(tooltips) // Tooltips. tooltip is stored in "config/tooltips.txt"
