@@ -846,8 +846,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 						S = GLOB.moth_antennae_list[H.dna.features["moth_antennae"]]
 				if("moth_wingsopen")
 					if(HAS_TRAIT(H, TRAIT_MOTH_BURNT))
-						S = GLOB.moth_wings_list["Burnt Off"] //Burnt off wings don't have an open sprite \
-						so I'll just make them display the regural one to avoid having them dissapear alltogether
+						S = GLOB.moth_wings_list["Burnt Off"] //Burnt off wings don't have an open sprite
+						//so I'll just make them display the regural one to avoid having them dissapear alltogether
 					else
 						S = GLOB.moth_wingsopen_list[H.dna.features["moth_wings"]]
 				if("moth_markings")
