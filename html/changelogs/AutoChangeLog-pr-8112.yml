@@ -1,0 +1,6 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - tweak: Nanites programs 'force speech' and 'skull echo' now share its cooldown
+      with other same programs.
+  - rscadd: ghosts now can read nanites skull echo messages.
