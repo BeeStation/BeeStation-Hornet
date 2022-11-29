@@ -28,4 +28,4 @@
 #define TOOLTIP_WRAPPER(hover_me, width_px, tooltip_text) \
 "<div class='tooltip'>[hover_me]<span class='tooltiptext' style='width: [width_px]px'>[tooltip_text]</span></div>"
 
-#define OPEN_WIKI(text, wiki_url) (get_wiki_url() ? "<a href='[get_wiki_url()+"/"+wiki_url]' target='_blank'>[text]</a>" : "")
+#define OPEN_WIKI(text, wiki_url) (get_wiki_url() ? "<a href='[get_wiki_url()+"/"+wiki_url]' target='_blank'>[text]</a>" : "[text]")
