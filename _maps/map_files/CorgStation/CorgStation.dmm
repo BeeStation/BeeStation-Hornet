@@ -30893,7 +30893,7 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen/coldroom)
 "khz" = (
-/obj/machinery/vending/cart{
+/obj/machinery/vending/job_disk{
 	req_access_txt = "57"
 	},
 /turf/open/floor/carpet/blue,

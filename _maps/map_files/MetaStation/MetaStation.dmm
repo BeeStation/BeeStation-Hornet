@@ -13665,7 +13665,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "bqE" = (
-/obj/machinery/vending/cart{
+/obj/machinery/vending/job_disk{
 	req_access_txt = "57"
 	},
 /obj/item/radio/intercom{

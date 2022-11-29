@@ -18764,7 +18764,7 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/hop)
 "bZe" = (
-/obj/machinery/vending/cart,
+/obj/machinery/vending/job_disk,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 32
 	},
