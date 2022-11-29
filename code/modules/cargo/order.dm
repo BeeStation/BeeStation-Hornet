@@ -63,9 +63,9 @@
 
 	var/station_name = (manifest_paper.errors & MANIFEST_ERROR_NAME) ? new_station_name() : GLOB.station_name
 
-	manifest_paperP.name = "shipping manifest - [packname?"#[id] ([pack.name])":"(Grouped Item Crate)"]"
+	manifest_paper.name = "shipping manifest - [packname?"#[id] ([pack.name])":"(Grouped Item Crate)"]"
 
-	var/manifest_text += "<h2>[command_name()] Shipping Manifest</h2>"
+	var/manifest_text = "<h2>[command_name()] Shipping Manifest</h2>"
 	manifest_text += "<hr/>"
 	if(owner && !(owner == "Cargo"))
 		manifest_text += "Direct purchase from [owner]<br/>"
