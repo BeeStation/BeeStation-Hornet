@@ -83,26 +83,26 @@
 			continue
 		if(each[1] == "#")
 			continue
-		var/cutvalue = findtext(each, " ")
-		var/key = copytext(each, 1, cutvalue)
-		var/basic_value = copytext(each, cutvalue+1)
+		var/keycut = findtext(each, " ")
+		var/key = copytext(each, 1, keycut)
+		var/text_value = copytext(each, keycut+1)
 
 		// replaces [[ ]] into wiki link format
 		// "you need to [[guide_to_chemisty read this guide]] please."" will become
 		// "you need to <a href='wiki://guide_to_chemisty'>read this guide</a> please."
-		cutvalue = findtext(basic_value, "\[\[")
-		while(cutvalue)
+		var/opencut = findtext(text_value, "\[\[")
+		while(opencut)
 			var/list/stacker = list()
-			stacker += copytext(basic_value, 1, cutvalue)        // >> "you need to
-			basic_value = splicetext(basic_value, 1, cutvalue+1) // >> [[guide_to_chemisty read this guide]]
-			var/spacecut = findtext(basic_value, " ")
-			var/closecut = findtext(basic_value, "\]\]")
-			stacker += OPEN_WIKI(copytext(basic_value, 2, spacecut), copytext(basic_value, spacecut+1, closecut))  // replace [[ ]] wapper to hyperlink
-			stacker += copytext(basic_value, closecut+2)         // >> please."
+			stacker += copytext(text_value, 1, opencut)       // >> "you need to
+			text_value = splicetext(text_value, 1, opencut+1) // >> [[guide_to_chemisty read this guide]]
+			var/spacecut = findtext(text_value, " ")
+			var/closecut = findtext(text_value, "\]\]")
+			stacker += OPEN_WIKI(copytext(text_value, 2, spacecut), copytext(text_value, spacecut+1, closecut))  // replace [[ ]] wapper to hyperlink
+			stacker += copytext(text_value, closecut+2)       // >> please."
 
-			basic_value = jointext(stacker, "") // "you need to <a>read this guys</a> please."
-			cutvalue = findtext(basic_value, "\[\[")
-		GLOB.tooltips += list("[key]" = basic_value)
+			text_value = jointext(stacker, "")    // result >> "you need to <a>read this guys</a> please."
+			opencut = findtext(text_value, "\[\[")
+		GLOB.tooltips += list("[key]" = text_value)
 		// if runtime error happens, that means your config file is wrong
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
