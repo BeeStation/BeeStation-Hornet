@@ -93,10 +93,10 @@
 		while(opencut)
 			var/list/stacker = list()
 			stacker += copytext(text_value, 1, opencut)       // >> "you need to
-			text_value = splicetext(text_value, 1, opencut+1) // >> [[guide_to_chemisty read this guide]]
+			text_value = splicetext(text_value, 1, opencut+1) // >> [[guide_to_chemisty read this guide]] please."
 			var/spacecut = findtext(text_value, " ")
 			var/closecut = findtext(text_value, "\]\]")
-			stacker += OPEN_WIKI(copytext(text_value, 2, spacecut), copytext(text_value, spacecut+1, closecut))  // replace [[ ]] wapper to hyperlink
+			stacker += OPEN_WIKI(copytext(text_value, 2, spacecut), copytext(text_value, spacecut+1, closecut))  // replace [[ ]] wapper in text_value to hyperlink
 			stacker += copytext(text_value, closecut+2)       // >> please."
 
 			text_value = jointext(stacker, "")    // result >> "you need to <a>read this guys</a> please."
