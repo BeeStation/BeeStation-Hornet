@@ -144,9 +144,20 @@
 /obj/effect/proc_holder/spell/self/revenant_phase_shift/cast(mob/user = usr)
 	if(!isrevenant(user))
 		return FALSE
+	var/turf/open/floor/stepTurf = get_turf(user)
+	if(stepTurf)
+		var/obj/effect/decal/cleanable/food/salt/salt = locate() in stepTurf
+		if(salt)
+			to_chat(user, "<span class='warning'>[salt] bars prevents your phase shift!</span>")
+			// the purpose is just letting not them hide onto salt tiles incorporeally. no need to stun.
+			return
+		if(stepTurf.flags_1 & NOJAUNT_1)
+			to_chat(user, "<span class='warning'>Some strange aura blocks your phase shift.</span>")
+			return
+		if(locate(/obj/effect/blessing) in stepTurf)
+			to_chat(user, "<span class='warning'>Holy energies block your phase shift!</span>")
+			return
 	var/mob/living/simple_animal/revenant/revenant = user
-	if(!revenant.castcheck(0))
-		return FALSE
 	revenant.phase_shift()
 	revenant.orbiting?.end_orbit(revenant)
 
