@@ -144,6 +144,7 @@
 			//H.dna.features["moth_antennae"] = "Burnt Off"
 			//wing_type = "Burnt Off"
 			H.dna.species.handle_mutant_bodyparts(H)
+			H.dna.species.handle_body(H)
 
 
 /obj/item/organ/wings/angel

@@ -1,5 +1,5 @@
 #define COCOON_WEAVE_DELAY 5 SECONDS //how long it takes you to create the cocoon
-#define COCOON_EMERGE_DELAY 60 SECONDS //how long you remain inside of it
+#define COCOON_EMERGE_DELAY 15 SECONDS //how long you remain inside of it
 #define COCOON_HARM_AMOUNT 50 //how much damage gets dealt to you if the cocoon gets broken prematurely
 #define COCOON_HEAL_AMOUNT 35 //how much damage gets restored while you're cocooned
 #define COCOON_NUTRITION_AMOUNT 200 //how much hunger gets drained in total
@@ -123,6 +123,7 @@
 		if(ismoth(H))
 			REMOVE_TRAIT(H, TRAIT_MOTH_BURNT, "fire")
 		H.dna.species.handle_mutant_bodyparts(H)
+		H.dna.species.handle_body(H)
 	C.preparing_to_emerge = FALSE
 	qdel(C)
 
