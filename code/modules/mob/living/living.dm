@@ -59,6 +59,9 @@
 	return (levels * 15) ** 1.4
 
 /mob/living/proc/ZImpactDamage(turf/T, levels)
+	apply_general_zimpact_damage(T, levels)
+
+/mob/living/proc/apply_general_zimpact_damage(turf/T, levels)
 	visible_message("<span class='danger'>[src] falls [levels] level\s into [T] with a sickening noise!</span>")
 	var/amount_total = get_distributed_zimpact_damage(levels)
 	var/total_damage_percent_left = 1
