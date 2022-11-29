@@ -41,6 +41,10 @@
 	///Should we add an overlay for open spaceheaters
 	var/display_panel = TRUE
 
+	var/maxTemp = settable_temperature_median + settable_temperature_range - T0C
+
+	var/minTemp = settable_temperature_median - settable_temperature_range - T0C
+
 /obj/machinery/space_heater/get_cell()
 	return cell
 
@@ -183,10 +187,23 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/space_heater/AltClick(mob/user)
+/obj/machinery/space_heater/CtrlClick(mob/user)
 	if(!can_interact(user))
 		return
 	toggle_power()
+
+/obj/machinery/space_heater/AltClick(mob/user)
+	if(!can_interact(user))
+		return
+	if(mode == HEATER_MODE_COOL)
+		target_temperature = minTemp
+		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
+	else if(mode == HEATER_MODE_HEAT)
+		target_temperature = maxTemp
+		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
+	else
+		return
+	balloon_alert(user, "You set the target temperature to [target_temperature] K.")
 
 /obj/machinery/space_heater/proc/toggle_power()
 	on = !on
