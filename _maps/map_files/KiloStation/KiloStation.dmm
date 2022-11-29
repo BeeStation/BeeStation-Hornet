@@ -93597,10 +93597,6 @@
 	pixel_y = 7;
 	pixel_x = -5
 	},
-/obj/item/clothing/glasses/science{
-	pixel_x = 5;
-	pixel_y = 15
-	},
 /obj/item/clothing/gloves/artifact_pinchers,
 /obj/item/clothing/gloves/artifact_pinchers{
 	pixel_y = -13;
@@ -93614,6 +93610,10 @@
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
+	},
+/obj/item/clothing/glasses/science{
+	pixel_x = 5;
+	pixel_y = 15
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/explab)
@@ -100128,7 +100128,10 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_dock)
 "tPc" = (
-/obj/item/book/manual/wiki/xenoarchaeology,
+/obj/item/book/manual/wiki/xenoarchaeology{
+	pixel_y = 6;
+	pixel_x = -5
+	},
 /obj/structure/table,
 /obj/machinery/camera/autoname{
 	dir = 5
@@ -100138,6 +100141,9 @@
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
+	},
+/obj/item/storage/firstaid/regular{
+	pixel_y = -7
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/explab)
