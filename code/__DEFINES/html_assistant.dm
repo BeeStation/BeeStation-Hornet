@@ -29,4 +29,6 @@
 "<div class='tooltip'>[hover_me]<span class='tooltiptext' style='width: [width_px]px'>[tooltip_text]</span></div>"
 
 #define TOOLTIP_CONFIG_CALLER(hover_me, width_px, config_key) \
-"[(GLOB.tooltips[config_key] ? "<div class='tooltip'>[hover_me]<span class='tooltiptext' style='width: [width_px]px'>[GLOB.tooltips[config_key]]</span></div>" : "")]"
+"[(GLOB.tooltips[config_key] ? "<div class='tooltip'>[hover_me]<span class='tooltiptext' style='width: [width_px]px'>[GLOB.tooltips[config_key]]</span></div>" : "[hover_me]")]"
+
+#define OPEN_WIKI(wiki_url, text) (get_wiki_url() ? "<a href='[get_wiki_url()+"/"+wiki_url]' target='_blank'>[text]</a>" : "[text]")

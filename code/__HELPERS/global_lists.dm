@@ -88,22 +88,19 @@
 		var/basic_value = copytext(each, cutvalue+1)
 
 		// replaces [[ ]] into wiki link format
-		// "you need to [[guide_to_chemisty read this guide]]."" will become
-		// "you need to <a href='wiki://guide_to_chemisty'>read this guide</a>."
+		// "you need to [[guide_to_chemisty read this guide]] please."" will become
+		// "you need to <a href='wiki://guide_to_chemisty'>read this guide</a> please."
 		cutvalue = findtext(basic_value, "\[\[")
 		while(cutvalue)
 			var/list/stacker = list()
-			stacker += copytext(basic_value, 1, cutvalue)
-			basic_value = splicetext(basic_value, 1, cutvalue+1)
+			stacker += copytext(basic_value, 1, cutvalue)        // >> "you need to
+			basic_value = splicetext(basic_value, 1, cutvalue+1) // >> [[guide_to_chemisty read this guide]]
 			var/spacecut = findtext(basic_value, " ")
 			var/closecut = findtext(basic_value, "\]\]")
-			stacker += (get_wiki_url() ? "<a href='[get_wiki_url()]/" : "")
-			stacker += (get_wiki_url() ? copytext(basic_value, 2, spacecut) : "")
-			stacker += (get_wiki_url() ? "' target='_blank'>" : "")
-			stacker += copytext(basic_value, spacecut+1, closecut)
-			stacker += (get_wiki_url() ? "</a>" : "")
-			stacker += copytext(basic_value, closecut+2)
-			basic_value = jointext(stacker, "")
+			stacker += OPEN_WIKI(copytext(basic_value, 2, spacecut), copytext(basic_value, spacecut+1, closecut))  // replace [[ ]] wapper to hyperlink
+			stacker += copytext(basic_value, closecut+2)         // >> please."
+
+			basic_value = jointext(stacker, "") // "you need to <a>read this guys</a> please."
 			cutvalue = findtext(basic_value, "\[\[")
 		GLOB.tooltips += list("[key]" = basic_value)
 		// if runtime error happens, that means your config file is wrong
