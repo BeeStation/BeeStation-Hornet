@@ -1374,13 +1374,16 @@
 	template_height = 5
 	template_width = 3
 
-/datum/map_template/random_room/sk_rdm161
+/datum/map_template/random_room/sk_rdm161 // rare. has hostile spiders
 	name = "Bank Vault"
 	room_id = "sk_rdm161_kilovault"
 	mappath = "_maps/RandomRooms/10x5/sk_rdm161_kilovault.dmm"
 	centerspawner = FALSE
-	template_height = 10
-	template_width = 5
+	template_height = 5
+	template_width = 10
+	weight = 1
+
+
 
 //Flandstation Dedicated Random Room
 
