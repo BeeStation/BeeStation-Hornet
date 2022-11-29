@@ -100145,6 +100145,7 @@
 /obj/item/storage/firstaid/regular{
 	pixel_y = -7
 	},
+/obj/item/healthanalyzer,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/explab)
 "tQp" = (
