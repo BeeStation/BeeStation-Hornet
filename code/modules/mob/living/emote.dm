@@ -435,7 +435,7 @@
 				else
 					alert("Unable to use this emote, must be either hearable or visible.")
 					return
-			message = custom_emote
+			message = user.say_emphasis(custom_emote)
 	else
 		message = params
 		if(type_override)
