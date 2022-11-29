@@ -27691,7 +27691,7 @@
 /obj/machinery/power/smes/engineering{
 	charge = 2e+007
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/tcommsat/relay)
 "ggy" = (
@@ -39941,12 +39941,11 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/storage)
 "iJH" = (
-/obj/machinery/power/apc/auto_name/north,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/highcap/ten_k{
+	pixel_y = 24
 	},
 /turf/open/floor/plating,
 /area/tcommsat/relay)
@@ -78117,9 +78116,6 @@
 /turf/open/floor/carpet/black,
 /area/security/main)
 "qZk" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/power/terminal{
 	dir = 4
 	},
@@ -85226,7 +85222,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating,
@@ -94619,7 +94615,6 @@
 /area/medical/chemistry)
 "uCW" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/power/apc/auto_name/north,
 /obj/effect/turf_decal/bot_red/left,
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -94630,6 +94625,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
+	},
+/obj/machinery/power/apc/highcap/ten_k{
+	pixel_y = 24
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/engine/atmospherics_engine)
@@ -212842,7 +212840,7 @@ rna
 rna
 rna
 rhB
-xeS
+rhB
 rhB
 gZf
 fVu
