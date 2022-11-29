@@ -262,7 +262,7 @@ AI MODULES
 	var/targName = stripped_input(user, "Please enter a new law for the AI.", "Freeform Law Entry", laws[1], CONFIG_GET(number/max_law_len))
 	if(!targName)
 		return
-	targName = replace_html_codes(targName)
+	targName = stripped_html_decode(targName)
 	if(CHAT_FILTER_CHECK(targName))
 		to_chat(user, "<span class='warning'>Error: Law contains invalid text.</span>") // AI LAW 2 SAY U W U WITHOUT THE SPACES
 		return
@@ -393,7 +393,7 @@ AI MODULES
 	var/targName = stripped_input(user, "Please enter a new subject that asimov is concerned with.", "Asimov to whom?", subject, MAX_NAME_LEN)
 	if(!targName)
 		return
-	targName = replace_html_codes(targName)
+	targName = stripped_html_decode(targName)
 	subject = targName
 	laws = list("You may not injure a [subject] or, through inaction, allow a [subject] to come to harm.",\
 				"You must obey orders given to you by [subject]s, except where such orders would conflict with the First Law.",\
@@ -476,7 +476,7 @@ AI MODULES
 	var/targName = stripped_input(user, "Please enter a new core law for the AI.", "Freeform Law Entry", laws[1], CONFIG_GET(number/max_law_len))
 	if(!targName)
 		return
-	targName = replace_html_codes(targName)
+	targName = stripped_html_decode(targName)
 	if(CHAT_FILTER_CHECK(targName))
 		to_chat(user, "<span class='warning'>Error: Law contains invalid text.</span>")
 		return
@@ -532,7 +532,7 @@ AI MODULES
 	var/targName = stripped_input(user, "Please enter a new law for the AI.", "Freeform Law Entry", laws[1], CONFIG_GET(number/max_law_len))
 	if(!targName)
 		return
-	targName = replace_html_codes(targName)
+	targName = stripped_html_decode(targName)
 	if(CHAT_FILTER_CHECK(targName)) // not even the syndicate can uwu
 		to_chat(user, "<span class='warning'>Error: Law contains invalid text.</span>")
 		return

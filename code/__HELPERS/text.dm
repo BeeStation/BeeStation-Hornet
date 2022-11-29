@@ -63,16 +63,14 @@
 	return copytext((html_encode(strip_html_simple(t))),1,limit)
 
 /// replaces html codes such as &#39; into ' to chat
-/proc/replace_html_codes(t)
+/proc/stripped_html_decode(t)
 	var/static/list/html_codes = list(
-		"&#39;" = "'",
-		"&#34;" = "\"",
 		"&lt;" = "(", // these can be exploitable in html. <> will be replaced into ()
 		"&gt;" = ")",
-		"&amp;" = "&"
 	)
 	for(var/each in html_codes)
 		t = replacetext(t, each, html_codes[each])
+	t = html_decode(t)
 	return t
 
 //Returns null if there is any bad text in the string
