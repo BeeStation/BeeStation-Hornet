@@ -78,7 +78,6 @@
 
 	// Tooltips - this one needs config but config is loaded before this
 	for(var/each in world.file2list("config/tooltips.txt"))
-		world.log << "config: [each]"
 		if(!each)
 			continue
 		if(each[1] == "#")
