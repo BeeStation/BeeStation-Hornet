@@ -30,16 +30,16 @@
 	if(!can_print())
 		return FALSE
 
-	var/obj/item/paper/P = new/obj/item/paper(holder.drop_location())
+	var/obj/item/paper/printed_paper = new/obj/item/paper(holder.drop_location())
 
 	// Damaged printer causes the resulting paper to be somewhat harder to read.
 	if(damage > damage_malfunction)
-		P.default_raw_text = stars(text_to_print, 100-malfunction_probability)
+		printed_paper.add_raw_text(stars(text_to_print, 100-malfunction_probability))
 	else
-		P.default_raw_text = text_to_print
+		printed_paper.add_raw_text(text_to_print)
 	if(paper_title)
-		P.name = paper_title
-	P.update_icon()
+		printed_paper.name = paper_title
+	printed_paper.update_icon()
 	stored_paper--
 
 	return TRUE

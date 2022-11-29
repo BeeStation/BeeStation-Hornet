@@ -112,6 +112,7 @@
 		if(bug.current == src)
 			bug.current = null
 		bug = null
+
 	QDEL_NULL(last_shown_paper)
 	return ..()
 

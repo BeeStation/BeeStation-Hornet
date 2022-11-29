@@ -86,14 +86,14 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 	name = "smudged paper"
 
 /obj/item/paper/fluff/awaymissions/stationcollision/safehint_paper_prison/Initialize(mapload)
-	. = ..()
 	default_raw_text = "<i>The ink is smudged, you can only make out a couple numbers:</i> '[GLOB.sc_safecode1]**[GLOB.sc_safecode4]*'"
+	return ..()
 
 /obj/item/paper/fluff/awaymissions/stationcollision/safehint_paper_hydro
 	name = "shredded paper"
 /obj/item/paper/fluff/awaymissions/stationcollision/safehint_paper_hydro/Initialize(mapload)
-	. = ..()
 	default_raw_text = "<i>Although the paper is shredded, you can clearly see the number:</i> '[GLOB.sc_safecode2]'"
+	return ..()
 
 /obj/item/paper/fluff/awaymissions/stationcollision/safehint_paper_caf
 	name = "blood-soaked paper"
@@ -103,10 +103,10 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 /obj/item/paper/fluff/awaymissions/stationcollision/safehint_paper_bible
 	name = "hidden paper"
 /obj/item/paper/fluff/awaymissions/stationcollision/safehint_paper_bible/Initialize(mapload)
-	. = ..()
 	default_raw_text = {"<i>It would appear that the pen hidden with the paper had leaked ink over the paper.
 			However you can make out the last three digits:</i>'[GLOB.sc_safecode3][GLOB.sc_safecode4][GLOB.sc_safecode5]'
 			"}
+	return ..()
 
 /obj/item/paper/fluff/awaymissions/stationcollision/safehint_paper_shuttle
 	default_raw_text = {"<b>Target:</b> Research-station Epsilon<br>

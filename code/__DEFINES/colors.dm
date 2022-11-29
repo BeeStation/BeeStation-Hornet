@@ -49,6 +49,7 @@
 #define COLOR_PALE_PURPLE_GRAY "#CBB1CA"
 #define COLOR_PURPLE_GRAY      "#AE8CA8"
 #define COLOR_DARK_PURPLE 	   "#551A8B"
+
 //Color defines used by the assembly detailer.
 #define COLOR_ASSEMBLY_BLACK   "#545454"
 #define COLOR_ASSEMBLY_BGRAY   "#9497AB"

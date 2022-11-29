@@ -59,46 +59,50 @@
 	return requisition_paper
 
 /datum/supply_order/proc/generateManifest(obj/structure/closet/crate/C, var/owner, var/packname) //generates-the-manifests.
-	var/obj/item/paper/fluff/jobs/cargo/manifest/P = new(C, id, 0)
+	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest_paper = new(C, id, 0)
 
-	var/station_name = (P.errors & MANIFEST_ERROR_NAME) ? new_station_name() : GLOB.station_name
+	var/station_name = (manifest_paper.errors & MANIFEST_ERROR_NAME) ? new_station_name() : GLOB.station_name
 
-	P.name = "shipping manifest - [packname?"#[id] ([pack.name])":"(Grouped Item Crate)"]"
-	P.default_raw_text += "<h2>[command_name()] Shipping Manifest</h2>"
-	P.default_raw_text += "<hr/>"
+	manifest_paperP.name = "shipping manifest - [packname?"#[id] ([pack.name])":"(Grouped Item Crate)"]"
+
+	var/manifest_text += "<h2>[command_name()] Shipping Manifest</h2>"
+	manifest_text += "<hr/>"
 	if(owner && !(owner == "Cargo"))
-		P.default_raw_text += "Direct purchase from [owner]<br/>"
-		P.name += " - Purchased by [owner]"
-	P.default_raw_text += "Order[packname?"":"s"]: [id]<br/>"
-	P.default_raw_text += "Destination: [station_name]<br/>"
+		manifest_text += "Direct purchase from [owner]<br/>"
+		manifest_paper.name += " - Purchased by [owner]"
+	manifest_text += "Order[packname?"":"s"]: [id]<br/>"
+	manifest_text += "Destination: [station_name]<br/>"
 	if(packname)
-		P.default_raw_text += "Item: [packname]<br/>"
-	P.default_raw_text += "Contents: <br/>"
-	P.default_raw_text += "<ul>"
-	for(var/atom/movable/AM in C.contents - P)
-		if((P.errors & MANIFEST_ERROR_CONTENTS))
+		manifest_text += "Item: [packname]<br/>"
+	manifest_text += "Contents: <br/>"
+	manifest_text += "<ul>"
+	for(var/atom/movable/AM in C.contents - manifest_paper)
+		if((manifest_paper.errors & MANIFEST_ERROR_CONTENTS))
 			if(prob(50))
-				P.default_raw_text += "<li>[AM.name]</li>"
+				manifest_text += "<li>[AM.name]</li>"
 			else
 				continue
-		P.default_raw_text += "<li>[AM.name]</li>"
-	P.default_raw_text += "</ul>"
-	P.default_raw_text += "<h4>Stamp below to confirm receipt of goods:</h4>"
+		manifest_text += "<li>[AM.name]</li>"
+	manifest_text += "</ul>"
+	manifest_text += "<h4>Stamp below to confirm receipt of goods:</h4>"
 
-	if(P.errors & MANIFEST_ERROR_ITEM)
+	manifest_paper.add_raw_text(manifest_text)
+
+	if(manifest_paper.errors & MANIFEST_ERROR_ITEM)
 		if(istype(C, /obj/structure/closet/crate/secure) || istype(C, /obj/structure/closet/crate/large))
-			P.errors &= ~MANIFEST_ERROR_ITEM
+			manifest_paper.errors &= ~MANIFEST_ERROR_ITEM
 		else
 			var/lost = max(round(C.contents.len / 10), 1)
 			while(--lost >= 0)
 				qdel(pick(C.contents))
 
-	P.update_icon()
-	P.forceMove(C)
-	C.manifest = P
+	manifest_paper.update_appearance()
+	manifest_paper.forceMove(C)
+
+	C.manifest = manifest_paper
 	C.update_icon()
 
-	return P
+	return manifest_paper
 
 /datum/supply_order/proc/generate(atom/A)
 	var/account_holder
