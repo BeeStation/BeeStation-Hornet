@@ -39,6 +39,15 @@
 /obj/structure/fluff/paper/stack{
 	dir = 10
 	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "p" = (
@@ -145,12 +154,6 @@
 /area/template_noop)
 "N" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = 32
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},

@@ -329,6 +329,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood,
 /area/template_noop)
+"Cp" = (
+/obj/structure/table/wood,
+/turf/open/floor/wood,
+/area/template_noop)
 "Cr" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal/stripes/corner,
@@ -344,10 +348,7 @@
 /area/template_noop)
 "Dp" = (
 /obj/structure/bookcase/random/nonfiction,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/carpet/green,
+/turf/open/floor/wood,
 /area/template_noop)
 "Dy" = (
 /obj/structure/railing{
@@ -511,7 +512,6 @@
 "QA" = (
 /obj/structure/bookcase/random/nonfiction,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small,
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "QC" = (
@@ -581,7 +581,6 @@
 /area/template_noop)
 "Ts" = (
 /obj/structure/bookcase/random/nonfiction,
-/obj/machinery/light/small,
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "UI" = (
@@ -607,9 +606,6 @@
 /area/template_noop)
 "VO" = (
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
 /obj/structure/fluff/paper{
 	icon_state = "papercorner"
 	},
@@ -660,19 +656,19 @@
 
 (1,1,1) = {"
 OJ
-aJ
+Dp
 Ay
 lO
 CF
 jP
 Ra
 uc
-aJ
-aJ
+Cp
+OJ
 "}
 (2,1,1) = {"
-OJ
-Dp
+Cp
+Ts
 Na
 vA
 mN
@@ -680,7 +676,7 @@ RT
 gV
 mm
 Ts
-OJ
+Cp
 "}
 (3,1,1) = {"
 yV
@@ -755,8 +751,8 @@ Jr
 qv
 "}
 (9,1,1) = {"
-aJ
 Dp
+Ts
 Sn
 Lr
 dt
@@ -764,17 +760,17 @@ kD
 Lr
 Hr
 QA
-aJ
+Cp
 "}
 (10,1,1) = {"
 OJ
-OJ
+Cp
 Ru
 Cr
 NA
 qN
 FO
 WJ
+Dp
 OJ
-aJ
 "}
