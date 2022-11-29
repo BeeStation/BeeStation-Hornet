@@ -1,0 +1,8 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - code_imp: relocated cartridge.dm to job_disk.dm. repathed cartridge vendor to
+      /job_disk
+  - tweak: HoP disk vendor sells various job disks now. there're contraband inside.
+  - tweak: HoP disk vendor no longer sells PDAs that have weirdly-pre-inserted-head-only-job-disks.
+      It sells normal PDAs now.
