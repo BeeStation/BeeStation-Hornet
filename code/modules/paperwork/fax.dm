@@ -285,7 +285,7 @@
 				return
 			var/destination = params["id"]
 			if(send(loaded, destination))
-				log_paper("[usr] has sent a fax with the message \"[paper_contain.get_raw_text()]\" to [params["id"]].")
+				log_fax(loaded, destination, params["name"])
 				loaded_item_ref = null
 				update_icon()
 				return TRUE
@@ -303,6 +303,20 @@
 		if("history_clear")
 			history_clear()
 			return TRUE
+
+/**
+ * Records logs of bureacratic action
+ * Arguments:
+ * * sent - The object being sent
+ * * destination_id - The unique ID of the fax machine
+ * * name - The friendly name of the fax machine, but these can be spoofed so the ID is also required
+ */
+/obj/machinery/fax/proc/log_fax(obj/item/sent, destination_id, name)
+	if (istype(sent, /obj/item/paper))
+		var/obj/item/paper/sent_paper = sent
+		log_paper("[usr] has sent a fax with the message \"[sent_paper.get_raw_text()]\" to [name]/[destination_id].")
+		return
+	log_game("[usr] has faxed [sent] to [name]/[destination_id].]")
 
 /**
  * The procedure for sending a paper to another fax machine.
