@@ -683,3 +683,11 @@
 	build_path = /obj/item/circuitboard/machine/chem_dispenser/botany
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 	category = list ("Hydroponics Machinery")
+
+/datum/design/board/fax
+	name = "Machine Design (Fax Machine)"
+	desc = "The circuit board for a fax machine."
+	id = "fax"
+	build_path = /obj/item/circuitboard/machine/fax
+	category = list("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SERVICE

@@ -133,6 +133,7 @@
 			if(syndicate_network != TRUE && obj_flags != EMAGGED)
 				to_chat(user, "<span class='warning'>There is already a fax machine with this name on the network.</span>")
 				return TOOL_ACT_TOOLTYPE_SUCCESS
+		user.log_message("renamed [fax_name] (fax machine) to [new_fax_name]", LOG_GAME)
 		fax_name = new_fax_name
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
@@ -284,6 +285,7 @@
 				return
 			var/destination = params["id"]
 			if(send(loaded, destination))
+				log_paper("[usr] has sent a fax with the message \"[paper_contain.get_raw_text()]\" to [params["id"]].")
 				loaded_item_ref = null
 				update_icon()
 				return TRUE
@@ -475,22 +477,3 @@
 	do_sparks(5, TRUE, src)
 	var/check_range = TRUE
 	return electrocute_mob(user, get_area(src), src, 0.7, check_range)
-
-//Circuitboard
-/obj/item/circuitboard/machine/fax
-	name = "Fax Machine"
-	build_path = /obj/machinery/fax
-	req_components = list(
-		/obj/item/stock_parts/subspace/crystal = 1,
-		/obj/item/stock_parts/scanning_module = 1,
-		/obj/item/stock_parts/micro_laser = 1,
-		/obj/item/stock_parts/manipulator = 1)
-
-//Design Board
-/datum/design/board/fax
-	name = "Machine Design (Fax Machine)"
-	desc = "The circuit board for a fax machine."
-	id = "fax"
-	build_path = /obj/item/circuitboard/machine/fax
-	category = list("Misc. Machinery")
-	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SERVICE
