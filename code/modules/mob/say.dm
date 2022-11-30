@@ -102,7 +102,7 @@
 #define MESSAGE_MODS_LENGTH 6
 
 /mob/proc/check_for_custom_say_emote(message, list/mods)
-	var/customsaypos = findtext(message, "*")
+	var/customsaypos = findtext(message, "-")
 	if(!customsaypos)
 		return message
 	if (is_banned_from(ckey, "Emote"))
