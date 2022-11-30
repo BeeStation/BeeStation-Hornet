@@ -13,12 +13,20 @@
 	var/list/whitelist_mobs
 	///blacklist of disallowed animals
 	var/list/blacklist_mobs
+	///Typecache caches
+	var/static/list/whitelist_mob_cache = list()
+	var/static/list/blacklist_mob_cache = list()
 
 /obj/item/mob_lasso/Initialize(mapload)
 	. = ..()
-	whitelist_mobs = typecacheof(list(/mob/living/simple_animal/hostile/carp, /mob/living/simple_animal/hostile/carp/megacarp, /mob/living/simple_animal/hostile/carp/lia,\
+	if(!whitelist_mob_cache[type] && !blacklist_mob_cache[type])
+		init_whitelists()
+	whitelist_mobs = whitelist_mob_cache[type]
+	blacklist_mobs = blacklist_mob_cache[type]
+
+/obj/item/mob_lasso/proc/init_whitelists()
+	whitelist_mob_cache[type] = typecacheof(list(/mob/living/simple_animal/hostile/carp, /mob/living/simple_animal/hostile/carp/megacarp, /mob/living/simple_animal/hostile/carp/lia,\
 	 /mob/living/simple_animal/cow, /mob/living/simple_animal/hostile/retaliate/dolphin), only_root_path = TRUE)
-	blacklist_mobs = list()
 
 /obj/item/mob_lasso/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -74,7 +82,7 @@
 	timer = addtimer(CALLBACK(src, .proc/fail_ally), 6 SECONDS, TIMER_STOPPABLE) //after 6 seconds set the carp back
 
 /obj/item/mob_lasso/proc/check_allowed(atom/target)
-	return (is_type_in_typecache(target, whitelist_mobs) && !is_type_in_typecache(target, blacklist_mobs))
+	return ((!whitelist_mobs || is_type_in_typecache(target, whitelist_mobs)) && (!blacklist_mobs || !is_type_in_typecache(target, blacklist_mobs)))
 
 /obj/item/mob_lasso/proc/fail_ally()
 	visible_message("<span class='warning'>[mob_target] breaks free!</span>")
@@ -94,9 +102,8 @@
 	desc = "A lasso fashioned out of goliath plating that is often found in the possession of Ash Walkers.\n\
 		<span class='notice'>Can be used to tame some lavaland animals</span>."
 
-/obj/item/mob_lasso/primal/Initialize(mapload)
-	. = ..()
-	whitelist_mobs = typecacheof(list(/mob/living/simple_animal/hostile/asteroid/goliath, /mob/living/simple_animal/hostile/asteroid/goldgrub,\
+/obj/item/mob_lasso/primal/init_whitelists(mapload)
+	whitelist_mob_cache[type] = typecacheof(list(/mob/living/simple_animal/hostile/asteroid/goliath, /mob/living/simple_animal/hostile/asteroid/goldgrub,\
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher, /mob/living/simple_animal/hostile/asteroid/gutlunch))
 
 /obj/item/mob_lasso/drake
@@ -111,23 +118,20 @@
 		return
 	. = ..()
 
-/obj/item/mob_lasso/drake/Initialize(mapload)
-	. = ..()
-	whitelist_mobs = typecacheof(list(/mob/living/simple_animal/hostile/megafauna/dragon), only_root_path = TRUE)
+/obj/item/mob_lasso/drake/init_whitelists(mapload)
+	whitelist_mob_cache[type] = typecacheof(list(/mob/living/simple_animal/hostile/megafauna/dragon), only_root_path = TRUE)
 
 /obj/item/mob_lasso/traitor
 	name = "bluespace lasso"
 	desc = "Comes standard with every evil space-cowboy!\n<span class='notice'>Can be used to tame almost anything.</span>"
 
-/obj/item/mob_lasso/traitor/Initialize(mapload)
-	. = ..()
-	blacklist_mobs = typecacheof(list(/mob/living/simple_animal/hostile/megafauna, /mob/living/simple_animal/hostile/alien, /mob/living/simple_animal/hostile/syndicate))
+/obj/item/mob_lasso/traitor/init_whitelists(mapload)
+	blacklist_mob_cache[type] = typecacheof(list(/mob/living/simple_animal/hostile/megafauna, /mob/living/simple_animal/hostile/alien, /mob/living/simple_animal/hostile/syndicate))
 
 /obj/item/mob_lasso/debug
 	name = "debug lasso"
 	desc = "Comes standard with every administrator space-cowboy!\n<span class='notice'>Can be used to tame anything.</span>"
 
-/obj/item/mob_lasso/debug/Initialize(mapload)
-	. = ..()
-	whitelist_mobs = list()
+/obj/item/mob_lasso/debug/init_whitelists(mapload)
+	blacklist_mob_cache[type] = list() // An empty list so we know this got initialized
 
