@@ -375,7 +375,17 @@
 	alpha=255
 	stasis = FALSE
 
+/mob/living/simple_animal/revenant/CtrlClickOn(atom/A)
+	if(incorporeal_move == INCORPOREAL_MOVE_JAUNT)
+		check_orbitable(A)
+		return
+	..()
+
 /mob/living/simple_animal/revenant/DblClickOn(atom/A, params)
+	check_orbitable(A)
+	..()
+
+/mob/living/simple_animal/revenant/proc/check_orbitable(atom/A)
 	if(revealed || notransform || inhibited || !Adjacent(A) || !incorporeal_move_check(A))
 		return
 	var/icon/I = icon(A.icon, A.icon_state, A.dir)
