@@ -350,3 +350,7 @@
 #define JOB_CHATCOLOR_NOTCENTCOM "#6D6AEC" // i.e. space police
 #define JOB_CHATCOLOR_PRISONER   "#D38A5C"
 #define JOB_CHATCOLOR_UNKNOWN    "#DDA583" // grey hud icon gets this
+
+//-----------
+
+#define JOB_SPAWN_NOT_USER "not_a_player" // used to prevent injecting lock-manifest for mindless corpse

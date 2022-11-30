@@ -210,12 +210,12 @@
 	return dat
 
 
-/datum/datacore/proc/manifest_inject(mob/living/carbon/human/H, client/C)
+/datum/datacore/proc/manifest_inject(mob/living/carbon/human/H, client/C, force=FALSE)
 	set waitfor = FALSE
 	var/static/list/show_directions = list(SOUTH, WEST)
-	if(H.mind && (H.mind.assigned_role != H.mind.special_role))
+	if(force || H.mind && (H.mind.assigned_role != H.mind.special_role))
 		var/assignment
-		if(H.mind.assigned_role)
+		if(H.mind?.assigned_role)
 			assignment = H.mind.assigned_role
 		else if(H.job)
 			assignment = H.job
@@ -226,7 +226,7 @@
 		var/id = num2hex(record_id_num++,6)
 		if(!C)
 			C = H.client
-		var/image = get_id_photo(H, C, show_directions)
+		var/image = C ? get_id_photo(H, C, show_directions) : get_flat_human_icon(null, SSjob.GetJob(H.job), null, DUMMY_HUMAN_SLOT_MANIFEST, list(SOUTH), TRUE, H)
 		var/datum/picture/pf = new
 		var/datum/picture/ps = new
 		pf.picture_name = "[H]"
@@ -247,7 +247,7 @@
 		G.fields["hud"]			= get_hud_by_jobname(assignment)
 		G.fields["active_dept"]	= SSjob.GetJobActiveDepartment(assignment)
 		G.fields["age"]			= H.age
-		G.fields["species"]	= H.dna.species.name
+		G.fields["species"]	    = H.dna.species.name
 		G.fields["fingerprint"]	= rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)
 		G.fields["p_stat"]		= "Active"
 		G.fields["m_stat"]		= "Stable"
@@ -283,6 +283,8 @@
 		S.fields["notes"]		= "No notes."
 		security += S
 
+		if(force == JOB_SPAWN_NOT_USER)
+			return
 		//Locked Record
 		var/datum/data/record/L = new()
 		L.fields["id"]			= rustg_hash_string(RUSTG_HASH_MD5, "[H.real_name][H.mind.assigned_role]")	//surely this should just be id, like the others?

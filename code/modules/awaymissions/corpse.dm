@@ -1,3 +1,5 @@
+#define STATION_SPAWN_ONLY "station_spawn_only" // inject crew manifest only a corpse is on station
+
 //If someone can do this in a neater way, be my guest-Kor
 
 //To do: Allow corpses to appear mangled, bloody, etc. Allow customizing the bodies appearance (they're all bald and white right now).
@@ -146,6 +148,7 @@
 	var/id_access = null		//This is for access. See access.dm for which jobs give what access. Use JOB_NAME_CAPTAIN if you want it to be all access.
 	var/id_access_list = null	//Allows you to manually add access to an ID card.
 	assignedrole = "Ghost Role"
+	var/inject_crew_manifest = FALSE // TRUE: always injects crew manifest / STATION_SPAWN_ONLY: injects when it's spawned in station
 
 	var/husk = null
 	//these vars are for lazy mappers to override parts of the outfit
@@ -221,6 +224,8 @@
 			var/obj/item/clothing/under/C = H.w_uniform
 			if(istype(C))
 				C.update_sensors(NO_SENSORS)
+	if(SSjob.GetJob(name, skip_error=TRUE))
+		H.job = name
 
 	var/obj/item/card/id/W = H.wear_id
 	if(W)
@@ -238,6 +243,11 @@
 			W.assignment = id_job
 		W.registered_name = H.real_name
 		W.update_label()
+	if(inject_crew_manifest == STATION_SPAWN_ONLY)
+		if(is_station_level(z))
+			GLOB.data_core.manifest_inject(H, null, JOB_SPAWN_NOT_USER)
+	else if(inject_crew_manifest)
+		GLOB.data_core.manifest_inject(H, null, JOB_SPAWN_NOT_USER)
 
 //Instant version - use when spawning corpses during runtime
 /obj/effect/mob_spawn/human/corpse
@@ -309,6 +319,7 @@
 /obj/effect/mob_spawn/human/corpse/assistant
 	name = JOB_NAME_ASSISTANT
 	outfit = /datum/outfit/job/assistant
+	inject_crew_manifest = STATION_SPAWN_ONLY
 
 /obj/effect/mob_spawn/human/corpse/assistant/beesease_infection
 	disease = /datum/disease/beesease
@@ -610,3 +621,5 @@
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	suit = /obj/item/clothing/suit/armor/vest
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent
+
+#undef STATION_SPAWN_ONLY

@@ -90,30 +90,30 @@ SUBSYSTEM_DEF(job)
 	return 1
 
 
-/datum/controller/subsystem/job/proc/GetJob(rank)
+/datum/controller/subsystem/job/proc/GetJob(rank, skip_error=FALSE)
 	if(!rank)
 		CRASH("proc has taken no job name")
 	if(!occupations.len)
 		SetupOccupations()
-	if(!name_occupations[rank])
+	if(!name_occupations[rank] && skip_error)
 		CRASH("job name [rank] is not valid")
 	return name_occupations[rank]
 
-/datum/controller/subsystem/job/proc/GetJobType(jobtype)
+/datum/controller/subsystem/job/proc/GetJobType(jobtype, skip_error=FALSE)
 	if(!jobtype)
 		CRASH("proc has taken no job type")
 	if(!occupations.len)
 		SetupOccupations()
-	if(!type_occupations[jobtype])
+	if(!type_occupations[jobtype] && skip_error)
 		CRASH("job type [jobtype] is not valid")
 	return type_occupations[jobtype]
 
-/datum/controller/subsystem/job/proc/GetJobActiveDepartment(rank)
+/datum/controller/subsystem/job/proc/GetJobActiveDepartment(rank, skip_error=FALSE)
 	if(!rank)
 		CRASH("proc has taken no job name")
 	if(!occupations.len)
 		SetupOccupations()
-	if(!name_occupations[rank])
+	if(!name_occupations[rank] && skip_error)
 		CRASH("job name [rank] is not valid")
 	var/datum/job/J = name_occupations[rank]
 	return J.departments
