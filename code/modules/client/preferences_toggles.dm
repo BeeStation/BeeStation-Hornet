@@ -62,7 +62,7 @@
 /client/verb/toggle_ghost_follow()
 	set name = "Toggle NPC GhostFollow"
 	set category = "Preferences"
-	set desc = "See All (F) feature in chat"
+	set desc = "Toggle the visibility of the follow button for NPC messages and emotes."
 	prefs.chat_toggles ^= CHAT_GHOSTFOLLOWMINDLESS
 	to_chat(usr, "As a ghost, you will now [(prefs.chat_toggles & CHAT_GHOSTFOLLOWMINDLESS) ? "see <span class='notice'>(F)</span> from all mobs" : "see <span class='notice'>(F)</span> from only mobs having a mind"].")
 	prefs.save_preferences()
