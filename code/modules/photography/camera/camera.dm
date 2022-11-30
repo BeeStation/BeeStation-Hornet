@@ -50,8 +50,6 @@
 			/mob/living/simple_animal/revenant,
 			/mob/living/simple_animal/hostile/floor_cluwne
 		))
-		for(var/each in detectable_invisible_atom)
-			detectable_invisible_atom[each] = TRUE
 
 /obj/item/camera/attack_self(mob/user)
 	if(!disk)
@@ -226,7 +224,7 @@
 	blending = FALSE
 
 /obj/item/camera/proc/checks_detectable(atom/A)
-	return !!detectable_invisible_atom[A.type]
+	return is_type_in_typecache(A, detectable_invisible_atom)
 
 /obj/item/camera/proc/flash_end()
 	set_light_on(FALSE)
