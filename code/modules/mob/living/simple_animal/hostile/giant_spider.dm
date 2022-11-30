@@ -49,12 +49,10 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	unique_name = 1
 	gold_core_spawnable = HOSTILE_SPAWN
-	see_in_dark = 4
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	var/busy = SPIDER_IDLE // What a spider's doing
 	var/datum/action/innate/spider/lay_web/lay_web // Web action
 	var/web_speed = 1 // How quickly a spider lays down webs (percentage)
-	var/directive = "" // Message passed down to children, to relay the creator's orders
 	var/mob/master // The spider's master, used by sentience
 
 	do_footstep = TRUE
@@ -65,6 +63,11 @@
 	lay_web = new
 	lay_web.Grant(src)
 
+/mob/living/simple_animal/hostile/poison/giant_spider/mind_initialize()
+	. = ..()
+	if(!mind.has_antag_datum(/datum/antagonist/spider))
+		mind.add_antag_datum(/datum/antagonist/spider)
+
 /mob/living/simple_animal/hostile/poison/giant_spider/Destroy()
 	QDEL_NULL(lay_web)
 	GLOB.spidermobs -= src
@@ -72,22 +75,14 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Login()
 	..()
-	if(directive)
-		to_chat(src, "<span class='spiderlarge'>Your mother left you a directive! Follow it at all costs.</span>")
-		to_chat(src, "<span class='spiderlarge'><b>Directive: [directive]</b></span>")
-		if(mind)
-			mind.store_memory("<span class='spiderlarge'><b>Directive: [directive]</b></span>")
-	if(master)
-		to_chat(src, "<span class='spiderlarge'>Your master is: [master]. Follow their orders when they do not conflict with your directives.")
-		if(mind)
-			mind.store_memory("<span class='spiderlarge'><b>Master: [master]]</b></span>")
 	SSmove_manager.stop_looping(src) // Just in case the AI's doing anything when we give them the mind
 	GLOB.spidermobs[src] = TRUE
 
 /mob/living/simple_animal/hostile/poison/giant_spider/give_mind(mob/user)
 	..()
-	if(directive)
-		log_game("[key_name(src)] took control of [name] with the objective: '[directive]'.")
+	var/datum/antagonist/spider/spider_antag = mind?.has_antag_datum(/datum/antagonist/spider)
+	if(spider_antag.spider_team.directive)
+		log_game("[key_name(src)] took control of [name] with the objective: '[spider_antag.spider_team.directive]'.")
 	return TRUE
 
 /mob/living/simple_animal/hostile/poison/giant_spider/sentience_act(mob/user)
@@ -99,9 +94,8 @@
 			break
 	if(!spiders)
 		spiders = new(null, user)
-	var/datum/antagonist/spider/spider = mind.add_antag_datum(/datum/antagonist/spider, spiders)
-	if(spider.spider_team.directive)
-		directive = spider.spider_team.directive
+	var/datum/antagonist/spider/spider_antag = mind.has_antag_datum(/datum/antagonist/spider)
+	spider_antag.set_spider_team(spiders)
 
 // Allows spiders to take damage slowdown. 2 max, but they don't start moving slower until under 75% health
 /mob/living/simple_animal/hostile/poison/giant_spider/updatehealth()
@@ -143,6 +137,11 @@
 			"<span class='notice'>You nuzzle [target_mob.name]!</span>", null, COMBAT_MESSAGE_RANGE)
 		return
 	return ..()
+
+// Guard spiders are more tanky than hunters, but slower.
+/mob/living/simple_animal/hostile/poison/giant_spider/guard
+	name = "guard"
+	obj_damage = 50
 
 // Nurses lay eggs and can heal other spiders. However, they're squishy and less powerful.
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
@@ -332,6 +331,7 @@
 	speed = 2
 	web_speed = 0.15 // Easily able to web
 	poison_per_bite = 5 // A lot of poison for defense purposes
+	obj_damage = 50
 	// Allows the spider to use spider comms
 	var/datum/action/innate/spider/comm/letmetalkpls
 
@@ -547,13 +547,14 @@
 	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
 		return
 	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/spider = owner
+	var/datum/antagonist/spider/spider_antag = spider.mind?.has_antag_datum(/datum/antagonist/spider)
 
 	var/obj/structure/spider/eggcluster/cluster = locate() in get_turf(spider)
 	if(cluster)
 		to_chat(spider, "<span class='warning'>There is already a cluster of eggs here!</span>")
 	else if(!(spider.fed || spider.enriched_fed))
 		to_chat(spider, "<span class='warning'>You are too hungry to do this!</span>")
-	else if(!spider.directive && spider.ckey)
+	else if(!spider_antag?.spider_team.directive && spider.ckey)
 		to_chat(spider, "<span class='warning'>You need to set a directive to do this!</span>")
 	else if(spider.busy != LAYING_EGGS)
 		spider.busy = LAYING_EGGS
@@ -570,7 +571,6 @@
 						spider.enriched_fed--
 					else
 						spider.fed--
-					var/datum/antagonist/spider/spider_antag = spider.mind?.has_antag_datum(/datum/antagonist/spider)
 					new_cluster.spider_team = spider_antag?.spider_team
 					new_cluster.faction = spider.faction.Copy()
 					UpdateButtonIcon(TRUE)
@@ -597,16 +597,17 @@
 /datum/action/innate/spider/set_directive/Activate()
 	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
 		return
+	if(!owner.mind)
+		return
 	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/S = owner
-	var/new_directive = stripped_input(S, "Enter the new directive", "Create directive", "[S.directive]")
+	var/datum/antagonist/spider/spider_antag = S.mind.has_antag_datum(/datum/antagonist/spider)
+	if(!spider_antag)
+		spider_antag = S.mind.add_antag_datum(/datum/antagonist/spider)
+	var/new_directive = stripped_input(S, "Enter the new directive", "Create directive")
 	if(new_directive)
-		S.directive = new_directive
-		var/datum/antagonist/spider/spider_antag = S.mind.has_antag_datum(/datum/antagonist/spider)
-		if(!spider_antag)
-			spider_antag = S.mind.add_antag_datum(/datum/antagonist/spider)
-		spider_antag.spider_team.directive = new_directive
-		message_admins("[ADMIN_LOOKUPFLW(owner)] set its directive to: '[S.directive]'.")
-		log_game("[key_name(owner)] set its directive to: '[S.directive]'.")
+		spider_antag.spider_team.update_directives(new_directive)
+		message_admins("[ADMIN_LOOKUPFLW(owner)] set its directive to: '[new_directive]'.")
+		log_game("[key_name(owner)][spider_antag.spider_team.master ? " (master: [spider_antag.spider_team.master]" : ""] set its directive to: '[new_directive]'.")
 		S.lay_eggs.UpdateButtonIcon(TRUE)
 
 // Spider command ability for broodmothers
@@ -646,13 +647,13 @@
 	usr.log_talk(message, LOG_SAY, tag="spider command")
 
 // Temperature damage
-// Flat 20 brute if they're out of safe temperature, making them vulnerable to fire or spacing
+// Flat 10 brute if they're out of safe temperature, making them vulnerable to fire or spacing
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
-		adjustBruteLoss(20)
+		adjustBruteLoss(10)
 		throw_alert("temp", /atom/movable/screen/alert/cold, 3)
 	else if(bodytemperature > maxbodytemp)
-		adjustBruteLoss(20)
+		adjustBruteLoss(10)
 		throw_alert("temp", /atom/movable/screen/alert/hot, 3)
 	else
 		clear_alert("temp")

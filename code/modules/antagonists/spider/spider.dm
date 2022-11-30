@@ -7,10 +7,27 @@
 	var/static/list/possible_colors = list("#db00db", "#7e007e", "#d80000", "#6200ff")
 
 // Sets up our antag hud if we have a specific master
-/datum/team/spiders/proc/Initialize(spider_master)
+/datum/team/spiders/New(starting_members, mob/spider_master)
+	. = ..()
 	master = spider_master
-	if(spider_master && length(possible_colors))
-		team_huds[spider_master] = pick_n_take(possible_colors)
+	if(spider_master)
+		RegisterSignal(spider_master, COMSIG_PARENT_QDELETING, .proc/handle_master_qdel)
+		if(length(possible_colors))
+			team_huds[spider_master] = pick_n_take(possible_colors)
+
+// Alerts spiders in the event of a directive change. This shouldn't happen that often.
+/datum/team/spiders/proc/update_directives(new_directive)
+	if(!new_directive)
+		return
+	directive = new_directive
+	var/list/datum/antagonist/spider/spiders = get_team_antags()
+	for(var/datum/antagonist/spider/spider in spiders)
+		to_chat(spider.owner, "<span class='spiderlarge'>Your directives have been updated!</span>")
+		to_chat(spider.owner, "<span class='spiderlarge'>New directive: [directive]</span>")
+
+/datum/team/spiders/proc/handle_master_qdel()
+	SIGNAL_HANDLER
+	master = null
 
 // Spiders are listed on the roundend report, along with their master and directives if applicable
 /datum/team/spiders/roundend_report()
@@ -40,9 +57,28 @@
 			CRASH("Wrong spider team type provided to create_team")
 		spider_team = new_team
 
+/datum/antagonist/spider/proc/set_spider_team(datum/team/spiders/new_team)
+	var/datum/team/spiders/old_team = spider_team
+	spider_team = new_team
+
+	// Alert our spider to its directives
+	if(spider_team.directive)
+		to_chat(owner, "<span class='spider'>You were left a directive! Follow it at all costs.</span>")
+		to_chat(owner, "<span class='spider'><b>[spider_team.directive]</b></span>")
+		owner.store_memory("<b>Directive: [spider_team.directive]</b>")
+	else
+		to_chat(owner, "<span class='spider'>You do not have a directive. You'll need to set one before laying eggs.</span>")
+	if(spider_team.master)
+		to_chat(owner, "<span class='spider'>Your master is: [spider_team.master]. Follow their orders when they do not conflict with your directives.")
+		owner.store_memory("<b>Your master is: [spider_team.master]</b>")
+
+	if(!length(old_team.get_team_antags()))
+		qdel(old_team)
+
 /datum/antagonist/spider/get_team()
 	return spider_team
 
+// Handles spider icons for teams.
 /datum/antagonist/spider/proc/update_spider_icons_added(mob/living/M)
 	var/datum/atom_hud/antag/spider/spiderhud = GLOB.huds[ANTAG_HUD_SPIDER]
 	spiderhud.join_hud(M)
@@ -66,3 +102,9 @@
 
 /datum/atom_hud/antag/spider
 	icon_color = "#4d004d"
+
+// Handles spider greetings. Directives are handled in set_team.
+/datum/antagonist/spider/greet()
+	to_chat(owner, "<span class='notice'>You are a spider!</span>")
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Spider",
+		"Follow your assigned directives and expand your brood.")

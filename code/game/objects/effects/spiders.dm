@@ -53,15 +53,16 @@
 	desc = "They seem to pulse slightly with an inner life."
 	icon_state = "eggs"
 	var/amount_grown = 0
+	// Spawn info
 	var/spawns_remaining = 3
 	var/enriched_spawns = 0
-	// The mother's directive
+	// Team info
 	var/datum/team/spiders/spider_team
 	var/list/faction = list("spiders")
 	// Whether or not a ghost can use the cluster to become a spider.
 	var/ghost_ready = FALSE
 	// The types of spiders the egg sac can produce.
-	var/list/mob/living/potential_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider,
+	var/list/mob/living/potential_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/guard,
 								/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
 								/mob/living/simple_animal/hostile/poison/giant_spider/nurse)
 	// The types of spiders the egg sac produces when we have enriched spawns left (laying spider ate a human)
@@ -144,10 +145,8 @@
 	var/mob/living/simple_animal/hostile/poison/giant_spider/new_spider = new spider_to_spawn(get_turf(src))
 	new_spider.faction = faction.Copy()
 	new_spider.key = user.key
-	new_spider.mind.add_antag_datum(/datum/antagonist/spider, spider_team)
 	var/datum/antagonist/spider/spider_antag = new_spider.mind.has_antag_datum(/datum/antagonist/spider)
-	new_spider.directive = spider_antag.spider_team.directive
-	new_spider.set_playable()
+	spider_antag.set_spider_team(spider_team)
 
 	// Check to see if we need to delete ourselves
 	if(!enriched_spawns && !spawns_remaining)
@@ -165,8 +164,6 @@
 	var/grow_as = null
 	var/obj/machinery/atmospherics/components/unary/vent_pump/entry_vent
 	var/travelling_in_vent = 0
-	var/player_spiders = 0
-	var/directive = "" //Message from the mother
 	var/list/faction = list("spiders")
 
 /obj/structure/spider/spiderling/Destroy()
@@ -268,10 +265,6 @@
 					grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider, /mob/living/simple_animal/hostile/poison/giant_spider/hunter, /mob/living/simple_animal/hostile/poison/giant_spider/nurse)
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(src.loc)
 			S.faction = faction.Copy()
-			S.directive = directive
-			if(player_spiders)
-				S.set_playable()
-				S.flavor_text = FLAVOR_TEXT_GOAL_ANTAG
 			qdel(src)
 
 

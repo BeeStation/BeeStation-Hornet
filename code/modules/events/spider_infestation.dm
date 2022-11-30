@@ -49,9 +49,9 @@
 		var/client/C = pick_n_take(candidates)
 
 		var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/spooder = new(vent.loc)
-		spooder.directive = "Ensure the survival of your brood and overtake whatever structure you find yourself in."
 		spooder.key = C.key
-		spooder.mind.add_antag_datum(/datum/antagonist/spider, spider_team)
+		var/datum/antagonist/spider/spider_antag = spooder.mind.has_antag_datum(/datum/antagonist/spider)
+		spider_antag.set_spider_team(spider_team)
 		if(fed)
 			spooder.enriched_fed++ // Give our spiders some friends to help them get started
 			fed--
