@@ -48,7 +48,6 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	hud_type = /datum/hud/ghost
 	hud_possible = list(ANTAG_HUD)
 	mobchatspan = "rainbow"
-	flags_1 = INVISIBILITY_REVEALED_BY_CAMERA
 
 /mob/living/simple_animal/hostile/floor_cluwne/Initialize(mapload)
 	. = ..()

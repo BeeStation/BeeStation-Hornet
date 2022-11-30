@@ -26,7 +26,6 @@
 	var/on = TRUE
 	var/cooldown = 64
 	var/blending = FALSE		//lets not take pictures while the previous is still processing!
-	var/see_ghosts = CAMERA_NO_GHOSTS //for the spoop of it
 	var/obj/item/disk/holodisk/disk
 	var/sound/custom_sound
 	var/silent = FALSE
@@ -38,6 +37,13 @@
 	var/picture_size_y_max = 4
 	var/can_customise = TRUE
 	var/default_picture_name
+
+	var/see_ghosts = CAMERA_NO_GHOSTS //for the spoop of it
+	var/static/list/detectable_invisible_atom = list(
+		/mob/dead/observer,
+		/mob/living/simple_animal/revenant,
+		/mob/living/simple_animal/hostile/floor_cluwne
+	)
 
 
 /obj/item/camera/attack_self(mob/user)
@@ -191,7 +197,7 @@
 				blueprints = TRUE
 	for(var/mob/M in mobs)
 		// No describing invisible stuff (except ghosts)!
-		if(M.alpha <= 50 || !(!(M.invisibility >= SEE_INVISIBLE_LIVING) || (see_ghosts && (M.flags_1 & INVISIBILITY_REVEALED_BY_CAMERA))))
+		if(M.alpha <= 50 || !(!(M.invisibility >= SEE_INVISIBLE_LIVING) || (see_ghosts && (M.type in detectable_invisible_atom))))
 			continue
 		mobs_spotted += M
 		if(M.stat == DEAD)
