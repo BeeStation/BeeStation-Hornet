@@ -39,22 +39,19 @@
 	var/default_picture_name
 
 	var/see_ghosts = CAMERA_NO_GHOSTS //for the spoop of it
-	var/static/list/detectable_invisible_atom = list(
-		/mob/dead/observer,
-		/mob/living/simple_animal/revenant,
-		/mob/living/simple_animal/hostile/floor_cluwne
-	)
+	var/static/list/detectable_invisible_atom = list() // even if atom is invisible, camera will reveal it. fill the list in Init proc.
 
 /obj/item/camera/Initialize(mapload)
 	. = ..()
-	var/static/static_initialize = TRUE
-	if(static_initialize)
-		var/temp_list = detectable_invisible_atom
-		detectable_invisible_atom = list()
-		for(var/each in temp_list)
-			for(var/subtype in typecacheof(each))
-				detectable_invisible_atom[subtype] = TRUE
-		static_initialize = FALSE
+	if(!length(detectable_invisible_atom))
+		detectable_invisible_atom = typecacheof(list(
+			// put detactable atom list here
+			/mob/dead/observer,
+			/mob/living/simple_animal/revenant,
+			/mob/living/simple_animal/hostile/floor_cluwne
+		))
+		for(var/each in detectable_invisible_atom)
+			detectable_invisible_atom[each] = TRUE
 
 /obj/item/camera/attack_self(mob/user)
 	if(!disk)
