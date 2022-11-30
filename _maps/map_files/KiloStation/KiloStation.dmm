@@ -78034,6 +78034,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "csy" = (
@@ -93108,6 +93114,15 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/machinery/vending/wardrobe/science_wardrobe,
 /obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "fuI" = (
@@ -93194,6 +93209,12 @@
 /obj/structure/rack,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
@@ -93811,6 +93832,12 @@
 	req_one_access_txt = "8;49"
 	},
 /obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
@@ -94622,6 +94649,12 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "itz" = (
@@ -94938,22 +94971,6 @@
 "iZp" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -24
-	},
-/obj/structure/table,
-/obj/item/xenoartifact_labeler{
-	pixel_y = 2
-	},
-/obj/item/xenoartifact_labeler{
-	pixel_x = -9
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/explab)
@@ -96463,6 +96480,25 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_dock)
+"mxS" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -24
+	},
+/obj/structure/table,
+/obj/item/xenoartifact_labeler{
+	pixel_y = 2
+	},
+/obj/item/xenoartifact_labeler{
+	pixel_x = -9
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/science/explab)
 "mzp" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating,
@@ -96727,6 +96763,20 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/science/shuttledock)
+"nkw" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/storage/firstaid/regular{
+	pixel_y = 4
+	},
+/obj/item/healthanalyzer{
+	pixel_x = -4;
+	pixel_y = 22
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/science/explab)
 "nlp" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -100017,6 +100067,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "tFu" = (
@@ -100142,10 +100198,6 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
-/obj/item/storage/firstaid/regular{
-	pixel_y = -7
-	},
-/obj/item/healthanalyzer,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/explab)
 "tQp" = (
@@ -101894,6 +101946,12 @@
 	name = "emergency shower"
 	},
 /obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "xfb" = (
@@ -101961,6 +102019,12 @@
 "xmp" = (
 /obj/structure/closet/radiation,
 /obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "xmt" = (
@@ -142079,7 +142143,7 @@ aeu
 aeu
 aeu
 aeu
-aeu
+aWY
 bwe
 alB
 alB
@@ -142337,8 +142401,8 @@ aeu
 aWY
 aWY
 aWY
-aWY
-aWY
+gti
+mxS
 opa
 cDI
 abi
@@ -142594,7 +142658,7 @@ aWY
 aWY
 toP
 tPc
-gti
+nkw
 iZp
 tmh
 cEH
