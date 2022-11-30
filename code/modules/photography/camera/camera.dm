@@ -219,7 +219,7 @@
 	blending = FALSE
 
 /obj/item/camera/proc/checks_detectable(atom/A)
-	return detectable_invisible_atom[A.type]
+	return detectable_invisible_atom[A.type] || FALSE
 
 /obj/item/camera/proc/flash_end()
 	set_light_on(FALSE)
