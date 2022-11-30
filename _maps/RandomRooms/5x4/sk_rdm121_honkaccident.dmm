@@ -1,10 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/trap/nexus/doorbolt,
-/turf/open/floor/plasteel,
-/area/template_noop)
 "b" = (
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
@@ -33,18 +27,6 @@
 	icon_state = "panelscorched"
 	},
 /area/template_noop)
-"f" = (
-/obj/machinery/light{
-	dir = 8;
-	light_color = "#e8eaff"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
 "g" = (
 /obj/item/grown/bananapeel,
 /obj/machinery/light/broken{
@@ -68,16 +50,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"j" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
 "l" = (
 /obj/effect/spawner/lootdrop/clowntrap,
 /turf/open/floor/plating{
@@ -85,15 +57,28 @@
 	icon_state = "panelscorched"
 	},
 /area/template_noop)
-"m" = (
-/obj/item/grown/bananapeel,
+"B" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
+/obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"D" = (
+/obj/item/grown/bananapeel,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"I" = (
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/blue/half/contrasted,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "O" = (
@@ -103,24 +88,30 @@
 	icon_state = "panelscorched"
 	},
 /area/template_noop)
+"Y" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/trap/nexus/doorbolt,
+/obj/effect/turf_decal/tile/blue,
+/turf/open/floor/plasteel,
+/area/template_noop)
 
 (1,1,1) = {"
-a
+Y
 b
-f
+I
 i
 "}
 (2,1,1) = {"
 b
 c
 h
-j
+B
 "}
 (3,1,1) = {"
 e
 O
 b
-m
+D
 "}
 (4,1,1) = {"
 b

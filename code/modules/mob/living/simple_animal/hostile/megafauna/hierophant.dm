@@ -37,8 +37,8 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/hierophant
 	name = "hierophant"
 	desc = "A massive metal club that hangs in the air as though waiting. It'll make you dance to its beat."
-	health = 2500
-	maxHealth = 2500
+	health = 1250
+	maxHealth = 1250
 	attacktext = "clubs"
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	icon_state = "hierophant"
@@ -54,8 +54,7 @@ Difficulty: Hard
 	ranged = TRUE
 	ranged_cooldown_time = 40
 	aggro_vision_range = 21 //so it can see to one side of the arena to the other
-	loot = list(/obj/structure/closet/crate/necropolis/hierophant)
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/hierophant, /obj/item/crusher_trophy/vortex_talisman)
+	loot = list(/obj/effect/spawner/lootdrop/megafaunaore, /obj/structure/closet/crate/necropolis/hierophant)
 	wander = FALSE
 	gps_name = "Zealous Signal"
 	achievement_type = /datum/award/achievement/boss/hierophant_kill

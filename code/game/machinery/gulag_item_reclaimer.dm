@@ -19,13 +19,11 @@
 		linked_teleporter.linked_reclaimer = null
 	return ..()
 
-/obj/machinery/gulag_item_reclaimer/emag_act(mob/user)
-	if(obj_flags & EMAGGED) // emagging lets anyone reclaim all the items
-		return
+/obj/machinery/gulag_item_reclaimer/on_emag(mob/user)
+	..()
+	// emagging lets anyone reclaim all the items
 	req_access = list()
-	obj_flags |= EMAGGED
 	ui_update()
-
 
 /obj/machinery/gulag_item_reclaimer/ui_state(mob/user)
 	return GLOB.default_state
