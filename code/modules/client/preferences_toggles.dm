@@ -60,7 +60,7 @@
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ghost Laws", "[prefs.chat_toggles & CHAT_GHOSTLAWS ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/toggle_ghost_follow()
-	set name = "Toggle Ghost (F) Chat"
+	set name = "Toggle NPC GhostFollow"
 	set category = "Preferences"
 	set desc = "See All (F) feature in chat"
 	prefs.chat_toggles ^= CHAT_GHOSTFOLLOWMINDLESS
