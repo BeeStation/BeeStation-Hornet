@@ -66,7 +66,7 @@
 	prefs.chat_toggles ^= CHAT_GHOSTFOLLOWMINDLESS
 	to_chat(usr, "As a ghost, you will now [(prefs.chat_toggles & CHAT_GHOSTFOLLOWMINDLESS) ? "see <span class='notice'>(F)</span> from all mobs" : "see <span class='notice'>(F)</span> from only mobs having a mind"].")
 	prefs.save_preferences()
-	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ghost (F) Chat", "[prefs.chat_toggles & CHAT_GHOSTFOLLOWMINDLESS ? "Enabled" : "Disabled"]"))
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle NPC GhostFollow", "[prefs.chat_toggles & CHAT_GHOSTFOLLOWMINDLESS ? "Enabled" : "Disabled"]"))
 
 //please be aware that the following two verbs have inverted stat output, so that "Toggle Deathrattle|1" still means you activated it
 /client/verb/toggle_deathrattle()
