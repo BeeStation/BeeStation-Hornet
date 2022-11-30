@@ -64,7 +64,7 @@
 	set category = "Preferences"
 	set desc = "Toggle the visibility of the follow button for NPC messages and emotes."
 	prefs.chat_toggles ^= CHAT_GHOSTFOLLOWMINDLESS
-	to_chat(usr, "As a ghost, you will now [(prefs.chat_toggles & CHAT_GHOSTFOLLOWMINDLESS) ? "see <span class='notice'>(F)</span> from all mobs" : "see <span class='notice'>(F)</span> from only mobs having a mind"].")
+	to_chat(usr, "As a ghost, you will [(prefs.chat_toggles & CHAT_GHOSTFOLLOWMINDLESS) ? "now" : "no longer"] see the follow button for NPC mobs.")
 	prefs.save_preferences()
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle NPC GhostFollow", "[prefs.chat_toggles & CHAT_GHOSTFOLLOWMINDLESS ? "Enabled" : "Disabled"]"))
 
