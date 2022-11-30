@@ -53,7 +53,6 @@
 
 // crew objective part - having this flag will allow an objective having a reagent
 // Note: to be not disruptive for adding another rng define, goal flags starts at (1<<23) and reversed. (because 23 is max)
-#define CHEMICAL_GOAL_CHEMIST_DRUG         (1<<23)  // chemist objective - i.e.) make 24 pills of 12u meth
-#define CHEMICAL_GOAL_CHEMIST_BLOODSTREAM  (1<<22)  // chemist objective - i.e.) eat meth in your bloodstream
-#define CHEMICAL_GOAL_BOTANIST_HARVEST     (1<<21)  // botanist objective - i.e.) make 12 crops of 10u omnizine
-#define CHEMICAL_GOAL_BARTENDER_SERVING    (1<<20) // !NOTE: not implemented, but refactored for preparation - i.e.) serve Bacchus' blessing to 10 crews
+#define CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE         (1<<23)  // chemist objective - i.e.) make at least 5 units of synthflesh
+#define CHEMICAL_GOAL_BOTANIST_HARVEST     (1<<22)  // botanist objective - i.e.) make 12 crops of 10u omnizine
+#define CHEMICAL_GOAL_BARTENDER_SERVING    (1<<21) // !NOTE: not implemented, but refactored for preparation - i.e.) serve Bacchus' blessing to 10 crews
