@@ -417,6 +417,7 @@
 						"description" = shuttle_template.description,
 						"creditCost" = shuttle_template.credit_cost,
 						"illegal" = shuttle_template.illegal_shuttle,
+						"danger" = shuttle_template.danger_level,
 						"prerequisites" = shuttle_template.prerequisites,
 						"ref" = REF(shuttle_template),
 					))
