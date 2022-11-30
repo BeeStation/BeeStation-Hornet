@@ -101,7 +101,7 @@
 
 			text_value = jointext(stacker, "")    // result >> "you need to <a>read this guys</a> please."
 			opencut = findtext(text_value, "\[\[")
-		GLOB.tooltips += list("[key]" = text_value)
+		GLOB.tooltips[key] = text_value
 		// if runtime error happens, that means your config file is wrong
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
