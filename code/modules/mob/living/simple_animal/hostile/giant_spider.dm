@@ -157,7 +157,7 @@
 	maxHealth = 40
 	health = 40
 	melee_damage = 10
-	poison_per_bite = 5
+	poison_per_bite = 3
 	speed = 1 // A bit faster than midwives
 	var/atom/movable/cocoon_target
 	var/mob/living/simple_animal/hostile/poison/giant_spider/heal_target
@@ -331,7 +331,7 @@
 	health = 80
 	speed = 2
 	web_speed = 0.15 // Easily able to web
-	poison_per_bite = 8 // A lot of poison for defense purposes
+	poison_per_bite = 5 // A lot of poison for defense purposes
 	// Allows the spider to use spider comms
 	var/datum/action/innate/spider/comm/letmetalkpls
 
