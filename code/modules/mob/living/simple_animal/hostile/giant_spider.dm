@@ -643,7 +643,7 @@
 		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
 		return
 	message = user.treat_message_min(message)
-	var/my_message = "<span class='spider'><b>Command from [user]:</b> [message]</span>"
+	var/my_message = "<span class='spiderlarge'><b>Command from [user]:</b> [message]</span>"
 	var/datum/antagonist/spider/spider_antag = user.mind?.has_antag_datum(/datum/antagonist/spider)
 	if(!spider_antag)
 		return
