@@ -138,7 +138,7 @@
 	// Spider IFF
 	var/datum/antagonist/spider/target_spider_antag = target_mob.mind?.has_antag_datum(/datum/antagonist/spider)
 	var/datum/antagonist/spider/spider_antag = mind?.has_antag_datum(/datum/antagonist/spider)
-	if(target_spider_antag?.spider_team == spider_antag?.spider_team)
+	if(spider_antag && target_spider_antag?.spider_team == spider_antag?.spider_team)
 		visible_message("<span class='notice'>[src] nuzzles [target_mob.name]!</span>", \
 			"<span class='notice'>You nuzzle [target_mob.name]!</span>", null, COMBAT_MESSAGE_RANGE)
 		return
@@ -198,7 +198,7 @@
 		return ..()
 	var/datum/antagonist/spider/target_spider_antag = target_mob.mind?.has_antag_datum(/datum/antagonist/spider)
 	var/datum/antagonist/spider/spider_antag = mind?.has_antag_datum(/datum/antagonist/spider)
-	if(mind && (!istype(target, /mob/living/simple_animal/hostile/poison/giant_spider) || target_spider_antag?.spider_team != spider_antag?.spider_team))
+	if(!istype(target, /mob/living/simple_animal/hostile/poison/giant_spider) || target_spider_antag?.spider_team != spider_antag?.spider_team)
 		return ..()
 	var/mob/living/simple_animal/hostile/poison/giant_spider/hurt_spider = target
 	if(hurt_spider == src)
@@ -634,6 +634,8 @@
 	message = user.treat_message_min(message)
 	var/my_message = "<span class='spider'><b>Command from [user]:</b> [message]</span>"
 	var/datum/antagonist/spider/spider_antag = user.mind?.has_antag_datum(/datum/antagonist/spider)
+	if(!spider_antag)
+		return
 	for(var/mob/living/simple_animal/hostile/poison/giant_spider/M in GLOB.spidermobs)
 		var/datum/antagonist/spider/target_spider_antag = M.mind?.has_antag_datum(/datum/antagonist/spider)
 		if(spider_antag?.spider_team == target_spider_antag?.spider_team)
