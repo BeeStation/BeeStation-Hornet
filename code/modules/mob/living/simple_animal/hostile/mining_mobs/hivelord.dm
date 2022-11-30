@@ -14,8 +14,8 @@
 	vision_range = 5
 	aggro_vision_range = 9
 	speed = 3
-	maxHealth = 75
-	health = 75
+	maxHealth = 38
+	health = 38
 	melee_damage = 0
 	attacktext = "lashes out at"
 	speak_emote = list("telepathically cries")
@@ -125,8 +125,8 @@
 	icon_living = "dwarf_legion"
 	icon_aggro = "dwarf_legion"
 	icon_dead = "dwarf_legion"
-	maxHealth = 60
-	health = 60
+	maxHealth = 30
+	health = 30
 	speed = 2 //faster!
 	crusher_drop_mod = 20
 	dwarf_mob = TRUE
@@ -198,8 +198,8 @@
 //Advanced Legion is slightly tougher to kill and can raise corpses (revive other legions)
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/advanced
 	stat_attack = DEAD
-	maxHealth = 120
-	health = 120
+	maxHealth = 60
+	health = 60
 	brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced
 	icon_state = "dwarf_legion"
 	icon_living = "dwarf_legion"

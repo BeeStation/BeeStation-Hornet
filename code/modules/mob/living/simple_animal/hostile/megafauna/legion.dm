@@ -11,8 +11,8 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/legion
 	name = "Legion"
-	health = 800
-	maxHealth = 800
+	health = 400
+	maxHealth = 400
 	icon_state = "legion"
 	icon_living = "legion"
 	desc = "One of many."
@@ -214,7 +214,7 @@ Difficulty: Medium
 		A.name = "ash storm"
 		log_game("[user] ([key_name(user)]) has summoned [A] at [AREACOORD(user_turf)]")
 		if (!(is_special_character(user)))
-			message_admins("[A] has been summoned in [ADMIN_VERBOSEJMP(user_turf)] by [ADMIN_LOOKUPFLW(user)], a non-antagonist!") //This check actually did the opposite before now and only reported when antagonists used it, but called them non-antagonists. 
+			message_admins("[A] has been summoned in [ADMIN_VERBOSEJMP(user_turf)] by [ADMIN_LOOKUPFLW(user)], a non-antagonist!") //This check actually did the opposite before now and only reported when antagonists used it, but called them non-antagonists.
 		A.area_type = user_area.type
 		A.telegraph_duration = 100
 		A.end_duration = 100
