@@ -191,7 +191,7 @@
 				blueprints = TRUE
 	for(var/mob/M in mobs)
 		// No describing invisible stuff (except ghosts)!
-		if((M.invisibility >= SEE_INVISIBLE_LIVING || M.alpha <= 50) && !isobserver(M))
+		if(M.alpha <= 50 || !(!(M.invisibility >= SEE_INVISIBLE_LIVING) || (see_ghosts && (M.flags_1 & INVISIBILITY_REVEALED_BY_CAMERA))))
 			continue
 		mobs_spotted += M
 		if(M.stat == DEAD)
