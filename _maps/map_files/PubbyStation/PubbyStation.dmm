@@ -4201,7 +4201,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "aBG" = (
-/obj/machinery/vending/cart{
+/obj/machinery/vending/job_disk{
 	req_access_txt = "57"
 	},
 /obj/machinery/airalarm{

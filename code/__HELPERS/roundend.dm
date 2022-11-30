@@ -222,6 +222,7 @@
 							break
 						if(CO.check_completion())
 							C?.inc_metabalance(METACOIN_CO_REWARD, reason="Completed your crew objective!")
+							CO.declared_complete = TRUE
 							break
 
 	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
@@ -426,7 +427,7 @@
 		if(CONFIG_GET(flag/allow_crew_objectives))
 			if(M.mind.current && LAZYLEN(M.mind.crew_objectives))
 				for(var/datum/objective/crew/CO as() in M.mind.crew_objectives)
-					if(CO.check_completion())
+					if(CO.declared_complete)
 						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='greentext'><B>Success!</B></span><br>"
 					else
 						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='redtext'><B>Failed.</B></span><br>"
