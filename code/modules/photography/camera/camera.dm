@@ -40,9 +40,9 @@
 
 	var/see_ghosts = CAMERA_NO_GHOSTS //for the spoop of it
 	var/static/list/detectable_invisible_atom = list(
-		/mob/dead/observer,
-		/mob/living/simple_animal/revenant,
-		/mob/living/simple_animal/hostile/floor_cluwne
+		/mob/dead/observer = TRUE,
+		/mob/living/simple_animal/revenant = TRUE,
+		/mob/living/simple_animal/hostile/floor_cluwne = TRUE
 	)
 
 
@@ -197,7 +197,7 @@
 				blueprints = TRUE
 	for(var/mob/M in mobs)
 		// No describing invisible stuff (except ghosts)!
-		if(M.alpha <= 50 || !(!(M.invisibility >= SEE_INVISIBLE_LIVING) || (see_ghosts && (M.type in detectable_invisible_atom))))
+		if(M.alpha <= 50 || !(!(M.invisibility >= SEE_INVISIBLE_LIVING) || (see_ghosts && checks_detectable(M))))
 			continue
 		mobs_spotted += M
 		if(M.stat == DEAD)
@@ -218,6 +218,8 @@
 	after_picture(user, P, flag)
 	blending = FALSE
 
+/obj/item/camera/proc/checks_detectable(atom/A)
+	return detectable_invisible_atom[A.type]
 
 /obj/item/camera/proc/flash_end()
 	set_light_on(FALSE)

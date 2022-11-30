@@ -33,7 +33,7 @@
 				images += new /image/photo(newT, T.loc)
 			for(var/i in T.contents)
 				var/atom/A = i
-				if(!A.invisibility || (see_ghosts && (A.type in detectable_invisible_atom)))
+				if(!A.invisibility || (see_ghosts && checks_detectable(A)))
 					images += new /image/photo(newT, A)
 		skip_normal = TRUE
 		wipe_images = TRUE
@@ -45,7 +45,7 @@
 			images += new /image/photo(T.loc, T)
 			for(var/atom/movable/A in T)
 				if(A.invisibility)
-					if(!(see_ghosts && (A.type in detectable_invisible_atom)))
+					if(!(see_ghosts && checks_detectable(A)))
 						continue
 				images += new /image/photo(A.loc, A)
 			CHECK_TICK
