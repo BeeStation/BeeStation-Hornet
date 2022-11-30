@@ -4,7 +4,7 @@
 /// anything running stoplag() will be logged.
 /// Will incur a performance overhead when the controller is frozen, otherwise
 /// shouldn't be that intensive.
-#define TICK_OVERRUN_DEBUG
+//#define TICK_OVERRUN_DEBUG
 
 #ifdef TICK_OVERRUN_DEBUG
 GLOBAL_VAR_INIT(controller_frozen, FALSE)
