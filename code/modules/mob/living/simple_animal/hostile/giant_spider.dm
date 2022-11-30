@@ -3,6 +3,7 @@
 #define LAYING_EGGS 2
 #define MOVING_TO_TARGET 3
 #define SPINNING_COCOON 4
+#define MAX_WEBS_PER_TILE 3
 
 /mob/living/simple_animal/hostile/poison
 	mobchatspan = "researchdirector"
@@ -54,6 +55,7 @@
 	var/datum/action/innate/spider/lay_web/lay_web // Web action
 	var/web_speed = 1 // How quickly a spider lays down webs (percentage)
 	var/mob/master // The spider's master, used by sentience
+	var/onweb_speed
 
 	do_footstep = TRUE
 	discovery_points = 1000
@@ -109,6 +111,20 @@
 	else
 		remove_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN)
 
+// Handles faster movement on webs
+// This is triggered after the first time a spider steps on/off a web, making web-peeking using this harder
+/mob/living/simple_animal/hostile/poison/giant_spider/Moved(atom/oldloc, dir)
+	. = ..()
+	if(onweb_speed == null)
+		return
+	var/turf/T = get_turf(src)
+	if(locate(/obj/structure/spider/stickyweb) in T)
+		set_varspeed(onweb_speed)
+		move_to_delay = onweb_speed
+	else
+		set_varspeed(initial(speed))
+		move_to_delay = initial(move_to_delay)
+
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_action()
 	if(!..()) //AIStatus is off
 		return FALSE
@@ -142,6 +158,7 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/guard
 	name = "guard"
 	obj_damage = 50
+	onweb_speed = -0.1
 
 // Nurses lay eggs and can heal other spiders. However, they're squishy and less powerful.
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
@@ -158,6 +175,7 @@
 	melee_damage = 10
 	poison_per_bite = 3
 	speed = 1 // A bit faster than midwives
+	onweb_speed = 0.5
 	var/atom/movable/cocoon_target
 	var/mob/living/simple_animal/hostile/poison/giant_spider/heal_target
 	var/fed = 0
@@ -329,6 +347,7 @@
 	maxHealth = 80
 	health = 80
 	speed = 2
+	onweb_speed = 1
 	web_speed = 0.15 // Easily able to web
 	poison_per_bite = 5 // A lot of poison for defense purposes
 	obj_damage = 50
@@ -388,21 +407,10 @@
 	move_to_delay = 5
 	speed = 5
 	web_speed = 0.5
+	onweb_speed = 0
 	status_flags = NONE
 	mob_size = MOB_SIZE_LARGE
 	gold_core_spawnable = NO_SPAWN
-
-// Handles faster movement on webs
-// This is triggered after the first time a spider steps on/off a web, making web-peeking using this harder
-/mob/living/simple_animal/hostile/poison/giant_spider/tarantula/Moved(atom/oldloc, dir)
-	. = ..()
-	var/turf/T = get_turf(src)
-	if(locate(/obj/structure/spider/stickyweb) in T)
-		set_varspeed(0)
-		move_to_delay = 0.1
-	else
-		set_varspeed(5)
-		move_to_delay = 5
 
 // Ice spiders - for when you want a spider that really doesn't care about atmos
 /mob/living/simple_animal/hostile/poison/giant_spider/ice
@@ -457,9 +465,11 @@
 		return
 	var/turf/target_turf = get_turf(spider)
 
-	var/obj/structure/spider/stickyweb/web = locate() in target_turf
-	if(web)
-		to_chat(spider, "<span class='warning'>There's already a web here!</span>")
+	var/webs = 0
+	for(var/obj/structure/spider/stickyweb/web in target_turf)
+		webs++
+	if(webs >= MAX_WEBS_PER_TILE)
+		to_chat(spider, "<span class='warning'>You can't fit more web here!</span>")
 		return
 
 	if(spider.busy != SPINNING_WEB)
@@ -663,3 +673,4 @@
 #undef LAYING_EGGS
 #undef MOVING_TO_TARGET
 #undef SPINNING_COCOON
+#undef MAX_WEBS_PER_TILE
