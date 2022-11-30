@@ -207,10 +207,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		if("Down")
 			travel_z(user, below, FALSE)
 
-/turf/proc/travel_z(mob/user, turf/target, upwards = TRUE, climbing = FALSE)
-	user.visible_message("<span class='notice'>[user] begins [climbing ? "climbing" : "floating"] [upwards ? "upwards" : "downwards"]!</span>", "<span class='notice'>You begin [climbing ? "climbing" : "floating"] [upwards ? "upwards" : "downwards"].")
-	animate(user, 30, pixel_y = upwards ? 32 : -32, transform = matrix() * 0.8)
-	if(!do_after(user, 30, FALSE, get_turf(user)))
+/turf/proc/travel_z(mob/user, turf/target, upwards = TRUE, move_verb = "floating", delay = 3 SECONDS)
+	user.visible_message("<span class='notice'>[user] begins [move_verb] [upwards ? "upwards" : "downwards"]!</span>", "<span class='notice'>You begin [move_verb] [upwards ? "upwards" : "downwards"].")
+	animate(user, delay, pixel_y = upwards ? 32 : -32, transform = matrix() * 0.8)
+	if(!do_after(user, delay, FALSE, get_turf(user)))
 		animate(user, 0, flags = ANIMATION_END_NOW)
 		user.pixel_y = 0
 		user.transform = matrix()
@@ -389,6 +389,17 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			O.make_unfrozen()
 	if(!arrived.zfalling)
 		zFall(arrived, old_loc = old_loc)
+
+
+/turf/open/openspace/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	..()
+	// Did not move in parent call
+	if(get_turf(arrived) == src)
+		SSzfall.add_openspace_inhabitant(arrived)
+
+/turf/open/openspace/Exited(atom/movable/exiting, atom/newloc)
+	..()
+	SSzfall.remove_openspace_inhabitant(exiting)
 
 /turf/proc/is_plasteel_floor()
 	return FALSE

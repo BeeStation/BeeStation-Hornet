@@ -46,8 +46,9 @@
 /datum/effect_system/trail_follow/generate_effect()
 	if(!check_conditions())
 		return stop()
-	if(oldposition && !(oldposition == get_turf(holder)))
-		if(!oldposition.has_gravity() || !nograv_required)
+	var/turf/current_position = get_turf(holder)
+	if(oldposition && oldposition != current_position)
+		if(!oldposition.has_gravity() || !nograv_required || isopenspace(current_position))
 			var/obj/effect/E = new effect_type(oldposition)
 			set_dir(E)
 			if(fade)
@@ -55,7 +56,7 @@
 				E.icon_state = ""
 			if(qdel_in_time)
 				QDEL_IN(E, qdel_in_time)
-	oldposition = get_turf(holder)
+	oldposition = current_position
 
 /datum/effect_system/trail_follow/proc/check_conditions()
 	if(!get_turf(holder))

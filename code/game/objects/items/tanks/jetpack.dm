@@ -228,13 +228,22 @@
 		return
 	..()
 
-
-//Return a jetpack that the mob can use
-//Back worn jetpacks, hardsuit internal packs, and so on.
-//Used in Process_Spacemove() and wherever you want to check for/get a jetpack
-
+/// Returns any jetpack on this mob that can be used
 /mob/proc/get_jetpack()
 	return
+
+/// Attempts using jetpack power. movement_dir is if the movement is intentionally in a direction as in SpaceMove
+/mob/proc/has_jetpack_power(movement_dir = FALSE, thrust = 0.01, require_stabilization = FALSE)
+	return FALSE
+
+/mob/living/carbon/has_jetpack_power(movement_dir = FALSE, thrust = 0.01, require_stabilization = FALSE)
+	var/obj/item/organ/cyberimp/chest/thrusters/T = getorganslot(ORGAN_SLOT_THRUSTERS)
+	if(istype(T) && movement_dir && T.allow_thrust(thrust))
+		return TRUE
+
+	var/obj/item/tank/jetpack/J = get_jetpack()
+	if(istype(J) && (movement_dir || J.stabilizers) && (!require_stabilization || J.stabilizers) && J.allow_thrust(thrust, src))
+		return TRUE
 
 /mob/living/carbon/get_jetpack()
 	var/obj/item/tank/jetpack/J = back

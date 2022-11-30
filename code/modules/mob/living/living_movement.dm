@@ -69,7 +69,8 @@
 		to_chat(src, "<span class='warning'>There is nothing in that direction!</span>")
 		return FALSE
 	var/upwards = dir == UP
-	var/climbing = FALSE
+	var/move_verb = "floating"
+	var/delay = 1 SECONDS
 	if(!incorporeal_move)
 		//Check if we can travel in that direction
 		if(((upwards && !target.allow_z_travel) || (!upwards && !source.allow_z_travel)))
@@ -80,13 +81,22 @@
 			to_chat(src, "<span class='warning'>Something is blocking you!</span>")
 			return FALSE
 		if(has_gravity(source))
+			delay = 3 SECONDS
+			move_verb = "flying"
 			if(upwards)
 				// If there's gravity and the space above is not climbable, don't travel
 				if(!(movement_type & FLYING) && !can_climb)
-					visible_message("<span class='warning'>[src] jumps into the air, as if [p_they()] expected to float... Gravity pulls [p_them()] back down quickly.</span>", "<span class='warning'>You try jumping into the space above you. Gravity pulls you back down quickly.</span>")
-					return
+					if(has_jetpack_power(TRUE, 0.1, require_stabilization = FALSE))
+						move_verb = "jetpacking"
+						delay = 1 SECONDS
+					else
+						visible_message("<span class='warning'>[src] jumps into the air, as if [p_they()] expected to float... Gravity pulls [p_them()] back down quickly.</span>", "<span class='warning'>You try jumping into the space above you. Gravity pulls you back down quickly.</span>")
+						return
 				else if(can_climb)
-					climbing = TRUE
-			else
-				climbing = TRUE // "Floating" down in gravity is weird
-	return source.travel_z(src, target, upwards, climbing)
+					move_verb = "climbing"
+			else if(can_climb)
+				move_verb = "climbing"
+			else if(!(movement_type & FLYING) && has_jetpack_power(TRUE, 0.05, require_stabilization = FALSE))
+				move_verb = "jetpacking"
+				delay = 1 SECONDS
+	return source.travel_z(src, target, upwards, move_verb, delay)
