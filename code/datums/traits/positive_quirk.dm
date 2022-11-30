@@ -136,7 +136,7 @@
 
 /datum/quirk/photographer
 	name = "Psychic Photographer"
-	desc = "You have a special camera that can capture a photo of ghosts. Also, your experience to capture ghosts shortened the delay between each shot."
+	desc = "You have a special camera that can capture a photo of ghosts. Your experience in photography shortens the delay between each shot."
 	value = 1
 	mob_trait = TRAIT_PHOTOGRAPHER
 	gain_text = "<span class='notice'>You know everything about photography.</span>"
