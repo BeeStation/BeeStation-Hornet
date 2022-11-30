@@ -42,32 +42,3 @@
 	while(length(str) < 5)
 		str = "0" + str
 	. = str
-
-/// Picks an item from random list. value assignment is necessary since it is used as a pick weight. this works differently than 'pick()' proc
-/proc/pick_by_weight(random_list)
-	if(!length(random_list))
-		return
-
-	// calculate each pickweight
-	var/total_value
-	for(var/each in random_list)
-		if(!isnum(random_list[each]))
-			CRASH("item pick weight is wrong - not a number: [random_list[each]]")
-		if(random_list[each] < 0)
-			CRASH("item pick weight is wrong - should be more than 0: [random_list[each]]")
-		total_value += random_list[each]
-	if(!total_value)
-		return pick(random_list)
-
-	// pick something based on pickweight
-	var/rand_result = rand(total_value)
-	var/count
-	var/pick_result
-	for(var/each in random_list)
-		count++
-		if(rand_result-random_list[each] <= 0)
-			pick_result = random_list[count]
-			break
-		rand_result -= random_list[each]
-
-	return pick_result

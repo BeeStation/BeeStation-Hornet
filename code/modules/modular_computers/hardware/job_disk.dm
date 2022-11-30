@@ -248,7 +248,7 @@
 		/obj/item/computer_hardware/hard_drive/role/virus/mime = 1
 	)
 	var/static/adj_list = list("old", "weathered", "outdated")
-	var/obj/item/computer_hardware/hard_drive/role/chosen_disk = pick_by_weight(disk_list)
+	var/obj/item/computer_hardware/hard_drive/role/chosen_disk = pickweight(disk_list)
 	chosen_disk = new chosen_disk(loc)
 	switch(chosen_disk.type) // let's not make much subtype items
 		if(/obj/item/computer_hardware/hard_drive/role/medical)
@@ -268,11 +268,11 @@
 			chosen_disk.disk_flags = DISK_SILO_LOG // only silo log check
 		if(/obj/item/computer_hardware/hard_drive/role/virus/clown)
 			var/obj/item/computer_hardware/hard_drive/role/virus/temp = chosen_disk
-			temp.name = pick_by_weight(list("\improper H.??. disk"=25, "\improper [pick(adj_list)] H.O.N.K. disk"=75))
+			temp.name = pickweight(list("\improper H.??. disk"=25, "\improper [pick(adj_list)] H.O.N.K. disk"=75))
 			temp.charges = 1
 		if(/obj/item/computer_hardware/hard_drive/role/virus/mime)
 			var/obj/item/computer_hardware/hard_drive/role/virus/temp = chosen_disk
-			temp.name = pick_by_weight(list("\improper sound of ... disk"=25, "\improper [pick(adj_list)] sound of silence disk"=75))
+			temp.name = pickweight(list("\improper sound of ... disk"=25, "\improper [pick(adj_list)] sound of silence disk"=75))
 			temp.charges = 1
 
 	return INITIALIZE_HINT_QDEL
