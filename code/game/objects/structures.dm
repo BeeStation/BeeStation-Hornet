@@ -29,7 +29,13 @@
 	GLOB.cameranet.updateVisibility(src)
 	if(smooth)
 		queue_smooth_neighbors(src)
-	return ..()
+	var/turf/current_turf = loc
+	. = ..()
+	// Attempt zfalling for anything standing on this structure
+	if(!istype(current_turf))
+		return
+	for(var/atom/movable/A in current_turf)
+		current_turf.zFall(A)
 
 /obj/structure/attack_hand(mob/user)
 	. = ..()

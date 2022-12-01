@@ -1,3 +1,4 @@
+/// Responsible for triggering mob zfalls when they are not already triggered by structure deconstruction or moving into openspace
 SUBSYSTEM_DEF(zfall)
 	name = "Zfall"
 	flags = SS_TICKER
@@ -7,7 +8,7 @@ SUBSYSTEM_DEF(zfall)
 	var/list/atom/movable/openspace_inhabitants = list()
 
 /datum/controller/subsystem/zfall/proc/add_openspace_inhabitant(atom/movable/A)
-	if(!istype(A) || (A in openspace_inhabitants) || (!isobj(A) && !ismob(A)))
+	if(!ismob(A) || (A in openspace_inhabitants))
 		return
 	RegisterSignal(A, COMSIG_PARENT_QDELETING, .proc/remove_openspace_inhabitant, A)
 	openspace_inhabitants |= A
