@@ -1,7 +1,0 @@
-author: mystery3525
-delete-after: true
-changes:
-  - balance: halved lavaland mobs health
-  - balance: halved PKA and PKC damage
-  - balance: Removed minimum pressure requirement from PKA and PKC, so they do the
-      same amount of damage in vacuums again.

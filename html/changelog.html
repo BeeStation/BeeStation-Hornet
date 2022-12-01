@@ -56,6 +56,37 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">30 November 2022</h2>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a new Scientist crew objective: "Make sure the research for [X design] is available on the R&D server by the end of the shift."</li>
+				<li class="rscdel">Removed the Chemistry "Have X pills containing X" crew objective.</li>
+				<li class="rscdel">Removed the Chemistry "Have X in your bloodstream" crew objective.</li>
+				<li class="rscadd">Added a new Chemistry crew objective "Have at least X units total of (X chemical) in the chemistry smartfridge(s) or with you when the shift ends." - it requires actually useful chems to be made.</li>
+				<li class="tweak">The Roboticist crew objective "Make X cyborgs" has been changed from 2-10 to 1-3, and it now also mentions that AI shells count.</li>
+				<li class="tweak">The janitor "keep X areas clean" objective no longer requires them to be completely spotless, instead requiring that you keep it clean under 12-20 "cleanables" per area.</li>
+				<li class="tweak">The janitor "keep X areas clean" objective no longer makes you clean maintenance.</li>
+				<li class="bugfix">Fixed the Curator newscaster objective not working.</li>
+				<li class="tweak">The Curator newscaster objective now uses word counts and is more reasonable in its expectations.</li>
+				<li class="bugfix">The lawyer's "Ensure there are no members of security in the prison wing when the shift ends." crew objective no longer does the opposite.</li>
+				<li class="bugfix">The virologist "Ensure no crew have harmful diseases" objective now properly checks the harm level of the disease instead of targeting harmless disease, and properly checks that the disease-haver is living before failing.</li>
+				<li class="bugfix">Fixed a runtime with the Mime "Don't break your vow" crew objective.</li>
+				<li class="bugfix">Fixed crew objectives showing as failed if you break the completion conditions and then re-open the roundend report.</li>
+				<li class="bugfix">Fixed some formatting and spacing issues with the janitor area clean objective.</li>
+				<li class="bugfix">The mime's "never break your vow" crew objective now checks if you broke the vow directly instead of if you talked at all (with false positives from dchat).</li>
+				<li class="code_imp">Improved crew objective code.</li>
+				<li class="code_imp">Slightly optimized and improved camera console camera detection code.</li>
+				<li class="rscadd">Added dangerous shuttle warnings to the communications console.</li>
+				<li class="tweak">Tweaked the description on Oh Hi Daniel shuttle to not reference "space roleplay".</li>
+				<li class="tweak">Tweaked the description on STV5 shuttle to include the fact that the crates included are potentially explosive.</li>
+			</ul>
+			<h3 class="author">mystery3525 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">halved lavaland mobs health</li>
+				<li class="balance">halved PKA and PKC damage</li>
+				<li class="balance">Removed minimum pressure requirement from PKA and PKC, so they do the same amount of damage in vacuums again.</li>
+			</ul>
+
 			<h2 class="date">29 November 2022</h2>
 			<h3 class="author">EvilDragonfiend updated:</h3>
 			<ul class="changes bgimages16">
@@ -1283,58 +1314,6 @@
 			<h3 class="author">itsmeow updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="tweak">Lightened the color effect on all glasses tints.</li>
-			</ul>
-
-			<h2 class="date">29 September 2022</h2>
-			<h3 class="author">BarteG44 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added black and white decal colors</li>
-				<li class="rscadd">Added flat floor decals for monotiles</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">compression box of (head items) that contains head outfits (and CE tools for CE) to solve the overloading issue of the head lockers. Holding this box will slow your movement extremely, so you'll not be able to steal their compressed box that easily.</li>
-				<li class="tweak">mixed wardrobe has a compression box of its jumpsuits/skirts because it has the same issue too.</li>
-				<li class="tweak">all heads lockers will have pet collar and pet carrier.</li>
-				<li class="tweak">captain's locker now has a megaphone.</li>
-				<li class="refactor">changed some head locker items ordering</li>
-			</ul>
-			<h3 class="author">Tyranicranger4 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Box station engine monitoring camera consoles now work properly.</li>
-			</ul>
-			<h3 class="author">etherware-novice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Airlock and Decal painters now have an indicator for low ink</li>
-				<li class="refactor">Adjusts the Airlock painters examine text</li>
-				<li class="tweak">Captain cryoing does a stationwide announcement</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">Added an IC filter check to most forms of telepathy and alternate speech (such as hivemind talk, silicon binary, blood bros, etc)</li>
-				<li class="admin">Added an IC filter check and logging to nanite cloud messages.</li>
-				<li class="admin">Added an IC filter check and logging to nanite program text fields.</li>
-				<li class="admin">Added an IC filter check to Poly.</li>
-				<li class="admin">Added an IC filter check to Allied Station messages.</li>
-				<li class="admin">Added an IC filter check to requests console announcements.</li>
-				<li class="bugfix">Added an OOC filter check to dchat if you are still inside your body.</li>
-			</ul>
-			<h3 class="author">ivanmixo updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">bruise pack/gauze/ointment application do_afters(the use bars) can't be stacked on yourself anymore yet</li>
-				<li class="bugfix">you can't apply gauze on people who arent hurt anymore</li>
-				<li class="rscdel">useless do_after_mob proc</li>
-				<li class="refactor">refactored bruise pack/ointment/gauze application proc</li>
-				<li class="balance">the area of the body you're targeting when applying touch based healing reagents through a patch/medspray now actually matters</li>
-				<li class="code_imp">Added a bunch of comments to items related to chems and stacks</li>
-			</ul>
-			<h3 class="author">spockye updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added missing shutters to Delta chapel</li>
-				<li class="bugfix">Removes the duplicate door from Pubby's genetics department</li>
-				<li class="bugfix">replaces wrong zoning</li>
-				<li class="bugfix">unpowers the pond</li>
-				<li class="bugfix">Removes Table (randomly placed table at departures airlock)</li>
 			</ul>
 		</div>
 

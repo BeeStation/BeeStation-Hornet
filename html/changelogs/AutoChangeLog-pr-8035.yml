@@ -1,8 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - rscadd: Added dangerous shuttle warnings to the communications console.
-  - tweak: Tweaked the description on Oh Hi Daniel shuttle to not reference "space
-      roleplay".
-  - tweak: Tweaked the description on STV5 shuttle to include the fact that the crates
-      included are potentially explosive.
