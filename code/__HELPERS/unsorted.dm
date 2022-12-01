@@ -1,8 +1,8 @@
 //here lies unsorted.dm, bane of many coders, pain of lots of maintainers
 
 //* 2005? / + 2022
-/proc/_client_alert(client/C, message, title)
-	alert(C, message, title)
 
+/// identical alert proc, but without waiting for user input. It's useful when you shouldn't set your proc `waitfor = 0`
 /proc/client_alert(client/C, message, title)
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/_client_alert, C, message, title), 0)
+	set waitfor = 0
+	alert(C, message, title)
