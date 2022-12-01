@@ -44,13 +44,13 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 		var/datum/quirk/Q = quirks[V]
 		if(Q)
 			user.add_quirk(Q, spawn_effects)
-			bad_quirk_checker += Q.value
+			bad_quirk_checker += initial(Q.value)
 		else
-			stack_trace("Invalid quirk \"[V]\" in client [cli.ckey] preferences")
+			stack_trace("Invalid quirk \"[V]\" in client [cli.ckey] preferences. the game has reset their quirks automatically.")
 			bad_quirk_checker = BAD_QUIRK_FLAG
-	if(bad_quirk_checker) // positive quirk points = something's wrong
+	if(bad_quirk_checker) // negative & zero value = calculation good / positive quirk value = something's wrong
 		cli.prefs.active_character.all_quirks = list()
 		cli.prefs.active_character.save(cli)
-		to_chat(user, "<span class='boldwarning'>You have an outdated quirk, or more of them. You keep all eligible quirks at this round, but your character preference has been reset. Please re-apply your quirks.</span>")
+		client_alert(cli, "You have an outdated quirk, or more of them. Your eligible quirks are kept at this round, but your character preference has been reset. Please re-apply your quirks.", "Oh, no!")
 
 #undef BAD_QUIRK_FLAG

@@ -202,7 +202,7 @@
 				blueprints = TRUE
 	for(var/mob/M in mobs)
 		// No describing invisible stuff (except ghosts)!
-		if(M.alpha <= 50 || !(!(M.invisibility >= SEE_INVISIBLE_LIVING) || (see_ghosts && checks_detectable(M))))
+		if(M.alpha <= 50 || !((M.invisibility < SEE_INVISIBLE_LIVING) || (see_ghosts && can_camera_see_atom(M))))
 			continue
 		mobs_spotted += M
 		if(M.stat == DEAD)
@@ -223,7 +223,7 @@
 	after_picture(user, P, flag)
 	blending = FALSE
 
-/obj/item/camera/proc/checks_detectable(atom/A)
+/obj/item/camera/proc/can_camera_see_atom(atom/A)
 	return is_type_in_typecache(A, detectable_invisible_atom)
 
 /obj/item/camera/proc/flash_end()
