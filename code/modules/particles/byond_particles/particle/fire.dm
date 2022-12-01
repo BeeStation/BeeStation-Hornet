@@ -31,7 +31,7 @@
     width = 500
     height = 500
     count = 0
-    spawning = 3
+    spawning = 1
     lifespan = 4
     fade = 20
     velocity = list(0, 0)

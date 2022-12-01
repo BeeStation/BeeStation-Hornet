@@ -210,6 +210,7 @@
 	var/obj/emitter/single_right_emitter
 	var/obj/emitter/left_emitter
 	var/obj/emitter/right_emitter
+	var/tilt_timer = 0
 
 /obj/item/tank/jetpack/combustion/Initialize(mapload)
 	. = ..()
@@ -233,6 +234,8 @@
 
 /obj/item/tank/jetpack/combustion/proc/on_user_dir_change(atom/thing, old_dir, new_dir)
 	SIGNAL_HANDLER
+	if(new_dir == old_dir)
+		return
 	if(new_dir == EAST)
 		single_left_emitter.vis_locs |= known_user
 		single_right_emitter.vis_locs -= known_user
@@ -265,11 +268,25 @@
 	left_emitter.particles.count = amount
 	right_emitter.particles.count = amount
 
+/obj/item/tank/jetpack/combustion/proc/update_fade(fade)
+	single_left_emitter.particles.fade = fade
+	single_right_emitter.particles.fade = fade
+	left_emitter.particles.fade = fade
+	right_emitter.particles.fade = fade
+
+/obj/item/tank/jetpack/combustion/proc/update_lifespan(lifespan)
+	single_left_emitter.particles.lifespan = lifespan
+	single_right_emitter.particles.lifespan = lifespan
+	left_emitter.particles.lifespan = lifespan
+	right_emitter.particles.lifespan = lifespan
+
 /obj/item/tank/jetpack/combustion/turn_on(mob/user)
 	..()
 	if(!known_user)
 		return
-	update_particle_counts(3000)
+	update_particle_counts(100)
+	update_fade(100)
+	update_lifespan(3)
 
 /obj/item/tank/jetpack/combustion/turn_off(mob/user)
 	..()
@@ -277,9 +294,28 @@
 		return
 	update_particle_counts(0)
 
+/obj/item/tank/jetpack/combustion/move_react(mob/user)
+	..()
+	var/turf/user_loc = get_turf(known_user)
+	if(!isopenspace(user_loc))
+		update_fade(100)
+		update_lifespan(3)
+		update_particle_counts(on ? 100 : 0)
+	// tilt animation
+	else if(known_user.dir == EAST || known_user.dir == WEST)
+		var/matrix/M = matrix(known_user.transform)
+		M.Turn(known_user.dir == EAST ? 15 : -15)
+		if(tilt_timer)
+			deltimer(tilt_timer)
+		animate(known_user, transform = M, time = 2)
+		tilt_timer = addtimer(CALLBACK(src, .proc/reset_animation, known_user), 2, TIMER_STOPPABLE)
+
+/obj/item/tank/jetpack/combustion/proc/reset_animation(mob/who)
+	animate(who, transform = null, time = 2)
+
 /obj/item/tank/jetpack/combustion/populate_gas()
 	var/moles_full = ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
-	var/ideal_o2_percent = 1 / PLASMA_OXYGEN_FULLBURN
+	var/ideal_o2_percent = (1 / PLASMA_OXYGEN_FULLBURN) * 2
 	air_contents.set_moles(GAS_PLASMA, moles_full * (1 - ideal_o2_percent))
 	air_contents.set_moles(GAS_O2, moles_full * ideal_o2_percent)
 
@@ -315,6 +351,8 @@
 	// Consume
 	air_contents.set_moles(GAS_PLASMA, QUANTIZE(air_contents.get_moles(GAS_PLASMA) - plasma_burn_rate))
 	air_contents.set_moles(GAS_O2, QUANTIZE(air_contents.get_moles(GAS_O2) - (plasma_burn_rate * oxygen_burn_rate)))
+	update_fade(15)
+	update_lifespan(4)
 
 	return TRUE
 

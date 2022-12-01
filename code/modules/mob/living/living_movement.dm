@@ -86,7 +86,7 @@
 			if(upwards)
 				// If there's gravity and the space above is not climbable, don't travel
 				if(!(movement_type & FLYING) && !can_climb)
-					if(has_jetpack_power(TRUE, 0.1, require_stabilization = FALSE))
+					if(has_jetpack_power(TRUE, THRUST_REQUIREMENT_GRAVITY * 2, require_stabilization = FALSE))
 						move_verb = "jetpacking"
 						delay = 1 SECONDS
 					else
