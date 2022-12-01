@@ -317,7 +317,7 @@
 				var/obj/structure/spider/cocoon/C = new(cocoon_target.loc)
 				if(isliving(cocoon_target))
 					var/mob/living/L = cocoon_target
-					if(L.blood_volume && (L.stat != DEAD || !consumed_mobs[L.tag])) //if they're not dead, you can consume them anyway
+					if(L.blood_volume && (L.stat != DEAD || !consumed_mobs[L.tag]) && !isipc(L)) //if they're not dead, you can consume them anyway
 						if(istype(L, /mob/living/carbon/human))
 							enriched_fed++
 						else
