@@ -60,6 +60,8 @@
 /datum/antagonist/spider/proc/set_spider_team(datum/team/spiders/new_team)
 	var/datum/team/spiders/old_team = spider_team
 	spider_team = new_team
+	spider_team.add_member(owner)
+	old_team.remove_member(owner)
 
 	// Alert our spider to its directives
 	if(spider_team.directive)
