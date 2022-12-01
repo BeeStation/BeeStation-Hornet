@@ -96,7 +96,7 @@
 					move_verb = "climbing"
 			else if(can_climb)
 				move_verb = "climbing"
-			else if(!(movement_type & FLYING) && has_jetpack_power(TRUE, 0.05, require_stabilization = FALSE))
+			else if(!(movement_type & FLYING) && has_jetpack_power(TRUE, THRUST_REQUIREMENT_GRAVITY * 0.5, require_stabilization = FALSE))
 				move_verb = "jetpacking"
 				delay = 1 SECONDS
 	return source.travel_z(src, target, upwards, move_verb, delay)

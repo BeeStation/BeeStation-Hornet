@@ -13,11 +13,15 @@
 	var/stabilizers = FALSE
 	var/full_speed = TRUE // If the jetpack will have a speedboost in space/nograv or not
 	var/datum/effect_system/trail_follow/ion/ion_trail
+	var/use_ion_trail = TRUE
+	/// The user that this jetpack is expected to have
+	var/mob/known_user
 
 /obj/item/tank/jetpack/Initialize(mapload)
 	. = ..()
-	ion_trail = new
-	ion_trail.set_up(src)
+	if(use_ion_trail)
+		ion_trail = new
+		ion_trail.set_up(src)
 
 /obj/item/tank/jetpack/Destroy()
 	QDEL_NULL(ion_trail)
@@ -52,32 +56,71 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
+/obj/item/tank/jetpack/equipped(mob/user, slot)
+	..()
+	if(slot_flags & slot)
+		update_known_user(user)
+	else
+		lose_known_user()
+
+/obj/item/tank/jetpack/dropped(mob/user)
+	..()
+	lose_known_user()
+
+/obj/item/tank/jetpack/proc/update_known_user(mob/user)
+	if(user == known_user)
+		return
+	if(known_user)
+		lose_known_user()
+	known_user = user
+	if(known_user)
+		on_user_add()
+
+/obj/item/tank/jetpack/proc/on_user_add()
+	RegisterSignal(known_user, COMSIG_MOVABLE_MOVED, .proc/move_react)
+	RegisterSignal(known_user, COMSIG_PARENT_QDELETING, .proc/lose_known_user)
+
+/obj/item/tank/jetpack/proc/lose_known_user()
+	SIGNAL_HANDLER
+	if(known_user)
+		on_user_loss()
+	known_user = null
+
+/obj/item/tank/jetpack/proc/on_user_loss()
+	known_user.remove_movespeed_modifier(MOVESPEED_ID_JETPACK)
+	UnregisterSignal(known_user, COMSIG_MOVABLE_MOVED)
+	UnregisterSignal(known_user, COMSIG_PARENT_QDELETING)
 
 /obj/item/tank/jetpack/proc/turn_on(mob/user)
+	if(!known_user)
+		return
 	on = TRUE
 	icon_state = "[initial(icon_state)]-on"
-	ion_trail.start()
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/move_react)
+	if(ion_trail)
+		ion_trail.start()
 	if(full_speed)
-		user.add_movespeed_modifier(MOVESPEED_ID_JETPACK, priority=100, multiplicative_slowdown=-2, movetypes=FLOATING, conflict=MOVE_CONFLICT_JETPACK)
+		known_user.add_movespeed_modifier(MOVESPEED_ID_JETPACK, priority=100, multiplicative_slowdown=-2, movetypes=FLOATING, conflict=MOVE_CONFLICT_JETPACK)
 
 /obj/item/tank/jetpack/proc/turn_off(mob/user)
+	if(!known_user)
+		return
 	on = FALSE
 	stabilizers = FALSE
 	icon_state = initial(icon_state)
-	ion_trail.stop()
-	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
-	user.remove_movespeed_modifier(MOVESPEED_ID_JETPACK)
+	if(ion_trail)
+		ion_trail.stop()
+
+	known_user.remove_movespeed_modifier(MOVESPEED_ID_JETPACK)
 
 /obj/item/tank/jetpack/proc/move_react(mob/user)
 	SIGNAL_HANDLER
-
-	allow_thrust(0.01, user)
+	if(on)
+		allow_thrust(THRUST_REQUIREMENT_SPACEMOVE, user)
 
 /obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user)
-	if(!on)
+	if(!on || !known_user)
 		return
-	if((num < 0.005 || air_contents.total_moles() < num))
+	if((num < 0.005 || num > THRUST_REQUIREMENT_GRAVITY * 0.5 || air_contents.total_moles() < num))
 		turn_off(user)
 		return
 
@@ -104,9 +147,9 @@
 	full_speed = FALSE //moves at hardsuit jetpack speeds
 
 /obj/item/tank/jetpack/improvised/allow_thrust(num, mob/living/user)
-	if(!on)
+	if(!on || !known_user)
 		return
-	if((num < 0.005 || air_contents.total_moles() < num))
+	if((num < 0.005 || THRUST_REQUIREMENT_GRAVITY * 0.5 || air_contents.total_moles() < num))
 		turn_off(user)
 		return
 	if(rand(0,250) == 0)
@@ -156,7 +199,124 @@
 	icon_state = "jetpack-sec"
 	item_state = "jetpack-sec"
 
+/obj/item/tank/jetpack/combustion
+	name = "rocket jetpack"
+	desc = "A jetpack capable of powerful flight, strong enough to counteract the effects of gravity. Uses the high energy output of plasma combustion to generate enough thrust."
+	icon_state = "jetpack"
+	gas_type = null
+	use_ion_trail = FALSE
+	var/gravity_joules = 10000
+	var/obj/emitter/single_left_emitter
+	var/obj/emitter/single_right_emitter
+	var/obj/emitter/left_emitter
+	var/obj/emitter/right_emitter
 
+/obj/item/tank/jetpack/combustion/Initialize(mapload)
+	. = ..()
+	single_left_emitter = new /obj/emitter/fire_jet/single/left
+	single_right_emitter = new /obj/emitter/fire_jet/single/right
+	left_emitter = new /obj/emitter/fire_jet/left
+	right_emitter = new /obj/emitter/fire_jet/right
+
+/obj/item/tank/jetpack/combustion/on_user_add()
+	..()
+	on_user_dir_change(null, null, known_user.dir)
+	RegisterSignal(known_user, COMSIG_ATOM_DIR_CHANGE, .proc/on_user_dir_change)
+
+/obj/item/tank/jetpack/combustion/on_user_loss()
+	..()
+	single_left_emitter.vis_locs -= known_user
+	single_right_emitter.vis_locs -= known_user
+	left_emitter.vis_locs -= known_user
+	right_emitter.vis_locs -= known_user
+	UnregisterSignal(known_user, COMSIG_ATOM_DIR_CHANGE)
+
+/obj/item/tank/jetpack/combustion/proc/on_user_dir_change(atom/thing, old_dir, new_dir)
+	SIGNAL_HANDLER
+	if(new_dir == EAST)
+		single_left_emitter.vis_locs |= known_user
+		single_right_emitter.vis_locs -= known_user
+		left_emitter.vis_locs -= known_user
+		right_emitter.vis_locs -= known_user
+	else if(new_dir == WEST)
+		single_left_emitter.vis_locs -= known_user
+		single_right_emitter.vis_locs |= known_user
+		left_emitter.vis_locs -= known_user
+		right_emitter.vis_locs -= known_user
+	else if(new_dir == NORTH || new_dir == SOUTH)
+		single_left_emitter.vis_locs -= known_user
+		single_right_emitter.vis_locs -= known_user
+		left_emitter.vis_locs |= known_user
+		right_emitter.vis_locs |= known_user
+	if(new_dir == SOUTH || new_dir == EAST || new_dir == WEST)
+		single_left_emitter.layer = BELOW_MOB_LAYER
+		single_right_emitter.layer = BELOW_MOB_LAYER
+		left_emitter.layer = BELOW_MOB_LAYER
+		right_emitter.layer = BELOW_MOB_LAYER
+	if(new_dir == NORTH)
+		single_left_emitter.layer = ABOVE_MOB_LAYER
+		single_right_emitter.layer = ABOVE_MOB_LAYER
+		left_emitter.layer = ABOVE_MOB_LAYER
+		right_emitter.layer = ABOVE_MOB_LAYER
+
+/obj/item/tank/jetpack/combustion/proc/update_particle_counts(amount)
+	single_left_emitter.particles.count = amount * 2
+	single_right_emitter.particles.count = amount * 2
+	left_emitter.particles.count = amount
+	right_emitter.particles.count = amount
+
+/obj/item/tank/jetpack/combustion/turn_on(mob/user)
+	..()
+	if(!known_user)
+		return
+	update_particle_counts(3000)
+
+/obj/item/tank/jetpack/combustion/turn_off(mob/user)
+	..()
+	if(!known_user)
+		return
+	update_particle_counts(0)
+
+/obj/item/tank/jetpack/combustion/populate_gas()
+	var/moles_full = ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
+	var/ideal_o2_percent = 1 / PLASMA_OXYGEN_FULLBURN
+	air_contents.set_moles(GAS_PLASMA, moles_full * (1 - ideal_o2_percent))
+	air_contents.set_moles(GAS_O2, moles_full * ideal_o2_percent)
+
+/obj/item/tank/jetpack/combustion/allow_thrust(num, mob/living/user)
+	if(!on || !known_user)
+		return
+	if(num < 0.005)
+		turn_off(user)
+		return
+
+	var/potential_energy = 0
+	// Minified version of plasmafire burn reaction, with a "controlled" burnrate adjustment due to the high energy output of the reaction
+	// Also produces no waste products (CO2/Trit)
+	var/oxygen_burn_rate = (OXYGEN_BURN_RATE_BASE - 1)
+	var/plasma_burn_rate = 0
+	if(air_contents.get_moles(GAS_O2) > air_contents.get_moles(GAS_PLASMA)*PLASMA_OXYGEN_FULLBURN)
+		plasma_burn_rate = air_contents.get_moles(GAS_PLASMA)/PLASMA_BURN_RATE_DELTA
+	else
+		plasma_burn_rate = (air_contents.get_moles(GAS_O2)/PLASMA_OXYGEN_FULLBURN)/PLASMA_BURN_RATE_DELTA
+	if(plasma_burn_rate > MINIMUM_HEAT_CAPACITY)
+		plasma_burn_rate = min(plasma_burn_rate,air_contents.get_moles(GAS_PLASMA),air_contents.get_moles(GAS_O2)/oxygen_burn_rate) //Ensures matter is conserved properly
+		potential_energy = FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)
+
+	// Normalize thrust volume to joules
+	var/energy_required = GRAVITY_JOULE_REQUIREMENT * ((1 / THRUST_REQUIREMENT_GRAVITY) * num)
+	if(potential_energy < energy_required)
+		return
+	// Only burn as much as we need to produce the energy, then increase consumption by a lot
+	var/burn_rate_adjustment = (energy_required / potential_energy) * JETPACK_COMBUSTION_CONSUMPTION_ADJUSTMENT
+	plasma_burn_rate *= burn_rate_adjustment
+	oxygen_burn_rate *= burn_rate_adjustment
+
+	// Consume
+	air_contents.set_moles(GAS_PLASMA, QUANTIZE(air_contents.get_moles(GAS_PLASMA) - plasma_burn_rate))
+	air_contents.set_moles(GAS_O2, QUANTIZE(air_contents.get_moles(GAS_O2) - (plasma_burn_rate * oxygen_burn_rate)))
+
+	return TRUE
 
 /obj/item/tank/jetpack/carbondioxide
 	name = "jetpack (carbon dioxide)"
@@ -233,10 +393,10 @@
 	return
 
 /// Attempts using jetpack power. movement_dir is if the movement is intentionally in a direction as in SpaceMove
-/mob/proc/has_jetpack_power(movement_dir = FALSE, thrust = 0.01, require_stabilization = FALSE)
+/mob/proc/has_jetpack_power(movement_dir = FALSE, thrust = THRUST_REQUIREMENT_SPACEMOVE, require_stabilization = FALSE)
 	return FALSE
 
-/mob/living/carbon/has_jetpack_power(movement_dir = FALSE, thrust = 0.01, require_stabilization = FALSE)
+/mob/living/carbon/has_jetpack_power(movement_dir = FALSE, thrust = THRUST_REQUIREMENT_SPACEMOVE, require_stabilization = FALSE)
 	var/obj/item/organ/cyberimp/chest/thrusters/T = getorganslot(ORGAN_SLOT_THRUSTERS)
 	if(istype(T) && movement_dir && T.allow_thrust(thrust))
 		return TRUE

@@ -10,7 +10,7 @@
 	if(!..())
 		return FALSE
 	// Jetpack allows flight over openspace
-	if(has_jetpack_power(TRUE, thrust = 0.07))
+	if(has_jetpack_power(TRUE, thrust = THRUST_REQUIREMENT_GRAVITY))
 		// Render particles to show we are using fuel
 		var/obj/effect/particle_effect/ion_trails/E = new(get_turf(src))
 		flick("ion_fade", E)
@@ -19,7 +19,7 @@
 		return FALSE
 	return TRUE
 
-/mob/living/silicon/robot/has_jetpack_power(movement_dir, thrust = 0.01, require_stabilization)
+/mob/living/silicon/robot/has_jetpack_power(movement_dir, thrust = THRUST_REQUIREMENT_SPACEMOVE, require_stabilization)
 	if(..())
 		return TRUE
 	if(ionpulse(thrust))
