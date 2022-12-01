@@ -52,6 +52,10 @@
 		for(var/mob/living/carbon/C in targets)
 			if(C.uncuff())
 				uncuff_cooldown_check = TRUE
+			var/mob/living/carbon/human/H = ishuman(C) ? C : null
+			if(H?.wear_suit?.breakouttime)
+				H.dropItemToGround(H.wear_suit, TRUE)
+				uncuff_cooldown_check = TRUE
 		if(uncuff_cooldown_check && charge_type == "recharge")
 			charge_counter -= charge_max // If you uncuff someone, cooldown time gets doubled
 
