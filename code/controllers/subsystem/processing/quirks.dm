@@ -1,6 +1,9 @@
 //Used to process and handle roundstart quirks
 // - Quirk strings are used for faster checking in code
 // - Quirk datums are stored and hold different effects, as well as being a vector for applying trait string
+
+#define BAD_QUIRK_FLAG 9999
+
 PROCESSING_SUBSYSTEM_DEF(quirks)
 	name = "Quirks"
 	init_order = INIT_ORDER_QUIRKS
@@ -36,14 +39,18 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 		quirk_points[initial(T.name)] = initial(T.value)
 
 /datum/controller/subsystem/processing/quirks/proc/AssignQuirks(mob/living/user, client/cli, spawn_effects)
-	var/badquirk = FALSE
+	var/bad_quirk_checker = 0
 	for(var/V in cli.prefs.active_character.all_quirks)
 		var/datum/quirk/Q = quirks[V]
 		if(Q)
 			user.add_quirk(Q, spawn_effects)
+			bad_quirk_checker += Q.value
 		else
 			stack_trace("Invalid quirk \"[V]\" in client [cli.ckey] preferences")
-			cli.prefs.active_character.all_quirks -= V
-			badquirk = TRUE
-	if(badquirk)
+			bad_quirk_checker = BAD_QUIRK_FLAG
+	if(bad_quirk_checker) // positive quirk points = something's wrong
+		cli.prefs.active_character.all_quirks = list()
 		cli.prefs.active_character.save(cli)
+		to_chat(user, "<span class='boldwarning'>You have an outdated quirk, or more of them. You keep all eligible quirks at this round, but your character preference has been reset. Please re-apply your quirks.</span>")
+
+#undef BAD_QUIRK_FLAG
