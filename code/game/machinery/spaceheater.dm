@@ -41,10 +41,6 @@
 	///Should we add an overlay for open spaceheaters
 	var/display_panel = TRUE
 
-	var/maxTemp = 30
-
-	var/minTemp = 30
-
 /obj/machinery/space_heater/get_cell()
 	return cell
 
@@ -53,9 +49,6 @@
 	if(ispath(cell))
 		cell = new cell(src)
 	update_appearance()
-
-	maxTemp = (settable_temperature_median + settable_temperature_range) - T0C
-	minTemp = (settable_temperature_median - settable_temperature_range) - T0C
 
 /obj/machinery/space_heater/Destroy()
 	SSair.atmos_air_machinery -= src
@@ -190,7 +183,7 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/space_heater/CtrlClick(mob/user)
+/obj/machinery/space_heater/CtrlShiftClick(mob/user)
 	if(!can_interact(user))
 		return
 	toggle_power()
@@ -199,14 +192,14 @@
 	if(!can_interact(user))
 		return
 	if(mode == HEATER_MODE_COOL)
-		target_temperature = minTemp
-		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
+		target_temperature = max(settable_temperature_median - settable_temperature_range, TCMB) - T0C
+		investigate_log("was set to [target_temperature] C by [key_name(user)]", INVESTIGATE_ATMOS)
 	else if(mode == HEATER_MODE_HEAT)
-		target_temperature = maxTemp
-		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
+		target_temperature = settable_temperature_median + settable_temperature_range - T0C
+		investigate_log("was set to [target_temperature] C by [key_name(user)]", INVESTIGATE_ATMOS)
 	else
 		return
-	balloon_alert(user, "You set the target temperature to [target_temperature] K.")
+	balloon_alert(user, "You set the target temperature to [target_temperature] C.")
 
 /obj/machinery/space_heater/proc/toggle_power()
 	on = !on
