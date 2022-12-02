@@ -52,7 +52,7 @@
 	icon_state = "eggs"
 	var/amount_grown = 0
 	// Spawn info
-	var/spawns_remaining = 3
+	var/spawns_remaining = 2
 	var/enriched_spawns = 0
 	// Team info
 	var/datum/team/spiders/spider_team

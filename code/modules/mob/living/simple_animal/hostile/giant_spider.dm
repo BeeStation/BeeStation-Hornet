@@ -312,7 +312,7 @@
 		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>","<span class='notice'>You begin wrapping [cocoon_target] into a cocoon.</span>")
 		if(isliving(cocoon_target))
 			var/mob/living/M = cocoon_target
-			M.attacked_by(user = src)
+			M.attacked_by(null, src)
 		stop_automated_movement = TRUE
 		SSmove_manager.stop_looping(src)
 		if(do_after(src, 50, target = cocoon_target))
@@ -580,7 +580,6 @@
 					var/obj/structure/spider/eggcluster/new_cluster = new /obj/structure/spider/eggcluster(get_turf(spider))
 					if(spider.enriched_fed) // Add a special spider if the spider that made us ate a person instead of just a monkey
 						new_cluster.enriched_spawns++
-						new_cluster.spawns_remaining--
 						spider.enriched_fed--
 					else
 						spider.fed--
