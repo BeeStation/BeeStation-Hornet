@@ -583,6 +583,7 @@
 						spider.enriched_fed--
 					else
 						spider.fed--
+						new_cluster.grow_time *= 2
 					new_cluster.spider_team = spider_antag?.spider_team
 					new_cluster.faction = spider.faction.Copy()
 					UpdateButtonIcon(TRUE)

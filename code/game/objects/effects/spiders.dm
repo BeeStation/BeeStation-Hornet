@@ -59,6 +59,7 @@
 	var/list/faction = list("spiders")
 	// Whether or not a ghost can use the cluster to become a spider.
 	var/ghost_ready = FALSE
+	var/grow_time = 60 // Grow time (in seconds because delta-time)
 	// The types of spiders the egg sac can produce.
 	var/list/mob/living/potential_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/guard,
 								/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
@@ -76,7 +77,7 @@
 
 /obj/structure/spider/eggcluster/process(delta_time)
 	amount_grown += delta_time
-	if(amount_grown >= 60 && !ghost_ready) // 1 minute to grow
+	if(amount_grown >= grow_time && !ghost_ready) // 1 minute to grow
 		notify_ghosts("[src] is ready to hatch!", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = POLL_IGNORE_SPIDER)
 		ghost_ready = TRUE
 		LAZYADD(GLOB.mob_spawners[name], src)
