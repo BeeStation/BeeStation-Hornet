@@ -269,14 +269,15 @@
 			var/turf/open/floor/stepTurf = get_step_multiz(mobloc, direct)
 			var/turf/loccheck = get_turf(stepTurf)
 			if(stepTurf)
-				for(var/obj/effect/decal/cleanable/food/salt/S in stepTurf)
+				var/obj/effect/decal/cleanable/food/salt/salt = locate() in stepTurf
+				if(salt)
 					to_chat(L, "<span class='warning'>[S] bars your passage!</span>")
 					return
 				if(stepTurf.flags_1 & NOJAUNT_1)
 					if(!is_reebe(loccheck.z))
 						to_chat(L, "<span class='warning'>Some strange aura is blocking the way.</span>")
 						return
-				if(locate(/obj/effect/blessing, stepTurf))
+				if(locate(/obj/effect/blessing) in stepTurf)
 					to_chat(L, "<span class='warning'>Holy energies block your path!</span>")
 					return
 				L.forceMove(stepTurf)
