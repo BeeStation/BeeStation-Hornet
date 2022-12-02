@@ -269,7 +269,7 @@
 		single_right_emitter.plane = ABOVE_LIGHTING_PLANE
 		left_emitter.plane = ABOVE_LIGHTING_PLANE
 		right_emitter.plane = ABOVE_LIGHTING_PLANE
-			single_left_emitter.vis_flags = NONE
+		single_left_emitter.vis_flags = NONE
 		single_right_emitter.vis_flags = NONE
 		left_emitter.vis_flags = NONE
 		right_emitter.vis_flags = NONE
