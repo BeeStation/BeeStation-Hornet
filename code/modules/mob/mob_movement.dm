@@ -271,7 +271,7 @@
 			if(stepTurf)
 				var/obj/effect/decal/cleanable/food/salt/salt = locate() in stepTurf
 				if(salt)
-					to_chat(L, "<span class='warning'>[S] bars your passage!</span>")
+					to_chat(L, "<span class='warning'>[salt] bars your passage!</span>")
 					return
 				if(stepTurf.flags_1 & NOJAUNT_1)
 					if(!is_reebe(loccheck.z))
