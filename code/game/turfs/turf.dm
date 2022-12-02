@@ -252,6 +252,16 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			return 1
 	return 0
 
+/// Returns TRUE if the turf has none of any big objects (i.e. computer)
+/proc/is_occupied_turf(turf/T, exclude_mobs=TRUE)
+	if(is_blocked_turf(T, exclude_mobs)) // check walls first
+		return TRUE
+	for(var/obj/O in T)
+		if(O.layer >= BELOW_OPEN_DOOR_LAYER) // something big occupied the turf
+			return TRUE
+	return FALSE
+
+
 /proc/is_anchored_dense_turf(turf/T) //like the older version of the above, fails only if also anchored
 	if(T.density)
 		return 1
