@@ -253,11 +253,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	return 0
 
 /// Returns TRUE if the turf is occupied by a big object already (i.e. computer)
-/proc/is_occupied_turf(turf/T, exclude_mobs=TRUE)
+/proc/is_occupied_turf(turf/T, exclude_mobs=FALSE)
 	if(is_blocked_turf(T, exclude_mobs)) // check walls first
 		return TRUE
 	for(var/obj/O in T)
-		if(O.layer >= BELOW_OPEN_DOOR_LAYER) // something big occupied the turf
+		if(O.density) // something big occupied the turf
 			return TRUE
 	return FALSE
 

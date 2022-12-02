@@ -353,7 +353,7 @@
 			var/objective_turf = pick(floor_turfs)
 			var/split_loc = splittext(objective_turf, "_")
 			var/turf/T = locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z)
-			if(is_occupied_turf(T))
+			if(is_occupied_turf(T, TRUE))
 				continue
 			if(isspaceturf(T))
 				continue
