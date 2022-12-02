@@ -63,6 +63,12 @@ export const PersonalCrafting = (props, context) => {
       title="Crafting Menu"
       width={700}
       height={800}>
+      <style>
+        {`table, th, td {
+            vertical-align: middle;
+          }
+        `}
+      </style>
       <Window.Content scrollable>
         {!!busy && (
           <Dimmer fontSize="32px">
@@ -133,18 +139,17 @@ const CraftingList = (props, context) => {
         <LabeledList.Item
           key={craftable.name}
           label={(
-            <>
-              <Box verticalAlign="baseline">
-                <span
-                  className={classes([
-                    'crafting42x42',
-                    craftable.path,
-                  ])} />
-              </Box>
-              <Box verticalAlign="baseline">
-                {craftable.name}
-              </Box>
-            </>
+            <table>
+              <tr>
+                <td className={classes([
+                  'crafting42x42',
+                  craftable.path,
+                ])} />
+                <td>
+                  {craftable.name}
+                </td>
+              </tr>
+            </table>
           )}
           verticalAlign="middle"
           className="candystripe"
@@ -152,6 +157,7 @@ const CraftingList = (props, context) => {
             <Button
               icon="cog"
               content="Craft"
+              style={{ 'margin-top': '14px' }}
               disabled={!craftability[craftable.ref]}
               tooltip={craftable.tool_text && (
                 'Tools needed: ' + craftable.tool_text
@@ -171,18 +177,13 @@ const CraftingList = (props, context) => {
         key={craftable.name}
         title={
           <>
-            {craftable.img ? (
-              <img
-                src={`data:image/jpeg;base64,${craftable.img}`}
-                style={{
-                  'vertical-align': 'middle',
-                  'horizontal-align': 'middle',
-                }}
-              />
-            ) : null}
-            <span title={craftable.name}>
-              {craftable.name}
-            </span>
+            <span
+              style={{ 'margin-right': '2px' }}
+              className={classes([
+                'crafting42x42',
+                craftable.path,
+              ])} />
+            {craftable.name}
           </>
         }
         level={2}
@@ -190,6 +191,7 @@ const CraftingList = (props, context) => {
           <Button
             icon="cog"
             content="Craft"
+            style={{ 'margin-top': '14px' }}
             disabled={!craftability[craftable.ref]}
             onClick={() => act('make', {
               recipe: craftable.ref,

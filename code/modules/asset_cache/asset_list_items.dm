@@ -451,7 +451,7 @@
 
 		var/icon_states_list = icon_states(icon_file)
 		if(icon_state in icon_states_list)
-			I = icon(icon_file, icon_state, frame=1, dir=SOUTH)
+			I = icon(icon_file, icon_state, SOUTH, 1)
 			var/c = initial(A.color)
 			if (!isnull(c) && c != "#FFFFFF")
 				I.Blend(c, ICON_MULTIPLY)
