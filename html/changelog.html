@@ -56,6 +56,205 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">18 November 2022</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Moved some wiring on PubbyStation.</li>
+				<li class="tweak">Connected the tcomms SMES to the main power grid on PubbyStation</li>
+			</ul>
+			<h3 class="author">DoctorSquishy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Tweaked Experimentor linking range, so now BoxStation's Experimentor can detect the console.</li>
+			</ul>
+			<h3 class="author">PestoVerde322 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed the airlock painter/tile painter going invisible when it's empty</li>
+				<li class="bugfix">tweaked the launcher button</li>
+			</ul>
+			<h3 class="author">Tyranicranger4 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed disposals not properly sorting packages to the HoP office (BoxStation)</li>
+				<li class="bugfix">Fixed the AI satellites cameras not being on the 'minisat' network. (BoxStation)</li>
+				<li class="bugfix">Fixes discolored flooring in the CMO's office (BoxStation)</li>
+				<li class="bugfix">Fixed AI upload and northern bridge airlock windows not being shocked. (BoxStation)</li>
+				<li class="tweak">Slightly modified the contents of Tech Storage, Gateway, and EVA (BoxStation)</li>
+				<li class="tweak">Moved a single poorly placed light in Gateway and added an additional one to tech storage. (BoxStation)</li>
+				<li class="tweak">Moved the captain's medal box to a slightly less secure location. (BoxStation)</li>
+				<li class="rscadd">Added an intercom to the teleporter room and EVA (BoxStation)</li>
+				<li class="rscdel">Removed a duplicate air alarm outside gravity generator. (BoxStation)</li>
+				<li class="rscdel">Removed the central turret in AI upload (BoxStation)</li>
+			</ul>
+			<h3 class="author">benbot16 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">You don't hit minebots when trying to repair them at full health anymore.</li>
+			</ul>
+			<h3 class="author">dwasint updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">computers now glow again</li>
+			</ul>
+
+			<h2 class="date">17 November 2022</h2>
+			<h3 class="author">DragonTrance ported by mystery3525 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">added more species defines</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">bottles now show its names in vending machines</li>
+				<li class="refactor">the bank account system has been refactored</li>
+				<li class="code_imp">ACCOUNT defines now specifies full department name instead of shortened 3 letters.</li>
+				<li class="tweak">your mind remembers your bank account id rather than your body.</li>
+				<li class="bugfix">Cryo'ed people no longer siphons station budget. HoP payment console will be able to track if theirs are closed.</li>
+				<li class="rscadd">non-station budget "Space Nations Welfare"</li>
+				<li class="tweak">NEET quirk no longer siphons station budgets. You'll get welfare from Space Nations directly.</li>
+				<li class="rscadd">You can have multiple department active</li>
+				<li class="rscadd">You can now be paid from multiple departments. For now, geneticist will be paid from medical and R&D at the same time</li>
+				<li class="tweak">when a department failed to pay you, you will get them as bonus instead of losing the chance to be paid permanently.</li>
+				<li class="tweak">Heads console now shows full payment list of people for each corresponding department, and can set their paycheck. HoP console will show the full list, but will not allow you to edit theirs as long as you don't have the appropriate access to set theirs.</li>
+				<li class="tweak">HoP console can edit paycheck & department status when you manipulate their access</li>
+				<li class="rscadd">HoP console will automatically adjust a person's payment as a job's payment that you assign to the one.</li>
+				<li class="tweak">HoP console no longer allows you to adjust cryo'ed people's payment</li>
+				<li class="tweak">minor QoL improvement to HoP console UI.</li>
+				<li class="rscadd">HoP console now can open a new bank account in a cost of 1,000 credits in service budget</li>
+				<li class="tweak">vending machine now tracks your custom title</li>
+				<li class="rscadd">new negative station trait - united budget: your station budgets are united and all budget cards will be linked to that one.</li>
+				<li class="rscadd">admin only event - united budget setup: trigger the thing above</li>
+				<li class="rscadd">admin only event - united budget cancel: cancel the thing above</li>
+				<li class="code_imp">made is_nonstation_account() proc more better</li>
+				<li class="code_imp">refactored the horrible if logic in crate code</li>
+				<li class="bugfix">when a crate is ordered by a department budget, it now needs the corresponding budget card to tab it to be opened.</li>
+				<li class="tweak">cargo mails colour is based on job chat colour instead of department colour</li>
+				<li class="rscdel">bank account department lock feature is removed. It is no longer needed.</li>
+				<li class="rscdel">get_department_by_hud proc is removed. it is no longer needed.</li>
+				<li class="code_imp">Job code is a bit refactored for better readibility</li>
+				<li class="tweak">some events 'max_occurences = 0' which is actually only available to admin are now automatically labled with [Admin only] in admin event panel.</li>
+				<li class="tweak">Heads are now paid with 20 credits from Nanotrasen for each payday, and 80 credits for themselves from their own department. Command payment will be always paid regardless their budget is broke or not, but the rest 80 credits will not be so.</li>
+				<li class="bugfix">You no longer get the same bank account ID of someone who's spawned earlier than you at very low chance on your spawning.</li>
+				<li class="code_imp">added a minor failcheck at SSjob.GetJob related procs</li>
+				<li class="code_imp">added a new proc GetJobActiveDepartment(job name) for bank account management</li>
+				<li class="tweak">department assignment for crew manifest is now customisable from access manipulation console</li>
+				<li class="balance">all cartridges in HoP room are now 100 credits, and value PAK(captain's) is now 300 credits.</li>
+				<li class="rscadd">command role vendor free access.</li>
+				<li class="tweak">HoP room cartridge vendor now only accepts command role vendor free access rather than service bank type.</li>
+			</ul>
+			<h3 class="author">KathrinBailey updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="imageadd">New milkshake sprites</li>
+				<li class="rscadd">New milkshake flavors! Chocolate, salted caramel, strawberry, banana and vanilla! Made with the flavoring, milk and cream.</li>
+			</ul>
+			<h3 class="author">PestoVerde322 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added functional directional lighting. You can notice them with flashlights, hardsuit lamps, hardhats and the likes.</li>
+				<li class="code_imp">Opacity has been reworked. It's a non-trivial cost for the lighting system with little to no gain.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Refactored parallax background to use a subsystem for updates.</li>
+				<li class="balance">Telekenisis can now pick up closets with mobs inside them (The reason for this change is due to the code misusing an internal variable that no longer exists).</li>
+				<li class="balance">The flash can now blind (but can't stun) targets with basic flash protection.</li>
+				<li class="balance">The flash will now always apply knockdown, even on targets with no stamina damage. (For half a second minimum)</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Reverted directional lights.</li>
+			</ul>
+
+			<h2 class="date">16 November 2022</h2>
+			<h3 class="author">DrDuckedGoose updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Adds ``pumpkin_man`` species for Halloween</li>
+				<li class="imageadd">Adds ``pumkin_man`` limbs & respective sprites</li>
+			</ul>
+			<h3 class="author">WrillWasTaken updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Moved the bottom gas chambers on box atmos a little bit.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed some CI tooling not detecting issues properly.</li>
+				<li class="bugfix">Fixed a few double firelocks in ruins.</li>
+				<li class="bugfix">Fixed fire alarm and APC overlays poking through Z levels.</li>
+			</ul>
+
+			<h2 class="date">14 November 2022</h2>
+			<h3 class="author">Penwin0 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">fixes some harddels</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed a bluescreen in the admin player panel.</li>
+			</ul>
+
+			<h2 class="date">13 November 2022</h2>
+			<h3 class="author">Tyranicranger4 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added an extension to the Bridge acting as a sort of internal command hallway (BoxStation)</li>
+				<li class="tweak">Remapped the Bridge and general 'command' area (BoxStation)</li>
+				<li class="tweak">Remapped the HoP office/line (BoxStation)</li>
+				<li class="tweak">Remapped the Teleporter room (BoxStation)</li>
+				<li class="tweak">Remapped the Meeting room (BoxStation)</li>
+				<li class="tweak">Remapped the Captain's Quarters (BoxStation)</li>
+				<li class="tweak">Remapped and downsized EVA storage (BoxStation)</li>
+				<li class="tweak">Remapped some parts of maintenance around where the EVA Storage/Engineering construction areas used to be (BoxStation)</li>
+				<li class="tweak">Remapped tech storage (BoxStation)</li>
+				<li class="tweak">Moved the gravity generator to engineering and remapped the surrounding area (BoxStation)</li>
+				<li class="tweak">Moved the engineering SMES batteries and remapped the surrounding area (BoxStation)</li>
+				<li class="tweak">Moved and remapped the AI upload (BoxStation)</li>
+				<li class="tweak">Moved and remapped the gateway room (BoxStation)</li>
+				<li class="tweak">Moved the bottom atmospherics gas storage chambers down and to the left one tile (BoxStation)</li>
+				<li class="tweak">Filled in the small windows in the northern part of the main hall with grass (BoxStation)</li>
+				<li class="tweak">Changed the ID on the detectives office shutters (no more kanyewest shutters) (BoxStation)</li>
+				<li class="tweak">Changed numerous decals around, mostly around the places mentioned in the above changes (BoxStation)</li>
+				<li class="rscdel">Removed the engineering construction room (BoxStation)</li>
+				<li class="rscdel">Removed a generic event spawner inside of a wall in the bar (BoxStation)</li>
+				<li class="bugfix">Fixes random discolored cabling (BoxStation)</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Redesigned the admin player panel completely.</li>
+				<li class="tweak">Re-themed admin TGUIs.</li>
+				<li class="bugfix">Fixed tooltip related popper component lag in TGUI.</li>
+				<li class="bugfix">Fixed TGUIs with buttons in the titlebar having their drag box set incorrectly.</li>
+				<li class="tweak">Tweaked some antag HUD icons to fix a 9x9 pixel form factor.</li>
+				<li class="bugfix">Removed keyword lookups from msay.</li>
+			</ul>
+
+			<h2 class="date">12 November 2022</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed staffwho using "a" wrongly in the rank text.</li>
+				<li class="code_imp">Merged Staffwho and Mentorwho's code</li>
+			</ul>
+			<h3 class="author">Penwin0 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixes a small runtime</li>
+				<li class="rscdel">Removes a random empty piece of paper from corg bridge hallway</li>
+			</ul>
+			<h3 class="author">benbot16 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes primal lasso crafting and ash drake armor crafting for ashwalkers</li>
+			</ul>
+
+			<h2 class="date">11 November 2022</h2>
+			<h3 class="author">DrDuckedGoose updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Resprite floor.dm</li>
+				<li class="tweak">Resprite decals.dm - turf variant</li>
+				<li class="tweak">Changes hazard color in- disposal.dmi, shutters.dmi, catwalk.dmi</li>
+				<li class="rscadd">Add mapping-option tiles- Cafeteria-Dark, Cafeteria-Red, DarkBlueFull, SmartChecker</li>
+				<li class="tweak">Change mapping instances of bar floor with red decals to Cafeteria-Red - BoxStation & MetaStation</li>
+				<li class="tweak">Change regular tiles with decals to light-ish tiles with decals where necessary - MetaStation</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">round end report/credit will show your custom job titles</li>
+				<li class="rscadd">a new reagent container type - Chemical bag (max 200u). printable from ChemMaster. Currently, this does not have many usages - not drinkable, and not insertable into ChemMaster back.(but grindable) only usable for IV drip.</li>
+				<li class="tweak">blood packs are grindable</li>
+				<li class="code_imp">adds a bitflag that allows a grinder can grind a reagent container, and related proc 'is_grindable()'</li>
+				<li class="code_imp">new variable label_name that is used to display specific string without suffix like bottle, pill, patch</li>
+			</ul>
+
 			<h2 class="date">09 November 2022</h2>
 			<h3 class="author">benbot16 updated:</h3>
 			<ul class="changes bgimages16">
@@ -1149,102 +1348,6 @@
 			<h3 class="author">itsmeow updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">Martyr/hijack objectives spawn properly again.</li>
-			</ul>
-
-			<h2 class="date">16 September 2022</h2>
-			<h3 class="author">Tyranicranger4 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added gas ignitor setups to Box/Delta Xenobio</li>
-				<li class="spellcheck">fixed a single letter typo for heretics</li>
-			</ul>
-
-			<h2 class="date">14 September 2022</h2>
-			<h3 class="author">benbot16 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Mining cyborg plasma cutters no longer require wielding, meaning they no longer have scatter by default.</li>
-				<li class="bugfix">Fixes repairing cyborgs with plasma cutters</li>
-			</ul>
-			<h3 class="author">etherware-novice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">skate craft recepie spawns the item</li>
-				<li class="admin">nukes going off after round end no longer mutes ooc</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed the chrono-suit and eradication gun.</li>
-			</ul>
-			<h3 class="author">ro5490 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Depleted Uranium/Rad-proof Fulltile windows now cost 2 uranium to make instead of 10.</li>
-				<li class="tweak">Depleted Uranium/Rad-proof directional windows now cost 1 uranium to make instead of 5.</li>
-			</ul>
-
-			<h2 class="date">12 September 2022</h2>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">Clients without telemetry are denied access</li>
-			</ul>
-
-			<h2 class="date">11 September 2022</h2>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Improved dynamic's handling of midround execute() failure, and improved the code.</li>
-				<li class="admin">Added messages for if midrounds fail due to execute() failure, and list how much threat is refunded.</li>
-				<li class="server">Added more logging for dynamic execute() failure.</li>
-			</ul>
-
-			<h2 class="date">10 September 2022</h2>
-			<h3 class="author">13spacemen updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">The BYOND hub entry shows time and alert now</li>
-			</ul>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Made shield sattelite and shield system control crates always available for purchase</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">magic mirror no longer shows non-magical makeup selection window</li>
-			</ul>
-			<h3 class="author">LemonLimeSoda updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">slimepeople (including oozelings, jellypeople, etc) are no longer immune to/heal from zombie tumors</li>
-			</ul>
-			<h3 class="author">Sarchutar, Ryll-Ryll updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Shields for hardsuits (Syndie, CTF, Wizard etc) are now a component</li>
-				<li class="rscdel">Shielded Syndicate Hardsuits cannot have their shield color changed with a multitool anymore</li>
-			</ul>
-			<h3 class="author">The-Moon-Itself updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">The typecheck wiremod component now typecasts as well, and has been renamed accordingly</li>
-			</ul>
-			<h3 class="author">etherware-novice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">intercom overlay sprites</li>
-				<li class="tweak">Automated welcomer announces station name now</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Emagged and syndicate borgs can now self destruct from their management app.</li>
-				<li class="tweak">Syndicate and emagged borgs get their interface theme set to syndicate and properly recolored on the HUD.</li>
-				<li class="rscadd">Ghosts can now click on the Supermatter to see its monitoring info.</li>
-				<li class="rscadd">Added Incursion to dynamic.</li>
-			</ul>
-			<h3 class="author">ro5490 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Necro Summoned Undead are now able to cast a smoke spell, just like the chaplain himself!</li>
-				<li class="tweak">Necro Sect rites are now faster to perform and cost a bit less.</li>
-				<li class="tweak">Necro Sect gains favor a little easier</li>
-				<li class="bugfix">No more favor loss if the Neco Sect's Summon Undead rite fails.</li>
-				<li class="rscadd">Necro Sect now has a Create Lesser Lich rite which grants the new lesser lichdom spell</li>
-			</ul>
-
-			<h2 class="date">09 September 2022</h2>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Pirates will no longer ignore the fact that you paid them off.</li>
-				<li class="bugfix">Refusing to pay pirates will no longer still attempt to pay them off.</li>
 			</ul>
 		</div>
 

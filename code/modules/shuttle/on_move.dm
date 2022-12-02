@@ -150,8 +150,6 @@ All ShuttleMove procs go here
 	if(rotation)
 		shuttleRotate(rotation)
 
-	update_parallax_contents()
-
 	return TRUE
 
 /atom/movable/proc/lateShuttleMove(turf/oldT, list/movement_force, move_dir)

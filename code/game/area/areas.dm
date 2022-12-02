@@ -537,13 +537,13 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 			weather_icon = TRUE
 	if(!weather_icon)
 		icon_state = null
-
+	return ..()
 /**
   * Update the icon of the area (overridden to always be null for space
   */
 /area/space/update_icon_state()
 	icon_state = null
-
+	return ..()
 
 /**
   * Returns int 1 or 0 if the area has power for the given channel

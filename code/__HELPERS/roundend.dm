@@ -583,12 +583,40 @@
 		Trigger()
 		return
 
+///Returns a custom title for the roundend credit/report
+/proc/get_custom_title_from_id(datum/mind/mind, newline=FALSE)
+	if(!mind)
+		return
+
+	var/custom_title
+	var/obj/item/card/id/I = mind.current?.get_idcard()
+	if(I)
+		if(I.registered_name == mind.name) // card must be yours
+			custom_title = I.assignment // get the custom title
+		if(custom_title == mind.assigned_role) // non-custom title, lame
+			custom_title = null
+	if(!custom_title) // still no custom title? it seems you don't have a ID card
+		var/datum/data/record/R = find_record("name", mind.name, GLOB.data_core.general)
+		if(R)
+			custom_title = R.fields["rank"] // get a custom title from datacore
+		if(custom_title == mind.assigned_role) // lame...
+			return
+
+	if(custom_title)
+		return "[newline ? "<br/>" : " "](as [custom_title])" // i.e. " (as Plague Doctor)"
 
 /proc/printplayer(datum/mind/ply, fleecheck)
 	var/jobtext = ""
-	if(ply.assigned_role)
-		jobtext = " the <b>[ply.assigned_role]</b>"
-	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext] and"
+	if(ply.assigned_role || ply.special_role)
+		if(ply.assigned_role != "Unassigned")
+			jobtext = ply.assigned_role
+		if(!jobtext)
+			jobtext = ply.special_role
+		if(jobtext)
+			jobtext = " the <b>[jobtext]</b>"
+	var/jobtext_custom = get_custom_title_from_id(ply) // support the custom job title to the roundend report
+
+	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext][jobtext_custom] and"
 	if(ply.current)
 		if(ply.current.stat == DEAD)
 			text += " <span class='redtext'>died</span>"
