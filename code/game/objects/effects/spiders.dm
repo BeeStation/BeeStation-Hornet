@@ -100,6 +100,10 @@
 	else
 		to_chat(user, "<span class='warning'>[src] isn't ready yet!</span>")
 
+/obj/structure/spider/eggcluster/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	if(exposed_temperature > 500)
+		take_damage(5, BURN, 0, 0)
+
 /obj/structure/spider/eggcluster/Destroy()
 	GLOB.poi_list -= src
 	var/list/spawners = GLOB.mob_spawners[name]
