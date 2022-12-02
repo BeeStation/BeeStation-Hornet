@@ -19,8 +19,6 @@
 		switch(damage_type)
 			if(BURN)
 				damage_amount *= 2
-			if(BRUTE)
-				damage_amount *= 0.25
 	. = ..()
 
 /obj/structure/spider/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)

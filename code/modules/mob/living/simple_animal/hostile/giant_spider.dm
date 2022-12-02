@@ -310,6 +310,9 @@
 			return //we're already doing this, don't cancel out or anything
 		busy = SPINNING_COCOON
 		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>","<span class='notice'>You begin wrapping [cocoon_target] into a cocoon.</span>")
+		if(isliving(cocoon_target))
+			var/mob/living/M = cocoon_target
+			M.attacked_by(user = src)
 		stop_automated_movement = TRUE
 		SSmove_manager.stop_looping(src)
 		if(do_after(src, 50, target = cocoon_target))
