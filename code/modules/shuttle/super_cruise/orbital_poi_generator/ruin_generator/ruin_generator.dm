@@ -355,7 +355,7 @@
 			var/turf/T = locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z)
 			if(isspaceturf(T))
 				continue
-			if(is_occupied_turf(T, TRUE))
+			if(is_blocked_turf(T, FALSE))
 				continue
 			linked_objective.generate_objective_stuff(T)
 			break
