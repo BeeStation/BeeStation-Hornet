@@ -251,16 +251,28 @@
 		single_right_emitter.vis_locs -= known_user
 		left_emitter.vis_locs |= known_user
 		right_emitter.vis_locs |= known_user
-	if(new_dir == SOUTH || new_dir == EAST || new_dir == WEST)
+	if(new_dir == SOUTH)
 		single_left_emitter.layer = BELOW_MOB_LAYER
 		single_right_emitter.layer = BELOW_MOB_LAYER
 		left_emitter.layer = BELOW_MOB_LAYER
 		right_emitter.layer = BELOW_MOB_LAYER
-	if(new_dir == NORTH)
+		single_left_emitter.vis_flags = VIS_INHERIT_PLANE
+		single_right_emitter.vis_flags = VIS_INHERIT_PLANE
+		left_emitter.vis_flags = VIS_INHERIT_PLANE
+		right_emitter.vis_flags = VIS_INHERIT_PLANE
+	else
 		single_left_emitter.layer = ABOVE_MOB_LAYER
 		single_right_emitter.layer = ABOVE_MOB_LAYER
 		left_emitter.layer = ABOVE_MOB_LAYER
 		right_emitter.layer = ABOVE_MOB_LAYER
+		single_left_emitter.plane = ABOVE_LIGHTING_PLANE
+		single_right_emitter.plane = ABOVE_LIGHTING_PLANE
+		left_emitter.plane = ABOVE_LIGHTING_PLANE
+		right_emitter.plane = ABOVE_LIGHTING_PLANE
+			single_left_emitter.vis_flags = NONE
+		single_right_emitter.vis_flags = NONE
+		left_emitter.vis_flags = NONE
+		right_emitter.vis_flags = NONE
 
 /obj/item/tank/jetpack/combustion/proc/update_particle_counts(amount)
 	single_left_emitter.particles.count = amount * 2
@@ -303,7 +315,7 @@
 		update_particle_counts(on ? 100 : 0)
 	// tilt animation
 	else if(known_user.dir == EAST || known_user.dir == WEST)
-		var/matrix/M = matrix(known_user.transform)
+		var/matrix/M = matrix()
 		M.Turn(known_user.dir == EAST ? 15 : -15)
 		if(tilt_timer)
 			deltimer(tilt_timer)

@@ -10,7 +10,8 @@
 
 /obj/emitter/fire_jet
 	alpha = 225
-	plane = ABOVE_LIGHTING_LAYER
+	plane = ABOVE_LIGHTING_PLANE
+	layer = ABOVE_MOB_LAYER
 	vis_flags = NONE
 
 /obj/emitter/fire_jet/Initialize(mapload)
