@@ -254,6 +254,7 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	tastes = list("\"chicken\"" = 1)
 	foodtype = MEAT
+	reference_icon_state = "nugget_lizard"
 
 /obj/item/reagent_containers/food/snacks/nugget/Initialize(mapload)
 	. = ..()

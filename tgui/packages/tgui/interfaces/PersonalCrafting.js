@@ -1,5 +1,6 @@
 import { useBackend, useLocalState } from '../backend';
-import { Button, Dimmer, Flex, Icon, LabeledList, Section, Tabs } from '../components';
+import { classes } from 'common/react';
+import { Button, Dimmer, Flex, Icon, LabeledList, Section, Tabs, Box } from '../components';
 import { Window } from '../layouts';
 
 export const PersonalCrafting = (props, context) => {
@@ -131,22 +132,21 @@ const CraftingList = (props, context) => {
       return (
         <LabeledList.Item
           key={craftable.name}
-          label={
+          label={(
             <>
-              {craftable.img ? (
-                <img
-                  src={`data:image/jpeg;base64,${craftable.img}`}
-                  style={{
-                    'vertical-align': 'middle',
-                    'horizontal-align': 'middle',
-                  }}
-                />
-              ) : null}
-              <span title={craftable.name}>
+              <Box verticalAlign="baseline">
+                <span
+                  className={classes([
+                    'crafting42x42',
+                    craftable.path,
+                  ])} />
+              </Box>
+              <Box verticalAlign="baseline">
                 {craftable.name}
-              </span>
+              </Box>
             </>
-          }
+          )}
+          verticalAlign="middle"
           className="candystripe"
           buttons={(
             <Button

@@ -437,22 +437,22 @@
 
 /datum/asset/spritesheet/crafting/register()
 	for(var/datum/crafting_recipe/R in GLOB.crafting_recipes)
-		var/atom/item = R.result
-		if(!ispath(I, /atom))
+		var/atom/A = R.result
+		if(!ispath(A, /atom))
 			continue
 
 		var/icon_file
-		if (initial(item.greyscale_colors) && initial(item.greyscale_config))
-			icon_file = SSgreyscale.GetColoredIconByType(initial(item.greyscale_config), initial(item.greyscale_colors))
+		if (initial(A.greyscale_colors) && initial(A.greyscale_config))
+			icon_file = SSgreyscale.GetColoredIconByType(initial(A.greyscale_config), initial(A.greyscale_colors))
 		else
-			icon_file = initial(item.icon)
-		var/icon_state = initial(item.icon_state)
+			icon_file = initial(A.icon)
+		var/icon_state = initial(A.reference_icon_state) || initial(A.icon_state)
 		var/icon/I
 
 		var/icon_states_list = icon_states(icon_file)
 		if(icon_state in icon_states_list)
-			I = icon(icon_file, icon_state, SOUTH)
-			var/c = initial(item.color)
+			I = icon(icon_file, icon_state, frame=1, dir=SOUTH)
+			var/c = initial(A.color)
 			if (!isnull(c) && c != "#FFFFFF")
 				I.Blend(c, ICON_MULTIPLY)
 		else
@@ -462,11 +462,14 @@
 					icon_states_string = "[json_encode(an_icon_state)](\ref[an_icon_state])"
 				else
 					icon_states_string += ", [json_encode(an_icon_state)](\ref[an_icon_state])"
-			stack_trace("[item] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)](\ref[icon_state]), icon_states=[icon_states_string]")
+			stack_trace("[A] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)](\ref[icon_state]), icon_states=[icon_states_string]")
 			I = icon('icons/turf/floors.dmi', "", SOUTH)
+		var/imgid = replacetext(copytext("[A]", 2), "/", "-")
 
-		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
-
+		if(sprites[imgid])
+			continue
+		if(I)
+			I.Scale(42, 42)
 		Insert(imgid, I)
 	return ..()
 
