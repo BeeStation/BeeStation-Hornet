@@ -360,6 +360,7 @@
 			linked_objective.generate_objective_stuff(T)
 			break
 		if(!obj_sanity)
+			stack_trace("ruin generator failed to find a non-blocked turf to spawn an object")
 			var/objective_turf = pick(floor_turfs)
 			var/split_loc = splittext(objective_turf, "_")
 			var/turf/T = locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z)
