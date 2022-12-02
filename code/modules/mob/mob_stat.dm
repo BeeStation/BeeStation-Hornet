@@ -168,6 +168,8 @@
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
 			tab_data[ETA] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
+	if(SSticker.admin_delay_notice)
+		tab_data["delayed"] = GENERATE_STAT_TEXT("Server reboot is delayed: [SSticker.admin_delay_notice]")
 	return tab_data
 
 /mob/proc/get_stat_tab_master_controller()
