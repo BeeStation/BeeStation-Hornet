@@ -377,7 +377,7 @@
 	maxHealth = 70
 	health = 70
 	melee_damage = 15
-	poison_per_bite = 8
+	poison_per_bite = 5
 	move_to_delay = 3
 	speed = 0
 
