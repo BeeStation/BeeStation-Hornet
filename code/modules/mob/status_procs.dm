@@ -21,14 +21,14 @@
 
 /////////////////////////////////// EYE_BLIND ////////////////////////////////////
 
-/mob/proc/blind_eyes(amount)
+/mob/proc/blind_eyes(amount, atom/movable/screen/fullscreen/type = /atom/movable/screen/fullscreen/blind)
 	if(amount>0)
 		var/old_eye_blind = eye_blind
 		eye_blind = max(eye_blind, amount)
 		if(!old_eye_blind)
 			if(stat == CONSCIOUS || stat == SOFT_CRIT)
 				throw_alert("blind", /atom/movable/screen/alert/blind)
-			overlay_fullscreen("blind", /atom/movable/screen/fullscreen/blind)
+			overlay_fullscreen("blind", type)
 
 /**
   * Adjust a mobs blindness by an amount

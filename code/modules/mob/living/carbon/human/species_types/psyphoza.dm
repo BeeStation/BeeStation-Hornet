@@ -44,10 +44,17 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	/obj/machinery/camera, /obj/machinery/atmospherics, /obj/structure/cable, /obj/structure/sign, /obj/machinery/airalarm, 
 	/obj/structure/disposalpipe, /atom/movable/lighting_object, /obj/machinery/power/apc, /obj/machinery/atmospherics/pipe,
 	/obj/item/radio/intercom, /obj/machinery/navbeacon, /obj/structure/extinguisher_cabinet, /obj/machinery/power/terminal,
-	/obj/machinery/holopad, /obj/machinery/status_display, /obj/machinery/ai_slipper))
+	/obj/machinery/holopad, /obj/machinery/status_display, /obj/machinery/ai_slipper, /obj/structure/lattice, /obj/effect/decal,
+	/obj/structure/table, /obj/machinery/gateway, /obj/structure/rack, /obj/machinery/newscaster, /obj/structure/sink, /obj/machinery/shower,
+	/obj/machinery/advanced_airlock_controller))
 
 /datum/action/item_action/organ_action/psychic_highlight/Trigger()
 	. = ..()
+	//Dull psychic blind shield
+	var/atom/movable/screen/fullscreen/blind/psychic/P = locate (/atom/movable/screen/fullscreen/blind/psychic) in owner.client?.screen
+	if(P)
+		P.color = "#000"
+		animate(P, color = "#fff", time = sense_time+1 SECONDS, easing = CIRCULAR_EASING)
 	//Get nearby 'things'
 	var/list/nearby = orange(sense_range, get_turf(src))
 	//Go through the list and render whitelisted types
@@ -55,20 +62,23 @@ GLOBAL_LIST_EMPTY(psychic_images)
 		//Check typecache
 		if(is_type_in_typecache(C, sense_blacklist))
 			continue
-		//Pull icon from pre-gen 
+		//Pull icon from pre-gen, if it exists
 		var/icon/I = GLOB.psychic_images["[C.type][C.icon_state]"]
-		//Build image if it doesn't exist
+		//Build icon if it doesn't exist
 		if(!I)
-			//Setup image base
-			I = icon('icons/mob/psychic.dmi', "psychic")
-			var/icon/mask = icon(C.icon_state == "" ? 'icons/mob/psychic.dmi' : C.icon, C.icon_state == "" ? "unknown" : C.icon_state, C.dir)
+			I = icon('icons/mob/psychic.dmi', "texture")
+			var/icon/mask = icon(C.icon, C.icon_state, C.dir)
+			if(C.icon_state == "")
+				var/state = isliving(C) ? "mob" : "unknown"
+				mask = icon('icons/mob/psychic.dmi', state, C.dir)
 			I.AddAlphaMask(mask)
 			GLOB.psychic_images += list("[C.type][C.icon_state]" = icon(I))
 		//Setup display image
 		var/image/M = image(I, get_turf(C), layer = BLIND_LAYER+1, pixel_x = C.pixel_x, pixel_y = C.pixel_y)
 		M.plane = FULLSCREEN_PLANE+1
+		M.filters += filter(type = "bloom", size = 3, threshold = rgb(85,85,85))
 		//Animate fade & delete
-		animate(M, alpha = 0, time = sense_time)
+		animate(M, alpha = 0, time = sense_time, easing = CIRCULAR_EASING)
 		addtimer(CALLBACK(src, .proc/handle_image, M), sense_time)
 		//Add image to client
 		owner.client.images += M
@@ -76,3 +86,8 @@ GLOBAL_LIST_EMPTY(psychic_images)
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_image(image/image_ref)
 	owner.client.images -= image_ref
 	qdel(image_ref)
+
+/mob/living/proc/become_psychic_blind(source)
+	if(!HAS_TRAIT(src, TRAIT_BLIND))
+		blind_eyes(1, /atom/movable/screen/fullscreen/blind/psychic)
+	ADD_TRAIT(src, TRAIT_BLIND, source)
