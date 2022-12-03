@@ -19,7 +19,7 @@
 	desc = "The first three prototypes were discontinued after mass casualty incidents."
 	icon_state = "disco"
 	req_access = null
-	req_one_access = list(ACCESS_HEADS, ACCESS_THEATRE) // you need one of these
+	req_one_access = list(ACCESS_HEADS, ACCESS_THEATRE, ACCESS_BAR) // you need one of these
 	anchored = FALSE
 	var/list/spotlights = list()
 	var/list/sparkles = list()
