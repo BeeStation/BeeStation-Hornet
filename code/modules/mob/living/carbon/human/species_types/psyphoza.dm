@@ -52,7 +52,8 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	/obj/item/radio/intercom, /obj/machinery/navbeacon, /obj/structure/extinguisher_cabinet, /obj/machinery/power/terminal,
 	/obj/machinery/holopad, /obj/machinery/status_display, /obj/machinery/ai_slipper, /obj/structure/lattice, /obj/effect/decal,
 	/obj/structure/table, /obj/machinery/gateway, /obj/structure/rack, /obj/machinery/newscaster, /obj/structure/sink, /obj/machinery/shower,
-	/obj/machinery/advanced_airlock_controller, /obj/machinery/computer/security/telescreen, /obj/structure/grille, /obj/machinery/light_switch ))
+	/obj/machinery/advanced_airlock_controller, /obj/machinery/computer/security/telescreen, /obj/structure/grille, /obj/machinery/light_switch,
+	/obj/structure/noticeboard, /area))
 
 /datum/action/item_action/organ_action/psychic_highlight/Grant(mob/M)
 	. = ..()
@@ -72,6 +73,7 @@ GLOBAL_LIST_EMPTY(psychic_images)
 		animate(P, color = "#fff", time = sense_time+1 SECONDS, easing = CIRCULAR_EASING)
 	//Get nearby 'things'
 	var/list/nearby = orange(size, T)
+	nearby -= owner
 	//Go through the list and render whitelisted types
 	for(var/atom/C as() in nearby)
 		//Check typecache
@@ -88,18 +90,18 @@ GLOBAL_LIST_EMPTY(psychic_images)
 		I = icon('icons/mob/psychic.dmi', "texture")
 		var/icon/mask = icon(target.icon, target.icon_state, target.dir)
 		if(target.icon_state == "")
-			var/state = ismob(target) ? "mob" : "unknown"
+			var/state = isliving(target) ? "mob" : "unknown"
 			mask = icon('icons/mob/psychic.dmi', state)
 		I.AddAlphaMask(mask)
 		GLOB.psychic_images += list("[target.type][target.icon_state]" = icon(I))
 	//Setup display image
 	var/image/M = image(I, target, layer = BLIND_LAYER+1, pixel_x = target.pixel_x, pixel_y = target.pixel_y)
 	M.plane = FULLSCREEN_PLANE+1
-	M.filters += filter(type = "bloom", size = 3, threshold = rgb(85,85,85))
+	//M.filters += filter(type = "bloom", size = 3, threshold = rgb(85,85,85))
 	M.override = 1
 	M.name = "???"
 	//Animate fade & delete
-	animate(M, alpha = 0, time = sense_time, easing = CIRCULAR_EASING)
+	animate(M, alpha = 0, time = sense_time)
 	addtimer(CALLBACK(src, .proc/handle_image, M), sense_time)
 	//Add image to client
 	owner.client.images += M
