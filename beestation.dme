@@ -2999,6 +2999,7 @@
 #include "code\modules\mob\living\carbon\human\species_types\oozelings.dm"
 #include "code\modules\mob\living\carbon\human\species_types\plasmamen.dm"
 #include "code\modules\mob\living\carbon\human\species_types\podpeople.dm"
+#include "code\modules\mob\living\carbon\human\species_types\psyphoza.dm"
 #include "code\modules\mob\living\carbon\human\species_types\pumpkin_man.dm"
 #include "code\modules\mob\living\carbon\human\species_types\shadowpeople.dm"
 #include "code\modules\mob\living\carbon\human\species_types\skeletons.dm"
