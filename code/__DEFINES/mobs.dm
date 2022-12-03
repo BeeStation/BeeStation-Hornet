@@ -114,6 +114,7 @@
 #define SPECIES_SNAILPERSON "snail"
 #define SPECIES_SUPERSOILDER "supersoldier"
 #define SPECIES_VAMPIRE "vampire"
+#define SPECIES_PSYPHOZA "psyphoza"
 
 //Defines for Golem Species IDs
 #define SPECIES_GOLEM_ADAMANTINE "adamantine_golem"
