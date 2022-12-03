@@ -1279,3 +1279,6 @@
 
 /mob/living/carbon/human/species/pumpkin_man
 	race = /datum/species/pod/pumpkin_man
+
+/mob/living/carbon/human/species/psyphoza
+	race = /datum/species/psyphoza

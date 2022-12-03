@@ -405,3 +405,14 @@
 	name = "apid eyes"
 	desc = "Designed for navigating dark hives, these eyes have improvement to low light vision."
 	see_in_dark = 8
+
+/obj/item/organ/eyes/psyphoza
+	name = "psyphoza eyes"
+	desc = "Practically useless, an artifact of evolution."
+	sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
+
+/obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, initialising)
+	. = ..()
+	if(istype(M))
+		M.become_blind("NoCure")
+
