@@ -1,0 +1,4 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - rscadd: Server reboot delay reason will be notified in Status Tab
