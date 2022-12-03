@@ -357,6 +357,15 @@
 					/obj/item/clothing/head/fedora/det_hat)
 	crate_name = "forensics crate"
 
+/datum/supply_pack/security/revolver
+	name = "Revolver Crate"
+	desc = "Did you loose your gun? Previous detective vanished? Or you just belive two guns is better than one gun? Doesn't matter as long as you pay. Contains a classic Colt Detective Special with even more stylish weapon holster."
+	cost = 1200
+	access_budget = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
+	contains = list(/obj/item/gun/ballistic/revolver/detective,
+					/obj/item/clothing/accessory/holster)
+	crate_name = "revolver crate"
+
 /datum/supply_pack/security/dumdum
 	name = ".38 DumDum Speedloader"
 	desc = "Contains one speedloader of .38 DumDum ammunition, good for embedding in soft targets. Requires Security or Forensics access to open."
@@ -775,7 +784,7 @@
 
 /datum/supply_pack/security/armory/wt550
 	name = "WT-550 Auto Rifle Crate"
-	desc = "Contains two high-powered, semiautomatic rifles chambered in 4.6x30mm. Requires Armory access to open."
+	desc = "Contains three high-powered, semiautomatic rifles chambered in 4.6x30mm. Requires Armory access to open."
 	cost = 3280 //20%
 	contains = list(/obj/item/gun/ballistic/automatic/wt550,
 					/obj/item/gun/ballistic/automatic/wt550,
