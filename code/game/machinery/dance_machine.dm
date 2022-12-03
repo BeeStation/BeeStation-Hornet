@@ -18,7 +18,7 @@
 	name = "radiant dance machine mark IV"
 	desc = "The first three prototypes were discontinued after mass casualty incidents."
 	icon_state = "disco"
-	req_access = list(ACCESS_ENGINE)
+	req_access = list(ACCESS_HEADS, ACCESS_THEATRE)
 	anchored = FALSE
 	var/list/spotlights = list()
 	var/list/sparkles = list()
