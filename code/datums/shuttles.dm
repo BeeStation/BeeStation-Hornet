@@ -80,12 +80,16 @@
 	keep_cached_map = initial(keep_cached_map)
 	if(!.)
 		message_admins("ERROR CODE 1: SOMETHING IS HORRIBLY WRONG, PING POWERFULBACON ON DISCORD!")
+		log_game("PowerfulBacon Error: 1")
 		if (parsed == null)
 			message_admins("ERROR CODE 1a: SOMETHING IS HORRIBLY WRONG, PING POWERFULBACON ON DISCORD!")
+			log_game("PowerfulBacon Error: 1A")
 		if (length(turfs) == 0)
 			message_admins("ERROR CODE 1b: SOMETHING IS HORRIBLY WRONG, PING POWERFULBACON ON DISCORD!")
+			log_game("PowerfulBacon Error: 1B")
 		if (cached_map.gridSets == null)
 			message_admins("ERROR CODE 1c: SOMETHING IS HORRIBLY WRONG, PING POWERFULBACON ON DISCORD!")
+			log_game("PowerfulBacon Error: 1C")
 		return
 	var/obj/docking_port/mobile/my_port
 	for(var/turf/place in turfs)
@@ -124,12 +128,16 @@
 	//Debugging
 	if (length(turfs) == 0)
 		message_admins("ERROR CODE 2: SOMETHING IS HORRIBLY WRONG, PING POWERFULBACON ON DISCORD!")
+			log_game("PowerfulBacon Error: 2")
 		if (parsed == null)
 			message_admins("ERROR CODE 2a: SOMETHING IS HORRIBLY WRONG, PING POWERFULBACON ON DISCORD!")
+			log_game("PowerfulBacon Error: 2A")
 		if (length(turfs) == 0)
 			message_admins("ERROR CODE 2b: SOMETHING IS HORRIBLY WRONG, PING POWERFULBACON ON DISCORD!")
+			log_game("PowerfulBacon Error: 2B")
 		if (cached_map.gridSets == null)
 			message_admins("ERROR CODE 2c: SOMETHING IS HORRIBLY WRONG, PING POWERFULBACON ON DISCORD!")
+			log_game("PowerfulBacon Error: 2C")
 
 	for(var/turf/shuttle_turf in turfs)
 		var/area/shuttle/turf_loc = turfs[shuttle_turf]
