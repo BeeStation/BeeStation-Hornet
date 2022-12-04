@@ -2,6 +2,8 @@
 	var/steps = 0
 	var/volume
 	var/e_range
+	var/icon/icon = 'icons/mob/psychic.dmi'
+	var/icon_state = "footstep"
 
 /datum/component/footstep/Initialize(volume_ = 0.5, e_range_ = -1)
 	if(!isliving(parent))

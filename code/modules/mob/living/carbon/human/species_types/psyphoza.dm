@@ -70,10 +70,12 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	. = ..()
 	//Register signal for TK highlights
 	RegisterSignal(M, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, .proc/handle_tk)
+	/*
 	//Register signal for sensing voices
 	RegisterSignal(SSdcs, COMSIG_GLOB_LIVING_SAY_SPECIAL, .proc/handle_hear)
 	//Register signal for sensing sounds
 	RegisterSignal(SSdcs, COMSIG_GLOB_SOUND_PLAYED, .proc/handle_hear)
+	*/
 
 /datum/action/item_action/organ_action/psychic_highlight/Trigger()
 	. = ..()
@@ -121,14 +123,13 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	if(!I)
 		I = icon('icons/mob/psychic.dmi', "texture")
 		//If we've hit the cache limit, don't push our luck - Let me know if this cracks preformance
-		if(GLOB.psychic_images.len >= MAX_PSYCHIC_ICON_CACHE)
-			return
-		var/icon/mask = icon(target.icon, target.icon_state, target.dir)
-		if(target.icon_state == "")
-			var/state = (isliving(target) ? "mob" : "unknown")
-			mask = icon('icons/mob/psychic.dmi', state)
-		I.AddAlphaMask(mask)
-		GLOB.psychic_images += list("[target.type][target.icon_state]" = icon(I))
+		if(GLOB.psychic_images.len < MAX_PSYCHIC_ICON_CACHE)
+			var/icon/mask = icon(target.icon, target.icon_state, target.dir)
+			if(target.icon_state == "")
+				var/state = (isliving(target) ? "mob" : "unknown")
+				mask = icon('icons/mob/psychic.dmi', state)
+			I.AddAlphaMask(mask)
+			GLOB.psychic_images += list("[target.type][target.icon_state]" = icon(I))
 	//Setup display image
 	var/image/M = image(I, target, layer = BLIND_LAYER+1, pixel_x = target.pixel_x, pixel_y = target.pixel_y)
 	M.plane = FULLSCREEN_PLANE+1
@@ -137,14 +138,16 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	M.name = "???"
 	M.color = rgb(255,0,0)
 	//Animate fade & delete
-	animate(M, alpha = 0, time = sense_time, easing = QUAD_EASING, flags = EASE_IN)
-	animate(M, color = rgb(0,0,255), time = sense_time+1, easing = QUAD_EASING, flags = EASE_IN)
+	animate(M, alpha = 0, time = sense_time + 1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
+	animate(M, color = rgb(0,0,255), time = sense_time + 1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
 	addtimer(CALLBACK(src, .proc/handle_image, M), sense_time)
 	//Add image to client
 	owner.client.images += M
 
 //Handle clicking for ranged trigger
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_tk(datum/source, atom/target)
+	SIGNAL_HANDLER
+
 	if(has_cooldown_timer)
 		return
 	var/turf/T = get_turf(target)
@@ -155,6 +158,8 @@ GLOBAL_LIST_EMPTY(psychic_images)
 
 //Handle images deleting, stops hardel
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_image(image/image_ref)
+	SIGNAL_HANDLER
+
 	owner.client.images -= image_ref
 	qdel(image_ref)
 	if(!owner.client.images.len)
@@ -163,7 +168,9 @@ GLOBAL_LIST_EMPTY(psychic_images)
 
 //Handle pinging from noise
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_hear(datum/source, atom/speaker, message)
-	if(speaker == owner)
+	SIGNAL_HANDLER
+
+	if(owner == speaker)
 		return
 	var/turf/T = get_turf(speaker)
 	if(get_dist(get_turf(owner), T) <= hear_range)

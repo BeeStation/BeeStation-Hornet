@@ -420,10 +420,16 @@
 	REMOVE_TRAIT(src, TRAIT_BLIND, source)
 	if(!HAS_TRAIT(src, TRAIT_BLIND))
 		adjust_blindness(-1)
+		//Remove blind sense
+		var/datum/component/blind_sense/B = locate(/datum/component/blind_sense) in comp_lookup
+		qdel(B)
 
-/mob/living/proc/become_blind(source, /atom/movable/screen/fullscreen/overlay)
+/mob/living/proc/become_blind(source, atom/movable/screen/fullscreen/overlay, add_blind_sense = TRUE)
 	if(!HAS_TRAIT(src, TRAIT_BLIND))
-		blind_eyes(1, overylay)
+		blind_eyes(1, overlay)
+		//Add blind sense
+		if(add_blind_sense)
+			AddComponent(/datum/component/blind_sense)
 	ADD_TRAIT(src, TRAIT_BLIND, source)
 
 /mob/living/proc/cure_nearsighted(source)
