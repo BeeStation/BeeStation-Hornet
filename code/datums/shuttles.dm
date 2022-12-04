@@ -128,7 +128,7 @@
 	//Debugging
 	if (length(turfs) == 0)
 		message_admins("ERROR CODE 2: SOMETHING IS HORRIBLY WRONG, PING POWERFULBACON ON DISCORD!")
-			log_game("PowerfulBacon Error: 2")
+		log_game("PowerfulBacon Error: 2")
 		if (parsed == null)
 			message_admins("ERROR CODE 2a: SOMETHING IS HORRIBLY WRONG, PING POWERFULBACON ON DISCORD!")
 			log_game("PowerfulBacon Error: 2A")
