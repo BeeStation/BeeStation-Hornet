@@ -1,0 +1,4 @@
+author: itsmeow
+delete-after: true
+changes:
+  - config: Set the gamemode permanently to Dynamic. No other gamemodes in rotation.
