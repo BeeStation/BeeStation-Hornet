@@ -64,7 +64,7 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	/obj/structure/table, /obj/machinery/gateway, /obj/structure/rack, /obj/machinery/newscaster, /obj/structure/sink, /obj/machinery/shower,
 	/obj/machinery/advanced_airlock_controller, /obj/machinery/computer/security/telescreen, /obj/structure/grille, /obj/machinery/light_switch,
 	/obj/structure/noticeboard, /area, /obj/item/storage/secure/safe, /obj/machinery/requests_console, /obj/item/storage/backpack/satchel/flat,
-	/obj/effect/countdown))
+	/obj/effect/countdown, /obj/machinery/button))
 
 /datum/action/item_action/organ_action/psychic_highlight/Grant(mob/M)
 	. = ..()
@@ -90,7 +90,7 @@ GLOBAL_LIST_EMPTY(psychic_images)
 //Allows user to see images through walls
 /datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes()
 	//Grab eyes
-	if(istype(owner, /mob/living/carbon/human))
+	if(!eyes && istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/M = owner
 		eyes = locate(/obj/item/organ/eyes) in M.internal_organs
 		sight_flags = eyes?.sight_flags
@@ -131,8 +131,8 @@ GLOBAL_LIST_EMPTY(psychic_images)
 		I = icon('icons/mob/psychic.dmi', "texture")
 		//If we've hit the cache limit, don't push our luck - Let me know if this cracks preformance
 		if(GLOB.psychic_images.len < MAX_PSYCHIC_ICON_CACHE)
-			var/icon/mask = icon(target.icon, target.icon_state, target.dir)
-			if(target.icon_state == "")
+			var/icon/mask = icon(target.icon, (target.icon_state || initial(target.icon_state)), target.dir)
+			if(target.icon_state == "" && initial(target.icon_state) == "")
 				var/state = (isliving(target) ? "mob" : "unknown")
 				mask = icon('icons/mob/psychic.dmi', state)
 			I.AddAlphaMask(mask)
@@ -163,12 +163,12 @@ GLOBAL_LIST_EMPTY(psychic_images)
 		has_cooldown_timer = TRUE
 		addtimer(CALLBACK(src, .proc/finish_cooldown), cooldown/2)
 
-//Handle images deleting, stops hardel
+//Handle images deleting, stops hardel - also does eyes stuff
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_image(image/image_ref)
 	SIGNAL_HANDLER
-
-	owner.client.images -= image_ref
-	qdel(image_ref)
+	if(image_ref)
+		owner.client.images -= image_ref
+		qdel(image_ref)
 	if(!owner.client.images.len)
 		eyes?.sight_flags = sight_flags
 		owner.update_sight()
@@ -176,7 +176,11 @@ GLOBAL_LIST_EMPTY(psychic_images)
 //Dim blind overlay for blind_sense component
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_hear(datum/source, atom/speaker, message)
 	SIGNAL_HANDLER
-	
-	dim_overlay()
+
+	var/dist = get_dist(get_turf(owner), get_turf(speaker))
+	if(dist <= hear_range && dist > 1)
+		dim_overlay()
+		toggle_eyes()
+		addtimer(CALLBACK(src, .proc/handle_image), sense_time)
 
 #undef MAX_PSYCHIC_ICON_CACHE
