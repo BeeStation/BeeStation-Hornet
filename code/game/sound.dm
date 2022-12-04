@@ -80,6 +80,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 			hearers += listening_mob
 	return hearers
 
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SOUND_PLAYED, source, soundin)
+
 /*! playsound
 
 playsound_local is a proc used to play a sound directly on a mob from a specific turf.

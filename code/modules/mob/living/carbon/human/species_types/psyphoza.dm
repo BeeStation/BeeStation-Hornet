@@ -40,6 +40,8 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	desc = "Sense your surroundings psychically."
 	///The distant our psychic sense works
 	var/sense_range = 5
+	///The range we can hear-ping things from
+	var/hear_range = 9
 	///List of things we can't sense
 	var/list/sense_blacklist
 	///The amount of time you can sense things for
@@ -61,12 +63,17 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	/obj/machinery/holopad, /obj/machinery/status_display, /obj/machinery/ai_slipper, /obj/structure/lattice, /obj/effect/decal,
 	/obj/structure/table, /obj/machinery/gateway, /obj/structure/rack, /obj/machinery/newscaster, /obj/structure/sink, /obj/machinery/shower,
 	/obj/machinery/advanced_airlock_controller, /obj/machinery/computer/security/telescreen, /obj/structure/grille, /obj/machinery/light_switch,
-	/obj/structure/noticeboard, /area, /obj/item/storage/secure/safe, /obj/machinery/requests_console, /obj/item/storage/backpack/satchel/flat))
+	/obj/structure/noticeboard, /area, /obj/item/storage/secure/safe, /obj/machinery/requests_console, /obj/item/storage/backpack/satchel/flat,
+	/obj/effect/countdown))
 
 /datum/action/item_action/organ_action/psychic_highlight/Grant(mob/M)
 	. = ..()
 	//Register signal for TK highlights
 	RegisterSignal(M, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, .proc/handle_tk)
+	//Register signal for sensing voices
+	RegisterSignal(SSdcs, COMSIG_GLOB_LIVING_SAY_SPECIAL, .proc/handle_hear)
+	//Register signal for sensing sounds
+	RegisterSignal(SSdcs, COMSIG_GLOB_SOUND_PLAYED, .proc/handle_hear)
 
 /datum/action/item_action/organ_action/psychic_highlight/Trigger()
 	. = ..()
@@ -79,6 +86,7 @@ GLOBAL_LIST_EMPTY(psychic_images)
 /datum/action/item_action/organ_action/psychic_highlight/proc/finish_cooldown()
 	has_cooldown_timer = FALSE
 
+//Get a list of nearby things & handle some visuals
 /datum/action/item_action/organ_action/psychic_highlight/proc/ping_turf(turf/T, size = sense_range)
 	//Grab eyes
 	if(istype(owner, /mob/living/carbon/human))
@@ -127,12 +135,15 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	M.filters += filter(type = "bloom", size = 3, threshold = rgb(85,85,85))
 	M.override = 1
 	M.name = "???"
+	M.color = rgb(255,0,0)
 	//Animate fade & delete
 	animate(M, alpha = 0, time = sense_time, easing = QUAD_EASING, flags = EASE_IN)
+	animate(M, color = rgb(0,0,255), time = sense_time+1, easing = QUAD_EASING, flags = EASE_IN)
 	addtimer(CALLBACK(src, .proc/handle_image, M), sense_time)
 	//Add image to client
 	owner.client.images += M
 
+//Handle clicking for ranged trigger
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_tk(datum/source, atom/target)
 	if(has_cooldown_timer)
 		return
@@ -142,6 +153,7 @@ GLOBAL_LIST_EMPTY(psychic_images)
 		has_cooldown_timer = TRUE
 		addtimer(CALLBACK(src, .proc/finish_cooldown), cooldown/2)
 
+//Handle images deleting, stops hardel
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_image(image/image_ref)
 	owner.client.images -= image_ref
 	qdel(image_ref)
@@ -149,10 +161,12 @@ GLOBAL_LIST_EMPTY(psychic_images)
 		eyes?.sight_flags = sight_flags
 		owner.update_sight()
 
-
-/mob/living/proc/become_psychic_blind(source)
-	if(!HAS_TRAIT(src, TRAIT_BLIND))
-		blind_eyes(1, /atom/movable/screen/fullscreen/blind/psychic)
-	ADD_TRAIT(src, TRAIT_BLIND, source)
+//Handle pinging from noise
+/datum/action/item_action/organ_action/psychic_highlight/proc/handle_hear(datum/source, atom/speaker, message)
+	if(speaker == owner)
+		return
+	var/turf/T = get_turf(speaker)
+	if(get_dist(get_turf(owner), T) <= hear_range)
+		ping_turf(T, 1)
 
 #undef MAX_PSYCHIC_ICON_CACHE
