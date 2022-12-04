@@ -1923,7 +1923,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			It teaches you how to use your claws and tail to gain an advantage in combat, \
 			don't buy this unless you are a lizard or plan to give it to one as only they can understand the ancient draconic words."
 	item = /obj/item/book/granter/martial/tribal_claw
-	cost = 14
+	cost = 6
 	surplus = 0
 	restricted_species = list(SPECIES_LIZARD)
 
