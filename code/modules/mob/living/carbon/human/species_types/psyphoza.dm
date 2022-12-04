@@ -46,6 +46,8 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	var/obj/item/organ/eyes/eyes
 	///The eyes original sight flags - used between toggles
 	var/sight_flags
+	///Time between uses
+	var/cooldown = 2 SECONDS
 
 /datum/action/item_action/organ_action/psychic_highlight/New(Target)
 	. = ..()
@@ -57,7 +59,7 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	/obj/machinery/holopad, /obj/machinery/status_display, /obj/machinery/ai_slipper, /obj/structure/lattice, /obj/effect/decal,
 	/obj/structure/table, /obj/machinery/gateway, /obj/structure/rack, /obj/machinery/newscaster, /obj/structure/sink, /obj/machinery/shower,
 	/obj/machinery/advanced_airlock_controller, /obj/machinery/computer/security/telescreen, /obj/structure/grille, /obj/machinery/light_switch,
-	/obj/structure/noticeboard, /area, /obj/item/storage/secure/safe))
+	/obj/structure/noticeboard, /area, /obj/item/storage/secure/safe, /obj/machinery/requests_console))
 
 /datum/action/item_action/organ_action/psychic_highlight/Grant(mob/M)
 	. = ..()
@@ -66,7 +68,14 @@ GLOBAL_LIST_EMPTY(psychic_images)
 
 /datum/action/item_action/organ_action/psychic_highlight/Trigger()
 	. = ..()
+	if(has_cooldown_timer)
+		return
 	ping_turf(get_turf(owner))
+	has_cooldown_timer = TRUE
+	addtimer(CALLBACK(src, .proc/finish_cooldown), cooldown)
+
+/datum/action/item_action/organ_action/psychic_highlight/proc/finish_cooldown()
+	has_cooldown_timer = FALSE
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/ping_turf(turf/T, size = sense_range)
 	//Grab eyes
@@ -83,9 +92,9 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	if(P)
 		//We change the color instead of alpha, otherwise we'd reveal our actual surroundings!
 		P.color = "#000"
-		animate(P, color = "#fff", time = sense_time+1 SECONDS, easing = CIRCULAR_EASING)
+		animate(P, color = "#fff", time = sense_time+1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
 	//Get nearby 'things'
-	var/list/nearby = orange(size, T)
+	var/list/nearby = range(size, T)
 	nearby -= owner
 	//Go through the list and render whitelisted types
 	for(var/atom/C as() in nearby)
@@ -114,15 +123,19 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	M.override = 1
 	M.name = "???"
 	//Animate fade & delete
-	animate(M, alpha = 0, time = sense_time)
+	animate(M, alpha = 0, time = sense_time, easing = QUAD_EASING, flags = EASE_IN)
 	addtimer(CALLBACK(src, .proc/handle_image, M), sense_time)
 	//Add image to client
 	owner.client.images += M
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_tk(datum/source, atom/target)
+	if(has_cooldown_timer)
+		return
 	var/turf/T = get_turf(target)
 	if(get_dist(get_turf(owner), T) > 1)
 		ping_turf(T, 2)
+		has_cooldown_timer = TRUE
+		addtimer(CALLBACK(src, .proc/finish_cooldown), cooldown/2)
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_image(image/image_ref)
 	owner.client.images -= image_ref
