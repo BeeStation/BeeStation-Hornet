@@ -1,5 +1,3 @@
-///A list of generated images from psychic sight. Saves us generating more than once.
-
 /datum/component/blind_sense
 	///The range we can hear-ping things from
 	var/hear_range = 9
@@ -31,31 +29,24 @@
 	var/type
 	if(isliving(speaker))
 		type = "mob"
-	if(istype(speaker, /turf)) //becuase turfs play the footstep sound
-		type = "footstep"
+		if(isfile(message)) //becuase turfs play the footstep sound
+			type = "footstep"
 	//Do dist checks
 	var/turf/T = get_turf(speaker)
 	var/dist = get_dist(get_turf(owner), T)
 	if(dist <= hear_range && dist > 1)
-		highlight_object(speaker, type)
+		highlight_object(speaker, type, speaker.dir || 1)
 
-/datum/component/blind_sense/proc/highlight_object(atom/target, type)
+/datum/component/blind_sense/proc/highlight_object(atom/target, type, dir)
 	//setup icon
 	var/icon/I = icon('icons/mob/psychic.dmi', "texture_2")
 	//mask icon
-	var/icon/mask = icon('icons/mob/psychic.dmi', type)
-	//gen mask if we dont have one
-	if((istype(target, /mob) || istype(target, /obj)))
-		if((!target.icon || !(target.icon_state || initial(target.icon_state))))
-			if(!type)
-				mask = icon('icons/mob/psychic.dmi', "sound")
-		else
-			mask = icon(target.icon, target.icon_state)
+	var/icon/mask = icon('icons/mob/psychic.dmi', type || "sound", dir)
 	I.AddAlphaMask(mask)
 	//Setup display image
-	var/image/M = image(I, target, layer = BLIND_LAYER+1, pixel_x = target.pixel_x, pixel_y = target.pixel_y)
+	var/image/M = image(I, get_turf(target), layer = BLIND_LAYER+1, pixel_x = target.pixel_x, pixel_y = target.pixel_y)
 	M.plane = FULLSCREEN_PLANE+1
-	M.filters += filter(type = "bloom", size = 6, threshold = rgb(1,1,1))
+	M.filters += filter(type = "bloom", size = 2, threshold = rgb(1,1,1))
 	//Animate fade & delete
 	animate(M, alpha = 0, time = sense_time + 1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
 	addtimer(CALLBACK(src, .proc/handle_image, M), sense_time)
