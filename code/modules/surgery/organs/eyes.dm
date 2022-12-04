@@ -409,7 +409,6 @@
 /obj/item/organ/eyes/psyphoza
 	name = "psyphoza eyes"
 	desc = "Practically useless, an artifact of evolution."
-	sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 
 /obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, initialising)
 	. = ..()
