@@ -8,7 +8,7 @@
 		create_mob_html = replacetext(create_mob_html, "Create Object", "Create Mob")
 		create_mob_html = replacetext(create_mob_html, "null /* object types */", "\"[mobjs]\"")
 
-	user << browse(create_panel_helper(create_mob_html), "window=create_mob;size=425x475")
+	user << browse(create_panel_helper(create_mob_html), "window=create_mob;size=445x490")
 
 /proc/randomize_human(mob/living/carbon/human/H)
 	H.gender = pick(MALE, FEMALE)

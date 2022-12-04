@@ -11,7 +11,7 @@
 		create_object_html = rustg_file_read('html/create_object.html')
 		create_object_html = replacetext(create_object_html, "null /* object types */", "\"[objectjs]\"")
 
-	user << browse(create_panel_helper(create_object_html), "window=create_object;size=425x475")
+	user << browse(create_panel_helper(create_object_html), "window=create_object;size=445x490")
 
 /datum/admins/proc/quick_create_object(mob/user)
 	var/static/list/create_object_forms = list(
@@ -29,4 +29,4 @@
 		html_form = replacetext(html_form, "null /* object types */", "\"[objectjs]\"")
 		create_object_forms[path] = html_form
 
-	user << browse(create_panel_helper(html_form), "window=qco[path];size=425x475")
+	user << browse(create_panel_helper(html_form), "window=qco[path];size=445x490")
