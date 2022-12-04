@@ -809,12 +809,12 @@
 		for (var/mob/living/M in targeted_mobs)
 			keynames += key_name(M)
 		hitstring = " (at [english_list(keynames, final_comma_text = ",")])"
-
-	var/msg = "launched [podString] containing [english_list(pod_contents, final_comma_text = ",")]"
+	var/pod_contents_str = english_list(pod_contents, final_comma_text = ",")
+	var/msg = "launched [podString]"
 	var/hit_msg_flw = length(nearby_mobs) ? "[!length(targeted_mobs) || mobs_differ ? "near" : "at"] [whomstring_flw][hitstring] in" : "at"
 	var/hit_msg = length(nearby_mobs) ? "[!length(targeted_mobs) || mobs_differ ? "near" : "at"] [whomstring][hitstring] in" : "at"
-	message_admins("[key_name_admin(usr)] [msg] [hit_msg_flw] [ADMIN_VERBOSEJMP(target_turf)].")
-	var/log_msg = "[key_name_admin(usr)] [msg] [hit_msg] [AREACOORD(target_turf)]."
+	message_admins("[key_name_admin(usr)] [msg] containing [trim(pod_contents_str, 60)] [hit_msg_flw] [ADMIN_VERBOSEJMP(target_turf)].")
+	var/log_msg = "[key_name_admin(usr)] [msg] containing [trim(pod_contents_str, 500)] [hit_msg] [AREACOORD(target_turf)]."
 	usr.log_message(log_msg, LOG_ADMIN, log_globally = TRUE)
 	if (length(targeted_mobs))
 		for (var/mob/living/M in targeted_mobs)
