@@ -482,7 +482,6 @@
 	reagent_state = LIQUID
 	color = "#00A080"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	toxpwr = 0.5
 
 /datum/reagent/toxin/spidervenom/on_mob_life(mob/living/carbon/M)
