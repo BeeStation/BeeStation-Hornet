@@ -26935,8 +26935,7 @@
 /obj/machinery/atmospherics/pipe/multiz{
 	dir = 8
 	},
-/obj/structure/lattice/catwalk,
-/turf/open/floor/plating,
+/turf/open/floor/engine,
 /area/engine/atmospherics_engine)
 "fXx" = (
 /obj/machinery/door/airlock/public/glass{
