@@ -74,6 +74,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		if(get_dist(M, turf_source) <= maxdistance)
 			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
 
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SOUND_PLAYED, source, soundin)
+
 /*! playsound
 
 playsound_local is a proc used to play a sound directly on a mob from a specific turf.

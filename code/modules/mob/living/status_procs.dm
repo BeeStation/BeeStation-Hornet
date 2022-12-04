@@ -421,9 +421,9 @@
 	if(!HAS_TRAIT(src, TRAIT_BLIND))
 		adjust_blindness(-1)
 
-/mob/living/proc/become_blind(source)
+/mob/living/proc/become_blind(source, /atom/movable/screen/fullscreen/overlay)
 	if(!HAS_TRAIT(src, TRAIT_BLIND))
-		blind_eyes(1)
+		blind_eyes(1, overylay)
 	ADD_TRAIT(src, TRAIT_BLIND, source)
 
 /mob/living/proc/cure_nearsighted(source)
