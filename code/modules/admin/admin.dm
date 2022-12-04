@@ -494,7 +494,7 @@
 	set desc= "Delay server from rebooting the server after the round has ended"
 	set name= "Delay round end"
 	if(!SSticker.delay_end)
-		SSticker.admin_delay_notice = input(usr, "Enter a reason for delaying the round end", "Round Delay Reason") as null|text
+		SSticker.admin_delay_notice = input(usr, "Enter a reason for delaying the round end", "Round Delay Reason", "Server Administration (handling tickets, coding, etc)") as null|text
 		if(isnull(SSticker.admin_delay_notice))
 			return
 		for(var/client/admin in GLOB.admins)
