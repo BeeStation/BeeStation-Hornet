@@ -42,6 +42,10 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	var/list/sense_blacklist
 	///The amount of time you can sense things for
 	var/sense_time = 5 SECONDS
+	///Reference to the users eyes - we use this to toggle xray vision for scans
+	var/obj/item/organ/eyes/eyes
+	///The eyes original sight flags - used between toggles
+	var/sight_flags
 
 /datum/action/item_action/organ_action/psychic_highlight/New(Target)
 	. = ..()
@@ -65,6 +69,15 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	ping_turf(get_turf(owner))
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/ping_turf(turf/T, size = sense_range)
+	//Grab eyes
+	if(istype(owner, /mob/living/carbon/human))
+		var/mob/living/carbon/human/M = owner
+		eyes = locate(/obj/item/organ/eyes) in M.internal_organs
+		sight_flags = eyes?.sight_flags
+	//handle eyes
+	eyes?.sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
+	owner.update_sight()
+
 	//Dull blind overlay
 	var/atom/movable/screen/fullscreen/blind/psychic/P = locate (/atom/movable/screen/fullscreen/blind/psychic) in owner.client?.screen
 	if(P)
@@ -114,6 +127,10 @@ GLOBAL_LIST_EMPTY(psychic_images)
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_image(image/image_ref)
 	owner.client.images -= image_ref
 	qdel(image_ref)
+	if(!owner.client.images.len)
+		eyes?.sight_flags = sight_flags
+		owner.update_sight()
+
 
 /mob/living/proc/become_psychic_blind(source)
 	if(!HAS_TRAIT(src, TRAIT_BLIND))
