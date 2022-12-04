@@ -60198,10 +60198,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
-"nej" = (
-/obj/machinery/gravity_generator/main/station/admin,
-/turf/open/floor/plating/asteroid/snow/airless,
-/area/iceland/underground)
 "neF" = (
 /obj/effect/turf_decal/trimline/green/filled/line,
 /obj/effect/turf_decal/trimline/green/filled/line{
@@ -71850,9 +71846,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/atmospherics_engine)
-"pGO" = (
-/turf/closed/indestructible/cordon,
-/area/iceland/underground)
 "pHd" = (
 /mob/living/simple_animal/bot/secbot/beepsky{
 	name = "Officer Beepsky"
@@ -102963,9 +102956,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/balcony)
-"wtF" = (
-/turf/open/floor/plating/asteroid/snow/airless,
-/area/iceland/underground)
 "wtS" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
@@ -111486,9 +111476,9 @@ rhB
 rhB
 rhB
 rIT
-pGO
-pGO
-pGO
+rhB
+rhB
+rhB
 rIT
 rhB
 "}
@@ -111742,11 +111732,11 @@ rhB
 rhB
 rhB
 rIT
-pGO
-wtF
-wtF
-wtF
-pGO
+rhB
+rhB
+rhB
+rhB
+rhB
 rIT
 "}
 (4,1,1) = {"
@@ -111999,11 +111989,11 @@ rhB
 rhB
 rhB
 rIT
-pGO
-wtF
-wtF
-nej
-pGO
+rhB
+rhB
+rhB
+rhB
+rhB
 rIT
 "}
 (5,1,1) = {"
@@ -112256,11 +112246,11 @@ rhB
 rhB
 rhB
 rIT
-pGO
-wtF
-wtF
-wtF
-pGO
+rhB
+rhB
+rhB
+rhB
+rhB
 rIT
 "}
 (6,1,1) = {"
@@ -112514,9 +112504,9 @@ rhB
 rhB
 rhB
 rIT
-pGO
-pGO
-pGO
+rhB
+rhB
+rhB
 rIT
 rhB
 "}
@@ -112769,7 +112759,7 @@ rhB
 rhB
 rhB
 rhB
-tqO
+rhB
 rhB
 rIT
 rIT
