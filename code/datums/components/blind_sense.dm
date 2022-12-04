@@ -73,7 +73,7 @@
 	//Setup display image
 	var/image/M = image(I, get_turf(target), layer = BLIND_LAYER+1, pixel_x = target.pixel_x, pixel_y = target.pixel_y)
 	M.plane = FULLSCREEN_PLANE+1
-	M.filters += filter(type = "bloom", size = 2, threshold = rgb(1,1,1))
+	M.filters += filter(type = "bloom", size = 3, threshold = rgb(85,85,85))
 	M.color = rgb(255,0,0) /// IM THE INSERTED LINE OF CODE!!!
 	//Animate fade & delete
 	animate(M, alpha = 0, time = sense_time + 1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
