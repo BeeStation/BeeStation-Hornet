@@ -23,6 +23,8 @@
 	var/radiation_count = 0
 	var/grace = RAD_GEIGER_GRACE_PERIOD
 	var/datum/looping_sound/geiger/soundloop
+	/// If the headlamp is broken, used by lighteater
+	var/light_broken = FALSE
 
 /obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload)
 	. = ..()
@@ -39,9 +41,13 @@
 	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/attack_self(mob/user)
-	on = !on
+	if(light_broken)
+		to_chat(user, "<span class='notice'>The headlamp has been burnt out... Looks like there's no replacing it.</span>")
+		on = FALSE
+	else
+		on = !on
 	icon_state = "[basestate][on]-[hardsuit_type]"
-	user.update_inv_head()	//so our mob-overlays update
+	user?.update_inv_head()	//so our mob-overlays update
 
 	set_light_on(on)
 
@@ -906,7 +912,7 @@
 		/datum/action/item_action/toggle_beacon_frequency
 	)
 	jetpack = /obj/item/tank/jetpack/suit
- 
+
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)

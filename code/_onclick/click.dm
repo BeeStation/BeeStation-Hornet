@@ -492,9 +492,10 @@
 /* MouseWheelOn */
 
 /mob/proc/MouseWheelOn(atom/A, delta_x, delta_y, params)
-	return
+	SEND_SIGNAL(src, COMSIG_MOB_MOUSE_SCROLL_ON, A, delta_x, delta_y, params)
 
-/mob/dead/observer/MouseWheelOn(atom/A, delta_x, delta_y, params)
+/mob/dead/observer/proc/mouse_wheeled(atom/A, delta_x, delta_y, params)
+	SIGNAL_HANDLER
 	var/list/modifier = params2list(params)
 	if(modifier["shift"])
 		var/view = 0
