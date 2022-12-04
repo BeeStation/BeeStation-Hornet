@@ -1,5 +1,7 @@
 ///A list of generated images from psychic sight. Saves us generating more than once.
 GLOBAL_LIST_EMPTY(psychic_images)
+///The maximum limit of cached icons
+#define MAX_PSYCHIC_ICON_CACHE 500
 
 /datum/species/psyphoza
 	name = "\improper Psyphoza"
@@ -59,7 +61,7 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	/obj/machinery/holopad, /obj/machinery/status_display, /obj/machinery/ai_slipper, /obj/structure/lattice, /obj/effect/decal,
 	/obj/structure/table, /obj/machinery/gateway, /obj/structure/rack, /obj/machinery/newscaster, /obj/structure/sink, /obj/machinery/shower,
 	/obj/machinery/advanced_airlock_controller, /obj/machinery/computer/security/telescreen, /obj/structure/grille, /obj/machinery/light_switch,
-	/obj/structure/noticeboard, /area, /obj/item/storage/secure/safe, /obj/machinery/requests_console))
+	/obj/structure/noticeboard, /area, /obj/item/storage/secure/safe, /obj/machinery/requests_console, /obj/item/storage/backpack/satchel/flat))
 
 /datum/action/item_action/organ_action/psychic_highlight/Grant(mob/M)
 	. = ..()
@@ -110,9 +112,12 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	//Build icon if it doesn't exist
 	if(!I)
 		I = icon('icons/mob/psychic.dmi', "texture")
+		//If we've hit the cache limit, don't push our luck - Let me know if this cracks preformance
+		if(GLOB.psychic_images.len >= MAX_PSYCHIC_ICON_CACHE)
+			return
 		var/icon/mask = icon(target.icon, target.icon_state, target.dir)
 		if(target.icon_state == "")
-			var/state = isliving(target) ? "mob" : "unknown"
+			var/state = (isliving(target) ? "mob" : "unknown")
 			mask = icon('icons/mob/psychic.dmi', state)
 		I.AddAlphaMask(mask)
 		GLOB.psychic_images += list("[target.type][target.icon_state]" = icon(I))
@@ -149,3 +154,5 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	if(!HAS_TRAIT(src, TRAIT_BLIND))
 		blind_eyes(1, /atom/movable/screen/fullscreen/blind/psychic)
 	ADD_TRAIT(src, TRAIT_BLIND, source)
+
+#undef MAX_PSYCHIC_ICON_CACHE
