@@ -205,7 +205,6 @@
 #include "code\__HELPERS\global_lists.dm"
 #include "code\__HELPERS\guid.dm"
 #include "code\__HELPERS\heap.dm"
-#include "code\__HELPERS\html_assistant.dm"
 #include "code\__HELPERS\icon_smoothing.dm"
 #include "code\__HELPERS\icons.dm"
 #include "code\__HELPERS\jobs.dm"
