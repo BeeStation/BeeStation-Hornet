@@ -54,6 +54,8 @@
 	// Spawn info
 	var/spawns_remaining = 2
 	var/enriched_spawns = 0
+	var/using_enriched_spawn = FALSE
+	var/enriched_spawn_prob = 50 // Probability (%) of someone who clicks on an eggcluster getting an enriched spawn if one's available
 	// Team info
 	var/datum/team/spiders/spider_team
 	var/list/faction = list("spiders")
@@ -125,7 +127,8 @@
 	var/list/spider_list = list()
 	if(!spider_team) // We don't have a team, just make one up
 		spider_team = new()
-	if(enriched_spawns)
+	if(enriched_spawns && !using_enriched_spawn && (prob(enriched_spawn_prob) || !spawns_remaining))
+		using_enriched_spawn = TRUE
 		to_spawn = potential_enriched_spawns
 	else
 		to_spawn = potential_spawns
@@ -134,14 +137,14 @@
 		spider_list[initial(spider.name)] = choice
 	var/chosen_spider = input("Spider Type", "Egg Cluster") as null|anything in spider_list
 	if(QDELETED(src) || QDELETED(user) || !chosen_spider || !(spawns_remaining || enriched_spawns))
+		using_enriched_spawn = FALSE
 		return FALSE
 	if(spider_list[chosen_spider] in potential_enriched_spawns)
-		if(!enriched_spawns)
-			to_chat(user, "<span class='warning'>You can't pick that type of spider anymore!</span>")
-			return FALSE
 		enriched_spawns--
 	else
 		spawns_remaining--
+	if(using_enriched_spawn)
+		using_enriched_spawn = FALSE
 
 	// Setup our spooder
 	var/spider_to_spawn = spider_list[chosen_spider]
