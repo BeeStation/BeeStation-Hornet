@@ -257,6 +257,8 @@
 ** and the maximum capacity of this crate. If N is larger than the number of alive human players, the excess will be junkmail.*/
 /obj/structure/closet/crate/mail/proc/populate(amount)
 	var/mail_count = min(amount, storage_capacity)
+	if(mail_count == null)
+		mail_count = 1
 	//fills the crate for the recipients
 	var/list/mail_recipients = list()
 
