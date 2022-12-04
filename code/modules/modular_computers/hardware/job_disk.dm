@@ -250,7 +250,7 @@
 	var/static/adj_list = list("old", "weathered", "outdated")
 	var/obj/item/computer_hardware/hard_drive/role/chosen_disk = pickweight(disk_list)
 	chosen_disk = new chosen_disk(loc)
-	chosen_disk.chosen_disk = NONE
+	chosen_disk.disk_flags = NONE
 	switch(chosen_disk.type) // let's not make much subtype items
 		if(/obj/item/computer_hardware/hard_drive/role/medical)
 			chosen_disk.name = "\improper [pick(adj_list)] Med-U disk"
