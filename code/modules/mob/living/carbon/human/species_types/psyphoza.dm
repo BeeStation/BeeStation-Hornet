@@ -53,7 +53,7 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	/obj/machinery/holopad, /obj/machinery/status_display, /obj/machinery/ai_slipper, /obj/structure/lattice, /obj/effect/decal,
 	/obj/structure/table, /obj/machinery/gateway, /obj/structure/rack, /obj/machinery/newscaster, /obj/structure/sink, /obj/machinery/shower,
 	/obj/machinery/advanced_airlock_controller, /obj/machinery/computer/security/telescreen, /obj/structure/grille, /obj/machinery/light_switch,
-	/obj/structure/noticeboard, /area))
+	/obj/structure/noticeboard, /area, /obj/item/storage/secure/safe))
 
 /datum/action/item_action/organ_action/psychic_highlight/Grant(mob/M)
 	. = ..()
@@ -97,7 +97,7 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	//Setup display image
 	var/image/M = image(I, target, layer = BLIND_LAYER+1, pixel_x = target.pixel_x, pixel_y = target.pixel_y)
 	M.plane = FULLSCREEN_PLANE+1
-	//M.filters += filter(type = "bloom", size = 3, threshold = rgb(85,85,85))
+	M.filters += filter(type = "bloom", size = 3, threshold = rgb(85,85,85))
 	M.override = 1
 	M.name = "???"
 	//Animate fade & delete
