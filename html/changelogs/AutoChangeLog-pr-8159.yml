@@ -1,0 +1,5 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: enrage calculations and mechanics work properly for megafauna again
+  - bugfix: Lavaland swarmers now have their HP halved as well
