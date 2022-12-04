@@ -422,6 +422,7 @@
 		adjust_blindness(-1)
 		//Remove blind sense
 		var/datum/component/blind_sense/B = locate(/datum/component/blind_sense) in comp_lookup
+		comp_lookup -= B
 		qdel(B)
 
 /mob/living/proc/become_blind(source, atom/movable/screen/fullscreen/overlay, add_blind_sense = TRUE)

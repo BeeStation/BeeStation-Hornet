@@ -415,3 +415,4 @@
 	. = ..()
 	if(istype(M))
 		M.become_blind("NoCure", /atom/movable/screen/fullscreen/blind/psychic, FALSE)
+		M.AddComponent(/datum/component/blind_sense/psychic)

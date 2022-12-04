@@ -70,12 +70,11 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	. = ..()
 	//Register signal for TK highlights
 	RegisterSignal(M, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, .proc/handle_tk)
-	/*
 	//Register signal for sensing voices
 	RegisterSignal(SSdcs, COMSIG_GLOB_LIVING_SAY_SPECIAL, .proc/handle_hear)
 	//Register signal for sensing sounds
 	RegisterSignal(SSdcs, COMSIG_GLOB_SOUND_PLAYED, .proc/handle_hear)
-	*/
+	
 
 /datum/action/item_action/organ_action/psychic_highlight/Trigger()
 	. = ..()
@@ -88,8 +87,8 @@ GLOBAL_LIST_EMPTY(psychic_images)
 /datum/action/item_action/organ_action/psychic_highlight/proc/finish_cooldown()
 	has_cooldown_timer = FALSE
 
-//Get a list of nearby things & handle some visuals
-/datum/action/item_action/organ_action/psychic_highlight/proc/ping_turf(turf/T, size = sense_range)
+//Allows user to see images through walls
+/datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes()
 	//Grab eyes
 	if(istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/M = owner
@@ -99,12 +98,20 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	eyes?.sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	owner.update_sight()
 
-	//Dull blind overlay
+//Dims blind overlay
+/datum/action/item_action/organ_action/psychic_highlight/proc/dim_overlay()
 	var/atom/movable/screen/fullscreen/blind/psychic/P = locate (/atom/movable/screen/fullscreen/blind/psychic) in owner.client?.screen
 	if(P)
 		//We change the color instead of alpha, otherwise we'd reveal our actual surroundings!
 		P.color = "#000"
 		animate(P, color = "#fff", time = sense_time+1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
+
+//Get a list of nearby things & handle some visuals
+/datum/action/item_action/organ_action/psychic_highlight/proc/ping_turf(turf/T, size = sense_range)
+	//call eye goof
+	toggle_eyes()
+	//Dull blind overlay
+	dim_overlay()
 	//Get nearby 'things'
 	var/list/nearby = range(size, T)
 	nearby -= owner
@@ -166,14 +173,10 @@ GLOBAL_LIST_EMPTY(psychic_images)
 		eyes?.sight_flags = sight_flags
 		owner.update_sight()
 
-//Handle pinging from noise
+//Dim blind overlay for blind_sense component
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_hear(datum/source, atom/speaker, message)
 	SIGNAL_HANDLER
-
-	if(owner == speaker)
-		return
-	var/turf/T = get_turf(speaker)
-	if(get_dist(get_turf(owner), T) <= hear_range)
-		ping_turf(T, 1)
+	
+	dim_overlay()
 
 #undef MAX_PSYCHIC_ICON_CACHE
