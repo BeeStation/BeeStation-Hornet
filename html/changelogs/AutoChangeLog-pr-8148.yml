@@ -1,0 +1,5 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: exploration nuke bomb will no longer be spawned in weird places (i.e.
+      window)
