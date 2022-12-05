@@ -20,10 +20,10 @@
 	shuttle_creator.reset_saved_area(FALSE)
 
 /obj/machinery/computer/shuttle_flight/custom_shuttle/bluespace_pod/ui_interact(mob/user, datum/tgui/ui)
-	if(isobserver(user))
-		user.visible_message("<span class ='warning'>Ghosts can't rename the shuttle!.<span>")
-		return
 	if(!shuttle_named)
+		if(isobserver(user))
+			user.visible_message("<span class ='warning'>Ghosts can't rename the shuttle!.<span>")
+			return
 		var/area/area_instance = get_area(src)
 		var/obj/docking_port/mobile/port = locate(/obj/docking_port/mobile) in area_instance
 		if(port)
