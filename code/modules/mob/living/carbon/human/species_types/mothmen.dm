@@ -91,7 +91,7 @@
 		to_chat(H, "<span class='warning'>You are too hungry to weave a cocoon!</span>")
 		return
 	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on weaving a cocoon...</span>", \
-	"<span class='notice'>You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY / 10] seconds and you must hold still.)</span>")
+	"<span class='notice'>You begin to focus on weaving a cocoon... (This will take [DisplayTimeText(COCOON_WEAVE_DELAY)] and you must hold still.)</span>")
 	H.adjustStaminaLoss(20, 0) //this is here to deter people from spamming it if they get interrupted
 	if(do_after(H, COCOON_WEAVE_DELAY, FALSE, H))
 		if(!ismoth(H))
@@ -100,8 +100,11 @@
 		if(H.incapacitated())
 			to_chat(H, "<span class='warning'>You cannot weave a cocoon in your current state.</span>")
 			return
+		if(!HAS_TRAIT(H, TRAIT_MOTH_BURNT))
+			to_chat(H, "<span class='warning'>Your wings are fine as they are!</span>")
+			return
 		H.visible_message("<span class='notice'>[H] finishes weaving a cocoon!</span>", "<span class='notice'>You finish weaving your cocoon.</span>")
-		var/obj/structure/moth/cocoon/C = new(get_turf(H))
+		var/obj/structure/moth_cocoon/C = new(get_turf(H))
 		H.forceMove(C)
 		H.Sleeping(20, 0)
 		C.preparing_to_emerge = TRUE
@@ -112,7 +115,7 @@
 		to_chat(H, "<span class='warning'>You need to hold still in order to weave a cocoon!</span>")
 
 //Removes moth from cocoon, restores burnt wings
-/datum/action/innate/cocoon/proc/emerge(obj/structure/moth/cocoon/C)
+/datum/action/innate/cocoon/proc/emerge(obj/structure/moth_cocoon/C)
 	for(var/mob/living/carbon/human/H in C.contents)
 		if(!H.has_status_effect(STATUS_EFFECT_COCOONED))
 			return
@@ -134,7 +137,7 @@
 	owner.adjust_nutrition(-(COCOON_NUTRITION_AMOUNT / (COCOON_EMERGE_DELAY)), 0)
 
 
-/obj/structure/moth/cocoon
+/obj/structure/moth_cocoon
 	name = "\improper Mothperson cocoon"
 	desc = "Someone wrapped in a Mothperson cocoon. It's best to let them rest."
 	icon = 'icons/effects/effects.dmi'
@@ -143,14 +146,14 @@
 	max_integrity = 10
 	var/preparing_to_emerge
 
-/obj/structure/moth/cocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+/obj/structure/moth_cocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
 			playsound(src, 'sound/weapons/slash.ogg', 80, TRUE)
 		if(BURN)
 			playsound(src, 'sound/items/welder.ogg', 80, TRUE)
 
-/obj/structure/moth/cocoon/Destroy()
+/obj/structure/moth_cocoon/Destroy()
 	if(!preparing_to_emerge)
 		visible_message("<span class='danger'>[src] splits open from within!</span>")
 		for(var/mob/living/carbon/human/H in contents)
