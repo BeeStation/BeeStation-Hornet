@@ -42,12 +42,17 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	var/list/sense_blacklist
 	///The amount of time you can sense things for
 	var/sense_time = 5 SECONDS
+	
 	///Reference to the users eyes - we use this to toggle xray vision for scans
 	var/obj/item/organ/eyes/eyes
 	///The eyes original sight flags - used between toggles
 	var/sight_flags
+
 	///Time between uses
 	var/cooldown = 2 SECONDS
+	
+	///The texture we use
+	var/texture = "texture_1"
 
 /datum/action/item_action/organ_action/psychic_highlight/New(Target)
 	. = ..()
@@ -71,7 +76,6 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	RegisterSignal(SSdcs, COMSIG_GLOB_LIVING_SAY_SPECIAL, .proc/handle_hear)
 	//Register signal for sensing sounds
 	RegisterSignal(SSdcs, COMSIG_GLOB_SOUND_PLAYED, .proc/handle_hear)
-	
 
 /datum/action/item_action/organ_action/psychic_highlight/Trigger()
 	. = ..()
@@ -91,6 +95,8 @@ GLOBAL_LIST_EMPTY(psychic_images)
 		var/mob/living/carbon/human/M = owner
 		eyes = locate(/obj/item/organ/eyes) in M.internal_organs
 		sight_flags = eyes?.sight_flags
+		//Register signal for losing our eyes
+		RegisterSignal(eyes, COMSIG_PARENT_QDELETING, .proc/handle_eyes)
 	//handle eyes
 	eyes?.sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	owner.update_sight()
@@ -127,7 +133,7 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	//Build icon if it doesn't exist
 	if(!I)
 		//Base texture we will make
-		I = icon('icons/mob/psychic.dmi', "texture_1")
+		I = icon('icons/mob/psychic.dmi', texture)
 
 		//If we've hit the cache limit, don't push our luck - Let me know if this cracks preformance
 		if(GLOB.psychic_images.len < MAX_PSYCHIC_ICON_CACHE)
@@ -153,7 +159,7 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	animate(M, alpha = 0, time = sense_time + 1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
 	//Setup timer to delete image
 	addtimer(CALLBACK(src, .proc/handle_image, M), sense_time)
-	
+
 	//Add image to client
 	owner.client?.images += M
 
@@ -188,5 +194,11 @@ GLOBAL_LIST_EMPTY(psychic_images)
 		dim_overlay()
 		toggle_eyes()
 		addtimer(CALLBACK(src, .proc/handle_image), sense_time)
+
+//Handles eyes being deleted
+/datum/action/item_action/organ_action/psychic_highlight/proc/handle_eyes()
+	SIGNAL_HANDLER
+
+	eyes = null
 
 #undef MAX_PSYCHIC_ICON_CACHE
