@@ -392,6 +392,7 @@
 		current_skin = choice
 		icon_state = unique_reskin_icon[choice]
 		to_chat(M, "[src] is now skinned as '[choice].'")
+		src.update_icon()
 	return
 
 /obj/analyzer_act(mob/living/user, obj/item/I)
