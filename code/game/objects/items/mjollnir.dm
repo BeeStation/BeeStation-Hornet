@@ -79,6 +79,8 @@
 	flags_1 = CONDUCT_1
 	anchored = TRUE
 	move_resist = INFINITY
+	density = TRUE
+	layer = MASSIVE_OBJ_LAYER
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	var/obj/item/mjollnir/contained
 
@@ -100,7 +102,7 @@
 		var/dist = get_dist(M.loc, src.loc)
 		if (dist < 30)
 			shake_camera(M, dist > 20 ? 2 : 4, dist > 20 ? 1 : 3)
-			M.playsound_local(get_turf(src), null, 50, 1, random_frequency, 10, S = 'sound/effects/bamf.ogg')
+			M.playsound_local(get_turf(src), 'sound/effects/bamf.ogg', 50, 1, random_frequency, 10)
 	//Any lying mobs on the turf (apart from wizards) get crushed
 	for (var/mob/living/mob_on_tile in loc)
 		if (mob_on_tile.mobility_flags & MOBILITY_STAND || iswizard(mob_on_tile))
