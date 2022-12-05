@@ -22,10 +22,6 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	species_l_leg = /obj/item/bodypart/l_leg/pumpkin_man
 	species_r_leg = /obj/item/bodypart/r_leg/pumpkin_man
 
-/datum/species/psyphoza/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
-	. = ..()
-	C.dna.add_mutation(TK, MUT_NORMAL)
-
 /datum/species/psyphoza/check_roundstart_eligible()
 	return TRUE
 /obj/item/organ/brain/psyphoza
@@ -64,12 +60,12 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	/obj/structure/table, /obj/machinery/gateway, /obj/structure/rack, /obj/machinery/newscaster, /obj/structure/sink, /obj/machinery/shower,
 	/obj/machinery/advanced_airlock_controller, /obj/machinery/computer/security/telescreen, /obj/structure/grille, /obj/machinery/light_switch,
 	/obj/structure/noticeboard, /area, /obj/item/storage/secure/safe, /obj/machinery/requests_console, /obj/item/storage/backpack/satchel/flat,
-	/obj/effect/countdown, /obj/machinery/button))
+	/obj/effect/countdown, /obj/machinery/button, /obj/effect/clockwork/overlay/floor))
 
 /datum/action/item_action/organ_action/psychic_highlight/Grant(mob/M)
 	. = ..()
 	//Register signal for TK highlights
-	RegisterSignal(M, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, .proc/handle_tk)
+	RegisterSignal(M, COMSIG_MOB_ATTACK_RANGED, .proc/handle_tk)
 	//Register signal for sensing voices
 	RegisterSignal(SSdcs, COMSIG_GLOB_LIVING_SAY_SPECIAL, .proc/handle_hear)
 	//Register signal for sensing sounds
@@ -125,31 +121,31 @@ GLOBAL_LIST_EMPTY(psychic_images)
 //Highlight a given object
 /datum/action/item_action/organ_action/psychic_highlight/proc/highlight_object(atom/target)
 	//Pull icon from pre-gen, if it exists
-	var/icon/I = GLOB.psychic_images["[target.type][target.icon_state]"]
+	var/icon/I = GLOB.psychic_images["[target.type][target.icon_state][target.dir]"]
 	//Build icon if it doesn't exist
 	if(!I)
-		I = icon('icons/mob/psychic.dmi', "texture")
+		I = icon('icons/mob/psychic.dmi', "texture_1")
 		//If we've hit the cache limit, don't push our luck - Let me know if this cracks preformance
 		if(GLOB.psychic_images.len < MAX_PSYCHIC_ICON_CACHE)
 			var/icon/mask = icon(target.icon, (target.icon_state || initial(target.icon_state)), target.dir)
-			if(target.icon_state == "" && initial(target.icon_state) == "")
+			if(!target.icon_state && !initial(target.icon_state))
 				var/state = (isliving(target) ? "mob" : "unknown")
 				mask = icon('icons/mob/psychic.dmi', state)
 			I.AddAlphaMask(mask)
-			GLOB.psychic_images += list("[target.type][target.icon_state]" = icon(I))
+			GLOB.psychic_images += list("[target.type][target.icon_state][target.dir]" = icon(I))
 	//Setup display image
 	var/image/M = image(I, target, layer = BLIND_LAYER+1, pixel_x = target.pixel_x, pixel_y = target.pixel_y)
 	M.plane = FULLSCREEN_PLANE+1
 	M.filters += filter(type = "bloom", size = 3, threshold = rgb(85,85,85))
 	M.override = 1
 	M.name = "???"
-	M.color = rgb(255,0,0)
+	//M.color = rgb(255,0,0)
 	//Animate fade & delete
 	animate(M, alpha = 0, time = sense_time + 1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
-	animate(M, color = rgb(0,0,255), time = sense_time + 1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
+	//animate(M, color = rgb(0,0,255), time = sense_time + 1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
 	addtimer(CALLBACK(src, .proc/handle_image, M), sense_time)
 	//Add image to client
-	owner.client.images += M
+	owner.client?.images += M
 
 //Handle clicking for ranged trigger
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_tk(datum/source, atom/target)
@@ -167,9 +163,9 @@ GLOBAL_LIST_EMPTY(psychic_images)
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_image(image/image_ref)
 	SIGNAL_HANDLER
 	if(image_ref)
-		owner.client.images -= image_ref
+		owner.client?.images -= image_ref
 		qdel(image_ref)
-	if(!owner.client.images.len)
+	if(!owner.client?.images.len)
 		eyes?.sight_flags = sight_flags
 		owner.update_sight()
 

@@ -4,7 +4,7 @@
 	initial_language_holder = /datum/language_holder/monkey
 	possible_a_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_HARM)
 	icon = 'icons/mob/monkey.dmi'
-	icon_state = null
+	icon_state = "monkey1"
 	gender = NEUTER
 	pass_flags = PASSTABLE
 	ventcrawler = VENTCRAWLER_NUDE
@@ -40,6 +40,8 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 /mob/living/carbon/monkey/Initialize(mapload, cubespawned=FALSE, mob/spawner)
 	add_verb(/mob/living/proc/mob_sleep)
 	add_verb(/mob/living/proc/lay_down)
+
+	icon_state = null
 
 	if(unique_name) //used to exclude pun pun
 		gender = pick(MALE, FEMALE)
