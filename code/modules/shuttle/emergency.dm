@@ -417,13 +417,11 @@
 	return has_people && ((hijacker_count == 1) || (hijacker_count && !solo_hijack))
 
 /obj/docking_port/mobile/emergency/proc/is_hijacked_by_xenos()
-	var/queen_alive_on_shuttle = FALSE
 	//checking all players
 	for(var/mob/living/player in GLOB.alive_mob_list)
 		if(shuttle_areas[get_area(player)])
 			if(isalienqueen(player))
-				queen_alive_on_shuttle = TRUE
-	return queen_alive_on_shuttle
+				return TRUE
 
 /obj/docking_port/mobile/emergency/proc/is_hijacked()
 	return hijack_status == HIJACKED
