@@ -194,7 +194,7 @@
 	sawn_desc = "Omar's coming!"
 	obj_flags = UNIQUE_RENAME
 	rack_sound_volume = 0
-	unique_reskin = list("Default" = "dshotgun",
+	unique_reskin_icon = list("Default" = "dshotgun",
 						"Dark Red Finish" = "dshotgun_d",
 						"Ash" = "dshotgun_f",
 						"Faded Grey" = "dshotgun_g",
@@ -205,6 +205,17 @@
 	bolt_type = BOLT_TYPE_NO_BOLT
 	fire_rate = 2 //being double barrelled, you don't rely on internal mechanisms.
 	pb_knockback = 3
+
+/obj/item/gun/ballistic/shotgun/doublebarrel/reskin_obj(mob/M)
+	unique_reskin = list(
+		"Default" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun"),
+		"Dark Red Finish" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_d"),
+		"Ash" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_f"),
+		"Faded Grey" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_g"),
+		"Maple" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_l"),
+		"Rosewood" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_p")
+	)
+	. = ..()
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/AltClick(mob/user)
 	. = ..()
