@@ -27,7 +27,7 @@
 	var/persistence_replacement
 	var/current_skin //Has the item been reskinned?
 	var/list/unique_reskin //List of options to reskin.
-	var/list/unique_reskin_icon //List of icons for said options
+	var/list/unique_reskin_icon //List of icons for said options.
 
 	// Access levels, used in modules\jobs\access.dm
 	var/list/req_access
@@ -375,16 +375,6 @@
 		reskin_obj(user)
 
 /obj/proc/reskin_obj(mob/M)
-	/*
-	if(!LAZYLEN(unique_reskin))
-		return
-	to_chat(M, "<b>Reskin options for [name]:</b>")
-	for(var/V in unique_reskin)
-		var/output = icon2html(src, M, unique_reskin[V])
-		to_chat(M, "[V]: <span class='reallybig'>[output]</span>")
-
-	var/choice = input(M,"Warning, you can only reskin [src] once!","Reskin Object") as null|anything in sortList(unique_reskin)
-	*/
 	var/choice = show_radial_menu(M, src, unique_reskin, radius = 42, require_near = TRUE, tooltips = TRUE)
 	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated() && in_range(M,src))
 		if(!unique_reskin[choice])
