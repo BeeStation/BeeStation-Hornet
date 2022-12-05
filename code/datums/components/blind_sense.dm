@@ -42,11 +42,14 @@
 /datum/component/blind_sense/proc/highlight_object(atom/target, type, dir)
 	//setup icon
 	var/icon/I = icon('icons/mob/psychic.dmi', texture)
+
 	//mask icon
 	var/icon/mask = icon('icons/mob/psychic.dmi', type || "sound", dir)
+	//If the mob has an icon we can use, use it
 	if(type == "mob" && target.icon && (target.icon_state || initial(target.icon_state)))
-		mask = icon(target.icon, (target.icon_state || initial(target.icon_state)))
+		mask = icon(target.icon, (target.icon_state || initial(target.icon_state)), target.dir)
 	I.AddAlphaMask(mask)
+
 	//Setup display image
 	var/image/M = image(I, get_turf(target), layer = BLIND_LAYER+1, pixel_x = target.pixel_x, pixel_y = target.pixel_y)
 	M.plane = FULLSCREEN_PLANE+1
@@ -54,32 +57,17 @@
 	//Animate fade & delete
 	animate(M, alpha = 0, time = sense_time + 1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
 	addtimer(CALLBACK(src, .proc/handle_image, M), sense_time)
+
 	//Add image to client
 	owner.client?.images += M
 
+//handle deleting the image from client
 /datum/component/blind_sense/proc/handle_image(image/image_ref)
 	SIGNAL_HANDLER
 
 	owner.client?.images -= image_ref
 	qdel(image_ref)
 
+//Psychich variant for psyphoza
 /datum/component/blind_sense/psychic
 	texture = "texture_1"
-
-/datum/component/blind_sense/psychic/highlight_object(atom/target, type, dir)
-	//setup icon
-	var/icon/I = icon('icons/mob/psychic.dmi', texture)
-	//mask icon
-	var/icon/mask = icon('icons/mob/psychic.dmi', type || "sound", dir)
-	I.AddAlphaMask(mask)
-	//Setup display image
-	var/image/M = image(I, get_turf(target), layer = BLIND_LAYER+1, pixel_x = target.pixel_x, pixel_y = target.pixel_y)
-	M.plane = FULLSCREEN_PLANE+1
-	M.filters += filter(type = "bloom", size = 3, threshold = rgb(85,85,85))
-	//M.color = rgb(255,0,0) /// IM THE INSERTED LINE OF CODE!!!
-	//Animate fade & delete
-	animate(M, alpha = 0, time = sense_time + 1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
-	//animate(M, color = rgb(0,0,255), time = sense_time + 1 SECONDS, easing = QUAD_EASING, flags = EASE_IN) /// IM THE INSERTED LINE OF CODE!!!
-	addtimer(CALLBACK(src, .proc/handle_image, M), sense_time)
-	//Add image to client
-	owner.client?.images += M
