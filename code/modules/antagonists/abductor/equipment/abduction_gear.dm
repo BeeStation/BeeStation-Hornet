@@ -261,7 +261,7 @@
 	. = ..()
 	//Activate the jammer
 	//This jammer will not block cameras or AI shells
-	var/datum/component/radio_jamming/added_component = AddComponent(/datum/component/radio_jamming, 5, RAIDO_JAMMER_ABDUCTOR_LEVEL)
+	var/datum/component/radio_jamming/added_component = AddComponent(/datum/component/radio_jamming, 5, RADIO_JAMMER_ABDUCTOR_LEVEL)
 	added_component.enable()
 
 /obj/item/abductor/mind_device
