@@ -6,7 +6,7 @@
 
 	feature_spawn_list = list(/obj/structure/flora/rock/icy = 1, /obj/structure/flora/rock/pile/icy = 3)
 	flora_spawn_list = list(/obj/structure/flora/grass/green = 2, /obj/structure/flora/grass/brown = 2,  /obj/structure/flora/grass/both = 1)
-	mob_spawn_list = list(/mob/living/simple_animal/hostile/poison/giant_spider/hunter/ice, /mob/living/simple_animal/hostile/poison/giant_spider/ice)
+	mob_spawn_list = list(/mob/living/simple_animal/hostile/poison/giant_spider/hunter/ice = 1, /mob/living/simple_animal/hostile/poison/giant_spider/ice = 0.5)
 
 	initial_closed_chance = 45
 	smoothing_iterations = 50

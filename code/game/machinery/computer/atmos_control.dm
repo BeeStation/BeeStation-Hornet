@@ -273,7 +273,7 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 	circuit = /obj/item/circuitboard/computer/atmos_control/tank/incinerator
 
 /obj/machinery/computer/atmos_control/tank/toxins_waste_tank
-	name = "Toxin waste Air Monitor"
+	name = "Toxin Waste Air Monitor"
 	input_tag = ATMOS_GAS_MONITOR_INPUT_TOXINS_WASTE
 	output_tag = ATMOS_GAS_MONITOR_OUTPUT_TOXINS_WASTE
 	sensors = list(ATMOS_GAS_MONITOR_SENSOR_TOXINS_WASTE = "Toxins Waste Chamber")
