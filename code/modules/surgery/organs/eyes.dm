@@ -408,7 +408,7 @@
 
 /obj/item/organ/eyes/psyphoza
 	name = "psyphoza eyes"
-	desc = "Practically useless, an artifact of evolution."
+	desc = "Conduits for psychic energy, hardly even eyes."
 
 /obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, initialising)
 	. = ..()

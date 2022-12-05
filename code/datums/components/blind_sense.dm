@@ -20,12 +20,16 @@
 	RegisterSignal(SSdcs, COMSIG_GLOB_SOUND_PLAYED, .proc/handle_hear)
 	//typecast to access client
 	owner = parent
+	if(iscarbon(owner))
+		var/mob/living/carbon/C = owner
+		ears = C.ears
+		RegisterSignal(ears, COMSIG_PARENT_QDELETING, .proc/handle_ears)
 
 /datum/component/blind_sense/proc/handle_hear(datum/source, atom/speaker, message)
 	SIGNAL_HANDLER
 
-	//Stop us from hearing ourselves
-	if(owner == speaker)
+	//Stop us from hearing ourselves or if we're deaf
+	if(owner == speaker || ears?.deaf)
 		return
 	//Preset types for things without icons / fucky icons
 	var/type
@@ -67,6 +71,12 @@
 
 	owner.client?.images -= image_ref
 	qdel(image_ref)
+
+//Handle eyes deleting
+/datum/component/blind_sense/proc/handle_ears()
+	SIGNAL_HANDLER
+
+	ears = null
 
 //Psychich variant for psyphoza
 /datum/component/blind_sense/psychic
