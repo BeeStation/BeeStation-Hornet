@@ -1,7 +1,7 @@
-#define TAMED_COMMAND_FOLLOW "tamed_command_follow"
-#define TAMED_COMMAND_STOP "tamed_command_stop"
-#define TAMED_COMMAND_WANDER "tamed_command_wander"
-#define TAMED_COMMAND_ATTACK "tamed_command_attack"
+#define TAMED_COMMAND_FOLLOW "Follow"
+#define TAMED_COMMAND_STOP "Stop"
+#define TAMED_COMMAND_WANDER "Wander"
+#define TAMED_COMMAND_ATTACK "Attack"
 
 ///default jps fails pathfinding too often, this work better
 /datum/ai_movement/jps/expensive
