@@ -26,6 +26,9 @@
 /datum/crafting_recipe/proc/check_requirements(mob/user, list/collected_requirements)
 	return TRUE
 
+datum/crafting_recipe/proc/on_craft_completion(mob/user, atom/result)
+	return
+
 /datum/crafting_recipe/IED
 	name = "IED"
 	result = /obj/item/grenade/iedcasing
@@ -875,22 +878,32 @@
 /datum/crafting_recipe/aitater
 	name = "intelliTater"
 	result = /obj/item/aicard/aitater
-	time = 30
+	time = 5 //shoving a card into a potato is actually pretty easy!
 	tools = list(TOOL_WIRECUTTER)
 	reqs = list(/obj/item/aicard = 1,
 					/obj/item/reagent_containers/food/snacks/grown/potato = 1,
 					/obj/item/stack/cable_coil = 5)
+	parts = list(/obj/item/aicard = 1)
 	category = CAT_MISC
 
-/datum/crafting_recipe/aispook
+/datum/crafting_recipe/aitater/aispook
 	name = "intelliLantern"
 	result = /obj/item/aicard/aispook
-	time = 30
-	tools = list(TOOL_WIRECUTTER)
 	reqs = list(/obj/item/aicard = 1,
 					/obj/item/reagent_containers/food/snacks/grown/pumpkin = 1,
 					/obj/item/stack/cable_coil = 5)
-	category = CAT_MISC
+
+/datum/crafting_recipe/aitater/on_craft_completion(mob/user, atom/result)
+	var/obj/item/aicard/new_card = result
+	var/obj/item/aicard/base_card = result.contents[1]
+	var/mob/living/silicon/ai = base_card.AI
+
+	if(ai)
+		base_card.AI = null
+		ai.forceMove(new_card)
+		new_card.AI = ai
+		new_card.update_appearance()
+	qdel(base_card)
 
 /datum/crafting_recipe/ghettojetpack
 	name = "Improvised Jetpack"
@@ -994,7 +1007,7 @@
 	reqs = list(/obj/item/paper = 5)
 	category = CAT_MISC
 	tools = list(TOOL_WIRECUTTER)
-  
+
 /datum/crafting_recipe/basic_lasso
 	name= "Basic Lasso"
 	result = /obj/item/mob_lasso
