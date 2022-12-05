@@ -1,0 +1,5 @@
+author: Crossedfall
+delete-after: true
+changes:
+  - server: Bumps auxmos to 2.1.0
+  - server: Bumps the maximum BYOND version to 514.1589
