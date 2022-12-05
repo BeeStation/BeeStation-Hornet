@@ -50,7 +50,11 @@
 	if(!giver)
 		return FALSE
 	if(SSair.thread_running())
-		SSair.deferred_airs += list(list(giver, air, moles / giver.total_moles()))
+		var giver_moles = giver.total_moles()
+		if(giver_moles > 0)
+			SSair.deferred_airs += list(list(giver, air, moles / giver_moles))
+		else
+			SSair.deferred_airs += list(list(giver, air, 0))
 	else
 		giver.transfer_to(air, moles)
 		update_visuals()
@@ -70,7 +74,11 @@
 	if(!taker || !return_air()) // shouldn't transfer from space
 		return FALSE
 	if(SSair.thread_running())
-		SSair.deferred_airs += list(list(air, taker, moles / air.total_moles()))
+		var air_moles = air.total_moles()
+		if(air_moles > 0)
+			SSair.deferred_airs += list(list(air, taker, moles / air_moles))
+		else
+			SSair.deferred_airs += list(list(air, taker, 0))
 	else
 		air.transfer_to(taker, moles)
 		update_visuals()
