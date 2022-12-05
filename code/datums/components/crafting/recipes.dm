@@ -26,7 +26,7 @@
 /datum/crafting_recipe/proc/check_requirements(mob/user, list/collected_requirements)
 	return TRUE
 
-datum/crafting_recipe/proc/on_craft_completion(mob/user, atom/result)
+/datum/crafting_recipe/proc/on_craft_completion(mob/user, atom/result)
 	return
 
 /datum/crafting_recipe/IED
