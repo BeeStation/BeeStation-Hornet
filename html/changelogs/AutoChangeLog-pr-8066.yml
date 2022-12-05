@@ -1,0 +1,9 @@
+author: benbot16
+delete-after: true
+changes:
+  - rscadd: Adds an ash drake lasso. This can only be crafted and used by ash walkers,
+      and can be used to tame ash drakes.
+  - balance: Adds more lavaland mobs to the list of mobs that the primal lasso can
+      tame.
+  - code_imp: Makes tamed animal attack code a bit more robust.
+  - code_imp: Refactors lasso code.
