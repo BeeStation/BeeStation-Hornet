@@ -1,3 +1,6 @@
+///The limit when the psychic timer locks you out of creating more
+#define psychic_overlay_upper 450
+
 /datum/species/psyphoza
 	name = "\improper Psyphoza"
 	id = SPECIES_PSYPHOZA
@@ -37,17 +40,16 @@
 	var/list/sense_blacklist
 	///The amount of time you can sense things for
 	var/sense_time = 5 SECONDS
-	
 	///Reference to the users eyes - we use this to toggle xray vision for scans
 	var/obj/item/organ/eyes/eyes
 	///The eyes original sight flags - used between toggles
 	var/sight_flags
-
 	///Time between uses
 	var/cooldown = 2 SECONDS
-	
-	///The texture we use
-	var/texture = "texture_1"
+	///List of overlays we made
+	var/list/overlays = list()
+	///Reference to 'kill these overlays' timer
+	var/overlay_timer
 
 /datum/action/item_action/organ_action/psychic_highlight/New(Target)
 	. = ..()
@@ -66,13 +68,13 @@
 /datum/action/item_action/organ_action/psychic_highlight/Grant(mob/M)
 	. = ..()
 	//Register signal for TK highlights
-	RegisterSignal(M, COMSIG_MOB_ATTACK_RANGED, .proc/handle_tk)
+	RegisterSignal(M, COMSIG_MOB_ATTACK_RANGED, .proc/handle_ranged)
 	//Register signal for sensing voices
 	RegisterSignal(SSdcs, COMSIG_GLOB_LIVING_SAY_SPECIAL, .proc/handle_hear)
 	//Register signal for sensing sounds
 	RegisterSignal(SSdcs, COMSIG_GLOB_SOUND_PLAYED, .proc/handle_hear)
 	//Overlay used to highlight objects
-	M.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_blinding)
+	M.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
 
 /datum/action/item_action/organ_action/psychic_highlight/Trigger()
 	. = ..()
@@ -80,7 +82,7 @@
 		return
 	ping_turf(get_turf(owner))
 	has_cooldown_timer = TRUE
-	addtimer(CALLBACK(src, .proc/finish_cooldown), cooldown)
+	addtimer(CALLBACK(src, .proc/finish_cooldown), cooldown + (sense_time * min(1, overlays.len / psychic_overlay_upper)))
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/finish_cooldown()
 	has_cooldown_timer = FALSE
@@ -111,7 +113,10 @@
 	if(B)
 		B.alpha = 255
 		animate(B, alpha = 0, time = sense_time, easing = QUAD_EASING, flags = EASE_IN)
-
+	//Setup timer to delete image
+	if(overlay_timer)
+		deltimer(overlay_timer)
+	overlay_timer = addtimer(CALLBACK(src, .proc/toggle_eyes_backwards), sense_time, TIMER_STOPPABLE)
 
 //Get a list of nearby things & run 'em through a typecache
 /datum/action/item_action/organ_action/psychic_highlight/proc/ping_turf(turf/T, size = sense_range)
@@ -131,18 +136,18 @@
 
 //Add overlay for psychic plane
 /datum/action/item_action/organ_action/psychic_highlight/proc/highlight_object(atom/target)
-	//Setup image we add to the client
 	var/image/M = new()
 	M.appearance = target.appearance
 	M.plane = PSYCHIC_PLANE
 	M.pixel_x = 0
 	M.pixel_y = 0
 	target.add_overlay(M)
-	//Setup timer to delete image
-	addtimer(CALLBACK(src, .proc/toggle_eyes_backwards, target, M), sense_time)
+	//Append goober and his image to overlay list to get GC'd
+	overlays += target
+	overlays += M
 
 //Handle clicking for ranged trigger
-/datum/action/item_action/organ_action/psychic_highlight/proc/handle_tk(datum/source, atom/target)
+/datum/action/item_action/organ_action/psychic_highlight/proc/handle_ranged(datum/source, atom/target)
 	SIGNAL_HANDLER
 
 	if(has_cooldown_timer)
@@ -151,18 +156,26 @@
 	if(get_dist(get_turf(owner), T) > 1)
 		ping_turf(T, 2)
 		has_cooldown_timer = TRUE
-		addtimer(CALLBACK(src, .proc/finish_cooldown), cooldown/2)
+		addtimer(CALLBACK(src, .proc/finish_cooldown), (cooldown/2) + (sense_time * min(1, overlays.len / psychic_overlay_upper)))
 
 //Handle images deleting, stops hardel - also does eyes stuff
-/datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_backwards(atom/target, image/image_ref)
-	SIGNAL_HANDLER
-	
-	if(!isnull(target))
-		target.cut_overlay(image_ref)
+/datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_backwards()
+	//Timer
+	if(overlay_timer)
+		deltimer(overlay_timer)
+		overlay_timer = null
 
-	if(!has_cooldown_timer)
-		eyes?.sight_flags = sight_flags
-		owner.update_sight()
+	//Remove all the overlays
+	if(!overlays.len)
+		return
+	for(var/i in 1 to overlays.len)
+		if(istype(overlays[i], /image) || isnull(overlays[i]))
+			continue
+		var/atom/T = overlays[i]
+		T?.cut_overlay(overlays[i+1])
+	overlays.Cut(1, 0)
+	eyes?.sight_flags = sight_flags
+	owner.update_sight()
 
 //Dim blind overlay for blind_sense component
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_hear(datum/source, atom/speaker, message)
@@ -172,7 +185,6 @@
 	if(dist <= hear_range && dist > 1)
 		dim_overlay()
 		toggle_eyes_fowards()
-		addtimer(CALLBACK(src, .proc/toggle_eyes_backwards), sense_time)
 
 //Handles eyes being deleted
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_eyes()
@@ -187,10 +199,16 @@
 	blend_mode = BLEND_OVERLAY
 	alpha = 0
 
+//keep this-
 /atom/movable/screen/fullscreen/blind/psychic
-	icon_state = "psychic_eyes"
+	icon_state = "tv"
+	icon = 'icons/mob/psychic.dmi'
 
-/atom/movable/screen/fullscreen/blind/psychic_blinding
-	icon_state = "psychic_eyes_blinding"
+//And this seperate to avoid issues with animations & locate()
+/atom/movable/screen/fullscreen/blind/psychic_highlight
+	icon_state = "tv_highlight"
+	icon = 'icons/mob/psychic.dmi'
 	plane = PSYCHIC_PLANE
 	blend_mode = BLEND_INSET_OVERLAY
+
+#undef psychic_overlay_upper
