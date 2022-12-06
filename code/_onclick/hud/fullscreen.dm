@@ -184,6 +184,3 @@
 	layer = LIGHTING_LAYER
 	blend_mode = BLEND_ADD
 	show_when_dead = TRUE
-
-/atom/movable/screen/fullscreen/blind/psychic
-	icon_state = "psychic_eyes"
