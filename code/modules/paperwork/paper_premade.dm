@@ -107,5 +107,18 @@
 
 //////////// GlowStation
 /obj/item/paper/fluff/stations/glowstation/vault
-	name = "paper- Vault anouncment"
-	info = "<h1>Notice</h1> <p>From the department of nuclear accounting™.</p> <p>To all who it may apply.<br>The station’s nuclear self destruct device.<br>And any local <em>secret</em> documentation.</p> <p>May be found at the station’s nuclear site.<br>Located north of engineering on deck 1.<br>Accessed via the command staircase on the northen side of the command hallway.</p> <p>signed: <strong><em>Kevin Firewind</em></strong><br>From nuclear accounting™.</p> <p>Glory to Nanotrasen™</p>"
+	name = "paper- 'Vault Notice'"
+	info = "<h1>Notice</h1>\
+	<p>From the department of nuclear accounting™.</p>\
+	\
+	<p>To all who it may apply.<br>\
+	The station's nuclear self destruct device.<br>\
+	And any local <em>secret</em> documentation.</p>\
+	\
+	<p>May be found at the station's nuclear site.<br>\
+	Located north of engineering on deck 1.<br>\
+	Accessed via the command staircase on the northen side of the command hallway.</p>\
+	\
+	<p>signed: <strong><em>Kevin Firewind</em></strong><br>From nuclear accounting™.</p>\
+	\
+	<p>Glory to Nanotrasen™</p>"
