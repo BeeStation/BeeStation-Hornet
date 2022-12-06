@@ -121,7 +121,7 @@
 /// Returns the size that the screen should be
 /proc/getScreenSize(mob/M)
 	// New players on the menu get the size of the lobby art
-	if(M && istype(M, /mob/dead/new_player))
+	if(istype(M, /mob/dead/new_player))
 		return SStitle.lobby_screen_size
 	// Otherwise, they get the default view
 	return CONFIG_GET(string/default_view)
