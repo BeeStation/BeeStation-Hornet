@@ -42,6 +42,8 @@
 	var/sense_time = 5 SECONDS
 	///Reference to the users eyes - we use this to toggle xray vision for scans
 	var/obj/item/organ/eyes/eyes
+	///Reference to the users ears - we use this for stuff :)
+	var/obj/item/organ/ears/ears
 	///The eyes original sight flags - used between toggles
 	var/sight_flags
 	///Time between uses
@@ -73,6 +75,7 @@
 	RegisterSignal(SSdcs, COMSIG_GLOB_LIVING_SAY_SPECIAL, .proc/handle_hear)
 	//Register signal for sensing sounds
 	RegisterSignal(SSdcs, COMSIG_GLOB_SOUND_PLAYED, .proc/handle_hear)
+
 	//Overlay used to highlight objects
 	M.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
 
@@ -89,14 +92,20 @@
 
 //Allows user to see images through walls
 /datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_fowards()
-	//Grab eyes
-	if(!eyes && istype(owner, /mob/living/carbon/human))
-		var/mob/living/carbon/human/M = owner
-		eyes = locate(/obj/item/organ/eyes) in M.internal_organs
+	//Grab organs - we do this here becuase of fuckery :tm:
+	if((!eyes || !ears) && istype(owner, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = owner
+		//eyes
+		eyes = eyes || locate(/obj/item/organ/eyes) in H.internal_organs
 		sight_flags = eyes?.sight_flags
 		//Register signal for losing our eyes
 		RegisterSignal(eyes, COMSIG_PARENT_QDELETING, .proc/handle_eyes)
-	//handle eyes
+		//ears
+		ears = ears || locate(/obj/item/organ/ears) in H.internal_organs
+		//Register signal for losing our ears
+		RegisterSignal(ears, COMSIG_PARENT_QDELETING, .proc/handle_ears)
+
+	//handle eyes - make them xray so we can see all the things
 	eyes?.sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	owner.update_sight()
 
@@ -136,15 +145,23 @@
 
 //Add overlay for psychic plane
 /datum/action/item_action/organ_action/psychic_highlight/proc/highlight_object(atom/target)
+	//Build image
 	var/image/M = new()
 	M.appearance = target.appearance
-	M.plane = PSYCHIC_PLANE
-	M.pixel_x = 0
+	M.pixel_x = 0 //Reset pixel adjustments to avoid unique bug - comment these two lines for funny
 	M.pixel_y = 0
-	target.add_overlay(M)
-	//Append goober and his image to overlay list to get GC'd
-	overlays += target
-	overlays += M
+	M.plane = PSYCHIC_PLANE
+	//make another image to obscure the name of the most likely xray'd target - also acts as the insert for the target
+	var/image/N = new(M)
+	N.name = "???"
+	N.override = TRUE
+	N.loc = target
+	N.plane = target.plane
+	owner.client.images += N
+	//Add overlay for highlighting
+	N.add_overlay(M)
+	//Append overlay-holder image for removal later
+	overlays += N
 
 //Handle clicking for ranged trigger
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_ranged(datum/source, atom/target)
@@ -164,16 +181,19 @@
 	if(overlay_timer)
 		deltimer(overlay_timer)
 		overlay_timer = null
-
 	//Remove all the overlays
 	if(!overlays.len)
 		return
 	for(var/i in 1 to overlays.len)
 		if(istype(overlays[i], /image) || isnull(overlays[i]))
+			if(!isnull(overlays[i]))
+				var/image/M = overlays[i]
+				M.cut_overlays()
+				owner.client.images -= M
+				qdel(M)
 			continue
-		var/atom/T = overlays[i]
-		T?.cut_overlay(overlays[i+1])
 	overlays.Cut(1, 0)
+	//eyes
 	eyes?.sight_flags = sight_flags
 	owner.update_sight()
 
@@ -181,6 +201,8 @@
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_hear(datum/source, atom/speaker, message)
 	SIGNAL_HANDLER
 
+	if(ears?.deaf)
+		return
 	var/dist = get_dist(get_turf(owner), get_turf(speaker))
 	if(dist <= hear_range && dist > 1)
 		dim_overlay()
@@ -191,6 +213,12 @@
 	SIGNAL_HANDLER
 
 	eyes = null
+
+//Handles ears being deleted
+/datum/action/item_action/organ_action/psychic_highlight/proc/handle_ears()
+	SIGNAL_HANDLER
+
+	ears = null
 
 /atom/movable/screen/plane_master/psychic
 	name = "psychic plane master"
@@ -210,5 +238,9 @@
 	icon = 'icons/mob/psychic.dmi'
 	plane = PSYCHIC_PLANE
 	blend_mode = BLEND_INSET_OVERLAY
+	
+/atom/movable/screen/fullscreen/blind/psychic_highlight/Initialize(mapload)
+	. = ..()
+	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
 
 #undef psychic_overlay_upper

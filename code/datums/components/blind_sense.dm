@@ -84,4 +84,3 @@
 //Psychich variant for psyphoza
 /datum/component/blind_sense/psychic
 	texture = "texture_1"
-	bloom = FALSE
