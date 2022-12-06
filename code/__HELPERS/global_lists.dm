@@ -86,21 +86,7 @@
 		var/key = copytext(each, 1, keycut)
 		var/text_value = copytext(each, keycut+1)
 
-		// replaces [[ ]] into wiki link format
-		// "you need to [[guide_to_chemisty read this guide]] please."" will become
-		// "you need to <a href='wiki://guide_to_chemisty'>read this guide</a> please."
-		var/opencut = findtext(text_value, "\[\[")
-		while(opencut)
-			var/list/stacker = list()
-			stacker += copytext(text_value, 1, opencut)       // >> "you need to
-			text_value = splicetext(text_value, 1, opencut+1) // >> [[guide_to_chemisty read this guide]] please."
-			var/spacecut = findtext(text_value, " ")
-			var/closecut = findtext(text_value, "\]\]")
-			stacker += OPEN_WIKI(copytext(text_value, 2, spacecut), copytext(text_value, spacecut+1, closecut))  // replace [[ ]] wapper in text_value to hyperlink
-			stacker += copytext(text_value, closecut+2)       // >> please."
-
-			text_value = jointext(stacker, "")    // result >> "you need to <a>read this guys</a> please."
-			opencut = findtext(text_value, "\[\[")
+		text_value = encode_wiki_link(text_value)
 		GLOB.tooltips[key] = text_value
 		// if runtime error happens, that means your config file is wrong
 
