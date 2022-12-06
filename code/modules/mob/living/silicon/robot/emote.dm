@@ -29,7 +29,7 @@
 	key = "dwoop"
 	key_third_person = "dwoops"
 	message = "emits a dwoop sound."
-	sound = 'code/datums/emote_sounds/emotes/dwoop.ogg'
+	sound = 'sound/emotes/dwoop.ogg'
 
 /datum/emote/silicon/honk
 	key = "honk"

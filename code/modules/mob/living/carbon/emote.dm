@@ -113,21 +113,21 @@
 	key_third_person = "snaps"
 	message = "snaps their fingers"
 	message_param = "snaps their fingers at %t"
-	sound = 'code/datums/emote_sounds/emotes/snap.ogg'
+	sound = 'sound/emotes/snap.ogg'
 
 /datum/emote/living/carbon/snap/two
 	key = "snap2"
 	key_third_person = "snaps2"
 	message = "snaps their fingers twice"
 	message_param = "snaps their fingers at %t twice"
-	sound = 'code/datums/emote_sounds/emotes/snap2.ogg'
+	sound = 'sound/emotes/snap2.ogg'
 
 /datum/emote/living/carbon/snap/three
 	key = "snap3"
 	key_third_person = "snaps3"
 	message = "snaps their fingers thrice"
 	message_param = "snaps their fingers at %t thrice"
-	sound = 'code/datums/emote_sounds/emotes/snap3.ogg'
+	sound = 'sound/emotes/snap3.ogg'
 
 /datum/emote/living/carbon/screech/roar
 	key = "roar"
@@ -174,7 +174,7 @@
 	overlay_x_offset = 10
 	overlay_y_offset = 10
 	emote_length = 3 SECONDS
-	sound = 'code/datums/emote_sounds/emotes/sweatdrop.ogg'
+	sound = 'sound/emotes/sweatdrop.ogg'
 
 /datum/emote/living/carbon/annoyed
 	key = "annoyed"
@@ -185,7 +185,7 @@
 	overlay_x_offset = 10
 	overlay_y_offset = 10
 	emote_length = 5 SECONDS
-	sound = 'code/datums/emote_sounds/emotes/annoyed.ogg'
+	sound = 'sound/emotes/annoyed.ogg'
 
 /datum/emote/living/carbon/glasses
 	key = "glasses"

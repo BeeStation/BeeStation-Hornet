@@ -74,7 +74,7 @@
 	message = "lets out a tiny squeak"
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
-	sound = 'code/datums/emote_sounds/emotes/mothsqueak.ogg'
+	sound = 'sound/emotes/mothsqueak.ogg'
 
 /datum/emote/living/carbon/human/moth/chitter
 	key = "chitter"
@@ -82,7 +82,7 @@
 	message = "chitters"
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
-	sound = 'code/datums/emote_sounds/emotes/mothchitter.ogg'
+	sound = 'sound/emotes/mothchitter.ogg'
 
 /datum/emote/living/carbon/human/scream
 	key = "scream"
@@ -268,7 +268,7 @@
 
 /datum/emote/living/carbon/human/robot_tongue/dwoop/run_emote(mob/user, params)
 	if(..())
-		playsound(user.loc, 'code/datums/emote_sounds/emotes/dwoop.ogg', 50)
+		playsound(user.loc, 'sound/emotes/dwoop.ogg', 50)
 
  // Clown Robotic Tongue ONLY. Henk.
 

@@ -50,7 +50,7 @@
 	return 0
 
 /datum/species/moth/get_laugh_sound(mob/living/carbon/user)
-	return 'code/datums/emote_sounds/emotes/mothlaugh.ogg'
+	return 'sound/emotes/mothlaugh.ogg'
 
 /datum/species/moth/get_scream_sound(mob/living/carbon/user)
 	return 'sound/voice/moth/scream_moth.ogg'
