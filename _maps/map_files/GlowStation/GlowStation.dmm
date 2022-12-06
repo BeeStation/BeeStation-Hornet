@@ -17949,9 +17949,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "eaP" = (
-/obj/machinery/atmospherics/pipe/manifold/cyan/visible{
-	dir = 8
-	},
+/obj/machinery/atmospherics/components/binary/pump,
 /turf/open/floor/engine,
 /area/engine/atmospherics_engine)
 "ebg" = (
@@ -36739,6 +36737,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
 	},
+/obj/machinery/portable_atmospherics/pump,
 /turf/open/floor/plating/snowed,
 /area/engine/atmospherics_engine)
 "hYz" = (
@@ -72039,12 +72038,6 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
-"pGJ" = (
-/obj/machinery/atmospherics/pipe/simple/cyan/visible{
-	dir = 9
-	},
-/turf/open/floor/engine,
-/area/engine/atmospherics_engine)
 "pHd" = (
 /mob/living/simple_animal/bot/secbot/beepsky{
 	name = "Officer Beepsky"
@@ -102736,7 +102729,6 @@
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/central)
 "woN" = (
-/obj/machinery/airalarm/engine,
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
 /turf/closed/wall/r_wall/syndicate/nodiagonal,
 /area/engine/supermatter)
@@ -110267,9 +110259,7 @@
 "ydC" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/meter,
-/obj/machinery/atmospherics/pipe/simple/cyan/visible{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/manifold/cyan/visible,
 /turf/open/floor/mineral/plastitanium/red,
 /area/engine/atmospherics_engine)
 "ydF" = (
@@ -110942,6 +110932,9 @@
 "ykq" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/manifold/cyan/visible,
+/obj/machinery/airalarm/engine{
+	pixel_y = 24
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/engine/supermatter)
 "ykE" = (
@@ -144975,7 +144968,7 @@ kDj
 bop
 qwI
 mPS
-pGJ
+eaP
 ydC
 iMD
 cQK
