@@ -135,7 +135,8 @@
 	var/image/M = new()
 	M.appearance = target.appearance
 	M.plane = PSYCHIC_PLANE
-	M.override = 1
+	M.pixel_x = 0
+	M.pixel_y = 0
 	target.add_overlay(M)
 	//Setup timer to delete image
 	addtimer(CALLBACK(src, .proc/toggle_eyes_backwards, target, M), sense_time)
@@ -193,8 +194,3 @@
 	icon_state = "psychic_eyes_blinding"
 	plane = PSYCHIC_PLANE
 	blend_mode = BLEND_INSET_OVERLAY
-
-/atom/movable/screen/fullscreen/blind/psychic_blinding/Initialize(mapload)
-	. = ..()
-	//Add some artsy stuff
-	filters += filter(type = "bloom", size = 5, threshold = rgb(1,1,1))
