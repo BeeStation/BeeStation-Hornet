@@ -1,8 +1,3 @@
-///A list of generated images from psychic sight. Saves us generating more than once.
-GLOBAL_LIST_EMPTY(psychic_images)
-///The maximum limit of cached icons
-#define MAX_PSYCHIC_ICON_CACHE 500
-
 /datum/species/psyphoza
 	name = "\improper Psyphoza"
 	id = SPECIES_PSYPHOZA
@@ -76,6 +71,8 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	RegisterSignal(SSdcs, COMSIG_GLOB_LIVING_SAY_SPECIAL, .proc/handle_hear)
 	//Register signal for sensing sounds
 	RegisterSignal(SSdcs, COMSIG_GLOB_SOUND_PLAYED, .proc/handle_hear)
+	//Overlay used to highlight objects
+	M.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_blinding)
 
 /datum/action/item_action/organ_action/psychic_highlight/Trigger()
 	. = ..()
@@ -89,7 +86,7 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	has_cooldown_timer = FALSE
 
 //Allows user to see images through walls
-/datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes()
+/datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_fowards()
 	//Grab eyes
 	if(!eyes && istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/M = owner
@@ -101,18 +98,25 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	eyes?.sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	owner.update_sight()
 
-//Dims blind overlay
+//Dims blind overlay - Lightens highlight layer
 /datum/action/item_action/organ_action/psychic_highlight/proc/dim_overlay()
+	//Blind layer
 	var/atom/movable/screen/fullscreen/blind/psychic/P = locate (/atom/movable/screen/fullscreen/blind/psychic) in owner.client?.screen
 	if(P)
 		//We change the color instead of alpha, otherwise we'd reveal our actual surroundings!
 		P.color = "#000"
-		animate(P, color = "#fff", time = sense_time+1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
+		animate(P, color = "#fff", time = sense_time, easing = QUAD_EASING, flags = EASE_IN)
+	//Highlight layer
+	var/atom/movable/screen/plane_master/psychic/B = locate (/atom/movable/screen/plane_master/psychic) in owner.client?.screen
+	if(B)
+		B.alpha = 255
+		animate(B, alpha = 0, time = sense_time, easing = QUAD_EASING, flags = EASE_IN)
 
-//Get a list of nearby things & handle some visuals
+
+//Get a list of nearby things & run 'em through a typecache
 /datum/action/item_action/organ_action/psychic_highlight/proc/ping_turf(turf/T, size = sense_range)
 	//call eye goof
-	toggle_eyes()
+	toggle_eyes_fowards()
 	//Dull blind overlay
 	dim_overlay()
 	//Get nearby 'things'
@@ -125,43 +129,16 @@ GLOBAL_LIST_EMPTY(psychic_images)
 			continue
 		highlight_object(C)
 
-//Highlight a given object
+//Add overlay for psychic plane
 /datum/action/item_action/organ_action/psychic_highlight/proc/highlight_object(atom/target)
-	//Pull icon from pre-gen, if it exists
-	var/icon/I = GLOB.psychic_images["[target.type][target.icon_state][target.dir]"]
-
-	//Build icon if it doesn't exist
-	if(!I)
-		//Base texture we will make
-		I = icon('icons/mob/psychic.dmi', texture)
-
-		//If we've hit the cache limit, don't push our luck - Let me know if this cracks preformance
-		if(GLOB.psychic_images.len < MAX_PSYCHIC_ICON_CACHE)
-			//Try and make a mask from the target's icon
-			var/icon/mask = icon(target.icon, (target.icon_state || initial(target.icon_state)), target.dir)
-			//if they don't have an icon, use a default one
-			if(!target.icon_state && !initial(target.icon_state))
-				var/state = (isliving(target) ? "mob" : "unknown")
-				mask = icon('icons/mob/psychic.dmi', state)
-			//Apply the mask
-			I.AddAlphaMask(mask)
-			//Save this icon for later use, so we don't make it again
-			GLOB.psychic_images += list("[target.type][target.icon_state][target.dir]" = icon(I))
-
 	//Setup image we add to the client
-	var/image/M = image(I, target, layer = BLIND_LAYER+1, pixel_x = target.pixel_x, pixel_y = target.pixel_y)
-	M.plane = FULLSCREEN_PLANE+1
+	var/image/M = new()
+	M.appearance = target.appearance
+	M.plane = PSYCHIC_PLANE
 	M.override = 1
-	//Do some artsy stuff for image
-	M.filters += filter(type = "bloom", size = 3, threshold = rgb(85,85,85))
-	M.override = 1
-	M.name = "???"
-	animate(M, alpha = 0, time = sense_time + 1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
+	target.add_overlay(M)
 	//Setup timer to delete image
-	addtimer(CALLBACK(src, .proc/handle_image, M), sense_time)
-
-	//Add image to client
-	owner.client?.images += M
+	addtimer(CALLBACK(src, .proc/toggle_eyes_backwards, target, M), sense_time)
 
 //Handle clicking for ranged trigger
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_tk(datum/source, atom/target)
@@ -176,12 +153,13 @@ GLOBAL_LIST_EMPTY(psychic_images)
 		addtimer(CALLBACK(src, .proc/finish_cooldown), cooldown/2)
 
 //Handle images deleting, stops hardel - also does eyes stuff
-/datum/action/item_action/organ_action/psychic_highlight/proc/handle_image(image/image_ref)
+/datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_backwards(atom/target, image/image_ref)
 	SIGNAL_HANDLER
-	if(image_ref)
-		owner.client?.images -= image_ref
-		qdel(image_ref)
-	if(!owner.client?.images.len)
+	
+	if(!isnull(target))
+		target.cut_overlay(image_ref)
+
+	if(!has_cooldown_timer)
 		eyes?.sight_flags = sight_flags
 		owner.update_sight()
 
@@ -192,8 +170,8 @@ GLOBAL_LIST_EMPTY(psychic_images)
 	var/dist = get_dist(get_turf(owner), get_turf(speaker))
 	if(dist <= hear_range && dist > 1)
 		dim_overlay()
-		toggle_eyes()
-		addtimer(CALLBACK(src, .proc/handle_image), sense_time)
+		toggle_eyes_fowards()
+		addtimer(CALLBACK(src, .proc/toggle_eyes_backwards), sense_time)
 
 //Handles eyes being deleted
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_eyes()
@@ -201,4 +179,22 @@ GLOBAL_LIST_EMPTY(psychic_images)
 
 	eyes = null
 
-#undef MAX_PSYCHIC_ICON_CACHE
+/atom/movable/screen/plane_master/psychic
+	name = "psychic plane master"
+	plane = PSYCHIC_PLANE
+	appearance_flags = PLANE_MASTER
+	blend_mode = BLEND_OVERLAY
+	alpha = 0
+
+/atom/movable/screen/fullscreen/blind/psychic
+	icon_state = "psychic_eyes"
+
+/atom/movable/screen/fullscreen/blind/psychic_blinding
+	icon_state = "psychic_eyes_blinding"
+	plane = PSYCHIC_PLANE
+	blend_mode = BLEND_INSET_OVERLAY
+
+/atom/movable/screen/fullscreen/blind/psychic_blinding/Initialize(mapload)
+	. = ..()
+	//Add some artsy stuff
+	filters += filter(type = "bloom", size = 5, threshold = rgb(1,1,1))
