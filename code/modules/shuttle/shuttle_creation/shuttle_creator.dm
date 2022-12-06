@@ -18,6 +18,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	density = FALSE
 	anchored = FALSE
 	flags_1 = CONDUCT_1
+	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	force = 0
 	throwforce = 8
