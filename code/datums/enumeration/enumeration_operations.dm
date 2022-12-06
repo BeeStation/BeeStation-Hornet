@@ -10,3 +10,7 @@
  */
 /datum/enumerator/proc/foreach(datum/callback/callback)
 	return new /datum/enumerator/callback(src, callback)
+
+//These do the same thing
+/datum/enumerator/proc/select(datum/callback/callback)
+	return new /datum/enumerator/callback(src, callback)
