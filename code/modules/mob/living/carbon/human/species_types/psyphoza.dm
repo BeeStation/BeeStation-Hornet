@@ -1,14 +1,11 @@
 ///The limit when the psychic timer locks you out of creating more
-#define psychic_overlay_upper 450
+#define psychic_overlay_upper 200
 
 /datum/species/psyphoza
 	name = "\improper Psyphoza"
 	id = SPECIES_PSYPHOZA
 	sexes = 0
 	species_traits = list(NOEYESPRITES)
-	attack_verb = "punch"
-	attack_sound = 'sound/weapons/punch1.ogg'
-	miss_sound = 'sound/weapons/punchmiss.ogg'
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	mutant_brain = /obj/item/organ/brain/psyphoza
 	mutanteyes = /obj/item/organ/eyes/psyphoza
@@ -22,6 +19,11 @@
 
 /datum/species/psyphoza/check_roundstart_eligible()
 	return TRUE
+
+/datum/species/psyphoza/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+	. = ..()
+	C.dna.add_mutation(TK_WEAK, MUT_OTHER)
+
 /obj/item/organ/brain/psyphoza
 	name = "psyphoza brain"
 	desc = "Bubbling with psychic energy!"
@@ -151,6 +153,7 @@
 	M.pixel_x = 0 //Reset pixel adjustments to avoid unique bug - comment these two lines for funny
 	M.pixel_y = 0
 	M.plane = PSYCHIC_PLANE
+	M.dir = target.dir //Not sure why I have to do this?
 	//make another image to obscure the name of the most likely xray'd target - also acts as the insert for the target
 	var/image/N = new(M)
 	N.name = "???"

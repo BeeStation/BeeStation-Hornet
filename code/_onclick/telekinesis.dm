@@ -20,12 +20,12 @@
 	add_hiddenprint(user)
 	return
 
-/obj/attack_tk(mob/user)
+/obj/attack_tk(mob/user, is_weak = FALSE)
 	if(user.stat)
 		return
 	if(anchored)
 		return ..()
-	attack_tk_grab(user)
+	attack_tk_grab(user, is_weak)
 
 /obj/proc/attack_tk_grab(mob/user)
 	var/obj/item/tk_grab/O = new(src)
