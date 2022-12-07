@@ -152,6 +152,8 @@
 	M.appearance = target.appearance
 	M.pixel_x = 0 //Reset pixel adjustments to avoid unique bug - comment these two lines for funny
 	M.pixel_y = 0
+	M.pixel_z = 0
+	M.pixel_w = 0
 	M.plane = PSYCHIC_PLANE
 	M.dir = target.dir //Not sure why I have to do this?
 	//make another image to obscure the name of the most likely xray'd target - also acts as the insert for the target
