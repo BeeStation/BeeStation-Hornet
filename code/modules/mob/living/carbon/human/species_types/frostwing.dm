@@ -5,11 +5,13 @@
 	default_color = "00FFFF"
 	species_traits = list(NO_UNDERWEAR)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
-	mutant_bodyparts = list("wings_frostwing", "trail_frostwing")
+	mutant_bodyparts = list("wings_frostwing", "tail_frostwing")
 	mutanttongue = /obj/item/organ/tongue/frostwing
 	mutantwings = /obj/item/organ/wings/frostwing
-	// Icy atmos has lower pressure, need to resist oxyloss but still require oxygen
-	oxymod = 0.2
+	// Lungs are what actually allow them to breathe low pressure
+	mutantlungs = /obj/item/organ/lungs/frostwing
+	// Their biology requires less oxygen due to the low pressure environment, so they don't take as much oxyloss.
+	oxymod = 0.5
 	// Full cold resist
 	inherent_traits = list(TRAIT_RESISTCOLD)
 	default_features = list("legs" = "Normal Legs", "body_size" = "Normal")
@@ -18,7 +20,9 @@
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/frostwing
+	// Drop feathers
 	skinned_type = /obj/item/stack/sheet/animalhide/frostwing
+	// They cannot speak Common, only Icaelic
 	species_language_holder = /datum/language_holder/frostwing
 
 	species_chest = /obj/item/bodypart/chest/frostwing
@@ -28,15 +32,8 @@
 	species_l_leg = /obj/item/bodypart/l_leg/frostwing
 	species_r_leg = /obj/item/bodypart/r_leg/frostwing
 
-
-/*
 /datum/species/frostwing/random_name(gender, unique, lastname, attempts)
-	if(gender == MALE)
-		. = "[pick(GLOB.lizard_names_male)]-[pick(GLOB.lizard_names_male)]"
-	else
-		. = "[pick(GLOB.lizard_names_female)]-[pick(GLOB.lizard_names_female)]"
-
+	. = "[pick(GLOB.frostwing_names)]-[pick(GLOB.frostwing_names)][prob(50) ? "-[pick(GLOB.frostwing_names)]" : ""][prob(50) ? "-[pick(GLOB.frostwing_names)]" : ""]"
 	if(unique && attempts < 10)
 		if(findname(.))
 			. = .(gender, TRUE, null, ++attempts)
-*/

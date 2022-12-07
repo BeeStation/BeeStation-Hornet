@@ -392,5 +392,11 @@
 	icon_state = "lungs"
 	safe_breath_min = 8
 
+/obj/item/organ/lungs/frostwing
+	name = "frostwing lungs"
+	desc = "Lungs from a frostwing. They're adapted to the low-pressure atmosphere of lavaland's ice moon."
+	icon_state = "lungs"
+	safe_breath_min = 8
+
 #undef PP
 #undef PP_MOLES
