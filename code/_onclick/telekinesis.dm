@@ -35,6 +35,7 @@
 /obj/proc/attack_tk_grab(mob/user, is_weak = FALSE)
 	if(is_weak)
 		step(src, user.dir)
+		log_game("[user] weak-tk shoved [src] at [world.time]. Located at [AREACOORD(src)].")
 		new /obj/effect/temp_visual/telekinesis(get_turf(src))
 		return
 	var/obj/item/tk_grab/O = new(src)

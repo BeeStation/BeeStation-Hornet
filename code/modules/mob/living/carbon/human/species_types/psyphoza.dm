@@ -1,12 +1,17 @@
 ///The limit when the psychic timer locks you out of creating more
-#define psychic_overlay_upper 200
+#define PSYCHIC_OVERLAY_UPPER 200
+///Burn mod for our species
+#define PSYPHOZA_BURNMOD 1.25
 
 /datum/species/psyphoza
 	name = "\improper Psyphoza"
 	id = SPECIES_PSYPHOZA
-	sexes = 0
-	species_traits = list(NOEYESPRITES)
+	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/plant
+	species_traits = list(NOEYESPRITES, AGENDER)
+	sexes = FALSE
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
+	species_language_holder = /datum/language_holder/plant
+
 	mutant_brain = /obj/item/organ/brain/psyphoza
 	mutanteyes = /obj/item/organ/eyes/psyphoza
 
@@ -16,6 +21,8 @@
 	species_r_arm = /obj/item/bodypart/r_arm/pumpkin_man
 	species_l_leg = /obj/item/bodypart/l_leg/pumpkin_man
 	species_r_leg = /obj/item/bodypart/r_leg/pumpkin_man
+
+	burnmod = PSYPHOZA_BURNMOD
 
 /datum/species/psyphoza/check_roundstart_eligible()
 	return TRUE
@@ -87,7 +94,7 @@
 		return
 	ping_turf(get_turf(owner))
 	has_cooldown_timer = TRUE
-	addtimer(CALLBACK(src, .proc/finish_cooldown), cooldown + (sense_time * min(1, overlays.len / psychic_overlay_upper)))
+	addtimer(CALLBACK(src, .proc/finish_cooldown), cooldown + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/finish_cooldown()
 	has_cooldown_timer = FALSE
@@ -178,7 +185,7 @@
 	if(get_dist(get_turf(owner), T) > 1)
 		ping_turf(T, 2)
 		has_cooldown_timer = TRUE
-		addtimer(CALLBACK(src, .proc/finish_cooldown), (cooldown/2) + (sense_time * min(1, overlays.len / psychic_overlay_upper)))
+		addtimer(CALLBACK(src, .proc/finish_cooldown), (cooldown/2) + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
 
 //Handle images deleting, stops hardel - also does eyes stuff
 /datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_backwards()
@@ -248,4 +255,5 @@
 	. = ..()
 	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
 
-#undef psychic_overlay_upper
+#undef PSYCHIC_OVERLAY_UPPER
+#undef PSYPHOZA_BURNMOD
