@@ -1,0 +1,6 @@
+author: RKz
+delete-after: true
+changes:
+  - bugfix: removed observer ability to edit syndie shuttle pods names. Agents spending
+      that 8 TC no longer have to worry about the dead's opinions on their unimaginative
+      naming schemes.
