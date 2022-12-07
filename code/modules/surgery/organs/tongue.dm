@@ -33,6 +33,7 @@
 		/datum/language/slime,
 		/datum/language/sylvan,
 		/datum/language/terrum,
+		/datum/language/icaelic,
 		/datum/language/uncommon))
 
 /obj/item/organ/tongue/Initialize(mapload)
@@ -350,3 +351,17 @@
 	desc = "It's an odd tongue, seemingly made of plant matter."
 	disliked_food = MEAT | DAIRY
 	liked_food = VEGETABLES | FRUIT | GRAIN //cannibals apparently
+
+/obj/item/organ/tongue/frostwing
+	name = "icy tongue"
+	desc = "A dark, birdlike tongue. It's cold to the touch."
+	// TODO
+	icon_state = "tonguemoth"
+	say_mod = "caws"
+	// birds do not have very many taste buds
+	taste_sensitivity = 25
+	modifies_speech = TRUE
+	// chocolate is bad
+	disliked_food = SUGAR
+	// bird stuff
+	liked_food = VEGETABLES | FRUIT | GRAIN

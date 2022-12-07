@@ -93,6 +93,13 @@ GLOBAL_LIST_INIT(monkey_recipes, list ( \
 	icon_state = "sheet-lizard"
 	item_state = "sheet-lizard"
 
+/obj/item/stack/sheet/animalhide/frostwing
+	name = "frostwing feathers"
+	desc = "Shiny, icy feathers."
+	singular_name = "frostwing feather"
+	icon_state = "sheet-frostwing"
+	item_state = "sheet-frostwing"
+
 /obj/item/stack/sheet/animalhide/xeno
 	name = "alien hide"
 	desc = "The skin of a terrible creature."

@@ -147,6 +147,13 @@
 	tastes = list("honey" = 1, "flowers" = 1, "meat" = 2)
 	foodtype = MEAT | RAW
 
+/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/frostwing
+	icon_state = "frostwingmeat"
+	desc = "It's quite frosty..."
+	filling_color = "#33cece"
+	tastes = list("ice" = 1, "meat" = 2)
+	foodtype = MEAT | RAW
+
 ////////////////////////////////////// OTHER MEATS ////////////////////////////////////////////////////////
 
 
@@ -479,7 +486,7 @@
 
 /obj/item/reagent_containers/food/snacks/meat/rawcutlet/grub/initialize_cooked_food(obj/item/reagent_containers/food/snacks/S) //so the toxin and taste go away
 	if(reagents)
-		reagents.remove_all(3) 
+		reagents.remove_all(3)
 	..()
 	S.name = "redgrub rind"
 

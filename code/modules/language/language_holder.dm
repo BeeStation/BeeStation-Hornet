@@ -403,3 +403,8 @@ Key procs
 /datum/language_holder/universal/New()
 	..()
 	grant_all_languages()
+
+/datum/language_holder/frostwing
+	understood_languages = list(/datum/language/icaelic = list(LANGUAGE_ATOM))
+	spoken_languages = list(/datum/language/icaelic = list(LANGUAGE_ATOM))
+	blocked_languages = list(/datum/language/common = list(LANGUAGE_ATOM))
