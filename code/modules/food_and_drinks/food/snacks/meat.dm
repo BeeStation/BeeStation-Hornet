@@ -147,6 +147,13 @@
 	tastes = list("honey" = 1, "flowers" = 1, "meat" = 2)
 	foodtype = MEAT | RAW | GORE
 
+/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/psyphoza
+	icon_state = "psychic meat"
+	desc = "Psychically awaiting consumtpion, spooky."
+	filling_color = "#ff00ee"
+	tastes = list("pop candy" = 1, "meat" = 1)
+	foodtype = MEAT | RAW
+
 ////////////////////////////////////// OTHER MEATS ////////////////////////////////////////////////////////
 
 

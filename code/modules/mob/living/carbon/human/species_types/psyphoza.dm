@@ -6,11 +6,11 @@
 /datum/species/psyphoza
 	name = "\improper Psyphoza"
 	id = SPECIES_PSYPHOZA
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/plant
+	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/psyphoza
 	species_traits = list(NOEYESPRITES, AGENDER)
 	sexes = FALSE
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
-	species_language_holder = /datum/language_holder/plant
+	species_language_holder = /datum/language_holder/psyphoza
 
 	mutant_brain = /obj/item/organ/brain/psyphoza
 	mutanteyes = /obj/item/organ/eyes/psyphoza
