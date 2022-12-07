@@ -8,8 +8,10 @@
 	mutant_bodyparts = list("wings_frostwing", "trail_frostwing")
 	mutanttongue = /obj/item/organ/tongue/frostwing
 	mutantwings = /obj/item/organ/wings/frostwing
-	// High cold resistance
-	coldmod = 0.2
+	// Icy atmos has lower pressure, need to resist oxyloss but still require oxygen
+	oxymod = 0.2
+	// Full cold resist
+	inherent_traits = list(TRAIT_RESISTCOLD)
 	default_features = list("legs" = "Normal Legs", "body_size" = "Normal")
 	//changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	attack_verb = "slash"
