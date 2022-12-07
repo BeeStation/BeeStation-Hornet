@@ -436,7 +436,7 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	var/prefalltime = 8 SECONDS
 	layer = METEOR_LAYER
 
-/obj/effect/falling_meteor/Initialize(mapload, loc, meteor_type)
+/obj/effect/falling_meteor/Initialize(mapload, meteor_type)
 	. = ..()
 	if(!meteor_type)
 		meteor_type = /obj/effect/meteor/big
