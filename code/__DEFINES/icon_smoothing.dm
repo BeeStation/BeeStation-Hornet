@@ -34,7 +34,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
  * * Contained in the `list/smoothing_groups` variable.
  * * Matched with the `list/canSmoothWith` variable to check whether smoothing is possible or not.
  */
-#define S_TURF(num) ((24 * 0) + num) //Not any different from the number itself, but kept this way in case someone wants to expand it by adding stuff before it.
+#define S_TURF(num) (num) //Not any different from the number itself, but kept this way in case someone wants to expand it by adding stuff before it.
 /* /turf only */
 #define SMOOTH_GROUP_TURF_OPEN S_TURF(0)				///turf/open
 #define SMOOTH_GROUP_TURF_CHASM S_TURF(1)				///turf/open/chasm, /turf/open/floor/fakepit
