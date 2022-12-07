@@ -99,6 +99,9 @@
 	run_stage = 1
 	current_run = stage
 
+/datum/map_generator/map_place/get_name()
+	return placing_template?.original_path || "Unkown map"
+
 //======================================
 // COORDINATE BUILDING
 //======================================

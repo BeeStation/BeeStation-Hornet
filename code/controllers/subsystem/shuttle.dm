@@ -76,6 +76,15 @@ SUBSYSTEM_DEF(shuttle)
 
 	initial_load()
 
+	//Wait for the shuttles to fully load
+	if (length(SSmap_generator.executing_generators) > 0)
+		to_chat(world, "<span class='boldannounce'>Waiting for [length(SSmap_generator.executing_generators)] map generators...</bold>")
+		do
+			SSmap_generator.fire()
+			sleep(0.5)
+		while (length(SSmap_generator.executing_generators) > 0)
+		to_chat(world, "<span class='boldannounce'>Map generators completed, shuttle loading completed!</bold>")
+
 	if(!arrivals)
 		WARNING("No /obj/docking_port/mobile/arrivals placed on the map!")
 	if(!emergency)
