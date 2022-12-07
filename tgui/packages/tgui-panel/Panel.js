@@ -13,7 +13,7 @@ import { ChatPanel, ChatTabs } from './chat';
 import { useGame } from './game';
 import { Notifications } from './Notifications';
 import { PingIndicator } from './ping';
-import { ReconnectButton } from './reconnect';
+import { ReconnectButtons } from './reconnect';
 import { SettingsPanel, useSettings } from './settings';
 import { useLocalState } from '../tgui/backend';
 import { Box, Divider, DraggableControl } from '../tgui/components';
@@ -134,7 +134,7 @@ export const Panel = (props, context) => {
             <Notifications>
               {game.connectionLostAt && (
                 <Notifications.Item
-                  rightSlot={<ReconnectButton />}>
+                  rightSlot={<ReconnectButtons />}>
                   You are either AFK, experiencing lag or the connection
                   has closed.
                 </Notifications.Item>

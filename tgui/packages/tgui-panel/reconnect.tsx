@@ -11,7 +11,7 @@ setInterval(() => {
   });
 }, 5000);
 
-export const ReconnectButton = (props, context) => {
+export const ReconnectButtons = (props, context) => {
   return url && (
     <>
       <Button color="white" onClick={() => {
