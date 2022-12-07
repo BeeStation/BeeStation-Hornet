@@ -20,19 +20,23 @@
 	add_hiddenprint(user)
 	return
 
-/obj/attack_tk(mob/user)
+/obj/attack_tk(mob/user, is_weak = FALSE)
 	if(user.stat)
 		return
 	if(anchored)
 		return ..()
-	attack_tk_grab(user)
+	attack_tk_grab(user, is_weak)
 
-/obj/item/attack_tk(mob/user)
+/obj/item/attack_tk(mob/user, is_weak = FALSE)
 	if(user.stat)
 		return
-	attack_tk_grab(user)
+	attack_tk_grab(user, is_weak)
 
-/obj/proc/attack_tk_grab(mob/user)
+/obj/proc/attack_tk_grab(mob/user, is_weak = FALSE)
+	if(is_weak)
+		step(src, user.dir)
+		new /obj/effect/temp_visual/telekinesis(get_turf(src))
+		return
 	var/obj/item/tk_grab/O = new(src)
 	O.tk_user = user
 	if(O.focus_object(src))
