@@ -480,7 +480,9 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	else
 		//Fall down and repeat if possible
 		contained_meteor.forceMove(src)
-		fall_below()
+		//Try to fall down
+		if (!fall_below())
+			qdel(src)
 
 /obj/effect/falling_meteor/proc/fall_below()
 	var/turf/current = loc
