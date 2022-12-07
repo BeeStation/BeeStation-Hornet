@@ -468,10 +468,31 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	animate(src, 5, alpha = 255)
 	animate(src, falltime, transform = matrix(), flags = ANIMATION_PARALLEL)
 	sleep(falltime)
+	if (istype(loc, /turf/open/openspace))
+		fall_below()
+	//Trigger multiple simulated bumps (Z levels are much more expensive to travel)
 	contained_meteor.forceMove(loc)
-	contained_meteor.make_debris()
-	contained_meteor.meteor_effect()
-	qdel(src)
+	contained_meteor.hits -= rand(4, 10)
+	contained_meteor.Bump(loc)
+	//If the meteor was deleted by the bumps, destroy the falling meteor
+	if (QDELETED(contained_meteor))
+		qdel(src)
+	else
+		//Fall down and repeat if possible
+		contained_meteor.forceMove(src)
+		fall_below()
+
+/obj/effect/falling_meteor/proc/fall_below()
+	var/turf/current = loc
+	if (!istype(current))
+		return FALSE
+	var/turf/below = current.below()
+	//Move down a layer and fall again
+	if (below != null)
+		forceMove(below)
+		fall_animation()
+		return TRUE
+	return FALSE
 
 /obj/effect/meteor_shadow
 	name = "shadow"

@@ -8,5 +8,9 @@
 		"ferry": "ferry_fancy",
 		"whiteship": "whiteship_box",
 		"emergency": "emergency_corg"
-	}
+	},
+	"planettary_station": 1,
+	"planet_name": "Corgtopia",
+	"planet_mass": 20000,
+	"planet_radius": 500
 }
