@@ -605,3 +605,39 @@
 
 /obj/effect/mob_spawn/human/pirate/gunner
 	rank = "Gunner"
+
+// ----------
+// Frostwings
+// ----------
+
+/obj/effect/mob_spawn/human/frostwing
+	name = "frostwing cloner"
+	desc = "A cloner composed of what looks like old salvaged human technology."
+	mob_name = "a frostwing"
+	icon = 'icons/obj/machines/sleeper.dmi'
+	icon_state = "oldpod"
+	mob_species = /datum/species/frostwing
+	roundstart = FALSE
+	death = FALSE
+	short_desc = "You are an agile, cunning frostwing. Grow your homestead."
+	flavour_text = "The ice is your home, the sprawling ravine your domain. The intruding space station caused major losses to your kind, you can no longer reproduce. \
+	However, with your great cunning you built a cloner with materials scavenged from a shipwreck, in order to ensure the survival of your species. \
+	Now you must grow your homestead using resources from the station, using your agility and cunning."
+	assignedrole = "Frostwing"
+	var/datum/team/frostwings/team
+	use_cooldown = TRUE
+
+/obj/effect/mob_spawn/human/frostwing/special(mob/living/new_spawn)
+	new_spawn.mind.add_antag_datum(/datum/antagonist/frostwing, team)
+	if(ishuman(new_spawn))
+		var/mob/living/carbon/human/H = new_spawn
+		H.underwear = "Nude"
+		H.update_body()
+		H.fully_replace_character_name(null, H.dna.species.random_name(gender))
+
+/obj/effect/mob_spawn/human/frostwing/Initialize(mapload, datum/team/frostwings/frostteam)
+	. = ..()
+	var/area/A = get_area(src)
+	team = frostteam
+	if(A)
+		notify_ghosts("A frostwing clone is ready in \the [A.name].", source = src, action=NOTIFY_ATTACK, flashwindow = FALSE, ignore_key = POLL_IGNORE_FROSTWING)
