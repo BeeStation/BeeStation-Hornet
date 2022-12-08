@@ -12,7 +12,7 @@
 		var/file_text = file2text(shuttle.mappath)
 		if (!typepath_regex.Find(file_text))
 			continue
-		var/typepath = text2path(typepath_regex.group[1])
+		var/datum/typepath = text2path(typepath_regex.group[1])
 		var/port_text = findtext(file_text, "/obj/docking_port/mobile")
 		var/shuttle_dir = initial(typepath.vars["dir"])
 		if	(dir_regex.Find(file_text))
