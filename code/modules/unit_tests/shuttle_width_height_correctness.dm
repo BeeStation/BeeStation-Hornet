@@ -6,14 +6,10 @@
 	var/regex/dir_regex = regex(@"\/obj\/docking_port\/mobile[/\w]*\{[^\}]*[^d]dir = (\d*)")
 	var/obj/docking_port/mobile/default_port = null
 	var/list/fail_reasons = list()
-	for(var/datum/map_template/shuttle/shuttle in SSmapping.shuttle_templates)
+	for(var/shuttle_id in SSmapping.shuttle_templates)
+		var/datum/map_template/shuttle/shuttle in SSmapping.shuttle_templates[shuttle_id]
 		var/file_text = file2text(shuttle.mappath)
 		var/port_text = findtext(file_text, "/obj/docking_port/mobile")
-		if (!port_text)
-			continue
-		//Should be enough
-		file_text = copytext(file_text, port_text, port_text + 800)
-		world.log << file_text
 		var/shuttle_dir = initial(default_port.dir)
 		if	(dir_regex.Find(file_text))
 			shuttle_dir = text2num(dir_regex.group[1])
