@@ -19,18 +19,22 @@
 			shuttle_dir = text2num(dir_regex.group[1])
 		var/shuttle_horizontal_size = 0
 		var/shuttle_vertical_size = 0
+		//Do the dock width
+		var/dock_width = initial(default_port.width)
 		if (width_regex.Find(file_text))
-			var/dock_width = text2num(width_regex.group[1])
-			if (shuttle_dir == 4 || shuttle_dir == 8)
-				shuttle_vertical_size = dock_width
-			else
-				shuttle_horizontal_size = dock_width
+			dock_width = text2num(width_regex.group[1])
+		if (shuttle_dir == 4 || shuttle_dir == 8)
+			shuttle_vertical_size = dock_width
+		else
+			shuttle_horizontal_size = dock_width
+		//Do the dock height
+		var/dock_height = initial(default_port.height)
 		if (height_regex.Find(file_text))
-			var/dock_height = text2num(height_regex.group[1])
-			if (shuttle_dir == 4 || shuttle_dir == 8)
-				shuttle_horizontal_size = dock_height
-			else
-				shuttle_vertical_size = dock_height
+			dock_height = text2num(height_regex.group[1])
+		if (shuttle_dir == 4 || shuttle_dir == 8)
+			shuttle_horizontal_size = dock_height
+		else
+			shuttle_vertical_size = dock_height
 		//Width and height start from 0, so if the map is 5x5, shuttle max size is 4x4
 		if (shuttle_horizontal_size >= shuttle.width)
 			fail_reasons += "Shuttle [shuttle.name] has a docking port that is too large ([shuttle_horizontal_size] >= [shuttle.width]) (Shuttle width/height starts from 0)"
