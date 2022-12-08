@@ -41,7 +41,7 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_antennas, GLOB.ipc_antennas_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_chassis, GLOB.ipc_chassis_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/insect_type, GLOB.insect_type_list)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/psyphoza_tendrils, GLOB.psyphoza_tendrils_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/psyphoza_caps, GLOB.psyphoza_caps_list)
 
 	//Species
 	for(var/spath in subtypesof(/datum/species))

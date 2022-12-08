@@ -2494,13 +2494,12 @@
 	name = "Zeng-Hu Pharmaceuticals"
 	limbs_id = "zhpipc"
 
-//Psyphoza tendrils
+//Psyphoza caps
 
-/datum/sprite_accessory/psyphoza_tendrils
-	icon = 'icons/mob/psyphoza_tendrils.dmi'
-	color_src = null
+/datum/sprite_accessory/psyphoza_caps
+	icon = 'icons/mob/psyphoza_caps.dmi'
+	color_src = MUTCOLORS
 
-/datum/sprite_accessory/psyphoza_tendrils/medium
-	name = "Medium"
-	icon_state = "medium"
-	color_src = 0
+/datum/sprite_accessory/psyphoza_caps/wide
+	name = "Wide"
+	icon_state = "wide"

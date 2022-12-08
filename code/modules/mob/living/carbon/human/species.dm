@@ -849,8 +849,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					S = GLOB.ipc_chassis_list[H.dna.features["ipc_chassis"]]
 				if("insect_type")
 					S = GLOB.insect_type_list[H.dna.features["insect_type"]]
-				if("psyphoza_tendrils")
-					S = GLOB.psyphoza_tendrils_list[H.dna.features["psyphoza_tendrils"]]
+				if("psyphoza_caps")
+					S = GLOB.psyphoza_caps_list[H.dna.features["psyphoza_caps"]]
 			if(!S || S.icon_state == "none")
 				continue
 

@@ -68,7 +68,7 @@ var/global/list/custom_name_types = list(
 		READ_FILE_EXVAR(S["feature_insect_type"], features["insect_type"])
 		READ_FILE_EXVAR(S["feature_human_tail"], features["tail_human"])
 		READ_FILE_EXVAR(S["feature_human_ears"], features["ears"])
-		READ_FILE_EXVAR(S["feature_psyphoza_tendrils"], features["psyphoza_tendrils"])
+		READ_FILE_EXVAR(S["feature_psyphoza_caps"], features["psyphoza_caps"])
 
 		var/list/custom_names = list()
 
