@@ -48326,7 +48326,6 @@
 /turf/open/floor/engine/light,
 /area/storage/tech)
 "rhN" = (
-/obj/machinery/vending/cart,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
