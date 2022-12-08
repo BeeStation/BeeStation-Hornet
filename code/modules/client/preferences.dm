@@ -488,13 +488,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "</td>"
 					mutant_category = 0
 					
-			if("psyphoza_tendrils" in active_character.pref_species.mutant_bodyparts)
+			if("psyphoza_caps" in active_character.pref_species.mutant_bodyparts)
 				if(!mutant_category)
 					dat += APPEARANCE_CATEGORY_COLUMN
 
-				dat += "<h3>Tendril Type</h3>"
+				dat += "<h3>Cap Type</h3>"
 
-				dat += "<a href='?_src_=prefs;preference=psyphoza_tendrils;task=input'>[active_character.features["psyphoza_tendrils"]]</a><BR>"
+				dat += "<a href='?_src_=prefs;preference=psyphoza_caps;task=input'>[active_character.features["psyphoza_caps"]]</a><BR>"
 
 				mutant_category++
 				if(mutant_category >= MAX_MUTANT_ROWS)
@@ -1657,11 +1657,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_insect_type)
 						active_character.features["insect_type"] = new_insect_type
 
-				if("psyphoza_tendrils")
-					var/new_tendrils
-					new_tendrils = input(user, "Choose your character's tendrils:", "Character Preference") as null|anything in GLOB.psyphoza_tendrils_list
-					if(new_tendrils)
-						active_character.features["psyphoza_tendrils"] = new_tendrils
+				if("psyphoza_caps")
+					var/new_cap
+					new_cap = input(user, "Choose your character's cap:", "Character Preference") as null|anything in GLOB.psyphoza_caps_list
+					if(new_cap)
+						active_character.features["psyphoza_caps"] = new_cap
 
 				if("s_tone")
 					var/new_s_tone = input(user, "Choose your character's skin-tone:", "Character Preference")  as null|anything in GLOB.skin_tones

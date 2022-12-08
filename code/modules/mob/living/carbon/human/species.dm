@@ -965,6 +965,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					S = GLOB.apid_stripes_list[H.dna.features["apid_stripes"]]
 				if("apid_headstripes")
 					S = GLOB.apid_headstripes_list[H.dna.features["apid_headstripes"]]
+				if("psyphoza_caps")
+					S = GLOB.psyphoza_caps_list[H.dna.features["psyphoza_caps"]]
 			if(!S || S.icon_state == "none")
 				continue
 

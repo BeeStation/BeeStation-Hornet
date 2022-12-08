@@ -2666,3 +2666,12 @@
 /datum/sprite_accessory/apid_headstripes/arachnid
 	name = "Arachnid Headstripes"
 	icon_state = "arachnid"
+//Psyphoza caps
+
+/datum/sprite_accessory/psyphoza_caps
+	icon = 'icons/mob/psyphoza_caps.dmi'
+	color_src = MUTCOLORS
+
+/datum/sprite_accessory/psyphoza_caps/wide
+	name = "Wide"
+	icon_state = "wide"
