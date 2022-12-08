@@ -24,7 +24,7 @@
 		return TRUE
 
 	message_admins("[ADMIN_LOOKUPFLW(M)] tried '[behavior]', but it is rejected as they are not antag, and are below the minimum playtime threshold. ([playing_time] minutes)")
-	log_admin("[key_name(M)] tried '[behavior]', but it is rejected as they are not antag, and have not enough playtime. ([playing_time] minutes)")
+	log_admin("[key_name(M)] tried '[behavior]', but it is rejected as they are not antag, and are below the minimum playtime threshold. ([playing_time] minutes)")
 	return FALSE
 
 #undef ANTAGONISM_MINIMAL_TIME
