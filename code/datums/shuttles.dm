@@ -79,18 +79,9 @@
 	. = ..(map_gen, T, TRUE, parsed, FALSE)
 	keep_cached_map = initial(keep_cached_map)
 	if(!.)
-		message_admins("ERROR CODE 1: SOMETHING IS HORRIBLY WRONG, PING POWERFULBACON ON DISCORD!")
-		log_game("PowerfulBacon Error: 1")
-		if (parsed == null)
-			message_admins("ERROR CODE 1a: SOMETHING IS HORRIBLY WRONG, PING POWERFULBACON ON DISCORD!")
-			log_game("PowerfulBacon Error: 1A")
-		if (length(turfs) == 0)
-			message_admins("ERROR CODE 1b: SOMETHING IS HORRIBLY WRONG, PING POWERFULBACON ON DISCORD!")
-			log_game("PowerfulBacon Error: 1B")
-		if (cached_map.gridSets == null)
-			message_admins("ERROR CODE 1c: SOMETHING IS HORRIBLY WRONG, PING POWERFULBACON ON DISCORD!")
-			log_game("PowerfulBacon Error: 1C")
+		log_runtime("Failed to load shuttle [map_gen.get_name()].")
 		return
+
 	var/obj/docking_port/mobile/my_port
 	for(var/turf/place in turfs)
 		if(place.loc == turfs[place] || !istype(place.loc, /area/shuttle)) //If not part of the shuttle, ignore it
@@ -124,20 +115,6 @@
 					port.height = width
 					port.dwidth = port_y_offset - 1
 					port.dheight = width - port_x_offset
-
-	//Debugging
-	if (length(turfs) == 0)
-		message_admins("ERROR CODE 2: SOMETHING IS HORRIBLY WRONG, PING POWERFULBACON ON DISCORD!")
-		log_game("PowerfulBacon Error: 2")
-		if (parsed == null)
-			message_admins("ERROR CODE 2a: SOMETHING IS HORRIBLY WRONG, PING POWERFULBACON ON DISCORD!")
-			log_game("PowerfulBacon Error: 2A")
-		if (length(turfs) == 0)
-			message_admins("ERROR CODE 2b: SOMETHING IS HORRIBLY WRONG, PING POWERFULBACON ON DISCORD!")
-			log_game("PowerfulBacon Error: 2B")
-		if (cached_map.gridSets == null)
-			message_admins("ERROR CODE 2c: SOMETHING IS HORRIBLY WRONG, PING POWERFULBACON ON DISCORD!")
-			log_game("PowerfulBacon Error: 2C")
 
 	for(var/turf/shuttle_turf in turfs)
 		var/area/shuttle/turf_loc = turfs[shuttle_turf]
