@@ -1,6 +1,0 @@
-author: RKz
-delete-after: true
-changes:
-  - tweak: adds allowed items list to Ancient RIG hardsuit suit storage. List includes
-      combined items from both mining and explo suits.
-  - balance: retro laser weapons can now be stored in the RIG hardsuit suit slot
