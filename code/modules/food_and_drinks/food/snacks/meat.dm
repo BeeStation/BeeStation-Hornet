@@ -148,7 +148,7 @@
 	foodtype = MEAT | RAW | GORE
 
 /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/psyphoza
-	icon_state = "psychic meat"
+	icon_state = "psyphoza meat"
 	desc = "Psychically awaiting consumtpion, spooky."
 	filling_color = "#ff00ee"
 	tastes = list("pop candy" = 1, "meat" = 1)

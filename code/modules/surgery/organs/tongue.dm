@@ -33,7 +33,8 @@
 		/datum/language/slime,
 		/datum/language/sylvan,
 		/datum/language/terrum,
-		/datum/language/uncommon))
+		/datum/language/uncommon,
+		/datum/language/sonus))
 
 /obj/item/organ/tongue/Initialize(mapload)
 	. = ..()
@@ -364,3 +365,11 @@
 	desc = "It's an odd tongue, seemingly made of plant matter."
 	disliked_food = MEAT | DAIRY
 	liked_food = VEGETABLES | FRUIT | GRAIN | CLOTH //cannibals apparently
+
+/obj/item/organ/tongue/psyphoza
+	name = "aquatic tongue"
+	desc = "Rough like sandpaper, yet slimy."
+	icon_state = "tonguepsyphoza"
+	say_mod = "bubbles"
+	liked_food = MEAT | RAW
+	disliked_food = DAIRY

@@ -409,6 +409,7 @@
 /obj/item/organ/eyes/psyphoza
 	name = "psyphoza eyes"
 	desc = "Conduits for psychic energy, hardly even eyes."
+	icon_state = "psyphoza_eyeballs"
 
 /obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, initialising)
 	. = ..()
