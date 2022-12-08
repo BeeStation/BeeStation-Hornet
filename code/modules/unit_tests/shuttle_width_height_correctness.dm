@@ -7,7 +7,7 @@
 	var/obj/docking_port/mobile/default_port = null
 	var/list/fail_reasons = list()
 	for(var/shuttle_id in SSmapping.shuttle_templates)
-		var/datum/map_template/shuttle/shuttle in SSmapping.shuttle_templates[shuttle_id]
+		var/datum/map_template/shuttle/shuttle = SSmapping.shuttle_templates[shuttle_id]
 		var/file_text = file2text(shuttle.mappath)
 		var/port_text = findtext(file_text, "/obj/docking_port/mobile")
 		var/shuttle_dir = initial(default_port.dir)
