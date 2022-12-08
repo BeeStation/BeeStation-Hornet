@@ -121,12 +121,12 @@
 /obj/docking_port/mobile{
 	dir = 4;
 	dwidth = 10;
-	height = 9;
+	height = 8;
 	id = "exploration";
 	name = "Exploration Shuttle";
 	port_direction = 8;
 	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
-	width = 15
+	width = 14
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -182,6 +182,21 @@
 	},
 /obj/effect/turf_decal/loading_area,
 /obj/effect/turf_decal/tile/brown/opposingcorners,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/loading_area,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "wE" = (
