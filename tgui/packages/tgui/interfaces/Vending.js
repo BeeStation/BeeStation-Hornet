@@ -32,10 +32,7 @@ const VendingRow = (props, context) => {
             }} />
         ) : (
           <span
-            className={classes([
-              'vending32x32',
-              product.path,
-            ])}
+            className={classes(['vending32x32', product.path])}
             style={{
               'vertical-align': 'middle',
               'horizontal-align': 'middle',
@@ -134,7 +131,7 @@ export const Vending = (props, context) => {
                 key={product.name}
                 custom={custom}
                 product={product}
-                productStock={data.stock[product.path]} />
+                productStock={data.stock[product.name].amount} />
             ))}
           </Table>
         </Section>

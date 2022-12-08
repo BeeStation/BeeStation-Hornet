@@ -271,7 +271,7 @@
 
 /obj/machinery/biogenerator/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/research_designs),
+		load_asset_datum(/datum/asset/spritesheet/research_designs),
 	)
 
 

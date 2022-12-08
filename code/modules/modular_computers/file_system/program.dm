@@ -192,7 +192,7 @@
 
 /datum/computer_file/program/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/simple/headers),
+		load_asset_datum(/datum/asset/simple/headers),
 	)
 
 /datum/computer_file/program/ui_state(mob/user)
@@ -204,7 +204,7 @@
 		ui = new(user, src, tgui_id, filedesc)
 		ui.set_autoupdate(TRUE)
 		if(ui.open())
-			ui.send_asset(get_asset_datum(/datum/asset/simple/headers))
+			ui.send_asset(load_asset_datum(/datum/asset/simple/headers))
 
 // CONVENTIONS, READ THIS WHEN CREATING NEW PROGRAM AND OVERRIDING THIS PROC:
 // Topic calls are automagically forwarded from NanoModule this program contains.

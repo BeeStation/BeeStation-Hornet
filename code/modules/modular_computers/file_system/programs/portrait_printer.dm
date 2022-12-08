@@ -30,9 +30,9 @@
 
 /datum/computer_file/program/portrait_printer/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/simple/portraits/library),
-		get_asset_datum(/datum/asset/simple/portraits/library_secure),
-		get_asset_datum(/datum/asset/simple/portraits/library_private)
+		load_asset_datum(/datum/asset/simple/portraits/library),
+		load_asset_datum(/datum/asset/simple/portraits/library_secure),
+		load_asset_datum(/datum/asset/simple/portraits/library_private)
 	)
 
 /datum/computer_file/program/portrait_printer/ui_act(action, params)

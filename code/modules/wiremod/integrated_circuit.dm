@@ -207,7 +207,7 @@
 
 /obj/item/integrated_circuit/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/simple/circuit_assets)
+		load_asset_datum(/datum/asset/simple/circuit_assets)
 	)
 
 /obj/item/integrated_circuit/ui_data(mob/user)

@@ -289,11 +289,11 @@
 
 /obj/item/airlock_painter/decal/ui_assets(mob/user)
 	. = ..()
-	. += get_asset_datum(spritesheet_type)
+	. += load_asset_datum(spritesheet_type)
 
 /obj/item/airlock_painter/decal/ui_static_data(mob/user)
 	. = ..()
-	var/datum/asset/spritesheet/icon_assets = get_asset_datum(spritesheet_type)
+	var/datum/asset/spritesheet/icon_assets = load_asset_datum(spritesheet_type)
 
 	.["icon_prefix"] = "[icon_assets.name]32x32"
 	.["supports_custom_color"] = supports_custom_color
@@ -352,6 +352,7 @@
 
 /datum/asset/spritesheet/decals
 	name = "floor_decals"
+	cross_round_cachable = TRUE
 
 	/// The floor icon used for blend_preview_floor()
 	var/preview_floor_icon = 'icons/turf/floors.dmi'
@@ -386,7 +387,7 @@
 	var/icon/final = blend_preview_floor(icon('icons/turf/decals.dmi', "[decal][icon_state_color ? "_" : ""][icon_state_color]", dir))
 	Insert("[decal]_[dir]_[color]", final)
 
-/datum/asset/spritesheet/decals/register()
+/datum/asset/spritesheet/decals/create_spritesheets()
 	// Must actually create because initial(type) doesn't work for /lists for some reason.
 	var/obj/item/airlock_painter/decal/painter = new painter_type()
 
@@ -398,7 +399,6 @@
 				insert_state(decal[2], dir[2], "custom")
 
 	qdel(painter)
-	return ..()
 
 /obj/item/airlock_painter/decal/debug
 	name = "extreme decal painter"

@@ -14,7 +14,7 @@ Checkout asset_list.dm for the helper subclasses
 
 The `simple` subclass will most likely be of use for most cases.
 
-Call get_asset_datum() with the type of the datum you created to get your asset cache datum
+Call load_asset_datum() with the type of the datum you created to get your asset cache datum
 
 Call .send(client|usr) on that datum to send the asset to the client. Depending on the asset transport this may or may not block.
 
@@ -24,7 +24,7 @@ Call .get_url_mappings() to get an associated list with the urls your assets can
 
 See the documentation for `/datum/asset_transport` for the backend api the asset datums utilize.
 
-The global variable `SSassets.transport` contains the currently configured transport. 
+The global variable `SSassets.transport` contains the currently configured transport.
 
 
 
@@ -32,6 +32,6 @@ The global variable `SSassets.transport` contains the currently configured trans
 
 Because byond browse() calls use non-blocking queues, if your code uses output() (which bypasses all of these queues) to invoke javascript functions you will need to first have the javascript announce to the server it has loaded before trying to invoke js functions.
 
-To make your code work with any CDNs configured by the server, you must make sure assets are referenced from the url returned by `get_url_mappings()` or by asset_transport's `get_asset_url()`. (TGUI also has helpers for this.) If this can not be easily done, you can bypass the cdn using legacy assets, see the simple asset datum for details. 
+To make your code work with any CDNs configured by the server, you must make sure assets are referenced from the url returned by `get_url_mappings()` or by asset_transport's `get_asset_url()`. (TGUI also has helpers for this.) If this can not be easily done, you can bypass the cdn using legacy assets, see the simple asset datum for details.
 
 CSS files that use url() can be made to use the CDN without needing to rewrite all url() calls in code by using the namespaced helper datum. See the documentation for `/datum/asset/simple/namespaced` for details.

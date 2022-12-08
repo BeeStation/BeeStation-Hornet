@@ -11,7 +11,7 @@
 	if(!D)
 		return
 
-	var/datum/asset/asset_cache_datum = get_asset_datum(/datum/asset/simple/vv)
+	var/datum/asset/asset_cache_datum = load_asset_datum(/datum/asset/simple/vv)
 	asset_cache_datum.send(usr)
 
 	var/islist = islist(D)

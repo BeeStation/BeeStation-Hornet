@@ -33,7 +33,7 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/show_tips(fileid)
 	if(!owner || !owner.current || !owner.current.client)
 		return
-	var/datum/asset/stuff = get_asset_datum(/datum/asset/simple/bee_antags)
+	var/datum/asset/stuff = load_asset_datum(/datum/asset/simple/bee_antags)
 	stuff.send(owner.current.client)
 	var/datum/browser/popup = new(owner.current, "antagTips", null, 600, 400)
 	popup.set_window_options("titlebar=1;can_minimize=0;can_resize=0")

@@ -49,13 +49,13 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 	initialized_at = world.time
 	// Perform a clean initialization
 	window.initialize(assets = list(
-		get_asset_datum(/datum/asset/simple/tgui_panel),
+		load_asset_datum(/datum/asset/simple/tgui_panel),
 	))
-	window.send_asset(get_asset_datum(/datum/asset/simple/namespaced/fontawesome))
-	window.send_asset(get_asset_datum(/datum/asset/simple/namespaced/tgfont))
-	window.send_asset(get_asset_datum(/datum/asset/spritesheet/chat))
+	window.send_asset(load_asset_datum(/datum/asset/simple/namespaced/fontawesome))
+	window.send_asset(load_asset_datum(/datum/asset/simple/namespaced/tgfont))
+	window.send_asset(load_asset_datum(/datum/asset/spritesheet/chat))
 	// Preload assets for /datum/tgui
-	var/datum/asset/asset_tgui = get_asset_datum(/datum/asset/simple/tgui)
+	var/datum/asset/asset_tgui = load_asset_datum(/datum/asset/simple/tgui)
 	var/flush_queue = asset_tgui.send(src.client)
 	if(flush_queue)
 		src.client.browse_queue_flush()

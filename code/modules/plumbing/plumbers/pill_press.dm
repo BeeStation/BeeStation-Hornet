@@ -33,15 +33,6 @@
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_demand, bolt)
 
-	//expertly copypasted from chemmasters
-	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/pills)
-	pill_styles = list()
-	for (var/x in 1 to PILL_STYLE_COUNT)
-		var/list/SL = list()
-		SL["id"] = x
-		SL["class_name"] = assets.icon_class_name("pill[x]")
-		pill_styles += list(SL)
-
 /obj/machinery/plumbing/pill_press/process()
 	if(machine_stat & NOPOWER)
 		return
@@ -69,9 +60,18 @@
 
 /obj/machinery/plumbing/pill_press/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/simple/pills),
+		load_asset_datum(/datum/asset/spritesheet/simple/pills),
 	)
 
+/obj/machinery/plumbing/pill_press/proc/load_styles()
+	//expertly copypasted from chemmasters
+	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/pills)
+	pill_styles = list()
+	for (var/x in 1 to PILL_STYLE_COUNT)
+		var/list/SL = list()
+		SL["id"] = x
+		SL["class_name"] = assets.icon_class_name("pill[x]")
+		pill_styles += list(SL)
 
 /obj/machinery/plumbing/pill_press/ui_state(mob/user)
 	return GLOB.default_state
@@ -83,6 +83,8 @@
 		ui.open()
 
 /obj/machinery/plumbing/pill_press/ui_data(mob/user)
+	if(!pill_styles)
+		load_styles()
 	var/list/data = list()
 	data["pill_style"] = pill_number
 	data["pill_size"] = pill_size
@@ -107,3 +109,4 @@
 			else
 				pill_name = new_name + " pill"
 			. = TRUE
+

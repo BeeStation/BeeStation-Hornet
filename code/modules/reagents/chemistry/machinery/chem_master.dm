@@ -16,7 +16,6 @@
 	var/obj/item/storage/pill_bottle/bottle = null
 	var/mode = 1
 	var/condi = FALSE
-	var/chosenPillStyle = 1
 	var/screen = "home"
 	var/analyzeVars[0]
 	var/useramount = 30 // Last used amount
@@ -29,17 +28,14 @@
 	var/saved_name = ""
 	var/saved_volume = 10
 
+
+	/// Currently selected pill style
+	var/chosen_pill_style = 1
+	/// List of available pill styles for UI
+	var/list/pill_styles
+
 /obj/machinery/chem_master/Initialize(mapload)
 	create_reagents(100)
-
-	//Calculate the span tags and ids fo all the available pill icons
-	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/pills)
-	pillStyles = list()
-	for (var/x in 1 to PILL_STYLE_COUNT)
-		var/list/SL = list()
-		SL["id"] = x
-		SL["className"] = assets.icon_class_name("pill[x]")
-		pillStyles += list(SL)
 
 	. = ..()
 
@@ -171,9 +167,31 @@
 		ui = new(user, src, "ChemMaster")
 		ui.open()
 
+/obj/machinery/chem_master/proc/load_styles()
+	//Calculate the span tags and ids fo all the available pill icons
+	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/pills)
+	pill_styles = list()
+	for (var/x in 1 to PILL_STYLE_COUNT)
+		var/list/SL = list()
+		SL["id"] = x
+		SL["className"] = assets.icon_class_name("pill[x]")
+		pill_styles += list(SL)
+
+	/* We don't have custom patch style, but It's remained here to notify how that can be done.
+	var/datum/asset/spritesheet/simple/patches_assets = get_asset_datum(/datum/asset/spritesheet/simple/patches)
+	patch_styles = list()
+	for (var/raw_patch_style in PATCH_STYLE_LIST)
+		//adding class_name for use in UI
+		var/list/patch_style = list()
+		patch_style["style"] = raw_patch_style
+		patch_style["class_name"] = patches_assets.icon_class_name(raw_patch_style)
+		patch_styles += list(patch_style)
+
+	condi_styles = strip_condi_styles_to_icons(get_condi_styles())*/
+
 /obj/machinery/chem_master/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/simple/pills)
+		load_asset_datum(/datum/asset/spritesheet/simple/pills)
 	)
 
 /obj/machinery/chem_master/ui_data(mob/user)
@@ -189,7 +207,7 @@
 	data["saved_name_state"] = saved_name_state
 	data["saved_volume_state"] = saved_volume_state
 	data["analyzeVars"] = analyzeVars
-	data["chosenPillStyle"] = chosenPillStyle
+	data["chosenPillStyle"] = chosen_pill_style
 	data["isPillBottleLoaded"] = bottle ? 1 : 0
 	if(bottle)
 		var/datum/component/storage/STRB = bottle.GetComponent(/datum/component/storage)
@@ -208,8 +226,11 @@
 			bufferContents.Add(list(list("name" = N.name, "id" = ckey(N.name), "volume" = N.volume))) // ^
 	data["bufferContents"] = bufferContents
 
-	//Calculated at init time as it never changes
-	data["pillStyles"] = pillStyles
+	//Calculated once since it'll never change
+	if(!pill_styles)
+		load_styles()
+	data["pillStyles"] = pill_styles
+
 	return data
 
 /obj/machinery/chem_master/ui_act(action, params)
@@ -280,7 +301,7 @@
 			. = TRUE
 		if("pillStyle")
 			var/id = text2num(params["id"])
-			chosenPillStyle = id
+			chosen_pill_style = id
 			. = TRUE
 		if("create")
 			if(reagents.total_volume == 0)
@@ -364,10 +385,10 @@
 							P = new/obj/item/reagent_containers/pill(drop_location())
 						P.name = trim("[name] pill")
 						P.label_name = trim(name)
-						if(chosenPillStyle == RANDOM_PILL_STYLE)
+						if(chosen_pill_style == RANDOM_PILL_STYLE)
 							P.icon_state ="pill[rand(1,21)]"
 						else
-							P.icon_state = "pill[chosenPillStyle]"
+							P.icon_state = "pill[chosen_pill_style]"
 						if(P.icon_state == "pill4")
 							P.desc = "A tablet or capsule, but not just any, a red one, one taken by the ones not scared of knowledge, freedom, uncertainty and the brutal truths of reality."
 						adjust_item_drop_location(P)

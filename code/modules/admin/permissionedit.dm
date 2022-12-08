@@ -9,7 +9,7 @@
 /datum/admins/proc/edit_admin_permissions(action, target, operation, page)
 	if(!check_rights(R_PERMISSIONS))
 		return
-	var/datum/asset/asset_cache_datum = get_asset_datum(/datum/asset/group/permissions)
+	var/datum/asset/asset_cache_datum = load_asset_datum(/datum/asset/group/permissions)
 	asset_cache_datum.send(usr)
 	var/list/output = list("<link rel='stylesheet' type='text/css' href='[SSassets.transport.get_asset_url("panels.css")]'><a href='?_src_=holder;[HrefToken()];editrightsbrowser=1'>\[Permissions\]</a>")
 	if(action)
@@ -139,7 +139,7 @@
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='admin prefix'>Admin Edit blocked: Advanced ProcCall detected.</span>")
 		return
-	var/datum/asset/permissions_assets = get_asset_datum(/datum/asset/simple/namespaced/common)
+	var/datum/asset/permissions_assets = load_asset_datum(/datum/asset/simple/namespaced/common)
 	permissions_assets.send(owner)
 	var/admin_key = href_list["key"]
 	var/admin_ckey = ckey(admin_key)

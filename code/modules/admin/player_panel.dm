@@ -25,7 +25,7 @@
 
 /datum/admin_player_panel/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/antag_hud)
+		load_asset_datum(/datum/asset/spritesheet/antag_hud)
 	)
 
 /datum/admin_player_panel/ui_static_data(mob/user)
@@ -308,11 +308,10 @@
 /datum/asset/spritesheet/antag_hud
 	name = "antag-hud"
 
-/datum/asset/spritesheet/antag_hud/register()
+/datum/asset/spritesheet/antag_hud/create_spritesheets()
 	var/icon/I = icon('icons/mob/hud.dmi')
 	// Get the antag hud part
 	I.Crop(24, 24, 32, 32)
 	// Scale it up
 	I.Scale(16, 16)
 	InsertAll("antag-hud", I)
-	..()

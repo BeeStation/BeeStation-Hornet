@@ -43,7 +43,7 @@ window.initialize(
     /datum/preference/toggle/tgui_fancy
   ),
   assets = list(
-    get_asset_datum(/datum/asset/simple/tgui),
+    load_asset_datum(/datum/asset/simple/tgui),
   ))
 ```
 

@@ -77,7 +77,7 @@ GLOBAL_LIST_EMPTY(badge_data)
 		return ""
 
 	for(var/badge in badges)
-		var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/chat)
+		var/datum/asset/spritesheet/sheet = load_asset_datum(/datum/asset/spritesheet/chat)
 		var/tag = sheet.icon_tag("badge-badge_[badge]")
 		if(tag)
 			if(first_badge)

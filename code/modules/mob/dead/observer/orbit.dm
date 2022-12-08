@@ -85,4 +85,4 @@
 
 /datum/orbit_menu/ui_assets()
 	. = ..() || list()
-	. += get_asset_datum(/datum/asset/simple/orbit)
+	. += load_asset_datum(/datum/asset/simple/orbit)

@@ -12,12 +12,6 @@
 
 /obj/machinery/vendor/Initialize(mapload)
 	. = ..()
-	build_inventory()
-
-/obj/machinery/vendor/proc/build_inventory()
-	for(var/p in prize_list)
-		var/datum/data/vendor_equipment/M = p
-		GLOB.vending_products[M.equipment_path] = 1
 
 /obj/machinery/vendor/power_change()
 	..()
@@ -31,7 +25,7 @@
 
 /obj/machinery/vendor/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/vending),
+		load_asset_datum(/datum/asset/spritesheet/vending),
 	)
 
 
@@ -138,7 +132,7 @@
 		new /datum/data/vendor_equipment("Mining Conscription Kit",		/obj/item/storage/backpack/duffelbag/mining_conscript,				1000),
 		new /datum/data/vendor_equipment("Plasma Cutter", 				/obj/item/gun/energy/plasmacutter,									2000),
 		new /datum/data/vendor_equipment("Advanced Plasma Cutter", 		/obj/item/gun/energy/plasmacutter/adv,								4000),
-	//Assorted other equipment		
+	//Assorted other equipment
 		new /datum/data/vendor_equipment("Explorer's Webbing",			/obj/item/storage/belt/mining,										500),
 		new /datum/data/vendor_equipment("Survival Knife",				/obj/item/kitchen/knife/combat/survival,							500),
 		new	/datum/data/vendor_equipment("Seclite", 					/obj/item/flashlight/seclite,										500),
@@ -156,7 +150,7 @@
 		new /datum/data/vendor_equipment("Lazarus Injector",			/obj/item/lazarus_injector,											1000),
 		new /datum/data/vendor_equipment("Survival Medipen",			/obj/item/reagent_containers/hypospray/medipen/survival,			1000),
 		new /datum/data/vendor_equipment("Skeleton Key",				/obj/item/skeleton_key,												1200),
-	//Shelters	
+	//Shelters
 		new /datum/data/vendor_equipment("Shelter Capsule",				/obj/item/survivalcapsule,											400),
 		new /datum/data/vendor_equipment("Luxury Shelter Capsule",		/obj/item/survivalcapsule/luxury,									3000),
 		new /datum/data/vendor_equipment("Mining Outpost Capsule",		/obj/item/survivalcapsule/encampment,								5000),

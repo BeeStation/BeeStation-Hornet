@@ -12,7 +12,7 @@
 	var/body_elements
 	var/head_content = ""
 	var/content = ""
-	var/static/datum/asset/simple/namespaced/common/common_asset = get_asset_datum(/datum/asset/simple/namespaced/common)
+	var/static/datum/asset/simple/namespaced/common/common_asset = load_asset_datum(/datum/asset/simple/namespaced/common)
 
 /datum/browser/New(nuser, nwindow_id, ntitle = 0, nwidth = 0, nheight = 0, var/atom/nref = null)
 

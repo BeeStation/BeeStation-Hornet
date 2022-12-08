@@ -233,7 +233,7 @@
 
 /obj/item/paper/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/simple/paper),
+		load_asset_datum(/datum/asset/spritesheet/simple/paper),
 	)
 
 /obj/item/paper/ui_interact(mob/user, datum/tgui/ui)
@@ -280,7 +280,7 @@
 		data["edit_mode"] = MODE_WRITING
 		data["is_crayon"] = FALSE
 	else if(istype(holding, /obj/item/stamp))
-		var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
+		var/datum/asset/spritesheet/sheet = load_asset_datum(/datum/asset/spritesheet/simple/paper)
 		data["stamp_icon_state"] = holding.icon_state
 		data["stamp_class"] = sheet.icon_class_name(holding.icon_state)
 		data["edit_mode"] = MODE_STAMPING
@@ -320,7 +320,7 @@
 			var/stamp_y = text2num(params["y"])
 			var/stamp_r = text2num(params["r"])	// rotation in degrees
 
-			var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
+			var/datum/asset/spritesheet/sheet = load_asset_datum(/datum/asset/spritesheet/simple/paper)
 			var/stamp_icon_state = holding.icon_state
 			var/stamp_class = sheet.icon_class_name(holding.icon_state)
 

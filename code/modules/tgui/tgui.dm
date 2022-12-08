@@ -98,13 +98,13 @@
 		window.initialize(
 			fancy = (user.client.prefs.toggles & PREFTOGGLE_2_FANCY_TGUI),
 			assets = list(
-				get_asset_datum(/datum/asset/simple/tgui),
+				load_asset_datum(/datum/asset/simple/tgui),
 			))
 	else
 		window.send_message("ping")
-	var/flush_queue = window.send_asset(get_asset_datum(
+	var/flush_queue = window.send_asset(load_asset_datum(
 		/datum/asset/simple/namespaced/fontawesome))
-	flush_queue |= window.send_asset(get_asset_datum(
+	flush_queue |= window.send_asset(load_asset_datum(
 		/datum/asset/simple/namespaced/tgfont))
 	for(var/datum/asset/asset in src_object.ui_assets(user))
 		flush_queue |= window.send_asset(asset)
