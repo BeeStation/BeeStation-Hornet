@@ -1,6 +1,7 @@
 /datum/unit_test/shuttle_checker/Run()
 	if(!length(SSmapping.shuttle_templates))
 		SSmapping.preloadShuttleTemplates()
+	var/regex/typepath_regex = regex(@"(\/obj\/docking_port\/mobile[/\w]*)\{")
 	var/regex/width_regex = regex(@"\/obj\/docking_port\/mobile[/\w]*\{[^\}]*[^d]width = (\d*)")
 	var/regex/height_regex = regex(@"\/obj\/docking_port\/mobile[/\w]*\{[^\}]*[^d]height = (\d*)")
 	var/regex/dir_regex = regex(@"\/obj\/docking_port\/mobile[/\w]*\{[^\}]*[^d]dir = (\d*)")
@@ -9,8 +10,11 @@
 	for(var/shuttle_id in SSmapping.shuttle_templates)
 		var/datum/map_template/shuttle/shuttle = SSmapping.shuttle_templates[shuttle_id]
 		var/file_text = file2text(shuttle.mappath)
+		if (!typepath_regex.Find(file_text))
+			continue
+		var/typepath = text2path(typepath_regex.group[1])
 		var/port_text = findtext(file_text, "/obj/docking_port/mobile")
-		var/shuttle_dir = initial(default_port.dir)
+		var/shuttle_dir = initial(typepath.vars["dir"])
 		if	(dir_regex.Find(file_text))
 			shuttle_dir = text2num(dir_regex.group[1])
 		var/shuttle_horizontal_size = 0
