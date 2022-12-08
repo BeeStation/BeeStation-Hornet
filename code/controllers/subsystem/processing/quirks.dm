@@ -1,6 +1,7 @@
 //Used to process and handle roundstart quirks
 // - Quirk strings are used for faster checking in code
 // - Quirk datums are stored and hold different effects, as well as being a vector for applying trait string
+
 PROCESSING_SUBSYSTEM_DEF(quirks)
 	name = "Quirks"
 	init_order = INIT_ORDER_QUIRKS
@@ -36,14 +37,17 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 		quirk_points[initial(T.name)] = initial(T.value)
 
 /datum/controller/subsystem/processing/quirks/proc/AssignQuirks(mob/living/user, client/cli, spawn_effects)
-	var/badquirk = FALSE
+	var/bad_quirk_checker = 0
+	var/list/bad_quirks = list()
 	for(var/V in cli.prefs.active_character.all_quirks)
 		var/datum/quirk/Q = quirks[V]
 		if(Q)
 			user.add_quirk(Q, spawn_effects)
+			bad_quirk_checker += initial(Q.value)
 		else
-			stack_trace("Invalid quirk \"[V]\" in client [cli.ckey] preferences")
-			cli.prefs.active_character.all_quirks -= V
-			badquirk = TRUE
-	if(badquirk)
+			stack_trace("Invalid quirk \"[V]\" in client [cli.ckey] preferences. the game has reset their quirks automatically.")
+			bad_quirks += V
+	if(bad_quirk_checker || length(bad_quirks)) // negative & zero value = calculation good / positive quirk value = something's wrong
+		cli.prefs.active_character.all_quirks = list()
 		cli.prefs.active_character.save(cli)
+		client_alert(cli, "You have one or more outdated quirks[length(bad_quirks) ? ": [english_list(bad_quirks)]" : ""]. Your eligible quirks are kept at this round, but your character preference has been reset. Please review them at any time.", "Oh, no!")

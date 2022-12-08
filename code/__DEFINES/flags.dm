@@ -36,7 +36,7 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define UNPAINTABLE_1 				(1<<17)
 #define HTML_USE_INITAL_ICON_1		(1<<18) 			//! Should we use the initial icon for display? Mostly used by overlay only objects
 /// Does the supermatter skip over this atom?
-#define SUPERMATTER_IGNORES_1 (1 << 18) //set this to 18 because tg has some other flags appearantly too if that gets ever ported fix this !!!!
+#define SUPERMATTER_IGNORES_1       (1 << 18) //set this to 18 because tg has some other flags appearantly too if that gets ever ported fix this !!!!
 
 /// If the thing can reflect light (lasers/energy)
 #define RICOCHET_SHINY			(1<<0)
