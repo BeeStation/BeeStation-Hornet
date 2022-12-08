@@ -56,7 +56,7 @@
 #define OVERLOAD    /datum/mutation/overload
 #define ACIDOOZE    /datum/mutation/acidooze
 #define MEDIEVAL    /datum/mutation/medieval
-#define TK_WEAK			/datum/mutation/telekinesis/weak
+#define TK_WEAK		/datum/mutation/telekinesis/weak
 
 #define UI_CHANGED "ui changed"
 #define UE_CHANGED "ue changed"

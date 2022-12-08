@@ -367,9 +367,10 @@
 	liked_food = VEGETABLES | FRUIT | GRAIN | CLOTH //cannibals apparently
 
 /obj/item/organ/tongue/psyphoza
-	name = "aquatic tongue"
-	desc = "Rough like sandpaper, yet slimy."
+	name = "fungal tongue"
+	desc = "Black and moldy."
 	icon_state = "tonguepsyphoza"
 	say_mod = "bubbles"
+	color = "#1b1b1b"
 	liked_food = MEAT | RAW
 	disliked_food = DAIRY

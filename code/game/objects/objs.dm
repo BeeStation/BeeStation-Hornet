@@ -192,7 +192,7 @@
 			var/mob/living/carbon/C = usr
 			if(!(usr in nearby))
 				if(usr.client && usr.machine==src)
-					if(C.dna.check_mutation(TK))
+					if(C.dna.check_mutation(TK) || C.dna.check_mutation(TK_WEAK))
 						is_in_use = TRUE
 						ui_interact(usr)
 		if (is_in_use)
