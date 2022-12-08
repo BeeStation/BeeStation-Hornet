@@ -74102,7 +74102,7 @@
 /area/hallway/primary/aft)
 "sQn" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/rnd/production/circuit_imprinter,
+/obj/machinery/rnd/production/circuit_imprinter/department/engineering,
 /turf/open/floor/plasteel/dark,
 /area/engine/storage_shared)
 "sQo" = (

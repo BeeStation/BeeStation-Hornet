@@ -14159,7 +14159,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "axp" = (
-/obj/machinery/rnd/production/circuit_imprinter,
+/obj/machinery/rnd/production/circuit_imprinter/department/engineering,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{

@@ -45386,7 +45386,7 @@
 	dir = 4;
 	pixel_x = -22
 	},
-/obj/machinery/rnd/production/circuit_imprinter,
+/obj/machinery/rnd/production/circuit_imprinter/department/engineering,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
@@ -48326,7 +48326,7 @@
 /turf/open/floor/engine/light,
 /area/storage/tech)
 "rhN" = (
-/obj/machinery/vending/job_disk,
+/obj/machinery/vending/cart,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},

@@ -69478,7 +69478,7 @@
 /area/engine/atmos)
 "upP" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/rnd/production/circuit_imprinter,
+/obj/machinery/rnd/production/circuit_imprinter/department/engineering,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},

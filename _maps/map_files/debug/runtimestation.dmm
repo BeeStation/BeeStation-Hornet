@@ -2864,7 +2864,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/rnd/production/circuit_imprinter/department,
+/obj/machinery/rnd/production/circuit_imprinter/department/engineering,
 /obj/machinery/power/apc/auto_name/north,
 /obj/structure/cable{
 	icon_state = "0-8"
