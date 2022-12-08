@@ -1,4 +1,4 @@
-/proc/tgui_select_picture(mob/user, list/datum/picture/choices, title = "Select Photo")
+/proc/tgui_select_picture(mob/user, list/datum/picture/choices, title = "Select Photo", button_text = "Select")
 	if (!user)
 		user = usr
 	if (!istype(user))
@@ -9,7 +9,9 @@
 			return
 	if(!choices)
 		return
-	var/datum/tgui_select_picture/textbox = new(user, choices, title)
+	if(length(choices) == 1)
+		return choices[1]
+	var/datum/tgui_select_picture/textbox = new(user, choices, title, button_text)
 	textbox.ui_interact(user)
 	textbox.wait()
 	if (textbox)
@@ -23,12 +25,15 @@
 	var/datum/picture/entry
 	/// The title of the TGUI window
 	var/title
+	/// The text shown on the "Selection" button
+	var/button_text
 	/// The list of picture datums to select from
 	var/list/datum/picture/choices = list()
 
-/datum/tgui_select_picture/New(mob/user, choices, title)
+/datum/tgui_select_picture/New(mob/user, choices, title, button_text)
 	src.title = title
 	src.choices = choices
+	src.button_text = button_text
 
 /datum/tgui_select_picture/Destroy(force, ...)
 	SStgui.close_uis(src)
@@ -71,7 +76,8 @@
 		))
 	return list(
 		"title" = title,
-		"pictures" = pictures
+		"pictures" = pictures,
+		"button_text" = button_text,
 	)
 
 /datum/tgui_select_picture/ui_act(action, list/params)

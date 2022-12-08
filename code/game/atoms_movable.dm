@@ -32,7 +32,6 @@
 	var/atom/movable/moving_from_pull		//attempt to resume grab after moving instead of before.
 	///Holds information about any movement loops currently running/waiting to run on the movable. Lazy, will be null if nothing's going on
 	var/datum/movement_packet/move_packet
-	var/list/client_mobs_in_contents // This contains all the client mobs within this container
 	var/list/acted_explosions	//for explosion dodging
 	glide_size = 8
 	appearance_flags = TILE_BOUND|PIXEL_SCALE
@@ -66,9 +65,9 @@
 	. = ..()
 	switch(blocks_emissive)
 		if(EMISSIVE_BLOCK_GENERIC)
-			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, EMISSIVE_BLOCKER_LAYER, EMISSIVE_BLOCKER_PLANE)
+			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, plane = EMISSIVE_PLANE, alpha = src.alpha)
+			gen_emissive_blocker.color = GLOB.em_block_color
 			gen_emissive_blocker.dir = dir
-			gen_emissive_blocker.alpha = alpha
 			gen_emissive_blocker.appearance_flags |= appearance_flags
 			add_overlay(list(gen_emissive_blocker))
 		if(EMISSIVE_BLOCK_UNIQUE)
@@ -87,9 +86,9 @@
 	if(!blocks_emissive)
 		return
 	else if (blocks_emissive == EMISSIVE_BLOCK_GENERIC)
-		var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, EMISSIVE_BLOCKER_LAYER, EMISSIVE_BLOCKER_PLANE)
+		var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, plane = EMISSIVE_PLANE, alpha = src.alpha)
+		gen_emissive_blocker.color = GLOB.em_block_color
 		gen_emissive_blocker.dir = dir
-		gen_emissive_blocker.alpha = alpha
 		gen_emissive_blocker.appearance_flags |= appearance_flags
 		return gen_emissive_blocker
 	else if(blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
@@ -458,8 +457,6 @@
 	SHOULD_CALL_PARENT(TRUE)
 	if (!inertia_moving)
 		newtonian_move(Dir)
-	if (length(client_mobs_in_contents))
-		update_parallax_contents()
 
 	move_stacks--
 	if(move_stacks > 0) //we want only the first Moved() call in the stack to send this signal, all the other ones have an incorrect old_loc
@@ -487,7 +484,6 @@
 		loc.handle_atom_del(src)
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
-	LAZYCLEARLIST(client_mobs_in_contents)
 	moveToNullspace()
 	invisibility = INVISIBILITY_ABSTRACT
 	if(pulledby)
@@ -904,6 +900,51 @@
 	. = ..()
 	. += "<option value='?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(src)]'>Follow</option>"
 	. += "<option value='?_src_=holder;[HrefToken()];admingetmovable=[REF(src)]'>Get</option>"
+
+	VV_DROPDOWN_OPTION(VV_HK_EDIT_PARTICLES, "Edit Particles")
+	VV_DROPDOWN_OPTION(VV_HK_ADD_EMITTER, "Add Emitter")
+	VV_DROPDOWN_OPTION(VV_HK_REMOVE_EMITTER, "Remove Emitter")
+
+/atom/movable/vv_do_topic(list/href_list)
+	. = ..()
+	if(href_list[VV_HK_EDIT_PARTICLES])
+		if(!check_rights(R_VAREDIT))
+			return
+		var/client/interacted_client = usr.client
+		interacted_client?.open_particle_editor(src)
+
+
+	if(href_list[VV_HK_ADD_EMITTER])
+		if(!check_rights(R_VAREDIT))
+			return
+
+		var/key = stripped_input(usr, "Enter a key for your emitter", "Emitter Key")
+		var/lifetime = input("How long should this live for in deciseconds? 0 for infinite, -1 for a single burst.", "Lifespan") as null|num
+
+		if(!key)
+			return
+		switch(alert("Should this be a pre-filled emitter (empty emitters don't support timers)?",,"Yes","No","Cancel"))
+			if("Yes")
+				var/choice = input(usr, "Choose an emitter to add", "Choose an Emitter") as null|anything in subtypesof(/obj/emitter)
+				var/should_burst = FALSE
+				if(lifetime == -1)
+					should_burst = TRUE
+				if(choice)
+					add_emitter(choice, key, lifespan = lifetime, burst_mode = should_burst)
+			if("No")
+				add_emitter(/obj/emitter, key)
+			else
+				return
+
+	if(href_list[VV_HK_REMOVE_EMITTER])
+		if(!check_rights(R_VAREDIT))
+			return
+		if(!master_holder?.emitters.len)
+			return
+		var/removee = input(usr, "Choose an emitter to remove", "Choose an Emitter") as null|anything in master_holder?.emitters
+		if(!removee)
+			return
+		remove_emitter(removee)
 
 /atom/movable/proc/ex_check(ex_id)
 	if(!ex_id)

@@ -6,16 +6,6 @@
 /obj/machinery/light_switch,
 /turf/closed/wall/mineral/wood,
 /area/shuttle/escape)
-"c" = (
-/obj/docking_port/mobile/emergency{
-	dwidth = 1;
-	height = 10;
-	name = "Oh Hi Mark";
-	width = 9
-	},
-/obj/machinery/door/airlock/wood,
-/turf/open/floor/wood,
-/area/shuttle/escape)
 "d" = (
 /turf/open/floor/wood,
 /area/shuttle/escape)
@@ -44,26 +34,6 @@
 /obj/item/kitchen/knife,
 /turf/open/floor/carpet,
 /area/shuttle/escape)
-"j" = (
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
-"k" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/vending/boozeomat{
-	req_access = null
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
 "l" = (
 /obj/machinery/computer/security/wooden_tv,
 /turf/open/floor/carpet,
@@ -84,48 +54,9 @@
 /obj/item/reagent_containers/food/snacks/store/cake/birthday,
 /turf/open/floor/carpet,
 /area/shuttle/escape)
-"p" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/shaker,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
 "q" = (
 /obj/structure/table/reinforced,
 /turf/open/floor/carpet,
-/area/shuttle/escape)
-"r" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
-"s" = (
-/obj/machinery/door/window{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
-"t" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
 /area/shuttle/escape)
 "u" = (
 /obj/machinery/light{
@@ -190,10 +121,61 @@
 /obj/machinery/status_display/evac,
 /turf/closed/wall/mineral/wood,
 /area/shuttle/escape)
+"J" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"M" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"O" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"Q" = (
+/obj/docking_port/mobile/emergency{
+	dwidth = 1;
+	height = 10;
+	name = "Oh Hi Mark";
+	width = 9
+	},
+/obj/machinery/door/airlock/wood,
+/turf/open/floor/wood,
+/area/shuttle/escape)
+"T" = (
+/obj/machinery/door/window{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"X" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/vending/boozeomat{
+	req_access = null
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"Y" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/drinks/shaker,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
 
 (1,1,1) = {"
 a
-c
+Q
 a
 a
 a
@@ -262,7 +244,7 @@ a
 i
 o
 q
-s
+T
 a
 E
 C
@@ -270,10 +252,10 @@ a
 "}
 (8,1,1) = {"
 a
-j
-j
-j
-j
+J
+J
+J
+J
 a
 w
 h
@@ -281,10 +263,10 @@ a
 "}
 (9,1,1) = {"
 a
-k
-p
-r
-t
+X
+Y
+M
+O
 a
 x
 D
