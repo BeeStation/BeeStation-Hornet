@@ -60,7 +60,7 @@
 
 /obj/machinery/plumbing/pill_press/ui_assets(mob/user)
 	return list(
-		load_asset_datum(/datum/asset/spritesheet/simple/pills),
+		get_asset_datum(/datum/asset/spritesheet/simple/pills),
 	)
 
 /obj/machinery/plumbing/pill_press/proc/load_styles()

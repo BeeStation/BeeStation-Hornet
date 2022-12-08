@@ -25,7 +25,7 @@
 
 /datum/admin_player_panel/ui_assets(mob/user)
 	return list(
-		load_asset_datum(/datum/asset/spritesheet/antag_hud)
+		get_asset_datum(/datum/asset/spritesheet/antag_hud)
 	)
 
 /datum/admin_player_panel/ui_static_data(mob/user)

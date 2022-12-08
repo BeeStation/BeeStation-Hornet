@@ -5,8 +5,8 @@
 
 /obj/item/modular_computer/ui_assets(mob/user)
 	return list(
-		load_asset_datum(/datum/asset/simple/headers),
-		load_asset_datum(/datum/asset/simple/arcade),
+		get_asset_datum(/datum/asset/simple/headers),
+		get_asset_datum(/datum/asset/simple/arcade),
 	)
 
 /obj/item/modular_computer/ui_interact(mob/user, datum/tgui/ui)
@@ -48,7 +48,7 @@
 		ui = new(user, src, "NtosMain")
 		ui.set_autoupdate(TRUE)
 		if(ui.open())
-			ui.send_asset(load_asset_datum(/datum/asset/simple/headers))
+			ui.send_asset(get_asset_datum(/datum/asset/simple/headers))
 
 /obj/item/modular_computer/ui_data(mob/user)
 	var/list/data = get_header_data()

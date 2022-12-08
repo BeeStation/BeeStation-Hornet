@@ -833,7 +833,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	message_admins("<span class='adminnotice'>[key_name_admin(src)] did a fucky wucky.</span>")
 	log_admin("[key_name(src)] did a fucky wucky.")
 	for(var/m in GLOB.player_list)
-		var/datum/asset/fuckywucky = load_asset_datum(/datum/asset/simple/fuckywucky)
+		var/datum/asset/fuckywucky = get_asset_datum(/datum/asset/simple/fuckywucky)
 		fuckywucky.send(m)
 		SEND_SOUND(m, 'sound/misc/fuckywucky.ogg')
 		to_chat(m, "<img src='[SSassets.transport.get_asset_url("fuckywucky.png")]'>")

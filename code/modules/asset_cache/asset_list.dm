@@ -7,7 +7,7 @@
 GLOBAL_LIST_EMPTY(asset_datums)
 
 //get an assetdatum or make a new one
-//does NOT ensure it's filled, if you want that use load_asset_datum()
+//does NOT ensure it's filled, if you want that use get_asset_datum()
 /proc/load_asset_datum(type)
 	return GLOB.asset_datums[type] || new type()
 
@@ -112,13 +112,13 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	if(!..())
 		return FALSE
 	for(var/type in children)
-		var/datum/asset/A = load_asset_datum(type)
+		var/datum/asset/A = get_asset_datum(type)
 		. = A.send(C) || .
 
 /datum/asset/group/get_url_mappings()
 	. = list()
 	for(var/type in children)
-		var/datum/asset/A = load_asset_datum(type)
+		var/datum/asset/A = get_asset_datum(type)
 		. += A.get_url_mappings()
 
 // spritesheet implementation - coalesces various icons into a single .png file

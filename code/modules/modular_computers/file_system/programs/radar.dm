@@ -45,7 +45,7 @@
 
 /datum/computer_file/program/radar/ui_assets(mob/user)
 	return list(
-		load_asset_datum(/datum/asset/simple/radar_assets),
+		get_asset_datum(/datum/asset/simple/radar_assets),
 	)
 
 /datum/computer_file/program/radar/ui_data(mob/user)

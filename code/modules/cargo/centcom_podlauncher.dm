@@ -119,7 +119,7 @@
 
 /datum/centcom_podlauncher/ui_assets(mob/user)
 	return list(
-		load_asset_datum(/datum/asset/spritesheet/supplypods),
+		get_asset_datum(/datum/asset/spritesheet/supplypods),
 	)
 
 /datum/centcom_podlauncher/ui_interact(mob/user, datum/tgui/ui)

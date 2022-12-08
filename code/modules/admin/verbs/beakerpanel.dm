@@ -66,7 +66,7 @@
 	if(!check_rights())
 		return
 
-	var/datum/asset/asset_datum = load_asset_datum(/datum/asset/simple/namespaced/common)
+	var/datum/asset/asset_datum = get_asset_datum(/datum/asset/simple/namespaced/common)
 	asset_datum.send()
 	//Could somebody tell me why this isn't using the browser datum, given that it copypastes all of browser datum's html
 	var/dat = {"

@@ -42,7 +42,7 @@ Notes:
 /datum/tooltip/New(client/C)
 	if (C)
 		owner = C
-		var/datum/asset/stuff = load_asset_datum(/datum/asset/simple/jquery)
+		var/datum/asset/stuff = get_asset_datum(/datum/asset/simple/jquery)
 		stuff.send(owner)
 		owner << browse(rustg_file_read('code/modules/tooltip/tooltip.html'), "window=[control]")
 

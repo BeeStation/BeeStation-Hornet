@@ -25,7 +25,7 @@
 
 /obj/machinery/vendor/ui_assets(mob/user)
 	return list(
-		load_asset_datum(/datum/asset/spritesheet/vending),
+		get_asset_datum(/datum/asset/spritesheet/vending),
 	)
 
 

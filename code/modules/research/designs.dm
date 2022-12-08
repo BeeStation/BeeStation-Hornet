@@ -64,7 +64,7 @@ other types of metals and chemistry for reagents).
 		to_chat("[i] [materials[i]]")
 
 /datum/design/proc/icon_html(client/user)
-	var/datum/asset/spritesheet/sheet = load_asset_datum(/datum/asset/spritesheet/research_designs)
+	var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/research_designs)
 	sheet.send(user)
 	return sheet.icon_tag(id)
 

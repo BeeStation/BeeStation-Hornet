@@ -86,7 +86,7 @@
 
 /obj/item/book/fish_catalog/ui_assets(mob/user)
 	return list(
-		load_asset_datum(/datum/asset/spritesheet/fish)
+		get_asset_datum(/datum/asset/spritesheet/fish)
 	)
 
 /obj/item/aquarium_kit

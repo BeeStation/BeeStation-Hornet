@@ -30,9 +30,9 @@
 
 /datum/portrait_picker/ui_assets(mob/user)
 	return list(
-		load_asset_datum(/datum/asset/simple/portraits/library),
-		load_asset_datum(/datum/asset/simple/portraits/library_secure),
-		load_asset_datum(/datum/asset/simple/portraits/library_private)
+		get_asset_datum(/datum/asset/simple/portraits/library),
+		get_asset_datum(/datum/asset/simple/portraits/library_secure),
+		get_asset_datum(/datum/asset/simple/portraits/library_private)
 	)
 
 /datum/portrait_picker/ui_data(mob/user)

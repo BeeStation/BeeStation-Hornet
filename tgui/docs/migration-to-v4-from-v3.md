@@ -52,7 +52,7 @@ snippets to the following proc:
 ```dm
 .../ui_assets(mob/user)
 	return list(
-    load_asset_datum(/datum/asset/simple/foobar),
+    get_asset_datum(/datum/asset/simple/foobar),
   )
 ```
 
