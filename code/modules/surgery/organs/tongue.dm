@@ -372,5 +372,5 @@
 	icon_state = "tonguepsyphoza"
 	say_mod = "bubbles"
 	color = "#1b1b1b"
-	liked_food = MEAT | RAW
+	liked_food = RAW | GROSS
 	disliked_food = DAIRY
