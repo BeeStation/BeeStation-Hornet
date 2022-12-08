@@ -2493,3 +2493,14 @@
 /datum/sprite_accessory/ipc_chassis/zenghupharmaceuticals
 	name = "Zeng-Hu Pharmaceuticals"
 	limbs_id = "zhpipc"
+
+//Psyphoza tendrils
+
+/datum/sprite_accessory/psyphoza_tendrils
+	icon = 'icons/mob/psyphoza_tendrils.dmi'
+	color_src = null
+
+/datum/sprite_accessory/psyphoza_tendrils/medium
+	name = "Medium"
+	icon_state = "medium"
+	color_src = 0

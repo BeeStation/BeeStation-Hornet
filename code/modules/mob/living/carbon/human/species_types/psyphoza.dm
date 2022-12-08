@@ -1,6 +1,6 @@
 ///The limit when the psychic timer locks you out of creating more
-#define PSYCHIC_OVERLAY_UPPER 200
-///Burn mod for our species
+#define PSYCHIC_OVERLAY_UPPER 300
+///Burn mod for our species - we're weak to fire
 #define PSYPHOZA_BURNMOD 1.25
 
 /datum/species/psyphoza
@@ -12,15 +12,20 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	species_language_holder = /datum/language_holder/psyphoza
 
+	offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,-1), OFFSET_EARS = list(0,-1), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,-1), OFFSET_HEAD = list(0,-1), OFFSET_FACE = list(0,-1), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0))
+
 	mutant_brain = /obj/item/organ/brain/psyphoza
 	mutanteyes = /obj/item/organ/eyes/psyphoza
+	mutanttongue = /obj/item/organ/tongue/psyphoza
 
-	species_chest = /obj/item/bodypart/chest/pumpkin_man
-	species_head = /obj/item/bodypart/head/pumpkin_man
-	species_l_arm = /obj/item/bodypart/l_arm/pumpkin_man
-	species_r_arm = /obj/item/bodypart/r_arm/pumpkin_man
-	species_l_leg = /obj/item/bodypart/l_leg/pumpkin_man
-	species_r_leg = /obj/item/bodypart/r_leg/pumpkin_man
+	mutant_bodyparts = list("psyphoza_tendrils")
+	species_chest = /obj/item/bodypart/chest/psyphoza
+	species_head = /obj/item/bodypart/head/psyphoza
+	species_l_arm = /obj/item/bodypart/l_arm/psyphoza
+	species_r_arm = /obj/item/bodypart/r_arm/psyphoza
+	species_l_leg = /obj/item/bodypart/l_leg/psyphoza
+	species_r_leg = /obj/item/bodypart/r_leg/psyphoza
+
 
 	burnmod = PSYPHOZA_BURNMOD
 
@@ -33,7 +38,7 @@
 
 /obj/item/organ/brain/psyphoza
 	name = "psyphoza brain"
-	desc = "Bubbling with psychic energy!"
+	desc = "Bubbling with psychic energy..no wait...that's blood."
 	actions_types = list(/datum/action/item_action/organ_action/psychic_highlight)
 	color = "#ff00ee"
 
@@ -254,6 +259,23 @@
 /atom/movable/screen/fullscreen/blind/psychic_highlight/Initialize(mapload)
 	. = ..()
 	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
+
+//Overwrite this so the head is drawn on the upmost, otherwise head sprite, for psyphoza, clips into arms
+/datum/species/psyphoza/replace_body(mob/living/carbon/C, var/datum/species/new_species)
+	..()
+	new_species ||= C.dna.species
+	
+	for(var/obj/item/bodypart/old_part as() in C.bodyparts)
+		if(old_part.change_exempt_flags & BP_BLOCK_CHANGE_SPECIES)
+			continue
+
+		switch(old_part.body_zone)
+			if(BODY_ZONE_HEAD)
+				var/obj/item/bodypart/head/new_part = new new_species.species_head()
+				new_part.replace_limb(C, TRUE)
+				new_part.update_limb(is_creating = TRUE)
+				qdel(old_part)
+
 
 #undef PSYCHIC_OVERLAY_UPPER
 #undef PSYPHOZA_BURNMOD

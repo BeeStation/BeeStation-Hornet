@@ -487,6 +487,19 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(mutant_category >= MAX_MUTANT_ROWS)
 					dat += "</td>"
 					mutant_category = 0
+					
+			if("psyphoza_tendrils" in active_character.pref_species.mutant_bodyparts)
+				if(!mutant_category)
+					dat += APPEARANCE_CATEGORY_COLUMN
+
+				dat += "<h3>Tendril Type</h3>"
+
+				dat += "<a href='?_src_=prefs;preference=psyphoza_tendrils;task=input'>[active_character.features["psyphoza_tendrils"]]</a><BR>"
+
+				mutant_category++
+				if(mutant_category >= MAX_MUTANT_ROWS)
+					dat += "</td>"
+					mutant_category = 0
 
 			if("ears" in active_character.pref_species.default_features)
 				if(!mutant_category)
@@ -1643,6 +1656,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 					if(new_insect_type)
 						active_character.features["insect_type"] = new_insect_type
+
+				if("psyphoza_tendrils")
+					var/new_tendrils
+					new_tendrils = input(user, "Choose your character's tendrils:", "Character Preference") as null|anything in GLOB.psyphoza_tendrils_list
+					if(new_tendrils)
+						active_character.features["psyphoza_tendrils"] = new_tendrils
 
 				if("s_tone")
 					var/new_s_tone = input(user, "Choose your character's skin-tone:", "Character Preference")  as null|anything in GLOB.skin_tones

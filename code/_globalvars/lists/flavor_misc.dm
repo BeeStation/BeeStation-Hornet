@@ -49,6 +49,7 @@ GLOBAL_LIST_EMPTY(ipc_screens_list)
 GLOBAL_LIST_EMPTY(ipc_antennas_list)
 GLOBAL_LIST_EMPTY(ipc_chassis_list)
 GLOBAL_LIST_EMPTY(insect_type_list)
+GLOBAL_LIST_EMPTY(psyphoza_tendrils_list)
 
 GLOBAL_LIST_INIT(color_list_ethereal, list(
 	"Red" = "ff3131",

@@ -82,6 +82,8 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_chassis, GLOB.ipc_chassis_list)
 	if(!GLOB.insect_type_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/insect_type, GLOB.insect_type_list)
+	if(!GLOB.psyphoza_tendrils_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/psyphoza_tendrils, GLOB.psyphoza_tendrils_list)
 	//For now we will always return none for tail_human and ears.
 	return(
 		list(
@@ -106,6 +108,7 @@
 		"ipc_antenna" = pick(GLOB.ipc_antennas_list),
 		"ipc_chassis" = pick(GLOB.ipc_chassis_list),
 		"insect_type" = pick(GLOB.insect_type_list)
+		"psyphoza_tendrils" = pick(GLOB.psyphoza_tendrils_list)
 		)
 	)
 
