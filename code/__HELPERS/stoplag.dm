@@ -14,10 +14,6 @@
 		initial_delay = world.tick_lag
 	. = 0
 	//Begin tracking if we are in debugging
-#ifdef TICK_OVERRUN_DEBUG
-	var/stack_traced = FALSE
-	var/should_print = !GLOB.controller_frozen
-#endif
 	//Calculate the delay in terms of ticks
 	var/i = DS2TICKS(initial_delay)
 	do
@@ -28,12 +24,6 @@
 		//Sleep for double the time as before, sleeping incurs overhead so the longer something sleeps
 		//the less we check for wake ups
 		i *= 2
-#ifdef TICK_OVERRUN_DEBUG
-		//Controller is frozen, print our stack trace
-		if (GLOB.controller_frozen && !stack_traced && should_print)
-			stack_trace("The master controller was frozen for an extended period of time, this stoplag has been logged for debugging purposes.")
-			stack_traced = TRUE
-#endif
 	//Repeat until we have some tick left
 	while (TICK_USAGE > min(TICK_LIMIT_TO_RUN, Master.current_ticklimit))
 

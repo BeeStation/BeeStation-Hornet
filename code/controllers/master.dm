@@ -343,18 +343,10 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			anti_tick_contention_sleep_time += world.tick_lag * (processing * sleep_delta)
 			if (anti_tick_contention_sleep_time > MASTER_CONTROLLER_DELAY_WARN_TIME)
 				log_runtime("Warning: The Master Controller has been sleeping for [anti_tick_contention_sleep_time]ds which may result in game freezing.")
-#ifdef TICK_OVERRUN_DEBUG
-				if (!GLOB.controller_frozen)
-					GLOB.controller_frozen = TRUE
-					message_admins("The MC has been sleeping for an extended period of time, stack traces of running stoplags have been recorded for debugging purposes.")
-#endif
 			sleep(world.tick_lag * (processing * sleep_delta))
 			continue
 
 		anti_tick_contention_sleep_time = 0
-#ifdef TICK_OVERRUN_DEBUG
-		GLOB.controller_frozen = FALSE
-#endif
 
 		//Byond resumed us late. assume it might have to do the same next tick
 		if (last_run + CEILING(world.tick_lag * (processing * sleep_delta), world.tick_lag) < world.time)
