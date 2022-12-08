@@ -407,7 +407,7 @@
 	launch_status = 0;
 	name = "NT Recovery White-Ship";
 	port_direction = 8;
-	width = 16
+	width = 13
 	},
 /turf/open/floor/plating,
 /area/shuttle/abandoned)
