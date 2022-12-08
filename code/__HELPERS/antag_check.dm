@@ -1,4 +1,4 @@
-#define ANTAGONISM_MINIMAL_TIME 5 // 1 is identical to 1 min in DB
+#define ANTAGONISM_MINIMAL_TIME 180 // 1 is identical to 1 min in DB
 
 /// prevents non-antag griefing - returns TRUE if they are eligible to do so
 /proc/check_antagonism_minimal_playtime(mob/M, behavior="unknown activity", req_time=ANTAGONISM_MINIMAL_TIME)
