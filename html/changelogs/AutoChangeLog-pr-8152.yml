@@ -1,0 +1,7 @@
+author: itsmeow
+delete-after: true
+changes:
+  - tweak: Dynamic now classifies Abductors as a light midround ruleset, allowing
+      them to spawn earlier in the round instead of right near the end, as well as
+      allowing it to spawn alongside other light rulesets.
+  - bugfix: Fixed a bug with Syndicate Sleeper Agent not properly updating its candidates.
