@@ -246,9 +246,9 @@
   */
 /atom/Destroy()
 	if(alternate_appearances)
-		for(var/K in alternate_appearances)
-			var/datum/atom_hud/alternate_appearance/AA = alternate_appearances[K]
-			AA.remove_from_hud(src)
+		for(var/current_alternate_appearance in alternate_appearances)
+			var/datum/atom_hud/alternate_appearance/selected_alternate_appearance = alternate_appearances[current_alternate_appearance]
+			selected_alternate_appearance.remove_from_hud(src)
 
 	if(reagents)
 		QDEL_NULL(reagents)
@@ -256,16 +256,16 @@
 	orbiters = null // The component is attached to us normaly and will be deleted elsewhere
 
 	LAZYCLEARLIST(overlays)
-	LAZYCLEARLIST(managed_overlays)
+	LAZYNULL(managed_overlays)
+
+	QDEL_NULL(light)
+	QDEL_NULL(ai_controller)
 
 	for(var/i in targeted_by)
 		var/mob/M = i
 		LAZYREMOVE(M.do_afters, src)
 
 	targeted_by = null
-
-	QDEL_NULL(light)
-	QDEL_NULL(ai_controller)
 
 	return ..()
 
@@ -467,6 +467,10 @@
 /atom/proc/is_drainable()
 	return reagents && (reagents.flags & DRAINABLE)
 
+/// Is this atom grindable to get reagents
+/atom/proc/is_grindable()
+	return reagents && (reagents.flags & ABSOLUTELY_GRINDABLE)
+
 /// Are you allowed to drop this atom
 /atom/proc/AllowDrop()
 	return FALSE
@@ -593,25 +597,69 @@
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
+/**
+ * Updates the appearence of the icon
+ *
+ * Mostly delegates to update_name, update_desc, and update_icon
+ *
+ * Arguments:
+ * - updates: A set of bitflags dictating what should be updated. Defaults to [ALL]
+ */
+/atom/proc/update_appearance(updates=ALL)
+	SHOULD_NOT_SLEEP(TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+
+	. = NONE
+	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_APPEARANCE, updates)
+	if(updates & UPDATE_NAME)
+		. |= update_name(updates)
+	if(updates & UPDATE_DESC)
+		. |= update_desc(updates)
+	if(updates & UPDATE_ICON)
+		. |= update_icon(updates)
+
+/// Updates the name of the atom
+/atom/proc/update_name(updates=ALL)
+	SHOULD_CALL_PARENT(TRUE)
+	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_NAME, updates)
+
+/// Updates the description of the atom
+/atom/proc/update_desc(updates=ALL)
+	SHOULD_CALL_PARENT(TRUE)
+	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_DESC, updates)
+
 /// Updates the icon of the atom
-/atom/proc/update_icon()
+/atom/proc/update_icon(updates=ALL)
 	SIGNAL_HANDLER
 
-	// I expect we're going to need more return flags and options in this proc
-	var/signalOut = SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON)
-	if(!(signalOut & COMSIG_ATOM_NO_UPDATE_ICON_STATE))
+	. = NONE
+	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON, updates)
+	if(updates & UPDATE_ICON_STATE)
 		update_icon_state()
-	if(!(signalOut & COMSIG_ATOM_NO_UPDATE_OVERLAYS))
-		var/list/new_overlays = update_overlays()
+		. |= UPDATE_ICON_STATE
+
+	if(updates & UPDATE_OVERLAYS)
+		if(LAZYLEN(managed_vis_overlays))
+			SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
+
+		var/list/new_overlays = update_overlays(updates)
 		if(managed_overlays)
 			cut_overlay(managed_overlays)
 			managed_overlays = null
 		if(length(new_overlays))
-			managed_overlays = new_overlays
+			if (length(new_overlays) == 1)
+				managed_overlays = new_overlays[1]
+			else
+				managed_overlays = new_overlays
 			add_overlay(new_overlays)
+		. |= UPDATE_OVERLAYS
+
+	. |= SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates, .)
 
 /// Updates the icon state of the atom
 /atom/proc/update_icon_state()
+	SHOULD_CALL_PARENT(TRUE)
+	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON_STATE)
 
 /// Updates the overlays of the atom
 /atom/proc/update_overlays()
@@ -793,10 +841,19 @@
 /**
   * Respond to an emag being used on our atom
   *
-  * Default behaviour is to send COMSIG_ATOM_EMAG_ACT and return
+  * Default behaviour is to send COMSIG_ATOM_SHOULD_EMAG,
+  * if that is FALSE (due to the default being false, should_emag still occurs on /obj) then COMSIG_ATOM_ON_EMAG and return
+  *
+  * This typically should not be overriden, in favor of the /obj counterparts:
+  * - Override on_emag(mob/user)
+  * - Maintain parent calls in on_emag for good practice
+  * - If the item is "undo-emaggable" (can be flipped on/off), set emag_toggleable = TRUE
+  * For COMSIG_ATOM_SHOULD_EMAG, /obj uses should_emag.
+  * - Parent calls do not need to be maintained.
   */
-/atom/proc/emag_act()
-	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT)
+/atom/proc/use_emag(mob/user)
+	if(!SEND_SIGNAL(src, COMSIG_ATOM_SHOULD_EMAG, user))
+		SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user)
 
 /**
   * Respond to a radioactive wave hitting this atom
@@ -835,7 +892,7 @@
 /**
   * Respond to the eminence clicking on our atom
   *
-  * Default behaviour is to send COMSIG_ATOM_EMAG_ACT and return
+  * Default behaviour is to send COMSIG_ATOM_EMINENCE_ACT and return
   */
 /atom/proc/eminence_act(mob/living/simple_animal/eminence/eminence)
 	SEND_SIGNAL(src, COMSIG_ATOM_EMINENCE_ACT, eminence)

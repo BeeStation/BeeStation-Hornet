@@ -20,7 +20,7 @@
   *
   * make sure you add an update to the schema_version stable in the db changelog
   */
-#define DB_MINOR_VERSION 0
+#define DB_MINOR_VERSION 1
 
 
 //! ## Timing subsystem
@@ -164,6 +164,7 @@
 #define FIRE_PRIORITY_RESEARCH		10
 #define FIRE_PRIORITY_VIS			10
 #define FIRE_PRIORITY_GARBAGE		15
+#define FIRE_PRIORITY_PARALLAX		18
 #define FIRE_PRIORITY_WET_FLOORS	20
 #define FIRE_PRIORITY_AIR			20
 #define FIRE_PRIORITY_NPC			20
@@ -180,7 +181,6 @@
 #define FIRE_PRIORITY_ACID			40
 #define FIRE_PRIOTITY_BURNING		40
 #define FIRE_PRIORITY_DEFAULT		50
-#define FIRE_PRIORITY_PARALLAX		65
 #define FIRE_PRIORITY_INSTRUMENTS	80
 #define FIRE_PRIORITY_MOBS			100
 #define FIRE_PRIORITY_TGUI			110

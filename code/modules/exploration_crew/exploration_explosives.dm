@@ -123,9 +123,6 @@
 			explosives_trigged ++
 	to_chat(user, "<span class='notice'>[explosives_trigged] explosives triggered.</span>")
 
-/obj/item/exploration_detonator/emag_act(mob/user)
-	. = ..()
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/item/exploration_detonator/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class'warning'>You override the safety controls of [src]. You can now trigger explosives on the station.</span>")

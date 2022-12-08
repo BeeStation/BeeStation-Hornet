@@ -119,7 +119,7 @@
 
 	return dat
 
-/mob/living/simple_animal/bot/firebot/emag_act(mob/user)
+/mob/living/simple_animal/bot/firebot/on_emag(atom/target, mob/user)
 	..()
 	if(emagged == 2)
 		if(user)

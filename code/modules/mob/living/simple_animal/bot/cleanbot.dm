@@ -83,7 +83,7 @@
 	else
 		return ..()
 
-/mob/living/simple_animal/bot/cleanbot/emag_act(mob/user)
+/mob/living/simple_animal/bot/cleanbot/on_emag(atom/target, mob/user)
 	..()
 	if(emagged == 2)
 		if(user)
