@@ -82,11 +82,11 @@
 /obj/docking_port/mobile{
 	dir = 4;
 	dwidth = 3;
-	height = 4;
+	height = 5;
 	id = "mining";
 	name = "mining shuttle";
 	port_direction = 8;
-	width = 6
+	width = 7
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
