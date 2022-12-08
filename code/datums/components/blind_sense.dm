@@ -22,6 +22,7 @@
 	RegisterSignal(SSdcs, COMSIG_GLOB_SOUND_PLAYED, .proc/handle_hear)
 	//typecast to access client
 	owner = parent
+	//Register ears for people with them - deaf people can't use this component
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
 		ears = C.ears
