@@ -1,9 +1,9 @@
 /datum/unit_test/shuttle_checker/Run()
 	if(!length(SSmapping.shuttle_templates))
 		SSmapping.preloadShuttleTemplates()
-	var/regex/width_regex = regex(@"\/obj\/docking_port\/mobile[/\w]*{[^}]*?[^d]width = (\d*)")
-	var/regex/height_regex = regex(@"\/obj\/docking_port\/mobile[/\w]*{[^}]*?[^d]height = (\d*)")
-	var/regex/dir_regex = regex(@"\/obj\/docking_port\/mobile[/\w]*{[^}]*?[^d]dir = (\d*)")
+	var/regex/width_regex = regex(@"\/obj\/docking_port\/mobile[/\w]*{[^}]*[^d]width = (\d*)")
+	var/regex/height_regex = regex(@"\/obj\/docking_port\/mobile[/\w]*{[^}]*[^d]height = (\d*)")
+	var/regex/dir_regex = regex(@"\/obj\/docking_port\/mobile[/\w]*{[^}]*[^d]dir = (\d*)")
 	var/obj/docking_port/mobile/default_port = null
 	var/list/fail_reasons = list()
 	for(var/datum/map_template/shuttle/shuttle in SSmapping.shuttle_templates)
