@@ -42,10 +42,15 @@ SUBSYSTEM_DEF(job)
 	spare_id_safe_code = "[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]"
 
 	crew_obj_list = subtypesof(/datum/objective/crew)
-	for(var/datum/objective/crew/obj as() in crew_obj_list) //taken from old Hippie's "job2obj" proc with adjustments.
-		var/list/availableto = splittext(initial(obj.jobs),",")
-		for(var/job in availableto)
-			crew_obj_jobs["[job]"] += list(obj)
+	for(var/type as() in crew_obj_list)
+		// Unfortunately, this is necessary because initial() doesn't work on lists
+		var/datum/objective/crew/obj = new type
+		var/list/obj_jobs = obj.jobs
+		if(!istype(obj_jobs))
+			obj_jobs = list(obj_jobs)
+		for(var/job in obj_jobs)
+			crew_obj_jobs["[job]"] += list(type)
+		qdel(obj)
 
 	return ..()
 
@@ -91,14 +96,32 @@ SUBSYSTEM_DEF(job)
 
 
 /datum/controller/subsystem/job/proc/GetJob(rank)
+	if(!rank)
+		CRASH("proc has taken no job name")
 	if(!occupations.len)
 		SetupOccupations()
+	if(!name_occupations[rank])
+		CRASH("job name [rank] is not valid")
 	return name_occupations[rank]
 
 /datum/controller/subsystem/job/proc/GetJobType(jobtype)
+	if(!jobtype)
+		CRASH("proc has taken no job type")
 	if(!occupations.len)
 		SetupOccupations()
+	if(!type_occupations[jobtype])
+		CRASH("job type [jobtype] is not valid")
 	return type_occupations[jobtype]
+
+/datum/controller/subsystem/job/proc/GetJobActiveDepartment(rank)
+	if(!rank)
+		CRASH("proc has taken no job name")
+	if(!occupations.len)
+		SetupOccupations()
+	if(!name_occupations[rank])
+		CRASH("job name [rank] is not valid")
+	var/datum/job/J = name_occupations[rank]
+	return J.departments
 
 /datum/controller/subsystem/job/proc/AssignRole(mob/dead/new_player/player, rank, latejoin = FALSE)
 	JobDebug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
@@ -509,7 +532,8 @@ SUBSYSTEM_DEF(job)
 			to_chat(M, "<span class='notice'><B>As this station was initially staffed with a [CONFIG_GET(flag/jobs_have_minimal_access) ? "full crew, only your job's necessities" : "skeleton crew, additional access may"] have been added to your ID card.</B></span>")
 	if(ishuman(living_mob))
 		var/mob/living/carbon/human/wageslave = living_mob
-		living_mob.add_memory("Your account ID is [wageslave.account_id].")
+		if(wageslave.mind?.account_id)
+			living_mob.add_memory("Your account ID is [wageslave.mind.account_id].")
 	if(job && living_mob)
 		job.after_spawn(living_mob, M, joined_late) // note: this happens before the mob has a key! M will always have a client, living_mob might not.
 

@@ -34,24 +34,24 @@ export const Newscaster = (props, context) => {
       <NewscasterCommentCreation override_bg={override_bg} />
       <NewscasterWantedScreen override_bg={override_bg} />
       <Stack fill vertical>
-        <Stack.Item>
-          <Tabs fluid textAlign="center">
-            <Tabs.Tab
-              color="Green"
-              selected={screenmode === NEWSCASTER_SCREEN}
-              onClick={() => setScreenmode(NEWSCASTER_SCREEN)}>
-              Newscaster
-            </Tabs.Tab>
-            {!user?.admin && (
+        {!user?.admin && !user?.pai && (
+          <Stack.Item>
+            <Tabs fluid textAlign="center">
+              <Tabs.Tab
+                color="Green"
+                selected={screenmode === NEWSCASTER_SCREEN}
+                onClick={() => setScreenmode(NEWSCASTER_SCREEN)}>
+                Newscaster
+              </Tabs.Tab>
               <Tabs.Tab
                 Color="Blue"
                 selected={screenmode === BOUNTYBOARD_SCREEN}
                 onClick={() => setScreenmode(BOUNTYBOARD_SCREEN)}>
                 Bounty Board
               </Tabs.Tab>
-            )}
-          </Tabs>
-        </Stack.Item>
+            </Tabs>
+          </Stack.Item>
+        )}
         <Stack.Item grow>
           {screenmode === NEWSCASTER_SCREEN && (
             <NewscasterContent />

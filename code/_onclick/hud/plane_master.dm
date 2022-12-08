@@ -24,12 +24,6 @@
 	blend_mode = BLEND_MULTIPLY
 	alpha = 255
 
-/atom/movable/screen/plane_master/openspace/backdrop(mob/mymob)
-	filters = list()
-	add_filter("first_stage_openspace", 1, drop_shadow_filter(color = "#04080FAA", size = -10))
-	add_filter("second_stage_openspace", 2, drop_shadow_filter(color = "#04080FAA", size = -15))
-	add_filter("third_stage_openspace", 2, drop_shadow_filter(color = "#04080FAA", size = -20))
-
 /atom/movable/screen/plane_master/openspace/Initialize(mapload)
 	. = ..()
 	add_filter("first_stage_openspace", 1, drop_shadow_filter(color = "#04080FAA", size = -10))
@@ -77,6 +71,7 @@
 
 /atom/movable/screen/plane_master/lighting/Initialize(mapload)
 	. = ..()
+	add_filter("emissives", 1, alpha_mask_filter(render_source = EMISSIVE_RENDER_TARGET, flags = MASK_INVERSE))
 	add_filter("lighting", 3, alpha_mask_filter(render_source = O_LIGHTING_VISUAL_RENDER_TARGET, flags = MASK_INVERSE))
 /**
   * Things placed on this mask the lighting plane. Doesn't render directly.
@@ -92,31 +87,7 @@
 
 /atom/movable/screen/plane_master/emissive/Initialize(mapload)
 	. = ..()
-	add_filter("emissive_block", 1, alpha_mask_filter(render_source = EMISSIVE_BLOCKER_RENDER_TARGET, flags = MASK_INVERSE))
-
-/**
-  * Things placed on this always mask the lighting plane. Doesn't render directly.
-  *
-  * Always masks the light plane, isn't blocked by anything. Use for on mob glows,
-  * magic stuff, etc.
-  */
-
-/atom/movable/screen/plane_master/emissive_unblockable
-	name = "unblockable emissive plane master"
-	plane = EMISSIVE_UNBLOCKABLE_PLANE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	render_target = EMISSIVE_UNBLOCKABLE_RENDER_TARGET
-
-/**
-  * Things placed on this layer mask the emissive layer. Doesn't render directly
-  *
-  * You really shouldn't be directly using this, use atom helpers instead
-  */
-/atom/movable/screen/plane_master/emissive_unblockable
-	name = "emissive mob plane master"
-	plane = EMISSIVE_BLOCKER_PLANE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	render_target = EMISSIVE_BLOCKER_RENDER_TARGET
+	add_filter("em_block_masking", 1, color_matrix_filter(GLOB.em_mask_matrix))
 
 ///Contains space parallax
 /atom/movable/screen/plane_master/parallax
