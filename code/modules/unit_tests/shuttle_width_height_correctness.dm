@@ -7,7 +7,7 @@
 	var/obj/docking_port/mobile/default_port = null
 	var/list/fail_reasons = list()
 	for(var/datum/map_template/shuttle/shuttle in SSmapping.shuttle_templates)
-		var/file_text = file2text(shuttle.path)
+		var/file_text = file2text(shuttle.mappath)
 		var/shuttle_dir = initial(default_port.dir)
 		if	(dir_regex.Find(file_text))
 			shuttle_dir = text2num(dir_regex.group[1])
