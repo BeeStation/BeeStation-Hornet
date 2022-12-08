@@ -135,8 +135,8 @@
 	eyes.Insert(H) //refresh their eyesight and vision
 
 /datum/quirk/photographer
-	name = "Photographer"
-	desc = "You know how to handle a camera, shortening the delay between each shot."
+	name = "Psychic Photographer"
+	desc = "You have a special camera that can capture a photo of ghosts. Your experience in photography shortens the delay between each shot."
 	value = 1
 	mob_trait = TRAIT_PHOTOGRAPHER
 	gain_text = "<span class='notice'>You know everything about photography.</span>"
@@ -144,7 +144,7 @@
 
 /datum/quirk/photographer/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	var/obj/item/camera/camera = new(get_turf(H))
+	var/obj/item/camera/spooky/camera = new(get_turf(H))
 	var/list/camera_slots = list (
 		"neck" = ITEM_SLOT_NECK,
 		"left pocket" = ITEM_SLOT_LPOCKET,

@@ -430,6 +430,9 @@
 			to_chat(src, "<span class='warning'>Holy energies block your path!</span>")
 			return
 	return TRUE
+  
+/mob/living/simple_animal/revenant/get_photo_description(obj/item/camera/camera)
+	return "You can also see a g-g-g-g-ghooooost of malice!"
 
 //reforming
 /obj/item/ectoplasm/revenant
