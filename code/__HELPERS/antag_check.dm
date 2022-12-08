@@ -2,7 +2,6 @@
 
 /// prevents non-antag griefing - returns TRUE if they are eligible to do so
 /proc/check_antagonism_minimal_playtime(mob/M, behavior="unknown activity", req_time=ANTAGONISM_MINIMAL_TIME)
-	world.log << "checking antagonism"
 	if (!CONFIG_GET(flag/use_exp_track_for_antagonism_behavior))
 		return TRUE // if this system is not used in config, returns TRUE
 	if (!CONFIG_GET(flag/use_exp_tracking))
