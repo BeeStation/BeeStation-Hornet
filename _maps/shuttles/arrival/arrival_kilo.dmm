@@ -204,7 +204,6 @@
 /obj/docking_port/mobile/arrivals{
 	dir = 4;
 	name = "kilo arrivals shuttle";
-	
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
