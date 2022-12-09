@@ -67,15 +67,14 @@ PROCESSING_SUBSYSTEM_DEF(station)
 
 ///Adds exclusive station trait based on each weight regardless of count
 /datum/controller/subsystem/processing/station/proc/adds_exclusive_traits()
-	for(var/datum/station_trait/picked_trait as() in selectable_traits_by_types[STATION_TRAIT_EXCLUSIVE])
-		if(!prob(initial(picked_trait.weight)))
+	for(var/datum/station_trait/each_trait as() in selectable_traits_by_types[STATION_TRAIT_EXCLUSIVE])
+		if(!prob(initial(each_trait.weight)))
 			continue
-		picked_trait = new picked_trait()
-		station_traits += picked_trait
-		selectable_traits_by_types[picked_trait.trait_type] -= picked_trait.type		//We don't want it to roll trait twice
-		if(!picked_trait.blacklist)
+		each_trait = new each_trait()
+		station_traits += each_trait
+		if(!each_trait.blacklist)
 			continue
-		for(var/i in picked_trait.blacklist)
+		for(var/i in each_trait.blacklist)
 			var/datum/station_trait/trait_to_remove = i
 			selectable_traits_by_types[initial(trait_to_remove.trait_type)] -= trait_to_remove
 
