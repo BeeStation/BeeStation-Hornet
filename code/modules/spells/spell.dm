@@ -1,7 +1,6 @@
 #define TARGET_CLOSEST 1
 #define TARGET_RANDOM 2
 
-
 /obj/effect/proc_holder
 	var/panel = "Debug"//What panel the proc holder needs to go on.
 	var/active = FALSE //Used by toggle based abilities.
@@ -116,7 +115,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	var/holder_var_type = "bruteloss" //only used if charge_type equals to "holder_var"
 	var/holder_var_amount = 20 //same. The amount adjusted with the mob's var when the spell is used
 
-	var/clothes_req = TRUE //see if it requires clothes
+	var/clothes_req = CLOTH_REQ_WIZARD //see if it requires clothes
 	var/cult_req = FALSE //SPECIAL SNOWFLAKE clothes required for cult only spells
 	var/human_req = FALSE //spell can only be cast by humans
 	var/nonabstract_req = FALSE //spell can only be cast by mobs that are physical entities
@@ -134,6 +133,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	var/cooldown_min = 0 //This defines what spell quickened four times has as a cooldown. Make sure to set this for every spell
 	var/player_lock = TRUE //If it can be used by simple mobs
 	var/invocation_time = 0 //Time needed to cast the spell
+
+	var/message_robeless_suit = "I don't feel strong enough without my robe."
+	var/message_robeless_hat = "I don't feel strong enough without my hat."
+	var/message_robeless_shoes = "I don't feel strong enough without my sandal." // currently not used by wizard
 
 	var/overlay = 0
 	var/overlay_icon = 'icons/obj/wizard.dmi'
@@ -214,11 +217,17 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			return FALSE
 
 		if(clothes_req) //clothes check
-			if(!is_type_in_typecache(H.wear_suit, casting_clothes))
-				to_chat(H, "<span class='notice'>I don't feel strong enough without my robe.</span>")
+			if((clothes_req & CLOTH_REQ_SUIT) && !is_type_in_typecache(H.wear_suit, casting_clothes))
+				to_chat(H, "<span class='notice'>[message_robeless_suit]</span>")
 				return FALSE
-			if(!is_type_in_typecache(H.head, casting_clothes))
-				to_chat(H, "<span class='notice'>I don't feel strong enough without my hat.</span>")
+			if((clothes_req & CLOTH_REQ_JUMPSUIT) && !is_type_in_typecache(H.w_uniform, casting_clothes))
+				to_chat(H, "<span class='notice'>[message_robeless_suit]</span>")
+				return FALSE
+			if((clothes_req & CLOTH_REQ_HAT) && !is_type_in_typecache(H.head, casting_clothes))
+				to_chat(H, "<span class='notice'>[message_robeless_hat]</span>")
+				return FALSE
+			if((clothes_req & CLOTH_REQ_SHOES) && !is_type_in_typecache(H.shoes, casting_clothes))
+				to_chat(H, "<span class='notice'>[message_robeless_shoes]</span>")
 				return FALSE
 		if(cult_req) //CULT_REQ CLOTHES CHECK
 			if(!istype(H.wear_suit, /obj/item/clothing/suit/magusred) && !istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit/cult))

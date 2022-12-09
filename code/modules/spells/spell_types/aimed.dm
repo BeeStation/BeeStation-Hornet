@@ -113,7 +113,7 @@
 	desc = "This spell fires an explosive fireball at a target."
 	school = "evocation"
 	charge_max = 140
-	clothes_req = TRUE
+	clothes_req = CLOTH_REQ_WIZARD
 	invocation = "ONI SOMA"
 	invocation_type = "shout"
 	range = 20

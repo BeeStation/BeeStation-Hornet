@@ -67,7 +67,7 @@
 
 	school = "evocation"
 	charge_max = 600
-	clothes_req = TRUE
+	clothes_req = CLOTH_REQ_WIZARD
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
 	action_icon_state = "gib"
@@ -79,7 +79,7 @@
 
 	school = "transmutation"
 	charge_max = 600
-	clothes_req = TRUE
+	clothes_req = CLOTH_REQ_WIZARD
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
 	action_icon_state = "statue"

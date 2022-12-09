@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/targeted/rod_form
 	name = "Rod Form"
 	desc = "Take on the form of an immovable rod, destroying all in your path. Purchasing this spell multiple times will also increase the rod's damage and travel range."
-	clothes_req = TRUE
+	clothes_req = CLOTH_REQ_WIZARD
 	human_req = FALSE
 	charge_max = 250
 	cooldown_min = 100

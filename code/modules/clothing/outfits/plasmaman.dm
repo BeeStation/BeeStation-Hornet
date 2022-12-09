@@ -128,6 +128,15 @@
 	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/cargo,
 							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/cargo)
 
+/datum/outfit/plasmaman/mailman
+	name = "Mail-Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/mailman
+	uniform = /obj/item/clothing/head/helmet/space/plasmaman/mailman
+
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/cargo,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/cargo)
+
 /datum/outfit/plasmaman/shaft_miner
 	name = "Mining Plasmaman"
 

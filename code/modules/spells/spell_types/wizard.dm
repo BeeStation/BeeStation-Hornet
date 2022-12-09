@@ -4,7 +4,7 @@
 
 	school = "evocation"
 	charge_max = 200
-	clothes_req = TRUE
+	clothes_req = CLOTH_REQ_WIZARD
 	invocation = "FORTI GY AMA"
 	invocation_type = "shout"
 	range = 7
@@ -38,7 +38,7 @@
 
 	school = "transmutation"
 	charge_max = 400
-	clothes_req = TRUE
+	clothes_req = CLOTH_REQ_WIZARD
 	invocation = "BIRUZ BENNAR"
 	invocation_type = "shout"
 	range = -1
@@ -91,7 +91,7 @@
 	name = "Disable Tech"
 	desc = "This spell disables all weapons, cameras and most other technology in range."
 	charge_max = 400
-	clothes_req = TRUE
+	clothes_req = CLOTH_REQ_WIZARD
 	invocation = "NEC CANTIO"
 	invocation_type = "shout"
 	range = -1
@@ -108,7 +108,7 @@
 
 	school = "abjuration"
 	charge_max = 20
-	clothes_req = TRUE
+	clothes_req = CLOTH_REQ_WIZARD
 	invocation = "none"
 	invocation_type = "none"
 	range = -1
@@ -131,7 +131,7 @@
 
 	charge_max = 100
 	clothes_req = FALSE
-	clothes_req = TRUE
+	clothes_req = CLOTH_REQ_WIZARD
 
 /obj/effect/proc_holder/spell/targeted/area_teleport/teleport
 	name = "Teleport"
@@ -139,7 +139,7 @@
 
 	school = "abjuration"
 	charge_max = 600
-	clothes_req = TRUE
+	clothes_req = CLOTH_REQ_WIZARD
 	invocation = "SCYAR NILA"
 	invocation_type = "shout"
 	range = -1
@@ -163,7 +163,7 @@
 	name = "Stop Time"
 	desc = "This spell stops time for everyone except for you, allowing you to move freely while your enemies and even projectiles are frozen."
 	charge_max = 500
-	clothes_req = TRUE
+	clothes_req = CLOTH_REQ_WIZARD
 	invocation = "TOKI WO TOMARE"
 	invocation_type = "shout"
 	range = 0
@@ -179,7 +179,7 @@
 
 	school = "conjuration"
 	charge_max = 1200
-	clothes_req = TRUE
+	clothes_req = CLOTH_REQ_WIZARD
 	invocation = "NOUK FHUNMM SACP RISSKA"
 	invocation_type = "shout"
 	range = 1
@@ -222,7 +222,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/creature/cult
 	name = "Summon Creatures (DANGEROUS)"
-	clothes_req = TRUE
+	clothes_req = CLOTH_REQ_WIZARD
 	charge_max = 5000
 	summon_amt = 2
 
@@ -230,7 +230,7 @@
 	name = "Lesser summon bees"
 	desc = "This spell magically kicks a transdimensional beehive, instantly summoning a swarm of bees to your location. These bees are NOT friendly to anyone."
 	charge_max = 600
-	clothes_req = TRUE
+	clothes_req = CLOTH_REQ_WIZARD
 	invocation = "NOT THE BEES"
 	summon_amt = 9
 	action_icon_state = "bee"
@@ -243,7 +243,7 @@
 	name = "Repulse"
 	desc = "This spell throws everything around the user away."
 	charge_max = 400
-	clothes_req = TRUE
+	clothes_req = CLOTH_REQ_WIZARD
 	invocation = "GITTAH WEIGH"
 	invocation_type = "shout"
 	range = 5
@@ -345,7 +345,7 @@
 /obj/effect/proc_holder/spell/targeted/conjure_item/spellpacket
 	name = "Thrown Lightning"
 	desc = "Forged from eldrich energies, a packet of pure power, known as a spell packet will appear in your hand, that when thrown will stun the target."
-	clothes_req = TRUE
+	clothes_req = CLOTH_REQ_WIZARD
 	item_type = /obj/item/spellpacket/lightningbolt
 	charge_max = 10
 	action_icon_state = "thrownlightning"

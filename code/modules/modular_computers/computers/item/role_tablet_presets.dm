@@ -168,6 +168,11 @@
 	. = ..()
 	install_component(new /obj/item/computer_hardware/printer/mini)
 
+/obj/item/modular_computer/tablet/pda/mailman
+	name = "mailman PDA"
+	default_disk = /obj/item/computer_hardware/hard_drive/role/cargo_technician
+	icon_state = "pda-cargo" // they don't have mini printer
+
 /obj/item/modular_computer/tablet/pda/quartermaster
 	name = "quartermaster PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/quartermaster

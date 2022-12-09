@@ -153,6 +153,7 @@
 					/obj/item/clothing/head/mailman = 2,
 					/obj/item/clothing/under/misc/mailman/skirt = 2,
 					/obj/item/clothing/under/misc/mailman = 2,
+					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/storage/bag/mail = 2,
 					/obj/item/clothing/under/plasmaman/mailman = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/mailman = 2

@@ -79,6 +79,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		JOB_HUD_QUARTERMASTER = 51,
 		JOB_HUD_SHAFTMINER = 52,
 		JOB_HUD_CARGOTECHNICIAN = 53,
+		JOB_HUD_MAILMAN = 54,
 		JOB_HUD_RAWCARGO = 59,
 		// 60+: Civilian/other
 		JOB_HUD_BARTENDER = 61,

@@ -139,6 +139,7 @@
 #define JOB_NAME_QUARTERMASTER   "Quartermaster"
 #define JOB_NAME_CARGOTECHNICIAN "Cargo Technician"
 #define JOB_NAME_SHAFTMINER      "Shaft Miner"
+#define JOB_NAME_MAILMAN "Mailman" // gimmick
 
 // R&D
 #define JOB_NAME_RESEARCHDIRECTOR "Research Director"
@@ -232,6 +233,7 @@
 #define JOB_HUD_QUARTERMASTER "quartermaster"
 #define JOB_HUD_CARGOTECHNICIAN "cargotechnician"
 #define JOB_HUD_SHAFTMINER "shaftminer"
+#define JOB_HUD_MAILMAN "mailman"
 
 // R&D
 #define JOB_HUD_RAWSCIENCE "rawscience"
@@ -306,6 +308,7 @@
 #define JOB_CHATCOLOR_QUARTERMASTER   "#C79C52"
 #define JOB_CHATCOLOR_CARGOTECHNICIAN "#D3A372"
 #define JOB_CHATCOLOR_SHAFTMINER      "#CE957E"
+#define JOB_CHATCOLOR_MAILMAN         "#C47C45"
 
 // R&D
 #define JOB_CHATCOLOR_RAWSCIENCE       "#F3BFF3" // custom R&D color
