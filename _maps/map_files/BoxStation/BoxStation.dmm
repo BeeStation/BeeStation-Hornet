@@ -1833,14 +1833,11 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
@@ -17181,11 +17178,6 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible,
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
-"cqJ" = (
-/obj/structure/cable,
-/obj/structure/lattice/catwalk,
-/turf/open/space,
-/area/solar/starboard/aft)
 "cqN" = (
 /obj/structure/table,
 /obj/item/stack/sheet/iron/fifty,
@@ -20789,7 +20781,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/wood,
 /area/lawoffice)
 "dcN" = (
@@ -31801,6 +31792,7 @@
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
+/obj/machinery/light/small,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "iPR" = (
@@ -32254,13 +32246,10 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
 	dir = 8
 	},
 /turf/open/floor/plating,
@@ -41717,9 +41706,8 @@
 	dir = 4;
 	pixel_x = -24
 	},
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2,
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
 "nEu" = (
@@ -43319,7 +43307,7 @@
 /obj/item/bedsheet/medical,
 /obj/structure/bed,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
+	dir = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -43953,6 +43941,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "oTM" = (
@@ -51389,6 +51378,9 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "sBN" = (
@@ -52271,7 +52263,6 @@
 /obj/structure/sign/departments/minsky/engineering/telecommmunications{
 	pixel_x = -32
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 1
@@ -54199,6 +54190,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
+"tVj" = (
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "tVl" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -56847,6 +56844,10 @@
 	dir = 1
 	},
 /obj/item/kirbyplants/random,
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "vyz" = (
@@ -61370,7 +61371,6 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
 	},
-/obj/machinery/space_heater,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "xOx" = (
@@ -61577,6 +61577,7 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
 	},
+/obj/machinery/space_heater,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "xTN" = (
@@ -61688,19 +61689,18 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "xXr" = (
-/obj/structure/sign/warning/vacuum/external{
-	pixel_y = 32
-	},
 /obj/item/cigbutt,
-/obj/machinery/advanced_airlock_controller{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/machinery/advanced_airlock_controller{
+	pixel_y = 24
+	},
+/obj/structure/sign/warning/vacuum/external{
+	pixel_y = -32
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
@@ -95225,7 +95225,7 @@ cBD
 qap
 bLK
 bMU
-cbE
+tVj
 bRA
 oAw
 bRC
@@ -112218,7 +112218,7 @@ jCd
 cpi
 cpi
 cpi
-cqJ
+cpi
 iKv
 crk
 crk
