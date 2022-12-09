@@ -1,0 +1,6 @@
+author: The-Moon-Itself
+delete-after: true
+changes:
+  - bugfix: List related WireMod components can no longer store lists inside other
+      lists.
+  - tweak: List related WireMod with an index input now treat a null index as a 0.
