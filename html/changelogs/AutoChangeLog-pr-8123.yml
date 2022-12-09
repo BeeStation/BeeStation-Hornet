@@ -1,0 +1,6 @@
+author: dwasint, PestoVerde322
+delete-after: true
+changes:
+  - rscadd: DU glass can now smooth instead of being singular windows anywhere
+  - tweak: New table sprites from Sunset station (Credits to Quantum-M for the sprites)
+  - imageadd: Reworked the tables and glass icons and sorted them around properly
