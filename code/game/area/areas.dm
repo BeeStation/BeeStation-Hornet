@@ -86,6 +86,9 @@
 	///Used to decide what kind of reverb the area makes sound have
 	var/sound_environment = SOUND_ENVIRONMENT_NONE
 
+	///Typepath to limit the areas (subtypes included) that atoms in this area can smooth with. Used for shuttles.
+	var/area/area_limited_icon_smoothing
+
 	//Lighting overlay
 	var/obj/effect/lighting_overlay
 	var/lighting_overlay_colour = "#FFFFFF"
