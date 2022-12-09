@@ -134,8 +134,8 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/mailman
 	uniform = /obj/item/clothing/under/plasmaman/mailman
 
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/cargo,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/cargo)
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/mailman,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/mailman)
 
 /datum/outfit/plasmaman/shaft_miner
 	name = "Mining Plasmaman"

@@ -1009,7 +1009,7 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/job/mailman
 	name = "Job card (Cargo) - Mailman"
-	icon_state = "mailman" // need to change hud later
+	icon_state = "mailman"
 	assignment = JOB_NAME_MAILMAN
 	hud_state = JOB_HUD_MAILMAN
 
