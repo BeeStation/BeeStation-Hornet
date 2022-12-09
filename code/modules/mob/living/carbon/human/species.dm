@@ -765,6 +765,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(!H.dna.features["ipc_antenna"] || H.dna.features["ipc_antenna"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
 			bodyparts_to_add -= "ipc_antenna"
 
+	if("psyphoza_caps" in mutant_bodyparts)
+		if(!H.dna.features["psyphoza_caps"] || H.dna.features["psyphoza_caps"] == "None" || !HD)
+			bodyparts_to_add -= "psyphoza_caps"
+
 
 	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
 	///Digi handling
