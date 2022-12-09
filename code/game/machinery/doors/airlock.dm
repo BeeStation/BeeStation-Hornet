@@ -258,7 +258,7 @@
 		return
 
 	//Check radio signal jamming
-	if(is_jammed())
+	if(is_jammed(JAMMER_PROTECTION_WIRELESS))
 		return
 
 
@@ -453,14 +453,14 @@
 /obj/machinery/door/airlock/proc/canAIControl(mob/user)
 	if(protected_door)
 		return FALSE
-	if(is_jammed())
+	if(is_jammed(JAMMER_PROTECTION_WIRELESS))
 		return FALSE
 	return ((aiControlDisabled != 1) && !isAllPowerCut())
 
 /obj/machinery/door/airlock/proc/canAIHack()
 	if(protected_door)
 		return FALSE
-	if(is_jammed())
+	if(is_jammed(JAMMER_PROTECTION_WIRELESS))
 		return FALSE
 	return ((aiControlDisabled==1) && (!hackProof) && (!isAllPowerCut()));
 
@@ -771,7 +771,7 @@
 	if(detonated)
 		to_chat(user, "<span class='warning'>Unable to interface. Airlock control panel damaged.</span>")
 		return
-	if(is_jammed())
+	if(is_jammed(JAMMER_PROTECTION_WIRELESS))
 		to_chat(user, "<span class='warning'>Unable to interface. Remote communications not responding.</span>")
 		return
 
