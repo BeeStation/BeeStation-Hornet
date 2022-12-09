@@ -217,7 +217,7 @@
 
 /obj/effect/proc_holder/spell/targeted/mail_track
 	name = "Mailman's sense"
-	desc = "Your supernatural sense to assume where the recipent of your mail is."
+	desc = "Your supernatural sense to assume where the recipent of your mail is. Using this will glue your mail, and you need to find its recipient to unglue it."
 	charge_max = 150
 	clothes_req = CLOTH_REQ_MAILMAN
 	range = -1
@@ -271,9 +271,9 @@
 	glue_mail(mail)
 	switch(get_dist(user, recipient_body))
 		if(0 to 7)
-			to_chat(user,"<span class='notice'>You feel your duty ends here.</span>")
 			unglue_mail(mail)
-		if(8 to 18)
+			to_chat(user,"<span class='notice'>You feel your duty ends here.</span>")
+		if(8 to 15)
 			to_chat(user,"<span class='notice'>They must be somewhere here...</span>")
 		else // if you're too far away from them, your supernatural sense of direction isn't reliable
 			var/location = "nowhere"
