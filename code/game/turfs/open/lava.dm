@@ -170,9 +170,11 @@
 	name = "lava"
 	baseturfs = /turf/open/lava/smooth
 	icon = 'icons/turf/floors/lava.dmi'
-	icon_state = "unsmooth"
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
-	canSmoothWith = list(/turf/open/lava/smooth)
+	icon_state = "lava-255"
+	base_icon_state = "lava"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_LAVA)
+	canSmoothWith = list(SMOOTH_GROUP_FLOOR_LAVA)
 
 /turf/open/lava/smooth/lava_land_surface
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
