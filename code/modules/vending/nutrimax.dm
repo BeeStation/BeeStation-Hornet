@@ -20,7 +20,7 @@
 	refill_canister = /obj/item/vending_refill/hydronutrients
 	default_price = 10
 	extra_price = 50
-	payment_department = ACCOUNT_SRV
+	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
 /obj/item/vending_refill/hydronutrients
 	machine_name = "NutriMax"

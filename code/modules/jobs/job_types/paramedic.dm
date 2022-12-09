@@ -2,27 +2,26 @@
 	title = JOB_NAME_PARAMEDIC
 	flag = PARAMEDIC
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
-	department_flag = MEDSCI
+	supervisors = "the chief medical officer"
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 1
-	supervisors = "the chief medical officer"
 	selection_color = "#d4ebf2"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
-
 	outfit = /datum/outfit/job/paramedic
-
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM,
 					ACCESS_MAINT_TUNNELS, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_AUX_BASE)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MAINT_TUNNELS,
 					ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_AUX_BASE)
-	paycheck = PAYCHECK_MEDIUM
-	paycheck_department = ACCOUNT_MED
+
+	department_flag = MEDSCI
+	departments = DEPT_BITFLAG_MED
+	bank_account_department = ACCOUNT_MED_BITFLAG
+	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_MEDICAL_DOCTOR
-	departments = DEPARTMENT_BITFLAG_MEDICAL
 	rpg_title = "Corpse Runner"
 
 	species_outfits = list(

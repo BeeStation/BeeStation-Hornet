@@ -61,7 +61,7 @@
 	var/obj/item/integrated_signaler/signaler // AI's signaller
 
 	var/obj/item/instrument/piano_synth/internal_instrument
-	var/obj/machinery/newscaster			//pAI Newscaster
+	var/obj/machinery/newscaster/pai/newscaster			//pAI Newscaster
 	var/obj/item/healthanalyzer/hostscan				//pAI healthanalyzer
 
 	var/encryptmod = FALSE
@@ -122,7 +122,7 @@
 	hostscan = new /obj/item/healthanalyzer(src)
 	if(!radio)
 		radio = new /obj/item/radio/headset/silicon/pai(src)
-	newscaster = new /obj/machinery/newscaster(src)
+	newscaster = new /obj/machinery/newscaster/pai(src)
 	if(!aicamera)
 		aicamera = new /obj/item/camera/siliconcam/ai_camera(src)
 		aicamera.flash_enabled = TRUE
