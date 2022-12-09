@@ -617,3 +617,11 @@
 	dat += "<a href='byond://?src=[REF(src)];software=loudness;sub=1'>Open Synthesizer Interface</a><br>"
 	dat += "<a href='byond://?src=[REF(src)];software=loudness;sub=2'>Choose Instrument Type</a>"
 	return dat
+
+/obj/machinery/newscaster/pai/ui_data(mob/user)
+	var/list/data = ..()
+	data["user"]["pai"] = TRUE
+	return data
+
+/obj/machinery/newscaster/pai/ui_state(mob/user)
+	return GLOB.reverse_contained_state

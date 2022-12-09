@@ -53,6 +53,7 @@
 	icon_state = "down"
 	anchored = FALSE
 	resistance_flags = NONE
+	move_resist = MOVE_FORCE_WEAK
 	var/foldabletype = /obj/item/roller
 
 /obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)

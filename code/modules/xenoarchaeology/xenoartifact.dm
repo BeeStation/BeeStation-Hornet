@@ -401,8 +401,8 @@
 /obj/item/xenoartifact/process(delta_time)
 	switch(process_type)
 		if(PROCESS_TYPE_LIT) //Burning
-			true_target = list(get_target_in_proximity(min(max_range, 5)))
-			if(isliving(true_target[1]))
+			true_target = get_target_in_proximity(min(max_range, 5))
+			if(true_target[1])
 				visible_message("<span class='danger' size='4'>The [name] flicks out.</span>")
 				default_activate(25, null, null)
 				process_type = null
@@ -410,7 +410,7 @@
 		if(PROCESS_TYPE_TICK) //Clock-ing
 			playsound(get_turf(src), 'sound/effects/clock_tick.ogg', 50, TRUE) 
 			visible_message("<span class='danger' size='10'>The [name] ticks.</span>")
-			true_target = list(get_target_in_proximity(min(max_range, 5)))
+			true_target = get_target_in_proximity(min(max_range, 5))
 			default_activate(25, null, null)
 			if(DT_PROB(XENOA_TICK_CANCEL_PROB, delta_time) && COOLDOWN_FINISHED(src, xenoa_cooldown))
 				process_type = null
