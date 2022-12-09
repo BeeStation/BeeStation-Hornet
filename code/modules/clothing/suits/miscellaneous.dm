@@ -881,12 +881,12 @@
 
 /obj/item/clothing/suit/hooded/hoodie/red
 	name = "red hoodie"
-	color = "#eb0c07"
+	color = "#c42822"
 	hoodtype = /obj/item/clothing/head/hooded/hoodie/red
 
 /obj/item/clothing/head/hooded/hoodie/red
 	name = "red hoodie hood"
-	color = "#eb0c07"
+	color = "#c42822"
 
 /obj/item/clothing/suit/hooded/hoodie/black
 	name = "black hoodie"
