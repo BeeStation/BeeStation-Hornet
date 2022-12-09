@@ -23,19 +23,23 @@
 #define PROCESS_TYPE_TICK "is_tick"
 
 ///Discovery point reward
-#define XENOA_DP 200
+#define XENOA_DP 350
 #define XENOA_SOLD_DP 350
+///Reserach point reward (modifer)
+#define XENOA_RP 2.5
 
 ///Max vendors / buyers in each catergory
 #define XENOA_MAX_VENDORS 8
 
 //Specific trait defines
-///Bear limit
+///Bear limit at once
 #define XENOA_MAX_BEARS 3
 ///Max targets on expansive
 #define XENOA_MAX_TARGETS 6
 ///Tick chance to untick
 #define XENOA_TICK_CANCEL_PROB 13
+///Max amount of evil clones at once
+#define XENOA_MAX_CLONES 5
 
 ///Chance to avoid target if wearing bomb suit
 #define XENOA_DEFLECT_CHANCE 45

@@ -343,7 +343,7 @@
 	if(flags_1 & HOLOGRAM_1)
 		do_sparks(3, TRUE, src)
 		return
-	if(loot.len)
+	if(length(loot))
 		for(var/i in loot)
 			new i(loc)
 

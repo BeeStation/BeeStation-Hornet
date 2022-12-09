@@ -245,7 +245,7 @@
 		else
 			linked_techweb.largest_bomb_value = TECHWEB_BOMB_POINTCAP
 			general_point_gain = 1000
-		var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_SCI)
+		var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
 		if(D)
 			D.adjust_money(general_point_gain)
 			discovery_point_gain = general_point_gain * 0.5

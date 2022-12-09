@@ -53,13 +53,11 @@
 	if(obj_flags & EMAGGED)
 		. |= EXPORT_EMAG
 
-/obj/machinery/computer/cargo/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	user.visible_message("<span class='warning'>[user] swipes a suspicious card through [src]!</span>",
-	"<span class='notice'>You adjust [src]'s routing and receiver spectrum, unlocking special supplies and contraband.</span>")
+/obj/machinery/computer/cargo/on_emag(mob/user)
+	..()
+	user?.visible_message("<span class='warning'>[user] swipes a suspicious card through [src]!</span>",
+		"<span class='notice'>You adjust [src]'s routing and receiver spectrum, unlocking special supplies and contraband.</span>")
 
-	obj_flags |= EMAGGED
 	contraband = TRUE
 
 	// This also permamently sets this on the circuit board
@@ -82,7 +80,7 @@
 /obj/machinery/computer/cargo/ui_data()
 	var/list/data = list()
 	data["location"] = SSshuttle.supply.getStatusText()
-	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	if(D)
 		data["points"] = D.account_balance
 	data["away"] = SSshuttle.supply.getDockedId() == "supply_away"
