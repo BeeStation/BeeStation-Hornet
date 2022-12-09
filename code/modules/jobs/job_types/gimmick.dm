@@ -277,7 +277,7 @@
 			to_chat(user,"<span class='notice'>They must be somewhere here...</span>")
 		else // if you're too far away from them, your supernatural sense of direction isn't reliable
 			var/location = "nowhere"
-			if(prob(2)) // 2% chance to find a specific aread.
+			if(prob(3)) // 3% chance to find a specific area.
 				location = lowertext(get_area_name(recipient_body, TRUE))
 			else
 				var/static/fake_locations = list(
