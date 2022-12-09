@@ -103,11 +103,12 @@
 	update_icon()
 
 /obj/item/mail/dropped(mob/user)
+	. = ..()
 	REMOVE_TRAIT(src, TRAIT_NODROP, MAGICALLY_GLUED_ITEM_TRAIT)
 	// this can be a curse of mailman if it's not removed. check mailman's spell 'Mailman's sense'
 
 /obj/item/mail/update_overlays()
-	. = ..()
+	..()
 	var/bonus_stamp_offset = 0
 	for(var/stamp in stamps)
 		var/image/stamp_image = image(
