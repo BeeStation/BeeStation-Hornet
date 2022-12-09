@@ -3,6 +3,9 @@
 #define TAMED_COMMAND_WANDER "Wander"
 #define TAMED_COMMAND_ATTACK "Attack"
 
+#define ANGER_THRESHOLD_ATTACK 3 // How many attacks it takes to anger a tamed mob
+#define ANGER_RESET_TIME 5 MINUTES // How long it takes for a tamed mob's anger to expire (resets after every attack)
+
 ///default jps fails pathfinding too often, this work better
 /datum/ai_movement/jps/expensive
 	max_pathing_attempts = 12
@@ -20,6 +23,7 @@
 	var/icon/stop_icon
 	var/icon/wander_icon
 	var/icon/attack_icon
+	var/anger = 0
 
 /datum/ai_controller/tamed/process(delta_time)
 	if(ismob(pawn))
@@ -133,10 +137,19 @@
 /// Someone's interacting with us by hand, see if they're being nice or mean
 /datum/ai_controller/tamed/proc/on_attack_hand(datum/source, mob/living/user)
 	SIGNAL_HANDLER
-
-	if(user.a_intent == INTENT_HARM && !blackboard[BB_DOG_FRIENDS][WEAKREF(user)])
-		blackboard[BB_ATTACK_TARGET] = user
-		set_command_mode(null, TAMED_COMMAND_ATTACK)
+	if(user.a_intent == INTENT_HELP)
+		if(prob(25))
+			user.visible_message("[source] nuzzles [user]!", "<span class='notice'>[source] nuzzles you!</span>")
+		return
+	if(blackboard[BB_DOG_FRIENDS][WEAKREF(user)])
+		anger++
+		if(anger >= ANGER_THRESHOLD_ATTACK)
+			unfriend(user)
+		else
+			addtimer(VARSET_CALLBACK(src, anger, 0), ANGER_RESET_TIME, TIMER_UNIQUE|TIMER_OVERRIDE)
+			return
+	blackboard[BB_ATTACK_TARGET] = user
+	set_command_mode(null, TAMED_COMMAND_ATTACK)
 
 /// Someone is being nice to us, let's make them a friend!
 /datum/ai_controller/tamed/proc/befriend(mob/living/new_friend)
