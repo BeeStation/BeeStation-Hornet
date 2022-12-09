@@ -189,7 +189,7 @@
 	ears = /obj/item/radio/headset/headset_cargo
 
 	backpack_contents = list(/obj/item/book/granter/spell/mailman=1, /obj/item/storage/bag/mail=1)
-	// these are important; these sets are actually a set of robes for mailman special spell
+	// these are important; these sets are actually a set of robe for mailman special spell
 	head = /obj/item/clothing/head/mailman
 	uniform = /obj/item/clothing/under/misc/mailman
 	shoes = /obj/item/clothing/shoes/laceup

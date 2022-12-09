@@ -121,17 +121,3 @@
 /datum/station_trait/quick_shuttle/on_round_start()
 	. = ..()
 	SSshuttle.supply.callTime *= 0.5
-
-/datum/station_trait/special_jobs
-	name = "Special Jobs"
-	trait_type = STATION_TRAIT_POSITIVE
-	weight = 3
-	show_in_report = TRUE
-	report_message = "We opened a slot for a special job. We expect their duty can fit the station."
-	var/job_list = list(JOB_NAME_MAILMAN)
-
-/datum/station_trait/special_jobs/New()
-	. = ..()
-	var/datum/job/J = SSjob.GetJob(job_list)
-	J.total_positions += 1
-	J.spawn_positions += 1

@@ -18,7 +18,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 /datum/controller/subsystem/processing/station/Initialize(timeofday)
 
 	station_traits = list()
-	selectable_traits_by_types = list(STATION_TRAIT_POSITIVE = list(), STATION_TRAIT_NEUTRAL = list(), STATION_TRAIT_NEGATIVE = list())
+	selectable_traits_by_types = list(STATION_TRAIT_POSITIVE = list(), STATION_TRAIT_NEUTRAL = list(), STATION_TRAIT_NEGATIVE = list(), STATION_TRAIT_EXCLUSIVE = list())
 
 	//If doing unit tests we don't do none of that trait shit ya know?
 	#ifndef UNIT_TESTS
@@ -46,6 +46,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	pick_traits(STATION_TRAIT_POSITIVE, positive_trait_count)
 	pick_traits(STATION_TRAIT_NEUTRAL, neutral_trait_count)
 	pick_traits(STATION_TRAIT_NEGATIVE, negative_trait_count)
+	adds_exclusive_traits()
 
 ///Picks traits of a specific category (e.g. bad or good) and a specified amount, then initializes them and adds them to the list of traits.
 /datum/controller/subsystem/processing/station/proc/pick_traits(trait_type, amount)
@@ -55,6 +56,20 @@ PROCESSING_SUBSYSTEM_DEF(station)
 		var/datum/station_trait/picked_trait = pickweight(selectable_traits_by_types[trait_type]) //Rolls from the table for the specific trait type
 		if(!picked_trait)
 			return
+		picked_trait = new picked_trait()
+		station_traits += picked_trait
+		selectable_traits_by_types[picked_trait.trait_type] -= picked_trait.type		//We don't want it to roll trait twice
+		if(!picked_trait.blacklist)
+			continue
+		for(var/i in picked_trait.blacklist)
+			var/datum/station_trait/trait_to_remove = i
+			selectable_traits_by_types[initial(trait_to_remove.trait_type)] -= trait_to_remove
+
+///Adds exclusive station trait based on each weight regardless of count
+/datum/controller/subsystem/processing/station/proc/adds_exclusive_traits()
+	for(var/datum/station_trait/picked_trait as() in selectable_traits_by_types[STATION_TRAIT_EXCLUSIVE])
+		if(!prob(initial(picked_trait.weight)))
+			continue
 		picked_trait = new picked_trait()
 		station_traits += picked_trait
 		selectable_traits_by_types[picked_trait.trait_type] -= picked_trait.type		//We don't want it to roll trait twice
