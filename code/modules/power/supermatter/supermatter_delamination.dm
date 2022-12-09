@@ -59,7 +59,7 @@
 
 /datum/supermatter_delamination/proc/setup_delamination_type()
 	if(supermatter_gas_amount > MOLE_PENALTY_THRESHOLD)
-		call_singulo()
+		//call_singulo()
 		return
 
 	if(supermatter_power > POWER_PENALTY_THRESHOLD)
