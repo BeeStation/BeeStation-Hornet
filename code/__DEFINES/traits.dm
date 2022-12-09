@@ -360,6 +360,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define HIVEMIND_TRAIT "hivemind-trait"
 #define VR_ZONE_TRAIT "vr_zone_trait"
 #define GLUED_ITEM_TRAIT "glued-item"
+#define MAGICALLY_GLUED_ITEM_TRAIT "glued-item-magic"
 #define LEGION_CORE_TRAIT "legion_core_trait"
 #define MIRROR_TRAIT "mirror_trait"
 #define CRAYON_TRAIT "crayon_trait"

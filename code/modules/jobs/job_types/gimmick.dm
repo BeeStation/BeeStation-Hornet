@@ -173,7 +173,7 @@
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO)
 
 	department_flag = CIVILIAN
-	departments = DEPT_BITFLAG_CAR
+	departments = DEPT_BITFLAG_CAR | DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_CAR_BITFLAG
 	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_EASY)
 
@@ -197,8 +197,9 @@
 	can_be_admin_equipped = TRUE
 // mailman's special spell
 /obj/item/book/granter/spell/mailman
+	name =  "Oath of Mailman"
 	spell = /obj/effect/proc_holder/spell/targeted/mail_track
-	spellname = "Oath of Mailman"
+	spellname = "Mailman's sense"
 	icon_state = "scroll2"
 	icon = 'icons/obj/wizard.dmi'
 	desc = "Oath of mailman for the duty to deliver mails."
@@ -227,12 +228,16 @@
 	message_robeless_suit = "I am not prepared for this without my suit."
 	message_robeless_hat = "I am not prepared for this without my hat."
 	message_robeless_shoes = "I am not prepared for this without my laceup shoes."
+	still_recharging_msg
 
 /obj/effect/proc_holder/spell/targeted/mail_track/Initialize(mapload)
 	. = ..()
 	var/static/casting_clothes_special
 	if(!length(casting_clothes_special))
-		casting_clothes_special = typecacheof(list(/obj/item/clothing/under/misc/mailman,
+		casting_clothes_special = typecacheof(list(
+			/obj/item/clothing/head/mailman,
+			/obj/item/clothing/head/helmet/space/plasmaman/mailman,
+			/obj/item/clothing/under/plasmaman/mailman,
 			/obj/item/clothing/under/misc/mailman,
 			/obj/item/clothing/shoes/laceup))
 
@@ -242,7 +247,9 @@
 	var/obj/item/mail/mail = user.get_active_held_item()
 	if(!istype(mail, /obj/item/mail))
 		to_chat(user,"<span class='notice'>You need to hold a mail on your hand.</span>")
+		charge_counter = charge_max // that activation must be mistake. fully recharges.
 		return
+	unglue_mail(mail) //failsafe when this mail becomes undelivable
 	var/datum/mind/recipient = mail.recipient_ref?.resolve()
 	if(!recipient)
 		to_chat(user,"<span class='notice'>It looks this mail goes nowhere.</span>")
@@ -261,9 +268,11 @@
 		to_chat(user,"<span class='notice'>Its recipient seems to be far away.</span>")
 		return
 
+	glue_mail(mail)
 	switch(get_dist(user, recipient_body))
 		if(0 to 7)
 			to_chat(user,"<span class='notice'>You feel your duty ends here.</span>")
+			unglue_mail(mail)
 		if(8 to 18)
 			to_chat(user,"<span class='notice'>They must be somewhere here...</span>")
 		else // if you're too far away from them, your supernatural sense of direction isn't reliable
@@ -278,8 +287,14 @@
 					"spirit realm", "bearspace", "nullspace", "hyperspace", "voidspace",
 					"laghter demon's belly", "lizardpeople reptilian conspiracy association"
 				)
-				location = prob(90) ? "[dir2text(get_dir(usr, prob(90) ? pick(GLOB.player_list) : recipient_body))]" : pick(fake_locations)
+				location = prob(90) ? "[dir2text(get_dir(usr, prob(90) ? pick(GLOB.player_list - user) : recipient_body))]" : pick(fake_locations)
 				// 81% (90% * 90%): tracks a proper person
 				// 9% (90% * 10%): tracks a wrong person
 				// 10%: shows improper location
 			to_chat(user,"<span class='notice'>Hmm... [lowertext(location)]?</span>")
+
+/obj/effect/proc_holder/spell/targeted/mail_track/proc/glue_mail(obj/item/mail)
+	ADD_TRAIT(mail, TRAIT_NODROP, MAGICALLY_GLUED_ITEM_TRAIT)
+
+/obj/effect/proc_holder/spell/targeted/mail_track/proc/unglue_mail(obj/item/mail)
+	REMOVE_TRAIT(mail, TRAIT_NODROP, MAGICALLY_GLUED_ITEM_TRAIT)
