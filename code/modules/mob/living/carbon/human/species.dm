@@ -869,6 +869,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if("apid_headstripe" in mutant_bodyparts)
 		if(!H.dna.features["apid_headstripe"] || H.dna.features["apid_headstripe"] == "None" || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || !HD)
 			bodyparts_to_add -= "apid_headstripe"
+	if("psyphoza_caps" in mutant_bodyparts)
+		if(!H.dna.features["psyphoza_caps"] || H.dna.features["psyphoza_caps"] == "None" || !HD)
+			bodyparts_to_add -= "psyphoza_caps"
+
 
 	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
 	///Digi handling

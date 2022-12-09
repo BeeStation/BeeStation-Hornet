@@ -1,5 +1,5 @@
 ///The limit when the psychic timer locks you out of creating more
-#define PSYCHIC_OVERLAY_UPPER 380
+#define PSYCHIC_OVERLAY_UPPER 400
 ///Burn mod for our species - we're weak to fire
 #define PSYPHOZA_BURNMOD 1.25
 
@@ -7,7 +7,7 @@
 	name = "\improper Psyphoza"
 	id = SPECIES_PSYPHOZA
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/psyphoza
-	species_traits = list(NOEYESPRITES, AGENDER, MUTCOLORS)
+	species_traits = list(NOEYESPRITES, AGENDER, MUTCOLORS, TRAIT_RESISTCOLD)
 	sexes = FALSE
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	species_language_holder = /datum/language_holder/psyphoza
@@ -18,7 +18,13 @@
 	mutanteyes = /obj/item/organ/eyes/psyphoza
 	mutanttongue = /obj/item/organ/tongue/psyphoza
 
+	attack_verb = "slash"
+	attack_sound = 'sound/weapons/slice.ogg'
+	miss_sound = 'sound/weapons/slashmiss.ogg'
+
 	mutant_bodyparts = list("psyphoza_caps")
+	default_features = list("psyphoza_caps" = "Wide", "body_size" = "Normal")
+
 	species_chest = /obj/item/bodypart/chest/psyphoza
 	species_head = /obj/item/bodypart/head/psyphoza
 	species_l_arm = /obj/item/bodypart/l_arm/psyphoza
@@ -49,7 +55,7 @@
 	///The distant our psychic sense works
 	var/sense_range = 5
 	///The range we can hear-ping things from
-	var/hear_range = 9
+	var/hear_range = 8
 	///List of things we can't sense
 	var/list/sense_blacklist
 	///The amount of time you can sense things for

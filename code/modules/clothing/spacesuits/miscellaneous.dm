@@ -502,6 +502,7 @@ Contains:
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 20, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 	min_cold_protection_temperature = EMERGENCY_HELM_MIN_TEMP_PROTECT
 	heat_protection = NONE
+	species_restricted = null
 	flash_protect = 0
 	bang_protect = 0
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR
@@ -525,6 +526,7 @@ Contains:
 	max_integrity = 200
 	slowdown = 3 //Higher is slower
 	clothing_flags = STOPSPRESSUREDAMAGE
+	species_restricted = null
 	gas_transfer_coefficient = 0.5
 	permeability_coefficient = 0.5
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)

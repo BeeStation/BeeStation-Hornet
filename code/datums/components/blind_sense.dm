@@ -1,6 +1,6 @@
 /datum/component/blind_sense
 	///The range we can hear-ping things from
-	var/hear_range = 9
+	var/hear_range = 8
 	///List of things we can't sense
 	var/list/sense_blacklist
 	///The amount of time you can sense things for
