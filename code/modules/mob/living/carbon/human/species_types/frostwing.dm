@@ -33,7 +33,7 @@
 	species_r_leg = /obj/item/bodypart/r_leg/frostwing
 
 /datum/species/frostwing/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.frostwing_names)]-[pick(GLOB.frostwing_names)][prob(50) ? "-[pick(GLOB.frostwing_names)]" : ""][prob(50) ? "-[pick(GLOB.frostwing_names)]" : ""]"
+	. = "[pick(GLOB.frostwing_names)]-[pick(GLOB.frostwing_names)][prob(50) ? "-[pick(GLOB.frostwing_names)]" : ""][prob(10) ? "-[pick(GLOB.frostwing_names)]" : ""]"
 	if(unique && attempts < 10)
 		if(findname(.))
 			. = .(gender, TRUE, null, ++attempts)
