@@ -12851,7 +12851,6 @@
 /obj/item/t_scanner,
 /obj/item/t_scanner,
 /obj/item/t_scanner,
-/obj/structure/table,
 /turf/open/floor/plasteel/dark/side{
 	dir = 8
 	},
