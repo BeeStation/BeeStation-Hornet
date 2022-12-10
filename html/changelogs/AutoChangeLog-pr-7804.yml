@@ -1,0 +1,18 @@
+author: itsmeow
+delete-after: true
+changes:
+  - rscadd: 'Added animated emotes: *sweatdrop, *glasses, *annoyed, *sigh'
+  - rscadd: 'Added audible emotes: *cough, *dwoop (IPC), *gasp, *msqueak (moth), *chitter
+      (moth), *sigh, *snap2, *snap3, *sneeze, *sniff'
+  - rscadd: 'Added emotes: *clear, *etwitch (felinid), *eyeroll, *huff'
+  - tweak: Abductors, androids, apids, flypeople, golems, IPCs, moths, skeletons,
+      and non-/mob/living/carbon/humans, and anyone with the NOBREATH trait will not
+      play a sound for *cough, *gasp, *sigh, *sneeze, and *sniff
+  - rscadd: Added a unique moth laugh sound.
+  - rscadd: Added a unique moth deathgasp sound.
+  - tweak: Mothroaches now use insect-type emote messages and can use *click, *chitter,
+      and *msqueak.
+  - code_imp: Clap emote now properly checks if you have arms.
+  - code_imp: Improved how *laugh and *scream determine per-species sounds.
+  - bugfix: Removed a duplicate *chime emoji.
+  - bugfix: Fixed some emotes having an extra period at the end of their messages.
