@@ -29,6 +29,7 @@
 #include "code\__DEFINES\actionspeed_modification.dm"
 #include "code\__DEFINES\admin.dm"
 #include "code\__DEFINES\ai.dm"
+#include "code\__DEFINES\airlock.dm"
 #include "code\__DEFINES\antagonists.dm"
 #include "code\__DEFINES\apc.dm"
 #include "code\__DEFINES\aquarium.dm"

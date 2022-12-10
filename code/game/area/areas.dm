@@ -105,6 +105,9 @@
 	/// Area network id when you want to find all devices hooked up to this area
 	var/network_area_id = null
 
+	/// How hard it is to hack airlocks in this area
+	var/airlock_hack_difficulty = AIRLOCK_SECURITY_NONE
+
 /**
   * A list of teleport locations
   *
