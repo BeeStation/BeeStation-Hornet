@@ -300,13 +300,6 @@
 	T.pixel_x = (PipingLayer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_P_X;\
 	T.pixel_y = (PipingLayer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_P_Y;
 
-#ifdef TESTING
-GLOBAL_LIST_INIT(atmos_adjacent_savings, list(0,0))
-#define CALCULATE_ADJACENT_TURFS(T) if (SSadjacent_air.queue[T]) { GLOB.atmos_adjacent_savings[1] += 1 } else { GLOB.atmos_adjacent_savings[2] += 1; SSadjacent_air.queue[T] = 1 }
-#else
-#define CALCULATE_ADJACENT_TURFS(T) SSadjacent_air.queue[T] = 1
-#endif
-
 GLOBAL_LIST_INIT(pipe_paint_colors, sortList(list(
 		"amethyst" = rgb(130,43,255), //supplymain
 		"blue" = rgb(0,0,255),
@@ -326,3 +319,7 @@ GLOBAL_LIST_INIT(pipe_paint_colors, sortList(list(
 #define PIPENET_UPDATE_STATUS_DORMANT 0
 #define PIPENET_UPDATE_STATUS_REACT_NEEDED 1
 #define PIPENET_UPDATE_STATUS_RECONCILE_NEEDED 2
+
+// Adjacency flags
+#define ATMOS_ADJACENT_ANY		(1<<0)
+#define ATMOS_ADJACENT_FIRELOCK	(1<<1)
