@@ -69,6 +69,7 @@
 				timer = null
 			uses--
 			if(!uses)
+				to_chat(user, "<span class='warning'>[src] falls apart!</span>")
 				qdel(src)
 			return
 	else if(timer) //if trying to add new target while old target is still flipped
