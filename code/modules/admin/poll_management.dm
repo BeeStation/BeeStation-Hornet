@@ -79,6 +79,7 @@
 		output += {"[poll.question]
 		<a href='?_src_=holder;[HrefToken()];editpoll=[REF(poll)]'> Edit</a>
 		<a href='?_src_=holder;[HrefToken()];deletepoll=[REF(poll)]'> Delete</a>
+		<a href='?_src_=holder;[HrefToken()];resultspoll=[REF(poll)]'> Results</a>
 		"}
 		if(poll.subtitle)
 			output += "<br>[poll.subtitle]"
@@ -91,6 +92,87 @@
 	var/datum/browser/panel = new(usr, "plpanel", "Poll list Panel", 700, 400)
 	panel.set_content(jointext(output, ""))
 	panel.open()
+
+/**
+  * Shows the results for a poll
+  */
+/datum/admins/proc/poll_results_panel(datum/poll_question/poll, start_index = 0)
+	if(!check_rights(R_POLL))
+		return
+	if(!SSdbcore.IsConnected())
+		to_chat(usr, "<span class='danger'>Not connected to database. Cannot retrieve data.</span>")
+		return
+	var/output = "<div align='center'><B>Player Poll Results</B><hr>[poll.question]<hr>"
+	//Each poll type is different
+	switch (poll.poll_type)
+		//Show the options that were clicked
+		if (POLLTYPE_MULTI, POLLTYPE_OPTION)
+			output += "<table><tr><th>Options</th><th>Votes</th></tr>"
+			//Get the results
+			var/datum/DBQuery/query_get_poll_results = SSdbcore.NewQuery({"
+SELECT p.text, count(*)
+	FROM [format_table_name("poll_vote")] AS pv
+	INNER JOIN [format_table_name("poll_option")] AS p ON pv.optionid = p.id
+	WHERE pv.pollid = :pollid AND pv.deleted = 0
+	GROUP BY optionid
+	ORDER BY count(*) DESC"},
+				list(
+					"pollid" = poll.poll_id,
+				))
+			if(!query_get_poll_results.warn_execute())
+				qdel(query_get_poll_results)
+				return
+			while(query_get_poll_results.NextRow())
+				output += "<tr><td>[query_get_poll_results.item[1]]</td><td>[query_get_poll_results.item[2]]</td></tr>"
+			qdel(query_get_poll_results)
+		//Provide lists of ckeys and their answers
+		if (POLLTYPE_TEXT)
+			//Change the table name
+			output += "<a href='?_src_=holder;[HrefToken()];resultspoll=[REF(poll)];startat=[start_index-10]'>Previous Page</a><a href='?_src_=holder;[HrefToken()];resultspoll=[REF(poll)];startat=[start_index+10]'>Next Page</a><br/>"
+			output += "<hr>[poll.question]<hr><table><tr><th>Ckey</th><th>Response</th></tr>"
+			//Get the results
+			var/datum/DBQuery/query_get_poll_results = SSdbcore.NewQuery({"
+SELECT ckey, replytext
+	FROM [format_table_name("poll_textreply")]
+	WHERE pollid = :pollid AND deleted = 0
+	LIMIT :limstart,:limend"},
+				list(
+					"pollid" = poll.poll_id,
+					"limstart" = start_index,
+					"limend" = 10
+				))
+			if(!query_get_poll_results.warn_execute())
+				qdel(query_get_poll_results)
+				return
+			while(query_get_poll_results.NextRow())
+				output += "<tr><td>[query_get_poll_results.item[1]]</td><td>[query_get_poll_results.item[2]]</td></tr>"
+			qdel(query_get_poll_results)
+		//Show each option, how many times it was rated for each and then the average
+		if (POLLTYPE_RATING)
+			output += "<table><tr><th>Option</th><th>Rating</th><th>Count</th></tr>"
+			//Get the results
+			var/datum/DBQuery/query_get_poll_results = SSdbcore.NewQuery({"
+SELECT p.text, pv.rating, COUNT(*)
+	FROM [format_table_name("poll_vote")] AS pv
+	INNER JOIN [format_table_name("poll_option")] AS p ON pv.optionid = p.id
+	WHERE p.pollid = :pollid AND pv.deleted = 0
+	GROUP BY optionid, rating
+	ORDER BY optionid, rating DESC"},
+				list(
+					"pollid" = poll.poll_id,
+				))
+			if(!query_get_poll_results.warn_execute())
+				qdel(query_get_poll_results)
+				return
+			while(query_get_poll_results.NextRow())
+				output += "<tr><td>[query_get_poll_results.item[1]]</td><td>[query_get_poll_results.item[2]]</td<td>[query_get_poll_results.item[3]]</td></tr>"
+			qdel(query_get_poll_results)
+		if (POLLTYPE_IRV)
+			to_chat(usr, "<span class='warning'>View results for instant runoff voting is not currently supported.</span>")
+			return
+	output += "</table>"
+	if(!QDELETED(usr))
+		usr << browse(output, "window=playerpolllist;size=500x300")
 
 /**
   * Show the options for creating a poll or editing its parameters along with its linked options.
