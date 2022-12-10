@@ -165,3 +165,18 @@
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	return ..()
+
+/datum/species/oozeling/get_cough_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_COUGH_SOUND(user)
+
+/datum/species/oozeling/get_gasp_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_GASP_SOUND(user)
+
+/datum/species/oozeling/get_sigh_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SIGH_SOUND(user)
+
+/datum/species/oozeling/get_sneeze_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNEEZE_SOUND(user)
+
+/datum/species/oozeling/get_sniff_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNIFF_SOUND(user)

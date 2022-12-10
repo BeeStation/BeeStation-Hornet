@@ -1,5 +1,5 @@
-#define EMOTE_VISIBLE 1
-#define EMOTE_AUDIBLE 2
+#define EMOTE_AUDIBLE (1<<0)
+#define EMOTE_ANIMATED (1<<1)
 
 /datum/emote
 	var/key = "" //What calls the emote
@@ -15,16 +15,35 @@
 	var/message_insect = "" //Message to display if the user is a moth, apid or flyperson
 	var/message_simple = "" //Message to display if the user is a simple_animal
 	var/message_param = "" //Message to display if a param was given
-	var/emote_type = EMOTE_VISIBLE //Whether the emote is visible or audible
+	/// Emote flags (EMOTE_AUDIBLE and EMOTE_ANIMATED)
+	var/emote_type = 0
 	var/restraint_check = FALSE //Checks if the mob is restrained before performing the emote
 	var/muzzle_ignore = FALSE //Will only work if the emote is EMOTE_AUDIBLE
 	var/list/mob_type_allowed_typecache = /mob //Types that are allowed to use that emote
 	var/list/mob_type_blacklist_typecache //Types that are NOT allowed to use that emote
 	var/list/mob_type_ignore_stat_typecache
 	var/stat_allowed = CONSCIOUS
-	var/sound //Sound to play when emote is called
-	var/vary = FALSE	//used for the honk borg emote
+	/// Sound to play when emote is called
+	var/sound
+	/// Volume to play the sound at
+	var/sound_volume = 50
+	/// Whether to vary the pitch of the sound played
+	var/vary = FALSE
 	var/only_forced_audio = FALSE //can only code call this event instead of the player.
+
+	// Animated emote stuff
+	// ~~~~~~~~~~~~~~~~~~~
+
+	/// Animated emotes - Time to flick the overlay for in ticks, use SECONDS defines please.
+	var/emote_length
+	/// Animated emotes - pixel_x offset
+	var/overlay_x_offset = 0
+	/// Animated emotes - pixel_y offset
+	var/overlay_y_offset = 0
+	/// Animated emotes - Icon file for the overlay
+	var/icon/overlay_icon = 'icons/effects/overlay_effects.dmi'
+	/// Animated emotes - Icon state for the overlay
+	var/overlay_icon_state
 
 /datum/emote/New()
 	if (ispath(mob_type_allowed_typecache))
@@ -41,9 +60,17 @@
 	mob_type_ignore_stat_typecache = typecacheof(mob_type_ignore_stat_typecache)
 
 /datum/emote/proc/run_emote(mob/user, params, type_override, intentional = FALSE)
-	. = TRUE
 	if(!can_run_emote(user, TRUE, intentional))
 		return FALSE
+
+	if((emote_type & EMOTE_ANIMATED) && emote_length > 0)
+		var/image/I = image(overlay_icon, user, overlay_icon_state, ABOVE_MOB_LAYER, 0, overlay_x_offset, overlay_y_offset)
+		flick_overlay_view(I, user, emote_length)
+
+	var/tmp_sound = get_sound(user)
+	if(tmp_sound && (!only_forced_audio || !intentional))
+		playsound(user, tmp_sound, sound_volume, vary)
+
 	var/msg = select_message_type(user, intentional)
 	if(params && message_param)
 		msg = select_param(user, params)
@@ -56,7 +83,7 @@
 			I.trigger(key, L)
 
 	if(!msg)
-		return
+		return TRUE
 
 	user.log_message(msg, LOG_EMOTE)
 
@@ -65,11 +92,6 @@
 		msg += "."
 
 	var/dchatmsg = "<b>[user]</b> [msg]"
-
-	var/tmp_sound = get_sound(user)
-	if(tmp_sound && (!only_forced_audio || !intentional))
-		playsound(user, tmp_sound, 50, vary)
-
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!M.client || isnewplayer(M))
 			continue
@@ -77,10 +99,11 @@
 		if(M.stat == DEAD && M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTSIGHT) && !(M in viewers(T, null)))
 			M.show_message("[FOLLOW_LINK(M, user)] [dchatmsg]")
 
-	if(emote_type == EMOTE_AUDIBLE)
+	if(emote_type & EMOTE_AUDIBLE)
 		user.audible_message(msg, audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
 	else
 		user.visible_message(msg, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
+	return TRUE
 
 /datum/emote/proc/get_sound(mob/living/user)
 	return sound //by default just return this var.
@@ -96,7 +119,7 @@
 
 /datum/emote/proc/select_message_type(mob/user, intentional)
 	. = message
-	if(!muzzle_ignore && user.is_muzzled() && emote_type == EMOTE_AUDIBLE)
+	if(!muzzle_ignore && user.is_muzzled() && (emote_type & EMOTE_AUDIBLE))
 		return "makes a [pick("strong ", "weak ", "")]noise."
 	if(user.mind?.miming && message_mime)
 		. = message_mime
@@ -112,7 +135,7 @@
 		. = message_monkey
 	else if(isipc(user) && message_ipc)
 		. = message_ipc
-	else if((ismoth(user) || isapid(user) || isflyperson(user)) && message_insect)
+	else if((ismoth(user) || isapid(user) || isflyperson(user) || istype(user, /mob/living/simple_animal/mothroach)) && message_insect)
 		. = message_insect
 	else if(isanimal(user) && message_simple)
 		. = message_simple
@@ -178,4 +201,3 @@
 				ghost.show_message("[FOLLOW_LINK(ghost, src)] [ghost_text]")
 
 	visible_message(text, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
-
