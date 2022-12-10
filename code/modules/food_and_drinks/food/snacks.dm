@@ -462,7 +462,7 @@ All foods are distributed among various categories. Use common sense.
 		else
 			M.visible_message("<span class='notice'>[user] feeds [M] a spoonful of food!</span>")
 			M.reagents.add_reagent(forkload.type, 1)
-		icon_state = "fork"
+		icon_state = "spoon"
 		forkload = null
 
 	else if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
