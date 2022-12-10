@@ -407,9 +407,11 @@
 	see_in_dark = 8
 
 /obj/item/organ/eyes/psyphoza
+	//Name for character creation choiced
 	name = "psyphoza eyes"
 	desc = "Conduits for psychic energy, hardly even eyes."
 	icon_state = "psyphoza_eyeballs"
+	actions_types = list(/datum/action/item_action/organ_action/psychic_highlight)
 
 /obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, initialising)
 	. = ..()

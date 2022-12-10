@@ -488,13 +488,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "</td>"
 					mutant_category = 0
 					
-			if("psyphoza_caps" in active_character.pref_species.mutant_bodyparts)
+			if("psyphoza_cap" in active_character.pref_species.mutant_bodyparts)
 				if(!mutant_category)
 					dat += APPEARANCE_CATEGORY_COLUMN
 
 				dat += "<h3>Cap Type</h3>"
 
-				dat += "<a href='?_src_=prefs;preference=psyphoza_caps;task=input'>[active_character.features["psyphoza_caps"]]</a><BR>"
+				dat += "<a href='?_src_=prefs;preference=psyphoza_cap;task=input'>[active_character.features["psyphoza_cap"]]</a><BR>"
 
 				mutant_category++
 				if(mutant_category >= MAX_MUTANT_ROWS)
@@ -1657,11 +1657,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_insect_type)
 						active_character.features["insect_type"] = new_insect_type
 
-				if("psyphoza_caps")
+				if("psyphoza_cap")
 					var/new_cap
-					new_cap = input(user, "Choose your character's cap:", "Character Preference") as null|anything in GLOB.psyphoza_caps_list
+					new_cap = input(user, "Choose your character's cap:", "Character Preference") as null|anything in GLOB.psyphoza_cap_list
 					if(new_cap)
-						active_character.features["psyphoza_caps"] = new_cap
+						active_character.features["psyphoza_cap"] = new_cap
 
 				if("s_tone")
 					var/new_s_tone = input(user, "Choose your character's skin-tone:", "Character Preference")  as null|anything in GLOB.skin_tones

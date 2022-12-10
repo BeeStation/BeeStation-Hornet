@@ -2668,10 +2668,14 @@
 	icon_state = "arachnid"
 //Psyphoza caps
 
-/datum/sprite_accessory/psyphoza_caps
+/datum/sprite_accessory/psyphoza_cap
 	icon = 'icons/mob/psyphoza_caps.dmi'
 	color_src = MUTCOLORS
 
-/datum/sprite_accessory/psyphoza_caps/wide
+/datum/sprite_accessory/psyphoza_cap/wide
 	name = "Wide"
 	icon_state = "wide"
+
+/datum/sprite_accessory/psyphoza_cap/cup
+	name = "Cup"
+	icon_state = "cup"
