@@ -765,9 +765,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(!H.dna.features["ipc_antenna"] || H.dna.features["ipc_antenna"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
 			bodyparts_to_add -= "ipc_antenna"
 
-	if("psyphoza_caps" in mutant_bodyparts)
-		if(!H.dna.features["psyphoza_caps"] || H.dna.features["psyphoza_caps"] == "None" || !HD)
-			bodyparts_to_add -= "psyphoza_caps"
+	if("psyphoza_cap" in mutant_bodyparts)
+		if(!H.dna.features["psyphoza_cap"] || H.dna.features["psyphoza_cap"] == "None" || !HD)
+			bodyparts_to_add -= "psyphoza_cap"
 
 
 	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
@@ -853,8 +853,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					S = GLOB.ipc_chassis_list[H.dna.features["ipc_chassis"]]
 				if("insect_type")
 					S = GLOB.insect_type_list[H.dna.features["insect_type"]]
-				if("psyphoza_caps")
-					S = GLOB.psyphoza_caps_list[H.dna.features["psyphoza_caps"]]
+				if("psyphoza_cap")
+					S = GLOB.psyphoza_cap_list[H.dna.features["psyphoza_cap"]]
 			if(!S || S.icon_state == "none")
 				continue
 

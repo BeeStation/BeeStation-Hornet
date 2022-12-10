@@ -22,8 +22,8 @@
 	attack_sound = 'sound/weapons/slice.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 
-	mutant_bodyparts = list("psyphoza_caps")
-	default_features = list("psyphoza_caps" = "Wide", "body_size" = "Normal")
+	mutant_bodyparts = list("psyphoza_cap")
+	default_features = list("psyphoza_cap" = "Wide", "body_size" = "Normal")
 
 	species_chest = /obj/item/bodypart/chest/psyphoza
 	species_head = /obj/item/bodypart/head/psyphoza
@@ -32,7 +32,7 @@
 	species_l_leg = /obj/item/bodypart/l_leg/psyphoza
 	species_r_leg = /obj/item/bodypart/r_leg/psyphoza
 
-
+	//Fire bad!
 	burnmod = PSYPHOZA_BURNMOD
 
 /datum/species/psyphoza/check_roundstart_eligible()
@@ -42,10 +42,10 @@
 	. = ..()
 	C.dna.add_mutation(TK_WEAK, MUT_OTHER)
 
+//This originally held the psychic action until I moved it to the eyes, keep it please
 /obj/item/organ/brain/psyphoza
 	name = "psyphoza brain"
 	desc = "Bubbling with psychic energy..no wait...that's blood."
-	actions_types = list(/datum/action/item_action/organ_action/psychic_highlight)
 	color = "#ff00ee"
 
 // PSYCHIC ECHOLOCATION
@@ -136,7 +136,7 @@
 	if(P)
 		//We change the color instead of alpha, otherwise we'd reveal our actual surroundings!
 		P.color = "#000"
-		animate(P, color = "#fff", time = sense_time, easing = QUAD_EASING, flags = EASE_IN)
+		animate(P, color = P.origin_color, time = sense_time, easing = QUAD_EASING, flags = EASE_IN)
 	//Highlight layer
 	var/atom/movable/screen/plane_master/psychic/B = locate (/atom/movable/screen/plane_master/psychic) in owner.client?.screen
 	if(B)
@@ -250,14 +250,22 @@
 	blend_mode = BLEND_OVERLAY
 	alpha = 0
 
-//keep this-
+//keep this type-
 /atom/movable/screen/fullscreen/blind/psychic
-	icon_state = "tv"
+	icon_state = "trip"
 	icon = 'icons/mob/psychic.dmi'
+	var/origin_color = "#1a1a1a"
+
+/atom/movable/screen/fullscreen/blind/psychic/Initialize(mapload)
+	. = ..()
+	//Display type
+	filters += filter(type = "radial_blur", size = 0.012)
+	//Set color to a darker shade, for the sake of our eyes
+	color = origin_color
 
 //And this seperate to avoid issues with animations & locate()
 /atom/movable/screen/fullscreen/blind/psychic_highlight
-	icon_state = "tv_highlight"
+	icon_state = "trip"
 	icon = 'icons/mob/psychic.dmi'
 	plane = PSYCHIC_PLANE
 	blend_mode = BLEND_INSET_OVERLAY
@@ -265,6 +273,11 @@
 /atom/movable/screen/fullscreen/blind/psychic_highlight/Initialize(mapload)
 	. = ..()
 	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
+	filters += filter(type = "radial_blur", size = 0.012)
+	color = "#f00" // start at red
+	animate(src, color = "#0f0", time = 1 SECONDS, loop = -1, flags = ANIMATION_PARALLEL) //Move to green
+	animate(color = "#00f", time = 1 SECONDS) //Move to blue
+	animate(color = "#f00", time = 1 SECONDS) //Move back to red
 
 //Overwrite this so the head is drawn on the upmost, otherwise head sprite, for psyphoza, clips into arms
 /datum/species/psyphoza/replace_body(mob/living/carbon/C, var/datum/species/new_species)

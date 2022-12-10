@@ -36,7 +36,7 @@
 	H.dna.features["moth_wings"] = pick(GLOB.moth_wings_roundstart_list)
 	H.dna.features["moth_antennae"] = pick(GLOB.moth_antennae_roundstart_list)
 	H.dna.features["moth_markings"] = pick(GLOB.moth_markings_roundstart_list)
-	H.dna.features["psyphoza_caps"] = pick(GLOB.psyphoza_caps_list)
+	H.dna.features["psyphoza_cap"] = pick(GLOB.psyphoza_cap_list)
 
 	H.update_body()
 	H.update_hair()
