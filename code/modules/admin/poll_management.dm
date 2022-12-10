@@ -129,7 +129,7 @@ SELECT p.text, count(*)
 		if (POLLTYPE_TEXT)
 			//Change the table name
 			output += "<a href='?_src_=holder;[HrefToken()];resultspoll=[REF(poll)];startat=[start_index-10]'>Previous Page</a><a href='?_src_=holder;[HrefToken()];resultspoll=[REF(poll)];startat=[start_index+10]'>Next Page</a><br/>"
-			output += "<hr>[poll.question]<hr><table><tr><th>Ckey</th><th>Response</th></tr>"
+			output += "<table><tr><th>Ckey</th><th>Response</th></tr>"
 			//Get the results
 			var/datum/DBQuery/query_get_poll_results = SSdbcore.NewQuery({"
 SELECT ckey, replytext
@@ -165,7 +165,7 @@ SELECT p.text, pv.rating, COUNT(*)
 				qdel(query_get_poll_results)
 				return
 			while(query_get_poll_results.NextRow())
-				output += "<tr><td>[query_get_poll_results.item[1]]</td><td>[query_get_poll_results.item[2]]</td<td>[query_get_poll_results.item[3]]</td></tr>"
+				output += "<tr><td>[query_get_poll_results.item[1]]</td><td>[query_get_poll_results.item[2]]</td><td>[query_get_poll_results.item[3]]</td></tr>"
 			qdel(query_get_poll_results)
 		if (POLLTYPE_IRV)
 			to_chat(usr, "<span class='warning'>View results for instant runoff voting is not currently supported.</span>")
