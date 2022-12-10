@@ -314,15 +314,11 @@ All foods are distributed among various categories. Use common sense.
 	return result
 
 /obj/item/reagent_containers/food/snacks/burn()
-	if(QDELETED(src))
-		return
 	if(prob(25))
 		microwave_act()
 	else
 		var/turf/T = get_turf(src)
 		new /obj/item/reagent_containers/food/snacks/badrecipe(T)
-		if(resistance_flags & ON_FIRE)
-			SSfire_burning.processing -= src
 		qdel(src)
 
 /obj/item/reagent_containers/food/snacks/Destroy()
@@ -394,3 +390,84 @@ All foods are distributed among various categories. Use common sense.
 	else
 		return ..()
 
+/obj/item/reagent_containers/food/snacks/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/kitchen/fork))
+		if(istype(src, /obj/item/reagent_containers/food/snacks/soup))
+			to_chat(user, "<span class='warning'>You can't eat soup with a fork!</span>")
+			return
+		var/obj/item/kitchen/fork/F = W
+		if(F.forkload)
+			to_chat(user, "<span class='warning'>You already have [src] on your fork!</span>")
+		else
+			F.icon_state = "forkloaded"
+			user.visible_message("[user] takes a piece of [src] with [user.p_their()] fork!", \
+				"<span class='notice'>You take a piece of [src] with your fork.</span>")
+
+			var/datum/reagent/R = pick(reagents.reagent_list)
+			reagents.remove_reagent(R.type, 1)
+			F.forkload = R
+			if(reagents.total_volume <= 0)
+				qdel(src)
+		return
+	if(istype(W, /obj/item/kitchen/spoon))
+		if(istype(src, /obj/item/reagent_containers/food/snacks/soup))
+			var/obj/item/kitchen/spoon/F = W
+			if(F.forkload)
+				to_chat(user, "<span class='warning'>You already have spoonful of food!</span>")
+			else
+				F.icon_state = "spoonloaded"
+				user.visible_message("[user] takes a spoonful of [src] with [user.p_their()] spoon!", \
+					"<span class='notice'>You take a spoonful of [src] with your spoon.</span>")
+
+				var/datum/reagent/R = pick(reagents.reagent_list)
+				reagents.remove_reagent(R.type, 1)
+				F.forkload = R
+				if(reagents.total_volume <= 0)
+					qdel(src)
+			return ..()
+		else
+			to_chat(user, "<span class='warning'>You can't eat this with a spoon!</span>")
+
+
+/obj/item/kitchen/fork/attack(mob/living/carbon/M, mob/living/carbon/user)
+	if(!istype(M))
+		return ..()
+
+	if(forkload)
+		if(M == user)
+			M.visible_message("<span class='notice'>[user] eats the food off their fork!</span>")
+			M.reagents.add_reagent(forkload.type, 1)
+		else
+			M.visible_message("<span class='notice'>[user] feeds [M] a forkful of food!</span>")
+			M.reagents.add_reagent(forkload.type, 1)
+		icon_state = "fork"
+		forkload = null
+
+	else if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+			M = user
+		return eyestab(M,user)
+	else
+		return ..()
+
+
+/obj/item/kitchen/spoon/attack(mob/living/carbon/M, mob/living/carbon/user)
+	if(!istype(M))
+		return ..()
+
+	if(forkload)
+		if(M == user)
+			M.visible_message("<span class='notice'>[user] eats the food off their spoon!</span>")
+			M.reagents.add_reagent(forkload.type, 1)
+		else
+			M.visible_message("<span class='notice'>[user] feeds [M] a spoonful of food!</span>")
+			M.reagents.add_reagent(forkload.type, 1)
+		icon_state = "fork"
+		forkload = null
+
+	else if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+			M = user
+		return eyestab(M,user)
+	else
+		return ..()
