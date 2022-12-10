@@ -67,9 +67,8 @@
 	to_chat(user, "<span class='notice'>You store linkage information in [I]'s buffer.</span>")
 	return TRUE
 
-/obj/machinery/ticket_machine/emag_act(mob/user) //Emag the ticket machine to dispense burning tickets, as well as randomize its number to destroy the HoP's mind.
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/ticket_machine/on_emag(mob/user) //Emag the ticket machine to dispense burning tickets, as well as randomize its number to destroy the HoP's mind.
+	..()
 	to_chat(user, "<span class='warning'>You overload [src]'s bureaucratic logic circuitry to its MAXIMUM setting.</span>")
 	ticket_number = rand(0,max_number)
 	current_number = ticket_number
@@ -117,7 +116,7 @@
 		if(M.buffer && !istype(M.buffer, /obj/machinery/ticket_machine))
 			return
 		var/obj/item/assembly/control/ticket_machine/controller = device
-		controller.ticketmachine_ref = WEAKREF(M.buffer)
+		controller.ticket_machine_ref = WEAKREF(M.buffer)
 		id = null
 		controller.id = null
 		to_chat(user, "<span class='warning'>You've linked [src] to [M.buffer].</span>")
@@ -139,7 +138,7 @@
 /obj/item/assembly/control/ticket_machine/proc/find_machine()
 	for(var/obj/machinery/ticket_machine/ticketsplease in GLOB.machines)
 		if(ticketsplease.id == id)
-			ticker_machine_ref = WEAKREF(ticketsplease)
+			ticket_machine_ref = WEAKREF(ticketsplease)
 	if(ticket_machine_ref)
 		return TRUE
 	else
@@ -233,7 +232,7 @@
 		user.dropItemToGround(theirticket)
 		user.adjust_fire_stacks(1)
 		user.IgniteMob()
-	update_appearance
+	update_appearance()
 
 /obj/item/ticket_machine_ticket
 	name = "\improper ticket"

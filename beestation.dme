@@ -2929,6 +2929,7 @@
 #include "code\modules\paperwork\pen.dm"
 #include "code\modules\paperwork\photocopier.dm"
 #include "code\modules\paperwork\stamps.dm"
+#include "code\modules\paperwork\ticketmachine.dm"
 #include "code\modules\particles\byond_particles\particle_holder.dm"
 #include "code\modules\particles\byond_particles\particle_procs.dm"
 #include "code\modules\particles\byond_particles\particool.dm"
