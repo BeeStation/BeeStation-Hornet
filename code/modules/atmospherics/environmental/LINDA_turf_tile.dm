@@ -54,7 +54,7 @@
 		if(giver_moles > 0)
 			SSair.deferred_airs += list(list(giver, air, moles / giver_moles))
 		else
-			SSair.deferred_airs += list(list(giver, air, 0))
+			SSair.deferred_airs += list(list(giver, air, 1))
 	else
 		giver.transfer_to(air, moles)
 		update_visuals()
@@ -78,7 +78,7 @@
 		if(air_moles > 0)
 			SSair.deferred_airs += list(list(air, taker, moles / air_moles))
 		else
-			SSair.deferred_airs += list(list(air, taker, 0))
+			SSair.deferred_airs += list(list(air, taker, 1))
 	else
 		air.transfer_to(taker, moles)
 		update_visuals()
