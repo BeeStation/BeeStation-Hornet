@@ -36,6 +36,7 @@
 		return AI_CONTROLLER_INCOMPATIBLE
 
 	RegisterSignal(new_pawn, COMSIG_ATOM_ATTACK_HAND, .proc/on_attack_hand)
+	RegisterSignal(new_pawn, COMSIG_MOB_ITEM_ATTACKBY, .proc/on_item_attack)
 	RegisterSignal(new_pawn, COMSIG_CLICK_ALT, .proc/check_altclicked)
 	return ..()
 
@@ -125,6 +126,8 @@
 			if(!can_see(pawn, blackboard[BB_ATTACK_TARGET], AI_DOG_VISION_RANGE))
 				pawn.visible_message("[pawn] can't see [blackboard[BB_ATTACK_TARGET]]!")
 				return
+			if(commander && ismob(blackboard[BB_ATTACK_TARGET]))
+				log_combat(commander, blackboard[BB_ATTACK_TARGET], "ordered [pawn] to attack")
 			current_movement_target = blackboard[BB_ATTACK_TARGET]
 			queue_behavior(/datum/ai_behavior/tamed_follow/attack)
 
@@ -140,6 +143,20 @@
 	if(user.a_intent == INTENT_HELP)
 		if(prob(25))
 			user.visible_message("[source] nuzzles [user]!", "<span class='notice'>[source] nuzzles you!</span>")
+		return
+	if(blackboard[BB_DOG_FRIENDS][WEAKREF(user)])
+		anger++
+		if(anger >= ANGER_THRESHOLD_ATTACK)
+			unfriend(user)
+		else
+			addtimer(VARSET_CALLBACK(src, anger, 0), ANGER_RESET_TIME, TIMER_UNIQUE|TIMER_OVERRIDE)
+			return
+	blackboard[BB_ATTACK_TARGET] = user
+	set_command_mode(null, TAMED_COMMAND_ATTACK)
+
+/datum/ai_controller/tamed/proc/on_item_attack(datum/source, mob/living/user, obj/item/I)
+	SIGNAL_HANDLER
+	if(!I.force)
 		return
 	if(blackboard[BB_DOG_FRIENDS][WEAKREF(user)])
 		anger++
