@@ -299,6 +299,7 @@
 	var/message
 	var/from_user_safe
 	var/to_user_safe
+	var/sanitize_needed = FALSE
 
 /datum/ticket_interaction/New()
 	. = ..()
@@ -350,7 +351,7 @@
 /// Call this on its own to create a ticket, don't manually assign current_ticket, msg is the title of the ticket: usually the ahelp text
 /datum/help_ticket/proc/Create(msg)
 	//Clean the input message
-	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
+	msg = stripped_html_decode(sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN)))
 	if(!msg || !initiator || !initiator.mob)
 		qdel(src)
 		return FALSE
@@ -423,7 +424,7 @@
 /datum/help_ticket/proc/check_permission_act(mob/user)
 	return FALSE
 
-/datum/help_ticket/proc/AddInteraction(msg_color, message, name_from, name_to, safe_from, safe_to)
+/datum/help_ticket/proc/AddInteraction(msg_color, message, name_from, name_to, safe_from, safe_to, sanitizing=FALSE)
 	var/datum/ticket_interaction/interaction_message = new /datum/ticket_interaction
 	interaction_message.message_color = msg_color
 	interaction_message.message = message
@@ -431,6 +432,7 @@
 	interaction_message.to_user = name_to
 	interaction_message.from_user_safe = safe_from
 	interaction_message.to_user_safe = safe_to
+	interaction_message.sanitize_needed = sanitizing
 	_interactions += interaction_message
 	SStgui.update_uis(src)
 
@@ -477,7 +479,7 @@
 			"color" = message.message_color,
 			"from" = message.from_user,
 			"to" = message.to_user,
-			"message" = message.message
+			"message" = message.sanitize_needed ? stripped_html_decode(sanitize(message.message)) : message.message
 		)
 		data["messages"] += list(msg)
 	data = get_ticket_additional_data(user, data)
@@ -748,9 +750,9 @@
 		return
 	if(safeSenderLogged)
 		var/send_name = is_admin_ticket ? "Administrator" : "Mentor"
-		ticket.AddInteraction(color, message, whofrom, whoto, isSenderAdmin ? send_name : "You", isSenderAdmin ? "You" : send_name)
+		ticket.AddInteraction(color, message, whofrom, whoto, isSenderAdmin ? send_name : "You", isSenderAdmin ? "You" : send_name, sanitizing=TRUE)
 	else
-		ticket.AddInteraction(color, message, whofrom, whoto)
+		ticket.AddInteraction(color, message, whofrom, whoto, sanitizing=TRUE)
 	return ticket
 
 //

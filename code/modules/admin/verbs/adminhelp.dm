@@ -168,7 +168,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	discordsendmsg("ahelp", "**ADMINHELP: (#[id]) [initiator.key]: ** \"[initial_msg]\" [heard_by_no_admins ? "**(NO ADMINS)**" : "" ]")
 	return TRUE
 
-/datum/help_ticket/admin/AddInteraction(msg_color, message, name_from, name_to, safe_from, safe_to)
+/datum/help_ticket/admin/AddInteraction(msg_color, message, name_from, name_to, safe_from, safe_to, sanitizing=FALSE)
 	if(heard_by_no_admins && usr && usr.ckey != initiator_ckey)
 		heard_by_no_admins = FALSE
 		send2tgs(initiator_ckey, "Ticket #[id]: Answered by [key_name(usr)]")
@@ -200,7 +200,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	var/admin_msg = "<span class='adminnotice'><span class='adminhelp'>Ticket [TicketHref("#[id]", ref_src)]</span><b>: [LinkedReplyName(ref_src)] [FullMonty(ref_src)]:</b> <span class='linkify'>[keywords_lookup(msg)]</span></span>"
 
 	if(add_to_ticket)
-		AddInteraction("red", msg, initiator_key_name, claimee_key_name, "You", "Administrator")
+		AddInteraction("red", msg, initiator_key_name, claimee_key_name, "You", "Administrator", sanitizing=TRUE)
 	log_admin_private("Ticket #[id]: [key_name(initiator)]: [msg]")
 
 	//send this msg to all admins
