@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - rscadd: Airlock hack difficulty now depends on the area. Easier to hack areas
-      will have more labelled wires and less shock wires, while higher security areas
-      will have shock and dud wires.
-  - code_imp: Adds the ability to label only specific wires on the hacking UI.
