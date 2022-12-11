@@ -9,6 +9,8 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_SMALL
+	drop_sound = 'sound/items/handling/paper_drop.ogg'
+	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
 	throwforce = 0
 	throw_range = 1
 	throw_speed = 1

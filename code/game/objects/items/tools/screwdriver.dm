@@ -25,6 +25,8 @@
 	greyscale_config_inhand_right = /datum/greyscale_config/screwdriver_inhand_right
 	greyscale_config_belt = /datum/greyscale_config/screwdriver_belt
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30, "stamina" = 0)
+	drop_sound = 'sound/items/handling/screwdriver_drop.ogg'
+	pickup_sound =  'sound/items/handling/screwdriver_pickup.ogg'
 	/// If the item should be assigned a random color
 	var/random_color = TRUE
 	/// List of possible random colors

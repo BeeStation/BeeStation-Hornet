@@ -26,6 +26,8 @@
 	throw_speed = 3
 	materials = list(/datum/material/iron=50, /datum/material/glass=20)
 	var/obj/machinery/buffer // simple machine buffer for device linkage
+	drop_sound = 'sound/items/handling/multitool_drop.ogg'
+	pickup_sound =  'sound/items/handling/multitool_pickup.ogg'
 	toolspeed = 1
 	usesound = 'sound/weapons/empty.ogg'
 	var/mode = 0

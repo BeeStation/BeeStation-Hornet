@@ -454,6 +454,8 @@ GENE SCANNER
 	item_state = "analyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
+	drop_sound = 'sound/items/handling/weldingtool_drop.ogg'
+	pickup_sound =  'sound/items/handling/weldingtool_pickup.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	flags_1 = CONDUCT_1
 	item_flags = NOBLUDGEON

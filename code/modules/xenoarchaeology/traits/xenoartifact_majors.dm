@@ -15,7 +15,7 @@
 /datum/xenoartifact_trait/major/capture/activate(obj/item/xenoartifact/X, atom/target)
 	if(isliving(X.loc))
 		var/mob/living/holder = X.loc
-		holder.dropItemToGround(X, thrown = TRUE)
+		holder.dropItemToGround(X, force = TRUE)
 	if(ismovable(target) && (istype(target, /obj/item) || istype(target, /mob/living)))
 		var/atom/movable/AM = target
 		if(AM?.anchored || !AM)
@@ -23,7 +23,7 @@
 		addtimer(CALLBACK(src, .proc/release, X, AM), X.charge*0.5 SECONDS)
 		AM.forceMove(X)
 		X.buckle_mob(AM)
-		if(isliving(target)) //stop awful hobbit-sis from wriggling 
+		if(isliving(target)) //stop awful hobbit-sis from wriggling
 			var/mob/living/victim = target
 			victim.Paralyze(X.charge*0.5 SECONDS, ignore_canstun = TRUE)
 		X.cooldownmod = X.charge*0.6 SECONDS
@@ -56,7 +56,7 @@
 	if(istype(target, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = target //Have to type convert to work with other traits
 		C.give((X.charge/100)*C.maxcharge)
-		
+
 	else if(istype(target, /mob/living))
 		var/damage = X.charge*0.25
 		var/mob/living/carbon/victim = target
@@ -112,12 +112,12 @@
 	//FIRE!
 	A.preparePixelProjectile(get_turf(target), X)
 	A.fire()
-	playsound(get_turf(src), 'sound/mecha/mech_shield_deflect.ogg', 50, TRUE) 
+	playsound(get_turf(src), 'sound/mecha/mech_shield_deflect.ogg', 50, TRUE)
 
 ///============
 /// Corginator, turns the target into a corgi for a short time
 ///============
-/datum/xenoartifact_trait/major/corginator ///All of this is stolen from corgium. 
+/datum/xenoartifact_trait/major/corginator ///All of this is stolen from corgium.
 	desc = "Fuzzy" //Weirdchamp
 	label_desc = "Fuzzy: The shape is hard to discern under all the hair sprouting out from the surface. You swear you've heard it bark before."
 	flags = BLUESPACE_TRAIT
@@ -157,7 +157,7 @@
 	//Kill timer
 	deltimer(timer)
 	timer = null
-	
+
 	var/obj/shapeshift_holder/H = locate() in new_corgi
 	if(!H)
 		return
@@ -294,7 +294,7 @@
 		new /obj/effect/forcefield/xenoartifact_type(get_step(X, EAST), (X.charge*0.4) SECONDS)
 
 	X.cooldownmod = (X.charge*0.4) SECONDS
-	
+
 /obj/effect/forcefield/xenoartifact_type //Special wall type for artifact
 	desc = "An impenetrable artifact wall."
 
@@ -399,7 +399,7 @@
 	var/sound
 
 /datum/xenoartifact_trait/major/horn/on_init(obj/item/xenoartifact/X)
-	sound = pick(list('sound/effects/adminhelp.ogg', 'sound/effects/applause.ogg', 'sound/effects/bubbles.ogg', 
+	sound = pick(list('sound/effects/adminhelp.ogg', 'sound/effects/applause.ogg', 'sound/effects/bubbles.ogg',
 					'sound/effects/empulse.ogg', 'sound/effects/explosion1.ogg', 'sound/effects/explosion_distant.ogg',
 					'sound/effects/laughtrack.ogg', 'sound/effects/magic.ogg', 'sound/effects/meteorimpact.ogg',
 					'sound/effects/phasein.ogg', 'sound/effects/supermatter.ogg', 'sound/weapons/armbomb.ogg',
