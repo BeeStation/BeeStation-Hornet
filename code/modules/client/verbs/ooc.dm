@@ -1,3 +1,6 @@
+#define CHAT_TYPE_OOC "chat_ooc"
+#define CHAT_TYPE_DEADCHAT "chat_dead"
+
 GLOBAL_VAR_INIT(OOC_COLOR, null)//If this is null, use the CSS for OOC. Otherwise, use a custom colour.
 GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
@@ -93,16 +96,16 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 				else
 					to_chat(C, "[badge_data]<span class='ooc'><span class='prefix'>OOC:</span> <EM>[keyname]:</EM> <span class='message linkify'>[msg]</span></span>")
 	// beestation, send to discord
-	send_chat_to_discord("ooc_chat", holder?.fakekey || key, raw_msg)
+	send_chat_to_discord(CHAT_TYPE_OOC, holder?.fakekey || key, raw_msg)
 
 /proc/send_chat_to_discord(type, sayer, msg)
 	var/discord_channel_name = CONFIG_GET(string/discord_ooc_channel) // check server config file. default value of discord_ooc_channel is `OOC-Bee`
 	if(!discord_channel_name)
 		return
 	switch(type)
-		if("ooc_chat")
+		if(CHAT_TYPE_OOC)
 			discordsendmsg(discord_channel_name, "(OOC) **[sayer]:** [msg]")
-		if("dchat") // don't send these until a round is finished
+		if(CHAT_TYPE_DEADCHAT) // don't send these until a round is finished
 			if(SSticker.current_state == GAME_STATE_FINISHED)
 				discordsendmsg(discord_channel_name, "(Dead) **[sayer]:** [msg]")
 
@@ -309,3 +312,6 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 		return
 
 	GLOB.error_cache.show_to_minimal(src)
+
+#undef CHAT_TYPE_OOC
+#undef CHAT_TYPE_DEADCHAT
