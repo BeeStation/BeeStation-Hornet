@@ -127,6 +127,7 @@
 
 /obj/effect/anomaly/grav/Destroy()
 	vis_contents -= warp
+	qdel(warp)
 	warp = null
 	return ..()
 
