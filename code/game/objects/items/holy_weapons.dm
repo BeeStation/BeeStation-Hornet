@@ -266,7 +266,7 @@
 		reskin_holy_weapon(user)
 
 /obj/item/nullrod/proc/reskin_holy_weapon(mob/M)
-	unique_reskin_icon = list(
+	unique_reskin = list(
 		"Null Rod" = /obj/item/nullrod,
 		"God Hand" = /obj/item/nullrod/godhand,
 		"Red Holy Staff" = /obj/item/nullrod/staff,
@@ -302,7 +302,7 @@
 		"Hypertool" = /obj/item/nullrod/hypertool,
 		"Ancient Spear" = /obj/item/nullrod/spear
 		)
-	unique_reskin = list(
+	unique_reskin_icon = list(
 		"Null Rod" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "nullrod"),
 		"God Hand" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "disintegrate"),
 		"Red Holy Staff" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "godstaff-red"),
@@ -338,11 +338,11 @@
 		"Hypertool" = image(icon = 'icons/obj/device.dmi', icon_state = "hypertool"),
 		"Ancient Spear" = image(icon = 'icons/obj/clockwork_objects.dmi', icon_state = "ratvarian_spear")
 	)
-	var/choice = show_radial_menu(M, src, unique_reskin, radius = 42, require_near = TRUE, tooltips = TRUE)
+	var/choice = show_radial_menu(M, src, unique_reskin_icon, radius = 42, require_near = TRUE, tooltips = TRUE)
 	SSblackbox.record_feedback("tally", "chaplain_weapon", 1, "[choice]") //Keeping this here just in case removing it breaks something
 	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated() && in_range(M,src))
 		qdel(src)
-		var A = unique_reskin_icon[choice]
+		var A = unique_reskin[choice]
 		var/obj/item/nullrod/holy_weapon = new A
 		holy_weapon.current_skin = choice
 		M.put_in_active_hand(holy_weapon)
