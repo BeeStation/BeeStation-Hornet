@@ -176,10 +176,11 @@
 	M.dir = target.dir //Not sure why I have to do this?
 	//make another image to obscure the name of the most likely xray'd target - also acts as the insert for the target
 	var/image/N = new(M)
-	N.name = "???"
 	N.override = TRUE
 	N.loc = target
 	N.plane = target.plane
+	N.name = "???" //Stop players reading name-
+	N.color = "#000" //or reading icon
 	owner.client.images += N
 	//Add overlay for highlighting
 	N.add_overlay(M)
