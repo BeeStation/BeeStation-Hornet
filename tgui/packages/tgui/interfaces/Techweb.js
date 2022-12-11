@@ -1,7 +1,7 @@
 import { filter, map, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { useBackend, useLocalState } from '../backend';
-import { Button, Section, Modal, Dropdown, Tabs, Box, Input, Flex, ProgressBar, Collapsible, Icon, Divider } from '../components';
+import { Button, Section, Modal, Dropdown, Tabs, Box, Input, Flex, ProgressBar, Collapsible, Icon, Divider, Tooltip } from '../components';
 import { Window, NtosWindow } from '../layouts';
 
 // Data reshaping / ingestion (thanks stylemistake for the help, very cool!)
@@ -766,6 +766,14 @@ const TechNode = (props, context) => {
               Research
             </Button>
           )}
+          {
+            (tier+1 < tech_tier) && (
+              <Tooltip
+                content={"Researching this costs discovery points inefficiently. Please research tier "+(tier+1)+" techs first."}>
+                <Icon style={{ 'margin-left': '3px' }} mr={1} name="exclamation-triangle" color="yellow" />
+              </Tooltip>
+            )
+          }
           {destructive && (
             <Button
               icon="trash"
