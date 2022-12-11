@@ -400,10 +400,13 @@
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_DEATHCOMA))
 		return FALSE
+	return ..()
+
+/mob/living/_pointed(atom/pointing_at)
 	if(!..())
 		return FALSE
-	visible_message("<b>[src]</b> points at [A].", "<span class='notice'>You point at [A].</span>")
-	return TRUE
+	log_message("points at [pointing_at]", LOG_EMOTE)
+	visible_message("<b>[src]</b> points at [pointing_at].", "<span class='notice'>You point at [pointing_at].</span>")
 
 /mob/living/verb/succumb(whispered as null)
 	set hidden = TRUE
@@ -469,6 +472,10 @@
 	set name = "Sleep"
 	set category = "IC"
 
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, .proc/execute_resist))
+
+///proc extender of [/mob/living/verb/resist] meant to make the process queable if the server is overloaded when the verb is called
+/mob/living/proc/execute_resist()
 	if(IsSleeping())
 		to_chat(src, "<span class='notice'>You are already sleeping.</span>")
 		return

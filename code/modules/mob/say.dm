@@ -4,25 +4,30 @@
 /mob/verb/say_verb(message as text)
 	set name = "Say"
 	set category = "IC"
+	set instant = TRUE
 
 	if(GLOB.say_disabled)	//This is here to try to identify lag problems
 		to_chat(usr, "<span class='danger'>Speech is currently admin-disabled.</span>")
 		return
 	if(message)
-		say(message)
+		QUEUE_OR_CALL_VERB_FOR(VERB_CALLBACK(src, /atom/movable/proc/say, message), SSspeech_controller)
 
 ///Whisper verb
 /mob/verb/whisper_verb(message as text)
 	set name = "Whisper"
 	set category = "IC"
+	set instant = TRUE
+
 	if(GLOB.say_disabled)	//This is here to try to identify lag problems
 		to_chat(usr, "<span class='danger'>Speech is currently admin-disabled.</span>")
 		return
-	whisper(message)
+
+	if(message)
+		QUEUE_OR_CALL_VERB_FOR(VERB_CALLBACK(src, /mob/proc/whisper, message), SSspeech_controller)
 
 ///whisper a message
 /mob/proc/whisper(message, datum/language/language=null)
-	say(message, language) //only living mobs actually whisper, everything else just talks
+	say(message, language = language)
 
 ///The me emote verb
 /mob/verb/me_verb(message as text)
@@ -35,7 +40,7 @@
 
 	message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 
-	usr.emote("me",1,message,TRUE)
+	QUEUE_OR_CALL_VERB_FOR(VERB_CALLBACK(src, /mob/proc/emote, "me", 1, message, TRUE), SSspeech_controller)
 
 ///Speak as a dead person (ghost etc)
 /mob/proc/say_dead(var/message)

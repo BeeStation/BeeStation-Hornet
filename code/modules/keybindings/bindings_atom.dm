@@ -22,3 +22,6 @@
 		try_face(movement_dir)
 	else
 		user.Move(get_step(src, movement_dir), movement_dir)
+		return !!movement_dir //true if there was actually any player input
+
+	return FALSE
