@@ -67,7 +67,8 @@
 		/obj/item/pipe_dispenser,
 		/obj/item/inducer,
 		/obj/item/plunger,
-		/obj/item/airlock_painter
+		/obj/item/airlock_painter,
+		/obj/item/shuttle_creator
 		))
 	STR.can_hold = can_hold
 
