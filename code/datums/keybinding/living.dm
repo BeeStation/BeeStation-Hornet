@@ -96,7 +96,7 @@
 	if(. || !isliving(user.mob))
 		return
 	var/mob/living/L = user.mob
-	L.zMove(UP, TRUE, L.movement_type & VENTCRAWLING)
+	L.zMove(UP, TRUE)
 	return TRUE
 
 /datum/keybinding/living/move_down
@@ -111,5 +111,5 @@
 	if(. || !isliving(user.mob))
 		return
 	var/mob/living/L = user.mob
-	L.zMove(DOWN, TRUE, L.movement_type & VENTCRAWLING)
+	L.zMove(DOWN, TRUE)
 	return TRUE

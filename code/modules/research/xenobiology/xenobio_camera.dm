@@ -14,7 +14,7 @@
 	var/area/new_area = get_area(destination)
 	return is_valid_area(new_area) ? ..() : FALSE
 
-/mob/camera/ai_eye/remote/xenobio/canZMove(direction, turf/target)
+/mob/camera/ai_eye/remote/xenobio/canZMove(direction, turf/source, turf/target, pre_move = TRUE)
 	var/area/new_area = get_area(target)
 	return is_valid_area(new_area) ? ..() : FALSE
 

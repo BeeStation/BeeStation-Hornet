@@ -373,9 +373,8 @@
 	if(!loc || !newloc)
 		return FALSE
 	var/atom/oldloc = loc
-
+	var/flat_direct = direct & ~(UP|DOWN)
 	if(loc != newloc)
-		var/flat_direct = direct & ~(UP|DOWN)
 		if (!(flat_direct & (flat_direct - 1))) //Cardinal move
 			. = ..()
 		else //Diagonal move, split it into cardinal moves
@@ -448,7 +447,8 @@
 			check_pulling()
 
 	last_move = direct
-	setDir(direct)
+	if(flat_direct)
+		setDir(flat_direct)
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc,direct)) //movement failed due to buckled mob(s)
 		return FALSE
 

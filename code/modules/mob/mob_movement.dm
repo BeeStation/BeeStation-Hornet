@@ -484,7 +484,7 @@
 	set name = "Move Upwards"
 	set category = "IC"
 
-	if(zMove(UP, TRUE, movement_type & VENTCRAWLING))
+	if(zMove(UP, TRUE))
 		to_chat(src, "<span class='notice'>You move upwards.</span>")
 
 ///Moves a mob down a z level
@@ -492,21 +492,23 @@
 	set name = "Move Down"
 	set category = "IC"
 
-	if(zMove(DOWN, TRUE, movement_type & VENTCRAWLING))
+	if(zMove(DOWN, TRUE))
 		to_chat(src, "<span class='notice'>You move down.</span>")
 
 ///Move a mob between z levels, if it's valid to move z's on this turf
-/mob/proc/zMove(dir, feedback = FALSE, ventcrawling = FALSE)
+/mob/proc/zMove(dir, feedback = FALSE, feedback_to = src)
 	if(dir != UP && dir != DOWN)
 		return FALSE
+	var/turf/source = get_turf(src)
 	var/turf/target = get_step_multiz(src, dir)
 	if(!target)
 		if(feedback)
-			to_chat(src, "<span class='warning'>There's nowhere to go in that direction!</span>")
+			to_chat(feedback_to, "<span class='warning'>There's nowhere to go in that direction!</span>")
 		return FALSE
-	if(!canZMove(dir, target) && !ventcrawling)
+	var/ventcrawling = movement_type & VENTCRAWLING
+	if(!canZMove(dir, source, target) && !ventcrawling)
 		if(feedback)
-			to_chat(src, "<span class='warning'>You couldn't move there!</span>")
+			to_chat(feedback_to, "<span class='warning'>You couldn't move there!</span>")
 		return FALSE
 	if(!ventcrawling) //let this be handled in atmosmachinery.dm
 		forceMove(target)
@@ -515,6 +517,6 @@
 		pipe.relaymove(src, dir)
 	return TRUE
 
-/// Can this mob move between z levels
-/mob/proc/canZMove(direction, turf/target)
+/// Can this mob move between z levels. pre_move is using in /mob/living to dictate is fuel is used based on move delay
+/mob/proc/canZMove(direction, turf/source, turf/target, pre_move = TRUE)
 	return FALSE

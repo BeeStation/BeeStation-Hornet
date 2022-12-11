@@ -309,7 +309,7 @@
 	alerts.set_content(dat)
 	alerts.open()
 
-/mob/living/silicon/robot/proc/ionpulse(thrust = 0.01)
+/mob/living/silicon/robot/proc/ionpulse(thrust = 0.01, use_fuel = TRUE)
 	if(!ionpulse_on)
 		return FALSE
 
@@ -317,7 +317,8 @@
 		toggle_ionpulse()
 		return FALSE
 
-	cell.charge -= (thrust * 1000)
+	if(use_fuel)
+		cell.charge -= (thrust * 1000)
 	return TRUE
 
 /mob/living/silicon/robot/proc/toggle_ionpulse()

@@ -117,14 +117,15 @@
 	if(on)
 		allow_thrust(THRUST_REQUIREMENT_SPACEMOVE, user)
 
-/obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user)
+/obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user, use_fuel = TRUE)
 	if(!on || !known_user)
 		return
 	if((num < 0.005 || num > THRUST_REQUIREMENT_GRAVITY * 0.5 || air_contents.total_moles() < num))
 		turn_off(user)
 		return
 
-	assume_air_moles(air_contents, num)
+	if(use_fuel)
+		assume_air_moles(air_contents, num)
 
 	return TRUE
 
@@ -146,7 +147,7 @@
 	gas_type = null //it starts empty
 	full_speed = FALSE //moves at hardsuit jetpack speeds
 
-/obj/item/tank/jetpack/improvised/allow_thrust(num, mob/living/user)
+/obj/item/tank/jetpack/improvised/allow_thrust(num, mob/living/user, use_fuel = TRUE)
 	if(!on || !known_user)
 		return
 	if((num < 0.005 || THRUST_REQUIREMENT_GRAVITY * 0.5 || air_contents.total_moles() < num))
@@ -157,7 +158,8 @@
 		turn_off(user)
 		return
 
-	assume_air_moles(air_contents, num)
+	if(use_fuel)
+		assume_air_moles(air_contents, num)
 
 	return TRUE
 
@@ -309,6 +311,8 @@
 
 /obj/item/tank/jetpack/combustion/move_react(mob/user)
 	..()
+	if(!on)
+		return
 	var/turf/user_loc = get_turf(known_user)
 	if(!isopenspace(user_loc))
 		update_fade(100)
@@ -332,7 +336,7 @@
 	air_contents.set_moles(GAS_PLASMA, moles_full * (1 - ideal_o2_percent))
 	air_contents.set_moles(GAS_O2, moles_full * ideal_o2_percent)
 
-/obj/item/tank/jetpack/combustion/allow_thrust(num, mob/living/user)
+/obj/item/tank/jetpack/combustion/allow_thrust(num, mob/living/user, use_fuel = TRUE)
 	if(!on || !known_user)
 		return
 	if(num < 0.005)
@@ -362,8 +366,9 @@
 	oxygen_burn_rate *= burn_rate_adjustment
 
 	// Consume
-	air_contents.set_moles(GAS_PLASMA, QUANTIZE(air_contents.get_moles(GAS_PLASMA) - plasma_burn_rate))
-	air_contents.set_moles(GAS_O2, QUANTIZE(air_contents.get_moles(GAS_O2) - (plasma_burn_rate * oxygen_burn_rate)))
+	if(use_fuel)
+		air_contents.set_moles(GAS_PLASMA, QUANTIZE(air_contents.get_moles(GAS_PLASMA) - plasma_burn_rate))
+		air_contents.set_moles(GAS_O2, QUANTIZE(air_contents.get_moles(GAS_O2) - (plasma_burn_rate * oxygen_burn_rate)))
 	update_fade(15)
 	update_lifespan(4)
 
@@ -444,16 +449,16 @@
 	return
 
 /// Attempts using jetpack power. movement_dir is if the movement is intentionally in a direction as in SpaceMove
-/mob/proc/has_jetpack_power(movement_dir = FALSE, thrust = THRUST_REQUIREMENT_SPACEMOVE, require_stabilization = FALSE)
+/mob/proc/has_jetpack_power(movement_dir = FALSE, thrust = THRUST_REQUIREMENT_SPACEMOVE, require_stabilization = FALSE, use_fuel = TRUE)
 	return FALSE
 
-/mob/living/carbon/has_jetpack_power(movement_dir = FALSE, thrust = THRUST_REQUIREMENT_SPACEMOVE, require_stabilization = FALSE)
+/mob/living/carbon/has_jetpack_power(movement_dir = FALSE, thrust = THRUST_REQUIREMENT_SPACEMOVE, require_stabilization = FALSE, use_fuel = TRUE)
 	var/obj/item/organ/cyberimp/chest/thrusters/T = getorganslot(ORGAN_SLOT_THRUSTERS)
-	if(istype(T) && movement_dir && T.allow_thrust(thrust))
+	if(istype(T) && movement_dir && T.allow_thrust(thrust, use_fuel = use_fuel))
 		return TRUE
 
 	var/obj/item/tank/jetpack/J = get_jetpack()
-	if(istype(J) && (movement_dir || J.stabilizers) && (!require_stabilization || J.stabilizers) && J.allow_thrust(thrust, src))
+	if(istype(J) && (movement_dir || J.stabilizers) && (!require_stabilization || J.stabilizers) && J.allow_thrust(thrust, src, use_fuel = use_fuel))
 		return TRUE
 
 /mob/living/carbon/get_jetpack()

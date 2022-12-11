@@ -213,30 +213,35 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		if("Cancel")
 			return
 		if("Up")
-			travel_z(user, above, TRUE)
+			travel_z(user, above, UP)
 		if("Down")
-			travel_z(user, below, FALSE)
+			travel_z(user, below, DOWN)
 
-/turf/proc/travel_z(mob/user, turf/target, upwards = TRUE, move_verb = "floating", delay = 3 SECONDS)
-	user.visible_message("<span class='notice'>[user] begins [move_verb] [upwards ? "upwards" : "downwards"]!</span>", "<span class='notice'>You begin [move_verb] [upwards ? "upwards" : "downwards"].")
-	animate(user, delay, pixel_y = upwards ? 32 : -32, transform = matrix() * 0.8)
-	if(!do_after(user, delay, FALSE, get_turf(user)))
-		animate(user, 0, flags = ANIMATION_END_NOW)
-		user.pixel_y = 0
-		user.transform = matrix()
-		return
-	user.pixel_y = 0
-	user.transform = matrix()
+/turf/proc/travel_z(mob/user, turf/target, dir)
 	var/mob/living/L = user
 	if(istype(L) && L.incorporeal_move) // Allow most jaunting
-		user.client?.Process_Incorpmove(upwards ? UP : DOWN)
+		user.client?.Process_Incorpmove(dir)
 		return
 	var/atom/movable/AM
 	if(user.pulling)
 		AM = user.pulling
 		AM.forceMove(target)
-	user.forceMove(target)
-	if(AM)
+	if(user.pulledby) // We moved our way out of the pull
+		user.pulledby.stop_pulling()
+	if(user.has_buckled_mobs())
+		for(var/M in user.buckled_mobs)
+			var/mob/living/buckled_mob = M
+			var/old_dir = buckled_mob.dir
+			if(!buckled_mob.Move(target, dir))
+				user.doMove(buckled_mob.loc) //forceMove breaks buckles, use doMove
+				user.last_move = buckled_mob.last_move
+				// Otherwise they will always face north
+				buckled_mob.setDir(old_dir)
+				user.setDir(old_dir)
+				return FALSE
+	else
+		user.forceMove(target)
+	if(istype(AM) && user.Adjacent(AM))
 		user.start_pulling(AM)
 
 /turf/proc/multiz_turf_del(turf/T, dir)
@@ -340,6 +345,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		A.pulling.moving_from_pull = A
 		A.pulling.Move(old_loc)
 		A.pulling.moving_from_pull = null
+	if(A.pulledby) // Prevents dragging stuff while on another z-level
+		A.pulledby.stop_pulling()
 	if(!A.Move(target))
 		A.doMove(target)
 	// Returns false if we continue falling - which calls zfall again

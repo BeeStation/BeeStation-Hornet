@@ -180,7 +180,7 @@
 
 	allow_thrust(THRUST_REQUIREMENT_SPACEMOVE)
 
-/obj/item/organ/cyberimp/chest/thrusters/proc/allow_thrust(num)
+/obj/item/organ/cyberimp/chest/thrusters/proc/allow_thrust(num, use_fuel = TRUE)
 	if(!on || !owner)
 		return 0
 
@@ -197,12 +197,13 @@
 	// Priority 2: use plasma from internal plasma storage.
 	// (just in case someone would ever use this implant system to make cyber-alien ops with jetpacks and taser arms)
 	if(owner.getPlasma() >= num*100)
-		owner.adjustPlasma(-num*100)
+		if(use_fuel)
+			owner.adjustPlasma(-num*100)
 		return 1
 
 	// Priority 3: use internals tank.
 	var/obj/item/tank/I = owner.internal
-	if(I && I.air_contents && I.air_contents.total_moles() >= num)
+	if(I && I.air_contents && I.air_contents.total_moles() >= num && use_fuel)
 		T.assume_air_moles(I.air_contents, num)
 
 	toggle(silent = TRUE)

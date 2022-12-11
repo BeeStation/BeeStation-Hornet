@@ -21,7 +21,7 @@
 	if(has_jetpack_power(movement_dir))
 		return TRUE
 
-/mob/living/carbon/can_zFall(turf/source, levels, turf/target, direction)
+/mob/living/carbon/can_zFall(turf/source, turf/target, direction)
 	if(!..())
 		return FALSE
 	// Jetpack allows flight over openspace

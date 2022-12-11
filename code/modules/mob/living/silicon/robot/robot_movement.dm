@@ -6,10 +6,10 @@
 		return TRUE
 	return FALSE
 
-/mob/living/silicon/robot/has_jetpack_power(movement_dir, thrust = THRUST_REQUIREMENT_SPACEMOVE, require_stabilization)
+/mob/living/silicon/robot/has_jetpack_power(movement_dir, thrust = THRUST_REQUIREMENT_SPACEMOVE, require_stabilization, use_fuel = TRUE)
 	if(..())
 		return TRUE
-	if(ionpulse(thrust))
+	if(ionpulse(thrust, use_fuel = use_fuel))
 		return TRUE
 	return FALSE
 
