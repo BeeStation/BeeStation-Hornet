@@ -1972,6 +1972,14 @@
 	icon = 'icons/mob/moth_wings.dmi'
 	color_src = null
 
+/datum/sprite_accessory/moth_markings
+	icon = 'icons/mob/moth_markings.dmi'
+	color_src = null
+
+/datum/sprite_accessory/moth_antennae
+	icon = 'icons/mob/moth_antennae.dmi'
+	color_src = null
+
 /datum/sprite_accessory/moth_wingsopen
 	icon = 'icons/mob/moth_wingsopen.dmi'
 	color_src = null
@@ -2057,7 +2065,7 @@
 
 /datum/sprite_accessory/moth_wings/punished
 	name = "Burnt Off"
-	icon_state = "punished"
+	icon_state = "burnt_off"
 	locked = TRUE
 
 /datum/sprite_accessory/moth_wings/firewatch
@@ -2116,6 +2124,133 @@
 	center = TRUE
 	dimension_y = 34
 	locked = TRUE
+
+/datum/sprite_accessory/moth_antennae //Finally splitting the sprite
+	icon = 'icons/mob/moth_antennae.dmi'
+	color_src = null
+
+/datum/sprite_accessory/moth_antennae/plain
+	name = "Plain"
+	icon_state = "plain"
+
+/datum/sprite_accessory/moth_antennae/monarch
+	name = "Monarch"
+	icon_state = "monarch"
+
+/datum/sprite_accessory/moth_antennae/luna
+	name = "Luna"
+	icon_state = "luna"
+
+/datum/sprite_accessory/moth_antennae/atlas
+	name = "Atlas"
+	icon_state = "atlas"
+
+/datum/sprite_accessory/moth_antennae/reddish
+	name = "Reddish"
+	icon_state = "reddish"
+
+/datum/sprite_accessory/moth_antennae/royal
+	name = "Royal"
+	icon_state = "royal"
+
+/datum/sprite_accessory/moth_antennae/gothic
+	name = "Gothic"
+	icon_state = "gothic"
+
+/datum/sprite_accessory/moth_antennae/whitefly
+	name = "White Fly"
+	icon_state = "whitefly"
+
+/datum/sprite_accessory/moth_antennae/lovers
+	name = "Lovers"
+	icon_state = "lovers"
+
+/datum/sprite_accessory/moth_antennae/clockwork
+	name = "Clockwork"
+	icon_state = "clockwork"
+	locked = TRUE
+
+/datum/sprite_accessory/moth_antennae/punished
+	name = "Burnt Off"
+	icon_state = "burnt_off"
+	locked = TRUE
+
+/datum/sprite_accessory/moth_antennae/firewatch
+	name = "Firewatch"
+	icon_state = "firewatch"
+
+/datum/sprite_accessory/moth_antennae/deathhead
+	name = "Deathshead"
+	icon_state = "deathhead"
+
+/datum/sprite_accessory/moth_antennae/poison
+	name = "Poison"
+	icon_state = "poison"
+
+/datum/sprite_accessory/moth_antennae/ragged
+	name = "Ragged"
+	icon_state = "ragged"
+
+/datum/sprite_accessory/moth_antennae/moonfly
+	name = "Moon Fly"
+	icon_state = "moonfly"
+
+/datum/sprite_accessory/moth_antennae/snow
+	name = "Snow"
+	icon_state = "snow"
+
+/datum/sprite_accessory/moth_markings // the markings that moths can have. finally something other than the boring tan
+	icon = 'icons/mob/moth_markings.dmi'
+	color_src = null
+
+/datum/sprite_accessory/moth_markings/none
+	name = "None"
+	icon_state = "none"
+
+/datum/sprite_accessory/moth_markings/reddish
+	name = "Reddish"
+	icon_state = "reddish"
+
+/datum/sprite_accessory/moth_markings/royal
+	name = "Royal"
+	icon_state = "royal"
+
+/datum/sprite_accessory/moth_markings/gothic
+	name = "Gothic"
+	icon_state = "gothic"
+
+/datum/sprite_accessory/moth_markings/whitefly
+	name = "White Fly"
+	icon_state = "whitefly"
+
+/datum/sprite_accessory/moth_markings/lovers
+	name = "Lovers"
+	icon_state = "lovers"
+
+/datum/sprite_accessory/moth_markings/burnt_off
+	name = "Burnt Off"
+	icon_state = "burnt_off"
+	locked = TRUE
+
+/datum/sprite_accessory/moth_markings/firewatch
+	name = "Firewatch"
+	icon_state = "firewatch"
+
+/datum/sprite_accessory/moth_markings/deathhead
+	name = "Deathshead"
+	icon_state = "deathhead"
+
+/datum/sprite_accessory/moth_markings/poison
+	name = "Poison"
+	icon_state = "poison"
+
+/datum/sprite_accessory/moth_markings/ragged
+	name = "Ragged"
+	icon_state = "ragged"
+
+/datum/sprite_accessory/moth_markings/moonfly
+	name = "Moon Fly"
+	icon_state = "moonfly"
 
 // IPC accessories.
 
