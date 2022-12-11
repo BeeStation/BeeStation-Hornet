@@ -994,7 +994,7 @@
 	reqs = list(/obj/item/paper = 5)
 	category = CAT_MISC
 	tools = list(TOOL_WIRECUTTER)
-
+  
 /datum/crafting_recipe/basic_lasso
 	name= "Basic Lasso"
 	result = /obj/item/mob_lasso
@@ -1008,16 +1008,6 @@
 	always_available = FALSE
 	time = 20
 	reqs = list(/obj/item/stack/sheet/animalhide/goliath_hide = 3)
-	category = CAT_PRIMAL
-
-/datum/crafting_recipe/dragon_lasso
-	name = "Ash Drake Lasso"
-	result = /obj/item/mob_lasso/drake
-	always_available = FALSE
-	time = 20
-	reqs = list(/obj/item/stack/sheet/bone = 10,
-				/obj/item/stack/sheet/sinew = 2,
-				/obj/item/stack/sheet/animalhide/ashdrake = 5)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/foldable

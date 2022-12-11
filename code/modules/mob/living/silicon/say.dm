@@ -1,6 +1,6 @@
 /mob/living/proc/robot_talk(message)
 	//Cannot transmit wireless messages while jammed
-	if(is_jammed(JAMMER_PROTECTION_SILICON_COMMS))
+	if(is_jammed())
 		return
 	if(CHAT_FILTER_CHECK(message))
 		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")

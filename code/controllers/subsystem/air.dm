@@ -367,10 +367,7 @@ SUBSYSTEM_DEF(air)
 			var/datum/callback/cb = cur_op[3]
 			cb.Invoke(air1, air2)
 		else
-			if(cur_op[3] == 0)
-				air1.transfer_to(air2, air1.total_moles())
-			else
-				air1.transfer_ratio_to(air2, cur_op[3])
+			air1.transfer_ratio_to(air2, cur_op[3])
 		if(MC_TICK_CHECK)
 			return
 

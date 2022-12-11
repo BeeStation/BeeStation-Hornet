@@ -1,12 +1,11 @@
 /obj/structure/lattice/catwalk
 	name = "catwalk"
 	desc = "A catwalk for easier EVA maneuvering and cable placement."
-	icon = 'icons/obj/smooth_structures/catwalks/catwalk.dmi'
-	icon_state = "catwalk-0"
-	base_icon_state = "catwalk"
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_LATTICE)
-	canSmoothWith = list(SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_OPEN_FLOOR, SMOOTH_GROUP_WALLS)
+	icon = 'icons/obj/smooth_structures/catwalk.dmi'
+	icon_state = "catwalk"
+	number_of_rods = 2
+	smooth = SMOOTH_TRUE
+	canSmoothWith = null
 	obj_flags = CAN_BE_HIT | BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
 	//Negates the effect of space and openspace.
 	//Shouldn't be placed above anything else.

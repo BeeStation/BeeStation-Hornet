@@ -879,6 +879,10 @@
 /obj/item/storage/box/lights/mixed,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
+"cM" = (
+/obj/structure/grille,
+/obj/structure/window/plastitanium,
+/area/ruin/powered/golem_ship)
 "jC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
@@ -943,11 +947,11 @@ aC
 aR
 ab
 bd
-ac
-ac
-ac
-ac
-ac
+cM
+cM
+cM
+cM
+cM
 cd
 ab
 cl

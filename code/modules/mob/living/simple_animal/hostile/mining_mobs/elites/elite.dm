@@ -328,12 +328,9 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/effect/temp_visual/elite_tumor_wall
 	name = "magic wall"
 	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
-	icon_state = "hierophant_wall_temp-0"
-	base_icon_state = "hierophant_wall_temp"
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_HIERO_WALL)
-	canSmoothWith = list(SMOOTH_GROUP_HIERO_WALL)
+	icon_state = "wall"
 	duration = 50
+	smooth = SMOOTH_TRUE
 	layer = BELOW_MOB_LAYER
 	color = rgb(255,0,0)
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
@@ -343,11 +340,11 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/effect/temp_visual/elite_tumor_wall/Initialize(mapload, new_caster)
 	. = ..()
-	QUEUE_SMOOTH_NEIGHBORS(src)
-	QUEUE_SMOOTH(src)
+	queue_smooth_neighbors(src)
+	queue_smooth(src)
 
 /obj/effect/temp_visual/elite_tumor_wall/Destroy()
-	QUEUE_SMOOTH_NEIGHBORS(src)
+	queue_smooth_neighbors(src)
 	activator = null
 	ourelite = null
 	return ..()

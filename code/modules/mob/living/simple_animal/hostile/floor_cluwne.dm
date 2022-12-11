@@ -164,9 +164,6 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 			return TRUE
 	return FALSE
 
-/mob/living/simple_animal/hostile/floor_cluwne/get_photo_description(obj/item/camera/camera)
-	return "You can also see an indescribable horror!"
-
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Acquire_Victim(specific)
 	for(var/I in GLOB.player_list)//better than a potential recursive loop
 		var/mob/living/carbon/human/H = pick(GLOB.player_list)//so the check is fair
@@ -196,6 +193,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		cluwnehole = new(src.loc)
 		addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Appear), MANIFEST_DELAY)
 	else
+		layer = GAME_PLANE
 		invisibility = INVISIBILITY_OBSERVER
 		density = FALSE
 		mobility_flags |= MOBILITY_MOVE
@@ -205,6 +203,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Appear()//handled in a seperate proc so floor cluwne doesn't appear before the animation finishes
+	layer = LYING_MOB_LAYER
 	invisibility = FALSE
 	density = TRUE
 
@@ -364,6 +363,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		visible_message("<span class='danger'>[src] begins dragging [H] under the floor!</span>")
 		if(do_after(src, 50, target = H) && eating)
 			H.become_blind()
+			H.layer = GAME_PLANE
 			H.invisibility = INVISIBILITY_OBSERVER
 			H.density = FALSE
 			H.anchored = TRUE
@@ -399,6 +399,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 			H.adjustBruteLoss(30)
 			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 100)
 			H.cure_blind()
+			H.layer = initial(H.layer)
 			H.invisibility = initial(H.invisibility)
 			H.density = initial(H.density)
 			H.anchored = initial(H.anchored)

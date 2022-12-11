@@ -10,21 +10,20 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 //============ Shuttle Creator Object ============
 /obj/item/shuttle_creator
 	name = "Rapid Shuttle Designator"
-	desc = "A device used to define the area required for custom ships. Uses bluespace crystals to create bluespace-capable ships."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rsd"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
+	desc = "A device used to define the area required for custom ships. Uses bluespace crystals to create bluespace-capable ships."
 	density = FALSE
 	anchored = FALSE
 	flags_1 = CONDUCT_1
 	item_flags = NOBLUDGEON
-	slot_flags = ITEM_SLOT_BELT
 	force = 0
 	throwforce = 8
 	throw_speed = 3
 	throw_range = 5
-	w_class = WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_NORMAL
 	req_access_txt = "11"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 0)
 	resistance_flags = FIRE_PROOF

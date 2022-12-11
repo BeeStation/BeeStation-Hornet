@@ -52,16 +52,14 @@
 /obj/structure/alien/resin
 	name = "resin"
 	desc = "Looks like some kind of thick resin."
-	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi' //See code/modules/bitmask_smoothing/code for all code pertaining to new smooth objects
-	icon_state = "resin_wall-0"
-	base_icon_state = "resin_wall"
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN)
-	canSmoothWith = list(SMOOTH_GROUP_ALIEN_RESIN)
+	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
+	icon_state = "smooth"
 	density = TRUE
 	opacity = 1
 	anchored = TRUE
+	canSmoothWith = list(/obj/structure/alien/resin)
 	max_integrity = 200
+	smooth = SMOOTH_TRUE
 	var/resintype = null
 	CanAtmosPass = ATMOS_PASS_DENSITY
 
@@ -78,11 +76,10 @@
 /obj/structure/alien/resin/wall
 	name = "resin wall"
 	desc = "Thick resin solidified into a wall."
-	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi' //See code/modules/bitmask_smoothing/code for all code pertaining to new smooth objects
-	icon_state = "resin_wall-0" //same as resin, but consistency ho!
-	base_icon_state = "resin_wall"
-	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
+	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
+	icon_state = "smooth"	//same as resin, but consistency ho!
+	resintype = "wall"
+	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
 
 /obj/structure/alien/resin/wall/BlockThermalConductivity()
 	return 1
@@ -91,12 +88,11 @@
 	name = "resin membrane"
 	desc = "Resin just thin enough to let light pass through."
 	icon = 'icons/obj/smooth_structures/alien/resin_membrane.dmi'
-	icon_state = "resin_membrane-0"
-	base_icon_state = "resin_membrane"
-	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
+	icon_state = "smooth"
 	opacity = 0
 	max_integrity = 160
+	resintype = "membrane"
+	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
 
 /obj/structure/alien/resin/attack_paw(mob/user)
 	return attack_hand(user)
@@ -115,14 +111,10 @@
 	density = FALSE
 	layer = TURF_LAYER
 	plane = FLOOR_PLANE
-	icon = 'icons/obj/smooth_structures/alien/weeds1.dmi'
-	icon_state = "weeds1-0"
-	base_icon_state = "weeds1"
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WEEDS)
-	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WEEDS)
-	transform = matrix(1, 0, -4, 0, 1, -4)
+	icon_state = "weeds"
 	max_integrity = 15
+	canSmoothWith = list(/obj/structure/alien/weeds, /turf/closed/wall)
+	smooth = SMOOTH_MORE
 	var/last_expand = 0 //last world.time this weed expanded
 	var/growth_cooldown_low = 150
 	var/growth_cooldown_high = 200
@@ -145,13 +137,10 @@
 		switch(rand(1,3))
 			if(1)
 				icon = 'icons/obj/smooth_structures/alien/weeds1.dmi'
-				base_icon_state = "weeds1"
 			if(2)
 				icon = 'icons/obj/smooth_structures/alien/weeds2.dmi'
-				base_icon_state = "weeds2"
 			if(3)
 				icon = 'icons/obj/smooth_structures/alien/weeds3.dmi'
-				base_icon_state = "weeds3"
 
 /obj/structure/alien/weeds/proc/expand()
 	var/turf/U = get_turf(src)
@@ -177,8 +166,7 @@
 /obj/structure/alien/weeds/node
 	name = "glowing resin"
 	desc = "Blue bioluminescence shines from beneath the surface."
-	icon_state = "weednode-0"
-	base_icon_state = "weednode"
+	icon_state = "weednode"
 	light_color = LIGHT_COLOR_BLUE
 	light_power = 0.5
 	var/lon_range = 4

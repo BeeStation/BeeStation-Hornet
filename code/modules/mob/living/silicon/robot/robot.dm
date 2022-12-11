@@ -419,7 +419,7 @@
 	var/turf/T1 = get_turf(A)
 	if (!T0 || ! T1)
 		return FALSE
-	if(A.is_jammed(JAMMER_PROTECTION_WIRELESS))
+	if(A.is_jammed())
 		return FALSE
 	return ISINRANGE(T1.x, T0.x - interaction_range, T0.x + interaction_range) && ISINRANGE(T1.y, T0.y - interaction_range, T0.y + interaction_range)
 

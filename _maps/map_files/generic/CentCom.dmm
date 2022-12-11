@@ -3789,7 +3789,8 @@
 /obj/machinery/smartfridge,
 /turf/closed/indestructible{
 	icon = 'icons/turf/walls/wood_wall.dmi';
-	icon_state = "wood"
+	icon_state = "wood";
+	smooth = 1
 	},
 /area/centcom/holding)
 "pz" = (
@@ -6970,7 +6971,8 @@
 /obj/machinery/chem_dispenser/drinks/beer,
 /turf/closed/indestructible{
 	icon = 'icons/turf/walls/wood_wall.dmi';
-	icon_state = "wood"
+	icon_state = "wood";
+	smooth = 1
 	},
 /area/centcom/holding)
 "BW" = (
@@ -7487,7 +7489,8 @@
 /obj/machinery/vending/boozeomat,
 /turf/closed/indestructible{
 	icon = 'icons/turf/walls/wood_wall.dmi';
-	icon_state = "wood"
+	icon_state = "wood";
+	smooth = 1
 	},
 /area/centcom/holding)
 "EG" = (
@@ -9504,7 +9507,8 @@
 "Nd" = (
 /turf/closed/indestructible{
 	icon = 'icons/turf/walls/wood_wall.dmi';
-	icon_state = "wood"
+	icon_state = "wood";
+	smooth = 1
 	},
 /area/centcom/holding)
 "Nf" = (
@@ -10333,7 +10337,8 @@
 /obj/machinery/chem_dispenser/drinks,
 /turf/closed/indestructible{
 	icon = 'icons/turf/walls/wood_wall.dmi';
-	icon_state = "wood"
+	icon_state = "wood";
+	smooth = 1
 	},
 /area/centcom/holding)
 "QU" = (

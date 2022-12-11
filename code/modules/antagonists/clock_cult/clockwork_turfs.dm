@@ -147,12 +147,12 @@
 	. = ..()
 	if(d_state == INTACT)
 		realappearence.icon_state = "clockwork_wall"
-		smoothing_flags = SMOOTH_BITMASK
-		QUEUE_SMOOTH_NEIGHBORS(src)
-		QUEUE_SMOOTH(src)
+		smooth = SMOOTH_TRUE
+		queue_smooth_neighbors(src)
+		queue_smooth(src)
 	else
 		realappearence.icon_state = "clockwork_wall-[d_state]"
-		smoothing_flags = NUKE_ON_EXPLODING
+		smooth = SMOOTH_FALSE
 		clear_smooth_overlays()
 	realappearence.update_icon()
 	return
@@ -277,7 +277,7 @@
 /obj/structure/lattice/clockwork
 	name = "cog lattice"
 	desc = "A lightweight support lattice. These hold the Justicar's station together."
-	icon = 'icons/obj/smooth_structures/catwalks/lattice_clockwork.dmi'
+	icon = 'icons/obj/smooth_structures/lattice_clockwork.dmi'
 
 /obj/structure/lattice/clockwork/Initialize(mapload)
 	. = ..()
@@ -287,11 +287,11 @@
 
 /obj/structure/lattice/clockwork/ratvar_act()
 	if(ISODD(x+y))
-		icon = 'icons/obj/smooth_structures/catwalks/lattice_clockwork_large.dmi'
+		icon = 'icons/obj/smooth_structures/lattice_clockwork_large.dmi'
 		pixel_x = -9
 		pixel_y = -9
 	else
-		icon = 'icons/obj/smooth_structures/catwalks/lattice_clockwork.dmi'
+		icon = 'icons/obj/smooth_structures/lattice_clockwork.dmi'
 		pixel_x = 0
 		pixel_y = 0
 	return TRUE
@@ -302,10 +302,12 @@
 
 /obj/structure/lattice/catwalk/clockwork
 	name = "clockwork catwalk"
-	icon = 'icons/obj/smooth_structures/catwalks/catwalk_clockwork.dmi'
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_OPEN_FLOOR)
-	canSmoothWith = list(SMOOTH_GROUP_CATWALK)
+	icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'
+	canSmoothWith = list(/obj/structure/lattice,
+	/turf/open/floor,
+	/turf/closed/wall,
+	/obj/structure/falsewall)
+	smooth = SMOOTH_MORE
 
 /obj/structure/lattice/catwalk/clockwork/Initialize(mapload)
 	. = ..()
@@ -318,11 +320,11 @@
 
 /obj/structure/lattice/catwalk/clockwork/ratvar_act()
 	if(ISODD(x+y))
-		icon = 'icons/obj/smooth_structures/catwalks/catwalk_clockwork_large.dmi'
+		icon = 'icons/obj/smooth_structures/catwalk_clockwork_large.dmi'
 		pixel_x = -9
 		pixel_y = -9
 	else
-		icon = 'icons/obj/smooth_structures/catwalks/catwalk_clockwork.dmi'
+		icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'
 		pixel_x = 0
 		pixel_y = 0
 	return TRUE
@@ -516,7 +518,7 @@
 /obj/structure/window/reinforced/clockwork
 	name = "brass window"
 	desc = "A paper-thin pane of translucent yet reinforced brass."
-	icon = 'icons/obj/smooth_structures/windows/clockwork_window.dmi'
+	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
 	icon_state = "clockwork_window_single"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_integrity = 80
@@ -556,12 +558,9 @@
 	anchored = FALSE
 
 /obj/structure/window/reinforced/clockwork/fulltile
-	icon = 'icons/obj/smooth_structures/windows/clockwork_window.dmi'
-	icon_state = "clockwork_window-0"
-	base_icon_state = "clockwork_window"
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE)
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE)
+	icon_state = "clockwork_window"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = null
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
 	dir = FULLTILE_WINDOW_DIR

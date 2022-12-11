@@ -24,13 +24,10 @@ SUBSYSTEM_DEF(shuttle)
 	var/emergencyEscapeTime = 1200	//time taken for emergency shuttle to reach a safe distance after leaving station (in deciseconds)
 	var/area/emergencyLastCallLoc
 	var/emergencyCallAmount = 0		//how many times the escape shuttle was called
-	var/emergencyNoEscape			//Hostile environment that prevents the shuttle from leaving after it has arrived
-	var/emergencyDelayArrival 		//Infestation that delays the shuttle arrival while contingency plans are put into place 
+	var/emergencyNoEscape
 	var/emergencyNoRecall = FALSE
 	var/adminEmergencyNoRecall = FALSE
 	var/list/hostileEnvironments = list() //Things blocking escape shuttle from leaving
-	var/list/infestedEnvironments = list() //Things that can trigger a delay on escape shuttle arrival
-	var/infestationActive = FALSE //So unusual circumstances can't trigger a second infestation warning and delay
 	var/hostileEnvTrackPlayed = FALSE
 	var/list/tradeBlockade = list() //Things blocking cargo from leaving.
 	var/supplyBlocked = FALSE
@@ -340,11 +337,6 @@ SUBSYSTEM_DEF(shuttle)
 	hostileEnvironments -= bad
 	checkHostileEnvironment()
 
-/datum/controller/subsystem/shuttle/proc/registerInfestation(datum/bad)
-	infestedEnvironments[bad] = TRUE //This only matters when shuttle is at a specific stage in evacuation, there is no need to update or check the validity of the list every time it is updated
-
-/datum/controller/subsystem/shuttle/proc/clearInfestation(datum/bad)
-	infestedEnvironments -= bad
 
 /datum/controller/subsystem/shuttle/proc/registerTradeBlockade(datum/bad)
 	tradeBlockade[bad] = TRUE
@@ -382,33 +374,16 @@ SUBSYSTEM_DEF(shuttle)
 		priority_announce("Hostile environment detected. \
 			Departure has been postponed indefinitely pending \
 			conflict resolution.", null, 'sound/misc/notice1.ogg', "Priority")
+		for(var/i in hostileEnvironments)
+			if(istype(i, /mob/living/carbon/alien/humanoid/royal/queen) && !hostileEnvTrackPlayed)
+				play_soundtrack_music(/datum/soundtrack_song/bee/mind_crawler, only_station = TRUE)
+				hostileEnvTrackPlayed = TRUE
 	if(!emergencyNoEscape && (emergency.mode == SHUTTLE_STRANDED))
 		emergency.mode = SHUTTLE_DOCKED
 		emergency.setTimer(emergencyDockTime)
 		priority_announce("Hostile environment resolved. \
 			You have 3 minutes to board the Emergency Shuttle.",
 			null, ANNOUNCER_SHUTTLEDOCK, "Priority")
-
-/datum/controller/subsystem/shuttle/proc/checkInfestedEnvironment()
-	for(var/mob/d in infestedEnvironments)
-		var/turf/T = get_turf(d)
-		if(QDELETED(d) || !is_station_level(T.z)) //If they have been destroyed or left the station Z level, the queen will not trigger this check
-			infestedEnvironments -= d
-	emergencyDelayArrival = length(infestedEnvironments)
-	return emergencyDelayArrival
-
-/datum/controller/subsystem/shuttle/proc/delayForInfestedStation()
-	if(infestationActive)
-		return
-	infestationActive = TRUE
-	emergencyNoRecall = TRUE
-	priority_announce("Xenomorph infestation detected: crisis shuttle protocols activated - jamming recall signals across all frequencies.")
-	play_soundtrack_music(/datum/soundtrack_song/bee/mind_crawler, only_station = TRUE)
-	if(EMERGENCY_IDLE_OR_RECALLED)
-		emergency.request(null, set_coefficient=1) //If a shuttle wasn't already called, call one now, with 10 minute delay
-	else if(emergency.mode == SHUTTLE_CALL)
-		emergency.setTimer(10 MINUTES) //If shuttle was already in transit, delay the arrival time to 10 minutes
-		//If the emergency shuttle has already passed the point of no return before a queen existed, do not delay round for Xenomorphs - they spawned too late on a round that was already coming to an end. 
 
 //try to move/request to dockHome if possible, otherwise dockAway. Mainly used for admin buttons
 /datum/controller/subsystem/shuttle/proc/toggleShuttle(shuttleId, dockHome, dockAway, timed)

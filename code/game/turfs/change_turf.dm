@@ -310,7 +310,7 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		for(var/obj/machinery/door/firedoor/FD in T)
 			FD.CalculateAffectingAreas()
 
-	QUEUE_SMOOTH_NEIGHBORS(src)
+	queue_smooth_neighbors(src)
 
 	HandleTurfChange(src)
 

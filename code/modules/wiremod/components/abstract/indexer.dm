@@ -65,9 +65,7 @@
 	var/list/list_input = list_port.input_value
 	list_input = list_input?.Copy() //input_value of an input port isn't typecasted to a list, so it doesn't reconize Copy() until you put it in a typed var
 
-	if(isnull(index))
-		index = 0
-	if(!islist(list_input))
+	if(!islist(list_input) || isnull(index))
 		output.set_output(null)
 		return
 

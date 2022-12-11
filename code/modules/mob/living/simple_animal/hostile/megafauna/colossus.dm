@@ -24,8 +24,8 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/colossus
 	name = "colossus"
 	desc = "A monstrous creature protected by heavy shielding."
-	health = 1250
-	maxHealth = 1250
+	health = 2500
+	maxHealth = 2500
 	attacktext = "judges"
 	attack_sound = 'sound/magic/clockwork/ratvar_attack.ogg'
 	icon_state = "eva"
@@ -85,7 +85,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
 	ranged_cooldown = world.time + 600 //prevents abilities from being spammed by AttackingTarget() while an attack is already underway.
-	anger_modifier = CLAMP(((maxHealth - health)/20),0,20)
+	anger_modifier = CLAMP(((maxHealth - health)/40),0,20)
 
 	if(client) //Player controlled handled a bit differently.
 		switch(chosen_attack)

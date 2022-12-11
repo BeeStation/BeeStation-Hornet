@@ -26,6 +26,7 @@
 	var/on = TRUE
 	var/cooldown = 64
 	var/blending = FALSE		//lets not take pictures while the previous is still processing!
+	var/see_ghosts = CAMERA_NO_GHOSTS //for the spoop of it
 	var/obj/item/disk/holodisk/disk
 	var/sound/custom_sound
 	var/silent = FALSE
@@ -38,18 +39,6 @@
 	var/can_customise = TRUE
 	var/default_picture_name
 
-	var/see_ghosts = CAMERA_NO_GHOSTS //for the spoop of it
-	var/static/list/detectable_invisible_atom = list() // even if atom is invisible, camera will reveal it. fill the list in Init proc.
-
-/obj/item/camera/Initialize(mapload)
-	. = ..()
-	if(!length(detectable_invisible_atom))
-		detectable_invisible_atom = typecacheof(list(
-			// put detactable atom list here
-			/mob/dead/observer,
-			/mob/living/simple_animal/revenant,
-			/mob/living/simple_animal/hostile/floor_cluwne
-		))
 
 /obj/item/camera/attack_self(mob/user)
 	if(!disk)
@@ -202,7 +191,7 @@
 				blueprints = TRUE
 	for(var/mob/M in mobs)
 		// No describing invisible stuff (except ghosts)!
-		if(M.alpha <= 50 || !((M.invisibility < SEE_INVISIBLE_LIVING) || (see_ghosts && can_camera_see_atom(M))))
+		if((M.invisibility >= SEE_INVISIBLE_LIVING || M.alpha <= 50) && !isobserver(M))
 			continue
 		mobs_spotted += M
 		if(M.stat == DEAD)
@@ -223,8 +212,6 @@
 	after_picture(user, P, flag)
 	blending = FALSE
 
-/obj/item/camera/proc/can_camera_see_atom(atom/A)
-	return is_type_in_typecache(A, detectable_invisible_atom)
 
 /obj/item/camera/proc/flash_end()
 	set_light_on(FALSE)

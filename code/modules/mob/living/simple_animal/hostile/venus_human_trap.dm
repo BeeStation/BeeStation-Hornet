@@ -1,3 +1,5 @@
+
+
 /obj/structure/alien/resin/flower_bud_enemy //inheriting basic attack/damage stuff from alien structures
 	name = "flower bud"
 	desc = "A large pulsating plant..."
@@ -6,8 +8,9 @@
 	layer = SPACEVINE_MOB_LAYER
 	opacity = 0
 	canSmoothWith = list()
+	smooth = SMOOTH_FALSE
 	var/growth_time = 1200
-	smoothing_flags = NONE
+
 
 /obj/structure/alien/resin/flower_bud_enemy/Initialize(mapload)
 	. = ..()
@@ -26,6 +29,7 @@
 	visible_message("<span class='danger'>the plant has borne fruit!</span>")
 	new /mob/living/simple_animal/hostile/venus_human_trap(get_turf(src))
 	qdel(src)
+
 
 /obj/effect/ebeam/vine
 	name = "thick vine"
@@ -47,6 +51,8 @@
 		if(!("vines" in L.faction))
 			L.adjustBruteLoss(5)
 			to_chat(L, "<span class='alert'>You cut yourself on the thorny vines.</span>")
+
+
 
 /mob/living/simple_animal/hostile/venus_human_trap
 	name = "venus human trap"

@@ -8,7 +8,6 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	ambience_index = AMBIENCE_RUINS
 	sound_environment = SOUND_ENVIRONMENT_STONEROOM
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 
 /area/ruin/unpowered
 	always_unpowered = FALSE

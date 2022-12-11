@@ -29,8 +29,8 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon
 	name = "ash drake"
 	desc = "Guardians of the necropolis."
-	health = 1250
-	maxHealth = 1250
+	health = 2500
+	maxHealth = 2500
 	attacktext = "chomps"
 	attack_sound = 'sound/magic/demon_attack1.ogg'
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
@@ -95,7 +95,7 @@ Difficulty: Medium
 	if(swooping)
 		return
 
-	anger_modifier = CLAMP(((maxHealth - health)/25),0,20)
+	anger_modifier = CLAMP(((maxHealth - health)/50),0,20)
 	ranged_cooldown = world.time + ranged_cooldown_time
 
 	if(client)

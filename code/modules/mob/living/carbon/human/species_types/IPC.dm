@@ -47,7 +47,7 @@
 
 	var/saved_screen //for saving the screen when they die
 	var/datum/action/innate/change_screen/change_screen
-
+	
 	speak_no_tongue = FALSE  // who stole my soundblaster?! (-candy/etherware)
 
 /datum/species/ipc/random_name(gender, unique, lastname, attempts)

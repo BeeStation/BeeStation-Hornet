@@ -4,12 +4,11 @@
 	name = "alien nest"
 	desc = "It's a gruesome pile of thick, sticky resin shaped like a nest."
 	icon = 'icons/obj/smooth_structures/alien/nest.dmi'
-	icon_state = "nest-0"
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_ALIEN_NEST)
-	canSmoothWith = list(SMOOTH_GROUP_ALIEN_NEST)
+	icon_state = "nest"
 	max_integrity = 120
+	smooth = SMOOTH_TRUE
 	can_be_unanchored = FALSE
+	canSmoothWith = null
 	buildstacktype = null
 	flags_1 = NODECONSTRUCT_1
 	bolts = FALSE

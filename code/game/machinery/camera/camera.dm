@@ -395,7 +395,7 @@
 		return FALSE
 	if(machine_stat & EMPED)
 		return FALSE
-	if(is_jammed(JAMMER_PROTECTION_CAMERAS))
+	if(is_jammed())
 		return FALSE
 	return TRUE
 

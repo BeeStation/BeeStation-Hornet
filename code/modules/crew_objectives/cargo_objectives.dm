@@ -2,10 +2,7 @@
 
 /datum/objective/crew/petsplosion
 	explanation_text = "Ensure there are at least (If you see this, yell on GitHub) pets on the station by the end of the shift. Interpret this as you wish."
-	jobs = list(
-		JOB_NAME_QUARTERMASTER,
-		JOB_NAME_CARGOTECHNICIAN,
-	)
+	jobs = "quartermaster,cargotechnician"
 
 /datum/objective/crew/petsplosion/New()
 	. = ..()
@@ -17,8 +14,6 @@
 	explanation_text = "Ensure there are at least [target_amount] pets on the station by the end of the shift. Interpret this as you wish."
 
 /datum/objective/crew/petsplosion/check_completion()
-	if(..())
-		return TRUE
 	var/petcount = target_amount
 	for(var/mob/living/simple_animal/pet/P in GLOB.mob_list)
 		if(!(P.stat == DEAD))
@@ -29,14 +24,14 @@
 			if((H.z in SSmapping.levels_by_trait(ZTRAIT_STATION)) || SSshuttle.emergency.shuttle_areas[get_area(H)])
 				if(istype(H.wear_neck, /obj/item/clothing/neck/petcollar))
 					petcount--
-	return petcount <= 0
+	if(petcount <= 0)
+		return TRUE
+	else
+		return ..()
 
 /datum/objective/crew/points //ported from old hippie
 	explanation_text = "Make sure the station has at least (Something broke, yell on GitHub) station credits at the end of the shift."
-	jobs = list(
-		JOB_NAME_QUARTERMASTER,
-		JOB_NAME_CARGOTECHNICIAN,
-	)
+	jobs = "quartermaster,cargotechnician"
 
 /datum/objective/crew/points/New()
 	. = ..()
@@ -48,26 +43,25 @@
 	explanation_text = "Make sure the station has at least [target_amount] station credits at the end of the shift."
 
 /datum/objective/crew/points/check_completion()
-	if(..())
-		return TRUE
 	var/datum/bank_account/C = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
-	return C.account_balance >= target_amount
+	if(C.account_balance >= target_amount)
+		return TRUE
+	else
+		return ..()
 
 /datum/objective/crew/bubblegum
 	explanation_text = "Ensure Bubblegum is dead at the end of the shift."
-	jobs = JOB_NAME_SHAFTMINER
+	jobs = "shaftminer"
 
 /datum/objective/crew/bubblegum/check_completion()
-	if(..())
-		return TRUE
 	for(var/mob/living/simple_animal/hostile/megafauna/bubblegum/B in GLOB.mob_list)
-		if(B.stat != DEAD)
-			return FALSE
+		if(!(B.stat == DEAD))
+			return ..()
 	return TRUE
 
 /datum/objective/crew/fatstacks //ported from old hippie
 	explanation_text = "Have at least (something broke, report this on GitHub) mining points on your ID at the end of the shift."
-	jobs = JOB_NAME_SHAFTMINER
+	jobs = "shaftminer"
 
 /datum/objective/crew/fatstacks/New()
 	. = ..()
@@ -79,12 +73,10 @@
 	explanation_text = "Have at least [target_amount] mining points on your ID at the end of the shift."
 
 /datum/objective/crew/fatstacks/check_completion()
-	if(..())
-		return TRUE
-	var/mob/living/carbon/human/H = owner?.current
-	if(!istype(H))
-		return FALSE
-	var/obj/item/card/id/theID = H.get_idcard()
-	if(!istype(theID))
-		return FALSE
-	return theID.mining_points >= target_amount
+	if(owner?.current)
+		var/mob/living/carbon/human/H = owner.current
+		var/obj/item/card/id/theID = H.get_idcard()
+		if(istype(theID))
+			if(theID.mining_points >= target_amount)
+				return TRUE
+	return ..()

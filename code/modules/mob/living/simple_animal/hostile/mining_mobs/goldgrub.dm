@@ -13,8 +13,8 @@
 	aggro_vision_range = 9
 	move_to_delay = 5
 	friendly = "harmlessly rolls into"
-	maxHealth = 23
-	health = 23
+	maxHealth = 45
+	health = 45
 	melee_damage = 0
 	attacktext = "barrels into"
 	attack_sound = 'sound/weapons/punch1.ogg'

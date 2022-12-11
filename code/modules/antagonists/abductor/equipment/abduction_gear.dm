@@ -260,8 +260,7 @@
 /obj/item/abductor/silencer/ComponentInitialize()
 	. = ..()
 	//Activate the jammer
-	//This jammer will not block cameras or AI shells
-	var/datum/component/radio_jamming/added_component = AddComponent(/datum/component/radio_jamming, 5, RADIO_JAMMER_ABDUCTOR_LEVEL)
+	var/datum/component/radio_jamming/added_component = AddComponent(/datum/component/radio_jamming)
 	added_component.enable()
 
 /obj/item/abductor/mind_device
@@ -795,16 +794,13 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/structure/table/abductor
 	name = "alien table"
 	desc = "Advanced flat surface technology at work!"
-	icon = 'icons/obj/smooth_structures/tables/alien_table.dmi'
-	icon_state = "alien_table-0"
-	base_icon_state = "alien_table"
+	icon = 'icons/obj/smooth_structures/alien_table.dmi'
+	icon_state = "alien_table"
 	buildstack = /obj/item/stack/sheet/mineral/abductor
 	framestack = /obj/item/stack/sheet/mineral/abductor
 	buildstackamount = 1
 	framestackamount = 1
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_ABDUCTOR_TABLES)
-	canSmoothWith = list(SMOOTH_GROUP_ABDUCTOR_TABLES)
+	canSmoothWith = null
 	frame = /obj/structure/table_frame/abductor
 
 /obj/structure/table/optable/abductor

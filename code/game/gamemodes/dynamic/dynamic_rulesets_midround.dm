@@ -204,30 +204,28 @@
 
 /datum/dynamic_ruleset/midround/autotraitor/trim_candidates()
 	..()
-	candidates = living_players
-	for(var/mob/living/player in candidates)
+	for(var/mob/living/player in living_players)
 		if(issilicon(player)) // Your assigned role doesn't change when you are turned into a silicon.
-			candidates -= player
+			living_players -= player
 			continue
 		if(is_centcom_level(player.z))
-			candidates -= player // We don't autotator people in CentCom
+			living_players -= player // We don't autotator people in CentCom
 			continue
 		if(player.mind && (player.mind.special_role || length(player.mind.antag_datums)))
-			candidates -= player // We don't autotator people with roles already
+			living_players -= player // We don't autotator people with roles already
 
 /datum/dynamic_ruleset/midround/autotraitor/ready(forced = FALSE)
-	var/candidates_amt = length(candidates)
-	if (required_candidates > candidates_amt)
-		log_game("DYNAMIC: FAIL: [src] does not have enough candidates ([required_candidates] needed, [candidates_amt] found)")
+	if (required_candidates > length(living_players))
+		log_game("DYNAMIC: FAIL: [src] does not have enough candidates, using living_players ([required_candidates] needed, [living_players.len] found)")
 		return FALSE
 	if (mode.check_lowpop_lowimpact_injection())
 		return FALSE
 	return ..()
 
 /datum/dynamic_ruleset/midround/autotraitor/execute()
-	var/mob/M = pick(candidates)
+	var/mob/M = pick(living_players)
 	assigned += M
-	candidates -= M
+	living_players -= M
 	var/datum/antagonist/traitor/newTraitor = new
 	M.mind.add_antag_datum(newTraitor)
 	return TRUE
@@ -492,8 +490,9 @@
 
 /datum/dynamic_ruleset/midround/from_ghosts/abductors
 	name = "Abductors"
-	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
-	antag_flag = ROLE_ABDUCTOR
+	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
+	antag_flag = "Abductor"
+	antag_flag_override = ROLE_ABDUCTOR
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 2

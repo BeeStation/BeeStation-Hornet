@@ -2,10 +2,9 @@
 	name = "runed metal wall"
 	desc = "A cold metal wall engraved with indecipherable symbols. Studying them causes your head to pound."
 	icon = 'icons/turf/walls/cult_wall.dmi'
-	icon_state = "cult_wall-0"
-	base_icon_state = "cult_wall"
-	smoothing_flags = SMOOTH_BITMASK
+	icon_state = "cult"
 	canSmoothWith = null
+	smooth = SMOOTH_MORE
 	sheet_type = /obj/item/stack/sheet/runed_metal
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult
@@ -47,9 +46,7 @@
 
 /turf/closed/wall/ice
 	icon = 'icons/turf/walls/icedmetal_wall.dmi'
-	icon_state = "icedmetal_wall-0"
-	base_icon_state = "icedmetal_wall"
-	smoothing_flags = SMOOTH_BITMASK
+	icon_state = "iced"
 	desc = "A wall covered in a thick sheet of ice."
 	canSmoothWith = null
 	hardness = 35
@@ -98,8 +95,7 @@
 	name = "clockwork wall"
 	desc = "A huge chunk of bronze, decorated like gears and cogs."
 	icon = 'icons/turf/walls/clockwork_wall.dmi'
-	icon_state = "clockwork_wall-0"
-	base_icon_state = "clockwork_wall"
+	icon_state = "clockwork_wall"
 	sheet_type = /obj/item/stack/tile/bronze
 	sheet_amount = 2
 	girder_type = /obj/structure/girder/bronze

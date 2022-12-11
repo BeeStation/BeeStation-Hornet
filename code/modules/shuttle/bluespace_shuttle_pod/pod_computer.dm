@@ -20,7 +20,7 @@
 	shuttle_creator.reset_saved_area(FALSE)
 
 /obj/machinery/computer/shuttle_flight/custom_shuttle/bluespace_pod/ui_interact(mob/user, datum/tgui/ui)
-	if(!shuttle_named && !isobserver(user))
+	if(!shuttle_named)
 		var/area/area_instance = get_area(src)
 		var/obj/docking_port/mobile/port = locate(/obj/docking_port/mobile) in area_instance
 		if(port)

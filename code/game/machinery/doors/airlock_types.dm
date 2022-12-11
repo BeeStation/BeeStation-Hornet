@@ -6,7 +6,7 @@
 	icon = 'icons/obj/doors/airlocks/station/command.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_com
 	normal_integrity = 450
-	security_level = AIRLOCK_SECURITY_PLASTEEL_O_S
+	security_level = 6
 
 /obj/machinery/door/airlock/security
 	icon = 'icons/obj/doors/airlocks/station/security.dmi'
@@ -86,7 +86,7 @@
 	opacity = 0
 	glass = TRUE
 	normal_integrity = 400
-	security_level = AIRLOCK_SECURITY_PLASTEEL_O_S
+	security_level =  6
 
 /obj/machinery/door/airlock/engineering/glass
 	opacity = 0
@@ -379,7 +379,7 @@
 	overlays_file = 'icons/obj/doors/airlocks/centcom/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_centcom
 	normal_integrity = 1000
-	security_level = AIRLOCK_SECURITY_PLASTEEL
+	security_level = 6
 	explosion_block = 2
 
 /obj/machinery/door/airlock/grunge
@@ -400,7 +400,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_vault
 	explosion_block = 2
 	normal_integrity = 400 // reverse engieneerd: 400 * 1.5 (sec lvl 6) = 600 = original
-	security_level = AIRLOCK_SECURITY_PLASTEEL
+	security_level = 6
 
 //////////////////////////////////
 /*
@@ -444,7 +444,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_highsecurity
 	explosion_block = 2
 	normal_integrity = 500
-	security_level = AIRLOCK_SECURITY_IRON
+	security_level = 1
 	damage_deflection = 30
 
 //////////////////////////////////
@@ -476,7 +476,7 @@
 	hackProof = TRUE
 	aiControlDisabled = 1
 	normal_integrity = 700
-	security_level = AIRLOCK_SECURITY_IRON
+	security_level = 1
 	allow_repaint = FALSE
 
 //////////////////////////////////

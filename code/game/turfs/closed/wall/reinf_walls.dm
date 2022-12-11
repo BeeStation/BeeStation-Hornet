@@ -2,9 +2,7 @@
 	name = "reinforced wall"
 	desc = "A huge chunk of reinforced metal used to separate rooms."
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
-	icon_state = "reinforced_wall-0"
-	base_icon_state = "reinforced_wall"
-	smoothing_flags = SMOOTH_BITMASK
+	icon_state = "r_wall"
 	opacity = 1
 	density = TRUE
 
@@ -198,18 +196,15 @@
 				return TRUE
 	return FALSE
 
-/turf/closed/wall/r_wall/update_icon(updates=ALL)
+/turf/closed/wall/r_wall/update_icon()
 	. = ..()
 	if(d_state != INTACT)
-		icon_state = "r_wall-[d_state]"
-		smoothing_flags = NONE
-		return
-	if (!(updates & UPDATE_SMOOTHING))
-		return
-	smoothing_flags = SMOOTH_BITMASK
-	icon_state = "[base_icon_state]-[smoothing_junction]"
-	QUEUE_SMOOTH_NEIGHBORS(src)
-	QUEUE_SMOOTH(src)
+		smooth = SMOOTH_FALSE
+		clear_smooth_overlays()
+	else
+		smooth = SMOOTH_TRUE
+		queue_smooth_neighbors(src)
+		queue_smooth(src)
 
 /turf/closed/wall/r_wall/update_icon_state()
 	if(d_state != INTACT)
@@ -246,25 +241,23 @@
 	name = "hull"
 	desc = "The armored hull of an ominous looking ship."
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
-	icon_state = "plastitanium_wall-0"
-	base_icon_state = "plastitanium_wall"
-	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
-	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SYNDICATE_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
+	icon_state = "map-shuttle"
 	explosion_block = 20
 	sheet_type = /obj/item/stack/sheet/mineral/plastitanium
+	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
+	canSmoothWith = list(/turf/closed/wall/r_wall/syndicate, /turf/closed/wall/mineral/plastitanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/plastitanium, /obj/structure/shuttle/engine, /obj/structure/falsewall/plastitanium)
 
 /turf/closed/wall/r_wall/syndicate/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	return FALSE
 
 /turf/closed/wall/r_wall/syndicate/nodiagonal
-	smoothing_flags = SMOOTH_BITMASK
+	smooth = SMOOTH_MORE
 	icon_state = "map-shuttle_nd"
 
 /turf/closed/wall/r_wall/syndicate/nosmooth
-	smoothing_flags = NONE
 	icon = 'icons/turf/shuttle.dmi'
 	icon_state = "wall"
+	smooth = SMOOTH_FALSE
 
 /turf/closed/wall/r_wall/syndicate/overspace
 	icon_state = "map-overspace"

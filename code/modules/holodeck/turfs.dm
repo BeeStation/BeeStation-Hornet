@@ -128,12 +128,10 @@
 	name = "carpet"
 	desc = "Electrically inviting."
 	icon = 'icons/turf/floors/carpet.dmi'
-	icon_state = "carpet-255"
-	base_icon_state = "carpet"
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_CARPET)
-	canSmoothWith = list(SMOOTH_GROUP_CARPET)
+	icon_state = "carpet"
 	floor_tile = /obj/item/stack/tile/carpet
+	smooth = SMOOTH_TRUE
+	canSmoothWith = null
 	bullet_bounce_sound = null
 	tiled_dirt = FALSE
 
@@ -144,7 +142,7 @@
 /turf/open/floor/holofloor/carpet/update_icon()
 	. = ..()
 	if(intact)
-		QUEUE_SMOOTH(src)
+		queue_smooth(src)
 
 /turf/open/floor/holofloor/wood
 	icon_state = "wood"

@@ -31,6 +31,26 @@
 
 // Wires for the airlock are located in the datum folder, inside the wires datum folder.
 
+#define AIRLOCK_CLOSED	1
+#define AIRLOCK_CLOSING	2
+#define AIRLOCK_OPEN	3
+#define AIRLOCK_OPENING	4
+#define AIRLOCK_DENY	5
+#define AIRLOCK_EMAG	6
+
+#define AIRLOCK_SECURITY_NONE			0 //Normal airlock				//Wires are not secured
+#define AIRLOCK_SECURITY_IRON			1 //Medium security airlock		//There is a simple iron over wires (use welder)
+#define AIRLOCK_SECURITY_PLASTEEL_I_S	2 								//Sliced inner plating (use crowbar), jumps to 0
+#define AIRLOCK_SECURITY_PLASTEEL_I		3 								//Removed outer plating, second layer here (use welder)
+#define AIRLOCK_SECURITY_PLASTEEL_O_S	4 								//Sliced outer plating (use crowbar)
+#define AIRLOCK_SECURITY_PLASTEEL_O		5 								//There is first layer of plasteel (use welder)
+#define AIRLOCK_SECURITY_PLASTEEL		6 //Max security airlock		//Fully secured wires (use wirecutters to remove grille, that is electrified)
+
+#define AIRLOCK_INTEGRITY_N			 300 // Normal airlock integrity
+#define AIRLOCK_INTEGRITY_MULTIPLIER 1.5 // How much reinforced doors health increases
+#define AIRLOCK_DAMAGE_DEFLECTION_N  21  // Normal airlock damage deflection
+#define AIRLOCK_DAMAGE_DEFLECTION_R  30  // Reinforced airlock damage deflection
+
 /obj/machinery/door/airlock
 	name = "airlock"
 	icon = 'icons/obj/doors/airlocks/station/public.dmi'
@@ -55,8 +75,7 @@
 
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 
-	var/security_level = AIRLOCK_SECURITY_NONE //How much are wires secured
-	var/wire_security_level = 0	//How difficult the door is to hack
+	var/security_level = 0 //How much are wires secured
 	var/aiControlDisabled = 0 //If 1, AI control is disabled until the AI hacks back in and disables the lock. If 2, the AI has bypassed the lock. If -1, the control is enabled but the AI had bypassed it earlier, so if it is disabled again the AI would have no trouble getting back in.
 	var/hackProof = FALSE // if true, this door can't be hacked by the AI
 	var/secondsMainPowerLost = 0 //The number of seconds until power is restored.
@@ -110,13 +129,7 @@
 
 /obj/machinery/door/airlock/Initialize(mapload)
 	. = ..()
-
-	//Get the area hack difficulty
-	if (mapload)
-		var/area/A = get_area(src)
-		wire_security_level = max(wire_security_level, A.airlock_hack_difficulty)
-
-	wires = new /datum/wires/airlock(src, wire_security_level)
+	wires = new /datum/wires/airlock(src)
 	if(frequency)
 		set_frequency(frequency)
 
@@ -245,7 +258,7 @@
 		return
 
 	//Check radio signal jamming
-	if(is_jammed(JAMMER_PROTECTION_WIRELESS))
+	if(is_jammed())
 		return
 
 
@@ -440,14 +453,14 @@
 /obj/machinery/door/airlock/proc/canAIControl(mob/user)
 	if(protected_door)
 		return FALSE
-	if(is_jammed(JAMMER_PROTECTION_WIRELESS))
+	if(is_jammed())
 		return FALSE
 	return ((aiControlDisabled != 1) && !isAllPowerCut())
 
 /obj/machinery/door/airlock/proc/canAIHack()
 	if(protected_door)
 		return FALSE
-	if(is_jammed(JAMMER_PROTECTION_WIRELESS))
+	if(is_jammed())
 		return FALSE
 	return ((aiControlDisabled==1) && (!hackProof) && (!isAllPowerCut()));
 
@@ -758,7 +771,7 @@
 	if(detonated)
 		to_chat(user, "<span class='warning'>Unable to interface. Airlock control panel damaged.</span>")
 		return
-	if(is_jammed(JAMMER_PROTECTION_WIRELESS))
+	if(is_jammed())
 		to_chat(user, "<span class='warning'>Unable to interface. Remote communications not responding.</span>")
 		return
 
@@ -1652,3 +1665,23 @@
 		close()
 	else
 		open()
+
+#undef AIRLOCK_CLOSED
+#undef AIRLOCK_CLOSING
+#undef AIRLOCK_OPEN
+#undef AIRLOCK_OPENING
+#undef AIRLOCK_DENY
+#undef AIRLOCK_EMAG
+
+#undef AIRLOCK_SECURITY_NONE
+#undef AIRLOCK_SECURITY_IRON
+#undef AIRLOCK_SECURITY_PLASTEEL_I_S
+#undef AIRLOCK_SECURITY_PLASTEEL_I
+#undef AIRLOCK_SECURITY_PLASTEEL_O_S
+#undef AIRLOCK_SECURITY_PLASTEEL_O
+#undef AIRLOCK_SECURITY_PLASTEEL
+
+#undef AIRLOCK_INTEGRITY_N
+#undef AIRLOCK_INTEGRITY_MULTIPLIER
+#undef AIRLOCK_DAMAGE_DEFLECTION_N
+#undef AIRLOCK_DAMAGE_DEFLECTION_R

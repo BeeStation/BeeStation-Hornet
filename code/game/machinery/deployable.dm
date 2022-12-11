@@ -84,7 +84,7 @@
 /obj/structure/barricade/wooden/crude
 	name = "crude plank barricade"
 	desc = "This space is blocked off by a crude assortment of planks."
-	icon_state = "woodenbarricade-old" //REPLACE NAME WITH SOMETHING MORE FITTING
+	icon_state = "woodenbarricade-old"
 	drop_amount = 1
 	max_integrity = 50
 	proj_pass_rate = 65
@@ -101,16 +101,14 @@
 	name = "sandbags"
 	desc = "Bags of sand. Self explanatory."
 	icon = 'icons/obj/smooth_structures/sandbags.dmi'
-	icon_state = "sandbags-0"
-	base_icon_state = "sandbags"
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_SANDBAGS)
-	canSmoothWith = list(SMOOTH_GROUP_SANDBAGS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SECURITY_BARRICADE)
+	icon_state = "sandbags"
 	max_integrity = 280
 	proj_pass_rate = 20
 	pass_flags_self = LETPASSTHROW
 	bar_material = SAND
 	climbable = TRUE
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/obj/structure/barricade/sandbags, /turf/closed/wall, /turf/closed/wall/r_wall, /obj/structure/falsewall, /obj/structure/falsewall/reinforced, /turf/closed/wall/rust, /turf/closed/wall/r_wall/rust, /obj/structure/barricade/security)
 
 /obj/structure/barricade/security
 	name = "security barrier"

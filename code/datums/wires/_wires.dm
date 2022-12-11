@@ -27,14 +27,12 @@
 	var/holder_type = null // The holder's typepath (used to make wire colors common to all holders).
 	var/proper_name = "Unknown" // The display name for the wire set shown in station blueprints. Not used if randomize is true or it's an item NT wouldn't know about (Explosives/Nuke)
 
-	var/list/wires = list() // Dictionary of wires to colours.
+	var/list/wires = list() // List of wires.
 	var/list/cut_wires = list() // List of wires that have been cut.
 	var/list/colors = list() // Dictionary of colors to wire.
-	var/list/wire_to_colors = list() // Dictionary of colors to wire.
 	var/list/assemblies = list() // List of attached assemblies.
 	var/randomize = 0 // If every instance of these wires should be random.
 					  // Prevents wires from showing up in station blueprints
-	var/list/labelled_wires = list() // Associative List of wires that have labels. Key = wire, Value = Bool (Revealed) [To be refactored into skills]
 
 /datum/wires/New(atom/holder)
 	..()
@@ -51,10 +49,6 @@
 			GLOB.wire_name_directory[holder_type] = proper_name
 		else
 			colors = GLOB.wire_color_directory[holder_type]
-
-	for (var/colour in colors)
-		var/wire = colors[colour]
-		wire_to_colors[wire] = colour
 
 /datum/wires/Destroy()
 	holder = null
@@ -106,7 +100,10 @@
 	return colors[color]
 
 /datum/wires/proc/get_color_of_wire(wire_type)
-	return wire_to_colors[wire_type]
+	for(var/color in colors)
+		var/other_type = colors[color]
+		if(wire_type == other_type)
+			return color
 
 /datum/wires/proc/get_attached(color)
 	if(assemblies[color])
@@ -260,10 +257,9 @@
 		reveal_wires = TRUE
 
 	for(var/color in colors)
-		var/wire_type = get_wire(color)
 		payload.Add(list(list(
 			"color" = color,
-			"wire" = (((reveal_wires || labelled_wires[wire_type]) && !is_dud_color(color)) ? wire_type : null),
+			"wire" = ((reveal_wires && !is_dud_color(color)) ? get_wire(color) : null),
 			"cut" = is_color_cut(color),
 			"attached" = is_attached(color)
 		)))

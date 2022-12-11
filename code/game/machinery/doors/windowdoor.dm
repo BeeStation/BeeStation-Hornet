@@ -332,7 +332,7 @@
 		return
 
 	//Check radio signal jamming
-	if(is_jammed(JAMMER_PROTECTION_WIRELESS))
+	if(is_jammed())
 		return
 
 
