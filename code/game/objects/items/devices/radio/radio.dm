@@ -272,7 +272,7 @@
 		channel = null
 
 	// Nearby active jammers prevent the message from transmitting
-	if(is_jammed())
+	if(is_jammed(freq == FREQ_CENTCOM || freq == FREQ_SYNDICATE ? JAMMER_PROTECTION_RADIO_ADVANCED : JAMMER_PROTECTION_RADIO_BASIC))
 		return
 
 	// Determine the identity information which will be attached to the signal.
