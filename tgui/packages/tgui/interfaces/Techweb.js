@@ -719,6 +719,7 @@ const TechNode = (props, context) => {
     nodes,
     compact,
     researchable,
+    tech_tier,
   } = data;
   const { node, nodetails, nocontrols, destructive } = props;
   const { id, can_unlock, tier, costs } = node;
@@ -727,7 +728,7 @@ const TechNode = (props, context) => {
     description,
     design_ids,
     prereq_ids,
-    tech_tier,
+    node_tier,
   } = node_cache[id];
   const [
     techwebRoute,
@@ -744,7 +745,7 @@ const TechNode = (props, context) => {
       title={name}
       width={25}>
       <Box inline className="Techweb__TierDisplay">
-        Tier {tech_tier}
+        Tier {node_tier}
       </Box>
       {!nocontrols && (
         <>
@@ -767,15 +768,10 @@ const TechNode = (props, context) => {
             </Button>
           )}
           {
-            (tier+1 < tech_tier) && (
+            ((node_tier > tech_tier+1)) && (
               <Tooltip
                 content={"Researching this costs discovery points inefficiently. Please research tier "+(tier+1)+" techs first."}>
                 <Icon style={{ 'margin-left': '3px' }} mr={1} name="exclamation-triangle" color="yellow" />
-              </Tooltip>
-            ) || (tier+1 === tech_tier) && (
-              <Tooltip
-                content={"This research costs discovery points efficiently!"}>
-                <Icon style={{ 'margin-left': '3px' }} mr={1} name="check-circle" color="green" />
               </Tooltip>
             )
           }
