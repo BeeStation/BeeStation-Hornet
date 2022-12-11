@@ -15,9 +15,8 @@
 
 /datum/keybinding/living/resist/down(client/user)
 	. = ..()
-	if(.)
+	if(. || !isliving(user.mob))
 		return
-	if (!isliving(user.mob)) return
 	var/mob/living/L = user.mob
 	L.resist()
 	return TRUE
@@ -32,9 +31,7 @@
 
 /datum/keybinding/living/rest/down(client/user)
 	. = ..()
-	if(.)
-		return
-	if(!isliving(user.mob))
+	if(. || !isliving(user.mob))
 		return
 	var/mob/living/L = user.mob
 	L.lay_down()
@@ -49,7 +46,7 @@
 
 /datum/keybinding/living/look_up/down(client/user)
 	. = ..()
-	if(.)
+	if(. || !isliving(user.mob))
 		return
 	var/mob/living/L = user.mob
 	L.look_up(lock = TRUE)
@@ -57,7 +54,7 @@
 
 /datum/keybinding/living/look_up/up(client/user)
 	. = ..()
-	if(.)
+	if(. || !isliving(user.mob))
 		return
 	var/mob/living/L = user.mob
 	L.look_reset()
@@ -80,8 +77,39 @@
 
 /datum/keybinding/living/look_down/up(client/user)
 	. = ..()
-	if(.)
+	if(. || !isliving(user.mob))
 		return
 	var/mob/living/L = user.mob
 	L.look_reset()
+	return TRUE
+
+
+/datum/keybinding/living/move_up
+	key = "R"
+	name = "move up"
+	full_name = "Move Up"
+	description = "Try moving upwards."
+	keybind_signal = COMSIG_KB_LIVING_MOVEUP_DOWN
+
+/datum/keybinding/living/move_up/down(client/user)
+	. = ..()
+	if(. || !isliving(user.mob))
+		return
+	var/mob/living/L = user.mob
+	L.zMove(UP, TRUE, L.movement_type & VENTCRAWLING)
+	return TRUE
+
+/datum/keybinding/living/move_down
+	key = "F"
+	name = "move down"
+	full_name = "Move Down"
+	description = "Try moving downwards."
+	keybind_signal = COMSIG_KB_LIVING_MOVEDOWN_DOWN
+
+/datum/keybinding/living/move_down/down(client/user)
+	. = ..()
+	if(. || !isliving(user.mob))
+		return
+	var/mob/living/L = user.mob
+	L.zMove(DOWN, TRUE, L.movement_type & VENTCRAWLING)
 	return TRUE

@@ -6,7 +6,7 @@
 	return iscarbon(user.mob)
 
 /datum/keybinding/carbon/toggle_throw_mode
-	key = "R"
+	key = null // unbound by default
 	name = "toggle_throw_mode"
 	full_name = "Toggle throw mode"
 	description = "Toggle throwing the current item or not."
