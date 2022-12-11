@@ -1,0 +1,6 @@
+author: Floyd,ActionNinja,BetaCentari
+delete-after: true
+changes:
+  - soundadd: added a TON of new sounds under sound/surgery and sound/items/handling
+  - code_imp: Changed some inventory handling to configure picking up and putting
+      down and dropping items
