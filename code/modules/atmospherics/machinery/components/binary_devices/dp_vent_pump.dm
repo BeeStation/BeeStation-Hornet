@@ -88,6 +88,8 @@
 				air_update_turf()
 
 				var/datum/pipeline/parent1 = parents[1]
+				if(!parent1)
+					return
 				parent1.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 	else //external -> output
