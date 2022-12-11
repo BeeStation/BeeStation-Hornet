@@ -101,7 +101,7 @@
 	. = ..()
 	. += update_emissive_block()
 
-/atom/movable/proc/can_zFall(turf/source, levels = 1, turf/target, direction)
+/atom/movable/proc/can_zFall(turf/source, turf/target, direction)
 	if(!direction)
 		direction = DOWN
 	if(!source)

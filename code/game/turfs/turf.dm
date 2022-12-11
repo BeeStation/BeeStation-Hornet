@@ -291,24 +291,50 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		prev_turf.visible_message("<span class='danger'>[A] falls through [prev_turf]!</span>")
 	if(flags & FALL_INTERCEPTED)
 		return FALSE
-	if(zFall(A, levels + 1))
+	if(zFall(A, levels + 1, from_zfall = TRUE))
 		return FALSE
+	do_z_impact(A, levels)
+	return TRUE
+
+/turf/proc/do_z_impact(atom/movable/A, levels)
 	// You can "crash into" openspace above zero gravity, but it looks weird to say that
 	if(!isopenspace(src))
 		A.visible_message("<span class='danger'>[A] crashes into [src]!</span>")
 	A.onZImpact(src, levels)
-	return TRUE
 
-/turf/proc/can_zFall(atom/movable/A, levels = 1, turf/target)
+/// If an atom is allowed to zfall through this turf
+/turf/proc/can_zFall(atom/movable/A, turf/target)
 	return zPassOut(A, DOWN, target, falling = TRUE) && target.zPassIn(A, DOWN, src, falling = TRUE)
 
-/// A bit misleading name - this attempts a zfall if we can actually zfall
-/turf/proc/zFall(atom/movable/A, levels = 1, force = FALSE, old_loc = null)
-	var/turf/target = get_step_multiz(src, DOWN)
+/// Determines if an atom should start zfalling or continue zfalling
+/turf/proc/can_start_zFall(atom/movable/A, turf/target, force = FALSE, from_zfall = FALSE)
+	if(!from_zfall && A.zfalling) // We don't want to trigger another zfall
+		return FALSE
 	if(!target || (!isobj(A) && !ismob(A)))
 		return FALSE
-	if(!force && (!can_zFall(A, levels, target) || !A.can_zFall(src, levels, target, DOWN)))
+	if(!force && (!can_zFall(A, target) || !A.can_zFall(src, target, DOWN)))
 		return FALSE
+	return TRUE
+
+/// Checks if we can start a zfall and then performs the zfall
+/turf/proc/zFall(atom/movable/A, levels = 1, force = FALSE, old_loc = null, from_zfall = FALSE)
+	var/turf/target = get_step_multiz(src, DOWN)
+	if(!can_start_zFall(A, target, force, from_zfall))
+		return FALSE
+	if(from_zfall) // if this is a >1 level fall
+		sleep(2) // add some time
+		var/turf/new_turf = get_turf(A) // make sure we didn't move onto a solid turf, if we did this will perform a zimpact via the caller
+		target = get_step_multiz(new_turf, DOWN)
+		if(!new_turf.can_start_zFall(A, target, force, from_zfall))
+			new_turf.do_z_impact(A, levels - 1)
+			return TRUE // skip parent zimpact - do a zimpact on new turf, the turf below us is solid
+		else if(new_turf != src) // our fall continues... no need to check can_start_zFall again, because we just checked it
+			new_turf.do_zFall(A, levels, old_loc, target)
+			return TRUE // don't do an impact from the parent caller. essentially terminating the old fall with no actions
+	return do_zFall(A, levels, old_loc, target)
+
+/// Actually performs the zfall movement, regardless of if you can fall or not
+/turf/proc/do_zFall(atom/movable/A, levels = 1, old_loc = null, turf/target)
 	A.zfalling = TRUE
 	if(A.pulling && old_loc) // Moves whatever we're pulling to where we were before so we're still adjacent
 		A.pulling.moving_from_pull = A
