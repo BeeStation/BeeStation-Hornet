@@ -110,6 +110,7 @@
 /datum/controller/subsystem/verb_manager/##X/New(){\
 	NEW_SS_GLOBAL(SS##X);\
 	PreInit();\
+	ss_id="verb_manager_[#X]";\
 }\
 /datum/controller/subsystem/verb_manager/##X/fire() {..() /*just so it shows up on the profiler*/} \
 /datum/controller/subsystem/verb_manager/##X
