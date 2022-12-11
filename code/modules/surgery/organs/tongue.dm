@@ -370,7 +370,8 @@
 	name = "fungal tongue"
 	desc = "Black and moldy."
 	icon_state = "tonguepsyphoza"
-	say_mod = "bubbles"
+	say_mod = "clicks"
+	//Black tongue
 	color = "#1b1b1b"
 	liked_food = RAW | GROSS
 	disliked_food = DAIRY
