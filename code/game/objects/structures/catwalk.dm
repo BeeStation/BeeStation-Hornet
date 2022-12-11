@@ -35,6 +35,3 @@
 
 /obj/structure/lattice/catwalk/can_climb_through()
 	return FALSE
-
-/obj/structure/lattice/catwalk/can_climb_around()
-	return TRUE

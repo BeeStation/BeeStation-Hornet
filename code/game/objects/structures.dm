@@ -128,7 +128,3 @@
 /// If you can climb WITHIN this structure, lattices for example. Used by z_transit (Move Upwards verb)
 /obj/structure/proc/can_climb_through()
 	return FALSE
-
-/// If you can climb around this structure, catwalks for example. Requires an adjacent openspace that has no climb_through blocking structures. Used by z_transit (Move Upwards verb)
-/obj/structure/proc/can_climb_around()
-	return FALSE

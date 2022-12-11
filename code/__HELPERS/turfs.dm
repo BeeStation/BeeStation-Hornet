@@ -376,20 +376,4 @@ Turf and target are separate in case you want to teleport some distance from a t
 	for(var/obj/structure/S in target)
 		if(S.can_climb_through())
 			return TRUE
-		else if(S.can_climb_around())
-			var/climb_around = FALSE
-			var/list/adjacent_turfs = get_adjacent_open_turfs(target)
-			for(var/turf/T as() in adjacent_turfs)
-				if(!isopenspace(T))
-					continue
-				var/climbthrough_adjacent = FALSE
-				var/any_structure = FALSE
-				for(var/obj/structure/S_inner in T)
-					any_structure = TRUE
-					climbthrough_adjacent = S_inner.can_climb_through()
-				climb_around = climb_around || climbthrough_adjacent || !any_structure
-				if(climb_around)
-					break
-			// if we can't climb around a catwalk, no point in checking any more, so return anyway
-			return climb_around
 	return FALSE
