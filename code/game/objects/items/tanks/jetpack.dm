@@ -202,7 +202,8 @@
 /obj/item/tank/jetpack/combustion
 	name = "rocket jetpack"
 	desc = "A jetpack capable of powerful flight, strong enough to counteract the effects of gravity. Uses the high energy output of plasma combustion to generate enough thrust."
-	icon_state = "jetpack"
+	icon_state = "jetpack-rocket"
+	item_state =  "jetpack-rocket"
 	gas_type = null
 	use_ion_trail = FALSE
 	var/gravity_joules = 10000
