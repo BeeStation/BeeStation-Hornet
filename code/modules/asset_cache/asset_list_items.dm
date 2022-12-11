@@ -382,16 +382,16 @@
 	var/target_items = list()
 	var/prize_dummy = list()
 	for(var/obj/machinery/vendor/V as() in typesof(/obj/machinery/vendor))
-		var/obj/machinery/vendor/dummy = new V()
-		prize_dummy |= dummy.prize_list // prize_list is added by Init()
-		qdel(dummy)
+		V = new V()
+		prize_dummy |= V.prize_list // prize_list is added by Init()
+		qdel(V)
 	for(var/datum/data/vendor_equipment/V as() in prize_dummy)
 		target_items |= V.equipment_path
 	for(var/obj/machinery/vending/V as() in typesof(/obj/machinery/vending))
-		var/obj/machinery/vending/dummy = new V() // It seems `initial(list var)` has nothing. need to make a type.
-		for(var/O in list(dummy.products, dummy.premium, dummy.contraband))
+		V = new V() // It seems `initial(list var)` has nothing. need to make a type.
+		for(var/O in list(V.products, V.premium, V.contraband))
 			target_items |= O
-		qdel(dummy)
+		qdel(V)
 
 	// building icons for each item
 	for (var/k in target_items)
