@@ -71,7 +71,13 @@
 	var/upwards = dir == UP
 	var/move_verb = "floating"
 	var/delay = 1 SECONDS
-	if(!incorporeal_move)
+	if(istype(loc, /obj/effect/dummy/phased_mob)) // I despise this
+		var/obj/effect/dummy/phased_mob/L = loc
+		L.relaymove(src, dir)
+		return
+	if(incorporeal_move || (movement_type & PHASING))
+		move_verb = "moving"
+	else
 		//Check if we can travel in that direction
 		if(((upwards && !target.allow_z_travel) || (!upwards && !source.allow_z_travel)))
 			to_chat(src, "<span class='warning'>Something is blocking you!</span>")
@@ -81,7 +87,6 @@
 			to_chat(src, "<span class='warning'>Something is blocking you!</span>")
 			return FALSE
 		if(has_gravity(source))
-			delay = 3 SECONDS
 			move_verb = "flying"
 			if(upwards)
 				// If there's gravity and the space above is not climbable, don't travel
@@ -94,6 +99,7 @@
 						return
 				else if(can_climb)
 					move_verb = "climbing"
+				delay = 3 SECONDS
 			else if(can_climb)
 				move_verb = "climbing"
 			else if(!(movement_type & FLYING) && has_jetpack_power(TRUE, THRUST_REQUIREMENT_GRAVITY * 0.5, require_stabilization = FALSE))
