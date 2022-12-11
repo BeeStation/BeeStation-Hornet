@@ -32,6 +32,8 @@
 	resistance_flags = FLAMMABLE
 	var/foldable = /obj/item/stack/sheet/cardboard
 	var/illustration = "writing"
+	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/cardboardbox_pickup.ogg'
 
 /obj/item/storage/box/Initialize(mapload)
 	. = ..()
@@ -765,6 +767,8 @@
 	item_state = "zippo"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT
+	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
 
 /obj/item/storage/box/matches/ComponentInitialize()
 	. = ..()
