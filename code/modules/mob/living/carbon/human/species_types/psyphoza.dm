@@ -12,7 +12,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	species_language_holder = /datum/language_holder/psyphoza
 
-	offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,-2), OFFSET_EARS = list(0,-1), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,-2), OFFSET_HEAD = list(0,-2), OFFSET_FACE = list(0,-1), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0))
+	offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,-1), OFFSET_EARS = list(0,-1), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,-1), OFFSET_HEAD = list(0,-1), OFFSET_FACE = list(0,-1), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0))
 
 	mutant_brain = /obj/item/organ/brain/psyphoza
 	mutanteyes = /obj/item/organ/eyes/psyphoza
@@ -23,7 +23,7 @@
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 
 	mutant_bodyparts = list("psyphoza_cap")
-	default_features = list("psyphoza_cap" = "Wide", "body_size" = "Normal")
+	default_features = list("psyphoza_cap" = "Portobello", "body_size" = "Normal")
 
 	species_chest = /obj/item/bodypart/chest/psyphoza
 	species_head = /obj/item/bodypart/head/psyphoza
@@ -274,10 +274,14 @@
 	. = ..()
 	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
 	filters += filter(type = "radial_blur", size = 0.012)
+	//All the colors
 	color = "#f00" // start at red
-	animate(src, color = "#0f0", time = 1 SECONDS, loop = -1, flags = ANIMATION_PARALLEL) //Move to green
-	animate(color = "#00f", time = 1 SECONDS) //Move to blue
-	animate(color = "#f00", time = 1 SECONDS) //Move back to red
+	animate(src, color = "#ff0", time = 0.3 SECONDS, loop = -1, flags = ANIMATION_PARALLEL)
+	animate(color = "#0f0", time = 0.3 SECONDS)
+	animate(color = "#0ff", time = 0.3 SECONDS)
+	animate(color = "#00f", time = 0.3 SECONDS)
+	animate(color = "#f0f", time = 0.3 SECONDS)
+	animate(color = "#f00", time = 0.3 SECONDS)
 
 //Overwrite this so the head is drawn on the upmost, otherwise head sprite, for psyphoza, clips into arms
 /datum/species/psyphoza/replace_body(mob/living/carbon/C, var/datum/species/new_species)

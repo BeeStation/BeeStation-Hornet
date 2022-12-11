@@ -58,7 +58,7 @@
 						"ipc_antenna" = "None",
 						"ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)",
 						"insect_type" = "Common Fly",
-						"psyphoza_cap" = "Wide"
+						"psyphoza_cap" = "Portobello"
 					)
 	var/list/custom_names = list()
 	var/preferred_ai_core_display = "Blue"
