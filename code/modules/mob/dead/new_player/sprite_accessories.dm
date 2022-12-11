@@ -2673,9 +2673,9 @@
 	color_src = MUTCOLORS
 
 /datum/sprite_accessory/psyphoza_cap/wide
-	name = "Wide"
+	name = "Portobello"
 	icon_state = "wide"
 
 /datum/sprite_accessory/psyphoza_cap/cup
-	name = "Cup"
+	name = "Chanterelle"
 	icon_state = "cup"
