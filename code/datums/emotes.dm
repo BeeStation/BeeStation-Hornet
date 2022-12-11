@@ -94,10 +94,6 @@
 
 	var/dchatmsg = "<b>[user]</b>[space][msg]"
 
-	var/tmp_sound = get_sound(user)
-	if(tmp_sound && (!only_forced_audio || !intentional))
-		playsound(user, tmp_sound, 50, vary)
-
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!M.client || isnewplayer(M))
 			continue
@@ -105,10 +101,11 @@
 		if(M.stat == DEAD && M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTSIGHT) && !(M in viewers(T, null)))
 			M.show_message("[FOLLOW_LINK(M, user)] [dchatmsg]")
 
-	if(emote_type == EMOTE_AUDIBLE)
+	if(emote_type & EMOTE_AUDIBLE)
 		user.audible_message(msg, audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE), separation = space)
 	else
 		user.visible_message(msg, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE), separation = space)
+	return TRUE
 
 /datum/emote/proc/get_sound(mob/living/user)
 	return sound //by default just return this var.
