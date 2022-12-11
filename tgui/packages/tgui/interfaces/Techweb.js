@@ -772,6 +772,11 @@ const TechNode = (props, context) => {
                 content={"Researching this costs discovery points inefficiently. Please research tier "+(tier+1)+" techs first."}>
                 <Icon style={{ 'margin-left': '3px' }} mr={1} name="exclamation-triangle" color="yellow" />
               </Tooltip>
+            ) || (tier+1 === tech_tier) && (
+              <Tooltip
+                content={"This research costs discovery points efficiently!"}>
+                <Icon style={{ 'margin-left': '3px' }} mr={1} name="check-circle" color="green" />
+              </Tooltip>
             )
           }
           {destructive && (
