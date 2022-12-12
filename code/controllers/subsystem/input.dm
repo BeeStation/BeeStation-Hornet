@@ -143,7 +143,7 @@ VERB_MANAGER_SUBSYSTEM_DEF(input)
 	..()
 
 	var/moves_this_run = 0
-	for(var/mob/user in GLOB.keyloop_list)
+	for(var/mob/user in GLOB.player_list)
 		moves_this_run += user.focus?.keyLoop(user.client)//only increments if a player moves due to their own input
 
 	movements_per_second = MC_AVG_SECONDS(movements_per_second, moves_this_run, wait TICKS)
