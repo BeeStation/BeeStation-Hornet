@@ -85,7 +85,7 @@
 
 
 /datum/keybinding/living/move_up
-	key = "R"
+	key = "F"
 	name = "move up"
 	full_name = "Move Up"
 	description = "Try moving upwards."
@@ -100,7 +100,7 @@
 	return TRUE
 
 /datum/keybinding/living/move_down
-	key = "F"
+	key = "C"
 	name = "move down"
 	full_name = "Move Down"
 	description = "Try moving downwards."
