@@ -759,14 +759,21 @@ const TechNode = (props, context) => {
               Details
             </Button>
           )}
-          {((tier > 0) && (!destructive)) && (!!researchable) && (
-            <Button
-              icon="lightbulb"
-              disabled={!can_unlock || tier > 1}
-              onClick={() => act("researchNode", { node_id: id })}>
-              Research
-            </Button>
-          )}
+          {((tier > 0) && (!destructive)) && (!!researchable) && ((
+            node_tier > tech_tier+1) ? (
+              <Button.Confirm
+                icon="lightbulb"
+                disabled={!can_unlock || tier > 1}
+                onClick={() => act("researchNode", { node_id: id })}
+                content="Research" />
+            ) : (
+              <Button
+                icon="lightbulb"
+                disabled={!can_unlock || tier > 1}
+                onClick={() => act("researchNode", { node_id: id })}>
+                Research
+              </Button>
+            ))}
           {
             (node_tier > tech_tier+1) && (
               <Tooltip
