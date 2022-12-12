@@ -2679,3 +2679,7 @@
 /datum/sprite_accessory/psyphoza_cap/cup
 	name = "Chanterelle"
 	icon_state = "cup"
+
+/datum/sprite_accessory/psyphoza_cap/round
+	name = "Psilocybe"
+	icon_state = "round"

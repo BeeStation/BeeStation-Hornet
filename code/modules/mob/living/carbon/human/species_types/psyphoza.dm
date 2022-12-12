@@ -72,7 +72,7 @@
 	///The eyes original sight flags - used between toggles
 	var/sight_flags
 	///Time between uses
-	var/cooldown = 2 SECONDS
+	var/cooldown = 1 SECONDS
 	///List of overlays we made
 	var/list/overlays = list()
 	///Reference to 'kill these overlays' timer
