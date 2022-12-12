@@ -4,5 +4,5 @@
 	var/creation_time = 0
 
 /datum/callback/verb_callback/New(thingtocall, proctocall, ...)
-	creation_time = REALTIMEOFDAY
+	creation_time = DS2TICKS(world.time)
 	. = ..()
