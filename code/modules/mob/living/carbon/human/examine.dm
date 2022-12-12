@@ -237,8 +237,10 @@
 		if(DISGUST_LEVEL_DISGUSTED to INFINITY)
 			msg += "[t_He] look[p_s()] extremely disgusted.\n"
 
-	if(blood_volume < BLOOD_VOLUME_SAFE)
+	if(blood_volume < BLOOD_VOLUME_SAFE && (dna.species.id == SPECIES_HUMAN || dna.species.id == SPECIES_FELINE || dna.species.id == SPECIES_MONKEY || dna.species.id == SPECIES_DULLAHAN))
 		msg += "[t_He] [t_has] pale skin.\n"
+	if(blood_volume < BLOOD_VOLUME_SAFE ! (dna.species.id == SPECIES_HUMAN || dna.species.id == SPECIES_FELINE || dna.species.id == SPECIES_MONKEY || dna.species.id == SPECIES_DULLAHAN))
+		msg += "[t_He] [t_has] appears faint.\n"
 
 	if(bleedsuppress)
 		msg += "[t_He] [t_is] bandaged with something.\n"
