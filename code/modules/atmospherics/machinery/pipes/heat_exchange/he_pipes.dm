@@ -31,7 +31,7 @@
 		else
 			var/turf/open/OT = T
 			environment_temperature = OT.GetTemperature()
-	else
+	else if(T != null)
 		environment_temperature = T.return_temperature()
 
 	if(pipe_air != null)

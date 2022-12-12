@@ -86,6 +86,9 @@
 	///Used to decide what kind of reverb the area makes sound have
 	var/sound_environment = SOUND_ENVIRONMENT_NONE
 
+	///Typepath to limit the areas (subtypes included) that atoms in this area can smooth with. Used for shuttles.
+	var/area/area_limited_icon_smoothing
+
 	//Lighting overlay
 	var/obj/effect/lighting_overlay
 	var/lighting_overlay_colour = "#FFFFFF"
@@ -101,6 +104,9 @@
 	var/network_root_id = null
 	/// Area network id when you want to find all devices hooked up to this area
 	var/network_area_id = null
+
+	/// How hard it is to hack airlocks in this area
+	var/airlock_hack_difficulty = AIRLOCK_SECURITY_NONE
 
 /**
   * A list of teleport locations

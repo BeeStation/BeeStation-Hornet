@@ -1923,7 +1923,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			It teaches you how to use your claws and tail to gain an advantage in combat, \
 			don't buy this unless you are a lizard or plan to give it to one as only they can understand the ancient draconic words."
 	item = /obj/item/book/granter/martial/tribal_claw
-	cost = 14
+	cost = 6
 	surplus = 0
 	restricted_species = list(SPECIES_LIZARD)
 
@@ -2230,11 +2230,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/role_restricted/pressure_mod
 	name = "Kinetic Accelerator Pressure Mod"
-	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors and in a vacuum. \
+	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. \
 			Occupies 35% mod capacity."
 	item = /obj/item/borg/upgrade/modkit/indoors
-	cost = 5 //you need two for full damage, so total of 10 for maximum damage
-	limited_stock = 2 //you can't use more than two!
+	cost = 5 //you need one for full damage, so total of 5 for maximum damage
+	limited_stock = 1 //you can't use more than one!
 	restricted_roles = list(JOB_NAME_SHAFTMINER)
 
 /datum/uplink_item/role_restricted/esaw
@@ -2397,6 +2397,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/device_tools/antag_lasso
 	name = "Mindslave Lasso"
 	desc = "A state of the art taming device.\n Use this device to tame almost any animal by lassoing and untying them.\n Tamed animals can be rode & commanded!"
-	item = /obj/item/mob_lasso/antag
+	item = /obj/item/mob_lasso/traitor
 	cost = 3
 	surplus = 0

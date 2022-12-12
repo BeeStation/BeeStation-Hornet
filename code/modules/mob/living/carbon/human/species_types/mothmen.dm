@@ -25,6 +25,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/moth
 	inert_mutation = STRONGWINGS
+	deathsound = 'sound/voice/moth/moth_deathgasp.ogg'
 
 	species_chest = /obj/item/bodypart/chest/moth
 	species_head = /obj/item/bodypart/head/moth
@@ -55,6 +56,12 @@
 	if(istype(weapon, /obj/item/melee/flyswatter))
 		return 9 //flyswatters deal 10x damage to moths
 	return 0
+
+/datum/species/moth/get_laugh_sound(mob/living/carbon/user)
+	return 'sound/emotes/mothlaugh.ogg'
+
+/datum/species/moth/get_scream_sound(mob/living/carbon/user)
+	return 'sound/voice/moth/scream_moth.ogg'
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	..()
@@ -179,4 +186,3 @@
 /datum/status_effect/cocooned
 	id = "cocooned"
 	alert_type = null
-
