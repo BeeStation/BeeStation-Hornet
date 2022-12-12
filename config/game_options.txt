@@ -481,6 +481,7 @@ ROUNDSTART_RACES felinid
 ROUNDSTART_RACES lizard
 ROUNDSTART_RACES moth
 #ROUNDSTART_RACES fly
+ROUNDSTART_RACES psyphoza
 
 
 ## Races that are better than humans in some ways, but worse in others
@@ -506,7 +507,6 @@ ROUNDSTART_RACES plasmaman
 #ROUNDSTART_RACES skeleton
 #ROUNDSTART_RACES slime
 #ROUNDSTART_RACES zombie
-#ROUNDSTART_RACES psyphoza
 
 ## Roundstart no-reset races
 ##-------------------------------------------------------------------------------------------
