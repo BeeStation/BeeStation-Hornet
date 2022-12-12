@@ -15,7 +15,7 @@
 	flags_inv = HIDEHAIR
 	bang_protect = 1
 	clothing_flags = THICKMATERIAL
-	species_restricted = SPECIES_PSYPHOZA
+	species_restricted = FLAG_PSYPHOZA
 
 	var/can_flashlight = FALSE //if a flashlight can be mounted. if it has a flashlight and this is false, it is permanently attached.
 	var/obj/item/flashlight/seclite/attached_light

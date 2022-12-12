@@ -416,5 +416,4 @@
 /obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, initialising)
 	. = ..()
 	if(istype(M))
-		M.become_blind("NoCure", /atom/movable/screen/fullscreen/blind/psychic, FALSE)
-		M.AddComponent(/datum/component/blind_sense/psychic)
+		M.become_blind("NoCure", /atom/movable/screen/fullscreen/blind/psychic)

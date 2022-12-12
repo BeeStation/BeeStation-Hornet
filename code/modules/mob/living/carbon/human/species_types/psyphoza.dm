@@ -6,6 +6,7 @@
 /datum/species/psyphoza
 	name = "\improper Psyphoza"
 	id = SPECIES_PSYPHOZA
+	bodyflag = FLAG_PSYPHOZA
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/psyphoza
 	species_traits = list(NOEYESPRITES, AGENDER, MUTCOLORS, TRAIT_RESISTCOLD)
 	sexes = FALSE
@@ -179,8 +180,7 @@
 	N.override = TRUE
 	N.loc = target
 	N.plane = target.plane
-	N.name = "???" //Stop players reading name-
-	N.color = "#000" //or reading icon
+	N.name = "???" //Stop players reading names
 	owner.client.images += N
 	//Add overlay for highlighting
 	N.add_overlay(M)

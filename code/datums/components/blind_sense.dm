@@ -81,31 +81,3 @@
 	SIGNAL_HANDLER
 
 	ears = null
-
-//Psychich variant for psyphoza
-/datum/component/blind_sense/psychic
-	texture = "texture"
-
-/datum/component/blind_sense/psychic/highlight_object(atom/target, type, dir)
-	//setup icon
-	var/icon/I = icon('icons/mob/blind.dmi', texture)
-
-	//mask icon
-	var/icon/mask = icon('icons/mob/blind.dmi', type || "sound", dir)
-	//If the mob has an icon we can use, use it
-	if(type == "mob" && target.icon && (target.icon_state || initial(target.icon_state)))
-		mask = icon(target.icon, (target.icon_state || initial(target.icon_state)), target.dir)
-	I.AddAlphaMask(mask)
-
-	//Setup display image
-	var/image/M = image(I, get_turf(target), layer = HUD_LAYER)
-	M.plane = HUD_PLANE
-	if(bloom)
-		M.filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
-	M.filters += filter(type = "blur", size = 1) //IM THE INSERTED LINE!
-	//Animate fade & delete
-	animate(M, alpha = 0, time = sense_time + 1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
-	addtimer(CALLBACK(src, .proc/handle_image, M), sense_time)
-
-	//Add image to client
-	owner.client?.images += M
