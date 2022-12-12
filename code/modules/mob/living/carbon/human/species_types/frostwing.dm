@@ -30,7 +30,7 @@
 
 	body_temperature_normal = 197 // 310.15 (normal bodytemp) - 293.15 (normal atmos) = 17, 180 + 17 = 197
 	body_temperature_cold_damage_limit = 197 - 50
-	body_temperature_heat_damage_limit = 197 + 50
+	body_temperature_heat_damage_limit = 197 + 30
 
 /datum/species/frostwing/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.frostwing_names)]-[pick(GLOB.frostwing_names)][prob(50) ? "-[pick(GLOB.frostwing_names)]" : ""][prob(10) ? "-[pick(GLOB.frostwing_names)]" : ""]"
