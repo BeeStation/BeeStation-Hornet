@@ -282,16 +282,20 @@
 			else
 				var/static/fake_locations = list(
 					"turn around", "go back", "behind the wall", "inside of a locker",
-					"arrival pod", "brig", "bridge", "medbay central", "cargo bay",
-					"research division", "somewhere hallway", "centcom", "lavaland mining office",
+					"arrival pod no.1", "bridge outpost", "medical central hallway", "cargo dock",
+					"ai satellite", "departure shuttle deck", "exploration shuttie", "captain's offlce",
+					"hydropanics", "next to a clown", "holodock", "centcom ferry", "space kindergarten",
+					"service division", "somewhere hallway", "centcom", "lavaland mining office",
 					"spirit realm", "bearspace", "nullspace", "hyperspace", "voidspace",
-					"laghter demon's belly", "lizardpeople reptilian conspiracy association"
+					"laghter demon's belly", "lizardpeople reptilian conspiracy association",
+					"wizard's den", "covered within a legion", "on lava", "morguo", "virogenetics"
 				)
 				location = prob(90) ? "[dir2text(get_dir(usr, prob(90) ? pick(GLOB.player_list - user) : recipient_body))]" : pick(fake_locations)
 				// 81% (90% * 90%): tracks a proper person
 				// 9% (90% * 10%): tracks a wrong person
 				// 10%: shows improper location
-			to_chat(user,"<span class='notice'>Hmm... [lowertext(location)]?</span>")
+			var/static/reckoning = list("Hmm...", "Maybe...", "Looks like", "I think it is...", "Uuuuh,", "Ehh...")
+			to_chat(user,"<span class='notice'>[pick(reckoning)] [lowertext(location)]?</span>")
 
 /obj/effect/proc_holder/spell/targeted/mail_track/proc/glue_mail(obj/item/mail)
 	ADD_TRAIT(mail, TRAIT_NODROP, MAGICALLY_GLUED_ITEM_TRAIT)
