@@ -94,8 +94,8 @@
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/user)
 	if(!ishuman(user) || user.mind?.miming)
 		return
-    var/mob/living/carbon/H = user
-    return H.dna?.species?.get_scream_sound(H)
+	var/mob/living/carbon/H = user
+	return H.dna?.species?.get_scream_sound(H)
 
 /datum/emote/living/carbon/human/pale
 	key = "pale"
