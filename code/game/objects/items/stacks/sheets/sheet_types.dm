@@ -301,6 +301,8 @@ GLOBAL_LIST_INIT(wood_recipes, list ( \
 	force = 0
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/cotton
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	var/pull_effort = 30
 	var/loom_result = /obj/item/stack/sheet/cotton/cloth
 
@@ -384,6 +386,8 @@ GLOBAL_LIST_INIT(silk_recipes, list ( \
 	item_state = "sheet-silk"
 	novariants = TRUE
 	merge_type = /obj/item/stack/sheet/silk
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
 /obj/item/stack/sheet/silk/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.silk_recipes
@@ -406,6 +410,8 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
 	force = 0
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/durathread
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
 /obj/item/stack/sheet/durathread/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.durathread_recipes

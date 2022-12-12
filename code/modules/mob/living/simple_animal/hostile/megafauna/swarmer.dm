@@ -95,6 +95,8 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 //AI versions of the swarmer mini-antag
 //This is an Abstract Base, it re-enables AI, but does not give the swarmer any goals/targets
 /mob/living/simple_animal/hostile/swarmer/ai
+	health = 20
+	maxHealth = 20
 	wander = TRUE
 	faction = list("swarmer", "mining")
 	weather_immunities = list("ash") //wouldn't be fun otherwise
@@ -284,5 +286,5 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 /obj/structure/lattice/catwalk/swarmer_catwalk
 	name = "swarmer catwalk"
 	desc = "A catwalk-like mesh, produced by swarmers to allow them to navigate hostile terrain."
-	icon = 'icons/obj/smooth_structures/swarmer_catwalk.dmi'
+	icon = 'icons/obj/smooth_structures/catwalks/swarmer_catwalk.dmi'
 	icon_state = "swarmer_catwalk"

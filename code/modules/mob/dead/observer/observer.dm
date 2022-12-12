@@ -155,8 +155,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE)
 
 /mob/dead/observer/get_photo_description(obj/item/camera/camera)
-	if(!invisibility || camera.see_ghosts)
-		return "You can also see a g-g-g-g-ghooooost!"
+	return "You can also see a g-g-g-g-ghooooost!"
 
 /mob/dead/observer/narsie_act()
 	var/old_color = color
