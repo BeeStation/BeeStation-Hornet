@@ -3,17 +3,13 @@
 	id = SPECIES_FROSTWING
 	bodyflag = FLAG_FROSTWING
 	default_color = "00FFFF"
-	species_traits = list(NO_UNDERWEAR)
-	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
-	mutant_bodyparts = list("wings_frostwing", "tail_frostwing")
+	species_traits = list(NO_UNDERWEAR, NOEYESPRITES)
+	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_AVIAN)
 	mutanttongue = /obj/item/organ/tongue/frostwing
-	mutantwings = /obj/item/organ/wings/frostwing
-	// Lungs are what actually allow them to breathe low pressure
+	// Lungs are what actually allow them to breathe low pressure, prefer cold temps, and take damage in station atmos
 	mutantlungs = /obj/item/organ/lungs/frostwing
 	// Their biology requires less oxygen due to the low pressure environment, so they don't take as much oxyloss.
 	oxymod = 0.5
-	// Full cold resist
-	inherent_traits = list(TRAIT_RESISTCOLD)
 	default_features = list("legs" = "Normal Legs", "body_size" = "Normal")
 	//changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	attack_verb = "slash"
@@ -37,3 +33,19 @@
 	if(unique && attempts < 10)
 		if(findname(.))
 			. = .(gender, TRUE, null, ++attempts)
+
+/datum/species/frostwing/CanFly(mob/living/carbon/human/H)
+	var/obj/item/bodypart/l_arm = H.get_bodypart(BODY_ZONE_L_ARM)
+	var/obj/item/bodypart/r_arm = H.get_bodypart(BODY_ZONE_R_ARM)
+	if(!istype(l_arm) || !istype(r_arm) || l_arm.disabled || r_arm.disabled)
+		return FALSE
+	if(H.stat || !(H.mobility_flags & MOBILITY_STAND))
+		return FALSE
+	var/turf/T = get_turf(H)
+	if(!T)
+		return FALSE
+	var/datum/gas_mixture/environment = T.return_air()
+	if(environment && !(environment.return_pressure() > 30))
+		to_chat(H, "<span class='warning'>The atmosphere is too thin for you to fly!</span>")
+		return FALSE
+	return TRUE

@@ -296,8 +296,7 @@
 		if(breath_temperature > cold_level_2_threshold && breath_temperature < cold_level_1_threshold)
 			H.apply_damage_type(cold_level_1_damage*cold_modifier, cold_damage_type)
 		if(breath_temperature < cold_level_1_threshold)
-			if(prob(20))
-				to_chat(H, "<span class='warning'>You feel [cold_message] in your [name]!</span>")
+			on_breath_temperature_unsafe(H, FALSE)
 
 	if(!HAS_TRAIT(H, TRAIT_RESISTHEAT)) // HEAT DAMAGE
 		var/heat_modifier = H.dna.species.heatmod
@@ -308,8 +307,16 @@
 		if(breath_temperature > heat_level_3_threshold)
 			H.apply_damage_type(heat_level_3_damage*heat_modifier, heat_damage_type)
 		if(breath_temperature > heat_level_1_threshold)
-			if(prob(20))
-				to_chat(H, "<span class='warning'>You feel [hot_message] in your [name]!</span>")
+			on_breath_temperature_unsafe(H, TRUE)
+
+
+/obj/item/organ/lungs/proc/on_breath_temperature_unsafe(mob/living/carbon/human/H, hot)
+	if(hot)
+		if(prob(20))
+			to_chat(H, "<span class='warning'>You feel [hot_message] in your [name]!</span>")
+	else
+		if(prob(20))
+			to_chat(H, "<span class='warning'>You feel [cold_message] in your [name]!</span>")
 
 /obj/item/organ/lungs/on_life()
 	..()
@@ -396,7 +403,26 @@
 	name = "frostwing lungs"
 	desc = "Lungs from a frostwing. They're adapted to the low-pressure atmosphere of lavaland's ice moon."
 	icon_state = "lungs"
+	// Half pressure
 	safe_breath_min = 8
+	safe_breath_max = 16
+	// Take small amounts of damage from too much air
+	safe_breath_dam_max = 1
+	// Frozen atmos is safe
+	cold_level_1_threshold = 150
+	cold_level_2_threshold = 90
+	cold_level_3_threshold = 50
+	// Make the station atmosphere hurt slightly
+	heat_level_1_threshold = 220
+	heat_level_1_damage = 1
+	heat_level_2_threshold = 260
+	heat_level_2_damage = 1
+	heat_level_3_threshold = 300
+
+/obj/item/organ/lungs/frostwing/on_breath_temperature_unsafe(mob/living/carbon/human/H, hot)
+	if(hot)
+		if(prob(10))
+			to_chat(H, "<span class='warning'>The air feels hot and heavy, you're weakened in this atmosphere.</span>")
 
 #undef PP
 #undef PP_MOLES

@@ -355,13 +355,12 @@
 /obj/item/organ/tongue/frostwing
 	name = "icy tongue"
 	desc = "A dark, birdlike tongue. It's cold to the touch."
-	// TODO
+	// TODO frostwing tongue sprite
 	icon_state = "tonguemoth"
 	say_mod = "caws"
 	// birds do not have very many taste buds
 	taste_sensitivity = 25
-	modifies_speech = TRUE
-	// chocolate is bad
+	// chocolate is bad for birds
 	disliked_food = SUGAR
 	// bird stuff
 	liked_food = VEGETABLES | FRUIT | GRAIN

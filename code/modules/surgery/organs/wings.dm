@@ -245,12 +245,3 @@
 		else
 			to_chat(H, "<span class='notice'>You beat your wings and begin to hover gently above the ground...</span>")
 			H.set_resting(FALSE, TRUE)
-
-/obj/item/organ/wings/frostwing
-	name = "pair of frosty wings"
-	desc = "A pair of frostwing wings."
-	icon_state = "frostwings"
-	flight_level = WINGS_FLYING
-	// placeholder
-	wing_type = "Angel"
-	canopen = TRUE
