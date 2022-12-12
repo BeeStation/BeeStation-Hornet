@@ -491,6 +491,7 @@ ROUNDSTART_RACES felinid
 ROUNDSTART_RACES lizard
 ROUNDSTART_RACES moth
 #ROUNDSTART_RACES fly
+ROUNDSTART_RACES psyphoza
 
 ## Races that are better than humans in some ways, but worse in others
 ROUNDSTART_RACES apid
@@ -522,7 +523,6 @@ ROUNDSTART_RACES plasmaman
 ## OP Halloween races:
 #ROUNDSTART_RACES skeleton
 #ROUNDSTART_RACES zombie
-#ROUNDSTART_RACES psyphoza
 
 ## Races that are straight upgrades. If these are on expect powergamers to always pick them
 #ROUNDSTART_RACES pod
