@@ -192,11 +192,11 @@
 	if(!can_interact(user))
 		return
 	if(mode == HEATER_MODE_COOL)
-		target_temperature = max(settable_temperature_median - settable_temperature_range, TCMB) - T0C
-		investigate_log("was set to [target_temperature] C by [key_name(user)]", INVESTIGATE_ATMOS)
+		target_temperature = (settable_temperature_median - settable_temperature_range) - T0C
+		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
 	else if(mode == HEATER_MODE_HEAT)
-		target_temperature = settable_temperature_median + settable_temperature_range - T0C
-		investigate_log("was set to [target_temperature] C by [key_name(user)]", INVESTIGATE_ATMOS)
+		target_temperature = (settable_temperature_median + settable_temperature_range) - T0C
+		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
 	else
 		return
 	balloon_alert(user, "You set the target temperature to [target_temperature] C.")

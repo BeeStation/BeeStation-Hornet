@@ -27757,7 +27757,7 @@
 	},
 /area/maintenance/central)
 "gYS" = (
-/obj/machinery/vending/cart,
+/obj/machinery/vending/job_disk,
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 8
 	},
