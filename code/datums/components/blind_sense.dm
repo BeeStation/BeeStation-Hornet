@@ -28,6 +28,10 @@
 		ears = C.ears
 		RegisterSignal(ears, COMSIG_PARENT_QDELETING, .proc/handle_ears)
 
+/datum/component/blind_sense/RemoveComponent()
+	. = ..()
+	qdel(src)
+
 /datum/component/blind_sense/proc/handle_hear(datum/source, atom/speaker, message)
 	SIGNAL_HANDLER
 

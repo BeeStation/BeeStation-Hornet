@@ -426,7 +426,8 @@
 /mob/living/proc/become_blind(source, atom/movable/screen/fullscreen/overlay)
 	if(!HAS_TRAIT(src, TRAIT_BLIND))
 		blind_eyes(1, overlay)
-		AddComponent(/datum/component/blind_sense)
+		if(QDELING(src))
+			AddComponent(/datum/component/blind_sense)
 	ADD_TRAIT(src, TRAIT_BLIND, source)
 
 /mob/living/proc/cure_nearsighted(source)
