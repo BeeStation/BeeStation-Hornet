@@ -1,0 +1,4 @@
+author: RKz
+delete-after: true
+changes:
+  - code_imp: redundant code ismovableatom(a) has been brought out back and shot
