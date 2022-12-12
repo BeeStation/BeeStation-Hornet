@@ -218,7 +218,7 @@
 /obj/effect/proc_holder/spell/targeted/mail_track
 	name = "Mailman's sense"
 	desc = "Your supernatural sense to assume where the recipent of your mail is. Using this will glue your mail, and you need to find its recipient to unglue it."
-	charge_max = 150
+	charge_max = 250
 	clothes_req = CLOTH_REQ_MAILMAN
 	range = -1
 	include_user = TRUE
