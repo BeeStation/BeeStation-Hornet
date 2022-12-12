@@ -56,6 +56,38 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">11 December 2022</h2>
+			<h3 class="author">Floyd,ActionNinja,BetaCentari updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="soundadd">added a TON of new sounds under sound/surgery and sound/items/handling</li>
+				<li class="code_imp">Changed some inventory handling to configure picking up and putting down and dropping items</li>
+			</ul>
+
+			<h2 class="date">10 December 2022</h2>
+			<h3 class="author">Crossedfall updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="server">Bumps the SQL schema version to 6.1</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Airlock hack difficulty now depends on the area. Easier to hack areas will have more labelled wires and less shock wires, while higher security areas will have shock and dud wires.</li>
+				<li class="code_imp">Adds the ability to label only specific wires on the hacking UI.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added animated emotes: *sweatdrop, *glasses, *annoyed, *sigh</li>
+				<li class="rscadd">Added audible emotes: *cough, *dwoop (IPC), *gasp, *msqueak (moth), *chitter (moth), *sigh, *snap2, *snap3, *sneeze, *sniff</li>
+				<li class="rscadd">Added emotes: *clear, *etwitch (felinid), *eyeroll, *huff</li>
+				<li class="tweak">Abductors, androids, apids, flypeople, golems, IPCs, moths, skeletons, and non-/mob/living/carbon/humans, and anyone with the NOBREATH trait will not play a sound for *cough, *gasp, *sigh, *sneeze, and *sniff</li>
+				<li class="rscadd">Added a unique moth laugh sound.</li>
+				<li class="rscadd">Added a unique moth deathgasp sound.</li>
+				<li class="tweak">Mothroaches now use insect-type emote messages and can use *click, *chitter, and *msqueak.</li>
+				<li class="code_imp">Clap emote now properly checks if you have arms.</li>
+				<li class="code_imp">Improved how *laugh and *scream determine per-species sounds.</li>
+				<li class="bugfix">Removed a duplicate *chime emoji.</li>
+				<li class="bugfix">Fixed some emotes having an extra period at the end of their messages.</li>
+			</ul>
+
 			<h2 class="date">09 December 2022</h2>
 			<h3 class="author">PowerfulBacon updated:</h3>
 			<ul class="changes bgimages16">
@@ -1041,84 +1073,6 @@
 			<ul class="changes bgimages16">
 				<li class="bugfix">Fixed some runtimes in Cyborg Self Monitoring and Robot Control.</li>
 				<li class="admin">Removed a useless admin message for if someone has an invalid keybind set.</li>
-			</ul>
-
-			<h2 class="date">10 October 2022</h2>
-			<h3 class="author">Bobbanz1 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">MULEbot is now capable of being summoned by the AI repeatedly instead of only once.</li>
-			</ul>
-			<h3 class="author">BrumalLake updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">self repairing with cable and welding now fixes part you initially targeted, and only one self repair can be done at a time but the time has been reduced from 5 to 1.5s</li>
-			</ul>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Autolathes now display the correct material cost</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removed PDAs.</li>
-				<li class="rscdel">Removed round-start backpack tablets.</li>
-				<li class="refactor">Due to a buyout and massive restructuring of Thinktronic Systems, all crew now start with tablets containing pre-installed programs for messaging, and programs for tasks previously done by PDAs.</li>
-				<li class="tweak">PDA sprites have been slightly changed to account for the new program overlays. Wide PDAs have normal sized screens, and PDAs start off with a black screen.</li>
-				<li class="rscadd">Added themes to tablets in the Settings app.</li>
-				<li class="tweak">Renamed Hardware Configuration to Settings.</li>
-				<li class="code_imp">Improved tablet flashlight UI interaction with cyborg code.</li>
-				<li class="admin">Added logging to PDA bombs.</li>
-				<li class="tweak">Brig physician now starts with a cartridge.</li>
-				<li class="rscadd">Added a locator app for janitors to find mops, cleanbots, and janicarts with.</li>
-				<li class="bugfix">Improved ModPC behavior with sechuds showing the wrong HUD.</li>
-				<li class="tweak">You can now use holochips directly on a PDA/tablet to insert credits to the ID inside.</li>
-				<li class="tweak">Tablet flashlight now uses movable lighting instead of jumping around</li>
-				<li class="tweak">Tablets can be used while inside lockers.</li>
-				<li class="code_imp">Changed tablet program access requirements to support lists.</li>
-				<li class="code_imp">Added an emoji entry TGUI interface. For use with the mime PDA.</li>
-				<li class="rscadd">Emagging a modPC now opens a console window with flavor text and sets the theme to syndicate.</li>
-				<li class="bugfix">Fixes PDA sent photos opening an undersized window.</li>
-				<li class="tweak">Cyborg integrated tablet now has a button background.</li>
-				<li class="tweak">AI now has a small integrated tablet only for sending messages.</li>
-				<li class="tweak">Added an improved photo selection TGUI menu, mainly for use by silicons.</li>
-				<li class="bugfix">Photos now describe their dimensions properly.</li>
-				<li class="bugfix">Photo descriptions no longer randomly place periods around.</li>
-				<li class="bugfix">Photos can no longer describe invisible things.</li>
-				<li class="rscadd">Nukie tablets now start with the Remote Airlock Control program, for remotely interfacing with the infiltrator's blast door.</li>
-				<li class="tweak">Regular cargo techs no longer have the Ore Silo logs in their PDA Cartridge. It's now locked to the QM.</li>
-				<li class="rscadd">Added a new Cargo Technician cartridge with its own icon.</li>
-				<li class="rscadd">Added a Log Viewer program for viewing ore silo and NTChat logs on the filesystem.</li>
-				<li class="bugfix">Modular computers now correctly show visible_messages to the user if they are holding it.</li>
-				<li class="rscdel">Removed the messaging console's system message capability.</li>
-				<li class="rscadd">The Status Display modPC app can now update status alert images.</li>
-			</ul>
-			<h3 class="author">sergeirocks100 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Lizardpeople can wear underwear again.</li>
-				<li class="imageadd">The separate male and female chest sprites for lizardpeople have been readded.</li>
-			</ul>
-
-			<h2 class="date">09 October 2022</h2>
-			<h3 class="author">BrumalLake updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">client-less can no longer use camera consoles</li>
-			</ul>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Cargo has now the option to buy singular or in bulk laser guns</li>
-				<li class="tweak">The laser guns are now under "Armory" rather than "Security"</li>
-				<li class="tweak">The cost for a bulk laser gun crate is now rebalanced to be a cheaper option compared to Energy guns</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="refactor">Radio jamming is now component based. (No player facing changes.)</li>
-			</ul>
-			<h3 class="author">etherware-novice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">hiveminds cant get objectives to target another host</li>
-				<li class="rscadd">examine boxes (but for real this time)</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed having nonexistent species data blocking Character Setup from opening by setting the slot to a random existing species.</li>
 			</ul>
 		</div>
 
