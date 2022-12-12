@@ -408,6 +408,8 @@
 	safe_breath_max = 16
 	// Take small amounts of damage from too much air
 	safe_breath_dam_max = 1
+	// Take burn damage from high atmos rather than oxyloss
+	safe_damage_type = BURN
 	// Frozen atmos is safe
 	cold_level_1_threshold = 150
 	cold_level_2_threshold = 90

@@ -5,6 +5,7 @@
 	default_color = "00FFFF"
 	species_traits = list(NO_UNDERWEAR, NOEYESPRITES)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_AVIAN)
+	action
 	mutanttongue = /obj/item/organ/tongue/frostwing
 	// Lungs are what actually allow them to breathe low pressure, prefer cold temps, and take damage in station atmos
 	mutantlungs = /obj/item/organ/lungs/frostwing
@@ -35,9 +36,11 @@
 			. = .(gender, TRUE, null, ++attempts)
 
 /datum/species/frostwing/CanFly(mob/living/carbon/human/H)
-	var/obj/item/bodypart/l_arm = H.get_bodypart(BODY_ZONE_L_ARM)
-	var/obj/item/bodypart/r_arm = H.get_bodypart(BODY_ZONE_R_ARM)
+	// Make sure we have frostwing arms that work
+	var/obj/item/bodypart/l_arm/frostwing/l_arm = H.get_bodypart(BODY_ZONE_L_ARM)
+	var/obj/item/bodypart/r_arm/frostwing/r_arm = H.get_bodypart(BODY_ZONE_R_ARM)
 	if(!istype(l_arm) || !istype(r_arm) || l_arm.disabled || r_arm.disabled)
+		to_chat(H, "<span class='warning'>You need both arms to fly!</span>")
 		return FALSE
 	if(H.stat || !(H.mobility_flags & MOBILITY_STAND))
 		return FALSE
@@ -49,3 +52,15 @@
 		to_chat(H, "<span class='warning'>The atmosphere is too thin for you to fly!</span>")
 		return FALSE
 	return TRUE
+
+/datum/species/frostwing/on_species_gain(mob/living/carbon/C)
+	. = ..()
+	if(ishuman(C) && !fly)
+		fly = new
+		fly.Grant(C)
+
+/datum/species/frostwing/on_species_loss(mob/living/carbon/C)
+	. = ..()
+	if(ishuman(C) && fly)
+		fly.Remove(C)
+		toggle_flight(C)
