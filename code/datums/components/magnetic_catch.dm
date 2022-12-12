@@ -9,7 +9,7 @@
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/examine)
-	if(ismovableatom(parent))
+	if(ismovable(parent))
 		AddElement(/datum/element/connect_loc, parent, loc_connections)
 		for(var/i in get_turf(parent))
 			if(i == parent)
