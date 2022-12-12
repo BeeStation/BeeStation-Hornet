@@ -36,6 +36,7 @@
 	//Fire bad!
 	burnmod = PSYPHOZA_BURNMOD
 
+//TODO: Remove this
 /datum/species/psyphoza/check_roundstart_eligible()
 	return TRUE
 
@@ -150,16 +151,13 @@
 
 //Get a list of nearby things & run 'em through a typecache
 /datum/action/item_action/organ_action/psychic_highlight/proc/ping_turf(turf/T, size = sense_range)
-	//call eye goof
 	toggle_eyes_fowards()
-	//Dull blind overlay
 	dim_overlay()
-	//Get nearby 'things'
+	//Get nearby 'things' to see with sense
 	var/list/nearby = range(size, T)
 	nearby -= owner
 	//Go through the list and render whitelisted types
 	for(var/atom/C as() in nearby)
-		//Check typecache
 		if(is_type_in_typecache(C, sense_blacklist))
 			continue
 		highlight_object(C)
@@ -169,13 +167,13 @@
 	//Build image
 	var/image/M = new()
 	M.appearance = target.appearance
-	M.pixel_x = 0 //Reset pixel adjustments to avoid unique bug - comment these two lines for funny
+	M.pixel_x = 0 //Reset pixel adjustments to avoid bug where overlays tower
 	M.pixel_y = 0
 	M.pixel_z = 0
 	M.pixel_w = 0
-	M.plane = PSYCHIC_PLANE
-	M.dir = target.dir //Not sure why I have to do this?
-	//make another image to obscure the name of the most likely xray'd target - also acts as the insert for the target
+	M.plane = PSYCHIC_PLANE //Draw overlay on this plane so we can use it as a mask
+	M.dir = target.dir
+	//make another image to obscure the name of the most likely xray'd target - also acts as the insert for the target in overlay list
 	var/image/N = new(M)
 	N.override = TRUE
 	N.loc = target
@@ -184,7 +182,6 @@
 	owner.client.images += N
 	//Add overlay for highlighting
 	N.add_overlay(M)
-	//Append overlay-holder image for removal later
 	overlays += N
 
 //Handle clicking for ranged trigger
@@ -201,7 +198,7 @@
 
 //Handle images deleting, stops hardel - also does eyes stuff
 /datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_backwards()
-	//Timer
+	//Timer steps
 	if(overlay_timer)
 		deltimer(overlay_timer)
 		overlay_timer = null
@@ -217,11 +214,11 @@
 				qdel(M)
 			continue
 	overlays.Cut(1, 0)
-	//eyes
+	//Set eyes back to normal
 	eyes?.sight_flags = sight_flags
 	owner.update_sight()
 
-//Dim blind overlay for blind_sense component
+//Dim blind overlay & reveal x-ray stuff for blind sense hearing - so we can hear noises through walls, unlike everyone else.
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_hear(datum/source, atom/speaker, message)
 	SIGNAL_HANDLER
 
@@ -244,6 +241,7 @@
 
 	ears = null
 
+//Plane that holds the masks for psychic ping
 /atom/movable/screen/plane_master/psychic
 	name = "psychic plane master"
 	plane = PSYCHIC_PLANE
@@ -255,16 +253,15 @@
 /atom/movable/screen/fullscreen/blind/psychic
 	icon_state = "trip"
 	icon = 'icons/mob/psychic.dmi'
+	//The color we return to after going black & back.
 	var/origin_color = "#1a1a1a"
 
 /atom/movable/screen/fullscreen/blind/psychic/Initialize(mapload)
 	. = ..()
-	//Display type
 	filters += filter(type = "radial_blur", size = 0.012)
-	//Set color to a darker shade, for the sake of our eyes
 	color = origin_color
 
-//And this seperate to avoid issues with animations & locate()
+//And this type as a seperate type-path to avoid issues with animations & locate()
 /atom/movable/screen/fullscreen/blind/psychic_highlight
 	icon_state = "trip"
 	icon = 'icons/mob/psychic.dmi'
@@ -275,7 +272,7 @@
 	. = ..()
 	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
 	filters += filter(type = "radial_blur", size = 0.012)
-	//All the colors
+	//Color animation
 	color = "#f00" // start at red
 	animate(src, color = "#ff0", time = 0.3 SECONDS, loop = -1, flags = ANIMATION_PARALLEL)
 	animate(color = "#0f0", time = 0.3 SECONDS)
@@ -283,23 +280,6 @@
 	animate(color = "#00f", time = 0.3 SECONDS)
 	animate(color = "#f0f", time = 0.3 SECONDS)
 	animate(color = "#f00", time = 0.3 SECONDS)
-
-//Overwrite this so the head is drawn on the upmost, otherwise head sprite, for psyphoza, clips into arms
-/datum/species/psyphoza/replace_body(mob/living/carbon/C, var/datum/species/new_species)
-	..()
-	new_species ||= C.dna.species
-	
-	for(var/obj/item/bodypart/old_part as() in C.bodyparts)
-		if(old_part.change_exempt_flags & BP_BLOCK_CHANGE_SPECIES)
-			continue
-
-		switch(old_part.body_zone)
-			if(BODY_ZONE_HEAD)
-				var/obj/item/bodypart/head/new_part = new new_species.species_head()
-				new_part.replace_limb(C, TRUE)
-				new_part.update_limb(is_creating = TRUE)
-				qdel(old_part)
-
 
 #undef PSYCHIC_OVERLAY_UPPER
 #undef PSYPHOZA_BURNMOD
