@@ -410,9 +410,6 @@
 	cold_level_1_threshold = 120
 	cold_level_2_threshold = 90
 	cold_level_3_threshold = 50
-	// Make the station atmosphere hurt slightly
-	heat_level_1_threshold = 220
-	heat_level_1_damage = 1
 
 /obj/item/organ/lungs/frostwing/on_breath_temperature_unsafe(mob/living/carbon/human/H, hot)
 	if(hot)

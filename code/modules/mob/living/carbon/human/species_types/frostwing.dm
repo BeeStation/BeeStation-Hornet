@@ -4,9 +4,7 @@
 	bodyflag = FLAG_FROSTWING
 	default_color = "00FFFF"
 	species_traits = list(NO_UNDERWEAR, NOEYESPRITES)
-	inherent_traits = list(TRAIT_RESISTCOLD) // bodytemp code is garbage so we'll just do this for now
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_AVIAN)
-	action
 	mutanttongue = /obj/item/organ/tongue/frostwing
 	// Lungs are what actually allow them to breathe low pressure, prefer cold temps, and take damage in station atmos
 	mutantlungs = /obj/item/organ/lungs/frostwing
@@ -29,6 +27,10 @@
 	species_r_arm = /obj/item/bodypart/r_arm/frostwing
 	species_l_leg = /obj/item/bodypart/l_leg/frostwing
 	species_r_leg = /obj/item/bodypart/r_leg/frostwing
+
+	body_temperature_normal = 197 // 310.15 (normal bodytemp) - 293.15 (normal atmos) = 17, 180 + 17 = 197
+	body_temperature_cold_damage_limit = 197 - 50
+	body_temperature_heat_damage_limit = 197 + 50
 
 /datum/species/frostwing/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.frostwing_names)]-[pick(GLOB.frostwing_names)][prob(50) ? "-[pick(GLOB.frostwing_names)]" : ""][prob(10) ? "-[pick(GLOB.frostwing_names)]" : ""]"
