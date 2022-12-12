@@ -160,7 +160,8 @@
 #define FLAG_OOZELING		(1<<8)
 #define FLAG_FLY			(1<<9)
 #define FLAG_DEBUG_SPECIES	(1<<10)
-#define FLAG_MONKEY (1<<11)
+#define FLAG_MONKEY         (1<<11)
+#define FLAG_PSYPHOZA		(1<<12)
 
 #define DIGITIGRADE_NEVER 0
 #define DIGITIGRADE_OPTIONAL 1

@@ -420,20 +420,13 @@
 	REMOVE_TRAIT(src, TRAIT_BLIND, source)
 	if(!HAS_TRAIT(src, TRAIT_BLIND))
 		adjust_blindness(-1)
-		//Remove blind sense - TODO: This aint right
-		var/datum/component/blind_sense/B = locate(/datum/component/blind_sense) in comp_lookup
-		comp_lookup -= B
-		qdel(B)
-		B = locate(/datum/component/blind_sense) in datum_components
-		datum_components -= B
-		qdel(B)
+		var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)
+		B?.RemoveComponent()
 
-/mob/living/proc/become_blind(source, atom/movable/screen/fullscreen/overlay, add_blind_sense = TRUE)
+/mob/living/proc/become_blind(source, atom/movable/screen/fullscreen/overlay)
 	if(!HAS_TRAIT(src, TRAIT_BLIND))
 		blind_eyes(1, overlay)
-		//Add blind sense - TODO: This aint right
-		if(add_blind_sense)
-			AddComponent(/datum/component/blind_sense)
+		AddComponent(/datum/component/blind_sense)
 	ADD_TRAIT(src, TRAIT_BLIND, source)
 
 /mob/living/proc/cure_nearsighted(source)
