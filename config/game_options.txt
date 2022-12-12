@@ -506,6 +506,7 @@ ROUNDSTART_RACES plasmaman
 #ROUNDSTART_RACES skeleton
 #ROUNDSTART_RACES slime
 #ROUNDSTART_RACES zombie
+#ROUNDSTART_RACES psyphoza
 
 ## Roundstart no-reset races
 ##-------------------------------------------------------------------------------------------
