@@ -183,11 +183,6 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/space_heater/CtrlShiftClick(mob/user)
-	if(!can_interact(user))
-		return
-	toggle_power()
-
 /obj/machinery/space_heater/AltClick(mob/user)
 	if(!can_interact(user))
 		return
