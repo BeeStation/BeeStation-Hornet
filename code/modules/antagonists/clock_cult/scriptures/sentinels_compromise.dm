@@ -39,7 +39,7 @@
 	M.blood_volume = BLOOD_VOLUME_NORMAL
 	M.reagents.remove_reagent(/datum/reagent/water/holywater, INFINITY)
 	M.set_nutrition(NUTRITION_LEVEL_FULL)
-	M.bodytemperature = BODYTEMP_NORMAL
+	M.bodytemperature = M.get_bodytemp_normal()
 	M.set_blindness(0)
 	M.set_blurriness(0)
 	M.set_dizziness(0)

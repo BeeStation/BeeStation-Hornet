@@ -973,7 +973,7 @@
 		var/mob/living/simple_animal/slime/S = owner
 		if(S.amount_grown >= 9)
 			S.amount_grown = 8
-		if((S.reagents.has_reagent(/datum/reagent/consumable/capsaicin) || S.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)) //redgrubs don't like heat. heating them up for too long kills them
+		if((S.reagents.has_reagent(/datum/reagent/consumable/capsaicin) || S.bodytemperature > S.get_bodytemp_heat_damage_limit())) //redgrubs don't like heat. heating them up for too long kills them
 			if(prob(10))
 				qdel(src)
 		else //don't tick while being cured

@@ -213,7 +213,7 @@
 /mob/living/simple_animal/hostile/redgrub/environment_temperature_is_safe(datum/gas_mixture/environment)
 	if(isliving(loc))
 		var/mob/living/L = loc
-		if(L.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)
+		if(L.bodytemperature > L.get_bodytemp_heat_damage_limit())
 			return FALSE
 	else
 		return TRUE

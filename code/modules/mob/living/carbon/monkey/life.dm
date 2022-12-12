@@ -32,7 +32,7 @@
 	return ..()
 
 /mob/living/carbon/monkey/handle_breath_temperature(datum/gas_mixture/breath)
-	if(abs(BODYTEMP_NORMAL - breath.return_temperature()) > 50)
+	if(abs(get_bodytemp_normal() - breath.return_temperature()) > 50)
 		switch(breath.return_temperature())
 			if(-INFINITY to 120)
 				adjustFireLoss(3)
@@ -63,7 +63,7 @@
 			adjust_bodytemperature(min((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR, BODYTEMP_HEATING_MAX))
 
 
-	if(bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT && !HAS_TRAIT(src, TRAIT_RESISTHEAT))
+	if(bodytemperature > get_bodytemp_heat_damage_limit() && !HAS_TRAIT(src, TRAIT_RESISTHEAT))
 		remove_movespeed_modifier(MOVESPEED_ID_MONKEY_TEMPERATURE_SPEEDMOD)
 		switch(bodytemperature)
 			if(360 to 400)
@@ -79,19 +79,19 @@
 				else
 					apply_damage(HEAT_DAMAGE_LEVEL_2, BURN)
 
-	else if(bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !HAS_TRAIT(src, TRAIT_RESISTCOLD))
+	else if(bodytemperature < get_bodytemp_cold_damage_limit() && !HAS_TRAIT(src, TRAIT_RESISTCOLD))
 		if(!istype(loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
-			add_movespeed_modifier(MOVESPEED_ID_MONKEY_TEMPERATURE_SPEEDMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = ((BODYTEMP_COLD_DAMAGE_LIMIT - bodytemperature) / COLD_SLOWDOWN_FACTOR))
-			switch(bodytemperature)
-				if(200 to BODYTEMP_COLD_DAMAGE_LIMIT)
-					throw_alert("temp", /atom/movable/screen/alert/cold, 1)
-					apply_damage(COLD_DAMAGE_LEVEL_1, BURN)
-				if(120 to 200)
-					throw_alert("temp", /atom/movable/screen/alert/cold, 2)
-					apply_damage(COLD_DAMAGE_LEVEL_2, BURN)
-				if(-INFINITY to 120)
-					throw_alert("temp", /atom/movable/screen/alert/cold, 3)
-					apply_damage(COLD_DAMAGE_LEVEL_3, BURN)
+			var/cold_limit = get_bodytemp_cold_damage_limit()
+			add_movespeed_modifier(MOVESPEED_ID_MONKEY_TEMPERATURE_SPEEDMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = ((cold_limit - bodytemperature) / COLD_SLOWDOWN_FACTOR))
+			if(bodytemperature >= 200 && bodytemperature <= cold_limit)
+				throw_alert("temp", /atom/movable/screen/alert/cold, 1)
+				apply_damage(COLD_DAMAGE_LEVEL_1, BURN)
+			else if(bodytemperature >= 120 && bodytemperature <= 200)
+				throw_alert("temp", /atom/movable/screen/alert/cold, 2)
+				apply_damage(COLD_DAMAGE_LEVEL_2, BURN)
+			else if(bodytemperature <= 120)
+				throw_alert("temp", /atom/movable/screen/alert/cold, 3)
+				apply_damage(COLD_DAMAGE_LEVEL_3, BURN)
 		else
 			clear_alert("temp")
 

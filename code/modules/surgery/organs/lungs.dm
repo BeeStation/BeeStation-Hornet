@@ -405,21 +405,14 @@
 	icon_state = "lungs"
 	// Half pressure
 	safe_breath_min = 8
-	safe_breath_max = 16
-	// Take small amounts of damage from too much air
-	safe_breath_dam_max = 1
-	// Take burn damage from high atmos rather than oxyloss
-	safe_damage_type = BURN
+	safe_breath_max = 25
 	// Frozen atmos is safe
-	cold_level_1_threshold = 150
+	cold_level_1_threshold = 120
 	cold_level_2_threshold = 90
 	cold_level_3_threshold = 50
 	// Make the station atmosphere hurt slightly
 	heat_level_1_threshold = 220
 	heat_level_1_damage = 1
-	heat_level_2_threshold = 260
-	heat_level_2_damage = 1
-	heat_level_3_threshold = 300
 
 /obj/item/organ/lungs/frostwing/on_breath_temperature_unsafe(mob/living/carbon/human/H, hot)
 	if(hot)

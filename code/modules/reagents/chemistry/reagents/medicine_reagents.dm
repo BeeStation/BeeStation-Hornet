@@ -23,10 +23,11 @@
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 
 /datum/reagent/medicine/leporazine/on_mob_life(mob/living/carbon/M)
-	if(M.bodytemperature > BODYTEMP_NORMAL)
-		M.adjust_bodytemperature(-40 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
-	else if(M.bodytemperature < (BODYTEMP_NORMAL + 1))
-		M.adjust_bodytemperature(40 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, BODYTEMP_NORMAL)
+	var/normal_temp = M.get_bodytemp_normal()
+	if(M.bodytemperature > normal_temp)
+		M.adjust_bodytemperature(-40 * TEMPERATURE_DAMAGE_COEFFICIENT, normal_temp)
+	else if(M.bodytemperature < (normal_temp + 1))
+		M.adjust_bodytemperature(40 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, normal_temp)
 	..()
 
 /datum/reagent/medicine/leporazine/overdose_process(mob/living/M)
@@ -182,16 +183,15 @@
 	taste_description = "spicy jelly"
 
 /datum/reagent/medicine/pyroxadone/on_mob_life(mob/living/carbon/M)
-	if(M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)
+	if(M.bodytemperature > M.get_bodytemp_heat_damage_limit())
 		metabolization_rate = 0.2 // It metabolises effectively when the body is taking heat damage
 		var/power = 0
-		switch(M.bodytemperature)
-			if(BODYTEMP_HEAT_DAMAGE_LIMIT to 400)
-				power = 2
-			if(400 to 460)
-				power = 3
-			else
-				power = 5
+		if(M.bodytemperature >= M.get_bodytemp_heat_damage_limit() && M.bodytemperature <= 400)
+			power = 2
+		else if(M.bodytemperature >= 400 && M.bodytemperature <= 460)
+			power = 3
+		else
+			power = 5
 		if(M.on_fire)
 			power *= 2
 

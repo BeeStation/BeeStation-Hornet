@@ -437,3 +437,12 @@
 
 /mob/living/proc/force_hit_projectile(obj/item/projectile/projectile)
 	return FALSE
+
+/mob/living/proc/get_bodytemp_normal()
+	return BODYTEMP_DEFAULT_NORMAL
+
+/mob/living/proc/get_bodytemp_cold_damage_limit()
+	return BODYTEMP_DEFAULT_COLD_DAMAGE_LIMIT
+
+/mob/living/proc/get_bodytemp_heat_damage_limit()
+	return BODYTEMP_DEFAULT_HEAT_DAMAGE_LIMIT

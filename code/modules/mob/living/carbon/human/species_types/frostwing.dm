@@ -4,6 +4,7 @@
 	bodyflag = FLAG_FROSTWING
 	default_color = "00FFFF"
 	species_traits = list(NO_UNDERWEAR, NOEYESPRITES)
+	inherent_traits = list(TRAIT_RESISTCOLD) // bodytemp code is garbage so we'll just do this for now
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_AVIAN)
 	action
 	mutanttongue = /obj/item/organ/tongue/frostwing

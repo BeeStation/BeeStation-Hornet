@@ -1,5 +1,7 @@
 /mob/living/Initialize(mapload)
 	. = ..()
+	// Set the proper body temperature
+	bodytemperature = get_bodytemp_normal()
 	if(unique_name)
 		name = "[name] ([rand(1, 1000)])"
 		real_name = name
@@ -591,7 +593,7 @@
 	SetSleeping(0, FALSE)
 	radiation = 0
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
-	bodytemperature = BODYTEMP_NORMAL
+	bodytemperature = get_bodytemp_normal()
 	set_blindness(0)
 	set_blurriness(0)
 	set_dizziness(0)

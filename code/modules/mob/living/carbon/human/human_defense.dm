@@ -896,3 +896,18 @@
 	ADD_TRAIT(src, TRAIT_NOBLOCK, type)
 	stoplag(50)
 	REMOVE_TRAIT(src, TRAIT_NOBLOCK, type)
+
+/mob/living/carbon/human/get_bodytemp_normal()
+	if(dna?.species)
+		return dna.species.body_temperature_normal
+	return ..()
+
+/mob/living/carbon/human/get_bodytemp_cold_damage_limit()
+	if(dna?.species)
+		return dna.species.body_temperature_cold_damage_limit
+	return ..()
+
+/mob/living/carbon/human/get_bodytemp_heat_damage_limit()
+	if(dna?.species)
+		return dna.species.body_temperature_heat_damage_limit
+	return ..()
