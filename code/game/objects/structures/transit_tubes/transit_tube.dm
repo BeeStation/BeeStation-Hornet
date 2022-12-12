@@ -14,8 +14,8 @@
 	var/exit_delay = 1
 	var/enter_delay = 0
 
-/obj/structure/transit_tube/Initialize(mapload, newdirection)
-	. = ..()
+/obj/structure/transit_tube/New(loc, newdirection)
+	..(loc)
 	if(newdirection)
 		setDir(newdirection)
 	init_tube_dirs()
@@ -53,7 +53,7 @@
 
 // Called to check if a pod should stop upon entering this tube.
 /obj/structure/transit_tube/proc/should_stop_pod(pod, from_dir)
-	return 0
+	return FALSE
 
 // Called when a pod stops in this tube section.
 /obj/structure/transit_tube/proc/pod_stopped(pod, from_dir)
@@ -65,18 +65,18 @@
 
 	for(var/direction in tube_dirs)
 		if(direction == from_dir)
-			return 1
+			return TRUE
 
-	return 0
+	return FALSE
 
 
 
 /obj/structure/transit_tube/proc/has_exit(in_dir)
 	for(var/direction in tube_dirs)
 		if(direction == in_dir)
-			return 1
+			return TRUE
 
-	return 0
+	return FALSE
 
 
 
@@ -126,7 +126,7 @@
 
 /obj/structure/transit_tube/proc/generate_tube_overlays()
 	for(var/direction in tube_dirs)
-		if(direction in GLOB.diagonals)
+		if(ISDIAGONALDIR(direction))
 			if(direction & NORTH)
 				create_tube_overlay(direction ^ 3, NORTH)
 
