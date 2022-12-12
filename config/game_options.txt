@@ -522,6 +522,7 @@ ROUNDSTART_RACES plasmaman
 ## OP Halloween races:
 #ROUNDSTART_RACES skeleton
 #ROUNDSTART_RACES zombie
+#ROUNDSTART_RACES psyphoza
 
 ## Races that are straight upgrades. If these are on expect powergamers to always pick them
 #ROUNDSTART_RACES pod

@@ -36,10 +36,6 @@
 	//Fire bad!
 	burnmod = PSYPHOZA_BURNMOD
 
-//TODO: Remove this
-/datum/species/psyphoza/check_roundstart_eligible()
-	return TRUE
-
 /datum/species/psyphoza/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	. = ..()
 	C.dna.add_mutation(TK_WEAK, MUT_OTHER)
