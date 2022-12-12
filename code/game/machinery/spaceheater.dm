@@ -41,10 +41,6 @@
 	///Should we add an overlay for open spaceheaters
 	var/display_panel = TRUE
 
-	var/maxTemp = 30
-
-	var/minTemp = 30
-
 /obj/machinery/space_heater/get_cell()
 	return cell
 
@@ -53,9 +49,6 @@
 	if(ispath(cell))
 		cell = new cell(src)
 	update_appearance()
-
-	maxTemp = (settable_temperature_median + settable_temperature_range) - T0C
-	minTemp = (settable_temperature_median - settable_temperature_range) - T0C
 
 /obj/machinery/space_heater/Destroy()
 	SSair.atmos_air_machinery -= src
@@ -199,10 +192,10 @@
 	if(!can_interact(user))
 		return
 	if(mode == HEATER_MODE_COOL)
-		target_temperature = minTemp
+		target_temperature = (settable_temperature_median - settable_temperature_range) - T0C
 		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
 	else if(mode == HEATER_MODE_HEAT)
-		target_temperature = maxTemp
+		target_temperature = (settable_temperature_median + settable_temperature_range) - T0C
 		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
 	else
 		return
