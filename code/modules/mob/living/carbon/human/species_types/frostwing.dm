@@ -72,3 +72,14 @@
 	if(ishuman(C) && fly)
 		fly.Remove(C)
 		toggle_flight(C)
+
+/datum/species/frostwing/handle_environment(datum/gas_mixture/environment, mob/living/carbon/human/H)
+	..()
+	if(!environment)
+		return
+	if(istype(H.loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
+		return
+	// Heal small amounts of burn while outside the station
+	if(prob(15) && H.bodytemperature < H.get_bodytemp_heat_damage_limit() && H.bodytemperature > H.get_bodytemp_cold_damage_limit())
+		H.apply_damage(-2, BURN)
+
