@@ -948,8 +948,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		var/takes_crit_damage = (!HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
 		if((H.health <= H.crit_threshold) && takes_crit_damage)
 			H.adjustBruteLoss(1)
-	if(H.getorgan(/obj/item/organ/wings))
-		handle_flight(H)
+	handle_flight(H)
 
 /datum/species/proc/spec_death(gibbed, mob/living/carbon/human/H)
 	return

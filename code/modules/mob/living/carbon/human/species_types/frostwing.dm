@@ -50,6 +50,11 @@
 	if(!istype(l_arm) || !istype(r_arm) || l_arm.disabled || r_arm.disabled)
 		to_chat(H, "<span class='warning'>You need both arms to fly!</span>")
 		return FALSE
+	// Thick clothing
+	var/obj/item/clothing/chest_item = H.get_item_by_slot(ITEM_SLOT_OCLOTHING)
+	if(istype(chest_item) && chest_item.clothing_flags & THICKMATERIAL)
+		to_chat(H, "<span class='warning'>Your wings are inside of [chest_item]!</span>")
+		return FALSE
 	if(H.stat || !(H.mobility_flags & MOBILITY_STAND))
 		return FALSE
 	var/turf/T = get_turf(H)
