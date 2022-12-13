@@ -48,44 +48,46 @@
 		return
 	// If H is the Chaplain, we can set the icon_state of the bible (but only once per bible)
 	if(!current_skin && H.mind.holy_role == HOLY_ROLE_HIGHPRIEST)
-		unique_reskin_icon = list(
-		"Bible" = "bible",
-		"Quran" = "koran",
-		"Scrapbook" = "scrapbook",
-		"Burning Bible" = "burning",
-		"Clown Bible" = "honk1",
-		"Banana Bible" = "honk2",
-		"Creeper Bible" = "creeper",
-		"White Bible" = "white",
-		"Holy Light" = "holylight",
-		"The God Delusion" = "atheist",
-		"Tome" = "tome",
-		"The King in Yellow" = "kingyellow",
-		"Ithaqua" = "ithaqua",
-		"Scientology" = "scientology",
-		"Melted Bible" = "melted",
-		"Necronomicon" = "necronomicon",
-		"Insulationism" = "insuls"
+		if(isnull(unique_reskin_icon))
+			unique_reskin_icon = list(
+			"Bible" = "bible",
+			"Quran" = "koran",
+			"Scrapbook" = "scrapbook",
+			"Burning Bible" = "burning",
+			"Clown Bible" = "honk1",
+			"Banana Bible" = "honk2",
+			"Creeper Bible" = "creeper",
+			"White Bible" = "white",
+			"Holy Light" = "holylight",
+			"The God Delusion" = "atheist",
+			"Tome" = "tome",
+			"The King in Yellow" = "kingyellow",
+			"Ithaqua" = "ithaqua",
+			"Scientology" = "scientology",
+			"Melted Bible" = "melted",
+			"Necronomicon" = "necronomicon",
+			"Insulationism" = "insuls"
 		)
-		unique_reskin = list( //Unique_reskin is declared here so that the bible can't be reskinned through alt-clicking
-		"Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "bible"),
-		"Quran" = image(icon = 'icons/obj/storage.dmi', icon_state = "koran"),
-		"Scrapbook" = image(icon = 'icons/obj/storage.dmi', icon_state = "scrapbook"),
-		"Burning Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "burning"),
-		"Clown Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "honk1"),
-		"Banana Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "honk2"),
-		"Creeper Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "creeper"),
-		"White Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "white"),
-		"Holy Light" = image(icon = 'icons/obj/storage.dmi', icon_state = "holylight"),
-		"The God Delusion" = image(icon = 'icons/obj/storage.dmi', icon_state = "atheist"),
-		"Tome" = image(icon = 'icons/obj/storage.dmi', icon_state = "tome"),
-		"The King in Yellow" = image(icon = 'icons/obj/storage.dmi', icon_state = "kingyellow"),
-		"Ithaqua" = image(icon = 'icons/obj/storage.dmi', icon_state = "ithaqua"),
-		"Scientology" = image(icon = 'icons/obj/storage.dmi', icon_state = "scientology"),
-		"Melted Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "melted"),
-		"Necronomicon" = image(icon = 'icons/obj/storage.dmi', icon_state = "necronomicon"),
-		"Insulationism" = image(icon = 'icons/obj/storage.dmi', icon_state = "insuls")
-		)
+		if(isnull(unique_reskin))
+			unique_reskin = list( //Unique_reskin is declared here so that the bible can't be reskinned through alt-clicking
+				"Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "bible"),
+				"Quran" = image(icon = 'icons/obj/storage.dmi', icon_state = "koran"),
+				"Scrapbook" = image(icon = 'icons/obj/storage.dmi', icon_state = "scrapbook"),
+				"Burning Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "burning"),
+				"Clown Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "honk1"),
+				"Banana Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "honk2"),
+				"Creeper Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "creeper"),
+				"White Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "white"),
+				"Holy Light" = image(icon = 'icons/obj/storage.dmi', icon_state = "holylight"),
+				"The God Delusion" = image(icon = 'icons/obj/storage.dmi', icon_state = "atheist"),
+				"Tome" = image(icon = 'icons/obj/storage.dmi', icon_state = "tome"),
+				"The King in Yellow" = image(icon = 'icons/obj/storage.dmi', icon_state = "kingyellow"),
+				"Ithaqua" = image(icon = 'icons/obj/storage.dmi', icon_state = "ithaqua"),
+				"Scientology" = image(icon = 'icons/obj/storage.dmi', icon_state = "scientology"),
+				"Melted Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "melted"),
+				"Necronomicon" = image(icon = 'icons/obj/storage.dmi', icon_state = "necronomicon"),
+				"Insulationism" = image(icon = 'icons/obj/storage.dmi', icon_state = "insuls")
+			)
 		reskin_bible(H)
 
 /obj/item/storage/book/bible/proc/reskin_bible(mob/M)//Total override of the proc because I need some new things added to it

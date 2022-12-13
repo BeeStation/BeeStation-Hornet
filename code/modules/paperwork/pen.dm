@@ -115,13 +115,14 @@
 	AddComponent(/datum/component/butchering, 200, 115) //the pen is mightier than the sword
 
 /obj/item/pen/fountain/captain/reskin_obj(mob/M)
-	unique_reskin = list(
-		"Oak" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-o"),
-		"Gold" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-g"),
-		"Rosewood" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-r"),
-		"Black and Silver" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-b"),
-		"Command Blue" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-cb")
-	)
+	if(isnull(unique_reskin))
+		unique_reskin = list(
+			"Oak" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-o"),
+			"Gold" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-g"),
+			"Rosewood" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-r"),
+			"Black and Silver" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-b"),
+			"Command Blue" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-cb")
+		)
 	if(current_skin)
 		desc = "It's an expensive [current_skin] fountain pen. The nib is quite sharp."
 	. = ..()

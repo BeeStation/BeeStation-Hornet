@@ -108,17 +108,18 @@
 	)
 
 /obj/item/gun/ballistic/revolver/detective/reskin_obj(mob/M)
-	unique_reskin = list(
-		"Default" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective"),
-		"Fitz Special" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_fitz"),
-		"Police Positive Special" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_police"),
-		"Blued Steel" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_blued"),
-		"Stainless Steel" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_stainless"),
-		"Gold Trim" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_gold"),
-		"Leopard Spots" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_leopard"),
-		"The Peacemaker" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_peacemaker"),
-		"Black Panther" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_panther")
-	)
+	if(isnull(unique_reskin))
+		unique_reskin = list(
+			"Default" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective"),
+			"Fitz Special" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_fitz"),
+			"Police Positive Special" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_police"),
+			"Blued Steel" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_blued"),
+			"Stainless Steel" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_stainless"),
+			"Gold Trim" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_gold"),
+			"Leopard Spots" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_leopard"),
+			"The Peacemaker" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_peacemaker"),
+			"Black Panther" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_panther")
+		)
 	. = ..()
 
 
