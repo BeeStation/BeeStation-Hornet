@@ -48,6 +48,16 @@
 		return
 	// If H is the Chaplain, we can set the icon_state of the bible (but only once per bible)
 	if(!current_skin && H.mind.holy_role == HOLY_ROLE_HIGHPRIEST)
+		if(GLOB.bible_icon_state)//If the original has been reskinned but this one hasn't been, we make it look like the original
+			icon_state = GLOB.bible_icon_state
+			item_state = GLOB.bible_item_state
+			if(icon_state == "honk1" || icon_state == "honk2")
+				var/mob/living/carbon/C = H
+				if(C.has_dna())
+					C.dna.add_mutation(CLOWNMUT)
+				C.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(C), ITEM_SLOT_MASK)
+			src.update_icon()
+			return
 		if(isnull(unique_reskin_icon))
 			unique_reskin_icon = list(
 			"Bible" = "bible",
