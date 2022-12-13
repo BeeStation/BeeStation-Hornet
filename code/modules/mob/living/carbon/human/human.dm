@@ -21,7 +21,8 @@
 
 	if(dna.species)
 		set_species(dna.species.type) //This generates new limbs based on the species, beware.
-
+	// Species is set now, fix body temp so it's not the default
+	bodytemperature = get_bodytemp_normal()
 	//initialise organs
 	create_internal_organs() //most of it is done in set_species now, this is only for parent call
 	physiology = new()
