@@ -29,7 +29,7 @@
 		payoff = max(payoff_min, FLOOR(D.account_balance * 0.80, 1000))
 	ship_name = pick(strings(PIRATE_NAMES_FILE, "ship_names"))
 	threat.title = "Business proposition"
-	threat.content = "This is [ship_name]. Pay up [payoff] credits or you'll walk the plank. We'll pilfer it from yer cargo budget. don't try and cheat us, make sure it's all there!"
+	threat.content = "This is [ship_name]. Pay up [payoff] credits or you'll walk the plank. We'll pilfer it from yer cargo budget. Don't try and cheat us, make sure it's all there!"
 	threat.possible_answers = list(
 		PIRATE_RESPONSE_PAY = "We'll pay.",
 		PIRATE_RESPONSE_NO_PAY = "No way.",
