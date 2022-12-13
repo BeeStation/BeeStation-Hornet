@@ -105,12 +105,22 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	/// The default body temperature of the species
 	var/body_temperature_normal = BODYTEMP_DEFAULT_NORMAL
-
 	/// The body temperature where we start taking cold damage
 	var/body_temperature_cold_damage_limit = BODYTEMP_DEFAULT_COLD_DAMAGE_LIMIT
-
 	/// The body temperature where we start taking heat damage
 	var/body_temperature_heat_damage_limit = BODYTEMP_DEFAULT_HEAT_DAMAGE_LIMIT
+	/// The divisor used for body temperature auto-recovery, the larger the slower it will be
+	var/body_temperature_auto_recovery_divisor = BODYTEMP_AUTORECOVERY_DIVISOR
+	/// Minimum amount of kelvin moved toward normla body temp per tick, so long as we are above or below either damage limit
+	var/body_temperature_auto_recovery_minimum = BODYTEMP_AUTORECOVERY_MINIMUM
+	/// Similar to body_temperature_auto_recovery_divisor, but this is the divisor which is applied at the stage that follows autorecovery. This is the divisor which comes into play when the human's loc temperature is lower than their body temperature. Make it lower to lose bodytemp faster.
+	var/body_temperature_cold_divisor = BODYTEMP_COLD_DIVISOR
+	/// Similar to the body_temperature_auto_recovery_divisor, but this is the divisor which is applied at the stage that follows autorecovery. This is the divisor which comes into play when the human's loc temperature is higher than their body temperature. Make it lower to gain bodytemp faster.
+	var/body_temperature_heat_divisor = BODYTEMP_HEAT_DIVISOR
+	/// The maximum number of degrees that your body can cool in 1 tick, due to the environment, when in a cold area.
+	var/body_temperature_cooling_max = BODYTEMP_COOLING_MAX
+	/// The maximum number of degrees that your body can heat up in 1 tick, due to the environment, when in a hot area.
+	var/body_temperature_heating_max = BODYTEMP_HEATING_MAX
 
 ///////////
 // PROCS //
@@ -1835,24 +1845,24 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(!H.on_fire) //If you're on fire, you do not heat up or cool down based on surrounding gases
 		var/natural = 0
 		if(H.stat != DEAD)
-			natural = H.natural_bodytemperature_stabilization()
+			natural = H.natural_bodytemperature_stabilization(autorecovery_divisor = body_temperature_auto_recovery_divisor, autorecovery_minimum = body_temperature_auto_recovery_minimum)
 		var/thermal_protection = 1
 		if(loc_temp < H.bodytemperature) //Place is colder than we are
 			thermal_protection -= H.get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 			if(H.bodytemperature < H.get_bodytemp_normal()) //we're cold, insulation helps us retain body heat and will reduce the heat we lose to the environment
-				H.adjust_bodytemperature((thermal_protection+1)*natural + max(thermal_protection * (loc_temp - H.bodytemperature) / BODYTEMP_COLD_DIVISOR, BODYTEMP_COOLING_MAX))
+				H.adjust_bodytemperature((thermal_protection+1)*natural + max(thermal_protection * (loc_temp - H.bodytemperature) / body_temperature_cold_divisor, body_temperature_cooling_max))
 			else //we're sweating, insulation hinders our ability to reduce heat - and it will reduce the amount of cooling you get from the environment
-				H.adjust_bodytemperature(natural*(1/(thermal_protection+1)) + max((thermal_protection * (loc_temp - H.bodytemperature) + H.get_bodytemp_normal() - H.bodytemperature) / BODYTEMP_COLD_DIVISOR , BODYTEMP_COOLING_MAX)) //Extra calculation for hardsuits to bleed off heat
+				H.adjust_bodytemperature(natural*(1/(thermal_protection+1)) + max((thermal_protection * (loc_temp - H.bodytemperature) + H.get_bodytemp_normal() - H.bodytemperature) / body_temperature_cold_divisor , body_temperature_cooling_max)) //Extra calculation for hardsuits to bleed off heat
 	if (loc_temp > H.bodytemperature) //Place is hotter than we are
 		var/natural = 0
 		if(H.stat != DEAD)
-			natural = H.natural_bodytemperature_stabilization()
+			natural = H.natural_bodytemperature_stabilization(autorecovery_divisor = body_temperature_auto_recovery_divisor, autorecovery_minimum = body_temperature_auto_recovery_minimum)
 		var/thermal_protection = 1
 		thermal_protection -= H.get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 		if(H.bodytemperature < H.get_bodytemp_normal()) //and we're cold, insulation enhances our ability to retain body heat but reduces the heat we get from the environment
-			H.adjust_bodytemperature((thermal_protection+1)*natural + min(thermal_protection * (loc_temp - H.bodytemperature) / BODYTEMP_HEAT_DIVISOR, BODYTEMP_HEATING_MAX))
+			H.adjust_bodytemperature((thermal_protection+1)*natural + min(thermal_protection * (loc_temp - H.bodytemperature) / body_temperature_heat_divisor, body_temperature_heating_max))
 		else //we're sweating, insulation hinders out ability to reduce heat - but will reduce the amount of heat we get from the environment
-			H.adjust_bodytemperature(natural*(1/(thermal_protection+1)) + min(thermal_protection * (loc_temp - H.bodytemperature) / BODYTEMP_HEAT_DIVISOR, BODYTEMP_HEATING_MAX))
+			H.adjust_bodytemperature(natural*(1/(thermal_protection+1)) + min(thermal_protection * (loc_temp - H.bodytemperature) / body_temperature_heat_divisor, body_temperature_heating_max))
 
 	// +/- 50 degrees from 310K is the 'safe' zone, where no damage is dealt.
 	if(H.bodytemperature > H.get_bodytemp_heat_damage_limit() && !HAS_TRAIT(H, TRAIT_RESISTHEAT))
@@ -1989,7 +1999,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT && !no_protection)
 			H.adjust_bodytemperature(11)
 		else
-			H.adjust_bodytemperature(BODYTEMP_HEATING_MAX + (H.fire_stacks * 12))
+			H.adjust_bodytemperature(body_temperature_heating_max + (H.fire_stacks * 12))
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "on_fire", /datum/mood_event/on_fire)
 
 /datum/species/proc/CanIgniteMob(mob/living/carbon/human/H)

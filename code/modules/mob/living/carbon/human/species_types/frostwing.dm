@@ -6,7 +6,7 @@
 	species_traits = list(NO_UNDERWEAR, NOEYESPRITES)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_AVIAN)
 	mutanttongue = /obj/item/organ/tongue/frostwing
-	// Lungs are what actually allow them to breathe low pressure, prefer cold temps, and take damage in station atmos
+	// Allow frozen, low pressure atmos. This doesn't cause damage for the station atmos, instead using bodytemp
 	mutantlungs = /obj/item/organ/lungs/frostwing
 	// Their biology requires less oxygen due to the low pressure environment, so they don't take as much oxyloss.
 	oxymod = 0.5
@@ -28,9 +28,14 @@
 	species_l_leg = /obj/item/bodypart/l_leg/frostwing
 	species_r_leg = /obj/item/bodypart/r_leg/frostwing
 
-	body_temperature_normal = 197 // 310.15 (normal bodytemp) - 293.15 (normal atmos) = 17, 180 + 17 = 197
+	// 310.15 (normal bodytemp) - 293.15 (normal atmos) = 17, 180 + 17 = 197
+	body_temperature_normal = 197
 	body_temperature_cold_damage_limit = 197 - 50
-	body_temperature_heat_damage_limit = 197 + 30
+	body_temperature_heat_damage_limit = 197 + 30 // lower maximum, so they have a harder time in station atmos
+	// Make us heat up as fast as we cool down
+	body_temperature_heat_divisor = BODYTEMP_COLD_DIVISOR
+	// We can heat up double a human in one tick
+	body_temperature_heating_max = BODYTEMP_HEATING_MAX * 2
 
 /datum/species/frostwing/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.frostwing_names)]-[pick(GLOB.frostwing_names)][prob(50) ? "-[pick(GLOB.frostwing_names)]" : ""][prob(10) ? "-[pick(GLOB.frostwing_names)]" : ""]"

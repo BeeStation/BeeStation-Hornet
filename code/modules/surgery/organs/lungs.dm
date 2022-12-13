@@ -411,10 +411,5 @@
 	cold_level_2_threshold = 90
 	cold_level_3_threshold = 50
 
-/obj/item/organ/lungs/frostwing/on_breath_temperature_unsafe(mob/living/carbon/human/H, hot)
-	if(hot)
-		if(prob(10))
-			to_chat(H, "<span class='warning'>The air feels hot and heavy, you're weakened in this atmosphere.</span>")
-
 #undef PP
 #undef PP_MOLES

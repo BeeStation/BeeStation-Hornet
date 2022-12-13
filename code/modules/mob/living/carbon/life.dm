@@ -546,19 +546,19 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 			adjustToxLoss(2) //Let's be honest you shouldn't be alive by now
 
 //used in human and monkey handle_environment()
-/mob/living/carbon/proc/natural_bodytemperature_stabilization()
+/mob/living/carbon/proc/natural_bodytemperature_stabilization(autorecovery_divisor = BODYTEMP_AUTORECOVERY_DIVISOR, autorecovery_minimum = BODYTEMP_AUTORECOVERY_MINIMUM)
 	var/normal_temp = get_bodytemp_normal()
 	var/body_temperature_difference = normal_temp - bodytemperature
 	var/cold_limit = get_bodytemp_cold_damage_limit()
 	var/hot_limit = get_bodytemp_heat_damage_limit()
 	if(bodytemperature <= cold_limit) //Cold damage limit is 50 below the default, the temperature where you start to feel effects.
-		return max((body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
+		return max((body_temperature_difference * metabolism_efficiency / autorecovery_divisor), autorecovery_minimum)
 	else if(bodytemperature >= cold_limit && bodytemperature <= normal_temp)
-		return max(body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR, min(body_temperature_difference, BODYTEMP_AUTORECOVERY_MINIMUM/4))
+		return max(body_temperature_difference * metabolism_efficiency / autorecovery_divisor, min(body_temperature_difference, autorecovery_minimum/4))
 	else if(bodytemperature >= normal_temp && bodytemperature <= hot_limit) // Heat damage limit is 50 above the default, the temperature where you start to feel effects.
-		return min(body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR, max(body_temperature_difference, -BODYTEMP_AUTORECOVERY_MINIMUM/4))
+		return min(body_temperature_difference * metabolism_efficiency / autorecovery_divisor, max(body_temperature_difference, -autorecovery_minimum/4))
 	else if(bodytemperature >= hot_limit)
-		return min((body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), -BODYTEMP_AUTORECOVERY_MINIMUM)	//We're dealing with negative numbers
+		return min((body_temperature_difference / autorecovery_divisor), -autorecovery_minimum)	//We're dealing with negative numbers
 
 /////////
 //LIVER//
