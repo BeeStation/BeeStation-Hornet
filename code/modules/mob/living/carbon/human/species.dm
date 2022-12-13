@@ -784,8 +784,15 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(!H.dna.features["ipc_antenna"] || H.dna.features["ipc_antenna"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
 			bodyparts_to_add -= "ipc_antenna"
 
-
 	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
+	// Frostwing wings hiding
+	var/suit_hide = H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT)
+	var/obj/item/bodypart/l_arm/frostwing/larm = H.get_bodypart(BODY_ZONE_L_ARM)
+	var/obj/item/bodypart/r_arm/frostwing/rarm = H.get_bodypart(BODY_ZONE_R_ARM)
+	if(istype(larm))
+		larm.part_opacity = !suit_hide
+	if(istype(rarm))
+		rarm.part_opacity = !suit_hide
 	///Digi handling
 	if(H.dna.species.bodytype & BODYTYPE_DIGITIGRADE)
 		var/uniform_compatible = FALSE

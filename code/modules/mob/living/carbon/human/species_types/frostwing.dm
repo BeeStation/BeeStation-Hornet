@@ -10,7 +10,8 @@
 	mutantlungs = /obj/item/organ/lungs/frostwing
 	// Their biology requires less oxygen due to the low pressure environment, so they don't take as much oxyloss.
 	oxymod = 0.5
-	default_features = list("legs" = "Normal Legs", "body_size" = "Normal")
+	default_features = list("body_size" = "Normal")
+	mutant_bodyparts = list("frostwing_wings")
 	//changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
@@ -86,5 +87,5 @@
 		return
 	// Heal small amounts of burn while outside the station
 	if(prob(15) && H.bodytemperature < H.get_bodytemp_heat_damage_limit() && H.bodytemperature > H.get_bodytemp_cold_damage_limit())
-		H.apply_damage(-2, BURN)
+		H.heal_overall_damage(burn = 2)
 

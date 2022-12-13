@@ -28,6 +28,12 @@
 	var/aux_zone // used for hands
 	var/aux_layer
 	var/body_part = null //bitflag used to check which clothes cover this bodypart
+	/// If the part should be visible. If disabled, adds _hidden to the icon_state
+	var/part_opacity = TRUE
+	// If the aux part should be visible. If disabled, adds _hidden to the icon_state
+	var/aux_opacity = TRUE
+	/// An extension to the icon_state of this part. If set, the icon_state will have _[icon_modifier] added, as will any aux parts. Note this goes BEFORE _male/_female which is before _hidden
+	var/icon_modifier = ""
 
 	var/list/embedded_objects = list()
 	var/held_index = 0 //are we a hand? if so, which one!
@@ -442,13 +448,13 @@
 		limb.icon = icon
 
 	///The icon_state overlay for the limb
-	limb.icon_state = "[limb_id]_[body_zone][is_dimorphic ? "_[limb_gender]" : ""]"
+	limb.icon_state = "[limb_id]_[body_zone][icon_modifier ? "_[icon_modifier]" : ""][is_dimorphic ? "_[limb_gender]" : ""][!part_opacity ? "_hidden" : ""]"
 
-	if(!icon_exists(limb.icon, limb.icon_state))
+	if(!icon_exists(limb.icon, limb.icon_state) && part_opacity)
 		stack_trace("Limb generated with nonexistant icon. File: [limb.icon] | State: [limb.icon_state]")
 
 	if(aux_zone) //Hand shit
-		aux = image(limb.icon, "[limb_id]_[aux_zone]", -aux_layer, image_dir)
+		aux = image(limb.icon, "[limb_id]_[aux_zone][icon_modifier ? "_[icon_modifier]" : ""][!aux_opacity ? "_hidden" : ""]", -aux_layer, image_dir)
 		. += aux
 
 	draw_color = mutation_color

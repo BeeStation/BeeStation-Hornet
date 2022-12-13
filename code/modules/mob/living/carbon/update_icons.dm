@@ -160,7 +160,7 @@
 	if(head)
 		overlays_standing[HEAD_LAYER] = head.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head.dmi')
 		update_hud_head(head)
-		
+
 	apply_overlay(HEAD_LAYER)
 
 /mob/living/carbon/update_inv_handcuffed()
@@ -268,6 +268,12 @@
 		. += "[BP.limb_gender]-"
 	. += "[BP.limb_id]"
 	. += "-[BP.body_zone]"
+	if(BP.icon_modifier)
+		. += "-[BP.icon_modifier]"
+	if(!BP.part_opacity)
+		. += "-hidden"
+	if(!BP.aux_opacity)
+		. += "-hiddenaux"
 	if(BP.should_draw_greyscale && BP.draw_color)
 		. += "-[BP.draw_color]"
 
