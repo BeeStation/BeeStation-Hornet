@@ -2,6 +2,10 @@
 
 GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 
+GLOBAL_LIST_INIT(restricted_reagents, list(
+		/datum/reagent/fuel,
+		/datum/reagent/toxin/plasma))
+
 /proc/build_name2reagent()
 	. = list()
 	for (var/t in subtypesof(/datum/reagent))

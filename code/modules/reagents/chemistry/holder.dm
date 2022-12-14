@@ -186,7 +186,10 @@
 
 	if(transfered_by && target_atom)
 		target_atom.add_hiddenprint(transfered_by) //log prints so admins can figure out who touched it last.
-		target_atom.reagents.fingerprint_transfer = transfered_by.ckey
+		for(var/each_reagent in GLOB.restricted_reagents)
+			if(locate(each_reagent) in target_atom.reagents.reagent_list)
+				target_atom.reagents.fingerprint_transfer = transfered_by.ckey
+				break
 		log_combat(transfered_by, target_atom, "transferred reagents ([log_list()]) from [my_atom] to")
 
 	amount = min(min(amount, src.total_volume), R.maximum_volume-R.total_volume)
