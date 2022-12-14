@@ -648,6 +648,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				var/mutable_appearance/markings_l_leg_overlay = mutable_appearance(markings.icon, "[markings.icon_state]_l_leg", -BODY_LAYER)
 				standing += markings_l_leg_overlay
 
+
 	//Underwear, Undershirts & Socks
 	if(!(NO_UNDERWEAR in species_traits))
 		if(H.underwear && !(H.dna.species.bodytype & BODYTYPE_DIGITIGRADE))
