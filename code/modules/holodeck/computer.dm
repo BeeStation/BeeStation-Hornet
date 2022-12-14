@@ -213,6 +213,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	//clear the items from the previous program
 	for(var/holo_atom in spawned)
 		derez(holo_atom)
+	spawned.Cut()
 
 	for(var/obj/effect/holodeck_effect/holo_effect as anything in effects)
 		effects -= holo_effect
@@ -227,8 +228,11 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 				holo_turf.baseturfs += /turf/open/floor/holofloor/plating
 
 	template = SSmapping.holodeck_templates[map_id]
-	template.load(bottom_left) //this is what actually loads the holodeck simulation into the map
+	var/datum/map_generator/template_placer = template.load(bottom_left) //this is what actually loads the holodeck simulation into the map
+	template_placer.on_completion(CALLBACK(src, .proc/finish_spawn, template))
 
+///finalizes objects in the spawned list
+/obj/machinery/computer/holodeck/proc/finish_spawn()
 	spawned = template.created_atoms //populate the spawned list with the atoms belonging to the holodeck
 
 	if(istype(template, /datum/map_template/holodeck/thunderdome1218) && !SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_MEDISIM])
@@ -236,10 +240,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 		SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_MEDISIM] = TRUE
 
 	nerf(!(obj_flags & EMAGGED))
-	finish_spawn()
 
-///finalizes objects in the spawned list
-/obj/machinery/computer/holodeck/proc/finish_spawn()
 	for(var/atom/holo_atom as anything in spawned)
 		if(QDELETED(holo_atom))
 			spawned -= holo_atom
