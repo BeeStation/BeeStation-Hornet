@@ -31,6 +31,7 @@
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
 				protection += C.get_armor_rating(d_type, src)
+
 	protection += physiology.armor.getRating(d_type)
 	return protection
 

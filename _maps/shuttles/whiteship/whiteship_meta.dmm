@@ -2460,7 +2460,7 @@
 	name = "Salvage Ship";
 	port_direction = 8;
 	preferred_direction = 4;
-	width = 33
+	width = 26
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plating,

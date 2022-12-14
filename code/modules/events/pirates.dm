@@ -72,9 +72,12 @@
 	if(!T)
 		CRASH("Pirate event found no turf to load in")
 
-	if(!ship.load(T))
-		CRASH("Loading pirate ship failed!")
+	var/datum/map_generator/template_placer = ship.load(T)
+	template_placer.on_completion(CALLBACK(GLOBAL_PROC, /proc/after_pirate_spawn, ship, candidates))
 
+	priority_announce("Unidentified armed ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())
+
+/proc/after_pirate_spawn(datum/map_template/shuttle/pirate/default/ship, list/candidates, datum/map_generator/map_generator, turf/T)
 	for(var/turf/A in ship.get_affected_turfs(T))
 		for(var/obj/effect/mob_spawn/human/pirate/spawner in A)
 			if(candidates.len > 0)
@@ -84,8 +87,6 @@
 				notify_ghosts("The pirate ship has an object of interest: [M]!", source=M, action=NOTIFY_ORBIT, header="Something's Interesting!")
 			else
 				notify_ghosts("The pirate ship has an object of interest: [spawner]!", source=spawner, action=NOTIFY_ORBIT, header="Something's Interesting!")
-
-	priority_announce("Unidentified armed ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())
 
 //Shuttle equipment
 

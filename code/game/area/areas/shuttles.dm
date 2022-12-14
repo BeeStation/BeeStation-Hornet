@@ -34,6 +34,7 @@
 	var/area/shuttle/A
 	var/obj/docking_port/mobile/S
 	var/list/shuttle_stack = list(mobile_port) //Indexing through a list helps prevent looped directed graph errors.
+	. = 0
 	while(i++ < shuttle_stack.len)
 		S = shuttle_stack[i]
 		A = S.underlying_turf_area[T]

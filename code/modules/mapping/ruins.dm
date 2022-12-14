@@ -9,7 +9,10 @@
 		var/turf/central_turf = forced_turf ? forced_turf : locate(rand(width_border, world.maxx - width_border), rand(height_border, world.maxy - height_border), z)
 		var/valid = TRUE
 
-		for(var/turf/check in get_affected_turfs(central_turf,1))
+		var/list/affected_turfs = get_affected_turfs(central_turf, TRUE)
+
+		//Check for validity
+		for(var/turf/check as() in affected_turfs)
 			var/area/new_area = get_area(check)
 			if(!(istype(new_area, allowed_areas)) || check.flags_1 & NO_RUINS_1)
 				valid = FALSE
@@ -20,8 +23,9 @@
 
 		testing("Ruin \"[name]\" placed at ([central_turf.x], [central_turf.y], [central_turf.z])")
 
-		for(var/i in get_affected_turfs(central_turf, 1))
-			var/turf/T = i
+		//Clear out nests and monsters
+		for(var/turf/T as() in affected_turfs)
+			T.flags_1 |= NO_RUINS_1
 			for(var/obj/structure/spawner/nest in T)
 				qdel(nest)
 			for(var/mob/living/simple_animal/monster in T)
@@ -29,14 +33,15 @@
 			for(var/obj/structure/flora/ash/plant in T)
 				qdel(plant)
 
-		load(central_turf,centered = TRUE)
-		loaded++
+		var/datum/map_generator/map_placer = load(central_turf,centered = TRUE)
+		map_placer.on_completion(CALLBACK(src, .proc/after_ruin_generation, central_turf))
 
-		for(var/turf/T in get_affected_turfs(central_turf, 1))
-			T.flags_1 |= NO_RUINS_1
+		return map_placer
 
-		new /obj/effect/landmark/ruin(central_turf, src)
-		return central_turf
+/datum/map_template/ruin/proc/after_ruin_generation(turf/central_turf)
+	loaded++
+
+	new /obj/effect/landmark/ruin(central_turf, src)
 
 /datum/map_template/ruin/proc/place_on_isolated_level(z)
 	var/datum/turf_reservation/reservation = SSmapping.RequestBlockReservation(width, height, z) //Make the new level creation work with different traits.
