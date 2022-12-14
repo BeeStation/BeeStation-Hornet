@@ -38,8 +38,6 @@
 #define COMSIG_KB_LIVING_REST_DOWN "keybinding_living_rest_down"
 #define COMSIG_KB_LIVING_LOOKUP_DOWN "keybinding_living_lookup_down"
 #define COMSIG_KB_LIVING_LOOKDOWN_DOWN "keybinding_living_lookdown_down"
-#define COMSIG_KB_LIVING_MOVEUP_DOWN "keybinding_living_moveup_down"
-#define COMSIG_KB_LIVING_MOVEDOWN_DOWN "keybinding_living_movedown_down"
 
 //Mob
 #define COMSIG_KB_MOB_MOVENORTH_DOWN "keybinding_mob_movenorth_down"
@@ -62,6 +60,8 @@
 #define COMSIG_KB_MOB_TARGETBODYGROIN_DOWN "keybinding_mob_targetbodygroin_down"
 #define COMSIG_KB_MOB_TARGETLEFTLEG_DOWN "keybinding_mob_targetleftleg_down"
 #define COMSIG_KB_MOB_PREVENTMOVEMENT_DOWN "keybinding_mob_preventmovement_down"
+#define COMSIG_KB_MOB_MOVEUP_DOWN "keybinding_mob_moveup_down"
+#define COMSIG_KB_MOB_MOVEDOWN_DOWN "keybinding_mob_movedown_down"
 
 //Robot
 #define COMSIG_KB_SILICON_TOGGLEMODULEONE_DOWN "keybinding_silicon_togglemoduleone_down"

@@ -82,34 +82,3 @@
 	var/mob/living/L = user.mob
 	L.look_reset()
 	return TRUE
-
-
-/datum/keybinding/living/move_up
-	key = "F"
-	name = "move up"
-	full_name = "Move Up"
-	description = "Try moving upwards."
-	keybind_signal = COMSIG_KB_LIVING_MOVEUP_DOWN
-
-/datum/keybinding/living/move_up/down(client/user)
-	. = ..()
-	if(. || !isliving(user.mob))
-		return
-	var/mob/living/L = user.mob
-	L.zMove(UP, TRUE)
-	return TRUE
-
-/datum/keybinding/living/move_down
-	key = "C"
-	name = "move down"
-	full_name = "Move Down"
-	description = "Try moving downwards."
-	keybind_signal = COMSIG_KB_LIVING_MOVEDOWN_DOWN
-
-/datum/keybinding/living/move_down/down(client/user)
-	. = ..()
-	if(. || !isliving(user.mob))
-		return
-	var/mob/living/L = user.mob
-	L.zMove(DOWN, TRUE)
-	return TRUE
