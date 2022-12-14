@@ -2544,12 +2544,12 @@
 	icon_state = "wisp"
 
 /datum/sprite_accessory/apid_antenna/plug
-	name = "pluged antenna"
+	name = "plugged antenna"
 	icon_state = "plug"
 
-/datum/sprite_accessory/apid_antenna/warior
-	name = "warior antenna"
-	icon_state = "warior"
+/datum/sprite_accessory/apid_antenna/warrior
+	name = "warrior antenna"
+	icon_state = "warrior"
 
 /datum/sprite_accessory/apid_antenna/sidelights
 	name = "sidelighted antenna"
