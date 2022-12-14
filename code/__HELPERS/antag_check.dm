@@ -36,6 +36,9 @@
 /obj/item/clothing/mask/cigarette/proc/check_cigar_antagonism(mob/living/carbon/user)
 	if(!check_antagonism_config(user))
 		return FALSE
+	var/mob/M = get_mob_by_ckey(reagents.fingerprint_transfer)
+	if(length(M.mind.antag_datums)) // if the injector is an antag, it will be allowed
+		return FALSE
 
 	for(var/each_reagent in GLOB.restricted_reagents)
 		if(locate(each_reagent) in reagents.reagent_list)
@@ -46,7 +49,6 @@
 					user.log_message("[key_name(user)] has been force-ghosted. explosive cigar is automatically removed.", LOG_GAME)
 					user.ghostize(FALSE)
 					if(reagents.fingerprint_transfer != fingerprintslast)
-						var/mob/M = get_mob_by_ckey(reagents.fingerprint_transfer)
 						message_admins("[ADMIN_LOOKUPFLW(M)] has been force-ghosted. explosive cigar is made by them.")
 						log_game("[key_name(M)] has been force-ghosted. explosive cigar is made by them.")
 						M.log_message("[key_name(user)] has been force-ghosted. explosive cigar is made by them.", LOG_GAME)
