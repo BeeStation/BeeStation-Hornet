@@ -1,7 +1,0 @@
-author: PowerfulBacon, TheFinalPotato
-delete-after: true
-changes:
-  - bugfix: Removes a sleep loop from airlocks
-  - bugfix: Makes ruin generation a subsystem process rather than using CHECK_TICK,
-      so that its execution flow can be managed by the MC rather than byond.
-  - code_imp: Adds in a unit test for shuttle files that are just completely broken.
