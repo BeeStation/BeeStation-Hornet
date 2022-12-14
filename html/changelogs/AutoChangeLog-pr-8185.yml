@@ -1,5 +1,0 @@
-author: benbot16
-delete-after: true
-changes:
-  - bugfix: Tamed and sentience-potioned mobs now properly draw aggro from other mobs
-      of the same type.
