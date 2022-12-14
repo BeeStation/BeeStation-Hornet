@@ -92,7 +92,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			if(cig.reagents.get_reagent_amount(/datum/reagent/fuel))
 				message_admins("[cig] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
 				log_game("[cig] that contains fuel was lit by [key_name(user)] for [key_name(M)]!")
-			if(cig.check_cigar_antagonism(user))
+			if(M.mind && cig.check_cigar_antagonism(user))
 				if(M.wear_mask==src)
 					M.wear_mask = null
 				qdel(cig)
@@ -336,7 +336,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			if(cig.reagents.get_reagent_amount(/datum/reagent/fuel))
 				message_admins("[cig] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
 				log_game("[cig] that contains fuel was lit by [key_name(user)] for [key_name(M)]!")
-			if(cig.check_cigar_antagonism(user))
+			if(M.mind && cig.check_cigar_antagonism(user))
 				if(M.wear_mask==src)
 					M.wear_mask = null
 				qdel(cig)
@@ -728,7 +728,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				if(cig.reagents.get_reagent_amount(/datum/reagent/fuel))
 					message_admins("[cig.name] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
 					log_game("[cig.name] that contains fuel was lit by [key_name(user)] for [key_name(M)]!")
-				if(cig.check_cigar_antagonism(user))
+				if(M.mind && cig.check_cigar_antagonism(user))
 					if(M.wear_mask==src)
 						M.wear_mask = null
 					qdel(cig)
@@ -740,7 +740,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				if(cig.reagents.get_reagent_amount(/datum/reagent/fuel))
 					message_admins("[cig.name] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
 					log_game("[cig.name] that contains fuel was lit by [key_name(user)] for [key_name(M)]!")
-				if(cig.check_cigar_antagonism(user))
+				if(M.mind && cig.check_cigar_antagonism(user))
 					if(M.wear_mask==src)
 						M.wear_mask = null
 					qdel(cig)
