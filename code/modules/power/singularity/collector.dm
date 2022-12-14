@@ -75,6 +75,7 @@
 			var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_ENG_ID)
 			if(D)
 				D.adjust_money(bitcoins_mined*RAD_COLLECTOR_MINING_CONVERSION_RATE)
+			SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, bitcoins_mined*RAD_COLLECTOR_MINING_CONVERSION_RATE)
 			SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, bitcoins_mined*RAD_COLLECTOR_MINING_CONVERSION_RATE)
 			stored_energy-=bitcoins_mined
 
