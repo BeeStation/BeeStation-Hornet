@@ -1,7 +1,7 @@
 #define ANTAGONISM_MINIMAL_TIME 180 // 1 is identical to 1 min in DB
 
 /// checks if antagonism configuration has been set
-/proc/check_antagonism_config()
+/proc/check_antagonism_config(mob/M)
 	if (!CONFIG_GET(flag/use_exp_tracking))
 		return FALSE // if we don't exp tracking, no way to track playtime. returns FALSE
 	if (!CONFIG_GET(flag/use_exp_track_for_antagonism_behavior))
@@ -12,7 +12,7 @@
 
 /// prevents non-antag griefing - returns TRUE if they are eligible to do so
 /proc/check_antagonism_minimal_playtime(mob/M, behavior="unknown activity", req_time=ANTAGONISM_MINIMAL_TIME)
-	if(!check_antagonism_config)
+	if(!check_antagonism_config(M))
 		return TRUE
 
 	// copy-paste from `job_report.dm`
@@ -34,7 +34,7 @@
 	return FALSE
 
 /obj/item/clothing/mask/cigarette/proc/check_cigar_antagonism(mob/living/carbon/user)
-	if(!check_antagonism_config)
+	if(!check_antagonism_config(user))
 		return FALSE
 
 	var/static/restricted_reagents = typecacheof(list(
