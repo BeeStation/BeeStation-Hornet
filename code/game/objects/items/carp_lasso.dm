@@ -53,6 +53,7 @@
 		to_chat(user, "<span class='notice'>You begin to untie [C]</span>")
 		if(proximity_flag && do_after(user, 2 SECONDS, FALSE, target))
 			user.faction |= "carpboy_[user]"
+			C.faction = list("neutral")
 			C.faction |= "carpboy_[user]"
 			C.faction |= user.faction
 			C.transform = transform.Turn(0)
