@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - code_imp: Adds enumerable interface.
-  - code_imp: Adds enumerable subsystem for running tick checked enumeration controlled
-      by the MC instead of byond.
-  - code_imp: The singularity should no longer result in time completely freezing
