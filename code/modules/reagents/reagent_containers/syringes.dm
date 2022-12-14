@@ -147,22 +147,6 @@
 				balloon_alert(user, "You cannot inject [target].")
 				return
 
-			// setting up
-			var/static/restricted_items = typecacheof(list(
-				/obj/item/clothing/mask/cigarette // put more items that something shouldn't
-			))
-			var/static/restricted_reagents = typecacheof(list(
-				/datum/reagent/fuel,
-				/datum/reagent/toxin/plasma)
-			)
-			// no to random antagonism
-			if(is_type_in_typecache(target, restricted_items))
-				for(var/datum/reagent/R in reagents.reagent_list)
-					if(is_type_in_typecache(R, restricted_reagents))
-						if(!check_antagonism_minimal_playtime(user, "injecting [R] into a cigarette"))
-							balloon_alert(user, "You cannot inject [target].")
-							return
-
 			if(target.reagents.total_volume >= target.reagents.maximum_volume)
 				balloon_alert(user, "[target] is full.")
 				return

@@ -92,6 +92,10 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			if(cig.reagents.get_reagent_amount(/datum/reagent/fuel))
 				message_admins("[cig] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
 				log_game("[cig] that contains fuel was lit by [key_name(user)] for [key_name(M)]!")
+			if(cig.check_cigar_antagonism(user))
+				if(M.wear_mask==src)
+					M.wear_mask = null
+				qdel(cig)
 			cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
 	else
 		..()
@@ -164,13 +168,16 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		if(lighting_text)
 			if(src.reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
 				message_admins("[src] that contains plasma was lit by [ADMIN_LOOKUPFLW(user)]!")
-				log_game("[src] that contains plasma was lit by  [key_name(user)]!")
+				log_game("[src] that contains plasma was lit by [key_name(user)]!")
 			if(src.reagents.get_reagent_amount(/datum/reagent/fuel))
 				message_admins("[src] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)]!")
 				log_game("[src] that contains fuel was lit by [key_name(user)]!")
+
 			light(lighting_text)
 	else
 		return ..()
+
+
 
 /obj/item/clothing/mask/cigarette/afterattack(obj/item/reagent_containers/glass/glass, mob/user, proximity)
 	. = ..()
@@ -329,6 +336,10 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			if(cig.reagents.get_reagent_amount(/datum/reagent/fuel))
 				message_admins("[cig] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
 				log_game("[cig] that contains fuel was lit by [key_name(user)] for [key_name(M)]!")
+			if(cig.check_cigar_antagonism(user))
+				if(M.wear_mask==src)
+					M.wear_mask = null
+				qdel(cig)
 			cig.light("<span class='notice'>[user] holds the [name] out for [M], and lights [M.p_their()] [cig.name].</span>")
 
 	else
@@ -717,6 +728,10 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				if(cig.reagents.get_reagent_amount(/datum/reagent/fuel))
 					message_admins("[cig.name] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
 					log_game("[cig.name] that contains fuel was lit by [key_name(user)] for [key_name(M)]!")
+				if(cig.check_cigar_antagonism(user))
+					if(M.wear_mask==src)
+						M.wear_mask = null
+					qdel(cig)
 				cig.light("<span class='rose'>[user] whips the [name] out and holds it for [M]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] \the [cig] with.</span>")
 			else
 				if(cig.reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
@@ -725,6 +740,10 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				if(cig.reagents.get_reagent_amount(/datum/reagent/fuel))
 					message_admins("[cig.name] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
 					log_game("[cig.name] that contains fuel was lit by [key_name(user)] for [key_name(M)]!")
+				if(cig.check_cigar_antagonism(user))
+					if(M.wear_mask==src)
+						M.wear_mask = null
+					qdel(cig)
 				cig.light("<span class='notice'>[user] holds the [name] out for [M], and lights [M.p_their()] [cig.name].</span>")
 	else
 		..()

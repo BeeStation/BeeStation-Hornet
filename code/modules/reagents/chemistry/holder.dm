@@ -53,6 +53,7 @@
 	var/addiction_tick = 1
 	var/list/datum/reagent/addiction_list = new/list()
 	var/flags
+	var/fingerprint_transfer = ""
 
 /datum/reagents/New(maximum=100, new_flags=0)
 	maximum_volume = maximum
@@ -185,6 +186,7 @@
 
 	if(transfered_by && target_atom)
 		target_atom.add_hiddenprint(transfered_by) //log prints so admins can figure out who touched it last.
+		target_atom.reagents.fingerprint_transfer = transfered_by.ckey
 		log_combat(transfered_by, target_atom, "transferred reagents ([log_list()]) from [my_atom] to")
 
 	amount = min(min(amount, src.total_volume), R.maximum_volume-R.total_volume)

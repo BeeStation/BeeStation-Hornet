@@ -1,13 +1,19 @@
 #define ANTAGONISM_MINIMAL_TIME 180 // 1 is identical to 1 min in DB
 
+/// checks if antagonism configuration has been set
+/proc/check_antagonism_config()
+	if (!CONFIG_GET(flag/use_exp_track_for_antagonism_behavior))
+		return FALSE // if this system is not used in config, returns FALSE
+	if (!CONFIG_GET(flag/use_exp_tracking))
+		return FALSE // if we don't exp tracking, no way to track playtime. returns FALSE
+	if(locate(/datum/antagonist) in M.mind.antag_datums)
+		return FALSE // antags shouldn't be restricted by this.
+	return TRUE
+
 /// prevents non-antag griefing - returns TRUE if they are eligible to do so
 /proc/check_antagonism_minimal_playtime(mob/M, behavior="unknown activity", req_time=ANTAGONISM_MINIMAL_TIME)
-	if (!CONFIG_GET(flag/use_exp_track_for_antagonism_behavior))
-		return TRUE // if this system is not used in config, returns TRUE
-	if (!CONFIG_GET(flag/use_exp_tracking))
-		return TRUE // if we don't exp tracking, no way to track playtime. returns TRUE
-	if(locate(/datum/antagonist) in M.mind.antag_datums)
-		return TRUE // antag shouldn't be restricted by this.
+	if(!check_antagonism_config)
+		return TRUE
 
 	// copy-paste from `job_report.dm`
 	var/client/owner = M.client
@@ -25,6 +31,24 @@
 
 	message_admins("[ADMIN_LOOKUPFLW(M)] tried '[behavior]', but it is rejected as they are not antag, and are below the minimum playtime threshold. ([playing_time] minutes)")
 	log_admin("[key_name(M)] tried '[behavior]', but it is rejected as they are not antag, and are below the minimum playtime threshold. ([playing_time] minutes)")
+	return FALSE
+
+/obj/item/clothing/mask/cigarette/proc/check_cigar_antagonism(mob/living/carbon/user)
+	if(!check_antagonism_config)
+		return FALSE
+
+	var/static/restricted_reagents = typecacheof(list(
+		/datum/reagent/fuel,
+		/datum/reagent/toxin/plasma)
+	)
+	for(var/each_reagent in restricted_reagents)
+		if(locate(each_reagent) in reagents.reagent_list)
+			if((src != user.wear_mask) && (fingerprintslast == reagents.fingerprint_transfer))
+				if(!check_antagonism_minimal_playtime(user, "lighting an explosive cigar on someone's mouth or somewhere"))
+					user.ghostize(FALSE)
+					message_admins("[ADMIN_LOOKUPFLW(user)] has been force-ghosted. explosive cigar is automatically removed.")
+					log_game("[key_name(user)] has been force-ghosted. explosive cigar is automatically removed.")
+					return TRUE
 	return FALSE
 
 #undef ANTAGONISM_MINIMAL_TIME
