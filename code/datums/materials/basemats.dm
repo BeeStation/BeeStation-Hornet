@@ -89,7 +89,7 @@
 
 /datum/material/plasma/on_applied(atom/source, amount, material_flags)
 	. = ..()
-	if(ismovableatom(source))
+	if(ismovable(source))
 		source.AddElement(/datum/element/firestacker, amount=1)
 		source.AddComponent(/datum/component/explodable, 0, 0, amount / 1000, amount / 500)
 
