@@ -96,6 +96,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				if(M.wear_mask==src)
 					M.wear_mask = null
 				qdel(cig)
+				return
 			cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
 	else
 		..()
@@ -340,6 +341,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				if(M.wear_mask==src)
 					M.wear_mask = null
 				qdel(cig)
+				return
 			cig.light("<span class='notice'>[user] holds the [name] out for [M], and lights [M.p_their()] [cig.name].</span>")
 
 	else
@@ -732,6 +734,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 					if(M.wear_mask==src)
 						M.wear_mask = null
 					qdel(cig)
+					return
 				cig.light("<span class='rose'>[user] whips the [name] out and holds it for [M]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] \the [cig] with.</span>")
 			else
 				if(cig.reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
@@ -744,6 +747,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 					if(M.wear_mask==src)
 						M.wear_mask = null
 					qdel(cig)
+					return
 				cig.light("<span class='notice'>[user] holds the [name] out for [M], and lights [M.p_their()] [cig.name].</span>")
 	else
 		..()
