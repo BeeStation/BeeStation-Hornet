@@ -56,6 +56,48 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">15 December 2022</h2>
+			<h3 class="author">DoctorSquishy, Ghilker, and RKz updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed Space Heaters not having power cells roundstart</li>
+				<li class="balance">Buffed Space Heater's ability to cool/heat rooms, upgrade their batteries and components to gain even more of that benefit. Seriously UPGRADE THEM.</li>
+				<li class="refactor">Refactored construction code to use subtype instead of deleting old cell on construction, changed attackby to use default procs and early returns</li>
+				<li class="code_imp">Added documentation and variables with snake cases</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">language icons will not be displayed if you can't understand that language. only curators or linguist quirk holder will see lang icons. specific languages don't follow this rule.</li>
+				<li class="rscadd">linguist quirk. Having this quirk allows you to recognize the language icon.</li>
+			</ul>
+			<h3 class="author">Harranhall updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">added some text to the "Business proposition" message that appears on the communication console before pirates show up.</li>
+			</ul>
+
+			<h2 class="date">14 December 2022</h2>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Adds enumerable interface.</li>
+				<li class="code_imp">Adds enumerable subsystem for running tick checked enumeration controlled by the MC instead of byond.</li>
+				<li class="code_imp">The singularity should no longer result in time completely freezing</li>
+			</ul>
+			<h3 class="author">PowerfulBacon, TheFinalPotato updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Removes a sleep loop from airlocks</li>
+				<li class="bugfix">Makes ruin generation a subsystem process rather than using CHECK_TICK, so that its execution flow can be managed by the MC rather than byond.</li>
+				<li class="code_imp">Adds in a unit test for shuttle files that are just completely broken.</li>
+			</ul>
+			<h3 class="author">benbot16 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Tamed and sentience-potioned mobs now properly draw aggro from other mobs of the same type.</li>
+			</ul>
+
+			<h2 class="date">12 December 2022</h2>
+			<h3 class="author">RKz updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">redundant code ismovableatom(a) has been brought out back and shot</li>
+			</ul>
+
 			<h2 class="date">11 December 2022</h2>
 			<h3 class="author">Floyd,ActionNinja,BetaCentari updated:</h3>
 			<ul class="changes bgimages16">
@@ -972,160 +1014,6 @@
 			<ul class="changes bgimages16">
 				<li class="balance">dormant diseases should now be more common, virus sample crate price has significantly increased</li>
 				<li class="bugfix">Thermite clouds no longer block vision or movement, and set players moving through them on fire</li>
-			</ul>
-
-			<h2 class="date">13 October 2022</h2>
-			<h3 class="author">The-Moon-Itself updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">docking ripples show on towed shuttles</li>
-				<li class="bugfix">towed shuttles are deleted on jumpToNullSpace</li>
-				<li class="bugfix">Transit docking port map reservations are now properly oriented</li>
-			</ul>
-
-			<h2 class="date">12 October 2022</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added some new tips.</li>
-				<li class="tweak">Rewrote some outdated tips.</li>
-				<li class="tweak">medHUDs can now perform medical evaluations on people not listed on the medical records</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Grenade lances will no longer explode the grenade inside the attacked person, but instead inside of the lance.</li>
-				<li class="balance">Spirit realm ghosts can no longer summon nar'sie</li>
-				<li class="balance">Spirit realm ghosts can no longer apocalypse</li>
-				<li class="bugfix">Fixes battle of the gods ending not summoning nar'sie on clockcult defeat.</li>
-				<li class="bugfix">Fixes cult ghosts being able to summon more cult ghosts due to a bug in the status effect.</li>
-				<li class="code_imp">Optimises pausing and unpausing atmos on a specific z-level.</li>
-				<li class="balance">The movespeed of vehicles has been modified to be proportional to the configuration run delay value.</li>
-				<li class="bugfix">Corgium will no longer last forever and will no longer affect people with damaged livers forever.</li>
-			</ul>
-			<h3 class="author">ike709 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removed the Corginator from Xenoarch because the corgium trait was removed</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Newscasters now use TGUI and have new features like channel editing and descriptions.</li>
-				<li class="tweak">Security Newscasters have been removed in favor of ID scanning on all newscasters.</li>
-				<li class="rscadd">Added Bounty Board to all newscasters, where you can post bounties for the crew to fulfill.</li>
-				<li class="admin">Reworked admin newscaster panel and topics to use TGUI.</li>
-				<li class="code_imp">Fixed some issues with IE8 compat classes on TGUI Flex components.</li>
-				<li class="code_imp">Fixed TGUI Buttons with right-positioned icons lacking a margin from the content text.</li>
-				<li class="rscadd">Added a Newscaster & Bounty Board ModPC app and added it to the Curator, HoP, and Captain's PDA roundstart, also downloadable.</li>
-				<li class="bugfix">Fixed the gas scanner not having newlines.</li>
-				<li class="tweak">ChemMasters now have an exact output units mode for pills/patches/bottles.</li>
-				<li class="tweak">ChemMasters can now have a set name input to use for all pills, instead of prompting every time.</li>
-				<li class="admin">ChemMaster packaging names are now subject to the IC filter.</li>
-			</ul>
-
-			<h2 class="date">11 October 2022</h2>
-			<h3 class="author">Absolutely-Steph updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removed old Health Analyzers from most medkits and made them less accessible in vendor.</li>
-				<li class="tweak">Tweaked some Medkit Items.</li>
-				<li class="rscadd">Health analyzers now have their own research nodes and need to be unlocked.</li>
-			</ul>
-			<h3 class="author">BrumalLake updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">ert now use your backup human name</li>
-			</ul>
-			<h3 class="author">DrDuckedGoose updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fix monkey clothing not generating on strip menu interactions</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">The adminhelp resolution message has been updated.</li>
-				<li class="balance">Abductor silencer is now a passive radio jammer.</li>
-				<li class="balance">Abductor baton can only incapacitate a single target at a time. Attacking multiple targets will result in the previous target waking up.</li>
-				<li class="balance">Abductors can no longer teleport into locations that are being viewed by valid specimins.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon (Code), Azlan (Sprite) updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Adds in the bluespace anchor, an item that prevents nearby teleportations.</li>
-				<li class="balance">Syndicate teleporter, abductor teleports, genetic mutation warps, clockcult teleports and chronosuit teleports are now on the 'blink' teleport channel, meaning they can be blocked by the bluespace anchor.</li>
-			</ul>
-			<h3 class="author">benbot16 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Plasma cutters will no longer heat things while unpowered</li>
-			</ul>
-			<h3 class="author">covertcorvid updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed atmospheric technicians, shaft miners, the HOP, the HOS, and the QM lacking their specialized list of mail goodies.</li>
-			</ul>
-			<h3 class="author">dwasint updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">tables now check if they can be fully built before the material is consumed</li>
-				<li class="tweak">holo parasites can't use fugu glands anymore to double their damage</li>
-			</ul>
-			<h3 class="author">etherware-novice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">lathes/techfabs/etc light up when theres new research designs</li>
-				<li class="rscadd">Added clown headset/voicebox</li>
-				<li class="tweak">Added both to the Clown Tech node</li>
-				<li class="rscadd">suit sensors poster</li>
-				<li class="rscadd">Added a paper slip that acts as a fake id card that you can use to fake identity, craftable with paper and wirecutters.</li>
-				<li class="rscadd">Add a message for glue suicide</li>
-				<li class="rscadd">teg screwdriver sprites</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed some runtimes in Cyborg Self Monitoring and Robot Control.</li>
-				<li class="admin">Removed a useless admin message for if someone has an invalid keybind set.</li>
-			</ul>
-
-			<h2 class="date">10 October 2022</h2>
-			<h3 class="author">Bobbanz1 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">MULEbot is now capable of being summoned by the AI repeatedly instead of only once.</li>
-			</ul>
-			<h3 class="author">BrumalLake updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">self repairing with cable and welding now fixes part you initially targeted, and only one self repair can be done at a time but the time has been reduced from 5 to 1.5s</li>
-			</ul>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Autolathes now display the correct material cost</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removed PDAs.</li>
-				<li class="rscdel">Removed round-start backpack tablets.</li>
-				<li class="refactor">Due to a buyout and massive restructuring of Thinktronic Systems, all crew now start with tablets containing pre-installed programs for messaging, and programs for tasks previously done by PDAs.</li>
-				<li class="tweak">PDA sprites have been slightly changed to account for the new program overlays. Wide PDAs have normal sized screens, and PDAs start off with a black screen.</li>
-				<li class="rscadd">Added themes to tablets in the Settings app.</li>
-				<li class="tweak">Renamed Hardware Configuration to Settings.</li>
-				<li class="code_imp">Improved tablet flashlight UI interaction with cyborg code.</li>
-				<li class="admin">Added logging to PDA bombs.</li>
-				<li class="tweak">Brig physician now starts with a cartridge.</li>
-				<li class="rscadd">Added a locator app for janitors to find mops, cleanbots, and janicarts with.</li>
-				<li class="bugfix">Improved ModPC behavior with sechuds showing the wrong HUD.</li>
-				<li class="tweak">You can now use holochips directly on a PDA/tablet to insert credits to the ID inside.</li>
-				<li class="tweak">Tablet flashlight now uses movable lighting instead of jumping around</li>
-				<li class="tweak">Tablets can be used while inside lockers.</li>
-				<li class="code_imp">Changed tablet program access requirements to support lists.</li>
-				<li class="code_imp">Added an emoji entry TGUI interface. For use with the mime PDA.</li>
-				<li class="rscadd">Emagging a modPC now opens a console window with flavor text and sets the theme to syndicate.</li>
-				<li class="bugfix">Fixes PDA sent photos opening an undersized window.</li>
-				<li class="tweak">Cyborg integrated tablet now has a button background.</li>
-				<li class="tweak">AI now has a small integrated tablet only for sending messages.</li>
-				<li class="tweak">Added an improved photo selection TGUI menu, mainly for use by silicons.</li>
-				<li class="bugfix">Photos now describe their dimensions properly.</li>
-				<li class="bugfix">Photo descriptions no longer randomly place periods around.</li>
-				<li class="bugfix">Photos can no longer describe invisible things.</li>
-				<li class="rscadd">Nukie tablets now start with the Remote Airlock Control program, for remotely interfacing with the infiltrator's blast door.</li>
-				<li class="tweak">Regular cargo techs no longer have the Ore Silo logs in their PDA Cartridge. It's now locked to the QM.</li>
-				<li class="rscadd">Added a new Cargo Technician cartridge with its own icon.</li>
-				<li class="rscadd">Added a Log Viewer program for viewing ore silo and NTChat logs on the filesystem.</li>
-				<li class="bugfix">Modular computers now correctly show visible_messages to the user if they are holding it.</li>
-				<li class="rscdel">Removed the messaging console's system message capability.</li>
-				<li class="rscadd">The Status Display modPC app can now update status alert images.</li>
-			</ul>
-			<h3 class="author">sergeirocks100 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Lizardpeople can wear underwear again.</li>
-				<li class="imageadd">The separate male and female chest sprites for lizardpeople have been readded.</li>
 			</ul>
 		</div>
 

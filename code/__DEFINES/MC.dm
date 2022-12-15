@@ -106,6 +106,7 @@
 }\
 /datum/controller/subsystem/processing/##X
 
+
 #define VERB_MANAGER_SUBSYSTEM_DEF(X) GLOBAL_REAL(SS##X, /datum/controller/subsystem/verb_manager/##X);\
 /datum/controller/subsystem/verb_manager/##X/New(){\
 	NEW_SS_GLOBAL(SS##X);\
@@ -114,3 +115,7 @@
 }\
 /datum/controller/subsystem/verb_manager/##X/fire() {..() /*just so it shows up on the profiler*/} \
 /datum/controller/subsystem/verb_manager/##X
+
+//If the MC goes for longer than 5 seconds, provide a warning for investigation
+#define MASTER_CONTROLLER_DELAY_WARN_TIME 2 SECONDS
+
