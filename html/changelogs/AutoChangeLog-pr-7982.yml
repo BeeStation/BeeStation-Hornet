@@ -1,0 +1,8 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - tweak: language icons will not be displayed if you can't understand that language.
+      only curators or linguist quirk holder will see lang icons. specific languages
+      don't follow this rule.
+  - rscadd: linguist quirk. Having this quirk allows you to recognize the language
+      icon.
