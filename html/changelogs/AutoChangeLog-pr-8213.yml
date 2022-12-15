@@ -1,0 +1,5 @@
+author: Harranhall
+delete-after: true
+changes:
+  - tweak: added some text to the "Business proposition" message that appears on the
+      communication console before pirates show up.
