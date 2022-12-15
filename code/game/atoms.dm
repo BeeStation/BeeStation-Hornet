@@ -1415,6 +1415,42 @@
 	if(source != target)
 		target.log_talk(message, message_type, tag="[tag] from [key_name(source)]", log_globally=FALSE)
 
+var/static/tough_stuff = typecacheof(list( //List of items that make an announcement to the admins when crafted
+				/obj/item/grenade/iedcasing,
+				/obj/item/spear,
+				/obj/item/reagent_containers/food/drinks/bottle/molotov,
+				/obj/item/melee/baton/cattleprod,
+				/obj/item/pneumatic_cannon/ghetto,
+				/obj/item/flamethrower,
+				/obj/item/gun/ballistic/bow/pipe,
+				/obj/item/gun/ballistic/shotgun/doublebarrel/improvised,
+				/obj/item/chainsaw,
+				/obj/item/switchblade,
+				/obj/item/bombcore/chemical,
+				/obj/item/restraints/legcuffs/bola/,
+				/obj/item/fireaxe/boneaxe,
+				/obj/item/kitchen/knife/shank,
+				/obj/structure/guillotine
+				))
+/**
+  * Log for crafting items
+  *
+  * 1 argument is for the user making the item
+  * 2 argument is for the item being created
+  * 3 argument is whether or not the user has finished creating it
+ */
+/proc/log_crafting(atom/user, atom/object, finished=FALSE)
+	var/masterpiece = object
+	var/message = "has [finished ? "finished":"started"] crafting [masterpiece]"
+	user.log_message(message, LOG_GAME)
+	if(is_type_in_typecache(masterpiece, tough_stuff) && finished == FALSE)
+		var/devious = null
+		var/mob/blacksmith = user
+		devious = locate(/datum/antagonist) in blacksmith.mind.antag_datums
+		if(isnull(devious))
+			message_admins("[ADMIN_LOOKUPFLW(user)] has crafted [masterpiece] as a non-antagonist.")
+		else
+			message_admins("[ADMIN_LOOKUPFLW(user)] has crafted [masterpiece] as a [devious].")
 /**
   * Log a combat message in the attack log
   *
