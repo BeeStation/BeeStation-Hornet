@@ -1,0 +1,9 @@
+author: DoctorSquishy, Ghilker, and RKz
+delete-after: true
+changes:
+  - bugfix: Fixed Space Heaters not having power cells roundstart
+  - balance: Buffed Space Heater's ability to cool/heat rooms, upgrade their batteries
+      and components to gain even more of that benefit. Seriously UPGRADE THEM.
+  - refactor: Refactored construction code to use subtype instead of deleting old
+      cell on construction, changed attackby to use default procs and early returns
+  - code_imp: Added documentation and variables with snake cases
