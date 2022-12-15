@@ -3,7 +3,7 @@
 
 // A place where tube pods stop, and people can get in or out.
 // Mappers: use "Generate Instances from Directions" for this
-//  one.
+// one.
 
 
 /obj/structure/transit_tube/station
@@ -21,8 +21,8 @@
 	var/base_icon = "station0"
 	var/boarding_dir //from which direction you can board the tube
 
-/obj/structure/transit_tube/station/New()
-	..()
+/obj/structure/transit_tube/station/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/transit_tube/station/Destroy()
@@ -142,7 +142,7 @@
 			close_animation()
 			sleep(CLOSE_DURATION + 2)
 			if(open_status == STATION_TUBE_CLOSED && pod && pod.loc == loc)
-				pod.follow_tube()
+				pod.follow_tube(src)
 			pod_moving = FALSE
 			return TRUE
 	return FALSE
@@ -242,7 +242,7 @@
 	for(var/obj/structure/transit_tube_pod/pod in loc)
 		if(!pod.moving)
 			pod_moving = TRUE
-			pod.follow_tube()
+			pod.follow_tube(src)
 			pod_moving = FALSE
 			return TRUE
 	return FALSE
@@ -252,7 +252,7 @@
 	. += "<span class='notice'>This station will create a pod for you to ride, no need to wait for one.</span>"
 
 /obj/structure/transit_tube/station/dispenser/Bumped(atom/movable/AM)
-	if(!(istype(AM) && AM.dir == boarding_dir))
+	if(!(istype(AM) && AM.dir == boarding_dir) || AM.anchored)
 		return
 	var/obj/structure/transit_tube_pod/dispensed/pod = new(loc)
 	AM.visible_message("<span class='notice'>[pod] forms around [AM].</span>", "<span class='notice'>[pod] materializes around you.</span>")
@@ -279,7 +279,7 @@
 /obj/structure/transit_tube/station/dispenser/reverse
 	tube_construction = /obj/structure/c_transit_tube/station/dispenser/reverse
 	reverse_launch = TRUE
-	icon_state = "closed_terminusdispenser0"
+	icon_state = "open_terminusdispenser0"
 	base_icon = "terminusdispenser0"
 
 /obj/structure/transit_tube/station/dispenser/reverse/init_tube_dirs()
@@ -295,7 +295,7 @@
 	boarding_dir = turn(dir, 180)
 
 /obj/structure/transit_tube/station/dispenser/reverse/flipped
-	icon_state = "closed_terminusdispenser1"
+	icon_state = "open_terminusdispenser1"
 	base_icon = "terminusdispenser1"
 	tube_construction = /obj/structure/c_transit_tube/station/dispenser/reverse/flipped
 

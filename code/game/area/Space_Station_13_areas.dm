@@ -826,7 +826,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "engine_storage_shared"
 
 /area/engine/transit_tube
-	name = "Transit Tube"
+	name = "\improper Transit Tube"
 	icon_state = "transit_tube"
 
 

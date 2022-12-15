@@ -16,7 +16,7 @@
 
 /obj/structure/c_transit_tube/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_FLIP | ROTATION_VERBS,null,null,CALLBACK(src,.proc/after_rot))
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_FLIP | ROTATION_VERBS, null, null, CALLBACK(src, .proc/AfterRotation))
 
 /obj/structure/c_transit_tube/proc/can_wrench_in_loc(mob/user)
 	var/turf/source_turf = get_turf(loc)
