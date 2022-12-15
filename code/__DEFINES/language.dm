@@ -1,7 +1,8 @@
 #define NO_STUTTER 1
 #define TONGUELESS_SPEECH 2
 #define LANGUAGE_HIDE_ICON_IF_UNDERSTOOD 4
-#define LANGUAGE_HIDE_ICON_IF_NOT_UNDERSTOOD 8
+#define LANGUAGE_HIDE_ICON_IF_NOT_UNDERSTOOD_WITH_LINGUIST_TRAIT 8 // even if you have linguist trait, you shouldn't see the icon
+#define LANGUAGE_ALWAYS_SHOW_ICON_IF_NOT_UNDERSTOOD 16
 
 // LANGUAGE SOURCE DEFINES
 #define LANGUAGE_ALL 			"all"		// For use in full removal only.

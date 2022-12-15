@@ -31,8 +31,13 @@
 	var/understands = hearer.has_language(src.type)
 	if(flags & LANGUAGE_HIDE_ICON_IF_UNDERSTOOD && understands)
 		return FALSE
-	if(flags & LANGUAGE_HIDE_ICON_IF_NOT_UNDERSTOOD && !understands)
-		return FALSE
+	if(!understands)
+		if(flags & LANGUAGE_ALWAYS_SHOW_ICON_IF_NOT_UNDERSTOOD)
+			return TRUE
+		if(!HAS_TRAIT(hearer, TRAIT_LINGUIST))
+			return FALSE
+		else if(flags & LANGUAGE_HIDE_ICON_IF_NOT_UNDERSTOOD_WITH_LINGUIST_TRAIT)
+			return FALSE
 	return TRUE
 
 /datum/language/proc/get_icon()

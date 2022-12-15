@@ -96,6 +96,14 @@
 	)
 	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)
 
+/datum/quirk/linguist
+	name = "Linguist"
+	desc = "Although you don't know every language, your intense interest in languages allows you to recognise the features of most languages."
+	value = 1
+	mob_trait = TRAIT_LINGUIST
+	gain_text = "span class='notice'>You can recognise the linguistic features of every language.</span>"
+	lose_text = "span class='danger'>You can no longer recognise linguistic features for each language.</span>"
+
 /datum/quirk/multilingual
 	name = "Multilingual"
 	desc = "You spent a portion of your life learning to understand an additional language. You may or may not be able to speak it based on your anatomy."
