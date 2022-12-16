@@ -377,7 +377,6 @@
 	name = "vending"
 
 /datum/asset/spritesheet/vending/create_spritesheets()
-
 	// initialising the list of items we need
 	var/target_items = list()
 	var/prize_dummy = list()
