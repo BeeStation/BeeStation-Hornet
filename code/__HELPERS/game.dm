@@ -553,7 +553,7 @@
 	if(!istype(environment))
 		return
 	var/pressure = environment.return_pressure()
-	if(pressure <= MAXIMUM_LAVALAND_EQUIPMENT_EFFECT_PRESSURE && pressure >= MINIMUM_LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
+	if(pressure <= MAXIMUM_LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
 		. = TRUE
 
 /proc/ispipewire(item)

@@ -27757,7 +27757,7 @@
 	},
 /area/maintenance/central)
 "gYS" = (
-/obj/machinery/vending/cart,
+/obj/machinery/vending/job_disk,
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 8
 	},
@@ -52299,11 +52299,11 @@
 "nsk" = (
 /obj/docking_port/stationary{
 	dir = 8;
-	dwidth = 4;
-	height = 30;
+	dwidth = 6;
+	height = 19;
 	id = "emergency_home";
 	name = "Fland Station emergency evac bay";
-	width = 19
+	width = 29
 	},
 /turf/open/space/basic,
 /area/space)
