@@ -52299,11 +52299,11 @@
 "nsk" = (
 /obj/docking_port/stationary{
 	dir = 8;
-	dwidth = 4;
-	height = 30;
+	dwidth = 6;
+	height = 19;
 	id = "emergency_home";
 	name = "Fland Station emergency evac bay";
-	width = 19
+	width = 29
 	},
 /turf/open/space/basic,
 /area/space)

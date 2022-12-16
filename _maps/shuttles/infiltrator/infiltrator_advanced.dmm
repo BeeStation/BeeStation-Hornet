@@ -215,7 +215,7 @@
 	aidisabled = 1;
 	area = "/area/shuttle/syndicate/bridge";
 	name = "Infiltrator E.V.A APC";
-	pixel_y = -26
+	pixel_y = -24
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium/red,
@@ -372,7 +372,7 @@
 	area = "/area/shuttle/syndicate/airlock";
 	dir = 4;
 	name = "Infiltrator Airlock APC";
-	pixel_x = 28
+	pixel_x = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -451,7 +451,7 @@
 	area = "/area/shuttle/syndicate/hallway";
 	dir = 1;
 	name = "Infiltrator APC";
-	pixel_y = 26
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -969,7 +969,7 @@
 	area = "/area/shuttle/syndicate/eva";
 	dir = 1;
 	name = "Infiltrator E.V.A APC";
-	pixel_y = 26
+	pixel_y = 24
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/syndicate/eva)
@@ -1473,7 +1473,7 @@
 	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
 	name = "syndicate infiltrator";
 	port_direction = 4;
-	width = 23
+	width = 21
 	},
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/box,
@@ -1925,7 +1925,7 @@
 	area = "/area/shuttle/syndicate/medical";
 	dir = 8;
 	name = "Infiltrator Medical APC";
-	pixel_x = -28
+	pixel_x = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -2004,7 +2004,7 @@
 	area = "/area/shuttle/syndicate/armory";
 	dir = 4;
 	name = "Infiltrator Armory APC";
-	pixel_x = 28
+	pixel_x = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -2111,8 +2111,7 @@
 "dX" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/supply/visible{
-	dir = 5;
-	icon_state = "pipe11-2"
+	dir = 5
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/armory)
@@ -2415,8 +2414,7 @@
 "et" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/supply/visible{
-	dir = 8;
-	icon_state = "manifold-2"
+	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/armory)
