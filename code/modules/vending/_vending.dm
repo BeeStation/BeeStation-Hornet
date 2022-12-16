@@ -832,13 +832,8 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 			if(R)
 				.["user"]["job"] = R.fields["rank"]
 	.["stock"] = list()
-	for (var/datum/data/vending_product/product_record in product_records + coin_records + hidden_records)
-		var/list/product_data = list(
-			name = product_record.name,
-			amount = product_record.amount,
-		)
-
-		.["stock"][product_record.name] = product_data
+	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
+		.["stock"]["[replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")]"] = R.amount
 
 	.["extended_inventory"] = extended_inventory
 
