@@ -1,5 +1,3 @@
-#define CHAT_TYPE_OOC "chat_ooc"
-#define CHAT_TYPE_DEADCHAT "chat_dead"
 
 GLOBAL_VAR_INIT(OOC_COLOR, null)//If this is null, use the CSS for OOC. Otherwise, use a custom colour.
 GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
@@ -312,6 +310,3 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 		return
 
 	GLOB.error_cache.show_to_minimal(src)
-
-#undef CHAT_TYPE_OOC
-#undef CHAT_TYPE_DEADCHAT
