@@ -349,6 +349,8 @@
 	var/first_turf_index = 1
 	while(!ispath(members[first_turf_index], /turf)) //find first /turf object in members
 		first_turf_index++
+		if(first_turf_index > length(members))
+			CRASH("No turf found on x [crds.x] y [crds.y] z [crds.z] at [areaCache[1]]")
 
 	//turn off base new Initialization until the whole thing is loaded
 	SSatoms.map_loader_begin()

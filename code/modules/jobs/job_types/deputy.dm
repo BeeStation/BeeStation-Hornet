@@ -2,11 +2,10 @@
 	title = JOB_NAME_DEPUTY
 	flag = DEPUTY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
-	department_flag = ENGSEC
+	supervisors = "the head of security"
 	faction = "Station"
 	total_positions = 0
 	spawn_positions = 0
-	supervisors = "the head of security"
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 	exp_requirements = 180
@@ -16,12 +15,14 @@
 
 	access = list(ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
-	paycheck = PAYCHECK_EASY
-	paycheck_department = ACCOUNT_SEC
+
+	department_flag = ENGSEC
+	departments = DEPT_BITFLAG_SEC
+	bank_account_department = ACCOUNT_SEC_BITFLAG
+	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_EASY)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_DEPUTY  //see code/__DEFINES/jobs.dm
-	departments = DEPARTMENT_BITFLAG_SECURITY
 
 /datum/outfit/job/deputy
 	name = JOB_NAME_DEPUTY
@@ -35,7 +36,7 @@
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	glasses = /obj/item/clothing/glasses/hud/security/deputy
 	head = /obj/item/clothing/head/soft/sec
-	l_pocket = /obj/item/pda/deputy
+	l_pocket = /obj/item/modular_computer/tablet/pda/deputy
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec

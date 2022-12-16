@@ -7,7 +7,7 @@
 	program_icon_state = "generic"
 	extended_desc = "This program allows access to standard security camera networks."
 	requires_ntnet = TRUE
-	transfer_access = ACCESS_SECURITY
+	transfer_access = list(ACCESS_SECURITY)
 	usage_flags = PROGRAM_CONSOLE | PROGRAM_LAPTOP
 	size = 5
 	tgui_id = "NtosSecurEye"
@@ -176,20 +176,14 @@
 
 // Returns the list of cameras accessible from this computer
 /datum/computer_file/program/secureye/proc/get_available_cameras()
-	var/list/L = list()
-	for (var/obj/machinery/camera/cam in GLOB.cameranet.cameras)
+	var/list/camlist = list()
+	for(var/obj/machinery/camera/cam as() in GLOB.cameranet.cameras)
 		if(!is_station_level(cam.z))//Only show station cameras.
 			continue
-		L.Add(cam)
-	var/list/camlist = list()
-	for(var/obj/machinery/camera/cam in L)
-		if(!cam.network)
-			stack_trace("Camera in a cameranet has no camera network")
+		if(!islist(cam.network))
+			stack_trace("Camera in a cameranet has invaid camera network")
 			continue
-		if(!(islist(cam.network)))
-			stack_trace("Camera in a cameranet has a non-list camera network")
+		if(!length(cam.network & network))
 			continue
-		var/list/tempnetwork = cam.network & network
-		if(tempnetwork.len)
-			camlist["[cam.c_tag]"] = cam
+		camlist["[cam.c_tag]"] = cam
 	return camlist

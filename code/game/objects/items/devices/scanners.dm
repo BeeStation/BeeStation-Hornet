@@ -128,10 +128,13 @@ GENE SCANNER
 
 
 // Used by the PDA medical scanner too
-/proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE)  // curse these guys too
-	var/list/message = list()
+/proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE, to_chat = TRUE)
 	if(isliving(user) && (user.incapacitated() || user.eye_blind))
 		return
+
+	// the final list of strings to render
+	var/message = list()
+
 	//Damage specifics
 	var/oxy_loss = M.getOxyLoss()
 	var/tox_loss = M.getToxLoss()
@@ -408,26 +411,33 @@ GENE SCANNER
 			for(var/name in cyberimp_detect)
 				message += "<span class='notice'>[name]</span>"
 
-	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
 	SEND_SIGNAL(M, COMSIG_NANITE_SCAN, user, FALSE)
+	if(to_chat)
+		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+	else
+		return(jointext(message, "\n"))
 
-/proc/chemscan(mob/living/user, mob/living/M)
-	var/list/message = list()
-	if(istype(M))
-		if(M.reagents)
-			if(M.reagents.reagent_list.len)
-				message += "<span class='notice'>Subject contains the following reagents:</span>"
-				for(var/datum/reagent/R in M.reagents.reagent_list)
-					message += "<span class='notice'>[round(R.volume, 0.001)] units of [R.name][R.overdosed == 1 ? "</span> - <span class='boldannounce'>OVERDOSING</span>" : ".</span>"]"
-			else
-				message += "<span class='notice'>Subject contains no reagents.</span>"
-			if(M.reagents.addiction_list.len)
-				message += "<span class='boldannounce'>Subject is addicted to the following reagents:</span>"
-				for(var/datum/reagent/R in M.reagents.addiction_list)
-					message += "<span class='alert'>[R.name]</span>"
-			else
-				message += "<span class='notice'>Subject is not addicted to any reagents.</span>"
-		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
+/proc/chemscan(mob/living/user, mob/living/M, to_chat = TRUE)
+	if(!istype(M))
+		return
+	var/message = list()
+	if(M.reagents)
+		if(M.reagents.reagent_list.len)
+			message += "<span class='notice'>Subject contains the following reagents:</span>"
+			for(var/datum/reagent/R in M.reagents.reagent_list)
+				message += "<span class='notice'>[round(R.volume, 0.001)] units of [R.name][R.overdosed == 1 ? "</span> - <span class='boldannounce'>OVERDOSING</span>" : ".</span>"]"
+		else
+			message += "<span class='notice'>Subject contains no reagents.</span>"
+		if(M.reagents.addiction_list.len)
+			message += "<span class='boldannounce'>Subject is addicted to the following reagents:</span>"
+			for(var/datum/reagent/R in M.reagents.addiction_list)
+				message += "<span class='alert'>[R.name]</span>"
+		else
+			message += "<span class='notice'>Subject is not addicted to any reagents.</span>"
+	if(to_chat)
+		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+	else
+		return(jointext(message, "\n"))
 
 /obj/item/healthanalyzer/advanced
 	name = "advanced health analyzer"
@@ -436,7 +446,7 @@ GENE SCANNER
 	advanced = TRUE
 
 /obj/item/analyzer
-	desc = "A hand-held environmental scanner which reports current gas levels. Alt-Click to use the built in barometer function."
+	desc = "A hand-held environmental scanner which can be used to scan gases in the atmosphere or within containers. Can also be used to scan unusual station phenomena. Alt-Click to use the built in barometer function."
 	name = "analyzer"
 	custom_price = 10
 	icon = 'icons/obj/device.dmi'
@@ -444,6 +454,8 @@ GENE SCANNER
 	item_state = "analyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
+	drop_sound = 'sound/items/handling/weldingtool_drop.ogg'
+	pickup_sound =  'sound/items/handling/weldingtool_pickup.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	flags_1 = CONDUCT_1
 	item_flags = NOBLUDGEON
@@ -551,12 +563,12 @@ GENE SCANNER
 			amount += inaccurate
 	return DisplayTimeText(max(1,amount))
 
-/proc/atmosanalyzer_scan(mob/user, atom/target, silent=FALSE)  // curse whoever coded this to call to_chat 20 times
-	var/list/message = list()
+/proc/atmosanalyzer_scan(mob/user, atom/target, silent=FALSE, to_chat = TRUE)
 	var/mixture = target.return_analyzable_air()
 	if(!mixture)
 		return FALSE
 
+	var/list/message = list()
 	var/icon = target
 	if(!silent && isliving(user))
 		user.visible_message("[user] has used the analyzer on [icon2html(icon, viewers(user))] [target].", "<span class='notice'>You use the analyzer on [icon2html(icon, user)] [target].</span>")
@@ -589,14 +601,18 @@ GENE SCANNER
 				message += "<span class='notice'>This node is empty!</span>"
 			else
 				message += "<span class='notice'>[target] is empty!</span>"
+			message += "<span class='notice'>Volume: [volume] L</span>"
 
 		if(cached_scan_results && cached_scan_results["fusion"]) //notify the user if a fusion reaction was detected
 			var/instability = round(cached_scan_results["fusion"], 0.01)
 			message += "<span class='boldnotice'>Large amounts of free neutrons detected in the air indicate that a fusion reaction took place.</span>"
 			message += "<span class='notice'>Instability of the last fusion reaction: [instability].</span>"
 
-	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
-	return TRUE
+	if(to_chat)
+		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+		return TRUE
+	else
+		return(jointext(message, "\n"))
 
 /obj/item/analyzer/proc/scan_turf(mob/user, turf/location)
 	var/list/message = list()

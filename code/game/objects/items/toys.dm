@@ -24,7 +24,6 @@
  *		Toy Daggers
  *		Eldrich stuff
  *		Batong
- *		Fake captains card
  */
 
 
@@ -335,6 +334,8 @@
 	var/active = FALSE
 	icon = 'icons/obj/items_and_weapons.dmi'
 	hitsound = 'sound/weapons/smash.ogg'
+	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
+	pickup_sound = 'sound/items/handling/toolbox_pickup.ogg'
 	attack_verb = list("robusted")
 
 /obj/item/toy/windupToolbox/attack_self(mob/user)
@@ -1525,26 +1526,6 @@
 /obj/item/storage/box/heretic_asshole/PopulateContents()
 	for(var/i in 1 to rand(1,4))
 		new /obj/item/toy/reality_pierce(src)
-
-/*
- * Fake captains card
- */
-
-/obj/item/toy/allaccess
-	name = "captain's spare ID"
-	desc = "A replica of the glorious captain's card. Issued to annoying greytiders as a joke."
-	icon = 'icons/obj/card.dmi'
-	icon_state = "gold"
-
-/obj/item/toy/allaccess/afterattack()
-	. = ..()
-	playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE)
-
-/obj/item/toy/allaccess/attack_self(mob/user) // flex
-	. = ..()
-	if(Adjacent(user))
-		user.visible_message("<span class='notice'>[user] shows you: [icon2html(src, viewers(user))] [src.name].</span>", "<span class='notice'>You show \the [src.name].</span>")
-	add_fingerprint(user)
 
 // Serviceborg items
 

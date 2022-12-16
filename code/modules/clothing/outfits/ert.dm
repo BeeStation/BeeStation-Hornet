@@ -99,12 +99,11 @@
 	suit_store = /obj/item/gun/energy/e_gun
 	glasses = /obj/item/clothing/glasses/hud/health
 	back = /obj/item/storage/backpack/ert/medical
-	belt = /obj/item/storage/belt/medical
+	belt = /obj/item/storage/belt/medical/ert
 	l_hand = /obj/item/storage/firstaid/regular
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
-		/obj/item/melee/baton/loaded=1,
 		/obj/item/reagent_containers/hypospray/combat=1,
-		/obj/item/gun/medbeam=1)
+		/obj/item/melee/baton/loaded=1)
 
 /datum/outfit/ert/medic/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -120,11 +119,11 @@
 	name = "ERT Medic - High Alert"
 
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
+	l_hand = /obj/item/storage/firstaid/advanced
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/gun/energy/pulse/pistol/loyalpin=1,
-		/obj/item/reagent_containers/hypospray/combat/nanites=1,
-		/obj/item/gun/medbeam=1)
+		/obj/item/reagent_containers/hypospray/combat/nanites=1)
 
 /datum/outfit/ert/engineer
 	name = "ERT Engineer"
@@ -139,7 +138,8 @@
 	l_hand = /obj/item/storage/firstaid/regular
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/melee/baton/loaded=1,
-		/obj/item/construction/rcd/loaded=1)
+		/obj/item/construction/rcd/loaded=1,
+		/obj/item/bluespace_anchor=1)
 
 /datum/outfit/ert/engineer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -158,7 +158,8 @@
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/gun/energy/pulse/pistol/loyalpin=1,
-		/obj/item/construction/rcd/combat=1)
+		/obj/item/construction/rcd/combat=1,
+		/obj/item/bluespace_anchor=1)
 
 
 /datum/outfit/centcom_official
@@ -172,7 +173,7 @@
 	belt = /obj/item/gun/energy/e_gun
 	l_pocket = /obj/item/pen
 	back = /obj/item/storage/backpack/satchel
-	r_pocket = /obj/item/pda/heads
+	r_pocket = /obj/item/modular_computer/tablet/pda/heads
 	l_hand = /obj/item/clipboard
 	id = /obj/item/card/id/centcom
 
@@ -180,10 +181,9 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/pda/heads/pda = H.r_store
-	pda.owner = H.real_name
-	pda.ownjob = JOB_CENTCOM_OFFICIAL
-	pda.update_label()
+	var/obj/item/modular_computer/tablet/pda/heads/pda = H.r_store
+	pda.saved_identification = H.real_name
+	pda.saved_job = JOB_CENTCOM_OFFICIAL
 
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
@@ -362,7 +362,7 @@
 /datum/outfit/centcom_clown
 	name = "Code Banana ERT"
 	id = /obj/item/card/id/centcom
-	belt = /obj/item/pda/clown
+	belt = /obj/item/modular_computer/tablet/pda/clown
 	ears = /obj/item/radio/headset/headset_cent
 	uniform = /obj/item/clothing/under/rank/civilian/clown
 	back = /obj/item/storage/backpack/clown

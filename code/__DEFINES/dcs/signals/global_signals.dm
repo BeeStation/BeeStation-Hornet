@@ -27,3 +27,6 @@
 #define COMSIG_GLOB_CREWMEMBER_JOINED "!crewmember_joined"
 /// job subsystem has spawned and equipped a new mob
 #define COMSIG_GLOB_JOB_AFTER_SPAWN "!job_after_spawn"
+
+/// research has been researched
+#define COMSIG_GLOB_NEW_RESEARCH "!remote_research_changed"

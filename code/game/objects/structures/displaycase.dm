@@ -544,7 +544,7 @@
 			playsound(src, 'sound/machines/click.ogg', 20, TRUE)
 			toggle_lock()
 			return
-	if(istype(I, /obj/item/pda))
+	if(istype(I, /obj/item/modular_computer))
 		return TRUE
 	ui_update()
 	. = ..()
@@ -581,8 +581,8 @@
 		to_chat(user, "<span class='notice'>[src] must be open to move it.</span>")
 		return
 
-/obj/structure/displaycase/forsale/emag_act(mob/user)
-	. = ..()
+/obj/structure/displaycase/forsale/on_emag(mob/user)
+	..()
 	payments_acc = null
 	req_access = list()
 	to_chat(user, "<span class='warning'>[src]'s card reader fizzles and smokes, and the account owner is reset.</span>")

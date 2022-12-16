@@ -84,7 +84,7 @@
 	if(!proximity && prox_check)
 		return
 	log_combat(user, A, "attempted to emag")
-	A.emag_act(user)
+	A.use_emag(user)
 
 /obj/item/card/emagfake
 	desc = "It is an ID card, the magnetic strip is exposed and attached to some circuitry. Closer inspection shows that this card is a poorly made replica, with a \"DonkCo\" logo stamped on the back."
@@ -117,6 +117,8 @@
 	var/access_txt // mapping aid
 	var/datum/bank_account/registered_account
 	var/obj/machinery/paystand/my_store
+	/// controls various things, disable to make it have no bank account, ineditable in id machines, etc
+	var/electric = TRUE  // removes account info from examine
 
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
@@ -163,14 +165,8 @@
 		registered_account.payday(1)
 
 /obj/item/card/id/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/holochip))
+	if(iscash(W))
 		insert_money(W, user)
-		return
-	else if(istype(W, /obj/item/stack/spacecash))
-		insert_money(W, user, TRUE)
-		return
-	else if(istype(W, /obj/item/coin))
-		insert_money(W, user, TRUE)
 		return
 	else if(istype(W, /obj/item/storage/bag/money))
 		var/obj/item/storage/bag/money/money_bag = W
@@ -184,7 +180,7 @@
 	else
 		return ..()
 
-/obj/item/card/id/proc/insert_money(obj/item/I, mob/user, physical_currency)
+/obj/item/card/id/proc/insert_money(obj/item/I, mob/user)
 	if(!registered_account)
 		to_chat(user, "<span class='warning'>[src] doesn't have a linked account to deposit [I] into!</span>")
 		return
@@ -194,7 +190,7 @@
 		return
 
 	registered_account.adjust_money(cash_money)
-	if(physical_currency)
+	if(istype(I, /obj/item/stack/spacecash) || istype(I, /obj/item/coin))
 		to_chat(user, "<span class='notice'>You stuff [I] into [src]. It disappears in a small puff of bluespace smoke, adding [cash_money] credits to the linked account.</span>")
 	else
 		to_chat(user, "<span class='notice'>You insert [I] into [src], adding [cash_money] credits to the linked account.</span>")
@@ -290,16 +286,33 @@
 		registered_account.bank_card_talk("<span class='warning'>ERROR: The linked account requires [difference] more credit\s to perform that withdrawal.</span>", TRUE)
 
 /obj/item/card/id/examine(mob/user)
-	..()
+	. = ..()
+	if(!electric)  // forces off bank info for paper slip
+		return .
 	if(mining_points)
 		. += "There's [mining_points] mining equipment redemption point\s loaded onto this card."
-	. = ..()
 	if(registered_account)
 		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of $[registered_account.account_balance]."
-		if(registered_account.account_job)
-			var/datum/bank_account/D = SSeconomy.get_dep_account(registered_account.account_department)
-			if(D)
-				. += "The [D.account_holder] reports a balance of $[D.account_balance]."
+		if(!istype(src, /obj/item/card/id/departmental_budget))
+			var/list/payment_result = list()
+			for(var/D in registered_account.payment_per_department)
+				if(registered_account.payment_per_department[D] > 0)
+					payment_result += "[D]: $[registered_account.payment_per_department[D]]"
+			if(length(payment_result))
+				. += "The payment of this account is -"
+				for(var/each in payment_result)
+					. += "\t[each]"
+			if(!HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
+				for(var/datum/bank_account/department/D in SSeconomy.budget_accounts)
+					if(D.department_bitflag & registered_account.active_departments)
+						if(D.show_budget_information)
+							. += "The [D.account_holder] reports a balance of $[D.account_balance]."
+			else
+				var/datum/bank_account/B = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
+				if(B)
+					. += "The [B.account_holder] reports a balance of $[B.account_balance]."
+
+
 		. += "<span class='info'>Alt-Click the ID to pull money from the linked account in the form of holochips.</span>"
 		. += "<span class='info'>You can insert credits into the linked account by pressing holochips, cash, or coins against the ID.</span>"
 		if(registered_account.account_holder == user.real_name)
@@ -382,7 +395,6 @@ update_label("John Doe", "Clowny")
 	icon_state = "syndicate"
 	hud_state = JOB_HUD_SYNDICATE
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
-	var/forged = FALSE //have we set a custom name and job assignment, or will we use what we're given when we chameleon change?
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -435,20 +447,6 @@ update_label("John Doe", "Clowny")
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over the ID, copying its access.</span>")
 
 /obj/item/card/id/syndicate/attack_self(mob/user)
-	var/valid_jobs = list( // copy-paste from hop card paint machine, but this has more options, and valid to be static.
-		"----Command----", "Command (Custom)",JOB_NAME_CAPTAIN,
-		"----Service----", "Service (Custom)", JOB_NAME_ASSISTANT, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_BARTENDER, JOB_NAME_COOK,
-			JOB_NAME_BOTANIST, JOB_NAME_JANITOR, JOB_NAME_CURATOR,JOB_NAME_CHAPLAIN, JOB_NAME_LAWYER,
-			JOB_NAME_CLOWN, JOB_NAME_MIME, JOB_NAME_BARBER, JOB_NAME_STAGEMAGICIAN,
-		"----Cargo----","Cargo (Custom)",JOB_NAME_QUARTERMASTER, JOB_NAME_CARGOTECHNICIAN,JOB_NAME_SHAFTMINER,
-		"----Engineering----","Engineering (Custom)",JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN,
-		"----Science----","Science (Custom)",JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_EXPLORATIONCREW,
-		"----Medical----","Medical (Custom)",JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST,
-			JOB_NAME_VIROLOGIST, JOB_NAME_PARAMEDIC, JOB_NAME_PSYCHIATRIST,
-		"----Security----","Security (Custom)",JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_SECURITYOFFICER,
-			JOB_NAME_BRIGPHYSICIAN, JOB_NAME_DEPUTY,
-		"----MISC----","Unassigned",JOB_NAME_PRISONER,"CentCom (Custom)","CentCom","ERT",JOB_NAME_VIP,JOB_NAME_KING,"Syndicate","Clown Operative"
-	)
 	if(isliving(user) && user.mind)
 		var/first_use = registered_name ? FALSE : TRUE
 		if(!(user.mind.special_role || anyone)) //Unless anyone is allowed, only syndies can use the card, to stop metagaming.
@@ -457,10 +455,13 @@ update_label("John Doe", "Clowny")
 			else
 				return ..()
 
-		var/popup_input = alert(user, "Choose Action", "Agent ID", "Show", "Forge/Reset", "Change Account ID")
+		var/popup_input = alert(user, "Choose Action", "Agent ID", "Show", "Forge", "Change Account ID")
 		if(user.incapacitated())
 			return
-		if(popup_input == "Forge/Reset" && !forged)
+		if(popup_input == "Forge")
+			if(!assignment)
+				assignment = "Assistant"
+
 			var/input_name = stripped_input(user, "What name would you like to put on this card? Leave blank to randomise.", "Agent card name", registered_name ? registered_name : (ishuman(user) ? user.real_name : user.name), MAX_NAME_LEN)
 			input_name = reject_bad_name(input_name)
 			if(!input_name)
@@ -472,27 +473,25 @@ update_label("John Doe", "Clowny")
 				else
 					input_name = "[pick(GLOB.first_names)] [pick(GLOB.last_names)]"
 
-			var/target_occupation = stripped_input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", assignment ? assignment : JOB_NAME_ASSISTANT, MAX_MESSAGE_LEN)
-			if(!target_occupation)
-				return
-
-			// copy paste from HoP card painting machine
 			var/target_id_style = "-"
 			while(target_id_style[1] == "-") // trick. "-" is only non-valid option here.
-				target_id_style = input(user, "Select an ID skin (Cancel to change nothing)\nCard HUD icon will follow the job you choose.", "Chameleon card shape") as null|anything in valid_jobs
+				target_id_style = input(user, "Select an ID skin (Cancel to change nothing)\nCard HUD icon will follow the job you choose.", "Chameleon card shape") as null|anything in get_card_style_list(TRUE)
 				if(!target_id_style)
 					break
 
+			var/target_occupation = stripped_input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", !(assignment in get_card_style_list(TRUE)) ? assignment : target_id_style, MAX_MESSAGE_LEN) // ternary operator means you keep custom title if your title is special(not in standard job titles). if that is in job title list, you just get new job title.
+			if(!target_occupation)
+				target_occupation = assignment ? assignment : "Assistant"
+
 			log_id("[key_name(user)] forged agent ID [src] name to [input_name] and occupation to [target_occupation][target_id_style ? " with [target_id_style] card style" : " with non changed [icon_state] shape, [hud_state] hud style"] at [AREACOORD(user)].")
 			registered_name = input_name
-			assignment = target_occupation
+			assignment = capitalize(target_occupation)
 			if(target_id_style)
 				icon_state = get_cardstyle_by_jobname(target_id_style)
 				hud_state = get_hud_by_jobname(target_id_style)
 				var/mob/living/carbon/human/H = user
 				H.sec_hud_set_ID()
 			update_label()
-			forged = TRUE
 			to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
 			log_game("[key_name(user)] has forged \the [initial(name)] with name \"[registered_name]\" and occupation \"[assignment]\"[target_id_style ? " with [target_id_style] card style" : " with non changed [icon_state] shape, [hud_state] hud style"].")
 
@@ -503,19 +502,10 @@ update_label("John Doe", "Clowny")
 
 					for(var/bank_account in SSeconomy.bank_accounts)
 						var/datum/bank_account/account = bank_account
-						if(account.account_id == accountowner.account_id)
+						if(account.account_id == accountowner.mind?.account_id)
 							account.bank_cards += src
 							registered_account = account
 							to_chat(user, "<span class='notice'>Your account number has been automatically assigned.</span>")
-			return
-		else if (popup_input == "Forge/Reset" && forged)
-			registered_name = initial(registered_name)
-			assignment = initial(assignment)
-			log_id("[key_name(user)] reset agent ID [src] name to default at [AREACOORD(user)].")
-			log_game("[key_name(user)] has reset \the [initial(name)] named \"[src]\" to default.")
-			update_label()
-			forged = FALSE
-			to_chat(user, "<span class='notice'>You successfully reset the ID card.</span>")
 			return
 		else if (popup_input == "Change Account ID")
 			set_new_account(user)
@@ -573,7 +563,7 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/syndicate/debug/Initialize(mapload)
 	access = get_every_access()
-	registered_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	registered_account = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	. = ..()
 
 /obj/item/card/id/captains_spare
@@ -725,6 +715,42 @@ update_label("John Doe", "Clowny")
 	hud_state = JOB_HUD_RAWCARGO
 	access = list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
 
+/obj/item/card/id/paper
+	name = "paper nametag"
+	desc = "Some spare papers taped into a vague card shape, with a name scribbled on it. Seems trustworthy."
+	icon_state = "paper"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50, "stamina" = 0)
+	resistance_flags = null  // removes all resistance because its a piece of paper
+	access = list()
+	assignment = "Unknown"
+	hud_state = JOB_HUD_PAPER
+	electric = FALSE
+
+/obj/item/card/id/paper/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/pen))
+		var/target_name = stripped_input(user, "What name would you like to write onto the card?", "Written name:", registered_name || "John Doe", MAX_MESSAGE_LEN)
+		registered_name = target_name || registered_name  // in case they hit cancel
+		assignment = "Unknown"
+		to_chat(user, "<span class='notice'>You scribble the name [target_name] onto the slip.</span>")
+		update_label()
+
+/obj/item/card/id/paper/alt_click_can_use_id(mob/living/user)
+	to_chat(user, "<span class='warning'>There's no money circuitry in here!</span>")
+
+/obj/item/card/id/paper/insert_money(obj/item/I, mob/user, physical_currency)
+	to_chat(user, "<span class='warning'>You can't insert money into a slip!</span>")  // not sure if this is triggerable but just as a safeclip
+
+/obj/item/card/id/paper/GetAccess()
+	return list()
+
+/obj/item/card/id/paper/update_label(newname, newjob)
+	if(newname || newjob)
+		name = "[(!newname)	? "paper slip identifier": "[newname]'s paper slip"]"
+		return
+
+	name = "[(!registered_name)	? "paper slip identifier": "[registered_name]'s paper slip"]"
+
+
 /obj/item/card/id/away
 	name = "\proper a perfectly generic identification card"
 	desc = "A perfectly generic identification card. Looks like it could use some flavor."
@@ -784,20 +810,25 @@ update_label("John Doe", "Clowny")
 	name = "departmental card (budget)"
 	desc = "Provides access to the departmental budget."
 	icon_state = "budget"
-	var/department_ID = ACCOUNT_CIV
+	var/department_ID = ACCOUNT_CIV_ID
 	var/department_name = ACCOUNT_CIV_NAME
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /obj/item/card/id/departmental_budget/Initialize(mapload)
 	. = ..()
-	var/datum/bank_account/B = SSeconomy.get_dep_account(department_ID)
+	var/datum/bank_account/department/B = SSeconomy.get_budget_account(department_ID)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET) && !B.is_nonstation_account())
+		department_ID = ACCOUNT_CAR_ID
+		department_name = ACCOUNT_ALL_NAME
+		B = SSeconomy.get_budget_account(department_ID)
+
 	if(B)
 		registered_account = B
 		if(!B.bank_cards.Find(src))
 			B.bank_cards += src
 		name = "departmental card ([department_name])"
-		desc = "Provides access to the [department_name]."
+		desc = "Provides access to the [department_name] budget."
 	SSeconomy.dep_cards += src
 
 /obj/item/card/id/departmental_budget/Destroy()
@@ -805,52 +836,58 @@ update_label("John Doe", "Clowny")
 	return ..()
 
 /obj/item/card/id/departmental_budget/civ
-	department_ID = ACCOUNT_CIV
+	department_ID = ACCOUNT_CIV_ID
 	department_name = ACCOUNT_CIV_NAME
 	icon_state = "budget"
 	hud_state = JOB_HUD_RAWCOMMAND
 
 /obj/item/card/id/departmental_budget/eng
-	department_ID = ACCOUNT_ENG
+	department_ID = ACCOUNT_ENG_ID
 	department_name = ACCOUNT_ENG_NAME
 	icon_state = "budget_eng"
 	hud_state = JOB_HUD_RAWENGINEERING
 
 /obj/item/card/id/departmental_budget/sci
-	department_ID = ACCOUNT_SCI
+	department_ID = ACCOUNT_SCI_ID
 	department_name = ACCOUNT_SCI_NAME
 	icon_state = "budget_sci"
 	hud_state = JOB_HUD_RAWSCIENCE
 
 /obj/item/card/id/departmental_budget/med
-	department_ID = ACCOUNT_MED
+	department_ID = ACCOUNT_MED_ID
 	department_name = ACCOUNT_MED_NAME
 	icon_state = "budget_med"
 	hud_state = JOB_HUD_RAWMEDICAL
 
 /obj/item/card/id/departmental_budget/srv
-	department_ID = ACCOUNT_SRV
+	department_ID = ACCOUNT_SRV_ID
 	department_name = ACCOUNT_SRV_NAME
 	icon_state = "budget_srv"
 	hud_state = JOB_HUD_RAWSERVICE
 
 /obj/item/card/id/departmental_budget/car
-	department_ID = ACCOUNT_CAR
+	department_ID = ACCOUNT_CAR_ID
 	department_name = ACCOUNT_CAR_NAME
 	icon_state = "budget_car"
 	hud_state = JOB_HUD_RAWCARGO
 
 /obj/item/card/id/departmental_budget/sec
-	department_ID = ACCOUNT_SEC
+	department_ID = ACCOUNT_SEC_ID
 	department_name = ACCOUNT_SEC_NAME
 	icon_state = "budget_sec"
 	hud_state = JOB_HUD_RAWSECURITY
 
-// This will never be spawned, but should be trackable by admins anyway.
+// These will never be spawned, but should be trackable by admins anyway.
+/obj/item/card/id/departmental_budget/com
+	department_ID = ACCOUNT_COM_ID
+	department_name = ACCOUNT_COM_NAME
+	icon_state = "budget_centcom"
+	hud_state = JOB_HUD_ACTINGCAPTAIN
+
 /obj/item/card/id/departmental_budget/vip
-	department_ID = ACCOUNT_VIP
+	department_ID = ACCOUNT_VIP_ID
 	department_name = ACCOUNT_VIP_NAME
-	icon_state = "budget"
+	icon_state = "budget_centcom"
 	hud_state = JOB_HUD_VIP
 
 /// Job Specific ID Cards///
@@ -1151,6 +1188,9 @@ update_label("John Doe", "Clowny")
 		return .
 	var/obj/item/card/id/idcard = target
 	if(istype(idcard))
+		if(!idcard.electric)
+			to_chat(user, to_chat(user, "<span class='warning'>You swipe the id card. Nothing happens. </span>"))
+			return
 		for(var/give_access in access)
 			idcard.access |= give_access
 		if(assignment!=initial(assignment))

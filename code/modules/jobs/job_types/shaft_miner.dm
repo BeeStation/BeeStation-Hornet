@@ -2,11 +2,10 @@
 	title = JOB_NAME_SHAFTMINER
 	flag = MINER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	department_flag = CIVILIAN
+	supervisors = "the quartermaster and the head of personnel"
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 3
-	supervisors = "the quartermaster and the head of personnel"
 	selection_color = "#dcba97"
 
 	outfit = /datum/outfit/job/miner
@@ -15,11 +14,13 @@
 					ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
 	minimal_access = list(ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM,
 					ACCESS_AUX_BASE)
-	paycheck = PAYCHECK_HARD
-	paycheck_department = ACCOUNT_CAR
+
+	department_flag = CIVILIAN
+	departments = DEPT_BITFLAG_CAR
+	bank_account_department = ACCOUNT_CAR_BITFLAG
+	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_HARD)
 
 	display_order = JOB_DISPLAY_ORDER_SHAFT_MINER
-	departments = DEPARTMENT_BITFLAG_CARGO
 	rpg_title = "Adventurer"
 
 	species_outfits = list(
@@ -31,7 +32,7 @@
 	jobtype = /datum/job/shaft_miner
 
 	id = /obj/item/card/id/job/shaft_miner
-	belt = /obj/item/pda/shaft_miner
+	belt = /obj/item/modular_computer/tablet/pda/shaft_miner
 	ears = /obj/item/radio/headset/headset_cargo/shaft_miner
 	shoes = /obj/item/clothing/shoes/workboots/mining
 	gloves = /obj/item/clothing/gloves/color/black

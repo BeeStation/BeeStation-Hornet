@@ -25,10 +25,8 @@
 /obj/machinery/doorButtons/LateInitialize()
 	findObjsByTag()
 
-/obj/machinery/doorButtons/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/doorButtons/on_emag(mob/user)
+	..()
 	req_access = list()
 	req_one_access = list()
 	playsound(src, "sparks", 100, 1)

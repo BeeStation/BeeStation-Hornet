@@ -25,6 +25,12 @@
 	message = "chimes."
 	sound = 'sound/machines/chime.ogg'
 
+/datum/emote/silicon/dwoop
+	key = "dwoop"
+	key_third_person = "dwoops"
+	message = "emits a dwoop sound."
+	sound = 'sound/emotes/dwoop.ogg'
+
 /datum/emote/silicon/honk
 	key = "honk"
 	key_third_person = "honks"
@@ -38,12 +44,6 @@
 	message = "pings."
 	message_param = "pings at %t."
 	sound = 'sound/machines/ping.ogg'
-
-/datum/emote/silicon/chime
-	key = "chime"
-	key_third_person = "chimes"
-	message = "chimes."
-	sound = 'sound/machines/chime.ogg'
 
 /datum/emote/silicon/sad
 	key = "sad"

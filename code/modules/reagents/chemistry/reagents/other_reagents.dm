@@ -129,7 +129,6 @@
 	if(H)
 		to_chat(L, "<span class='warning'>You're already corgified!</span>")
 		return
-	ADD_TRAIT(L, TRAIT_MUTE, CORGIUM_TRAIT)
 	new_corgi = new(L.loc)
 	//hat check
 	var/mob/living/carbon/C = L
@@ -138,21 +137,18 @@
 		if(hat?.dog_fashion)
 			new_corgi.place_on_head(hat,null,FALSE)
 	H = new(new_corgi,src,L)
-
-/datum/reagent/corgium/on_mob_life(mob/living/carbon/M)
-	. = ..()
-	//If our corgi died :(
-	if(new_corgi.stat)
-		holder.remove_all_type(type)
-		addtimer(CALLBACK(src, .proc/restore, M), 2 SECONDS)
-
-/datum/reagent/corgium/on_mob_end_metabolize(mob/living/L)
-	. = ..()
-	restore(L)
+	//Restore after this time
+	addtimer(CALLBACK(src, .proc/restore, L), 5 * (volume / metabolization_rate))
 
 /datum/reagent/corgium/proc/restore(mob/living/L)
-	ADD_TRAIT(L, TRAIT_MUTE, CORGIUM_TRAIT)
-	var/obj/shapeshift_holder/H = locate() in L
+	//The mob was qdeleted by an explosion or something
+	if(QDELETED(L))
+		return
+	//Remove all the corgium from the person
+	L.reagents?.remove_reagent(/datum/reagent/corgium, INFINITY)
+	if(QDELETED(new_corgi))
+		return
+	var/obj/shapeshift_holder/H = locate() in new_corgi
 	if(!H)
 		return
 	H.restore()
@@ -227,9 +223,12 @@
 	if(!istype(M))
 		return
 	if(isoozeling(M))
-		M.blood_volume = max(M.blood_volume - 30, 0)
-		to_chat(M, "<span class='warning'>The water causes you to melt away!</span>")
-		return
+		var/touch_mod = 0
+		if(method in list(TOUCH, VAPOR)) // No melting if you have skin protection
+			touch_mod = M.get_permeability_protection()
+		M.blood_volume = max(M.blood_volume - 30 * (1 - touch_mod), 0)
+		if(touch_mod < 0.9)
+			to_chat(M, "<span class='warning'>The water causes you to melt away!</span>")
 	if(method == TOUCH)
 		M.adjust_fire_stacks(-(reac_volume / 10))
 		M.ExtinguishMob()

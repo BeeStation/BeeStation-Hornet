@@ -103,9 +103,12 @@
 	to_chat(user, "<span class='notice'>That seems like a stupid idea.</span>")
 	return FALSE
 
-/obj/structure/closet/crate/secure/loot/emag_act(mob/user)
-	if(locked)
-		boom(user)
+/obj/structure/closet/crate/secure/loot/should_emag(mob/user)
+	return locked && ..()
+
+/obj/structure/closet/crate/secure/loot/on_emag(mob/user)
+	..()
+	boom(user)
 
 /obj/structure/closet/crate/secure/loot/togglelock(mob/user)
 	if(locked)
@@ -218,7 +221,7 @@
 			new /obj/item/storage/backpack/clown(src)
 			new /obj/item/clothing/under/rank/civilian/clown(src)
 			new /obj/item/clothing/shoes/clown_shoes(src)
-			new /obj/item/pda/clown(src)
+			new /obj/item/modular_computer/tablet/pda/clown(src)
 			new /obj/item/clothing/mask/gas/clown_hat(src)
 			new /obj/item/bikehorn(src)
 			new /obj/item/toy/crayon/rainbow(src)
@@ -226,7 +229,7 @@
 		if(95)
 			new /obj/item/clothing/under/rank/civilian/mime(src)
 			new /obj/item/clothing/shoes/sneakers/black(src)
-			new /obj/item/pda/mime(src)
+			new /obj/item/modular_computer/tablet/pda/mime(src)
 			new /obj/item/clothing/gloves/color/white(src)
 			new /obj/item/clothing/mask/gas/mime(src)
 			new /obj/item/clothing/head/beret(src)

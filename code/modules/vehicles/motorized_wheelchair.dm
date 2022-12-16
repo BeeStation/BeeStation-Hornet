@@ -2,6 +2,7 @@
 	name = "motorized wheelchair"
 	desc = "A chair with big wheels. It seems to have a motor in it."
 	max_integrity = 150
+	move_resist = MOVE_FORCE_DEFAULT
 	var/speed = 2
 	var/power_efficiency = 1
 	var/power_usage = 25
@@ -22,7 +23,7 @@
 	for(var/obj/item/stock_parts/capacitor/C in contents)
 		power_efficiency = C.rating
 	var/datum/component/riding/D = GetComponent(/datum/component/riding)
-	D.vehicle_move_delay = round(CONFIG_GET(number/movedelay/run_delay) * delay_multiplier) / speed
+	D.vehicle_move_delay = round(1.5 * delay_multiplier) / speed
 
 
 /obj/vehicle/ridden/wheelchair/motorized/get_cell()

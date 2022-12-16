@@ -1,5 +1,4 @@
 #define IMPORTANT_ACTION_COOLDOWN (60 SECONDS)
-#define MAX_STATUS_LINE_LENGTH 40
 
 #define STATE_BUYING_SHUTTLE "buying_shuttle"
 #define STATE_CHANGING_STATUS "changing_status"
@@ -68,10 +67,8 @@
 	else
 		return ..()
 
-/obj/machinery/computer/communications/emag_act(mob/user)
-	if (obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/computer/communications/on_emag(mob/user)
+	..()
 	if (authenticated)
 		authorize_access = get_all_accesses()
 	to_chat(user, "<span class='danger'>You scramble the communication routing circuits!</span>")
@@ -79,7 +76,6 @@
 
 /obj/machinery/computer/communications/ui_act(action, list/params)
 	var/static/list/approved_states = list(STATE_BUYING_SHUTTLE, STATE_CHANGING_STATUS, STATE_MESSAGES)
-	var/static/list/approved_status_pictures = list("biohazard", "blank", "default", "lockdown", "redalert", "shuttle")
 
 	. = ..()
 	if (.)
@@ -196,7 +192,7 @@
 			if (!shuttle.prerequisites_met())
 				to_chat(usr, "<span class='alert'>You have not met the requirements for purchasing this shuttle.</span>")
 				return
-			var/datum/bank_account/bank_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
+			var/datum/bank_account/bank_account = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 			if (bank_account.account_balance < shuttle.credit_cost)
 				return
 			SSshuttle.shuttle_purchased = TRUE
@@ -289,7 +285,7 @@
 			if (!authenticated(usr))
 				return
 			var/picture = params["picture"]
-			if (!(picture in approved_status_pictures))
+			if (!(picture in GLOB.approved_status_pictures))
 				return
 			post_status("alert", picture)
 			playsound(src, "terminal_type", 50, FALSE)
@@ -407,7 +403,7 @@
 							"possibleAnswers" = message.possible_answers,
 						))
 			if (STATE_BUYING_SHUTTLE)
-				var/datum/bank_account/bank_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
+				var/datum/bank_account/bank_account = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 				var/list/shuttles = list()
 
 				for (var/shuttle_id in SSmapping.shuttle_templates)
@@ -421,6 +417,7 @@
 						"description" = shuttle_template.description,
 						"creditCost" = shuttle_template.credit_cost,
 						"illegal" = shuttle_template.illegal_shuttle,
+						"danger" = shuttle_template.danger_level,
 						"prerequisites" = shuttle_template.prerequisites,
 						"ref" = REF(shuttle_template),
 					))
@@ -553,7 +550,6 @@
 		possible_answers = new_possible_answers
 
 #undef IMPORTANT_ACTION_COOLDOWN
-#undef MAX_STATUS_LINE_LENGTH
 #undef STATE_BUYING_SHUTTLE
 #undef STATE_CHANGING_STATUS
 #undef STATE_MESSAGES

@@ -9,6 +9,7 @@
 	resistance_flags = NONE
 	max_integrity = 250
 	integrity_failure = 25
+	move_resist = MOVE_FORCE_WEAK
 	var/buildstacktype = /obj/item/stack/sheet/iron
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up
@@ -231,11 +232,15 @@
 	name = "corporate chair"
 	desc = "It looks professional."
 	icon_state = "comfychair_corp"
+	buildstackamount = 1
+	item_chair = null
 
 /obj/structure/chair/fancy/shuttle
 	name = "shuttle seat"
 	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system for smoother flights."
 	icon_state = "shuttle_chair"
+	buildstackamount = 1
+	item_chair = null
 
 /obj/structure/chair/fancy/plastic
 	name = "plastic chair"

@@ -24,10 +24,13 @@ SUBSYSTEM_DEF(shuttle)
 	var/emergencyEscapeTime = 1200	//time taken for emergency shuttle to reach a safe distance after leaving station (in deciseconds)
 	var/area/emergencyLastCallLoc
 	var/emergencyCallAmount = 0		//how many times the escape shuttle was called
-	var/emergencyNoEscape
+	var/emergencyNoEscape			//Hostile environment that prevents the shuttle from leaving after it has arrived
+	var/emergencyDelayArrival 		//Infestation that delays the shuttle arrival while contingency plans are put into place 
 	var/emergencyNoRecall = FALSE
 	var/adminEmergencyNoRecall = FALSE
 	var/list/hostileEnvironments = list() //Things blocking escape shuttle from leaving
+	var/list/infestedEnvironments = list() //Things that can trigger a delay on escape shuttle arrival
+	var/infestationActive = FALSE //So unusual circumstances can't trigger a second infestation warning and delay
 	var/hostileEnvTrackPlayed = FALSE
 	var/list/tradeBlockade = list() //Things blocking cargo from leaving.
 	var/supplyBlocked = FALSE
@@ -337,6 +340,11 @@ SUBSYSTEM_DEF(shuttle)
 	hostileEnvironments -= bad
 	checkHostileEnvironment()
 
+/datum/controller/subsystem/shuttle/proc/registerInfestation(datum/bad)
+	infestedEnvironments[bad] = TRUE //This only matters when shuttle is at a specific stage in evacuation, there is no need to update or check the validity of the list every time it is updated
+
+/datum/controller/subsystem/shuttle/proc/clearInfestation(datum/bad)
+	infestedEnvironments -= bad
 
 /datum/controller/subsystem/shuttle/proc/registerTradeBlockade(datum/bad)
 	tradeBlockade[bad] = TRUE
@@ -374,16 +382,33 @@ SUBSYSTEM_DEF(shuttle)
 		priority_announce("Hostile environment detected. \
 			Departure has been postponed indefinitely pending \
 			conflict resolution.", null, 'sound/misc/notice1.ogg', "Priority")
-		for(var/i in hostileEnvironments)
-			if(istype(i, /mob/living/carbon/alien/humanoid/royal/queen) && !hostileEnvTrackPlayed)
-				play_soundtrack_music(/datum/soundtrack_song/bee/mind_crawler, only_station = TRUE)
-				hostileEnvTrackPlayed = TRUE
 	if(!emergencyNoEscape && (emergency.mode == SHUTTLE_STRANDED))
 		emergency.mode = SHUTTLE_DOCKED
 		emergency.setTimer(emergencyDockTime)
 		priority_announce("Hostile environment resolved. \
 			You have 3 minutes to board the Emergency Shuttle.",
 			null, ANNOUNCER_SHUTTLEDOCK, "Priority")
+
+/datum/controller/subsystem/shuttle/proc/checkInfestedEnvironment()
+	for(var/mob/d in infestedEnvironments)
+		var/turf/T = get_turf(d)
+		if(QDELETED(d) || !is_station_level(T.z)) //If they have been destroyed or left the station Z level, the queen will not trigger this check
+			infestedEnvironments -= d
+	emergencyDelayArrival = length(infestedEnvironments)
+	return emergencyDelayArrival
+
+/datum/controller/subsystem/shuttle/proc/delayForInfestedStation()
+	if(infestationActive)
+		return
+	infestationActive = TRUE
+	emergencyNoRecall = TRUE
+	priority_announce("Xenomorph infestation detected: crisis shuttle protocols activated - jamming recall signals across all frequencies.")
+	play_soundtrack_music(/datum/soundtrack_song/bee/mind_crawler, only_station = TRUE)
+	if(EMERGENCY_IDLE_OR_RECALLED)
+		emergency.request(null, set_coefficient=1) //If a shuttle wasn't already called, call one now, with 10 minute delay
+	else if(emergency.mode == SHUTTLE_CALL)
+		emergency.setTimer(10 MINUTES) //If shuttle was already in transit, delay the arrival time to 10 minutes
+		//If the emergency shuttle has already passed the point of no return before a queen existed, do not delay round for Xenomorphs - they spawned too late on a round that was already coming to an end. 
 
 //try to move/request to dockHome if possible, otherwise dockAway. Mainly used for admin buttons
 /datum/controller/subsystem/shuttle/proc/toggleShuttle(shuttleId, dockHome, dockAway, timed)
@@ -435,13 +460,14 @@ SUBSYSTEM_DEF(shuttle)
 	// Remember, the direction is the direction we appear to be
 	// coming from
 	var/dock_angle = dir2angle(M.preferred_direction) + dir2angle(M.port_direction) + 180
+	var/dock_dir = angle2dir(dock_angle)
 
 	var/transit_width = SHUTTLE_TRANSIT_BORDER * 2
 	var/transit_height = SHUTTLE_TRANSIT_BORDER * 2
 
 	// Shuttles travelling on their side have their dimensions swapped
 	// from our perspective
-	var/list/union_coords = M.return_union_coords(M.get_all_towed_shuttles(), 0, 0, NORTH)
+	var/list/union_coords = M.return_union_coords(M.get_all_towed_shuttles(), 0, 0, dock_dir)
 	transit_width += union_coords[3] - union_coords[1] + 1
 	transit_height += union_coords[4] - union_coords[2] + 1
 
@@ -468,30 +494,10 @@ SUBSYSTEM_DEF(shuttle)
 
 	var/turf/bottomleft = locate(proposal.bottom_left_coords[1], proposal.bottom_left_coords[2], proposal.bottom_left_coords[3])
 	// Then create a transit docking port in the middle
-	var/matrix/dir_rotation = matrix(union_coords[1], union_coords[2], 0, union_coords[3], union_coords[4], 0) * matrix(dock_angle, MATRIX_ROTATE)
-	/*    Shuttle Space         Dock Space
-	        *------s1         d1----------*
-            |      |           |          |
-            |      |     ->    |       x  |   x = (0,0)
-            |  x   |           |          |
-           s0------*           *----------d0
-		┌  ┐ ┌                     ┐   ┌  ┐
-		|s0| |  cos(dir)  sin(dir) |   |d0|
-		|s1| | -sin(dir)  cos(dir) | = |d1|
-		└  ┘ └                     ┘   └  ┘
-	*/
-
-	var/x0 = dir_rotation.a
-	var/y0 = dir_rotation.b
-	var/x1 = dir_rotation.d
-	var/y1 = dir_rotation.e
-	// Then we want the point closest to -infinity,-infinity
-	var/x2 = min(x0, x1)
-	var/y2 = min(y0, y1)
-
-	// Then invert the numbers
-	var/transit_x = bottomleft.x + SHUTTLE_TRANSIT_BORDER + abs(x2)
-	var/transit_y = bottomleft.y + SHUTTLE_TRANSIT_BORDER + abs(y2)
+	// union coords (1,2) points from the docking port to the bottom left corner of the bounding box
+	// So if we negate those coordinates, we get the vector pointing from the bottom left of the bounding box to the docking port
+	var/transit_x = bottomleft.x + SHUTTLE_TRANSIT_BORDER + abs(union_coords[1])
+	var/transit_y = bottomleft.y + SHUTTLE_TRANSIT_BORDER + abs(union_coords[2])
 
 	var/turf/midpoint = locate(transit_x, transit_y, bottomleft.z)
 	if(!midpoint)
