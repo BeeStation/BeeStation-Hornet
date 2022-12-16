@@ -73463,7 +73463,7 @@
 /obj/docking_port/stationary{
 	dir = 4;
 	dwidth = 3;
-	height = 14;
+	height = 15;
 	id = "arrivals_stationary";
 	name = "kilo arrivals";
 	roundstart_template = /datum/map_template/shuttle/arrival/kilo;
