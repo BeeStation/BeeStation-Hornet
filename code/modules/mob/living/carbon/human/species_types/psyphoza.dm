@@ -81,8 +81,6 @@
 	var/sense_time = 5 SECONDS
 	///Reference to the users eyes - we use this to toggle xray vision for scans
 	var/obj/item/organ/eyes/eyes
-	///Reference to the users ears - we use this for stuff :)
-	var/obj/item/organ/ears/ears
 	///The eyes original sight flags - used between toggles
 	var/sight_flags
 	///Time between uses
@@ -112,8 +110,6 @@
 	RegisterSignal(M, COMSIG_MOB_ATTACK_RANGED, .proc/handle_ranged)
 	//Register signal for sensing voices
 	RegisterSignal(SSdcs, COMSIG_GLOB_LIVING_SAY_SPECIAL, .proc/handle_hear)
-	//Register signal for sensing sounds
-	RegisterSignal(SSdcs, COMSIG_GLOB_SOUND_PLAYED, .proc/handle_hear)
 
 	//Overlay used to highlight objects
 	M.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
@@ -132,17 +128,13 @@
 //Allows user to see images through walls
 /datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_fowards()
 	//Grab organs - we do this here becuase of fuckery :tm:
-	if((!eyes || !ears) && istype(owner, /mob/living/carbon/human))
+	if(!eyes && istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner
 		//eyes
 		eyes = eyes || locate(/obj/item/organ/eyes) in H.internal_organs
 		sight_flags = eyes?.sight_flags
 		//Register signal for losing our eyes
 		RegisterSignal(eyes, COMSIG_PARENT_QDELETING, .proc/handle_eyes)
-		//ears
-		ears = ears || locate(/obj/item/organ/ears) in H.internal_organs
-		//Register signal for losing our ears
-		RegisterSignal(ears, COMSIG_PARENT_QDELETING, .proc/handle_ears)
 
 	//handle eyes - make them xray so we can see all the things
 	eyes?.sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
@@ -240,12 +232,6 @@
 	SIGNAL_HANDLER
 
 	eyes = null
-
-//Handles ears being deleted
-/datum/action/item_action/organ_action/psychic_highlight/proc/handle_ears()
-	SIGNAL_HANDLER
-
-	ears = null
 
 //Plane that holds the masks for psychic ping
 /atom/movable/screen/plane_master/psychic
