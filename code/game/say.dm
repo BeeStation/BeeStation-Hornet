@@ -125,6 +125,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	var/spanned = attach_spans(input, spans)
 	return "[say_mod], \"[spanned]\""
 
+/// Scans the input sentence for speech emphasis modifiers, notably _italics_ and **bold**
 /atom/proc/say_emphasis(message, var/list/ignore = list())
 	var/regex/markup
 	for(var/tag in (GLOB.markup_tags - ignore))

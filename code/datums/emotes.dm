@@ -87,12 +87,11 @@
 
 	user.log_message(msg, LOG_EMOTE)
 
-	var/space = should_have_space_before_emote(html_decode(msg)[1]) ? " " : ""
 	var/end = copytext(msg, length(message))
 	if(!(end in list("!", ".", "?", ":", "\"", "-")))
 		msg += "."
 
-	var/dchatmsg = "<b>[user]</b>[space][msg]"
+	var/dchatmsg = "<b>[user]</b> [msg]"
 
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!M.client || isnewplayer(M))
@@ -102,9 +101,9 @@
 			M.show_message("[FOLLOW_LINK(M, user)] [dchatmsg]")
 
 	if(emote_type & EMOTE_AUDIBLE)
-		user.audible_message(msg, audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE), separation = space)
+		user.audible_message(msg, audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
 	else
-		user.visible_message(msg, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE), separation = space)
+		user.visible_message(msg, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
 	return TRUE
 
 /datum/emote/proc/get_sound(mob/living/user)
@@ -203,16 +202,3 @@
 				ghost.show_message("[FOLLOW_LINK(ghost, src)] [ghost_text]")
 
 	visible_message(text, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
-
-/**
- * Returns a boolean based on whether or not the string contains a comma or an apostrophe,
- * to be used for emotes to decide whether or not to have a space between the name of the user
- * and the emote.
- *
- * Requires the message to be HTML decoded beforehand. Not doing it here for performance reasons.
- *
- * Returns TRUE if there should be a space, FALSE if there shouldn't.
- */
-/proc/should_have_space_before_emote(string)
-	var/static/regex/no_spacing_emote_characters = regex(@"(,|')")
-	return no_spacing_emote_characters.Find(string) ? FALSE : TRUE
