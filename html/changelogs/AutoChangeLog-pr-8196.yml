@@ -1,0 +1,8 @@
+author: benbot16
+delete-after: true
+changes:
+  - balance: Regular, primal, and drake lassos are now limited use (with 4, 2, and
+      1 uses respectively).
+  - tweak: Tamed mobs will now unfriend their owners if they're hit by their owners
+      too many times.
+  - tweak: Updates the primal lasso's recipe to require sinew.
