@@ -1007,7 +1007,8 @@
 	result = /obj/item/mob_lasso/primal
 	always_available = FALSE
 	time = 20
-	reqs = list(/obj/item/stack/sheet/animalhide/goliath_hide = 3)
+	reqs = list(/obj/item/stack/sheet/animalhide/goliath_hide = 3,
+				/obj/item/stack/sheet/sinew = 4)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/dragon_lasso
