@@ -235,17 +235,6 @@
 	eyes?.sight_flags = sight_flags
 	owner.update_sight()
 
-//Dim blind overlay & reveal x-ray stuff for blind sense hearing - so we can hear noises through walls, unlike everyone else.
-/datum/action/item_action/organ_action/psychic_highlight/proc/handle_hear(datum/source, atom/speaker, message)
-	SIGNAL_HANDLER
-
-	if(ears?.deaf)
-		return
-	var/dist = get_dist(get_turf(owner), get_turf(speaker))
-	if(dist <= hear_range && dist > 1)
-		dim_overlay()
-		toggle_eyes_fowards()
-
 //Handles eyes being deleted
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_eyes()
 	SIGNAL_HANDLER
