@@ -40,6 +40,24 @@
 	. = ..()
 	C.dna.add_mutation(TK_WEAK, MUT_OTHER)
 
+/datum/species/psyphoza/random_name(gender, unique, lastname, attempts)
+	var/num = rand(1, 9)
+	var/end
+	switch(num)
+		if(1)
+			end = "st"
+		if(2)
+			end = "nd"
+		if(3)
+			end = "rd"
+		else
+			end = "th"
+	. = "[pick(GLOB.psyphoza_first_names)] the [rand(1, 10) * 100 + num][end]"
+	if(unique && attempts < 10)
+		if(findname(.))
+			. = .(gender, TRUE, null, ++attempts)
+
+
 /datum/species/psyphoza/get_scream_sound(mob/living/carbon/user)
 	return pick('sound/voice/psyphoza/psyphoza_scream_1.ogg', 'sound/voice/psyphoza/psyphoza_scream_2.ogg')
 
