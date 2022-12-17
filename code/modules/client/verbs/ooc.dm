@@ -309,7 +309,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	var/message = "<span class='big'>You can add emphasis to your text by surrounding words or sentences in certain characters.</span>\n \
 		**bold**, and _italics_ are supported.\n\n \
-		<span class='big'>You can made custom saymods by doing <i>say 'screams-HELP IM DYING!'</i>. This works over the radio, and can be used to emote over the radio.</span>\n \
+		<span class='big'>You can made custom saymods by doing <i>say 'screams- HELP IM DYING!'</i>. This works over the radio, and can be used to emote over the radio.</span>\n \
 		Example: say ';laughs maniacally!-' >> \[Common] Joe Schmoe laughs maniacally!"
 
 
