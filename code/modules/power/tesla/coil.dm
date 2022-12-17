@@ -34,12 +34,25 @@
 	linked_techweb = null //This shouldn't harddel even if not nulled but let's be tidy
 	return ..()
 
-
 /obj/machinery/power/tesla_coil/RefreshParts()
 	var/power_multiplier = 0
 	zap_cooldown = 100
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		power_multiplier += C.rating
+		zap_cooldown -= (C.rating * 20)
+	input_power_multiplier = power_multiplier
+
+
+/obj/machinery/power/tesla_coil/power/old
+	name = "old tesla coil"
+	desc = "This one has seen better days, it's practically falling apart!"
+	input_power_multiplier = 0.2
+
+/obj/machinery/power/tesla_coil/power/old/RefreshParts()
+	var/power_multiplier = 0
+	zap_cooldown = 100
+	for(var/obj/item/stock_parts/capacitor/C in component_parts)
+		power_multiplier += C.rating * 0.2
 		zap_cooldown -= (C.rating * 20)
 	input_power_multiplier = power_multiplier
 
