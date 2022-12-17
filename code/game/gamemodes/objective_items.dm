@@ -102,6 +102,7 @@
 	special_equipment += /obj/item/storage/box/syndie_kit/nuke
 	..()
 
+/*
 /datum/objective_item/steal/supermatter
 	name = "a sliver of a supermatter crystal. Be sure to use the proper safety equipment when extracting the sliver!"
 	targetitem = /obj/item/nuke_core/supermatter_sliver
@@ -113,6 +114,7 @@
 
 /datum/objective_item/steal/supermatter/TargetExists()
 	return GLOB.main_supermatter_engine != null
+	*/
 
 //Items with special checks!
 /datum/objective_item/steal/plasma
