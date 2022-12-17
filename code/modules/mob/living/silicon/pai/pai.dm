@@ -373,7 +373,7 @@
 	return ..()
 
 /obj/item/paicard/should_emag(mob/user)
-	return TRUE
+	return !!pai
 
 /obj/item/paicard/on_emag(mob/user) // Emag to wipe the master DNA and supplemental directive
 	..()
