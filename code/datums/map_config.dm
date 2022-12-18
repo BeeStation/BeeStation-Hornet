@@ -41,11 +41,11 @@
 	var/allow_night_lighting = TRUE
 
 	//======
-	// Planettary Settings
+	// planetary Settings
 	//======
 
 	/// Is this station considered a planet for the supercruise map
-	var/planettary_station = FALSE
+	var/planetary_station = FALSE
 	/// The name of the planet on the supercruise map
 	var/planet_name = ""
 	/// Radius of the planet
@@ -166,7 +166,7 @@
 
 	allow_custom_shuttles = !isnull(json["allow_custom_shuttles"]) && json["allow_custom_shuttles"] != FALSE
 	allow_night_lighting = !isnull(json["allow_night_lighting"]) && json["allow_night_lighting"] != FALSE
-	planettary_station = !isnull(json["planettary_station"]) && json["planettary_station"] != FALSE
+	planetary_station = !isnull(json["planetary_station"]) && json["planetary_station"] != FALSE
 	planet_name = json["planet_name"]
 	planet_mass = text2num(json["planet_mass"]) || planet_mass
 	planet_radius = text2num(json["planet_radius"]) || planet_radius

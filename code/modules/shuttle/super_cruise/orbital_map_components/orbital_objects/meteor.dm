@@ -61,7 +61,7 @@
 		if(space_level.traits[ZTRAIT_CENTCOM] || space_level.traits[ZTRAIT_REEBE])
 			return
 		//Check level flags for planetary bodies
-		if(space_level.traits[ZTRAIT_MINING] || (space_level.traits[ZTRAIT_STATION] && SSmapping.config.planettary_station))
+		if(space_level.traits[ZTRAIT_MINING] || (space_level.traits[ZTRAIT_STATION] && SSmapping.config.planetary_station))
 			for(var/i in 1 to 5)
 				meteor_impact(locate(rand(10, world.maxx - 10), rand(10, world.maxx-10), space_level.z_value))
 		else

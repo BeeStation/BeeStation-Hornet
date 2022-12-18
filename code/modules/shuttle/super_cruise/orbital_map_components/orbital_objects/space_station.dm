@@ -12,7 +12,7 @@
 	. = ..()
 	SSorbits.station_instance = src
 	//SSorbits initialises after mapping
-	if (SSmapping.config.planettary_station)
+	if (SSmapping.config.planetary_station)
 		render_mode = RENDER_MODE_PLANET
 		radius = SSmapping.config.planet_radius
 		mass = SSmapping.config.planet_mass
