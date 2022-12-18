@@ -30,6 +30,8 @@
 	var/lighting_alpha
 	var/no_glasses
 	var/damaged	= FALSE	//damaged indicates that our eyes are undergoing some level of negative effect
+	///the type of overlay we use for this eye's blind effect
+	var/atom/movable/screen/fullscreen/blind/blind_type
 
 /obj/item/organ/eyes/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, initialising, pref_load = FALSE)
 	. = ..()
@@ -68,7 +70,7 @@
 	if(damage > 20)
 		damaged = TRUE
 		if((organ_flags & ORGAN_FAILING))
-			C.become_blind(EYE_DAMAGE)
+			C.become_blind(EYE_DAMAGE, blind_type)
 		else if(damage > 30)
 			C.overlay_fullscreen("eye_damage", /atom/movable/screen/fullscreen/impaired, 2)
 		else
@@ -411,9 +413,10 @@
 	desc = "Conduits for psychic energy, hardly even eyes."
 	icon_state = "psyphoza_eyeballs"
 	actions_types = list(/datum/action/item_action/organ_action/psychic_highlight)
+	damage = 200
+	organ_flags = ORGAN_FAILING
+	blind_type = /atom/movable/screen/fullscreen/blind/psychic
 
-/obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, initialising)
+/obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special, drop_if_replaced, initialising)
 	. = ..()
-	if(istype(M))
-		//This allows us to avoid having our eyes fixed by typical gameplay means, unless magic or admins step in.
-		M.become_blind("NoCure", /atom/movable/screen/fullscreen/blind/psychic)
+	on_life() //call this here to fix NOT being blind

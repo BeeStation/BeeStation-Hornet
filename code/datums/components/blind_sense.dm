@@ -25,7 +25,7 @@
 	//Register ears for people with them - deaf people can't use this component
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
-		ears = C.ears
+		ears = C.internal_organs?.ears
 		RegisterSignal(ears, COMSIG_PARENT_QDELETING, .proc/handle_ears)
 
 /datum/component/blind_sense/RemoveComponent()
