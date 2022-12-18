@@ -1,6 +1,5 @@
 /datum/atom_status
 	var/name = "default datum"
-	var/key = "default datum"
 
 	/// stackable size of the same status - 1 default
 	var/max_stack_size = 1
