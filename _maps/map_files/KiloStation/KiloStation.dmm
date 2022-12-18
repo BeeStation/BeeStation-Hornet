@@ -78025,8 +78025,8 @@
 	dir = 1
 	},
 /obj/machinery/door/window/southright{
-	name = "Secure Artifact Storage";
 	dir = 8;
+	name = "Secure Artifact Storage";
 	req_one_access_txt = "8;49"
 	},
 /obj/structure/rack,
@@ -92551,10 +92551,10 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/machinery/button/door{
-	pixel_x = -27;
-	pixel_y = 5;
+	id = "xenoarch";
 	name = "containment shutters";
-	id = "xenoarch"
+	pixel_x = -27;
+	pixel_y = 5
 	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/plasteel/showroomfloor,
@@ -93615,13 +93615,13 @@
 	},
 /obj/structure/table,
 /obj/item/clothing/glasses/science{
-	pixel_y = 7;
-	pixel_x = -5
+	pixel_x = -5;
+	pixel_y = 7
 	},
 /obj/item/clothing/gloves/artifact_pinchers,
 /obj/item/clothing/gloves/artifact_pinchers{
-	pixel_y = -13;
-	pixel_x = 2
+	pixel_x = 2;
+	pixel_y = -13
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -94439,8 +94439,8 @@
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate/secure/plasma{
-	req_access_txt = "39";
-	name = "virology crate"
+	name = "virology crate";
+	req_access_txt = "39"
 	},
 /obj/machinery/light{
 	dir = 1
@@ -95254,9 +95254,9 @@
 /area/maintenance/starboard/aft)
 "jGH" = (
 /obj/structure/disposalpipe/sorting/mail/flip{
-	sortType = 27;
+	dir = 1;
 	name = "virology sorting disposals pipe";
-	dir = 1
+	sortType = 27
 	},
 /obj/machinery/airalarm/directional/east,
 /turf/open/floor/plasteel/showroomfloor,
@@ -95383,16 +95383,16 @@
 	pixel_y = -1
 	},
 /obj/item/paper_bin{
-	pixel_y = 3;
-	pixel_x = -9
+	pixel_x = -9;
+	pixel_y = 3
 	},
 /obj/item/reagent_containers/glass/bottle/spaceacillin{
 	pixel_x = 9;
 	pixel_y = -7
 	},
 /obj/item/pen{
-	pixel_y = 3;
-	pixel_x = -8
+	pixel_x = -8;
+	pixel_y = 3
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
@@ -95980,9 +95980,9 @@
 	id = "ViroA";
 	name = "Quarantine Bolts A";
 	normaldoorcontrol = 1;
+	pixel_x = 31;
 	req_access_txt = "39";
-	specialfunctions = 4;
-	pixel_x = 31
+	specialfunctions = 4
 	},
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/table,
@@ -96184,9 +96184,9 @@
 /obj/machinery/button/door{
 	id = "quarantineshutters";
 	name = "Quarantine Lockdown";
+	pixel_x = -7;
 	pixel_y = 23;
-	req_access_txt = "39";
-	pixel_x = -7
+	req_access_txt = "39"
 	},
 /obj/machinery/button/flasher{
 	id = "monkeypen";
@@ -96195,9 +96195,9 @@
 /obj/machinery/button/door{
 	id = "monkeyshutters";
 	name = "Monkey Pen Lockdown";
+	pixel_x = 8;
 	pixel_y = 23;
-	req_access_txt = "39";
-	pixel_x = 8
+	req_access_txt = "39"
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
@@ -96745,8 +96745,8 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "39";
-	name = "virology storage"
+	name = "virology storage";
+	req_access_txt = "39"
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port)
@@ -97922,8 +97922,8 @@
 	light_color = "#e8eaff"
 	},
 /obj/item/radio/intercom{
-	pixel_y = -4;
-	pixel_x = -26
+	pixel_x = -26;
+	pixel_y = -4
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
@@ -98347,8 +98347,8 @@
 /area/quartermaster/warehouse)
 "quE" = (
 /obj/structure/closet/crate/secure/plasma{
-	req_access_txt = "39";
-	name = "virology crate"
+	name = "virology crate";
+	req_access_txt = "39"
 	},
 /obj/item/extrapolator,
 /obj/item/book/manual/wiki/infections,
@@ -98998,8 +98998,8 @@
 	id = "quarantineshutters";
 	name = "Quarantine Lockdown";
 	pixel_x = 32;
-	req_access_txt = "39";
-	pixel_y = -37
+	pixel_y = -37;
+	req_access_txt = "39"
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/cmo)
@@ -99161,9 +99161,9 @@
 /area/medical/virology)
 "rAU" = (
 /obj/machinery/door/window/eastleft{
+	dir = 1;
 	name = "Testing Pen";
-	req_access_txt = "39";
-	dir = 1
+	req_access_txt = "39"
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -100185,8 +100185,8 @@
 /area/quartermaster/exploration_dock)
 "tPc" = (
 /obj/item/book/manual/wiki/xenoarchaeology{
-	pixel_y = 6;
-	pixel_x = -5
+	pixel_x = -5;
+	pixel_y = 6
 	},
 /obj/structure/table,
 /obj/machinery/camera/autoname{
@@ -100433,8 +100433,8 @@
 /obj/machinery/button/door{
 	id = "quarantineshutters";
 	name = "Quarantine Lockdown";
-	req_access_txt = "39";
-	pixel_x = -24
+	pixel_x = -24;
+	req_access_txt = "39"
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -100958,9 +100958,9 @@
 	},
 /obj/effect/turf_decal/bot_white/left,
 /obj/machinery/door/window/eastleft{
+	dir = 2;
 	name = "Quarantine Pen A";
-	req_access_txt = "39";
-	dir = 2
+	req_access_txt = "39"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6

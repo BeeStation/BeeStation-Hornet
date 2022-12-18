@@ -74,6 +74,41 @@
 		//Miniballs don't explode.
 		tesla_zap(ball, range, TESLA_MINI_POWER/7*range, TESLA_ENERGY_MINI_BALL_FLAGS)
 
+/obj/anomaly/energy_ball/quiet
+	name = "dampened energy ball"
+	desc = "An energy ball. This one produces less noise when contained in Engineering."
+
+/obj/anomaly/energy_ball/quiet/process(delta_time)
+	handle_energy(delta_time)
+
+	move_the_basket_ball(4 + orbiting_balls.len * 1.5)
+	if(istype(get_area(src.loc), /area/engine/supermatter))//This is to stop noise pollution from happening when it's running as an engine
+		playsound(src.loc, 'sound/magic/lightningbolt.ogg', 100, 1, extrarange = 3)
+	else
+		playsound(src.loc, 'sound/magic/lightningbolt.ogg', 100, 1, extrarange = 30)//Will get loud when it gets loose. Yes, it's a question of when, not if.
+	pixel_x = 0
+	pixel_y = 0
+
+	//Main one can zap
+	//Tesla only zaps if the tick usage isn't over the limit.
+	if(!TICK_CHECK)
+		tesla_zap(src, 7, TESLA_DEFAULT_POWER, TESLA_ENERGY_PRIMARY_BALL_FLAGS)
+	else
+		//Weaker, less intensive zap
+		tesla_zap(src, 4, TESLA_DEFAULT_POWER, TESLA_ENERGY_MINI_BALL_FLAGS)
+		pixel_x = -32
+		pixel_y = -32
+		return
+
+	pixel_x = -32
+	pixel_y = -32
+	for (var/ball in orbiting_balls)
+		if(TICK_CHECK)
+			return
+		var/range = rand(1, CLAMP(orbiting_balls.len, 3, 7))
+		//Miniballs don't explode.
+		tesla_zap(ball, range, TESLA_MINI_POWER/7*range, TESLA_ENERGY_MINI_BALL_FLAGS)
+
 /obj/anomaly/energy_ball/examine(mob/user)
 	. = ..()
 	if(orbiting_balls.len)
@@ -103,6 +138,29 @@
 		energy_to_raise = energy_to_raise * 1.25
 
 		playsound(src.loc, 'sound/magic/lightning_chargeup.ogg', 100, 1, extrarange = 30)
+		addtimer(CALLBACK(src, .proc/new_mini_ball), 100)
+
+	else if(energy < energy_to_lower && orbiting_balls.len)
+		energy_to_raise = energy_to_raise / 1.25
+		energy_to_lower = (energy_to_raise / 1.25) - 20
+
+		var/Orchiectomy_target = pick(orbiting_balls)
+		qdel(Orchiectomy_target)
+
+	else if(orbiting_balls.len)
+		dissipate(delta_time) //sing code has a much better system.
+
+/obj/anomaly/energy_ball/quiet/handle_energy(delta_time)
+	if(!COOLDOWN_FINISHED(src, RESTART_DISSIPATE))
+		return
+	if(energy >= energy_to_raise)
+		energy_to_lower = energy_to_raise - 20
+		energy_to_raise = energy_to_raise * 1.25
+
+		if(istype(get_area(src.loc), /area/engine/supermatter))//This is to stop noise pollution from happening when it's running as an engine
+			playsound(src.loc, 'sound/magic/lightning_chargeup.ogg', 100, 1, extrarange = 3)
+		else
+			playsound(src.loc, 'sound/magic/lightning_chargeup.ogg', 100, 1, extrarange = 30)//Will get loud when it gets loose. Yes, it's a question of when, not if.
 		addtimer(CALLBACK(src, .proc/new_mini_ball), 100)
 
 	else if(energy < energy_to_lower && orbiting_balls.len)

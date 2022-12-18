@@ -419,6 +419,25 @@
 	name = "very special note"
 	info = "<span style=color:'black';font-family:'Verdana';><p>░░░░░▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄░░░░░░░<br>░░░░░█░░░░▒▒▒▒▒▒▒▒▒▒▒▒░░▀▀▄░░░░<br>░░░░█░░░▒▒▒▒▒▒░░░░░░░░▒▒▒░░█░░░<br>░░░█░░░░░░▄██▀▄▄░░░░░▄▄▄░░░░█░░<br>░▄▀▒▄▄▄▒░█▀▀▀▀▄▄█░░░██▄▄█░░░░█░<br>█░▒█▒▄░▀▄▄▄▀░░░░░░░░█░░░▒▒▒▒▒░█<br>█░▒█░█▀▄▄░░░░░█▀░░░░▀▄░░▄▀▀▀▄▒█<br>░█░▀▄░█▄░█▀▄▄░▀░▀▀░▄▄▀░░░░█░░█░<br>░░█░░░▀▄▀█▄▄░█▀▀▀▄▄▄▄▀▀█▀██░█░░<br>░░░█░░░░██░░▀█▄▄▄█▄▄█▄████░█░░░<br>░░░░█░░░░▀▀▄░█░░░█░█▀██████░█░░<br>░░░░░▀▄░░░░░▀▀▄▄▄█▄█▄█▄█▄▀░░█░░<br>░░░░░░░▀▄▄░▒▒▒▒░░░░░░░░░░▒░░░█░<br>░░░░░░░░░░▀▀▄▄░▒▒▒▒▒▒▒▒▒▒░░░░█░<br>░░░░░░░░░░░░░░▀▄▄▄▄▄░░░░░░░░█░░</p> </span>"
 
+
+/obj/item/paper/crumpled/engineeringnotice
+	name = "Notice to the Engineering staff"
+
+/obj/item/paper/crumpled/engineeringnotice/Initialize(mapload)
+	. = ..()
+	info = {"<h4><center>Notice to the Engineering staff of [GLOB.station_name]</center></h4>
+	Central Command has finally taken notice of the space-time anomalies that have recently been affecting the Supermatter crystal!<br>
+	As a temporary measure, they have tasked me with replacing our belowed yellow glowing rock with other means of generating power.<br>
+	It was hard work, truly, don't even ask me how I managed to move the damn thing or where I stashed it.<br>
+	Anyhow, I cooperated with our Quartermaster to get the parts required for a Tesla engine.<br>
+	I can't believe it, but I did it! Just when I was certain it couldn't be done, I made the final necessary breakthrough.<br>
+	I did most of the work necessary, all you have to do is assemble the Particle Accelerator stashed in the crate nearby, configure the reflectors and fire up the emmiters.<br>
+	As a tip, don't stand in the red zone and don't unwrench any of the rods while the Tesla is active!<br>
+	<br>
+	<i>Chief Engineer of [GLOB.station_name], K.N.</i><br>
+	<br>
+	P.S. The QM was rather adamant about getting the crate back."}
+
 #undef MAX_PAPER_LENGTH
 #undef MAX_PAPER_STAMPS
 #undef MAX_PAPER_STAMPS_OVERLAYS
