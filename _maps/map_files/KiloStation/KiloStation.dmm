@@ -16638,17 +16638,16 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/robotics/lab)
 "aBf" = (
-/obj/machinery/power/grounding_rod{
-	anchored = 1
-	},
-/obj/effect/turf_decal/stripes/red/full,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/engine,
 /area/engine/engineering)
 "aBg" = (
 /obj/effect/turf_decal/stripes/white/line{
@@ -16891,18 +16890,16 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 10
-	},
-/obj/structure/railing{
-	dir = 5
-	},
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution/stand_clear/red,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "aBA" = (
@@ -51218,15 +51215,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 6
-	},
-/obj/structure/railing{
-	dir = 9
-	},
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution/stand_clear/red,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "bDc" = (
@@ -95560,6 +95555,16 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/central)
+"lhw" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/stripes/red/full,
+/obj/machinery/power/grounding_rod{
+	anchored = 1
+	},
+/turf/open/floor/plating,
+/area/engine/supermatter)
 "liM" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command/glass{
@@ -137846,7 +137851,7 @@ ayn
 axX
 ayn
 czJ
-aEv
+lhw
 aBf
 axb
 chH

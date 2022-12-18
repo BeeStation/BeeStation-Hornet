@@ -7064,6 +7064,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/delivery,
 /obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "aIg" = (
@@ -7959,11 +7960,13 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/power/grounding_rod{
-	anchored = 1
+/obj/structure/railing{
+	dir = 8
 	},
-/obj/effect/turf_decal/stripes/red/full,
-/turf/open/floor/plating,
+/obj/effect/turf_decal/caution/stand_clear/red{
+	dir = 4
+	},
+/turf/open/floor/engine,
 /area/engine/engineering)
 "aMq" = (
 /obj/structure/window/reinforced,
@@ -30443,7 +30446,7 @@
 	dir = 6
 	},
 /obj/structure/railing{
-	dir = 9
+	dir = 8
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -30616,6 +30619,9 @@
 	icon_state = "0-4"
 	},
 /obj/effect/turf_decal/stripes/red/full,
+/obj/machinery/power/tesla_coil/power/old{
+	anchored = 1
+	},
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "dgo" = (
@@ -30629,8 +30635,7 @@
 	dir = 5
 	},
 /obj/structure/railing{
-	dir = 10;
-	layer = 3.2
+	dir = 8
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -30665,10 +30670,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/tesla_coil/power/old{
+/obj/effect/turf_decal/stripes/red/full,
+/obj/machinery/power/grounding_rod{
 	anchored = 1
 	},
-/obj/effect/turf_decal/stripes/red/full,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "dgz" = (
@@ -43227,6 +43232,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/supply)
+"ivJ" = (
+/obj/machinery/the_singularitygen/tesla/rusted,
+/obj/effect/turf_decal/bot_red,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "ivQ" = (
 /obj/machinery/door/airlock/maintenance{
 	req_one_access_txt = "12;27;37"
@@ -47419,18 +47429,6 @@
 /turf/open/floor/plasteel{
 	dir = 1
 	},
-/area/engine/engineering)
-"kxI" = (
-/obj/structure/table,
-/obj/item/book/manual/wiki/engineering_singulo_tesla{
-	pixel_x = -5;
-	pixel_y = 4
-	},
-/obj/item/reagent_containers/food/drinks/beer/light{
-	pixel_x = 8;
-	pixel_y = 2
-	},
-/turf/open/floor/engine,
 /area/engine/engineering)
 "kya" = (
 /obj/structure/disposalpipe/segment,
@@ -53640,11 +53638,6 @@
 	},
 /turf/open/floor/plasteel/stairs,
 /area/science/mixing)
-"npn" = (
-/obj/machinery/the_singularitygen/tesla/rusted,
-/obj/effect/turf_decal/bot_red,
-/turf/open/floor/engine,
-/area/engine/supermatter)
 "npF" = (
 /obj/structure/table/glass,
 /obj/item/folder{
@@ -69984,6 +69977,18 @@
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hydroponics)
+"uKG" = (
+/obj/structure/table,
+/obj/item/book/manual/wiki/engineering_singulo_tesla{
+	pixel_x = -5;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/drinks/beer/light{
+	pixel_x = 8;
+	pixel_y = 2
+	},
+/turf/open/floor/engine,
+/area/engine/engineering)
 "uKR" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -72845,6 +72850,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/delivery,
+/obj/structure/lattice/catwalk,
 /obj/structure/lattice/catwalk,
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -120790,7 +120796,7 @@ evh
 evh
 kCF
 evh
-kxI
+uKG
 axY
 apc
 aYu
@@ -122069,7 +122075,7 @@ aYx
 dgc
 deS
 aMk
-npn
+ivJ
 dfc
 dfm
 dhe

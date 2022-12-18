@@ -83,7 +83,7 @@
 
 	move_the_basket_ball(4 + orbiting_balls.len * 1.5)
 	if(istype(get_area(src.loc), /area/engine/supermatter))//This is to stop noise pollution from happening when it's running as an engine
-		playsound(src.loc, 'sound/magic/lightningbolt.ogg', 100, 1, extrarange = 3)
+		playsound(src.loc, 'sound/magic/lightningbolt.ogg', 50, 1, extrarange = 3)
 	else
 		playsound(src.loc, 'sound/magic/lightningbolt.ogg', 100, 1, extrarange = 30)//Will get loud when it gets loose. Yes, it's a question of when, not if.
 	pixel_x = 0
@@ -158,7 +158,7 @@
 		energy_to_raise = energy_to_raise * 1.25
 
 		if(istype(get_area(src.loc), /area/engine/supermatter))//This is to stop noise pollution from happening when it's running as an engine
-			playsound(src.loc, 'sound/magic/lightning_chargeup.ogg', 100, 1, extrarange = 3)
+			playsound(src.loc, 'sound/magic/lightning_chargeup.ogg', 50, 1, extrarange = 3)
 		else
 			playsound(src.loc, 'sound/magic/lightning_chargeup.ogg', 100, 1, extrarange = 30)//Will get loud when it gets loose. Yes, it's a question of when, not if.
 		addtimer(CALLBACK(src, .proc/new_mini_ball), 100)

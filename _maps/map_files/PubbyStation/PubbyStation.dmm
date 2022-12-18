@@ -22714,17 +22714,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
-"dXf" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/the_singularitygen/tesla/rusted,
-/obj/effect/turf_decal/bot_red,
-/turf/open/floor/engine,
-/area/engine/supermatter)
 "dXn" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -26663,6 +26652,21 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science)
+"gcf" = (
+/obj/effect/turf_decal/trimline/yellow/filled/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/yellow/filled/warning{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/engine/engineering)
 "gco" = (
 /obj/machinery/power/smes,
 /obj/structure/cable/yellow,
@@ -32523,6 +32527,22 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"juc" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/red/filled/warning{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/red/filled/end,
+/obj/machinery/power/grounding_rod{
+	anchored = 1
+	},
+/turf/open/floor/plating,
+/area/engine/supermatter)
 "jue" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -36848,18 +36868,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/hallway/primary/central)
-"lIo" = (
-/obj/effect/turf_decal/trimline/yellow/filled/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/trimline/yellow/filled/warning{
-	dir = 8
-	},
-/obj/effect/turf_decal/caution/stand_clear{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/engine/engineering)
 "lIx" = (
 /obj/machinery/door/window/southleft{
 	base_state = "right";
@@ -43016,11 +43024,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/power/grounding_rod{
-	anchored = 1
+/obj/structure/railing{
+	dir = 1
 	},
-/obj/effect/turf_decal/trimline/red/filled,
-/obj/effect/turf_decal/stripes/red/line,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "oVU" = (
@@ -49263,6 +49269,17 @@
 	icon_state = "platingdmg3"
 	},
 /area/maintenance/department/engine)
+"siG" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/the_singularitygen/tesla/rusted,
+/obj/effect/turf_decal/bot_red,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "sja" = (
 /obj/machinery/light,
 /obj/machinery/door/firedoor,
@@ -52102,21 +52119,6 @@
 	icon_state = "platingdmg3"
 	},
 /area/maintenance/department/cargo)
-"tPP" = (
-/obj/effect/turf_decal/trimline/yellow/filled/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/trimline/yellow/filled/warning{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/caution/stand_clear{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/engine/engineering)
 "tQg" = (
 /obj/machinery/computer/card/minor/rd{
 	dir = 8
@@ -59284,7 +59286,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/railing{
-	dir = 5
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
@@ -59340,7 +59342,7 @@
 	icon_state = "1-8"
 	},
 /obj/structure/railing{
-	dir = 9
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
@@ -59513,6 +59515,18 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"yfd" = (
+/obj/effect/turf_decal/trimline/yellow/filled/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/yellow/filled/warning{
+	dir = 8
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/engine/engineering)
 "yfG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -89450,7 +89464,7 @@ udy
 xxk
 xxk
 xxk
-tPP
+gcf
 xxk
 sPb
 tYc
@@ -90994,10 +91008,10 @@ ddA
 hCX
 iYO
 qfZ
-dXf
+siG
 wdK
 qbF
-ohj
+juc
 oVB
 bXk
 bRC
@@ -92529,12 +92543,12 @@ ohw
 jMx
 cwu
 qsx
-lIo
+yfd
 qsx
 qsx
 qsx
 qsx
-lIo
+yfd
 qeW
 nUI
 qsx

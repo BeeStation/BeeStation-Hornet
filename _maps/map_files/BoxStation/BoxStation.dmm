@@ -18929,6 +18929,9 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
 /turf/open/floor/engine,
 /area/engine/engineering)
 "cCT" = (
@@ -19225,6 +19228,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/structure/lattice/catwalk,
 /obj/structure/lattice/catwalk,
 /obj/structure/reflector/single/anchored{
 	dir = 4
@@ -27665,6 +27669,9 @@
 	},
 /obj/structure/railing/corner{
 	dir = 4
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 8
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
