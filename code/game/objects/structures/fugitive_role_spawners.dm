@@ -14,7 +14,12 @@
 	. = ..()
 	notify_ghosts("Hunters are waking up looking for refugees!", source = src, action=NOTIFY_ATTACK, flashwindow = FALSE, ignore_key = POLL_IGNORE_FUGITIVE)
 
-/obj/effect/mob_spawn/human/fugitive/special(mob/living/new_spawn)
+/obj/effect/mob_spawn/human/fugitive/pre_configure()
+	RegisterSignal(src, COMSIG_MOB_SPAWNER_DOSPECIAL, .proc/special)
+
+/obj/effect/mob_spawn/human/fugitive/proc/special(datum/source, mob/living/new_spawn, name)
+	SIGNAL_HANDLER
+
 	var/datum/antagonist/fugitive_hunter/fughunter = new
 	fughunter.backstory = back_story
 	new_spawn.mind.add_antag_datum(fughunter)

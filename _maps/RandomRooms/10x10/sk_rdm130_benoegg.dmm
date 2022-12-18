@@ -14,7 +14,7 @@
 /area/template_noop)
 "d" = (
 /obj/structure/alien/weeds,
-/obj/effect/mob_spawn/facehugger,
+/obj/effect/mapping_facehugger,
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
@@ -44,7 +44,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
-/obj/effect/mob_spawn/facehugger,
+/obj/effect/mapping_facehugger,
 /turf/closed/wall,
 /area/template_noop)
 "l" = (
@@ -77,7 +77,7 @@
 /area/template_noop)
 "q" = (
 /obj/structure/alien/weeds,
-/obj/effect/mob_spawn/facehugger,
+/obj/effect/mapping_facehugger,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating,
@@ -92,7 +92,7 @@
 /area/template_noop)
 "s" = (
 /obj/structure/alien/weeds,
-/obj/effect/mob_spawn/facehugger,
+/obj/effect/mapping_facehugger,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,

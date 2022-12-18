@@ -273,3 +273,10 @@
 
 #undef MIN_IMPREGNATION_TIME
 #undef MAX_IMPREGNATION_TIME
+
+/obj/effect/mapping_facehugger/Initialize(mapload)
+	. = ..()
+	if(mapload || (SSticker?.current_state > GAME_STATE_SETTING_UP))
+		var/obj/item/clothing/mask/facehugger/O = new(loc) //variable O is a new facehugger at the location of the landmark
+		O.Die() //call the facehugger's death proc
+		qdel(src)

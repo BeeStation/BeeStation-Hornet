@@ -20,7 +20,6 @@
 	del_on_death = TRUE
 	var/zombiejob = JOB_NAME_MEDICALDOCTOR
 	var/infection_chance = 0
-	var/obj/effect/mob_spawn/human/corpse/delayed/corpse
 	mobchatspan = "bartender"
 	discovery_points = 3000
 
@@ -42,10 +41,6 @@
 
 	var/icon/P = get_flat_human_icon("zombie_[zombiejob]", J , CS, "zombie", outfit_override = O)
 	icon = P
-	corpse = new(src)
-	corpse.outfit = O
-	corpse.mob_species = /datum/species/zombie
-	corpse.mob_name = name
 
 /mob/living/simple_animal/hostile/zombie/AttackingTarget()
 	. = ..()
@@ -54,5 +49,14 @@
 
 /mob/living/simple_animal/hostile/zombie/drop_loot()
 	. = ..()
+	var/mob/living/carbon/human/corpse = new(src)
+	var/datum/job/J = SSjob.GetJob(zombiejob)
+	var/datum/outfit/O
+	if(J.outfit)
+		O = new J.outfit
+		O.r_hand = null
+		O.l_hand = null
+	corpse.equipOutfit(O)
+	corpse.set_species(/datum/species/zombie)
+	corpse.name = name
 	corpse.forceMove(drop_location())
-	corpse.create()

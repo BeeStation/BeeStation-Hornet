@@ -85,3 +85,11 @@
 
 ///Called to all children when a parent moves, as long as it has the moved relay component.
 #define COMSIG_PARENT_MOVED_RELAY "parent_moved_relay"
+
+// /datum/component/mob_spawner signals, from [code/modules/awaymissions/corpse.dm]
+/// Creates the mob object.
+/// 	Args: ckey (client to put in control), name
+#define COMSIG_MOB_SPAWNER_CREATE "mob_spawner_create"
+/// Allows the parent to configure special behavior on the mob during create(). Sent by the component.
+/// 	Args: mob/M (the new mob), name (from create())
+#define COMSIG_MOB_SPAWNER_DOSPECIAL "mob_spawner_do_special"

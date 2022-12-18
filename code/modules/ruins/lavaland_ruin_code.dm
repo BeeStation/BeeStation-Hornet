@@ -116,7 +116,12 @@
 	assignedrole = "Lavaland Syndicate"
 	use_cooldown = TRUE
 
-/obj/effect/mob_spawn/human/lavaland_syndicate/special(mob/living/new_spawn)
+/obj/effect/mob_spawn/human/lavaland_syndicate/pre_configure()
+	RegisterSignal(src, COMSIG_MOB_SPAWNER_DOSPECIAL, .proc/special)
+
+/obj/effect/mob_spawn/human/lavaland_syndicate/proc/special(datum/source, mob/living/new_spawn, name)
+	SIGNAL_HANDLER
+
 	new_spawn.grant_language(/datum/language/codespeak)
 
 /datum/outfit/lavaland_syndicate

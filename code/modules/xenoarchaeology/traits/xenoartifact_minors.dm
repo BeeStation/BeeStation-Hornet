@@ -9,7 +9,7 @@
 
 /datum/xenoartifact_trait/minor/looped/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/multitool))
-		to_chat(user, "<span class='info'>The [item.name] displays a resistance reading of [X.charge_req*0.1].</span>") 
+		to_chat(user, "<span class='info'>The [item.name] displays a resistance reading of [X.charge_req*0.1].</span>")
 		return TRUE
 	return ..()
 
@@ -41,13 +41,13 @@
 		X.cooldown = -1000 SECONDS //This is better than making a unique interaction in xenoartifact.dm
 		return
 	charges = pick(0, 1, 2)
-	playsound(get_turf(X), 'sound/machines/capacitor_charge.ogg', 50, TRUE) 
+	playsound(get_turf(X), 'sound/machines/capacitor_charge.ogg', 50, TRUE)
 	X.cooldown = saved_cooldown
 	saved_cooldown = null
 
 /datum/xenoartifact_trait/minor/capacitive/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/multitool))
-		to_chat(user, "<span class='info'>The [item.name] displays an overcharge reading of [charges/3].</span>") 
+		to_chat(user, "<span class='info'>The [item.name] displays an overcharge reading of [charges/3].</span>")
 		return TRUE
 	return ..()
 
@@ -115,7 +115,7 @@
 	///he who lives inside
 	var/mob/living/simple_animal/shade/man
 	///His doorbell
-	var/obj/effect/mob_spawn/sentient_artifact/S
+	var/obj/effect/sentient_artifact_spawner/S
 
 /datum/xenoartifact_trait/minor/sentient/on_touch(obj/item/xenoartifact/X, mob/user)
 	to_chat(user, "<span class='warning'>The [X.name] whispers to you...</span>")
@@ -141,8 +141,8 @@
 
 /datum/xenoartifact_trait/minor/sentient/proc/setup_sentience(obj/item/xenoartifact/X, ckey)
 	if(!(SSzclear.get_free_z_level()))
-		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE) 
-		return	
+		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+		return
 	man = new(get_turf(X))
 	man.name = pick(GLOB.xenoa_artifact_names)
 	man.real_name = "[man.name] - [X]"
@@ -191,23 +191,39 @@
 	QDEL_NULL(man) //Kill the inner person. Otherwise invisible runs around
 	QDEL_NULL(S)
 
-/obj/effect/mob_spawn/sentient_artifact
-	death = FALSE
+/obj/effect/sentient_artifact_spawner
 	name = "Sentient Xenoartifact"
-	short_desc = "You're a maleviolent sentience, possesing an ancient alien artifact."
-	flavour_text = "Return to your master..."
-	use_cooldown = TRUE
 	invisibility = 101
 	var/obj/item/xenoartifact/artifact
 
-/obj/effect/mob_spawn/sentient_artifact/Initialize(mapload, var/obj/item/xenoartifact/Z)
+/obj/effect/sentient_artifact_spawner/Initialize(mapload, var/obj/item/xenoartifact/Z)
 	if(!Z)
 		qdel(src)
 		return FALSE
 	artifact = Z
 	return ..()
 
-/obj/effect/mob_spawn/sentient_artifact/create(ckey, name)
+/obj/effect/sentient_artifact_spawner/attack_ghost(mob/dead/observer/user)
+	if(!SSticker.HasRoundStarted() || !loc)
+		return
+	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER) && !(flags_1 & ADMIN_SPAWNED_1))
+		to_chat(user, "<span class='warning'>An admin has temporarily disabled non-admin ghost roles!</span>")
+		return
+	if(is_banned_from(user.key, ROLE_SENTIENCE))
+		to_chat(user, "<span class='warning'>You are jobanned!</span>")
+		return
+	if(QDELETED(src) || QDELETED(user))
+		return
+	if(user.client.next_ghost_role_tick > world.time)
+		to_chat(user, "<span class='warning'>You have died recently, you must wait [(user.client.next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner.</span>")
+		return
+	var/ghost_role = alert("Become [name]? (Warning, You can no longer be cloned!)",,"Yes","No")
+	if(ghost_role == "No" || !loc)
+		return
+	log_game("[key_name(user)] became [name]")
+	create(user.ckey)
+
+/obj/effect/sentient_artifact_spawner/proc/create(ckey)
 	var/datum/xenoartifact_trait/minor/sentient/S = artifact.get_trait(/datum/xenoartifact_trait/minor/sentient)
 	S.setup_sentience(artifact, ckey)
 
@@ -232,7 +248,7 @@
 		X.visible_message("<span class='danger'>The [X.name] shatters!</span>", "<span class='danger'>The [X.name] shatters!</span>")
 		var/obj/effect/decal/cleanable/ash/A = new(get_turf(X))
 		A.color = X.material
-		playsound(get_turf(X), 'sound/effects/glassbr1.ogg', 50, TRUE) 
+		playsound(get_turf(X), 'sound/effects/glassbr1.ogg', 50, TRUE)
 		qdel(X)
 
 //============
@@ -280,7 +296,7 @@
 
 /datum/xenoartifact_trait/minor/wearable/on_init(obj/item/xenoartifact/X)
 	X.slot_flags = ITEM_SLOT_GLOVES
-	
+
 /datum/xenoartifact_trait/minor/wearable/activate(obj/item/xenoartifact/X, atom/user)
 	X.true_target |= list(user)
 

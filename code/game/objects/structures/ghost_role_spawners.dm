@@ -19,7 +19,12 @@
 	assignedrole = "Lifebringer"
 	use_cooldown = TRUE
 
-/obj/effect/mob_spawn/human/seed_vault/special(mob/living/new_spawn)
+/obj/effect/mob_spawn/human/seed_vault/pre_configure()
+	RegisterSignal(src, COMSIG_MOB_SPAWNER_DOSPECIAL, .proc/special)
+
+/obj/effect/mob_spawn/human/seed_vault/proc/special(datum/source, mob/living/new_spawn, name)
+	SIGNAL_HANDLER
+
 	var/plant_name = pick("Tomato", "Potato", "Broccoli", "Carrot", "Ambrosia", "Pumpkin", "Ivy", "Kudzu", "Banana", "Moss", "Flower", "Bloom", "Root", "Bark", "Glowshroom", "Petal", "Leaf", \
 	"Venus", "Sprout","Cocoa", "Strawberry", "Citrus", "Oak", "Cactus", "Pepper", "Juniper")
 	new_spawn.fully_replace_character_name(null,plant_name)
@@ -52,12 +57,13 @@
 	You have seen lights in the distance... they foreshadow the arrival of outsiders that seek to tear apart the Necropolis and its domain. \
 	Fresh sacrifices for your nest."
 	assignedrole = "Ash Walker"
-	var/datum/team/ashwalkers/team
 	use_cooldown = TRUE
+	var/datum/team/ashwalkers/team
 
-/obj/effect/mob_spawn/human/ash_walker/special(mob/living/new_spawn)
+/obj/effect/mob_spawn/human/ash_walker/proc/special(datum/source, mob/living/new_spawn, name)
+	SIGNAL_HANDLER
+
 	to_chat(new_spawn, "<b>Drag the corpses of men and beasts to your nest. It will absorb them to create more of your kind. Don't leave your nest undefended, protect it with your life. Glory to the Necropolis!</b>")
-
 	new_spawn.mind.add_antag_datum(/datum/antagonist/ashwalker, team)
 
 	if(ishuman(new_spawn))
@@ -67,9 +73,10 @@
 		H.fully_replace_character_name(null, H.dna.species.random_name(gender))
 
 /obj/effect/mob_spawn/human/ash_walker/Initialize(mapload, datum/team/ashwalkers/ashteam)
+	team = ashteam
+	RegisterSignal(src, COMSIG_MOB_SPAWNER_DOSPECIAL, .proc/special)
 	. = ..()
 	var/area/A = get_area(src)
-	team = ashteam
 	if(A)
 		notify_ghosts("An ash walker egg is ready to hatch in \the [A.name].", source = src, action=NOTIFY_ATTACK, flashwindow = FALSE, ignore_key = POLL_IGNORE_ASHWALKER)
 
@@ -95,11 +102,16 @@
 	assignedrole = "Exile"
 	use_cooldown = TRUE
 
+/obj/effect/mob_spawn/human/exile/pre_configure()
+	RegisterSignal(src, COMSIG_MOB_SPAWNER_DOSPECIAL, .proc/special)
+
 /obj/effect/mob_spawn/human/exile/Destroy()
 	new/obj/structure/fluff/empty_sleeper(get_turf(src))
 	return ..()
 
-/obj/effect/mob_spawn/human/exile/special(mob/living/new_spawn)
+/obj/effect/mob_spawn/human/exile/proc/special(datum/source, mob/living/new_spawn, name)
+	SIGNAL_HANDLER
+
 	new_spawn.fully_replace_character_name(null,"Wish Granter's Victim ([rand(1,999)])")
 	var/wish = rand(1,4)
 	switch(wish)
@@ -137,17 +149,20 @@
 	if(species) //spawners list uses object name to register so this goes before ..()
 		name += " ([initial(species.prefix)])"
 		mob_species = species
-	. = ..()
-	var/area/A = get_area(src)
-	if(!mapload && A)
-		notify_ghosts("\A [initial(species.prefix)] golem shell has been completed in \the [A.name].", source = src, action=NOTIFY_ATTACK, flashwindow = FALSE, ignore_key = POLL_IGNORE_GOLEM)
 	if(has_owner && creator)
 		short_desc = "You are a golem."
 		flavour_text = "You move slowly, but are highly resistant to heat and cold as well as blunt trauma. You are unable to wear clothes, but can still use most tools."
 		important_info = "Serve [creator], and assist [creator.p_them()] in completing [creator.p_their()] goals at any cost."
 		owner = creator
+	RegisterSignal(src, COMSIG_MOB_SPAWNER_DOSPECIAL, .proc/special)
+	. = ..()
+	var/area/A = get_area(src)
+	if(!mapload && A)
+		notify_ghosts("\A [initial(species.prefix)] golem shell has been completed in \the [A.name].", source = src, action=NOTIFY_ATTACK, flashwindow = FALSE, ignore_key = POLL_IGNORE_GOLEM)
 
-/obj/effect/mob_spawn/human/golem/special(mob/living/new_spawn, name)
+/obj/effect/mob_spawn/human/golem/proc/special(datum/source, mob/living/new_spawn, name)
+	SIGNAL_HANDLER
+
 	var/datum/species/golem/X = mob_species
 	to_chat(new_spawn, "[initial(X.info_text)]")
 	if(!owner)
@@ -183,11 +198,13 @@
 		var/transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die!)",,"Yes","No")
 		if(transfer_choice != "Yes")
 			return
-		if(QDELETED(src) || uses <= 0)
+		// ew yucky GetComponent but it would be ugly to try to integrate this into the component for now
+		var/datum/component/mob_spawner/spawn_component = GetComponent(/datum/component/mob_spawner)
+		if(QDELETED(src) || QDELETED(spawn_component) || spawn_component.uses <= 0)
 			return
 		log_game("[key_name(user)] golem-swapped into [src]")
 		user.visible_message("<span class='notice'>A faint light leaves [user], moving to [src] and animating it!</span>","<span class='notice'>You leave your old body behind, and transfer into [src]!</span>")
-		show_flavour = FALSE
+
 		create(ckey = user.ckey,name = user.real_name)
 		user.death()
 		return
@@ -225,8 +242,7 @@
 	assignedrole = "Hermit"
 	use_cooldown = TRUE
 
-/obj/effect/mob_spawn/human/hermit/Initialize(mapload)
-	. = ..()
+/obj/effect/mob_spawn/human/hermit/pre_configure()
 	var/arrpee = rand(1,4)
 	switch(arrpee)
 		if(1)
@@ -287,16 +303,20 @@
 	flavour_text = "Good. It seems as though your ship crashed. You remember that you were convicted of "
 	assignedrole = "Escaped Prisoner"
 	use_cooldown = TRUE
+	var/static/list/crimes
 
-/obj/effect/mob_spawn/human/prisoner_transport/special(mob/living/L)
-	L.fully_replace_character_name(null,"NTP #LL-0[rand(111,999)]") //Nanotrasen Prisoner #Lavaland-(numbers)
-
-/obj/effect/mob_spawn/human/prisoner_transport/Initialize(mapload)
-	. = ..()
-	var/list/crimes = list("murder", "larceny", "embezzlement", "unionization", "dereliction of duty", "kidnapping", "gross incompetence", "grand theft", "collaboration with the Syndicate", \
-	"worship of a forbidden deity", "interspecies relations", "mutiny")
-	flavour_text += "[pick(crimes)]. but regardless of that, it seems like your crime doesn't matter now. You don't know where you are, but you know that it's out to kill you, and you're not going \
+/obj/effect/mob_spawn/human/prisoner_transport/pre_configure()
+	if(!length(crimes))
+		crimes = list("murder", "larceny", "embezzlement", "unionization", "dereliction of duty", "kidnapping", "gross incompetence", "grand theft", "collaboration with the Syndicate", \
+		"worship of a forbidden deity", "interspecies relations", "mutiny")
+	flavour_text += "[pick(crimes)]. However, that hardly matters anymore. You don't know where you are, but you know that Nanotrasen's out to get you, and you're not going \
 	to lose this opportunity. Find a way to get out of this mess and back to where you rightfully belong - your [pick("house", "apartment", "spaceship", "station")]."
+	RegisterSignal(src, COMSIG_MOB_SPAWNER_DOSPECIAL, .proc/special)
+
+/obj/effect/mob_spawn/human/prisoner_transport/proc/special(datum/source, mob/living/L, name)
+	SIGNAL_HANDLER
+
+	L.fully_replace_character_name(null,"NTP #LL-0[rand(111,999)]") //Nanotrasen Prisoner #Lavaland-(numbers)
 
 /datum/outfit/lavalandprisoner
 	name = "Lavaland Prisoner"
@@ -376,20 +396,25 @@
 	assignedrole = "SuperFriend"
 
 /obj/effect/mob_spawn/human/demonic_friend/Initialize(mapload, datum/mind/owner_mind, obj/effect/proc_holder/spell/targeted/summon_friend/summoning_spell)
-	. = ..()
+	// This needs to run before ComponentInitialize/pre_configure, which is in the parent call
 	owner = owner_mind
 	if(!owner)
 		return INITIALIZE_HINT_QDEL
-	flavour_text = "You have been given a reprieve from your eternity of torment, to be [owner.name]'s friend for [owner.p_their()] short mortal coil."
-	important_info = "Be aware that if you do not live up to [owner.name]'s expectations, they can send you back to hell with a single thought. [owner.name]'s death will also return you to hell."
+	spell = summoning_spell
+	. = ..()
 	var/area/A = get_area(src)
 	if(!mapload && A)
 		notify_ghosts("\A friendship shell has been completed in \the [A.name].", source = src, action=NOTIFY_ATTACK, flashwindow = FALSE)
+
+/obj/effect/mob_spawn/human/demonic_friend/pre_configure()
+	flavour_text = "You have been given a reprieve from your eternity of torment, to be [owner.name]'s friend for [owner.p_their()] short mortal coil."
+	important_info = "Be aware that if you do not live up to [owner.name]'s expectations, they can send you back to hell with a single thought. [owner.name]'s death will also return you to hell."
 	objectives = "Be [owner.name]'s friend, and keep [owner.name] alive, so you don't get sent back to hell."
-	spell = summoning_spell
+	RegisterSignal(src, COMSIG_MOB_SPAWNER_DOSPECIAL, .proc/special)
 
+/obj/effect/mob_spawn/human/demonic_friend/proc/special(datum/source, mob/living/L, name)
+	SIGNAL_HANDLER
 
-/obj/effect/mob_spawn/human/demonic_friend/special(mob/living/L)
 	if(!QDELETED(owner.current) && owner.current.stat != DEAD)
 		L.fully_replace_character_name(null,"[owner.name]'s best friend")
 		soullink(/datum/soullink/oneway, owner.current, L)
@@ -586,8 +611,13 @@
 	assignedrole = "Space Pirate"
 	var/rank = "Mate"
 
-/obj/effect/mob_spawn/human/pirate/special(mob/living/new_spawn)
-	new_spawn.fully_replace_character_name(new_spawn.real_name,generate_pirate_name())
+/obj/effect/mob_spawn/human/pirate/pre_configure()
+	RegisterSignal(src, COMSIG_MOB_SPAWNER_DOSPECIAL, .proc/special)
+
+/obj/effect/mob_spawn/human/pirate/proc/special(datum/source, mob/living/new_spawn, name)
+	SIGNAL_HANDLER
+
+	new_spawn.fully_replace_character_name(new_spawn.real_name, generate_pirate_name())
 	new_spawn.mind.add_antag_datum(/datum/antagonist/pirate)
 
 /obj/effect/mob_spawn/human/pirate/proc/generate_pirate_name()

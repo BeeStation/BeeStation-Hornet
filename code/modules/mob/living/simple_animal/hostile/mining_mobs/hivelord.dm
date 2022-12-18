@@ -258,11 +258,18 @@
 
 //Legion infested mobs
 
-/obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/equip(mob/living/carbon/human/H)
-	. = ..()
-	H.dna.add_mutation(DWARFISM)
+/obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/proc/special(datum/source, mob/living/new_spawn, name)
+	SIGNAL_HANDLER
 
-/obj/effect/mob_spawn/human/corpse/damaged/legioninfested/Initialize(mapload)
+	if(ishuman(new_spawn))
+		var/mob/living/carbon/human/H
+		H.dna.add_mutation(DWARFISM)
+
+/obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/pre_configure()
+	..()
+	RegisterSignal(src, COMSIG_MOB_SPAWNER_DOSPECIAL, .proc/special)
+
+/obj/effect/mob_spawn/human/corpse/damaged/legioninfested/pre_configure()
 	var/type = pickweight(list("Miner" = 66, "Ashwalker" = 10, "Golem" = 10,JOB_NAME_CLOWN = 10, pick(list("Shadow", "YeOlde","Operative", "Cultist")) = 4))
 	switch(type)
 		if("Miner")
@@ -362,4 +369,3 @@
 			l_pocket = /obj/item/melee/cultblade/dagger
 			glasses =  /obj/item/clothing/glasses/hud/health/night/cultblind
 			backpack_contents = list(/obj/item/reagent_containers/glass/beaker/unholywater = 1, /obj/item/cult_shift = 1, /obj/item/flashlight/flare/culttorch = 1, /obj/item/stack/sheet/runed_metal = 15)
-	. = ..()
