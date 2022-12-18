@@ -1,4 +1,4 @@
-/datum/status_datum
+/datum/atom_status
 	var/name = "default datum"
 	var/key = "default datum"
 
@@ -7,59 +7,52 @@
 
 	/// stackable size of the same status - 1 default
 	var/max_stack_size = 1
-
+	/// if duration variable is not given, starting duration will be set
 	var/starting_duration = 10
+	/// even if duration is stacked, it will not go over its maximum duration
 	var/maximum_duration = 5 MINUTES
-	var/tick_per_time = 2 SECONDS
+	/// on_progress() will be activated for every 2 ticks (=a mob tick). only integer valid.
+	var/pulse_per_tick = 2
 
 
 	var/apply_text = "You feel something."
 	var/removal_text = "You feel no longer something."
 
-	var/status_flags = NONE
-
-/// NOTE: This must be called at the top of each inherted proc
-/datum/status_datum/proc/on_add(atom/A, list/data)
+/// This must be called at the top of each inherited proc
+/datum/atom_status/proc/on_add(atom/A, list/data)
 	/* important note:
-		While all of these status_datum share the basic type,
+		While all of these atom_status share the basic type,
 		`data` list has individual data for each atom,
 		and can accept more custom data that it needs.
 		check the healing example (omni_regeneration).
 	*/
-	if(status_flags & STATUS_FLAG_CHECK_PULSE)
-		data["current_pulse"] = 0
 	return
 
-/// NOTE: This must be called at the ***END*** of each inherted proc
-/datum/status_datum/proc/on_remove(atom/A, list/data)
+/// This must be called at the ***END*** of each inherited proc
+/datum/atom_status/proc/on_remove(atom/A, list/data)
 	return
 
-/// NOTE: This is not recommended to use in general. use `trigger_effect()`
-/datum/status_datum/proc/on_progress(atom/A, list/data)
-	if(status_flags & STATUS_FLAG_CHECK_PULSE)
-		data["current_pulse"] += 1
+/// This must be called at the ***TOP*** of each inherited proc, Also, this is not recommended to use in general. use `trigger_effect()`
+/datum/atom_status/proc/on_progress(atom/A, list/data)
 	trigger_effect(A, data)
 	return
 
-
-/datum/status_datum/proc/trigger_effect(atom/A, list/data)
+/// This must be generally used to trigger effect
+/datum/atom_status/proc/trigger_effect(atom/A, list/data)
 	return
 
-
-
 // This is a sample datum
-/datum/status_datum/omni_regeneration
+/datum/atom_status/omni_regeneration
 	name = "Omni-regeneration"
 	key = "NATURAL_HEAL"
-	tick_per_time = 1 SECONDS
-	status_flags = STATUS_FLAG_CHECK_PULSE
+	pulse_per_tick = 1
 
-/datum/status_datum/omni_regeneration/on_add(atom/A, list/data)
+/datum/atom_status/omni_regeneration/on_add(atom/A, list/data)
 	..()
 	data["power"] = 1
 	data["chance"] = 100
 
-/datum/status_datum/omni_regeneration/trigger_effect(atom/A, list/data)
+/datum/atom_status/omni_regeneration/trigger_effect(atom/A, list/data)
 	..()
 	var/mob/living/carbon/M = A
 	if(!iscarbon(A))
@@ -81,7 +74,7 @@
 	taste_description = "bitterness"
 
 /datum/reagent/medicine/bicarine/on_mob_life(mob/living/carbon/M)
-	SSstatus.add_status(M, /datum/status_datum/omni_regeneration, 15)
+	SSstatus.add_status(M, /datum/atom_status/omni_regeneration, 15)
 	..()
 
 /*

@@ -6,29 +6,30 @@ SUBSYSTEM_DEF(status)
 	flags = SS_BACKGROUND | SS_NO_FIRE
 
 	var/list/atom_list = list()
-	var/list/status_datum = list()
+	var/list/atom_status = list()
 /*
 	< atom_list structure >
 		[1. atom_list]
 		key: atom
-		value: [2. list - status_datum path]
-			   key: status_datum path
+		value: [2. list - atom_status path]
+			   key: atom_status path
 			   value: [3. list - individual status datum]
 			          key: (none, number counting)
 			          value: [4. list - details]
-							 "type": contains a type of status_datum
+							 "type": contains a type of atom_status
 							 "duration": remaining time of the effect
  */
 
 /datum/controller/subsystem/status/PreInit()
-	for(var/datum/status_datum/D as() in subtypesof(/datum/status_datum))
+	for(var/datum/atom_status/D as() in subtypesof(/datum/atom_status))
 		D = new D()
-		status_datum[D.type] = D
+		atom_status[D.type] = D
 	START_PROCESSING(SSprocessing, src)
 
-/datum/controller/subsystem/status/proc/_add_status(atom/A, path, duration, force_duration, datum/status_datum/D)
+/datum/controller/subsystem/status/proc/_add_status(atom/A, path, duration, force_duration, datum/atom_status/D)
 	var/build_list = list(
 		"type" = D,
+		"current_pulse" = 0,
 		"duration" = force_duration ? duration || D.starting_duration : min(D.maximum_duration, duration || D.starting_duration))
 	atom_list[A][path] += list(build_list)
 	D.on_add(A, grab_status_instance(A, path))
@@ -41,7 +42,7 @@ SUBSYSTEM_DEF(status)
 	if(!atom_list[A][path])
 		atom_list[A][path] = list()
 
-	var/datum/status_datum/D = status_datum[path]
+	var/datum/atom_status/D = atom_status[path]
 
 
 	// We can just add a new instance
@@ -63,10 +64,10 @@ SUBSYSTEM_DEF(status)
 			instance_with_least_duration["duration"] = calculate_duration(D, instance_with_least_duration["duration"], duration, force_duration)
 
 
-/datum/controller/subsystem/status/proc/calculate_duration(datum/status_datum/D, original_duration, duration=0, force_duration=FALSE)
+/datum/controller/subsystem/status/proc/calculate_duration(datum/atom_status/D, original_duration, duration=0, force_duration=FALSE)
 	return min(D.maximum_duration, max(duration, original_duration+duration, D.starting_duration))
 
-/datum/controller/subsystem/status/proc/_remove_status(atom/A, path, target_count, datum/status_datum/D)
+/datum/controller/subsystem/status/proc/_remove_status(atom/A, path, target_count, datum/atom_status/D)
 	D.on_remove(A, atom_list[A][path][target_count])
 	atom_list[A][path] -= list(atom_list[A][path][target_count])
 
@@ -104,9 +105,11 @@ SUBSYSTEM_DEF(status)
 			var/iteration_count = 0
 			while(iteration_count++ < length(atom_list[each_atom][each_status]))
 				var/data = atom_list[each_atom][each_status][iteration_count]
-				var/datum/status_datum/D = data["type"]
+				var/datum/atom_status/D = data["type"]
 				data["duration"] -= delta_time
-				D.on_progress(each_atom, data)
+				data["current_pulse"] += 1
+				if(!(data["current_pulse"] % D.pulse_per_tick))
+					D.on_progress(each_atom, data)
 				if(data["duration"] <= 0)
 					remove_status(each_atom, each_status, iteration_count)
 					iteration_count--
@@ -124,7 +127,7 @@ SUBSYSTEM_DEF(status)
 	return atom_list[A][path][num || length(atom_list[A][path])] || FALSE
 	/* usage example
 		******************
-		var/status = SSstatus.grab_status_instance(mob, /datum/status_datum/omni_regeneration)
+		var/status = SSstatus.grab_status_instance(mob, /datum/atom_status/omni_regeneration)
 			status["duration"] = 0
 		******************/
 
@@ -135,7 +138,7 @@ SUBSYSTEM_DEF(status)
 	return atom_list[A][path] || FALSE
 	/* usage example
 		******************
-		for(var/each_status in SSstatus.grab_all_status_instances(mob, /datum/status_datum/omni_regeneration))
+		for(var/each_status in SSstatus.grab_all_status_instances(mob, /datum/atom_status/omni_regeneration))
 			each_status["duration"] = 0
 		******************/
 
