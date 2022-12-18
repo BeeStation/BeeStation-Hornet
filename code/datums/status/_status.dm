@@ -63,7 +63,7 @@
 		if(data["activate_tox_heal"])
 			M.adjustToxLoss(-data["power"])
 
-	if(data["activated_pulses"] == 10)
+	if(data["current_pulse"] == 10)
 		data["power"] = 2
 		data["chance"] = 33
 		data["activate_tox_heal"] = TRUE
