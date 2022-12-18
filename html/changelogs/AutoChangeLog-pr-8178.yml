@@ -1,0 +1,8 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscadd: 'Adds in new config settings for mappers that allow for the creation of
+      planetary based maps on the supercruise map. See PR #8178 for more details.'
+  - rscadd: Planetary meteors will now spawn on the highest z-level and drop down
+      until they hit the bottom or explode.
+  - bugfix: Planetary meteors will no longer only spawn mini rocks
