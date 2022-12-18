@@ -108,9 +108,6 @@
 	. = ..()
 	//Register signal for TK highlights
 	RegisterSignal(M, COMSIG_MOB_ATTACK_RANGED, .proc/handle_ranged)
-	//Register signal for sensing voices
-	RegisterSignal(SSdcs, COMSIG_GLOB_LIVING_SAY_SPECIAL, .proc/handle_hear)
-
 	//Overlay used to highlight objects
 	M.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
 
@@ -187,6 +184,7 @@
 	N.override = TRUE
 	N.loc = target
 	N.plane = target.plane
+	N.layer = target.layer
 	N.name = "???" //Stop players reading names
 	owner.client.images += N
 	//Add overlay for highlighting
