@@ -12,6 +12,7 @@
 	sexes = FALSE
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	species_language_holder = /datum/language_holder/psyphoza
+	allow_numbers_in_name = TRUE
 
 	offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,-2), OFFSET_EARS = list(0,-3), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,-2), OFFSET_HEAD = list(0,-2), OFFSET_FACE = list(0,-2), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0))
 
@@ -102,7 +103,7 @@
 	/obj/machinery/advanced_airlock_controller, /obj/machinery/computer/security/telescreen, /obj/structure/grille, /obj/machinery/light_switch,
 	/obj/structure/noticeboard, /area, /obj/item/storage/secure/safe, /obj/machinery/requests_console, /obj/item/storage/backpack/satchel/flat,
 	/obj/effect/countdown, /obj/machinery/button, /obj/effect/clockwork/overlay/floor, /obj/structure/reagent_dispensers/peppertank,
-	/mob/dead/observer))
+	/mob/dead/observer, /mob/camera, /obj/structure/chisel_message))
 
 /datum/action/item_action/organ_action/psychic_highlight/Grant(mob/M)
 	. = ..()
@@ -113,7 +114,7 @@
 
 /datum/action/item_action/organ_action/psychic_highlight/Trigger()
 	. = ..()
-	if(has_cooldown_timer)
+	if(has_cooldown_timer || !owner)
 		return
 	ping_turf(get_turf(owner))
 	has_cooldown_timer = TRUE
@@ -195,7 +196,7 @@
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_ranged(datum/source, atom/target)
 	SIGNAL_HANDLER
 
-	if(has_cooldown_timer)
+	if(has_cooldown_timer || !owner)
 		return
 	var/turf/T = get_turf(target)
 	if(get_dist(get_turf(owner), T) > 1)
