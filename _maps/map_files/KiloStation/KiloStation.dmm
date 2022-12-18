@@ -95555,16 +95555,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/central)
-"lhw" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/stripes/red/full,
-/obj/machinery/power/grounding_rod{
-	anchored = 1
-	},
-/turf/open/floor/plating,
-/area/engine/supermatter)
 "liM" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command/glass{
@@ -100406,6 +100396,16 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hop)
+"uXI" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/stripes/red/full,
+/obj/machinery/power/grounding_rod{
+	anchored = 1
+	},
+/turf/open/floor/plating,
+/area/engine/supermatter)
 "uZo" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/blue{
@@ -137851,7 +137851,7 @@ ayn
 axX
 ayn
 czJ
-lhw
+uXI
 aBf
 axb
 chH

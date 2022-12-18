@@ -19229,7 +19229,6 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
 /obj/structure/reflector/single/anchored{
 	dir = 4
 	},

@@ -32527,22 +32527,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
-"juc" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/trimline/red/filled/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/red/filled/warning{
-	dir = 1
-	},
-/obj/effect/turf_decal/trimline/red/filled/end,
-/obj/machinery/power/grounding_rod{
-	anchored = 1
-	},
-/turf/open/floor/plating,
-/area/engine/supermatter)
 "jue" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -52456,6 +52440,22 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
+"ubN" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/red/filled/warning{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/red/filled/end,
+/obj/machinery/power/grounding_rod{
+	anchored = 1
+	},
+/turf/open/floor/plating,
+/area/engine/supermatter)
 "ucl" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -91011,7 +91011,7 @@ qfZ
 siG
 wdK
 qbF
-juc
+ubN
 oVB
 bXk
 bRC

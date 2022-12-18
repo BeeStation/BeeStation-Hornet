@@ -38470,6 +38470,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/floor/engine,
 /area/engine/engine_room)
 "mFo" = (
@@ -42842,7 +42843,6 @@
 	dir = 4;
 	layer = 3.2
 	},
-/obj/structure/lattice/catwalk,
 /obj/structure/lattice/catwalk,
 /obj/effect/turf_decal/delivery,
 /obj/structure/reflector/single/anchored{

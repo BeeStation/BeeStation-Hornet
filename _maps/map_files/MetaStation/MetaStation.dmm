@@ -7062,8 +7062,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/delivery,
-/obj/structure/lattice/catwalk,
 /obj/structure/lattice/catwalk,
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -72849,8 +72847,6 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/delivery,
-/obj/structure/lattice/catwalk,
 /obj/structure/lattice/catwalk,
 /turf/open/floor/engine,
 /area/engine/engineering)
