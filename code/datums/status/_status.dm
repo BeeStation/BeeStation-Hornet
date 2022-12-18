@@ -2,9 +2,6 @@
 	var/name = "default datum"
 	var/key = "default datum"
 
-	/// if sharable TRUE, multiple type of this status will be generated. if FALSE, duration is increased to maximum if it's added again.
-	var/type_sharable = TRUE
-
 	/// stackable size of the same status - 1 default
 	var/max_stack_size = 1
 	/// if duration variable is not given, starting duration will be set
