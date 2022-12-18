@@ -40,7 +40,6 @@
 // This is a sample datum
 /datum/atom_status/omni_regeneration
 	name = "Omni-regeneration"
-	key = "NATURAL_HEAL"
 	pulse_per_tick = 1
 
 /datum/atom_status/omni_regeneration/on_add(atom/A, list/data)
