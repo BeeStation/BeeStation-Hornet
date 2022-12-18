@@ -174,6 +174,7 @@
 	//Build image
 	var/image/M = new()
 	M.appearance = target.appearance
+	M.transform = target.transform
 	M.pixel_x = 0 //Reset pixel adjustments to avoid bug where overlays tower
 	M.pixel_y = 0
 	M.pixel_z = 0
@@ -191,6 +192,13 @@
 	//Add overlay for highlighting
 	N.add_overlay(M)
 	overlays += N
+	//Register signal for direction stuff (WHY THE FUCK WOULDNT AN IMAGE UPDATE ITS DIRECTION TO ITS LOC?)
+	if(ismovable(target))
+		N.RegisterSignal(target, COMSIG_MOVABLE_MOVED, /image/.proc/update_dir)
+
+/image/proc/update_dir(datum/source, atom/target, _dir)
+	dir = _dir
+	transform = target.transform
 
 //Handle clicking for ranged trigger
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_ranged(datum/source, atom/target)
