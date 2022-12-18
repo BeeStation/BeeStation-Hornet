@@ -21,7 +21,7 @@ export class OrbitalMapSvg extends Component {
     this.renderTypeDict = {
       "broken": Broken,
       "default": RenderableObjectType,
-      "planet": planetaryBody,
+      "planet": PlanetaryBody,
       "beacon": Beacon,
       "shuttle": Shuttle,
       "projectile": Projectile,
@@ -435,7 +435,7 @@ class RenderableObjectType {
 // ===========================
 
 // Planets
-class planetaryBody extends RenderableObjectType {
+class PlanetaryBody extends RenderableObjectType {
   constructor() {
     super();
     this.outlineColour = "#fca635";
