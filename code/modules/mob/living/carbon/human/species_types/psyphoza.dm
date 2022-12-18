@@ -197,6 +197,8 @@
 		N.RegisterSignal(target, COMSIG_MOVABLE_MOVED, /image/.proc/update_dir)
 
 /image/proc/update_dir(datum/source, atom/target, _dir)
+	SIGNAL_HANDLER
+
 	dir = _dir
 	transform = target.transform
 
