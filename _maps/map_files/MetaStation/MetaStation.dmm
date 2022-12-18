@@ -7064,7 +7064,6 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/delivery,
 /obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
 /turf/open/floor/engine,
 /area/engine/engineering)
 "aIg" = (
@@ -72846,7 +72845,6 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/delivery,
-/obj/structure/lattice/catwalk,
 /obj/structure/lattice/catwalk,
 /turf/open/floor/engine,
 /area/engine/engineering)

@@ -24867,7 +24867,6 @@
 	layer = 3.2
 	},
 /obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
 /obj/effect/turf_decal/delivery,
 /obj/structure/reflector/single/anchored{
 	dir = 4
