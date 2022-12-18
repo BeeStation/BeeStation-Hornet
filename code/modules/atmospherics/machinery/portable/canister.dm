@@ -235,7 +235,7 @@
 
 	if(holding)
 		. += mutable_appearance(canister_overlay_file, "can-tank")
-	if(valve_open)
+	else if(valve_open)
 		. += mutable_appearance(canister_overlay_file, "can-open")
 	if(connected_port)
 		. += mutable_appearance(canister_overlay_file, "can-connector")
