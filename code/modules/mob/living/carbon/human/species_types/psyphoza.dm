@@ -137,6 +137,7 @@
 	//handle eyes - make them xray so we can see all the things
 	eyes?.sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	owner.update_sight()
+	owner.client?.show_popup_menus = 0
 
 //Dims blind overlay - Lightens highlight layer
 /datum/action/item_action/organ_action/psychic_highlight/proc/dim_overlay()
@@ -181,38 +182,16 @@
 	M.pixel_w = 0
 	M.plane = PSYCHIC_PLANE //Draw overlay on this plane so we can use it as a mask
 	M.dir = target.dir
-	//make another image to obscure the name of the most likely xray'd target - also acts as the insert for the target in overlay list
-	var/image/N = new(M)
-	N.override = TRUE
-	N.loc = target
-	N.plane = target.plane
-	N.layer = target.layer
-	N.name = "???" //Stop players reading names
-	owner.client.images += N
 	//Add overlay for highlighting
-	N.add_overlay(M)
-	overlays += N
-	//Register signal for direction stuff (WHY THE FUCK WOULDNT AN IMAGE UPDATE ITS DIRECTION TO ITS LOC?)
-	if(ismovable(target))
-		N.RegisterSignal(target, COMSIG_MOVABLE_MOVED, /image/.proc/update_dir)
+	target.add_overlay(M)
+	overlays += list(target, M)
+	RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/handle_target, TRUE)
 
-/image/proc/update_dir(datum/source, atom/target, _dir)
+//handle highlight object being deleted early
+/datum/action/item_action/organ_action/psychic_highlight/proc/handle_target(datum/source)
 	SIGNAL_HANDLER
 
-	dir = _dir
-	transform = target.transform
-
-//Handle clicking for ranged trigger
-/datum/action/item_action/organ_action/psychic_highlight/proc/handle_ranged(datum/source, atom/target)
-	SIGNAL_HANDLER
-
-	if(has_cooldown_timer || !owner)
-		return
-	var/turf/T = get_turf(target)
-	if(get_dist(get_turf(owner), T) > 1)
-		ping_turf(T, 2)
-		has_cooldown_timer = TRUE
-		addtimer(CALLBACK(src, .proc/finish_cooldown), (cooldown/2) + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
+	overlays -= source
 
 //Handle images deleting, stops hardel - also does eyes stuff
 /datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_backwards()
@@ -225,16 +204,26 @@
 		return
 	for(var/i in 1 to overlays.len)
 		if(istype(overlays[i], /image) || isnull(overlays[i]))
-			if(!isnull(overlays[i]))
-				var/image/M = overlays[i]
-				M.cut_overlays()
-				owner.client.images -= M
-				qdel(M)
 			continue
+		var/atom/M = overlays[i]
+		M.cut_overlay(overlays[i+1])
 	overlays.Cut(1, 0)
 	//Set eyes back to normal
 	eyes?.sight_flags = sight_flags
 	owner.update_sight()
+	owner.client?.show_popup_menus = 1
+
+//Handle clicking for ranged trigger
+/datum/action/item_action/organ_action/psychic_highlight/proc/handle_ranged(datum/source, atom/target)
+	SIGNAL_HANDLER
+
+	if(has_cooldown_timer || !owner)
+		return
+	var/turf/T = get_turf(target)
+	if(get_dist(get_turf(owner), T) > 1)
+		ping_turf(T, 2)
+		has_cooldown_timer = TRUE
+		addtimer(CALLBACK(src, .proc/finish_cooldown), (cooldown/2) + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
 
 //Handles eyes being deleted
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_eyes()
