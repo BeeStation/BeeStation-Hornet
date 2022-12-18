@@ -413,10 +413,12 @@
 	desc = "Conduits for psychic energy, hardly even eyes."
 	icon_state = "psyphoza_eyeballs"
 	actions_types = list(/datum/action/item_action/organ_action/psychic_highlight)
-	damage = 200
-	organ_flags = ORGAN_FAILING
-	blind_type = /atom/movable/screen/fullscreen/blind/psychic
+	see_in_dark = 8
 
 /obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special, drop_if_replaced, initialising)
 	. = ..()
-	on_life() //call this here to fix NOT being blind
+	M.become_blind("uncurable", /atom/movable/screen/fullscreen/blind/psychic)
+
+/obj/item/organ/eyes/psyphoza/Remove(mob/living/carbon/M, special)
+	. = ..()
+	M.cure_blind("uncurable")

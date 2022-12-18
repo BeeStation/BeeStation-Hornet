@@ -12,8 +12,8 @@
 
 #define TK_MAXRANGE 15
 
-/atom/proc/attack_tk(mob/user)
-	if(user.stat || !tkMaxRangeCheck(user, src))
+/atom/proc/attack_tk(mob/user, is_weak = FALSE)
+	if(user.stat || !tkMaxRangeCheck(user, src) || is_weak)
 		return
 	new /obj/effect/temp_visual/telekinesis(get_turf(src))
 	user.UnarmedAttack(src,0) // attack_hand, attack_paw, etc
