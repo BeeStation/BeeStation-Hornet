@@ -8154,7 +8154,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "bip" = (
-/obj/effect/landmark/start/paramedic,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
@@ -22447,7 +22446,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
 	},
-/obj/effect/landmark/start/paramedic,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
@@ -24741,10 +24739,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
-"fhv" = (
-/obj/effect/landmark/start/paramedic,
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/central)
 "fhT" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
@@ -36625,13 +36619,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
-"lhK" = (
-/obj/effect/landmark/start/paramedic,
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/central)
 "lhM" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -47835,7 +47822,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
-/obj/effect/landmark/start/paramedic,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "qXP" = (
@@ -61467,7 +61453,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
-/obj/effect/landmark/start/paramedic,
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
 "xYk" = (
@@ -96192,11 +96177,11 @@ wfB
 iYL
 fsH
 fsH
-lhK
+fsH
 oGY
 bzK
 ucP
-fhv
+bhh
 itx
 ngt
 bof
@@ -98493,7 +98478,7 @@ rpN
 eLl
 jIS
 bhh
-fhv
+bhh
 bhh
 oGY
 bzV

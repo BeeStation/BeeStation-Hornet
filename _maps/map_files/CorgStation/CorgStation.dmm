@@ -354,7 +354,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "abS" = (
-/obj/effect/landmark/start/paramedic,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
@@ -7013,7 +7012,6 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/chapel/monastery)
 "cap" = (
-/obj/effect/landmark/start/paramedic,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
 	},
@@ -14696,7 +14694,6 @@
 /turf/open/floor/plasteel/white,
 /area/security/prison)
 "eJz" = (
-/obj/effect/landmark/start/paramedic,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
 	},
@@ -49926,7 +49923,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
 "quz" = (
-/obj/effect/landmark/start/paramedic,
 /obj/machinery/light_switch{
 	pixel_x = 1;
 	pixel_y = 28
@@ -61578,7 +61574,6 @@
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/aft)
 "uqG" = (
-/obj/effect/landmark/start/paramedic,
 /obj/item/radio/intercom{
 	pixel_y = 24
 	},
@@ -73228,7 +73223,6 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/fitness/recreation)
 "yhw" = (
-/obj/effect/landmark/start/paramedic,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)

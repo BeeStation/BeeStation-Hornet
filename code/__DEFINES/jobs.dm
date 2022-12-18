@@ -26,7 +26,6 @@
 #define DOCTOR			(1<<5)
 #define GENETICIST		(1<<6)
 #define VIROLOGIST		(1<<7)
-#define PARAMEDIC		(1<<8)
 
 
 #define CIVILIAN		(1<<2)
@@ -154,7 +153,6 @@
 // Medical
 #define JOB_NAME_CHIEFMEDICALOFFICER "Chief Medical Officer"
 #define JOB_NAME_MEDICALDOCTOR "Medical Doctor"
-#define JOB_NAME_PARAMEDIC  "Paramedic"
 #define JOB_NAME_CHEMIST    "Chemist"
 #define JOB_NAME_VIROLOGIST "Virologist"
 #define JOB_NAME_GENETICIST "Geneticist"
@@ -250,7 +248,6 @@
 #define JOB_HUD_RAWMEDICAL "rawmedical"
 #define JOB_HUD_CHEIFMEDICALOFFICIER "chiefmedicalofficer"
 #define JOB_HUD_MEDICALDOCTOR "medicaldoctor"
-#define JOB_HUD_PARAMEDIC "paramedic"
 #define JOB_HUD_VIROLOGIST "virologist"
 #define JOB_HUD_CHEMIST "chemist"
 #define JOB_HUD_GENETICIST "geneticist"
@@ -324,7 +321,6 @@
 #define JOB_CHATCOLOR_RAWMEDICAL           "#B1E5EC" // custom medical color
 #define JOB_CHATCOLOR_CHEIFMEDICALOFFICIER "#7A97DA"
 #define JOB_CHATCOLOR_MEDICALDOCTOR "#6CB1C5"
-#define JOB_CHATCOLOR_PARAMEDIC     "#8FBEB4"
 #define JOB_CHATCOLOR_VIROLOGIST    "#75AEA3"
 #define JOB_CHATCOLOR_CHEMIST       "#82BDCE"
 #define JOB_CHATCOLOR_GENETICIST    "#83BBBF"

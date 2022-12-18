@@ -185,8 +185,6 @@
 				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/bodybag)
 			if(JOB_NAME_MEDICALDOCTOR)
 				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/bodybag)
-			if(JOB_NAME_PARAMEDIC)
-				heirloom_type = pick(/obj/item/bodybag)
 			if(JOB_NAME_CHEMIST)
 				heirloom_type = /obj/item/reagent_containers/glass/chem_heirloom
 			if(JOB_NAME_VIROLOGIST)

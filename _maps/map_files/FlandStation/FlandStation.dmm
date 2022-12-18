@@ -7482,7 +7482,6 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
 	},
-/obj/effect/landmark/start/paramedic,
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},

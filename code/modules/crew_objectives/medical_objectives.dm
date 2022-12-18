@@ -28,9 +28,13 @@
 			return FALSE
 	return TRUE
 
-/datum/objective/crew/paramedicmorgue
+/datum/objective/crew/no_bodies
 	explanation_text = "Ensure that no corpses remain outside of Medbay when the shift ends."
-	jobs = JOB_NAME_PARAMEDIC
+	jobs = list(
+		JOB_NAME_CHIEFMEDICALOFFICER,
+		JOB_NAME_GENETICIST,
+		JOB_NAME_MEDICALDOCTOR,
+	)
 	var/static/list/medical_areas_morgue = typecacheof(list(
 		/area/medical/cryo,
 		/area/medical/genetics/cloning,
@@ -44,7 +48,7 @@
 		/area/medical/morgue
 	))
 
-/datum/objective/crew/paramedicmorgue/check_completion()
+/datum/objective/crew/no_bodies/check_completion()
 	if(..())
 		return TRUE
 	for(var/mob/living/carbon/human/H in GLOB.mob_living_list)

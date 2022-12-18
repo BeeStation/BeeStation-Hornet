@@ -201,19 +201,6 @@
 		/obj/item/clothing/accessory/holster/detective = 1,
 	)
 
-//PARAMEDIC
-/datum/job/paramedic
-	mail_goodies = list(
-		/obj/item/reagent_containers/hypospray/medipen = 20,
-		/obj/item/reagent_containers/medspray/silver_sulf = 10,
-		/obj/item/reagent_containers/medspray/styptic = 10,
-		/obj/item/reagent_containers/hypospray/medipen/dexalin = 10,
-		/obj/item/sensor_device = 7,
-		/obj/item/pinpointer/crew = 7,
-		/obj/item/reagent_containers/hypospray/medipen/survival = 5,
-		/obj/item/reagent_containers/hypospray/medipen/pumpup = 1,
-	)
-
 //EXPLORATION CREW
 //Slightly more powerful due to the rarity of them ever actually getting a chance to get their mail.
 /datum/job/exploration_crew

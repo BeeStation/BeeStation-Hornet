@@ -68117,7 +68117,6 @@
 /turf/open/floor/carpet/green,
 /area/library)
 "tJq" = (
-/obj/effect/landmark/start/paramedic,
 /turf/open/floor/plasteel/white/side,
 /area/medical/surgery)
 "tJw" = (

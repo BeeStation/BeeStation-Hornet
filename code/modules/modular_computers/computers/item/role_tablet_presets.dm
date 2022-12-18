@@ -48,11 +48,6 @@
 	default_disk = /obj/item/computer_hardware/hard_drive/role/medical
 	icon_state = "pda-medical"
 
-/obj/item/modular_computer/tablet/pda/paramedic
-	name = "paramedic PDA"
-	default_disk = /obj/item/computer_hardware/hard_drive/role/medical
-	icon_state = "pda-paramedical"
-
 /obj/item/modular_computer/tablet/pda/virologist
 	name = "virology PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/medical

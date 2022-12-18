@@ -182,15 +182,6 @@
 	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/science,
 							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/science)
 
-/datum/outfit/plasmaman/paramedic
-	name = "Paramedic Plasmaman"
-
-	head = /obj/item/clothing/head/helmet/space/plasmaman/paramedic
-	uniform = /obj/item/clothing/under/plasmaman/paramedic
-
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/paramedic,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/paramedic)
-
 /datum/outfit/plasmaman/robotics
 	name = "Robotics Plasmaman"
 
