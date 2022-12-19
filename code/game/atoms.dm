@@ -1425,25 +1425,7 @@
 	var/masterpiece = object
 	var/message = "has crafted [masterpiece]"
 	user.log_message(message, LOG_GAME)
-	var/dangerous_crafts = typecacheof(list( //List of items that make an announcement to the admins when crafted
-				/obj/item/grenade/iedcasing,
-				/obj/item/spear,
-				/obj/item/reagent_containers/food/drinks/bottle/molotov,
-				/obj/item/melee/baton/cattleprod,
-				/obj/item/pneumatic_cannon/ghetto,
-				/obj/item/flamethrower,
-				/obj/item/gun/ballistic/bow/pipe,
-				/obj/item/gun/ballistic/shotgun/doublebarrel/improvised,
-				/obj/item/chainsaw,
-				/obj/item/switchblade,
-				/obj/item/bombcore/chemical,
-				/obj/item/restraints/legcuffs/bola/,
-				/obj/item/fireaxe/boneaxe,
-				/obj/item/kitchen/knife/shank,
-				/obj/structure/guillotine,
-				/obj/item/mop/sharp
-				))
-	if(is_type_in_typecache(masterpiece, dangerous_crafts))
+	if(is_type_in_typecache(masterpiece, GLOB.dangerous_crafts))
 		var/devious = null
 		var/mob/blacksmith = user
 		devious = locate(/datum/antagonist) in blacksmith.mind.antag_datums
