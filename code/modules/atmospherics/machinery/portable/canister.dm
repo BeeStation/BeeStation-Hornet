@@ -399,7 +399,6 @@
 					name = initial(replacement.name)
 					desc = initial(replacement.desc)
 					icon_state = initial(replacement.icon_state)
-					set_greyscale(initial(replacement.greyscale_colors), initial(replacement.greyscale_config))
 		if("restricted")
 			if(!prototype)
 				return // Prototype canister only feature
