@@ -72,11 +72,11 @@
 	..()
 	cocoon_action.Remove(H)
 	QDEL_NULL(cocoon_action)
-/*
-/datum/species/moth/spec_WakeUp(mob/living/carbon/human/H)
-	if(H.has_status_effect(STATUS_EFFECT_COCOONED))
-		return TRUE //Cocooned mobs dont get to wake up
-*/
+
+/datum/species/moth/spec_life(mob/living/carbon/human/H)
+	if(cocoon_action)
+		cocoon_action.UpdateButtonIcon()
+
 /datum/action/innate/cocoon
 	name = "Cocoon"
 	desc = "Restore your wings and antennae, and heal some damage. If your cocoon is broken externally you will take heavy damage!"
@@ -120,6 +120,14 @@
 		addtimer(CALLBACK(src, .proc/emerge, C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 	else
 		to_chat(H, "<span class='warning'>You need to hold still in order to weave a cocoon!</span>")
+
+/datum/action/innate/cocoon/IsAvailable()
+	if(..())
+		var/mob/living/carbon/human/H = owner
+		if(HAS_TRAIT(H, TRAIT_MOTH_BURNT))
+			return TRUE
+		return FALSE
+
 
 //Removes moth from cocoon, restores burnt wings
 /datum/action/innate/cocoon/proc/emerge(obj/structure/moth_cocoon/C)
