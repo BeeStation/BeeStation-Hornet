@@ -289,7 +289,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		qdel(src)
 
 		user.put_in_hands(S)
-		log_crafting(user, S, TRUE)
+		log_crafting(user, S)
 		to_chat(user, "<span class='notice'>You fasten the glass shard to the top of the rod with the cable.</span>")
 
 	else if(istype(I, /obj/item/assembly/igniter) && !(HAS_TRAIT(I, TRAIT_NODROP)))
@@ -303,7 +303,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		qdel(src)
 
 		user.put_in_hands(P)
-		log_crafting(user, P, TRUE)
+		log_crafting(user, P)
 	else
 		return ..()
 

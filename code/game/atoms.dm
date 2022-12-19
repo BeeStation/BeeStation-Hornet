@@ -1420,11 +1420,10 @@
   *
   * 1 argument is for the user making the item
   * 2 argument is for the item being created
-  * 3 argument is whether or not the user has finished creating it
  */
-/proc/log_crafting(atom/user, atom/object, finished=FALSE)
+/proc/log_crafting(atom/user, atom/object)
 	var/masterpiece = object
-	var/message = "has [finished ? "finished":"started"] crafting [masterpiece]"
+	var/message = "has crafted [masterpiece]"
 	user.log_message(message, LOG_GAME)
 	var/dangerous_crafts = typecacheof(list( //List of items that make an announcement to the admins when crafted
 				/obj/item/grenade/iedcasing,
@@ -1444,14 +1443,12 @@
 				/obj/structure/guillotine,
 				/obj/item/mop/sharp
 				))
-	if(is_type_in_typecache(masterpiece, dangerous_crafts) && finished == FALSE)
+	if(is_type_in_typecache(masterpiece, dangerous_crafts))
 		var/devious = null
 		var/mob/blacksmith = user
 		devious = locate(/datum/antagonist) in blacksmith.mind.antag_datums
 		if(isnull(devious))
 			message_admins("[ADMIN_LOOKUPFLW(user)] has crafted [masterpiece] as a non-antagonist.")
-		else
-			message_admins("[ADMIN_LOOKUPFLW(user)] has crafted [masterpiece] as a [devious].")
 /**
   * Log a combat message in the attack log
   *
