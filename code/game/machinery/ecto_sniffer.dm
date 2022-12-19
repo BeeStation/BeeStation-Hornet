@@ -40,7 +40,7 @@
 /obj/machinery/ecto_sniffer/proc/activate(mob/activator)
 	flick("ecto_sniffer_flick", src)
 	playsound(loc, 'sound/machines/ectoscope_beep.ogg', 25)
-	var/msg = "[src] beeps, detecting ectoplasm! There may be additional positronic brain matrixes available!"
+	var/msg = "[src] beeps, detecting ectoplasm! There may be additional positronic brain matrices available!"
 	radio.talk_into(src, msg, RADIO_CHANNEL_SCIENCE)
 	use_power(10)
 	if(activator?.ckey)
