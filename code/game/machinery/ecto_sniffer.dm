@@ -13,10 +13,16 @@
 	var/sensor_enabled = TRUE
 	///List of ckeys containing players who have recently activated the device, players on this list are prohibited from activating the device untill their residue decays.
 	var/list/ectoplasmic_residues = list()
+	var/obj/item/radio/radio
 
 /obj/machinery/ecto_sniffer/Initialize()
 	. = ..()
 	wires = new/datum/wires/ecto_sniffer(src)
+	radio = new(src)
+	radio.keyslot = new /obj/item/encryptionkey/headset_sci
+	radio.subspace_transmission = TRUE
+	radio.canhear_range = 9
+	radio.recalculateChannels()
 
 /obj/machinery/ecto_sniffer/attack_ghost(mob/user)
 	if(!on || !sensor_enabled || !is_operational)
@@ -34,12 +40,13 @@
 /obj/machinery/ecto_sniffer/proc/activate(mob/activator)
 	flick("ecto_sniffer_flick", src)
 	playsound(loc, 'sound/machines/ectoscope_beep.ogg', 25)
-	visible_message("<span class='notice'>[src] beeps, detecting ectoplasm! There may be additional positronic brain matrixes available!</span>")
+	var/msg = "[src] beeps, detecting ectoplasm! There may be additional positronic brain matrixes available!"
+	radio.talk_into(src, msg, RADIO_CHANNEL_SCIENCE)
 	use_power(10)
 	if(activator?.ckey)
 		ectoplasmic_residues[activator.ckey] = TRUE
 		activator.log_message("activated an ecto sniffer", LOG_ATTACK)
-		addtimer(CALLBACK(src, .proc/clear_residue, activator.ckey), 30 SECONDS)
+		addtimer(CALLBACK(src, .proc/clear_residue, activator.ckey), 60 SECONDS)
 
 /obj/machinery/ecto_sniffer/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
