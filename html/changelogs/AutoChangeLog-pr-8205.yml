@@ -1,0 +1,5 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - rscadd: researching a tech node 2 tier higher than current tech tier will warn
+      you.
