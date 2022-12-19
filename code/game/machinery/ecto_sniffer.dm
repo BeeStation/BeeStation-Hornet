@@ -21,7 +21,7 @@
 	radio = new(src)
 	radio.keyslot = new /obj/item/encryptionkey/headset_sci
 	radio.subspace_transmission = TRUE
-	radio.canhear_range = 9
+	radio.canhear_range = 0
 	radio.recalculateChannels()
 
 /obj/machinery/ecto_sniffer/attack_ghost(mob/user)
