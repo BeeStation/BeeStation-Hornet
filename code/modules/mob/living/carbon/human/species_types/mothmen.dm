@@ -84,7 +84,6 @@
 	button_icon_state = "wrap_0"
 	icon_icon = 'icons/mob/actions/actions_animal.dmi'
 
-//
 /datum/action/innate/cocoon/Activate()
 	var/mob/living/carbon/H = owner
 	var/obj/item/organ/wingcheck = H.getorgan(/obj/item/organ/wings/moth)
@@ -127,7 +126,6 @@
 		if(HAS_TRAIT(H, TRAIT_MOTH_BURNT))
 			return TRUE
 		return FALSE
-
 
 //Removes moth from cocoon, restores burnt wings
 /datum/action/innate/cocoon/proc/emerge(obj/structure/moth_cocoon/C)

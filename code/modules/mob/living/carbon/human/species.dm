@@ -236,6 +236,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		QDEL_NULL(wings)
 	if(should_have_wings && !wings)
 		wings = new mutantwings()
+		if(ismoth(C))
+			wings.wing_type = C.dna.features["moth_wings"]
 		wings.Insert(C)
 
 	if(C.get_bodypart(BODY_ZONE_HEAD))
