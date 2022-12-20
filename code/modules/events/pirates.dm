@@ -21,7 +21,7 @@
 	var/payoff_min = 20000
 	var/payoff = 0
 	var/initial_send_time = world.time
-	var/response_max_time = 2 MINUTES
+	var/response_max_time = rand(4,7) MINUTES
 	priority_announce("Incoming subspace communication. Secure channel opened at all communication consoles.", "Incoming Message", SSstation.announcer.get_rand_report_sound())
 	var/datum/comm_message/threat = new
 	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
