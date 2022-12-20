@@ -1,7 +1,7 @@
 #define COCOON_WEAVE_DELAY 5 SECONDS //how long it takes you to create the cocoon
-#define COCOON_EMERGE_DELAY 15 SECONDS //how long you remain inside of it
-#define COCOON_HARM_AMOUNT 50 //how much damage gets dealt to you if the cocoon gets broken prematurely
-#define COCOON_HEAL_AMOUNT 35 //how much damage gets restored while you're cocooned
+#define COCOON_EMERGE_DELAY 60 SECONDS //how long you remain inside of it
+#define COCOON_HARM_AMOUNT 35 //how much damage gets dealt to you if the cocoon gets broken prematurely
+#define COCOON_HEAL_AMOUNT 30 //how much damage gets restored while you're cocooned
 #define COCOON_NUTRITION_AMOUNT 200 //how much hunger gets drained in total
 //these are here to make adjusting the balance easier
 
@@ -133,8 +133,11 @@
 		if(!H.has_status_effect(STATUS_EFFECT_COCOONED))
 			return
 		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "burnt_wings")
-		if(ismoth(H))
+		if(ismoth(H) && HAS_TRAIT(H, TRAIT_MOTH_BURNT))
 			REMOVE_TRAIT(H, TRAIT_MOTH_BURNT, "fire")
+			var/obj/item/organ/wings/moth/W = H.getorgan(/obj/item/organ/wings/moth)
+			if(W)
+				W.flight_level = WINGS_FLIGHTLESS//The check for wings getting burned makes them cosmetic, so this allows the burned off effect to be applied again
 		H.dna.species.handle_mutant_bodyparts(H)
 		H.dna.species.handle_body(H)
 	C.preparing_to_emerge = FALSE
@@ -144,7 +147,7 @@
 	owner.SetSleeping(20, TRUE)
 	owner.adjustBruteLoss(-(COCOON_HEAL_AMOUNT / (COCOON_EMERGE_DELAY)), 0)
 	owner.adjustFireLoss(-(COCOON_HEAL_AMOUNT / (COCOON_EMERGE_DELAY)), 0)
-	owner.adjust_nutrition(-(COCOON_NUTRITION_AMOUNT / (COCOON_EMERGE_DELAY)))
+	owner.adjust_nutrition(-((COCOON_NUTRITION_AMOUNT * 10 ) / (COCOON_EMERGE_DELAY)))
 
 
 /obj/structure/moth_cocoon
@@ -172,14 +175,13 @@
 			if(H.has_status_effect(STATUS_EFFECT_COCOONED))
 				H.drowsyness += COCOON_HARM_AMOUNT / 2
 				H.adjustBruteLoss(COCOON_HARM_AMOUNT, 0)
-				H.adjustStaminaLoss(COCOON_HARM_AMOUNT * 2, 0)
-
-
+				H.adjustStaminaLoss(COCOON_HARM_AMOUNT, 0)
 	for(var/mob/living/carbon/human/H in contents)
 		H.remove_status_effect(STATUS_EFFECT_COCOONED)
 		H.forceMove(loc)
-		H.visible_message("<span class='notice'>[H]'s wings unfold, looking good as new!</span>", "<span class='notice'>Your wings unfold with new vigor!.</span>")
-		H.log_message("[key_name(H)] [preparing_to_emerge ? "was forcefully ejected" : "has emerged"] from their cocoon with the nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""]", LOG_GAME)
+		if(!preparing_to_emerge)
+			visible_message("<span class='notice'>[H]'s wings unfold, looking good as new!</span>", "<span class='notice'>Your wings unfold with new vigor!.</span>")
+		H.log_message("[key_name(H)] [preparing_to_emerge ? "was forcefully ejected" : "has emerged"] from their cocoon with the nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""], (NEWHP: [H.health])", LOG_GAME)
 	return ..()
 
 /datum/status_effect/cocooned

@@ -238,6 +238,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		wings = new mutantwings()
 		if(ismoth(C))
 			wings.wing_type = C.dna.features["moth_wings"]
+			wings.flight_level = WINGS_FLIGHTLESS
 		wings.Insert(C)
 
 	if(C.get_bodypart(BODY_ZONE_HEAD))
