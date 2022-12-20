@@ -144,7 +144,7 @@
 	qdel(C)
 
 /datum/status_effect/cocooned/tick()
-	owner.SetSleeping(20, TRUE)
+	owner.SetSleeping(10, TRUE)
 	owner.adjustBruteLoss(-(COCOON_HEAL_AMOUNT / (COCOON_EMERGE_DELAY)), 0)
 	owner.adjustFireLoss(-(COCOON_HEAL_AMOUNT / (COCOON_EMERGE_DELAY)), 0)
 	owner.adjust_nutrition(-((COCOON_NUTRITION_AMOUNT * 10 ) / (COCOON_EMERGE_DELAY)))
@@ -173,7 +173,6 @@
 		visible_message("<span class='danger'>[src] is torn open, harming the Mothperson within!</span>")
 		for(var/mob/living/carbon/human/H in contents)
 			if(H.has_status_effect(STATUS_EFFECT_COCOONED))
-				H.drowsyness += COCOON_HARM_AMOUNT / 2
 				H.adjustBruteLoss(COCOON_HARM_AMOUNT, 0)
 				H.SetSleeping(0, 0)
 	for(var/mob/living/carbon/human/H in contents)
