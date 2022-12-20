@@ -115,7 +115,7 @@
 		H.Sleeping(20, 0)
 		C.preparing_to_emerge = TRUE
 		H.apply_status_effect(STATUS_EFFECT_COCOONED)
-		//owner.log_message("[key_name(owner)] has finished weaving a cocoon at [AREACOORD(owner)]")
+		H.log_message("has finished weaving a cocoon.", LOG_GAME)
 		addtimer(CALLBACK(src, .proc/emerge, C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 	else
 		to_chat(H, "<span class='warning'>You need to hold still in order to weave a cocoon!</span>")
@@ -132,10 +132,7 @@
 	for(var/mob/living/carbon/human/H in C.contents)
 		if(!H.has_status_effect(STATUS_EFFECT_COCOONED))
 			return
-		//if(H.dna.features["moth_wings"] == "Burnt Off") //this check seems redundant as burned wings are a roundstart option and sending a signal to clear a non-existing mood event doesn't cause any issues
 		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "burnt_wings")
-		//if(!ismoth(H))//mutation toxin is a thing, so this is here to prevent accidentally creating a mishmash of moth and whatever else
-			//return Note - this makes the transformed user NEVER wake up
 		if(ismoth(H))
 			REMOVE_TRAIT(H, TRAIT_MOTH_BURNT, "fire")
 		H.dna.species.handle_mutant_bodyparts(H)
@@ -147,7 +144,7 @@
 	owner.SetSleeping(20, TRUE)
 	owner.adjustBruteLoss(-(COCOON_HEAL_AMOUNT / (COCOON_EMERGE_DELAY)), 0)
 	owner.adjustFireLoss(-(COCOON_HEAL_AMOUNT / (COCOON_EMERGE_DELAY)), 0)
-	owner.adjust_nutrition(-(COCOON_NUTRITION_AMOUNT / (COCOON_EMERGE_DELAY)), 0)
+	owner.adjust_nutrition(-(COCOON_NUTRITION_AMOUNT / (COCOON_EMERGE_DELAY)))
 
 
 /obj/structure/moth_cocoon
@@ -157,7 +154,7 @@
 	icon_state = "cocoon_large1"
 	anchored = TRUE
 	max_integrity = 10
-	var/preparing_to_emerge
+	var/preparing_to_emerge = TRUE//Determines whether or not the mothperson is done regenerating their wings with FALSE meaning they are
 
 /obj/structure/moth_cocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -169,24 +166,20 @@
 /obj/structure/moth_cocoon/Destroy()
 	if(!preparing_to_emerge)
 		visible_message("<span class='danger'>[src] splits open from within!</span>")
-		for(var/mob/living/carbon/human/H in contents)
-			log_game("[key_name(H)] has emerged from their cocoon with the nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""]")
 	else
 		visible_message("<span class='danger'>[src] is torn open, harming the Mothperson within!</span>")
 		for(var/mob/living/carbon/human/H in contents)
-			H.drowsyness += COCOON_HARM_AMOUNT / 2
-			H.adjustBruteLoss(COCOON_HARM_AMOUNT, 0)
-			H.adjustStaminaLoss(COCOON_HARM_AMOUNT * 2, 0)
-			//log_game("[key_name(H)] has emerged from their cocoon with the nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""]")
+			if(H.has_status_effect(STATUS_EFFECT_COCOONED))
+				H.drowsyness += COCOON_HARM_AMOUNT / 2
+				H.adjustBruteLoss(COCOON_HARM_AMOUNT, 0)
+				H.adjustStaminaLoss(COCOON_HARM_AMOUNT * 2, 0)
+
 
 	for(var/mob/living/carbon/human/H in contents)
 		H.remove_status_effect(STATUS_EFFECT_COCOONED)
-		//H.AdjustSleeping(0, 0)
-		//H.adjust_nutrition(-COCOON_NUTRITION_AMOUNT)
 		H.forceMove(loc)
 		H.visible_message("<span class='notice'>[H]'s wings unfold, looking good as new!</span>", "<span class='notice'>Your wings unfold with new vigor!.</span>")
-		log_game("[key_name(H)] has emerged from their cocoon with the nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""]")
-		//H.create_log(MISC_LOG, "has emerged from their cocoon with the nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""]")
+		H.log_message("[key_name(H)] [preparing_to_emerge ? "was forcefully ejected" : "has emerged"] from their cocoon with the nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""]", LOG_GAME)
 	return ..()
 
 /datum/status_effect/cocooned
