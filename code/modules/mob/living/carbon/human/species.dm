@@ -786,13 +786,17 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
 	// Frostwing wings hiding
-	var/suit_hide = H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT)
-	var/obj/item/bodypart/l_arm/frostwing/larm = H.get_bodypart(BODY_ZONE_L_ARM)
-	var/obj/item/bodypart/r_arm/frostwing/rarm = H.get_bodypart(BODY_ZONE_R_ARM)
-	if(istype(larm))
-		larm.part_opacity = !suit_hide
-	if(istype(rarm))
-		rarm.part_opacity = !suit_hide
+	if("frostwing_wings" in mutant_bodyparts)
+		var/suit_hide = H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT)
+		var/obj/item/bodypart/l_arm/frostwing/larm = H.get_bodypart(BODY_ZONE_L_ARM)
+		var/obj/item/bodypart/r_arm/frostwing/rarm = H.get_bodypart(BODY_ZONE_R_ARM)
+		var/wings_open = ("wingsopen" in mutant_bodyparts)
+		if(istype(larm))
+			larm.part_opacity = !(suit_hide || wings_open)
+			larm.aux_opacity = !wings_open
+		if(istype(rarm))
+			rarm.part_opacity = !(suit_hide || wings_open)
+			rarm.aux_opacity = !wings_open
 	///Digi handling
 	if(H.dna.species.bodytype & BODYTYPE_DIGITIGRADE)
 		var/uniform_compatible = FALSE

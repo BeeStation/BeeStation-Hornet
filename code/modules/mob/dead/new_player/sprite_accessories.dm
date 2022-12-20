@@ -1878,6 +1878,14 @@
 	center = TRUE
 	dimension_y = 34
 
+/datum/sprite_accessory/wings_open/frostwing
+	name = "Frostwing"
+	icon_state = "frostwing"
+	color_src = 0
+	dimension_x = 50
+	center = TRUE
+	dimension_y = 25
+
 /datum/sprite_accessory/frills
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 

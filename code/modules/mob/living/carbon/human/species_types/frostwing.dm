@@ -10,7 +10,7 @@
 	mutantlungs = /obj/item/organ/lungs/frostwing
 	// Their biology requires less oxygen due to the low pressure environment, so they don't take as much oxyloss.
 	oxymod = 0.5
-	default_features = list("body_size" = "Normal")
+	default_features = list("wings" = "Frostwing", "body_size" = "Normal")
 	mutant_bodyparts = list("frostwing_wings")
 	//changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	attack_verb = "slash"
@@ -66,6 +66,14 @@
 		to_chat(H, "<span class='warning'>The atmosphere is too thin for you to fly!</span>")
 		return FALSE
 	return TRUE
+
+/datum/species/frostwing/toggle_flight(mob/living/carbon/human/H)
+	. = ..()
+	if(H.movement_type & FLYING)
+		H.dna.species.mutant_bodyparts |= "wingsopen"
+	else
+		H.dna.species.mutant_bodyparts -= "wingsopen"
+	H.update_body()
 
 /datum/species/frostwing/on_species_gain(mob/living/carbon/C)
 	. = ..()
