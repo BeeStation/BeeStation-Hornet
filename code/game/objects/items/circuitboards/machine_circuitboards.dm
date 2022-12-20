@@ -1224,7 +1224,7 @@
 /obj/item/circuitboard/machine/bluespace_miner
 	name = "bluespace miner (Machine Board)"
 	icon_state = "supply"
-	build_path = /obj/machinery/mineral/bluespace_miner
+	build_path = /obj/machinery/bluespace_miner
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 5,
 		/obj/item/stock_parts/micro_laser = 5,

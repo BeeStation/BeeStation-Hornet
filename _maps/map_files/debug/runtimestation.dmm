@@ -2729,7 +2729,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "NZ" = (
-/obj/machinery/rnd/production/protolathe/department,
+/obj/machinery/bluespace_miner,
 /turf/open/floor/plasteel,
 /area/science)
 "OU" = (

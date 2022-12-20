@@ -54,7 +54,7 @@ endmap
 #Debug Maps, you probably don't want these enabled.
 
 map runtimestation
-	disabled
+	votable
 endmap
 
 map multiz_debug
