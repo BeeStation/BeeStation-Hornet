@@ -175,7 +175,7 @@
 			if(H.has_status_effect(STATUS_EFFECT_COCOONED))
 				H.drowsyness += COCOON_HARM_AMOUNT / 2
 				H.adjustBruteLoss(COCOON_HARM_AMOUNT, 0)
-				H.adjustStaminaLoss(COCOON_HARM_AMOUNT, 0)
+				H.SetSleeping(0, 0)
 	for(var/mob/living/carbon/human/H in contents)
 		H.remove_status_effect(STATUS_EFFECT_COCOONED)
 		H.forceMove(loc)
