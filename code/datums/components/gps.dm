@@ -107,10 +107,6 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	if(emped || QDELETED(parent) || !distress_beacon)
 		return
 
-	// Nearby active jammers prevent the message from transmitting
-	if(is_jammed(JAMMER_PROTECTION_RADIO_BASIC))
-		return
-
 	// Determine the identity information which will be attached to the signal.
 	var/atom/movable/virtualspeaker/speaker = new(null, src, src)
 
