@@ -162,18 +162,12 @@
 "ax" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned/bar)
-"ay" = (
-/obj/structure/shuttle/engine/propulsion/left{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/abandoned/engine)
 "az" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/shuttle/engine/heater{
-	dir = 8
+/obj/machinery/power/engine_capacitor_bank{
+	dir = 4
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/abandoned/engine)
@@ -258,7 +252,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/bar)
 "aM" = (
-/obj/structure/shuttle/engine/propulsion/right{
+/obj/machinery/shuttle/engine/advanced{
 	dir = 8
 	},
 /turf/open/floor/plating/airless,
@@ -2305,12 +2299,12 @@ aa
 aa
 aa
 ah
-ay
+aM
 aM
 ah
 aa
 ah
-ay
+aM
 aM
 ah
 aa
@@ -2321,7 +2315,7 @@ aa
 (2,1,1) = {"
 aa
 ah
-ay
+aM
 aM
 ai
 az
@@ -2332,7 +2326,7 @@ ai
 az
 az
 ai
-ay
+aM
 aM
 ah
 aa

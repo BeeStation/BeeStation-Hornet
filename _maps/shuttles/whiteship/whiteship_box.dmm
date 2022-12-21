@@ -66,14 +66,14 @@
 /turf/open/floor/plasteel,
 /area/shuttle/abandoned/crew)
 "ar" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/shuttle/engine/advanced{
 	dir = 8
 	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned/engine)
 "as" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 8
+/obj/machinery/power/engine_capacitor_bank{
+	dir = 4
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/abandoned/engine)
@@ -1706,12 +1706,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/abandoned/bridge)
-"hV" = (
-/obj/structure/shuttle/engine/propulsion/right{
-	dir = 8
-	},
-/turf/closed/wall/mineral/titanium/nodiagonal,
-/area/shuttle/abandoned/engine)
 "iK" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/secure_closet/personal,
@@ -1814,12 +1808,6 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /turf/open/floor/plasteel,
 /area/shuttle/abandoned/medbay)
-"vk" = (
-/obj/structure/shuttle/engine/propulsion/left{
-	dir = 8
-	},
-/turf/closed/wall/mineral/titanium,
-/area/shuttle/abandoned/engine)
 "vm" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/computer/shuttle_flight/white_ship{
@@ -1937,12 +1925,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel,
 /area/shuttle/abandoned/crew)
-"JU" = (
-/obj/structure/shuttle/engine/propulsion/right{
-	dir = 8
-	},
-/turf/closed/wall/mineral/titanium,
-/area/shuttle/abandoned/engine)
 "Kw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1996,7 +1978,7 @@
 /turf/open/floor/plasteel,
 /area/shuttle/abandoned/crew)
 "Tw" = (
-/obj/structure/shuttle/engine/propulsion/left{
+/obj/machinery/shuttle/engine/advanced{
 	dir = 8
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
@@ -2053,11 +2035,11 @@ aa
 aa
 aa
 aa
-vk
-hV
+ar
+Tw
 aa
 Tw
-JU
+ar
 aa
 aa
 aa

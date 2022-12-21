@@ -46,6 +46,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/purple/hidden,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
 "n" = (
@@ -64,17 +65,25 @@
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/mining/large)
-"q" = (
-/obj/structure/shuttle/engine/heater,
-/obj/effect/turf_decal/stripes/full,
+"p" = (
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
+	dir = 1
+	},
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional,
 /turf/open/floor/plating/airless,
+/area/shuttle/mining/large)
+"q" = (
+/obj/effect/turf_decal/stripes/full,
+/turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/shuttle/mining/large)
 "r" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+	dir = 10
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
 "t" = (
@@ -95,6 +104,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/manifold/purple/hidden{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
 "w" = (
@@ -102,6 +114,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+	dir = 6
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
 "y" = (
@@ -190,11 +205,14 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/machinery/atmospherics/pipe/simple/purple/hidden,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
 "z" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/shuttle/engine/propulsion/left,
+/obj/machinery/shuttle/engine/plasma{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/mining/large)
 "A" = (
@@ -214,13 +232,7 @@
 /obj/item/storage/firstaid/regular,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
-"E" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/shuttle/engine/propulsion/right,
-/turf/open/floor/plating/airless,
-/area/shuttle/mining/large)
 "F" = (
-/obj/structure/shuttle/engine/propulsion/burst/cargo,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/mining/large)
@@ -242,6 +254,11 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/item/wrench,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
 "P" = (
@@ -294,7 +311,7 @@ B
 c
 w
 y
-I
+p
 z
 "}
 (3,1,1) = {"
@@ -312,8 +329,8 @@ K
 l
 r
 m
-I
-E
+p
+z
 "}
 (5,1,1) = {"
 U

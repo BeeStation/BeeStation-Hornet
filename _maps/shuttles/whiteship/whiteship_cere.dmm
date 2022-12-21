@@ -6,7 +6,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned)
 "ad" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/shuttle/engine/advanced{
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
@@ -41,10 +41,8 @@
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/abandoned)
 "aj" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 1
-	},
 /obj/structure/window/reinforced,
+/obj/machinery/power/engine_capacitor_bank,
 /turf/open/floor/plating/airless,
 /area/shuttle/abandoned)
 "ak" = (

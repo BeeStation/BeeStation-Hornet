@@ -160,18 +160,12 @@
 /obj/machinery/advanced_airlock_controller/directional/east,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/crew)
-"ax" = (
-/obj/structure/shuttle/engine/propulsion/left{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/abandoned/engine)
 "ay" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/shuttle/engine/heater{
-	dir = 8
+/obj/machinery/power/engine_capacitor_bank{
+	dir = 4
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/abandoned/engine)
@@ -267,7 +261,7 @@
 /turf/open/floor/plating,
 /area/shuttle/abandoned/crew)
 "aL" = (
-/obj/structure/shuttle/engine/propulsion/right{
+/obj/machinery/shuttle/engine/advanced{
 	dir = 8
 	},
 /turf/open/floor/plating/airless,
@@ -2813,7 +2807,7 @@
 (1,1,1) = {"
 aa
 ab
-ax
+aL
 aL
 ab
 aa
@@ -2824,7 +2818,7 @@ aa
 aa
 aa
 ab
-ax
+aL
 aL
 ab
 aa

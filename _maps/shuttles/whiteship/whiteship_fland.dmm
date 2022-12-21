@@ -148,8 +148,10 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/abandoned)
 "fy" = (
-/obj/structure/shuttle/engine/heater,
 /obj/effect/spawner/structure/window/plastitanium,
+/obj/machinery/power/engine_capacitor_bank{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/abandoned)
 "gk" = (
@@ -281,13 +283,6 @@
 	pixel_y = 26
 	},
 /turf/open/floor/grass,
-/area/shuttle/abandoned)
-"mt" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/shuttle/engine/propulsion/right,
-/turf/open/floor/plating/airless,
 /area/shuttle/abandoned)
 "nN" = (
 /obj/machinery/smartfridge,
@@ -602,7 +597,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/shuttle/engine/propulsion/left,
+/obj/machinery/shuttle/engine/advanced,
 /turf/open/floor/plating/airless,
 /area/shuttle/abandoned)
 "Jz" = (
@@ -1032,7 +1027,7 @@ Iv
 Vx
 Vx
 fy
-mt
+IH
 "}
 (11,1,1) = {"
 cS
