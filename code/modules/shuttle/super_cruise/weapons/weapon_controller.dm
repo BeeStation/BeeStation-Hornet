@@ -45,6 +45,7 @@
 	cam_screen.assigned_map = map_name
 	cam_screen.del_on_map_removal = FALSE
 	cam_screen.screen_loc = "[map_name]:1,1"
+	cam_screen.link_to_console(src)
 	cam_plane_masters = list()
 	for(var/plane in subtypesof(/atom/movable/screen/plane_master))
 		var/atom/movable/screen/instance = new plane()
