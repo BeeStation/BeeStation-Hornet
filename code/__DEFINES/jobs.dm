@@ -116,62 +116,112 @@
 //-------------------------------------------------------------------------------------------
 //------------------------------------- Job names -------------------------------------------
 //-------------------------------------------------------------------------------------------
+// ****** WARNING:
+// 		DO NOT CHANGE PATH. You are fine to change NAME defines, but DO NOT DO to PATH defines
+
 // Command
 #define JOB_NAME_CAPTAIN "Captain"
+#define JOB_PATH_CAPTAIN "p_Captain"
 
 // Service
 #define JOB_NAME_HEADOFPERSONNEL "Head of Personnel"
+#define JOB_PATH_HEADOFPERSONNEL "p_Head of Personnel"
 #define JOB_NAME_ASSISTANT  "Assistant"
+#define JOB_PATH_ASSISTANT  "p_Assistant"
 #define JOB_NAME_BARTENDER  "Bartender"
+#define JOB_PATH_BARTENDER  "p_Bartender"
 #define JOB_NAME_BOTANIST   "Botanist"
+#define JOB_PATH_BOTANIST   "p_Botanist"
 #define JOB_NAME_COOK     "Cook"
+#define JOB_PATH_COOK     "p_Cook"
 #define JOB_NAME_JANITOR  "Janitor"
+#define JOB_PATH_JANITOR  "p_Janitor"
 #define JOB_NAME_CURATOR  "Curator"
+#define JOB_PATH_CURATOR  "p_Curator"
 #define JOB_NAME_LAWYER   "Lawyer"
+#define JOB_PATH_LAWYER   "p_Lawyer"
 #define JOB_NAME_CHAPLAIN "Chaplain"
+#define JOB_PATH_CHAPLAIN "p_Chaplain"
 #define JOB_NAME_MIME   "Mime"
+#define JOB_PATH_MIME   "p_Mime"
 #define JOB_NAME_CLOWN  "Clown"
+#define JOB_PATH_CLOWN  "p_Clown"
 #define JOB_NAME_STAGEMAGICIAN "Stage Magician" // gimmick
+#define JOB_PATH_STAGEMAGICIAN "p_Stage Magician" // gimmick
 #define JOB_NAME_BARBER "Barber" // gimmick
+#define JOB_PATH_BARBER "p_Barber" // gimmick
 #define JOB_NAME_VIP    "VIP" // gimmick
+#define JOB_PATH_VIP    "p_VIP" // gimmick
 
 // Cargo
 #define JOB_NAME_QUARTERMASTER   "Quartermaster"
+#define JOB_PATH_QUARTERMASTER   "p_Quartermaster"
 #define JOB_NAME_CARGOTECHNICIAN "Cargo Technician"
+#define JOB_PATH_CARGOTECHNICIAN "p_Cargo Technician"
 #define JOB_NAME_SHAFTMINER      "Shaft Miner"
+#define JOB_PATH_SHAFTMINER      "p_Shaft Miner"
 
 // R&D
 #define JOB_NAME_RESEARCHDIRECTOR "Research Director"
+#define JOB_PATH_RESEARCHDIRECTOR "p_Research Director"
 #define JOB_NAME_SCIENTIST  "Scientist"
+#define JOB_PATH_SCIENTIST  "p_Scientist"
 #define JOB_NAME_ROBOTICIST "Roboticist"
+#define JOB_PATH_ROBOTICIST "p_Roboticist"
 #define JOB_NAME_EXPLORATIONCREW "Exploration Crew"
+#define JOB_PATH_EXPLORATIONCREW "p_Exploration Crew"
 
 // Engineering
 #define JOB_NAME_CHIEFENGINEER   "Chief Engineer"
+#define JOB_PATH_CHIEFENGINEER   "p_Chief Engineer"
 #define JOB_NAME_STATIONENGINEER "Station Engineer"
+#define JOB_PATH_STATIONENGINEER "p_Station Engineer"
 #define JOB_NAME_ATMOSPHERICTECHNICIAN "Atmospheric Technician"
+#define JOB_PATH_ATMOSPHERICTECHNICIAN "p_Atmospheric Technician"
 
 // Medical
 #define JOB_NAME_CHIEFMEDICALOFFICER "Chief Medical Officer"
+#define JOB_PATH_CHIEFMEDICALOFFICER "p_Chief Medical Officer"
 #define JOB_NAME_MEDICALDOCTOR "Medical Doctor"
+#define JOB_PATH_MEDICALDOCTOR "p_Medical Doctor"
 #define JOB_NAME_PARAMEDIC  "Paramedic"
+#define JOB_PATH_PARAMEDIC  "p_Paramedic"
 #define JOB_NAME_CHEMIST    "Chemist"
+#define JOB_PATH_CHEMIST    "p_Chemist"
 #define JOB_NAME_VIROLOGIST "Virologist"
+#define JOB_PATH_VIROLOGIST "p_Virologist"
 #define JOB_NAME_GENETICIST "Geneticist"
+#define JOB_PATH_GENETICIST "p_Geneticist"
 #define JOB_NAME_BRIGPHYSICIAN "Brig Physician"
+#define JOB_PATH_BRIGPHYSICIAN "p_Brig Physician"
 #define JOB_NAME_PSYCHIATRIST  "Psychiatrist" // gimmick
+#define JOB_PATH_PSYCHIATRIST  "p_Psychiatrist" // gimmick
 
 // Security
 #define JOB_NAME_HEADOFSECURITY "Head of Security"
+#define JOB_PATH_HEADOFSECURITY "p_Head of Security"
 #define JOB_NAME_WARDEN "Warden"
+#define JOB_PATH_WARDEN "p_Warden"
 #define JOB_NAME_SECURITYOFFICER "Security Officer"
+#define JOB_PATH_SECURITYOFFICER "p_Security Officer"
 #define JOB_NAME_DETECTIVE "Detective"
+#define JOB_PATH_DETECTIVE "p_Detective"
 #define JOB_NAME_DEPUTY  "Deputy"
+#define JOB_PATH_DEPUTY  "p_Deputy"
 
 // Silicon
 #define JOB_NAME_AI     "AI"
+#define JOB_PATH_AI     "p_AI"
 #define JOB_NAME_CYBORG "Cyborg"
+#define JOB_PATH_CYBORG "p_Cyborg"
 #define JOB_NAME_PAI    "Personal AI"
+
+// Misc & Off-Station
+#define JOB_NAME_GIMMICK "Gimmick" // gimmick
+#define JOB_PATH_GIMMICK "p_Gimmick" // gimmick
+#define JOB_NAME_KING    "King"
+#define JOB_NAME_PRISONER "Prisoner"
+#define JOB_SPACE_POLICE "Space Police"
 
 // ERTs
 #define JOB_ERT_DEATHSQUAD      "Death Commando"
@@ -193,12 +243,6 @@
 #define JOB_CENTCOM_THUNDERDOME_OVERSEER "Thunderdome Overseer"
 #define JOB_CENTCOM_MEDICAL_DOCTOR   "Medical Officer"
 #define JOB_CENTCOM_RESEARCH_OFFICER "Research Officer"
-
-// Misc & Off-Station
-#define JOB_NAME_GIMMICK "Gimmick" // gimmick
-#define JOB_NAME_KING    "King"
-#define JOB_NAME_PRISONER "Prisoner"
-#define JOB_SPACE_POLICE "Space Police"
 
 
 
