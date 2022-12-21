@@ -3,8 +3,8 @@
 /turf/template_noop,
 /area/template_noop)
 "ab" = (
-/obj/structure/shuttle/engine/propulsion/left{
-	dir = 4
+/obj/machinery/shuttle/engine/advanced{
+	dir = 8
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
@@ -273,7 +273,7 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
 "bj" = (
-/obj/structure/shuttle/engine/propulsion/right,
+/obj/machinery/shuttle/engine/advanced,
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
 

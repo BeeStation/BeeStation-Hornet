@@ -3,8 +3,8 @@
 /turf/template_noop,
 /area/template_noop)
 "b" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 4
+/obj/machinery/shuttle/engine/advanced{
+	dir = 8
 	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/transport)
@@ -21,6 +21,9 @@
 /turf/open/floor/plating,
 /area/shuttle/transport)
 "g" = (
+/obj/machinery/power/engine_capacitor_bank{
+	dir = 4
+	},
 /turf/closed/wall/mineral/titanium/interior,
 /area/shuttle/transport)
 "h" = (
@@ -71,6 +74,12 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
+"B" = (
+/obj/machinery/power/engine_capacitor_bank{
+	dir = 4
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/transport)
 
 (1,1,1) = {"
 a
@@ -87,11 +96,11 @@ g
 b
 "}
 (3,1,1) = {"
-c
+B
 h
 l
 p
-c
+B
 "}
 (4,1,1) = {"
 c

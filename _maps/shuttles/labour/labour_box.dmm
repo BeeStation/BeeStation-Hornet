@@ -16,28 +16,18 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "d" = (
-/obj/structure/chair/office{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "e" = (
-/obj/structure/table,
-/obj/item/folder/red,
-/obj/item/restraints/handcuffs,
+/obj/machinery/computer/weapons{
+	dir = 8
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "f" = (
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/labor)
-"g" = (
-/obj/machinery/button/flasher{
-	id = "gulagshuttleflasher";
-	name = "Flash Control";
-	pixel_y = -26;
-	req_access_txt = "1"
-	},
-/obj/machinery/light,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "h" = (
@@ -46,6 +36,9 @@
 	pixel_x = 30;
 	pixel_y = 30
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "i" = (
@@ -53,12 +46,14 @@
 	name = "Labor Shuttle Airlock";
 	req_access_txt = "2"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /turf/open/floor/plating,
 /area/shuttle/labor)
 "j" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Labor Shuttle Airlock";
-	req_access_txt = "2"
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
@@ -70,6 +65,12 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/labor)
 "l" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/labor)
 "m" = (
@@ -78,16 +79,14 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/labor)
-"n" = (
-/obj/machinery/mineral/labor_claim_console{
-	machinedir = 1;
-	pixel_x = 30
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/labor)
 "o" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
+	},
+/obj/machinery/mineral/labor_claim_console{
+	machinedir = 1;
+	pixel_x = 28;
+	pixel_y = 28
 	},
 /obj/machinery/flasher{
 	id = "gulagshuttleflasher";
@@ -97,6 +96,12 @@
 /area/shuttle/labor)
 "p" = (
 /obj/structure/closet/crate,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/labor)
 "q" = (
@@ -116,20 +121,77 @@
 /turf/open/floor/plating,
 /area/shuttle/labor)
 "r" = (
-/obj/structure/shuttle/engine/heater,
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
 	},
+/obj/machinery/power/engine_capacitor_bank{
+	dir = 1
+	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating/airless,
 /area/shuttle/labor)
 "s" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/machinery/shuttle/engine/ion{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
+/area/shuttle/labor)
+"x" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/labor)
+"P" = (
+/obj/machinery/button/flasher{
+	id = "gulagshuttleflasher";
+	name = "Flash Control";
+	pixel_y = -26;
+	req_access_txt = "1"
+	},
+/obj/machinery/light,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/smes{
+	charge = 5e+006
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/labor)
+"Q" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/labor)
+"R" = (
+/obj/machinery/shuttle_weapon/laser,
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/labor)
+"T" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Labor Shuttle Airlock";
+	req_access_txt = "2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/labor)
+"Z" = (
+/obj/machinery/power/terminal{
+	dir = 8
+	},
+/obj/structure/cable/yellow,
+/obj/structure/table,
+/obj/item/restraints/handcuffs,
+/obj/item/folder/red,
+/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 
 (1,1,1) = {"
-a
+R
 a
 b
 a
@@ -144,8 +206,8 @@ b
 c
 f
 j
-l
-l
+T
+Q
 p
 r
 s
@@ -153,10 +215,10 @@ s
 (3,1,1) = {"
 b
 d
-g
+f
+P
 a
 m
-l
 l
 r
 s
@@ -165,15 +227,15 @@ s
 b
 e
 h
+Z
 k
-n
 o
-l
+x
 r
 s
 "}
 (5,1,1) = {"
-a
+R
 a
 i
 a

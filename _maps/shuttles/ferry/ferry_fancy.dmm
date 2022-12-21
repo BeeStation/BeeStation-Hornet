@@ -15,16 +15,16 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/transport)
 "e" = (
-/obj/structure/shuttle/engine/propulsion/left{
+/obj/machinery/shuttle/engine/advanced{
 	dir = 8
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
 "f" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 8
-	},
 /obj/structure/window/reinforced,
+/obj/machinery/power/engine_capacitor_bank{
+	dir = 4
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
 "g" = (
@@ -41,10 +41,10 @@
 /turf/open/floor/pod/light,
 /area/shuttle/transport)
 "j" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 8
-	},
 /obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/power/engine_capacitor_bank{
 	dir = 4
 	},
 /turf/open/floor/plating/airless,
@@ -78,12 +78,12 @@
 /turf/open/floor/pod/light,
 /area/shuttle/transport)
 "o" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 8
-	},
 /obj/structure/window/reinforced{
 	dir = 1;
 	pixel_y = 1
+	},
+/obj/machinery/power/engine_capacitor_bank{
+	dir = 4
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)

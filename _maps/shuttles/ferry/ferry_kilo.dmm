@@ -30,15 +30,6 @@
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/transport)
-"h" = (
-/obj/structure/shuttle/engine/propulsion/left{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/transport)
 "i" = (
 /obj/structure/window/shuttle,
 /obj/structure/grille,
@@ -82,15 +73,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
-"p" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/transport)
 "q" = (
 /obj/machinery/computer/shuttle_flight/ferry/request{
 	dir = 4
@@ -124,10 +106,10 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
 "u" = (
-/obj/structure/shuttle/engine/propulsion/right{
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/line{
+/obj/machinery/shuttle/engine/advanced{
 	dir = 8
 	},
 /turf/open/floor/plating/airless,
@@ -204,8 +186,8 @@
 
 (1,1,1) = {"
 a
-h
-p
+u
+u
 u
 a
 "}

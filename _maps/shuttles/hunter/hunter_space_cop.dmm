@@ -75,9 +75,8 @@
 /obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
-"gi" = (
-/obj/structure/table,
-/obj/effect/mob_spawn/human/fugitive/spacepol{
+"fj" = (
+/obj/machinery/computer/locator{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,
@@ -93,12 +92,24 @@
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/shuttle/hunter)
+"jC" = (
+/obj/machinery/computer/weapons{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/hunter)
 "ku" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/hunter)
 "lp" = (
 /obj/machinery/fugitive_capture,
 /turf/open/floor/mineral/titanium/blue,
+/area/shuttle/hunter)
+"oD" = (
+/obj/machinery/shuttle_weapon/laser/triple{
+	dir = 4
+	},
+/turf/closed/wall/mineral/titanium,
 /area/shuttle/hunter)
 "qx" = (
 /obj/machinery/button/door{
@@ -220,20 +231,20 @@ ku
 hB
 "}
 (10,1,1) = {"
-ku
+oD
 ku
 aa
 Rz
 aa
 ku
-ku
+oD
 "}
 (11,1,1) = {"
 Pq
 An
-aa
-gi
+fj
 ab
+jC
 An
 Pq
 "}

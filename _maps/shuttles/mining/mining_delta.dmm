@@ -125,6 +125,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+	dir = 6
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "p" = (
@@ -134,6 +137,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+	dir = 10
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
@@ -238,12 +244,16 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/mining)
 "s" = (
-/obj/structure/ore_box,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/item/wrench,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "t" = (
