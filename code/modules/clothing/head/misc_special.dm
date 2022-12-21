@@ -165,6 +165,13 @@
 	. = ..()
 	AddComponent(/datum/component/haircolor_clothing)
 
+/obj/item/clothing/head/fox
+	name = "fox ears"
+	desc = "A pair of fox ears."
+	icon_state = "floof"
+	clothing_flags = SNUG_FIT
+	color = "#FFFFFF"
+
 /obj/item/clothing/head/kitty/genuine
 	desc = "A pair of kitty ears. A tag on the inside says \"Hand made from real cats.\""
 

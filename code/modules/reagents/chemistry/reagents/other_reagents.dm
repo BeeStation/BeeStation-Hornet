@@ -562,6 +562,13 @@
 	race = /datum/species/human/felinid
 	taste_description = "something nyat good"
 
+/datum/reagent/mutationtoxin/vulpe
+	name = "Vulpe Mutation Toxin"
+	color = "#5EFF3B" //RGB: 94, 255, 59
+	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	race = /datum/species/human/vulpe
+	taste_description = "fur"
+
 /datum/reagent/mutationtoxin/lizard
 	name = "Lizard Mutation Toxin"
 	description = "A lizarding toxin."

@@ -504,6 +504,14 @@
 				/obj/item/organ/ears/cat = 1)
 	category = CAT_MISC
 
+/datum/crafting_recipe/foxears
+	name = "Fox Ears"
+	result = /obj/item/clothing/head/fox
+	time = 10
+	reqs = list(/obj/item/organ/tail/fox = 1,
+				/obj/item/organ/ears/fox = 1)
+	category = CAT_MISC
+
 /datum/crafting_recipe/skateboard
 	name = "Skateboard"
 	result = /obj/item/melee/skateboard
