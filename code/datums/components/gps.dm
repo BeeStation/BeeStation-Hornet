@@ -23,6 +23,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	var/global_mode = TRUE //If disabled, only GPS signals of the same Z level are shown
 	var/datum/looping_sound/beacon/beacon_sound
 	var/distress_virtual_z = 0
+	var/distress_activated_at
 
 /datum/component/gps/item/Initialize(_gpstag = "COM0", emp_proof = FALSE, distress = FALSE)
 	. = ..()
@@ -93,8 +94,33 @@ GLOBAL_LIST_EMPTY(GPS_list)
 			SSorbits.assoc_distress_beacons["[virtual_location]"] = 0
 		SSorbits.assoc_distress_beacons["[virtual_location]"] ++
 		distress_virtual_z = virtual_location
-	//Start Processnig
+	//Add a cooldown to prevent spamming radio messages
+	if (world.time < distress_activated_at + 30 SECONDS)
+		//Trigger a radio message on the station
+		addtimer(src, CALLBACK(src, .proc/detect_signal), 20 SECONDS)
+		distress_activated_at = world.time
+	//Start Processing
 	START_PROCESSING(SSprocessing, src)
+
+/datum/component/gps/item/proc/detect_signal()
+	//Distress beacon disabled
+	if(emped || QDELETED(parent) || !distress_beacon)
+		return
+
+	// Nearby active jammers prevent the message from transmitting
+	if(is_jammed(JAMMER_PROTECTION_RADIO_BASIC))
+		return
+
+	// Determine the identity information which will be attached to the signal.
+	var/atom/movable/virtualspeaker/speaker = new(null, src, src)
+
+	// Construct the signal
+	var/datum/signal/subspace/vocal/signal = new(src, FREQ_COMMON, speaker, /datum/language/common, scramble_message_replace_chars("Emergency distress signal activated, location displayed on orbital maps.", 10), list(), list())
+
+	signal.data["compression"] = 0
+	signal.transmission_method = TRANSMISSION_SUPERSPACE
+	signal.levels = list(0)  // reaches all Z-levels
+	signal.broadcast()
 
 /datum/component/gps/item/proc/disable_distress_signal()
 	if(!distress_beacon)
