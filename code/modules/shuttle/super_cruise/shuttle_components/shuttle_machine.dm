@@ -4,7 +4,7 @@
 	density = TRUE
 	obj_integrity = 250
 	max_integrity = 250
-	icon = 'icons/turf/shuttle.dmi'
+	icon = 'icons/obj/shuttle.dmi'
 	icon_state = "burst_plasma"
 	idle_power_usage = 150
 	circuit = /obj/item/circuitboard/machine/shuttle/engine

@@ -81,7 +81,7 @@
 	name = "thruster capacitor bank"
 	desc = "A capacitor bank that stores power for high-energy ion thrusters."
 	icon_state = "heater_ion"
-	icon = 'icons/turf/shuttle.dmi'
+	icon = 'icons/obj/shuttle.dmi'
 	density = TRUE
 	use_power = NO_POWER_USE
 	circuit = /obj/item/circuitboard/machine/shuttle/capacitor_bank
