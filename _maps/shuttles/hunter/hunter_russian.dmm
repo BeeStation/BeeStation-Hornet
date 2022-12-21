@@ -333,6 +333,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister/toxins,
 /obj/machinery/atmospherics/components/unary/portables_connector,
+/obj/item/wrench,
 /turf/open/floor/plating,
 /area/shuttle/hunter)
 "Wd" = (

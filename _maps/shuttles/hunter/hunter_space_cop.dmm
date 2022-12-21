@@ -6,6 +6,9 @@
 /obj/machinery/computer/shuttle_flight/hunter{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/manifold/purple/hidden{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
 "ac" = (
@@ -40,6 +43,7 @@
 /area/shuttle/hunter)
 "ag" = (
 /obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/pipe/simple/purple/hidden,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
 "ah" = (
@@ -75,15 +79,22 @@
 /obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
+"cJ" = (
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
+	dir = 4
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/hunter)
 "fj" = (
 /obj/machinery/computer/locator{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/simple/purple/hidden,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
 "hB" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8
+/obj/machinery/shuttle/engine{
+	dir = 4
 	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/hunter)
@@ -92,10 +103,22 @@
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/shuttle/hunter)
+"hR" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/atmospherics/pipe/simple/purple/hidden,
+/turf/open/floor/plating,
+/area/shuttle/hunter)
+"jf" = (
+/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+	dir = 9
+	},
+/turf/open/floor/plating,
+/area/shuttle/hunter)
 "jC" = (
 /obj/machinery/computer/weapons{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/simple/purple/hidden,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
 "ku" = (
@@ -129,6 +152,16 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
+"ug" = (
+/obj/machinery/atmospherics/pipe/simple/purple/hidden,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/hunter)
+"yh" = (
+/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/hunter)
 "An" = (
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
@@ -137,14 +170,52 @@
 /obj/machinery/door/airlock/titanium{
 	req_access_txt = "181"
 	},
+/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/blue,
+/area/shuttle/hunter)
+"FF" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/hidden{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/hunter)
+"MP" = (
+/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+	dir = 10
+	},
+/turf/open/floor/plating,
 /area/shuttle/hunter)
 "Pq" = (
 /turf/template_noop,
 /area/template_noop)
+"Qm" = (
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/item/wrench,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/hunter)
 "Rz" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/hunter)
+"SZ" = (
+/obj/structure/window/shuttle,
+/obj/structure/grille,
+/obj/machinery/atmospherics/pipe/simple/purple/hidden,
+/turf/open/floor/plating,
+/area/shuttle/hunter)
+"YM" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/hidden{
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
@@ -186,29 +257,29 @@ ku
 hB
 "}
 (5,1,1) = {"
-ku
+cJ
 ku
 bY
 aa
 ak
 ku
-ku
+cJ
 "}
 (6,1,1) = {"
-Pq
-hJ
+MP
+SZ
 ag
-aa
-aa
-hJ
-Pq
+FF
+ug
+SZ
+jf
 "}
 (7,1,1) = {"
 Pq
 hJ
 ah
-aa
-aj
+YM
+Qm
 hJ
 Pq
 "}
@@ -216,7 +287,7 @@ Pq
 Pq
 ku
 lp
-aa
+yh
 aj
 ku
 Pq
@@ -231,29 +302,29 @@ ku
 hB
 "}
 (10,1,1) = {"
-oD
+cJ
 ku
 aa
 Rz
 aa
 ku
-oD
+cJ
 "}
 (11,1,1) = {"
-Pq
-An
+MP
+hR
 fj
 ab
 jC
-An
-Pq
+hR
+jf
 "}
 (12,1,1) = {"
 Pq
-ku
+oD
 An
 An
 An
-ku
+oD
 Pq
 "}
