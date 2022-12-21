@@ -104,6 +104,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/unary/portables_connector,
+/obj/machinery/portable_atmospherics/canister/toxins,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
 "av" = (
@@ -204,7 +205,9 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/structure/shuttle/engine/heater,
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/mining/large)
 "aH" = (
