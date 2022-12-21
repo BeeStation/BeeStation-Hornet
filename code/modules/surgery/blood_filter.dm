@@ -17,6 +17,7 @@
 	implements = list(/obj/item/blood_filter = 95)
 	repeatable = TRUE
 	time = 2.5 SECONDS
+	success_sound = 'sound/machines/ping.ogg'
 
 /datum/surgery/blood_filter/can_start(mob/user, mob/living/carbon/target)
 	if(HAS_TRAIT(target, TRAIT_HUSK) || target.reagents?.total_volume == 0) //Can't filter husk or 0 regent body
