@@ -26,7 +26,8 @@
 	var/const/default_map_size = 15
 	//Contents holder to make the turfs clickable :^)
 	var/atom/movable/screen/map_view/weapons_console/cam_screen
-	var/atom/movable/screen/plane_master/lighting/cam_plane_master
+	/// All the plane masters that need to be applied.
+	var/list/cam_plane_masters
 	var/atom/movable/screen/plane_master/o_light_visual/visual_plane_master
 	var/atom/movable/screen/background/cam_background
 
@@ -44,12 +45,13 @@
 	cam_screen.assigned_map = map_name
 	cam_screen.del_on_map_removal = FALSE
 	cam_screen.screen_loc = "[map_name]:1,1"
-	cam_screen.link_to_console(src)
-	cam_plane_master = new
-	cam_plane_master.name = "plane_master"
-	cam_plane_master.assigned_map = map_name
-	cam_plane_master.del_on_map_removal = FALSE
-	cam_plane_master.screen_loc = "[map_name]:CENTER"
+	cam_plane_masters = list()
+	for(var/plane in subtypesof(/atom/movable/screen/plane_master))
+		var/atom/movable/screen/instance = new plane()
+		instance.assigned_map = map_name
+		instance.del_on_map_removal = FALSE
+		instance.screen_loc = "[map_name]:CENTER"
+		cam_plane_masters += instance
 	visual_plane_master = new
 	visual_plane_master.name = "plane_master"
 	visual_plane_master.assigned_map = map_name
@@ -64,9 +66,9 @@
 
 /obj/machinery/computer/weapons/Destroy()
 	QDEL_NULL(cam_screen)
-	QDEL_NULL(cam_plane_master)
-	QDEL_NULL(cam_background)
+	QDEL_LIST(cam_plane_masters)
 	QDEL_NULL(visual_plane_master)
+	QDEL_NULL(cam_background)
 	concurrent_users = null
 	selected_weapon_system = null
 	return ..()
@@ -103,7 +105,8 @@
 			show_camera_static()
 		// Register map objects
 		user.client.register_map_obj(cam_screen)
-		user.client.register_map_obj(cam_plane_master)
+		for(var/plane in cam_plane_masters)
+			user.client.register_map_obj(plane)
 		user.client.register_map_obj(visual_plane_master)
 		user.client.register_map_obj(cam_background)
 		// Open UI
