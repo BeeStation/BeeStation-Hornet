@@ -244,7 +244,6 @@
 	design_ids = list("bluespace_miner")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
-	hidden = TRUE
 
 /datum/techweb_node/bluespace_stabilisation
 	id = "bluespace_anchor"
@@ -266,7 +265,6 @@
 	design_ids = list("bag_holding")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
-	hidden = TRUE
 
 /datum/techweb_node/wormhole_gun
 	id = "wormholegun"

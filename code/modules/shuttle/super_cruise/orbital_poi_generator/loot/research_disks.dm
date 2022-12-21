@@ -30,9 +30,6 @@
 /obj/item/disk/tech_disk/research/boh
 	node_id = "bagofholding"
 
-/obj/item/disk/tech_disk/research/bsm
-	node_id = "bluespace_miner"
-
 /obj/item/disk/tech_disk/research/wormhole_gun
 	node_id = "wormholegun"
 
