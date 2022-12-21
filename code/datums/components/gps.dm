@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	. = ..()
 	if(. == COMPONENT_INCOMPATIBLE || !isitem(parent))
 		return COMPONENT_INCOMPATIBLE
-	beacon_sound = new(list(parent))
+	beacon_sound = new(parent)
 	var/atom/A = parent
 	A.add_overlay("working")
 	A.name = "[initial(A.name)] ([gpstag])"
