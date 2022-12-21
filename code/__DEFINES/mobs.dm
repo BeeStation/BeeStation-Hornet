@@ -94,6 +94,7 @@
 #define SPECIES_DULLAHAN "dullahan"
 #define SPECIES_ETHEREAL "ethereal"
 #define SPECIES_FELINID "felinid"
+#define SPECIES_VULPE "vulpe"
 #define SPECIES_FLY "fly"
 #define SPECIES_HUMAN "human"
 #define SPECIES_IPC "ipc"
@@ -160,6 +161,7 @@
 #define FLAG_FLY			(1<<9)
 #define FLAG_DEBUG_SPECIES	(1<<10)
 #define FLAG_MONKEY (1<<11)
+#define FLAG_VULPE (1<<12)
 
 #define DIGITIGRADE_NEVER 0
 #define DIGITIGRADE_OPTIONAL 1

@@ -315,7 +315,7 @@
 	disliked_food = VEGETABLES | SUGAR
 	liked_food = DAIRY | MEAT
 
-/obj/item/organ/tongue/cat
+/obj/item/organ/tongue/fox
 	name = "fox tongue"
 	desc = "A rough tongue, full of small, boney spines all over it's surface."
 	say_mod = list("geckers","barks","shrieks")
