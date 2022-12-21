@@ -1731,7 +1731,7 @@
 /datum/sprite_accessory/tails/human/fox
 	name = "Fox"
 	icon_state = "fox"
-	color_src = HAIR
+	color_src = "#FFFFFF"
 
 /datum/sprite_accessory/tails_animated/human/cat
 	name = "Cat"
@@ -1813,7 +1813,7 @@
 	name = "Fox"
 	icon_state = "fox"
 	hasinner = 1
-	color_src = HAIR
+	color_src = "#FFFFFF"
 
 /datum/sprite_accessory/wings/none
 	name = "None"
