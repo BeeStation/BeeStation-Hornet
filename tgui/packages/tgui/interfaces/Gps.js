@@ -17,6 +17,7 @@ export const Gps = (props, context) => {
     power,
     tag,
     updating,
+    distress,
   } = data;
   const signals = flow([
     map((signal, index) => {
@@ -69,6 +70,13 @@ export const Gps = (props, context) => {
                 content={globalmode ? "MAXIMUM" : "LOCAL"}
                 selected={!globalmode}
                 onClick={() => act('globalmode')} />
+            </LabeledList.Item>
+            <LabeledList.Item label="Distress">
+              <Button
+                icon="life-ring"
+                content={distress ? "ON" : "OFF"}
+                color={distress && "bad"}
+                onClick={() => act('distress')} />
             </LabeledList.Item>
           </LabeledList>
         </Section>

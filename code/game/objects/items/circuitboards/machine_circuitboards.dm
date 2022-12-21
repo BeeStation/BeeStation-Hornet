@@ -314,6 +314,17 @@
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/stock_parts/micro_laser = 1)
 
+/obj/item/circuitboard/machine/shuttle/engine/ion
+	name = "ion thruster (Machine Board)"
+	build_path = /obj/machinery/shuttle/engine/ion
+	req_components = list(/obj/item/stock_parts/capacitor = 2,
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stock_parts/micro_laser = 1)
+
+/obj/item/circuitboard/machine/shuttle/engine/ion/burst
+	name = "ion burst thruster (Machine Board)"
+	build_path = /obj/machinery/shuttle/engine/ion/burst
+
 /obj/item/circuitboard/machine/shuttle/engine/void
 	name = "void thruster (Machine Board)"
 	build_path = /obj/machinery/shuttle/engine/void
@@ -323,9 +334,16 @@
 
 /obj/item/circuitboard/machine/shuttle/heater
 	name = "electronic engine heater (Machine Board)"
-	build_path = /obj/machinery/atmospherics/components/unary/shuttle/heater
+	build_path = /obj/machinery/atmospherics/components/unary/shuttle/engine_heater
 	req_components = list(/obj/item/stock_parts/micro_laser = 2,
 		/obj/item/stock_parts/matter_bin = 1)
+
+/obj/item/circuitboard/machine/shuttle/capacitor_bank
+	name = "ion thruster capacitor bank (Machine Board)"
+	build_path = /obj/machinery/power/engine_capacitor_bank
+	req_components = list(
+		/obj/item/stock_parts/capacitor = 3,
+		/obj/item/stock_parts/micro_laser = 1)
 
 /obj/item/circuitboard/machine/plasma_refiner
 	name = "plasma refinery (Machine Board)"

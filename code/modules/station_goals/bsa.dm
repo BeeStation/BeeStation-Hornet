@@ -6,7 +6,8 @@
 	name = "Bluespace Artillery"
 
 /datum/station_goal/bluespace_cannon/get_report()
-	return {"Our military presence is inadequate in your sector.
+	return {"Our military presence is inadequate in your sector, and the syndicate are ramping up their hostilities.
+	 A hostile attack may be imminent.
 	 We need you to construct BSA-[rand(1,99)] Artillery position aboard your station.
 
 	 Base parts are available for shipping via cargo.
@@ -252,6 +253,7 @@
 	var/notice
 	var/target
 	var/area_aim = FALSE //should also show areas for targeting
+	var/shuttle_aim = TRUE
 
 
 /obj/machinery/computer/bsa_control/ui_state(mob/user)
@@ -304,6 +306,13 @@
 	var/list/options = gps_locators
 	if(area_aim)
 		options += GLOB.teleportlocs
+	if(shuttle_aim)
+		for(var/ship_key in SSorbits.assoc_shuttle_data)
+			var/datum/shuttle_data/ship = SSorbits.get_shuttle_data(ship_key)
+			if(!ship)
+				continue
+			if(SSshuttle.getShuttle(ship_key))
+				options[ship.shuttle_name] = ship
 	var/V = input(user,"Select target", "Select target",null) in options|null
 	target = options[V]
 
@@ -314,6 +323,9 @@
 	else if(istype(target, /datum/component/gps))
 		var/datum/component/gps/G = target
 		return G.gpstag
+	else if(istype(target, /datum/shuttle_data))
+		var/datum/shuttle_data/ship = target
+		return ship.shuttle_name
 
 /obj/machinery/computer/bsa_control/proc/get_impact_turf()
 	if(istype(target, /area))
@@ -321,6 +333,10 @@
 	else if(istype(target, /datum/component/gps))
 		var/datum/component/gps/G = target
 		return get_turf(G.parent)
+	else if(istype(target, /datum/shuttle_data))
+		var/datum/shuttle_data/ship = target
+		var/obj/docking_port/mobile/M = SSshuttle.getShuttle(ship.port_id)
+		return pick(M.return_turfs())
 
 /obj/machinery/computer/bsa_control/proc/fire(mob/user)
 	var/obj/machinery/bsa/full/cannon = cannon_ref?.resolve()

@@ -1,0 +1,53 @@
+@use 'sass:color';
+@use 'sass:meta';
+
+@use '../colors.scss' with (
+  $primary: #ffa600,
+  $fg-map-keys: (),
+  $bg-map-keys: (),
+);
+@use '../base.scss' with (
+  $color-bg: #1a1d1a,
+  $color-bg-grad-spread: 0%,
+);
+
+.theme-flight {
+  // Atomic classes
+  @include meta.load-css('../atomic/color.scss');
+
+  // Components
+  @include meta.load-css('../components/Button.scss', $with: (
+    'color-default': colors.$primary,
+    'color-disabled': #686868,
+    'color-selected': #0f0f0f,
+  ));
+  @include meta.load-css('../components/Input.scss', $with: (
+    'border-color': colors.$primary,
+  ));
+  @include meta.load-css('../components/Modal.scss');
+  @include meta.load-css('../components/Section.scss');
+
+  // Layouts
+  @include meta.load-css('../layouts/Layout.scss');
+  @include meta.load-css('../layouts/Window.scss');
+  @include meta.load-css('../layouts/TitleBar.scss', $with: (
+    'background-color': #1d1d1d,
+  ));
+
+  .Layout__content {
+    background-image: none;
+  }
+
+  .Button {
+    border-width: base.em(2px);
+    border-radius: 0px;
+    background-color: #0c0c0c;
+    color: #dadada;
+    outline: base.em(1px) solid #ffa600;
+    margin: 3px;
+  }
+
+  .candystripe:nth-child(odd) {
+    background-color: rgba(126, 98, 57, 0.5);
+  }
+}

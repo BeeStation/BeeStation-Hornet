@@ -338,8 +338,8 @@
 	display_name = "Basic Shuttle Research"
 	description = "Research the technology required to create and use basic shuttles."
 	prereq_ids = list("bluespace_travel", "adv_engi")
-	design_ids = list("shuttle_creator", "engine_plasma", "engine_heater", "shuttle_control", "wingpack")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	design_ids = list("shuttle_creator", "orbital_map", "engine_plasma", "engine_ion", "engine_ion_burst", "engine_heater", "engine_capacitors", "shuttle_control", "shuttle_navigation", "wingpack")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
 /datum/techweb_node/nullspacebreaching
@@ -361,6 +361,87 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 	hidden = TRUE
+
+/datum/techweb_node/shuttle_weapons_basic
+	id = "shuttle_weapons"
+	display_name = "Shuttle Mounted Weaponry"
+	description = "Research into mounting weapons onto the side of moving things."
+	prereq_ids = list("weaponry")
+	design_ids = list("shuttle_laser", "computer_weapons")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+	export_price = 5000
+
+/datum/techweb_node/shuttle_weapons_lasers
+	id = "shuttle_lasers"
+	display_name = "Shuttle Laser Weaponry"
+	description = "Research into mounting high-powered lasers onto the side of moving things."
+	prereq_ids = list("shuttle_weapons", "emp_adv")
+	design_ids = list("shuttle_laser_burst")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
+	export_price = 5000
+
+/datum/techweb_node/shuttle_lasers_better
+	id = "shuttle_lasers_better"
+	display_name = "Advanced Shuttle Laser Weaponry"
+	description = "Research into mounting super-high-powered lasers onto the side of moving things."
+	prereq_ids = list("shuttle_lasers", "emp_super")
+	design_ids = list("shuttle_laser_burst_two")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 5000
+
+/datum/techweb_node/shuttle_missiles
+	id = "shuttle_missiles"
+	display_name = "Mounted Missile Launchers"
+	description = "Research into mounting missiles onto the side of moving things."
+	prereq_ids = list("shuttle_weapons", "adv_weaponry")
+	design_ids = list("shuttle_missile")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 5000
+
+/datum/techweb_node/shuttle_tri_missiles
+	id = "shuttle_tri_missiles"
+	display_name = "Mounted Swarm Missile Technology"
+	description = "Research into mounting tri-shot missile launchers onto the side of moving things."
+	prereq_ids = list("shuttle_missiles")
+	design_ids = list("shuttle_tri_missile")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 5000
+
+/datum/techweb_node/shuttle_specialized_missiles
+	id = "specialized_missiles"
+	display_name = "Specialized Missile Technology"
+	description = "Research into mounting specialized missile launchers onto the side of moving things."
+	prereq_ids = list("shuttle_missiles")
+	design_ids = list("shuttle_breach_missile", "shuttle_fire_missile")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
+	export_price = 5000
+
+/datum/techweb_node/shuttle_ballistics
+	id = "shuttle_ballistics"
+	display_name = "Shuttle Mounted Ballistics"
+	description = "Research into simple, yet effective ballistic weapons for shuttles."
+	prereq_ids = list("shuttle_weapons")
+	design_ids = list("shuttle_point_defense", "shuttle_scatter_shot")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 5000
+
+/datum/techweb_node/shuttle_better_ballistics
+	id = "shuttle_ballistics_better"
+	display_name = "Upgraded Shuttle Mounted Ballistics"
+	description = "Research into slightly less simple, yet even more effective ballistic weapons for shuttles."
+	prereq_ids = list("shuttle_ballistics", "adv_weaponry")
+	design_ids = list("shuttle_point_defense_upgraded")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 5000
+
+/datum/techweb_node/shuttle_magnetics
+	id = "shuttle_magnetics"
+	display_name = "Shuttle Mounted Railguns"
+	description = "Combines the power of electromagnetism with the destructive power of iron, creating shuttle-mounted weapons capable of tearing through ships."
+	prereq_ids = list("shuttle_ballistics_better", "emp_super")
+	design_ids = list("shuttle_railgun", "shuttle_railgun_crew")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	export_price = 5000
 
 /////////////////////////integrated circuits tech/////////////////////////
 /datum/techweb_node/math_circuits

@@ -7,6 +7,7 @@
 	random_docking = TRUE
 	render_mode = RENDER_MODE_PLANET
 	priority = 90
+	signal_range = 10000
 
 /datum/orbital_object/z_linked/lavaland/New()
 	. = ..()

@@ -586,7 +586,7 @@
 
 /obj/docking_port/mobile/pod/request(obj/docking_port/stationary/S)
 	var/obj/machinery/computer/shuttle_flight/C = getControlConsole()
-	if(!istype(C, /obj/machinery/computer/shuttle_flight/pod))
+	if(!istype(C, /obj/machinery/computer/shuttle_flight/pod) || !istype(S, /obj/docking_port/stationary/transit))
 		return ..()
 	if(GLOB.security_level >= SEC_LEVEL_RED || (C && (C.obj_flags & EMAGGED)))
 		if(launch_status == UNLAUNCHED)

@@ -2,7 +2,7 @@
 
 // Made by powerfulbacon
 
-import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, ScrollableBox, Flex, OrbitalMapComponent, OrbitalMapSvg } from '../components';
+import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, Flex, OrbitalMapComponent, OrbitalMapSvg, Grid, Stack, Tabs } from '../components';
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 
@@ -43,10 +43,8 @@ export const OrbitalMap = (props, context) => {
 
   let trackedObject = null;
   let ourObject = null;
-  let firstObjectName = "null";
   if (map_objects.length > 0 && interdictionTime === 0)
   {
-    firstObjectName = map_objects[1].name;
     // Find the right tracked body
     map_objects.forEach(element => {
       if (element.name === shuttleName)
@@ -74,24 +72,17 @@ export const OrbitalMap = (props, context) => {
       <Window.Content fitted>
         <Flex height="100%">
           <Flex.Item class="OrbitalMap__radar" grow id="radar">
-            {interdictionTime ? (
-              <InterdictionDisplay
-                xOffset={dynamicXOffset}
-                yOffset={dynamicYOffset}
-                zoomScale={zoomScale}
-                setZoomScale={setZoomScale}
-                setXOffset={setXOffset}
-                setYOffset={setYOffset} />
-            ) : (
-              <OrbitalMapDisplay
-                dynamicXOffset={dynamicXOffset}
-                dynamicYOffset={dynamicYOffset}
-                isTracking={trackedBody !== map_objects[0].name}
-                zoomScale={zoomScale}
-                setZoomScale={setZoomScale}
-                setTrackedBody={setTrackedBody}
-                ourObject={ourObject} />
-            )}
+            <DisplayWindow
+              xOffset={dynamicXOffset}
+              yOffset={dynamicYOffset}
+              isTracking={trackedBody !== "None"}
+              zoomScale={zoomScale}
+              setZoomScale={setZoomScale}
+              setXOffset={setXOffset}
+              setYOffset={setYOffset}
+              setTrackedBody={setTrackedBody}
+              ourObject={ourObject}
+              interdictionTime={interdictionTime} />
           </Flex.Item>
           <Flex.Item class="OrbitalMap__panel">
             <Section fill scrollable>
@@ -202,6 +193,103 @@ export const OrbitalMap = (props, context) => {
         </Flex>
       </Window.Content>
     </Window>
+  );
+};
+
+export const DisplayWindow = (props, context) => {
+  const { data } = useBackend(context);
+
+  const {
+    xOffset,
+    yOffset,
+    zoomScale,
+    setZoomScale,
+    setXOffset,
+    setYOffset,
+    interdictionTime,
+    isTracking,
+    setTrackedBody,
+    ourObject,
+  } = props;
+
+  const [
+    isInterdicted,
+    setIsInterdicted,
+  ] = useLocalState(context, 'isInterdicted', false);
+
+  const [
+    selectedMap,
+    setSelectedMap,
+  ] = useLocalState(context, 'selectedMap', 'map');
+
+  if (isInterdicted === false && interdictionTime > 0) {
+    setIsInterdicted(true);
+    setSelectedMap('interdiction');
+  } else if (interdictionTime <= 0 && isInterdicted === true) {
+    setIsInterdicted(false);
+  }
+
+  return (
+    <>
+      {selectedMap === 'interdiction' ? (
+        <InterdictionDisplay
+          xOffset={xOffset}
+          yOffset={yOffset}
+          zoomScale={zoomScale}
+          setZoomScale={setZoomScale}
+          setXOffset={setXOffset}
+          setYOffset={setYOffset} />
+      ) : (
+        <OrbitalMapDisplay
+          dynamicXOffset={xOffset}
+          dynamicYOffset={yOffset}
+          isTracking={isTracking}
+          zoomScale={zoomScale}
+          setZoomScale={setZoomScale}
+          setTrackedBody={setTrackedBody}
+          ourObject={ourObject} />
+      )}
+      {selectedMap !== 'communication' && (
+        <>
+          <Button
+            position="absolute"
+            icon="search-plus"
+            right="20px"
+            top="15px"
+            fontSize="18px"
+            color="grey"
+            onClick={() => setZoomScale(zoomScale * 2)} />
+          <Button
+            position="absolute"
+            icon="search-minus"
+            right="20px"
+            top="47px"
+            fontSize="18px"
+            color="grey"
+            onClick={() => setZoomScale(zoomScale / 2)} />
+        </>
+      )}
+      <Button
+        position="absolute"
+        icon="map"
+        right="5px"
+        bottom="83px"
+        fontSize="18px"
+        color="grey"
+        onClick={() => setSelectedMap('map')}
+        selected={selectedMap === 'map'}
+        content="Orbital Map" />
+      <Button
+        position="absolute"
+        icon="route"
+        right="5px"
+        bottom="49px"
+        fontSize="18px"
+        color="grey"
+        onClick={() => setSelectedMap('interdiction')}
+        selected={selectedMap === 'interdiction'}
+        content="Local Map" />
+    </>
   );
 };
 
@@ -390,6 +478,7 @@ export const OrbitalMapDisplay = (props, context) => {
     validDockingPorts = [],
     isDocking = false,
     interdiction_range = 150,
+    detection_range = 0,
     shuttleTargetX = 0,
     shuttleTargetY = 0,
     update_index = 0,
@@ -450,7 +539,7 @@ export const OrbitalMapDisplay = (props, context) => {
         stepPixelSize={2 * zoomScale}
         onDrag={(e, valueX, valueY) => {
           setOffset([valueX, valueY]);
-          setTrackedBody(map_objects[0].name);
+          setTrackedBody("None");
         }}
         valueX={isTracking ? dynamicXOffset : offset[0]}
         valueY={isTracking ? dynamicYOffset : offset[1]}
@@ -483,6 +572,7 @@ export const OrbitalMapDisplay = (props, context) => {
             lockedZoomScale={lockedZoomScale}
             map_objects={map_objects}
             interdiction_range={interdiction_range}
+            detection_range={detection_range}
             shuttleTargetX={shuttleTargetX}
             shuttleTargetY={shuttleTargetY}
             dragStartEvent={e => control.handleDragStart(e)}
@@ -534,6 +624,7 @@ export const ShuttleControls = (props, context) => {
     fuel = 0,
     display_stats = [],
     autopilot_enabled = false,
+    breaking = false,
   } = data;
   // Sort the map objects by priority
   let sortedMapObjects = map_objects.sort((first,
@@ -559,6 +650,35 @@ export const ShuttleControls = (props, context) => {
       <NoticeBox color="purple" mt={2}>
         Click on the primary display to fly.
       </NoticeBox>
+      <Button
+        mt={2}
+        width="100%"
+        content={autopilot_enabled ? "Disable Autopilot" : "Enable Autopilot"}
+        icon="microchip"
+        onClick={() => act('nautopilot')}
+        color={autopilot_enabled ? "green" : "red"} />
+      <Button
+        width="100%"
+        content={breaking ? "Disable Emergency Break" : "Enable Emergency Break"}
+        icon="anchor"
+        onClick={() => act('toggleBreaking', {
+          enabled: breaking ? "false" : "true",
+        })}
+        color={breaking ? "green" : "red"} />
+      {!(canDock && !isDocking) || (
+        <Button
+          width="100%"
+          content="Initiate Docking"
+          color="orange"
+          icon="rocket"
+          onClick={() => act('dock')} />
+      )}
+      <Button
+        width="100%"
+        content="ENGAGE INTERDICTOR"
+        icon="hand-paper"
+        onClick={() => act('interdict')}
+        color="purple" />
       <Box bold>
         Throttle
       </Box>
@@ -594,22 +714,6 @@ export const ShuttleControls = (props, context) => {
           </Table.Row>
         ))}
       </Table>
-      <Button
-        mt={2}
-        content="Toggle Autopilot"
-        onClick={() => act('nautopilot')}
-        color={autopilot_enabled ? "green" : "red"} />
-      {!(canDock && !isDocking) || (
-        <Button
-          mt={2}
-          content="Initiate Docking"
-          onClick={() => act('dock')} />
-      )}
-      <Button
-        mt={2}
-        content="ENGAGE INTERDICTOR"
-        onClick={() => act('interdict')}
-        color="purple" />
     </>
   );
 };

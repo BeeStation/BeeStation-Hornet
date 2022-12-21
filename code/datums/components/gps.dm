@@ -5,6 +5,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	var/gpstag = "COM0"
 	var/tracking = TRUE
 	var/emped = FALSE
+	var/distress_beacon = FALSE //If enabled, will create a signal that can be detected on orbital maps
 
 /datum/component/gps/Initialize(_gpstag = "COM0")
 	if(!isatom(parent))
@@ -20,11 +21,14 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /datum/component/gps/item
 	var/updating = TRUE //Automatic updating of GPS list. Can be set to manual by user.
 	var/global_mode = TRUE //If disabled, only GPS signals of the same Z level are shown
+	var/datum/looping_sound/beacon/beacon_sound
+	var/distress_virtual_z = 0
 
-/datum/component/gps/item/Initialize(_gpstag = "COM0", emp_proof = FALSE)
+/datum/component/gps/item/Initialize(_gpstag = "COM0", emp_proof = FALSE, distress = FALSE)
 	. = ..()
 	if(. == COMPONENT_INCOMPATIBLE || !isitem(parent))
 		return COMPONENT_INCOMPATIBLE
+	beacon_sound = new(list(parent))
 	var/atom/A = parent
 	A.add_overlay("working")
 	A.name = "[initial(A.name)] ([gpstag])"
@@ -33,6 +37,21 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, .proc/on_emp_act)
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/on_examine)
 	RegisterSignal(parent, COMSIG_CLICK_ALT, .proc/on_AltClick)
+	RegisterSignal(parent, COMSIG_PARENT_QDELETING, .proc/parent_destroyed)
+	if(distress)
+		enable_distress_signal()
+
+/datum/component/gps/item/Destroy()
+	. = ..()
+	//In case we haven't already (Removed from parent), disable distress
+	disable_distress_signal()
+	if(beacon_sound)
+		QDEL_NULL(beacon_sound)
+
+/datum/component/gps/item/proc/parent_destroyed(datum/source, force)
+	disable_distress_signal()
+	if(beacon_sound)
+		QDEL_NULL(beacon_sound)
 
 ///Called on COMSIG_ITEM_ATTACK_SELF
 /datum/component/gps/item/proc/interact(datum/source, mob/user)
@@ -57,6 +76,53 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	A.add_overlay("emp")
 	addtimer(CALLBACK(src, .proc/reboot), 300, TIMER_UNIQUE|TIMER_OVERRIDE) //if a new EMP happens, remove the old timer so it doesn't reactivate early
 	SStgui.close_uis(src) //Close the UI control if it is open.
+	disable_distress_signal()
+
+/datum/component/gps/item/proc/enable_distress_signal()
+	//Prevent enabling while in the process of QDELing
+	if(emped || QDELETED(parent) || distress_beacon)
+		return
+	//Enable the beacon
+	beacon_sound?.start()
+	distress_beacon = TRUE
+	//Enable beacon
+	var/turf/current_location = get_turf(parent)
+	if(current_location)
+		var/virtual_location = current_location.get_virtual_z_level()
+		if(!SSorbits.assoc_distress_beacons.Find("[virtual_location]"))
+			SSorbits.assoc_distress_beacons["[virtual_location]"] = 0
+		SSorbits.assoc_distress_beacons["[virtual_location]"] ++
+		distress_virtual_z = virtual_location
+	//Start Processnig
+	START_PROCESSING(SSprocessing, src)
+
+/datum/component/gps/item/proc/disable_distress_signal()
+	if(!distress_beacon)
+		return
+	beacon_sound?.stop()
+	distress_beacon = FALSE
+	//Disable the beacon
+	var/turf/current_location = get_turf(parent)
+	if(current_location)
+		var/virtual_location = current_location.get_virtual_z_level()
+		if(SSorbits.assoc_distress_beacons.Find("[virtual_location]"))
+			SSorbits.assoc_distress_beacons["[virtual_location]"] --
+	//Stop processing
+	STOP_PROCESSING(SSprocessing, src)
+
+/datum/component/gps/item/process(delta_time)
+	var/turf/current_location = get_turf(parent)
+	var/new_virtual_z = current_location.get_virtual_z_level()
+	if(new_virtual_z == distress_virtual_z)
+		return
+	if(distress_virtual_z)
+		if(SSorbits.assoc_distress_beacons.Find("[distress_virtual_z]"))
+			SSorbits.assoc_distress_beacons["[distress_virtual_z]"] --
+	distress_virtual_z = new_virtual_z
+	if(new_virtual_z)
+		if(!SSorbits.assoc_distress_beacons.Find("[new_virtual_z]"))
+			SSorbits.assoc_distress_beacons["[new_virtual_z]"] = 0
+		SSorbits.assoc_distress_beacons["[new_virtual_z]"] ++
 
 ///Restarts the GPS after getting turned off by an EMP.
 /datum/component/gps/item/proc/reboot()
@@ -111,6 +177,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	data["tag"] = gpstag
 	data["updating"] = updating
 	data["globalmode"] = global_mode
+	data["distress"] = distress_beacon
 	if(!tracking || emped) //Do not bother scanning if the GPS is off or EMPed
 		return data
 
@@ -128,7 +195,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		if(!pos || !global_mode && pos.get_virtual_z_level() != curr.get_virtual_z_level())
 			continue
 		var/list/signal = list()
-		signal["entrytag"] = G.gpstag //Name or 'tag' of the GPS
+		signal["entrytag"] = "[G.gpstag][G.distress_beacon ? " **DISTRESS**" : ""]" //Name or 'tag' of the GPS
 		signal["coords"] = "[pos.x], [pos.y], [pos.get_virtual_z_level()]"
 		if(pos.get_virtual_z_level() == curr.get_virtual_z_level()) //Distance/Direction calculations for same z-level only
 			signal["dist"] = max(get_dist(curr, pos), 0) //Distance between the src and remote GPS turfs
@@ -160,4 +227,10 @@ GLOBAL_LIST_EMPTY(GPS_list)
 			. = TRUE
 		if("globalmode")
 			global_mode = !global_mode
+			. = TRUE
+		if("distress")
+			if(distress_beacon)
+				disable_distress_signal()
+			else
+				enable_distress_signal()
 			. = TRUE

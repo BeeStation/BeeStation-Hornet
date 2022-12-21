@@ -83,7 +83,7 @@
 		S.volume = volume
 		SEND_SOUND(parent, S)
 	else
-		playsound(parent, S, volume, extra_range)
+		playsound(parent, S, volume, FALSE, extra_range)
 
 /datum/looping_sound/proc/get_sound(starttime, _mid_sounds)
 	. = _mid_sounds || mid_sounds

@@ -14,13 +14,14 @@
 //Objects cannot have a radius greater than this value /3 without refactoring.
 #define ORBITAL_MAP_ZONE_SIZE 600		//The size of a collision detection zone on an orbital map.
 
+#define ORBITAL_MAX_RADIUS ORBITAL_MAP_ZONE_SIZE * 0.5
+
 //Vector position updates
 #define MOVE_ORBITAL_BODY(body_to_move, new_x, new_y) \
 	do {\
-		var/prev_x = body_to_move.position.x;\
-		var/prev_y = body_to_move.position.y;\
-		body_to_move.position.x = new_x;\
-		body_to_move.position.y = new_y;\
+		var/prev_x = body_to_move.position.GetX();\
+		var/prev_y = body_to_move.position.GetY();\
+		body_to_move.position.SetUnsafely(new_x, new_y);\
 		var/datum/orbital_map/attached_map = SSorbits.orbital_maps[body_to_move.orbital_map_index];\
 		attached_map.on_body_move(body_to_move, prev_x, prev_y);\
 	} while (FALSE)

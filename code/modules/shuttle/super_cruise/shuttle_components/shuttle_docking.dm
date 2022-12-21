@@ -202,7 +202,7 @@
 			//Hold the shuttle in the docking position until ready.
 			M.setTimer(INFINITY)
 			say("Waiting for hyperspace lane...")
-			INVOKE_ASYNC(src, .proc/unfreeze_shuttle, M, SSmapping.get_level(eyeobj.z))
+			shuttleObject.begin_dethrottle(M.z)
 		if(1)
 			to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 		else
@@ -303,7 +303,7 @@
 
 /obj/machinery/computer/shuttle_flight/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
 	if(port && (shuttleId == initial(shuttleId) || override))
-		shuttleId = port.id
+		set_shuttle_id(port.id)
 		shuttlePortId = "[shuttleId]_custom"
 
 /mob/camera/ai_eye/remote/shuttle_docker

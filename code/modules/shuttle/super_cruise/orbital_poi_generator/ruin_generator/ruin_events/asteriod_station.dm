@@ -1,5 +1,5 @@
 /datum/ruin_event/asteriod_station
-	probability = 3
+	probability = 1
 
 /datum/ruin_event/asteriod_station/post_spawn(list/floor_turfs, z_value)
 	var/perlin_noise_scale = 65

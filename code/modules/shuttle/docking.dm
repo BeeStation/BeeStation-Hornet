@@ -101,6 +101,10 @@
 
 	// remove any stragglers just in case, and clear the list
 	remove_ripples()
+
+	if (delete_on_land)
+		qdel(src)
+
 	return DOCKING_SUCCESS
 
 /obj/docking_port/mobile/proc/preflight_check(list/old_turfs, list/new_turfs, list/areas_to_move, rotation)
