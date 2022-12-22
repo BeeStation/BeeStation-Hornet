@@ -1,5 +1,0 @@
-author: benbot16
-delete-after: true
-changes:
-  - bugfix: Burn repair on robotic limbs no longer uses cable if the limb is uninjured
-  - bugfix: Adds proper click cooldown handling to mechanical repair
