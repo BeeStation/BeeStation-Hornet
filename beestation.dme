@@ -2881,6 +2881,7 @@
 #include "code\modules\modular_computers\file_system\programs\signaller.dm"
 #include "code\modules\modular_computers\file_system\programs\sm_monitor.dm"
 #include "code\modules\modular_computers\file_system\programs\statusdisplay.dm"
+#include "code\modules\modular_computers\file_system\programs\wiki_uplink.dm"
 #include "code\modules\modular_computers\file_system\programs\antagonist\contract_uplink.dm"
 #include "code\modules\modular_computers\file_system\programs\antagonist\dos.dm"
 #include "code\modules\modular_computers\file_system\programs\antagonist\emag.dm"
