@@ -72,7 +72,7 @@
   * Shows a list of all current and future polls and buttons to edit or delete them or create a new poll.
   *
   */
-/datum/admins/proc/poll_list_panel()
+/datum/admins/proc/poll_list_panel(show_expired)
 	var/list/output = list("Current and future polls<br>Note when editing polls or their options changes are not saved until you press Submit Poll.<br><a href='?_src_=holder;[HrefToken()];newpoll=1'>New Poll</a><a href='?_src_=holder;[HrefToken()];reloadpolls=1'>Reload Polls</a><hr>")
 	for(var/p in GLOB.polls)
 		var/datum/poll_question/poll = p
@@ -429,7 +429,7 @@ SELECT p.text, pv.rating, COUNT(*)
 			poll.save_all_options()
 	poll_management_panel(poll)
 
-/datum/poll_question/New(id, polltype, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, dontshow, allow_revoting, vote_count, creator, future, minimumplaytime, dbload = FALSE)
+/datum/poll_question/New(id, polltype, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, dontshow, allow_revoting, vote_count, creator, future, active_poll, minimumplaytime, dbload = FALSE)
 	poll_id = text2num(id)
 	poll_type = polltype
 	start_datetime = starttime
@@ -445,9 +445,12 @@ SELECT p.text, pv.rating, COUNT(*)
 	future_poll = text2num(future)
 	minimumplaytime = text2num(minimumplaytime) || 0
 	edit_ready = dbload
+	if (active_poll)
+		GLOB.active_polls += src
 	GLOB.polls += src
 
 /datum/poll_question/Destroy()
+	GLOB.active_polls -= src
 	GLOB.polls -= src
 	return ..()
 
@@ -476,6 +479,7 @@ SELECT p.text, pv.rating, COUNT(*)
 		var/datum/poll_option/option = o
 		qdel(option)
 	GLOB.polls -= src
+	GLOB.active_polls -= src
 	qdel(src)
 
 /**
@@ -804,13 +808,13 @@ SELECT p.text, pv.rating, COUNT(*)
 	if(!SSdbcore.Connect())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
-	var/datum/DBQuery/query_load_polls = SSdbcore.NewQuery("SELECT id, polltype, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, dontshow, allow_revoting, IF(polltype='TEXT',(SELECT COUNT(ckey) FROM [format_table_name("poll_textreply")] AS t WHERE t.pollid = q.id AND deleted = 0), (SELECT COUNT(DISTINCT ckey) FROM [format_table_name("poll_vote")] AS v WHERE v.pollid = q.id AND deleted = 0)), IFNULL((SELECT byond_key FROM [format_table_name("player")] AS p WHERE p.ckey = q.createdby_ckey), createdby_ckey), IF(starttime > NOW(), 1, 0), minimumplaytime FROM [format_table_name("poll_question")] AS q WHERE NOW() < endtime AND deleted = 0")
+	var/datum/DBQuery/query_load_polls = SSdbcore.NewQuery("SELECT id, polltype, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, dontshow, allow_revoting, IF(polltype='TEXT',(SELECT COUNT(ckey) FROM [format_table_name("poll_textreply")] AS t WHERE t.pollid = q.id AND deleted = 0), (SELECT COUNT(DISTINCT ckey) FROM [format_table_name("poll_vote")] AS v WHERE v.pollid = q.id AND deleted = 0)), IFNULL((SELECT byond_key FROM [format_table_name("player")] AS p WHERE p.ckey = q.createdby_ckey), createdby_ckey), IF(starttime > NOW(), 1, 0), IF(starttime > NOW() AND endtime < NOW(), 1, 0), minimumplaytime FROM [format_table_name("poll_question")] AS q WHERE deleted = 0")
 	if(!query_load_polls.Execute())
 		qdel(query_load_polls)
 		return
 	var/list/poll_ids = list()
 	while(query_load_polls.NextRow())
-		new /datum/poll_question(query_load_polls.item[1], query_load_polls.item[2], query_load_polls.item[3], query_load_polls.item[4], query_load_polls.item[5], query_load_polls.item[6], query_load_polls.item[7], query_load_polls.item[8], query_load_polls.item[9], query_load_polls.item[10], query_load_polls.item[11], query_load_polls.item[12], query_load_polls.item[13], query_load_polls.item[14], TRUE)
+		new /datum/poll_question(query_load_polls.item[1], query_load_polls.item[2], query_load_polls.item[3], query_load_polls.item[4], query_load_polls.item[5], query_load_polls.item[6], query_load_polls.item[7], query_load_polls.item[8], query_load_polls.item[9], query_load_polls.item[10], query_load_polls.item[11], query_load_polls.item[12], query_load_polls.item[13], query_load_polls.item[14], query_load_polls.item[15], TRUE)
 		poll_ids += query_load_polls.item[1]
 	qdel(query_load_polls)
 	if(length(poll_ids))

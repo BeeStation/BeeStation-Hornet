@@ -1843,6 +1843,7 @@
 
 	else if(href_list["reloadpolls"])
 		GLOB.polls.Cut()
+		GLOB.active_polls.Cut()
 		GLOB.poll_options.Cut()
 		load_poll_data()
 		poll_list_panel()
