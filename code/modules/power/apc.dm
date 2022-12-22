@@ -196,12 +196,27 @@
 			pixel_x = -25
 	if (building)
 		area = get_area(src)
+		clear_previous_power_alarm(src, area)
 		opened = APC_COVER_OPENED
 		operating = FALSE
 		name = "\improper [get_area_name(area, TRUE)] APC"
 		set_machine_stat(machine_stat | MAINT)
 		update_appearance()
 		addtimer(CALLBACK(src, .proc/update), 5)
+		area.poweralert(FALSE, src)
+
+/obj/machinery/power/apc/proc/clear_previous_power_alarm(obj/source, area/A)
+	var/list/L = GLOB.alarms["Power"]
+	for (var/I in L)
+		if(I == A.name)
+			var/list/alarm = L[I]
+			var/list/srcs  = alarm[3]
+			for(var/origin in srcs)
+				if(origin != source)//We don't want to clear our own alarm, do we
+					area.poweralert(TRUE, origin)
+					srcs -= origin
+			if (srcs.len == 0)
+				L -= I
 
 /obj/machinery/power/apc/Destroy()
 	GLOB.apcs_list -= src
@@ -1398,7 +1413,7 @@
 		equipment = autoset(equipment, 0)
 		lighting = autoset(lighting, 0)
 		environ = autoset(environ, 0)
-		area.poweralert(0, src)
+		area.poweralert(FALSE, src)
 
 	// update icon & area power if anything changed
 
@@ -1475,6 +1490,7 @@
 	operating = FALSE
 	if(occupier)
 		malfvacate(1)
+	area.poweralert(FALSE, src)
 	update_appearance()
 	update()
 
