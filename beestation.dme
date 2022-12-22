@@ -3462,6 +3462,7 @@
 #include "code\modules\surgery\coronary_bypass.dm"
 #include "code\modules\surgery\dental_implant.dm"
 #include "code\modules\surgery\eye_surgery.dm"
+#include "code\modules\surgery\gastrectomy.dm"
 #include "code\modules\surgery\healing.dm"
 #include "code\modules\surgery\helpers.dm"
 #include "code\modules\surgery\hepatectomy.dm"
