@@ -34,7 +34,7 @@
 				if(!do_mob(user, target, 15))
 					return COMPONENT_NO_AFTERATTACK
 			item_heal_robotic(target, user, 15, 0, affecting)
-			return COMPONENT_NO_AFTERATTACK // We managed to heal the limb
+		user.changeNext_move(CLICK_CD_MELEE * 0.5) //antispam
 		return COMPONENT_NO_AFTERATTACK
 
 	// Handles cable repairs
@@ -45,6 +45,7 @@
 			"<span class='notice'>You start fixing some of the burnt wires in [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>")
 			if(!do_mob(user, target, 15))
 				return COMPONENT_NO_AFTERATTACK
-		if(coil.use(1))
-			item_heal_robotic(target, user, 0, 15, affecting)
+		if(coil.amount && item_heal_robotic(target, user, 0, 15, affecting))
+			coil.use(1)
+		user.changeNext_move(CLICK_CD_MELEE * 0.5) //antispam
 		return COMPONENT_NO_AFTERATTACK
