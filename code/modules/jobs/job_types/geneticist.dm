@@ -1,6 +1,7 @@
 /datum/job/geneticist
 	jpath = JOB_PATH_GENETICIST
 	title = JOB_NAME_GENETICIST
+	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = GENETICIST
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the chief medical officer and research director"

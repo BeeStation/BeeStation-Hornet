@@ -14,6 +14,9 @@
 #define JTYPE_JOB_NAME "jname"
 #define JTYPE_SPECIAL "jspecial"
 
+// job bitflags
+#define JOB_BITFLAG_SELECTABLE (1<<0)
+#define JOB_BITFLAG_GIMMICK    (1<<1)
 
 // factions
 #define JOB_FACTION_STATION "Station"
@@ -77,6 +80,7 @@
 #define JOB_UNAVAILABLE_PLAYTIME 3
 #define JOB_UNAVAILABLE_ACCOUNTAGE 4
 #define JOB_UNAVAILABLE_SLOTFULL 5
+#define JOB_UNAVAILABLE_NOT_INTRODUCED 6
 
 #define DEFAULT_RELIGION "Christianity"
 #define DEFAULT_DEITY "Space Jesus"

@@ -4,6 +4,7 @@ Assistant
 /datum/job/assistant
 	jpath = JOB_PATH_ASSISTANT
 	title = JOB_NAME_ASSISTANT
+	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = ASSISTANT
 	supervisors = "absolutely everyone"
 	faction = JOB_FACTION_STATION

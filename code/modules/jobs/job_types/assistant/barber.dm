@@ -1,6 +1,7 @@
 /datum/job/assistant/barber
 	g_jpath = JOB_PATH_BARBER
 	g_title = JOB_NAME_BARBER
+	job_bitflags = JOB_BITFLAG_GIMMICK
 	flag = BARBER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"

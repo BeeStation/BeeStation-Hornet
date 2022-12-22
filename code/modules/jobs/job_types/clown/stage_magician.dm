@@ -1,6 +1,7 @@
 /datum/job/clown/stage_magician
 	g_jpath = JOB_PATH_STAGEMAGICIAN
 	g_title = JOB_NAME_STAGEMAGICIAN
+	job_bitflags = JOB_BITFLAG_GIMMICK
 	flag = MAGICIAN
 
 	outfit = /datum/outfit/job/stage_magician

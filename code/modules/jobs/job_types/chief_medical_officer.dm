@@ -1,6 +1,7 @@
 /datum/job/chief_medical_officer
 	jpath = JOB_PATH_CHIEFMEDICALOFFICER
 	title = JOB_NAME_CHIEFMEDICALOFFICER
+	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = CMO_JF
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"

@@ -224,6 +224,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	var/datum/job/J = SSjob.GetJob(job)
 	J.total_positions += 1
 	J.spawn_positions += 1
+	J.job_bitflags |= JOB_BITFLAG_SELECTABLE
 
 /obj/effect/landmark/start/randommaint/backalley_doc
 	name = JOB_NAME_BARBER

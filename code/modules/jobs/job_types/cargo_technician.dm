@@ -1,6 +1,7 @@
 /datum/job/cargo_technician
 	jpath = JOB_PATH_CARGOTECHNICIAN
 	title = JOB_NAME_CARGOTECHNICIAN
+	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = CARGOTECH
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the quartermaster and the head of personnel"

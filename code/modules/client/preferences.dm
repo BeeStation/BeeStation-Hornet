@@ -874,6 +874,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 		for(var/datum/job/job in sortList(SSjob.occupations, /proc/cmp_job_display_asc))
 			index += 1
+			if(!(job_bitflags & JOB_BITFLAG_SELECTABLE))
+				continue
 			if((index >= limit) || (job.get_jpath() in splitJobs))
 				width += widthPerColumn
 				if((index < limit) && (lastJob != null))

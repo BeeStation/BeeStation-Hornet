@@ -1,6 +1,7 @@
 /datum/job/warden
 	jpath = JOB_PATH_WARDEN
 	title = JOB_NAME_WARDEN
+	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = WARDEN
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)

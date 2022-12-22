@@ -1,6 +1,7 @@
 /datum/job/mime
 	jpath = JOB_PATH_MIME
 	title = JOB_NAME_MIME
+	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = MIME
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"

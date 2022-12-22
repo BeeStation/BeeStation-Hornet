@@ -255,12 +255,16 @@
 			return "Your account is not old enough for [job_key]."
 		if(JOB_UNAVAILABLE_SLOTFULL)
 			return "[job_key] is already filled to capacity."
+		if(JOB_UNAVAILABLE_NOT_INTRODUCED)
+			return "[job_key] is not an opened job"
 	return "Error: Unknown job availability."
 
 /mob/dead/new_player/proc/IsJobUnavailable(job_key, latejoin = FALSE)
 	var/datum/job/job = SSjob.GetJob(job_key)
 	if(!job)
 		return JOB_UNAVAILABLE_GENERIC
+	if(!(job.job_bitflags & JOB_BITFLAG_SELECTABLE))
+		return JOB_UNAVAILABLE_NOT_INTRODUCED
 	if((job.current_positions >= job.total_positions) && job.total_positions != -1)
 		if(job.get_jpath(FALSE) == JOB_PATH_ASSISTANT)
 			if(isnum_safe(client.player_age) && client.player_age <= 14) //Newbies can always be assistants
@@ -416,7 +420,7 @@
 		var/list/dept_dat = list()
 		for(var/job in category)
 			var/datum/job/job_datum = SSjob.name_occupations[job]
-			if(job_datum && IsJobUnavailable(job_datum.get_jpath(), TRUE) == JOB_AVAILABLE)
+			if(job_datum && IsJobUnavailable(job_datum.get_jpath()) == JOB_AVAILABLE)
 				var/command_bold = ""
 				if(job in GLOB.command_positions)
 					command_bold = " command"

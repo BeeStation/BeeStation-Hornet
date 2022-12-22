@@ -1,6 +1,7 @@
 /datum/job/assistant/vip
 	g_jpath = JOB_PATH_VIP
 	g_title = JOB_NAME_VIP
+	job_bitflags = JOB_BITFLAG_GIMMICK
 	flag = CELEBRITY
 	department_head = list()
 	supervisors = "yourself"

@@ -1,6 +1,7 @@
 /datum/job/curator
 	jpath = JOB_PATH_CURATOR
 	title = JOB_NAME_CURATOR
+	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = CURATOR
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"

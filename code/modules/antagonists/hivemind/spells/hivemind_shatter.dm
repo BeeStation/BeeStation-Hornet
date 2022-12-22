@@ -14,7 +14,7 @@
 		return
 	if(!hive.hivemembers)
 		return
-	if(target.mind?.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.security_positions)
+	if(target.mind?.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.security_positions+list(JOB_PATH_CAPTAIN, JOB_PATH_PSYCHIATRIST))
 		to_chat(user, "<span class='warning'>A subconsciously trained response barely protects [target.name]'s mind.</span>")
 		to_chat(target, "<span class='assimilator'>Powerful mental attacks strike out against us, our training allows us to barely overcome it.</span>")
 		return

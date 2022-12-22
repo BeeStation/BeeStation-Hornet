@@ -1,6 +1,7 @@
 /datum/job/head_of_security
 	jpath = JOB_PATH_HEADOFSECURITY
 	title = JOB_NAME_HEADOFSECURITY
+	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = HOS
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD|PREFTOGGLE_DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_CAPTAIN)

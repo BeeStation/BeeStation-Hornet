@@ -1,6 +1,7 @@
 /datum/job/atmospheric_technician
 	jpath = JOB_PATH_ATMOSPHERICTECHNICIAN
 	title = JOB_NAME_ATMOSPHERICTECHNICIAN
+	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = ATMOSTECH
 	department_head = list(JOB_NAME_CHIEFENGINEER)
 	supervisors = "the chief engineer"
