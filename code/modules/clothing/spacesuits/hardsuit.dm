@@ -345,7 +345,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/exploration/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/team_monitor, "expl", null)
+	AddComponent(/datum/component/team_monitor, "expl", -1)
 
 /obj/item/clothing/suit/space/hardsuit/exploration
 	icon_state = "hardsuit-exploration"
@@ -415,7 +415,7 @@
 		//Add the monitor (Default to null - No tracking)
 		component_beacon.attached_monitor = AddComponent(/datum/component/team_monitor, "synd", null, component_beacon)
 	else
-		AddComponent(/datum/component/team_monitor, "synd", null)
+		AddComponent(/datum/component/team_monitor, "synd", -1)
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/ui_action_click(mob/user, datum/action)
 	switch(action.type)
@@ -971,7 +971,7 @@
 		//Add the monitor (Default to null - No tracking)
 		component_beacon.attached_monitor = AddComponent(/datum/component/team_monitor, "synd", null, component_beacon)
 	else
-		AddComponent(/datum/component/team_monitor, "synd", null)
+		AddComponent(/datum/component/team_monitor, "synd", -1)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi/ui_action_click(mob/user, datum/action)
 	switch(action.type)

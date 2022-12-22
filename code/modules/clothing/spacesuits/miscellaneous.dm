@@ -189,7 +189,7 @@ Contains:
 		//Add the monitor (Default to null - No tracking)
 		component_beacon.attached_monitor = AddComponent(/datum/component/team_monitor, "cent", null, component_beacon)
 	else
-		AddComponent(/datum/component/team_monitor, "cent", null)
+		AddComponent(/datum/component/team_monitor, "cent", -1)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/ui_action_click(mob/user, datum/action)
 	switch(action.type)
