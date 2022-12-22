@@ -217,7 +217,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/randommaint
 	name = "maintjobstart"
 	icon_state = "x3"
-	var/job = "Gimmick" //put the title of the job here.
+	var/job = JOB_UNASSIGNED //put the title of the job here.
 
 /obj/effect/landmark/start/randommaint/New() //automatically opens up a job slot when the job's spawner loads in
 	..()
@@ -226,20 +226,20 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	J.spawn_positions += 1
 
 /obj/effect/landmark/start/randommaint/backalley_doc
-	name = "Barber"
-	job = "Barber"
+	name = JOB_NAME_BARBER
+	job = JOB_PATH_BARBER
 
 /obj/effect/landmark/start/randommaint/magician
-	name = "Stage Magician"
-	job = "Stage Magician"
+	name = JOB_NAME_STAGEMAGICIAN
+	job = JOB_PATH_STAGEMAGICIAN
 
 /obj/effect/landmark/start/randommaint/psychiatrist
-	name = "Psychiatrist"
-	job = "Psychiatrist"
+	name = JOB_NAME_PSYCHIATRIST
+	job = JOB_PATH_PSYCHIATRIST
 
 /obj/effect/landmark/start/randommaint/vip
-	name = "VIP"
-	job = "VIP"
+	name = JOB_NAME_VIP
+	job = JOB_PATH_VIP
 
 /obj/effect/landmark/start/randommaint/experiment
 	name = "Experiment"
