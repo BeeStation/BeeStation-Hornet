@@ -123,15 +123,35 @@
 
 
 /datum/brain_trauma/special/obsessed/proc/find_obsession()
-	var/chosen_victim
 	var/list/possible_targets = list()
-	var/list/viable_minds = list()
-	for(var/mob/Player in GLOB.player_list)//prevents crewmembers falling in love with nuke ops they never met, and other annoying hijinks
-		if(Player.mind && Player.stat != DEAD && !isnewplayer(Player) && !isbrain(Player) && Player.client && Player != owner && SSjob.GetJob(Player.mind.assigned_role))
-			viable_minds += Player.mind
-	for(var/datum/mind/possible_target in viable_minds)
-		if(possible_target != owner && ishuman(possible_target.current))
-			possible_targets += possible_target.current
-	if(possible_targets.len > 0)
-		chosen_victim = pick(possible_targets)
-	return chosen_victim
+	for(var/mob/living/Player in GLOB.player_list)
+		// these conditions are to filter mobs that isn't good for obssession.
+		// prevents crewmembers falling in love with nuke ops they never met, or with monkey, silicon, sentient corgi or weird mobs
+		// ------
+		// putting all conditions into a single if line is difficult to read...
+		if(!Player.mind)
+			continue
+		if(Player.stat == DEAD)
+			continue
+		if(isbrain(Player))
+			continue
+		if(!ishuman(Player)) // non-human isn't good for this...
+			continue
+		if(isnewplayer(Player))
+			continue
+		if(!Player.client)
+			continue
+		if(Player == owner) // don't self-obssession
+			continue
+		if(Player.mind.get_mind_role(JTYPE_JOB_PATH) == JOB_UNASSIGNED) // not original crew, but they can be a victim if their name is in datacore...
+			var/datum/data/record/D
+			if(Player.get_visible_name() != "Unknown")
+				D = find_record("name", Player.get_visible_name(), GLOB.data_core.general) // [1st try] key by "visible name"
+			if(!D && (Player.get_visible_name() != Player.real_name))
+				D = find_record("name", Player.real_name, GLOB.data_core.general) // [2nd try] key by "real name"
+			if(!D)
+				D = find_record("name", Player.mind.name, GLOB.data_core.general) // [3rd try] key by "mind name"
+			if(!D)
+				return
+		possible_targets += Player
+	return length(possible_targets) ? pick(possible_targets) : FALSE

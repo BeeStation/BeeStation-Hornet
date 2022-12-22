@@ -2,7 +2,7 @@
 	name = "Obsessed"
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"
-	job_rank = ROLE_OBSESSED
+	antag_role_type = ROLE_OBSESSED
 	show_name_in_check_antagonists = TRUE
 	roundend_category = "obsessed"
 	count_against_dynamic_roll_chance = FALSE
@@ -62,7 +62,7 @@
 	if(family_heirloom)//oh, they have an heirloom? Well you know we have to steal that.
 		objectives_left += "heirloom"
 
-	if(obsessionmind.assigned_role && obsessionmind.assigned_role != JOB_NAME_CAPTAIN)
+	if((obsessionmind.get_mind_role(JTYPE_JOB_PATH) != JOB_UNASSIGNED) && (obsessionmind.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) != JOB_PATH_CAPTAIN))
 		objectives_left += "jealous"//if they have no coworkers, jealousy will pick someone else on the station. this will never be a free objective, nice.
 
 	for(var/i in 1 to 3)
@@ -149,7 +149,7 @@
 /datum/objective/assassinate/obsessed/update_explanation_text()
 	..()
 	if(target && target.current)
-		explanation_text = "Murder [target.name], the [!target_role_type ? target.assigned_role : target.special_role]."
+		explanation_text = "Murder [target.name], the [!target_role_type ? target.get_mind_role(JTYPE_JOB_NAME) : target.get_mind_role(JTYPE_SPECIAL)]."
 	else
 		message_admins("WARNING! [ADMIN_LOOKUPFLW(owner)] obsessed objectives forged without an obsession!")
 		explanation_text = "Free Objective"
@@ -170,7 +170,7 @@
 		explanation_text = "Free Objective"
 
 /datum/objective/assassinate/jealous/find_target(list/dupe_search_range, list/blacklist)//returning null = free objective
-	if(!obsession?.assigned_role)
+	if(obsession?.get_mind_role(JTYPE_JOB_PATH) == JOB_UNASSIGNED)
 		set_target(null)
 		update_explanation_text()
 		return
@@ -178,27 +178,27 @@
 	var/list/all_coworkers = list()
 	var/list/chosen_department
 	//note that command and sillycone are gone because borgs can't be obsessions and the heads have their respective department. Sorry cap, your place is more with centcom or something
-	if(obsession.assigned_role in GLOB.security_positions)
+	if(obsession.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.security_positions)
 		chosen_department = GLOB.security_positions
-	else if(obsession.assigned_role in GLOB.engineering_positions)
+	else if(obsession.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.engineering_positions)
 		chosen_department = GLOB.engineering_positions
-	else if(obsession.assigned_role in GLOB.medical_positions)
+	else if(obsession.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.medical_positions)
 		chosen_department = GLOB.medical_positions
-	else if(obsession.assigned_role in GLOB.science_positions)
+	else if(obsession.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.science_positions)
 		chosen_department = GLOB.science_positions
-	else if(obsession.assigned_role in GLOB.supply_positions)
+	else if(obsession.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.supply_positions)
 		chosen_department = GLOB.supply_positions
-	else if(obsession.assigned_role in (GLOB.civilian_positions | GLOB.gimmick_positions))
-		chosen_department = GLOB.civilian_positions | GLOB.gimmick_positions
+	else if(obsession.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.civilian_positions)
+		chosen_department = GLOB.civilian_positions
 	else
 		set_target(null)
 		update_explanation_text()
 		return
 	for(var/datum/mind/possible_target as() in get_crewmember_minds())
-		if(!SSjob.GetJob(possible_target.assigned_role) || possible_target == obsession || possible_target.has_antag_datum(/datum/antagonist/obsessed) || (possible_target in blacklist))
+		if(!SSjob.GetJob(possible_target.get_mind_role(JTYPE_JOB_PATH)) || possible_target == obsession || possible_target.has_antag_datum(/datum/antagonist/obsessed) || (possible_target in blacklist))
 			continue //the jealousy target has to have a job, and not be the obsession or obsessed.
 		all_coworkers += possible_target
-		if(possible_target.assigned_role in chosen_department)
+		if(possible_target.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in chosen_department)
 			viable_coworkers += possible_target
 
 	if(viable_coworkers.len)//find someone in the same department

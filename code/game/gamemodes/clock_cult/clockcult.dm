@@ -64,8 +64,7 @@ GLOBAL_VAR(clockcult_eminence)
 			continue
 		antag_candidates -= clockie
 		selected_servants += clockie
-		clockie.assigned_role = ROLE_SERVANT_OF_RATVAR
-		clockie.special_role = ROLE_SERVANT_OF_RATVAR
+		clockie.mind_roles[JLIST_SPECIAL] = ROLE_SERVANT_OF_RATVAR
 	generate_clockcult_scriptures()
 	return TRUE
 
@@ -159,7 +158,7 @@ GLOBAL_VAR(clockcult_eminence)
 		return FALSE
 	if(!M.mind)
 		return FALSE
-	if(ishuman(M) && (M.mind.assigned_role in list(JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN)))
+	if(ishuman(M) && (M.mind.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in list(JOB_PATH_CAPTAIN, JOB_PATH_CHAPLAIN)))
 		return FALSE
 	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		return FALSE
@@ -225,7 +224,7 @@ GLOBAL_VAR(clockcult_eminence)
 						: "Clockmaster"
 				hierophant_message = "<span class='leader_brass'>"
 			if(CLOCKCULT_PREFIX_RECRUIT)
-				var/role = sender.mind?.assigned_role
+				var/role = sender.mind?.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE)
 				//Ew, this could be done better with a dictionary list, but this isn't much slower
 				if(role in GLOB.command_positions)
 					prefix = "High Priest"
@@ -237,13 +236,13 @@ GLOBAL_VAR(clockcult_eminence)
 					prefix = "Calculator"
 				else if(role in GLOB.supply_positions)
 					prefix = "Pathfinder"
-				else if(role in JOB_NAME_ASSISTANT)
+				else if(role in JOB_PATH_ASSISTANT)
 					prefix = "Helper"
-				else if(role in JOB_NAME_MIME)
+				else if(role in JOB_PATH_MIME)
 					prefix = "Cogwatcher"
-				else if(role in JOB_NAME_CLOWN)
+				else if(role in JOB_PATH_CLOWN)
 					prefix = "Clonker"
-				else if((role in GLOB.civilian_positions) || (role in GLOB.gimmick_positions))
+				else if(role in GLOB.civilian_positions)
 					prefix = "Cogworker"
 				else if(role in GLOB.security_positions)
 					prefix = "Warrior"

@@ -26,7 +26,7 @@
 	addtimer(CALLBACK(src, .proc/reveal_antag_status, M), rand(10,100))
 
 /datum/special_role/traitor/proc/reveal_antag_status(datum/mind/M)
-	M.special_role = role_name
+	M.mind_roles[JLIST_SPECIAL] = role_name
 	var/datum/antagonist/special/A = M.add_antag_datum(new attached_antag_datum())
 	A.forge_objectives(M)
 	A.equip()

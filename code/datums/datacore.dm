@@ -213,95 +213,97 @@
 /datum/datacore/proc/manifest_inject(mob/living/carbon/human/H, client/C)
 	set waitfor = FALSE
 	var/static/list/show_directions = list(SOUTH, WEST)
-	if(H.mind && (H.mind.assigned_role != H.mind.special_role))
-		var/assignment
-		if(H.mind.assigned_role)
-			assignment = H.mind.assigned_role
-		else if(H.job)
-			assignment = H.job
-		else
-			assignment = "Unassigned"
 
-		var/static/record_id_num = 1001
-		var/id = num2hex(record_id_num++,6)
-		if(!C)
-			C = H.client
-		var/image = get_id_photo(H, C, show_directions)
-		var/datum/picture/pf = new
-		var/datum/picture/ps = new
-		pf.picture_name = "[H]"
-		ps.picture_name = "[H]"
-		pf.picture_desc = "This is [H]."
-		ps.picture_desc = "This is [H]."
-		pf.picture_image = icon(image, dir = SOUTH)
-		ps.picture_image = icon(image, dir = WEST)
-		var/obj/item/photo/photo_front = new(null, pf)
-		var/obj/item/photo/photo_side = new(null, ps)
+	if(!H?.mind)
+		return
+	var/assignment = H.mind.get_mind_role(JTYPE_JOB_NAME)
+	var/job_key = H.mind.get_mind_role(JTYPE_JOB_PATH)
+	if(!assignment && H.job)
+		assignment = H.job
+		job_key = H.job
 
-		//These records should ~really~ be merged or something
-		//General Record
-		var/datum/data/record/G = new()
-		G.fields["id"]			= id
-		G.fields["name"]		= H.real_name
-		G.fields["rank"]		= assignment
-		G.fields["hud"]			= get_hud_by_jobname(assignment)
-		G.fields["active_dept"]	= SSjob.GetJobActiveDepartment(assignment)
-		G.fields["age"]			= H.age
-		G.fields["species"]	= H.dna.species.name
-		G.fields["fingerprint"]	= rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)
-		G.fields["p_stat"]		= "Active"
-		G.fields["m_stat"]		= "Stable"
-		G.fields["sex"]			= H.gender
-		G.fields["photo_front"]	= photo_front
-		G.fields["photo_side"]	= photo_side
-		general += G
+	var/static/record_id_num = 1001
+	var/id = num2hex(record_id_num++,6)
+	if(!C)
+		C = H.client
+	var/image = get_id_photo(H, C, show_directions)
+	var/datum/picture/pf = new
+	var/datum/picture/ps = new
+	pf.picture_name = "[H]"
+	ps.picture_name = "[H]"
+	pf.picture_desc = "This is [H]."
+	ps.picture_desc = "This is [H]."
+	pf.picture_image = icon(image, dir = SOUTH)
+	ps.picture_image = icon(image, dir = WEST)
+	var/obj/item/photo/photo_front = new(null, pf)
+	var/obj/item/photo/photo_side = new(null, ps)
 
-		//Medical Record
-		var/datum/data/record/M = new()
-		M.fields["id"]			= id
-		M.fields["name"]		= H.real_name
-		M.fields["blood_type"]	= H.dna.blood_type
-		M.fields["b_dna"]		= H.dna.unique_enzymes
-		M.fields["mi_dis"]		= "None"
-		M.fields["mi_dis_d"]	= "No minor disabilities have been declared."
-		M.fields["ma_dis"]		= "None"
-		M.fields["ma_dis_d"]	= "No major disabilities have been diagnosed."
-		M.fields["alg"]			= "None"
-		M.fields["alg_d"]		= "No allergies have been detected in this patient."
-		M.fields["cdi"]			= "None"
-		M.fields["cdi_d"]		= "No diseases have been diagnosed at the moment."
-		M.fields["notes"]		= "No notes."
-		medical += M
+	//These records should ~really~ be merged or something
+	//General Record
+	var/datum/data/record/G = new()
+	G.fields["id"]			= id
+	G.fields["name"]		= H.real_name
+	G.fields["rank"]		= assignment
+	G.fields["hud"]			= get_hud_by_jobname(job_key)
+	G.fields["active_dept"]	= SSjob.GetJobActiveDepartment(job_key)
+	G.fields["age"]			= H.age
+	G.fields["species"]     = H.dna.species.name
+	G.fields["fingerprint"]	= rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)
+	G.fields["p_stat"]		= "Active"
+	G.fields["m_stat"]		= "Stable"
+	G.fields["sex"]			= H.gender
+	G.fields["photo_front"]	= photo_front
+	G.fields["photo_side"]	= photo_side
+	general += G
 
-		//Security Record
-		var/datum/data/record/S = new()
-		S.fields["id"]			= id
-		S.fields["name"]		= H.real_name
-		S.fields["criminal"]	= "None"
-		S.fields["citation"]	= list()
-		S.fields["crim"]		= list()
-		S.fields["notes"]		= "No notes."
-		security += S
+	//Medical Record
+	var/datum/data/record/M = new()
+	M.fields["id"]			= id
+	M.fields["name"]		= H.real_name
+	M.fields["blood_type"]	= H.dna.blood_type
+	M.fields["b_dna"]		= H.dna.unique_enzymes
+	M.fields["mi_dis"]		= "None"
+	M.fields["mi_dis_d"]	= "No minor disabilities have been declared."
+	M.fields["ma_dis"]		= "None"
+	M.fields["ma_dis_d"]	= "No major disabilities have been diagnosed."
+	M.fields["alg"]			= "None"
+	M.fields["alg_d"]		= "No allergies have been detected in this patient."
+	M.fields["cdi"]			= "None"
+	M.fields["cdi_d"]		= "No diseases have been diagnosed at the moment."
+	M.fields["notes"]		= "No notes."
+	medical += M
 
-		//Locked Record
-		var/datum/data/record/L = new()
-		L.fields["id"]			= rustg_hash_string(RUSTG_HASH_MD5, "[H.real_name][H.mind.assigned_role]")	//surely this should just be id, like the others?
-		L.fields["name"]		= H.real_name
-		L.fields["rank"] 		= H.mind.assigned_role
-		L.fields["age"]			= H.age
-		L.fields["sex"]			= H.gender
-		L.fields["blood_type"]	= H.dna.blood_type
-		L.fields["b_dna"]		= H.dna.unique_enzymes
-		L.fields["identity"]	= H.dna.uni_identity
-		L.fields["species"]		= H.dna.species.type
-		L.fields["features"]	= H.dna.features
-		L.fields["image"]		= image
-		L.fields["mindref"]		= H.mind
-		locked += L
+	//Security Record
+	var/datum/data/record/S = new()
+	S.fields["id"]			= id
+	S.fields["name"]		= H.real_name
+	S.fields["criminal"]	= "None"
+	S.fields["citation"]	= list()
+	S.fields["crim"]		= list()
+	S.fields["notes"]		= "No notes."
+	security += S
+
+	//Locked Record
+	var/datum/data/record/L = new()
+	L.fields["id"]			= rustg_hash_string(RUSTG_HASH_MD5, "[H.real_name][job_key]")	//surely this should just be id, like the others?
+	L.fields["name"]		= H.real_name
+	L.fields["rank"] 		= job_key
+	L.fields["age"]			= H.age
+	L.fields["sex"]			= H.gender
+	L.fields["blood_type"]	= H.dna.blood_type
+	L.fields["b_dna"]		= H.dna.unique_enzymes
+	L.fields["identity"]	= H.dna.uni_identity
+	L.fields["species"]		= H.dna.species.type
+	L.fields["features"]	= H.dna.features
+	L.fields["image"]		= image
+	L.fields["mindref"]		= H.mind
+	locked += L
 	return
 
 /datum/datacore/proc/get_id_photo(mob/living/carbon/human/H, client/C, show_directions = list(SOUTH))
-	var/datum/job/J = SSjob.GetJob(H.mind.assigned_role)
+	var/datum/job/J = SSjob.GetJob(H.mind.get_mind_role(JTYPE_JOB_PATH))
+	if(!J)
+		J = SSjob.GetJob(JOB_PATH_ASSISTANT)
 	var/datum/character_save/CS
 	if(!C)
 		C = H.client

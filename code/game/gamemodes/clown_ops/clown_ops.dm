@@ -23,8 +23,8 @@
 				new /obj/machinery/nuclearbomb/syndicate/bananium(T)
 		for(var/V in pre_nukeops)
 			var/datum/mind/the_op = V
-			the_op.assigned_role = "Clown Operative"
-			the_op.special_role = "Clown Operative"
+			the_op.mind_roles[JLIST_SPECIAL] = ROLE_OPERATIVE
+			the_op.mind_roles[JLIST_GIMMICK_SPECIAL] = ROLE_OPERATIVE_CLOWN
 
 /datum/outfit/syndicate/clownop
 	name = "Clown Operative - Basic"

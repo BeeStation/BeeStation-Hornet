@@ -170,7 +170,7 @@
 /mob/living/silicon/pai/Login()
 	..()
 	var/datum/asset/notes_assets = get_asset_datum(/datum/asset/simple/pAI)
-	mind.assigned_role = JOB_NAME_PAI
+	mind.mind_roles[JLIST_SPECIAL] = JOB_PATH_PAI
 	if(!notes_assets.send(client))
 		return
 	client.perspective = EYE_PERSPECTIVE

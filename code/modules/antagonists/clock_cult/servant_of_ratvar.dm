@@ -7,7 +7,7 @@
 	roundend_category = "clock cultists"
 	antagpanel_category = "Clockcult"
 	antag_moodlet = /datum/mood_event/cult
-	job_rank = ROLE_SERVANT_OF_RATVAR
+	antag_role_type = ROLE_SERVANT_OF_RATVAR
 
 	//The class of the servant
 	var/datum/action/innate/clockcult/transmit/transmit_spell

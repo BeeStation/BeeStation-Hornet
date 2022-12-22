@@ -263,7 +263,7 @@
 				to_chat(user, "<span class='warning'>The MMI indicates that the brain is damaged!</span>")
 				return
 
-			if(is_banned_from(BM.ckey, JOB_NAME_CYBORG) || QDELETED(src) || QDELETED(BM) || QDELETED(user) || QDELETED(M) || !Adjacent(user))
+			if(is_banned_from(BM.ckey, JOB_PATH_CYBORG) || QDELETED(src) || QDELETED(BM) || QDELETED(user) || QDELETED(M) || !Adjacent(user))
 				if(!QDELETED(M))
 					to_chat(user, "<span class='warning'>This [M.name] does not seem to fit!</span>")
 				return
@@ -299,7 +299,7 @@
 
 			SSticker.mode.remove_antag_for_borging(BM.mind)
 
-			O.job = JOB_NAME_CYBORG
+			O.job = JOB_PATH_CYBORG
 
 			O.cell = chest.cell
 			chest.cell.forceMove(O)
@@ -313,7 +313,7 @@
 
 			BM.mind.transfer_to(O)
 
-			if(O.mind?.special_role)
+			if(O.mind?.get_mind_role(JTYPE_SPECIAL))
 				O.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
 				to_chat(O, "<span class='userdanger'>You have been robotized!</span>")
 				to_chat(O, "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>")
@@ -361,7 +361,6 @@
 			chest.cell.forceMove(O)
 			chest.cell = null
 			O.locked = panel_locked
-			O.job = JOB_NAME_CYBORG
 			forceMove(O)
 			O.robot_suit = src
 			if(!locomotion)

@@ -1,9 +1,10 @@
 /datum/job/cargo_technician
+	jpath = JOB_PATH_CARGOTECHNICIAN
 	title = JOB_NAME_CARGOTECHNICIAN
 	flag = CARGOTECH
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the quartermaster and the head of personnel"
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 3
 	spawn_positions = 2
 	selection_color = "#dcba97"
@@ -28,7 +29,7 @@
 	biohazard = 25
 
 /datum/outfit/job/cargo_technician
-	name = JOB_NAME_CARGOTECHNICIAN
+	name = JOB_PATH_CARGOTECHNICIAN
 	jobtype = /datum/job/cargo_technician
 
 	id = /obj/item/card/id/job/cargo_technician

@@ -424,12 +424,12 @@
 
 /datum/export/pirate/ransom/get_cost(atom/movable/AM)
 	var/mob/living/carbon/human/H = AM
-	if(H.stat != CONSCIOUS || !H.mind || !H.mind.assigned_role) //mint condition only
+	if(H.stat != CONSCIOUS || !H.mind || !H.mind.get_mind_role(JTYPE_JOB_PATH, TRUE)) //mint condition only
 		return 0
 	else if("pirate" in H.faction) //can't ransom your fellow pirates to CentCom!
 		return 0
 	else
-		if(H.mind.assigned_role in GLOB.command_positions)
+		if(H.mind.get_mind_role(JTYPE_JOB_PATH, TRUE) in GLOB.command_positions)
 			return 3000
 		else
 			return 1000

@@ -109,8 +109,7 @@
 	to_chat(src, "<b>Be sure to read <a href=\"https://tgstation13.org/wiki/Revenant\">the wiki page</a> to learn more.</b>")
 	if(!generated_objectives_and_spells)
 		generated_objectives_and_spells = TRUE
-		mind.assigned_role = ROLE_REVENANT
-		mind.special_role = ROLE_REVENANT
+		mind.mind_roles[JLIST_SPECIAL] = ROLE_REVENANT
 		SEND_SOUND(src, sound('sound/effects/ghost.ogg'))
 		mind.add_antag_datum(/datum/antagonist/revenant)
 

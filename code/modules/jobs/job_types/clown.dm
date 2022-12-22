@@ -1,9 +1,10 @@
 /datum/job/clown
+	jpath = JOB_PATH_CLOWN
 	title = JOB_NAME_CLOWN
 	flag = CLOWN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#dddddd"
@@ -31,7 +32,7 @@
 	H.apply_pref_name("clown", M.client)
 
 /datum/outfit/job/clown
-	name = JOB_NAME_CLOWN
+	name = JOB_PATH_CLOWN
 	jobtype = /datum/job/clown
 
 	id = /obj/item/card/id/job/clown

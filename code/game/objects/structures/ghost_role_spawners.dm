@@ -171,9 +171,11 @@
 		else
 			H.fully_replace_character_name(null, name)
 	if(has_owner)
-		new_spawn.mind.assigned_role = "Servant Golem"
+		new_spawn.mind.mind_roles[JLIST_SPECIAL] = ROLE_GOLEMS
+		new_spawn.mind.mind_roles[JLIST_GIMMICK_SPECIAL] = "Servant Golem"
 	else
-		new_spawn.mind.assigned_role = "Free Golem"
+		new_spawn.mind.mind_roles[JLIST_SPECIAL] = ROLE_GOLEMS
+		new_spawn.mind.mind_roles[JLIST_GIMMICK_SPECIAL] = "Free Golem"
 
 /obj/effect/mob_spawn/human/golem/attack_hand(mob/user)
 	. = ..()

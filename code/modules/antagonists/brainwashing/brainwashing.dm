@@ -28,7 +28,7 @@
 
 /datum/antagonist/brainwashed
 	name = "Brainwashed Victim"
-	job_rank = ROLE_BRAINWASHED
+	antag_role_type = ROLE_BRAINWASHED
 	roundend_category = "brainwashed victims"
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"

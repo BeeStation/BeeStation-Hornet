@@ -361,10 +361,10 @@
 			return FALSE
 		else if(isAI(M))
 			var/mob/living/silicon/ai/A = M
-			if(A.laws && A.laws.zeroth && A.mind && A.mind.special_role)
+			if(A.laws && A.laws.zeroth && A.mind && A.mind.get_mind_role(JTYPE_SPECIAL))
 				return TRUE
 		return FALSE
-	if(M.mind && M.mind.special_role)//If they have a mind and special role, they are some type of traitor or antagonist.
+	if(M.mind && M.mind.get_mind_role(JTYPE_SPECIAL))//If they have a mind and special role, they are some type of traitor or antagonist.
 		switch(SSticker.mode.config_tag)
 			if("revolution")
 				if(is_revolutionary(M))
@@ -488,15 +488,19 @@
 	if(usr)
 		log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
 		message_admins("[key_name_admin(usr)] has offered control of ([ADMIN_LOOKUPFLW(M)]) to ghosts")
-	var/poll_message = "Do you want to play as [M.real_name]?"
-	if(M.mind && M.mind.assigned_role)
-		poll_message = "[poll_message] Job:[M.mind.assigned_role]."
-	if(M.mind && M.mind.special_role)
-		poll_message = "[poll_message] Status:[M.mind.special_role]."
+	var/poll_message
+	if(!M.mind)
+		poll_message = "Do you want to play as [M.real_name]?"
+	else
+		poll_message = "Do you want to play as [M.mind.name]?[M.mind.name != M.name ? " (Disguised as [M.name])" : ""]<br/>"
+	if(M.mind && M.mind.get_mind_role(JTYPE_JOB_PATH))
+		poll_message += " Job:[M.mind.get_mind_role(JTYPE_JOB_PATH)]."
+	if(M.mind && M.mind.get_mind_role(JTYPE_SPECIAL))
+		poll_message += " Status:[M.mind.get_mind_role(JTYPE_SPECIAL)]."
 	else if(M.mind)
 		var/datum/antagonist/A = M.mind.has_antag_datum(/datum/antagonist/)
 		if(A)
-			poll_message = "[poll_message] Status:[A.name]."
+			poll_message += " Status:[A.name]."
 	var/list/mob/dead/observer/candidates = pollCandidatesForMob(poll_message, ROLE_PAI, null, FALSE, 100, M)
 
 	if(LAZYLEN(candidates))

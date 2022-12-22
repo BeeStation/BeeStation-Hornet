@@ -2,7 +2,7 @@
 	name = "Hivemind Host"
 	roundend_category = "hiveminds"
 	antagpanel_category = "Hivemind Host"
-	job_rank = ROLE_HIVE
+	antag_role_type = ROLE_HIVE
 	antag_moodlet = /datum/mood_event/hivehost
 	var/special_role = ROLE_HIVE
 	var/list/hivemembers = list()
@@ -156,7 +156,7 @@
 
 
 /datum/antagonist/hivemind/on_gain()
-	owner.special_role = special_role
+	owner.mind_roles[JLIST_SPECIAL] = special_role
 	GLOB.hivehosts += src
 	generate_flavour()
 	create_actions()
@@ -198,7 +198,7 @@
 
 	if(!silent && owner.current)
 		to_chat(owner.current,"<span class='userdanger'> Your psionic powers fade, you are no longer the hivemind's host! </span>")
-	owner.special_role = null
+	owner.nullify_special_role()
 	..()
 
 /datum/antagonist/hivemind/proc/forge_objectives()

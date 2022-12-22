@@ -14,7 +14,7 @@
 	var/leader = FALSE
 	var/datum/outfit/outfit = /datum/outfit/ert/security
 	var/datum/outfit/plasmaman_outfit = /datum/outfit/plasmaman/ert
-	var/role = JOB_NAME_SECURITYOFFICER
+	var/role = "Security Officer" // This isn't station job
 	var/list/name_source
 	var/random_names = TRUE
 	can_elimination_hijack = ELIMINATION_PREVENT
@@ -22,6 +22,7 @@
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
 	count_against_dynamic_roll_chance = FALSE
+	antag_role_type = ROLE_ERT
 
 /datum/antagonist/ert/on_gain()
 	if(random_names)
@@ -29,6 +30,8 @@
 	forge_objectives()
 	equipERT()
 	owner.store_memory("Your team's shared tracking beacon frequency is [ert_team.ert_frequency].")
+	owner.mind_roles[JLIST_SPECIAL] = antag_role_type
+	owner.mind_roles[JLIST_GIMMICK_SPECIAL] = "[antag_role_type] [role]"
 	. = ..()
 
 /datum/antagonist/ert/get_team()

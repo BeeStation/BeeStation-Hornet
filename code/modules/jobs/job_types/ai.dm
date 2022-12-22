@@ -1,9 +1,10 @@
 /datum/job/ai
+	jpath = JOB_PATH_AI
 	title = JOB_NAME_AI
 	flag = AI_JF
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SILICON
 	department_flag = ENGSEC
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ccffcc"

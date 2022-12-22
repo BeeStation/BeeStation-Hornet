@@ -2,7 +2,7 @@
 	name = "Space Wizard"
 	roundend_category = "wizards/witches"
 	antagpanel_category = "Wizard"
-	job_rank = ROLE_WIZARD
+	antag_role_type = ROLE_WIZARD
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5
 	var/strip = TRUE //strip before equipping

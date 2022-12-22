@@ -41,7 +41,7 @@
 	objectives += chosen_objective
 	log_objective(owner, chosen_objective.explanation_text)
 
-	if(owner.assigned_role in GLOB.engineering_positions)
+	if(owner.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.engineering_positions)
 		var/datum/objective/protect_sm/objective = new
 		if(objective.get_target())
 			objective.update_explanation_text()

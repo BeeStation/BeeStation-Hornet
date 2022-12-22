@@ -4,7 +4,7 @@
 	report_type = "devil"
 	antag_flag = ROLE_DEVIL
 	false_report_weight = 1
-	protected_jobs = list(JOB_NAME_LAWYER, JOB_NAME_CURATOR, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE)
+	protected_jobs = list(JOB_PATH_LAWYER, JOB_PATH_CURATOR, JOB_PATH_CHAPLAIN, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN, JOB_PATH_AI, JOB_PATH_CYBORG, JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE)
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4
@@ -27,7 +27,7 @@
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += JOB_NAME_ASSISTANT
+		restricted_jobs += JOB_PATH_ASSISTANT
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
 
@@ -44,7 +44,7 @@
 			break
 		var/datum/mind/devil = antag_pick(antag_candidates, ROLE_DEVIL)
 		devils += devil
-		devil.special_role = traitor_name
+		devil.mind_roles[JLIST_SPECIAL] = traitor_name
 		devil.restricted_roles = restricted_jobs
 
 		log_game("[key_name(devil)] has been selected as a [traitor_name]")

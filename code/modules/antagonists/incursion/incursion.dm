@@ -1,7 +1,7 @@
 /datum/antagonist/incursion
 	name = "Syndicate Incursion Member"
 	antagpanel_category = "Incursion"
-	job_rank = ROLE_INCURSION
+	antag_role_type = ROLE_INCURSION
 	var/special_role = ROLE_INCURSION
 	var/datum/team/incursion/team
 	antag_moodlet = /datum/mood_event/focused
@@ -22,7 +22,7 @@
 	for(var/datum/objective/O in team.objectives)
 		objectives += O
 		log_objective(owner, O.explanation_text)
-	owner.special_role = special_role
+	owner.mind_roles[JLIST_SPECIAL] = special_role
 	finalize_incursion()
 	return ..()
 
@@ -30,7 +30,7 @@
 	SSticker.mode.incursionists -= owner
 	if(owner.current)
 		to_chat(owner.current,"<span class='userdanger'>The Syndicate plans have fallen apart, you are no longer a member of the incursion.</span>")
-	owner.special_role = null
+	owner.nullify_special_role()
 	return ..()
 
 /datum/antagonist/incursion/antag_panel_data()
@@ -177,7 +177,7 @@
 					generate_traitor_kill_objective(restricted_jobs)
 					return
 				var/datum/mind/selected = pick(current_heads)
-				if(selected.special_role)
+				if(selected.get_mind_role(JTYPE_SPECIAL))
 					generate_traitor_kill_objective(restricted_jobs)
 					return
 				killchosen.set_target(selected)

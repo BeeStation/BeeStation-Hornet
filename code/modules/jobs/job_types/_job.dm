@@ -1,6 +1,12 @@
 /datum/job
-	///The name of the job , used for preferences, bans and more. Make sure you know what you're doing before changing this.
+	///Path of the job. used for preferences, bans and more. Make sure you know what you're doing before changing this.
+	var/jpath = "NOPE"
+	///The name of the job. only used to display the job title.
 	var/title = "NOPE"
+
+	// these are identical above but only used for gimmick jobs.
+	var/g_jpath
+	var/g_title
 
 	///Job access. The use of minimal_access or access is determined by a config setting: config.jobs_have_minimal_access
 	var/list/minimal_access = list()		//Useful for servers which prefer to only have access given to the places a job absolutely needs (Larger server population)
@@ -73,8 +79,6 @@
 	// If this job's mail goodies compete with generic goodies.
 	var/exclusive_mail_goodies = FALSE
 
-	var/gimmick = FALSE //least hacky way i could think of for this
-
 	///Bitfield of departments this job belongs with
 	var/departments = NONE
 	///Is this job affected by weird spawns like the ones from station traits
@@ -93,6 +97,12 @@
 
 /datum/job/New()
 	. = ..()
+
+/datum/job/proc/get_title(gimmick=TRUE)
+	return gimmick ? (g_title || title) : title
+
+/datum/job/proc/get_jpath(gimmick=TRUE)
+	return gimmick ? (g_jpath || jpath) : jpath
 
 //Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 //H is usually a human unless an /equip override transformed it
@@ -114,7 +124,7 @@
 			if(G)
 				var/permitted = FALSE
 
-				if(G.allowed_roles && H.mind && (H.mind.assigned_role in G.allowed_roles))
+				if(G.allowed_roles && H.mind && (H.mind.get_mind_role(JTYPE_JOB_PATH) in G.allowed_roles))
 					permitted = TRUE
 				else if(!G.allowed_roles)
 					permitted = TRUE
@@ -329,8 +339,8 @@
 		C.access = J.get_access()
 		shuffle_inplace(C.access) // Shuffle access list to make NTNet passkeys less predictable
 		C.registered_name = H.real_name
-		C.assignment = J.title
-		C.set_hud_icon_on_spawn(J.title)
+		C.assignment = J.get_title()
+		C.set_hud_icon_on_spawn(J.get_jpath())
 		C.update_label()
 		for(var/datum/bank_account/B in SSeconomy.bank_accounts)
 			if(!H.mind)

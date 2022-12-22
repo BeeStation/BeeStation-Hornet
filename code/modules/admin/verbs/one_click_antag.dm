@@ -28,7 +28,7 @@
 	popup.open()
 
 /datum/admins/proc/isReadytoRumble(mob/living/carbon/human/applicant, targetrole, onstation = TRUE, conscious = TRUE)
-	if(applicant.mind.special_role)
+	if(applicant.mind.get_mind_role(JTYPE_SPECIAL))
 		return FALSE
 	if(!(targetrole in applicant.client.prefs.be_special))
 		return FALSE
@@ -50,7 +50,7 @@
 		temp.restricted_jobs += temp.protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		temp.restricted_jobs += JOB_NAME_ASSISTANT
+		temp.restricted_jobs += JOB_PATH_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		temp.restricted_jobs += GLOB.command_positions
@@ -85,7 +85,7 @@
 		temp.restricted_jobs += temp.protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		temp.restricted_jobs += JOB_NAME_ASSISTANT
+		temp.restricted_jobs += JOB_PATH_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		temp.restricted_jobs += GLOB.command_positions
@@ -118,7 +118,7 @@
 		temp.restricted_jobs += temp.protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		temp.restricted_jobs += JOB_NAME_ASSISTANT
+		temp.restricted_jobs += JOB_PATH_ASSISTANT
 
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
@@ -157,7 +157,7 @@
 		temp.restricted_jobs += temp.protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		temp.restricted_jobs += JOB_NAME_ASSISTANT
+		temp.restricted_jobs += JOB_PATH_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		temp.restricted_jobs += GLOB.command_positions
@@ -401,7 +401,7 @@
 					ert_antag = new ert_antag
 
 				ERTOperative.mind.add_antag_datum(ert_antag,ert_team)
-				ERTOperative.mind.assigned_role = ert_antag.name
+				ERTOperative.mind.mind_roles[JLIST_SPECIAL] = ert_antag.name
 
 				//Logging and cleanup
 				log_game("[key_name(ERTOperative)] has been selected as an [ert_antag.name]")

@@ -73,7 +73,7 @@
 				if(R)
 					.["user"]["job"] = R.fields["rank"]
 				else if(C.registered_account.account_job)
-					.["user"]["job"] = C.registered_account.account_job.title
+					.["user"]["job"] = C.registered_account.account_job.get_title()
 				else
 					.["user"]["job"] = "No Job"
 
@@ -138,7 +138,7 @@
 		new /datum/data/vendor_equipment("Mining Conscription Kit",		/obj/item/storage/backpack/duffelbag/mining_conscript,				1000),
 		new /datum/data/vendor_equipment("Plasma Cutter", 				/obj/item/gun/energy/plasmacutter,									2000),
 		new /datum/data/vendor_equipment("Advanced Plasma Cutter", 		/obj/item/gun/energy/plasmacutter/adv,								4000),
-	//Assorted other equipment		
+	//Assorted other equipment
 		new /datum/data/vendor_equipment("Explorer's Webbing",			/obj/item/storage/belt/mining,										500),
 		new /datum/data/vendor_equipment("Survival Knife",				/obj/item/kitchen/knife/combat/survival,							500),
 		new	/datum/data/vendor_equipment("Seclite", 					/obj/item/flashlight/seclite,										500),
@@ -156,7 +156,7 @@
 		new /datum/data/vendor_equipment("Lazarus Injector",			/obj/item/lazarus_injector,											1000),
 		new /datum/data/vendor_equipment("Survival Medipen",			/obj/item/reagent_containers/hypospray/medipen/survival,			1000),
 		new /datum/data/vendor_equipment("Skeleton Key",				/obj/item/skeleton_key,												1200),
-	//Shelters	
+	//Shelters
 		new /datum/data/vendor_equipment("Shelter Capsule",				/obj/item/survivalcapsule,											400),
 		new /datum/data/vendor_equipment("Luxury Shelter Capsule",		/obj/item/survivalcapsule/luxury,									3000),
 		new /datum/data/vendor_equipment("Mining Outpost Capsule",		/obj/item/survivalcapsule/encampment,								5000),

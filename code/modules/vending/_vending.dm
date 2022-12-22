@@ -707,7 +707,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 			.["user"]["department_bitflag"] = 0
 			var/datum/data/record/R = find_record("name", C.registered_account.account_holder, GLOB.data_core.general)
 			if(C.registered_account.account_job)
-				.["user"]["job"] = C.registered_account.account_job.title
+				.["user"]["job"] = C.registered_account.account_job.get_title()
 				.["user"]["department_bitflag"] = C.registered_account.active_departments
 			if(R)
 				.["user"]["job"] = R.fields["rank"]

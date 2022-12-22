@@ -115,7 +115,7 @@
 
 	if(target_ai.mind)
 		target_ai.mind.transfer_to(src)
-		if(mind.special_role)
+		if(mind.get_mind_role(JTYPE_SPECIAL))
 			mind.store_memory("As an AI, you must obey your silicon laws above all else. Your objectives will consider you to be dead.")
 			to_chat(src, "<span class='userdanger'>You have been installed as an AI!</span>")
 			to_chat(src, "<span class='danger'>You must obey your silicon laws above all else. Your objectives will consider you to be dead.</span>")
@@ -376,9 +376,9 @@
 
 	if(GLOB.announcement_systems.len)
 		var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
-		announcer.announce("AIWIPE", real_name, mind.assigned_role, list())
+		announcer.announce("AIWIPE", real_name, mind.get_mind_role(JTYPE_JOB_PATH), list())
 
-	SSjob.FreeRole(mind.assigned_role)
+	SSjob.FreeRole(mind.get_mind_role(JTYPE_JOB_PATH))
 
 	if(!get_ghost(1))
 		if(world.time < 30 * 600)//before the 30 minute mark

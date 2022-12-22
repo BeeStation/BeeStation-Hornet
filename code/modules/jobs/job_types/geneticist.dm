@@ -1,9 +1,10 @@
 /datum/job/geneticist
+	jpath = JOB_PATH_GENETICIST
 	title = JOB_NAME_GENETICIST
 	flag = GENETICIST
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the chief medical officer and research director"
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 2
 	spawn_positions = 2
 	selection_color = "#d4ebf2"
@@ -32,7 +33,7 @@
 	biohazard = 25
 
 /datum/outfit/job/geneticist
-	name = JOB_NAME_GENETICIST
+	name = JOB_PATH_GENETICIST
 	jobtype = /datum/job/geneticist
 
 	id = /obj/item/card/id/job/geneticist

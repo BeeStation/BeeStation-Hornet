@@ -643,7 +643,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("infinite_sec")
 			if(!check_rights(R_DEBUG))
 				return
-			var/datum/job/J = SSjob.GetJob(JOB_NAME_SECURITYOFFICER)
+			var/datum/job/J = SSjob.GetJob(JOB_PATH_SECURITYOFFICER)
 			if(!J)
 				return
 			J.total_positions = -1

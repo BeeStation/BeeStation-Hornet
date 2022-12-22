@@ -89,10 +89,7 @@
 		app.wiz_team = master_wizard.wiz_team
 		master_wizard.wiz_team.add_member(app_mind)
 	app_mind.add_antag_datum(app)
-	//TODO Kill these if possible
-	app_mind.assigned_role = "Apprentice"
-	app_mind.special_role = "apprentice"
-	//
+	app_mind.mind_roles[JLIST_SPECIAL] = "apprentice"
 	SEND_SOUND(M, sound('sound/effects/magic.ogg'))
 
 ///////////BORGS AND OPERATIVES
@@ -144,7 +141,7 @@
 	var/datum/antagonist/nukeop/creator_op = user.has_antag_datum(/datum/antagonist/nukeop,TRUE)
 	if(creator_op)
 		M.mind.add_antag_datum(new_op,creator_op.nuke_team)
-		M.mind.special_role = "Nuclear Operative"
+		M.mind.mind_roles[JLIST_SPECIAL] = ROLE_OPERATIVE
 
 //////CLOWN OP
 /obj/item/antag_spawner/nuke_ops/clown
@@ -163,7 +160,8 @@
 	var/datum/antagonist/nukeop/creator_op = user.has_antag_datum(/datum/antagonist/nukeop/clownop,TRUE)
 	if(creator_op)
 		M.mind.add_antag_datum(new_op, creator_op.nuke_team)
-		M.mind.special_role = "Clown Operative"
+		M.mind.mind_roles[JLIST_SPECIAL] = ROLE_OPERATIVE
+		M.mind.mind_roles[JLIST_GIMMICK_SPECIAL] = ROLE_OPERATIVE_CLOWN
 
 
 //////SYNDICATE BORG
@@ -218,7 +216,7 @@
 	var/datum/antagonist/nukeop/new_borg = new()
 	new_borg.send_to_spawnpoint = FALSE
 	R.mind.add_antag_datum(new_borg,creator_op.nuke_team)
-	R.mind.special_role = "Syndicate Cyborg"
+	R.mind.mind_roles[JLIST_SPECIAL] = "Syndicate Cyborg"
 
 ///////////SLAUGHTER DEMON
 
@@ -260,8 +258,8 @@
 	var/mob/living/simple_animal/slaughter/S = new demon_type(holder)
 	S.holder = holder
 	S.key = C.key
-	S.mind.assigned_role = S.name
-	S.mind.special_role = S.name
+	S.mind.mind_roles[JLIST_SPECIAL] = ROLE_SLAUGHTER_DEMON
+	S.mind.mind_roles[JLIST_GIMMICK_SPECIAL] = S.name
 	S.mind.add_antag_datum(antag_type)
 	to_chat(S, S.playstyle_string)
 	to_chat(S, "<B>You are currently not currently in the same plane of existence as the station. \
@@ -325,5 +323,5 @@
 		M.equip_to_slot_or_del(new alignment.gang.suit(M),ITEM_SLOT_OCLOTHING)
 		M.equip_to_slot_or_del(new alignment.gang.hat(M),ITEM_SLOT_HEAD)
 
-	M.mind.special_role = "Gangster"
+	M.mind.mind_roles[JLIST_SPECIAL] = "Gangster"
 	M.equipOutfit(/datum/outfit/crook)

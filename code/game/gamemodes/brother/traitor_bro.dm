@@ -5,7 +5,7 @@
 /datum/game_mode/traitor/bros
 	name = "traitor+brothers"
 	config_tag = "traitorbro"
-	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
+	restricted_jobs = list(JOB_PATH_AI, JOB_PATH_CYBORG)
 
 	announce_span = "danger"
 	announce_text = "There are Syndicate agents and Blood Brothers on the station!\n\
@@ -23,7 +23,7 @@
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += JOB_NAME_ASSISTANT
+		restricted_jobs += JOB_PATH_ASSISTANT
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
 
@@ -44,7 +44,7 @@
 			possible_brothers -= bro
 			antag_candidates -= bro
 			team.add_member(bro)
-			bro.special_role = "brother"
+			bro.mind_roles[JLIST_SPECIAL] = "brother"
 			bro.restricted_roles = restricted_jobs
 			log_game("[key_name(bro)] has been selected as a Brother")
 		pre_brother_teams += team

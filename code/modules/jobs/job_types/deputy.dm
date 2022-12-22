@@ -1,9 +1,10 @@
 /datum/job/deputy
+	jpath = JOB_PATH_DEPUTY
 	title = JOB_NAME_DEPUTY
 	flag = DEPUTY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 0
 	spawn_positions = 0
 	selection_color = "#ffeeee"
@@ -25,7 +26,7 @@
 	display_order = JOB_DISPLAY_ORDER_DEPUTY  //see code/__DEFINES/jobs.dm
 
 /datum/outfit/job/deputy
-	name = JOB_NAME_DEPUTY
+	name = JOB_PATH_DEPUTY
 	jobtype = /datum/job/deputy
 
 	id = /obj/item/card/id/job/deputy

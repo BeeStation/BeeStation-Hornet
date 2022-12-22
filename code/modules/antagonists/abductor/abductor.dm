@@ -4,7 +4,7 @@
 	name = "Abductor"
 	roundend_category = "abductors"
 	antagpanel_category = "Abductor"
-	job_rank = ROLE_ABDUCTOR
+	antag_role_type = ROLE_ABDUCTOR
 	show_in_antagpanel = FALSE //should only show subtypes
 	show_to_ghosts = TRUE
 	var/datum/team/abductor_team/team
@@ -49,8 +49,8 @@
 	return team
 
 /datum/antagonist/abductor/on_gain()
-	owner.special_role = "[name]"
-	owner.assigned_role = "[name]"
+	owner.mind_roles[JLIST_SPECIAL] = ROLE_ABDUCTOR
+	owner.mind_roles[JLIST_GIMMICK_SPECIAL] = "[name]"
 	objectives += team.objectives
 	for(var/datum/objective/O in objectives)
 		log_objective(owner.current, O.explanation_text)
@@ -60,13 +60,13 @@
 
 /datum/antagonist/abductor/on_removal()
 	if(owner.current)
-		to_chat(owner.current,"<span class='userdanger'>You are no longer the [owner.special_role]!</span>")
-	owner.special_role = null
+		to_chat(owner.current,"<span class='userdanger'>You are no longer the [owner.get_mind_role(JTYPE_SPECIAL)]!</span>")
+	owner.nullify_special_role()
 	REMOVE_TRAIT(owner, TRAIT_ABDUCTOR_TRAINING, ABDUCTOR_ANTAGONIST)
 	return ..()
 
 /datum/antagonist/abductor/greet()
-	to_chat(owner.current, "<span class='notice'>You are the [owner.special_role]!</span>")
+	to_chat(owner.current, "<span class='notice'>You are the [owner.get_mind_role(JTYPE_SPECIAL)]!</span>")
 	to_chat(owner.current, "<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
 	to_chat(owner.current, "<span class='notice'>There are two of you! One can monitor cameras while the other infiltrates the station.</span>")
 	to_chat(owner.current, "<span class='notice'>Choose a worthy disguise and plan your targets carefully! Humans will kill you on sight.</span>")
@@ -179,6 +179,7 @@
 	name = "Abductee"
 	roundend_category = "abductees"
 	antagpanel_category = "Abductee"
+	antag_role_type = NONE
 
 /datum/antagonist/abductee/on_gain()
 	give_objective()

@@ -207,7 +207,7 @@
 	. = FALSE
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.mind?.assigned_role == JOB_NAME_BARTENDER)
+		if(H.mind?.get_mind_role(JTYPE_JOB_PATH) == JOB_PATH_BARTENDER)
 			return TRUE
 
 	var/obj/item/card/id/ID = user.get_idcard(FALSE)

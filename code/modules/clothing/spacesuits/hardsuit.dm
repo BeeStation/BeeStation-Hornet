@@ -779,7 +779,7 @@
 	if(!..() || !ishuman(M))
 		return FALSE
 	var/mob/living/carbon/human/H = M
-	if(H.mind.assigned_role == JOB_NAME_CLOWN)
+	if(H.mind.get_mind_role(JTYPE_JOB_PATH) == JOB_PATH_CLOWN)
 		return TRUE
 	else
 		return FALSE

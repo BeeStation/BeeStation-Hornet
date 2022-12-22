@@ -14,7 +14,7 @@
 			continue
 		if(H.stat == DEAD)
 			continue
-		if(!SSjob.GetJob(H.mind.assigned_role) || (H.mind.assigned_role in GLOB.nonhuman_positions)) //only station jobs sans nonhuman roles, prevents ashwalkers trying to stalk with crewmembers they never met
+		if(H.mind.get_mind_role(JTYPE_JOB_PATH) == JOB_UNASSIGNED) // Unassigned might be not a crew you would meet never
 			continue
 		if(H.mind.has_antag_datum(/datum/antagonist/obsessed))
 			continue

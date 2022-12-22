@@ -103,7 +103,7 @@
 #define EXP_TYPE_SECURITY		"Security"
 #define EXP_TYPE_SILICON		"Silicon"
 #define EXP_TYPE_SERVICE		"Service"
-#define EXP_TYPE_GIMMICK		"Gimmick"
+// reminder -- gimmick has been removed. exp type time might need to be imported
 #define EXP_TYPE_ANTAG			"Antag"
 #define EXP_TYPE_SPECIAL		"Special"
 #define EXP_TYPE_GHOST			"Ghost"

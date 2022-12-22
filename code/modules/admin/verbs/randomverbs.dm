@@ -366,14 +366,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	if(G_found.mind && !G_found.mind.active)	//mind isn't currently in use by someone/something
 		//Check if they were an alien
-		if(G_found.mind.assigned_role == ROLE_ALIEN)
+		if(G_found.mind.get_mind_role(JTYPE_SPECIAL, as_basic_job=TRUE) == ROLE_ALIEN)
 			if(alert("This character appears to have been an alien. Would you like to respawn them as such?",,"Yes","No")=="Yes")
 				var/turf/T
 				if(GLOB.xeno_spawn.len)
 					T = pick(GLOB.xeno_spawn)
 
 				var/mob/living/carbon/alien/new_xeno
-				switch(G_found.mind.special_role)//If they have a mind, we can determine which caste they were.
+				switch(G_found.mind.get_mind_role(JTYPE_SPECIAL))//If they have a mind, we can determine which caste they were.
 					if("Hunter")
 						new_xeno = new /mob/living/carbon/alien/humanoid/hunter(T)
 					if("Sentinel")
@@ -422,7 +422,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(G_found.mind && !G_found.mind.active)	//mind isn't currently in use by someone/something
 		/*Try and locate a record for the person being respawned through GLOB.data_core.
 		This isn't an exact science but it does the trick more often than not.*/
-		var/id = rustg_hash_string(RUSTG_HASH_MD5, "[G_found.real_name][G_found.mind.assigned_role]")
+		var/id = rustg_hash_string(RUSTG_HASH_MD5, "[G_found.real_name][G_found.mind.get_mind_role(JTYPE_JOB_PATH)]")
 
 		record_found = find_record("id", id, GLOB.data_core.locked)
 
@@ -444,8 +444,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		G_found.mind.transfer_to(new_character)	//be careful when doing stuff like this! I've already checked the mind isn't in use
 	else
 		new_character.mind_initialize()
-	if(!new_character.mind.assigned_role)
-		new_character.mind.assigned_role = JOB_NAME_ASSISTANT//If they somehow got a null assigned role.
 
 	new_character.key = G_found.key
 
@@ -462,16 +460,16 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	//Now for special roles and equipment.
 	var/datum/antagonist/traitor/traitordatum = new_character.mind.has_antag_datum(/datum/antagonist/traitor)
 	if(traitordatum)
-		SSjob.EquipRank(new_character, new_character.mind.assigned_role, 1)
+		SSjob.EquipRank(new_character, new_character.mind.get_mind_role(JTYPE_JOB_PATH), 1)
 		traitordatum.equip()
 
 
-	switch(new_character.mind.special_role)
+	switch(new_character.mind.get_mind_role(JTYPE_SPECIAL, TRUE))
 		if(ROLE_WIZARD)
 			new_character.forceMove(pick(GLOB.wizardstart))
 			var/datum/antagonist/wizard/A = new_character.mind.has_antag_datum(/datum/antagonist/wizard,TRUE)
 			A.equip_wizard()
-		if(ROLE_SYNDICATE)
+		if(ROLE_SYNDICATE, ROLE_OPERATIVE)
 			new_character.forceMove(pick(GLOB.nukeop_start))
 			var/datum/antagonist/nukeop/N = new_character.mind.has_antag_datum(/datum/antagonist/nukeop,TRUE)
 			N.equip_op()
@@ -485,23 +483,25 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				new_character.forceMove(pick(ninja_spawn))
 
 		else//They may also be a cyborg or AI.
-			switch(new_character.mind.assigned_role)
-				if(JOB_NAME_CYBORG)//More rigging to make em' work and check if they're traitor.
+			switch(new_character.mind.get_mind_role(JTYPE_JOB_PATH))
+				if(JOB_PATH_CYBORG)//More rigging to make em' work and check if they're traitor.
 					new_character = new_character.Robotize(TRUE)
-				if(JOB_NAME_AI)
+				if(JOB_PATH_AI)
 					new_character = new_character.AIize()
+				if(JOB_UNASSIGNED)
+					SSjob.EquipRank(new_character, JOB_PATH_ASSISTANT, 1) // failsafe equip for jobless
 				else
-					SSjob.EquipRank(new_character, new_character.mind.assigned_role, 1)//Or we simply equip them.
+					SSjob.EquipRank(new_character, new_character.mind.get_mind_role(JTYPE_JOB_PATH), 1)//Or we simply equip them.
 
 	//Announces the character on all the systems, based on the record.
 	if(!issilicon(new_character))//If they are not a cyborg/AI.
-		if(!record_found&&new_character.mind.assigned_role!=new_character.mind.special_role)//If there are no records for them. If they have a record, this info is already in there. MODE people are not announced anyway.
+		if(!record_found)//If there are no records for them. If they have a record, this info is already in there. MODE people are not announced anyway.
 			//Power to the user!
 			if(alert(new_character,"Warning: No data core entry detected. Would you like to announce the arrival of this character by adding them to various databases, such as medical records?",,"No","Yes")=="Yes")
 				GLOB.data_core.manifest_inject(new_character)
 
 			if(alert(new_character,"Would you like an active AI to announce this character?",,"No","Yes")=="Yes")
-				AnnounceArrival(new_character, new_character.mind.assigned_role)
+				AnnounceArrival(new_character, new_character.mind.get_mind_role(JTYPE_JOB_NAME))
 
 	var/msg = "<span class='adminnotice'>[admin] has respawned [player_key] as [new_character.real_name].</span>"
 	message_admins(msg)

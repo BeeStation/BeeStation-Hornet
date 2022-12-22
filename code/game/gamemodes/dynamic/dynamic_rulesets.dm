@@ -216,7 +216,7 @@
 		else if(!mode.check_age(client, minimum_required_age))
 			candidates.Remove(P)
 			continue
-		if(P.mind.special_role) // We really don't want to give antag to an antag.
+		if(P.mind.get_mind_role(JTYPE_SPECIAL)) // We really don't want to give antag to an antag.
 			candidates.Remove(P)
 		else if(antag_flag_override)
 			if(!(antag_flag_override in client.prefs.be_special) || is_banned_from(P.ckey, list(antag_flag_override, ROLE_SYNDICATE)))

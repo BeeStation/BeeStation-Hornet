@@ -12,8 +12,8 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 	report_type = "changeling"
 	antag_flag = ROLE_CHANGELING
 	false_report_weight = 10
-	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
-	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	restricted_jobs = list(JOB_PATH_AI, JOB_PATH_CYBORG)
+	protected_jobs = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN)
 	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 4
@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 		restricted_jobs += protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += JOB_NAME_ASSISTANT
+		restricted_jobs += JOB_PATH_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
@@ -55,7 +55,7 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 			var/datum/mind/changeling = antag_pick(antag_candidates, ROLE_CHANGELING)
 			antag_candidates -= changeling
 			changelings += changeling
-			changeling.special_role = ROLE_CHANGELING
+			changeling.mind_roles[JLIST_SPECIAL] = ROLE_CHANGELING
 			changeling.restricted_roles = restricted_jobs
 		return 1
 	else

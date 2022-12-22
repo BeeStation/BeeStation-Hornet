@@ -51,7 +51,7 @@ GLOBAL_LIST(valentine_mobs)
 			L.mind.add_antag_datum(/datum/antagonist/heartbreaker)
 
 /proc/forge_valentines_objective(mob/living/lover,mob/living/date)
-	lover.mind.special_role = "valentine"
+	lover.mind.mind_roles[JLIST_SPECIAL] = "valentine"
 	var/datum/antagonist/valentine/V = new
 	V.date = date.mind
 	lover.mind.add_antag_datum(V) //These really should be teams but i can't be assed to incorporate third wheels right now

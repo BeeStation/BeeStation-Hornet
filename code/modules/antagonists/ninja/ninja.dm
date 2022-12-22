@@ -1,7 +1,7 @@
 /datum/antagonist/ninja
 	name = "Ninja"
 	antagpanel_category = "Ninja"
-	job_rank = ROLE_NINJA
+	antag_role_type = ROLE_NINJA
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
@@ -35,9 +35,9 @@
 	for(var/datum/mind/M in SSticker.minds)
 		if(M.current && M.current.stat != DEAD)
 			if(ishuman(M.current))
-				if(M.special_role)
+				if(M.get_mind_role(JTYPE_SPECIAL))
 					possible_targets[M] = 0						//bad-guy
-				else if(M.assigned_role in GLOB.command_positions)
+				else if(M.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.command_positions)
 					possible_targets[M] = 1						//good-guy
 
 	var/list/possible_objectives = list(1,2,3,4)
@@ -65,7 +65,7 @@
 				var/datum/objective/assassinate/O = new /datum/objective/assassinate()
 				O.owner = owner
 				O.set_target(M)
-				O.explanation_text = "Slay \the [M.current.real_name], the [M.assigned_role]."
+				O.explanation_text = "Slay \the [M.current.real_name], the [M.get_mind_role(JTYPE_JOB_NAME)]."
 				objectives += O
 				log_objective(owner, O.explanation_text)
 			if(4)	//capture
@@ -109,8 +109,7 @@
 	. = ..()
 
 /datum/antagonist/ninja/admin_add(datum/mind/new_owner,mob/admin)
-	new_owner.assigned_role = ROLE_NINJA
-	new_owner.special_role = ROLE_NINJA
+	new_owner.mind_roles[JLIST_SPECIAL] = ROLE_NINJA
 	new_owner.add_antag_datum(src)
 	message_admins("[key_name_admin(admin)] has ninja'd [key_name_admin(new_owner)].")
 	log_admin("[key_name(admin)] has ninja'd [key_name(new_owner)].")

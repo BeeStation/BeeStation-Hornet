@@ -7,7 +7,7 @@
 	name = "Revolutionary"
 	roundend_category = "revolutionaries" // if by some miracle revolutionaries without revolution happen
 	antagpanel_category = "Revolution"
-	job_rank = ROLE_REV
+	antag_role_type = ROLE_REV
 	antag_moodlet = /datum/mood_event/revolution
 	var/hud_type = "rev"
 	var/datum/team/revolution/rev_team
@@ -18,7 +18,7 @@
 /datum/antagonist/rev/can_be_owned(datum/mind/new_owner)
 	. = ..()
 	if(.)
-		if(new_owner.assigned_role in GLOB.command_positions)
+		if(new_owner.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.command_positions)
 			return FALSE
 		if(new_owner.unconvertable)
 			return FALSE
@@ -196,7 +196,7 @@
 			carbon_mob.flash_act(1, 1)
 		rev_mind.current.Stun(100)
 	rev_mind.add_antag_datum(/datum/antagonist/rev,rev_team)
-	rev_mind.special_role = ROLE_REV
+	rev_mind.mind_roles[JLIST_SPECIAL] = ROLE_REV
 	return TRUE
 
 /datum/antagonist/rev/head/proc/demote()
@@ -249,7 +249,7 @@
 	log_attack("[key_name(owner.current)] has been deconverted from the revolution by [ismob(deconverter) ? key_name(deconverter) : deconverter]!")
 	if(borged)
 		message_admins("[ADMIN_LOOKUPFLW(owner.current)] has been borged while being a [name]")
-	owner.special_role = null
+	owner.nullify_special_role()
 	if(iscarbon(owner.current) && deconverter != DECONVERTER_REVS_WIN)
 		var/mob/living/carbon/C = owner.current
 		C.Unconscious(100)
@@ -291,7 +291,7 @@
 	show_in_antagpanel = FALSE
 
 /datum/antagonist/revolution_enemy/on_gain()
-	owner.special_role = "revolution enemy"
+	owner.mind_roles[JLIST_SPECIAL] = "revolution enemy"
 
 	var/datum/objective/survive/survive = new /datum/objective/survive
 	survive.owner = owner
@@ -416,7 +416,7 @@
 			if (isnull(mind))
 				continue
 
-			if (!(mind.assigned_role in GLOB.command_positions + GLOB.security_positions))
+			if (!(mind.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.command_positions + GLOB.security_positions))
 				continue
 
 			var/mob/living/carbon/target_body = mind.current

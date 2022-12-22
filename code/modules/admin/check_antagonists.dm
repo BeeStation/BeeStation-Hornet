@@ -190,7 +190,7 @@
 					living_skipped++
 					continue
 				living_players++
-				if(M.mind.special_role)
+				if(M.mind.get_mind_role(JTYPE_SPECIAL))
 					living_players_antagonist++
 				if(M.client)
 					living_players_connected++

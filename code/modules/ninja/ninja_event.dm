@@ -54,8 +54,7 @@ Contents:
 
 	//Prepare ninja player mind
 	var/datum/mind/Mind = new /datum/mind(key)
-	Mind.assigned_role = ROLE_NINJA
-	Mind.special_role = ROLE_NINJA
+	Mind.mind_roles[JLIST_SPECIAL] = ROLE_NINJA
 	Mind.active = 1
 
 	//spawn the ninja and assign the candidate

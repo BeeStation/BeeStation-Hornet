@@ -39,8 +39,10 @@
 
 	var/memory
 
-	var/assigned_role
-	var/special_role
+	var/mind_roles = list(
+		JLIST_BASE_PATH = JOB_UNASSIGNED,  // there should be a thing at least to prevent a possible runtime
+		JLIST_BASE_NAME = JOB_UNASSIGNED
+	) // list of jobs, special jobs.
 	var/list/restricted_roles = list()
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
 
@@ -166,6 +168,51 @@
 /datum/mind/proc/wipe_memory()
 	memory = null
 
+
+/// Sets `mind_roles` list. check `DEFINES\jobs.dm` for the detail. **NOTE: this isn't for `mind_roles[JLIST_SPECIAL]`
+/datum/mind/proc/set_mind_roles(job_string, force=FALSE)
+	if(!job_string)
+		CRASH("job string is missing: [job_string]")
+	var/datum/job/J = SSjob.GetJob(job_string)
+	if(!J)
+		if(force)
+			mind_roles[JLIST_BASE_PATH] = JOB_PATH_ASSISTANT // failsafe
+			mind_roles[JLIST_BASE_NAME] = JOB_NAME_ASSISTANT
+			mind_roles[JLIST_GIMMICK_NAME] = job_string
+			if(mind_roles[JLIST_GIMMICK_PATH])
+				mind_roles[JLIST_GIMMICK_PATH] = null
+		return
+	if(J.jpath || J.title)
+		mind_roles[JLIST_BASE_PATH] = J.jpath
+		mind_roles[JLIST_BASE_NAME] = J.title
+	if(J.g_jpath || J.g_title)
+		mind_roles[JLIST_GIMMICK_PATH] = J.g_jpath
+		mind_roles[JLIST_GIMMICK_NAME] = J.g_title
+
+/// Gets 'mind_roles' list
+/datum/mind/proc/get_mind_role(type, as_basic_job=FALSE)
+	// note: original parameter is to let gimmick jobs to access their parent job (i.e. Psychiatrist -> Medical Doctor)
+	switch(type)
+		if(JTYPE_JOB_PATH)
+			if(as_basic_job)
+				return mind_roles[JLIST_BASE_NAME]
+			return mind_roles[JLIST_GIMMICK_PATH] || mind_roles[JLIST_BASE_PATH]
+		if(JTYPE_JOB_NAME)
+			if(as_basic_job)
+				return mind_roles[JLIST_BASE_PATH]
+			return mind_roles[JLIST_GIMMICK_NAME] || mind_roles[JLIST_BASE_NAME]
+		if(JTYPE_SPECIAL)
+			if(as_basic_job)
+				return mind_roles[JLIST_SPECIAL]
+			return mind_roles[JLIST_GIMMICK_SPECIAL] || mind_roles[JLIST_SPECIAL]
+
+/datum/mind/proc/nullify_special_role()
+	if(mind_roles[JLIST_SPECIAL])
+		mind_roles[JLIST_SPECIAL] = null
+	if(mind_roles[JLIST_GIMMICK_SPECIAL])
+		mind_roles[JLIST_GIMMICK_SPECIAL] = null
+
+
 // Datum antag mind procs
 /datum/mind/proc/add_antag_datum(datum_type_or_instance, team)
 	if(!datum_type_or_instance)
@@ -229,7 +276,7 @@
 	var/datum/antagonist/changeling/C = has_antag_datum(/datum/antagonist/changeling)
 	if(C)
 		remove_antag_datum(/datum/antagonist/changeling)
-		special_role = null
+		nullify_special_role()
 
 /datum/mind/proc/remove_traitor()
 	remove_antag_datum(/datum/antagonist/traitor)
@@ -243,23 +290,23 @@
 	var/datum/antagonist/nukeop/nuke = has_antag_datum(/datum/antagonist/nukeop,TRUE)
 	if(nuke)
 		remove_antag_datum(nuke.type)
-		special_role = null
+		nullify_special_role()
 
 /datum/mind/proc/remove_wizard()
 	remove_antag_datum(/datum/antagonist/wizard)
-	special_role = null
+	nullify_special_role()
 
 /datum/mind/proc/remove_cultist()
 	if(src in SSticker.mode.cult)
 		SSticker.mode.remove_cultist(src, 0, 0)
-	special_role = null
+	nullify_special_role()
 	remove_antag_equip()
 
 /datum/mind/proc/remove_rev()
 	var/datum/antagonist/rev/rev = has_antag_datum(/datum/antagonist/rev)
 	if(rev)
 		remove_antag_datum(rev.type)
-		special_role = null
+		nullify_special_role()
 
 
 /datum/mind/proc/remove_antag_equip()
@@ -390,7 +437,7 @@
 	creator.faction |= current.faction
 
 	var/mob/living/carbon/C = creator
-	if(creator.mind?.special_role || (istype(C) && C.last_mind?.special_role))
+	if(creator.mind?.get_mind_role(JTYPE_SPECIAL) || (istype(C) && C.last_mind?.get_mind_role(JTYPE_SPECIAL)))
 		message_admins("[ADMIN_LOOKUPFLW(current)] has been created by [ADMIN_LOOKUPFLW(creator)], an antagonist.")
 		to_chat(current, "<span class='userdanger'>Despite your creator's current allegiances, your true master remains [creator.real_name]. If their loyalties change, so do yours. This will never change unless your creator's body is destroyed.</span>")
 
@@ -444,10 +491,10 @@
 		A.admin_remove(usr)
 
 	if (href_list["role_edit"])
-		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in sortList(get_all_jobs())
+		var/new_role = input("Select new role", "Assigned role", get_mind_role(JTYPE_JOB_PATH)) as null|anything in sortList(get_all_jobs())
 		if (!new_role)
 			return
-		assigned_role = new_role
+		set_mind_roles(new_role, force=TRUE)
 
 	else if (href_list["memory_edit"])
 		var/new_memo = stripped_multiline_input(usr, "Write new memory", "Memory", memory, MAX_MESSAGE_LEN)
@@ -660,20 +707,19 @@
 	var/datum/antagonist/changeling/C = has_antag_datum(/datum/antagonist/changeling)
 	if(!C)
 		C = add_antag_datum(/datum/antagonist/changeling)
-		special_role = ROLE_CHANGELING
+		mind_roles[JLIST_SPECIAL] = ROLE_CHANGELING
 	return C
 
 /datum/mind/proc/make_Wizard()
 	if(!has_antag_datum(/datum/antagonist/wizard))
-		special_role = ROLE_WIZARD
-		assigned_role = ROLE_WIZARD
+		mind_roles[JLIST_SPECIAL] = ROLE_WIZARD
 		add_antag_datum(/datum/antagonist/wizard)
 
 
 /datum/mind/proc/make_Cultist()
 	if(!has_antag_datum(/datum/antagonist/cult,TRUE))
 		SSticker.mode.add_cultist(src,FALSE,equip=TRUE)
-		special_role = ROLE_CULTIST
+		mind_roles[JLIST_SPECIAL] = ROLE_CULTIST
 		to_chat(current, "<font color=\"purple\"><b><i>You catch a glimpse of the Realm of Nar'Sie, The Geometer of Blood. You now see how flimsy your world is, you see that it should be open to the knowledge of Nar'Sie.</b></i></font>")
 		to_chat(current, "<font color=\"purple\"><b><i>Assist your new brethren in their dark dealings. Their goal is yours, and yours is theirs. You serve the Dark One above all else. Bring It back.</b></i></font>")
 
@@ -682,7 +728,7 @@
 	head.give_flash = TRUE
 	head.give_hud = TRUE
 	add_antag_datum(head)
-	special_role = ROLE_REV_HEAD
+	mind_roles[JLIST_SPECIAL] = ROLE_REV_HEAD
 
 /datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	spell_list += S
@@ -794,21 +840,20 @@
 //HUMAN
 /mob/living/carbon/human/mind_initialize()
 	..()
-	if(!mind.assigned_role)
-		mind.assigned_role = "Unassigned" //default
+	if(mind.get_mind_role(JTYPE_JOB_PATH))
+		mind.set_mind_roles(JOB_UNASSIGNED, force=TRUE) //default
 
 //AI
 /mob/living/silicon/ai/mind_initialize()
 	..()
-	mind.assigned_role = JOB_NAME_AI
+	mind.set_mind_roles(JOB_PATH_AI)
 
 //BORG
 /mob/living/silicon/robot/mind_initialize()
 	..()
-	mind.assigned_role = JOB_NAME_CYBORG
+	mind.set_mind_roles(JOB_PATH_CYBORG)
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()
 	..()
-	mind.assigned_role = ROLE_PAI
-	mind.special_role = ""
+	mind.set_mind_roles(JOB_PATH_PAI, force=TRUE) // PAI isn't a real job

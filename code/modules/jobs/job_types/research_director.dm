@@ -1,11 +1,12 @@
 /datum/job/research_director
+	jpath = JOB_PATH_RESEARCHDIRECTOR
 	title = JOB_NAME_RESEARCHDIRECTOR
 	flag = RD_JF
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list("Science")
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ffddff"
@@ -44,7 +45,7 @@
 	biohazard = 40
 
 /datum/outfit/job/research_director
-	name = JOB_NAME_RESEARCHDIRECTOR
+	name = JOB_PATH_RESEARCHDIRECTOR
 	jobtype = /datum/job/research_director
 
 	id = /obj/item/card/id/job/research_director

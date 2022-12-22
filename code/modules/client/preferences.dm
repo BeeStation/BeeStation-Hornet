@@ -873,10 +873,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		var/datum/job/overflow = SSjob.GetJob(SSjob.overflow_role)
 
 		for(var/datum/job/job in sortList(SSjob.occupations, /proc/cmp_job_display_asc))
-			if(job.gimmick) //Gimmick jobs run off of a single pref
-				continue
 			index += 1
-			if((index >= limit) || (job.title in splitJobs))
+			if((index >= limit) || (job.get_jpath() in splitJobs))
 				width += widthPerColumn
 				if((index < limit) && (lastJob != null))
 					//If the cells were broken up by a job in the splitJob list then it will fill in the rest of the cells with
@@ -887,10 +885,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				index = 0
 
 			HTML += "<tr bgcolor='[job.selection_color]'><td width='60%' align='right'>"
-			var/rank = job.title
+			var/rank = job.get_title()
+			var/jop_key = job.get_jpath()
 			lastJob = job
-			if(is_banned_from(user.ckey, rank))
-				HTML += "<font color=red>[rank]</font></td><td><a href='?_src_=prefs;bancheck=[rank]'> BANNED</a></td></tr>"
+			if(is_banned_from(user.ckey, jop_key))
+				HTML += "<font color=red>[rank]</font></td><td><a href='?_src_=prefs;bancheck=[jop_key]'> BANNED</a></td></tr>"
 				continue
 			var/required_playtime_remaining = job.required_playtime_remaining(user.client)
 			if(required_playtime_remaining)
@@ -903,7 +902,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if((active_character.job_preferences[overflow] == JP_LOW) && (rank != SSjob.overflow_role) && !is_banned_from(user.ckey, SSjob.overflow_role))
 				HTML += "<font color=orange>[rank]</font></td><td></td></tr>"
 				continue
-			if((rank in GLOB.command_positions) || (rank == JOB_NAME_AI))//Bold head jobs
+			if((jop_key in GLOB.command_positions) || (jop_key == JOB_PATH_AI))//Bold head jobs
 				HTML += "<b><span class='dark'>[rank]</span></b>"
 			else
 				HTML += "<span class='dark'>[rank]</span>"
@@ -915,7 +914,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			var/prefUpperLevel = -1 // level to assign on left click
 			var/prefLowerLevel = -1 // level to assign on right click
 
-			switch(active_character.job_preferences[job.title])
+			switch(active_character.job_preferences[jop_key])
 				if(JP_HIGH)
 					prefLevelLabel = "High"
 					prefLevelColor = "slateblue"
@@ -940,7 +939,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			HTML += "<a class='white' href='?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[rank]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[rank]\");'>"
 
 			if(rank == SSjob.overflow_role)//Overflow is special
-				if(active_character.job_preferences[overflow.title] == JP_LOW)
+				if(active_character.job_preferences[overflow.get_jpath()] == JP_LOW)
 					HTML += "<font color=green>Yes</font>"
 				else
 					HTML += "<font color=red>No</font>"
@@ -1043,7 +1042,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				active_character.job_preferences[j] = JP_MEDIUM
 				//technically break here
 
-	active_character.job_preferences[job.title] = level
+	active_character.job_preferences[job.get_jpath()] = level
 	return TRUE
 
 
@@ -1074,7 +1073,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			jpval = JP_HIGH
 
 	if(role == SSjob.overflow_role)
-		if(active_character.job_preferences[job.title] == JP_LOW)
+		if(active_character.job_preferences[job.get_jpath()] == JP_LOW)
 			jpval = null
 		else
 			jpval = JP_LOW

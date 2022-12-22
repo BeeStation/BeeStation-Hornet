@@ -125,7 +125,7 @@
 				A.objectives += O
 				log_objective(O.owner, O.explanation_text)
 		if(assignedrole)
-			M.mind.assigned_role = assignedrole
+			M.mind.mind_roles[JLIST_SPECIAL] = assignedrole
 		special(M, name)
 		MM.name = M.real_name
 	if(uses > 0)
@@ -143,7 +143,7 @@
 	var/disable_sensors = TRUE
 	//All of these only affect the ID that the outfit has placed in the ID slot
 	var/id_job = null			//Such as JOB_NAME_CLOWN or "Chef." This just determines what the ID reads as, not their access
-	var/id_access = null		//This is for access. See access.dm for which jobs give what access. Use JOB_NAME_CAPTAIN if you want it to be all access.
+	var/id_access = null		//This is for access. See access.dm for which jobs give what access. Use JOB_PATH_CAPTAIN if you want it to be all access.
 	var/id_access_list = null	//Allows you to manually add access to an ID card.
 	assignedrole = "Ghost Role"
 
@@ -225,9 +225,8 @@
 	var/obj/item/card/id/W = H.wear_id
 	if(W)
 		if(id_access)
-			for(var/jobtype in typesof(/datum/job))
-				var/datum/job/J = new jobtype
-				if(J.title == id_access)
+			for(var/datum/job/J in SSjob.occupations)
+				if(J.get_jpath() == id_access)
 					W.access = J.get_access()
 					break
 		if(id_access_list)

@@ -1,11 +1,12 @@
 /datum/job/head_of_security
+	jpath = JOB_PATH_HEADOFSECURITY
 	title = JOB_NAME_HEADOFSECURITY
 	flag = HOS
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD|PREFTOGGLE_DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list(RADIO_CHANNEL_SECURITY)
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ffdddd"
@@ -42,7 +43,7 @@
 	)
 
 /datum/outfit/job/head_of_security
-	name = JOB_NAME_HEADOFSECURITY
+	name = JOB_PATH_HEADOFSECURITY
 	jobtype = /datum/job/head_of_security
 
 	id = /obj/item/card/id/job/head_of_security

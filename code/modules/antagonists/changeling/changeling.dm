@@ -6,7 +6,7 @@
 	name = "Changeling"
 	roundend_category  = "changelings"
 	antagpanel_category = "Changeling"
-	job_rank = ROLE_CHANGELING
+	antag_role_type = ROLE_CHANGELING
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5
 	var/you_are_greet = TRUE
@@ -82,6 +82,7 @@
 	if(give_objectives)
 		forge_objectives()
 	handle_clown_mutation(owner.current, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
+	owner.mind_roles[JLIST_SPECIAL] = antag_role_type
 	owner.current.grant_all_languages(FALSE, FALSE, TRUE)	//Grants omnitongue. We are able to transform our body after all.
 	. = ..()
 

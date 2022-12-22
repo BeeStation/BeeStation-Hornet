@@ -60,7 +60,7 @@
 	SSevents.control += E
 
 /datum/special_role/proc/add_antag_status_to(datum/mind/M)
-	M.special_role = role_name
+	M.mind_roles[JLIST_SPECIAL] = role_name
 	var/datum/antagonist/special/A = M.add_antag_datum(new attached_antag_datum())
 	A.forge_objectives(M)
 	A.equip()
@@ -73,7 +73,7 @@
 
 /datum/antagonist/special
 	name = "Role that should not be accessable in game."
-	job_rank = ROLE_SYNDICATE
+	antag_role_type = ROLE_SYNDICATE
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = FALSE
 	prevent_roundtype_conversion = FALSE

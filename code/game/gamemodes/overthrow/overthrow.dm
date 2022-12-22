@@ -4,7 +4,7 @@
 	config_tag = "overthrow"
 	report_type = "overthrow"
 	antag_flag = ROLE_OVERTHROW
-	restricted_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_AI, JOB_NAME_CYBORG,JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFMEDICALOFFICER)
+	restricted_jobs = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE, JOB_PATH_AI, JOB_PATH_CYBORG,JOB_PATH_CAPTAIN, JOB_PATH_HEADOFPERSONNEL, JOB_PATH_HEADOFSECURITY, JOB_PATH_CHIEFENGINEER, JOB_PATH_RESEARCHDIRECTOR, JOB_PATH_CHIEFMEDICALOFFICER)
 	required_players = 20 // the core idea is of a swift, bloodless coup, so it shouldn't be as chaotic as revs.
 	required_enemies = 2 // minimum two teams, otherwise it's just nerfed revs.
 	recommended_enemies = 4
@@ -21,7 +21,7 @@
 		restricted_jobs += protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += JOB_NAME_ASSISTANT
+		restricted_jobs += JOB_PATH_ASSISTANT
 
 	var/sleeping_agents = required_enemies + round(num_players()*0.05) // At 100 players, it'd be 2 + 5 = 7 teams existing.
 
@@ -32,7 +32,7 @@
 		antag_candidates -= sleeping_agent
 		initial_agents += sleeping_agent
 		sleeping_agent.restricted_roles = restricted_jobs
-		sleeping_agent.special_role = ROLE_OVERTHROW
+		sleeping_agent.mind_roles[JLIST_SPECIAL] = ROLE_OVERTHROW
 
 	if(initial_agents.len < required_enemies)
 		setup_error = "Not enough initial sleeping agents candidates"

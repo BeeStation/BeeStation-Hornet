@@ -11,7 +11,7 @@
 	log_objective(owner, elimination_objective.explanation_text)
 
 /datum/antagonist/wishgranter/on_gain()
-	owner.special_role = "Avatar of the Wish Granter"
+	owner.mind_roles[JLIST_SPECIAL] = "Avatar of the Wish Granter"
 	forge_objectives()
 	. = ..()
 	give_powers()

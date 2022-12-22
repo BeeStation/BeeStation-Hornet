@@ -133,7 +133,7 @@
 
 	if(locked)
 		return
-	if(!non_traitor_allowed && !user.mind.special_role)
+	if(!non_traitor_allowed && !user.mind.get_mind_role(JTYPE_SPECIAL))
 		return
 	active = TRUE
 	update_items()
@@ -182,7 +182,7 @@
 			if(I.restricted_roles.len && I.discounted == FALSE)
 				var/is_inaccessible = TRUE
 				for(var/R in I.restricted_roles)
-					if(R == user.mind.assigned_role || debug)
+					if(R == user.mind.get_mind_role(JTYPE_JOB_PATH) || debug)
 						is_inaccessible = FALSE
 				if(is_inaccessible)
 					continue

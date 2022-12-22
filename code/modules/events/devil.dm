@@ -53,7 +53,6 @@
 
 /proc/create_devil_mind(key)
 	var/datum/mind/Mind = new /datum/mind(key)
-	Mind.assigned_role = ROLE_DEVIL
-	Mind.special_role = ROLE_DEVIL
+	Mind.mind_roles[JLIST_SPECIAL] = ROLE_DEVIL
 	SSticker.mode.devils |= Mind
 	return Mind

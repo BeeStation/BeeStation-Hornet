@@ -10,7 +10,7 @@
 /obj/item/alienartifact/examine(mob/user)
 	. = ..()
 	var/mob/living/L = user
-	if(istype(L) && L.mind?.assigned_role != JOB_NAME_CURATOR)
+	if(istype(L) && L.mind?.get_mind_role(JTYPE_JOB_PATH) != JOB_PATH_CURATOR)
 		return
 	for(var/datum/artifact_effect/effect in effects)
 		for(var/verb in effect.effect_act_descs)

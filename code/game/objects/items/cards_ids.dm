@@ -443,13 +443,13 @@ update_label("John Doe", "Clowny")
 		src.access |= I.access
 		log_id("[key_name(user)] copied all avaliable access from [I] to agent ID [src] at [AREACOORD(user)].")
 		if(isliving(user) && user.mind)
-			if(user.mind.special_role || anyone)
+			if(user.mind.get_mind_role(JTYPE_SPECIAL) || anyone)
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over the ID, copying its access.</span>")
 
 /obj/item/card/id/syndicate/attack_self(mob/user)
 	if(isliving(user) && user.mind)
 		var/first_use = registered_name ? FALSE : TRUE
-		if(!(user.mind.special_role || anyone)) //Unless anyone is allowed, only syndies can use the card, to stop metagaming.
+		if(!(user.mind.get_mind_role(JTYPE_SPECIAL) || anyone)) //Unless anyone is allowed, only syndies can use the card, to stop metagaming.
 			if(first_use) //If a non-syndie is the first to forge an unassigned agent ID, then anyone can forge it.
 				anyone = TRUE
 			else

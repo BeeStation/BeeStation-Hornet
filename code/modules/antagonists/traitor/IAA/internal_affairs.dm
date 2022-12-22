@@ -223,7 +223,7 @@
 		//Optional traitor objective
 		if(prob(PROB_ACTUAL_TRAITOR))
 			employer = "The Syndicate"
-			owner.special_role = TRAITOR_AGENT_ROLE
+			owner.mind_roles[JLIST_SPECIAL] = TRAITOR_AGENT_ROLE
 			special_role = TRAITOR_AGENT_ROLE
 			syndicate = TRUE
 			log_game("[owner.key] has been designated an External Affairs Agent")

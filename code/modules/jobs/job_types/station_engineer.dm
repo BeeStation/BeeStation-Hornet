@@ -1,9 +1,10 @@
 /datum/job/station_engineer
+	jpath = JOB_PATH_STATIONENGINEER
 	title = JOB_NAME_STATIONENGINEER
 	flag = ENGINEER
 	department_head = list(JOB_NAME_CHIEFENGINEER)
 	supervisors = "the chief engineer"
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 5
 	spawn_positions = 5
 	selection_color = "#fff5cc"
@@ -31,7 +32,7 @@
 	)
 
 /datum/outfit/job/engineer
-	name = JOB_NAME_STATIONENGINEER
+	name = JOB_PATH_STATIONENGINEER
 	jobtype = /datum/job/station_engineer
 
 	id =  /obj/item/card/id/job/station_engineer

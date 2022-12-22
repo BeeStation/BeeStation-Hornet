@@ -1,9 +1,10 @@
 /datum/job/mime
+	jpath = JOB_PATH_MIME
 	title = JOB_NAME_MIME
 	flag = MIME
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#dddddd"
@@ -30,7 +31,7 @@
 	H.apply_pref_name("mime", M.client)
 
 /datum/outfit/job/mime
-	name = JOB_NAME_MIME
+	name = JOB_PATH_MIME
 	jobtype = /datum/job/mime
 
 	id = /obj/item/card/id/job/mime

@@ -99,8 +99,8 @@ GLOBAL_VAR(antag_prototypes)
 
 	var/out = "<B>[name]</B>[(current && (current.real_name!=name))?" (as [current.real_name])":""]<br>"
 	out += "Mind currently owned by key: [key] [active?"(synced)":"(not synced)"]<br>"
-	out += "Assigned role: [assigned_role]. <a href='?src=[REF(src)];role_edit=1'>Edit</a><br>"
-	out += "Faction and special role: <b><font color='red'>[special_role]</font></b><br>"
+	out += "Assigned role: [get_mind_role(JTYPE_JOB_PATH)]. <a href='?src=[REF(src)];role_edit=1'>Edit</a><br>"
+	out += "Faction and special role: <b><font color='red'>[get_mind_role(JTYPE_SPECIAL)]</font></b><br>"
 
 	var/special_statuses = get_special_statuses()
 	if(length(special_statuses))
@@ -165,8 +165,8 @@ GLOBAL_VAR(antag_prototypes)
 					continue
 				pref_source = prototype
 				break
-		if(pref_source.job_rank)
-			if(!is_banned_from(src.key, pref_source.job_rank))
+		if(pref_source.antag_role_type)
+			if(!is_banned_from(src.key, pref_source.antag_role_type))
 				antag_header_parts += pref_source.enabled_in_preferences(src) ? "Enabled in Prefs" : "Disabled in Prefs"
 			else
 				antag_header_parts += "<span class='bad'><b>\[BANNED\]</b></span>"

@@ -63,8 +63,8 @@
 	var/list/datum/mind/owners = get_owners()
 	for(var/datum/mind/possible_target in get_crewmember_minds()) // i would use SSjob.get_all_heads() but jesus christ that proc's shit, i ain't using it
 		if(!(possible_target in owners) && ishuman(possible_target.current))
-			if(possible_target.assigned_role in GLOB.command_positions)
-				targets[possible_target] = possible_target.assigned_role
+			if(possible_target.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.command_positions)
+				targets[possible_target] = possible_target.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE)
 	update_explanation_text()
 
 /datum/objective/overthrow/heads/update_explanation_text()
@@ -89,17 +89,17 @@
 			var/target_points
 			var/role = targets[M]
 			switch(role)
-				if(JOB_NAME_CAPTAIN)
+				if(JOB_PATH_CAPTAIN)
 					target_points = CAPPTS
-				if(JOB_NAME_HEADOFPERSONNEL)
+				if(JOB_PATH_HEADOFPERSONNEL)
 					target_points = HOPPTS
-				if(JOB_NAME_HEADOFSECURITY)
+				if(JOB_PATH_HEADOFSECURITY)
 					target_points = HOSPTS
-				if(JOB_NAME_CHIEFENGINEER)
+				if(JOB_PATH_CHIEFENGINEER)
 					target_points = CEPTS
-				if(JOB_NAME_RESEARCHDIRECTOR)
+				if(JOB_PATH_RESEARCHDIRECTOR)
 					target_points = RDPTS
-				if(JOB_NAME_CHIEFMEDICALOFFICER)
+				if(JOB_PATH_CHIEFMEDICALOFFICER)
 					target_points = CMOPTS
 			base_points += result_points(M, target_points)
 	return base_points
@@ -134,12 +134,12 @@
 
 /datum/objective/overthrow/target/update_explanation_text()
 	if(target)
-		explanation_text = "Work with your team to convert, exile or kill [target.name], the [target.assigned_role]. Converting to your team will give you more points, whereas killing will give you the least. Syndicates don't want to stir up too many troubles."
+		explanation_text = "Work with your team to convert, exile or kill [target.name], the [target.get_mind_role(JTYPE_JOB_NAME)]. Converting to your team will give you more points, whereas killing will give you the least. Syndicates don't want to stir up too many troubles."
 	else
 		explanation_text = "Nothing."
 
 /datum/objective/overthrow/target/is_unique_objective(datum/mind/possible_target, list/dupe_search_range)
-	if(possible_target.assigned_role in GLOB.command_positions)
+	if(possible_target.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.command_positions)
 		return FALSE
 	return TRUE
 

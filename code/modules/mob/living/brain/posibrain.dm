@@ -17,7 +17,6 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	var/begin_activation_message = "<span class='notice'>You carefully locate the manual activation switch and start the positronic brain's boot process.</span>"
 	var/success_message = "<span class='notice'>The positronic brain pings, and its lights start flashing. Success!</span>"
 	var/fail_message = "<span class='notice'>The positronic brain buzzes quietly, and the golden lights fade away. Perhaps you could try again?</span>"
-	var/new_role = "Positronic Brain"
 	var/welcome_message = "<span class='warning'>ALL PAST LIVES ARE FORGOTTEN.</span>\n\
 	<b>You are a positronic brain, brought into existence aboard Space Station 13.\n\
 	As a synthetic intelligence, you answer to all crewmembers and the AI.\n\
@@ -119,7 +118,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	brainmob.timeofhostdeath = C.timeofdeath
 	brainmob.set_stat(CONSCIOUS)
 	if(brainmob.mind)
-		brainmob.mind.assigned_role = new_role
+		brainmob.mind.set_mind_roles(JOB_PATH_CYBORG)
 	if(C.mind)
 		C.mind.transfer_to(brainmob)
 
@@ -140,7 +139,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 		brainmob.ckey = candidate.ckey
 	name = "[initial(name)] ([brainmob.name])"
 	to_chat(brainmob, welcome_message)
-	brainmob.mind.assigned_role = new_role
+	brainmob.mind.set_mind_roles(JOB_PATH_CYBORG)
 	brainmob.set_stat(CONSCIOUS)
 	brainmob.remove_from_dead_mob_list()
 	brainmob.add_to_alive_mob_list()

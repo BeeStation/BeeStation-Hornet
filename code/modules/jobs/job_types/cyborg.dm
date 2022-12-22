@@ -1,9 +1,10 @@
 /datum/job/cyborg
+	jpath = JOB_PATH_CYBORG
 	title = JOB_NAME_CYBORG
 	flag = CYBORG
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SILICON
 	department_flag = ENGSEC
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 0
 	spawn_positions = 1
 	supervisors = "your laws and the AI"	//Nodrak

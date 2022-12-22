@@ -413,7 +413,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
 
 /datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/M)
-	if(M.mind?.assigned_role == JOB_NAME_ASSISTANT)
+	if(M.mind?.get_mind_role(JTYPE_JOB_PATH) == JOB_NAME_ASSISTANT)
 		M.heal_bodypart_damage(1,1)
 		. = 1
 	return ..() || .
@@ -562,7 +562,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "A simple, yet superb mixture of Vodka and orange juice. Just the thing for the tired engineer."
 
 /datum/reagent/consumable/ethanol/screwdrivercocktail/on_mob_life(mob/living/carbon/M)
-	if(M.mind && (M.mind.assigned_role in list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER))) //Engineers lose radiation poisoning at a massive rate.
+	if(M.mind && (M.mind.get_mind_role(JTYPE_JOB_PATH, TRUE) in list(JOB_PATH_STATIONENGINEER, JOB_PATH_ATMOSPHERICTECHNICIAN, JOB_PATH_CHIEFENGINEER))) //Engineers lose radiation poisoning at a massive rate.
 		M.radiation = max(M.radiation - 25, 0)
 	return ..()
 

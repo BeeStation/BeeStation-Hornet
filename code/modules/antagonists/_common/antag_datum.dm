@@ -12,7 +12,7 @@ GLOBAL_LIST(admin_antag_list)
 	var/can_coexist_with_others = TRUE			//Whether or not the person will be able to have more than one datum
 	var/list/typecache_datum_blacklist = list()	//List of datums this type can't coexist with
 	var/delete_on_mind_deletion = TRUE
-	var/job_rank
+	var/antag_role_type = ROLE_UNDEFINED_ANTAG_ROLE
 	var/give_objectives = TRUE //Should the default objectives be generated?
 	var/replace_banned = TRUE //Should replace jobbanned player with ghosts if granted.
 	var/list/objectives = list()
@@ -114,12 +114,12 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/is_banned(mob/M)
 	if(!M)
 		return FALSE
-	. = (is_banned_from(M.ckey, list(ROLE_SYNDICATE, job_rank)) || QDELETED(M))
+	. = (is_banned_from(M.ckey, list(ROLE_SYNDICATE, antag_role_type)) || QDELETED(M))
 
 /datum/antagonist/proc/replace_banned_player()
 	set waitfor = FALSE
 
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [name]?", job_rank, null, job_rank, 50, owner.current)
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [name]?", antag_role_type, null, antag_role_type, 50, owner.current)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		to_chat(owner, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
@@ -222,8 +222,8 @@ GLOBAL_LIST(admin_antag_list)
 	return ""
 
 /datum/antagonist/proc/enabled_in_preferences(datum/mind/M)
-	if(job_rank)
-		if(M.current && M.current.client && (job_rank in M.current.client.prefs.be_special))
+	if(antag_role_type)
+		if(M.current && M.current.client && (antag_role_type in M.current.client.prefs.be_special))
 			return TRUE
 		else
 			return FALSE
@@ -317,7 +317,7 @@ GLOBAL_LIST(admin_antag_list)
 // Handles adding and removing the clumsy mutation from clown antags. Gets called in apply/remove_innate_effects
 /datum/antagonist/proc/handle_clown_mutation(mob/living/mob_override, message, removing = TRUE)
 	var/mob/living/carbon/C = mob_override
-	if(C && istype(C) && C.has_dna() && owner.assigned_role == JOB_NAME_CLOWN)
+	if(C && istype(C) && C.has_dna() && owner.get_mind_role(JTYPE_JOB_PATH) == JOB_PATH_CLOWN)
 		if(removing) // They're a clown becoming an antag, remove clumsy
 			C.dna.remove_mutation(CLOWNMUT)
 			if(!silent && message)

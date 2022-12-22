@@ -44,9 +44,9 @@
 		if(H.stat == DEAD || H == user)
 			continue
 		if(H.mind && (has_job_loyalties || has_role_loyalties))
-			if(has_job_loyalties && (H.mind.assigned_role in job_loyalties))
+			if(has_job_loyalties && (H.mind.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in job_loyalties))
 				inspired += H
-			else if(has_role_loyalties && (H.mind.special_role in role_loyalties))
+			else if(has_role_loyalties && (H.mind.get_mind_role(JTYPE_SPECIAL) in role_loyalties))
 				inspired += H
 		else if(check_inspiration(H))
 			inspired += H
@@ -81,7 +81,7 @@
 	item_state = "banner_security"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_BRIGPHYSICIAN, JOB_NAME_DEPUTY)
+	job_loyalties = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE, JOB_PATH_HEADOFSECURITY, JOB_PATH_BRIGPHYSICIAN, JOB_PATH_DEPUTY)
 	warcry = "EVERYONE DOWN ON THE GROUND!!"
 
 /obj/item/banner/security/mundane
@@ -102,7 +102,7 @@
 	item_state = "banner_medical"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST, JOB_NAME_PARAMEDIC, JOB_NAME_CHIEFMEDICALOFFICER)
+	job_loyalties = list(JOB_PATH_MEDICALDOCTOR, JOB_PATH_CHEMIST, JOB_PATH_GENETICIST, JOB_PATH_VIROLOGIST, JOB_PATH_PARAMEDIC, JOB_PATH_CHIEFMEDICALOFFICER)
 	warcry = "No wounds cannot be healed!"
 
 /obj/item/banner/medical/mundane
@@ -131,7 +131,7 @@
 	item_state = "banner_science"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list(JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
+	job_loyalties = list(JOB_PATH_SCIENTIST, JOB_PATH_ROBOTICIST, JOB_PATH_RESEARCHDIRECTOR)
 	warcry = "For Cuban Pete!"
 
 /obj/item/banner/science/mundane
@@ -155,7 +155,7 @@
 	item_state = "banner_cargo"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list(JOB_NAME_CARGOTECHNICIAN, JOB_NAME_SHAFTMINER, JOB_NAME_QUARTERMASTER)
+	job_loyalties = list(JOB_PATH_CARGOTECHNICIAN, JOB_PATH_SHAFTMINER, JOB_PATH_QUARTERMASTER)
 	warcry = "Hail Cargonia!"
 
 /obj/item/banner/cargo/mundane
@@ -176,7 +176,7 @@
 	item_state = "banner_engineering"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER)
+	job_loyalties = list(JOB_PATH_STATIONENGINEER, JOB_PATH_ATMOSPHERICTECHNICIAN, JOB_PATH_CHIEFENGINEER)
 	warcry = "All hail lord Singuloth!!"
 
 /obj/item/banner/engineering/mundane
@@ -197,7 +197,7 @@
 	name = "command banner"
 	desc = "The banner of Command, a staunch and ancient line of bueraucratic kings and queens."
 	//No icon state here since the default one is the NT banner
-	job_loyalties = list(JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFENGINEER, JOB_NAME_HEADOFSECURITY, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFMEDICALOFFICER)
+	job_loyalties = list(JOB_PATH_CAPTAIN, JOB_PATH_HEADOFPERSONNEL, JOB_PATH_CHIEFENGINEER, JOB_PATH_HEADOFSECURITY, JOB_PATH_RESEARCHDIRECTOR, JOB_PATH_CHIEFMEDICALOFFICER)
 	warcry = "Hail Nanotrasen!"
 
 /obj/item/banner/command/mundane

@@ -1,11 +1,12 @@
 /datum/job/chief_medical_officer
+	jpath = JOB_PATH_CHIEFMEDICALOFFICER
 	title = JOB_NAME_CHIEFMEDICALOFFICER
 	flag = CMO_JF
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
 	head_announce = list(RADIO_CHANNEL_MEDICAL)
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#c1e1ec"
@@ -41,7 +42,7 @@
 	biohazard = 45
 
 /datum/outfit/job/chief_medical_officer
-	name = JOB_NAME_CHIEFMEDICALOFFICER
+	name = JOB_PATH_CHIEFMEDICALOFFICER
 	jobtype = /datum/job/chief_medical_officer
 
 	id = /obj/item/card/id/job/chief_medical_officer

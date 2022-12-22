@@ -1,9 +1,10 @@
 /datum/job/exploration_crew
+	jpath = JOB_PATH_EXPLORATIONCREW
 	title = JOB_NAME_EXPLORATIONCREW
 	flag = EXPLORATION_CREW
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 3
 	spawn_positions = 3
 	minimal_player_age = 3
@@ -53,7 +54,7 @@
 	. = ..(H, visualsOnly, announce, latejoin, outfit_override, preference_source)
 
 /datum/outfit/job/exploration_crew
-	name = JOB_NAME_EXPLORATIONCREW
+	name = JOB_PATH_EXPLORATIONCREW
 	jobtype = /datum/job/exploration_crew
 
 	id = /obj/item/card/id/job/exploration_crew

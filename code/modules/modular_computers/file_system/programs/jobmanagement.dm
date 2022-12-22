@@ -42,7 +42,7 @@
 	if(!(job?.title in blacklisted))
 		if((job.total_positions <= length(GLOB.player_list) * (max_relative_positions / 100)))
 			var/delta = (world.time / 10) - GLOB.time_last_changed_position
-			if((change_position_cooldown < delta) || (opened_positions[job.title] < 0))
+			if((change_position_cooldown < delta) || (opened_positions[job.get_jpath()] < 0))
 				return TRUE
 	return FALSE
 
@@ -50,7 +50,7 @@
 	if(!(job?.title in blacklisted))
 		if(job.total_positions > length(GLOB.player_list) * (max_relative_positions / 100))
 			var/delta = (world.time / 10) - GLOB.time_last_changed_position
-			if((change_position_cooldown < delta) || (opened_positions[job.title] > 0))
+			if((change_position_cooldown < delta) || (opened_positions[job.get_jpath()] > 0))
 				return TRUE
 	return FALSE
 
@@ -120,11 +120,11 @@
 	var/list/pos = list()
 	for(var/j in SSjob.occupations)
 		var/datum/job/job = j
-		if(job.title in blacklisted)
+		if(job.get_jpath() in blacklisted)
 			continue
 
 		pos += list(list(
-			"title" = job.title,
+			"title" = job.get_title(),
 			"current" = job.current_positions,
 			"total" = job.total_positions,
 			"status_open" = authed ? can_open_job(job) : FALSE,
@@ -136,7 +136,7 @@
 	var/list/priority = list()
 	for(var/j in SSjob.prioritized_jobs)
 		var/datum/job/job = j
-		priority += job.title
+		priority += job.get_jpath()
 	data["prioritized"] = priority
 	return data
 

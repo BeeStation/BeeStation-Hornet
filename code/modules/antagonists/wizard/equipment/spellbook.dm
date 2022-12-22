@@ -777,7 +777,7 @@
 	if(!ishuman(H))
 		return TRUE
 
-	if(H.mind.special_role == "apprentice")
+	if(H.mind.get_mind_role(JTYPE_SPECIAL) == "apprentice")
 		temp = "If you got caught sneaking a peek from your teacher's spellbook, you'd likely be expelled from the Wizard Academy. Better not."
 		return
 

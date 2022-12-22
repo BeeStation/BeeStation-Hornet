@@ -141,7 +141,7 @@
 	wizbody.fully_replace_character_name(wizbody.real_name, "Academy Teacher")
 	wizbody.mind_initialize()
 	var/datum/mind/wizmind = wizbody.mind
-	wizmind.special_role = "Academy Defender"
+	wizmind.mind_roles[JLIST_SPECIAL] = "Academy Defender"
 	wizmind.add_antag_datum(/datum/antagonist/wizard/academy)
 	current_wizard = wizbody
 

@@ -694,7 +694,7 @@
 	for(var/j in SSjob.occupations)
 		var/datum/job/job = j
 		count++
-		var/J_title = html_encode(job.title)
+		var/J_title = html_encode(job.get_title())
 		var/J_opPos = html_encode(job.total_positions - (job.total_positions - job.current_positions))
 		var/J_totPos = html_encode(job.total_positions)
 		dat += "<tr><td>[J_title]:</td> <td>[J_opPos]/[job.total_positions < 0 ? " (unlimited)" : J_totPos]"
@@ -702,15 +702,15 @@
 		dat += "</td>"
 		dat += "<td>"
 		if(job.total_positions >= 0)
-			dat += "<A href='?src=[REF(src)];[HrefToken()];customjobslot=[job.title]'>Custom</A> | "
-			dat += "<A href='?src=[REF(src)];[HrefToken()];addjobslot=[job.title]'>Add 1</A> | "
+			dat += "<A href='?src=[REF(src)];[HrefToken()];customjobslot=[job.get_jpath()]'>Custom</A> | "
+			dat += "<A href='?src=[REF(src)];[HrefToken()];addjobslot=[job.get_jpath()]'>Add 1</A> | "
 			if(job.total_positions > job.current_positions)
-				dat += "<A href='?src=[REF(src)];[HrefToken()];removejobslot=[job.title]'>Remove</A> | "
+				dat += "<A href='?src=[REF(src)];[HrefToken()];removejobslot=[job.get_jpath()]'>Remove</A> | "
 			else
 				dat += "Remove | "
-			dat += "<A href='?src=[REF(src)];[HrefToken()];unlimitjobslot=[job.title]'>Unlimit</A></td>"
+			dat += "<A href='?src=[REF(src)];[HrefToken()];unlimitjobslot=[job.get_jpath()]'>Unlimit</A></td>"
 		else
-			dat += "<A href='?src=[REF(src)];[HrefToken()];limitjobslot=[job.title]'>Limit</A></td>"
+			dat += "<A href='?src=[REF(src)];[HrefToken()];limitjobslot=[job.get_jpath()]'>Limit</A></td>"
 
 	browser.height = min(100 + count * 20, 650)
 	browser.set_content(dat.Join())

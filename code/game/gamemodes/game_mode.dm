@@ -130,7 +130,7 @@
 			if(!person)
 				continue
 			var/datum/mind/selected_mind = person.mind
-			if(selected_mind.special_role)
+			if(selected_mind.get_mind_role(JTYPE_SPECIAL))
 				continue
 			if(person.job in special.restricted_jobs)
 				continue
@@ -268,7 +268,7 @@
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		replacementmode.restricted_jobs += replacementmode.protected_jobs
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		replacementmode.restricted_jobs += JOB_NAME_ASSISTANT
+		replacementmode.restricted_jobs += JOB_PATH_ASSISTANT
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		replacementmode.restricted_jobs += GLOB.command_positions
 
@@ -322,7 +322,7 @@
 				if(!Player.mind)
 					continue
 				//Gamemodes like revs do not give antag status, but special roles instead.
-				if(Player.mind.special_role && !LAZYLEN(Player.mind.antag_datums))
+				if(Player.mind.get_mind_role(JTYPE_SPECIAL) && !LAZYLEN(Player.mind.antag_datums))
 					continuous_sanity_checked = TRUE
 					return FALSE
 				for(var/datum/antagonist/A in Player.mind.antag_datums)
@@ -337,11 +337,11 @@
 				return 0
 
 
-		if(living_antag_player && living_antag_player.mind && isliving(living_antag_player) && living_antag_player.stat != DEAD && !isnewplayer(living_antag_player) &&!isbrain(living_antag_player) && (living_antag_player.mind.special_role || LAZYLEN(living_antag_player.mind.antag_datums)))
+		if(living_antag_player && living_antag_player.mind && isliving(living_antag_player) && living_antag_player.stat != DEAD && !isnewplayer(living_antag_player) &&!isbrain(living_antag_player) && (living_antag_player.mind.get_mind_role(JTYPE_SPECIAL) || LAZYLEN(living_antag_player.mind.antag_datums)))
 			return 0 //A resource saver: once we find someone who has to die for all antags to be dead, we can just keep checking them, cycling over everyone only when we lose our mark.
 
 		for(var/mob/Player in GLOB.alive_mob_list)
-			if(Player.mind && Player.stat != DEAD && !isnewplayer(Player) &&!isbrain(Player) && Player.client && (Player.mind.special_role || LAZYLEN(Player.mind.antag_datums))) //Someone's still antagging but is their antagonist datum important enough to skip mulligan?
+			if(Player.mind && Player.stat != DEAD && !isnewplayer(Player) &&!isbrain(Player) && Player.client && (Player.mind.get_mind_role(JTYPE_SPECIAL) || LAZYLEN(Player.mind.antag_datums))) //Someone's still antagging but is their antagonist datum important enough to skip mulligan?
 				for(var/datum/antagonist/antag_types in Player.mind.antag_datums)
 					if(antag_types.prevent_roundtype_conversion)
 						living_antag_player = Player //they were an important antag, they're our new mark
@@ -494,7 +494,7 @@
 	if(restricted_jobs)
 		for(var/datum/mind/player in candidates)
 			for(var/job in restricted_jobs)					// Remove people who want to be antagonist but have a job already that precludes it
-				if(player.assigned_role == job)
+				if(player.get_mind_role(JTYPE_JOB_PATH) == job)
 					candidates -= player
 
 	if(candidates.len < recommended_enemies)
@@ -507,7 +507,7 @@
 	if(restricted_jobs)
 		for(var/datum/mind/player in drafted)				// Remove people who can't be an antagonist
 			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
+				if(player.get_mind_role(JTYPE_JOB_PATH) == job)
 					drafted -= player
 
 	drafted = shuffle(drafted) // Will hopefully increase randomness, Donkie
@@ -525,7 +525,7 @@
 	if(restricted_jobs)
 		for(var/datum/mind/player in drafted)				// Remove people who can't be an antagonist
 			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
+				if(player.get_mind_role(JTYPE_JOB_PATH) == job)
 					drafted -= player
 
 	drafted = shuffle(drafted) // Will hopefully increase randomness, Donkie
@@ -552,14 +552,14 @@
 		if(player.client && is_station_level(player.z))
 			if(role in player.client.prefs.be_special)
 				if(!is_banned_from(player.ckey, list(role, ROLE_SYNDICATE)) && !QDELETED(player))
-					if(age_check(player.client) && !player.mind.special_role) //Must be older than the minimum age
+					if(age_check(player.client) && !player.mind.get_mind_role(JTYPE_SPECIAL)) //Must be older than the minimum age
 						candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
 
 	var/restricted_list = length(restricted_roles) ? restricted_roles : restricted_jobs
 	if(restricted_list)
 		for(var/datum/mind/player in candidates)
 			for(var/job in restricted_list)					// Remove people who want to be antagonist but have a job already that precludes it
-				if(player.assigned_role == job)
+				if(player.get_mind_role(JTYPE_JOB_PATH) == job)
 					candidates -= player
 
 	return candidates
@@ -578,13 +578,13 @@
 /datum/game_mode/proc/get_living_by_department(var/department)
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.mob_list)
-		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in department))
+		if(player.stat != DEAD && player.mind && (player.mind.get_mind_role(JTYPE_JOB_PATH) in department))
 			. |= player.mind
 
 /datum/game_mode/proc/get_all_by_department(var/department)
 	. = list()
 	for(var/mob/player in GLOB.mob_list)
-		if(player.mind && (player.mind.assigned_role in department))
+		if(player.mind && (player.mind.get_mind_role(JTYPE_JOB_PATH) in department))
 			. |= player.mind
 
 /////////////////////////////////////////////
@@ -593,7 +593,7 @@
 /datum/game_mode/proc/get_living_silicon()
 	. = list()
 	for(var/mob/living/silicon/player in GLOB.mob_list)
-		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in GLOB.nonhuman_positions))
+		if(player.stat != DEAD && player.mind && (player.mind.get_mind_role(JTYPE_JOB_PATH) in GLOB.nonhuman_positions))
 			. |= player.mind
 
 ///////////////////////////////////////
@@ -602,7 +602,7 @@
 /datum/game_mode/proc/get_all_silicon()
 	. = list()
 	for(var/mob/living/silicon/player in GLOB.mob_list)
-		if(player.mind && (player.mind.assigned_role in GLOB.nonhuman_positions))
+		if(player.mind && (player.mind.get_mind_role(JTYPE_JOB_PATH) in GLOB.nonhuman_positions))
 			. |= player.mind
 
 /proc/reopen_roundstart_suicide_roles()
@@ -612,7 +612,6 @@
 	valid_positions += GLOB.science_positions
 	valid_positions += GLOB.supply_positions
 	valid_positions += GLOB.civilian_positions
-	valid_positions += GLOB.gimmick_positions
 	valid_positions += GLOB.security_positions
 	if(CONFIG_GET(flag/reopen_roundstart_suicide_roles_command_positions))
 		valid_positions += GLOB.command_positions //add any remaining command positions
@@ -788,7 +787,7 @@
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.command_positions))
 		custom_title_holder = get_custom_title_from_id(current, newline=TRUE)
-		round_credits += "<center><h2>[current.name] as the [current.assigned_role][custom_title_holder]</h2>"
+		round_credits += "<center><h2>[current.name] as the [current.get_mind_role(JTYPE_JOB_NAME)][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>A serious bureaucratic error has occurred!</h2>", "<center><h2>No one was in charge of the crew!</h2>")
 	round_credits += "<br>"
@@ -797,7 +796,7 @@
 	round_credits += "<center><h1>The Silicon \"Intelligences\":</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_silicon())
-		round_credits += "<center><h2>[current.name] as the [current.assigned_role]</h2>"
+		round_credits += "<center><h2>[current.name] as the [current.get_mind_role(JTYPE_JOB_NAME)]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>[station_name()] had no silicon helpers!</h2>", "<center><h2>Not a single door was opened today!</h2>")
 	round_credits += "<br>"
@@ -807,7 +806,7 @@
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.security_positions))
 		custom_title_holder = get_custom_title_from_id(current, newline=TRUE)
-		round_credits += "<center><h2>[current.name] as the [current.assigned_role][custom_title_holder]</h2>"
+		round_credits += "<center><h2>[current.name] as the [current.get_mind_role(JTYPE_JOB_NAME)][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>[station_name()] has fallen to Communism!</h2>", "<center><h2>No one was there to protect the crew!</h2>")
 	round_credits += "<br>"
@@ -817,7 +816,7 @@
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.medical_positions))
 		custom_title_holder = get_custom_title_from_id(current, newline=TRUE)
-		round_credits += "<center><h2>[current.name] as the [current.assigned_role][custom_title_holder]</h2>"
+		round_credits += "<center><h2>[current.name] as the [current.get_mind_role(JTYPE_JOB_NAME)][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>Healthcare was not included!</h2>", "<center><h2>There were no doctors today!</h2>")
 	round_credits += "<br>"
@@ -827,7 +826,7 @@
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.engineering_positions))
 		custom_title_holder = get_custom_title_from_id(current, newline=TRUE)
-		round_credits += "<center><h2>[current.name] as the [current.assigned_role][custom_title_holder]</h2>"
+		round_credits += "<center><h2>[current.name] as the [current.get_mind_role(JTYPE_JOB_NAME)][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>[station_name()] probably did not last long!</h2>", "<center><h2>No one was holding the station together!</h2>")
 	round_credits += "<br>"
@@ -837,7 +836,7 @@
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.science_positions))
 		custom_title_holder = get_custom_title_from_id(current, newline=TRUE)
-		round_credits += "<center><h2>[current.name] as the [current.assigned_role][custom_title_holder]</h2>"
+		round_credits += "<center><h2>[current.name] as the [current.get_mind_role(JTYPE_JOB_NAME)][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>No one was doing \"science\" today!</h2>", "<center><h2>Everyone probably made it out alright, then!</h2>")
 	round_credits += "<br>"
@@ -847,7 +846,7 @@
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.supply_positions))
 		custom_title_holder = get_custom_title_from_id(current, newline=TRUE)
-		round_credits += "<center><h2>[current.name] as the [current.assigned_role][custom_title_holder]</h2>"
+		round_credits += "<center><h2>[current.name] as the [current.get_mind_role(JTYPE_JOB_NAME)][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>The station was freed from paperwork!</h2>", "<center><h2>No one worked in cargo today!</h2>")
 	round_credits += "<br>"
@@ -856,12 +855,12 @@
 	var/list/human_garbage = list()
 	round_credits += "<center><h1>The Hardy Civilians:</h1>"
 	len_before_addition = round_credits.len
-	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.civilian_positions | GLOB.gimmick_positions)) // gimmicks shouldn't be here, but let's not make the code dirty
-		if(current.assigned_role == JOB_NAME_ASSISTANT)
+	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.civilian_positions))
+		if(current.get_mind_role(JTYPE_JOB_PATH) == JOB_PATH_ASSISTANT)
 			human_garbage += current
 		else
 			custom_title_holder = get_custom_title_from_id(current, newline=TRUE)
-			round_credits += "<center><h2>[current.name] as the [current.assigned_role][custom_title_holder]</h2>"
+			round_credits += "<center><h2>[current.name] as the [current.get_mind_role(JTYPE_JOB_NAME)][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>Everyone was stuck in traffic this morning!</h2>", "<center><h2>No civilians made it to work!</h2>")
 	round_credits += "<br>"

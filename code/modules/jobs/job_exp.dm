@@ -11,7 +11,7 @@ GLOBAL_PROTECT(exp_to_update)
 		return 0
 	if(!exp_requirements || !exp_type)
 		return 0
-	if(!job_is_xp_locked(src.title))
+	if(!job_is_xp_locked(get_jpath()))
 		return 0
 	if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights_for(C,R_ADMIN))
 		return 0
@@ -28,22 +28,22 @@ GLOBAL_PROTECT(exp_to_update)
 		return (job_requirement - my_exp)
 
 /datum/job/proc/get_exp_req_amount()
-	if(title in (GLOB.command_positions | list(JOB_NAME_AI)))
+	if(get_jpath() in (GLOB.command_positions | list(JOB_PATH_AI)))
 		var/uerhh = CONFIG_GET(number/use_exp_restrictions_heads_hours)
 		if(uerhh)
 			return uerhh * 60
 	return exp_requirements
 
 /datum/job/proc/get_exp_req_type()
-	if(title in (GLOB.command_positions | list(JOB_NAME_AI)))
+	if(get_jpath() in (GLOB.command_positions | list(JOB_PATH_AI)))
 		if(CONFIG_GET(flag/use_exp_restrictions_heads_department) && exp_type_department)
 			return exp_type_department
 	return exp_type
 
-/proc/job_is_xp_locked(jobtitle)
-	if(!CONFIG_GET(flag/use_exp_restrictions_heads) && (jobtitle in (GLOB.command_positions | list(JOB_NAME_AI))))
+/proc/job_is_xp_locked(job_key)
+	if(!CONFIG_GET(flag/use_exp_restrictions_heads) && (job_key in (GLOB.command_positions | list(JOB_PATH_AI))))
 		return FALSE
-	if(!CONFIG_GET(flag/use_exp_restrictions_other) && !(jobtitle in (GLOB.command_positions | list(JOB_NAME_AI))))
+	if(!CONFIG_GET(flag/use_exp_restrictions_other) && !(job_key in (GLOB.command_positions | list(JOB_PATH_AI))))
 		return FALSE
 	return TRUE
 
@@ -156,22 +156,22 @@ GLOBAL_PROTECT(exp_to_update)
 
 			if(announce_changes)
 				to_chat(src,"<span class='notice'>You got: [minutes] Living EXP!</span>")
-			if(mob.mind.assigned_role)
+			if(length(mob.mind.mind_roles))
 				for(var/job in SSjob.name_occupations)
-					if(mob.mind.assigned_role == job)
+					if(mob.mind.get_mind_role(JTYPE_JOB_PATH) == job)
 						rolefound = TRUE
 						play_records[job] += minutes
 						if(announce_changes)
 							to_chat(src,"<span class='notice'>You got: [minutes] [job] EXP!</span>")
 				if(!rolefound)
 					for(var/role in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])
-						if(mob.mind.assigned_role == role)
+						if(mob.mind.get_mind_role(JTYPE_SPECIAL) == role)
 							rolefound = TRUE
 							play_records[role] += minutes
 							if(announce_changes)
 								to_chat(mob,"<span class='notice'>You got: [minutes] [role] EXP!</span>")
-				if(mob.mind.special_role && !(mob.mind.datum_flags & DF_VAR_EDITED))
-					var/trackedrole = mob.mind.special_role
+				if(mob.mind.get_mind_role(JTYPE_SPECIAL) && !(mob.mind.datum_flags & DF_VAR_EDITED))
+					var/trackedrole = mob.mind.get_mind_role(JTYPE_SPECIAL)
 					play_records[trackedrole] += minutes
 					if(announce_changes)
 						to_chat(src,"<span class='notice'>You got: [minutes] [trackedrole] EXP!</span>")

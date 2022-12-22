@@ -1,11 +1,12 @@
 /datum/job/chief_engineer
+	jpath = JOB_PATH_CHIEFENGINEER
 	title = JOB_NAME_CHIEFENGINEER
 	flag = CHIEF
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list("Engineering")
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ffeeaa"
@@ -42,7 +43,7 @@
 	)
 
 /datum/outfit/job/chief_engineer
-	name = JOB_NAME_CHIEFENGINEER
+	name = JOB_PATH_CHIEFENGINEER
 	jobtype = /datum/job/chief_engineer
 
 	id = /obj/item/card/id/job/chief_engineer

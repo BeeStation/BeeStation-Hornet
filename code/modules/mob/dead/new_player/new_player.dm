@@ -241,36 +241,36 @@
 	qdel(src)
 	return TRUE
 
-/proc/get_job_unavailable_error_message(retval, jobtitle)
+/proc/get_job_unavailable_error_message(retval, job_key)
 	switch(retval)
 		if(JOB_AVAILABLE)
-			return "[jobtitle] is available."
+			return "[job_key] is available."
 		if(JOB_UNAVAILABLE_GENERIC)
-			return "[jobtitle] is unavailable."
+			return "[job_key] is unavailable."
 		if(JOB_UNAVAILABLE_BANNED)
-			return "You are currently banned from [jobtitle]."
+			return "You are currently banned from [job_key]."
 		if(JOB_UNAVAILABLE_PLAYTIME)
-			return "You do not have enough relevant playtime for [jobtitle]."
+			return "You do not have enough relevant playtime for [job_key]."
 		if(JOB_UNAVAILABLE_ACCOUNTAGE)
-			return "Your account is not old enough for [jobtitle]."
+			return "Your account is not old enough for [job_key]."
 		if(JOB_UNAVAILABLE_SLOTFULL)
-			return "[jobtitle] is already filled to capacity."
+			return "[job_key] is already filled to capacity."
 	return "Error: Unknown job availability."
 
-/mob/dead/new_player/proc/IsJobUnavailable(rank, latejoin = FALSE)
-	var/datum/job/job = SSjob.GetJob(rank)
+/mob/dead/new_player/proc/IsJobUnavailable(job_key, latejoin = FALSE)
+	var/datum/job/job = SSjob.GetJob(job_key)
 	if(!job)
 		return JOB_UNAVAILABLE_GENERIC
 	if((job.current_positions >= job.total_positions) && job.total_positions != -1)
-		if(job.title == JOB_NAME_ASSISTANT)
+		if(job.get_jpath(FALSE) == JOB_PATH_ASSISTANT)
 			if(isnum_safe(client.player_age) && client.player_age <= 14) //Newbies can always be assistants
 				return JOB_AVAILABLE
 			for(var/datum/job/J in SSjob.occupations)
-				if(J && J.current_positions < J.total_positions && J.title != job.title)
+				if(J && J.current_positions < J.total_positions && J.get_jpath() != job.get_jpath())
 					return JOB_UNAVAILABLE_SLOTFULL
 		else
 			return JOB_UNAVAILABLE_SLOTFULL
-	if(is_banned_from(ckey, rank))
+	if(is_banned_from(ckey, job_key))
 		return JOB_UNAVAILABLE_BANNED
 	if(QDELETED(src))
 		return JOB_UNAVAILABLE_GENERIC
@@ -282,10 +282,10 @@
 		return JOB_UNAVAILABLE_GENERIC
 	return JOB_AVAILABLE
 
-/mob/dead/new_player/proc/AttemptLateSpawn(rank)
-	var/error = IsJobUnavailable(rank)
+/mob/dead/new_player/proc/AttemptLateSpawn(job_key)
+	var/error = IsJobUnavailable(job_key)
 	if(error != JOB_AVAILABLE)
-		alert(src, get_job_unavailable_error_message(error, rank))
+		alert(src, get_job_unavailable_error_message(error, job_key))
 		return FALSE
 
 	if(SSticker.late_join_disabled)
@@ -307,14 +307,14 @@
 	SSticker.queued_players -= src
 	SSticker.queue_delay = 4
 
-	SSjob.AssignRole(src, rank, 1)
+	SSjob.AssignRole(src, job_key, 1)
 
 	var/mob/living/character = create_character(TRUE)	//creates the human and transfers vars and mind
-	var/equip = SSjob.EquipRank(character, rank, TRUE)
+	var/equip = SSjob.EquipRank(character, job_key, TRUE)
 	if(isliving(equip))	//Borgs get borged in the equip, so we need to make sure we handle the new mob.
 		character = equip
 
-	var/datum/job/job = SSjob.GetJob(rank)
+	var/datum/job/job = SSjob.GetJob(job_key)
 
 	if(job && !job.override_latejoin_spawn(character))
 		SSjob.SendToLateJoin(character)
@@ -334,9 +334,9 @@
 	if(humanc)	//These procs all expect humans
 		GLOB.data_core.manifest_inject(humanc)
 		if(SSshuttle.arrivals)
-			SSshuttle.arrivals.QueueAnnounce(humanc, rank)
+			SSshuttle.arrivals.QueueAnnounce(humanc, job_key)
 		else
-			AnnounceArrival(humanc, rank)
+			AnnounceArrival(humanc, job_key)
 		AddEmploymentContract(humanc)
 		if(GLOB.highlander)
 			to_chat(humanc, "<span class='userdanger'><i>THERE CAN BE ONLY ONE!!!</i></span>")
@@ -349,7 +349,7 @@
 		if(GLOB.curse_of_madness_triggered)
 			give_madness(humanc, GLOB.curse_of_madness_triggered)
 
-		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREWMEMBER_JOINED, humanc, rank)
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREWMEMBER_JOINED, humanc, job_key)
 
 	GLOB.joined_player_list += character.ckey
 
@@ -388,12 +388,11 @@
 		"Supply"= "#d7b088",
 		"Silicon" = "#ccffcc",
 		"Civilian"= "#bbe291",
-		"Gimmick" = "#dddddd",
 		"Medical" = "#c1e1ec",
 		"Science" = "#ffddff",
 		"Security" = "#ffdddd"
 	)
-	var/static/list/department_list = list(GLOB.command_positions) + list(GLOB.engineering_positions) + list(GLOB.supply_positions) + list(GLOB.nonhuman_positions - "pAI") + list(GLOB.civilian_positions) + list(GLOB.gimmick_positions) + list(GLOB.medical_positions) + list(GLOB.science_positions) + list(GLOB.security_positions)
+	var/static/list/department_list = list(GLOB.command_positions) + list(GLOB.engineering_positions) + list(GLOB.supply_positions) + list(GLOB.nonhuman_positions - "pAI") + list(GLOB.civilian_positions) + list(GLOB.medical_positions) + list(GLOB.science_positions) + list(GLOB.security_positions)
 
 	var/list/dat = list("<div class='notice'>Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]</div>")
 	if(SSjob.prioritized_jobs.len > 0)
@@ -417,14 +416,14 @@
 		var/list/dept_dat = list()
 		for(var/job in category)
 			var/datum/job/job_datum = SSjob.name_occupations[job]
-			if(job_datum && IsJobUnavailable(job_datum.title, TRUE) == JOB_AVAILABLE)
+			if(job_datum && IsJobUnavailable(job_datum.get_jpath(), TRUE) == JOB_AVAILABLE)
 				var/command_bold = ""
 				if(job in GLOB.command_positions)
 					command_bold = " command"
 				if(job_datum in SSjob.prioritized_jobs)
-					dept_dat += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'><span class='priority'>[job_datum.title] ([job_datum.current_positions])</span></a>"
+					dept_dat += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.get_jpath()]'><span class='priority'>[job_datum.get_title()] ([job_datum.current_positions])</span></a>"
 				else
-					dept_dat += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'>[job_datum.title] ([job_datum.current_positions])</a>"
+					dept_dat += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.get_jpath()]'>[job_datum.get_title()] ([job_datum.current_positions])</a>"
 		if(!dept_dat.len)
 			dept_dat += "<span class='nopositions'>No positions open.</span>"
 		dat += jointext(dept_dat, "")

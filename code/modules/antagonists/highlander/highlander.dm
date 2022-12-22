@@ -25,7 +25,7 @@
 
 /datum/antagonist/highlander/on_gain()
 	forge_objectives()
-	owner.special_role = "highlander"
+	owner.mind_roles[JLIST_SPECIAL] = "highlander"
 	owner.current.set_species(/datum/species/human)
 	give_equipment()
 	. = ..()

@@ -13,4 +13,5 @@
 
 /datum/antagonist/greentext/on_gain()
 	forge_objectives()
+	owner.mind_roles[JLIST_SPECIAL] = name
 	. = ..()

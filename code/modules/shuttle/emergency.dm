@@ -274,7 +274,7 @@
 		var/obj/item/card/id/ID = new(src)
 		var/datum/job/J = pick(SSjob.occupations)
 		ID.registered_name = S.random_name(pick(MALE, FEMALE))
-		ID.assignment = J.title
+		ID.assignment = J.get_title()
 
 		authorized += ID
 

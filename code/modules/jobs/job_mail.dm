@@ -288,8 +288,8 @@
 		/obj/item/megaphone = 3,
 	)
 
-//MAGICIAN GIMMICK
-/datum/job/gimmick/stage_magician
+//MAGICIAN - CLOWN GIMMICK
+/datum/job/clown/stage_magician
 	mail_goodies = list(
 		//AND FOR MY NEXT TRICK... Bnnuy
 		/mob/living/simple_animal/chicken/rabbit/normal = 40,
@@ -320,8 +320,8 @@
 		/obj/item/book/granter/spell/mimery_blockade = 1,
 	)
 
-//PSYCHOLOGIST / PSYCHIATRIST GIMMICK
-/datum/job/gimmick/psychiatrist
+//PSYCHOLOGIST / MEDICAL DOCTOR GIMMICK
+/datum/job/medical_doctor/psychiatrist
 	mail_goodies =  list(
 		/obj/item/storage/pill_bottle/mannitol = 30,
 		/obj/item/storage/pill_bottle/happy = 5,
@@ -424,8 +424,8 @@
 
 	)
 
-//VIP / VIP GIMMICK
-/datum/job/gimmick/vip
+//VIP / ASSISTANT GIMMICK
+/datum/job/assistant/vip
 	mail_goodies = list(
 		//WOW THE NEW BEATS BY DR.MOFF?
 		/obj/item/clothing/ears/headphones = 10,

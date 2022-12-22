@@ -1,9 +1,10 @@
 /datum/job/chemist
+	jpath = JOB_PATH_CHEMIST
 	title = JOB_NAME_CHEMIST
 	flag = CHEMIST
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 2
 	spawn_positions = 2
 	selection_color = "#d4ebf2"
@@ -29,7 +30,7 @@
 	biohazard = 25
 
 /datum/outfit/job/chemist
-	name = JOB_NAME_CHEMIST
+	name = JOB_PATH_CHEMIST
 	jobtype = /datum/job/chemist
 
 	id = /obj/item/card/id/job/chemist

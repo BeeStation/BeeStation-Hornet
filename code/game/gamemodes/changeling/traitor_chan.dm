@@ -4,7 +4,7 @@
 	report_type = "traitorchan"
 	false_report_weight = 10
 	traitors_possible = 3 //hard limit on traitors if scaling is turned off
-	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
+	restricted_jobs = list(JOB_PATH_AI, JOB_PATH_CYBORG)
 	required_players = 25
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
@@ -32,7 +32,7 @@
 		restricted_jobs += protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += JOB_NAME_ASSISTANT
+		restricted_jobs += JOB_PATH_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
@@ -54,7 +54,7 @@
 			var/datum/mind/changeling = antag_pick(possible_changelings, ROLE_CHANGELING)
 			antag_candidates -= changeling
 			possible_changelings -= changeling
-			changeling.special_role = ROLE_CHANGELING
+			changeling.mind_roles[JLIST_SPECIAL] = ROLE_CHANGELING
 			changelings += changeling
 			changeling.restricted_roles = restricted_jobs
 		return ..()

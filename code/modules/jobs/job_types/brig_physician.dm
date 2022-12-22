@@ -1,9 +1,10 @@
 /datum/job/brig_physician
+	jpath = JOB_PATH_BRIGPHYSICIAN
 	title = JOB_NAME_BRIGPHYSICIAN
 	flag = BRIG_PHYS
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "chief medical officer"
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ffeeee"
@@ -30,7 +31,7 @@
 	biohazard = 25 //still deals with the sick and injured, just less than a medical doctor
 
 /datum/outfit/job/brig_physician
-	name = JOB_NAME_BRIGPHYSICIAN
+	name = JOB_PATH_BRIGPHYSICIAN
 	jobtype = /datum/job/brig_physician
 
 	id = /obj/item/card/id/job/brig_physician

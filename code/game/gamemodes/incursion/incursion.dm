@@ -5,8 +5,8 @@
 /datum/game_mode/incursion
 	name = "incursion"
 	config_tag = "incursion"
-	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
-	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFMEDICALOFFICER)
+	restricted_jobs = list(JOB_PATH_AI, JOB_PATH_CYBORG)
+	protected_jobs = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE,JOB_PATH_CAPTAIN, JOB_PATH_HEADOFPERSONNEL, JOB_PATH_HEADOFSECURITY, JOB_PATH_CHIEFENGINEER, JOB_PATH_RESEARCHDIRECTOR, JOB_PATH_CHIEFMEDICALOFFICER)
 	antag_flag = ROLE_INCURSION
 	false_report_weight = 10
 	enemy_minimum_age = 0
@@ -28,7 +28,7 @@
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += JOB_NAME_ASSISTANT
+		restricted_jobs += JOB_PATH_ASSISTANT
 
 	var/list/datum/mind/possible_traitors = get_players_for_role(ROLE_INCURSION)
 
@@ -48,7 +48,7 @@
 		possible_traitors -= incursion
 		antag_candidates -= incursion
 		team.add_member(incursion)
-		incursion.special_role = ROLE_INCURSION
+		incursion.mind_roles[JLIST_SPECIAL] = ROLE_INCURSION
 		incursion.restricted_roles = restricted_jobs
 		log_game("[key_name(incursion)] has been selected as a member of the incursion")
 	pre_incursionist_team = team

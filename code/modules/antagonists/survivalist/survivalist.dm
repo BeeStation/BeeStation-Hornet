@@ -13,7 +13,7 @@
 	log_objective(owner, survive.explanation_text)
 
 /datum/antagonist/survivalist/on_gain()
-	owner.special_role = "survivalist"
+	owner.mind_roles[JLIST_SPECIAL] = "survivalist"
 	forge_objectives()
 	. = ..()
 

@@ -17,7 +17,11 @@
 	for(var/mob/living/carbon/human/H in shuffle(GLOB.player_list))
 		if(H.stat == DEAD)
 			continue
-		if(!SSjob.GetJob(H.mind.assigned_role) || (H.mind.assigned_role in GLOB.nonhuman_positions))
+		if(!H.client)
+			continue
+		if(!H.mind)
+			continue
+		if(!is_station_level(H.z))
 			continue
 		if(!H.getorgan(/obj/item/organ/brain))
 			continue

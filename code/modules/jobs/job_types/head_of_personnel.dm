@@ -1,11 +1,12 @@
 /datum/job/head_of_personnel
+	jpath = JOB_PATH_HEADOFPERSONNEL
 	title = JOB_NAME_HEADOFPERSONNEL
 	flag = HOP
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list(RADIO_CHANNEL_SUPPLY, RADIO_CHANNEL_SERVICE)
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ddddff"
@@ -47,7 +48,7 @@
 	)
 
 /datum/outfit/job/head_of_personnel
-	name = JOB_NAME_HEADOFPERSONNEL
+	name = JOB_PATH_HEADOFPERSONNEL
 	jobtype = /datum/job/head_of_personnel
 
 	id = /obj/item/card/id/job/head_of_personnel

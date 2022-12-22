@@ -135,7 +135,7 @@
 			data["user"]["job"] = R.fields["name"]
 			data["user"]["department"] = R.fields[""]
 		else if(card.registered_account.account_job)
-			data["user"]["job"] = card.registered_account.account_job.title
+			data["user"]["job"] = card.registered_account.account_job.get_title()
 			data["user"]["department"] = card.registered_account.account_job.bank_account_department
 		else
 			data["user"]["job"] = "No Job"
@@ -814,7 +814,7 @@
 		return TRUE
 	if(temp_message)
 		feed_channel_message = temp_message
-	GLOB.news_network.submit_article("<font face=\"[PEN_FONT]\">[parsemarkdown(feed_channel_message, usr)]</font>", usr_name, current_channel.channel_name, send_photo_data(), adminMessage = FALSE, allow_comments = TRUE, author_job = issilicon(usr) ? usr.job : account.account_job.title, author_account = account)
+	GLOB.news_network.submit_article("<font face=\"[PEN_FONT]\">[parsemarkdown(feed_channel_message, usr)]</font>", usr_name, current_channel.channel_name, send_photo_data(), adminMessage = FALSE, allow_comments = TRUE, author_job = issilicon(usr) ? usr.job : account.account_job.get_title(), author_account = account)
 	SSblackbox.record_feedback("amount", "newscaster_stories", 1)
 	feed_channel_message = ""
 	current_image = null

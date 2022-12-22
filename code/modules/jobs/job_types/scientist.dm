@@ -1,9 +1,10 @@
 /datum/job/scientist
+	jpath = JOB_PATH_SCIENTIST
 	title = JOB_NAME_SCIENTIST
 	flag = SCIENTIST
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 5
 	spawn_positions = 3
 	selection_color = "#ffeeff"
@@ -31,7 +32,7 @@
 	biohazard = 35
 
 /datum/outfit/job/scientist
-	name = JOB_NAME_SCIENTIST
+	name = JOB_PATH_SCIENTIST
 	jobtype = /datum/job/scientist
 
 	id = /obj/item/card/id/job/scientist

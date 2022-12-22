@@ -87,7 +87,7 @@
 			var/datum/job/job = j
 			for(var/head in head_types)//god why
 				if(head in job.department_head)
-					head_subordinates += job.title
+					head_subordinates += job.get_jpath()
 
 	if(length(region_access))
 		minor = TRUE
@@ -219,9 +219,8 @@
 					new_access = get_centcom_access(target)
 				else
 					var/datum/job/job
-					for(var/jobtype in subtypesof(/datum/job))
-						var/datum/job/J = new jobtype
-						if(J.title == target)
+					for(var/datum/job/J in SSjob.occupations)
+						if(J.get_jpath() == target)
 							job = J
 							break
 					if(!job)
@@ -303,7 +302,7 @@
 			CARDCON_DEPARTMENT_SCIENCE = GLOB.science_positions,
 			CARDCON_DEPARTMENT_SECURITY = GLOB.security_positions,
 			CARDCON_DEPARTMENT_SUPPLY = GLOB.supply_positions,
-			CARDCON_DEPARTMENT_CIVILIAN = GLOB.civilian_positions | GLOB.gimmick_positions
+			CARDCON_DEPARTMENT_CIVILIAN = GLOB.civilian_positions
 		)
 	data["jobs"] = list()
 	for(var/department in departments)

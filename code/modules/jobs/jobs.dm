@@ -1,162 +1,83 @@
 GLOBAL_LIST_INIT(command_positions, list(
-	JOB_NAME_CAPTAIN,
-	JOB_NAME_HEADOFPERSONNEL,
-	JOB_NAME_HEADOFSECURITY,
-	JOB_NAME_CHIEFENGINEER,
-	JOB_NAME_RESEARCHDIRECTOR,
-	JOB_NAME_CHIEFMEDICALOFFICER))
+	JOB_PATH_CAPTAIN,
+	JOB_PATH_HEADOFPERSONNEL,
+	JOB_PATH_HEADOFSECURITY,
+	JOB_PATH_CHIEFENGINEER,
+	JOB_PATH_RESEARCHDIRECTOR,
+	JOB_PATH_CHIEFMEDICALOFFICER))
 
 
 GLOBAL_LIST_INIT(engineering_positions, list(
-	JOB_NAME_CHIEFENGINEER,
-	JOB_NAME_STATIONENGINEER,
-	JOB_NAME_ATMOSPHERICTECHNICIAN))
+	JOB_PATH_CHIEFENGINEER,
+	JOB_PATH_STATIONENGINEER,
+	JOB_PATH_ATMOSPHERICTECHNICIAN))
 
 
 GLOBAL_LIST_INIT(medical_positions, list(
-	JOB_NAME_CHIEFMEDICALOFFICER,
-	JOB_NAME_MEDICALDOCTOR,
-	JOB_NAME_GENETICIST,
-	JOB_NAME_VIROLOGIST,
-	JOB_NAME_PARAMEDIC,
-	JOB_NAME_CHEMIST,
-	JOB_NAME_BRIGPHYSICIAN))
+	JOB_PATH_CHIEFMEDICALOFFICER,
+	JOB_PATH_MEDICALDOCTOR,
+	JOB_PATH_GENETICIST,
+	JOB_PATH_VIROLOGIST,
+	JOB_PATH_PARAMEDIC,
+	JOB_PATH_CHEMIST,
+	JOB_PATH_BRIGPHYSICIAN,
+	JOB_PATH_PSYCHIATRIST))
 
 
 GLOBAL_LIST_INIT(science_positions, list(
-	JOB_NAME_RESEARCHDIRECTOR,
-	JOB_NAME_SCIENTIST,
-	JOB_NAME_EXPLORATIONCREW,
-	JOB_NAME_ROBOTICIST))
+	JOB_PATH_RESEARCHDIRECTOR,
+	JOB_PATH_SCIENTIST,
+	JOB_PATH_EXPLORATIONCREW,
+	JOB_PATH_ROBOTICIST))
 
 
 GLOBAL_LIST_INIT(supply_positions, list(
-	JOB_NAME_HEADOFPERSONNEL,
-	JOB_NAME_QUARTERMASTER,
-	JOB_NAME_CARGOTECHNICIAN,
-	JOB_NAME_SHAFTMINER))
+	JOB_PATH_HEADOFPERSONNEL,
+	JOB_PATH_QUARTERMASTER,
+	JOB_PATH_CARGOTECHNICIAN,
+	JOB_PATH_SHAFTMINER))
 
 
 GLOBAL_LIST_INIT(civilian_positions, list(
-	JOB_NAME_HEADOFPERSONNEL,
-	JOB_NAME_BARTENDER,
-	JOB_NAME_BOTANIST,
-	JOB_NAME_COOK,
-	JOB_NAME_JANITOR,
-	JOB_NAME_LAWYER,
-	JOB_NAME_CURATOR,
-	JOB_NAME_CHAPLAIN,
-	JOB_NAME_MIME,
-	JOB_NAME_CLOWN,
-	JOB_NAME_ASSISTANT))
-
-GLOBAL_LIST_INIT(gimmick_positions, list(
-	JOB_NAME_GIMMICK,
-	JOB_NAME_BARBER,
-	JOB_NAME_STAGEMAGICIAN,
-	JOB_NAME_PSYCHIATRIST,
-	JOB_NAME_VIP))
+	JOB_PATH_HEADOFPERSONNEL,
+	JOB_PATH_BARTENDER,
+	JOB_PATH_BOTANIST,
+	JOB_PATH_COOK,
+	JOB_PATH_JANITOR,
+	JOB_PATH_LAWYER,
+	JOB_PATH_CURATOR,
+	JOB_PATH_CHAPLAIN,
+	JOB_PATH_MIME,
+	JOB_PATH_CLOWN,
+	JOB_PATH_STAGEMAGICIAN,
+	JOB_PATH_VIP,
+	JOB_PATH_ASSISTANT))
 
 GLOBAL_LIST_INIT(security_positions, list(
-	JOB_NAME_HEADOFSECURITY,
-	JOB_NAME_WARDEN,
-	JOB_NAME_DETECTIVE,
-	JOB_NAME_SECURITYOFFICER,
-	JOB_NAME_DEPUTY))
+	JOB_PATH_HEADOFSECURITY,
+	JOB_PATH_WARDEN,
+	JOB_PATH_DETECTIVE,
+	JOB_PATH_SECURITYOFFICER,
+	JOB_PATH_DEPUTY))
 
 
 GLOBAL_LIST_INIT(nonhuman_positions, list(
-	JOB_NAME_AI,
-	JOB_NAME_CYBORG,
-	ROLE_PAI))
-
-
-// they are for hud_icon-based crew manifest
-// we don't use 'gimmick' here. use common sense here.
-GLOBAL_LIST_INIT(command_positions_hud, list(
-	JOB_HUD_CAPTAIN,
-	JOB_HUD_ACTINGCAPTAIN ,
-	JOB_HUD_HEADOFPERSONNEL,
-	JOB_HUD_HEADOFSECURITY,
-	JOB_HUD_CHIEFENGINEER,
-	JOB_HUD_RESEARCHDIRECTOR,
-	JOB_HUD_CHEIFMEDICALOFFICIER,
-	JOB_HUD_RAWCOMMAND))
-
-GLOBAL_LIST_INIT(important_positions_hud, list(
-	JOB_HUD_VIP,
-	JOB_HUD_KING))
-
-GLOBAL_LIST_INIT(engineering_positions_hud, list(
-	JOB_HUD_CHIEFENGINEER,
-	JOB_HUD_STATIONENGINEER,
-	JOB_HUD_ATMOSPHERICTECHNICIAN,
-	JOB_HUD_RAWENGINEERING))
-
-GLOBAL_LIST_INIT(medical_positions_hud, list(
-	JOB_HUD_CHEIFMEDICALOFFICIER,
-	JOB_HUD_MEDICALDOCTOR,
-	JOB_HUD_GENETICIST,
-	JOB_HUD_VIROLOGIST,
-	JOB_HUD_PARAMEDIC,
-	JOB_HUD_CHEMIST,
-	JOB_HUD_BRIGPHYSICIAN,
-	JOB_HUD_PSYCHIATRIST,
-	JOB_HUD_RAWMEDICAL))
-
-GLOBAL_LIST_INIT(science_positions_hud, list(
-	JOB_HUD_RESEARCHDIRECTOR,
-	JOB_HUD_SCIENTIST,
-	JOB_HUD_EXPLORATIONCREW,
-	JOB_HUD_ROBOTICIST,
-	JOB_HUD_RAWSCIENCE))
-
-GLOBAL_LIST_INIT(supply_positions_hud, list(
-	JOB_HUD_QUARTERMASTER,
-	JOB_HUD_CARGOTECHNICIAN,
-	JOB_HUD_SHAFTMINER,
-	JOB_HUD_RAWCARGO))
-
-GLOBAL_LIST_INIT(civilian_positions_hud, list(
-	JOB_HUD_HEADOFPERSONNEL,
-	JOB_HUD_BARTENDER,
-	JOB_HUD_BOTANIST,
-	JOB_HUD_COOK,
-	JOB_HUD_JANITOR,
-	JOB_HUD_CURATOR,
-	JOB_HUD_LAWYER,
-	JOB_HUD_CHAPLAIN,
-	JOB_HUD_CLOWN,
-	JOB_HUD_MIME,
-	JOB_HUD_BARBER,
-	JOB_HUD_STAGEMAGICIAN,
-	JOB_HUD_ASSISTANT,
-	JOB_HUD_RAWSERVICE))
-
-//GLOBAL_LIST_INIT(gimmick_positions_hud, list()
-// NO. don't use this.
-
-GLOBAL_LIST_INIT(security_positions_hud, list(
-	JOB_HUD_HEADOFSECURITY,
-	JOB_HUD_WARDEN,
-	JOB_HUD_DETECTIVE,
-	JOB_HUD_SECURITYOFFICER,
-	JOB_HUD_DEPUTY,
-	JOB_HUD_RAWSECURITY))
+	JOB_PATH_AI,
+	JOB_PATH_CYBORG,
+	JOB_PATH_PAI))
 
 
 
 GLOBAL_LIST_INIT(exp_jobsmap, list(
-	EXP_TYPE_CREW = list("titles" = command_positions | engineering_positions | medical_positions | science_positions | supply_positions | security_positions | civilian_positions | gimmick_positions | list(JOB_NAME_AI,JOB_NAME_CYBORG)), // crew positions
+	EXP_TYPE_CREW = list("titles" = command_positions | engineering_positions | medical_positions | science_positions | supply_positions | security_positions | civilian_positions | list(JOB_PATH_AI,JOB_PATH_CYBORG)), // crew positions
 	EXP_TYPE_COMMAND = list("titles" = command_positions),
 	EXP_TYPE_ENGINEERING = list("titles" = engineering_positions),
 	EXP_TYPE_MEDICAL = list("titles" = medical_positions),
 	EXP_TYPE_SCIENCE = list("titles" = science_positions),
 	EXP_TYPE_SUPPLY = list("titles" = supply_positions),
 	EXP_TYPE_SECURITY = list("titles" = security_positions),
-	EXP_TYPE_SILICON = list("titles" = list(JOB_NAME_AI,JOB_NAME_CYBORG)),
-	EXP_TYPE_SERVICE = list("titles" = civilian_positions | gimmick_positions),
-	EXP_TYPE_GIMMICK = list("titles" = gimmick_positions)
+	EXP_TYPE_SILICON = list("titles" = list(JOB_PATH_AI,JOB_PATH_CYBORG)), // except for pai
+	EXP_TYPE_SERVICE = list("titles" = civilian_positions),
 ))
 
 GLOBAL_LIST_INIT(exp_specialmap, list(
@@ -167,21 +88,6 @@ GLOBAL_LIST_INIT(exp_specialmap, list(
 ))
 GLOBAL_PROTECT(exp_jobsmap)
 GLOBAL_PROTECT(exp_specialmap)
-
-/proc/guest_jobbans(job)
-	return ((job in GLOB.command_positions) || (job in GLOB.nonhuman_positions) || (job in GLOB.security_positions))
-
-
-
-//this is necessary because antags happen before job datums are handed out, but NOT before they come into existence
-//so I can't simply use job datum.department_head straight from the mind datum, laaaaame.
-/proc/get_department_heads(var/job_title)
-	if(!job_title)
-		return list()
-
-	for(var/datum/job/J in SSjob.occupations)
-		if(J.title == job_title)
-			return J.department_head //this is a list
 
 /proc/get_full_job_name(job)
 	var/static/regex/cap_expand = new("cap(?!tain)")

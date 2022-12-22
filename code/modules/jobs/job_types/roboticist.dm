@@ -1,11 +1,12 @@
 /datum/job/roboticist
+	jpath = JOB_PATH_ROBOTICIST
 	title = JOB_NAME_ROBOTICIST
 	flag = ROBOTICIST
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
-	faction = "Station"
+	supervisors = "the research director"
+	faction = JOB_FACTION_STATION
 	total_positions = 2
 	spawn_positions = 2
-	supervisors = "the research director"
 	selection_color = "#ffeeff"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
@@ -30,7 +31,7 @@
 	)
 
 /datum/outfit/job/roboticist
-	name = JOB_NAME_ROBOTICIST
+	name = JOB_PATH_ROBOTICIST
 	jobtype = /datum/job/roboticist
 
 	id = /obj/item/card/id/job/roboticist

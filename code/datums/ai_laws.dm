@@ -464,11 +464,11 @@
 		zeroth = null
 		zeroth_borg = null
 		return
-	if(owner?.mind?.special_role)
+	if(owner?.mind?.get_mind_role(JTYPE_SPECIAL))
 		return
 	if (istype(owner, /mob/living/silicon/ai))
 		var/mob/living/silicon/ai/A=owner
-		if(A?.deployed_shell?.mind?.special_role)
+		if(A?.deployed_shell?.mind?.get_mind_role(JTYPE_SPECIAL))
 			return
 	zeroth = null
 	zeroth_borg = null

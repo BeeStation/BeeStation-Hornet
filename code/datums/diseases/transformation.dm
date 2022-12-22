@@ -125,7 +125,6 @@
 
 
 /datum/disease/transformation/xeno
-
 	name = "Xenomorph Transformation"
 	cure_text = "Spaceacillin & Glycerol"
 	cures = list(/datum/reagent/medicine/spaceacillin, /datum/reagent/glycerol)

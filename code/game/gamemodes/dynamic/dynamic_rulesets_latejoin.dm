@@ -6,7 +6,7 @@
 
 /datum/dynamic_ruleset/latejoin/trim_candidates()
 	for(var/mob/P in candidates)
-		if (!P.client || !P.mind || !P.mind.assigned_role) // Are they connected?
+		if (!P.client || !P.mind || (P.mind.get_mind_role(JTYPE_JOB_PATH) == JOB_UNASSIGNED)) // Are they connected?
 			candidates.Remove(P)
 			continue
 		if(!mode.check_age(P.client, minimum_required_age))
@@ -20,10 +20,10 @@
 			if(!(antag_flag in P.client.prefs.be_special) || is_banned_from(P.ckey, list(antag_flag, ROLE_SYNDICATE)))
 				candidates.Remove(P)
 				continue
-		if (P.mind.assigned_role in restricted_roles) // Does their job allow for it?
+		if (P.mind.get_mind_role(JTYPE_JOB_PATH) in restricted_roles) // Does their job allow for it?
 			candidates.Remove(P)
 			continue
-		if ((exclusive_roles.len > 0) && !(P.mind.assigned_role in exclusive_roles)) // Is the rule exclusive to their job?
+		if ((exclusive_roles.len > 0) && !(P.mind.get_mind_role(JTYPE_JOB_PATH) in exclusive_roles)) // Is the rule exclusive to their job?
 			candidates.Remove(P)
 			continue
 
@@ -36,7 +36,7 @@
 		for (var/mob/M in mode.current_players[CURRENT_LIVING_PLAYERS])
 			if (M.stat == DEAD)
 				continue // Dead players cannot count as opponents
-			if (M.mind && (M.mind.assigned_role in enemy_roles) && (!(M in candidates) || (M.mind.assigned_role in restricted_roles)))
+			if (M.mind && (M.mind.get_mind_role(JTYPE_JOB_PATH) in enemy_roles) && (!(M in candidates) || (M.mind.get_mind_role(JTYPE_JOB_PATH) in restricted_roles)))
 				job_check++ // Checking for "enemies" (such as sec officers). To be counters, they must either not be candidates to that rule, or have a job that restricts them from it
 
 	var/threat = round(mode.threat_level/10)
@@ -53,7 +53,7 @@
 /datum/dynamic_ruleset/latejoin/execute()
 	var/mob/M = pick(candidates)
 	assigned += M.mind
-	M.mind.special_role = antag_flag
+	M.mind.mind_roles[JLIST_SPECIAL] = antag_flag
 	M.mind.add_antag_datum(antag_datum)
 	return TRUE
 
@@ -67,8 +67,8 @@
 	name = "Syndicate Infiltrator"
 	antag_datum = /datum/antagonist/traitor
 	antag_flag = ROLE_TRAITOR
-	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL)
-	restricted_roles = list(JOB_NAME_AI,JOB_NAME_CYBORG)
+	protected_roles = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN, JOB_PATH_HEADOFPERSONNEL)
+	restricted_roles = list(JOB_PATH_AI,JOB_PATH_CYBORG)
 	required_candidates = 1
 	weight = 7
 	cost = 5
@@ -95,8 +95,8 @@
 	antag_datum = /datum/antagonist/rev/head
 	antag_flag = ROLE_REV_HEAD
 	antag_flag_override = ROLE_REV
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFENGINEER, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR)
-	enemy_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER,JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_WARDEN)
+	restricted_roles = list(JOB_PATH_AI, JOB_PATH_CYBORG, JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN, JOB_PATH_HEADOFPERSONNEL, JOB_PATH_CHIEFENGINEER, JOB_PATH_CHIEFMEDICALOFFICER, JOB_PATH_RESEARCHDIRECTOR)
+	enemy_roles = list(JOB_PATH_AI, JOB_PATH_CYBORG, JOB_PATH_SECURITYOFFICER,JOB_PATH_DETECTIVE,JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN, JOB_PATH_WARDEN)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	weight = 2
@@ -118,7 +118,7 @@
 		return FALSE
 	var/head_check = 0
 	for(var/mob/player in mode.current_players[CURRENT_LIVING_PLAYERS])
-		if (player.mind.assigned_role in GLOB.command_positions)
+		if (player.mind.get_mind_role(JTYPE_JOB_PATH) in GLOB.command_positions)
 			head_check++
 	return (head_check >= required_heads_of_staff)
 
@@ -126,7 +126,7 @@
 	var/mob/M = pick(candidates)	// This should contain a single player, but in case.
 	if(check_eligible(M.mind))	// Didnt die/run off z-level/get implanted since leaving shuttle.
 		assigned += M.mind
-		M.mind.special_role = antag_flag
+		M.mind.mind_roles[JLIST_SPECIAL] = antag_flag
 		revolution = new()
 		var/datum/antagonist/rev/head/new_head = new()
 		new_head.give_flash = TRUE
@@ -170,8 +170,8 @@
 	name = "Heretic Smuggler"
 	antag_datum = /datum/antagonist/heretic
 	antag_flag = ROLE_HERETIC
-	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
-	restricted_roles = list(JOB_NAME_AI,JOB_NAME_CYBORG)
+	protected_roles = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_HEADOFPERSONNEL, JOB_PATH_DETECTIVE, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN)
+	restricted_roles = list(JOB_PATH_AI,JOB_PATH_CYBORG)
 	required_candidates = 1
 	weight = 4
 	cost = 7

@@ -1,9 +1,10 @@
 /datum/job/shaft_miner
+	jpath = JOB_PATH_SHAFTMINER
 	title = JOB_NAME_SHAFTMINER
 	flag = MINER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the quartermaster and the head of personnel"
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 3
 	spawn_positions = 3
 	selection_color = "#dcba97"
@@ -28,7 +29,7 @@
 	)
 
 /datum/outfit/job/miner
-	name = JOB_NAME_SHAFTMINER
+	name = JOB_PATH_SHAFTMINER
 	jobtype = /datum/job/shaft_miner
 
 	id = /obj/item/card/id/job/shaft_miner

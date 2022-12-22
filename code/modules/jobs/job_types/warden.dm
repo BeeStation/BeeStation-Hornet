@@ -1,10 +1,11 @@
 /datum/job/warden
+	jpath = JOB_PATH_WARDEN
 	title = JOB_NAME_WARDEN
 	flag = WARDEN
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ffeeee"
@@ -37,7 +38,7 @@
 	return L
 
 /datum/outfit/job/warden
-	name = JOB_NAME_WARDEN
+	name = JOB_PATH_WARDEN
 	jobtype = /datum/job/warden
 
 	id = /obj/item/card/id/job/warden

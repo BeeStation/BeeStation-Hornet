@@ -5,7 +5,7 @@
 	name = "Traitor"
 	roundend_category = "traitors"
 	antagpanel_category = "Traitor"
-	job_rank = ROLE_TRAITOR
+	antag_role_type = ROLE_TRAITOR
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5				//10 seconds per hijack stage by default
 	var/special_role = ROLE_TRAITOR
@@ -20,7 +20,7 @@
 		traitor_kind = TRAITOR_AI
 
 	SSticker.mode.traitors += owner
-	owner.special_role = special_role
+	owner.mind_roles[JLIST_SPECIAL] = special_role
 	if(give_objectives)
 		forge_traitor_objectives()
 	finalize_traitor()
@@ -46,7 +46,7 @@
 	SSticker.mode.traitors -= owner
 	if(!silent && owner.current)
 		to_chat(owner.current,"<span class='userdanger'> You are no longer the [special_role]! </span>")
-	owner.special_role = null
+	owner.nullify_special_role()
 	..()
 
 /datum/antagonist/traitor/proc/handle_hearing(datum/source, list/hearing_args)
@@ -166,7 +166,7 @@
 			kill_objective.find_target()
 			add_objective(kill_objective)
 	else
-		if(prob(15) && !(locate(/datum/objective/download) in objectives) && !(owner.assigned_role in list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST)))
+		if(prob(15) && !(locate(/datum/objective/download) in objectives) && !(owner.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST)))
 			var/datum/objective/download/download_objective = new
 			download_objective.owner = owner
 			download_objective.gen_amount_goal()
@@ -206,7 +206,7 @@
 			.=2
 
 /datum/antagonist/traitor/greet()
-	to_chat(owner.current, "<span class='alertsyndie'>You are the [owner.special_role].</span>")
+	to_chat(owner.current, "<span class='alertsyndie'>You are the [owner.get_mind_role(JTYPE_SPECIAL)].</span>")
 	owner.announce_objectives()
 	if(should_give_codewords)
 		give_codewords()

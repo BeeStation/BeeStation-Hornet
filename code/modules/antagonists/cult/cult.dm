@@ -8,7 +8,7 @@
 	var/datum/action/innate/cult/comm/communion = new
 	var/datum/action/innate/cult/mastervote/vote = new
 	var/datum/action/innate/cult/blood_magic/magic = new
-	job_rank = ROLE_CULTIST
+	antag_role_type = ROLE_CULTIST
 	var/ignore_implant = FALSE
 	var/give_equipment = FALSE
 	var/datum/team/cult/cult_team
@@ -381,7 +381,7 @@
 
 /datum/objective/sacrifice/update_explanation_text()
 	if(target)
-		explanation_text = "Sacrifice [target], the [target.assigned_role] via invoking a Sacrifice rune with [target.p_them()] on it and three acolytes around it."
+		explanation_text = "Sacrifice [target], the [target.get_mind_role(JTYPE_JOB_NAME)] via invoking a Sacrifice rune with [target.p_them()] on it and three acolytes around it."
 	else
 		explanation_text = "The veil has already been weakened here, proceed to the final objective."
 

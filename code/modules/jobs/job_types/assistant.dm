@@ -2,10 +2,11 @@
 Assistant
 */
 /datum/job/assistant
+	jpath = JOB_PATH_ASSISTANT
 	title = JOB_NAME_ASSISTANT
 	flag = ASSISTANT
 	supervisors = "absolutely everyone"
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 5
 	spawn_positions = 5
 	selection_color = "#dddddd"
@@ -35,9 +36,10 @@ Assistant
 		return ..()
 
 /datum/outfit/job/assistant
-	name = JOB_NAME_ASSISTANT
+	name = JOB_PATH_ASSISTANT
 	jobtype = /datum/job/assistant
 	belt = /obj/item/modular_computer/tablet/pda/assistant
+	id = /obj/item/card/id/job/assistant
 
 /datum/outfit/job/assistant/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -52,6 +54,3 @@ Assistant
 		else
 			uniform = /obj/item/clothing/under/color/jumpskirt/random
 
-/datum/outfit/job/assistant
-	name = "Assistant"
-	id = /obj/item/card/id/job/assistant

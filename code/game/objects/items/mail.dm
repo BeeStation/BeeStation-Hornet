@@ -167,9 +167,9 @@
 /obj/item/mail/proc/initialize_for_recipient(datum/mind/recipient)
 	switch(rand(1,5))
 		if(5)
-			name = "[initial(name)] critical to [recipient.name] ([recipient.assigned_role])"
+			name = "[initial(name)] critical to [recipient.name] ([recipient.get_mind_role(JTYPE_JOB_NAME)])"
 		else
-			name = "[initial(name)] for [recipient.name] ([recipient.assigned_role])"
+			name = "[initial(name)] for [recipient.name] ([recipient.get_mind_role(JTYPE_JOB_NAME)])"
 	recipient_ref = WEAKREF(recipient)
 
 	//Recipients
@@ -180,14 +180,16 @@
 	var/list/danger_goodies = hazard_goodies
 
 	//Load the job the player have
-	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role] // only station crews have 'assigned role'
+	var/datum/job/this_job = SSjob.name_occupations[recipient.get_mind_role(JTYPE_JOB_PATH)] // only station crews have 'assigned role'
 	if(this_job)
+		if(!length(this_job.mail_goodies))
+			this_job = SSjob.name_occupations[recipient.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE)] // retake a job as its parent type (when it's gimmick job)
 		goodies += this_job.mail_goodies
 		var/datum/data/record/R = find_record("name", recipient.name, GLOB.data_core.general)
 		if(R) // datacore is primary
 			color = get_chatcolor_by_hud(R.fields["hud"])
-		else if(this_job.title) // when they have no datacore, roundstart job will be base
-			color = get_chatcolor_by_hud(this_job.title)
+		else if(this_job.get_jpath()) // when they have no datacore, roundstart job will be base
+			color = get_chatcolor_by_hud(this_job.get_jpath())
 		if(!color)
 			color = COLOR_WHITE
 
@@ -197,7 +199,7 @@
 		var/atom/movable/target_atom = new target_good(src)
 		body.log_message("[key_name(body)] received [target_atom.name] in the mail ([target_good])", LOG_GAME)
 		if(target_atom.type in danger_goodies)
-			message_admins("<span class='adminnotice'><b><font color=orange>DANGEROUS ITEM RECIEVED:</font></b>[ADMIN_LOOKUPFLW(body)] received [target_atom.name] in the mail ([target_good]) as a [recipient.assigned_role]</span>")
+			message_admins("<span class='adminnotice'><b><font color=orange>DANGEROUS ITEM RECIEVED:</font></b>[ADMIN_LOOKUPFLW(body)] received [target_atom.name] in the mail ([target_good]) as a [recipient.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE)]</span>")
 
 	return TRUE
 
@@ -264,7 +266,7 @@
 
 	for(var/mob/living/carbon/human/human in GLOB.player_list)
 		// Skip wizards, nuke ops, cyborgs and dead people; Centcom does not send them mail
-		if(human.stat == DEAD || !human.mind || !SSjob.GetJob(human.mind.assigned_role) || human.mind.special_role)
+		if(human.stat == DEAD || !human.mind || (human.mind?.get_mind_role(JTYPE_JOB_PATH) == JOB_UNASSIGNED))
 			continue
 
 		mail_recipients += human.mind

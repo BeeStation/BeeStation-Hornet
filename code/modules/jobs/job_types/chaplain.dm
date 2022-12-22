@@ -1,9 +1,10 @@
 /datum/job/chaplain
+	jpath = JOB_PATH_CHAPLAIN
 	title = JOB_NAME_CHAPLAIN
 	flag = CHAPLAIN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#dddddd"
@@ -112,7 +113,7 @@
 	SSblackbox.record_feedback("text", "religion_deity", 1, "[new_deity]", 1)
 
 /datum/outfit/job/chaplain
-	name = JOB_NAME_CHAPLAIN
+	name = JOB_PATH_CHAPLAIN
 	jobtype = /datum/job/chaplain
 
 	id = /obj/item/card/id/job/chaplain

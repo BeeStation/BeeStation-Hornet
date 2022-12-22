@@ -2,10 +2,10 @@
 
 /datum/objective/crew/enjoyyourstay
 	jobs = list(
-		JOB_NAME_HEADOFSECURITY,
-		JOB_NAME_DETECTIVE,
-		JOB_NAME_WARDEN,
-		JOB_NAME_SECURITYOFFICER,
+		JOB_PATH_HEADOFSECURITY,
+		JOB_PATH_DETECTIVE,
+		JOB_PATH_WARDEN,
+		JOB_PATH_SECURITYOFFICER,
 	)
 	var/list/edglines = list(
 		"Welcome aboard. Enjoy your stay.",
@@ -35,8 +35,8 @@
 /datum/objective/crew/nomanleftbehind
 	explanation_text = "Ensure no prisoners are left in the brig when the shift ends."
 	jobs = list(
-		JOB_NAME_WARDEN,
-		JOB_NAME_SECURITYOFFICER,
+		JOB_PATH_WARDEN,
+		JOB_PATH_SECURITYOFFICER,
 	)
 
 /datum/objective/crew/nomanleftbehind/check_completion()
@@ -45,7 +45,7 @@
 	if(!owner?.current)
 		return FALSE
 	for(var/datum/mind/M in SSticker.minds)
-		if(!istype(M.current) || (M.assigned_role in GLOB.security_positions))
+		if(!istype(M.current) || (M.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.security_positions))
 			continue
 		if(istype(get_area(M.current), /area/security/prison))
 			return FALSE
@@ -53,7 +53,7 @@
 
 /datum/objective/crew/justicemed
 	explanation_text = "Ensure there are no dead bodies in the security wing when the shift ends."
-	jobs = JOB_NAME_BRIGPHYSICIAN
+	jobs = JOB_PATH_BRIGPHYSICIAN
 
 /datum/objective/crew/justicemed/check_completion()
 	if(..())

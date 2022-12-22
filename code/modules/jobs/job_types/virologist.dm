@@ -1,9 +1,10 @@
 /datum/job/virologist
+	jpath = JOB_PATH_VIROLOGIST
 	title = JOB_NAME_VIROLOGIST
 	flag = VIROLOGIST
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 2
 	spawn_positions = 2
 	selection_color = "#d4ebf2"
@@ -30,7 +31,7 @@
 	biohazard = 75 //duh
 
 /datum/outfit/job/virologist
-	name = JOB_NAME_VIROLOGIST
+	name = JOB_PATH_VIROLOGIST
 	jobtype = /datum/job/virologist
 
 	id = /obj/item/card/id/job/virologist

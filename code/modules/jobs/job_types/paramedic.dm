@@ -1,9 +1,10 @@
 /datum/job/paramedic
+	jpath = JOB_PATH_PARAMEDIC
 	title = JOB_NAME_PARAMEDIC
 	flag = PARAMEDIC
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 2
 	spawn_positions = 1
 	selection_color = "#d4ebf2"
@@ -30,7 +31,7 @@
 	biohazard = 50//deal with sick like MDS, but also muck around in maint and get into the thick of it
 
 /datum/outfit/job/paramedic
-	name = JOB_NAME_PARAMEDIC
+	name = JOB_PATH_PARAMEDIC
 	jobtype = /datum/job/paramedic
 
 	id = /obj/item/card/id/job/paramedic

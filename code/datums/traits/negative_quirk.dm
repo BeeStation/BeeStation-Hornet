@@ -134,78 +134,78 @@
 	if(is_species(H, /datum/species/moth) && prob(50))
 		heirloom_type = /obj/item/flashlight/lantern/heirloom_moth
 	else
-		switch(quirk_holder.mind.assigned_role)
+		switch(quirk_holder.mind.get_mind_role(JTYPE_JOB_PATH))
 			//Service jobs
-			if(JOB_NAME_CLOWN)
+			if(JOB_PATH_CLOWN)
 				heirloom_type = /obj/item/bikehorn/golden
-			if(JOB_NAME_MIME)
+			if(JOB_PATH_MIME)
 				heirloom_type = /obj/item/reagent_containers/food/snacks/baguette/mime
-			if(JOB_NAME_JANITOR)
+			if(JOB_PATH_JANITOR)
 				heirloom_type = pick(/obj/item/mop, /obj/item/clothing/suit/caution, /obj/item/reagent_containers/glass/bucket)
-			if(JOB_NAME_COOK)
+			if(JOB_PATH_COOK)
 				heirloom_type = pick(/obj/item/reagent_containers/food/condiment/saltshaker, /obj/item/kitchen/rollingpin, /obj/item/clothing/head/chefhat)
-			if(JOB_NAME_BOTANIST)
+			if(JOB_PATH_BOTANIST)
 				heirloom_type = pick(/obj/item/cultivator, /obj/item/reagent_containers/glass/bucket, /obj/item/storage/bag/plants, /obj/item/toy/plush/beeplushie)
-			if(JOB_NAME_BARTENDER)
+			if(JOB_PATH_BARTENDER)
 				heirloom_type = pick(/obj/item/reagent_containers/glass/rag, /obj/item/clothing/head/that, /obj/item/reagent_containers/food/drinks/shaker)
-			if(JOB_NAME_CURATOR)
+			if(JOB_PATH_CURATOR)
 				heirloom_type = pick(/obj/item/pen/fountain, /obj/item/storage/pill_bottle/dice)
-			if(JOB_NAME_CHAPLAIN)
+			if(JOB_PATH_CHAPLAIN)
 				heirloom_type = pick(/obj/item/toy/windupToolbox, /obj/item/reagent_containers/food/drinks/bottle/holywater)
-			if(JOB_NAME_ASSISTANT)
+			if(JOB_PATH_ASSISTANT)
 				heirloom_type = pick(/obj/item/heirloomtoolbox, /obj/item/clothing/gloves/cut/heirloom)
-			if(JOB_NAME_BARBER)
+			if(JOB_PATH_BARBER)
 				heirloom_type = /obj/item/handmirror
-			if(JOB_NAME_STAGEMAGICIAN)
+			if(JOB_PATH_STAGEMAGICIAN)
 				heirloom_type = /obj/item/gun/magic/wand
 			//Security/Command
-			if(JOB_NAME_CAPTAIN)
+			if(JOB_PATH_CAPTAIN)
 				heirloom_type = /obj/item/reagent_containers/food/drinks/flask/gold
-			if(JOB_NAME_HEADOFSECURITY)
+			if(JOB_PATH_HEADOFSECURITY)
 				heirloom_type = /obj/item/book/manual/wiki/security_space_law
-			if(JOB_NAME_WARDEN)
+			if(JOB_PATH_WARDEN)
 				heirloom_type = /obj/item/book/manual/wiki/security_space_law
-			if(JOB_NAME_SECURITYOFFICER)
+			if(JOB_PATH_SECURITYOFFICER)
 				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/clothing/head/beret/sec)
-			if(JOB_NAME_DETECTIVE)
+			if(JOB_PATH_DETECTIVE)
 				heirloom_type = /obj/item/reagent_containers/food/drinks/bottle/whiskey
-			if(JOB_NAME_LAWYER)
+			if(JOB_PATH_LAWYER)
 				heirloom_type = pick(/obj/item/gavelhammer, /obj/item/book/manual/wiki/security_space_law)
-			if(JOB_NAME_BRIGPHYSICIAN)
+			if(JOB_PATH_BRIGPHYSICIAN)
 				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/book/manual/wiki/security_space_law)
 			//RnD
-			if(JOB_NAME_RESEARCHDIRECTOR)
+			if(JOB_PATH_RESEARCHDIRECTOR)
 				heirloom_type = /obj/item/toy/plush/slimeplushie
-			if(JOB_NAME_SCIENTIST)
+			if(JOB_PATH_SCIENTIST)
 				heirloom_type = /obj/item/toy/plush/slimeplushie
-			if(JOB_NAME_ROBOTICIST)
+			if(JOB_PATH_ROBOTICIST)
 				heirloom_type = pick(subtypesof(/obj/item/toy/prize)) //look at this nerd
 			//Medical
-			if(JOB_NAME_CHIEFMEDICALOFFICER)
+			if(JOB_PATH_CHIEFMEDICALOFFICER)
 				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/bodybag)
-			if(JOB_NAME_MEDICALDOCTOR)
+			if(JOB_PATH_MEDICALDOCTOR)
 				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/bodybag)
-			if(JOB_NAME_PARAMEDIC)
+			if(JOB_PATH_PARAMEDIC)
 				heirloom_type = pick(/obj/item/bodybag)
-			if(JOB_NAME_CHEMIST)
+			if(JOB_PATH_CHEMIST)
 				heirloom_type = /obj/item/reagent_containers/glass/chem_heirloom
-			if(JOB_NAME_VIROLOGIST)
+			if(JOB_PATH_VIROLOGIST)
 				heirloom_type = /obj/item/reagent_containers/dropper
-			if(JOB_NAME_GENETICIST)
+			if(JOB_PATH_GENETICIST)
 				heirloom_type = /obj/item/clothing/under/shorts/purple
 			//Engineering
-			if(JOB_NAME_CHIEFENGINEER)
+			if(JOB_PATH_CHIEFENGINEER)
 				heirloom_type = pick(/obj/item/clothing/head/hardhat/white, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
-			if(JOB_NAME_STATIONENGINEER)
+			if(JOB_PATH_STATIONENGINEER)
 				heirloom_type = pick(/obj/item/clothing/head/hardhat, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
-			if(JOB_NAME_ATMOSPHERICTECHNICIAN)
+			if(JOB_PATH_ATMOSPHERICTECHNICIAN)
 				heirloom_type = pick(/obj/item/lighter, /obj/item/lighter/greyscale, /obj/item/storage/box/matches)
 			//Supply
-			if(JOB_NAME_QUARTERMASTER)
+			if(JOB_PATH_QUARTERMASTER)
 				heirloom_type = pick(/obj/item/stamp, /obj/item/stamp/denied)
-			if(JOB_NAME_CARGOTECHNICIAN)
+			if(JOB_PATH_CARGOTECHNICIAN)
 				heirloom_type = /obj/item/clipboard
-			if(JOB_NAME_SHAFTMINER)
+			if(JOB_PATH_SHAFTMINER)
 				heirloom_type = pick(/obj/item/pickaxe/mini, /obj/item/shovel)
 
 	if(!heirloom_type)
@@ -269,13 +269,21 @@
 
 /datum/quirk/foreigner/add()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(ishuman(H) && H.job != JOB_NAME_CURATOR)
+	if(!H.mind)
+		return
+	if(H.mind.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) == JOB_PATH_CURATOR) // early return for curator type gimmick jobs
+		return
+	if(ishuman(H))
 		H.add_blocked_language(/datum/language/common)
 		H.grant_language(/datum/language/uncommon)
 
 /datum/quirk/foreigner/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(ishuman(H) && H.job != JOB_NAME_CURATOR)
+	if(!H.mind)
+		return
+	if(H.mind.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) == JOB_PATH_CURATOR) // early return for curator type gimmick jobs
+		return
+	if(ishuman(H))
 		H.remove_blocked_language(/datum/language/common)
 		H.remove_language(/datum/language/uncommon)
 
@@ -469,7 +477,7 @@
 	quirk_holder.hallucination += rand(10, 25)
 
 /datum/quirk/insanity/post_add() //I don't /think/ we'll need this but for newbies who think "roleplay as insane" = "license to kill" it's probably a good thing to have
-	if(!quirk_holder.mind || quirk_holder.mind.special_role)
+	if(!quirk_holder.mind)
 		return
 	to_chat(quirk_holder, "<span class='big bold info'>Please note that your dissociation syndrome does NOT give you the right to attack people or otherwise cause any interference to \
 	the round. You are not an antagonist, and the rules will treat you the same as other crewmembers.</span>")

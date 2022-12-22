@@ -1,9 +1,10 @@
 /datum/job/lawyer
+	jpath = JOB_PATH_LAWYER
 	title = JOB_NAME_LAWYER
 	flag = LAWYER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 2
 	spawn_positions = 2
 	selection_color = "#dddddd"
@@ -28,7 +29,7 @@
 	)
 
 /datum/outfit/job/lawyer
-	name = JOB_NAME_LAWYER
+	name = JOB_PATH_LAWYER
 	jobtype = /datum/job/lawyer
 
 	id = /obj/item/card/id/job/lawyer

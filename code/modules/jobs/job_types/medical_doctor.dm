@@ -1,9 +1,10 @@
 /datum/job/medical_doctor
+	jpath = JOB_PATH_MEDICALDOCTOR
 	title = JOB_NAME_MEDICALDOCTOR
 	flag = DOCTOR
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
-	faction = "Station"
+	faction = JOB_FACTION_STATION
 	total_positions = 5
 	spawn_positions = 3
 	selection_color = "#d4ebf2"
@@ -29,7 +30,7 @@
 	biohazard = 40
 
 /datum/outfit/job/medical_doctor
-	name = JOB_NAME_MEDICALDOCTOR
+	name = JOB_PATH_MEDICALDOCTOR
 	jobtype = /datum/job/medical_doctor
 
 	id = /obj/item/card/id/job/medical_doctor

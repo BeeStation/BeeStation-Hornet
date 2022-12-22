@@ -46,14 +46,14 @@
 			continue
 		if(H.stat == DEAD)
 			continue
-		if(!SSjob.GetJob(H.mind.assigned_role) || (H.mind.assigned_role in GLOB.nonhuman_positions)) //only station jobs sans nonhuman roles, prevents ashwalkers trying to stalk with crewmembers they never met
+		if((H.mind.get_mind_role(JTYPE_JOB_PATH)==JOB_UNASSIGNED) || (H.mind.get_mind_role(JTYPE_JOB_PATH) in GLOB.nonhuman_positions)) //only station jobs sans nonhuman roles, prevents ashwalkers trying to stalk with crewmembers they never met
 			continue
-		if(H.mind.assigned_role in protected_jobs)
+		if(H.mind.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in protected_jobs)
 			continue
 		if(H.mind.has_antag_datum(antag_datum))
 			continue
 		var/datum/mind/M = H.mind
-		M.special_role = role_name
+		M.mind_roles[JLIST_SPECIAL] = role_name
 		var/datum/antagonist/special/A = M.add_antag_datum(antag_datum)
 		if(!A)
 			message_admins("[key_name(H.mind)] failed to become a [role_name]")

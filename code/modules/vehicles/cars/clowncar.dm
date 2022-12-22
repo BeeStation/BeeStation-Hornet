@@ -23,13 +23,26 @@
 	initialize_controller_action_type(/datum/action/vehicle/sealed/Thank, VEHICLE_CONTROL_KIDNAPPED)
 
 /obj/vehicle/sealed/car/clowncar/auto_assign_occupant_flags(mob/M)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.mind?.assigned_role == JOB_NAME_CLOWN) //Ensures only clowns can drive the car. (Including more at once)
-			add_control_flags(H, VEHICLE_CONTROL_DRIVE|VEHICLE_CONTROL_PERMISSION)
-			RegisterSignal(H, COMSIG_MOB_CLICKON, .proc/FireCannon)
-			return
-	add_control_flags(M, VEHICLE_CONTROL_KIDNAPPED)
+	if(!isliving(M))
+		return
+	var/is_clown = FALSE
+	if(!M.mind)
+		add_control_flags(M, VEHICLE_CONTROL_KIDNAPPED)
+		return
+	if(M.mind.get_mind_role(JTYPE_JOB_PATH) == JOB_PATH_CLOWN) //Ensures only clowns can drive the car. (Including more at once)
+		is_clown = TRUE
+	else
+		switch(M.mind.get_mind_role(JTYPE_SPECIAL))
+			if(ROLE_OPERATIVE_CLOWN) // they are clown too!
+				is_clown = TRUE
+			if("Laughter demon") // ...yes, they too.
+				is_clown = TRUE
+	if(!is_clown)
+		add_control_flags(M, VEHICLE_CONTROL_KIDNAPPED)
+		return
+
+	add_control_flags(M, VEHICLE_CONTROL_DRIVE|VEHICLE_CONTROL_PERMISSION)
+	RegisterSignal(M, COMSIG_MOB_CLICKON, .proc/FireCannon)
 
 /obj/vehicle/sealed/car/clowncar/mob_forced_enter(mob/M, silent = FALSE)
 	. = ..()

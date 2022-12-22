@@ -34,7 +34,7 @@
 		I.mind.add_antag_datum(imposter)
 		//Remove if possible
 		SSticker.mode.apprentices += I.mind
-		I.mind.special_role = "imposter"
+		I.mind.mind_roles[JLIST_SPECIAL] = "imposter"
 		//
 		I.log_message("is an imposter!", LOG_ATTACK, color="red") //?
 		SEND_SOUND(I, sound('sound/effects/magic.ogg'))

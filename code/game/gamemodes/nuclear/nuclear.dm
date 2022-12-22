@@ -33,8 +33,7 @@
 		for(var/i = 0, i < n_agents, ++i)
 			var/datum/mind/new_op = antag_pick(antag_candidates, ROLE_OPERATIVE)
 			pre_nukeops += new_op
-			new_op.assigned_role = "Nuclear Operative"
-			new_op.special_role = "Nuclear Operative"
+			new_op.mind_roles[JLIST_SPECIAL] = ROLE_OPERATIVE
 			log_game("[key_name(new_op)] has been selected as a nuclear operative")
 		return TRUE
 	else
