@@ -11,6 +11,13 @@
 /datum/orbital_object/z_linked/station/New()
 	. = ..()
 	SSorbits.station_instance = src
+	//SSorbits initialises after mapping
+	if (SSmapping.config.planetary_station)
+		render_mode = RENDER_MODE_PLANET
+		radius = SSmapping.config.planet_radius
+		mass = SSmapping.config.planet_mass
+		if (SSmapping.config.planet_name)
+			name = "[SSmapping.config.planet_name] (Outpost 13)"
 
 #ifdef LOWMEMORYMODE
 	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
