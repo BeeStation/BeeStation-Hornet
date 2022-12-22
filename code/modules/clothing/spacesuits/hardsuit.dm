@@ -949,24 +949,6 @@
 		if(/datum/action/item_action/toggle_beacon_frequency)
 			set_beacon_freq(user)
 
-/obj/item/clothing/suit/space/hardsuit/shielded/syndi/proc/toggle_beacon(mob/user)
-	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
-	if(!beacon)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
-		return
-	beacon.toggle_visibility(!beacon.visible)
-	if(beacon.visible)
-		to_chat(user, "<span class='notice'>You enable the tracking beacon on [src]. Anybody on the same frequency will now be able to track your location.</span>")
-	else
-		to_chat(user, "<span class='warning'>You disable the tracking beacon on [src].</span>")
-
-/obj/item/clothing/suit/space/hardsuit/shielded/syndi/proc/set_beacon_freq(mob/user)
-	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
-	if(!beacon)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
-		return
-	beacon.change_frequency(user)
-
 //Helmet - With built in HUD
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi
@@ -997,17 +979,6 @@
 			toggle_helmlight()
 		if(/datum/action/item_action/toggle_beacon_hud)
 			toggle_hud(user)
-
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi/proc/toggle_hud(mob/user)
-	var/datum/component/team_monitor/monitor = GetComponent(/datum/component/team_monitor)
-	if(!monitor)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
-		return
-	monitor.toggle_hud(!monitor.hud_visible, user)
-	if(monitor.hud_visible)
-		to_chat(user, "<span class='notice'>You toggle the heads up display of your suit.</span>")
-	else
-		to_chat(user, "<span class='warning'>You disable the heads up display of your suit.</span>")
 
 ///SWAT version
 /obj/item/clothing/suit/space/hardsuit/shielded/swat
