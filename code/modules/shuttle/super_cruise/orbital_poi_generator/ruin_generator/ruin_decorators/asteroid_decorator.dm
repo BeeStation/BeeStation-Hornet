@@ -10,6 +10,7 @@
 	asteroid_generator.generate()
 
 /datum/map_generator/asteroid_generator
+	//Turfs don't delete so no need to worry about hard dels
 	var/list/turfs_to_generate
 	var/index = 0
 	var/z_center
@@ -26,8 +27,11 @@
 
 /datum/map_generator/asteroid_generator/execute_run()
 	if (index > length(turfs_to_generate))
+		turfs_to_generate = null
 		return FALSE
 	. = ..()
+	index ++
+	var/turf/T = turfs_to_generate[index]
 	//Calculate distance to edge
 	var/distance = z_center.Distance(T)
 	if(distance > max_radius)
