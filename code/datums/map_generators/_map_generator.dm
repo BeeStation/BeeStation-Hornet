@@ -9,6 +9,7 @@
 
 /// Begin generating
 /datum/map_generator/proc/generate(...)
+	Master.StartLoadingMap()
 	SSmap_generator.executing_generators += src
 	callback_args = args.Copy(1)
 
@@ -25,6 +26,7 @@
 	return "Map generator"
 
 /datum/map_generator/proc/complete()
+	Master.StopLoadingMap()
 	completed = TRUE
 	var/list/arguments = list(src)
 	if (callback_args)

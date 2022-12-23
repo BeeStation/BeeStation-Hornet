@@ -641,19 +641,18 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	return tab_data
 
 /datum/controller/master/StartLoadingMap()
-	//disallow more than one map to load at once, multithreading it will just cause race conditions
-	while(map_loading)
-		stoplag()
-	for(var/S in subsystems)
-		var/datum/controller/subsystem/SS = S
-		SS.StartLoadingMap()
-	map_loading = TRUE
+	map_loading ++
+	if (map_loading == 1)
+		for(var/S in subsystems)
+			var/datum/controller/subsystem/SS = S
+			SS.StartLoadingMap()
 
 /datum/controller/master/StopLoadingMap(bounds = null)
-	map_loading = FALSE
-	for(var/S in subsystems)
-		var/datum/controller/subsystem/SS = S
-		SS.StopLoadingMap()
+	map_loading --
+	if (map_loading == 0)
+		for(var/S in subsystems)
+			var/datum/controller/subsystem/SS = S
+			SS.StopLoadingMap()
 
 
 /datum/controller/master/proc/UpdateTickRate()
