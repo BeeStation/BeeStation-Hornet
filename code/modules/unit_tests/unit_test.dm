@@ -39,6 +39,8 @@ GLOBAL_VAR(test_log)
 
 /datum/unit_test/New()
 	if (isnull(reservation))
+		//Wait for map generation to complete
+		UNTIL(!length(SSmap_generator.executing_generators))
 		var/datum/map_template/unit_tests/template = new
 		reservation = template.load_new_z()
 
