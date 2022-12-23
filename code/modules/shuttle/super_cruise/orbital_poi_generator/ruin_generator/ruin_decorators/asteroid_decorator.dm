@@ -26,12 +26,12 @@
 	src.perlin_noise_scale = perlin_noise_scale
 
 /datum/map_generator/asteroid_generator/execute_run()
+	index ++
 	if (index > length(turfs_to_generate))
 		turfs_to_generate = null
 		z_center = null
 		return TRUE
 	. = ..()
-	index ++
 	var/turf/T = turfs_to_generate[index]
 	if (!isspaceturf(T))
 		return FALSE
