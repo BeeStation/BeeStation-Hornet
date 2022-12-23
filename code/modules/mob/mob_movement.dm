@@ -246,8 +246,8 @@
 		if(INCORPOREAL_MOVE_JAUNT) //Incorporeal move, but blocked by holy-watered tiles and salt piles.
 			var/turf/open/floor/stepTurf = get_step_multiz(mobloc, direct)
 			if(stepTurf)
-				for(var/obj/effect/decal/cleanable/food/salt/S in stepTurf)
-					to_chat(L, "<span class='warning'>[S] bars your passage!</span>")
+				if(locate(/obj/effect/decal/cleanable/food/salt, stepTurf))
+					to_chat(L, "<span class='warning'>The salt pile bars your passage!</span>")
 					return
 				if(stepTurf.flags_1 & NOJAUNT_1)
 					to_chat(L, "<span class='warning'>Some strange aura is blocking the way.</span>")
