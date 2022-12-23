@@ -6,7 +6,7 @@
 	var/z_value = thing_to_decorate.created_space_level.z_value
 	var/seed = rand(0, 999999)
 	var/turf/z_center = locate(world.maxx * 0.5, world.maxy * 0.5, z_value)
-	var/datum/map_generator/asteroid_generator = new(block(locate(1, 1, z_value), locate(world.maxx, world.maxy, z_value)), z_center, seed, perlin_noise_scale)
+	var/datum/map_generator/asteroid_generator/asteroid_generator = new(block(locate(1, 1, z_value), locate(world.maxx, world.maxy, z_value)), z_center, seed, perlin_noise_scale)
 	asteroid_generator.generate()
 
 /datum/map_generator/asteroid_generator
@@ -33,11 +33,15 @@
 	. = ..()
 	index ++
 	var/turf/T = turfs_to_generate[index]
+	if (!isspaceturf(T))
+		return TRUE
 	//Calculate distance to edge
 	var/distance = z_center.Distance(T)
 	if(distance > max_radius)
 		return TRUE
 	var/noise_at_coord = text2num(rustg_noise_get_at_coordinates("[seed]", "[T.x / perlin_noise_scale]", "[T.y / perlin_noise_scale]"))
+	if (!isspaceturf(T))
+		return TRUE
 	var/rock_value = (distance / max_radius) + 0.1
 	var/sand_value = (distance / max_radius)
 	if(noise_at_coord >= rock_value)
