@@ -3397,6 +3397,8 @@
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\generator_settings\generator_netherworld.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\generator_settings\generator_ratvar.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\generator_settings\generator_xeno.dm"
+#include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\ruin_decorators\_ruin_decorator.dm"
+#include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\ruin_decorators\asteroid_decorator.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\ruin_events\_ruin_event.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\ruin_events\meteor_storm.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_components\plasma_refiner.dm"

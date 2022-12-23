@@ -12,7 +12,7 @@
 	var/list/turfs = RANGE_TURFS(30, linked_artifact)
 	var/list/valid_turfs = list()
 	for(var/turf/open/floor/F in turfs)
-		if(locate(/obj/structure) in F)
+		if(is_blocked_turf(F, TRUE))
 			continue
 		valid_turfs += F
 	//Shuffle the list
