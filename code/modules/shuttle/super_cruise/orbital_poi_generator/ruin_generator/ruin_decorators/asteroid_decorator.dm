@@ -1,6 +1,5 @@
 /datum/ruin_decorator/asteriod_station
 	decorator_weight = 60
-	var/max_radius = 70
 
 /datum/ruin_decorator/asteriod_station/decorate(datum/map_generator/space_ruin/thing_to_decorate)
 	var/z_value = thing_to_decorate.created_space_level.z_value
@@ -16,6 +15,7 @@
 	var/z_center
 	var/seed
 	var/perlin_noise_scale
+	var/max_radius = 70
 
 /datum/map_generator/asteroid_generator/New(list/turfs_to_generate, z_center, seed, perlin_noise_scale)
 	. = ..()
