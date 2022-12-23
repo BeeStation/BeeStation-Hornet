@@ -12,7 +12,7 @@ SUBSYSTEM_DEF(ruin_generator)
 	//Build decorator list
 	for (var/subtype in subtypesof(/datum/ruin_decorator))
 		var/datum/ruin_decorator/decorator = new subtype
-		decorators[decorator] = decorator.weight
+		decorators[decorator] = decorator.decorator_weight
 	//Generate the initial ruin
 	generate_ruin()
 

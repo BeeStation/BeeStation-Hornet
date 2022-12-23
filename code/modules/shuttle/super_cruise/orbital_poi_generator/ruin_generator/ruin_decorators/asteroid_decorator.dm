@@ -1,12 +1,12 @@
 /datum/ruin_decorator/asteriod_station
 	decorator_weight = 60
+	var/perlin_noise_scale = 65
 
 /datum/ruin_decorator/asteriod_station/decorate(datum/map_generator/space_ruin/thing_to_decorate)
 	var/z_value = thing_to_decorate.created_space_level.z_value
-	var/perlin_noise_scale = 65
 	var/seed = rand(0, 999999)
 	var/turf/z_center = locate(world.maxx * 0.5, world.maxy * 0.5, z_value)
-	var/datum/map_generator/asteroid_generator = new(block(locate(1, 1, z_value), locate(world.maxx, world.maxy, z_value)), z_center, seed)
+	var/datum/map_generator/asteroid_generator = new(block(locate(1, 1, z_value), locate(world.maxx, world.maxy, z_value)), z_center, seed, perlin_noise_scale)
 	asteroid_generator.generate()
 
 /datum/map_generator/asteroid_generator
