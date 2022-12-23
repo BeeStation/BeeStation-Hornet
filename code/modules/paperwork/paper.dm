@@ -400,24 +400,6 @@
 	SHOULD_CALL_PARENT(FALSE)
 	return
 
-/obj/item/paper/crumpled/engineeringnotice
-	name = "Notice to the Engineering staff"
-
-/obj/item/paper/crumpled/engineeringnotice/Initialize(mapload)
-	. = ..()
-
-	info = {"<h4><center>Notice to the Engineering staff of [GLOB.station_name]</center></h4>
-	Central Command has finally taken notice of the of the recent space-time anomalies affecting the Supermatter!<br>
-	As a temprorary measure, they have asked me to replace our beloved glowing yellow with other means of generating power.<br>
-	It sure was hard work, and don't ask how I moved the Supermatter, I don't even know myself.<br>
-	Anyhow, I've cooperated with our Quartermaster to get parts for a Tesla engine.<br>
-	I did most of the work, you just need to assemble the Particle Accelerator in the crate next to this note.<br>
-	Best of luck and please don't let it loose!<br>
-	<br>
-	<i>Chief Engineer K.N.</i><br>
-	<br>
-	P.S. The Quartermaster was adamant about getting the crate back."}
-
 /obj/item/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"
 
