@@ -1,4 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - bugfix: fixed runtime when getting envelope with rabbit inside of it
