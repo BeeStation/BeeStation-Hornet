@@ -13,12 +13,12 @@
 	//Turfs don't delete so no need to worry about hard dels
 	var/list/turfs_to_generate
 	var/index = 0
-	var/z_center
+	var/turf/z_center
 	var/seed
 	var/perlin_noise_scale
 	var/max_radius = 70
 
-/datum/map_generator/asteroid_generator/New(list/turfs_to_generate, z_center, seed, perlin_noise_scale)
+/datum/map_generator/asteroid_generator/New(list/turfs_to_generate, turf/z_center, seed, perlin_noise_scale)
 	. = ..()
 	src.turfs_to_generate = turfs_to_generate
 	src.z_center = z_center
@@ -28,6 +28,7 @@
 /datum/map_generator/asteroid_generator/execute_run()
 	if (index > length(turfs_to_generate))
 		turfs_to_generate = null
+		z_center = null
 		return FALSE
 	. = ..()
 	index ++
@@ -35,7 +36,7 @@
 	//Calculate distance to edge
 	var/distance = z_center.Distance(T)
 	if(distance > max_radius)
-		continue
+		return TRUE
 	var/noise_at_coord = text2num(rustg_noise_get_at_coordinates("[seed]", "[T.x / perlin_noise_scale]", "[T.y / perlin_noise_scale]"))
 	var/rock_value = (distance / max_radius) + 0.1
 	var/sand_value = (distance / max_radius)
