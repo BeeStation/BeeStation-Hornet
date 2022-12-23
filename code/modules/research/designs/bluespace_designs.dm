@@ -13,6 +13,16 @@
 	category = list("Bluespace Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_SECURITY
 
+/datum/design/gigabeacon
+	name = "Bluespace Gigabeacon"
+	desc = "A bluespace gigabeacon."
+	id = "gigabeacon"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/gold = 3000, /datum/material/diamond = 1500, /datum/material/uranium = 250, /datum/material/bluespace = 2000)
+	build_path = /obj/item/sbeacondrop/exploration
+	category = list("Bluespace Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
 /datum/design/dragnetbeacon
 	name = "DROPnet"
 	desc = "A beacon marking the location where criminals will be teleported via DRAGnet devices."
