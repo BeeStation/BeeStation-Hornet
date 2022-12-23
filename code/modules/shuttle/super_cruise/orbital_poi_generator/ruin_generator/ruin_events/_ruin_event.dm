@@ -17,6 +17,10 @@
 	start_tick = rand(start_tick_min, start_tick_max)
 	end_tick = rand(start_tick_min, start_tick_max)
 
+/datum/ruin_event/Destroy(force, ...)
+	SSorbits.ruin_events -= src
+	. = ..()
+
 /datum/ruin_event/proc/update()
 	if(QDELETED(linked_z))
 		return FALSE
@@ -30,13 +34,6 @@
 		event_tick(linked_z.linked_z_level[1].z_value)
 	ticks ++
 	return TRUE
-
-/datum/ruin_event/proc/pre_spawn(z_value)
-	return
-
-//Note that the list is the coordinates not the turfs themselves
-/datum/ruin_event/proc/post_spawn(list/floor_turfs, z_value)
-	return
 
 /datum/ruin_event/proc/event_start(z_value)
 	return

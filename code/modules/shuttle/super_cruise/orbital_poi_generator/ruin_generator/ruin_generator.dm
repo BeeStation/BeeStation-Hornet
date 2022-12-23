@@ -14,14 +14,14 @@
  * center_z - The z level the ruin is on.
  * border_x - The distance from the edge of the world in which the ruin will be forced to stop.
  * border_y - See above.
- * linked_objective - Will spawn special objective stuff if this is part of an objective.
  * Note: The ruin can generate past the border. The border prevents rooms from attaching past that point,
  * however if a room attachment point is not past the border, the room it generates on that attachment point
  * can go past the border. No attachment points can be generated past the border.
  */
-/proc/generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
-	var/datum/map_generator/space_ruin/ruin = new(center_x, center_y, center_z, border_x, border_y, linked_objective, forced_decoration, ruin_event)
+/proc/generate_space_ruin(center_x, center_y, center_z, border_x, border_y, forced_decoration)
+	var/datum/map_generator/space_ruin/ruin = new(center_x, center_y, center_z, border_x, border_y, forced_decoration)
 	ruin.generate()
+	return ruin
 
 /datum/map_generator/space_ruin
 	/// The X position to start generating the ruin at
@@ -36,12 +36,8 @@
 	/// The distance from the edge of the world in which the ruin will be forced to stop generating
 	/// The larger this is, the smaller the ruin will be
 	var/border_y
-	/// The objective linked to the generation of this ruin
-	var/datum/orbital_objective/linked_objective
 	/// The generator settings to use
 	var/datum/generator_settings/generator_settings
-	/// The ruin event to trigger throughout generation
-	var/datum/ruin_event/ruin_event
 
 	//We need doors
 	var/list/placed_room_entrances = list()
@@ -69,19 +65,20 @@
 
 	var/stage = 0
 
-/datum/map_generator/space_ruin/New(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
+	//The space level we were created on
+	var/datum/space_level/created_space_level
+
+/datum/map_generator/space_ruin/New(center_x, center_y, center_z, border_x, border_y, forced_decoration)
 	. = ..()
 	src.center_x = center_x
 	src.center_y = center_y
 	src.center_z = center_z
 	src.border_x = border_x
 	src.border_y = border_y
-	src.linked_objective = linked_objective
 	src.generator_settings = forced_decoration
-	src.ruin_event = ruin_event
 
-	var/datum/space_level/space_level = SSmapping.get_level(center_z)
-	space_level.generating = TRUE
+	created_space_level = SSmapping.get_level(center_z)
+	created_space_level.generating = TRUE
 
 	//Select ruin type
 	var/datum/generator_settings/generator_settings = forced_decoration
@@ -111,8 +108,6 @@
 	hallway_connections["[center_x]_[center_y]"] = NORTH
 	placed_hallway_entrances["[center_x]_[center_y]"] = NORTH
 
-	ruin_event?.pre_spawn(center_z)
-
 	valid_ruin_parts = generator_settings.get_valid_rooms()
 
 	floortrash = generator_settings.get_floortrash()
@@ -123,8 +118,10 @@
 
 /datum/map_generator/space_ruin/complete()
 	..()
-	var/datum/space_level/space_level = SSmapping.get_level(center_z)
-	space_level.generating = FALSE
+	created_space_level.generating = FALSE
+	valid_ruin_parts = null
+	room_connections = null
+	hallway_connections = null
 
 /datum/map_generator/space_ruin/execute_run()
 	..()
@@ -415,28 +412,6 @@
 
 /datum/map_generator/space_ruin/proc/finalize()
 
-	//Generate objective stuff
-	if(linked_objective)
-		var/obj_sanity = 100
-		//Spawn in a sane place.
-		while(obj_sanity > 0)
-			obj_sanity --
-			var/objective_turf = pick(floor_turfs)
-			var/split_loc = splittext(objective_turf, "_")
-			var/turf/T = locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z)
-			if(isspaceturf(T))
-				continue
-			if(is_blocked_turf(T, FALSE))
-				continue
-			linked_objective.generate_objective_stuff(T)
-			break
-		if(!obj_sanity)
-			stack_trace("ruin generator failed to find a non-blocked turf to spawn an object")
-			var/objective_turf = pick(floor_turfs)
-			var/split_loc = splittext(objective_turf, "_")
-			var/turf/T = locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z)
-			linked_objective.generate_objective_stuff(T)
-
 	//Generate research disks
 	for(var/i in 1 to rand(1, 5))
 		var/objective_turf = pick(floor_turfs)
@@ -449,12 +424,6 @@
 		var/split_loc = splittext(objective_turf, "_")
 		M.forceMove(locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z))
 	SSzclear.nullspaced_mobs.Cut()
-
-	ruin_event?.post_spawn(floor_turfs, center_z)
-
-	//Start running event
-	if(ruin_event)
-		SSorbits.ruin_events += ruin_event
 
 	SSair.unpause_z(center_z)
 

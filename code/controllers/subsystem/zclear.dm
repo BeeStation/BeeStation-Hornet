@@ -128,6 +128,9 @@ SUBSYSTEM_DEF(zclear)
 	docking_levels |= z_level
 	addtimer(CALLBACK(src, .proc/unkeep_z, z_level), 2 MINUTES)
 
+/datum/controller/subsystem/zclear/proc/keep_z(z_level)
+	docking_levels |= z_level
+
 /datum/controller/subsystem/zclear/proc/unkeep_z(z_level)
 	docking_levels -= z_level
 

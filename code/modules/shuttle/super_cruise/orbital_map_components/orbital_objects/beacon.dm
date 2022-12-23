@@ -7,17 +7,6 @@
 	//The attached event
 	var/datum/ruin_event/ruin_event
 
-/datum/orbital_object/z_linked/beacon/New()
-	. = ..()
-	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
-	ruin_event = SSorbits.get_event()
-	if(ruin_event?.warning_message)
-		name = "[initial(name)] #[rand(1, 9)][linked_map.object_count][rand(1, 9)] ([ruin_event.warning_message])"
-	else
-		name = "[initial(name)] #[rand(1, 9)][linked_map.object_count][rand(1, 9)]"
-	//Link the ruin event to ourselves
-	ruin_event?.linked_z = src
-
 /datum/orbital_object/z_linked/beacon/post_map_setup()
 	//Orbit around the systems sun
 	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
@@ -83,6 +72,17 @@
 	//The linked objective to the ruin, for generating extra stuff if required.
 	var/datum/orbital_objective/linked_objective
 
+/datum/orbital_object/z_linked/beacon/ruin/New()
+	. = ..()
+	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
+	ruin_event = SSorbits.get_event()
+	if(ruin_event?.warning_message)
+		name = "[initial(name)] #[rand(1, 9)][linked_map.object_count][rand(1, 9)] ([ruin_event.warning_message])"
+	else
+		name = "[initial(name)] #[rand(1, 9)][linked_map.object_count][rand(1, 9)]"
+	//Link the ruin event to ourselves
+	ruin_event?.linked_z = src
+
 /datum/orbital_object/z_linked/beacon/ruin/Destroy()
 	//Remove linked objective.
 	if(linked_objective)
@@ -91,10 +91,32 @@
 	. = ..()
 
 /datum/orbital_object/z_linked/beacon/ruin/proc/assign_z_level()
-	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
-	linked_z_level = list(assigned_space_level)
-	SSorbits.assoc_z_levels["[assigned_space_level.z_value]"] = src
-	generate_space_ruin(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 100, 100, linked_objective, null, ruin_event)
+	var/datum/map_generator/space_ruin/assigned_ruin = SSruin_generator.get_ruin()
+	linked_z_level = list(assigned_ruin.created_space_level)
+	SSorbits.assoc_z_levels["[assigned_ruin.created_space_level.z_value]"] = src
+	SSorbits.ruin_events += ruin_event
+	//Place the objective shit
+	//Generate objective stuff
+	if(linked_objective)
+		var/obj_sanity = 100
+		//Spawn in a sane place.
+		while(obj_sanity > 0)
+			obj_sanity --
+			var/objective_turf = pick(assigned_ruin.floor_turfs)
+			var/split_loc = splittext(objective_turf, "_")
+			var/turf/T = locate(text2num(split_loc[1]), text2num(split_loc[2]), assigned_ruin.created_space_level.z_value)
+			if(isspaceturf(T))
+				continue
+			if(is_blocked_turf(T, FALSE))
+				continue
+			linked_objective.generate_objective_stuff(T)
+			break
+		if(!obj_sanity)
+			stack_trace("ruin generator failed to find a non-blocked turf to spawn an object")
+			var/objective_turf = pick(assigned_ruin.floor_turfs)
+			var/split_loc = splittext(objective_turf, "_")
+			var/turf/T = locate(text2num(split_loc[1]), text2num(split_loc[2]), assigned_ruin.created_space_level.z_value)
+			linked_objective.generate_objective_stuff(T)
 
 /datum/orbital_object/z_linked/beacon/ruin/post_map_setup()
 	//Orbit around the systems sun

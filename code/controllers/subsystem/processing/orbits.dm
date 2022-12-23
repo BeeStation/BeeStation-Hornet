@@ -87,13 +87,14 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 /datum/controller/subsystem/processing/orbits/proc/setup_event_list()
 	runnable_events = list()
 	for(var/ruin_event in subtypesof(/datum/ruin_event))
-		var/datum/ruin_event/instanced = new ruin_event()
-		runnable_events[instanced] = instanced.probability
+		var/datum/ruin_event/instanced = ruin_event
+		runnable_events[ruin_event] = initial(instanced.probability)
 
 /datum/controller/subsystem/processing/orbits/proc/get_event()
-	if(!event_probability)
+	if(!prob(event_probability))
 		return null
-	return pickweight(runnable_events)
+	var/selected_type = pickweight(runnable_events)
+	return new selected_type()
 
 /datum/controller/subsystem/processing/orbits/proc/post_load_init()
 	for(var/map_key in orbital_maps)
@@ -132,7 +133,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//Process events
 	for(var/datum/ruin_event/ruin_event as() in ruin_events)
 		if(!ruin_event.update())
-			ruin_events.Remove(ruin_event)
+			qdel(ruin_events)
 	//Do processing.
 	if(!resumed)
 		. = ..()

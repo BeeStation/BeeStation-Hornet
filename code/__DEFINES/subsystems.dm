@@ -152,6 +152,7 @@
 #define INIT_ORDER_MINOR_MAPPING	-40
 #define INIT_ORDER_PATH				-50
 #define INIT_ORDER_EXPLOSIONS		-69
+#define INIT_ORDER_RUIN_GENERATOR	-100	//Low because it runs async ruin generation
 #define INIT_ORDER_CHAT				-150 //Should be last to ensure chat remains smooth during init.
 
 // Subsystem fire priority, from lowest to highest priority
