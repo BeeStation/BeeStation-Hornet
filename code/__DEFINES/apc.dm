@@ -5,7 +5,7 @@
 	/// The bitflag representing the APCs cover being open for icon purposes.
 	#define UPSTATE_OPENED1 (APC_COVER_OPENED << UPSTATE_COVER_SHIFT)
 	/// The bitflag representing the APCs cover being missing for icon purposes.
-	#define UPSTATE_OPENED2 (APC_COVER_CROWBARRED << UPSTATE_COVER_SHIFT)
+	#define UPSTATE_OPENED2 (APC_COVER_REMOVED << UPSTATE_COVER_SHIFT)
 
 // update_overlay
 // Bitflags:

@@ -31,7 +31,6 @@
 #define APC_COVER_CLOSED 0
 #define APC_COVER_OPENED 1
 #define APC_COVER_REMOVED 2
-#define APC_COVER_CROWBARRED 3
 
 #define APC_NOT_CHARGING 0
 #define APC_CHARGING 1
@@ -342,7 +341,7 @@
 		return ..()
 	if(update_state & (UPSTATE_OPENED1|UPSTATE_OPENED2))
 		var/basestate = "apc[cell ? 2 : 1]"
-		if(update_state & UPSTATE_OPENED1 && opened != APC_COVER_CROWBARRED)
+		if(update_state & UPSTATE_OPENED1)
 			icon_state = (update_state & (UPSTATE_MAINT|UPSTATE_BROKE)) ? "apcmaint" : basestate
 		else if(update_state & UPSTATE_OPENED2)
 			icon_state = "[basestate][((update_state & UPSTATE_BROKE) || malfhack) ? "-b" : null]-nocover"
@@ -387,8 +386,6 @@
 	// Handle icon status:
 	var/new_update_state = NONE
 	if(machine_stat & BROKEN)
-		if(opened == APC_COVER_CROWBARRED && obj_integrity > 0)
-			new_update_state |= UPSTATE_OPENED2
 		new_update_state |= UPSTATE_BROKE
 	if(machine_stat & MAINT)
 		new_update_state |= UPSTATE_MAINT
@@ -449,7 +446,7 @@
 			if(W.use_tool(src, user, 50))
 				if (has_electronics == APC_ELECTRONICS_INSTALLED)
 					has_electronics = APC_ELECTRONICS_MISSING
-					if (machine_stat & BROKEN && obj_integrity <= 0 && opened != APC_COVER_CROWBARRED)
+					if (machine_stat & BROKEN)
 						user.visible_message(\
 							"[user.name] has broken the power control board inside [src.name]!",\
 							"<span class='notice'>You break the charred power control board and remove the remains.</span>",
@@ -490,13 +487,6 @@
 			opened = APC_COVER_OPENED
 			update_appearance()
 			return
-	else if ((machine_stat & BROKEN) && obj_integrity > 0) //Cover was smashed but the frame wasn't destroyed fully
-		to_chat(user, "<span class='notice'>You begin prying the broken cover off the [src.name].</span>")
-		W.play_tool_sound(src)
-		if(W.use_tool(src, user, 50))
-			to_chat(user, "<span class='notice'>The broken APC cover falls apart!</span>")
-		opened = APC_COVER_CROWBARRED
-		update_appearance()
 
 /obj/machinery/power/apc/screwdriver_act(mob/living/user, obj/item/W)
 	if(..())
@@ -550,7 +540,7 @@
 							"<span class='notice'>You start welding the APC frame.</span>", \
 							"<span class='italics'>You hear welding.</span>")
 		if(W.use_tool(src, user, 50, volume=50, amount=3))
-			if ((machine_stat & BROKEN) || opened==APC_COVER_REMOVED || opened==APC_COVER_CROWBARRED)
+			if ((machine_stat & BROKEN) || opened==APC_COVER_REMOVED)
 				new /obj/item/stack/sheet/iron(loc)
 				user.visible_message(\
 					"[user.name] has cut [src] apart with [W].",\
@@ -1577,7 +1567,6 @@
 #undef APC_COVER_CLOSED
 #undef APC_COVER_OPENED
 #undef APC_COVER_REMOVED
-#undef APC_COVER_CROWBARRED
 
 #undef APC_NOT_CHARGING
 #undef APC_CHARGING
