@@ -395,7 +395,7 @@
 		if(cell)
 			new_update_state |= UPSTATE_CELL_IN
 
-	else if((obj_flags & EMAGGED) || malfai || malfhack)
+	else if((obj_flags & EMAGGED) || malfai)
 		new_update_state |= UPSTATE_BLUESCREEN
 	else if(panel_open)
 		new_update_state |= UPSTATE_WIREEXP
