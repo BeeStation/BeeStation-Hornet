@@ -491,7 +491,7 @@
 			update_appearance()
 			return
 	else if ((machine_stat & BROKEN) && obj_integrity > 0) //Cover was smashed but the frame wasn't destroyed fully
-		to_chat(user, "<span class='notice'>You begin prying the broken cover off [src.name].</span>")
+		to_chat(user, "<span class='notice'>You begin prying the broken cover off the [src.name].</span>")
 		W.play_tool_sound(src)
 		if(W.use_tool(src, user, 50))
 			to_chat(user, "<span class='notice'>The broken APC cover falls apart!</span>")
