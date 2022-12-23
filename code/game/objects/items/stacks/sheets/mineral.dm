@@ -30,7 +30,7 @@ Mineral Sheets
  */
 
 GLOBAL_LIST_INIT(sandstone_recipes, list ( \
-	new/datum/stack_recipe("pile of dirt", /obj/machinery/hydroponics/soil, 3, time = 10, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("pile of dirt", /obj/machinery/hydroponics/soil, 3, one_per_turf = 1, on_floor = 1, time = 1 SECONDS), \
 	new/datum/stack_recipe("sandstone door", /obj/structure/mineral_door/sandstone, 10, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("Assistant Statue", /obj/structure/statue/sandstone/assistant, 5, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("Breakdown into sand", /obj/item/stack/ore/glass, 1, one_per_turf = 0, on_floor = 1) \
@@ -68,7 +68,7 @@ GLOBAL_LIST_INIT(sandstone_recipes, list ( \
 	merge_type = /obj/item/stack/sheet/mineral/sandbags
 
 GLOBAL_LIST_INIT(sandbag_recipes, list ( \
-	new/datum/stack_recipe("sandbags", /obj/structure/barricade/sandbags, 1, time = 25, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("sandbags", /obj/structure/barricade/sandbags, 1, one_per_turf = 1, on_floor = 1, time = 2.5 SECONDS), \
 	))
 
 /obj/item/stack/sheet/mineral/sandbags/Initialize(mapload, new_amount, merge = TRUE)
@@ -151,8 +151,8 @@ GLOBAL_LIST_INIT(uranium_recipes, list ( \
 	new/datum/stack_recipe("Nuke Statue", /obj/structure/statue/uranium/nuke, 5, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("Engineer Statue", /obj/structure/statue/uranium/eng, 5, one_per_turf = 1, on_floor = 1), \
 	null, \
-	new/datum/stack_recipe("depleted uranium directional window", /obj/structure/window/depleteduranium/unanchored, 1, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("depleted uranium fulltile window", /obj/structure/window/depleteduranium/fulltile/unanchored, 2, time = 0, on_floor = TRUE, window_checks = TRUE) \
+	new/datum/stack_recipe("depleted uranium directional window", /obj/structure/window/depleteduranium/unanchored, 1, on_floor = TRUE, window_checks = TRUE), \
+	new/datum/stack_recipe("depleted uranium fulltile window", /obj/structure/window/depleteduranium/fulltile/unanchored, 2, on_floor = TRUE, window_checks = TRUE) \
 	))
 
 /obj/item/stack/sheet/mineral/uranium/Initialize(mapload, new_amount, merge = TRUE)
@@ -489,9 +489,9 @@ GLOBAL_LIST_INIT(adamantine_recipes, list(
 
 GLOBAL_LIST_INIT(abductor_recipes, list ( \
 	new/datum/stack_recipe("alien bed", /obj/structure/bed/abductor, 2, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("alien locker", /obj/structure/closet/abductor, 2, time = 15, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("alien table frame", /obj/structure/table_frame/abductor, 1, time = 15, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("alien airlock assembly", /obj/structure/door_assembly/door_assembly_abductor, 4, time = 20, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("alien locker", /obj/structure/closet/abductor, 2, one_per_turf = 1, on_floor = 1, time = 1.5 SECONDS), \
+	new/datum/stack_recipe("alien table frame", /obj/structure/table_frame/abductor, 1, one_per_turf = 1, on_floor = , time = 1.5 SECONDS1), \
+	new/datum/stack_recipe("alien airlock assembly", /obj/structure/door_assembly/door_assembly_abductor, 4, one_per_turf = 1, on_floor = 1, time = 2 SECONDS), \
 	null, \
 	new/datum/stack_recipe("alien floor tile", /obj/item/stack/tile/mineral/abductor, 1, 4, 20), \
 	))
