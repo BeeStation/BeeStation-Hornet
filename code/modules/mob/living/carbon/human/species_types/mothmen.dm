@@ -143,13 +143,6 @@
 	C.preparing_to_emerge = FALSE
 	qdel(C)
 
-/datum/status_effect/cocooned/tick()
-	owner.SetSleeping(10, TRUE)
-	owner.adjustBruteLoss(-(COCOON_HEAL_AMOUNT / (COCOON_EMERGE_DELAY)), 0)
-	owner.adjustFireLoss(-(COCOON_HEAL_AMOUNT / (COCOON_EMERGE_DELAY)), 0)
-	owner.adjust_nutrition(-((COCOON_NUTRITION_AMOUNT * 10 ) / (COCOON_EMERGE_DELAY)))
-
-
 /obj/structure/moth_cocoon
 	name = "\improper Mothperson cocoon"
 	desc = "Someone wrapped in a Mothperson cocoon. It's best to let them rest."
@@ -187,6 +180,11 @@
 	id = "cocooned"
 	alert_type = null
 
+/datum/status_effect/cocooned/tick()
+	owner.SetSleeping(10, TRUE)
+	owner.adjustBruteLoss(-(COCOON_HEAL_AMOUNT / (COCOON_EMERGE_DELAY)), 0)
+	owner.adjustFireLoss(-(COCOON_HEAL_AMOUNT / (COCOON_EMERGE_DELAY)), 0)
+	owner.adjust_nutrition(-((COCOON_NUTRITION_AMOUNT * 10 ) / (COCOON_EMERGE_DELAY)))
 
 #undef COCOON_WEAVE_DELAY
 #undef COCOON_EMERGE_DELAY
