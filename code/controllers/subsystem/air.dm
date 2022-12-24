@@ -367,7 +367,10 @@ SUBSYSTEM_DEF(air)
 			var/datum/callback/cb = cur_op[3]
 			cb.Invoke(air1, air2)
 		else
-			air1.transfer_ratio_to(air2, cur_op[3])
+			if(cur_op[3] == 0)
+				air1.transfer_to(air2, air1.total_moles())
+			else
+				air1.transfer_ratio_to(air2, cur_op[3])
 		if(MC_TICK_CHECK)
 			return
 
@@ -381,6 +384,9 @@ SUBSYSTEM_DEF(air)
 		currentrun.len--
 		if(M == null)
 			atmos_machinery.Remove(M)
+		// Prevents uninitalized atmos machinery from processing.
+		if (!(M.flags_1 & INITIALIZED_1))
+			continue
 		if(!M || (M.process_atmos() == PROCESS_KILL))
 			atmos_machinery.Remove(M)
 		if(MC_TICK_CHECK)
@@ -395,6 +401,9 @@ SUBSYSTEM_DEF(air)
 	while(currentrun.len)
 		var/obj/machinery/M = currentrun[currentrun.len]
 		currentrun.len--
+		// Prevents uninitalized atmos machinery from processing.
+		if (!(M.flags_1 & INITIALIZED_1))
+			continue
 		if(!M || (M.process_atmos(seconds) == PROCESS_KILL))
 			atmos_air_machinery.Remove(M)
 		if(MC_TICK_CHECK)

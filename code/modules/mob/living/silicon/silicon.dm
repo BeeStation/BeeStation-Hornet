@@ -107,6 +107,7 @@
 /mob/living/silicon/Destroy()
 	radio = null
 	aicamera = null
+	modularInterface = null
 	QDEL_NULL(builtInCamera)
 	QDEL_NULL(internal_id_card)
 	GLOB.silicon_mobs -= src

@@ -694,6 +694,8 @@ What a mess.*/
 				G.fields["name"] = "New Record"
 				G.fields["id"] = "[num2hex(rand(1, 1.6777215E7), 6)]"
 				G.fields["rank"] = "Unassigned"
+				G.fields["hud"] = JOB_HUD_UNKNOWN
+				G.fields["active_dept"]	= NONE
 				G.fields["sex"] = "Male"
 				G.fields["age"] = "Unknown"
 				G.fields["species"] = "Human"

@@ -148,6 +148,7 @@
 	else
 		safety = TRUE
 		to_chat(user, "<span class='notice'>You silently enable [src]'s safety protocols with the cryptographic sequencer.</span>")
+	update_icon()
 
 /obj/item/defibrillator/emp_act(severity)
 	. = ..()

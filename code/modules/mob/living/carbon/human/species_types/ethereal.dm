@@ -1,7 +1,7 @@
 
 /datum/species/ethereal
 	name = "\improper Ethereal"
-	id = "ethereal"
+	id = SPECIES_ETHEREAL
 	attack_verb = "burn"
 	attack_sound = 'sound/weapons/etherealhit.ogg'
 	miss_sound = 'sound/weapons/etherealmiss.ogg'
@@ -169,3 +169,18 @@
 			if(H.health > 10.5)
 				apply_damage(1, TOX, null, null, H)
 			brutemod = 2
+
+/datum/species/ethereal/get_cough_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_COUGH_SOUND(user)
+
+/datum/species/ethereal/get_gasp_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_GASP_SOUND(user)
+
+/datum/species/ethereal/get_sigh_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SIGH_SOUND(user)
+
+/datum/species/ethereal/get_sneeze_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNEEZE_SOUND(user)
+
+/datum/species/ethereal/get_sniff_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNIFF_SOUND(user)

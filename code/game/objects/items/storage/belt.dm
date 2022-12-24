@@ -36,6 +36,8 @@
 	worn_icon_state = "utility"
 	content_overlays = TRUE
 	custom_price = 50
+	drop_sound = 'sound/items/handling/toolbelt_drop.ogg'
+	pickup_sound =  'sound/items/handling/toolbelt_pickup.ogg'
 
 /obj/item/storage/belt/utility/ComponentInitialize()
 	. = ..()
@@ -67,7 +69,8 @@
 		/obj/item/pipe_dispenser,
 		/obj/item/inducer,
 		/obj/item/plunger,
-		/obj/item/airlock_painter
+		/obj/item/airlock_painter,
+		/obj/item/shuttle_creator
 		))
 	STR.can_hold = can_hold
 
