@@ -301,9 +301,12 @@
 			if(6 to 10)
 				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS
 				spread_text = "Fluids"
-			if(11 to INFINITY)
+			if(11 to 12)
 				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN
 				spread_text = "On contact"
+			if(13 to INFINITY)
+				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_AIRBORNE
+				spread_text = "Airborne"
 
 /datum/disease/advance/proc/SetDanger(level_sev)
 	switch(level_sev)
