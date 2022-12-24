@@ -54,7 +54,7 @@ BONUS
 			power = 2
 	if(A.stage_rate >= 6) //cough more often
 		symptom_delay_max = 10
-	if(A.transmission >= 11) //spread virus
+	if(A.transmission >= 10) //spread virus
 		infective =TRUE
 
 /datum/symptom/cough/Activate(datum/disease/advance/A)

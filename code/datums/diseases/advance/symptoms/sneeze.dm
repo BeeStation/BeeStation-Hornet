@@ -37,7 +37,7 @@ Bonus
 		return
 	if(A.stealth >= 4)
 		suppress_warning = TRUE
-	if(A.transmission >= 12)
+	if(A.transmission >= 11)
 		infective = TRUE
 
 /datum/symptom/sneeze/Activate(datum/disease/advance/A)
