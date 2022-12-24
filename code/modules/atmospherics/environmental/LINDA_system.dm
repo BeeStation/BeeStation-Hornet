@@ -20,6 +20,8 @@
 	var/dir = vertical? get_dir_multiz(src, T) : get_dir(src, T)
 	var/opp = REVERSE_DIR(dir)
 	. = TRUE
+	if (SSair.paused_z_levels["[T.z]"])
+		return FALSE
 	if(vertical && !(zAirOut(dir, T) && T.zAirIn(dir, src)))
 		. = FALSE
 	if(blocks_air || T.blocks_air)

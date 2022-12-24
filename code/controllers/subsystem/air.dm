@@ -62,12 +62,9 @@ SUBSYSTEM_DEF(air)
 	// Excited group processing will try to equalize groups with total pressure difference less than this amount.
 	var/excited_group_pressure_goal = 1
 
-	var/list/paused_z_levels	//Paused z-levels will not add turfs to active
+	var/list/paused_z_levels = list()	//Paused z-levels will not add turfs to active
 	var/list/unpausing_z_levels = list()
 	var/list/unpause_processing = list()
-
-	var/list/pausing_z_levels = list()
-	var/list/pause_processing = list()
 
 /datum/controller/subsystem/air/stat_entry(msg)
 	msg += "C:{"
@@ -143,26 +140,9 @@ SUBSYSTEM_DEF(air)
 	while(length(unpause_processing))
 		var/turf/T = unpause_processing[length(unpause_processing)]
 		if(!isspaceturf(T))	//Skip space turfs, since they won't have atmos
-			T.Initalize_Atmos()
+			T.air_update_turf(TRUE)
 		//Goodbye
 		unpause_processing.len --
-		//We overran this tick, stop processing
-		//This may result in a very brief atmos freeze when running unpause_z at high loads
-		//but that is better than freezing the entire MC
-		if(MC_TICK_CHECK)
-			return
-
-	//If we have unpausing z-level, process them first
-	if(length(pausing_z_levels) && !length(pause_processing))
-		var/z_value = pausing_z_levels[1]
-		pausing_z_levels.Remove(z_value)
-		pause_processing = block(locate(1, 1, z_value), locate(world.maxx, world.maxy, z_value))
-
-	while(length(pause_processing))
-		var/turf/T = pause_processing[length(pause_processing)]
-		T.ImmediateDisableAdjacency()
-		//Goodbye
-		pause_processing.len --
 		//We overran this tick, stop processing
 		//This may result in a very brief atmos freeze when running unpause_z at high loads
 		//but that is better than freezing the entire MC
@@ -505,14 +485,12 @@ SUBSYSTEM_DEF(air)
 	map_loading = FALSE
 
 /datum/controller/subsystem/air/proc/pause_z(z_level)
-	LAZYADD(paused_z_levels, z_level)
+	paused_z_levels["[z_level]"] = TRUE
 	unpausing_z_levels -= z_level
-	pausing_z_levels |= z_level
 
 /datum/controller/subsystem/air/proc/unpause_z(z_level)
-	pausing_z_levels -= z_level
 	unpausing_z_levels |= z_level
-	LAZYREMOVE(paused_z_levels, z_level)
+	paused_z_levels["[z_level]"] = FALSE
 
 /datum/controller/subsystem/air/proc/setup_allturfs()
 	var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz))
