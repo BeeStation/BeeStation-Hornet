@@ -342,14 +342,12 @@
 /obj/item/weldingtool/cyborg/proc/disable()
 	functional = FALSE
 	switched_off(usr)
-	to_chat(src, "<span class='danger'>Your welding tool gets snuffed out! It'll take some time before it can work again!.</span>")
 	playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
 	addtimer(CALLBACK(src, .proc/enable), 300, TIMER_UNIQUE)
 
 /obj/item/weldingtool/cyborg/proc/enable()
 	functional = TRUE
 	playsound(src, 'sound/machines/chime.ogg', 25, TRUE)
-	to_chat(src, "<span class='notice'>Your welding tool is operational once again.</span>")
 
 /obj/item/weldingtool/cyborg/mini
 	name = "integrated emergency welding tool"

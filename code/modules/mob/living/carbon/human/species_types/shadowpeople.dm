@@ -265,6 +265,7 @@
 	if(!isOn())
 		return
 	if(light_eater)
+		loc.visible_message("<span class='danger'>The the integrated welding tool is snuffed out by [light_eater]!</span>")
 		disable()
 	..()
 
