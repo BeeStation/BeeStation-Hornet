@@ -206,17 +206,18 @@
 		area.poweralert(FALSE, src)
 
 /obj/machinery/power/apc/proc/clear_previous_power_alarm(obj/source, area/A)
-	var/list/L = GLOB.alarms["Power"]
-	for (var/I in L)
-		if(I == A.name)
-			var/list/alarm = L[I]
-			var/list/srcs  = alarm[3]
-			for(var/origin in srcs)
-				if(origin != source)//We don't want to clear our own alarm, do we
-					area.poweralert(TRUE, origin)
-					srcs -= origin
-			if (srcs.len == 0)
-				L -= I
+	var/list/areas_list = GLOB.alarms["Power"]
+	for (var/found_area in areas_list)
+		if(found_area != A.name)
+			continue
+		var/list/alarm = areas_list[found_area]
+		var/list/sources  = alarm[3]
+		for(var/origin in sources)
+			if(origin != source)//We don't want to clear our own alarm, do we
+				area.poweralert(TRUE, origin)
+				sources -= origin
+		if (sources.len == 0)
+			areas_list -= found_area
 
 /obj/machinery/power/apc/Destroy()
 	GLOB.apcs_list -= src
