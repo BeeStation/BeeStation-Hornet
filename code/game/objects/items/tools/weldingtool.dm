@@ -39,6 +39,7 @@
 	var/progress_flash_divisor = 10
 	var/burned_fuel_for = 0	//when fuel was last removed
 	var/light_intensity = 2
+	var/functional = TRUE //Used by the cyborg welders to determine if they're been smashed by a nightmare
 	heat = 3800
 	tool_behaviour = TOOL_WELDER
 	toolspeed = 1
@@ -194,6 +195,9 @@
 	if(!status)
 		balloon_alert(user, "You try to turn [src] on, but it's unsecured!")
 		return
+	if(!functional)
+		balloon_alert(user, "You try to turn [src] on, but nothing happens!")
+		return
 	set_welding(!welding)
 	if(welding)
 		if(get_fuel() >= 1)
@@ -305,18 +309,6 @@
 /obj/item/weldingtool/largetank/flamethrower_screwdriver()
 	return
 
-/obj/item/weldingtool/largetank/cyborg
-	name = "integrated welding tool"
-	desc = "An advanced welder designed to be used in robotic systems. Custom framework doubles the speed of welding."
-	icon = 'icons/obj/items_cyborg.dmi'
-	icon_state = "indwelder_cyborg"
-	toolspeed = 0.5
-
-/obj/item/weldingtool/largetank/cyborg/cyborg_unequip(mob/user)
-	if(!isOn())
-		return
-	switched_on(user)
-
 /obj/item/weldingtool/mini
 	name = "emergency welding tool"
 	desc = "A miniature welder used during emergencies."
@@ -328,6 +320,45 @@
 
 /obj/item/weldingtool/mini/flamethrower_screwdriver()
 	return
+
+/obj/item/weldingtool/cyborg
+	name = "integrated welding tool"
+	desc = "An advanced welder designed to be used in robotic systems. Custom framework doubles the speed of welding."
+	icon = 'icons/obj/items_cyborg.dmi'
+	icon_state = "indwelder_cyborg"
+	toolspeed = 0.5
+	max_fuel = 40
+	materials = list(/datum/material/glass=60)
+
+/obj/item/weldingtool/cyborg/cyborg_unequip(mob/user)
+	if(!isOn())
+		return
+	switched_on(user)
+
+/obj/item/weldingtool/cyborg/flamethrower_screwdriver()
+	return
+
+///This gets called by the lighteater to temporarity disable it
+/obj/item/weldingtool/cyborg/proc/disable()
+	functional = FALSE
+	switched_off(usr)
+	to_chat(src, "<span class='danger'>Your welding tool gets snuffed out! It'll take some time before it can work again!.</span>")
+	playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
+	addtimer(CALLBACK(src, .proc/enable), 300, TIMER_UNIQUE)
+
+/obj/item/weldingtool/cyborg/proc/enable()
+	functional = TRUE
+	playsound(src, 'sound/machines/chime.ogg', 25, TRUE)
+	to_chat(src, "<span class='notice'>Your welding tool is operational once again.</span>")
+
+/obj/item/weldingtool/cyborg/mini
+	name = "integrated emergency welding tool"
+	desc = "A miniature integrated welder used during emergencies."
+	icon_state = "miniwelder"
+	max_fuel = 10
+	w_class = WEIGHT_CLASS_TINY
+	materials = list(/datum/material/iron=30, /datum/material/glass=10)
+	change_icons = 0
 
 /obj/item/weldingtool/abductor
 	name = "alien welding tool"

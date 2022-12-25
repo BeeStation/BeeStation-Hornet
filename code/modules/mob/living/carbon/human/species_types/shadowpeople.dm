@@ -261,5 +261,12 @@
 	break_tile()
 	playsound(src, 'sound/items/welder.ogg', 50, 1)
 
+/obj/item/weldingtool/cyborg/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	if(!isOn())
+		return
+	if(light_eater)
+		disable()
+	..()
+
 #undef HEART_SPECIAL_SHADOWIFY
 #undef HEART_RESPAWN_THRESHHOLD
