@@ -581,7 +581,8 @@
 			return
 		A.admin_remove(usr)
 
-	if (href_list["role_edit"]) // REDIMNER-- This should change multiple jobs
+	if (href_list["role_edit"]) // Note by Evildragon: This should change multiple jobs. currently disabled because it can cause unwanted behavior. should refactor someday.
+		return
 		var/new_role = input("Select new role", "Assigned role", get_station_role()) as null|anything in sortList(get_all_jobs())
 		if (!new_role)
 			return
@@ -924,19 +925,11 @@
 	..()
 	last_mind = mind
 
-//HUMAN
-/mob/living/carbon/human/mind_initialize()
-	..()
-
-//AI
-/mob/living/silicon/ai/mind_initialize()
-	..()
-	mind.assign_crew_role(JOB_KEY_AI)
-
 //BORG
 /mob/living/silicon/robot/mind_initialize()
 	..()
-	mind.assign_crew_role(JOB_KEY_CYBORG)
+	mind.set_job(JOB_KEY_CYBORG)
+	// assign_crew_role() proc doesn't fit here, because they can be syndi-borg
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()

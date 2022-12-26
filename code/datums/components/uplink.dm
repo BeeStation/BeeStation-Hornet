@@ -181,9 +181,8 @@
 					continue
 			if(I.restricted_roles.len && I.discounted == FALSE)
 				var/is_inaccessible = TRUE
-				for(var/R in I.restricted_roles)
-					if(user.mind.has_job(R) || debug)
-						is_inaccessible = FALSE
+				if(user.mind.has_job(I.restricted_roles) || debug)
+					is_inaccessible = FALSE
 				if(is_inaccessible)
 					continue
 			if(I.restricted_species && I.discounted == FALSE)

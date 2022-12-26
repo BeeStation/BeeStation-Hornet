@@ -99,7 +99,7 @@ GLOBAL_VAR(antag_prototypes)
 
 	var/out = "<B>[name]</B>[(current && (current.real_name!=name))?" (as [current.real_name])":""]<br>"
 	out += "Mind currently owned by key: [key] [active?"(synced)":"(not synced)"]<br>"
-	out += "Station role: [get_station_role(TRUE)]." //  <a href='?src=[REF(src)];role_edit=1'>Edit</a><br> // Evildragon: commenting the role edit. it needs another refactor later. excessive job refactor was a pain already
+	out += "Station role: [get_station_role(TRUE)] <br>" //  <a href='?src=[REF(src)];role_edit=1'>Edit</a><br> // Evildragon: commenting the role edit. it needs another refactor later. excessive job refactor was a pain already
 	out += "Special role: <b><font color='red'>[get_special_role(TRUE)]</font></b><br>"
 
 	var/special_statuses = get_special_statuses()
