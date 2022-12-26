@@ -64,6 +64,12 @@ const OrbitedButton = (props, context) => {
       onClick={() => act("orbit", {
         ref: thing.ref,
       })}>
+      {job && (
+        <Box inline
+          ml={1}
+          style={{ "transform": "translateY(2.5px)" }}
+          className={`job-icon16x16 job-icon-${job}`} />
+      )}
       {thing.name}
       {thing.orbiters && (
         <Box inline ml={1}>
@@ -74,12 +80,6 @@ const OrbitedButton = (props, context) => {
             opacity={0.7} />
           {")"}
         </Box>
-      )}
-      {job && (
-        <Box inline
-          ml={1}
-          style={{ "transform": "translateY(2.5px)" }}
-          className={`job-icon16x16 job-icon-${job}`} />
       )}
     </Button>
   );
