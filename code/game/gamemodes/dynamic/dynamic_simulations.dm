@@ -30,7 +30,7 @@
 
 		var/datum/preferences/prefs = new
 		var/list/be_special = list()
-		for (var/special_role in GLOB.special_roles)
+		for (var/special_role in GLOB.roundstart_antag_prefs|GLOB.midround_antag_list|GLOB.ghost_special_roles)
 			be_special += special_role
 
 		prefs.be_special = be_special
