@@ -143,7 +143,7 @@
 			continue
 		if(Player == owner) // don't self-obssession
 			continue
-		if(Player.mind.get_mind_role(JTYPE_JOB_PATH) == JOB_UNASSIGNED) // not original crew, but they can be a victim if their name is in datacore...
+		if(!Player.mind.get_station_role()) // not original crew, but they can be a victim if their name is in datacore...
 			var/datum/data/record/D
 			if(Player.get_visible_name() != "Unknown")
 				D = find_record("name", Player.get_visible_name(), GLOB.data_core.general) // [1st try] key by "visible name"

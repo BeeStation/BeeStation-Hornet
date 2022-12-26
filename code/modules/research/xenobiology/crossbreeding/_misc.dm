@@ -278,7 +278,7 @@ Slimecrossing Items
 		INVOKE_ASYNC(src, .proc/offer_entry, M, user)
 		return
 	else
-		if(istype(M, /mob/living/simple_animal/hostile) && !("neutral" in M.faction))
+		if(istype(M, /mob/living/simple_animal/hostile) && !(FACTION_NEUTRAL in M.faction))
 			to_chat(user, "<span class='warning'>This creature is too aggressive to capture.</span>")
 			return
 	to_chat(user, "<span class='notice'>You store [M] in the capture device.</span>")

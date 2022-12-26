@@ -1,11 +1,11 @@
 /datum/job/paramedic
-	jpath = JOB_PATH_PARAMEDIC
+	jkey = JOB_KEY_PARAMEDIC
 	title = JOB_NAME_PARAMEDIC
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = PARAMEDIC
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 2
 	spawn_positions = 1
 	selection_color = "#d4ebf2"
@@ -17,7 +17,6 @@
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MAINT_TUNNELS,
 					ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_AUX_BASE)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)
@@ -32,7 +31,7 @@
 	biohazard = 50//deal with sick like MDS, but also muck around in maint and get into the thick of it
 
 /datum/outfit/job/paramedic
-	name = JOB_PATH_PARAMEDIC
+	name = JOB_KEY_PARAMEDIC
 	jobtype = /datum/job/paramedic
 
 	id = /obj/item/card/id/job/paramedic

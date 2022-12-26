@@ -1,11 +1,11 @@
 /datum/job/botanist
-	jpath = JOB_PATH_BOTANIST
+	jkey = JOB_KEY_BOTANIST
 	title = JOB_NAME_BOTANIST
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = BOTANIST
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 3
 	spawn_positions = 2
 	selection_color = "#bbe291"
@@ -28,7 +28,7 @@
 	)
 
 /datum/outfit/job/botanist
-	name = JOB_PATH_BOTANIST
+	name = JOB_KEY_BOTANIST
 	jobtype = /datum/job/botanist
 
 	id = /obj/item/card/id/job/botanist

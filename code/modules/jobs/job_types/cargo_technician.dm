@@ -1,11 +1,11 @@
 /datum/job/cargo_technician
-	jpath = JOB_PATH_CARGOTECHNICIAN
+	jkey = JOB_KEY_CARGOTECHNICIAN
 	title = JOB_NAME_CARGOTECHNICIAN
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = CARGOTECH
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the quartermaster and the head of personnel"
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 3
 	spawn_positions = 2
 	selection_color = "#dcba97"
@@ -30,7 +30,7 @@
 	biohazard = 25
 
 /datum/outfit/job/cargo_technician
-	name = JOB_PATH_CARGOTECHNICIAN
+	name = JOB_KEY_CARGOTECHNICIAN
 	jobtype = /datum/job/cargo_technician
 
 	id = /obj/item/card/id/job/cargo_technician

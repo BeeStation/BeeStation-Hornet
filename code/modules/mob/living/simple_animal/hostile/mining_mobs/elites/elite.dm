@@ -7,7 +7,7 @@
 	name = "elite"
 	desc = "An elite monster, found in one of the strange tumors on lavaland."
 	icon = 'icons/mob/lavaland/lavaland_elites.dmi'
-	faction = list("boss")
+	faction = list(FACTION_BOSS)
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
 	ranged = TRUE
@@ -155,7 +155,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 					addtimer(CALLBACK(src, .proc/spawn_elite), 30)
 					return
 				visible_message("<span class='boldwarning'>Something within [src] stirs...</span>")
-				var/list/candidates = pollCandidatesForMob("Do you want to play as a lavaland elite?", ROLE_SENTIENCE, null, ROLE_SENTIENCE, 50, src, POLL_IGNORE_SENTIENCE_POTION)
+				var/list/candidates = pollCandidatesForMob("Do you want to play as a lavaland elite?", ROLE_KEY_SENTIENCE, null, ROLE_KEY_SENTIENCE, 50, src, POLL_IGNORE_SENTIENCE_POTION)
 				if(candidates.len)
 					audible_message("<span class='boldwarning'>The stirring sounds increase in volume!</span>")
 					elitemind = pick(candidates)
@@ -311,7 +311,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		if(E.stat != DEAD || E.sentience_type != SENTIENCE_BOSS || !E.key)
 			user.visible_message("<span class='notice'>It appears [E] is unable to be revived right now.  Perhaps try again later.</span>")
 			return
-		E.faction = list("neutral")
+		E.faction = list(FACTION_NEUTRAL)
 		E.revive(full_heal = TRUE, admin_revive = TRUE)
 		user.visible_message("<span class='notice'>[user] stabs [E] with [src], reviving it.</span>")
 		E.playsound_local(get_turf(E), 'sound/effects/magic.ogg', 40, 0)

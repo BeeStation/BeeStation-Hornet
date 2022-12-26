@@ -61,7 +61,7 @@
 	if(!skip_answer_check && threat?.answered == PIRATE_RESPONSE_PAY)
 		return
 
-	var/list/candidates = pollGhostCandidates("Do you wish to be considered for pirate crew?", ROLE_TRAITOR)
+	var/list/candidates = pollGhostCandidates("Do you wish to be considered for pirate crew?", ROLE_KEY_TRAITOR)
 	shuffle_inplace(candidates)
 
 	var/datum/map_template/shuttle/pirate/default/ship = new
@@ -424,12 +424,12 @@
 
 /datum/export/pirate/ransom/get_cost(atom/movable/AM)
 	var/mob/living/carbon/human/H = AM
-	if(H.stat != CONSCIOUS || !H.mind || !H.mind.get_mind_role(JTYPE_JOB_PATH, TRUE)) //mint condition only
+	if(H.stat != CONSCIOUS || !H.mind || !H.mind.get_station_role()) //mint condition only
 		return 0
-	else if("pirate" in H.faction) //can't ransom your fellow pirates to CentCom!
+	else if(FACTION_PIRATE in H.faction) //can't ransom your fellow pirates to CentCom!
 		return 0
 	else
-		if(H.mind.get_mind_role(JTYPE_JOB_PATH, TRUE) in GLOB.command_positions)
+		if(H.mind.has_job(GLOB.command_positions))
 			return 3000
 		else
 			return 1000

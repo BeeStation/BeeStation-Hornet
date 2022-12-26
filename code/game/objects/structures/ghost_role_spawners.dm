@@ -16,7 +16,7 @@
 	the universe to every planet they could chart. You are in one such seed vault. \
 	Your goal is to cultivate and spread life wherever it will go while waiting for contact from your creators. \
 	Estimated time of last contact: Deployment, 5000 millennia ago."
-	assignedrole = "Lifebringer"
+	spawner_special_role = ROLE_KEY_LAVALAND_LIFEBRINGER
 	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/human/seed_vault/special(mob/living/new_spawn)
@@ -51,7 +51,7 @@
 	flavour_text = "The wastes are sacred ground, its monsters a blessed bounty. \
 	You have seen lights in the distance... they foreshadow the arrival of outsiders that seek to tear apart the Necropolis and its domain. \
 	Fresh sacrifices for your nest."
-	assignedrole = "Ash Walker"
+	spawner_special_role = ROLE_KEY_ASHWALKER
 	var/datum/team/ashwalkers/team
 	use_cooldown = TRUE
 
@@ -82,6 +82,7 @@
 //Timeless prisons: Spawns in Wish Granter prisons in lavaland. Ghosts become age-old users of the Wish Granter and are advised to seek repentance for their past.
 /obj/effect/mob_spawn/human/exile
 	name = "timeless prison"
+	spawner_special_role = ROLE_KEY_UNDEFINED_SPECIAL_ROLE // we don't use this role currently
 	desc = "Although this stasis pod looks medicinal, it seems as though it's meant to preserve something for a very long time."
 	mob_name = "a penitent exile"
 	icon = 'icons/obj/machines/sleeper.dmi'
@@ -92,7 +93,6 @@
 	short_desc = "You are cursed."
 	flavour_text = "Years ago, you sacrificed the lives of your trusted friends and the humanity of yourself to reach the Wish Granter. Though you \
 	did so, it has come at a cost: your very body rejects the light, dooming you to wander endlessly in this horrible wasteland."
-	assignedrole = "Exile"
 	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/human/exile/Destroy()
@@ -117,6 +117,8 @@
 	name = "inert free golem shell"
 	desc = "A humanoid shape, empty, lifeless, and full of potential."
 	mob_name = "a free golem"
+	spawner_special_role = ROLE_KEY_GOLEMS
+	spawner_special_role_name = "Free Golem"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "construct"
 	mob_species = /datum/species/golem
@@ -146,6 +148,8 @@
 		flavour_text = "You move slowly, but are highly resistant to heat and cold as well as blunt trauma. You are unable to wear clothes, but can still use most tools."
 		important_info = "Serve [creator], and assist [creator.p_them()] in completing [creator.p_their()] goals at any cost."
 		owner = creator
+		spawner_special_role_name = "Servant Golem"
+
 
 /obj/effect/mob_spawn/human/golem/special(mob/living/new_spawn, name)
 	var/datum/species/golem/X = mob_species
@@ -170,12 +174,6 @@
 				H.fully_replace_character_name(null, H.dna.species.random_name())
 		else
 			H.fully_replace_character_name(null, name)
-	if(has_owner)
-		new_spawn.mind.mind_roles[JLIST_SPECIAL] = ROLE_GOLEMS
-		new_spawn.mind.mind_roles[JLIST_GIMMICK_SPECIAL] = "Servant Golem"
-	else
-		new_spawn.mind.mind_roles[JLIST_SPECIAL] = ROLE_GOLEMS
-		new_spawn.mind.mind_roles[JLIST_GIMMICK_SPECIAL] = "Free Golem"
 
 /obj/effect/mob_spawn/human/golem/attack_hand(mob/user)
 	. = ..()
@@ -212,6 +210,7 @@
 //Malfunctioning cryostasis sleepers: Spawns in makeshift shelters in lavaland. Ghosts become hermits with knowledge of how they got to where they are now.
 /obj/effect/mob_spawn/human/hermit
 	name = "malfunctioning cryostasis sleeper"
+	spawner_special_role = ROLE_KEY_MAROONED_CREW
 	desc = "A humming sleeper with a silhouetted occupant inside. Its stasis function is broken and it's likely being used as a bed."
 	mob_name = "a stranded hermit"
 	icon = 'icons/obj/lavaland/spawners.dmi'
@@ -224,7 +223,6 @@
 	flavour_text = "Each day you barely scrape by, and between the terrible conditions of your makeshift shelter, \
 	the hostile creatures, and the ash drakes swooping down from the cloudless skies, all you can wish for is the feel of soft grass between your toes and \
 	the fresh air of Earth. These thoughts are dispelled by yet another recollection of how you got here... "
-	assignedrole = "Hermit"
 	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/human/hermit/Initialize(mapload)
@@ -267,7 +265,7 @@
 	flavour_text = "What...? Where are you? What's the purpose of this place? This is still the animal hospital - you should know, you've been an intern here for weeks - but \
 	all you did was apply bruise packs. Why is this place full of advanced medical equipment? And what are those screams you hear? The world outside is desolate - tormented with fire and brimstone. But you took an oath. \
 	You have to save these people! You might not have a fancy cloning machine like a real hospital, but surely there must be some way to save these people with the tools you have. Right?"
-	assignedrole = "Translocated Vet"
+	spawner_special_role = ROLE_KEY_LAVALAND_DOCTOR
 
 /obj/effect/mob_spawn/human/doctor/alive/lavaland/Destroy()
 	var/obj/structure/fluff/empty_sleeper/S = new(drop_location())
@@ -277,6 +275,7 @@
 //Prisoner containment sleeper: Spawns in crashed prison ships in lavaland. Ghosts become escaped prisoners and are advised to find a way out of the mess they've gotten themselves into.
 /obj/effect/mob_spawn/human/prisoner_transport
 	name = "prisoner containment sleeper"
+	spawner_special_role = ROLE_KEY_UNDEFINED_SPECIAL_ROLE // currently used nowhere
 	desc = "A sleeper designed to put its occupant into a deep coma, unbreakable until the sleeper turns off. This one's glass is cracked and you can see a pale, sleeping face staring out."
 	mob_name = "an escaped prisoner"
 	icon = 'icons/obj/machines/sleeper.dmi'
@@ -287,7 +286,6 @@
 	short_desc = "You're a prisoner, sentenced to hard work in one of Nanotrasen's labor camps, but it seems as \
 	though fate has other plans for you."
 	flavour_text = "Good. It seems as though your ship crashed. You remember that you were convicted of "
-	assignedrole = "Escaped Prisoner"
 	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/human/prisoner_transport/special(mob/living/L)
@@ -327,7 +325,7 @@
 	short_desc = "You are a staff member of a top-of-the-line space hotel!"
 	flavour_text = "You are a staff member of a top-of-the-line space hotel! Cater to guests and make sure the manager doesn't fire you."
 	important_info = "DON'T leave the hotel"
-	assignedrole = "Hotel Staff"
+	spawner_special_role = "Hotel Staff"
 	use_cooldown = TRUE
 
 /datum/outfit/hotelstaff
@@ -371,11 +369,11 @@
 	death = FALSE
 	roundstart = FALSE
 	random = TRUE
-	id_job = "SuperFriend"
+	id_title = "SuperFriend" // this is not a real job in current codebase. change this later too.
 	id_access = "assistant"
 	var/obj/effect/proc_holder/spell/targeted/summon_friend/spell
 	var/datum/mind/owner
-	assignedrole = "SuperFriend"
+	spawner_special_role = ROLE_KEY_UNDEFINED_SPECIAL_ROLE // change this later
 
 /obj/effect/mob_spawn/human/demonic_friend/Initialize(mapload, datum/mind/owner_mind, obj/effect/proc_holder/spell/targeted/summon_friend/summoning_spell)
 	. = ..()
@@ -423,7 +421,8 @@
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper_s"
 	outfit = /datum/outfit/syndicate_empty
-	assignedrole = "Space Syndicate"	//I know this is really dumb, but Syndicate operative is nuke ops
+	spawner_special_role = ROLE_KEY_EXT_SYNDI_AGENT	//I know this is really dumb, but Syndicate operative is nuke ops
+											// Evildragon: I don't get this comment ↑
 
 /datum/outfit/syndicate_empty
 	name = "Syndicate Operative Empty"
@@ -436,7 +435,7 @@
 	id = /obj/item/card/id/syndicate
 
 /datum/outfit/syndicate_empty/post_equip(mob/living/carbon/human/H)
-	H.faction |= ROLE_SYNDICATE
+	H.faction |= FACTION_SYNDICATE
 
 /obj/effect/mob_spawn/human/syndicate/battlecruiser
 	name = "Syndicate Battlecruiser Ship Operative"
@@ -509,7 +508,7 @@
 	id = /obj/item/card/id/away/old/sec
 	r_pocket = /obj/item/restraints/handcuffs
 	l_pocket = /obj/item/assembly/flash/handheld
-	assignedrole = "Ancient Crew"
+	spawner_special_role = ROLE_KEY_MAROONED_CREW
 	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/human/oldsec/Destroy()
@@ -536,7 +535,7 @@
 	id = /obj/item/card/id/away/old/eng
 	gloves = /obj/item/clothing/gloves/color/fyellow/old
 	l_pocket = /obj/item/tank/internals/emergency_oxygen
-	assignedrole = "Ancient Crew"
+	spawner_special_role = ROLE_KEY_MAROONED_CREW
 	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/human/oldeng/Destroy()
@@ -562,7 +561,7 @@
 	shoes = /obj/item/clothing/shoes/laceup
 	id = /obj/item/card/id/away/old/sci
 	l_pocket = /obj/item/stack/medical/bruise_pack
-	assignedrole = "Ancient Crew"
+	spawner_special_role = ROLE_KEY_MAROONED_CREW
 	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/human/oldsci/Destroy()
@@ -585,7 +584,7 @@
 	show_flavour = FALSE //Flavour only exists for spawners menu
 	short_desc = "You are a space pirate."
 	flavour_text = "The station refused to pay for your protection, protect the ship, siphon the credits from the station and raid it for even more loot."
-	assignedrole = "Space Pirate"
+	spawner_special_role = ROLE_KEY_SPACE_PIRATE
 	var/rank = "Mate"
 
 /obj/effect/mob_spawn/human/pirate/special(mob/living/new_spawn)

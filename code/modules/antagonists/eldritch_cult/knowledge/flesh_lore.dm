@@ -39,7 +39,7 @@
 	humie.grab_ghost()
 
 	if(!humie.mind || !humie.client)
-		var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [humie.real_name], a voiceless dead", ROLE_HERETIC, null, ROLE_HERETIC, 50,humie)
+		var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [humie.real_name], a voiceless dead", ROLE_KEY_HERETIC, null, ROLE_KEY_HERETIC, 50,humie)
 		if(!LAZYLEN(candidates))
 			to_chat(user,"<span class='warning'>No ghost could be found...</span>")
 			return
@@ -59,7 +59,7 @@
 	humie.setMaxHealth(MUTE_MAX_HEALTH)
 	humie.health = MUTE_MAX_HEALTH // Voiceless dead are much tougher than ghouls
 	humie.become_husk()
-	humie.faction |= "heretics"
+	humie.faction |= FACTION_HERETICS
 	humie.apply_status_effect(/datum/status_effect/ghoul)
 
 	var/datum/antagonist/heretic_monster/heretic_monster = humie.mind.add_antag_datum(/datum/antagonist/heretic_monster)
@@ -124,7 +124,7 @@
 	human_target.health = GHOUL_MAX_HEALTH
 	human_target.become_husk()
 	human_target.apply_status_effect(/datum/status_effect/ghoul)
-	human_target.faction |= "heretics"
+	human_target.faction |= FACTION_HERETICS
 	var/datum/antagonist/heretic_monster/heretic_monster = human_target.mind.add_antag_datum(/datum/antagonist/heretic_monster)
 	var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	heretic_monster.set_owner(master)

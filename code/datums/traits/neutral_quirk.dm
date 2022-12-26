@@ -96,7 +96,7 @@
 	quirk_holder.add_client_colour(/datum/client_colour/monochrome)
 
 /datum/quirk/monochromatic/post_add()
-	if(quirk_holder.mind.get_mind_role(JTYPE_JOB_PATH) == JOB_PATH_DETECTIVE)
+	if(quirk_holder.mind.has_job(JOB_KEY_DETECTIVE))
 		to_chat(quirk_holder, "<span class='boldannounce'>Mmm. Nothing's ever clear on this station. It's all shades of gray.</span>")
 		quirk_holder.playsound_local(quirk_holder, 'sound/ambience/ambidet1.ogg', 50, FALSE)
 

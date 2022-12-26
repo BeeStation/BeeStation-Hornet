@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	icon_dead = "drone_clock_dead"
 	health = 30
 	maxHealth = 30
-	faction = list("neutral", "silicon", "turret", "ratvar")
+	faction = list(FACTION_NEUTRAL, FACTION_SILICON, "turret", "ratvar")
 	default_storage = /obj/item/storage/belt/utility/servant/drone
 	visualAppearence = CLOCKDRONE
 	bubble_icon = "clock"
@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	to construct and maintain defenses at the City of Cogs."
 
 /obj/effect/mob_spawn/drone/cogscarab/attack_ghost(mob/user)
-	if(is_banned_from(user.ckey, ROLE_SERVANT_OF_RATVAR) || QDELETED(src) || QDELETED(user))
+	if(is_banned_from(user.ckey, list(ROLE_BANCHECK_MAJOR_GHOSTSPAWN, ROLE_KEY_SERVANT_OF_RATVAR)) || QDELETED(src) || QDELETED(user))
 		return
 	if(CONFIG_GET(flag/use_age_restriction_for_jobs))
 		if(!isnum(user.client.player_age)) //apparently what happens when there's no DB connected. just don't let anybody be a drone without admin intervention

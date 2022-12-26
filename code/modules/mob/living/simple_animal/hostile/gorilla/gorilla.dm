@@ -28,7 +28,7 @@
 	dextrous = TRUE
 	held_items = list(null, null)
 	possible_a_intents = list(INTENT_HELP, INTENT_GRAB, INTENT_DISARM, INTENT_HARM)
-	faction = list("jungle")
+	faction = list(FACTION_MONKEY, FACTION_JUNGLE)
 	robust_searching = TRUE
 	stat_attack = UNCONSCIOUS
 	minbodytemp = 270

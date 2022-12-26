@@ -1,6 +1,7 @@
 /// Support unit gets it's own very basic antag datum for admin logging.
 /datum/antagonist/traitor/contractor_support
 	name = "Contractor Support Unit"
+	antag_role_type = ROLE_KEY_EXT_SYNDI_AGENT
 	antag_moodlet = /datum/mood_event/focused
 
 	show_in_roundend = FALSE /// We're already adding them in to the contractor's roundend.
@@ -165,7 +166,7 @@
 	if (.)
 		to_chat(user, "<span class='notice'>The uplink vibrates quietly, connecting to nearby agents...</span>")
 
-		var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the Contractor Support Unit for [user.real_name]?", ROLE_PAI, null, FALSE, 100, POLL_IGNORE_CONTRACTOR_SUPPORT)
+		var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the Contractor Support Unit for [user.real_name]?", ROLE_KEY_PAI, null, FALSE, 100, POLL_IGNORE_CONTRACTOR_SUPPORT)
 
 		if(LAZYLEN(candidates))
 			var/mob/dead/observer/C = pick(candidates)

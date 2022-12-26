@@ -92,7 +92,6 @@
 		to_chat(new_mob, "Your mob has been offered to ghosts! Appeal your job ban if you want to avoid this in the future!")
 
 /datum/disease/transformation/robot
-
 	name = "Robotic Transformation"
 	cure_text = "An injection of copper."
 	cures = list(/datum/reagent/copper)
@@ -139,7 +138,7 @@
 	stage4	= list("<span class='danger'>Your skin feels very tight.</span>", "<span class='danger'>Your blood boils!</span>", "<span class='danger'>You can feel... something...inside you.</span>")
 	stage5	= list("<span class='danger'>Your skin feels as if it's about to burst off!</span>")
 	new_form = /mob/living/carbon/alien/humanoid/hunter
-	bantype = ROLE_ALIEN
+	bantype = ROLE_KEY_XENOMORPH
 
 /datum/disease/transformation/xeno/stage_act()
 	..()

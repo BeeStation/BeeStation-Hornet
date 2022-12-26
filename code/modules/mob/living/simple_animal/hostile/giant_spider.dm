@@ -37,7 +37,7 @@
 	health = 200
 	obj_damage = 60
 	melee_damage = 15
-	faction = list("spiders")
+	faction = list(FACTION_SPIDER)
 	var/busy = SPIDER_IDLE
 	pass_flags = PASSTABLE
 	move_to_delay = 6

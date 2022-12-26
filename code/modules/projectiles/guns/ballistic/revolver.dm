@@ -270,7 +270,7 @@
 	clumsy_check = 0
 
 /obj/item/gun/ballistic/revolver/reverse/can_trigger_gun(mob/living/user)
-	if((HAS_TRAIT(user, TRAIT_CLUMSY)) || (user.mind && user.mind.get_mind_role(JTYPE_JOB_PATH) == JOB_PATH_CLOWN))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) || user.mind && user.mind.has_job(JOB_KEY_CLOWN))
 		return ..()
 	if(process_fire(user, user, FALSE, null, BODY_ZONE_HEAD))
 		user.visible_message("<span class='warning'>[user] somehow manages to shoot [user.p_them()]self in the face!</span>", "<span class='userdanger'>You somehow shoot yourself in the face! How the hell?!</span>")

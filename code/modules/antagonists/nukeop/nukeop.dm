@@ -1,8 +1,8 @@
 /datum/antagonist/nukeop
 	name = "Nuclear Operative"
+	antag_role_type = ROLE_KEY_OPERATIVE
 	roundend_category = "syndicate operatives" //just in case
 	antagpanel_category = "NukeOp"
-	antag_role_type = ROLE_OPERATIVE
 	antag_moodlet = /datum/mood_event/focused
 	show_to_ghosts = TRUE
 	hijack_speed = 2 //If you can't take out the station, take the shuttle instead.
@@ -144,7 +144,6 @@
 	nuke_team = new_team
 
 /datum/antagonist/nukeop/admin_add(datum/mind/new_owner,mob/admin)
-	new_owner.mind_roles[JLIST_SPECIAL] = ROLE_OPERATIVE
 	new_owner.add_antag_datum(src)
 	message_admins("[key_name_admin(admin)] has nuke op'ed [key_name_admin(new_owner)].")
 	log_admin("[key_name(admin)] has nuke op'ed [key_name(new_owner)].")

@@ -7,7 +7,7 @@
 	speak_emote = list("squeak", "hisses", "squeals")
 	emote_hear = list("squeaks.", "hisses.", "squeals.")
 	emote_see = list("skitters", "examines it's claws", "rolls around")
-	faction = list("hamster")
+	faction = list(FACTION_RODENT)
 	see_in_dark = 5
 	speak_chance = 1
 	turns_per_move = 3

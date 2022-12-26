@@ -1,8 +1,8 @@
 /datum/antagonist/obsessed
 	name = "Obsessed"
+	antag_role_type = ROLE_KEY_OBSESSED
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"
-	antag_role_type = ROLE_OBSESSED
 	show_name_in_check_antagonists = TRUE
 	roundend_category = "obsessed"
 	count_against_dynamic_roll_chance = FALSE
@@ -62,7 +62,7 @@
 	if(family_heirloom)//oh, they have an heirloom? Well you know we have to steal that.
 		objectives_left += "heirloom"
 
-	if((obsessionmind.get_mind_role(JTYPE_JOB_PATH) != JOB_UNASSIGNED) && (obsessionmind.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) != JOB_PATH_CAPTAIN))
+	if(obsessionmind.get_station_role() && !obsessionmind.has_job(JOB_KEY_CAPTAIN))
 		objectives_left += "jealous"//if they have no coworkers, jealousy will pick someone else on the station. this will never be a free objective, nice.
 
 	for(var/i in 1 to 3)
@@ -149,7 +149,7 @@
 /datum/objective/assassinate/obsessed/update_explanation_text()
 	..()
 	if(target && target.current)
-		explanation_text = "Murder [target.name], the [!target_role_type ? target.get_mind_role(JTYPE_JOB_NAME) : target.get_mind_role(JTYPE_SPECIAL)]."
+		explanation_text = "Murder [target.name], the [!target_role_type ? target.get_station_role() : target.get_special_role()]."
 	else
 		message_admins("WARNING! [ADMIN_LOOKUPFLW(owner)] obsessed objectives forged without an obsession!")
 		explanation_text = "Free Objective"
@@ -170,7 +170,7 @@
 		explanation_text = "Free Objective"
 
 /datum/objective/assassinate/jealous/find_target(list/dupe_search_range, list/blacklist)//returning null = free objective
-	if(obsession?.get_mind_role(JTYPE_JOB_PATH) == JOB_UNASSIGNED)
+	if(!obsession?.get_station_role()) // they might not be our crew
 		set_target(null)
 		update_explanation_text()
 		return
@@ -178,27 +178,27 @@
 	var/list/all_coworkers = list()
 	var/list/chosen_department
 	//note that command and sillycone are gone because borgs can't be obsessions and the heads have their respective department. Sorry cap, your place is more with centcom or something
-	if(obsession.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.security_positions)
+	if(obsession.has_job(GLOB.security_positions))
 		chosen_department = GLOB.security_positions
-	else if(obsession.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.engineering_positions)
+	else if(obsession.has_job(GLOB.engineering_positions))
 		chosen_department = GLOB.engineering_positions
-	else if(obsession.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.medical_positions)
+	else if(obsession.has_job(GLOB.medical_positions))
 		chosen_department = GLOB.medical_positions
-	else if(obsession.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.science_positions)
+	else if(obsession.has_job(GLOB.science_positions))
 		chosen_department = GLOB.science_positions
-	else if(obsession.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.supply_positions)
+	else if(obsession.has_job(GLOB.supply_positions))
 		chosen_department = GLOB.supply_positions
-	else if(obsession.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.civilian_positions)
+	else if(obsession.has_job(GLOB.civilian_positions))
 		chosen_department = GLOB.civilian_positions
 	else
 		set_target(null)
 		update_explanation_text()
 		return
 	for(var/datum/mind/possible_target as() in get_crewmember_minds())
-		if(!SSjob.GetJob(possible_target.get_mind_role(JTYPE_JOB_PATH)) || possible_target == obsession || possible_target.has_antag_datum(/datum/antagonist/obsessed) || (possible_target in blacklist))
+		if(!possible_target.get_station_role() || possible_target == obsession || possible_target.has_antag_datum(/datum/antagonist/obsessed) || (possible_target in blacklist))
 			continue //the jealousy target has to have a job, and not be the obsession or obsessed.
 		all_coworkers += possible_target
-		if(possible_target.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in chosen_department)
+		if(possible_target.has_job(chosen_department))
 			viable_coworkers += possible_target
 
 	if(viable_coworkers.len)//find someone in the same department

@@ -14,7 +14,7 @@
 	role_name = "slaughter demon"
 
 /datum/round_event/ghost_role/slaughter/spawn_role()
-	var/list/candidates = get_candidates(ROLE_SLAUGHTER_DEMON, null, ROLE_SLAUGHTER_DEMON)
+	var/list/candidates = get_candidates(ROLE_KEY_SLAUGHTER_DEMON, null, ROLE_KEY_SLAUGHTER_DEMON)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 
@@ -36,7 +36,6 @@
 	var/mob/living/simple_animal/slaughter/S = new (holder)
 	S.holder = holder
 	player_mind.transfer_to(S)
-	player_mind.mind_roles[JLIST_SPECIAL] = "Slaughter Demon"
 	player_mind.add_antag_datum(/datum/antagonist/slaughter)
 	to_chat(S, S.playstyle_string)
 	to_chat(S, "<B>You are currently not currently in the same plane of existence as the station. Blood Crawl near a blood pool to manifest.</B>")

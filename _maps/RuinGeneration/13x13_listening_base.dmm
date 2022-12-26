@@ -758,7 +758,7 @@
 /area/ruin/space/has_grav/listeningstation)
 "SJ" = (
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms/space{
-	assignedrole = "Space Syndicate";
+	spawner_special_role = ROLE_KEY_EXT_SYNDI_AGENT;
 	dir = 8
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{

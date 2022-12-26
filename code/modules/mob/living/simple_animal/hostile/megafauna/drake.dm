@@ -564,7 +564,7 @@ Difficulty: Medium
 	name = "lesser ash drake"
 	maxHealth = 200
 	health = 200
-	faction = list("neutral")
+	faction = list(FACTION_NEUTRAL)
 	obj_damage = 80
 	melee_damage = 30
 	mouse_opacity = MOUSE_OPACITY_ICON
@@ -590,7 +590,7 @@ Difficulty: Medium
 	name = "space dragon"
 	maxHealth = 250
 	health = 250
-	faction = list("neutral")
+	faction = list(FACTION_NEUTRAL, FACTION_CARP)
 	desc = "A space carp turned dragon by vile magic.  Has the same ferocity of a space carp, but also a much more enabling body."
 	icon = 'icons/mob/spacedragon.dmi'
 	icon_state = "spacedragon"

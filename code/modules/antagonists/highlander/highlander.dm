@@ -1,5 +1,6 @@
 /datum/antagonist/highlander
 	name = "highlander"
+	antag_role_type = null
 	var/obj/item/claymore/highlander/sword
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
@@ -25,7 +26,6 @@
 
 /datum/antagonist/highlander/on_gain()
 	forge_objectives()
-	owner.mind_roles[JLIST_SPECIAL] = "highlander"
 	owner.current.set_species(/datum/species/human)
 	give_equipment()
 	. = ..()

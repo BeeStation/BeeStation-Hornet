@@ -19,7 +19,7 @@
 		return MAP_ERROR
 
 	//selecting a candidate player
-	var/list/candidates = get_candidates(ROLE_DEVIL, null, ROLE_DEVIL)
+	var/list/candidates = get_candidates(ROLE_KEY_DEVIL, null, ROLE_KEY_DEVIL)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 
@@ -36,8 +36,7 @@
 	spawned_mobs += devil
 	message_admins("[ADMIN_LOOKUPFLW(devil)] has been made into a devil by an event.")
 	log_game("[key_name(devil)] was spawned as a devil by an event.")
-	var/datum/job/jobdatum = SSjob.GetJob(JOB_NAME_ASSISTANT)
-	devil.job = jobdatum.title
+	var/datum/job/jobdatum = SSjob.GetJob(JOB_KEY_ASSISTANT)
 	jobdatum.equip(devil)
 	return SUCCESSFUL_SPAWN
 
@@ -53,6 +52,5 @@
 
 /proc/create_devil_mind(key)
 	var/datum/mind/Mind = new /datum/mind(key)
-	Mind.mind_roles[JLIST_SPECIAL] = ROLE_DEVIL
 	SSticker.mode.devils |= Mind
 	return Mind

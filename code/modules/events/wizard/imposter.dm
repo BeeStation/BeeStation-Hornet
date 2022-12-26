@@ -10,7 +10,7 @@
 		if(!ishuman(M.current))
 			continue
 		var/mob/living/carbon/human/W = M.current
-		var/list/candidates = pollGhostCandidates("Would you like to be an imposter wizard?", ROLE_WIZARD)
+		var/list/candidates = pollGhostCandidates("Would you like to be an imposter wizard?", ROLE_KEY_WIZARD)
 		if(!candidates)
 			return //Sad Trombone
 		var/mob/dead/observer/C = pick(candidates)
@@ -34,7 +34,6 @@
 		I.mind.add_antag_datum(imposter)
 		//Remove if possible
 		SSticker.mode.apprentices += I.mind
-		I.mind.mind_roles[JLIST_SPECIAL] = "imposter"
 		//
 		I.log_message("is an imposter!", LOG_ATTACK, color="red") //?
 		SEND_SOUND(I, sound('sound/effects/magic.ogg'))

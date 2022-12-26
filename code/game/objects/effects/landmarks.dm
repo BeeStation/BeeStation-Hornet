@@ -228,19 +228,19 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/randommaint/backalley_doc
 	name = JOB_NAME_BARBER
-	job = JOB_PATH_BARBER
+	job = JOB_KEY_BARBER
 
 /obj/effect/landmark/start/randommaint/magician
 	name = JOB_NAME_STAGEMAGICIAN
-	job = JOB_PATH_STAGEMAGICIAN
+	job = JOB_KEY_STAGEMAGICIAN
 
 /obj/effect/landmark/start/randommaint/psychiatrist
 	name = JOB_NAME_PSYCHIATRIST
-	job = JOB_PATH_PSYCHIATRIST
+	job = JOB_KEY_PSYCHIATRIST
 
 /obj/effect/landmark/start/randommaint/vip
 	name = JOB_NAME_VIP
-	job = JOB_PATH_VIP
+	job = JOB_KEY_VIP
 
 /obj/effect/landmark/start/randommaint/experiment
 	name = "Experiment"

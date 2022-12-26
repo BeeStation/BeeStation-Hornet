@@ -3,9 +3,9 @@
 /datum/objective/crew/morgue //Ported from old Hippie
 	explanation_text = "Ensure the Medbay has been cleaned of any corpses when the shift ends."
 	jobs = list(
-		JOB_NAME_CHIEFMEDICALOFFICER,
-		JOB_NAME_GENETICIST,
-		JOB_NAME_MEDICALDOCTOR,
+		JOB_KEY_CHIEFMEDICALOFFICER,
+		JOB_KEY_GENETICIST,
+		JOB_KEY_MEDICALDOCTOR,
 	)
 	var/static/list/medical_areas = typecacheof(list(
 		/area/medical/cryo,
@@ -30,7 +30,7 @@
 
 /datum/objective/crew/paramedicmorgue
 	explanation_text = "Ensure that no corpses remain outside of Medbay when the shift ends."
-	jobs = JOB_NAME_PARAMEDIC
+	jobs = JOB_KEY_PARAMEDIC
 	var/static/list/medical_areas_morgue = typecacheof(list(
 		/area/medical/cryo,
 		/area/medical/genetics/cloning,
@@ -58,8 +58,8 @@
 	var/datum/reagent/target_chemical_name_obj
 	explanation_text = "Have at least (yell on GitHub if this breaks) units of X chemical in the smartfridge when the shift ends."
 	jobs = list(
-		JOB_NAME_CHIEFMEDICALOFFICER,
-		JOB_NAME_CHEMIST,
+		JOB_KEY_CHIEFMEDICALOFFICER,
+		JOB_KEY_CHEMIST,
 	)
 
 /datum/objective/crew/chems/New()
@@ -88,7 +88,7 @@
 
 /datum/objective/crew/noinfections
 	explanation_text = "Make sure there are no living crew members with harmful diseases at the end of the shift."
-	jobs = JOB_NAME_VIROLOGIST
+	jobs = JOB_KEY_VIROLOGIST
 
 /datum/objective/crew/noinfections/check_completion()
 	if(..())

@@ -31,17 +31,17 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/change_position_cooldown = 30
 	//Jobs you cannot open new positions for
 	var/list/blacklisted = list(
-		JOB_PATH_AI,
-		JOB_PATH_ASSISTANT,
-		JOB_PATH_CYBORG,
-		JOB_PATH_CAPTAIN,
-		JOB_PATH_HEADOFPERSONNEL,
-		JOB_PATH_HEADOFSECURITY,
-		JOB_PATH_CHIEFENGINEER,
-		JOB_PATH_RESEARCHDIRECTOR,
-		JOB_PATH_CHIEFMEDICALOFFICER,
-		JOB_PATH_BRIGPHYSICIAN,
-		JOB_PATH_DEPUTY)
+		JOB_KEY_AI,
+		JOB_KEY_ASSISTANT,
+		JOB_KEY_CYBORG,
+		JOB_KEY_CAPTAIN,
+		JOB_KEY_HEADOFPERSONNEL,
+		JOB_KEY_HEADOFSECURITY,
+		JOB_KEY_CHIEFENGINEER,
+		JOB_KEY_RESEARCHDIRECTOR,
+		JOB_KEY_CHIEFMEDICALOFFICER,
+		JOB_KEY_BRIGPHYSICIAN,
+		JOB_KEY_DEPUTY)
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
 	var/max_relative_positions = 30 //30%: Seems reasonable, limit of 6 @ 20 players
@@ -61,8 +61,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	. = ..()
 	change_position_cooldown = CONFIG_GET(number/id_console_jobslot_delay)
 	for(var/datum/job/J in SSjob.occupations)
-		if(J.g_jpath)
-			blacklisted += J.get_jpath()
+		if(J.job_bitflags & JOB_BITFLAG_GIMMICK)
+			blacklisted += J.get_jkey()
 
 	// This determines which department payment list the console will show to you.
 	if(!target_dept)
@@ -132,10 +132,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 //Logic check for Topic() if you can open the job
 /obj/machinery/computer/card/proc/can_open_job(datum/job/job)
 	if(job)
-		if(!job_blacklisted(job.get_jpath()))
+		if(!job_blacklisted(job.get_jkey()))
 			if((job.total_positions <= GLOB.player_list.len * (max_relative_positions / 100)))
 				var/delta = (world.time / 10) - GLOB.time_last_changed_position
-				if((change_position_cooldown < delta) || (opened_positions[job.get_jpath()] < 0))
+				if((change_position_cooldown < delta) || (opened_positions[job.get_jkey()] < 0))
 					return 1
 				return -2
 			return -1
@@ -144,10 +144,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 //Logic check for Topic() if you can close the job
 /obj/machinery/computer/card/proc/can_close_job(datum/job/job)
 	if(job)
-		if(!job_blacklisted(job.get_jpath()))
+		if(!job_blacklisted(job.get_jkey()))
 			if(job.total_positions > job.current_positions)
 				var/delta = (world.time / 10) - GLOB.time_last_changed_position
-				if((change_position_cooldown < delta) || (opened_positions[job.get_jpath()] > 0))
+				if((change_position_cooldown < delta) || (opened_positions[job.get_jkey()] > 0))
 					return 1
 				return -2
 			return -1
@@ -241,7 +241,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			ID = 0
 		for(var/datum/job/job in SSjob.occupations)
 			dat += "<tr>"
-			if(job.get_jpath() in blacklisted)
+			if(job.get_jkey() in blacklisted)
 				continue
 			dat += "<td>[job.get_title()]</td>"
 			dat += "<td>[job.current_positions]/[job.total_positions]</td>"
@@ -249,7 +249,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			switch(can_open_job(job))
 				if(1)
 					if(ID)
-						dat += "<a href='?src=[REF(src)];choice=make_job_available;job=[job.get_jpath()]'>Open Position</a><br>"
+						dat += "<a href='?src=[REF(src)];choice=make_job_available;job=[job.get_jkey()]'>Open Position</a><br>"
 					else
 						dat += "Open Position"
 				if(-1)
@@ -265,7 +265,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			switch(can_close_job(job))
 				if(1)
 					if(ID)
-						dat += "<a href='?src=[REF(src)];choice=make_job_unavailable;job=[job.get_jpath()]'>Close Position</a>"
+						dat += "<a href='?src=[REF(src)];choice=make_job_unavailable;job=[job.get_jkey()]'>Close Position</a>"
 					else
 						dat += "Close Position"
 				if(-1)
@@ -284,10 +284,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				else
 					if(ID)
 						if(job in SSjob.prioritized_jobs)
-							dat += "<a href='?src=[REF(src)];choice=prioritize_job;job=[job.get_jpath()]'>Deprioritize</a>"
+							dat += "<a href='?src=[REF(src)];choice=prioritize_job;job=[job.get_jkey()]'>Deprioritize</a>"
 						else
 							if(SSjob.prioritized_jobs.len < 5)
-								dat += "<a href='?src=[REF(src)];choice=prioritize_job;job=[job.get_jpath()]'>Prioritize</a>"
+								dat += "<a href='?src=[REF(src)];choice=prioritize_job;job=[job.get_jkey()]'>Prioritize</a>"
 							else
 								dat += "Denied"
 					else
@@ -379,17 +379,17 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		var/list/alljobs = list("Unassigned")
 		alljobs += (istype(src, /obj/machinery/computer/card/centcom)? get_all_centcom_jobs() : get_all_jobs()) + "Custom"
 		for(var/job in alljobs)
-			if(job == JOB_PATH_ASSISTANT)
+			if(job == JOB_KEY_ASSISTANT)
 				jobs_all += "<br/>* Service: "
-			if(job == JOB_PATH_QUARTERMASTER)
+			if(job == JOB_KEY_QUARTERMASTER)
 				jobs_all += "<br/>* Cargo: "
-			if(job == JOB_PATH_RESEARCHDIRECTOR)
+			if(job == JOB_KEY_RESEARCHDIRECTOR)
 				jobs_all += "<br/>* R&D: "
-			if(job == JOB_PATH_CHIEFENGINEER)
+			if(job == JOB_KEY_CHIEFENGINEER)
 				jobs_all += "<br/>* Engineering: "
-			if(job == JOB_PATH_CHIEFMEDICALOFFICER)
+			if(job == JOB_KEY_CHIEFMEDICALOFFICER)
 				jobs_all += "<br/>* Medical: "
-			if(job == JOB_PATH_HEADOFSECURITY)
+			if(job == JOB_KEY_HEADOFSECURITY)
 				jobs_all += "<br/>* Security: "
 			if(job == "Custom")
 				jobs_all += "<br/>"
@@ -587,23 +587,23 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							region_access |= DEPT_GEN
 							region_access |= DEPT_SUP //Currently no seperation between service/civillian and supply
 							region_access_payment |= ACCOUNT_COM_BITFLAG | ACCOUNT_CIV_BITFLAG | ACCOUNT_SRV_BITFLAG | ACCOUNT_CAR_BITFLAG
-							get_subordinates(JOB_PATH_HEADOFPERSONNEL)
+							get_subordinates(JOB_KEY_HEADOFPERSONNEL)
 						if((ACCESS_HOS in inserted_scan_id.access) && ((target_dept==DEPT_SEC) || !target_dept))
 							region_access |= DEPT_SEC
 							region_access_payment |= ACCOUNT_SEC_BITFLAG
-							get_subordinates(JOB_PATH_HEADOFSECURITY)
+							get_subordinates(JOB_KEY_HEADOFSECURITY)
 						if((ACCESS_CMO in inserted_scan_id.access) && ((target_dept==DEPT_MED) || !target_dept))
 							region_access |= DEPT_MED
 							region_access_payment |= ACCOUNT_MED_BITFLAG
-							get_subordinates(JOB_PATH_CHIEFMEDICALOFFICER)
+							get_subordinates(JOB_KEY_CHIEFMEDICALOFFICER)
 						if((ACCESS_RD in inserted_scan_id.access) && ((target_dept==DEPT_SCI) || !target_dept))
 							region_access |= DEPT_SCI
 							region_access_payment |= ACCOUNT_SCI_BITFLAG
-							get_subordinates(JOB_PATH_RESEARCHDIRECTOR)
+							get_subordinates(JOB_KEY_RESEARCHDIRECTOR)
 						if((ACCESS_CE in inserted_scan_id.access) && ((target_dept==DEPT_ENG) || !target_dept))
 							region_access |= DEPT_ENG
 							region_access_payment |= ACCOUNT_ENG_BITFLAG
-							get_subordinates(JOB_PATH_CHIEFENGINEER)
+							get_subordinates(JOB_KEY_CHIEFENGINEER)
 						if(region_access)
 							authenticated = 1
 			else if ((!( authenticated ) && issilicon(usr)) && (!inserted_modify_id))
@@ -921,7 +921,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					printing = null
 					return
 
-				B = new /datum/bank_account(target_name, SSjob.GetJob(JOB_PATH_ASSISTANT))
+				B = new /datum/bank_account(target_name, SSjob.GetJob(JOB_KEY_ASSISTANT))
 				for(var/each in B.payment_per_department)
 					B.payment_per_department[each] = 0
 				say("Printing...")
@@ -941,7 +941,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/proc/get_subordinates(rank)
 	for(var/datum/job/job in SSjob.occupations)
 		if(rank in job.department_head)
-			head_subordinates += job.get_jpath()
+			head_subordinates += job.get_jkey()
 
 /// Returns if auth id has head access that is eligible to adjust payment
 /obj/machinery/computer/card/proc/check_auth_payment()

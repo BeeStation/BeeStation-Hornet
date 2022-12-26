@@ -1,5 +1,6 @@
 /datum/antagonist/survivalist
 	name = "Survivalist"
+	antag_role_type = ROLE_KEY_SURVIVALIST
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	var/greet_message = ""
@@ -13,7 +14,6 @@
 	log_objective(owner, survive.explanation_text)
 
 /datum/antagonist/survivalist/on_gain()
-	owner.mind_roles[JLIST_SPECIAL] = "survivalist"
 	forge_objectives()
 	. = ..()
 

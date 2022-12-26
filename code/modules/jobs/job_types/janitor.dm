@@ -1,11 +1,11 @@
 /datum/job/janitor
-	jpath = JOB_PATH_JANITOR
+	jkey = JOB_KEY_JANITOR
 	title = JOB_NAME_JANITOR
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = JANITOR
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 2
 	spawn_positions = 1
 	selection_color = "#bbe291"
@@ -29,7 +29,7 @@
 	)
 
 /datum/outfit/job/janitor
-	name = JOB_PATH_JANITOR
+	name = JOB_KEY_JANITOR
 	jobtype = /datum/job/janitor
 
 	id = /obj/item/card/id/job/janitor

@@ -90,7 +90,7 @@
 	var/mob/living/current_wizard = null
 	var/next_check = 0
 	var/cooldown = 600
-	var/faction = ROLE_WIZARD
+	var/faction = FACTION_WIZARD
 	var/braindead_check = 0
 
 /obj/structure/academy_wizard_spawner/New()
@@ -125,7 +125,7 @@
 
 	if(!current_wizard)
 		return
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as Wizard Academy Defender?", ROLE_WIZARD, null, ROLE_WIZARD, 50, current_wizard)
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as Wizard Academy Defender?", ROLE_KEY_WIZARD, null, ROLE_KEY_WIZARD, 50, current_wizard)
 
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
@@ -141,7 +141,6 @@
 	wizbody.fully_replace_character_name(wizbody.real_name, "Academy Teacher")
 	wizbody.mind_initialize()
 	var/datum/mind/wizmind = wizbody.mind
-	wizmind.mind_roles[JLIST_SPECIAL] = "Academy Defender"
 	wizmind.add_antag_datum(/datum/antagonist/wizard/academy)
 	current_wizard = wizbody
 
@@ -313,7 +312,7 @@
 			A.setup_master(user)
 			servant_mind.transfer_to(H)
 
-			var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [user.real_name] Servant?", ROLE_WIZARD, null, ROLE_WIZARD, 50, H)
+			var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [user.real_name] Servant?", ROLE_KEY_WIZARD, null, ROLE_KEY_WIZARD, 50, H)
 			if(LAZYLEN(candidates))
 				var/mob/dead/observer/C = pick(candidates)
 				message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Dice Servant")

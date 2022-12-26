@@ -1,6 +1,6 @@
 /datum/antagonist/pirate
 	name = "Space Pirate"
-	antag_role_type = ROLE_TRAITOR
+	antag_role_type = ROLE_KEY_SPACE_PIRATE
 	roundend_category = "space pirates"
 	antagpanel_category = "Pirate"
 	show_to_ghosts = TRUE

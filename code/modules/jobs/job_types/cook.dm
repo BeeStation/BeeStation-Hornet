@@ -1,11 +1,11 @@
 /datum/job/cook
-	jpath = JOB_PATH_COOK
+	jkey = JOB_KEY_COOK
 	title = JOB_NAME_COOK
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = COOK
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 2
 	spawn_positions = 1
 	selection_color = "#bbe291"
@@ -30,7 +30,7 @@
 	)
 
 /datum/outfit/job/cook
-	name = JOB_PATH_COOK
+	name = JOB_KEY_COOK
 	jobtype = /datum/job/cook
 
 	id = /obj/item/card/id/job/cook

@@ -1,12 +1,22 @@
 /datum/job
-	///Path of the job. used for preferences, bans and more. Make sure you know what you're doing before changing this.
-	var/jpath = "NOPE"
-	///The name of the job. only used to display the job title.
+	///Path of the job. used for preferences, bans and more. Make sure you know what you're doing before changing this. ***WARN: call this variable through 'get_jkey()' proc if you can.
+	var/jkey = "NOPE"
+	///The name of the job. only used to display the job title. ***WARN: call this variable through 'get_title()' proc if you can.
 	var/title = "NOPE"
 
 	// these are identical above but only used for gimmick jobs.
-	var/g_jpath
+	var/g_jkey
 	var/g_title
+	// WARN: these variables are the reason why you should call jkey/title variables through the said procs above.
+
+	/// if a job should have multiple jobs in their mind, use this then it will give all listed jobs to a mob's mind instead of jkey variable
+	var/list_of_job_keys_to_mob_mind = list()
+	// example: "job: Chaplain of Honkmother (Chaplain Gimmick)" should have 'list(JOB_KEY_CLOWN, JOB_KEY_CHAPLAIN)' as they are elitible for both (it's not a real job, but just for an example)
+	// leave this blank if you're going to give them a default key
+	// if `g_jkey` is declared, only that thing will be given to mob instead of 'jkey'
+	// if `g_jkey` is NOT declared, 'jkey' will be given to mob.
+
+	/// literally job bitflags. see DEFINE\jobs.dm for bitflags
 	var/job_bitflags = NONE
 
 	///Job access. The use of minimal_access or access is determined by a config setting: config.jobs_have_minimal_access
@@ -102,8 +112,8 @@
 /datum/job/proc/get_title(gimmick=TRUE)
 	return gimmick ? (g_title || title) : title
 
-/datum/job/proc/get_jpath(gimmick=TRUE)
-	return gimmick ? (g_jpath || jpath) : jpath
+/datum/job/proc/get_jkey(gimmick=TRUE)
+	return gimmick ? (g_jkey || jkey) : jkey
 
 //Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 //H is usually a human unless an /equip override transformed it
@@ -125,7 +135,7 @@
 			if(G)
 				var/permitted = FALSE
 
-				if(G.allowed_roles && H.mind && (H.mind.get_mind_role(JTYPE_JOB_PATH) in G.allowed_roles))
+				if(G.allowed_roles && H.mind && H.mind.has_job(G.allowed_roles))
 					permitted = TRUE
 				else if(!G.allowed_roles)
 					permitted = TRUE
@@ -193,6 +203,16 @@
 /datum/job/proc/special_check_latejoin(client/C)
 	return TRUE
 
+/datum/job/proc/refresh_job_bitflags()
+	spawn_positions = total_positions
+	if(total_positions)
+		if(!(job_bitflags & JOB_BITFLAG_SELECTABLE))
+			job_bitflags |= JOB_BITFLAG_SELECTABLE
+	else
+		if(job_bitflags & JOB_BITFLAG_GIMMICK)
+			job_bitflags &= ~JOB_BITFLAG_SELECTABLE
+
+
 /datum/job/proc/GetAntagRep()
 	if(CONFIG_GET(flag/equal_job_weight))
 		var/rep_value = CONFIG_GET(number/default_rep_value)
@@ -250,7 +270,7 @@
 /datum/job/proc/announce_head(var/mob/living/carbon/human/H, var/channels) //tells the given channel that the given mob is the new department head. See communications.dm for valid channels.
 	if(H && GLOB.announcement_systems.len)
 		//timer because these should come after the captain announcement
-		SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, .proc/_addtimer, CALLBACK(pick(GLOB.announcement_systems), /obj/machinery/announcement_system/proc/announce, "NEWHEAD", H.real_name, H.job, channels), 1))
+		SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, .proc/_addtimer, CALLBACK(pick(GLOB.announcement_systems), /obj/machinery/announcement_system/proc/announce, "NEWHEAD", H.real_name, H.mind.get_station_role(), channels), 1))
 
 //If the configuration option is set to require players to be logged as old enough to play certain jobs, then this proc checks that they are, otherwise it just returns 1
 /datum/job/proc/player_old_enough(client/C)
@@ -333,7 +353,7 @@
 
 	var/datum/job/J = SSjob.GetJobType(jobtype)
 	if(!J)
-		J = SSjob.GetJob(H.job)
+		J = SSjob.GetJob(H.mind?.get_job())
 
 	var/obj/item/card/id/C = H.wear_id
 	if(istype(C))
@@ -341,7 +361,7 @@
 		shuffle_inplace(C.access) // Shuffle access list to make NTNet passkeys less predictable
 		C.registered_name = H.real_name
 		C.assignment = J.get_title()
-		C.set_hud_icon_on_spawn(J.get_jpath())
+		C.set_hud_icon_on_spawn(J.get_jkey())
 		C.update_label()
 		for(var/datum/bank_account/B in SSeconomy.bank_accounts)
 			if(!H.mind)

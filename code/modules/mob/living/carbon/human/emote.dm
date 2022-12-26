@@ -275,7 +275,7 @@
 /datum/emote/living/carbon/human/robot_tongue/clown/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())
 		return FALSE
-	if(user.mind.get_mind_role(JTYPE_JOB_PATH) == JOB_PATH_CLOWN)
+	if(user.mind.has_job(JOB_KEY_CLOWN))
 		return TRUE
 
 /datum/emote/living/carbon/human/robot_tongue/clown/honk

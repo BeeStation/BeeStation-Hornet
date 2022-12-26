@@ -384,12 +384,12 @@ Contains:
 /obj/item/clothing/head/helmet/space/hardsuit/carp/equipped(mob/living/carbon/human/user, slot)
 	..()
 	if (slot == ITEM_SLOT_HEAD)
-		user.faction |= "carp"
+		user.faction |= FACTION_CARP
 
 /obj/item/clothing/head/helmet/space/hardsuit/carp/dropped(mob/living/carbon/human/user)
 	..()
 	if (user.head == src)
-		user.faction -= "carp"
+		user.faction -= FACTION_CARP
 
 /obj/item/clothing/head/helmet/space/hardsuit/carp/old
 	name = "battered carp helmet"

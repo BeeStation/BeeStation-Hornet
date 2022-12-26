@@ -29,7 +29,7 @@ GLOBAL_DATUM(rpgtitle_controller, /datum/rpgtitle_controller)
 	if(isliving(new_login))
 		var/mob/living/living_login = new_login
 		if(living_login.stat != DEAD && !living_login.maptext)
-			on_crewmember_join(source, living_login, living_login.mind.get_mind_role(JTYPE_JOB_PATH))
+			on_crewmember_join(source, living_login, living_login.mind.get_job())
 
 ///signal sent by a crewmember joining
 /datum/rpgtitle_controller/proc/on_crewmember_join(datum/source, mob/living/new_crewmember, rank)
@@ -98,4 +98,4 @@ GLOBAL_DATUM(rpgtitle_controller, /datum/rpgtitle_controller)
  */
 /datum/rpgtitle_controller/proc/handle_current_jobs()
 	for(var/mob/living/player as anything in GLOB.alive_mob_list)
-		on_crewmember_join(SSdcs, player, player.mind?.get_mind_role(JTYPE_JOB_PATH))
+		on_crewmember_join(SSdcs, player, player.mind?.get_job())

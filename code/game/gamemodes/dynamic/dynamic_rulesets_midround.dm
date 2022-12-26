@@ -55,21 +55,21 @@
 			trimmed_list.Remove(M)
 			continue
 		if(antag_flag_override)
-			if(!(antag_flag_override in M.client.prefs.be_special) || is_banned_from(M.ckey, list(antag_flag_override, ROLE_SYNDICATE)))
+			if(!(antag_flag_override in M.client.prefs.be_special) || is_banned_from(M.ckey, list(ROLE_BANCHECK_MAJOR_ANTAGONIST, antag_flag_override)))
 				trimmed_list.Remove(M)
 				continue
 		else
-			if(!(antag_flag in M.client.prefs.be_special) || is_banned_from(M.ckey, list(antag_flag, ROLE_SYNDICATE)))
+			if(!(antag_flag in M.client.prefs.be_special) || is_banned_from(M.ckey, list(ROLE_BANCHECK_MAJOR_ANTAGONIST, antag_flag)))
 				trimmed_list.Remove(M)
 				continue
 		if (M.mind)
-			if (restrict_ghost_roles && (M.mind.get_mind_role(JTYPE_SPECIAL) in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])) // Are they playing a ghost role?
+			if (restrict_ghost_roles && (M.mind.get_special_role() in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])) // Are they playing a ghost role?
 				trimmed_list.Remove(M)
 				continue
-			if (M.mind.get_mind_role(JTYPE_JOB_PATH) in restricted_roles) // Does their job allow it?
+			if (M.mind.has_job(restricted_roles)) // Does their job allow it?
 				trimmed_list.Remove(M)
 				continue
-			if ((length(exclusive_roles) > 0) && !(M.mind.get_mind_role(JTYPE_JOB_PATH) in exclusive_roles)) // Is the rule exclusive to their job?
+			if ((length(exclusive_roles) > 0) && !M.mind.has_job(exclusive_roles)) // Is the rule exclusive to their job?
 				trimmed_list.Remove(M)
 				continue
 	return trimmed_list
@@ -88,7 +88,7 @@
 		for (var/mob/M in mode.current_players[CURRENT_LIVING_PLAYERS])
 			if (M.stat == DEAD || !M.client)
 				continue // Dead/disconnected players cannot count as opponents
-			if (M.mind && (M.mind.get_mind_role(JTYPE_JOB_PATH) in enemy_roles) && (!(M in candidates) || (M.mind.get_mind_role(JTYPE_JOB_PATH) in restricted_roles)))
+			if (M.mind && (M.mind.has_job(enemy_roles)) && (!(M in candidates) || (M.mind.has_job(restricted_roles))))
 				job_check++ // Checking for "enemies" (such as sec officers). To be counters, they must either not be candidates to that rule, or have a job that restricts them from it
 
 	var/threat = round(mode.threat_level/10)
@@ -170,7 +170,6 @@
 	var/datum/antagonist/new_role = new antag_datum()
 	setup_role(new_role)
 	new_character.mind.add_antag_datum(new_role)
-	new_character.mind.mind_roles[JLIST_SPECIAL] = antag_flag
 
 /datum/dynamic_ruleset/midround/from_ghosts/proc/setup_role(datum/antagonist/new_role)
 	return
@@ -185,9 +184,9 @@
 	name = "Syndicate Sleeper Agent"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
 	antag_datum = /datum/antagonist/traitor
-	antag_flag = ROLE_TRAITOR
-	protected_roles = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN)
-	restricted_roles = list(JOB_PATH_CYBORG, JOB_PATH_AI, ROLE_POSIBRAIN)
+	antag_flag = ROLE_KEY_TRAITOR
+	protected_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
+	restricted_roles = list(JOB_KEY_CYBORG, JOB_KEY_AI)
 	required_candidates = 1
 	weight = 35
 	cost = 3
@@ -212,7 +211,7 @@
 		if(is_centcom_level(player.z))
 			candidates -= player // We don't autotator people in CentCom
 			continue
-		if(player.mind && (player.mind.get_mind_role(JTYPE_SPECIAL) || length(player.mind.antag_datums)))
+		if(player.mind && (player.mind.get_special_role() || length(player.mind.antag_datums)))
 			candidates -= player // We don't autotator people with roles already
 
 /datum/dynamic_ruleset/midround/autotraitor/ready(forced = FALSE)
@@ -242,9 +241,9 @@
 	name = "Malfunctioning AI"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/traitor
-	antag_flag = ROLE_MALF
-	enemy_roles = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN, JOB_PATH_SCIENTIST, JOB_PATH_CHEMIST, JOB_PATH_RESEARCHDIRECTOR, JOB_PATH_CHIEFENGINEER)
-	exclusive_roles = list(JOB_PATH_AI)
+	antag_flag = ROLE_KEY_MALF
+	enemy_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN, JOB_KEY_SCIENTIST, JOB_KEY_CHEMIST, JOB_KEY_RESEARCHDIRECTOR, JOB_KEY_CHIEFENGINEER)
+	exclusive_roles = list(JOB_KEY_AI)
 	required_enemies = list(4,4,4,4,4,4,2,2,2,0)
 	required_candidates = 1
 	minimum_players = 25
@@ -265,7 +264,7 @@
 		if(is_centcom_level(player.z))
 			candidates -= player
 			continue
-		if(player.mind && (player.mind.get_mind_role(JTYPE_SPECIAL) || length(player.mind.antag_datums)))
+		if(player.mind && (player.mind.get_special_role() || length(player.mind.antag_datums)))
 			candidates -= player
 
 /datum/dynamic_ruleset/midround/malf/ready(forced = FALSE)
@@ -277,7 +276,6 @@
 	var/mob/living/silicon/ai/M = pick_n_take(candidates)
 	assigned += M.mind
 	var/datum/antagonist/traitor/AI = new
-	M.mind.mind_roles[JLIST_SPECIAL] = antag_flag
 	M.mind.add_antag_datum(AI)
 	if(prob(ion_announce))
 		priority_announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", ANNOUNCER_IONSTORM)
@@ -297,8 +295,8 @@
 	name = "Wizard"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/wizard
-	antag_flag = ROLE_WIZARD
-	enemy_roles = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_DETECTIVE, JOB_PATH_WARDEN, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN, JOB_PATH_RESEARCHDIRECTOR) //RD doesn't believe in magic
+	antag_flag = ROLE_KEY_WIZARD
+	enemy_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_DETECTIVE, JOB_KEY_WARDEN, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN, JOB_KEY_RESEARCHDIRECTOR) //RD doesn't believe in magic
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	weight = 1
@@ -328,9 +326,9 @@
 /datum/dynamic_ruleset/midround/from_ghosts/nuclear
 	name = "Nuclear Assault"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
-	antag_flag = ROLE_OPERATIVE
+	antag_flag = ROLE_KEY_OPERATIVE
 	antag_datum = /datum/antagonist/nukeop
-	enemy_roles = list(JOB_PATH_AI, JOB_PATH_CYBORG, JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN)
+	enemy_roles = list(JOB_KEY_AI, JOB_KEY_CYBORG, JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
 	required_enemies = list(3,3,3,3,3,2,1,1,0,0)
 	required_candidates = 5
 	weight = 5
@@ -354,7 +352,6 @@
 	return ..()
 
 /datum/dynamic_ruleset/midround/from_ghosts/nuclear/finish_setup(mob/new_character, index)
-	new_character.mind.mind_roles[JLIST_SPECIAL] = ROLE_OPERATIVE
 	if (index == 1) // Our first guy is the leader
 		var/datum/antagonist/nukeop/leader/new_role = new
 		nuke_team = new_role.nuke_team
@@ -372,8 +369,8 @@
 	name = "Blob"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/blob
-	antag_flag = ROLE_BLOB
-	enemy_roles = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_DETECTIVE, JOB_PATH_WARDEN, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN)
+	antag_flag = ROLE_KEY_BLOB
+	enemy_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_DETECTIVE, JOB_KEY_WARDEN, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	minimum_round_time = 35 MINUTES
@@ -396,8 +393,8 @@
 	name = "Alien Infestation"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/xeno
-	antag_flag = ROLE_ALIEN
-	enemy_roles = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_DETECTIVE, JOB_PATH_WARDEN, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN)
+	antag_flag = ROLE_KEY_XENOMORPH
+	enemy_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_DETECTIVE, JOB_KEY_WARDEN, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
 	required_enemies = list(2,2,2,1,1,1,1,0,0,0)
 	required_candidates = 1
 	minimum_round_time = 40 MINUTES
@@ -444,9 +441,8 @@
 	name = "Nightmare"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
 	antag_datum = /datum/antagonist/nightmare
-	antag_flag = "Nightmare"
-	antag_flag_override = ROLE_ALIEN
-	enemy_roles = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_DETECTIVE, JOB_PATH_WARDEN, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN)
+	antag_flag = ROLE_KEY_NIGHTMARE
+	enemy_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_DETECTIVE, JOB_KEY_WARDEN, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	weight = 3
@@ -472,7 +468,6 @@
 
 	var/mob/living/carbon/human/S = new (pick(spawn_locs))
 	player_mind.transfer_to(S)
-	player_mind.mind_roles[JLIST_SPECIAL] = "Nightmare"
 	player_mind.add_antag_datum(/datum/antagonist/nightmare)
 	S.set_species(/datum/species/shadow/nightmare)
 
@@ -491,8 +486,8 @@
 /datum/dynamic_ruleset/midround/from_ghosts/abductors
 	name = "Abductors"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
-	antag_flag = ROLE_ABDUCTOR
-	enemy_roles = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_DETECTIVE, JOB_PATH_WARDEN, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN)
+	antag_flag = ROLE_KEY_ABDUCTOR
+	enemy_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_DETECTIVE, JOB_KEY_WARDEN, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 2
 	required_applicants = 2
@@ -529,9 +524,8 @@
 	name = "Revenant"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
 	antag_datum = /datum/antagonist/revenant
-	antag_flag = "Revenant"
-	antag_flag_override = ROLE_REVENANT
-	enemy_roles = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_DETECTIVE, JOB_PATH_WARDEN, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN)
+	antag_flag = ROLE_KEY_REVENANT
+	enemy_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_DETECTIVE, JOB_KEY_WARDEN, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	weight = 4
@@ -583,7 +577,7 @@
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_flag = "Space Pirates"
 	required_type = /mob/dead/observer
-	enemy_roles = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_DETECTIVE, JOB_PATH_WARDEN, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN)
+	enemy_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_DETECTIVE, JOB_KEY_WARDEN, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 0
 	weight = 4
@@ -605,9 +599,9 @@
 	name = "Obsessed"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
 	antag_datum = /datum/antagonist/obsessed
-	antag_flag = ROLE_OBSESSED
-	restricted_roles = list(JOB_PATH_AI, JOB_PATH_CYBORG, ROLE_POSIBRAIN)
-	enemy_roles = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_DETECTIVE, JOB_PATH_WARDEN, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN)
+	antag_flag = ROLE_KEY_OBSESSED
+	restricted_roles = list(JOB_KEY_AI, JOB_KEY_CYBORG)
+	enemy_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_DETECTIVE, JOB_KEY_WARDEN, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	weight = 4
@@ -622,9 +616,9 @@
 			!candidate.getorgan(/obj/item/organ/brain) \
 			|| candidate.mind.has_antag_datum(/datum/antagonist/obsessed) \
 			|| candidate.stat == DEAD \
-			|| !(ROLE_OBSESSED in candidate.client?.prefs?.be_special) \
-			|| !SSjob.GetJob(candidate.mind.get_mind_role(JTYPE_JOB_PATH)) \
-			|| (candidate.mind.get_mind_role(JTYPE_JOB_PATH) in GLOB.nonhuman_positions) \
+			|| !(ROLE_KEY_OBSESSED in candidate.client?.prefs?.be_special) \
+			|| !candidate.mind.get_station_role() \
+			|| candidate.mind.has_job(GLOB.nonhuman_positions) \
 		)
 			candidates -= candidate
 

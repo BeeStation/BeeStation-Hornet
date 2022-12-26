@@ -58,7 +58,7 @@
 			if(used)
 				to_chat(H, "You already used this contract!")
 				return
-			var/list/candidates = pollCandidatesForMob("Do you want to play as a wizard's [href_list["school"]] apprentice?", ROLE_WIZARD, null, ROLE_WIZARD, 150, src)
+			var/list/candidates = pollCandidatesForMob("Do you want to play as a wizard's [href_list["school"]] apprentice?", ROLE_KEY_WIZARD, null, ROLE_KEY_WIZARD, 150, src)
 			if(LAZYLEN(candidates))
 				if(QDELETED(src))
 					return
@@ -89,7 +89,6 @@
 		app.wiz_team = master_wizard.wiz_team
 		master_wizard.wiz_team.add_member(app_mind)
 	app_mind.add_antag_datum(app)
-	app_mind.mind_roles[JLIST_SPECIAL] = "apprentice"
 	SEND_SOUND(M, sound('sound/effects/magic.ogg'))
 
 ///////////BORGS AND OPERATIVES
@@ -117,7 +116,7 @@
 		return
 
 	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
-	var/list/nuke_candidates = pollGhostCandidates("Do you want to play as a syndicate [borg_to_spawn ? "[lowertext(borg_to_spawn)] cyborg":"operative"]?", ROLE_OPERATIVE, null, ROLE_OPERATIVE, 150, POLL_IGNORE_SYNDICATE)
+	var/list/nuke_candidates = pollGhostCandidates("Do you want to play as a syndicate [borg_to_spawn ? "[lowertext(borg_to_spawn)] cyborg":"operative"]?", ROLE_KEY_OPERATIVE, null, ROLE_KEY_OPERATIVE, 150, POLL_IGNORE_SYNDICATE)
 	if(LAZYLEN(nuke_candidates))
 		if(QDELETED(src) || !check_usability(user))
 			return
@@ -141,7 +140,6 @@
 	var/datum/antagonist/nukeop/creator_op = user.has_antag_datum(/datum/antagonist/nukeop,TRUE)
 	if(creator_op)
 		M.mind.add_antag_datum(new_op,creator_op.nuke_team)
-		M.mind.mind_roles[JLIST_SPECIAL] = ROLE_OPERATIVE
 
 //////CLOWN OP
 /obj/item/antag_spawner/nuke_ops/clown
@@ -160,9 +158,6 @@
 	var/datum/antagonist/nukeop/creator_op = user.has_antag_datum(/datum/antagonist/nukeop/clownop,TRUE)
 	if(creator_op)
 		M.mind.add_antag_datum(new_op, creator_op.nuke_team)
-		M.mind.mind_roles[JLIST_SPECIAL] = ROLE_OPERATIVE
-		M.mind.mind_roles[JLIST_GIMMICK_SPECIAL] = ROLE_OPERATIVE_CLOWN
-
 
 //////SYNDICATE BORG
 /obj/item/antag_spawner/nuke_ops/borg_tele
@@ -216,7 +211,6 @@
 	var/datum/antagonist/nukeop/new_borg = new()
 	new_borg.send_to_spawnpoint = FALSE
 	R.mind.add_antag_datum(new_borg,creator_op.nuke_team)
-	R.mind.mind_roles[JLIST_SPECIAL] = "Syndicate Cyborg"
 
 ///////////SLAUGHTER DEMON
 
@@ -238,7 +232,7 @@
 		return
 	if(used)
 		return
-	var/list/candidates = pollCandidatesForMob("Do you want to play as a [initial(demon_type.name)]?", ROLE_ALIEN, null, ROLE_ALIEN, 50, src)
+	var/list/candidates = pollCandidatesForMob("Do you want to play as a [initial(demon_type.name)]?", ROLE_KEY_XENOMORPH, null, ROLE_KEY_XENOMORPH, 50, src)
 	if(LAZYLEN(candidates))
 		if(used || QDELETED(src))
 			return
@@ -258,8 +252,6 @@
 	var/mob/living/simple_animal/slaughter/S = new demon_type(holder)
 	S.holder = holder
 	S.key = C.key
-	S.mind.mind_roles[JLIST_SPECIAL] = ROLE_SLAUGHTER_DEMON
-	S.mind.mind_roles[JLIST_GIMMICK_SPECIAL] = S.name
 	S.mind.add_antag_datum(antag_type)
 	to_chat(S, S.playstyle_string)
 	to_chat(S, "<B>You are currently not currently in the same plane of existence as the station. \
@@ -290,7 +282,7 @@
 		return
 
 	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
-	var/list/candidates = pollGhostCandidates("Do you want to play as a gangster reinforcements?", ROLE_GANG, null, ROLE_GANG, 150)
+	var/list/candidates = pollGhostCandidates("Do you want to play as a gangster reinforcements?", ROLE_KEY_GANG, null, ROLE_KEY_GANG, 150)
 	if(LAZYLEN(candidates))
 		if(QDELETED(src) || !check_usability(user))
 			return
@@ -323,5 +315,4 @@
 		M.equip_to_slot_or_del(new alignment.gang.suit(M),ITEM_SLOT_OCLOTHING)
 		M.equip_to_slot_or_del(new alignment.gang.hat(M),ITEM_SLOT_HEAD)
 
-	M.mind.mind_roles[JLIST_SPECIAL] = "Gangster"
 	M.equipOutfit(/datum/outfit/crook)

@@ -170,7 +170,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 			add_hud_to(mob)
 
 /datum/atom_hud/alternate_appearance/basic/blessedAware/mobShouldSee(mob/M)
-	if(M.mind && (M.mind.get_mind_role(JTYPE_JOB_PATH) == JOB_PATH_CHAPLAIN))
+	if(M.mind && M.mind?.has_job(JOB_KEY_CHAPLAIN))
 		return TRUE
 	if (istype(M, /mob/living/simple_animal/hostile/construct/wraith))
 		return TRUE

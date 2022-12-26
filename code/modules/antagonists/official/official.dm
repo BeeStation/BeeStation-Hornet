@@ -1,5 +1,6 @@
 /datum/antagonist/official
 	name = JOB_CENTCOM_OFFICIAL
+	antag_role_type = null
 	show_name_in_check_antagonists = TRUE
 	show_in_antagpanel = FALSE
 	can_elimination_hijack = ELIMINATION_PREVENT

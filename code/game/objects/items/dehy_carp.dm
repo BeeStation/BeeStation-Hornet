@@ -39,7 +39,7 @@
 	if(owner)
 		var/list/factions = owner.faction.Copy()
 		for(var/F in factions)
-			if(F == "neutral")
+			if(F == FACTION_NEUTRAL)
 				factions -= F
 		M.faction = factions
 	if (!owner || owner.faction != M.faction)

@@ -10,10 +10,10 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 	name = "changeling"
 	config_tag = "changeling"
 	report_type = "changeling"
-	antag_flag = ROLE_CHANGELING
+	antag_flag = ROLE_KEY_CHANGELING
 	false_report_weight = 10
-	restricted_jobs = list(JOB_PATH_AI, JOB_PATH_CYBORG)
-	protected_jobs = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN)
+	restricted_jobs = list(JOB_KEY_AI, JOB_KEY_CYBORG)
+	protected_jobs = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
 	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 4
@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 		restricted_jobs += protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += JOB_PATH_ASSISTANT
+		restricted_jobs += JOB_KEY_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
@@ -52,10 +52,9 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 		for(var/i = 0, i < num_changelings, i++)
 			if(!antag_candidates.len)
 				break
-			var/datum/mind/changeling = antag_pick(antag_candidates, ROLE_CHANGELING)
+			var/datum/mind/changeling = antag_pick(antag_candidates, ROLE_KEY_CHANGELING)
 			antag_candidates -= changeling
 			changelings += changeling
-			changeling.mind_roles[JLIST_SPECIAL] = ROLE_CHANGELING
 			changeling.restricted_roles = restricted_jobs
 		return 1
 	else
@@ -75,10 +74,10 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 	if(changelings.len >= changelingcap) //Caps number of latejoin antagonists
 		return
 	if(changelings.len <= (changelingcap - 2) || prob(100 - (csc * 2)))
-		if(ROLE_CHANGELING in character.client.prefs.be_special)
-			if(!is_banned_from(character.ckey, list(ROLE_CHANGELING, ROLE_SYNDICATE)) && !QDELETED(character))
+		if(ROLE_KEY_CHANGELING in character.client.prefs.be_special)
+			if(!is_banned_from(character.ckey, list(ROLE_BANCHECK_MAJOR_ANTAGONIST, ROLE_KEY_CHANGELING, ROLE_KEY_TRAITOR)) && !QDELETED(character))
 				if(age_check(character.client))
-					if(!(character.job in restricted_jobs))
+					if(!character.mind.has_job(restricted_jobs))
 						character.mind.make_Changeling()
 						changelings += character.mind
 

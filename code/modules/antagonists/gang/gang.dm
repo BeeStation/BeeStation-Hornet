@@ -1,8 +1,8 @@
 /datum/antagonist/gang
 	name = "Gangster"
+	antag_role_type = ROLE_KEY_GANG
 	roundend_category = "gangsters"
 	can_coexist_with_others = FALSE
-	antag_role_type = ROLE_GANG
 	antagpanel_category = "Gang"
 	var/hud_type = "gangster"
 	var/message_name = "Gangster"

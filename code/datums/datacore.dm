@@ -214,13 +214,10 @@
 	set waitfor = FALSE
 	var/static/list/show_directions = list(SOUTH, WEST)
 
-	if(!H?.mind)
+	if(!H?.mind) // currently blocks accepting non-mind mobs being recorded into datacore. remove this `if` when you want mindless mob to be recorded
 		return
-	var/assignment = H.mind.get_mind_role(JTYPE_JOB_NAME)
-	var/job_key = H.mind.get_mind_role(JTYPE_JOB_PATH)
-	if(!assignment && H.job)
-		assignment = H.job
-		job_key = H.job
+	var/assignment = H.mind?.get_station_role()
+	var/job_key = H.mind?.get_job()
 
 	var/static/record_id_num = 1001
 	var/id = num2hex(record_id_num++,6)
@@ -301,9 +298,9 @@
 	return
 
 /datum/datacore/proc/get_id_photo(mob/living/carbon/human/H, client/C, show_directions = list(SOUTH))
-	var/datum/job/J = SSjob.GetJob(H.mind.get_mind_role(JTYPE_JOB_PATH))
+	var/datum/job/J = SSjob.GetJob(H.mind.get_job())
 	if(!J)
-		J = SSjob.GetJob(JOB_PATH_ASSISTANT)
+		J = SSjob.GetJob(JOB_KEY_ASSISTANT)
 	var/datum/character_save/CS
 	if(!C)
 		C = H.client

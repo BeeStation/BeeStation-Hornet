@@ -2,12 +2,12 @@
 #define PINPOINTER_EXTRA_RANDOM_RANGE 10
 #define PINPOINTER_PING_TIME 40
 #define PROB_ACTUAL_TRAITOR 20
-#define TRAITOR_AGENT_ROLE "Syndicate External Affairs Agent"
 
 /datum/antagonist/traitor/internal_affairs
 	name = "Internal Affairs Agent"
 	employer = "Nanotrasen"
-	special_role = "internal affairs agent"
+	antag_role_type = null // their employer isn't syndicate... prob not antag?
+	major_antag_ban = null
 	antagpanel_category = "IAA"
 	var/syndicate = FALSE
 	var/last_man_standing = FALSE
@@ -223,8 +223,7 @@
 		//Optional traitor objective
 		if(prob(PROB_ACTUAL_TRAITOR))
 			employer = "The Syndicate"
-			owner.mind_roles[JLIST_SPECIAL] = TRAITOR_AGENT_ROLE
-			special_role = TRAITOR_AGENT_ROLE
+			special_role = ROLE_KEY_EXTERNAL_AFFAIRS
 			syndicate = TRUE
 			log_game("[owner.key] has been designated an External Affairs Agent")
 			forge_single_objective()

@@ -276,7 +276,7 @@
 	role_name = "morphling"
 
 /datum/round_event/ghost_role/morph/spawn_role()
-	var/list/candidates = get_candidates(ROLE_ALIEN, null, ROLE_ALIEN)
+	var/list/candidates = get_candidates(ROLE_KEY_XENOMORPH, null, ROLE_KEY_XENOMORPH)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 
@@ -288,7 +288,6 @@
 		return MAP_ERROR
 	var/mob/living/simple_animal/hostile/morph/S = new /mob/living/simple_animal/hostile/morph(pick(GLOB.xeno_spawn))
 	player_mind.transfer_to(S)
-	player_mind.mind_roles[JLIST_SPECIAL] = "Morph"
 	player_mind.add_antag_datum(/datum/antagonist/morph)
 	to_chat(S, S.playstyle_string)
 	SEND_SOUND(S, sound('sound/magic/mutate.ogg'))

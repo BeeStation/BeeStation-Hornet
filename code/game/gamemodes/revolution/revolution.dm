@@ -11,10 +11,10 @@
 	name = "revolution"
 	config_tag = "revolution"
 	report_type = "revolution"
-	antag_flag = ROLE_REV
+	antag_flag = ROLE_KEY_REVOLUTION
 	false_report_weight = 10
-	restricted_jobs = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE, JOB_PATH_AI, JOB_PATH_CYBORG,JOB_PATH_CAPTAIN, JOB_PATH_HEADOFPERSONNEL, JOB_PATH_HEADOFSECURITY, JOB_PATH_CHIEFENGINEER, JOB_PATH_RESEARCHDIRECTOR, JOB_PATH_CHIEFMEDICALOFFICER)
-	required_jobs = list(list(JOB_PATH_CAPTAIN=1),list(JOB_PATH_HEADOFPERSONNEL=1),list(JOB_PATH_HEADOFSECURITY=1),list(JOB_PATH_CHIEFENGINEER=1),list(JOB_PATH_RESEARCHDIRECTOR=1),list(JOB_PATH_CHIEFMEDICALOFFICER=1)) //Any head present
+	restricted_jobs = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE, JOB_KEY_AI, JOB_KEY_CYBORG,JOB_KEY_CAPTAIN, JOB_KEY_HEADOFPERSONNEL, JOB_KEY_HEADOFSECURITY, JOB_KEY_CHIEFENGINEER, JOB_KEY_RESEARCHDIRECTOR, JOB_KEY_CHIEFMEDICALOFFICER)
+	required_jobs = list(list(JOB_KEY_CAPTAIN=1),list(JOB_KEY_HEADOFPERSONNEL=1),list(JOB_KEY_HEADOFSECURITY=1),list(JOB_KEY_CHIEFENGINEER=1),list(JOB_KEY_RESEARCHDIRECTOR=1),list(JOB_KEY_CHIEFMEDICALOFFICER=1)) //Any head present
 	required_players = 30
 	required_enemies = 2
 	recommended_enemies = 3
@@ -50,12 +50,12 @@
 		restricted_jobs += protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += JOB_PATH_ASSISTANT
+		restricted_jobs += JOB_KEY_ASSISTANT
 
 	for (var/i=1 to max_headrevs)
 		if (antag_candidates.len==0)
 			break
-		var/datum/mind/lenin = antag_pick(antag_candidates, ROLE_REV_HEAD)
+		var/datum/mind/lenin = antag_pick(antag_candidates, ROLE_KEY_REVOLUTION)
 		antag_candidates -= lenin
 		headrev_candidates += lenin
 		lenin.restricted_roles = restricted_jobs
@@ -85,7 +85,7 @@
 					continue
 				else
 					var/mob/Nm = lenin.current
-					if(Nm.job in restricted_jobs)	//Don't make the HOS a replacement revhead
+					if(Nm.mind.has_job(restricted_jobs))	//Don't make the HOS a replacement revhead
 						antag_candidates += lenin	//Let's let them keep antag chance for other antags
 						continue
 

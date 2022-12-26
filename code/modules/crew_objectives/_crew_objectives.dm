@@ -8,11 +8,9 @@
 		return
 	if(!crewMind)
 		return
-	if(!crewMind.current || crewMind.get_mind_role(JTYPE_SPECIAL))
+	if(!crewMind.current || crewMind.get_special_role())
 		return
-	if(!crewMind.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE))
-		return
-	var/list/valid_objs = crew_obj_jobs["[crewMind.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE)]"]
+	var/list/valid_objs = crew_obj_jobs["[crewMind.get_job()]"]
 	if(!length(valid_objs))
 		return
 	var/selectedObj = pick(valid_objs)

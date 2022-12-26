@@ -3,7 +3,7 @@
 // Bear, produces a bear until it reaches its upper limit
 //============
 /datum/xenoartifact_trait/malfunction/bear
-	label_name = "P.B.R." 
+	label_name = "P.B.R."
 	label_desc = "Parallel Bearspace Retrieval: A strange malfunction causes the Artifact to open a gateway to deep bearspace."
 	weight = 15
 	flags = URANIUM_TRAIT
@@ -92,14 +92,14 @@
 // Heated, causes artifact explode in flames
 //============
 /datum/xenoartifact_trait/malfunction/heated
-	label_name = "Combustible" 
+	label_name = "Combustible"
 	label_desc = "Combustible: A strange malfunction that causes the Artifact to violently combust."
 	weight = 15
 	flags = URANIUM_TRAIT
 
 /datum/xenoartifact_trait/malfunction/heated/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	var/turf/T = get_turf(X)
-	playsound(T, 'sound/effects/bamf.ogg', 50, TRUE) 
+	playsound(T, 'sound/effects/bamf.ogg', 50, TRUE)
 	for(var/turf/open/turf in RANGE_TURFS(max(1, 4*((X.charge*1.5)/100)), T))
 		if(!locate(/obj/effect/safe_fire) in turf)
 			new /obj/effect/safe_fire(turf)
@@ -201,7 +201,7 @@
 	a_intent = INTENT_HARM
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
-	faction = list("evil_clone")
+	faction = list(FACTION_HOSTILE)
 	status_flags = CANPUSH
 	del_on_death = TRUE
 	do_footstep = TRUE

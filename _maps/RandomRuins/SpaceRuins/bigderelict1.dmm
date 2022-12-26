@@ -437,7 +437,7 @@
 "bq" = (
 /obj/effect/mob_spawn/human/corpse/nanotrasensoldier{
 	head = null;
-	id_job = "Tradepost Officer";
+	id_title = "Tradepost Officer";
 	name = "Tradeport Officer";
 	random = 1
 	},

@@ -117,9 +117,9 @@
 		P.setPersonality(src)
 	forceMove(P)
 	card = P
-	job = JOB_NAME_PAI
 	signaler = new(src)
 	hostscan = new /obj/item/healthanalyzer(src)
+	mind.assign_special_role(ROLE_KEY_PAI)
 	if(!radio)
 		radio = new /obj/item/radio/headset/silicon/pai(src)
 	newscaster = new /obj/machinery/newscaster/pai(src)
@@ -170,7 +170,7 @@
 /mob/living/silicon/pai/Login()
 	..()
 	var/datum/asset/notes_assets = get_asset_datum(/datum/asset/simple/pAI)
-	mind.mind_roles[JLIST_SPECIAL] = JOB_PATH_PAI
+	mind.assign_special_role(ROLE_KEY_PAI)
 	if(!notes_assets.send(client))
 		return
 	client.perspective = EYE_PERSPECTIVE

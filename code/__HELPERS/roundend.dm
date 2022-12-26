@@ -43,7 +43,7 @@
 					var/mob/living/carbon/human/H = L
 					category = "humans"
 					if(H.mind)
-						mob_data["job"] = H.mind.get_mind_role(JTYPE_JOB_NAME)
+						mob_data["job"] = H.mind.get_station_role()
 					else
 						mob_data["job"] = "Unknown"
 					mob_data["species"] = H.dna.species.name
@@ -595,13 +595,13 @@
 	if(I)
 		if(I.registered_name == mind.name) // card must be yours
 			custom_title = I.assignment // get the custom title
-		if(custom_title == mind.get_mind_role(JTYPE_JOB_NAME)) // non-custom title, lame
+		if(custom_title == mind.get_station_role()) // non-custom title, lame
 			custom_title = null
 	if(!custom_title) // still no custom title? it seems you don't have a ID card
 		var/datum/data/record/R = find_record("name", mind.name, GLOB.data_core.general)
 		if(R)
 			custom_title = R.fields["rank"] // get a custom title from datacore
-		if(custom_title == mind.get_mind_role(JTYPE_JOB_NAME)) // lame...
+		if(custom_title == mind.get_station_role()) // lame...
 			return
 
 	if(custom_title)
@@ -609,11 +609,11 @@
 
 /proc/printplayer(datum/mind/ply, fleecheck)
 	var/jobtext = ""
-	if(ply.get_mind_role(JTYPE_JOB_NAME) || ply.get_mind_role(JTYPE_SPECIAL))
-		if(ply.get_mind_role(JTYPE_JOB_NAME) != JOB_UNASSIGNED)
-			jobtext = ply.get_mind_role(JTYPE_JOB_NAME)
+	if(ply.get_station_role() || ply.get_special_role())
+		if(ply.get_station_role() != JOB_UNASSIGNED)
+			jobtext = ply.get_station_role()
 		if(!jobtext)
-			jobtext = ply.get_mind_role(JTYPE_SPECIAL)
+			jobtext = ply.get_special_role()
 		if(jobtext)
 			jobtext = " the <b>[jobtext]</b>"
 	var/jobtext_custom = get_custom_title_from_id(ply) // support the custom job title to the roundend report

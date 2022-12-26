@@ -2,10 +2,10 @@
 	name = "heresy"
 	config_tag = "heresy"
 	report_type = "heresy"
-	antag_flag = ROLE_HERETIC
+	antag_flag = ROLE_KEY_HERETIC
 	false_report_weight = 5
-	protected_jobs = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN)
-	restricted_jobs = list(JOB_PATH_AI, JOB_PATH_CYBORG)
+	protected_jobs = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
+	restricted_jobs = list(JOB_KEY_AI, JOB_KEY_CYBORG)
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4
@@ -29,7 +29,7 @@
 		restricted_jobs += protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += JOB_PATH_ASSISTANT
+		restricted_jobs += JOB_KEY_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
@@ -44,9 +44,8 @@
 	for(var/i in 1 to num_ecult)
 		if(!antag_candidates.len)
 			break
-		var/datum/mind/cultie = antag_pick(antag_candidates, ROLE_HERETIC)
+		var/datum/mind/cultie = antag_pick(antag_candidates, ROLE_KEY_HERETIC)
 		antag_candidates -= cultie
-		cultie.mind_roles[JLIST_SPECIAL] = ROLE_HERETIC
 		cultie.restricted_roles = restricted_jobs
 		culties += cultie
 

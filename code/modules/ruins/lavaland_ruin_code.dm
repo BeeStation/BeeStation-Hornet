@@ -113,7 +113,7 @@
 	flavour_text = "Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. Continue your research as best you can, and try to keep a low profile."
 	important_info = "The base is rigged with explosives, DO NOT abandon it or let it fall into enemy hands!"
 	outfit = /datum/outfit/lavaland_syndicate
-	assignedrole = "Lavaland Syndicate"
+	spawner_special_role = ROLE_KEY_EXT_SYNDI_AGENT
 	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/special(mob/living/new_spawn)
@@ -133,7 +133,7 @@
 	implants = list(/obj/item/implant/weapons_auth)
 
 /datum/outfit/lavaland_syndicate/post_equip(mob/living/carbon/human/H)
-	H.faction |= ROLE_SYNDICATE
+	H.faction |= FACTION_SYNDICATE
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms
 	name = "Syndicate Comms Agent"

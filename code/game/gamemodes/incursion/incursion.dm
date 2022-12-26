@@ -5,9 +5,9 @@
 /datum/game_mode/incursion
 	name = "incursion"
 	config_tag = "incursion"
-	restricted_jobs = list(JOB_PATH_AI, JOB_PATH_CYBORG)
-	protected_jobs = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE,JOB_PATH_CAPTAIN, JOB_PATH_HEADOFPERSONNEL, JOB_PATH_HEADOFSECURITY, JOB_PATH_CHIEFENGINEER, JOB_PATH_RESEARCHDIRECTOR, JOB_PATH_CHIEFMEDICALOFFICER)
-	antag_flag = ROLE_INCURSION
+	restricted_jobs = list(JOB_KEY_AI, JOB_KEY_CYBORG)
+	protected_jobs = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE,JOB_KEY_CAPTAIN, JOB_KEY_HEADOFPERSONNEL, JOB_KEY_HEADOFSECURITY, JOB_KEY_CHIEFENGINEER, JOB_KEY_RESEARCHDIRECTOR, JOB_KEY_CHIEFMEDICALOFFICER)
+	antag_flag = ROLE_KEY_INCURSION
 	false_report_weight = 10
 	enemy_minimum_age = 0
 
@@ -28,9 +28,9 @@
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += JOB_PATH_ASSISTANT
+		restricted_jobs += JOB_KEY_ASSISTANT
 
-	var/list/datum/mind/possible_traitors = get_players_for_role(ROLE_INCURSION)
+	var/list/datum/mind/possible_traitors = get_players_for_role(ROLE_KEY_INCURSION)
 
 	var/datum/team/incursion/team = new
 	var/cost_base = CONFIG_GET(number/incursion_cost_base)
@@ -41,14 +41,13 @@
 	team_size = CLAMP(team_size, CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
 
 	for(var/k = 1 to team_size)
-		var/datum/mind/incursion = antag_pick(possible_traitors, ROLE_INCURSION)
+		var/datum/mind/incursion = antag_pick(possible_traitors, ROLE_KEY_INCURSION)
 		if(!incursion)
 			message_admins("Ran out of people to put in an incursion team, wanted [team_size] but only got [k-1]")
 			break
 		possible_traitors -= incursion
 		antag_candidates -= incursion
 		team.add_member(incursion)
-		incursion.mind_roles[JLIST_SPECIAL] = ROLE_INCURSION
 		incursion.restricted_roles = restricted_jobs
 		log_game("[key_name(incursion)] has been selected as a member of the incursion")
 	pre_incursionist_team = team

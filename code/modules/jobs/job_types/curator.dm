@@ -1,11 +1,11 @@
 /datum/job/curator
-	jpath = JOB_PATH_CURATOR
+	jkey = JOB_KEY_CURATOR
 	title = JOB_NAME_CURATOR
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = CURATOR
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#dddddd"
@@ -30,7 +30,7 @@
 	biohazard = 10
 
 /datum/outfit/job/curator
-	name = JOB_PATH_CURATOR
+	name = JOB_KEY_CURATOR
 	jobtype = /datum/job/curator
 
 	id = /obj/item/card/id/job/curator

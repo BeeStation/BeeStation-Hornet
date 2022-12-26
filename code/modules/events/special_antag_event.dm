@@ -5,8 +5,8 @@
 	//Antagonist data
 	var/antagonist_datum = /datum/antagonist/special
 	var/antag_name	//The datum of the antag E.G. /datum/antagonist/special/undercover
-	var/preference_type = ROLE_TRAITOR
-	var/protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CAPTAIN)
+	var/preference_type = ROLE_KEY_TRAITOR
+	var/protected_jobs = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE, JOB_KEY_HEADOFSECURITY, JOB_KEY_HEADOFPERSONNEL, JOB_KEY_CHIEFMEDICALOFFICER, JOB_KEY_CHIEFENGINEER, JOB_KEY_RESEARCHDIRECTOR, JOB_KEY_CAPTAIN)
 
 /datum/round_event_control/spawn_special_antagonist/runEvent()
 	var/datum/round_event/create_special_antag/E = new /datum/round_event/create_special_antag
@@ -35,8 +35,8 @@
 	fakeable = FALSE
 	var/role_name
 	var/antag_datum	//The datum of the antag E.G. /datum/antagonist/special/undercover
-	var/preference_type = ROLE_TRAITOR
-	var/protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CAPTAIN)
+	var/preference_type = ROLE_KEY_TRAITOR
+	var/protected_jobs = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE, JOB_KEY_HEADOFSECURITY, JOB_KEY_HEADOFPERSONNEL, JOB_KEY_CHIEFMEDICALOFFICER, JOB_KEY_CHIEFENGINEER, JOB_KEY_RESEARCHDIRECTOR, JOB_KEY_CAPTAIN)
 
 /datum/round_event/create_special_antag/start()
 	for(var/mob/living/carbon/human/H in shuffle(GLOB.player_list))
@@ -46,14 +46,13 @@
 			continue
 		if(H.stat == DEAD)
 			continue
-		if((H.mind.get_mind_role(JTYPE_JOB_PATH)==JOB_UNASSIGNED) || (H.mind.get_mind_role(JTYPE_JOB_PATH) in GLOB.nonhuman_positions)) //only station jobs sans nonhuman roles, prevents ashwalkers trying to stalk with crewmembers they never met
+		if(!H.mind.get_station_role()) // only station crews will be eligible for this
 			continue
-		if(H.mind.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in protected_jobs)
+		if(H.mind.has_job(protected_jobs))
 			continue
 		if(H.mind.has_antag_datum(antag_datum))
 			continue
 		var/datum/mind/M = H.mind
-		M.mind_roles[JLIST_SPECIAL] = role_name
 		var/datum/antagonist/special/A = M.add_antag_datum(antag_datum)
 		if(!A)
 			message_admins("[key_name(H.mind)] failed to become a [role_name]")

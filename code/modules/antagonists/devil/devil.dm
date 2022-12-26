@@ -86,9 +86,9 @@ GLOBAL_LIST_INIT(devil_syllable, list("hal", "ve", "odr", "neit", "ci", "quon", 
 GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", ", the Lord of all things", ", Jr."))
 /datum/antagonist/devil
 	name = "Devil"
+	antag_role_type = ROLE_KEY_DEVIL
 	roundend_category = "devils"
 	antagpanel_category = "Devil"
-	antag_role_type = ROLE_DEVIL
 	//Don't delete upon mind destruction, otherwise soul re-selling will break.
 	delete_on_mind_deletion = FALSE
 	show_to_ghosts = TRUE
@@ -257,7 +257,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	to_chat(owner.current, "<span class='warning'>You feel as though your current form is about to shed.  You will soon turn into a true devil.</span>")
 	sleep(50)
 	var/mob/living/carbon/true_devil/A = new /mob/living/carbon/true_devil(owner.current.loc)
-	A.faction |= "hell"
+	A.faction |= FACTION_HELL
 	owner.current.forceMove(A)
 	A.oldform = owner.current
 	owner.transfer_to(A)
@@ -470,7 +470,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 			H.regenerate_icons()
 			if(SOULVALUE >= TRUE_THRESHOLD) //Yes, BOTH this and the above if statement are to run if soulpower is high enough.
 				var/mob/living/carbon/true_devil/A = new /mob/living/carbon/true_devil(targetturf)
-				A.faction |= "hell"
+				A.faction |= FACTION_HELL
 				H.forceMove(A)
 				A.oldform = H
 				owner.transfer_to(A, TRUE)

@@ -1,8 +1,8 @@
 
 /datum/antagonist/fugitive
 	name = "Fugitive"
+	antag_role_type = ROLE_KEY_FUGITIVE
 	roundend_category = "Fugitive"
-	antag_role_type = ROLE_FUGITIVE_N_CHASERS
 	silent = TRUE //greet called by the event
 	show_in_antagpanel = FALSE
 	prevent_roundtype_conversion = FALSE
@@ -22,8 +22,6 @@
 /datum/antagonist/fugitive/on_gain()
 	forge_objectives()
 	. = ..()
-	owner.mind_roles[JLIST_SPECIAL] = antag_role_type
-	owner.mind_roles[JLIST_GIMMICK_SPECIAL] = name
 	for(var/datum/objective/O in objectives)
 		log_objective(owner, O.explanation_text)
 

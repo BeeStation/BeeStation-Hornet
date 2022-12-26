@@ -1,5 +1,5 @@
 /datum/job/medical_doctor/psychiatrist
-	g_jpath = JOB_PATH_PSYCHIATRIST
+	g_jkey = JOB_KEY_PSYCHIATRIST
 	g_title = JOB_NAME_PSYCHIATRIST
 	job_bitflags = JOB_BITFLAG_GIMMICK
 
@@ -8,7 +8,7 @@
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
 
-	department_flag = MEDSCI
+
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_EASY)
@@ -22,7 +22,7 @@
 	)
 
 /datum/outfit/job/psychiatrist //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
-	name = JOB_PATH_PSYCHIATRIST
+	name = JOB_KEY_PSYCHIATRIST
 	jobtype = /datum/job/medical_doctor/psychiatrist
 	id = /obj/item/card/id/job/psychiatrist
 	belt = /obj/item/modular_computer/tablet/pda/medical

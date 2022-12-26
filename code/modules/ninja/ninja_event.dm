@@ -45,7 +45,7 @@ Contents:
 		return MAP_ERROR
 
 	//selecting a candidate player
-	var/list/candidates = get_candidates(ROLE_NINJA, null, ROLE_NINJA)
+	var/list/candidates = get_candidates(ROLE_KEY_NINJA, null, ROLE_KEY_NINJA)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 
@@ -54,7 +54,6 @@ Contents:
 
 	//Prepare ninja player mind
 	var/datum/mind/Mind = new /datum/mind(key)
-	Mind.mind_roles[JLIST_SPECIAL] = ROLE_NINJA
 	Mind.active = 1
 
 	//spawn the ninja and assign the candidate

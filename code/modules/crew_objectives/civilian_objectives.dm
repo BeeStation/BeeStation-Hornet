@@ -4,7 +4,7 @@
 	var/targetchem = "none"
 	var/datum/reagent/chempath
 	explanation_text = "Have at least (somethin broke here) harvested plants containing (report this on GitHub) when the shift ends."
-	jobs = JOB_PATH_BOTANIST
+	jobs = JOB_KEY_BOTANIST
 
 /datum/objective/crew/druglordbot/New()
 	. = ..()
@@ -32,7 +32,7 @@
 	var/datum/crafting_recipe/food/targetfood
 	var/obj/item/reagent_containers/food/foodpath
 	explanation_text = "Personally deliver at least (Something broke, yell on GitHub) to CentCom."
-	jobs = JOB_PATH_COOK
+	jobs = JOB_KEY_COOK
 
 /datum/objective/crew/foodhoard/New()
 	. = ..()
@@ -52,7 +52,7 @@
 
 /datum/objective/crew/cocktail
 	explanation_text = "Have a bottle(any type) that contains 'something' when the shift ends. Each of them must be at least 'something'u."
-	jobs = JOB_PATH_BARTENDER
+	jobs = JOB_KEY_BARTENDER
 	var/targetchems = list()
 	var/list/chemnames = list()
 	var/chemsize
@@ -92,7 +92,7 @@
 	var/list/areas = list()
 	var/hardmode = FALSE
 	explanation_text = "Ensure sure that (Yo, something broke. Yell about this on GitHub.) remain spotless at the end of the shift."
-	jobs = JOB_PATH_JANITOR
+	jobs = JOB_KEY_JANITOR
 
 /datum/objective/crew/clean/New()
 	. = ..()
@@ -144,7 +144,7 @@
 
 /datum/objective/crew/exterminator
 	explanation_text = "Ensure that there are no more than (Yell on github, this objective broke) living mice on the station when the round ends."
-	jobs = JOB_PATH_JANITOR
+	jobs = JOB_KEY_JANITOR
 
 /datum/objective/crew/exterminator/New()
 	. = ..()
@@ -166,14 +166,14 @@
 
 /datum/objective/crew/lostkeys
 	explanation_text = "Don't lose the janicart keys. Have them with you when the shift ends."
-	jobs = JOB_PATH_JANITOR
+	jobs = JOB_KEY_JANITOR
 
 /datum/objective/crew/lostkeys/check_completion()
 	return ..() || owner?.current?.check_contents_for(/obj/item/key/janitor)
 
 /datum/objective/crew/slipster //ported from old Hippie with adjustments
 	explanation_text = "Slip at least (Yell on GitHub if you see this) different people with your PDA, and have it on you at the end of the shift."
-	jobs = JOB_PATH_CLOWN
+	jobs = JOB_KEY_CLOWN
 
 /datum/objective/crew/slipster/New()
 	. = ..()
@@ -197,7 +197,7 @@
 
 /datum/objective/crew/shoethief
 	explanation_text = "Steal at least (Yell on github, this objective broke) pairs of shoes, and have them in your bag at the end of the shift. Bonus points if they are stolen from crewmembers instead of ClothesMates."
-	jobs = JOB_PATH_CLOWN
+	jobs = JOB_KEY_CLOWN
 
 /datum/objective/crew/shoethief/New()
 	. = ..()
@@ -221,7 +221,7 @@
 
 /datum/objective/crew/vow
 	explanation_text = "Never break your vow of silence."
-	jobs = JOB_PATH_MIME
+	jobs = JOB_KEY_MIME
 	/// This is set to TRUE when the mime's vow action is used to break the vow.
 	var/broken = FALSE
 
@@ -230,14 +230,14 @@
 
 /datum/objective/crew/nothingreallymatterstome
 	explanation_text = "Have a Bottle of Nothing with you at the end of the shift."
-	jobs = JOB_PATH_MIME
+	jobs = JOB_KEY_MIME
 
 /datum/objective/crew/nothingreallymatterstome/check_completion()
 	return ..() || owner?.current?.check_contents_for(/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing)
 
 /datum/objective/crew/nullrod
 	explanation_text = "Don't lose your nullrod. You can still transform it into another item."
-	jobs = JOB_PATH_CHAPLAIN
+	jobs = JOB_KEY_CHAPLAIN
 
 /datum/objective/crew/nullrod/check_completion()
 	if(..())
@@ -252,7 +252,7 @@
 /datum/objective/crew/reporter //ported from old hippie
 	var/word_count = 10
 	explanation_text = "Publish at least (Yo something broke) articles containing at least (Report this on GitHub) words."
-	jobs = JOB_PATH_CURATOR
+	jobs = JOB_KEY_CURATOR
 
 /datum/objective/crew/reporter/New()
 	. = ..()
@@ -279,7 +279,7 @@
 /datum/objective/crew/pwrgame //ported from Goon with adjustments
 	var/obj/item/clothing/clothing_target
 	explanation_text = "Get your grubby hands on a (Dear god something broke. Report this on GitHub)."
-	jobs = JOB_PATH_ASSISTANT
+	jobs = JOB_KEY_ASSISTANT
 
 /datum/objective/crew/pwrgame/New()
 	. = ..()
@@ -305,7 +305,7 @@
 
 /datum/objective/crew/promotion //ported from Goon
 	explanation_text = "Have a non-assistant ID registered to you at the end of the shift."
-	jobs = JOB_PATH_ASSISTANT
+	jobs = JOB_KEY_ASSISTANT
 
 /datum/objective/crew/promotion/check_completion()
 	if(..())
@@ -324,7 +324,7 @@
 
 /datum/objective/crew/justicecrew
 	explanation_text = "Ensure there are no members of security in the prison wing when the shift ends."
-	jobs = JOB_PATH_LAWYER
+	jobs = JOB_KEY_LAWYER
 
 /datum/objective/crew/justicecrew/check_completion()
 	if(..())
@@ -332,7 +332,7 @@
 	if(!owner?.current)
 		return FALSE
 	for(var/datum/mind/M in SSticker.minds)
-		if(!istype(M.current) || !(M.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.security_positions))
+		if(!istype(M.current) || !M.has_job(GLOB.security_positions))
 			continue
 		if(istype(get_area(M.current), /area/security/prison))
 			return FALSE

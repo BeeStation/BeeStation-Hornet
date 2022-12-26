@@ -1,11 +1,11 @@
 /datum/job/medical_doctor
-	jpath = JOB_PATH_MEDICALDOCTOR
+	jkey = JOB_KEY_MEDICALDOCTOR
 	title = JOB_NAME_MEDICALDOCTOR
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = DOCTOR
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 5
 	spawn_positions = 3
 	selection_color = "#d4ebf2"
@@ -16,7 +16,6 @@
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_VIROLOGY, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)
@@ -31,7 +30,7 @@
 	biohazard = 40
 
 /datum/outfit/job/medical_doctor
-	name = JOB_PATH_MEDICALDOCTOR
+	name = JOB_KEY_MEDICALDOCTOR
 	jobtype = /datum/job/medical_doctor
 
 	id = /obj/item/card/id/job/medical_doctor

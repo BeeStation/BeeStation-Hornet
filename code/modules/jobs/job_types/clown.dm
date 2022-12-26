@@ -1,11 +1,11 @@
 /datum/job/clown
-	jpath = JOB_PATH_CLOWN
+	jkey = JOB_KEY_CLOWN
 	title = JOB_NAME_CLOWN
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = CLOWN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#dddddd"
@@ -33,7 +33,7 @@
 	H.apply_pref_name("clown", M.client)
 
 /datum/outfit/job/clown
-	name = JOB_PATH_CLOWN
+	name = JOB_KEY_CLOWN
 	jobtype = /datum/job/clown
 
 	id = /obj/item/card/id/job/clown

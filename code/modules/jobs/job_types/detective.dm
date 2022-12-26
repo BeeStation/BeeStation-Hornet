@@ -1,12 +1,12 @@
 /datum/job/detective
-	jpath = JOB_PATH_DETECTIVE
+	jkey = JOB_KEY_DETECTIVE
 	title = JOB_NAME_DETECTIVE
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = DETECTIVE
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ffeeee"
@@ -34,7 +34,7 @@
 	)
 
 /datum/outfit/job/detective
-	name = JOB_PATH_DETECTIVE
+	name = JOB_KEY_DETECTIVE
 	jobtype = /datum/job/detective
 
 	id = /obj/item/card/id/job/detective

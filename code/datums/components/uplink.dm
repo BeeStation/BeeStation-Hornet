@@ -133,7 +133,7 @@
 
 	if(locked)
 		return
-	if(!non_traitor_allowed && !user.mind.get_mind_role(JTYPE_SPECIAL))
+	if(!non_traitor_allowed && !user.mind.get_special_role())
 		return
 	active = TRUE
 	update_items()
@@ -182,7 +182,7 @@
 			if(I.restricted_roles.len && I.discounted == FALSE)
 				var/is_inaccessible = TRUE
 				for(var/R in I.restricted_roles)
-					if(R == user.mind.get_mind_role(JTYPE_JOB_PATH) || debug)
+					if(user.mind.has_job(R) || debug)
 						is_inaccessible = FALSE
 				if(is_inaccessible)
 					continue
@@ -246,7 +246,7 @@
 		U.limited_stock -= 1
 
 	SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(U.name)]", "[U.cost]"))
-	log_game("[initial(U.name)] purchased by [user.ckey]/[user.name] the [user.job ? user.job : "Unknown Job"] for [U.cost] TC, [telecrystals] TC remaining.")
+	log_game("[initial(U.name)] purchased by [user.ckey]/[user.name] the [user.mind.get_station_role()] for [U.cost] TC, [telecrystals] TC remaining.")
 	return TRUE
 
 // Implant signal responses

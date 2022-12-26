@@ -653,9 +653,9 @@
 
 
 	if(mind)
-		if((mind.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) == JOB_PATH_STATIONENGINEER) || (mind.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) == JOB_PATH_CHIEFENGINEER) )
+		if(mind.has_job(list(JOB_KEY_STATIONENGINEER, JOB_KEY_CHIEFENGINEER)))
 			gain = 100
-		if(mind.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) == JOB_PATH_CLOWN)
+		if(mind.has_job(JOB_KEY_CLOWN))
 			gain = rand(-1000, 1000)
 	investigate_log("([key_name(src)]) has been consumed by the singularity.", INVESTIGATE_ENGINES) //Oh that's where the clown ended up!
 	gib()

@@ -1,12 +1,12 @@
 /datum/job/captain
-	jpath = JOB_PATH_CAPTAIN
+	jkey = JOB_KEY_CAPTAIN
 	title = JOB_NAME_CAPTAIN
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = CAPTAIN
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD|PREFTOGGLE_DEADMIN_POSITION_SECURITY
 	department_head = list("CentCom")
 	supervisors = "Nanotrasen officials and Space law"
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ccccff"
@@ -43,7 +43,7 @@
 	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, .proc/minor_announce, "Captain [H.real_name] on deck!"))
 
 /datum/outfit/job/captain
-	name = JOB_PATH_CAPTAIN
+	name = JOB_KEY_CAPTAIN
 	jobtype = /datum/job/captain
 
 	id = /obj/item/card/id/job/captain

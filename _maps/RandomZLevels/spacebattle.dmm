@@ -812,7 +812,7 @@
 /area/awaymission/spacebattle/cruiser)
 "dX" = (
 /obj/effect/mob_spawn/human/engineer/rig{
-	id_job = "Gunner";
+	id_title = "Gunner";
 	mob_name = "Andrew Thorn";
 	name = "Andrew Thorn"
 	},
@@ -958,7 +958,7 @@
 /area/awaymission/spacebattle/syndicate1)
 "eH" = (
 /obj/effect/mob_spawn/human/engineer/rig{
-	id_job = "Gunner";
+	id_title = "Gunner";
 	mob_name = "Peter West";
 	name = "Peter West"
 	},
@@ -1019,7 +1019,7 @@
 /area/awaymission/spacebattle/cruiser)
 "fa" = (
 /obj/effect/mob_spawn/human/engineer/rig{
-	id_job = "Gunner";
+	id_title = "Gunner";
 	mob_name = "Eric Abnett";
 	name = "Eric Abnett"
 	},
@@ -1469,7 +1469,7 @@
 /area/awaymission/spacebattle/cruiser)
 "gO" = (
 /obj/effect/mob_spawn/human/engineer/rig{
-	id_job = "Gunner";
+	id_title = "Gunner";
 	name = "Jeremy Tailor"
 	},
 /obj/effect/decal/cleanable/blood,
@@ -1553,7 +1553,7 @@
 /area/awaymission/spacebattle/cruiser)
 "hh" = (
 /obj/effect/mob_spawn/human/engineer/rig{
-	id_job = "Gunner";
+	id_title = "Gunner";
 	mob_name = "Dan Hedricks";
 	name = "Dan Hedricks"
 	},
@@ -1692,7 +1692,7 @@
 /area/awaymission/spacebattle/cruiser)
 "hL" = (
 /obj/effect/mob_spawn/human/engineer{
-	id_job = "Gunner";
+	id_title = "Gunner";
 	mob_name = "William Gannon";
 	name = "William Gannon"
 	},

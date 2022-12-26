@@ -3,8 +3,8 @@
 /datum/objective/crew/integrity //ported from old Hippie
 	explanation_text = "Ensure the station's integrity rating is at least (Something broke, yell on GitHub)% when the shift ends."
 	jobs = list(
-		JOB_NAME_CHIEFENGINEER,
-		JOB_NAME_STATIONENGINEER,
+		JOB_KEY_CHIEFENGINEER,
+		JOB_KEY_STATIONENGINEER,
 	)
 
 /datum/objective/crew/integrity/New()
@@ -26,7 +26,7 @@
 
 /datum/objective/crew/poly
 	explanation_text = "Make sure Poly keeps his headset, and stays alive until the end of the shift."
-	jobs = JOB_NAME_CHIEFENGINEER
+	jobs = JOB_KEY_CHIEFENGINEER
 
 /datum/objective/crew/poly/check_completion()
 	if(..())

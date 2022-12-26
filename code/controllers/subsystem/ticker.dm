@@ -158,6 +158,7 @@ SUBSYSTEM_DEF(ticker)
 				window_flash(C, ignorepref = TRUE) //let them know lobby has opened up.
 			to_chat(world, "<span class='boldnotice'>Welcome to [station_name()]!</span>")
 			send2chat("New round starting on [SSmapping.config.map_name]!", CONFIG_GET(string/chat_announce_new_game))
+			SSjob.AnnounceGimmickJobs()
 			current_state = GAME_STATE_PREGAME
 			//Everyone who wants to be an observer is now spawned
 			create_observers()
@@ -427,15 +428,15 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/mob/dead/new_player/N in GLOB.player_list)
 		var/mob/living/carbon/human/player = N.new_character
-		if(istype(player) && player.mind && player.mind.get_mind_role(JTYPE_JOB_PATH))
-			if(player.mind.get_mind_role(JTYPE_JOB_PATH) == JOB_PATH_CAPTAIN)
+		if(istype(player) && player.mind && player.mind.get_station_role())
+			if(player.mind.has_job(JOB_KEY_CAPTAIN))
 				captainless = FALSE
 				spare_id_candidates += N
-			else if(captainless && (player.mind.get_mind_role(JTYPE_JOB_PATH) in GLOB.command_positions) && !(is_banned_from(N.ckey, JOB_PATH_CAPTAIN)))
+			else if(captainless && player.mind.has_job(GLOB.command_positions) && !(is_banned_from(N.ckey, JOB_KEY_CAPTAIN)))
 				if(!enforce_coc)
 					spare_id_candidates += N
 				else
-					var/spare_id_priority = SSjob.chain_of_command[player.mind.get_mind_role(JTYPE_JOB_PATH)]
+					var/spare_id_priority = SSjob.chain_of_command[player.mind.get_job()]
 					if(spare_id_priority)
 						if(spare_id_priority < highest_rank)
 							spare_id_candidates.Cut()
@@ -443,8 +444,8 @@ SUBSYSTEM_DEF(ticker)
 							highest_rank = spare_id_priority
 						else if(spare_id_priority == highest_rank)
 							spare_id_candidates += N
-			if(player.mind.get_mind_role(JTYPE_JOB_PATH) != player.mind.get_mind_role(JTYPE_SPECIAL))
-				SSjob.EquipRank(N, player.mind.get_mind_role(JTYPE_JOB_PATH), FALSE)
+			if(player.mind.get_station_role())
+				SSjob.EquipRank(N, player.mind.get_job(), FALSE)
 			if(CONFIG_GET(flag/roundstart_traits) && ishuman(N.new_character))
 				SSquirks.AssignQuirks(N.new_character, N.client, TRUE)
 		CHECK_TICK

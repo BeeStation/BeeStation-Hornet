@@ -1,7 +1,7 @@
 /datum/antagonist/brother
 	name = "Brother"
+	antag_role_type = ROLE_KEY_BROTHER
 	antagpanel_category = "Brother"
-	antag_role_type = ROLE_BROTHER
 	hijack_speed = 0.5
 	var/datum/team/brother_team/team
 	antag_moodlet = /datum/mood_event/focused
@@ -21,7 +21,6 @@
 	objectives += team.objectives
 	for(var/datum/objective/O in team.objectives)
 		log_objective(owner, O.explanation_text)
-	owner.mind_roles[JLIST_SPECIAL] = antag_role_type
 	finalize_brother()
 	return ..()
 
@@ -29,7 +28,6 @@
 	SSticker.mode.brothers -= owner
 	if(owner.current)
 		to_chat(owner.current,"<span class='userdanger'>You are no longer the [antag_role_type]!</span>")
-	owner.nullify_special_role()
 	return ..()
 
 /datum/antagonist/brother/antag_panel_data()
@@ -55,7 +53,7 @@
 
 /datum/antagonist/brother/greet()
 	var/brother_text = get_brother_names()
-	to_chat(owner.current, "<span class='alertsyndie'>You are the [owner.get_mind_role(JTYPE_SPECIAL)] of [brother_text].</span>")
+	to_chat(owner.current, "<span class='alertsyndie'>You are the [owner.get_special_role()] of [brother_text].</span>")
 	to_chat(owner.current, "The Syndicate only accepts those that have proven themselves. Prove yourself and prove your [team.member_name]s by completing your objectives together! You and your team are outfitted with communication implants allowing for direct, encrypted communication.")
 	owner.announce_objectives()
 	give_meeting_area()

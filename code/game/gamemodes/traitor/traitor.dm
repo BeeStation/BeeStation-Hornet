@@ -9,10 +9,10 @@
 	name = "traitor"
 	config_tag = "traitor"
 	report_type = "traitor"
-	antag_flag = ROLE_TRAITOR
+	antag_flag = ROLE_KEY_TRAITOR
 	false_report_weight = 20 //Reports of traitors are pretty common.
-	restricted_jobs = list(JOB_PATH_CYBORG)//They are part of the AI if he is traitor so are they, they use to get double chances
-	protected_jobs = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN)
+	restricted_jobs = list(JOB_KEY_CYBORG)//They are part of the AI if he is traitor so are they, they use to get double chances
+	protected_jobs = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4
@@ -39,7 +39,7 @@
 		restricted_jobs += protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += JOB_PATH_ASSISTANT
+		restricted_jobs += JOB_KEY_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
@@ -55,9 +55,8 @@
 	for(var/j = 0, j < num_traitors, j++)
 		if (!antag_candidates.len)
 			break
-		var/datum/mind/traitor = antag_pick(antag_candidates, ROLE_TRAITOR)
+		var/datum/mind/traitor = antag_pick(antag_candidates, ROLE_KEY_TRAITOR)
 		pre_traitors += traitor
-		traitor.mind_roles[JLIST_SPECIAL] = traitor_name
 		traitor.restricted_roles = restricted_jobs
 		log_game("[key_name(traitor)] has been selected as a [traitor_name]")
 		antag_candidates.Remove(traitor)
@@ -91,9 +90,9 @@
 		return
 	if((SSticker.mode.traitors.len + pre_traitors.len) <= (traitorcap - 2) || prob(100 / (tsc * 2)))
 		if(antag_flag in character.client.prefs.be_special)
-			if(!is_banned_from(character.ckey, list(ROLE_TRAITOR, ROLE_SYNDICATE)) && !QDELETED(character))
+			if(!is_banned_from(character.ckey, list(ROLE_BANCHECK_MAJOR_ANTAGONIST, ROLE_KEY_TRAITOR)) && !QDELETED(character))
 				if(age_check(character.client))
-					if(!(character.job in restricted_jobs))
+					if(!character.mind.has_job(restricted_jobs))
 						add_latejoin_traitor(character.mind)
 
 /datum/game_mode/traitor/proc/add_latejoin_traitor(datum/mind/character)

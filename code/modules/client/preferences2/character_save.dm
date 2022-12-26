@@ -289,7 +289,6 @@
 	copy_to(mannequin)
 
 	if(previewJob)
-		mannequin.job = previewJob.title
 		previewJob.equip(mannequin, TRUE, preference_source = parent)
 
 	COMPILE_OVERLAYS(mannequin)

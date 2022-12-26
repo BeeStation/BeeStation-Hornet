@@ -149,7 +149,7 @@ SUBSYSTEM_DEF(pai)
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			if(!G.key || !G.client)
 				continue
-			if(!(ROLE_PAI in G.client.prefs.be_special))
+			if(!(ROLE_KEY_PAI in G.client.prefs.be_special))
 				continue
 			to_chat(G, "<span class='ghostalert'>[user] is requesting a pAI personality! Use the pAI button to submit yourself as one.</span>")
 		addtimer(CALLBACK(src, .proc/spam_again), spam_delay)

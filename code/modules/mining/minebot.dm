@@ -14,7 +14,7 @@
 	status_flags = CANSTUN|CANKNOCKDOWN|CANPUSH
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1 // So our equipment doesn't go poof
 	mouse_opacity = MOUSE_OPACITY_ICON
-	faction = list("neutral")
+	faction = list(FACTION_NEUTRAL)
 	a_intent = INTENT_HARM
 	hud_type = /datum/hud/minebot
 	// Atmos

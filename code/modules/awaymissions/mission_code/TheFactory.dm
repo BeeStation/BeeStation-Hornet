@@ -248,7 +248,7 @@
 	health = 100
 	melee_damage = 12
 	stat_attack = UNCONSCIOUS
-	faction = list("nanotrasenprivate")
+	faction = listFACTION_NANOTRASEN)
 	status_flags = CANPUSH
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 10
@@ -334,7 +334,7 @@
 
 /mob/living/simple_animal/hostile/syndicate/factory
 	gender = MALE
-	faction = list("nanotrasenprivate")
+	faction = list(FACTION_NANOTRASEN)
 	speak_chance = 5
 	speak = list("Come get me!","You can't get away!","Die!")
 
@@ -407,7 +407,7 @@
 	health = 100
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 5
-	faction = list("psycho")
+	faction = list(FACTION_HOSTILE)
 	move_to_delay = 3
 	rapid_melee = 2
 	in_melee = TRUE

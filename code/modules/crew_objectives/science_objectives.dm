@@ -3,8 +3,8 @@
 /datum/objective/crew/cyborgs //Ported from old Hippie
 	explanation_text = "Ensure there are at least (Yell on GitHub, something broke) functioning cyborgs or AI shells when the shift ends."
 	jobs = list(
-		JOB_NAME_RESEARCHDIRECTOR,
-		JOB_NAME_ROBOTICIST,
+		JOB_KEY_RESEARCHDIRECTOR,
+		JOB_KEY_ROBOTICIST,
 	)
 
 /datum/objective/crew/cyborgs/New()
@@ -29,8 +29,8 @@
 	var/datum/design/target_design
 	explanation_text = "Make sure the research for (something broke, yell on GitHub) is available on the R&D server by the end of the shift."
 	jobs = list(
-		JOB_NAME_RESEARCHDIRECTOR,
-		JOB_NAME_SCIENTIST,
+		JOB_KEY_RESEARCHDIRECTOR,
+		JOB_KEY_SCIENTIST,
 	)
 
 /datum/objective/crew/research/New()

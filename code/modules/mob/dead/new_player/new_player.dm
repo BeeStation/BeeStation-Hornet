@@ -266,11 +266,11 @@
 	if(!(job.job_bitflags & JOB_BITFLAG_SELECTABLE))
 		return JOB_UNAVAILABLE_NOT_INTRODUCED
 	if((job.current_positions >= job.total_positions) && job.total_positions != -1)
-		if(job.get_jpath(FALSE) == JOB_PATH_ASSISTANT)
+		if(job.get_jkey(FALSE) == JOB_KEY_ASSISTANT)
 			if(isnum_safe(client.player_age) && client.player_age <= 14) //Newbies can always be assistants
 				return JOB_AVAILABLE
 			for(var/datum/job/J in SSjob.occupations)
-				if(J && J.current_positions < J.total_positions && J.get_jpath() != job.get_jpath())
+				if(J && J.current_positions < J.total_positions && J.get_jkey() != job.get_jkey())
 					return JOB_UNAVAILABLE_SLOTFULL
 		else
 			return JOB_UNAVAILABLE_SLOTFULL
@@ -420,14 +420,14 @@
 		var/list/dept_dat = list()
 		for(var/job in category)
 			var/datum/job/job_datum = SSjob.name_occupations[job]
-			if(job_datum && IsJobUnavailable(job_datum.get_jpath()) == JOB_AVAILABLE)
+			if(job_datum && IsJobUnavailable(job_datum.get_jkey()) == JOB_AVAILABLE)
 				var/command_bold = ""
 				if(job in GLOB.command_positions)
 					command_bold = " command"
 				if(job_datum in SSjob.prioritized_jobs)
-					dept_dat += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.get_jpath()]'><span class='priority'>[job_datum.get_title()] ([job_datum.current_positions])</span></a>"
+					dept_dat += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.get_jkey()]'><span class='priority'>[job_datum.get_title()] ([job_datum.current_positions])</span></a>"
 				else
-					dept_dat += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.get_jpath()]'>[job_datum.get_title()] ([job_datum.current_positions])</a>"
+					dept_dat += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.get_jkey()]'>[job_datum.get_title()] ([job_datum.current_positions])</a>"
 		if(!dept_dat.len)
 			dept_dat += "<span class='nopositions'>No positions open.</span>"
 		dat += jointext(dept_dat, "")

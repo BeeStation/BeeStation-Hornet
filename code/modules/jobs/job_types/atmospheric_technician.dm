@@ -1,11 +1,11 @@
 /datum/job/atmospheric_technician
-	jpath = JOB_PATH_ATMOSPHERICTECHNICIAN
+	jkey = JOB_KEY_ATMOSPHERICTECHNICIAN
 	title = JOB_NAME_ATMOSPHERICTECHNICIAN
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = ATMOSTECH
 	department_head = list(JOB_NAME_CHIEFENGINEER)
 	supervisors = "the chief engineer"
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 3
 	spawn_positions = 2
 	selection_color = "#fff5cc"
@@ -31,7 +31,7 @@
 	)
 
 /datum/outfit/job/atmospheric_technician
-	name = JOB_PATH_ATMOSPHERICTECHNICIAN
+	name = JOB_KEY_ATMOSPHERICTECHNICIAN
 	jobtype = /datum/job/atmospheric_technician
 
 	id = /obj/item/card/id/job/atmospheric_technician

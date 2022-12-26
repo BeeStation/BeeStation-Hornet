@@ -8,7 +8,7 @@
 	required_players = 30 // 30 players - 3 players to be the nuke ops = 27 players remaining
 	required_enemies = 2
 	recommended_enemies = 5
-	antag_flag = ROLE_OPERATIVE
+	antag_flag = ROLE_KEY_OPERATIVE
 	enemy_minimum_age = 14
 
 	announce_span = "danger"
@@ -31,9 +31,8 @@
 	var/n_agents = min(round(num_players() / 10), antag_candidates.len, agents_possible)
 	if(n_agents >= required_enemies)
 		for(var/i = 0, i < n_agents, ++i)
-			var/datum/mind/new_op = antag_pick(antag_candidates, ROLE_OPERATIVE)
+			var/datum/mind/new_op = antag_pick(antag_candidates, ROLE_KEY_OPERATIVE)
 			pre_nukeops += new_op
-			new_op.mind_roles[JLIST_SPECIAL] = ROLE_OPERATIVE
 			log_game("[key_name(new_op)] has been selected as a nuclear operative")
 		return TRUE
 	else
@@ -159,7 +158,7 @@
 	E.implant(H)
 	var/obj/item/implant/weapons_auth/W = new/obj/item/implant/weapons_auth(H)
 	W.implant(H)
-	H.faction |= ROLE_SYNDICATE
+	H.faction |= FACTION_SYNDICATE
 	H.update_icons()
 
 /datum/outfit/syndicate/full

@@ -1,5 +1,3 @@
-
-
 // These are key for a job list in a mind
 // i.e.) mind.job[JLIST_BASE_NAME] = JONAME_CAPTAIN
 #define JLIST_BASE_PATH "job_basePath"
@@ -7,19 +5,49 @@
 #define JLIST_GIMMICK_PATH "job_gimmickPath"
 #define JLIST_GIMMICK_NAME "job_gimmickName"
 #define JLIST_SPECIAL "job_special"
-#define JLIST_GIMMICK_SPECIAL "job_gimmickSpecial"
+
+
+// RL PK = Role List 'Primary Key'
+#define RLPK_DISPLAY_STATION_ROLE "station_role"
+#define RLPK_DISPLAY_SPECIAL_ROLE "special_role"
+#define RLPK_HOLDER_JOBS "jobs"
+#define RLPK_HOLDER_SPECIAL_ROLES "special_roles"
+#define RLPK_HOLDER_ANTAG_ROLES "antag_roles"
+#define RLPK_HOLDER_FACTIONS "factions"
+
+// this is used in 'has_role' mind proc. if you want to check both of special/antag roles, use this
+#define RL_CHECKS_SPECIAL_ANTAG_BOTH "special_and_antag"
+
+/*
+	// Display types: these are for aesthestics
+		mind_roles[RLPK_DISPLAY_STATION_ROLE] // Your station job. Only used for displaying purpose (i.e Roundend)
+		mind_roles[RLPK_DISPLAY_SPECIAL_ROLE] // Your special job. Only used for displaying purpose as well
+		mind_roles[RLPK_PRIMARY_JOB] // Your station job - as jkey. This is used to track Job type
+
+	// Holder types: these can possibly contain multiple list inside of itself.
+		mind_roles[RLPK_HOLDER_JOBS] // Your jobs. The top one is mostly prioritised
+		mind_roles[RLPK_HOLDER_SPECIAL_ROLES] // Your 'special' roles which isn't antag
+		mind_roles[RLPK_HOLDER_ANTAG_ROLES] // Your antag roles
+		mind_roles[RLPK_HOLDER_FACTIONS] // where you belongs to
+
+	// I.e.
+		"Chaplain of Honkmother" job will be like this
+
+		mind_roles[RLPK_DISPLAY_STATION_ROLE] = "Chaplain of Honkmother"
+		mind_roles[RLPK_HOLDER_JOBS][JOB_KEY_CLOWN] = TRUE
+		mind_roles[RLPK_HOLDER_JOBS][JOB_KEY_CHAPLAIN] = TRUE
+		mind_roles[RLPK_HOLDER_FACTIONS][FACTION_STATION] = TRUE
+*/
 
 // use on get_mind_role(type) in mind proc
-#define JTYPE_JOB_PATH "jpath"
+#define JTYPE_JOB_PATH "jkey"
 #define JTYPE_JOB_NAME "jname"
 #define JTYPE_SPECIAL "jspecial"
 
-// job bitflags
-#define JOB_BITFLAG_SELECTABLE (1<<0)
-#define JOB_BITFLAG_GIMMICK    (1<<1)
+// used in job_bitflags
+#define JOB_BITFLAG_SELECTABLE (1<<0) // basically given to all 'standard' jobs (not gimmicks). if a gimmick job has with this flag, it will be shown in 'job pref' window and people can join a round with that job.
+#define JOB_BITFLAG_GIMMICK    (1<<1) // basically given to all gimmick jobs. this is alwo used to block HoP to touch the amount of a job
 
-// factions
-#define JOB_FACTION_STATION "Station"
 
 // Job bitflags
 // Note: I really have no idea what these are for
@@ -38,9 +66,6 @@
 #define CYBORG			(1<<10)
 #define BRIG_PHYS		(1<<11)
 #define DEPUTY  		(1<<12)
-
-
-#define MEDSCI			(1<<1)
 
 #define RD_JF			(1<<0)
 #define SCIENTIST		(1<<1)
@@ -74,6 +99,7 @@
 #define PSYCHIATRIST    (1<<16)
 #define CELEBRITY       (1<<17)
 
+// return values for job selection results
 #define JOB_AVAILABLE 0
 #define JOB_UNAVAILABLE_GENERIC 1
 #define JOB_UNAVAILABLE_BANNED 2
@@ -82,6 +108,7 @@
 #define JOB_UNAVAILABLE_SLOTFULL 5
 #define JOB_UNAVAILABLE_NOT_INTRODUCED 6
 
+// jobs
 #define DEFAULT_RELIGION "Christianity"
 #define DEFAULT_DEITY "Space Jesus"
 
@@ -142,108 +169,108 @@
 //------------------------------------- Job names -------------------------------------------
 //-------------------------------------------------------------------------------------------
 // ****** WARNING:
-// 		DO NOT CHANGE PATH. You are fine to change NAME defines, but DO NOT DO to PATH defines
+// 		DO NOT CHANGE KEY. You are fine to change NAME defines, but DO NOT DO to KEY defines
 #define JOB_UNASSIGNED "Unassigned"
 #define JOB_DEMOTED "Demoted"
 #define JOB_ERROR "Job error - report to coder"
 
 // Command
 #define JOB_NAME_CAPTAIN "Captain"
-#define JOB_PATH_CAPTAIN "Captain"
+#define JOB_KEY_CAPTAIN "Captain"
 
 // Service
 #define JOB_NAME_HEADOFPERSONNEL "Head of Personnel"
-#define JOB_PATH_HEADOFPERSONNEL "Head of Personnel"
+#define JOB_KEY_HEADOFPERSONNEL "Head of Personnel"
 #define JOB_NAME_ASSISTANT  "Assistant"
-#define JOB_PATH_ASSISTANT  "Assistant"
+#define JOB_KEY_ASSISTANT  "Assistant"
 #define JOB_NAME_BARTENDER  "Bartender"
-#define JOB_PATH_BARTENDER  "Bartender"
+#define JOB_KEY_BARTENDER  "Bartender"
 #define JOB_NAME_BOTANIST   "Botanist"
-#define JOB_PATH_BOTANIST   "Botanist"
+#define JOB_KEY_BOTANIST   "Botanist"
 #define JOB_NAME_COOK     "Cook"
-#define JOB_PATH_COOK     "Cook"
+#define JOB_KEY_COOK     "Cook"
 #define JOB_NAME_JANITOR  "Janitor"
-#define JOB_PATH_JANITOR  "Janitor"
+#define JOB_KEY_JANITOR  "Janitor"
 #define JOB_NAME_CURATOR  "Curator"
-#define JOB_PATH_CURATOR  "Curator"
+#define JOB_KEY_CURATOR  "Curator"
 #define JOB_NAME_LAWYER   "Lawyer"
-#define JOB_PATH_LAWYER   "Lawyer"
+#define JOB_KEY_LAWYER   "Lawyer"
 #define JOB_NAME_CHAPLAIN "Chaplain"
-#define JOB_PATH_CHAPLAIN "Chaplain"
+#define JOB_KEY_CHAPLAIN "Chaplain"
 #define JOB_NAME_MIME   "Mime"
-#define JOB_PATH_MIME   "Mime"
+#define JOB_KEY_MIME   "Mime"
 #define JOB_NAME_CLOWN  "Clown"
-#define JOB_PATH_CLOWN  "Clown"
+#define JOB_KEY_CLOWN  "Clown"
 #define JOB_NAME_STAGEMAGICIAN "Stage Magician" // gimmick
-#define JOB_PATH_STAGEMAGICIAN "Stage Magician" // gimmick
+#define JOB_KEY_STAGEMAGICIAN "Stage Magician" // gimmick
 #define JOB_NAME_BARBER "Barber" // gimmick
-#define JOB_PATH_BARBER "Barber" // gimmick
+#define JOB_KEY_BARBER "Barber" // gimmick
 #define JOB_NAME_VIP    "VIP" // gimmick
-#define JOB_PATH_VIP    "VIP" // gimmick
+#define JOB_KEY_VIP    "VIP" // gimmick
 
 // Cargo
 #define JOB_NAME_QUARTERMASTER   "Quartermaster"
-#define JOB_PATH_QUARTERMASTER   "Quartermaster"
+#define JOB_KEY_QUARTERMASTER   "Quartermaster"
 #define JOB_NAME_CARGOTECHNICIAN "Cargo Technician"
-#define JOB_PATH_CARGOTECHNICIAN "Cargo Technician"
+#define JOB_KEY_CARGOTECHNICIAN "Cargo Technician"
 #define JOB_NAME_SHAFTMINER      "Shaft Miner"
-#define JOB_PATH_SHAFTMINER      "Shaft Miner"
+#define JOB_KEY_SHAFTMINER      "Shaft Miner"
 
 // R&D
 #define JOB_NAME_RESEARCHDIRECTOR "Research Director"
-#define JOB_PATH_RESEARCHDIRECTOR "Research Director"
+#define JOB_KEY_RESEARCHDIRECTOR "Research Director"
 #define JOB_NAME_SCIENTIST  "Scientist"
-#define JOB_PATH_SCIENTIST  "Scientist"
+#define JOB_KEY_SCIENTIST  "Scientist"
 #define JOB_NAME_ROBOTICIST "Roboticist"
-#define JOB_PATH_ROBOTICIST "Roboticist"
+#define JOB_KEY_ROBOTICIST "Roboticist"
 #define JOB_NAME_EXPLORATIONCREW "Exploration Crew"
-#define JOB_PATH_EXPLORATIONCREW "Exploration Crew"
+#define JOB_KEY_EXPLORATIONCREW "Exploration Crew"
 
 // Engineering
 #define JOB_NAME_CHIEFENGINEER   "Chief Engineer"
-#define JOB_PATH_CHIEFENGINEER   "Chief Engineer"
+#define JOB_KEY_CHIEFENGINEER   "Chief Engineer"
 #define JOB_NAME_STATIONENGINEER "Station Engineer"
-#define JOB_PATH_STATIONENGINEER "Station Engineer"
+#define JOB_KEY_STATIONENGINEER "Station Engineer"
 #define JOB_NAME_ATMOSPHERICTECHNICIAN "Atmospheric Technician"
-#define JOB_PATH_ATMOSPHERICTECHNICIAN "Atmospheric Technician"
+#define JOB_KEY_ATMOSPHERICTECHNICIAN "Atmospheric Technician"
 
 // Medical
 #define JOB_NAME_CHIEFMEDICALOFFICER "Chief Medical Officer"
-#define JOB_PATH_CHIEFMEDICALOFFICER "Chief Medical Officer"
+#define JOB_KEY_CHIEFMEDICALOFFICER "Chief Medical Officer"
 #define JOB_NAME_MEDICALDOCTOR "Medical Doctor"
-#define JOB_PATH_MEDICALDOCTOR "Medical Doctor"
+#define JOB_KEY_MEDICALDOCTOR "Medical Doctor"
 #define JOB_NAME_PARAMEDIC  "Paramedic"
-#define JOB_PATH_PARAMEDIC  "Paramedic"
+#define JOB_KEY_PARAMEDIC  "Paramedic"
 #define JOB_NAME_CHEMIST    "Chemist"
-#define JOB_PATH_CHEMIST    "Chemist"
+#define JOB_KEY_CHEMIST    "Chemist"
 #define JOB_NAME_VIROLOGIST "Virologist"
-#define JOB_PATH_VIROLOGIST "Virologist"
+#define JOB_KEY_VIROLOGIST "Virologist"
 #define JOB_NAME_GENETICIST "Geneticist"
-#define JOB_PATH_GENETICIST "Geneticist"
+#define JOB_KEY_GENETICIST "Geneticist"
 #define JOB_NAME_BRIGPHYSICIAN "Brig Physician"
-#define JOB_PATH_BRIGPHYSICIAN "Brig Physician"
+#define JOB_KEY_BRIGPHYSICIAN "Brig Physician"
 #define JOB_NAME_PSYCHIATRIST  "Psychiatrist" // gimmick
-#define JOB_PATH_PSYCHIATRIST  "Psychiatrist" // gimmick
+#define JOB_KEY_PSYCHIATRIST  "Psychiatrist" // gimmick
 
 // Security
 #define JOB_NAME_HEADOFSECURITY "Head of Security"
-#define JOB_PATH_HEADOFSECURITY "Head of Security"
+#define JOB_KEY_HEADOFSECURITY "Head of Security"
 #define JOB_NAME_WARDEN "Warden"
-#define JOB_PATH_WARDEN "Warden"
+#define JOB_KEY_WARDEN "Warden"
 #define JOB_NAME_SECURITYOFFICER "Security Officer"
-#define JOB_PATH_SECURITYOFFICER "Security Officer"
+#define JOB_KEY_SECURITYOFFICER "Security Officer"
 #define JOB_NAME_DETECTIVE "Detective"
-#define JOB_PATH_DETECTIVE "Detective"
+#define JOB_KEY_DETECTIVE "Detective"
 #define JOB_NAME_DEPUTY  "Deputy"
-#define JOB_PATH_DEPUTY  "Deputy"
+#define JOB_KEY_DEPUTY  "Deputy"
 
 // Silicon
 #define JOB_NAME_AI     "AI"
-#define JOB_PATH_AI     "AI"
+#define JOB_KEY_AI     "AI"
 #define JOB_NAME_CYBORG "Cyborg"
-#define JOB_PATH_CYBORG "Cyborg"
+#define JOB_KEY_CYBORG "Cyborg"
 #define JOB_NAME_PAI    "Personal AI"
-#define JOB_PATH_PAI    "Personal AI"
+#define JOB_KEY_PAI    "Personal AI"
 
 // Misc & Off-Station
 #define JOB_NAME_KING    "King"

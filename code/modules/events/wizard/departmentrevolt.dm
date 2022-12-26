@@ -15,22 +15,22 @@
 	tidecolor = pick("grey", "white", "yellow", "purple", "brown", "whatevercolorrepresentstheservicepeople")
 	switch(tidecolor)
 		if("grey") //God help you
-			jobs_to_revolt = list(JOB_PATH_ASSISTANT)
+			jobs_to_revolt = list(JOB_KEY_ASSISTANT)
 			nation_name = pick("Assa", "Mainte", "Tunnel", "Gris", "Grey", "Liath", "Grigio", "Ass", "Assi")
 		if("white")
-			jobs_to_revolt = list(JOB_PATH_CHIEFMEDICALOFFICER, JOB_PATH_MEDICALDOCTOR, JOB_PATH_CHEMIST, JOB_PATH_GENETICIST, JOB_PATH_VIROLOGIST, JOB_PATH_PARAMEDIC)
+			jobs_to_revolt = list(JOB_KEY_CHIEFMEDICALOFFICER, JOB_KEY_MEDICALDOCTOR, JOB_KEY_CHEMIST, JOB_KEY_GENETICIST, JOB_KEY_VIROLOGIST, JOB_KEY_PARAMEDIC)
 			nation_name = pick("Mede", "Healtha", "Recova", "Chemi", "Geneti", "Viro", "Psych")
 		if("yellow")
-			jobs_to_revolt = list(JOB_PATH_CHIEFENGINEER, JOB_PATH_STATIONENGINEER, JOB_PATH_ATMOSPHERICTECHNICIAN)
+			jobs_to_revolt = list(JOB_KEY_CHIEFENGINEER, JOB_KEY_STATIONENGINEER, JOB_KEY_ATMOSPHERICTECHNICIAN)
 			nation_name = pick("Atomo", "Engino", "Power", "Teleco")
 		if("purple")
-			jobs_to_revolt = list(JOB_PATH_RESEARCHDIRECTOR,JOB_PATH_SCIENTIST, JOB_PATH_ROBOTICIST)
+			jobs_to_revolt = list(JOB_KEY_RESEARCHDIRECTOR,JOB_KEY_SCIENTIST, JOB_KEY_ROBOTICIST)
 			nation_name = pick("Sci", "Griffa", "Explosi", "Mecha", "Xeno")
 		if("brown")
-			jobs_to_revolt = list(JOB_PATH_QUARTERMASTER, JOB_PATH_CARGOTECHNICIAN, JOB_PATH_SHAFTMINER)
+			jobs_to_revolt = list(JOB_KEY_QUARTERMASTER, JOB_KEY_CARGOTECHNICIAN, JOB_KEY_SHAFTMINER)
 			nation_name = pick("Cargo", "Guna", "Suppli", "Mule", "Crate", "Ore", "Mini", "Shaf")
 		if("whatevercolorrepresentstheservicepeople") //the few, the proud, the technically aligned
-			jobs_to_revolt = list(JOB_PATH_BARTENDER, JOB_PATH_COOK, JOB_PATH_BOTANIST, JOB_PATH_CLOWN, JOB_PATH_MIME, JOB_PATH_JANITOR, JOB_PATH_CHAPLAIN)
+			jobs_to_revolt = list(JOB_KEY_BARTENDER, JOB_KEY_COOK, JOB_KEY_BOTANIST, JOB_KEY_CLOWN, JOB_KEY_MIME, JOB_KEY_JANITOR, JOB_KEY_CHAPLAIN)
 			nation_name = pick("Honka", "Boozo", "Fatu", "Danka", "Mimi", "Libra", "Jani", "Religi")
 
 	nation_name += pick("stan", "topia", "land", "nia", "ca", "tova", "dor", "ador", "tia", "sia", "ano", "tica", "tide", "cis", "marea", "co", "taoide", "slavia", "stotzka")
@@ -41,12 +41,11 @@
 	for(var/mob/living/carbon/human/H in GLOB.carbon_list)
 		if(H.mind)
 			var/datum/mind/M = H.mind
-			if(M.get_mind_role(JTYPE_JOB_PATH) && !(M.has_antag_datum(/datum/antagonist)))
-				for(var/job in jobs_to_revolt)
-					if(M.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) == job)
-						citizens += H
-						M.add_antag_datum(/datum/antagonist/separatist,nation)
-						H.log_message("Was made into a separatist, long live [nation_name]!", LOG_ATTACK, color="red")
+			if(M.get_station_role() && !(M.has_antag_datum(/datum/antagonist)))
+				if(M.has_job(jobs_to_revolt))
+					citizens += H
+					M.add_antag_datum(/datum/antagonist/separatist,nation)
+					H.log_message("Was made into a separatist, long live [nation_name]!", LOG_ATTACK, color="red")
 
 	if(citizens.len)
 		var/message

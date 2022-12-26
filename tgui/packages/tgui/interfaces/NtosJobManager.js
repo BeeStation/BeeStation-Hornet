@@ -55,7 +55,7 @@ export const NtosJobManagerContent = (props, context) => {
         </Table.Row>
         {slots.map(slot => (
           <Table.Row
-            key={slot.title}
+            key={slot.jkey}
             className="candystripe">
             <Table.Cell
               bold>
@@ -63,9 +63,9 @@ export const NtosJobManagerContent = (props, context) => {
                 fluid
                 content={slot.title}
                 disabled={slot.total <= 0}
-                checked={slot.total > 0 && prioritized.includes(slot.title)}
+                checked={slot.total > 0 && prioritized.includes(slot.jkey)}
                 onClick={() => act('PRG_priority', {
-                  target: slot.title,
+                  target: slot.jkey,
                 })}
               />
             </Table.Cell>
@@ -77,14 +77,14 @@ export const NtosJobManagerContent = (props, context) => {
                 content="Open"
                 disabled={!slot.status_open}
                 onClick={() => act('PRG_open_job', {
-                  target: slot.title,
+                  target: slot.jkey,
                 })}
               />
               <Button
                 content="Close"
                 disabled={!slot.status_close}
                 onClick={() => act('PRG_close_job', {
-                  target: slot.title,
+                  target: slot.jkey,
                 })}
               />
             </Table.Cell>

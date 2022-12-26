@@ -1,10 +1,10 @@
 ///Tracking reasons
 /datum/antagonist/heretic_monster
 	name = "Eldritch Horror"
+	antag_role_type = ROLE_KEY_HERETIC
 	roundend_category = "Heretics"
 	antagpanel_category = "Heretic Beast"
 	antag_moodlet = /datum/mood_event/heretics
-	antag_role_type = ROLE_HERETIC
 	var/antag_hud_type = ANTAG_HUD_HERETIC
 	var/antag_hud_name = "heretic_beast"
 	var/datum/antagonist/heretic/master

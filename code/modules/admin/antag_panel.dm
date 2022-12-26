@@ -99,8 +99,8 @@ GLOBAL_VAR(antag_prototypes)
 
 	var/out = "<B>[name]</B>[(current && (current.real_name!=name))?" (as [current.real_name])":""]<br>"
 	out += "Mind currently owned by key: [key] [active?"(synced)":"(not synced)"]<br>"
-	out += "Assigned role: [get_mind_role(JTYPE_JOB_PATH)]. <a href='?src=[REF(src)];role_edit=1'>Edit</a><br>"
-	out += "Faction and special role: <b><font color='red'>[get_mind_role(JTYPE_SPECIAL)]</font></b><br>"
+	out += "Station role: [get_station_role(TRUE)]. <a href='?src=[REF(src)];role_edit=1'>Edit</a><br>"
+	out += "Special role: <b><font color='red'>[get_special_role(TRUE)]</font></b><br>"
 
 	var/special_statuses = get_special_statuses()
 	if(length(special_statuses))

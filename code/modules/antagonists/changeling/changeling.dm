@@ -4,9 +4,9 @@
 
 /datum/antagonist/changeling
 	name = "Changeling"
+	antag_role_type = ROLE_KEY_CHANGELING
 	roundend_category  = "changelings"
 	antagpanel_category = "Changeling"
-	antag_role_type = ROLE_CHANGELING
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5
 	var/you_are_greet = TRUE
@@ -82,7 +82,6 @@
 	if(give_objectives)
 		forge_objectives()
 	handle_clown_mutation(owner.current, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
-	owner.mind_roles[JLIST_SPECIAL] = antag_role_type
 	owner.current.grant_all_languages(FALSE, FALSE, TRUE)	//Grants omnitongue. We are able to transform our body after all.
 	. = ..()
 
@@ -179,7 +178,7 @@
 		to_chat(owner.current, "We lack the energy to evolve new abilities right now.")
 		return
 
-	log_game("[sting_name] purchased by [owner.current.ckey]/[owner.current.name] the [owner.current.job] for [thepower.dna_cost] GP, [geneticpoints] GP remaining.")
+	log_game("[sting_name] purchased by [owner.current.ckey]/[owner.current.name] the [owner.get_station_role(TRUE)] for [thepower.dna_cost] GP, [geneticpoints] GP remaining.")
 	geneticpoints -= thepower.dna_cost
 	purchasedpowers += thepower
 	thepower.on_purchase(owner.current)//Grant() is ran in this proc, see changeling_powers.dm
@@ -196,7 +195,7 @@
 		reset_powers()
 		canrespec = 0
 		SSblackbox.record_feedback("tally", "changeling_power_purchase", 1, "Readapt")
-		log_game("Genetic powers refunded by [owner.current.ckey]/[owner.current.name] the [owner.current.job], [geneticpoints] GP remaining.")
+		log_game("Genetic powers refunded by [owner.current.ckey]/[owner.current.name] the [owner.get_station_role(TRUE)], [geneticpoints] GP remaining.")
 		return 1
 	else
 		to_chat(owner.current, "<span class='danger'>You lack the power to readapt your evolutions!</span>")
@@ -421,7 +420,7 @@
 			var/datum/objective/assassinate/kill_objective = new
 			kill_objective.owner = owner
 			if(team_mode) //No backstabbing while in a team
-				kill_objective.find_target_by_role(role = ROLE_CHANGELING, role_type = TRUE, invert = TRUE)
+				kill_objective.find_target_by_role(role = ROLE_KEY_CHANGELING, role_type = TRUE, invert = TRUE)
 			else
 				kill_objective.find_target()
 			objectives += kill_objective
@@ -430,7 +429,7 @@
 			var/datum/objective/maroon/maroon_objective = new
 			maroon_objective.owner = owner
 			if(team_mode)
-				maroon_objective.find_target_by_role(role = ROLE_CHANGELING, role_type = TRUE, invert = TRUE)
+				maroon_objective.find_target_by_role(role = ROLE_KEY_CHANGELING, role_type = TRUE, invert = TRUE)
 			else
 				maroon_objective.find_target()
 			objectives += maroon_objective
@@ -458,7 +457,7 @@
 			var/datum/objective/escape/escape_with_identity/identity_theft = new
 			identity_theft.owner = owner
 			if(team_mode)
-				identity_theft.find_target_by_role(role = ROLE_CHANGELING, role_type = TRUE, invert = TRUE)
+				identity_theft.find_target_by_role(role = ROLE_KEY_CHANGELING, role_type = TRUE, invert = TRUE)
 			else
 				identity_theft.find_target()
 			objectives += identity_theft

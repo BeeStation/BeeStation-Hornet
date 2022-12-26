@@ -26,9 +26,10 @@
 	var/burn_damage = 0
 	var/datum/disease/disease = null //Do they start with a pre-spawned disease?
 	var/mob_color //Change the mob's color
-	var/assignedrole
+	var/spawner_special_role
+	var/spawner_special_role_name // basically 'name' variable is the special role name, but use this when you want different title
 	var/show_flavour = TRUE
-	var/banType = ROLE_LAVALAND
+	var/banType = list(ROLE_BANCHECK_MAJOR_GHOSTSPAWN) // basically checks ghost ban, and spawner_special_role is added to this as well
 	var/ghost_usable = TRUE
 	var/use_cooldown = FALSE
 
@@ -64,6 +65,9 @@
 		GLOB.poi_list |= src
 		LAZYADD(GLOB.mob_spawners[name], src)
 		SSmobs.update_spawners()
+	if(spawner_special_role in GLOB.midround_antag_list) // if the role is in the antag list, prob you should bancheck that too
+		bantype |= ROLE_BANCHECK_MAJOR_ANTAGONIST
+	banType |= spawner_special_role
 
 /obj/effect/mob_spawn/Destroy()
 	GLOB.poi_list -= src
@@ -124,8 +128,8 @@
 				O.owner = MM
 				A.objectives += O
 				log_objective(O.owner, O.explanation_text)
-		if(assignedrole)
-			M.mind.mind_roles[JLIST_SPECIAL] = assignedrole
+		if(spawner_special_role)
+			M.mind.assign_special_role(spawner_special_role, spawner_special_role_name || name)
 		special(M, name)
 		MM.name = M.real_name
 	if(uses > 0)
@@ -142,10 +146,10 @@
 	var/disable_pda = TRUE
 	var/disable_sensors = TRUE
 	//All of these only affect the ID that the outfit has placed in the ID slot
-	var/id_job = null			//Such as JOB_NAME_CLOWN or "Chef." This just determines what the ID reads as, not their access
-	var/id_access = null		//This is for access. See access.dm for which jobs give what access. Use JOB_PATH_CAPTAIN if you want it to be all access.
+	var/id_title = null 		//Such as JOB_KEY_CLOWN or "Chef." This just determines what the ID reads as, not their access
+	var/id_access = null		//This is for access. See access.dm for which jobs give what access. Use JOB_KEY_CAPTAIN if you want it to be all access.
 	var/id_access_list = null	//Allows you to manually add access to an ID card.
-	assignedrole = "Ghost Role"
+	spawner_special_role = ROLE_KEY_UNDEFINED_SPECIAL_ROLE
 
 	var/husk = null
 	//these vars are for lazy mappers to override parts of the outfit
@@ -226,15 +230,15 @@
 	if(W)
 		if(id_access)
 			for(var/datum/job/J in SSjob.occupations)
-				if(J.get_jpath() == id_access)
+				if(J.get_jkey() == id_access)
 					W.access = J.get_access()
 					break
 		if(id_access_list)
 			if(!islist(W.access))
 				W.access = list()
 			W.access |= id_access_list
-		if(id_job)
-			W.assignment = id_job
+		if(id_title)
+			W.assignment = id_title
 		W.registered_name = H.real_name
 		W.update_label()
 
@@ -306,7 +310,7 @@
 ///////////Civilians//////////////////////
 
 /obj/effect/mob_spawn/human/corpse/assistant
-	name = JOB_NAME_ASSISTANT
+	name = JOB_KEY_ASSISTANT
 	outfit = /datum/outfit/job/assistant
 
 /obj/effect/mob_spawn/human/corpse/assistant/beesease_infection
@@ -323,7 +327,7 @@
 	outfit = /datum/outfit/job/cargo_technician
 
 /obj/effect/mob_spawn/human/cook
-	name = JOB_NAME_COOK
+	name = JOB_KEY_COOK
 	outfit = /datum/outfit/job/cook
 
 
@@ -340,7 +344,7 @@
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
 	short_desc = "You are a space doctor!"
-	assignedrole = "Space Doctor"
+	spawner_special_role = ROLE_KEY_UNDEFINED_SPECIAL_ROLE
 	use_cooldown = TRUE // Use cooldown
 
 /obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H)
@@ -359,15 +363,15 @@
 	outfit = /datum/outfit/job/engineer/gloved/rig
 
 /obj/effect/mob_spawn/human/clown
-	name = JOB_NAME_CLOWN
+	name = JOB_KEY_CLOWN
 	outfit = /datum/outfit/job/clown
 
 /obj/effect/mob_spawn/human/scientist
-	name = JOB_NAME_SCIENTIST
+	name = JOB_KEY_SCIENTIST
 	outfit = /datum/outfit/job/scientist
 
 /obj/effect/mob_spawn/human/miner
-	name = JOB_NAME_SHAFTMINER
+	name = JOB_KEY_SHAFTMINER
 	outfit = /datum/outfit/job/miner
 
 /obj/effect/mob_spawn/human/miner/rig
@@ -384,11 +388,12 @@
 
 /obj/effect/mob_spawn/human/bartender
 	name = "Space Bartender"
-	id_job = JOB_NAME_BARTENDER
+	id_title = JOB_KEY_BARTENDER
 	id_access_list = list(ACCESS_BAR)
 	outfit = /datum/outfit/spacebartender
 
 /obj/effect/mob_spawn/human/bartender/alive
+	spawner_special_role = null // I believe this job doesn't need to be time tracked..
 	death = FALSE
 	roundstart = FALSE
 	random = TRUE
@@ -397,8 +402,7 @@
 	icon_state = "sleeper"
 	short_desc = "You are a space bartender!"
 	flavour_text = "Time to mix drinks and change lives. Smoking space drugs makes it easier to understand your patrons' odd dialect."
-	assignedrole = "Space Bartender"
-	id_job = JOB_NAME_BARTENDER
+	id_title = JOB_KEY_BARTENDER
 	use_cooldown = TRUE
 
 /datum/outfit/spacebartender
@@ -431,7 +435,7 @@
 	icon_state = "sleeper"
 	short_desc = "You're, like, totally a dudebro, bruh."
 	flavour_text = "Ch'yea. You came here, like, on spring break, hopin' to pick up some bangin' hot chicks, y'knaw?"
-	assignedrole = "Beach Bum"
+	spawner_special_role = ROLE_KEY_BEACH_BUM
 	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/human/beach/alive/lifeguard
@@ -439,7 +443,7 @@
 	flavour_text = "It's up to you to make sure nobody drowns or gets eaten by sharks and stuff."
 	mob_gender = "female"
 	name = "lifeguard sleeper"
-	id_job = "Lifeguard"
+	id_title = "Lifeguard"
 	uniform = /obj/item/clothing/under/shorts/red
 
 /datum/outfit/beachbum
@@ -460,7 +464,7 @@
 
 /obj/effect/mob_spawn/human/bridgeofficer
 	name = "Bridge Officer"
-	id_job = "Bridge Officer"
+	id_title = "Bridge Officer"
 	id_access_list = list(ACCESS_CENT_CAPTAIN)
 	outfit = /datum/outfit/nanotrasenbridgeofficercorpse
 
@@ -476,7 +480,7 @@
 
 /obj/effect/mob_spawn/human/commander
 	name = "Commander"
-	id_job = "Commander"
+	id_title = "Commander"
 	id_access_list = list(ACCESS_CENT_CAPTAIN, ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_STORAGE)
 	outfit = /datum/outfit/nanotrasencommandercorpse
 
@@ -496,7 +500,7 @@
 
 /obj/effect/mob_spawn/human/nanotrasensoldier
 	name = "\improper Nanotrasen Private Security Officer"
-	id_job = "Private Security Force"
+	id_title = "Private Security Force"
 	id_access_list = list(ACCESS_CENT_CAPTAIN, ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_STORAGE, ACCESS_SECURITY, ACCESS_MECH_SECURITY)
 	outfit = /datum/outfit/nanotrasensoldiercorpse
 
@@ -549,7 +553,7 @@
 	icon_state = "remains"
 	short_desc = "By unknown powers, your skeletal remains have been reanimated!"
 	flavour_text = "Walk this mortal plain and terrorize all living adventurers who dare cross your path."
-	assignedrole = "Skeleton"
+	spawner_special_role = ROLE_KEY_UNDEAD
 	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/human/skeleton/alive/equip(mob/living/carbon/human/H)
@@ -561,7 +565,6 @@
 	name = "rotting corpse"
 	mob_name = "zombie"
 	mob_species = /datum/species/zombie
-	assignedrole = "Zombie"
 
 /obj/effect/mob_spawn/human/zombie/alive
 	death = FALSE
@@ -571,6 +574,7 @@
 	short_desc = "By unknown powers, your rotting remains have been resurrected!"
 	flavour_text = "Walk this mortal plain and terrorize all living adventurers who dare cross your path."
 	use_cooldown = TRUE
+	spawner_special_role = ROLE_KEY_UNDEAD
 
 /obj/effect/mob_spawn/human/abductor
 	name = "abductor"
@@ -592,7 +596,7 @@
 	permanent = TRUE
 	uses = -1
 	outfit = /datum/outfit/spacebartender
-	assignedrole = "Space Bar Patron"
+	spawner_special_role = ROLE_KEY_UNDEFINED_SPECIAL_ROLE // this role is used in nowhere. change it later when you want
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/effect/mob_spawn/human/alive/space_bar_patron/attack_hand(mob/user)

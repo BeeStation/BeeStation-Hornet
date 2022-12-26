@@ -17,7 +17,7 @@
 	attack_same = 2
 	attacktext = "chomps"
 	attack_sound = 'sound/weapons/bite.ogg'
-	faction = list("mushroom")
+	faction = list(FACTION_FUNGI)
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	stat_attack = DEAD
 	mouse_opacity = MOUSE_OPACITY_ICON

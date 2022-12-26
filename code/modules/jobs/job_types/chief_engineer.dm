@@ -1,5 +1,5 @@
 /datum/job/chief_engineer
-	jpath = JOB_PATH_CHIEFENGINEER
+	jkey = JOB_KEY_CHIEFENGINEER
 	title = JOB_NAME_CHIEFENGINEER
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = CHIEF
@@ -7,7 +7,7 @@
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list("Engineering")
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ffeeaa"
@@ -44,7 +44,7 @@
 	)
 
 /datum/outfit/job/chief_engineer
-	name = JOB_PATH_CHIEFENGINEER
+	name = JOB_KEY_CHIEFENGINEER
 	jobtype = /datum/job/chief_engineer
 
 	id = /obj/item/card/id/job/chief_engineer

@@ -3,6 +3,7 @@
 
 /datum/antagonist/separatist
 	name = "Separatists"
+	antag_role_type = null
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	var/datum/team/nation/nation

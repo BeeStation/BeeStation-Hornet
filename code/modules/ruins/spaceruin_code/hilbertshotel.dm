@@ -452,11 +452,11 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	name = "Doctor Hilbert"
 	mob_name = "Doctor Hilbert"
 	mob_gender = "male"
-	assignedrole = null
+	spawner_special_role = ROLE_KEY_LIVING_LEGEND
 	ghost_usable = FALSE
 	oxy_damage = 500
 	mob_species = /datum/species/skeleton
-	id_job = "Head Researcher"
+	id_title = "Head Researcher"
 	id_access = ACCESS_RESEARCH
 	id_access_list = list(ACCESS_AWAY_GENERIC3, ACCESS_RESEARCH)
 	instant = TRUE

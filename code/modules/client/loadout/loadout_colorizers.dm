@@ -10,28 +10,28 @@
 /datum/gear/colorizer/capcloakroyal
     display_name = "Captain's Cloak Colorizer (Royal)"
     path = /obj/item/colorizer/capcloakroyal
-    allowed_roles = list(JOB_NAME_CAPTAIN)
+    allowed_roles = list(JOB_KEY_CAPTAIN)
 
 /datum/gear/colorizer/hoscloakroyal
     display_name = "Head of Security's Cloak Colorizer (Royal)"
     path = /obj/item/colorizer/hoscloakroyal
-    allowed_roles = list(JOB_NAME_HEADOFSECURITY)
+    allowed_roles = list(JOB_KEY_HEADOFSECURITY)
 
 /datum/gear/colorizer/rdcloakroyal
     display_name = "Research Director's Cloak Colorizer (Royal)"
     path = /obj/item/colorizer/rdcloakroyal
-    allowed_roles = list(JOB_NAME_RESEARCHDIRECTOR)
+    allowed_roles = list(JOB_KEY_RESEARCHDIRECTOR)
 
 /datum/gear/colorizer/iandeathsquad
     display_name = "Ian Colorizer (Death Squad)"
     path = /obj/item/colorizer/iandeathsquad
-    allowed_roles = list(JOB_NAME_HEADOFPERSONNEL)
+    allowed_roles = list(JOB_KEY_HEADOFPERSONNEL)
     cost = 20000
 
 /datum/gear/colorizer/militarycap
     display_name = "Captain's Clothes Colouriser (Military)"
     path = /obj/item/colorizer/captain_military_uniform
-    allowed_roles = list(JOB_NAME_CAPTAIN)
+    allowed_roles = list(JOB_KEY_CAPTAIN)
     cost = 10000
 
 /datum/gear/colorizer/pdatransparent

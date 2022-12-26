@@ -7,9 +7,9 @@
 // initial agents and converted ones is that the initial agent has the items required to convert people and the AI.
 /datum/antagonist/overthrow
 	name = "Syndicate mutineer"
+	antag_role_type = ROLE_KEY_TRAITOR // simply use the traitor preference & jobban settings
 	roundend_category = "syndicate mutineers"
 	antagpanel_category = "Syndicate Mutineers"
-	antag_role_type = ROLE_TRAITOR // simply use the traitor preference & jobban settings
 	var/datum/team/overthrow/team
 	var/static/list/possible_useful_items
 
@@ -29,12 +29,10 @@
 	..()
 	owner.announce_objectives()
 	equip_overthrow()
-	owner.mind_roles[JLIST_SPECIAL] = ROLE_OVERTHROW
 	for(var/datum/objective/O in team.objectives)
 		log_objective(owner, O.explanation_text)
 
 /datum/antagonist/overthrow/on_removal()
-	owner.nullify_special_role()
 	..()
 
 // Creates the overthrow team, or sets it. The objectives are static for all the team members.

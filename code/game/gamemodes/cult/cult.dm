@@ -16,7 +16,7 @@
 	if(!istype(M))
 		return FALSE
 	if(M.mind)
-		if(ishuman(M) && (M.mind.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in list(JOB_PATH_CAPTAIN, JOB_PATH_CHAPLAIN)))
+		if(ishuman(M) && M.mind.has_job(list(JOB_KEY_CAPTAIN, JOB_KEY_CHAPLAIN)))
 			return FALSE
 		if(specific_cult && specific_cult.is_sacrifice_target(M.mind))
 			return FALSE
@@ -36,9 +36,9 @@
 	name = "cult"
 	config_tag = "cult"
 	report_type = "cult"
-	antag_flag = ROLE_CULTIST
+	antag_flag = ROLE_KEY_CULTIST
 	false_report_weight = 1
-	restricted_jobs = list(JOB_PATH_CHAPLAIN, JOB_PATH_AI, JOB_PATH_CYBORG, JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN, JOB_PATH_HEADOFPERSONNEL)
+	restricted_jobs = list(JOB_KEY_CHAPLAIN, JOB_KEY_AI, JOB_KEY_CYBORG, JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN, JOB_KEY_HEADOFPERSONNEL)
 	protected_jobs = list()
 	required_players = 29
 	required_enemies = 4
@@ -68,7 +68,7 @@
 		restricted_jobs += protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += JOB_PATH_ASSISTANT
+		restricted_jobs += JOB_KEY_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
@@ -84,13 +84,12 @@
 	for(var/cultists_number = 1 to recommended_enemies)
 		if(!antag_candidates.len)
 			break
-		var/datum/mind/cultist = antag_pick(antag_candidates, ROLE_CULTIST)
+		var/datum/mind/cultist = antag_pick(antag_candidates, ROLE_KEY_CULTIST)
 		antag_candidates -= cultist
 		if(!cultist)
 			cultists_number--
 			continue
 		cultists_to_cult += cultist
-		cultist.mind_roles[JLIST_SPECIAL] = ROLE_CULTIST
 		cultist.restricted_roles = restricted_jobs
 		log_game("[key_name(cultist)] has been selected as a cultist")
 

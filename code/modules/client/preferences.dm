@@ -645,7 +645,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			dat += "<h2>Special Role Settings</h2>"
 
-			if(is_banned_from(user.ckey, ROLE_SYNDICATE))
+			if(is_banned_from(user.ckey, ROLE_BANCHECK_MAJOR_ANTAGONIST))
 				dat += "<font color=red><b>You are banned from antagonist roles.</b></font><br>"
 				src.be_special = list()
 
@@ -842,7 +842,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 #undef APPEARANCE_CATEGORY_COLUMN
 #undef MAX_MUTANT_ROWS
 
-/datum/preferences/proc/SetChoices(mob/user, limit = 16, list/splitJobs = list(JOB_NAME_CLOWN, JOB_NAME_RESEARCHDIRECTOR), widthPerColumn = 295, height = 620)
+/datum/preferences/proc/SetChoices(mob/user, limit = 16, list/splitJobs = list(JOB_KEY_CLOWN, JOB_KEY_RESEARCHDIRECTOR), widthPerColumn = 295, height = 620)
 	if(!SSjob)
 		return
 
@@ -874,9 +874,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 		for(var/datum/job/job in sortList(SSjob.occupations, /proc/cmp_job_display_asc))
 			index += 1
-			if(!(job_bitflags & JOB_BITFLAG_SELECTABLE))
+			if(!(job.job_bitflags & JOB_BITFLAG_SELECTABLE))
 				continue
-			if((index >= limit) || (job.get_jpath() in splitJobs))
+			if((index >= limit) || (job.get_jkey() in splitJobs))
 				width += widthPerColumn
 				if((index < limit) && (lastJob != null))
 					//If the cells were broken up by a job in the splitJob list then it will fill in the rest of the cells with
@@ -888,7 +888,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			HTML += "<tr bgcolor='[job.selection_color]'><td width='60%' align='right'>"
 			var/rank = job.get_title()
-			var/jop_key = job.get_jpath()
+			var/jop_key = job.get_jkey()
 			lastJob = job
 			if(is_banned_from(user.ckey, jop_key))
 				HTML += "<font color=red>[rank]</font></td><td><a href='?_src_=prefs;bancheck=[jop_key]'> BANNED</a></td></tr>"
@@ -904,7 +904,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if((active_character.job_preferences[overflow] == JP_LOW) && (rank != SSjob.overflow_role) && !is_banned_from(user.ckey, SSjob.overflow_role))
 				HTML += "<font color=orange>[rank]</font></td><td></td></tr>"
 				continue
-			if((jop_key in GLOB.command_positions) || (jop_key == JOB_PATH_AI))//Bold head jobs
+			if((jop_key in GLOB.command_positions) || (jop_key == JOB_KEY_AI))//Bold head jobs
 				HTML += "<b><span class='dark'>[rank]</span></b>"
 			else
 				HTML += "<span class='dark'>[rank]</span>"
@@ -941,7 +941,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			HTML += "<a class='white' href='?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[rank]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[rank]\");'>"
 
 			if(rank == SSjob.overflow_role)//Overflow is special
-				if(active_character.job_preferences[overflow.get_jpath()] == JP_LOW)
+				if(active_character.job_preferences[overflow.get_jkey()] == JP_LOW)
 					HTML += "<font color=green>Yes</font>"
 				else
 					HTML += "<font color=red>No</font>"
@@ -1044,7 +1044,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				active_character.job_preferences[j] = JP_MEDIUM
 				//technically break here
 
-	active_character.job_preferences[job.get_jpath()] = level
+	active_character.job_preferences[job.get_jkey()] = level
 	return TRUE
 
 
@@ -1075,7 +1075,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			jpval = JP_HIGH
 
 	if(role == SSjob.overflow_role)
-		if(active_character.job_preferences[job.get_jpath()] == JP_LOW)
+		if(active_character.job_preferences[job.get_jkey()] == JP_LOW)
 			jpval = null
 		else
 			jpval = JP_LOW

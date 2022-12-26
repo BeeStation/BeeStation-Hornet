@@ -5,10 +5,10 @@
 	name = "Traitor"
 	roundend_category = "traitors"
 	antagpanel_category = "Traitor"
-	antag_role_type = ROLE_TRAITOR
+	antag_role_type = ROLE_KEY_TRAITOR
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5				//10 seconds per hijack stage by default
-	var/special_role = ROLE_TRAITOR
+	var/special_role = ROLE_KEY_TRAITOR
 	var/employer = "The Syndicate"
 	var/should_give_codewords = TRUE
 	var/should_equip = TRUE
@@ -18,9 +18,9 @@
 /datum/antagonist/traitor/on_gain()
 	if(owner.current && isAI(owner.current))
 		traitor_kind = TRAITOR_AI
+		antag_role_type = ROLE_KEY_MALF
 
 	SSticker.mode.traitors += owner
-	owner.mind_roles[JLIST_SPECIAL] = special_role
 	if(give_objectives)
 		forge_traitor_objectives()
 	finalize_traitor()
@@ -46,7 +46,6 @@
 	SSticker.mode.traitors -= owner
 	if(!silent && owner.current)
 		to_chat(owner.current,"<span class='userdanger'> You are no longer the [special_role]! </span>")
-	owner.nullify_special_role()
 	..()
 
 /datum/antagonist/traitor/proc/handle_hearing(datum/source, list/hearing_args)
@@ -166,7 +165,7 @@
 			kill_objective.find_target()
 			add_objective(kill_objective)
 	else
-		if(prob(15) && !(locate(/datum/objective/download) in objectives) && !(owner.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST)))
+		if(prob(15) && !(locate(/datum/objective/download) in objectives) && !owner.has_job(GLOB.science_positions+JOB_KEY_GENETICIST))
 			var/datum/objective/download/download_objective = new
 			download_objective.owner = owner
 			download_objective.gen_amount_goal()
@@ -206,7 +205,7 @@
 			.=2
 
 /datum/antagonist/traitor/greet()
-	to_chat(owner.current, "<span class='alertsyndie'>You are the [owner.get_mind_role(JTYPE_SPECIAL)].</span>")
+	to_chat(owner.current, "<span class='alertsyndie'>You are the [owner.get_special_role()].</span>")
 	owner.announce_objectives()
 	if(should_give_codewords)
 		give_codewords()
@@ -287,13 +286,13 @@
 
 /datum/antagonist/traitor/proc/assign_exchange_role()
 	//set faction
-	var/faction = "red"
+	var/faction = FACTION_RED
 	if(owner == SSticker.mode.exchange_blue)
-		faction = "blue"
+		faction = FACTION_BLUE
 
 	//Assign objectives
 	var/datum/objective/steal/exchange/exchange_objective = new
-	exchange_objective.set_faction(faction,((faction == "red") ? SSticker.mode.exchange_blue : SSticker.mode.exchange_red))
+	exchange_objective.set_faction(faction,((faction == FACTION_RED) ? SSticker.mode.exchange_blue : SSticker.mode.exchange_red))
 	exchange_objective.owner = owner
 	add_objective(exchange_objective)
 

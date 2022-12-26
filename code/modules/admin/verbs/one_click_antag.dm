@@ -28,7 +28,7 @@
 	popup.open()
 
 /datum/admins/proc/isReadytoRumble(mob/living/carbon/human/applicant, targetrole, onstation = TRUE, conscious = TRUE)
-	if(applicant.mind.get_mind_role(JTYPE_SPECIAL))
+	if(applicant.mind.get_special_role())
 		return FALSE
 	if(!(targetrole in applicant.client.prefs.be_special))
 		return FALSE
@@ -40,7 +40,7 @@
 		return FALSE
 	if(!considered_alive(applicant.mind) || considered_afk(applicant.mind)) //makes sure the player isn't a zombie, brain, or just afk all together
 		return FALSE
-	return !is_banned_from(applicant.ckey, list(targetrole, ROLE_SYNDICATE))
+	return !is_banned_from(applicant.ckey, list(targetrole, ROLE_BANCHECK_MAJOR_ANTAGONIST))
 
 
 /datum/admins/proc/makeTraitors(maxCount = 3)
@@ -50,7 +50,7 @@
 		temp.restricted_jobs += temp.protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		temp.restricted_jobs += JOB_PATH_ASSISTANT
+		temp.restricted_jobs += JOB_KEY_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		temp.restricted_jobs += GLOB.command_positions
@@ -59,9 +59,9 @@
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
-		if(isReadytoRumble(applicant, ROLE_TRAITOR))
+		if(isReadytoRumble(applicant, ROLE_KEY_TRAITOR))
 			if(temp.age_check(applicant.client))
-				if(!(applicant.job in temp.restricted_jobs))
+				if(!applicant.mind.has_job(temp.restricted_jobs))
 					candidates += applicant
 
 	if(candidates.len)
@@ -85,7 +85,7 @@
 		temp.restricted_jobs += temp.protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		temp.restricted_jobs += JOB_PATH_ASSISTANT
+		temp.restricted_jobs += JOB_KEY_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		temp.restricted_jobs += GLOB.command_positions
@@ -94,9 +94,9 @@
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
-		if(isReadytoRumble(applicant, ROLE_CHANGELING))
+		if(isReadytoRumble(applicant, ROLE_KEY_CHANGELING))
 			if(temp.age_check(applicant.client))
-				if(!(applicant.job in temp.restricted_jobs))
+				if(!applicant.mind.has_job(temp.restricted_jobs))
 					candidates += applicant
 
 	if(candidates.len)
@@ -118,15 +118,15 @@
 		temp.restricted_jobs += temp.protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		temp.restricted_jobs += JOB_PATH_ASSISTANT
+		temp.restricted_jobs += JOB_KEY_ASSISTANT
 
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
-		if(isReadytoRumble(applicant, ROLE_REV))
+		if(isReadytoRumble(applicant, ROLE_KEY_REVOLUTION))
 			if(temp.age_check(applicant.client))
-				if(!(applicant.job in temp.restricted_jobs))
+				if(!applicant.mind.has_job(temp.restricted_jobs))
 					candidates += applicant
 
 	if(candidates.len)
@@ -142,7 +142,7 @@
 
 /datum/admins/proc/makeWizard()
 
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for the position of a Wizard Federation 'diplomat'?", ROLE_WIZARD, null)
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for the position of a Wizard Federation 'diplomat'?", ROLE_KEY_WIZARD, null)
 
 	var/mob/dead/observer/selected = pick_n_take(candidates)
 
@@ -157,7 +157,7 @@
 		temp.restricted_jobs += temp.protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		temp.restricted_jobs += JOB_PATH_ASSISTANT
+		temp.restricted_jobs += JOB_KEY_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		temp.restricted_jobs += GLOB.command_positions
@@ -166,9 +166,9 @@
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
-		if(isReadytoRumble(applicant, ROLE_CULTIST))
+		if(isReadytoRumble(applicant, ROLE_KEY_CULTIST))
 			if(temp.age_check(applicant.client))
-				if(!(applicant.job in temp.restricted_jobs))
+				if(!applicant.mind.has_job(temp.restricted_jobs))
 					candidates += applicant
 
 	if(candidates.len)
@@ -187,7 +187,7 @@
 
 /datum/admins/proc/makeNukeTeam(maxCount = 5)
 	var/datum/game_mode/nuclear/temp = new
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for a nuke team being sent in?", ROLE_OPERATIVE, temp)
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for a nuke team being sent in?", ROLE_KEY_OPERATIVE, temp)
 	var/list/mob/dead/observer/chosen = list()
 	var/mob/dead/observer/theghost = null
 
@@ -401,7 +401,6 @@
 					ert_antag = new ert_antag
 
 				ERTOperative.mind.add_antag_datum(ert_antag,ert_team)
-				ERTOperative.mind.mind_roles[JLIST_SPECIAL] = ert_antag.name
 
 				//Logging and cleanup
 				log_game("[key_name(ERTOperative)] has been selected as an [ert_antag.name]")

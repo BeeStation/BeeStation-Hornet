@@ -1,5 +1,5 @@
 /datum/job/assistant/barber
-	g_jpath = JOB_PATH_BARBER
+	g_jkey = JOB_KEY_BARBER
 	g_title = JOB_NAME_BARBER
 	job_bitflags = JOB_BITFLAG_GIMMICK
 	flag = BARBER
@@ -22,7 +22,7 @@
 	)
 
 /datum/outfit/job/barber
-	name = JOB_PATH_BARBER
+	name = JOB_KEY_BARBER
 	jobtype = /datum/job/assistant/barber
 	id = /obj/item/card/id/job/barber
 	belt = /obj/item/modular_computer/tablet/pda/unlicensed

@@ -341,7 +341,7 @@
 	min_val = -1
 
 /datum/config_entry/string/overflow_job
-	config_entry_value = JOB_PATH_ASSISTANT
+	config_entry_value = JOB_KEY_ASSISTANT
 
 /datum/config_entry/flag/starlight
 /datum/config_entry/flag/grey_assistants

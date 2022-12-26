@@ -8,11 +8,11 @@
 
 /datum/round_event/ghost_role/nightmare
 	minimum_required = 1
-	role_name = ROLE_NIGHTMARE
+	role_name = ROLE_KEY_NIGHTMARE
 	fakeable = FALSE
 
 /datum/round_event/ghost_role/nightmare/spawn_role()
-	var/list/candidates = get_candidates(ROLE_NIGHTMARE, null, ROLE_NIGHTMARE)
+	var/list/candidates = get_candidates(ROLE_KEY_NIGHTMARE, null, ROLE_KEY_NIGHTMARE)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 
@@ -34,7 +34,6 @@
 
 	var/mob/living/carbon/human/S = new ((pick(spawn_locs)))
 	player_mind.transfer_to(S)
-	player_mind.mind_roles[JLIST_SPECIAL] = ROLE_NIGHTMARE
 	player_mind.add_antag_datum(/datum/antagonist/nightmare)
 	S.set_species(/datum/species/shadow/nightmare)
 	playsound(S, 'sound/magic/ethereal_exit.ogg', 50, 1, -1)

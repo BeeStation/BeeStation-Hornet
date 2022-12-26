@@ -1,11 +1,11 @@
 /datum/job/roboticist
-	jpath = JOB_PATH_ROBOTICIST
+	jkey = JOB_KEY_ROBOTICIST
 	title = JOB_NAME_ROBOTICIST
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = ROBOTICIST
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 2
 	spawn_positions = 2
 	selection_color = "#ffeeff"
@@ -19,7 +19,6 @@
 	minimal_access = list(ACCESS_ROBOTICS, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MECH_SCIENCE,
 					ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_MEDIUM)
@@ -32,7 +31,7 @@
 	)
 
 /datum/outfit/job/roboticist
-	name = JOB_PATH_ROBOTICIST
+	name = JOB_KEY_ROBOTICIST
 	jobtype = /datum/job/roboticist
 
 	id = /obj/item/card/id/job/roboticist

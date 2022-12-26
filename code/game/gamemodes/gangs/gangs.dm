@@ -5,8 +5,8 @@ GLOBAL_LIST_EMPTY(gangs)
 /datum/game_mode/gang
 	name = "gang war"
 	config_tag = "gang"
-	antag_flag = ROLE_GANG
-	restricted_jobs = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE, JOB_PATH_AI, JOB_PATH_CYBORG,JOB_PATH_CAPTAIN, JOB_PATH_HEADOFPERSONNEL, JOB_PATH_HEADOFSECURITY)
+	antag_flag = ROLE_KEY_GANG
+	restricted_jobs = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE, JOB_KEY_AI, JOB_KEY_CYBORG,JOB_KEY_CAPTAIN, JOB_KEY_HEADOFPERSONNEL, JOB_KEY_HEADOFSECURITY)
 	required_players = 30
 	required_enemies = 2
 	recommended_enemies = 3
@@ -26,7 +26,7 @@ GLOBAL_LIST_EMPTY(gangs)
 		restricted_jobs += protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += JOB_PATH_ASSISTANT
+		restricted_jobs += JOB_KEY_ASSISTANT
 
 	//Spawn more bosses depending on server population
 	var/gangs_to_create = 2

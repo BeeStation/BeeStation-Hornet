@@ -3,8 +3,8 @@
 /datum/objective/crew/petsplosion
 	explanation_text = "Ensure there are at least (If you see this, yell on GitHub) pets on the station by the end of the shift. Interpret this as you wish."
 	jobs = list(
-		JOB_NAME_QUARTERMASTER,
-		JOB_NAME_CARGOTECHNICIAN,
+		JOB_KEY_QUARTERMASTER,
+		JOB_KEY_CARGOTECHNICIAN,
 	)
 
 /datum/objective/crew/petsplosion/New()
@@ -34,8 +34,8 @@
 /datum/objective/crew/points //ported from old hippie
 	explanation_text = "Make sure the station has at least (Something broke, yell on GitHub) station credits at the end of the shift."
 	jobs = list(
-		JOB_NAME_QUARTERMASTER,
-		JOB_NAME_CARGOTECHNICIAN,
+		JOB_KEY_QUARTERMASTER,
+		JOB_KEY_CARGOTECHNICIAN,
 	)
 
 /datum/objective/crew/points/New()
@@ -55,7 +55,7 @@
 
 /datum/objective/crew/bubblegum
 	explanation_text = "Ensure Bubblegum is dead at the end of the shift."
-	jobs = JOB_NAME_SHAFTMINER
+	jobs = JOB_KEY_SHAFTMINER
 
 /datum/objective/crew/bubblegum/check_completion()
 	if(..())
@@ -67,7 +67,7 @@
 
 /datum/objective/crew/fatstacks //ported from old hippie
 	explanation_text = "Have at least (something broke, report this on GitHub) mining points on your ID at the end of the shift."
-	jobs = JOB_NAME_SHAFTMINER
+	jobs = JOB_KEY_SHAFTMINER
 
 /datum/objective/crew/fatstacks/New()
 	. = ..()

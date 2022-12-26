@@ -12,10 +12,10 @@
 	max_amount = 5
 	allowAntagTargets = TRUE
 	latejoin_allowed = TRUE
-	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	protected_jobs = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
 
-	special_role_flag = ROLE_TRAITOR
-	role_name = ROLE_TRAITOR
+	special_role_flag = ROLE_KEY_TRAITOR
+	role_name = ROLE_KEY_TRAITOR
 
 	var/traitors_possible = 4 //hard limit on traitors if scaling is turned off
 
@@ -26,7 +26,6 @@
 	addtimer(CALLBACK(src, .proc/reveal_antag_status, M), rand(10,100))
 
 /datum/special_role/traitor/proc/reveal_antag_status(datum/mind/M)
-	M.mind_roles[JLIST_SPECIAL] = role_name
 	var/datum/antagonist/special/A = M.add_antag_datum(new attached_antag_datum())
 	A.forge_objectives(M)
 	A.equip()

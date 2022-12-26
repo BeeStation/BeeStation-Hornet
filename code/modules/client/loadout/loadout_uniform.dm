@@ -266,7 +266,7 @@
 
 /datum/gear/uniform/rank/assistant
 	subtype_path = /datum/gear/uniform/rank/assistant
-	allowed_roles = list(JOB_NAME_ASSISTANT)
+	allowed_roles = list(JOB_KEY_ASSISTANT)
 
 /datum/gear/uniform/rank/assistant/formal
 	display_name = "assistant's formal uniform"
@@ -281,7 +281,7 @@
 
 /datum/gear/uniform/rank/cook
 	subtype_path = /datum/gear/uniform/rank/cook
-	allowed_roles = list(JOB_NAME_COOK)
+	allowed_roles = list(JOB_KEY_COOK)
 
 /datum/gear/uniform/rank/cook/red
 	display_name = "cook's suit, red"
@@ -291,7 +291,7 @@
 
 /datum/gear/uniform/rank/cargo
 	subtype_path = /datum/gear/uniform/rank/cargo
-	allowed_roles = list(JOB_NAME_QUARTERMASTER, JOB_NAME_CARGOTECHNICIAN, JOB_NAME_SHAFTMINER)
+	allowed_roles = list(JOB_KEY_QUARTERMASTER, JOB_KEY_CARGOTECHNICIAN, JOB_KEY_SHAFTMINER)
 
 /datum/gear/uniform/rank/cargo/overalls
 	display_name = "laborer's overalls, light blue"
@@ -301,13 +301,13 @@
 	display_name = "miner's overalls, asteroid purple"
 	description = "Purple jumpsuit, dirty overalls. Standard Nanotrasen Shaft Miner attire, from when Lavaland had yet to be discovered and exploited for plasma."
 	path = /obj/item/clothing/under/rank/cargo/miner
-	allowed_roles = list (JOB_NAME_SHAFTMINER)
+	allowed_roles = list (JOB_KEY_SHAFTMINER)
 
 //MEDICAL ALT UNIS
 
 /datum/gear/uniform/rank/medical
 	subtype_path = /datum/gear/uniform/rank/medical
-	allowed_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER)
+	allowed_roles = list(JOB_KEY_PARAMEDIC, JOB_KEY_MEDICALDOCTOR, JOB_KEY_CHIEFMEDICALOFFICER)
 
 /datum/gear/uniform/rank/medical/nurse_dress
 	display_name = "medical, nurse's dress"
@@ -333,7 +333,7 @@
 
 /datum/gear/uniform/rank/engineering
 	subtype_path = /datum/gear/uniform/rank/engineering
-	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
+	allowed_roles = list(JOB_KEY_CHIEFENGINEER, JOB_KEY_STATIONENGINEER, JOB_KEY_ATMOSPHERICTECHNICIAN)
 
 /datum/gear/uniform/rank/engineering/hazard
 	display_name = "engineering jumpsuit, hazard"
@@ -343,7 +343,7 @@
 
 /datum/gear/uniform/rank/security
 	subtype_path = /datum/gear/uniform/rank/security
-	allowed_roles = list(JOB_NAME_SECURITYOFFICER)
+	allowed_roles = list(JOB_KEY_SECURITYOFFICER)
 
 /datum/gear/uniform/rank/security/white
 	display_name = "security jumpsuit, white"

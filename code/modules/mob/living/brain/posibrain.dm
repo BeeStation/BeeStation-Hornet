@@ -87,7 +87,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 /obj/item/mmi/posibrain/proc/activate(mob/user)
 	if(QDELETED(brainmob))
 		return
-	if(is_occupied() || is_banned_from(user.ckey, ROLE_POSIBRAIN) || QDELETED(brainmob) || QDELETED(src) || QDELETED(user))
+	if(is_occupied() || is_banned_from(user.ckey, list(ROLE_BANCHECK_MAJOR_GHOSTSPAWN, ROLE_KEY_POSIBRAIN)) || QDELETED(brainmob) || QDELETED(src) || QDELETED(user))
 		return
 	if(user.ckey in GLOB.posi_key_list)
 		to_chat(user, "<span class='warning'>Positronic brain spawns limited to 1 per round.</span>")
@@ -118,7 +118,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	brainmob.timeofhostdeath = C.timeofdeath
 	brainmob.set_stat(CONSCIOUS)
 	if(brainmob.mind)
-		brainmob.mind.set_mind_roles(JOB_PATH_CYBORG)
+		brainmob.mind.assign_crew_role(JOB_KEY_CYBORG)
 	if(C.mind)
 		C.mind.transfer_to(brainmob)
 
@@ -139,7 +139,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 		brainmob.ckey = candidate.ckey
 	name = "[initial(name)] ([brainmob.name])"
 	to_chat(brainmob, welcome_message)
-	brainmob.mind.set_mind_roles(JOB_PATH_CYBORG)
+	brainmob.mind.assign_crew_role(JOB_KEY_CYBORG)
 	brainmob.set_stat(CONSCIOUS)
 	brainmob.remove_from_dead_mob_list()
 	brainmob.add_to_alive_mob_list()

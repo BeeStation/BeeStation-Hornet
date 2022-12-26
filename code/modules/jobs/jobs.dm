@@ -1,90 +1,153 @@
 GLOBAL_LIST_INIT(command_positions, list(
-	JOB_PATH_CAPTAIN,
-	JOB_PATH_HEADOFPERSONNEL,
-	JOB_PATH_HEADOFSECURITY,
-	JOB_PATH_CHIEFENGINEER,
-	JOB_PATH_RESEARCHDIRECTOR,
-	JOB_PATH_CHIEFMEDICALOFFICER))
+	JOB_KEY_CAPTAIN,
+	JOB_KEY_HEADOFPERSONNEL,
+	JOB_KEY_HEADOFSECURITY,
+	JOB_KEY_CHIEFENGINEER,
+	JOB_KEY_RESEARCHDIRECTOR,
+	JOB_KEY_CHIEFMEDICALOFFICER))
 
 
 GLOBAL_LIST_INIT(engineering_positions, list(
-	JOB_PATH_CHIEFENGINEER,
-	JOB_PATH_STATIONENGINEER,
-	JOB_PATH_ATMOSPHERICTECHNICIAN))
+	JOB_KEY_CHIEFENGINEER,
+	JOB_KEY_STATIONENGINEER,
+	JOB_KEY_ATMOSPHERICTECHNICIAN))
 
 
 GLOBAL_LIST_INIT(medical_positions, list(
-	JOB_PATH_CHIEFMEDICALOFFICER,
-	JOB_PATH_MEDICALDOCTOR,
-	JOB_PATH_GENETICIST,
-	JOB_PATH_VIROLOGIST,
-	JOB_PATH_PARAMEDIC,
-	JOB_PATH_CHEMIST,
-	JOB_PATH_BRIGPHYSICIAN,
-	JOB_PATH_PSYCHIATRIST))
+	JOB_KEY_CHIEFMEDICALOFFICER,
+	JOB_KEY_MEDICALDOCTOR,
+	JOB_KEY_GENETICIST,
+	JOB_KEY_VIROLOGIST,
+	JOB_KEY_PARAMEDIC,
+	JOB_KEY_CHEMIST,
+	JOB_KEY_BRIGPHYSICIAN,
+	JOB_KEY_PSYCHIATRIST))
 
 
 GLOBAL_LIST_INIT(science_positions, list(
-	JOB_PATH_RESEARCHDIRECTOR,
-	JOB_PATH_SCIENTIST,
-	JOB_PATH_EXPLORATIONCREW,
-	JOB_PATH_ROBOTICIST))
+	JOB_KEY_RESEARCHDIRECTOR,
+	JOB_KEY_SCIENTIST,
+	JOB_KEY_EXPLORATIONCREW,
+	JOB_KEY_ROBOTICIST))
 
 
 GLOBAL_LIST_INIT(supply_positions, list(
-	JOB_PATH_HEADOFPERSONNEL,
-	JOB_PATH_QUARTERMASTER,
-	JOB_PATH_CARGOTECHNICIAN,
-	JOB_PATH_SHAFTMINER))
+	JOB_KEY_HEADOFPERSONNEL,
+	JOB_KEY_QUARTERMASTER,
+	JOB_KEY_CARGOTECHNICIAN,
+	JOB_KEY_SHAFTMINER))
 
 
 GLOBAL_LIST_INIT(civilian_positions, list(
-	JOB_PATH_HEADOFPERSONNEL,
-	JOB_PATH_BARTENDER,
-	JOB_PATH_BOTANIST,
-	JOB_PATH_COOK,
-	JOB_PATH_JANITOR,
-	JOB_PATH_LAWYER,
-	JOB_PATH_CURATOR,
-	JOB_PATH_CHAPLAIN,
-	JOB_PATH_MIME,
-	JOB_PATH_CLOWN,
-	JOB_PATH_STAGEMAGICIAN,
-	JOB_PATH_VIP,
-	JOB_PATH_ASSISTANT))
+	JOB_KEY_HEADOFPERSONNEL,
+	JOB_KEY_BARTENDER,
+	JOB_KEY_BOTANIST,
+	JOB_KEY_COOK,
+	JOB_KEY_JANITOR,
+	JOB_KEY_LAWYER,
+	JOB_KEY_CURATOR,
+	JOB_KEY_CHAPLAIN,
+	JOB_KEY_MIME,
+	JOB_KEY_CLOWN,
+	JOB_KEY_STAGEMAGICIAN,
+	JOB_KEY_VIP,
+	JOB_KEY_ASSISTANT))
 
 GLOBAL_LIST_INIT(security_positions, list(
-	JOB_PATH_HEADOFSECURITY,
-	JOB_PATH_WARDEN,
-	JOB_PATH_DETECTIVE,
-	JOB_PATH_SECURITYOFFICER,
-	JOB_PATH_DEPUTY))
+	JOB_KEY_HEADOFSECURITY,
+	JOB_KEY_WARDEN,
+	JOB_KEY_DETECTIVE,
+	JOB_KEY_SECURITYOFFICER,
+	JOB_KEY_DEPUTY))
 
 
 GLOBAL_LIST_INIT(nonhuman_positions, list(
-	JOB_PATH_AI,
-	JOB_PATH_CYBORG,
-	JOB_PATH_PAI))
+	JOB_KEY_AI,
+	JOB_KEY_CYBORG,
+	JOB_KEY_PAI))
 
 
 
 GLOBAL_LIST_INIT(exp_jobsmap, list(
-	EXP_TYPE_CREW = list("titles" = command_positions | engineering_positions | medical_positions | science_positions | supply_positions | security_positions | civilian_positions | list(JOB_PATH_AI,JOB_PATH_CYBORG)), // crew positions
+	EXP_TYPE_CREW = list("titles" = command_positions | engineering_positions | medical_positions | science_positions | supply_positions | security_positions | civilian_positions | list(JOB_KEY_AI,JOB_KEY_CYBORG)), // crew positions
 	EXP_TYPE_COMMAND = list("titles" = command_positions),
 	EXP_TYPE_ENGINEERING = list("titles" = engineering_positions),
 	EXP_TYPE_MEDICAL = list("titles" = medical_positions),
 	EXP_TYPE_SCIENCE = list("titles" = science_positions),
 	EXP_TYPE_SUPPLY = list("titles" = supply_positions),
 	EXP_TYPE_SECURITY = list("titles" = security_positions),
-	EXP_TYPE_SILICON = list("titles" = list(JOB_PATH_AI,JOB_PATH_CYBORG)), // except for pai
+	EXP_TYPE_SILICON = list("titles" = list(JOB_KEY_AI,JOB_KEY_CYBORG)), // except for pai
 	EXP_TYPE_SERVICE = list("titles" = civilian_positions),
 ))
 
 GLOBAL_LIST_INIT(exp_specialmap, list(
 	EXP_TYPE_LIVING = list(), // all living mobs
-	EXP_TYPE_ANTAG = list(),
-	EXP_TYPE_SPECIAL = list("Lifebringer","Ash Walker","Exile","Servant Golem","Free Golem","Hermit","Translocated Vet","Escaped Prisoner","Hotel Staff","SuperFriend","Space Syndicate","Ancient Crew","Space Doctor","Space Bartender","Beach Bum","Skeleton","Zombie","Space Bar Patron","Lavaland Syndicate",JOB_NAME_PAI,"Ghost Role"), // Ghost roles
-	EXP_TYPE_GHOST = list() // dead people, observers
+	EXP_TYPE_GHOST = list(), // dead people, observers
+	EXP_TYPE_ANTAG = list(
+		ROLE_KEY_TRAITOR,
+		ROLE_KEY_BROTHER,
+		ROLE_KEY_OPERATIVE,
+		ROLE_KEY_MALF,
+		ROLE_KEY_INCURSION,
+		// ROLE_KEY_EXCOMM // this is not time-trackable
+		ROLE_KEY_CHANGELING,
+		ROLE_KEY_CULTIST,
+		ROLE_KEY_SERVANT_OF_RATVAR,
+		ROLE_KEY_WIZARD,
+		ROLE_KEY_HIVE,
+		ROLE_KEY_REVOLUTION,
+		ROLE_KEY_ABDUCTOR,
+		ROLE_KEY_BLOB,
+		ROLE_KEY_SPACE_DRAGON,
+		ROLE_KEY_NINJA,
+		ROLE_KEY_NIGHTMARE,
+		ROLE_KEY_XENOMORPH,
+		ROLE_KEY_REVENANT,
+		ROLE_KEY_OBSESSED,
+		ROLE_KEY_MORPH,
+		ROLE_KEY_TERATOMA,
+		ROLE_KEY_HOLOPARASITE,
+		ROLE_KEY_SPACE_PIRATE,
+		ROLE_KEY_EXT_SYNDI_AGENT
+	),
+	EXP_TYPE_SPECIAL = list(
+		ROLE_KEY_PAI,
+		ROLE_KEY_ASHWALKER,
+		ROLE_KEY_LAVALAND_DOCTOR,      // lavaland animal doctor
+		ROLE_KEY_LAVALAND_LIFEBRINGER, // podpeople
+		ROLE_KEY_EXPERIMENTAL_CLONE,   // experimental clones
+		ROLE_KEY_GOLEMS,      // all times of golems (servant, free, whatever)
+		ROLE_KEY_BEACH_BUM,
+		ROLE_KEY_EXPLORATION_VIP,
+		ROLE_KEY_MAROONED_CREW,
+		ROLE_KEY_FUGITIVE,
+		ROLE_KEY_FUGITIVE_HUNTER,
+		ROLE_KEY_SENTIENCE,
+		ROLE_KEY_DRONE,
+		ROLE_KEY_UNDEAD,
+		ROLE_KEY_ERT,
+		ROLE_KEY_LIVING_LEGEND
+	),
+	EXP_TYPE_DEPRECATED = list(
+		"Lavaland Syndicate", // renamed as ROLE_KEY_EXT_SYNDI_AGENT
+		"Ash Walker",        // renamed as "Ashwalker"
+		"Translocated Vet",  // renamed as "Translocated Veterinarian" (ROLE_KEY_LAVALAND_DOCTOR)
+		"Space Doctor",      // used nowhere
+		"Ancient Crew",      // used nowhere
+		"Space Syndicate",   // deprecated?
+		"Space Bar Patron",  // deprecated
+		"Hotel Staff",    // it's still used, but it's bad
+		"Space Bartender",   // same above
+		"Skeleton",          // merged into ROLE_KEY_UNDEAD
+		"Zombie",            // merged into ROLE_KEY_UNDEAD
+		"Servant Golem",     // merged into ROLE_KEY_GOLEMS
+		"Free Golem",        // merged into ROLE_KEY_GOLEMS
+		"Hermit",            // Merged into ROLE_KEY_MAROONED_CREW
+		"Escaped Prisoner",  // used nowhere
+		"SuperFriend",       // deprecated
+		"Exile",             // deprecated
+		"Ghost Role"         // used nowhere
+	),
 ))
 GLOBAL_PROTECT(exp_jobsmap)
 GLOBAL_PROTECT(exp_specialmap)

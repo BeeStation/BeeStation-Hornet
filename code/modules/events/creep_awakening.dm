@@ -10,11 +10,11 @@
 
 /datum/round_event/obsessed/start()
 	for(var/mob/living/carbon/human/H in shuffle(GLOB.player_list))
-		if(!H.client || !(ROLE_OBSESSED in H.client.prefs.be_special))
+		if(!H.client || !(ROLE_KEY_OBSESSED in H.client.prefs.be_special))
 			continue
 		if(H.stat == DEAD)
 			continue
-		if(H.mind.get_mind_role(JTYPE_JOB_PATH) == JOB_UNASSIGNED) // Unassigned might be not a crew you would meet never
+		if(H.mind.get_station_role()) // if they have no station role then they might be not a crew you would meet never
 			continue
 		if(H.mind.has_antag_datum(/datum/antagonist/obsessed))
 			continue

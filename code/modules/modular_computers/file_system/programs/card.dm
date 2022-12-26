@@ -37,27 +37,27 @@
 		"[ACCESS_HOP]" = list(
 			"department" = list(CARDCON_DEPARTMENT_SUPPLY, CARDCON_DEPARTMENT_COMMAND),
 			"region" = 1,
-			"head" = JOB_NAME_HEADOFPERSONNEL
+			"head" = JOB_KEY_HEADOFPERSONNEL
 		),
 		"[ACCESS_HOS]" = list(
 			"department" = CARDCON_DEPARTMENT_SECURITY,
 			"region" = 2,
-			"head" = JOB_NAME_HEADOFSECURITY
+			"head" = JOB_KEY_HEADOFSECURITY
 		),
 		"[ACCESS_CMO]" = list(
 			"department" = CARDCON_DEPARTMENT_MEDICAL,
 			"region" = 3,
-			"head" = JOB_NAME_CHIEFMEDICALOFFICER
+			"head" = JOB_KEY_CHIEFMEDICALOFFICER
 		),
 		"[ACCESS_RD]" = list(
 			"department" = CARDCON_DEPARTMENT_SCIENCE,
 			"region" = 4,
-			"head" = JOB_NAME_RESEARCHDIRECTOR
+			"head" = JOB_KEY_RESEARCHDIRECTOR
 		),
 		"[ACCESS_CE]" = list(
 			"department" = CARDCON_DEPARTMENT_ENGINEERING,
 			"region" = 5,
-			"head" = JOB_NAME_CHIEFENGINEER
+			"head" = JOB_KEY_CHIEFENGINEER
 		)
 	)
 
@@ -87,7 +87,7 @@
 			var/datum/job/job = j
 			for(var/head in head_types)//god why
 				if(head in job.department_head)
-					head_subordinates += job.get_jpath()
+					head_subordinates += job.get_jkey()
 
 	if(length(region_access))
 		minor = TRUE
@@ -220,7 +220,7 @@
 				else
 					var/datum/job/job
 					for(var/datum/job/J in SSjob.occupations)
-						if(J.get_jpath() == target)
+						if(J.get_jkey() == target)
 							job = J
 							break
 					if(!job)
@@ -296,7 +296,7 @@
 		departments = list("CentCom" = get_all_centcom_jobs())
 	else if(isnull(departments))
 		departments = list(
-			CARDCON_DEPARTMENT_COMMAND = list(JOB_NAME_CAPTAIN),//lol
+			CARDCON_DEPARTMENT_COMMAND = list(JOB_KEY_CAPTAIN),//lol
 			CARDCON_DEPARTMENT_ENGINEERING = GLOB.engineering_positions,
 			CARDCON_DEPARTMENT_MEDICAL = GLOB.medical_positions,
 			CARDCON_DEPARTMENT_SCIENCE = GLOB.science_positions,

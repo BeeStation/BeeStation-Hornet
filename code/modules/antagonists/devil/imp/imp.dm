@@ -22,7 +22,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 250 //Weak to cold
 	maxbodytemp = INFINITY
-	faction = list("hell")
+	faction = list(FACTION_HELL)
 	attacktext = "wildly tears into"
 	maxHealth = 200
 	health = 200
@@ -62,6 +62,7 @@
 
 /datum/antagonist/imp
 	name = "Imp"
+	antag_role_type = ROLE_KEY_DEVIL
 	antagpanel_category = "Devil"
 	show_in_roundend = FALSE
 

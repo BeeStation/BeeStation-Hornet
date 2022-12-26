@@ -29,7 +29,7 @@
 	. = ..()
 
 /obj/machinery/computer/shuttle_flight/syndicate/allowed(mob/M)
-	if(issilicon(M) && !(ROLE_SYNDICATE in M.faction))
+	if(issilicon(M) && !(FACTION_SYNDICATE in M.faction))
 		return FALSE
 	return ..()
 

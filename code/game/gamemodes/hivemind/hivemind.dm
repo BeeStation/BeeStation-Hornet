@@ -4,10 +4,10 @@ GLOBAL_LIST_EMPTY(hivehosts)
 	name = "assimilation"
 	config_tag = "hivemind"
 	report_type = "hivemind"
-	antag_flag = ROLE_HIVE
+	antag_flag = ROLE_KEY_HIVE
 	false_report_weight = 5
-	protected_jobs = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN)
-	restricted_jobs = list(JOB_PATH_AI, JOB_PATH_CYBORG)
+	protected_jobs = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
+	restricted_jobs = list(JOB_KEY_AI, JOB_KEY_CYBORG)
 	required_players = 30
 	required_enemies = 3
 	recommended_enemies = 3
@@ -52,7 +52,7 @@ GLOBAL_LIST_EMPTY(hivehosts)
 		restricted_jobs += protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += JOB_PATH_ASSISTANT
+		restricted_jobs += JOB_KEY_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
@@ -62,9 +62,8 @@ GLOBAL_LIST_EMPTY(hivehosts)
 	for(var/j = 0, j < num_hosts, j++)
 		if (!antag_candidates.len)
 			break
-		var/datum/mind/host = antag_pick(antag_candidates, ROLE_HIVE)
+		var/datum/mind/host = antag_pick(antag_candidates, ROLE_KEY_HIVE)
 		hosts += host
-		host.mind_roles[JLIST_SPECIAL] = ROLE_HIVE
 		host.restricted_roles = restricted_jobs
 		log_game("[key_name(host)] has been selected as a hivemind host")
 		antag_candidates.Remove(host)

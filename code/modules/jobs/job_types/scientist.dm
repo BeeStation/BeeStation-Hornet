@@ -1,11 +1,11 @@
 /datum/job/scientist
-	jpath = JOB_PATH_SCIENTIST
+	jkey = JOB_KEY_SCIENTIST
 	title = JOB_NAME_SCIENTIST
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = SCIENTIST
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 5
 	spawn_positions = 3
 	selection_color = "#ffeeff"
@@ -19,7 +19,6 @@
 	minimal_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_MECH_SCIENCE,
 					ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE, ACCESS_EXPLORATION)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_MEDIUM)
@@ -33,7 +32,7 @@
 	biohazard = 35
 
 /datum/outfit/job/scientist
-	name = JOB_PATH_SCIENTIST
+	name = JOB_KEY_SCIENTIST
 	jobtype = /datum/job/scientist
 
 	id = /obj/item/card/id/job/scientist

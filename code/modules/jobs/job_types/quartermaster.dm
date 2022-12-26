@@ -1,11 +1,11 @@
 /datum/job/quartermaster
-	jpath = JOB_PATH_QUARTERMASTER
+	jkey = JOB_KEY_QUARTERMASTER
 	title = JOB_NAME_QUARTERMASTER
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = QUARTERMASTER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#d7b088"
@@ -31,7 +31,7 @@
 	)
 
 /datum/outfit/job/quartermaster
-	name = JOB_PATH_QUARTERMASTER
+	name = JOB_KEY_QUARTERMASTER
 	jobtype = /datum/job/quartermaster
 
 	id = /obj/item/card/id/job/quartermaster

@@ -12,7 +12,8 @@ GLOBAL_LIST(admin_antag_list)
 	var/can_coexist_with_others = TRUE			//Whether or not the person will be able to have more than one datum
 	var/list/typecache_datum_blacklist = list()	//List of datums this type can't coexist with
 	var/delete_on_mind_deletion = TRUE
-	var/antag_role_type = ROLE_UNDEFINED_ANTAG_ROLE
+	var/antag_role_type = ROLE_KEY_UNDEFINED_ANTAG_ROLE
+	var/major_antag_ban = ROLE_BANCHECK_MAJOR_ANTAGONIST
 	var/give_objectives = TRUE //Should the default objectives be generated?
 	var/replace_banned = TRUE //Should replace jobbanned player with ghosts if granted.
 	var/list/objectives = list()
@@ -110,11 +111,19 @@ GLOBAL_LIST(admin_antag_list)
 		owner.current.client.holder.auto_deadmin()
 	if(count_against_dynamic_roll_chance && owner.current.stat != DEAD && owner.current.client)
 		owner.current.add_to_current_living_antags()
+	if(antag_role_type)
+		owner.assign_special_role(antag_role_type, name)
+	else if(name)
+		var/current_role = owner.get_special_role()
+		if(current_role)
+			owner.set_special_role("[current_role], [name]")
+		else
+			owner.set_special_role(name)
 
 /datum/antagonist/proc/is_banned(mob/M)
 	if(!M)
 		return FALSE
-	. = (is_banned_from(M.ckey, list(ROLE_SYNDICATE, antag_role_type)) || QDELETED(M))
+	. = (is_banned_from(M.ckey, list(major_antag_ban, antag_role_type)) || QDELETED(M))
 
 /datum/antagonist/proc/replace_banned_player()
 	set waitfor = FALSE
@@ -140,6 +149,7 @@ GLOBAL_LIST(admin_antag_list)
 			owner.current.remove_from_current_living_antags()
 		if(!silent && owner.current)
 			farewell()
+		owner.remove_role(antag_role_type)
 	var/datum/team/team = get_team()
 	if(team)
 		team.remove_member(owner)
@@ -317,7 +327,7 @@ GLOBAL_LIST(admin_antag_list)
 // Handles adding and removing the clumsy mutation from clown antags. Gets called in apply/remove_innate_effects
 /datum/antagonist/proc/handle_clown_mutation(mob/living/mob_override, message, removing = TRUE)
 	var/mob/living/carbon/C = mob_override
-	if(C && istype(C) && C.has_dna() && owner.get_mind_role(JTYPE_JOB_PATH) == JOB_PATH_CLOWN)
+	if(C && istype(C) && C.has_dna() && owner.has_job(JOB_KEY_CLOWN))
 		if(removing) // They're a clown becoming an antag, remove clumsy
 			C.dna.remove_mutation(CLOWNMUT)
 			if(!silent && message)

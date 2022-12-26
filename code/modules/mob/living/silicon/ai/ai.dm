@@ -115,7 +115,7 @@
 
 	if(target_ai.mind)
 		target_ai.mind.transfer_to(src)
-		if(mind.get_mind_role(JTYPE_SPECIAL))
+		if(mind.get_special_role()) // I don't get why this IF check exists
 			mind.store_memory("As an AI, you must obey your silicon laws above all else. Your objectives will consider you to be dead.")
 			to_chat(src, "<span class='userdanger'>You have been installed as an AI!</span>")
 			to_chat(src, "<span class='danger'>You must obey your silicon laws above all else. Your objectives will consider you to be dead.</span>")
@@ -129,8 +129,6 @@
 	to_chat(src, ":o - AI Private, :c - Command, :s - Security, :e - Engineering, :u - Supply, :v - Service, :m - Medical, :n - Science.")
 	show_laws()
 	to_chat(src, "<b>These laws may be changed by other players, or by you being the traitor.</b>")
-
-	job = JOB_NAME_AI
 
 	create_modularInterface()
 	create_eye()
@@ -376,9 +374,9 @@
 
 	if(GLOB.announcement_systems.len)
 		var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
-		announcer.announce("AIWIPE", real_name, mind.get_mind_role(JTYPE_JOB_PATH), list())
+		announcer.announce("AIWIPE", real_name, mind.get_station_role(), list())
 
-	SSjob.FreeRole(mind.get_mind_role(JTYPE_JOB_PATH))
+	SSjob.FreeRole(mind.get_job())
 
 	if(!get_ghost(1))
 		if(world.time < 30 * 600)//before the 30 minute mark

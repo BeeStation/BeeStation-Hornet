@@ -2,12 +2,12 @@
 Assistant
 */
 /datum/job/assistant
-	jpath = JOB_PATH_ASSISTANT
+	jkey = JOB_KEY_ASSISTANT
 	title = JOB_NAME_ASSISTANT
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = ASSISTANT
 	supervisors = "absolutely everyone"
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 5
 	spawn_positions = 5
 	selection_color = "#dddddd"
@@ -37,7 +37,7 @@ Assistant
 		return ..()
 
 /datum/outfit/job/assistant
-	name = JOB_PATH_ASSISTANT
+	name = JOB_KEY_ASSISTANT
 	jobtype = /datum/job/assistant
 	belt = /obj/item/modular_computer/tablet/pda/assistant
 	id = /obj/item/card/id/job/assistant

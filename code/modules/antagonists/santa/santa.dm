@@ -1,5 +1,6 @@
 /datum/antagonist/santa
 	name = "Santa"
+	antag_role_type = ROLE_KEY_UNDEFINED_ANTAG_ROLE
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE

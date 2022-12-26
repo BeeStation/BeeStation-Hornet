@@ -34,9 +34,9 @@
 /obj/item/paper/contract/employment/attack(mob/living/M, mob/living/carbon/human/user)
 	var/deconvert = FALSE
 	if(M.mind == target && !M.owns_soul())
-		if(user.mind && (user.mind.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) == JOB_PATH_LAWYER))
+		if(user.mind?.has_job(JOB_KEY_LAWYER))
 			deconvert = TRUE
-		else if (user.mind && (user.mind.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) ==JOB_NAME_HEADOFPERSONNEL) || (user.mind.get_mind_role(JTYPE_SPECIAL, as_basic_job=TRUE) == JOB_CENTCOM_COMMANDER))
+		else if (user.mind?.has_job(list(JOB_KEY_HEADOFPERSONNEL, JOB_CENTCOM_COMMANDER))) // CC commander isn't a real job, so change it later
 			deconvert = prob (25) // the HoP doesn't have AS much legal training
 		else
 			deconvert = prob (5)

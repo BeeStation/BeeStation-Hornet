@@ -7,7 +7,7 @@
 	proportion = 0.05			//The prbability per person of rolling it (5% is (5 in 100) (1 in 20))
 	max_amount = 4				//The maximum amount
 	role_name = "Undercover Agent"
-	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CAPTAIN, JOB_NAME_CLOWN)
+	protected_jobs = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE, JOB_KEY_HEADOFSECURITY, JOB_KEY_HEADOFPERSONNEL, JOB_KEY_CHIEFMEDICALOFFICER, JOB_KEY_CHIEFENGINEER, JOB_KEY_RESEARCHDIRECTOR, JOB_KEY_CAPTAIN, JOB_KEY_CLOWN)
 	attached_antag_datum = /datum/antagonist/special/undercover
 
 ////////////////////////////////
@@ -16,6 +16,7 @@
 
 /datum/antagonist/special/undercover
 	name = "Ex-security agent"
+	antag_role_type = ROLE_KEY_UNDEFINED_ANTAG_ROLE
 	roundend_category = "Special Roles"
 	antag_moodlet = /datum/mood_event/determined
 
@@ -41,7 +42,7 @@
 	objectives += chosen_objective
 	log_objective(owner, chosen_objective.explanation_text)
 
-	if(owner.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.engineering_positions)
+	if(owner.has_job(GLOB.engineering_positions))
 		var/datum/objective/protect_sm/objective = new
 		if(objective.get_target())
 			objective.update_explanation_text()

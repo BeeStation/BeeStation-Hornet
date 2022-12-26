@@ -1,11 +1,10 @@
 /datum/antagonist/teratoma
 	name = "Teratoma"
+	antag_role_type = ROLE_KEY_TERATOMA
 	roundend_category = "other"
 	antagpanel_category = "Changeling"
-	antag_role_type = ROLE_TERATOMA
 
 /datum/antagonist/teratoma/on_gain()
-	owner.mind_roles[JLIST_SPECIAL] = antag_role_type
 	var/datum/objective/chaos/C = new
 	add_objective(C)
 	..()
@@ -15,7 +14,6 @@
 	to_chat(owner, "<b>Spread misery and chaos upon the station.</b>")
 
 /datum/antagonist/teratoma/on_removal()
-	owner.nullify_special_role()
 	. = ..()
 
 /datum/antagonist/teratoma/proc/add_objective(datum/objective/O)
@@ -45,7 +43,7 @@
 	name = "Maintenance Teratoma"
 	roundend_category = "other"
 	antagpanel_category = "Changeling"
-	antag_role_type = ROLE_TERATOMA
+	antag_role_type = ROLE_KEY_TERATOMA
 
 /datum/antagonist/teratoma/hugbox/greet()
 	..()

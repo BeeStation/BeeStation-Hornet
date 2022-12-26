@@ -51647,7 +51647,7 @@
 /mob/living/simple_animal/hostile/retaliate/bat{
 	desc = "A fierce companion for any person of power, this spider has been carefully trained by Nanotrasen specialists. Its beady, staring eyes send shivers down your spine.";
 	emote_hear = list("chitters");
-	faction = list("spiders");
+	faction = list(FACTION_SPIDER);
 	health = 200;
 	icon_dead = "guard_dead";
 	icon_gib = "guard_dead";

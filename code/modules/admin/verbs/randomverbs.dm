@@ -297,7 +297,7 @@
 		for(var/mob/M in GLOB.player_list)
 			if(M.stat != DEAD)
 				continue	//we are not dead!
-			if(!(ROLE_ALIEN in M.client.prefs.be_special))
+			if(!(ROLE_KEY_XENOMORPH in M.client.prefs.be_special))
 				continue	//we don't want to be an alium
 			if(M.client.is_afk())
 				continue	//we are afk
@@ -366,14 +366,15 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	if(G_found.mind && !G_found.mind.active)	//mind isn't currently in use by someone/something
 		//Check if they were an alien
-		if(G_found.mind.get_mind_role(JTYPE_SPECIAL, as_basic_job=TRUE) == ROLE_ALIEN)
+		if(G_found.mind.has_role(ROLE_KEY_XENOMORPH))
 			if(alert("This character appears to have been an alien. Would you like to respawn them as such?",,"Yes","No")=="Yes")
 				var/turf/T
 				if(GLOB.xeno_spawn.len)
 					T = pick(GLOB.xeno_spawn)
 
 				var/mob/living/carbon/alien/new_xeno
-				switch(G_found.mind.get_mind_role(JTYPE_SPECIAL))//If they have a mind, we can determine which caste they were.
+				switch(G_found.mind.get_special_role())//If they have a mind, we can determine which caste they were.
+				// note: this is not currently working, and never worked before
 					if("Hunter")
 						new_xeno = new /mob/living/carbon/alien/humanoid/hunter(T)
 					if("Sentinel")
@@ -422,7 +423,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(G_found.mind && !G_found.mind.active)	//mind isn't currently in use by someone/something
 		/*Try and locate a record for the person being respawned through GLOB.data_core.
 		This isn't an exact science but it does the trick more often than not.*/
-		var/id = rustg_hash_string(RUSTG_HASH_MD5, "[G_found.real_name][G_found.mind.get_mind_role(JTYPE_JOB_PATH)]")
+		var/id = rustg_hash_string(RUSTG_HASH_MD5, "[G_found.real_name][G_found.mind.get_job()]")
 
 		record_found = find_record("id", id, GLOB.data_core.locked)
 
@@ -457,41 +458,38 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/admin = key_name_admin(src)
 	var/player_key = G_found.key
 
+	if(new_character.mind.has_role(ROLE_KEY_WIZARD))
+		new_character.forceMove(pick(GLOB.wizardstart))
+		var/datum/antagonist/wizard/A = new_character.mind.has_antag_datum(/datum/antagonist/wizard,TRUE)
+		A.equip_wizard()
+	else if(new_character.mind.has_role(list(ROLE_KEY_OPERATIVE)))
+		new_character.forceMove(pick(GLOB.nukeop_start))
+		var/datum/antagonist/nukeop/N = new_character.mind.has_antag_datum(/datum/antagonist/nukeop,TRUE)
+		N.equip_op()
+	else if(new_character.mind.has_role(ROLE_KEY_NINJA))
+		var/list/ninja_spawn = list()
+		for(var/obj/effect/landmark/carpspawn/L in GLOB.landmarks_list)
+			ninja_spawn += L
+		var/datum/antagonist/ninja/ninjadatum = new_character.mind.has_antag_datum(/datum/antagonist/ninja)
+		ninjadatum.equip_space_ninja()
+		if(ninja_spawn.len)
+			new_character.forceMove(pick(ninja_spawn))
+
+	else//They may also be a cyborg or AI.
+		switch(new_character.mind.get_job())
+			if(JOB_KEY_CYBORG)//More rigging to make em' work and check if they're traitor.
+				new_character = new_character.Robotize(TRUE)
+			if(JOB_KEY_AI)
+				new_character = new_character.AIize()
+			if(JOB_UNASSIGNED)
+				SSjob.EquipRank(new_character, JOB_KEY_ASSISTANT, 1) // failsafe equip for jobless
+			else
+				SSjob.EquipRank(new_character, new_character.mind.get_job(), 1)//Or we simply equip them.
+
 	//Now for special roles and equipment.
 	var/datum/antagonist/traitor/traitordatum = new_character.mind.has_antag_datum(/datum/antagonist/traitor)
 	if(traitordatum)
-		SSjob.EquipRank(new_character, new_character.mind.get_mind_role(JTYPE_JOB_PATH), 1)
 		traitordatum.equip()
-
-
-	switch(new_character.mind.get_mind_role(JTYPE_SPECIAL, TRUE))
-		if(ROLE_WIZARD)
-			new_character.forceMove(pick(GLOB.wizardstart))
-			var/datum/antagonist/wizard/A = new_character.mind.has_antag_datum(/datum/antagonist/wizard,TRUE)
-			A.equip_wizard()
-		if(ROLE_SYNDICATE, ROLE_OPERATIVE)
-			new_character.forceMove(pick(GLOB.nukeop_start))
-			var/datum/antagonist/nukeop/N = new_character.mind.has_antag_datum(/datum/antagonist/nukeop,TRUE)
-			N.equip_op()
-		if(ROLE_NINJA)
-			var/list/ninja_spawn = list()
-			for(var/obj/effect/landmark/carpspawn/L in GLOB.landmarks_list)
-				ninja_spawn += L
-			var/datum/antagonist/ninja/ninjadatum = new_character.mind.has_antag_datum(/datum/antagonist/ninja)
-			ninjadatum.equip_space_ninja()
-			if(ninja_spawn.len)
-				new_character.forceMove(pick(ninja_spawn))
-
-		else//They may also be a cyborg or AI.
-			switch(new_character.mind.get_mind_role(JTYPE_JOB_PATH))
-				if(JOB_PATH_CYBORG)//More rigging to make em' work and check if they're traitor.
-					new_character = new_character.Robotize(TRUE)
-				if(JOB_PATH_AI)
-					new_character = new_character.AIize()
-				if(JOB_UNASSIGNED)
-					SSjob.EquipRank(new_character, JOB_PATH_ASSISTANT, 1) // failsafe equip for jobless
-				else
-					SSjob.EquipRank(new_character, new_character.mind.get_mind_role(JTYPE_JOB_PATH), 1)//Or we simply equip them.
 
 	//Announces the character on all the systems, based on the record.
 	if(!issilicon(new_character))//If they are not a cyborg/AI.
@@ -501,7 +499,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				GLOB.data_core.manifest_inject(new_character)
 
 			if(alert(new_character,"Would you like an active AI to announce this character?",,"No","Yes")=="Yes")
-				AnnounceArrival(new_character, new_character.mind.get_mind_role(JTYPE_JOB_NAME))
+				AnnounceArrival(new_character, new_character.mind.get_station_role())
 
 	var/msg = "<span class='adminnotice'>[admin] has respawned [player_key] as [new_character.real_name].</span>"
 	message_admins(msg)

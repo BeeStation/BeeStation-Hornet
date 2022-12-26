@@ -2164,7 +2164,7 @@
 	},
 /obj/effect/mob_spawn/human/doctor{
 	brute_damage = 145;
-	id_job = "Geneticist";
+	id_title = "Geneticist";
 	oxy_damage = 55;
 	suit = /obj/item/clothing/suit/toggle/labcoat/genetics;
 	uniform = /obj/item/clothing/under/rank/medical/geneticist
@@ -2445,7 +2445,7 @@
 /mob/living/simple_animal/bot/secbot/beepsky{
 	desc = "A beefy variant of the standard securitron model.";
 	emagged = 1;
-	faction = list("nanotrasenprivate");
+	faction = list(FACTION_NANOTRASEN);
 	health = 50;
 	maxHealth = 50;
 	name = "Officer Genesky"
@@ -3190,7 +3190,7 @@
 "BK" = (
 /obj/effect/mob_spawn/human/doctor{
 	brute_damage = 145;
-	id_job = "Geneticist";
+	id_title = "Geneticist";
 	oxy_damage = 55;
 	suit = /obj/item/clothing/suit/toggle/labcoat/genetics;
 	uniform = /obj/item/clothing/under/rank/medical/geneticist
@@ -4281,7 +4281,7 @@
 "SP" = (
 /obj/effect/mob_spawn/human/doctor{
 	brute_damage = 145;
-	id_job = "Geneticist";
+	id_title = "Geneticist";
 	oxy_damage = 55;
 	suit = /obj/item/clothing/suit/toggle/labcoat/genetics;
 	uniform = /obj/item/clothing/under/rank/medical/geneticist
@@ -4695,7 +4695,7 @@
 "YG" = (
 /obj/effect/mob_spawn/human/doctor{
 	brute_damage = 145;
-	id_job = "Geneticist";
+	id_title = "Geneticist";
 	oxy_damage = 55;
 	suit = /obj/item/clothing/suit/toggle/labcoat/genetics;
 	uniform = /obj/item/clothing/under/rank/medical/geneticist

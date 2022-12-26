@@ -4,10 +4,10 @@
 
 /datum/antagonist/servant_of_ratvar
 	name = "Servant Of Ratvar"
+	antag_role_type = ROLE_KEY_SERVANT_OF_RATVAR
 	roundend_category = "clock cultists"
 	antagpanel_category = "Clockcult"
 	antag_moodlet = /datum/mood_event/cult
-	antag_role_type = ROLE_SERVANT_OF_RATVAR
 
 	//The class of the servant
 	var/datum/action/innate/clockcult/transmit/transmit_spell
@@ -58,7 +58,7 @@
 
 /datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/M)
 	. = ..()
-	owner.current.faction |= "ratvar"
+	owner.current.faction |= FACTION_CLOCKIES
 	transmit_spell = new()
 	transmit_spell.Grant(owner.current)
 	if(GLOB.gateway_opening && ishuman(owner.current))
@@ -71,7 +71,7 @@
 	LH.grant_language(/datum/language/ratvar, TRUE, TRUE, LANGUAGE_CULTIST)
 
 /datum/antagonist/servant_of_ratvar/remove_innate_effects(mob/living/M)
-	owner.current.faction -= "ratvar"
+	owner.current.faction -= FACTION_CLOCKIES
 	owner.current.clear_alert("clockinfo")
 	transmit_spell.Remove(transmit_spell.owner)
 	SSticker.mode.update_clockcult_icons_removed(owner)

@@ -3,8 +3,8 @@
 	show_roundend_report = FALSE
 
 /datum/antagonist/ashwalker
-	name = "Ash Walker"
-	antag_role_type = ROLE_ASHWALKER
+	name = "Ashwalker"
+	antag_role_type = ROLE_KEY_ASHWALKER
 	show_in_antagpanel = FALSE
 	show_to_ghosts = TRUE
 	prevent_roundtype_conversion = FALSE
@@ -35,7 +35,6 @@
 	owner.teach_crafting_recipe(/datum/crafting_recipe/drakecloak)
 	owner.teach_crafting_recipe(/datum/crafting_recipe/primal_lasso)
 	owner.teach_crafting_recipe(/datum/crafting_recipe/dragon_lasso)
-	owner.mind_roles[JLIST_SPECIAL] = antag_role_type
 
 /datum/antagonist/ashwalker/on_removal()
 	. = ..()

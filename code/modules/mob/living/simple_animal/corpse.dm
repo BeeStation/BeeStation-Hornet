@@ -10,7 +10,7 @@
 
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier
 	name = "Syndicate Operative"
-	id_job = "Operative"
+	id_title = "Operative"
 	hair_style = "Bald"
 	facial_hair_style = "Shaved"
 	outfit = /datum/outfit/syndicatesoldiercorpse
@@ -29,7 +29,7 @@
 
 /obj/effect/mob_spawn/human/corpse/syndicatecommando
 	name = "Syndicate Commando"
-	id_job = "Operative"
+	id_title = "Operative"
 	hair_style = "Bald"
 	facial_hair_style = "Shaved"
 	outfit = /datum/outfit/syndicatecommandocorpse
@@ -49,7 +49,7 @@
 
 /obj/effect/mob_spawn/human/corpse/syndicatestormtrooper
 	name = "Syndicate Stormtrooper"
-	id_job = "Operative"
+	id_title = "Operative"
 	hair_style = "Bald"
 	facial_hair_style = "Shaved"
 	outfit = /datum/outfit/syndicatestormtroopercorpse
@@ -166,8 +166,8 @@
 
 /obj/effect/mob_spawn/human/corpse/nanotrasensoldier
 	name = "\improper Nanotrasen Private Security Officer"
-	id_job = "Private Security Force"
-	id_access = JOB_NAME_SECURITYOFFICER
+	id_title = "Private Security Force"
+	id_access = JOB_KEY_SECURITYOFFICER
 	outfit = /datum/outfit/nanotrasensoldiercorpse2
 	hair_style = "Bald"
 	facial_hair_style = "Shaved"
@@ -186,7 +186,7 @@
 
 /obj/effect/mob_spawn/human/corpse/cat_butcher
 	name = "The Cat Surgeon"
-	id_job = "Cat Surgeon"
+	id_title = "Cat Surgeon"
 	id_access_list = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_MAINT)
 	hair_style = "Cut Hair"
 	facial_hair_style = "Watson Mustache"
@@ -226,7 +226,7 @@
 	skin_tone = "caucasian1"
 	hair_style = "Bald"
 	facial_hair_style = "Full beard"
-	id_job = JOB_NAME_WARDEN
+	id_title = JOB_NAME_WARDEN
 	mob_gender = MALE
 
 /datum/outfit/sniper

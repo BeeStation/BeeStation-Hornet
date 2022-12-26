@@ -2972,7 +2972,7 @@
 /datum/supply_pack/misc/bicycle/generate(atom/A, datum/bank_account/paying_account)
 	. = ..()
 	for(var/client/C as() in GLOB.clients)
-		if(C?.mob.mind.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) == JOB_NAME_QUARTERMASTER || C?.mob.mind.get_mind_role(JTYPE_JOB_PATH) == JOB_NAME_CARGOTECHNICIAN)
+		if(C?.mob.mind.has_job(list(JOB_KEY_QUARTERMASTER, JOB_KEY_CARGOTECHNICIAN)))
 			C?.give_award(/datum/award/achievement/misc/bike, C?.mob)
 
 /datum/supply_pack/misc/bigband

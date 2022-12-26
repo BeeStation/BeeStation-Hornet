@@ -702,15 +702,15 @@
 		dat += "</td>"
 		dat += "<td>"
 		if(job.total_positions >= 0)
-			dat += "<A href='?src=[REF(src)];[HrefToken()];customjobslot=[job.get_jpath()]'>Custom</A> | "
-			dat += "<A href='?src=[REF(src)];[HrefToken()];addjobslot=[job.get_jpath()]'>Add 1</A> | "
+			dat += "<A href='?src=[REF(src)];[HrefToken()];customjobslot=[job.get_jkey()]'>Custom</A> | "
+			dat += "<A href='?src=[REF(src)];[HrefToken()];addjobslot=[job.get_jkey()]'>Add 1</A> | "
 			if(job.total_positions > job.current_positions)
-				dat += "<A href='?src=[REF(src)];[HrefToken()];removejobslot=[job.get_jpath()]'>Remove</A> | "
+				dat += "<A href='?src=[REF(src)];[HrefToken()];removejobslot=[job.get_jkey()]'>Remove</A> | "
 			else
 				dat += "Remove | "
-			dat += "<A href='?src=[REF(src)];[HrefToken()];unlimitjobslot=[job.get_jpath()]'>Unlimit</A></td>"
+			dat += "<A href='?src=[REF(src)];[HrefToken()];unlimitjobslot=[job.get_jkey()]'>Unlimit</A></td>"
 		else
-			dat += "<A href='?src=[REF(src)];[HrefToken()];limitjobslot=[job.get_jpath()]'>Limit</A></td>"
+			dat += "<A href='?src=[REF(src)];[HrefToken()];limitjobslot=[job.get_jkey()]'>Limit</A></td>"
 
 	browser.height = min(100 + count * 20, 650)
 	browser.set_content(dat.Join())

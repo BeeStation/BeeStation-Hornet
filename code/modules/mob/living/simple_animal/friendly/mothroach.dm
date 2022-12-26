@@ -31,7 +31,7 @@
 	speak_chance = 1
 	attacked_sound = 'sound/voice/moth/scream_moth.ogg'
 
-	faction = list("neutral")
+	faction = list(FACTION_NEUTRAL)
 
 /mob/living/simple_animal/mothroach/update_resting()
 	. = ..()

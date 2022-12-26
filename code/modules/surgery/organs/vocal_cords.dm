@@ -161,13 +161,13 @@
 
 	if(user.mind)
 		//Chaplains are very good at speaking with the voice of god
-		if(user.mind.get_mind_role(JTYPE_JOB_PATH) == JOB_PATH_CHAPLAIN)
+		if(user.mind.has_job(JOB_KEY_CHAPLAIN))
 			power_multiplier *= 2
 		//Curators are very good at speaking in other languages, but not as good as Chaplain with this one
-		if(user.mind.get_mind_role(JTYPE_JOB_PATH) == JOB_PATH_CURATOR)
+		else if(user.mind.has_job(JOB_KEY_CURATOR))
 			power_multiplier *= 1.5
 		//Why are you speaking
-		if(user.mind.get_mind_role(JTYPE_JOB_PATH) == JOB_PATH_MIME)
+		else if(user.mind.has_job(JOB_KEY_MIME))
 			power_multiplier *= 0.5
 
 	//Cultists are closer to their gods and are more powerful, but they'll give themselves away
@@ -201,10 +201,13 @@
 			//Cut out the name so it doesn't trigger commands
 			found_string = L.first_name()
 
-		else if(L.mind && L.mind.get_mind_role(JTYPE_JOB_PATH) && findtext(message, L.mind.get_mind_role(JTYPE_JOB_PATH), 1, length(L.mind.get_mind_role(JTYPE_JOB_PATH)) + 1))
-			specific_listeners += L //focus on those with the specified job
-			//Cut out the job so it doesn't trigger commands
-			found_string = L.mind.get_mind_role(JTYPE_JOB_PATH)
+		else if(L.mind)
+			var/string = L.mind.get_station_role()
+			if(string)
+				if(findtext(message, string, 1, length(string) + 1))
+					specific_listeners += L //focus on those with the specified job
+					//Cut out the job so it doesn't trigger commands
+					found_string = string
 
 	if(specific_listeners.len)
 		listeners = specific_listeners
@@ -551,7 +554,7 @@
 	else if((findtext(message, honk_words)))
 		cooldown = COOLDOWN_MEME
 		addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, get_turf(user), 'sound/items/bikehorn.ogg', 300, 1), 25)
-		if(user.mind?.get_mind_role(JTYPE_JOB_PATH) == JOB_PATH_CLOWN)
+		if(user.mind?.has_job(JOB_KEY_CLOWN))
 			for(var/mob/living/carbon/C in listeners)
 				C.slip(140 * power_multiplier)
 			cooldown = COOLDOWN_MEME

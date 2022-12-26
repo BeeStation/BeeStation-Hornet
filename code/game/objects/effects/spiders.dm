@@ -57,7 +57,7 @@
 	var/directive = "" //Message from the mother
 	var/poison_type = /datum/reagent/toxin
 	var/poison_per_bite = 5
-	var/list/faction = list("spiders")
+	var/list/faction = list(FACTION_SPIDER)
 
 /obj/structure/spider/eggcluster/Initialize(mapload)
 	pixel_x = rand(3,-3)
@@ -90,7 +90,7 @@
 	var/travelling_in_vent = 0
 	var/player_spiders = 0
 	var/directive = "" //Message from the mother
-	var/list/faction = list("spiders")
+	var/list/faction = list(FACTION_SPIDER)
 
 /obj/structure/spider/spiderling/Destroy()
 	new/obj/item/reagent_containers/food/snacks/spiderling(get_turf(src))

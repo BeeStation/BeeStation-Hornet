@@ -116,7 +116,7 @@
 			user.visible_message("<span class='warning'>[user] starts shaking!</span>","<span class='notice'>Your [name] starts pulsing gently...</span>")
 			if(do_after(user, 4 SECONDS, target = user))
 				var/mob/living/simple_animal/S = create_random_mob(user.drop_location(), FRIENDLY_SPAWN)
-				S.faction |= "neutral"
+				S.faction |= FACTION_NEUTRAL
 				playsound(user, 'sound/effects/splat.ogg', 50, 1)
 				user.visible_message("<span class='warning'>[user] spits out [S]!</span>", "<span class='notice'>You spit out [S]!</span>")
 				return 30 SECONDS
@@ -126,9 +126,9 @@
 			if(do_after(user, 5 SECONDS, target = user))
 				var/mob/living/simple_animal/S = create_random_mob(user.drop_location(), HOSTILE_SPAWN)
 				if(user.a_intent != INTENT_HARM)
-					S.faction |= "neutral"
+					S.faction |= FACTION_NEUTRAL
 				else
-					S.faction |= "slime"
+					S.faction |= FACTION_SLIME
 				playsound(user, 'sound/effects/splat.ogg', 50, 1)
 				user.visible_message("<span class='warning'>[user] spits out [S]!</span>", "<span class='warning'>You spit out [S]!</span>")
 				return 60 SECONDS
@@ -753,7 +753,7 @@
 	to_chat(user, "<span class='notice'>You offer [src] to [SM]...</span>")
 	being_used = TRUE
 
-	var/list/candidates = pollCandidatesForMob("Do you want to play as [SM.name]? (Sentience Potion)", ROLE_SENTIENCE, null, ROLE_SENTIENCE, 50, SM, POLL_IGNORE_SENTIENCE_POTION) // see poll_ignore.dm
+	var/list/candidates = pollCandidatesForMob("Do you want to play as [SM.name]? (Sentience Potion)", ROLE_KEY_SENTIENCE, null, ROLE_KEY_SENTIENCE, 50, SM, POLL_IGNORE_SENTIENCE_POTION) // see poll_ignore.dm
 	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		SM.key = C.key
@@ -808,7 +808,7 @@
 	if(SM.sentience_type != animal_type)
 		to_chat(user, "<span class='warning'>You cannot transfer your consciousness to [SM].</span>" )
 		return ..()
-	var/jb = is_banned_from(user.ckey, ROLE_MIND_TRANSFER)
+	var/jb = is_banned_from(user.ckey, ROLE_BANCHECK_MIND_TRANSFER)
 	if(QDELETED(src) || QDELETED(M) || QDELETED(user))
 		return
 

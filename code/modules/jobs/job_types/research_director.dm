@@ -1,5 +1,5 @@
 /datum/job/research_director
-	jpath = JOB_PATH_RESEARCHDIRECTOR
+	jkey = JOB_KEY_RESEARCHDIRECTOR
 	title = JOB_NAME_RESEARCHDIRECTOR
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = RD_JF
@@ -7,7 +7,7 @@
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list("Science")
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ffddff"
@@ -30,7 +30,6 @@
 			            ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_MINERAL_STOREROOM,
 			            ACCESS_TECH_STORAGE, ACCESS_MINISAT, ACCESS_MAINT_TUNNELS, ACCESS_NETWORK, ACCESS_AUX_BASE, ACCESS_RD_SERVER, ACCESS_WEAPONS)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_SCI | DEPT_BITFLAG_COM
 	bank_account_department = ACCOUNT_SCI_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
@@ -46,7 +45,7 @@
 	biohazard = 40
 
 /datum/outfit/job/research_director
-	name = JOB_PATH_RESEARCHDIRECTOR
+	name = JOB_KEY_RESEARCHDIRECTOR
 	jobtype = /datum/job/research_director
 
 	id = /obj/item/card/id/job/research_director

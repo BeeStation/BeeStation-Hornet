@@ -1,5 +1,5 @@
 /datum/job/head_of_personnel
-	jpath = JOB_PATH_HEADOFPERSONNEL
+	jkey = JOB_KEY_HEADOFPERSONNEL
 	title = JOB_NAME_HEADOFPERSONNEL
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = HOP
@@ -7,7 +7,7 @@
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list(RADIO_CHANNEL_SUPPLY, RADIO_CHANNEL_SERVICE)
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ddddff"
@@ -49,7 +49,7 @@
 	)
 
 /datum/outfit/job/head_of_personnel
-	name = JOB_PATH_HEADOFPERSONNEL
+	name = JOB_KEY_HEADOFPERSONNEL
 	jobtype = /datum/job/head_of_personnel
 
 	id = /obj/item/card/id/job/head_of_personnel

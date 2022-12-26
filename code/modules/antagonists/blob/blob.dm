@@ -1,9 +1,9 @@
 /datum/antagonist/blob
 	name = "Blob"
+	antag_role_type = ROLE_KEY_BLOB
 	roundend_category = "blobs"
 	antagpanel_category = "Blob"
 	show_to_ghosts = TRUE
-	antag_role_type = ROLE_BLOB
 
 	var/datum/action/innate/blobpop/pop_action
 	var/starting_points_human_blob = 60
@@ -30,7 +30,6 @@
 
 /datum/antagonist/blob/on_gain()
 	create_objectives()
-	owner.mind_roles[JLIST_SPECIAL] = antag_role_type
 	. = ..()
 
 /datum/antagonist/blob/proc/create_objectives()

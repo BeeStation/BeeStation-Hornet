@@ -1,11 +1,11 @@
 /datum/job/chemist
-	jpath = JOB_PATH_CHEMIST
+	jkey = JOB_KEY_CHEMIST
 	title = JOB_NAME_CHEMIST
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = CHEMIST
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 2
 	spawn_positions = 2
 	selection_color = "#d4ebf2"
@@ -16,7 +16,6 @@
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_CHEMISTRY, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)
@@ -31,7 +30,7 @@
 	biohazard = 25
 
 /datum/outfit/job/chemist
-	name = JOB_PATH_CHEMIST
+	name = JOB_KEY_CHEMIST
 	jobtype = /datum/job/chemist
 
 	id = /obj/item/card/id/job/chemist

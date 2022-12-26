@@ -18,7 +18,7 @@
 	var/list/mob/candidates = list()
 	/// List of players that were selected for this rule
 	var/list/datum/mind/assigned = list()
-	/// Preferences flag such as ROLE_WIZARD that need to be turned on for players to be antag
+	/// Preferences flag such as ROLE_KEY_WIZARD that need to be turned on for players to be antag
 	var/antag_flag = null
 	/// The antagonist datum that is assigned to the mobs mind on ruleset execution.
 	var/datum/antagonist/antag_datum = null
@@ -216,14 +216,14 @@
 		else if(!mode.check_age(client, minimum_required_age))
 			candidates.Remove(P)
 			continue
-		if(P.mind.get_mind_role(JTYPE_SPECIAL)) // We really don't want to give antag to an antag.
+		if(P.mind.get_special_role()) // We really don't want to give antag to an antag.
 			candidates.Remove(P)
 		else if(antag_flag_override)
-			if(!(antag_flag_override in client.prefs.be_special) || is_banned_from(P.ckey, list(antag_flag_override, ROLE_SYNDICATE)))
+			if(!(antag_flag_override in client.prefs.be_special) || is_banned_from(P.ckey, list(ROLE_BANCHECK_MAJOR_ANTAGONIST, antag_flag_override)))
 				candidates.Remove(P)
 				continue
 		else
-			if(!(antag_flag in client.prefs.be_special) || is_banned_from(P.ckey, list(antag_flag, ROLE_SYNDICATE)))
+			if(!(antag_flag in client.prefs.be_special) || is_banned_from(P.ckey, list(ROLE_BANCHECK_MAJOR_ANTAGONIST, antag_flag)))
 				candidates.Remove(P)
 				continue
 

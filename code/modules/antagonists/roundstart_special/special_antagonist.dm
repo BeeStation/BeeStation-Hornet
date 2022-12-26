@@ -16,15 +16,15 @@
 	//----Required for roundspawn----
 	var/allowAntagTargets = FALSE	//Not used in events
 	var/latejoin_allowed = TRUE		//Can latejoins be assigned to this? If you want this to be a midround spawn, put these in the round_event
-	var/list/restricted_jobs = list(JOB_NAME_CYBORG)
-	var/list/protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CAPTAIN)
+	var/list/restricted_jobs = list(JOB_KEY_CYBORG)
+	var/list/protected_jobs = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE, JOB_KEY_HEADOFSECURITY, JOB_KEY_HEADOFPERSONNEL, JOB_KEY_CHIEFMEDICALOFFICER, JOB_KEY_CHIEFENGINEER, JOB_KEY_RESEARCHDIRECTOR, JOB_KEY_CAPTAIN)
 	//----Required for midround----
 	var/weight = 10
 	var/earliest_start = 20 MINUTES
 	var/max_occurrences = 1
 	var/holidayID = ""
 	//Preferences
-	var/preference_type = ROLE_TRAITOR
+	var/preference_type = ROLE_KEY_TRAITOR
 	var/special_role_flag = null	//Will use antag rep if enabled
 
 /datum/special_role/proc/setup()
@@ -32,7 +32,7 @@
 		restricted_jobs += protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += JOB_NAME_ASSISTANT
+		restricted_jobs += JOB_KEY_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
@@ -60,7 +60,6 @@
 	SSevents.control += E
 
 /datum/special_role/proc/add_antag_status_to(datum/mind/M)
-	M.mind_roles[JLIST_SPECIAL] = role_name
 	var/datum/antagonist/special/A = M.add_antag_datum(new attached_antag_datum())
 	A.forge_objectives(M)
 	A.equip()
@@ -73,7 +72,7 @@
 
 /datum/antagonist/special
 	name = "Role that should not be accessable in game."
-	antag_role_type = ROLE_SYNDICATE
+	antag_role_type = ROLE_KEY_UNDEFINED_ANTAG_ROLE
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = FALSE
 	prevent_roundtype_conversion = FALSE

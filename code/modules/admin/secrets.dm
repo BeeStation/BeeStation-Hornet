@@ -643,11 +643,12 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("infinite_sec")
 			if(!check_rights(R_DEBUG))
 				return
-			var/datum/job/J = SSjob.GetJob(JOB_PATH_SECURITYOFFICER)
+			var/datum/job/J = SSjob.GetJob(JOB_KEY_SECURITYOFFICER)
 			if(!J)
 				return
 			J.total_positions = -1
 			J.spawn_positions = -1
+			J.refresh_job_bitflags()
 			message_admins("[key_name_admin(usr)] has removed the cap on security officers.")
 
 		if("ctfbutton")
@@ -789,7 +790,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				var/list/candidates = list()
 
 				if (prefs["offerghosts"]["value"] == "Yes")
-					candidates = pollGhostCandidates(replacetext(prefs["ghostpoll"]["value"], "%TYPE%", initial(pathToSpawn.name)), ROLE_TRAITOR)
+					candidates = pollGhostCandidates(replacetext(prefs["ghostpoll"]["value"], "%TYPE%", initial(pathToSpawn.name)), ROLE_KEY_TRAITOR)
 
 				if (prefs["playersonly"]["value"] == "Yes" && length(candidates) < prefs["minplayers"]["value"])
 					message_admins("Not enough players signed up to create a portal storm, the minimum was [prefs["minplayers"]["value"]] and the number of signups [length(candidates)]")

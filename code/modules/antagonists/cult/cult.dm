@@ -2,13 +2,13 @@
 
 /datum/antagonist/cult
 	name = "Cultist"
+	antag_role_type = ROLE_KEY_CULTIST
 	roundend_category = "cultists"
 	antagpanel_category = "Cult"
 	antag_moodlet = /datum/mood_event/cult
 	var/datum/action/innate/cult/comm/communion = new
 	var/datum/action/innate/cult/mastervote/vote = new
 	var/datum/action/innate/cult/blood_magic/magic = new
-	antag_role_type = ROLE_CULTIST
 	var/ignore_implant = FALSE
 	var/give_equipment = FALSE
 	var/datum/team/cult/cult_team
@@ -111,7 +111,7 @@
 	var/mob/living/current = owner.current
 	if(mob_override)
 		current = mob_override
-	current.faction |= "cult"
+	current.faction |= FACTION_BLOODCULT
 	current.grant_language(/datum/language/narsie, TRUE, TRUE, LANGUAGE_CULTIST)
 	if(!cult_team.cult_master)
 		vote.Grant(current)
@@ -129,7 +129,7 @@
 	var/mob/living/current = owner.current
 	if(mob_override)
 		current = mob_override
-	current.faction -= "cult"
+	current.faction -= FACTION_BLOODCULT
 	current.remove_language(/datum/language/narsie, TRUE, TRUE, LANGUAGE_CULTIST)
 	vote.Remove(current)
 	communion.Remove(current)
@@ -381,7 +381,7 @@
 
 /datum/objective/sacrifice/update_explanation_text()
 	if(target)
-		explanation_text = "Sacrifice [target], the [target.get_mind_role(JTYPE_JOB_NAME)] via invoking a Sacrifice rune with [target.p_them()] on it and three acolytes around it."
+		explanation_text = "Sacrifice [target], the [target.get_station_role()] via invoking a Sacrifice rune with [target.p_them()] on it and three acolytes around it."
 	else
 		explanation_text = "The veil has already been weakened here, proceed to the final objective."
 

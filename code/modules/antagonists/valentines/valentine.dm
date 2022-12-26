@@ -1,5 +1,7 @@
 /datum/antagonist/valentine
 	name = "valentine"
+	antag_role_type = null // this isn't real antag
+	major_antag_ban = null
 	roundend_category = "valentines" //there's going to be a ton of them so put them in separate category
 	show_in_antagpanel = FALSE
 	prevent_roundtype_conversion = FALSE

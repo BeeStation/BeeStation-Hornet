@@ -132,12 +132,12 @@
 
 /obj/item/organ/heart/gland/slime/Insert(mob/living/carbon/M, special = 0)
 	..()
-	owner.faction |= "slime"
+	owner.faction |= FACTION_SLIME
 	owner.grant_language(/datum/language/slime, TRUE, TRUE, LANGUAGE_GLAND)
 
 /obj/item/organ/heart/gland/slime/Remove(mob/living/carbon/M, special = 0)
 	..()
-	owner.faction -= "slime"
+	owner.faction -= FACTION_SLIME
 	owner.remove_language(/datum/language/slime, TRUE, TRUE, LANGUAGE_GLAND)
 
 /obj/item/organ/heart/gland/slime/activate()
@@ -270,7 +270,7 @@
 
 /obj/item/organ/heart/gland/spiderman/activate()
 	to_chat(owner, "<span class='warning'>You feel something crawling in your skin.</span>")
-	owner.faction |= "spiders"
+	owner.faction |= FACTION_SPIDER
 	var/obj/structure/spider/spiderling/S = new(owner.drop_location())
 	S.directive = "Protect your nest inside [owner.real_name]."
 

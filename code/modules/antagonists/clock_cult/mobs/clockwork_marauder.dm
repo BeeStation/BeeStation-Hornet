@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 	mobchatspan = "brassmobsay"
 	obj_damage = 80
 	melee_damage = 24
-	faction = list("ratvar")
+	faction = list(FACTION_CLOCKIES)
 
 	initial_language_holder = /datum/language_holder/clockmob
 

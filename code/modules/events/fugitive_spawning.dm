@@ -22,7 +22,7 @@
 		return MAP_ERROR
 	var/turf/landing_turf = pick(possible_spawns)
 	var/list/possible_backstories = list()
-	var/list/candidates = get_candidates(ROLE_TRAITOR, null, ROLE_TRAITOR)
+	var/list/candidates = get_candidates(ROLE_KEY_TRAITOR, null, ROLE_KEY_TRAITOR)
 	if(candidates.len >= 1) //solo refugees
 		if(prob(30))
 			possible_backstories.Add("waldo") //less common as it comes with magicks and is kind of immershun shattering
@@ -65,7 +65,6 @@
 	player_mind.active = TRUE
 	var/mob/living/carbon/human/S = new(landing_turf)
 	player_mind.transfer_to(S)
-	player_mind.mind_roles[JLIST_SPECIAL] = "Fugitive"
 	player_mind.add_antag_datum(/datum/antagonist/fugitive)
 	var/datum/antagonist/fugitive/fugitiveantag = player_mind.has_antag_datum(/datum/antagonist/fugitive)
 	INVOKE_ASYNC(fugitiveantag, /datum/antagonist/fugitive.proc/greet, backstory) //some fugitives have a sleep on their greet, so we don't want to stop the entire antag granting proc with fluff

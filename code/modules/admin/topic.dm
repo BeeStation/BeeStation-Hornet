@@ -1152,8 +1152,9 @@
 		var/Add = href_list["addjobslot"]
 
 		for(var/datum/job/job in SSjob.occupations)
-			if(job.get_jpath() == Add)
+			if(job.get_jkey() == Add)
 				job.total_positions += 1
+				job.refresh_job_bitflags()
 				break
 
 		src.manage_free_slots()
@@ -1166,7 +1167,7 @@
 		var/Add = href_list["customjobslot"]
 
 		for(var/datum/job/job in SSjob.occupations)
-			if(job.get_jpath() == Add)
+			if(job.get_jkey() == Add)
 				var/newtime = null
 				newtime = input(usr, "How many jebs do you want?", "Add wanted posters", "[newtime]") as num|null
 				if(!newtime)
@@ -1174,6 +1175,7 @@
 					job.total_positions = job.current_positions
 					break
 				job.total_positions = newtime
+				job.refresh_job_bitflags()
 
 		src.manage_free_slots()
 
@@ -1184,8 +1186,9 @@
 		var/Remove = href_list["removejobslot"]
 
 		for(var/datum/job/job in SSjob.occupations)
-			if(job.get_jpath() == Remove && job.total_positions - job.current_positions > 0)
+			if(job.get_jkey() == Remove && job.total_positions - job.current_positions > 0)
 				job.total_positions -= 1
+				job.refresh_job_bitflags()
 				break
 
 		src.manage_free_slots()
@@ -1197,8 +1200,9 @@
 		var/Unlimit = href_list["unlimitjobslot"]
 
 		for(var/datum/job/job in SSjob.occupations)
-			if(job.get_jpath() == Unlimit)
+			if(job.get_jkey() == Unlimit)
 				job.total_positions = -1
+				job.refresh_job_bitflags()
 				break
 
 		src.manage_free_slots()
@@ -1210,8 +1214,9 @@
 		var/Limit = href_list["limitjobslot"]
 
 		for(var/datum/job/job in SSjob.occupations)
-			if(job.get_jpath() == Limit)
+			if(job.get_jkey() == Limit)
 				job.total_positions = job.current_positions
+				job.refresh_job_bitflags()
 				break
 
 		src.manage_free_slots()

@@ -1,5 +1,5 @@
 /datum/job/assistant/vip
-	g_jpath = JOB_PATH_VIP
+	g_jkey = JOB_KEY_VIP
 	g_title = JOB_NAME_VIP
 	job_bitflags = JOB_BITFLAG_GIMMICK
 	flag = CELEBRITY
@@ -23,7 +23,7 @@
 	)
 
 /datum/outfit/job/vip
-	name = JOB_PATH_VIP
+	name = JOB_KEY_VIP
 	jobtype = /datum/job/assistant/vip
 	id = /obj/item/card/id/gold/vip
 	belt = /obj/item/modular_computer/tablet/pda/vip

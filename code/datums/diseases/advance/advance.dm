@@ -24,8 +24,8 @@
 	max_stages = 5
 	spread_text = "Unknown"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey, /mob/living/carbon/monkey/tumor)
-	
-	/// last player to modify the disease. 
+
+	/// last player to modify the disease.
 	var/last_modified_by = "no CKEY"
 	var/resistance
 	var/stealth
@@ -46,15 +46,15 @@
 	var/archivecure
 	var/static/list/advance_cures = list(
 		list(/datum/reagent/water, /datum/reagent/consumable/nutriment, /datum/reagent/ash, /datum/reagent/iron),
-		list(/datum/reagent/consumable/ethanol, /datum/reagent/uranium/radium, /datum/reagent/oil, /datum/reagent/potassium, /datum/reagent/lithium), 
+		list(/datum/reagent/consumable/ethanol, /datum/reagent/uranium/radium, /datum/reagent/oil, /datum/reagent/potassium, /datum/reagent/lithium),
 		list(/datum/reagent/consumable/sodiumchloride, /datum/reagent/drug/nicotine, /datum/reagent/drug/space_drugs),
-		list(/datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/antihol, /datum/reagent/fuel, /datum/reagent/space_cleaner), 
-		list(/datum/reagent/medicine/spaceacillin, /datum/reagent/toxin/mindbreaker, /datum/reagent/toxin/itching_powder, /datum/reagent/medicine/cryoxadone, /datum/reagent/medicine/epinephrine), 
-		list(/datum/reagent/medicine/mine_salve, /datum/reagent/medicine/oxandrolone, /datum/reagent/medicine/atropine), 
-		list(/datum/reagent/medicine/leporazine, /datum/reagent/water/holywater, /datum/reagent/medicine/neurine), 
-		list(/datum/reagent/concentrated_barbers_aid, /datum/reagent/drug/happiness, /datum/reagent/medicine/pen_acid), 
+		list(/datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/antihol, /datum/reagent/fuel, /datum/reagent/space_cleaner),
+		list(/datum/reagent/medicine/spaceacillin, /datum/reagent/toxin/mindbreaker, /datum/reagent/toxin/itching_powder, /datum/reagent/medicine/cryoxadone, /datum/reagent/medicine/epinephrine),
+		list(/datum/reagent/medicine/mine_salve, /datum/reagent/medicine/oxandrolone, /datum/reagent/medicine/atropine),
+		list(/datum/reagent/medicine/leporazine, /datum/reagent/water/holywater, /datum/reagent/medicine/neurine),
+		list(/datum/reagent/concentrated_barbers_aid, /datum/reagent/drug/happiness, /datum/reagent/medicine/pen_acid),
 		list(/datum/reagent/medicine/haloperidol, /datum/reagent/pax, /datum/reagent/blackpowder, /datum/reagent/medicine/diphenhydramine),
-		list(/datum/reagent/toxin/lipolicide, /datum/reagent/drug/ketamine, /datum/reagent/drug/methamphetamine), 
+		list(/datum/reagent/toxin/lipolicide, /datum/reagent/drug/ketamine, /datum/reagent/drug/methamphetamine),
 		list(/datum/reagent/drug/krokodil, /datum/reagent/hair_dye, /datum/reagent/medicine/modafinil)
 		)
 /*
@@ -173,7 +173,7 @@
 	var/list/name_symptoms = list()
 	for(var/datum/symptom/S in symptoms)
 		name_symptoms += S.name
-		
+
 	return "[name], last modified by: [last_modified_by] symptoms:[english_list(name_symptoms)] resistance:[resistance] stealth:[stealth] speed:[stage_rate] transmission:[transmission] faltered:[faltered ? "Yes" : "No"]"
 
 /*
@@ -245,12 +245,12 @@
 	var/c1sev
 	var/c2sev
 	var/c3sev
-	for(var/datum/symptom/S as() in symptoms) 
+	for(var/datum/symptom/S as() in symptoms)
 		resistance += S.resistance
 		stealth += S.stealth
 		stage_rate += S.stage_speed
 		transmission += S.transmission
-	for(var/datum/symptom/S as() in symptoms) 
+	for(var/datum/symptom/S as() in symptoms)
 		S.severityset(src)
 		if(S.neutered)
 			continue
@@ -264,7 +264,7 @@
 			if(5 to INFINITY)
 				if(c3sev >= 5)
 					c3sev += (S.severity -3)//diminishing returns
-				else 
+				else
 					c3sev += S.severity
 	severity += (max(c2sev, c3sev) + c1sev)
 
@@ -545,18 +545,18 @@
 	if(!initial && A.mutable && (spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS))
 		var/minimum = 1
 		if(prob(CLAMP(35-(A.resistance + A.stealth - A.speed), 0, 50) * (A.mutability)))//stealthy/resistant diseases are less likely to mutate. this means diseases used to farm mutations should be easier to cure. hypothetically.
-			if(infectee.job == "clown" || infectee.job == "mime" || prob(1))//infecting a clown or mime can evolve l0 symptoms/. they can also appear very rarely
+			if(infectee.mind?.has_job(list(JOB_KEY_CLOWN, JOB_KEY_MIME)) || prob(1))//infecting a clown or mime can evolve l0 symptoms/. they can also appear very rarely
 				minimum = 0
 			else
 				minimum = CLAMP(A.severity - 1, 1, 7)
 			A.Evolve(minimum, CLAMP(A.severity + 4, minimum, 9))
 			A.id = GetDiseaseID()
 			A.keepid = TRUE//this is really janky, but basically mutated diseases count as the original disease
-				//if you want to evolve a higher level symptom you need to test and spread a deadly virus among test subjects. 
+				//if you want to evolve a higher level symptom you need to test and spread a deadly virus among test subjects.
 				//this is to give monkey testing a use, and add a bit more of a roleplay element to virology- testing deadly diseases on and curing/vaccinating monkeys
 				//this also adds the risk of disease escape if strict biohazard protocol is not followed, however
 				//the immutability of resistant diseases discourages this with hard-to-cure diseases.
-				//if players intentionally grief/cant seem to get biohazard protocol down, this can be changed to not use severity. 
+				//if players intentionally grief/cant seem to get biohazard protocol down, this can be changed to not use severity.
 	else
 		A.initial = FALSE //diseases *only* mutate when spreading. they wont mutate from any other kind of injection
 	infectee.diseases += A
@@ -627,23 +627,26 @@
 	if(diseasesource)
 		if(ishuman(diseasesource))
 			var/mob/living/carbon/human/H = diseasesource
-			prefixes += pick("[H.first_name()]'s", "[H.name]'s", "[H.job]'s", "[H.dna.species]'s")
-			bodies += pick("[H.first_name()]", "[H.job]", "[H.dna.species]")
+			var/job_string = H.mind?.get_station_role(JTYPE_JOB_NAME) || "Jobless"
+			var/prefix_temp = pick("[H.first_name()]'s", "[H.name]'s", "[job_string]'s", "[H.dna.species]'s")
+			prefix_temp = replacetext(prefix_temp, "s's", "s'") // grammar
+			prefixes += prefix_temp
+			bodies += pick("[H.first_name()]", "[job_string]", "[H.dna.species]")
 			if(islizard(H) || iscatperson(H))//add rat-origin prefixes to races that eat rats
-				prefixes += list("Vermin ", "Zoo", "Maintenance ") 
+				prefixes += list("Vermin ", "Zoo", "Maintenance ")
 				bodies += list("Rat", "Maint")
 		else switch(diseasesource.type)
 			if(/mob/living/simple_animal/pet/hamster/vector)
 				prefixes += list("Vector's ", "Hamster ")
 				bodies += list("Freebie")
 			if(/obj/effect/decal/cleanable)
-				prefixes += list("Bloody ", "Maintenance ") 
+				prefixes += list("Bloody ", "Maintenance ")
 				bodies += list("Maint")
 			if(/mob/living/simple_animal/mouse)
-				prefixes += list("Vermin ", "Zoo", "Maintenance ") 
+				prefixes += list("Vermin ", "Zoo", "Maintenance ")
 				bodies += list("Rat", "Maint")
 			if(/obj/item/reagent_containers/syringe)
-				prefixes += list("Junkie ", "Maintenance ") 
+				prefixes += list("Junkie ", "Maintenance ")
 				bodies += list("Needle", "Maint")
 			if(/obj/item/fugu_gland)
 				prefixes += "Wumbo"

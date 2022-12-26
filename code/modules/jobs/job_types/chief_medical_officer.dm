@@ -1,5 +1,5 @@
 /datum/job/chief_medical_officer
-	jpath = JOB_PATH_CHIEFMEDICALOFFICER
+	jkey = JOB_KEY_CHIEFMEDICALOFFICER
 	title = JOB_NAME_CHIEFMEDICALOFFICER
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = CMO_JF
@@ -7,7 +7,7 @@
 	supervisors = "the captain"
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
 	head_announce = list(RADIO_CHANNEL_MEDICAL)
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#c1e1ec"
@@ -26,7 +26,6 @@
 			ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_SURGERY, ACCESS_RC_ANNOUNCE, ACCESS_MECH_MEDICAL,
 			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_BRIGPHYS, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_WEAPONS)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_MED | DEPT_BITFLAG_COM
 	bank_account_department = ACCOUNT_MED_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
@@ -43,7 +42,7 @@
 	biohazard = 45
 
 /datum/outfit/job/chief_medical_officer
-	name = JOB_PATH_CHIEFMEDICALOFFICER
+	name = JOB_KEY_CHIEFMEDICALOFFICER
 	jobtype = /datum/job/chief_medical_officer
 
 	id = /obj/item/card/id/job/chief_medical_officer

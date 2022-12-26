@@ -23,6 +23,6 @@
 	attack_sound = 'sound/weapons/pierce.ogg'
 	movement_type = FLYING
 
-	faction = list("spooky")
+	faction = list(FACTION_UNDEAD)
 	del_on_death = TRUE
 	random_color = FALSE

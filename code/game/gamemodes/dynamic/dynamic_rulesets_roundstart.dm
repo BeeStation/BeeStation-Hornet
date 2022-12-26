@@ -7,11 +7,11 @@
 
 /datum/dynamic_ruleset/roundstart/traitor
 	name = "Traitors"
-	antag_flag = ROLE_TRAITOR
+	antag_flag = ROLE_KEY_TRAITOR
 	antag_datum = /datum/antagonist/traitor
 	minimum_required_age = 0
-	protected_roles = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN)
-	restricted_roles = list(JOB_PATH_CYBORG)
+	protected_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
+	restricted_roles = list(JOB_KEY_CYBORG)
 	required_candidates = 1
 	weight = 5
 	cost = 8	// Avoid raising traitor threat above this, as it is the default low cost ruleset.
@@ -28,7 +28,6 @@
 			break
 		var/mob/M = pick_n_take(candidates)
 		assigned += M.mind
-		M.mind.mind_roles[JLIST_SPECIAL] = ROLE_TRAITOR
 		M.mind.restricted_roles = restricted_roles
 	return TRUE
 
@@ -41,10 +40,10 @@
 
 /datum/dynamic_ruleset/roundstart/traitorbro
 	name = "Blood Brothers"
-	antag_flag = ROLE_BROTHER
+	antag_flag = ROLE_KEY_BROTHER
 	antag_datum = /datum/antagonist/brother/
-	protected_roles = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN)
-	restricted_roles = list(JOB_PATH_AI, JOB_PATH_CYBORG)
+	protected_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
+	restricted_roles = list(JOB_KEY_AI, JOB_KEY_CYBORG)
 	required_candidates = 2
 	weight = 2
 	cost = 12
@@ -66,7 +65,6 @@
 			var/mob/bro = pick_n_take(candidates)
 			assigned += bro.mind
 			team.add_member(bro.mind)
-			bro.mind.mind_roles[JLIST_SPECIAL] = "brother"
 			bro.mind.restricted_roles = restricted_roles
 		pre_brother_teams += team
 	return TRUE
@@ -89,10 +87,10 @@
 
 /datum/dynamic_ruleset/roundstart/changeling
 	name = "Changelings"
-	antag_flag = ROLE_CHANGELING
+	antag_flag = ROLE_KEY_CHANGELING
 	antag_datum = /datum/antagonist/changeling
-	protected_roles = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN)
-	restricted_roles = list(JOB_PATH_AI, JOB_PATH_CYBORG)
+	protected_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
+	restricted_roles = list(JOB_KEY_AI, JOB_KEY_CYBORG)
 	required_candidates = 1
 	weight = 3
 	cost = 16
@@ -109,7 +107,6 @@
 		var/mob/M = pick_n_take(candidates)
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
-		M.mind.mind_roles[JLIST_SPECIAL] = ROLE_CHANGELING
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/changeling/execute()
@@ -126,10 +123,10 @@
 
 /datum/dynamic_ruleset/roundstart/heretics
 	name = "Heretics"
-	antag_flag = ROLE_HERETIC
+	antag_flag = ROLE_KEY_HERETIC
 	antag_datum = /datum/antagonist/heretic
-	protected_roles = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN)
-	restricted_roles = list(JOB_PATH_AI, JOB_PATH_CYBORG)
+	protected_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
+	restricted_roles = list(JOB_KEY_AI, JOB_KEY_CYBORG)
 	required_candidates = 1
 	weight = 3
 	cost = 15
@@ -148,7 +145,6 @@
 		var/mob/picked_candidate = pick_n_take(candidates)
 		assigned += picked_candidate.mind
 		picked_candidate.mind.restricted_roles = restricted_roles
-		picked_candidate.mind.mind_roles[JLIST_SPECIAL] = ROLE_HERETIC
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/heretics/execute()
@@ -157,7 +153,6 @@
 		var/datum/mind/cultie = c
 		var/datum/antagonist/heretic/new_antag = new antag_datum()
 		cultie.add_antag_datum(new_antag)
-
 	return TRUE
 
 
@@ -170,11 +165,11 @@
 // Dynamic is a wonderful thing that adds wizards to every round and then adds even more wizards during the round.
 /datum/dynamic_ruleset/roundstart/wizard
 	name = "Wizard"
-	antag_flag = ROLE_WIZARD
+	antag_flag = ROLE_KEY_WIZARD
 	antag_datum = /datum/antagonist/wizard
 	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
 	minimum_required_age = 14
-	restricted_roles = list(JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN) // Just to be sure that a wizard getting picked won't ever imply a Captain or HoS not getting drafted
+	restricted_roles = list(JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN) // Just to be sure that a wizard getting picked won't ever imply a Captain or HoS not getting drafted
 	required_candidates = 1
 	weight = 2
 	cost = 20
@@ -195,7 +190,6 @@
 	var/mob/M = pick_n_take(candidates)
 	if (M)
 		assigned += M.mind
-		M.mind.mind_roles[JLIST_SPECIAL] = ROLE_WIZARD
 
 	return TRUE
 
@@ -213,10 +207,10 @@
 
 /datum/dynamic_ruleset/roundstart/bloodcult
 	name = "Blood Cult"
-	antag_flag = ROLE_CULTIST
+	antag_flag = ROLE_KEY_CULTIST
 	antag_datum = /datum/antagonist/cult
 	minimum_required_age = 14
-	restricted_roles = list(JOB_PATH_AI, JOB_PATH_CYBORG, JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN, JOB_PATH_CHAPLAIN, JOB_PATH_HEADOFPERSONNEL)
+	restricted_roles = list(JOB_KEY_AI, JOB_KEY_CYBORG, JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN, JOB_KEY_CHAPLAIN, JOB_KEY_HEADOFPERSONNEL)
 	required_candidates = 2
 	weight = 3
 	cost = 20
@@ -237,7 +231,6 @@
 			break
 		var/mob/M = pick_n_take(candidates)
 		assigned += M.mind
-		M.mind.mind_roles[JLIST_SPECIAL] = ROLE_CULTIST
 		M.mind.restricted_roles = restricted_roles
 	return TRUE
 
@@ -268,11 +261,11 @@
 
 /datum/dynamic_ruleset/roundstart/nuclear
 	name = "Nuclear Emergency"
-	antag_flag = ROLE_OPERATIVE
+	antag_flag = ROLE_KEY_OPERATIVE
 	antag_datum = /datum/antagonist/nukeop
 	var/datum/antagonist/antag_leader_datum = /datum/antagonist/nukeop/leader
 	minimum_required_age = 14
-	restricted_roles = list(JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN) // Just to be sure that a nukie getting picked won't ever imply a Captain or HoS not getting drafted
+	restricted_roles = list(JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN) // Just to be sure that a nukie getting picked won't ever imply a Captain or HoS not getting drafted
 	required_candidates = 5
 	weight = 3
 	cost = 20
@@ -294,7 +287,6 @@
 			break
 		var/mob/M = pick_n_take(candidates)
 		assigned += M.mind
-		M.mind.mind_roles[JLIST_SPECIAL] = ROLE_OPERATIVE
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/nuclear/execute()
@@ -352,11 +344,11 @@
 /datum/dynamic_ruleset/roundstart/revs
 	name = "Revolution"
 	persistent = TRUE
-	antag_flag = ROLE_REV_HEAD
-	antag_flag_override = ROLE_REV
+	antag_flag = ROLE_KEY_REV_HEAD
+	antag_flag_override = ROLE_KEY_REVOLUTION
 	antag_datum = /datum/antagonist/rev/head
 	minimum_required_age = 14
-	restricted_roles = list(JOB_PATH_AI, JOB_PATH_CYBORG, JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN, JOB_PATH_HEADOFPERSONNEL, JOB_PATH_CHIEFENGINEER, JOB_PATH_CHIEFMEDICALOFFICER, JOB_PATH_RESEARCHDIRECTOR)
+	restricted_roles = list(JOB_KEY_AI, JOB_KEY_CYBORG, JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN, JOB_KEY_HEADOFPERSONNEL, JOB_KEY_CHIEFENGINEER, JOB_KEY_CHIEFMEDICALOFFICER, JOB_KEY_RESEARCHDIRECTOR)
 	required_candidates = 3
 	weight = 3
 	delay = 7 MINUTES
@@ -381,7 +373,6 @@
 		var/mob/M = pick_n_take(candidates)
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
-		M.mind.mind_roles[JLIST_SPECIAL] = antag_flag
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/revs/execute()
@@ -472,9 +463,6 @@
 			if(T)
 				qdel(S)
 				new /obj/machinery/nuclearbomb/syndicate/bananium(T)
-		for(var/datum/mind/V in assigned)
-			V.mind_roles[JLIST_SPECIAL] = ROLE_OPERATIVE
-			V.mind_roles[JLIST_GIMMICK_SPECIAL] = ROLE_OPERATIVE_CLOWN
 
 //////////////////////////////////////////////
 //                                          //
@@ -484,9 +472,9 @@
 
 /datum/dynamic_ruleset/roundstart/devil
 	name = "Devil"
-	antag_flag = ROLE_DEVIL
+	antag_flag = ROLE_KEY_DEVIL
 	antag_datum = /datum/antagonist/devil
-	restricted_roles = list(JOB_PATH_LAWYER, JOB_PATH_CURATOR, JOB_PATH_CHAPLAIN, JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN, JOB_PATH_AI, JOB_PATH_CYBORG, JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE)
+	restricted_roles = list(JOB_KEY_LAWYER, JOB_KEY_CURATOR, JOB_KEY_CHAPLAIN, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN, JOB_KEY_AI, JOB_KEY_CYBORG, JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE)
 	required_candidates = 1
 	weight = 3
 	cost = 0
@@ -503,7 +491,6 @@
 			break
 		var/mob/devil = pick_n_take(candidates)
 		assigned += devil.mind
-		devil.mind.mind_roles[JLIST_SPECIAL] = ROLE_DEVIL
 		devil.mind.restricted_roles = restricted_roles
 
 		log_game("[key_name(devil)] has been selected as a devil")
@@ -572,9 +559,9 @@
 
 /datum/dynamic_ruleset/roundstart/clockcult
 	name = "Clockwork Cult"
-	antag_flag = ROLE_SERVANT_OF_RATVAR
+	antag_flag = ROLE_KEY_SERVANT_OF_RATVAR
 	antag_datum = /datum/antagonist/servant_of_ratvar
-	restricted_roles = list(JOB_PATH_AI, JOB_PATH_CYBORG, JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE,JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN, JOB_PATH_CHAPLAIN, JOB_PATH_HEADOFPERSONNEL)
+	restricted_roles = list(JOB_KEY_AI, JOB_KEY_CYBORG, JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE,JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN, JOB_KEY_CHAPLAIN, JOB_KEY_HEADOFPERSONNEL)
 	required_candidates = 4
 	weight = 3
 	cost = 35
@@ -596,7 +583,6 @@
 	for (var/i in 1 to starter_servants)
 		var/mob/servant = pick_n_take(candidates)
 		assigned += servant.mind
-		servant.mind.mind_roles[JLIST_SPECIAL] = ROLE_SERVANT_OF_RATVAR
 	//Generate scriptures
 	generate_clockcult_scriptures()
 	return TRUE
@@ -633,10 +619,10 @@
 
 /datum/dynamic_ruleset/roundstart/incursion
 	name = "Incursion"
-	antag_flag = ROLE_INCURSION
+	antag_flag = ROLE_KEY_INCURSION
 	antag_datum = /datum/antagonist/incursion
-	protected_roles = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE,JOB_PATH_CAPTAIN, JOB_PATH_HEADOFPERSONNEL, JOB_PATH_HEADOFSECURITY, JOB_PATH_CHIEFENGINEER, JOB_PATH_RESEARCHDIRECTOR, JOB_PATH_CHIEFMEDICALOFFICER)
-	restricted_roles = list(JOB_PATH_AI, JOB_PATH_CYBORG)
+	protected_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE,JOB_KEY_CAPTAIN, JOB_KEY_HEADOFPERSONNEL, JOB_KEY_HEADOFSECURITY, JOB_KEY_CHIEFENGINEER, JOB_KEY_RESEARCHDIRECTOR, JOB_KEY_CHIEFMEDICALOFFICER)
+	restricted_roles = list(JOB_KEY_AI, JOB_KEY_CYBORG)
 	required_candidates = 2
 	weight = 3
 	cost = 20
@@ -656,7 +642,6 @@
 			break
 		var/mob/M = pick_n_take(candidates)
 		assigned += M.mind
-		M.mind.mind_roles[JLIST_SPECIAL] = ROLE_INCURSION
 		M.mind.restricted_roles = restricted_roles
 	return TRUE
 
@@ -685,10 +670,10 @@
 
 /datum/dynamic_ruleset/roundstart/hivemind
 	name = "Assimilation"
-	antag_flag = ROLE_HIVE
+	antag_flag = ROLE_KEY_HIVE
 	antag_datum = /datum/antagonist/hivemind
-	protected_roles = list(JOB_PATH_SECURITYOFFICER, JOB_PATH_WARDEN, JOB_PATH_DETECTIVE,JOB_PATH_HEADOFSECURITY, JOB_PATH_CAPTAIN)
-	restricted_roles = list(JOB_PATH_AI, JOB_PATH_CYBORG)
+	protected_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE,JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
+	restricted_roles = list(JOB_KEY_AI, JOB_KEY_CYBORG)
 	required_candidates = 3
 	weight = 3
 	cost = 30
@@ -702,7 +687,6 @@
 		var/mob/M = pick_n_take(candidates)
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
-		M.mind.mind_roles[JLIST_SPECIAL] = ROLE_HIVE
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/hivemind/execute()

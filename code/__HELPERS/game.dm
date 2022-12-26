@@ -432,6 +432,14 @@
 
 	for(var/mob/dead/observer/G in GLOB.player_list)
 		candidates += G
+	
+	if(!islist(jobbanType)) // injects ROLE_BANCHECK_MAJOR_GHOSTSPAWN. it blocks every ghost having it banned
+		if(jobbanType)
+			jobbanType = list(ROLE_BANCHECK_MAJOR_GHOSTSPAWN, jobbanType)
+		else
+			jobbanType = ROLE_BANCHECK_MAJOR_GHOSTSPAWN
+	else
+		jobbanType |= jobbanType
 
 	return pollCandidates(Question, jobbanType, gametypeCheck, be_special_flag, poll_time, ignore_category, flashwindow, candidates, req_hours)
 
@@ -451,7 +459,7 @@
 			if(!gametypeCheck.age_check(M.client))
 				continue
 		if(jobbanType)
-			if(QDELETED(M) || is_banned_from(M.ckey, list(jobbanType, ROLE_SYNDICATE)))
+			if(QDELETED(M) || is_banned_from(M.ckey, list(jobbanType, ROLE_BANCHECK_MAJOR_ANTAGONIST)))
 				continue
 		if(req_hours) //minimum living hour count
 			if((M.client.get_exp_living(TRUE)/60) < req_hours)
@@ -539,7 +547,7 @@
 	deadchat_broadcast(message, follow_target = character, message_type=DEADCHAT_ARRIVALRATTLE)
 	if((!GLOB.announcement_systems.len) || (!character.mind))
 		return
-	if((character.mind.mind_roles[JLIST_BASE_PATH] == JOB_PATH_CYBORG) || (character.mind.mind_roles[JLIST_BASE_PATH] == JOB_UNASSIGNED))
+	if((character.mind.mind_roles[JLIST_BASE_PATH] == JOB_KEY_CYBORG) || (character.mind.mind_roles[JLIST_BASE_PATH] == JOB_UNASSIGNED))
 		return
 
 	var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)

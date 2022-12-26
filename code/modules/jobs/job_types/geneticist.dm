@@ -1,11 +1,11 @@
 /datum/job/geneticist
-	jpath = JOB_PATH_GENETICIST
+	jkey = JOB_KEY_GENETICIST
 	title = JOB_NAME_GENETICIST
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = GENETICIST
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the chief medical officer and research director"
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 2
 	spawn_positions = 2
 	selection_color = "#d4ebf2"
@@ -16,7 +16,6 @@
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_CHEMISTRY, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_ROBOTICS, ACCESS_MINERAL_STOREROOM, ACCESS_TECH_STORAGE)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_MED | DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_MED_BITFLAG | ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(
@@ -34,7 +33,7 @@
 	biohazard = 25
 
 /datum/outfit/job/geneticist
-	name = JOB_PATH_GENETICIST
+	name = JOB_KEY_GENETICIST
 	jobtype = /datum/job/geneticist
 
 	id = /obj/item/card/id/job/geneticist

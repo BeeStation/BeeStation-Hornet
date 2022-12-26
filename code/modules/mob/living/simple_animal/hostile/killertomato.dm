@@ -18,7 +18,7 @@
 	attacktext = "slams"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	ventcrawler = VENTCRAWLER_ALWAYS
-	faction = list("plants")
+	faction = list(FACTION_PLANT)
 
 	mobchatspan = "headofsecurity"
 	discovery_points = 1000

@@ -13,7 +13,7 @@
 
 /datum/antagonist/xeno
 	name = "Xenomorph"
-	antag_role_type = ROLE_ALIEN
+	antag_role_type = ROLE_KEY_XENOMORPH
 	show_in_antagpanel = FALSE
 	prevent_roundtype_conversion = FALSE
 	show_to_ghosts = TRUE

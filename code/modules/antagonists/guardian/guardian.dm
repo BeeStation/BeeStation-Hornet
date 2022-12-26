@@ -2,6 +2,7 @@
 
 /datum/antagonist/guardian
 	name = "Guardian"
+	antag_role_type = ROLE_KEY_HOLOPARASITE
 	show_in_antagpanel = FALSE
 	var/datum/guardian_stats/stats
 	var/datum/mind/summoner

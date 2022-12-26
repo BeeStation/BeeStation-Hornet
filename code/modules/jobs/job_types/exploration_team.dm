@@ -1,11 +1,11 @@
 /datum/job/exploration_crew
-	jpath = JOB_PATH_EXPLORATIONCREW
+	jkey = JOB_KEY_EXPLORATIONCREW
 	title = JOB_NAME_EXPLORATIONCREW
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = EXPLORATION_CREW
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 3
 	spawn_positions = 3
 	minimal_player_age = 3
@@ -18,7 +18,6 @@
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX,ACCESS_TOX_STORAGE, ACCESS_MECH_SCIENCE, ACCESS_XENOBIOLOGY)
 	minimal_access = list(ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_MECH_SCIENCE)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_HARD)
@@ -55,7 +54,7 @@
 	. = ..(H, visualsOnly, announce, latejoin, outfit_override, preference_source)
 
 /datum/outfit/job/exploration_crew
-	name = JOB_PATH_EXPLORATIONCREW
+	name = JOB_KEY_EXPLORATIONCREW
 	jobtype = /datum/job/exploration_crew
 
 	id = /obj/item/card/id/job/exploration_crew

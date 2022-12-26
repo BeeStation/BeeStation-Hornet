@@ -106,6 +106,7 @@
 // reminder -- gimmick has been removed. exp type time might need to be imported
 #define EXP_TYPE_ANTAG			"Antag"
 #define EXP_TYPE_SPECIAL		"Special"
+#define EXP_TYPE_DEPRECATED     "Deprecated" // deprecated roles
 #define EXP_TYPE_GHOST			"Ghost"
 #define EXP_TYPE_ADMIN			"Admin"
 

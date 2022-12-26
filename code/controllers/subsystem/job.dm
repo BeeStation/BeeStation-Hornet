@@ -12,19 +12,19 @@ SUBSYSTEM_DEF(job)
 	var/list/prioritized_jobs = list()
 	var/list/latejoin_trackers = list()	//Don't read this list, use GetLateJoinTurfs() instead
 
-	var/overflow_role = JOB_PATH_ASSISTANT
+	var/overflow_role = JOB_KEY_ASSISTANT
 
 	var/list/level_order = list(JP_HIGH,JP_MEDIUM,JP_LOW)
 
 	var/spare_id_safe_code = ""
 
 	var/list/chain_of_command = list(
-		JOB_PATH_CAPTAIN = 1,				//Not used yet but captain is first in chain_of_command
-		JOB_PATH_HEADOFPERSONNEL = 2,
-		JOB_PATH_RESEARCHDIRECTOR = 3,
-		JOB_PATH_CHIEFENGINEER = 4,
-		JOB_PATH_CHIEFMEDICALOFFICER = 5,
-		JOB_PATH_HEADOFSECURITY = 6)
+		JOB_KEY_CAPTAIN = 1,				//Not used yet but captain is first in chain_of_command
+		JOB_KEY_HEADOFPERSONNEL = 2,
+		JOB_KEY_RESEARCHDIRECTOR = 3,
+		JOB_KEY_CHIEFENGINEER = 4,
+		JOB_KEY_CHIEFMEDICALOFFICER = 5,
+		JOB_KEY_HEADOFSECURITY = 6)
 
 	//Crew Objective stuff
 	var/list/crew_obj_list = list()
@@ -70,7 +70,7 @@ SUBSYSTEM_DEF(job)
 		overflow_role = new_overflow_role
 		JobDebug("Overflow role set to : [new_overflow_role]")
 
-/datum/controller/subsystem/job/proc/SetupOccupations(faction = JOB_FACTION_STATION)
+/datum/controller/subsystem/job/proc/SetupOccupations(faction = FACTION_STATION)
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
@@ -89,19 +89,26 @@ SUBSYSTEM_DEF(job)
 			testing("Removed [job.type] due to map config")
 			continue
 
-		if(job.g_jpath) // setting gimmick positions to 0 at default
+		if(job.g_jkey) // setting gimmick positions to 0 at default
 			job.total_positions = 0
 			job.spawn_positions = 0
 
 		occupations += job
 		// Key is job path. gimmick job path is prioritised if it exists.
-		name_occupations[job.get_jpath()] = job
-		if(job.get_jpath() != job.get_title()) // in case that title is customised for some reason (i.e. medieval theme titles in code), this will do failsafe.
+		name_occupations[job.get_jkey()] = job
+		if(job.get_jkey() != job.get_title()) // in case that title is customised for some reason (i.e. medieval theme titles in code), this will do failsafe.
 			name_occupations[job.get_title()] = job
 		type_occupations[J] = job
 
 	return 1
 
+/datum/controller/subsystem/job/proc/AnnounceGimmickJobs()
+	var/list/available_gimmicks = list()
+	for(var/datum/job/J in occupations)
+		if(J.job_bitflags & (JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_GIMMICK))
+			available_gimmicks += J.get_title()
+	if(length(available_gimmicks))
+		to_chat(world, "<span class='boldnotice'>Available gimmick jobs: [english_list(available_gimmicks)]</span>")
 
 /datum/controller/subsystem/job/proc/GetJob(job_string)
 	if(!job_string)
@@ -151,7 +158,8 @@ SUBSYSTEM_DEF(job)
 		if(!latejoin)
 			position_limit = job.spawn_positions
 		JobDebug("Player: [player] is now Rank: [job_key], JCP:[job.current_positions], JPL:[position_limit]")
-		player.mind.set_mind_roles(job_key)
+
+		player.mind.assign_crew_role(job)
 		unassigned -= player
 		job.current_positions++
 		return TRUE
@@ -171,7 +179,7 @@ SUBSYSTEM_DEF(job)
 	JobDebug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
 	var/list/candidates = list()
 	for(var/mob/dead/new_player/player in unassigned)
-		if(QDELETED(player) || (is_banned_from(player.ckey, list(job.get_jpath(), job.get_jpath(FALSE)))))
+		if(QDELETED(player) || (is_banned_from(player.ckey, list(job.get_jkey(), job.get_jkey(FALSE)))))
 			JobDebug("FOC isbanned failed, Player: [player]")
 			continue
 		if(!job.player_old_enough(player.client))
@@ -183,10 +191,10 @@ SUBSYSTEM_DEF(job)
 		if(flag && (!(flag in player.client.prefs.be_special)))
 			JobDebug("FOC flag failed, Player: [player], Flag: [flag], ")
 			continue
-		if(player.mind && ((job.get_jpath() in player.mind.restricted_roles) || (job.get_jpath(FALSE) in player.mind.restricted_roles)))
+		if(player.mind && ((job.get_jkey() in player.mind.restricted_roles) || (job.get_jkey(FALSE) in player.mind.restricted_roles)))
 			JobDebug("FOC incompatible with antagonist role, Player: [player]")
 			continue
-		if(player.client.prefs.active_character.job_preferences[job.get_jpath()] == level)
+		if(player.client.prefs.active_character.job_preferences[job.get_jkey()] == level)
 			JobDebug("FOC pass, Player: [player], Level:[level]")
 			candidates += player
 	return candidates
@@ -201,15 +209,15 @@ SUBSYSTEM_DEF(job)
 		if(istype(job, GetJob(SSjob.overflow_role))) // We don't want to give him assistant, that's boring!
 			continue
 
-		if(job.get_jpath() in GLOB.command_positions) //If you want a command position, select it!
+		if(job.get_jkey() in GLOB.command_positions) //If you want a command position, select it!
 			continue
 
 		if(QDELETED(player))
 			JobDebug("GRJ isbanned failed, Player deleted")
 			break
 
-		if(is_banned_from(player.ckey, list(job.get_jpath(), job.get_jpath(FALSE))))
-			JobDebug("GRJ isbanned failed, Player: [player], Job:[job.get_jpath()][job.get_jpath()!=job.get_jpath(FALSE) ? " (possibly banned [job.get_jpath(FALSE)])" : ""]")
+		if(is_banned_from(player.ckey, list(job.get_jkey(), job.get_jkey(FALSE))))
+			JobDebug("GRJ isbanned failed, Player: [player], Job:[job.get_jkey()][job.get_jkey()!=job.get_jkey(FALSE) ? " (possibly banned [job.get_jkey(FALSE)])" : ""]")
 			continue
 
 		if(!job.player_old_enough(player.client))
@@ -220,13 +228,13 @@ SUBSYSTEM_DEF(job)
 			JobDebug("GRJ player not enough xp, Player: [player]")
 			continue
 
-		if(player.mind && (job.get_jpath() in player.mind.restricted_roles))
-			JobDebug("GRJ incompatible with antagonist role, Player: [player], Job: [job.get_jpath()]")
+		if(player.mind && (job.get_jkey() in player.mind.restricted_roles))
+			JobDebug("GRJ incompatible with antagonist role, Player: [player], Job: [job.get_jkey()]")
 			continue
 
 		if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
 			JobDebug("GRJ Random job given, Player: [player], Job: [job]")
-			if(AssignRole(player, job.get_jpath()))
+			if(AssignRole(player, job.get_jkey()))
 				return TRUE
 
 /datum/controller/subsystem/job/proc/ResetOccupations()
@@ -311,7 +319,7 @@ SUBSYSTEM_DEF(job)
 
 	//Get the players who are ready
 	for(var/mob/dead/new_player/player in GLOB.player_list)
-		if(player.ready == PLAYER_READY_TO_PLAY && player.mind && !player.mind.get_mind_role(JTYPE_JOB_PATH))
+		if(player.ready == PLAYER_READY_TO_PLAY && player.mind && !player.mind.get_job())
 			if(!player.check_preferences())
 				player.ready = PLAYER_NOT_READY
 			else
@@ -384,8 +392,8 @@ SUBSYSTEM_DEF(job)
 				if(!job)
 					continue
 
-				if(is_banned_from(player.ckey, list(job.get_jpath(), job.get_jpath(FALSE))))
-					JobDebug("DO isbanned failed, Player: [player], Job:[job.get_jpath()][job.get_jpath()!=job.get_jpath(FALSE) ? " (possibly banned [job.get_jpath(FALSE)])" : ""]")
+				if(is_banned_from(player.ckey, list(job.get_jkey(), job.get_jkey(FALSE))))
+					JobDebug("DO isbanned failed, Player: [player], Job:[job.get_jkey()][job.get_jkey()!=job.get_jkey(FALSE) ? " (possibly banned [job.get_jkey(FALSE)])" : ""]")
 					continue
 
 				if(QDELETED(player))
@@ -393,23 +401,23 @@ SUBSYSTEM_DEF(job)
 					break
 
 				if(!job.player_old_enough(player.client))
-					JobDebug("DO player not old enough, Player: [player], Job:[job.get_jpath()]")
+					JobDebug("DO player not old enough, Player: [player], Job:[job.get_jkey()]")
 					continue
 
 				if(job.required_playtime_remaining(player.client))
-					JobDebug("DO player not enough xp, Player: [player], Job:[job.get_jpath()]")
+					JobDebug("DO player not enough xp, Player: [player], Job:[job.get_jkey()]")
 					continue
 
-				if(player.mind && (job.get_jpath() in player.mind.restricted_roles))
-					JobDebug("DO incompatible with antagonist role, Player: [player], Job:[job.get_jpath()]")
+				if(player.mind && (job.get_jkey() in player.mind.restricted_roles))
+					JobDebug("DO incompatible with antagonist role, Player: [player], Job:[job.get_jkey()]")
 					continue
 
 				// If the player wants that job on this level, then try give it to him.
-				if(player.client.prefs.active_character.job_preferences[job.jpath] == level)
+				if(player.client.prefs.active_character.job_preferences[job.get_jkey()] == level)
 					// If the job isn't filled
 					if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
-						JobDebug("DO pass, Player: [player], Level:[level], Job:[job.get_jpath()==job.get_title() ? job.get_jpath() : "[job.get_jpath()]/[job.get_title()]"]")
-						AssignRole(player, job.get_jpath())
+						JobDebug("DO pass, Player: [player], Level:[level], Job:[job.get_jkey()==job.get_title() ? job.get_jkey() : "[job.get_jkey()]/[job.get_title()]"]")
+						AssignRole(player, job.get_jkey())
 						unassigned -= player
 						break
 
@@ -481,8 +489,8 @@ SUBSYSTEM_DEF(job)
 		living_mob = M
 
 	var/datum/job/job = GetJob(job_key)
-
-	living_mob.job = job_key // REMINDER----Need to check this
+	if(living_mob.mind)
+		living_mob.mind.assign_crew_role(job) // stores a job string in your mind
 
 	//If we joined at roundstart we should be positioned at our workstation
 	if(!joined_late)
@@ -500,25 +508,34 @@ SUBSYSTEM_DEF(job)
 		else if(length(GLOB.jobspawn_overrides[job_key]))
 			S = pick(GLOB.jobspawn_overrides[job_key])
 		else
-			for(var/obj/effect/landmark/start/sloc in GLOB.start_landmarks_list)
-				if(sloc.name != job_key)
-					S = sloc //so we can revert to spawning them on top of eachother if something goes wrong
-					continue
-				if(locate(/mob/living) in sloc.loc)
-					continue
-				S = sloc
-				sloc.used = TRUE
-				break
+			var/spawn_successful = FALSE
+			var/max_attempt = job.job_bitflags & JOB_BITFLAG_GIMMICK ? 2 : 1
+			for(var/i in 1 to max_attempt)
+				for(var/obj/effect/landmark/start/sloc in GLOB.start_landmarks_list)
+					if(sloc.name != job.get_jkey(!(i-1)))
+						// about this 'if' check
+						// gimmick job tries to find its own spawn location at first attempt.
+						// if they have no spawn location, it uses its basic job location instead, at second attempt.
+						// i.e.) psychiatrist has its spawn location in their maint office
+						//		 if they don't have it somehow, they'll be spawned on medical doctor spawn loc
+
+						S = sloc //so we can revert to spawning them on top of eachother if something goes wrong
+						continue
+					if(locate(/mob/living) in sloc.loc)
+						continue
+					S = sloc
+					sloc.used = TRUE
+					spawn_successful = TRUE
+					break
+				if(spawn_successful)
+					break
 		if(S)
 			S.JoinPlayerHere(living_mob, FALSE)
 		if(!S && !spawning_handled) //if there isn't a spawnpoint send them to latejoin, if there's no latejoin go yell at your mapper
 			log_world("Couldn't find a round start spawn point for [job_key]")
 			SendToLateJoin(living_mob)
 
-
-	if(living_mob.mind)
-		living_mob.mind.set_mind_roles(job_key)
-	var/displaying_job_title = living_mob.mind.get_mind_role(JTYPE_JOB_NAME)
+	var/displaying_job_title = living_mob.mind.get_station_role()
 	to_chat(M, "<b>You are the [displaying_job_title].</b>")
 	if(job)
 		var/new_mob = job.equip(living_mob, null, null, joined_late , null, M.client)
@@ -596,16 +613,16 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/LoadJobs()
 	var/jobstext = rustg_file_read("[global.config.directory]/jobs.txt")
 	for(var/datum/job/J in occupations)
-		var/regex/jobs = new("[J.get_jpath()]=(-1|\\d+),(-1|\\d+)")
+		var/regex/jobs = new("[J.get_jkey()]=(-1|\\d+),(-1|\\d+)")
 		if(jobs.Find(jobstext))
 			J.total_positions = text2num(jobs.group[1])
 			J.spawn_positions = text2num(jobs.group[2])
-		jobs = new("[J.get_jpath(FALSE)]=(-1|\\d+),(-1|\\d+)")
+		jobs = new("[J.get_jkey(FALSE)]=(-1|\\d+),(-1|\\d+)")
 		if(jobs.Find(jobstext))
 			J.total_positions = text2num(jobs.group[1])
 			J.spawn_positions = text2num(jobs.group[2])
 		else
-			log_runtime("Error in /datum/controller/subsystem/job/proc/LoadJobs: Failed to locate job of job path [J.get_jpath()] in jobs.txt")
+			log_runtime("Error in /datum/controller/subsystem/job/proc/LoadJobs: Failed to locate job of job path [J.get_jkey()] in jobs.txt")
 
 /datum/controller/subsystem/job/proc/HandleFeedbackGathering()
 	for(var/datum/job/job in occupations)
@@ -616,9 +633,9 @@ SUBSYSTEM_DEF(job)
 		var/banned = 0 //banned
 		var/young = 0 //account too young
 		for(var/mob/dead/new_player/player in GLOB.player_list)
-			if(!(player.ready == PLAYER_READY_TO_PLAY && player.mind && !player.mind.get_mind_role(JTYPE_JOB_PATH)))
+			if(!(player.ready == PLAYER_READY_TO_PLAY && player.mind && !player.mind.get_job()))
 				continue //This player is not ready
-			if(is_banned_from(player.ckey, job.get_jpath()) || QDELETED(player))
+			if(is_banned_from(player.ckey, job.get_jkey()) || QDELETED(player))
 				banned++
 				continue
 			if(!job.player_old_enough(player.client))
@@ -627,7 +644,7 @@ SUBSYSTEM_DEF(job)
 			if(job.required_playtime_remaining(player.client))
 				young++
 				continue
-			switch(player.client.prefs.active_character.job_preferences[job.get_jpath()])
+			switch(player.client.prefs.active_character.job_preferences[job.get_jkey()])
 				if(JP_HIGH)
 					high++
 				if(JP_MEDIUM)
@@ -653,7 +670,7 @@ SUBSYSTEM_DEF(job)
 	return 0
 
 /datum/controller/subsystem/job/proc/RejectPlayer(mob/dead/new_player/player)
-	if(player.mind && player.mind.get_mind_role(JTYPE_SPECIAL))
+	if(player.mind && player.mind.get_special_role())
 		return
 	if(PopcapReached() && !IS_PATRON(player.ckey))
 		JobDebug("Popcap overflow Check observer located, Player: [player]")
@@ -671,7 +688,7 @@ SUBSYSTEM_DEF(job)
 		INVOKE_ASYNC(src, .proc/RecoverJob, J)
 
 /datum/controller/subsystem/job/proc/RecoverJob(datum/job/J)
-	var/datum/job/newjob = GetJob(J.get_jpath())
+	var/datum/job/newjob = GetJob(J.get_jkey())
 	if (!istype(newjob))
 		return
 	newjob.total_positions = J.total_positions
@@ -690,8 +707,8 @@ SUBSYSTEM_DEF(job)
 
 /datum/controller/subsystem/job/proc/SendToLateJoin(mob/M, buckle = TRUE)
 	var/atom/destination
-	if(M.mind && M.mind.get_mind_role(JTYPE_JOB_PATH) && length(GLOB.jobspawn_overrides[M.mind.get_mind_role(JTYPE_JOB_PATH)])) //We're doing something special today.
-		destination = pick(GLOB.jobspawn_overrides[M.mind.get_mind_role(JTYPE_JOB_PATH)])
+	if(M.mind && M.mind.get_job() && length(GLOB.jobspawn_overrides[M.mind.get_job()])) //We're doing something special today.
+		destination = pick(GLOB.jobspawn_overrides[M.mind.get_job()])
 		destination.JoinPlayerHere(M, FALSE)
 		return
 
@@ -762,7 +779,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/get_living_heads()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.alive_mob_list)
-		if(player.stat != DEAD && player.mind && (player.mind.get_mind_role(JTYPE_JOB_PATH) in GLOB.command_positions))
+		if(player.stat != DEAD && player.mind && player.mind.has_job(GLOB.command_positions))
 			. |= player.mind
 
 
@@ -773,7 +790,7 @@ SUBSYSTEM_DEF(job)
 	. = list()
 	for(var/i in GLOB.mob_list)
 		var/mob/player = i
-		if(player.mind && (player.mind.get_mind_role(JTYPE_JOB_PATH) in GLOB.command_positions))
+		if(player.mind && player.mind.has_job(GLOB.command_positions))
 			. |= player.mind
 
 //////////////////////////////////////////////
@@ -782,7 +799,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/get_living_sec()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.carbon_list)
-		if(player.stat != DEAD && player.mind && (player.mind.get_mind_role(JTYPE_JOB_PATH) in GLOB.security_positions))
+		if(player.stat != DEAD && player.mind && player.mind.has_job(GLOB.security_positions))
 			. |= player.mind
 
 ////////////////////////////////////////
@@ -791,7 +808,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/get_all_sec()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.carbon_list)
-		if(player.mind && (player.mind.get_mind_role(JTYPE_JOB_PATH) in GLOB.security_positions))
+		if(player.mind && player.mind.has_job(GLOB.security_positions))
 			. |= player.mind
 
 /datum/controller/subsystem/job/proc/JobDebug(message)

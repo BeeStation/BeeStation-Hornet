@@ -300,13 +300,15 @@
 
 /obj/machinery/clonepod/proc/offer_to_ghost(mob/living/carbon/H)
 	set waitfor = FALSE
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [H.real_name]'s experimental clone?", ROLE_EXPERIMENTAL_CLONE, null, null, 300, H, POLL_IGNORE_EXPERIMENTAL_CLONE)
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [H.real_name]'s experimental clone?", ROLE_KEY_EXPERIMENTAL_CLONE, null, null, 300, H, POLL_IGNORE_EXPERIMENTAL_CLONE)
 	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		H.key = C.key
 		log_game("[key_name(C)] became [H.real_name]'s experimental clone.")
 		message_admins("[key_name_admin(C)] became [H.real_name]'s experimental clone.")
 		to_chat(H, "<span class='warning'>You will instantly die if you do 'ghost'. Please stand by until the cloning is done.</span>")
+
+		H.mind.assign_special_role(ROLE_KEY_EXPERIMENTAL_CLONE)
 
 //Grow clones to maturity then kick them out.  FREELOADERS
 /obj/machinery/clonepod/process()

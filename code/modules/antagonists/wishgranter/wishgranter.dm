@@ -1,5 +1,7 @@
 /datum/antagonist/wishgranter
 	name = "Wishgranter Avatar"
+	antag_role_type = null // change this later
+	major_antag_ban = null
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	can_elimination_hijack = ELIMINATION_ENABLED
@@ -11,7 +13,6 @@
 	log_objective(owner, elimination_objective.explanation_text)
 
 /datum/antagonist/wishgranter/on_gain()
-	owner.mind_roles[JLIST_SPECIAL] = "Avatar of the Wish Granter"
 	forge_objectives()
 	. = ..()
 	give_powers()

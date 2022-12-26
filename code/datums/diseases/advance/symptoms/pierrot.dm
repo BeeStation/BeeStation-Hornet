@@ -12,6 +12,7 @@
 	var/honkspread = FALSE
 	var/clownmask = FALSE
 	var/clumsy = FALSE
+	var/clown_mob = FALSE // this flag is used in a situation when a mob's brain is transfered when they're infected
 	threshold_desc = "<b>Transmission 10:</b> There's a rare chance the disease is spread everytime the host honks.<br>\
 					  <b>Resistance 10:</b> The host grows a peculiar clown mask.<br>\
 					  <b>Resistance 15:</b>	Host becomes clumsy, similar to a clown."
@@ -34,6 +35,8 @@
 		clownmask = TRUE
 		if(A.resistance >= 15)
 			clumsy = TRUE
+	if(A.affected_mob.mind?.has_job(JOB_KEY_CLOWN))
+		clown_mob = TRUE
 
 /datum/symptom/pierrot/Activate(datum/disease/advance/A)
 	if(!..())
@@ -68,7 +71,7 @@
 
 /datum/symptom/pierrot/End(datum/disease/advance/A)
 	..()
-	if(!((A.affected_mob.job == JOB_PATH_CLOWN) && (A.affected_mob?.mind.get_mind_role(JTYPE_JOB_PATH) == JOB_PATH_CLOWN)))
+	if(!clown_mob)
 		to_chat(A.affected_mob, "<span class='notice'>You feel less dumb.</span>")
 		REMOVE_TRAIT(A.affected_mob, TRAIT_CLUMSY, DISEASE_TRAIT)
 	if(ishuman(A.affected_mob))

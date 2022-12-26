@@ -1,9 +1,9 @@
 /datum/antagonist/slaughter
 	name = "Slaughter demon"
+	antag_role_type = ROLE_KEY_SLAUGHTER_DEMON
 	show_name_in_check_antagonists = TRUE
 	var/objective_verb = "Kill"
 	var/datum/mind/summoner
-	antag_role_type = ROLE_SLAUGHTER_DEMON
 	show_in_antagpanel = FALSE
 	show_to_ghosts = TRUE
 

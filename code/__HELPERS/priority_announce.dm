@@ -15,7 +15,7 @@
 		announcement += "<h1 class='alert'>Priority Announcement</h1>"
 		if (title && length(title) > 0)
 			announcement += "<br><h2 class='alert'>[html_encode(title)]</h2>"
-	else if(type == JOB_PATH_CAPTAIN)
+	else if(type == JOB_KEY_CAPTAIN)
 		announcement += "<h1 class='alert'>[JOB_NAME_CAPTAIN] Announces</h1>"
 		GLOB.news_network.submit_article(html_encode(text), "[JOB_NAME_CAPTAIN]'s Announcement", "Station Announcements", null)
 

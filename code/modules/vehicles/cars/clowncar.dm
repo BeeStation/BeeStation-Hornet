@@ -29,14 +29,11 @@
 	if(!M.mind)
 		add_control_flags(M, VEHICLE_CONTROL_KIDNAPPED)
 		return
-	if(M.mind.get_mind_role(JTYPE_JOB_PATH) == JOB_PATH_CLOWN) //Ensures only clowns can drive the car. (Including more at once)
+	if(M.mind.has_role(JOB_KEY_CLOWN))
 		is_clown = TRUE
 	else
-		switch(M.mind.get_mind_role(JTYPE_SPECIAL))
-			if(ROLE_OPERATIVE_CLOWN) // they are clown too!
-				is_clown = TRUE
-			if("Laughter demon") // ...yes, they too.
-				is_clown = TRUE
+		if(M.mind.get_special_role() == "Laughter Demon") // ...yes, they too.
+			is_clown = TRUE
 	if(!is_clown)
 		add_control_flags(M, VEHICLE_CONTROL_KIDNAPPED)
 		return

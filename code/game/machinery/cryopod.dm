@@ -257,10 +257,11 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 /obj/machinery/cryopod/proc/despawn_occupant()
 	var/mob/living/mob_occupant = occupant
 
-	if(mob_occupant.mind && (mob_occupant.mind.get_mind_role(JTYPE_JOB_PATH) != JOB_UNASSIGNED))
+	if(mob_occupant.mind)
 		//Handle job slot/tater cleanup.
-		var/job = mob_occupant.mind.get_mind_role(JTYPE_JOB_PATH)
-		SSjob.FreeRole(job)
+		var/job = mob_occupant.mind.get_job()
+		if(job)
+			SSjob.FreeRole(job)
 
 	// Delete them from datacore.
 
@@ -290,7 +291,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	if(GLOB.announcement_systems.len)
 		var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
-		if((mob_occupant.job == JOB_PATH_CAPTAIN) || (mob_occupant.mind.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) == JOB_PATH_CAPTAIN))
+		if(mob_occupant.mind.has_job(list(JOB_KEY_CAPTAIN,JOB_KEY_CAPTAIN)))
 			minor_announce("[JOB_NAME_CAPTAIN] [mob_occupant.real_name] has entered cryogenic storage.")
 		else
 			announcer.announce("CRYOSTORAGE", mob_occupant.real_name, announce_rank, list())
@@ -370,7 +371,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	if(target == user && world.time - target.client.cryo_warned > 5 MINUTES)//if we haven't warned them in the last 5 minutes
 		var/caught = FALSE
 		var/datum/antagonist/A = target.mind.has_antag_datum(/datum/antagonist)
-		if(target.mind.get_mind_role(JTYPE_JOB_PATH, as_basic_job=TRUE) in GLOB.command_positions)
+		if(target.mind.has_job(GLOB.command_positions))
 			alert("You're a Head of Staff![generic_plsnoleave_message]")
 			caught = TRUE
 		if(A)
@@ -397,10 +398,10 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	to_chat(target, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
 	name = "[name] ([occupant.name])"
 	if((world.time - SSticker.round_start_time) < 5 MINUTES)
-		message_admins("<span class='danger'>[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a></span>)")
+		message_admins("<span class='danger'>[key_name_admin(target)], the [target.mind.get_station_role()] entered a stasis pod. (<A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a></span>)")
 	else
-		message_admins("[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-	log_admin("<span class='notice'>[key_name(target)], the [target.job] entered a stasis pod.</span>")
+		message_admins("[key_name_admin(target)], the [target.mind.get_station_role()] entered a stasis pod. (<A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+	log_admin("<span class='notice'>[key_name(target)], the [target.mind.get_station_role()] entered a stasis pod.</span>")
 	add_fingerprint(target)
 
 //Attacks/effects.

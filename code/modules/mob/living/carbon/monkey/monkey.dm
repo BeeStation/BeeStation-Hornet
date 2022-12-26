@@ -19,7 +19,7 @@
 	hud_type = /datum/hud/monkey
 	mobchatspan = "monkeyhive"
 	ai_controller = /datum/ai_controller/monkey
-	faction = list("neutral", "monkey")
+	faction = list(FACTION_NEUTRAL, FACTION_MONKEY)
 	///Item reference for jumpsuit
 	var/obj/item/clothing/w_uniform = null
 

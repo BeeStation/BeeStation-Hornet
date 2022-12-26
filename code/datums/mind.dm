@@ -40,8 +40,9 @@
 	var/memory
 
 	var/mind_roles = list(
-		JLIST_BASE_PATH = JOB_UNASSIGNED,  // there should be a thing at least to prevent a possible runtime
-		JLIST_BASE_NAME = JOB_UNASSIGNED
+		RLPK_HOLDER_JOBS = list(),
+		RLPK_HOLDER_SPECIAL_ROLES = list(),
+		RLPK_HOLDER_ANTAG_ROLES = list()
 	) // list of jobs, special jobs.
 	var/list/restricted_roles = list()
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
@@ -169,48 +170,151 @@
 	memory = null
 
 
-/// Sets `mind_roles` list. check `DEFINES\jobs.dm` for the detail. **NOTE: this isn't for `mind_roles[JLIST_SPECIAL]`
-/datum/mind/proc/set_mind_roles(job_string, force=FALSE)
-	if(!job_string)
-		CRASH("job string is missing: [job_string]")
-	var/datum/job/J = SSjob.GetJob(job_string)
-	if(!J)
-		if(force)
-			mind_roles[JLIST_BASE_PATH] = JOB_PATH_ASSISTANT // failsafe
-			mind_roles[JLIST_BASE_NAME] = JOB_NAME_ASSISTANT
-			mind_roles[JLIST_GIMMICK_NAME] = job_string
-			if(mind_roles[JLIST_GIMMICK_PATH])
-				mind_roles[JLIST_GIMMICK_PATH] = null
+/// ------------- parent types -------------------
+/// Sets a mind's role/job
+/datum/mind/proc/_set_role(list_key, role_key)
+	mind_roles[list_key][role_key] = TRUE
+
+/// Removes a specific role in a mind
+/datum/mind/proc/_remove_role(list_key, role_key)
+	mind_roles[list_key] -= mind_roles[list_key][role_key]
+
+/// returns a mind's primary role, or all roles
+/datum/mind/proc/_get_role(list_key, as_list=FALSE)
+	if(!length(mind_roles[list_key]))
+		return as_list ? FALSE : list()
+	return as_list ? mind_roles[list_key][1] : mind_roles[list_key]
+
+/// Checks a mind has a single role, or listed roles. (role_key can be non-list and list both)
+/datum/mind/proc/_has_role(list_key, list/role_key)
+	if(!islist(role_key))
+		return mind_roles[list_key][role_key] || FALSE
+
+	for(var/each_role in role_key)
+		if(mind_roles[list_key][role_key]) // checking is neccesary or it will early-return as FALSE for multiple checks...
+			return TRUE
+	return FALSE
+
+/// ------------- Job -------------------
+/// Sets a mind's job
+/datum/mind/proc/set_job(job_key)
+	if(!job_key)
+		CRASH("job key is missing: [job_key]")
+	if(!SSjob.GetJob(job_key))
 		return
-	if(J.jpath || J.title)
-		mind_roles[JLIST_BASE_PATH] = J.jpath
-		mind_roles[JLIST_BASE_NAME] = J.title
-	if(J.g_jpath || J.g_title)
-		mind_roles[JLIST_GIMMICK_PATH] = J.g_jpath
-		mind_roles[JLIST_GIMMICK_NAME] = J.g_title
+	_set_role(RLPK_HOLDER_JOBS, job_key)
 
-/// Gets 'mind_roles' list
-/datum/mind/proc/get_mind_role(type, as_basic_job=FALSE)
-	// note: original parameter is to let gimmick jobs to access their parent job (i.e. Psychiatrist -> Medical Doctor)
-	switch(type)
-		if(JTYPE_JOB_PATH)
-			if(as_basic_job)
-				return mind_roles[JLIST_BASE_NAME]
-			return mind_roles[JLIST_GIMMICK_PATH] || mind_roles[JLIST_BASE_PATH]
-		if(JTYPE_JOB_NAME)
-			if(as_basic_job)
-				return mind_roles[JLIST_BASE_PATH]
-			return mind_roles[JLIST_GIMMICK_NAME] || mind_roles[JLIST_BASE_NAME]
-		if(JTYPE_SPECIAL)
-			if(as_basic_job)
-				return mind_roles[JLIST_SPECIAL]
-			return mind_roles[JLIST_GIMMICK_SPECIAL] || mind_roles[JLIST_SPECIAL]
+/// Removes a specific job in a mind
+/datum/mind/proc/remove_job(job_key)
+	if(!job_key)
+		CRASH("job key is missing: [job_key]")
+	if(!mind_roles[RLPK_HOLDER_JOBS][job_key])
+		return
+	_remove_role(RLPK_HOLDER_JOBS, job_key)
 
-/datum/mind/proc/nullify_special_role()
-	if(mind_roles[JLIST_SPECIAL])
-		mind_roles[JLIST_SPECIAL] = null
-	if(mind_roles[JLIST_GIMMICK_SPECIAL])
-		mind_roles[JLIST_GIMMICK_SPECIAL] = null
+/// returns a mind's primary job, or all jobs
+/datum/mind/proc/get_job(as_list=FALSE)
+	return _get_role(RLPK_HOLDER_JOBS, as_list)
+
+/// Checks a mind has a single job, or listed jobs. (job_key can be non-list and list both)
+/datum/mind/proc/has_job(list/job_key)
+	if(!job_key)
+		return
+	return _has_role(RLPK_HOLDER_JOBS, job_key)
+
+/// ------------- role -------------------
+/// Sets a mind's role
+/datum/mind/proc/set_role(role_key)
+	if(!role_key)
+		CRASH("role key is missing: [role_key]")
+	_set_role(RLPK_HOLDER_SPECIAL_ROLES, role_key)
+
+/// Removes a specific role in a mind
+/datum/mind/proc/remove_role(role_key)
+	if(!role_key)
+		CRASH("role key is missing: [role_key]")
+	if(!mind_roles[RLPK_HOLDER_SPECIAL_ROLES][role_key])
+		return
+	_remove_role(RLPK_HOLDER_SPECIAL_ROLES, role_key)
+	if(!length(mind_roles[RLPK_HOLDER_SPECIAL_ROLES])) // removes 'special role' string if you have no special role
+		mind_roles -= mind_roles[RLPK_DISPLAY_SPECIAL_ROLE]
+
+/// returns a mind's primary role, or all roles
+/datum/mind/proc/get_role(as_list=FALSE)
+	return _get_role(RLPK_HOLDER_SPECIAL_ROLES, as_list)
+
+/// Checks a mind has a single role, or listed roles. (role_key can be non-list and list both)
+/datum/mind/proc/has_role(list/role_key)
+	if(!role_key)
+		return
+	return _has_role(RLPK_HOLDER_SPECIAL_ROLES, role_key)
+
+
+/// -------------- Aesthetics -----------------
+/// Sets a mind's station role
+/datum/mind/proc/set_station_role(job_string)
+	if(!job_string)
+		CRASH("[job_string] is null")
+	mind_roles[RLPK_DISPLAY_STATION_ROLE] = job_string
+
+/// Gets a mind's station role
+/datum/mind/proc/get_station_role(always_true=FALSE)
+	if(always_true) // no null value return
+		return mind_roles[RLPK_DISPLAY_STATION_ROLE] || JOB_UNASSIGNED
+	return mind_roles[RLPK_DISPLAY_STATION_ROLE] // can return null
+
+/// Sets a mind's special role (not station)
+/datum/mind/proc/set_special_role(role_string)
+	if(!role_string)
+		CRASH("[role_string] is null")
+	mind_roles[RLPK_DISPLAY_SPECIAL_ROLE] = role_string
+
+/// Gets a mind's special role (not station)
+/datum/mind/proc/get_special_role(always_true=FALSE)
+	if(always_true) // no null value return
+		return mind_roles[RLPK_DISPLAY_SPECIAL_ROLE] || "None"
+	return mind_roles[RLPK_DISPLAY_SPECIAL_ROLE] // can return null
+
+
+/// Gets any role. usually used for administrative purpose
+
+
+
+
+/datum/mind/proc/assign_crew_role(datum/job/J)
+	if(!J)
+		return
+	if(!istype(J))
+		J = SSjob.GetJob(J) // changes job_key into an actual job type
+	if(!J)
+		return
+	mind_roles[RLPK_HOLDER_SPECIAL_ROLES] = list() // reset
+
+	set_job(J.get_jkey())
+	if(length(J.list_of_job_keys_to_mob_mind))
+		for(var/each_key in J.list_of_job_keys_to_mob_mind)
+			set_job(each_key)
+	set_station_role(J.get_title())
+
+/datum/mind/proc/assign_special_role(role_key, role_title=null)
+	if(!role_key)
+		CRASH("role_string is null")
+	set_role(role_key)
+	var/current_role = get_special_role()
+	if(!role_title)
+		role_title = role_key
+	if(!current_role)
+		role_title = "[current_role], [role_title]" // so you can be like "traitor, changeling, operative, wizard"
+	set_special_role(role_title)
+
+//-----------------------------------------------------
+//-----------------------------------------------------
+//-----------------------------------------------------
+//-----------------------------------------------------
+//-----------------------------------------------------
+//-----------------------------------------------------
+//-----------------------------------------------------
+//-----------------------------------------------------
 
 
 // Datum antag mind procs
@@ -276,7 +380,6 @@
 	var/datum/antagonist/changeling/C = has_antag_datum(/datum/antagonist/changeling)
 	if(C)
 		remove_antag_datum(/datum/antagonist/changeling)
-		nullify_special_role()
 
 /datum/mind/proc/remove_traitor()
 	remove_antag_datum(/datum/antagonist/traitor)
@@ -290,23 +393,19 @@
 	var/datum/antagonist/nukeop/nuke = has_antag_datum(/datum/antagonist/nukeop,TRUE)
 	if(nuke)
 		remove_antag_datum(nuke.type)
-		nullify_special_role()
 
 /datum/mind/proc/remove_wizard()
 	remove_antag_datum(/datum/antagonist/wizard)
-	nullify_special_role()
 
 /datum/mind/proc/remove_cultist()
 	if(src in SSticker.mode.cult)
 		SSticker.mode.remove_cultist(src, 0, 0)
-	nullify_special_role()
 	remove_antag_equip()
 
 /datum/mind/proc/remove_rev()
 	var/datum/antagonist/rev/rev = has_antag_datum(/datum/antagonist/rev)
 	if(rev)
 		remove_antag_datum(rev.type)
-		nullify_special_role()
 
 
 /datum/mind/proc/remove_antag_equip()
@@ -437,7 +536,7 @@
 	creator.faction |= current.faction
 
 	var/mob/living/carbon/C = creator
-	if(creator.mind?.get_mind_role(JTYPE_SPECIAL) || (istype(C) && C.last_mind?.get_mind_role(JTYPE_SPECIAL)))
+	if(creator.mind?.get_special_role() || (istype(C) && C.last_mind?.get_special_role()))
 		message_admins("[ADMIN_LOOKUPFLW(current)] has been created by [ADMIN_LOOKUPFLW(creator)], an antagonist.")
 		to_chat(current, "<span class='userdanger'>Despite your creator's current allegiances, your true master remains [creator.real_name]. If their loyalties change, so do yours. This will never change unless your creator's body is destroyed.</span>")
 
@@ -490,11 +589,11 @@
 			return
 		A.admin_remove(usr)
 
-	if (href_list["role_edit"])
-		var/new_role = input("Select new role", "Assigned role", get_mind_role(JTYPE_JOB_PATH)) as null|anything in sortList(get_all_jobs())
+	if (href_list["role_edit"]) // REDIMNER-- This should change multiple jobs
+		var/new_role = input("Select new role", "Assigned role", get_station_role()) as null|anything in sortList(get_all_jobs())
 		if (!new_role)
 			return
-		set_mind_roles(new_role, force=TRUE)
+		set_station_role(new_role)
 
 	else if (href_list["memory_edit"])
 		var/new_memo = stripped_multiline_input(usr, "Write new memory", "Memory", memory, MAX_MESSAGE_LEN)
@@ -707,19 +806,16 @@
 	var/datum/antagonist/changeling/C = has_antag_datum(/datum/antagonist/changeling)
 	if(!C)
 		C = add_antag_datum(/datum/antagonist/changeling)
-		mind_roles[JLIST_SPECIAL] = ROLE_CHANGELING
 	return C
 
 /datum/mind/proc/make_Wizard()
 	if(!has_antag_datum(/datum/antagonist/wizard))
-		mind_roles[JLIST_SPECIAL] = ROLE_WIZARD
 		add_antag_datum(/datum/antagonist/wizard)
 
 
 /datum/mind/proc/make_Cultist()
 	if(!has_antag_datum(/datum/antagonist/cult,TRUE))
 		SSticker.mode.add_cultist(src,FALSE,equip=TRUE)
-		mind_roles[JLIST_SPECIAL] = ROLE_CULTIST
 		to_chat(current, "<font color=\"purple\"><b><i>You catch a glimpse of the Realm of Nar'Sie, The Geometer of Blood. You now see how flimsy your world is, you see that it should be open to the knowledge of Nar'Sie.</b></i></font>")
 		to_chat(current, "<font color=\"purple\"><b><i>Assist your new brethren in their dark dealings. Their goal is yours, and yours is theirs. You serve the Dark One above all else. Bring It back.</b></i></font>")
 
@@ -728,7 +824,6 @@
 	head.give_flash = TRUE
 	head.give_hud = TRUE
 	add_antag_datum(head)
-	mind_roles[JLIST_SPECIAL] = ROLE_REV_HEAD
 
 /datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	spell_list += S
@@ -840,20 +935,18 @@
 //HUMAN
 /mob/living/carbon/human/mind_initialize()
 	..()
-	if(mind.get_mind_role(JTYPE_JOB_PATH))
-		mind.set_mind_roles(JOB_UNASSIGNED, force=TRUE) //default
 
 //AI
 /mob/living/silicon/ai/mind_initialize()
 	..()
-	mind.set_mind_roles(JOB_PATH_AI)
+	mind.assign_crew_role(JOB_KEY_AI)
 
 //BORG
 /mob/living/silicon/robot/mind_initialize()
 	..()
-	mind.set_mind_roles(JOB_PATH_CYBORG)
+	mind.assign_crew_role(JOB_KEY_CYBORG)
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()
 	..()
-	mind.set_mind_roles(JOB_PATH_PAI, force=TRUE) // PAI isn't a real job
+	mind.set_station_role(JOB_NAME_PAI) // PAI isn't a real job

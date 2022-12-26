@@ -10,11 +10,13 @@
 
 /datum/antagonist/ert
 	name = "Emergency Response Officer"
+	antag_role_type = ROLE_KEY_ERT
 	var/datum/team/ert/ert_team
 	var/leader = FALSE
 	var/datum/outfit/outfit = /datum/outfit/ert/security
 	var/datum/outfit/plasmaman_outfit = /datum/outfit/plasmaman/ert
-	var/role = "Security Officer" // This isn't station job
+	var/role = "Security Officer" // This isn't station job. it's just displaying.
+	var/job = JOB_KEY_SECURITYOFFICER // this job will be given into their mind
 	var/list/name_source
 	var/random_names = TRUE
 	can_elimination_hijack = ELIMINATION_PREVENT
@@ -22,7 +24,6 @@
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
 	count_against_dynamic_roll_chance = FALSE
-	antag_role_type = ROLE_ERT
 
 /datum/antagonist/ert/on_gain()
 	if(random_names)
@@ -30,9 +31,10 @@
 	forge_objectives()
 	equipERT()
 	owner.store_memory("Your team's shared tracking beacon frequency is [ert_team.ert_frequency].")
-	owner.mind_roles[JLIST_SPECIAL] = antag_role_type
-	owner.mind_roles[JLIST_GIMMICK_SPECIAL] = "[antag_role_type] [role]"
 	. = ..()
+
+	owner.set_job(job)
+	owner.set_special_role("[antag_role_type] [role]")
 
 /datum/antagonist/ert/get_team()
 	return ert_team
@@ -64,6 +66,7 @@
 
 /datum/antagonist/ert/engineer
 	role = "Engineer"
+	job = JOB_KEY_STATIONENGINEER
 	outfit = /datum/outfit/ert/engineer
 
 /datum/antagonist/ert/engineer/red
@@ -71,6 +74,7 @@
 
 /datum/antagonist/ert/medic
 	role = JOB_CENTCOM_MEDICAL_DOCTOR
+	job = JOB_KEY_MEDICALDOCTOR
 	outfit = /datum/outfit/ert/medic
 
 /datum/antagonist/ert/medic/red
@@ -105,6 +109,7 @@
 
 /datum/antagonist/ert/chaplain
 	role = JOB_NAME_CHAPLAIN
+	job = JOB_KEY_CHAPLAIN
 	outfit = /datum/outfit/ert/chaplain
 
 /datum/antagonist/ert/chaplain/inquisitor
@@ -123,6 +128,7 @@
 
 /datum/antagonist/ert/janitor
 	role = JOB_NAME_JANITOR
+	job = JOB_KEY_JANITOR
 	outfit = /datum/outfit/ert/janitor
 
 /datum/antagonist/ert/janitor/heavy
@@ -131,6 +137,7 @@
 
 /datum/antagonist/ert/kudzu
 	role = "Weed Whacker"
+	job = JOB_KEY_BOTANIST
 	outfit = /datum/outfit/ert/kudzu
 
 /datum/antagonist/ert/deathsquad/leader
@@ -140,6 +147,7 @@
 
 /datum/antagonist/ert/intern
 	name = "CentCom Intern"
+	job = JOB_KEY_ASSISTANT // Their nature is assistant at all...
 	outfit = /datum/outfit/centcom_intern
 	random_names = FALSE
 	role = "Intern"
@@ -147,6 +155,7 @@
 
 /datum/antagonist/ert/intern/leader
 	name = "CentCom Head Intern"
+	job = JOB_KEY_ASSISTANT // Head of Assistant
 	outfit = /datum/outfit/centcom_intern/leader
 	role = "Head Intern"
 
@@ -158,6 +167,7 @@
 
 /datum/antagonist/ert/clown
 	name = "Comedy Response Officer"
+	job = JOB_KEY_CLOWN
 	outfit = /datum/outfit/centcom_clown
 	role = "Prankster"
 	plasmaman_outfit = /datum/outfit/plasmaman/honk

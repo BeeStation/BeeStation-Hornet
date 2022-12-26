@@ -120,7 +120,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_bonus = -1
 	mood_message = "<span class='warning'>It's kind of cramped in here!\n</span>"
 	// assistants are associated with maints, jani closet is in maints, engis have to go into maints often
-	mood_job_allowed = list(JOB_PATH_ASSISTANT, JOB_PATH_JANITOR, JOB_PATH_STATIONENGINEER, JOB_PATH_CHIEFENGINEER, JOB_PATH_ATMOSPHERICTECHNICIAN)
+	mood_job_allowed = list(JOB_KEY_ASSISTANT, JOB_KEY_JANITOR, JOB_KEY_STATIONENGINEER, JOB_KEY_CHIEFENGINEER, JOB_KEY_ATMOSPHERICTECHNICIAN)
 	mood_job_reverse = TRUE
 	lighting_colour_tube = "#ffe5cb"
 	lighting_colour_bulb = "#ffdbb4"
@@ -1076,7 +1076,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Brig"
 	icon_state = "brig"
 	mood_bonus = -3
-	mood_job_allowed = list(JOB_PATH_HEADOFSECURITY,JOB_PATH_WARDEN,JOB_PATH_SECURITYOFFICER,JOB_PATH_BRIGPHYSICIAN,JOB_PATH_DETECTIVE)
+	mood_job_allowed = list(JOB_KEY_HEADOFSECURITY,JOB_KEY_WARDEN,JOB_KEY_SECURITYOFFICER,JOB_KEY_BRIGPHYSICIAN,JOB_KEY_DETECTIVE)
 	mood_job_reverse = TRUE
 
 	mood_message = "<span class='warning'>I hate cramped brig cells.\n</span>"
@@ -1091,7 +1091,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Prison Wing"
 	icon_state = "sec_prison"
 	mood_bonus = -4
-	mood_job_allowed = list(JOB_PATH_HEADOFSECURITY,JOB_PATH_WARDEN, JOB_PATH_SECURITYOFFICER)  // JUSTICE!
+	mood_job_allowed = list(JOB_KEY_HEADOFSECURITY,JOB_KEY_WARDEN, JOB_KEY_SECURITYOFFICER)  // JUSTICE!
 	mood_job_reverse = TRUE
 	mood_message = "<span class='warning'>I'm trapped here with little hope of escape!\n</span>"
 
@@ -1501,7 +1501,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Armory"
 	icon_state = "armory"
 	ambience_index = AMBIENCE_DANGER
-	mood_job_allowed = list(JOB_PATH_WARDEN)
+	mood_job_allowed = list(JOB_KEY_WARDEN)
 	mood_bonus = 1
 	mood_message = "<span class='nicegreen'>It's good to be home.</span>"
 
@@ -1524,7 +1524,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "AI Upload Chamber"
 	icon_state = "ai_upload"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
-	mood_job_allowed = list(JOB_PATH_RESEARCHDIRECTOR, JOB_PATH_CAPTAIN)
+	mood_job_allowed = list(JOB_KEY_RESEARCHDIRECTOR, JOB_KEY_CAPTAIN)
 	mood_bonus = 4
 	mood_message = "<span class='nicegreen'>The AI will bend to my will!\n</span>"
 
@@ -1594,7 +1594,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Telecomms Control Room"
 	icon_state = "tcom_sat_comp"
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
-	mood_job_allowed = list(JOB_PATH_CHIEFENGINEER, JOB_PATH_STATIONENGINEER)
+	mood_job_allowed = list(JOB_KEY_CHIEFENGINEER, JOB_KEY_STATIONENGINEER)
 	mood_bonus = 2
 	mood_message = "<span class='nicegreen'>It's good to see these in working order.\n</span>"
 

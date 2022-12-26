@@ -50,7 +50,9 @@ export const TrackedPlaytime = (props, context) => {
   const {
     failReason,
     jobPlaytimes,
+    antagPlaytimes,
     specialPlaytimes,
+    outdatedPlaytimes,
     livingTime,
     ghostTime,
   } = data;
@@ -78,8 +80,14 @@ export const TrackedPlaytime = (props, context) => {
             <Section title="Jobs">
               <PlaytimeSection playtimes={jobPlaytimes} />
             </Section>
+            <Section title="Antagonists">
+              <PlaytimeSection playtimes={antagPlaytimes} />
+            </Section>
             <Section title="Special">
               <PlaytimeSection playtimes={specialPlaytimes} />
+            </Section>
+            <Section title="Deprecated roles">
+              <PlaytimeSection playtimes={outdatedPlaytimes} />
             </Section>
           </Box>
         )}

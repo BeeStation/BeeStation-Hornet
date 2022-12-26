@@ -8,6 +8,7 @@
 
 /datum/antagonist/sintouched
 	name = "sintouched"
+	antag_role_type = null
 	roundend_category = "sintouched"
 	antagpanel_category = "Devil"
 	var/sin

@@ -16,8 +16,6 @@
 	if(visualsOnly)
 		return
 	H.fully_replace_character_name(H.real_name, "Santa Claus")
-	if(H.mind)
-		H.mind.mind_roles[JLIST_SPECIAL] = "Santa"
 
 	H.hair_style = "Long Hair 3"
 	H.facial_hair_style = "Beard (Full)"

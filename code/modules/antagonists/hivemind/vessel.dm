@@ -2,13 +2,12 @@
 
 /datum/antagonist/hivevessel
 	name = "Awoken Vessel"
-	antag_role_type = ROLE_BRAINWASHED
+	antag_role_type = ROLE_KEY_BRAINWASHED
 	roundend_category = "awoken vessels"
 	antagpanel_category = "Other"
 	show_name_in_check_antagonists = TRUE
 	var/hiveID = "Hivemind"
 	var/datum/antagonist/hivemind/master
-	var/special_role = ROLE_HIVE_VESSEL
 	var/mutable_appearance/glow
 	var/obj/effect/proc_holder/spell/targeted/touch/hive_fist/fist = new
 	show_in_roundend = FALSE
@@ -36,7 +35,6 @@
 	mind.remove_antag_datum(/datum/antagonist/brainwashed)
 
 /datum/antagonist/hivevessel/on_gain()
-	owner.mind_roles[JLIST_SPECIAL] = special_role
 	owner.AddSpell(fist)
 	..()
 
@@ -46,7 +44,6 @@
 		to_chat(master.owner, "<span class='assimilator'>A figment of our consciousness snaps out, we have lost an awakened vessel!</span>")
 	if(owner?.current && glow)
 		owner.current.cut_overlay(glow)
-	owner.nullify_special_role()
 	master.avessels -= owner
 	master = null
 	..()

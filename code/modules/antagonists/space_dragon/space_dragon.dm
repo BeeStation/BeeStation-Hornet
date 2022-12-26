@@ -1,9 +1,9 @@
 /datum/antagonist/space_dragon
 	name = "Space Dragon"
+	antag_role_type = ROLE_KEY_SPACE_DRAGON
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
-	antag_role_type = ROLE_SPACE_DRAGON
 
 /datum/antagonist/space_dragon/greet()
 	to_chat(owner, "<b>I am Space Dragon, ex-space carp, and defender of the secrets of constellation, Draco.</b>")

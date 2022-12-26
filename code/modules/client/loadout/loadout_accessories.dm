@@ -212,4 +212,4 @@
 /datum/gear/accessory/cloak/blackbishop
 	display_name = "black bishop's cloak"
 	path = /obj/item/clothing/neck/cloak/chap/bishop/black
-	allowed_roles = list(JOB_NAME_CHAPLAIN)
+	allowed_roles = list(JOB_KEY_CHAPLAIN)

@@ -1,11 +1,11 @@
 /datum/job/bartender
-	jpath = JOB_PATH_BARTENDER
+	jkey = JOB_KEY_BARTENDER
 	title = JOB_NAME_BARTENDER
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = BARTENDER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#bbe291"
@@ -28,7 +28,7 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/bartender
 	)
 /datum/outfit/job/bartender
-	name = JOB_PATH_BARTENDER
+	name = JOB_KEY_BARTENDER
 	jobtype = /datum/job/bartender
 
 	id = /obj/item/card/id/job/bartender

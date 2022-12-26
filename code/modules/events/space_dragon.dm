@@ -17,7 +17,7 @@
 	priority_announce("It appears a lifeform with magical traces is approaching [station_name()], please stand-by.", "Lifesign Alert", SSstation.announcer.get_rand_alert_sound())
 
 /datum/round_event/ghost_role/space_dragon/spawn_role()
-	var/list/candidates = get_candidates(ROLE_SPACE_DRAGON, null, ROLE_SPACE_DRAGON)
+	var/list/candidates = get_candidates(ROLE_KEY_SPACE_DRAGON, null, ROLE_KEY_SPACE_DRAGON)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 
@@ -35,7 +35,6 @@
 
 	var/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/S = new ((pick(spawn_locs)))
 	player_mind.transfer_to(S)
-	player_mind.mind_roles[JLIST_SPECIAL] = "Space Dragon"
 	player_mind.add_antag_datum(/datum/antagonist/space_dragon)
 	playsound(S, 'sound/magic/ethereal_exit.ogg', 50, 1, -1)
 	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a Space Dragon by an event.")

@@ -11,7 +11,7 @@
 	fakeable = FALSE
 
 /datum/round_event/ghost_role/operative/spawn_role()
-	var/list/candidates = get_candidates(ROLE_OPERATIVE, null, ROLE_OPERATIVE)
+	var/list/candidates = get_candidates(ROLE_KEY_OPERATIVE, null, ROLE_KEY_OPERATIVE)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 
@@ -28,8 +28,6 @@
 	CS.copy_to(operative)
 	operative.dna.update_dna_identity()
 	var/datum/mind/Mind = new /datum/mind(selected.key)
-	Mind.mind_roles[JLIST_SPECIAL] = ROLE_OPERATIVE
-	Mind.mind_roles[JLIST_GIMMICK_SPECIAL] = "Lone Operative"
 	Mind.active = 1
 	Mind.transfer_to(operative)
 	Mind.add_antag_datum(/datum/antagonist/nukeop/lone)

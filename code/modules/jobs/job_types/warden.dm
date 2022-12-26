@@ -1,12 +1,12 @@
 /datum/job/warden
-	jpath = JOB_PATH_WARDEN
+	jkey = JOB_KEY_WARDEN
 	title = JOB_NAME_WARDEN
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = WARDEN
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
-	faction = JOB_FACTION_STATION
+	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ffeeee"
@@ -39,7 +39,7 @@
 	return L
 
 /datum/outfit/job/warden
-	name = JOB_PATH_WARDEN
+	name = JOB_KEY_WARDEN
 	jobtype = /datum/job/warden
 
 	id = /obj/item/card/id/job/warden
