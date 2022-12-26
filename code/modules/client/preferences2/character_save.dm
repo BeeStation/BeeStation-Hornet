@@ -271,8 +271,11 @@
 	var/datum/job/previewJob
 	var/highest_pref = 0
 	for(var/job in job_preferences)
+		var/datum/job/temp_job = SSjob.GetJob(job)
+		if(!(temp_job.job_bitflags & JOB_BITFLAG_SELECTABLE)) // this prevents a non-selectable gimmick job's outfit appears on your character pref window
+			continue
 		if(job_preferences[job] > highest_pref)
-			previewJob = SSjob.GetJob(job)
+			previewJob = temp_job
 			highest_pref = job_preferences[job]
 
 	if(previewJob)

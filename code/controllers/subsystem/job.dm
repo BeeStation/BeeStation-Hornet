@@ -517,15 +517,15 @@ SUBSYSTEM_DEF(job)
 			var/max_attempt = job.job_bitflags & JOB_BITFLAG_GIMMICK ? 2 : 1
 			for(var/i in 1 to max_attempt)
 				for(var/obj/effect/landmark/start/sloc in GLOB.start_landmarks_list)
-					if(sloc.name != job.get_jkey(!(i-1)))
+					if(sloc.name != job.get_jkey(!(i-1))) // !(1-1)=1 / !(2-1)=0
 						// about this 'if' check
 						// gimmick job tries to find its own spawn location at first attempt.
 						// if they have no spawn location, it uses its basic job location instead, at second attempt.
 						// i.e.) psychiatrist has its spawn location in their maint office
 						//		 if they don't have it somehow, they'll be spawned on medical doctor spawn loc
 
-						S = sloc //so we can revert to spawning them on top of eachother if something goes wrong
-						continue
+						S = sloc // so we can revert to spawning them on top of eachother if something goes wrong
+						continue // ↑↑↑ this comment is ancient. I don't get what this means
 					if(locate(/mob/living) in sloc.loc)
 						continue
 					S = sloc

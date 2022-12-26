@@ -287,6 +287,9 @@
 	if(!J)
 		return
 
+	// assigning a crew role while you have a crew role already would mean you want overriding
+	mind_roles[RLPK_HOLDER_JOBS] = list()
+
 	set_job(J.get_jkey())
 	if(length(J.list_of_job_keys_to_mob_mind))
 		for(var/each_key in J.list_of_job_keys_to_mob_mind)
