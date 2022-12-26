@@ -169,7 +169,9 @@
 /datum/mind/proc/wipe_memory()
 	memory = null
 
-
+//-------------------------------------------------------------------------------
+//--------------------  procs for role / job in mind ----------------------------
+//-------------------------------------------------------------------------------
 /// ------------- parent types -------------------
 /// Sets a mind's role/job
 /datum/mind/proc/_set_role(list_key, role_key)
@@ -195,6 +197,7 @@
 			return TRUE
 	return FALSE
 
+//-------------------------------------------------------------------------------
 /// ------------- Job -------------------
 /// Sets a mind's job
 /datum/mind/proc/set_job(job_key)
@@ -222,6 +225,7 @@
 		return
 	return _has_role(RLPK_HOLDER_JOBS, job_key)
 
+//-------------------------------------------------------------------------------
 /// ------------- role -------------------
 /// Sets a mind's role
 /datum/mind/proc/set_role(role_key)
@@ -249,7 +253,7 @@
 		return
 	return _has_role(RLPK_HOLDER_SPECIAL_ROLES, role_key)
 
-
+//-------------------------------------------------------------------------------
 /// -------------- Aesthetics -----------------
 /// Sets a mind's station role
 /datum/mind/proc/set_station_role(job_string)
@@ -275,12 +279,7 @@
 		return mind_roles[RLPK_DISPLAY_SPECIAL_ROLE] || "None"
 	return mind_roles[RLPK_DISPLAY_SPECIAL_ROLE] // can return null
 
-
-/// Gets any role. usually used for administrative purpose
-
-
-
-
+//-------------------------------------------------------------------------------
 /datum/mind/proc/assign_crew_role(datum/job/J)
 	if(!J)
 		return
@@ -306,15 +305,7 @@
 	if(!current_role)
 		role_title = "[current_role], [role_title]" // so you can be like "traitor, changeling, operative, wizard"
 	set_special_role(role_title)
-
-//-----------------------------------------------------
-//-----------------------------------------------------
-//-----------------------------------------------------
-//-----------------------------------------------------
-//-----------------------------------------------------
-//-----------------------------------------------------
-//-----------------------------------------------------
-//-----------------------------------------------------
+//-------------------------------------------------------------------------------
 
 
 // Datum antag mind procs
