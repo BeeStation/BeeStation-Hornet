@@ -328,9 +328,9 @@
 
 		var/static/antag_ban_list = list(ROLE_BANCHECK_MAJOR_ANTAGONIST)|GLOB.roundstart_antag_prefs|GLOB.midround_antag_list|GLOB.misc_ban_list
 		var/static/ghost_ban_list = list(ROLE_BANCHECK_MAJOR_GHOSTSPAWN)|GLOB.ghost_special_roles
-		var/list/long_job_lists = list(("Civilian" = GLOB.civilian_positions),
-									("Antagonist Positions" = antag_ban_list),
-									("Ghost and Other Roles" = ghost_ban_list))
+		var/list/long_job_lists = list(("Civilian" = GLOB.civilian_positions,
+									"Antagonist Positions" = antag_ban_list,
+									"Ghost and Other Roles" = ghost_ban_list))
 		for(var/department in long_job_lists)
 			output += "<div class='column'><label class='rolegroup long [ckey(department)]'><input type='checkbox' name='[department]' class='hidden' [(usr.client.prefs.toggles2 & PREFTOGGLE_2_FANCY_TGUI) ? " onClick='toggle_checkboxes(this, \"_com\")'" : ""]>[department]</label><div class='content'>"
 			break_counter = 0
