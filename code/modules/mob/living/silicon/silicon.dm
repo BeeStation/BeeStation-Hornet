@@ -81,20 +81,20 @@
 	modularInterface.plane = ABOVE_HUD_PLANE
 	modularInterface.saved_identification = real_name || name
 	if(iscyborg(src))
-		modularInterface.saved_job = JOB_NAME_CYBORG
+		modularInterface.saved_job = JOB_KEY_CYBORG
 		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/robot)
 	if(isAI(src))
-		modularInterface.saved_job = JOB_NAME_AI
+		modularInterface.saved_job = JOB_KEY_AI
 		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/ai)
 	if(ispAI(src))
-		modularInterface.saved_job = JOB_NAME_PAI
+		modularInterface.saved_job = ROLE_KEY_PAI
 		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/ai)
 
 /mob/living/silicon/robot/model/syndicate/create_modularInterface()
 	if(!modularInterface)
 		modularInterface = new /obj/item/modular_computer/tablet/integrated/syndicate(src)
 		modularInterface.saved_identification = real_name
-		modularInterface.saved_job = JOB_NAME_CYBORG
+		modularInterface.saved_job = JOB_KEY_CYBORG
 	return ..()
 
 

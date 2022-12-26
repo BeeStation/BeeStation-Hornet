@@ -6,6 +6,7 @@
 /proc/is_banned_from(player_ckey, list/roles)
 	if(!player_ckey)
 		return
+	player_ckey = lowertext(player_ckey)
 	var/client/C = GLOB.directory[player_ckey]
 	if(C)
 		if(!C.ban_cache)
@@ -113,9 +114,15 @@
 		else
 			server_check = "server_name = '[ssqlname]'"
 
-		var/datum/DBQuery/query_build_ban_cache = SSdbcore.NewQuery(
-			"SELECT role, applies_to_admins FROM [format_table_name("ban")] WHERE ckey = :ckey AND unbanned_datetime IS NULL AND (expiration_time IS NULL OR expiration_time > NOW()) AND [server_check]",
-			list("ckey" = C.ckey))
+		var/datum/DBQuery/query_build_ban_cache = SSdbcore.NewQuery({"
+			SELECT role, applies_to_admins
+			FROM [format_table_name("ban")]
+			WHERE
+				ckey = :ckey AND
+				unbanned_datetime IS NULL
+				AND (expiration_time IS NULL OR expiration_time > NOW())
+				AND [server_check]
+		"},	list("ckey" = C.ckey))
 		if(!query_build_ban_cache.warn_execute())
 			qdel(query_build_ban_cache)
 			return

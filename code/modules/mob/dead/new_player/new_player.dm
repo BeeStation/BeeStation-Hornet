@@ -256,7 +256,7 @@
 		if(JOB_UNAVAILABLE_SLOTFULL)
 			return "[job_key] is already filled to capacity."
 		if(JOB_UNAVAILABLE_NOT_INTRODUCED)
-			return "[job_key] is not an opened job"
+			return "[job_key] is not an opened job."
 	return "Error: Unknown job availability."
 
 /mob/dead/new_player/proc/IsJobUnavailable(job_key, latejoin = FALSE)
@@ -396,7 +396,7 @@
 		"Science" = "#ffddff",
 		"Security" = "#ffdddd"
 	)
-	var/static/list/department_list = list(GLOB.command_positions) + list(GLOB.engineering_positions) + list(GLOB.supply_positions) + list(GLOB.nonhuman_positions - "pAI") + list(GLOB.civilian_positions) + list(GLOB.medical_positions) + list(GLOB.science_positions) + list(GLOB.security_positions)
+	var/static/list/department_list = list(GLOB.command_positions) + list(GLOB.engineering_positions) + list(GLOB.supply_positions) + list(GLOB.nonhuman_positions) + list(GLOB.civilian_positions) + list(GLOB.medical_positions) + list(GLOB.science_positions) + list(GLOB.security_positions)
 
 	var/list/dat = list("<div class='notice'>Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]</div>")
 	if(SSjob.prioritized_jobs.len > 0)
@@ -433,7 +433,7 @@
 		dat += jointext(dept_dat, "")
 		dat += "</fieldset><br>"
 		column_counter++
-		if(column_counter > 0 && (column_counter % 3 == 0))
+		if(column_counter==2 || column_counter==5)
 			dat += "</td><td valign='top'>"
 	dat += "</td></tr></table></center>"
 	dat += "</div></div>"

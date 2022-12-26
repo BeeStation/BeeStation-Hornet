@@ -534,6 +534,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 		/obj/item/clothing/head/santa = 1,
 		/obj/item/a_gift/anything = 1
 	)
+	GLOB.midround_antag_list += ROLE_KEY_SANTA // christmas only antag!
 
 /datum/holiday/xmas/proc/roundstart_celebrate()
 	for(var/obj/machinery/computer/security/telescreen/entertainment/Monitor in GLOB.machines)

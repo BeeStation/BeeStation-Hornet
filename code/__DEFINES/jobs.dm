@@ -246,8 +246,6 @@
 #define JOB_KEY_AI     "AI"
 #define JOB_NAME_CYBORG "Cyborg"
 #define JOB_KEY_CYBORG "Cyborg"
-#define JOB_NAME_PAI    "Personal AI"
-#define JOB_KEY_PAI    "Personal AI"
 
 // Misc & Off-Station
 #define JOB_NAME_KING    "King"

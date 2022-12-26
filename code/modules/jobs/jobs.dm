@@ -63,8 +63,7 @@ GLOBAL_LIST_INIT(security_positions, list(
 
 GLOBAL_LIST_INIT(nonhuman_positions, list(
 	JOB_KEY_AI,
-	JOB_KEY_CYBORG,
-	JOB_KEY_PAI))
+	JOB_KEY_CYBORG))
 
 
 
@@ -138,23 +137,23 @@ GLOBAL_LIST_INIT(exp_specialmap, list(
 	),
 	EXP_TYPE_DEPRECATED = list(
 		"Lavaland Syndicate", // renamed as ROLE_KEY_EXT_SYNDI_AGENT
-		"Ash Walker",        // renamed as "Ashwalker"
+		"Ash Walker",        // renamed as "Ashwalker Lizard"
 		"Translocated Vet",  // renamed as "Translocated Veterinarian" (ROLE_KEY_LAVALAND_DOCTOR)
-		"Space Doctor",      // used nowhere
-		"Ancient Crew",      // used nowhere
-		"Space Syndicate",   // deprecated?
-		"Space Bar Patron",  // deprecated
-		"Hotel Staff",    // it's still used, but it's bad
+		"Space Syndicate",   // deprecated
+		"Hotel Staff",       // no point to be a main role. it's still used, but it's bad
+		"Space Bar Patron",  // same above
 		"Space Bartender",   // same above
 		"Skeleton",          // merged into ROLE_KEY_UNDEAD
 		"Zombie",            // merged into ROLE_KEY_UNDEAD
 		"Servant Golem",     // merged into ROLE_KEY_GOLEMS
 		"Free Golem",        // merged into ROLE_KEY_GOLEMS
+		"Ancient Crew",      // used nowhere...? or merged into ROLE_KEY_MAROONED_CREW
 		"Hermit",            // Merged into ROLE_KEY_MAROONED_CREW
+		"Space Doctor",      // used nowhere
 		"Escaped Prisoner",  // used nowhere
 		"SuperFriend",       // deprecated
 		"Exile",             // deprecated
-		"Ghost Role"         // used nowhere
+		"Ghost Role"         // deprecated
 	),
 ))
 GLOBAL_PROTECT(exp_jobsmap)

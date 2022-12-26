@@ -646,9 +646,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<tr><td colspan='2' width='100%'><center><a style='font-size: 18px;' href='?_src_=prefs;preference=keybindings_menu'>Customize Keybinds</a></center></td></tr>"
 			dat += "</table>"
 
-		if(4) // antag pref
+		if(4) // antag prefs window
 			dat += "<table><tr>"
+			// <first left box>
 			dat += "<td width='400px' height='300px' valign='top'>"
+			// --------------------------------------------
+			// warning pannel
 			var/banned = 0
 			if(is_banned_from(user.ckey, ROLE_BANCHECK_MAJOR_ANTAGONIST))
 				banned += 1
@@ -657,28 +660,31 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if(banned)
 				dat += "<h2>Notification</h2>"
 				if(banned & 1)
-					dat += "<b>You are banned from antagonist roles.</b><br>"
+					dat += "<b>You are banned from all antagonist type roles.</b><br>"
 				if(banned & 2)
-					dat += "<b>You are banned from ghostspawn roles.</b><br>"
+					dat += "<b>You are banned from all ghostspawn type roles.</b><br>"
 
+			// --------------------------------------------
 			// Roundstart antagonists roles
 			dat += "<h2>Roundstart antagonists</h2>"
-			for (var/i in GLOB.roundstart_antag_prefs)
-				if(is_banned_from(user.ckey, i))
-					dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;bancheck=[i]'>BANNED</a><br>"
+			for (var/each_role in GLOB.roundstart_antag_prefs)
+				if(is_banned_from(user.ckey, each_role))
+					dat += "<b>Be [capitalize(each_role)]:</b> <a href='?_src_=prefs;bancheck=[each_role]'>BANNED</a><br>"
 				else
 					var/days_remaining = null
-					if(ispath(GLOB.roundstart_antag_prefs[i]) && CONFIG_GET(flag/use_age_restriction_for_jobs)) //If it's a game mode antag, check if the player meets the minimum age
-						var/mode_path = GLOB.roundstart_antag_prefs[i]
+					if(ispath(GLOB.roundstart_antag_prefs[each_role]) && CONFIG_GET(flag/use_age_restriction_for_jobs)) //If it's a game mode antag, check if the player meets the minimum age
+						var/mode_path = GLOB.roundstart_antag_prefs[each_role]
 						var/datum/game_mode/temp_mode = new mode_path
 						days_remaining = temp_mode.get_remaining_days(user.client)
 
 					if(days_remaining)
-						dat += "<b>Be [capitalize(i)]:</b> <font color=red> \[IN [days_remaining] DAYS]</font><br>"
+						dat += "<b>Be [capitalize(each_role)]:</b> <font color=red> \[IN [days_remaining] DAYS]</font><br>"
 					else
-						dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[i]'>[(i in be_special) ? "Enabled" : "Disabled"]</a><br>"
+						dat += "<b>Be [capitalize(each_role)]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[each_role]'>[(each_role in be_special) ? "Enabled" : "Disabled"]</a><br>"
 			dat += "</td>"
 
+			// <secont right box>
+			// --------------------------------------------
 			// Midround antagonists + ghostspawn roles
 			dat += "<td width='400px' height='300px' valign='top'>"
 			var/static/ghost_roles_list = list(GLOB.midround_antag_list, GLOB.notifying_ghost_roles)
@@ -687,25 +693,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "<h2>Midround antagonists</h2>"
 				else
 					dat += "<h2>Ghost notifying roles</h2>"
-				for (var/i in ghost_roles_list[count])
-					if(is_banned_from(user.ckey, i))
-						dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;bancheck=[i]'>BANNED</a><br>"
+				for (var/each_role in ghost_roles_list[count])
+					if(is_banned_from(user.ckey, each_role))
+						dat += "<b>Be [capitalize(each_role)]:</b> <a href='?_src_=prefs;bancheck=[each_role]'>BANNED</a><br>"
 					else
-						var/days_remaining = null
-						if(ispath(ghost_roles_list[count][i]) && CONFIG_GET(flag/use_age_restriction_for_jobs)) //If it's a game mode antag, check if the player meets the minimum age
-							var/mode_path = ghost_roles_list[count][i]
-							var/datum/game_mode/temp_mode = new mode_path
-							days_remaining = temp_mode.get_remaining_days(user.client)
-
-						if(days_remaining)
-							dat += "<b>Be [capitalize(i)]:</b> <font color=red> \[IN [days_remaining] DAYS]</font><br>"
-						else
-							dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[i]'>[(i in be_special) ? "Enabled" : "Disabled"]</a><br>"	
+						dat += "<b>Be [capitalize(each_role)]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[each_role]'>[(each_role in be_special) ? "Enabled" : "Disabled"]</a><br>"
 			dat += "</td>"
 
-			dat += "</tr>"
-			dat += "<br>"
-			dat += "</table>"
+			dat += "</tr></table>"
+
 			dat += "<b>Midround Antagonist:</b> <a href='?_src_=prefs;preference=allow_midround_antag'>[(toggles & PREFTOGGLE_MIDROUND_ANTAG) ? "Enabled" : "Disabled"]</a><br>"
 
 		if(2) //Loadout

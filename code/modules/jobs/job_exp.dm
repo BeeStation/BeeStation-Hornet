@@ -162,7 +162,7 @@ GLOBAL_PROTECT(exp_to_update)
 					play_records[J.get_jkey()] += minutes
 					if(announce_changes)
 						to_chat(src,"<span class='notice'>You got: [minutes] [J.get_jkey()] EXP!</span>")
-			if(length(mob.mind.mind_roles[RLPK_HOLDER_SPECIAL_ROLES])) // it gives all special type playtime as long as they have
+			if(length(mob.mind.get_role(TRUE))) // it gives all special type playtime as long as they have
 				for(var/each_role in mob.mind.get_role(TRUE))
 					if(!(each_role in GLOB.exp_specialmap[EXP_TYPE_ANTAG] + GLOB.exp_specialmap[EXP_TYPE_SPECIAL]))
 						continue

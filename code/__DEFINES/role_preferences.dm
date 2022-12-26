@@ -42,6 +42,7 @@
 #define ROLE_KEY_BLOB            "Blob"
 #define ROLE_KEY_HOLOPARASITE    "Guardian"
 #define ROLE_KEY_TERATOMA        "Teratoma"
+#define ROLE_KEY_SANTA           "Santa"
 
 #define ROLE_KEY_UNDEFINED_ANTAG_ROLE "Undefined Antagonist Role" // default for all antag datum
 
@@ -66,7 +67,7 @@
 #define ROLE_KEY_UNDEFINED_SPECIAL_ROLE "Undefied Special Role" // default for all ghost roles
 
 // Major coverage - used to ban
-#define ROLE_BANCHECK_MAJOR_ANTAGONIST "All antagonist type" // bans you from all antag roles. a bit hard coded.
+#define ROLE_BANCHECK_MAJOR_ANTAGONIST "All antagonist types" // bans you from all antag roles. a bit hard coded.
 #define ROLE_BANCHECK_REV_HEAD         "Head Revolutionary"
 #define ROLE_BANCHECK_HIVEVESSEL       "Hivemind Vessel"
 #define ROLE_BANCHECK_BRAINWASHED      "Brainwashed Victim"
@@ -92,7 +93,7 @@ GLOBAL_LIST_INIT(roundstart_antag_prefs, list(
 	ROLE_KEY_TRAITOR = /datum/game_mode/traitor,
 	ROLE_KEY_BROTHER = /datum/game_mode/traitor/bros,
 	ROLE_KEY_OPERATIVE = /datum/game_mode/nuclear,
-	ROLE_KEY_MALF,
+	ROLE_KEY_MALF = /datum/game_mode/traitor,
 	ROLE_KEY_INCURSION = /datum/game_mode/incursion,
 	ROLE_KEY_EXCOMM = /datum/game_mode/incursion,
 	ROLE_KEY_CHANGELING = /datum/game_mode/changeling,

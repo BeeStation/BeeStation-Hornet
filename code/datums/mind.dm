@@ -183,8 +183,8 @@
 /// returns a mind's primary role, or all roles
 /datum/mind/proc/_get_role(list_key, as_list=FALSE)
 	if(!length(mind_roles[list_key]))
-		return as_list ? FALSE : list()
-	return as_list ? mind_roles[list_key][1] : mind_roles[list_key]
+		return as_list ? list() : FALSE
+	return as_list ? mind_roles[list_key] : mind_roles[list_key][1]
 
 /// Checks a mind has a single role, or listed roles. (role_key can be non-list and list both)
 /datum/mind/proc/_has_role(list_key, list/role_key)
@@ -252,8 +252,8 @@
 		return
 	return _has_role(RLPK_HOLDER_SPECIAL_ROLES, role_key)
 
-//-------------------------------------------------------------------------------
-/// -------------- Aesthetics -----------------
+//-------------------------------------------------------------------
+/// -------------- Aesthetic displaying mind titles -----------------
 /// Sets a mind's station role
 /datum/mind/proc/set_station_role(job_string)
 	if(!job_string)
@@ -286,7 +286,6 @@
 		J = SSjob.GetJob(J) // changes job_key into an actual job type
 	if(!J)
 		return
-	mind_roles[RLPK_HOLDER_SPECIAL_ROLES] = list() // reset
 
 	set_job(J.get_jkey())
 	if(length(J.list_of_job_keys_to_mob_mind))
@@ -299,10 +298,9 @@
 		CRASH("role_string is null")
 	set_role(role_key)
 	var/current_role = get_special_role()
-	world.log << "current role [current_role]"
 	if(!role_title)
 		role_title = role_key
-	if(!current_role)
+	if(current_role)
 		role_title = "[current_role], [role_title]" // so you can be like "traitor, changeling, operative, wizard"
 	set_special_role(role_title)
 //-------------------------------------------------------------------------------
@@ -940,4 +938,4 @@
 //PAI
 /mob/living/silicon/pai/mind_initialize()
 	..()
-	mind.set_station_role(JOB_NAME_PAI) // PAI isn't a real job
+	mind.assign_special_role(ROLE_KEY_PAI) // PAI isn't a real job

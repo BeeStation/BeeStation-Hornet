@@ -89,7 +89,7 @@ SUBSYSTEM_DEF(job)
 			testing("Removed [job.type] due to map config")
 			continue
 
-		if(job.g_jkey) // setting gimmick positions to 0 at default
+		if(job.job_bitflags & JOB_BITFLAG_GIMMICK) // setting gimmick positions to 0 at default
 			job.total_positions = 0
 			job.spawn_positions = 0
 
@@ -324,7 +324,7 @@ SUBSYSTEM_DEF(job)
 
 	//Get the players who are ready
 	for(var/mob/dead/new_player/player in GLOB.player_list)
-		if(player.ready == PLAYER_READY_TO_PLAY && player.mind && !player.mind.get_job())
+		if(player.ready == PLAYER_READY_TO_PLAY && player.mind && !player.mind.get_station_role())
 			if(!player.check_preferences())
 				player.ready = PLAYER_NOT_READY
 			else
