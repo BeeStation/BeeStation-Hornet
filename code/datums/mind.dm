@@ -583,10 +583,10 @@
 
 	if (href_list["role_edit"]) // Note by Evildragon: This should change multiple jobs. currently disabled because it can cause unwanted behavior. should refactor someday.
 		return
-		var/new_role = input("Select new role", "Assigned role", get_station_role()) as null|anything in sortList(get_all_jobs())
+		/*var/new_role = input("Select new role", "Assigned role", get_station_role()) as null|anything in sortList(get_all_jobs())
 		if (!new_role)
 			return
-		set_station_role(new_role)
+		set_station_role(new_role)*/
 
 	else if (href_list["memory_edit"])
 		var/new_memo = stripped_multiline_input(usr, "Write new memory", "Memory", memory, MAX_MESSAGE_LEN)
