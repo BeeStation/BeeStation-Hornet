@@ -216,8 +216,11 @@
 
 	if(!H?.mind) // currently blocks accepting non-mind mobs being recorded into datacore. remove this `if` when you want mindless mob to be recorded
 		return
-	var/assignment = H.mind?.get_station_role()
+	var/assignment = H.mind?.get_station_role(TRUE)
 	var/job_key = H.mind?.get_job()
+	if(!job_key) // failsafe
+		job_key = JOB_KEY_ASSISTANT
+		stack_trace("mob has no job. giving assistant job as failsafe.")
 
 	var/static/record_id_num = 1001
 	var/id = num2hex(record_id_num++,6)

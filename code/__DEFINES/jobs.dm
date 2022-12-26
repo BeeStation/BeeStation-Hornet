@@ -8,7 +8,6 @@
 	// Display types: these are for aesthestics
 		mind_roles[RLPK_DISPLAY_STATION_ROLE] // Your station job. Only used for displaying purpose (i.e Roundend)
 		mind_roles[RLPK_DISPLAY_SPECIAL_ROLE] // Your special job. Only used for displaying purpose as well
-		mind_roles[RLPK_PRIMARY_JOB] // Your station job - as jkey. This is used to track Job type
 
 	// Holder types: these can possibly contain multiple list inside of itself.
 		mind_roles[RLPK_HOLDER_JOBS] // Your jobs. The top one is mostly prioritised
@@ -21,6 +20,10 @@
 		mind_roles[RLPK_HOLDER_JOBS][JOB_KEY_CLOWNCHAP] = TRUE // top one
 		mind_roles[RLPK_HOLDER_JOBS][JOB_KEY_CLOWN] = TRUE
 		mind_roles[RLPK_HOLDER_JOBS][JOB_KEY_CHAPLAIN] = TRUE
+
+		mind_roles[RLPK_DISPLAY_SPECIAL_ROLE] = "Traitor, Changeling"
+		mind_roles[RLPK_HOLDER_SPECIAL_ROLES][ROLE_KEY_TRAITOR] = TRUE // and you are a traitor!
+		mind_roles[RLPK_HOLDER_SPECIAL_ROLES][ROLE_KEY_CHANGELING] = TRUE // and maybe ling too!
 */
 
 // used in job_bitflags

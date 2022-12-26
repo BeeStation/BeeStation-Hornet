@@ -695,9 +695,10 @@
 		var/datum/job/job = j
 		count++
 		var/J_title = html_encode(job.get_title())
+		var/is_gimmick = job.job_bitflags & JOB_BITFLAG_GIMMICK
 		var/J_opPos = html_encode(job.total_positions - (job.total_positions - job.current_positions))
 		var/J_totPos = html_encode(job.total_positions)
-		dat += "<tr><td>[J_title]:</td> <td>[J_opPos]/[job.total_positions < 0 ? " (unlimited)" : J_totPos]"
+		dat += "<tr><td>[J_title][is_gimmick ? " (Gimmick)" : ""]:</td> <td>[J_opPos]/[job.total_positions < 0 ? " (unlimited)" : J_totPos]"
 
 		dat += "</td>"
 		dat += "<td>"
