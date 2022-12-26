@@ -66,7 +66,7 @@
 		LAZYADD(GLOB.mob_spawners[name], src)
 		SSmobs.update_spawners()
 	if(spawner_special_role in GLOB.midround_antag_list) // if the role is in the antag list, prob you should bancheck that too
-		bantype |= ROLE_BANCHECK_MAJOR_ANTAGONIST
+		banType |= ROLE_BANCHECK_MAJOR_ANTAGONIST
 	banType |= spawner_special_role
 
 /obj/effect/mob_spawn/Destroy()

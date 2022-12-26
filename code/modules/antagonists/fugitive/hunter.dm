@@ -2,6 +2,7 @@
 /datum/antagonist/fugitive_hunter
 	name = "Fugitive Hunter"
 	antag_role_type = ROLE_KEY_FUGITIVE_HUNTER
+	antag_major_bancheck_type = null
 	roundend_category = "Fugitive"
 	silent = TRUE //greet called by the spawn
 	show_in_antagpanel = FALSE

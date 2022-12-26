@@ -40,7 +40,6 @@
 
 // misc: maybe not important
 #define FACTION_JUNGLE "Jungle"
-#define FACTION_UNDEAD  "Undead"
 #define FACTION_STATUE "Statue"
 #define FACTION_MIMIC  "Mimic"
 #define FACTION_SEWER  "Sewer"

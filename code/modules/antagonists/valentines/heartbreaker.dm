@@ -1,7 +1,7 @@
 /datum/antagonist/heartbreaker
 	name = "heartbreaker"
 	antag_role_type = null // this isn't real antag... probably?
-	major_antag_ban = null
+	antag_major_bancheck_type = null
 	roundend_category = "valentines"
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE

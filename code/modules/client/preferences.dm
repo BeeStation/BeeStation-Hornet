@@ -132,6 +132,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/shop_name = "[CONFIG_GET(string/metacurrency_name)] Shop"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=2' [current_tab == 2 ? "class='linkOn'" : ""]>[shop_name]</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=3' [current_tab == 3 ? "class='linkOn'" : ""]>OOC Preferences</a>"
+	dat += "<a href='?_src_=prefs;preference=tab;tab=3' [current_tab == 4 ? "class='linkOn'" : ""]>Antag Preferences</a>"
 
 	dat += "</center>"
 
@@ -641,36 +642,41 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(CONFIG_GET(flag/preference_map_voting))
 					dat += "<b>Preferred Map:</b> <a href='?_src_=prefs;preference=preferred_map;task=input'>[p_map]</a><br>"
 
-			dat += "</td><td width='300px' height='300px' valign='top'>"
-
-			dat += "<h2>Special Role Settings</h2>"
-
-			if(is_banned_from(user.ckey, ROLE_BANCHECK_MAJOR_ANTAGONIST))
-				dat += "<font color=red><b>You are banned from antagonist roles.</b></font><br>"
-				src.be_special = list()
-
-
-			for (var/i in GLOB.special_roles)
-				if(is_banned_from(user.ckey, i))
-					dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;bancheck=[i]'>BANNED</a><br>"
-				else
-					var/days_remaining = null
-					if(ispath(GLOB.special_roles[i]) && CONFIG_GET(flag/use_age_restriction_for_jobs)) //If it's a game mode antag, check if the player meets the minimum age
-						var/mode_path = GLOB.special_roles[i]
-						var/datum/game_mode/temp_mode = new mode_path
-						days_remaining = temp_mode.get_remaining_days(user.client)
-
-					if(days_remaining)
-						dat += "<b>Be [capitalize(i)]:</b> <font color=red> \[IN [days_remaining] DAYS]</font><br>"
-					else
-						dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[i]'>[(i in be_special) ? "Enabled" : "Disabled"]</a><br>"
-			dat += "<br>"
-			dat += "<b>Midround Antagonist:</b> <a href='?_src_=prefs;preference=allow_midround_antag'>[(toggles & PREFTOGGLE_MIDROUND_ANTAG) ? "Enabled" : "Disabled"]</a><br>"
-
 			dat += "</td></tr><tr><td> </td></tr>" // i hate myself for this
 			dat += "<tr><td colspan='2' width='100%'><center><a style='font-size: 18px;' href='?_src_=prefs;preference=keybindings_menu'>Customize Keybinds</a></center></td></tr>"
 			dat += "</table>"
 
+		if(4) // antag pref
+			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
+			dat += "<h2>Antag Settings</h2>"
+			dat += "</td><td width='300px' height='300px' valign='top'>"
+
+			dat += "<b>Midround Antagonist:</b> <a href='?_src_=prefs;preference=allow_midround_antag'>[(toggles & PREFTOGGLE_MIDROUND_ANTAG) ? "Enabled" : "Disabled"]</a><br>"
+
+			dat += "<h2>Special Role Settings</h2>"
+			if(is_banned_from(user.ckey, ROLE_BANCHECK_MAJOR_ANTAGONIST))
+				dat += "<font color=red><b>You are banned from antagonist roles.</b></font><br>"
+				src.be_special = list()
+
+			for(var/each_category in list(GLOB.roundstart_antag_prefs, GLOB.midround_antag_list, GLOB.ghost_special_roles))
+				for (var/i in each_category)
+					if(is_banned_from(user.ckey, i))
+						dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;bancheck=[i]'>BANNED</a><br>"
+					else
+						var/days_remaining = null
+						if(ispath(each_category[i]) && CONFIG_GET(flag/use_age_restriction_for_jobs)) //If it's a game mode antag, check if the player meets the minimum age
+							var/mode_path = each_category[i]
+							var/datum/game_mode/temp_mode = new mode_path
+							days_remaining = temp_mode.get_remaining_days(user.client)
+
+						if(days_remaining)
+							dat += "<b>Be [capitalize(i)]:</b> <font color=red> \[IN [days_remaining] DAYS]</font><br>"
+						else
+							dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[i]'>[(i in be_special) ? "Enabled" : "Disabled"]</a><br>"
+
+
+			dat += "<br>"
+			dat += "</table>"
 		if(2) //Loadout
 			var/list/type_blacklist = list()
 			if(length(active_character.equipped_gear))

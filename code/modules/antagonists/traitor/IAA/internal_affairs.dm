@@ -7,7 +7,7 @@
 	name = "Internal Affairs Agent"
 	employer = "Nanotrasen"
 	antag_role_type = null // their employer isn't syndicate... prob not antag?
-	major_antag_ban = null
+	antag_major_bancheck_type = null
 	antagpanel_category = "IAA"
 	var/syndicate = FALSE
 	var/last_man_standing = FALSE
@@ -223,7 +223,7 @@
 		//Optional traitor objective
 		if(prob(PROB_ACTUAL_TRAITOR))
 			employer = "The Syndicate"
-			special_role = ROLE_KEY_EXTERNAL_AFFAIRS
+			special_role = ROLE_TITLE_EXTERNAL_AFFAIRS
 			syndicate = TRUE
 			log_game("[owner.key] has been designated an External Affairs Agent")
 			forge_single_objective()

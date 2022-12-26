@@ -182,7 +182,7 @@
 	owner.current.forceMove(pick(GLOB.wizardstart))
 
 /datum/antagonist/wizard/apprentice
-	name = "Wizard Apprentice"
+	name = ROLE_TITLE_APPRENTICE
 	hud_version = "apprentice"
 	var/datum/mind/master
 	var/school = APPRENTICE_DESTRUCTION

@@ -287,8 +287,8 @@
 /datum/antagonist/revolution_enemy
 	name = "Enemy of the Revolution"
 	show_in_antagpanel = FALSE
-	antag_role_type = ROLE_KEY_REV_ENEMY
-	major_antag_ban = null
+	antag_role_type = ROLE_TITLE_REV_ENEMY
+	antag_major_bancheck_type = null
 
 /datum/antagonist/revolution_enemy/on_gain()
 	var/datum/objective/survive/survive = new /datum/objective/survive

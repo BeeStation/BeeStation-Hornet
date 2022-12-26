@@ -13,7 +13,7 @@ GLOBAL_LIST(admin_antag_list)
 	var/list/typecache_datum_blacklist = list()	//List of datums this type can't coexist with
 	var/delete_on_mind_deletion = TRUE
 	var/antag_role_type = ROLE_KEY_UNDEFINED_ANTAG_ROLE
-	var/major_antag_ban = ROLE_BANCHECK_MAJOR_ANTAGONIST
+	var/antag_major_bancheck_type = ROLE_BANCHECK_MAJOR_ANTAGONIST
 	var/give_objectives = TRUE //Should the default objectives be generated?
 	var/replace_banned = TRUE //Should replace jobbanned player with ghosts if granted.
 	var/list/objectives = list()
@@ -123,7 +123,12 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/is_banned(mob/M)
 	if(!M)
 		return FALSE
-	. = (is_banned_from(M.ckey, list(major_antag_ban, antag_role_type)) || QDELETED(M))
+	var/ban_list = list()
+	if(antag_role_type)
+		ban_list |= antag_role_type
+	if(antag_major_bancheck_type)
+		ban_list |= antag_major_bancheck_type
+	. = (is_banned_from(M.ckey, ban_list) || QDELETED(M))
 
 /datum/antagonist/proc/replace_banned_player()
 	set waitfor = FALSE

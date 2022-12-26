@@ -1,7 +1,7 @@
 /datum/antagonist/wishgranter
 	name = "Wishgranter Avatar"
 	antag_role_type = null // change this later
-	major_antag_ban = null
+	antag_major_bancheck_type = null
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	can_elimination_hijack = ELIMINATION_ENABLED
