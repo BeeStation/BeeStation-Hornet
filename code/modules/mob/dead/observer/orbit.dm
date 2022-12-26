@@ -103,7 +103,7 @@
 
 /datum/asset/spritesheet/job_icons/register()
 	var/icon/I = icon('icons/mob/hud.dmi')
-	// Get the antag hud part
+	// Get the job hud part
 	I.Crop(1, 17, 8, 24)
 	// Scale it up
 	I.Scale(16, 16)
