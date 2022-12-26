@@ -12,10 +12,9 @@
 	/// if a job should have multiple jobs in their mind, use this then it will give all listed jobs to a mob's mind instead of jkey variable
 	var/list_of_job_keys_to_mob_mind = list()
 	// example: "job: Chaplain of Honkmother (Chaplain Gimmick)" should have 'list(JOB_KEY_CLOWN, JOB_KEY_CHAPLAIN)' as they are elitible for both (it's not a real job, but just for an example)
+	// as a result of that, a mob's mind will have "list/mind_roles[JOB_HOLDER] = list(JOB_KEY_CLOWN_CHAPLAIN, JOB_KEY_CLOWN, JOB_KEY_CHAPLAIN)"
 	// leave this blank if you're going to give them a default key
-	// if `g_jkey` is declared, only that thing will be given to mob instead of 'jkey'
-	// if `g_jkey` is NOT declared, 'jkey' will be given to mob.
-
+	
 	/// literally job bitflags. see DEFINE\jobs.dm for bitflags
 	var/job_bitflags = NONE
 

@@ -95,9 +95,9 @@ SUBSYSTEM_DEF(job)
 
 		occupations += job
 		// Key is job path. gimmick job path is prioritised if it exists.
-		name_occupations[job.get_jkey()] = job
+		name_occupations["[job.get_jkey()]"] = job
 		if(job.get_jkey() != job.get_title()) // in case that title is customised for some reason (i.e. medieval theme titles in code), this will do failsafe.
-			name_occupations[job.get_title()] = job
+			name_occupations["[job.get_title()]"] = job
 		type_occupations[J] = job
 
 	return 1
@@ -241,7 +241,12 @@ SUBSYSTEM_DEF(job)
 	JobDebug("Occupations reset.")
 	for(var/mob/dead/new_player/player in GLOB.player_list)
 		if((player) && (player.mind))
-			player.mind.mind_roles = initial(player.mind.mind_roles)
+			player.mind.mind_roles = list(
+				RLPK_DISPLAY_STATION_ROLE = "",
+				RLPK_DISPLAY_SPECIAL_ROLE = "",
+				RLPK_HOLDER_JOBS = list(),
+				RLPK_HOLDER_SPECIAL_ROLES = list()
+			)
 			SSpersistence.antag_rep_change[player.ckey] = 0
 	SetupOccupations()
 	unassigned = list()

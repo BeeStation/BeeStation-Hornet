@@ -28,8 +28,7 @@
 
 /datum/antagonist/brainwashed
 	name = "Brainwashed Victim"
-	antag_role_type = ROLE_KEY_BRAINWASHED
-	antag_major_bancheck_type = null
+	antag_major_bancheck_type = ROLE_BANCHECK_BRAINWASHED
 	roundend_category = "brainwashed victims"
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"

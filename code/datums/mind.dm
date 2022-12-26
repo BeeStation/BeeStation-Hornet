@@ -41,8 +41,7 @@
 
 	var/mind_roles = list(
 		RLPK_HOLDER_JOBS = list(),
-		RLPK_HOLDER_SPECIAL_ROLES = list(),
-		RLPK_HOLDER_ANTAG_ROLES = list()
+		RLPK_HOLDER_SPECIAL_ROLES = list()
 	) // list of jobs, special jobs.
 	var/list/restricted_roles = list()
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
@@ -190,7 +189,7 @@
 /// Checks a mind has a single role, or listed roles. (role_key can be non-list and list both)
 /datum/mind/proc/_has_role(list_key, list/role_key)
 	if(!islist(role_key))
-		return mind_roles[list_key][role_key] || FALSE
+		return mind_roles[list_key][role_key] || FALSE // returning null is bad at most cases.
 
 	for(var/each_role in role_key)
 		if(mind_roles[list_key][role_key]) // checking is neccesary or it will early-return as FALSE for multiple checks...
@@ -300,6 +299,7 @@
 		CRASH("role_string is null")
 	set_role(role_key)
 	var/current_role = get_special_role()
+	world.log << "current role [current_role]"
 	if(!role_title)
 		role_title = role_key
 	if(!current_role)

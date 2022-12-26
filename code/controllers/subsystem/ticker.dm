@@ -444,8 +444,7 @@ SUBSYSTEM_DEF(ticker)
 							highest_rank = spare_id_priority
 						else if(spare_id_priority == highest_rank)
 							spare_id_candidates += N
-			if(player.mind.get_station_role())
-				SSjob.EquipRank(N, player.mind.get_job(), FALSE)
+			SSjob.EquipRank(N, player.mind.get_job(), FALSE)
 			if(CONFIG_GET(flag/roundstart_traits) && ishuman(N.new_character))
 				SSquirks.AssignQuirks(N.new_character, N.client, TRUE)
 		CHECK_TICK

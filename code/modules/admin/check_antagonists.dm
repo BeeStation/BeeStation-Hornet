@@ -3,7 +3,7 @@
 //Name shown on antag list
 /datum/antagonist/proc/antag_listing_name()
 	if(!owner)
-		return "Unassigned"
+		return JOB_UNASSIGNED
 	if(owner.current)
 		return "<a href='?_src_=holder;[HrefToken()];adminplayeropts=[REF(owner.current)]'>[owner.current.real_name]</a> "
 	else

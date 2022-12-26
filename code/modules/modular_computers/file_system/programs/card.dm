@@ -170,7 +170,7 @@
 					return
 
 			target_id_card.access -= get_all_centcom_access() + get_all_accesses()
-			target_id_card.assignment = "Unassigned"
+			target_id_card.assignment = JOB_UNASSIGNED
 			target_id_card.update_label()
 			log_id("[key_name(usr)] unassigned and stripped all access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
@@ -366,7 +366,7 @@
 	data["has_id"] = !!id_card
 	data["id_name"] = id_card ? id_card.name : "-----"
 	if(id_card)
-		data["id_rank"] = id_card.assignment ? id_card.assignment : "Unassigned"
+		data["id_rank"] = id_card.assignment ? id_card.assignment : JOB_UNASSIGNED
 		data["id_owner"] = id_card.registered_name ? id_card.registered_name : "-----"
 		data["access_on_card"] = id_card.access
 

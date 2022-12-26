@@ -558,7 +558,7 @@
 	var/turf/altar_turf = get_turf(religious_tool)
 	new /obj/effect/temp_visual/bluespace_fissure/long(altar_turf)
 	user.visible_message("<span class'notice'>A tear in reality appears above the altar!</span>")
-	var/list/jobbans = list(ROLE_KEY_BRAINWASHED, ROLE_KEY_ERT, ROLE_KEY_DRONE, ROLE_BANCHECK_MIND_TRANSFER, ROLE_KEY_POSIBRAIN, ROLE_KEY_SENTIENT)
+	var/list/jobbans = list(ROLE_KEY_ERT, ROLE_KEY_DRONE, ROLE_BANCHECK_MIND_TRANSFER, ROLE_KEY_POSIBRAIN, ROLE_KEY_SENTIENT)
 	var/list/candidates = pollGhostCandidates("Do you wish to be summoned as a Holy Carp?", jobbans, null, FALSE)
 	if(!length(candidates))
 		new /obj/effect/gibspawner/generic(altar_turf)

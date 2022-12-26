@@ -192,7 +192,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		if(is_valid_target(possible_target))
 			var/is_role = FALSE
 			if(role_type)
-				if(possible_target.has_role(RL_CHECKS_SPECIAL_ANTAG_BOTH, role))
+				if(possible_target.has_role(role))
 					is_role = TRUE
 			else
 				if(possible_target.has_job(role))

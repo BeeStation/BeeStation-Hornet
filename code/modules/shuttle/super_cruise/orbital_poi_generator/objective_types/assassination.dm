@@ -54,6 +54,7 @@
 			created_human.flavor_text = "You are just an assistant on a lonely derelict station. You dream of going home, but you broke the wrong airlock - \
 			Now your former employer, Nanotrasen, is after you..."
 			created_human.equipOutfit(/datum/outfit/vip_target/greytide)
+			created_human.mind.set_job(JOB_KEY_ASSISTANT)
 		if("operative")
 			created_human.flavor_text = "You are a Syndicate operative employed by Cybersun Industries, currently scavenging for valuable resources in the wrecks of Nanotrasen Derelicts. \
 			However, upon being dropped off for your shift, the shuttle that flew you onboard was shot down by Nanotrasen's forces. You know it's only a matter of time before they find you..."
@@ -64,6 +65,7 @@
 			created_human.flavor_text = "Slip, slip, slip! Your PDA's brought a lot of laughs to this crew, but now that they're - and it's - gone, the Head Of Security's threats are \
 			echoing in your mind..."
 			created_human.equipOutfit(/datum/outfit/vip_target/clown)
+			created_human.mind.set_job(JOB_KEY_CLOWN)
 	created_human.mind.store_memory("[created_human.flavor_text] - Someone is out to assassinate you... Stay alive.")
 	created_human.mind.add_antag_datum(/datum/antagonist/survivalist)
 	mob_to_kill = created_human

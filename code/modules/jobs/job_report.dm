@@ -46,7 +46,7 @@
 		var/playtime = play_records[special_name] ? text2num(play_records[special_name]) : 0
 		data["specialPlaytimes"][special_name] = playtime
 
-	for (var/outdated_role_name in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])
+	for (var/outdated_role_name in GLOB.exp_specialmap[EXP_TYPE_DEPRECATED])
 		var/playtime = play_records[outdated_role_name] ? text2num(play_records[outdated_role_name]) : 0
 		data["outdatedPlaytimes"][outdated_role_name] = playtime
 

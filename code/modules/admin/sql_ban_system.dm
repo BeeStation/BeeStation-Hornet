@@ -326,8 +326,8 @@
 				break_counter++
 			output += "</div></div>"
 
-		var/static/antag_ban_list = list(ROLE_BANCHECK_MAJOR_ANTAGONIST)|GLOB.roundstart_antag_prefs|GLOB.midround_antag_list|GLOB.misc_ban_list
-		var/static/ghost_ban_list = list(ROLE_BANCHECK_MAJOR_GHOSTSPAWN)|GLOB.ghost_special_roles
+		var/static/antag_ban_list = list(ROLE_BANCHECK_MAJOR_ANTAGONIST)|GLOB.roundstart_antag_prefs|GLOB.midround_antag_list|GLOB.misc_antag_ban_list
+		var/static/ghost_ban_list = list(ROLE_BANCHECK_MAJOR_GHOSTSPAWN)|GLOB.ghost_special_roles|GLOB.misc_ghost_ban_list
 		var/list/long_job_lists = list(("Civilian" = GLOB.civilian_positions),
 									"Antagonist Positions" = antag_ban_list,
 									"Ghost and Other Roles" = ghost_ban_list)

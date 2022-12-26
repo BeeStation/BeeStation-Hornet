@@ -38,6 +38,7 @@
 	//Maybe polling ghosts would be better than the shintience code
 	created_human.set_playable()
 	created_human.mind_initialize()
+	created_human.mind.assign_special_role(ROLE_KEY_EXPLORATION_VIP)
 	//Remove nearby dangers
 	for(var/mob/living/simple_animal/hostile/SA in range(10, created_human))
 		qdel(SA)
@@ -53,6 +54,7 @@
 			created_human.flavor_text = "You are just an assistant on a lonely derelict station. You dream of going home, \
 				but it would take another one of the miracles that kept you alive to get you home."
 			created_human.equipOutfit(/datum/outfit/vip_target/greytide)
+			created_human.mind.set_job(JOB_KEY_ASSISTANT)
 			antag_elligable = TRUE
 	created_human.mind.store_memory(created_human.flavor_text)
 	if(antag_elligable)

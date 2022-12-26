@@ -27,7 +27,6 @@
 
 // mid-spawn antags
 #define ROLE_KEY_ERT             "ERT"
-#define ROLE_KEY_BRAINWASHED     "Brainwashed Victim"
 #define ROLE_KEY_OBSESSED        "Obsessed"
 #define ROLE_KEY_EXT_SYNDI_AGENT "External Syndicate Agent"
 #define ROLE_KEY_SPACE_PIRATE    "Space Pirate"
@@ -59,17 +58,20 @@
 #define ROLE_KEY_MAROONED_CREW    "Marooned Crew"
 #define ROLE_KEY_FUGITIVE         "Fugitive"
 #define ROLE_KEY_FUGITIVE_HUNTER  "Fugitive Hunter"
-#define ROLE_KEY_SENTIENT         "Sentient Beings"
+#define ROLE_KEY_SENTIENT         "Sentient Beings" // This one can possibly antag (i.e. lava elite mobs)
 #define ROLE_KEY_DRONE            "Drone"
-#define ROLE_KEY_UNDEAD           "Undead"
+#define ROLE_KEY_UNDEAD           "Undead" // I am not sure if it's a thing evne, but I added it anyawy
 #define ROLE_KEY_LIVING_LEGEND    "The Living Legend" // only use this when a mob role is a legendary person in SS13. (i.e. Yender the Archwizard, Doctor Hilbert, or a member of Nanotrasen Family like "Random_name d'Nanotrasen")
 
 #define ROLE_KEY_UNDEFINED_SPECIAL_ROLE "Undefied Special Role" // default for all ghost roles
 
 // Major coverage - used to ban
-#define ROLE_BANCHECK_MAJOR_ANTAGONIST "All antagonist type"
-#define ROLE_BANCHECK_MAJOR_GHOSTSPAWN "All ghost spawns"
+#define ROLE_BANCHECK_MAJOR_ANTAGONIST "All antagonist type" // bans you from all antag roles. a bit hard coded.
 #define ROLE_BANCHECK_REV_HEAD         "Head Revolutionary"
+#define ROLE_BANCHECK_HIVEVESSEL       "Hivemind Vessel"
+#define ROLE_BANCHECK_BRAINWASHED      "Brainwashed Victim"
+
+#define ROLE_BANCHECK_MAJOR_GHOSTSPAWN "All ghost spawns" // bans you from all ghost roles. a bit hard coded.
 #define ROLE_BANCHECK_MIND_TRANSFER    "Mind Transfer Potion"
 
 
@@ -78,6 +80,13 @@
 #define ROLE_TITLE_REV_ENEMY     "revolution enemy"
 #define ROLE_TITLE_APPRENTICE    "Apprentice"
 
+
+
+GLOBAL_LIST_INIT(misc_antag_ban_list, list(
+	ROLE_BANCHECK_REV_HEAD,
+	ROLE_BANCHECK_BRAINWASHED,
+	ROLE_BANCHECK_HIVEVESSEL
+))
 
 GLOBAL_LIST_INIT(roundstart_antag_prefs, list(
 	ROLE_KEY_TRAITOR = /datum/game_mode/traitor,
@@ -99,17 +108,8 @@ GLOBAL_LIST_INIT(roundstart_antag_prefs, list(
 	ROLE_KEY_GANG = /datum/game_mode/gang,
 ))
 
-// note:
-//		ROLE_BANCHECK_MAJOR_ANTAGONIST, ROLE_BANCHECK_MAJOR_GHOSTSPAWN,
-//   	these two banchecks are a bit hardcoded
-GLOBAL_LIST_INIT(misc_ban_list, list(
-	ROLE_BANCHECK_REV_HEAD,
-	ROLE_BANCHECK_MIND_TRANSFER
-))
-
 GLOBAL_LIST_INIT(midround_antag_list, list(
 	ROLE_KEY_ERT,
-	ROLE_KEY_BRAINWASHED,
 	ROLE_KEY_OBSESSED,
 	ROLE_KEY_EXT_SYNDI_AGENT,
 	ROLE_KEY_SPACE_PIRATE,
@@ -127,6 +127,10 @@ GLOBAL_LIST_INIT(midround_antag_list, list(
 	ROLE_KEY_TERATOMA
 ))
 
+GLOBAL_LIST_INIT(misc_ghost_ban_list, list(
+	ROLE_BANCHECK_MIND_TRANSFER
+))
+
 GLOBAL_LIST_INIT(ghost_special_roles, list(
 	ROLE_KEY_POSIBRAIN,
 	ROLE_KEY_PAI,
@@ -142,7 +146,18 @@ GLOBAL_LIST_INIT(ghost_special_roles, list(
 	ROLE_KEY_FUGITIVE,
 	ROLE_KEY_FUGITIVE_HUNTER,
 	ROLE_KEY_DRONE,
-	ROLE_KEY_UNDEAD,
+	ROLE_KEY_LIVING_LEGEND
+))
+
+// these are basically difficult to call antag, but should be in prefs window
+GLOBAL_LIST_INIT(notifying_ghost_roles, list(
+	ROLE_KEY_PAI,
+	ROLE_KEY_SENTIENT,
+	ROLE_KEY_EXPERIMENTAL_CLONE,
+	ROLE_KEY_EXPLORATION_VIP,
+	ROLE_KEY_FUGITIVE,
+	ROLE_KEY_FUGITIVE_HUNTER,
+	ROLE_KEY_DRONE,
 	ROLE_KEY_LIVING_LEGEND
 ))
 

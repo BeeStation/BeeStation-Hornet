@@ -360,7 +360,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		var/scan_name = inserted_scan_id ? html_encode(inserted_scan_id.name) : "--------"
 		var/target_name = inserted_modify_id ? html_encode(inserted_modify_id.name) : "--------"
 		var/target_owner = (inserted_modify_id && inserted_modify_id.registered_name) ? html_encode(inserted_modify_id.registered_name) : "--------"
-		var/target_rank = (inserted_modify_id && inserted_modify_id.assignment) ? html_encode(inserted_modify_id.assignment) : "Unassigned"
+		var/target_rank = (inserted_modify_id && inserted_modify_id.assignment) ? html_encode(inserted_modify_id.assignment) : JOB_UNASSIGNED
 
 		if(!authenticated)
 			header += "<br><i>Please insert the cards into the slots</i><br>"
@@ -376,7 +376,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		header += "<hr>"
 
 		var/jobs_all = ""
-		var/list/alljobs = list("Unassigned")
+		var/list/alljobs = list(JOB_UNASSIGNED)
 		alljobs += (istype(src, /obj/machinery/computer/card/centcom)? get_all_centcom_jobs() : get_all_jobs()) + "Custom"
 		for(var/job in alljobs)
 			if(job == JOB_KEY_ASSISTANT)
@@ -632,12 +632,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				var/datum/data/record/R = find_record("name", inserted_modify_id.registered_name, GLOB.data_core.general)
 				var/t1 = href_list["assign_target"]
 				if(t1 == "Custom")
-					var/newJob = reject_bad_text(stripped_input("Enter a custom job assignment.", "Assignment", inserted_modify_id ? inserted_modify_id.assignment : "Unassigned"), MAX_NAME_LEN)
+					var/newJob = reject_bad_text(stripped_input("Enter a custom job assignment.", "Assignment", inserted_modify_id ? inserted_modify_id.assignment : JOB_UNASSIGNED), MAX_NAME_LEN)
 					if(newJob)
 						t1 = newJob
 						log_id("[key_name(usr)] changed [inserted_modify_id] assignment to [newJob] using [inserted_scan_id] at [AREACOORD(usr)].")
 
-				else if(t1 == "Unassigned")
+				else if(t1 == JOB_UNASSIGNED)
 					inserted_modify_id.access -= get_all_accesses()
 
 					// These lines are to make an individual to an assistant
@@ -704,8 +704,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				update_modify_manifest()
 
 		if ("demote")
-			if(inserted_modify_id.assignment in head_subordinates || inserted_modify_id.assignment == "Assistant")
-				inserted_modify_id.assignment = "Demoted"
+			if(inserted_modify_id.assignment in head_subordinates || inserted_modify_id.assignment == JOB_NAME_ASSISTANT)
+				inserted_modify_id.assignment = JOB_DEMOTED
 				log_id("[key_name(usr)] demoted [inserted_modify_id], unassigning the card without affecting access, using [inserted_scan_id] at [AREACOORD(usr)].")
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			else

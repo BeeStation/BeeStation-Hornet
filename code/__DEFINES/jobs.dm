@@ -1,22 +1,8 @@
-// These are key for a job list in a mind
-// i.e.) mind.job[JLIST_BASE_NAME] = JONAME_CAPTAIN
-#define JLIST_BASE_PATH "job_basePath"
-#define JLIST_BASE_NAME "job_baseName"
-#define JLIST_GIMMICK_PATH "job_gimmickPath"
-#define JLIST_GIMMICK_NAME "job_gimmickName"
-#define JLIST_SPECIAL "job_special"
-
-
 // RL PK = Role List 'Primary Key'
 #define RLPK_DISPLAY_STATION_ROLE "station_role"
 #define RLPK_DISPLAY_SPECIAL_ROLE "special_role"
 #define RLPK_HOLDER_JOBS "jobs"
 #define RLPK_HOLDER_SPECIAL_ROLES "special_roles"
-#define RLPK_HOLDER_ANTAG_ROLES "antag_roles"
-#define RLPK_HOLDER_FACTIONS "factions"
-
-// this is used in 'has_role' mind proc. if you want to check both of special/antag roles, use this
-#define RL_CHECKS_SPECIAL_ANTAG_BOTH "special_and_antag"
 
 /*
 	// Display types: these are for aesthestics
@@ -26,23 +12,16 @@
 
 	// Holder types: these can possibly contain multiple list inside of itself.
 		mind_roles[RLPK_HOLDER_JOBS] // Your jobs. The top one is mostly prioritised
-		mind_roles[RLPK_HOLDER_SPECIAL_ROLES] // Your 'special' roles which isn't antag
-		mind_roles[RLPK_HOLDER_ANTAG_ROLES] // Your antag roles
-		mind_roles[RLPK_HOLDER_FACTIONS] // where you belongs to
+		mind_roles[RLPK_HOLDER_SPECIAL_ROLES] // Your 'special' roles
 
 	// I.e.
 		"Chaplain of Honkmother" job will be like this
 
 		mind_roles[RLPK_DISPLAY_STATION_ROLE] = "Chaplain of Honkmother"
+		mind_roles[RLPK_HOLDER_JOBS][JOB_KEY_CLOWNCHAP] = TRUE // top one
 		mind_roles[RLPK_HOLDER_JOBS][JOB_KEY_CLOWN] = TRUE
 		mind_roles[RLPK_HOLDER_JOBS][JOB_KEY_CHAPLAIN] = TRUE
-		mind_roles[RLPK_HOLDER_FACTIONS][FACTION_STATION] = TRUE
 */
-
-// use on get_mind_role(type) in mind proc
-#define JTYPE_JOB_PATH "jkey"
-#define JTYPE_JOB_NAME "jname"
-#define JTYPE_SPECIAL "jspecial"
 
 // used in job_bitflags
 #define JOB_BITFLAG_SELECTABLE (1<<0) // basically given to all 'standard' jobs (not gimmicks). if a gimmick job has with this flag, it will be shown in 'job pref' window and people can join a round with that job.
@@ -108,7 +87,6 @@
 #define JOB_UNAVAILABLE_SLOTFULL 5
 #define JOB_UNAVAILABLE_NOT_INTRODUCED 6
 
-// jobs
 #define DEFAULT_RELIGION "Christianity"
 #define DEFAULT_DEITY "Space Jesus"
 
@@ -172,7 +150,6 @@
 // 		DO NOT CHANGE KEY. You are fine to change NAME defines, but DO NOT DO to KEY defines
 #define JOB_UNASSIGNED "Unassigned"
 #define JOB_DEMOTED "Demoted"
-#define JOB_ERROR "Job error - report to coder"
 
 // Command
 #define JOB_NAME_CAPTAIN "Captain"
