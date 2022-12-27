@@ -30,12 +30,12 @@ Bonus
 	symptom_delay_max = 1
 	prefixes = list("Breathless ", "Anaerobic ")
 	var/regenerate_blood = FALSE
-	threshold_desc = "<b>Resistance 8:</b> Additionally regenerates lost blood.<br>"
+	threshold_desc = "<b>Resistance 8:</b> Additionally regenerates lost blood."
 
 /datum/symptom/oxygen/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= 8) //blood regeneration
+	if(A.resistance >= disease_oxygen_resistance) //blood regeneration
 		regenerate_blood = TRUE
 
 /datum/symptom/oxygen/Activate(datum/disease/advance/A)
@@ -66,3 +66,9 @@ Bonus
 	if(!..())
 		return
 	REMOVE_TRAIT(A.affected_mob, TRAIT_NOBREATH, DISEASE_TRAIT)
+
+/datum/symptom/oxygen/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Resistance [disease_oxygen_resistance]:</b> Additionally regenerates lost blood."
+	return threshold_desc

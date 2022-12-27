@@ -187,3 +187,5 @@ var/disease_mind_restoration_transmission = rand(6,10)
 
 var/disease_organ_restoration_stealth = rand(2,5)
 var/disease_organ_restoration_stage_speed = rand(8,12)
+
+var/disease_oxygen_resistance = rand(6,10)
