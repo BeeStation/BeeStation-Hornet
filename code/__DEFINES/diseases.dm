@@ -34,3 +34,6 @@
 // Symptom Thresholds
 var/disease_sneeze_stealth = rand(2,5)
 var/disease_sneeze_transmission = rand(10,13)
+
+var/disease_visionloss_resistance = rand(10,14)
+var/disease_visionloss_stealth = rand(2,5)

@@ -37,15 +37,15 @@ Bonus
 
 /datum/symptom/visionloss/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= 12) //goodbye eyes
+	if(A.resistance >= disease_visionloss_resistance) //goodbye eyes
 		severity += 1
 
 /datum/symptom/visionloss/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= 4)
+	if(A.stealth >= disease_visionloss_stealth)
 		suppress_warning = TRUE
-	if(A.resistance >= 12) //goodbye eyes
+	if(A.resistance >= disease_visionloss_resistance) //goodbye eyes
 		remove_eyes = TRUE
 
 /datum/symptom/visionloss/Activate(datum/disease/advance/A)
@@ -78,3 +78,10 @@ Bonus
 						eyes.forceMove(get_turf(M))
 				else
 					to_chat(M, "<span class='userdanger'>Your eyes burn horrifically!</span>")
+
+/datum/symptom/visionloss/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Resistance [disease_visionloss_resistance]:</b> Weakens extraocular muscles, eventually leading to complete detachment of the eyes.<br>\
+					  <b>Stealth [disease_visionloss_stealth]:</b> The symptom remains hidden until active."
+	return threshold_desc
