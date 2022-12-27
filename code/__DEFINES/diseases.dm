@@ -50,3 +50,6 @@ var/disease_weight_loss_stealth = rand(0,4)
 
 var/disease_wizarditis_transmission = rand(6,10)
 var/disease_wizarditis_stage_speed = rand(5,9)
+
+var/disease_alcohol_stealth = rand(1,5)
+var/disease_alcohol_stage_speed = rand(4,8)
