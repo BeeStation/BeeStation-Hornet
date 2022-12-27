@@ -460,9 +460,10 @@
 				H.update_damage_overlays()
 			user.visible_message("[user] has fixed some of the [dam ? "dents on" : "burnt wires in"] [H]'s [parse_zone(affecting.body_zone)].", \
 			"<span class='notice'>You fix some of the [dam ? "dents on" : "burnt wires in"] [H == user ? "your" : "[H]'s"] [parse_zone(affecting.body_zone)].</span>")
-			return 1 //successful heal
+			return TRUE //successful heal
 		else
 			to_chat(user, "<span class='warning'>[affecting] is already in good condition!</span>")
+			return FALSE
 
 ///Is the passed in mob an admin ghost
 /proc/IsAdminGhost(var/mob/user)

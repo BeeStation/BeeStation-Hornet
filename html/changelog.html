@@ -56,6 +56,66 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">25 December 2022</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed hostile breadloaf dropping invisible bread upon being butchered</li>
+			</ul>
+
+			<h2 class="date">23 December 2022</h2>
+			<h3 class="author">Archanial updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed runtime when getting envelope with rabbit inside of it</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Gimmick objective is weirdly no longer changed upon your unlisted target's cryo</li>
+			</ul>
+			<h3 class="author">benbot16 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes shuttle thrusters not having icons.</li>
+			</ul>
+
+			<h2 class="date">22 December 2022</h2>
+			<h3 class="author">Bobbanz1 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a computer program called "Central Command Databank Uplink" which allows you to view the Wiki from your PDA</li>
+			</ul>
+			<h3 class="author">Dimmadunk, Alterist, RKz updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Gastrectomy, a stomach healing surgery!</li>
+				<li class="rscadd">two cybernetic forms of the stomach are now added to the medical lathe and exofab.</li>
+			</ul>
+			<h3 class="author">benbot16 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Burn repair on robotic limbs no longer uses cable if the limb is uninjured</li>
+				<li class="bugfix">Adds proper click cooldown handling to mechanical repair</li>
+			</ul>
+
+			<h2 class="date">19 December 2022</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">researching a tech node 2 tier higher than current tech tier will warn you.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Adds in new config settings for mappers that allow for the creation of planetary based maps on the supercruise map. See PR #8178 for more details.</li>
+				<li class="rscadd">Planetary meteors will now spawn on the highest z-level and drop down until they hit the bottom or explode.</li>
+				<li class="bugfix">Planetary meteors will no longer only spawn mini rocks</li>
+			</ul>
+
+			<h2 class="date">17 December 2022</h2>
+			<h3 class="author">Harranhall updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Changed the pirate respose timer from 2 minutes to a random number of minutes chosen between (and including) 4-7.</li>
+			</ul>
+			<h3 class="author">benbot16 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Regular, primal, and drake lassos are now limited use (with 4, 2, and 1 uses respectively).</li>
+				<li class="tweak">Tamed mobs will now unfriend their owners if they're hit by their owners too many times.</li>
+				<li class="tweak">Updates the primal lasso's recipe to require sinew.</li>
+			</ul>
+
 			<h2 class="date">15 December 2022</h2>
 			<h3 class="author">DoctorSquishy, Ghilker, and RKz updated:</h3>
 			<ul class="changes bgimages16">
@@ -875,128 +935,6 @@
 			<h3 class="author">san7890 updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="rscadd">For developers, made the Merge conflict marker more explicit than before.</li>
-			</ul>
-
-			<h2 class="date">25 October 2022</h2>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Dynamic: Traitors, Changelings, and Heretics can no longer spawn alongside hivemind (assimilation).</li>
-			</ul>
-
-			<h2 class="date">23 October 2022</h2>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Reverts the clown headset</li>
-			</ul>
-			<h3 class="author">benbot16 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Jaws of life can now deconstruct airlocks properly.</li>
-			</ul>
-
-			<h2 class="date">22 October 2022</h2>
-			<h3 class="author">Crossedfall updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Corrects the savefile importer so it properly loads equipped gear into the database</li>
-			</ul>
-			<h3 class="author">Penwin0 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">You don't need Permission editing perms to use forcemapconfig</li>
-			</ul>
-
-			<h2 class="date">20 October 2022</h2>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="refactor">Refactored and abstracted the admin ticketing system for use by mentors</li>
-				<li class="rscadd">Added a mentor ticketing panel</li>
-				<li class="rscadd">Mentorhelps can now be escalated to adminhelps</li>
-				<li class="rscadd">Adminhelp de-escalation to mhelp button is now automatic and will create a corresponding ticket</li>
-				<li class="tweak">Admins can now see mentorhelp tickets in the admin ticket manager</li>
-				<li class="code_imp">Removed unused mentor code</li>
-				<li class="tweak">Admin Ticket Manager now has collapsible Closed and Resolved sections</li>
-				<li class="tweak">All close actions on tickets now have a confirmation prompt</li>
-				<li class="bugfix">Fix a runtime caused by admin-following from the ticket panel for a player that has disconnected.</li>
-				<li class="bugfix">Overriding a claim on a ticket no longer shows the admin's IC name in the admin log, but their CKEY instead.</li>
-				<li class="tweak">The ticket menu no longer shows a Re-open button if the ticket is open.</li>
-				<li class="tweak">Improved the UI of the ticket messaging box and added auto-scroll when a new message appears.</li>
-				<li class="bugfix">Fixed issues with claiming and ticket resolve actions - it will now silently claim the ticket before resolving (and no longer messages the ticket subject about the claiming).</li>
-				<li class="tweak">All ticket close actions except Resolve now have confirmation states in the ticket manager.</li>
-				<li class="tweak">Adminhelp/mentorhelp resolve messages will now go under the "Admin PM"/"Mentor PM" chat filters.</li>
-				<li class="bugfix">Fixed admin PM replies sometimes creating HTML entities (like `&#39;`)</li>
-			</ul>
-
-			<h2 class="date">18 October 2022</h2>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">the text "real_feedback" is no longer yielded when cleaning a rune with a nullrod</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Abductor teleportation is no longer blocked by the teleporting agent.</li>
-				<li class="tweak">Abductor teleport console is now blocked by mobs within 5 tiles rather than mobs that can see the location, to make it less frustrating to find a valid warp point.</li>
-				<li class="balance">Abductor emergency teleport now applies sleeping rather than stun.</li>
-			</ul>
-			<h3 class="author">The-Moon-Itself updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Wiremod input ports can connect to multiple output ports</li>
-				<li class="rscdel">Deletes Wiremod combiner component</li>
-			</ul>
-
-			<h2 class="date">17 October 2022</h2>
-			<h3 class="author">Crossedfall updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Purchased character slots will become available immediately</li>
-			</ul>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removed all the instances of the firelock window shutters from Corgstation</li>
-			</ul>
-
-			<h2 class="date">16 October 2022</h2>
-			<h3 class="author">Crossedfall updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="server">Upgraded xmldom to 0.8.3</li>
-			</ul>
-			<h3 class="author">Penwin0 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Hiveminds can properly get Assert Dominance now</li>
-				<li class="bugfix">Awakened vessels are properly affected by One Mind</li>
-				<li class="bugfix">Romerol properly pulls ghosts now</li>
-			</ul>
-			<h3 class="author">RubberEyes updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">changed the fingerprint to DNA in the medical records app in PDAs</li>
-				<li class="tweak">added scrollbars to the direct messenger PDA app</li>
-				<li class="tweak">added the botany chem dispenser to research node and it can now be printed if researched</li>
-			</ul>
-			<h3 class="author">Tyranicranger4 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removes a random double bed from the middle of the (DeltaStation) brig.</li>
-			</ul>
-
-			<h2 class="date">15 October 2022</h2>
-			<h3 class="author">Fresh341 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Nerfed the damage of the blood boil rune from 25 to 15</li>
-			</ul>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Shuttle chairs and Corporate chairs are now impossible to pick up and transformed into normal Fancy chairs.</li>
-				<li class="refactor">base_icon_state is now an atomized variable</li>
-				<li class="code_imp">mechs now use base_icon_state for their icon changes</li>
-				<li class="bugfix">fixed the position of the welding glasses</li>
-				<li class="bugfix">fixed a stray pixel in a PAI icon</li>
-			</ul>
-			<h3 class="author">benbot16 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Repairing prosthetic limbs with non-welding tool welders works now</li>
-			</ul>
-			<h3 class="author">ike709 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed a parallax runtime involving null clients</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removed fake AA dispenser machine.</li>
 			</ul>
 		</div>
 
