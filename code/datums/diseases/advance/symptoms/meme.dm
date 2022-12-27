@@ -45,7 +45,7 @@
 				if(C.ForceContractDisease(A))
 					C.emote(emote)
 
-/datum/symptom/macrophage/Threshold(datum/disease/advance/A)
+/datum/symptom/meme/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
 	threshold_desc = "<b>Transmission [disease_meme_transmission]:</b>The virus spreads memetically, infecting hosts who can see the target."
