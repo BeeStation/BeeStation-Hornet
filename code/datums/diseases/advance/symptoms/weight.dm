@@ -36,14 +36,14 @@ Bonus
 
 /datum/symptom/weight_loss/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= 2) //warn less often
+	if(A.stealth >= disease_weight_loss_stealth) //warn less often
 		severity -= 3
 	
 
 /datum/symptom/weight_loss/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= 2) //warn less often
+	if(A.stealth >= disease_weight_loss_stealth) //warn less often
 		base_message_chance = 25
 		starving = FALSE
 
@@ -60,3 +60,9 @@ Bonus
 			M.overeatduration = max(M.overeatduration - 100, 0)
 			if(starving)
 				M.adjust_nutrition(-100)
+
+/datum/symptom/weight_loss/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Stealth [disease_weight_loss_stealth]:</b> The symptom is less noticeable, and does not cause starvation."
+	return threshold_desc

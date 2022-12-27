@@ -45,3 +45,5 @@ var/disease_voice_change_stealth = rand(1,5)
 var/disease_vomit_stage_speed = rand(3,7)
 var/disease_vomit_transmission = rand(4,8)
 var/disease_vomit_stealth = rand(2,5)
+
+var/disease_weight_loss_stealth = rand(0,4)
