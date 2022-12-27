@@ -180,3 +180,10 @@ var/disease_narcolepsy_resistance = rand(8,12)
 var/disease_necroseed_stealth = rand(7,9)
 var/disease_necroseed_resistance1 = rand(13,17)
 var/disease_necroseed_resistance2 = rand(19,21)
+
+var/disease_mind_restoration_resistance1 = rand(5,7)
+var/disease_mind_restoration_resistance2 = rand(8,10)
+var/disease_mind_restoration_transmission = rand(6,10)
+
+var/disease_organ_restoration_stealth = rand(2,5)
+var/disease_organ_restoration_stage_speed = rand(8,12)
