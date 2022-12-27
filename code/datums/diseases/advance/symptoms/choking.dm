@@ -37,15 +37,15 @@ Bonus
 
 /datum/symptom/asphyxiation/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= 8)
+	if(A.transmission >= disease_asphyxiation_transmission)
 		severity += 1
 
 /datum/symptom/asphyxiation/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= 8)
+	if(A.stage_rate >= disease_asphyxiation_stage_speed)
 		paralysis = TRUE
-	if(A.transmission >= 8)
+	if(A.transmission >= disease_asphyxiation_transmission)
 		power = 2
 
 /datum/symptom/asphyxiation/Activate(datum/disease/advance/A)
@@ -85,3 +85,10 @@ Bonus
 	M.adjustOxyLoss(get_damage)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, get_damage/2)
 	return 1
+
+/datum/symptom/asphyxiation/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Stage Speed [disease_asphyxiation_stage_speed]:</b> Additionally synthesizes pancuronium and sodium thiopental inside the host.<br>\
+					  <b>Transmission [disease_asphyxiation_transmission]:</b> Doubles the damage caused by the symptom."
+	return threshold_desc
