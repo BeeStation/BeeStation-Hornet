@@ -32,25 +32,6 @@
 #define DISEASE_PANDEMIC	"PANDEMIC"  //! Symptoms so deadly you will likely die before being cured (ARDS, autophageocytosis)
 
 // Symptom Thresholds
-var/disease_sneeze_stealth = rand(2,5)
-var/disease_sneeze_transmission = rand(10,13)
-
-var/disease_visionloss_resistance = rand(10,14)
-var/disease_visionloss_stealth = rand(2,5)
-
-var/disease_voice_change_transmission = rand(8,12)
-var/disease_voice_change_stage_speed = rand(5,9)
-var/disease_voice_change_stealth = rand(1,5)
-
-var/disease_vomit_stage_speed = rand(3,7)
-var/disease_vomit_transmission = rand(4,8)
-var/disease_vomit_stealth = rand(2,5)
-
-var/disease_weight_loss_stealth = rand(0,4)
-
-var/disease_wizarditis_transmission = rand(6,10)
-var/disease_wizarditis_stage_speed = rand(5,9)
-
 var/disease_alcohol_stealth = rand(1,5)
 var/disease_alcohol_stage_speed = rand(4,8)
 
@@ -214,4 +195,23 @@ var/disease_spiked_resistance = rand(4,8)
 var/disease_pustule_transmission1 = rand(3,5)
 var/disease_pustule_transmission2 = rand(6,7)
 
+var/disease_sneeze_stealth = rand(2,5)
+var/disease_sneeze_transmission = rand(10,13)
+
 var/disease_viralreverse_stealth = rand(3,5)
+
+var/disease_visionloss_resistance = rand(10,14)
+var/disease_visionloss_stealth = rand(2,5)
+
+var/disease_voice_change_transmission = rand(8,12)
+var/disease_voice_change_stage_speed = rand(5,9)
+var/disease_voice_change_stealth = rand(1,5)
+
+var/disease_vomit_stage_speed = rand(3,7)
+var/disease_vomit_transmission = rand(4,8)
+var/disease_vomit_stealth = rand(2,5)
+
+var/disease_weight_loss_stealth = rand(0,4)
+
+var/disease_wizarditis_transmission = rand(6,10)
+var/disease_wizarditis_stage_speed = rand(5,9)
