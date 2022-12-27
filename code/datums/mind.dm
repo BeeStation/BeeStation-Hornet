@@ -192,7 +192,7 @@
 		return mind_roles[list_key][role_key] || FALSE // returning null is bad at most cases.
 
 	for(var/each_role in role_key)
-		if(mind_roles[list_key][role_key]) // checking is neccesary or it will early-return as FALSE for multiple checks...
+		if(mind_roles[list_key][each_role]) // checking is neccesary or it will early-return as FALSE for multiple checks...
 			return TRUE
 	return FALSE
 
