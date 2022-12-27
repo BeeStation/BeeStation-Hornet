@@ -76,6 +76,11 @@
 		return FALSE
 	return TRUE
 
+/datum/symptom/proc/Threshold(datum/disease/advance/A)
+	if(neutered)
+		return FALSE
+	return TRUE
+
 /datum/symptom/proc/Copy()
 	var/datum/symptom/new_symp = new type
 	new_symp.name = name

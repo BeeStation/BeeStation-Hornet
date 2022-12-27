@@ -31,3 +31,6 @@
 #define DISEASE_BIOHAZARD	"BIOHAZARD" //! Symptoms that can quickly kill an unprepared victim (fungal tb, gbs)
 #define DISEASE_PANDEMIC	"PANDEMIC"  //! Symptoms so deadly you will likely die before being cured (ARDS, autophageocytosis)
 
+// Symptom Thresholds
+var/disease_sneeze_stealth = rand(2,5)
+var/disease_sneeze_transmission = rand(10,13)

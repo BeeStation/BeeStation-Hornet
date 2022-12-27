@@ -16,6 +16,7 @@ Bonus
 //////////////////////////////////////
 */
 /datum/symptom/sneeze
+	
 	name = "Sneezing"
 	desc = "The virus causes irritation of the nasal cavity, making the host sneeze occasionally."
 	stealth = -2
@@ -33,11 +34,12 @@ Bonus
 					  <b>Transmission 12:</b> The host may spread the disease through sneezing."
 
 /datum/symptom/sneeze/Start(datum/disease/advance/A)
+	to_chat(world, "<span class='boldannounce'>Stealth: [disease_sneeze_stealth] and Transmission: [disease_sneeze_transmission]</span>")
 	if(!..())
 		return
-	if(A.stealth >= 4)
+	if(A.stealth >= disease_sneeze_stealth)
 		suppress_warning = TRUE
-	if(A.transmission >= 12)
+	if(A.transmission >= disease_sneeze_transmission)
 		infective = TRUE
 
 /datum/symptom/sneeze/Activate(datum/disease/advance/A)
@@ -52,3 +54,10 @@ Bonus
 			M.emote("sneeze")
 			if(infective && !(A.spread_flags & DISEASE_SPREAD_FALTERED))
 				addtimer(CALLBACK(A, /datum/disease/.proc/spread, 4), 20)
+
+/datum/symptom/sneeze/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Stealth [disease_sneeze_stealth]:</b> The symptom remains hidden until active.<br>\
+					  <b>Transmission [disease_sneeze_transmission]:</b> The host may spread the disease through sneezing."
+	return threshold_desc

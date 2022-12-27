@@ -108,7 +108,7 @@
 	this["transmission"] = S.transmission
 	this["level"] = S.level
 	this["neutered"] = S.neutered
-	this["threshold_desc"] = S.threshold_desc
+	this["threshold_desc"] = S.Threshold(S)
 	this["severity"] = S.severity
 	. += this
 
