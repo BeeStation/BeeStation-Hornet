@@ -19,15 +19,15 @@
 
 /datum/symptom/braindamage/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= 12)
+	if(A.transmission >= disease_braindamage_transmission)
 		severity += 1
 
 /datum/symptom/braindamage/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= 12)
+	if(A.transmission >= disease_braindamage_transmission)
 		lethal = TRUE
-	if(A.stage_rate >= 9)
+	if(A.stage_rate >= disease_braindamage_stage_speed)
 		moretrauma = TRUE
 
 /datum/symptom/braindamage/Activate(datum/disease/advance/A)
@@ -58,3 +58,10 @@
 		if(ishuman(A.affected_mob))
 			var/mob/living/carbon/human/M = A.affected_mob
 			M?.gain_trauma(BRAIN_TRAUMA_MILD)
+
+/datum/symptom/braindamage/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>transmission [disease_braindamage_transmission]:</b> The disease's damage reaches lethal levels.<br>\
+					  <b>Speed [disease_braindamage_stage_speed]:</b> Host's brain develops even more traumas than normal."
+	return threshold_desc

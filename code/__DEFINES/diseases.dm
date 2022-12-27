@@ -60,3 +60,6 @@ var/disease_beesease_transmission = rand(8,12)
 var/disease_blobspores_resistance1 = rand(6,9)
 var/disease_blobspores_resistance2 = rand(10,12)
 var/disease_blobspores_resistance3 = rand(13,15)
+
+var/disease_braindamage_transmission = rand(10,13)
+var/disease_braindamage_stage_speed = rand(7,11)
