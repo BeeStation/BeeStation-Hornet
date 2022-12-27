@@ -165,3 +165,5 @@ var/disease_lubefeet_resistance = rand(12,16)
 
 var/disease_macrophage_transmission1 = rand(9,11)
 var/disease_macrophage_transmission2 = rand(12,13)
+
+var/disease_meme_transmission = rand(13,15)

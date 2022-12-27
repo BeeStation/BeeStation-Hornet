@@ -37,10 +37,16 @@
 	var/mob/living/carbon/M = A.affected_mob
 	if(prob(20 * A.stage) && !M.stat && !HAS_TRAIT(M, TRAIT_MINDSHIELD))
 		M.emote(emote)
-		if(A.stage >= 5 && prob(20) && A.transmission >= 14)
+		if(A.stage >= 5 && prob(20) && A.transmission >= disease_meme_transmission)
 			for(var/mob/living/carbon/C in oviewers(M, 4))
 				var/obj/item/organ/eyes/eyes = C.getorganslot(ORGAN_SLOT_EYES)
 				if(!eyes || HAS_TRAIT(C, TRAIT_BLIND) || HAS_TRAIT(C, TRAIT_MINDSHIELD) || istype(C.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 					continue
 				if(C.ForceContractDisease(A))
 					C.emote(emote)
+
+/datum/symptom/macrophage/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Transmission [disease_meme_transmission]:</b>The virus spreads memetically, infecting hosts who can see the target."
+	return threshold_desc
