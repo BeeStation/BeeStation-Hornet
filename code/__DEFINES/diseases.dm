@@ -201,3 +201,15 @@ var/disease_radconversion_resistance = rand(10,14)
 
 var/disease_shivering_stage_speed1 = rand(4,6)
 var/disease_shivering_stage_speed2 = rand(9,11)
+
+var/disease_skineggs_transmission1 = rand(11,13)
+var/disease_skineggs_transmission2 = rand(15,16)
+var/disease_skineggs_resistance = rand(8,12)
+var/disease_skineggs_stealth = rand(5,7)
+var/disease_skineggs_stage_speed = rand(8,12)
+
+var/disease_spiked_transmission = rand(5,7)
+var/disease_spiked_resistance = rand(4,8)
+
+var/disease_pustule_transmission1 = rand(3,5)
+var/disease_pustule_transmission2 = rand(6,7)

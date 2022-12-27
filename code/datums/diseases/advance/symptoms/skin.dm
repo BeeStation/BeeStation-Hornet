@@ -71,6 +71,12 @@ BONUS
 			H.dna.features["mcolor"] = cachedcolor
 		H.regenerate_icons()
 
+/datum/symptom/vitiligo/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = ""
+	return threshold_desc
+
 /*
 //////////////////////////////////////
 Revitiligo
@@ -143,6 +149,12 @@ BONUS
 			H.dna.features["mcolor"] = cachedcolor
 		H.regenerate_icons()
 
+/datum/symptom/revitiligo/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = ""
+	return threshold_desc
+
 /*
 //////////////////////////////////////
 Polyvitiligo
@@ -187,6 +199,12 @@ BONUS
 		else
 			if (prob(50)) // spam
 				M.visible_message("<span class='notice'>[M] looks rather vibrant.</span>", "<span class='notice'>The colors, man, the colors.</span>")
+				
+/datum/symptom/polyvitiligo/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = ""
+	return threshold_desc				
 
 /************************************
 Dermagraphic Ovulogenesis
@@ -228,27 +246,27 @@ BONUS
 
 /datum/symptom/skineggs/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= 10)
+	if(A.resistance >= disease_skineggs_resistance)
 		severity -= 1
-	if(A.transmission >= 12)
+	if(A.transmission >= disease_skineggs_transmission1)
 		severity += 1
-		if(A.transmission >= 16)
+		if(A.transmission >= disease_skineggs_transmission2)
 			severity += 1
-	if(A.stealth >= 6)
+	if(A.stealth >= disease_skineggs_stealth)
 		severity += 1
 
 /datum/symptom/skineggs/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= 10)
+	if(A.resistance >= disease_skineggs_resistance)
 		big_heal = TRUE
-	if(A.transmission >= 12)
+	if(A.transmission >= disease_skineggs_transmission1)
 		all_disease = TRUE
-		if(A.transmission >= 16)
+		if(A.transmission >= disease_skineggs_transmission2)
 			eggsplosion = TRUE //Haha get it?
-	if(A.stealth >= 6)
+	if(A.stealth >= disease_skineggs_stealth)
 		sneaky = TRUE
-	if(A.stage_rate >= 10)
+	if(A.stage_rate >= disease_skineggs_stage_speed)
 		symptom_delay_min -= 10
 		symptom_delay_max -= 20
 
@@ -334,6 +352,16 @@ BONUS
 	if(LAZYLEN(diseases))
 		AddComponent(/datum/component/infective, diseases)
 
+/datum/symptom/skineggs/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Transmission [disease_skineggs_transmission1]:</b> Eggs and Egg Sacs contain all diseases on the host, instead of just the disease containing the symptom.<br>\
+					  <b>Transmission [disease_skineggs_transmission2]:</b> Egg Sacs will 'explode' into eggs after a period of time, covering a larger area with infectious matter.<br>\
+					  <b>Resistance [disease_skineggs_resistance]:</b> Eggs and Egg Sacs contain more healing chems.<br>\
+					  <b>Stealth [disease_skineggs_stealth]:</b> Eggs and Egg Sacs become nearly transparent, making them more difficult to see.<br>\
+					  <b>Stage Speed [disease_skineggs_stage_speed]:</b> Egg Sacs fall off the host more frequently."
+	return threshold_desc
+
 /*
 //////////////////////////////////////
 Spiked Skin
@@ -369,15 +397,15 @@ Thresholds
 
 /datum/symptom/spiked/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= 6)
+	if(A.resistance >= disease_spiked_resistance)
 		severity -= 1
 
 /datum/symptom/spiked/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= 6) //armor. capped at 20, but scaling with resistance, so if you want to max out spiked skin armor, you'll have to make several sacrifices
+	if(A.resistance >= disease_spiked_resistance) //armor. capped at 20, but scaling with resistance, so if you want to max out spiked skin armor, you'll have to make several sacrifices
 		armor = min(20, A.resistance)
-	if(A.transmission >= 6) //higher damage
+	if(A.transmission >= disease_spiked_transmission) //higher damage
 		power = 1.4  //the typical +100% is waaaay too strong here when the symptom is stacked. +40% is sufficient
 
 /datum/symptom/spiked/Activate(var/datum/disease/advance/A)
@@ -412,6 +440,12 @@ Thresholds
 					C.visible_message("<span class='warning'>[C.name] is pricked on [H.name]'s spikes.</span>")
 					playsound(get_turf(C), 'sound/weapons/slice.ogg', 50, 1)
 
+/datum/symptom/spiked/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Transmission [disease_spiked_transmission]:</b> Spikes deal more damage.<br>\
+					  <b>Resistance [disease_spiked_resistance]:</b> Hard spines give the host armor, scaling with resistance."
+	return threshold_desc
 
 /datum/symptom/pustule
 	name = "Bubonic Infection"
@@ -432,16 +466,16 @@ Thresholds
 
 /datum/symptom/pustule/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= 4)
+	if(A.transmission >= disease_pustule_transmission1)
 		severity += 1
 		prefixes = list("Ballistic ", "Pestilent ", "Bubonic ")
 
 /datum/symptom/pustule/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= 4)
+	if(A.transmission >= disease_pustule_transmission1)
 		shoot = TRUE
-	if(A.transmission >= 6)
+	if(A.transmission >= disease_pustule_transmission2)
 		power += 1
 	RegisterSignal(A.affected_mob, COMSIG_HUMAN_ATTACKED, .proc/pop_pustules)
 
@@ -534,3 +568,10 @@ Thresholds
 		var/mob/living/carbon/C = target
 		for(var/datum/disease/advance/A in diseases)
 			C.ContactContractDisease(A)
+
+/datum/symptom/pustule/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Transmission [disease_pustule_transmission1]:</b>Buboes will occasionally burst when disturbed or left too long, shooting out toxic pus.<br>\
+					<b>Transmission [disease_pustule_transmission2]:</b> Pustules appear on the host more frequently, dealing more damage."
+	return threshold_desc
