@@ -189,3 +189,7 @@ var/disease_organ_restoration_stealth = rand(2,5)
 var/disease_organ_restoration_stage_speed = rand(8,12)
 
 var/disease_oxygen_resistance = rand(6,10)
+
+var/disease_pierrot_transmission = rand(9,11)
+var/disease_pierrot_resistance1 = rand(8,12)
+var/disease_pierrot_resistance2 = rand(14,16)

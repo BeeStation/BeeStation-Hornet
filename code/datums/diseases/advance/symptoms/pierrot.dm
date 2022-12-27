@@ -20,19 +20,19 @@
 	. = ..()
 	bodies = list("Clown", "Red-Nose", "[pick(GLOB.clown_names)]") //added here because it doesnt wanna pick in base vars
 	prefixes = list("Fool's ", "[pick(GLOB.clown_names)]'s ")
-	if(A.resistance >= 10)
+	if(A.resistance >= disease_pierrot_resistance1)
 		severity +=1
-		if(A.resistance >= 15)
+		if(A.resistance >= disease_pierrot_resistance2)
 			severity += 2
 
 /datum/symptom/pierrot/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= 10)
+	if(A.transmission >= disease_pierrot_transmission)
 		honkspread = TRUE
-	if(A.resistance >= 10)
+	if(A.resistance >= disease_pierrot_resistance1)
 		clownmask = TRUE
-		if(A.resistance >= 15)
+		if(A.resistance >= disease_pierrot_resistance2)
 			clumsy = TRUE
 
 /datum/symptom/pierrot/Activate(datum/disease/advance/A)
@@ -87,3 +87,11 @@
 		ADD_TRAIT(C, TRAIT_NODROP, DISEASE_TRAIT)
 		M.equip_to_slot_or_del(C, ITEM_SLOT_MASK)
 		return
+
+/datum/symptom/pierrot/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Transmission [disease_pierrot_transmission]:</b> There's a rare chance the disease is spread everytime the host honks.<br>\
+					  <b>Resistance [disease_pierrot_resistance1]:</b> The host grows a peculiar clown mask.<br>\
+					  <b>Resistance [disease_pierrot_resistance2]:</b>	Host becomes clumsy, similar to a clown."
+	return threshold_desc
