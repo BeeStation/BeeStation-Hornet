@@ -111,3 +111,7 @@ var/disease_genetic_mutation_stealth = rand(3,7)
 
 var/disease_hallucigen_stage_speed = rand(5,9)
 var/disease_hallucigen_stealth = rand(0,4)
+
+var/disease_headache_stage_speed1 = rand(4,7)
+var/disease_headache_stage_speed2 = rand(8,11)
+var/disease_headache_stealth = rand(2,5)

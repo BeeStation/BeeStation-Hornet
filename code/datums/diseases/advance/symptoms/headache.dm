@@ -36,19 +36,19 @@ BONUS
 
 /datum/symptom/headache/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= 6)
+	if(A.stage_rate >= disease_headache_stage_speed1)
 		severity += 1
-		if(A.stage_rate >= 9)
+		if(A.stage_rate >= disease_headache_stage_speed2)
 			severity += 1
 
 /datum/symptom/headache/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= 4)
+	if(A.stealth >= disease_headache_stealth)
 		base_message_chance = 50
-		if(A.stage_rate >= 6) //severe pain
+		if(A.stage_rate >= disease_headache_stage_speed1) //severe pain
 			power = 2
-	if(A.stage_rate >= 9) //cluster headaches
+	if(A.stage_rate >= disease_headache_stage_speed2) //cluster headaches
 		symptom_delay_min = 30
 		symptom_delay_max = 60
 		power = 3
@@ -66,3 +66,11 @@ BONUS
 	if(power >= 3 && A.stage >= 5)
 		to_chat(M, "<span class='userdanger'>[pick("Your head hurts!", "You feel a burning knife inside your brain!", "A wave of pain fills your head!")]</span>")
 		M.Stun(35)
+
+/datum/symptom/headache/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Stage Speed [disease_headache_stage_speed1]:</b> Headaches will cause severe pain, that weakens the host.<br>\
+					  <b>Stage Speed [disease_headache_stage_speed2]:</b> Headaches become less frequent but far more intense, preventing any action from the host.<br>\
+					  <b>Stealth [disease_headache_stealth]:</b> Reduces headache frequency until later stages."
+	return threshold_desc
