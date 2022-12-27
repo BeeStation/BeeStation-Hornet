@@ -115,3 +115,39 @@ var/disease_hallucigen_stealth = rand(0,4)
 var/disease_headache_stage_speed1 = rand(4,7)
 var/disease_headache_stage_speed2 = rand(8,11)
 var/disease_headache_stealth = rand(2,5)
+
+var/disease_heal_chem_resistance = rand(5,9)
+var/disease_heal_chem_stage_speed = rand(4,8)
+
+var/disease_heal_coma_stealth = rand(0,4)
+var/disease_heal_coma_resistance = rand(2,6)
+var/disease_heal_coma_stage_speed = rand(5,9)
+
+var/disease_heal_surface_stage_speed = rand(6,10)
+var/disease_heal_surface_resistance = rand(8,12)
+
+var/disease_heal_metabolize_stealth = rand(1,5)
+var/disease_heal_metabolize_stage_speed = rand(8,12)
+
+var/disease_EMP_stealth = rand(0,4)
+var/disease_EMP_transmission = rand(6,10)
+
+var/disease_sweat_transmission1 = rand(3,5)
+var/disease_sweat_transmission2 = rand(6,7)
+var/disease_sweat_stage_speed = rand(4,8)
+
+var/disease_teleport_restistance = rand(4,8)
+var/disease_teleport_transmission = rand(6,10)
+
+var/disease_growth_stage_speed1 = rand(4,8)
+var/disease_growth_stage_speed2 = rand(10,14)
+
+var/disease_vampirism_transmission1 = rand(2,5)
+var/disease_vampirism_stage_speed = rand(5,9)
+var/disease_vampirism_transmission2 = rand(6,7)
+
+var/disease_parasite_stealth = rand(0,4)
+var/disease_parasite_stage_speed = rand(4,8)
+
+var/disease_jitters_resistance = rand(6,10)
+var/disease_jitters_stage_speed = rand(6,10)
