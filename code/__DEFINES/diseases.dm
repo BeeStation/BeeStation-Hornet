@@ -66,3 +66,7 @@ var/disease_braindamage_stage_speed = rand(7,11)
 
 var/disease_asphyxiation_stage_speed = rand(6,10)
 var/disease_asphyxiation_transmission = rand(6,10)
+
+var/disease_robotic_adaptation_stage_speed1 = rand(2,6)
+var/disease_robotic_adaptation_stage_speed2 = rand(10,14)
+var/disease_robotic_adaptation_resistance = rand(2,6)
