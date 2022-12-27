@@ -58,3 +58,9 @@ BONUS
 				if(H.age > 21)
 					H.age = 21
 					to_chat(H, "<span class='notice'>You feel like you can take on the world!</span>")
+
+/datum/symptom/youth/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = ""
+	return threshold_desc
