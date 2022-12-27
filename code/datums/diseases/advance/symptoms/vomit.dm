@@ -44,11 +44,11 @@ Bonus
 /datum/symptom/vomit/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= 4)
+	if(A.stealth >= disease_vomit_stealth)
 		suppress_warning = TRUE
-	if(A.stage_rate >= 5) //blood vomit
+	if(A.stage_rate >= disease_vomit_stage_speed) //blood vomit
 		vomit_blood = TRUE
-	if(A.transmission >= 6) //projectile vomit
+	if(A.transmission >= disease_vomit_transmission) //projectile vomit
 		proj_vomit = 5
 
 /datum/symptom/vomit/Activate(datum/disease/advance/A)
@@ -64,3 +64,11 @@ Bonus
 
 /datum/symptom/vomit/proc/vomit(mob/living/carbon/M)
 	M.vomit(20, vomit_blood, stun = 0, distance = proj_vomit)
+
+/datum/symptom/vomit/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Stage Speed [disease_vomit_stage_speed]:</b> Host will vomit blood, causing internal damage.<br>\
+					  <b>Transmission [disease_vomit_transmission]:</b> Host will projectile vomit, increasing vomiting range.<br>\
+					  <b>Stealth [disease_vomit_stealth]:</b> The symptom remains hidden until active."
+	return threshold_desc
