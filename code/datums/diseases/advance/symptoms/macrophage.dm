@@ -23,14 +23,14 @@
 
 /datum/symptom/macrophage/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= 10)
+	if(A.transmission >= disease_macrophage_transmission1)
 		severity += 2
 
 /datum/symptom/macrophage/Start(datum/disease/advance/A)
 	if(!..())
 		return
 	netspeed = max(1, A.stage_rate)
-	if(A.transmission >= 10)
+	if(A.transmission >= disease_macrophage_transmission1)
 		gigagerms = TRUE
 
 /datum/symptom/macrophage/Activate(datum/disease/advance/A)
@@ -67,7 +67,7 @@
 	phage.maxHealth += A.resistance
 	phage.infections += A
 	phage.basedisease = A
-	if(A.transmission >= 12)
+	if(A.transmission >= disease_macrophage_transmission2)
 		for(var/datum/disease/D in M.diseases)
 			if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (D.spread_flags & DISEASE_SPREAD_FALTERED))
 				continue
@@ -77,3 +77,12 @@
 	M.visible_message("<span class='danger'>A strange creature bursts out of [M]!</span>", \
 	  "<span class='userdanger'>A slimy creature bursts forth from your flesh!</span>")
 	addtimer(CALLBACK(phage, /mob/living/simple_animal/hostile/macrophage.proc/shrivel), 3000)
+
+/datum/symptom/macrophage/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Stage Speed:</b>The higher the stage speed, the more frequently phages will burst from the host.<br>\
+                      <b>Resistance:</b>The higher the resistance, the more health phages will have, and the more damage they will do.<br>\
+					  <b>Transmission [disease_macrophage_transmission1]:</b>Phages can be larger, more aggressive, and able to pierce thick clothing, with some effort.<br>\
+                      <b>Transmission [disease_macrophage_transmission2]:</b>Phages will carry all diseases within the host, instead of only diseases containing their own symptom"
+	return threshold_desc

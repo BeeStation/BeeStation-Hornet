@@ -162,3 +162,6 @@ var/disease_light_stealth = rand(1,5)
 
 var/disease_lubefeet_transmission = rand(8,12)
 var/disease_lubefeet_resistance = rand(12,16)
+
+var/disease_macrophage_transmission1 = rand(9,11)
+var/disease_macrophage_transmission2 = rand(12,13)
