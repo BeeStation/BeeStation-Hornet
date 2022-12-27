@@ -54,3 +54,9 @@ BONUS
 	else
 		H.hair_style = "Balding Hair"
 	H.update_hair()
+
+/datum/symptom/shedding/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = ""
+	return threshold_desc
