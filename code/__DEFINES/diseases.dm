@@ -157,3 +157,5 @@ var/disease_heartattack_stealth = rand(0,4)
 
 var/disease_itching_transmission = rand(4,8)
 var/disease_itching_stage_speed = rand(5,9)
+
+var/disease_light_stealth = rand(1,5)

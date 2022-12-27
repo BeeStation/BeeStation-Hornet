@@ -14,13 +14,13 @@
 
 /datum/symptom/light/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= 3)
+	if(A.stealth >= disease_light_stealth)
 		severity -= 1 //this symptom has the lowest severity out of any, this is to make it difficult to stack
 
 /datum/symptom/light/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= 3)
+	if(A.stealth >= disease_light_stealth)
 		power = 2
 
 /datum/symptom/light/Activate(datum/disease/advance/A)
@@ -51,3 +51,9 @@
 	M.remove_movespeed_modifier(MOVESPEED_ID_LIGHT_VIRUS_SLOWDOWN, TRUE)
 	M.maxHealth -= currenthealthmodifier 
 	M.health -= currenthealthmodifier 
+
+/datum/symptom/light/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Stealth [disease_light_stealth]:</b> The virus causes a wider disparity between light and dark"
+	return threshold_desc
