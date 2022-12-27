@@ -13,16 +13,16 @@
 	prefixes = list("Blatto")
 	bodies = list("Roach")
 	var/death_roaches = FALSE
-	threshold_desc = "<b>Stage Speed 8:</b>Increases roach speed<br>\
-	<b>Transmission 8:</b>When the host dies, more roaches spawn<br>"
+	threshold_desc = "<b>Stage Speed 8:</b>Increases roach speed<br> \
+					  <b>Transmission 8:</b>When the host dies, more roaches spawn<br>"
 
 /datum/symptom/cockroach/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= 8)
+	if(A.stage_rate >= disease_cockroach_stage_speed)
 		symptom_delay_min = 5
 		symptom_delay_max = 15
-	if(A.transmission >= 8)
+	if(A.transmission >= disease_cockroach_transmission)
 		death_roaches = TRUE
 
 /datum/symptom/cockroach/Activate(datum/disease/advance/A)
@@ -58,3 +58,9 @@
 		for(var/i in 1 to rand(1,5))
 			new /mob/living/simple_animal/cockroach(M.loc)
 
+/datum/symptom/cockroach/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Stage Speed [disease_cockroach_stage_speed]:</b>Increases roach speed.<br> \
+					  <b>Transmission [disease_cockroach_transmission]:</b>When the host dies, more roaches spawn."
+	return threshold_desc
