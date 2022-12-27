@@ -13,8 +13,8 @@
 	prefixes = list("Blatto")
 	bodies = list("Roach")
 	var/death_roaches = FALSE
-	threshold_desc = "<b>Stage Speed 8:</b>Increases roach speed.<br> \
-					  <b>Transmission 8:</b>When the host dies, more roaches spawn."
+	threshold_desc = "<b>Stage Speed 8:</b> Increases roach speed.<br> \
+					  <b>Transmission 8:</b> When the host dies, more roaches spawn."
 
 /datum/symptom/cockroach/Start(datum/disease/advance/A)
 	if(!..())
@@ -61,6 +61,6 @@
 /datum/symptom/cockroach/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stage Speed [disease_cockroach_stage_speed]:</b>Increases roach speed.<br> \
-					  <b>Transmission [disease_cockroach_transmission]:</b>When the host dies, more roaches spawn."
+	threshold_desc = "<b>Stage Speed [disease_cockroach_stage_speed]:</b> Increases roach speed.<br> \
+					  <b>Transmission [disease_cockroach_transmission]:</b> When the host dies, more roaches spawn."
 	return threshold_desc

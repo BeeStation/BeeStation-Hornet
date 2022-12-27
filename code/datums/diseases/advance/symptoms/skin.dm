@@ -461,7 +461,7 @@ Thresholds
 	prefixes = list("Pestilent ", "Bubonic ")
 	var/pustules = 0
 	var/shoot = FALSE
-	threshold_desc = "<b>Transmission 4:</b>Buboes will occasionally burst when disturbed or left too long, shooting out toxic pus.<br>\
+	threshold_desc = "<b>Transmission 4:</b> Buboes will occasionally burst when disturbed or left too long, shooting out toxic pus.<br>\
 					<b>Transmission 6:</b> Pustules appear on the host more frequently, dealing more damage."
 
 /datum/symptom/pustule/severityset(datum/disease/advance/A)
@@ -572,6 +572,6 @@ Thresholds
 /datum/symptom/pustule/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission [disease_pustule_transmission1]:</b>Buboes will occasionally burst when disturbed or left too long, shooting out toxic pus.<br>\
+	threshold_desc = "<b>Transmission [disease_pustule_transmission1]:</b> Buboes will occasionally burst when disturbed or left too long, shooting out toxic pus.<br>\
 					<b>Transmission [disease_pustule_transmission2]:</b> Pustules appear on the host more frequently, dealing more damage."
 	return threshold_desc

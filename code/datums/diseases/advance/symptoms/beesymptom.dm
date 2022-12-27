@@ -89,6 +89,6 @@
 /datum/symptom/beesease/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [disease_beesease_resistance]:</b> The bees become symbiotic with the host, synthesizing honey and no longer stinging the stomach lining, and no longer attacking the host. Bees will also contain honey, unless transmission exceeds 10.<br>\
+	threshold_desc = "<b>Resistance [disease_beesease_resistance]:</b> The bees become symbiotic with the host, synthesizing honey and no longer stinging the stomach lining, and no longer attacking the host. Bees will also contain honey, unless transmission exceeds [disease_beesease_transmission].<br>\
 					  <b>Transmission [disease_beesease_transmission]:</b> Bees now contain a completely random toxin."
 	return threshold_desc

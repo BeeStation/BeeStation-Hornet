@@ -14,8 +14,8 @@
 	var/mania = FALSE 
 	var/uwu = FALSE
 	var/dnacounter = 0
-	threshold_desc = "<b>Transmission 4:</b>The symptom mutates the language center of the host's brain, causing them to speak in an infuriating dialect. Known to drive hosts to suicide.<br>\
-					  <b>Stealth 4:</b>Hosts are overcome with a dysmorphic mania, causing them to glorify the idea of becoming more catlike. May cause irrational behaviour, and, in extreme cases, major body restructuring."
+	threshold_desc = "<b>Transmission 4:</b> The symptom mutates the language center of the host's brain, causing them to speak in an infuriating dialect. Known to drive hosts to suicide.<br>\
+					  <b>Stealth 4:</b> Hosts are overcome with a dysmorphic mania, causing them to glorify the idea of becoming more catlike. May cause irrational behaviour, and, in extreme cases, major body restructuring."
 
 /datum/symptom/toxoplasmosis/severityset(datum/disease/advance/A)
 	. = ..()
@@ -192,6 +192,6 @@
 /datum/symptom/toxoplasmosis/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission 4:</b>The symptom mutates the language center of the host's brain, causing them to speak in an infuriating dialect. Known to drive hosts to suicide.<br>\
-					  <b>Stealth 4:</b>Hosts are overcome with a dysmorphic mania, causing them to glorify the idea of becoming more catlike. May cause irrational behaviour, and, in extreme cases, major body restructuring."
+	threshold_desc = "<b>Transmission 4:</b> The symptom mutates the language center of the host's brain, causing them to speak in an infuriating dialect. Known to drive hosts to suicide.<br>\
+					  <b>Stealth 4:</b> Hosts are overcome with a dysmorphic mania, causing them to glorify the idea of becoming more catlike. May cause irrational behaviour, and, in extreme cases, major body restructuring."
 	return threshold_desc

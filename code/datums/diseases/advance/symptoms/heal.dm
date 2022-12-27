@@ -274,9 +274,9 @@
 /datum/symptom/heal/metabolism/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= disease_heal_metabolize_stage_speed)
+	if(A.stage_rate >= disease_heal_metabolism_stage_speed)
 		triple_metabolism = TRUE
-	if(A.stealth >= disease_heal_metabolize_stealth)
+	if(A.stealth >= disease_heal_metabolism_stealth)
 		reduced_hunger = TRUE
 
 /datum/symptom/heal/metabolism/Heal(mob/living/carbon/C, datum/disease/advance/A, actual_power)
@@ -292,11 +292,11 @@
 		to_chat(C, "<span class='notice'>You feel an odd gurgle in your stomach, as if it was working much faster than normal.</span>")
 	return 1
 
-/datum/symptom/heal/metabolize/Threshold(datum/disease/advance/A)
+/datum/symptom/heal/metabolism/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stealth [disease_heal_metabolize_stealth]:</b> Reduces hunger rate.<br>\
-					  <b>Stage Speed [disease_heal_metabolize_stage_speed]:</b> Chemical metabolization is tripled instead of doubled."
+	threshold_desc = "<b>Stealth [disease_heal_metabolism_stealth]:</b> Reduces hunger rate.<br>\
+					  <b>Stage Speed [disease_heal_metabolism_stage_speed]:</b> Chemical metabolization is tripled instead of doubled."
 	return threshold_desc
 	
 /*
@@ -896,7 +896,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	bodies = list("Cytoplasm", "Slime")
 	var/list/grubs = list()
 	var/toxheal = FALSE
-	threshold_desc = "<b>Stealth 2:</b>The gestating larvae can consume toxins in the host's bloodstream.<br>\
+	threshold_desc = "<b>Stealth 2:</b> The gestating larvae can consume toxins in the host's bloodstream.<br>\
 					<b>Stage Speed 6:</b> More larvae are born, and they leave the host faster."
 
 /datum/symptom/parasite/severityset(datum/disease/advance/A)
@@ -989,7 +989,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/parasite/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stealth [disease_parasite_stealth]:</b>The gestating larvae can consume toxins in the host's bloodstream.<br>\
+	threshold_desc = "<b>Stealth [disease_parasite_stealth]:</b> The gestating larvae can consume toxins in the host's bloodstream.<br>\
 					<b>Stage Speed [disease_parasite_stage_speed]:</b> More larvae are born, and they leave the host faster."
 	return threshold_desc
 
@@ -1006,8 +1006,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	symptom_delay_max = 1
 	prefixes = list("Gray ", "Amped ", "Nervous ")
 	var/clearcc = FALSE
-	threshold_desc = "<b>Resistance 8:</b>The virus causes an even greater rate of nutriment loss, able to cause starvation, but its energy gain greatly increases.<br>\
-					<b>Stage Speed 8:</b>The virus causes extreme nervousness and paranoia, resulting in occasional hallucinations, and extreme restlessness, but greater overall energy and the ability to shake off stuns faster."
+	threshold_desc = "<b>Resistance 8:</b> The virus causes an even greater rate of nutriment loss, able to cause starvation, but its energy gain greatly increases.<br>\
+					<b>Stage Speed 8:</b> The virus causes extreme nervousness and paranoia, resulting in occasional hallucinations, and extreme restlessness, but greater overall energy and the ability to shake off stuns faster."
 
 /datum/symptom/jitters/severityset(datum/disease/advance/A)
 	. = ..()
@@ -1066,6 +1066,6 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/jitters/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [disease_jitters_resistance]:</b>The virus causes an even greater rate of nutriment loss, able to cause starvation, but its energy gain greatly increases.<br>\
-					<b>Stage Speed [disease_jitters_stage_speed]:</b>The virus causes extreme nervousness and paranoia, resulting in occasional hallucinations, and extreme restlessness, but greater overall energy and the ability to shake off stuns faster."
+	threshold_desc = "<b>Resistance [disease_jitters_resistance]:</b> The virus causes an even greater rate of nutriment loss, able to cause starvation, but its energy gain greatly increases.<br>\
+					<b>Stage Speed [disease_jitters_stage_speed]:</b> The virus causes extreme nervousness and paranoia, resulting in occasional hallucinations, and extreme restlessness, but greater overall energy and the ability to shake off stuns faster."
 	return threshold_desc

@@ -107,8 +107,8 @@ var/disease_heal_coma_stage_speed = rand(6,8)
 var/disease_heal_surface_stage_speed = rand(7,9)
 var/disease_heal_surface_resistance = rand(9,12)
 
-var/disease_heal_metabolize_stealth = rand(1,5)
-var/disease_heal_metabolize_stage_speed = rand(8,12)
+var/disease_heal_metabolism_stealth = rand(1,5)
+var/disease_heal_metabolism_stage_speed = rand(8,12)
 
 var/disease_EMP_stealth = rand(0,4)
 var/disease_EMP_transmission = rand(7,9)

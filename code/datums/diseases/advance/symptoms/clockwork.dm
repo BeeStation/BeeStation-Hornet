@@ -15,9 +15,9 @@
 	var/replaceorgans = FALSE
 	var/replacebody = FALSE
 	var/robustbits = FALSE
-	threshold_desc = "<b>Stage Speed 4:</b>The virus will replace the host's organic organs with mundane, biometallic versions. +1 severity.<br>\
-                      <b>Resistance 4:</b>The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
-                      <b>Stage Speed 12:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
+	threshold_desc = "<b>Stage Speed 4:</b> The virus will replace the host's organic organs with mundane, biometallic versions. +1 severity.<br>\
+                      <b>Resistance 4:</b> The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
+                      <b>Stage Speed 12:</b> Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
 
 /datum/symptom/robotic_adaptation/OnAdd(datum/disease/advance/A)
 	A.infectable_biotypes |= MOB_ROBOTIC
@@ -393,7 +393,7 @@
 /datum/symptom/robotic_adaptation/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stage Speed [disease_robotic_adaptation_stage_speed1]:</b>The virus will replace the host's organic organs with mundane, biometallic versions. +1 severity.<br>\
-                      <b>Resistance [disease_robotic_adaptation_resistance]:</b>The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
-                      <b>Stage Speed [disease_robotic_adaptation_stage_speed2]:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
+	threshold_desc = "<b>Stage Speed [disease_robotic_adaptation_stage_speed1]:</b> The virus will replace the host's organic organs with mundane, biometallic versions. +1 severity.<br>\
+                      <b>Resistance [disease_robotic_adaptation_resistance]:</b> The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
+                      <b>Stage Speed [disease_robotic_adaptation_stage_speed2]:</b> Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
 	return threshold_desc

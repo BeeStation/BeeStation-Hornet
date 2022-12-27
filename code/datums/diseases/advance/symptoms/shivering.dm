@@ -67,7 +67,7 @@ Bonus
 	M.adjust_bodytemperature(-get_cold * A.stage, limit)
 	return 1
 
-/datum/symptom/shedding/Threshold(datum/disease/advance/A)
+/datum/symptom/shivering/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
 	threshold_desc = "<b>Stage Speed [disease_shivering_stage_speed1]:</b> Increases cooling speed; the host can fall below safe temperature levels.<br>\
