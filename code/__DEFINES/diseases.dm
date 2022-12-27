@@ -198,3 +198,6 @@ var/disease_radiation_stage_speed = rand(7,9)
 
 var/disease_radconversion_stage_speed = rand(4,8)
 var/disease_radconversion_resistance = rand(10,14)
+
+var/disease_shivering_stage_speed1 = rand(4,6)
+var/disease_shivering_stage_speed2 = rand(9,11)

@@ -34,18 +34,18 @@ Bonus
 
 /datum/symptom/shivering/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= 5) //dangerous cold
+	if(A.stage_rate >= disease_shivering_stage_speed1) //dangerous cold
 		severity += 1
-		if(A.stage_rate >= 10)
+		if(A.stage_rate >= disease_shivering_stage_speed2)
 			severity += 1
 
 /datum/symptom/shivering/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= 5) //dangerous cold
+	if(A.stage_rate >= disease_shivering_stage_speed1) //dangerous cold
 		power = 1.5
 		unsafe = TRUE
-		if(A.stage_rate >= 10)
+		if(A.stage_rate >= disease_shivering_stage_speed2)
 			power = 2.5
 
 /datum/symptom/shivering/Activate(datum/disease/advance/A)
@@ -66,3 +66,10 @@ Bonus
 		limit = 0
 	M.adjust_bodytemperature(-get_cold * A.stage, limit)
 	return 1
+
+/datum/symptom/shedding/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Stage Speed [disease_shivering_stage_speed1]:</b> Increases cooling speed; the host can fall below safe temperature levels.<br>\
+					  <b>Stage Speed [disease_shivering_stage_speed2]:</b> Further increases cooling speed."
+	return threshold_desc
