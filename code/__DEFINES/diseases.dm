@@ -159,3 +159,6 @@ var/disease_itching_transmission = rand(4,8)
 var/disease_itching_stage_speed = rand(5,9)
 
 var/disease_light_stealth = rand(1,5)
+
+var/disease_lubefeet_transmission = rand(8,12)
+var/disease_lubefeet_resistance = rand(12,16)

@@ -18,15 +18,15 @@
 
 /datum/symptom/lubefeet/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= 10)
+	if(A.transmission >= disease_lubefeet_transmission)
 		severity += 1
 
 /datum/symptom/lubefeet/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= 10)
+	if(A.transmission >= disease_lubefeet_transmission)
 		morelube = TRUE
-	if(A.resistance >= 14)
+	if(A.resistance >= disease_lubefeet_resistance)
 		clownshoes = TRUE
 
 /datum/symptom/lubefeet/Activate(datum/disease/advance/A)
@@ -79,3 +79,10 @@
 		ADD_TRAIT(C, TRAIT_NODROP, DISEASE_TRAIT)
 		M.equip_to_slot_or_del(C, ITEM_SLOT_FEET)
 		return
+
+/datum/symptom/lubefeet/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Transmission [disease_lubefeet_transmission]:</b> The host sweats even more profusely, lubing almost every tile they walk over<br>\
+					  <b>Resistance [disease_lubefeet_resistance]:</b> The host's feet turn into a pair of clown shoes."
+	return threshold_desc
