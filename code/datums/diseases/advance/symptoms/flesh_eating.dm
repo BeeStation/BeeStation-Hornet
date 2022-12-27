@@ -38,9 +38,9 @@ Bonus
 /datum/symptom/flesh_eating/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= 10) //extra bleeding
+	if(A.resistance >= disease_flesh_eating_resistance) //extra bleeding
 		damage = TRUE
-	if(A.transmission >= 8)
+	if(A.transmission >= disease_flesh_eating_transmission)
 		power = 2
 		bleed = TRUE
 
@@ -83,6 +83,13 @@ Bonus
 				H.add_splatter_floor(T)
 			T = H.loc
 	return TRUE
+
+/datum/symptom/flesh_eating/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Resistance [disease_flesh_eating_resistance]:</b> The host takes brute damage as their flesh is burst open<br>\
+					  <b>Transmission [disease_flesh_eating_transmission]:</b> The host will bleed far more violently, losing even more blood, and spraying infected blood everywhere."
+	return threshold_desc
 
 /*
 //////////////////////////////////////
@@ -127,9 +134,9 @@ Bonus
 /datum/symptom/flesh_death/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= 5)
+	if(A.stealth >= disease_flesh_death_stealth)
 		suppress_warning = TRUE
-	if(A.stage_rate >= 7) //bleeding and hunger
+	if(A.stage_rate >= disease_flesh_death_stage_speed) //bleeding and hunger
 		chems = TRUE
 
 /datum/symptom/flesh_death/Activate(datum/disease/advance/A)
@@ -157,3 +164,10 @@ Bonus
 	if(chems)
 		M.reagents.add_reagent_list(list(/datum/reagent/toxin/heparin = 2, /datum/reagent/toxin/lipolicide = 2))
 	return 1
+
+/datum/symptom/flesh_death/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Stage Speed [disease_flesh_death_stage_speed]:</b> Synthesizes Heparin and Lipolicide inside the host, causing increased bleeding and hunger.<br>\
+					  <b>Stealth [disease_flesh_death_stealth]:</b> The symptom remains hidden until active."
+	return threshold_desc

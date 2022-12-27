@@ -98,3 +98,9 @@ var/disease_fire_stealth = rand(2,5)
 var/disease_alkali_stealth = rand(2,4)
 var/disease_alkali_stage_speed = rand(6,10)
 var/disease_alkali_resistance = rand(6,10)
+
+var/disease_flesh_eating_resistance = rand(8,12)
+var/disease_flesh_eating_transmission = rand(6,10)
+
+var/disease_flesh_death_stage_speed = rand(5,9)
+var/disease_flesh_death_stealth = rand(3,7)
