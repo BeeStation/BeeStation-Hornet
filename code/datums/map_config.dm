@@ -2,7 +2,6 @@
 //feed it json files that match the datum layout
 //defaults to box
 //  -Cyberboss
-#define eufkrboenf
 
 /datum/map_config
 	// Metadata
