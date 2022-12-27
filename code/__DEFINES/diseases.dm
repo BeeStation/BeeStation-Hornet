@@ -193,3 +193,8 @@ var/disease_oxygen_resistance = rand(6,10)
 var/disease_pierrot_transmission = rand(9,11)
 var/disease_pierrot_resistance1 = rand(8,12)
 var/disease_pierrot_resistance2 = rand(14,16)
+
+var/disease_radiation_stage_speed = rand(7,9)
+
+var/disease_radconversion_stage_speed = rand(4,8)
+var/disease_radconversion_resistance = rand(10,14)

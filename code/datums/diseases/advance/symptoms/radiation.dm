@@ -11,17 +11,17 @@
 	symptom_delay_max = 40
 	prefixes = list("Gamma ")
 	bodies = list("Radiation")
-	threshold_desc = "<b>Speed 8:</b> Host takes radiation damage faster."
+	threshold_desc = "<b>Stage Speed 8:</b> Host takes radiation damage faster."
 
 /datum/symptom/radiation/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= 8)
+	if(A.stage_rate >= disease_radiation_stage_speed)
 		severity += 1
 
 /datum/symptom/radiation/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= 8)
+	if(A.stage_rate >= disease_radiation_stage_speed)
 		power = 2
 
 /datum/symptom/radiation/Activate(datum/disease/advance/A)
@@ -43,6 +43,12 @@
 	M.radiation += 75 * power
 	return 1
 
+/datum/symptom/radiation/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Stage Speed [disease_radiation_stage_speed]:</b> Host takes radiation damage faster."
+	return threshold_desc
+
 /datum/symptom/radconversion
 	name = "Aptotic Culling"
 	desc = "The virus causes infected cells to die off when exposed to radiation, causing open wounds to appear on the host's flesh. The end result of this process is the removal of radioactive contamination from the host."
@@ -62,17 +68,17 @@
 
 /datum/symptom/radconversion/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= 6)
+	if(A.stage_rate >= disease_radconversion_stage_speed)
 		severity -= 1
-	if(A.resistance >= 12)
+	if(A.resistance >= disease_radconversion_resistance)
 		severity -= 1
 
 /datum/symptom/radconversion/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= 6)
+	if(A.stage_rate >= disease_radconversion_stage_speed)
 		toxheal = TRUE
-	if(A.resistance >= 12)
+	if(A.resistance >= disease_radconversion_resistance)
 		cellheal = TRUE
 
 
@@ -100,3 +106,10 @@
 				to_chat(M, "<span class='userdanger'>A nasty rash appears on your skin!</span>")
 	else if(prob(2) && ((M.getCloneLoss() && cellheal) || (M.getToxLoss() && toxheal) || M.radiation))
 		to_chat(M, "<span class='notice'>You feel a tingling sensation</span>")
+
+/datum/symptom/radconversion/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Stage Speed [disease_radconversion_stage_speed]:</b> The disease also kills off contaminated cells, converting Toxin damage to Brute damage, at an efficient rate.<br>\
+					<b>Resistance [disease_radconversion_resistance]:</b> The disease also kills off genetically damaged cells and their neighbors, converting Cellular damage into Burn damage, at an inefficient rate."
+	return threshold_desc
