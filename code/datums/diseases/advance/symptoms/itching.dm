@@ -37,10 +37,10 @@ BONUS
 /datum/symptom/itching/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= 6) //itch more often
+	if(A.transmission >= disease_itching_transmission) //itch more often
 		symptom_delay_min = 1
 		symptom_delay_max = 4
-	if(A.stage_rate >= 7) //scratch
+	if(A.stage_rate >= disease_itching_stage_speed) //scratch
 		scratch = TRUE
 
 /datum/symptom/itching/Activate(datum/disease/advance/A)
@@ -54,3 +54,10 @@ BONUS
 		M.visible_message("[can_scratch ? "<span class='warning'>[M] scratches [M.p_their()] [bodypart.name].</span>" : ""]", "<span class='notice'>Your [bodypart.name] itches. [can_scratch ? " You scratch it." : ""]</span>")
 		if(can_scratch)
 			bodypart.receive_damage(0.5)
+
+/datum/symptom/itching/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Transmission [disease_itching_transmission]:</b> Increases frequency of itching.<br>\
+					  <b>Stage Speed [disease_itching_stage_speed]:</b> The host will scrath itself when itching, causing superficial damage."
+	return threshold_desc
