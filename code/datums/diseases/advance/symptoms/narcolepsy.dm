@@ -33,15 +33,15 @@ Bonus
 
 /datum/symptom/narcolepsy/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= 10) //act more often
+	if(A.resistance >= disease_narcolepsy_resistance) //act more often
 		severity += 1
 
 /datum/symptom/narcolepsy/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= 7) //stamina damage
+	if(A.transmission >= disease_narcolepsy_transmission) //stamina damage
 		stamina = TRUE
-	if(A.resistance >= 10) //act more often
+	if(A.resistance >= disease_narcolepsy_resistance) //act more often
 		symptom_delay_min = 5
 		symptom_delay_max = 20
 
@@ -95,6 +95,9 @@ Bonus
 				if(stamina)
 					M.adjustStaminaLoss(30)
 
-
-
-
+/datum/symptom/narcolepsy/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Transmission [disease_narcolepsy_transmission]:</b> Also relaxes the muscles, weakening and slowing the host.<br>\
+					  <b>Resistance [disease_narcolepsy_resistance]:</b> Causes narcolepsy more often, increasing the chance of the host falling asleep."
+	return threshold_desc

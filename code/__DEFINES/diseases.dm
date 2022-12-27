@@ -173,3 +173,6 @@ var/disease_nano_boost_stage_speed = rand(5,9)
 
 var/disease_nano_destroy_stage_speed = rand(3,7)
 var/disease_nano_destroy_resistance = rand(5,9)
+
+var/disease_narcolepsy_transmission = rand(5,9)
+var/disease_narcolepsy_resistance = rand(8,12)
