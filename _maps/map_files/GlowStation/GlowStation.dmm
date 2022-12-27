@@ -3029,11 +3029,10 @@
 /turf/open/floor/plating/asteroid/basalt/iceland_surface,
 /area/iceland)
 "aJm" = (
-/obj/machinery/door/airlock/engineering{
-	req_one_access_txt = "10,24";
-	name = "Engineering access"
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
 	},
-/turf/open/lava/smooth/cold,
+/turf/open/openspace/cold,
 /area/iceland)
 "aJn" = (
 /obj/machinery/door/firedoor,
@@ -54214,6 +54213,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/storage/primary)
+"lIf" = (
+/obj/structure/grille/broken,
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/open/floor/plating/asteroid/basalt/iceland_surface,
+/area/iceland/underground)
 "lIi" = (
 /obj/structure/noticeboard{
 	dir = 8;
@@ -82931,7 +82935,6 @@
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/starboard)
 "rXS" = (
-/obj/machinery/vending/cart,
 /obj/machinery/status_display/evac{
 	pixel_x = -32
 	},
@@ -110424,13 +110427,6 @@
 /obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/engine/atmospherics_engine)
-"xVM" = (
-/obj/structure/grille/broken,
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 6
-	},
-/turf/open/floor/plating/asteroid/basalt/iceland_surface,
-/area/iceland/underground)
 "xVO" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/atmospherics/pipe/simple/green/visible{
@@ -146481,7 +146477,7 @@ rhB
 rhB
 rhB
 fOG
-aJm
+fOG
 fOG
 fOG
 eix
@@ -149815,7 +149811,7 @@ wlU
 isj
 qCO
 wtf
-xVM
+lIf
 wlY
 eER
 rna
@@ -152449,7 +152445,7 @@ tQO
 tQO
 rCz
 otv
-otv
+rCz
 otv
 otv
 otv
@@ -152659,7 +152655,7 @@ rna
 rna
 rna
 rna
-cNx
+rhC
 tQO
 tQO
 tQO
@@ -153432,7 +153428,7 @@ rna
 rna
 wlY
 kGe
-cNx
+eER
 rhB
 rhB
 rhB
@@ -154226,7 +154222,7 @@ nNO
 nNO
 nNO
 tQO
-tQO
+hlK
 rhB
 rhB
 rhB
@@ -154249,15 +154245,15 @@ tQO
 tQO
 nNO
 kKH
-kKH
-yey
-kKH
-kKH
-yey
-yey
 otv
-yey
-fci
+otv
+otv
+otv
+otv
+otv
+otv
+otv
+otv
 yey
 yey
 aHj
@@ -154506,17 +154502,17 @@ tQO
 tQO
 tQO
 nNO
-nNO
-tQO
-tQO
-nNO
-rhB
+kKH
+kKH
+kKH
+yey
+yey
 yey
 otv
 otv
-otv
+fci
 kKH
-aHj
+rhB
 aHj
 aHj
 aHj
@@ -155028,8 +155024,8 @@ tQO
 kKH
 ruA
 ruA
-aHj
-aHj
+rhB
+rhB
 aHj
 aHj
 aHj
@@ -155285,7 +155281,7 @@ tQO
 kKH
 yey
 yey
-aHj
+rhB
 aHj
 aHj
 aHj
@@ -212787,7 +212783,7 @@ noJ
 noJ
 noJ
 noJ
-noJ
+aJm
 hgc
 taB
 oxb
@@ -215687,7 +215683,7 @@ oFD
 aHj
 aHj
 aHj
-lgy
+vXQ
 lgy
 lgy
 xMN

@@ -3,6 +3,10 @@
 	"map_link": "GlowStation",
 	"map_path": "map_files/GlowStation",
 	"map_file": "GlowStation.dmm",
+	"planetary_station": 1,
+	"planet_name": "Iceland",
+	"planet_mass": 5000,
+	"planet_radius": 100,
 	"shuttles": {
 		"cargo": "cargo_fland",
 		"ferry": "ferry_fancy",
