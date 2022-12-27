@@ -40,13 +40,13 @@ Bonus
 /datum/symptom/fire/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= 4)
+	if(A.stage_rate >= disease_fire_stage_speed1)
 		power = 1.5
-		if(A.stage_rate >= 8)
+		if(A.stage_rate >= disease_fire_stage_speed2)
 			power = 2
-	if(A.stealth >= 4)
+	if(A.stealth >= disease_fire_stealth)
 		suppress_warning = TRUE
-	if(A.transmission >= 8) //burning skin spreads the virus through smoke
+	if(A.transmission >= disease_fire_transmission) //burning skin spreads the virus through smoke
 		infective = TRUE
 
 /datum/symptom/fire/Activate(datum/disease/advance/A)
@@ -87,6 +87,14 @@ Bonus
 		M.visible_message("<span class='danger'>[M] bursts into flames, spreading burning sparks about the area!</span>")
 	return 1
 
+/datum/symptom/fire/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Stage Speed [disease_fire_stage_speed1]:</b> Increases the intensity of the flames.<br>\
+					  <b>Stage Speed [disease_fire_stage_speed2]:</b> Further increases flame intensity.<br>\
+					  <b>Transmission [disease_fire_transmission]:</b> Host will spread the virus through skin flakes when bursting into flame.<br>\
+					  <b>Stealth [disease_fire_stealth]:</b> The symptom remains hidden until active."
+	return threshold_desc
 
 /*
 //////////////////////////////////////
@@ -130,21 +138,21 @@ Bonus
 
 /datum/symptom/alkali/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= 3)
+	if(A.stealth >= disease_alkali_stealth)
 		severity += 1
-	if(A.stage_rate >= 8)
+	if(A.stage_rate >= disease_alkali_stage_speed)
 		severity += 2 //if you can find a way to make this threshold work in a trifecta well enough to take advantage of this severity boost, i applaud you
 
 /datum/symptom/alkali/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= 3) //intense but sporadic effect
+	if(A.stealth >= disease_alkali_stealth) //intense but sporadic effect
 		power = 2
 		symptom_delay_min = 50
 		symptom_delay_max = 140
-	if(A.stage_rate >= 8) //serious boom when wet
+	if(A.stage_rate >= disease_alkali_stage_speed) //serious boom when wet
 		explosion_power = 2
-	if(A.resistance >= 8) //extra chemicals
+	if(A.resistance >= disease_alkali_resistance) //extra chemicals
 		chems = TRUE
 
 /datum/symptom/alkali/Activate(datum/disease/advance/A)
@@ -187,3 +195,11 @@ Bonus
 	if(chems)
 		M.reagents.add_reagent_list(list(/datum/reagent/napalm = 4 * power, /datum/reagent/clf3 = 4 * power))
 	return 1
+
+/datum/symptom/alkali/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Stealth [disease_alkali_stealth]:</b> Doubles the intensity of the effect, but reduces its frequency.<br>\
+					  <b>Stage Speed [disease_alkali_stage_speed]:</b> Increases explosion radius when the host is wet.<br>\
+					  <b>Resistance [disease_alkali_resistance]:</b> Additionally synthesizes chlorine trifluoride and napalm inside the host."
+	return threshold_desc

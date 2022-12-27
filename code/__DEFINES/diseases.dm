@@ -89,3 +89,12 @@ var/disease_deafness_stealth = rand(2,5)
 
 var/disease_fever_resistance1 = rand(3,7)
 var/disease_fever_resistance2 = rand(8,12)
+
+var/disease_fire_stage_speed1 = rand(2,6)
+var/disease_fire_stage_speed2 = rand(7,10)
+var/disease_fire_transmission = rand(6,10)
+var/disease_fire_stealth = rand(2,5)
+
+var/disease_alkali_stealth = rand(2,4)
+var/disease_alkali_stage_speed = rand(6,10)
+var/disease_alkali_resistance = rand(6,10)
