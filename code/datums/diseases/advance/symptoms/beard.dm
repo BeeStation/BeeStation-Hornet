@@ -43,3 +43,8 @@ BONUS
 			H.facial_hair_style = beard_order[index]
 			H.update_hair()
 
+/datum/symptom/beard/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = ""
+	return threshold_desc
