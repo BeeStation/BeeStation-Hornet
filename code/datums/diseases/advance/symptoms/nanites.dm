@@ -1,6 +1,6 @@
 /datum/symptom/nano_boost
 	name = "Nano-symbiosis"
-	desc = "The virus reacts to nanites in the host's bloodstream by enhancing their replication cycle. May cause unpredictable nanite behaviour. Heals the host's mechanical limbs"
+	desc = "The virus reacts to nanites in the host's bloodstream by enhancing their replication cycle. May cause unpredictable nanite behaviour. Heals the host's mechanical limbs."
 	stealth = 0
 	resistance = 2
 	stage_speed = 2
@@ -48,7 +48,7 @@
 
 /datum/symptom/nano_destroy
 	name = "Silicolysis"
-	desc = "The virus reacts to nanites in the host's bloodstream by attacking and consuming them. May also cause nanites to go haywire. Damages the host's mechanical limbs"
+	desc = "The virus reacts to nanites in the host's bloodstream by attacking and consuming them. May also cause nanites to go haywire. Damages the host's mechanical limbs."
 	stealth = 0
 	resistance = 4
 	stage_speed = -1

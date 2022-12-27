@@ -10,7 +10,7 @@
 	var/currenthealthmodifier 
 	prefixes = list("Photo", "Light ")
 	bodies = list("Cramp")
-	threshold_desc = "<b>Stealth 3:</b> The virus causes a wider disparity between light and dark" //this is a stealth symptom because, at its first threshold, its effects are negligable enough it could be spread with minimal downside
+	threshold_desc = "<b>Stealth 3:</b> The virus causes a wider disparity between light and dark." //this is a stealth symptom because, at its first threshold, its effects are negligable enough it could be spread with minimal downside
 
 /datum/symptom/light/severityset(datum/disease/advance/A)
 	. = ..()
@@ -55,5 +55,5 @@
 /datum/symptom/light/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stealth [disease_light_stealth]:</b> The virus causes a wider disparity between light and dark"
+	threshold_desc = "<b>Stealth [disease_light_stealth]:</b> The virus causes a wider disparity between light and dark."
 	return threshold_desc

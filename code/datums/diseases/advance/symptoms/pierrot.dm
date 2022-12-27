@@ -1,6 +1,6 @@
 /datum/symptom/pierrot
 	name = "Pierrot's Throat"
-	desc = "Causes the host to honk randomly"
+	desc = "Causes the host to honk randomly."
 	stealth = -1
 	resistance = 3
 	stage_speed = 1

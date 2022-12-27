@@ -308,7 +308,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/EMP
 	name = "Organic Flux Induction"
-	desc = "Causes electromagnetic interference around the subject"
+	desc = "Causes electromagnetic interference around the subject."
 	stealth = 0
 	resistance = -1
 	stage_speed = -1
@@ -365,7 +365,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	
 /datum/symptom/sweat
 	name = "Hyperperspiration"
-	desc = "Causes the host to sweat profusely, leaving small water puddles and extinguishing small fires"
+	desc = "Causes the host to sweat profusely, leaving small water puddles and extinguishing small fires."
 	stealth = 1
 	resistance = -1
 	stage_speed = 0
@@ -639,7 +639,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/vampirism
 	name = "Hemetophagy"
-	desc = "The host absorbs blood from external sources, and seemlessly reintegrates it into their own bloodstream, regardless of its bloodtype or how it was ingested. However, the virus also slowly consumes the host's blood"
+	desc = "The host absorbs blood from external sources, and seemlessly reintegrates it into their own bloodstream, regardless of its bloodtype or how it was ingested. However, the virus also slowly consumes the host's blood."
 	stealth = 1
 	resistance = -2
 	stage_speed = 1
@@ -658,7 +658,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/vampire = FALSE
 	var/mob/living/carbon/human/bloodbag
 	threshold_desc = "<b>Transmission 4:</b> The virus recycles excess absorbed blood into restorative biomass, healing brute damage.<br>\
-					<b>Stage Speed 7:</b> The virus grows more aggressive, assimilating blood and healing at a faster rate, but also draining the host's blood quicker<br>\
+					<b>Stage Speed 7:</b> The virus grows more aggressive, assimilating blood and healing at a faster rate, but also draining the host's blood quicker.<br>\
 					<b>Transmission 6:</b> The virus aggressively assimilates blood, resulting in contiguous blood pools being absorbed by the virus, as well as sucking blood out of open wounds of subjects in physical contact with the host."
 
 /datum/symptom/vampirism/severityset(datum/disease/advance/A)
@@ -877,7 +877,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(!..())
 		return
 	threshold_desc = "<b>Transmission [disease_vampirism_transmission1]:</b> The virus recycles excess absorbed blood into restorative biomass, healing brute damage.<br>\
-					<b>Stage Speed [disease_vampirism_stage_speed]:</b> The virus grows more aggressive, assimilating blood and healing at a faster rate, but also draining the host's blood quicker<br>\
+					<b>Stage Speed [disease_vampirism_stage_speed]:</b> The virus grows more aggressive, assimilating blood and healing at a faster rate, but also draining the host's blood quicker.<br>\
 					<b>Transmission [disease_vampirism_transmission2]:</b> The virus aggressively assimilates blood, resulting in contiguous blood pools being absorbed by the virus, as well as sucking blood out of open wounds of subjects in physical contact with the host."
 	return threshold_desc
 
@@ -995,7 +995,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/jitters
 	name = "Hyperactivity"
-	desc = "The virus causes restlessness, nervousness and hyperactivity, increasing the rate at which the host needs to eat,but making them harder to tire out"
+	desc = "The virus causes restlessness, nervousness and hyperactivity, increasing the rate at which the host needs to eat,but making them harder to tire out."
 	stealth = -4
 	resistance = 0
 	stage_speed = 2
@@ -1006,7 +1006,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	symptom_delay_max = 1
 	prefixes = list("Gray ", "Amped ", "Nervous ")
 	var/clearcc = FALSE
-	threshold_desc = "<b>Resistance 8:</b>The virus causes an even greater rate of nutriment loss, able to cause starvation, but its energy gain greatly increases<br>\
+	threshold_desc = "<b>Resistance 8:</b>The virus causes an even greater rate of nutriment loss, able to cause starvation, but its energy gain greatly increases.<br>\
 					<b>Stage Speed 8:</b>The virus causes extreme nervousness and paranoia, resulting in occasional hallucinations, and extreme restlessness, but greater overall energy and the ability to shake off stuns faster."
 
 /datum/symptom/jitters/severityset(datum/disease/advance/A)
@@ -1066,6 +1066,6 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/jitters/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [disease_jitters_resistance]:</b>The virus causes an even greater rate of nutriment loss, able to cause starvation, but its energy gain greatly increases<br>\
+	threshold_desc = "<b>Resistance [disease_jitters_resistance]:</b>The virus causes an even greater rate of nutriment loss, able to cause starvation, but its energy gain greatly increases.<br>\
 					<b>Stage Speed [disease_jitters_stage_speed]:</b>The virus causes extreme nervousness and paranoia, resulting in occasional hallucinations, and extreme restlessness, but greater overall energy and the ability to shake off stuns faster."
 	return threshold_desc

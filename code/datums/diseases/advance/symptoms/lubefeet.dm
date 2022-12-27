@@ -13,7 +13,7 @@
 	bodies = list("Foot", "Feet")
 	var/morelube = FALSE
 	var/clownshoes = FALSE
-	threshold_desc = "<b>Transmission 10:</b> The host sweats even more profusely, lubing almost every tile they walk over<br>\
+	threshold_desc = "<b>Transmission 10:</b> The host sweats even more profusely, lubing almost every tile they walk over.<br>\
 					  <b>Resistance 14:</b> The host's feet turn into a pair of clown shoes."
 
 /datum/symptom/lubefeet/severityset(datum/disease/advance/A)
@@ -83,6 +83,6 @@
 /datum/symptom/lubefeet/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission [disease_lubefeet_transmission]:</b> The host sweats even more profusely, lubing almost every tile they walk over<br>\
+	threshold_desc = "<b>Transmission [disease_lubefeet_transmission]:</b> The host sweats even more profusely, lubing almost every tile they walk over.<br>\
 					  <b>Resistance [disease_lubefeet_resistance]:</b> The host's feet turn into a pair of clown shoes."
 	return threshold_desc

@@ -17,7 +17,7 @@ Bonus
 
 /datum/symptom/heartattack
 	name = "Heart Disease"
-	desc = "This disease infiltrates the host's heart, causing cardiac arrest after a long incubation period"
+	desc = "This disease infiltrates the host's heart, causing cardiac arrest after a long incubation period."
 	stealth = 2
 	resistance = 1
 	stage_speed = -6
@@ -29,7 +29,7 @@ Bonus
 	prefixes = list("Cardiac ", "Cardio")
 	bodies = list("Heart")
 	var/heartattack = FALSE
-	threshold_desc = "<b>Transmission 10:</b> When the victim has a heart attack, their heart will pop right out of their chest, and attack!.<br>\
+	threshold_desc = "<b>Transmission 10:</b> When the victim has a heart attack, their heart will pop right out of their chest, and attack!<br>\
 					  <b>Stealth 2:</b> The disease is somewhat less noticable to the host."
 
 /datum/symptom/heartattack/severityset(datum/disease/advance/A)
@@ -73,6 +73,6 @@ Bonus
 /datum/symptom/heartattack/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission [disease_heartattack_transmission]:</b> When the victim has a heart attack, their heart will pop right out of their chest, and attack!.<br>\
+	threshold_desc = "<b>Transmission [disease_heartattack_transmission]:</b> When the victim has a heart attack, their heart will pop right out of their chest, and attack!<br>\
 					  <b>Stealth [disease_heartattack_stealth]:</b> The disease is somewhat less noticable to the host."
 	return threshold_desc

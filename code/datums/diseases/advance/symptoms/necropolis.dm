@@ -1,6 +1,6 @@
 /datum/symptom/necroseed
 	name = "Necropolis Seed"
-	desc = "An infantile form of the root of Lavaland's tendrils. Forms a symbiotic bond with the host, making them stronger and hardier, at the cost of speed. Should the disease be cured, the host will be severely weakened"
+	desc = "An infantile form of the root of Lavaland's tendrils. Forms a symbiotic bond with the host, making them stronger and hardier, at the cost of speed. Should the disease be cured, the host will be severely weakened."
 	stealth = 0
 	resistance = 3
 	stage_speed = -10
@@ -17,7 +17,7 @@
 	bodies = list("Goliath", "Tentacle", "Carapace")
 	threshold_desc = "<b>Stealth 8:</b> Upon death, the host's soul will solidify into an unholy artifact, rendering them utterly unrevivable in the process.<br>\
 					  <b>Resistance 15:</b> The area near the host roils with paralyzing tendrils.<br>\
-					  <b>Resistance 20:</b>	Host becomes immune to heat, ash, and lava"
+					  <b>Resistance 20:</b>	Host becomes immune to heat, ash, and lava."
 	var/list/cached_tentacle_turfs
 	var/turf/last_location
 	var/tentacle_recheck_cooldown = 100
@@ -143,5 +143,5 @@
 		return
 	threshold_desc = "<b>Stealth [disease_necroseed_stealth]:</b> Upon death, the host's soul will solidify into an unholy artifact, rendering them utterly unrevivable in the process.<br>\
 					  <b>Resistance [disease_necroseed_resistance1]:</b> The area near the host roils with paralyzing tendrils.<br>\
-					  <b>Resistance [disease_necroseed_resistance2]:</b>	Host becomes immune to heat, ash, and lava"
+					  <b>Resistance [disease_necroseed_resistance2]:</b> Host becomes immune to heat, ash, and lava."
 	return threshold_desc

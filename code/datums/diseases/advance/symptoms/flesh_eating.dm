@@ -32,7 +32,7 @@ Bonus
 	bodies = list("Hemophilia")
 	var/bleed = FALSE
 	var/damage = FALSE
-	threshold_desc = "<b>Resistance 10:</b> The host takes brute damage as their flesh is burst open<br>\
+	threshold_desc = "<b>Resistance 10:</b> The host takes brute damage as their flesh is burst open.<br>\
 					  <b>Transmission 8:</b> The host will bleed far more violently, losing even more blood, and spraying infected blood everywhere."
 
 /datum/symptom/flesh_eating/Start(datum/disease/advance/A)
@@ -87,7 +87,7 @@ Bonus
 /datum/symptom/flesh_eating/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [disease_flesh_eating_resistance]:</b> The host takes brute damage as their flesh is burst open<br>\
+	threshold_desc = "<b>Resistance [disease_flesh_eating_resistance]:</b> The host takes brute damage as their flesh is burst open.<br>\
 					  <b>Transmission [disease_flesh_eating_transmission]:</b> The host will bleed far more violently, losing even more blood, and spraying infected blood everywhere."
 	return threshold_desc
 
@@ -111,7 +111,7 @@ Bonus
 /datum/symptom/flesh_death
 
 	name = "Autophagocytosis Necrosis"
-	desc = "The virus rapidly consumes infected cells, leading to heavy and widespread damage. Contains dormant prions- expert virologists believe it to be the precursor to Romerol, though the mechanism through which they are activated is largely unknown"
+	desc = "The virus rapidly consumes infected cells, leading to heavy and widespread damage. Contains dormant prions- expert virologists believe it to be the precursor to Romerol, though the mechanism through which they are activated is largely unknown."
 	stealth = -2
 	resistance = -2
 	stage_speed = 1

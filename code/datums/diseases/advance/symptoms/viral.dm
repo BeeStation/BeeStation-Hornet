@@ -15,7 +15,7 @@ BONUS
 */
 /datum/symptom/viraladaptation
 	name = "Viral Self-Adaptation"
-	desc = "The virus mimics the function of normal body cells, becoming harder to spot and to eradicate, but reducing its speed. This symptom discourages disease mutation"
+	desc = "The virus mimics the function of normal body cells, becoming harder to spot and to eradicate, but reducing its speed. This symptom discourages disease mutation."
 	stealth = 3
 	resistance = 5
 	stage_speed = -3
@@ -53,7 +53,7 @@ BONUS
 /datum/symptom/viralevolution
 	name = "Viral Evolutionary Acceleration"
 	desc = "The virus quickly adapts to spread as fast as possible both outside and inside a host. \
-	This, however, makes the virus easier to spot, and less able to fight off a cure. This symptom encourages disease mutation"
+	This, however, makes the virus easier to spot, and less able to fight off a cure. This symptom encourages disease mutation."
 	stealth = -2
 	resistance = -3
 	stage_speed = 5
@@ -106,7 +106,7 @@ Bonus
 	prefixes = list("Spontaneous ")
 	var/time_to_cure
 	threshold_desc = "<b>Resistance/Stage Speed:</b> Highest between these determines the amount of time before self-curing.<br>\
-					  <b>Stealth 4:</b> Doubles the time before the virus self-cures"
+					  <b>Stealth 4:</b> Doubles the time before the virus self-cures."
 
 
 /datum/symptom/viralreverse/Activate(datum/disease/advance/A)
@@ -136,7 +136,7 @@ Bonus
 	if(!..())
 		return
 	threshold_desc = "<b>Resistance/Stage Speed:</b> Highest between these determines the amount of time before self-curing.<br>\
-					  <b>Stealth [disease_viralreverse_stealth]:</b> Doubles the time before the virus self-cures"
+					  <b>Stealth [disease_viralreverse_stealth]:</b> Doubles the time before the virus self-cures."
 	return threshold_desc
 
 /*
@@ -158,7 +158,7 @@ Bonus
 
 /datum/symptom/viralincubate
 	name = "Viral Suspended Animation"
-	desc = "The virus has very little effect until it reaches its final stage"
+	desc = "The virus has very little effect until it reaches its final stage."
 	stealth = 4
 	resistance = -2
 	stage_speed = -2
@@ -210,7 +210,7 @@ Bonus
 */
 /datum/symptom/viralpower
 	name = "Viral power multiplier"
-	desc = "The virus has more powerful symptoms. May have unpredictable effects"
+	desc = "The virus has more powerful symptoms. May have unpredictable effects."
 	stealth = 2
 	resistance = 2
 	stage_speed = 2
@@ -222,7 +222,7 @@ Bonus
 	var/scramble = FALSE 
 	var/used = FALSE
 	threshold_desc = "<b>Transmission 8:</b> Constantly scrambles the power of all unneutered symptoms.<br>\
-					  <b>Stage Speed 8</b> Doubles the power boost"
+					  <b>Stage Speed 8:</b> Doubles the power boost."
 
 
 /datum/symptom/viralpower/Start(datum/disease/advance/A)
@@ -266,5 +266,5 @@ Bonus
 	if(!..())
 		return
 	threshold_desc = "<b>Transmission 8:</b> Constantly scrambles the power of all unneutered symptoms.<br>\
-					  <b>Stage Speed 8</b> Doubles the power boost"
+					  <b>Stage Speed 8:</b> Doubles the power boost."
 	return threshold_desc

@@ -13,9 +13,9 @@
 	var/factory_blob
 	var/strong_blob
 	var/node_blob
-	threshold_desc = "<b>Resistance 11:</b> There is a chance to spawn a factory blob, instead of a normal blob.<br> \
-					  <b>Resistance 8:</b> Spawns a strong blob instead of a normal blob \
-					  <b>Resistance 14:</b> Has a chance to spawn a blob node instead of a normal blob<br>"
+	threshold_desc = "<b>Resistance 8:</b> Spawns a strong blob instead of a normal blob.<br> \
+					  <b>Resistance 11:</b> There is a chance to spawn a factory blob, instead of a normal blob.<br> \
+					  <b>Resistance 14:</b> Has a chance to spawn a blob node instead of a normal blob."
 
 /datum/symptom/blobspores/severityset(datum/disease/advance/A)
 	. = ..()
@@ -99,5 +99,5 @@
 		return
 	threshold_desc = "<b>Resistance [disease_blobspores_resistance1]:</b> Spawns a strong blob instead of a normal blob.<br> \
 					  <b>Resistance [disease_blobspores_resistance2]:</b> There is a chance to spawn a factory blob, instead of a normal blob.<br> \
-					  <b>Resistance [disease_blobspores_resistance3]:</b> Has a chance to spawn a blob node instead of a normal blob"
+					  <b>Resistance [disease_blobspores_resistance3]:</b> Has a chance to spawn a blob node instead of a normal blob."
 	return threshold_desc

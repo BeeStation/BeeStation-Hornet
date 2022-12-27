@@ -1,7 +1,7 @@
 /datum/symptom/cockroach
 
 	name = "SBG Syndrome"
-	desc = "Causes bluespace synchronicity with nearby air channels, making the roaches infesting the station's scrubbers crawl from the host's face"
+	desc = "Causes bluespace synchronicity with nearby air channels, making the roaches infesting the station's scrubbers crawl from the host's face."
 	stealth = 1
 	resistance = 2
 	stage_speed = 3
@@ -13,8 +13,8 @@
 	prefixes = list("Blatto")
 	bodies = list("Roach")
 	var/death_roaches = FALSE
-	threshold_desc = "<b>Stage Speed 8:</b>Increases roach speed<br> \
-					  <b>Transmission 8:</b>When the host dies, more roaches spawn<br>"
+	threshold_desc = "<b>Stage Speed 8:</b>Increases roach speed.<br> \
+					  <b>Transmission 8:</b>When the host dies, more roaches spawn."
 
 /datum/symptom/cockroach/Start(datum/disease/advance/A)
 	if(!..())
