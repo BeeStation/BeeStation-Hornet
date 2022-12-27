@@ -34,7 +34,6 @@ Bonus
 					  <b>Transmission 12:</b> The host may spread the disease through sneezing."
 
 /datum/symptom/sneeze/Start(datum/disease/advance/A)
-	to_chat(world, "<span class='boldannounce'>Stealth: [disease_sneeze_stealth] and Transmission: [disease_sneeze_transmission]</span>")
 	if(!..())
 		return
 	if(A.stealth >= disease_sneeze_stealth)
