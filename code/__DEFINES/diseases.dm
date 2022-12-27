@@ -86,3 +86,6 @@ var/disease_cough_transmission = rand(9,13)
 
 var/disease_deafness_resistance = rand(7,11)
 var/disease_deafness_stealth = rand(2,5)
+
+var/disease_fever_resistance1 = rand(3,7)
+var/disease_fever_resistance2 = rand(8,12)

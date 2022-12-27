@@ -35,20 +35,20 @@ Bonus
 
 /datum/symptom/fever/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= 5)
+	if(A.resistance >= disease_fever_resistance1)
 		severity += 1
 		prefixes = list("Desert")
-		if(A.resistance >= 10)
+		if(A.resistance >= disease_fever_resistance2)
 			severity += 1
 			prefixes = list("Volcanic")
 
 /datum/symptom/fever/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= 5) //dangerous fever
+	if(A.resistance >= disease_fever_resistance1) //dangerous fever
 		power = 1.5
 		unsafe = TRUE
-		if(A.resistance >= 10)
+		if(A.resistance >= disease_fever_resistance2)
 			power = 2.5
 
 /datum/symptom/fever/Activate(datum/disease/advance/A)
@@ -69,3 +69,10 @@ Bonus
 	else
 		M.adjust_bodytemperature(get_heat * A.stage)
 	return 1
+
+/datum/symptom/fever/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Resistance [disease_fever_resistance1]:</b> Increases fever intensity, fever can overheat and harm the host.<br>\
+					  <b>Resistance [disease_fever_resistance2]:</b> Further increases fever intensity."
+	return threshold_desc
