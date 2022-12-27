@@ -38,23 +38,23 @@ BONUS
 
 /datum/symptom/cough/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= 3)
+	if(A.resistance >= disease_cough_resistance1)
 		severity += 1
-		if(A.resistance >= 10)
+		if(A.resistance >= disease_cough_resistance2)
 			severity += 1
 
 /datum/symptom/cough/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= 4)
+	if(A.stealth >= disease_cough_stealth)
 		suppress_warning = TRUE
-	if(A.resistance >= 3) //strong enough to drop items
+	if(A.resistance >= disease_cough_resistance1) //strong enough to drop items
 		power = 1.5
-		if(A.resistance >= 10) //strong enough to stun (rarely)
+		if(A.resistance >= disease_cough_resistance2) //strong enough to stun (rarely)
 			power = 2
-	if(A.stage_rate >= 6) //cough more often
+	if(A.stage_rate >= disease_cough_stage_speed) //cough more often
 		symptom_delay_max = 10
-	if(A.transmission >= 11) //spread virus
+	if(A.transmission >= disease_cough_transmission) //spread virus
 		infective =TRUE
 
 /datum/symptom/cough/Activate(datum/disease/advance/A)
@@ -81,4 +81,12 @@ BONUS
 			if(infective && !(A.spread_flags & DISEASE_SPREAD_FALTERED) && prob(50))
 				addtimer(CALLBACK(A, /datum/disease/.proc/spread, 2), 20)
 
-
+/datum/symptom/cough/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Resistance [disease_cough_resistance1]:</b> Host will drop small items when coughing.<br>\
+					  <b>Resistance [disease_cough_resistance2]:</b> Occasionally causes coughing fits that stun the host.<br>\
+					  <b>Stage Speed [disease_cough_stage_speed]:</b> Increases cough frequency.<br>\
+					  <b>Stealth [disease_cough_stealth]:</b> The symptom remains hidden until active.<br>\
+					  <b>Transmission [disease_cough_transmission]:</b> The host's coughing will occasionally spread the virus."
+	return threshold_desc
