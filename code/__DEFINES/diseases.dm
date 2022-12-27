@@ -73,3 +73,7 @@ var/disease_robotic_adaptation_resistance = rand(2,6)
 
 var/disease_cockroach_stage_speed = rand(6,10)
 var/disease_cockroach_transmission = rand(6,10)
+
+var/disease_confusion_resistance = rand(4,8)
+var/disease_confusion_transmission = rand(4,8)
+var/disease_confusion_stealth = rand(2,5)

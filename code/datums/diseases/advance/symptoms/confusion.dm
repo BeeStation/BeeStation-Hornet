@@ -37,17 +37,17 @@ Bonus
 
 /datum/symptom/confusion/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= 6)
+	if(A.resistance >= disease_confusion_resistance)
 		severity += 1
 
 /datum/symptom/confusion/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= 6)
+	if(A.resistance >= disease_confusion_resistance)
 		brain_damage = TRUE
-	if(A.transmission >= 6)
+	if(A.transmission >= disease_confusion_transmission)
 		power = 1.5
-	if(A.stealth >= 4)
+	if(A.stealth >= disease_confusion_stealth)
 		suppress_warning = TRUE
 
 /datum/symptom/confusion/Activate(datum/disease/advance/A)
@@ -66,3 +66,11 @@ Bonus
 				M.updatehealth()
 
 	return
+
+/datum/symptom/confusion/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Resistance [disease_confusion_resistance]:</b> Causes brain damage over time.<br>\
+					  <b>Transmission [disease_confusion_transmission]:</b> Increases confusion duration.<br>\
+					  <b>Stealth [disease_confusion_stealth]:</b> The symptom remains hidden until active."
+	return threshold_desc
