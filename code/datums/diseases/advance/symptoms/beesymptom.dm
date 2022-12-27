@@ -18,17 +18,17 @@
 
 /datum/symptom/beesease/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= 10)
+	if(A.transmission >= disease_beesease_transmission)
 		severity += 2
-		if(A.resistance >= 12)
+		if(A.resistance >= disease_beesease_resistance)
 			severity -= 4
 
 /datum/symptom/beesease/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= 12)
+	if(A.resistance >= disease_beesease_resistance)
 		honey = TRUE
-	if(A.transmission >= 10)
+	if(A.transmission >= disease_beesease_transmission)
 		toxic_bees = TRUE
 
 /datum/symptom/beesease/Activate(datum/disease/advance/A)
@@ -85,3 +85,10 @@
 	if(!..())
 		return
 	REMOVE_TRAIT(A.affected_mob, TRAIT_BEEFRIEND, DISEASE_TRAIT)
+
+/datum/symptom/beesease/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Resistance [disease_beesease_resistance]:</b> The bees become symbiotic with the host, synthesizing honey and no longer stinging the stomach lining, and no longer attacking the host. Bees will also contain honey, unless transmission exceeds 10.<br>\
+					  <b>Transmission [disease_beesease_transmission]:</b> Bees now contain a completely random toxin."
+	return threshold_desc

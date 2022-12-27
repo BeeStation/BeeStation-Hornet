@@ -53,3 +53,6 @@ var/disease_wizarditis_stage_speed = rand(5,9)
 
 var/disease_alcohol_stealth = rand(1,5)
 var/disease_alcohol_stage_speed = rand(4,8)
+
+var/disease_beesease_resistance = rand(10,14)
+var/disease_beesease_transmission = rand(8,12)
