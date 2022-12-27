@@ -37,3 +37,7 @@ var/disease_sneeze_transmission = rand(10,13)
 
 var/disease_visionloss_resistance = rand(10,14)
 var/disease_visionloss_stealth = rand(2,5)
+
+var/disease_voice_change_transmission = rand(8,12)
+var/disease_voice_change_stage_speed = rand(5,9)
+var/disease_voice_change_stealth = rand(1,5)

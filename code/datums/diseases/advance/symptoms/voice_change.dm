@@ -37,20 +37,20 @@ Bonus
 
 /datum/symptom/voice_change/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= 10) //random language
+	if(A.transmission >= disease_voice_change_transmission) //random language
 		severity += 1
 		bodies = list("Polyglot")
 
 /datum/symptom/voice_change/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= 3)
+	if(A.stealth >= disease_voice_change_stealth)
 		suppress_warning = TRUE
-	if(A.stage_rate >= 7) //faster change of voice
+	if(A.stage_rate >= disease_voice_change_stage_speed) //faster change of voice
 		base_message_chance = 25
 		symptom_delay_min = 25
 		symptom_delay_max = 85
-	if(A.transmission >= 10) //random language
+	if(A.transmission >= disease_voice_change_transmission) //random language
 		scramble_language = TRUE
 
 /datum/symptom/voice_change/Activate(datum/disease/advance/A)
@@ -78,3 +78,11 @@ Bonus
 	if(scramble_language)
 		A.affected_mob.remove_blocked_language(subtypesof(/datum/language), LANGUAGE_VOICECHANGE)
 		A.affected_mob.remove_all_languages(LANGUAGE_VOICECHANGE)	// In case someone managed to get more than one anyway.
+
+/datum/symptom/voice_change/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Transmission [disease_voice_change_transmission]:</b> The host's language center of the brain is damaged, leading to complete inability to speak or understand any language.<br>\
+					  <b>Stage Speed [disease_voice_change_stage_speed]:</b> Changes voice more often.<br>\
+					  <b>Stealth [disease_voice_change_stealth]:</b> The symptom remains hidden until active."
+	return threshold_desc
