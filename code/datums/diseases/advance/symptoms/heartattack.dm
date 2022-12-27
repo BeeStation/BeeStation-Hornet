@@ -34,15 +34,15 @@ Bonus
 
 /datum/symptom/heartattack/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= 10)
+	if(A.transmission >= disease_heartattack_transmission)
 		severity += 1
 
 /datum/symptom/heartattack/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= 10)
+	if(A.transmission >= disease_heartattack_transmission)
 		heartattack = TRUE
-	if(A.stealth >= 2)
+	if(A.stealth >= disease_heartattack_stealth)
 		suppress_warning = TRUE
 
 /datum/symptom/heartattack/Activate(datum/disease/advance/A)
@@ -70,4 +70,9 @@ Bonus
 		to_chat(M, "<span class='userdanger'>Your heart bursts out of your chest! It looks furious!</span>")
 		new /mob/living/simple_animal/hostile/heart(M.loc)
 
-
+/datum/symptom/heartattack/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Transmission [disease_heartattack_transmission]:</b> When the victim has a heart attack, their heart will pop right out of their chest, and attack!.<br>\
+					  <b>Stealth [disease_heartattack_stealth]:</b> The disease is somewhat less noticable to the host."
+	return threshold_desc

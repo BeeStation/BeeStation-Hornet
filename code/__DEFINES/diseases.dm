@@ -151,3 +151,6 @@ var/disease_parasite_stage_speed = rand(4,8)
 
 var/disease_jitters_resistance = rand(6,10)
 var/disease_jitters_stage_speed = rand(6,10)
+
+var/disease_heartattack_transmission = rand(8,12)
+var/disease_heartattack_stealth = rand(0,4)
