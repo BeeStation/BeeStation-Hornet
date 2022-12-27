@@ -19,18 +19,18 @@
 
 /datum/symptom/blobspores/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= 14)
+	if(A.resistance >= disease_blobspores_resistance3)
 		severity += 1
 
 
 /datum/symptom/blobspores/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= 11)
+	if(A.resistance >= disease_blobspores_resistance2)
 		factory_blob = TRUE
-	if(A.resistance >= 8)
+	if(A.resistance >= disease_blobspores_resistance1)
 		strong_blob = TRUE
-		if(A.resistance >= 14)
+		if(A.resistance >= disease_blobspores_resistance3)
 			node_blob = TRUE
 
 /datum/symptom/blobspores/Activate(datum/disease/advance/A)
@@ -93,3 +93,11 @@
 		var/atom/blob_tile = new pick_blob(M.loc)
 		blob_tile.add_atom_colour(pick(BLOB_STRAIN_COLOR_LIST), FIXED_COLOUR_PRIORITY) //A random colour for the blob, as this blob isn't going to get a overmind colour
 	M.visible_message("<span class='danger'>A huge mass of blob and blob spores burst out of [M]!</span>")
+
+/datum/symptom/blobspores/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Resistance [disease_blobspores_resistance1]:</b> Spawns a strong blob instead of a normal blob.<br> \
+					  <b>Resistance [disease_blobspores_resistance2]:</b> There is a chance to spawn a factory blob, instead of a normal blob.<br> \
+					  <b>Resistance [disease_blobspores_resistance3]:</b> Has a chance to spawn a blob node instead of a normal blob"
+	return threshold_desc

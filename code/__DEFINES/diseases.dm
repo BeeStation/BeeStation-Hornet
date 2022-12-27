@@ -56,3 +56,7 @@ var/disease_alcohol_stage_speed = rand(4,8)
 
 var/disease_beesease_resistance = rand(10,14)
 var/disease_beesease_transmission = rand(8,12)
+
+var/disease_blobspores_resistance1 = rand(6,9)
+var/disease_blobspores_resistance2 = rand(10,12)
+var/disease_blobspores_resistance3 = rand(13,15)
