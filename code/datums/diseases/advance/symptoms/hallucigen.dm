@@ -35,16 +35,16 @@ Bonus
 
 /datum/symptom/hallucigen/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= 7)
+	if(A.stage_rate >= disease_hallucigen_stage_speed)
 		severity += 1
 
 /datum/symptom/hallucigen/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= 2) //fake good symptom messages
+	if(A.stealth >= disease_hallucigen_stealth) //fake good symptom messages
 		fake_healthy = TRUE
 		base_message_chance = 50
-	if(A.stage_rate >= 7) //stronger hallucinations
+	if(A.stage_rate >= disease_hallucigen_stage_speed) //stronger hallucinations
 		power = 2
 
 /datum/symptom/hallucigen/Activate(datum/disease/advance/A)
@@ -70,3 +70,10 @@ Bonus
 			if(prob(base_message_chance))
 				to_chat(M, "<span class='userdanger'>[pick("Oh, your head...", "Your head pounds.", "They're everywhere! Run!", "Something in the shadows...")]</span>")
 			M.hallucination += (45 * power)
+
+/datum/symptom/hallucigen/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Stage Speed [disease_hallucigen_stage_speed]:</b> Increases the amount of hallucinations.<br>\
+					  <b>Stealth [disease_hallucigen_stealth]:</b> The virus mimics positive symptoms."
+	return threshold_desc
