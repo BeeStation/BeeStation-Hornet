@@ -16,6 +16,12 @@
 /datum/symptom/undead_adaptation/OnRemove(datum/disease/advance/A)
 	A.process_dead = FALSE
 	A.infectable_biotypes -= MOB_UNDEAD
+	
+/datum/symptom/undead_adaptation/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = ""
+	return threshold_desc
 
 /datum/symptom/inorganic_adaptation
 	name = "Inorganic Biology"
@@ -34,3 +40,9 @@
 
 /datum/symptom/inorganic_adaptation/OnRemove(datum/disease/advance/A)
 	A.infectable_biotypes -= MOB_INORGANIC
+
+/datum/symptom/inorganic_adaptation/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = ""
+	return threshold_desc
