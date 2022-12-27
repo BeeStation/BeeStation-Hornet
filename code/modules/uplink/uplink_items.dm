@@ -1938,7 +1938,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A tattered old jumpsuit that will provide absolutely no benefit to you. It fills the wearer with a strange compulsion to blurt out 'glorf'."
 	item = /obj/item/clothing/under/color/grey/glorf
 	cost = 20
-	restricted_roles = list(JOB_NAME_ASSISTANT)
+	restricted_roles = list(JOB_KEY_ASSISTANT)
 	surplus = 1
 
 /datum/uplink_item/role_restricted/oldtoolboxclean
@@ -1946,7 +1946,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An iconic toolbox design notorious with Assistants everywhere, this design was especially made to become more robust the more telecrystals it has inside it! Tools and insulated gloves included."
 	item = /obj/item/storage/toolbox/mechanical/old/clean
 	cost = 2
-	restricted_roles = list(JOB_NAME_ASSISTANT)
+	restricted_roles = list(JOB_KEY_ASSISTANT)
 	surplus = 0
 
 /datum/uplink_item/role_restricted/pie_cannon
@@ -1954,7 +1954,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A special pie cannon for a special clown, this gadget can hold up to 20 pies and automatically fabricates one every two seconds!"
 	cost = 11
 	item = /obj/item/pneumatic_cannon/pie/selfcharge
-	restricted_roles = list(JOB_NAME_CLOWN)
+	restricted_roles = list(JOB_KEY_CLOWN)
 	surplus = 0 //No fun unless you're the clown!
 
 /datum/uplink_item/role_restricted/blastcannon
@@ -1965,14 +1965,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			disallows explosive ranges above a certain distance, allowing for the device to use the theoretical yield of a transfer valve bomb, instead of the factual yield."
 	item = /obj/item/gun/blastcannon
 	cost = 14							//High cost because of the potential for extreme damage in the hands of a skilled scientist.
-	restricted_roles = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST)
+	restricted_roles = list(JOB_KEY_RESEARCHDIRECTOR, JOB_KEY_SCIENTIST)
 
 /datum/uplink_item/role_restricted/crushmagboots
 	name = "Crushing Magboots"
 	desc = "A pair of extra-strength magboots that crush anyone you walk over."
 	cost = 7
 	item = /obj/item/clothing/shoes/magboots/crushing
-	restricted_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
+	restricted_roles = list(JOB_KEY_CHIEFENGINEER, JOB_KEY_STATIONENGINEER, JOB_KEY_ATMOSPHERICTECHNICIAN)
 
 /datum/uplink_item/role_restricted/gorillacubes
 	name = "Box of Gorilla Cubes"
@@ -1980,7 +1980,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Caution: Product may rehydrate when exposed to water."
 	item = /obj/item/storage/box/gorillacubes
 	cost = 6
-	restricted_roles = list(JOB_NAME_GENETICIST, JOB_NAME_CHIEFMEDICALOFFICER)
+	restricted_roles = list(JOB_KEY_GENETICIST, JOB_KEY_CHIEFMEDICALOFFICER)
 
 /datum/uplink_item/role_restricted/rad_laser
 	name = "Radioactive Microlaser"
@@ -1989,28 +1989,28 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			of humanoids. It has two settings: intensity, which controls the power of the radiation, \
 			and wavelength, which controls the delay before the effect kicks in."
 	item = /obj/item/healthanalyzer/rad_laser
-	restricted_roles = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_ROBOTICIST, JOB_NAME_PARAMEDIC, JOB_NAME_BRIGPHYSICIAN)
+	restricted_roles = list(JOB_KEY_MEDICALDOCTOR, JOB_KEY_CHIEFMEDICALOFFICER, JOB_KEY_ROBOTICIST, JOB_KEY_PARAMEDIC, JOB_KEY_BRIGPHYSICIAN)
 	cost = 3
 
 /datum/uplink_item/role_restricted/syndicate_mmi
 	name = "Syndicate MMI"
 	desc = "An MMI which autmatically applies the Syndimov laws to any borg it is placed in. Great for adding known allies to assist you with a little more stealth than a fully emagged borg."
 	item = /obj/item/mmi/syndie
-	restricted_roles = list(JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
+	restricted_roles = list(JOB_KEY_ROBOTICIST, JOB_KEY_RESEARCHDIRECTOR)
 	cost = 2
 
 /datum/uplink_item/role_restricted/upgrade_wand
 	name = "Upgrade Wand"
 	desc = "A powerful, single-use wand containing nanomachines that will calibrate the high-tech gadgets commonly employed by magicians to nearly double their potential."
 	item = /obj/item/upgradewand
-	restricted_roles = list(JOB_NAME_STAGEMAGICIAN)
+	restricted_roles = list(JOB_KEY_STAGEMAGICIAN)
 	cost = 5
 
 /datum/uplink_item/role_restricted/floorpill_bottle
 	name = "Bottle of Mystery Pills"
 	desc = "We found these lying around Warehouse R1O-GN, which was decommissioned years ago. We were going to throw them out but we heard you might be interested in them."
 	item = /obj/item/storage/pill_bottle/floorpill/full
-	restricted_roles = list(JOB_NAME_ASSISTANT)
+	restricted_roles = list(JOB_KEY_ASSISTANT)
 	cost = 2
 
 /datum/uplink_item/role_restricted/clown_bomb
@@ -2022,7 +2022,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			be defused, and some crew may attempt to do so."
 	item = /obj/item/sbeacondrop/clownbomb
 	cost = 10
-	restricted_roles = list(JOB_NAME_CLOWN)
+	restricted_roles = list(JOB_KEY_CLOWN)
 
 /datum/uplink_item/role_restricted/clown_grenade
 	name = "C.L.U.W.N.E"
@@ -2030,7 +2030,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			It will only attack if attacked first, and is not loyal to you, so be careful!"
 	item = /obj/item/grenade/spawnergrenade/clown
 	cost = 3
-	restricted_roles = list(JOB_NAME_CLOWN)
+	restricted_roles = list(JOB_KEY_CLOWN)
 
 
 /datum/uplink_item/role_restricted/clown_grenade_broken
@@ -2040,7 +2040,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			This one is stuffed to the brim with extra clown action! use with caution!"
 	item = /obj/item/grenade/spawnergrenade/clown_broken
 	cost = 5
-	restricted_roles = list(JOB_NAME_CLOWN)
+	restricted_roles = list(JOB_KEY_CLOWN)
 
 
 /datum/uplink_item/role_restricted/spider_injector
@@ -2051,7 +2051,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			also give them a bit of sentience though."
 	item = /obj/item/reagent_containers/syringe/spider_extract
 	cost = 10
-	restricted_roles = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST)
+	restricted_roles = list(JOB_KEY_RESEARCHDIRECTOR, JOB_KEY_SCIENTIST, JOB_KEY_ROBOTICIST)
 
 /datum/uplink_item/role_restricted/clowncar
 	name = "Clown Car"
@@ -2063,7 +2063,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Premium features can be unlocked with a cryptographic sequencer!"
 	item = /obj/vehicle/sealed/car/clowncar
 	cost = 20
-	restricted_roles = list(JOB_NAME_CLOWN)
+	restricted_roles = list(JOB_KEY_CLOWN)
 	purchasable_from = ~UPLINK_INCURSION
 
 /datum/uplink_item/role_restricted/taeclowndo_shoes
@@ -2071,7 +2071,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A pair of shoes for the most elite agents of the honkmotherland. They grant the mastery of taeclowndo with some honk-fu moves as long as they're worn."
 	cost = 12
 	item = /obj/item/clothing/shoes/clown_shoes/taeclowndo
-	restricted_roles = list(JOB_NAME_CLOWN)
+	restricted_roles = list(JOB_KEY_CLOWN)
 
 /datum/uplink_item/role_restricted/superior_honkrender
 	name = "Superior Honkrender"
@@ -2079,7 +2079,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/veilrender/honkrender
 	cost = 8
 	restricted = TRUE
-	restricted_roles = list(JOB_NAME_CLOWN, JOB_NAME_CHAPLAIN)
+	restricted_roles = list(JOB_KEY_CLOWN, JOB_KEY_CHAPLAIN)
 
 /datum/uplink_item/role_restricted/superior_honkrender
 	name = "Superior Honkrender"
@@ -2088,7 +2088,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/veilrender/honkrender/honkhulkrender
 	cost = 20
 	restricted = TRUE
-	restricted_roles = list(JOB_NAME_CLOWN, JOB_NAME_CHAPLAIN)
+	restricted_roles = list(JOB_KEY_CLOWN, JOB_KEY_CHAPLAIN)
 
 /datum/uplink_item/role_restricted/concealed_weapon_bay
 	name = "Concealed Weapon Bay"
@@ -2097,7 +2097,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Only one can fit on a mecha."
 	item = /obj/item/mecha_parts/concealed_weapon_bay
 	cost = 3
-	restricted_roles = list(JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
+	restricted_roles = list(JOB_KEY_ROBOTICIST, JOB_KEY_RESEARCHDIRECTOR)
 
 /datum/uplink_item/role_restricted/haunted_magic_eightball
 	name = "Haunted Magic Eightball"
@@ -2105,7 +2105,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Be warned, that spirits are often capricious or just little assholes. To use, simply speak your question aloud, then begin shaking."
 	item = /obj/item/toy/eightball/haunted
 	cost = 2
-	restricted_roles = list(JOB_NAME_CURATOR)
+	restricted_roles = list(JOB_KEY_CURATOR)
 	limited_stock = 1 //please don't spam deadchat
 
 /datum/uplink_item/role_restricted/voodoo
@@ -2113,14 +2113,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A wicker voodoo doll with a cavity for storing a small item. Once an item has been stored within it, the doll may be used to manipulate the actions of another person that has previously been in contact with the stored item."
 	item = /obj/item/voodoo
 	cost = 12
-	restricted_roles = list(JOB_NAME_CURATOR, JOB_NAME_STAGEMAGICIAN)
+	restricted_roles = list(JOB_KEY_CURATOR, JOB_KEY_STAGEMAGICIAN)
 
 /datum/uplink_item/role_restricted/prison_cube
 	name = "Prison Cube"
 	desc = "A very strange artifact recovered from a volcanic planet that is useful for keeping people locked away, but not very useful for keeping their disappearance unknown"
 	item = /obj/item/prisoncube
 	cost = 6
-	restricted_roles = list(JOB_NAME_CURATOR)
+	restricted_roles = list(JOB_KEY_CURATOR)
 
 /datum/uplink_item/role_restricted/his_grace
 	name = "His Grace"
@@ -2130,7 +2130,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	To activate His Grace, simply unlatch Him."
 	item = /obj/item/his_grace
 	cost = 20
-	restricted_roles = list(JOB_NAME_CHAPLAIN)
+	restricted_roles = list(JOB_KEY_CHAPLAIN)
 	murderbone_type = TRUE
 	surplus = 0
 
@@ -2139,7 +2139,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Recovered from an abandoned Nar'sie cult lair two construct shells and a stash of empty soulstones was found. These were purified to prevent occult contamination and have been put in a belt so they may be used as an accessible source of disposable minions. The construct shells have been packaged into two beacons for rapid and portable deployment."
 	item = /obj/item/storage/box/syndie_kit/cultconstructkit
 	cost = 20
-	restricted_roles = list(JOB_NAME_CHAPLAIN)
+	restricted_roles = list(JOB_KEY_CHAPLAIN)
 
 /datum/uplink_item/role_restricted/spanish_flu
 	name = "Spanish Flu Culture"
@@ -2147,7 +2147,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			At least. thats what the label says"
 	item = /obj/item/reagent_containers/glass/bottle/fluspanish
 	cost = 14
-	restricted_roles = list(JOB_NAME_CHAPLAIN, JOB_NAME_VIROLOGIST)
+	restricted_roles = list(JOB_KEY_CHAPLAIN, JOB_KEY_VIROLOGIST)
 
 /datum/uplink_item/role_restricted/retrovirus
 	name = "Retrovirus Culture Bottle"
@@ -2155,14 +2155,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			At least, that's what the label says."
 	item = /obj/item/reagent_containers/glass/bottle/retrovirus
 	cost = 14
-	restricted_roles = list(JOB_NAME_VIROLOGIST, JOB_NAME_GENETICIST)
+	restricted_roles = list(JOB_KEY_VIROLOGIST, JOB_KEY_GENETICIST)
 
 /datum/uplink_item/role_restricted/random_disease
 	name = "Experimental Disease"
 	desc = "A random disease. Maybe you'll get lucky with another level nine."
 	item = /obj/item/reagent_containers/glass/bottle/random_virus
 	cost = 5
-	restricted_roles = list(JOB_NAME_VIROLOGIST)
+	restricted_roles = list(JOB_KEY_VIROLOGIST)
 	surplus = 20
 
 /datum/uplink_item/role_restricted/anxiety
@@ -2171,7 +2171,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			At least, that's what the label says"
 	item = /obj/item/reagent_containers/glass/bottle/anxiety
 	cost = 4
-	restricted_roles = list(JOB_NAME_VIROLOGIST)
+	restricted_roles = list(JOB_KEY_VIROLOGIST)
 
 /datum/uplink_item/role_restricted/explosive_hot_potato
 	name = "Exploding Hot Potato"
@@ -2180,7 +2180,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/hot_potato/syndicate
 	cost = 3
 	surplus = 0
-	restricted_roles = list(JOB_NAME_COOK, JOB_NAME_BOTANIST, JOB_NAME_CLOWN, JOB_NAME_MIME)
+	restricted_roles = list(JOB_KEY_COOK, JOB_KEY_BOTANIST, JOB_KEY_CLOWN, JOB_KEY_MIME)
 
 /datum/uplink_item/role_restricted/echainsaw
 	name = "Energy Chainsaw"
@@ -2188,7 +2188,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/chainsaw/energy
 	cost = 10
 	player_minimum = 25
-	restricted_roles = list(JOB_NAME_BOTANIST, JOB_NAME_COOK, JOB_NAME_BARTENDER)
+	restricted_roles = list(JOB_KEY_BOTANIST, JOB_KEY_COOK, JOB_KEY_BARTENDER)
 
 /datum/uplink_item/role_restricted/holocarp
 	name = "Holocarp Parasites"
@@ -2200,7 +2200,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	player_minimum = 25
 	restricted = TRUE
-	restricted_roles = list(JOB_NAME_COOK, JOB_NAME_CHAPLAIN)
+	restricted_roles = list(JOB_KEY_COOK, JOB_KEY_CHAPLAIN)
 
 /datum/uplink_item/role_restricted/ez_clean_bundle
 	name = "EZ Clean Grenade Bundle"
@@ -2209,7 +2209,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/ez_clean
 	cost = 6
 	surplus = 20
-	restricted_roles = list(JOB_NAME_JANITOR)
+	restricted_roles = list(JOB_KEY_JANITOR)
 
 /datum/uplink_item/role_restricted/mimery
 	name = "Guide to Advanced Mimery Series"
@@ -2217,7 +2217,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Obviously only works for Mimes."
 	cost = 11
 	item = /obj/item/storage/box/syndie_kit/mimery
-	restricted_roles = list(JOB_NAME_MIME)
+	restricted_roles = list(JOB_KEY_MIME)
 	surplus = 0
 
 /datum/uplink_item/role_restricted/mimesabrekit
@@ -2225,7 +2225,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A very stealthy blade located inside an even stealthier baguette-shaped sheath."
 	cost = 	12
 	item = /obj/item/storage/box/syndie_kit/mimesabrekit
-	restricted_roles = list(JOB_NAME_MIME)
+	restricted_roles = list(JOB_KEY_MIME)
 	surplus = 5
 
 /datum/uplink_item/role_restricted/pressure_mod
@@ -2235,7 +2235,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/borg/upgrade/modkit/indoors
 	cost = 5 //you need one for full damage, so total of 5 for maximum damage
 	limited_stock = 1 //you can't use more than one!
-	restricted_roles = list(JOB_NAME_SHAFTMINER)
+	restricted_roles = list(JOB_KEY_SHAFTMINER)
 
 /datum/uplink_item/role_restricted/esaw
 	name = "Energy Saw"
@@ -2249,7 +2249,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An implant that grants you a deadly energy saw inside your arm. Comes with a syndicate autosurgeon for immediate self-application."
 	cost = 8
 	item = /obj/item/autosurgeon/syndicate/esaw_arm
-	restricted_roles = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_PARAMEDIC, JOB_NAME_BRIGPHYSICIAN)
+	restricted_roles = list(JOB_KEY_MEDICALDOCTOR, JOB_KEY_CHIEFMEDICALOFFICER, JOB_KEY_PARAMEDIC, JOB_KEY_BRIGPHYSICIAN)
 
 /datum/uplink_item/role_restricted/magillitis_serum
 	name = "Magillitis Serum Autoinjector"
@@ -2257,21 +2257,21 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
 	item = /obj/item/reagent_containers/hypospray/medipen/magillitis
 	cost = 15
-	restricted_roles = list(JOB_NAME_GENETICIST, JOB_NAME_CHIEFMEDICALOFFICER)
+	restricted_roles = list(JOB_KEY_GENETICIST, JOB_KEY_CHIEFMEDICALOFFICER)
 
 /datum/uplink_item/role_restricted/modified_syringe_gun
 	name = "Modified Syringe Gun"
 	desc = "A syringe gun that fires DNA injectors instead of normal syringes."
 	item = /obj/item/gun/syringe/dna
 	cost = 14
-	restricted_roles = list(JOB_NAME_GENETICIST, JOB_NAME_CHIEFMEDICALOFFICER)
+	restricted_roles = list(JOB_KEY_GENETICIST, JOB_KEY_CHIEFMEDICALOFFICER)
 
 /datum/uplink_item/role_restricted/chemical_gun
 	name = "Reagent Dartgun"
 	desc = "A heavily modified syringe gun which is capable of synthesizing its own chemical darts using input reagents. Can hold 100u of reagents."
 	item = /obj/item/gun/chem
 	cost = 12
-	restricted_roles = list(JOB_NAME_CHEMIST, JOB_NAME_CHIEFMEDICALOFFICER)
+	restricted_roles = list(JOB_KEY_CHEMIST, JOB_KEY_CHIEFMEDICALOFFICER)
 
 /datum/uplink_item/role_restricted/reverse_bear_trap
 	name = "Reverse Bear Trap"
@@ -2280,7 +2280,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	head after three seconds uninterrupted."
 	cost = 4
 	item = /obj/item/reverse_bear_trap
-	restricted_roles = list(JOB_NAME_CLOWN)
+	restricted_roles = list(JOB_KEY_CLOWN)
 
 /datum/uplink_item/role_restricted/reverse_revolver
 	name = "Reverse Revolver"
@@ -2288,14 +2288,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	The revolver itself is actually real. Only clumsy people, and clowns, can fire it normally. Comes in a box of hugs. Honk."
 	cost = 13
 	item = /obj/item/storage/box/hug/reverse_revolver
-	restricted_roles = list(JOB_NAME_CLOWN)
+	restricted_roles = list(JOB_KEY_CLOWN)
 
 /datum/uplink_item/role_restricted/laser_arm
 	name = "Laser Arm Implant"
 	desc = "An implant that grants you a recharging laser gun inside your arm. Weak to EMPs. Comes with a syndicate autosurgeon for immediate self-application."
 	cost = 12
 	item = /obj/item/autosurgeon/syndicate/laser_arm
-	restricted_roles = list(JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
+	restricted_roles = list(JOB_KEY_ROBOTICIST, JOB_KEY_RESEARCHDIRECTOR)
 
 
 // Pointless
