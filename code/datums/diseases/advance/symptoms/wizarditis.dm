@@ -18,17 +18,17 @@
 
 /datum/symptom/wizarditis/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= 8)
+	if(A.transmission >= disease_wizarditis_transmission)
 		severity += 1
-	if(A.stage_rate >= 7)
+	if(A.stage_rate >= disease_wizarditis_stage_speed)
 		severity += 1
 
 /datum/symptom/wizarditis/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= 8)
+	if(A.transmission >= disease_wizarditis_transmission)
 		teleport = TRUE
-	if(A.stage_rate >= 7)
+	if(A.stage_rate >= disease_wizarditis_stage_speed)
 		robes = TRUE
 
 /datum/symptom/wizarditis/Activate(datum/disease/advance/A)
@@ -109,5 +109,9 @@
 		if(istype(H.shoes, /obj/item/clothing/shoes/sandal))
 			REMOVE_TRAIT(H.shoes, TRAIT_NODROP, DISEASE_TRAIT)
 
-
-
+/datum/symptom/wizarditis/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Transmission [disease_wizarditis_transmission]:</b> The host teleports occasionally.<br>\
+					  <b>Stage Speed [disease_wizarditis_stage_speed]:</b> The host grows a set of wizard robes."
+	return threshold_desc
