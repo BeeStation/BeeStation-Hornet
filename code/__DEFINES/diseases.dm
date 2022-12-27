@@ -167,3 +167,9 @@ var/disease_macrophage_transmission1 = rand(9,11)
 var/disease_macrophage_transmission2 = rand(12,13)
 
 var/disease_meme_transmission = rand(13,15)
+
+var/disease_nano_boost_transmission = rand(3,7)
+var/disease_nano_boost_stage_speed = rand(5,9)
+
+var/disease_nano_destroy_stage_speed = rand(3,7)
+var/disease_nano_destroy_resistance = rand(5,9)

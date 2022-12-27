@@ -18,9 +18,9 @@
 /datum/symptom/nano_boost/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= 5) //reverse boost
+	if(A.transmission >= disease_nano_boost_transmission) //reverse boost
 		reverse_boost = TRUE
-	if(A.stage_rate >= 7) //more nanites
+	if(A.stage_rate >= disease_nano_boost_stage_speed) //more nanites
 		power = 2
 
 /datum/symptom/nano_boost/Activate(datum/disease/advance/A)
@@ -38,6 +38,13 @@
 				NP.software_error(rand(3, 4)) //activate, deactivate, or trigger the nanites
 	if(A.stage >= 4)
 		M.heal_overall_damage((0.5 * power), (0.5 * power), required_status = BODYTYPE_ROBOTIC)
+
+/datum/symptom/nano_boost/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Transmission [disease_nano_boost_transmission]:</b> Increases the virus' growth rate while nanites are present.<br>\
+					  <b>Stage Speed [disease_nano_boost_stage_speed]:</b> Increases the replication boost."
+	return threshold_desc
 
 /datum/symptom/nano_destroy
 	name = "Silicolysis"
@@ -59,9 +66,9 @@
 /datum/symptom/nano_destroy/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= 5) //reverse boost
+	if(A.stage_rate >= disease_nano_destroy_stage_speed) //reverse boost
 		reverse_boost = TRUE
-	if(A.resistance >= 7) //more nanites
+	if(A.resistance >= disease_nano_destroy_resistance) //more nanites
 		power = 3
 
 /datum/symptom/nano_destroy/Activate(datum/disease/advance/A)
@@ -81,3 +88,10 @@
 				NP.software_error()
 	if(A.stage >= 4)
 		M.take_overall_damage((1 * power), required_status = BODYTYPE_ROBOTIC)
+
+/datum/symptom/nano_destroy/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Stage Speed [disease_nano_destroy_stage_speed]:</b> Increases the virus' growth rate while nanites are present.<br>\
+					  <b>Resistance [disease_nano_destroy_resistance]:</b> Severely increases the rate at which the nanites are destroyed."
+	return threshold_desc
