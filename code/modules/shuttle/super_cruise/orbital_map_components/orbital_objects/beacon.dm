@@ -94,7 +94,8 @@
 	var/datum/map_generator/space_ruin/assigned_ruin = SSruin_generator.get_ruin()
 	linked_z_level = list(assigned_ruin.created_space_level)
 	SSorbits.assoc_z_levels["[assigned_ruin.created_space_level.z_value]"] = src
-	SSorbits.ruin_events += ruin_event
+	if (ruin_event)
+		SSorbits.ruin_events += ruin_event
 	//Place the objective shit
 	//Generate objective stuff
 	if(linked_objective)

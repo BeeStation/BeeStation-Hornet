@@ -118,22 +118,9 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		//Update UIs
 		for(var/datum/tgui/tgui as() in open_orbital_maps)
 			tgui.send_update()
-	//Check creating objectives / missions.
-	if(next_objective_time < world.time && length(possible_objectives) < 6)
-		create_objective()
-		next_objective_time = world.time + rand(30 SECONDS, 5 MINUTES)
-	//Check space ruin count
-	if(ruin_levels < 2 && prob(5))
-		new /datum/orbital_object/z_linked/beacon/ruin/spaceruin()
-	//Check objective
-	if(current_objective)
-		if(current_objective.check_failed())
-			priority_announce("Central Command priority objective failed.", "Central Command Report", SSstation.announcer.get_rand_report_sound())
-			QDEL_NULL(current_objective)
-	//Process events
-	for(var/datum/ruin_event/ruin_event as() in ruin_events)
-		if(!ruin_event.update())
-			qdel(ruin_events)
+	update_ruins()
+	update_objectives()
+	update_events()
 	//Do processing.
 	if(!resumed)
 		. = ..()
@@ -142,6 +129,28 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		//Update UIs
 		for(var/datum/tgui/tgui as() in open_orbital_maps)
 			tgui.send_update()
+
+/datum/controller/subsystem/processing/orbits/proc/update_ruins()
+	//Check space ruin count
+	if(ruin_levels < 2 && prob(5))
+		new /datum/orbital_object/z_linked/beacon/ruin/spaceruin()
+
+/datum/controller/subsystem/processing/orbits/proc/update_objectives()
+	//Check creating objectives / missions.
+	if(next_objective_time < world.time && length(possible_objectives) < 6)
+		create_objective()
+		next_objective_time = world.time + rand(30 SECONDS, 5 MINUTES)
+	//Check objective
+	if(current_objective)
+		if(current_objective.check_failed())
+			priority_announce("Central Command priority objective failed.", "Central Command Report", SSstation.announcer.get_rand_report_sound())
+			QDEL_NULL(current_objective)
+
+/datum/controller/subsystem/processing/orbits/proc/update_events()
+	//Process events
+	for(var/datum/ruin_event/ruin_event as() in ruin_events)
+		if(!ruin_event.update())
+			qdel(ruin_events)
 
 /mob/dead/observer/verb/open_orbit_ui()
 	set name = "View Orbits"
