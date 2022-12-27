@@ -213,3 +213,5 @@ var/disease_spiked_resistance = rand(4,8)
 
 var/disease_pustule_transmission1 = rand(3,5)
 var/disease_pustule_transmission2 = rand(6,7)
+
+var/disease_viralreverse_stealth = rand(3,5)

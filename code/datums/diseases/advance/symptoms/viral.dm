@@ -29,6 +29,12 @@ BONUS
 /datum/symptom/viraladaptation/OnRemove(datum/disease/advance/A)
 	A.mutability += 0.5
 
+/datum/symptom/viraladaptation/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = ""
+	return threshold_desc
+
 /*
 //////////////////////////////////////
 Viral evolution
@@ -60,6 +66,12 @@ BONUS
 
 /datum/symptom/viralevolution/OnRemove(datum/disease/advance/A)
 	A.mutability -= 1
+
+/datum/symptom/viralevolution/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = ""
+	return threshold_desc
 
 /*
 //////////////////////////////////////
@@ -94,7 +106,7 @@ Bonus
 	prefixes = list("Spontaneous ")
 	var/time_to_cure
 	threshold_desc = "<b>Resistance/Stage Speed:</b> Highest between these determines the amount of time before self-curing.<br>\
-					  <b>Stealth 4</b> Doubles the time before the virus self-cures"
+					  <b>Stealth 4:</b> Doubles the time before the virus self-cures"
 
 
 /datum/symptom/viralreverse/Activate(datum/disease/advance/A)
@@ -116,9 +128,16 @@ Bonus
 	if(!..())
 		return
 	A.stage = 5
-	if(A.stealth >= 4) //more time before it's cured
+	if(A.stealth >= disease_viralreverse_stealth) //more time before it's cured
 		power = 2
 	time_to_cure = max(A.resistance, A.stage_rate) * 10 * power
+
+/datum/symptom/viralreverse/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Resistance/Stage Speed:</b> Highest between these determines the amount of time before self-curing.<br>\
+					  <b>Stealth [disease_viralreverse_stealth]:</b> Doubles the time before the virus self-cures"
+	return threshold_desc
 
 /*
 //////////////////////////////////////
@@ -170,6 +189,11 @@ Bonus
 			captives += S
 		used = TRUE
 	
+/datum/symptom/viralincubate/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = ""
+	return threshold_desc
 
 /*
 //////////////////////////////////////
@@ -238,3 +262,9 @@ Bonus
 			S.power -= 1
 			powerbudget += 1
 
+/datum/symptom/viralpower/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Transmission 8:</b> Constantly scrambles the power of all unneutered symptoms.<br>\
+					  <b>Stage Speed 8</b> Doubles the power boost"
+	return threshold_desc
