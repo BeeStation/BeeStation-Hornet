@@ -24,19 +24,19 @@
 
 /datum/symptom/necroseed/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= 8)
+	if(A.stealth >= disease_necroseed_stealth)
 		severity += 2
-	if(A.resistance >= 20)
+	if(A.resistance >= disease_necroseed_resistance2)
 		severity -= 1
 
 /datum/symptom/necroseed/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= 15)
+	if(A.resistance >= disease_necroseed_resistance1)
 		tendrils = TRUE
-		if(A.resistance >= 20)
+		if(A.resistance >= disease_necroseed_resistance2)
 			fireproof = TRUE
-	if(A.stealth >= 8)
+	if(A.stealth >= disease_necroseed_stealth)
 		chest = TRUE
 
 
@@ -137,3 +137,11 @@
 	else
 		deltimer(timerid)
 		timerid = addtimer(CALLBACK(src, .proc/retract), 10, TIMER_STOPPABLE)
+
+/datum/symptom/necroseed/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Stealth [disease_necroseed_stealth]:</b> Upon death, the host's soul will solidify into an unholy artifact, rendering them utterly unrevivable in the process.<br>\
+					  <b>Resistance [disease_necroseed_resistance1]:</b> The area near the host roils with paralyzing tendrils.<br>\
+					  <b>Resistance [disease_necroseed_resistance2]:</b>	Host becomes immune to heat, ash, and lava"
+	return threshold_desc

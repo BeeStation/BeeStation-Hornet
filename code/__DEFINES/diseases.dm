@@ -176,3 +176,7 @@ var/disease_nano_destroy_resistance = rand(5,9)
 
 var/disease_narcolepsy_transmission = rand(5,9)
 var/disease_narcolepsy_resistance = rand(8,12)
+
+var/disease_necroseed_stealth = rand(7,9)
+var/disease_necroseed_resistance1 = rand(13,17)
+var/disease_necroseed_resistance2 = rand(19,21)
