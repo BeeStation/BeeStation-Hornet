@@ -35,15 +35,15 @@ Bonus
 
 /datum/symptom/deafness/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= 9)
+	if(A.resistance >= disease_deafness_resistance)
 		severity += 1
 
 /datum/symptom/deafness/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= 4)
+	if(A.stealth >= disease_deafness_stealth)
 		suppress_warning = TRUE
-	if(A.resistance >= 9) //permanent deafness
+	if(A.resistance >= disease_deafness_resistance) //permanent deafness
 		power = 2
 
 /datum/symptom/deafness/Activate(datum/disease/advance/A)
@@ -64,3 +64,10 @@ Bonus
 			else
 				to_chat(M, "<span class='userdanger'>Your ears pop and begin ringing loudly!</span>")
 				M.minimumDeafTicks(20)
+
+/datum/symptom/deafness/Threshold(datum/disease/advance/A)
+	if(!..())
+		return
+	threshold_desc = "<b>Resistance [disease_deafness_resistance]:</b> Causes permanent deafness, instead of intermittent.<br>\
+					  <b>Stealth [disease_deafness_stealth]:</b> The symptom remains hidden until active."
+	return threshold_desc
