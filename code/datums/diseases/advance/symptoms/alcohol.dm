@@ -35,7 +35,7 @@
 	var/mob/living/carbon/M = A.affected_mob
 	var/list/warningstrings = list()
 	switch(A.stage + severity)
-		if(4 to 5)
+		if(-5 to 5)
 			warningstrings = list("You feel buzzed", "You feel a bit tipsy")
 		if(6 to 7)
 			warningstrings = list("You feel drunk", "You feel a bit woozy")
