@@ -777,7 +777,7 @@ const TechNode = (props, context) => {
           {
             (node_tier > tech_tier+1) && (
               <Tooltip
-                content={"Researching this node will cost additional discovery points. Please research more tier "+(tier+1)+" technology nodes first."}>
+                content={"Researching this node will cost additional discovery points. Please research more tier "+(tech_tier+1)+" technology nodes first."}>
                 <Icon style={{ 'margin-left': '3px' }} mr={1} name="exclamation-triangle" color="yellow" />
               </Tooltip>
             )
