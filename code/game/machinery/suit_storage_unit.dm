@@ -9,7 +9,7 @@
 	power_channel = AREA_USAGE_EQUIP
 	density = TRUE
 	max_integrity = 250
-
+	circuit = /obj/item/circuitboard/machine/suit_storage_unit
 
 
 	var/obj/item/clothing/suit/space/suit = null
@@ -144,6 +144,7 @@
 
 /obj/machinery/suit_storage_unit/Initialize(mapload)
 	. = ..()
+	//circuit.apply_default_parts(src)
 	wires = new /datum/wires/suit_storage_unit(src)
 	if(suit_type)
 		suit = new suit_type(src)
@@ -199,6 +200,12 @@
 	storage = null
 	occupant = null
 
+/obj/machinery/suit_storage_unit/proc/is_empty()
+	var empty = FALSE
+	if(isnull(helmet) && isnull(suit) && isnull(mask) && isnull(storage) && isnull(occupant))
+		empty = TRUE
+	return empty
+
 /obj/machinery/suit_storage_unit/emp_act()
 	. = ..()
 	uv_super = !uv_super
@@ -213,7 +220,10 @@
 	if(!(flags_1 & NODECONSTRUCT_1))
 		open_machine()
 		dump_contents()
-		new /obj/item/stack/sheet/iron (loc, 2)
+		spawn_frame(disassembled)
+		for(var/obj/item/I in component_parts)
+			I.forceMove(loc)
+			component_parts.Cut()
 	qdel(src)
 
 /obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/living/user)
@@ -417,6 +427,9 @@
 		if(default_deconstruction_screwdriver(user, "panel", "close", I))
 			ui_update() // Wires might've changed availability of decontaminate button
 			return
+		if(is_empty())
+			if(default_deconstruction_crowbar(I))
+				return
 	if(default_pry_open(I))
 		dump_contents()
 		return
