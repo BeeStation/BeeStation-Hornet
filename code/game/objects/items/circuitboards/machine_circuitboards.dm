@@ -398,6 +398,14 @@
 	. = ..()
 	. += "<span class='notice'>It is set to layer [pipe_layer].</span>"
 
+/obj/item/circuitboard/machine/suit_storage_unit
+	name = "Suit Storage Unit (Machine Board)"
+	icon_state = "generic"
+	build_path = /obj/machinery/suit_storage_unit/
+	req_components = list(
+		/obj/item/assembly/igniter = 1,
+		/obj/item/stack/cable_coil = 2)
+
 //Generic
 
 
@@ -607,13 +615,6 @@
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/vending_refill/donksoft = 1)
 
-/obj/item/circuitboard/machine/suit_storage_unit
-	name = "Suit Storage Unit (Machine Board)"
-	icon_state = "generic"
-	build_path = /obj/machinery/suit_storage_unit/
-	req_components = list(
-		/obj/item/assembly/igniter = 1,
-		/obj/item/stack/cable_coil = 2)
 
 
 //Medical
