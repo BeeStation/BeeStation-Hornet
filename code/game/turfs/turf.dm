@@ -560,7 +560,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	for(var/thing in contents)
 		var/atom/atom_thing = thing
 		if(!QDELETED(atom_thing) && atom_thing.level >= affecting_level)
-			if(ismovableatom(atom_thing))
+			if(ismovable(atom_thing))
 				var/atom/movable/movable_thing = atom_thing
 				if(!movable_thing.ex_check(explosion_id))
 					continue

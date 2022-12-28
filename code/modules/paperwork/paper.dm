@@ -26,6 +26,8 @@
 	custom_fire_overlay = "paper_onfire_overlay"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
+	drop_sound = 'sound/items/handling/paper_drop.ogg'
+	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
 	throw_range = 1
 	throw_speed = 1
 	pressure_resistance = 0
