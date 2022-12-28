@@ -37,97 +37,89 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	GLOB.cryopod_computers -= src
 	..()
 
-/obj/machinery/computer/cryopod/attack_ai()
-	attack_hand()
+/obj/machinery/computer/cryopod/update_icon_state()
+	if(machine_stat & (NOPOWER|BROKEN))
+		icon_state = "cellconsole"
+		return ..()
+	icon_state = "cellconsole_1"
+	return ..()
 
-/obj/machinery/computer/cryopod/attack_hand(mob/user = usr)
+/obj/machinery/computer/cryopod/ui_interact(mob/user, datum/tgui/ui)
 	if(machine_stat & (NOPOWER|BROKEN))
 		return
 
-	user.set_machine(src)
 	add_fingerprint(user)
 
-	var/dat
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "CryopodConsole", name)
+		ui.open()
 
-	dat += "<hr/><br/><b>[storage_name]</b><br/>"
-	dat += "<i>Welcome, [user.real_name].</i><br/><br/><hr/>"
-	dat += "<a href='?src=[REF(src)];log=1'>View storage log</a>.<br>"
+/obj/machinery/computer/cryopod/ui_data(mob/user)
+	var/list/data = list()
+	data["allow_items"] = allow_items
+	data["frozen_crew"] = frozen_crew
+	data["frozen_items"] = list()
+
 	if(allow_items)
-		dat += "<a href='?src=[REF(src)];view=1'>View objects</a>.<br>"
-		dat += "<a href='?src=[REF(src)];item=1'>Recover object</a>.<br>"
-		dat += "<a href='?src=[REF(src)];allitems=1'>Recover all objects</a>.<br>"
+		data["frozen_items"] = frozen_items
 
-	user << browse(dat, "window=cryopod_console")
-	onclose(user, "cryopod_console")
+	var/obj/item/card/id/id_card
+	var/datum/bank_account/current_user
+	if(isliving(user))
+		var/mob/living/person = user
+		id_card = person.get_idcard()
+	if(id_card?.registered_account)
+		current_user = id_card.registered_account
+	if(current_user)
+		data["account_name"] = current_user.account_holder
 
-/obj/machinery/computer/cryopod/Topic(href, href_list)
-	if(..())
-		return 1
+	return data
+
+/obj/machinery/computer/cryopod/ui_act(action, params)
+	. = ..()
+	if(.)
+		return
 
 	var/mob/user = usr
 
 	add_fingerprint(user)
 
-	if(href_list["log"])
+	switch(action)
+		if("one_item")
+			if(!allowed(user))
+				to_chat(user, "<span class='warning'>Access Denied.</span>")
+				return
 
-		var/dat = "<b>Recently stored [storage_type]</b><br/><hr/><br/>"
-		for(var/person in frozen_crew)
-			dat += "[person]<br/>"
-		dat += "<hr/>"
+			if(!allow_items) return
 
-		user << browse(dat, "window=cryolog")
+			if(!params["item"])
+				return
 
-	if(href_list["view"])
-		if(!allow_items) return
+			var/obj/item/item = frozen_items[text2num(params["item"])]
+			if(!item)
+				to_chat(user, "<span class='notice'>[item] is no longer in storage.</span>")
+				return
 
-		var/dat = "<b>Recently stored objects</b><br/><hr/><br/>"
-		for(var/obj/item/I in frozen_items)
-			dat += "[I.name]<br/>"
-		dat += "<hr/>"
+			visible_message("<span class='notice'>[src] beeps happily as it disgorges [item].</span>")
+			item.forceMove(get_turf(src))
+			frozen_items -= item
 
-		user << browse(dat, "window=cryoitems")
+		if("all_items")
+			if(!allowed(user))
+				to_chat(user, "<span class='warning'>Access Denied.</span>")
+				return
 
-	else if(href_list["item"])
-		if(!allowed(user))
-			to_chat(user, "<span class='warning'>Access Denied.</span>")
-			return
-		if(!allow_items) return
+			if(!allow_items) return
 
-		if(frozen_items.len == 0)
-			to_chat(user, "<span class='notice'>There is nothing to recover from storage.</span>")
-			return
+			visible_message("<span class='notice'>[src] beeps happily as it disgorges the desired objects.</span>")
 
-		var/obj/item/I = input(user, "Please choose which object to retrieve.","Object recovery",null) as null|anything in frozen_items
-		if(!I)
-			return
+			for(var/obj/item/item in frozen_items)
+				item.forceMove(get_turf(src))
+				frozen_items -= item
 
-		if(!(I in frozen_items))
-			to_chat(user, "<span class='notice'>\The [I] is no longer in storage.</span>")
-			return
+	return TRUE
 
-		visible_message("<span class='notice'>The console beeps happily as it disgorges \the [I].</span>")
-
-		I.forceMove(get_turf(src))
-		frozen_items -= I
-
-	else if(href_list["allitems"])
-		if(!allowed(user))
-			to_chat(user, "<span class='warning'>Access Denied.</span>")
-			return
-		if(!allow_items) return
-
-		if(frozen_items.len == 0)
-			to_chat(user, "<span class='notice'>There is nothing to recover from storage.</span>")
-			return
-
-		visible_message("<span class='notice'>The console beeps happily as it disgorges the desired objects.</span>")
-
-		for(var/obj/item/I in frozen_items)
-			I.forceMove(get_turf(src))
-			frozen_items -= I
-
-	updateUsrDialog()
-	return
 /* Should more cryos be buildable?
     /obj/item/circuitboard/cryopodcontrol
 	name = "Circuit board (Cryogenic Oversight Console)"
@@ -256,11 +248,17 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 // This function can not be undone; do not call this unless you are sure
 /obj/machinery/cryopod/proc/despawn_occupant()
 	var/mob/living/mob_occupant = occupant
+	var/list/crew_member = list()
+
+	crew_member["name"] = mob_occupant.real_name
 
 	if(mob_occupant.mind && mob_occupant.mind.assigned_role)
 		//Handle job slot/tater cleanup.
 		var/job = mob_occupant.mind.assigned_role
+		crew_member["job"] = job
 		SSjob.FreeRole(job)
+	else
+		crew_member["job"] = "N/A"
 
 	// Delete them from datacore.
 
@@ -286,7 +284,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	if(!control_computer)
 		control_computer_weakref = null
 	else
-		control_computer.frozen_crew += "[mob_occupant.real_name]"
+		control_computer.frozen_crew += list(crew_member)
 
 	if(GLOB.announcement_systems.len)
 		var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
