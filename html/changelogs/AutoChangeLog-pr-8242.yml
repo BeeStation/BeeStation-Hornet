@@ -1,0 +1,5 @@
+author: imsynthex
+delete-after: true
+changes:
+  - bugfix: fixed some rogue pixels on satchel sprites that made them look bad with
+      jumpskirts and the alternate state of jumpsuits
