@@ -239,7 +239,7 @@ GLOBAL_LIST_INIT(dangerous_crafts, typecacheof(list( //List of items that make a
 				/obj/item/chainsaw,
 				/obj/item/switchblade,
 				/obj/item/bombcore/chemical,
-				/obj/item/restraints/legcuffs/bola/,
+				/obj/item/restraints/legcuffs/bola,
 				/obj/item/fireaxe/boneaxe,
 				/obj/item/kitchen/knife/shank,
 				/obj/structure/guillotine,
