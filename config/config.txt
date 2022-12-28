@@ -16,6 +16,8 @@ $include antag_rep.txt
 # Asset Transport (TGUI)
 $include resources.txt
 $include interviews.txt
+# Performance stuff
+$include performance.txt
 
 # You can use the @ character at the beginning of a config option to lock it from being edited in-game
 # Example usage:
@@ -613,3 +615,6 @@ ELASTICSEARCH_METRICS_APIKEY thisIsSomethingThatsBased64Encoded==
 
 ## Once a typepath causes overrun from hard deletes this many times, stop hard deleting it on garbage collection failures. (set to 0 to disable)
 #HARD_DELETES_OVERRUN_LIMIT 0
+
+## Enable/disable the mentor mrat verb ("Request Mentor Assistance")
+ENABLE_MRAT

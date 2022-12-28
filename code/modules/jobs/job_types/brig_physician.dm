@@ -2,26 +2,26 @@
 	title = JOB_NAME_BRIGPHYSICIAN
 	flag = BRIG_PHYS
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
-	department_flag = ENGSEC
+	supervisors = "chief medical officer"
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "chief medical officer"
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
-
 	outfit = /datum/outfit/job/brig_physician
 
 	access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_MEDICAL, ACCESS_BRIGPHYS)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_MEDICAL, ACCESS_BRIGPHYS)
-	paycheck = PAYCHECK_MEDIUM
-	paycheck_department = ACCOUNT_MED
+
+	department_flag = ENGSEC
+	departments = DEPT_BITFLAG_MED | DEPT_BITFLAG_SEC
+	bank_account_department = ACCOUNT_MED_BITFLAG
+	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_BRIG_PHYS
-	departments = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_SECURITY
 	rpg_title = "Battle Cleric"
 
 	species_outfits = list(
