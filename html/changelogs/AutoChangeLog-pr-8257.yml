@@ -1,5 +1,0 @@
-author: Howluinb
-delete-after: true
-changes:
-  - bugfix: Blob strains now properly reroll a new list of strains after every strain
-      change.
