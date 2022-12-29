@@ -837,6 +837,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					S = GLOB.moth_antennae_list[H.dna.features["moth_antennae"]]
 				if("moth_wingsopen")
 					S = GLOB.moth_wingsopen_list[H.dna.features["moth_wings"]]
+				if("moth_markings")
+					S = GLOB.moth_markings_list[H.dna.features["moth_markings"]]
 				if("caps")
 					S = GLOB.caps_list[H.dna.features["caps"]]
 				if("ipc_screen")
@@ -2147,4 +2149,31 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	return
 
 /datum/species/proc/get_harm_descriptors()
+	return
+
+/datum/species/proc/get_laugh_sound(mob/living/carbon/user)
+	return
+
+/datum/species/proc/get_scream_sound(mob/living/carbon/user)
+	return
+
+/datum/species/proc/get_cough_sound(mob/living/carbon/user)
+	return
+
+/datum/species/proc/get_gasp_sound(mob/living/carbon/user)
+	return
+
+/datum/species/proc/get_sigh_sound(mob/living/carbon/user)
+	return
+
+/datum/species/proc/get_sneeze_sound(mob/living/carbon/user)
+	return
+
+/datum/species/proc/get_sniff_sound(mob/living/carbon/user)
+	return
+
+/datum/species/proc/get_clear_sound(mob/living/carbon/user)
+	return
+
+/datum/species/proc/get_huff_sound(mob/living/carbon/user)
 	return

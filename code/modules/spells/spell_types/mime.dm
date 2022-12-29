@@ -142,6 +142,8 @@
 		else
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "vow", /datum/mood_event/broken_vow)
 			to_chat(H, "<span class='notice'>You break your vow of silence.</span>")
+			for(var/datum/objective/crew/vow/obj in H.mind.crew_objectives)
+				obj.broken = TRUE
 
 // These spells can only be gotten from the "Guide for Advanced Mimery series" for Mime Traitors.
 
