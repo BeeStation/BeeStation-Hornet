@@ -1320,7 +1320,7 @@
 		/obj/item/areaeditor/blueprints=1,\
 		/obj/item/card/emag=1,\
 		/obj/item/stack/spacecash/c1000=50,\
-		/obj/item/healthanalyzer/advanced=1,\
+		/obj/item/storage/belt/medical/ert=1,\
 		/obj/item/disk/tech_disk/debug=1,\
 		/obj/item/disk/surgery/debug=1,\
 		/obj/item/disk/data/debug=1,\
