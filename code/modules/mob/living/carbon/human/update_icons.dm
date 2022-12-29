@@ -134,7 +134,7 @@ There are several things that need to be remembered:
 			//	icon_file = 'icons/mob/species/misc/digitigrade.dmi'
 			uniform_overlay = U.build_worn_icon(default_layer = UNIFORM_LAYER, default_icon_file = icon_file, isinhands = FALSE, override_state = target_overlay)
 
-			
+
 
 		if(OFFSET_UNIFORM in dna.species.offset_features)
 			uniform_overlay.pixel_x += dna.species.offset_features[OFFSET_UNIFORM][1]
@@ -570,7 +570,8 @@ There are several things that need to be remembered:
 
 		var/icon_file = I.lefthand_file
 		var/mutable_appearance/hand_overlay
-		if(get_held_index_of_item(I) % 2 == 0)
+		var/is_right_hand = get_held_index_of_item(I) % 2 == 0
+		if(is_right_hand)
 			icon_file = I.righthand_file
 			hand_overlay = I.build_worn_icon(default_layer = HANDS_LAYER, default_icon_file = icon_file, isinhands = TRUE)
 			if(OFFSET_RIGHT_HAND in dna.species.offset_features)
@@ -581,7 +582,8 @@ There are several things that need to be remembered:
 			if(OFFSET_LEFT_HAND in dna.species.offset_features)
 				hand_overlay.pixel_x += dna.species.offset_features[OFFSET_LEFT_HAND][1]
 				hand_overlay.pixel_y += dna.species.offset_features[OFFSET_LEFT_HAND][2]
-		hands += hand_overlay
+		if(!dna?.species || dna.species.process_inhands(src, hand_overlay, is_right_hand))
+			hands += hand_overlay
 	overlays_standing[HANDS_LAYER] = hands
 	apply_overlay(HANDS_LAYER)
 

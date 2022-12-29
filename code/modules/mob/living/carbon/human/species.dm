@@ -2179,3 +2179,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species/proc/get_harm_descriptors()
 	return
+
+/// Allows for additional inhand processing, the return value determines if the hand overlay is added or not.
+/datum/species/proc/process_inhands(mob/living/carbon/human/H, mutable_appearance/hand_overlay, is_right_hand)
+	return TRUE

@@ -1882,7 +1882,7 @@
 	name = "Frostwing"
 	icon_state = "frostwing"
 	color_src = 0
-	dimension_x = 50
+	dimension_x = 52
 	center = TRUE
 	dimension_y = 25
 

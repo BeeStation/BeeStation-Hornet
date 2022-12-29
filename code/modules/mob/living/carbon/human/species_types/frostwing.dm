@@ -80,6 +80,8 @@
 	if(ishuman(C) && !fly)
 		fly = new
 		fly.Grant(C)
+	if(islist(C.dna?.features))
+		C.dna.features["wings"] = "Frostwing"
 
 /datum/species/frostwing/on_species_loss(mob/living/carbon/C)
 	. = ..()
@@ -97,3 +99,6 @@
 	if(prob(15) && H.bodytemperature < H.get_bodytemp_heat_damage_limit() && H.bodytemperature > H.get_bodytemp_cold_damage_limit())
 		H.heal_overall_damage(burn = 2)
 
+// Hide inhands if the wings are open
+/datum/species/frostwing/process_inhands(mob/living/carbon/human/H, mutable_appearance/hand_overlay, is_right_hand)
+	return "wingsopen" in H.dna.species.mutant_bodyparts
