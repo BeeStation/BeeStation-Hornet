@@ -47,6 +47,9 @@
 	var/obj/effect/clockwork/overlay/wall/realappearence
 	var/d_state = INTACT
 	flags_1 = NOJAUNT_1
+	icon = 'icons/turf/walls/clockwork_wall.dmi'
+	icon_state = "clockwork_wall-0"
+	base_icon_state = "clockwork_wall"
 
 /turf/closed/wall/clockwork/Initialize(mapload)
 	. = ..()
