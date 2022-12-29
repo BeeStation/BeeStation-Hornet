@@ -2621,7 +2621,7 @@
 
 /datum/sprite_accessory/apid_headstripes
 	icon = 'icons/mob/apid_accessories.dmi'
-	gender_specific = 1
+	gender_specific = TRUE
 
 /datum/sprite_accessory/apid_headstripes/none
 	name = "no headstripes"
