@@ -1,5 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - bugfix: Fixed APCs not showing the BSOD after being hacked by a malf AI
-  - bugfix: Fixed replacing an APC not fixing the power alarm in the area
