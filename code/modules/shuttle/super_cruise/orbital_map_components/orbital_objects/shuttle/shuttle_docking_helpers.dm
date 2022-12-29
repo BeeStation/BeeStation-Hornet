@@ -169,7 +169,7 @@
 				shuttle_dock.setTimer(INFINITY)
 				SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE,
 					"Waiting for hyperspace lane...")
-				begin_dethrottle(target_z, crashing)
+				begin_dethrottle(target_z)
 				return TRUE
 			if(1)
 				SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE,
@@ -183,7 +183,6 @@
 	CRASH("Failed to dock at a random location.")
 
 /datum/orbital_object/shuttle/proc/begin_dethrottle(target_z)
-	crash_time = world.time
 	is_docking = TRUE
 	var/datum/space_level/space_level = SSmapping.get_level(target_z)
 	timer_id = addtimer(CALLBACK(src, .proc/unfreeze_shuttle), 3 MINUTES, TIMER_STOPPABLE)
