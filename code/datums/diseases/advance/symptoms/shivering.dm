@@ -31,21 +31,25 @@ Bonus
 	var/unsafe = FALSE //over the cold threshold
 	threshold_desc = "<b>Stage Speed 5:</b> Increases cooling speed; the host can fall below safe temperature levels.<br>\
 					  <b>Stage Speed 10:</b> Further increases cooling speed."
+	threshold_ranges = list(
+		"stage speed1" = list(4, 6),
+		"stage speed2" = list(9, 11)
+	)
 
 /datum/symptom/shivering/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= disease_shivering_stage_speed1) //dangerous cold
+	if(A.stage_rate >= get_threshold("stage speed1")) //dangerous cold
 		severity += 1
-		if(A.stage_rate >= disease_shivering_stage_speed2)
+		if(A.stage_rate >= get_threshold("stage speed2"))
 			severity += 1
 
 /datum/symptom/shivering/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= disease_shivering_stage_speed1) //dangerous cold
+	if(A.stage_rate >= get_threshold("stage speed1")) //dangerous cold
 		power = 1.5
 		unsafe = TRUE
-		if(A.stage_rate >= disease_shivering_stage_speed2)
+		if(A.stage_rate >= get_threshold("stage speed2"))
 			power = 2.5
 
 /datum/symptom/shivering/Activate(datum/disease/advance/A)
@@ -70,6 +74,6 @@ Bonus
 /datum/symptom/shivering/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stage Speed [disease_shivering_stage_speed1]:</b> Increases cooling speed; the host can fall below safe temperature levels.<br>\
-					  <b>Stage Speed [disease_shivering_stage_speed2]:</b> Further increases cooling speed."
+	threshold_desc = "<b>Stage Speed [get_threshold("stage speed1")]:</b> Increases cooling speed; the host can fall below safe temperature levels.<br>\
+					  <b>Stage Speed [get_threshold("stage speed2")]:</b> Further increases cooling speed."
 	return threshold_desc

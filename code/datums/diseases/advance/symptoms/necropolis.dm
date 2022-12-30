@@ -21,22 +21,27 @@
 	var/list/cached_tentacle_turfs
 	var/turf/last_location
 	var/tentacle_recheck_cooldown = 100
+	threshold_ranges = list(
+		"stealth" = list(7, 9),
+		"resistance1" = list(13, 17),
+		"resistance2" = list(19, 21)
+	)
 
 /datum/symptom/necroseed/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= disease_necroseed_stealth)
+	if(A.stealth >= get_threshold("stealth"))
 		severity += 2
-	if(A.resistance >= disease_necroseed_resistance2)
+	if(A.resistance >= get_threshold("resistance2"))
 		severity -= 1
 
 /datum/symptom/necroseed/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= disease_necroseed_resistance1)
+	if(A.resistance >= get_threshold("resistance1"))
 		tendrils = TRUE
-		if(A.resistance >= disease_necroseed_resistance2)
+		if(A.resistance >= get_threshold("resistance2"))
 			fireproof = TRUE
-	if(A.stealth >= disease_necroseed_stealth)
+	if(A.stealth >= get_threshold("stealth"))
 		chest = TRUE
 
 
@@ -141,7 +146,7 @@
 /datum/symptom/necroseed/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stealth [disease_necroseed_stealth]:</b> Upon death, the host's soul will solidify into an unholy artifact, rendering them utterly unrevivable in the process.<br>\
-					  <b>Resistance [disease_necroseed_resistance1]:</b> The area near the host roils with paralyzing tendrils.<br>\
-					  <b>Resistance [disease_necroseed_resistance2]:</b> Host becomes immune to heat, ash, and lava."
+	threshold_desc = "<b>Stealth [get_threshold("stealth")]:</b> Upon death, the host's soul will solidify into an unholy artifact, rendering them utterly unrevivable in the process.<br>\
+					  <b>Resistance [get_threshold("resistance1")]:</b> The area near the host roils with paralyzing tendrils.<br>\
+					  <b>Resistance [get_threshold("resistance2")]:</b> Host becomes immune to heat, ash, and lava."
 	return threshold_desc

@@ -11,16 +11,19 @@
 	prefixes = list("Photo", "Light ")
 	bodies = list("Cramp")
 	threshold_desc = "<b>Stealth 3:</b> The virus causes a wider disparity between light and dark." //this is a stealth symptom because, at its first threshold, its effects are negligable enough it could be spread with minimal downside
+	threshold_ranges = list(
+		"stealth" = list(2, 4)
+	)
 
 /datum/symptom/light/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= disease_light_stealth)
+	if(A.stealth >= get_threshold("stealth"))
 		severity -= 1 //this symptom has the lowest severity out of any, this is to make it difficult to stack
 
 /datum/symptom/light/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= disease_light_stealth)
+	if(A.stealth >= get_threshold("stealth"))
 		power = 2
 
 /datum/symptom/light/Activate(datum/disease/advance/A)
@@ -55,5 +58,5 @@
 /datum/symptom/light/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stealth [disease_light_stealth]:</b> The virus causes a wider disparity between light and dark."
+	threshold_desc = "<b>Stealth [get_threshold("stealth")]:</b> The virus causes a wider disparity between light and dark."
 	return threshold_desc

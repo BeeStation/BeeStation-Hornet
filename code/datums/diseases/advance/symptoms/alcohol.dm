@@ -13,20 +13,24 @@
 	var/target = 30 //how drunk should the target get? by default, its *just* below enough to cause vomiting
 	threshold_desc = "<b>Stealth 3:</b> The host only reaches a slight buzz.<br>\
 					  <b>Stage Speed 6:</b> The levels of alcohol produced can be lethal. Overriden by the stealth threshold."
+	threshold_ranges = list(
+		"stealth" = list(1, 5),
+		"stage speed" = list(5, 7)
+	)
 
 /datum/symptom/alcohol/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= disease_alcohol_stealth)
+	if(A.stealth >= get_threshold("stealth"))
 		severity -= 1
-	else if(A.stage_rate >= disease_alcohol_stage_speed)
+	else if(A.stage_rate >= get_threshold("stage speed"))
 		severity += 3
 
 /datum/symptom/alcohol/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= disease_alcohol_stealth)
+	if(A.stealth >= get_threshold("stealth"))
 		target = 13.35 //this is the ballmer point and has no real downsides- perfect if you want this to act as a minor beneficial symptom for a mood boost
-	else if(A.stage_rate >= disease_alcohol_stage_speed)
+	else if(A.stage_rate >= get_threshold("stage speed"))
 		target = 80//lethal, but only barely (for alcohol - 1 tox/tick is quite lethal). this nets decent healing if you have drunken resilience- provided you can deal with the toxins
 
 /datum/symptom/alcohol/Activate(datum/disease/advance/A)
@@ -48,6 +52,6 @@
 /datum/symptom/alcohol/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stealth [disease_alcohol_stealth]:</b> The host only reaches a slight buzz.<br>\
-					  <b>Stage Speed [disease_alcohol_stage_speed]:</b> The levels of alcohol produced can be lethal. Overriden by the stealth threshold."
+	threshold_desc = "<b>Stealth [get_threshold("stealth")]:</b> The host only reaches a slight buzz.<br>\
+					  <b>Stage Speed [get_threshold("stage speed")]:</b> The levels of alcohol produced can be lethal. Overriden by the stealth threshold."
 	return threshold_desc

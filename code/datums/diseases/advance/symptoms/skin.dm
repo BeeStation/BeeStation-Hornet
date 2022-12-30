@@ -243,30 +243,37 @@ BONUS
 					  <b>Resistance 10:</b> Eggs and Egg Sacs contain more healing chems.<br>\
 					  <b>Stealth 6:</b> Eggs and Egg Sacs become nearly transparent, making them more difficult to see.<br>\
 					  <b>Stage Speed 10:</b> Egg Sacs fall off the host more frequently."
+	threshold_ranges = list(
+		"transmission1" = list(11, 13),
+		"transmission2" = list(15, 16),
+		"resistance" = list(8, 12),
+		"stealth" = list(5, 7),
+		"stage speed" = list(8, 12)
+	)
 
 /datum/symptom/skineggs/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= disease_skineggs_resistance)
+	if(A.resistance >= get_threshold("resistance"))
 		severity -= 1
-	if(A.transmission >= disease_skineggs_transmission1)
+	if(A.transmission >= get_threshold("transmission1"))
 		severity += 1
-		if(A.transmission >= disease_skineggs_transmission2)
+		if(A.transmission >= get_threshold("transmission2"))
 			severity += 1
-	if(A.stealth >= disease_skineggs_stealth)
+	if(A.stealth >= get_threshold("stealth"))
 		severity += 1
 
 /datum/symptom/skineggs/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= disease_skineggs_resistance)
+	if(A.resistance >= get_threshold("resistance"))
 		big_heal = TRUE
-	if(A.transmission >= disease_skineggs_transmission1)
+	if(A.transmission >= get_threshold("transmission1"))
 		all_disease = TRUE
-		if(A.transmission >= disease_skineggs_transmission2)
+		if(A.transmission >= get_threshold("transmission2"))
 			eggsplosion = TRUE //Haha get it?
-	if(A.stealth >= disease_skineggs_stealth)
+	if(A.stealth >= get_threshold("stealth"))
 		sneaky = TRUE
-	if(A.stage_rate >= disease_skineggs_stage_speed)
+	if(A.stage_rate >= get_threshold("stage speed"))
 		symptom_delay_min -= 10
 		symptom_delay_max -= 20
 
@@ -355,11 +362,11 @@ BONUS
 /datum/symptom/skineggs/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission [disease_skineggs_transmission1]:</b> Eggs and Egg Sacs contain all diseases on the host, instead of just the disease containing the symptom.<br>\
-					  <b>Transmission [disease_skineggs_transmission2]:</b> Egg Sacs will 'explode' into eggs after a period of time, covering a larger area with infectious matter.<br>\
-					  <b>Resistance [disease_skineggs_resistance]:</b> Eggs and Egg Sacs contain more healing chems.<br>\
-					  <b>Stealth [disease_skineggs_stealth]:</b> Eggs and Egg Sacs become nearly transparent, making them more difficult to see.<br>\
-					  <b>Stage Speed [disease_skineggs_stage_speed]:</b> Egg Sacs fall off the host more frequently."
+	threshold_desc = "<b>Transmission [get_threshold("transmission1")]:</b> Eggs and Egg Sacs contain all diseases on the host, instead of just the disease containing the symptom.<br>\
+					  <b>Transmission [get_threshold("transmission2")]:</b> Egg Sacs will 'explode' into eggs after a period of time, covering a larger area with infectious matter.<br>\
+					  <b>Resistance [get_threshold("resistance")]:</b> Eggs and Egg Sacs contain more healing chems.<br>\
+					  <b>Stealth [get_threshold("stealth")]:</b> Eggs and Egg Sacs become nearly transparent, making them more difficult to see.<br>\
+					  <b>Stage Speed [get_threshold("stage speed")]:</b> Egg Sacs fall off the host more frequently."
 	return threshold_desc
 
 /*
@@ -394,18 +401,22 @@ Thresholds
 	var/done = FALSE
 	threshold_desc = "<b>Transmission 6:</b> Spikes deal more damage.<br>\
 					  <b>Resistance 6:</b> Hard spines give the host armor, scaling with resistance."
+	threshold_ranges = list(
+		"transmission" = list(5, 7),
+		"resistance" = list(4, 8)
+	)
 
 /datum/symptom/spiked/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= disease_spiked_resistance)
+	if(A.resistance >= get_threshold("resistance"))
 		severity -= 1
 
 /datum/symptom/spiked/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= disease_spiked_resistance) //armor. capped at 20, but scaling with resistance, so if you want to max out spiked skin armor, you'll have to make several sacrifices
+	if(A.resistance >= get_threshold("resistance")) //armor. capped at 20, but scaling with resistance, so if you want to max out spiked skin armor, you'll have to make several sacrifices
 		armor = min(20, A.resistance)
-	if(A.transmission >= disease_spiked_transmission) //higher damage
+	if(A.transmission >= get_threshold("transmission")) //higher damage
 		power = 1.4  //the typical +100% is waaaay too strong here when the symptom is stacked. +40% is sufficient
 
 /datum/symptom/spiked/Activate(var/datum/disease/advance/A)
@@ -443,8 +454,8 @@ Thresholds
 /datum/symptom/spiked/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission [disease_spiked_transmission]:</b> Spikes deal more damage.<br>\
-					  <b>Resistance [disease_spiked_resistance]:</b> Hard spines give the host armor, scaling with resistance."
+	threshold_desc = "<b>Transmission [get_threshold("transmission")]:</b> Spikes deal more damage.<br>\
+					  <b>Resistance [get_threshold("resistance")]:</b> Hard spines give the host armor, scaling with resistance."
 	return threshold_desc
 
 /datum/symptom/pustule
@@ -463,19 +474,23 @@ Thresholds
 	var/shoot = FALSE
 	threshold_desc = "<b>Transmission 4:</b> Buboes will occasionally burst when disturbed or left too long, shooting out toxic pus.<br>\
 					<b>Transmission 6:</b> Pustules appear on the host more frequently, dealing more damage."
+	threshold_ranges = list(
+		"transmission1" = list(3, 5),
+		"transmission2" = list(6, 7)
+	)
 
 /datum/symptom/pustule/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= disease_pustule_transmission1)
+	if(A.transmission >= get_threshold("transmission1"))
 		severity += 1
 		prefixes = list("Ballistic ", "Pestilent ", "Bubonic ")
 
 /datum/symptom/pustule/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= disease_pustule_transmission1)
+	if(A.transmission >= get_threshold("transmission1"))
 		shoot = TRUE
-	if(A.transmission >= disease_pustule_transmission2)
+	if(A.transmission >= get_threshold("transmission2"))
 		power += 1
 	RegisterSignal(A.affected_mob, COMSIG_HUMAN_ATTACKED, .proc/pop_pustules)
 
@@ -572,6 +587,6 @@ Thresholds
 /datum/symptom/pustule/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission [disease_pustule_transmission1]:</b> Buboes will occasionally burst when disturbed or left too long, shooting out toxic pus.<br>\
-					<b>Transmission [disease_pustule_transmission2]:</b> Pustules appear on the host more frequently, dealing more damage."
+	threshold_desc = "<b>Transmission [get_threshold("transmission1")]:</b> Buboes will occasionally burst when disturbed or left too long, shooting out toxic pus.<br>\
+					<b>Transmission [get_threshold("transmission2")]:</b> Pustules appear on the host more frequently, dealing more damage."
 	return threshold_desc

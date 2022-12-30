@@ -32,18 +32,22 @@ Bonus
 	bodies = list("Ear")
 	threshold_desc = "<b>Resistance 9:</b> Causes permanent deafness, instead of intermittent.<br>\
 					  <b>Stealth 4:</b> The symptom remains hidden until active."
+	threshold_ranges = list(
+		"resistance" = list(8, 10),
+		"stealth" = list(3, 5)
+	)
 
 /datum/symptom/deafness/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= disease_deafness_resistance)
+	if(A.resistance >= get_threshold("resistance"))
 		severity += 1
 
 /datum/symptom/deafness/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= disease_deafness_stealth)
+	if(A.stealth >= get_threshold("stealth"))
 		suppress_warning = TRUE
-	if(A.resistance >= disease_deafness_resistance) //permanent deafness
+	if(A.resistance >= get_threshold("resistance")) //permanent deafness
 		power = 2
 
 /datum/symptom/deafness/Activate(datum/disease/advance/A)
@@ -68,6 +72,6 @@ Bonus
 /datum/symptom/deafness/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [disease_deafness_resistance]:</b> Causes permanent deafness, instead of intermittent.<br>\
-					  <b>Stealth [disease_deafness_stealth]:</b> The symptom remains hidden until active."
+	threshold_desc = "<b>Resistance [get_threshold("resistance")]:</b> Causes permanent deafness, instead of intermittent.<br>\
+					  <b>Stealth [get_threshold("stealth")]:</b> The symptom remains hidden until active."
 	return threshold_desc

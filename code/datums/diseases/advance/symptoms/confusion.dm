@@ -34,20 +34,25 @@ Bonus
 	threshold_desc = "<b>Resistance 6:</b> Causes brain damage over time.<br>\
 					  <b>Transmission 6:</b> Increases confusion duration.<br>\
 					  <b>Stealth 4:</b> The symptom remains hidden until active."
+	threshold_ranges = list(
+		"resistance" = list(5, 7),
+		"transmission" = list(5, 7),
+		"stealth" = list(3, 5)
+	)
 
 /datum/symptom/confusion/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= disease_confusion_resistance)
+	if(A.resistance >= get_threshold("resistance"))
 		severity += 1
 
 /datum/symptom/confusion/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= disease_confusion_resistance)
+	if(A.resistance >= get_threshold("resistance"))
 		brain_damage = TRUE
-	if(A.transmission >= disease_confusion_transmission)
+	if(A.transmission >= get_threshold("transmission"))
 		power = 1.5
-	if(A.stealth >= disease_confusion_stealth)
+	if(A.stealth >= get_threshold("stealth"))
 		suppress_warning = TRUE
 
 /datum/symptom/confusion/Activate(datum/disease/advance/A)
@@ -70,7 +75,7 @@ Bonus
 /datum/symptom/confusion/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [disease_confusion_resistance]:</b> Causes brain damage over time.<br>\
-					  <b>Transmission [disease_confusion_transmission]:</b> Increases confusion duration.<br>\
-					  <b>Stealth [disease_confusion_stealth]:</b> The symptom remains hidden until active."
+	threshold_desc = "<b>Resistance [get_threshold("resistance")]:</b> Causes brain damage over time.<br>\
+					  <b>Transmission [get_threshold("transmission")]:</b> Increases confusion duration.<br>\
+					  <b>Stealth [get_threshold("stealth")]:</b> The symptom remains hidden until active."
 	return threshold_desc

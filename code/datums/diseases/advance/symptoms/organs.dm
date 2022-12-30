@@ -16,15 +16,20 @@
 	threshold_desc = "<b>Resistance 6:</b> Heals minor brain traumas.<br>\
 					  <b>Resistance 9:</b> Heals severe brain traumas.<br>\
 					  <b>Transmission 8:</b> Purges alcohol in the bloodstream."
+	threshold_ranges = list(
+		"resistance1" = list(5, 7),
+		"resistance2" = list(8, 10),
+		"transmission" = list(6, 10)
+	)
 
 /datum/symptom/mind_restoration/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= disease_mind_restoration_resistance1) //heal brain damage
+	if(A.resistance >= get_threshold("resistance1")) //heal brain damage
 		trauma_heal_mild = TRUE
-		if(A.resistance >= disease_mind_restoration_resistance2) //heal severe traumas
+		if(A.resistance >= get_threshold("resistance2")) //heal severe traumas
 			trauma_heal_severe = TRUE
-	if(A.transmission >= disease_mind_restoration_transmission) //purge alcohol
+	if(A.transmission >= get_threshold("transmission")) //purge alcohol
 		purge_alcohol = TRUE
 
 /datum/symptom/mind_restoration/Activate(var/datum/disease/advance/A)
@@ -65,9 +70,9 @@
 /datum/symptom/mind_restoration/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [disease_mind_restoration_resistance1]:</b> Heals minor brain traumas.<br>\
-					  <b>Resistance [disease_mind_restoration_resistance2]:</b> Heals severe brain traumas.<br>\
-					  <b>Transmission [disease_mind_restoration_transmission]:</b> Purges alcohol in the bloodstream."
+	threshold_desc = "<b>Resistance [get_threshold("resistance1")]:</b> Heals minor brain traumas.<br>\
+					  <b>Resistance [get_threshold("resistance2")]:</b> Heals severe brain traumas.<br>\
+					  <b>Transmission [get_threshold("transmission")]:</b> Purges alcohol in the bloodstream."
 	return threshold_desc
 
 /datum/symptom/sensory_restoration //heals damage to the eyes and ears
@@ -135,18 +140,22 @@
 	var/regenorgans = FALSE 
 	threshold_desc = "<b>Stealth 4:</b> The host will regenerate missing organs over a long period of time.<br>\
 					  <b>Stage Speed 10:</b> The virus causes the host's internal organs to gain some self-correcting behaviour, preventing heart attacks and appendicitis."
+	threshold_ranges = list(
+		"stealth" = list(3, 5),
+		"stage speed" = list(8, 12)
+	)
 
 /datum/symptom/organ_restoration/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= disease_organ_restoration_stealth)
+	if(A.stealth >= get_threshold("stealth"))
 		severity -= 1
 
 /datum/symptom/organ_restoration/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= disease_organ_restoration_stage_speed)
+	if(A.stage_rate >= get_threshold("stage speed"))
 		curing = TRUE
-	if(A.stealth >= disease_organ_restoration_stealth)
+	if(A.stealth >= get_threshold("stealth"))
 		regenorgans = TRUE
 
 /datum/symptom/organ_restoration/Activate(datum/disease/advance/A)
@@ -235,6 +244,6 @@
 /datum/symptom/organ_restoration/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stealth [disease_organ_restoration_stealth]:</b> The host will regenerate missing organs over a long period of time.<br>\
-					  <b>Stage Speed [disease_organ_restoration_stage_speed]:</b> The virus causes the host's internal organs to gain some self-correcting behaviour, preventing heart attacks and appendicitis."
+	threshold_desc = "<b>Stealth [get_threshold("stealth")]:</b> The host will regenerate missing organs over a long period of time.<br>\
+					  <b>Stage Speed [get_threshold("stage speed")]:</b> The virus causes the host's internal organs to gain some self-correcting behaviour, preventing heart attacks and appendicitis."
 	return threshold_desc

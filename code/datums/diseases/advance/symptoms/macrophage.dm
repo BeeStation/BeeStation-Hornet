@@ -18,19 +18,21 @@
                       <b>Resistance:</b> The higher the resistance, the more health phages will have, and the more damage they will do.<br>\
 					  <b>Transmission 10:</b> Phages can be larger, more aggressive, and able to pierce thick clothing, with some effort.<br>\
                       <b>Transmission 12:</b> Phages will carry all diseases within the host, instead of only diseases containing their own symptom."
-
-
+	threshold_ranges = list(
+		"transmission1" = list(9, 11),
+		"transmission2" = list(12, 13)
+	)
 
 /datum/symptom/macrophage/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= disease_macrophage_transmission1)
+	if(A.transmission >= get_threshold("transmission1"))
 		severity += 2
 
 /datum/symptom/macrophage/Start(datum/disease/advance/A)
 	if(!..())
 		return
 	netspeed = max(1, A.stage_rate)
-	if(A.transmission >= disease_macrophage_transmission1)
+	if(A.transmission >= get_threshold("transmission1"))
 		gigagerms = TRUE
 
 /datum/symptom/macrophage/Activate(datum/disease/advance/A)
@@ -67,7 +69,7 @@
 	phage.maxHealth += A.resistance
 	phage.infections += A
 	phage.basedisease = A
-	if(A.transmission >= disease_macrophage_transmission2)
+	if(A.transmission >= get_threshold("transmission2"))
 		for(var/datum/disease/D in M.diseases)
 			if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (D.spread_flags & DISEASE_SPREAD_FALTERED))
 				continue
@@ -83,6 +85,6 @@
 		return
 	threshold_desc = "<b>Stage Speed:</b> The higher the stage speed, the more frequently phages will burst from the host.<br>\
                       <b>Resistance:</b> The higher the resistance, the more health phages will have, and the more damage they will do.<br>\
-					  <b>Transmission [disease_macrophage_transmission1]:</b> Phages can be larger, more aggressive, and able to pierce thick clothing, with some effort.<br>\
-                      <b>Transmission [disease_macrophage_transmission2]:</b> Phages will carry all diseases within the host, instead of only diseases containing their own symptom."
+					  <b>Transmission [get_threshold("transmission1")]:</b> Phages can be larger, more aggressive, and able to pierce thick clothing, with some effort.<br>\
+                      <b>Transmission [get_threshold("transmission2")]:</b> Phages will carry all diseases within the host, instead of only diseases containing their own symptom."
 	return threshold_desc

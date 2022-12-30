@@ -15,24 +15,30 @@
 	threshold_desc = "<b>Transmission 10:</b> There's a rare chance the disease is spread everytime the host honks.<br>\
 					  <b>Resistance 10:</b> The host grows a peculiar clown mask.<br>\
 					  <b>Resistance 15:</b>	Host becomes clumsy, similar to a clown."
+	threshold_ranges = list(
+		"transmission" = list(9, 11),
+		"resistance1" = list(8, 12),
+		"resistance2" = list(14, 16)
+	)
+
 
 /datum/symptom/pierrot/severityset(datum/disease/advance/A)
 	. = ..()
 	bodies = list("Clown", "Red-Nose", "[pick(GLOB.clown_names)]") //added here because it doesnt wanna pick in base vars
 	prefixes = list("Fool's ", "[pick(GLOB.clown_names)]'s ")
-	if(A.resistance >= disease_pierrot_resistance1)
+	if(A.resistance >= get_threshold("resistance1"))
 		severity +=1
-		if(A.resistance >= disease_pierrot_resistance2)
+		if(A.resistance >= get_threshold("resistance2"))
 			severity += 2
 
 /datum/symptom/pierrot/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= disease_pierrot_transmission)
+	if(A.transmission >= get_threshold("transmission"))
 		honkspread = TRUE
-	if(A.resistance >= disease_pierrot_resistance1)
+	if(A.resistance >= get_threshold("resistance1"))
 		clownmask = TRUE
-		if(A.resistance >= disease_pierrot_resistance2)
+		if(A.resistance >= get_threshold("resistance2"))
 			clumsy = TRUE
 
 /datum/symptom/pierrot/Activate(datum/disease/advance/A)
@@ -91,7 +97,7 @@
 /datum/symptom/pierrot/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission [disease_pierrot_transmission]:</b> There's a rare chance the disease is spread everytime the host honks.<br>\
-					  <b>Resistance [disease_pierrot_resistance1]:</b> The host grows a peculiar clown mask.<br>\
-					  <b>Resistance [disease_pierrot_resistance2]:</b>	Host becomes clumsy, similar to a clown."
+	threshold_desc = "<b>Transmission [get_threshold("transmission")]:</b> There's a rare chance the disease is spread everytime the host honks.<br>\
+					  <b>Resistance [get_threshold("resistance1")]:</b> The host grows a peculiar clown mask.<br>\
+					  <b>Resistance [get_threshold("resistance2")]:</b>	Host becomes clumsy, similar to a clown."
 	return threshold_desc

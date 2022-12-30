@@ -16,18 +16,22 @@
 	var/moretrauma = FALSE
 	threshold_desc = "<b>transmission 12:</b> The disease's damage reaches lethal levels.<br>\
 					  <b>Speed 9:</b> Host's brain develops even more traumas than normal."
+	threshold_ranges = list(
+		"transmission" = list(11, 13),
+		"stage speed" = list(8, 10)
+	)
 
 /datum/symptom/braindamage/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= disease_braindamage_transmission)
+	if(A.transmission >= get_threshold("transmission"))
 		severity += 1
 
 /datum/symptom/braindamage/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= disease_braindamage_transmission)
+	if(A.transmission >= get_threshold("transmission"))
 		lethal = TRUE
-	if(A.stage_rate >= disease_braindamage_stage_speed)
+	if(A.stage_rate >= get_threshold("stage speed"))
 		moretrauma = TRUE
 
 /datum/symptom/braindamage/Activate(datum/disease/advance/A)
@@ -62,6 +66,6 @@
 /datum/symptom/braindamage/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>transmission [disease_braindamage_transmission]:</b> The disease's damage reaches lethal levels.<br>\
-					  <b>Speed [disease_braindamage_stage_speed]:</b> Host's brain develops even more traumas than normal."
+	threshold_desc = "<b>transmission [get_threshold("transmission")]:</b> The disease's damage reaches lethal levels.<br>\
+					  <b>Speed [get_threshold("stage speed")]:</b> Host's brain develops even more traumas than normal."
 	return threshold_desc

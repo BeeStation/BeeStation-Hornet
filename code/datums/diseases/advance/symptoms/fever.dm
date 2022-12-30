@@ -32,23 +32,27 @@ Bonus
 	var/unsafe = FALSE //over the heat threshold
 	threshold_desc = "<b>Resistance 5:</b> Increases fever intensity, fever can overheat and harm the host.<br>\
 					  <b>Resistance 10:</b> Further increases fever intensity."
+	threshold_ranges = list(
+		"resistance1" = list(3, 7),
+		"resistance2" = list(9, 11)
+	)
 
 /datum/symptom/fever/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= disease_fever_resistance1)
+	if(A.resistance >= get_threshold("resistance1"))
 		severity += 1
 		prefixes = list("Desert")
-		if(A.resistance >= disease_fever_resistance2)
+		if(A.resistance >= get_threshold("resistance2"))
 			severity += 1
 			prefixes = list("Volcanic")
 
 /datum/symptom/fever/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= disease_fever_resistance1) //dangerous fever
+	if(A.resistance >= get_threshold("resistance1")) //dangerous fever
 		power = 1.5
 		unsafe = TRUE
-		if(A.resistance >= disease_fever_resistance2)
+		if(A.resistance >= get_threshold("resistance2"))
 			power = 2.5
 
 /datum/symptom/fever/Activate(datum/disease/advance/A)
@@ -73,6 +77,6 @@ Bonus
 /datum/symptom/fever/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [disease_fever_resistance1]:</b> Increases fever intensity, fever can overheat and harm the host.<br>\
-					  <b>Resistance [disease_fever_resistance2]:</b> Further increases fever intensity."
+	threshold_desc = "<b>Resistance [get_threshold("resistance1")]:</b> Increases fever intensity, fever can overheat and harm the host.<br>\
+					  <b>Resistance [get_threshold("resistance2")]:</b> Further increases fever intensity."
 	return threshold_desc

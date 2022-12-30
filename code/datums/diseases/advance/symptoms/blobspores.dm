@@ -16,21 +16,26 @@
 	threshold_desc = "<b>Resistance 8:</b> Spawns a strong blob instead of a normal blob.<br> \
 					  <b>Resistance 11:</b> There is a chance to spawn a factory blob, instead of a normal blob.<br> \
 					  <b>Resistance 14:</b> Has a chance to spawn a blob node instead of a normal blob."
+	threshold_ranges = list(
+		"resistance1" = list(7, 9),
+		"resistance2" = list(10, 12),
+		"resistance3" = list(13, 15)
+	)
 
 /datum/symptom/blobspores/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= disease_blobspores_resistance3)
+	if(A.resistance >= get_threshold("resistance3"))
 		severity += 1
 
 
 /datum/symptom/blobspores/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= disease_blobspores_resistance2)
+	if(A.resistance >= get_threshold("resistance2"))
 		factory_blob = TRUE
-	if(A.resistance >= disease_blobspores_resistance1)
+	if(A.resistance >= get_threshold("resistance1"))
 		strong_blob = TRUE
-		if(A.resistance >= disease_blobspores_resistance3)
+		if(A.resistance >= get_threshold("resistance3"))
 			node_blob = TRUE
 
 /datum/symptom/blobspores/Activate(datum/disease/advance/A)
@@ -97,7 +102,7 @@
 /datum/symptom/blobspores/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [disease_blobspores_resistance1]:</b> Spawns a strong blob instead of a normal blob.<br> \
-					  <b>Resistance [disease_blobspores_resistance2]:</b> There is a chance to spawn a factory blob, instead of a normal blob.<br> \
-					  <b>Resistance [disease_blobspores_resistance3]:</b> Has a chance to spawn a blob node instead of a normal blob."
+	threshold_desc = "<b>Resistance [get_threshold("resistance1")]:</b> Spawns a strong blob instead of a normal blob.<br> \
+					  <b>Resistance [get_threshold("resistance2")]:</b> There is a chance to spawn a factory blob, instead of a normal blob.<br> \
+					  <b>Resistance [get_threshold("resistance3")]:</b> Has a chance to spawn a blob node instead of a normal blob."
 	return threshold_desc

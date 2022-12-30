@@ -15,20 +15,23 @@
 	bodies = list("Bees", "Hive")
 	threshold_desc = "<b>Resistance 12:</b> The bees become symbiotic with the host, synthesizing honey and no longer stinging the stomach lining, and no longer attacking the host. Bees will also contain honey, unless transmission exceeds 10.<br>\
 					  <b>Transmission 10:</b> Bees now contain a completely random toxin."
-
+	threshold_ranges = list(
+		"resistance" = list(10, 14),
+		"transmission" = list(9, 11)
+	)
 /datum/symptom/beesease/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= disease_beesease_transmission)
+	if(A.transmission >= get_threshold("transmission"))
 		severity += 2
-		if(A.resistance >= disease_beesease_resistance)
+		if(A.resistance >= get_threshold("resistance"))
 			severity -= 4
 
 /datum/symptom/beesease/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= disease_beesease_resistance)
+	if(A.resistance >= get_threshold("resistance"))
 		honey = TRUE
-	if(A.transmission >= disease_beesease_transmission)
+	if(A.transmission >= get_threshold("transmission"))
 		toxic_bees = TRUE
 
 /datum/symptom/beesease/Activate(datum/disease/advance/A)
@@ -89,6 +92,6 @@
 /datum/symptom/beesease/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [disease_beesease_resistance]:</b> The bees become symbiotic with the host, synthesizing honey and no longer stinging the stomach lining, and no longer attacking the host. Bees will also contain honey, unless transmission exceeds [disease_beesease_transmission].<br>\
-					  <b>Transmission [disease_beesease_transmission]:</b> Bees now contain a completely random toxin."
+	threshold_desc = "<b>Resistance [get_threshold("resistance")]:</b> The bees become symbiotic with the host, synthesizing honey and no longer stinging the stomach lining, and no longer attacking the host. Bees will also contain honey, unless transmission exceeds [get_threshold("transmission")].<br>\
+					  <b>Transmission [get_threshold("transmission")]:</b> Bees now contain a completely random toxin."
 	return threshold_desc

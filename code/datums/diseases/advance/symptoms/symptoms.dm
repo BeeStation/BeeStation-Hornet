@@ -34,8 +34,20 @@
 	var/list/prefixes = list()
 	var/list/bodies = list()
 	var/list/suffixes = list()
+	var/static/list/threshold_lookup = list()
+	var/list/threshold_ranges
+	var/list/threshold
 
 /datum/symptom/New()
+	. = ..()
+	if(!threshold_lookup[type])
+		threshold = list()
+		for (var/name in threshold_ranges)
+			var/list/limits = threshold_ranges[name]
+			threshold[name] = rand(limits[1], limits[2])
+		threshold_lookup[type] = threshold
+	else
+		threshold = threshold_lookup[type]
 	var/list/S = SSdisease.list_symptoms
 	for(var/i = 1; i <= S.len; i++)
 		if(type == S[i])
@@ -87,6 +99,9 @@
 	new_symp.id = id
 	new_symp.neutered = neutered
 	return new_symp
+
+/datum/symptom/proc/get_threshold(name)
+	return threshold[name]
 
 /datum/symptom/proc/generate_threshold_desc()
 	return

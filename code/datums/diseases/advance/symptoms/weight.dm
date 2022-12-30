@@ -33,17 +33,20 @@ Bonus
 	prefixes = list("Starving ")
 	bodies = list("Diet")
 	threshold_desc = "<b>Stealth 2:</b> The symptom is less noticeable, and does not cause starvation."
+	threshold_ranges = list(
+		"stealth" = list(0, 4)
+	)
 
 /datum/symptom/weight_loss/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= disease_weight_loss_stealth) //warn less often
+	if(A.stealth >= get_threshold("stealth")) //warn less often
 		severity -= 3
 	
 
 /datum/symptom/weight_loss/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= disease_weight_loss_stealth) //warn less often
+	if(A.stealth >= get_threshold("stealth")) //warn less often
 		base_message_chance = 25
 		starving = FALSE
 
@@ -64,5 +67,5 @@ Bonus
 /datum/symptom/weight_loss/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stealth [disease_weight_loss_stealth]:</b> The symptom is less noticeable, and does not cause starvation."
+	threshold_desc = "<b>Stealth [get_threshold("stealth")]:</b> The symptom is less noticeable, and does not cause starvation."
 	return threshold_desc

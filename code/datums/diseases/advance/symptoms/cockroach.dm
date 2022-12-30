@@ -15,14 +15,18 @@
 	var/death_roaches = FALSE
 	threshold_desc = "<b>Stage Speed 8:</b> Increases roach speed.<br> \
 					  <b>Transmission 8:</b> When the host dies, more roaches spawn."
+	threshold_ranges = list(
+		"transmission" = list(6, 10),
+		"stage speed" = list(7, 9)
+	)
 
 /datum/symptom/cockroach/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= disease_cockroach_stage_speed)
+	if(A.stage_rate >= get_threshold("stage speed"))
 		symptom_delay_min = 5
 		symptom_delay_max = 15
-	if(A.transmission >= disease_cockroach_transmission)
+	if(A.transmission >= get_threshold("transmission"))
 		death_roaches = TRUE
 
 /datum/symptom/cockroach/Activate(datum/disease/advance/A)
@@ -61,6 +65,6 @@
 /datum/symptom/cockroach/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stage Speed [disease_cockroach_stage_speed]:</b> Increases roach speed.<br> \
-					  <b>Transmission [disease_cockroach_transmission]:</b> When the host dies, more roaches spawn."
+	threshold_desc = "<b>Stage Speed [get_threshold("stage speed")]:</b> Increases roach speed.<br> \
+					  <b>Transmission [get_threshold("transmission")]:</b> When the host dies, more roaches spawn."
 	return threshold_desc

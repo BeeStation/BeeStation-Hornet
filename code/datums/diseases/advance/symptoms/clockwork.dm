@@ -18,27 +18,32 @@
 	threshold_desc = "<b>Stage Speed 4:</b> The virus will replace the host's organic organs with mundane, biometallic versions. +1 severity.<br>\
                       <b>Resistance 4:</b> The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
                       <b>Stage Speed 12:</b> Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
+	threshold_ranges = list(
+		"stage speed1" = list(2, 6),
+		"resistance" = list(3, 5),
+		"stage speed2" = list(10, 14)
+	)
 
 /datum/symptom/robotic_adaptation/OnAdd(datum/disease/advance/A)
 	A.infectable_biotypes |= MOB_ROBOTIC
 
 /datum/symptom/robotic_adaptation/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= disease_robotic_adaptation_stage_speed1) //at base level, robotic organs are purely a liability
+	if(A.stage_rate >= get_threshold("stage speed1")) //at base level, robotic organs are purely a liability
 		severity += 1
-		if(A.stage_rate >= disease_robotic_adaptation_stage_speed2)//but at this threshold, it all becomes worthwhile, though getting augged is a better choice
+		if(A.stage_rate >= get_threshold("stage speed2"))//but at this threshold, it all becomes worthwhile, though getting augged is a better choice
 			severity -= 3//net benefits: 2 damage reduction, flight if you have wings, filter out low amounts of gas, durable ears, flash protection, a liver half as good as an upgraded cyberliver, and flight if you are a winged species
-	if(A.resistance >= disease_robotic_adaptation_resistance)//at base level, robotic bodyparts have very few bonuses, mostly being a liability in the case of EMPS
+	if(A.resistance >= get_threshold("resistance"))//at base level, robotic bodyparts have very few bonuses, mostly being a liability in the case of EMPS
 		severity += 1 //at this stage, even one EMP will hurt, a lot.
 
 
 /datum/symptom/robotic_adaptation/Start(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= disease_robotic_adaptation_stage_speed1)
+	if(A.stage_rate >= get_threshold("stage speed1"))
 		replaceorgans = TRUE
-	if(A.resistance >= disease_robotic_adaptation_resistance)
+	if(A.resistance >= get_threshold("resistance"))
 		replacebody = TRUE
-	if(A.stage_rate >= disease_robotic_adaptation_stage_speed2)
+	if(A.stage_rate >= get_threshold("stage speed2"))
 		robustbits = TRUE //note that having this symptom means most healing symptoms won't work on you
 
 
@@ -393,7 +398,7 @@
 /datum/symptom/robotic_adaptation/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stage Speed [disease_robotic_adaptation_stage_speed1]:</b> The virus will replace the host's organic organs with mundane, biometallic versions. +1 severity.<br>\
-                      <b>Resistance [disease_robotic_adaptation_resistance]:</b> The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
-                      <b>Stage Speed [disease_robotic_adaptation_stage_speed2]:</b> Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
+	threshold_desc = "<b>Stage Speed [get_threshold("stage speed1")]:</b> The virus will replace the host's organic organs with mundane, biometallic versions. +1 severity.<br>\
+                      <b>Resistance [get_threshold("resistance")]:</b> The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
+                      <b>Stage Speed [get_threshold("stage speed2")]:</b> Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
 	return threshold_desc

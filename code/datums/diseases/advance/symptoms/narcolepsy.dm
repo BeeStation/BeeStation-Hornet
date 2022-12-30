@@ -30,18 +30,22 @@ Bonus
 	var/stamina = FALSE
 	threshold_desc = "<b>Transmission 7:</b> Also relaxes the muscles, weakening and slowing the host.<br>\
 					  <b>Resistance 10:</b> Causes narcolepsy more often, increasing the chance of the host falling asleep."
+	threshold_ranges = list(
+		"transmission" = list(6, 8),
+		"resistance" = list(9, 11)
+	)
 
 /datum/symptom/narcolepsy/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= disease_narcolepsy_resistance) //act more often
+	if(A.resistance >= get_threshold("resistance")) //act more often
 		severity += 1
 
 /datum/symptom/narcolepsy/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= disease_narcolepsy_transmission) //stamina damage
+	if(A.transmission >= get_threshold("transmission")) //stamina damage
 		stamina = TRUE
-	if(A.resistance >= disease_narcolepsy_resistance) //act more often
+	if(A.resistance >= get_threshold("resistance")) //act more often
 		symptom_delay_min = 5
 		symptom_delay_max = 20
 
@@ -98,6 +102,6 @@ Bonus
 /datum/symptom/narcolepsy/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission [disease_narcolepsy_transmission]:</b> Also relaxes the muscles, weakening and slowing the host.<br>\
-					  <b>Resistance [disease_narcolepsy_resistance]:</b> Causes narcolepsy more often, increasing the chance of the host falling asleep."
+	threshold_desc = "<b>Transmission [get_threshold("transmission")]:</b> Also relaxes the muscles, weakening and slowing the host.<br>\
+					  <b>Resistance [get_threshold("resistance")]:</b> Causes narcolepsy more often, increasing the chance of the host falling asleep."
 	return threshold_desc

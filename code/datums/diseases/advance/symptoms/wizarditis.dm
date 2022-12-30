@@ -15,20 +15,24 @@
 	var/robes = FALSE
 	threshold_desc = "<b>Transmission 8:</b> The host teleports occasionally.<br>\
 					  <b>Stage Speed 7:</b> The host grows a set of wizard robes."
+	threshold_ranges = list(
+		"transmission" = list(7, 9),
+		"stage speed" = list(5, 9)
+	)
 
 /datum/symptom/wizarditis/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= disease_wizarditis_transmission)
+	if(A.transmission >= get_threshold("transmission"))
 		severity += 1
-	if(A.stage_rate >= disease_wizarditis_stage_speed)
+	if(A.stage_rate >= get_threshold("stage speed"))
 		severity += 1
 
 /datum/symptom/wizarditis/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= disease_wizarditis_transmission)
+	if(A.transmission >= get_threshold("transmission"))
 		teleport = TRUE
-	if(A.stage_rate >= disease_wizarditis_stage_speed)
+	if(A.stage_rate >= get_threshold("stage speed"))
 		robes = TRUE
 
 /datum/symptom/wizarditis/Activate(datum/disease/advance/A)
@@ -112,6 +116,6 @@
 /datum/symptom/wizarditis/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission [disease_wizarditis_transmission]:</b> The host teleports occasionally.<br>\
-					  <b>Stage Speed [disease_wizarditis_stage_speed]:</b> The host grows a set of wizard robes."
+	threshold_desc = "<b>Transmission [get_threshold("transmission")]:</b> The host teleports occasionally.<br>\
+					  <b>Stage Speed [get_threshold("stage speed")]:</b> The host grows a set of wizard robes."
 	return threshold_desc

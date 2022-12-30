@@ -107,7 +107,9 @@ Bonus
 	var/time_to_cure
 	threshold_desc = "<b>Resistance/Stage Speed:</b> Highest between these determines the amount of time before self-curing.<br>\
 					  <b>Stealth 4:</b> Doubles the time before the virus self-cures."
-
+	threshold_ranges = list(
+		"stealth" = list(3, 5)
+	)
 
 /datum/symptom/viralreverse/Activate(datum/disease/advance/A)
 	if(!..())
@@ -128,7 +130,7 @@ Bonus
 	if(!..())
 		return
 	A.stage = 5
-	if(A.stealth >= disease_viralreverse_stealth) //more time before it's cured
+	if(A.stealth >= get_threshold("stealth")) //more time before it's cured
 		power = 2
 	time_to_cure = max(A.resistance, A.stage_rate) * 10 * power
 
@@ -136,7 +138,7 @@ Bonus
 	if(!..())
 		return
 	threshold_desc = "<b>Resistance/Stage Speed:</b> Highest between these determines the amount of time before self-curing.<br>\
-					  <b>Stealth [disease_viralreverse_stealth]:</b> Doubles the time before the virus self-cures."
+					  <b>Stealth [get_threshold("stealth")]:</b> Doubles the time before the virus self-cures."
 	return threshold_desc
 
 /*

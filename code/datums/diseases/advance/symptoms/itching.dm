@@ -33,14 +33,18 @@ BONUS
 	var/scratch = FALSE
 	threshold_desc = "<b>Transmission 6:</b> Increases frequency of itching.<br>\
 					  <b>Stage Speed 7:</b> The host will scrath itself when itching, causing superficial damage."
+	threshold_ranges = list(
+		"transmission" = list(4, 8),
+		"stage speed" = list(6, 8)
+	)
 
 /datum/symptom/itching/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= disease_itching_transmission) //itch more often
+	if(A.transmission >= get_threshold("transmission")) //itch more often
 		symptom_delay_min = 1
 		symptom_delay_max = 4
-	if(A.stage_rate >= disease_itching_stage_speed) //scratch
+	if(A.stage_rate >= get_threshold("stage speed")) //scratch
 		scratch = TRUE
 
 /datum/symptom/itching/Activate(datum/disease/advance/A)
@@ -58,6 +62,6 @@ BONUS
 /datum/symptom/itching/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission [disease_itching_transmission]:</b> Increases frequency of itching.<br>\
-					  <b>Stage Speed [disease_itching_stage_speed]:</b> The host will scrath itself when itching, causing superficial damage."
+	threshold_desc = "<b>Transmission [get_threshold("transmission")]:</b> Increases frequency of itching.<br>\
+					  <b>Stage Speed [get_threshold("stage speed")]:</b> The host will scrath itself when itching, causing superficial damage."
 	return threshold_desc

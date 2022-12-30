@@ -34,18 +34,22 @@ Bonus
 	var/paralysis = FALSE
 	threshold_desc = "<b>Stage Speed 8:</b> Additionally synthesizes pancuronium and sodium thiopental inside the host.<br>\
 					  <b>Transmission 8:</b> Doubles the damage caused by the symptom."
+	threshold_ranges = list(
+		"transmission" = list(7, 9),
+		"stage speed" = list(7, 9)
+	)
 
 /datum/symptom/asphyxiation/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= disease_asphyxiation_transmission)
+	if(A.transmission >= get_threshold("transmission"))
 		severity += 1
 
 /datum/symptom/asphyxiation/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= disease_asphyxiation_stage_speed)
+	if(A.stage_rate >= get_threshold("stage speed"))
 		paralysis = TRUE
-	if(A.transmission >= disease_asphyxiation_transmission)
+	if(A.transmission >= get_threshold("transmission"))
 		power = 2
 
 /datum/symptom/asphyxiation/Activate(datum/disease/advance/A)
@@ -89,6 +93,6 @@ Bonus
 /datum/symptom/asphyxiation/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stage Speed [disease_asphyxiation_stage_speed]:</b> Additionally synthesizes pancuronium and sodium thiopental inside the host.<br>\
-					  <b>Transmission [disease_asphyxiation_transmission]:</b> Doubles the damage caused by the symptom."
+	threshold_desc = "<b>Stage Speed [get_threshold("stage speed")]:</b> Additionally synthesizes pancuronium and sodium thiopental inside the host.<br>\
+					  <b>Transmission [get_threshold("transmission")]:</b> Doubles the damage caused by the symptom."
 	return threshold_desc
