@@ -110,11 +110,6 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		RegisterSignal(target, COMSIG_MIND_CRYOED, .proc/on_target_cryo)
 		target.isAntagTarget = TRUE
 
-/datum/objective/proc/unset_target()
-	if(target)
-		UnregisterSignal(target, COMSIG_MIND_CRYOED)
-		target = null
-
 /datum/objective/proc/get_crewmember_minds()
 	. = list()
 	for(var/datum/data/record/R as() in GLOB.data_core.locked)
@@ -452,8 +447,6 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 	var/selected_gimmick = pick(gimmick_list)
 	selected_gimmick = replacetext(selected_gimmick, "%DEPARTMENT", selected_department)
-	if(!findtext(selected_gimmick, "%TARGET"))
-		unset_target()
 	if(target?.current)
 		selected_gimmick = replacetext(selected_gimmick, "%TARGET", target.name)
 

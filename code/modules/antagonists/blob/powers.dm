@@ -352,7 +352,7 @@
 
 /// Open the menu to reroll strains
 /mob/camera/blob/proc/open_reroll_menu()
-	if (!strain_choices || need_reroll_strain)
+	if (!strain_choices)
 		strain_choices = list()
 
 		var/list/new_strains = GLOB.valid_blobstrains.Copy()
@@ -372,7 +372,6 @@
 			choice.info = info_text
 
 			strain_choices[initial(strain.name)] = choice
-			need_reroll_strain = FALSE
 
 	var/strain_result = show_radial_menu(src, src, strain_choices, radius = BLOB_REROLL_RADIUS, tooltips = TRUE)
 	if (isnull(strain_result))
@@ -381,7 +380,6 @@
 	if (!free_strain_rerolls && !can_buy(BLOB_REROLL_COST))
 		return
 
-	need_reroll_strain = TRUE
 	for (var/_other_strain in GLOB.valid_blobstrains)
 		var/datum/blobstrain/other_strain = _other_strain
 		if (initial(other_strain.name) == strain_result)
