@@ -64,7 +64,6 @@
 		diag_hud.add_to_hud(src)
 	diag_hud_set_status()
 	diag_hud_set_health()
-	add_sensors()
 	create_access_card(default_access_list)
 	default_access_list = null
 

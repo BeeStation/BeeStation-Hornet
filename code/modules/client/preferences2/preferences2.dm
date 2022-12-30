@@ -79,6 +79,9 @@
 	READPREF_RAW(ghost_others, PREFERENCE_TAG_GHOST_OTHERS)
 	READPREF_RAW(pda_style, PREFERENCE_TAG_PDA_STYLE)
 	READPREF_RAW(pda_color, PREFERENCE_TAG_PDA_COLOUR)
+	READPREF_RAW(pai_name, PREFERENCE_TAG_PAI_NAME)
+	READPREF_RAW(pai_description, PREFERENCE_TAG_PAI_DESCRIPTION)
+	READPREF_RAW(pai_comment, PREFERENCE_TAG_PAI_COMMENT)
 
 	READPREF_JSONDEC(ignoring, PREFERENCE_TAG_IGNORING)
 	READPREF_JSONDEC(key_bindings, PREFERENCE_TAG_KEYBINDS)
@@ -107,6 +110,10 @@
 
 	pda_style		= sanitize_inlist(pda_style, GLOB.pda_styles, initial(pda_style))
 	pda_color		= sanitize_hexcolor(pda_color, 6, TRUE, initial(pda_color))
+
+	pai_name		= sanitize_text(pai_name, initial(pai_name))
+	pai_description	= sanitize_text(pai_description, initial(pai_description))
+	pai_comment		= sanitize_text(pai_comment, initial(pai_comment))
 
 	key_bindings 	= sanitize_islist(key_bindings, deepCopyList(GLOB.keybinding_list_by_key))
 	if (!length(key_bindings))
@@ -181,6 +188,9 @@
 	PREP_WRITEPREF_RAW(ghost_orbit, PREFERENCE_TAG_GHOST_ORBIT)
 	PREP_WRITEPREF_RAW(ghost_accs, PREFERENCE_TAG_GHOST_ACCS)
 	PREP_WRITEPREF_RAW(ghost_others, PREFERENCE_TAG_GHOST_OTHERS)
+	PREP_WRITEPREF_RAW(pai_name, PREFERENCE_TAG_PAI_NAME)
+	PREP_WRITEPREF_RAW(pai_description, PREFERENCE_TAG_PAI_DESCRIPTION)
+	PREP_WRITEPREF_RAW(pai_comment, PREFERENCE_TAG_PAI_COMMENT)
 
 	PREP_WRITEPREF_JSONENC(ignoring, PREFERENCE_TAG_IGNORING)
 	PREP_WRITEPREF_JSONENC(key_bindings, PREFERENCE_TAG_KEYBINDS)
