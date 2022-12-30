@@ -74,6 +74,40 @@
 		))
 	STR.can_hold = can_hold
 
+/obj/item/storage/belt/botanical
+	name = "botanical belt"
+	desc = "Can hold various botanical equipment."
+	icon_state = "botanical"
+	item_state = "botanical"
+	worn_icon_state = "botanical"
+	content_overlays = TRUE
+
+/obj/item/storage/belt/botanical/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 7
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.max_combined_w_class = 21
+	STR.can_hold = typecacheof(list(
+		/obj/item/reagent_containers/spray,
+		/obj/item/reagent_containers/glass/beaker,//those will usually be used for fertilizer
+		/obj/item/reagent_containers/glass/bottle,//fertilizer bottles
+		/obj/item/reagent_containers/syringe,//blood samples for pod cloning
+		/obj/item/plant_analyzer,
+		/obj/item/cultivator,
+		/obj/item/hatchet,
+		/obj/item/shovel/spade,
+		/obj/item/disk/plantgene,
+		/obj/item/wrench,//because botanists move around trays with those
+		/obj/item/seeds,
+		/obj/item/clothing/gloves/botanic_leather,
+		/obj/item/rollingpaper,//dudeweed
+		/obj/item/lighter,
+		/obj/item/clothing/mask/cigarette/pipe/cobpipe,
+		/obj/item/clothing/mask/cigarette/rollie,//dudeweedlmao
+		/obj/item/gun/energy/floragun
+		))
+
 /obj/item/storage/belt/utility/chief
 	name = "\improper Chief Engineer's toolbelt" //"the Chief Engineer's toolbelt", because "Chief Engineer's toolbelt" is not a proper noun
 	desc = "Holds tools, looks snazzy."
