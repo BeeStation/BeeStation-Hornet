@@ -7,7 +7,6 @@
 	can_unwrench = TRUE
 
 	use_power = NO_POWER_USE
-	level = 0
 	layer = GAS_FILTER_LAYER
 	shift_underlay_only = FALSE
 
@@ -57,9 +56,6 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/layer4
 	piping_layer = 4
 	icon_state = "connector_map-4"
-
-/obj/machinery/atmospherics/components/unary/portables_connector/visible
-	level = 2
 
 /obj/machinery/atmospherics/components/unary/portables_connector/visible/layer2
 	piping_layer = 2

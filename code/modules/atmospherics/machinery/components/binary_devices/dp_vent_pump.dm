@@ -16,8 +16,6 @@
 
 	welded = FALSE
 
-	level = 1
-
 	interacts_with_air = TRUE
 
 	var/frequency = 0
