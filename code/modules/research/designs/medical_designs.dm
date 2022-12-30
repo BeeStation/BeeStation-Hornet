@@ -611,6 +611,28 @@
 	category = list("Cybernetics", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
+/datum/design/cybernetic_stomach
+	name = "Cybernetic Stomach"
+	desc = "A cybernetic cybernetic stomach."
+	id = "cybernetic_stomach"
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 40
+	materials = list(/datum/material/iron = 500, /datum/material/glass = 500, /datum/material/copper = 200)
+	build_path = /obj/item/organ/stomach/cybernetic
+	category = list("Cybernetics", "Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/cybernetic_stomach_u
+	name = "Upgraded Cybernetic Stomach"
+	desc = "A upgraded cybernetic stomach."
+	id = "cybernetic_stomach_u"
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 50
+	materials = list(/datum/material/iron = 500, /datum/material/glass = 500, /datum/material/silver = 500, /datum/material/copper = 300)
+	build_path = /obj/item/organ/stomach/cybernetic/upgraded
+	category = list("Cybernetics", "Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
 /datum/design/wingpack
 	name = "Cybernetic Wingpack"
 	desc = "A compact pair of mechanical wings, which use the atmosphere to create thrust."

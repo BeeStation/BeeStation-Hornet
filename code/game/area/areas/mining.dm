@@ -6,6 +6,7 @@
 	lighting_colour_tube = "#ffe8d2"
 	lighting_colour_bulb = "#ffdcb7"
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | FLORA_ALLOWED
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
 
 /area/mine/explored
 	name = "Mine"
