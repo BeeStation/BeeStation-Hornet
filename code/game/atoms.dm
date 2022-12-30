@@ -1421,11 +1421,11 @@
   * 1 argument is for the user making the item
   * 2 argument is for the item being created
  */
-/proc/log_crafting(atom/user, atom/object)
+/proc/log_crafting(atom/user, atom/object, dangerous = FALSE)
 	var/masterpiece = object
 	var/message = "has crafted [masterpiece]"
 	user.log_message(message, LOG_GAME)
-	if(is_type_in_typecache(masterpiece, GLOB.dangerous_crafts))
+	if(dangerous)
 		var/devious = null
 		var/mob/blacksmith = user
 		devious = locate(/datum/antagonist) in blacksmith.mind.antag_datums
