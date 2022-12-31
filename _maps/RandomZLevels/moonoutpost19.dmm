@@ -1710,7 +1710,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold{
 	dir = 4;
-	level = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/awaymission/moonoutpost19/research)
