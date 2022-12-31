@@ -39,7 +39,7 @@
 	var/progress_flash_divisor = 10
 	var/burned_fuel_for = 0	//when fuel was last removed
 	var/light_intensity = 2
-	var/functional = TRUE //Used by the cyborg welders to determine if they're been smashed by a nightmare
+	var/disabled_time = 0 //Used by the cyborg welders to determine how long they remain off after getting hit by a nightmare
 	heat = 3800
 	tool_behaviour = TOOL_WELDER
 	toolspeed = 1
@@ -195,7 +195,7 @@
 	if(!status)
 		balloon_alert(user, "You try to turn [src] on, but it's unsecured!")
 		return
-	if(!functional)
+	if(world.time < disabled_time)
 		balloon_alert(user, "You try to turn [src] on, but nothing happens!")
 		return
 	set_welding(!welding)
@@ -340,14 +340,10 @@
 
 ///This gets called by the lighteater to temporarity disable it
 /obj/item/weldingtool/cyborg/proc/disable()
-	functional = FALSE
+	disabled_time = world.time + 30 SECONDS
 	switched_off(usr)
 	playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
-	addtimer(CALLBACK(src, .proc/enable), 300, TIMER_UNIQUE)
 
-/obj/item/weldingtool/cyborg/proc/enable()
-	functional = TRUE
-	playsound(src, 'sound/machines/chime.ogg', 25, TRUE)
 
 /obj/item/weldingtool/cyborg/mini
 	name = "integrated emergency welding tool"
