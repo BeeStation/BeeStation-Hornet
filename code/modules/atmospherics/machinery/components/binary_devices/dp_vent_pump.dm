@@ -14,6 +14,8 @@
 	name = "dual-port air vent"
 	desc = "Has a valve and pump attached to it. There are two ports."
 
+	hide = TRUE
+
 	welded = FALSE
 
 	interacts_with_air = TRUE

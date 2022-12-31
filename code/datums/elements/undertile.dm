@@ -63,3 +63,6 @@
 	. = ..()
 
 	hide(AM, FALSE)
+
+
+#undef ALPHA_UNDERTILE

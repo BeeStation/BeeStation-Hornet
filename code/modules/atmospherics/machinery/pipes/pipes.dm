@@ -27,7 +27,8 @@
 /obj/machinery/atmospherics/pipe/Initialize(mapload)
 	. = ..()
 
-	AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
+	if(hide)
+		AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
 
 /obj/machinery/atmospherics/pipe/examine(mob/user)
 	. = ..()

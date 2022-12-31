@@ -9,6 +9,7 @@
 	use_power = NO_POWER_USE
 	layer = GAS_FILTER_LAYER
 	shift_underlay_only = FALSE
+	hide = TRUE
 
 	pipe_flags = PIPING_ONE_PER_TURF
 	pipe_state = "connector"
@@ -56,6 +57,9 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/layer4
 	piping_layer = 4
 	icon_state = "connector_map-4"
+
+/obj/machinery/atmospherics/components/unary/portables_connector/visible
+	hide = FALSE
 
 /obj/machinery/atmospherics/components/unary/portables_connector/visible/layer2
 	piping_layer = 2
