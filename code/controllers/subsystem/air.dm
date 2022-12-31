@@ -485,12 +485,12 @@ SUBSYSTEM_DEF(air)
 	map_loading = FALSE
 
 /datum/controller/subsystem/air/proc/pause_z(z_level)
-	paused_z_levels["[z_level]"] = TRUE
+	paused_z_levels[z_level] = TRUE
 	unpausing_z_levels -= z_level
 
 /datum/controller/subsystem/air/proc/unpause_z(z_level)
 	unpausing_z_levels |= z_level
-	paused_z_levels["[z_level]"] = FALSE
+	paused_z_levels[z_level] = FALSE
 
 /datum/controller/subsystem/air/proc/setup_allturfs()
 	var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz))
@@ -543,6 +543,14 @@ SUBSYSTEM_DEF(air)
 		qdel(temp)
 
 	return pipe_init_dirs_cache[type]["[dir]"]
+
+/datum/controller/subsystem/air/proc/MaxZChanged()
+	var/list/old_zs = paused_z_levels
+	paused_z_levels = new(world.maxz)
+	for (var/i in 1 to length(old_zs))
+		paused_z_levels[i] = old_zs[i]
+	for (var/i in (length(old_zs) + 1) to length(paused_z_levels))
+		paused_z_levels[i] = FALSE
 
 #undef SSAIR_PIPENETS
 #undef SSAIR_ATMOSMACHINERY

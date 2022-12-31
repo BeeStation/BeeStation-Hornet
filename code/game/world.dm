@@ -370,6 +370,7 @@ GLOBAL_VAR(restart_counter)
 	maxz++
 	SSmobs.MaxZChanged()
 	SSidlenpcpool.MaxZChanged()
+	SSair.MaxZChanged()
 	world.refresh_atmos_grid()
 
 /world/proc/refresh_atmos_grid()

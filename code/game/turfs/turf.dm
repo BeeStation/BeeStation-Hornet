@@ -134,6 +134,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/proc/set_temperature()
 
 /turf/proc/Initalize_Atmos(times_fired)
+	if (SSair.paused_z_levels[z])
+		return
 	CALCULATE_ADJACENT_TURFS(src)
 
 /turf/Destroy(force)
