@@ -14340,7 +14340,6 @@
 "btv" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8;
-	level = 2
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -18435,7 +18434,6 @@
 "bMj" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8;
-	level = 2
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
