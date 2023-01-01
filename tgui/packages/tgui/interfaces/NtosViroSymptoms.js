@@ -28,27 +28,27 @@ export const NtosViroSymptoms = (props, context) => {
         />
         {filteredSymptoms.map(symptomName => (
 		<Section key={symptomName}>
-			<Box fontWeight="bold">{symptomName}</Box>
-            <Box>{symptoms[symptomName]["desc"]}</Box>
-            <Box>Stealth: {symptoms[symptomName]["stealth"]}</Box>
-            <Box>Resistance: {symptoms[symptomName]["resistance"]}</Box>
-            <Box>Stage Speed: {symptoms[symptomName]["stage_speed"]}</Box>
-            <Box>Transmission: {symptoms[symptomName]["transmission"]}</Box>
-            <Box>Level: {symptoms[symptomName]["level"]}</Box>
-            <Box>Threshold Description:
+		  <Box fontWeight="bold">{symptomName}</Box>
+          <Box>{symptoms[symptomName]["desc"]}</Box>
+          <Box>Stealth: {symptoms[symptomName]["stealth"]}</Box>
+          <Box>Resistance: {symptoms[symptomName]["resistance"]}</Box>
+          <Box>Stage Speed: {symptoms[symptomName]["stage_speed"]}</Box>
+          <Box>Transmission: {symptoms[symptomName]["transmission"]}</Box>
+          <Box>Level: {symptoms[symptomName]["level"]}</Box>
+          <Box>Threshold Description:
+		    <>
+			  {symptoms[symptomName]["threshold_desc"]
+			    .split('<br>')
+			    .map((line, i) => (
 				<>
-					{symptoms[symptomName]["threshold_desc"]
-						.split('<br>')
-						.map((line, i) => (
-						<>
-							{line.replace(/<b>/g, ' ')
-								.replace(/<\/b>/g, '')}
-							<br />
-						</>
-					))}
+				  {line.replace(/<b>/g, ' ')
+					.replace(/<\/b>/g, '')}
+					<br />
 				</>
-            </Box>
-            <Box>Severity: {symptoms[symptomName]["severity"]}</Box>
+			  ))}
+			</>
+          </Box>
+          <Box>Severity: {symptoms[symptomName]["severity"]}</Box>
         </Section>
         ))}
       </NtosWindow.Content>
