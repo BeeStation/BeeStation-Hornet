@@ -175,6 +175,9 @@
 #define PREFERENCE_TAG_KEYBINDS			"24"
 #define PREFERENCE_TAG_PURCHASED_GEAR	"25"
 #define PREFERENCE_TAG_BE_SPECIAL		"26"
+#define PREFERENCE_TAG_PAI_NAME			"27"
+#define PREFERENCE_TAG_PAI_DESCRIPTION	"28"
+#define PREFERENCE_TAG_PAI_COMMENT		"29"
 
 // True value of max save slots (3 is default, 8 is byond member, +1 to either if you have the extra slot loadout entry). Potential max is 9
 #define TRUE_MAX_SAVE_SLOTS 9
