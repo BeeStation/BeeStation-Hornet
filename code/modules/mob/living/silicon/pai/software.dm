@@ -95,14 +95,12 @@
 		if("camera_zoom")
 			aicamera.adjust_zoom(usr)
 		if("change_image")
-			var/newImage = input(usr, "Select your new display image.", "Display Image") in sortList(list("Happy", "Cat", "Extremely Happy", "Face", "Laugh", "Off", "Sad", "Angry", "What", "Sunglasses"))
-			switch(newImage)
-				if(null)
-					card.emotion_icon = "null"
-				if("Extremely Happy")
-					card.emotion_icon = "extremely-happy"
-				else
-					card.emotion_icon = "[lowertext(newImage)]"
+			var/atom/anchor = get_atom_on_turf(src)
+			var/newImage = show_radial_menu(usr, anchor, GLOB.pAI_faces_icons, custom_check = CALLBACK(src, .proc/check_radial_menu, anchor), radius = 40, require_near = TRUE)
+			if(isnull(newImage))
+				card.emotion_icon = "null"
+			else
+				card.emotion_icon = GLOB.pAI_faces_list[newImage]
 			card.update_icon()
 		if("check_dna")
 			if(!master_dna)
@@ -193,6 +191,13 @@
 				to_chat(src, "<span class='rose'>oblivion... </span>")
 				death()
 
+	return TRUE
+
+/mob/living/silicon/pai/proc/check_radial_menu(atom/anchor)
+	if(incapacitated())
+		return FALSE
+	if(get_turf(src) != get_turf(anchor))
+		return FALSE
 	return TRUE
 
 /**
