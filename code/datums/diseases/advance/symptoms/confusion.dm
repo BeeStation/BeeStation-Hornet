@@ -15,6 +15,10 @@ Bonus
 //////////////////////////////////////
 */
 
+#define CONFUSION_RESISTANCE "resistance"
+#define CONFUSION_TRANSMISSION "transmission"
+#define CONFUSION_STEALTH "stealth"
+
 /datum/symptom/confusion
 
 	name = "Confusion"
@@ -35,24 +39,24 @@ Bonus
 					  <b>Transmission 6:</b> Increases confusion duration.<br>\
 					  <b>Stealth 4:</b> The symptom remains hidden until active."
 	threshold_ranges = list(
-		"resistance" = list(5, 7),
-		"transmission" = list(5, 7),
-		"stealth" = list(3, 5)
+		CONFUSION_RESISTANCE = list(5, 7),
+		CONFUSION_TRANSMISSION = list(5, 7),
+		CONFUSION_STEALTH = list(3, 5)
 	)
 
 /datum/symptom/confusion/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= get_threshold("resistance"))
+	if(A.resistance >= get_threshold(CONFUSION_RESISTANCE))
 		severity += 1
 
 /datum/symptom/confusion/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= get_threshold("resistance"))
+	if(A.resistance >= get_threshold(CONFUSION_RESISTANCE))
 		brain_damage = TRUE
-	if(A.transmission >= get_threshold("transmission"))
+	if(A.transmission >= get_threshold(CONFUSION_TRANSMISSION))
 		power = 1.5
-	if(A.stealth >= get_threshold("stealth"))
+	if(A.stealth >= get_threshold(CONFUSION_STEALTH))
 		suppress_warning = TRUE
 
 /datum/symptom/confusion/Activate(datum/disease/advance/A)
@@ -75,7 +79,7 @@ Bonus
 /datum/symptom/confusion/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [get_threshold("resistance")]:</b> Causes brain damage over time.<br>\
-					  <b>Transmission [get_threshold("transmission")]:</b> Increases confusion duration.<br>\
-					  <b>Stealth [get_threshold("stealth")]:</b> The symptom remains hidden until active."
+	threshold_desc = "<b>Resistance [get_threshold(CONFUSION_RESISTANCE)]:</b> Causes brain damage over time.<br>\
+					  <b>Transmission [get_threshold(CONFUSION_TRANSMISSION)]:</b> Increases confusion duration.<br>\
+					  <b>Stealth [get_threshold(CONFUSION_STEALTH)]:</b> The symptom remains hidden until active."
 	return threshold_desc

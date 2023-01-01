@@ -15,6 +15,10 @@ Bonus
 //////////////////////////////////////
 */
 
+#define GENETIC_RESISTANCE "resistance"
+#define GENETIC_STAGE_SPEED "stage speed"
+#define GENETIC_STEALTH "stealth"
+
 /datum/symptom/genetic_mutation
 	name = "Deoxyribonucleic Acid Saboteur"
 	desc = "The virus bonds with the DNA of the host, causing damaging mutations until removed."
@@ -36,14 +40,14 @@ Bonus
 					  <b>Stage Speed 10:</b> Increases mutation frequency.<br>\
 					  <b>Stealth 5:</b> The mutations persist even if the virus is cured."
 	threshold_ranges = list(
-		"resistance" = list(7, 9),
-		"stage speed" = list(8, 12),
-		"stealth" = list(4, 6)
+		GENETIC_RESISTANCE = list(7, 9),
+		GENETIC_STAGE_SPEED = list(8, 12),
+		GENETIC_STEALTH = list(4, 6)
 	)
 
 /datum/symptom/genetic_mutation/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= get_threshold("resistance"))
+	if(A.resistance >= get_threshold(GENETIC_RESISTANCE))
 		severity += 1
 
 /datum/symptom/genetic_mutation/Activate(datum/disease/advance/A)
@@ -63,12 +67,12 @@ Bonus
 /datum/symptom/genetic_mutation/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= get_threshold("stealth")) //don't restore dna after curing
+	if(A.stealth >= get_threshold(GENETIC_STEALTH)) //don't restore dna after curing
 		no_reset = TRUE
-	if(A.stage_rate >= get_threshold("stage speed")) //mutate more often
+	if(A.stage_rate >= get_threshold(GENETIC_STAGE_SPEED)) //mutate more often
 		symptom_delay_min = 20
 		symptom_delay_max = 60
-	if(A.resistance >= get_threshold("resistance")) //mutate twice
+	if(A.resistance >= get_threshold(GENETIC_RESISTANCE)) //mutate twice
 		power = 2
 	possible_mutations = (GLOB.bad_mutations | GLOB.not_good_mutations) - GLOB.all_mutations[RACEMUT]
 	var/mob/living/carbon/M = A.affected_mob
@@ -92,7 +96,7 @@ Bonus
 /datum/symptom/genetic_mutation/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [get_threshold("resistance")]:</b> Causes two harmful mutations at once.<br>\
-					  <b>Stage Speed [get_threshold("stage speed")]:</b> Increases mutation frequency.<br>\
-					  <b>Stealth [get_threshold("stealth")]:</b> The mutations persist even if the virus is cured."
+	threshold_desc = "<b>Resistance [get_threshold(GENETIC_RESISTANCE)]:</b> Causes two harmful mutations at once.<br>\
+					  <b>Stage Speed [get_threshold(GENETIC_STAGE_SPEED)]:</b> Increases mutation frequency.<br>\
+					  <b>Stealth [get_threshold(GENETIC_STEALTH)]:</b> The mutations persist even if the virus is cured."
 	return threshold_desc

@@ -1,3 +1,6 @@
+#define WIZARDITIS_TRANSMISSION "transmission"
+#define WIZARDITIS_STAGE_SPEED "stage speed"
+
 /datum/symptom/wizarditis
 	name = "Wizarditis"
 	desc = "Causes the host to subconciously believe they are in fact, a wizard."
@@ -16,23 +19,23 @@
 	threshold_desc = "<b>Transmission 8:</b> The host teleports occasionally.<br>\
 					  <b>Stage Speed 7:</b> The host grows a set of wizard robes."
 	threshold_ranges = list(
-		"transmission" = list(7, 9),
-		"stage speed" = list(5, 9)
+		WIZARDITIS_TRANSMISSION = list(7, 9),
+		WIZARDITIS_STAGE_SPEED = list(5, 9)
 	)
 
 /datum/symptom/wizarditis/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= get_threshold("transmission"))
+	if(A.transmission >= get_threshold(WIZARDITIS_TRANSMISSION))
 		severity += 1
-	if(A.stage_rate >= get_threshold("stage speed"))
+	if(A.stage_rate >= get_threshold(WIZARDITIS_STAGE_SPEED))
 		severity += 1
 
 /datum/symptom/wizarditis/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= get_threshold("transmission"))
+	if(A.transmission >= get_threshold(WIZARDITIS_TRANSMISSION))
 		teleport = TRUE
-	if(A.stage_rate >= get_threshold("stage speed"))
+	if(A.stage_rate >= get_threshold(WIZARDITIS_STAGE_SPEED))
 		robes = TRUE
 
 /datum/symptom/wizarditis/Activate(datum/disease/advance/A)
@@ -116,6 +119,6 @@
 /datum/symptom/wizarditis/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission [get_threshold("transmission")]:</b> The host teleports occasionally.<br>\
-					  <b>Stage Speed [get_threshold("stage speed")]:</b> The host grows a set of wizard robes."
+	threshold_desc = "<b>Transmission [get_threshold(WIZARDITIS_TRANSMISSION)]:</b> The host teleports occasionally.<br>\
+					  <b>Stage Speed [get_threshold(WIZARDITIS_STAGE_SPEED)]:</b> The host grows a set of wizard robes."
 	return threshold_desc

@@ -1,3 +1,5 @@
+#define RADIATION_STAGE_SPEED "stage speed"
+
 /datum/symptom/radiation
 	name = "Iraddiant Cells"
 	desc = "Causes the cells in the host's body to give off harmful radiation."
@@ -13,18 +15,18 @@
 	bodies = list("Radiation")
 	threshold_desc = "<b>Stage Speed 8:</b> Host takes radiation damage faster."
 	threshold_ranges = list(
-		"stage speed" = list(7, 9)
+		RADIATION_STAGE_SPEED = list(7, 9)
 	)
 
 /datum/symptom/radiation/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= get_threshold("stage speed"))
+	if(A.stage_rate >= get_threshold(RADIATION_STAGE_SPEED))
 		severity += 1
 
 /datum/symptom/radiation/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= get_threshold("stage speed"))
+	if(A.stage_rate >= get_threshold(RADIATION_STAGE_SPEED))
 		power = 2
 
 /datum/symptom/radiation/Activate(datum/disease/advance/A)
@@ -49,8 +51,11 @@
 /datum/symptom/radiation/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stage Speed [get_threshold("stage speed")]:</b> Host takes radiation damage faster."
+	threshold_desc = "<b>Stage Speed [get_threshold(RADIATION_STAGE_SPEED)]:</b> Host takes radiation damage faster."
 	return threshold_desc
+
+#define RADCONVERSION_STAGE_SPEED "stage speed"
+#define RADCONVERSION_RESISTANCE "resistance"
 
 /datum/symptom/radconversion
 	name = "Aptotic Culling"
@@ -69,23 +74,23 @@
 	threshold_desc = "<b>Stage Speed 6:</b> The disease also kills off contaminated cells, converting Toxin damage to Brute damage, at an efficient rate.<br>\
 					<b>Resistance 12 :</b> The disease also kills off genetically damaged cells and their neighbors, converting Cellular damage into Burn damage, at an inefficient rate."
 	threshold_ranges = list(
-		"stage speed" = list(5, 7),
-		"resistance" = list(11, 13)
+		RADCONVERSION_STAGE_SPEED = list(5, 7),
+		RADCONVERSION_RESISTANCE = list(11, 13)
 	)
 
 /datum/symptom/radconversion/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= get_threshold("stage speed"))
+	if(A.stage_rate >= get_threshold(RADCONVERSION_STAGE_SPEED))
 		severity -= 1
-	if(A.resistance >= get_threshold("resistance"))
+	if(A.resistance >= get_threshold(RADCONVERSION_RESISTANCE))
 		severity -= 1
 
 /datum/symptom/radconversion/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= get_threshold("stage speed"))
+	if(A.stage_rate >= get_threshold(RADCONVERSION_STAGE_SPEED))
 		toxheal = TRUE
-	if(A.resistance >= get_threshold("resistance"))
+	if(A.resistance >= get_threshold(RADCONVERSION_RESISTANCE))
 		cellheal = TRUE
 
 
@@ -117,6 +122,6 @@
 /datum/symptom/radconversion/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stage Speed [get_threshold("stage speed")]:</b> The disease also kills off contaminated cells, converting Toxin damage to Brute damage, at an efficient rate.<br>\
-					<b>Resistance [get_threshold("resistance")]:</b> The disease also kills off genetically damaged cells and their neighbors, converting Cellular damage into Burn damage, at an inefficient rate."
+	threshold_desc = "<b>Stage Speed [get_threshold(RADCONVERSION_STAGE_SPEED)]:</b> The disease also kills off contaminated cells, converting Toxin damage to Brute damage, at an efficient rate.<br>\
+					<b>Resistance [get_threshold(RADCONVERSION_RESISTANCE)]:</b> The disease also kills off genetically damaged cells and their neighbors, converting Cellular damage into Burn damage, at an inefficient rate."
 	return threshold_desc

@@ -15,6 +15,11 @@ Bonus
 //////////////////////////////////////
 */
 
+#define FIRE_STAGE_SPEED_1 "stage speed1"
+#define FIRE_STAGE_SPEED_2 "stage speed2"
+#define FIRE_TRANSMISSION "transmission"
+#define FIRE_STEALTH "stealth"
+
 /datum/symptom/fire
 
 	name = "Spontaneous Combustion"
@@ -37,22 +42,22 @@ Bonus
 					  <b>Transmission 8:</b> Host will spread the virus through skin flakes when bursting into flame.<br>\
 					  <b>Stealth 4:</b> The symptom remains hidden until active."
 	threshold_ranges = list(
-		"stage speed1" = list(3, 5),
-		"stage speed2" = list(7, 10),
-		"transmission" = list(7, 9),
-		"stealth" = list(3, 5)
+		FIRE_STAGE_SPEED_1 = list(3, 5),
+		FIRE_STAGE_SPEED_2 = list(7, 10),
+		FIRE_TRANSMISSION = list(7, 9),
+		FIRE_STEALTH = list(3, 5)
 	)
 
 /datum/symptom/fire/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= get_threshold("stage speed1"))
+	if(A.stage_rate >= get_threshold(FIRE_STAGE_SPEED_1))
 		power = 1.5
-		if(A.stage_rate >= get_threshold("stage speed2"))
+		if(A.stage_rate >= get_threshold(FIRE_STAGE_SPEED_2))
 			power = 2
-	if(A.stealth >= get_threshold("stealth"))
+	if(A.stealth >= get_threshold(FIRE_STEALTH))
 		suppress_warning = TRUE
-	if(A.transmission >= get_threshold("transmission")) //burning skin spreads the virus through smoke
+	if(A.transmission >= get_threshold(FIRE_TRANSMISSION)) //burning skin spreads the virus through smoke
 		infective = TRUE
 
 /datum/symptom/fire/Activate(datum/disease/advance/A)
@@ -96,10 +101,10 @@ Bonus
 /datum/symptom/fire/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stage Speed [get_threshold("stage speed1")]:</b> Increases the intensity of the flames.<br>\
-					  <b>Stage Speed [get_threshold("stage speed2")]:</b> Further increases flame intensity.<br>\
-					  <b>Transmission [get_threshold("transmission")]:</b> Host will spread the virus through skin flakes when bursting into flame.<br>\
-					  <b>Stealth [get_threshold("stealth")]:</b> The symptom remains hidden until active."
+	threshold_desc = "<b>Stage Speed [get_threshold(FIRE_STAGE_SPEED_1)]:</b> Increases the intensity of the flames.<br>\
+					  <b>Stage Speed [get_threshold(FIRE_STAGE_SPEED_2)]:</b> Further increases flame intensity.<br>\
+					  <b>Transmission [get_threshold(FIRE_TRANSMISSION)]:</b> Host will spread the virus through skin flakes when bursting into flame.<br>\
+					  <b>Stealth [get_threshold(FIRE_STEALTH)]:</b> The symptom remains hidden until active."
 	return threshold_desc
 
 /*
@@ -119,6 +124,10 @@ Bonus
 
 //////////////////////////////////////
 */
+
+#define ALKALI_STAGE_SPEED "stage speed"
+#define ALKALI_RESISTANCE "resistance"
+#define ALKALI_STEALTH "stealth"
 
 /datum/symptom/alkali
 
@@ -142,16 +151,16 @@ Bonus
 					  <b>Stage Speed 8:</b> Increases explosion radius when the host is wet.<br>\
 					  <b>Resistance 8:</b> Additionally synthesizes chlorine trifluoride and napalm inside the host."
 	threshold_ranges = list(
-		"stage speed" = list(7, 9),
-		"resistance" = list(7, 9),
-		"stealth" = list(3, 4)
+		ALKALI_STAGE_SPEED = list(7, 9),
+		ALKALI_RESISTANCE = list(7, 9),
+		ALKALI_STEALTH = list(3, 4)
 	)
 
 /datum/symptom/alkali/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= get_threshold("stealth"))
+	if(A.stealth >= get_threshold(ALKALI_STEALTH))
 		severity += 1
-	if(A.stage_rate >= get_threshold("stage speed"))
+	if(A.stage_rate >= get_threshold(ALKALI_STAGE_SPEED))
 		severity += 2 //if you can find a way to make this threshold work in a trifecta well enough to take advantage of this severity boost, i applaud you
 
 /datum/symptom/alkali/Start(datum/disease/advance/A)
@@ -161,9 +170,9 @@ Bonus
 		power = 2
 		symptom_delay_min = 50
 		symptom_delay_max = 140
-	if(A.stage_rate >= get_threshold("stage speed")) //serious boom when wet
+	if(A.stage_rate >= get_threshold(ALKALI_STAGE_SPEED)) //serious boom when wet
 		explosion_power = 2
-	if(A.resistance >= get_threshold("resistance")) //extra chemicals
+	if(A.resistance >= get_threshold(ALKALI_RESISTANCE)) //extra chemicals
 		chems = TRUE
 
 /datum/symptom/alkali/Activate(datum/disease/advance/A)
@@ -210,7 +219,7 @@ Bonus
 /datum/symptom/alkali/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stealth [get_threshold("stealth")]:</b> Doubles the intensity of the effect, but reduces its frequency.<br>\
-					  <b>Stage Speed [get_threshold("stage speed")]:</b> Increases explosion radius when the host is wet.<br>\
-					  <b>Resistance [get_threshold("resistance")]:</b> Additionally synthesizes chlorine trifluoride and napalm inside the host."
+	threshold_desc = "<b>Stealth [get_threshold(ALKALI_STEALTH)]:</b> Doubles the intensity of the effect, but reduces its frequency.<br>\
+					  <b>Stage Speed [get_threshold(ALKALI_STAGE_SPEED)]:</b> Increases explosion radius when the host is wet.<br>\
+					  <b>Resistance [get_threshold(ALKALI_RESISTANCE)]:</b> Additionally synthesizes chlorine trifluoride and napalm inside the host."
 	return threshold_desc

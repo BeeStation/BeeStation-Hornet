@@ -1,3 +1,7 @@
+#define NECROSEED_STEALTH "stealth"
+#define NECROSEED_RESISTANCE_1 "resistance1"
+#define NECROSEED_RESISTANCE_2 "resistance2"
+
 /datum/symptom/necroseed
 	name = "Necropolis Seed"
 	desc = "An infantile form of the root of Lavaland's tendrils. Forms a symbiotic bond with the host, making them stronger and hardier, at the cost of speed. Should the disease be cured, the host will be severely weakened."
@@ -22,26 +26,26 @@
 	var/turf/last_location
 	var/tentacle_recheck_cooldown = 100
 	threshold_ranges = list(
-		"stealth" = list(7, 9),
-		"resistance1" = list(13, 17),
-		"resistance2" = list(19, 21)
+		NECROSEED_STEALTH = list(7, 9),
+		NECROSEED_RESISTANCE_1 = list(13, 17),
+		NECROSEED_RESISTANCE_2 = list(19, 21)
 	)
 
 /datum/symptom/necroseed/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= get_threshold("stealth"))
+	if(A.stealth >= get_threshold(NECROSEED_STEALTH))
 		severity += 2
-	if(A.resistance >= get_threshold("resistance2"))
+	if(A.resistance >= get_threshold(NECROSEED_RESISTANCE_2))
 		severity -= 1
 
 /datum/symptom/necroseed/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= get_threshold("resistance1")) // Will create tendrils around the host
+	if(A.resistance >= get_threshold(NECROSEED_RESISTANCE_1)) // Will create tendrils around the host
 		tendrils = TRUE
-		if(A.resistance >= get_threshold("resistance2")) // Makes host immune to heat, ash and lava
+		if(A.resistance >= get_threshold(NECROSEED_RESISTANCE_2)) // Makes host immune to heat, ash and lava
 			fireproof = TRUE
-	if(A.stealth >= get_threshold("stealth"))
+	if(A.stealth >= get_threshold(NECROSEED_STEALTH))
 		chest = TRUE
 
 
@@ -146,7 +150,7 @@
 /datum/symptom/necroseed/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stealth [get_threshold("stealth")]:</b> Upon death, the host's soul will solidify into an unholy artifact, rendering them utterly unrevivable in the process.<br>\
-					  <b>Resistance [get_threshold("resistance1")]:</b> The area near the host roils with paralyzing tendrils.<br>\
-					  <b>Resistance [get_threshold("resistance2")]:</b> Host becomes immune to heat, ash, and lava."
+	threshold_desc = "<b>Stealth [get_threshold(NECROSEED_STEALTH)]:</b> Upon death, the host's soul will solidify into an unholy artifact, rendering them utterly unrevivable in the process.<br>\
+					  <b>Resistance [get_threshold(NECROSEED_RESISTANCE_1)]:</b> The area near the host roils with paralyzing tendrils.<br>\
+					  <b>Resistance [get_threshold(NECROSEED_RESISTANCE_2)]:</b> Host becomes immune to heat, ash, and lava."
 	return threshold_desc

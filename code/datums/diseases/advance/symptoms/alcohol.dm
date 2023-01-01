@@ -1,3 +1,6 @@
+#define ALCOHOL_STEALTH "stealth"
+#define ALCOHOL_STAGE_SPEED "stage speed"
+
 /datum/symptom/alcohol
 	name = "Autobrewery Syndrome"
 	desc = "The virus causes fermentation in the stomach, leading to chronic drunkenness."
@@ -14,23 +17,23 @@
 	threshold_desc = "<b>Stealth 3:</b> The host only reaches a slight buzz.<br>\
 					  <b>Stage Speed 6:</b> The levels of alcohol produced can be lethal. Overriden by the stealth threshold."
 	threshold_ranges = list(
-		"stealth" = list(1, 5),
-		"stage speed" = list(5, 7)
+		ALCOHOL_STEALTH = list(1, 5),
+		ALCOHOL_STAGE_SPEED = list(5, 7)
 	)
 
 /datum/symptom/alcohol/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= get_threshold("stealth"))
+	if(A.stealth >= get_threshold(ALCOHOL_STEALTH))
 		severity -= 1
-	else if(A.stage_rate >= get_threshold("stage speed"))
+	else if(A.stage_rate >= get_threshold(ALCOHOL_STAGE_SPEED))
 		severity += 3
 
 /datum/symptom/alcohol/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= get_threshold("stealth"))
+	if(A.stealth >= get_threshold(ALCOHOL_STEALTH))
 		target = 13.35 //this is the ballmer point and has no real downsides- perfect if you want this to act as a minor beneficial symptom for a mood boost
-	else if(A.stage_rate >= get_threshold("stage speed"))
+	else if(A.stage_rate >= get_threshold(ALCOHOL_STAGE_SPEED))
 		target = 80//lethal, but only barely (for alcohol - 1 tox/tick is quite lethal). this nets decent healing if you have drunken resilience- provided you can deal with the toxins
 
 /datum/symptom/alcohol/Activate(datum/disease/advance/A)
@@ -52,6 +55,6 @@
 /datum/symptom/alcohol/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stealth [get_threshold("stealth")]:</b> The host only reaches a slight buzz.<br>\
-					  <b>Stage Speed [get_threshold("stage speed")]:</b> The levels of alcohol produced can be lethal. Overriden by the stealth threshold."
+	threshold_desc = "<b>Stealth [get_threshold(ALCOHOL_STEALTH)]:</b> The host only reaches a slight buzz.<br>\
+					  <b>Stage Speed [get_threshold(ALCOHOL_STAGE_SPEED)]:</b> The levels of alcohol produced can be lethal. Overriden by the stealth threshold."
 	return threshold_desc

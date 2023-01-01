@@ -16,6 +16,8 @@ Bonus
 //////////////////////////////////////
 */
 
+#define WEIGHT_LOSS_STEALTH "stealth"
+
 /datum/symptom/weight_loss
 
 	name = "Weight Loss"
@@ -34,19 +36,19 @@ Bonus
 	bodies = list("Diet")
 	threshold_desc = "<b>Stealth 2:</b> The symptom is less noticeable, and does not cause starvation."
 	threshold_ranges = list(
-		"stealth" = list(0, 4)
+		WEIGHT_LOSS_STEALTH = list(0, 4)
 	)
 
 /datum/symptom/weight_loss/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= get_threshold("stealth")) //warn less often
+	if(A.stealth >= get_threshold(WEIGHT_LOSS_STEALTH)) //warn less often
 		severity -= 3
 	
 
 /datum/symptom/weight_loss/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= get_threshold("stealth")) //warn less often
+	if(A.stealth >= get_threshold(WEIGHT_LOSS_STEALTH)) //warn less often
 		base_message_chance = 25
 		starving = FALSE
 
@@ -67,5 +69,5 @@ Bonus
 /datum/symptom/weight_loss/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stealth [get_threshold("stealth")]:</b> The symptom is less noticeable, and does not cause starvation."
+	threshold_desc = "<b>Stealth [get_threshold(WEIGHT_LOSS_STEALTH)]:</b> The symptom is less noticeable, and does not cause starvation."
 	return threshold_desc

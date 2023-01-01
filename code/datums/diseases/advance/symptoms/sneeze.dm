@@ -15,6 +15,10 @@ Bonus
 
 //////////////////////////////////////
 */
+
+#define SNEEZE_STEALTH "stealth"
+#define SNEEZE_TRANSMISSION "transmission"
+
 /datum/symptom/sneeze
 	
 	name = "Sneezing"
@@ -33,16 +37,16 @@ Bonus
 	threshold_desc = "<b>Stealth 4:</b> The symptom remains hidden until active.<br>\
 					  <b>Transmission 12:</b> The host may spread the disease through sneezing."
 	threshold_ranges = list(
-		"stealth" = list(3, 5),
-		"transmission" = list(11, 13)
+		SNEEZE_STEALTH = list(3, 5),
+		SNEEZE_TRANSMISSION = list(11, 13)
 	)
 
 /datum/symptom/sneeze/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= get_threshold("stealth"))
+	if(A.stealth >= get_threshold(SNEEZE_STEALTH))
 		suppress_warning = TRUE
-	if(A.transmission >= get_threshold("transmission"))
+	if(A.transmission >= get_threshold(SNEEZE_TRANSMISSION))
 		infective = TRUE
 
 /datum/symptom/sneeze/Activate(datum/disease/advance/A)
@@ -61,6 +65,6 @@ Bonus
 /datum/symptom/sneeze/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stealth [get_threshold("stealth")]:</b> The symptom remains hidden until active.<br>\
-					  <b>Transmission [get_threshold("transmission")]:</b> The host may spread the disease through sneezing."
+	threshold_desc = "<b>Stealth [get_threshold(SNEEZE_STEALTH)]:</b> The symptom remains hidden until active.<br>\
+					  <b>Transmission [get_threshold(SNEEZE_TRANSMISSION)]:</b> The host may spread the disease through sneezing."
 	return threshold_desc

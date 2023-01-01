@@ -15,6 +15,9 @@ Bonus
 //////////////////////////////////////
 */
 
+#define DEAFNESS_RESISTANCE "resistance"
+#define DEAFNESS_STEALTH "stealth"
+
 /datum/symptom/deafness
 
 	name = "Deafness"
@@ -33,21 +36,21 @@ Bonus
 	threshold_desc = "<b>Resistance 9:</b> Causes permanent deafness, instead of intermittent.<br>\
 					  <b>Stealth 4:</b> The symptom remains hidden until active."
 	threshold_ranges = list(
-		"resistance" = list(8, 10),
-		"stealth" = list(3, 5)
+		DEAFNESS_RESISTANCE = list(8, 10),
+		DEAFNESS_STEALTH = list(3, 5)
 	)
 
 /datum/symptom/deafness/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= get_threshold("resistance"))
+	if(A.resistance >= get_threshold(DEAFNESS_RESISTANCE))
 		severity += 1
 
 /datum/symptom/deafness/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= get_threshold("stealth"))
+	if(A.stealth >= get_threshold(DEAFNESS_STEALTH))
 		suppress_warning = TRUE
-	if(A.resistance >= get_threshold("resistance")) //permanent deafness
+	if(A.resistance >= get_threshold(DEAFNESS_RESISTANCE)) //permanent deafness
 		power = 2
 
 /datum/symptom/deafness/Activate(datum/disease/advance/A)
@@ -72,6 +75,6 @@ Bonus
 /datum/symptom/deafness/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [get_threshold("resistance")]:</b> Causes permanent deafness, instead of intermittent.<br>\
-					  <b>Stealth [get_threshold("stealth")]:</b> The symptom remains hidden until active."
+	threshold_desc = "<b>Resistance [get_threshold(DEAFNESS_RESISTANCE)]:</b> Causes permanent deafness, instead of intermittent.<br>\
+					  <b>Stealth [get_threshold(DEAFNESS_STEALTH)]:</b> The symptom remains hidden until active."
 	return threshold_desc

@@ -1,3 +1,6 @@
+#define LUBEFEET_TRANSMISSION "transmission"
+#define LUBEFEET_RESISTANCE "resistance"
+
 /datum/symptom/lubefeet
 	name = "Ducatopod"
 	desc = "The host now sweats industrial lubricant from their feet, lubing tiles they walk on. Combine with Pierrot's throat for the penultimate form of torture."
@@ -16,21 +19,21 @@
 	threshold_desc = "<b>Transmission 10:</b> The host sweats even more profusely, lubing almost every tile they walk over.<br>\
 					  <b>Resistance 14:</b> The host's feet turn into a pair of clown shoes."
 	threshold_ranges = list(
-		"transmission" = list(9, 11),
-		"resistance" = list(12, 16)
+		LUBEFEET_TRANSMISSION = list(9, 11),
+		LUBEFEET_RESISTANCE = list(12, 16)
 	)
 
 /datum/symptom/lubefeet/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= get_threshold("transmission"))
+	if(A.transmission >= get_threshold(LUBEFEET_TRANSMISSION))
 		severity += 1
 
 /datum/symptom/lubefeet/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= get_threshold("transmission"))
+	if(A.transmission >= get_threshold(LUBEFEET_TRANSMISSION))
 		morelube = TRUE
-	if(A.resistance >= get_threshold("resistance"))
+	if(A.resistance >= get_threshold(LUBEFEET_RESISTANCE))
 		clownshoes = TRUE
 
 /datum/symptom/lubefeet/Activate(datum/disease/advance/A)
@@ -87,6 +90,6 @@
 /datum/symptom/lubefeet/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission [get_threshold("transmission")]:</b> The host sweats even more profusely, lubing almost every tile they walk over.<br>\
-					  <b>Resistance [get_threshold("resistance")]:</b> The host's feet turn into a pair of clown shoes."
+	threshold_desc = "<b>Transmission [get_threshold(LUBEFEET_TRANSMISSION)]:</b> The host sweats even more profusely, lubing almost every tile they walk over.<br>\
+					  <b>Resistance [get_threshold(LUBEFEET_RESISTANCE)]:</b> The host's feet turn into a pair of clown shoes."
 	return threshold_desc

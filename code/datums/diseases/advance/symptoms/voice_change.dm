@@ -15,6 +15,10 @@ Bonus
 //////////////////////////////////////
 */
 
+#define VOICE_CHANGE_TRANSMISSION "transmission"
+#define VOICE_CHANGE_STAGE_SPEED "stage speed"
+#define VOICE_CHANGE_STEALTH "stealth"
+
 /datum/symptom/voice_change
 
 	name = "Voice Change"
@@ -35,27 +39,27 @@ Bonus
 					  <b>Stage Speed 7:</b> Changes voice more often.<br>\
 					  <b>Stealth 3:</b> The symptom remains hidden until active."
 	threshold_ranges = list(
-		"transmission" = list(9, 11),
-		"stage speed" = list(6, 8),
-		"stealth" = list(2, 4)
+		VOICE_CHANGE_TRANSMISSION = list(9, 11),
+		VOICE_CHANGE_STAGE_SPEED = list(6, 8),
+		VOICE_CHANGE_STEALTH = list(2, 4)
 	)
 
 /datum/symptom/voice_change/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= get_threshold("transmission")) //random language
+	if(A.transmission >= get_threshold(VOICE_CHANGE_TRANSMISSION)) //random language
 		severity += 1
 		bodies = list("Polyglot")
 
 /datum/symptom/voice_change/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= get_threshold("stealth"))
+	if(A.stealth >= get_threshold(VOICE_CHANGE_STEALTH))
 		suppress_warning = TRUE
-	if(A.stage_rate >= get_threshold("stage speed")) //faster change of voice
+	if(A.stage_rate >= get_threshold(VOICE_CHANGE_STAGE_SPEED)) //faster change of voice
 		base_message_chance = 25
 		symptom_delay_min = 25
 		symptom_delay_max = 85
-	if(A.transmission >= get_threshold("transmission")) //random language
+	if(A.transmission >= get_threshold(VOICE_CHANGE_TRANSMISSION)) //random language
 		scramble_language = TRUE
 
 /datum/symptom/voice_change/Activate(datum/disease/advance/A)
@@ -87,7 +91,7 @@ Bonus
 /datum/symptom/voice_change/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission [get_threshold("transmission")]:</b> The host's language center of the brain is damaged, leading to complete inability to speak or understand any language.<br>\
-					  <b>Stage Speed [get_threshold("stage speed")]:</b> Changes voice more often.<br>\
-					  <b>Stealth [get_threshold("stealth")]:</b> The symptom remains hidden until active."
+	threshold_desc = "<b>Transmission [get_threshold(VOICE_CHANGE_TRANSMISSION)]:</b> The host's language center of the brain is damaged, leading to complete inability to speak or understand any language.<br>\
+					  <b>Stage Speed [get_threshold(VOICE_CHANGE_STAGE_SPEED)]:</b> Changes voice more often.<br>\
+					  <b>Stealth [get_threshold(VOICE_CHANGE_STEALTH)]:</b> The symptom remains hidden until active."
 	return threshold_desc

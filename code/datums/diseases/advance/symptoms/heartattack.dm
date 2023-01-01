@@ -15,6 +15,9 @@ Bonus
 //////////////////////////////////////
 */
 
+#define HEARTATTACK_TRANSMISSION "transmission"
+#define HEARTATTACK_STEALTH "stealth"
+
 /datum/symptom/heartattack
 	name = "Heart Disease"
 	desc = "This disease infiltrates the host's heart, causing cardiac arrest after a long incubation period."
@@ -32,21 +35,21 @@ Bonus
 	threshold_desc = "<b>Transmission 10:</b> When the victim has a heart attack, their heart will pop right out of their chest, and attack!<br>\
 					  <b>Stealth 2:</b> The disease is somewhat less noticable to the host."
 	threshold_ranges = list(
-		"transmission" = list(9, 11),
-		"stealth" = list(1, 3)
+		HEARTATTACK_TRANSMISSION = list(9, 11),
+		HEARTATTACK_STEALTH = list(1, 3)
 	)
 
 /datum/symptom/heartattack/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= get_threshold("transmission"))
+	if(A.transmission >= get_threshold(HEARTATTACK_TRANSMISSION))
 		severity += 1
 
 /datum/symptom/heartattack/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= get_threshold("transmission"))
+	if(A.transmission >= get_threshold(HEARTATTACK_TRANSMISSION))
 		heartattack = TRUE
-	if(A.stealth >= get_threshold("stealth"))
+	if(A.stealth >= get_threshold(HEARTATTACK_STEALTH))
 		suppress_warning = TRUE
 
 /datum/symptom/heartattack/Activate(datum/disease/advance/A)
@@ -77,6 +80,6 @@ Bonus
 /datum/symptom/heartattack/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission [get_threshold("transmission")]:</b> When the victim has a heart attack, their heart will pop right out of their chest, and attack!<br>\
-					  <b>Stealth [get_threshold("stealth")]:</b> The disease is somewhat less noticable to the host."
+	threshold_desc = "<b>Transmission [get_threshold(HEARTATTACK_TRANSMISSION)]:</b> When the victim has a heart attack, their heart will pop right out of their chest, and attack!<br>\
+					  <b>Stealth [get_threshold(HEARTATTACK_STEALTH)]:</b> The disease is somewhat less noticable to the host."
 	return threshold_desc

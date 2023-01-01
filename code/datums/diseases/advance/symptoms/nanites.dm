@@ -1,3 +1,6 @@
+#define NANO_BOOST_TRANSMISSION "transmission"
+#define NANO_BOOST_STAGE_SPEED "stage speed"
+
 /datum/symptom/nano_boost
 	name = "Nano-symbiosis"
 	desc = "The virus reacts to nanites in the host's bloodstream by enhancing their replication cycle. May cause unpredictable nanite behaviour. Heals the host's mechanical limbs."
@@ -15,16 +18,16 @@
 	threshold_desc = "<b>Transmission 5:</b> Increases the virus' growth rate while nanites are present.<br>\
 					  <b>Stage Speed 7:</b> Increases the replication boost."
 	threshold_ranges = list(
-		"transmission" = list(3, 7),
-		"stage speed" = list(5, 9)
+		NANO_BOOST_TRANSMISSION = list(3, 7),
+		NANO_BOOST_STAGE_SPEED = list(5, 9)
 	)
 
 /datum/symptom/nano_boost/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= get_threshold("transmission")) //reverse boost
+	if(A.transmission >= get_threshold(NANO_BOOST_TRANSMISSION)) //reverse boost
 		reverse_boost = TRUE
-	if(A.stage_rate >= get_threshold("stage speed")) //more nanites
+	if(A.stage_rate >= get_threshold(NANO_BOOST_STAGE_SPEED)) //more nanites
 		power = 2
 
 /datum/symptom/nano_boost/Activate(datum/disease/advance/A)
@@ -46,9 +49,12 @@
 /datum/symptom/nano_boost/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission [get_threshold("transmission")]:</b> Increases the virus' growth rate while nanites are present.<br>\
-					  <b>Stage Speed [get_threshold("stage speed")]:</b> Increases the replication boost."
+	threshold_desc = "<b>Transmission [get_threshold(NANO_BOOST_TRANSMISSION)]:</b> Increases the virus' growth rate while nanites are present.<br>\
+					  <b>Stage Speed [get_threshold(NANO_BOOST_STAGE_SPEED)]:</b> Increases the replication boost."
 	return threshold_desc
+
+#define NANO_DESTROY_STAGE_SPEED "stage speed"
+#define NANO_DESTROY_RESISTANCE "resistance"
 
 /datum/symptom/nano_destroy
 	name = "Silicolysis"
@@ -67,16 +73,16 @@
 	threshold_desc = "<b>Stage Speed 5:</b> Increases the virus' growth rate while nanites are present.<br>\
 					  <b>Resistance 7:</b> Severely increases the rate at which the nanites are destroyed."
 	threshold_ranges = list(
-		"stage speed" = list(3, 7),
-		"resistance" = list(6, 8)
+		NANO_DESTROY_STAGE_SPEED = list(3, 7),
+		NANO_DESTROY_RESISTANCE = list(6, 8)
 	)
 
 /datum/symptom/nano_destroy/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= get_threshold("stage speed")) //reverse boost
+	if(A.stage_rate >= get_threshold(NANO_DESTROY_STAGE_SPEED)) //reverse boost
 		reverse_boost = TRUE
-	if(A.resistance >= get_threshold("resistance")) //more nanites
+	if(A.resistance >= get_threshold(NANO_DESTROY_RESISTANCE)) //more nanites
 		power = 3
 
 /datum/symptom/nano_destroy/Activate(datum/disease/advance/A)
@@ -100,6 +106,6 @@
 /datum/symptom/nano_destroy/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stage Speed [get_threshold("stage speed")]:</b> Increases the virus' growth rate while nanites are present.<br>\
-					  <b>Resistance [get_threshold("resistance")]:</b> Severely increases the rate at which the nanites are destroyed."
+	threshold_desc = "<b>Stage Speed [get_threshold(NANO_DESTROY_STAGE_SPEED)]:</b> Increases the virus' growth rate while nanites are present.<br>\
+					  <b>Resistance [get_threshold(NANO_DESTROY_RESISTANCE)]:</b> Severely increases the rate at which the nanites are destroyed."
 	return threshold_desc

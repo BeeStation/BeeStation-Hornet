@@ -12,6 +12,10 @@ Bonus
 
 //////////////////////////////////////
 */
+
+#define NARCOLEPSY_TRANSMISSION "transmission"
+#define NARCOLEPSY_RESISTANCE "resistance"
+
 /datum/symptom/narcolepsy
 	name = "Narcolepsy"
 	desc = "The virus causes a hormone imbalance, making the host sleepy and narcoleptic."
@@ -31,21 +35,21 @@ Bonus
 	threshold_desc = "<b>Transmission 7:</b> Also relaxes the muscles, weakening and slowing the host.<br>\
 					  <b>Resistance 10:</b> Causes narcolepsy more often, increasing the chance of the host falling asleep."
 	threshold_ranges = list(
-		"transmission" = list(6, 8),
-		"resistance" = list(9, 11)
+		NARCOLEPSY_TRANSMISSION = list(6, 8),
+		NARCOLEPSY_RESISTANCE = list(9, 11)
 	)
 
 /datum/symptom/narcolepsy/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= get_threshold("resistance")) //act more often
+	if(A.resistance >= get_threshold(NARCOLEPSY_RESISTANCE)) //act more often
 		severity += 1
 
 /datum/symptom/narcolepsy/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= get_threshold("transmission")) //stamina damage
+	if(A.transmission >= get_threshold(NARCOLEPSY_TRANSMISSION)) //stamina damage
 		stamina = TRUE
-	if(A.resistance >= get_threshold("resistance")) //act more often
+	if(A.resistance >= get_threshold(NARCOLEPSY_RESISTANCE)) //act more often
 		symptom_delay_min = 5
 		symptom_delay_max = 20
 
@@ -102,6 +106,6 @@ Bonus
 /datum/symptom/narcolepsy/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission [get_threshold("transmission")]:</b> Also relaxes the muscles, weakening and slowing the host.<br>\
-					  <b>Resistance [get_threshold("resistance")]:</b> Causes narcolepsy more often, increasing the chance of the host falling asleep."
+	threshold_desc = "<b>Transmission [get_threshold(NARCOLEPSY_TRANSMISSION)]:</b> Also relaxes the muscles, weakening and slowing the host.<br>\
+					  <b>Resistance [get_threshold(NARCOLEPSY_RESISTANCE)]:</b> Causes narcolepsy more often, increasing the chance of the host falling asleep."
 	return threshold_desc

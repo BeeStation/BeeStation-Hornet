@@ -15,6 +15,12 @@ BONUS
 //////////////////////////////////////
 */
 
+#define COUGH_RESISTANCE_1 "resistance1"
+#define COUGH_RESISTANCE_2 "resistance2"
+#define COUGH_STAGE_SPEED "stage speed"
+#define COUGH_STEALTH "stealth"
+#define COUGH_TRANSMISSION "transmission"
+
 /datum/symptom/cough
 
 	name = "Cough"
@@ -36,32 +42,32 @@ BONUS
 					  <b>Stealth 4:</b> The symptom remains hidden until active.<br>\
 					  <b>Transmission 11:</b> The host's coughing will occasionally spread the virus."
 	threshold_ranges = list(
-		"resistance1" = list(2, 4),
-		"resistance2" = list(9, 11),
-		"stage speed" = list(4, 8),
-		"stealth" = list(3, 5),
-		"transmission" = list(10, 12)
+		COUGH_RESISTANCE_1 = list(2, 4),
+		COUGH_RESISTANCE_2 = list(9, 11),
+		COUGH_STAGE_SPEED = list(4, 8),
+		COUGH_STEALTH = list(3, 5),
+		COUGH_TRANSMISSION = list(10, 12)
 	)
 
 /datum/symptom/cough/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= get_threshold("resistance1"))
+	if(A.resistance >= get_threshold(COUGH_RESISTANCE_1))
 		severity += 1
-		if(A.resistance >= get_threshold("resistance2"))
+		if(A.resistance >= get_threshold(COUGH_RESISTANCE_2))
 			severity += 1
 
 /datum/symptom/cough/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= get_threshold("stealth"))
+	if(A.stealth >= get_threshold(COUGH_STEALTH))
 		suppress_warning = TRUE
-	if(A.resistance >= get_threshold("resistance1")) //strong enough to drop items
+	if(A.resistance >= get_threshold(COUGH_RESISTANCE_1)) //strong enough to drop items
 		power = 1.5
-		if(A.resistance >= get_threshold("resistance2")) //strong enough to stun (rarely)
+		if(A.resistance >= get_threshold(COUGH_RESISTANCE_2)) //strong enough to stun (rarely)
 			power = 2
-	if(A.stage_rate >= get_threshold("stage speed")) //cough more often
+	if(A.stage_rate >= get_threshold(COUGH_STAGE_SPEED)) //cough more often
 		symptom_delay_max = 10
-	if(A.transmission >= get_threshold("transmission")) //spread virus
+	if(A.transmission >= get_threshold(COUGH_TRANSMISSION)) //spread virus
 		infective =TRUE
 
 /datum/symptom/cough/Activate(datum/disease/advance/A)
@@ -91,9 +97,9 @@ BONUS
 /datum/symptom/cough/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [get_threshold("resistance1")]:</b> Host will drop small items when coughing.<br>\
-					  <b>Resistance [get_threshold("resistance2")]:</b> Occasionally causes coughing fits that stun the host.<br>\
-					  <b>Stage Speed [get_threshold("stage speed")]:</b> Increases cough frequency.<br>\
-					  <b>Stealth [get_threshold("stealth")]:</b> The symptom remains hidden until active.<br>\
-					  <b>Transmission [get_threshold("transmission")]:</b> The host's coughing will occasionally spread the virus."
+	threshold_desc = "<b>Resistance [get_threshold(COUGH_RESISTANCE_1)]:</b> Host will drop small items when coughing.<br>\
+					  <b>Resistance [get_threshold(COUGH_RESISTANCE_2)]:</b> Occasionally causes coughing fits that stun the host.<br>\
+					  <b>Stage Speed [get_threshold(COUGH_STAGE_SPEED)]:</b> Increases cough frequency.<br>\
+					  <b>Stealth [get_threshold(COUGH_STEALTH)]:</b> The symptom remains hidden until active.<br>\
+					  <b>Transmission [get_threshold(COUGH_TRANSMISSION)]:</b> The host's coughing will occasionally spread the virus."
 	return threshold_desc

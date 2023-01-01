@@ -49,6 +49,9 @@
 	threshold_desc = "<b>Stealth 4:</b> Healing will no longer be visible to onlookers."
 	return threshold_desc
 
+#define CHEM_RESISTANCE "resistance"
+#define CHEM_STAGE_SPEED "stage speed"
+
 /datum/symptom/heal/chem
 	name = "Toxolysis"
 	stealth = 0
@@ -63,16 +66,16 @@
 	threshold_desc = "<b>Resistance 7:</b> Increases chem removal speed.<br>\
 					  <b>Stage Speed 6:</b> Consumed chemicals nourish the host."
 	threshold_ranges = list(
-		"resistance" = list(5, 9),
-		"stage speed" = list(4, 8)
+		CHEM_RESISTANCE = list(5, 9),
+		CHEM_STAGE_SPEED = list(4, 8)
 	)
 
 /datum/symptom/heal/chem/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= get_threshold("stage speed"))
+	if(A.stage_rate >= get_threshold(CHEM_STAGE_SPEED))
 		food_conversion = TRUE
-	if(A.resistance >= get_threshold("resistance"))
+	if(A.resistance >= get_threshold(CHEM_RESISTANCE))
 		power = 4
 
 /datum/symptom/heal/chem/Heal(mob/living/M, datum/disease/advance/A, actual_power)
@@ -87,9 +90,13 @@
 /datum/symptom/heal/chem/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [get_threshold("resistance")]:</b> Increases chem removal speed.<br>\
-					  <b>Stage Speed [get_threshold("stage speed")]:</b> Consumed chemicals nourish the host."
+	threshold_desc = "<b>Resistance [get_threshold(CHEM_RESISTANCE)]:</b> Increases chem removal speed.<br>\
+					  <b>Stage Speed [get_threshold(CHEM_STAGE_SPEED)]:</b> Consumed chemicals nourish the host."
 	return threshold_desc
+
+#define COMA_STEALTH "stealth"
+#define COMA_RESISTANCE "resistance"
+#define COMA_STAGE_SPEED "stage speed"
 
 /datum/symptom/heal/coma
 	name = "Regenerative Coma"
@@ -110,19 +117,19 @@
 					  <b>Resistance 4:</b> The virus also stabilizes the host while they are in critical condition.<br>\
 					  <b>Stage Speed 7:</b> Increases healing speed."
 	threshold_ranges = list(
-		"stealth" = list(0, 4),
-		"resistance" = list(3, 5),
-		"stage speed" = list(6, 8)
+		COMA_STEALTH = list(0, 4),
+		COMA_RESISTANCE = list(3, 5),
+		COMA_STAGE_SPEED = list(6, 8)
 	)
 
 /datum/symptom/heal/coma/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= get_threshold("stage speed"))
+	if(A.stage_rate >= get_threshold(COMA_STAGE_SPEED))
 		power = 1.5
-	if(A.resistance >= get_threshold("resistance"))
+	if(A.resistance >= get_threshold(COMA_RESISTANCE))
 		stabilize = TRUE
-	if(A.stealth >= get_threshold("stealth"))
+	if(A.stealth >= get_threshold(COMA_STEALTH))
 		deathgasp = TRUE
 
 /datum/symptom/heal/coma/on_stage_change(new_stage, datum/disease/advance/A)  //mostly copy+pasted from the code for self-respiration's TRAIT_NOBREATH stuff
@@ -199,10 +206,13 @@
 /datum/symptom/heal/coma/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stealth [get_threshold("stealth")]:</b> Host appears to die when falling into a coma, triggering symptoms that activate on death.<br>\
-					  <b>Resistance [get_threshold("resistance")]:</b> The virus also stabilizes the host while they are in critical condition.<br>\
-					  <b>Stage Speed [get_threshold("stage speed")]:</b> Increases healing speed."
+	threshold_desc = "<b>Stealth [get_threshold(COMA_STEALTH)]:</b> Host appears to die when falling into a coma, triggering symptoms that activate on death.<br>\
+					  <b>Resistance [get_threshold(COMA_RESISTANCE)]:</b> The virus also stabilizes the host while they are in critical condition.<br>\
+					  <b>Stage Speed [get_threshold(COMA_STAGE_SPEED)]:</b> Increases healing speed."
 	return threshold_desc
+
+#define SURFACE_RESISTANCE "resistance"
+#define SURFACE_STAGE_SPEED "stage speed"
 
 /datum/symptom/heal/surface
 	name = "Superficial Healing"
@@ -220,16 +230,16 @@
 	threshold_desc = "<b>Stage Speed 8:</b> Doubles healing speed.<br>\
 					  <b>Resistance 10:</b> Improves healing threshold."
 	threshold_ranges = list(
-		"resistance" = list(9, 12),
-		"stage speed" = list(7, 9)
+		SURFACE_RESISTANCE = list(9, 12),
+		SURFACE_STAGE_SPEED = list(7, 9)
 	)
 
 /datum/symptom/heal/surface/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= get_threshold("stage speed")) //stronger healing
+	if(A.stage_rate >= get_threshold(SURFACE_STAGE_SPEED)) //stronger healing
 		power = 2
-	if(A.resistance >= get_threshold("resistance"))
+	if(A.resistance >= get_threshold(SURFACE_RESISTANCE))
 		threshhold = 30
 
 /datum/symptom/heal/surface/Heal(mob/living/carbon/M, datum/disease/advance/A, actual_power)
@@ -263,10 +273,13 @@
 /datum/symptom/heal/surface/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stage Speed [get_threshold("stage speed")]:</b> Doubles healing speed.<br>\
-					  <b>Resistance [get_threshold("resistance")]:</b> Improves healing threshold."
+	threshold_desc = "<b>Stage Speed [get_threshold(SURFACE_STAGE_SPEED)]:</b> Doubles healing speed.<br>\
+					  <b>Resistance [get_threshold(SURFACE_RESISTANCE)]:</b> Improves healing threshold."
 	return threshold_desc
-	
+
+#define METABOLISM_STEALTH "stealth"
+#define METABOLISM_STAGE_SPEED "stage speed"
+
 /datum/symptom/heal/metabolism
 	name = "Metabolic Boost"
 	stealth = -1
@@ -283,16 +296,16 @@
 	threshold_desc = "<b>Stealth 3:</b> Reduces hunger rate.<br>\
 					  <b>Stage Speed 10:</b> Chemical metabolization is tripled instead of doubled."
 	threshold_ranges = list(
-		"stealth" = list(1, 5),
-		"stage speed" = list(8, 12)
+		METABOLISM_STEALTH = list(1, 5),
+		METABOLISM_STAGE_SPEED = list(8, 12)
 	)
 
 /datum/symptom/heal/metabolism/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= get_threshold("stage speed"))
+	if(A.stage_rate >= get_threshold(METABOLISM_STAGE_SPEED))
 		triple_metabolism = TRUE
-	if(A.stealth >= get_threshold("stealth"))
+	if(A.stealth >= get_threshold(METABOLISM_STEALTH))
 		reduced_hunger = TRUE
 
 /datum/symptom/heal/metabolism/Heal(mob/living/carbon/C, datum/disease/advance/A, actual_power)
@@ -311,8 +324,8 @@
 /datum/symptom/heal/metabolism/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stealth [get_threshold("stealth")]:</b> Reduces hunger rate.<br>\
-					  <b>Stage Speed [get_threshold("stage speed")]:</b> Chemical metabolization is tripled instead of doubled."
+	threshold_desc = "<b>Stealth [get_threshold(METABOLISM_STEALTH)]:</b> Reduces hunger rate.<br>\
+					  <b>Stage Speed [get_threshold(METABOLISM_STAGE_SPEED)]:</b> Chemical metabolization is tripled instead of doubled."
 	return threshold_desc
 	
 /*
@@ -321,6 +334,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 //////////////////////////////////////
 */
+
+#define EMP_STEALTH "stealth"
+#define EMP_TRANSMISSION "transmission"
 
 /datum/symptom/EMP
 	name = "Organic Flux Induction"
@@ -340,23 +356,23 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	threshold_desc = "<b>Stealth 2:</b> The disease resets cell DNA, quickly curing cell damage and mutations.<br>\
 					  <b>Transmission 8:</b> The EMP affects electronics adjacent to the subject as well."
 	threshold_ranges = list(
-		"stealth" = list(0, 4),
-		"transmission" = list(7, 9)
+		EMP_STEALTH = list(0, 4),
+		EMP_TRANSMISSION = list(7, 9)
 	)
 
 /datum/symptom/EMP/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= get_threshold("stealth")) //if you combine this with pituitary disruption, you have the two most downside-heavy symptoms available
+	if(A.stealth >= get_threshold(EMP_STEALTH)) //if you combine this with pituitary disruption, you have the two most downside-heavy symptoms available
 		severity -= 1
-	if(A.transmission >= get_threshold("transmission"))
+	if(A.transmission >= get_threshold(EMP_TRANSMISSION))
 		severity += 1
 
 /datum/symptom/EMP/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= get_threshold("stealth"))
+	if(A.stealth >= get_threshold(EMP_STEALTH))
 		cellheal = TRUE
-	if(A.transmission >= get_threshold("transmission"))
+	if(A.transmission >= get_threshold(EMP_TRANSMISSION))
 		bigemp = TRUE
 
 /datum/symptom/EMP/Activate(datum/disease/advance/A)
@@ -379,10 +395,14 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/EMP/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stealth [get_threshold("stealth")]:</b> The disease resets cell DNA, quickly curing cell damage and mutations.<br>\
-					  <b>Transmission [get_threshold("transmission")]:</b> The EMP affects electronics adjacent to the subject as well."
+	threshold_desc = "<b>Stealth [get_threshold(EMP_STEALTH)]:</b> The disease resets cell DNA, quickly curing cell damage and mutations.<br>\
+					  <b>Transmission [get_threshold(EMP_TRANSMISSION)]:</b> The EMP affects electronics adjacent to the subject as well."
 	return threshold_desc
-	
+
+#define SWEAT_TRANSMISSION_1 "transmission1"
+#define SWEAT_TRANSMISSION_2 "transmission2"
+#define SWEAT_STAGE_SPEED "stage speed"
+
 /datum/symptom/sweat
 	name = "Hyperperspiration"
 	desc = "Causes the host to sweat profusely, leaving small water puddles and extinguishing small fires."
@@ -403,24 +423,24 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					<b>Transmission 6:</b> The symptom heals toxin damage and purges chemicals.<br>\
 					<b>Stage speed 6:</b> The host's sweat contains traces of ammonia."
 	threshold_ranges = list(
-		"transmission1" = list(3, 5),
-		"transmission2" = list(6, 7),
-		"stage speed" = list(5, 7)
+		SWEAT_TRANSMISSION_1 = list(3, 5),
+		SWEAT_TRANSMISSION_2 = list(6, 7),
+		SWEAT_STAGE_SPEED = list(5, 7)
 	)
 
 /datum/symptom/sweat/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= get_threshold("transmission2"))
+	if(A.transmission >= get_threshold(SWEAT_TRANSMISSION_2))
 		severity -= 1
 
 /datum/symptom/sweat/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= get_threshold("transmission2")) // Heals toxin damage and removes chemicals
+	if(A.transmission >= get_threshold(SWEAT_TRANSMISSION_2)) // Heals toxin damage and removes chemicals
 		toxheal = TRUE
-	if(A.transmission >= get_threshold("transmission1")) // Increases sweat production making host spray water around
+	if(A.transmission >= get_threshold(SWEAT_TRANSMISSION_1)) // Increases sweat production making host spray water around
 		bigsweat = TRUE
-	if(A.stage_rate >= get_threshold("stage speed"))
+	if(A.stage_rate >= get_threshold(SWEAT_STAGE_SPEED))
 		ammonia = TRUE
 
 /datum/symptom/sweat/Activate(datum/disease/advance/A)
@@ -464,10 +484,13 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/sweat/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission [get_threshold("transmission1")]:</b> The sweat production ramps up to the point that it puts out fires in the general vicinity.<br>\
-					<b>Transmission [get_threshold("transmission2")]:</b> The symptom heals toxin damage and purges chemicals.<br>\
-					<b>Stage speed [get_threshold("stage speed")]:</b> The host's sweat contains traces of ammonia."
+	threshold_desc = "<b>Transmission [get_threshold(SWEAT_TRANSMISSION_1)]:</b> The sweat production ramps up to the point that it puts out fires in the general vicinity.<br>\
+					<b>Transmission [get_threshold(SWEAT_TRANSMISSION_2)]:</b> The symptom heals toxin damage and purges chemicals.<br>\
+					<b>Stage speed [get_threshold(SWEAT_STAGE_SPEED)]:</b> The host's sweat contains traces of ammonia."
 	return threshold_desc
+
+#define TELEPORT_RESISTANCE "resistance"
+#define TELEPORT_TRANSMISSION "transmission"
 
 /datum/symptom/teleport
 	name = "Thermal Retrostable Displacement"
@@ -489,23 +512,23 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	threshold_desc = "<b>Resistance 6:</b> The disease acts on a smaller scale, resetting burnt tissue back to a state of health.<br>\
 					<b>Transmission 8:</b> The disease becomes more active, activating in a smaller temperature range."
 	threshold_ranges = list(
-		"resistance" = list(5, 7),
-		"transmission" = list(6, 10)
+		TELEPORT_RESISTANCE = list(5, 7),
+		TELEPORT_TRANSMISSION = list(6, 10)
 	)
 
 /datum/symptom/teleport/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= get_threshold("resistance"))
+	if(A.resistance >= get_threshold(TELEPORT_RESISTANCE))
 		severity -= 1
-		if(A.transmission >= get_threshold("transmission"))
+		if(A.transmission >= get_threshold(TELEPORT_TRANSMISSION))
 			severity -= 1
 
 /datum/symptom/teleport/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= get_threshold("resistance"))
+	if(A.resistance >= get_threshold(TELEPORT_RESISTANCE))
 		burnheal = TRUE
-	if(A.transmission >= get_threshold("transmission"))
+	if(A.transmission >= get_threshold(TELEPORT_TRANSMISSION))
 		telethreshold = -10
 		power = 2
 
@@ -545,9 +568,12 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/teleport/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [get_threshold("resistance")]:</b> The disease acts on a smaller scale, resetting burnt tissue back to a state of health.<br>\
-					<b>Transmission [get_threshold("transmission")]:</b> The disease becomes more active, activating in a smaller temperature range."
+	threshold_desc = "<b>Resistance [get_threshold(TELEPORT_RESISTANCE)]:</b> The disease acts on a smaller scale, resetting burnt tissue back to a state of health.<br>\
+					<b>Transmission [get_threshold(TELEPORT_TRANSMISSION)]:</b> The disease becomes more active, activating in a smaller temperature range."
 	return threshold_desc
+
+#define GROWTH_STAGE_SPEED_1 "stage speed1"
+#define GROWTH_STAGE_SPEED_2 "stage speed2"
 
 /datum/symptom/growth
 	name = "Pituitary Disruption"
@@ -570,23 +596,23 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	threshold_desc = "<b>Stage Speed 6:</b> The disease heals brute damage at a fast rate, but causes expulsion of benign tumors.<br>\
 					<b>Stage Speed 12:</b> The disease heals brute damage incredibly fast, but deteriorates cell health and causes tumors to become more advanced. The disease will also regenerate lost limbs."
 	threshold_ranges = list(
-		"stage speed1" = list(5, 7),
-		"stage speed2" = list(11, 13)
+		GROWTH_STAGE_SPEED_1 = list(5, 7),
+		GROWTH_STAGE_SPEED_2 = list(11, 13)
 	)
 
 /datum/symptom/growth/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= get_threshold("stage speed1")) // Heals brute damage fast but makes you puke organs
+	if(A.stage_rate >= get_threshold(GROWTH_STAGE_SPEED_1)) // Heals brute damage fast but makes you puke organs
 		severity -= 1
-		if(A.stage_rate >= get_threshold("stage speed2")) // Heals brute damage 3x as fast but causes cell damage
+		if(A.stage_rate >= get_threshold(GROWTH_STAGE_SPEED_2)) // Heals brute damage 3x as fast but causes cell damage
 			severity += 3
 
 /datum/symptom/growth/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= get_threshold("stage speed1"))
+	if(A.stage_rate >= get_threshold(GROWTH_STAGE_SPEED_1))
 		bruteheal = TRUE
-		if(A.stage_rate >= get_threshold("stage speed2"))
+		if(A.stage_rate >= get_threshold(GROWTH_STAGE_SPEED_2))
 			tetsuo = TRUE
 			power = 3 //should make this symptom actually worth it
 	var/mob/living/carbon/M = A.affected_mob
@@ -664,11 +690,15 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/growth/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stage Speed [get_threshold("stage speed1")]:</b> The disease heals brute damage at a fast rate, but causes expulsion of benign tumors.<br>\
-					<b>Stage Speed [get_threshold("stage speed2")]:</b> The disease heals brute damage incredibly fast, but deteriorates cell health and causes tumors to become more advanced. The disease will also regenerate lost limbs."
+	threshold_desc = "<b>Stage Speed [get_threshold(GROWTH_STAGE_SPEED_1)]:</b> The disease heals brute damage at a fast rate, but causes expulsion of benign tumors.<br>\
+					<b>Stage Speed [get_threshold(GROWTH_STAGE_SPEED_2)]:</b> The disease heals brute damage incredibly fast, but deteriorates cell health and causes tumors to become more advanced. The disease will also regenerate lost limbs."
 	return threshold_desc
 
 #undef TELEPORT_COOLDOWN
+
+#define VAMPIRISM_TRANSMISSION_1 "transmission1"
+#define VAMPIRISM_TRANSMISSION_2 "transmission2"
+#define VAMPIRISM_STAGE_SPEED "stage speed"
 
 /datum/symptom/vampirism
 	name = "Hemetophagy"
@@ -694,30 +724,30 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					<b>Stage Speed 7:</b> The virus grows more aggressive, assimilating blood and healing at a faster rate, but also draining the host's blood quicker.<br>\
 					<b>Transmission 6:</b> The virus aggressively assimilates blood, resulting in contiguous blood pools being absorbed by the virus, as well as sucking blood out of open wounds of subjects in physical contact with the host."
 	threshold_ranges = list(
-		"transmission1" = list(3, 5),
-		"stage speed" = list(6, 8),
-		"transmission2" = list(6, 7)
+		VAMPIRISM_TRANSMISSION_1 = list(3, 5),
+		VAMPIRISM_STAGE_SPEED = list(6, 8),
+		VAMPIRISM_TRANSMISSION_2 = list(6, 7)
 	)
 
 /datum/symptom/vampirism/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= get_threshold("transmission1"))
+	if(A.transmission >= get_threshold(VAMPIRISM_TRANSMISSION_1))
 		severity -= 1
-	if((A.stealth >= 2) && (A.transmission >= get_threshold("transmission2")) && A.process_dead)
+	if((A.stealth >= 2) && (A.transmission >= get_threshold(VAMPIRISM_TRANSMISSION_2)) && A.process_dead)
 		severity -= 1
 		bodies = list("Vampir", "Blood")
 
 /datum/symptom/vampirism/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= get_threshold("transmission1")) // Absorbing blood and healing
+	if(A.transmission >= get_threshold(VAMPIRISM_TRANSMISSION_1)) // Absorbing blood and healing
 		bruteheal = TRUE
-	if(A.transmission >= get_threshold("transmission2")) // Stealing blood from open wounds around and hurting others around opening wounds
+	if(A.transmission >= get_threshold(VAMPIRISM_TRANSMISSION_2)) // Stealing blood from open wounds around and hurting others around opening wounds
 		aggression = TRUE
 		maxbloodpoints += 50
-	if(A.stage_rate >= get_threshold("stage speed"))
+	if(A.stage_rate >= get_threshold(VAMPIRISM_STAGE_SPEED))
 		power += 1
-	if((A.stealth >= 2) && (A.transmission >= get_threshold("transmission2")) && A.process_dead) //this is low transmission for 2 reasons: transmission is hard to raise, especially with stealth, and i dont want this to be obligated to be transmittable
+	if((A.stealth >= 2) && (A.transmission >= get_threshold(VAMPIRISM_TRANSMISSION_2)) && A.process_dead) //this is low transmission for 2 reasons: transmission is hard to raise, especially with stealth, and i dont want this to be obligated to be transmittable
 		vampire = TRUE
 		maxbloodpoints += 50
 		power += 1
@@ -914,10 +944,13 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/vampirism/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission [get_threshold("transmission1")]:</b> The virus recycles excess absorbed blood into restorative biomass, healing brute damage.<br>\
-					<b>Stage Speed [get_threshold("stage speed")]:</b> The virus grows more aggressive, assimilating blood and healing at a faster rate, but also draining the host's blood quicker.<br>\
-					<b>Transmission [get_threshold("transmission2")]:</b> The virus aggressively assimilates blood, resulting in contiguous blood pools being absorbed by the virus, as well as sucking blood out of open wounds of subjects in physical contact with the host."
+	threshold_desc = "<b>Transmission [get_threshold(VAMPIRISM_TRANSMISSION_1)]:</b> The virus recycles excess absorbed blood into restorative biomass, healing brute damage.<br>\
+					<b>Stage Speed [get_threshold(VAMPIRISM_STAGE_SPEED)]:</b> The virus grows more aggressive, assimilating blood and healing at a faster rate, but also draining the host's blood quicker.<br>\
+					<b>Transmission [get_threshold(VAMPIRISM_TRANSMISSION_2)]:</b> The virus aggressively assimilates blood, resulting in contiguous blood pools being absorbed by the virus, as well as sucking blood out of open wounds of subjects in physical contact with the host."
 	return threshold_desc
+
+#define PARASITE_STEALTH "stealth"
+#define PARASITE_STAGE_SPEED "stage speed"
 
 /datum/symptom/parasite
 	name = "Xenobiological Symbiosis"
@@ -937,24 +970,24 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	threshold_desc = "<b>Stealth 2:</b> The gestating larvae can consume toxins in the host's bloodstream.<br>\
 					<b>Stage Speed 6:</b> More larvae are born, and they leave the host faster."
 	threshold_ranges = list(
-		"stealth" = list(0, 4),
-		"stage speed" = list(5, 7)
+		PARASITE_STEALTH = list(0, 4),
+		PARASITE_STAGE_SPEED = list(5, 7)
 	)
 
 /datum/symptom/parasite/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stealth >= get_threshold("stealth"))
+	if(A.stealth >= get_threshold(PARASITE_STEALTH))
 		severity -= 2
 		prefixes = list("Symbiotic ")
-	if(A.stage_rate >= get_threshold("stage speed"))
+	if(A.stage_rate >= get_threshold(PARASITE_STAGE_SPEED))
 		severity = (severity * 2)
 
 /datum/symptom/parasite/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= get_threshold("stealth"))
+	if(A.stealth >= get_threshold(PARASITE_STEALTH))
 		toxheal = TRUE
-	if(A.stage_rate >= get_threshold("stage speed"))
+	if(A.stage_rate >= get_threshold(PARASITE_STAGE_SPEED))
 		power += 1
 
 /datum/symptom/parasite/proc/isslimetarget(var/mob/living/carbon/M)
@@ -1031,9 +1064,12 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/parasite/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stealth [get_threshold("stealth")]:</b> The gestating larvae can consume toxins in the host's bloodstream.<br>\
-					<b>Stage Speed [get_threshold("stage speed")]:</b> More larvae are born, and they leave the host faster."
+	threshold_desc = "<b>Stealth [get_threshold(PARASITE_STEALTH)]:</b> The gestating larvae can consume toxins in the host's bloodstream.<br>\
+					<b>Stage Speed [get_threshold(PARASITE_STAGE_SPEED)]:</b> More larvae are born, and they leave the host faster."
 	return threshold_desc
+
+#define JITTERS_RESISTANCE "resistance"
+#define JITTERS_STAGE_SPEED "stage speed"
 
 /datum/symptom/jitters
 	name = "Hyperactivity"
@@ -1051,15 +1087,15 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	threshold_desc = "<b>Resistance 8:</b> The virus causes an even greater rate of nutriment loss, able to cause starvation, but its energy gain greatly increases.<br>\
 					<b>Stage Speed 8:</b> The virus causes extreme nervousness and paranoia, resulting in occasional hallucinations, and extreme restlessness, but greater overall energy and the ability to shake off stuns faster."
 	threshold_ranges = list(
-		"resistance" = list(7, 9),
-		"stage speed" = list(7, 9)
+		JITTERS_RESISTANCE = list(7, 9),
+		JITTERS_STAGE_SPEED = list(7, 9)
 	)
 
 /datum/symptom/jitters/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= get_threshold("resistance"))
+	if(A.resistance >= get_threshold(JITTERS_RESISTANCE))
 		severity -= 1
-	if(A.stage_rate >= get_threshold("stage speed"))
+	if(A.stage_rate >= get_threshold(JITTERS_STAGE_SPEED))
 		severity -= 1
 		prefixes = list("Gray ", "Amped ", "Paranoid ")
 		suffixes = list(" Madness", " Insanity")
@@ -1068,9 +1104,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(!..())
 		return
 	power = initial(power)
-	if(A.resistance >= get_threshold("resistance"))
+	if(A.resistance >= get_threshold(JITTERS_RESISTANCE))
 		power += 2
-	if(A.stage_rate >= get_threshold("stage speed"))
+	if(A.stage_rate >= get_threshold(JITTERS_STAGE_SPEED))
 		power += 1
 		clearcc = TRUE
 
@@ -1112,6 +1148,6 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/jitters/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [get_threshold("resistance")]:</b> The virus causes an even greater rate of nutriment loss, able to cause starvation, but its energy gain greatly increases.<br>\
-					<b>Stage Speed [get_threshold("stage speed")]:</b> The virus causes extreme nervousness and paranoia, resulting in occasional hallucinations, and extreme restlessness, but greater overall energy and the ability to shake off stuns faster."
+	threshold_desc = "<b>Resistance [get_threshold(JITTERS_RESISTANCE)]:</b> The virus causes an even greater rate of nutriment loss, able to cause starvation, but its energy gain greatly increases.<br>\
+					<b>Stage Speed [get_threshold(JITTERS_STAGE_SPEED)]:</b> The virus causes extreme nervousness and paranoia, resulting in occasional hallucinations, and extreme restlessness, but greater overall energy and the ability to shake off stuns faster."
 	return threshold_desc

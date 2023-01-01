@@ -1,3 +1,6 @@
+#define BEESEASE_RESISTANCE "resistance"
+#define BEESEASE_TRANSMISSION "transmission"
+
 /datum/symptom/beesease
 	name = "Bee Infestation"
 	desc = "Causes the host to cough toxin bees and occasionally synthesize toxin."
@@ -16,22 +19,22 @@
 	threshold_desc = "<b>Resistance 12:</b> The bees become symbiotic with the host, synthesizing honey and no longer stinging the stomach lining, and no longer attacking the host. Bees will also contain honey, unless transmission exceeds 10.<br>\
 					  <b>Transmission 10:</b> Bees now contain a completely random toxin."
 	threshold_ranges = list(
-		"resistance" = list(10, 14),
-		"transmission" = list(9, 11)
+		BEESEASE_RESISTANCE = list(10, 14),
+		BEESEASE_TRANSMISSION = list(9, 11)
 	)
 /datum/symptom/beesease/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= get_threshold("transmission"))
+	if(A.transmission >= get_threshold(BEESEASE_TRANSMISSION))
 		severity += 2
-		if(A.resistance >= get_threshold("resistance"))
+		if(A.resistance >= get_threshold(BEESEASE_RESISTANCE))
 			severity -= 4
 
 /datum/symptom/beesease/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= get_threshold("resistance"))
+	if(A.resistance >= get_threshold(BEESEASE_RESISTANCE))
 		honey = TRUE
-	if(A.transmission >= get_threshold("transmission"))
+	if(A.transmission >= get_threshold(BEESEASE_TRANSMISSION))
 		toxic_bees = TRUE
 
 /datum/symptom/beesease/Activate(datum/disease/advance/A)
@@ -92,6 +95,6 @@
 /datum/symptom/beesease/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [get_threshold("resistance")]:</b> The bees become symbiotic with the host, synthesizing honey and no longer stinging the stomach lining, and no longer attacking the host. Bees will also contain honey, unless transmission exceeds [get_threshold("transmission")].<br>\
-					  <b>Transmission [get_threshold("transmission")]:</b> Bees now contain a completely random toxin."
+	threshold_desc = "<b>Resistance [get_threshold(BEESEASE_RESISTANCE)]:</b> The bees become symbiotic with the host, synthesizing honey and no longer stinging the stomach lining, and no longer attacking the host. Bees will also contain honey, unless transmission exceeds [get_threshold(BEESEASE_TRANSMISSION)].<br>\
+					  <b>Transmission [get_threshold(BEESEASE_TRANSMISSION)]:</b> Bees now contain a completely random toxin."
 	return threshold_desc

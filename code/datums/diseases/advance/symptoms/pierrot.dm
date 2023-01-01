@@ -1,3 +1,7 @@
+#define PIERROT_TRANSMISSION "transmission"
+#define PIERROT_RESISTANCE_1 "resistance1"
+#define PIERROT_RESISTANCE_2 "resistance2"
+
 /datum/symptom/pierrot
 	name = "Pierrot's Throat"
 	desc = "Causes the host to honk randomly."
@@ -16,9 +20,9 @@
 					  <b>Resistance 10:</b> The host grows a peculiar clown mask.<br>\
 					  <b>Resistance 15:</b>	Host becomes clumsy, similar to a clown."
 	threshold_ranges = list(
-		"transmission" = list(9, 11),
-		"resistance1" = list(8, 12),
-		"resistance2" = list(14, 16)
+		PIERROT_TRANSMISSION = list(9, 11),
+		PIERROT_RESISTANCE_1 = list(8, 12),
+		PIERROT_RESISTANCE_2 = list(14, 16)
 	)
 
 
@@ -26,19 +30,19 @@
 	. = ..()
 	bodies = list("Clown", "Red-Nose", "[pick(GLOB.clown_names)]") //added here because it doesnt wanna pick in base vars
 	prefixes = list("Fool's ", "[pick(GLOB.clown_names)]'s ")
-	if(A.resistance >= get_threshold("resistance1"))
+	if(A.resistance >= get_threshold(PIERROT_RESISTANCE_1))
 		severity +=1
-		if(A.resistance >= get_threshold("resistance2"))
+		if(A.resistance >= get_threshold(PIERROT_RESISTANCE_2))
 			severity += 2
 
 /datum/symptom/pierrot/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= get_threshold("transmission"))
+	if(A.transmission >= get_threshold(PIERROT_TRANSMISSION))
 		honkspread = TRUE
-	if(A.resistance >= get_threshold("resistance1")) // Puts clownsmask on the host
+	if(A.resistance >= get_threshold(PIERROT_RESISTANCE_1)) // Puts clownsmask on the host
 		clownmask = TRUE
-		if(A.resistance >= get_threshold("resistance2")) // Host becomes clumsy
+		if(A.resistance >= get_threshold(PIERROT_RESISTANCE_2)) // Host becomes clumsy
 			clumsy = TRUE
 
 /datum/symptom/pierrot/Activate(datum/disease/advance/A)
@@ -97,7 +101,7 @@
 /datum/symptom/pierrot/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission [get_threshold("transmission")]:</b> There's a rare chance the disease is spread everytime the host honks.<br>\
-					  <b>Resistance [get_threshold("resistance1")]:</b> The host grows a peculiar clown mask.<br>\
-					  <b>Resistance [get_threshold("resistance2")]:</b>	Host becomes clumsy, similar to a clown."
+	threshold_desc = "<b>Transmission [get_threshold(PIERROT_TRANSMISSION)]:</b> There's a rare chance the disease is spread everytime the host honks.<br>\
+					  <b>Resistance [get_threshold(PIERROT_RESISTANCE_1)]:</b> The host grows a peculiar clown mask.<br>\
+					  <b>Resistance [get_threshold(PIERROT_RESISTANCE_2)]:</b>	Host becomes clumsy, similar to a clown."
 	return threshold_desc

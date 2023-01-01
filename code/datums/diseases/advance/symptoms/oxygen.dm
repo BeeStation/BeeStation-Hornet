@@ -15,6 +15,8 @@ Bonus
 //////////////////////////////////////
 */
 
+#define OXYGEN_RESISTANCE "resistance"
+
 /datum/symptom/oxygen
 
 	name = "Self-Respiration"
@@ -32,13 +34,13 @@ Bonus
 	var/regenerate_blood = FALSE
 	threshold_desc = "<b>Resistance 8:</b> Additionally regenerates lost blood."
 	threshold_ranges = list(
-		"resistance" = list(6, 10)
+		OXYGEN_RESISTANCE = list(6, 10)
 	)
 
 /datum/symptom/oxygen/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= get_threshold("resistance")) //blood regeneration
+	if(A.resistance >= get_threshold(OXYGEN_RESISTANCE)) //blood regeneration
 		regenerate_blood = TRUE
 
 /datum/symptom/oxygen/Activate(datum/disease/advance/A)
@@ -73,5 +75,5 @@ Bonus
 /datum/symptom/oxygen/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [get_threshold("resistance")]:</b> Additionally regenerates lost blood."
+	threshold_desc = "<b>Resistance [get_threshold(OXYGEN_RESISTANCE)]:</b> Additionally regenerates lost blood."
 	return threshold_desc

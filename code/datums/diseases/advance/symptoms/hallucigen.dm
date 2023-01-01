@@ -15,6 +15,9 @@ Bonus
 //////////////////////////////////////
 */
 
+#define HALLUCIGEN_STAGE_SPEED "stage speed"
+#define HALLUCIGEN_STEALTH "stealth"
+
 /datum/symptom/hallucigen
 	name = "Hallucigen"
 	desc = "The virus stimulates the brain, causing occasional hallucinations."
@@ -33,22 +36,22 @@ Bonus
 	threshold_desc = "<b>Stage Speed 7:</b> Increases the amount of hallucinations.<br>\
 					  <b>Stealth 2:</b> The virus mimics positive symptoms."
 	threshold_ranges = list(
-		"stage speed" = list(5, 9),
-		"stealth" = list(0, 4)
+		HALLUCIGEN_STAGE_SPEED = list(5, 9),
+		HALLUCIGEN_STEALTH = list(0, 4)
 	)
 
 /datum/symptom/hallucigen/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= get_threshold("stage speed"))
+	if(A.stage_rate >= get_threshold(HALLUCIGEN_STAGE_SPEED))
 		severity += 1
 
 /datum/symptom/hallucigen/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= get_threshold("stealth")) //fake good symptom messages
+	if(A.stealth >= get_threshold(HALLUCIGEN_STEALTH)) //fake good symptom messages
 		fake_healthy = TRUE
 		base_message_chance = 50
-	if(A.stage_rate >= get_threshold("stage speed")) //stronger hallucinations
+	if(A.stage_rate >= get_threshold(HALLUCIGEN_STAGE_SPEED)) //stronger hallucinations
 		power = 2
 
 /datum/symptom/hallucigen/Activate(datum/disease/advance/A)
@@ -78,6 +81,6 @@ Bonus
 /datum/symptom/hallucigen/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stage Speed [get_threshold("stage speed")]:</b> Increases the amount of hallucinations.<br>\
-					  <b>Stealth [get_threshold("stealth")]:</b> The virus mimics positive symptoms."
+	threshold_desc = "<b>Stage Speed [get_threshold(HALLUCIGEN_STAGE_SPEED)]:</b> Increases the amount of hallucinations.<br>\
+					  <b>Stealth [get_threshold(HALLUCIGEN_STEALTH)]:</b> The virus mimics positive symptoms."
 	return threshold_desc

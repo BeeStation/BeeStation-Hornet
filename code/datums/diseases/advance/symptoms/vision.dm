@@ -15,6 +15,9 @@ Bonus
 //////////////////////////////////////
 */
 
+#define VISIONLOSS_RESISTANCE "resistance"
+#define VISIONLOSS_STEALTH "stealth"
+
 /datum/symptom/visionloss
 
 	name = "Hyphema"
@@ -35,21 +38,21 @@ Bonus
 	threshold_desc = "<b>Resistance 12:</b> Weakens extraocular muscles, eventually leading to complete detachment of the eyes.<br>\
 					  <b>Stealth 4:</b> The symptom remains hidden until active."
 	threshold_ranges = list(
-		"resistance" = list(11, 13),
-		"stealth" = list(3, 5)
+		VISIONLOSS_RESISTANCE = list(11, 13),
+		VISIONLOSS_STEALTH = list(3, 5)
 	)
 
 /datum/symptom/visionloss/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= get_threshold("resistance")) //goodbye eyes
+	if(A.resistance >= get_threshold(VISIONLOSS_RESISTANCE)) //goodbye eyes
 		severity += 1
 
 /datum/symptom/visionloss/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= get_threshold("stealth"))
+	if(A.stealth >= get_threshold(VISIONLOSS_STEALTH))
 		suppress_warning = TRUE
-	if(A.resistance >= get_threshold("resistance")) //goodbye eyes
+	if(A.resistance >= get_threshold(VISIONLOSS_RESISTANCE)) //goodbye eyes
 		remove_eyes = TRUE
 
 /datum/symptom/visionloss/Activate(datum/disease/advance/A)
@@ -86,6 +89,6 @@ Bonus
 /datum/symptom/visionloss/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [get_threshold("resistance")]:</b> Weakens extraocular muscles, eventually leading to complete detachment of the eyes.<br>\
-					  <b>Stealth [get_threshold("stealth")]:</b> The symptom remains hidden until active."
+	threshold_desc = "<b>Resistance [get_threshold(VISIONLOSS_RESISTANCE)]:</b> Weakens extraocular muscles, eventually leading to complete detachment of the eyes.<br>\
+					  <b>Stealth [get_threshold(VISIONLOSS_STEALTH)]:</b> The symptom remains hidden until active."
 	return threshold_desc

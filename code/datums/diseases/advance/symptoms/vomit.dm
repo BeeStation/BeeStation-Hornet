@@ -19,6 +19,9 @@ Bonus
 //////////////////////////////////////
 */
 
+#define VOMIT_TRANSMISSION "transmission"
+#define VOMIT_STAGE_SPEED "stage speed"
+#define VOMIT_STEALTH "stealth"
 /datum/symptom/vomit
 
 	name = "Vomiting"
@@ -41,19 +44,19 @@ Bonus
 					  <b>Transmission 6:</b> Host will projectile vomit, increasing vomiting range.<br>\
 					  <b>Stealth 4:</b> The symptom remains hidden until active."
 	threshold_ranges = list(
-		"transmission" = list(5, 7),
-		"stage speed" = list(4, 6),
-		"stealth" = list(3, 5)
+		VOMIT_TRANSMISSION = list(5, 7),
+		VOMIT_STAGE_SPEED = list(4, 6),
+		VOMIT_STEALTH = list(3, 5)
 	)
 
 /datum/symptom/vomit/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= get_threshold("stealth"))
+	if(A.stealth >= get_threshold(VOMIT_STEALTH))
 		suppress_warning = TRUE
-	if(A.stage_rate >= get_threshold("stage speed")) //blood vomit
+	if(A.stage_rate >= get_threshold(VOMIT_STAGE_SPEED)) //blood vomit
 		vomit_blood = TRUE
-	if(A.transmission >= get_threshold("transmission")) //projectile vomit
+	if(A.transmission >= get_threshold(VOMIT_TRANSMISSION)) //projectile vomit
 		proj_vomit = 5
 
 /datum/symptom/vomit/Activate(datum/disease/advance/A)
@@ -73,7 +76,7 @@ Bonus
 /datum/symptom/vomit/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stage Speed [get_threshold("stage speed")]:</b> Host will vomit blood, causing internal damage.<br>\
-					  <b>Transmission [get_threshold("transmission")]:</b> Host will projectile vomit, increasing vomiting range.<br>\
-					  <b>Stealth [get_threshold("stealth")]:</b> The symptom remains hidden until active."
+	threshold_desc = "<b>Stage Speed [get_threshold(VOMIT_STAGE_SPEED)]:</b> Host will vomit blood, causing internal damage.<br>\
+					  <b>Transmission [get_threshold(VOMIT_TRANSMISSION)]:</b> Host will projectile vomit, increasing vomiting range.<br>\
+					  <b>Stealth [get_threshold(VOMIT_STEALTH)]:</b> The symptom remains hidden until active."
 	return threshold_desc

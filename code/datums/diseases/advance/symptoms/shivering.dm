@@ -15,6 +15,9 @@ Bonus
 //////////////////////////////////////
 */
 
+#define SHIVERING_STAGE_SPEED_1 "stage speed1"
+#define SHIVERING_STAGE_SPEED_2 "stage speed2"
+
 /datum/symptom/shivering
 	name = "Shivering"
 	desc = "The virus inhibits the body's thermoregulation, cooling the body down."
@@ -32,24 +35,24 @@ Bonus
 	threshold_desc = "<b>Stage Speed 5:</b> Increases cooling speed; the host can fall below safe temperature levels.<br>\
 					  <b>Stage Speed 10:</b> Further increases cooling speed."
 	threshold_ranges = list(
-		"stage speed1" = list(4, 6),
-		"stage speed2" = list(9, 11)
+		SHIVERING_STAGE_SPEED_1 = list(4, 6),
+		SHIVERING_STAGE_SPEED_2 = list(9, 11)
 	)
 
 /datum/symptom/shivering/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= get_threshold("stage speed1")) // Makes host cool down dangerously
+	if(A.stage_rate >= get_threshold(SHIVERING_STAGE_SPEED_1)) // Makes host cool down dangerously
 		severity += 1
-		if(A.stage_rate >= get_threshold("stage speed2")) // Increases power of temperature changes
+		if(A.stage_rate >= get_threshold(SHIVERING_STAGE_SPEED_2)) // Increases power of temperature changes
 			severity += 1
 
 /datum/symptom/shivering/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= get_threshold("stage speed1")) // Makes host cool down dangerously
+	if(A.stage_rate >= get_threshold(SHIVERING_STAGE_SPEED_1)) // Makes host cool down dangerously
 		power = 1.5
 		unsafe = TRUE
-		if(A.stage_rate >= get_threshold("stage speed2")) // Increases power of temperature changes
+		if(A.stage_rate >= get_threshold(SHIVERING_STAGE_SPEED_2)) // Increases power of temperature changes
 			power = 2.5
 
 /datum/symptom/shivering/Activate(datum/disease/advance/A)
@@ -74,6 +77,6 @@ Bonus
 /datum/symptom/shivering/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stage Speed [get_threshold("stage speed1")]:</b> Increases cooling speed; the host can fall below safe temperature levels.<br>\
-					  <b>Stage Speed [get_threshold("stage speed2")]:</b> Further increases cooling speed."
+	threshold_desc = "<b>Stage Speed [get_threshold(SHIVERING_STAGE_SPEED_1)]:</b> Increases cooling speed; the host can fall below safe temperature levels.<br>\
+					  <b>Stage Speed [get_threshold(SHIVERING_STAGE_SPEED_2)]:</b> Further increases cooling speed."
 	return threshold_desc

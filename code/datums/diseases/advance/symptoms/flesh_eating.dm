@@ -15,6 +15,9 @@ Bonus
 //////////////////////////////////////
 */
 
+#define FLESH_EATHING_RESISTANCE "resistance"
+#define FLESH_EATING_TRANSMISSION "transmission"
+
 /datum/symptom/flesh_eating
 
 	name = "Hemorrhaging Fasciitis"
@@ -35,16 +38,16 @@ Bonus
 	threshold_desc = "<b>Resistance 10:</b> The host takes brute damage as their flesh is burst open.<br>\
 					  <b>Transmission 8:</b> The host will bleed far more violently, losing even more blood, and spraying infected blood everywhere."
 	threshold_ranges = list(
-		"resistance" = list(8, 12),
-		"transmission" = list(7, 9)
+		FLESH_EATHING_RESISTANCE = list(8, 12),
+		FLESH_EATING_TRANSMISSION = list(7, 9)
 	)
 
 /datum/symptom/flesh_eating/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= get_threshold("resistance")) //extra bleeding
+	if(A.resistance >= get_threshold(FLESH_EATHING_RESISTANCE)) //extra bleeding
 		damage = TRUE
-	if(A.transmission >= get_threshold("transmission"))
+	if(A.transmission >= get_threshold(FLESH_EATING_TRANSMISSION))
 		power = 2
 		bleed = TRUE
 
@@ -91,8 +94,8 @@ Bonus
 /datum/symptom/flesh_eating/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [get_threshold("resistance")]:</b> The host takes brute damage as their flesh is burst open.<br>\
-					  <b>Transmission [get_threshold("transmission")]:</b> The host will bleed far more violently, losing even more blood, and spraying infected blood everywhere."
+	threshold_desc = "<b>Resistance [get_threshold(FLESH_EATHING_RESISTANCE)]:</b> The host takes brute damage as their flesh is burst open.<br>\
+					  <b>Transmission [get_threshold(FLESH_EATING_TRANSMISSION)]:</b> The host will bleed far more violently, losing even more blood, and spraying infected blood everywhere."
 	return threshold_desc
 
 /*
@@ -111,6 +114,9 @@ Bonus
 
 //////////////////////////////////////
 */
+
+#define FLESH_DEATH_STAGE_SPEED "stage speed"
+#define FLESH_DEATH_STEALTH "stealth"
 
 /datum/symptom/flesh_death
 
@@ -131,8 +137,8 @@ Bonus
 	threshold_desc = "<b>Stage Speed 7:</b> Synthesizes Heparin and Lipolicide inside the host, causing increased bleeding and hunger.<br>\
 					  <b>Stealth 5:</b> The symptom remains hidden until active."
 	threshold_ranges = list(
-		"stage speed" = list(6, 8),
-		"stealth" = list(4, 6)
+		FLESH_DEATH_STAGE_SPEED = list(6, 8),
+		FLESH_DEATH_STEALTH = list(4, 6)
 	)
 
 /datum/symptom/flesh_death/severityset(datum/disease/advance/A)
@@ -141,9 +147,9 @@ Bonus
 /datum/symptom/flesh_death/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= get_threshold("stealth"))
+	if(A.stealth >= get_threshold(FLESH_DEATH_STEALTH))
 		suppress_warning = TRUE
-	if(A.stage_rate >= get_threshold("stage speed")) //bleeding and hunger
+	if(A.stage_rate >= get_threshold(FLESH_DEATH_STAGE_SPEED)) //bleeding and hunger
 		chems = TRUE
 
 /datum/symptom/flesh_death/Activate(datum/disease/advance/A)
@@ -175,6 +181,6 @@ Bonus
 /datum/symptom/flesh_death/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stage Speed [get_threshold("stage speed")]:</b> Synthesizes Heparin and Lipolicide inside the host, causing increased bleeding and hunger.<br>\
-					  <b>Stealth [get_threshold("stealth")]:</b> The symptom remains hidden until active."
+	threshold_desc = "<b>Stage Speed [get_threshold(FLESH_DEATH_STAGE_SPEED)]:</b> Synthesizes Heparin and Lipolicide inside the host, causing increased bleeding and hunger.<br>\
+					  <b>Stealth [get_threshold(FLESH_DEATH_STEALTH)]:</b> The symptom remains hidden until active."
 	return threshold_desc

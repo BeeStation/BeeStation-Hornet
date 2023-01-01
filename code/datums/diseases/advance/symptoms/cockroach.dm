@@ -1,3 +1,6 @@
+#define COCKROACH_TRANSMISSION "transmission"
+#define COCKROACH_STAGE_SPEED "stage speed"
+
 /datum/symptom/cockroach
 
 	name = "SBG Syndrome"
@@ -16,17 +19,17 @@
 	threshold_desc = "<b>Stage Speed 8:</b> Increases roach speed.<br> \
 					  <b>Transmission 8:</b> When the host dies, more roaches spawn."
 	threshold_ranges = list(
-		"transmission" = list(6, 10),
-		"stage speed" = list(7, 9)
+		COCKROACH_TRANSMISSION = list(6, 10),
+		COCKROACH_STAGE_SPEED = list(7, 9)
 	)
 
 /datum/symptom/cockroach/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= get_threshold("stage speed"))
+	if(A.stage_rate >= get_threshold(COCKROACH_STAGE_SPEED))
 		symptom_delay_min = 5
 		symptom_delay_max = 15
-	if(A.transmission >= get_threshold("transmission"))
+	if(A.transmission >= get_threshold(COCKROACH_TRANSMISSION))
 		death_roaches = TRUE
 
 /datum/symptom/cockroach/Activate(datum/disease/advance/A)
@@ -65,6 +68,6 @@
 /datum/symptom/cockroach/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Stage Speed [get_threshold("stage speed")]:</b> Increases roach speed.<br> \
-					  <b>Transmission [get_threshold("transmission")]:</b> When the host dies, more roaches spawn."
+	threshold_desc = "<b>Stage Speed [get_threshold(COCKROACH_STAGE_SPEED)]:</b> Increases roach speed.<br> \
+					  <b>Transmission [get_threshold(COCKROACH_TRANSMISSION)]:</b> When the host dies, more roaches spawn."
 	return threshold_desc

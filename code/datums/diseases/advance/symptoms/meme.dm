@@ -1,3 +1,5 @@
+#define MEME_TRANSMISSION "transmission"
+
 /datum/symptom/meme
 	name = "Hysteria"
 	desc = "The virus causes mass hysteria involving a random concept."
@@ -15,7 +17,7 @@
 	var/emotelist = list("flip", "spin", "laugh", "dance", "grin", "grimace", "wave", "yawn", "snap", "clap", "moan", "wink", "eyebrow", "scream", "raise", "shrug")
 	threshold_desc = "<b>Transmission 14:</b> The virus spreads memetically, infecting hosts who can see the target."
 	threshold_ranges = list(
-		"transmission" = list(13, 15)
+		MEME_TRANSMISSION = list(13, 15)
 	)
 
 /datum/symptom/meme/Copy()
@@ -40,7 +42,7 @@
 	var/mob/living/carbon/M = A.affected_mob
 	if(prob(20 * A.stage) && !M.stat && !HAS_TRAIT(M, TRAIT_MINDSHIELD))
 		M.emote(emote)
-		if(A.stage >= 5 && prob(20) && A.transmission >= get_threshold("transmission"))
+		if(A.stage >= 5 && prob(20) && A.transmission >= get_threshold(MEME_TRANSMISSION))
 			for(var/mob/living/carbon/C in oviewers(M, 4))
 				var/obj/item/organ/eyes/eyes = C.getorganslot(ORGAN_SLOT_EYES)
 				if(!eyes || HAS_TRAIT(C, TRAIT_BLIND) || HAS_TRAIT(C, TRAIT_MINDSHIELD) || istype(C.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
@@ -51,5 +53,5 @@
 /datum/symptom/meme/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Transmission [get_threshold("transmission")]:</b> The virus spreads memetically, infecting hosts who can see the target."
+	threshold_desc = "<b>Transmission [get_threshold(MEME_TRANSMISSION)]:</b> The virus spreads memetically, infecting hosts who can see the target."
 	return threshold_desc

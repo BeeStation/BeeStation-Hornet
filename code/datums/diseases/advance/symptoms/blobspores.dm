@@ -1,3 +1,7 @@
+#define BLOBSPORES_RESISTANCE_1 "resistance1"
+#define BLOBSPORES_RESISTANCE_2 "resistance2"
+#define BLOBSPORES_RESISTANCE_3 "resistance3"
+
 /datum/symptom/blobspores
 	name = "Blob Spores"
 	desc = "This symptom causes the host to produce blob spores, which will leave the host at the later stages, and if the host dies, all of the spores will erupt from the host at the same time, while also producing a blob tile."
@@ -17,15 +21,15 @@
 					  <b>Resistance 11:</b> There is a chance to spawn a factory blob, instead of a normal blob.<br> \
 					  <b>Resistance 14:</b> Has a chance to spawn a blob node instead of a normal blob."
 	threshold_ranges = list(
-		"resistance1" = list(7, 9),
-		"resistance2" = list(10, 12),
-		"resistance3" = list(13, 15)
+		BLOBSPORES_RESISTANCE_1 = list(7, 9),
+		BLOBSPORES_RESISTANCE_2 = list(10, 12),
+		BLOBSPORES_RESISTANCE_3 = list(13, 15)
 	)
 
 /datum/symptom/blobspores/severityset(datum/disease/advance/A)
 	. = ..()
 	// Highest resistance threshold. Spawns a blob node
-	if(A.resistance >= get_threshold("resistance3"))
+	if(A.resistance >= get_threshold(BLOBSPORES_RESISTANCE_3))
 		severity += 1
 
 
@@ -33,13 +37,13 @@
 	if(!..())
 		return
 	// Spawns a factory blob
-	if(A.resistance >= get_threshold("resistance2"))
+	if(A.resistance >= get_threshold(BLOBSPORES_RESISTANCE_2))
 		factory_blob = TRUE
 	// Spawns a strong blob instead of a normal one
-	if(A.resistance >= get_threshold("resistance1"))
+	if(A.resistance >= get_threshold(BLOBSPORES_RESISTANCE_1))
 		strong_blob = TRUE
 		// Spawns a blob node
-		if(A.resistance >= get_threshold("resistance3"))
+		if(A.resistance >= get_threshold(BLOBSPORES_RESISTANCE_3))
 			node_blob = TRUE
 
 /datum/symptom/blobspores/Activate(datum/disease/advance/A)
@@ -106,7 +110,7 @@
 /datum/symptom/blobspores/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>Resistance [get_threshold("resistance1")]:</b> Spawns a strong blob instead of a normal blob.<br> \
-					  <b>Resistance [get_threshold("resistance2")]:</b> There is a chance to spawn a factory blob, instead of a normal blob.<br> \
-					  <b>Resistance [get_threshold("resistance3")]:</b> Has a chance to spawn a blob node instead of a normal blob."
+	threshold_desc = "<b>Resistance [get_threshold(BLOBSPORES_RESISTANCE_1)]:</b> Spawns a strong blob instead of a normal blob.<br> \
+					  <b>Resistance [get_threshold(BLOBSPORES_RESISTANCE_2)]:</b> There is a chance to spawn a factory blob, instead of a normal blob.<br> \
+					  <b>Resistance [get_threshold(BLOBSPORES_RESISTANCE_3)]:</b> Has a chance to spawn a blob node instead of a normal blob."
 	return threshold_desc
