@@ -1,0 +1,7 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - tweak: Made the Rad Collector and the Tesla coil generate discovery points alongside
+      general research points while in research mode.
+  - tweak: Increased the amount of money added to the Engineering budget to the Tesla
+      coils in research mode.
