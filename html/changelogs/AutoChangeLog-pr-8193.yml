@@ -1,0 +1,7 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - rscadd: Added hoodies, avviable via the beecoin shop, in-game vendors or crafting
+  - rscadd: Added Durathread hoodies, avviable only via crafting
+  - code_imp: Standardized all the timers under the stack folder to use `SECONDS`
+      instead of deciseconds and some True-False variables
