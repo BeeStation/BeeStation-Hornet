@@ -27,7 +27,7 @@ export const NtosViroSymptoms = (props, context) => {
           onChange={(e, value) => setSearchTerm(value)}
         />
         {filteredSymptoms.map(symptomName => (
-          <Section>
+		<Section key={symptomName}>
             <Box fontWeight="bold">{symptomName}</Box>
             <Box>{symptoms[symptomName]["desc"]}</Box>
             <Box>Stealth: {symptoms[symptomName]["stealth"]}</Box>
