@@ -36,18 +36,18 @@ export const NtosViroSymptoms = (props, context) => {
             <Box>Transmission: {symptoms[symptomName]["transmission"]}</Box>
             <Box>Level: {symptoms[symptomName]["level"]}</Box>
             <Box>
-              Threshold Description: 
-              <React.Fragment>
+              Threshold Description:
+              <>
                 {symptoms[symptomName]["threshold_desc"]
                   .split('<br>')
-                  .map(line => (
-                    <React.Fragment>
-                      {line.replace(/<b>/g, '')
+                  .map((line, i) => (
+                    <>
+                      {line.replace(/<b>/g, ' ')
                         .replace(/<\/b>/g, '')}
                       <br />
-                    </React.Fragment>
+                    </>
                   ))}
-              </React.Fragment>
+              </>
             </Box>
             <Box>Severity: {symptoms[symptomName]["severity"]}</Box>
           </Section>
