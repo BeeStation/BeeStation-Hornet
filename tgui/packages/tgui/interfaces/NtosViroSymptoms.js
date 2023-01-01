@@ -45,8 +45,7 @@ export const NtosViroSymptoms = (props, context) => {
                         .replace(/<\/b>/g, '')}
                       <br />
                     </>
-                  )
-				)}
+                  ))}
               </>
             </Box>
             <Box>Severity: {symptoms[symptomName]["severity"]}</Box>
