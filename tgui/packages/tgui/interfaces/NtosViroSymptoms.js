@@ -43,7 +43,7 @@ export const NtosViroSymptoms = (props, context) => {
                     <>
                       {line.replace(/<b>/g, ' ')
                         .replace(/<\/b>/g, '')}
-                    <br />
+                      <br />
                     </>
                 ))}
               </>
