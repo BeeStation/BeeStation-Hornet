@@ -37,9 +37,9 @@
 /datum/symptom/necroseed/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= get_threshold("resistance1"))
+	if(A.resistance >= get_threshold("resistance1")) // Will create tendrils around the host
 		tendrils = TRUE
-		if(A.resistance >= get_threshold("resistance2"))
+		if(A.resistance >= get_threshold("resistance2")) // Makes host immune to heat, ash and lava
 			fireproof = TRUE
 	if(A.stealth >= get_threshold("stealth"))
 		chest = TRUE

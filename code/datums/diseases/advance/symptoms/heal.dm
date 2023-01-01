@@ -416,9 +416,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/sweat/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= get_threshold("transmission2"))
+	if(A.transmission >= get_threshold("transmission2")) // Heals toxin damage and removes chemicals
 		toxheal = TRUE
-	if(A.transmission >= get_threshold("transmission1"))
+	if(A.transmission >= get_threshold("transmission1")) // Increases sweat production making host spray water around
 		bigsweat = TRUE
 	if(A.stage_rate >= get_threshold("stage speed"))
 		ammonia = TRUE
@@ -576,9 +576,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/growth/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= get_threshold("stage speed1"))
+	if(A.stage_rate >= get_threshold("stage speed1")) // Heals brute damage fast but makes you puke organs
 		severity -= 1
-		if(A.stage_rate >= get_threshold("stage speed2"))
+		if(A.stage_rate >= get_threshold("stage speed2")) // Heals brute damage 3x as fast but causes cell damage
 			severity += 3
 
 /datum/symptom/growth/Start(datum/disease/advance/A)
@@ -710,9 +710,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/vampirism/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= get_threshold("transmission1"))
+	if(A.transmission >= get_threshold("transmission1")) // Absorbing blood and healing
 		bruteheal = TRUE
-	if(A.transmission >= get_threshold("transmission2"))
+	if(A.transmission >= get_threshold("transmission2")) // Stealing blood from open wounds around and hurting others around opening wounds
 		aggression = TRUE
 		maxbloodpoints += 50
 	if(A.stage_rate >= get_threshold("stage speed"))

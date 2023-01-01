@@ -255,8 +255,10 @@ BONUS
 	. = ..()
 	if(A.resistance >= get_threshold("resistance"))
 		severity -= 1
+	// Eggs will contain the virus and spread it
 	if(A.transmission >= get_threshold("transmission1"))
 		severity += 1
+		// Egg sacs will explode with a delay adding more range
 		if(A.transmission >= get_threshold("transmission2"))
 			severity += 1
 	if(A.stealth >= get_threshold("stealth"))
@@ -488,8 +490,10 @@ Thresholds
 /datum/symptom/pustule/Start(datum/disease/advance/A)
 	if(!..())
 		return
+	// Buboes burst when ignored or disturbed
 	if(A.transmission >= get_threshold("transmission1"))
 		shoot = TRUE
+	// Host will generate more pustules
 	if(A.transmission >= get_threshold("transmission2"))
 		power += 1
 	RegisterSignal(A.affected_mob, COMSIG_HUMAN_ATTACKED, .proc/pop_pustules)

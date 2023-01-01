@@ -24,6 +24,7 @@
 
 /datum/symptom/blobspores/severityset(datum/disease/advance/A)
 	. = ..()
+	// Highest resistance threshold. Spawns a blob node
 	if(A.resistance >= get_threshold("resistance3"))
 		severity += 1
 
@@ -31,10 +32,13 @@
 /datum/symptom/blobspores/Start(datum/disease/advance/A)
 	if(!..())
 		return
+	// Spawns a factory blob
 	if(A.resistance >= get_threshold("resistance2"))
 		factory_blob = TRUE
+	// Spawns a strong blob instead of a normal one
 	if(A.resistance >= get_threshold("resistance1"))
 		strong_blob = TRUE
+		// Spawns a blob node
 		if(A.resistance >= get_threshold("resistance3"))
 			node_blob = TRUE
 

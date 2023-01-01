@@ -38,18 +38,18 @@ Bonus
 
 /datum/symptom/shivering/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= get_threshold("stage speed1")) //dangerous cold
+	if(A.stage_rate >= get_threshold("stage speed1")) // Makes host cool down dangerously
 		severity += 1
-		if(A.stage_rate >= get_threshold("stage speed2"))
+		if(A.stage_rate >= get_threshold("stage speed2")) // Increases power of temperature changes
 			severity += 1
 
 /datum/symptom/shivering/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stage_rate >= get_threshold("stage speed1")) //dangerous cold
+	if(A.stage_rate >= get_threshold("stage speed1")) // Makes host cool down dangerously
 		power = 1.5
 		unsafe = TRUE
-		if(A.stage_rate >= get_threshold("stage speed2"))
+		if(A.stage_rate >= get_threshold("stage speed2")) // Increases power of temperature changes
 			power = 2.5
 
 /datum/symptom/shivering/Activate(datum/disease/advance/A)

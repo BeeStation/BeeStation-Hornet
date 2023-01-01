@@ -51,9 +51,9 @@ BONUS
 		return
 	if(A.stealth >= get_threshold("stealth"))
 		base_message_chance = 50
-		if(A.stage_rate >= get_threshold("stage speed1")) //severe pain
+		if(A.stage_rate >= get_threshold("stage speed1")) //Causes severe pain and weakens host
 			power = 2
-	if(A.stage_rate >= get_threshold("stage speed2")) //cluster headaches
+	if(A.stage_rate >= get_threshold("stage speed2")) //Less headaches but stus the host
 		symptom_delay_min = 30
 		symptom_delay_max = 60
 		power = 3

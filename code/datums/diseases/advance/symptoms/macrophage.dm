@@ -25,7 +25,7 @@
 
 /datum/symptom/macrophage/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= get_threshold("transmission1"))
+	if(A.transmission >= get_threshold("transmission1")) // Phages go through armor infecting new hosts
 		severity += 2
 
 /datum/symptom/macrophage/Start(datum/disease/advance/A)
@@ -69,7 +69,7 @@
 	phage.maxHealth += A.resistance
 	phage.infections += A
 	phage.basedisease = A
-	if(A.transmission >= get_threshold("transmission2"))
+	if(A.transmission >= get_threshold("transmission2")) // Phages will have all diseases from the host it came from
 		for(var/datum/disease/D in M.diseases)
 			if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (D.spread_flags & DISEASE_SPREAD_FALTERED))
 				continue

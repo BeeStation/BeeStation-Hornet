@@ -36,9 +36,9 @@
 		return
 	if(A.transmission >= get_threshold("transmission"))
 		honkspread = TRUE
-	if(A.resistance >= get_threshold("resistance1"))
+	if(A.resistance >= get_threshold("resistance1")) // Puts clownsmask on the host
 		clownmask = TRUE
-		if(A.resistance >= get_threshold("resistance2"))
+		if(A.resistance >= get_threshold("resistance2")) // Host becomes clumsy
 			clumsy = TRUE
 
 /datum/symptom/pierrot/Activate(datum/disease/advance/A)

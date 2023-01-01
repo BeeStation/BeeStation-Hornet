@@ -49,10 +49,10 @@ Bonus
 /datum/symptom/fever/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= get_threshold("resistance1")) //dangerous fever
+	if(A.resistance >= get_threshold("resistance1")) // Can overheat the host
 		power = 1.5
 		unsafe = TRUE
-		if(A.resistance >= get_threshold("resistance2"))
+		if(A.resistance >= get_threshold("resistance2")) // Increases intensity of the fever
 			power = 2.5
 
 /datum/symptom/fever/Activate(datum/disease/advance/A)
