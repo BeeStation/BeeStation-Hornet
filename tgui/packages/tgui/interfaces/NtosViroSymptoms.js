@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, Icon, Section, Input } from '../components';
+import { Box, Icon, Section, Input, React } from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosViroSymptoms = (props, context) => {
@@ -36,12 +36,18 @@ export const NtosViroSymptoms = (props, context) => {
             <Box>Transmission: {symptoms[symptomName]["transmission"]}</Box>
             <Box>Level: {symptoms[symptomName]["level"]}</Box>
             <Box>
-              Threshold Description:
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: symptoms[symptomName]["threshold_desc"],
-                }}
-              />
+              Threshold Description: 
+              <React.Fragment>
+                {symptoms[symptomName]["threshold_desc"]
+                  .split('<br>')
+                  .map(line => (
+                    <React.Fragment>
+                      {line.replace(/<b>/g, '')
+                        .replace(/<\/b>/g, '')}
+                      <br />
+                    </React.Fragment>
+                  ))}
+              </React.Fragment>
             </Box>
             <Box>Severity: {symptoms[symptomName]["severity"]}</Box>
           </Section>

@@ -14,7 +14,7 @@
 	suffixes = list(" Memory Loss")
 	var/lethal = FALSE
 	var/moretrauma = FALSE
-	threshold_desc = "<b>transmission 12:</b> The disease's damage reaches lethal levels.<br>\
+	threshold_desc = "<b>Transmission 12:</b> The disease's damage reaches lethal levels.<br>\
 					  <b>Speed 9:</b> Host's brain develops even more traumas than normal."
 	threshold_ranges = list(
 		"transmission" = list(11, 13),
@@ -66,6 +66,6 @@
 /datum/symptom/braindamage/Threshold(datum/disease/advance/A)
 	if(!..())
 		return
-	threshold_desc = "<b>transmission [get_threshold("transmission")]:</b> The disease's damage reaches lethal levels.<br>\
+	threshold_desc = "<b>Transmission [get_threshold("transmission")]:</b> The disease's damage reaches lethal levels.<br>\
 					  <b>Speed [get_threshold("stage speed")]:</b> Host's brain develops even more traumas than normal."
 	return threshold_desc
