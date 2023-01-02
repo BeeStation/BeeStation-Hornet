@@ -251,7 +251,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 				to_chat(user, "<span class='warning'>You pull at the doornkob with all your might and you hear a loud creak! It's barely hanging on now!</span>")
 				tugged_on ++
 				return
-			if(5 to 999) //Just in case someone decides to keep clicking
+			if(5 to INFINITY) //Just in case someone decides to keep clicking
 				if(alert(user, "You feel as if pulling on the knob one more time would break it off the door. Are you sure you want to do this?", "Door Knob", "Yes", "No") == "Yes")
 					launch_user(user)
 					tugged_on = 0
@@ -268,7 +268,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	var/max_i = 20//number of tries to spawn meteor.
 	while(!isspaceturf(pickedstart))
 		var/startSide = pick(GLOB.cardinals)
-		var/startZ = (2 || pick(SSmapping.levels_by_trait(ZTRAIT_STATION)))
+		var/startZ = (pick(SSmapping.levels_by_trait(ZTRAIT_STATION)))
 		pickedstart = spaceDebrisStartLoc(startSide, startZ)
 		pickedgoal = aimbotDebrisFinishLoc(startSide, startZ)
 		max_i--
@@ -571,7 +571,9 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 
 
 /obj/item/paper/crumpled/hilbertsstaffnotice
-	name = "An apology leter to our guests"
-	info = {"Due to the bluespace technology used to operate the door to our hotel being unstable as of late, we have modified them to allow an emergency escape option.<br>
-	Each room also recieved the equipment necessary to ensure a comforatble travel back home.<br>
-	The staff of Hilbert's Hotel deeply apologizes for the inconvenience and assures our guests that our best technicians are working on solving the issue.<br>"}
+	name = "An apology letter to our guests"
+	info = {"Due to a bluespace malfunction, one of our recent visitors got stranded in out of our rooms for a <b>REDACTED</b> amount of time.<br>
+	In desperation they tried breaking down the door and have irreparably damaged the door handle in the process.<br>
+	Upon investigation, we have discovered that anyone who would tug too hard on door handle would be pulled inside of the door and sent off into an unknown location.<br>
+	As such, each room has received the equipment necessary to ensure our dear guests do not suffer the adverse effects of being sent into space.<br>
+	The staff of Hilbert's Hotel deeply apologizes for this inconvenience.<br>"}
