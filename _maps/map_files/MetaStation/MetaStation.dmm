@@ -4282,7 +4282,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
 "atF" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/incinerator_input{
 	dir = 1
 	},
 /turf/open/floor/engine/vacuum,
@@ -22629,8 +22629,11 @@
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "cgz" = (
-/turf/closed/wall/r_wall,
-/area/maintenance/disposal/incinerator)
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/plating/airless,
+/area/space/nearstation)
 "cgA" = (
 /obj/machinery/meter,
 /obj/structure/grille,
@@ -23098,7 +23101,8 @@
 /area/medical/medbay/central)
 "cjb" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible,
-/turf/closed/wall/r_wall,
+/obj/effect/spawner/structure/window/depleteduranium,
+/turf/open/floor/plating,
 /area/maintenance/disposal/incinerator)
 "cjc" = (
 /turf/open/floor/engine/n2,
@@ -23350,9 +23354,8 @@
 /obj/structure/sign/warning/fire{
 	pixel_x = -32
 	},
-/obj/machinery/airlock_sensor/incinerator_atmos{
-	pixel_x = -8;
-	pixel_y = 24
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1
@@ -23365,6 +23368,13 @@
 	},
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
+	},
+/obj/machinery/airlock_sensor/incinerator_atmos{
+	pixel_x = 8;
+	pixel_y = 24
 	},
 /obj/machinery/atmospherics/components/binary/pump/on,
 /turf/open/floor/engine,
@@ -23627,7 +23637,6 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
 "cme" = (
@@ -23810,11 +23819,13 @@
 /turf/open/floor/plasteel/dark,
 /area/aisat)
 "cne" = (
-/obj/machinery/igniter/incinerator_atmos,
+/obj/machinery/igniter{
+	id = "Incinerator"
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/air_sensor/atmos/incinerator_tank{
+/obj/machinery/air_sensor{
 	pixel_x = -32;
 	pixel_y = -32
 	},
@@ -23824,7 +23835,7 @@
 /obj/structure/sign/warning/vacuum/external{
 	pixel_y = -32
 	},
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/incinerator_input{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
 /turf/open/floor/engine/vacuum,
@@ -24230,6 +24241,9 @@
 /turf/open/space,
 /area/space/nearstation)
 "cpN" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 8;
 	volume_rate = 200
@@ -24244,9 +24258,11 @@
 /turf/open/floor/plasteel/dark,
 /area/aisat)
 "cpP" = (
-/obj/structure/lattice/catwalk,
 /obj/item/wrench,
-/turf/open/space,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
 /area/space/nearstation)
 "cpR" = (
 /obj/effect/turf_decal/stripes/line{
@@ -24644,16 +24660,18 @@
 /turf/open/space,
 /area/space/nearstation)
 "crd" = (
-/obj/structure/disposaloutlet,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/obj/structure/lattice/catwalk,
-/turf/open/space,
+/obj/structure/disposaloutlet,
+/turf/open/floor/plating/airless,
 /area/space/nearstation)
 "cre" = (
 /obj/structure/sign/warning/fire,
-/turf/closed/wall/r_wall,
+/turf/closed/wall,
 /area/maintenance/disposal/incinerator)
 "crf" = (
 /obj/machinery/door/poddoor/incinerator_atmos_main,
@@ -28645,15 +28663,19 @@
 /turf/open/floor/plasteel/grimy,
 /area/chapel/office)
 "cNw" = (
-/obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
 /obj/machinery/power/compressor{
 	comp_id = "incineratorturbine";
 	dir = 1;
 	luminosity = 2
 	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/camera/autoname{
+	dir = 4;
+	network = list("ss13, engine")
+	},
+/obj/structure/cable,
 /turf/open/floor/engine/vacuum,
 /area/maintenance/disposal/incinerator)
 "cNA" = (
@@ -28733,10 +28755,10 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "cOa" = (
-/obj/structure/cable,
 /obj/machinery/power/turbine{
 	luminosity = 2
 	},
+/obj/structure/cable,
 /turf/open/floor/engine/vacuum,
 /area/maintenance/disposal/incinerator)
 "cOb" = (
@@ -36010,6 +36032,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"eZr" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/space/nearstation)
 "eZs" = (
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /obj/effect/turf_decal/stripes/corner,
@@ -48669,8 +48697,8 @@
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/embedded_controller/radio/airlock_controller/incinerator_atmos{
-	pixel_x = 40;
-	pixel_y = 8
+	pixel_x = 38;
+	pixel_y = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -52441,8 +52469,15 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_atmos{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 9
+	},
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
 "mGx" = (
@@ -61373,6 +61408,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
+"qKA" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/plating/airless,
+/area/space/nearstation)
 "qLf" = (
 /obj/structure/table/wood,
 /obj/item/storage/photo_album,
@@ -63304,6 +63345,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
+"rDY" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible,
+/turf/closed/wall,
+/area/maintenance/disposal/incinerator)
 "rEi" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -117971,15 +118016,15 @@ adl
 ahT
 cfq
 aov
-cgz
-cgz
-cgz
-cgz
-cgz
+bZE
+bZE
+bZE
+bZE
+bZE
 cpN
 crd
-ack
-ack
+qKA
+aaa
 aaa
 aaa
 mjJ
@@ -118232,11 +118277,11 @@ cjb
 ckD
 cjb
 atF
-cgz
-cgz
+bZE
+bZE
 cre
+qkj
 aaa
-ack
 aaa
 aaa
 aaa
@@ -118493,7 +118538,7 @@ cNw
 cOa
 crf
 aaa
-ack
+aaa
 aaa
 aaa
 aaa
@@ -118742,15 +118787,15 @@ cef
 aiW
 czH
 cLC
-cjb
+rDY
 ckF
 cjb
 cnf
-cgz
-cgz
+bZE
+bZE
 cre
+qkj
 aaa
-ack
 aaa
 aaa
 aaa
@@ -118997,17 +119042,17 @@ bAR
 bAR
 bAR
 cft
-cgz
-cgz
-cgz
-cgz
-cgz
+bZE
+bZE
+bZE
+bZE
+bZE
 cng
-cgz
+bZE
 cpP
-ack
-ack
-ack
+eZr
+cgz
+aaa
 aaa
 aaa
 aaa

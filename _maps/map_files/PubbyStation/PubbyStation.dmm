@@ -20946,10 +20946,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
-"cWZ" = (
-/obj/machinery/meter,
-/turf/closed/wall,
-/area/maintenance/disposal/incinerator)
 "cXW" = (
 /obj/structure/grille,
 /obj/structure/disposalpipe/segment,
@@ -37043,7 +37039,7 @@
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 4
 	},
-/turf/closed/wall/r_wall,
+/turf/closed/wall,
 /area/maintenance/disposal/incinerator)
 "lNE" = (
 /obj/machinery/camera{
@@ -98959,7 +98955,7 @@ cvV
 bLb
 bJP
 aht
-cWZ
+qFJ
 lNu
 caM
 jpP
