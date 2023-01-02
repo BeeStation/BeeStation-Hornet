@@ -110,16 +110,12 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
         mysteryRoom = GLOB.hhmysteryRoomNumber
         if(roomNumber == mysteryRoom)
             placer = hotelRoomTempLore.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
-            //hotelRoomTempLore.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
         else
             placer = hotelRoomTemp.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
-            //hotelRoomTemp.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
     else
         placer = hotelRoomTemp.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
-        //hotelRoomTemp.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
     activeRooms["[roomNumber]"] = roomReservation
     placer.on_completion(CALLBACK(src, .proc/linkTurfs, roomReservation, roomNumber))
-    //linkTurfs(roomReservation, roomNumber)
     do_sparks(3, FALSE, get_turf(user))
     user.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
 
