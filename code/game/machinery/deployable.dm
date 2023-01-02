@@ -133,7 +133,7 @@
 
 /obj/structure/barricade/security/proc/deploy()
 	icon_state = "barrier1"
-	density = TRUE
+	set_density(TRUE)
 	anchored = TRUE
 	if(deploy_message)
 		visible_message("<span class='warning'>[src] deploys!</span>")

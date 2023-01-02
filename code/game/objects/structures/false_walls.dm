@@ -52,7 +52,7 @@
 
 /obj/structure/falsewall/proc/toggle_open()
 	if(!QDELETED(src))
-		density = !density
+		set_density(!density)
 		set_opacity(density)
 		opening = FALSE
 		update_icon()
