@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("rack parts",								/obj/item/rack_parts), \
 	new/datum/stack_recipe("closet",									/obj/structure/closet, 2, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS), \
 	null, \
-	new/datum/stack_recipe("canister",									/obj/machinery/portable_atmospherics/canister/generic, 10, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
+	new/datum/stack_recipe("canister",									/obj/machinery/portable_atmospherics/canister, 10, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 	null, \
 	new/datum/stack_recipe("floor tile",								/obj/item/stack/tile/plasteel, 1, 4, 20), \
 	new/datum/stack_recipe("iron rod",									/obj/item/stack/rods, 1, 2, 60), \
