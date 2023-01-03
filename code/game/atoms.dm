@@ -1420,6 +1420,7 @@
   *
   * 1 argument is for the user making the item
   * 2 argument is for the item being created
+  * 3 argument is for if admins should be notified if a non-antag crafts this
  */
 /proc/log_crafting(atom/user, atom/object, dangerous = FALSE)
 	var/message = "has crafted [object]"
