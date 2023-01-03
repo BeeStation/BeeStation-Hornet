@@ -58,7 +58,7 @@
 /datum/antagonist/hypnotized
 	name = "Hypnotized Victim"
 	job_rank = ROLE_HYPNOTIZED
-	roundend_category = "Hypnotized victims"
+	roundend_category = "hypnotized victims"
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"
 	show_name_in_check_antagonists = TRUE
@@ -73,7 +73,7 @@
 	return ..()
 
 
-/datum/antagonist/brainwashed/greet()
+/datum/antagonist/hypnotized/greet()
 	var/i = 1
 	for(var/X in objectives)
 		var/datum/objective/O = X
@@ -83,7 +83,7 @@
 		"You have been hypnotized!\n\
 		These strange words echo through your mind over and over.")
 
-/datum/antagonist/brainwashed/farewell()
+/datum/antagonist/hypnotized/farewell()
 	owner.announce_objectives()
 
 /datum/objective/hypnotized
