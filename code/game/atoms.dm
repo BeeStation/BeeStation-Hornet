@@ -1422,15 +1422,13 @@
   * 2 argument is for the item being created
  */
 /proc/log_crafting(atom/user, atom/object, dangerous = FALSE)
-	var/masterpiece = object
-	var/message = "has crafted [masterpiece]"
+	var/message = "has crafted [object]"
 	user.log_message(message, LOG_GAME)
-	if(dangerous)
-		var/devious = null
-		var/mob/blacksmith = user
-		devious = locate(/datum/antagonist) in blacksmith.mind.antag_datums
-		if(isnull(devious))
-			message_admins("[ADMIN_LOOKUPFLW(user)] has crafted [masterpiece] as a non-antagonist.")
+	if(!dangerous)
+		return
+	var/mob/blacksmith = user
+	if(isnull(locate(/datum/antagonist) in blacksmith.mind.antag_datums))
+		message_admins("[ADMIN_LOOKUPFLW(user)] has crafted [object] as a non-antagonist.")
 /**
   * Log a combat message in the attack log
   *
