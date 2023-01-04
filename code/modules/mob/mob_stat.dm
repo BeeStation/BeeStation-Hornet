@@ -163,6 +163,16 @@
 	else
 		tab_data["Players Playing/Connected"] = GENERATE_STAT_TEXT("[get_active_player_count()]/[GLOB.clients.len]")
 	tab_data["divider_3"] = GENERATE_STAT_DIVIDER
+	if(SSticker.round_start_time)
+		switch(GLOB.security_level)
+			if(0)
+				tab_data["Security Level"] = GENERATE_STAT_TEXT("Green")
+			if(1)
+				tab_data["Security Level"] = GENERATE_STAT_TEXT("Blue")
+			if(2)
+				tab_data["Security Level"] = GENERATE_STAT_TEXT("Red")
+			if(3)
+				tab_data["Security Level"] = GENERATE_STAT_TEXT("Delta")
 
 	if(SSshuttle.emergency)
 		var/ETA = SSshuttle.emergency.getModeStr()
