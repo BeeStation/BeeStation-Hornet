@@ -31,9 +31,12 @@ SUBSYSTEM_DEF(title)
 
 	icon = new(fcopy_rsc(file_path))
 
+	var/icon/single_frame_icon = new /icon()
+	single_frame_icon.Insert(icon, "", SOUTH, 1, 0)
+
 	//Calculate the screen size
-	var/width = round(icon.Width() / world.icon_size)
-	var/height = round(icon.Height() / world.icon_size)
+	var/width = round(single_frame_icon.Width() / world.icon_size)
+	var/height = round(single_frame_icon.Height() / world.icon_size)
 	lobby_screen_size = "[width]x[height]"
 
 	//Update the new player start (views are centered)
