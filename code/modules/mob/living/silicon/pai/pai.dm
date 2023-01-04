@@ -159,8 +159,6 @@
 		P.setPersonality(src)
 	forceMove(P)
 	card = P
-	signaler = new(src)
-	job = JOB_NAME_PAI
 	signaler = new /obj/item/assembly/signaler/internal(src)
 	hostscan = new /obj/item/healthanalyzer(src)
 	atmos_analyzer = new /obj/item/analyzer(src)
