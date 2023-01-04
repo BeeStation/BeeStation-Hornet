@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscadd: Title screens now support images that are any aspect ratio.
