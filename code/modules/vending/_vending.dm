@@ -964,10 +964,8 @@ GLOBAL_LIST_EMPTY(vending_products)
 			vend_ready = TRUE
 			return
 
-		var/datum/bank_account/D = SSeconomy.get_dep_account_id_by_bitflag(seller_department)
-		if(D)
-			D.adjust_money(price_to_use)
-			SSblackbox.record_feedback("amount", "vending_spent", price_to_use)
+
+
 	if(last_shopper != usr || purchase_message_cooldown < world.time)
 		say("Thank you for shopping with [src]!")
 		purchase_message_cooldown = world.time + 5 SECONDS
