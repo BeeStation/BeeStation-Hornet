@@ -45,6 +45,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 	/// The list of strains the blob can reroll for.
 	var/list/strain_choices
+	var/need_reroll_strain = FALSE
 
 /mob/camera/blob/Initialize(mapload, starting_points = 60)
 	validate_location()
