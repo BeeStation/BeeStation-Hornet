@@ -5,7 +5,7 @@
 	singular_name = "sticky tape"
 	desc = "Used for sticking to things for sticking said things to people."
 	icon = 'icons/obj/tapes.dmi'
-	icon_state = "tape_w"
+	icon_state = "tape"
 	var/prefix = "sticky"
 	item_flags = NOBLUDGEON
 	amount = 5
@@ -13,6 +13,31 @@
 
 	var/list/conferred_embed = EMBED_HARMLESS
 	var/overwrite_existing = FALSE
+	///The tape type you get when ripping off a piece of tape.
+	var/obj/tape_gag = /obj/item/clothing/mask/muzzle/tape
+	greyscale_config = /datum/greyscale_config/tape
+	greyscale_colors = "#B2B2B2#BD6A62"
+
+/obj/item/stack/sticky_tape/Initialize(mapload, new_amount, merge)
+	. = ..()
+	AddComponent(/datum/component/gags_recolorable)
+
+/obj/item/stack/sticky_tape/attack_hand(mob/user, list/modifiers)
+	if(user.get_inactive_held_item() == src)
+		if(is_zero_amount(delete_if_zero = TRUE))
+			return
+		if(!do_after(user, 1 SECONDS))
+			return
+		var/new_tape_gag = new tape_gag(src)
+		user.put_in_hands(new_tape_gag)
+		use(1)
+		to_chat(user, "span class='notice'You rip off a piece of tape.</span>")
+		return TRUE
+	return ..()
+
+/obj/item/stack/sticky_tape/examine(mob/user)
+	. = ..()
+	. += "["<span class='notice'>You could rip a piece off by using an empty hand.</span>"]"
 
 /obj/item/stack/sticky_tape/afterattack(obj/item/I, mob/living/user)
 	if(!istype(I))
@@ -39,22 +64,27 @@
 	name = "super sticky tape"
 	singular_name = "super sticky tape"
 	desc = "Quite possibly the most mischevious substance in the galaxy. Use with extreme lack of caution."
-	icon_state = "tape_y"
 	prefix = "super sticky"
 	conferred_embed = EMBED_HARMLESS_SUPERIOR
+	greyscale_colors = "#4D4D4D#75433F"
+	tape_gag = /obj/item/clothing/mask/muzzle/tape/super
 
 /obj/item/stack/sticky_tape/pointy
 	name = "pointy tape"
 	singular_name = "pointy tape"
 	desc = "Used for sticking to things for sticking said things inside people."
-	icon_state = "tape_evil"
+	icon_state = "tape_spikes"
 	prefix = "pointy"
 	conferred_embed = EMBED_POINTY
+	greyscale_config = /datum/greyscale_config/tape/spikes
+	greyscale_colors = "#E64539#808080#AD2F45"
+	tape_gag = /obj/item/clothing/mask/muzzle/tape/pointy
 
 /obj/item/stack/sticky_tape/pointy/super
 	name = "super pointy tape"
 	singular_name = "super pointy tape"
 	desc = "You didn't know tape could look so sinister. Welcome to Space Station 13."
-	icon_state = "tape_spikes"
 	prefix = "super pointy"
 	conferred_embed = EMBED_POINTY_SUPERIOR
+	greyscale_colors = "#8C0A00#4F4F4F#300008"
+	tape_gag = /obj/item/clothing/mask/muzzle/tape/pointy/super

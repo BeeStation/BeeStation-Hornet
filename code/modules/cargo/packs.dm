@@ -292,9 +292,9 @@
 					/obj/item/clothing/gloves/combat,
 					/obj/item/clothing/gloves/combat,
 					/obj/item/clothing/gloves/combat,
-					/obj/item/clothing/head/HoS/beret/syndicate,
-					/obj/item/clothing/head/HoS/beret/syndicate,
-					/obj/item/clothing/head/HoS/beret/syndicate,
+					/obj/item/clothing/head/hos/beret/syndicate,
+					/obj/item/clothing/head/hos/beret/syndicate,
+					/obj/item/clothing/head/hos/beret/syndicate,
 					/obj/item/clothing/suit/armor/vest,
 					/obj/item/clothing/suit/armor/vest,
 					/obj/item/clothing/suit/armor/vest)
@@ -403,7 +403,7 @@
 					/obj/item/clothing/head/beret/sec/navywarden,
 					/obj/item/clothing/under/rank/security/head_of_security/formal,
 					/obj/item/clothing/suit/security/hos,
-					/obj/item/clothing/head/beret/sec/navyhos)
+					/obj/item/clothing/head/hos/beret/navyhos)
 	crate_name = "security clothing crate"
 
 /datum/supply_pack/security/stingpack
@@ -2622,7 +2622,7 @@
 	name = "Formalwear Crate"
 	desc = "You're gonna like the way you look, I guaranteed it. Contains an asston of fancy clothing."
 	cost = 3000 //Lots of very expensive items. You gotta pay up to look good!
-	contains = list(/obj/item/clothing/under/dress/blacktango,
+	contains = list(/obj/item/clothing/under/dress/tango,
 					/obj/item/clothing/under/misc/assistantformal,
 					/obj/item/clothing/under/misc/assistantformal,
 					/obj/item/clothing/under/rank/civilian/lawyer/bluesuit,

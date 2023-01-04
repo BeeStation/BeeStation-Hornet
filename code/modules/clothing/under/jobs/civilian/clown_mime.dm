@@ -30,46 +30,9 @@
 	icon_state = "clown"
 	item_state = "clown"
 	can_adjust = FALSE
-
-/obj/item/clothing/under/rank/civilian/clown/blue
-	name = "blue clown suit"
-	desc = "<i>'BLUE HONK!'</i>"
-	icon_state = "blueclown"
-	item_state = "blueclown"
-	fitted = FEMALE_UNIFORM_TOP
-	can_adjust = FALSE
-
-/obj/item/clothing/under/rank/civilian/clown/green
-	name = "green clown suit"
-	desc = "<i>'GREEN HONK!'</i>"
-	icon_state = "greenclown"
-	item_state = "greenclown"
-	fitted = FEMALE_UNIFORM_TOP
-	can_adjust = FALSE
-
-/obj/item/clothing/under/rank/civilian/clown/yellow
-	name = "yellow clown suit"
-	desc = "<i>'YELLOW HONK!'</i>"
-	icon_state = "yellowclown"
-	item_state = "yellowclown"
-	fitted = FEMALE_UNIFORM_TOP
-	can_adjust = FALSE
-
-/obj/item/clothing/under/rank/civilian/clown/purple
-	name = "purple clown suit"
-	desc = "<i>'PURPLE HONK!'</i>"
-	icon_state = "purpleclown"
-	item_state = "purpleclown"
-	fitted = FEMALE_UNIFORM_TOP
-	can_adjust = FALSE
-
-/obj/item/clothing/under/rank/civilian/clown/orange
-	name = "orange clown suit"
-	desc = "<i>'ORANGE HONK!'</i>"
-	icon_state = "orangeclown"
-	item_state = "orangeclown"
-	fitted = FEMALE_UNIFORM_TOP
-	can_adjust = FALSE
+	greyscale_config = /datum/greyscale_config/clown
+	greyscale_config_worn = /datum/greyscale_config/clown_worn
+	greyscale_colors = "#e61515#f0c60a#fc0532#660315#fc778f#ffffff"
 
 /obj/item/clothing/under/rank/civilian/clown/rainbow
 	name = "rainbow clown suit"
@@ -78,12 +41,18 @@
 	item_state = "rainbowclown"
 	fitted = FEMALE_UNIFORM_TOP
 	can_adjust = FALSE
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
 
 /obj/item/clothing/under/rank/civilian/clown/jester
 	name = "jester suit"
 	desc = "A jolly dress, well suited to entertain your master, nuncle."
 	icon_state = "jester"
 	can_adjust = FALSE
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
 
 /obj/item/clothing/under/rank/civilian/clown/jester/alt
 	icon_state = "jester2"
@@ -94,6 +63,9 @@
 	icon_state = "sexyclown"
 	item_state = "sexyclown"
 	can_adjust = FALSE
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
 
 /obj/item/clothing/under/rank/civilian/clown/Initialize(mapload)
 	. = ..()

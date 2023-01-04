@@ -1,0 +1,40 @@
+{
+	"clown": [
+		{
+			"type": "icon_state",
+			"icon_state": "clown_bell",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "clown_suspenders",
+			"blend_mode": "overlay",
+			"color_ids": [ 2 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "clown_shirt_primary",
+			"blend_mode": "overlay",
+			"color_ids": [ 3 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "clown_shirt_secondary",
+			"blend_mode": "overlay",
+			"color_ids": [ 4 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "clown_shirt_whites",
+			"blend_mode": "overlay",
+			"color_ids": [ 5 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "clown_whites",
+			"blend_mode": "overlay",
+			"color_ids": [ 6 ]
+		}
+	]
+}

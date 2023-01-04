@@ -543,7 +543,7 @@
 /obj/structure/chair/wood/wings{
 	dir = 8
 	},
-/obj/item/toy/plush/lizardplushie,
+/obj/item/toy/plush/lizard_plushie/green,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cf" = (

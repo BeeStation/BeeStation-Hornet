@@ -1,0 +1,28 @@
+{
+	"kimono_fancy": [
+		{
+			"type": "icon_state",
+			"icon_state": "base",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "sash",
+			"blend_mode": "overlay",
+			"color_ids": [ 2 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "flowers",
+			"blend_mode": "overlay",
+			"color_ids": [ 3 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "whites",
+			"blend_mode": "overlay",
+			"color_ids": [ 4 ]
+		}
+	]
+}

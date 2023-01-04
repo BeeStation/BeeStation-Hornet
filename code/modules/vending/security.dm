@@ -23,7 +23,6 @@
 					/obj/item/storage/backpack/duffelbag/sec/deputy = 4,
 				   /obj/item/coin/antagtoken = 1,
 				   /obj/item/grenade/barrier = 4,
-				   /obj/item/clothing/head/helmet/blueshirt = 1,
 				   /obj/item/clothing/suit/armor/vest/blueshirt = 1,
 				   /obj/item/grenade/stingbang = 1)
 	refill_canister = /obj/item/vending_refill/security

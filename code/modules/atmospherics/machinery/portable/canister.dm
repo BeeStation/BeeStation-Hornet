@@ -56,6 +56,10 @@
 		"caution" = /obj/machinery/portable_atmospherics/canister,
 	)
 
+/obj/machinery/portable_atmospherics/canister/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/gags_recolorable)
+
 /obj/machinery/portable_atmospherics/canister/interact(mob/user)
 	if(!allowed(user))
 		to_chat(user, "<span class='warning'>Error - Unauthorized User</span>")

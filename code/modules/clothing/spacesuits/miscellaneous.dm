@@ -61,6 +61,7 @@ Contains:
 	name = "officer's beret"
 	desc = "An armored beret commonly used by special operations officers. Uses advanced force field technology to protect the head from space."
 	icon_state = "dsberet"
+	greyscale_colors = "#972A2A#F2F2F2"
 	dynamic_hair_suffix = "+generic"
 	dynamic_fhair_suffix = "+generic"
 	flags_inv = 0

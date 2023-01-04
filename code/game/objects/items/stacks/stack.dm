@@ -21,7 +21,7 @@
 	///also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
 	var/max_amount = 50
 	///It's TRUE if module is used by a cyborg, and uses its storage
-	var/is_cyborg = FALSE 
+	var/is_cyborg = FALSE
 	///Holder var for the cyborg energy source
 	var/datum/robot_energy_storage/source
 	///How much energy from storage it costs
@@ -74,6 +74,15 @@
 		amount -= max_amount
 		ui_update()
 		new type(loc, max_amount, FALSE)
+
+/obj/item/stack/proc/is_zero_amount(delete_if_zero = TRUE)
+	if(is_cyborg)
+		return source.energy < cost
+	if(amount < 1)
+		if(delete_if_zero)
+			qdel(src)
+		return TRUE
+	return FALSE
 
 /obj/item/stack/proc/update_weight()
 	if(amount <= (max_amount * (1/3)))

@@ -141,6 +141,6 @@
 /datum/team/gang/weed
 	name = "Weed"
 	color = "#66ff33"
-	hat = /obj/item/clothing/head/beanie/rasta
+	hat = /obj/item/clothing/head/rasta
 	outfit = /obj/item/clothing/under/color/green
 	suit = /obj/item/clothing/suit/vapeshirt

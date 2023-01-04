@@ -28552,7 +28552,7 @@
 "jsw" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/item/clothing/under/suit/red,
-/obj/item/clothing/under/dress/blacktango,
+/obj/item/clothing/under/dress/tango,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/dorms)
@@ -34170,7 +34170,7 @@
 /area/library)
 "llY" = (
 /obj/structure/closet/secure_closet/personal,
-/obj/item/clothing/under/dress/skirt/blue,
+/obj/item/clothing/under/dress/skirt,
 /obj/item/clothing/under/suit/navy,
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,

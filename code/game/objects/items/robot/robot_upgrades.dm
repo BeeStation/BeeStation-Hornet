@@ -856,7 +856,7 @@
 /obj/item/borg/upgrade/speciality/party
 	name = "Party Speciality"
 	desc = "The night's still young..."
-	hat = /obj/item/clothing/head/beanie/rasta
+	hat = /obj/item/clothing/head/rasta
 	addmodules = list (
 		/obj/item/stack/tile/light/cyborg,
 		/obj/item/crowbar/cyborg,

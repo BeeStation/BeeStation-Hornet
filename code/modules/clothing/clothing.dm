@@ -58,6 +58,8 @@
 	. = ..()
 	if(ispath(pocket_storage_component_path))
 		LoadComponent(pocket_storage_component_path)
+	if(greyscale_config)
+		AddComponent(/datum/component/gags_recolorable)
 
 /obj/item/clothing/MouseDrop(atom/over_object)
 	. = ..()
@@ -79,6 +81,8 @@
 	foodtype = CLOTH
 
 /obj/item/clothing/attack(mob/M, mob/user, def_zone)
+	if(clothing_flags & INEDIBLE_CLOTHING)
+		return ..()
 	if(user.a_intent != INTENT_HARM && ismoth(M) && !(clothing_flags & NOTCONSUMABLE) && !(resistance_flags & INDESTRUCTIBLE) && (armor.getRating("melee") == 0))
 		var/obj/item/reagent_containers/food/snacks/clothing/clothing_as_food = new
 		clothing_as_food.name = name

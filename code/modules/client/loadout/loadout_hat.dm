@@ -163,14 +163,14 @@
 	display_name = "beanie, green striped"
 	path = /obj/item/clothing/head/beanie/stripedgreen
 
-/datum/gear/hat/beanie/waldo
+/datum/gear/hat/waldo
 	display_name = "beanie, red striped with bobble"
-	path = /obj/item/clothing/head/beanie/waldo
+	path = /obj/item/clothing/head/waldo
 	cost = 7500
 
 /datum/gear/hat/beanie/rasta
 	display_name = "beanie, rastafarian stripes"
-	path = /obj/item/clothing/head/beanie/rasta
+	path = /obj/item/clothing/head/rasta
 	cost = 7500
 
 //MEME HATS

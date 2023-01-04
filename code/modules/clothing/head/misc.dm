@@ -108,7 +108,10 @@
 /obj/item/clothing/head/flatcap
 	name = "flat cap"
 	desc = "A working man's cap."
-	icon_state = "flat_cap"
+	icon_state = "beret"
+	greyscale_config = /datum/greyscale_config/beret
+	greyscale_config_worn = /datum/greyscale_config/beret/worn
+	greyscale_colors = "#972A2A"
 	item_state = "detective"
 
 /obj/item/clothing/head/pirate
@@ -236,12 +239,6 @@
 /obj/item/clothing/head/sombrero/shamebrero/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, SHAMEBRERO_TRAIT)
-
-/obj/item/clothing/head/flatcap
-	name = "flat cap"
-	desc = "A working man's cap."
-	icon_state = "flat_cap"
-	item_state = "detective"
 
 /obj/item/clothing/head/hunter
 	name = "bounty hunting hat"

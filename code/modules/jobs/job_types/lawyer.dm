@@ -36,6 +36,7 @@
 	ears = /obj/item/radio/headset/headset_srvsec
 	uniform = /obj/item/clothing/under/rank/civilian/lawyer/bluesuit
 	suit = /obj/item/clothing/suit/toggle/lawyer
+	neck = /obj/item/clothing/neck/tie/red/tied
 	shoes = /obj/item/clothing/shoes/laceup
 	l_hand = /obj/item/storage/briefcase/lawyer
 	l_pocket = /obj/item/laser_pointer

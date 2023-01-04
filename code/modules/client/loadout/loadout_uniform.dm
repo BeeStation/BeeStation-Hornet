@@ -84,48 +84,12 @@
 	display_name = "pants, blue jeans"
 	path = /obj/item/clothing/under/pants/jeans
 
-/datum/gear/uniform/pants/classicjeans
-	display_name = "pants, classic blue jeans"
-	path = /obj/item/clothing/under/pants/classicjeans
-
-/datum/gear/uniform/pants/mustangjeans
-	display_name = "pants, faded blue (Must Hang brand) jeans"
-	path = /obj/item/clothing/under/pants/mustangjeans
-
-/datum/gear/uniform/pants/youngfolksjeans
-	display_name = "pants, faded blue jeans"
-	path = /obj/item/clothing/under/pants/youngfolksjeans
-
-/datum/gear/uniform/pants/blackjeans
-	display_name = "pants, black jeans"
-	path = /obj/item/clothing/under/pants/blackjeans
-
-/datum/gear/uniform/pants/white
-	display_name = "pants, white"
-	path = /obj/item/clothing/under/pants/white
-
-/datum/gear/uniform/pants/red
-	display_name = "pants, red"
-	path = /obj/item/clothing/under/pants/red
-
-/datum/gear/uniform/pants/black
-	display_name = "pants, black"
-	path = /obj/item/clothing/under/pants/black
-
-/datum/gear/uniform/pants/tan
-	display_name = "pants, tan"
-	path = /obj/item/clothing/under/pants/tan
-
 /datum/gear/uniform/pants/track
 	display_name = "track pants, black"
 	path = /obj/item/clothing/under/pants/track
 
-/datum/gear/uniform/pants/khaki
-	display_name = "pants, khaki"
-	path = /obj/item/clothing/under/pants/khaki
-
 /datum/gear/uniform/pants/camo
-	display_name = "pants, camoflauge"
+	display_name = "pants, camouflage"
 	path = /obj/item/clothing/under/pants/camo
 
 //SKIRTS
@@ -133,34 +97,6 @@
 /datum/gear/uniform/skirt
 	subtype_path = /datum/gear/uniform/skirt
 	cost = 2500
-
-/datum/gear/uniform/skirt/blue
-	display_name = "skirt, blue"
-	path = /obj/item/clothing/under/dress/skirt/blue
-
-/datum/gear/uniform/skirt/purple
-	display_name = "skirt, purple"
-	path = /obj/item/clothing/under/dress/skirt/purple
-
-/datum/gear/uniform/skirt/red
-	display_name = "skirt, red"
-	path = /obj/item/clothing/under/dress/skirt/red
-
-/datum/gear/uniform/skirt/plaid_skirt
-	display_name = "skirt, plaid red"
-	path = /obj/item/clothing/under/dress/skirt/plaid
-
-/datum/gear/uniform/skirt/plaid_skirt/blue
-	display_name = "skirt, plaid blue"
-	path = /obj/item/clothing/under/dress/skirt/plaid/blue
-
-/datum/gear/uniform/skirt/plaid_skirt/purple
-	display_name = "skirt, plaid purple"
-	path = /obj/item/clothing/under/dress/skirt/plaid/purple
-
-/datum/gear/uniform/skirt/plaid_skirt/green
-	display_name = "skirt, plaid green"
-	path = /obj/item/clothing/under/dress/skirt/plaid/green
 
 //SUITS & SUIT JACKETS
 

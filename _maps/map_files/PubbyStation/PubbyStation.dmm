@@ -9085,7 +9085,7 @@
 /obj/structure/table/wood,
 /obj/item/clothing/under/dress/sundress,
 /obj/item/clothing/under/suit/waiter,
-/obj/item/clothing/under/dress/blacktango,
+/obj/item/clothing/under/dress/tango,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar)
 "bbu" = (
@@ -23141,7 +23141,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/toy/plush/lizardplushie,
+/obj/item/toy/plush/lizard_plushie/green,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4

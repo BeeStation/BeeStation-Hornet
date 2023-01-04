@@ -114,7 +114,7 @@
 	r_pocket = /obj/item/grenade/smokebomb
 	id = /obj/item/card/id/away/old
 	neck = /obj/item/clothing/neck/crucifix
-	head = /obj/item/clothing/head/HoS/beret/syndicate
+	head = /obj/item/clothing/head/hos/beret/syndicate
 
 //=====================
 // Super Spy

@@ -27,18 +27,18 @@
 /obj/item/clothing/under/suit_jacket/white : /obj/item/clothing/under/suit/white
 
 /obj/item/clothing/under/skirt/black : /obj/item/clothing/under/dress/skirt
-/obj/item/clothing/under/skirt/blue : /obj/item/clothing/under/dress/skirt/blue
+/obj/item/clothing/under/skirt/blue : /obj/item/clothing/under/dress/skirt
 /obj/item/clothing/under/skirt/red : /obj/item/clothing/under/dress/skirt/red
-/obj/item/clothing/under/skirt/purple : /obj/item/clothing/under/dress/skirt/purple
+/obj/item/clothing/under/skirt/purple : /obj/item/clothing/under/dress/skirt
 /obj/item/clothing/under/sundress : /obj/item/clothing/under/dress/sundress
-/obj/item/clothing/under/blacktango : /obj/item/clothing/under/dress/blacktango
+/obj/item/clothing/under/blacktango : /obj/item/clothing/under/dress/tango
 /obj/item/clothing/under/stripeddress : /obj/item/clothing/under/dress/striped
 /obj/item/clothing/under/sailordress : /obj/item/clothing/under/dress/sailor
 /obj/item/clothing/under/redeveninggown : /obj/item/clothing/under/dress/redeveninggown
 /obj/item/clothing/under/plaid_skirt : /obj/item/clothing/under/dress/skirt/plaid
 /obj/item/clothing/under/plaid_skirt/blue : /obj/item/clothing/under/dress/skirt/plaid/blue
 /obj/item/clothing/under/plaid_skirt/purple : /obj/item/clothing/under/dress/skirt/plaid/purple
-/obj/item/clothing/under/plaid_skirt/green : /obj/item/clothing/under/dress/skirt/plaid/green
+/obj/item/clothing/under/plaid_skirt/green : /obj/item/clothing/under/dress/skirt
 
 /obj/item/clothing/under/roman : /obj/item/clothing/under/costume/roman
 /obj/item/clothing/under/jabroni : /obj/item/clothing/under/costume/jabroni
@@ -100,9 +100,9 @@
 /obj/item/clothing/under/rank/purpleclown : /obj/item/clothing/under/rank/civilian/clown/purple
 /obj/item/clothing/under/rank/orangeclown : /obj/item/clothing/under/rank/civilian/clown/orange
 /obj/item/clothing/under/rank/rainbowclown : /obj/item/clothing/under/rank/civilian/clown/rainbow
-/obj/item/clothing/under/jester : /obj/item/clothing/under/rank/civilian/clown/jester
-/obj/item/clothing/under/jester/alt : /obj/item/clothing/under/rank/civilian/clown/jester/alt
-/obj/item/clothing/under/rank/clown/sexy : /obj/item/clothing/under/rank/civilian/clown/sexy
+/obj/item/clothing/under/jester : /obj/item/clothing/under/rank/civilian/clown_jester
+/obj/item/clothing/under/jester/alt : /obj/item/clothing/under/rank/civilian/clown_jester/alt
+/obj/item/clothing/under/rank/clown/sexy : /obj/item/clothing/under/rank/civilian/clown_sexy
 /obj/item/clothing/under/lawyer : /obj/item/clothing/under/rank/civilian/lawyer
 /obj/item/clothing/under/lawyer/black : /obj/item/clothing/under/rank/civilian/lawyer/black
 /obj/item/clothing/under/lawyer/black/skirt : /obj/item/clothing/under/rank/civilian/lawyer/black/skirt

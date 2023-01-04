@@ -49,7 +49,7 @@
 /obj/item/clothing/under/dress/gown,
 /obj/item/clothing/under/dress/gown/midnight,
 /obj/item/clothing/under/dress/gown/teal,
-/obj/item/clothing/under/dress/blacktango,
+/obj/item/clothing/under/dress/tango,
 /obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
 /obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
 /turf/open/floor/wood,

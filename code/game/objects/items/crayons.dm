@@ -580,8 +580,8 @@
 	lefthand_file = 'icons/mob/inhands/equipment/hydroponics_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/hydroponics_righthand.dmi'
 	desc = "A metallic container containing tasty paint."
-	w_class = WEIGHT_CLASS_SMALL
 
+	w_class = WEIGHT_CLASS_SMALL
 	instant = TRUE
 	edible = FALSE
 	has_cap = TRUE
@@ -641,7 +641,7 @@
 		. += "It is empty."
 	. += "<span class='notice'>Alt-click [src] to [ is_capped ? "take the cap off" : "put the cap on"].</span>"
 
-/obj/item/toy/crayon/spraycan/pre_attack(atom/target, mob/user, proximity, params)
+/obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 

@@ -50,6 +50,7 @@
 			new /obj/item/clothing/gloves/color/latex/nitrile(src)
 			new /obj/item/clothing/mask/gas/clown_hat(src)
 			new /obj/item/clothing/under/suit/black_really(src)
+			new /obj/item/clothing/neck/tie/red/hitman(src)
 
 		if("screwed")
 			new /obj/item/sbeacondrop/bomb(src)

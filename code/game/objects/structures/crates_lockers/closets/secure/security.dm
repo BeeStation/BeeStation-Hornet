@@ -45,7 +45,7 @@
 	new /obj/item/clothing/under/rank/captain/skirt(src)
 	new /obj/item/clothing/under/rank/captain/parade(src)
 	new /obj/item/clothing/head/caphat(src)
-	new /obj/item/clothing/head/beret/captain(src)
+	new /obj/item/clothing/head/caphat/beret(src)
 	new /obj/item/clothing/head/caphat/parade(src)
 	new /obj/item/clothing/head/crown/fancy(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
@@ -165,7 +165,7 @@
 	new /obj/item/clothing/under/rank/security/head_of_security/white(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/parade/female(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/parade(src)
-	new /obj/item/clothing/head/HoS(src)
+	new /obj/item/clothing/head/hos(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "\proper warden's locker"
