@@ -15,17 +15,11 @@
 	var/atom/movable/screen/alert/hypnosis/hypno_alert = victim.throw_alert("hypnosis", /atom/movable/screen/alert/hypnosis)
 	hypno_alert.desc = "\"[hypnotic_phrase]\"... your mind seems to be fixated on this concept."
 	var/datum/mind/M = victim.mind
-	var/datum/antagonist/hypnotized/B = M.has_antag_datum(/datum/antagonist/hypnotized)
-	if(B)
-		var/datum/objective/hypnotized/objective = new(hypnotic_phrase)
-		B.objectives += objective
-		log_objective(M, objective.explanation_text)
-		B.greet()
-	else
-		var/datum/objective/hypnotized/objective = new(hypnotic_phrase)
-		B.objectives += objective
-		log_objective(M, objective.explanation_text)
-		M.add_antag_datum(B)
+	var/datum/antagonist/hypnotized/B = new()
+	var/datum/objective/hypnotized/objective = new(hypnotic_phrase)
+	B.objectives += objective
+	log_objective(M, objective.explanation_text)
+	M.add_antag_datum(B)
 	var/begin_message = "<span class='deadsay'><b>[victim]</b> has been hypnotized with the following phrase: "
 	var/obj_message = hypnotic_phrase
 	var/end_message = "</b>.</span>"
