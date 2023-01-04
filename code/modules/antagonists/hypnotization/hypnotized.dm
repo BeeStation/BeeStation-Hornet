@@ -2,7 +2,7 @@
 	if(!victim.mind)
 		return
 	message_admins("[ADMIN_LOOKUPFLW(victim)] was hypnotized with the phrase '[hypnotic_phrase]'.")
-	victim.log_message("was hypnotized with the phrase '[hypnotic_phrase]'.", LOG_ATTACK, color="#960000")
+	victim.log_message("was hypnotized with the phrase '[hypnotic_phrase]'.", LOG_ATTACK, color="red")
 	log_game("[key_name(victim)] was hypnotized with the phrase '[hypnotic_phrase]'.")
 	to_chat(victim, "<span class='reallybig hypnophrase'>[hypnotic_phrase]</span>")
 	to_chat(victim, "<span class='notice'>[pick("You feel your thoughts focusing on this phrase... you can't seem to get it out of your head.",\
@@ -14,46 +14,24 @@
 										as long as you act like the words are your highest priority.</span>")
 	var/atom/movable/screen/alert/hypnosis/hypno_alert = victim.throw_alert("hypnosis", /atom/movable/screen/alert/hypnosis)
 	hypno_alert.desc = "\"[hypnotic_phrase]\"... your mind seems to be fixated on this concept."
-	if(!islist(hypnotic_phrase))
-		hypnotic_phrase = list(hypnotic_phrase)
 	var/datum/mind/M = victim.mind
 	var/datum/antagonist/hypnotized/B = M.has_antag_datum(/datum/antagonist/hypnotized)
 	if(B)
-		for(var/O in hypnotic_phrase)
-			var/datum/objective/hypnotized/objective = new(O)
-			B.objectives += objective
-			log_objective(M, objective.explanation_text)
+		var/datum/objective/hypnotized/objective = new(hypnotic_phrase)
+		B.objectives += objective
+		log_objective(M, objective.explanation_text)
 		B.greet()
 	else
-		B = new()
-		for(var/O in hypnotic_phrase)
-			var/datum/objective/hypnotized/objective = new(O)
-			B.objectives += objective
-			log_objective(M, objective.explanation_text)
+		var/datum/objective/hypnotized/objective = new(hypnotic_phrase)
+		B.objectives += objective
+		log_objective(M, objective.explanation_text)
 		M.add_antag_datum(B)
-
-	var/begin_message = "<span class='deadsay'><b>[victim]</b> has been hypnotized with the following objectives: "
-	var/obj_message = english_list(hypnotic_phrase)
+	var/begin_message = "<span class='deadsay'><b>[victim]</b> has been hypnotized with the following phrase: "
+	var/obj_message = hypnotic_phrase
 	var/end_message = "</b>.</span>"
 	var/rendered = begin_message + obj_message + end_message
 	deadchat_broadcast(rendered, follow_target = victim, turf_target = get_turf(victim), message_type=DEADCHAT_REGULAR)
-	victim.log_message(rendered, LOG_ATTACK, color="#960000")
-
-/datum/antagonist/hypnotized/apply_innate_effects(mob/living/mob_override)
-	. = ..()
-	//Give traitor appearence on hud (If they are not an antag already)
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_BRAINWASHED]
-	traitorhud.join_hud(owner.current)
-	if(!owner.antag_hud_icon_state)
-		set_antag_hud(owner.current, "brainwash")
-
-/datum/antagonist/hypnotized/remove_innate_effects(mob/living/mob_override)
-	. = ..()
-	//Clear the hud if they haven't become something else and had the hud overwritten
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_BRAINWASHED]
-	traitorhud.leave_hud(owner.current)
-	if(owner.antag_hud_icon_state == "brainwash")
-		set_antag_hud(owner.current, null)
+	victim.log_message(rendered, LOG_ATTACK, color="red")
 
 /datum/antagonist/hypnotized
 	name = "Hypnotized Victim"
@@ -65,11 +43,14 @@
 	count_against_dynamic_roll_chance = FALSE
 
 /datum/antagonist/hypnotized/on_gain()
-	owner.current.log_message("has been hypnotized!", LOG_ATTACK, color="#960000")
+	owner.current.log_message("has been hypnotized!", LOG_ATTACK, color="red")
 	. = ..()
 
 /datum/antagonist/hypnotized/on_removal()
-	owner.current.log_message("is no longer hypnotized !", LOG_ATTACK, color="#960000")
+	owner.current.log_message("is no longer hypnotized !", LOG_ATTACK, color="red")
+	if(iscarbon(owner.current))
+		var/mob/living/carbon/C = owner.current
+		C.cure_trauma_type(/datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY) //This normally won't happen but with admin intervention it might so just in case
 	return ..()
 
 
@@ -85,6 +66,43 @@
 
 /datum/antagonist/hypnotized/farewell()
 	owner.announce_objectives()
+
+/datum/antagonist/hypnotized/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	//Give traitor appearence on hud (If they are not an antag already)
+	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_BRAINWASHED]
+	traitorhud.join_hud(owner.current)
+	if(!owner.antag_hud_icon_state)
+		set_antag_hud(owner.current, "hypnotized")
+
+/datum/antagonist/hypnotized/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	//Clear the hud if they haven't become something else and had the hud overwritten
+	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_BRAINWASHED]
+	traitorhud.leave_hud(owner.current)
+	if(owner.antag_hud_icon_state == "hypnotized")
+		set_antag_hud(owner.current, null)
+
+/datum/antagonist/hypnotized/admin_add(datum/mind/new_owner,mob/admin)
+	var/mob/living/carbon/C = new_owner.current
+	if(!istype(C))
+		return
+	var/objective = stripped_input(admin, "Add a hypnotization phrase or leave empty to cancel.", "Hypnotization", null, MAX_MESSAGE_LEN)
+	if(objective)
+		log_objective(C, objective, admin)
+
+	if(alert(admin,"Confirm Hypnotization","Are you sure?","Yes","No") == "No")
+		return
+
+	if(QDELETED(C))
+		to_chat(admin, "Mob doesn't exist anymore")
+		return
+	C.cure_trauma_type(/datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY)
+	//addtimer(CALLBACK(C, /mob/living/carbon.proc/gain_trauma, /datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY, hearing_args[HEARING_RAW_MESSAGE]), 10)
+	C.gain_trauma(/datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY, objective)
+	//hypnotize(C, objective)
+	message_admins("[key_name_admin(admin)] has hypnotized [key_name_admin(C)] with the following phrase: [objective].")
+	log_admin("[key_name(admin)] has hypnotized [key_name(C)] with the following phrase: [objective].")
 
 /datum/objective/hypnotized
 	completed = TRUE
