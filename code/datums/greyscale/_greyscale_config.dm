@@ -237,14 +237,8 @@
 	if(new_icon)
 		return icon(new_icon)
 
-	var/icon/icon_bundle = GenerateBundle(color_string)
-
-	// This block is done like this because generated icons are unable to be scaled before getting added to the rsc
+	var/icon/icon_bundle = GenerateBundle(color_string, last_external_icon=last_external_icon)
 	icon_bundle = fcopy_rsc(icon_bundle)
-	icon_bundle = icon(icon_bundle)
-	icon_bundle.Scale(width, height)
-	icon_bundle = fcopy_rsc(icon_bundle)
-
 	icon_cache[key] = icon_bundle
 	var/icon/output = icon(icon_bundle)
 	return output

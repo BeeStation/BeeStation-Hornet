@@ -34,8 +34,6 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	var/custom_price
 	///Does the item have a custom premium price override
 	var/custom_premium_price
-	///For GAGS items in vending machines that can be recolored
-	var/colorable
 
 /**
   * # vending machines
@@ -292,7 +290,6 @@ GLOBAL_LIST_EMPTY(vending_products)
 		R.max_amount = amount
 		R.custom_price = initial(temp.custom_price)
 		R.custom_premium_price = initial(temp.custom_premium_price)
-		R.colorable = !!(initial(temp.greyscale_config) && initial(temp.greyscale_colors))
 		recordlist += R
 /**
   * Refill a vending machine from a refill canister
@@ -716,11 +713,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 				.["user"]["job"] = R.fields["rank"]
 	.["stock"] = list()
 	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
-		var/list/product_data = list(
-			name = R.name,
-			amount = R.amount,
-			colorable = R.colorable,
-		)
+		.["stock"]["[replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")]"] = R.amount
 	.["extended_inventory"] = extended_inventory
 
 /obj/machinery/vending/ui_act(action, params)
@@ -729,135 +722,87 @@ GLOBAL_LIST_EMPTY(vending_products)
 		return
 	switch(action)
 		if("vend")
-			. = vend(params)
-		if("select_colors")
-			. = select_colors(params)
+			if(!vend_ready)
+				return
+			if(panel_open)
+				to_chat(usr, "<span class='warning'>The vending machine cannot dispense products while its service panel is open!</span>")
+				return
+			vend_ready = FALSE //One thing at a time!!
+			var/datum/data/vending_product/R = locate(params["ref"])
+			var/list/record_to_check = product_records + coin_records
+			if(extended_inventory)
+				record_to_check = product_records + coin_records + hidden_records
+			if(!R || !istype(R) || !R.product_path)
+				vend_ready = TRUE
+				return
+			var/price_to_use = default_price
+			if(R.custom_price)
+				price_to_use = R.custom_price
+			if(R in hidden_records)
+				if(!extended_inventory)
+					vend_ready = TRUE
+					return
+			else if (!(R in record_to_check))
+				vend_ready = TRUE
+				message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
+				return
+			if (R.amount <= 0)
+				say("Sold out of [R.name].")
+				flick(icon_deny,src)
+				vend_ready = TRUE
+				return
+			if(onstation && ishuman(usr))
+				var/mob/living/carbon/human/H = usr
+				var/obj/item/card/id/C = H.get_idcard(TRUE)
 
-/obj/machinery/vending/proc/can_vend(user, silent=FALSE)
-	. = FALSE
-	if(!vend_ready)
-		return
-	if(panel_open)
-		to_chat(user, "<span class='warning'>The vending machine cannot dispense products while its service panel is open!</span>")
-		return
-	return TRUE
+				if(!C)
+					say("No card found.")
+					flick(icon_deny,src)
+					vend_ready = TRUE
+					return
+				else if (!C.registered_account)
+					say("No account found.")
+					flick(icon_deny,src)
+					vend_ready = TRUE
+					return
+				var/datum/bank_account/account = C.registered_account
+				if(account.account_job && (account.active_departments & dept_req_for_free))
+					price_to_use = 0
+				if(coin_records.Find(R))
+					price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price
+				if(price_to_use && !account.adjust_money(-price_to_use))
+					say("You do not possess the funds to purchase [R.name].")
+					flick(icon_deny,src)
+					vend_ready = TRUE
+					return
 
-/obj/machinery/vending/proc/select_colors(list/params)
-	. = TRUE
-	if(!can_vend(usr))
-		return
-	var/datum/data/vending_product/product = locate(params["ref"])
-	var/atom/fake_atom = product.product_path
+				// each department (seller_department) will earn the profit
+				if(price_to_use && seller_department)
+					var/list/dept_list = SSeconomy.get_dept_id_by_bitflag(seller_department)
+					if(length(dept_list))
+						price_to_use = round(price_to_use/length(dept_list))
+						for(var/datum/bank_account/department/D in dept_list)
+							if(D)
+								D.adjust_money(price_to_use)
 
-	var/list/allowed_configs = list()
-	var/config = initial(fake_atom.greyscale_config)
-	if(!config)
-		return
-	allowed_configs += "[config]"
-	if(ispath(fake_atom, /obj/item))
-		var/obj/item/item = fake_atom
-		if(initial(item.greyscale_config_worn))
-			allowed_configs += "[initial(item.greyscale_config_worn)]"
-		if(initial(item.greyscale_config_inhand_left))
-			allowed_configs += "[initial(item.greyscale_config_inhand_left)]"
-		if(initial(item.greyscale_config_inhand_right))
-			allowed_configs += "[initial(item.greyscale_config_inhand_right)]"
-
-	var/datum/greyscale_modify_menu/menu = new(
-		src, usr, allowed_configs, CALLBACK(src, .proc/vend_greyscale, params),
-		starting_icon_state=initial(fake_atom.icon_state),
-		starting_config=initial(fake_atom.greyscale_config),
-		starting_colors=initial(fake_atom.greyscale_colors)
-	)
-	menu.ui_interact(usr)
-
-/obj/machinery/vending/proc/vend_greyscale(list/params, datum/greyscale_modify_menu/menu)
-	if(usr != menu.user)
-		return
-	if(!menu.target.can_interact(usr))
-		return
-	vend(params, menu.split_colors)
-
-/obj/machinery/vending/proc/vend(list/params, list/greyscale_colors)
-	. = TRUE
-	if(!can_vend(usr))
-		return
-	vend_ready = FALSE //One thing at a time!!
-	var/datum/data/vending_product/R = locate(params["ref"])
-	var/list/record_to_check = product_records + coin_records
-	if(extended_inventory)
-		record_to_check = product_records + coin_records + hidden_records
-	if(!R || !istype(R) || !R.product_path)
-		vend_ready = TRUE
-		return
-	var/price_to_use = default_price
-	if(R.custom_price)
-		price_to_use = R.custom_price
-	if(R in hidden_records)
-		if(!extended_inventory)
+			if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
+				say("Thank you for shopping with [src]!")
+				purchase_message_cooldown = world.time + 5 SECONDS
+				//This is not the best practice, but it's safe enough here since the chances of two people using a machine with the same ref in 5 seconds is fuck low
+				last_shopper = REF(usr)
+			use_power(5)
+			if(icon_vend) //Show the vending animation if needed
+				flick(icon_vend,src)
+			playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
+			var/obj/item/vended_item = new R.product_path(get_turf(src))
+			R.amount--
+			if(usr.CanReach(src) && usr.put_in_hands(vended_item))
+				to_chat(usr, "<span class='notice'>You take [R.name] out of the slot.</span>")
+			else
+				to_chat(usr, "<span class='warning'>[capitalize(R.name)] falls onto the floor!</span>")
+			. = TRUE
+			SSblackbox.record_feedback("nested tally", "vending_machine_usage", 1, list("[type]", "[R.product_path]"))
 			vend_ready = TRUE
-			return
-	else if (!(R in record_to_check))
-		vend_ready = TRUE
-		message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
-		return
-	if (R.amount <= 0)
-		say("Sold out of [R.name].")
-		flick(icon_deny,src)
-		vend_ready = TRUE
-		return
-	if(onstation)
-		var/obj/item/card/id/C
-		if(isliving(usr))
-			var/mob/living/L = usr
-			C = L.get_idcard(TRUE)
-		if(!C)
-			say("No card found.")
-			flick(icon_deny,src)
-			vend_ready = TRUE
-			return
-		else if (!C.registered_account)
-			say("No account found.")
-			flick(icon_deny,src)
-			vend_ready = TRUE
-			return
-		else if(!C.registered_account.account_job)
-			say("Departmental accounts have been blacklisted from personal expenses due to embezzlement.")
-			flick(icon_deny, src)
-			vend_ready = TRUE
-			return
-		var/datum/bank_account/account = C.registered_account
-		if(account.account_job && account.account_job.paycheck_department == payment_department)
-			price_to_use = 0
-		if(coin_records.Find(R) || hidden_records.Find(R))
-			price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price
-		if(price_to_use && !account.adjust_money(-price_to_use))
-			say("You do not possess the funds to purchase [R.name].")
-			flick(icon_deny,src)
-			vend_ready = TRUE
-			return
-		var/datum/bank_account/D = SSeconomy.get_dep_account(payment_department)
-		if(D)
-			D.adjust_money(price_to_use)
-			SSblackbox.record_feedback("amount", "vending_spent", price_to_use)
-	if(last_shopper != usr || purchase_message_cooldown < world.time)
-		say("Thank you for shopping with [src]!")
-		purchase_message_cooldown = world.time + 5 SECONDS
-		last_shopper = usr
-	use_power(5)
-	if(icon_vend) //Show the vending animation if needed
-		flick(icon_vend,src)
-	playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
-	var/obj/item/vended_item = new R.product_path(get_turf(src))
-	if(greyscale_colors)
-		vended_item.set_greyscale(colors=greyscale_colors)
-	R.amount--
-	if(usr.CanReach(src) && usr.put_in_hands(vended_item))
-		to_chat(usr, "<span class='notice'>You take [R.name] out of the slot.</span>")
-	else
-		to_chat(usr, "<span class='warning'>[capitalize(R.name)] falls onto the floor!</span>")
-	SSblackbox.record_feedback("nested tally", "vending_machine_usage", 1, list("[type]", "[R.product_path]"))
-	vend_ready = TRUE
 
 /obj/machinery/vending/process(delta_time)
 	if(machine_stat & (BROKEN|NOPOWER))
