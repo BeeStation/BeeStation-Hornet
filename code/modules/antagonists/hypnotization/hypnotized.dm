@@ -98,9 +98,7 @@
 		to_chat(admin, "Mob doesn't exist anymore")
 		return
 	C.cure_trauma_type(/datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY)
-	//addtimer(CALLBACK(C, /mob/living/carbon.proc/gain_trauma, /datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY, hearing_args[HEARING_RAW_MESSAGE]), 10)
 	C.gain_trauma(/datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY, objective)
-	//hypnotize(C, objective)
 	message_admins("[key_name_admin(admin)] has hypnotized [key_name_admin(C)] with the following phrase: [objective].")
 	log_admin("[key_name(admin)] has hypnotized [key_name(C)] with the following phrase: [objective].")
 
