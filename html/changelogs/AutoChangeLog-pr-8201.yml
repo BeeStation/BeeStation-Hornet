@@ -1,4 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - admin: It is now possible to view the results of polls (Except IRV).
