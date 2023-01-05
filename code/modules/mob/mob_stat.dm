@@ -163,15 +163,7 @@
 	else
 		tab_data["Players Playing/Connected"] = GENERATE_STAT_TEXT("[get_active_player_count()]/[GLOB.clients.len]")
 	if(SSticker.round_start_time)
-		switch(GLOB.security_level)
-			if(SEC_LEVEL_GREEN)
-				tab_data["Security Level"] = GENERATE_STAT_TEXT("Green")
-			if(SEC_LEVEL_BLUE)
-				tab_data["Security Level"] = GENERATE_STAT_TEXT("Blue")
-			if(SEC_LEVEL_RED)
-				tab_data["Security Level"] = GENERATE_STAT_TEXT("Red")
-			if(SEC_LEVEL_DELTA)
-				tab_data["Security Level"] = GENERATE_STAT_TEXT("Delta")
+		tab_data["Security Level"] = GENERATE_STAT_TEXT("[capitalize(get_security_level())]")
 
 	tab_data["divider_3"] = GENERATE_STAT_DIVIDER
 	if(SSshuttle.emergency)
