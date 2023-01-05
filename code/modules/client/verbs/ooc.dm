@@ -26,7 +26,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 			to_chat(src, "<span class='danger'>You cannot use OOC (muted).</span>")
 			return
 	else
-		if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME && SSticker.round_start_time)
+		if(SSticker.current_state == GAME_STATE_PLAYING)
 			if(alert("The round is still ongoing, are you sure you wish to send an OOC message?", "Confirm midround OOC?", "No", "Yes") != "Yes")
 				return
 	if(is_banned_from(ckey, "OOC"))
