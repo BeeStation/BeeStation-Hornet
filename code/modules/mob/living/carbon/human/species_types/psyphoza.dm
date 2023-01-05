@@ -137,7 +137,6 @@
 	//handle eyes - make them xray so we can see all the things
 	eyes?.sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	owner.update_sight()
-	owner.client?.show_popup_menus = 0
 
 //Dims blind overlay - Lightens highlight layer
 /datum/action/item_action/organ_action/psychic_highlight/proc/dim_overlay()
@@ -211,7 +210,6 @@
 	//Set eyes back to normal
 	eyes?.sight_flags = sight_flags
 	owner.update_sight()
-	owner.client?.show_popup_menus = 1
 
 //Handle clicking for ranged trigger
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_ranged(datum/source, atom/target)
