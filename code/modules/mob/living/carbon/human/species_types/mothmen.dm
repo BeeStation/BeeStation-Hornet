@@ -177,7 +177,7 @@
 		H.forceMove(loc)
 		if(!done_regenerating)
 			visible_message("<span class='notice'>[H]'s wings unfold, looking good as new!</span>", "<span class='notice'>Your wings unfold with new vigor!.</span>")
-		H.log_message("[key_name(H)] [done_regenerating ? "was forcefully ejected" : "has emerged"] from their cocoon with the nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""], (NEWHP: [H.health])", LOG_GAME)
+		H.log_message("[key_name(H)] [done_regenerating ? "was forcefully ejected" : "has emerged"] from their cocoon with a nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""], (NEWHP: [H.health])", LOG_GAME)
 	return ..()
 
 /datum/status_effect/cocooned

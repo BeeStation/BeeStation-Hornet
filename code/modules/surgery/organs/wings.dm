@@ -137,6 +137,9 @@
 		var/mob/living/carbon/human/H = owner
 		if(flight_level >= WINGS_FLIGHTLESS && H.bodytemperature >= 800 && H.fire_stacks > 0)
 			flight_level = WINGS_COSMETIC
+			if((H.movement_type & FLYING))//Closes wings if they're open and flying
+				var/datum/species/S = H.dna.species
+				S.toggle_flight(H)
 			to_chat(H, "<span class='danger'>Your precious wings burn to a crisp!</span>")
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "burnt_wings", /datum/mood_event/burnt_wings)
 			ADD_TRAIT(H, TRAIT_MOTH_BURNT, "fire")
