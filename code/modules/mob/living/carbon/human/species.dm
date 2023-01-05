@@ -239,6 +239,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(ismoth(C))
 			wings.wing_type = C.dna.features["moth_wings"]
 			wings.flight_level = WINGS_FLIGHTLESS
+			if(locate(/datum/mutation/strongwings) in C.dna.mutations)
+				wings.flight_level = WINGS_FLYING
 		wings.Insert(C)
 
 	if(C.get_bodypart(BODY_ZONE_HEAD))
