@@ -235,7 +235,7 @@
 /area/ruin/unpowered)
 "U" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/under/dress/skirt/purple,
+/obj/item/clothing/under/dress/skirt,
 /obj/item/clothing/under/dress/sundress,
 /obj/item/clothing/under/pants/classicjeans,
 /obj/item/clothing/suit/jacket/letterman_nanotrasen,
