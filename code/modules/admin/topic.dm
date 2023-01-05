@@ -1843,6 +1843,7 @@
 
 	else if(href_list["reloadpolls"])
 		GLOB.polls.Cut()
+		GLOB.active_polls.Cut()
 		GLOB.poll_options.Cut()
 		load_poll_data()
 		poll_list_panel()
@@ -1858,6 +1859,11 @@
 		var/datum/poll_question/poll = locate(href_list["deletepoll"]) in GLOB.polls
 		poll.delete_poll()
 		poll_list_panel()
+
+	else if(href_list["resultspoll"])
+		var/datum/poll_question/poll = locate(href_list["resultspoll"]) in GLOB.polls
+		var/start_index = text2num(href_list["startat"]) || 0
+		poll_results_panel(poll, start_index)
 
 	else if(href_list["initializepoll"])
 		poll_parse_href(href_list)
