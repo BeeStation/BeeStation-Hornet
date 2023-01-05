@@ -33429,7 +33429,7 @@
 "kZD" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/item/clothing/head/collectable/kitty,
-/obj/item/clothing/under/dress/plaid_skirt/green,
+/obj/item/clothing/under/dress/skirt/plaid,
 /obj/item/clothing/under/misc/assistantformal,
 /obj/machinery/light_switch{
 	pixel_x = -25
