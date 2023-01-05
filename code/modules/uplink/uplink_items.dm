@@ -160,6 +160,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			var/mob/living/carbon/human/H = user
 			if(H.put_in_hands(A))
 				to_chat(H, "[A] materializes into your hands!")
+				log_uplink_purchase(user, A)
 				return A
 	to_chat(user, "[A] materializes onto the floor.")
 	log_uplink_purchase(user, A)
