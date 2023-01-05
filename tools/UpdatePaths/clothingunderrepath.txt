@@ -99,9 +99,9 @@
 /obj/item/clothing/under/rank/yellowclown : /obj/item/clothing/under/rank/civilian/clown/yellow
 /obj/item/clothing/under/rank/purpleclown : /obj/item/clothing/under/rank/civilian/clown/purple
 /obj/item/clothing/under/rank/orangeclown : /obj/item/clothing/under/rank/civilian/clown/orange
-/obj/item/clothing/under/rank/rainbowclown : /obj/item/clothing/under/rank/civilian/clown/rainbow
-/obj/item/clothing/under/jester : /obj/item/clothing/under/rank/civilian/clown_jester
-/obj/item/clothing/under/jester/alt : /obj/item/clothing/under/rank/civilian/clown_jester/alt
+/obj/item/clothing/under/rank/rainbowclown :/obj/item/clothing/under/rank/civilian/clown/rainbow
+/obj/item/clothing/under/jester :/obj/item/clothing/under/rank/civilian/clown_jester
+/obj/item/clothing/under/jester/alt :/obj/item/clothing/under/rank/civilian/clown_jester/alt
 /obj/item/clothing/under/rank/clown/sexy : /obj/item/clothing/under/rank/civilian/clown_sexy
 /obj/item/clothing/under/lawyer : /obj/item/clothing/under/rank/civilian/lawyer
 /obj/item/clothing/under/lawyer/black : /obj/item/clothing/under/rank/civilian/lawyer/black
