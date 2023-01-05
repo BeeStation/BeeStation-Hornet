@@ -162,6 +162,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				to_chat(H, "[A] materializes into your hands!")
 				return A
 	to_chat(user, "[A] materializes onto the floor.")
+	log_uplink_purchase(user, A)
 	return A
 
 //Discounts (dynamically filled above)
