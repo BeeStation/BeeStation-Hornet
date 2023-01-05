@@ -2073,7 +2073,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/turf/T = get_turf(H)
 	if(!T)
 		return FALSE
-
+	if(ismoth(H) && HAS_TRAIT(H, TRAIT_MOTH_BURNT))
+		return FALSE
 	var/datum/gas_mixture/environment = T.return_air()
 	if(environment && !(environment.return_pressure() > 30) && wings.flight_level <= WINGS_FLYING)
 		to_chat(H, "<span class='warning'>The atmosphere is too thin for you to fly!</span>")

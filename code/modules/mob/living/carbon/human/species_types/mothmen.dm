@@ -98,7 +98,7 @@
 		return
 	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on weaving a cocoon...</span>", \
 	"<span class='notice'>You begin to focus on weaving a cocoon... (This will take [DisplayTimeText(COCOON_WEAVE_DELAY)] and you must hold still.)</span>")
-	H.adjustStaminaLoss(20, 0) //this is here to deter people from spamming it if they get interrupted
+	H.adjustStaminaLoss(20, FALSE) //this is here to deter people from spamming it if they get interrupted
 	if(do_after(H, COCOON_WEAVE_DELAY, FALSE, H))
 		if(!ismoth(H))
 			to_chat(H, "<span class='warning'>You have lost your mandibles and cannot weave anymore!.</span>")
@@ -112,8 +112,8 @@
 		H.visible_message("<span class='notice'>[H] finishes weaving a cocoon!</span>", "<span class='notice'>You finish weaving your cocoon.</span>")
 		var/obj/structure/moth_cocoon/C = new(get_turf(H))
 		H.forceMove(C)
-		H.Sleeping(20, 0)
-		C.preparing_to_emerge = TRUE
+		H.Sleeping(20, FALSE)
+		C.done_regenerating = TRUE
 		H.apply_status_effect(STATUS_EFFECT_COCOONED)
 		H.log_message("has finished weaving a cocoon.", LOG_GAME)
 		addtimer(CALLBACK(src, .proc/emerge, C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
@@ -138,9 +138,11 @@
 			var/obj/item/organ/wings/moth/W = H.getorgan(/obj/item/organ/wings/moth)
 			if(W)
 				W.flight_level = WINGS_FLIGHTLESS//The check for wings getting burned makes them cosmetic, so this allows the burned off effect to be applied again
+				if(locate(/datum/mutation/strongwings) in H.dna.mutations)
+					W.flight_level = WINGS_FLYING
 		H.dna.species.handle_mutant_bodyparts(H)
 		H.dna.species.handle_body(H)
-	C.preparing_to_emerge = FALSE
+	C.done_regenerating = FALSE
 	qdel(C)
 
 /obj/structure/moth_cocoon
@@ -150,7 +152,7 @@
 	icon_state = "cocoon_large1"
 	anchored = TRUE
 	max_integrity = 10
-	var/preparing_to_emerge = TRUE//Determines whether or not the mothperson is done regenerating their wings with FALSE meaning they are
+	var/done_regenerating = TRUE//Determines whether or not the mothperson is done regenerating their wings with FALSE meaning they are
 
 /obj/structure/moth_cocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -160,20 +162,22 @@
 			playsound(src, 'sound/items/welder.ogg', 80, TRUE)
 
 /obj/structure/moth_cocoon/Destroy()
-	if(!preparing_to_emerge)
+	if(!done_regenerating)
 		visible_message("<span class='danger'>[src] splits open from within!</span>")
 	else
 		visible_message("<span class='danger'>[src] is torn open, harming the Mothperson within!</span>")
 		for(var/mob/living/carbon/human/H in contents)
 			if(H.has_status_effect(STATUS_EFFECT_COCOONED))
-				H.adjustBruteLoss(COCOON_HARM_AMOUNT, 0)
-				H.SetSleeping(0, 0)
+				H.adjustBruteLoss(COCOON_HARM_AMOUNT, FALSE)
+				H.SetSleeping(0, FALSE)
 	for(var/mob/living/carbon/human/H in contents)
 		H.remove_status_effect(STATUS_EFFECT_COCOONED)
+		H.dna.species.handle_mutant_bodyparts(H)
+		H.dna.species.handle_body(H)
 		H.forceMove(loc)
-		if(!preparing_to_emerge)
+		if(!done_regenerating)
 			visible_message("<span class='notice'>[H]'s wings unfold, looking good as new!</span>", "<span class='notice'>Your wings unfold with new vigor!.</span>")
-		H.log_message("[key_name(H)] [preparing_to_emerge ? "was forcefully ejected" : "has emerged"] from their cocoon with the nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""], (NEWHP: [H.health])", LOG_GAME)
+		H.log_message("[key_name(H)] [done_regenerating ? "was forcefully ejected" : "has emerged"] from their cocoon with the nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""], (NEWHP: [H.health])", LOG_GAME)
 	return ..()
 
 /datum/status_effect/cocooned
@@ -182,8 +186,8 @@
 
 /datum/status_effect/cocooned/tick()
 	owner.SetSleeping(10, TRUE)
-	owner.adjustBruteLoss(-(COCOON_HEAL_AMOUNT / (COCOON_EMERGE_DELAY)), 0)
-	owner.adjustFireLoss(-(COCOON_HEAL_AMOUNT / (COCOON_EMERGE_DELAY)), 0)
+	owner.adjustBruteLoss(-(COCOON_HEAL_AMOUNT / (COCOON_EMERGE_DELAY)), FALSE)
+	owner.adjustFireLoss(-(COCOON_HEAL_AMOUNT / (COCOON_EMERGE_DELAY)), FALSE)
 	owner.adjust_nutrition(-((COCOON_NUTRITION_AMOUNT * 10 ) / (COCOON_EMERGE_DELAY)))
 
 #undef COCOON_WEAVE_DELAY
