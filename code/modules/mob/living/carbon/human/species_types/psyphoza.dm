@@ -39,7 +39,7 @@
 
 /datum/species/psyphoza/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	. = ..()
-	C.dna.add_mutation(TK_WEAK, MUT_OTHER)
+	//C.dna.add_mutation(TK_WEAK, MUT_OTHER)
 
 /datum/species/psyphoza/random_name(gender, unique, lastname, attempts)
 	var/num = rand(1, 9)
