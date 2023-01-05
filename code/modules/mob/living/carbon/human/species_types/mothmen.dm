@@ -1,8 +1,8 @@
-	#define COCOON_WEAVE_DELAY 5 SECONDS //how long it takes you to create the cocoon
-	#define COCOON_EMERGE_DELAY 60 SECONDS //how long you remain inside of it
-	#define COCOON_HARM_AMOUNT 35 //how much damage gets dealt to you if the cocoon gets broken prematurely
-	#define COCOON_HEAL_AMOUNT 30 //how much damage gets restored while you're cocooned
-	#define COCOON_NUTRITION_AMOUNT 200 //how much hunger gets drained in total
+#define COCOON_WEAVE_DELAY 5 SECONDS //how long it takes you to create the cocoon
+#define COCOON_EMERGE_DELAY 60 SECONDS //how long you remain inside of it
+#define COCOON_HARM_AMOUNT 35 //how much damage gets dealt to you if the cocoon gets broken prematurely
+#define COCOON_HEAL_AMOUNT 30 //how much damage gets restored while you're cocooned
+#define COCOON_NUTRITION_AMOUNT 200 //how much hunger gets drained in total
 	//these are here to make adjusting the balance easier
 
 /datum/species/moth
