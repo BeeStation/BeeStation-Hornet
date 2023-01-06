@@ -13,11 +13,6 @@
 	grind_results = list(/datum/reagent/bluespace = 20)
 	scan_state = "rock_BScrystal"
 
-/obj/item/stack/ore/bluespace_crystal/refined
-	name = "refined bluespace crystal"
-	points = 0
-	refined_type = null
-
 /obj/item/stack/ore/bluespace_crystal/Initialize(mapload)
 	. = ..()
 	pixel_x = rand(-5, 5)
@@ -52,10 +47,16 @@
 	desc = "An artificially made bluespace crystal, it looks delicate."
 	icon_state = "synthetic_bluespace_crystal"
 	materials = list(/datum/material/bluespace=MINERAL_MATERIAL_AMOUNT*0.5)
-	blink_range = 4 // Not as good as the organic stuff!
-	points = 0 //nice try
+	blink_range = 4 // Not as good as the REAL BSC!
+	points = 1 //nice try, unfortunateley, they're cheap imitations, have a point for your effort.
 	refined_type = null
 	grind_results = list(/datum/reagent/bluespace = 10, /datum/reagent/silicon = 20)
+
+
+/obj/item/stack/ore/bluespace_crystal/refined //NEED ICON FOR THEM, SYNTHETIC IS NO GOOD
+	name = "refined bluespace crystal"
+	points = 1
+	refined_type = null
 
 /obj/item/stack/ore/bluespace_crystal/refined/fifty
 	amount = 50

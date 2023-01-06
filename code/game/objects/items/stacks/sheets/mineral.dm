@@ -18,6 +18,9 @@ Mineral Sheets
 		- Mythril
 		- Alien Alloy
 		- Coal
+	TO BE SHIFTED AS THEY ARE NOT MINERALS
+		- Sandbags
+
 */
 
 /obj/item/stack/sheet/mineral/Initialize(mapload)
@@ -56,45 +59,6 @@ GLOBAL_LIST_INIT(sandstone_recipes, list ( \
 	amount = 30
 
 /*
- * Sandbags
- */
-
-/obj/item/stack/sheet/mineral/sandbags
-	name = "sandbags"
-	icon_state = "sandbags"
-	singular_name = "sandbag"
-	layer = LOW_ITEM_LAYER
-	novariants = TRUE
-	merge_type = /obj/item/stack/sheet/mineral/sandbags
-
-GLOBAL_LIST_INIT(sandbag_recipes, list ( \
-	new/datum/stack_recipe("sandbags", /obj/structure/barricade/sandbags, 1, one_per_turf = TRUE, on_floor = TRUE, time = 2.5 SECONDS), \
-	))
-
-/obj/item/stack/sheet/mineral/sandbags/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.sandbag_recipes
-	. = ..()
-
-/obj/item/emptysandbag
-	name = "empty sandbag"
-	desc = "A bag to be filled with sand."
-	icon = 'icons/obj/items_and_weapons.dmi'
-	icon_state = "sandbag"
-	w_class = WEIGHT_CLASS_TINY
-
-/obj/item/emptysandbag/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stack/ore/glass))
-		var/obj/item/stack/ore/glass/G = W
-		to_chat(user, "<span class='notice'>You fill the sandbag.</span>")
-		var/obj/item/stack/sheet/mineral/sandbags/I = new /obj/item/stack/sheet/mineral/sandbags(drop_location())
-		qdel(src)
-		if (Adjacent(user) && !issilicon(user))
-			user.put_in_hands(I)
-		G.use(1)
-	else
-		return ..()
-
-/*
  * Diamond
  */
 /obj/item/stack/sheet/mineral/diamond
@@ -104,7 +68,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	singular_name = "diamond"
 	sheettype = "diamond"
 	materials = list(/datum/material/diamond=MINERAL_MATERIAL_AMOUNT)
-	novariants = TRUE
 	grind_results = list(/datum/reagent/carbon = 20)
 	point_value = 25
 	merge_type = /obj/item/stack/sheet/mineral/diamond
@@ -140,7 +103,6 @@ GLOBAL_LIST_INIT(diamond_recipes, list ( \
 	singular_name = "uranium sheet"
 	sheettype = "uranium"
 	materials = list(/datum/material/uranium=MINERAL_MATERIAL_AMOUNT)
-	novariants = TRUE
 	grind_results = list(/datum/reagent/uranium = 20)
 	point_value = 20
 	merge_type = /obj/item/stack/sheet/mineral/uranium
@@ -339,7 +301,6 @@ GLOBAL_LIST_INIT(copper_recipes, list ( \
 	singular_name = "bananium sheet"
 	sheettype = "bananium"
 	materials = list(/datum/material/bananium=MINERAL_MATERIAL_AMOUNT)
-	novariants = TRUE
 	grind_results = list(/datum/reagent/consumable/banana = 20)
 	point_value = 50
 	merge_type = /obj/item/stack/sheet/mineral/bananium
@@ -551,3 +512,42 @@ GLOBAL_LIST_INIT(wax_recipes, list (new/datum/stack_recipe("Wax tile", /obj/item
 /obj/item/stack/sheet/mineral/wax/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.wax_recipes
 	. = ..()
+
+/*
+ * Sandbags
+ */
+
+/obj/item/stack/sheet/mineral/sandbags
+	name = "sandbags"
+	icon_state = "sandbags"
+	singular_name = "sandbag"
+	layer = LOW_ITEM_LAYER
+	novariants = TRUE
+	merge_type = /obj/item/stack/sheet/mineral/sandbags
+
+GLOBAL_LIST_INIT(sandbag_recipes, list ( \
+	new/datum/stack_recipe("sandbags", /obj/structure/barricade/sandbags, 1, one_per_turf = TRUE, on_floor = TRUE, time = 2.5 SECONDS), \
+	))
+
+/obj/item/stack/sheet/mineral/sandbags/Initialize(mapload, new_amount, merge = TRUE)
+	recipes = GLOB.sandbag_recipes
+	. = ..()
+
+/obj/item/emptysandbag
+	name = "empty sandbag"
+	desc = "A bag to be filled with sand, not to be used for slowing down shuttles."
+	icon = 'icons/obj/stacks/miscelaneous.dmi'
+	icon_state = "sandbag"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/emptysandbag/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/stack/ore/glass))
+		var/obj/item/stack/ore/glass/G = W
+		to_chat(user, "<span class='notice'>You fill the sandbag.</span>")
+		var/obj/item/stack/sheet/mineral/sandbags/I = new /obj/item/stack/sheet/mineral/sandbags(drop_location())
+		qdel(src)
+		if (Adjacent(user) && !issilicon(user))
+			user.put_in_hands(I)
+		G.use(1)
+	else
+		return ..()

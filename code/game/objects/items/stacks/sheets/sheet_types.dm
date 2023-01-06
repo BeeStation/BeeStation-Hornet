@@ -539,6 +539,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list ( \
 	name = "cardboard"
 	desc = "Large sheets of card, like boxes folded flat."
 	singular_name = "cardboard sheet"
+	icon = 'icons/obj/stacks/miscelaneous.dmi'
 	icon_state = "sheet-card"
 	item_state = "sheet-card"
 	resistance_flags = FLAMMABLE

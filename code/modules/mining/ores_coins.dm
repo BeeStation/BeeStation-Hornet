@@ -67,8 +67,8 @@
 
 /obj/item/stack/ore/uranium
 	name = "uranium ore"
-	icon_state = "Uranium ore"
-	item_state = "Uranium ore"
+	icon_state = "uranium_ore"
+	item_state = "uranium_ore"
 	singular_name = "uranium ore chunk"
 	points = 38
 	materials = list(/datum/material/uranium=MINERAL_MATERIAL_AMOUNT)
@@ -78,8 +78,8 @@
 
 /obj/item/stack/ore/iron
 	name = "iron ore"
-	icon_state = "Iron ore"
-	item_state = "Iron ore"
+	icon_state = "iron_ore"
+	item_state = "iron_ore"
 	singular_name = "iron ore chunk"
 	points = 2
 	materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
@@ -89,8 +89,8 @@
 
 /obj/item/stack/ore/glass
 	name = "sand pile"
-	icon_state = "Glass ore"
-	item_state = "Glass ore"
+	icon_state = "sand"
+	item_state = "sand"
 	singular_name = "sand pile"
 	points = 2
 	materials = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT)
@@ -132,8 +132,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/plasma
 	name = "plasma ore"
-	icon_state = "Plasma ore"
-	item_state = "Plasma ore"
+	icon_state = "plasma_ore"
+	item_state = "plasma_ore"
 	singular_name = "plasma ore chunk"
 	points = 19
 	materials = list(/datum/material/plasma=MINERAL_MATERIAL_AMOUNT)
@@ -148,7 +148,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 /obj/item/stack/ore/copper
 	name = "copper ore"
 	icon_state = "copper_ore"
-	item_state = "Copper ore"
+	item_state = "Copper_ore"
 	singular_name = "Copper ore chunk"
 	points = 6
 	materials = list(/datum/material/copper=MINERAL_MATERIAL_AMOUNT)
@@ -158,8 +158,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/silver
 	name = "silver ore"
-	icon_state = "Silver ore"
-	item_state = "Silver ore"
+	icon_state = "silver_ore"
+	item_state = "silver_ore"
 	singular_name = "silver ore chunk"
 	points = 20
 	materials = list(/datum/material/silver=MINERAL_MATERIAL_AMOUNT)
@@ -169,8 +169,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/gold
 	name = "gold ore"
-	icon_state = "Gold ore"
-	icon_state = "Gold ore"
+	icon_state = "gold_ore"
+	icon_state = "gold_ore"
 	singular_name = "gold ore chunk"
 	points = 23
 	materials = list(/datum/material/gold=MINERAL_MATERIAL_AMOUNT)
@@ -180,8 +180,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/diamond
 	name = "diamond ore"
-	icon_state = "Diamond ore"
-	item_state = "Diamond ore"
+	icon_state = "diamond_ore"
+	item_state = "diamond_ore"
 	singular_name = "diamond ore chunk"
 	points = 63
 	materials = list(/datum/material/diamond=MINERAL_MATERIAL_AMOUNT)
@@ -190,8 +190,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/bananium
 	name = "bananium ore"
-	icon_state = "Bananium ore"
-	item_state = "Bananium ore"
+	icon_state = "bananium_ore"
+	item_state = "bananium_ore"
 	singular_name = "bananium ore chunk"
 	points = 75
 	materials = list(/datum/material/bananium=MINERAL_MATERIAL_AMOUNT)
@@ -200,8 +200,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/titanium
 	name = "titanium ore"
-	icon_state = "Titanium ore"
-	item_state = "Titanium ore"
+	icon_state = "titanium_ore"
+	item_state = "titanium_ore"
 	singular_name = "titanium ore chunk"
 	points = 38
 	materials = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT)
