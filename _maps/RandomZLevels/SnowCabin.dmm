@@ -4620,6 +4620,7 @@
 /area/awaymission/cabin/caves)
 "lG" = (
 /obj/effect/decal/cleanable/blood/old,
+/obj/item/grenade/chem_grenade/large,
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/caves)
 "lH" = (
