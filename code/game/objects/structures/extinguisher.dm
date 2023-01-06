@@ -25,6 +25,8 @@
 /obj/structure/extinguisher_cabinet/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Alt-click to [opened ? "close":"open"] it.</span>"
+	if(!stored_extinguisher)
+		. += "<span class='notice'>It is <i>empty</i> and can be <b>unsecured</b> from the wall.</span>"
 
 /obj/structure/extinguisher_cabinet/Destroy()
 	if(stored_extinguisher)

@@ -110,6 +110,8 @@
 /datum/xenoartifact_trait/minor/sentient
 	label_name = "Sentient"
 	label_desc = "Sentient: The Artifact seems to be alive, influencing events around it. The Artifact wants to return to its master..."
+	//Slightly increase weight - muh arpee serber
+	weight = 55
 	///he who lives inside
 	var/mob/living/simple_animal/shade/man
 	///His doorbell
@@ -121,9 +123,15 @@
 
 /datum/xenoartifact_trait/minor/sentient/on_init(obj/item/xenoartifact/X)
 	addtimer(CALLBACK(src, .proc/get_canidate, X), 5 SECONDS)
+	RegisterSignal(X, COMSIG_PARENT_EXAMINE, .proc/handle_ghost, TRUE)
 
-/datum/xenoartifact_trait/minor/sentient/proc/get_canidate(obj/item/xenoartifact/X)
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the maleviolent force inside the [X.name]?", ROLE_SENTIENCE, null, FALSE, 5 SECONDS, POLL_IGNORE_SENTIENCE_POTION)
+//Proc used to give access to ghosts when original player leaves
+/datum/xenoartifact_trait/minor/sentient/proc/handle_ghost(datum/source, mob/M, list/examine_text)
+	if(isobserver(M) && man && !man?.key && (alert(M, "Are you sure you want to control of [man]?", "Assume control of [man]", "Yes", "No") == "Yes"))
+		man.key = M.ckey
+
+/datum/xenoartifact_trait/minor/sentient/proc/get_canidate(obj/item/xenoartifact/X, mob/M)
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the maleviolent force inside the [X.name]?", ROLE_SENTIENCE, null, FALSE, 8 SECONDS, POLL_IGNORE_SENTIENCE_POTION)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		setup_sentience(X, C.ckey)
@@ -140,7 +148,7 @@
 	man.real_name = "[man.name] - [X]"
 	man.key = ckey
 	man.status_flags |= GODMODE
-	log_game("[key_name_admin(man)] took control of the sentient [X]. [X] located at [X.x] [X.y] [X.z]")
+	log_game("[key_name_admin(man)] took control of the sentient [X]. [X] located at [AREACOORD(X)]")
 	man.forceMove(X)
 	man.anchored = TRUE
 	var/obj/effect/proc_holder/spell/targeted/xeno_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/xeno_senitent_action(,X)
@@ -168,14 +176,15 @@
 /obj/effect/proc_holder/spell/targeted/xeno_senitent_action/Initialize(mapload, var/obj/item/xenoartifact/Z)
 	. = ..()
 	xeno = Z
-	range = Z.max_range+3
+	range = Z.max_range+1
 
 /obj/effect/proc_holder/spell/targeted/xeno_senitent_action/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+	if(!xeno)
+		return
 	for(var/atom/M in targets)
-		if(xeno)
-			xeno.true_target = list(M)
-			xeno.default_activate(xeno.charge_req+50)
-			charge_max = xeno.cooldown+xeno.cooldownmod
+		xeno.true_target += xeno.process_target(M)
+		xeno.default_activate(xeno.charge_req+10)
+		charge_max = xeno.cooldown+xeno.cooldownmod
 
 /datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
 	. = ..()
@@ -216,10 +225,10 @@
 	X.alpha = X.alpha * 0.55
 
 /datum/xenoartifact_trait/minor/delicate/activate(obj/item/xenoartifact/X, atom/user)
-	if(X.obj_integrity)
+	if(X.obj_integrity > 0)
 		X.obj_integrity -= 100
 		X.visible_message("<span class='danger'>The [X.name] cracks!</span>", "<span class='danger'>The [X.name] cracks!</span>")
-	else if(X.obj_integrity <= 0)
+	else
 		X.visible_message("<span class='danger'>The [X.name] shatters!</span>", "<span class='danger'>The [X.name] shatters!</span>")
 		var/obj/effect/decal/cleanable/ash/A = new(get_turf(X))
 		A.color = X.material
@@ -335,7 +344,7 @@
 /datum/xenoartifact_trait/minor/signalsend/activate(obj/item/xenoartifact/X)
 	var/datum/signal/signal = new(list("code" = X.code))
 	X.send_signal(signal)
-	log_game("[X] sent signal code [X.code] on frequency [X.frequency] at [world.time]. [X] located at [X.x] [X.y] [X.z]")
+	log_game("[X] sent signal code [X.code] on frequency [X.frequency] at [world.time]. [X] located at [AREACOORD(X)]")
 
 //============
 // Anchor, the artifact can be anchored, anchors when activated
@@ -343,7 +352,7 @@
 /datum/xenoartifact_trait/minor/anchor
 	desc = "Anchored"
 	label_desc = "Anchored: The Artifact buckles to the floor with the weight of a sun every time it activates. Heavier than you, somehow."
-	blacklist_traits = list(/datum/xenoartifact_trait/minor/wearable)
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/wearable, /datum/xenoartifact_trait/minor/haunted)
 	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/minor/anchor/activate(obj/item/xenoartifact/X, atom/target, atom/user)
@@ -399,7 +408,8 @@
 			 "up" = CALLBACK(src, .proc/haunted_step, X, NORTH),
 			 "down" = CALLBACK(src, .proc/haunted_step, X, SOUTH),
 			 "left" = CALLBACK(src, .proc/haunted_step, X, WEST),
-			 "right" = CALLBACK(src, .proc/haunted_step, X, EAST)), 10 SECONDS))
+			 "right" = CALLBACK(src, .proc/haunted_step, X, EAST),
+			 "activate" = CALLBACK(src, .proc/activate_parent, X)), 10 SECONDS))
 
 /datum/xenoartifact_trait/minor/haunted/proc/haunted_step(obj/item/xenoartifact/ref, dir)
 	if(isliving(ref.loc)) //Make any mobs drop this before it moves
@@ -407,6 +417,13 @@
 		M.dropItemToGround(ref)
 	playsound(get_turf(ref), 'sound/effects/magic.ogg', 50, TRUE)
 	step(ref, dir)
+
+///Used for ghost command
+/datum/xenoartifact_trait/minor/haunted/proc/activate_parent(obj/item/xenoartifact/ref)
+	//Get a target to style on
+	ref.true_target = ref.get_target_in_proximity(min(ref.max_range+1, 5))
+	if(ref.true_target.len)
+		ref.check_charge(ref.true_target[1])
 
 /datum/xenoartifact_trait/minor/haunted/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/storage/book/bible))
@@ -432,3 +449,29 @@
 	X.visible_message("<span class='danger'>The [X] halts and begins to hum deeply.", "The [X] halts and begins to hum deeply.</span>")
 	playsound(get_turf(X), 'sound/effects/seedling_chargeup.ogg', 50, TRUE)
 	sleep(3 SECONDS)
+
+//============
+// Blink, the artifact dissapears for a short duration after use
+//============
+/datum/xenoartifact_trait/minor/blink
+	label_name = "Desynced"
+	label_desc = "Desynced: The Artifact falls in & out of existence regularly."
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
+	///Where your eyes don't go
+	var/obj/effect/confiscate
+
+/datum/xenoartifact_trait/minor/blink/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
+	X.visible_message("<span class='warning'>[X] slips between dimensions!</span>")
+	confiscate = new(get_turf(X))
+	X.forceMove(confiscate)
+	addtimer(CALLBACK(src, .proc/comeback, X), X.charge*0.20 SECONDS)
+
+/datum/xenoartifact_trait/minor/blink/proc/comeback(obj/item/xenoartifact/X)
+	X.visible_message("<span class='warning'>[X] slips between dimensions!</span>")
+	X.forceMove(get_turf(confiscate))
+	QDEL_NULL(confiscate)
+
+/datum/xenoartifact_trait/minor/blink/Destroy(force, ...)
+	. = ..()
+	if(!isnull(confiscate))
+		comeback()

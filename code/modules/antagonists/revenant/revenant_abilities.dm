@@ -10,11 +10,11 @@
 	if(modifiers["alt"])
 		AltClickNoInteract(src, A)
 		return
-	
+
 	if(modifiers["ctrl"])
 		CtrlClickOn(A)
 		return
-	
+
 	if(ishuman(A))
 		if(A in drained_mobs)
 			to_chat(src, "<span class='revenwarning'>[A]'s soul is dead and empty.</span>" )
@@ -33,6 +33,9 @@
 		return
 	if(draining)
 		to_chat(src, "<span class='revenwarning'>You are already siphoning the essence of a soul!</span>")
+		return
+	if(orbiting)
+		to_chat(src, "<span class='revenwarning'>You can't siphon essence during orbiting!</span>")
 		return
 	if(!target.stat)
 		to_chat(src, "<span class='revennotice'>[target.p_their(TRUE)] soul is too strong to harvest.</span>")
@@ -142,7 +145,23 @@
 	if(!isrevenant(user))
 		return FALSE
 	var/mob/living/simple_animal/revenant/revenant = user
+	// if they're trapped in consecrated tiles, they can get out with this. but they can't hide back on these tiles.
+	if(revenant.incorporeal_move != INCORPOREAL_MOVE_JAUNT)
+		var/turf/open/floor/stepTurf = get_turf(user)
+		if(stepTurf)
+			var/obj/effect/decal/cleanable/food/salt/salt = locate() in stepTurf
+			if(salt)
+				to_chat(user, "<span class='warning'>[salt] blocks your way to spirit realm!</span>")
+				// the purpose is just letting not them hide onto salt tiles incorporeally. no need to stun.
+				return
+			if(stepTurf.flags_1 & NOJAUNT_1)
+				to_chat(user, "<span class='warning'>Some strange aura blocks your way to spirit realm.</span>")
+				return
+			if(locate(/obj/effect/blessing) in stepTurf)
+				to_chat(user, "<span class='warning'>Holy energies block your way to spirit realm!</span>")
+				return
 	revenant.phase_shift()
+	revenant.orbiting?.end_orbit(revenant)
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant
 	clothes_req = 0
@@ -320,7 +339,7 @@
 			new /obj/effect/temp_visual/revenant(bot.loc)
 			bot.locked = FALSE
 			bot.open = TRUE
-			bot.emag_act()
+			bot.use_emag()
 	for(var/mob/living/carbon/human/human in T)
 		if(human == user)
 			continue
@@ -335,7 +354,7 @@
 		if(prob(20))
 			if(prob(50))
 				new /obj/effect/temp_visual/revenant(thing.loc)
-			thing.emag_act(null)
+			thing.use_emag(null)
 		else
 			if(!istype(thing, /obj/machinery/clonepod)) //I hate everything but mostly the fact there's no better way to do this without just not affecting it at all
 				thing.emp_act(EMP_HEAVY)

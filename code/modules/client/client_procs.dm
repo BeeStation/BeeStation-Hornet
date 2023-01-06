@@ -4,7 +4,7 @@
 
 
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 1MB //Could probably do with being lower.
-#define MAX_RECOMMENDED_CLIENT 1583
+#define MAX_RECOMMENDED_CLIENT 1589
 
 GLOBAL_LIST_INIT(blacklisted_builds, list(
 	"1407" = "bug preventing client display overrides from working leads to clients being able to see things/mobs they shouldn't be able to see",
@@ -103,14 +103,16 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		cmd_admin_pm(href_list["priv_msg"],null)
 		return
 
-	// hippie start -- Mentor PM
-	if (hippie_client_procs(href_list))
-		return
-	// hippie end
+	// Mentor PM
+	if(href_list["mentor_msg"])
+		cmd_mentor_pm(href_list["mentor_msg"], null)
+		return TRUE
 
 	switch(href_list["_src_"])
 		if("holder")
 			hsrc = holder
+		if("mentor")
+			hsrc = mentor_datum
 		if("usr")
 			hsrc = mob
 		if("prefs")
@@ -206,6 +208,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	tgui_panel = new(src)
 
 	GLOB.ahelp_tickets.ClientLogin(src)
+	GLOB.mhelp_tickets.ClientLogin(src)
 	GLOB.interviews.client_login(src)
 	GLOB.requests.client_login(src)
 	var/connecting_admin = FALSE //because de-admined admins connecting should be treated like admins.
@@ -510,6 +513,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 /client/Del()
 	log_access("Logout: [key_name(src)]")
 	GLOB.ahelp_tickets.ClientLogout(src)
+	GLOB.mhelp_tickets.ClientLogout(src)
 	GLOB.interviews.client_logout(src)
 
 	if(holder)
@@ -540,9 +544,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	GLOB.mentors -= src
 	SSambience.ambience_listening_clients -= src
 	QDEL_LIST_ASSOC_VAL(char_render_holders)
-	if(movingmob != null)
-		movingmob.client_mobs_in_contents -= mob
-		UNSETEMPTY(movingmob.client_mobs_in_contents)
 	Master.UpdateTickRate()
 	return ..()
 
@@ -928,6 +929,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		add_verb(/client/proc/self_notes)
 	if(CONFIG_GET(flag/use_exp_tracking))
 		add_verb(/client/proc/self_playtime)
+	if(CONFIG_GET(flag/enable_mrat))
+		add_verb(/client/proc/mrat)
 
 
 #undef UPLOAD_LIMIT
@@ -1097,6 +1100,11 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(holder)
 		holder.filteriffic = new /datum/filter_editor(in_atom)
 		holder.filteriffic.ui_interact(mob)
+
+/client/proc/open_particle_editor(atom/in_atom)
+	if(holder)
+		holder.particool = new /datum/particle_editor(in_atom)
+		holder.particool.ui_interact(mob)
 
 /client/proc/update_ambience_pref()
 	if(prefs.toggles & PREFTOGGLE_SOUND_AMBIENCE)

@@ -7,7 +7,7 @@
 	singular_name = "bluespace crystal"
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(/datum/material/bluespace=MINERAL_MATERIAL_AMOUNT)
-	points = 50
+	points = 63
 	var/blink_range = 8 // The teleport range when crushed/thrown at someone.
 	refined_type = /obj/item/stack/ore/bluespace_crystal/refined
 	grind_results = list(/datum/reagent/bluespace = 20)

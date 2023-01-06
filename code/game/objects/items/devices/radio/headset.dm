@@ -282,6 +282,8 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	name = "\proper mini Integrated Subspace Transceiver "
 	subspace_transmission = FALSE
 
+/obj/item/radio/headset/silicon/pai/ui_status(mob/user, state)
+	return UI_INTERACTIVE
 
 /obj/item/radio/headset/silicon/ai
 	name = "\proper Integrated Subspace Transceiver "
@@ -290,22 +292,6 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 
 /obj/item/radio/headset/silicon/can_receive(freq, level)
 	return ..(freq, level, TRUE)
-
-/obj/item/radio/headset/clown
-	name = "Clowning Headset"
-	desc = "A headset with a clowning filter, honk!"
-	icon_state = "honk_headset"
-	honken = TRUE  // honk filter
-	use_honken = FALSE
-
-/obj/item/radio/headset/clown/talk_into_impl(atom/movable/M, message, channel, list/spans, datum/language/language, list/message_mods)
-	if(honken)
-		spans |= SPAN_CLOWN
-	. = ..()
-
-/obj/item/radio/headset/clown/examine(mob/user)
-	. = ..()
-	. += "The honkening filter is currently [honken ? "On" : "Off"]."
 
 /obj/item/radio/headset/attackby(obj/item/W, mob/user, params)
 	user.set_machine(src)
@@ -333,12 +319,6 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	else if(istype(W, /obj/item/encryptionkey))
 		if(keyslot && keyslot2)
 			to_chat(user, "<span class='warning'>The headset can't hold another key!</span>")
-			return
-
-		var/obj/item/encryptionkey/new_key = W
-		if(new_key.amplification && honken)  // sorry bub cant have honks and standard loud at the same time
-			to_chat(user, "<span class='warning'>This headset already has a voice filter!</span>")
-			user.playsound_local(user, 'sound/items/bikehorn.ogg', 50, TRUE)
 			return
 
 		if(!keyslot)

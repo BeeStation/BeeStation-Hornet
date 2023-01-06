@@ -69,7 +69,10 @@
 			.["user"]["points"] = get_points(C)
 			if(C.registered_account)
 				.["user"]["name"] = C.registered_account.account_holder
-				if(C.registered_account.account_job)
+				var/datum/data/record/R = find_record("name", C.registered_account.account_holder, GLOB.data_core.general)
+				if(R)
+					.["user"]["job"] = R.fields["rank"]
+				else if(C.registered_account.account_job)
 					.["user"]["job"] = C.registered_account.account_job.title
 				else
 					.["user"]["job"] = "No Job"
@@ -129,28 +132,49 @@
 
 	icon_deny = "mining-deny"
 	prize_list = list( //if you add something to this, please, for the love of god, sort it by price/type. use tabs and not spaces.
-		new /datum/data/vendor_equipment("1 Marker Beacon",				/obj/item/stack/marker_beacon,										5),
-		new /datum/data/vendor_equipment("10 Marker Beacons",			/obj/item/stack/marker_beacon/ten,									75),
-		new /datum/data/vendor_equipment("30 Marker Beacons",			/obj/item/stack/marker_beacon/thirty,								150),
-		new /datum/data/vendor_equipment("Shelter Capsule",				/obj/item/survivalcapsule,											400),
-		new /datum/data/vendor_equipment("Regen. Core Stabilizer",		/obj/item/hivelordstabilizer,										400),
-		new /datum/data/vendor_equipment("Skeleton Key",				/obj/item/skeleton_key,												750),
-		new /datum/data/vendor_equipment("Survival Medipen",			/obj/item/reagent_containers/hypospray/medipen/survival,			500),
-		new /datum/data/vendor_equipment("Brute Healing Kit",			/obj/item/storage/firstaid/brute,									600),
-		new /datum/data/vendor_equipment("Burn Healing Kit",			/obj/item/storage/firstaid/fire,									600),
-		new /datum/data/vendor_equipment("Advanced Healing Kit",		/obj/item/storage/firstaid/advanced,								1200),
-		new /datum/data/vendor_equipment("Fulton Beacon",				/obj/item/fulton_core,												500),
-		new /datum/data/vendor_equipment("Fulton Extraction Pack",		/obj/item/extraction_pack,											1000),
-		new /datum/data/vendor_equipment("Jaunter",						/obj/item/wormhole_jaunter,											750),
-		new /datum/data/vendor_equipment("Advanced Ore Scanner",		/obj/item/t_scanner/adv_mining_scanner,								800),
-		new /datum/data/vendor_equipment("Explorer's Webbing",			/obj/item/storage/belt/mining,										500),
-		new /datum/data/vendor_equipment("Jump Boots",					/obj/item/clothing/shoes/bhop,										2000),
-		new /datum/data/vendor_equipment("Proto-Kinetic Crusher",		/obj/item/kinetic_crusher,								800),
+	//Direct mining tools go here
 		new /datum/data/vendor_equipment("Proto-Kinetic Accelerator",	/obj/item/gun/energy/kinetic_accelerator,							500),
-		new /datum/data/vendor_equipment("Resonator",					/obj/item/resonator,												750),
-		new /datum/data/vendor_equipment("Upgraded Resonator",			/obj/item/resonator/upgraded,										1500),
-		new /datum/data/vendor_equipment("Silver Pickaxe",				/obj/item/pickaxe/silver,											500),
-		new /datum/data/vendor_equipment("Diamond Pickaxe",				/obj/item/pickaxe/diamond,											1000),
+		new /datum/data/vendor_equipment("Proto-Kinetic Crusher",		/obj/item/kinetic_crusher,											800),
+		new /datum/data/vendor_equipment("Mining Conscription Kit",		/obj/item/storage/backpack/duffelbag/mining_conscript,				1000),
+		new /datum/data/vendor_equipment("Plasma Cutter", 				/obj/item/gun/energy/plasmacutter,									2000),
+		new /datum/data/vendor_equipment("Advanced Plasma Cutter", 		/obj/item/gun/energy/plasmacutter/adv,								4000),
+	//Assorted other equipment		
+		new /datum/data/vendor_equipment("Explorer's Webbing",			/obj/item/storage/belt/mining,										500),
+		new /datum/data/vendor_equipment("Survival Knife",				/obj/item/kitchen/knife/combat/survival,							500),
+		new	/datum/data/vendor_equipment("Seclite", 					/obj/item/flashlight/seclite,										500),
+		new /datum/data/vendor_equipment("Advanced Ore Scanner",		/obj/item/t_scanner/adv_mining_scanner,								800),
+		new /datum/data/vendor_equipment("Jaunter",						/obj/item/wormhole_jaunter,											750),
+		new /datum/data/vendor_equipment("Tracking Implant Kit", 		/obj/item/storage/box/minertracker,									1000),
+		new /datum/data/vendor_equipment("Expanded E. Oxygen Tank",		/obj/item/tank/internals/emergency_oxygen/engi,						1000),
+		new /datum/data/vendor_equipment("Fulton Extraction Pack",		/obj/item/extraction_pack,											1000),
+		new /datum/data/vendor_equipment("Mining Hardsuit",				/obj/item/clothing/suit/space/hardsuit/mining,						2000),
+		new /datum/data/vendor_equipment("Jump Boots",					/obj/item/clothing/shoes/bhop,										2000),
+	//Consumables
+		new /datum/data/vendor_equipment("30 Marker Beacons",			/obj/item/stack/marker_beacon/thirty,								150),
+		new /datum/data/vendor_equipment("Regen. Core Stabilizer",		/obj/item/hivelordstabilizer,										400),
+		new /datum/data/vendor_equipment("Fulton Beacon",				/obj/item/fulton_core,												500),
+		new /datum/data/vendor_equipment("Lazarus Injector",			/obj/item/lazarus_injector,											1000),
+		new /datum/data/vendor_equipment("Survival Medipen",			/obj/item/reagent_containers/hypospray/medipen/survival,			1000),
+		new /datum/data/vendor_equipment("Skeleton Key",				/obj/item/skeleton_key,												1200),
+	//Shelters	
+		new /datum/data/vendor_equipment("Shelter Capsule",				/obj/item/survivalcapsule,											400),
+		new /datum/data/vendor_equipment("Luxury Shelter Capsule",		/obj/item/survivalcapsule/luxury,									3000),
+		new /datum/data/vendor_equipment("Mining Outpost Capsule",		/obj/item/survivalcapsule/encampment,								5000),
+		new /datum/data/vendor_equipment("Luxury Bar Capsule",			/obj/item/survivalcapsule/luxuryelite,								10000),
+	//Upgrades to mining tools
+		new /datum/data/vendor_equipment("P-KA Upgrade: Bot-Friendly",	/obj/item/borg/upgrade/modkit/minebot_passthrough,					100),
+		new /datum/data/vendor_equipment("P-KA Cosmetic Super Chassis",	/obj/item/borg/upgrade/modkit/chassis_mod,							200),
+		new /datum/data/vendor_equipment("P-KA Cosmetic Hyper Chassis",	/obj/item/borg/upgrade/modkit/chassis_mod/orange,					200),
+		new /datum/data/vendor_equipment("P-KA Upgrade: Tracer Shots",	/obj/item/borg/upgrade/modkit/tracer,								200),
+		new /datum/data/vendor_equipment("P-KA Upgrade: Adj. T. Shots",	/obj/item/borg/upgrade/modkit/tracer/adjustable,					300),
+		new /datum/data/vendor_equipment("P-KA Upgrade: Range",			/obj/item/borg/upgrade/modkit/range,								1000),
+		new /datum/data/vendor_equipment("P-KA Upgrade: Damage",		/obj/item/borg/upgrade/modkit/damage,								1000),
+		new /datum/data/vendor_equipment("P-KA Upgrade: Cooldown",		/obj/item/borg/upgrade/modkit/cooldown,								1000),
+		new /datum/data/vendor_equipment("P-KA Upgrade: Bounty", 		/obj/item/borg/upgrade/modkit/bounty,								1000),
+		new /datum/data/vendor_equipment("P-KA Upgrade: Resonator", 	/obj/item/borg/upgrade/modkit/resonator_blasts,						1000),
+		new /datum/data/vendor_equipment("P-KA Upgrade: AoE Damage",	/obj/item/borg/upgrade/modkit/aoe/mobs,								1500),
+		new /datum/data/vendor_equipment("P-KA Upgrade: AoE Mining",	/obj/item/borg/upgrade/modkit/aoe/turfs,							2000),
+	//Mining bot buddy
 		new /datum/data/vendor_equipment("Mining Bot Companion",		/mob/living/simple_animal/hostile/mining_drone,						800),
 		new /datum/data/vendor_equipment("Minebot Upgrade: Armor",		/obj/item/minebot_upgrade/health,									400),
 		new /datum/data/vendor_equipment("Minebot Upgrade: Ore Scoop",	/obj/item/minebot_upgrade/ore_pickup,								400),
@@ -158,27 +182,10 @@
 		new /datum/data/vendor_equipment("Minebot Upgrade: Medical",	/obj/item/minebot_upgrade/medical,									800),
 		new /datum/data/vendor_equipment("Minebot Upgrade: A.I.",		/obj/item/slimepotion/slime/sentience/mining,						1000),
 		new /datum/data/vendor_equipment("Minebot Weatherproof Chassis",/obj/item/minebot_upgrade/antiweather,								1200),
-		new /datum/data/vendor_equipment("P-KA Upgrade: Bot-Friendly",	/obj/item/borg/upgrade/modkit/minebot_passthrough,					100),
-		new /datum/data/vendor_equipment("P-KA Upgrade: Tracer Shots",	/obj/item/borg/upgrade/modkit/tracer,								200),
-		new /datum/data/vendor_equipment("P-KA Upgrade: Adj. T. Shots",	/obj/item/borg/upgrade/modkit/tracer/adjustable,					300),
-		new /datum/data/vendor_equipment("P-KA Upgrade: Range",			/obj/item/borg/upgrade/modkit/range,								1000),
-		new /datum/data/vendor_equipment("P-KA Upgrade: Damage",		/obj/item/borg/upgrade/modkit/damage,								1000),
-		new /datum/data/vendor_equipment("P-KA Upgrade: Cooldown",		/obj/item/borg/upgrade/modkit/cooldown,								1000),
-		new /datum/data/vendor_equipment("P-KA Upgrade: Damage Radius",	/obj/item/borg/upgrade/modkit/aoe/mobs,								2000),
-		new /datum/data/vendor_equipment("P-KA Cosmetic Super Chassis",	/obj/item/borg/upgrade/modkit/chassis_mod,							200),
-		new /datum/data/vendor_equipment("P-KA Cosmetic Hyper Chassis",	/obj/item/borg/upgrade/modkit/chassis_mod/orange,					200),
-		new /datum/data/vendor_equipment("Mining Hardsuit",				/obj/item/clothing/suit/space/hardsuit/mining,						2000),
-		new /datum/data/vendor_equipment("Expanded E. Oxygen Tank",		/obj/item/tank/internals/emergency_oxygen/engi,						1000),
-		new /datum/data/vendor_equipment("Mining Conscription Kit",		/obj/item/storage/backpack/duffelbag/mining_conscript,				1000),
-		new /datum/data/vendor_equipment("Survival Knife",				/obj/item/kitchen/knife/combat/survival,							1000),
-		new /datum/data/vendor_equipment("Tracking Implant Kit", 		/obj/item/storage/box/minertracker,									1000),
+	//Various novelty items
+		new /datum/data/vendor_equipment("1000 Space Cash",				/obj/item/stack/spacecash/c1000,									2000),
 		new /datum/data/vendor_equipment("Point Transfer Card",			/obj/item/card/mining_point_card,									500),
 		new /datum/data/vendor_equipment("GAR Mesons",					/obj/item/clothing/glasses/meson/gar,								500),
-		new /datum/data/vendor_equipment("Luxury Shelter Capsule",		/obj/item/survivalcapsule/luxury,									3000),
-		new /datum/data/vendor_equipment("Mining Outpost Capsule",		/obj/item/survivalcapsule/encampment,								5000),
-		new /datum/data/vendor_equipment("Luxury Bar Capsule",			/obj/item/survivalcapsule/luxuryelite,								10000),
-		new /datum/data/vendor_equipment("Lazarus Injector",			/obj/item/lazarus_injector,											1000),
-		new /datum/data/vendor_equipment("1000 Space Cash",				/obj/item/stack/spacecash/c1000,									2000),
 		new /datum/data/vendor_equipment("Pizza",						/obj/item/pizzabox/margherita,										200),
 		new /datum/data/vendor_equipment("Whiskey",						/obj/item/reagent_containers/food/drinks/bottle/whiskey,			100),
 		new /datum/data/vendor_equipment("Absinthe",					/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,	100),

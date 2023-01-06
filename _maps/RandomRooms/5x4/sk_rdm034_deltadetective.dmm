@@ -17,27 +17,6 @@
 /mob/living/simple_animal/cockroach,
 /turf/open/floor/wood,
 /area/template_noop)
-"e" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/item/kirbyplants/random,
-/obj/structure/sign/poster/official/do_not_question{
-	pixel_x = 32
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
 "f" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
@@ -62,23 +41,6 @@
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "i" = (
-/turf/open/floor/wood,
-/area/template_noop)
-"j" = (
-/obj/structure/table/wood,
-/obj/item/clothing/gloves/color/black,
-/obj/item/storage/box/evidence,
-/obj/item/taperecorder,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/open/floor/wood,
 /area/template_noop)
 "k" = (
@@ -116,6 +78,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
+"p" = (
+/obj/structure/table/wood,
+/obj/item/clothing/gloves/color/black,
+/obj/item/storage/box/evidence,
+/obj/item/taperecorder,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/wood,
+/area/template_noop)
 "r" = (
 /turf/open/floor/carpet/red,
 /area/template_noop)
@@ -141,9 +111,21 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
+"R" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/item/kirbyplants/random,
+/obj/structure/sign/poster/official/do_not_question{
+	pixel_x = 32
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
 
 (1,1,1) = {"
-j
+p
 a
 f
 k
@@ -167,7 +149,7 @@ n
 s
 "}
 (5,1,1) = {"
-e
+R
 m
 o
 t

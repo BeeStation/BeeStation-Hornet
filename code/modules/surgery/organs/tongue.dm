@@ -129,6 +129,9 @@
 /obj/item/organ/tongue/abductor/handle_speech(datum/source, list/speech_args)
 	//Hacks
 	var/message = speech_args[SPEECH_MESSAGE]
+	speech_args[SPEECH_MESSAGE] = ""
+	if(!ishuman(usr))
+		return
 	var/mob/living/carbon/human/user = usr
 	var/rendered = "<span class='abductor'><b>[user.real_name]:</b> [message]</span>"
 	user.log_talk(message, LOG_SAY, tag="abductor")
@@ -142,8 +145,6 @@
 	for(var/mob/M in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(M, user)
 		to_chat(M, "[link] [rendered]")
-
-	speech_args[SPEECH_MESSAGE] = ""
 
 /obj/item/organ/tongue/zombie
 	name = "rotting tongue"
@@ -257,19 +258,6 @@
 
 /obj/item/organ/tongue/robot/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT
-
-/obj/item/organ/tongue/honk
-	name = "clown voicebox"
-	desc = "A voice synthesizer that makes you 45% funnier."
-	slot = ORGAN_SLOT_TONGUE
-	icon_state = "tonguerobot"  // looks sufficiently tech-y enough to pass
-	say_mod = "honks"
-	attack_verb = list("honked", "clowns")
-	modifies_speech = TRUE
-	taste_sensitivity = 25 // not as good as an organic tongue
-
-/obj/item/organ/tongue/honk/handle_speech(datum/source, list/speech_args)
-	speech_args[SPEECH_SPANS] |= SPAN_CLOWN
 
 /obj/item/organ/tongue/snail
 	name = "snail tongue"

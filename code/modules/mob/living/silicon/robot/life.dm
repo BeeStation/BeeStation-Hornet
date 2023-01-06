@@ -8,7 +8,7 @@
 	handle_robot_cell()
 
 /mob/living/silicon/robot/proc/handle_jamming()
-	if(deployed && is_jammed())
+	if(deployed && is_jammed(JAMMER_PROTECTION_AI_SHELL))
 		to_chat(src, "<span class='warning robot'>Remote connection with target lost.</span>")
 		undeploy()
 
