@@ -636,6 +636,7 @@
 			if(2)
 				death()
 				petrify(INFINITY)
+				ghostize(FALSE)
 			if(3)
 				if(prob(95))
 					var/obj/item/bodypart/BP = get_bodypart(pick(BODY_ZONE_CHEST,BODY_ZONE_HEAD))

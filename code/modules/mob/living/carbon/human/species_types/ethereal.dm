@@ -8,6 +8,7 @@
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/ethereal
 	mutantstomach = /obj/item/organ/stomach/battery/ethereal
 	mutanttongue = /obj/item/organ/tongue/ethereal
+	mutant_heart = /obj/item/organ/heart/ethereal
 	exotic_blood = /datum/reagent/consumable/liquidelectricity //Liquid Electricity. fuck you think of something better gamer
 	siemens_coeff = 0.5 //They thrive on energy
 	brutemod = 1.25 //They're weak to punches
@@ -67,6 +68,8 @@
 
 	spec_updatehealth(ethereal)
 
+	var/obj/item/organ/heart/ethereal/ethereal_heart = C.getorganslot(ORGAN_SLOT_HEART)
+	ethereal_heart.ethereal_color = default_color
 
 	//The following code is literally only to make admin-spawned ethereals not be black.
 	C.dna.features["mcolor"] = C.dna.features["ethcolor"] //Ethcolor and Mut color are both dogshit and will be replaced
@@ -105,6 +108,7 @@
 		ethereal_light.set_light_on(FALSE)
 		fixed_mut_color = rgb(128,128,128)
 	H.update_body()
+	H.update_hair() // This should fix the ethereal hair not changing with body, no clue as to why hair is not in update_body but okay
 
 /datum/species/ethereal/proc/on_emp_act(mob/living/carbon/human/H, severity)
 	SIGNAL_HANDLER
