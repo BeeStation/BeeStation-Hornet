@@ -1,4 +1,0 @@
-author: RKz
-delete-after: true
-changes:
-  - bugfix: Depleted Uranium directional windows will now appear correctly.
