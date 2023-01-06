@@ -215,6 +215,55 @@
 
 	qdel(src)
 
+//Large chem grenades accept slime cores and use the appropriately.
+/obj/item/grenade/chem_grenade/large
+	name = "large grenade"
+	desc = "A custom made large grenade. Larger splash range and increased ignition temperature compared to basic grenades. Fits exotic and bluespace based containers."
+	casedesc = "This casing affects a larger area than the basic model and can fit exotic containers, including slime cores and bluespace beakers. Heats contents by 25°K upon ignition."
+	icon_state = "large_grenade"
+	allowed_containers = list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/food/condiment, /obj/item/reagent_containers/food/drinks)
+	banned_containers = list()
+	affected_area = 5
+	ignition_temp = 25 // Large grenades are slightly more effective at setting off heat-sensitive mixtures than smaller grenades.
+	threatscale = 1.1	// 10% more effective.
+
+/obj/item/grenade/chem_grenade/large/prime(mob/living/lanced_by)
+	if(stage != GRENADE_READY || dud_flags)
+		active = FALSE
+		update_icon()
+		return
+
+	for(var/obj/item/slime_extract/S in beakers)
+		if(S.Uses)
+			for(var/obj/item/reagent_containers/glass/G in beakers)
+				G.reagents.trans_to(S, G.reagents.total_volume)
+
+			//If there is still a core (sometimes it's used up)
+			//and there are reagents left, behave normally,
+			//otherwise drop it on the ground for timed reactions like gold.
+
+			if(S)
+				if(S.reagents?.total_volume)
+					for(var/obj/item/reagent_containers/glass/G in beakers)
+						S.reagents.trans_to(G, S.reagents.total_volume)
+				else
+					S.forceMove(get_turf(src))
+					no_splash = TRUE
+	..()
+
+	//I tried to just put it in the allowed_containers list but
+	//if you do that it must have reagents.  If you're going to
+	//make a special case you might as well do it explicitly. -Sayu
+	
+/obj/item/grenade/chem_grenade/large/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/slime_extract) && stage == GRENADE_WIRED)
+		if(!user.transferItemToLoc(I, src))
+			return
+		to_chat(user, "<span class='notice'>You add [I] to the [initial(name)] assembly.</span>")
+		beakers += I
+	else
+		return ..()
+
 /obj/item/grenade/chem_grenade/cryo // Intended for rare cryogenic mixes. Cools the area moderately upon detonation.
 	name = "cryo grenade"
 	desc = "A custom made cryogenic grenade. Rapidly cools contents upon ignition."
