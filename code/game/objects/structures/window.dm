@@ -486,7 +486,7 @@
 /obj/structure/window/depleteduranium
 	name = "depleted uranium window"
 	desc = "A window made out of depleted uranium. It looks perfect for radiation shielding!"
-	icon_state = "du_window"
+	icon_state = "duwindow"
 	reinf = TRUE
 	heat_resistance = 50000
 	armor = list("melee" = 45, "bullet" = 20, "laser" = 0, "energy" = 0, "bomb" = 60, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 0)
