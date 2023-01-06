@@ -248,6 +248,12 @@
 	. = ..()
 	add_atom_colour(ethereal_color, FIXED_COLOUR_PRIORITY)
 
+/obj/item/organ/heart/ethereal/update_icon()
+	if(beating)
+		icon_state = "ethereal_heart"
+	else
+		icon_state = "ethereal_heart"
+
 /obj/item/organ/heart/ethereal/Insert(mob/living/carbon/heart_owner, special = 0)
 	. = ..()
 	RegisterSignal(heart_owner, COMSIG_MOB_STATCHANGE, .proc/on_stat_change)
@@ -330,7 +336,7 @@
 	if(!COOLDOWN_FINISHED(src, crystalize_cooldown) || ethereal.stat != DEAD)
 		return //Should probably not happen, but lets be safe.
 
-	if(ismob(location) || isitem(location) || HAS_TRAIT_FROM(src, TRAIT_HUSK, CHANGELING_DRAIN)) //Stops crystallization if they are eaten by a dragon, turned into a legion, consumed by his grace, etc.
+	if(ismob(location) || isitem(location) || HAS_TRAIT_FROM(src, TRAIT_HUSK, CHANGELING_DRAIN) || !ethereal.get_bodypart(BODY_ZONE_HEAD)) //Stops crystallization if they are eaten by a dragon, turned into a legion, consumed by his grace, etc.
 		to_chat(ethereal, "<span class='userwarning'>You were unable to finish your crystallization, for obvious reasons.</span>")
 		stop_crystalization_process(ethereal, FALSE)
 		return
