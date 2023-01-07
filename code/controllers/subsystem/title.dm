@@ -46,7 +46,10 @@ SUBSYSTEM_DEF(title)
 
 	//Update fast joiners
 	for (var/mob/dead/new_player/fast_joiner in GLOB.new_player_list)
-		fast_joiner.client?.view_size.resetToDefault(getScreenSize(fast_joiner))
+		if(isnull(fast_joiner.client?.view_size))
+			fast_joiner.client?.change_view(getScreenSize(fast_joiner))
+		else
+			fast_joiner.client?.view_size.resetToDefault(getScreenSize(fast_joiner))
 		fast_joiner.forceMove(newplayer_start_loc)
 
 	if(splash_turf)
