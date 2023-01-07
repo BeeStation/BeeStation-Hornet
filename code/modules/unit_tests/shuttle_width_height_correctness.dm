@@ -13,7 +13,6 @@
 		if (!typepath_regex.Find(file_text))
 			continue
 		var/atom/typepath = text2path(typepath_regex.group[1])
-		var/port_text = findtext(file_text, "/obj/docking_port/mobile")
 		var/shuttle_dir = initial(typepath.dir)
 		if	(dir_regex.Find(file_text))
 			shuttle_dir = text2num(dir_regex.group[1])
