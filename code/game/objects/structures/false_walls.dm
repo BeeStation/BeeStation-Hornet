@@ -390,7 +390,7 @@
 	mineral_amount = 1
 	girder_type = /obj/structure/girder/bronze
 	walltype = /turf/closed/wall/clockwork
-	mineral = /obj/item/stack/tile/brass
+	mineral = /obj/item/stack/sheet/brass
 
 /obj/structure/falsewall/brass/New(loc)
 	..()

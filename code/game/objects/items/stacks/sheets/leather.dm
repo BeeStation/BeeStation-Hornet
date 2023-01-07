@@ -3,6 +3,7 @@
 	desc = "Something went wrong."
 	icon_state = "sheet-hide"
 	item_state = "sheet-hide"
+	icon = 'icons/obj/stacks/organic.dmi'
 	novariants = TRUE
 
 /obj/item/stack/sheet/animalhide/human
@@ -136,6 +137,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list ( \
 	singular_name = "hairless hide piece"
 	icon_state = "sheet-hairlesshide"
 	item_state = "sheet-hairlesshide"
+	icon = 'icons/obj/stacks/organic.dmi'
 
 /obj/item/stack/sheet/wetleather
 	name = "wet leather"
@@ -143,11 +145,12 @@ GLOBAL_LIST_INIT(xeno_recipes, list ( \
 	singular_name = "wet leather piece"
 	icon_state = "sheet-wetleather"
 	item_state = "sheet-wetleather"
+	icon = 'icons/obj/stacks/organic.dmi'
 	var/wetness = 30 //Reduced when exposed to high temperautres
 	var/drying_threshold_temperature = 500 //Kelvin to start drying
 
 /*
- * Leather SHeet
+ * Leather Sheet
  */
 /obj/item/stack/sheet/leather
 	name = "leather"
@@ -155,6 +158,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list ( \
 	singular_name = "leather piece"
 	icon_state = "sheet-leather"
 	item_state = "sheet-leather"
+	icon = 'icons/obj/stacks/organic.dmi'
 
 GLOBAL_LIST_INIT(leather_recipes, list ( \
 	new/datum/stack_recipe("wallet", /obj/item/storage/wallet, 1), \

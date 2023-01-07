@@ -1282,7 +1282,7 @@
 		/obj/item/stack/sheet/mineral/bananium=50,\
 		/obj/item/stack/sheet/plastic/fifty=1,\
 		/obj/item/stack/sheet/runed_metal/fifty=1,\
-		/obj/item/stack/tile/brass/fifty=1,\
+		/obj/item/stack/sheet/brass/fifty=1,\
 		/obj/item/stack/sheet/mineral/abductor=50,\
 		/obj/item/stack/sheet/mineral/adamantine=50,\
 		/obj/item/stack/sheet/mineral/wood=50,\

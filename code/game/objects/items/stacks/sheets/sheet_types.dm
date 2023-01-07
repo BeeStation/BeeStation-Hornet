@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	tableVariant = /obj/structure/table
 
 /obj/item/stack/sheet/iron/ratvar_act()
-	new /obj/item/stack/tile/brass(loc, amount)
+	new /obj/item/stack/sheet/brass(loc, amount)
 	qdel(src)
 
 /obj/item/stack/sheet/iron/narsie_act()
@@ -269,7 +269,6 @@ GLOBAL_LIST_INIT(wood_recipes, list ( \
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0, "stamina" = 0)
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/mineral/wood
-	novariants = TRUE
 	grind_results = list(/datum/reagent/carbon = 20)
 
 /obj/item/stack/sheet/mineral/wood/Initialize(mapload, new_amount, merge = TRUE)
@@ -347,6 +346,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	singular_name = "cloth roll"
 	icon_state = "sheet-cloth"
 	item_state = "sheet-cloth"
+	icon = 'icons/obj/stacks/organic.dmi'
 	resistance_flags = FLAMMABLE
 	force = 0
 	throwforce = 0
@@ -387,6 +387,7 @@ GLOBAL_LIST_INIT(silk_recipes, list ( \
 	item_state = "sheet-silk"
 	novariants = TRUE
 	merge_type = /obj/item/stack/sheet/silk
+	icon = 'icons/obj/stacks/organic.dmi'
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
@@ -408,6 +409,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
 	singular_name = "durathread roll"
 	icon_state = "sheet-durathread"
 	item_state = "sheet-cloth"
+	icon = 'icons/obj/stacks/organic.dmi'
 	resistance_flags = FLAMMABLE
 	force = 0
 	throwforce = 0
@@ -424,6 +426,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
 	desc = "A bundle of raw durathread ready to be spun on the loom."
 	singular_name = "raw durathread ball"
 	icon_state = "sheet-durathreadraw"
+	icon = 'icons/obj/stacks/organic.dmi'
 	merge_type = /obj/item/stack/sheet/cotton/durathread
 	pull_effort = 70
 	loom_result = /obj/item/stack/sheet/durathread
@@ -546,7 +549,6 @@ GLOBAL_LIST_INIT(cardboard_recipes, list ( \
 	force = 0
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/cardboard
-	novariants = TRUE
 
 /obj/item/stack/sheet/cardboard/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.cardboard_recipes
@@ -598,11 +600,10 @@ GLOBAL_LIST_INIT(runed_metal_recipes, list ( \
 	//icon = 'icons/obj/stacks/mineral.dmi'
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
-	novariants = TRUE
 	grind_results = list(/datum/reagent/iron = 5, /datum/reagent/blood = 15)
 
 /obj/item/stack/sheet/runed_metal/ratvar_act()
-	new /obj/item/stack/tile/brass(loc, amount)
+	new /obj/item/stack/sheet/brass(loc, amount)
 	qdel(src)
 
 /obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
@@ -639,6 +640,7 @@ GLOBAL_LIST_INIT(runed_metal_recipes, list ( \
 GLOBAL_LIST_INIT(brass_recipes, list ( \
 	new/datum/stack_recipe("wall gear",								/obj/structure/destructible/clockwork/wall_gear, 2,one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS), \
 	new/datum/stack_recipe("brass grille",							/obj/structure/grille/ratvar, 2, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS), \
+	new/datum/stack_recipe("brass floor tile",						/obj/item/stack/tile/mineral/brass, 1, 4, 20), \
 	null, \
 	new/datum/stack_recipe("brass fulltile window",					/obj/structure/window/reinforced/clockwork/fulltile/unanchored, 4,on_floor = TRUE, window_checks=TRUE, time = 1 SECONDS), \
 	new/datum/stack_recipe("brass directional window",				/obj/structure/window/reinforced/clockwork/unanchored, 2, on_floor = TRUE, window_checks=TRUE, time = 1 SECONDS), \
@@ -658,53 +660,50 @@ GLOBAL_LIST_INIT(brass_recipes, list ( \
 	new/datum/stack_recipe("brass flipper",							/obj/structure/destructible/clockwork/trap/flipper, 10, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS), \
 ))
 
-/obj/item/stack/tile/brass
+/obj/item/stack/sheet/brass
 	name = "brass"
 	desc = "Sheets made out of brass."
 	singular_name = "brass sheet"
 	icon_state = "sheet-brass"
 	item_state = "sheet-brass"
-	//icon = 'icons/obj/stacks/mineral.dmi'
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	throwforce = 10
 	max_amount = 50
 	throw_speed = 1
 	throw_range = 3
-	turf_type = /turf/open/floor/clockwork
-	novariants = FALSE
 	grind_results = list(/datum/reagent/iron = 5, /datum/reagent/teslium = 15)
-	merge_type = /obj/item/stack/tile/brass
+	merge_type = /obj/item/stack/sheet/brass
 	materials = list(/datum/material/copper=MINERAL_MATERIAL_AMOUNT*0.5, /datum/material/iron=MINERAL_MATERIAL_AMOUNT*0.5)
 
-/obj/item/stack/tile/brass/narsie_act()
+/obj/item/stack/sheet/brass/narsie_act()
 	new /obj/item/stack/sheet/runed_metal(loc, amount)
 	qdel(src)
 
-/obj/item/stack/tile/brass/attack_self(mob/living/user)
+/obj/item/stack/sheet/brass/attack_self(mob/living/user)
 	if(!is_servant_of_ratvar(user))
 		to_chat(user, "<span class='danger'>[src] seems far too brittle to build with.</span>") //haha that's because it's actually replicant alloy you DUMMY << WOAH TOOO FAR!
 	else
 		return ..()
 
-/obj/item/stack/tile/brass/Initialize(mapload, new_amount, merge = TRUE)
+/obj/item/stack/sheet/brass/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	recipes = GLOB.brass_recipes
 	pixel_x = 0
 	pixel_y = 0
 
-/obj/item/stack/tile/brass/fifty
+/obj/item/stack/sheet/brass/fifty
 	amount = 50
 
-/obj/item/stack/tile/brass/twenty
+/obj/item/stack/sheet/brass/twenty
 	amount = 20
 
-/obj/item/stack/tile/brass/ten
+/obj/item/stack/sheet/brass/ten
 	amount = 10
 
-/obj/item/stack/tile/brass/five
+/obj/item/stack/sheet/brass/five
 	amount = 5
 
-/obj/item/stack/tile/brass/cyborg
+/obj/item/stack/sheet/brass/cyborg
 	materials = list()
 	is_cyborg = 1
 	cost = 500
@@ -720,6 +719,8 @@ GLOBAL_LIST_INIT(bronze_recipes, list ( \
 	new/datum/stack_recipe("fulltile bronze window",				/obj/structure/window/bronze/fulltile/unanchored, 2, on_floor = TRUE, window_checks = TRUE), \
 	new/datum/stack_recipe("pinion airlock assembly",				/obj/structure/door_assembly/door_assembly_bronze, 4, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS), \
 	new/datum/stack_recipe("bronze pinion airlock assembly",		/obj/structure/door_assembly/door_assembly_bronze/seethru, 4, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS), \
+	new/datum/stack_recipe("bronze floor tile",						/obj/item/stack/tile/mineral/bronze, 1, 4, 20), \
+	null,
 	new/datum/stack_recipe("bronze hat",							/obj/item/clothing/head/bronze), \
 	new/datum/stack_recipe("bronze suit",							/obj/item/clothing/suit/bronze), \
 	new/datum/stack_recipe("bronze boots",							/obj/item/clothing/shoes/bronze), \
@@ -727,67 +728,45 @@ GLOBAL_LIST_INIT(bronze_recipes, list ( \
 	new/datum/stack_recipe("bronze chair",							/obj/structure/chair/fancy/brass/bronze, 1, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS), \
 ))
 
-/obj/item/stack/tile/bronze
+/obj/item/stack/sheet/bronze
 	name = "brass"
 	desc = "On closer inspection, what appears to be wholly-unsuitable-for-building brass is actually more structurally stable bronze."
 	singular_name = "bronze sheet"
 	icon_state = "sheet-brass"
 	item_state = "sheet-brass"
-	//icon = 'icons/obj/stacks/mineral.dmi'
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	throwforce = 10
 	max_amount = 50
 	throw_speed = 1
 	throw_range = 3
-	turf_type = /turf/open/floor/bronze
 	novariants = FALSE
 	grind_results = list(/datum/reagent/iron = 5, /datum/reagent/copper = 3) //we have no "tin" reagent so this is the closest thing
-	merge_type = /obj/item/stack/tile/bronze
+	merge_type = /obj/item/stack/sheet/bronze
 	tableVariant = /obj/structure/table/bronze
 
-/obj/item/stack/tile/bronze/attack_self(mob/living/user)
+/obj/item/stack/sheet/bronze/attack_self(mob/living/user)
 	if(is_servant_of_ratvar(user))
 		to_chat(user, "<span class='danger'>Wha... what is this cheap imitation crap? This isn't brass at all!</span>")
 	else
 		return ..()
 
-/obj/item/stack/tile/bronze/Initialize(mapload, new_amount, merge = TRUE)
+/obj/item/stack/sheet/bronze/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.bronze_recipes
 	. = ..()
 	pixel_x = 0
 	pixel_y = 0
 
-/obj/item/stack/tile/bronze/fifty
+/obj/item/stack/sheet/bronze/fifty
 	amount = 50
 
-/obj/item/stack/tile/bronze/twenty
+/obj/item/stack/sheet/bronze/twenty
 	amount = 20
 
-/obj/item/stack/tile/bronze/ten
+/obj/item/stack/sheet/bronze/ten
 	amount = 10
 
-/obj/item/stack/tile/bronze/five
+/obj/item/stack/sheet/bronze/five
 	amount = 5
-
-/*
- * Lesser and Greater gems - unused
- */
-/obj/item/stack/sheet/lessergem
-	name = "lesser gems"
-	desc = "Rare kind of gems which are only gained by blood sacrifice to minor deities. They are needed in crafting powerful objects."
-	singular_name = "lesser gem"
-	icon_state = "sheet-lessergem"
-	item_state = "sheet-lessergem"
-	novariants = TRUE
-
-
-/obj/item/stack/sheet/greatergem
-	name = "greater gems"
-	desc = "Rare kind of gems which are only gained by blood sacrifice to minor deities. They are needed in crafting powerful objects."
-	singular_name = "greater gem"
-	icon_state = "sheet-greatergem"
-	item_state = "sheet-greatergem"
-	novariants = TRUE
 
 	/*
  * Bones
@@ -852,6 +831,7 @@ new /datum/stack_recipe("paper frame door", /obj/structure/mineral_door/paperfra
 	singular_name = "paper frame"
 	icon_state = "sheet-paper"
 	item_state = "sheet-paper"
+	icon = 'icons/obj/stacks/organic.dmi'
 	merge_type = /obj/item/stack/sheet/paperframes
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/paperframes

@@ -521,6 +521,7 @@ GLOBAL_LIST_INIT(wax_recipes, list (new/datum/stack_recipe("Wax tile", /obj/item
 	name = "sandbags"
 	icon_state = "sandbags"
 	singular_name = "sandbag"
+	icon = 'icons/obj/stacks/miscelaneous.dmi'
 	layer = LOW_ITEM_LAYER
 	novariants = TRUE
 	merge_type = /obj/item/stack/sheet/mineral/sandbags

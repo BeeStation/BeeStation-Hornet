@@ -399,7 +399,7 @@
 	result = /obj/item/ammo_casing/caseless/arrow/bronze
 	time = 30
 	reqs = list(/obj/item/stack/sheet/mineral/wood = 1,
-				/obj/item/stack/tile/bronze = 1,
+				/obj/item/stack/sheet/bronze = 1,
 				/obj/item/stack/sheet/silk = 1)
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
@@ -593,7 +593,6 @@
 	reqs = list(/obj/item/stack/tile/carpet = 50, /obj/item/toy/crayon/black = 1)
 	result = /obj/item/stack/tile/carpet/black/fifty
 	category = CAT_MISC
-
 
 /datum/crafting_recipe/extendohand
 	name = "Extendo-Hand"

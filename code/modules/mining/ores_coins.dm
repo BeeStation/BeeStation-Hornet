@@ -9,6 +9,7 @@
 
 /obj/item/stack/ore
 	name = "rock"
+	desc = "A rather dull rock for a stone."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "ore"
 	item_state = "ore"
@@ -67,6 +68,7 @@
 
 /obj/item/stack/ore/uranium
 	name = "uranium ore"
+	desc = "The fuel of the late 20th century."
 	icon_state = "uranium_ore"
 	item_state = "uranium_ore"
 	singular_name = "uranium ore chunk"
@@ -78,6 +80,7 @@
 
 /obj/item/stack/ore/iron
 	name = "iron ore"
+	desc = "The most abundant material around, yet so scarce."
 	icon_state = "iron_ore"
 	item_state = "iron_ore"
 	singular_name = "iron ore chunk"
@@ -89,6 +92,7 @@
 
 /obj/item/stack/ore/glass
 	name = "sand pile"
+	desc = "A pile of sandy quartz."
 	icon_state = "sand"
 	item_state = "sand"
 	singular_name = "sand pile"
@@ -126,12 +130,14 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/glass/basalt
 	name = "volcanic ash"
+	desc = "A pile of dark, smooth volcanic ash."
 	icon_state = "volcanic_sand"
 	icon_state = "volcanic_sand"
 	singular_name = "volcanic ash pile"
 
 /obj/item/stack/ore/plasma
 	name = "plasma ore"
+	desc = "The fuel of our times."
 	icon_state = "plasma_ore"
 	item_state = "plasma_ore"
 	singular_name = "plasma ore chunk"
@@ -147,6 +153,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/copper
 	name = "copper ore"
+	desc = "The base for all your electronics."
 	icon_state = "copper_ore"
 	item_state = "Copper_ore"
 	singular_name = "Copper ore chunk"
@@ -158,6 +165,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/silver
 	name = "silver ore"
+	desc = "Purity in mineral form."
 	icon_state = "silver_ore"
 	item_state = "silver_ore"
 	singular_name = "silver ore chunk"
@@ -169,6 +177,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/gold
 	name = "gold ore"
+	desc = "A display of wealth and power."
 	icon_state = "gold_ore"
 	icon_state = "gold_ore"
 	singular_name = "gold ore chunk"
@@ -180,6 +189,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/diamond
 	name = "diamond ore"
+	desc = "Densly packed coal, wonder how it got here..."
 	icon_state = "diamond_ore"
 	item_state = "diamond_ore"
 	singular_name = "diamond ore chunk"
@@ -190,6 +200,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/bananium
 	name = "bananium ore"
+	desc = "Unlike bananas, this ore is rather funny."
 	icon_state = "bananium_ore"
 	item_state = "bananium_ore"
 	singular_name = "bananium ore chunk"
@@ -200,6 +211,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/titanium
 	name = "titanium ore"
+	desc = "A strong material for ship construction."
 	icon_state = "titanium_ore"
 	item_state = "titanium_ore"
 	singular_name = "titanium ore chunk"
