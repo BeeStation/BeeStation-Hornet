@@ -1,4 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - rscadd: Added more robust logging for admin supply pods.
