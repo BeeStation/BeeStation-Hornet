@@ -453,11 +453,14 @@
 
 /obj/item/storage/pill_bottle/tricordrazine_first_aid
 	name = "bottle of Pain Relief pills"
-	desc = "A pill bottle containing basic healing medicine. The label on it says: 'Total contents: Tricordrazine 36u x7. WARNING: Do NOT take more than one pill.'"
+	desc = "A pill bottle containing basic healing medicine. The label on it says: 'Total contents: Tricordrazine 36u x3. WARNING: Do NOT take more than one pill.'"
 
 /obj/item/storage/pill_bottle/tricordrazine_first_aid/PopulateContents()
 	for(var/i in 1 to 3)
 		new /obj/item/reagent_containers/pill/tricordrazine_first_aid(src)
+
+/obj/item/storage/pill_bottle/tricordrazine_first_aid/medical_doctor
+	desc = "A pill bottle containing basic healing medicine. The label on it says: 'Total contents: Tricordrazine 36u x7. WARNING: Do NOT take more than one pill.'"
 
 /obj/item/storage/pill_bottle/tricordrazine_first_aid/medical_doctor/PopulateContents()
 	for(var/i in 1 to 7)
