@@ -452,8 +452,8 @@
 		new /obj/item/reagent_containers/pill/kelotane(src)
 
 /obj/item/storage/pill_bottle/tricordrazine_first_aid
-	name = "bottle of Washes Pain Away pills"
-	desc = "A pill bottle that contains pills that tend all small damages. Its label says: 'Supplement Facts: Tricordrazine 36u. WARN: Do NOT eat more than one pill.'"
+	name = "bottle of Pain Relief pills"
+	desc = "A pill bottle containing basic healing medicine. The label on it says: 'Total contents: Tricordrazine 36u x7. WARNING: Do NOT take more than one pill.'"
 
 /obj/item/storage/pill_bottle/tricordrazine_first_aid/PopulateContents()
 	for(var/i in 1 to 3)
