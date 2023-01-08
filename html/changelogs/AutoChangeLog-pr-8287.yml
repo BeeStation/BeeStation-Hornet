@@ -1,5 +1,0 @@
-author: ike709
-delete-after: true
-changes:
-  - tweak: Attempting to compile BeeStation in OpenDream now gives a better error
-      message
