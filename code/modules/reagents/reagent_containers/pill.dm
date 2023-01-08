@@ -162,6 +162,13 @@
 	list_reagents = list(/datum/reagent/medicine/kelotane = 15)
 	rename_with_volume = TRUE
 
+/obj/item/reagent_containers/pill/tricordrazine_first_aid
+	name = "Washes Pain Away pill"
+	desc = "A simple pill that tends all small damages. You might need to read an drug instruction in the pill bottle..."
+	icon_state = "pill_happy"
+	list_reagents = list(/datum/reagent/medicine/tricordrazine = 36)
+	rename_with_volume = FALSE
+
 /obj/item/reagent_containers/pill/salicyclic
 	name = "salicylic acid pill"
 	desc = "Used to dull pain."

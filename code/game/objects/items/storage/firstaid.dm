@@ -34,9 +34,10 @@
 		return
 	var/static/items_inside = list(
 		/obj/item/stack/medical/gauze = 1,
-		/obj/item/stack/medical/bruise_pack = 2,
-		/obj/item/stack/medical/ointment = 2,
-		/obj/item/reagent_containers/hypospray/medipen = 2)
+		/obj/item/stack/medical/bruise_pack = 1,
+		/obj/item/stack/medical/ointment = 1,
+		/obj/item/storage/pill_bottle/tricordrazine_first_aid = 1,
+		/obj/item/reagent_containers/hypospray/medipen = 3)
 	generate_items_inside(items_inside,src)
 
 
@@ -108,13 +109,15 @@
 		return
 	var/static/items_inside = list(
 		/obj/item/stack/medical/gauze = 1,
-		/obj/item/stack/medical/bruise_pack = 2,
-		/obj/item/stack/medical/ointment = 2,
+		/obj/item/stack/medical/bruise_pack = 1,
+		/obj/item/stack/medical/ointment = 1,
+		/obj/item/storage/pill_bottle/tricordrazine_first_aid/medical_doctor = 1,
 		/obj/item/reagent_containers/hypospray/medipen = 1,
 		/obj/item/healthanalyzer = 1,
 		/obj/item/surgical_drapes = 1,
 		/obj/item/scalpel = 1,
 		/obj/item/hemostat = 1,
+		/obj/item/retractor = 1,
 		/obj/item/cautery = 1)
 	generate_items_inside(items_inside,src)
 
@@ -134,8 +137,10 @@
 		return
 	var/static/items_inside = list(
 		/obj/item/stack/medical/gauze = 2,
-		/obj/item/stack/medical/bruise_pack = 3,
-		/obj/item/stack/medical/ointment= 3)
+		/obj/item/stack/medical/bruise_pack = 2,
+		/obj/item/storage/pill_bottle/bicaridine = 1,
+		/obj/item/stack/medical/ointment= 2,
+		/obj/item/storage/pill_bottle/kelotane = 1)
 	generate_items_inside(items_inside,src)
 
 
@@ -185,7 +190,7 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/syringe/antitoxin = 4,
+		/obj/item/reagent_containers/syringe/antitoxin_carth = 4,
 		/obj/item/reagent_containers/syringe/calomel = 1,
 		/obj/item/reagent_containers/syringe/diphenhydramine = 1,
 		/obj/item/storage/pill_bottle/charcoal = 1)
@@ -326,7 +331,7 @@
 		/obj/item/reagent_containers/hypospray/medipen/dexalin,
 		/obj/item/reagent_containers/pill/mutadone,
 		/obj/item/reagent_containers/pill/antirad,
-		/obj/item/reagent_containers/syringe/antitoxin,
+		/obj/item/reagent_containers/syringe/antitoxin_carth,
 		/obj/item/reagent_containers/syringe/calomel,
 		/obj/item/reagent_containers/syringe/diphenhydramine,
 		/obj/item/storage/pill_bottle/charcoal,
@@ -445,6 +450,18 @@
 /obj/item/storage/pill_bottle/kelotane/PopulateContents()
 	for(var/i in 1 to 7)
 		new /obj/item/reagent_containers/pill/kelotane(src)
+
+/obj/item/storage/pill_bottle/tricordrazine_first_aid
+	name = "bottle of Washes Pain Away pills"
+	desc = "A pill bottle that contains pills that tend all small damages. Its label says: 'Supplement Facts: Tricordrazine 36u. WARN: Do NOT eat more than one pill.'"
+
+/obj/item/storage/pill_bottle/tricordrazine_first_aid/PopulateContents()
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/pill/tricordrazine_first_aid(src)
+
+/obj/item/storage/pill_bottle/tricordrazine_first_aid/medical_doctor/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/reagent_containers/pill/tricordrazine_first_aid(src)
 
 /obj/item/storage/pill_bottle/antirad
 	name = "bottle of anti-radiation pills"

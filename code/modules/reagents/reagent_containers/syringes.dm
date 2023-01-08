@@ -243,10 +243,11 @@
 	desc = "Contains charcoal."
 	list_reagents = list(/datum/reagent/medicine/charcoal = 15)
 
-/obj/item/reagent_containers/syringe/antitoxin
-	name = "syringe (antitoxin)"
-	desc = "Contains antitoxin."
-	list_reagents = list(/datum/reagent/medicine/antitoxin = 15)
+/obj/item/reagent_containers/syringe/antitoxin_carth
+	name = "syringe (antitoxin + carthatoline)"
+	desc = "Contains antitoxin 10.5u and carthatoline 4.5u."
+	list_reagents = list(/datum/reagent/medicine/antitoxin = 10.5, // 3.5u per use
+						/datum/reagent/medicine/carthatoline = 4.5) // 1.5u per use
 
 /obj/item/reagent_containers/syringe/diphenhydramine
 	name = "syringe (diphenhydramine)"

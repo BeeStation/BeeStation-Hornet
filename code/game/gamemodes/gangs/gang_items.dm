@@ -114,7 +114,7 @@
 	if(gangtool?.free_pen)
 		return "(GET ONE FREE)"
 	return ..()
-	
+
 /datum/gang_item/essentials/reinforce
 	name = "Call Reinforcments"
 	id = "reinforce"
@@ -393,7 +393,7 @@
 /obj/item/storage/firstaid/shifty/hangover/PopulateContents()
 	var/static/items_inside = list(
 		/obj/item/storage/pill_bottle/charcoal = 1,
-		/obj/item/reagent_containers/syringe/antitoxin = 1,
+		/obj/item/reagent_containers/syringe/antitoxin_carth = 1,
 		/obj/item/reagent_containers/hypospray/medipen = 2,
 		/obj/item/reagent_containers/hypospray/medipen/dexalin = 2,
 		/obj/item/healthanalyzer = 1)
