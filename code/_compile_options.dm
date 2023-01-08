@@ -108,7 +108,9 @@
 #define CBT
 #endif
 
-#if !defined(CBT) && !defined(SPACEMAN_DMM) && !defined(FASTDMM)
+#if defined(OPENDREAM)
+#error Compiling BeeStation in OpenDream is unsupported due to BeeStation's dependence on the auxtools DLL to function.
+#elif !defined(CBT) && !defined(SPACEMAN_DMM) && !defined(FASTDMM)
 #error Building with Dream Maker is no longer supported and will result in errors.
 #error Switch to VSCode and when prompted install the recommended extensions, you can then either use the UI or press Ctrl+Shift+B to build the codebase.
 #endif
