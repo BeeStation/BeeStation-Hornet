@@ -28545,8 +28545,8 @@
 /turf/open/floor/plasteel/dark,
 /area/library/lounge)
 "hiT" = (
-/obj/machinery/atmospherics/components/binary/valve,
 /obj/structure/lattice/catwalk/over,
+/obj/machinery/atmospherics/pipe/simple/general/visible,
 /turf/open/floor/plating,
 /area/maintenance/disposal/incinerator)
 "hiX" = (

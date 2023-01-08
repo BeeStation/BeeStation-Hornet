@@ -27243,12 +27243,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload)
-"cKl" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/space)
 "cKn" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -34390,8 +34384,11 @@
 /turf/open/floor/plasteel,
 /area/maintenance/disposal)
 "dys" = (
-/turf/open/space,
-/area/space/nearstation)
+/obj/machinery/atmospherics/components/trinary/filter{
+	dir = 8
+	},
+/turf/open/space/basic,
+/area/space)
 "dyt" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -66217,7 +66214,6 @@
 	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/components/binary/valve,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -66227,6 +66223,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
+/obj/machinery/atmospherics/pipe/simple/general/visible,
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
 "noh" = (
@@ -113769,7 +113766,7 @@ aac
 aac
 aaa
 aaa
-aaa
+dys
 aaa
 aaa
 aaa
@@ -116090,11 +116087,11 @@ avY
 ask
 ask
 aad
-dys
-sav
-dys
-dys
-dys
+bTl
+aaa
+bTl
+bTl
+bTl
 aad
 aad
 aaa
@@ -116348,9 +116345,9 @@ aad
 apK
 aad
 aLb
-clR
-cKl
-clR
+ctm
+aaa
+cqo
 ctm
 aaa
 aad

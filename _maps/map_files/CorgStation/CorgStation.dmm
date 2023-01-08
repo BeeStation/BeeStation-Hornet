@@ -6010,6 +6010,13 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
+"bHE" = (
+/obj/machinery/atmospherics/pipe/simple/cyan/visible,
+/obj/machinery/atmospherics/pipe/simple/dark/visible{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "bHM" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -23277,13 +23284,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"hEE" = (
-/obj/machinery/atmospherics/pipe/simple/cyan/visible,
-/obj/machinery/atmospherics/pipe/simple/dark/visible{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/engine/atmos)
 "hEH" = (
 /obj/effect/landmark/start/scientist,
 /obj/structure/disposalpipe/segment{
@@ -30757,8 +30757,9 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "keH" = (
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
-	dir = 8
+	name = "justice injector"
 	},
 /turf/open/floor/plating,
 /area/engine/atmospherics_engine)
@@ -32908,17 +32909,6 @@
 /obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner,
 /turf/open/floor/engine,
 /area/science/xenobiology)
-"kPg" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/dark/visible,
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 1
-	},
-/obj/machinery/meter,
-/turf/open/floor/plasteel,
-/area/engine/atmos)
 "kPl" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -36437,7 +36427,7 @@
 "lWc" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 4
+	dir = 9
 	},
 /turf/open/floor/plating,
 /area/engine/atmospherics_engine)
@@ -37330,6 +37320,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
+"mkj" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/dark/visible{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "mkw" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
@@ -46417,10 +46416,8 @@
 /area/engine/atmos)
 "pmV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/plating,
+/obj/structure/lattice,
+/turf/open/space/basic,
 /area/space/nearstation)
 "pna" = (
 /obj/structure/disposalpipe/junction/flip,
@@ -51287,15 +51284,6 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/storage)
-"qPk" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/dark/visible{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/engine/atmos)
 "qPw" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -56705,6 +56693,17 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
+"sFf" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/dark/visible,
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/meter,
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "sFB" = (
 /obj/structure/chair/fancy/bench/pew/left{
 	dir = 8
@@ -61838,6 +61837,7 @@
 /area/maintenance/starboard/central)
 "utq" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /turf/open/floor/plating,
 /area/engine/atmospherics_engine)
 "utE" = (
@@ -68882,14 +68882,6 @@
 "wJp" = (
 /turf/open/floor/plasteel/dark,
 /area/maintenance/starboard/central)
-"wJs" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 4
-	},
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/engine/atmospherics_engine)
 "wJD" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -96470,7 +96462,7 @@ kqo
 gdK
 bqm
 rhg
-kPg
+sFf
 qjA
 qjA
 qjA
@@ -96726,7 +96718,7 @@ oBJ
 wQk
 bsg
 nlB
-hEE
+bHE
 jlF
 jlF
 jlF
@@ -96983,7 +96975,7 @@ aNJ
 kKp
 jab
 wPn
-qPk
+mkj
 bnG
 rwb
 bnG
@@ -98004,7 +97996,7 @@ mAy
 oCW
 bCW
 oCW
-oCW
+keH
 utq
 lWc
 acA
@@ -98258,12 +98250,12 @@ aMT
 aMT
 aBa
 rHW
+aWR
 pmV
-pmV
-pmV
+rHW
 aWR
 tXf
-wJs
+tXf
 gBZ
 poB
 qBt
@@ -98520,7 +98512,7 @@ aMT
 aMT
 aMT
 aMT
-keH
+aMT
 anT
 gzj
 anT
