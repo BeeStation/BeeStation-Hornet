@@ -5,7 +5,7 @@
 	icon_state = "cult_wall-0"
 	base_icon_state = "cult_wall"
 	smoothing_flags = SMOOTH_BITMASK
-	canSmoothWith = null
+	canSmoothWith = list(SMOOTH_GROUP_WALLS)
 	sheet_type = /obj/item/stack/sheet/runed_metal
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult
