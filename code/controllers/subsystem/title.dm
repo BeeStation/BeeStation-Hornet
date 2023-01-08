@@ -30,10 +30,11 @@ SUBSYSTEM_DEF(title)
 	ASSERT(fexists(file_path))
 
 	icon = new(fcopy_rsc(file_path))
+	var/icon/single_frame = new(icon, frame=1)
 
 	//Calculate the screen size
-	var/width = round(icon.Width() / world.icon_size)
-	var/height = round(icon.Height() / world.icon_size)
+	var/width = round(single_frame.Width() / world.icon_size)
+	var/height = round(single_frame.Height() / world.icon_size)
 	lobby_screen_size = "[width]x[height]"
 
 	//Update the new player start (views are centered)
@@ -45,7 +46,10 @@ SUBSYSTEM_DEF(title)
 
 	//Update fast joiners
 	for (var/mob/dead/new_player/fast_joiner in GLOB.new_player_list)
-		fast_joiner.client?.view_size.resetToDefault(getScreenSize(fast_joiner))
+		if(isnull(fast_joiner.client?.view_size))
+			fast_joiner.client?.change_view(getScreenSize(fast_joiner))
+		else
+			fast_joiner.client?.view_size.resetToDefault(getScreenSize(fast_joiner))
 		fast_joiner.forceMove(newplayer_start_loc)
 
 	if(splash_turf)
