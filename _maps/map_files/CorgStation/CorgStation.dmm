@@ -2174,7 +2174,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/dark/visible,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "aBh" = (
@@ -6010,13 +6009,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
-"bHE" = (
-/obj/machinery/atmospherics/pipe/simple/cyan/visible,
-/obj/machinery/atmospherics/pipe/simple/dark/visible{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/engine/atmos)
 "bHM" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -7998,8 +7990,9 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/disposal)
 "csS" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmospherics_engine)
 "csV" = (
@@ -15158,8 +15151,16 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "eRe" = (
-/turf/open/floor/plasteel/dark,
-/area/engine/atmospherics_engine)
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/dark/visible,
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/meter,
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "eRv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -15684,7 +15685,9 @@
 /turf/open/floor/plating,
 /area/science/xenobiology)
 "fcp" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
+/obj/machinery/atmospherics/components/binary/pump/on{
+	name = "Turbine Waste to Thermoelectric Generator"
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmospherics_engine)
 "fcN" = (
@@ -30757,12 +30760,18 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "keH" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/components/unary/outlet_injector/on{
-	name = "justice injector"
+/obj/machinery/atmospherics/pipe/simple/cyan/visible{
+	dir = 4
 	},
-/turf/open/floor/plating,
-/area/engine/atmospherics_engine)
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/portable_atmospherics/canister/toxins,
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "kff" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -30925,6 +30934,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmospherics_engine)
@@ -34887,12 +34899,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/binary/pump{
-	name = "Turbine Waste to Thermoelectric Generator"
-	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "lxu" = (
@@ -35309,7 +35319,6 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/dark/visible,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "lDP" = (
@@ -37320,15 +37329,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
-"mkj" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/dark/visible{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/engine/atmos)
 "mkw" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
@@ -39468,10 +39468,8 @@
 /turf/open/floor/plasteel/white,
 /area/security/prison)
 "mTz" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
-	dir = 8
-	},
 /obj/machinery/meter,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/visible,
 /turf/open/floor/plasteel/dark,
 /area/engine/atmospherics_engine)
 "mTM" = (
@@ -42260,7 +42258,6 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "nOF" = (
@@ -43251,6 +43248,10 @@
 "ofE" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/components/binary/pump{
+	name = "Turbine Waste to Thermoelectric Generator";
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmospherics_engine)
@@ -52285,9 +52286,6 @@
 "rgM" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/tile/yellow,
-/obj/machinery/atmospherics/pipe/simple/dark/visible{
-	dir = 9
-	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "rgV" = (
@@ -52311,8 +52309,8 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/dark/visible{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/dark/visible{
+	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -54203,9 +54201,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
-/obj/machinery/atmospherics/components/binary/pump{
-	name = "Turbine Waste to Supermatter"
-	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "rOi" = (
@@ -56693,17 +56688,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
-"sFf" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/dark/visible,
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 1
-	},
-/obj/machinery/meter,
-/turf/open/floor/plasteel,
-/area/engine/atmos)
 "sFB" = (
 /obj/structure/chair/fancy/bench/pew/left{
 	dir = 8
@@ -56719,6 +56703,9 @@
 "sFH" = (
 /obj/structure/cable{
 	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmospherics_engine)
@@ -62618,6 +62605,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
+"uGU" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
+	name = "justice injector"
+	},
+/turf/open/floor/plating,
+/area/engine/atmospherics_engine)
 "uGY" = (
 /obj/machinery/light{
 	dir = 1
@@ -67606,6 +67600,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
+"wme" = (
+/obj/structure/closet/cardboard/metal,
+/turf/open/space/basic,
+/area/space)
 "wmg" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -95686,7 +95684,7 @@ aPf
 aPf
 aPf
 aPf
-cmD
+keH
 pnS
 rmN
 aaz
@@ -96462,7 +96460,7 @@ kqo
 gdK
 bqm
 rhg
-sFf
+eRe
 qjA
 qjA
 qjA
@@ -96718,7 +96716,7 @@ oBJ
 wQk
 bsg
 nlB
-bHE
+jlF
 jlF
 jlF
 jlF
@@ -96970,12 +96968,12 @@ dqJ
 dmR
 dmR
 jkQ
-eRe
+wZA
 aNJ
 kKp
 jab
 wPn
-mkj
+bnG
 bnG
 rwb
 bnG
@@ -97996,7 +97994,7 @@ mAy
 oCW
 bCW
 oCW
-keH
+uGU
 utq
 lWc
 acA
@@ -100825,7 +100823,7 @@ aMT
 aMT
 vCq
 aMT
-aMT
+wme
 aMT
 aMT
 aMT
