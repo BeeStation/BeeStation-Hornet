@@ -910,16 +910,16 @@
 	id = "ghoul"
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = -1
-	tick_interval = 10
+	examine_text = "<span class='warning'>SUBJECTPRONOUN has a blank, catatonic like stare.</span>"
 	alert_type = /atom/movable/screen/alert/status_effect/ghoul
 
-/datum/status_effect/ghoul/tick()
+/datum/status_effect/ghoul/get_examine_text()
 	var/mob/living/carbon/human/H = owner
 	var obscured = H.check_obscured_slots()
 	if(!(obscured & ITEM_SLOT_EYES) && !H.glasses) //The examine text is only displayed if the ghoul's eyes are not obscured
-		examine_text = "<span class='warning'>SUBJECTPRONOUN has a blank, catatonic like stare.</span>"
+		return examine_text
 	else
-		examine_text = null
+		return null
 
 /atom/movable/screen/alert/status_effect/ghoul
 	name = "Flesh Servant"
