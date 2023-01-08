@@ -76,7 +76,7 @@
 	name = "wooden table frame"
 	desc = "Four wooden legs with four framing wooden rods for a wooden table. You could easily pass through this."
 	icon_state = "wood_frame"
-	framestack = /obj/item/stack/sheet/mineral/wood
+	framestack = /obj/item/stack/sheet/wood
 	framestackamount = 2
 	resistance_flags = FLAMMABLE
 
@@ -84,7 +84,7 @@
 	if (istype(I, /obj/item/stack))
 		var/obj/item/stack/material = I
 		var/toConstruct // stores the table variant
-		if(istype(I, /obj/item/stack/sheet/mineral/wood))
+		if(istype(I, /obj/item/stack/sheet/wood))
 			toConstruct = /obj/structure/table/wood
 		else if(istype(I, /obj/item/stack/tile/carpet))
 			toConstruct = /obj/structure/table/wood/poker

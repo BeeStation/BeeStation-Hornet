@@ -154,7 +154,7 @@
 	desc = "Old is never too old to not be in fashion."
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
-	buildstacktype = /obj/item/stack/sheet/mineral/wood
+	buildstacktype = /obj/item/stack/sheet/wood
 	buildstackamount = 3
 	item_chair = /obj/item/chair/wood
 
@@ -402,6 +402,6 @@
 	icon_state = "bamboo_stool"
 	resistance_flags = FLAMMABLE
 	max_integrity = 60
-	buildstacktype = /obj/item/stack/sheet/mineral/bamboo
+	buildstacktype = /obj/item/stack/sheet/bamboo
 	buildstackamount = 2
 	item_chair = /obj/item/chair/stool/bamboo

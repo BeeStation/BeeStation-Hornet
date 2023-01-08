@@ -362,8 +362,8 @@
 	smoothing_groups = list(SMOOTH_GROUP_WOOD_TABLES)
 	canSmoothWith = list(SMOOTH_GROUP_WOOD_TABLES)
 	frame = /obj/structure/table_frame/wood
-	framestack = /obj/item/stack/sheet/mineral/wood
-	buildstack = /obj/item/stack/sheet/mineral/wood
+	framestack = /obj/item/stack/sheet/wood
+	buildstack = /obj/item/stack/sheet/wood
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 

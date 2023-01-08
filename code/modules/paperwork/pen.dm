@@ -86,7 +86,7 @@
 /datum/crafting_recipe/charcoal_stylus
 	name = "Charcoal Stylus"
 	result = /obj/item/pen/charcoal
-	reqs = list(/obj/item/stack/sheet/mineral/wood = 1, /datum/reagent/ash = 30)
+	reqs = list(/obj/item/stack/sheet/wood = 1, /datum/reagent/ash = 30)
 	time = 30
 	category = CAT_PRIMAL
 

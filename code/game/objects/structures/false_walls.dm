@@ -313,7 +313,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WOOD_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WOOD_WALLS)
-	mineral = /obj/item/stack/sheet/mineral/wood
+	mineral = /obj/item/stack/sheet/wood
 	walltype = /turf/closed/wall/mineral/wood
 
 /obj/structure/falsewall/bamboo
@@ -325,7 +325,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BAMBOO_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_BAMBOO_WALLS)
-	mineral = /obj/item/stack/sheet/mineral/bamboo
+	mineral = /obj/item/stack/sheet/bamboo
 	walltype = /turf/closed/wall/mineral/bamboo
 
 /obj/structure/falsewall/iron

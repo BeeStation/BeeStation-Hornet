@@ -526,7 +526,7 @@
 	lootdoubles = 2
 	lootcount = 1
 
-	loot = list(/obj/item/stack/sheet/mineral/snow{amount = 25} = 10,
+	loot = list(/obj/item/stack/sheet/snow{amount = 25} = 10,
 				/obj/item/toy/snowball = 15,
 				/obj/item/shovel = 10,
 				/obj/item/spear = 8,
