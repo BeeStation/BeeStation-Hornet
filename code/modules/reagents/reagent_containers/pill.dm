@@ -163,8 +163,8 @@
 	rename_with_volume = TRUE
 
 /obj/item/reagent_containers/pill/tricordrazine_first_aid
-	name = "Washes Pain Away pill"
-	desc = "A simple pill that tends all small damages. You might need to read an drug instruction in the pill bottle..."
+	name = "Pain Relief pill"
+	desc = "A pill that cures basic ailments. You feel like you should read the instructions on the pill bottle again..."
 	icon_state = "pill_happy"
 	list_reagents = list(/datum/reagent/medicine/tricordrazine = 36)
 	rename_with_volume = FALSE
