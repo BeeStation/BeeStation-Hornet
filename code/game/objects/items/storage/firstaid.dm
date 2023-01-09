@@ -456,7 +456,7 @@
 	desc = "A pill bottle containing basic healing medicine. The label on it says: 'Total contents: Tricordrazine 36u x3. WARNING: Do NOT take more than one pill.'"
 
 /obj/item/storage/pill_bottle/first_aid_tricordrazine/PopulateContents()
-	for(var/i in 1 to 3)
+	for(var/i in 1 to 4)
 		new /obj/item/reagent_containers/pill/first_aid_tricordrazine(src)
 
 /obj/item/storage/pill_bottle/first_aid_tricordrazine/medical_doctor
