@@ -54,7 +54,7 @@
 			P.icon_state = "pill[rand(1,21)]"
 		else
 			P.icon_state = "pill[pill_number]"
-		if(P.icon_state == "pill4") //mirrored from chem masters
+		if(P.icon_state == PILL_SHAPE_CAPSULE_BLOODRED) //mirrored from chem masters
 			P.desc = "A tablet or capsule, but not just any, a red one, one taken by the ones not scared of knowledge, freedom, uncertainty and the brutal truths of reality."
 	if(stored_pills.len)
 		var/pill_amount = 0

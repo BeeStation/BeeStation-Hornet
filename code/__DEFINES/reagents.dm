@@ -56,3 +56,28 @@
 #define CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE         (1<<23)  // chemist objective - i.e.) make at least 5 units of synthflesh
 #define CHEMICAL_GOAL_BOTANIST_HARVEST     (1<<22)  // botanist objective - i.e.) make 12 crops of 10u omnizine
 #define CHEMICAL_GOAL_BARTENDER_SERVING    (1<<21) // !NOTE: not implemented, but refactored for preparation - i.e.) serve Bacchus' blessing to 10 crews
+
+
+// pill shapes - check 'chemical.dmi' for the shape
+#define PILL_SHAPE_CAPSULE_PURPLE_PINK "pill1"
+#define PILL_SHAPE_CAPSULE_GREEN_WHITE "pill2"
+#define PILL_SHAPE_CAPSULE_SKYBLUE "pill3"
+#define PILL_SHAPE_CAPSULE_BLOODRED "pill4"
+#define PILL_SHAPE_CAPSULE_RED_WHITELINE "pill5"
+#define PILL_SHAPE_CAPSULE_CYAN_BROWN "pill6"
+#define PILL_SHAPE_TABLET_YELLOW "pill7"
+#define PILL_SHAPE_TABLET_SKYBLUE "pill8"
+#define PILL_SHAPE_TABLET_WHITE "pill9"
+#define PILL_SHAPE_TABLET_PURPLE "pill10"
+#define PILL_SHAPE_TABLET_LIGHTGREEN "pill11"
+#define PILL_SHAPE_TABLET_LIGHTRED "pill12"
+#define PILL_SHAPE_TABLET_GREEN_PURPLE "pill13"
+#define PILL_SHAPE_TABLET_YELLOW_PURPLE "pill14"
+#define PILL_SHAPE_TABLET_RED_YELLOW "pill15"
+#define PILL_SHAPE_TABLET_BLUE_SKYBLUE "pill16"
+#define PILL_SHAPE_TABLET_GREEN "pill17"
+#define PILL_SHAPE_CAPSULE_WHITE "pill18"
+#define PILL_SHAPE_CAPSULE_WHITE_REDLINE "pill19"
+#define PILL_SHAPE_CAPSULE_PURPLE_YELLOW "pill20"
+#define PILL_SHAPE_CAPSULE_BLACK_WHITE "pill21"
+#define PILL_SHAPE_CAPSULE_HAPPY "pill_happy"

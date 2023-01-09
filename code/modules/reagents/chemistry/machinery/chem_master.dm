@@ -368,7 +368,7 @@
 							P.icon_state ="pill[rand(1,21)]"
 						else
 							P.icon_state = "pill[chosenPillStyle]"
-						if(P.icon_state == "pill4")
+						if(P.icon_state == PILL_SHAPE_CAPSULE_BLOODRED)
 							P.desc = "A tablet or capsule, but not just any, a red one, one taken by the ones not scared of knowledge, freedom, uncertainty and the brutal truths of reality."
 						adjust_item_drop_location(P)
 						reagents.trans_to(P, vol_each, transfered_by = usr)
