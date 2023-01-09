@@ -2500,95 +2500,95 @@
 	icon = 'icons/mob/apid_accessories.dmi'
 
 /datum/sprite_accessory/apid_antenna/moth
-	name = "mothlike antenna"
+	name = "Mothlike Antenna"
 	icon_state = "moth"
 
 /datum/sprite_accessory/apid_antenna/fluffy
-	name = "fluffy antenna"
+	name = "Fluffy Antenna"
 	icon_state = "fluffy"
 
 /datum/sprite_accessory/apid_antenna/wavy
-	name = "wavy antenna"
+	name = "Wavy Antenna"
 	icon_state = "wavy"
 
 /datum/sprite_accessory/apid_antenna/slickback
-	name = "slickback antenna"
+	name = "Slickback Antenna"
 	icon_state = "slickback"
 
 /datum/sprite_accessory/apid_antenna/horns
-	name = "horned antenna"
+	name = "Horned Antenna"
 	icon_state = "horns"
 
 /datum/sprite_accessory/apid_antenna/straight
-	name = "straight antenna"
+	name = "Straight Antenna"
 	icon_state = "straight"
 
 /datum/sprite_accessory/apid_antenna/triangle
-	name = "triangle antenna"
+	name = "Triangle Antenna"
 	icon_state = "triangle"
 
 /datum/sprite_accessory/apid_antenna/electric
-	name = "electric antenna"
+	name = "Electric Antenna"
 	icon_state = "electric"
 
 /datum/sprite_accessory/apid_antenna/leafy
-	name = "leafy antenna"
+	name = "Leafy Antenna"
 	icon_state = "leafy"
 
 /datum/sprite_accessory/apid_antenna/royal
-	name = "royal antenna"
+	name = "Royal Antenna"
 	icon_state = "royal"
 
 /datum/sprite_accessory/apid_antenna/wisp
-	name = "wispy antenna"
+	name = "Wispy Antenna"
 	icon_state = "wisp"
 
 /datum/sprite_accessory/apid_antenna/plug
-	name = "plugged antenna"
+	name = "Plugged Antenna"
 	icon_state = "plug"
 
 /datum/sprite_accessory/apid_antenna/warrior
-	name = "warrior antenna"
+	name = "Warrior Antenna"
 	icon_state = "warrior"
 
 /datum/sprite_accessory/apid_antenna/sidelights
-	name = "sidelighted antenna"
+	name = "Sidelighted Antenna"
 	icon_state = "sidelights"
 
 /datum/sprite_accessory/apid_antenna/sprouts
-	name = "sprouting antenna"
+	name = "Sprouting Antenna"
 	icon_state = "sprouts"
 
 /datum/sprite_accessory/apid_antenna/nubs
-	name = "nubby antenna"
+	name = "Nubby Antenna"
 	icon_state = "nubs"
 
 /datum/sprite_accessory/apid_antenna/ant
-	name = "antlike antenna"
+	name = "Antlike Antenna"
 	icon_state = "ant"
 
 /datum/sprite_accessory/apid_antenna/crooked
-	name = "crooked antenna"
+	name = "Crooked Antenna"
 	icon_state = "crooked"
 
 /datum/sprite_accessory/apid_antenna/curled
-	name = "curled antenna"
+	name = "Curled Antenna"
 	icon_state = "curled"
 
 /datum/sprite_accessory/apid_antenna/snapped
-	name = "snapped antenna"
+	name = "Snapped Antenna"
 	icon_state = "snapped"
 
 /datum/sprite_accessory/apid_antenna/budding
-	name = "budding antenna"
+	name = "Budding Antenna"
 	icon_state = "budding"
 
 /datum/sprite_accessory/apid_antenna/bumpers
-	name = "bumpery antenna"
+	name = "Bumpery Antenna"
 	icon_state = "bumpers"
 
 /datum/sprite_accessory/apid_antenna/split
-	name = "split antenna"
+	name = "Split Antenna"
 	icon_state = "split"
 
 /datum/sprite_accessory/apid_stripes
@@ -2596,27 +2596,27 @@
 	gender_specific = TRUE
 
 /datum/sprite_accessory/apid_stripes/none
-	name = "no stripes"
+	name = "No Stripes"
 	icon_state = "none"
 
 /datum/sprite_accessory/apid_stripes/full
-	name = "full color"
+	name = "Full Color"
 	icon_state = "full"
 
 /datum/sprite_accessory/apid_stripes/thick
-	name = "thick stripes"
+	name = "Thick Stripes"
 	icon_state = "thick"
 
 /datum/sprite_accessory/apid_stripes/thin
-	name = "thin stripes"
+	name = "Thin Stripes"
 	icon_state = "thin"
 
 /datum/sprite_accessory/apid_stripes/wasp
-	name = "wasp stripes"
+	name = "Wasp Stripes"
 	icon_state = "wasp"
 
 /datum/sprite_accessory/apid_stripes/arachnid
-	name = "arachnid stripes"
+	name = "Arachnid Stripes"
 	icon_state = "arachnid"
 
 /datum/sprite_accessory/apid_headstripes
@@ -2624,34 +2624,34 @@
 	gender_specific = TRUE
 
 /datum/sprite_accessory/apid_headstripes/none
-	name = "no headstripes"
+	name = "No Headstripes"
 	icon_state = "none"
 
 /datum/sprite_accessory/apid_headstripes/full
-	name = "full headcolor"
+	name = "Full Headcolor"
 	icon_state = "full"
 
 /datum/sprite_accessory/apid_headstripes/thick
-	name = "thick headstripes"
+	name = "Thick Headstripes"
 	icon_state = "thick"
 
 /datum/sprite_accessory/apid_headstripes/thin
-	name = "thin headstripes"
+	name = "Thin Headstripes"
 	icon_state = "thin"
 
 /datum/sprite_accessory/apid_headstripes/cap
-	name = "headstripe cap"
+	name = "Headstripe Cap"
 	icon_state = "cap"
 
 /datum/sprite_accessory/apid_headstripes/neck
-	name = "neck headstripe"
+	name = "Neck Headstripe"
 	icon_state = "neck"
 
 
 /datum/sprite_accessory/apid_headstripes/wasp
-	name = "wasp headstripes"
+	name = "Wasp Headstripes"
 	icon_state = "wasp"
 
 /datum/sprite_accessory/apid_headstripes/arachnid
-	name = "arachnid headstripes"
+	name = "Arachnid Headstripes"
 	icon_state = "arachnid"

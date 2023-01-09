@@ -58,9 +58,9 @@
 						"ipc_antenna" = "None",
 						"ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)",
 						"insect_type" = "Common Fly",
-						"apid_antenna" = "curled",
-						"apid_stripes" = "thick",
-						"apid_headstripes" = "thick"
+						"apid_antenna" = "Curled",
+						"apid_stripes" = "Thick",
+						"apid_headstripes" = "Thick"
 					)
 	var/list/custom_names = list()
 	var/preferred_ai_core_display = "Blue"
