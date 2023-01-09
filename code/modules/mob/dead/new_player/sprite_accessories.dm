@@ -2497,7 +2497,7 @@
 //apids
 
 /datum/sprite_accessory/apid_antenna
-	icon = 'icons/mob/apid_accessories.dmi'
+	icon = 'icons/mob/apid_accessories/apid_antenna.dmi'
 
 /datum/sprite_accessory/apid_antenna/moth
 	name = "Mothlike Antenna"
@@ -2592,7 +2592,7 @@
 	icon_state = "split"
 
 /datum/sprite_accessory/apid_stripes
-	icon = 'icons/mob/apid_accessories.dmi'
+	icon = 'icons/mob/apid_accessories/apid_body.dmi'
 	gender_specific = TRUE
 
 /datum/sprite_accessory/apid_stripes/none
@@ -2620,7 +2620,7 @@
 	icon_state = "arachnid"
 
 /datum/sprite_accessory/apid_headstripes
-	icon = 'icons/mob/apid_accessories.dmi'
+	icon = 'icons/mob/apid_accessories/apid_head.dmi'
 	gender_specific = TRUE
 
 /datum/sprite_accessory/apid_headstripes/none
