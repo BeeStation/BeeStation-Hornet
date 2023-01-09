@@ -437,7 +437,7 @@
 
 /obj/item/storage/pill_bottle/brute_treatment
 	name = "bottle of brute-treatment pills"
-	desc = "Contains pills used to treat moderate to small brute injuries. The label on it says: 'Total contents: 7 pills of Bicaridine 15u + Salicyclic Acid 2u.'"
+	desc = "Contains pills used to treat moderate to small brute injuries. The label on it says: 'Total contents: 7 pills of Bicaridine 10u + Salicyclic Acid 2u.'"
 
 /obj/item/storage/pill_bottle/brute_treatment/PopulateContents()
 	for(var/i in 1 to 7)
@@ -445,7 +445,7 @@
 
 /obj/item/storage/pill_bottle/burn_treatment
 	name = "bottle of burn-treatment pills"
-	desc = "Contains pills used to treat moderate to small burns. The label on it says: 'Total contents: 7 pills of Kelotane 15u + Oxandrolone 2u.'"
+	desc = "Contains pills used to treat moderate to small burns. The label on it says: 'Total contents: 7 pills of Kelotane 10u + Oxandrolone 2u.'"
 
 /obj/item/storage/pill_bottle/burn_treatment/PopulateContents()
 	for(var/i in 1 to 7)
@@ -453,7 +453,7 @@
 
 /obj/item/storage/pill_bottle/first_aid_tricordrazine
 	name = "bottle of Pain Relief pills"
-	desc = "A pill bottle containing basic healing medicine. The label on it says: 'Total contents: Tricordrazine 36u x3. WARNING: Do NOT take more than one pill.'"
+	desc = "A pill bottle containing basic healing medicine. The label on it says: 'Total contents: Tricordrazine 36u x4. WARNING: Do NOT take more than one pill.'"
 
 /obj/item/storage/pill_bottle/first_aid_tricordrazine/PopulateContents()
 	for(var/i in 1 to 4)

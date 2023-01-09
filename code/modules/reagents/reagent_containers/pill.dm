@@ -152,7 +152,7 @@
 	name = "brute-treatment pill"
 	desc = "Used to stimulate the healing of small brute injuries."
 	icon_state = "pill9"
-	list_reagents = list(/datum/reagent/medicine/bicaridine = 15,
+	list_reagents = list(/datum/reagent/medicine/bicaridine = 10,
 						/datum/reagent/medicine/sal_acid = 2) // enough to heal 30 brute damage (2u / 0.2 = 10 ticks * 3 heal = 30 damage)
 	rename_with_volume = FALSE
 
@@ -160,7 +160,7 @@
 	name = "burn-treatment pill"
 	desc = "Used to stimulate the healing of small burns."
 	icon_state = "pill11"
-	list_reagents = list(/datum/reagent/medicine/kelotane = 15,
+	list_reagents = list(/datum/reagent/medicine/kelotane = 10,
 						/datum/reagent/medicine/oxandrolone = 2) // enough to heal 30 burn damage (2u / 0.2 = 10 ticks * 3 heal = 30 damage)
 	rename_with_volume = FALSE
 
