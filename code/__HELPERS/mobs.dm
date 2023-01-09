@@ -250,7 +250,7 @@ GLOBAL_LIST_EMPTY(species_list)
 		checked_health["health"] = health
 	return ..()
 
-/proc/do_after(mob/user, var/delay, needhand = 1, atom/target = null, progress = 1, datum/callback/extra_checks = null)
+/proc/do_after(mob/user, var/delay, needhand = 1, atom/target = null, progress = 1, datum/callback/extra_checks = null, icon/icon_file = null, var/icon_state = null)
 	if(!user)
 		return FALSE
 	var/atom/Tloc = null
@@ -276,8 +276,11 @@ GLOBAL_LIST_EMPTY(species_list)
 	delay *= user.cached_multiplicative_actions_slowdown
 
 	var/datum/progressbar/progbar
+	var/image/img
+	if(!isnull(icon_file) && !isnull(icon_state))
+		img = image(icon_file, icon_state = icon_state)
 	if(progress)
-		progbar = new(user, delay, target)
+		progbar = new(user, delay, target, img)
 
 	var/endtime = world.time + delay
 	var/starttime = world.time

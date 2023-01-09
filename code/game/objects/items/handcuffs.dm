@@ -165,7 +165,7 @@
 			to_chat(user, "<span class='warning'>You need at least six iron sheets to make good enough weights!</span>")
 			return
 		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
-		if(do_after(user, 35, target = src))
+		if(do_after(user, 35, target = src, icon_file = icon, icon_state = icon_state))
 			if(M.get_amount() < 6 || !M)
 				return
 			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola
