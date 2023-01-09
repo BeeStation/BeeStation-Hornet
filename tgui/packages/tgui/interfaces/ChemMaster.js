@@ -1,3 +1,4 @@
+import { classes } from 'common/react';
 import { useBackend, useSharedState } from '../backend';
 import { AnimatedNumber, Box, Button, ColorBox, Input, LabeledList, NumberInput, Section, Table } from '../components';
 import { Window } from '../layouts';
@@ -297,15 +298,19 @@ const PackagingControls = ({ volume, packagingName }, context) => {
     <LabeledList>
       {!condi && (
         <LabeledList.Item label="Pill type">
-          {pillStyles.map(pill => (
+          {pillStyles.map(each_style => (
             <Button
-              key={pill.id}
+              key={each_style.id}
               width="30px"
-              selected={pill.id === chosenPillStyle}
+              selected={each_style.id === chosenPillStyle}
               textAlign="center"
               color="transparent"
-              onClick={() => act('pillStyle', { id: pill.id })}>
-              <Box mx={-1} className={pill.className} />
+              onClick={() => act('pillStyle', { id: each_style.id })}>
+              <Box mx={-1}
+                className={classes([
+                  'pill24x24',
+                  each_style.pill_icon_name,
+                ])} />
             </Button>
           ))}
         </LabeledList.Item>

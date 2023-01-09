@@ -246,31 +246,27 @@
 	)
 
 /datum/asset/spritesheet/simple/pills
-	name ="pills"
-	assets = list(
-		"pill1" = 'icons/UI_Icons/Pills/pill1.png',
-		"pill2" = 'icons/UI_Icons/Pills/pill2.png',
-		"pill3" = 'icons/UI_Icons/Pills/pill3.png',
-		"pill4" = 'icons/UI_Icons/Pills/pill4.png',
-		"pill5" = 'icons/UI_Icons/Pills/pill5.png',
-		"pill6" = 'icons/UI_Icons/Pills/pill6.png',
-		"pill7" = 'icons/UI_Icons/Pills/pill7.png',
-		"pill8" = 'icons/UI_Icons/Pills/pill8.png',
-		"pill9" = 'icons/UI_Icons/Pills/pill9.png',
-		"pill10" = 'icons/UI_Icons/Pills/pill10.png',
-		"pill11" = 'icons/UI_Icons/Pills/pill11.png',
-		"pill12" = 'icons/UI_Icons/Pills/pill12.png',
-		"pill13" = 'icons/UI_Icons/Pills/pill13.png',
-		"pill14" = 'icons/UI_Icons/Pills/pill14.png',
-		"pill15" = 'icons/UI_Icons/Pills/pill15.png',
-		"pill16" = 'icons/UI_Icons/Pills/pill16.png',
-		"pill17" = 'icons/UI_Icons/Pills/pill17.png',
-		"pill18" = 'icons/UI_Icons/Pills/pill18.png',
-		"pill19" = 'icons/UI_Icons/Pills/pill19.png',
-		"pill20" = 'icons/UI_Icons/Pills/pill20.png',
-		"pill21" = 'icons/UI_Icons/Pills/pill21.png',
-		"pill22" = 'icons/UI_Icons/Pills/pill22.png',
-	)
+	name ="pill"
+
+/datum/asset/spritesheet/simple/pills/register()
+	var/dmi_file = "icons/obj/chemical.dmi"
+	for(var/i in 1 to PILL_STYLE_COUNT)
+		var/icon_file = "pill_[i]"
+		var/icon/target_icon = icon(dmi_file, icon_file, SOUTH)
+		if(target_icon)
+			target_icon.Crop(10,21, 22,9)
+			target_icon.Scale(24, 24)
+		Insert(icon_file, target_icon)
+
+	// hardcoding ones
+	for(var/each in PILL_LIST_NON_NUMBER_PILLS)
+		var/icon_file = "pill_[each]"
+		var/icon/target_icon = icon(dmi_file, icon_file, SOUTH)
+		if(target_icon)
+			target_icon.Crop(10,21, 22,9)
+			target_icon.Scale(24, 24)
+		Insert(icon_file, target_icon)
+	return ..()
 
 //this exists purely to avoid meta by pre-loading all language icons.
 /datum/asset/language/register()
@@ -431,6 +427,7 @@
 
 		Insert(imgid, I)
 	return ..()
+
 /datum/asset/simple/bee_antags
 	assets = list(
 		"traitor.png" = 'html/img/traitor.png',

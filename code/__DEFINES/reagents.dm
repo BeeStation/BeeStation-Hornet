@@ -56,30 +56,42 @@
 
 
 // pill shapes - check 'chemical.dmi' for the shape
-#define PILL_SHAPE_CAPSULE_PURPLE_PINK "pill1"
-#define PILL_SHAPE_CAPSULE_GREEN_WHITE "pill2"
-#define PILL_SHAPE_CAPSULE_SKYBLUE "pill3"
-#define PILL_SHAPE_CAPSULE_BLOODRED "pill4"
-#define PILL_SHAPE_CAPSULE_RED_WHITELINE "pill5"
-#define PILL_SHAPE_CAPSULE_CYAN_BROWN "pill6"
-#define PILL_SHAPE_TABLET_YELLOW "pill7"
-#define PILL_SHAPE_TABLET_SKYBLUE "pill8"
-#define PILL_SHAPE_TABLET_WHITE "pill9"
-#define PILL_SHAPE_TABLET_PURPLE "pill10"
-#define PILL_SHAPE_TABLET_LIGHTGREEN "pill11"
-#define PILL_SHAPE_TABLET_LIGHTRED "pill12"
-#define PILL_SHAPE_TABLET_GREEN_PURPLE "pill13"
-#define PILL_SHAPE_TABLET_YELLOW_PURPLE "pill14"
-#define PILL_SHAPE_TABLET_RED_YELLOW "pill15"
-#define PILL_SHAPE_TABLET_BLUE_SKYBLUE "pill16"
-#define PILL_SHAPE_TABLET_GREEN "pill17"
-#define PILL_SHAPE_CAPSULE_WHITE "pill18"
-#define PILL_SHAPE_CAPSULE_WHITE_REDLINE "pill19"
-#define PILL_SHAPE_CAPSULE_PURPLE_YELLOW "pill20"
-#define PILL_SHAPE_CAPSULE_BLACK_WHITE "pill21"
-#define PILL_SHAPE_CAPSULE_LIGHTGREEN_WHITE "pill22"
-#define PILL_SHAPE_CAPSULE_HAPPY "pill_happy"
+#define PILL_SHAPE_CAPSULE_PURPLE_PINK "pill_1"
+#define PILL_SHAPE_CAPSULE_GREEN_WHITE "pill_2"
+#define PILL_SHAPE_CAPSULE_SKYBLUE "pill_3"
+#define PILL_SHAPE_CAPSULE_BLOODRED "pill_4"
+#define PILL_SHAPE_CAPSULE_RED_WHITELINE "pill_5"
+#define PILL_SHAPE_CAPSULE_CYAN_BROWN "pill_6"
+#define PILL_SHAPE_TABLET_YELLOW "pill_7"
+#define PILL_SHAPE_TABLET_SKYBLUE "pill_8"
+#define PILL_SHAPE_TABLET_WHITE "pill_9"
+#define PILL_SHAPE_TABLET_PURPLE "pill_10"
+#define PILL_SHAPE_TABLET_LIGHTGREEN "pill_11"
+#define PILL_SHAPE_TABLET_LIGHTRED "pill_12"
+#define PILL_SHAPE_TABLET_GREEN_PURPLE "pill_13"
+#define PILL_SHAPE_TABLET_YELLOW_PURPLE "pill_14"
+#define PILL_SHAPE_TABLET_RED_YELLOW "pill_15"
+#define PILL_SHAPE_TABLET_BLUE_SKYBLUE "pill_16"
+#define PILL_SHAPE_TABLET_GREEN "pill_17"
+#define PILL_SHAPE_CAPSULE_WHITE "pill_18"
+#define PILL_SHAPE_CAPSULE_WHITE_REDLINE "pill_19"
+#define PILL_SHAPE_CAPSULE_PURPLE_YELLOW "pill_20"
+#define PILL_SHAPE_CAPSULE_BLACK_WHITE "pill_21"
+#define PILL_SHAPE_CAPSULE_LIGHTGREEN_WHITE "pill_22"
+#define PILL_SHAPE_TABLET_HAPPY "pill_happy"
+#define PILL_SHAPE_TABLET_ANGRY "pill_angry"
+#define PILL_SHAPE_TABLET_SAD "pill_sad"
+
+#define PILL_SHAPE_SELECTION_RANDOM "question" // a dummy icon that is used to pick a random icons (note: this won't let ChemMaster pick non-numbered pill icons)
+#define PILL_SHAPE_SELECTION_HAPPY "happy"
+#define PILL_SHAPE_SELECTION_ANGRY "angry"
+#define PILL_SHAPE_SELECTION_SAD "sad"
+
+#define PILL_LIST_NON_NUMBER_PILLS list(\
+		PILL_SHAPE_SELECTION_HAPPY, \
+		PILL_SHAPE_SELECTION_ANGRY, \
+		PILL_SHAPE_SELECTION_SAD, \
+		PILL_SHAPE_SELECTION_RANDOM)
 
 //used by chem masters and pill presses
-#define PILL_STYLE_COUNT 22  //Update this if you add more pill icons or you die
-#define RANDOM_PILL_STYLE (PILL_STYLE_COUNT+1) // it lets you to pick a random pill style
+#define PILL_STYLE_COUNT 22  //total number of 'numbered' pills. please update this if a new pill is added

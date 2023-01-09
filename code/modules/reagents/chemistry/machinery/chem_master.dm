@@ -16,11 +16,11 @@
 	var/obj/item/storage/pill_bottle/bottle = null
 	var/mode = 1
 	var/condi = FALSE
-	var/chosenPillStyle = 1
+	var/chosenPillStyle = "1"
 	var/screen = "home"
 	var/analyzeVars[0]
 	var/useramount = 30 // Last used amount
-	var/list/pillStyles = null
+	var/static/list/pillStyles = list()
 
 	// Persistent UI states
 	var/saved_name_state = "Auto"
@@ -33,13 +33,18 @@
 	create_reagents(100)
 
 	//Calculate the span tags and ids fo all the available pill icons
-	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/pills)
-	pillStyles = list()
-	for (var/x in 1 to RANDOM_PILL_STYLE)
-		var/list/SL = list()
-		SL["id"] = x
-		SL["className"] = assets.icon_class_name("pill[x]")
-		pillStyles += list(SL)
+	if(!length(pillStyles))
+		for (var/x in 1 to PILL_STYLE_COUNT)
+			var/list/SL = list()
+			SL["id"] = "[x]"
+			SL["pill_icon_name"] = "pill_[x]"
+			pillStyles += list(SL)
+
+		for(var/x in PILL_LIST_NON_NUMBER_PILLS)
+			var/list/SL = list()
+			SL["id"] = "[x]"
+			SL["pill_icon_name"] = "pill_[x]"
+			pillStyles += list(SL)
 
 	. = ..()
 
@@ -189,7 +194,7 @@
 	data["saved_name_state"] = saved_name_state
 	data["saved_volume_state"] = saved_volume_state
 	data["analyzeVars"] = analyzeVars
-	data["chosenPillStyle"] = chosenPillStyle
+	data["chosenPillStyle"] = "[chosenPillStyle]"
 	data["isPillBottleLoaded"] = bottle ? 1 : 0
 	if(bottle)
 		var/datum/component/storage/STRB = bottle.GetComponent(/datum/component/storage)
@@ -279,8 +284,7 @@
 			mode = !mode
 			. = TRUE
 		if("pillStyle")
-			var/id = text2num(params["id"])
-			chosenPillStyle = id
+			chosenPillStyle = "[params["id"]]"
 			. = TRUE
 		if("create")
 			if(reagents.total_volume == 0)
@@ -364,10 +368,10 @@
 							P = new/obj/item/reagent_containers/pill(drop_location())
 						P.name = trim("[name] pill")
 						P.label_name = trim(name)
-						if(chosenPillStyle == RANDOM_PILL_STYLE)
-							P.icon_state ="pill[rand(1,PILL_STYLE_COUNT)]"
+						if(chosenPillStyle == PILL_SHAPE_SELECTION_RANDOM)
+							P.icon_state ="pill_[rand(1,PILL_STYLE_COUNT)]"
 						else
-							P.icon_state = "pill[chosenPillStyle]"
+							P.icon_state = "pill_[chosenPillStyle]"
 						if(P.icon_state == PILL_SHAPE_CAPSULE_BLOODRED)
 							P.desc = "A tablet or capsule, but not just any, a red one, one taken by the ones not scared of knowledge, freedom, uncertainty and the brutal truths of reality."
 						adjust_item_drop_location(P)

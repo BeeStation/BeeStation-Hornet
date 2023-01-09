@@ -534,7 +534,7 @@
 		drug_container_type = /obj/item/storage/pill_bottle
 	var/obj/item/drug_instance = new drug_container_type(current_turf)
 	if (istype(drug_instance, /obj/item/storage/pill_bottle))
-		var/pill_state = "pill[rand(1,PILL_STYLE_COUNT)]"
+		var/pill_state = "pill_[rand(1,PILL_STYLE_COUNT)]"
 		for(var/i in 1 to 7)
 			var/obj/item/reagent_containers/pill/P = new(drug_instance)
 			P.icon_state = pill_state

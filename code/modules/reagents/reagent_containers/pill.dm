@@ -18,7 +18,7 @@
 /obj/item/reagent_containers/pill/Initialize(mapload)
 	. = ..()
 	if(!icon_state)
-		icon_state = "pill[rand(1,PILL_STYLE_COUNT)]"
+		icon_state = "pill_[rand(1,PILL_STYLE_COUNT)]"
 	if(reagents.total_volume && rename_with_volume)
 		name += " ([reagents.total_volume]u)"
 
@@ -243,7 +243,7 @@
 	name = "happy pill"
 	desc = "They have little happy faces on them, and they smell like marker pens."
 	list_reagents = list(/datum/reagent/consumable/sugar = 10, /datum/reagent/drug/space_drugs = 10)
-	icon_state = PILL_SHAPE_CAPSULE_HAPPY
+	icon_state = PILL_SHAPE_TABLET_HAPPY
 
 
 /obj/item/reagent_containers/pill/lsd
@@ -262,7 +262,7 @@
 /obj/item/reagent_containers/pill/happiness
 	name = "happiness pill"
 	desc = "It has a creepy smiling face on it."
-	icon_state = PILL_SHAPE_CAPSULE_HAPPY
+	icon_state = PILL_SHAPE_TABLET_HAPPY
 	list_reagents = list(/datum/reagent/drug/happiness = 10)
 
 /obj/item/reagent_containers/pill/floorpill
