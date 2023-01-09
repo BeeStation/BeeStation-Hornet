@@ -34,9 +34,6 @@
 #define MIMEDRINK_SILENCE_DURATION 30  //ends up being 60 seconds given 1 tick every 2 seconds
 #define THRESHOLD_UNHUSK 50 //Health treshold for synthflesh and rezadone to unhusk someone
 
-//used by chem masters and pill presses
-#define PILL_STYLE_COUNT 22 //Update this if you add more pill icons or you die
-#define RANDOM_PILL_STYLE 22 //Dont change this one though
 
 
 // synthesizable part - can this reagent be synthesized? (for example: odysseus syringe gun)
@@ -83,4 +80,6 @@
 #define PILL_SHAPE_CAPSULE_LIGHTGREEN_WHITE "pill22"
 #define PILL_SHAPE_CAPSULE_HAPPY "pill_happy"
 
-#define PILL_SHAPE_COUNT 22 // We have currently 22 pill shapes
+//used by chem masters and pill presses
+#define PILL_STYLE_COUNT 22  //Update this if you add more pill icons or you die
+#define RANDOM_PILL_STYLE (PILL_STYLE_COUNT+1) // it lets you to pick a random pill style

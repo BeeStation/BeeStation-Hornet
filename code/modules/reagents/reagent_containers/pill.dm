@@ -18,7 +18,7 @@
 /obj/item/reagent_containers/pill/Initialize(mapload)
 	. = ..()
 	if(!icon_state)
-		icon_state = "pill[rand(1,PILL_SHAPE_COUNT)]"
+		icon_state = "pill[rand(1,PILL_STYLE_COUNT)]"
 	if(reagents.total_volume && rename_with_volume)
 		name += " ([reagents.total_volume]u)"
 

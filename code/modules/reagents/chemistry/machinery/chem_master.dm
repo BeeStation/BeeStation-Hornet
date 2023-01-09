@@ -35,7 +35,7 @@
 	//Calculate the span tags and ids fo all the available pill icons
 	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/pills)
 	pillStyles = list()
-	for (var/x in 1 to PILL_STYLE_COUNT)
+	for (var/x in 1 to RANDOM_PILL_STYLE)
 		var/list/SL = list()
 		SL["id"] = x
 		SL["className"] = assets.icon_class_name("pill[x]")
@@ -365,7 +365,7 @@
 						P.name = trim("[name] pill")
 						P.label_name = trim(name)
 						if(chosenPillStyle == RANDOM_PILL_STYLE)
-							P.icon_state ="pill[rand(1,21)]"
+							P.icon_state ="pill[rand(1,PILL_STYLE_COUNT)]"
 						else
 							P.icon_state = "pill[chosenPillStyle]"
 						if(P.icon_state == PILL_SHAPE_CAPSULE_BLOODRED)
