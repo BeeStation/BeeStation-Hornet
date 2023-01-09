@@ -55,6 +55,13 @@
 #define CHEMICAL_GOAL_BARTENDER_SERVING    (1<<21) // !NOTE: not implemented, but refactored for preparation - i.e.) serve Bacchus' blessing to 10 crews
 
 
+
+/*// pill size standard
+	Since sprite asset code crops the pill image, you are required to make a pill image within [10,24,22,9] squared area.
+	There is a dummy image that you can recognise the size of a cropped pill image in 'chemical.dmi'
+	The black line counts, so you can use that area for your sprite as well.
+*/
+
 // pill shapes - check 'chemical.dmi' for the shape
 #define PILL_SHAPE_CAPSULE_PURPLE_PINK "pill_1"
 #define PILL_SHAPE_CAPSULE_GREEN_WHITE "pill_2"
