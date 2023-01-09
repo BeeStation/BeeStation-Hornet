@@ -59,6 +59,8 @@ GLOBAL_LIST_INIT(disposal_pipe_recipes, list(
 		new /datum/pipe_info/disposal("Bin",			/obj/machinery/disposal/bin, PIPE_ONEDIR),
 		new /datum/pipe_info/disposal("Outlet",			/obj/structure/disposaloutlet),
 		new /datum/pipe_info/disposal("Chute",			/obj/machinery/disposal/deliveryChute),
+		new /datum/pipe_info/disposal("Multi-Z Trunk (Up)",		/obj/structure/disposalpipe/trunk/multiz, PIPE_UNARY),
+		new /datum/pipe_info/disposal("Multi-Z Trunk (Down)",	/obj/structure/disposalpipe/trunk/multiz/down, PIPE_UNARY),
 	)
 ))
 
