@@ -1,5 +1,0 @@
-author: benbot16
-delete-after: true
-changes:
-  - rscadd: Adds multi-Z trunks to pipe dispensers.
-  - imageadd: Adds construction sprites for multi-Z trunks.

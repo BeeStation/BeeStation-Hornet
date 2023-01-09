@@ -1,5 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - rscadd: Added a confirmation for sending OOC messages mid-round if the user is
-      able
