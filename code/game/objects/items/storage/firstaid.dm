@@ -36,7 +36,7 @@
 		/obj/item/stack/medical/gauze = 1,
 		/obj/item/stack/medical/bruise_pack = 1,
 		/obj/item/stack/medical/ointment = 1,
-		/obj/item/storage/pill_bottle/tricordrazine_first_aid = 1,
+		/obj/item/storage/pill_bottle/first_aid_tricordrazine = 1,
 		/obj/item/reagent_containers/hypospray/medipen = 3)
 	generate_items_inside(items_inside,src)
 
@@ -111,7 +111,7 @@
 		/obj/item/stack/medical/gauze = 1,
 		/obj/item/stack/medical/bruise_pack = 1,
 		/obj/item/stack/medical/ointment = 1,
-		/obj/item/storage/pill_bottle/tricordrazine_first_aid/medical_doctor = 1,
+		/obj/item/storage/pill_bottle/first_aid_tricordrazine/medical_doctor = 1,
 		/obj/item/reagent_containers/hypospray/medipen = 1,
 		/obj/item/healthanalyzer = 1,
 		/obj/item/surgical_drapes = 1,
@@ -138,9 +138,9 @@
 	var/static/items_inside = list(
 		/obj/item/stack/medical/gauze = 2,
 		/obj/item/stack/medical/bruise_pack = 2,
-		/obj/item/storage/pill_bottle/bicaridine = 1,
+		/obj/item/storage/pill_bottle/brute_treatment = 1,
 		/obj/item/stack/medical/ointment= 2,
-		/obj/item/storage/pill_bottle/kelotane = 1)
+		/obj/item/storage/pill_bottle/burn_treatment = 1)
 	generate_items_inside(items_inside,src)
 
 
@@ -165,7 +165,7 @@
 		return
 	var/static/items_inside = list(
 		/obj/item/reagent_containers/pill/patch/silver_sulf = 4,
-		/obj/item/storage/pill_bottle/kelotane = 1,
+		/obj/item/storage/pill_bottle/burn_treatment = 1,
 		/obj/item/stack/medical/ointment = 2)
 	generate_items_inside(items_inside,src)
 
@@ -266,7 +266,7 @@
 		return
 	var/static/items_inside = list(
 		/obj/item/reagent_containers/pill/patch/styptic = 4,
-		/obj/item/storage/pill_bottle/bicaridine = 1,
+		/obj/item/storage/pill_bottle/brute_treatment = 1,
 		/obj/item/stack/medical/bruise_pack = 1,
 		/obj/item/stack/medical/gauze = 1)
 	generate_items_inside(items_inside,src)
@@ -326,7 +326,7 @@
 		/obj/item/reagent_containers/hypospray/medipen/atropine,
 		/obj/item/storage/pill_bottle/penacid,
 		/obj/item/reagent_containers/pill/patch/styptic,
-		/obj/item/storage/pill_bottle/bicaridine,
+		/obj/item/storage/pill_bottle/brute_treatment,
 		/obj/item/reagent_containers/pill/salbutamol,
 		/obj/item/reagent_containers/hypospray/medipen/dexalin,
 		/obj/item/reagent_containers/pill/mutadone,
@@ -336,7 +336,7 @@
 		/obj/item/reagent_containers/syringe/diphenhydramine,
 		/obj/item/storage/pill_bottle/charcoal,
 		/obj/item/reagent_containers/pill/patch/silver_sulf,
-		/obj/item/storage/pill_bottle/kelotane)
+		/obj/item/storage/pill_bottle/burn_treatment)
 	for(var/i in 1 to 6)
 		var/selected_type = pick(supplies)
 		new selected_type(src)
@@ -435,36 +435,36 @@
 	for(var/i in 1 to 7)
 		new /obj/item/reagent_containers/pill/charcoal(src)
 
-/obj/item/storage/pill_bottle/bicaridine
-	name = "bottle of bicaridine pills"
-	desc = "Contains pills used to treat moderate to small brute injuries."
+/obj/item/storage/pill_bottle/brute_treatment
+	name = "bottle of brute-treatment pills"
+	desc = "Contains pills used to treat moderate to small brute injuries. The label on it says: 'Total contents: 7 pills of Bicaridine 15u + Salicyclic Acid 2u.'"
 
-/obj/item/storage/pill_bottle/bicaridine/PopulateContents()
+/obj/item/storage/pill_bottle/brute_treatment/PopulateContents()
 	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/pill/bicaridine(src)
+		new /obj/item/reagent_containers/pill/brute_treatment(src)
 
-/obj/item/storage/pill_bottle/kelotane
-	name = "bottle of kelotane pills"
-	desc = "Contains pills used to treat moderate to small burns."
+/obj/item/storage/pill_bottle/burn_treatment
+	name = "bottle of burn-treatment pills"
+	desc = "Contains pills used to treat moderate to small burns. The label on it says: 'Total contents: 7 pills of Kelotane 15u + Oxandrolone 2u.'"
 
-/obj/item/storage/pill_bottle/kelotane/PopulateContents()
+/obj/item/storage/pill_bottle/burn_treatment/PopulateContents()
 	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/pill/kelotane(src)
+		new /obj/item/reagent_containers/pill/burn_treatment(src)
 
-/obj/item/storage/pill_bottle/tricordrazine_first_aid
+/obj/item/storage/pill_bottle/first_aid_tricordrazine
 	name = "bottle of Pain Relief pills"
 	desc = "A pill bottle containing basic healing medicine. The label on it says: 'Total contents: Tricordrazine 36u x3. WARNING: Do NOT take more than one pill.'"
 
-/obj/item/storage/pill_bottle/tricordrazine_first_aid/PopulateContents()
+/obj/item/storage/pill_bottle/first_aid_tricordrazine/PopulateContents()
 	for(var/i in 1 to 3)
-		new /obj/item/reagent_containers/pill/tricordrazine_first_aid(src)
+		new /obj/item/reagent_containers/pill/first_aid_tricordrazine(src)
 
-/obj/item/storage/pill_bottle/tricordrazine_first_aid/medical_doctor
+/obj/item/storage/pill_bottle/first_aid_tricordrazine/medical_doctor
 	desc = "A pill bottle containing basic healing medicine. The label on it says: 'Total contents: Tricordrazine 36u x7. WARNING: Do NOT take more than one pill.'"
 
-/obj/item/storage/pill_bottle/tricordrazine_first_aid/medical_doctor/PopulateContents()
+/obj/item/storage/pill_bottle/first_aid_tricordrazine/medical_doctor/PopulateContents()
 	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/pill/tricordrazine_first_aid(src)
+		new /obj/item/reagent_containers/pill/first_aid_tricordrazine(src)
 
 /obj/item/storage/pill_bottle/antirad
 	name = "bottle of anti-radiation pills"

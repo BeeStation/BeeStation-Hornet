@@ -148,21 +148,23 @@
 	list_reagents = list(/datum/reagent/medicine/mutadone = 50)
 	rename_with_volume = TRUE
 
-/obj/item/reagent_containers/pill/bicaridine
-	name = "bicaridine pill"
+/obj/item/reagent_containers/pill/brute_treatment
+	name = "brute-treatment pill"
 	desc = "Used to stimulate the healing of small brute injuries."
 	icon_state = "pill9"
-	list_reagents = list(/datum/reagent/medicine/bicaridine = 15)
-	rename_with_volume = TRUE
+	list_reagents = list(/datum/reagent/medicine/bicaridine = 15,
+						/datum/reagent/medicine/sal_acid = 2) // enough to heal 30 brute damage (2u / 0.2 = 10 ticks * 3 heal = 30 damage)
+	rename_with_volume = FALSE
 
-/obj/item/reagent_containers/pill/kelotane
-	name = "kelotane pill"
+/obj/item/reagent_containers/pill/burn_treatment
+	name = "burn-treatment pill"
 	desc = "Used to stimulate the healing of small burns."
 	icon_state = "pill11"
-	list_reagents = list(/datum/reagent/medicine/kelotane = 15)
-	rename_with_volume = TRUE
+	list_reagents = list(/datum/reagent/medicine/kelotane = 15,
+						/datum/reagent/medicine/oxandrolone = 2) // enough to heal 30 burn damage (2u / 0.2 = 10 ticks * 3 heal = 30 damage)
+	rename_with_volume = FALSE
 
-/obj/item/reagent_containers/pill/tricordrazine_first_aid
+/obj/item/reagent_containers/pill/first_aid_tricordrazine
 	name = "Pain Relief pill"
 	desc = "A pill that cures basic ailments. You feel like you should read the instructions on the pill bottle again..."
 	icon_state = "pill_happy"
