@@ -253,18 +253,20 @@
 	for(var/i in 1 to PILL_STYLE_COUNT)
 		var/icon_file = "pill_[i]"
 		var/icon/target_icon = icon(dmi_file, icon_file, SOUTH)
-		if(target_icon)
-			target_icon.Crop(10,21, 22,9)
-			target_icon.Scale(24, 24)
+		if(!target_icon)
+			continue
+		target_icon.Crop(10,21, 22,9)
+		target_icon.Scale(24, 24)
 		Insert(icon_file, target_icon)
 
 	// hardcoding ones
 	for(var/each in PILL_LIST_NON_NUMBER_PILLS)
 		var/icon_file = "pill_[each]"
 		var/icon/target_icon = icon(dmi_file, icon_file, SOUTH)
-		if(target_icon)
-			target_icon.Crop(10,21, 22,9)
-			target_icon.Scale(24, 24)
+		if(!target_icon)
+			continue
+		target_icon.Crop(10,21, 22,9)
+		target_icon.Scale(24, 24)
 		Insert(icon_file, target_icon)
 	return ..()
 
