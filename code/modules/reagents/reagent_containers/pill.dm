@@ -18,7 +18,7 @@
 /obj/item/reagent_containers/pill/Initialize(mapload)
 	. = ..()
 	if(!icon_state)
-		icon_state = "pill[rand(1,20)]"
+		icon_state = "pill[rand(1,PILL_SHAPE_COUNT)]"
 	if(reagents.total_volume && rename_with_volume)
 		name += " ([reagents.total_volume]u)"
 
@@ -187,21 +187,21 @@
 	name = "psicodine pill"
 	desc = "Used to treat mental instability and phobias."
 	list_reagents = list(/datum/reagent/medicine/psicodine = 10)
-	icon_state = "pill22"
+	icon_state = PILL_SHAPE_CAPSULE_LIGHTGREEN_WHITE
 	rename_with_volume = TRUE
 
 /obj/item/reagent_containers/pill/penacid
 	name = "pentetic acid pill"
 	desc = "Used to expunge radiation and toxins."
 	list_reagents = list(/datum/reagent/medicine/pen_acid = 10)
-	icon_state = "pill22"
+	icon_state = PILL_SHAPE_CAPSULE_LIGHTGREEN_WHITE
 	rename_with_volume = TRUE
 
 /obj/item/reagent_containers/pill/neurine
 	name = "neurine pill"
 	desc = "Used to treat non-severe mental traumas."
 	list_reagents = list(/datum/reagent/medicine/neurine = 10)
-	icon_state = "pill22"
+	icon_state = PILL_SHAPE_CAPSULE_LIGHTGREEN_WHITE
 	rename_with_volume = TRUE
 
 /obj/item/reagent_containers/pill/mutarad

@@ -80,4 +80,7 @@
 #define PILL_SHAPE_CAPSULE_WHITE_REDLINE "pill19"
 #define PILL_SHAPE_CAPSULE_PURPLE_YELLOW "pill20"
 #define PILL_SHAPE_CAPSULE_BLACK_WHITE "pill21"
+#define PILL_SHAPE_CAPSULE_LIGHTGREEN_WHITE "pill22"
 #define PILL_SHAPE_CAPSULE_HAPPY "pill_happy"
+
+#define PILL_SHAPE_COUNT 22 // We have currently 22 pill shapes
