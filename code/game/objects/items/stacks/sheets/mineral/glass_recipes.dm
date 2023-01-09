@@ -5,17 +5,7 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 	new/datum/stack_recipe("fulltile window", /obj/structure/window/fulltile/unanchored, 2, on_floor = TRUE, window_checks = TRUE) \
 ))
 
-/obj/item/stack/sheet/glass/fifty
-	amount = 50
-
-/obj/item/stack/sheet/glass/twenty
-	amount = 20
-
-/obj/item/stack/sheet/glass/ten
-	amount = 10
-
-/obj/item/stack/sheet/glass/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/glass)
 
 /obj/item/stack/sheet/glass/cyborg
 	materials = list()
@@ -32,17 +22,7 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	new/datum/stack_recipe("window firelock frame", /obj/structure/firelock_frame/window, 2, one_per_turf = TRUE, on_floor = TRUE, window_checks = FALSE, time = 5 SECONDS) \
 ))
 
-/obj/item/stack/sheet/rglass/fifty
-	amount = 50
-
-/obj/item/stack/sheet/rglass/twenty
-	amount = 20
-
-/obj/item/stack/sheet/rglass/ten
-	amount = 10
-
-/obj/item/stack/sheet/rglass/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/rglass)
 
 /* plasma glass */
 GLOBAL_LIST_INIT(pglass_recipes, list ( \
@@ -50,18 +30,7 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 	new/datum/stack_recipe("fulltile window", /obj/structure/window/plasma/fulltile/unanchored, 2, on_floor = TRUE, window_checks = TRUE) \
 ))
 
-
-/obj/item/stack/sheet/plasmaglass/fifty
-	amount = 50
-
-/obj/item/stack/sheet/plasmaglass/twenty
-	amount = 20
-
-/obj/item/stack/sheet/plasmaglass/ten
-	amount = 10
-
-/obj/item/stack/sheet/plasmaglass/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/plasmaglass)
 
 
 /* Reinforced plasma glass */
@@ -71,17 +40,7 @@ GLOBAL_LIST_INIT(prglass_recipes, list ( \
 	new/datum/stack_recipe("fulltile reinforced window", /obj/structure/window/plasma/reinforced/fulltile/unanchored, 2, on_floor = TRUE, window_checks = TRUE) \
 ))
 
-/obj/item/stack/sheet/plasmarglass/fifty
-	amount = 50
-
-/obj/item/stack/sheet/plasmarglass/twenty
-	amount = 20
-
-/obj/item/stack/sheet/plasmarglass/ten
-	amount = 10
-
-/obj/item/stack/sheet/plasmarglass/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/plasmarglass)
 
 /* Titanium glass */
 
@@ -89,18 +48,7 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 	new/datum/stack_recipe("shuttle window", /obj/structure/window/shuttle/unanchored, 2, on_floor = TRUE, window_checks = TRUE)
 	))
 
-/obj/item/stack/sheet/titaniumglass/fifty
-	amount = 50
-
-/obj/item/stack/sheet/titaniumglass/twenty
-	amount = 20
-
-/obj/item/stack/sheet/titaniumglass/ten
-	amount = 10
-
-/obj/item/stack/sheet/titaniumglass/five
-	amount = 5
-
+STACKSIZE_MACRO(/obj/item/stack/sheet/titaniumglass)
 
 /* Plastitanium glass */
 
@@ -108,14 +56,4 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	new/datum/stack_recipe("plastitanium window", /obj/structure/window/plastitanium/unanchored, 2, on_floor = TRUE, window_checks = TRUE)
 	))
 
-/obj/item/stack/sheet/plastitaniumglass/fifty
-	amount = 50
-
-/obj/item/stack/sheet/plastitaniumglass/twenty
-	amount = 20
-
-/obj/item/stack/sheet/plastitaniumglass/ten
-	amount = 10
-
-/obj/item/stack/sheet/plastitaniumglass/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/plastitaniumglass)

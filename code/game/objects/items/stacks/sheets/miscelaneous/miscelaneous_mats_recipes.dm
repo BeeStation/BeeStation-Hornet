@@ -2,31 +2,11 @@
 
 GLOBAL_LIST_INIT(wax_recipes, list (new/datum/stack_recipe("Wax tile", /obj/item/stack/tile/mineral/wax, 1, 4, 20)))
 
-/obj/item/stack/sheet/wax/fifty
-	amount = 50
-
-/obj/item/stack/sheet/wax/twenty
-	amount = 20
-
-/obj/item/stack/sheet/wax/ten
-	amount = 10
-
-/obj/item/stack/sheet/wax/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/wax)
 
 /* Sandbags - no recipes sorry!*/
 
-/obj/item/stack/sheet/sandbags/fifty
-	amount = 50
-
-/obj/item/stack/sheet/sandbags/twenty
-	amount = 20
-
-/obj/item/stack/sheet/sandbags/ten
-	amount = 10
-
-/obj/item/stack/sheet/sandbags/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/sandbags)
 
 /* Snow */
 
@@ -37,17 +17,7 @@ GLOBAL_LIST_INIT(snow_recipes, list ( \
 	new/datum/stack_recipe("Snow tile", /obj/item/stack/tile/mineral/snow, 1, 4, 20), \
 ))
 
-/obj/item/stack/sheet/snow/fifty
-	amount = 50
-
-/obj/item/stack/sheet/snow/twenty
-	amount = 20
-
-/obj/item/stack/sheet/snow/ten
-	amount = 10
-
-/obj/item/stack/sheet/snow/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/snow)
 
 /* Plastic */
 
@@ -59,17 +29,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("plastic chair", /obj/structure/chair/fancy/plastic, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS), \
 ))
 
-/obj/item/stack/sheet/plastic/fifty
-	amount = 50
-
-/obj/item/stack/sheet/plastic/twenty
-	amount = 20
-
-/obj/item/stack/sheet/plastic/ten
-	amount = 10
-
-/obj/item/stack/sheet/plastic/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/plastic)
 
 /* Cardboard */
 
@@ -123,14 +83,4 @@ GLOBAL_LIST_INIT(cardboard_recipes, list ( \
 	null, \
 ))
 
-/obj/item/stack/sheet/cardboard/fifty
-	amount = 50
-
-/obj/item/stack/sheet/cardboard/twenty
-	amount = 20
-
-/obj/item/stack/sheet/cardboard/ten
-	amount = 10
-
-/obj/item/stack/sheet/cardboard/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/cardboard)

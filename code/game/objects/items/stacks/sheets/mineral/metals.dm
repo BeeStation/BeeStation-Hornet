@@ -10,13 +10,6 @@ Metals Sheets
 		- Titanium
 		- Plastitanium
 		- Coal
-
-TO BE RE-SORTED
- * Wood
- * Cloth
- * Cardboard
- * Paper Frames
- * Bamboo
 **********************/
 
 /* Iron */

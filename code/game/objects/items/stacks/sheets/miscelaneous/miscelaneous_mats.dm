@@ -5,9 +5,13 @@ miscelaneous materials Sheets
 		- Sandbags
 		- Snow
 		- Plastic
+		- Cartboard
+		- Bones
+		- Capitalismium and Stalinium
 **********************/
 
 /* Wax */
+
 /obj/item/stack/sheet/wax
 	name = "wax"
 	icon_state = "sheet-wax"
@@ -129,6 +133,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	name = "bones"
 	icon_state = "bone"
 	item_state = "sheet-bone"
+	icon = 'icons/obj/mining.dmi'
 	singular_name = "bone"
 	desc = "Someone's been drinking their milk."
 	force = 7

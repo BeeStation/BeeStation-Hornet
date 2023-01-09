@@ -1,3 +1,11 @@
+/**********************
+Cloth Sheets (a linen?)
+	Contains:
+		- Cloth
+		- Durathread cloth
+		- Silk
+**********************/
+
 /* Cloth */
 
 /obj/item/stack/sheet/cotton
@@ -32,7 +40,7 @@
 	recipes = GLOB.cloth_recipes
 	return ..()
 
-/* Durathread cloth*/
+/* Durathread cloth */
 
 /obj/item/stack/sheet/cotton/durathread
 	name = "raw durathread bundle"

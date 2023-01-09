@@ -18,6 +18,15 @@
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
+/obj/item/stack/ore/bluespace_crystal/update_icon()
+	if(amount <= (max_amount * (1/3)))
+		icon_state = "bluespace_crystal"
+	else if(amount <= (max_amount * (2/3)))
+		icon_state = "bluespace_crystal_2"
+	else
+		icon_state = "bluespace_crystal_3"
+	return ..()
+
 /obj/item/stack/ore/bluespace_crystal/get_part_rating()
 	return 1
 

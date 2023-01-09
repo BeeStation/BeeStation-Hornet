@@ -1,3 +1,12 @@
+/**********************
+Woods Sheets
+	Contains:
+		- Wood
+		- Bamboo
+		- Paper frames
+**********************/
+
+
 /* Wood */
 
 /obj/item/stack/sheet/wood

@@ -35,17 +35,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	new/datum/stack_recipe("23x23 canvas",							/obj/item/canvas/twentythree_twentythree, 5), \
 ))
 
-/obj/item/stack/sheet/cotton/cloth/fifty
-	amount = 50
-
-/obj/item/stack/sheet/cotton/cloth/twenty
-	amount = 20
-
-/obj/item/stack/sheet/cotton/cloth/ten
-	amount = 10
-
-/obj/item/stack/sheet/cotton/cloth/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/cotton/cloth)
 
 /* Durathread cloth*/
 
@@ -57,17 +47,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
 	new/datum/stack_recipe("durathread hoodie",						/obj/item/clothing/suit/hooded/hoodie/durathread, 5, time = 5 SECONDS), \
 ))
 
-/obj/item/stack/sheet/cotton/durathread/fifty
-	amount = 50
-
-/obj/item/stack/sheet/cotton/durathread/twenty
-	amount = 20
-
-/obj/item/stack/sheet/cotton/durathread/ten
-	amount = 10
-
-/obj/item/stack/sheet/cotton/durathread/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/cotton/durathread)
 
 /* Silk */
 
@@ -75,14 +55,4 @@ GLOBAL_LIST_INIT(silk_recipes, list ( \
 	new/datum/stack_recipe("silk string",							/obj/item/weaponcrafting/silkstring, 2, time = 4 SECONDS), \
 ))
 
-/obj/item/stack/sheet/silk/fifty
-	amount = 50
-
-/obj/item/stack/sheet/silk/twenty
-	amount = 20
-
-/obj/item/stack/sheet/silk/ten
-	amount = 10
-
-/obj/item/stack/sheet/silk/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/silk)

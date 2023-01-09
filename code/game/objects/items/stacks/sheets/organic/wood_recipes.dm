@@ -38,17 +38,7 @@ GLOBAL_LIST_INIT(wood_recipes, list ( \
 	null, \
 ))
 
-/obj/item/stack/sheet/wood/fifty
-	amount = 50
-
-/obj/item/stack/sheet/wood/twenty
-	amount = 20
-
-/obj/item/stack/sheet/wood/ten
-	amount = 10
-
-/obj/item/stack/sheet/wood/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/wood)
 
 /* Bamboo */
 
@@ -69,17 +59,7 @@ GLOBAL_LIST_INIT(bamboo_recipes, list ( \
 	null, \
 ))
 
-/obj/item/stack/sheet/bamboo/fifty
-	amount = 50
-
-/obj/item/stack/sheet/bamboo/twenty
-	amount = 20
-
-/obj/item/stack/sheet/bamboo/ten
-	amount = 10
-
-/obj/item/stack/sheet/bamboo/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/bamboo)
 
 /* Paper frames */
 
@@ -89,14 +69,4 @@ GLOBAL_LIST_INIT(paperframe_recipes, list(
 	null, \
 ))
 
-/obj/item/stack/sheet/paperframes/fifty
-	amount = 50
-
-/obj/item/stack/sheet/paperframes/twenty
-	amount = 20
-
-/obj/item/stack/sheet/paperframes/ten
-	amount = 10
-
-/obj/item/stack/sheet/paperframes/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/paperframes)

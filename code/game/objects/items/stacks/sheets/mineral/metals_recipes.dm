@@ -103,18 +103,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("sink frame",								/obj/structure/sinkframe, 2, time = 2 SECONDS), \
 ))
 
-
-/obj/item/stack/sheet/iron/fifty
-	amount = 50
-
-/obj/item/stack/sheet/iron/twenty
-	amount = 20
-
-/obj/item/stack/sheet/iron/ten
-	amount = 10
-
-/obj/item/stack/sheet/iron/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/iron)
 
 /obj/item/stack/sheet/iron/cyborg
 	materials = list()
@@ -135,17 +124,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list ( \
 	)), \
 ))
 
-/obj/item/stack/sheet/plasteel/fifty
-	amount = 50
-
-/obj/item/stack/sheet/plasteel/twenty
-	amount = 20
-
-/obj/item/stack/sheet/plasteel/ten
-	amount = 10
-
-/obj/item/stack/sheet/plasteel/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/plasteel)
 
 /* Runed Metal */
 
@@ -159,17 +138,7 @@ GLOBAL_LIST_INIT(runed_metal_recipes, list ( \
 	new/datum/stack_recipe("altar",									/obj/structure/destructible/cult/talisman, 3, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS), \
 ))
 
-/obj/item/stack/sheet/runed_metal/fifty
-	amount = 50
-
-/obj/item/stack/sheet/runed_metal/twenty
-	amount = 20
-
-/obj/item/stack/sheet/runed_metal/ten
-	amount = 10
-
-/obj/item/stack/sheet/runed_metal/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/runed_metal)
 
 /* Brass */
 
@@ -196,17 +165,7 @@ GLOBAL_LIST_INIT(brass_recipes, list ( \
 	new/datum/stack_recipe("brass flipper",							/obj/structure/destructible/clockwork/trap/flipper, 10, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS), \
 ))
 
-/obj/item/stack/sheet/brass/fifty
-	amount = 50
-
-/obj/item/stack/sheet/brass/twenty
-	amount = 20
-
-/obj/item/stack/sheet/brass/ten
-	amount = 10
-
-/obj/item/stack/sheet/brass/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/brass)
 
 /obj/item/stack/sheet/brass/cyborg
 	materials = list()
@@ -231,14 +190,4 @@ GLOBAL_LIST_INIT(bronze_recipes, list ( \
 	new/datum/stack_recipe("bronze chair",							/obj/structure/chair/fancy/brass/bronze, 1, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS), \
 ))
 
-/obj/item/stack/sheet/bronze/fifty
-	amount = 50
-
-/obj/item/stack/sheet/bronze/twenty
-	amount = 20
-
-/obj/item/stack/sheet/bronze/ten
-	amount = 10
-
-/obj/item/stack/sheet/bronze/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/bronze)

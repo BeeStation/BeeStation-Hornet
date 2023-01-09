@@ -5,14 +5,7 @@ GLOBAL_LIST_INIT(bananium_recipes, list ( \
 	new/datum/stack_recipe("Clown Statue", /obj/structure/statue/bananium/clown, 5, one_per_turf = TRUE, on_floor = TRUE), \
 	))
 
-/obj/item/stack/sheet/mineral/bananium/fifty
-	amount = 50
-
-/obj/item/stack/sheet/mineral/bananium/twenty
-	amount = 20
-
-/obj/item/stack/sheet/mineral/bananium/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/mineral/bananium)
 
 /* Adamantine */
 
@@ -20,14 +13,7 @@ GLOBAL_LIST_INIT(adamantine_recipes, list(
 	new /datum/stack_recipe("incomplete servant golem shell", /obj/item/golem_shell/servant, req_amount=25, res_amount=1),
 	))
 
-/obj/item/stack/sheet/mineral/adamantine/fifty
-	amount = 50
-
-/obj/item/stack/sheet/mineral/adamantine/twenty
-	amount = 20
-
-/obj/item/stack/sheet/mineral/adamantine/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/sheet/mineral/adamantine)
 
 /* Alien Alloy */
 
@@ -40,13 +26,4 @@ GLOBAL_LIST_INIT(abductor_recipes, list ( \
 	new/datum/stack_recipe("alien floor tile", /obj/item/stack/tile/mineral/abductor, 1, 4, 20), \
 	))
 
-/obj/item/stack/sheet/mineral/abductor/fifty
-	amount = 50
-
-/obj/item/stack/sheet/mineral/abductor/twenty
-	amount = 20
-
-/obj/item/stack/sheet/mineral/abductor/five
-	amount = 5
-
-/* Coal */
+STACKSIZE_MACRO(/obj/item/stack/sheet/mineral/abductor)
