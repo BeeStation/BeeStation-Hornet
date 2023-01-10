@@ -11,24 +11,6 @@ export const NtosViroSymptoms = (props, context) => {
   const [selectedSymptoms, setSelectedSymptoms] = useLocalState(context, 'selectedSymptoms', {});
   const [tab, setTab] = useLocalState(context, 'tab', 1);
   
-  const calculateTotal = () => {
-    let total = {
-      stealth: 0,
-      resistance: 0,
-      stage_speed: 0,
-      transmission: 0,
-      severity: 0,
-    };
-    Object.values(selectedSymptoms).forEach(symptom => {
-      total.stealth += symptom.stealth;
-      total.resistance += symptom.resistance;
-      total.stage_speed += symptom.stage_speed;
-      total.transmission += symptom.transmission;
-      total.severity += symptom.severity;
-    });
-    return total;
-  }
-
   const renderSymptomList = () => (
     Object.keys(symptoms).map(symptomName => (
       <Section key={symptomName}>
@@ -56,79 +38,64 @@ export const NtosViroSymptoms = (props, context) => {
         <Box>
           {selectedSymptoms[symptomName]
             ? (
-                <Button
-                  onClick={() => {
-                    const newSelectedSymptoms = { ...selectedSymptoms };
-                    delete newSelectedSymptoms[symptomName];
-                    setSelectedSymptoms(newSelectedSymptoms);
-                  }}>
+              <Button
+                onClick={() => {
+                  const newSelectedSymptoms = { ...selectedSymptoms };
+                  delete newSelectedSymptoms[symptomName];
+                  setSelectedSymptoms(newSelectedSymptoms);
+                }}>
                 Deselect
-                </Button>
-              )
+              </Button>
+            )
             : (
-                <Button
-                  onClick={() => {
-                    const newSelectedSymptoms = { ...selectedSymptoms };
-                    newSelectedSymptoms[symptomName] = symptoms[symptomName];
-                    setSelectedSymptoms(newSelectedSymptoms);
-                  }}>
+              <Button
+                disabled={Object.keys(selectedSymptoms).length === 6}
+                onClick={() => {
+                  const newSelectedSymptoms = { ...selectedSymptoms };
+                  newSelectedSymptoms[symptomName] = symptoms[symptomName];
+                  setSelectedSymptoms(newSelectedSymptoms);
+                }}>
                 Select
-                </Button>
+              </Button>
             ) }
         </Box>
       </Section>
     ))
   );
 
-  const renderTotal = () => {
-    const total = calculateTotal();
-    return (
-      <Table>
-        <Table.Cell>Total</Table.Cell>
-        <Table.Cell>{total.stealth}</Table.Cell>
-        <Table.Cell>{total.resistance}</Table.Cell>
-        <Table.Cell>{total.stage_speed}</Table.Cell>
-        <Table.Cell>{total.transmission}</Table.Cell>
-        <Table.Cell>{total.severity}</Table.Cell>
-        <Table.Cell></Table.Cell>
-      </Table>
-      );
+  function calculateTotal(selectedSymptoms) {
+    let total = {
+      stealth: 0,
+      resistance: 0,
+      stage_speed: 0,
+      transmission: 0,
+      severity: 0,
     };
 
-  const renderSelectedSymptoms = () => (
-    <Table>
-      <Table.Row header>
-        <Table.Cell>Symptom</Table.Cell>
-        <Table.Cell>Stealth</Table.Cell>
-        <Table.Cell>Resistance</Table.Cell>
-        <Table.Cell>Stage Speed</Table.Cell>
-        <Table.Cell>Transmission</Table.Cell>
-        <Table.Cell>Severity</Table.Cell>
-        <Table.Cell>Level</Table.Cell>
-      </Table.Row>
-      {Object.keys(selectedSymptoms).map(symptomName => (
-        <Table.Row key={symptomName}>
-          <Table.Cell>{symptomName}</Table.Cell>
-          <Table.Cell>{selectedSymptoms[symptomName]["stealth"]}</Table.Cell>
-          <Table.Cell>{selectedSymptoms[symptomName]["resistance"]}</Table.Cell>
-          <Table.Cell>{selectedSymptoms[symptomName]["stage_speed"]}</Table.Cell>
-          <Table.Cell>{selectedSymptoms[symptomName]["transmission"]}</Table.Cell>
-          <Table.Cell>{selectedSymptoms[symptomName]["severity"]}</Table.Cell>
-          <Table.Cell>{selectedSymptoms[symptomName]["level"]}</Table.Cell>
-        </Table.Row>
-      ))}
-    </Table>
-  );
+    Object.values(selectedSymptoms).forEach(symptom => {
+      total.stealth += symptom.stealth;
+      total.resistance += symptom.resistance;
+      total.stage_speed += symptom.stage_speed;
+      total.transmission += symptom.transmission;
+      total.severity += symptom.severity;
+    });
+
+    return total;
+  };
+
+  const total = calculateTotal(selectedSymptoms);
 
   return (
     <NtosWindow
       width={600}
-      height={800}
-    >
-      <NtosWindow.Content Scrollable>
-        <Tabs vertical>
+      height={800}>
+      <NtosWindow.Content scrollable>
+        <Section textAlign="center">
+          Virology Symptom Information
+        </Section>
+        <Tabs>
           <Tabs.Tab
-            key="all"
+            key="symptoms"
             icon="list"
             title="All Symptoms"
             selected={tab === 1}
@@ -136,17 +103,55 @@ export const NtosViroSymptoms = (props, context) => {
             {renderSymptomList()}
           </Tabs.Tab>
           <Tabs.Tab
-            key="all"
+            key="selected"
             icon="list"
             title="Selected Symptoms"
             selected={tab === 2}
             onClick={() => setTab(2)}>
-            {renderSelectedSymptoms()}
-            {renderTotal()}
+            <Table>
+              <Table.Row key="total">
+                <Table.Cell>Symptom</Table.Cell>
+                <Table.Cell>Stealth</Table.Cell>
+                <Table.Cell>Resistance</Table.Cell>
+                <Table.Cell>Stage Speed</Table.Cell>
+                <Table.Cell>Transmission</Table.Cell>
+                <Table.Cell>Severity</Table.Cell>
+                <Table.Cell>Level</Table.Cell>
+              </Table.Row>
+              {Object.keys(selectedSymptoms).map(symptomName => (
+                <Table.Row key={symptomName}>
+                  <Table.Cell>{symptomName}</Table.Cell>
+                  <Table.Cell>{selectedSymptoms[symptomName]["stealth"]}</Table.Cell>
+                  <Table.Cell>{selectedSymptoms[symptomName]["resistance"]}</Table.Cell>
+                  <Table.Cell>{selectedSymptoms[symptomName]["stage_speed"]}</Table.Cell>
+                  <Table.Cell>{selectedSymptoms[symptomName]["transmission"]}</Table.Cell>
+                  <Table.Cell>{selectedSymptoms[symptomName]["severity"]}</Table.Cell>
+                  <Table.Cell>{selectedSymptoms[symptomName]["level"]}</Table.Cell>
+                  <Table.Cell>
+                    <Button
+                      icon="trash-can"
+                      onClick={() => {
+                        const newSelectedSymptoms = { ...selectedSymptoms };
+                        delete newSelectedSymptoms[symptomName];
+                        setSelectedSymptoms(newSelectedSymptoms);
+                      }} />
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+              <Table.Row>
+                <Table.Cell>Total</Table.Cell>
+                <Table.Cell>{total.stealth}</Table.Cell>
+                <Table.Cell>{total.resistance}</Table.Cell>
+                <Table.Cell>{total.stage_speed}</Table.Cell>
+                <Table.Cell>{total.transmission}</Table.Cell>
+                <Table.Cell>{total.severity}</Table.Cell>
+                <Table.Cell />
+                <Table.Cell />
+              </Table.Row>
+            </Table>
           </Tabs.Tab>
         </Tabs>
       </NtosWindow.Content>
     </NtosWindow>
   );
 };
-
