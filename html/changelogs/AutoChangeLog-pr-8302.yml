@@ -1,0 +1,4 @@
+author: Dejaku51
+delete-after: true
+changes:
+  - bugfix: Fixes phobia gain message not showing
