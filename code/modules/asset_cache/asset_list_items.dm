@@ -252,7 +252,7 @@
 	var/dmi_file = "icons/obj/chemical.dmi"
 	for(var/i in 1 to PILL_STYLE_COUNT)
 		var/icon_file = "pill_[i]"
-		var/icon/target_icon = icon(dmi_file, icon_file, SOUTH, 1, 1)
+		var/icon/target_icon = new(dmi_file, icon_file, SOUTH, 1)
 		if(!target_icon)
 			continue
 		target_icon.Crop(10,21, 22,9)
@@ -262,7 +262,7 @@
 	// hardcoding ones
 	for(var/each in PILL_LIST_NON_NUMBER_PILLS)
 		var/icon_file = "pill_[each]"
-		var/icon/target_icon = icon(dmi_file, icon_file, SOUTH, 1, 1)
+		var/icon/target_icon = new(dmi_file, icon_file, SOUTH, 1)
 		if(!target_icon)
 			continue
 		target_icon.Crop(10,21, 22,9)
