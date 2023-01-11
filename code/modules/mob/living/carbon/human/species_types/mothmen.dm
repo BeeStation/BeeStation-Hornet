@@ -152,7 +152,8 @@
 	icon_state = "cocoon_large1"
 	anchored = TRUE
 	max_integrity = 10
-	var/done_regenerating = TRUE//Determines whether or not the mothperson is done regenerating their wings with FALSE meaning they are
+    ///Determines whether or not the mothperson is still regenerating their wings
+	var/regenerating = TRUE
 
 /obj/structure/moth_cocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
