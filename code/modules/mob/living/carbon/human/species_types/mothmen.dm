@@ -149,7 +149,7 @@
 	name = "\improper Mothperson cocoon"
 	desc = "Someone wrapped in a Mothperson cocoon. It's best to let them rest."
 	icon = 'icons/effects/effects.dmi'
-	icon_state = "cocoon_large1"
+	icon_state = "cocoon_moth"
 	anchored = TRUE
 	max_integrity = 10
     ///Determines whether or not the mothperson is still regenerating their wings
