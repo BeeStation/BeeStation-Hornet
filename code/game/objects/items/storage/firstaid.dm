@@ -373,15 +373,33 @@
 		to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
 		return
 
+	var/skin_type = null
+	switch(src.icon_state)
+		if("firstaid","firstaid-old")
+			skin_type = null
+		if("firstaid-brute","firstaid-brutealt")
+			skin_type = MEDBOT_SKIN_BRUTE
+		if("firstaid-burn","firstaid-burnalt")
+			skin_type = MEDBOT_SKIN_BURN
+		if("firstaid-toxin","firstaid-toxinalt")
+			skin_type = MEDBOT_SKIN_TOXIN
+		if("firstaid-o2","firstaid-o2alt")
+			skin_type = MEDBOT_SKIN_OXY
+		if("firstaid-surgery")
+			skin_type = MEDBOT_SKIN_SURGERY
+		if("firstaid-advanced","firstaid-advancedalt")
+			skin_type = MEDBOT_SKIN_ADVANCED
+		if("firstaid-rad","firstaid-radalt")
+			skin_type = MEDBOT_SKIN_RADIATION
+		if("firstaid-combat","firstaid-combatalt")
+			skin_type = MEDBOT_SKIN_SYNDI
+		else
+			to_chat(user, "<span class='warning'>[src] seems to be incompatible to make a medibot!</span>")
+			return
+
 	var/obj/item/bot_assembly/medbot/A = new
-	if(istype(src, /obj/item/storage/firstaid/fire))
-		A.skin = "ointment"
-	else if(istype(src, /obj/item/storage/firstaid/toxin))
-		A.skin = "tox"
-	else if(istype(src, /obj/item/storage/firstaid/o2))
-		A.skin = "o2"
-	else if(istype(src, /obj/item/storage/firstaid/brute))
-		A.skin = "brute"
+	A.skin = skin_type
+
 
 	user.put_in_hands(A)
 	to_chat(user, "<span class='notice'>You add [S] to [src].</span>")
