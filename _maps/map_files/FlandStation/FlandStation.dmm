@@ -5536,7 +5536,7 @@
 	pixel_x = 4;
 	pixel_y = 3
 	},
-/obj/item/radio/headset/headset_medsci,
+/obj/item/radio/headset/headset_med,
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/genetics)
