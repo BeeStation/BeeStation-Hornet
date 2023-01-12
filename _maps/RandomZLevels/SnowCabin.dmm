@@ -3700,35 +3700,35 @@
 "kM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags,
+/obj/item/stack/sheet/sandbags,
 /turf/open/floor/mineral/plastitanium/red{
 	name = "soviet floor"
 	},

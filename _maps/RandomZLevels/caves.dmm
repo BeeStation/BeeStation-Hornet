@@ -2215,7 +2215,7 @@
 /obj/structure/closet/crate/miningcar{
 	name = "Mining cart"
 	},
-/obj/item/stack/sheet/mineral/mythril{
+{
 	amount = 12
 	},
 /turf/open/floor/plating/asteroid/basalt{
