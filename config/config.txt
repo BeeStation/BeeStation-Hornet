@@ -619,5 +619,5 @@ ELASTICSEARCH_METRICS_APIKEY thisIsSomethingThatsBased64Encoded==
 ## Enable/disable the mentor mrat verb ("Request Mentor Assistance")
 ENABLE_MRAT
 
-## Discord OOC channel name. As long as this is enabled, the game will try to send OOC messages to the discord channel. change 'OOC-Bee' into something else
-#DISCORD_OOC_CHANNEL OOC-Bee
+## Discord OOC channel name. As long as this is enabled, the game will try to send OOC messages to the discord channel. change 'ooc' into something else
+#DISCORD_OOC_CHANNEL ooc
