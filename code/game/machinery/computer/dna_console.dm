@@ -682,13 +682,13 @@
 				else
 					injectorready = world.time + INJECTOR_TIMEOUT * 0.1
 
-				if(scanner_occupant?.client)
-					var/c_typepath = generate_chromosome()
-					var/obj/item/chromosome/CM = new c_typepath (drop_location())
-					if(LAZYLEN(stored_chromosomes) < max_chromosomes)
-						CM.forceMove(src)
-						stored_chromosomes += CM
-						to_chat(usr,"<span class='notice'>[capitalize(CM.name)] added to storage.</span>")
+				//if(scanner_occupant?.client)
+					//var/c_typepath = generate_chromosome()
+					//var/obj/item/chromosome/CM = new c_typepath (drop_location())
+					//if(LAZYLEN(stored_chromosomes) < max_chromosomes)
+						//CM.forceMove(src)
+						//stored_chromosomes += CM
+						//to_chat(usr,"<span class='notice'>[capitalize(CM.name)] added to storage.</span>")
 
 		//Creates a new MUT_EXTRA mutation in subject
 		if("add_mutation")
