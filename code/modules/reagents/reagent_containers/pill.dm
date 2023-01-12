@@ -2,8 +2,8 @@
 	name = "pill"
 	desc = "A tablet or capsule."
 	icon = 'icons/obj/pills.dmi'
-	icon_state = "pill"
-	item_state = "pill"
+	icon_state = "pill_shape_capsule_purple_pink"
+	item_state = "pill_shape_capsule_purple_pink"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	possible_transfer_amounts = list()
