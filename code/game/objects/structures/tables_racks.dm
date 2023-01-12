@@ -553,7 +553,7 @@
 
 /obj/structure/table/optable/Initialize(mapload)
 	. = ..()
-	for(var/direction in GLOB.cardinals)
+	for(var/direction in GLOB.alldirs)
 		computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
 		if(computer)
 			computer.table = src
