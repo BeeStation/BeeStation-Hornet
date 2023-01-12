@@ -6,6 +6,7 @@
 
 
 
+// these are medibot skins that are chosen by its original first aid kit. For example, a medibot with an oxygen first aid kit will use MEDBOT_SKIN_OXY
 #define MEDBOT_SKIN_BRUTE "brute"
 #define MEDBOT_SKIN_BURN "burn"
 #define MEDBOT_SKIN_TOXIN "tox"
