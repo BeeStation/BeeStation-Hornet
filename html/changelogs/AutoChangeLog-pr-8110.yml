@@ -1,0 +1,5 @@
+author: DoctorSquishy, RKz
+delete-after: true
+changes:
+  - tweak: Operating Computers placed NE,NW,SE,SW from operating tables can find the
+      table now
