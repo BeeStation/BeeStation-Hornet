@@ -188,7 +188,7 @@
 	data["saved_name_state"] = saved_name_state
 	data["saved_volume_state"] = saved_volume_state
 	data["analyzeVars"] = analyzeVars
-	data["chosenPillStyle"] = "[chosenPillStyle]"
+	data["chosenPillStyle"] = chosenPillStyle
 	data["isPillBottleLoaded"] = bottle ? 1 : 0
 	if(bottle)
 		var/datum/component/storage/STRB = bottle.GetComponent(/datum/component/storage)
