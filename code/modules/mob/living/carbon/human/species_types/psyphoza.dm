@@ -55,6 +55,12 @@
 		if(findname(.))
 			. = .(gender, TRUE, null, ++attempts)
 
+/datum/species/apid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+	if(istype(chem, /datum/reagent/drug) && H.blood_volume < BLOOD_VOLUME_NORMAL)
+		H.blood_volume += chem.volume * 15
+		H.reagents.remove_reagent(chem.type, chem.volume)
+		return FALSE
+	return ..()
 
 /datum/species/psyphoza/get_scream_sound(mob/living/carbon/user)
 	return pick('sound/voice/psyphoza/psyphoza_scream_1.ogg', 'sound/voice/psyphoza/psyphoza_scream_2.ogg')
