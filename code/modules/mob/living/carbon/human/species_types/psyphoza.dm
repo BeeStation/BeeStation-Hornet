@@ -8,12 +8,12 @@
 	id = SPECIES_PSYPHOZA
 	bodyflag = FLAG_PSYPHOZA
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/psyphoza
-	species_traits = list(NOEYESPRITES, AGENDER, MUTCOLORS, TRAIT_RESISTCOLD)
+	species_traits = list(NOEYESPRITES, AGENDER, MUTCOLORS)
 	sexes = FALSE
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	species_language_holder = /datum/language_holder/psyphoza
-	allow_numbers_in_name = TRUE
 	exotic_blood = /datum/reagent/drug/mushroomhallucinogen
+	allow_numbers_in_name = TRUE
 
 	offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,-2), OFFSET_EARS = list(0,-3), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,-2), OFFSET_HEAD = list(0,-2), OFFSET_FACE = list(0,-2), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0))
 
@@ -37,10 +37,6 @@
 
 	//Fire bad!
 	burnmod = PSYPHOZA_BURNMOD
-
-/datum/species/psyphoza/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
-	. = ..()
-	//C.dna.add_mutation(TK_WEAK, MUT_OTHER)
 
 /datum/species/psyphoza/random_name(gender, unique, lastname, attempts)
 	var/num = rand(1, 9)
@@ -80,7 +76,7 @@
 	///List of things we can't sense
 	var/list/sense_blacklist
 	///The amount of time you can sense things for
-	var/sense_time = 5 SECONDS
+	var/sense_time = 7 SECONDS
 	///Reference to the users eyes - we use this to toggle xray vision for scans
 	var/obj/item/organ/eyes/eyes
 	///The eyes original sight flags - used between toggles
@@ -104,7 +100,7 @@
 	/obj/machinery/advanced_airlock_controller, /obj/machinery/computer/security/telescreen, /obj/structure/grille, /obj/machinery/light_switch,
 	/obj/structure/noticeboard, /area, /obj/item/storage/secure/safe, /obj/machinery/requests_console, /obj/item/storage/backpack/satchel/flat,
 	/obj/effect/countdown, /obj/machinery/button, /obj/effect/clockwork/overlay/floor, /obj/structure/reagent_dispensers/peppertank,
-	/mob/dead/observer, /mob/camera, /obj/structure/chisel_message))
+	/mob/dead/observer, /mob/camera, /obj/structure/chisel_message, /obj/effect/particle_effect))
 
 /datum/action/item_action/organ_action/psychic_highlight/Grant(mob/M)
 	. = ..()
@@ -112,6 +108,9 @@
 	RegisterSignal(M, COMSIG_MOB_ATTACK_RANGED, .proc/handle_ranged)
 	//Overlay used to highlight objects
 	M.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
+	//Add option to change visuals
+	var/datum/action/change_psychic_visual/P = new()
+	P.Grant(owner)
 
 /datum/action/item_action/organ_action/psychic_highlight/Trigger()
 	. = ..()
@@ -145,7 +144,7 @@
 	var/atom/movable/screen/fullscreen/blind/psychic/P = locate (/atom/movable/screen/fullscreen/blind/psychic) in owner.client?.screen
 	if(P)
 		//We change the color instead of alpha, otherwise we'd reveal our actual surroundings!
-		P.color = "#000"
+		animate(P, color = "#000") //This is a fix for a bug with ``animate()`` breaking
 		animate(P, color = P.origin_color, time = sense_time, easing = QUAD_EASING, flags = EASE_IN)
 	//Highlight layer
 	var/atom/movable/screen/plane_master/psychic/B = locate (/atom/movable/screen/plane_master/psychic) in owner.client?.screen
@@ -160,6 +159,7 @@
 //Get a list of nearby things & run 'em through a typecache
 /datum/action/item_action/organ_action/psychic_highlight/proc/ping_turf(turf/T, size = sense_range)
 	if(istype(owner?.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/helmet))
+		to_chat(owner, ",span class='warning'>You can't use your senses while wearing helmets!</span>")
 		return
 	toggle_eyes_fowards()
 	dim_overlay()
@@ -224,7 +224,7 @@
 	if(get_dist(get_turf(owner), T) > 1)
 		ping_turf(T, 2)
 		has_cooldown_timer = TRUE
-		addtimer(CALLBACK(src, .proc/finish_cooldown), (cooldown/2) + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
+		addtimer(CALLBACK(src, .proc/finish_cooldown), (cooldown/1.5) + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
 
 //Handles eyes being deleted
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_eyes()
@@ -245,7 +245,7 @@
 	icon_state = "trip"
 	icon = 'icons/mob/psychic.dmi'
 	//The color we return to after going black & back.
-	var/origin_color = "#1a1a1a"
+	var/origin_color = "#111"
 
 /atom/movable/screen/fullscreen/blind/psychic/Initialize(mapload)
 	. = ..()
@@ -258,19 +258,47 @@
 	icon = 'icons/mob/psychic.dmi'
 	plane = PSYCHIC_PLANE
 	blend_mode = BLEND_INSET_OVERLAY
+	///Index for visual setting
+	var/visual_index = 0
 	
 /atom/movable/screen/fullscreen/blind/psychic_highlight/Initialize(mapload)
 	. = ..()
 	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
 	filters += filter(type = "radial_blur", size = 0.012)
-	//Color animation
-	color = "#f00" // start at red
-	animate(src, color = "#ff0", time = 0.3 SECONDS, loop = -1, flags = ANIMATION_PARALLEL)
-	animate(color = "#0f0", time = 0.3 SECONDS)
-	animate(color = "#0ff", time = 0.3 SECONDS)
-	animate(color = "#00f", time = 0.3 SECONDS)
-	animate(color = "#f0f", time = 0.3 SECONDS)
-	animate(color = "#f00", time = 0.3 SECONDS)
+	cycle_visuals()
+
+/atom/movable/screen/fullscreen/blind/psychic_highlight/proc/cycle_visuals()
+	visual_index += 1
+	//Reset animations
+	animate(src, color = "#fff")
+	//Set animation
+	switch(visual_index)
+		if(1) //Rainbow
+			color = "#f00" // start at red
+			animate(src, color = "#ff0", time = 0.3 SECONDS, loop = -1)
+			animate(color = "#0f0", time = 0.3 SECONDS)
+			animate(color = "#0ff", time = 0.3 SECONDS)
+			animate(color = "#00f", time = 0.3 SECONDS)
+			animate(color = "#f0f", time = 0.3 SECONDS)
+			animate(color = "#f00", time = 0.3 SECONDS)
+		if(2) //Custom
+			color = input(usr,"","Choose Color","#fff") as color|null
+	//Wrap index back around
+	visual_index = visual_index >= 2 ? 0 :  visual_index
+
+/datum/action/change_psychic_visual
+	name = "Change Psychic Sense"
+	desc = "Change the visual style of your psychic sense."
+	icon_icon = 'icons/mob/actions.dmi'
+	button_icon_state = "unknown"
+	///Ref to the overlay - hard del edition
+	var/atom/movable/screen/fullscreen/blind/psychic_highlight/psychic_overlay
+
+/datum/action/change_psychic_visual/Trigger()
+	. = ..()
+	if(!psychic_overlay)
+		psychic_overlay = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight) in owner?.client?.screen
+	psychic_overlay?.cycle_visuals()
 
 #undef PSYCHIC_OVERLAY_UPPER
 #undef PSYPHOZA_BURNMOD
