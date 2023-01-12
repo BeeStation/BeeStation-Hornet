@@ -113,7 +113,7 @@
 		var/obj/structure/moth_cocoon/C = new(get_turf(H))
 		H.forceMove(C)
 		H.Sleeping(20, FALSE)
-		C.regenerating = TRUE
+		C.done_regenerating = FALSE
 		H.apply_status_effect(STATUS_EFFECT_COCOONED)
 		H.log_message("has finished weaving a cocoon.", LOG_GAME)
 		addtimer(CALLBACK(src, .proc/emerge, C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
@@ -142,7 +142,7 @@
 					W.flight_level = WINGS_FLYING
 		H.dna.species.handle_mutant_bodyparts(H)
 		H.dna.species.handle_body(H)
-	C.regenerating = FALSE
+	C.done_regenerating = TRUE
 	qdel(C)
 
 /obj/structure/moth_cocoon
@@ -153,7 +153,7 @@
 	anchored = TRUE
 	max_integrity = 10
     ///Determines whether or not the mothperson is still regenerating their wings
-	var/regenerating = TRUE
+	var/done_regenerating = FALSE
 
 /obj/structure/moth_cocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -163,21 +163,21 @@
 			playsound(src, 'sound/items/welder.ogg', 80, TRUE)
 
 /obj/structure/moth_cocoon/Destroy()
-	if(!regenerating)
+	if(done_regenerating)
 		visible_message("<span class='danger'>[src] splits open from within!</span>")
 	else
 		visible_message("<span class='danger'>[src] is torn open, harming the Mothperson within!</span>")
 	for(var/mob/living/carbon/human/H in contents)
-		if(!regenerating)
-			visible_message("<span class='notice'>[H]'s wings unfold, looking good as new!</span>", "<span class='notice'>Your wings unfold with new vigor!.</span>")
-		else if(H.has_status_effect(STATUS_EFFECT_COCOONED))
+		if(H.has_status_effect(STATUS_EFFECT_COCOONED) && !done_regenerating)
 			H.adjustBruteLoss(COCOON_HARM_AMOUNT, FALSE)
 			H.SetSleeping(0, FALSE)
 		H.remove_status_effect(STATUS_EFFECT_COCOONED)
 		H.dna.species.handle_mutant_bodyparts(H)
 		H.dna.species.handle_body(H)
 		H.forceMove(loc)
-		H.log_message("[key_name(H)] [regenerating ? "was forcefully ejected" : "has emerged"] from their cocoon with a nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""], (NEWHP: [H.health])", LOG_GAME)
+		H.log_message("[key_name(H)] [done_regenerating ? "has emerged" : "was forcefully ejected"] from their cocoon with a nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""], (NEWHP: [H.health])", LOG_GAME)
+		if(done_regenerating)
+			visible_message("<span class='notice'>[H]'s wings unfold, looking good as new!</span>", "<span class='notice'>Your wings unfold with new vigor!.</span>")
 	return ..()
 
 /datum/status_effect/cocooned
