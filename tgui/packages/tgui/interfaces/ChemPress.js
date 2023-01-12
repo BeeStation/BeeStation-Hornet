@@ -1,3 +1,4 @@
+import { classes } from 'common/react';
 import { useBackend } from '../backend';
 import { Box, Button, Input, LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
@@ -13,7 +14,7 @@ export const ChemPress = (props, context) => {
   return (
     <Window
       width={300}
-      height={199}>
+      height={325}>
       <Window.Content>
         <Section>
           <LabeledList>
@@ -37,20 +38,18 @@ export const ChemPress = (props, context) => {
                 onClick={() => act('change_pill_name')} />
             </LabeledList.Item>
             <LabeledList.Item label="Pill Style">
-              {pill_styles.map(pill => (
+              {pill_styles.map(each_style => (
                 <Button
-                  key={pill.id}
+                  key={each_style.id}
                   width="30px"
-                  selected={pill.id === pill_style}
+                  selected={each_style.id === pill_style}
                   textAlign="center"
                   color="transparent"
-                  onClick={() => act('change_pill_style', {
-                    id: pill.id,
-                  })}>
+                  onClick={() => act('change_pill_style', { each_style: pill.id })}>
                   <Box mx={-1}
                     className={classes([
                       'pill24x24',
-                      pill.pill_icon_name,
+                      each_style.pill_icon_name,
                     ])} />
                 </Button>
               ))}

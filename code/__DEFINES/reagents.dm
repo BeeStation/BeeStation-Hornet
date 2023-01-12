@@ -56,49 +56,50 @@
 
 
 
-/*// pill size standard
-	Since sprite asset code crops the pill image, you are required to make a pill image within [10,24,22,9] squared area.
-	There is a dummy image that you can recognise the size of a cropped pill image in 'chemical.dmi'
-	The black line counts, so you can use that area for your sprite as well.
-*/
+/* <pill sprite size standard>
+	 Since sprite asset code crops the pill image, you are required to make a pill image within [10,24,22,9] squared area.
+	 There is a dummy image that you can recognise the size of a cropped pill image in 'chemical.dmi'
+	 The black line counts, so you can use that area for your sprite as well. */
 
 // pill shapes - check 'chemical.dmi' for the shape
-#define PILL_SHAPE_CAPSULE_PURPLE_PINK "pill_1"
-#define PILL_SHAPE_CAPSULE_GREEN_WHITE "pill_2"
-#define PILL_SHAPE_CAPSULE_SKYBLUE "pill_3"
-#define PILL_SHAPE_CAPSULE_BLOODRED "pill_4"
-#define PILL_SHAPE_CAPSULE_RED_WHITELINE "pill_5"
-#define PILL_SHAPE_CAPSULE_CYAN_BROWN "pill_6"
-#define PILL_SHAPE_TABLET_YELLOW "pill_7"
-#define PILL_SHAPE_TABLET_SKYBLUE "pill_8"
-#define PILL_SHAPE_TABLET_WHITE "pill_9"
-#define PILL_SHAPE_TABLET_PURPLE "pill_10"
-#define PILL_SHAPE_TABLET_LIGHTGREEN "pill_11"
-#define PILL_SHAPE_TABLET_LIGHTRED "pill_12"
-#define PILL_SHAPE_TABLET_GREEN_PURPLE "pill_13"
-#define PILL_SHAPE_TABLET_YELLOW_PURPLE "pill_14"
-#define PILL_SHAPE_TABLET_RED_YELLOW "pill_15"
-#define PILL_SHAPE_TABLET_BLUE_SKYBLUE "pill_16"
-#define PILL_SHAPE_TABLET_GREEN "pill_17"
-#define PILL_SHAPE_CAPSULE_WHITE "pill_18"
-#define PILL_SHAPE_CAPSULE_WHITE_REDLINE "pill_19"
-#define PILL_SHAPE_CAPSULE_PURPLE_YELLOW "pill_20"
-#define PILL_SHAPE_CAPSULE_BLACK_WHITE "pill_21"
-#define PILL_SHAPE_CAPSULE_LIGHTGREEN_WHITE "pill_22"
-#define PILL_SHAPE_TABLET_HAPPY "pill_happy"
-#define PILL_SHAPE_TABLET_ANGRY "pill_angry"
-#define PILL_SHAPE_TABLET_SAD "pill_sad"
+#define PILL_SHAPE_LIST list(\
+	"pill_shape_capsule_purple_pink",\
+	"pill_shape_capsule_bloodred",\
+	"pill_shape_capsule_red_whiteline",\
+	"pill_shape_capsule_orange",\
+	"pill_shape_capsule_yellow",\
+	"pill_shape_capsule_green",\
+	"pill_shape_capsule_skyblue",\
+	"pill_shape_capsule_indigo",\
+	"pill_shape_capsule_pink",\
+	"pill_shape_capsule_white",\
+	"pill_shape_capsule_white_redlined",\
+	"pill_shape_capsule_red_orange",\
+	"pill_shape_capsule_yellow_green",\
+	"pill_shape_capsule_green_white",\
+	"pill_shape_capsule_cyan_brown",\
+	"pill_shape_capsule_purple_yellow",\
+	"pill_shape_capsule_black_white",\
+	"pill_shape_capsule_lightgreen_white",\
+	"pill_shape_tablet_red_lined",\
+	"pill_shape_tablet_lightred_flat",\
+	"pill_shape_tablet_orange_flat",\
+	"pill_shape_tablet_yellow_lined",\
+	"pill_shape_tablet_green_lined",\
+	"pill_shape_tablet_lightgreen_flat",\
+	"pill_shape_tablet_skyblue_lined",\
+	"pill_shape_tablet_navy_flat",\
+	"pill_shape_tablet_purple_lined",\
+	"pill_shape_tablet_pink_lined",\
+	"pill_shape_tablet_white_lined",\
+	"pill_shape_tablet_red_yellow_lined",\
+	"pill_shape_tablet_yellow_purple_lined",\
+	"pill_shape_tablet_green_purple_lined",\
+	"pill_shape_tablet_blue_skyblue_lined",\
+	"pill_shape_tablet_happy",\
+	"pill_shape_tablet_angry",\
+	"pill_shape_tablet_sad",\
+	"pill_random_dummy") // put this dummy pill at the end always
 
-#define PILL_SHAPE_SELECTION_RANDOM "question" // a dummy icon that is used to pick a random icons (note: this won't let ChemMaster pick non-numbered pill icons)
-#define PILL_SHAPE_SELECTION_HAPPY "happy"
-#define PILL_SHAPE_SELECTION_ANGRY "angry"
-#define PILL_SHAPE_SELECTION_SAD "sad"
-
-#define PILL_LIST_NON_NUMBER_PILLS list(\
-		PILL_SHAPE_SELECTION_HAPPY, \
-		PILL_SHAPE_SELECTION_ANGRY, \
-		PILL_SHAPE_SELECTION_SAD, \
-		PILL_SHAPE_SELECTION_RANDOM)
-
-//used by chem masters and pill presses
-#define PILL_STYLE_COUNT 22  //total number of 'numbered' pills. please update this if a new pill is added
+// this lets 'pick(PILL_SHAPE_LIST_MINUS_DUMMY)' choose a proper pill sprite randomly.
+#define PILL_SHAPE_LIST_MINUS_DUMMY PILL_SHAPE_LIST-"pill_random_dummy"

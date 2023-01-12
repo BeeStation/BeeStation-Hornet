@@ -34,16 +34,10 @@
 
 	//Calculate the span tags and ids fo all the available pill icons
 	if(!length(pillStyles))
-		for (var/x in 1 to PILL_STYLE_COUNT)
+		for (var/each_pill_shape in PILL_SHAPE_LIST)
 			var/list/SL = list()
-			SL["id"] = "[x]"
-			SL["pill_icon_name"] = "pill_[x]"
-			pillStyles += list(SL)
-
-		for(var/x in PILL_LIST_NON_NUMBER_PILLS)
-			var/list/SL = list()
-			SL["id"] = "[x]"
-			SL["pill_icon_name"] = "pill_[x]"
+			SL["id"] = each_pill_shape
+			SL["pill_icon_name"] = each_pill_shape
 			pillStyles += list(SL)
 
 	. = ..()
@@ -368,11 +362,11 @@
 							P = new/obj/item/reagent_containers/pill(drop_location())
 						P.name = trim("[name] pill")
 						P.label_name = trim(name)
-						if(chosenPillStyle == PILL_SHAPE_SELECTION_RANDOM)
-							P.icon_state ="pill_[rand(1,PILL_STYLE_COUNT)]"
+						if(chosenPillStyle == "pill_random_dummy")
+							P.icon_state = pick(PILL_SHAPE_LIST_MINUS_DUMMY)
 						else
-							P.icon_state = "pill_[chosenPillStyle]"
-						if(P.icon_state == PILL_SHAPE_CAPSULE_BLOODRED)
+							P.icon_state = chosenPillStyle
+						if(P.icon_state == "pill_shape_capsule_bloodred")
 							P.desc = "A tablet or capsule, but not just any, a red one, one taken by the ones not scared of knowledge, freedom, uncertainty and the brutal truths of reality."
 						adjust_item_drop_location(P)
 						reagents.trans_to(P, vol_each, transfered_by = usr)

@@ -249,25 +249,14 @@
 	name ="pill"
 
 /datum/asset/spritesheet/simple/pills/register()
-	var/dmi_file = 'icons/obj/chemical.dmi'
-	for(var/i in 1 to PILL_STYLE_COUNT)
-		var/icon_file = "pill_[i]"
-		var/icon/target_icon = icon(dmi_file, icon_file, SOUTH, 1)
+	var/dmi_file = 'icons/obj/pills.dmi'
+	for(var/each_pill_shape in PILL_SHAPE_LIST)
+		var/icon/target_icon = icon(dmi_file, each_pill_shape, SOUTH, 1)
 		if(!target_icon)
 			continue
 		target_icon.Crop(10,21, 22,9)
 		target_icon.Scale(24, 24)
-		Insert(icon_file, target_icon)
-
-	// hardcoding ones
-	for(var/each in PILL_LIST_NON_NUMBER_PILLS)
-		var/icon_file = "pill_[each]"
-		var/icon/target_icon = icon(dmi_file, icon_file, SOUTH, 1)
-		if(!target_icon)
-			continue
-		target_icon.Crop(10,21, 22,9)
-		target_icon.Scale(24, 24)
-		Insert(icon_file, target_icon)
+		Insert(each_pill_shape, target_icon)
 	return ..()
 
 //this exists purely to avoid meta by pre-loading all language icons.

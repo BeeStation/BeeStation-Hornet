@@ -398,7 +398,7 @@
 	name = "pill bottle"
 	desc = "It's an airtight container for storing medication."
 	icon_state = "pill_canister_0"
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/pills.dmi'
 	item_state = "contsolid"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'

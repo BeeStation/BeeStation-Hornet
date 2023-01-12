@@ -13,7 +13,7 @@
 	///pill name
 	var/pill_name = "factory pill"
 	///the icon_state number for the pill.
-	var/pill_number = PILL_SHAPE_CAPSULE_PURPLE_PINK
+	var/pill_shape = "pill_shape_capsule_purple_pink"
 	///list of id's and icons for the pill selection of the ui
 	var/static/list/pill_styles = list()
 	///list of pills stored in the machine, so we dont have 610 pills on one tile
@@ -35,16 +35,10 @@
 
 	//expertly copypasted from chemmasters
 	if(!length(pill_styles))
-		for (var/x in 1 to PILL_STYLE_COUNT)
+		for (var/each_pill_shape in PILL_SHAPE_LIST)
 			var/list/SL = list()
-			SL["id"] = "[x]"
-			SL["pill_icon_name"] = "pill_[x]"
-			pill_styles += list(SL)
-
-		for(var/x in PILL_LIST_NON_NUMBER_PILLS)
-			var/list/SL = list()
-			SL["id"] = "[x]"
-			SL["pill_icon_name"] = "pill_[x]"
+			SL["id"] = each_pill_shape
+			SL["pill_icon_name"] = each_pill_shape
 			pill_styles += list(SL)
 
 /obj/machinery/plumbing/pill_press/process()
@@ -55,11 +49,11 @@
 		reagents.trans_to(P, pill_size)
 		P.name = pill_name
 		stored_pills += P
-		if(pill_number == PILL_SHAPE_SELECTION_RANDOM)
-			P.icon_state = "pill_[rand(1,PILL_STYLE_COUNT)]"
+		if(pill_shape == "pill_random_dummy")
+			P.icon_state = pick(PILL_SHAPE_LIST_MINUS_DUMMY)
 		else
-			P.icon_state = "pill_[pill_number]"
-		if(P.icon_state == PILL_SHAPE_CAPSULE_BLOODRED) //mirrored from chem masters
+			P.icon_state = pill_shape
+		if(P.icon_state == "pill_shape_capsule_bloodred") //mirrored from chem masters
 			P.desc = "A tablet or capsule, but not just any, a red one, one taken by the ones not scared of knowledge, freedom, uncertainty and the brutal truths of reality."
 	if(stored_pills.len)
 		var/pill_amount = 0
@@ -89,7 +83,7 @@
 
 /obj/machinery/plumbing/pill_press/ui_data(mob/user)
 	var/list/data = list()
-	data["pill_style"] = pill_number
+	data["pill_style"] = pill_shape
 	data["pill_size"] = pill_size
 	data["pill_name"] = pill_name
 	data["pill_styles"] = pill_styles
@@ -100,7 +94,7 @@
 		return
 	switch(action)
 		if("change_pill_style")
-			pill_number = "[params["id"]]"
+			pill_shape = "[params["id"]]"
 			. = TRUE
 		if("change_pill_size")
 			pill_size = CLAMP(text2num(params["volume"]), minimum_pill, maximum_pill)
