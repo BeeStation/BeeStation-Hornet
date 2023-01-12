@@ -268,7 +268,8 @@
 /datum/mutation/fire/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
-	ADD_TRAIT{owner, TRAIT_RESISTCOLD, "Firey Sweat"}
+	ADD_TRAIT(owner, TRAIT_RESISTCOLD, "Firey Sweat")
+
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.physiology.burn_mod *= 0.5
@@ -277,6 +278,7 @@
 	if(..())
 		return
 	REMOVE_TRAIT(owner, TRAIT_RESISTCOLD, "Firey Sweat")
+
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.physiology.burn_mod *= 2
