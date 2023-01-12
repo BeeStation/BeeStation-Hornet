@@ -2200,15 +2200,6 @@
 	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
 	},
 /area/awaymission/caves/BMP_asteroid)
-"gR" = (
-/obj/structure/closet/crate/miningcar{
-	amount = 12;
-	name = "Mining cart"
-	},
-/turf/open/floor/plating/asteroid/basalt{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
-	},
-/area/awaymission/caves/BMP_asteroid)
 "gS" = (
 /obj/structure/girder,
 /turf/open/floor/plating/asteroid/basalt{
@@ -13029,7 +13020,7 @@ cx
 bV
 fg
 fg
-gR
+dU
 bV
 bV
 bV
