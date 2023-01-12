@@ -334,7 +334,7 @@
 		var/obj/item/reagent_containers/food/snacks/S = O
 		if(S.dried_type)
 			return TRUE
-	if(istype(O, /obj/item/stack/sheet/wetleather/))
+	if(istype(O, /obj/item/stack/sheet/leather/wetleather/))
 		return TRUE
 	return FALSE
 
@@ -360,7 +360,7 @@
 				S.reagents.copy_to(R)
 			qdel(S)
 		return TRUE
-	for(var/obj/item/stack/sheet/wetleather/WL in src)
+	for(var/obj/item/stack/sheet/leather/wetleather/WL in src)
 		new /obj/item/stack/sheet/leather(drop_location(), WL.amount)
 		qdel(WL)
 		return TRUE
