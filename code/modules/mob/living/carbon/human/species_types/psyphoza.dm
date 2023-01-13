@@ -71,7 +71,7 @@
 	var/obj/effect/psyphoza_spores/P = locate(/obj/effect/psyphoza_spores) in H.loc
 	if(P && H.health < H.maxHealth)
 		//healing
-		var/amount = P.take_resources(5)
+		var/amount = P.take_resources(3 * P.upgrades)
 		H.heal_overall_damage(amount,amount, 0, BODYTYPE_ORGANIC)
 
 /datum/species/psyphoza/get_scream_sound(mob/living/carbon/user)
@@ -345,7 +345,7 @@
 
 /obj/effect/psyphoza_spores/process(delta_time)
 	if(world.time % 3 == 0)
-		resources += upgrades
+		resources = min(resources+upgrades, resource_limit*upgrades)
 
 /obj/effect/psyphoza_spores/proc/take_resources(amount = 0)
 	var/exchange = min(amount, resources)
