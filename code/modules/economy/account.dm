@@ -10,7 +10,7 @@
 	/// If TRUE, SSeconomy will store an account into `SSeconomy.bank_accounts`
 	var/add_to_accounts = TRUE
 	var/account_id
-	var/being_dumped = FALSE //pink levels are rising
+	var/crab_protected = NONE //pink levels are rising - used for CRAB-17
 	var/withdrawDelay = 0
 	/// used for cryo'ed people's account. Once it's TRUE, most bank features of the bank account will be disabled.
 	var/suspended = FALSE
@@ -51,7 +51,7 @@
 	return ..()
 
 /datum/bank_account/proc/dumpeet()
-	being_dumped = TRUE
+	crab_protected &= ~ACCOUNT_FLAG_CRAB_FREED
 	withdrawDelay = world.time + DUMPTIME
 
 /datum/bank_account/proc/_adjust_money(amt)

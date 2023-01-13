@@ -65,3 +65,8 @@
 #define MAX_MAIL_PER_MINUTE 3
 /// Probability of using letters of envelope sprites on all letters.
 #define FULL_CRATE_LETTER_ODDS 70
+
+
+// used for CRAB-17 traitor items
+#define ACCOUNT_FLAG_CRAB_USER  (1<<0)
+#define ACCOUNT_FLAG_CRAB_FREED (1<<1)
