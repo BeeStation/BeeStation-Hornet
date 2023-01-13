@@ -77,7 +77,7 @@
 /datum/species/psyphoza/get_scream_sound(mob/living/carbon/user)
 	return pick('sound/voice/psyphoza/psyphoza_scream_1.ogg', 'sound/voice/psyphoza/psyphoza_scream_2.ogg')
 
-//This originally held the psychic action until I moved it to the eyes, keep it please
+//This originally held the psychic action until I moved it to the eyes, keep it please.
 /obj/item/organ/brain/psyphoza
 	name = "psyphoza brain"
 	desc = "Bubbling with psychic energy..no wait...that's blood."
