@@ -2,6 +2,8 @@
 #define PSYCHIC_OVERLAY_UPPER 400
 ///Burn mod for our species - we're weak to fire
 #define PSYPHOZA_BURNMOD 1.25
+///Invisibility layer for shrooms
+#define SHROOM_DEPOSIT_INVISIBILITY 99
 
 /datum/species/psyphoza
 	name = "\improper Psyphoza"
@@ -20,6 +22,7 @@
 	mutant_brain = /obj/item/organ/brain/psyphoza
 	mutanteyes = /obj/item/organ/eyes/psyphoza
 	mutanttongue = /obj/item/organ/tongue/psyphoza
+	mutantstomach = /obj/item/organ/stomach/psyphoza
 
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slice.ogg'
@@ -61,6 +64,15 @@
 		H.reagents.remove_reagent(chem.type, chem.volume)
 		return FALSE
 	return ..()
+
+/datum/species/psyphoza/spec_life(mob/living/carbon/human/H)
+	if(world.time % 3)
+		return
+	var/obj/effect/psyphoza_spores/P = locate(/obj/effect/psyphoza_spores) in H.loc
+	if(P && H.health < H.maxHealth)
+		//healing
+		var/amount = P.take_resources(5)
+		H.heal_overall_damage(amount,amount, 0, BODYTYPE_ORGANIC)
 
 /datum/species/psyphoza/get_scream_sound(mob/living/carbon/user)
 	return pick('sound/voice/psyphoza/psyphoza_scream_1.ogg', 'sound/voice/psyphoza/psyphoza_scream_2.ogg')
@@ -274,7 +286,7 @@
 	cycle_visuals()
 
 /atom/movable/screen/fullscreen/blind/psychic_highlight/proc/cycle_visuals()
-	visual_index += 1
+	++visual_index
 	//Reset animations
 	animate(src, color = "#fff")
 	//Set animation
@@ -305,6 +317,43 @@
 	if(!psychic_overlay)
 		psychic_overlay = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight) in owner?.client?.screen
 	psychic_overlay?.cycle_visuals()
+
+/obj/effect/psyphoza_spores
+	name = "psyphoza sprore deposit"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "shrooms"
+	invisibility = SHROOM_DEPOSIT_INVISIBILITY
+	///Internal resources for healing
+	var/resources = 0
+	///Internal resource limit
+	var/resource_limit = 20
+	///Amount of upgrades
+	var/upgrades = 1
+	///Limit to upgrades
+	var/upgrade_limit = 3
+	///The calling card for this particular deposit
+	var/message = ""
+
+/obj/effect/psyphoza_spores/Initialize(mapload, new_message)
+	. = ..()
+	message = new_message
+	START_PROCESSING(SSobj, src)
+
+/obj/effect/psyphoza_spores/attack_hand(mob/living/user)
+	. = ..()
+	to_chat(user, "<span class='notice'>Available resources: [resources] \nThe deposit echos: '[message]'</span>")
+
+/obj/effect/psyphoza_spores/process(delta_time)
+	if(world.time % 3 == 0)
+		resources += upgrades
+
+/obj/effect/psyphoza_spores/proc/take_resources(amount = 0)
+	var/exchange = min(amount, resources)
+	resources = max(0, resources-amount)
+	return exchange
+
+/obj/effect/psyphoza_spores/proc/upgrade()
+	upgrades = min(upgrade_limit, upgrades+1)
 
 #undef PSYCHIC_OVERLAY_UPPER
 #undef PSYPHOZA_BURNMOD

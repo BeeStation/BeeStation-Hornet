@@ -414,6 +414,8 @@
 	icon_state = "psyphoza_eyeballs"
 	actions_types = list(/datum/action/item_action/organ_action/psychic_highlight)
 	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	see_invisible = 99 //Magic number for shroom deposits, sorry
 
 /obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special, drop_if_replaced, initialising)
 	. = ..()
