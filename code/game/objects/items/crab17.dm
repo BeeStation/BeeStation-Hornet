@@ -202,7 +202,7 @@
 		next_health_to_teleport -= RUN_AWAY_THRESHOLD_HP
 		var/turf/targetturf = get_safe_random_station_turfs()
 		if(targetturf)
-			var/turf/message_turf = get_turf(src) // 'visibme_message' from teleported mob will be visible after it's teleported...
+			var/turf/message_turf = get_turf(src) // 'visible_message' from teleported mob will be visible after it's teleported...
 			if(do_teleport(src, targetturf, 0, channel = TELEPORT_CHANNEL_BLUESPACE))
 				message_turf.visible_message("<span class='danger'>[src] suddenly disappeared into nowhere!</span>")
 				visible_message("<span class='danger'>[src] suddenly appeared from nowhere!</span>")
