@@ -103,3 +103,62 @@
 	display_results(user, target, "<span class='notice'>You begin to open the hatch holders in [target]'s [parse_zone(target_zone)]...</span>",
 		"[user] begins to open the hatch holders in [target]'s [parse_zone(target_zone)].",
 		"[user] begins to open the hatch holders in [target]'s [parse_zone(target_zone)].")
+
+//wirecutter
+/datum/surgery_step/cut_wires
+	name = "cut wires"
+	implements = list(
+		TOOL_WIRECUTTER			= 100,
+		TOOL_SCALPEL 			= 65,
+		/obj/item/kitchen/knife	= 40,
+		/obj/item				= 10) // 10% success with any sharp item.
+	time = 24
+	preop_sound = 'sound/items/ratchet.ogg'
+
+/datum/surgery_step/cut_wires/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	display_results(user, target, "<span class='notice'>You begin to cut some wires in [target]'s [parse_zone(target_zone)]...</span>",
+			"[user] begins to cut some wires in [target]'s [parse_zone(target_zone)].",
+			"[user] begins to cut some wires in [target]'s [parse_zone(target_zone)].")
+
+/datum/surgery_step/cut_wires/tool_check(mob/user, obj/item/tool)
+	if(implement_type == /obj/item && !tool.is_sharp())
+		return FALSE
+	if(tool.usesound)
+		preop_sound = tool.usesound
+
+	return TRUE
+
+//change or insert new wires
+/datum/surgery_step/insert_wires
+	name = "insert new wires"
+	implements = list(
+		/obj/item/stack/cable_coil = 100)
+	time = 24
+	preop_sound = 'sound/items/ratchet.ogg'
+
+/datum/surgery_step/insert_wires/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	display_results(user, target, "<span class='notice'>You begin to insert some wires in [target]'s [parse_zone(target_zone)]...</span>",
+			"[user] begins to insert some wires in [target]'s [parse_zone(target_zone)].",
+			"[user] begins to insert some wires in [target]'s [parse_zone(target_zone)].")
+
+/datum/surgery_step/insert_wires/tool_check(mob/user, obj/item/stack/cable_coil/tool)
+	if(tool.amount < 10)
+		to_chat(user, "<span class='warning'>You need to have 10 pieces of wires to operate this.</span>")
+		return FALSE
+	if(tool.usesound)
+		preop_sound = tool.usesound
+
+	tool.amount -= 10
+	return TRUE
+
+//pulling out debris
+/datum/surgery_step/pulling_out
+	name = "pull out debris"
+	implements = list(TOOL_HEMOSTAT = 100)
+	time = 24
+	preop_sound = 'sound/surgery/hemostat1.ogg'
+
+/datum/surgery_step/pulling_out/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	display_results(user, target, "<span class='notice'>You begin to pull out some debrisin [target]'s [parse_zone(target_zone)]...</span>",
+		"[user] begins to pull out some debris in [target]'s [parse_zone(target_zone)].",
+		"[user] begins to pull out some debris in [target]'s [parse_zone(target_zone)].")
