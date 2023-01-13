@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
 	new/datum/stack_recipe("durathread hoodie",						/obj/item/clothing/suit/hooded/hoodie/durathread, 5, time = 5 SECONDS), \
 ))
 
-STACKSIZE_MACRO(/obj/item/stack/sheet/cotton/durathread)
+STACKSIZE_MACRO(/obj/item/stack/sheet/cotton/cloth/durathread)
 
 /* Silk */
 

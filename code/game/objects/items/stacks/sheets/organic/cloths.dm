@@ -12,6 +12,7 @@ Cloth Sheets (a linen?)
 	name = "raw cotton bundle"
 	desc = "A bundle of raw cotton ready to be spun on the loom."
 	singular_name = "raw cotton ball"
+	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "sheet-cotton"
 	resistance_flags = FLAMMABLE
 	force = 0
@@ -27,8 +28,8 @@ Cloth Sheets (a linen?)
 	desc = "Is it cotton? Linen? Denim? Burlap? Canvas? You can't tell."
 	singular_name = "cloth roll"
 	icon_state = "sheet-cloth"
-	item_state = "sheet-cloth"
 	icon = 'icons/obj/stacks/organic.dmi'
+	item_state = "sheet-cloth"
 	resistance_flags = FLAMMABLE
 	force = 0
 	throwforce = 0
@@ -47,12 +48,11 @@ Cloth Sheets (a linen?)
 	desc = "A bundle of raw durathread ready to be spun on the loom."
 	singular_name = "raw durathread ball"
 	icon_state = "sheet-durathreadraw"
-	icon = 'icons/obj/stacks/organic.dmi'
 	merge_type = /obj/item/stack/sheet/cotton/durathread
 	pull_effort = 70
-	loom_result = /obj/item/stack/sheet/durathread
+	loom_result = /obj/item/stack/sheet/cotton/cloth/durathread
 
-/obj/item/stack/sheet/durathread
+/obj/item/stack/sheet/cotton/cloth/durathread
 	name = "durathread"
 	desc = "A fabric sown from incredibly durable threads, known for its usefulness in armor production."
 	singular_name = "durathread roll"
@@ -62,11 +62,11 @@ Cloth Sheets (a linen?)
 	resistance_flags = FLAMMABLE
 	force = 0
 	throwforce = 0
-	merge_type = /obj/item/stack/sheet/durathread
+	merge_type = /obj/item/stack/sheet/cotton/cloth/durathread
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
-/obj/item/stack/sheet/durathread/Initialize(mapload, new_amount, merge = TRUE)
+/obj/item/stack/sheet/cotton/cloth/durathread/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.durathread_recipes
 	return ..()
 
