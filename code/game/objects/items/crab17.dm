@@ -170,6 +170,8 @@
 /obj/structure/checkoutmachine/proc/dump()
 	var/percentage_lost = (rand(10, 30) / 1000) // 1~3% randomly chosen. the value is nerfed since the market machine will run away
 	var/datum/bank_account/crab_account = bogdanoff.get_bank_account()
+	var/total_credits_stolen = 0
+	var/victim_count = 0
 	for(var/datum/bank_account/B in SSeconomy.bank_accounts)
 		if(B.crab_protected)
 			continue
@@ -179,17 +181,22 @@
 		if(crab_account)
 			if(amount)
 				crab_account.transfer_money(B, amount)
+				total_credits_stolen += amount
+				victim_count += 1
 				B.bank_card_talk("You have lost [percentage_lost * 100]% of your funds! A spacecoin credit deposit machine is located at: [get_area(src)].")
 			else
 				B.bank_card_talk("You have lost nothing of your funds, you poor! We don't have to let you know the location of our space-coin market as you lose nothing, right?")
 		else
 			if(amount)
 				B.adjust_money(-amount)
+				total_credits_stolen += amount
+				victim_count += 1
 				B.bank_card_talk("You have lost [percentage_lost * 100]% of your funds! A spacecoin credit deposit machine is located at: [get_area(src)].")
 			else
 				B.bank_card_talk("You have lost nothing of your funds, you poor! We don't have to let you know the location of our space-coin market as you lose nothing, right?")
 	for(var/M in GLOB.dead_mob_list)
-		to_chat(M, "")
+		var/link = FOLLOW_LINK(M, src)
+		to_chat(M, "[link] [name] [total_credits_stolen ? "siphons total [total_credits_stolen] credits from [victim_count] bank accounts." : "tried to siphon bank accounts, but there're no victims."] location: [get_area(src)]")
 	addtimer(CALLBACK(src, .proc/dump), 150) //Drain every 15 seconds
 
 /obj/structure/checkoutmachine/process()
@@ -204,8 +211,8 @@
 		if(targetturf)
 			var/turf/message_turf = get_turf(src) // 'visible_message' from teleported mob will be visible after it's teleported...
 			if(do_teleport(src, targetturf, 0, channel = TELEPORT_CHANNEL_BLUESPACE))
-				message_turf.visible_message("<span class='danger'>[src] suddenly disappeared into nowhere!</span>")
-				visible_message("<span class='danger'>[src] suddenly appeared from nowhere!</span>")
+				message_turf.visible_message("<span class='danger'>[name] suddenly disappeared into nowhere!</span>")
+				visible_message("<span class='danger'>[name] suddenly appeared from nowhere!</span>")
 
 /obj/effect/dumpeetFall //Falling pod
 	name = ""
