@@ -215,3 +215,46 @@
 		COOLDOWN_START(src, severe_cooldown, 10 SECONDS)
 	if(prob(emp_vulnerability/severity)) //Chance of permanent effects
 		organ_flags |= ORGAN_FAILING //Starts organ failure - gonna need replacing soon.
+
+/obj/item/organ/stomach/psyphoza
+	name = "psyphoza stomach"
+	desc = "Only technically a stomach."
+	actions_types = list(/datum/action/item_action/organ_action/place_spores)
+
+/datum/action/item_action/organ_action/place_spores
+	name = "Deposit Spores"
+	desc = "Deposit healing spores to your current location."
+	///Time between uses
+	var/cooldown = 120 SECONDS
+	///Ref to timer
+	var/cooldown_timer
+
+/datum/action/item_action/organ_action/place_spores/Destroy()
+	. = ..()
+	handle_timer()
+
+/datum/action/item_action/organ_action/place_spores/Trigger()
+	. = ..()
+	if(cooldown_timer)
+		to_chat(owner, "<span class='warning'>You can't do that right now!</span>")
+		return
+	var/obj/effect/psyphoza_spores/P = locate(/obj/effect/psyphoza_spores) in owner.loc
+	if(P)
+		if(P.upgrades < P.upgrade_limit && alert(owner, "Do you want to upgrade this spore deposit?", "Upgrade:", "Yes", "No") == "Yes")
+			P.upgrade()
+			to_chat(owner, "<span class='notice'>You upgrade the deposit.</span>")
+		else
+			to_chat(owner, "<span class='warning'>This deposit is already upgraded!</span>")
+			return
+	else if(alert(owner, "Do you want to place a spore deposit here?", "Deposit:", "Yes", "No") == "Yes")
+		var/message = input(owner, "What message would you like to imprint on the deposit?", "Deposit message:") as text|null
+		log_game("[key_name(owner)] as [owner] made a new spore deposit with the message [message] at [world.time]. [key_name(owner)] located at [AREACOORD(owner)]")
+		message_admins("[key_name(owner)] as [owner] made a new spore deposit with the message [message] at [world.time]. [key_name(owner)] located at [AREACOORD(owner)]")
+		new /obj/effect/psyphoza_spores(get_turf(owner), message)
+		to_chat(owner, "<span class='notice'>You create a deposit.</span>")
+	cooldown_timer = addtimer(CALLBACK(src, .proc/handle_timer), cooldown, TIMER_STOPPABLE)
+
+/datum/action/item_action/organ_action/place_spores/proc/handle_timer()
+	if(cooldown_timer)
+		deltimer(cooldown_timer)
+	cooldown_timer = null
