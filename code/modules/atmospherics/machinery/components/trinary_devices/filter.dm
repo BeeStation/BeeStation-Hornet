@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/components/trinary/filter
-	icon_state = "filter_off"
+	icon_state = "filter_off-0"
 	density = FALSE
 
 	name = "gas filter"
@@ -13,8 +13,6 @@
 
 	construction_type = /obj/item/pipe/trinary/flippable
 	pipe_state = "filter"
-
-
 
 
 /obj/machinery/atmospherics/components/trinary/filter/CtrlClick(mob/user)
@@ -181,7 +179,7 @@
 
 /obj/machinery/atmospherics/components/trinary/filter/on
 	on = TRUE
-	icon_state = "filter_on"
+	icon_state = "filter_on-0"
 
 /obj/machinery/atmospherics/components/trinary/filter/on/layer2
 	piping_layer = 2
@@ -191,7 +189,7 @@
 	icon_state = "filter_on_map-4"
 
 /obj/machinery/atmospherics/components/trinary/filter/flipped
-	icon_state = "filter_off_f"
+	icon_state = "filter_off-0_f"
 	flipped = TRUE
 
 /obj/machinery/atmospherics/components/trinary/filter/flipped/layer2
@@ -203,7 +201,7 @@
 
 /obj/machinery/atmospherics/components/trinary/filter/flipped/on
 	on = TRUE
-	icon_state = "filter_on_f"
+	icon_state = "filter_on-0_f"
 
 /obj/machinery/atmospherics/components/trinary/filter/flipped/on/layer2
 	piping_layer = 2
@@ -214,7 +212,7 @@
 
 /obj/machinery/atmospherics/components/trinary/filter/atmos //Used for atmos waste loops
 	on = TRUE
-	icon_state = "filter_on"
+	icon_state = "filter_on-0"
 /obj/machinery/atmospherics/components/trinary/filter/atmos/n2
 	name = "nitrogen filter"
 	filter_type = "n2"
@@ -232,7 +230,7 @@
 	filter_type = "plasma"
 
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped //This feels wrong, I know
-	icon_state = "filter_on_f"
+	icon_state = "filter_on-0_f"
 	flipped = TRUE
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/n2
 	name = "nitrogen filter"
