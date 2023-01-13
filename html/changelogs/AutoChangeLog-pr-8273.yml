@@ -1,6 +1,0 @@
-author: Tsar-Salat
-delete-after: true
-changes:
-  - rscadd: Color coordinated mixer devices for atmos
-  - tweak: renamed mixer nodes to be less confusing and go along with new color changes
-  - imageadd: replaced regular mixers devices with colored coordinated red-blue ones
