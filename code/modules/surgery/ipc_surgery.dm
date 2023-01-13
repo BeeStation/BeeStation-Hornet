@@ -26,7 +26,7 @@
 // electronics step
 /datum/surgery_step/prepare_electronics/ipc_clone_damage_surgery
 	name = "neutralise anomaly electronics"
-	time = 30
+	time = 15
 
 /datum/surgery_step/prepare_electronics/ipc_clone_damage_surgery/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(target.getCloneLoss() > 60) // this quite does nothing much, but good to know it's going well!
@@ -53,7 +53,12 @@
 // wrench step - this will be the final step
 /datum/surgery_step/mechanic_wrench/ipc_clone_damage_surgery
 	name = "retighten big bolts"
-	time = 60
+	time = 80
+
+/datum/surgery_step/mechanic_wrench/ipc_clone_damage_surgery/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	display_results(user, target, "<span class='notice'>You begin to carefully calibrate functional bolts in [target]'s [parse_zone(target_zone)]...</span>",
+		"[user] begins to carefully calibrate functional bolts in [target]'s [parse_zone(target_zone)].",
+		"[user] begins to carefully calibrate functional bolts in [target]'s [parse_zone(target_zone)].")
 
 /datum/surgery_step/mechanic_wrench/ipc_clone_damage_surgery/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(isipc(target) || isandroid(target))
