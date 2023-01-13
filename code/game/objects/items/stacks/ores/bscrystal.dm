@@ -12,6 +12,8 @@
 	refined_type = /obj/item/stack/ore/bluespace_crystal/refined
 	grind_results = list(/datum/reagent/bluespace = 20)
 	scan_state = "rock_BScrystal"
+	novariants = FALSE
+	max_amount = 50
 
 /obj/item/stack/ore/bluespace_crystal/Initialize(mapload)
 	. = ..()
@@ -20,12 +22,11 @@
 
 /obj/item/stack/ore/bluespace_crystal/update_icon()
 	if(amount <= (max_amount * (1/3)))
-		icon_state = "bluespace_crystal"
+		icon_state = initial(icon_state)
 	else if(amount <= (max_amount * (2/3)))
-		icon_state = "bluespace_crystal_2"
+		icon_state = "[initial(icon_state)]_2"
 	else
-		icon_state = "bluespace_crystal_3"
-	return ..()
+		icon_state = "[initial(icon_state)]_3"
 
 /obj/item/stack/ore/bluespace_crystal/get_part_rating()
 	return 1
@@ -50,6 +51,8 @@
 			blink_mob(hit_atom)
 		use(1)
 
+STACKSIZE_MACRO(/obj/item/stack/ore/bluespace_crystal)
+
 //Artificial bluespace crystal, doesn't give you much research.
 /obj/item/stack/ore/bluespace_crystal/artificial
 	name = "artificial bluespace crystal"
@@ -61,17 +64,13 @@
 	refined_type = null
 	grind_results = list(/datum/reagent/bluespace = 10, /datum/reagent/silicon = 20)
 
+STACKSIZE_MACRO(/obj/item/stack/ore/bluespace_crystal/artificial)
 
-/obj/item/stack/ore/bluespace_crystal/refined //NEED ICON FOR THEM, SYNTHETIC IS NO GOOD
+/obj/item/stack/ore/bluespace_crystal/refined
 	name = "refined bluespace crystal"
+	desc = "An refined bluespace crystal, it looks as delicate as pretty."
+	icon_state = "refined_bluespace_crystal"
 	points = 1
 	refined_type = null
 
-/obj/item/stack/ore/bluespace_crystal/refined/fifty
-	amount = 50
-
-/obj/item/stack/ore/bluespace_crystal/refined/twenty
-	amount = 20
-
-/obj/item/stack/ore/bluespace_crystal/refined/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/ore/bluespace_crystal/refined)

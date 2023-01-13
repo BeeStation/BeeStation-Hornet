@@ -19,13 +19,29 @@
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "weed_extract"
 
+/* Bones */
 
-/*
- * Sinew
- */
+/obj/item/stack/sheet/bone
+	name = "bones"
+	icon_state = "bone"
+	item_state = "sheet-bone"
+	icon = 'icons/obj/stacks/organic.dmi'
+	singular_name = "bone"
+	desc = "Someone's been drinking their milk."
+	force = 7
+	throwforce = 5
+	max_amount = 12
+	w_class = WEIGHT_CLASS_NORMAL
+	throw_speed = 1
+	throw_range = 3
+	grind_results = list(/datum/reagent/carbon = 10)
+	merge_type = /obj/item/stack/sheet/bone
+
+/* Sinew */
+
 /obj/item/stack/sheet/sinew
 	name = "watcher sinew"
-	icon = 'icons/obj/mining.dmi'
+	icon = 'icons/obj/stacks/organic.dmi'
 	desc = "Long stringy filaments which presumably came from a watcher's wings."
 	singular_name = "watcher sinew"
 	icon_state = "sinew"
@@ -40,30 +56,3 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	recipes = GLOB.sinew_recipes
 	return ..()
 
-		/*
- * Plates
- 		*/
-/obj/item/stack/sheet/animalhide/goliath_hide
-	name = "goliath hide plates"
-	desc = "Pieces of a goliath's rocky hide, these might be able to make your suit a bit more durable to attack from the local fauna."
-	icon = 'icons/obj/mining.dmi'
-	icon_state = "goliath_hide"
-	singular_name = "hide plate"
-	max_amount = 6
-	novariants = FALSE
-	item_flags = NOBLUDGEON
-	w_class = WEIGHT_CLASS_NORMAL
-	layer = MOB_LAYER
-
-
-/obj/item/stack/sheet/animalhide/ashdrake
-	name = "ash drake hide"
-	desc = "The strong, scaled hide of an ash drake."
-	icon = 'icons/obj/mining.dmi'
-	icon_state = "dragon_hide"
-	singular_name = "drake plate"
-	max_amount = 10
-	novariants = FALSE
-	item_flags = NOBLUDGEON
-	w_class = WEIGHT_CLASS_NORMAL
-	layer = MOB_LAYER

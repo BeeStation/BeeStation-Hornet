@@ -6,7 +6,6 @@ miscelaneous materials Sheets
 		- Snow
 		- Plastic
 		- Cartboard
-		- Bones
 		- Capitalismium and Stalinium
 **********************/
 
@@ -126,24 +125,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 				new/obj/item/storage/box/clown(droploc) //bugfix
 	else
 		. = ..()
-
-/* Bones */
-
-/obj/item/stack/sheet/bone
-	name = "bones"
-	icon_state = "bone"
-	item_state = "sheet-bone"
-	icon = 'icons/obj/mining.dmi'
-	singular_name = "bone"
-	desc = "Someone's been drinking their milk."
-	force = 7
-	throwforce = 5
-	max_amount = 12
-	w_class = WEIGHT_CLASS_NORMAL
-	throw_speed = 1
-	throw_range = 3
-	grind_results = list(/datum/reagent/carbon = 10)
-	merge_type = /obj/item/stack/sheet/bone
 
 /* capitalisium and stalinium*/
 

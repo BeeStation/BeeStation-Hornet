@@ -15,6 +15,8 @@
 	scan_state = "rock_Uranium"
 	spreadChance = 5
 
+STACKSIZE_MACRO(/obj/item/stack/ore/uranium)
+
 /* Iron ore */
 
 /obj/item/stack/ore/iron
@@ -29,6 +31,8 @@
 	scan_state = "rock_Iron"
 	spreadChance = 20
 
+STACKSIZE_MACRO(/obj/item/stack/ore/iron)
+
 /* "Glass" ore */
 
 /obj/item/stack/ore/glass
@@ -41,11 +45,6 @@
 	materials = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/glass
 	w_class = WEIGHT_CLASS_TINY
-
-GLOBAL_LIST_INIT(sand_recipes, list(\
-		new /datum/stack_recipe("sandstone", /obj/item/stack/sheet/mineral/sandstone, 1, 1, 50),\
-		new /datum/stack_recipe("aesthetic volcanic floor tile", /obj/item/stack/tile/basalt, 2, 1, 50)\
-))
 
 /obj/item/stack/ore/glass/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.sand_recipes
@@ -69,6 +68,13 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		return
 	qdel(src)
 
+GLOBAL_LIST_INIT(sand_recipes, list(\
+		new /datum/stack_recipe("sandstone", /obj/item/stack/sheet/mineral/sandstone, 1, 1, 50),\
+		new /datum/stack_recipe("aesthetic volcanic floor tile", /obj/item/stack/tile/basalt, 2, 1, 50)\
+))
+
+STACKSIZE_MACRO(/obj/item/stack/ore/glass)
+
 /* Glass variant ore */
 
 /obj/item/stack/ore/glass/basalt
@@ -77,6 +83,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon_state = "volcanic_sand"
 	icon_state = "volcanic_sand"
 	singular_name = "volcanic ash pile"
+
+STACKSIZE_MACRO(/obj/item/stack/ore/basalt)
 
 /* Plasma ore */
 
@@ -96,6 +104,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	to_chat(user, "<span class='warning'>You can't hit a high enough temperature to smelt [src] properly!</span>")
 	return TRUE
 
+STACKSIZE_MACRO(/obj/item/stack/ore/plasma)
+
 /* Copper ore */
 
 /obj/item/stack/ore/copper
@@ -109,6 +119,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	refined_type = /obj/item/stack/sheet/mineral/copper
 	scan_state = "rock_Copper"
 	spreadChance = 5
+
+STACKSIZE_MACRO(/obj/item/stack/ore/copper)
 
 /* Silver ore */
 
@@ -124,6 +136,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	scan_state = "rock_Silver"
 	spreadChance = 5
 
+STACKSIZE_MACRO(/obj/item/stack/ore/silver)
+
 /* Gold ore */
 
 /obj/item/stack/ore/gold
@@ -138,6 +152,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	scan_state = "rock_Gold"
 	spreadChance = 5
 
+STACKSIZE_MACRO(/obj/item/stack/ore/gold)
+
 /* Diamonds ore */
 
 /obj/item/stack/ore/diamond
@@ -151,6 +167,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	refined_type = /obj/item/stack/sheet/mineral/diamond
 	scan_state = "rock_Diamond"
 
+STACKSIZE_MACRO(/obj/item/stack/ore/diamond)
+
 /* Bananium ore */
 
 /obj/item/stack/ore/bananium
@@ -163,6 +181,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	materials = list(/datum/material/bananium=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/mineral/bananium
 	scan_state = "rock_Bananium"
+
+STACKSIZE_MACRO(/obj/item/stack/ore/bananium)
 
 /* Titanium ore */
 
@@ -178,6 +198,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	scan_state = "rock_Titanium"
 	spreadChance = 5
 
+STACKSIZE_MACRO(/obj/item/stack/ore/titanium)
+
 /* Slag... ore? */
 
 /obj/item/stack/ore/slag
@@ -186,3 +208,5 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon_state = "slag"
 	item_state = "slag"
 	singular_name = "slag chunk"
+
+STACKSIZE_MACRO(/obj/item/stack/ore/slag)
