@@ -288,6 +288,13 @@
 		ADD_TRAIT(user, each, "debug")
 	user.grant_all_languages(TRUE, TRUE, TRUE, "debug")
 	user.update_sight()
+	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	hud.add_hud_to(user)
+	hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
+	hud.add_hud_to(user)
+	hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
+	hud.add_hud_to(user)
+
 
 /obj/item/debug/orb_of_power/dropped(mob/living/carbon/human/user)
 	. = ..()
@@ -298,3 +305,12 @@
 		REMOVE_TRAIT(user, each, "debug")
 	user.remove_all_languages("debug")
 	user.update_sight()
+
+	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
+	hud.remove_hud_from(user)
+	if(!HAS_TRAIT(user, TRAIT_MEDICAL_HUD))
+		hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+		hud.remove_hud_from(user)
+	if(!HAS_TRAIT(user, TRAIT_SECURITY_HUD))
+		hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
+		hud.remove_hud_from(user)
