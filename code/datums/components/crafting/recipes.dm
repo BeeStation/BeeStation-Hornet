@@ -12,7 +12,7 @@
 	var/subcategory = CAT_NONE
 	var/always_available = TRUE //Set to FALSE if it needs to be learned first.
 	var/one_per_turf = FALSE ///Should only one object exist on the same turf?
-	var/dangerous_craft = FALSE //Should admins be notified about this getting created by a non-antagonist?
+	var/dangerous_craft = FALSE /// Should admins be notified about this getting created by a non-antagonist?
 
 /datum/crafting_recipe/New()
 	if(!(result in reqs))
