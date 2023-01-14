@@ -1,0 +1,6 @@
+author: benbot16
+delete-after: true
+changes:
+  - tweak: Obsessed antags no longer stutter/vomit/faint while talking near their
+      target.
+  - spellcheck: Fixes a typo in some obsessed logging
