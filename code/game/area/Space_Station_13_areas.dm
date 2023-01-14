@@ -1175,7 +1175,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "checkpoint_sci"
 
 /area/security/checkpoint/science/research
-	name = \improper "Security Post - Research Division"
+	name = "\improper Security Post - Research Division"
 	icon_state = "checkpoint_res"
 
 /area/security/checkpoint/customs
@@ -1409,11 +1409,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
 
 /area/storage/tools
-	name = "\improperAuxiliary Tool Storage"
+	name = "\improper Auxiliary Tool Storage"
 	icon_state = "tool_storage"
 
 /area/storage/primary
-	name = "\improperPrimary Tool Storage"
+	name = "\improper Primary Tool Storage"
 	icon_state = "primarystorage"
 
 /area/storage/art
