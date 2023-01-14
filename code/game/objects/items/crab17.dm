@@ -12,7 +12,7 @@
 		to_chat(user, "<span class='warning'>This device is too advanced for you!</span>")
 		return
 	if(!COOLDOWN_FINISHED(src, crab_reactivation_cooldown))
-		to_chat(user, "<span class='warning'>CRAB-17 will be reactivated in [round(COOLDOWN_TIMELEFT(src, crab_reactivation_cooldown)/10)] seconds.</span>")
+		to_chat(user, "<span class='warning'>CRAB-17 can be reactivated in [round(COOLDOWN_TIMELEFT(src, crab_reactivation_cooldown)/10)] seconds.</span>")
 		return FALSE
 	if(alert(user, "Are you sure you want to crash this market with no survivors?", "Protocol CRAB-17", "Yes", "No") == "Yes")
 		if(!COOLDOWN_FINISHED(src, crab_reactivation_cooldown) || QDELETED(src)) //Prevents fuckers from cheesing alert
