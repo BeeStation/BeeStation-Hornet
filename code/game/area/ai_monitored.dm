@@ -1,5 +1,5 @@
 /area/ai_monitored
-	name = "AI Monitored Area"
+	name = "\improper AI Monitored Area"
 	clockwork_warp_allowed = FALSE
 	var/list/obj/machinery/camera/motioncameras = list()
 	var/list/datum/weakref/motionTargets = list()

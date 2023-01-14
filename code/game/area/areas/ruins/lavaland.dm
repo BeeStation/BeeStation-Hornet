@@ -4,7 +4,7 @@
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/clownplanet
-	name = "Clown Planet"
+	name = "\improper Clown Planet"
 	icon_state = "dk_yellow"
 	ambientsounds = list('sound/ambience/clown.ogg')
 
@@ -18,14 +18,14 @@
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/golem_ship
-	name = "Free Golem Ship"
+	name = "\improper Free Golem Ship"
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/greed
 	icon_state = "dk_yellow"
 
 /area/ruin/unpowered/hierophant
-	name = "Hierophant's Arena"
+	name = "\improper Hierophant's Arena"
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/pride
@@ -35,27 +35,27 @@
 	icon_state = "dk_yellow"
 
 /area/ruin/unpowered/syndicate_lava_base
-	name = "Secret Base"
+	name = "\improper Secret Base"
 	icon_state = "dk_yellow"
 	ambience_index = AMBIENCE_DANGER
 
 /area/ruin/unpowered/syndicate_lava_base/engineering
-	name = "Syndicate Lavaland Engineering"
+	name = "\improper Syndicate Lavaland Engineering"
 
 /area/ruin/unpowered/syndicate_lava_base/medbay
-	name = "Syndicate Lavaland Medbay"
+	name = "\improper Syndicate Lavaland Medbay"
 
 /area/ruin/unpowered/syndicate_lava_base/arrivals
 	name = "Syndicate Lavaland Arrivals"
 
 /area/ruin/unpowered/syndicate_lava_base/bar
-	name = "Syndicate Lavaland Bar"
+	name = "\improper Syndicate Lavaland Bar"
 
 /area/ruin/unpowered/syndicate_lava_base/main
-	name = "Syndicate Lavaland Primary Hallway"
+	name = "\improper Syndicate Lavaland Primary Hallway"
 
 /area/ruin/unpowered/syndicate_lava_base/cargo
-	name = "Syndicate Lavaland Cargo Bay"
+	name = "\improper Syndicate Lavaland Cargo Bay"
 
 /area/ruin/unpowered/syndicate_lava_base/chemistry
 	name = "Syndicate Lavaland Chemistry"
@@ -64,13 +64,13 @@
 	name = "Syndicate Lavaland Virology"
 
 /area/ruin/unpowered/syndicate_lava_base/testlab
-	name = "Syndicate Lavaland Experimentation Lab"
+	name = "\improper Syndicate Lavaland Experimentation Lab"
 
 /area/ruin/unpowered/syndicate_lava_base/dormitories
-	name = "Syndicate Lavaland Dormitories"
+	name = "\improper Syndicate Lavaland Dormitories"
 
 /area/ruin/unpowered/syndicate_lava_base/telecomms
-	name = "Syndicate Lavaland Telecommunications"
+	name = "\improper Syndicate Lavaland Telecommunications"
 
 /area/ruin/unpowered/standruin
 	name = "Forgotten Ruin"
