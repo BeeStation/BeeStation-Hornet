@@ -6,12 +6,13 @@
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	var/starting_tc = 0
+	var/discount_items = UPLINK_IMPLANT_DISCOUNT
 	/// The uplink flags of the implant uplink inside, only checked during initialisation so modifying it after initialisation will do nothing
 	var/uplink_flag = UPLINK_TRAITORS
 
 /obj/item/implant/uplink/Initialize(mapload, owner, uplink_flag)
 	. = ..()
-	AddComponent(/datum/component/uplink, _owner = owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = uplink_flag, starting_tc = starting_tc)
+	AddComponent(/datum/component/uplink, _owner = owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = uplink_flag, starting_tc = starting_tc, number_of_discount = discount_items)
 	RegisterSignal(src, COMSIG_COMPONENT_REMOVING, .proc/_component_removal)
 
 /**
@@ -41,4 +42,4 @@
 	starting_tc = TELECRYSTALS_PRELOADED_IMPLANT
 
 /obj/item/implant/uplink/starting
-	starting_tc = TELECRYSTALS_DEFAULT - UPLINK_IMPLANT_TELECRYSTAL_COST
+	starting_tc = TELECRYSTALS_DEFAULT

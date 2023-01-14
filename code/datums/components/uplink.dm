@@ -21,6 +21,7 @@
 	var/datum/uplink_purchase_log/purchase_log
 	var/list/uplink_items
 	var/hidden_crystals = 0
+	var/discount_amount = UPLINK_DISCOUNT_DEFAULT
 	var/unlock_note
 	var/unlock_code
 	var/failsafe_code
@@ -30,7 +31,7 @@
 
 	var/list/previous_attempts
 
-/datum/component/uplink/Initialize(_owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = UPLINK_TRAITORS, starting_tc = TELECRYSTALS_DEFAULT)
+/datum/component/uplink/Initialize(_owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = UPLINK_TRAITORS, starting_tc = TELECRYSTALS_DEFAULT, number_of_discount = UPLINK_DISCOUNT_DEFAULT)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -59,6 +60,7 @@
 	lockable = _lockable
 	active = _enabled
 	src.uplink_flag = uplink_flag
+	discount_amount = number_of_discount
 	update_items()
 	telecrystals = starting_tc
 	if(!lockable)
@@ -81,7 +83,7 @@
 
 /datum/component/uplink/proc/update_items()
 	var/updated_items
-	updated_items = get_uplink_items(uplink_flag, TRUE, allow_restricted)
+	updated_items = get_uplink_items(uplink_flag, TRUE, allow_restricted, discount_amount)
 	update_sales(updated_items)
 	uplink_items = updated_items
 

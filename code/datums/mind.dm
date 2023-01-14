@@ -305,6 +305,7 @@
 
 	var/obj/item/uplink_loc
 	var/implant = FALSE
+	var/number_of_discount = UPLINK_DISCOUNT_DEFAULT
 
 	if(traitor_mob.client?.prefs)
 		switch(traitor_mob.client.prefs.active_character.uplink_spawn_loc)
@@ -314,6 +315,7 @@
 					uplink_loc = R
 				if(!uplink_loc)
 					uplink_loc = P
+				number_of_discount = UPLINK_PDA_DISCOUNT
 			if(UPLINK_RADIO)
 				if(HAS_TRAIT(traitor_mob, TRAIT_MUTE))  // cant speak code into headset
 					to_chat(traitor_mob, "Using a radio uplink would be impossible with your muteness! Equipping PDA Uplink..")
@@ -328,17 +330,20 @@
 						uplink_loc = PDA
 					if(!uplink_loc)
 						uplink_loc = P
+				number_of_discount = UPLINK_RADIO_DISCOUNT
 			if(UPLINK_PEN)
 				uplink_loc = P
+				number_of_discount = UPLINK_PEN_DISCOUNT
 			if(UPLINK_IMPLANT)
 				implant = TRUE
+				number_of_discount = UPLINK_IMPLANT_DISCOUNT
 
 	if(!uplink_loc) // We've looked everywhere, let's just implant you
 		implant = TRUE
 
 	if (!implant)
 		. = uplink_loc
-		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, gamemode, telecrystals)
+		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, gamemode, telecrystals, number_of_discount)
 		if(src.has_antag_datum(/datum/antagonist/incursion))
 			U.uplink_flag = UPLINK_INCURSION
 		if(!U)

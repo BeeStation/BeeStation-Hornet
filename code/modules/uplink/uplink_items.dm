@@ -1,5 +1,5 @@
 GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
-/proc/get_uplink_items(uplink_flag, allow_sales = TRUE, allow_restricted = TRUE)
+/proc/get_uplink_items(uplink_flag, allow_sales = TRUE, allow_restricted = TRUE, number_of_discount = UPLINK_DISCOUNT_DEFAULT)
 	var/list/filtered_uplink_items = list()
 	var/list/sale_items = list()
 
@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		if (uplink_flag & UPLINK_NUKE_OPS) 					// uplink code kind of needs a redesign
 			nuclear_team = locate() in GLOB.antagonist_teams	// the team discounts could be a in a GLOB with this design but it would make sense for them to be team specific...
 		if (!nuclear_team)
-			create_uplink_sales(3, "Discounted Gear", 1, sale_items, filtered_uplink_items)
+			create_uplink_sales(number_of_discount, "Discounted Gear", 1, sale_items, filtered_uplink_items)
 		else
 			if (!nuclear_team.team_discounts)
 				// create 5 unlimited stock discounts
@@ -1867,7 +1867,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An implant injected into the body, and later activated at the user's will. Has no telecrystals and must be charged by the use of physical telecrystals. \
 			Undetectable (except via surgery), and excellent for escaping confinement."
 	item = /obj/item/storage/box/syndie_kit // the actual uplink implant is generated later on in spawn_item
-	cost = UPLINK_IMPLANT_TELECRYSTAL_COST
+	cost = 3
 	// An empty uplink is kinda useless.
 	surplus = 0
 	restricted = TRUE

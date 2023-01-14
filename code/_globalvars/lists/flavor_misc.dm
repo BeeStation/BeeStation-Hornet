@@ -136,7 +136,7 @@ GLOBAL_LIST_INIT(backbaglist, list(DBACKPACK, DSATCHEL, DDUFFELBAG, GBACKPACK, G
 GLOBAL_LIST_INIT(jumpsuitlist, list(PREF_SUIT, PREF_SKIRT))
 
 // What we show to the user
-GLOBAL_LIST_INIT(uplink_spawn_loc_list, list(UPLINK_PDA, UPLINK_RADIO, UPLINK_PEN, UPLINK_IMPLANT_WITH_PRICE))
+GLOBAL_LIST_INIT(uplink_spawn_loc_list, list(UPLINK_PDA_WITH_DESC, UPLINK_RADIO_WITH_DESC, UPLINK_PEN_WITH_DESC, UPLINK_IMPLANT_WITH_DESC))
 // What is actually saved; if the uplink implant price changes, it won't affect save files then
 GLOBAL_LIST_INIT(uplink_spawn_loc_list_save, list(UPLINK_PDA, UPLINK_RADIO, UPLINK_PEN, UPLINK_IMPLANT))
 

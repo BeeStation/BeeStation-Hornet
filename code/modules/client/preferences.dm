@@ -212,7 +212,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<b>Socks:</b><BR><a href ='?_src_=prefs;preference=socks;task=input'>[active_character.socks]</a><BR>"
 			dat += "<b>Backpack:</b><BR><a href ='?_src_=prefs;preference=bag;task=input'>[active_character.backbag]</a><BR>"
 			dat += "<b>Jumpsuit:</b><BR><a href ='?_src_=prefs;preference=suit;task=input'>[active_character.jumpsuit_style]</a><BR>"
-			dat += "<b>Uplink Spawn Location:</b><BR><a href ='?_src_=prefs;preference=uplink_loc;task=input'>[active_character.uplink_spawn_loc == UPLINK_IMPLANT ? UPLINK_IMPLANT_WITH_PRICE : active_character.uplink_spawn_loc]</a><BR></td>"
+			dat += "<b>Uplink Spawn Location:</b><BR><a href ='?_src_=prefs;preference=uplink_loc;task=input'>[active_character.uplink_spawn_loc]</a><BR></td>"
 
 			var/use_skintones = active_character.pref_species.use_skintones
 			if(use_skintones)
@@ -1677,8 +1677,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("uplink_loc")
 					var/new_loc = input(user, "Choose your character's traitor uplink spawn location:", "Character Preference") as null|anything in GLOB.uplink_spawn_loc_list
 					if(new_loc)
-						// This is done to prevent affecting saves
-						active_character.uplink_spawn_loc = new_loc == UPLINK_IMPLANT_WITH_PRICE ? UPLINK_IMPLANT : new_loc
+						for(var/i in 1 to length(GLOB.uplink_spawn_loc_list))
+							if(new_loc == GLOB.uplink_spawn_loc_list[i])
+								active_character.uplink_spawn_loc = GLOB.uplink_spawn_loc_list_save[i]
+								break
 
 				if("ai_core_icon")
 					var/ai_core_icon = input(user, "Choose your preferred AI core display screen:", "AI Core Display Screen Selection") as null|anything in GLOB.ai_core_display_screens - "Portrait"

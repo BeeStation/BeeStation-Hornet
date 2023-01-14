@@ -21,9 +21,9 @@
 
 	var/uplink_flag = UPLINK_TRAITORS
 
-/obj/item/uplink/Initialize(mapload, owner, tc_amount = 20)
+/obj/item/uplink/Initialize(mapload, owner, tc_amount = 20, discount_amount = UPLINK_PDA_DISCOUNT)
 	. = ..()
-	AddComponent(/datum/component/uplink, owner, FALSE, TRUE, uplink_flag, tc_amount)
+	AddComponent(/datum/component/uplink, owner, FALSE, TRUE, uplink_flag, tc_amount, discount_amount) // since it's too obvious, discount amount is 5
 
 /obj/item/uplink/debug
 	name = "debug uplink"
@@ -68,11 +68,11 @@
 	hidden_uplink.name = "dusty radio"
 
 // Multitool uplink
-/obj/item/multitool/uplink/Initialize(mapload, owner, tc_amount = 20)
+/obj/item/multitool/uplink/Initialize(mapload, owner, tc_amount = 20, discount_amount = UPLINK_PDA_DISCOUNT)
 	. = ..()
-	AddComponent(/datum/component/uplink, owner, FALSE, TRUE, UPLINK_TRAITORS, tc_amount)
+	AddComponent(/datum/component/uplink, owner, FALSE, TRUE, UPLINK_TRAITORS, tc_amount, discount_amount)
 
 // Pen uplink
-/obj/item/pen/uplink/Initialize(mapload, owner, tc_amount = 20)
+/obj/item/pen/uplink/Initialize(mapload, owner, tc_amount = 20, discount_amount = UPLINK_PEN_DISCOUNT)
 	. = ..()
-	AddComponent(/datum/component/uplink, owner, TRUE, FALSE, UPLINK_TRAITORS, tc_amount)
+	AddComponent(/datum/component/uplink, owner, TRUE, FALSE, UPLINK_TRAITORS, tc_amount, discount_amount)
