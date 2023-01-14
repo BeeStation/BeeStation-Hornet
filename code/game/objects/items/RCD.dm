@@ -598,16 +598,7 @@ RLD
 	ammoamt = 160
 
 
-/obj/item/construction/rcd/combat/admin
-	name = "admin RCD"
-	max_matter = INFINITY
-	matter = INFINITY
-	delay_mod = 0.1
-	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS
-
 // Ranged RCD
-
-
 /obj/item/construction/rcd/arcd
 	name = "advanced rapid-construction-device (ARCD)"
 	desc = "A prototype RCD with ranged capability and extended capacity. Reload with iron, plasteel, glass or compressed matter cartridges."
@@ -630,9 +621,6 @@ RLD
 
 
 // RAPID LIGHTING DEVICE
-
-
-
 /obj/item/construction/rld
 	name = "Rapid Lighting Device (RLD)"
 	desc = "A device used to rapidly provide lighting sources to an area. Reload with iron, plasteel, glass or compressed matter cartridges."
@@ -665,7 +653,7 @@ RLD
 		..()
 
 /obj/item/construction/rld/update_icon()
-	icon_state = "rld-[round(matter/35)]"
+	icon_state = "rld-[min(round(matter/35), 5)]"
 	..()
 
 
