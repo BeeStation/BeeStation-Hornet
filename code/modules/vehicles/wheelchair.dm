@@ -9,6 +9,7 @@
 	legs_required = 0	//You'll probably be using this if you don't have legs
 	canmove = TRUE
 	density = FALSE		//Thought I couldn't fix this one easily, phew
+	move_resist = MOVE_FORCE_WEAK
 	// Run speed delay is multiplied with this for vehicle move delay.
 	var/delay_multiplier = 6.7
 

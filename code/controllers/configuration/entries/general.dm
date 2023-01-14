@@ -506,8 +506,6 @@
 /datum/config_entry/string/default_view
 	config_entry_value = "15x15"
 
-/datum/config_entry/flag/menu_square_view
-
 /datum/config_entry/flag/log_pictures
 
 /datum/config_entry/flag/picture_logging_camera
@@ -600,3 +598,5 @@
 /datum/config_entry/string/elasticsearch_metrics_endpoint
 
 /datum/config_entry/string/elasticsearch_metrics_apikey
+
+/datum/config_entry/flag/enable_mrat

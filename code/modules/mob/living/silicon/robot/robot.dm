@@ -96,7 +96,6 @@
 	var/list/blacklisted_hats = list( //Hats that don't really work on borgos
 	/obj/item/clothing/head/helmet/space/santahat,
 	/obj/item/clothing/head/welding,
-	/obj/item/clothing/head/mob_holder, //I am so very upset that this breaks things
 	/obj/item/clothing/head/helmet/space/eva,
 	)
 
@@ -148,6 +147,7 @@
 	module.rebuild_modules()
 	update_icons()
 	. = ..()
+	add_sensors()
 
 	//If this body is meant to be a borg controlled by the AI player
 	if(shell)
@@ -174,6 +174,8 @@
 	aicamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	toner = tonermax
 	diag_hud_set_borgcell()
+	RegisterSignal(src, COMSIG_ATOM_ON_EMAG, .proc/on_emag)
+	RegisterSignal(src, COMSIG_ATOM_SHOULD_EMAG, .proc/should_emag)
 	logevent("System brought online.")
 
 /**
@@ -230,6 +232,8 @@
 	QDEL_NULL(inv3)
 	QDEL_NULL(spark_system)
 	cell = null
+	UnregisterSignal(src, COMSIG_ATOM_ON_EMAG)
+	UnregisterSignal(src, COMSIG_ATOM_SHOULD_EMAG)
 	return ..()
 
 /mob/living/silicon/robot/proc/pick_module()
@@ -415,7 +419,7 @@
 	var/turf/T1 = get_turf(A)
 	if (!T0 || ! T1)
 		return FALSE
-	if(A.is_jammed())
+	if(A.is_jammed(JAMMER_PROTECTION_WIRELESS))
 		return FALSE
 	return ISINRANGE(T1.x, T0.x - interaction_range, T0.x + interaction_range) && ISINRANGE(T1.y, T0.y - interaction_range, T0.y + interaction_range)
 
@@ -1146,6 +1150,16 @@
 	hat = new_hat
 	new_hat.forceMove(src)
 	update_icons()
+
+/**
+	*Checking Exited() to detect if a hat gets up and walks off.
+	*Drones and pAIs might do this, after all.
+*/
+/mob/living/silicon/robot/Exited(atom/A)
+	if(hat && hat == A)
+		hat = null
+	update_icons()
+	. = ..()
 
 /mob/living/silicon/robot/proc/make_shell(var/obj/item/borg/upgrade/ai/board)
 	if(!board)

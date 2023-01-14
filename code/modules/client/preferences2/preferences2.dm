@@ -79,6 +79,9 @@
 	READPREF_RAW(ghost_others, PREFERENCE_TAG_GHOST_OTHERS)
 	READPREF_RAW(pda_style, PREFERENCE_TAG_PDA_STYLE)
 	READPREF_RAW(pda_color, PREFERENCE_TAG_PDA_COLOUR)
+	READPREF_RAW(pai_name, PREFERENCE_TAG_PAI_NAME)
+	READPREF_RAW(pai_description, PREFERENCE_TAG_PAI_DESCRIPTION)
+	READPREF_RAW(pai_comment, PREFERENCE_TAG_PAI_COMMENT)
 
 	READPREF_JSONDEC(ignoring, PREFERENCE_TAG_IGNORING)
 	READPREF_JSONDEC(key_bindings, PREFERENCE_TAG_KEYBINDS)
@@ -91,7 +94,7 @@
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	UI_style		= sanitize_inlist(UI_style, GLOB.available_ui_styles, GLOB.available_ui_styles[1])
 
-	default_slot	= sanitize_integer(default_slot, TRUE, max_usable_slots, initial(default_slot))
+	default_slot	= sanitize_integer(default_slot, TRUE, TRUE_MAX_SAVE_SLOTS, initial(default_slot))
 	toggles			= sanitize_integer(toggles, FALSE, INFINITY, initial(toggles)) // yes
 	toggles2		= sanitize_integer(toggles2, FALSE, INFINITY, initial(toggles2))
 	clientfps		= sanitize_integer(clientfps, FALSE, 1000, FALSE)
@@ -108,9 +111,31 @@
 	pda_style		= sanitize_inlist(pda_style, GLOB.pda_styles, initial(pda_style))
 	pda_color		= sanitize_hexcolor(pda_color, 6, TRUE, initial(pda_color))
 
+	pai_name		= sanitize_text(pai_name, initial(pai_name))
+	pai_description	= sanitize_text(pai_description, initial(pai_description))
+	pai_comment		= sanitize_text(pai_comment, initial(pai_comment))
+
 	key_bindings 	= sanitize_islist(key_bindings, deepCopyList(GLOB.keybinding_list_by_key))
 	if (!length(key_bindings))
 		key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
+	else
+		var/any_changed = FALSE
+		for(var/key_name in GLOB.keybindings_by_name)
+			var/datum/keybinding/keybind = GLOB.keybindings_by_name[key_name]
+			var/in_binds = FALSE
+			for(var/bind in key_bindings)
+				if(key_name in key_bindings[bind])
+					in_binds = TRUE
+					break
+			if(in_binds)
+				continue
+			any_changed = TRUE
+			if(!islist(key_bindings[keybind.key]))
+				key_bindings[keybind.key] = list(key_name)
+			else
+				key_bindings[keybind.key] += key_name
+		if(any_changed)
+			save_keybinds()
 
 	if(!purchased_gear)
 		purchased_gear = list()
@@ -125,6 +150,10 @@
 #define PREP_WRITEPREF_RAW(value, tag) write_queries += SSdbcore.NewQuery("INSERT INTO [format_table_name("preferences")] (ckey, preference_tag, preference_value) VALUES (:ckey, :ptag, :pvalue) ON DUPLICATE KEY UPDATE preference_value=:pvalue2", list("ckey" = parent.ckey, "ptag" = tag, "pvalue" = value, "pvalue2" = value))
 #define PREP_WRITEPREF_JSONENC(value, tag) PREP_WRITEPREF_RAW(json_encode(value), tag)
 
+/datum/preferences/proc/save_keybinds()
+	var/list/datum/DBQuery/write_queries = list()
+	PREP_WRITEPREF_JSONENC(key_bindings, PREFERENCE_TAG_KEYBINDS)
+	SSdbcore.QuerySelect(write_queries, TRUE, TRUE)
 
 // Writes all prefs to the DB
 /datum/preferences/proc/save_preferences()
@@ -159,6 +188,9 @@
 	PREP_WRITEPREF_RAW(ghost_orbit, PREFERENCE_TAG_GHOST_ORBIT)
 	PREP_WRITEPREF_RAW(ghost_accs, PREFERENCE_TAG_GHOST_ACCS)
 	PREP_WRITEPREF_RAW(ghost_others, PREFERENCE_TAG_GHOST_OTHERS)
+	PREP_WRITEPREF_RAW(pai_name, PREFERENCE_TAG_PAI_NAME)
+	PREP_WRITEPREF_RAW(pai_description, PREFERENCE_TAG_PAI_DESCRIPTION)
+	PREP_WRITEPREF_RAW(pai_comment, PREFERENCE_TAG_PAI_COMMENT)
 
 	PREP_WRITEPREF_JSONENC(ignoring, PREFERENCE_TAG_IGNORING)
 	PREP_WRITEPREF_JSONENC(key_bindings, PREFERENCE_TAG_KEYBINDS)

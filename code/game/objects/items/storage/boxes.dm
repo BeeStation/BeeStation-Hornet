@@ -32,6 +32,8 @@
 	resistance_flags = FLAMMABLE
 	var/foldable = /obj/item/stack/sheet/cardboard
 	var/illustration = "writing"
+	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/cardboardbox_pickup.ogg'
 
 /obj/item/storage/box/Initialize(mapload)
 	. = ..()
@@ -93,6 +95,10 @@
 
 /obj/item/storage/box/suitbox/dropped(mob/living/user)
 	..()
+	addtimer(CALLBACK(src, .proc/box_check, user), 1 SECONDS)
+	// character's contents are checked too earlier than when it supposed to be done, making you perma-slow down.
+
+/obj/item/storage/box/suitbox/proc/box_check(mob/living/user)
 	var/box_exists = FALSE
 	for(var/obj/item/storage/box/suitbox/B in user.get_contents())
 		box_exists = TRUE // `var/obj/item/storage/box/suitbox/B` is already type check
@@ -761,6 +767,8 @@
 	item_state = "zippo"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT
+	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
 
 /obj/item/storage/box/matches/ComponentInitialize()
 	. = ..()
@@ -1312,7 +1320,7 @@
 		/obj/item/areaeditor/blueprints=1,\
 		/obj/item/card/emag=1,\
 		/obj/item/stack/spacecash/c1000=50,\
-		/obj/item/healthanalyzer/advanced=1,\
+		/obj/item/storage/belt/medical/ert=1,\
 		/obj/item/disk/tech_disk/debug=1,\
 		/obj/item/disk/surgery/debug=1,\
 		/obj/item/disk/data/debug=1,\

@@ -31,6 +31,7 @@
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
 				protection += C.get_armor_rating(d_type, src)
+
 	protection += physiology.armor.getRating(d_type)
 	return protection
 
@@ -479,10 +480,6 @@
 	. = ..(shock_damage,source,siemens_coeff,safety,override,tesla_shock, illusion, stun)
 	if(.)
 		electrocution_animation(40)
-
-/mob/living/carbon/human/emag_act(mob/user)
-	.=..()
-	dna?.species.spec_emag_act(src)
 
 /mob/living/carbon/human/emp_act(severity)
 	dna?.species.spec_emp_act(src, severity)
