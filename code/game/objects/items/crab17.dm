@@ -49,7 +49,6 @@
 	add_overlay("hatch")
 	add_overlay("legs_retracted")
 	addtimer(CALLBACK(src, .proc/startUp), 50)
-	QDEL_IN(WEAKREF(src), 8 MINUTES) //Self destruct after 8 min
 	next_health_to_teleport = max_integrity - RUN_AWAY_THRESHOLD_HP
 	. = ..()
 
