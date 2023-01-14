@@ -259,8 +259,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 			/obj/structure/disposalpipe/broken,
 			/obj/structure/c_transit_tube,
 			/obj/structure/c_transit_tube_pod,
-			/obj/item/pipe_meter,
-			/obj/machinery/duct,
+			/obj/item/pipe_meter
 		))
 	if(!length(rpd_whitelist))
 		rpd_whitelist = typecacheof(list(
