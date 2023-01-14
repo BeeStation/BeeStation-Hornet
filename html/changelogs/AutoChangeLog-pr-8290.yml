@@ -1,0 +1,4 @@
+author: TineaVer
+delete-after: true
+changes:
+  - bugfix: fixed missing range checks when rotating some structures
