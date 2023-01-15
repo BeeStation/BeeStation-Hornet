@@ -20,7 +20,9 @@
 #define GAME_PLANE_RENDER_TARGET "GAME_PLANE"
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
 #define BLACKNESS_PLANE_RENDER_TARGET "BLACKNESS_PLANE"
-#define PSYCHIC_PLANE 23 //Snowflake layer for psyphoza highlight
+
+#define PSYCHIC_PLANE 23 //Plane for psyphoza highlights
+#define PSYCHIC_PLANE_RENDER_TARGET "PSYCHIC_PLANE"
 
 #define SPACE_LAYER 1.8
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
@@ -154,15 +156,15 @@
 #define CURSE_LAYER 22.5
 #define FULLSCREEN_RENDER_TARGET "FULLSCREEN_PLANE"
 
-#define HUD_PLANE 24
-#define HUD_LAYER 24
+#define HUD_PLANE 25
+#define HUD_LAYER 25
 #define HUD_RENDER_TARGET "HUD_PLANE"
-#define ABOVE_HUD_PLANE 25
-#define ABOVE_HUD_LAYER 25
+#define ABOVE_HUD_PLANE 26
+#define ABOVE_HUD_LAYER 26
 #define ABOVE_HUD_RENDER_TARGET "ABOVE_HUD_PLANE"
 
-#define SPLASHSCREEN_LAYER 26
-#define SPLASHSCREEN_PLANE 26
+#define SPLASHSCREEN_LAYER 27
+#define SPLASHSCREEN_PLANE 27
 #define SPLASHSCREEN_RENDER_TARGET "SPLASHSCREEN_PLANE"
 
 ///Plane master controller keys

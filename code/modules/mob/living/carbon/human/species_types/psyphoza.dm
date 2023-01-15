@@ -5,6 +5,17 @@
 ///Invisibility layer for shrooms
 #define SHROOM_DEPOSIT_INVISIBILITY 99
 
+GLOBAL_LIST_INIT(psychic_sense_blacklist, list(/turf/open, /obj/machinery/door, /obj/machinery/light, /obj/machinery/firealarm,
+	/obj/machinery/camera, /obj/machinery/atmospherics, /obj/structure/cable, /obj/structure/sign, /obj/machinery/airalarm, 
+	/obj/structure/disposalpipe, /atom/movable/lighting_object, /obj/machinery/power/apc, /obj/machinery/atmospherics/pipe,
+	/obj/item/radio/intercom, /obj/machinery/navbeacon, /obj/structure/extinguisher_cabinet, /obj/machinery/power/terminal,
+	/obj/machinery/holopad, /obj/machinery/status_display, /obj/machinery/ai_slipper, /obj/structure/lattice, /obj/effect/decal,
+	/obj/structure/table, /obj/machinery/gateway, /obj/structure/rack, /obj/machinery/newscaster, /obj/structure/sink, /obj/machinery/shower,
+	/obj/machinery/advanced_airlock_controller, /obj/machinery/computer/security/telescreen, /obj/structure/grille, /obj/machinery/light_switch,
+	/obj/structure/noticeboard, /area, /obj/item/storage/secure/safe, /obj/machinery/requests_console, /obj/item/storage/backpack/satchel/flat,
+	/obj/effect/countdown, /obj/machinery/button, /obj/effect/clockwork/overlay/floor, /obj/structure/reagent_dispensers/peppertank,
+	/mob/dead/observer, /mob/camera, /obj/structure/chisel_message, /obj/effect/particle_effect))
+
 /datum/species/psyphoza
 	name = "\improper Psyphoza"
 	id = SPECIES_PSYPHOZA
@@ -54,9 +65,8 @@
 		else
 			end = "th"
 	. = "[pick(GLOB.psyphoza_first_names)] the [rand(1, 10) * 100 + num][end]"
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, null, ++attempts)
+	if(unique && attempts < 10 && findname(.))
+		return .(gender, TRUE, null, ++attempts)
 
 /datum/species/psyphoza/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(istype(chem, /datum/reagent/drug) && H.blood_volume < BLOOD_VOLUME_NORMAL)
@@ -109,16 +119,7 @@
 /datum/action/item_action/organ_action/psychic_highlight/New(Target)
 	. = ..()
 	//Setup massive blacklist typecache of non-renderables. Smaller than whitelist
-	sense_blacklist = typecacheof(list(/turf/open, /obj/machinery/door, /obj/machinery/light, /obj/machinery/firealarm,
-	/obj/machinery/camera, /obj/machinery/atmospherics, /obj/structure/cable, /obj/structure/sign, /obj/machinery/airalarm, 
-	/obj/structure/disposalpipe, /atom/movable/lighting_object, /obj/machinery/power/apc, /obj/machinery/atmospherics/pipe,
-	/obj/item/radio/intercom, /obj/machinery/navbeacon, /obj/structure/extinguisher_cabinet, /obj/machinery/power/terminal,
-	/obj/machinery/holopad, /obj/machinery/status_display, /obj/machinery/ai_slipper, /obj/structure/lattice, /obj/effect/decal,
-	/obj/structure/table, /obj/machinery/gateway, /obj/structure/rack, /obj/machinery/newscaster, /obj/structure/sink, /obj/machinery/shower,
-	/obj/machinery/advanced_airlock_controller, /obj/machinery/computer/security/telescreen, /obj/structure/grille, /obj/machinery/light_switch,
-	/obj/structure/noticeboard, /area, /obj/item/storage/secure/safe, /obj/machinery/requests_console, /obj/item/storage/backpack/satchel/flat,
-	/obj/effect/countdown, /obj/machinery/button, /obj/effect/clockwork/overlay/floor, /obj/structure/reagent_dispensers/peppertank,
-	/mob/dead/observer, /mob/camera, /obj/structure/chisel_message, /obj/effect/particle_effect))
+	sense_blacklist = typecacheof(GLOB.psychic_sense_blacklist)
 
 /datum/action/item_action/organ_action/psychic_highlight/Grant(mob/M)
 	. = ..()
@@ -333,6 +334,8 @@
 	var/upgrade_limit = 3
 	///The calling card for this particular deposit
 	var/message = ""
+	///Resource rate
+	var/resource_rate = 0.2
 
 /obj/effect/psyphoza_spores/Initialize(mapload, new_message)
 	. = ..()
@@ -344,8 +347,7 @@
 	to_chat(user, "<span class='notice'>Available resources: [resources] \nThe deposit echos: '[message]'</span>")
 
 /obj/effect/psyphoza_spores/process(delta_time)
-	if(world.time % 3 == 0)
-		resources = min(resources+upgrades, resource_limit*upgrades)
+	resources = min(resources + (upgrades * resource_rate * delta_time), resource_limit*upgrades)
 
 /obj/effect/psyphoza_spores/proc/take_resources(amount = 0)
 	var/exchange = min(amount, resources)
@@ -357,3 +359,4 @@
 
 #undef PSYCHIC_OVERLAY_UPPER
 #undef PSYPHOZA_BURNMOD
+#undef SHROOM_DEPOSIT_INVISIBILITY
