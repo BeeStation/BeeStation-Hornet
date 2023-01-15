@@ -52,10 +52,6 @@
 
 	discovery_points = 10000
 
-	var/obj/effect/proc_holder/spell/aoe_turf/flicker_lights/flicker
-	var/obj/effect/proc_holder/spell/aoe_turf/blindness/blind
-	var/obj/effect/proc_holder/spell/targeted/night_vision/vision
-
 // No movement while seen code.
 
 /mob/living/simple_animal/hostile/statue/Initialize(mapload, var/mob/living/creator)
