@@ -1457,7 +1457,7 @@
 /proc/log_uplink_purchase(mob/buyer, atom/object, type = "\improper uplink")
 	var/message = "has bought [object] from \a [type]"
 	buyer.log_message(message, LOG_GAME)
-	if(isnull(locate(/datum/antagonist) in buyer.mind.antag_datums))
+	if(isnull(locate(/datum/antagonist) in buyer.mind?.antag_datums))
 		message_admins("[ADMIN_LOOKUPFLW(user)] has bought [object] from \a [type] as a non-antagonist.")
 
 /atom/proc/add_filter(name,priority,list/params)
