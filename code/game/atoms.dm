@@ -1428,7 +1428,7 @@
 	if(!dangerous)
 		return
 	if(isnull(locate(/datum/antagonist) in blacksmith.mind?.antag_datums))
-		message_admins("[ADMIN_LOOKUPFLW(user)] has crafted [object] as a non-antagonist.")
+		message_admins("[ADMIN_LOOKUPFLW(blacksmith)] has crafted [object] as a non-antagonist.")
 /**
   * Log a combat message in the attack log
   *
