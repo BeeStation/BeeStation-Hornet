@@ -696,3 +696,65 @@
 	// TODO get swarmers their own colour rather than just boldtext
 	if(message)
 		swarmer_chat(message)
+
+/datum/antagonist/swarmer
+	name = "Swarmer"
+	job_rank = ROLE_SWARMER
+	roundend_category = "Swarmer"
+	antagpanel_category = "Swarmer"
+	show_to_ghosts = TRUE
+	var/datum/team/swarmer/swarm
+
+/datum/antagonist/swarmer/greet()
+	to_chat(owner, "<span class='boldannounce'>You are a Swarmer!</span>")
+	to_chat(owner, "<b>You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate.</b>")
+	to_chat(owner, "<span class='notice'Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful.</span>")
+	to_chat(owner, "<span class='notice'>Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.</span>")
+	to_chat(owner, "<b>Your orders are as follows:</b>")
+	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Swarmer",
+		"You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate.")
+
+/datum/team/swarmer
+	name = "The Swarm"
+
+/datum/antagonist/swarmer/get_team()
+	return swarm
+
+/datum/antagonist/swarmer/create_team(datum/team/swarmer/new_team)
+	if(!new_team)
+		//For now only one revolution at a time
+		for(var/datum/antagonist/swarmer/H in GLOB.antagonists)
+			if(!H.owner)
+				continue
+		swarm = new /datum/team/swarmer
+		return
+	if(!istype(new_team))
+		stack_trace("Wrong team type passed to [type] initialization.")
+	swarm = new_team
+
+/datum/antagonist/swarmer/proc/create_objectives()
+	if(!give_objectives)
+		return
+	objectives |= swarm.objectives
+
+/datum/antagonist/swarmer/proc/remove_objectives()
+	objectives -= swarm.objectives
+
+/datum/objective/replicate
+	explanation_text = "Consume resources and replicate until there are no more resources left."
+
+/datum/objective/replicate/check_completion()
+	var/swarmer_check = FALSE
+	for (var/_player in GLOB.player_list)
+
+	return swarmer_check
+
+/datum/objective/ensure_station_is_fit
+	explanation_text = "Ensure that this location is fit for invasion at a later date; do not perform actions that would render it dangerous or inhospitable."
+	completed = TRUE
+
+/datum/objective/do_not_harm_organisms
+	explanation_text = "Biological resources will be harvested at a later date; do not harm them."
+	completed = TRUE
+
