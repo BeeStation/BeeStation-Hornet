@@ -148,7 +148,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	if(!eyes && istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner
 		//eyes
-		eyes = eyes || locate(/obj/item/organ/eyes) in H.internal_organs
+		eyes = locate(/obj/item/organ/eyes) in H.internal_organs
 		sight_flags = eyes?.sight_flags
 		//Register signal for losing our eyes
 		if(eyes)
