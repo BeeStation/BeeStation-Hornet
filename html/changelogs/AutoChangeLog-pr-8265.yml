@@ -1,9 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - rscadd: Added a new Botanical belt
-  - rscadd: Added the botanical belt to the Botany lockers and the Biogenerator
-  - imageadd: Added icons for the Botanical belt
-  - imageadd: Added belt icons for the Plant Analyzer, Pest Spray, Hatchet, Spade
-      and Cultivator
-  - code_imp: Replaced all can_hold lists with static lists for belts
