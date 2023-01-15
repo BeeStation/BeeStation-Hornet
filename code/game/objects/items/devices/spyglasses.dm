@@ -12,8 +12,7 @@
 	if(user.client.screen_maps["spypopup_map"]) //alright, the popup this object uses is already IN use, so the window is open. no point in doing any other work here, so we're good.
 		return
 	user.client.setup_popup("spypopup", 3, 3, 2)
-	for(var/plane in linked_bug.cam_plane_masters)
-		user.client.register_map_obj(plane)
+	user.client.register_map_obj(linked_bug.cam_screen)
 	for(var/plane in linked_bug.cam_plane_masters)
 		user.client.register_map_obj(plane)
 	linked_bug.update_view()
