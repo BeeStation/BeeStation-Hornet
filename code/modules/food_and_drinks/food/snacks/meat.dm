@@ -149,7 +149,7 @@
 
 /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/psyphoza
 	icon_state = "psyphoza meat"
-	desc = "Psychically awaiting consumtpion, spooky."
+	desc = "Psychically awaiting consumption, spooky."
 	filling_color = "#ff00ee"
 	list_reagents = list(/datum/reagent/drug/space_drugs)
 	tastes = list("pop candy" = 1, "meat" = 1)
