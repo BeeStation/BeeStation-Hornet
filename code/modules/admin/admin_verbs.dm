@@ -801,9 +801,6 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	var/datum/gas_mixture/GM = new
 	for(var/turf/open/F in view())
-		if(F.blocks_air)
-		//skip walls
-			continue
 		GM.parse_gas_string(F.initial_gas_mix)
 		F.copy_air(GM)
 		F.update_visuals()

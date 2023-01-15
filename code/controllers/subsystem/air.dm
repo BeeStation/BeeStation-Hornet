@@ -523,7 +523,7 @@ SUBSYSTEM_DEF(air)
 
 	for(var/thing in turfs_to_init)
 		var/turf/T = thing
-		if (T.blocks_air)
+		if (isclosedturf(T))
 			continue
 		T.Initalize_Atmos(times_fired)
 		CHECK_TICK
