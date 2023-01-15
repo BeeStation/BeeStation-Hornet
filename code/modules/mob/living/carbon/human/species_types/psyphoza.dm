@@ -151,7 +151,8 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 		eyes = eyes || locate(/obj/item/organ/eyes) in H.internal_organs
 		sight_flags = eyes?.sight_flags
 		//Register signal for losing our eyes
-		RegisterSignal(eyes, COMSIG_PARENT_QDELETING, .proc/handle_eyes)
+		if(eyes)
+			RegisterSignal(eyes, COMSIG_PARENT_QDELETING, .proc/handle_eyes)
 
 	//handle eyes - make them xray so we can see all the things
 	eyes?.sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
