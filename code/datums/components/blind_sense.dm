@@ -10,7 +10,7 @@
 	///Type casted to access client, owner
 	var/mob/owner
 	///What texture we use
-	var/texture = "texture_2"
+	var/masked_texture = "texture_2"
 	///Do we bloom?
 	var/bloom = TRUE
 
@@ -52,7 +52,7 @@
 
 /datum/component/blind_sense/proc/highlight_object(atom/target, type, dir)
 	//setup icon
-	var/icon/I = icon('icons/mob/blind.dmi', texture)
+	var/icon/I = icon('icons/mob/blind.dmi', masked_texture)
 
 	//mask icon
 	var/icon/mask = icon('icons/mob/blind.dmi', type || "sound", dir)

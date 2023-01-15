@@ -17,12 +17,3 @@
 
 /datum/mutation/telekinesis/on_ranged_attack(atom/target)
 	target.attack_tk(owner)
-
-//A weaker version used for the psyphoza species
-/datum/mutation/telekinesis/weak
-	name = "Natural Telekinesis"
-	desc = "A strange mutation that allows the holder to weakly interact with objects through thought."
-	conflicts = list(/datum/mutation/telekinesis)
-
-/datum/mutation/telekinesis/weak/on_ranged_attack(atom/target)
-	target.attack_tk(owner, TRUE)

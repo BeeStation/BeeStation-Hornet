@@ -558,7 +558,7 @@
 
 		if(prot > 0 || HAS_TRAIT(user, TRAIT_RESISTHEAT) || HAS_TRAIT(user, TRAIT_RESISTHEATHANDS))
 			to_chat(user, "<span class='notice'>You remove the light [fitting].</span>")
-		else if(user.has_dna() && (user.dna.check_mutation(TK) || user.dna.check_mutation(TK_WEAK)))
+		else if(user.has_dna() && user.dna.check_mutation(TK))
 			to_chat(user, "<span class='notice'>You telekinetically remove the light [fitting].</span>")
 		else
 			to_chat(user, "<span class='warning'>You try to remove the light [fitting], but you burn your hand on it!</span>")
