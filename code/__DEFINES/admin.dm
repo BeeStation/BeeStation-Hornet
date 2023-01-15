@@ -122,3 +122,5 @@ GLOBAL_VAR_INIT(ghost_role_flags, (~0))
 
 /// for asay pings, this is the index in the return list for [/proc/check_admin_pings] that contains the message modified with underlines for the spotted names
 #define ADMINSAY_PING_UNDERLINE_NAME_INDEX "!underlined_names"
+/// for asay datum refs, this is the index in the return list for [/proc/check_memory_refs] that contains the message modified with underlines for the linked datums
+#define ADMINSAY_LINK_DATUM_REF "!datum_ref"
