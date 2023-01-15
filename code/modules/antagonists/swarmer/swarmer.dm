@@ -114,6 +114,11 @@
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 
+/mob/living/simple_animal/hostile/swarmer/mind_initialize()
+	. = ..()
+	var/datum/antagonist/swarmer/S = new()
+	mind.add_antag_datum(S)
+
 /mob/living/simple_animal/hostile/swarmer/med_hud_set_health()
 	var/image/holder = hud_list[DIAG_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
@@ -442,6 +447,7 @@
 	if(resources + resource_gain > max_resources)
 		to_chat(src, "<span class='warning'>We cannot hold more materials!</span>")
 		return TRUE
+	//if()
 	if(resource_gain)
 		resources += resource_gain
 		do_attack_animation(target)
@@ -705,6 +711,11 @@
 	show_to_ghosts = TRUE
 	var/datum/team/swarmer/swarm
 
+/datum/antagonist/swarmer/on_gain()
+	if(swarm)
+		objectives |= swarm.objectives
+	. = ..()
+
 /datum/antagonist/swarmer/greet()
 	to_chat(owner, "<span class='boldannounce'>You are a Swarmer!</span>")
 	to_chat(owner, "<b>You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate.</b>")
@@ -717,37 +728,56 @@
 
 /datum/team/swarmer
 	name = "The Swarm"
+	var/total_resources_eaten = 0
 
 /datum/antagonist/swarmer/get_team()
 	return swarm
 
 /datum/antagonist/swarmer/create_team(datum/team/swarmer/new_team)
 	if(!new_team)
-		//For now only one revolution at a time
-		for(var/datum/antagonist/swarmer/H in GLOB.antagonists)
-			if(!H.owner)
+		//For now only one swarm at a time
+		for(var/datum/antagonist/swarmer/S in GLOB.antagonists)
+			if(!S.owner)
 				continue
 		swarm = new /datum/team/swarmer
+		swarm.gain_objectives()
 		return
 	if(!istype(new_team))
 		stack_trace("Wrong team type passed to [type] initialization.")
 	swarm = new_team
 
-/datum/antagonist/swarmer/proc/create_objectives()
-	if(!give_objectives)
-		return
-	objectives |= swarm.objectives
+/datum/team/swarmer/proc/gain_objectives()
+	var/datum/objective/replicate/replicating = new()
+	replicating.team = src
+	objectives += replicating
+	var/datum/objective/ensure_station_is_fit/ensure = new()
+	ensure.team = src
+	objectives += ensure
+	var/datum/objective/do_not_harm_organisms/noharm = new()
+	noharm.team = src
+	objectives += noharm
+	for(var/datum/mind/M in members)
+		var/datum/antagonist/swarmer/S = M.has_antag_datum(/datum/antagonist/swarmer)
+		if(S)
+			S.objectives |= objectives
 
-/datum/antagonist/swarmer/proc/remove_objectives()
-	objectives -= swarm.objectives
+/datum/antagonist/swarmer/on_gain()
+	if(swarm)
+		objectives |= swarm.objectives
+	. = ..()
 
 /datum/objective/replicate
 	explanation_text = "Consume resources and replicate until there are no more resources left."
 
 /datum/objective/replicate/check_completion()
 	var/swarmer_check = FALSE
-	for (var/_player in GLOB.player_list)
-
+	for(var/i in GLOB.mob_living_list)
+		var/mob/living/L = i
+		if(istype(L, /mob/living/simple_animal/hostile/swarmer) && L.client) //If there is a swarmer with an active client, we've found our swarmer
+			swarmer_check = TRUE
+	var/list/spawners = GLOB.mob_spawners["unactivated swarmer"]
+	if(LAZYLEN(spawners))
+		swarmer_check = TRUE
 	return swarmer_check
 
 /datum/objective/ensure_station_is_fit
