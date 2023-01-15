@@ -61,12 +61,9 @@
 /mob/living/simple_animal/hostile/statue/Initialize(mapload, var/mob/living/creator)
 	. = ..()
 	// Give spells
-	flicker = new
-	AddSpell(flicker)
-	blind = new
-	AddSpell(blind)
-	vision = new
-	AddSpell(vision)
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flicker_lights)
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/blindness)
+	AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision)
 
 	// Set creator
 	if(creator)
