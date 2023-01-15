@@ -252,6 +252,8 @@
 		message_admins("[key_name(owner)] as [owner] made a new spore deposit with the message [message] at [world.time]. [key_name(owner)] located at [AREACOORD(owner)]")
 		new /obj/effect/psyphoza_spores(get_turf(owner), message)
 		to_chat(owner, "<span class='notice'>You create a deposit.</span>")
+	else
+		return
 	cooldown_timer = addtimer(CALLBACK(src, .proc/handle_timer), cooldown, TIMER_STOPPABLE)
 
 /datum/action/item_action/organ_action/place_spores/proc/handle_timer()

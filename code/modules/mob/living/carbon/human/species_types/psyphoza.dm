@@ -5,7 +5,7 @@
 ///Invisibility layer for shrooms
 #define SHROOM_DEPOSIT_INVISIBILITY 99
 
-GLOBAL_LIST_INIT(psychic_sense_blacklist, list(/turf/open, /obj/machinery/door, /obj/machinery/light, /obj/machinery/firealarm,
+GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/machinery/door, /obj/machinery/light, /obj/machinery/firealarm,
 	/obj/machinery/camera, /obj/machinery/atmospherics, /obj/structure/cable, /obj/structure/sign, /obj/machinery/airalarm, 
 	/obj/structure/disposalpipe, /atom/movable/lighting_object, /obj/machinery/power/apc, /obj/machinery/atmospherics/pipe,
 	/obj/item/radio/intercom, /obj/machinery/navbeacon, /obj/structure/extinguisher_cabinet, /obj/machinery/power/terminal,
@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, list(/turf/open, /obj/machinery/door, 
 	/obj/machinery/advanced_airlock_controller, /obj/machinery/computer/security/telescreen, /obj/structure/grille, /obj/machinery/light_switch,
 	/obj/structure/noticeboard, /area, /obj/item/storage/secure/safe, /obj/machinery/requests_console, /obj/item/storage/backpack/satchel/flat,
 	/obj/effect/countdown, /obj/machinery/button, /obj/effect/clockwork/overlay/floor, /obj/structure/reagent_dispensers/peppertank,
-	/mob/dead/observer, /mob/camera, /obj/structure/chisel_message, /obj/effect/particle_effect))
+	/mob/dead/observer, /mob/camera, /obj/structure/chisel_message, /obj/effect/particle_effect)))
 
 /datum/species/psyphoza
 	name = "\improper Psyphoza"
@@ -119,12 +119,12 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, list(/turf/open, /obj/machinery/door, 
 /datum/action/item_action/organ_action/psychic_highlight/New(Target)
 	. = ..()
 	//Setup massive blacklist typecache of non-renderables. Smaller than whitelist
-	sense_blacklist = typecacheof(GLOB.psychic_sense_blacklist)
+	sense_blacklist = GLOB.psychic_sense_blacklist
 
 /datum/action/item_action/organ_action/psychic_highlight/Grant(mob/M)
 	. = ..()
 	//Register signal for TK highlights
-	RegisterSignal(M, COMSIG_MOB_ATTACK_RANGED, .proc/handle_ranged)
+	RegisterSignal(M, COMSIG_MOB_ATTACK_RANGED, .proc/handle_ranged, TRUE)
 	//Overlay used to highlight objects
 	M.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
 	//Add option to change visuals
