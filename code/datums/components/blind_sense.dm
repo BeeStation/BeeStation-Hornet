@@ -10,7 +10,7 @@
 	///Type casted to access client, owner
 	var/mob/owner
 	///What texture we use
-	var/masked_texture = "texture_2"
+	var/masked_texture = "blind_texture_blank"
 	///Do we bloom?
 	var/bloom = TRUE
 
