@@ -1454,10 +1454,9 @@
   * 2 argument is for the item that was purchased
   * 3 argument is for the uplink type (traitor/contractor)
  */
-/proc/log_uplink_purchase(atom/user, atom/object, type = "\improper uplink")
+/proc/log_uplink_purchase(mob/buyer, atom/object, type = "\improper uplink")
 	var/message = "has bought [object] from \a [type]"
-	user.log_message(message, LOG_GAME)
-	var/mob/buyer = user
+	buyer.log_message(message, LOG_GAME)
 	if(isnull(locate(/datum/antagonist) in buyer.mind.antag_datums))
 		message_admins("[ADMIN_LOOKUPFLW(user)] has bought [object] from \a [type] as a non-antagonist.")
 
