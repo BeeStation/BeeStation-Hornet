@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - code_imp: Removes the internal blocks_air variable which can cause issues with
+      atmos.
