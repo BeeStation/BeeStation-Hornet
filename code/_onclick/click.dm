@@ -86,7 +86,10 @@
 		CtrlShiftClickOn(A)
 		return
 	if(modifiers["middle"])
-		MiddleClickOn(A)
+		if(modifiers["ctrl"])
+			CtrlMiddleClickOn(A)
+		else
+			MiddleClickOn(A, params)
 		return
 	if(modifiers["shift"])
 		ShiftClickOn(A)
@@ -344,6 +347,14 @@
 		H.changeNext_move(CLICK_CD_MELEE)
 	else
 		..()
+
+/mob/proc/CtrlMiddleClickOn(atom/A)
+	if(check_rights_for(client, R_ADMIN))
+		client.toggle_tag_datum(A)
+	else
+		A.CtrlClick(src)
+	return
+
 /*
 	Alt click
 	Unused except for AI

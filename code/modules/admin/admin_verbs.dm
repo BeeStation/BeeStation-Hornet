@@ -19,6 +19,7 @@ GLOBAL_PROTECT(admin_verbs_default)
 	/client/proc/cmd_admin_pm_panel,		/*admin-pm list*/
 	/client/proc/stop_sounds,
 	/client/proc/mark_datum_mapview,
+	/client/proc/tag_datum_mapview,
 	/client/proc/requests
 	)
 GLOBAL_LIST_INIT(admin_verbs_admin, world.AVerbsAdmin())
@@ -79,7 +80,8 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/stabilize_atmos,
 	/client/proc/openTicketManager,
 	/client/proc/battle_royale,
-	/client/proc/delete_book
+	/client/proc/delete_book,
+	/datum/admins/proc/display_tags
 	)
 GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel))
 GLOBAL_PROTECT(admin_verbs_ban)
