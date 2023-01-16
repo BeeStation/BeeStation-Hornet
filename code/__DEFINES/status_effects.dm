@@ -110,6 +110,17 @@
 #define STATUS_EFFECT_AMOK /datum/status_effect/amok //Makes the target automatically strike out at adjecent non-heretics.
 
 #define STATUS_EFFECT_CLOUDSTRUCK /datum/status_effect/cloudstruck //blinds and applies an overlay.
+
+///Raises click cooldowns for everything you do.
+#define STATUS_EFFECT_WOOZY /datum/status_effect/woozy
+
+///Makes you bleed harder
+#define STATUS_EFFECT_HIGHBLOODPRESSURE /datum/status_effect/high_blood_pressure
+
+/// makes you seize up. reminds me of this video https://www.youtube.com/watch?v=wvkHIZg_954
+#define STATUS_EFFECT_SEIZURE /datum/status_effect/seizure
+
+
 //---------//
 // NEUTRAL //
 //---------//

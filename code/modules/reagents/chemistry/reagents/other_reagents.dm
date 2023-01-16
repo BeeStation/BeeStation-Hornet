@@ -1084,6 +1084,7 @@
 	glass_name = "glass of welder fuel"
 	glass_desc = "Unless you're an industrial tool, this is probably not safe for consumption."
 	process_flags = ORGANIC | SYNTHETIC
+	addiction_types = list(/datum/addiction/alcohol = 4) //so you like huffin fumes, eh? Wait... a-are you DRINKING THAT?!
 
 
 /datum/reagent/fuel/reaction_mob(mob/living/M, method=TOUCH, reac_volume)//Splashing people with welding fuel to make them easy to ignite!
@@ -1360,6 +1361,7 @@
 	color = "#E1A116"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "sourness"
+	addiction_types = list(/datum/addiction/stimulants = 14)
 	///stores whether or not the mob has been warned that they are having difficulty breathing.
 	var/warned = FALSE
 

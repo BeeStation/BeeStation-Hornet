@@ -54,6 +54,8 @@
 #define MOVESPEED_ID_PAI_SPACEWALK_SPEEDMOD				"PAI_SPACEWALK_MODIFIER"
 
 #define MOVESPEED_ID_SANITY								"MOOD_SANITY"
+#define MOVESPEED_ID_STIMULANTS 						"movespeed_stimulants"
+#define MOVESPEED_ID_CANNABIS							"movespeed_cannabis"
 
 #define MOVESPEED_ID_PHOBIA								"TRAUMA_PHOBIA"
 

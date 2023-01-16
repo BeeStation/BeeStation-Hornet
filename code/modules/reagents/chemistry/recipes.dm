@@ -15,6 +15,7 @@
 	var/is_cold_recipe = 0 // Set to 1 if you want the recipe to only react when it's BELOW the required temp.
 	var/mix_message = "The solution begins to bubble." //The message shown to nearby people upon mixing, if applicable
 	var/mix_sound = 'sound/effects/bubbles.ogg' //The sound played upon mixing, if applicable
+	var/reaction_tags = NONE
 
 /datum/chemical_reaction/proc/on_reaction(datum/reagents/holder, created_volume)
 	return

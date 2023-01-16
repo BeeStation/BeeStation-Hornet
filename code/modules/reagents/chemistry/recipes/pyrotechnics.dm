@@ -3,6 +3,7 @@
 	id = "reagent_explosion"
 	var/strengthdiv = 10
 	var/modifier = 0
+	reaction_tags = REACTION_TAG_EXPLOSIVE | REACTION_TAG_MODERATE | REACTION_TAG_DANGEROUS
 
 /datum/chemical_reaction/reagent_explosion/on_reaction(datum/reagents/holder, created_volume)
 	explode(holder, created_volume)
@@ -87,6 +88,7 @@
 	id = /datum/reagent/blackpowder
 	results = list(/datum/reagent/blackpowder = 3)
 	required_reagents = list(/datum/reagent/saltpetre = 1, /datum/reagent/medicine/charcoal = 1, /datum/reagent/sulfur = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/reagent_explosion/blackpowder_explosion
 	name = "Black Powder Kaboom"
@@ -105,11 +107,13 @@
 	id = /datum/reagent/thermite
 	results = list(/datum/reagent/thermite = 3)
 	required_reagents = list(/datum/reagent/aluminium = 1, /datum/reagent/iron = 1, /datum/reagent/oxygen = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/emp_pulse
 	name = "EMP Pulse"
 	id = "emp_pulse"
 	required_reagents = list(/datum/reagent/uranium = 1, /datum/reagent/iron = 1) // Yes, laugh, it's the best recipe I could think of that makes a little bit of sense
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE | REACTION_TAG_DANGEROUS
 
 /datum/chemical_reaction/emp_pulse/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -123,6 +127,7 @@
 	name = "Bee Explosion"
 	id = "beesplosion"
 	required_reagents = list(/datum/reagent/consumable/honey = 1, /datum/reagent/medicine/strange_reagent = 1, /datum/reagent/uranium/radium = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE | REACTION_TAG_DANGEROUS
 
 /datum/chemical_reaction/beesplosion/on_reaction(datum/reagents/holder, created_volume)
 	var/location = holder.my_atom.drop_location()
@@ -147,6 +152,7 @@
 	id = /datum/reagent/stabilizing_agent
 	results = list(/datum/reagent/stabilizing_agent = 3)
 	required_reagents = list(/datum/reagent/iron = 1, /datum/reagent/oxygen = 1, /datum/reagent/hydrogen = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE | REACTION_TAG_CHEMICAL | REACTION_TAG_PLANT
 
 /datum/chemical_reaction/clf3
 	name = "Chlorine Trifluoride"
@@ -154,6 +160,7 @@
 	results = list(/datum/reagent/clf3 = 4)
 	required_reagents = list(/datum/reagent/chlorine = 1, /datum/reagent/fluorine = 3)
 	required_temp = 424
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL | REACTION_TAG_DANGEROUS | REACTION_TAG_BURN
 
 /datum/chemical_reaction/clf3/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
@@ -189,6 +196,7 @@
 	id = /datum/reagent/sorium
 	results = list(/datum/reagent/sorium = 4)
 	required_reagents = list(/datum/reagent/mercury = 1, /datum/reagent/oxygen = 1, /datum/reagent/nitrogen = 1, /datum/reagent/carbon = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE | REACTION_TAG_DANGEROUS
 
 /datum/chemical_reaction/sorium/on_reaction(datum/reagents/holder, created_volume)
 	if(holder.has_reagent(/datum/reagent/stabilizing_agent))
@@ -203,6 +211,7 @@
 	id = "sorium_vortex"
 	required_reagents = list(/datum/reagent/sorium = 1)
 	required_temp = 474
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE | REACTION_TAG_DANGEROUS
 
 /datum/chemical_reaction/sorium_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
@@ -214,6 +223,7 @@
 	id = /datum/reagent/liquid_dark_matter
 	results = list(/datum/reagent/liquid_dark_matter = 3)
 	required_reagents = list(/datum/reagent/stable_plasma = 1, /datum/reagent/uranium/radium = 1, /datum/reagent/carbon = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE | REACTION_TAG_DANGEROUS
 
 /datum/chemical_reaction/liquid_dark_matter/on_reaction(datum/reagents/holder, created_volume)
 	if(holder.has_reagent(/datum/reagent/stabilizing_agent))
@@ -228,6 +238,7 @@
 	id = "ldm_vortex"
 	required_reagents = list(/datum/reagent/liquid_dark_matter = 1)
 	required_temp = 474
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE | REACTION_TAG_DANGEROUS
 
 /datum/chemical_reaction/ldm_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
@@ -239,6 +250,7 @@
 	id = /datum/reagent/flash_powder
 	results = list(/datum/reagent/flash_powder = 3)
 	required_reagents = list(/datum/reagent/aluminium = 1, /datum/reagent/potassium = 1, /datum/reagent/sulfur = 1 )
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE | REACTION_TAG_DANGEROUS
 
 /datum/chemical_reaction/flash_powder/on_reaction(datum/reagents/holder, created_volume)
 	if(holder.has_reagent(/datum/reagent/stabilizing_agent))
@@ -262,6 +274,7 @@
 	id = "flash_powder_flash"
 	required_reagents = list(/datum/reagent/flash_powder = 1)
 	required_temp = 374
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE | REACTION_TAG_DANGEROUS
 
 /datum/chemical_reaction/flash_powder_flash/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -282,6 +295,7 @@
 	id = /datum/reagent/smoke_powder
 	results = list(/datum/reagent/smoke_powder = 3)
 	required_reagents = list(/datum/reagent/potassium = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/phosphorus = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE | REACTION_TAG_DANGEROUS
 
 /datum/chemical_reaction/smoke_powder/on_reaction(datum/reagents/holder, created_volume)
 	if(holder.has_reagent(/datum/reagent/stabilizing_agent))
@@ -322,6 +336,7 @@
 	id = /datum/reagent/sonic_powder
 	results = list(/datum/reagent/sonic_powder = 3)
 	required_reagents = list(/datum/reagent/oxygen = 1, /datum/reagent/consumable/space_cola = 1, /datum/reagent/phosphorus = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE | REACTION_TAG_DANGEROUS
 
 /datum/chemical_reaction/sonic_powder/on_reaction(datum/reagents/holder, created_volume)
 	if(holder.has_reagent(/datum/reagent/stabilizing_agent))
@@ -349,6 +364,7 @@
 	id = /datum/reagent/phlogiston
 	results = list(/datum/reagent/phlogiston = 3)
 	required_reagents = list(/datum/reagent/phosphorus = 1, /datum/reagent/toxin/acid = 1, /datum/reagent/stable_plasma = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE | REACTION_TAG_DANGEROUS
 
 /datum/chemical_reaction/phlogiston/on_reaction(datum/reagents/holder, created_volume)
 	if(holder.has_reagent(/datum/reagent/stabilizing_agent))
@@ -364,12 +380,14 @@
 	id = /datum/reagent/napalm
 	results = list(/datum/reagent/napalm = 3)
 	required_reagents = list(/datum/reagent/oil = 1, /datum/reagent/fuel = 1, /datum/reagent/consumable/ethanol = 1 )
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE | REACTION_TAG_PLANT
 
 /datum/chemical_reaction/cryostylane
 	name = /datum/reagent/cryostylane
 	id = /datum/reagent/cryostylane
 	results = list(/datum/reagent/cryostylane = 3)
 	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/stable_plasma = 1, /datum/reagent/nitrogen = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/cryostylane/on_reaction(datum/reagents/holder, created_volume)
 	holder.chem_temp = 20 // cools the fuck down
@@ -381,6 +399,7 @@
 	results = list(/datum/reagent/cryostylane = 1)
 	required_reagents = list(/datum/reagent/cryostylane = 1, /datum/reagent/oxygen = 1)
 	mob_react = FALSE
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/cryostylane_oxygen/on_reaction(datum/reagents/holder, created_volume)
 	holder.chem_temp = max(holder.chem_temp - 10*created_volume,0)
@@ -391,6 +410,7 @@
 	results = list(/datum/reagent/pyrosium = 1)
 	required_reagents = list(/datum/reagent/pyrosium = 1, /datum/reagent/oxygen = 1)
 	mob_react = FALSE
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/pyrosium_oxygen/on_reaction(datum/reagents/holder, created_volume)
 	holder.chem_temp += 10*created_volume
@@ -400,6 +420,7 @@
 	id = /datum/reagent/pyrosium
 	results = list(/datum/reagent/pyrosium = 3)
 	required_reagents = list(/datum/reagent/stable_plasma = 1, /datum/reagent/uranium/radium = 1, /datum/reagent/phosphorus = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/pyrosium/on_reaction(datum/reagents/holder, created_volume)
 	holder.chem_temp = 20 // also cools the fuck down
@@ -412,6 +433,7 @@
 	required_reagents = list(/datum/reagent/stable_plasma = 1, /datum/reagent/silver = 1, /datum/reagent/blackpowder = 1)
 	mix_message = "<span class='danger'>A jet of sparks flies from the mixture as it merges into a flickering slurry.</span>"
 	required_temp = 400
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE | REACTION_TAG_DANGEROUS
 
 /datum/chemical_reaction/energized_jelly
 	name = "Energized Jelly"
@@ -419,6 +441,7 @@
 	results = list(/datum/reagent/teslium/energized_jelly = 2)
 	required_reagents = list(/datum/reagent/toxin/slimejelly = 1, /datum/reagent/teslium = 1)
 	mix_message = "<span class='danger'>The slime jelly starts glowing intermittently.</span>"
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DANGEROUS | REACTION_TAG_HEALING | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/energized_jelly/energized_ooze
 	name = "Energized Ooze"
@@ -426,6 +449,7 @@
 	results = list(/datum/reagent/teslium/energized_jelly/energized_ooze = 2)
 	required_reagents = list(/datum/reagent/toxin/slimeooze = 1, /datum/reagent/teslium = 1)
 	mix_message = "<span class='danger'>The slime ooze starts glowing intermittently.</span>"
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DANGEROUS | REACTION_TAG_HEALING | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/reagent_explosion/teslium_lightning
 	name = "Teslium Destabilization"
@@ -478,6 +502,7 @@
 	required_reagents = list(/datum/reagent/stabilizing_agent = 1,/datum/reagent/fluorosurfactant = 1,/datum/reagent/carbon = 1)
 	required_temp = 200
 	is_cold_recipe = 1
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/reagent_explosion/cults_explosion
 	name = "Cults Explosion"
