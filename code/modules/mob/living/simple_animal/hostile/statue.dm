@@ -52,16 +52,14 @@
 
 	discovery_points = 10000
 
-
-
 // No movement while seen code.
 
 /mob/living/simple_animal/hostile/statue/Initialize(mapload, var/mob/living/creator)
 	. = ..()
 	// Give spells
-	mob_spell_list += new /obj/effect/proc_holder/spell/aoe_turf/flicker_lights(src)
-	mob_spell_list += new /obj/effect/proc_holder/spell/aoe_turf/blindness(src)
-	mob_spell_list += new /obj/effect/proc_holder/spell/targeted/night_vision(src)
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flicker_lights)
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/blindness)
+	AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision)
 
 	// Set creator
 	if(creator)
