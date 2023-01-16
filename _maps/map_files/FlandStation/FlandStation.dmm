@@ -794,7 +794,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "akh" = (
-/obj/item/kirbyplants/random,
 /obj/machinery/camera{
 	c_tag = "Science - Break Room";
 	dir = 1;
@@ -804,9 +803,11 @@
 /obj/machinery/newscaster{
 	pixel_y = -28
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/dark,
 /area/science/breakroom)
 "ako" = (
@@ -4648,6 +4649,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/light/small,
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
 "aXT" = (
@@ -9618,6 +9620,12 @@
 	dir = 1
 	},
 /obj/machinery/light,
+/obj/machinery/button/door{
+	id = "BrigSideWindows";
+	name = "Brig Side entrance Control";
+	pixel_y = -24;
+	req_access_txt = "57"
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "csJ" = (
@@ -10468,10 +10476,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor/preopen{
-	id = "brigwindows";
-	name = "Brig Front Blast door"
+	id = "BrigCellWindows";
+	name = "Brig Cells Blast door"
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/brig)
 "cET" = (
@@ -14381,18 +14388,18 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "brigfrontdoor";
-	name = "Front Security Blast door"
-	},
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "outerbrig";
-	name = "Brig";
-	req_access_txt = "63"
-	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/door/poddoor/preopen{
+	id = "BrigAftWindows";
+	name = "Aft Security Blast door"
+	},
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "AftOuterBrig";
+	name = "Aft Brig Entrance";
+	req_access_txt = "63"
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/brig)
 "dFH" = (
@@ -15286,17 +15293,17 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "brigfrontdoor";
-	name = "Front Security Blast door"
-	},
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "outerbrig";
-	name = "Brig";
-	req_access_txt = "63"
-	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/door/poddoor/preopen{
+	id = "BrigAftWindows";
+	name = "Aft Security Blast door"
+	},
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "AftOuterBrig";
+	name = "Aft Brig Entrance";
+	req_access_txt = "63"
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/brig)
 "dPU" = (
@@ -16242,11 +16249,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/structure/lattice/catwalk/over,
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel/techmaint,
 /area/maintenance/disposal/incinerator)
 "eeo" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -20219,10 +20225,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
 "fdO" = (
-/obj/machinery/modular_computer/console/preset/engineering{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot,
 /obj/structure/noticeboard{
 	dir = 8;
 	pixel_x = 26
@@ -22481,17 +22483,17 @@
 /area/hallway/secondary/entry)
 "fHI" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/door/poddoor/preopen{
-	id = "brigsidedoor";
-	name = "Front Security Blast door"
-	},
 /obj/effect/turf_decal/stripes/closeup,
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/door/poddoor/preopen{
+	id = "BrigForeWindows";
+	name = "Fore Security Blast door"
+	},
 /obj/machinery/door/airlock/security/glass{
-	id_tag = "innerbrign";
-	name = "Brig";
+	id_tag = "ForeOuterBrig";
+	name = "Fore Brig Entrance";
 	req_access_txt = "63"
 	},
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/techmaint,
 /area/security/main)
 "fHQ" = (
@@ -24725,10 +24727,6 @@
 /turf/open/floor/plasteel/sepia,
 /area/engine/engineering)
 "glY" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Security Transferring Control";
-	req_one_access_txt = "1;4"
-	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
@@ -24737,6 +24735,14 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "BrigSideWindows";
+	name = "Brig Side entrance Blast Doors"
+	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Security Transferring Control";
+	req_one_access_txt = "1;4"
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
@@ -26709,11 +26715,11 @@
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 9
 	},
+/obj/machinery/computer/mecha,
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = -24
+	pixel_x = -26
 	},
-/obj/machinery/computer/mecha,
 /turf/open/floor/plasteel,
 /area/security/checkpoint/science/research)
 "gLF" = (
@@ -28421,14 +28427,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "brigfrontdoor";
-	name = "Front Security Blast door"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/poddoor/preopen{
+	id = "BrigAftWindows";
+	name = "Aft Security Blast door"
+	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/brig)
 "hih" = (
@@ -28532,8 +28538,7 @@
 /area/library/lounge)
 "hiT" = (
 /obj/machinery/atmospherics/components/binary/valve,
-/obj/structure/lattice/catwalk/over,
-/turf/open/floor/plating,
+/turf/open/floor/plasteel/techmaint,
 /area/maintenance/disposal/incinerator)
 "hiX" = (
 /obj/structure/cable/yellow{
@@ -30847,12 +30852,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/structure/cable/yellow,
 /obj/machinery/door/poddoor/preopen{
-	id = "brigwindows";
-	name = "Brig Front Blast door"
+	id = "BrigCellWindows";
+	name = "Brig Cells Blast door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/security/brig)
 "hQr" = (
@@ -31501,12 +31506,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -24
-	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
+	},
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = -26
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/science/mixing)
@@ -36870,10 +36875,14 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
 "jxh" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id = "BrigSideWindows";
+	name = "Brig Side entrance Blast Doors"
+	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/prison)
 "jxz" = (
@@ -37246,15 +37255,15 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/apothecary)
 "jCn" = (
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 6
 	},
 /turf/open/floor/plasteel,
 /area/science/breakroom)
@@ -39827,7 +39836,6 @@
 /turf/open/floor/plasteel/white,
 /area/science/lobby)
 "kiq" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -39835,6 +39843,11 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/poddoor/preopen{
+	id = "BrigForeWindows";
+	name = "Fore Security Blast door"
+	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/main)
 "kis" = (
@@ -41177,18 +41190,18 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/starboard)
 "kDo" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 6
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 6
 	},
 /turf/open/floor/plasteel,
 /area/science/breakroom)
@@ -41440,12 +41453,12 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/closeup,
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/machinery/door/airlock/security/glass{
-	id_tag = "innerbrign";
-	name = "Brig";
+	id_tag = "ForeInnerBrig";
+	name = "Fore Brig Entrance";
 	req_access_txt = "63"
 	},
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/techmaint,
 /area/security/main)
 "kHj" = (
@@ -45577,16 +45590,16 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 24
-	},
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /obj/effect/turf_decal/tile/green/opposingcorners{
 	dir = 1
+	},
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 26
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/apothecary)
@@ -45653,6 +45666,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/structure/reagent_dispensers/water_cooler,
 /turf/open/floor/vault,
 /area/engine/break_room)
 "lHS" = (
@@ -45698,7 +45712,6 @@
 /obj/structure/disposalpipe/junction{
 	dir = 1
 	},
-/obj/structure/reagent_dispensers/water_cooler,
 /turf/open/floor/vault,
 /area/engine/break_room)
 "lIr" = (
@@ -48292,6 +48305,11 @@
 /area/quartermaster/qm)
 "mta" = (
 /obj/machinery/vending/coffee,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow,
 /turf/open/floor/plasteel/dark/side{
 	dir = 8
 	},
@@ -48675,7 +48693,7 @@
 	},
 /obj/machinery/firealarm{
 	dir = 4;
-	pixel_x = -24
+	pixel_x = -26
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/mixing)
@@ -52116,7 +52134,7 @@
 	dir = 1
 	},
 /obj/machinery/flasher{
-	id = "brigentryaux";
+	id = "BrigFlashFore";
 	pixel_x = -28
 	},
 /turf/open/floor/plasteel/dark,
@@ -53553,7 +53571,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	id = "brigsidedoorn";
-	name = "Front Security Blast door"
+	name = "Fore Security Blast door"
 	},
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/restraints/handcuffs,
@@ -53561,31 +53579,31 @@
 	dir = 8
 	},
 /obj/machinery/button/flasher{
-	id = "brigentryaux";
+	id = "BrigFlashFore";
 	pixel_x = 6;
 	pixel_y = 24
 	},
 /obj/machinery/button/door{
-	desc = "A remote control switch for the medbay foyer.";
-	id = "outerbrign";
-	name = "Brig Exterior Doors Control";
+	desc = "A remote control switch for the inner Fore brig foyer.";
+	id = "ForeInnerBrig";
+	name = "Fore brig interior Doors Control";
 	normaldoorcontrol = 1;
 	pixel_x = -6;
 	pixel_y = 24;
 	req_access_txt = "63"
 	},
 /obj/machinery/button/door{
-	desc = "A remote control switch for the medbay foyer.";
-	id = "innerbrign";
-	name = "Brig Interior Doors Control";
+	desc = "A remote control switch for the outer Fore brig foyer.";
+	id = "ForeOuterBrig";
+	name = "Fore brig exterior Doors Control";
 	normaldoorcontrol = 1;
 	pixel_x = -6;
 	pixel_y = 36;
 	req_access_txt = "63"
 	},
 /obj/machinery/button/door{
-	id = "brigsidedoorn";
-	name = "Brig Side Access Control";
+	id = "BrigForeWindows";
+	name = "Brig fore Shutter Control";
 	pixel_x = 6;
 	pixel_y = 36;
 	req_access_txt = "63"
@@ -54128,7 +54146,7 @@
 /area/medical/medbay/central)
 "nRY" = (
 /obj/machinery/flasher{
-	id = "brigentry";
+	id = "BrigFlashAft";
 	pixel_x = 28
 	},
 /obj/effect/turf_decal/trimline/red/arrow_cw{
@@ -55559,6 +55577,11 @@
 /area/security/prison)
 "okI" = (
 /obj/machinery/vending/cigarette,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow,
 /turf/open/floor/plasteel/dark/side{
 	dir = 8
 	},
@@ -56347,7 +56370,6 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/virology)
 "ovU" = (
-/obj/machinery/vending/coffee,
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
@@ -56498,14 +56520,14 @@
 /turf/closed/wall,
 /area/hallway/primary/starboard)
 "oyJ" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/preopen{
-	id = "brigsidedoor";
-	name = "Front Security Blast door"
+	id = "BrigForeWindows";
+	name = "Fore Security Blast door"
 	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/main)
 "oyV" = (
@@ -57150,11 +57172,12 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "oJa" = (
-/obj/machinery/vending/cigarette,
 /obj/structure/sign/poster/official/report_crimes{
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/coffee,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/science/breakroom)
 "oJj" = (
@@ -59684,7 +59707,6 @@
 	desc = "if you're seeing this, and you're by an explosion prone part of the station, run."
 	},
 /obj/effect/turf_decal/box,
-/obj/item/circuitboard/computer/xenobiology,
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "pqx" = (
@@ -61659,7 +61681,6 @@
 /obj/machinery/button/door{
 	id = "brigprisonwindow";
 	name = "Prison Shutters Control";
-	pixel_x = 6;
 	pixel_y = -24;
 	req_access_txt = "57"
 	},
@@ -63129,8 +63150,8 @@
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment,
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/main)
 "qgS" = (
@@ -63855,12 +63876,11 @@
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison/shielded)
 "qpP" = (
-/obj/machinery/disposal/bin,
 /obj/structure/noticeboard{
 	pixel_y = 26
 	},
-/obj/effect/turf_decal/delivery,
-/obj/structure/disposalpipe/trunk,
+/obj/machinery/vending/cigarette,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/science/breakroom)
 "qpR" = (
@@ -64833,7 +64853,7 @@
 /area/security/main)
 "qBs" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Brig Desk";
+	name = "Fore Brig Desk";
 	req_access_txt = "1"
 	},
 /obj/effect/turf_decal/stripes/closeup,
@@ -67524,8 +67544,8 @@
 "rmg" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/security/glass{
-	id_tag = "innerbrig";
-	name = "Brig";
+	id_tag = "AftInnerBrig";
+	name = "Aft Brig Entrance";
 	req_access_txt = "63"
 	},
 /obj/effect/turf_decal/stripes/closeup,
@@ -67631,30 +67651,14 @@
 /area/hallway/primary/central)
 "rno" = (
 /obj/machinery/button/flasher{
-	id = "brigentry";
+	id = "BrigFlashAft";
 	pixel_x = 6;
 	pixel_y = 24
 	},
 /obj/machinery/button/door{
-	id = "brigsidedoor";
-	name = "Brig Side Access Control";
-	pixel_x = 6;
-	pixel_y = 36;
-	req_access_txt = "63"
-	},
-/obj/machinery/button/door{
-	desc = "A remote control switch for the medbay foyer.";
-	id = "innerbrig";
-	name = "Brig Interior Doors Control";
-	normaldoorcontrol = 1;
-	pixel_x = -6;
-	pixel_y = 36;
-	req_access_txt = "63"
-	},
-/obj/machinery/button/door{
-	desc = "A remote control switch for the medbay foyer.";
-	id = "outerbrig";
-	name = "Brig Exterior Doors Control";
+	desc = "A remote control switch for the outer Aft brig foyer.";
+	id = "AftOuterBrig";
+	name = "Aft brig exterior Doors Control";
 	normaldoorcontrol = 1;
 	pixel_x = -6;
 	pixel_y = 24;
@@ -67662,6 +67666,22 @@
 	},
 /obj/machinery/computer/security,
 /obj/effect/turf_decal/bot,
+/obj/machinery/button/door{
+	desc = "A remote control switch for the inner Aft brig foyer.";
+	id = "AftInnerBrig";
+	name = "Aft brig interior Doors Control";
+	normaldoorcontrol = 1;
+	pixel_x = -6;
+	pixel_y = 36;
+	req_access_txt = "63"
+	},
+/obj/machinery/button/door{
+	id = "BrigAftWindows";
+	name = "Brig Aft Shutter Control";
+	pixel_x = 6;
+	pixel_y = 36;
+	req_access_txt = "63"
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "rnC" = (
@@ -67739,6 +67759,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/item/restraints/handcuffs,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "roq" = (
@@ -71986,8 +72007,8 @@
 "sne" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/security/glass{
-	id_tag = "innerbrig";
-	name = "Brig";
+	id_tag = "AftInnerBrig";
+	name = "Aft Brig Entrance";
 	req_access_txt = "63"
 	},
 /obj/effect/turf_decal/stripes/closeup,
@@ -76943,12 +76964,12 @@
 	base_state = "right";
 	dir = 8;
 	icon_state = "right";
-	name = "Brig Desk";
+	name = "Fore Brig Desk";
 	req_access_txt = "1"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "brigsidedoorn";
-	name = "Front Security Blast door"
+	name = "Fore Security Blast door"
 	},
 /obj/item/paper_bin,
 /obj/item/pen,
@@ -80341,6 +80362,11 @@
 /area/crew_quarters/fitness/recreation)
 "usO" = (
 /obj/machinery/vending/snack/random,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow,
 /turf/open/floor/plasteel/dark/side{
 	dir = 8
 	},
@@ -80532,6 +80558,10 @@
 	dir = 1;
 	pixel_y = -26
 	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
+	},
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/dark,
 /area/science/breakroom)
 "uuz" = (
@@ -83232,8 +83262,8 @@
 "vby" = (
 /obj/machinery/igniter/incinerator_atmos,
 /obj/machinery/air_sensor/atmos/incinerator_tank{
-	pixel_x = -32;
-	pixel_y = -32
+	pixel_x = 32;
+	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -86868,6 +86898,17 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
+"vRB" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "BrigCellWindows";
+	name = "Brig Cells Blast door"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/security/brig)
 "vRC" = (
 /obj/effect/turf_decal/trimline/brown/filled/corner{
 	dir = 1
@@ -88005,6 +88046,10 @@
 	dir = 4;
 	pixel_x = -22
 	},
+/obj/machinery/modular_computer/console/preset/engineering{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
 "wfi" = (
@@ -88879,12 +88924,8 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "wpZ" = (
-/obj/structure/table/reinforced,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the Slimes from a safe range after the Toaster act banning automation in slime research.";
-	dir = 4;
-	name = "Research Monitor";
-	network = list("xeno")
+/obj/machinery/computer/camera_advanced/xenobio{
+	dir = 4
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/xenobiology)
@@ -88900,13 +88941,14 @@
 /obj/machinery/door/window/eastleft{
 	base_state = "right";
 	icon_state = "right";
-	name = "Brig Desk";
+	name = "Aft Brig Desk";
 	req_access_txt = "1"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "brigsidedoor";
 	name = "Front Security Blast door"
 	},
+/obj/item/book/manual/wiki/security_space_law,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "wqF" = (
@@ -94587,12 +94629,12 @@
 /turf/closed/wall,
 /area/crew_quarters/fitness/recreation)
 "xzD" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -24
-	},
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/techstorage/service,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = -26
+	},
 /turf/open/floor/plasteel/dark,
 /area/storage/tech)
 "xzF" = (
@@ -95062,29 +95104,29 @@
 	dir = 1
 	},
 /obj/machinery/button/door{
-	id = "brigsidedoor";
-	name = "Brig Side Access Control";
+	id = "BrigAftWindows";
+	name = "Brig Aft Shutter Control";
 	pixel_x = 6;
 	pixel_y = -2;
 	req_access_txt = "63"
 	},
 /obj/machinery/button/door{
-	id = "brigwindows";
-	name = "Cell Window Control";
+	id = "BrigCellWindows";
+	name = "Brig Cell Window Control";
 	pixel_x = -6;
 	pixel_y = -2;
 	req_access_txt = "63"
 	},
 /obj/machinery/button/door{
-	id = "brigfrontdoor";
-	name = "Brig Front Access Control";
+	id = "BrigForeWindows";
+	name = "Brig Fore Shutter Control";
 	pixel_x = 6;
 	pixel_y = 8;
 	req_access_txt = "63"
 	},
 /obj/machinery/button/door{
-	id = "brigprison";
-	name = "Prison Lockdown";
+	id = "brigprisonwindow";
+	name = "Prison Shutters Control";
 	pixel_x = -6;
 	pixel_y = 8;
 	req_access_txt = "63"
@@ -95229,7 +95271,7 @@
 /area/science/storage)
 "xEB" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Brig Desk";
+	name = "Aft Brig Desk";
 	req_access_txt = "1"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -98244,12 +98286,12 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
+	},
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -26
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
@@ -130829,7 +130871,7 @@ wMb
 sVB
 yeP
 rTp
-cEF
+vRB
 uxl
 dmM
 meF
@@ -131600,7 +131642,7 @@ wMb
 tRm
 yeP
 eGZ
-cEF
+vRB
 uxl
 pdM
 tRi
@@ -132371,7 +132413,7 @@ wMb
 edJ
 yeP
 gUG
-cEF
+vRB
 uxl
 rfa
 meF
@@ -133142,7 +133184,7 @@ wMb
 gtk
 yeP
 rUS
-cEF
+vRB
 mVG
 cEz
 gpb
@@ -155274,7 +155316,7 @@ dPn
 dPn
 dPn
 abN
-abN
+nnx
 nnx
 nnx
 abN
