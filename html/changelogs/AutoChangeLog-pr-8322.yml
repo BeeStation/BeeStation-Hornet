@@ -1,5 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - bugfix: Fixed Detective's Spyglass Kit showing a black screen upon opening the
-      remove view window
