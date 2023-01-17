@@ -447,9 +447,9 @@
 	if(resources + resource_gain > max_resources)
 		to_chat(src, "<span class='warning'>We cannot hold more materials!</span>")
 		return TRUE
-	//if()
 	if(resource_gain)
 		resources += resource_gain
+		add_to_total_resources_eaten(resource_gain)
 		do_attack_animation(target)
 		changeNext_move(CLICK_CD_MELEE)
 		var/obj/effect/temp_visual/swarmer/integrate/I = new /obj/effect/temp_visual/swarmer/integrate(get_turf(target))
@@ -466,6 +466,15 @@
 	else
 		to_chat(src, "<span class='warning'>[target] is incompatible with our internal matter recycler.</span>")
 	return FALSE
+
+/mob/living/simple_animal/hostile/swarmer/proc/add_to_total_resources_eaten(var/gains)
+	if(mind.has_antag_datum(/datum/antagonist/swarmer))
+		var/datum/antagonist/swarmer/S
+		for(var/a in mind.antag_datums)
+			var/datum/antagonist/A = a
+			if(A.type == /datum/antagonist/swarmer)
+				S = A
+		S.swarm.total_resources_eaten += gains
 
 
 /mob/living/simple_animal/hostile/swarmer/proc/DisIntegrate(atom/movable/target)
@@ -717,12 +726,6 @@
 	. = ..()
 
 /datum/antagonist/swarmer/greet()
-	to_chat(owner, "<span class='boldannounce'>You are a Swarmer!</span>")
-	to_chat(owner, "<b>You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate.</b>")
-	to_chat(owner, "<span class='notice'Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful.</span>")
-	to_chat(owner, "<span class='notice'>Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.</span>")
-	to_chat(owner, "<b>Your orders are as follows:</b>")
-	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Swarmer",
 		"You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate.")
 
@@ -766,6 +769,13 @@
 		objectives |= swarm.objectives
 	. = ..()
 
+/datum/antagonist/swarmer/admin_add(datum/mind/new_owner,mob/admin)
+	var/mob/living/carbon/C = new_owner.current
+	if(alert(admin,"Transform the player into a swarmer?","Species Change","Yes","No") == "Yes")
+		C.set_species(/mob/living/simple_animal/hostile/swarmer)
+	message_admins("[key_name_admin(admin)] has made [key_name_admin(C)] into a Swarmer.")
+	log_admin("[key_name(admin)] has made [key_name(C)] into a Swarmer.")
+
 /datum/objective/replicate
 	explanation_text = "Consume resources and replicate until there are no more resources left."
 
@@ -788,3 +798,19 @@
 	explanation_text = "Biological resources will be harvested at a later date; do not harm them."
 	completed = TRUE
 
+/datum/team/swarmer/roundend_report()
+	var/list/parts = list()
+
+	parts += "<span class='header'>Swarm consisted of :</span>"
+
+	parts += printplayerlist(members)
+
+	parts += "Total amount of matter consumed : [total_resources_eaten]"
+
+	var/datum/objective/replicate/R = locate() in objectives
+	if(R.check_completion() && total_resources_eaten> 0)
+		parts += "<span class='greentext big'>The swarm was successful!</span>"
+	else
+		parts += "<span class='redtext big'>The swarm has failed.</span>"
+
+	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
