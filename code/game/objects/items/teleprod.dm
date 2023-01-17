@@ -38,6 +38,7 @@
 			BSC.use(1)
 			user.put_in_hands(S)
 			to_chat(user, "<span class='notice'>You place the bluespace crystal firmly into the igniter.</span>")
+			log_crafting(user, S, TRUE)
 		else
 			user.visible_message("<span class='warning'>You can't put the crystal onto the stunprod while it has a power cell installed!</span>")
 	else

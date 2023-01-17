@@ -1416,6 +1416,20 @@
 		target.log_talk(message, message_type, tag="[tag] from [key_name(source)]", log_globally=FALSE)
 
 /**
+  * Log for crafting items
+  *
+  * 1 argument is for the user making the item
+  * 2 argument is for the item being created
+  * 3 argument is for if admins should be notified if a non-antag crafts this
+ */
+/proc/log_crafting(mob/blacksmith, atom/object, dangerous = FALSE)
+	var/message = "has crafted [object]"
+	blacksmith.log_message(message, LOG_GAME)
+	if(!dangerous)
+		return
+	if(isnull(locate(/datum/antagonist) in blacksmith.mind?.antag_datums))
+		message_admins("[ADMIN_LOOKUPFLW(blacksmith)] has crafted [object] as a non-antagonist.")
+/**
   * Log a combat message in the attack log
   *
   * 1 argument is the actor performing the action
