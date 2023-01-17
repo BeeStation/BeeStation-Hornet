@@ -64,7 +64,7 @@
 /datum/antagonist/hypnotized/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	//Give traitor appearence on hud (If they are not an antag already)
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_BRAINWASHED]
+	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_HYPNOTIZED]
 	traitorhud.join_hud(owner.current)
 	if(!owner.antag_hud_icon_state)
 		set_antag_hud(owner.current, "hypnotized")
@@ -72,7 +72,7 @@
 /datum/antagonist/hypnotized/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	//Clear the hud if they haven't become something else and had the hud overwritten
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_BRAINWASHED]
+	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_HYPNOTIZED]
 	traitorhud.leave_hud(owner.current)
 	if(owner.antag_hud_icon_state == "hypnotized")
 		set_antag_hud(owner.current, null)

@@ -15,6 +15,22 @@
 /datum/antagonist/morph/greet()
 	owner.announce_objectives()
 
+/datum/antagonist/morph/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	//Give traitor appearence on hud (If they are not an antag already)
+	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_MORPH]
+	traitorhud.join_hud(owner.current)
+	if(!owner.antag_hud_icon_state)
+		set_antag_hud(owner.current, "morph")
+
+/datum/antagonist/morph/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	//Clear the hud if they haven't become something else and had the hud overwritten
+	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_MORPH]
+	traitorhud.leave_hud(owner.current)
+	if(owner.antag_hud_icon_state == "morph")
+		set_antag_hud(owner.current, null)
+
 /datum/antagonist/morph/proc/forge_objectives()
 	var/datum/objective/eat_everything/consume = new
 	consume.owner = owner

@@ -769,6 +769,22 @@
 		objectives |= swarm.objectives
 	. = ..()
 
+/datum/antagonist/swarmer/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	//Give traitor appearence on hud (If they are not an antag already)
+	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_SWARMER]
+	traitorhud.join_hud(owner.current)
+	if(!owner.antag_hud_icon_state)
+		set_antag_hud(owner.current, "swarmer")
+
+/datum/antagonist/swarmer/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	//Clear the hud if they haven't become something else and had the hud overwritten
+	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_SWARMER]
+	traitorhud.leave_hud(owner.current)
+	if(owner.antag_hud_icon_state == "swarmer")
+		set_antag_hud(owner.current, null)
+
 /datum/antagonist/swarmer/admin_add(datum/mind/new_owner,mob/admin)
 	var/mob/living/M = new_owner.current
 	if(alert(admin,"Transform the player into a swarmer?","Species Change","Yes","No") == "Yes")
