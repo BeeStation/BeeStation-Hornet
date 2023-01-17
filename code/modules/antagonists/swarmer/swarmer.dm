@@ -770,11 +770,20 @@
 	. = ..()
 
 /datum/antagonist/swarmer/admin_add(datum/mind/new_owner,mob/admin)
-	var/mob/living/carbon/C = new_owner.current
+	var/mob/living/M = new_owner.current
 	if(alert(admin,"Transform the player into a swarmer?","Species Change","Yes","No") == "Yes")
-		C.set_species(/mob/living/simple_animal/hostile/swarmer)
-	message_admins("[key_name_admin(admin)] has made [key_name_admin(C)] into a Swarmer.")
-	log_admin("[key_name(admin)] has made [key_name(C)] into a Swarmer.")
+		if(!QDELETED(M) && !M.notransform)
+			M.notransform = 1
+			M.unequip_everything()
+			var/mob/living/new_mob = new /mob/living/simple_animal/hostile/swarmer(M.loc)
+			if(istype(new_mob))
+				new_mob.a_intent = INTENT_HARM
+				if(M.mind)
+					M.mind.transfer_to(new_mob)
+				else
+					new_mob.key = M.key
+			qdel(M)
+	. = ..()
 
 /datum/objective/replicate
 	explanation_text = "Consume resources and replicate until there are no more resources left."
