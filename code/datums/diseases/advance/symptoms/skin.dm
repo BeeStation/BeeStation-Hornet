@@ -401,13 +401,13 @@ Thresholds
 				done = TRUE
 			if(H.pulling && iscarbon(H.pulling)) //grabbing is handled with the disease instead of the component, so the component doesn't have to be processed
 				var/mob/living/carbon/C = H.pulling
-				var/def_check = C.getarmor(type = "melee")
+				var/def_check = C.getarmor(type = MELEE)
 				C.apply_damage(1*power, BRUTE, blocked = def_check)
 				C.visible_message("<span class='warning'>[C.name] is pricked on [H.name]'s spikes.</span>")
 				playsound(get_turf(C), 'sound/weapons/slice.ogg', 50, 1)
 			for(var/mob/living/carbon/C in ohearers(1, H))
 				if(C.pulling && C.pulling == H)
-					var/def_check = C.getarmor(type = "melee")
+					var/def_check = C.getarmor(type = MELEE)
 					C.apply_damage(3*power, BRUTE, blocked = def_check)
 					C.visible_message("<span class='warning'>[C.name] is pricked on [H.name]'s spikes.</span>")
 					playsound(get_turf(C), 'sound/weapons/slice.ogg', 50, 1)
@@ -450,7 +450,7 @@ Thresholds
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
-	
+
 	switch(A.stage)
 		if(2, 3)
 			var/buboes = (rand(1, 3) * power)
@@ -496,7 +496,7 @@ Thresholds
 		C.visible_message("<span class='warning'>[attack_text] bursts [popped] pustules on [source]'s body!</span>")
 		pustules -= popped
 
-		
+
 /datum/symptom/pustule/End(datum/disease/advance/A)
 	. = ..()
 	UnregisterSignal(A.affected_mob, COMSIG_HUMAN_ATTACKED)
@@ -514,7 +514,7 @@ Thresholds
 	if(istype(BB, /obj/item/projectile/pimple))
 		var/obj/item/projectile/pimple/P = BB
 		P.diseases = diseases
-	
+
 
 /obj/item/projectile/pimple
 	name = "high-velocity pustule"
@@ -523,7 +523,7 @@ Thresholds
 	speed = 5
 	damage_type = TOX
 	icon_state = "energy2"
-	flag = "bio" 
+	flag = "bio"
 	var/list/diseases
 
 /obj/item/projectile/pimple/on_hit(atom/target, blocked)

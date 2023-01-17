@@ -311,7 +311,7 @@
 		if (islist(result))
 			if (result["button"] != 2) // If the user pressed the cancel button
 				// text2num conveniently returns a null on invalid values
-				armor = armor.setRating(melee = text2num(result["values"]["melee"]),\
+				armor = armor.setRating(melee = text2num(result["values"][MELEE]),\
 			                  bullet = text2num(result["values"]["bullet"]),\
 			                  laser = text2num(result["values"]["laser"]),\
 			                  energy = text2num(result["values"]["energy"]),\
