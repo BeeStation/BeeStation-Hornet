@@ -1,0 +1,6 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - code_imp: added log_crafting
+  - admin: Added logging to crafting items
+  - admin: Added messages for crafting dangerous items
