@@ -153,6 +153,9 @@
 
 /obj/structure/checkoutmachine/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
+	var/datum/bank_account/crab_account = bogdanoff.get_bank_account()
+	for(var/datum/bank_account/B in SSeconomy.bank_accounts)
+		B.withdrawDelay = 0
 	priority_announce("The credit deposit machine at [get_area(src)] has been destroyed. Station funds have stopped draining!", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = "CRAB-17 Protocol", )
 	explosion(src, 0,0,1, flame_range = 2)
 	return ..()
@@ -163,7 +166,8 @@
 		if(B == crab_account)
 			B.crab_protected |= ACCOUNT_FLAG_CRAB_USER
 			continue
-		B.dumpeet()
+		B.crab_protected &= ~ACCOUNT_FLAG_CRAB_FREED // we do round 2, haha
+		B.withdrawDelay = world.time + 4 MINUTES
 	dump()
 
 /obj/structure/checkoutmachine/proc/dump()
@@ -193,6 +197,7 @@
 				B.bank_card_talk("You have lost [percentage_lost * 100]% of your funds! A spacecoin credit deposit machine is located at: [get_area(src)].")
 			else
 				B.bank_card_talk("You have lost nothing of your funds, you poor! We don't have to let you know the location of our space-coin market as you lose nothing, right?")
+		B.withdrawDelay += 30 SECONDS // we apologize for the extended maintenance, but we need to steal your credits
 	for(var/M in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(M, src)
 		to_chat(M, "[link] [name] [total_credits_stolen ? "siphons total [total_credits_stolen] credits from [victim_count] bank accounts." : "tried to siphon bank accounts, but there're no victims."] location: [get_area(src)]")

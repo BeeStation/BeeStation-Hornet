@@ -1,4 +1,3 @@
-#define DUMPTIME 3000
 #define ACCOUNT_CREATION_MAX_ATTEMPT 2000
 
 /datum/bank_account
@@ -49,10 +48,6 @@
 	if(add_to_accounts)
 		SSeconomy.bank_accounts -= src
 	return ..()
-
-/datum/bank_account/proc/dumpeet()
-	crab_protected &= ~ACCOUNT_FLAG_CRAB_FREED
-	withdrawDelay = world.time + DUMPTIME
 
 /datum/bank_account/proc/_adjust_money(amt)
 	account_balance += amt
@@ -231,5 +226,3 @@
 /datum/bank_account/department/welfare/New()
 	exclusive_budget_pool = NON_STATION_BUDGET_BASE
 	..()
-
-#undef DUMPTIME
