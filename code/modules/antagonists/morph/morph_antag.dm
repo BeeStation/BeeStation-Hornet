@@ -33,33 +33,10 @@
 			var/mob/living/new_mob = new /mob/living/simple_animal/hostile/morph(M.loc)
 			if(istype(new_mob))
 				new_mob.a_intent = INTENT_HARM
-				if(M.mind)
-					M.mind.transfer_to(new_mob)
-				else
-					new_mob.key = M.key
+				M.mind.transfer_to(new_mob)
+				new_owner.assigned_role = "Morph"
+				new_owner.special_role = "Morph"
+				new_mob.name = "morph"
+				new_mob.real_name = "morph"
 			qdel(M)
 	. = ..()
-
-/*/datum/disease/transformation/proc/do_disease_transformation(mob/living/affected_mob)
-	if(istype(affected_mob, /mob/living/carbon) && affected_mob.stat != DEAD)
-		if(length(stage5))
-			to_chat(affected_mob, pick(stage5))
-		if(QDELETED(affected_mob))
-			return
-		if(affected_mob.notransform)
-			return
-		affected_mob.notransform = 1
-		affected_mob.unequip_everything()
-		var/mob/living/new_mob = new new_form(affected_mob.loc)
-		if(istype(new_mob))
-			if(bantype && is_banned_from(affected_mob.ckey, bantype))
-				replace_banned_player(new_mob)
-			new_mob.a_intent = INTENT_HARM
-			if(affected_mob.mind)
-				affected_mob.mind.transfer_to(new_mob)
-			else
-				new_mob.key = affected_mob.key
-
-		new_mob.name = affected_mob.real_name
-		new_mob.real_name = new_mob.name
-		qdel(affected_mob)*/

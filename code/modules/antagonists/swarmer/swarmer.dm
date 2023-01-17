@@ -46,6 +46,7 @@
 		user.visible_message("<span class='warning'>[usr.name] deactivates [src].</span>",
 			"<span class='notice'>After some fiddling, you find a way to disable [src]'s power source.</span>",
 			"<span class='italics'>You hear clicking.</span>")
+		W.play_tool_sound(src, 50)
 		new /obj/item/deactivated_swarmer(get_turf(src))
 		qdel(src)
 	else
@@ -468,12 +469,8 @@
 	return FALSE
 
 /mob/living/simple_animal/hostile/swarmer/proc/add_to_total_resources_eaten(var/gains)
-	if(mind.has_antag_datum(/datum/antagonist/swarmer))
-		var/datum/antagonist/swarmer/S
-		for(var/a in mind.antag_datums)
-			var/datum/antagonist/A = a
-			if(A.type == /datum/antagonist/swarmer)
-				S = A
+	var/datum/antagonist/swarmer/S = mind.has_antag_datum(/datum/antagonist/swarmer)
+	if(S)
 		S.swarm.total_resources_eaten += gains
 
 
@@ -742,6 +739,9 @@
 		for(var/datum/antagonist/swarmer/S in GLOB.antagonists)
 			if(!S.owner)
 				continue
+			if(S.swarm)
+				swarm = S.swarm
+				return
 		swarm = new /datum/team/swarmer
 		swarm.gain_objectives()
 		return
@@ -778,10 +778,9 @@
 			var/mob/living/new_mob = new /mob/living/simple_animal/hostile/swarmer(M.loc)
 			if(istype(new_mob))
 				new_mob.a_intent = INTENT_HARM
-				if(M.mind)
-					M.mind.transfer_to(new_mob)
-				else
-					new_mob.key = M.key
+				M.mind.transfer_to(new_mob)
+				new_owner.assigned_role = "Swarmer"
+				new_owner.special_role = "Swarmer"
 			qdel(M)
 	. = ..()
 
@@ -810,7 +809,7 @@
 /datum/team/swarmer/roundend_report()
 	var/list/parts = list()
 
-	parts += "<span class='header'>Swarm consisted of :</span>"
+	parts += "<span class='header'>The Swarm consisted of :</span>"
 
 	parts += printplayerlist(members)
 
