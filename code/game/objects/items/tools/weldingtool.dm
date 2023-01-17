@@ -286,6 +286,7 @@
 			add_fingerprint(user)
 			balloon_alert(user, "You start bulding a flamethrower...")
 			user.put_in_hands(F)
+			log_crafting(user, F, TRUE)
 		else
 			balloon_alert(user, "You need one rod to build a flamethrower!")
 
