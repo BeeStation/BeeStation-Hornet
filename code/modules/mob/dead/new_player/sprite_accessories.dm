@@ -2683,3 +2683,7 @@
 /datum/sprite_accessory/psyphoza_cap/round
 	name = "Psilocybe"
 	icon_state = "round"
+
+/datum/sprite_accessory/psyphoza_cap/flat
+	name = "Pleurotus"
+	icon_state = "flat"
