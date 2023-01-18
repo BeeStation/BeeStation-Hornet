@@ -411,7 +411,7 @@
 	hitsound = 'sound/effects/explosion3.ogg'
 	damage = 0				//Handled manually.
 	damage_type = BURN
-	armor_flag = "energy"
+	armor_flag = ENERGY
 	range = 150
 	jitter = 10
 	var/obj/item/gun/energy/beam_rifle/gun
@@ -461,7 +461,7 @@
 	if(isobj(A) && (structure_pierce < structure_pierce_amount))
 		++structure_pierce
 		var/obj/O = A
-		O.take_damage((impact_structure_damage + aoe_structure_damage) * structure_bleed_coeff * get_damage_coeff(A), BURN, "energy", FALSE)
+		O.take_damage((impact_structure_damage + aoe_structure_damage) * structure_bleed_coeff * get_damage_coeff(A), BURN, ENERGY, FALSE)
 		return PROJECTILE_PIERCE_PHASE			// ditto and this could be refactored to on_hit honestly
 	return ..()
 

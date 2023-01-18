@@ -9,7 +9,7 @@
 	pass_flags_self = PASSGRILLE
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	layer = BELOW_OBJ_LAYER
-	armor = list(MELEE = 50, "bullet" = 70, "laser" = 70, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, FIRE = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 50, "bullet" = 70, "laser" = 70, ENERGY = 100, "bomb" = 10, "bio" = 100, "rad" = 100, FIRE = 0, "acid" = 0, "stamina" = 0)
 	max_integrity = 50
 	integrity_failure = 20
 	var/rods_type = /obj/item/stack/rods

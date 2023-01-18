@@ -143,7 +143,7 @@ Class Procs:
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)
-		armor = list(MELEE = 25, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, FIRE = 50, "acid" = 70, "stamina" = 0)
+		armor = list(MELEE = 25, "bullet" = 10, "laser" = 10, ENERGY = 0, "bomb" = 0, "bio" = 0, "rad" = 0, FIRE = 50, "acid" = 70, "stamina" = 0)
 	. = ..()
 	GLOB.machines += src
 
@@ -623,7 +623,7 @@ Class Procs:
 	if(prob(85) && (tesla_flags & TESLA_MACHINE_EXPLOSIVE))
 		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, smoke = FALSE)
 	if(tesla_flags & TESLA_OBJ_DAMAGE)
-		take_damage(power/2000, BURN, "energy")
+		take_damage(power/2000, BURN, ENERGY)
 		if(prob(40))
 			emp_act(EMP_LIGHT)
 

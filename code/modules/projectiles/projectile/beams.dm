@@ -77,7 +77,7 @@
 	icon_state = "omnilaser"
 	damage = 28
 	damage_type = STAMINA
-	armor_flag = "energy"
+	armor_flag = ENERGY
 	hitsound = 'sound/weapons/tap.ogg'
 	eyeblur = 0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser

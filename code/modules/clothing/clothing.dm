@@ -46,7 +46,7 @@
 	var/dynamic_fhair_suffix = ""//mask > head for facial hair
 
 	var/high_pressure_multiplier = 1
-	var/static/list/high_pressure_multiplier_types = list(MELEE, "bullet", "laser", "energy", "bomb")
+	var/static/list/high_pressure_multiplier_types = list(MELEE, "bullet", "laser", ENERGY, "bomb")
 	///These are armor values that protect the wearer, taken from the clothing's armor datum. List updates on examine because it's currently only used to print armor ratings to chat in Topic().
 	var/list/armor_list = list()
 	///These are armor values that protect the clothing, taken from its armor datum. List updates on examine because it's currently only used to print armor ratings to chat in Topic().

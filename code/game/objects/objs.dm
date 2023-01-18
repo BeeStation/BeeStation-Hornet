@@ -314,7 +314,7 @@
 				armor = armor.setRating(melee = text2num(result["values"][MELEE]),\
 			                  bullet = text2num(result["values"]["bullet"]),\
 			                  laser = text2num(result["values"]["laser"]),\
-			                  energy = text2num(result["values"]["energy"]),\
+			                  energy = text2num(result["values"][ENERGY]),\
 			                  bomb = text2num(result["values"]["bomb"]),\
 			                  bio = text2num(result["values"]["bio"]),\
 			                  rad = text2num(result["values"]["rad"]),\

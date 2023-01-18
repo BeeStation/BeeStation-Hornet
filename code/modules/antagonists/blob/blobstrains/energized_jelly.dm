@@ -19,7 +19,7 @@
 
 /datum/blobstrain/reagent/energized_jelly/emp_reaction(obj/structure/blob/B, severity)
 	var/damage = rand(30, 50) - severity * rand(10, 15)
-	B.take_damage(damage, BURN, "energy")
+	B.take_damage(damage, BURN, ENERGY)
 
 /datum/reagent/blob/energized_jelly
 	name = "Energized Jelly"

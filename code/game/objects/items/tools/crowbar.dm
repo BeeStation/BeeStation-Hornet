@@ -16,7 +16,7 @@
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 	tool_behaviour = TOOL_CROWBAR
 	toolspeed = 1
-	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, FIRE = 50, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, ENERGY = 0, "bomb" = 0, "bio" = 0, "rad" = 0, FIRE = 50, "acid" = 30, "stamina" = 0)
 	drop_sound = 'sound/items/handling/crowbar_drop.ogg'
 	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
 
