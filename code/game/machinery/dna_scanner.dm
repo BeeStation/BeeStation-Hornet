@@ -163,7 +163,7 @@
 	if(!target.has_dna() || HAS_TRAIT(target, TRAIT_BADDNA))
 		return
 
-	var/resist = target.getarmor(null, "rad")
+	var/resist = target.getarmor(null, RAD)
 	if(prob(max(0,100-resist)))
 		target.randmuti()
 		if(prob(20))

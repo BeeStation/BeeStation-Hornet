@@ -13,7 +13,7 @@
 	max_integrity = 300
 	integrity_failure = 100
 	move_resist = INFINITY
-	armor = list(MELEE = 20, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, "rad" = 100, FIRE = 10, "acid" = 70, "stamina" = 0)
+	armor = list(MELEE = 20, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 10, "acid" = 70, "stamina" = 0)
 	var/datum/team/gang/gang
 	var/operating = FALSE	//false=standby or broken, true=takeover
 	var/warned = FALSE	//if this device has set off the warning at <3 minutes yet
