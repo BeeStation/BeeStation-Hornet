@@ -174,7 +174,7 @@
 
 ///// ACID
 
-GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/effects/effects.dmi', "acid"))
+GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/effects/effects.dmi', ACID))
 
 //the obj's reaction when touched by acid
 /obj/acid_act(acidpwr, acid_volume)
@@ -193,11 +193,11 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	. = 1
 	if(!(resistance_flags & ACID_PROOF))
 		for(var/armour_value in armor.getList())
-			if(armour_value != "acid" && armour_value != FIRE)
+			if(armour_value != ACID && armour_value != FIRE)
 				armor = armor.modifyAllRatings(0 - round(sqrt(acid_level)*0.1))
 		if(prob(33))
 			playsound(loc, 'sound/items/welder.ogg', 150, 1)
-		take_damage(min(1 + round(sqrt(acid_level)*0.3), 300), BURN, "acid", 0)
+		take_damage(min(1 + round(sqrt(acid_level)*0.3), 300), BURN, ACID, 0)
 
 	acid_level = max(acid_level - (5 + 3*round(sqrt(acid_level))), 0)
 	if(!acid_level)
@@ -263,7 +263,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 //what happens when the obj's integrity reaches zero.
 /obj/proc/obj_destruction(damage_flag)
-	if(damage_flag == "acid")
+	if(damage_flag == ACID)
 		acid_melt()
 	else if(damage_flag == FIRE)
 		burn()
