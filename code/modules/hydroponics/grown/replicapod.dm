@@ -156,7 +156,7 @@
 	podman.set_cloned_appearance()
 	// On harvest
 	to_chat(podman, "<span class='notice'><b>There is a bright flash!</b><br><i>You feel like a new being.</i></span>")
-	to_chat(podman, "<span class='boldannounce'>You have forgotten all the knowledge you gained while being a ghost aswell as everything that happened after you had the blood sample taken from you!</span>")
+	to_chat(podman, "<span class='boldannounce'>You have forgotten all the knowledge you gained while being a ghost aswell as the five minutes leading up to your death!</span>")
 	podman.flash_act()
 	log_cloning("[key_name(mind)] cloned as a podman via [src] in [parent] at [AREACOORD(parent)].")
 
