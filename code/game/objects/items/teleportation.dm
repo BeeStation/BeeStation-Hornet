@@ -110,7 +110,7 @@
 	throw_speed = 3
 	throw_range = 5
 	materials = list(/datum/material/iron=10000)
-	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, ENERGY = 0, BOMB = 30, "bio" = 0, "rad" = 0, FIRE = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 0, BULLET = 0, "laser" = 0, ENERGY = 0, BOMB = 30, "bio" = 0, "rad" = 0, FIRE = 100, "acid" = 100, "stamina" = 0)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/list/active_portal_pairs
 	var/max_portal_pairs = 3

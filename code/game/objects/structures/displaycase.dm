@@ -6,7 +6,7 @@
 	density = TRUE
 	anchored = TRUE
 	resistance_flags = ACID_PROOF
-	armor = list(MELEE = 30, "bullet" = 0, "laser" = 0, ENERGY = 0, BOMB = 10, "bio" = 0, "rad" = 0, FIRE = 70, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 30, BULLET = 0, "laser" = 0, ENERGY = 0, BOMB = 10, "bio" = 0, "rad" = 0, FIRE = 70, "acid" = 100, "stamina" = 0)
 	max_integrity = 200
 	integrity_failure = 25
 	var/obj/item/showpiece = null

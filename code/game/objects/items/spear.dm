@@ -18,7 +18,7 @@
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 	sharpness = IS_SHARP
 	max_integrity = 200
-	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 50, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 0, BULLET = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 50, "acid" = 30, "stamina" = 0)
 	var/war_cry = "AAAAARGH!!!"
 	var/icon_prefix = "spearglass"
 

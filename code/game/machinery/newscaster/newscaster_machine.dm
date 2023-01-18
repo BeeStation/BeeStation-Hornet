@@ -8,7 +8,7 @@
 	verb_say = "beeps"
 	verb_ask = "beeps"
 	verb_exclaim = "beeps"
-	armor = list(MELEE = 50, "bullet" = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, FIRE = 50, "acid" = 30)
+	armor = list(MELEE = 50, BULLET = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, FIRE = 50, "acid" = 30)
 	max_integrity = 200
 	integrity_failure = 0.25
 	///How much paper is contained within the newscaster?

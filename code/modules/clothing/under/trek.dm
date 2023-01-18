@@ -17,7 +17,7 @@
 	desc = "The uniform worn by engineering/security officers."
 	icon_state = "trek_engsec"
 	item_state = "r_suit"
-	armor = list(MELEE = 10, "bullet" = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 0, "acid" = 0, "stamina" = 0) //more sec than eng, but w/e.
+	armor = list(MELEE = 10, BULLET = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 0, "acid" = 0, "stamina" = 0) //more sec than eng, but w/e.
 	strip_delay = 50
 
 /obj/item/clothing/under/trek/medsci

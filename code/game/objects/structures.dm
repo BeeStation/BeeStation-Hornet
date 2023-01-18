@@ -17,7 +17,7 @@
 
 /obj/structure/Initialize(mapload)
 	if (!armor)
-		armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 50, "acid" = 50, "stamina" = 0)
+		armor = list(MELEE = 0, BULLET = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 50, "acid" = 50, "stamina" = 0)
 	. = ..()
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		QUEUE_SMOOTH(src)

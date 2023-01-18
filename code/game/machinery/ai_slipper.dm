@@ -6,7 +6,7 @@
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
 	plane = FLOOR_PLANE
 	max_integrity = 200
-	armor = list(MELEE = 50, "bullet" = 20, "laser" = 20, ENERGY = 20, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 50, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 50, BULLET = 20, "laser" = 20, ENERGY = 20, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 50, "acid" = 30, "stamina" = 0)
 
 	var/uses = 20
 	var/cooldown = 0

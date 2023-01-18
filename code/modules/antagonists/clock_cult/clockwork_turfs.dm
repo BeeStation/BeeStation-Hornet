@@ -520,7 +520,7 @@
 	icon_state = "clockwork_window_single"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_integrity = 80
-	armor = list(MELEE = 40, "bullet" = -20, "laser" = 0, ENERGY = 0, BOMB = 25, "bio" = 100, "rad" = 100, FIRE = 80, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 40, BULLET = -20, "laser" = 0, ENERGY = 0, BOMB = 25, "bio" = 100, "rad" = 100, FIRE = 80, "acid" = 100, "stamina" = 0)
 	explosion_block = 2 //fancy AND hard to destroy. the most useful combination.
 	decon_speed = 40
 	glass_type = /obj/item/stack/tile/brass

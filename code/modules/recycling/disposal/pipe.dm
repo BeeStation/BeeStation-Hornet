@@ -10,7 +10,7 @@
 	level = 1			// underfloor only
 	dir = NONE			// dir will contain dominant direction for junction pipes
 	max_integrity = 200
-	armor = list(MELEE = 25, "bullet" = 10, "laser" = 10, ENERGY = 100, BOMB = 0, "bio" = 100, "rad" = 100, FIRE = 90, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 25, BULLET = 10, "laser" = 10, ENERGY = 100, BOMB = 0, "bio" = 100, "rad" = 100, FIRE = 90, "acid" = 30, "stamina" = 0)
 	layer = DISPOSAL_PIPE_LAYER			// slightly lower than wires and other pipes
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	var/dpdir = NONE					// bitmask of pipe directions

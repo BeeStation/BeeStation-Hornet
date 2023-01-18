@@ -36,7 +36,7 @@
 	throw_range = 5
 	materials = list(/datum/material/iron=500)
 	breakouttime = 1 MINUTES
-	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 50, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 0, BULLET = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 50, "acid" = 50, "stamina" = 0)
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //for disposable cuffs
 

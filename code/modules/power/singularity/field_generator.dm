@@ -33,7 +33,7 @@ field_generator power level display
 	use_power = NO_POWER_USE
 	max_integrity = 500
 	//100% immune to lasers and energy projectiles since it absorbs their energy.
-	armor = list(MELEE = 25, "bullet" = 10, "laser" = 100, ENERGY = 100, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 50, "acid" = 70, "stamina" = 0)
+	armor = list(MELEE = 25, BULLET = 10, "laser" = 100, ENERGY = 100, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 50, "acid" = 70, "stamina" = 0)
 	var/power_level = 0
 	var/active = FG_OFFLINE
 	var/power = 20  // Current amount of power
@@ -158,7 +158,7 @@ field_generator power level display
 		..()
 
 /obj/machinery/field/generator/bullet_act(obj/item/projectile/Proj)
-	if(Proj.armor_flag != "bullet")
+	if(Proj.armor_flag != BULLET)
 		power = min(power + Proj.damage, field_generator_max_power)
 		check_power_level()
 	. = ..()

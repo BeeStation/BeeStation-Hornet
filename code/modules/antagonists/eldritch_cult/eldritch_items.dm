@@ -205,7 +205,7 @@
 	allowed = list(/obj/item/melee/sickly_blade, /obj/item/forbidden_book)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	// slightly better than normal cult robes
-	armor = list(MELEE = 50, "bullet" = 50, "laser" = 50, ENERGY = 50, BOMB = 35, "bio" = 20, "rad" = 0, FIRE = 20, "acid" = 20, "stamina" = 60)
+	armor = list(MELEE = 50, BULLET = 50, "laser" = 50, ENERGY = 50, BOMB = 35, "bio" = 20, "rad" = 0, FIRE = 20, "acid" = 20, "stamina" = 60)
 
 /obj/item/reagent_containers/glass/beaker/eldritch
 	name = "flask of eldritch essence"

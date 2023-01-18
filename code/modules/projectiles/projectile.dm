@@ -125,7 +125,7 @@
 	//Determines if the projectile will skip any damage inflictions
 	var/nodamage = FALSE
 	//Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb
-	var/armor_flag = "bullet"
+	var/armor_flag = BULLET
 	var/projectile_type = /obj/item/projectile
 	//This will de-increment every step. When 0, it will deletze the projectile.
 	var/range = 50
@@ -587,7 +587,7 @@
 	if((flag in list(ENERGY, "laser")) && (A.flags_ricochet & RICOCHET_SHINY))
 		return TRUE
 
-	if((flag in list(BOMB, "bullet")) && (A.flags_ricochet & RICOCHET_HARD))
+	if((flag in list(BOMB, BULLET)) && (A.flags_ricochet & RICOCHET_HARD))
 		return TRUE
 
 	return FALSE

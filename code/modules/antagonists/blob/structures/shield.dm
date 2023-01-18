@@ -9,7 +9,7 @@
 	explosion_block = 3
 	point_return = 4
 	atmosblock = TRUE
-	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 90, "acid" = 90, "stamina" = 0)
+	armor = list(MELEE = 0, BULLET = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 90, "acid" = 90, "stamina" = 0)
 
 /obj/structure/blob/shield/scannerreport()
 	if(atmosblock)

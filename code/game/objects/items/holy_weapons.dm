@@ -13,7 +13,7 @@
 	desc = "Deus Vult."
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
-	armor = list(MELEE = 50, "bullet" = 10, "laser" = 10, ENERGY = 10, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 80, "acid" = 80, "stamina" = 40)
+	armor = list(MELEE = 50, BULLET = 10, "laser" = 10, ENERGY = 10, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 80, "acid" = 80, "stamina" = 40)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
@@ -162,7 +162,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 30, "acid" = 20, "stamina" = 0)
+	armor = list(MELEE = 0, BULLET = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 30, "acid" = 20, "stamina" = 0)
 
 /obj/item/clothing/under/rank/civilian/graverobber_under
 	name = "grave robber uniform"

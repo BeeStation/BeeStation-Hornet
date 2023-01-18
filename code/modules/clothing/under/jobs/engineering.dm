@@ -5,7 +5,7 @@
 	icon_state = "chiefengineer"
 	item_state = "gy_suit"	//TODO replace it
 	worn_icon_state = "chiefengineer"
-	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 10, FIRE = 80, "acid" = 40, "stamina" = 0)
+	armor = list(MELEE = 0, BULLET = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 10, FIRE = 80, "acid" = 40, "stamina" = 0)
 	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/engineering/atmospheric_technician
@@ -20,7 +20,7 @@
 	name = "engineer's jumpsuit"
 	icon_state = "engine"
 	item_state = "engi_suit"
-	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 10, FIRE = 60, "acid" = 20, "stamina" = 0)
+	armor = list(MELEE = 0, BULLET = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 10, FIRE = 60, "acid" = 20, "stamina" = 0)
 	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/engineering/engineer/hazard

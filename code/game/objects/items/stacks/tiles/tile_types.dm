@@ -489,7 +489,7 @@
 	flags_1 = CONDUCT_1
 	turf_type = /turf/open/floor/plasteel
 	mineralType = "iron"
-	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 100, "acid" = 70, "stamina" = 0)
+	armor = list(MELEE = 0, BULLET = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 100, "acid" = 70, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/stack/tile/plasteel/cyborg

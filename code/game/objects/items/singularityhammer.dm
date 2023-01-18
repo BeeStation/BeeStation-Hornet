@@ -12,7 +12,7 @@
 	throwforce = 15
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
-	armor = list(MELEE = 50, "bullet" = 50, "laser" = 50, ENERGY = 0, BOMB = 50, "bio" = 0, "rad" = 0, FIRE = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 50, BULLET = 50, "laser" = 50, ENERGY = 0, BOMB = 50, "bio" = 0, "rad" = 0, FIRE = 100, "acid" = 100, "stamina" = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	force_string = "LORD SINGULOTH HIMSELF"
 	var/charged = 5

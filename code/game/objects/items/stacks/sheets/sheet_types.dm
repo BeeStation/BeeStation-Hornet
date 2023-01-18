@@ -192,7 +192,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list ( \
 	materials = list(/datum/material/iron=2000, /datum/material/plasma=2000)
 	throwforce = 10
 	flags_1 = CONDUCT_1
-	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 100, "acid" = 80, "stamina" = 0)
+	armor = list(MELEE = 0, BULLET = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 100, "acid" = 80, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/plasteel
 	grind_results = list(/datum/reagent/iron = 20, /datum/reagent/toxin/plasma = 20)
@@ -266,7 +266,7 @@ GLOBAL_LIST_INIT(wood_recipes, list ( \
 	item_state = "sheet-wood"
 	icon = 'icons/obj/stack_objects.dmi'
 	sheettype = "wood"
-	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 50, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0, BULLET = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 50, "acid" = 0, "stamina" = 0)
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/mineral/wood
 	novariants = TRUE
@@ -458,7 +458,7 @@ GLOBAL_LIST_INIT(bamboo_recipes, list ( \
 	sheettype = "bamboo"
 	force = 10
 	throwforce = 10
-	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 50, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0, BULLET = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 50, "acid" = 0, "stamina" = 0)
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/mineral/bamboo
 	grind_results = list("carbon" = 5)

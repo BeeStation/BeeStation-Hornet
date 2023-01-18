@@ -9,7 +9,7 @@
 	idle_power_usage = 2
 	active_power_usage = 4
 	max_integrity = 150
-	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, ENERGY = 100, BOMB = 0, "bio" = 100, "rad" = 100, FIRE = 40, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0, BULLET = 0, "laser" = 0, ENERGY = 100, BOMB = 0, "bio" = 100, "rad" = 100, FIRE = 40, "acid" = 0, "stamina" = 0)
 	var/frequency = 0
 	var/atom/target
 	var/target_layer = PIPING_LAYER_DEFAULT
