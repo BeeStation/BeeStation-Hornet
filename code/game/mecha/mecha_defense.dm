@@ -27,7 +27,7 @@
 		return 0
 	var/booster_deflection_modifier = 1
 	var/booster_damage_modifier = 1
-	if(damage_flag == BULLET || damage_flag == "laser" || damage_flag == ENERGY)
+	if(damage_flag == BULLET || damage_flag == LASER || damage_flag == ENERGY)
 		for(var/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster/B in equipment)
 			if(B.projectile_react())
 				booster_deflection_modifier = B.deflect_coeff

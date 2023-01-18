@@ -4,7 +4,7 @@
 	switch(damage_flag)
 		if(BULLET)
 			component_probability = damage_amount * 0.5
-		if("laser")
+		if(LASER)
 			component_probability = damage_amount * 0.66
 	if(component_probability)
 		for(var/I in all_components)

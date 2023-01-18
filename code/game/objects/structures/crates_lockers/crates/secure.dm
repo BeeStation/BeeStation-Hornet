@@ -5,7 +5,7 @@
 	secure = TRUE
 	locked = TRUE
 	max_integrity = 500
-	armor = list(MELEE = 30, BULLET = 50, "laser" = 50, ENERGY = 100, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 80, "acid" = 80, "stamina" = 0)
+	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 80, "acid" = 80, "stamina" = 0)
 	var/tamperproof = 0
 	icon_door = "crate"
 	icon_door_override = TRUE

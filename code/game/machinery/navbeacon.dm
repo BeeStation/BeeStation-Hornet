@@ -10,7 +10,7 @@
 	level = 1		// underfloor
 	layer = UNDER_CATWALK
 	max_integrity = 500
-	armor = list(MELEE = 70, BULLET = 70, "laser" = 70, ENERGY = 70, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 80, "acid" = 80, "stamina" = 0)
+	armor = list(MELEE = 70, BULLET = 70, LASER = 70, ENERGY = 70, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 80, "acid" = 80, "stamina" = 0)
 
 	var/open = FALSE		// true if cover is open
 	var/locked = TRUE		// true if controls are locked

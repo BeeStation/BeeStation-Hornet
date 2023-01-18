@@ -446,7 +446,7 @@
 		if(!isitem(O))
 			if(O.level == 1)	//Please don't break underfloor items!
 				continue
-			O.take_damage(aoe_structure_damage * get_damage_coeff(O), BURN, "laser", FALSE)
+			O.take_damage(aoe_structure_damage * get_damage_coeff(O), BURN, LASER, FALSE)
 
 /obj/item/projectile/beam/beam_rifle/prehit_pierce(atom/A)
 	if(isclosedturf(A) && (wall_pierce < wall_pierce_amount))
@@ -475,7 +475,7 @@
 /obj/item/projectile/beam/beam_rifle/proc/handle_impact(atom/target)
 	if(isobj(target))
 		var/obj/O = target
-		O.take_damage(impact_structure_damage * get_damage_coeff(target), BURN, "laser", FALSE)
+		O.take_damage(impact_structure_damage * get_damage_coeff(target), BURN, LASER, FALSE)
 	if(isliving(target))
 		var/mob/living/L = target
 		L.adjustFireLoss(impact_direct_damage)

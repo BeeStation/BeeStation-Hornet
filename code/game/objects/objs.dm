@@ -313,7 +313,7 @@
 				// text2num conveniently returns a null on invalid values
 				armor = armor.setRating(melee = text2num(result["values"][MELEE]),\
 			                  bullet = text2num(result["values"][BULLET]),\
-			                  laser = text2num(result["values"]["laser"]),\
+			                  laser = text2num(result["values"][LASER]),\
 			                  energy = text2num(result["values"][ENERGY]),\
 			                  bomb = text2num(result["values"][BOMB]),\
 			                  bio = text2num(result["values"]["bio"]),\
