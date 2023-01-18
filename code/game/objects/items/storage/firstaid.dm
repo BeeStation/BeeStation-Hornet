@@ -171,7 +171,7 @@
 	desc = "Used to treat toxic blood content and radiation poisoning."
 	icon_state = "firstaid-toxin"
 	item_state = "firstaid-toxin"
-	damagetype_healed = TOX
+	damagetype_healed = TOXIN
 
 /obj/item/storage/firstaid/toxin/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins licking the lead paint off \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")

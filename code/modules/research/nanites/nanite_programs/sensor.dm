@@ -184,7 +184,7 @@
 
 /datum/nanite_program/sensor/damage/register_extra_settings()
 	. = ..()
-	extra_settings[NES_DAMAGE_TYPE] = new /datum/nanite_extra_setting/type(BRUTE, list(BRUTE, BURN, TOX, OXY, CLONE))
+	extra_settings[NES_DAMAGE_TYPE] = new /datum/nanite_extra_setting/type(BRUTE, list(BRUTE, BURN, TOXIN, OXY, CLONE))
 	extra_settings[NES_DAMAGE] = new /datum/nanite_extra_setting/number(50, 0, 500)
 	extra_settings[NES_DIRECTION] = new /datum/nanite_extra_setting/boolean(TRUE, "Above", "Below")
 
@@ -200,7 +200,7 @@
 			damage_amt = host_mob.getBruteLoss()
 		if(BURN)
 			damage_amt = host_mob.getFireLoss()
-		if(TOX)
+		if(TOXIN)
 			damage_amt = host_mob.getToxLoss()
 		if(OXY)
 			damage_amt = host_mob.getOxyLoss()

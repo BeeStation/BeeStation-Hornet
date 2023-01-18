@@ -1144,7 +1144,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			forcecryo(target)
 
 		if(ADMIN_PUNISHMENT_DAMAGE)
-			var/list/damage_list = list(BRUTE, BURN, CLONE, OXY, STAMINA, TOX)
+			var/list/damage_list = list(BRUTE, BURN, CLONE, OXY, STAMINA, TOXIN)
 			var/damage_punishment = input("Choose a damage type") as null|anything in sortList(damage_list)
 			var/damage_amount = input("Choose an amount") as null|num
 			if(isnull(damage_punishment) || isnull(damage_amount)) //The user pressed "Cancel"

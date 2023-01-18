@@ -122,7 +122,7 @@
 			if(BURN)
 				take_overall_damage(0, rand(M.force/2, M.force))
 				playsound(src, 'sound/items/welder.ogg', 50, 1)
-			if(TOX)
+			if(TOXIN)
 				M.mech_toxin_damage(src)
 			else
 				return

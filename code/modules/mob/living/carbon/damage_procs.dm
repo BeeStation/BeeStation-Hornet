@@ -30,7 +30,7 @@
 					update_damage_overlays()
 			else
 				adjustFireLoss(damage_amount, forced = forced)
-		if(TOX)
+		if(TOXIN)
 			adjustToxLoss(damage_amount, forced = forced)
 		if(OXY)
 			adjustOxyLoss(damage_amount, forced = forced)

@@ -126,7 +126,7 @@
 			damage_amt = program.host_mob.getBruteLoss()
 		if(BURN)
 			damage_amt = program.host_mob.getFireLoss()
-		if(TOX)
+		if(TOXIN)
 			damage_amt = program.host_mob.getToxLoss()
 		if(OXY)
 			damage_amt = program.host_mob.getOxyLoss()

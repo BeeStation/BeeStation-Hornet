@@ -90,7 +90,7 @@ In all, this is a lot like the monkey code. /N
 			adjustBruteLoss(damage)
 		if(BURN)
 			adjustFireLoss(damage)
-		if(TOX)
+		if(TOXIN)
 			adjustToxLoss(damage)
 		if(OXY)
 			adjustOxyLoss(damage)

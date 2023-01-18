@@ -35,7 +35,7 @@ Slimecrossing Weapons
 
 /obj/item/kitchen/knife/rainbowknife/afterattack(atom/O, mob/user, proximity)
 	if(proximity && istype(O, /mob/living))
-		damtype = pick(BRUTE, BURN, TOX, OXY, CLONE)
+		damtype = pick(BRUTE, BURN, TOXIN, OXY, CLONE)
 	switch(damtype)
 		if(BRUTE)
 			hitsound = 'sound/weapons/bladeslice.ogg'
@@ -43,7 +43,7 @@ Slimecrossing Weapons
 		if(BURN)
 			hitsound = 'sound/weapons/sear.ogg'
 			attack_verb = list("burned","singed","heated")
-		if(TOX)
+		if(TOXIN)
 			hitsound = 'sound/weapons/pierce.ogg'
 			attack_verb = list("poisoned","dosed","toxified")
 		if(OXY)

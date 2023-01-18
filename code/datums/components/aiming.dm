@@ -6,7 +6,7 @@
 #define DROP_WEAPON "drop_weapon"
 #define DROP_TO_FLOOR "drop_to_floor"
 #define CANCEL "cancel"
-#define FIRE "fire"
+#define SHOOT "fire"
 #define SURRENDER "surrender"
 #define IGNORE "ignore"
 
@@ -143,7 +143,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 
 /datum/component/aiming/proc/show_ui(mob/user, mob/target, stage)
 	var/list/options = list()
-	var/list/possible_actions = list(CANCEL, FIRE)
+	var/list/possible_actions = list(CANCEL, SHOOT)
 	switch(stage)
 		if(START)
 			possible_actions += RAISE_HANDS
@@ -172,7 +172,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	if(!choice)
 		stop_aiming()
 		return
-	if(choice != CANCEL && choice != FIRE) // Handling voiceline cooldowns and mimes
+	if(choice != CANCEL && choice != SHOOT) // Handling voiceline cooldowns and mimes
 		if(!COOLDOWN_FINISHED(src, voiceline_cooldown))
 			to_chat(user, "<span class = 'warning'>You've already given a command recently!</span>")
 			show_ui(user, target, choice)
@@ -186,7 +186,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 		if(CANCEL) //first off, are they telling us to stop aiming?
 			stop_aiming()
 			return
-		if(FIRE)
+		if(SHOOT)
 			fire()
 			return
 		if(RAISE_HANDS)
@@ -266,6 +266,6 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 #undef DROP_WEAPON
 #undef DROP_TO_FLOOR
 #undef CANCEL
-#undef FIRE
+#undef SHOOT
 #undef SURRENDER
 #undef IGNORE

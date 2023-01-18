@@ -335,7 +335,7 @@
 			var/update = 0
 			var/dmg = rand(M.force/2, M.force)
 			switch(M.damtype)
-				if("brute")
+				if(BRUTE)
 					if(M.force > 35) // durand and other heavy mechas
 						Unconscious(20)
 					else if(M.force > 20 && !IsKnockdown()) // lightweight mechas like gygax
@@ -345,7 +345,7 @@
 				if(FIRE)
 					update |= temp.receive_damage(0, dmg)
 					playsound(src, 'sound/items/welder.ogg', 50, 1)
-				if("tox")
+				if(TOXIN)
 					M.mech_toxin_damage(src)
 				else
 					return

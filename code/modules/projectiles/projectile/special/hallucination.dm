@@ -191,7 +191,7 @@
 
 /obj/item/projectile/hallucination/ebow
 	name = "bolt"
-	damage_type = TOX
+	damage_type = TOXIN
 	hal_icon_state = "cbbolt"
 	hal_fire_sound = 'sound/weapons/genhit.ogg'
 	hal_hitsound = null

@@ -127,7 +127,7 @@
 				add_dent(WALL_DENT_HIT)
 		if(BURN)
 			playsound(src, 'sound/items/welder.ogg', 100, 1)
-		if(TOX)
+		if(TOXIN)
 			playsound(src, 'sound/effects/spray2.ogg', 100, 1)
 			return FALSE
 

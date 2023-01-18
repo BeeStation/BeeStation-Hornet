@@ -348,7 +348,7 @@
 			visual_effect_icon = ATTACK_EFFECT_SMASH
 			if(damtype == BURN)
 				visual_effect_icon = ATTACK_EFFECT_MECHFIRE
-			else if(damtype == TOX)
+			else if(damtype == TOXIN)
 				visual_effect_icon = ATTACK_EFFECT_MECHTOXIN
 	..()
 

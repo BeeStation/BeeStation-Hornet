@@ -37,7 +37,7 @@
 		GAS_PLASMA = list(
 			min = MIN_TOXIC_GAS_DAMAGE,
 			max = MAX_TOXIC_GAS_DAMAGE,
-			damage_type = TOX
+			damage_type = TOXIN
 		)
 	)
 

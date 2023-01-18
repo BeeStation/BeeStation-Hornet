@@ -526,7 +526,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			treatment_method = OXY
 
 		else if(C.getToxLoss() >= heal_threshold)
-			treatment_method = TOX
+			treatment_method = TOXIN
 
 		if(!treatment_method && emagged != 2) //If they don't need any of that they're probably cured!
 			if(C.maxHealth - C.health < heal_threshold)
@@ -547,7 +547,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 					var/obj/item/storage/firstaid/FA = firstaid
 					if(treatment_method == initial(FA.damagetype_healed)) //using the damage specific medkits give bonuses when healing this type of damage.
 						healies *= 1.5
-					if(treatment_method == TOX && HAS_TRAIT(patient, TRAIT_TOXINLOVER))
+					if(treatment_method == TOXIN && HAS_TRAIT(patient, TRAIT_TOXINLOVER))
 						healies *= -1.5
 					if(emagged == 2)
 						patient.reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 5)

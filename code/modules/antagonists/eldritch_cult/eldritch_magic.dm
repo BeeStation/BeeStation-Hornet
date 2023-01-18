@@ -190,7 +190,7 @@
 	icon_state = "eldritch_projectile"
 	alpha = 180
 	damage = 30
-	damage_type = TOX
+	damage_type = TOXIN
 	hitsound = 'sound/weapons/punch3.ogg'
 	trigger_range = 0
 	ignored_factions = list("heretics")

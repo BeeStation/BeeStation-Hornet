@@ -890,7 +890,7 @@
 		if(owner.getFireLoss() > 0)
 			healing_types += BURN
 		if(owner.getToxLoss() > 0)
-			healing_types += TOX
+			healing_types += TOXIN
 		if(owner.getCloneLoss() > 0)
 			healing_types += CLONE
 

@@ -3,7 +3,7 @@
 	name = "bolt"
 	icon_state = "cbbolt"
 	damage = 15
-	damage_type = TOX
+	damage_type = TOXIN
 	nodamage = FALSE
 	stamina = 60
 	eyeblur = 10
@@ -14,7 +14,7 @@
 	name = "bolt"
 	icon_state = "cbbolt"
 	damage = 15
-	damage_type = TOX
+	damage_type = TOXIN
 	nodamage = FALSE
 	stamina = 35
 	eyeblur = 10

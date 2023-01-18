@@ -2,7 +2,7 @@
 	name = "alpha somatoray"
 	icon_state = "energy"
 	damage = 0
-	damage_type = TOX
+	damage_type = TOXIN
 	nodamage = TRUE
 	armor_flag = ENERGY
 	martial_arts_no_deflect = TRUE
@@ -11,7 +11,7 @@
 	name = "beta somatoray"
 	icon_state = "energy2"
 	damage = 0
-	damage_type = TOX
+	damage_type = TOXIN
 	nodamage = TRUE
 	armor_flag = ENERGY
 	martial_arts_no_deflect = TRUE

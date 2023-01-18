@@ -521,7 +521,7 @@ Thresholds
 	damage = 4 //and very easily blocked with some bio armor
 	range = 5
 	speed = 5
-	damage_type = TOX
+	damage_type = TOXIN
 	icon_state = "energy2"
 	armor_flag = BIO
 	var/list/diseases

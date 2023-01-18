@@ -2,7 +2,7 @@
 	name = "neurotoxin spit"
 	icon_state = "neurotoxin"
 	damage = 5
-	damage_type = TOX
+	damage_type = TOXIN
 
 /obj/item/projectile/bullet/neurotoxin/on_hit(atom/target, blocked = FALSE)
 	if(isalien(target))

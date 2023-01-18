@@ -8,7 +8,7 @@
 /// Scorching Damage (Fire, laser weapons, or space exposure)
 #define BURN "burn"
 /// Poisoning. (Reagents, Alcohol Poisoning, Radiation)
-#define TOX "toxin"
+#define TOXIN "toxin"
 /// Suffocation. (Lack of Oxygen, Lack of functioning Lung or Heart Organ)
 #define OXY	"oxygen"
 /// Cellular degradation. Nearly impossible to treat without medbay or magical means. (Cloner, X-Ray Laser)
