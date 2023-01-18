@@ -55,7 +55,7 @@ SUBSYSTEM_DEF(title)
 				fast_joiner.client?.view_size.resetToDefault(getScreenSize(fast_joiner))
 			fast_joiner.forceMove(newplayer_start_loc)
 	else
-		stack_trace("Title screen exception: The title screen [file_path] is not properly formatted as a dmi and cannot be properly understood by Byond. Please ensure that the image actually has the correct extension (.dmi file is actually a .gif).")
+		stack_trace("Title screen exception: The title screen [file_path] is not properly formatted and cannot be understood by BYOND. Verify that the image has the correct extension. If you're using a dmi file, ensure any animations are split into frames.")
 
 	if(splash_turf)
 		splash_turf.icon = icon
