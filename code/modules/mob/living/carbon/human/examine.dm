@@ -238,7 +238,7 @@
 			msg += "[t_He] look[p_s()] extremely disgusted.\n"
 
 	if(blood_volume < BLOOD_VOLUME_SAFE)
-		msg += "[t_He] [t_has] pale skin.\n"
+		msg += "[t_He] appear[p_s()] faint.\n"
 
 	if(bleedsuppress)
 		msg += "[t_He] [t_is] bandaged with something.\n"
