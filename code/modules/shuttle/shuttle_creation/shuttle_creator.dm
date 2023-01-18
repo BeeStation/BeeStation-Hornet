@@ -35,7 +35,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	//During designation
 	var/overwritten_area = /area/space
 	var/list/loggedTurfs = list()
-	var/list/loggedOldArea = list() //<-- Fix this so airlocks/firedoors are good and not bad (and fix the airlock shuttle creator power)
+	var/list/loggedOldArea = list()
 	var/area/shuttle/recorded_shuttle_area
 	var/datum/shuttle_creator_overlay_holder/overlay_holder
 	//After designation
