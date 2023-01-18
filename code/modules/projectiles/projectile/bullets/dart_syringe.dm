@@ -49,7 +49,7 @@
 	name = "bee"
 	icon_state = "bee"
 	damage = 1
-	flag = "melee"
+	armor_flag = "melee"
 	piercing = TRUE
 
 /obj/item/projectile/bullet/dart/bee/on_hit(atom/target, blocked)

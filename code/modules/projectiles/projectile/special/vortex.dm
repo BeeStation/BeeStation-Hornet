@@ -5,7 +5,7 @@
 	damage_type = BURN
 	reflectable = REFLECT_NORMAL
 	nodamage = FALSE
-	flag = "energy"
+	armor_flag = "energy"
 	range = 10
 	projectile_phasing = ALL
 	projectile_piercing = NONE

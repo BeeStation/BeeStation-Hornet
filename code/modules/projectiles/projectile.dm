@@ -120,14 +120,21 @@
 	var/homing_offset_y = 0
 
 	var/damage = 10
-	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
-	var/nodamage = FALSE //Determines if the projectile will skip any damage inflictions
-	var/flag = "bullet" //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb
+	//BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
+	var/damage_type = BRUTE
+	//Determines if the projectile will skip any damage inflictions
+	var/nodamage = FALSE
+	//Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb
+	var/armor_flag = "bullet"
 	var/projectile_type = /obj/item/projectile
-	var/range = 50 //This will de-increment every step. When 0, it will deletze the projectile.
-	var/decayedRange			//stores original range
-	var/reflect_range_decrease = 5			//amount of original range that falls off when reflecting, so it doesn't go forever
-	var/reflectable = NONE // Can it be reflected or not?
+	//This will de-increment every step. When 0, it will deletze the projectile.
+	var/range = 50
+	//stores original range
+	var/decayedRange
+	//amount of original range that falls off when reflecting, so it doesn't go forever
+	var/reflect_range_decrease = 5
+	// Can it be reflected or not?
+	var/reflectable = NONE
 		//Effects
 	var/stun = 0
 	var/knockdown = 0
