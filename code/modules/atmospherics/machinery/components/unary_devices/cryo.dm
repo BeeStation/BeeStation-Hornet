@@ -8,7 +8,7 @@
 	icon_state = "pod-off"
 	density = TRUE
 	max_integrity = 350
-	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, ENERGY = 100, "bomb" = 0, "bio" = 100, "rad" = 100, FIRE = 30, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, ENERGY = 100, BOMB = 0, "bio" = 100, "rad" = 100, FIRE = 30, "acid" = 30, "stamina" = 0)
 	layer = ABOVE_WINDOW_LAYER
 	state_open = FALSE
 	circuit = /obj/item/circuitboard/machine/cryo_tube

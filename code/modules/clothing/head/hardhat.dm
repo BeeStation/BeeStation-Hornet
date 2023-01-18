@@ -19,7 +19,7 @@
 	desc = "A piece of headgear used in dangerous working conditions to protect the head. Comes with a built-in flashlight."
 	icon_state = "hardhat0_yellow"
 	item_state = "hardhat0_yellow"
-	armor = list(MELEE = 15, "bullet" = 5, "laser" = 20, ENERGY = 10, "bomb" = 20, "bio" = 10, "rad" = 20, FIRE = 100, "acid" = 50, "stamina" = 20)
+	armor = list(MELEE = 15, "bullet" = 5, "laser" = 20, ENERGY = 10, BOMB = 20, "bio" = 10, "rad" = 20, FIRE = 100, "acid" = 50, "stamina" = 20)
 	flags_inv = NONE
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	resistance_flags = FIRE_PROOF

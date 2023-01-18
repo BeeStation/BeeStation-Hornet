@@ -37,14 +37,14 @@
 	icon_state = "xmashat"
 	desc = "A crappy paper hat that you are REQUIRED to wear."
 	flags_inv = 0
-	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, ENERGY = 0, "bomb" = 0, "bio" = 0, "rad" = 0, FIRE = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 0, "acid" = 0, "stamina" = 0)
 
 /obj/item/clothing/head/festive/Initialize(mapload)
 	//Merry christmas
 	if(CHRISTMAS in SSevents.holidays)
-		armor = list(MELEE = 30, "bullet" = 30, "laser" = 30, ENERGY = 30, "bomb" = 30, "bio" = 30, "rad" = 30, FIRE = 30, "acid" = 30, "stamina" = 30)
+		armor = list(MELEE = 30, "bullet" = 30, "laser" = 30, ENERGY = 30, BOMB = 30, "bio" = 30, "rad" = 30, FIRE = 30, "acid" = 30, "stamina" = 30)
 	else if(FESTIVE_SEASON in SSevents.holidays)
-		armor = list(MELEE = 20, "bullet" = 20, "laser" = 20, ENERGY = 20, "bomb" = 20, "bio" = 20, "rad" = 20, FIRE = 20, "acid" = 20, "stamina" = 20)
+		armor = list(MELEE = 20, "bullet" = 20, "laser" = 20, ENERGY = 20, BOMB = 20, "bio" = 20, "rad" = 20, FIRE = 20, "acid" = 20, "stamina" = 20)
 	return ..()
 
 /obj/effect/spawner/xmastree

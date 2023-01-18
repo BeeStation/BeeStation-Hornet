@@ -369,7 +369,7 @@
 		return
 	var/brute_loss = 0
 	var/burn_loss = 0
-	var/bomb_armor = getarmor(null, "bomb")
+	var/bomb_armor = getarmor(null, BOMB)
 
 //200 max knockdown for EXPLODE_HEAVY
 //160 max knockdown for EXPLODE_LIGHT
@@ -392,12 +392,12 @@
 				brute_loss = 500
 				var/atom/throw_target = get_edge_target_turf(src, get_dir(src, get_step_away(src, src)))
 				throw_at(throw_target, 200, 4)
-				damage_clothes(400 - bomb_armor, BRUTE, "bomb")
+				damage_clothes(400 - bomb_armor, BRUTE, BOMB)
 
 		if (EXPLODE_HEAVY)
 			brute_loss = 60
 			burn_loss = 60
-			damage_clothes(200 - bomb_armor, BRUTE, "bomb")
+			damage_clothes(200 - bomb_armor, BRUTE, BOMB)
 			if (!istype(ears, /obj/item/clothing/ears/earmuffs))
 				adjustEarDamage(30, 120)
 			Unconscious(20)							//short amount of time for follow up attacks against elusive enemies like wizards
@@ -406,7 +406,7 @@
 		if(EXPLODE_LIGHT)
 			brute_loss = 30
 			burn_loss = 10
-			damage_clothes(max(50 - bomb_armor, 0), BRUTE, "bomb")
+			damage_clothes(max(50 - bomb_armor, 0), BRUTE, BOMB)
 			if (!istype(ears, /obj/item/clothing/ears/earmuffs))
 				adjustEarDamage(15,60)
 			Knockdown(160 - (bomb_armor * 1.6))		//100 bomb armor will prevent knockdown altogether
@@ -426,7 +426,7 @@
 				max_limb_loss = 4
 				probability = 50
 		for(var/obj/item/bodypart/BP as() in bodyparts)
-			if(prob(probability) && !prob(getarmor(BP, "bomb")) && BP.body_zone != BODY_ZONE_HEAD && BP.body_zone != BODY_ZONE_CHEST)
+			if(prob(probability) && !prob(getarmor(BP, BOMB)) && BP.body_zone != BODY_ZONE_HEAD && BP.body_zone != BODY_ZONE_CHEST)
 				BP.brute_dam = BP.max_damage
 				BP.dismember()
 				max_limb_loss--

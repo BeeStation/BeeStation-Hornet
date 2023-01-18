@@ -587,7 +587,7 @@
 	if((flag in list(ENERGY, "laser")) && (A.flags_ricochet & RICOCHET_SHINY))
 		return TRUE
 
-	if((flag in list("bomb", "bullet")) && (A.flags_ricochet & RICOCHET_HARD))
+	if((flag in list(BOMB, "bullet")) && (A.flags_ricochet & RICOCHET_HARD))
 		return TRUE
 
 	return FALSE

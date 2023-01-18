@@ -24,7 +24,7 @@
 		/obj/item/toy/katana = 10,
 		/obj/item/dualsaber/toy = 5)
 
-	armor = list(MELEE = 100, "bullet" = 100, "laser" = 100, ENERGY = 100, "bomb" = 0, "bio" = 0, "rad" = 0, FIRE = 100, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 100, "bullet" = 100, "laser" = 100, ENERGY = 100, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 100, "acid" = 50, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/donksoft
 	default_price = 75

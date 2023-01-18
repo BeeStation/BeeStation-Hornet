@@ -6,7 +6,7 @@
 	explosion_block = 3
 	heat_proof = TRUE
 	max_integrity = 600
-	armor = list(MELEE = 100, "bullet" = 100, "laser" = 100, ENERGY = 100, "bomb" = 100, "bio" = 100, "rad" = 100, FIRE = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 100, "bullet" = 100, "laser" = 100, ENERGY = 100, BOMB = 100, "bio" = 100, "rad" = 100, FIRE = 100, "acid" = 100, "stamina" = 0)
 	resistance_flags = INDESTRUCTIBLE | FIRE_PROOF | ACID_PROOF | LAVA_PROOF
 	damage_deflection = 70
 	var/password = "Swordfish"

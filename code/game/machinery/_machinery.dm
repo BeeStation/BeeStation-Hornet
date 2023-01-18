@@ -143,7 +143,7 @@ Class Procs:
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)
-		armor = list(MELEE = 25, "bullet" = 10, "laser" = 10, ENERGY = 0, "bomb" = 0, "bio" = 0, "rad" = 0, FIRE = 50, "acid" = 70, "stamina" = 0)
+		armor = list(MELEE = 25, "bullet" = 10, "laser" = 10, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 50, "acid" = 70, "stamina" = 0)
 	. = ..()
 	GLOB.machines += src
 

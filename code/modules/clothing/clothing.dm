@@ -46,7 +46,7 @@
 	var/dynamic_fhair_suffix = ""//mask > head for facial hair
 
 	var/high_pressure_multiplier = 1
-	var/static/list/high_pressure_multiplier_types = list(MELEE, "bullet", "laser", ENERGY, "bomb")
+	var/static/list/high_pressure_multiplier_types = list(MELEE, "bullet", "laser", ENERGY, BOMB)
 	///These are armor values that protect the wearer, taken from the clothing's armor datum. List updates on examine because it's currently only used to print armor ratings to chat in Topic().
 	var/list/armor_list = list()
 	///These are armor values that protect the clothing, taken from its armor datum. List updates on examine because it's currently only used to print armor ratings to chat in Topic().
@@ -444,7 +444,7 @@ BLIND     // can't see anything
 
 
 /obj/item/clothing/obj_destruction(damage_flag)
-	if(damage_flag == "bomb" || damage_flag == MELEE)
+	if(damage_flag == BOMB || damage_flag == MELEE)
 		var/turf/T = get_turf(src)
 		spawn(1) //so the shred survives potential turf change from the explosion.
 			var/obj/effect/decal/cleanable/shreds/Shreds = new(T)
