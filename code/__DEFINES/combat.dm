@@ -3,19 +3,19 @@
 //Damage and status effect defines
 
 //Damage defines //TODO: merge these down to reduce on defines
-/// Physical fracturing and warping of the material.
+/// Physical damage. (Blunt Weapons, bullet weapons, embedding)
 #define BRUTE "brute"
-/// Scorching and charring of the material.
+/// Scorching Damage (Fire, laser weapons, or space exposure)
 #define BURN "burn"
-/// Poisoning. Mostly caused by reagents.
+/// Poisoning. (Reagents, Alcohol Poisoning, Radiation)
 #define TOX "toxin"
-/// Suffocation.
+/// Suffocation. (Lack of Oxygen, Lack of functioning Lung or Heart Organ)
 #define OXY	"oxygen"
-/// Cellular degredation. Rare and difficult to treat.
+/// Cellular degradation. Nearly impossible to treat without medbay or magical means. (Cloner, X-Ray Laser)
 #define CLONE "clone"
-/// Exhaustion and nonlethal damage.
+/// Nonlethal "stun" damage. (disabler, taglaser, stunbaton, beanbag shell)
 #define STAMINA "stamina"
-/// Brain damage. Should probably be decomissioned and replaced with proper organ damage.
+/// Brain damage. (Reagents, Bible) TODO: replace with organ damage.
 #define BRAIN "brain"
 
 //Damage flag defines //
@@ -25,11 +25,11 @@
 #define BULLET "bullet"
 /// Involves a laser.
 #define LASER "laser"
-/// Involves an EMP or energy-based projectile.
+/// Involves an EMP or energy-based projectile. (Ion Gun)
 #define ENERGY "energy"
-/// Involves a shockwave, usually from an explosion.
+/// Involves a shockwave, usually from an conscussive item. (Bombs, Kinetic Accelerator)
 #define BOMB "bomb"
-/// Involved in checking wheter a disease can infect or spread. Also involved in xeno neurotoxin.
+/// Involved in checking whether a disease can infect or spread. Also involved in xeno neurotoxin.
 #define BIO	"bio"
 /// Involves ionizing radiation.
 #define RAD	"rad"
@@ -39,7 +39,7 @@
 #define ACID "acid"
 /// Involves magic.
 #define MAGIC "magic"
-/// Involved in checking the likelyhood of applying a wound to a mob.
+/// Involved in checking the likelihood of applying a wound to a mob.
 #define WOUND "wound"
 
 //bitflag damage defines used for suicide_act
