@@ -214,4 +214,4 @@
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	strip_delay = 80
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 80, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, "rad" = 0, FIRE = 80, "acid" = 50, "stamina" = 0)

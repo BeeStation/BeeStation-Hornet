@@ -7,7 +7,7 @@
 	permeability_coefficient = 0.01
 	clothing_flags = NOSLIP
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 60, BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, "bio" = 30, "rad" = 30, FIRE = 100, "acid" = 100, "stamina" = 60)
+	armor = list(MELEE = 60, BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, "rad" = 30, FIRE = 100, "acid" = 100, "stamina" = 60)
 	strip_delay = 120
 	cold_protection = FEET
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT

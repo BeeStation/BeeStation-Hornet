@@ -19,7 +19,7 @@
 	materials = list(/datum/material/iron = 1750, /datum/material/glass = 400)
 	flash_protect = 2
 	tint = 2
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 100, "acid" = 60, "stamina" = 5)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, "rad" = 0, FIRE = 100, "acid" = 60, "stamina" = 5)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
@@ -43,7 +43,7 @@
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	hitsound = 'sound/weapons/tap.ogg'
 	flags_inv = HIDEEARS|HIDEHAIR
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, "rad" = 0, FIRE = 0, "acid" = 0, "stamina" = 0)
 	light_range = 2 //luminosity when on
 	flags_cover = HEADCOVERSEYES
 	heat = 1000 //use round numbers, guh
@@ -144,7 +144,7 @@
 	hat_type = "pumpkin"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = SNUG_FIT
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 0, "acid" = 0, "stamina" = 10)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, "rad" = 0, FIRE = 0, "acid" = 0, "stamina" = 10)
 	light_range = 2 //luminosity when on
 	flags_cover = HEADCOVERSEYES
 
@@ -176,7 +176,7 @@
 	item_state = "hardhat0_reindeer"
 	hat_type = "reindeer"
 	flags_inv = 0
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = 0, FIRE = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, "rad" = 0, FIRE = 0, "acid" = 0, "stamina" = 0)
 	light_range = 1 //luminosity when on
 	dynamic_hair_suffix = ""
 
@@ -299,7 +299,7 @@
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_helmet_old"
 	flags_inv = HIDEEARS|HIDEHAIR
-	armor = list(MELEE = 5, BULLET = 0, LASER = -5, ENERGY = 0, BOMB = 10, "bio" = 0, "rad" = 0, FIRE = 20, "acid" = 20, "stamina" = 30)
+	armor = list(MELEE = 5, BULLET = 0, LASER = -5, ENERGY = 0, BOMB = 10, BIO = 0, "rad" = 0, FIRE = 20, "acid" = 20, "stamina" = 30)
 
 /obj/item/clothing/head/foilhat
 	name = "tinfoil hat"
@@ -307,7 +307,7 @@
 	icon_state = "foilhat"
 	item_state = "foilhat"
 	clothing_flags = EFFECT_HAT | SNUG_FIT
-	armor = list(MELEE = 0, BULLET = 0, LASER = -5, ENERGY = 0, BOMB = 0, "bio" = 0, "rad" = -5, FIRE = 0, "acid" = 0, "stamina" = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = -5, ENERGY = 0, BOMB = 0, BIO = 0, "rad" = -5, FIRE = 0, "acid" = 0, "stamina" = 50)
 	equip_delay_other = 140
 	var/datum/brain_trauma/mild/phobia/conspiracies/paranoia
 
@@ -355,7 +355,7 @@
 	item_state = "tinfoil_envirohelm"
 	strip_delay = 150
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | EFFECT_HAT | SNUG_FIT
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, "bio" = 100, "rad" = 0, FIRE = 50, "acid" = 50, "stamina" = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, "rad" = 0, FIRE = 50, "acid" = 50, "stamina" = 50)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	light_system = MOVABLE_LIGHT
 	light_range = 4

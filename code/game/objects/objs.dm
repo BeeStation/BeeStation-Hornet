@@ -316,7 +316,7 @@
 			                  laser = text2num(result["values"][LASER]),\
 			                  energy = text2num(result["values"][ENERGY]),\
 			                  bomb = text2num(result["values"][BOMB]),\
-			                  bio = text2num(result["values"]["bio"]),\
+			                  bio = text2num(result["values"][BIO]),\
 			                  rad = text2num(result["values"]["rad"]),\
 			                  fire = text2num(result["values"][FIRE]),\
 			                  acid = text2num(result["values"]["acid"]))
