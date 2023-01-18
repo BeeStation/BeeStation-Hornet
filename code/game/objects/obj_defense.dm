@@ -193,7 +193,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	. = 1
 	if(!(resistance_flags & ACID_PROOF))
 		for(var/armour_value in armor.getList())
-			if(armour_value != "acid" && armour_value != "fire")
+			if(armour_value != "acid" && armour_value != FIRE)
 				armor = armor.modifyAllRatings(0 - round(sqrt(acid_level)*0.1))
 		if(prob(33))
 			playsound(loc, 'sound/items/welder.ogg', 150, 1)
@@ -216,7 +216,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 		if(T.intact && level == 1) //fire can't damage things hidden below the floor.
 			return
 	if(exposed_temperature && !(resistance_flags & FIRE_PROOF))
-		take_damage(CLAMP(0.02 * exposed_temperature, 0, 20), BURN, "fire", 0)
+		take_damage(CLAMP(0.02 * exposed_temperature, 0, 20), BURN, FIRE, 0)
 	if(!(resistance_flags & ON_FIRE) && (resistance_flags & FLAMMABLE) && !(resistance_flags & FIRE_PROOF))
 		resistance_flags |= ON_FIRE
 		SSfire_burning.processing[src] = src
@@ -265,7 +265,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/proc/obj_destruction(damage_flag)
 	if(damage_flag == "acid")
 		acid_melt()
-	else if(damage_flag == "fire")
+	else if(damage_flag == FIRE)
 		burn()
 	else
 		deconstruct(FALSE)

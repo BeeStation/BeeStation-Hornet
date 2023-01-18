@@ -4,7 +4,7 @@
 	icon_state = "blank_blob"
 	desc = "A large, pulsating yellow mass."
 	max_integrity = 200
-	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 65, "acid" = 90, "stamina" = 0)
+	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, FIRE = 65, "acid" = 90, "stamina" = 0)
 	health_regen = 3
 	point_return = 25
 	resistance_flags = LAVA_PROOF

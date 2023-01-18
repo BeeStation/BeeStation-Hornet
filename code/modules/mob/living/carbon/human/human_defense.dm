@@ -342,7 +342,7 @@
 						Knockdown(40)
 					update |= temp.receive_damage(dmg, 0)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
-				if("fire")
+				if(FIRE)
 					update |= temp.receive_damage(0, dmg)
 					playsound(src, 'sound/items/welder.ogg', 50, 1)
 				if("tox")

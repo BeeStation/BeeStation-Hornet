@@ -231,9 +231,9 @@
 			new_damtype = "brute"
 			chassis.balloon_alert(owner, "Your exosuit's hands form into fists.")
 		if("brute")
-			new_damtype = "fire"
+			new_damtype = FIRE
 			chassis.balloon_alert(owner, "A torch tip extends from your exosuit's hand, glowing red.")
-		if("fire")
+		if(FIRE)
 			new_damtype = "tox"
 			chassis.balloon_alert(owner,"A bone-chillingly thick plasteel needle protracts from the exosuit's palm.")
 	chassis.damtype = new_damtype

@@ -53,7 +53,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 	integrity_failure = 50
 	max_integrity = 100
-	armor = list(MELEE = 0, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, FIRE = 0, "acid" = 0, "stamina" = 0)
 
 	/// List of "connection ports" in this computer and the components with which they are plugged
 	var/list/all_components = list()

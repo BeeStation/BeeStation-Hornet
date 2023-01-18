@@ -253,7 +253,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		pickup(parent_robot)
 
 	if(!hitsound)
-		if(damtype == "fire")
+		if(damtype == FIRE)
 			hitsound = 'sound/items/welder.ogg'
 		if(damtype == "brute")
 			hitsound = "swing_hit"

@@ -120,7 +120,7 @@
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 	glass_colour_type = /datum/client_colour/glass_colour/purple
 	resistance_flags = ACID_PROOF
-	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, FIRE = 80, "acid" = 100, "stamina" = 0)
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_EYES)
@@ -131,7 +131,7 @@
 	desc = "A crude combination between a pair of prescription glasses and the electronics of science goggles."
 	icon_state = "prescscihud"
 	resistance_flags = NONE
-	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 40, "stamina" = 0)
+	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, FIRE = 20, "acid" = 40, "stamina" = 0)
 	vision_correction = 1
 
 /obj/item/clothing/glasses/science/sciencesun

@@ -10,7 +10,7 @@
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("enforced the law upon")
-	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80, "stamina" = 0)
+	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, FIRE = 80, "acid" = 80, "stamina" = 0)
 
 	var/stunforce = 75
 	var/turned_on = FALSE

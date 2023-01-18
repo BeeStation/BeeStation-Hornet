@@ -8,7 +8,7 @@
 	active_power_usage = 300
 	max_integrity = 200
 	integrity_failure = 100
-	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 20, "stamina" = 0)
+	armor = list(MELEE = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, FIRE = 40, "acid" = 20, "stamina" = 0)
 	clicksound = "keyboard"
 	light_system = STATIC_LIGHT
 	light_range = 1

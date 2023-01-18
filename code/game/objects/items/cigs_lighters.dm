@@ -43,7 +43,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		playsound(src, "sound/items/match_strike.ogg", 15, TRUE)
 		lit = TRUE
 		icon_state = "match_lit"
-		damtype = "fire"
+		damtype = FIRE
 		force = 3
 		hitsound = 'sound/items/welder.ogg'
 		item_state = "cigon"
@@ -200,7 +200,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	name = "lit [name]"
 	attack_verb = list("burnt", "singed")
 	hitsound = 'sound/items/welder.ogg'
-	damtype = "fire"
+	damtype = FIRE
 	force = 4
 	if(reagents.get_reagent_amount(/datum/reagent/toxin/plasma)) // the plasma explodes when exposed to fire
 		var/datum/effect_system/reagents_explosion/e = new()
@@ -646,7 +646,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	lit = new_lit
 	if(lit)
 		force = 5
-		damtype = "fire"
+		damtype = FIRE
 		hitsound = 'sound/items/welder.ogg'
 		attack_verb = list("burnt", "singed")
 		START_PROCESSING(SSobj, src)
