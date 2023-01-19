@@ -77,6 +77,15 @@
 					var/obj/item/reagent_containers/food/snacks/slice = new slice_path (loc)
 					slice.initialize_slice(slice, 0)
 			qdel(src)
+	if(istype(W, /obj/item/grenade/flashbang))
+		if(strong_surprise)
+			to_chat(user, "<span class='notice'>There's no space for [src] inside!</span>")
+		else
+			visible_message("[user] begins inserting [W] into [src]!")
+			if(do_after(user, 30, FALSE, src))
+				strong_surprise = TRUE
+				to_chat(user, "<span class='notice'>You attach [src] to the hidden mechanism inside!</span>")
+				qdel(W)
 	else
 		..()
 
