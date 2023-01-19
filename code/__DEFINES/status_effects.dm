@@ -112,6 +112,7 @@
 #define STATUS_EFFECT_CLOUDSTRUCK /datum/status_effect/cloudstruck //blinds and applies an overlay.
 
 #define STATUS_EFFECT_COCOONED /datum/status_effect/cocooned /// If a moth is in a cocoon
+
 //---------//
 // NEUTRAL //
 //---------//
