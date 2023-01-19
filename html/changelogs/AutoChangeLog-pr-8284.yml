@@ -1,5 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - code_imp: Added a log_uplink_purchase proc which logs buying items from an uplink
-  - admin: Added a message for a player buying an item from an uplink as a non-antag
