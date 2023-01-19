@@ -515,7 +515,7 @@
 	if(grab_ghost_when == CLONER_MATURE_CLONE)
 		mob_occupant.grab_ghost()
 		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br><i>You feel like a new being.</i></span>")
-		if(!experimental && !experimental_pod)
+		if(!experimental_pod && !connected?.experimental) // connected computer can be null, so put '?' here. Let's not make this message to be seen by experimental clones.
 			to_chat(occupant, "<span class='boldannounce'>You have forgotten all the knowledge you gained while being a ghost aswell as the five minutes leading up to your death!</span>")
 		mob_occupant.flash_act()
 
