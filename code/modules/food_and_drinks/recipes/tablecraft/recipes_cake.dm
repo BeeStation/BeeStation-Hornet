@@ -210,7 +210,7 @@
 /datum/crafting_recipe/food/popup_cake
 	name = "Towering pile of cakes"
 	reqs = list(
-			/obj/item/reagent_containers/food/snacks/store/cake/ = 3,
+			/obj/item/reagent_containers/food/snacks/store/cake/plain = 3,
 			/datum/reagent/consumable/sugar = 10,
 			/datum/reagent/consumable/cream = 5,
 			/obj/item/bikehorn/airhorn = 1
