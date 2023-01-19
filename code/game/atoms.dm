@@ -1461,6 +1461,19 @@
 		var/reverse_message = "has been [what_done] by [ssource][postfix]"
 		target.log_message(reverse_message, LOG_ATTACK, color="orange", log_globally=FALSE)
 
+/**
+  * Log for buying items from the uplink
+  *
+  * 1 argument is for the user that bought the item
+  * 2 argument is for the item that was purchased
+  * 3 argument is for the uplink type (traitor/contractor)
+ */
+/proc/log_uplink_purchase(mob/buyer, atom/object, type = "\improper uplink")
+	var/message = "has bought [object] from \a [type]"
+	buyer.log_message(message, LOG_GAME)
+	if(isnull(locate(/datum/antagonist) in buyer.mind?.antag_datums))
+		message_admins("[ADMIN_LOOKUPFLW(buyer)] has bought [object] from \a [type] as a non-antagonist.")
+
 /atom/proc/add_filter(name,priority,list/params)
 	LAZYINITLIST(filter_data)
 	var/list/p = params.Copy()

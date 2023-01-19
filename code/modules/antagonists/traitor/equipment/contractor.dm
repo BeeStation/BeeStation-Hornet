@@ -269,7 +269,7 @@
 			to_chat(user, "<span class='notice'>Your purchase materializes into your hands!</span>")
 		else
 			to_chat(user, "<span class='notice'>Your purchase materializes onto the floor.</span>")
-
+		log_uplink_purchase(user, item_to_create, "\improper contractor tablet")
 		return item_to_create
 	return TRUE
 
