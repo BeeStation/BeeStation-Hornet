@@ -227,3 +227,11 @@
 	name = "fullscreen alert plane"
 	plane = FULLSCREEN_PLANE
 	render_relay_plane = RENDER_PLANE_NON_GAME
+
+/atom/movable/screen/plane_master/psychic
+	name = "psychic plane master"
+	plane = PSYCHIC_PLANE
+	appearance_flags = PLANE_MASTER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	render_target = PSYCHIC_PLANE_RENDER_TARGET
+	render_relay_plane = RENDER_PLANE_NON_GAME

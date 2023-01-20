@@ -21,6 +21,9 @@
 #define FLOOR_PLANE -7
 #define GAME_PLANE -4
 
+#define PSYCHIC_PLANE 550 //Plane for psyphoza highlights
+#define PSYCHIC_PLANE_RENDER_TARGET "PSYCHIC_PLANE"
+
 #define SPACE_LAYER 1.8
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
 #define MID_TURF_LAYER 2.02
@@ -142,7 +145,7 @@
 #define CAMERA_STATIC_PLANE 200
 
 ///Popup Chat Messages
-#define RUNECHAT_PLANE 250
+#define RUNECHAT_PLANE 650
 /// Plane for balloon text (text that fades up)
 #define BALLOON_CHAT_PLANE 31
 
