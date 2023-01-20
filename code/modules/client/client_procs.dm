@@ -4,7 +4,7 @@
 
 
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 1MB //Could probably do with being lower.
-#define MAX_RECOMMENDED_CLIENT 1583
+#define MAX_RECOMMENDED_CLIENT 1589
 
 GLOBAL_LIST_INIT(blacklisted_builds, list(
 	"1407" = "bug preventing client display overrides from working leads to clients being able to see things/mobs they shouldn't be able to see",
@@ -1016,7 +1016,16 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(prefs && prefs.chat_toggles & CHAT_PULLR)
 		to_chat(src, announcement)
 
-/client/proc/show_character_previews(mutable_appearance/MA)
+/client/proc/show_character_previews(mutable_appearance/source)
+	LAZYINITLIST(char_render_holders)
+	if(!LAZYLEN(char_render_holders))
+		for (var/plane_master_type in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
+			var/atom/movable/screen/plane_master/plane_master = new plane_master_type()
+			char_render_holders["plane_master-[plane_master.plane]"] = plane_master
+			plane_master.backdrop(mob)
+			screen |= plane_master
+			plane_master.screen_loc = "character_preview_map:0,CENTER"
+
 	var/pos = 0
 	for(var/D in GLOB.cardinals)
 		pos++
@@ -1025,7 +1034,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			O = new
 			LAZYSET(char_render_holders, "[D]", O)
 			screen |= O
-		O.appearance = MA
+		O.appearance = source
 		O.dir = D
 		O.screen_loc = "character_preview_map:0,[pos]"
 
@@ -1045,23 +1054,22 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	addtimer(CALLBACK(src, .proc/restore_account_identifier), 20) //Don't DoS DB queries, asshole
 
 	var/confirm = alert("Do NOT share the verification ID in the following popup. Understand?", "Important Warning", "Yes", "Cancel")
-	if(confirm == "Cancel")
+	if(confirm != "Yes")
 		return
-	if(confirm == "Yes")
-		var/uuid = fetch_uuid()
-		if(!uuid)
-			alert("Failed to fetch your verification ID. Try again later. If problems persist, tell an admin.", "Account Verification", "Okay")
-			log_sql("Failed to fetch UUID for [key_name(src)]")
-		else
-			var/dat
-			dat += "<h3>Account Identifier</h3>"
-			dat += "<br>"
-			dat += "<h3>Do NOT share this id:</h3>"
-			dat += "<br>"
-			dat += "[uuid]"
+	var/uuid = fetch_uuid()
+	if(!uuid)
+		alert("Failed to fetch your verification ID. Try again later. If problems persist, tell an admin.", "Account Verification", "Okay")
+		log_sql("Failed to fetch UUID for [key_name(src)]")
+	else
+		var/dat
+		dat += "<h3>Account Identifier</h3>"
+		dat += "<br>"
+		dat += "<h3>Do NOT share this id:</h3>"
+		dat += "<br>"
+		dat += "[uuid]"
 
-			src << browse(dat, "window=accountidentifier;size=600x320")
-			onclose(src, "accountidentifier")
+		src << browse(dat, "window=accountidentifier;size=600x320")
+		onclose(src, "accountidentifier")
 
 /client/proc/restore_account_identifier()
 	add_verb(/client/proc/show_account_identifier)
