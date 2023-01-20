@@ -223,7 +223,7 @@
 	for(var/list/message as() in messages)
 		var/datum/picture/pic = message["photo_obj"]
 		if(!message["photo"] && istype(pic))
-			message["photo"] = rsc_image(pic, message["ref"], user)
+			message["photo"] = pda_rsc_image(pic, message["ref"], user)
 			message["photo_width"] = pic.psize_x
 			message["photo_height"] = pic.psize_y
 	data["messages"] = messages
@@ -242,7 +242,7 @@
 
 	return data
 
-/datum/computer_file/program/messenger/proc/rsc_image(datum/picture/photo, ref, user)
+/proc/pda_rsc_image(datum/picture/photo, ref, user)
 	if(!istype(photo) || !photo.picture_image)
 		return
 	var/path = "pda_img[ref].png"

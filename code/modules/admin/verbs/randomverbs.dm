@@ -1444,3 +1444,15 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/turf/T = get_turf(usr)
 	new /mob/living/carbon/human(T)
 	log_admin("[key_name(usr)] spawned a mindless human.")
+
+/client/proc/cmd_admin_send_pda_msg()
+	set name = "Send PDA Message"
+	set category = "Adminbus"
+
+	if(!check_rights(R_ADMIN))
+		return
+	var/obj/machinery/telecomms/message_server/server
+	for(var/obj/machinery/telecomms/message_server/S in GLOB.telecomms_list)
+		server = S
+		break
+	tgui_send_admin_pda(usr, null, server, theme = "admin", allow_send_all = TRUE)

@@ -3540,6 +3540,7 @@
 #include "code\modules\tgui\tgui_input_emoji.dm"
 #include "code\modules\tgui\tgui_input_list.dm"
 #include "code\modules\tgui\tgui_input_number.dm"
+#include "code\modules\tgui\tgui_input_pda_message.dm"
 #include "code\modules\tgui\tgui_input_text.dm"
 #include "code\modules\tgui\tgui_select_picture.dm"
 #include "code\modules\tgui\tgui_window.dm"
