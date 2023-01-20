@@ -87,7 +87,7 @@
 
 	user.log_message(msg, LOG_EMOTE)
 
-	var/space = should_have_space_before_emote(html_decode(msg)[1]) ? " " : ""
+	var/space = should_have_space_before_emote(html_decode(msg)[1]) ? " " : null
 	var/end = copytext(msg, length(message))
 	if(!(end in list("!", ".", "?", ":", "\"", "-")))
 		msg += "."
@@ -215,4 +215,4 @@
  */
 /proc/should_have_space_before_emote(string)
 	var/static/regex/no_spacing_emote_characters = regex(@"(,|')")
-	return no_spacing_emote_characters.Find(string) ? FALSE : TRUE
+	return !no_spacing_emote_characters.Find(string)
