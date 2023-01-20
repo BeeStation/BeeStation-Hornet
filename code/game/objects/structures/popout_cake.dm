@@ -72,7 +72,7 @@
 /obj/structure/popout_cake/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER && used_string == TRUE)
 		user.visible_message("<span class = 'notice'>[user] sticks the [W] inside [src] and stars fiddling around!</span>", \
-		"<span class = 'notice>You start to rewind the hidden mechanism inside [src] with [w].</span>")
+		"<span class = 'notice>You start to rewind the hidden mechanism inside [src] with [W].</span>")
 		W.play_tool_sound(src, 50)
 		if(do_after(user, 20, FALSE, src))
 			used_string = FALSE
