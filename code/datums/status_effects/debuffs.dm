@@ -918,8 +918,6 @@
 	var/obscured = H.check_obscured_slots()
 	if(!(obscured & ITEM_SLOT_EYES) && !H.glasses) //The examine text is only displayed if the ghoul's eyes are not obscured
 		return examine_text
-	else
-		return null
 
 /atom/movable/screen/alert/status_effect/ghoul
 	name = "Flesh Servant"
