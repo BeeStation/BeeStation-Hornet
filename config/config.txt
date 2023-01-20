@@ -532,9 +532,6 @@ ROUNDS_UNTIL_HARD_RESTART 3
 ##	Do note that changing this value will affect the title screen. The title screen will have to be updated manually if this is changed.
 DEFAULT_VIEW 17x15
 
-##Should we use square view (15x15) while a new player (main menu)
-MENU_SQUARE_VIEW
-
 ## Name your perpetual currency here
 ## This is used within the metashop and earned by playing the game.
 METACURRENCY_NAME BeeCoin

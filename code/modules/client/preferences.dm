@@ -76,6 +76,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/action_buttons_screen_locs = list()
 
+	var/pai_name = ""
+	var/pai_description = ""
+	var/pai_comment = ""
+
 /datum/preferences/proc/set_max_character_slots(newmax)
 	max_usable_slots = min(TRUE_MAX_SAVE_SLOTS, newmax) // Make sure they dont go over
 	check_usable_slots()
@@ -562,6 +566,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<b>Ghost Whispers:</b> <a href='?_src_=prefs;preference=ghost_whispers'>[(chat_toggles & CHAT_GHOSTWHISPER) ? "All Speech" : "Nearest Creatures"]</a><br>"
 			dat += "<b>Ghost PDA:</b> <a href='?_src_=prefs;preference=ghost_pda'>[(chat_toggles & CHAT_GHOSTPDA) ? "All Messages" : "Nearest Creatures"]</a><br>"
 			dat += "<b>Ghost Law Changes:</b> <a href='?_src_=prefs;preference=ghost_laws'>[(chat_toggles & CHAT_GHOSTLAWS) ? "All Law Changes" : "No Law Changes"]</a><br>"
+			dat += "<b>Ghost (F) Chat toggle:</b> <a href='?_src_=prefs;preference=ghost_follow'>[(chat_toggles & CHAT_GHOSTFOLLOWMINDLESS) ? "All mobs" : "Only mobs with mind"]</a><br>"
 
 			if(unlock_content)
 				dat += "<b>Ghost Form:</b> <a href='?_src_=prefs;task=input;preference=ghostform'>[ghost_form]</a><br>"
@@ -1834,6 +1839,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("ghost_laws")
 					chat_toggles ^= CHAT_GHOSTLAWS
+
+				if("ghost_follow")
+					chat_toggles ^= CHAT_GHOSTFOLLOWMINDLESS
 
 				if("income_pings")
 					chat_toggles ^= CHAT_BANKCARD
