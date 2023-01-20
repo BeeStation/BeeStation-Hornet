@@ -285,6 +285,9 @@
 	icon_state = "bluestream_fade"
 	duration = 9
 
+/obj/effect/temp_visual/bluespace_fissure/long
+	duration = 300
+
 /obj/effect/temp_visual/gib_animation
 	icon = 'icons/mob/mob.dmi'
 	duration = 15

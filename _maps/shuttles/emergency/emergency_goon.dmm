@@ -70,7 +70,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "s" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
@@ -79,7 +79,7 @@
 /turf/closed/wall/mineral/titanium/interior,
 /area/shuttle/escape)
 "u" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /obj/machinery/light/small{
@@ -101,7 +101,7 @@
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "A" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/yellow,
@@ -123,7 +123,7 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "D" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /obj/machinery/light/small,
@@ -134,9 +134,7 @@
 	name = "Emergency Shuttle Airlock"
 	},
 /obj/docking_port/mobile/emergency{
-	dheight = 0;
 	dir = 2;
-	dwidth = 9;
 	name = "NES Port";
 	width = 19
 	},
@@ -156,7 +154,7 @@
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "H" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
@@ -203,7 +201,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "S" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/machinery/light{
@@ -212,7 +210,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "T" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/machinery/light/small{

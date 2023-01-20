@@ -4,6 +4,7 @@
  *		Sleepy Pens
  *		Parapens
  *		Edaggers
+ *		Screwdriver pen
  */
 
 
@@ -101,7 +102,7 @@
 	materials = list(/datum/material/gold = 750)
 	sharpness = IS_SHARP
 	resistance_flags = FIRE_PROOF
-	unique_reskin = list("Oak" = "pen-fountain-o",
+	unique_reskin_icon = list("Oak" = "pen-fountain-o",
 						"Gold" = "pen-fountain-g",
 						"Rosewood" = "pen-fountain-r",
 						"Black and Silver" = "pen-fountain-b",
@@ -114,9 +115,17 @@
 	AddComponent(/datum/component/butchering, 200, 115) //the pen is mightier than the sword
 
 /obj/item/pen/fountain/captain/reskin_obj(mob/M)
-	..()
+	if(isnull(unique_reskin))
+		unique_reskin = list(
+			"Oak" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-o"),
+			"Gold" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-g"),
+			"Rosewood" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-r"),
+			"Black and Silver" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-b"),
+			"Command Blue" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-cb")
+		)
 	if(current_skin)
 		desc = "It's an expensive [current_skin] fountain pen. The nib is quite sharp."
+	. = ..()
 
 /obj/item/pen/attack_self(mob/living/carbon/user)
 	var/deg = input(user, "What angle would you like to rotate the pen head to? (1-360)", "Rotate Pen Head") as null|num
@@ -270,6 +279,7 @@
 		throw_speed = 3
 		throw_range = 5
 		to_chat(user, "You extend the screwdriver.")
+	playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE) // click
 	update_icon()
 
 /obj/item/pen/screwdriver/attack(mob/living/carbon/M, mob/living/carbon/user)

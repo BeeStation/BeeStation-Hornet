@@ -100,12 +100,11 @@
 /datum/antagonist/changeling/proc/reset_properties()
 	changeling_speak = 0
 	chosen_sting = null
-	geneticpoints = initial(geneticpoints)
+	mimicing = ""
 	sting_range = initial(sting_range)
 	chem_recharge_rate = initial(chem_recharge_rate)
 	chem_charges = min(chem_charges, chem_storage)
 	chem_recharge_slowdown = initial(chem_recharge_slowdown)
-	mimicing = ""
 
 /datum/antagonist/changeling/proc/remove_changeling_powers()
 	if(ishuman(owner.current) || ismonkey(owner.current))
@@ -113,6 +112,7 @@
 		for(var/datum/action/changeling/p in purchasedpowers)
 			purchasedpowers -= p
 			p.Remove(owner.current)
+			geneticpoints += p.dna_cost
 
 	//MOVE THIS
 	if(owner.current.hud_used?.lingstingdisplay)
@@ -339,8 +339,8 @@
 	if(isipc(C))
 		C.set_species(/datum/species/human)
 		var/replacementName = random_unique_name(C.gender)
-		if(C.client.prefs.custom_names["human"])
-			C.fully_replace_character_name(C.real_name, C.client.prefs.custom_names["human"])
+		if(C.client.prefs.active_character.custom_names["human"])
+			C.fully_replace_character_name(C.real_name, C.client.prefs.active_character.custom_names["human"])
 		else
 			C.fully_replace_character_name(C.real_name, replacementName)
 	if(ishuman(C))

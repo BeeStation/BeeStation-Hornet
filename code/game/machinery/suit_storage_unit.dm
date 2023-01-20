@@ -171,7 +171,7 @@
 		else
 			add_overlay("uv")
 	else if(state_open)
-		if(stat & BROKEN)
+		if(machine_stat & BROKEN)
 			add_overlay("broken")
 		else
 			add_overlay("open")
@@ -186,7 +186,7 @@
 
 /obj/machinery/suit_storage_unit/power_change()
 	. = ..()
-	if(!is_operational() && state_open)
+	if(!is_operational && state_open)
 		open_machine()
 		dump_contents()
 	update_icon()
@@ -205,10 +205,8 @@
 	wires.ui_update()
 	ui_update()
 
-/obj/machinery/suit_storage_unit/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/suit_storage_unit/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='warning'>You reprogram [src]'s decontamination subroutines.</span>")
 
 /obj/machinery/suit_storage_unit/deconstruct(disassembled = TRUE)
@@ -229,7 +227,7 @@
 	if(!state_open)
 		to_chat(user, "<span class='warning'>The unit's doors are shut!</span>")
 		return
-	if(!is_operational())
+	if(!is_operational)
 		to_chat(user, "<span class='warning'>The unit is not operational!</span>")
 		return
 	if(occupant || helmet || suit || storage)
@@ -377,7 +375,7 @@
 		open_machine()
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
-	if(state_open && is_operational())
+	if(state_open && is_operational)
 		if(istype(I, /obj/item/clothing/suit))
 			if(suit)
 				to_chat(user, "<span class='warning'>The unit already contains a suit!.</span>")
@@ -437,7 +435,7 @@
 
 
 /obj/machinery/suit_storage_unit/default_pry_open(obj/item/I)//needs to check if the storage is locked.
-	. = !(state_open || panel_open || is_operational() || locked || (flags_1 & NODECONSTRUCT_1)) && I.tool_behaviour == TOOL_CROWBAR
+	. = !(state_open || panel_open || is_operational || locked || (flags_1 & NODECONSTRUCT_1)) && I.tool_behaviour == TOOL_CROWBAR
 	if(.)
 		I.play_tool_sound(src, 50)
 		visible_message("<span class='notice'>[usr] pries open \the [src].</span>", "<span class='notice'>You pry open \the [src].</span>")

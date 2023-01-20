@@ -42,6 +42,7 @@
 		"smmon_4.gif" = 'icons/program_icons/smmon_4.gif',
 		"smmon_5.gif" = 'icons/program_icons/smmon_5.gif',
 		"smmon_6.gif" = 'icons/program_icons/smmon_6.gif',
+		"borg_self_monitor.gif" = 'icons/program_icons/borg_self_monitor.gif'
 	)
 
 /datum/asset/simple/circuit_assets
@@ -188,6 +189,15 @@
 		if (icon != 'icons/misc/language.dmi')
 			var/icon_state = initial(L.icon_state)
 			Insert("language-[icon_state]", icon, icon_state=icon_state)
+	..()
+
+/datum/asset/spritesheet/emoji
+	name = "emoji"
+
+/datum/asset/spritesheet/emoji/register()
+	var/icon/I = icon('icons/emoji.dmi')
+	I.Scale(48, 48)
+	InsertAll("", I)
 	..()
 
 /datum/asset/simple/lobby

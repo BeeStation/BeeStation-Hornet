@@ -146,7 +146,7 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 
 
 /obj/machinery/atmospherics/components/binary/valve/digital/update_icon_nopipes(animation)
-	if(!is_operational())
+	if(!is_operational)
 		normalize_cardinal_directions()
 		icon_state = "dvalve_nopower-[set_overlay_offset(piping_layer)]"
 		return

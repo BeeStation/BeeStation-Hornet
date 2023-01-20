@@ -85,7 +85,7 @@
 			var/list/this_pad = list()
 			this_pad["name"] = pad.display_name
 			this_pad["id"] = i
-			if(pad.stat & NOPOWER)
+			if(pad.machine_stat & NOPOWER)
 				this_pad["inactive"] = TRUE
 			pad_list += list(this_pad)
 		else
@@ -99,7 +99,7 @@
 		data["pad_name"] = current_pad.display_name
 		data["range"] = current_pad.range
 		data["selected_pad"] = current_pad
-		if(QDELETED(current_pad) || (current_pad.stat & NOPOWER))
+		if(QDELETED(current_pad) || (current_pad.machine_stat & NOPOWER))
 			data["pad_active"] = FALSE
 			return data
 		data["pad_active"] = TRUE
@@ -134,7 +134,7 @@
 			current_pad.display_name = new_name
 			. = TRUE
 		if("remove")
-			if(usr && alert(usr, "Are you sure?", "Unlink Launchpad", "I'm Sure", "Abort") != "Abort")
+			if(usr && alert(usr, "Are you sure?", "Unlink Launchpad", "I'm Sure", "Abort") == "I'm Sure")
 				launchpads -= current_pad
 				selected_id = null
 			. = TRUE

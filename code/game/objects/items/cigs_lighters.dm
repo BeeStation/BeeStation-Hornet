@@ -493,7 +493,9 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	smoketime = 0
 	chem_volume = 100
 	list_reagents = null
-	var/packeditem = 0
+	w_class = WEIGHT_CLASS_SMALL
+	/// Name of the stuff packed inside this pipe
+	var/packeditem
 
 /obj/item/clothing/mask/cigarette/pipe/Initialize(mapload)
 	. = ..()
@@ -889,22 +891,23 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		else
 			..()
 
+/obj/item/clothing/mask/vape/should_emag(mob/user)
+	if(!..())
+		return FALSE
+	if(!screw)
+		to_chat(user, "<span class='notice'>The cryptographic sequencer attempts to connect to \the [src], but the cap is in the way.</span>")
+		return FALSE
+	return TRUE
 
-/obj/item/clothing/mask/vape/emag_act(mob/user)// I WON'T REGRET WRITTING THIS, SURLY.
-	if(screw)
-		if(!(obj_flags & EMAGGED))
-			cut_overlays()
-			obj_flags |= EMAGGED
-			super = 0
-			to_chat(user, "<span class='warning'>You maximize the voltage of [src].</span>")
-			add_overlay("vapeopen_high")
-			var/datum/effect_system/spark_spread/sp = new /datum/effect_system/spark_spread //for effect
-			sp.set_up(5, 1, src)
-			sp.start()
-		else
-			to_chat(user, "<span class='warning'>[src] is already emagged!</span>")
-	else
-		to_chat(user, "<span class='notice'>You need to open the cap to do that.</span>")
+/obj/item/clothing/mask/vape/on_emag(mob/user)
+	..()
+	cut_overlays()
+	super = 0
+	to_chat(user, "<span class='warning'>You maximize the voltage of [src].</span>")
+	add_overlay("vapeopen_high")
+	var/datum/effect_system/spark_spread/sp = new /datum/effect_system/spark_spread //for effect
+	sp.set_up(5, 1, src)
+	sp.start()
 
 /obj/item/clothing/mask/vape/attack_self(mob/user)
 	if(reagents.total_volume > 0)

@@ -13,7 +13,7 @@
 	)
 
 //ATMOSPHERIC TECHNICIAN
-/datum/job/atmos
+/datum/job/atmospheric_technician
 	mail_goodies = list(
 		/obj/item/book/manual/wiki/atmospherics = 12,
 		/obj/item/tank/internals/emergency_oxygen/engi = 10,
@@ -237,7 +237,7 @@
 	)
 
 //HEAD OF PERSONNEL
-/datum/job/hop
+/datum/job/head_of_personnel
 	mail_goodies = list(
 		/obj/item/card/id/silver = 10,
 		/obj/item/assembly/flash/handheld = 5,
@@ -248,7 +248,7 @@
 	)
 
 //HEAD OF SECURITY
-/datum/job/hos
+/datum/job/head_of_security
 	mail_goodies = list(
 		/obj/effect/spawner/mail/donut = 20,
 		/obj/effect/spawner/mail/rdonut = 15,
@@ -291,8 +291,8 @@
 //MAGICIAN GIMMICK
 /datum/job/gimmick/stage_magician
 	mail_goodies = list(
-		//AND FOR MY NEXT TRICK... Bnnuy
-		/mob/living/simple_animal/chicken/rabbit/normal = 40,
+		//AND FOR MY NEXT TRICK... Bunny
+		/obj/item/clothing/head/mob_holder/rabbit = 40,
 		/obj/item/gun/magic/wand = 10,
 		/obj/item/clothing/head/collectable/tophat = 10,
 		/obj/item/clothing/head/bowler = 5,
@@ -329,7 +329,7 @@
 	)
 
 //QUARTERMASTER
-/datum/job/qm
+/datum/job/quartermaster
 	mail_goodies = list(
 		/obj/item/reagent_containers/food/snacks/donkpocket/random = 10,
 		//the beginning of your department's independence
@@ -387,7 +387,7 @@
 	)
 
 //SHAFT MINER
-/datum/job/mining
+/datum/job/shaft_miner
 	mail_goodies = list(
 		/obj/item/reagent_containers/hypospray/medipen/survival = 10,
 		/obj/item/tank/internals/emergency_oxygen/double = 7,

@@ -11,7 +11,7 @@
 	idle_power_usage = 50
 	active_power_usage = 500
 	fair_market_price = 10
-	payment_department = ACCOUNT_MED
+	dept_req_for_free = ACCOUNT_MED_BITFLAG
 	var/stasis_enabled = TRUE
 	var/last_stasis_sound = FALSE
 	var/stasis_can_toggle = 0
@@ -21,7 +21,7 @@
 
 /obj/machinery/stasis/Initialize(mapload)
 	. = ..()
-	for(var/direction in GLOB.cardinals)
+	for(var/direction in GLOB.alldirs)
 		op_computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
 		if(op_computer)
 			op_computer.sbed = src
@@ -63,7 +63,7 @@
 	return ..()
 
 /obj/machinery/stasis/proc/stasis_running()
-	return stasis_enabled && is_operational()
+	return stasis_enabled && is_operational
 
 /obj/machinery/stasis/update_icon()
 	. = ..()
@@ -83,10 +83,10 @@
 
 	SSvis_overlays.remove_vis_overlay(src, overlays_to_remove)
 
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		icon_state = "stasis_broken"
 		return
-	if(panel_open || stat & MAINT)
+	if(panel_open || machine_stat & MAINT)
 		icon_state = "stasis_maintenance"
 		return
 	icon_state = "stasis"

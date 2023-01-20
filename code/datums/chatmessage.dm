@@ -14,10 +14,6 @@
 #define CHAT_MESSAGE_WIDTH			128
 /// Max length of chat message in characters
 #define CHAT_MESSAGE_MAX_LENGTH		110
-/// Maximum precision of float before rounding errors occur (in this context)
-#define CHAT_LAYER_Z_STEP			0.0001
-/// The number of z-layer 'slices' usable by the chat message layering
-#define CHAT_LAYER_MAX_Z			(CHAT_LAYER_MAX - CHAT_LAYER) / CHAT_LAYER_Z_STEP
 /// The dimensions of the chat message icons
 #define CHAT_MESSAGE_ICON_SIZE		7
 /// How much the message moves up before fading out.
@@ -241,7 +237,7 @@
 
 	var/bound_height = world.icon_size
 	var/bound_width = world.icon_size
-	if(ismovableatom(message_loc))
+	if(ismovable(message_loc))
 		var/atom/movable/AM = message_loc
 		bound_height = AM.bound_height
 		bound_width = AM.bound_width
@@ -288,9 +284,9 @@
 /mob/proc/should_show_chat_message(atom/movable/speaker, datum/language/message_language, is_emote = FALSE, is_heard = FALSE)
 	if(!client)
 		return CHATMESSAGE_CANNOT_HEAR
-	if(!client.prefs.chat_on_map || (!client.prefs.see_chat_non_mob && !ismob(speaker)))
+	if(!(client.prefs.toggles & PREFTOGGLE_RUNECHAT_GLOBAL) || (!(client.prefs.toggles & PREFTOGGLE_RUNECHAT_NONMOBS) && !ismob(speaker)))
 		return CHATMESSAGE_CANNOT_HEAR
-	if(!client.prefs.see_rc_emotes && is_emote)
+	if(!(client.prefs.toggles & PREFTOGGLE_RUNECHAT_EMOTES) && is_emote)
 		return CHATMESSAGE_CANNOT_HEAR
 	if(is_heard && !can_hear())
 		return CHATMESSAGE_CANNOT_HEAR
@@ -459,14 +455,14 @@
 		if(5)
 			return "#[num2hex(c, 2)][num2hex(m, 2)][num2hex(x, 2)]"
 
-/atom/proc/balloon_alert(mob/viewer, text)
+/atom/proc/balloon_alert(mob/viewer, text, color = null)
 	if(!viewer?.client)
 		return
 	switch(viewer.client.prefs.see_balloon_alerts)
 		if(BALLOON_ALERT_ALWAYS)
-			new /datum/chatmessage/balloon_alert(text, src, viewer)
+			new /datum/chatmessage/balloon_alert(text, src, viewer, color)
 		if(BALLOON_ALERT_WITH_CHAT)
-			new /datum/chatmessage/balloon_alert(text, src, viewer)
+			new /datum/chatmessage/balloon_alert(text, src, viewer, color)
 			to_chat(viewer, "<span class='notice'>[text].</span>")
 		if(BALLOON_ALERT_NEVER)
 			to_chat(viewer, "<span class='notice'>[text].</span>")
@@ -482,15 +478,18 @@
 		balloon_alert(hearer, (hearer == src && self_message) || message)
 
 /datum/chatmessage/balloon_alert
-	tgt_color = "#ffffff"
+	tgt_color = "#ffffff" //default color
 
-/datum/chatmessage/balloon_alert/New(text, atom/target, mob/owner)
+/datum/chatmessage/balloon_alert/New(text, atom/target, mob/owner, color)
 	if (!istype(target))
 		CRASH("Invalid target given for chatmessage")
 	if(QDELETED(owner) || !istype(owner) || !owner.client)
 		stack_trace("/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
 		qdel(src)
 		return
+	//handle color
+	if(color)
+		tgt_color = color
 	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner)
 
 /datum/chatmessage/balloon_alert/Destroy()
@@ -575,3 +574,5 @@
 #undef CHATMESSAGE_CANNOT_HEAR
 #undef CHATMESSAGE_HEAR
 #undef CHATMESSAGE_SHOW_LANGUAGE_ICON
+#undef COLOR_PERSON_UNKNOWN
+#undef COLOR_CHAT_EMOTE

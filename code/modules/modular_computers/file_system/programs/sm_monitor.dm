@@ -6,7 +6,7 @@
 	program_icon_state = "smmon_0"
 	extended_desc = "This program connects to specially calibrated supermatter sensors to provide information on the status of supermatter-based engines."
 	requires_ntnet = TRUE
-	transfer_access = ACCESS_CONSTRUCTION
+	transfer_access = list(ACCESS_CONSTRUCTION)
 	network_destination = "supermatter monitoring system"
 	size = 5
 	tgui_id = "NtosSupermatterMonitor"
@@ -31,8 +31,10 @@
 		if(istype(computer))
 			computer.update_icon()
 
-/datum/computer_file/program/supermatter_monitor/run_program(mob/living/user)
+/datum/computer_file/program/supermatter_monitor/on_start(mob/living/user)
 	. = ..(user)
+	if(!.)
+		return
 	if(!(active in GLOB.machines))
 		active = null
 	refresh()
@@ -115,7 +117,7 @@
 	if(computer.active_program == src)
 		computer.alert_call(src, "Crystal delamination in progress!")
 
-/datum/computer_file/program/supermatter_monitor/ui_data()
+/datum/computer_file/program/supermatter_monitor/ui_data(mob/user)
 	var/list/data = get_header_data()
 
 	if(istype(active))
@@ -128,30 +130,8 @@
 		if(!air)
 			active = null
 			return
-
-		data["active"] = TRUE
-		data["SM_integrity"] = active.get_integrity()
-		data["SM_power"] = active.power
-		data["SM_radiation"] = active.last_rads
-		data["SM_ambienttemp"] = air.return_temperature()
-		data["SM_ambientpressure"] = air.return_pressure()
-		//data["SM_EPR"] = round((air.total_moles / air.group_multiplier) / 23.1, 0.01)
-		var/list/gasdata = list()
-
-
-		if(air.total_moles())
-			for(var/gasid in air.get_gases())
-				gasdata.Add(list(list(
-				"name"= GLOB.gas_data.names[gasid],
-				"amount" = round(100*air.get_moles(gasid)/air.total_moles(),0.01))))
-
-		else
-			for(var/gasid in air.get_gases())
-				gasdata.Add(list(list(
-					"name"= GLOB.gas_data.names[gasid],
-					"amount" = 0)))
-
-		data["gases"] = gasdata
+		data += active.ui_data()
+		data["standalone_mode"] = FALSE
 	else
 		var/list/SMS = list()
 		for(var/obj/machinery/power/supermatter_crystal/S in supermatters)
@@ -159,7 +139,7 @@
 			if(A)
 				SMS.Add(list(list(
 				"area_name" = A.name,
-				"integrity" = S.get_integrity(),
+				"integrity" = S.get_integrity_percent(),
 				"uid" = S.uid
 				)))
 
@@ -169,8 +149,9 @@
 	return data
 
 /datum/computer_file/program/supermatter_monitor/ui_act(action, params)
-	if(..())
-		return TRUE
+	. = ..()
+	if(.)
+		return
 
 	switch(action)
 		if("PRG_clear")

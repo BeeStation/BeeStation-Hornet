@@ -431,7 +431,9 @@
 				/obj/item/circuitboard/computer/nanite_cloud_controller,
 				/obj/item/circuitboard/machine/nanite_chamber,
 				/obj/item/circuitboard/machine/nanite_programmer,
-				/obj/item/circuitboard/machine/nanite_program_hub
+				/obj/item/circuitboard/machine/nanite_program_hub,
+				/obj/item/circuitboard/machine/xenoartifact_inbox,
+				/obj/item/circuitboard/computer/xenoartifact_console
 				)
 
 /obj/effect/spawner/lootdrop/techstorage/security
@@ -523,7 +525,7 @@
 
 /obj/effect/spawner/lootdrop/megafaunaore
 	name = "megafauna ore drop"
-	lootcount = 100
+	lootcount = 50
 	lootdoubles = TRUE
 	loot = list(
 		/obj/item/stack/ore/iron = 5,

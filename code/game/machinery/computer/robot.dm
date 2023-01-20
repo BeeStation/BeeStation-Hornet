@@ -103,7 +103,7 @@
 
 	data["uploads"] = list()
 	for(var/obj/machinery/computer/upload/U as() in GLOB.uploads_list)
-		if(stat & (NOPOWER|BROKEN))
+		if(machine_stat & (NOPOWER|BROKEN))
 			continue
 		if(!(is_station_level(src.z) && is_station_level(U.z)))
 			continue
@@ -130,14 +130,7 @@
 			if(allowed(usr))
 				var/mob/living/silicon/robot/R = locate(params["ref"]) in GLOB.silicon_mobs
 				if(can_control(usr, R) && !..())
-					var/turf/T = get_turf(R)
-					message_admins("<span class='notice'>[ADMIN_LOOKUPFLW(usr)] detonated [key_name_admin(R, R.client)] at [ADMIN_VERBOSEJMP(T)]!</span>")
-					log_game("\<span class='notice'>[key_name(usr)] detonated [key_name(R)]!</span>")
-					log_combat(usr, R, "detonated cyborg")
-
-					if(R.connected_ai)
-						to_chat(R.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [R.name]</span><br>")
-					R.self_destruct()
+					R.self_destruct(usr)
 			else
 				to_chat(usr, "<span class='danger'>Access Denied.</span>")
 		if("stopbot")
@@ -161,6 +154,7 @@
 					log_game("[key_name(usr)] emagged [key_name(R)] using robotic console!")
 					message_admins("[ADMIN_LOOKUPFLW(usr)] emagged cyborg [key_name_admin(R)] using robotic console!")
 					R.SetEmagged(TRUE)
+					R.logevent("WARN: root privleges granted to PID [num2hex(rand(1,65535), -1)][num2hex(rand(1,65535), -1)].") //random eight digit hex value. Two are used because rand(1,4294967295) throws an error
 		if("killdrone")
 			if(allowed(usr))
 				var/mob/living/simple_animal/drone/D = locate(params["ref"]) in GLOB.mob_list

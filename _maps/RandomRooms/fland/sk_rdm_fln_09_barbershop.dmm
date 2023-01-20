@@ -122,7 +122,7 @@
 /turf/open/floor/plasteel/ameridiner,
 /area/template_noop)
 "x" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/fancy/sofa/right{
 	dir = 8
 	},
 /turf/open/floor/carpet{
@@ -256,7 +256,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "U" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/fancy/sofa/left{
 	dir = 8
 	},
 /turf/open/floor/carpet{

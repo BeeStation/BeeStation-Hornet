@@ -66,10 +66,8 @@
 	desc = initial(desc)
 	stop_glitch()
 
-/obj/item/clothing/glasses/hud/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/item/clothing/glasses/hud/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
 	desc = "[desc] The display is flickering slightly."
 	//If we aren't already glitching out, start glitching
@@ -361,7 +359,7 @@
 	darkness_view = 8
 	flash_protect = 2
 	vision_correction = 1
-	clothing_flags = SCAN_REAGENTS
+	clothing_flags = SCAN_REAGENTS | SCAN_BOOZEPOWER
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	hud_type = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED)
 	resistance_flags = INDESTRUCTIBLE

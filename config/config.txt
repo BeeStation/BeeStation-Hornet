@@ -16,6 +16,8 @@ $include antag_rep.txt
 # Asset Transport (TGUI)
 $include resources.txt
 $include interviews.txt
+# Performance stuff
+$include performance.txt
 
 # You can use the @ character at the beginning of a config option to lock it from being edited in-game
 # Example usage:
@@ -530,9 +532,6 @@ ROUNDS_UNTIL_HARD_RESTART 3
 ##	Do note that changing this value will affect the title screen. The title screen will have to be updated manually if this is changed.
 DEFAULT_VIEW 17x15
 
-##Should we use square view (15x15) while a new player (main menu)
-MENU_SQUARE_VIEW
-
 ## Name your perpetual currency here
 ## This is used within the metashop and earned by playing the game.
 METACURRENCY_NAME BeeCoin
@@ -613,3 +612,6 @@ ELASTICSEARCH_METRICS_APIKEY thisIsSomethingThatsBased64Encoded==
 
 ## Once a typepath causes overrun from hard deletes this many times, stop hard deleting it on garbage collection failures. (set to 0 to disable)
 #HARD_DELETES_OVERRUN_LIMIT 0
+
+## Enable/disable the mentor mrat verb ("Request Mentor Assistance")
+ENABLE_MRAT

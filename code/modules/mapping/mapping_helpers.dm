@@ -10,7 +10,7 @@
 	var/list/baseturf_to_replace
 	var/baseturf
 
-	layer = POINT_LAYER
+	plane = POINT_PLANE
 
 /obj/effect/baseturf_helper/Initialize(mapload)
 	. = ..()
@@ -95,7 +95,6 @@
 /obj/effect/mapping_helpers/Initialize(mapload)
 	..()
 	return late ? INITIALIZE_HINT_LATELOAD : INITIALIZE_HINT_QDEL
-
 
 //airlock helpers
 /obj/effect/mapping_helpers/airlock

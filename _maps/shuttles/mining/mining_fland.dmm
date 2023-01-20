@@ -7,7 +7,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/bot_white,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/pod/dark,
@@ -18,12 +18,21 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
+"h" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/pod/dark,
+/area/shuttle/mining/large)
 "l" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot_white,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/pod/dark,
@@ -61,26 +70,38 @@
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional,
 /turf/open/floor/plating/airless,
 /area/shuttle/mining/large)
+"r" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/pod/dark,
+/area/shuttle/mining/large)
 "t" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional{
 	dir = 8
 	},
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
-"u" = (
+"v" = (
+/obj/effect/turf_decal/box/white/corners,
+/obj/effect/turf_decal/box/white/corners{
+	dir = 8
+	},
+/obj/effect/turf_decal/box/white/corners{
+	dir = 4
+	},
+/obj/effect/turf_decal/box/white/corners{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/pod/dark,
+/area/shuttle/mining/large)
+"w" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/turf/open/floor/pod/dark,
-/area/shuttle/mining/large)
-"x" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/tile_side{
-	dir = 8
-	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
 "y" = (
@@ -193,20 +214,6 @@
 /obj/item/storage/firstaid/regular,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
-"D" = (
-/obj/effect/turf_decal/box/white/corners,
-/obj/effect/turf_decal/box/white/corners{
-	dir = 8
-	},
-/obj/effect/turf_decal/box/white/corners{
-	dir = 4
-	},
-/obj/effect/turf_decal/box/white/corners{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/turf/open/floor/pod/dark,
-/area/shuttle/mining/large)
 "E" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/shuttle/engine/propulsion/right,
@@ -230,11 +237,11 @@
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
-"L" = (
-/obj/effect/turf_decal/stripes/line{
+"N" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
 "P" = (
@@ -271,13 +278,6 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
-"Y" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/tile/neutral/tile_side{
-	dir = 4
-	},
-/turf/open/floor/pod/dark,
-/area/shuttle/mining/large)
 
 (1,1,1) = {"
 U
@@ -292,7 +292,7 @@ a
 V
 B
 c
-u
+w
 y
 I
 z
@@ -300,9 +300,9 @@ z
 (3,1,1) = {"
 V
 A
-x
-D
-Y
+h
+v
+N
 q
 F
 "}
@@ -310,7 +310,7 @@ F
 V
 K
 l
-L
+r
 m
 I
 E

@@ -448,8 +448,7 @@
 /**
   * Heal a robotic body part on a mob
   */
-/proc/item_heal_robotic(mob/living/carbon/human/H, mob/user, brute_heal, burn_heal)
-	var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
+/proc/item_heal_robotic(mob/living/carbon/human/H, mob/user, brute_heal, burn_heal, obj/item/bodypart/affecting)
 	if(affecting && (!IS_ORGANIC_LIMB(affecting)))
 		var/dam //changes repair text based on how much brute/burn was supplied
 		if(brute_heal > burn_heal)
@@ -461,9 +460,10 @@
 				H.update_damage_overlays()
 			user.visible_message("[user] has fixed some of the [dam ? "dents on" : "burnt wires in"] [H]'s [parse_zone(affecting.body_zone)].", \
 			"<span class='notice'>You fix some of the [dam ? "dents on" : "burnt wires in"] [H == user ? "your" : "[H]'s"] [parse_zone(affecting.body_zone)].</span>")
-			return 1 //successful heal
+			return TRUE //successful heal
 		else
 			to_chat(user, "<span class='warning'>[affecting] is already in good condition!</span>")
+			return FALSE
 
 ///Is the passed in mob an admin ghost
 /proc/IsAdminGhost(var/mob/user)
@@ -504,8 +504,10 @@
 		var/mob/dead/observer/C = pick(candidates)
 		to_chat(M, "Your mob has been taken over by a ghost!")
 		message_admins("[key_name_admin(C)] has taken control of ([ADMIN_LOOKUPFLW(M)])")
+		var/account_id_store = M.mind.account_id
 		M.ghostize(0)
 		M.key = C.key
+		M.mind.account_id = account_id_store
 		return TRUE
 	else
 		to_chat(M, "There were no ghosts willing to take control.")
@@ -592,4 +594,19 @@
 
 //Can the mob see reagents inside of containers?
 /mob/proc/can_see_reagents()
-	return stat == DEAD || has_unlimited_silicon_privilege //Dead guys and silicons can always see reagents
+	. = FALSE
+	if(stat == DEAD) // Dead guys and silicons can always see reagents
+		return TRUE
+	else if(has_unlimited_silicon_privilege)
+		return TRUE
+	else if(HAS_TRAIT(src, TRAIT_BARMASTER)) // If they're a bar master, they know what reagents are at a glance
+		return TRUE
+
+/mob/proc/can_see_boozepower() // same rule above
+	. = FALSE
+	if(stat == DEAD)
+		return TRUE
+	else if(has_unlimited_silicon_privilege)
+		return TRUE
+	else if(HAS_TRAIT(src, TRAIT_BARMASTER))
+		return TRUE

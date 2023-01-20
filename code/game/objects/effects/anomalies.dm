@@ -11,7 +11,6 @@
 #define ANOMALY_DELIMBER_ZONE_R_LEG typesof(/obj/item/bodypart/r_arm)
 #define ANOMALY_DELIMBER_ZONE_L_ARM typesof(/obj/item/bodypart/l_leg)
 #define ANOMALY_DELIMBER_ZONE_R_ARM typesof(/obj/item/bodypart/r_leg)
-#define ANOMALY_DELIMBER_ZONE_ORGANS typesof(/obj/item/organ) - typesof(/obj/item/organ/brain) - typesof(/obj/item/organ/body_egg) - /obj/item/organ/alien/eggsac - /obj/item/organ/zombie_infection
 
 /////////////////////
 
@@ -100,12 +99,21 @@
 		to_chat(user, "<span class='notice'>Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code].</span>")
 
 ///////////////////////
+/atom/movable/warp_effect
+	plane = GRAVITY_PULSE_PLANE
+	appearance_flags = PIXEL_SCALE // no tile bound so you can see it around corners and so
+	icon = 'icons/effects/light_overlays/light_352.dmi'
+	icon_state = "light"
+	pixel_x = -176
+	pixel_y = -176
 
 /obj/effect/anomaly/grav
 	name = "gravitational anomaly"
 	icon_state = "shield2"
 	density = FALSE
 	var/boing = 0
+	///Warp effect holder for displacement filter to "pulse" the anomaly
+	var/atom/movable/warp_effect/warp
 
 /obj/effect/anomaly/grav/Initialize(mapload, new_lifespan, drops_core)
 	. = ..()
@@ -114,7 +122,16 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/anomaly/grav/anomalyEffect()
+	warp = new(src)
+	vis_contents += warp
+
+/obj/effect/anomaly/grav/Destroy()
+	vis_contents -= warp
+	qdel(warp)
+	warp = null
+	return ..()
+
+/obj/effect/anomaly/grav/anomalyEffect(delta_time)
 	..()
 	boing = 1
 	for(var/obj/O in orange(4, src))
@@ -130,6 +147,10 @@
 			var/mob/living/target = locate() in hearers(4,src)
 			if(target && !target.stat)
 				O.throw_at(target, 5, 10)
+
+	//anomaly quickly contracts then slowly expands it's ring
+	animate(warp, time = delta_time*3, transform = matrix().Scale(0.5,0.5))
+	animate(time = delta_time*7, transform = matrix())
 
 /obj/effect/anomaly/grav/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
@@ -450,18 +471,12 @@
 	name = "delimber anomaly"
 	icon_state = "delimber_anomaly"
 	aSignal = /obj/item/assembly/signaler/anomaly/delimber
-	immortal = TRUE
 	/// Cooldown for every anomaly pulse
 	COOLDOWN_DECLARE(pulse_cooldown)
 	/// How many seconds between each anomaly pulses
 	var/pulse_delay = 15 SECONDS
 	/// Range of the anomaly pulse
 	var/range = 5
-
-/obj/effect/anomaly/delimber/Initialize(mapload, new_lifespan)
-	. = ..()
-	if(new_lifespan)
-		immortal = FALSE //manually override the immortality lifespan
 
 /obj/effect/anomaly/delimber/anomalyEffect(delta_time)
 	. = ..()
@@ -484,17 +499,10 @@
 		// Add target
 		affected += target
 
-		// Insert a random organ
-		var/obj/item/organ/picked_organ = pick(ANOMALY_DELIMBER_ZONE_ORGANS)
-		var/obj/item/organ/new_organ = new picked_organ
-		new_organ.Insert(target, TRUE, FALSE)
-
 		// Replace a random limb
 		var/picked_zone = pick(ANOMALY_DELIMBER_ZONES)
 		var/obj/item/bodypart/picked_user_part = target.get_bodypart(picked_zone)
 		if(!picked_user_part)
-			target.update_body(TRUE)
-			target.balloon_alert(target, "something has changed about you")
 			return
 		var/obj/item/bodypart/picked_part
 		switch(picked_zone)
@@ -514,11 +522,12 @@
 		new_part.replace_limb(target, TRUE, is_creating = TRUE)
 		qdel(picked_user_part)
 		target.update_body(TRUE)
-		target.balloon_alert(target, "something has changed about you")
+		to_chat(target, "<span class='warning'>Something feels different...</span>")
+		log_game("[key_name(owner)] has caused a delimber pulse affecting [english_list(affected)].")
+		target.log_message("[owner] has caused [target]'s [picked_part] to turn into [new_part.name] and delimbed their [picked_user_part.name].", LOG_ATTACK)
 
 	if(message_admins)
 		message_admins("[ADMIN_LOOKUPFLW(owner)] has caused a delimber pulse affecting [english_list(affected)].")
-		log_game("[key_name(owner)] has caused a delimber pulse affecting [english_list(affected)].")
 
 #undef ANOMALY_MOVECHANCE
 #undef ANOMALY_DELIMBER_ZONES
@@ -528,4 +537,3 @@
 #undef ANOMALY_DELIMBER_ZONE_R_LEG
 #undef ANOMALY_DELIMBER_ZONE_L_ARM
 #undef ANOMALY_DELIMBER_ZONE_R_ARM
-#undef ANOMALY_DELIMBER_ZONE_ORGANS

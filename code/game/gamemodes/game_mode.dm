@@ -256,7 +256,7 @@
 	var/list/antag_candidates = list()
 
 	for(var/mob/living/carbon/human/H in living_crew)
-		if(H.client && H.client.prefs.allow_midround_antag && !is_centcom_level(H.z))
+		if(H.client && (H.client.prefs.toggles & PREFTOGGLE_MIDROUND_ANTAG) && !is_centcom_level(H.z))
 			antag_candidates += H
 
 	if(!antag_candidates)
@@ -545,7 +545,7 @@
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
 
-/datum/game_mode/proc/get_alive_non_antagonsist_players_for_role(role)
+/datum/game_mode/proc/get_alive_non_antagonsist_players_for_role(role, list/restricted_roles)
 	var/list/candidates = list()
 
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
@@ -555,9 +555,10 @@
 					if(age_check(player.client) && !player.mind.special_role) //Must be older than the minimum age
 						candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
 
-	if(restricted_jobs)
+	var/restricted_list = length(restricted_roles) ? restricted_roles : restricted_jobs
+	if(restricted_list)
 		for(var/datum/mind/player in candidates)
-			for(var/job in restricted_jobs)					// Remove people who want to be antagonist but have a job already that precludes it
+			for(var/job in restricted_list)					// Remove people who want to be antagonist but have a job already that precludes it
 				if(player.assigned_role == job)
 					candidates -= player
 
@@ -777,16 +778,17 @@
 		if(SSshuttle.emergency.is_hijacked())
 			SSticker.news_report = SHUTTLE_HIJACK
 
-
 /datum/game_mode/proc/generate_credit_text()
 	var/list/round_credits = list()
 	var/len_before_addition
+	var/custom_title_holder
 
 	// HEADS OF STAFF
 	round_credits += "<center><h1>The Glorious Command Staff:</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.command_positions))
-		round_credits += "<center><h2>[current.name] as the [current.assigned_role]</h2>"
+		custom_title_holder = get_custom_title_from_id(current, newline=TRUE)
+		round_credits += "<center><h2>[current.name] as the [current.assigned_role][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>A serious bureaucratic error has occurred!</h2>", "<center><h2>No one was in charge of the crew!</h2>")
 	round_credits += "<br>"
@@ -804,7 +806,8 @@
 	round_credits += "<center><h1>The Brave Security Officers:</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.security_positions))
-		round_credits += "<center><h2>[current.name] as the [current.assigned_role]</h2>"
+		custom_title_holder = get_custom_title_from_id(current, newline=TRUE)
+		round_credits += "<center><h2>[current.name] as the [current.assigned_role][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>[station_name()] has fallen to Communism!</h2>", "<center><h2>No one was there to protect the crew!</h2>")
 	round_credits += "<br>"
@@ -813,7 +816,8 @@
 	round_credits += "<center><h1>The Wise Medical Department:</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.medical_positions))
-		round_credits += "<center><h2>[current.name] as the [current.assigned_role]</h2>"
+		custom_title_holder = get_custom_title_from_id(current, newline=TRUE)
+		round_credits += "<center><h2>[current.name] as the [current.assigned_role][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>Healthcare was not included!</h2>", "<center><h2>There were no doctors today!</h2>")
 	round_credits += "<br>"
@@ -822,7 +826,8 @@
 	round_credits += "<center><h1>The Industrious Engineers:</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.engineering_positions))
-		round_credits += "<center><h2>[current.name] as the [current.assigned_role]</h2>"
+		custom_title_holder = get_custom_title_from_id(current, newline=TRUE)
+		round_credits += "<center><h2>[current.name] as the [current.assigned_role][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>[station_name()] probably did not last long!</h2>", "<center><h2>No one was holding the station together!</h2>")
 	round_credits += "<br>"
@@ -831,7 +836,8 @@
 	round_credits += "<center><h1>The Inventive Science Employees:</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.science_positions))
-		round_credits += "<center><h2>[current.name] as the [current.assigned_role]</h2>"
+		custom_title_holder = get_custom_title_from_id(current, newline=TRUE)
+		round_credits += "<center><h2>[current.name] as the [current.assigned_role][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>No one was doing \"science\" today!</h2>", "<center><h2>Everyone probably made it out alright, then!</h2>")
 	round_credits += "<br>"
@@ -840,7 +846,8 @@
 	round_credits += "<center><h1>The Rugged Cargo Crew:</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.supply_positions))
-		round_credits += "<center><h2>[current.name] as the [current.assigned_role]</h2>"
+		custom_title_holder = get_custom_title_from_id(current, newline=TRUE)
+		round_credits += "<center><h2>[current.name] as the [current.assigned_role][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>The station was freed from paperwork!</h2>", "<center><h2>No one worked in cargo today!</h2>")
 	round_credits += "<br>"
@@ -849,11 +856,12 @@
 	var/list/human_garbage = list()
 	round_credits += "<center><h1>The Hardy Civilians:</h1>"
 	len_before_addition = round_credits.len
-	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.civilian_positions | GLOB.gimmick_positions))
+	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.civilian_positions | GLOB.gimmick_positions)) // gimmicks shouldn't be here, but let's not make the code dirty
 		if(current.assigned_role == JOB_NAME_ASSISTANT)
 			human_garbage += current
 		else
-			round_credits += "<center><h2>[current.name] as the [current.assigned_role]</h2>"
+			custom_title_holder = get_custom_title_from_id(current, newline=TRUE)
+			round_credits += "<center><h2>[current.name] as the [current.assigned_role][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>Everyone was stuck in traffic this morning!</h2>", "<center><h2>No civilians made it to work!</h2>")
 	round_credits += "<br>"
@@ -861,7 +869,8 @@
 	round_credits += "<center><h1>The Helpful Assistants:</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in human_garbage)
-		round_credits += "<center><h2>[current.name]</h2>"
+		custom_title_holder = get_custom_title_from_id(current, newline=TRUE)
+		round_credits += "<center><h2>[current.name][custom_title_holder]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>The station was free of <s>greytide</s> assistance!</h2>", "<center><h2>Not a single Assistant showed up on the station today!</h2>")
 

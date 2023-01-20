@@ -7,7 +7,6 @@
 	ui_header = "borg_mon.gif" //DEBUG -- new icon before PR
 	program_icon_state = "radarntos"
 	requires_ntnet = TRUE
-	transfer_access = null
 	available_on_ntnet = FALSE
 	usage_flags = PROGRAM_LAPTOP | PROGRAM_TABLET
 	network_destination = "tracking program"
@@ -27,7 +26,7 @@
 	var/pointercolor = "green"
 	COOLDOWN_DECLARE(last_scan)
 
-/datum/computer_file/program/radar/run_program(mob/living/user)
+/datum/computer_file/program/radar/on_start(mob/living/user)
 	. = ..()
 	if(.)
 		START_PROCESSING(SSfastprocess, src)
@@ -51,6 +50,8 @@
 
 /datum/computer_file/program/radar/ui_data(mob/user)
 	var/list/data = get_header_data()
+	// PDAs should not have full radar capabilities
+	data["full_capability"] = !istype(computer, /obj/item/modular_computer/tablet/pda)
 	data["selected"] = selected
 	data["objects"] = list()
 	data["scanning"] = (world.time < next_scan)
@@ -98,10 +99,11 @@
 	var/pointer = "crosshairs"
 	var/locx = (target_turf.x - here_turf.x) + 24
 	var/locy = (here_turf.y - target_turf.y) + 24
+	var/dist = get_dist_euclidian(here_turf, target_turf)
 
-	if(get_dist_euclidian(here_turf, target_turf) > 24)
+	if(dist > 24 || istype(computer, /obj/item/modular_computer/tablet/pda))
 		userot = TRUE
-		rot = round(Get_Angle(here_turf, target_turf))
+		rot = round(get_angle(here_turf, target_turf))
 	else
 		if(target_turf.z > here_turf.z)
 			pointer="caret-up"
@@ -116,6 +118,9 @@
 		"arrowstyle" = arrowstyle,
 		"color" = pointercolor,
 		"pointer" = pointer,
+		"gpsx" = target_turf.x,
+		"gpsy" = target_turf.y,
+		"dist" = round(dist),
 		)
 	return trackinfo
 
@@ -215,7 +220,7 @@
 	filedesc = "Lifeline"
 	extended_desc = "This program allows for tracking of crew members via their suit sensors."
 	requires_ntnet = TRUE
-	transfer_access = ACCESS_MEDICAL
+	transfer_access = list(ACCESS_MEDICAL)
 	available_on_ntnet = TRUE
 	program_icon = "heartbeat"
 
@@ -247,16 +252,58 @@
 		return FALSE
 	if(..())
 		if(HAS_TRAIT(humanoid, TRAIT_NANITE_SENSORS))
-			if(humanoid.is_jammed())
+			if(humanoid.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK))
 				return FALSE
 			return TRUE
 		if(istype(humanoid.w_uniform, /obj/item/clothing/under))
 			var/obj/item/clothing/under/uniform = humanoid.w_uniform
-			if(uniform.is_jammed())
+			if(uniform.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK))
 				return FALSE
 			if(uniform.has_sensor && uniform.sensor_mode >= SENSOR_COORDS) // Suit sensors must be on maximum
 				return TRUE
 	return FALSE
+
+///Tracks all janitor equipment
+/datum/computer_file/program/radar/custodial_locator
+	filename = "custodiallocator"
+	filedesc = "Custodial Locator"
+	extended_desc = "This program allows for tracking of custodial equipment."
+	requires_ntnet = TRUE
+	transfer_access = list(ACCESS_JANITOR)
+	available_on_ntnet = TRUE
+	program_icon = "broom"
+	size = 2
+
+/datum/computer_file/program/radar/custodial_locator/find_atom()
+	return locate(selected) in GLOB.janitor_devices
+
+/datum/computer_file/program/radar/custodial_locator/scan()
+	if(world.time < next_scan)
+		return
+	next_scan = world.time + (2 SECONDS)
+	objects = list()
+	for(var/obj/custodial_tools as anything in GLOB.janitor_devices)
+		if(!trackable(custodial_tools))
+			continue
+		var/tool_name = custodial_tools.name
+
+		if(istype(custodial_tools, /obj/item/mop))
+			var/obj/item/mop/wet_mop = custodial_tools
+			tool_name = "[wet_mop.reagents.total_volume ? "Wet" : "Dry"] [wet_mop.name]"
+
+		if(istype(custodial_tools, /obj/structure/janitorialcart))
+			var/obj/structure/janitorialcart/janicart = custodial_tools
+			tool_name = "[janicart.name] - Water level: [janicart.reagents.total_volume] / [janicart.reagents.maximum_volume]"
+
+		if(istype(custodial_tools, /mob/living/simple_animal/bot/cleanbot))
+			var/mob/living/simple_animal/bot/cleanbot/cleanbots = custodial_tools
+			tool_name = "[cleanbots.name] - [cleanbots.on ? "Online" : "Offline"]"
+
+		var/list/tool_information = list(
+			ref = REF(custodial_tools),
+			name = tool_name,
+		)
+		objects += list(tool_information)
 
 ////////////////////////
 //Nuke Disk Finder App//
@@ -270,7 +317,6 @@
 	program_icon_state = "radarsyndicate"
 	extended_desc = "This program allows for tracking of nuclear authorization disks and warheads."
 	requires_ntnet = FALSE
-	transfer_access = null
 	available_on_ntnet = FALSE
 	available_on_syndinet = TRUE
 	tgui_id = "NtosRadarSyndicate"

@@ -96,7 +96,7 @@
 
 		update_icon()
 
-	else if (istype(I, /obj/item/card/id)||istype(I, /obj/item/pda))
+	else if (istype(I, /obj/item/card/id) || istype(I, /obj/item/modular_computer/tablet))
 		if(open)
 			if (src.allowed(user))
 				src.locked = !src.locked

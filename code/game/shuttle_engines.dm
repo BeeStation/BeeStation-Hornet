@@ -18,6 +18,11 @@
 	var/engine_power = 1
 	var/state = ENGINE_WELDED //welding shmelding
 
+/obj/structure/shuttle/engine/Initialize(mapload)
+	. = ..()
+	if(anchored && state == ENGINE_UNWRENCHED)
+		state = ENGINE_WRENCHED
+
 //Ugh this is a lot of copypasta from emitters, welding need some boilerplate reduction
 /obj/structure/shuttle/engine/can_be_unfasten_wrench(mob/user, silent)
 	if(state == ENGINE_WELDED)

@@ -16,7 +16,7 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape)
 "e" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /turf/open/floor/mineral/gold,
@@ -41,7 +41,7 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape)
 "i" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /turf/open/floor/mineral/gold,
@@ -50,7 +50,7 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape)
 "k" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /turf/open/floor/mineral/gold,
@@ -107,9 +107,7 @@
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "z" = (
-/obj/structure/chair/comfy/brown{
-	dir = 2
-	},
+/obj/structure/chair/fancy/comfy,
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "A" = (
@@ -130,13 +128,13 @@
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "D" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "E" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /turf/open/floor/carpet,
@@ -147,7 +145,7 @@
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "G" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /turf/open/floor/carpet,
@@ -171,7 +169,7 @@
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "J" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /turf/open/floor/carpet,

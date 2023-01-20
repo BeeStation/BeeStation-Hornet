@@ -2,11 +2,10 @@
 	title = JOB_NAME_EXPLORATIONCREW
 	flag = EXPLORATION_CREW
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
-	department_flag = MEDSCI
+	supervisors = "the research director"
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 3
-	supervisors = "the research director"
 	minimal_player_age = 3
 	exp_requirements = 900
 	exp_type = EXP_TYPE_CREW
@@ -14,19 +13,21 @@
 
 	outfit = /datum/outfit/job/exploration_crew
 
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_MECH_SCIENCE, ACCESS_XENOBIOLOGY)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX,ACCESS_TOX_STORAGE, ACCESS_MECH_SCIENCE, ACCESS_XENOBIOLOGY)
 	minimal_access = list(ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_MECH_SCIENCE)
-	paycheck = PAYCHECK_HARD
-	paycheck_department = ACCOUNT_SCI
+
+	department_flag = MEDSCI
+	departments = DEPT_BITFLAG_SCI
+	bank_account_department = ACCOUNT_SCI_BITFLAG
+	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_HARD)
 
 	display_order = JOB_DISPLAY_ORDER_EXPLORATION
-	departments = DEPARTMENT_BITFLAG_SCIENCE
 	rpg_title = "Sailor"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/exploration_crew
 	)
-	biohazard = 20//who knows what you'll find out there that could have nasties on it...
+	biohazard = 40//who knows what you'll find out there that could have nasties on it...
 
 /datum/job/exploration_crew/equip(mob/living/carbon/human/H, visualsOnly, announce, latejoin, datum/outfit/outfit_override, client/preference_source)
 	if(outfit_override)
@@ -56,7 +57,7 @@
 	jobtype = /datum/job/exploration_crew
 
 	id = /obj/item/card/id/job/exploration_crew
-	belt = /obj/item/pda/exploration_crew
+	belt = /obj/item/modular_computer/tablet/pda/exploration_crew
 	ears = /obj/item/radio/headset/headset_exploration
 	shoes = /obj/item/clothing/shoes/jackboots
 	gloves = /obj/item/clothing/gloves/color/black
@@ -77,7 +78,7 @@
 	name = "Exploration Crew (Engineer)"
 
 	belt = /obj/item/storage/belt/utility/full
-	r_pocket = /obj/item/pda/exploration_crew
+	r_pocket = /obj/item/modular_computer/tablet/pda/exploration_crew
 
 	backpack_contents = list(
 		/obj/item/kitchen/knife/combat/survival=1,

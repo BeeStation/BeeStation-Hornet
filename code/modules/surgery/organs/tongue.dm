@@ -7,6 +7,9 @@
 	attack_verb = list("licked", "slobbered", "slapped", "frenched", "tongued")
 	var/list/languages_possible
 	var/say_mod = "says"
+	var/ask_mod = "asks"
+	var/yell_mod = "yells"
+	var/exclaim_mod = "exclaims"
 	var/liked_food = JUNKFOOD | FRIED
 	var/disliked_food = GROSS | RAW
 	var/toxic_food = TOXIC
@@ -126,6 +129,9 @@
 /obj/item/organ/tongue/abductor/handle_speech(datum/source, list/speech_args)
 	//Hacks
 	var/message = speech_args[SPEECH_MESSAGE]
+	speech_args[SPEECH_MESSAGE] = ""
+	if(!ishuman(usr))
+		return
 	var/mob/living/carbon/human/user = usr
 	var/rendered = "<span class='abductor'><b>[user.real_name]:</b> [message]</span>"
 	user.log_talk(message, LOG_SAY, tag="abductor")
@@ -139,8 +145,6 @@
 	for(var/mob/M in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(M, user)
 		to_chat(M, "[link] [rendered]")
-
-	speech_args[SPEECH_MESSAGE] = ""
 
 /obj/item/organ/tongue/zombie
 	name = "rotting tongue"
@@ -314,7 +318,10 @@
 /obj/item/organ/tongue/slime
 	name = "slimey tongue"
 	desc = "It's a piece of slime, shaped like a tongue."
-	say_mod = "blorbles"
+	say_mod = list("blorbles", "bubbles")
+	ask_mod = "inquisitively blorbles"
+	yell_mod = "shrilly blorbles"
+	exclaim_mod = "loudly blorbles"
 	toxic_food = NONE
 	disliked_food = NONE
 

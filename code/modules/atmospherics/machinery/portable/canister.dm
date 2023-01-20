@@ -137,7 +137,7 @@
 	desc = "Plasma gas. The reason YOU are here. Highly toxic."
 	gas_type = GAS_PLASMA
 	greyscale_config = /datum/greyscale_config/canister/hazard
-	greyscale_colors = "#f62800#000000"
+	greyscale_colors = "#f64300#000000"
 
 /obj/machinery/portable_atmospherics/canister/tritium
 	name = "tritium canister"
@@ -226,7 +226,7 @@
 
 /obj/machinery/portable_atmospherics/canister/update_overlays()
 	. = ..()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		. += mutable_appearance(canister_overlay_file, "broken")
 		return
 
@@ -258,7 +258,7 @@
 
 /obj/machinery/portable_atmospherics/canister/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
-		if(!(stat & BROKEN))
+		if(!(machine_stat & BROKEN))
 			canister_break()
 		if(disassembled)
 			new /obj/item/stack/sheet/iron (loc, 10)
@@ -270,7 +270,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return FALSE
 
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		if(!I.tool_start_check(user, amount=0))
 			return TRUE
 		to_chat(user, "<span class='notice'>You begin cutting [src] apart...</span>")
@@ -282,7 +282,8 @@
 	return TRUE
 
 /obj/machinery/portable_atmospherics/canister/obj_break(damage_flag)
-	if((stat & BROKEN) || (flags_1 & NODECONSTRUCT_1))
+	. = ..()
+	if(!.)
 		return
 	canister_break()
 
@@ -292,7 +293,7 @@
 	T.assume_air(air_contents)
 	air_update_turf()
 
-	stat |= BROKEN
+	set_machine_stat(machine_stat | BROKEN)
 	density = FALSE
 	playsound(src.loc, 'sound/effects/spray.ogg', 10, 1, -3)
 	update_icon()
@@ -317,7 +318,7 @@
 
 /obj/machinery/portable_atmospherics/canister/process_atmos()
 	..()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return PROCESS_KILL
 	if(timing && valve_timer < world.time)
 		valve_open = !valve_open

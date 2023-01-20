@@ -70,7 +70,7 @@
 			for(var/datum/data/crime/crime in crimes)
 				if(crime.dataId == text2num(cDataId))
 					crime.paid = crime.paid + amount
-					var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_SEC)
+					var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_SEC_ID)
 					D.adjust_money(amount)
 					return
 
@@ -141,35 +141,32 @@
 
 /datum/datacore/proc/get_manifest()
 	var/list/manifest_out = list()
-	var/list/departments = list(
-		"Command" = GLOB.command_positions_hud,
-		"Very Important People" = GLOB.important_positions_hud,
-		"Security" = GLOB.security_positions_hud,
-		"Engineering" = GLOB.engineering_positions_hud,
-		"Medical" = GLOB.medical_positions_hud,
-		"Science" = GLOB.science_positions_hud,
-		"Supply" = GLOB.supply_positions_hud,
-		"Civilian" = GLOB.civilian_positions_hud,
-		"Silicon" = GLOB.nonhuman_positions // this is something that doesn't work. need to fix.
+	var/list/dept_list = list(
+		"Command" = DEPT_BITFLAG_COM,
+		"Very Important People" = DEPT_BITFLAG_VIP,
+		"Security" = DEPT_BITFLAG_SEC,
+		"Engineering" = DEPT_BITFLAG_ENG,
+		"Medical" = DEPT_BITFLAG_MED,
+		"Science" = DEPT_BITFLAG_SCI,
+		"Supply" = DEPT_BITFLAG_CAR,
+		"Service" = DEPT_BITFLAG_SRV,
+		"Civilian" = DEPT_BITFLAG_CIV,
+		"Silicon" = DEPT_BITFLAG_SILICON
 	)
 	for(var/datum/data/record/t in GLOB.data_core.general)
 		var/name = t.fields["name"]
 		var/rank = t.fields["rank"]
-		var/hud = t.fields["hud"]
+		var/dept_bitflags = t.fields["active_dept"]
 		var/has_department = FALSE
-		for(var/department in departments)
-			var/list/jobs_hud = departments[department]
-			if(hud in jobs_hud)
+		for(var/department in dept_list)
+			if(dept_bitflags & dept_list[department])
 				if(!manifest_out[department])
 					manifest_out[department] = list()
 				manifest_out[department] += list(list(
 					"name" = name,
 					"rank" = rank
-					// note: `"hud" = hud` is not needed. that is used to sort, not used to display. check `if(hud in jobs_hud)`
 				))
 				has_department = TRUE
-				if(department != "Command") //List heads in both command and their own department.
-					break
 		if(!has_department)
 			if(!manifest_out["Misc"])
 				manifest_out["Misc"] = list()
@@ -179,7 +176,7 @@
 			))
 	//Sort the list by 'departments' primarily so command is on top.
 	var/list/sorted_out = list()
-	for(var/department in (departments += "Misc"))
+	for(var/department in (dept_list += "Misc"))
 		if(!isnull(manifest_out[department]))
 			sorted_out[department] = manifest_out[department]
 	return sorted_out
@@ -248,6 +245,7 @@
 		G.fields["name"]		= H.real_name
 		G.fields["rank"]		= assignment
 		G.fields["hud"]			= get_hud_by_jobname(assignment)
+		G.fields["active_dept"]	= SSjob.GetJobActiveDepartment(assignment)
 		G.fields["age"]			= H.age
 		G.fields["species"]	= H.dna.species.name
 		G.fields["fingerprint"]	= rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)
@@ -302,11 +300,56 @@
 		locked += L
 	return
 
+/**
+ * Supporing proc for getting general records
+ * and using them as pAI ui data. This gets
+ * medical information - or what I would deem
+ * medical information - and sends it as a list.
+ *
+ * @return - list(general_records_out)
+ */
+/datum/datacore/proc/get_general_records()
+	if(!GLOB.data_core.general)
+		return list()
+	/// The array of records
+	var/list/general_records_out = list()
+	for(var/datum/data/record/gen_record as anything in GLOB.data_core.general)
+		/// The object containing the crew info
+		var/list/crew_record = list()
+		crew_record["ref"] = REF(gen_record)
+		crew_record["name"] = gen_record.fields["name"]
+		crew_record["physical_health"] = gen_record.fields["p_stat"]
+		crew_record["mental_health"] = gen_record.fields["m_stat"]
+		general_records_out += list(crew_record)
+	return general_records_out
+
+/**
+ * Supporing proc for getting secrurity records
+ * and using them as pAI ui data. Sends it as a
+ * list.
+ *
+ * @return - list(security_records_out)
+ */
+/datum/datacore/proc/get_security_records()
+	if(!GLOB.data_core.security)
+		return list()
+	/// The array of records
+	var/list/security_records_out = list()
+	for(var/datum/data/record/sec_record as anything in GLOB.data_core.security)
+		/// The object containing the crew info
+		var/list/crew_record = list()
+		crew_record["ref"] = REF(sec_record)
+		crew_record["name"] = sec_record.fields["name"]
+		crew_record["status"] = sec_record.fields["criminal"] // wanted status
+		crew_record["crimes"] = length(sec_record.fields["crim"])
+		security_records_out += list(crew_record)
+	return security_records_out
+
 /datum/datacore/proc/get_id_photo(mob/living/carbon/human/H, client/C, show_directions = list(SOUTH))
 	var/datum/job/J = SSjob.GetJob(H.mind.assigned_role)
-	var/datum/preferences/P
+	var/datum/character_save/CS
 	if(!C)
 		C = H.client
 	if(C)
-		P = C.prefs
-	return get_flat_human_icon(null, J, P, DUMMY_HUMAN_SLOT_MANIFEST, show_directions)
+		CS = C.prefs.active_character
+	return get_flat_human_icon(null, J, CS, DUMMY_HUMAN_SLOT_MANIFEST, show_directions)

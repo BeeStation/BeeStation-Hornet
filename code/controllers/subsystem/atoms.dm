@@ -27,6 +27,15 @@ SUBSYSTEM_DEF(atoms)
 	initialized = INITIALIZATION_INSSATOMS
 
 /datum/controller/subsystem/atoms/Initialize(timeofday)
+	//Wait until map loading is completed
+	if (length(SSmap_generator.executing_generators) > 0)
+		to_chat(world, "<span class='boldannounce'>Waiting for [length(SSmap_generator.executing_generators)] map generators...</bold>")
+		do
+			SSmap_generator.fire()
+			sleep(0.5)
+		while (length(SSmap_generator.executing_generators) > 0)
+		to_chat(world, "<span class='boldannounce'>Map generators completed, initializing atoms.</bold>")
+
 	GLOB.fire_overlay.appearance_flags = RESET_COLOR
 	setupGenetics() //to set the mutations' sequence
 	initialized = INITIALIZATION_INNEW_MAPLOAD
@@ -51,14 +60,17 @@ SUBSYSTEM_DEF(atoms)
 	CreateAtoms(atoms, atoms_to_return)
 	clear_tracked_initalize()
 
+	#ifdef TESTING
+	var/late_loader_len = late_loaders.len
+	#endif
 	if(late_loaders.len)
-		for(var/I in 1 to late_loaders.len)
-			var/atom/A = late_loaders[I]
+		for(var/atom/A as() in late_loaders)
 			//I hate that we need this
 			if(QDELETED(A))
 				continue
+			late_loaders -= A //We don't want to call LateInitialize twice in case of stoplag()
 			A.LateInitialize()
-		testing("Late initialized [late_loaders.len] atoms")
+		testing("Late initialized [late_loader_len] atoms")
 		late_loaders.Cut()
 
 	if(created_atoms)

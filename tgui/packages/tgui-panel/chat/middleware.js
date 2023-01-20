@@ -120,7 +120,8 @@ export const chatMiddleware = store => {
         settings.highlightText,
         settings.highlightColor,
         settings.matchWord,
-        settings.matchCase);
+        settings.matchCase,
+        settings.highlightSelf);
       chatRenderer.setHighContrast(
         settings.highContrast,
       );

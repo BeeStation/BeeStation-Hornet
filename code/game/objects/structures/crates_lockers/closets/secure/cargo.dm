@@ -25,3 +25,4 @@
 	new /obj/item/storage/photo_album/QM(src)
 	new /obj/item/circuitboard/machine/ore_silo(src)
 	new /obj/item/card/id/departmental_budget/car(src)
+	new /obj/item/storage/box/radiokey/car(src)

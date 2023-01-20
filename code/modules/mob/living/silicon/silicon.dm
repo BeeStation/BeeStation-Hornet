@@ -34,7 +34,8 @@
 	var/hackedcheck[1]
 	var/devillawcheck[5]
 
-	var/sensors_on = 0
+	/// Are our siliconHUDs on? TRUE for yes, FALSE for no.
+	var/sensors_on = TRUE
 	var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use
 	var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use
 	var/d_hud = DATA_HUD_DIAGNOSTIC_BASIC //Determines the diag hud to use
@@ -45,7 +46,8 @@
 
 	var/hack_software = FALSE //Will be able to use hacking actions
 	var/interaction_range = 7			//wireless control range
-	var/obj/item/pda/aiPDA
+	///The reference to the built-in tablet that borgs carry.
+	var/obj/item/modular_computer/tablet/integrated/modularInterface
 
 	//The internal ID card inside the AI.
 	var/list/default_access_list = list()
@@ -71,6 +73,30 @@
 		internal_id_card.name = "[src] internal access"
 	internal_id_card.access |= access_list
 
+/mob/living/silicon/proc/create_modularInterface()
+	if(!modularInterface)
+		modularInterface = new /obj/item/modular_computer/tablet/integrated(src)
+	modularInterface.layer = ABOVE_HUD_PLANE
+	modularInterface.plane = ABOVE_HUD_PLANE
+	modularInterface.saved_identification = real_name || name
+	if(iscyborg(src))
+		modularInterface.saved_job = JOB_NAME_CYBORG
+		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/robot)
+	if(isAI(src))
+		modularInterface.saved_job = JOB_NAME_AI
+		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/ai)
+	if(ispAI(src))
+		modularInterface.saved_job = JOB_NAME_PAI
+		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/ai)
+
+/mob/living/silicon/robot/model/syndicate/create_modularInterface()
+	if(!modularInterface)
+		modularInterface = new /obj/item/modular_computer/tablet/integrated/syndicate(src)
+		modularInterface.saved_identification = real_name
+		modularInterface.saved_job = JOB_NAME_CYBORG
+	return ..()
+
+
 /mob/living/silicon/med_hud_set_health()
 	return //we use a different hud
 
@@ -80,6 +106,7 @@
 /mob/living/silicon/Destroy()
 	radio = null
 	aicamera = null
+	modularInterface = null
 	QDEL_NULL(builtInCamera)
 	QDEL_NULL(internal_id_card)
 	GLOB.silicon_mobs -= src
@@ -263,7 +290,7 @@
 
 	for (var/index = 1, index <= laws.hacked.len, index++)
 		var/law = laws.hacked[index]
-		var/num = ionnum()
+		var/num = ion_num()
 		if (length(law) > 0)
 			if (force || hackedcheck[index] == "Yes")
 				say("[radiomod] [num]. [law]")
@@ -273,7 +300,7 @@
 
 	for (var/index = 1, index <= laws.ion.len, index++)
 		var/law = laws.ion[index]
-		var/num = ionnum()
+		var/num = ion_num()
 		if (length(law) > 0)
 			if (force || ioncheck[index] == "Yes")
 				say("[radiomod] [num]. [law]")
@@ -327,7 +354,7 @@
 		if (length(law) > 0)
 			if (!hackedcheck[index])
 				hackedcheck[index] = "No"
-			list += {"<A href='byond://?src=[REF(src)];lawh=[index]'>[hackedcheck[index]] [ionnum()]:</A> <font color='#660000'>[law]</font><BR>"}
+			list += {"<A href='byond://?src=[REF(src)];lawh=[index]'>[hackedcheck[index]] [ion_num()]:</A> <font color='#660000'>[law]</font><BR>"}
 			hackedcheck.len += 1
 
 	for (var/index = 1, index <= laws.ion.len, index++)
@@ -336,7 +363,7 @@
 		if (length(law) > 0)
 			if (!ioncheck[index])
 				ioncheck[index] = "Yes"
-			list += {"<A href='byond://?src=[REF(src)];lawi=[index]'>[ioncheck[index]] [ionnum()]:</A> <font color='#547DFE'>[law]</font><BR>"}
+			list += {"<A href='byond://?src=[REF(src)];lawi=[index]'>[ioncheck[index]] [ion_num()]:</A> <font color='#547DFE'>[law]</font><BR>"}
 			ioncheck.len += 1
 
 	var/number = 1
@@ -436,10 +463,6 @@
 	add_sensors()
 	to_chat(src, "Sensor overlay activated.")
 
-/mob/living/silicon/proc/GetPhoto(mob/user)
-	if (aicamera)
-		return aicamera.selectpicture(user)
-
 /mob/living/silicon/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
 	var/changed = 0
@@ -466,3 +489,38 @@
 
 /mob/living/silicon/hears_radio()
 	return FALSE
+
+/**
+ * Records an IC event log entry in the cyborg's internal tablet.
+ *
+ * Creates an entry in the borglog list of the cyborg's internal tablet (if it's a borg), listing the current
+ * in-game time followed by the message given. These logs can be seen by the cyborg in their
+ * BorgUI tablet app. By design, logging fails if the cyborg is dead.
+ *
+ * (This used to be in robot.dm. It's in here now.)
+ *
+ * Arguments:
+ * string: a string containing the message to log.
+ */
+/mob/living/silicon/proc/logevent(string = "")
+	if(!string)
+		return
+	if(stat == DEAD) //Dead silicons log no longer
+		return
+	if(!modularInterface)
+		stack_trace("Silicon [src] ( [type] ) was somehow missing their integrated tablet. Please make a bug report.")
+		create_modularInterface()
+	var/mob/living/silicon/robot/robo = modularInterface.borgo
+	if(istype(robo))
+		modularInterface.borglog += "[station_time_timestamp()] - [string]"
+	var/datum/computer_file/program/borg_self_monitor/program = modularInterface.get_self_monitoring()
+	if(program)
+		program.force_full_update()
+
+/// Same as the normal character name replacement, but updates the contents of the modular interface.
+/mob/living/silicon/fully_replace_character_name(oldname, newname)
+	. = ..()
+	if(!modularInterface)
+		stack_trace("Silicon [src] ( [type] ) was somehow missing their integrated tablet. Please make a bug report.")
+		create_modularInterface()
+	modularInterface.saved_identification = newname

@@ -13,7 +13,7 @@
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/explodable_attack)
 	RegisterSignal(parent, COMSIG_TRY_STORAGE_INSERT, .proc/explodable_insert_item)
 	RegisterSignal(parent, COMSIG_ATOM_EX_ACT, .proc/detonate)
-	if(ismovableatom(parent))
+	if(ismovable(parent))
 		RegisterSignal(parent, COMSIG_MOVABLE_IMPACT, .proc/explodable_impact)
 		RegisterSignal(parent, COMSIG_MOVABLE_BUMP, .proc/explodable_bump)
 		if(isitem(parent))
@@ -92,6 +92,9 @@
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
 			equipment_items += list(H.wear_suit, H.w_uniform, H.belt, H.s_store, H.wear_id)
+		if(ismonkey(C))
+			var/mob/living/carbon/monkey/H = C
+			equipment_items += list(H.w_uniform)
 
 	for(var/bp in equipment_items)
 		if(!bp)

@@ -55,6 +55,7 @@
 #define CATCLAWS    /datum/mutation/catclaws
 #define OVERLOAD    /datum/mutation/overload
 #define ACIDOOZE    /datum/mutation/acidooze
+#define MEDIEVAL    /datum/mutation/medieval
 
 #define UI_CHANGED "ui changed"
 #define UE_CHANGED "ue changed"
@@ -127,6 +128,14 @@
 #define NOHUSK			20 // Can't be husked.
 #define NOMOUTH			21
 #define NOSOCKS       22 // You cannot wear socks.
+
+/// Used for determining which wounds are applicable to this species.
+/// if we have flesh (can suffer slash/piercing/burn wounds, requires they don't have NOBLOOD)
+// #define HAS_FLESH 23 [add if we ever port TGs wound system]
+/// if we have bones (can suffer bone wounds)
+// #define HAS_BONE 24 [add if we ever port TGs wound system]
+/// If we have a limb-specific overlay sprite
+#define HAS_MARKINGS 25
 
 //organ slots
 #define ORGAN_SLOT_BRAIN "brain"

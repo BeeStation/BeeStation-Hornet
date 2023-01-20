@@ -31,6 +31,11 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/wings, GLOB.r_wings_list,roundstart = TRUE)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/caps, GLOB.caps_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_roundstart_list, roundstart = TRUE)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_antennae, GLOB.moth_antennae_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_antennae, GLOB.moth_antennae_roundstart_list, roundstart = TRUE)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_markings, GLOB.moth_markings_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_markings, GLOB.moth_markings_roundstart_list, roundstart = TRUE)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wingsopen, GLOB.moth_wingsopen_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_screens, GLOB.ipc_screens_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_antennas, GLOB.ipc_antennas_list)
@@ -88,3 +93,47 @@
 		for(var/path in subtypesof(prototype))
 			L+= path
 		return L
+
+/*
+Checks if that loc and dir has an item on the wall
+*/
+// Wall mounted machinery which are visually on the wall.
+GLOBAL_LIST_INIT(WALLITEMS_INTERIOR, typecacheof(list(
+	/obj/machinery/power/apc,
+	/obj/machinery/airalarm,
+	/obj/item/radio/intercom,
+	/obj/structure/extinguisher_cabinet,
+	/obj/structure/reagent_dispensers/peppertank,
+	/obj/machinery/status_display,
+	/obj/machinery/requests_console,
+	/obj/machinery/light_switch,
+	/obj/structure/sign,
+	/obj/machinery/newscaster,
+	/obj/machinery/firealarm,
+	/obj/structure/noticeboard,
+	/obj/machinery/button,
+	/obj/machinery/computer/security/telescreen,
+	/obj/machinery/embedded_controller/radio/simple_vent_controller,
+	/obj/item/storage/secure/safe,
+	/obj/machinery/door_timer,
+	/obj/machinery/flasher,
+	/obj/machinery/keycard_auth,
+	/obj/structure/mirror,
+	/obj/structure/fireaxecabinet,
+	/obj/machinery/computer/security/telescreen/entertainment,
+	/obj/structure/sign/picture_frame
+	)))
+
+// Wall mounted machinery which are visually coming out of the wall.
+// These do not conflict with machinery which are visually placed on the wall.
+GLOBAL_LIST_INIT(WALLITEMS_EXTERIOR, typecacheof(list(
+	/obj/machinery/camera,
+	/obj/structure/camera_assembly,
+	/obj/structure/light_construct,
+	/obj/machinery/light
+	)))
+
+GLOBAL_LIST_INIT(WALLITEMS_INVERSE, typecacheof(list(
+	/obj/structure/light_construct,
+	/obj/machinery/light
+	)))

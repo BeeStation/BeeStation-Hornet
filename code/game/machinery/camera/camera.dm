@@ -229,18 +229,8 @@
 		var/obj/structure/camera_assembly/assembly = assembly_ref?.resolve()
 		if(!assembly)
 			assembly_ref = null
-		if(I.tool_behaviour == TOOL_ANALYZER)
-			if(!isXRay(TRUE)) //don't reveal it was already upgraded if was done via MALF AI Upgrade Camera Network ability
-				if(!user.temporarilyRemoveItemFromInventory(I))
-					return
-				upgradeXRay(FALSE, TRUE)
-				to_chat(user, "<span class='notice'>You attach [I] into [assembly]'s inner circuits.</span>")
-				qdel(I)
-			else
-				to_chat(user, "<span class='notice'>[src] already has that upgrade!</span>")
-			return
 
-		else if(istype(I, /obj/item/stack/sheet/mineral/plasma))
+		if(istype(I, /obj/item/stack/sheet/mineral/plasma))
 			if(!isEmpProof(TRUE)) //don't reveal it was already upgraded if was done via MALF AI Upgrade Camera Network ability
 				if(I.use_tool(src, user, 0, amount=1))
 					upgradeEmpProof(FALSE, TRUE)
@@ -261,21 +251,20 @@
 			return
 
 	// OTHER
-	if((istype(I, /obj/item/paper) || istype(I, /obj/item/pda)) && isliving(user))
+	if((istype(I, /obj/item/paper) || istype(I, /obj/item/modular_computer/tablet)) && isliving(user))
 		var/mob/living/U = user
-		var/obj/item/paper/X = null
-		var/obj/item/pda/P = null
 
 		var/itemname = ""
 		var/info = ""
 		if(istype(I, /obj/item/paper))
-			X = I
-			itemname = X.name
-			info = X.info
-		else
-			P = I
-			itemname = P.name
-			info = P.notehtml
+			var/obj/item/paper/pressed_paper = I
+			itemname = pressed_paper.name
+			info = pressed_paper.info
+		if(istype(I, /obj/item/modular_computer/tablet))
+			var/obj/item/modular_computer/tablet/computer = I
+			itemname = computer.name
+			info = computer.note
+
 		itemname = sanitize(itemname)
 		to_chat(U, "<span class='notice'>You hold \the [itemname] up to the camera...</span>")
 		U.changeNext_move(CLICK_CD_MELEE)
@@ -308,20 +297,18 @@
 			bug.bugged_cameras[src.c_tag] = WEAKREF(src)
 		return
 
-	else if(istype(I, /obj/item/pai_cable))
-		var/obj/item/pai_cable/cable = I
-		cable.plugin(src, user)
-		return
-
 	return ..()
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee" && damage_amount < 12 && !(stat & BROKEN))
+	if(damage_flag == "melee" && damage_amount < 12 && !(machine_stat & BROKEN))
 		return 0
 	. = ..()
 
 /obj/machinery/camera/obj_break(damage_flag)
-	if(status && !(flags_1 & NODECONSTRUCT_1))
+	if(!status)
+		return
+	. = ..()
+	if(.)
 		triggerCameraAlarm()
 		toggle_cam(null, 0)
 
@@ -344,7 +331,7 @@
 /obj/machinery/camera/update_icon() //TO-DO: Make panel open states, xray camera, and indicator lights overlays instead.
 	if(!status)
 		icon_state = "[default_camera_icon]_off"
-	else if (stat & EMPED)
+	else if (machine_stat & EMPED)
 		icon_state = "[default_camera_icon]_emp"
 	else
 		icon_state = "[default_camera_icon][in_use_lights ? "_in_use" : ""]"
@@ -401,9 +388,9 @@
 /obj/machinery/camera/proc/can_use()
 	if(!status)
 		return FALSE
-	if(stat & EMPED)
+	if(machine_stat & EMPED)
 		return FALSE
-	if(is_jammed())
+	if(is_jammed(JAMMER_PROTECTION_CAMERAS))
 		return FALSE
 	return TRUE
 

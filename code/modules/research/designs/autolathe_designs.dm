@@ -548,7 +548,7 @@
 	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 50)
 	build_path = /obj/item/healthanalyzer
-	category = list("initial", "Medical", "Medical Designs")
+	category = list("hacked", "Medical", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/pillbottle
@@ -1071,4 +1071,12 @@
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 50)
 	build_path = /obj/item/clothing/suit/caution
+	category = list("initial","Misc")
+
+/datum/design/control
+	name = "Blast Door Controller"
+	id = "blast"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 100, /datum/material/glass = 50)
+	build_path = /obj/item/assembly/control
 	category = list("initial","Misc")

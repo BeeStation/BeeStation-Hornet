@@ -25,6 +25,14 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 		if(prefs.muted & MUTE_OOC)
 			to_chat(src, "<span class='danger'>You cannot use OOC (muted).</span>")
 			return
+	else
+		if(SSticker.current_state == GAME_STATE_PLAYING && holder.ooc_confirmation_enabled)
+			var/choice = alert("The round is still ongoing, are you sure you wish to send an OOC message?", "Confirm midround OOC?", "No", "Yes", "Always yes for this round")
+			switch(choice)
+				if("No")
+					return
+				if("Always yes for this round")
+					holder.ooc_confirmation_enabled = FALSE
 	if(is_banned_from(ckey, "OOC"))
 		to_chat(src, "<span class='danger'>You have been banned from OOC.</span>")
 		return
@@ -68,7 +76,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	var/keyname = key
 	if(prefs.unlock_content)
-		if(prefs.toggles & MEMBER_PUBLIC)
+		if(prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC)
 			keyname = "<font color='[prefs.ooccolor ? prefs.ooccolor : GLOB.normal_ooc_colour]'>[icon2html('icons/member_content.dmi', world, "blag")][keyname]</font>"
 	//Get client badges
 	var/badge_data = badge_parse(get_badges())

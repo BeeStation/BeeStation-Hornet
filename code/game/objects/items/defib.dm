@@ -137,13 +137,18 @@
 	else
 		return ..()
 
-/obj/item/defibrillator/emag_act(mob/user)
+/obj/item/defibrillator/should_emag(mob/user)
+	return TRUE
+
+/obj/item/defibrillator/on_emag(mob/user)
+	..()
 	if(safety)
 		safety = FALSE
 		to_chat(user, "<span class='warning'>You silently disable [src]'s safety protocols with the cryptographic sequencer.</span>")
 	else
 		safety = TRUE
 		to_chat(user, "<span class='notice'>You silently enable [src]'s safety protocols with the cryptographic sequencer.</span>")
+	update_icon()
 
 /obj/item/defibrillator/emp_act(severity)
 	. = ..()
@@ -309,7 +314,7 @@
 
 	var/mob/listeningTo
 
-	var/base_icon_state = "defibpaddles"
+	base_icon_state = "defibpaddles"
 
 /obj/item/shockpaddles/ComponentInitialize()
 	. = ..()
@@ -625,10 +630,8 @@
 				else
 					var/obj/item/organ/brain/BR = H.getorgan(/obj/item/organ/brain)
 					if(BR)
-						if(BR.organ_flags & ORGAN_FAILING)
+						if(BR.organ_flags & ORGAN_FAILING || BR.brain_death)
 							failed = "<span class='warning'>[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Patient's brain tissue is damaged making recovery of patient impossible via defibrillator. Further attempts futile.</span>"
-						if(BR.brain_death)
-							failed = "<span class='warning'>[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Patient's brain damaged beyond point of no return. Further attempts futile.</span>"
 						if(BR.suicided || BR.brainmob?.suiciding)
 							failed = "<span class='warning'>[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - No intelligence pattern can be detected in patient's brain. Further attempts futile.</span>"
 					else

@@ -450,12 +450,8 @@
 				speech_bubble_recipients.Add(M.client)
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, image('icons/mob/talk.dmi', src, "machine[say_test(raw_message)]",MOB_LAYER+1), speech_bubble_recipients, 30)
 
-/obj/mecha/emag_act(mob/user)
-	. = ..()
-	if(obj_flags & EMAGGED)
-		to_chat(user, "<span class='warning'>The mech suit's internal controls are damaged beyond repair!</span>")
-		return
-	obj_flags |= EMAGGED
+/obj/mecha/on_emag(mob/user)
+	..()
 	playsound(src, "sparks", 100, 1)
 	to_chat(user, "<span class='warning'>You short out the mech suit's internal controls.</span>")
 	dna_lock = null
@@ -778,7 +774,7 @@
 			card.AI = AI
 			AI.controlled_mech = null
 			AI.remote_control = null
-			icon_state = initial(icon_state)+"-open"
+			icon_state = "[base_icon_state]-open"
 			to_chat(AI, "You have been downloaded to a mobile storage device. Wireless connection offline.")
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory.")
 
@@ -816,7 +812,7 @@
 	AI.forceMove(src)
 	occupant = AI
 	silicon_pilot = TRUE
-	icon_state = initial(icon_state)
+	icon_state = base_icon_state
 	update_icon()
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!internal_damage)
@@ -840,7 +836,7 @@
 	if(pilot_mob && pilot_mob.Adjacent(src))
 		if(occupant)
 			return
-		icon_state = initial(icon_state)
+		icon_state = base_icon_state
 		occupant = pilot_mob
 		pilot_mob.mecha = src
 		pilot_mob.forceMove(src)
@@ -851,7 +847,7 @@
 		occupant = null
 	if(pilot_mob.mecha == src)
 		pilot_mob.mecha = null
-	icon_state = "[initial(icon_state)]-open"
+	icon_state = "[base_icon_state]-open"
 	pilot_mob.forceMove(get_turf(src))
 	RemoveActions(pilot_mob)
 
@@ -953,7 +949,7 @@
 		GrantActions(H, human_occupant=1)
 		forceMove(loc)
 		log_message("[H] moved in as pilot.", LOG_MECHA)
-		icon_state = initial(icon_state)
+		icon_state = base_icon_state
 		setDir(dir_in)
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 		if(!internal_damage)
@@ -1008,7 +1004,7 @@
 	brainmob.remote_control = src
 	brainmob.update_mobility()
 	brainmob.update_mouse_pointer()
-	icon_state = initial(icon_state)
+	icon_state = base_icon_state
 	update_icon()
 	setDir(dir_in)
 	log_message("[mmi_as_oc] moved in as pilot.", LOG_MECHA)
@@ -1095,7 +1091,7 @@
 			mmi.mecha = null
 			mmi.update_icon()
 			L.mobility_flags = NONE
-		icon_state = initial(icon_state)+"-open"
+		icon_state = "[base_icon_state]-open"
 		setDir(dir_in)
 
 	if(L?.client)
@@ -1166,7 +1162,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 /obj/mecha/rust_heretic_act()
 	take_damage(500,  BRUTE)
 
-/obj/mecha/lighteater_act(obj/item/light_eater/light_eater)
+/obj/mecha/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
 	if(!lights_power)
 		return

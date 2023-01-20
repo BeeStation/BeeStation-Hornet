@@ -72,6 +72,7 @@
 	source.balloon_alert(user, "Clicked the alternate button.")
 	playsound(source, get_sfx("terminal_type"), 25, FALSE)
 	alt.set_output(COMPONENT_SIGNAL)
+	return COMPONENT_INTERCEPT_ALT
 
 /obj/item/circuit_component/controller/proc/send_right_signal(atom/source, mob/user)
 	SIGNAL_HANDLER

@@ -81,6 +81,7 @@
 #define MOVESPEED_ID_DAMAGE_SLOWDOWN_FLYING				"FLYING"
 
 #define MOVESPEED_ID_SLOW_ARMOR		                    	"SLOW_ARMOR "
+#define MOVESPEED_ID_SLOW_SUITBOX	               		"SLOW_SUITBOX"
 
 #define MOVESPEED_ID_INTERDICTION						"interdiction"
 

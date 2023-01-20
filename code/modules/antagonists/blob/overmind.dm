@@ -45,6 +45,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 	/// The list of strains the blob can reroll for.
 	var/list/strain_choices
+	var/need_reroll_strain = FALSE
 
 /mob/camera/blob/Initialize(mapload, starting_points = 60)
 	validate_location()
@@ -239,8 +240,11 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 	if (!message)
 		return
-
-	src.log_talk(message, LOG_SAY)
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
+	message = treat_message_min(message)
+	src.log_talk(message, LOG_SAY, tag="blob")
 
 	var/message_a = say_quote(message)
 	var/rendered = "<span class='big'><font color=\"#EE4000\"><b>\[Blob Telepathy\] [name](<font color=\"[blobstrain.color]\">[blobstrain.name]</font>)</b> [message_a]</font></span>"

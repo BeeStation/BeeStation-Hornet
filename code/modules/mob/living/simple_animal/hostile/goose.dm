@@ -9,7 +9,7 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	speak_chance = 0
 	turns_per_move = 5
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 2)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm = "kicks"
@@ -167,12 +167,9 @@
 	 "vomit" = CALLBACK(src, .proc/vomit_prestart, 25)), 20)
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/eat()
-	var/turf/currentTurf = get_turf(src)
-	while (currentTurf == get_turf(src))
-		var/obj/item/reagent_containers/food/tasty = locate() in currentTurf
-		if (tasty)
-			feed(tasty)
-		stoplag(2)
+	var/obj/item/reagent_containers/food/tasty = locate() in get_turf(src)
+	if (tasty)
+		feed(tasty)
 
 /datum/action/cooldown/vomit
 	name = "Vomit"

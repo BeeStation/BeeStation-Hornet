@@ -2,14 +2,14 @@
 	filename = "atmosscan"
 	filedesc = "Atmospheric Scanner"
 	category = PROGRAM_CATEGORY_ENGI
-	program_icon_state = "air"
+	program_icon_state = "atmos_control"
 	extended_desc = "A small built-in sensor reads out the atmospheric conditions around the device."
 	network_destination = "atmos scan"
 	size = 4
 	tgui_id = "NtosAtmos"
 	program_icon = "thermometer-half"
 
-/datum/computer_file/program/atmosscan/run_program(mob/living/user)
+/datum/computer_file/program/atmosscan/on_start(mob/living/user)
 	. = ..()
 	if (!.)
 		return
@@ -27,7 +27,8 @@
 		var/pressure = environment.return_pressure()
 		var/total_moles = environment.total_moles()
 		data["AirPressure"] = round(pressure,0.1)
-		data["AirTemp"] = round(environment.return_temperature()-T0C)
+		data["AirTempC"] = round(environment.return_temperature() - T0C)
+		data["AirTempK"] = round(environment.return_temperature())
 		if (total_moles)
 			for(var/id in environment.get_gases())
 				var/gas_level = environment.get_moles(id)/total_moles
@@ -36,7 +37,8 @@
 		data["AirData"] = airlist
 	else
 		data["AirPressure"] = 0
-		data["AirTemp"] = 0
+		data["AirTempC"] = 0
+		data["AirTempK"] = 0
 		data["AirData"] = list(list())
 	return data
 

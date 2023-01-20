@@ -794,20 +794,21 @@
 			to_chat(user, "<span class='warning'>[src] already has seeds in it!</span>")
 
 	else if(istype(O, /obj/item/plant_analyzer))
+		var/list/message = list()
 		if(myseed)
-			to_chat(user, "*** <B>[myseed.plantname]</B> ***" )
-			to_chat(user, "- Plant Age: <span class='notice'>[age]</span>")
+			message += "*** <B>[myseed.plantname]</B> ***"
+			message += "- Plant Age: <span class='notice'>[age]</span>"
 			var/list/text_string = myseed.get_analyzer_text()
 			if(text_string)
-				to_chat(user, text_string)
+				message += text_string
 		else
-			to_chat(user, "<B>No plant found.</B>")
-		to_chat(user, "- Weed level: <span class='notice'>[weedlevel] / 10</span>")
-		to_chat(user, "- Pest level: <span class='notice'>[pestlevel] / 10</span>")
-		to_chat(user, "- Toxicity level: <span class='notice'>[toxic] / 100</span>")
-		to_chat(user, "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>")
-		to_chat(user, "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>")
-		to_chat(user, "")
+			message += "<B>No plant found.</B>"
+		message += "- Weed level: <span class='notice'>[weedlevel] / 10</span>"
+		message += "- Pest level: <span class='notice'>[pestlevel] / 10</span>"
+		message += "- Toxicity level: <span class='notice'>[toxic] / 100</span>"
+		message += "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>"
+		message += "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>"
+		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
 
 	else if(istype(O, /obj/item/cultivator))
 		if(weedlevel > 0)
@@ -942,13 +943,14 @@
 	self_sustaining = TRUE
 	update_icon()
 
-/obj/machinery/hydroponics/proc/update_name()
+/obj/machinery/hydroponics/update_name()
 	if(renamedByPlayer)
 		return
 	if(myseed)
 		name = "[initial(name)] ([myseed.plantname])"
 	else
 		name = initial(name)
+	return ..()
 
 ///////////////////////////////////////////////////////////////////////////////
 /obj/machinery/hydroponics/soil //Not actually hydroponics at all! Honk!

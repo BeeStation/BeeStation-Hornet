@@ -52,8 +52,8 @@
 	icon_state = "charger_wire"
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/computer_hardware/recharger/wired/can_install(obj/item/modular_computer/M, mob/living/user = null)
-	if(ismachinery(M.physical) && M.physical.anchored)
+/obj/item/computer_hardware/recharger/wired/can_install(obj/item/modular_computer/install_into, mob/living/user = null)
+	if(ismachinery(install_into.physical) && install_into.physical.anchored)
 		return ..()
 	to_chat(user, "<span class='warning'>\The [src] is incompatible with portable computers!</span>")
 	return 0
@@ -77,6 +77,14 @@
 
 	return 0
 
+/// This recharger exists only in borg built-in tablets. I would have tied it to the borg's cell but
+/// the program that displays laws should always be usable, and the exceptions were starting to pile.
+/obj/item/computer_hardware/recharger/cyborg
+	name = "modular interface power harness"
+	desc = "A standard connection to power a small computer device from a cyborg's chassis."
+
+/obj/item/computer_hardware/recharger/cyborg/use_power(amount, charging=0)
+	return TRUE
 
 
 // This is not intended to be obtainable in-game. Intended for adminbus and debugging purposes.
@@ -89,3 +97,4 @@
 
 /obj/item/computer_hardware/recharger/lambda/use_power(amount, charging=0)
 	return 1
+

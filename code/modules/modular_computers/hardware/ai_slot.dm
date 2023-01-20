@@ -10,11 +10,10 @@
 	var/obj/item/aicard/stored_card
 	var/locked = FALSE
 
-///What happens when the intellicard is removed (or deleted) from the module, through try_eject() or not.
-/obj/item/computer_hardware/ai_slot/Exited(atom/movable/gone, direction)
-	if(stored_card == gone)
-		stored_card = null
-	return ..()
+/obj/item/computer_hardware/ai_slot/handle_atom_del(atom/A)
+	if(A == stored_card)
+		try_eject(forced = TRUE)
+	. = ..()
 
 /obj/item/computer_hardware/ai_slot/examine(mob/user)
 	. = ..()
@@ -40,7 +39,7 @@
 	return TRUE
 
 
-/obj/item/computer_hardware/ai_slot/try_eject(mob/living/user = null,forced = FALSE)
+/obj/item/computer_hardware/ai_slot/try_eject(mob/living/user = null, forced = FALSE)
 	if(!stored_card)
 		to_chat(user, "<span class='warning'>There is no card in \the [src].</span>")
 		return FALSE
@@ -56,7 +55,7 @@
 			user.put_in_hands(stored_card)
 		else
 			stored_card.forceMove(drop_location())
-
+		stored_card = null
 		return TRUE
 	return FALSE
 
@@ -65,5 +64,5 @@
 		return
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		to_chat(user, "<span class='notice'>You press down on the manual eject button with \the [I].</span>")
-		try_eject(,user,1)
+		try_eject(user, TRUE)
 		return

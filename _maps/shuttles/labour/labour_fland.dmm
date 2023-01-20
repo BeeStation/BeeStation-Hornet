@@ -21,9 +21,9 @@
 "i" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/labor)
-"k" = (
-/obj/effect/turf_decal/tile/neutral/tile_full,
+"m" = (
 /obj/machinery/light,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/pod/dark,
 /area/shuttle/labor)
 "p" = (
@@ -44,17 +44,6 @@
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/labor)
-"v" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/effect/turf_decal/bot,
-/obj/structure/reagent_dispensers/peppertank{
-	pixel_y = -32
-	},
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/turf/open/floor/pod/dark,
-/area/shuttle/labor)
 "w" = (
 /obj/structure/ore_box,
 /turf/open/floor/mineral/plastitanium,
@@ -62,21 +51,17 @@
 "x" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "y" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/labor)
-"z" = (
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/turf/open/floor/pod/dark,
 /area/shuttle/labor)
 "A" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional{
@@ -107,7 +92,6 @@
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/pod/dark,
 /area/shuttle/labor)
 "G" = (
@@ -225,6 +209,10 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
+"N" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/pod/dark,
+/area/shuttle/labor)
 "O" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/mineral/labor_claim_console{
@@ -232,10 +220,21 @@
 	pixel_x = 30;
 	pixel_y = -4
 	},
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/labor)
+"P" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot,
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_y = -32
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/pod/dark,
 /area/shuttle/labor)
 "R" = (
 /obj/effect/turf_decal/stripes/line{
@@ -264,7 +263,7 @@
 /turf/open/floor/plating,
 /area/shuttle/labor)
 "X" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
@@ -302,12 +301,12 @@ e
 (3,1,1) = {"
 V
 p
-v
+P
 Z
-z
-z
-z
-k
+N
+N
+N
+m
 U
 e
 "}

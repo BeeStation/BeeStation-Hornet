@@ -201,7 +201,7 @@
 /turf/open/floor/carpet,
 /area/template_noop)
 "Ly" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /turf/open/floor/carpet,

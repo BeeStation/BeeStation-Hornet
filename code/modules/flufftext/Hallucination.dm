@@ -710,10 +710,10 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	feedback_details += "Type: [is_radio ? "Radio" : "Talk"], Source: [person.real_name], Message: [message]"
 
 	// Display message
-	if (!is_radio && !target.client?.prefs.chat_on_map)
+	if (!is_radio && !(target.client?.prefs.toggles & PREFTOGGLE_RUNECHAT_GLOBAL))
 		var/image/speech_overlay = image('icons/mob/talk.dmi', person, "default0", layer = ABOVE_MOB_LAYER)
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, speech_overlay, list(target.client), 30)
-	if (target.client?.prefs.chat_on_map)
+	if (target.client?.prefs.toggles & PREFTOGGLE_RUNECHAT_GLOBAL)
 		create_chat_message(person, understood_language, list(target), chosen, spans)
 	to_chat(target, message)
 	qdel(src)
@@ -1003,7 +1003,6 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 				slots_free += ui_storage2
 		if(slots_free.len)
 			target.halitem.screen_loc = pick(slots_free)
-			target.halitem.layer = ABOVE_HUD_LAYER
 			target.halitem.plane = ABOVE_HUD_PLANE
 			switch(rand(1,6))
 				if(1) //revolver

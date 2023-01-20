@@ -272,7 +272,7 @@
 		channel = null
 
 	// Nearby active jammers prevent the message from transmitting
-	if(is_jammed())
+	if(is_jammed(freq == FREQ_CENTCOM || freq == FREQ_SYNDICATE ? JAMMER_PROTECTION_RADIO_ADVANCED : JAMMER_PROTECTION_RADIO_BASIC))
 		return
 
 	// Determine the identity information which will be attached to the signal.
@@ -456,3 +456,5 @@
 /obj/item/radio/off	// Station bounced radios, their only difference is spawning with the speakers off, this was made to help the lag.
 	listening = 0			// And it's nice to have a subtype too for future features.
 	dog_fashion = /datum/dog_fashion/back
+
+

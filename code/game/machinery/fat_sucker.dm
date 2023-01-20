@@ -30,7 +30,7 @@
 
 /obj/machinery/fat_sucker/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src),  FALSE)
+	soundloop = new(src,  FALSE)
 	update_icon()
 
 /obj/machinery/fat_sucker/Destroy()
@@ -140,7 +140,7 @@
 /obj/machinery/fat_sucker/process(delta_time)
 	if(!processing)
 		return
-	if(!is_operational() || !occupant || !iscarbon(occupant))
+	if(!is_operational || !occupant || !iscarbon(occupant))
 		open_machine()
 		return
 
@@ -161,7 +161,7 @@
 	use_power(500)
 
 /obj/machinery/fat_sucker/proc/start_extracting()
-	if(state_open || !occupant || processing || !is_operational())
+	if(state_open || !occupant || processing || !is_operational)
 		return
 	if(iscarbon(occupant))
 		var/mob/living/carbon/C = occupant
@@ -220,10 +220,8 @@
 	if(default_deconstruction_crowbar(I))
 		return TRUE
 
-/obj/machinery/fat_sucker/emag_act(mob/living/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/fat_sucker/on_emag(mob/user)
+	..()
 	start_at = 100
 	stop_at = 0
 	to_chat(user, "<span class='notice'>You remove the access restrictions and lower the automatic ejection threshold!</span>")
-	obj_flags |= EMAGGED

@@ -4,7 +4,7 @@
 
 
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 1MB //Could probably do with being lower.
-#define MAX_RECOMMENDED_CLIENT 1583
+#define MAX_RECOMMENDED_CLIENT 1589
 
 GLOBAL_LIST_INIT(blacklisted_builds, list(
 	"1407" = "bug preventing client display overrides from working leads to clients being able to see things/mobs they shouldn't be able to see",
@@ -103,14 +103,16 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		cmd_admin_pm(href_list["priv_msg"],null)
 		return
 
-	// hippie start -- Mentor PM
-	if (hippie_client_procs(href_list))
-		return
-	// hippie end
+	// Mentor PM
+	if(href_list["mentor_msg"])
+		cmd_mentor_pm(href_list["mentor_msg"], null)
+		return TRUE
 
 	switch(href_list["_src_"])
 		if("holder")
 			hsrc = holder
+		if("mentor")
+			hsrc = mentor_datum
 		if("usr")
 			hsrc = mob
 		if("prefs")
@@ -206,6 +208,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	tgui_panel = new(src)
 
 	GLOB.ahelp_tickets.ClientLogin(src)
+	GLOB.mhelp_tickets.ClientLogin(src)
 	GLOB.interviews.client_login(src)
 	GLOB.requests.client_login(src)
 	var/connecting_admin = FALSE //because de-admined admins connecting should be treated like admins.
@@ -510,6 +513,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 /client/Del()
 	log_access("Logout: [key_name(src)]")
 	GLOB.ahelp_tickets.ClientLogout(src)
+	GLOB.mhelp_tickets.ClientLogout(src)
 	GLOB.interviews.client_logout(src)
 
 	if(holder)
@@ -540,9 +544,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	GLOB.mentors -= src
 	SSambience.ambience_listening_clients -= src
 	QDEL_LIST_ASSOC_VAL(char_render_holders)
-	if(movingmob != null)
-		movingmob.client_mobs_in_contents -= mob
-		UNSETEMPTY(movingmob.client_mobs_in_contents)
 	Master.UpdateTickRate()
 	return ..()
 
@@ -913,7 +914,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			to_chat(src, "<span class='danger'>Your previous click was ignored because you've done too many in a second</span>")
 			return
 
-	if (prefs.hotkeys)
+	if (prefs.toggles2 & PREFTOGGLE_2_HOTKEYS)
 		// If hotkey mode is enabled, then clicking the map will automatically
 		// unfocus the text bar. This removes the red color from the text bar
 		// so that the visual focus indicator matches reality.
@@ -928,6 +929,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		add_verb(/client/proc/self_notes)
 	if(CONFIG_GET(flag/use_exp_tracking))
 		add_verb(/client/proc/self_playtime)
+	if(CONFIG_GET(flag/enable_mrat))
+		add_verb(/client/proc/mrat)
 
 
 #undef UPLOAD_LIMIT
@@ -996,7 +999,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if (isliving(mob))
 		var/mob/living/M = mob
 		M.update_damage_hud()
-	if (prefs.auto_fit_viewport)
+	if (prefs.toggles2 & PREFTOGGLE_2_AUTO_FIT_VIEWPORT)
 		addtimer(CALLBACK(src,.verb/fit_viewport,10)) //Delayed to avoid wingets from Login calls.
 
 /client/proc/generate_clickcatcher()
@@ -1013,7 +1016,16 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(prefs && prefs.chat_toggles & CHAT_PULLR)
 		to_chat(src, announcement)
 
-/client/proc/show_character_previews(mutable_appearance/MA)
+/client/proc/show_character_previews(mutable_appearance/source)
+	LAZYINITLIST(char_render_holders)
+	if(!LAZYLEN(char_render_holders))
+		for (var/plane_master_type in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
+			var/atom/movable/screen/plane_master/plane_master = new plane_master_type()
+			char_render_holders["plane_master-[plane_master.plane]"] = plane_master
+			plane_master.backdrop(mob)
+			screen |= plane_master
+			plane_master.screen_loc = "character_preview_map:0,CENTER"
+
 	var/pos = 0
 	for(var/D in GLOB.cardinals)
 		pos++
@@ -1022,7 +1034,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			O = new
 			LAZYSET(char_render_holders, "[D]", O)
 			screen |= O
-		O.appearance = MA
+		O.appearance = source
 		O.dir = D
 		O.screen_loc = "character_preview_map:0,[pos]"
 
@@ -1042,23 +1054,22 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	addtimer(CALLBACK(src, .proc/restore_account_identifier), 20) //Don't DoS DB queries, asshole
 
 	var/confirm = alert("Do NOT share the verification ID in the following popup. Understand?", "Important Warning", "Yes", "Cancel")
-	if(confirm == "Cancel")
+	if(confirm != "Yes")
 		return
-	if(confirm == "Yes")
-		var/uuid = fetch_uuid()
-		if(!uuid)
-			alert("Failed to fetch your verification ID. Try again later. If problems persist, tell an admin.", "Account Verification", "Okay")
-			log_sql("Failed to fetch UUID for [key_name(src)]")
-		else
-			var/dat
-			dat += "<h3>Account Identifier</h3>"
-			dat += "<br>"
-			dat += "<h3>Do NOT share this id:</h3>"
-			dat += "<br>"
-			dat += "[uuid]"
+	var/uuid = fetch_uuid()
+	if(!uuid)
+		alert("Failed to fetch your verification ID. Try again later. If problems persist, tell an admin.", "Account Verification", "Okay")
+		log_sql("Failed to fetch UUID for [key_name(src)]")
+	else
+		var/dat
+		dat += "<h3>Account Identifier</h3>"
+		dat += "<br>"
+		dat += "<h3>Do NOT share this id:</h3>"
+		dat += "<br>"
+		dat += "[uuid]"
 
-			src << browse(dat, "window=accountidentifier;size=600x320")
-			onclose(src, "accountidentifier")
+		src << browse(dat, "window=accountidentifier;size=600x320")
+		onclose(src, "accountidentifier")
 
 /client/proc/restore_account_identifier()
 	add_verb(/client/proc/show_account_identifier)
@@ -1098,8 +1109,13 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		holder.filteriffic = new /datum/filter_editor(in_atom)
 		holder.filteriffic.ui_interact(mob)
 
+/client/proc/open_particle_editor(atom/in_atom)
+	if(holder)
+		holder.particool = new /datum/particle_editor(in_atom)
+		holder.particool.ui_interact(mob)
+
 /client/proc/update_ambience_pref()
-	if(prefs.toggles & SOUND_AMBIENCE)
+	if(prefs.toggles & PREFTOGGLE_SOUND_AMBIENCE)
 		if(SSambience.ambience_listening_clients[src] > world.time)
 			return // If already properly set we don't want to reset the timer.
 		SSambience.ambience_listening_clients[src] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.

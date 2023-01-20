@@ -17,7 +17,7 @@
 /obj/item/gps{
 	gpstag = "SOS"
 	},
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/item/storage/pod{
@@ -30,7 +30,7 @@
 /turf/open/floor/mineral/bananium/airless,
 /area/ruin/unpowered)
 "g" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/effect/decal/remains/human,

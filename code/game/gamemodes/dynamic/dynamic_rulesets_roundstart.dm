@@ -172,7 +172,7 @@
 	name = "Wizard"
 	antag_flag = ROLE_WIZARD
 	antag_datum = /datum/antagonist/wizard
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
 	minimum_required_age = 14
 	restricted_roles = list(JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN) // Just to be sure that a wizard getting picked won't ever imply a Captain or HoS not getting drafted
 	required_candidates = 1
@@ -222,7 +222,7 @@
 	weight = 3
 	cost = 20
 	requirements = list(100,90,80,60,40,30,10,10,10,10)
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
 	antag_cap = list("denominator" = 20, "offset" = 1)
 	var/datum/team/cult/main_cult
 
@@ -278,7 +278,7 @@
 	weight = 3
 	cost = 20
 	requirements = list(90,90,90,80,60,40,30,20,10,10)
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
 	antag_cap = list("denominator" = 18, "offset" = 1)
 	var/datum/team/nuclear/nuke_team
 
@@ -365,7 +365,7 @@
 	cost = 20
 	requirements = list(101,101,70,40,30,20,10,10,10,10)
 	antag_cap = 3
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
 	blocking_rules = list(/datum/dynamic_ruleset/latejoin/provocateur)
 	// I give up, just there should be enough heads with 35 players...
 	minimum_players = 35
@@ -581,7 +581,7 @@
 	weight = 3
 	cost = 35
 	requirements = list(100,90,80,70,60,50,30,30,30,30)
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
 	var/datum/team/clock_cult/main_cult
 	var/list/selected_servants = list()
 
@@ -627,3 +627,89 @@
 	else
 		SSticker.news_report = CULT_FAILURE
 		SSticker.mode_result = "loss - servants failed their objective (summon ratvar)"
+
+//////////////////////////////////////////////
+//                                          //
+//                INCURSION                 //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/roundstart/incursion
+	name = "Incursion"
+	antag_flag = ROLE_INCURSION
+	antag_datum = /datum/antagonist/incursion
+	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFMEDICALOFFICER)
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
+	required_candidates = 2
+	weight = 3
+	cost = 20
+	requirements = list(100,90,80,60,40,30,10,10,10,10)
+	flags = HIGH_IMPACT_RULESET
+	antag_cap = list("denominator" = 10, "offset" = 1)
+	var/datum/team/incursion/incursion_team
+
+/datum/dynamic_ruleset/roundstart/incursion/ready(population, forced = FALSE)
+	required_candidates = CLAMP(get_antag_cap(population), CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
+	return ..()
+
+/datum/dynamic_ruleset/roundstart/incursion/pre_execute(population)
+	. = ..()
+	for(var/x = 1 to required_candidates)
+		if(!length(candidates))
+			break
+		var/mob/M = pick_n_take(candidates)
+		assigned += M.mind
+		M.mind.special_role = ROLE_INCURSION
+		M.mind.restricted_roles = restricted_roles
+	return TRUE
+
+/datum/dynamic_ruleset/roundstart/incursion/execute()
+	incursion_team = new
+	incursion_team.forge_team_objectives(restricted_roles)
+	for(var/datum/mind/M in assigned)
+		var/datum/antagonist/incursion/new_incursionist = new antag_datum()
+		new_incursionist.team = incursion_team
+		incursion_team.add_member(M)
+		M.add_antag_datum(new_incursionist)
+	return TRUE
+
+/datum/dynamic_ruleset/roundstart/incursion/round_result()
+	..()
+	if(incursion_team.check_incursion_victory())
+		SSticker.mode_result = "win - incursion win"
+	else
+		SSticker.mode_result = "loss - staff stopped the incursion"
+
+//////////////////////////////////////////////
+//                                          //
+//             ASSIMILATION                 //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/roundstart/hivemind
+	name = "Assimilation"
+	antag_flag = ROLE_HIVE
+	antag_datum = /datum/antagonist/hivemind
+	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
+	required_candidates = 3
+	weight = 3
+	cost = 30
+	requirements = list(100,90,80,60,40,30,10,10,10,10)
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
+
+/datum/dynamic_ruleset/roundstart/hivemind/pre_execute(population)
+	. = ..()
+	var/num_hosts = max( 3 , rand(0,1) + min(8, round(population / 8) ) )
+	for (var/i = 1 to num_hosts)
+		var/mob/M = pick_n_take(candidates)
+		assigned += M.mind
+		M.mind.restricted_roles = restricted_roles
+		M.mind.special_role = ROLE_HIVE
+	return TRUE
+
+/datum/dynamic_ruleset/roundstart/hivemind/execute()
+	for(var/datum/mind/host in assigned)
+		var/datum/antagonist/hivemind/new_antag = new antag_datum()
+		host.add_antag_datum(new_antag)
+	return TRUE

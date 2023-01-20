@@ -192,7 +192,6 @@ GLOBAL_VAR(clockcult_eminence)
 
 //Transmits a message to everyone in the cult
 //Doesn't work if the cultists contain holy water, or are not on the station or Reebe
-//TODO: SANITIZE MESSAGES WITH THE NORMAL SAY STUFF (punctuation)
 /proc/hierophant_message(msg, mob/living/sender, span = "<span class='brass'>", use_sanitisation=TRUE, say=TRUE)
 	if(CHAT_FILTER_CHECK(msg))
 		if(sender)
@@ -212,7 +211,7 @@ GLOBAL_VAR(clockcult_eminence)
 	if(sender)
 		if(say)
 			sender.say("#[text2ratvar(msg)]")
-		msg = sender.treat_message(msg)
+		msg = sender.treat_message_min(msg)
 		var/datum/antagonist/servant_of_ratvar/SoR = is_servant_of_ratvar(sender)
 		var/prefix = "Clockbrother"
 		switch(SoR.prefix)
