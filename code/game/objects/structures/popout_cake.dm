@@ -69,7 +69,8 @@
 
 /obj/structure/popout_cake/attackby(obj/item/W, mob/user, params)
 	if(W.is_sharp())
-		visible_message("[user] begins cutting into [src] with [W]!")
+		visible_message("[user] begins cutting into [src] with [W]!", )
+		to_chat(user, "<span class = 'notice'>You begin cutting into [src] with [W]!</span>")
 		if(do_after(user, 60, FALSE, src))
 			do_popout()
 			if(!strong_surprise)
@@ -82,9 +83,10 @@
 			to_chat(user, "<span class='notice'>There's no space for [src] inside!</span>")
 		else
 			visible_message("[user] begins inserting [W] into [src]!")
+			to_chat(user, "<span class = 'notice'>You begin inserting [W] into [src]!</span>")
 			if(do_after(user, 30, FALSE, src))
 				strong_surprise = TRUE
-				to_chat(user, "<span class='notice'>You attach [src] to the hidden mechanism inside!</span>")
+				to_chat(user, "<span class='notice'>You attach [W] to the hidden mechanism inside!</span>")
 				qdel(W)
 	else
 		..()
