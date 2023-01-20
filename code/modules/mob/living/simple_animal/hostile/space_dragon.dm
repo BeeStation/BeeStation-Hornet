@@ -23,8 +23,8 @@
 /mob/living/simple_animal/hostile/space_dragon
 	name = "Space Dragon"
 	desc = "A vile, leviathan-esque creature that flies in the most unnatural way. Looks slightly similar to a space carp."
-	maxHealth = 320
-	health = 320
+	maxHealth = 350
+	health = 350
 	spacewalk = TRUE
 	a_intent = INTENT_HARM
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0.5, OXY = 1)
@@ -142,7 +142,7 @@
 			if(do_after(src, 3 SECONDS, target = L))
 				RegisterSignal(L, COMSIG_LIVING_REVIVE, .proc/living_revive)
 				if(eat(L))
-					adjustHealth(-L.maxHealth * 0.25)
+					adjustHealth(-L.maxHealth * 0.5)
 			is_swallowing = FALSE
 			return
 	. = ..()
@@ -276,7 +276,7 @@
 		for(var/obj/machinery/door/D in T.contents)
 			if(D.density)
 				return
-		delayFire += 1.5
+		delayFire += 1.0
 		addtimer(CALLBACK(src, .proc/dragon_fire_line, T), delayFire)
 
 /**
@@ -294,7 +294,10 @@
 	new /obj/effect/hotspot(T)
 	T.hotspot_expose(700,50,1)
 	for(var/mob/living/L in T.contents)
-		if((L in hit_list) || istype(L, /mob/living/simple_animal/hostile/carp))
+		if(L.faction_check_mob(src) && L != src)
+			hit_list += L
+			start_carp_speedboost(L)
+		if(L in hit_list)
 			continue
 		hit_list += L
 		L.adjustFireLoss(30)
@@ -348,6 +351,30 @@
 	update_dragon_overlay()
 
 /**
+ * Applies the speed boost to carps when hit by space dragon's flame breath
+ *
+ * Applies the dragon rage effect to carps temporarily, giving them a glow and a speed boost.
+ * This lasts for 8 seconds.
+ * Arguments:
+ * * mob/living/target - The carp being affected.
+ */
+/mob/living/simple_animal/hostile/space_dragon/proc/start_carp_speedboost(mob/living/target)
+	target.add_filter("anger_glow", 3, list("type" = "outline", "color" = "#ff330030", "size" = 2))
+	target.add_movespeed_modifier(MOVESPEED_ID_DRAGON_RAGE, multiplicative_slowdown = -0.5)
+	addtimer(CALLBACK(src, .proc/end_carp_speedboost, target), 8 SECONDS)
+
+/**
+ * Remove the speed boost from carps when hit by space dragon's flame breath
+ *
+ * Removes the dragon rage effect from carps, removing their glow and speed boost.
+ * Arguments:
+ * * mob/living/target - The carp being affected.
+ */
+/mob/living/simple_animal/hostile/space_dragon/proc/end_carp_speedboost(mob/living/target)
+	target.remove_filter("anger_glow")
+	target.remove_movespeed_modifier(MOVESPEED_ID_DRAGON_RAGE)
+
+/**
  * Handles wing gust from the windup all the way to the endlag at the end.
  *
  * Handles the wing gust attack from start to finish, based on the timer.
@@ -359,7 +386,7 @@
 /mob/living/simple_animal/hostile/space_dragon/proc/useGust(animate = TRUE)
 	if(animate)
 		animate(src, pixel_y = 20, time = 1 SECONDS)
-		addtimer(CALLBACK(src, .proc/useGust, FALSE), 1.5 SECONDS)
+		addtimer(CALLBACK(src, .proc/useGust, FALSE), 1.2 SECONDS)
 		return
 	pixel_y = 0
 	if(!small_sprite.small)
@@ -369,19 +396,15 @@
 		overlay.appearance_flags = RESET_COLOR
 		add_overlay(overlay)
 	playsound(src, 'sound/effects/gravhit.ogg', 100, TRUE)
-	var/gust_locs = spiral_range_turfs(gust_distance, get_turf(src))
-	var/list/hit_things = list()
-	for(var/turf/T in gust_locs)
-		for(var/mob/living/L in T.contents)
-			if(L == src)
-				continue
-			hit_things += L
-			visible_message("<span class='boldwarning'>[L] is knocked back by the gust!</span>")
-			to_chat(L, "<span class='userdanger'>You're knocked back by the gust!</span>")
-			var/dir_to_target = get_dir(get_turf(src), get_turf(L))
-			var/throwtarget = get_edge_target_turf(target, dir_to_target)
-			L.safe_throw_at(throwtarget, 10, 1, src)
-			L.Paralyze(50)
+	for (var/mob/living/candidate in view(gust_distance, src))
+		if(candidate == src || candidate.faction_check_mob(src))
+			continue
+		visible_message("<span class='boldwarning'>[candidate] is knocked back by the gust!</span>")
+		to_chat(candidate, "<span class='userdanger'>You're knocked back by the gust!</span>")
+		var/dir_to_target = get_dir(get_turf(src), get_turf(candidate))
+		var/throwtarget = get_edge_target_turf(target, dir_to_target)
+		candidate.safe_throw_at(throwtarget, 10, 1, src)
+		candidate.Paralyze(50)
 	addtimer(CALLBACK(src, .proc/reset_status), 4 + ((tiredness * tiredness_mult) / 10))
 	tiredness = tiredness + (gust_tiredness * tiredness_mult)
 

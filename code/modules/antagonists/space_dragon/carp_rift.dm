@@ -23,8 +23,8 @@
 		to_chat(S, "<span class='warning'>Your failure has left you unable to summon rifts!</span>")
 		return
 	var/area/A = get_area(S)
-	if(!(A.area_flags & VALID_TERRITORY))
-		to_chat(S, "<span class='warning'>You can't summon a rift here! Try summoning somewhere secure within the station!</span>")
+	if(!(A in dragon.chosen_rift_areas))
+		to_chat(S, "<span class='warning'>You can't summon a rift here!</span>")
 		return
 	for(var/obj/structure/carp_rift/rift in dragon.rift_list)
 		var/area/RA = get_area(rift)
@@ -32,7 +32,7 @@
 			to_chat(S, "<span class='warning'>You've already summoned a rift in this area! You have to summon again somewhere else!</span>")
 			return
 	var/turf/rift_spawn_turf = get_turf(S)
-	if(isopenspaceturf(rift_spawn_turf))
+	if(istype(rift_spawn_turf, /turf/open/openspace))
 		owner.balloon_alert(S, "needs stable ground!")
 		return
 	to_chat(S, "<span class='warning'>You begin to open a rift...</span>")
@@ -67,7 +67,7 @@
 	light_color = LIGHT_COLOR_PURPLE
 	light_range = 10
 	anchored = TRUE
-	density = FALSE
+	density = TRUE
 	plane = MASSIVE_OBJ_PLANE
 	/// The amount of time the rift has charged for.
 	var/time_charged = 0
@@ -80,7 +80,7 @@
 	/// Current charge state of the rift.
 	var/charge_state = CHARGE_ONGOING
 	/// The interval for adding additional space carp spawns to the rift.
-	var/carp_interval = 60
+	var/carp_interval = 45
 	/// The time since an extra carp was added to the ghost role spawning pool.
 	var/last_carp_inc = 0
 	/// A list of all the ckeys which have used this carp rift to spawn in as carps.
@@ -89,6 +89,12 @@
 /obj/structure/carp_rift/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
+	AddComponent( \
+		/datum/component/gravity_aura, \
+		range = 15, \
+		requires_visibility = FALSE, \
+		gravity_strength = 1, \
+	)
 
 /obj/structure/carp_rift/examine(mob/user)
 	. = ..()
@@ -113,8 +119,8 @@
 	return ..()
 
 /obj/structure/carp_rift/process(delta_time)
-	// Heal carp on our loc.
-	for(var/mob/living/simple_animal/hostile/hostilehere in loc)
+	// Heal carp around us
+	for(var/mob/living/simple_animal/hostile/hostilehere in range(1))
 		if("carp" in hostilehere.faction)
 			hostilehere.adjustHealth(-10)
 			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(hostilehere))
@@ -123,7 +129,7 @@
 	// If we're fully charged, just start mass spawning carp and move around.
 	if(charge_state == CHARGE_COMPLETED)
 		if(DT_PROB(1.25, delta_time))
-			new /mob/living/simple_animal/hostile/carp(loc)
+			new /mob/living/simple_animal/hostile/carp/advanced(loc)
 		if(DT_PROB(1.5, delta_time))
 			var/rand_dir = pick(GLOB.cardinals)
 			Move(get_step(src, rand_dir), rand_dir)
@@ -210,7 +216,7 @@
 	if(carp_stored <= 0)
 		to_chat(user, "<span class='warning'>The rift already summoned enough carp!</span>")
 		return FALSE
-	var/mob/living/simple_animal/hostile/carp/newcarp = new /mob/living/simple_animal/hostile/carp(loc)
+	var/mob/living/simple_animal/hostile/carp/advanced/newcarp = new(loc)
 	if(!is_listed)
 		ckey_list += user.ckey
 	newcarp.key = user.key

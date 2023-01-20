@@ -21,6 +21,8 @@
 	var/rifts_charged = 0
 	/// Whether or not Space Dragon has completed their objective, and thus triggered the ending sequence.
 	var/objective_complete = FALSE
+	/// What areas are we allowed to place rifts in?
+	var/list/chosen_rift_areas = list()
 
 
 /datum/antagonist/space_dragon/greet()
@@ -35,9 +37,47 @@
 		"You've existed for so long, you have forgotten your purpose. The sight of an intruder in your endless claim of the void of space re-kindles the magic within you. Place rifts and summon an army to snuff out another light intruding in your domain.")
 
 /datum/antagonist/space_dragon/proc/forge_objectives()
+	// Areas that will prove challenging for the dragon and provocative to the crew.
+	var/list/area/allowed_areas = typecacheof(list(
+		/area/crew_quarters/heads/captain,
+		/area/crew_quarters/heads/hop,
+		/area/bridge,
+		/area/engine,
+		/area/security,
+		/area/science
+	))
+	// Things included above that we do NOT want
+	var/list/area/blocked_areas = typecacheof(list(
+		/area/bridge/showroom,
+		/area/science/test_area,
+		/area/science/misc_lab,
+		/area/science/research/abandoned,
+		/area/science/shuttledock,
+		/area/engine/gravity_generator, // dragon already has a huge incentive to go here, let's not give them more reasons
+		/area/engine/transit_tube,
+		/area/engine/engine_room/external,
+		/area/security/prison/asteroid,
+		/area/security/checkpoint
+	))
+
+	var/list/possible_areas = GLOB.sortedAreas.Copy()
+	for(var/area/possible_area as anything in possible_areas)
+		if(!is_type_in_typecache(possible_area, allowed_areas) || is_type_in_typecache(possible_area, blocked_areas) || initial(possible_area.outdoors))
+			possible_areas -= possible_area
+
+	var/list/area_names = list()
+	for(var/i in 1 to 5)
+		var/area/chosen_rift_area = pick_n_take(possible_areas)
+		if(!istype(chosen_rift_area))
+			continue
+		chosen_rift_areas += chosen_rift_area
+		area_names += initial(chosen_rift_area.name)
+
 	var/datum/objective/summon_carp/summon = new()
-	summon.dragon = src
 	objectives += summon
+	summon.dragon = src
+
+	summon.explanation_text = "Summon 3 rifts in order to flood the station with carp. Your possible rift locations are:\n - [english_list(area_names, "ERROR", "\n - ", "\n - ")]."
 	log_objective(owner, summon.explanation_text)
 
 /datum/antagonist/space_dragon/on_gain()
@@ -172,7 +212,7 @@
 
 /datum/objective/summon_carp
 	var/datum/antagonist/space_dragon/dragon
-	explanation_text = "Summon and protect the rifts to flood the station with carp."
+	explanation_text = "Summon 3 rifts in order to flood the station with carp. Your possible rift locations are: (ERROR)."
 
 /datum/antagonist/space_dragon/roundend_report()
 	var/list/parts = list()
