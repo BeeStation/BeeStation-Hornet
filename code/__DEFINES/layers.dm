@@ -127,8 +127,6 @@
 #define EMISSIVE_BLOCKER_PLANE 160
 #define EMISSIVE_BLOCKER_RENDER_TARGET "*EMISSIVE_BLOCKER_PLANE"
 
-#define RUNECHAT_PLANE 24
-
 ///This plane is "unblockable" emissives. It does the same thing as the emissive plane but isn't masked by the emissive blocker plane. Use for on-mob and movable emissives.
 #define EMISSIVE_UNBLOCKABLE_PLANE 170
 #define EMISSIVE_UNBLOCKABLE_RENDER_TARGET "*EMISSIVE_UNBLOCKABLE_PLANE"
@@ -161,19 +159,18 @@
 //-------------------- HUD ---------------------
 //HUD layer defines
 #define HUD_PLANE 1000
+#define HUD_LAYER 25
+#define HUD_RENDER_TARGET "HUD_PLANE"
+
 #define ABOVE_HUD_PLANE 1100
+#define ABOVE_HUD_LAYER 26
+#define ABOVE_HUD_RENDER_TARGET "ABOVE_HUD_PLANE"
+
 ///1000 is an unimportant number, it's just to normalize copied layers
 #define RADIAL_LAYER 1000
 
 #define RADIAL_BACKGROUND_LAYER 0
 #define RADIAL_CONTENT_LAYER 1
-
-#define HUD_PLANE 25
-#define HUD_LAYER 25
-#define HUD_RENDER_TARGET "HUD_PLANE"
-#define ABOVE_HUD_PLANE 26
-#define ABOVE_HUD_LAYER 26
-#define ABOVE_HUD_RENDER_TARGET "ABOVE_HUD_PLANE"
 
 #define SPLASHSCREEN_LAYER 27
 #define SPLASHSCREEN_RENDER_TARGET "SPLASHSCREEN_PLANE"
