@@ -1045,23 +1045,22 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	addtimer(CALLBACK(src, .proc/restore_account_identifier), 20) //Don't DoS DB queries, asshole
 
 	var/confirm = alert("Do NOT share the verification ID in the following popup. Understand?", "Important Warning", "Yes", "Cancel")
-	if(confirm == "Cancel")
+	if(confirm != "Yes")
 		return
-	if(confirm == "Yes")
-		var/uuid = fetch_uuid()
-		if(!uuid)
-			alert("Failed to fetch your verification ID. Try again later. If problems persist, tell an admin.", "Account Verification", "Okay")
-			log_sql("Failed to fetch UUID for [key_name(src)]")
-		else
-			var/dat
-			dat += "<h3>Account Identifier</h3>"
-			dat += "<br>"
-			dat += "<h3>Do NOT share this id:</h3>"
-			dat += "<br>"
-			dat += "[uuid]"
+	var/uuid = fetch_uuid()
+	if(!uuid)
+		alert("Failed to fetch your verification ID. Try again later. If problems persist, tell an admin.", "Account Verification", "Okay")
+		log_sql("Failed to fetch UUID for [key_name(src)]")
+	else
+		var/dat
+		dat += "<h3>Account Identifier</h3>"
+		dat += "<br>"
+		dat += "<h3>Do NOT share this id:</h3>"
+		dat += "<br>"
+		dat += "[uuid]"
 
-			src << browse(dat, "window=accountidentifier;size=600x320")
-			onclose(src, "accountidentifier")
+		src << browse(dat, "window=accountidentifier;size=600x320")
+		onclose(src, "accountidentifier")
 
 /client/proc/restore_account_identifier()
 	add_verb(/client/proc/show_account_identifier)
