@@ -278,7 +278,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	icon = 'icons/mob/psychic.dmi'
 	plane = PSYCHIC_PLANE
 	blend_mode = BLEND_INSET_OVERLAY
-	///Index for visual setting
+	///Index for visual setting - Useful if we add more presets
 	var/visual_index = 0
 	
 /atom/movable/screen/fullscreen/blind/psychic_highlight/Initialize(mapload)
@@ -325,6 +325,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shrooms"
 	invisibility = SHROOM_DEPOSIT_INVISIBILITY
+	plane = HUD_PLANE
 	///Internal resources for healing
 	var/resources = 0
 	///Internal resource limit
