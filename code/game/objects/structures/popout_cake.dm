@@ -42,20 +42,22 @@
 		return
 
 	if(target == user)
-		visible_message("[user] starts climbing into [src].")
+		user.visible_message("<span class = 'notice'>[user] starts climbing into [src].</span>", "<span class = 'notice'>You start climbing into [src].</span>")
 	else
-		visible_message("[user] starts putting [target] into [src].")
+		user.visible_message("<span class = 'warning'>[user] starts stuffing [target] into [src]!</span>", "<span class = 'warning'>You start stuffing [target] into [src]!</span>")
 
 	if(do_after(user, 60, TRUE, src))
 		if(occupant)
 			to_chat(user, "<span class='warning'>There's already someone inside!</span>")
 			return
+		if(target != user)
+			to_chat(user, "<span class = 'notice'>You stuff [target] into [src]!</span>")
 		target.forceMove(src)
 		occupant = target
 		if(target != user)
 			log_combat(user, occupant, "stuffed ", null, "into [src]")
 		string.Grant(occupant)
-		to_chat(user, "<span class='notice'>You are now inside the cake! When you're ready to emerge from the cake in a blaze of confetti and party horns, \
+		to_chat(occupant, "<span class='notice'>You are now inside the cake! When you're ready to emerge from the cake in a blaze of confetti and party horns, \
 		pull on the string(<b>It will have to be wound back up with a screwdriver if you want to do it again</b>). If you wish to leave without setting off the confetti, just attempt to move out of the cake!</span>")
 	add_fingerprint(target)
 
@@ -69,12 +71,16 @@
 
 /obj/structure/popout_cake/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER && used_string == TRUE)
+		user.visible_message("<span class = 'notice'>[user] sticks the [W] inside [src] and stars fiddling around!</span>", \
+		"<span class = 'notice>You start to rewind the hidden mechanism inside [src] with [w].</span>")
 		W.play_tool_sound(src, 50)
 		if(do_after(user, 20, FALSE, src))
 			used_string = FALSE
+			user.visible_message("<span class = 'notice'>After hearing a click from [src], [user] pulls the [W] outside.</span>", \
+		"<span class = 'notice>You successfully rewind the string inside [src]!</span>")
+			return FALSE
 	if(W.is_sharp())
-		visible_message("[user] begins cutting into [src] with [W]!", )
-		to_chat(user, "<span class = 'notice'>You begin cutting into [src] with [W]!</span>")
+		user.visible_message("<span class = 'notice'>[user] begins cutting into [src] with [W]!</span>", "<span class = 'notice>You starts cutting [src] with [W]!</span>")
 		if(do_after(user, 60, FALSE, src))
 			do_popout()
 			if(!strong_surprise)
@@ -82,24 +88,24 @@
 					var/obj/item/reagent_containers/food/snacks/slice = new slice_path (loc)
 					slice.initialize_slice(slice, 0)
 			qdel(src)
+			return FALSE
 	if(istype(W, /obj/item/grenade/flashbang))
 		if(strong_surprise)
 			to_chat(user, "<span class='notice'>There's no space for [src] inside!</span>")
 		else
-			visible_message("[user] begins inserting [W] into [src]!")
-			to_chat(user, "<span class = 'notice'>You begin inserting [W] into [src]!</span>")
+			user.visible_message("<span class = 'notice'>[user] begins inserting [W] into [src]!</span>", "<span class = 'notice'>You begin inserting [W] into [src]!</span>")
 			if(do_after(user, 30, FALSE, src))
 				strong_surprise = TRUE
-				to_chat(user, "<span class='notice'>You attach [W] to the hidden mechanism inside!</span>")
+				user.visible_message("<span class = 'notice'>After some fiddling, [user] inserts [W] into [src]!</span>", "<span class = 'notice'>You attach [W] to the hidden mechanism inside!</span>")
 				qdel(W)
-
+				return FALSE
 	else
 		..()
 
 /obj/structure/popout_cake/proc/do_popout()
 	if(isnull(occupant))
 		return
-	visible_message("Loud shuffling can be heard from inside [src]!")
+	visible_message("<span class = 'notice'>Loud shuffling can be heard from inside [src]!</span>")
 	if(!used_string)
 		used_string = TRUE
 		playsound(src, 'sound/items/party_horn.ogg', 50, 1)
