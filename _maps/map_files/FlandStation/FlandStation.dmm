@@ -66847,12 +66847,6 @@
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
-"qYb" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/closed/mineral,
-/area/maintenance/central)
 "qYd" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/blue,
@@ -126731,7 +126725,7 @@ uNB
 oMx
 nAD
 ltu
-qYb
+ltu
 ltu
 ltu
 ltu
