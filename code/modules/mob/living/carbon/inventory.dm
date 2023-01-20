@@ -48,7 +48,6 @@
 	if(!(I.item_flags & PICKED_UP))
 		I.pickup(src)
 	I.forceMove(src)
-	I.layer = ABOVE_HUD_LAYER
 	I.plane = ABOVE_HUD_PLANE
 	var/not_handled = FALSE
 	switch(slot)
