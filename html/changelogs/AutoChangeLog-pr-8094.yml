@@ -1,0 +1,20 @@
+author: itsmeow
+delete-after: true
+changes:
+  - rscadd: Converted the message monitor to TGUI
+  - rscadd: The Message Monitor can now send admin messages with emojis and images.
+  - tweak: Changed the flavor text for the monitor decryption key paper.
+  - tweak: Emagging the message monitor no longer immediately prints the key, but
+      instead prints the key when the message monitor is usable again (after 10 *
+      keylength seconds). The key couldn't be used prior to this previously, so it
+      just makes it more consistent.
+  - bugfix: Fixed PDA messages with images not always properly line breaking inside
+      "View Messages" on the Messenger app.
+  - bugfix: Fixed a possible hard-del when the message monitor's linked server was
+      deleted.
+  - admin: Added logging and admin messages for deletion of PDA/request logs.
+  - tweak: Improved the Message Monitor's server linking behavior to support multiple
+      servers of the same network and name.
+  - bugfix: Fixed an exploit where you could unlink the active message monitor server,
+      link to another with a different decryption key, and still be authenticated.
+  - admin: Added an admin verb, "Send PDA Message"
