@@ -9,6 +9,8 @@
 	var/list/datum/mind/carp = list()
 	/// The innate ability to summon rifts
 	var/datum/action/innate/summon_rift/rift_ability
+	/// The innate ability to use wavespeak
+	var/datum/action/innate/wavespeak/wavespeak_ability
 	/// timer used to check if the dragon failed to summon a rift
 	var/rift_fail_timer_id = TIMER_ID_NULL
 	/// warning for rift_fail_timer
@@ -57,7 +59,8 @@
 		/area/engine/transit_tube,
 		/area/engine/engine_room/external,
 		/area/security/prison/asteroid,
-		/area/security/checkpoint
+		/area/security/checkpoint,
+		/area/security/courtroom,
 	))
 
 	var/list/possible_areas = GLOB.sortedAreas.Copy()
@@ -66,7 +69,7 @@
 			possible_areas -= possible_area
 
 	var/list/area_names = list()
-	for(var/i in 1 to 5)
+	for(var/i in 1 to 7)
 		var/area/chosen_rift_area = pick_n_take(possible_areas)
 		if(!istype(chosen_rift_area))
 			continue
@@ -85,6 +88,8 @@
 	. = ..()
 	rift_ability = new
 	rift_ability.Grant(owner.current)
+	wavespeak_ability = new
+	wavespeak_ability.Grant(owner.current)
 	owner.current.faction |= "carp"
 	RegisterSignal(owner.current, COMSIG_LIVING_LIFE, .proc/rift_checks)
 	RegisterSignal(owner.current, COMSIG_MOB_DEATH, .proc/destroy_rifts)
@@ -236,3 +241,24 @@
 		parts += "<span class='header'>The [name] was assisted by:</span>"
 		parts += printplayerlist(carp)
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
+
+/datum/action/innate/wavespeak
+	name = "Carp Wavespeak"
+	desc = "Communicate through wavespeak."
+	background_icon_state = "bg_default"
+	icon_icon = 'icons/mob/actions/actions_space_dragon.dmi'
+	button_icon_state = "wavespeak"
+	check_flags = AB_CHECK_CONSCIOUS
+
+/datum/action/innate/cult/IsAvailable()
+	if(!("carp" in owner.faction))
+		return FALSE
+	return ..()
+
+/datum/action/innate/wavespeak/Activate()
+	// This is filtered, treated, and logged in carp_talk
+	var/input = stripped_input(usr, "Enter wavespeak message.", "Carp Wavespeak", "")
+	if(!input || !IsAvailable() || !isliving(owner))
+		return
+	var/mob/living/L = owner
+	L.carp_talk(input)

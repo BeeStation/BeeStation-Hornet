@@ -217,6 +217,8 @@
 		to_chat(user, "<span class='warning'>The rift already summoned enough carp!</span>")
 		return FALSE
 	var/mob/living/simple_animal/hostile/carp/advanced/newcarp = new(loc)
+	var/datum/action/innate/wavespeak/wave_action = new
+	wave_action.Grant(newcarp)
 	if(!is_listed)
 		ckey_list += user.ckey
 	newcarp.key = user.key

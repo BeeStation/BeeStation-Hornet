@@ -408,6 +408,26 @@
 	addtimer(CALLBACK(src, .proc/reset_status), 4 + ((tiredness * tiredness_mult) / 10))
 	tiredness = tiredness + (gust_tiredness * tiredness_mult)
 
+/mob/living/proc/carp_talk(message, shown_name = real_name)
+	message = trim(message)
+	if(!message)
+		return
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
+	message = treat_message_min(message)
+	log_talk(message, LOG_SAY)
+	var/message_a = say_quote(message)
+	var/rendered = "<font color=\"#44aaff\">Carp Wavespeak <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></font>"
+	if(istype(src, /mob/living/simple_animal/hostile/space_dragon))
+		rendered = "<span class='big'>[rendered]</span>"
+	for(var/mob/S in GLOB.player_list)
+		if(!S.stat && ("carp" in S.faction))
+			to_chat(S, rendered)
+		if(S in GLOB.dead_mob_list)
+			var/link = FOLLOW_LINK(S, src)
+			to_chat(S, "[link] [rendered]")
+
 /datum/action/cooldown/gust_attack
 	name = "Gust Attack"
 	desc = "Use your wings to knock back foes with gusts of air, pushing them away and stunning them. Using this too often will leave you vulnerable for longer periods of time."
