@@ -120,7 +120,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 		if(length(worths) && !length(differences))
 			return FALSE
 		var/choice = input("Are you sure you want to destroy [loaded_item] to [!length(worths) ? "reveal [TN.display_name]" : "boost [TN.display_name] by [json_encode(differences)] point\s"]?") in list("Proceed", "Cancel")
-		if(choice == "Cancel")
+		if(choice == "Cancel" || !choice)
 			return FALSE
 		if(QDELETED(loaded_item) || QDELETED(linked_console) || !user.Adjacent(linked_console) || QDELETED(src))
 			return FALSE
@@ -138,7 +138,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 		else if(loaded_item.materials.len)
 			user_mode_string = " for material reclamation"
 		var/choice = input("Are you sure you want to destroy [loaded_item][user_mode_string]?") in list("Proceed", "Cancel")
-		if(choice == "Cancel")
+		if(choice != "Proceed")
 			return FALSE
 		if(QDELETED(loaded_item) || QDELETED(linked_console) || !user.Adjacent(linked_console) || QDELETED(src))
 			return FALSE

@@ -129,7 +129,7 @@
 		if("claim")
 			if(ticket.claimee)
 				var/confirm = alert("This ticket is already claimed, override claim?", null,"Yes", "No")
-				if(confirm == "No")
+				if(confirm != "Yes")
 					return
 			claim_ticket = CLAIM_OVERRIDE
 		if("reject")

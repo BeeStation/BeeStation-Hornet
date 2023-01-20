@@ -11,7 +11,7 @@
 
 /datum/action/changeling/headcrab/sting_action(mob/user)
 	set waitfor = FALSE
-	if(alert("Are we sure we wish to kill ourself and create a headslug?",,"Yes", "No") == "No")
+	if(alert("Are we sure we wish to kill ourself and create a headslug?",,"Yes", "No") != "Yes")
 		return
 	if(isliving(user))
 		var/mob/living/L = user

@@ -143,7 +143,7 @@
 
 		if (VV_NEW_TYPE)
 			var/many = alert(src, "Create only one [value["type"]] and assign each or a new one for each thing", "How Many", "One", "Many", "Cancel")
-			if (many == "Cancel")
+			if (many == "Cancel" || !many)
 				return
 			if (many == "Many")
 				many = TRUE

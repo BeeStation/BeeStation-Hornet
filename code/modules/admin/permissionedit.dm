@@ -168,7 +168,7 @@
 				use_db = FALSE
 			else
 				use_db = alert("Permanent changes are saved to the database for future rounds, temporary changes will affect only the current round", "Permanent or Temporary?", "Permanent", "Temporary", "Cancel")
-				if(use_db == "Cancel")
+				if(use_db == "Cancel" || !use_db)
 					return
 				if(use_db == "Permanent")
 					use_db = TRUE

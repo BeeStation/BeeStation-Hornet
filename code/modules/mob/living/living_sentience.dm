@@ -29,7 +29,7 @@
 	if(key || !playable || stat)
 		return 0
 	var/question = alert("Do you want to become [name]?", "[name]", "Yes", "No")
-	if(question == "No" || !src || QDELETED(src))
+	if(question != "Yes" || !src || QDELETED(src))
 		return TRUE
 	if(key)
 		to_chat(user, "<span class='notice'>Someone else already took [name].</span>")

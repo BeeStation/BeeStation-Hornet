@@ -506,7 +506,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	else
 		H = M
 		if(H.l_store || H.r_store || H.s_store) //saves a lot of time for admins and coders alike
-			if(alert("Drop Items in Pockets? No will delete them.", "Robust quick dress shop", "Yes", "No") == "No")
+			if(alert("Drop Items in Pockets? No will delete them.", "Robust quick dress shop", "Yes", "No") != "Yes")
 				delete_pocket = TRUE
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Select Equipment") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -776,7 +776,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if (response == "Jump")
 			usr.forceMove(get_turf(exists[template]))
 			return
-		else if (response == "Cancel")
+		else if (response != "Place Another")
 			return
 
 	var/len = GLOB.ruin_landmarks.len
@@ -800,7 +800,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(ruin_size < 10 || ruin_size >= 200)
 		return
 	var/response = alert(src, "This will place the ruin at your current location.", "Spawn Ruin", "Spawn Ruin", "Cancel")
-	if (response == "Cancel")
+	if (response != "Spawn Ruin")
 		return
 	var/border_size = (world.maxx - ruin_size) / 2
 	generate_space_ruin(mob.x, mob.y, mob.z, border_size, border_size)
