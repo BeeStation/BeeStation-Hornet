@@ -639,7 +639,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	if ((devastation != -1) || (heavy != -1) || (light != -1) || (flash != -1) || (flames != -1))
 		if ((devastation > 20) || (heavy > 20) || (light > 20) || (flames > 20))
-			if (alert(src, "Are you sure you want to do this? It will laaag.", "Confirmation", "Yes", "No") == "No")
+			if (alert(src, "Are you sure you want to do this? It will laaag.", "Confirmation", "Yes", "No") != "Yes")
 				return
 
 		explosion(O, devastation, heavy, light, flash, null, null,flames)
@@ -683,7 +683,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	var/confirm = alert(src, "Drop a brain?", "Confirm", "Yes", "No","Cancel")
-	if(confirm == "Cancel")
+	if(confirm == "Cancel" || !confirm)
 		return
 	//Due to the delay here its easy for something to have happened to the mob
 	if(!M)
@@ -800,7 +800,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 
 	var/notifyplayers = alert(src, "Do you want to notify the players?", "Options", "Yes", "No", "Cancel")
-	if(notifyplayers == "Cancel")
+	if(notifyplayers == "Cancel" || !notifyplayers)
 		return
 
 	log_admin("Admin [key_name(src)] has forced the players to have random appearances.")

@@ -114,8 +114,8 @@
 	icon = 'icons/turf/floors/hierophant_floor.dmi'
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 	baseturfs = /turf/open/indestructible/hierophant
-	smooth = SMOOTH_TRUE
 	tiled_dirt = FALSE
+	smoothing_flags = SMOOTH_CORNERS
 
 /turf/open/indestructible/hierophant/two
 
@@ -145,15 +145,14 @@
 
 /turf/open/indestructible/airblock
 	icon_state = "bluespace"
-	blocks_air = TRUE
 	baseturfs = /turf/open/indestructible/airblock
+	CanAtmosPass = ATMOS_PASS_NO
 
 /turf/open/Initalize_Atmos(times_fired)
-	if(!blocks_air)
-		if(!istype(air,/datum/gas_mixture/turf))
-			air = new(2500,src)
-		air.copy_from_turf(src)
-		update_air_ref(planetary_atmos ? 1 : 2)
+	if(!istype(air, /datum/gas_mixture/turf))
+		air = new(2500,src)
+	air.copy_from_turf(src)
+	update_air_ref(planetary_atmos ? 1 : 2)
 
 	update_visuals()
 

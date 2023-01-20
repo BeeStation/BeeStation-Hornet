@@ -59,6 +59,15 @@
 	prefs.save_preferences()
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ghost Laws", "[prefs.chat_toggles & CHAT_GHOSTLAWS ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/verb/toggle_ghost_follow()
+	set name = "Toggle NPC GhostFollow"
+	set category = "Preferences"
+	set desc = "Toggle the visibility of the follow button for NPC messages and emotes."
+	prefs.chat_toggles ^= CHAT_GHOSTFOLLOWMINDLESS
+	to_chat(usr, "As a ghost, you will [(prefs.chat_toggles & CHAT_GHOSTFOLLOWMINDLESS) ? "now" : "no longer"] see the follow button for NPC mobs.")
+	prefs.save_preferences()
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle NPC GhostFollow", "[prefs.chat_toggles & CHAT_GHOSTFOLLOWMINDLESS ? "Enabled" : "Disabled"]"))
+
 //please be aware that the following two verbs have inverted stat output, so that "Toggle Deathrattle|1" still means you activated it
 /client/verb/toggle_deathrattle()
 	set name = "Toggle Deathrattle"

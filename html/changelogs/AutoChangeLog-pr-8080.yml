@@ -1,0 +1,7 @@
+author: itsmeow
+delete-after: true
+changes:
+  - rscadd: Added TGUI inputs and alerts internally, however they are not enabled.
+  - bugfix: Improved the response of most alert menus when you X them out rather than
+      hitting No/Cancel.
+  - tweak: Increased the contrast of selected/hovered TGUI buttons to 30% (from 15%)
