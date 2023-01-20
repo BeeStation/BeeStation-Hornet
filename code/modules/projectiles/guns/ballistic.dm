@@ -85,7 +85,7 @@
 		return
 	..()
 	if(current_skin)
-		icon_state = "[unique_reskin[current_skin]][sawn_off ? "_sawn" : ""]"
+		icon_state = "[unique_reskin_icon[current_skin]][sawn_off ? "_sawn" : ""]"
 	else
 		icon_state = "[initial(icon_state)][sawn_off ? "_sawn" : ""]"
 	cut_overlays()
@@ -277,7 +277,7 @@
 	update_icon()
 
 /obj/item/gun/ballistic/AltClick(mob/user)
-	if (unique_reskin && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
+	if (unique_reskin_icon && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
 		reskin_obj(user)
 		return
 	if(loc == user)
