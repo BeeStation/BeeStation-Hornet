@@ -179,7 +179,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 //Get a list of nearby things & run 'em through a typecache
 /datum/action/item_action/organ_action/psychic_highlight/proc/ping_turf(turf/T, size = sense_range)
 	if(istype(owner?.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/helmet))
-		to_chat(owner, ",span class='warning'>You can't use your senses while wearing helmets!</span>")
+		to_chat(owner, "<span class='warning'>You can't use your senses while wearing helmets!</span>")
 		return
 	toggle_eyes_fowards()
 	dim_overlay()
