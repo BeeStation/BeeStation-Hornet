@@ -237,16 +237,16 @@
 /obj/machinery/fax/ui_data(mob/user)
 	var/list/data = list()
 	//Record a list of all existing faxes.
-	for(var/obj/machinery/fax/FAX in GLOB.machines)
-		if(FAX.fax_id == fax_id) //skip yourself
+	for(var/obj/machinery/fax/fax in GLOB.machines)
+		if(fax.fax_id == fax_id) //skip yourself
 			continue
 		var/list/fax_data = list()
-		fax_data["fax_name"] = FAX.fax_name
-		fax_data["fax_id"] = FAX.fax_id
-		fax_data["visible"] = FAX.visible_to_network
-		fax_data["has_paper"] = !!FAX.loaded_item_ref?.resolve()
+		fax_data["fax_name"] = fax.fax_name
+		fax_data["fax_id"] = fax.fax_id
+		fax_data["visible"] = fax.visible_to_network
+		fax_data["has_paper"] = !!fax.loaded_item_ref?.resolve()
 		// Hacked doesn't mean on the syndicate network.
-		fax_data["syndicate_network"] = FAX.syndicate_network
+		fax_data["syndicate_network"] = fax.syndicate_network
 		data["faxes"] += list(fax_data)
 
 	// Own data
@@ -329,16 +329,16 @@
  * * id - The network ID of the fax machine you want to send the item to.
  */
 /obj/machinery/fax/proc/send(obj/item/loaded, id)
-	for(var/obj/machinery/fax/FAX in GLOB.machines)
-		if(FAX.fax_id != id)
+	for(var/obj/machinery/fax/fax in GLOB.machines)
+		if(fax.fax_id != id)
 			continue
-		if(FAX.jammed)
+		if(fax.jammed)
 			do_sparks(5, TRUE, src)
 			balloon_alert(usr, "destination port jammed")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, -9)
 			return FALSE
-		FAX.receive(loaded, fax_name)
-		playback_sending(loaded, FAX.fax_name)
+		fax.receive(loaded, fax_name)
+		playback_sending(loaded, fax.fax_name)
 		return TRUE
 	return FALSE
 
@@ -471,8 +471,8 @@
  * * new_fax_name - The text of the name to be checked for a match.
  */
 /obj/machinery/fax/proc/fax_name_exist(new_fax_name)
-	for(var/obj/machinery/fax/FAX in GLOB.machines)
-		if (FAX.fax_name == new_fax_name)
+	for(var/obj/machinery/fax/fax in GLOB.machines)
+		if (fax.fax_name == new_fax_name)
 			return TRUE
 	return FALSE
 
