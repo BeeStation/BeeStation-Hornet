@@ -56,7 +56,7 @@
 			log_combat(user, occupant, "stuffed ", null, "into [src]")
 		string.Grant(occupant)
 		to_chat(user, "<span class='notice'>You are now inside the cake! When you're ready to emerge from the cake in a blaze of confetti and party horns, \
-		pull on the string(<b>this can only be done once</b>). If you wish to leave without setting off the confetti, just attempt to move out of the cake!</span>")
+		pull on the string(<b>It will have to be wound back up with a screwdriver if you want to do it again</b>). If you wish to leave without setting off the confetti, just attempt to move out of the cake!</span>")
 	add_fingerprint(target)
 
 /obj/structure/popout_cake/relaymove(mob/user, direction)
@@ -68,6 +68,10 @@
 			user.forceMove(get_turf(src))
 
 /obj/structure/popout_cake/attackby(obj/item/W, mob/user, params)
+	if(W.tool_behaviour == TOOL_SCREWDRIVER && used_string == TRUE)
+		W.play_tool_sound(src, 50)
+		if(do_after(user, 20, FALSE, src))
+			used_string = FALSE
 	if(W.is_sharp())
 		visible_message("[user] begins cutting into [src] with [W]!", )
 		to_chat(user, "<span class = 'notice'>You begin cutting into [src] with [W]!</span>")
@@ -88,6 +92,7 @@
 				strong_surprise = TRUE
 				to_chat(user, "<span class='notice'>You attach [W] to the hidden mechanism inside!</span>")
 				qdel(W)
+
 	else
 		..()
 
