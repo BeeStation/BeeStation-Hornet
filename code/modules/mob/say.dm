@@ -126,7 +126,7 @@
 	message = copytext(message, customsaypos + messagetextpos)
 	if(!message)
 		mods[MODE_CUSTOM_SAY_ERASE_INPUT] = TRUE
-		message = "an interesting thing to say"
+		stack_trace("check_for_custom_say_emote failed to find a message for [key]")
 	return message
 
 /**
