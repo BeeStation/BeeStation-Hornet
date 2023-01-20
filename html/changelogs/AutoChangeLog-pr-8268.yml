@@ -1,4 +1,0 @@
-author: cnleth
-delete-after: true
-changes:
-  - bugfix: Ghouls no longer appear to have a blank stare with their eyes obscured
