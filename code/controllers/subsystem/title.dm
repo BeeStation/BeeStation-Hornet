@@ -32,8 +32,8 @@ SUBSYSTEM_DEF(title)
 	icon = new(fcopy_rsc(file_path))
 
 	//Calculate the screen size
-	var/regex/size_regex = new("(\\d+)x(\\d+)\.\\w*$")
-	if (size_regex.match(file_path))
+	var/regex/size_regex = new("(\\d+)x(\\d+)\\.\\w*$")
+	if (size_regex.Find(file_path))
 		var/width = text2num(size_regex.group[1])
 		var/height = text2num(size_regex.group[2])
 		lobby_screen_size = "[width]x[height]"
