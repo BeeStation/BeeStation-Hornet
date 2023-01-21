@@ -5131,7 +5131,8 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "eYu" = (
-/turf/open/openspace,
+/obj/structure/stairs,
+/turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "fau" = (
 /obj/structure/cable/yellow{
@@ -8290,10 +8291,10 @@
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "hWj" = (
-/obj/structure/cable{
-	icon_state = "32-1"
-	},
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "16-1"
+	},
 /turf/open/floor/plasteel/dark/corner{
 	dir = 4
 	},
@@ -8861,7 +8862,7 @@
 /area/security/prison)
 "iyj" = (
 /obj/structure/cable/yellow{
-	icon_state = "32-4"
+	icon_state = "16-4"
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
@@ -9577,9 +9578,13 @@
 /turf/closed/wall/r_wall,
 /area/hallway/primary/aft)
 "jqm" = (
-/obj/structure/lattice,
-/turf/open/openspace,
-/area/space)
+/obj/structure/ladder,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/plasteel,
+/area/hallway/primary/starboard)
 "jqA" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -9729,14 +9734,6 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
-/area/hallway/primary/starboard)
-"jzL" = (
-/obj/structure/ladder,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "jzV" = (
@@ -10605,6 +10602,9 @@
 /obj/structure/railing{
 	dir = 8
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "kmj" = (
@@ -11310,11 +11310,11 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "lcD" = (
-/obj/structure/cable/yellow{
-	icon_state = "32-1"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/end,
+/obj/structure/cable/yellow{
+	icon_state = "16-1"
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "ldg" = (
@@ -13919,7 +13919,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "32-2"
+	icon_state = "16-2"
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/central)
@@ -14165,6 +14165,9 @@
 	dir = 1
 	},
 /obj/structure/railing{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -17887,9 +17890,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
-"rFJ" = (
-/turf/open/openspace,
-/area/space)
 "rFO" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -18639,7 +18639,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "32-2"
+	icon_state = "16-2"
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
@@ -19547,11 +19547,11 @@
 	name = "Teleporter RC";
 	pixel_x = 32
 	},
-/obj/structure/cable/yellow{
-	icon_state = "32-8"
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "16-8"
+	},
 /turf/open/floor/plasteel/dark,
 /area/teleporter)
 "tqE" = (
@@ -22233,7 +22233,7 @@
 /obj/docking_port/stationary{
 	dir = 4;
 	dwidth = 3;
-	height = 14;
+	height = 15;
 	id = "arrivals_stationary";
 	name = "kilo arrivals";
 	roundstart_template = /datum/map_template/shuttle/arrival/kilo;
@@ -23787,6 +23787,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "xBt" = (
@@ -53909,11 +53910,11 @@ dss
 dss
 dss
 rkT
-rFJ
-rFJ
-rFJ
-rFJ
-rFJ
+dss
+dss
+dss
+dss
+dss
 qwY
 rOo
 gzh
@@ -54427,7 +54428,7 @@ ewJ
 pAV
 xXJ
 bMm
-rFJ
+dss
 goR
 nzI
 lNM
@@ -55455,23 +55456,23 @@ hpp
 hbY
 xpX
 bMm
-rFJ
+dss
 bMm
 lyS
 pdj
 yaI
 phR
-rFJ
-rFJ
+dss
+dss
 mmG
 eyF
 obY
 nNA
 jFJ
-rFJ
-rFJ
-rFJ
-rFJ
+dss
+dss
+dss
+dss
 qxQ
 hBe
 sJR
@@ -55718,7 +55719,7 @@ bsW
 fyM
 yaI
 phR
-rFJ
+dss
 mmG
 pUw
 ppN
@@ -55969,13 +55970,13 @@ nXk
 kHf
 ari
 dDx
-jqm
+aoy
 kna
 sQd
 yaI
 yaI
 phR
-rFJ
+dss
 lmD
 ygR
 pEK
@@ -56226,13 +56227,13 @@ wud
 bco
 aeR
 gSs
-jqm
+aoy
 kna
 sQd
 yaI
 yaI
 phR
-rFJ
+dss
 lmD
 jrJ
 xFL
@@ -56483,13 +56484,13 @@ uSH
 pFL
 eRD
 asp
-jqm
+aoy
 kna
 sQd
 oZN
 tmE
 fmG
-rFJ
+dss
 mmG
 cFg
 nMy
@@ -56740,7 +56741,7 @@ fvt
 fvt
 fvt
 xQF
-jqm
+aoy
 fmG
 roS
 xsH
@@ -57768,7 +57769,7 @@ fvt
 fvt
 fvt
 xQF
-jqm
+aoy
 fmG
 gxF
 kGU
@@ -58025,13 +58026,13 @@ dUn
 uyw
 ari
 dDx
-jqm
+aoy
 kna
 sQd
 skq
 lYe
 fmG
-rFJ
+dss
 mmG
 ofG
 nMy
@@ -58282,13 +58283,13 @@ wGX
 bco
 aeR
 gSs
-jqm
+aoy
 kna
 sQd
 yaI
 yaI
 phR
-rFJ
+dss
 lmD
 ule
 bvv
@@ -58539,13 +58540,13 @@ uSH
 pFL
 eRD
 asp
-jqm
+aoy
 kna
 sQd
 yaI
 yaI
 phR
-rFJ
+dss
 lmD
 wEr
 hoj
@@ -58802,7 +58803,7 @@ sGb
 pdj
 yaI
 phR
-rFJ
+dss
 mmG
 gOl
 ppN
@@ -59048,28 +59049,28 @@ fFf
 wWK
 cqm
 xQF
-rFJ
-rFJ
-rFJ
-rFJ
-rFJ
-rFJ
+dss
+dss
+dss
+dss
+dss
+dss
 fmG
 uad
 fyM
 yaI
 phR
-rFJ
-rFJ
+dss
+dss
 mmG
 eyF
 obY
 hCk
 mmG
-rFJ
-rFJ
-rFJ
-rFJ
+dss
+dss
+dss
+dss
 pOp
 qEM
 ewQ
@@ -60346,7 +60347,7 @@ phR
 phR
 phR
 fmG
-jzL
+jqm
 dUJ
 oyP
 uYT
@@ -60597,11 +60598,11 @@ caT
 mmn
 scB
 cHF
-rFJ
-rFJ
-rFJ
-rFJ
-rFJ
+dss
+dss
+dss
+dss
+dss
 cqQ
 aRy
 aRy
@@ -60860,8 +60861,8 @@ flJ
 flJ
 flJ
 aNk
-rFJ
-rFJ
+dss
+dss
 oyP
 rKx
 qSM
@@ -61118,7 +61119,7 @@ ebW
 gUA
 aNk
 aNk
-rFJ
+dss
 oyP
 qhE
 iqs
@@ -61375,7 +61376,7 @@ kNu
 kwr
 onK
 flJ
-rFJ
+dss
 oyP
 ozY
 xIH
@@ -61632,7 +61633,7 @@ kwr
 wnP
 iWd
 flJ
-rFJ
+dss
 ycX
 vaF
 axd
@@ -61889,7 +61890,7 @@ jGJ
 cei
 hfj
 flJ
-rFJ
+dss
 ycX
 mWN
 fgs
@@ -62146,7 +62147,7 @@ jjm
 kwr
 dXj
 aNk
-rFJ
+dss
 qvF
 tOv
 mwP
@@ -62403,7 +62404,7 @@ kwr
 kwr
 enV
 flJ
-rFJ
+dss
 qvF
 qQa
 oOd
@@ -62660,7 +62661,7 @@ kwr
 wnP
 mke
 flJ
-rFJ
+dss
 qvF
 boj
 mwP
@@ -62917,7 +62918,7 @@ fEO
 kwr
 gGN
 flJ
-rFJ
+dss
 ycX
 sxn
 mMQ
@@ -63174,7 +63175,7 @@ kWb
 xjd
 aNk
 aNk
-rFJ
+dss
 ycX
 vaF
 vaF
@@ -63430,7 +63431,7 @@ flJ
 flJ
 flJ
 aNk
-rFJ
+dss
 iKE
 iPW
 fke

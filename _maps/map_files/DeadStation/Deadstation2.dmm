@@ -235,10 +235,10 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/structure/disposalpipe/junction/yjunction{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/lower/central)
 "bc" = (
@@ -528,11 +528,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/structure/disposalpipe/junction/flip{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/lower/central)
 "bV" = (
@@ -920,13 +920,13 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
-/obj/structure/cable/yellow{
-	icon_state = "16-8"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/fancy/sofa/old/corner{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "32-8"
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/department/security)
@@ -1600,7 +1600,7 @@
 /area/ai_monitored/turret_protected/ai_upload)
 "gh" = (
 /obj/structure/cable/yellow{
-	icon_state = "16-4"
+	icon_state = "32-4"
 	},
 /turf/open/floor/plasteel/grimy,
 /area/tcommsat/computer)
@@ -2718,6 +2718,10 @@
 	},
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
+"lp" = (
+/obj/structure/lattice,
+/turf/open/openspace,
+/area/space/nearstation)
 "lq" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -2957,6 +2961,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/lower/primary/aft)
+"ms" = (
+/obj/machinery/firealarm/directional/east,
+/turf/open/floor/plating,
+/area/maintenance/lower/starboard/aft)
 "mt" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -3147,6 +3155,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/railing,
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plating/airless,
 /area/maintenance/lower/starboard/aft)
 "nq" = (
@@ -3593,11 +3602,11 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 8
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/maintenance/lower/central)
@@ -3609,7 +3618,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
-/turf/open/space/basic,
+/turf/open/openspace,
 /area/space/nearstation)
 "pe" = (
 /obj/structure/cable/yellow{
@@ -5106,7 +5115,7 @@
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/space/basic,
+/turf/open/openspace,
 /area/space/nearstation)
 "wf" = (
 /turf/open/floor/plasteel/dark,
@@ -5632,7 +5641,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "16-2"
+	icon_state = "32-2"
 	},
 /turf/open/floor/plating,
 /area/maintenance/lower/port/fore)
@@ -5996,6 +6005,9 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/storage/tech)
+"Ab" = (
+/turf/open/openspace,
+/area/space/nearstation)
 "Ac" = (
 /obj/machinery/door/morgue{
 	name = "Confession Booth"
@@ -6390,7 +6402,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "Cn" = (
 /obj/machinery/airalarm/directional/north,
@@ -6787,7 +6799,7 @@
 /area/bridge/meeting_room/council)
 "El" = (
 /obj/structure/cable/yellow{
-	icon_state = "16-8"
+	icon_state = "32-8"
 	},
 /turf/open/floor/plating,
 /area/bridge/meeting_room/council)
@@ -7100,14 +7112,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
 	},
 /obj/structure/disposalpipe/junction/flip{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/lower/starboard/aft)
@@ -7181,10 +7193,7 @@
 /turf/open/floor/plasteel/dark,
 /area/science/nanite)
 "Gp" = (
-/obj/structure/stairs{
-	dir = 1
-	},
-/turf/open/floor/plating,
+/turf/open/openspace/airless,
 /area/maintenance/lower/starboard/aft)
 "Gq" = (
 /obj/machinery/telecomms/server/presets/service,
@@ -7622,7 +7631,7 @@
 /area/bridge/meeting_room/council)
 "Ik" = (
 /obj/structure/cable/yellow{
-	icon_state = "16-4"
+	icon_state = "32-4"
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
@@ -7945,6 +7954,9 @@
 /area/security/detectives_office)
 "Jv" = (
 /obj/structure/railing{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
 	dir = 8
 	},
 /turf/open/floor/plating,
@@ -8308,9 +8320,8 @@
 /turf/open/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "KU" = (
-/obj/structure/ladder,
-/turf/open/floor/plating,
-/area/maintenance/lower/central)
+/turf/open/openspace/airless,
+/area/space/nearstation)
 "KY" = (
 /obj/machinery/telecomms/processor/preset_four,
 /turf/open/floor/circuit/telecomms/mainframe,
@@ -9591,6 +9602,10 @@
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space)
+"Rx" = (
+/obj/structure/ladder,
+/turf/open/floor/plating,
+/area/maintenance/lower/central)
 "RD" = (
 /obj/effect/landmark/start/cyborg,
 /obj/machinery/recharge_station,
@@ -10374,6 +10389,13 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
+"Vt" = (
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/firealarm/directional/south,
+/turf/open/floor/plating,
+/area/maintenance/lower/starboard/aft)
 "Vy" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -10652,6 +10674,16 @@
 	},
 /turf/open/floor/plating/airless,
 /area/science/test_area)
+"WC" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/turf/open/openspace,
+/area/space/nearstation)
 "WD" = (
 /obj/structure/table,
 /obj/item/aicard,
@@ -11103,7 +11135,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "16-2"
+	icon_state = "32-2"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/lower/primary/aft)
@@ -41255,7 +41287,7 @@ IW
 xP
 Eo
 UQ
-Ng
+KU
 qo
 qy
 tS
@@ -42283,23 +42315,23 @@ zt
 JD
 dH
 UQ
-Ng
+KU
 qo
 ad
 iq
 yG
 qo
-Ng
-Ng
+KU
+KU
 Gw
 gA
 bp
 BU
 Gw
-Ng
-Ng
-Ng
-Ng
+KU
+KU
+KU
+KU
 Og
 sc
 Sm
@@ -42546,7 +42578,7 @@ Ge
 iq
 yG
 Tv
-Ng
+KU
 Gw
 Gw
 BU
@@ -42797,13 +42829,13 @@ fO
 NG
 UK
 vR
-Ng
+KU
 ks
 iq
 iq
 yG
 Tv
-Ng
+KU
 yB
 bp
 yi
@@ -43054,13 +43086,13 @@ iK
 Mg
 Mk
 vR
-Ng
+KU
 ks
 iq
 iq
 yG
 qo
-Ng
+KU
 yB
 Fd
 bB
@@ -43311,13 +43343,13 @@ Qo
 Zy
 bC
 vR
-Ng
+KU
 ks
 iq
 iq
 aG
 qo
-Ng
+KU
 yB
 ZL
 ww
@@ -43568,7 +43600,7 @@ PZ
 fY
 Sb
 Sq
-Ng
+KU
 qo
 iq
 iq
@@ -44596,7 +44628,7 @@ KB
 vc
 pF
 Sq
-Ng
+KU
 qo
 iq
 iq
@@ -44853,13 +44885,13 @@ JC
 uX
 bC
 vR
-Ng
+KU
 ks
 iq
 iq
 RL
 qo
-Ng
+KU
 yB
 ee
 yZ
@@ -45110,13 +45142,13 @@ TW
 FZ
 Mk
 vR
-Ng
+KU
 ks
 iq
 iq
 op
 qo
-Ng
+KU
 Gw
 wq
 eo
@@ -45367,13 +45399,13 @@ Fe
 an
 my
 vR
-Ng
+KU
 ks
 iq
 iq
 op
 Tv
-Ng
+KU
 Gw
 BR
 NH
@@ -45630,7 +45662,7 @@ Ge
 iq
 op
 Tv
-Ng
+KU
 Gw
 YN
 wB
@@ -45887,17 +45919,17 @@ YG
 iq
 op
 qo
-Ng
+KU
 Gw
 YN
 vj
 vj
 vj
 Gw
-Ng
-Ng
-Ng
-Ng
+KU
+KU
+KU
+KU
 Og
 se
 QB
@@ -46697,7 +46729,7 @@ Uk
 np
 Gp
 Gp
-Oa
+Vt
 tq
 ds
 QI
@@ -46948,7 +46980,7 @@ Oa
 Oa
 Oa
 ea
-Oa
+ms
 ro
 eg
 fu
@@ -47174,7 +47206,7 @@ uw
 qo
 Og
 Og
-KU
+Rx
 QB
 QB
 QB
@@ -47425,11 +47457,11 @@ zD
 gg
 zD
 zD
-Ng
-Ng
+KU
+KU
 Cm
-Ng
-Ng
+KU
+KU
 mZ
 Og
 Og
@@ -47688,8 +47720,8 @@ iy
 ZK
 ZK
 mZ
-Ng
-Ng
+KU
+KU
 Gd
 Ol
 Ol
@@ -47939,14 +47971,14 @@ Nt
 Jc
 yx
 Lj
-Ng
-Ng
-Cm
-Ng
-Ng
+Ab
+Ab
+WC
+Ab
+Ab
 mZ
 mZ
-Ng
+KU
 Gd
 Ol
 Ol
@@ -48196,14 +48228,14 @@ Nt
 Jc
 to
 Lj
-Ng
-Ng
-Cm
-Ng
-Ng
-Ng
+Ab
+Ab
+WC
+Ab
+Ab
+Ab
 ZK
-Ng
+KU
 Gd
 Ol
 Ol
@@ -48453,14 +48485,14 @@ lI
 SG
 bu
 Lj
-Ng
-Ng
-Cm
-Ng
-Ng
-Ng
+Ab
+Ab
+WC
+Ab
+Ab
+Ab
 ZK
-Ng
+KU
 Gd
 Ol
 Ol
@@ -48710,14 +48742,14 @@ mL
 hD
 sK
 bf
-Ng
-Ng
-Cm
-Ng
-Ng
-Ng
+Ab
+Ab
+WC
+Ab
+Ab
+Ab
 ZK
-Ng
+KU
 Gd
 Ol
 Ol
@@ -48970,11 +49002,11 @@ dI
 we
 we
 pa
-ds
-ds
-ds
+lp
+lp
+lp
 mZ
-Ng
+KU
 Gd
 mJ
 ia
@@ -49224,14 +49256,14 @@ Nt
 nS
 sK
 bf
-Ng
-Ng
-ds
-Ng
-Ng
-Ng
+Ab
+Ab
+lp
+Ab
+Ab
+Ab
 ZK
-Ng
+KU
 Gd
 oT
 Mb
@@ -49481,14 +49513,14 @@ Nt
 nS
 iC
 Lj
-Ng
-Ng
-ds
-Ng
-Ng
-Ng
+Ab
+Ab
+lp
+Ab
+Ab
+Ab
 ZK
-Ng
+KU
 Gd
 Ol
 Mb
@@ -49738,14 +49770,14 @@ Nt
 nS
 GW
 Lj
-Ng
-Ng
-ds
-Ng
-Ng
-Ng
+Ab
+Ab
+lp
+Ab
+Ab
+Ab
 ZK
-Ng
+KU
 Gd
 Ol
 KK
@@ -49995,14 +50027,14 @@ bd
 nS
 jC
 Lj
-Ng
-Ng
-ds
-Ng
-Ng
+Ab
+Ab
+lp
+Ab
+Ab
 mZ
 mZ
-Ng
+KU
 Gd
 Ol
 Mb
@@ -50258,8 +50290,8 @@ ZK
 ZK
 ZK
 mZ
-Ng
-Ng
+KU
+KU
 Gd
 Ol
 CX
