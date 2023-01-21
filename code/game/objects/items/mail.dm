@@ -9,6 +9,8 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_SMALL
+	drop_sound = 'sound/items/handling/paper_drop.ogg'
+	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
 	throwforce = 0
 	throw_range = 1
 	throw_speed = 1
@@ -67,8 +69,6 @@
 	var/stamp_offset_x = 0
 	/// Physical offset of stamps on the object. Y direction.
 	var/stamp_offset_y = 2
-	/// Mail will have the color of the department the recipient is in.
-	var/static/list/department_colors
 
 /obj/item/mail/envelope
 	name = "envelope"
@@ -95,17 +95,6 @@
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, .proc/disposal_handling)
 	AddElement(/datum/element/item_scaling, 0.75, 1)
-	if(isnull(department_colors))
-		department_colors = list(
-			ACCOUNT_CIV = COLOR_WHITE,
-			ACCOUNT_ENG = COLOR_PALE_ORANGE,
-			ACCOUNT_SCI = COLOR_PALE_PURPLE_GRAY,
-			ACCOUNT_MED = COLOR_PALE_BLUE_GRAY,
-			ACCOUNT_SRV = COLOR_PALE_GREEN_GRAY,
-			ACCOUNT_CAR = COLOR_BEIGE,
-			ACCOUNT_SEC = COLOR_PALE_RED_GRAY,
-			ACCOUNT_VIP = COLOR_YELLOW,
-		)
 
 	// Icons
 	// Add some random stamps.
@@ -191,11 +180,17 @@
 	var/list/danger_goodies = hazard_goodies
 
 	//Load the job the player have
-	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role]
+	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role] // only station crews have 'assigned role'
 	if(this_job)
 		goodies += this_job.mail_goodies
-		if(this_job.paycheck_department && department_colors[this_job.paycheck_department])
-			color = department_colors[this_job.paycheck_department]
+		var/datum/data/record/R = find_record("name", recipient.name, GLOB.data_core.general)
+		if(R) // datacore is primary
+			color = get_chatcolor_by_hud(R.fields["hud"])
+		else if(this_job.title) // when they have no datacore, roundstart job will be base
+			color = get_chatcolor_by_hud(this_job.title)
+		if(!color)
+			color = COLOR_WHITE
+
 
 	for(var/i in 1 to goodie_count)
 		var/target_good = pickweight(goodies)
@@ -264,6 +259,8 @@
 ** and the maximum capacity of this crate. If N is larger than the number of alive human players, the excess will be junkmail.*/
 /obj/structure/closet/crate/mail/proc/populate(amount)
 	var/mail_count = min(amount, storage_capacity)
+	if(mail_count == null)
+		mail_count = 1
 	//fills the crate for the recipients
 	var/list/mail_recipients = list()
 

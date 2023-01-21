@@ -222,6 +222,7 @@
 							break
 						if(CO.check_completion())
 							C?.inc_metabalance(METACOIN_CO_REWARD, reason="Completed your crew objective!")
+							CO.declared_complete = TRUE
 							break
 
 	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
@@ -352,6 +353,7 @@
 		parts += "[GLOB.TAB]Round ID: <b>[info]</b>"
 	parts += "[GLOB.TAB]Shift Duration: <B>[DisplayTimeText(world.time - SSticker.round_start_time)]</B>"
 	parts += "[GLOB.TAB]Station Integrity: <B>[mode.station_was_nuked ? "<span class='redtext'>Destroyed</span>" : "[popcount["station_integrity"]]%"]</B>"
+	parts += "[GLOB.TAB]Station Traits: <B>[english_list(SSstation.station_traits, nothing_text="none")]</B>"
 	var/total_players = GLOB.joined_player_list.len
 	if(total_players)
 		parts+= "[GLOB.TAB]Total Population: <B>[total_players]</B>"
@@ -425,7 +427,7 @@
 		if(CONFIG_GET(flag/allow_crew_objectives))
 			if(M.mind.current && LAZYLEN(M.mind.crew_objectives))
 				for(var/datum/objective/crew/CO as() in M.mind.crew_objectives)
-					if(CO.check_completion())
+					if(CO.declared_complete)
 						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='greentext'><B>Success!</B></span><br>"
 					else
 						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='redtext'><B>Failed.</B></span><br>"
@@ -583,12 +585,40 @@
 		Trigger()
 		return
 
+///Returns a custom title for the roundend credit/report
+/proc/get_custom_title_from_id(datum/mind/mind, newline=FALSE)
+	if(!mind)
+		return
+
+	var/custom_title
+	var/obj/item/card/id/I = mind.current?.get_idcard()
+	if(I)
+		if(I.registered_name == mind.name) // card must be yours
+			custom_title = I.assignment // get the custom title
+		if(custom_title == mind.assigned_role) // non-custom title, lame
+			custom_title = null
+	if(!custom_title) // still no custom title? it seems you don't have a ID card
+		var/datum/data/record/R = find_record("name", mind.name, GLOB.data_core.general)
+		if(R)
+			custom_title = R.fields["rank"] // get a custom title from datacore
+		if(custom_title == mind.assigned_role) // lame...
+			return
+
+	if(custom_title)
+		return "[newline ? "<br/>" : " "](as [custom_title])" // i.e. " (as Plague Doctor)"
 
 /proc/printplayer(datum/mind/ply, fleecheck)
 	var/jobtext = ""
-	if(ply.assigned_role)
-		jobtext = " the <b>[ply.assigned_role]</b>"
-	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext] and"
+	if(ply.assigned_role || ply.special_role)
+		if(ply.assigned_role != "Unassigned")
+			jobtext = ply.assigned_role
+		if(!jobtext)
+			jobtext = ply.special_role
+		if(jobtext)
+			jobtext = " the <b>[jobtext]</b>"
+	var/jobtext_custom = get_custom_title_from_id(ply) // support the custom job title to the roundend report
+
+	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext][jobtext_custom] and"
 	if(ply.current)
 		if(ply.current.stat == DEAD)
 			text += " <span class='redtext'>died</span>"

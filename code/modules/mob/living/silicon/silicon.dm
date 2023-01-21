@@ -64,7 +64,6 @@
 		diag_hud.add_to_hud(src)
 	diag_hud_set_status()
 	diag_hud_set_health()
-	add_sensors()
 	create_access_card(default_access_list)
 	default_access_list = null
 
@@ -107,6 +106,7 @@
 /mob/living/silicon/Destroy()
 	radio = null
 	aicamera = null
+	modularInterface = null
 	QDEL_NULL(builtInCamera)
 	QDEL_NULL(internal_id_card)
 	GLOB.silicon_mobs -= src
