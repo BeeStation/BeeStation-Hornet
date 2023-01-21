@@ -9,8 +9,9 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	icon_state      = "grey"
 	plane           = OPENSPACE_BACKDROP_PLANE
 	mouse_opacity 	= MOUSE_OPACITY_TRANSPARENT
-	layer           = SPLASHSCREEN_LAYER
-
+	vis_flags = VIS_INHERIT_ID
+	//I don't know why the others are aligned but I shall do the same.
+	vis_flags		= VIS_INHERIT_ID
 /turf/open/openspace
 	name = "open space"
 	desc = "Watch your step!"
@@ -54,6 +55,9 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 /turf/open/openspace/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))
 		return TRUE
+	var/turf/B = below()
+	if(B)
+		return B.can_lay_cable()
 	return FALSE
 
 /turf/open/openspace/update_multiz(prune_on_fail = FALSE, init = FALSE)

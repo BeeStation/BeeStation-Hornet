@@ -22,6 +22,22 @@
 		qdel(teleatom)
 		return FALSE
 
+	//Check bluespace anchors
+	if(channel != TELEPORT_CHANNEL_FREE && channel != TELEPORT_CHANNEL_WORMHOLE)
+		for (var/obj/machinery/bluespace_anchor/anchor as() in GLOB.active_bluespace_anchors)
+			//Not nearby
+			if (anchor.get_virtual_z_level() != teleatom.get_virtual_z_level() || get_dist(teleatom, anchor) > anchor.range)
+				continue
+			//Check it
+			if(!anchor.try_activate())
+				continue
+			do_sparks(5, FALSE, teleatom)
+			playsound(anchor, 'sound/magic/repulse.ogg', 80, TRUE)
+			if(ismob(teleatom))
+				to_chat(teleatom, "<span class='warning'>You feel like you are being held in place.</span>")
+			//Anchored...
+			return FALSE
+
 	// argument handling
 	// if the precision is not specified, default to 0, but apply BoH penalties
 	if (isnull(precision))
@@ -180,3 +196,36 @@
 
 /proc/get_teleport_turf(turf/center, precision = 0)
 	return safepick(get_teleport_turfs(center, precision))
+
+/proc/wizarditis_teleport(mob/living/carbon/affected_mob)
+	var/list/theareas = get_areas_in_range(80, affected_mob)
+	for(var/area/space/S in theareas)
+		theareas -= S
+
+	if(!length(theareas))
+		return
+
+	var/area/thearea = pick(theareas)
+
+	var/list/L = list()
+	for(var/turf/T in get_area_turfs(thearea.type))
+		if(T.get_virtual_z_level() != affected_mob.get_virtual_z_level())
+			continue
+		if(isspaceturf(T))
+			continue
+		if(T.density)
+			continue
+
+		var/clear = TRUE
+		for(var/obj/O in T)
+			if(O.density)
+				clear = FALSE
+				break
+		if(clear)
+			L+=T
+
+	if(!L)
+		return
+
+	if(do_teleport(affected_mob, pick(L), channel = TELEPORT_CHANNEL_MAGIC, no_effects = TRUE))
+		affected_mob.say("SCYAR NILA [uppertext(thearea.name)]!", forced = "wizarditis teleport")

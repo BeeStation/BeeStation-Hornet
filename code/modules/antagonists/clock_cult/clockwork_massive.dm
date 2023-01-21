@@ -46,6 +46,9 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		M.forceMove(safe_place)
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
+	//Summon nar'sie
+	if(GLOB.narsie_breaching)
+		new /obj/eldritch/narsie(GLOB.narsie_arrival)
 	INVOKE_ASYNC(src, .proc/explode_reebe)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/explode_reebe()
@@ -204,30 +207,41 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	QDEL_IN(src, 3)
 	sleep(3)
 	var/turf/center_station = SSmapping.get_station_center()
-	new /obj/singularity/ratvar(center_station)
+	new /obj/eldritch/ratvar(center_station)
 	if(GLOB.narsie_breaching)
-		new /obj/singularity/narsie/large/cult(GLOB.narsie_arrival)
+		new /obj/eldritch/narsie(GLOB.narsie_arrival)
 	flee_reebe(TRUE)
 
 //=========Ratvar==========
 GLOBAL_VAR(cult_ratvar)
 
-/obj/singularity/ratvar
+#define RATVAR_CONSUME_RANGE 12
+#define RATVAR_GRAV_PULL 10
+#define RATVAR_SINGULARITY_SIZE 11
+
+/obj/eldritch/ratvar
 	name = "ratvar, the Clockwork Justicar"
 	desc = "Oh, that's ratvar!"
 	icon = 'icons/effects/512x512.dmi'
 	icon_state = "ratvar"
-	is_real = FALSE
 	density = FALSE
-	current_size = STAGE_SIX
-	allowed_size = STAGE_SIX
 	pixel_x = -236
 	pixel_y = -256
 	var/range = 1
 	var/ratvar_target
 	var/next_attack_tick
 
-/obj/singularity/ratvar/Initialize(mapload, starting_energy = 50)
+/obj/eldritch/ratvar/Initialize(mapload, starting_energy = 50)
+	singularity = WEAKREF(AddComponent(
+		/datum/component/singularity, \
+		bsa_targetable = FALSE, \
+		consume_callback = CALLBACK(src, .proc/consume), \
+		consume_range = RATVAR_CONSUME_RANGE, \
+		disregard_failed_movements = TRUE, \
+		grav_pull = RATVAR_GRAV_PULL, \
+		roaming = TRUE,\
+		singularity_size = RATVAR_SINGULARITY_SIZE, \
+	))
 	log_game("!!! RATVAR HAS RISEN. !!!")
 	GLOB.cult_ratvar = src
 	. = ..()
@@ -239,10 +253,10 @@ GLOBAL_VAR(cult_ratvar)
 	check_gods_battle()
 
 //tasty
-/obj/singularity/ratvar/process(delta_time)
-	eat()
+/obj/eldritch/ratvar/process(delta_time)
+	var/datum/component/singularity/singularity_component = singularity.resolve()
 	if(ratvar_target)
-		target = ratvar_target
+		singularity_component?.target = ratvar_target
 		if(get_dist(src, ratvar_target) < 5)
 			if(next_attack_tick < world.time)
 				next_attack_tick = world.time + rand(50, 100)
@@ -260,34 +274,23 @@ GLOBAL_VAR(cult_ratvar)
 						to_chat(M, "<span class='userdanger'>You feel a stabbing pain in your chest... This can't be happening!</span>")
 						M.current?.dust()
 				return
-	move()
 
-/obj/singularity/ratvar/eat()
-	for(var/turf/T as() in spiral_range_turfs(range, src))
-		if(!T || !isturf(loc))
-			continue
-		T.ratvar_act()
-		for(var/thing in T)
-			if(isturf(loc) && thing != src)
-				var/atom/movable/X = thing
-				consume(X)
-			CHECK_TICK
-	if(range < 20)
-		range ++
-	return
-
-/obj/singularity/ratvar/consume(atom/A)
+/obj/eldritch/ratvar/consume(atom/A)
 	A.ratvar_act()
 
-/obj/singularity/ratvar/Bump(atom/A)
+/obj/eldritch/ratvar/Bump(atom/A)
 	var/turf/T = get_turf(A)
 	if(T == loc)
 		T = get_step(A, A.dir) //please don't slam into a window like a bird, Ratvar
 	forceMove(T)
 
-/obj/singularity/ratvar/attack_ghost(mob/user)
+/obj/eldritch/ratvar/attack_ghost(mob/user)
 	. = ..()
 	var/mob/living/simple_animal/drone/D = new /mob/living/simple_animal/drone/cogscarab(get_turf(src))
 	D.flags_1 |= (flags_1 & ADMIN_SPAWNED_1)
 	D.key = user.key
 	add_servant_of_ratvar(D, silent=TRUE)
+
+#undef RATVAR_CONSUME_RANGE
+#undef RATVAR_GRAV_PULL
+#undef RATVAR_SINGULARITY_SIZE

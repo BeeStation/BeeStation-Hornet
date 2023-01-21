@@ -308,7 +308,7 @@
 			fuels[fuel] *= oxidation_ratio
 	fuels += oxidizers
 	var/list/fire_products = GLOB.gas_data.fire_products
-	var/list/fire_enthalpies = GLOB.gas_data.fire_enthalpies
+	var/list/fire_enthalpies = GLOB.gas_data.enthalpies
 	for(var/fuel in fuels + oxidizers)
 		var/amt = fuels[fuel]
 		if(!burn_results[fuel])
@@ -482,6 +482,7 @@
 	air.adjust_moles(GAS_PLASMA, -2*reaction_efficency)
 
 	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, min((reaction_efficency**2)*BZ_RESEARCH_SCALE,BZ_RESEARCH_MAX_AMOUNT))
+	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, min((reaction_efficency**2)*BZ_RESEARCH_SCALE,BZ_RESEARCH_MAX_AMOUNT)*0.5)
 
 	if(energy_released > 0)
 		var/new_heat_capacity = air.heat_capacity()
@@ -515,6 +516,7 @@
 	air.adjust_moles(GAS_NITRYL, -heat_scale)
 	air.adjust_moles(GAS_TRITIUM, -heat_scale)
 	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, STIMULUM_RESEARCH_AMOUNT*max(stim_energy_change,0))
+	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, STIMULUM_RESEARCH_AMOUNT*max(stim_energy_change,0)*0.5)
 	if(stim_energy_change)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
@@ -542,37 +544,12 @@
 	air.adjust_moles(GAS_N2, -20*nob_formed)
 	air.adjust_moles(GAS_HYPERNOB, nob_formed)
 	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, nob_formed*NOBLIUM_RESEARCH_AMOUNT)
+	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, nob_formed*NOBLIUM_RESEARCH_AMOUNT*0.5)
 
 	if (nob_formed)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
 			air.set_temperature(max(((air.return_temperature()*old_heat_capacity - energy_taken)/new_heat_capacity),TCMB))
-
-
-/datum/gas_reaction/miaster	//dry heat sterilization: clears out pathogens in the air
-	priority = -10 //after all the heating from fires etc. is done
-	name = "Dry Heat Sterilization"
-	id = "sterilization"
-
-/datum/gas_reaction/miaster/init_reqs()
-	min_requirements = list(
-		"TEMP" = FIRE_MINIMUM_TEMPERATURE_TO_EXIST+70,
-		GAS_MIASMA = MINIMUM_MOLE_COUNT
-	)
-
-/datum/gas_reaction/miaster/react(datum/gas_mixture/air, datum/holder)
-	// As the name says it, it needs to be dry
-	if(air.get_moles(GAS_H2O)/air.total_moles() > 0.1)
-		return
-
-	//Replace miasma with oxygen
-	var/cleaned_air = min(air.get_moles(GAS_MIASMA), 20 + (air.return_temperature() - FIRE_MINIMUM_TEMPERATURE_TO_EXIST - 70) / 20)
-	air.adjust_moles(GAS_MIASMA, -cleaned_air)
-	air.adjust_moles(GAS_O2, cleaned_air)
-
-	//Possibly burning a bit of organic matter through maillard reaction, so a *tiny* bit more heat would be understandable
-	air.set_temperature(air.return_temperature() + cleaned_air * 0.002)
-	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, cleaned_air*MIASMA_RESEARCH_AMOUNT)//Turns out the burning of miasma is kinda interesting to scientists
 
 /datum/gas_reaction/stim_ball
 	priority = 7

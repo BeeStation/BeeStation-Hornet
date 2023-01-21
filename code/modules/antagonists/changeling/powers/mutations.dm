@@ -166,6 +166,7 @@
 /obj/item/melee/arm_blade/Initialize(mapload,silent,synthetic)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
+	ADD_TRAIT(src, TRAIT_DOOR_PRYER, INNATE_TRAIT)
 	if(ismob(loc) && !silent)
 		loc.visible_message("<span class='warning'>A grotesque blade forms around [loc.name]\'s arm!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a deadly blade.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
 	if(synthetic)
@@ -183,26 +184,6 @@
 	else if(istype(target, /obj/machinery/computer))
 		var/obj/machinery/computer/C = target
 		C.attack_alien(user) //muh copypasta
-
-	else if(istype(target, /obj/machinery/door/airlock))
-		var/obj/machinery/door/airlock/A = target
-
-		if((!A.requiresID() || A.allowed(user)) && A.hasPower()) //This is to prevent stupid shit like hitting a door with an arm blade, the door opening because you have acces and still getting a "the airlocks motors resist our efforts to force it" message, power requirement is so this doesn't stop unpowered doors from being pried open if you have access
-			return
-		if(A.locked)
-			to_chat(user, "<span class='warning'>The airlock's bolts prevent it from being forced!</span>")
-			return
-
-		if(A.hasPower())
-			user.visible_message("<span class='warning'>[user] jams [src] into the airlock and starts prying it open!</span>", "<span class='warning'>We start forcing the [A] open.</span>", \
-			"<span class='italics'>You hear a metal screeching sound.</span>")
-			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 100, 1)
-			if(!do_after(user, 100, target = A))
-				return
-		//user.say("Heeeeeeeeeerrre's Johnny!")
-		user.visible_message("<span class='warning'>[user] forces the airlock to open with [user.p_their()] [src]!</span>", "<span class='warning'>We force the [A] to open.</span>", \
-		"<span class='italics'>You hear a metal screeching sound.</span>")
-		A.open(2)
 
 /obj/item/melee/arm_blade/dropped(mob/user)
 	..()
@@ -310,8 +291,8 @@
 	..()
 
 /obj/item/projectile/tentacle/proc/reset_throw(mob/living/carbon/human/H)
-	if(H.in_throw_mode)
-		H.throw_mode_off() //Don't annoy the changeling if he doesn't catch the item
+	if(H.throw_mode)
+		H.throw_mode_off(THROW_MODE_TOGGLE) //Don't annoy the changeling if he doesn't catch the item
 
 /obj/item/projectile/tentacle/proc/tentacle_grab(mob/living/carbon/human/H, mob/living/carbon/C)
 	if(H.Adjacent(C))
@@ -341,7 +322,7 @@
 		var/obj/item/I = target
 		if(!I.anchored)
 			to_chat(firer, "<span class='notice'>You pull [I] towards yourself.</span>")
-			H.throw_mode_on()
+			H.throw_mode_on(THROW_MODE_TOGGLE)
 			I.throw_at(H, 10, 2)
 			. = BULLET_ACT_HIT
 

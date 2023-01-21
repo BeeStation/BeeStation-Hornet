@@ -62,7 +62,7 @@
 /datum/component/Destroy(force=FALSE, silent=FALSE)
 	if(!force && parent)
 		_RemoveFromParent()
-	if(!silent)
+	if(parent && !silent)
 		SEND_SIGNAL(parent, COMSIG_COMPONENT_REMOVING, src)
 	parent = null
 	return ..()
@@ -104,7 +104,7 @@
 	var/list/sig_types = islist(sig_type_or_types) ? sig_type_or_types : list(sig_type_or_types)
 	for(var/sig_type in sig_types)
 		if(!override && procs[target][sig_type])
-			stack_trace("[sig_type] overridden. Use override = TRUE to suppress this warning")
+			stack_trace("[sig_type] overridden on [target.type]. Use override = TRUE to suppress this warning")
 
 		procs[target][sig_type] = proctype
 

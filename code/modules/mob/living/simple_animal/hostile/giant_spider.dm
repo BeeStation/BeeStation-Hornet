@@ -66,10 +66,10 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/Login()
 	..()
 	if(directive)
-		to_chat(src, "<span class='spider'>Your mother left you a directive! Follow it at all costs.</span>")
-		to_chat(src, "<span class='spider'><b>[directive]</b></span>")
+		to_chat(src, "<span class='spiderlarge'>Your mother left you a directive! Follow it at all costs.</span>")
+		to_chat(src, "<span class='spiderlarge'><b>Directive: [directive]</b></span>")
 		if(mind)
-			mind.store_memory("<span class='spider'><b>[directive]</b></span>")
+			mind.store_memory("<span class='spiderlarge'><b>Directive: [directive]</b></span>")
 
 /mob/living/simple_animal/hostile/poison/giant_spider/give_mind(mob/user)
 	..()
@@ -224,7 +224,7 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/proc/do_action()
 	stop_automated_movement = FALSE
-	walk(src,0)
+	SSmove_manager.stop_looping(src)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(C)
 	if(busy == MOVING_TO_TARGET)
@@ -295,7 +295,7 @@
 		busy = SPINNING_COCOON
 		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>","<span class='notice'>You begin wrapping [cocoon_target] into a cocoon.</span>")
 		stop_automated_movement = TRUE
-		walk(src,0)
+		SSmove_manager.stop_looping(src)
 		if(do_after(src, 50, target = cocoon_target))
 			if(busy == SPINNING_COCOON)
 				var/obj/structure/spider/cocoon/C = new(cocoon_target.loc)
@@ -503,8 +503,11 @@
 /datum/action/innate/spider/comm/proc/spider_command(mob/living/user, message)
 	if(!message)
 		return
-	var/my_message
-	my_message = "<span class='spider'><b>Command from [user]:</b> [message]</span>"
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
+	message = user.treat_message_min(message)
+	var/my_message = "<span class='spider'><b>Command from [user]:</b> [message]</span>"
 	for(var/mob/living/simple_animal/hostile/poison/giant_spider/M in GLOB.spidermobs)
 		to_chat(M, my_message)
 	for(var/M in GLOB.dead_mob_list)

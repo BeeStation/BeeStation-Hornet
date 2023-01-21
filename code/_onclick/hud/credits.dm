@@ -37,7 +37,7 @@ GLOBAL_LIST(end_titles)
 
 		GLOB.end_titles += "<center><h1>Thanks for playing!</h1>"
 	for(var/client/C in GLOB.clients)
-		if(C.prefs.show_credits)
+		if(C.prefs.toggles2 & PREFTOGGLE_2_SHOW_CREDITS)
 			C.screen += new /atom/movable/screen/credit/title_card(null, null, SSticker.mode.title_icon)
 	sleep(CREDIT_SPAWN_SPEED * 3)
 	for(var/i in 1 to GLOB.end_titles.len)
@@ -57,7 +57,7 @@ GLOBAL_LIST(end_titles)
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	alpha = 0
 	screen_loc = "2,2"
-	layer = SPLASHSCREEN_LAYER
+	plane = SPLASHSCREEN_PLANE
 	var/matrix/target
 
 /atom/movable/screen/credit/Initialize(mapload, credited)
@@ -75,7 +75,7 @@ GLOBAL_LIST(end_titles)
 
 /atom/movable/screen/credit/proc/add_to_clients()
 	for(var/client/C in GLOB.clients)
-		if(C.prefs.show_credits)
+		if(C.prefs.toggles2 & PREFTOGGLE_2_SHOW_CREDITS)
 			C.screen += src
 
 /atom/movable/screen/credit/Destroy()

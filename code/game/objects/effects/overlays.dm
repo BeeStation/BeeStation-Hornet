@@ -52,7 +52,7 @@
 	vis_flags = NONE
 	var/unused = 0 //When detected to be unused it gets set to world.time, after a while it gets removed
 	var/cache_expiration = 2 MINUTES // overlays which go unused for 2 minutes get cleaned up
-	vis_flags = VIS_INHERIT_ID
+	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE
 
 /obj/effect/overlay/airlock_part
 	anchored = TRUE
@@ -82,7 +82,6 @@
 	name = ""
 	icon = 'icons/effects/light_overlays/light_32.dmi'
 	icon_state = "light"
-	layer = O_LIGHTING_VISUAL_LAYER
 	plane = O_LIGHTING_VISUAL_PLANE
 	appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

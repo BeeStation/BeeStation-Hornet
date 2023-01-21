@@ -126,7 +126,7 @@
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 5
 	show_in_report = TRUE
-	var/list/jobs_to_use = list("Clown", "Bartender", "Cook", "Botanist", "Cargo Technician", "Mime", "Janitor")
+	var/list/jobs_to_use = list(JOB_NAME_CLOWN, JOB_NAME_BARTENDER, JOB_NAME_COOK, JOB_NAME_BOTANIST, JOB_NAME_CARGOTECHNICIAN, JOB_NAME_MIME, JOB_NAME_JANITOR)
 	var/chosen_job
 
 /datum/station_trait/overflow_job_bureacracy/New()
@@ -174,3 +174,25 @@
 		/// The bot's language holder - so we can randomize and change their language
 		var/datum/language_holder/bot_languages = found_bot.get_language_holder()
 		bot_languages.selected_language = bot_languages.get_random_spoken_language()
+
+/datum/station_trait/united_budget
+	name = "United Department Budget Management"
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 2
+	show_in_report = TRUE
+	report_message = "Your station has been selected for one of our financial experiments! All station budgets have been united into one, and all budget cards will be linked to one account!"
+	trait_to_give = STATION_TRAIT_UNITED_BUDGET
+
+/datum/station_trait/united_budget/New()
+	. = ..()
+	var/event_source = pick(list("As your station has been selected for one of our financial experiments,",
+		                         "Our financial planner has decided:",
+		                         "Our new AI financial plan support module has generated a new budgeting system:",
+		                         "We thought the current budget categorisation system was too complicated, so",
+		                         "It appears one of your superiors has it out for you, so",
+		                         "The Syndicate damaged documents on procedures for the station's budgeting system, so",
+		                         "Due to our intern having free reign over the station budget system,",
+		                         "Thanks to our financial intern,",
+		                         "Due to the budget cuts in Nanotrasen Space Finance,",
+		                         "Since \[REDACTED\] has been \[REDACTED\] by \[REDACTED\],"))
+	report_message = "[event_source] all station budgets have been united into one, and all budget cards will be linked to one account."

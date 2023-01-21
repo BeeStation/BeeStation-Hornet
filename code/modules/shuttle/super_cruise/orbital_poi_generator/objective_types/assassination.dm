@@ -6,8 +6,8 @@
 	var/tank_type = /obj/item/tank/internals/oxygen
 	var/mask_type = /obj/item/clothing/mask/gas
 	var/belt_type = /obj/item/storage/belt/utility/full
-	min_payout = 15000
-	max_payout = 40000
+	min_payout = 10000
+	max_payout = 30000
 
 /datum/orbital_objective/assassination/get_text()
 	return "We have located a hostile agent currently stranded at [station_name]. We need you to send in a team and eliminate the \
@@ -131,7 +131,7 @@
 	glasses = /obj/item/clothing/glasses/chameleon
 	belt = /obj/item/storage/belt/chameleon
 	l_pocket = /obj/item/stamp/chameleon
-	r_pocket = /obj/item/pda/chameleon
+	r_pocket = /obj/item/modular_computer/tablet/pda/chameleon
 	id = /obj/item/card/id/syndicate/anyone
 	neck = /obj/item/clothing/neck/chameleon
 	head = /obj/item/clothing/head/chameleon

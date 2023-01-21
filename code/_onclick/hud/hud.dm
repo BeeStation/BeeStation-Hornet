@@ -74,11 +74,11 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	hide_actions_toggle = new
 	hide_actions_toggle.InitialiseIcon(src)
 	if(mymob.client)
-		hide_actions_toggle.locked = mymob.client.prefs.buttons_locked
+		hide_actions_toggle.locked = mymob.client.prefs.toggles2 & PREFTOGGLE_2_LOCKED_BUTTONS
 
 	hand_slots = list()
 
-	for(var/mytype in subtypesof(/atom/movable/screen/plane_master))
+	for(var/mytype in subtypesof(/atom/movable/screen/plane_master)- /atom/movable/screen/plane_master/rendering_plate)
 		var/atom/movable/screen/plane_master/instance = new mytype()
 		plane_masters["[instance.plane]"] = instance
 		instance.backdrop(mymob)
@@ -89,7 +89,7 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 
 
 /datum/hud/Destroy()
-	if(mymob.hud_used == src)
+	if(mymob?.hud_used == src)
 		mymob.hud_used = null
 
 	QDEL_NULL(hide_actions_toggle)

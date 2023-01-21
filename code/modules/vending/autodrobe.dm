@@ -94,7 +94,10 @@
 					/obj/item/clothing/suit/poncho = 1,
 					/obj/item/clothing/suit/poncho/green = 1,
 					/obj/item/clothing/suit/poncho/red = 1,
+					/obj/item/clothing/head/maidheadband = 1,
 					/obj/item/clothing/under/costume/maid = 1,
+					/obj/item/clothing/gloves/maid = 1,
+					/obj/item/clothing/neck/maid = 1,
 					/obj/item/clothing/under/rank/civilian/janitor/maid = 1,
 					/obj/item/clothing/glasses/cold=1,
 					/obj/item/clothing/glasses/heat=1,
@@ -140,7 +143,7 @@
 	refill_canister = /obj/item/vending_refill/autodrobe
 	default_price = 50
 	extra_price = 75
-	payment_department = ACCOUNT_SRV
+	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 /obj/machinery/vending/autodrobe/all_access
 	desc = "A vending machine for costumes. This model appears to have no access restrictions."
 	req_access = null

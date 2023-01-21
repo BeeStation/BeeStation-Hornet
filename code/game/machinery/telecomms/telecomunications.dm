@@ -131,7 +131,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	var/newState = on
 
 	if(toggled)
-		if(stat & (BROKEN|NOPOWER|EMPED)) // if powered, on. if not powered, off. if too damaged, off
+		if(machine_stat & (BROKEN|NOPOWER|EMPED)) // if powered, on. if not powered, off. if too damaged, off
 			newState = FALSE
 		else
 			newState = TRUE
@@ -152,15 +152,6 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	if(traffic > 0)
 		traffic -= netspeed * delta_time
 
-/obj/machinery/telecomms/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	if(prob(100/severity) && !(stat & EMPED))
-		stat |= EMPED
-		var/duration = (300 * 10)/severity
-		addtimer(CALLBACK(src, .proc/de_emp), rand(duration - 20, duration + 20))
-
 /obj/machinery/telecomms/obj_break(damage_flag)
 	. = ..()
 	update_power()
@@ -168,6 +159,3 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 /obj/machinery/telecomms/power_change()
 	..()
 	update_power()
-
-/obj/machinery/telecomms/proc/de_emp()
-	stat &= ~EMPED

@@ -20,7 +20,7 @@
 	var/apparent_species
 	if(dna?.species && !skipface)
 		apparent_species = ", \an [dna.species.name]"
-	. = list("<span class='info'>*---------*\nThis is <EM>[!obscure_name ? name : "Unknown"][apparent_species]</EM>!")
+	. = list("<span class='info'>This is <EM>[!obscure_name ? name : "Unknown"][apparent_species]</EM>!")
 
 	//uniform
 	if(w_uniform && !(obscured & ITEM_SLOT_ICLOTHING) && !(w_uniform.item_flags & EXAMINE_SKIP))
@@ -101,21 +101,26 @@
 		if(100 to 200)
 			. += "<span class='warning'>[t_He] [t_is] twitching ever so slightly.</span>"
 
-	var/appears_dead = 0
+	var/appears_dead = FALSE
+	var/just_sleeping = FALSE
 	if(stat == DEAD || (HAS_TRAIT(src, TRAIT_FAKEDEATH)))
-		appears_dead = 1
-		if(suiciding)
-			. += "<span class='warning'>[t_He] appear[p_s()] to have committed suicide. There is no hope of recovery.</span>"
-		if(hellbound)
-			. += "<span class='warning'>[t_His] soul seems to have been ripped out of [t_his] body.  Revival is impossible.</span>"
-		. += ""
-		if(getorgan(/obj/item/organ/brain))
-			if(ai_controller?.ai_status == AI_STATUS_ON)
-				. += "<span class='deadsay'>[t_He] do[t_es]n't appear to be [t_him]self.</span>\n"
-			else if(!key && !get_ghost(FALSE, TRUE))
-				. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul has departed.</span>"
+		appears_dead = TRUE
+
+		if(isliving(user) && HAS_TRAIT(user, TRAIT_NAIVE))
+			just_sleeping = TRUE
+
+		if(!just_sleeping)
+			if(suiciding)
+				. += "<span class='warning'>[t_He] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>"
+			if(ishellbound())
+				. += "<span class='warning'>[t_His] soul seems to have been ripped out of [t_his] body. Revival is impossible.</span>"
+			. += ""
+			if(soul_departed())
+				. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul has departed...</span>"
+			else if(!client && key)
+				. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul seems distant, it may return soon...</span>"
 			else
-				. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life.</span>"
+				. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life...</span>"
 
 	if(get_bodypart(BODY_ZONE_HEAD) && !getorgan(/obj/item/organ/brain))
 		. += "<span class='deadsay'>It appears that [t_his] brain is missing.</span>"
@@ -169,7 +174,7 @@
 
 	for(var/obj/item/bodypart/BP as() in bodyparts)
 		if(BP.limb_id != (dna.species.examine_limb_id ? dna.species.examine_limb_id : dna.species.id))
-			msg += "<span class='info'>[t_He] has \an [BP.name].</span>\n"
+			msg += "<span class='info'>[t_He] [t_has] \an [BP.name].</span>\n"
 
 	var/list/harm_descriptors = dna?.species.get_harm_descriptors()
 	var/brute_msg = harm_descriptors?["brute"]
@@ -233,7 +238,7 @@
 			msg += "[t_He] look[p_s()] extremely disgusted.\n"
 
 	if(blood_volume < BLOOD_VOLUME_SAFE)
-		msg += "[t_He] [t_has] pale skin.\n"
+		msg += "[t_He] appear[p_s()] faint.\n"
 
 	if(bleedsuppress)
 		msg += "[t_He] [t_is] bandaged with something.\n"
@@ -250,6 +255,9 @@
 		for(var/i in stun_absorption)
 			if(stun_absorption[i]["end_time"] > world.time && stun_absorption[i]["examine_message"])
 				msg += "[t_He] [t_is][stun_absorption[i]["examine_message"]]\n"
+
+	if(just_sleeping)
+		msg += "[user.p_they(TRUE)] isn't responding to anything around [user.p_them()] and seems to be asleep.\n"
 
 	if(drunkenness && !skipface && !appears_dead) //Drunkenness
 		switch(drunkenness)
@@ -342,9 +350,7 @@
 				. += "<a href='?src=[REF(src)];hud=m;p_stat=1'>\[[health_r]\]</a>"
 				health_r = R.fields["m_stat"]
 				. += "<a href='?src=[REF(src)];hud=m;m_stat=1'>\[[health_r]\]</a>"
-			R = find_record("name", perpname, GLOB.data_core.medical)
-			if(R)
-				. += "<a href='?src=[REF(src)];hud=m;evaluation=1'>\[Medical evaluation\]</a><br>"
+			. += "<a href='?src=[REF(src)];hud=m;evaluation=1'>\[Medical evaluation\]</a><br>"
 			if(traitstring)
 				. += "<span class='info'>Detected physiological traits:\n[traitstring]"
 
@@ -352,7 +358,6 @@
 			if(!user.stat && user != src)
 			//|| !user.canmove || user.restrained()) Fluff: Sechuds have eye-tracking technology and sets 'arrest' to people that the wearer looks and blinks at.
 				var/criminal = "None"
-
 				R = find_record("name", perpname, GLOB.data_core.security)
 				if(R)
 					criminal = R.fields["criminal"]
@@ -365,7 +370,6 @@
 					"<a href='?src=[REF(src)];hud=s;add_comment=1'>\[Add comment\]</a>"), "")
 	else if(isobserver(user) && traitstring)
 		. += "<span class='info'><b>Traits:</b> [traitstring]</span>"
-	. += "*---------*</span>"
 
 /mob/living/proc/status_effect_examines(pronoun_replacement) //You can include this in any mob's examine() to show the examine texts of status effects!
 	var/list/dat = list()
@@ -373,9 +377,13 @@
 		pronoun_replacement = p_they(TRUE)
 	for(var/V in status_effects)
 		var/datum/status_effect/E = V
-		if(E.examine_text)
-			var/new_text = replacetext(E.examine_text, "SUBJECTPRONOUN", pronoun_replacement)
+		var/effect_text = E.get_examine_text()
+		if(effect_text)
+			var/new_text = replacetext(effect_text, "SUBJECTPRONOUN", pronoun_replacement)
 			new_text = replacetext(new_text, "[pronoun_replacement] is", "[pronoun_replacement] [p_are()]") //To make sure something become "They are" or "She is", not "They are" and "She are"
 			dat += "[new_text]\n" //dat.Join("\n") doesn't work here, for some reason
 	if(dat.len)
 		return dat.Join()
+
+/mob/living/proc/soul_departed()
+	return getorgan(/obj/item/organ/brain) && !key && !get_ghost(FALSE, TRUE)

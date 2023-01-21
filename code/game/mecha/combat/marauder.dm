@@ -2,6 +2,7 @@
 	desc = "Heavy-duty, combat exosuit, developed after the Durand model. Rarely found among civilian populations."
 	name = "\improper Marauder"
 	icon_state = "marauder"
+	base_icon_state = "marauder"
 	step_in = 5
 	max_integrity = 500
 	deflect_chance = 25
@@ -45,6 +46,7 @@
 	desc = "Heavy-duty, command-type exosuit. This is a custom model, utilized only by high-ranking military personnel."
 	name = "\improper Seraph"
 	icon_state = "seraph"
+	base_icon_state = "seraph"
 	operation_req_access = list(ACCESS_CENT_SPECOPS)
 	internals_req_access = list(ACCESS_CENT_SPECOPS)
 	step_in = 3
@@ -73,6 +75,7 @@
 	desc = "Heavy-duty, combat exosuit, developed off of the existing Marauder model."
 	name = "\improper Mauler"
 	icon_state = "mauler"
+	base_icon_state = "mauler"
 	operation_req_access = list(ACCESS_SYNDICATE)
 	internals_req_access = list(ACCESS_SYNDICATE)
 	wreckage = /obj/structure/mecha_wreckage/mauler

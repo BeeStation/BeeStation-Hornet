@@ -55,6 +55,7 @@
 			else
 				loaded = W //W.loc is src at this point.
 				loaded.max_amount = max_amount //We store a lot.
+				update_icon()
 				return
 
 		if(loaded.amount < max_amount)

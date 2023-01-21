@@ -93,7 +93,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/fugu/proc/Deflate()
 	if(wumbo)
-		walk(src, 0)
+		SSmove_manager.stop_looping(src)
 		wumbo = 0
 		icon_state = "Fugu0"
 		obj_damage = 0
@@ -119,7 +119,7 @@
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
-	var/list/banned_mobs
+	var/list/banned_mobs = list(/mob/living/simple_animal/hostile/guardian)
 
 /obj/item/fugu_gland/afterattack(atom/target, mob/user, proximity_flag)
 	. = ..()

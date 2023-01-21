@@ -3,9 +3,15 @@
 /turf/closed/wall,
 /area/template_noop)
 "c" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"d" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
@@ -24,20 +30,28 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "i" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "j" = (
 /turf/open/floor/plating,
 /area/template_noop)
-"k" = (
-/obj/effect/turf_decal/tile/red/tile_side{
-	dir = 8
+"l" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "m" = (
+/turf/open/floor/plasteel,
+/area/template_noop)
+"n" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "o" = (
@@ -48,22 +62,21 @@
 /obj/item/storage/crayons,
 /turf/open/floor/plating,
 /area/template_noop)
-"q" = (
-/obj/effect/turf_decal/tile/red/tile_side{
-	dir = 10
+"p" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -24
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "r" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"s" = (
-/obj/effect/turf_decal/tile/red/tile_side{
-	dir = 5
+"t" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "u" = (
@@ -75,58 +88,21 @@
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"v" = (
-/obj/effect/turf_decal/tile/red/tile_side{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/template_noop)
-"y" = (
-/obj/effect/turf_decal/tile/red/tile_side,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -24
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
 "z" = (
 /obj/item/radio/intercom{
 	pixel_x = 29
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"A" = (
-/obj/effect/turf_decal/tile/red/tile_side{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/turf/open/floor/plasteel,
-/area/template_noop)
-"C" = (
-/obj/effect/turf_decal/tile/red/tile_side{
-	dir = 6
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
-"D" = (
-/obj/effect/turf_decal/tile/red/tile_side{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
 "E" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"G" = (
-/obj/effect/turf_decal/tile/red/tile_side{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 6
-	},
+"H" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "I" = (
@@ -139,48 +115,72 @@
 /area/template_noop)
 "J" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/template_noop,
+/area/template_noop)
+"K" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 6
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"M" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"O" = (
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/plasteel,
 /area/template_noop)
 "Q" = (
 /turf/closed/wall/r_wall,
 /area/template_noop)
 "R" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"S" = (
-/obj/effect/turf_decal/tile/red/tile_side,
+"T" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "U" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/template_noop)
-"V" = (
-/obj/effect/turf_decal/tile/red/tile_side,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/template_noop)
 "W" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel/grid/steel,
 /area/template_noop)
+"Y" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
 
 (1,1,1) = {"
 U
 r
-S
-S
-S
-S
-V
-y
+O
+O
+O
+O
+H
+p
 e
 f
 a
@@ -188,12 +188,12 @@ a
 (2,1,1) = {"
 W
 m
-G
-A
-s
-q
-A
-A
+K
+l
+Y
+M
+l
+l
 c
 i
 J
@@ -203,10 +203,10 @@ W
 j
 E
 r
-k
-C
-S
-S
+d
+t
+O
+O
 R
 u
 a
@@ -217,9 +217,9 @@ r
 I
 m
 m
-v
-v
-D
+n
+n
+T
 z
 o
 Q

@@ -81,7 +81,7 @@
 	create_initial_profile()
 	if(give_objectives)
 		forge_objectives()
-	remove_clownmut()
+	handle_clown_mutation(owner.current, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
 	owner.current.grant_all_languages(FALSE, FALSE, TRUE)	//Grants omnitongue. We are able to transform our body after all.
 	. = ..()
 
@@ -94,24 +94,17 @@
 			B.organ_flags |= ORGAN_VITAL
 			B.decoy_override = FALSE
 	remove_changeling_powers()
+	handle_clown_mutation(owner.current, removing=FALSE)
 	. = ..()
-
-/datum/antagonist/changeling/proc/remove_clownmut()
-	if (owner)
-		var/mob/living/carbon/human/H = owner.current
-		if(istype(H) && owner.assigned_role == "Clown")
-			to_chat(H, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
-			H.dna.remove_mutation(CLOWNMUT)
 
 /datum/antagonist/changeling/proc/reset_properties()
 	changeling_speak = 0
 	chosen_sting = null
-	geneticpoints = initial(geneticpoints)
+	mimicing = ""
 	sting_range = initial(sting_range)
 	chem_recharge_rate = initial(chem_recharge_rate)
 	chem_charges = min(chem_charges, chem_storage)
 	chem_recharge_slowdown = initial(chem_recharge_slowdown)
-	mimicing = ""
 
 /datum/antagonist/changeling/proc/remove_changeling_powers()
 	if(ishuman(owner.current) || ismonkey(owner.current))
@@ -119,6 +112,7 @@
 		for(var/datum/action/changeling/p in purchasedpowers)
 			purchasedpowers -= p
 			p.Remove(owner.current)
+			geneticpoints += p.dna_cost
 
 	//MOVE THIS
 	if(owner.current.hud_used?.lingstingdisplay)
@@ -282,7 +276,10 @@
 	prof.socks = H.socks
 
 	if(H.wear_id?.GetID())
-		prof.id_icon = "hud[ckey(H.wear_id.GetJobName())]"
+		var/obj/item/card/id/I = H.wear_id.GetID()
+		if(istype(I))
+			prof.id_job_name = I.assignment
+			prof.id_hud_state = I.hud_state
 
 	var/list/slots = list("head", "wear_mask", "back", "wear_suit", "w_uniform", "shoes", "belt", "gloves", "glasses", "ears", "wear_id", "s_store")
 	for(var/slot in slots)
@@ -342,8 +339,8 @@
 	if(isipc(C))
 		C.set_species(/datum/species/human)
 		var/replacementName = random_unique_name(C.gender)
-		if(C.client.prefs.custom_names["human"])
-			C.fully_replace_character_name(C.real_name, C.client.prefs.custom_names["human"])
+		if(C.client.prefs.active_character.custom_names["human"])
+			C.fully_replace_character_name(C.real_name, C.client.prefs.active_character.custom_names["human"])
 		else
 			C.fully_replace_character_name(C.real_name, replacementName)
 	if(ishuman(C))
@@ -368,7 +365,6 @@
 /datum/antagonist/changeling/greet()
 	if (you_are_greet)
 		to_chat(owner.current, "<span class='boldannounce'>You are [changelingID], a changeling! You have absorbed and taken the form of a human.</span>")
-	to_chat(owner.current, "<span class='boldannounce'>Use say \"[MODE_TOKEN_CHANGELING] message\" to communicate with your fellow changelings.</span>")
 	to_chat(owner.current, "<b>You must complete the following tasks:</b>")
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_aler.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
@@ -520,7 +516,8 @@
 	var/socks
 
 	/// ID HUD icon associated with the profile
-	var/id_icon
+	var/id_job_name
+	var/id_hud_state
 
 /datum/changelingprofile/Destroy()
 	qdel(dna)
@@ -543,7 +540,8 @@
 	newprofile.underwear = underwear
 	newprofile.undershirt = undershirt
 	newprofile.socks = socks
-	newprofile.id_icon = id_icon
+	newprofile.id_job_name = id_job_name
+	newprofile.id_hud_state = id_hud_state
 
 /datum/antagonist/changeling/xenobio
 	name = "Xenobio Changeling"

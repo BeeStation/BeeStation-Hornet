@@ -92,28 +92,26 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/makepAI(turf/T in GLOB.mob_list)
 	set category = "Fun"
 	set name = "Make pAI"
-	set desc = "Specify a location to spawn a pAI device, then specify a key to play that pAI"
+	set desc = "Specify a location to spawn a pAI device, then specify a ckey to play that pAI"
 
 	var/list/available = list()
 	for(var/mob/C in GLOB.mob_list)
-		if(C.key)
+		if(C.ckey)
 			available.Add(C)
 	var/mob/choice = input("Choose a player to play the pAI", "Spawn pAI") in sortNames(available)
 	if(!choice)
 		return 0
 	if(!isobserver(choice))
-		var/confirm = input("[choice.key] isn't ghosting right now. Are you sure you want to yank him out of them out of their body and place them in this pAI?", "Spawn pAI Confirmation", "No") in list("Yes", "No")
+		var/confirm = input("[choice.ckey] isn't ghosting right now. Are you sure you want to yank him out of them out of their body and place them in this pAI?", "Spawn pAI Confirmation", "No") in list("Yes", "No")
 		if(confirm != "Yes")
 			return 0
 	var/obj/item/paicard/card = new(T)
 	var/mob/living/silicon/pai/pai = new(card)
 	pai.name = capped_input(choice, "Enter your pAI name:", "pAI Name", "Personal AI")
 	pai.real_name = pai.name
-	pai.key = choice.key
+	pai.ckey = choice.ckey
 	card.setPersonality(pai)
-	for(var/datum/paiCandidate/candidate in SSpai.candidates)
-		if(candidate.key == choice.key)
-			SSpai.candidates.Remove(candidate)
+	SSpai.candidates.Remove(SSpai.candidates[choice.ckey])
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make pAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_alienize(mob/M in GLOB.mob_list)
@@ -200,14 +198,16 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			id = new /obj/item/card/id/gold(H.loc)
 			id.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
 			id.registered_name = H.real_name
-			id.assignment = "Captain"
+			id.assignment = JOB_NAME_CAPTAIN
 			id.update_label()
 
 			if(worn)
-				if(istype(worn, /obj/item/pda))
-					var/obj/item/pda/PDA = worn
-					PDA.id = id
-					id.forceMove(PDA)
+				if(istype(worn, /obj/item/modular_computer/tablet/pda))
+					var/obj/item/modular_computer/tablet/pda/PDA = worn
+					var/obj/item/computer_hardware/card_slot/card = PDA.all_components[MC_CARD]
+					qdel(card.stored_card)
+					if(card)
+						card.try_insert(id, H)
 				else if(istype(worn, /obj/item/storage/wallet))
 					var/obj/item/storage/wallet/W = worn
 					W.front_id = id
@@ -506,7 +506,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	else
 		H = M
 		if(H.l_store || H.r_store || H.s_store) //saves a lot of time for admins and coders alike
-			if(alert("Drop Items in Pockets? No will delete them.", "Robust quick dress shop", "Yes", "No") == "No")
+			if(alert("Drop Items in Pockets? No will delete them.", "Robust quick dress shop", "Yes", "No") != "Yes")
 				delete_pocket = TRUE
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Select Equipment") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -605,7 +605,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	spawn(30)
 		for(var/obj/machinery/the_singularitygen/G in GLOB.machines)
 			if(G.anchored)
-				var/obj/singularity/S = new /obj/singularity(get_turf(G), 50)
+				var/obj/anomaly/singularity/S = new /obj/anomaly/singularity(get_turf(G), 50)
 //				qdel(G)
 				S.energy = 1750
 				S.current_size = 7
@@ -667,6 +667,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	for(var/path in SSgarbage.items)
 		var/datum/qdel_item/I = SSgarbage.items[path]
 		dellog += "<li><u>[path]</u><ul>"
+		if (I.qdel_flags & QDEL_ITEM_SUSPENDED_FOR_LAG)
+			dellog += "<li>SUSPENDED FOR LAG</li>"
 		if (I.failures)
 			dellog += "<li>Failures: [I.failures]</li>"
 		dellog += "<li>qdel() Count: [I.qdels]</li>"
@@ -674,6 +676,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if (I.hard_deletes)
 			dellog += "<li>Total Hard Deletes [I.hard_deletes]</li>"
 			dellog += "<li>Time Spent Hard Deleting: [I.hard_delete_time]ms</li>"
+			dellog += "<li>Highest Time Spent Hard Deleting: [I.hard_delete_max]ms</li>"
+			if (I.hard_deletes_over_threshold)
+				dellog += "<li>Hard Deletes Over Threshold: [I.hard_deletes_over_threshold]</li>"
 		if (I.slept_destroy)
 			dellog += "<li>Sleeps: [I.slept_destroy]</li>"
 		if (I.no_respect_force)
@@ -771,7 +776,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if (response == "Jump")
 			usr.forceMove(get_turf(exists[template]))
 			return
-		else if (response == "Cancel")
+		else if (response != "Place Another")
 			return
 
 	var/len = GLOB.ruin_landmarks.len
@@ -795,7 +800,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(ruin_size < 10 || ruin_size >= 200)
 		return
 	var/response = alert(src, "This will place the ruin at your current location.", "Spawn Ruin", "Spawn Ruin", "Cancel")
-	if (response == "Cancel")
+	if (response != "Spawn Ruin")
 		return
 	var/border_size = (world.maxx - ruin_size) / 2
 	generate_space_ruin(mob.x, mob.y, mob.z, border_size, border_size)

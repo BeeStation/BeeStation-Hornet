@@ -112,7 +112,6 @@
 	potency = 50
 	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing.dmi'
-	icon_dead = "bamboo-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 
 /obj/item/grown/log/bamboo
@@ -250,6 +249,9 @@
 
 /obj/structure/bonfire/proc/StartBurning()
 	if(!burning && (!needs_oxygen || CheckOxygen()))
+		add_emitter(/obj/emitter/fire, "fire")
+		add_emitter(/obj/emitter/sparks/fire, "fire_spark")
+		add_emitter(/obj/emitter/fire_smoke, "smoke", 9)
 		icon_state = burn_icon
 		burning = TRUE
 		set_light(6)
@@ -303,6 +305,9 @@
 
 /obj/structure/bonfire/extinguish()
 	if(burning)
+		remove_emitter("fire")
+		remove_emitter("fire_spark")
+		remove_emitter("smoke")
 		icon_state = "bonfire"
 		burning = 0
 		set_light(0)

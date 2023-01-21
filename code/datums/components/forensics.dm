@@ -11,7 +11,7 @@
 	hiddenprints = hiddenprints | F.hiddenprints
 	blood_DNA = blood_DNA | F.blood_DNA
 	fibers = fibers | F.fibers
-	check_blood()
+	add_blood_decal()
 	return ..()
 
 /datum/component/forensics/Initialize(new_fingerprints, new_hiddenprints, new_blood_DNA, new_fibers)
@@ -21,10 +21,10 @@
 	hiddenprints = new_hiddenprints
 	blood_DNA = new_blood_DNA
 	fibers = new_fibers
-	check_blood()
+	add_blood_decal()
 
 /datum/component/forensics/RegisterWithParent()
-	check_blood()
+	add_blood_decal()
 	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_act)
 
 /datum/component/forensics/UnregisterFromParent()
@@ -101,33 +101,33 @@
 
 /datum/component/forensics/proc/add_fibers(mob/living/carbon/human/M)
 	var/fibertext
-	var/item_multiplier = isitem(src)?1.2:1
+	var/item_multiplier = isitem(src) ? 1.2 : 1
 	if(M.wear_suit)
 		fibertext = "Material from \a [M.wear_suit]."
-		if(prob(10*item_multiplier) && !LAZYACCESS(fibers, fibertext))
+		if(prob(10 * item_multiplier) && !LAZYACCESS(fibers, fibertext))
 			LAZYSET(fibers, fibertext, fibertext)
 		if(!(M.wear_suit.body_parts_covered & CHEST))
 			if(M.w_uniform)
 				fibertext = "Fibers from \a [M.w_uniform]."
-				if(prob(12*item_multiplier) && !LAZYACCESS(fibers, fibertext)) //Wearing a suit means less of the uniform exposed.
+				if(prob(12 * item_multiplier) && !LAZYACCESS(fibers, fibertext)) //Wearing a suit means less of the uniform exposed.
 					LAZYSET(fibers, fibertext, fibertext)
 		if(!(M.wear_suit.body_parts_covered & HANDS))
 			if(M.gloves)
 				fibertext = "Material from a pair of [M.gloves.name]."
-				if(prob(20*item_multiplier) && !LAZYACCESS(fibers, fibertext))
+				if(prob(20 * item_multiplier) && !LAZYACCESS(fibers, fibertext))
 					LAZYSET(fibers, fibertext, fibertext)
 	else if(M.w_uniform)
 		fibertext = "Fibers from \a [M.w_uniform]."
-		if(prob(15*item_multiplier) && !LAZYACCESS(fibers, fibertext))
+		if(prob(15 * item_multiplier) && !LAZYACCESS(fibers, fibertext))
 			// "Added fibertext: [fibertext]"
 			LAZYSET(fibers, fibertext, fibertext)
 		if(M.gloves)
 			fibertext = "Material from a pair of [M.gloves.name]."
-			if(prob(20*item_multiplier) && !LAZYACCESS(fibers, fibertext))
+			if(prob(20 * item_multiplier) && !LAZYACCESS(fibers, fibertext))
 				LAZYSET(fibers, fibertext, fibertext)
 	else if(M.gloves)
 		fibertext = "Material from a pair of [M.gloves.name]."
-		if(prob(20*item_multiplier) && !LAZYACCESS(fibers, fibertext))
+		if(prob(20 * item_multiplier) && !LAZYACCESS(fibers, fibertext))
 			LAZYSET(fibers, fibertext, fibertext)
 	return TRUE
 
@@ -173,14 +173,13 @@
 	LAZYINITLIST(blood_DNA)
 	for(var/i in dna)
 		blood_DNA[i] = dna[i]
-	check_blood()
+	add_blood_decal()
 	return TRUE
 
-/datum/component/forensics/proc/check_blood()
+/datum/component/forensics/proc/add_blood_decal()
 	if(!isitem(parent))
 		return
 	if(!length(blood_DNA))
 		return
-	if(isitem(parent))
-		var/obj/item/I = parent
-		I.AddElement(/datum/element/decal/blood)
+	var/obj/item/I = parent
+	I.AddElement(/datum/element/decal/blood) //TODO: make decals actually work on all the items, it doesnt appear on a lot of them for some reason

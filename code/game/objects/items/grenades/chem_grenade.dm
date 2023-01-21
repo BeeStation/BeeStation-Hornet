@@ -61,6 +61,12 @@
 	if(istype(I,/obj/item/assembly) && stage == GRENADE_WIRED)
 		wires.interact(user)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
+		if(dud_flags & GRENADE_USED)
+			to_chat(user, "<span class='notice'>You started to reset the trigger.</span>")
+			if (do_after(user, 2 SECONDS, src))
+				to_chat(user, "<span class='notice'>You reset the trigger.</span>")
+				dud_flags &= ~GRENADE_USED
+			return
 		if(stage == GRENADE_WIRED)
 			if(beakers.len)
 				stage_change(GRENADE_READY)
@@ -157,9 +163,9 @@
 			continue
 		reagent_string += " ([exploded_beaker.name] [beaker_number++] : " + pretty_string_from_reagent_list(exploded_beaker.reagents.reagent_list) + ");"
 	if(landminemode)
-		log_bomber(user, "activated a proxy", src, "containing:[reagent_string]")
+		log_bomber(user, "activated a proxy", src, "containing:[reagent_string]", message_admins = !dud_flags)
 	else
-		log_bomber(user, "primed a", src, "containing:[reagent_string]")
+		log_bomber(user, "primed a", src, "containing:[reagent_string]", message_admins = !dud_flags)
 
 /obj/item/grenade/chem_grenade/preprime(mob/user, delayoverride, msg = TRUE, volume = 60)
 	var/turf/T = get_turf(src)
@@ -184,6 +190,8 @@
 		return
 
 	. = ..()
+	if(!.)
+		return
 
 	var/list/datum/reagents/reactants = list()
 	for(var/obj/item/reagent_containers/glass/G in beakers)
@@ -220,7 +228,9 @@
 	threatscale = 1.1	// 10% more effective.
 
 /obj/item/grenade/chem_grenade/large/prime(mob/living/lanced_by)
-	if(stage != GRENADE_READY)
+	if(stage != GRENADE_READY || dud_flags)
+		active = FALSE
+		update_icon()
 		return
 
 	for(var/obj/item/slime_extract/S in beakers)
@@ -289,7 +299,9 @@
 	..()
 
 /obj/item/grenade/chem_grenade/adv_release/prime(mob/living/lanced_by)
-	if(stage != GRENADE_READY)
+	if(stage != GRENADE_READY || dud_flags)
+		active = FALSE
+		update_icon()
 		return
 
 	var/total_volume = 0

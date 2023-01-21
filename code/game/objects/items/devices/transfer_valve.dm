@@ -71,10 +71,10 @@
 	if(attached_device)
 		attached_device.holder_movement()
 
-/obj/item/transfer_valve/dropped()
-	..()
+/obj/item/transfer_valve/dropped(mob/user)
+	. = ..()
 	if(attached_device)
-		attached_device.dropped()
+		attached_device.dropped(user)
 
 /obj/item/transfer_valve/on_found(mob/finder)
 	if(attached_device)
@@ -89,49 +89,6 @@
 		attached_device.attack_hand()
 
 //These keep attached devices synced up, for example a TTV with a mouse trap being found in a bag so it's triggered, or moving the TTV with an infrared beam sensor to update the beam's direction.
-
-
-/obj/item/transfer_valve/attack_self(mob/user)
-	user.set_machine(src)
-	var/dat = {"<B> Valve properties: </B>
-	<BR> <B> Attachment one:</B> [tank_one] [tank_one ? "<A href='?src=[REF(src)];tankone=1'>Remove</A>" : ""]
-	<BR> <B> Attachment two:</B> [tank_two] [tank_two ? "<A href='?src=[REF(src)];tanktwo=1'>Remove</A>" : ""]
-	<BR> <B> Valve attachment:</B> [attached_device ? "<A href='?src=[REF(src)];device=1'>[attached_device]</A>" : "None"] [attached_device ? "<A href='?src=[REF(src)];rem_device=1'>Remove</A>" : ""]
-	<BR> <B> Valve status: </B> [ valve_open ? "<A href='?src=[REF(src)];open=1'>Closed</A> <B>Open</B>" : "<B>Closed</B> <A href='?src=[REF(src)];open=1'>Open</A>"]"}
-
-	var/datum/browser/popup = new(user, "trans_valve", name)
-	popup.set_content(dat)
-	popup.open()
-	return
-
-/obj/item/transfer_valve/Topic(href, href_list)
-	..()
-	if(!usr.canUseTopic(src, BE_CLOSE))
-		return
-	if(tank_one && href_list["tankone"])
-		split_gases()
-		valve_open = FALSE
-		tank_one.forceMove(drop_location())
-		tank_one = null
-		update_icon()
-	else if(tank_two && href_list["tanktwo"])
-		split_gases()
-		valve_open = FALSE
-		tank_two.forceMove(drop_location())
-		tank_two = null
-		update_icon()
-	else if(href_list["open"])
-		toggle_valve()
-	else if(attached_device)
-		if(href_list["rem_device"])
-			attached_device.on_detach()
-			attached_device = null
-			update_icon()
-		if(href_list["device"])
-			attached_device.ui_interact(usr)
-
-	attack_self(usr)
-	add_fingerprint(usr)
 
 /obj/item/transfer_valve/proc/process_activation(obj/item/D)
 	if(toggle)
@@ -193,23 +150,24 @@
 	it explodes properly when it gets a signal (and it does).
 	*/
 
-/obj/item/transfer_valve/proc/toggle_valve()
+/obj/item/transfer_valve/proc/toggle_valve(manual = FALSE)
 	if(!valve_open && tank_one && tank_two)
 		valve_open = TRUE
 		var/turf/bombturf = get_turf(src)
 
 		var/attachment
 		if(attached_device)
-			if(istype(attached_device, /obj/item/assembly/signaler))
-				attachment = "<A HREF='?_src_=holder;[HrefToken()];secrets=list_signalers'>[attached_device]</A>"
+			var/obj/item/assembly/signaler/attached = attached_device
+			if(istype(attached))
+				attachment = "<A HREF='?_src_=holder;[HrefToken()];secrets=list_signalers'>[attached]</A> (frequency: [format_frequency(attached.frequency)]/[attached.code])"
 			else
 				attachment = attached_device
 
 		var/admin_attachment_message
 		var/attachment_message
-		if(attachment)
-			admin_attachment_message = " with [attachment] attached by [attacher ? ADMIN_LOOKUPFLW(attacher) : "Unknown"]"
-			attachment_message = " with [attachment] attached by [attacher ? key_name_admin(attacher) : "Unknown"]"
+		if(attachment && !manual)
+			admin_attachment_message = " with [attachment] attached by [attacher ? ADMIN_LOOKUPFLW(attacher) : "Unknown CKEY"]"
+			attachment_message = " with [attachment] attached by [attacher ? key_name_admin(attacher) : "Unknown CKEY"]"
 
 		var/mob/bomber = get_mob_by_ckey(fingerprintslast)
 		var/admin_bomber_message
@@ -218,10 +176,10 @@
 			admin_bomber_message = " - Last touched by: [ADMIN_LOOKUPFLW(bomber)]"
 			bomber_message = " - Last touched by: [key_name_admin(bomber)]"
 
-		var/admin_bomb_message = "Bomb valve opened in [ADMIN_VERBOSEJMP(bombturf)][admin_attachment_message][admin_bomber_message]"
+		var/admin_bomb_message = "Bomb valve opened [manual ? "manually" : ""] in [ADMIN_VERBOSEJMP(bombturf)][admin_attachment_message][admin_bomber_message]"
 		GLOB.bombers += admin_bomb_message
 		message_admins(admin_bomb_message)
-		log_game("Bomb valve opened in [AREACOORD(bombturf)][attachment_message][bomber_message]")
+		log_game("Bomb valve opened [manual ? "manually " : ""]in [AREACOORD(bombturf)][attachment_message][bomber_message]")
 
 		merge_gases()
 		for(var/i in 1 to 6)
@@ -275,7 +233,7 @@
 				tank_two = null
 				. = TRUE
 		if("toggle")
-			toggle_valve()
+			toggle_valve(TRUE)
 			. = TRUE
 		if("device")
 			if(attached_device)

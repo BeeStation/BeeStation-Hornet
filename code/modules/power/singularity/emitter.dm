@@ -88,6 +88,8 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		power_usage -= 50 * M.rating
 	active_power_usage = power_usage
+	if(anchored && state == EMITTER_UNWRENCHED)
+		state = EMITTER_WRENCHED
 
 /obj/machinery/power/emitter/examine(mob/user)
 	. = ..()
@@ -111,6 +113,7 @@
 		log_game("Emitter deleted at [AREACOORD(T)]")
 		investigate_log("<font color='red'>deleted</font> at [AREACOORD(T)]", INVESTIGATE_ENGINES)
 	QDEL_NULL(sparks)
+	QDEL_NULL(wires)
 	return ..()
 
 /obj/machinery/power/emitter/update_icon()
@@ -162,7 +165,7 @@
 		step(src, get_dir(M, src))
 
 /obj/machinery/power/emitter/process(delta_time)
-	if(stat & (BROKEN))
+	if(machine_stat & (BROKEN))
 		return
 	if(state != EMITTER_WELDED || (!powernet && active_power_usage))
 		active = FALSE
@@ -348,11 +351,9 @@
 	projectile_type = initial(projectile_type)
 	projectile_sound = initial(projectile_sound)
 
-/obj/machinery/power/emitter/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/power/emitter/on_emag(mob/user)
+	..()
 	locked = FALSE
-	obj_flags |= EMAGGED
 	user?.visible_message("[user.name] emags [src].","<span class='notice'>You short out the lock.</span>")
 
 

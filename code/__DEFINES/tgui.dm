@@ -46,7 +46,7 @@
 /**
  * Maximum time allocated for sending a telemetry packet.
  */
-#define TGUI_TELEMETRY_RESPONSE_WINDOW 30 SECONDS
+#define TGUI_TELEMETRY_RESPONSE_WINDOW 2 MINUTES
 
 /// Telemetry statuses
 #define TGUI_TELEMETRY_STAT_NOT_REQUESTED 0 //Not Yet Requested

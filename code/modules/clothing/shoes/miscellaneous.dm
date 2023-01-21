@@ -93,13 +93,13 @@
 	if(slot == ITEM_SLOT_FEET)
 		if(enabled_waddle)
 			waddle = user.AddComponent(/datum/component/waddling)
-		if(user.mind && user.mind.assigned_role == "Clown")
+		if(user.mind && user.mind.assigned_role == JOB_NAME_CLOWN)
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "clownshoes", /datum/mood_event/clownshoes)
 
 /obj/item/clothing/shoes/clown_shoes/dropped(mob/user)
 	..()
 	QDEL_NULL(waddle)
-	if(user.mind && user.mind.assigned_role == "Clown")
+	if(user.mind && user.mind.assigned_role == JOB_NAME_CLOWN)
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "clownshoes")
 
 /obj/item/clothing/shoes/clown_shoes/CtrlClick(mob/living/user)
@@ -147,6 +147,19 @@
 	heat_protection = FEET|LEGS
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
+
+/obj/item/clothing/shoes/winterboots/noslip
+	name = "high-traction winter boots"
+	desc = "Boots lined with 'synthetic' animal fur and coated with a special freeze resistant anti-slip coating."
+
+/obj/item/clothing/shoes/winterboots/noslip/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_FEET)
+		ADD_TRAIT(user, TRAIT_NOSLIPALL, CLOTHING_FEET_TRAIT)
+
+/obj/item/clothing/shoes/winterboots/noslip/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_NOSLIPALL, CLOTHING_FEET_TRAIT)
 
 /obj/item/clothing/shoes/workboots
 	name = "work boots"

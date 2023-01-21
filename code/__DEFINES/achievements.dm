@@ -28,6 +28,7 @@
 #define MEDAL_BIKE                    "This Lousy Achievement"
 #define MEDAL_WAROPS                  "Play GLOBAL THERMONUCLEAR WAR"
 #define MEDAL_DRUNK					  "Little Chickadee"
+#define MEDAL_CAYENNE_DISK			  "Very Important Piscis"
 
 //Boss medals
 
@@ -60,3 +61,6 @@
 #define LEGION_SCORE 	     "Legion Killed"
 #define SWARMER_BEACON_SCORE "Swarmer Beacs Killed"
 #define TENDRIL_CLEAR_SCORE	 "Tendrils Killed"
+
+// Medal hub IDs for misc scores
+#define BIG_BOMB_SCORE		"Biggest Bomb"

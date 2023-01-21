@@ -309,7 +309,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	//(higher subsystems will be sooner in the queue, adding them later in the loop means we don't have to loop thru them next queue add)
 	sortTim(tickersubsystems, /proc/cmp_subsystem_priority)
 	for(var/I in runlevel_sorted_subsystems)
-		sortTim(runlevel_sorted_subsystems, /proc/cmp_subsystem_priority)
+		sortTim(I, /proc/cmp_subsystem_priority)
 		I += tickersubsystems
 
 	var/cached_runlevel = current_runlevel
@@ -323,6 +323,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/sleep_delta = 1
 	var/list/subsystems_to_check
 	//the actual loop.
+
+	var/anti_tick_contention_sleep_time = 0
 
 	while (1)
 		tickdrift = max(0, MC_AVERAGE_FAST(tickdrift, (((REALTIMEOFDAY - init_timeofday) - (world.time - init_time)) / world.tick_lag)))
@@ -338,8 +340,13 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		if (starting_tick_usage > TICK_LIMIT_MC) //if there isn't enough time to bother doing anything this tick, sleep a bit.
 			sleep_delta *= 2
 			current_ticklimit = TICK_LIMIT_RUNNING * 0.5
+			anti_tick_contention_sleep_time += world.tick_lag * (processing * sleep_delta)
+			if (anti_tick_contention_sleep_time > MASTER_CONTROLLER_DELAY_WARN_TIME)
+				log_runtime("Warning: The Master Controller has been sleeping for [anti_tick_contention_sleep_time]ds which may result in game freezing.")
 			sleep(world.tick_lag * (processing * sleep_delta))
 			continue
+
+		anti_tick_contention_sleep_time = 0
 
 		//Byond resumed us late. assume it might have to do the same next tick
 		if (last_run + CEILING(world.tick_lag * (processing * sleep_delta), world.tick_lag) < world.time)

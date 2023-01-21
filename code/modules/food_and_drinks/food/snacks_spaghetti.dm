@@ -104,3 +104,45 @@
 	cooked_type = null
 	tastes = list("noodle" = 1, "butter" = 1)
 	foodtype = GRAIN | DAIRY
+
+/obj/item/reagent_containers/food/snacks/spaghetti/kasespatzle
+	name = "käsespätzle"
+	desc = "A special kind of pasta made with eggs, served with tasty cheese."
+	icon_state = "kasespatzle"
+	trash = /obj/item/trash/plate
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 4)
+	cooked_type = null
+	tastes = list("pasta" = 1, "cheese" = 1, "egg" = 1)
+	foodtype = GRAIN | DAIRY
+
+/obj/item/reagent_containers/food/snacks/spaghetti/spaghettinapolitan
+	name = "spaghetti napolitan"
+	desc = "The only excuse to ever put ketchup into your spaghetti."
+	icon_state = "spaghettinapolitan"
+	trash = /obj/item/trash/plate
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 6)
+	cooked_type = null
+	tastes = list("pasta" = 1, "ketchup" = 1, "sausage" = 1)
+	foodtype = GRAIN | MEAT | VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/spaghetti/lasagna
+	name = "lasagna"
+	desc = "Somewhere, in some different universe, a cat is smoking your pipe."
+	icon_state = "lasagna"
+	trash = /obj/item/trash/plate
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/tomatojuice = 5, /datum/reagent/consumable/nutriment/vitamin = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/tomatojuice = 5, /datum/reagent/consumable/nutriment/vitamin = 4)
+	cooked_type = null
+	tastes = list("pasta" = 1, "tomato" = 1, "cheese" = 1, "mondays" = 1)
+	foodtype = GRAIN | DAIRY | VEGETABLES | MEAT
+
+/obj/item/reagent_containers/food/snacks/spaghetti/glassnoodles
+	name = "glass noodles"
+	desc = "Noodles so transparent, you can see through them!"
+	icon_state = "glassnoodles"
+	trash = /obj/item/trash/plate
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 7, /datum/reagent/consumable/nutriment/vitamin = 6)
+	cooked_type = null
+	tastes = list("noodle" = 1, "sweetness" = 1, "tofu" = 1)
+	foodtype = GRAIN | VEGETABLES

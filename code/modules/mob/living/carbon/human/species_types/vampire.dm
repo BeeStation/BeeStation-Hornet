@@ -1,9 +1,9 @@
 /datum/species/vampire
 	name = "\improper Vampire"
-	id = "vampire"
+	id = SPECIES_VAMPIRE
 	default_color = "FFFFFF"
-	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS,DRINKSBLOOD)
-	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_NOBREATH)
+	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
+	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_NOBREATH,TRAIT_DRINKSBLOOD)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	default_features = list("mcolor" = "FFF", "tail_human" = "None", "ears" = "None", "wings" = "None", "body_size" = "Normal")
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
@@ -138,4 +138,4 @@
 	invocation = "Squeak!"
 	charge_max = 50
 	cooldown_min = 50
-	shapeshift_type = /mob/living/simple_animal/hostile/retaliate/bat
+	shapeshift_type = /mob/living/simple_animal/hostile/retaliate/bat/vampire

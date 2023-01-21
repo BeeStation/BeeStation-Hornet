@@ -66,12 +66,26 @@
 	chamber_round()
 	update_icon()
 
+/obj/item/gun/ballistic/fire_sounds()
+	var/frequency_to_use = sin((90/magazine?.max_ammo) * get_ammo())
+	var/click_frequency_to_use = 1 - frequency_to_use * 0.75
+	var/play_click = round(sqrt(magazine?.max_ammo * 2)) > get_ammo()
+
+	if(suppressed)
+		playsound(src, suppressed_sound, suppressed_volume, vary_fire_sound, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
+		if(play_click)
+			playsound(src, 'sound/weapons/effects/ballistic_click.ogg', suppressed_volume, vary_fire_sound, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0, frequency = click_frequency_to_use)
+	else
+		playsound(src, fire_sound, fire_sound_volume, vary_fire_sound)
+		if(play_click)
+			playsound(src, 'sound/weapons/effects/ballistic_click.ogg', fire_sound_volume, vary_fire_sound, frequency = click_frequency_to_use)
+
 /obj/item/gun/ballistic/update_icon()
 	if (QDELETED(src))
 		return
 	..()
 	if(current_skin)
-		icon_state = "[unique_reskin[current_skin]][sawn_off ? "_sawn" : ""]"
+		icon_state = "[unique_reskin_icon[current_skin]][sawn_off ? "_sawn" : ""]"
 	else
 		icon_state = "[initial(icon_state)][sawn_off ? "_sawn" : ""]"
 	cut_overlays()
@@ -109,11 +123,14 @@
 /obj/item/gun/ballistic/process_chamber(empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
 	if(!semi_auto && from_firing)
 		return
-	var/obj/item/ammo_casing/AC = chambered //Find chambered round
-	if(istype(AC)) //there's a chambered round
-		if(casing_ejector || !from_firing)
-			AC.forceMove(drop_location()) //Eject casing onto ground.
-			AC.bounce_away(TRUE)
+	var/obj/item/ammo_casing/casing = chambered //Find chambered round
+	if(istype(casing)) //there's a chambered round
+		if(QDELING(casing))
+			stack_trace("Trying to move a qdeleted casing of type [casing.type]!")
+			chambered = null
+		else if(casing_ejector || !from_firing)
+			casing.forceMove(drop_location()) //Eject casing onto ground.
+			casing.bounce_away(TRUE)
 			chambered = null
 		else if(empty_chamber)
 			chambered = null
@@ -260,7 +277,7 @@
 	update_icon()
 
 /obj/item/gun/ballistic/AltClick(mob/user)
-	if (unique_reskin && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
+	if (unique_reskin_icon && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
 		reskin_obj(user)
 		return
 	if(loc == user)

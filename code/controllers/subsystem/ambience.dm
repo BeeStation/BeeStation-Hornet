@@ -35,7 +35,7 @@ SUBSYSTEM_DEF(ambience)
 		ambience_listening_clients[client_iterator] = world.time + rand(current_area.min_ambience_cooldown, current_area.max_ambience_cooldown)
 
 /datum/controller/subsystem/ambience/proc/play_buzz(mob/M, area/A)
-	if (A.ambient_buzz && (M.client.prefs.toggles & SOUND_SHIP_AMBIENCE) && M.can_hear_ambience())
+	if (A.ambient_buzz && (M.client.prefs.toggles & PREFTOGGLE_SOUND_SHIP_AMBIENCE) && M.can_hear_ambience())
 		if (!M.client.buzz_playing || (A.ambient_buzz != M.client.buzz_playing))
 			SEND_SOUND(M, sound(A.ambient_buzz, repeat = 1, wait = 0, volume = 40, channel = CHANNEL_BUZZ))
 			M.client.buzz_playing = A.ambient_buzz // It's done this way so I can tell when the user switches to an area that has a different buzz effect, so we can seamlessly swap over to that one

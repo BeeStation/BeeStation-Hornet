@@ -86,25 +86,66 @@
 #define GIB_TYPE_HUMAN "human"
 #define GIB_TYPE_ROBOTIC "robotic"
 
-//Species ID defines
-#define SPECIES_HUMAN			"human"
-#define SPECIES_IPC 			"ipc"
-#define SPECIES_ETHEREAL 		"ethereal"
-#define SPECIES_PLASMAMAN 		"plasmaman"
-#define SPECIES_APID 			"apid"
-#define SPECIES_MOTH			"moth"
-#define SPECIES_LIZARD			"lizard"
- #define SPECIES_ASHWALKER		"ashlizard"
-#define SPECIES_FELINID			"felinid"
-#define SPECIES_OOZELING		"oozeling"
-#define SPECIES_FLY 			"fly"
-#define SPECIES_MONKEY			"monkey"
-#define SPECIES_JELLYPERSON		"jelly"
- #define SPECIES_SLIMEPERSON	"slime"
- #define SPECIES_LUMINESCENT	"lum"
- #define SPECIES_STARGAZER		"stargazer"
-#define SPECIES_ABDUCTOR		"abductor"
-#define SPECIES_SHADOWPERSON	"shadow"
+//Defines for Species IDs
+#define SPECIES_ABDUCTOR "abductor"
+#define SPECIES_ANDROID "android"
+#define SPECIES_APID "apid"
+#define SPECIES_DEBUG "debug"
+#define SPECIES_DULLAHAN "dullahan"
+#define SPECIES_ETHEREAL "ethereal"
+#define SPECIES_FELINID "felinid"
+#define SPECIES_FLY "fly"
+#define SPECIES_HUMAN "human"
+#define SPECIES_IPC "ipc"
+#define SPECIES_JELLYPERSON "jelly"
+ #define SPECIES_LUMINESCENT "lum"
+ #define SPECIES_SLIMEPERSON "slime"
+ #define SPECIES_STARGAZER "stargazer"
+#define SPECIES_LIZARD "lizard"
+ #define SPECIES_ASHWALKER "ashlizard"
+#define SPECIES_MONKEY "monkey"
+#define SPECIES_MOTH "moth"
+#define SPECIES_OOZELING "oozeling"
+#define SPECIES_PLASMAMAN "plasmaman"
+#define SPECIES_PODPERSON "pod"
+#define SPECIES_PUMPKINPERSON "pumpkin_man"
+#define SPECIES_SHADOWPERSON "shadow"
+#define SPECIES_SKELETON "skeleton"
+#define SPECIES_SNAILPERSON "snail"
+#define SPECIES_SUPERSOILDER "supersoldier"
+#define SPECIES_VAMPIRE "vampire"
+
+//Defines for Golem Species IDs
+#define SPECIES_GOLEM_ADAMANTINE "adamantine_golem"
+#define SPECIES_GOLEM_ALLOY "alloy_golem"
+#define SPECIES_GOLEM_BANANIUM "bananium_golem"
+#define SPECIES_GOLEM_BLUESPACE "bluespace_golem"
+#define SPECIES_GOLEM_BONE "bone_golem"
+#define SPECIES_GOLEM_BRONZE "bronze_golem"
+#define SPECIES_GOLEM_CAPITALIST "capitalist_golem"
+#define SPECIES_GOLEM_CARDBOARD "cardboard_golem"
+#define SPECIES_GOLEM_CLOCKWORK "clockwork_golem"
+#define SPECIES_GOLEM_CLOCKWORK_SERVANT "clockwork golem servant"
+#define SPECIES_GOLEM_CLOTH "cloth_golem"
+#define SPECIES_GOLEM_COPPER "copper_golem"
+#define SPECIES_GOLEM_DIAMOND "diamond_golem"
+#define SPECIES_GOLEM_DURATHREAD "durathread_golem"
+#define SPECIES_GOLEM_GLASS "glass_golem"
+#define SPECIES_GOLEM_GOLD "gold_golem"
+#define SPECIES_GOLEM_IRON "iron_golem"
+#define SPECIES_GOLEM_LEATHER "leather_golem"
+#define SPECIES_GOLEM_PLASMA "plasma_golem"
+#define SPECIES_GOLEM_PLASTEEL "plasteel_golem"
+#define SPECIES_GOLEM_PLASTIC "plastic_golem"
+#define SPECIES_GOLEM_PLASTITANIUM "plastitanium_golem"
+#define SPECIES_GOLEM_RUNIC "cult_golem"
+#define SPECIES_GOLEM_SAND "sand_golem"
+#define SPECIES_GOLEM_SILVER "silver_golem"
+#define SPECIES_GOLEM_SNOW "snow_golem"
+#define SPECIES_GOLEM_SOVIET "soviet_golem"
+#define SPECIES_GOLEM_TITANIUM "titanium_golem"
+#define SPECIES_GOLEM_URANIUM "uranium_golem"
+#define SPECIES_GOLEM_WOOD "wood_golem"
 
 //Species bitflags, used for species_restricted. If this somehow ever gets above 23 Bee has larger problems.
 #define FLAG_HUMAN			(1<<0)
@@ -169,7 +210,7 @@
 #define BRAIN_TRAUMA_MAGIC /datum/brain_trauma/magic
 
 #define TRAUMA_RESILIENCE_BASIC 1      //! Curable with chems
-#define TRAUMA_RESILIENCE_SURGERY 2    //! Curable with brain surgery
+#define TRAUMA_RESILIENCE_SURGERY 2    //! Curable with brain recalibration
 #define TRAUMA_RESILIENCE_LOBOTOMY 3   //! Curable with lobotomy
 #define TRAUMA_RESILIENCE_MAGIC 4      //! Curable only with magic
 #define TRAUMA_RESILIENCE_ABSOLUTE 5   //! This is here to stay
@@ -335,8 +376,7 @@
 //ED209's ignore monkeys
 #define JUDGE_IGNOREMONKEYS	(1<<4)
 
-#define SHADOW_SPECIES_LIGHT_THRESHOLD 0.2
-
+#define SHADOW_SPECIES_LIGHT_THRESHOLD 0.25
 // Offsets defines
 
 #define OFFSET_UNIFORM "uniform"
@@ -435,3 +475,8 @@
 #define BODY_SIZE_NORMAL 1
 #define BODY_SIZE_SHORT 0.93
 #define BODY_SIZE_TALL 1.03
+
+/// Throw modes, defines whether or not to turn off throw mode after
+#define THROW_MODE_DISABLED 0
+#define THROW_MODE_TOGGLE 1
+#define THROW_MODE_HOLD 2

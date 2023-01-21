@@ -1,5 +1,5 @@
 //Hulk turns your skin green, and allows you to punch through walls.
-/datum/mutation/human/hulk
+/datum/mutation/hulk
 	name = "Hulk"
 	desc = "A poorly understood genome that causes the holder's muscles to expand, inhibit speech and gives the person a bad skin condition."
 	quality = POSITIVE
@@ -7,11 +7,12 @@
 	difficulty = 16
 	text_gain_indication = "<span class='notice'>Your muscles hurt!</span>"
 	species_allowed = list(SPECIES_HUMAN) //no skeleton/lizard hulk
+	mobtypes_allowed = list(/mob/living/carbon/human)
 	health_req = 25
 	instability = 40
 	locked = TRUE
 
-/datum/mutation/human/hulk/on_acquiring(mob/living/carbon/human/owner)
+/datum/mutation/hulk/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
 	ADD_TRAIT(owner, TRAIT_STUNIMMUNE, TRAIT_HULK)
@@ -20,20 +21,20 @@
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_HULK)
 	ADD_TRAIT(owner, TRAIT_NOSTAMCRIT, TRAIT_HULK)
 	ADD_TRAIT(owner, TRAIT_NOLIMBDISABLE, TRAIT_HULK)
-	owner.update_body_parts()
 	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "hulk", /datum/mood_event/hulk)
 	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/handle_speech)
+	owner.update_body_parts()
 
-/datum/mutation/human/hulk/on_attack_hand(atom/target, proximity)
+/datum/mutation/hulk/on_attack_hand(atom/target, proximity)
 	if(proximity) //no telekinetic hulk attack
 		return target.attack_hulk(owner)
 
-/datum/mutation/human/hulk/on_life()
+/datum/mutation/hulk/on_life()
 	if(owner.health < 0)
 		on_losing(owner)
 		to_chat(owner, "<span class='danger'>You suddenly feel very weak.</span>")
 
-/datum/mutation/human/hulk/on_losing(mob/living/carbon/human/owner)
+/datum/mutation/hulk/on_losing(mob/living/carbon/human/owner)
 	if(..())
 		return
 	REMOVE_TRAIT(owner, TRAIT_STUNIMMUNE, TRAIT_HULK)
@@ -42,14 +43,15 @@
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_HULK)
 	REMOVE_TRAIT(owner, TRAIT_NOSTAMCRIT, TRAIT_HULK)
 	REMOVE_TRAIT(owner, TRAIT_NOLIMBDISABLE, TRAIT_HULK)
-	owner.update_body_parts()
 	SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "hulk")
+	owner.update_body_parts()
+	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
-/datum/mutation/human/hulk/proc/handle_speech(original_message, wrapped_message)
+/datum/mutation/hulk/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
-	var/message = wrapped_message[1]
+	var/message = speech_args[SPEECH_MESSAGE]
 	if(message)
 		message = "[replacetext(message, ".", "!")]!!"
-	wrapped_message[1] = message
+	speech_args[SPEECH_MESSAGE] = message
 	return COMPONENT_UPPERCASE_SPEECH

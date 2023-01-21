@@ -18,6 +18,9 @@ GLOBAL_LIST_EMPTY(player_details)	//! ckey -> /datum/player_details
 ///All currently running polls held as datums
 GLOBAL_LIST_EMPTY(polls)
 GLOBAL_PROTECT(polls)
+///Active polls
+GLOBAL_LIST_EMPTY(active_polls)
+GLOBAL_PROTECT(active_polls)
 
 ///All poll option datums of running polls
 GLOBAL_LIST_EMPTY(poll_options)
@@ -30,6 +33,9 @@ GLOBAL_VAR_INIT(total_slimes, 0)
 
 ///Global var for insecure comms key rate limiting
 GLOBAL_VAR_INIT(topic_cooldown, 0)
+
+//Upload code for law changes
+GLOBAL_VAR(upload_code)
 
 // Topic stuff
 GLOBAL_LIST_EMPTY(topic_commands)

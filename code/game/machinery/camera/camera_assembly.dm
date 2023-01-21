@@ -18,7 +18,6 @@
 	icon_state = "camera_assembly"
 	max_integrity = 150
 	//	Motion, EMP-Proof, X-ray
-	var/obj/item/analyzer/xray_module
 	var/malf_xray_firmware_active //used to keep from revealing malf AI upgrades for user facing isXRay() checks when they use Upgrade Camera Network ability
 								//will be false if the camera is upgraded with the proper parts.
 	var/malf_xray_firmware_present //so the malf upgrade is restored when the normal upgrade part is removed.
@@ -38,11 +37,6 @@
 		has_upgrades = TRUE
 	else if(state == STATE_WIRED)
 		. += "<span class='info'>It can be shielded against electromagnetic interference with some <b>plasma</b>.</span>"
-	if(xray_module)
-		. += "It has an X-ray photodiode installed."
-		has_upgrades = TRUE
-	else if(state == STATE_WIRED)
-		. += "<span class='info'>It can be upgraded with an X-ray photodiode with an <b>analyzer</b>.</span>"
 	if(proxy_module)
 		. += "It has a proximity sensor installed."
 		has_upgrades = TRUE
@@ -67,20 +61,8 @@
 	if(building)
 		setDir(ndir)
 
-/obj/structure/camera_assembly/update_icon()
-	icon_state = "[xray_module ? "xray" : null][initial(icon_state)]"
-
 /obj/structure/camera_assembly/handle_atom_del(atom/A)
-	if(A == xray_module)
-		xray_module = null
-		update_icon()
-		if(malf_xray_firmware_present)
-			malf_xray_firmware_active = malf_xray_firmware_present //re-enable firmware based upgrades after the part is removed.
-		if(istype(loc, /obj/machinery/camera))
-			var/obj/machinery/camera/contained_camera = loc
-			contained_camera.removeXRay(malf_xray_firmware_present) //make sure we don't remove MALF upgrades.
-
-	else if(A == emp_module)
+	if(A == emp_module)
 		emp_module = null
 		if(malf_emp_firmware_present)
 			malf_emp_firmware_active = malf_emp_firmware_present //re-enable firmware based upgrades after the part is removed.
@@ -98,20 +80,14 @@
 
 
 /obj/structure/camera_assembly/Destroy()
-	QDEL_NULL(xray_module)
 	QDEL_NULL(emp_module)
 	QDEL_NULL(proxy_module)
 	return ..()
 
 /obj/structure/camera_assembly/proc/drop_upgrade(obj/item/I)
 	I.forceMove(drop_location())
-	if(I == xray_module)
-		xray_module = null
-		if(malf_xray_firmware_present)
-			malf_xray_firmware_active = malf_xray_firmware_present //re-enable firmware based upgrades after the part is removed.
-		update_icon()
 
-	else if(I == emp_module)
+	if(I == emp_module)
 		emp_module = null
 		if(malf_emp_firmware_present)
 			malf_emp_firmware_active = malf_emp_firmware_present //re-enable firmware based upgrades after the part is removed.
@@ -163,20 +139,6 @@
 				to_chat(user, "<span class='notice'>You attach [W] into [src]'s inner circuits.</span>")
 				return
 
-			else if(istype(W, /obj/item/analyzer)) //xray upgrade
-				if(xray_module)
-					to_chat(user, "<span class='warning'>[src] already contains a [xray_module]!</span>")
-					return
-				if(!user.transferItemToLoc(W, src))
-					return
-				to_chat(user, "<span class='notice'>You attach [W] into [src]'s inner circuits.</span>")
-				xray_module = W
-				if(malf_xray_firmware_active)
-					malf_xray_firmware_active = FALSE //flavor reason: MALF AI Upgrade Camera Network ability's firmware is incompatible with the new part
-														//real reason: make it a normal upgrade so the finished camera's icons and examine texts are restored.
-				update_icon()
-				return
-
 			else if(istype(W, /obj/item/assembly/prox_sensor)) //motion sensing upgrade
 				if(proxy_module)
 					to_chat(user, "<span class='warning'>[src] already contains a [proxy_module]!</span>")
@@ -193,8 +155,6 @@
 	if(state != STATE_WIRED)
 		return FALSE
 	var/list/droppable_parts = list()
-	if(xray_module)
-		droppable_parts += xray_module
 	if(emp_module)
 		droppable_parts += emp_module
 	if(proxy_module)
@@ -255,8 +215,6 @@
 	to_chat(user, "<span class='notice'>You detach [src] from its place.</span>")
 	new /obj/item/wallframe/camera(drop_location())
 	//drop upgrades
-	if(xray_module)
-		drop_upgrade(xray_module)
 	if(emp_module)
 		drop_upgrade(emp_module)
 	if(proxy_module)

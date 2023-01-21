@@ -125,8 +125,6 @@
 	if (T && AIStatus == AI_Z_OFF)
 		SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
 
-	//Walking counts as a reference, putting this here because most things don't walk, clean this up once walk() procs are dead
-	walk(src, 0)
 	return ..()
 
 /mob/living/simple_animal/examine(mob/user)
@@ -141,6 +139,16 @@
 /mob/living/simple_animal/updatehealth()
 	..()
 	health = CLAMP(health, 0, maxHealth)
+	update_health_hud()
+
+/mob/living/simple_animal/update_health_hud()
+	if(!hud_used)
+		return
+	var/severity = 5 - CLAMP(FLOOR((health / maxHealth) * 5, 1), 0, 5)
+	if(severity > 0)
+		overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
+	else
+		clear_fullscreen("brute")
 
 /mob/living/simple_animal/update_stat()
 	if(status_flags & GODMODE)
@@ -188,7 +196,7 @@
 						length += emote_see.len
 					var/randomValue = rand(1,length)
 					if(randomValue <= speak.len)
-						say(pick(speak), forced = "poly")
+						say(pick(speak), forced = "simple_animal")
 					else
 						randomValue -= speak.len
 						if(emote_see && randomValue <= emote_see.len)
@@ -196,7 +204,7 @@
 						else
 							emote("me [pick(emote_hear)]", 2)
 				else
-					say(pick(speak), forced = "poly")
+					say(pick(speak), forced = "simple_animal")
 			else
 				if(!(emote_hear && emote_hear.len) && (emote_see && emote_see.len))
 					emote("me", 1, pick(emote_see))
@@ -335,7 +343,7 @@
 	if(flags_1 & HOLOGRAM_1)
 		do_sparks(3, TRUE, src)
 		return
-	if(loot.len)
+	if(length(loot))
 		for(var/i in loot)
 			new i(loc)
 
@@ -462,7 +470,7 @@
 		else
 			mobility_flags = NONE
 	if(!(mobility_flags & MOBILITY_MOVE))
-		walk(src, 0) //stop mid walk
+		SSmove_manager.stop_looping(src) //stop mid walk
 
 	update_transform()
 	update_action_buttons_icon()
@@ -555,12 +563,10 @@
 		var/obj/item/l_hand = get_item_for_held_index(1)
 		var/obj/item/r_hand = get_item_for_held_index(2)
 		if(r_hand)
-			r_hand.layer = ABOVE_HUD_LAYER
 			r_hand.plane = ABOVE_HUD_PLANE
 			r_hand.screen_loc = ui_hand_position(get_held_index_of_item(r_hand))
 			client.screen |= r_hand
 		if(l_hand)
-			l_hand.layer = ABOVE_HUD_LAYER
 			l_hand.plane = ABOVE_HUD_PLANE
 			l_hand.screen_loc = ui_hand_position(get_held_index_of_item(l_hand))
 			client.screen |= l_hand

@@ -134,7 +134,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(!check_rights(R_ADMIN))
 				return
 			var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
-			if(delete_mobs == "Cancel")
+			if(delete_mobs == "Cancel" || !delete_mobs)
 				return
 
 			log_admin("[key_name(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].", 1)
@@ -454,7 +454,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(animetype =="Yes")
 				droptype = alert("Make the uniforms undroppable?",,"Yes","No","Cancel")
 
-			if(animetype == "Cancel" || droptype == "Cancel")
+			if(animetype == "Cancel" || droptype == "Cancel" || !animetype || (!droptype && animetype == "Yes"))
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Chinese Cartoons"))
 			message_admins("[key_name_admin(usr)] made everything kawaii.")
@@ -643,7 +643,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("infinite_sec")
 			if(!check_rights(R_DEBUG))
 				return
-			var/datum/job/J = SSjob.GetJob("Security Officer")
+			var/datum/job/J = SSjob.GetJob(JOB_NAME_SECURITYOFFICER)
 			if(!J)
 				return
 			J.total_positions = -1
@@ -695,7 +695,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("flipmovement")
 			if(!check_rights(R_FUN))
 				return
-			if(alert("Flip all movement controls?","Confirm","Yes","Cancel") == "Cancel")
+			if(alert("Flip all movement controls?","Confirm","Yes","Cancel") != "Yes")
 				return
 			var/list/movement_keys = SSinput.movement_keys
 			for(var/i in 1 to movement_keys.len)
@@ -707,7 +707,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("randommovement")
 			if(!check_rights(R_FUN))
 				return
-			if(alert("Randomize all movement controls?","Confirm","Yes","Cancel") == "Cancel")
+			if(alert("Randomize all movement controls?","Confirm","Yes","Cancel") != "Yes")
 				return
 			var/list/movement_keys = SSinput.movement_keys
 			for(var/i in 1 to movement_keys.len)
@@ -719,7 +719,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("custommovement")
 			if(!check_rights(R_FUN))
 				return
-			if(alert("Are you sure you want to change every movement key?","Confirm","Yes","Cancel") == "Cancel")
+			if(alert("Are you sure you want to change every movement key?","Confirm","Yes","Cancel") != "Yes")
 				return
 			var/list/movement_keys = SSinput.movement_keys
 			var/list/new_movement = list()
@@ -740,7 +740,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("resetmovement")
 			if(!check_rights(R_FUN))
 				return
-			if(alert("Are you sure you want to reset movement keys to default?","Confirm","Yes","Cancel") == "Cancel")
+			if(alert("Are you sure you want to reset movement keys to default?","Confirm","Yes","Cancel") != "Yes")
 				return
 			SSinput.setup_default_movement_keys()
 			message_admins("[key_name_admin(usr)] has reset all movement keys.")
@@ -820,7 +820,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 	if(E)
 		E.processing = FALSE
 		if(E.announceWhen>0)
-			if(alert(usr, "Would you like to alert the crew?", "Alert", "Yes", "No") == "No")
+			if(alert(usr, "Would you like to alert the crew?", "Alert", "Yes", "No") != "Yes")
 				E.announceChance = 0
 		E.processing = TRUE
 	if (usr)
@@ -844,7 +844,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if (length(players))
 			var/mob/chosen = players[1]
 			if (chosen.client)
-				chosen.client.prefs.copy_to(spawnedMob)
+				chosen.client.prefs.active_character.copy_to(spawnedMob)
 				spawnedMob.key = chosen.key
 			players -= chosen
 		if (ishuman(spawnedMob) && ispath(humanoutfit, /datum/outfit))

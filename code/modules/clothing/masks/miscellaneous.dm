@@ -65,9 +65,36 @@
 	speech_args[SPEECH_MESSAGE] = trim(message)
 
 /obj/item/clothing/mask/joy
-	name = "joy mask"
-	desc = "Express your happiness or hide your sorrows with this laughing face with crying tears of joy cutout."
+	name = "emotion mask"
+	desc = "Express your happiness or hide your sorrows with this cultured cutout."
 	icon_state = "joy"
+	item_state = "joy"
+	flags_cover = MASKCOVERSEYES
+	resistance_flags = FLAMMABLE
+	actions_types = list(/datum/action/item_action/adjust)
+
+/obj/item/clothing/mask/joy/ui_action_click(mob/user)
+	if(!istype(user) || user.incapacitated())
+		return
+
+	var/list/options = list()
+	options["Joy"] = "joy"
+	options["Flushed"] = "flushed"
+	options["Pensive"] = "pensive"
+	options["Angry"] = "angry"
+	options["Pleading"] ="pleading"
+
+	var/choice = input(user,"To what form do you wish to Morph this mask?","Morph Mask") in sortList(options)
+
+	if(src && choice && !user.incapacitated() && in_range(user,src))
+		icon_state = options[choice]
+		user.update_inv_wear_mask()
+		for(var/X in actions)
+			var/datum/action/A = X
+			A.UpdateButtonIcon()
+		to_chat(user, "<span class='notice'>Your emotion mask has now morphed into [choice]!</span>")
+		return 1
+
 
 /obj/item/clothing/mask/pig
 	name = "pig mask"
@@ -240,6 +267,8 @@
 	adjustmask(user)
 
 /obj/item/clothing/mask/bandana/AltClick(mob/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		if((C.get_item_by_slot(ITEM_SLOT_HEAD == src)) || (C.get_item_by_slot(ITEM_SLOT_MASK) == src))

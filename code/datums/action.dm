@@ -68,7 +68,7 @@
 		M.actions += src
 		if(M.client)
 			M.client.screen += button
-			button.locked = M.client.prefs.buttons_locked || button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE //even if it's not defaultly locked we should remember we locked it before
+			button.locked = (M.client.prefs.toggles2 & PREFTOGGLE_2_LOCKED_BUTTONS) || button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE //even if it's not defaultly locked we should remember we locked it before
 			button.moved = button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE
 			var/obj/effect/proc_holder/spell/spell_proc_holder = button.linked_action.target
 			if(istype(spell_proc_holder) && spell_proc_holder.text_overlay)
@@ -124,33 +124,33 @@
 	return TRUE
 
 /datum/action/proc/UpdateButtonIcon(status_only = FALSE, force = FALSE)
-	if(button)
-		if(!status_only)
-			button.name = name
-			button.desc = desc
-			if(owner?.hud_used && background_icon_state == ACTION_BUTTON_DEFAULT_BACKGROUND)
-				var/list/settings = owner.hud_used.get_action_buttons_icons()
-				if(button.icon != settings["bg_icon"])
-					button.icon = settings["bg_icon"]
-				if(button.icon_state != settings["bg_state"])
-					button.icon_state = settings["bg_state"]
-			else
-				if(button.icon != button_icon)
-					button.icon = button_icon
-				if(button.icon_state != background_icon_state)
-					button.icon_state = background_icon_state
+	if(!button)
+		return FALSE
 
-			ApplyIcon(button, force)
-
-		if(!IsAvailable())
-			button.color = has_cooldown_timer ? rgb(219, 219, 219, 255) : transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0)
+	if(!status_only)
+		button.name = name
+		button.desc = desc
+		if(owner?.hud_used && background_icon_state == ACTION_BUTTON_DEFAULT_BACKGROUND)
+			var/list/settings = owner.hud_used.get_action_buttons_icons()
+			if(button.icon != settings["bg_icon"])
+				button.icon = settings["bg_icon"]
+			if(button.icon_state != settings["bg_state"])
+				button.icon_state = settings["bg_state"]
 		else
-			button.color = rgb(255,255,255,255)
-			return 1
+			if(button.icon != button_icon)
+				button.icon = button_icon
+			if(button.icon_state != background_icon_state)
+				button.icon_state = background_icon_state
+		ApplyIcon(button, force)
+	if(!IsAvailable())
+		button.color = has_cooldown_timer ? rgb(219, 219, 219, 255) : transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0)
+	else
+		button.color = rgb(255,255,255,255)
+		return TRUE
 
 /datum/action/proc/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force = FALSE)
 	if(icon_icon && button_icon_state && ((current_button.button_icon_state != button_icon_state) || force))
-		current_button.cut_overlays(TRUE)
+		current_button.cut_overlays()
 		current_button.add_overlay(mutable_appearance(icon_icon, button_icon_state))
 		current_button.button_icon_state = button_icon_state
 
@@ -170,17 +170,17 @@
 
 /datum/action/item_action/Destroy()
 	var/obj/item/I = target
-	I.actions -= src
+	I?.actions -= src
 	UNSETEMPTY(I.actions)
 	return ..()
 
 /datum/action/item_action/Trigger()
 	if(!..())
-		return 0
+		return FALSE
 	if(target)
 		var/obj/item/I = target
 		I.ui_action_click(owner, src)
-	return 1
+	return TRUE
 
 /datum/action/item_action/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force)
 	if(button_icon && button_icon_state)
@@ -203,9 +203,9 @@
 	name = "Toggle Light"
 
 /datum/action/item_action/toggle_light/Trigger()
-	if(istype(target, /obj/item/pda))
-		var/obj/item/pda/P = target
-		P.toggle_light(owner)
+	if(istype(target, /obj/item/modular_computer))
+		var/obj/item/modular_computer/mc = target
+		mc.toggle_flashlight()
 		return
 	..()
 
@@ -227,6 +227,9 @@
 
 /datum/action/item_action/startchainsaw
 	name = "Pull The Starting Cord"
+
+/datum/action/item_action/toggle_computer_light
+	name = "Toggle Flashlight"
 
 /datum/action/item_action/toggle_gunlight
 	name = "Toggle Gunlight"
@@ -376,16 +379,12 @@
 
 /datum/action/item_action/nano_picket_sign
 	name = "Retext Nano Picket Sign"
-	var/obj/item/picket_sign/S
-
-/datum/action/item_action/nano_picket_sign/New(Target)
-	..()
-	if(istype(Target, /obj/item/picket_sign))
-		S = Target
 
 /datum/action/item_action/nano_picket_sign/Trigger()
-	if(istype(S))
-		S.retext(owner)
+	if(!istype(target, /obj/item/picket_sign))
+		return
+	var/obj/item/picket_sign/sign = target
+	sign.retext(owner)
 
 /datum/action/item_action/adjust
 
@@ -499,27 +498,26 @@
 	if(!IS_CULTIST(M))
 		Remove(owner)
 		return
-
 	. = ..()
 	button.screen_loc = "6:157,4:-2"
 	button.moved = "6:157,4:-2"
 
 /datum/action/item_action/cult_dagger/Trigger()
-	for(var/obj/item/held_item as anything in owner.held_items) // In case we were already holding a dagger
-		if(istype(held_item, /obj/item/melee/cultblade/dagger))
-			held_item.attack_self(owner)
+	for(var/obj/item/H in owner.held_items) //In case we were already holding another dagger
+		if(istype(H, /obj/item/melee/cultblade/dagger))
+			H.attack_self(owner)
 			return
-	var/obj/item/target_item = target
-	if(owner.can_equip(target_item, ITEM_SLOT_HANDS))
-		owner.temporarilyRemoveItemFromInventory(target_item)
-		owner.put_in_hands(target_item)
-		target_item.attack_self(owner)
-		return
+	var/obj/item/I = target
+	if(owner.can_equip(I, ITEM_SLOT_HANDS))
+		owner.temporarilyRemoveItemFromInventory(I)
+		owner.put_in_hands(I)
+		I.attack_self(owner)
 	else
 		if (owner.get_num_arms() <= 0)
 			to_chat(owner, "<span class='warning'>You don't have any usable hands!</span>")
 		else
 			to_chat(owner, "<span class='warning'>Your hands are full!</span>")
+
 
 ///MGS BOX!
 /datum/action/item_action/agent_box
@@ -572,7 +570,7 @@
 
 /datum/action/spell_action/Destroy()
 	var/obj/effect/proc_holder/S = target
-	S.action = null
+	S?.action = null
 	return ..()
 
 /datum/action/spell_action/Trigger()
@@ -749,7 +747,7 @@
 	small_icon_state = "dwarf_legion"
 
 /datum/action/small_sprite/megafauna/spacedragon
-	small_icon = 'icons/mob/animal.dmi'
+	small_icon = 'icons/mob/carp.dmi'
 	small_icon_state = "carp"
 
 /datum/action/small_sprite/Trigger()

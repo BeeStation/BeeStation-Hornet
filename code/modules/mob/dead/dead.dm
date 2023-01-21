@@ -58,7 +58,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 
 /mob/dead/proc/server_hop()
 	set category = "OOC"
-	set name = "Server Hop!"
+	set name = "Server Hop"
 	set desc= "Jump to the other server"
 	if(notransform)
 		return
@@ -112,6 +112,9 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	var/turf/T = get_turf(src)
 	if (isturf(T))
 		update_z(T.z)
+	// Update SSD indicator for ghost's body
+	if(isliving(mind?.current))
+		mind.current.med_hud_set_status()
 
 /mob/dead/auto_deadmin_on_login()
 	return

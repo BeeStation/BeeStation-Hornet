@@ -54,7 +54,8 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	integrity_failure = 100
 	armor = list("melee" = 20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0)
 	circuit = /obj/item/circuitboard/machine/vendor
-	payment_department = ACCOUNT_SRV
+	clicksound = 'sound/machines/pda_button1.ogg'
+	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
 	light_color = LIGHT_COLOR_BLUE
 
@@ -238,32 +239,30 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 		..()
 
 /obj/machinery/vending/obj_break(damage_flag)
-	if(!(stat & BROKEN) && !(flags_1 & NODECONSTRUCT_1))
-		stat |= BROKEN
-		icon_state = "[initial(icon_state)]-broken"
-		set_light(0)
-		var/dump_amount = 0
-		var/found_anything = TRUE
-		while (found_anything)
-			found_anything = FALSE
-			for(var/record in shuffle(product_records))
-				var/datum/data/vending_product/R = record
-				if(R.amount <= 0) //Try to use a record that actually has something to dump.
-					continue
-				var/dump_path = R.product_path
-				if(!dump_path)
-					continue
-				R.amount--
-				// busting open a vendor will destroy some of the contents
-				if(found_anything && prob(80))
-					continue
-
-				var/obj/O = new dump_path(loc)
-				step(O, pick(GLOB.alldirs))
-				found_anything = TRUE
-				dump_amount++
-				if (dump_amount >= 16)
-					return
+	. = ..()
+	if(!.)
+		return
+	var/dump_amount = 0
+	var/found_anything = TRUE
+	while (found_anything)
+		found_anything = FALSE
+		for(var/record in shuffle(product_records))
+			var/datum/data/vending_product/R = record
+			if(R.amount <= 0) //Try to use a record that actually has something to dump.
+				continue
+			var/dump_path = R.product_path
+			if(!dump_path)
+				continue
+			R.amount--
+			// busting open a vendor will destroy some of the contents
+			if(found_anything && prob(80))
+				continue
+			var/obj/O = new dump_path(loc)
+			step(O, pick(GLOB.alldirs))
+			found_anything = TRUE
+			dump_amount++
+			if (dump_amount >= 16)
+				return
 
 GLOBAL_LIST_EMPTY(vending_products)
 /**
@@ -386,7 +385,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	if(refill_canister && istype(I, refill_canister))
 		if (!panel_open)
 			to_chat(user, "<span class='notice'>You should probably unscrew the service panel first.</span>")
-		else if (stat & (BROKEN|NOPOWER))
+		else if (machine_stat & (BROKEN|NOPOWER))
 			to_chat(user, "<span class='notice'>[src] does not respond.</span>")
 		else
 			//if the panel is open we attempt to refill the machine
@@ -624,14 +623,12 @@ GLOBAL_LIST_EMPTY(vending_products)
 	update_canister()
 	. = ..()
 
-/obj/machinery/vending/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/vending/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='notice'>You short out the product lock on [src].</span>")
 
 /obj/machinery/vending/_try_interact(mob/user)
-	if(seconds_electrified && !(stat & NOPOWER))
+	if(seconds_electrified && !(machine_stat & NOPOWER))
 		if(shock(user, 100))
 			return
 
@@ -660,7 +657,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 /obj/machinery/vending/ui_static_data(mob/user)
 	. = list()
 	.["onstation"] = onstation
-	.["department"] = payment_department
+	.["department_bitflag"] = dept_req_for_free
 	.["product_records"] = list()
 	for (var/datum/data/vending_product/R in product_records)
 		var/list/data = list(
@@ -706,15 +703,17 @@ GLOBAL_LIST_EMPTY(vending_products)
 			.["user"] = list()
 			.["user"]["name"] = C.registered_account.account_holder
 			.["user"]["cash"] = C.registered_account.account_balance
+			.["user"]["job"] = "No Job"
+			.["user"]["department_bitflag"] = 0
+			var/datum/data/record/R = find_record("name", C.registered_account.account_holder, GLOB.data_core.general)
 			if(C.registered_account.account_job)
 				.["user"]["job"] = C.registered_account.account_job.title
-				.["user"]["department"] = C.registered_account.account_job.paycheck_department
-			else
-				.["user"]["job"] = "No Job"
-				.["user"]["department"] = "No Department"
+				.["user"]["department_bitflag"] = C.registered_account.active_departments
+			if(R)
+				.["user"]["job"] = R.fields["rank"]
 	.["stock"] = list()
 	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
-		.["stock"][R.name] = R.amount
+		.["stock"]["[replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")]"] = R.amount
 	.["extended_inventory"] = extended_inventory
 
 /obj/machinery/vending/ui_act(action, params)
@@ -767,7 +766,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 					vend_ready = TRUE
 					return
 				var/datum/bank_account/account = C.registered_account
-				if(account.account_job && account.account_job.paycheck_department == payment_department)
+				if(account.account_job && (account.active_departments & dept_req_for_free))
 					price_to_use = 0
 				if(coin_records.Find(R))
 					price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price
@@ -776,9 +775,16 @@ GLOBAL_LIST_EMPTY(vending_products)
 					flick(icon_deny,src)
 					vend_ready = TRUE
 					return
-				var/datum/bank_account/D = SSeconomy.get_dep_account(payment_department)
-				if(D)
-					D.adjust_money(price_to_use)
+
+				// each department (seller_department) will earn the profit
+				if(price_to_use && seller_department)
+					var/list/dept_list = SSeconomy.get_dept_id_by_bitflag(seller_department)
+					if(length(dept_list))
+						price_to_use = round(price_to_use/length(dept_list))
+						for(var/datum/bank_account/department/D in dept_list)
+							if(D)
+								D.adjust_money(price_to_use)
+
 			if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
 				say("Thank you for shopping with [src]!")
 				purchase_message_cooldown = world.time + 5 SECONDS
@@ -788,14 +794,18 @@ GLOBAL_LIST_EMPTY(vending_products)
 			if(icon_vend) //Show the vending animation if needed
 				flick(icon_vend,src)
 			playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
-			new R.product_path(get_turf(src))
+			var/obj/item/vended_item = new R.product_path(get_turf(src))
 			R.amount--
+			if(usr.CanReach(src) && usr.put_in_hands(vended_item))
+				to_chat(usr, "<span class='notice'>You take [R.name] out of the slot.</span>")
+			else
+				to_chat(usr, "<span class='warning'>[capitalize(R.name)] falls onto the floor!</span>")
 			. = TRUE
 			SSblackbox.record_feedback("nested tally", "vending_machine_usage", 1, list("[type]", "[R.product_path]"))
 			vend_ready = TRUE
 
 /obj/machinery/vending/process(delta_time)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_stat & (BROKEN|NOPOWER))
 		return PROCESS_KILL
 	if(!active)
 		return
@@ -822,7 +832,7 @@ GLOBAL_LIST_EMPTY(vending_products)
   * * message - the message to speak
   */
 /obj/machinery/vending/proc/speak(message)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_stat & (BROKEN|NOPOWER))
 		return
 	if(!message)
 		return
@@ -830,17 +840,17 @@ GLOBAL_LIST_EMPTY(vending_products)
 	say(message)
 
 /obj/machinery/vending/power_change()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		icon_state = "[initial(icon_state)]-broken"
 	else
 		if(powered())
 			icon_state = initial(icon_state)
-			stat &= ~NOPOWER
+			machine_stat &= ~NOPOWER
 			START_PROCESSING(SSmachines, src)
 			set_light(2)
 		else
 			icon_state = "[initial(icon_state)]-off"
-			stat |= NOPOWER
+			machine_stat |= NOPOWER
 			set_light(0)
 
 //Somebody cut an important wire and now we're following a new definition of "pitch."
@@ -853,7 +863,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 /obj/machinery/vending/proc/throw_item()
 	var/obj/throw_item = null
 	var/mob/living/target = locate() in view(7,src)
-	if(!target)
+	if(!target || target.incorporeal_move >= INCORPOREAL_MOVE_BASIC)
 		return 0
 
 	for(var/datum/data/vending_product/R in shuffle(product_records))
@@ -896,7 +906,7 @@ GLOBAL_LIST_EMPTY(vending_products)
   * * prb - probability the shock happens
   */
 /obj/machinery/vending/proc/shock(mob/user, prb)
-	if(stat & (BROKEN|NOPOWER))		// unpowered, no shock
+	if(machine_stat & (BROKEN|NOPOWER))		// unpowered, no shock
 		return FALSE
 	if(!prob(prb))
 		return FALSE
@@ -924,7 +934,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	icon_state = "robotics"
 	icon_deny = "robotics-deny"
 	max_integrity = 400
-	payment_department = NO_FREEBIES
+	dept_req_for_free = NO_FREEBIES
 	refill_canister = /obj/item/vending_refill/custom
 	/// where the money is sent
 	var/datum/bank_account/private_a
@@ -972,7 +982,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 						if(base64_cache[T.type])
 							base64 = base64_cache[T.type]
 						else
-							base64 = icon2base64(icon(T.icon, T.icon_state))
+							base64 = icon2base64(icon(T.icon, T.icon_state, frame=1))
 							base64_cache[T.type] = base64
 					break
 			var/list/data = list(

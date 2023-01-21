@@ -9,6 +9,7 @@
 	var/datum/action/innate/shuttle_creator/clear_turf/clear_turf_action = new
 	var/datum/action/innate/shuttle_creator/reset/reset_action = new
 	var/datum/action/innate/shuttle_creator/airlock/airlock_action = new
+	var/datum/action/innate/shuttle_creator/modify/modify_action = new
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/check_eye(mob/user)
 	if(user.eye_blind || user.incapacitated())
@@ -18,9 +19,6 @@
 	eyeobj = new /mob/camera/ai_eye/remote/shuttle_creation(get_turf(owner_rsd))
 	eyeobj.origin = src
 	eyeobj.use_static = FALSE
-
-/obj/machinery/computer/camera_advanced/shuttle_creator/is_operational()
-	return TRUE
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/can_interact(mob/user)
 	if(!isliving(user))
@@ -49,10 +47,14 @@
 		reset_action.target = src
 		reset_action.Grant(user)
 		actions += reset_action
-	if(airlock_action)
+	if(!owner_rsd.linkedShuttleId && airlock_action)
 		airlock_action.target = src
 		airlock_action.Grant(user)
 		actions += airlock_action
+	if(owner_rsd.linkedShuttleId && modify_action)
+		modify_action.target = src
+		modify_action.Grant(user)
+		actions += modify_action
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/remove_eye_control(mob/living/user)
 	. = ..()
@@ -62,7 +64,7 @@
 		user.client.images -= eyeobj.user_image
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/attack_hand(mob/user)
-	if(!is_operational()) //you cant use broken machine you chumbis
+	if(!is_operational) //you cant use broken machine you chumbis
 		return
 	if(current_user)
 		to_chat(user, "The console is already in use!")

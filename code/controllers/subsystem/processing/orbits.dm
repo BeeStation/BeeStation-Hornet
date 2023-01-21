@@ -30,6 +30,10 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//value = orbital shuttle object
 	var/list/assoc_shuttles = list()
 
+	//key = z-level as a string
+	//value = orbital object for that z-level
+	var/list/assoc_z_levels = list()
+
 	//Key = port_id
 	//value = world time of next launch
 	var/list/interdicted_shuttles = list()
@@ -152,7 +156,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		/datum/orbital_objective/vip_recovery = 1
 	)
 	if(!length(possible_objectives))
-		priority_announce("Priority station objective recieved - Details transmitted to all available objective consoles. \
+		priority_announce("Priority station objective received - Details transmitted to all available objective consoles. \
 			[GLOB.station_name] will have funds distributed upon objective completion.", "Central Command Report", SSstation.announcer.get_rand_report_sound())
 	var/chosen = pickweight(valid_objectives)
 	if(!chosen)
@@ -179,3 +183,52 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	for(var/obj/machinery/computer/objective/computer as() in GLOB.objective_computers)
 		for(var/M in computer.viewing_mobs)
 			computer.update_static_data(M)
+
+/*
+ * Returns the base data of what is required for
+ * OrbitalMapSvg to function.
+ *
+ * This will display the base map, additional shuttle/weapons functionality
+ * can be appended to the returned data list in ui_data.
+ *
+ * This exists to normalise the ui_data between different consoles that use the orbital
+ * map interface and to prevent repeating code.
+ */
+/datum/controller/subsystem/processing/orbits/proc/get_orbital_map_base_data(
+		//The map to generate the data from.
+		datum/orbital_map/showing_map,
+		//The reference of the user (REF(user))
+		user_ref,
+		//Can we see stealthed objects?
+		see_stealthed = FALSE,
+		//Our attached orbital object (Overrides stealth)
+		datum/orbital_object/attached_orbital_object = null,
+	)
+	var/data = list()
+	data["update_index"] = SSorbits.times_fired
+	data["map_objects"] = list()
+	//Fetch the active single instances
+	//Get the objects
+	for(var/zone in showing_map.collision_zone_bodies)
+		for(var/datum/orbital_object/object as() in showing_map.collision_zone_bodies[zone])
+			if(!object)
+				continue
+			//we can't see it, unless we are stealth too
+			if(attached_orbital_object)
+				if(object != attached_orbital_object && (object.stealth && !attached_orbital_object.stealth))
+					continue
+			else if(!see_stealthed && object.stealth)
+				continue
+			//Transmit map data about non single-instanced objects.
+			data["map_objects"] += list(list(
+				"id" = object.unique_id,
+				"name" = object.name,
+				"position_x" = object.position.x,
+				"position_y" = object.position.y,
+				"velocity_x" = object.velocity.x,
+				"velocity_y" = object.velocity.y,
+				"radius" = object.radius,
+				"render_mode" = object.render_mode,
+				"priority" = object.priority,
+			))
+	return data

@@ -70,7 +70,7 @@
 /datum/export/stack/bscrystal
 	cost = 300
 	message = "of bluespace crystals"
-	export_types = list(/obj/item/stack/sheet/bluespace_crystal)
+	export_types = list(/obj/item/stack/ore/bluespace_crystal)
 
 /datum/export/stack/wood
 	cost = 30

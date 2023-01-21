@@ -1,20 +1,17 @@
 /obj/item/gun/energy/e_gun/mini/exploration
 	name = "handheld multi-purpose energy gun"
-	desc = "A pistol-sized energy gun with a built-in flashlight designed for exploration crews. It serves a duel purpose and has modes for anti-creature lasers and cutting lasers."
+	desc = "A pistol-sized energy gun with a built-in flashlight designed for exploration crews. It serves a dual purpose and has modes for anti-creature lasers and cutting lasers."
 	pin = /obj/item/firing_pin/off_station
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/anti_creature, /obj/item/ammo_casing/energy/laser/cutting)
 
-/obj/item/gun/energy/e_gun/mini/exploration/emag_act(mob/user)
-	. = ..()
+/obj/item/gun/energy/e_gun/mini/exploration/on_emag(mob/user)
+	..()
 	//Emag the pin too
 	if(pin)
-		pin.emag_act(user)
-	if(obj_flags & EMAGGED)
-		return
+		pin.use_emag(user)
 	to_chat(user, "<span class='warning'>You override the safety of the energy gun, it will now fire higher powered projectiles at a greater cost.</span>")
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/exploration_kill, /obj/item/ammo_casing/energy/laser/exploration_destroy)
 	update_ammo_types()
-	obj_flags |= EMAGGED
 
 //Anti-creature - Extra damage against simplemobs
 

@@ -42,7 +42,7 @@
 /mob/living/simple_animal/bot/firebot/Initialize(mapload)
 	. = ..()
 	update_icon()
-	var/datum/job/engineer/J = new/datum/job/engineer
+	var/datum/job/station_engineer/J = new/datum/job/station_engineer
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
@@ -119,7 +119,7 @@
 
 	return dat
 
-/mob/living/simple_animal/bot/firebot/emag_act(mob/user)
+/mob/living/simple_animal/bot/firebot/on_emag(atom/target, mob/user)
 	..()
 	if(emagged == 2)
 		if(user)

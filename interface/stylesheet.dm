@@ -82,6 +82,16 @@ h1.alert, h2.alert		{color: #000000;}
 .boldnotice				{color: #000099;	font-weight: bold;}
 .adminnotice			{color: #0000ff;}
 .adminhelp              {color: #ff0000;    font-weight: bold;}
+.adminhelp_conclusion {
+  display: block;
+  color: white;
+  text-align: center;
+  background-color: black;
+  border: 2px solid red;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 20px;
+}
 .unconscious			{color: #0000ff;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #03ff39;}
@@ -161,6 +171,7 @@ h1.alert, h2.alert		{color: #000000;}
 .bigassimilator			{color: #800080;	font-size: 4 ; font-weight: bold;}
 
 .spider					{color: #4d004d;}
+.spiderlarge			{color: #4d004d;	font-size: 3 ; font-weight: bold;}
 
 .interface				{color: #330033;}
 

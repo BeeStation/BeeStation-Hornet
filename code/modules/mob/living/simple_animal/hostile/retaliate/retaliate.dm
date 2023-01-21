@@ -60,3 +60,12 @@
 	SIGNAL_HANDLER
 	UnregisterSignal(enemy_to_remove, COMSIG_PARENT_QDELETING)
 	enemies -= enemy_to_remove
+	if(enemy_to_remove == target) // if its the same we null the reference in target
+		target = null
+
+/mob/living/simple_animal/hostile/retaliate/add_target(new_target)
+	if(target && !(target in enemies)) //we should not remove the signal if it still exists in the enemies list
+		UnregisterSignal(target, COMSIG_PARENT_QDELETING)
+	target = new_target
+	if(target) //we could also check here again if this is in the enemies list but override = TRUE might be the better idea here
+		RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/remove_enemy, override = TRUE)

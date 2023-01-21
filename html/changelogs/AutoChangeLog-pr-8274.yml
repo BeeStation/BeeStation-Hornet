@@ -1,0 +1,8 @@
+author: PowerfulBacon, CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added an emergency o2 locker, two coffees, two GPSs and a note to Hilbert's
+      Hotel
+  - rscadd: Added an emergency escape mechanism to the door of Hilbert's Hotel which
+      launches the user towards the station
+  - bugfix: Fixes Hilbert's Hotel not properly linking its rooms to the item orb

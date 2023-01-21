@@ -11,6 +11,7 @@
  *		Sheet Snatcher
  *		Book Bag
  *      Biowaste Bag
+ * 		mail bag
  *
  *	-Sayu
  */
@@ -133,7 +134,8 @@
 	STR.allow_quick_empty = TRUE
 	STR.can_hold = typecacheof(list(/obj/item/stack/ore))
 	STR.max_w_class = WEIGHT_CLASS_HUGE
-	STR.max_combined_stack_amount = 50
+	STR.max_items = 20
+	STR.max_combined_stack_amount = 250
 
 /obj/item/storage/bag/ore/equipped(mob/user)
 	. = ..()
@@ -306,7 +308,7 @@
 	STR.max_combined_w_class = 21
 	STR.max_items = 7
 	STR.display_numerical_stacking = FALSE
-	STR.can_hold = typecacheof(list(/obj/item/book, /obj/item/storage/book, /obj/item/spellbook))
+	STR.can_hold = typecacheof(list(/obj/item/book, /obj/item/storage/book, /obj/item/spellbook, /obj/item/forbidden_book))
 
 /*
  * Trays - Agouri
@@ -335,13 +337,8 @@
 	var/list/obj/item/oldContents = contents.Copy()
 	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_QUICK_EMPTY)
 	// Make each item scatter a bit
-	for(var/obj/item/I in oldContents)
-		spawn()
-			for(var/i = 1, i <= rand(1,2), i++)
-				if(I)
-					step(I, pick(NORTH,SOUTH,EAST,WEST))
-					sleep(rand(2,4))
-
+	for(var/obj/item/tray_item in oldContents)
+		do_scatter(tray_item)
 	if(prob(50))
 		playsound(M, 'sound/items/trayhit1.ogg', 50, 1)
 	else
@@ -351,6 +348,19 @@
 		if(prob(10))
 			M.Paralyze(40)
 	update_icon()
+
+/obj/item/storage/bag/tray/proc/do_scatter(obj/item/tray_item)
+	var/delay = rand(2,4)
+	var/datum/move_loop/loop = SSmove_manager.move_rand(tray_item, list(NORTH,SOUTH,EAST,WEST), delay, timeout = rand(1, 2) * delay, flags = MOVEMENT_LOOP_START_FAST)
+	//This does mean scattering is tied to the tray. Not sure how better to handle it
+	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, .proc/change_speed)
+
+/obj/item/storage/bag/tray/proc/change_speed(datum/move_loop/source)
+	SIGNAL_HANDLER
+	var/new_delay = rand(2, 4)
+	var/count = source.lifetime / source.delay
+	source.lifetime = count * new_delay
+	source.delay = new_delay
 
 /obj/item/storage/bag/tray/update_icon()
 	cut_overlays()
@@ -426,3 +436,28 @@
 	STR.max_w_class = WEIGHT_CLASS_SMALL
 	STR.insert_preposition = "in"
 	STR.can_hold = typecacheof(list(/obj/item/stack/ore/bluespace_crystal, /obj/item/assembly, /obj/item/stock_parts, /obj/item/reagent_containers/glass/beaker, /obj/item/stack/cable_coil, /obj/item/circuitboard, /obj/item/electronics))
+
+// -----------------------------
+//           mail bag
+// -----------------------------
+
+/obj/item/storage/bag/mail
+	name = "mail bag"
+	desc = "A bag for letters, envelopes, and other postage."
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "mailbag"
+	resistance_flags = FLAMMABLE
+
+/obj/item/storage/bag/mail/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.max_combined_w_class = 32
+	STR.max_items = 32
+	STR.display_numerical_stacking = FALSE
+	STR.can_hold = typecacheof (list(	/obj/item/mail,
+										/obj/item/small_delivery,
+										/obj/item/paper,
+										/obj/item/reagent_containers/food/condiment/milk,
+										/obj/item/reagent_containers/food/snacks/store/bread/plain
+									))

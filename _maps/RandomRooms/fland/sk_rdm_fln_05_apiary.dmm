@@ -4,7 +4,7 @@
 /area/template_noop)
 "b" = (
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/grass,
 /area/template_noop)
 "c" = (
@@ -15,40 +15,12 @@
 /obj/item/seeds/cannabis,
 /turf/open/floor/grass,
 /area/template_noop)
-"f" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/biogenerator,
-/obj/effect/turf_decal/tile/neutral/tile_side,
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
 "h" = (
 /obj/machinery/newscaster{
 	pixel_x = 28;
 	pixel_y = 1
 	},
 /turf/open/floor/grass,
-/area/template_noop)
-"j" = (
-/obj/structure/table/glass,
-/obj/item/shovel/spade,
-/obj/item/plant_analyzer,
-/obj/item/cultivator{
-	pixel_x = 6
-	},
-/obj/item/reagent_containers/spray/plantbgone{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/effect/turf_decal/tile/neutral/tile_side,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/item/reagent_containers/glass/bucket,
-/turf/open/floor/plasteel/dark,
 /area/template_noop)
 "k" = (
 /obj/structure/flora/grass/jungle/b,
@@ -61,36 +33,35 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "l" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/grass,
 /area/template_noop)
+"m" = (
+/obj/structure/table/glass,
+/obj/item/shovel/spade,
+/obj/item/plant_analyzer,
+/obj/item/cultivator{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/spray/plantbgone{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/reagent_containers/glass/bucket,
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
 "n" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
 /turf/open/floor/grass,
 /area/template_noop)
-"o" = (
-/obj/structure/closet{
-	name = "beekeeping wardrobe"
-	},
-/obj/item/clothing/suit/beekeeper_suit,
-/obj/item/clothing/suit/beekeeper_suit,
-/obj/item/clothing/suit/beekeeper_suit,
-/obj/item/clothing/head/beekeeper_head,
-/obj/item/clothing/head/beekeeper_head,
-/obj/item/clothing/head/beekeeper_head,
-/obj/item/melee/flyswatter,
-/obj/item/melee/flyswatter,
-/obj/item/melee/flyswatter,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral/tile_side{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
 "p" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
 /turf/open/floor/grass,
@@ -109,22 +80,6 @@
 "w" = (
 /turf/closed/wall/r_wall,
 /area/template_noop)
-"x" = (
-/obj/structure/closet{
-	name = "beekeeping supplies"
-	},
-/obj/item/honey_frame,
-/obj/item/honey_frame,
-/obj/item/honey_frame,
-/obj/item/honey_frame,
-/obj/item/honey_frame,
-/obj/item/honey_frame,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral/tile_side{
-	dir = 10
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
 "y" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/liberty,
@@ -140,9 +95,18 @@
 /obj/item/seeds/cabbage,
 /turf/open/floor/grass,
 /area/template_noop)
+"C" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/seed_extractor,
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
 "D" = (
 /obj/structure/flora/ausbushes/grassybush,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
 /turf/open/floor/grass,
@@ -160,34 +124,41 @@
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/leafybush,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
 /turf/open/floor/grass,
-/area/template_noop)
-"I" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/seed_extractor,
-/obj/effect/turf_decal/tile/neutral/tile_side{
-	dir = 6
-	},
-/turf/open/floor/plasteel/dark,
 /area/template_noop)
 "J" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Apiary Maintenance";
 	req_one_access_txt = "22;35"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/template_noop,
 /area/template_noop)
 "L" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/bamboo,
 /turf/open/floor/grass,
+/area/template_noop)
+"N" = (
+/obj/structure/closet{
+	name = "beekeeping supplies"
+	},
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
 /area/template_noop)
 "O" = (
 /obj/machinery/hydroponics/soil,
@@ -196,8 +167,18 @@
 /area/template_noop)
 "P" = (
 /obj/structure/flora/grass/jungle/b,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/grass,
+/area/template_noop)
+"Q" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/biogenerator,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/plasteel/dark,
 /area/template_noop)
 "R" = (
 /obj/structure/flora/grass/jungle/b,
@@ -232,9 +213,28 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/template_noop)
 "Y" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/grass,
+/area/template_noop)
+"Z" = (
+/obj/structure/closet{
+	name = "beekeeping wardrobe"
+	},
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/head/beekeeper_head,
+/obj/item/clothing/head/beekeeper_head,
+/obj/item/clothing/head/beekeeper_head,
+/obj/item/melee/flyswatter,
+/obj/item/melee/flyswatter,
+/obj/item/melee/flyswatter,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -245,9 +245,9 @@ G
 A
 F
 y
-I
-j
-f
+C
+m
+Q
 a
 "}
 (2,1,1) = {"
@@ -273,7 +273,7 @@ F
 S
 n
 V
-x
+N
 a
 "}
 (4,1,1) = {"
@@ -286,7 +286,7 @@ h
 O
 V
 k
-o
+Z
 w
 "}
 (5,1,1) = {"

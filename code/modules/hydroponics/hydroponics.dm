@@ -286,7 +286,7 @@
 			set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color)
 		else
 			set_light(0)
-
+	update_name()
 	return
 
 /obj/machinery/hydroponics/proc/update_icon_hoses()
@@ -389,7 +389,6 @@
 	pestlevel = 0 // Reset
 	update_icon()
 	visible_message("<span class='warning'>The [oldPlantName] is overtaken by some [myseed.plantname]!</span>")
-	update_name()
 
 
 /obj/machinery/hydroponics/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0) // Mutates the current seed
@@ -449,7 +448,6 @@
 //Called after plant mutation, update the appearance of the tray content and send a visible_message()
 /obj/machinery/hydroponics/proc/after_mutation(message)
 	update_icon()
-	update_name()
 	visible_message(message)
 
 /obj/machinery/hydroponics/proc/plantdies() // OH NOES!!!!! I put this all in one function to make things easier
@@ -787,7 +785,6 @@
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
 			dead = 0
 			myseed = O
-			update_name()
 			age = 1
 			lastproduce = 1
 			plant_health = myseed.endurance
@@ -797,20 +794,21 @@
 			to_chat(user, "<span class='warning'>[src] already has seeds in it!</span>")
 
 	else if(istype(O, /obj/item/plant_analyzer))
+		var/list/message = list()
 		if(myseed)
-			to_chat(user, "*** <B>[myseed.plantname]</B> ***" )
-			to_chat(user, "- Plant Age: <span class='notice'>[age]</span>")
+			message += "*** <B>[myseed.plantname]</B> ***"
+			message += "- Plant Age: <span class='notice'>[age]</span>"
 			var/list/text_string = myseed.get_analyzer_text()
 			if(text_string)
-				to_chat(user, text_string)
+				message += text_string
 		else
-			to_chat(user, "<B>No plant found.</B>")
-		to_chat(user, "- Weed level: <span class='notice'>[weedlevel] / 10</span>")
-		to_chat(user, "- Pest level: <span class='notice'>[pestlevel] / 10</span>")
-		to_chat(user, "- Toxicity level: <span class='notice'>[toxic] / 100</span>")
-		to_chat(user, "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>")
-		to_chat(user, "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>")
-		to_chat(user, "")
+			message += "<B>No plant found.</B>"
+		message += "- Weed level: <span class='notice'>[weedlevel] / 10</span>"
+		message += "- Pest level: <span class='notice'>[pestlevel] / 10</span>"
+		message += "- Toxicity level: <span class='notice'>[toxic] / 100</span>"
+		message += "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>"
+		message += "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>"
+		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
 
 	else if(istype(O, /obj/item/cultivator))
 		if(weedlevel > 0)
@@ -855,7 +853,6 @@
 					harvest = FALSE //To make sure they can't just put in another seed and insta-harvest it
 				qdel(myseed)
 				myseed = null
-				update_name()
 			weedlevel = 0 //Has a side effect of cleaning up those nasty weeds
 			update_icon()
 
@@ -890,7 +887,6 @@
 		to_chat(user, "<span class='notice'>You remove the dead plant from [src].</span>")
 		qdel(myseed)
 		myseed = null
-		update_name()
 		update_icon()
 	else
 		if(user)
@@ -908,7 +904,6 @@
 	if(!myseed.get_gene(/datum/plant_gene/trait/repeated_harvest))
 		qdel(myseed)
 		myseed = null
-		update_name()
 		dead = 0
 		age = 0
 		lastproduce = 0
@@ -948,11 +943,14 @@
 	self_sustaining = TRUE
 	update_icon()
 
-/obj/machinery/hydroponics/proc/update_name()
+/obj/machinery/hydroponics/update_name()
+	if(renamedByPlayer)
+		return
 	if(myseed)
 		name = "[initial(name)] ([myseed.plantname])"
 	else
 		name = initial(name)
+	return ..()
 
 ///////////////////////////////////////////////////////////////////////////////
 /obj/machinery/hydroponics/soil //Not actually hydroponics at all! Honk!

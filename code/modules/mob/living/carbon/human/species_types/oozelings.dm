@@ -3,12 +3,12 @@
 	id = SPECIES_OOZELING
 	bodyflag = FLAG_OOZELING
 	default_color = "00FF90"
-	say_mod = "blorbles"
 	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR)
 	inherent_traits = list(TRAIT_TOXINLOVER,TRAIT_NOFIRE,TRAIT_ALWAYS_CLEAN,TRAIT_EASYDISMEMBER)
 	hair_color = "mutcolor"
 	hair_alpha = 150
 	mutantlungs = /obj/item/organ/lungs/oozeling
+	mutanttongue = /obj/item/organ/tongue/slime
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime
 	exotic_blood = /datum/reagent/toxin/slimeooze
 	damage_overlay_type = ""
@@ -18,8 +18,6 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/oozeling
 	swimming_component = /datum/component/swimming/dissolve
-	toxic_food = NONE
-	disliked_food = NONE
 	inert_mutation = ACIDOOZE
 
 	species_chest = /obj/item/bodypart/chest/oozeling
@@ -29,16 +27,16 @@
 	species_l_leg = /obj/item/bodypart/l_leg/oozeling
 	species_r_leg = /obj/item/bodypart/r_leg/oozeling
 
-/datum/species/oozeling/random_name(gender,unique,lastname)
-	if(unique)
-		return random_unique_ooze_name()
-
-	var/randname = ooze_name()
-
+/datum/species/oozeling/random_name(gender, unique, lastname, attempts)
+	. = "[pick(GLOB.oozeling_first_names)]"
 	if(lastname)
-		randname += " [lastname]"
+		. += " [lastname]"
+	else
+		. += " [pick(GLOB.oozeling_last_names)]"
 
-	return randname
+	if(unique && attempts < 10)
+		if(findname(.))
+			. = .(gender, TRUE, lastname, ++attempts)
 
 /datum/species/oozeling/on_species_loss(mob/living/carbon/C)
 	if(regenerate_limbs)
@@ -167,3 +165,18 @@
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	return ..()
+
+/datum/species/oozeling/get_cough_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_COUGH_SOUND(user)
+
+/datum/species/oozeling/get_gasp_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_GASP_SOUND(user)
+
+/datum/species/oozeling/get_sigh_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SIGH_SOUND(user)
+
+/datum/species/oozeling/get_sneeze_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNEEZE_SOUND(user)
+
+/datum/species/oozeling/get_sniff_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNIFF_SOUND(user)

@@ -1,4 +1,5 @@
 GLOBAL_LIST_EMPTY(station_turfs)
+GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf
 	icon = 'icons/turf/floors.dmi'
 	level = 1
@@ -26,9 +27,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	//If true, turf will allow users to float up and down in 0 grav.
 	var/allow_z_travel = FALSE
 
-	/// Whether the turf blocks atmos from passing through it or not
-	var/blocks_air = FALSE
-
 	flags_1 = CAN_BE_DIRTY_1
 
 	/// For the station blueprints, images of objects eg: pipes
@@ -52,10 +50,12 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	/// Should we used the smooth tiled dirt decal or not
 	var/tiled_dirt = FALSE
 
-	vis_flags = VIS_INHERIT_PLANE|VIS_INHERIT_ID	//when this be added to vis_contents of something it inherit something.plane and be associated with something on clicking, important for visualisation of turf in openspace and interraction with openspace that show you turf.
+	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
 
 	///the holodeck can load onto this turf if TRUE
 	var/holodeck_compatible = FALSE
+
+	var/list/fixed_underlay = null
 
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
@@ -74,8 +74,16 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	assemble_baseturfs()
 
 	levelupdate()
-	if(smooth)
-		queue_smooth(src)
+	if(length(smoothing_groups))
+		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
+		SET_BITFLAG_LIST(smoothing_groups)
+	if(length(canSmoothWith))
+		sortTim(canSmoothWith)
+		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
+			smoothing_flags |= SMOOTH_OBJ
+		SET_BITFLAG_LIST(canSmoothWith)
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH(src)
 	visibilityChanged()
 
 	for(var/atom/movable/content as anything in src)
@@ -162,11 +170,11 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 /turf/attack_hand(mob/user)
 	//Must have no gravity.
-	if(allow_z_travel && get_turf(user) == src)
+	if(get_turf(user) == src)
 		if(!user.has_gravity(src) || (user.movement_type & FLYING))
 			check_z_travel(user)
 			return
-		else
+		else if(allow_z_travel)
 			to_chat(user, "<span class='warning'>You can't float up and down when there is gravity!</span>")
 	. = ..()
 	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_NO_ATTACK_HAND)
@@ -174,6 +182,12 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(.)
 		return
 	user.Move_Pulled(src)
+
+/turf/eminence_act(mob/living/simple_animal/eminence/eminence)
+	if(get_turf(eminence) == src)
+		check_z_travel(eminence)
+		return
+	return ..()
 
 /turf/proc/check_z_travel(mob/user)
 	if(get_turf(user) != src)
@@ -201,17 +215,27 @@ GLOBAL_LIST_EMPTY(station_turfs)
 			travel_z(user, below, FALSE)
 
 /turf/proc/travel_z(mob/user, turf/target, upwards = TRUE)
-	user.visible_message("<span class='notice'>[user] begins floating upwards!</span>", "<span class='notice'>You begin floating upwards.</span>")
+	if(!target)
+		to_chat(user, "<span class='warning'>There is nothing in that direction!</span>")
+		return
+	//Check if we can travel in that direction
+	var/mob/living/L = user
+	var/jaunting = isliving(user) && L.incorporeal_move
+
+	if(!jaunting && ((upwards && !target.allow_z_travel) || (!upwards && !allow_z_travel)))
+		to_chat(user, "<span class='warning'>Something is blocking you!</span>")
+		return
+	user.visible_message("<span class='notice'>[user] begins floating [upwards ? "upwards" : "downwards"]!</span>", "<span class='notice'>You begin floating [upwards ? "upwards" : "downwards"].")
 	var/matrix/M = user.transform
 	//Animation is inverted due to immediately resetting user vars.
-	animate(user, 30, pixel_y = upwards ? -64 : 64, transform = matrix() * (upwards ? 0.7 : 1.3))
+	animate(user, 30, pixel_y = upwards ? 32 : -32, transform = matrix() * (upwards ? 1.3 : 0.7))
 	user.pixel_y = 0
 	user.transform = M
 	if(!do_after(user, 30, FALSE, get_turf(user)))
 		animate(user, 0, flags = ANIMATION_END_NOW)
 		return
-	if(!istype(target, /turf/open/space) && !istype(target, /turf/open/openspace))
-		to_chat(user, "<span class='warning'>Something is blocking you!</span>")
+	if(jaunting) // Allow most jaunting
+		user.client?.Process_Incorpmove(upwards ? UP : DOWN)
 		return
 	var/atom/movable/AM
 	if(user.pulling)
@@ -224,6 +248,26 @@ GLOBAL_LIST_EMPTY(station_turfs)
 /turf/proc/multiz_turf_del(turf/T, dir)
 
 /turf/proc/multiz_turf_new(turf/T, dir)
+
+/// Returns TRUE if the turf cannot be moved onto
+/proc/is_blocked_turf(turf/T, exclude_mobs)
+	if(T.density)
+		return 1
+	for(var/i in T)
+		var/atom/A = i
+		if(A.density && (!exclude_mobs || !ismob(A)))
+			return 1
+	return 0
+
+/proc/is_anchored_dense_turf(turf/T) //like the older version of the above, fails only if also anchored
+	if(T.density)
+		return 1
+	for(var/i in T)
+		var/atom/movable/A = i
+		if(A.density && A.anchored)
+			return 1
+	return 0
+
 
 //zPassIn doesn't necessarily pass an atom!
 //direction is direction of travel of air
@@ -263,25 +307,23 @@ GLOBAL_LIST_EMPTY(station_turfs)
 /turf/proc/can_zFall(atom/movable/A, levels = 1, turf/target)
 	return zPassOut(A, DOWN, target) && target.zPassIn(A, DOWN, src)
 
-/turf/proc/zFall(atom/movable/A, levels = 1, force = FALSE)
+/turf/proc/zFall(atom/movable/A, levels = 1, force = FALSE, old_loc = null)
 	var/turf/target = get_step_multiz(src, DOWN)
 	if(!target || (!isobj(A) && !ismob(A)))
 		return FALSE
 	if(!force && (!can_zFall(A, levels, target) || !A.can_zFall(src, levels, target, DOWN)))
 		return FALSE
-	A.zfalling = TRUE
-	var/atom/movable/pulling = A.pulling
-	A.forceMove(target)
-	A.zfalling = FALSE
-	if(pulling)
-		//Things you are pulling fall with you
-		pulling.zfalling = TRUE
-		pulling.forceMove(target)
-		A.start_pulling(pulling)
-		pulling.zfalling = FALSE
-		target.zImpact(pulling, levels, src)
-	target.zImpact(A, levels, src)
-	return TRUE
+	. = TRUE
+	if(!A.zfalling)
+		A.zfalling = TRUE
+		if(A.pulling && old_loc) // Moves whatever we're pulling to where we were before so we're still adjacent
+			A.pulling.moving_from_pull = A
+			A.pulling.Move(old_loc)
+			A.pulling.moving_from_pull = null
+		if(!A.Move(target))
+			A.doMove(target)
+		. = target.zImpact(A, levels, src)
+		A.zfalling = FALSE
 
 /turf/proc/handleRCL(obj/item/rcl/C, mob/user)
 	if(C.loaded)
@@ -359,14 +401,13 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		if(O.obj_flags & FROZEN)
 			O.make_unfrozen()
 	if(!arrived.zfalling)
-		zFall(arrived)
+		zFall(arrived, old_loc = old_loc)
 
 /turf/proc/is_plasteel_floor()
 	return FALSE
 
 // A proc in case it needs to be recreated or badmins want to change the baseturfs
 /turf/proc/assemble_baseturfs(turf/fake_baseturf_type)
-	var/static/list/created_baseturf_lists = list()
 	var/turf/current_target
 	if(fake_baseturf_type)
 		if(length(fake_baseturf_type)) // We were given a list, just apply it and move on
@@ -383,8 +424,8 @@ GLOBAL_LIST_EMPTY(station_turfs)
 			current_target = baseturfs
 
 	// If we've made the output before we don't need to regenerate it
-	if(created_baseturf_lists[current_target])
-		var/list/premade_baseturfs = created_baseturf_lists[current_target]
+	if(GLOB.created_baseturf_lists[current_target])
+		var/list/premade_baseturfs = GLOB.created_baseturf_lists[current_target]
 		if(length(premade_baseturfs))
 			baseturfs = premade_baseturfs.Copy()
 		else
@@ -395,7 +436,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	//Most things only have 1 baseturf so this loop won't run in most cases
 	if(current_target == next_target)
 		baseturfs = current_target
-		created_baseturf_lists[current_target] = current_target
+		GLOB.created_baseturf_lists[current_target] = current_target
 		return current_target
 	var/list/new_baseturfs = list(current_target)
 	for(var/i=0;current_target != next_target;i++)
@@ -410,7 +451,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		next_target = initial(current_target.baseturfs)
 
 	baseturfs = new_baseturfs
-	created_baseturf_lists[new_baseturfs[new_baseturfs.len]] = new_baseturfs.Copy()
+	GLOB.created_baseturf_lists[new_baseturfs[new_baseturfs.len]] = new_baseturfs.Copy()
 	return new_baseturfs
 
 /turf/proc/levelupdate()
@@ -447,7 +488,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(.)
 		return
 	if(length(src_object.contents()))
-		balloon_alert(usr, "You dump out the contents")
+		balloon_alert(usr, "You dump out the contents.")
 		if(!do_after(usr,20,target=src_object.parent))
 			return FALSE
 
@@ -516,7 +557,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	for(var/thing in contents)
 		var/atom/atom_thing = thing
 		if(!QDELETED(atom_thing) && atom_thing.level >= affecting_level)
-			if(ismovableatom(atom_thing))
+			if(ismovable(atom_thing))
 				var/atom/movable/movable_thing = atom_thing
 				if(!movable_thing.ex_check(explosion_id))
 					continue

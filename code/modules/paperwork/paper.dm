@@ -26,6 +26,8 @@
 	custom_fire_overlay = "paper_onfire_overlay"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
+	drop_sound = 'sound/items/handling/paper_drop.ogg'
+	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
 	throw_range = 1
 	throw_speed = 1
 	pressure_resistance = 0
@@ -63,14 +65,17 @@
  * sheet,  Makes it nice and easy for carbon and
  * the copyer machine
  */
-/obj/item/paper/proc/copy()
-	var/obj/item/paper/N = new(arglist(args))
+/obj/item/paper/proc/copy(loc)
+	var/obj/item/paper/N = new(loc)
+	N.forceMove(loc)
 	N.info = info
 	N.color = color
 	N.update_icon_state()
 	N.stamps = stamps
-	N.stamped = stamped.Copy()
-	N.form_fields = form_fields.Copy()
+	if(N.stamped)
+		N.stamped = stamped.Copy()
+	if(N.form_fields)
+		N.form_fields = form_fields.Copy()
 	N.field_counter = field_counter
 	copy_overlays(N, TRUE)
 	return N
@@ -106,6 +111,7 @@
 	update_icon()
 
 /obj/item/paper/update_icon_state()
+	. = ..()
 	if(info && show_written_words)
 		icon_state = "[initial(icon_state)]_words"
 
@@ -165,6 +171,10 @@
 		return UI_INTERACTIVE
 	return ..()
 
+/obj/item/paper/ui_state(mob/user)
+	if(istype(loc, /obj/item/modular_computer))
+		return GLOB.reverse_contained_state
+	return ..()
 
 
 /obj/item/paper/can_interact(mob/user)
@@ -360,7 +370,7 @@
 			update_icon()
 
 /obj/item/paper/ui_host(mob/user)
-	if(istype(loc, /obj/structure/noticeboard))
+	if(istype(loc, /obj/structure/noticeboard) || istype(loc, /obj/item/modular_computer))
 		return loc
 	return ..()
 
@@ -387,6 +397,7 @@
 	show_written_words = FALSE
 
 /obj/item/paper/crumpled/update_icon_state()
+	SHOULD_CALL_PARENT(FALSE)
 	return
 
 /obj/item/paper/crumpled/bloody
@@ -400,7 +411,7 @@
 	var/code
 	for(var/obj/machinery/nuclearbomb/beer/beernuke in GLOB.nuke_list)
 		if(beernuke.r_code == "ADMIN")
-			beernuke.r_code = random_nukecode()
+			beernuke.r_code = random_code(5)
 		code = beernuke.r_code
 	info = "important party info, DONT FORGET: <b>[code]</b>"
 

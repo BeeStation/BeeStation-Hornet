@@ -9,145 +9,71 @@
 	icon_state = "necro_crate"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	door_anim_time = 0
-
-/obj/structure/closet/crate/necropolis/tendril
-	desc = "It's watching you suspiciously."
 	///prevents bust_open to fire
 	integrity_failure = 0
 	/// var to check if it got opened by a key
 	var/spawned_loot = FALSE
 
-/obj/structure/closet/crate/necropolis/tendril/Initialize(mapload)
+/obj/structure/closet/crate/necropolis/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_PARENT_ATTACKBY, .proc/try_spawn_loot)
 
-/obj/structure/closet/crate/necropolis/tendril/proc/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+/obj/structure/closet/crate/necropolis/proc/try_spawn_loot(datum/source, obj/item/item, mob/user, params)
 	SIGNAL_HANDLER
 
 	if(!istype(item, /obj/item/skeleton_key) || spawned_loot)
 		return FALSE
-	var/loot = rand(1,25)
-	switch(loot)
-		if(1 to 2)
-			new /obj/item/disk/design_disk/modkit_disc/resonator_blast(src)  //Doubled chance to receive upgrade disk that is directly relevant to mining
-		if(3 to 4)
-			new /obj/item/disk/design_disk/modkit_disc/rapid_repeater(src)
-		if(5 to 6)
-			new /obj/item/disk/design_disk/modkit_disc/mob_and_turf_aoe(src)
-		if(7 to 8)
-			new /obj/item/disk/design_disk/modkit_disc/bounty(src)
-		if(9)
-			new /obj/item/borg/upgrade/modkit/lifesteal(src)
-		if(10)
-			new /obj/item/shared_storage/red(src)
-		if(11)
-			new /obj/item/clothing/glasses/godeye(src)
-		if(12)
-			new /obj/item/reagent_containers/glass/bottle/potion/flight(src)
-		if(13)
-			new /obj/item/pickaxe/diamond(src) //Ashwalkers exist. This is actually a great drop for them
-		if(14)
-			new /obj/item/rod_of_asclepius(src)
-		if(15)
-			new /obj/item/organ/heart/cursed/wizard(src)
-		if(16)
-			new /obj/item/ship_in_a_bottle(src)
-		if(17)
-			new /obj/item/jacobs_ladder(src)
-		if(18)
-			new /obj/item/warp_cube/red(src)
-		if(19)
-			new /obj/item/wisp_lantern(src)
-		if(20)
-			new /obj/item/immortality_talisman(src)
-		if(21)
-			new /obj/item/gun/magic/hook(src)
-		if(22)
-			new /obj/item/book_of_babel(src)
-		if(23)
-			new /obj/item/clothing/neck/necklace/memento_mori(src)
-		if(24)
-			new /obj/item/reagent_containers/glass/waterbottle/relic(src)
-		if(25)
-			new /obj/item/reagent_containers/glass/bottle/necropolis_seed(src)
 	spawned_loot = TRUE
 	qdel(item)
-	to_chat(user, "<span class='notice'>You disable the magic lock, revealing the loot.</span>")
+	to_chat(user, "<span class='notice'>You disable the magic lock with the [item].</span>")
 	return TRUE
 
-/obj/structure/closet/crate/necropolis/tendril/can_open(mob/living/user, force = FALSE)
+
+/obj/effect/spawner/mail/maintloot
+	name = "\improper Random maintenance loot spawner"
+/obj/effect/spawner/mail/maintloot/Initialize()
+	var/static/list/mail_maintloot = pick(GLOB.maintenance_loot)
+	new mail_maintloot(loc)
+	return INITIALIZE_HINT_QDEL
+
+/obj/structure/closet/crate/necropolis/tendril
+	desc = "It's watching you suspiciously."
+
+/obj/structure/closet/crate/necropolis/tendril/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot - MAY REPLACE WITH pickweight(loot)
+	var/static/list/necropolis_goodies = list(	//weights to be defined later on, for now they're all the same
+		/obj/item/clothing/glasses/godeye									= 5,
+		/obj/item/pickaxe/diamond											= 5,
+		/obj/item/rod_of_asclepius											= 5,
+		/obj/item/organ/heart/cursed/wizard						 			= 5,
+		/obj/item/ship_in_a_bottle											= 5,
+		/obj/item/jacobs_ladder												= 5,
+		/obj/item/warp_cube/red												= 5,
+		/obj/item/wisp_lantern												= 5,
+		/obj/item/immortality_talisman										= 5,
+		/obj/item/gun/magic/hook											= 5,
+		/obj/item/book_of_babel 											= 5,
+		/obj/item/clothing/neck/necklace/memento_mori						= 5,
+		/obj/item/reagent_containers/glass/waterbottle/relic				= 5,
+		/obj/item/reagent_containers/glass/bottle/necropolis_seed			= 5,
+		/obj/item/borg/upgrade/modkit/lifesteal								= 5,
+		/obj/item/shared_storage/red										= 5,
+		/obj/item/staff/storm												= 5
+	)
+
+	if(..())
+		var/necropolis_loot = pickweight(necropolis_goodies.Copy())
+		new necropolis_loot(src)
+	return TRUE
+
+/obj/structure/closet/crate/necropolis/can_open(mob/living/user, force = FALSE)
 	if(!spawned_loot)
 		return FALSE
 	return ..()
 
-/obj/structure/closet/crate/necropolis/tendril/examine(mob/user)
+/obj/structure/closet/crate/necropolis/examine(mob/user)
 	. = ..()
 	if(!spawned_loot)
 		. += "<span class='notice'>You need a skeleton key to open it.</span>"
-
-
-//KA modkit design discs
-/obj/item/disk/design_disk/modkit_disc
-	name = "KA Mod Disk"
-	desc = "A design disc containing the design for a unique kinetic accelerator modkit. It's compatible with a research console."
-	icon_state = "datadisk1"
-	var/modkit_design = /datum/design/unique_modkit
-
-/obj/item/disk/design_disk/modkit_disc/Initialize(mapload)
-	. = ..()
-	blueprints[1] = new modkit_design
-
-/obj/item/disk/design_disk/modkit_disc/mob_and_turf_aoe
-	name = "Offensive Mining Explosion Mod Disk"
-	modkit_design = /datum/design/unique_modkit/offensive_turf_aoe
-
-/obj/item/disk/design_disk/modkit_disc/rapid_repeater
-	name = "Rapid Repeater Mod Disk"
-	modkit_design = /datum/design/unique_modkit/rapid_repeater
-
-/obj/item/disk/design_disk/modkit_disc/resonator_blast
-	name = "Resonator Blast Mod Disk"
-	modkit_design = /datum/design/unique_modkit/resonator_blast
-
-/obj/item/disk/design_disk/modkit_disc/bounty
-	name = "Death Syphon Mod Disk"
-	modkit_design = /datum/design/unique_modkit/bounty
-
-/datum/design/unique_modkit
-	category = list("Mining Designs", "Cyborg Upgrade Modules") //can't be normally obtained
-	build_type = PROTOLATHE | MECHFAB
-	departmental_flags = DEPARTMENTAL_FLAG_CARGO
-
-/datum/design/unique_modkit/offensive_turf_aoe
-	name = "Kinetic Accelerator Offensive Mining Explosion Mod"
-	desc = "A device which causes kinetic accelerators to fire AoE blasts that destroy rock and damage creatures."
-	id = "hyperaoemod"
-	materials = list(/datum/material/iron = 7000, /datum/material/glass = 3000, /datum/material/silver = 3000, /datum/material/gold = 3000, /datum/material/diamond = 4000)
-	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
-
-/datum/design/unique_modkit/rapid_repeater
-	name = "Kinetic Accelerator Rapid Repeater Mod"
-	desc = "A device which greatly reduces a kinetic accelerator's cooldown on striking a living target or rock, but greatly increases its base cooldown."
-	id = "repeatermod"
-	materials = list(/datum/material/iron = 5000, /datum/material/glass = 5000, /datum/material/uranium = 8000, /datum/material/bluespace = 2000)
-	build_path = /obj/item/borg/upgrade/modkit/cooldown/repeater
-
-/datum/design/unique_modkit/resonator_blast
-	name = "Kinetic Accelerator Resonator Blast Mod"
-	desc = "A device which causes kinetic accelerators to fire shots that leave and detonate resonator blasts."
-	id = "resonatormod"
-	materials = list(/datum/material/iron = 5000, /datum/material/glass = 5000, /datum/material/silver = 5000, /datum/material/uranium = 5000)
-	build_path = /obj/item/borg/upgrade/modkit/resonator_blasts
-
-/datum/design/unique_modkit/bounty
-	name = "Kinetic Accelerator Death Syphon Mod"
-	desc = "A device which causes kinetic accelerators to permanently gain damage against creature types killed with it."
-	id = "bountymod"
-	materials = list(/datum/material/iron = 4000, /datum/material/silver = 4000, /datum/material/gold = 4000, /datum/material/bluespace = 4000)
-	reagents_list = list(/datum/reagent/blood = 40)
-	build_path = /obj/item/borg/upgrade/modkit/bounty
-
-//Spooky special loot
 
 //Rod of Asclepius
 /obj/item/rod_of_asclepius
@@ -166,7 +92,6 @@
 	if(!activated)
 		return FALSE
 	return ..()
-
 
 /obj/item/rod_of_asclepius/attack_self(mob/user)
 	if(activated)
@@ -289,10 +214,14 @@
 		return
 
 	if(wisp.loc == src)
-		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
-		icon_state = "lantern"
-		wisp.orbit(user, 20)
-		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed")
+		if(COOLDOWN_FINISHED(wisp,wisp_tired))
+			to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
+			icon_state = "lantern"
+			wisp.orbit(user, 20)
+			wisp.set_light_on(TRUE)
+			SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed")
+		else
+			to_chat(user,"<span class='warning'>The wisp is tired, let it rest for bit longer.</span>")
 
 	else
 		to_chat(user, "<span class='notice'>You return the wisp to the lantern.</span>")
@@ -300,14 +229,19 @@
 		wisp.forceMove(src)
 		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned")
 
+/obj/item/wisp_lantern/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	. = ..()
+	wisp.lighteater_act(light_eater)
+
 /obj/item/wisp_lantern/Initialize(mapload)
 	. = ..()
 	wisp = new(src)
+	wisp.home = src
 
 /obj/item/wisp_lantern/Destroy()
 	if(wisp)
 		if(wisp.loc == src)
-			qdel(wisp)
+			QDEL_NULL(wisp)
 		else
 			wisp.visible_message("<span class='notice'>[wisp] has a sad feeling for a moment, then it passes.</span>")
 	return ..()
@@ -321,13 +255,22 @@
 	light_range = 7
 	light_flags = LIGHT_ATTACHED
 	layer = ABOVE_ALL_MOB_LAYER
+	var/obj/item/wisp_lantern/home
 	var/sight_flags = SEE_MOBS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	COOLDOWN_DECLARE(wisp_tired)
+	var/time
+
+/obj/effect/wisp/Destroy(force)
+	home = null
+	return ..()
+
 
 /obj/effect/wisp/orbit(atom/thing, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lockinorbit)
 	. = ..()
 	if(ismob(thing))
 		RegisterSignal(thing, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
+		RegisterSignal(thing, COMSIG_ATOM_LIGHTEATER_ACT, .proc/on_lighteater_act)
 		var/mob/being = thing
 		being.update_sight()
 		to_chat(thing, "<span class='notice'>The wisp enhances your vision.</span>")
@@ -336,6 +279,7 @@
 	. = ..()
 	if(ismob(orbits.parent))
 		UnregisterSignal(orbits.parent, COMSIG_MOB_UPDATE_SIGHT)
+		UnregisterSignal(orbits.parent, COMSIG_ATOM_LIGHTEATER_ACT)
 		to_chat(orbits.parent, "<span class='notice'>Your vision returns to normal.</span>")
 
 /obj/effect/wisp/proc/update_user_sight(mob/user)
@@ -345,8 +289,24 @@
 	if(!isnull(lighting_alpha))
 		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
 
+/obj/effect/wisp/proc/on_lighteater_act(obj/item/light_eater/light_eater)
+	SIGNAL_HANDLER
+	src.lighteater_act(light_eater)
+
+/obj/effect/wisp/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	. = ..()
+	if(home)
+		src.forceMove(home)
+		COOLDOWN_START(src,wisp_tired, 5 MINUTES)
+		home.icon_state = "lantern-blue"
+		set_light_on(FALSE)
+	else
+		stop_orbit()
+		qdel(src)
+
 // Relic water bottle
 /obj/item/reagent_containers/glass/waterbottle/relic
+	name = "ancient bottle of unknown reagent"
 	desc = "A bottle of water filled with unknown liquids. It seems to be radiating some kind of energy."
 	flip_chance = 100 // FLIPP
 	list_reagents = list()
@@ -355,7 +315,7 @@
 	var/reagents = volume
 	while(reagents)
 		var/newreagent = rand(1, min(reagents, 30))
-		list_reagents += list(get_unrestricted_random_reagent_id() = newreagent)
+		list_reagents += list(get_random_reagent_id(CHEMICAL_RNG_FUN) = newreagent)
 		reagents -= newreagent
 	. = ..()
 
@@ -475,7 +435,7 @@
 
 /obj/item/projectile/hook/on_hit(atom/target)
 	. = ..()
-	if(ismovableatom(target))
+	if(ismovable(target))
 		var/atom/movable/A = target
 		if(A.anchored)
 			return
@@ -653,6 +613,7 @@
 	reagent_state = LIQUID
 	process_flags = ORGANIC | SYNTHETIC
 	color = "#FFEBEB"
+	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/flightpotion/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -720,20 +681,21 @@
 /obj/structure/closet/crate/necropolis/legion
 	name = "legion chest"
 
-/obj/structure/closet/crate/necropolis/legion/PopulateContents()
-	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
-	var/random_crystal = pick(choices)
-	new random_crystal(src)
-	new /obj/effect/spawner/lootdrop/megafaunaore(src)
+/obj/structure/closet/crate/necropolis/legion/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+	if(..())
+		var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
+		var/random_crystal = pick(choices)
+		new random_crystal(src)
 
 //Miniboss Miner
 
 /obj/structure/closet/crate/necropolis/bdm
 	name = "blood-drunk miner chest"
 
-/obj/structure/closet/crate/necropolis/bdm/PopulateContents()
-	new /obj/item/melee/transforming/cleaving_saw(src)
-	new /obj/effect/spawner/lootdrop/megafaunaore(src)
+/obj/structure/closet/crate/necropolis/bdm/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+	if(..())
+		new /obj/item/melee/transforming/cleaving_saw(src)
+		new /obj/item/crusher_trophy/miner_eye(src)
 
 /obj/item/melee/transforming/cleaving_saw
 	name = "cleaving saw"
@@ -829,11 +791,14 @@
 //Dragon
 
 /obj/structure/closet/crate/necropolis/dragon
-	name = "dragon chest"
+	name = "drake chest"
 
-/obj/structure/closet/crate/necropolis/dragon/PopulateContents()
-	new /obj/effect/spawner/lootdrop/megafaunaore(src)
-	new /obj/item/dragons_blood(src)
+/obj/structure/closet/crate/necropolis/dragon/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+	if(..())
+		new /obj/item/dragons_blood(src)
+		new /obj/item/clothing/suit/hooded/cloak/drake(src)	 //Drake armor crafted only by Ashwalkers now, but still available as drop for miners
+		new /obj/item/crusher_trophy/tail_spike(src)
+
 
 // Ghost Sword - left in for other references and admin shenanigans
 
@@ -984,7 +949,7 @@
 
 /obj/item/lava_staff
 	name = "staff of lava"
-	desc = "The ability to fill the emergency shuttle with lava. What more could you want out of life?"
+	desc = "The power to manipulate lava. What more could you want out of life?"
 	icon_state = "staffofstorms"
 	item_state = "staffofstorms"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
@@ -992,7 +957,7 @@
 	icon = 'icons/obj/guns/magic.dmi'
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
-	force = 25
+	force = 15
 	damtype = BURN
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hitsound = 'sound/weapons/sear.ogg'
@@ -1004,18 +969,22 @@
 	var/create_delay = 30
 	var/reset_cooldown = 50
 	var/timer = 0
-	var/static/list/banned_turfs = typecacheof(list(/turf/open/space/transit, /turf/closed))
+	var/static/list/banned_turfs = typecacheof(list(/turf/closed))
+	var/static/list/allowed_areas = typecacheof(list(/area/lavaland/surface/outdoors))
 
 /obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
+	if(!is_mining_level(user.z))
+		to_chat(user, "<span class='warning'>The staff's power is too dim to function this far from the necropolis")
+		return
 	if(timer > world.time)
+		to_chat(user, "<span class='warning'>The staff is still recharging!</span>")
 		return
-
-	if(is_type_in_typecache(target, banned_turfs))
+	var/area/target_area = get_area(target)
+	if(is_type_in_typecache(target, banned_turfs) || !(target_area.type in allowed_areas))
+		to_chat(user, "<span class='warning'>You can only use this out in an open area</span>")
 		return
-
 	if(user in viewers(user.client.view, get_turf(target)))
-
 		var/turf/open/T = get_turf(target)
 		if(!istype(T))
 			return
@@ -1051,10 +1020,11 @@
 /obj/structure/closet/crate/necropolis/bubblegum
 	name = "bubblegum chest"
 
-/obj/structure/closet/crate/necropolis/bubblegum/PopulateContents()
-	new /obj/item/clothing/suit/space/hostile_environment(src)
-	new /obj/item/clothing/head/helmet/space/hostile_environment(src)
-	new /obj/effect/spawner/lootdrop/megafaunaore(src)
+/obj/structure/closet/crate/necropolis/bubblegum/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+	if(..())
+		new /obj/item/clothing/suit/space/hostile_environment(src)
+		new /obj/item/clothing/head/helmet/space/hostile_environment(src)
+		new /obj/item/crusher_trophy/demon_claws(src)
 
 /obj/item/mayhem
 	name = "mayhem in a bottle"
@@ -1120,24 +1090,20 @@
 /obj/structure/closet/crate/necropolis/colossus
 	name = "colossus chest"
 
-/obj/structure/closet/crate/necropolis/colossus/bullet_act(obj/item/projectile/P)
-	if(istype(P, /obj/item/projectile/colossus))
-		return BULLET_ACT_FORCE_PIERCE
-	return ..()
-
-/obj/structure/closet/crate/necropolis/colossus/PopulateContents()
-	new /obj/item/organ/vocal_cords/colossus(src)
-	new /obj/effect/spawner/lootdrop/megafaunaore(src)
-
+/obj/structure/closet/crate/necropolis/colossus/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+	if(..())
+		new /obj/item/organ/vocal_cords/colossus(src)
+		new /obj/item/crusher_trophy/blaster_tubes(src)
 
 //Hierophant
 
 /obj/structure/closet/crate/necropolis/hierophant
 	name = "hierophant chest"
 
-/obj/structure/closet/crate/necropolis/hierophant/PopulateContents()
-	new /obj/item/hierophant_club(src)
-	new /obj/effect/spawner/lootdrop/megafaunaore(src)
+/obj/structure/closet/crate/necropolis/hierophant/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+	if(..())
+		new /obj/item/hierophant_club(src)
+		new /obj/item/crusher_trophy/vortex_talisman(src)
 
 /obj/item/hierophant_club
 	name = "hierophant club"
@@ -1186,6 +1152,9 @@
 
 /obj/item/hierophant_club/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
+	if(user.mind.martial_art.no_guns)
+		to_chat(user, "<span class='warning'>To use this weapon would bring dishonor to the clan.</span>")
+		return
 	var/turf/T = get_turf(target)
 	if(!T || timer > world.time)
 		return
@@ -1406,23 +1375,8 @@
 		var/obj/effect/temp_visual/hierophant/blast/B = new(t, user, friendly_fire_check)
 		B.damage = 15 //keeps monster damage boost due to lower damage
 
-//Just some minor stuff
-/obj/structure/closet/crate/necropolis/puzzle
+/obj/structure/closet/crate/necropolis/tendril/puzzle
 	name = "puzzling chest"
-
-/obj/structure/closet/crate/necropolis/puzzle/PopulateContents()
-	var/loot = rand(1,5)
-	switch(loot)
-		if(1)
-			new /obj/item/disk/design_disk/modkit_disc/resonator_blast(src)
-		if(2)
-			new /obj/item/disk/design_disk/modkit_disc/rapid_repeater(src)
-		if(3)
-			new /obj/item/disk/design_disk/modkit_disc/mob_and_turf_aoe(src)
-		if(4)
-			new /obj/item/disk/design_disk/modkit_disc/bounty(src)
-		if(5)
-			new /obj/item/borg/upgrade/modkit/lifesteal(src)
 
 /obj/item/skeleton_key
 	name = "skeleton key"

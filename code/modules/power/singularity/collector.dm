@@ -2,7 +2,7 @@
 #define RAD_COLLECTOR_EFFICIENCY 80 	// radiation needs to be over this amount to get power
 #define RAD_COLLECTOR_COEFFICIENT 100
 #define RAD_COLLECTOR_STORED_OUT 0.04	// (this*100)% of stored power outputted per tick. Doesn't actualy change output total, lower numbers just means collectors output for longer in absence of a source
-#define RAD_COLLECTOR_MINING_CONVERSION_RATE 0.00001 //This is gonna need a lot of tweaking to get right. This is the number used to calculate the conversion of watts to research points per process()
+#define RAD_COLLECTOR_MINING_CONVERSION_RATE 0.0001 //This is gonna need a lot of tweaking to get right. This is the number used to calculate the conversion of watts to research points per process()
 #define RAD_COLLECTOR_OUTPUT min(stored_energy, (stored_energy*RAD_COLLECTOR_STORED_OUT)+1000) //Produces at least 1000 watts if it has more than that stored
 
 
@@ -72,10 +72,11 @@
 			loaded_tank.air_contents.adjust_moles(GAS_O2, -gasdrained)
 			loaded_tank.air_contents.adjust_moles(GAS_CO2, gasdrained*2)
 			var/bitcoins_mined = RAD_COLLECTOR_OUTPUT
-			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_ENG)
+			var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_ENG_ID)
 			if(D)
-				D.adjust_money(bitcoins_mined*RAD_COLLECTOR_MINING_CONVERSION_RATE)
-			SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, bitcoins_mined*RAD_COLLECTOR_MINING_CONVERSION_RATE)
+				D.adjust_money(bitcoins_mined*RAD_COLLECTOR_MINING_CONVERSION_RATE)//about 1500 credits per minute with 2 emitters and 6 collectors with stock parts
+			SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, bitcoins_mined*RAD_COLLECTOR_MINING_CONVERSION_RATE)//about 1300 points per minute with the above set up
+			SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, bitcoins_mined*RAD_COLLECTOR_MINING_CONVERSION_RATE)//same here
 			stored_energy-=bitcoins_mined
 
 /obj/machinery/power/rad_collector/interact(mob/user)
@@ -187,7 +188,7 @@
 			// Therefore, its units are joules per SSmachines.wait * 0.1 seconds.
 			// So joules = stored_energy * SSmachines.wait * 0.1
 			var/joules = stored_energy * SSmachines.wait * 0.1
-			. += "<span class='notice'>[src]'s display states that it has stored <b>[DisplayJoules(joules)]</b>, and is processing <b>[DisplayPower(RAD_COLLECTOR_OUTPUT)]</b>.</span>"
+			. += "<span class='notice'>[src]'s display states that it has stored <b>[display_joules(joules)]</b>, and is processing <b>[display_power(RAD_COLLECTOR_OUTPUT)]</b>.</span>"
 		else
 			. += "<span class='notice'>[src]'s display states that it has stored a total of <b>[stored_energy*RAD_COLLECTOR_MINING_CONVERSION_RATE]</b>, and is producing [RAD_COLLECTOR_OUTPUT*RAD_COLLECTOR_MINING_CONVERSION_RATE] research points per minute.</span>"
 	else
@@ -197,9 +198,9 @@
 			. += "<span class='notice'><b>[src]'s display displays the words:</b> \"Research point production mode. Please insert <b>Tritium</b> and <b>Oxygen</b>. Use a multitool to change production modes.\"</span>"
 
 /obj/machinery/power/rad_collector/obj_break(damage_flag)
-	if(!(stat & BROKEN) && !(flags_1 & NODECONSTRUCT_1))
+	. = ..()
+	if(.)
 		eject()
-		stat |= BROKEN
 
 /obj/machinery/power/rad_collector/proc/eject()
 	locked = FALSE
@@ -224,7 +225,7 @@
 	cut_overlays()
 	if(loaded_tank)
 		add_overlay("ptank")
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return
 	if(active)
 		add_overlay("on")

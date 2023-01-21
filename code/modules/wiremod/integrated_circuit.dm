@@ -88,7 +88,7 @@
 		return
 
 	if(istype(I, /obj/item/card/id))
-		balloon_alert(user, "owner id set for [I]")
+		balloon_alert(user, "Owner ID has been set for [I].")
 		owner_id = WEAKREF(I)
 		return
 
@@ -220,11 +220,14 @@
 			var/current_data = port.input_value
 			if(isatom(current_data)) // Prevent passing the name of the atom.
 				current_data = null
+			var/list/connected_to = list()
+			for(var/connected_port in port.connected_ports)
+				connected_to += REF(connected_port)
 			component_data["input_ports"] += list(list(
 				"name" = port.name,
 				"type" = port.datatype,
 				"ref" = REF(port), // The ref is the identifier to work out what it is connected to
-				"connected_to" = REF(port.connected_port),
+				"connected_to" = connected_to,
 				"color" = port.color,
 				"current_data" = current_data,
 			))
@@ -363,7 +366,7 @@
 				return
 			var/datum/port/input/port = component.input_ports[port_id]
 
-			if(port.connected_port)
+			if(length(port.connected_ports))
 				return
 
 			if(params["set_null"])
@@ -394,7 +397,7 @@
 				if(PORT_TYPE_STRING)
 					port.set_input(copytext(user_input, 1, PORT_MAX_STRING_LENGTH))
 				if(PORT_TYPE_SIGNAL)
-					balloon_alert(usr, "triggered [port.name]")
+					balloon_alert(usr, "Triggered [port.name].")
 					port.set_input(COMPONENT_SIGNAL)
 			. = TRUE
 		if("get_component_value")
@@ -412,7 +415,7 @@
 				value = port.convert_value(port.output_value)
 			else if(isnull(value))
 				value = "null"
-			balloon_alert(usr, "[port.name] value: [value]")
+			balloon_alert(usr, "[port.name] value: [value].")
 			. = TRUE
 		if("set_display_name")
 			var/new_name = params["display_name"]
@@ -442,7 +445,7 @@
 			. = TRUE
 
 /obj/item/integrated_circuit/proc/on_atom_usb_cable_try_attach(datum/source, obj/item/usb_cable/usb_cable, mob/user)
-	usb_cable.balloon_alert(user, "circuit needs to be in a compatible shell")
+	usb_cable.balloon_alert(user, "The circuit needs to be in a compatible shell.")
 	return COMSIG_CANCEL_USB_CABLE_ATTACK
 
 #undef WITHIN_RANGE

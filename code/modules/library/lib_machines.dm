@@ -372,9 +372,8 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	else
 		return ..()
 
-/obj/machinery/computer/libraryconsole/bookmanagement/emag_act(mob/user)
-	if(density && !(obj_flags & EMAGGED))
-		obj_flags |= EMAGGED
+/obj/machinery/computer/libraryconsole/bookmanagement/should_emag(mob/user)
+	return density && ..()
 
 /obj/machinery/computer/libraryconsole/bookmanagement/Topic(href, href_list)
 	if(..())
@@ -471,13 +470,13 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 		if(!GLOB.news_network)
 			alert("No news network found on station. Aborting.")
 		var/channelexists = 0
-		for(var/datum/newscaster/feed_channel/FC in GLOB.news_network.network_channels)
+		for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
 			if(FC.channel_name == "Nanotrasen Book Club")
 				channelexists = 1
 				break
 		if(!channelexists)
-			GLOB.news_network.CreateFeedChannel("Nanotrasen Book Club", "Library", null)
-		GLOB.news_network.SubmitArticle(scanner.cache.dat, "[scanner.cache.name]", "Nanotrasen Book Club", null)
+			GLOB.news_network.create_feed_channel("Nanotrasen Book Club", "Library", null)
+		GLOB.news_network.submit_article(scanner.cache.dat, "[scanner.cache.name]", "Nanotrasen Book Club", null)
 		alert("Upload complete. Your uploaded title is now available on station newscasters.")
 	if(href_list["orderbyid"])
 		if(cooldown > world.time)
@@ -621,7 +620,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 		return ..()
 
 /obj/machinery/bookbinder/proc/bind_book(mob/user, obj/item/paper/P)
-	if(stat)
+	if(machine_stat)
 		return
 	if(busy)
 		to_chat(user, "<span class='warning'>The book binder is busy. Please wait for completion of previous operation.</span>")
@@ -634,7 +633,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	sleep(rand(200,400))
 	busy = FALSE
 	if(P)
-		if(!stat)
+		if(!machine_stat)
 			visible_message("[src] whirs as it prints and binds a new book.")
 			var/obj/item/book/B = new(src.loc)
 			B.dat = P.info

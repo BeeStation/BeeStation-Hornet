@@ -135,13 +135,13 @@
 	. = 1
 	if(!bodyzone_hit || bodyzone_hit == BODY_ZONE_HEAD)
 		if(wear_mask)
-			if(!(wear_mask.resistance_flags & UNACIDABLE))
+			if(!(wear_mask.resistance_flags & (UNACIDABLE | INDESTRUCTIBLE)))
 				wear_mask.acid_act(acidpwr, acid_volume)
 			else
 				to_chat(src, "<span class='warning'>Your mask protects you from the acid.</span>")
 			return
 		if(head)
-			if(!(head.resistance_flags & UNACIDABLE))
+			if(!(head.resistance_flags & (UNACIDABLE | INDESTRUCTIBLE)))
 				head.acid_act(acidpwr, acid_volume)
 			else
 				to_chat(src, "<span class='warning'>Your hat protects you from the acid.</span>")

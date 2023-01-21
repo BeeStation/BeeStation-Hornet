@@ -398,6 +398,26 @@
 	foodtype = GRAIN | VEGETABLES | SUGAR | BREAKFAST
 ////////////////////////////////////////////DONK POCKETS////////////////////////////////////////////
 
+/obj/item/reagent_containers/food/snacks/donkpocket/random
+	name = "\improper Random Donk-pocket"
+	icon_state = "random_donkpocket"
+	desc = "The food of choice for the seasoned coder (if you see this, contact DonkCo. as soon as possible)."
+
+/obj/item/reagent_containers/food/snacks/donkpocket/random/Initialize()
+	var/list/donkblock = list(/obj/item/reagent_containers/food/snacks/donkpocket/warm,
+	/obj/item/reagent_containers/food/snacks/donkpocket/spicy/warm,
+	/obj/item/reagent_containers/food/snacks/donkpocket/teriyaki/warm,
+	/obj/item/reagent_containers/food/snacks/donkpocket/pizza/warm,
+	/obj/item/reagent_containers/food/snacks/donkpocket/honk/warm,
+	/obj/item/reagent_containers/food/snacks/donkpocket/berry/warm,
+	/obj/item/reagent_containers/food/snacks/donkpocket/gondola,
+	/obj/item/reagent_containers/food/snacks/donkpocket/gondola/warm,
+	)
+
+	var donk_type = pick(subtypesof(/obj/item/reagent_containers/food/snacks/donkpocket) - donkblock)
+	new donk_type(loc)
+	return INITIALIZE_HINT_QDEL
+
 /obj/item/reagent_containers/food/snacks/donkpocket
 	name = "\improper Donk-pocket"
 	desc = "The food of choice for the seasoned traitor."
@@ -417,13 +437,24 @@
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
 	foodtype = GRAIN
 
-/obj/item/reagent_containers/food/snacks/dankpocket
+/obj/item/reagent_containers/food/snacks/donkpocket/dank
 	name = "\improper Dank-pocket"
 	desc = "The food of choice for the seasoned botanist."
 	icon_state = "dankpocket"
 	list_reagents = list(/datum/reagent/toxin/lipolicide = 3, /datum/reagent/drug/space_drugs = 3, /datum/reagent/consumable/nutriment = 4)
+	cooked_type = /obj/item/reagent_containers/food/snacks/donkpocket/dank/warm
 	filling_color = "#00FF00"
-	tastes = list("meat" = 2, "dough" = 2)
+	tastes = list("meat" = 2, "dough" = 2, "cannabis" = 2)
+	foodtype = GRAIN | VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/donkpocket/dank/warm
+	name = "\improper Dank-pocket"
+	desc = "The food of choice for the baked botanist."
+	icon_state = "dankpocket"
+	bonus_reagents = list(/datum/reagent/medicine/omnizine = 1, /datum/reagent/drug/space_drugs = 2)
+	list_reagents = list(/datum/reagent/toxin/lipolicide = 3, /datum/reagent/drug/space_drugs = 3, /datum/reagent/consumable/nutriment = 4)
+	cooked_type = null
+	tastes = list("meat" = 2, "dough" = 2, "cannabis" = 2)
 	foodtype = GRAIN | VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/donkpocket/spicy

@@ -391,6 +391,19 @@ Contains:
 	if (user.head == src)
 		user.faction -= "carp"
 
+/obj/item/clothing/head/helmet/space/hardsuit/carp/old
+	name = "battered carp helmet"
+	desc = "It's covered in bite marks and scratches, yet seems to be still perfectly functional."
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 70, "stamina" = 10)
+
+/obj/item/clothing/suit/space/hardsuit/carp/old
+	name = "battered carp space suit"
+	desc = "It's covered in bite marks and scratches, yet seems to be still perfectly functional."
+	slowdown = 1
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 70, "stamina" = 10)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/multitool)
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/carp/old
+
 /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal
 	name = "paranormal response team helmet"
 	desc = "A helmet worn by those who deal with paranormal threats for a living."
@@ -482,7 +495,7 @@ Contains:
 
 /obj/item/clothing/suit/space/fragile/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!torn && prob(50))
-		to_chat(owner, "<span class='warning'>[src] tears from the damage, breaking the air-tight seal!</span>")
+		to_chat(owner, "<span class='warning'>\The [src] tears from the damage, breaking the air-tight seal!</span>")
 		clothing_flags &= ~STOPSPRESSUREDAMAGE
 		name = "torn [src]"
 		desc = "A bulky suit meant to protect the user during emergency situations, at least until someone tore a hole in the suit."

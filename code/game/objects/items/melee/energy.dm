@@ -120,7 +120,7 @@
 		return ..()
 	return 0
 
-/obj/item/melee/transforming/energy/sword/esaw //Energy Saw Arm Implant
+/obj/item/melee/transforming/energy/sword/esaw //Energy Saw on it's own
 	name = "energy saw"
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
 	force_on = 30
@@ -146,7 +146,7 @@
 		var/obj/item/stock_parts/cell/C = R.cell
 		if(active && !(C.use(hitcost)))
 			attack_self(R)
-			balloon_alert(R, "Out of charge")
+			balloon_alert(R, "Your [name] is out of charge.")
 			return
 		return ..()
 
@@ -157,8 +157,8 @@
 	force = 18 //About as much as a spear
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	icon = 'icons/obj/surgery.dmi'
-	icon_state = "esaw_0"
-	icon_state_on = "esaw_1"
+	icon_state = "implant-esaw_0"
+	icon_state_on = "implant-esaw_1"
 	sword_color = null //stops icon from breaking when turned on.
 	hitcost = 75 //Costs more than a standard cyborg esword
 	w_class = WEIGHT_CLASS_NORMAL
@@ -175,14 +175,12 @@
 /obj/item/melee/transforming/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
-/*
-/obj/item/melee/transforming/energy/sword/cyborg/saw/implant //Energy Saw Arm Implant
-	icon_state = "saw"
-	icon_state_on = "saw"
+/obj/item/melee/transforming/energy/sword/esaw/implant //Energy Saw Arm Implant
+	icon_state = "implant-esaw_0"
+	icon_state_on = "implant-esaw_1"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	hitcost = 0
-*/
+
 
 /obj/item/melee/transforming/energy/sword/saber
 	var/list/possible_colors = list("red" = LIGHT_COLOR_RED, "blue" = LIGHT_COLOR_LIGHT_CYAN, "green" = LIGHT_COLOR_GREEN, "purple" = LIGHT_COLOR_LAVENDER)

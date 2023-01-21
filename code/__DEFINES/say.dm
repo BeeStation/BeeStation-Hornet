@@ -8,6 +8,8 @@
 #define LANGUAGE_EXTENSION "language specific"
 
 //Message modes. Each one defines a radio channel, more or less.
+
+//if you use ! as a mode key for some ungodly reason, change the first character for ion_num() so get_message_mode() doesn't freak out with state law prompts - shiz.
 #define MODE_HEADSET "headset"
 #define MODE_ROBOT "robot"
 
@@ -36,14 +38,8 @@
 #define MODE_ALIEN "alientalk"
 #define MODE_HOLOPAD "holopad"
 
-#define MODE_CHANGELING "changeling"
-#define MODE_KEY_CHANGELING "g"
-#define MODE_TOKEN_CHANGELING ":g"
-
 #define MODE_VOCALCORDS "cords"
 #define MODE_KEY_VOCALCORDS "x"
-
-#define MODE_MONKEY "monkeyhive"
 
 #define MODE_SING "%"
 

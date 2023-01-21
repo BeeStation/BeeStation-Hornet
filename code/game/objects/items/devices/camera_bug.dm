@@ -79,7 +79,7 @@
 	if( world.time > (last_net_update + 100))
 		bugged_cameras = list()
 		for(var/obj/machinery/camera/camera in GLOB.cameranet.cameras)
-			if(camera.stat || !camera.can_use())
+			if(camera.machine_stat || !camera.can_use())
 				continue
 			if(length(list("ss13","mine", "rd", "labor", "toxins", "minisat") & camera.network))
 				var/datum/weakref/camera_ref = WEAKREF(camera)
@@ -159,7 +159,7 @@
 	var/list/seen = get_seens()
 	if(seen && seen.len >= 1)
 		var/list/names = list()
-		for(var/obj/singularity/S in seen) // god help you if you see more than one
+		for(var/obj/anomaly/singularity/S in seen) // god help you if you see more than one
 			if(S.name in names)
 				names[S.name]++
 				dat += "[S.name] ([names[S.name]])"

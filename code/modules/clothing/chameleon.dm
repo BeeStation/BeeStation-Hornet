@@ -189,33 +189,44 @@
 
 /datum/action/item_action/chameleon/change/proc/random_look(mob/user)
 	var/picked_name = pick(chameleon_list)
+	var/obj/item/picked_item = chameleon_list[picked_name]
 	// If a user is provided, then this item is in use, and we
 	// need to update our icons and stuff
 
 	if(user)
-		update_look(user, chameleon_list[picked_name])
+		update_look(user, picked_item, emp=TRUE)
 
 	// Otherwise, it's likely a random initialisation, so we
 	// don't have to worry
 
 	else
-		update_item(chameleon_list[picked_name])
+		update_item(picked_item, emp=TRUE)
+		if(ispath(picked_item, /obj/item/card/id))
+			var/mob/living/carbon/human/H = user
+			H?.sec_hud_set_ID()
 
-/datum/action/item_action/chameleon/change/proc/update_look(mob/user, obj/item/picked_item)
+/datum/action/item_action/chameleon/change/proc/update_look(mob/user, obj/item/picked_item, emp=FALSE)
 	if(isliving(user))
 		var/mob/living/C = user
 		if(C.stat != CONSCIOUS)
 			return
 
-		update_item(picked_item)
+		update_item(picked_item, emp)
+		if(ispath(picked_item, /obj/item/card/id))
+			var/mob/living/carbon/human/H = user
+			H?.sec_hud_set_ID()
+		if(istype(target, /obj/item/modular_computer/tablet/pda))
+			var/mob/living/carbon/human/H = user
+			H?.sec_hud_set_ID()
+			var/obj/item/modular_computer/tablet/pda/PDA = target
+			PDA.update_id_display()
+
 		var/obj/item/thing = target
 		thing.update_slot_icon()
 	UpdateButtonIcon()
 
-/datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item)
-	target.name = initial(picked_item.name)
-	target.desc = initial(picked_item.desc)
-	target.icon_state = initial(picked_item.icon_state)
+/datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item, emp=FALSE)
+	var/keepname = FALSE
 	if(isitem(target))
 		var/obj/item/clothing/I = target
 		I.worn_icon = initial(picked_item.worn_icon)
@@ -239,6 +250,27 @@
 			target.icon = SSgreyscale.GetColoredIconByType(initial(picked_item.greyscale_config), initial(picked_item.greyscale_colors))
 		else
 			target.icon = initial(picked_item.icon)
+		if(isidcard(I) && ispath(picked_item, /obj/item/card/id))
+			var/obj/item/card/id/ID = target
+			var/obj/item/card/id/ID_from = picked_item
+			ID.hud_state = initial(ID_from.hud_state)
+			if(!emp)
+				if(!ispath(picked_item, /obj/item/card/id/departmental_budget) && !ispath(picked_item, /obj/item/card/id/pass))
+					keepname = TRUE
+					var/mob/M = usr
+					if(initial(ID_from.assignment))
+						var/popup_input = alert(M, "Do you want to reforge the job title as the default one of the chosen chameleon card?", "Agent ID job name", "Yes", "No (Keep the current job title)")
+						if(popup_input == "Yes")
+							ID.assignment = initial(ID_from.assignment)
+							ID.update_label()
+			else
+				keepname = TRUE
+				ID.assignment = initial(ID_from.assignment) ? initial(ID_from.assignment) : "Unknown"
+				ID.update_label()
+	if(!keepname)
+		target.name = initial(picked_item.name)
+	target.desc = initial(picked_item.desc)
+	target.icon_state = initial(picked_item.icon_state)
 
 /datum/action/item_action/chameleon/change/Trigger()
 	if(!IsAvailable())
@@ -673,25 +705,25 @@
 	item_state = "syndie_headset"
 	bang_protect = 3
 
-/obj/item/pda/chameleon
-	name = "PDA"
+/obj/item/modular_computer/tablet/pda/chameleon
+	name = "tablet"
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/pda/chameleon/Initialize(mapload)
+/obj/item/modular_computer/tablet/pda/chameleon/Initialize(mapload)
 	. = ..()
 	chameleon_action = new(src)
-	chameleon_action.chameleon_type = /obj/item/pda
-	chameleon_action.chameleon_name = "PDA"
-	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/pda/heads, /obj/item/pda/ai, /obj/item/pda/ai/pai), only_root_path = TRUE)
+	chameleon_action.chameleon_type = /obj/item/modular_computer/tablet/pda
+	chameleon_action.chameleon_name = "tablet"
+	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/modular_computer/tablet/pda/heads), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
 
-/obj/item/pda/chameleon/emp_act(severity)
+/obj/item/modular_computer/tablet/pda/chameleon/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
 	chameleon_action.emp_randomise()
 
-/obj/item/pda/chameleon/broken/Initialize(mapload)
+/obj/item/modular_computer/tablet/pda/chameleon/broken/Initialize(mapload)
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 

@@ -404,6 +404,10 @@
 			return TRUE
 	return FALSE
 
+/mob/living/proc/remove_all_quirks()
+	for(var/datum/quirk/Q in roundstart_quirks)
+		qdel(Q)
+
 /mob/living/proc/has_quirk(quirktype)
 	for(var/datum/quirk/Q in roundstart_quirks)
 		if(Q.type == quirktype)

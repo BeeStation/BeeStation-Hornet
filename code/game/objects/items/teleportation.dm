@@ -115,6 +115,7 @@
 	var/list/active_portal_pairs
 	var/max_portal_pairs = 3
 	var/atmos_link_override
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /obj/item/hand_tele/Initialize(mapload)
 	. = ..()
@@ -317,7 +318,7 @@
 			get_fragged(user, destination) //EMP teleported you into a wall? Wearing a BoH? You're dead.
 	else
 		telefrag(destination, user)
-		do_teleport(C, destination, channel = TELEPORT_CHANNEL_FREE)
+		do_teleport(C, destination, channel = TELEPORT_CHANNEL_BLINK)
 		charges--
 		check_charges()
 		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(current_location)
@@ -332,7 +333,7 @@
 
 	if(emergency_destination)
 		telefrag(emergency_destination, user)
-		do_teleport(C, emergency_destination, channel = TELEPORT_CHANNEL_FREE)
+		do_teleport(C, emergency_destination, channel = TELEPORT_CHANNEL_BLINK)
 		charges--
 		check_charges()
 		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
@@ -344,7 +345,7 @@
 
 /obj/item/teleporter/proc/get_fragged(mob/user, turf/destination)
 	var/turf/mobloc = get_turf(user)
-	if(do_teleport(user, destination, channel = TELEPORT_CHANNEL_FREE, no_effects = TRUE))
+	if(do_teleport(user, destination, channel = TELEPORT_CHANNEL_BLINK, no_effects = TRUE))
 		playsound(mobloc, "sparks", 50, TRUE)
 		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)

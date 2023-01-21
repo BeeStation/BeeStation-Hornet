@@ -50,7 +50,7 @@ God bless America.
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/food/condiment,
 		/obj/item/storage,
-		/obj/item/smallDelivery,
+		/obj/item/small_delivery,
 		/obj/item/his_grace))
 	var/datum/looping_sound/deep_fryer/fry_loop
 
@@ -62,7 +62,7 @@ God bless America.
 	component_parts += new /obj/item/circuitboard/machine/deep_fryer(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	RefreshParts()
-	fry_loop = new(list(src), FALSE)
+	fry_loop = new(src, FALSE)
 
 /obj/machinery/deepfryer/Destroy()
 	QDEL_NULL(fry_loop)

@@ -112,6 +112,7 @@
 	name = "Leaper venom"
 	description = "A toxin spat out by leapers that, while harmless in small doses, quickly creates a toxic reaction if too much is in the body."
 	color = "#801E28" // rgb: 128, 30, 40
+	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 0
 	taste_description = "french cuisine"
 	taste_mult = 1.3

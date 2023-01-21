@@ -44,7 +44,7 @@
 
 /datum/buildmode/Destroy()
 	close_switchstates()
-	holder.player_details.post_login_callbacks -= li_cb
+	holder?.player_details?.post_login_callbacks -= li_cb
 	li_cb = null
 	holder = null
 	QDEL_NULL(mode)

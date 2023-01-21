@@ -292,6 +292,7 @@ SUBSYSTEM_DEF(ticker)
 	CHECK_TICK
 	//Configure mode and assign player to special mode stuff
 	var/can_continue = 0
+	mode.setup_antag_candidates()			//Re-calculate antag candidates in case anybody left
 	can_continue = src.mode.pre_setup()		//Choose antagonists
 	CHECK_TICK
 	can_continue = can_continue && SSjob.DivideOccupations(mode.required_jobs) 				//Distribute jobs
@@ -420,17 +421,17 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/equip_characters()
 	var/captainless = TRUE
-	var/list/spare_id_candidates = list()
 	var/highest_rank = length(SSjob.chain_of_command) + 1
+	var/list/spare_id_candidates = list()
 	var/enforce_coc = CONFIG_GET(flag/spare_enforce_coc)
 
 	for(var/mob/dead/new_player/N in GLOB.player_list)
 		var/mob/living/carbon/human/player = N.new_character
 		if(istype(player) && player.mind && player.mind.assigned_role)
-			if(player.mind.assigned_role == "Captain")
+			if(player.mind.assigned_role == JOB_NAME_CAPTAIN)
 				captainless = FALSE
 				spare_id_candidates += N
-			else if(captainless && (player.mind.assigned_role in GLOB.command_positions) && !(is_banned_from(N.ckey, "Captain")))
+			else if(captainless && (player.mind.assigned_role in GLOB.command_positions) && !(is_banned_from(N.ckey, JOB_NAME_CAPTAIN)))
 				if(!enforce_coc)
 					spare_id_candidates += N
 				else
@@ -489,7 +490,7 @@ SUBSYSTEM_DEF(ticker)
 			m = pick(memetips)
 
 	if(m)
-		to_chat(world, "<span class='purple'><b>Tip of the round: </b>[html_encode(m)]</span>")
+		to_chat(world, EXAMINE_BLOCK("<span class='purple'><b>Tip of the round: </b>[html_encode(m)]</span>"))
 
 /datum/controller/subsystem/ticker/proc/check_queue()
 	if(!queued_players.len)

@@ -19,7 +19,7 @@
 
 	var/override = 0
 
-	for(var/datum/mutation/human/HM in dna.mutations)
+	for(var/datum/mutation/HM as() in dna.mutations)
 		override += HM.on_attack_hand(A, proximity)
 
 	if(override)
@@ -47,7 +47,7 @@
 	return FALSE
 
 /atom/proc/can_interact(mob/user)
-	if(!user.can_interact_with(src))
+	if(!user.can_interact_with(src, interaction_flags_atom & INTERACT_ATOM_ALLOW_USER_LOCATION))
 		return FALSE
 	if((interaction_flags_atom & INTERACT_ATOM_REQUIRES_DEXTERITY) && !user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
@@ -58,6 +58,7 @@
 
 /atom/ui_status(mob/user)
 	. = ..()
+	//Check if both user and atom are at the same location
 	if(!can_interact(user))
 		. = min(., UI_UPDATE)
 
@@ -85,15 +86,19 @@
 /mob/living/carbon/RestrainedClickOn(atom/A)
 	return 0
 
+/mob/living/carbon/RangedAttack(atom/A, mouseparams)
+	. = ..()
+	if(!dna)
+		return
+	for(var/datum/mutation/HM as() in dna.mutations)
+		HM.on_ranged_attack(A, mouseparams)
+
 /mob/living/carbon/human/RangedAttack(atom/A, mouseparams)
 	. = ..()
 	if(gloves)
 		var/obj/item/clothing/gloves/G = gloves
 		if(istype(G) && G.Touch(A,0)) // for magic gloves
 			return
-
-	for(var/datum/mutation/human/HM in dna.mutations)
-		HM.on_ranged_attack(A, mouseparams)
 
 	if(isturf(A) && get_dist(src,A) <= 1)
 		src.Move_Pulled(A)
@@ -115,7 +120,13 @@
 /*
 	Monkeys
 */
-/mob/living/carbon/monkey/UnarmedAttack(atom/A)
+/mob/living/carbon/monkey/UnarmedAttack(atom/A, proximity)
+	var/override = 0
+	for(var/datum/mutation/HM as() in dna.mutations)
+		override += HM.on_attack_hand(A, proximity)
+	if(override)
+		return
+
 	A.attack_paw(src)
 
 /atom/proc/attack_paw(mob/user)
@@ -225,9 +236,11 @@
 	pAI
 */
 
-/mob/living/silicon/pai/UnarmedAttack(atom/A)//Stops runtimes due to attack_animal being the default
-	return
+/mob/living/silicon/pai/UnarmedAttack(atom/attack_target, proximity_flag, list/modifiers)
+	attack_target.attack_pai(src, modifiers)
 
+/atom/proc/attack_pai(mob/user, list/modifiers)
+	return
 
 /*
 	Simple animals

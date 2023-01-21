@@ -77,7 +77,7 @@
 
 	if(panel_open)
 		icon_state = icon_state_open
-	else if(on && is_operational())
+	else if(on && is_operational)
 		icon_state = icon_state_on
 	else
 		icon_state = icon_state_off
@@ -105,11 +105,11 @@
 	else
 		target_temperature = max_temperature
 		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
-	balloon_alert(user, "Set to [target_temperature] K")
+	balloon_alert(user, "You set the target temperature to [target_temperature] K.")
 
 /obj/machinery/atmospherics/components/unary/thermomachine/process_atmos()
 	..()
-	if(!is_operational() || !on || !nodes[1])  //if it has no power or its switched off, dont process atmos
+	if(!is_operational || !on || !nodes[1])  //if it has no power or its switched off, dont process atmos
 		return
 	var/datum/gas_mixture/air_contents = airs[1]
 
@@ -255,7 +255,7 @@
 
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on/coldroom/Initialize(mapload)
 	. = ..()
-	target_temperature = T0C-20 //Cold enough to prevent Miasma
+	target_temperature = T0C-20
 
 /obj/machinery/atmospherics/components/unary/thermomachine/heater
 	icon_state = "heater"

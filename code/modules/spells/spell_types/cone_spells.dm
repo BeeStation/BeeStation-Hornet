@@ -1,10 +1,11 @@
 /obj/effect/proc_holder/spell/cone
 	name = "Cone of Nothing"
 	desc = "Does nothing in a cone! Wow!"
+	school = "evocation"
 	charge_max = 100
 	clothes_req = FALSE
 	invocation = "FUKAN NOTHAN"
-	invocation_type = INVOCATION_SHOUT
+	invocation_type = "shout"
 	sound = 'sound/magic/forcewall.ogg'
 	action_icon_state = "shield"
 	range = -1
@@ -18,7 +19,7 @@
 	perform(null, user=user)
 
 ///This proc creates a list of turfs that are hit by the cone
-/obj/effect/proc_holder/spell/cone/proc/cone_helper(turf/starter_turf, dir_to_use, cone_levels = 3)
+/obj/effect/proc_holder/spell/cone/proc/cone_helper(var/turf/starter_turf, var/dir_to_use, var/cone_levels = 3)
 	var/list/turfs_to_return = list()
 	var/turf/turf_to_use = starter_turf
 	var/turf/left_turf

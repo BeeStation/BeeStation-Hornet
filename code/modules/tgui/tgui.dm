@@ -53,7 +53,7 @@
 /datum/tgui/New(mob/user, datum/src_object, interface, title, ui_x, ui_y)
 	if(!user.client) // No client to show the TGUI to, so stop here
 		return
-	log_tgui(user, "new [interface] fancy [user.client.prefs.tgui_fancy]")
+	log_tgui(user, "new [interface] fancy [user.client.prefs.toggles2 & PREFTOGGLE_2_FANCY_TGUI]")
 	src.user = user
 	src.src_object = src_object
 	src.window_key = "[REF(src_object)]-main"
@@ -96,8 +96,8 @@
 	window.acquire_lock(src)
 	if(!window.is_ready())
 		window.initialize(
-			fancy = user.client.prefs.tgui_fancy,
-			inline_assets = list(
+			fancy = (user.client.prefs.toggles & PREFTOGGLE_2_FANCY_TGUI),
+			assets = list(
 				get_asset_datum(/datum/asset/simple/tgui),
 			))
 	else
@@ -224,8 +224,8 @@
 		"window" = list(
 			"key" = window_key,
 			"size" = window_size,
-			"fancy" = user.client.prefs.tgui_fancy,
-			"locked" = user.client.prefs.tgui_lock,
+			"fancy" = (user.client.prefs.toggles2 & PREFTOGGLE_2_FANCY_TGUI),
+			"locked" = (user.client.prefs.toggles2 & PREFTOGGLE_2_LOCKED_BUTTONS),
 		),
 		"client" = list(
 			"ckey" = user.client.ckey,
@@ -258,7 +258,7 @@
 		return
 	var/datum/host = src_object.ui_host(user)
 	// If the object or user died (or something else), abort.
-	if(!src_object || !host || !user || !window)
+	if(QDELETED(src_object) || QDELETED(host) || QDELETED(user) || QDELETED(window))
 		close(can_be_suspended = FALSE)
 		return
 	// Validate ping

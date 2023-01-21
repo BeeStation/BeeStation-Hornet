@@ -18,6 +18,7 @@
 #define COMSIG_KB_CARBON_SELECTDISARMINTENT_DOWN "keybinding_carbon_selectdisarmintent_down"
 #define COMSIG_KB_CARBON_SELECTGRABINTENT_DOWN "keybinding_carbon_selectgrabintent_down"
 #define COMSIG_KB_CARBON_SELECTHARMINTENT_DOWN "keybinding_carbon_selectharmintent_down"
+#define COMSIG_KB_CARBON_HOLDTHROWMODE_DOWN "keybinding_carbon_holdthrowmode_down"
 #define COMSIG_KB_CARBON_GIVEITEM_DOWN "keybinding_carbon_giveitem_down"
 
 //Client
@@ -43,10 +44,6 @@
 #define COMSIG_KB_MOB_MOVEEAST_DOWN "keybinding_mob_moveeast_down"
 #define COMSIG_KB_MOB_MOVESOUTH_DOWN "keybinding_mob_movesouth_down"
 #define COMSIG_KB_MOB_MOVEWEST_DOWN "keybinding_mob_movewest_down"
-#define COMSIG_KB_MOB_FACENORTH_DOWN "keybinding_mob_facenorth_down"
-#define COMSIG_KB_MOB_FACEEAST_DOWN "keybinding_mob_faceeast_down"
-#define COMSIG_KB_MOB_FACESOUTH_DOWN "keybinding_mob_facesouth_down"
-#define COMSIG_KB_MOB_FACEWEST_DOWN "keybinding_mob_facewest_down"
 #define COMSIG_KB_MOB_STOPPULLING_DOWN "keybinding_mob_stoppulling_down"
 #define COMSIG_KB_MOB_CYCLEINTENTRIGHT_DOWN "keybinding_mob_cycleintentright_down"
 #define COMSIG_KB_MOB_CYCLEINTENTLEFT_DOWN "keybinding_mob_cycleintentleft_down"

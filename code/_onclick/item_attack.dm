@@ -66,6 +66,7 @@
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user) & COMPONENT_ITEM_NO_ATTACK)
 		return
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
+	SEND_SIGNAL(M, COMSIG_MOB_ITEM_ATTACKBY, user, src)
 	if(item_flags & NOBLUDGEON)
 		return
 

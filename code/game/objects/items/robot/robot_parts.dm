@@ -263,7 +263,7 @@
 				to_chat(user, "<span class='warning'>The MMI indicates that the brain is damaged!</span>")
 				return
 
-			if(is_banned_from(BM.ckey, "Cyborg") || QDELETED(src) || QDELETED(BM) || QDELETED(user) || QDELETED(M) || !Adjacent(user))
+			if(is_banned_from(BM.ckey, JOB_NAME_CYBORG) || QDELETED(src) || QDELETED(BM) || QDELETED(user) || QDELETED(M) || !Adjacent(user))
 				if(!QDELETED(M))
 					to_chat(user, "<span class='warning'>This [M.name] does not seem to fit!</span>")
 				return
@@ -299,7 +299,7 @@
 
 			SSticker.mode.remove_antag_for_borging(BM.mind)
 
-			O.job = "Cyborg"
+			O.job = JOB_NAME_CYBORG
 
 			O.cell = chest.cell
 			chest.cell.forceMove(O)
@@ -361,7 +361,7 @@
 			chest.cell.forceMove(O)
 			chest.cell = null
 			O.locked = panel_locked
-			O.job = "Cyborg"
+			O.job = JOB_NAME_CYBORG
 			forceMove(O)
 			O.robot_suit = src
 			if(!locomotion)

@@ -59,6 +59,7 @@
 	translate_binary = FALSE
 	syndie = FALSE
 	independent = FALSE
+	command = initial(command)
 
 	if(keyslot)
 		for(var/ch_name in keyslot.channels)
@@ -71,6 +72,11 @@
 			syndie = TRUE
 		if(keyslot.independent)
 			independent = TRUE
+		if(keyslot.amplification)
+			command = TRUE
+
+	if(!command)
+		use_command = FALSE
 
 	for(var/ch_name in channels)
 		secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
@@ -132,11 +138,13 @@
 /obj/item/radio/ui_state(mob/user)
 	return GLOB.inventory_state
 
-/obj/item/radio/ui_interact(mob/user, datum/tgui/ui)
+/obj/item/radio/ui_interact(mob/user, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Radio")
+		if(state)
+			ui.state = state
 		ui.open()
 
 /obj/item/radio/ui_data(mob/user)
@@ -217,6 +225,7 @@
 		spans = list(M.speech_span)
 	if(!language)
 		language = M.get_selected_language()
+	SEND_SIGNAL(src, COMSIG_RADIO_MESSAGE, M, message, channel)
 	INVOKE_ASYNC(src, .proc/talk_into_impl, M, message, channel, spans.Copy(), language, message_mods)
 	return ITALICS | REDUCE_RANGE
 
@@ -263,7 +272,7 @@
 		channel = null
 
 	// Nearby active jammers prevent the message from transmitting
-	if(is_jammed())
+	if(is_jammed(freq == FREQ_CENTCOM || freq == FREQ_SYNDICATE ? JAMMER_PROTECTION_RADIO_ADVANCED : JAMMER_PROTECTION_RADIO_BASIC))
 		return
 
 	// Determine the identity information which will be attached to the signal.
@@ -447,3 +456,5 @@
 /obj/item/radio/off	// Station bounced radios, their only difference is spawning with the speakers off, this was made to help the lag.
 	listening = 0			// And it's nice to have a subtype too for future features.
 	dog_fashion = /datum/dog_fashion/back
+
+

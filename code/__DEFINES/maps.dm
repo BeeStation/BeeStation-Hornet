@@ -40,11 +40,11 @@ require only minor tweaks.
 #define ZTRAIT_POCKETDIM "Pocket Dimension"
 #define ZTRAIT_ISOLATED_RUINS "Isolated Ruins" //Placing ruins on z levels with this trait will use turf reservation instead of usual placement.
 
-#define ZTRAIT_SNOWSTORM "Weather_Snowstorm"
+// boolean - weather types that occur on the level
+define ZTRAIT_SNOWSTORM "Weather_Snowstorm"
 #define ZTRAIT_ASHSTORM "Weather_Ashstorm"
 #define ZTRAIT_ACIDRAIN "Weather_Acidrain"
 #define ZTRAIT_VOIDSTORM "Weather_Voidstorm"
-
 /// number - bombcap is multiplied by this before being applied to bombs
 #define ZTRAIT_BOMBCAP_MULTIPLIER "Bombcap Multiplier"
 
@@ -125,3 +125,5 @@ require only minor tweaks.
 ///Hint for whether a genturf should generate as a closed or open turf. null for default.
 #define GENTURF_HINT_OPEN "open"
 #define GENTURF_HINT_CLOSED "closed"
+
+#define SPACE_KEY "space"

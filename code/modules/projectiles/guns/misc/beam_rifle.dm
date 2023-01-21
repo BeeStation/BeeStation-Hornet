@@ -174,13 +174,6 @@
 	listeningTo = null
 	return ..()
 
-/obj/item/gun/energy/beam_rifle/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	chambered = null
-	recharge_newshot()
-
 /obj/item/gun/energy/beam_rifle/proc/aiming_beam(force_update = FALSE)
 	var/diff = abs(aiming_lastangle - lastangle)
 	if(!check_user())

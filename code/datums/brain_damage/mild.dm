@@ -1,5 +1,5 @@
 //Mild traumas are the most common; they are generally minor annoyances.
-//They can be cured with mannitol and patience, although brain surgery still works.
+//They can be cured with mannitol and patience, although brain recalibration still works.
 //Most of the old brain damage effects have been transferred to the dumbness trauma.
 
 /datum/brain_trauma/mild

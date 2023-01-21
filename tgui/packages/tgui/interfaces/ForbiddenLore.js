@@ -19,6 +19,7 @@ export const ForbiddenLore = (props, context) => {
 
   return (
     <Window
+      theme="generic"
       width={500}
       height={900}>
       <Window.Content scrollable>

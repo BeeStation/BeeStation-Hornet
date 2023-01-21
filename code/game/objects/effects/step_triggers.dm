@@ -57,14 +57,13 @@
 	var/speed = 1	// delay of movement
 	var/facedir = 0 // if 1: atom faces the direction of movement
 	var/nostop = 0 // if 1: will only be stopped by teleporters
+	///List of moving atoms mapped to their inital direction
 	var/list/affecting = list()
 
 /obj/effect/step_trigger/thrower/Trigger(atom/A)
-	if(!A || !ismovableatom(A))
+	if(!A || !ismovable(A))
 		return
 	var/atom/movable/AM = A
-	var/curtiles = 0
-	var/stopthrow = 0
 	for(var/obj/effect/step_trigger/thrower/T in orange(2, src))
 		if(AM in T.affecting)
 			return
@@ -74,40 +73,42 @@
 		if(immobilize)
 			M.mobility_flags &= ~MOBILITY_MOVE
 
-	affecting.Add(AM)
-	while(AM && !stopthrow)
-		if(tiles)
-			if(curtiles >= tiles)
-				break
-		if(AM.get_virtual_z_level() != src.get_virtual_z_level())
-			break
+	affecting[AM] = AM.dir
+	var/datum/move_loop/loop = SSmove_manager.move(AM, direction, speed, tiles ? tiles * speed : INFINITY)
+	RegisterSignal(loop, COMSIG_MOVELOOP_PREPROCESS_CHECK, .proc/pre_move)
+	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, .proc/post_move)
+	RegisterSignal(loop, COMSIG_PARENT_QDELETING, .proc/set_to_normal)
 
-		curtiles++
+/obj/effect/step_trigger/thrower/proc/pre_move(datum/move_loop/source)
+	SIGNAL_HANDLER
+	var/atom/movable/being_moved = source.moving
+	affecting[being_moved] = being_moved.dir
 
-		sleep(speed)
+/obj/effect/step_trigger/thrower/proc/post_move(datum/move_loop/source)
+	SIGNAL_HANDLER
+	var/atom/movable/being_moved = source.moving
+	if(!facedir)
+		being_moved.setDir(affecting[being_moved])
+	if(being_moved.z != z)
+		qdel(source)
+		return
+	if(!nostop)
+		for(var/obj/effect/step_trigger/T in get_turf(being_moved))
+			if(T.stopper && T != src)
+				qdel(source)
+				return
+	else
+		for(var/obj/effect/step_trigger/teleporter/T in get_turf(being_moved))
+			if(T.stopper)
+				qdel(source)
+				return
 
-		// Calculate if we should stop the process
-		if(!nostop)
-			for(var/obj/effect/step_trigger/T in get_step(AM, direction))
-				if(T.stopper && T != src)
-					stopthrow = 1
-		else
-			for(var/obj/effect/step_trigger/teleporter/T in get_step(AM, direction))
-				if(T.stopper)
-					stopthrow = 1
-
-		if(AM)
-			var/predir = AM.dir
-			step(AM, direction)
-			if(!facedir)
-				AM.setDir(predir)
-
-
-
-	affecting.Remove(AM)
-
-	if(isliving(AM))
-		var/mob/living/M = AM
+/obj/effect/step_trigger/thrower/proc/set_to_normal(datum/move_loop/source)
+	SIGNAL_HANDLER
+	var/atom/movable/being_moved = source.moving
+	affecting -= being_moved
+	if(isliving(being_moved))
+		var/mob/living/M = being_moved
 		if(immobilize)
 			M.mobility_flags |= MOBILITY_MOVE
 		M.update_mobility()

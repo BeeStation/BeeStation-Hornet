@@ -8,10 +8,8 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 100
 	active_power_usage = 2500
-
-
 	var/list/stored_items = list()
-	var/obj/machinery/gulag_teleporter/linked_teleporter = null
+	var/obj/machinery/gulag_teleporter/linked_teleporter
 
 /obj/machinery/gulag_item_reclaimer/Destroy()
 	for(var/i in contents)
@@ -21,13 +19,11 @@
 		linked_teleporter.linked_reclaimer = null
 	return ..()
 
-/obj/machinery/gulag_item_reclaimer/emag_act(mob/user)
-	if(obj_flags & EMAGGED) // emagging lets anyone reclaim all the items
-		return
+/obj/machinery/gulag_item_reclaimer/on_emag(mob/user)
+	..()
+	// emagging lets anyone reclaim all the items
 	req_access = list()
-	obj_flags |= EMAGGED
 	ui_update()
-
 
 /obj/machinery/gulag_item_reclaimer/ui_state(mob/user)
 	return GLOB.default_state
@@ -47,8 +43,8 @@
 
 	var/obj/item/card/id/I = user.get_idcard(TRUE)
 	if(istype(I, /obj/item/card/id/prisoner))
-		var/obj/item/card/id/prisoner/P = I
-		if(P.points >= P.goal)
+		var/obj/item/card/id/prisoner/prisonerID = I
+		if(prisonerID.points >= prisonerID.goal && !prisonerID.permanent)
 			can_reclaim = TRUE
 
 	var/list/mobs = list()

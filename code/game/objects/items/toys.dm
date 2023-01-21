@@ -23,6 +23,7 @@
  *		Clockwork Watches
  *		Toy Daggers
  *		Eldrich stuff
+ *		Batong
  */
 
 
@@ -202,7 +203,7 @@
 	if (!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 	if (src.bullets < 1)
 		user.show_message("<span class='warning'>*click*</span>", MSG_AUDIBLE)
 		playsound(src, 'sound/weapons/gun_dry_fire.ogg', 30, TRUE)
@@ -309,6 +310,20 @@
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 
+/*
+ * Batong
+ */
+/obj/item/toy/batong
+	name = "batong"
+	desc = "Despite being a cheap plastic imitation of a stunbaton, it can still be charged."
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "stunbaton"
+	item_state = "baton"
+	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+	attack_verb = list("batonged", "stunned", "hit")
+	w_class = WEIGHT_CLASS_SMALL
+
 /obj/item/toy/windupToolbox
 	name = "windup toolbox"
 	desc = "A replica toolbox that rumbles when you turn the key."
@@ -319,6 +334,8 @@
 	var/active = FALSE
 	icon = 'icons/obj/items_and_weapons.dmi'
 	hitsound = 'sound/weapons/smash.ogg'
+	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
+	pickup_sound = 'sound/items/handling/toolbox_pickup.ogg'
 	attack_verb = list("robusted")
 
 /obj/item/toy/windupToolbox/attack_self(mob/user)
@@ -1158,6 +1175,40 @@
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
+
+/*
+ * Toy Cog
+ */
+
+/obj/item/toy/cog
+	name = "integration cog"
+	desc = "A small cog that seems to spin by its own acord when left alone."
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	icon = 'icons/obj/clockwork_objects.dmi'
+	icon_state = "integration_cog"
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/toy/cog/examine(mob/user)
+	. = ..()
+	if(is_servant_of_ratvar(user))
+		. += "<span class='warning'>It's clearly a fake, how could anybody fall for this!</span>"
+
+/*
+ * Replica fabricator
+ */
+
+/obj/item/toy/replica_fabricator
+	name = "replica fabricator"
+	desc = "A strange, brass device with many twisting cogs and vents."
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	icon = 'icons/obj/clockwork_objects.dmi'
+	icon_state = "replica_fabricator"
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/toy/replica_fabricator/examine(mob/user)
+	. = ..()
+	if(is_servant_of_ratvar(user))
+		. += "<span class='warning'>It's clearly a fake, how could anybody fall for this!</span>"
 
 /*
  * Xenomorph action figure

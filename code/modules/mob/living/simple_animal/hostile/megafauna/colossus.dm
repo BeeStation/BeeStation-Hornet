@@ -24,8 +24,8 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/colossus
 	name = "colossus"
 	desc = "A monstrous creature protected by heavy shielding."
-	health = 2500
-	maxHealth = 2500
+	health = 1250
+	maxHealth = 1250
 	attacktext = "judges"
 	attack_sound = 'sound/magic/clockwork/ratvar_attack.ogg'
 	icon_state = "eva"
@@ -45,8 +45,7 @@ Difficulty: Very Hard
 	achievement_type = /datum/award/achievement/boss/colussus_kill
 	crusher_achievement_type = /datum/award/achievement/boss/colussus_crusher
 	score_achievement_type = /datum/award/score/colussus_score
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus, /obj/item/crusher_trophy/blaster_tubes)
-	loot = list(/obj/structure/closet/crate/necropolis/colossus)
+	loot = list(/obj/effect/spawner/lootdrop/megafaunaore, /obj/structure/closet/crate/necropolis/colossus)
 	deathmessage = "disintegrates, leaving a glowing core in its wake."
 	deathsound = 'sound/magic/demon_dies.ogg'
 	attack_action_types = list(/datum/action/innate/megafauna_attack/spiral_attack,
@@ -54,6 +53,7 @@ Difficulty: Very Hard
 							   /datum/action/innate/megafauna_attack/shotgun,
 							   /datum/action/innate/megafauna_attack/alternating_cardinals)
 	small_sprite_type = /datum/action/small_sprite/megafauna/colossus
+	var/invulnerable_finale = FALSE
 
 /datum/action/innate/megafauna_attack/spiral_attack
 	name = "Spiral Shots"
@@ -84,25 +84,43 @@ Difficulty: Very Hard
 	chosen_attack_num = 4
 
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
-	anger_modifier = CLAMP(((maxHealth - health)/50),0,20)
-	ranged_cooldown = world.time + 120
+	ranged_cooldown = world.time + 600 //prevents abilities from being spammed by AttackingTarget() while an attack is already underway.
+	anger_modifier = CLAMP(((maxHealth - health)/20),0,20)
 
-	if(client)
+	if(client) //Player controlled handled a bit differently.
 		switch(chosen_attack)
 			if(1)
-				select_spiral_attack()
+				if(health <= maxHealth/10)
+					final_attack()
+				else
+					telegraph()
+					say("Judgment")
+					visible_message("<span class='colossus'>\"<b>Judgment</b>\"</span>")
+					select_spiral_attack()
+					ranged_cooldown = world.time + 30
 			if(2)
+				telegraph()
+				say("Wrath")
+				visible_message("<span class='colossus'>\"<b>Wrath</b>\"</span>")
 				random_shots()
+				ranged_cooldown = world.time + 30
 			if(3)
+				telegraph()
+				say("Retribution")
+				visible_message("<span class='colossus'>\"<b>Retribution</b>\"</span>")
 				blast()
+				ranged_cooldown = world.time + 30
 			if(4)
+				telegraph()
+				say("Lament")
+				visible_message("<span class='colossus'>\"<b>Lament</b>\"</span>")
 				alternating_dir_shots()
+				ranged_cooldown = world.time + 30
 		return
 
 	if(enrage(target))
 		if(move_to_delay == initial(move_to_delay))
 			visible_message("<span class='colossus'>\"<b>You can't dodge.</b>\"</span>")
-		ranged_cooldown = world.time + 30
 		telegraph()
 		dir_shots(GLOB.alldirs)
 		move_to_delay = 3
@@ -110,15 +128,42 @@ Difficulty: Very Hard
 	else
 		move_to_delay = initial(move_to_delay)
 
-	if(prob(20+anger_modifier)) //Major attack
-		select_spiral_attack()
-	else if(prob(20))
-		random_shots()
-	else
-		if(prob(70))
+	switch(random_attack_num)
+		if(1)
+			select_spiral_attack()
+		if(2)
+			random_shots()
+		if(3)
 			blast()
-		else
+		if(4)
 			alternating_dir_shots()
+		if(5)
+			final_attack()
+
+	if(health <= maxHealth/10) 					//Ultimate attack guaranteed at below 10% HP
+		say("Die..")
+		visible_message("<span class='colossus'>\"<b>Die..</b>\"</span>")
+		random_attack_num = 5
+	else if(prob(20+anger_modifier))			//If more than 10% HP, determine next attack randomly
+		say("Judgment")
+		visible_message("<span class='colossus'>\"<b>Judgment</b>\"</span>")
+		random_attack_num = 1
+	else
+		switch(rand(1, 3))
+			if(1)
+				say("Wrath")
+				visible_message("<span class='colossus'>\"<b>Wrath</b>\"</span>")
+				random_attack_num = 2
+			if(2)
+				say("Retribution")
+				visible_message("<span class='colossus'>\"<b>Retribution</b>\"</span>")
+				random_attack_num = 3
+			if(3)
+				say("Lament")
+				visible_message("<span class='colossus'>\"<b>Lament</b>\"</span>")
+				random_attack_num = 4
+	telegraph()
+	ranged_cooldown = world.time + 30
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/enrage(mob/living/L)
 	if(ishuman(L))
@@ -128,7 +173,6 @@ Difficulty: Very Hard
 				. = TRUE
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots()
-	ranged_cooldown = world.time + 40
 	dir_shots(GLOB.diagonals)
 	sleep(10)
 	dir_shots(GLOB.cardinals)
@@ -138,18 +182,44 @@ Difficulty: Very Hard
 	dir_shots(GLOB.cardinals)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/select_spiral_attack()
-	telegraph()
-	if(health < maxHealth/3)
+	if(health <= maxHealth/3)
 		return double_spiral()
-	visible_message("<span class='colossus'>\"<b>Judgment.</b>\"</span>")
 	return spiral_shoot()
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/double_spiral()
-	visible_message("<span class='colossus'>\"<b>Die.</b>\"</span>")
-
 	SLEEP_CHECK_DEATH(10)
-	INVOKE_ASYNC(src, .proc/spiral_shoot, FALSE)
-	INVOKE_ASYNC(src, .proc/spiral_shoot, TRUE)
+	INVOKE_ASYNC(src, .proc/spiral_shoot, FALSE, 16)
+	spiral_shoot(FALSE, 8)
+
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/final_attack() //not actually necessarily the final attack, but has a very long cooldown.
+	var/finale_counter = 10
+	var/turf/U = get_turf(src)
+	invulnerable_finale = TRUE
+	for(var/i in 1 to 20)
+		if(finale_counter > 4)
+			telegraph()
+			say("Die!!")
+			visible_message("<span class='colossus'>\"<b>Die!</b>\"</span>")
+			blast()
+		if(finale_counter > 1)
+			finale_counter--
+		for(var/T in RANGE_TURFS(12, U) - U)
+			if(prob(min(finale_counter, 2)))
+				shoot_projectile(T)
+		sleep(finale_counter + 1)
+	for(var/ii in 1 to 3)
+		telegraph()
+		say("Die")
+		visible_message("<span class='colossus'>\"<b>Die..</b>\"</span>")
+		random_shots()
+		finale_counter += 6
+		sleep(finale_counter)
+	for(var/iii in 1 to 4)
+		telegraph()
+		say("Die..")
+		visible_message("<span class='colossus'>\"<b>Die..</b>\"</span>")
+		invulnerable_finale = FALSE
+		sleep(30) //Long cooldown (total 15 seconds with one last 30 applied in ) after this attack finally concludes
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/spiral_shoot(negative = pick(TRUE, FALSE), counter_start = 8)
 	var/turf/start_turf = get_step(src, pick(GLOB.alldirs))
@@ -179,7 +249,6 @@ Difficulty: Very Hard
 	P.fire(set_angle)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/random_shots()
-	ranged_cooldown = world.time + 30
 	var/turf/U = get_turf(src)
 	playsound(U, 'sound/magic/clockwork/invoke_general.ogg', 300, 1, 5)
 	for(var/T in RANGE_TURFS(12, U) - U)
@@ -187,11 +256,10 @@ Difficulty: Very Hard
 			shoot_projectile(T)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/blast(set_angle)
-	ranged_cooldown = world.time + 20
 	var/turf/target_turf = get_turf(target)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, 1, 2)
 	newtonian_move(get_dir(target_turf, src))
-	var/angle_to_target = Get_Angle(src, target_turf)
+	var/angle_to_target = get_angle(src, target_turf)
 	if(isnum_safe(set_angle))
 		angle_to_target = set_angle
 	var/static/list/colossus_shotgun_shot_angles = list(12.5, 7.5, 2.5, -2.5, -7.5, -12.5)

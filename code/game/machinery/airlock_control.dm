@@ -2,10 +2,9 @@
 
 // This code allows for airlocks to be controlled externally by setting an id_tag and comm frequency (disables ID access)
 /obj/machinery/door/airlock
-	var/id_tag
 	var/frequency
 	var/datum/radio_frequency/radio_connection
-
+	smoothing_groups = list(SMOOTH_GROUP_AIRLOCK)
 
 /obj/machinery/door/airlock/receive_signal(datum/signal/signal)
 	if(!signal)
@@ -92,7 +91,6 @@
 
 	power_channel = AREA_USAGE_ENVIRON
 
-	var/id_tag
 	var/master_tag
 	var/frequency = FREQ_AIRLOCK_CONTROL
 

@@ -94,7 +94,6 @@
 	equip_delay_other = 70
 	resistance_flags = NONE
 
-
 /obj/item/clothing/head/bomb_hood/security
 	icon_state = "bombsuit_sec"
 	item_state = "bombsuit_sec"
@@ -127,7 +126,6 @@
 	strip_delay = 60
 	equip_delay_other = 60
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	resistance_flags = NONE
 	rad_flags = RAD_PROTECT_CONTENTS
 
 /obj/item/clothing/suit/radiation
@@ -146,5 +144,8 @@
 	strip_delay = 60
 	equip_delay_other = 60
 	flags_inv = HIDEJUMPSUIT
-	resistance_flags = NONE
 	rad_flags = RAD_PROTECT_CONTENTS
+
+/obj/item/clothing/suit/radiation/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)

@@ -1,9 +1,12 @@
 /mob/living/proc/alien_talk(message, shown_name = real_name)
-	src.log_talk(message, LOG_SAY)
 	message = trim(message)
 	if(!message)
 		return
-
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
+	message = treat_message_min(message)
+	log_talk(message, LOG_SAY)
 	var/message_a = say_quote(message)
 	var/rendered = "<i><span class='alien'>Hivemind, <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></span></i>"
 	for(var/mob/S in GLOB.player_list)
@@ -15,7 +18,7 @@
 
 /mob/living/carbon/alien/humanoid/royal/queen/alien_talk(message, shown_name = name)
 	shown_name = "<FONT size = 3>[shown_name]</FONT>"
-	..(message, shown_name)
+	return ..(message, shown_name)
 
 /mob/living/carbon/hivecheck()
 	var/obj/item/organ/alien/hivenode/N = getorgan(/obj/item/organ/alien/hivenode)

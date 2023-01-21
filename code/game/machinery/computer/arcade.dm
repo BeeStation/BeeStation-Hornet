@@ -41,13 +41,18 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/toy/windupToolbox = 2,
 		/obj/item/toy/clockwork_watch = 2,
 		/obj/item/toy/toy_dagger = 2,
+		/obj/item/toy/cog = 2,
+		/obj/item/toy/batong = 1,
+		/obj/item/toy/replica_fabricator = 1,
 		/obj/item/extendohand/acme = 1,
 		/obj/item/hot_potato/harmless/toy = 1,
 		/obj/item/card/emagfake = 1,
 		/obj/item/disk/nuclear/fake/obvious = 1,
 		/obj/item/clothing/shoes/wheelys = 2,
 		/obj/item/clothing/shoes/kindleKicks = 2,
-		/obj/item/toy/plush/moth = 2,
+		/obj/item/toy/plush/moth/random = 2,
+		/obj/item/toy/plush/flushed = 2,
+		/obj/item/toy/plush/gondola = 2,
 		/obj/item/toy/plush/rouny = 2,
 		/obj/item/storage/box/heretic_asshole = 1,
 		/obj/item/toy/eldrich_book = 1,
@@ -119,7 +124,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	if(prize_override)
 		override = TRUE
 
-	if(stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF)
+	if(machine_stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF)
 		return
 
 	var/empprize = null
@@ -321,10 +326,8 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	blocked = FALSE
 	return
 
-
-/obj/machinery/computer/arcade/battle/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/computer/arcade/battle/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='warning'>A mesmerizing Rhumba beat starts playing from the arcade machine's speakers!</span>")
 	temp = "If you die in the game, you die for real!"
 	player_hp = 30
@@ -333,16 +336,9 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	enemy_mp = 20
 	gameover = FALSE
 	blocked = FALSE
-
-	obj_flags |= EMAGGED
-
 	enemy_name = "Cuban Pete"
 	name = "Outbomb Cuban Pete"
-
-
 	updateUsrDialog()
-
-
 
 // *** THE ORION TRAIL ** //
 
@@ -712,7 +708,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 					if(isliving(usr))
 						var/mob/living/L = usr
 						L.Stun(200, ignore_canstun = TRUE) //you can't run :^)
-					var/S = new /obj/singularity/academy(usr.loc)
+					var/S = new /obj/anomaly/singularity/academy(usr.loc)
 					addtimer(CALLBACK(src, /atom/movable/proc/say, "[S] winks out, just as suddenly as it appeared."), 50)
 					QDEL_IN(S, 50)
 			else
@@ -1177,14 +1173,12 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	name = "The Orion Trail"
 	desc = "Learn how our ancestors got to Orion, and have fun in the process!"
 
-/obj/machinery/computer/arcade/orion_trail/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/computer/arcade/orion_trail/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='notice'>You override the cheat code menu and skip to Cheat #[rand(1, 50)]: Realism Mode.</span>")
 	name = "The Orion Trail: Realism Edition"
 	desc = "Learn how our ancestors got to Orion, and try not to die in the process!"
 	newgame()
-	obj_flags |= EMAGGED
 
 /obj/machinery/computer/arcade/orion_trail/Destroy()
 	QDEL_NULL(Radio)
@@ -1286,13 +1280,11 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			to_chat(c_user, "<span class='notice'>You (wisely) decide against putting your hand in the machine.</span>")
 
 
-/obj/machinery/computer/arcade/amputation/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/computer/arcade/amputation/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='notice'>You override the safety systems on the arcade machine.</span>")
 	name = "Mediborg's Amputation Adventure: Deluxe Edition"
 	desc = "A picture of a blood-soaked medical cyborg flashes on the screen. The mediborg has glowing red eyes, and a speech bubble that says, \"Put your hand in the machine if you aren't a <b>coward!</b>\""
-	obj_flags |= EMAGGED
 
 #undef ORION_TRAIL_WINTURN
 #undef ORION_TRAIL_RAIDERS

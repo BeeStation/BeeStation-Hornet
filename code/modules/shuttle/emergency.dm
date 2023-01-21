@@ -46,10 +46,6 @@
 		say("Please equip your ID card into your ID slot to authenticate.")
 	. = ..()
 
-/obj/machinery/computer/emergency_shuttle/attack_alien(mob/living/carbon/alien/humanoid/royal/queen/user)
-	if(istype(user))
-		SSshuttle.clearHostileEnvironment(user)
-
 /obj/machinery/computer/emergency_shuttle/ui_state(mob/user)
 	return GLOB.human_adjacent_state
 
@@ -254,20 +250,22 @@
 			{AUTH - ROOT (uid: 0)}.</font>[SSshuttle.emergency.mode == SHUTTLE_ESCAPE ? "Diverting from existing route - Bluespace exit in [hijack_completion_flight_time_set/10] seconds." : ""]"
 	minor_announce(scramble_message_replace_chars(msg, replaceprob = 10), "Emergency Shuttle", TRUE)
 
-/obj/machinery/computer/emergency_shuttle/emag_act(mob/user)
+/obj/machinery/computer/emergency_shuttle/should_emag(mob/user)
 	// How did you even get on the shuttle before it go to the station?
 	if(!IS_DOCKED)
-		return
-
-	if((obj_flags & EMAGGED) || ENGINES_STARTED)	//SYSTEM ERROR: THE SHUTTLE WILL LA-SYSTEM ERROR: THE SHUTTLE WILL LA-SYSTEM ERROR: THE SHUTTLE WILL LAUNCH IN 10 SECONDS
+		return FALSE
+	if(!..() || ENGINES_STARTED)
+		//SYSTEM ERROR: THE SHUTTLE WILL LA-SYSTEM ERROR: THE SHUTTLE WILL LA-SYSTEM ERROR: THE SHUTTLE WILL LAUNCH IN 10 SECONDS
 		to_chat(user, "<span class='warning'>The shuttle is already launching!</span>")
-		return
+		return FALSE
+	return TRUE
 
+/obj/machinery/computer/emergency_shuttle/on_emag(mob/user)
+	..()
 	var/time = TIME_LEFT
 	message_admins("[ADMIN_LOOKUPFLW(user.client)] has emagged the emergency shuttle, [time] seconds before launch.")
 	log_game("[key_name(user)] has emagged the emergency shuttle in [COORD(src)] [time] seconds before launch.")
 
-	obj_flags |= EMAGGED
 	SSshuttle.emergency.movement_force = list("KNOCKDOWN" = 60, "THROW" = 20)//YOUR PUNY SEATBELTS can SAVE YOU NOW, MORTAL
 	var/datum/species/S = new
 	for(var/i in 1 to 10)
@@ -303,8 +301,8 @@
 	height = 11
 	dir = EAST
 	port_direction = WEST
-	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
 	var/hijack_status = NOT_BEGUN
+	var/infestation_alert_timer
 
 /obj/docking_port/mobile/emergency/canDock(obj/docking_port/stationary/S)
 	return SHUTTLE_CAN_DOCK //If the emergency shuttle can't move, the whole game breaks, so it will force itself to land even if it has to crush a few departments in the process
@@ -349,7 +347,14 @@
 	else
 		SSshuttle.emergencyLastCallLoc = null
 
-	priority_announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ][SSshuttle.adminEmergencyNoRecall ? "\n\nWarning: Shuttle recall subroutines disabled; Recall not possible." : ""]", null, ANNOUNCER_SHUTTLECALLED, "Priority")
+	priority_announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ][SSshuttle.adminEmergencyNoRecall ? "\n\nWarning: Shuttle recall subroutines disabled; Recall not possible." : ""]", null, ANNOUNCER_SHUTTLECALLED, "Priority", null, TRUE)
+
+	if(SSshuttle.checkInfestedEnvironment()) //If an Alien Queen exists, set a delayed alert
+		infestation_alert_timer = addtimer(CALLBACK(src, .proc/infested_shuttle), rand(150 SECONDS, call_time), TIMER_STOPPABLE) //Delay timer is random from 2:30 to the full duration of the shuttle call
+
+/obj/docking_port/mobile/emergency/proc/infested_shuttle()
+	if(SSshuttle.checkInfestedEnvironment()) //Check again to ensure the queen is still present
+		SSshuttle.delayForInfestedStation() //And delay the shuttle if they are
 
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
 	if(mode != SHUTTLE_CALL)
@@ -359,6 +364,8 @@
 
 	invertTimer()
 	mode = SHUTTLE_RECALL
+	if(infestation_alert_timer)
+		deltimer(infestation_alert_timer)
 
 	if(prob(70))
 		SSshuttle.emergencyLastCallLoc = signalOrigin
@@ -410,21 +417,11 @@
 	return has_people && ((hijacker_count == 1) || (hijacker_count && !solo_hijack))
 
 /obj/docking_port/mobile/emergency/proc/is_hijacked_by_xenos()
-	var/has_xenos = FALSE
+	//checking all players
 	for(var/mob/living/player in GLOB.alive_mob_list)
-		if(issilicon(player)) //Borgs are technically dead anyways
-			continue
-		if(isanimal(player)) //animals don't count
-			continue
-		if(isbrain(player)) //also technically dead
-			continue
 		if(shuttle_areas[get_area(player)])
-			//Non-xeno present. Can't hijack.
-			if(!istype(player, /mob/living/carbon/alien))
-				return FALSE
-			has_xenos = TRUE
-
-	return has_xenos
+			if(isalienqueen(player))
+				return TRUE
 
 /obj/docking_port/mobile/emergency/proc/is_hijacked()
 	return hijack_status == HIJACKED
@@ -604,7 +601,7 @@
 
 /obj/machinery/computer/shuttle_flight/pod
 	name = "pod control computer"
-	admin_controlled = 1
+	admin_controlled = TRUE
 	recall_docking_port_id = "null"
 	request_shuttle_message = "Override Escape"
 	possible_destinations = "pod_asteroid"
@@ -614,13 +611,19 @@
 	density = FALSE
 	clockwork = TRUE //it'd look weird
 
+/obj/machinery/computer/shuttle_flight/pod/Initialize()
+	. = ..()
+	RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, .proc/handle_alert)
+
+/obj/machinery/computer/shuttle_flight/pod/proc/handle_alert(datum/source, new_alert)
+	SIGNAL_HANDLER
+	admin_controlled = (new_alert < SEC_LEVEL_RED) // admin_controlled is FALSE if its red or delta
+
 /obj/machinery/computer/shuttle_flight/pod/update_icon()
 	return
 
-/obj/machinery/computer/shuttle_flight/pod/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/computer/shuttle_flight/pod/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='warning'>You fry the pod's alert level monitoring system.</span>")
 
 /obj/machinery/computer/shuttle_flight/pod/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)

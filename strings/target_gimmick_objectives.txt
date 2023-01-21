@@ -1,0 +1,10 @@
+Construct an elaborate trap for %TARGET.
+Ensure %TARGET is demoted from their position.
+Get %TARGET arrested for a crime they haven't committed.
+Top-secret Syndicate intelligence suggests that %TARGET is responsible for scratching the paint on one of our CEOs' private cruisers. Make their life as miserable as possible without killing them.
+Kidnap %TARGET and hold them for ransom!
+Replace %TARGET completely, and try as hard as possible not to blow your cover.
+Pin the blame on %TARGET for any and all crimes you commit, and try to convince security and the crew that it was them all along.
+Attempt to kidnap %TARGET to take with you alive on an escape pod or shuttle, for questioning at Syndicate HQ.
+Frame %TARGET for murdering you.
+%TARGET knows corporate secrets. Interrogate them. Use force if they pretend to not know.

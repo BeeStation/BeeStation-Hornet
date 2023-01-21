@@ -102,31 +102,24 @@
 		return
 	. = ..()
 
-/obj/item/changeling/id
-	slot_flags = ITEM_SLOT_ID
-	/// Cached flat icon of the ID
-	var/icon/cached_flat_icon
-	/// HUD job icon of the ID
-	var/hud_icon
+//=============
+// ID CARD
+// Copy pasted due to requiring inherited behaviour
+//=============
 
-/obj/item/changeling/id/equipped(mob/user, slot, initial)
+/obj/item/card/id/changeling
+	name = "flesh"
+	item_flags = DROPDEL
+
+/obj/item/card/id/changeling/attack_hand(mob/user)
+	if(loc == user)
+		if(user.mind && user.mind.has_antag_datum(/datum/antagonist/changeling))
+			to_chat(user, "<span class='notice'>You reabsorb [src] into your body.</span>")
+		else
+			to_chat(user, "<span class='notice'>[src] vanishes, it was just an illusion!</span>")
+		qdel(src)
+		return
 	. = ..()
-	if(hud_icon)
-		var/image/holder = user.hud_list[ID_HUD]
-		var/icon/I = icon(user.icon, user.icon_state, user.dir)
-		holder.pixel_y = I.Height() - world.icon_size
-		holder.icon_state = hud_icon
-
-/**
- * Returns cached flat icon of the ID, creates one if there is not one already cached
- */
-/obj/item/changeling/id/proc/get_cached_flat_icon()
-	if(!cached_flat_icon)
-		cached_flat_icon = getFlatIcon(src)
-	return cached_flat_icon
-
-/obj/item/changeling/id/get_examine_string(mob/user, thats = FALSE)
-	return "[icon2html(get_cached_flat_icon(), user)] [thats? "That's ":""][get_examine_name(user)]" //displays all overlays in chat
 
 //Change our DNA to that of somebody we've absorbed.
 /datum/action/changeling/transform/sting_action(mob/living/carbon/human/user)

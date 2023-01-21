@@ -216,6 +216,7 @@
 	name = "medal of captaincy"
 	desc = "A golden medal awarded exclusively to those promoted to the rank of captain. It signifies the codified responsibilities of a captain to Nanotrasen, and their undisputable authority over their crew."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /obj/item/clothing/accessory/medal/gold/heroism
 	name = "medal of exceptional heroism"
@@ -239,7 +240,17 @@
 	name = "nobel sciences award"
 	desc = "A plasma medal which represents significant contributions to the field of science or engineering."
 
+/obj/item/clothing/accessory/medal/med_medal
+	name = "exemplary performance medal"
+	desc = "A medal awarded to those who have shown distinguished conduct, performance, and initiative within the medical department."
+	icon_state = "med_medal"
+	above_suit = TRUE
 
+/obj/item/clothing/accessory/medal/med_medal2
+	name = "excellence in medicine medal"
+	desc = "A medal awarded to those who have shown legendary performance, competence, and initiative beyond all expectations within the medical department."
+	icon_state = "med_medal2"
+	above_suit = TRUE
 
 ////////////
 //Armbands//

@@ -11,16 +11,20 @@ Regenerative extracts:
 
 /obj/item/slimecross/regenerative/proc/core_effect(mob/living/carbon/human/target, mob/user)
 	return
+
 /obj/item/slimecross/regenerative/proc/core_effect_before(mob/living/carbon/human/target, mob/user)
 	return
 
-/obj/item/slimecross/regenerative/afterattack(atom/target,mob/user,prox)
+/obj/item/slimecross/regenerative/afterattack(atom/target, mob/user, prox)
 	. = ..()
 	if(!prox || !isliving(target))
 		return
 	var/mob/living/H = target
 	if(H.stat == DEAD)
 		to_chat(user, "<span class='warning'>[src] will not work on the dead!</span>")
+		return
+	if(!do_mob(user, H, 50))
+		to_chat(user, "<span class='notice'>You need to hold still to apply [src]!")
 		return
 	if(H != user)
 		user.visible_message("<span class='notice'>[user] crushes the [src] over [H], the milky goo quickly regenerating all of [H.p_their()] injuries!</span>",
@@ -146,9 +150,7 @@ Regenerative extracts:
 
 /obj/item/slimecross/regenerative/bluespace/core_effect(mob/living/target, mob/user)
 	target.visible_message("<span class='warning'>[src] disappears in a shower of sparks!</span>","<span class='danger'>The milky goo teleports you somewhere it remembers!</span>")
-	do_sparks(5,FALSE,target)
-	target.forceMove(T)
-	do_sparks(5,FALSE,target)
+	do_teleport(target, T, effectin = new /datum/effect_system/spark_spread, effectout = new /datum/effect_system/spark_spread, asoundin = 'sound/weapons/emitter2.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
 
 /obj/item/slimecross/regenerative/bluespace/Initialize(mapload)
 	. = ..()
@@ -167,7 +169,7 @@ Regenerative extracts:
 	effect_desc = "Heals the target and makes a second regenerative core with no special effects."
 
 /obj/item/slimecross/regenerative/cerulean/core_effect(mob/living/target, mob/user)
-	src.forceMove(user.loc)
+	forceMove(user.loc)
 	var/obj/item/slimecross/X = new /obj/item/slimecross/regenerative(user.loc)
 	X.name = name
 	X.desc = desc

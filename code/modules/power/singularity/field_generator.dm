@@ -42,6 +42,17 @@ field_generator power level display
 	var/list/obj/machinery/field/containment/fields
 	var/list/obj/machinery/field/generator/connected_gens
 	var/clean_up = 0
+	COOLDOWN_STATIC_DECLARE(loose_message_cooldown)
+
+/obj/machinery/field/generator/Initialize(mapload)
+	. = ..()
+	fields = list()
+	connected_gens = list()
+	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, .proc/block_singularity_if_active)
+
+/obj/machinery/field/generator/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES)
 
 /obj/machinery/field/generator/update_icon()
 	cut_overlays()
@@ -51,16 +62,6 @@ field_generator power level display
 		add_overlay("+on")
 	if(power_level)
 		add_overlay("+p[power_level]")
-
-
-/obj/machinery/field/generator/Initialize(mapload)
-	. = ..()
-	fields = list()
-	connected_gens = list()
-
-/obj/machinery/field/generator/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES)
 
 /obj/machinery/field/generator/process()
 	if(active == FG_ONLINE)
@@ -311,11 +312,17 @@ field_generator power level display
 
 
 /obj/machinery/field/generator/proc/cleanup()
+	var/dist
 	clean_up = 1
-	for (var/F in fields)
+	for(var/F in fields)
 		qdel(F)
 
 	for(var/CG in connected_gens)
+		if(!dist)
+			dist = get_dist(src, CG)
+		else
+			var/local_dist = get_dist(src, CG)
+			dist = max(dist, local_dist)
 		var/obj/machinery/field/generator/FG = CG
 		FG.connected_gens -= src
 		if(!FG.clean_up)//Makes the other gens clean up as well
@@ -323,23 +330,23 @@ field_generator power level display
 		connected_gens -= FG
 	clean_up = 0
 	update_icon()
-
-	//This is here to help fight the "hurr durr, release singulo cos nobody will notice before the
-	//singulo eats the evidence". It's not fool-proof but better than nothing.
-	//I want to avoid using global variables.
-	spawn(1)
-		var/temp = 1 //stops spam
-		for(var/obj/singularity/O in GLOB.singularities)
-			if(O.last_warning && temp && O.is_real)
-				if((world.time - O.last_warning) > 50) //to stop message-spam
-					temp = 0
-					var/turf/T = get_turf(src)
-					message_admins("A singulo exists and a containment field has failed at [ADMIN_VERBOSEJMP(T)].")
-					investigate_log("has <font color='red'>failed</font> whilst a singulo exists at [AREACOORD(T)].", INVESTIGATE_ENGINES)
-					notify_ghosts("IT'S LOOSE", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, ghost_sound = 'sound/machines/warning-buzzer.ogg', header = "IT'S LOOSE", notify_volume = 75)
-			O.last_warning = world.time
-
 	move_resist = initial(move_resist)
+	loose_message(dist) //we forward the distance of the furtest away generator
+
+/obj/machinery/field/generator/proc/loose_message(dist)
+	if(COOLDOWN_FINISHED(src, loose_message_cooldown))
+		COOLDOWN_START(src, loose_message_cooldown, 5 SECONDS) //this cooldown is shared between all field generators
+		var/obj/anomaly/a = locate(/obj/anomaly) in oview(dist, src)
+		var/turf/T = get_turf(src)
+		if(a)
+			message_admins("A [a.name] exists and a containment field has failed at [ADMIN_VERBOSEJMP(T)].")
+			investigate_log("has <font color='red'>failed</font> whilst a [a.name] exists at [AREACOORD(T)].", INVESTIGATE_ENGINES)
+			notify_ghosts("IT'S LOOSE", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, ghost_sound = 'sound/machines/warning-buzzer.ogg', header = "IT'S LOOSE", notify_volume = 75)
+
+/obj/machinery/field/generator/proc/block_singularity_if_active()
+	SIGNAL_HANDLER
+	if(active)
+		return SINGULARITY_TRY_MOVE_BLOCK
 
 /obj/machinery/field/generator/shock(mob/living/user)
 	if(fields.len)

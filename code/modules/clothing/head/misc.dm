@@ -5,7 +5,7 @@
 	icon_state = "centcom"
 	desc = "It's good to be emperor."
 	item_state = "that"
-	flags_inv = 0
+	flags_inv = NONE
 	armor = list("melee" = 30, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 30)
 	strip_delay = 80
 	clothing_flags = SNUG_FIT // prevents bypassing the strip delay
@@ -366,7 +366,7 @@
 
 /obj/item/clothing/head/frenchberet/equipped(mob/M, slot)
 	. = ..()
-	if (slot == ITEM_SLOT_HEAD)
+	if(slot == ITEM_SLOT_HEAD)
 		RegisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
 	else
 		UnregisterSignal(M, COMSIG_MOB_SAY)
@@ -473,6 +473,16 @@
 	dynamic_hair_suffix = ""
 	attack_verb = list("crowned")
 
+/obj/item/clothing/head/cowboy
+	name = "ranching hat"
+	desc = "King of the plains, the half cow half man mutant, the cowboy."
+	icon_state = "cowboy_alt"
+
+/obj/item/clothing/head/cowboy_science
+	name = "slime ranching hat"
+	desc = "King of the labs, the half slime half man mutant, the slimeboy."
+	icon_state = "cowboy_alt_science"
+
 /////////////////
 //DONATOR ITEMS//
 /////////////////
@@ -498,3 +508,8 @@
 	desc = "Looks just like a real one."
 	icon_state = "chicken"
 	flags_inv = HIDEHAIR
+
+/obj/item/clothing/head/maidheadband
+	name = "maid headband"
+	desc = "Just like from one of those chinese cartoons!"
+	icon_state = "maid_headband"

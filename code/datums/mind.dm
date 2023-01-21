@@ -33,6 +33,7 @@
 	var/key
 	var/name				//replaces mob/var/original_name
 	var/ghostname			//replaces name for observers name if set
+	/// The last living mob this mind occupied - if the player is dead, this is their body.
 	var/mob/living/current
 	var/active = 0
 
@@ -41,13 +42,13 @@
 	var/assigned_role
 	var/special_role
 	var/list/restricted_roles = list()
-
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
 
 	var/linglink
 	var/datum/martial_art/martial_art
 	var/static/default_martial_art = new/datum/martial_art
 	var/miming = 0 // Mime's vow of silence
+	var/hellbound = FALSE
 	var/list/antag_datums
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
@@ -72,6 +73,8 @@
 
 	/// A lazy list of statuses to add next to this mind in the traitor panel
 	var/list/special_statuses
+	/// your bank account id in your mind
+	var/account_id
 
 /datum/mind/New(var/key)
 	src.key = key
@@ -143,6 +146,11 @@
 		new_character.key = key		//now transfer the key to link the client to our new body
 	current.update_atom_languages()
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSFER_TO, old_current, new_character)
+	// Update SSD indicators
+	if(isliving(old_current))
+		old_current.med_hud_set_status()
+	if(isliving(current))
+		current.med_hud_set_status()
 
 /datum/mind/proc/set_death_time()
 	SIGNAL_HANDLER
@@ -278,7 +286,7 @@
 		return
 
 	var/list/all_contents = traitor_mob.GetAllContents()
-	var/obj/item/pda/PDA = locate() in all_contents
+	var/obj/item/modular_computer/tablet/pda/PDA = locate() in all_contents
 	var/obj/item/radio/R = locate() in all_contents
 	var/obj/item/pen/P
 
@@ -299,7 +307,7 @@
 	var/implant = FALSE
 
 	if(traitor_mob.client?.prefs)
-		switch(traitor_mob.client.prefs.uplink_spawn_loc)
+		switch(traitor_mob.client.prefs.active_character.uplink_spawn_loc)
 			if(UPLINK_PDA)
 				uplink_loc = PDA
 				if(!uplink_loc)
@@ -307,11 +315,19 @@
 				if(!uplink_loc)
 					uplink_loc = P
 			if(UPLINK_RADIO)
-				uplink_loc = R
-				if(!uplink_loc)
+				if(HAS_TRAIT(traitor_mob, TRAIT_MUTE))  // cant speak code into headset
+					to_chat(traitor_mob, "Using a radio uplink would be impossible with your muteness! Equipping PDA Uplink..")
 					uplink_loc = PDA
-				if(!uplink_loc)
-					uplink_loc = P
+					if(!uplink_loc)
+						uplink_loc = R
+					if(!uplink_loc)
+						uplink_loc = P
+				else
+					uplink_loc = R
+					if(!uplink_loc)
+						uplink_loc = PDA
+					if(!uplink_loc)
+						uplink_loc = P
 			if(UPLINK_PEN)
 				uplink_loc = P
 			if(UPLINK_IMPLANT)
@@ -323,14 +339,16 @@
 	if (!implant)
 		. = uplink_loc
 		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, gamemode, telecrystals)
+		if(src.has_antag_datum(/datum/antagonist/incursion))
+			U.uplink_flag = UPLINK_INCURSION
 		if(!U)
 			CRASH("Uplink creation failed.")
 		U.setup_unlock_code()
 		if(!silent)
 			if(uplink_loc == R)
-				to_chat(traitor_mob, "<span class='boldnotice'>[employer] has cunningly disguised a Syndicate Uplink as your [R.name]. Simply dial the frequency [format_frequency(U.unlock_code)] to unlock its hidden features.</span>")
+				to_chat(traitor_mob, "<span class='boldnotice'>[employer] has cunningly disguised a Syndicate Uplink as your [R.name]. Simply speak [U.unlock_code] into the :d channel to unlock its hidden features.</span>")
 			else if(uplink_loc == PDA)
-				to_chat(traitor_mob, "<span class='boldnotice'>[employer] has cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ringtone select to unlock its hidden features.</span>")
+				to_chat(traitor_mob, "<span class='boldnotice'>[employer] has cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ring tone selection to unlock its hidden features.</span>")
 			else if(uplink_loc == P)
 				to_chat(traitor_mob, "<span class='boldnotice'>[employer] has cunningly disguised a Syndicate Uplink as your [P.name]. Simply twist the top of the pen [english_list(U.unlock_code)] from its starting position to unlock its hidden features.</span>")
 
@@ -344,8 +362,6 @@
 		if(!silent)
 			to_chat(traitor_mob, "<span class='boldnotice'>[employer] has cunningly implanted you with a Syndicate Uplink (although uplink implants cost valuable TC, so you will have slightly less). Simply trigger the uplink to access it.</span>")
 		return I
-
-
 
 //Link a new mobs mind to the creator of said mob. They will join any team they are currently on, and will only switch teams when their creator does.
 
@@ -394,6 +410,8 @@
 		var/obj_count = 1
 		for(var/datum/objective/objective in antag_objectives)
 			output += "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]"
+			if (objective.name == "gimmick")
+				output += " - This objective is optional and not tracked, so just have fun with it!"
 			var/list/datum/mind/other_owners = objective.get_owners() - src
 			if(other_owners.len)
 				output += "<ul>"
@@ -600,6 +618,12 @@
 /datum/mind/proc/get_all_objectives()
 	return get_all_antag_objectives() | crew_objectives
 
+/datum/mind/proc/is_murderbone()
+	for(var/datum/objective/O as() in get_all_objectives())
+		if(O.murderbone_flag)
+			return TRUE
+	return FALSE
+
 /datum/mind/proc/announce_objectives()
 	var/obj_count = 1
 	var/list/antag_objectives = get_all_antag_objectives()
@@ -776,12 +800,12 @@
 //AI
 /mob/living/silicon/ai/mind_initialize()
 	..()
-	mind.assigned_role = "AI"
+	mind.assigned_role = JOB_NAME_AI
 
 //BORG
 /mob/living/silicon/robot/mind_initialize()
 	..()
-	mind.assigned_role = "Cyborg"
+	mind.assigned_role = JOB_NAME_CYBORG
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()

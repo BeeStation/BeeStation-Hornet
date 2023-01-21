@@ -15,9 +15,9 @@ const VendingRow = (props, context) => {
     || product.price === 0
     || (
       !product.premium
-      && data.department
+      && data.department_bitflag
       && data.user
-      && data.department === data.user.department
+      && (data.department_bitflag & data.user.department_bitflag)
     )
   );
   return (
@@ -134,7 +134,7 @@ export const Vending = (props, context) => {
                 key={product.name}
                 custom={custom}
                 product={product}
-                productStock={data.stock[product.name]} />
+                productStock={data.stock[product.path]} />
             ))}
           </Table>
         </Section>

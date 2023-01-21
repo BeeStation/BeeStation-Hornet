@@ -16,6 +16,8 @@ $include antag_rep.txt
 # Asset Transport (TGUI)
 $include resources.txt
 $include interviews.txt
+# Performance stuff
+$include performance.txt
 
 # You can use the @ character at the beginning of a config option to lock it from being edited in-game
 # Example usage:
@@ -431,7 +433,11 @@ MAPROTATION
 PREFERENCE_MAP_VOTING 0
 
 ## Starts a map vote at the end of rounds
-#AUTOMAPVOTE
+AUTOMAPVOTE
+
+## Sets a minimum round length (in minutes) before a map vote will be called to discourage players from forcing early round ends just to change map
+## Set to 0 to disable.
+AUTOMAPVOTE_THRESHOLD 45
 
 ## Map rotate chance delta
 ## This is the chance of map rotation factored to the round length.
@@ -457,7 +463,7 @@ AUTOADMIN_RANK Admin
 CLIENT_ERROR_VERSION 514
 CLIENT_ERROR_MESSAGE Your version of byond is not supported. Please upgrade.
 ## The minimum build needed for joining the server, if using 513, a good minimum build would be 1526.
-CLIENT_ERROR_BUILD 1568
+CLIENT_ERROR_BUILD 1583
 
 ## TOPIC RATE LIMITING
 ## This allows you to limit how many topic calls (clicking on an interface window) the client can do in any given game second and/or game minute.
@@ -525,9 +531,6 @@ ROUNDS_UNTIL_HARD_RESTART 3
 ##	For reference, Goonstation uses a resolution of 21x15 for it's widescreen mode.
 ##	Do note that changing this value will affect the title screen. The title screen will have to be updated manually if this is changed.
 DEFAULT_VIEW 17x15
-
-##Should we use square view (15x15) while a new player (main menu)
-MENU_SQUARE_VIEW
 
 ## Name your perpetual currency here
 ## This is used within the metashop and earned by playing the game.
@@ -603,3 +606,12 @@ ELASTICSEARCH_METRICS_ENDPOINT http://10.0.0.40:9201/ss13-metrics-stream/_doc
 
 ## ElasticSearch API key. This is formatted into the headers. Look at the ElasticSearch doc for how to make this
 ELASTICSEARCH_METRICS_APIKEY thisIsSomethingThatsBased64Encoded==
+
+## How long in seconds after which a hard delete is treated as causing lag. This can be a float and supports a precision as low as nanoseconds.
+#HARD_DELETES_OVERRUN_THRESHOLD 0.5
+
+## Once a typepath causes overrun from hard deletes this many times, stop hard deleting it on garbage collection failures. (set to 0 to disable)
+#HARD_DELETES_OVERRUN_LIMIT 0
+
+## Enable/disable the mentor mrat verb ("Request Mentor Assistance")
+ENABLE_MRAT

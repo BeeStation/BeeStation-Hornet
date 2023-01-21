@@ -68,7 +68,7 @@
 					/obj/item/key,
 					/obj/item/clothing/suit/jacket/leather/overcoat,
 					/obj/item/clothing/gloves/color/black,
-					/obj/item/clothing/head/soft,
+					/obj/item/clothing/head/soft/cargo,
 					/obj/item/clothing/mask/bandana/skull)//so you can properly #cargoniabikergang
 	crate_name = "Biker Kit"
 	crate_type = /obj/structure/closet/crate/large
@@ -344,16 +344,6 @@
 					/obj/item/gun/energy/disabler)
 	crate_name = "disabler crate"
 
-/datum/supply_pack/security/dumdum
-	name = ".38 DumDum Speedloader"
-	desc = "Contains one speedloader of .38 DumDum ammunition, good for embedding in soft targets. Requires Security or Forensics access to open."
-	cost = 1200
-	access = FALSE
-	small_item = TRUE
-	access_any = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
-	contains = list(/obj/item/ammo_box/c38/dumdum)
-	crate_name = ".38 match crate"
-
 /datum/supply_pack/security/forensics
 	name = "Forensics Crate"
 	desc = "Stay hot on the criminal's heels with Nanotrasen's Detective Essentials(tm). Contains a forensics scanner, six evidence bags, camera, tape recorder, white crayon, and of course, a fedora. Requires Security access to open."
@@ -367,15 +357,15 @@
 					/obj/item/clothing/head/fedora/det_hat)
 	crate_name = "forensics crate"
 
-/datum/supply_pack/security/laser
-	name = "Lasers Crate"
-	desc = "Contains three lethal, high-energy laser guns. Requires Security access to open."
-	cost = 1800
-	access_budget = ACCESS_ARMORY
-	contains = list(/obj/item/gun/energy/laser,
-					/obj/item/gun/energy/laser,
-					/obj/item/gun/energy/laser)
-	crate_name = "laser crate"
+/datum/supply_pack/security/dumdum
+	name = ".38 DumDum Speedloader"
+	desc = "Contains one speedloader of .38 DumDum ammunition, good for embedding in soft targets. Requires Security or Forensics access to open."
+	cost = 1200
+	access = FALSE
+	small_item = TRUE
+	access_any = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
+	contains = list(/obj/item/ammo_box/c38/dumdum)
+	crate_name = ".38 match crate"
 
 /datum/supply_pack/security/match
 	name = ".38 Match Grade Speedloader"
@@ -540,6 +530,15 @@
 	contains = list(/obj/item/storage/box/chemimp)
 	crate_name = "chemical implant crate"
 
+/datum/supply_pack/security/armory/dragnet
+	name = "DRAGnet Crate"
+	desc = "Contains three \"Dynamic Rapid-Apprehension of the Guilty\" netting devices, a recent breakthrough in law enforcement prisoner management technology. Requires armory access to open."
+	cost = 1500
+	contains = list(/obj/item/gun/energy/e_gun/dragnet,
+					/obj/item/gun/energy/e_gun/dragnet,
+					/obj/item/gun/energy/e_gun/dragnet)
+	crate_name = "\improper DRAGnet crate"
+
 /datum/supply_pack/security/armory/combatknives_single
 	name = "Combat Knife Single-Pack"
 	desc = "Contains one sharpened combat knive. Guaranteed to fit snugly inside any Nanotrasen-standard boot. Requires Armory access to open."
@@ -590,15 +589,6 @@
 					/obj/item/gun/ballistic/shotgun/riot,
 					/obj/item/gun/ballistic/shotgun/riot)
 
-/datum/supply_pack/security/armory/dragnet
-	name = "DRAGnet Crate"
-	desc = "Contains three \"Dynamic Rapid-Apprehension of the Guilty\" netting devices, a recent breakthrough in law enforcement prisoner management technology. Requires armory access to open."
-	cost = 1500
-	contains = list(/obj/item/gun/energy/e_gun/dragnet,
-					/obj/item/gun/energy/e_gun/dragnet,
-					/obj/item/gun/energy/e_gun/dragnet)
-	crate_name = "\improper DRAGnet crate"
-
 /datum/supply_pack/security/armory/energy_single
 	name = "Energy Gun Single-Pack"
 	desc = "Contains one Energy Gun, capable of firing both nonlethal and lethal blasts of light. Requires Armory access to open."
@@ -616,6 +606,23 @@
 					/obj/item/gun/energy/e_gun)
 	crate_name = "bulk energy guns crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma
+
+/datum/supply_pack/security/armory/laser
+	name = "Laser Gun Single-Pack"
+	desc = "Contains one lethal, high-energy laser gun, Requires Armory access to open."
+	cost = 1000
+	small_item = TRUE
+	contains = list(/obj/item/gun/energy/laser)
+	crate_name = "single laser gun crate"
+
+/datum/supply_pack/security/armory/laser_single
+	name = "Bulk Laser Guns Crate"
+	desc = "Contains three lethal, high-energy laser guns. Requires Armory access to open."
+	cost = 2150
+	contains = list(/obj/item/gun/energy/laser,
+					/obj/item/gun/energy/laser,
+					/obj/item/gun/energy/laser)
+	crate_name = "bulk laser guns crate"
 
 /datum/supply_pack/security/armory/exileimp
 	name = "Exile Implants Crate"
@@ -784,6 +791,12 @@
 					/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9)
 
+/datum/supply_pack/security/armoury/bsanchor
+	name = "Bluespace Anchoring Device"
+	desc = "Contains a single portable bluespace anchoring device which, when deployed, will prevent basic forms of teleportation. Does not come with batteries."
+	cost = 3000
+	contains = list(/obj/item/bluespace_anchor)
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Engineering /////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -898,10 +911,10 @@
 	charge = 5000
 
 /datum/supply_pack/engineering/inducers
-	name = "NT-75 Electromagnetic Power Inducers Crate"
-	desc = "No rechargers? No problem, with the NT-75 EPI, you can recharge any standard cell-based equipment anytime, anywhere. Contains two Inducers."
-	cost = 1500
-	contains = list(/obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}, /obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}) //FALSE doesn't work in modified type paths apparently.
+	name = "NT-100 Heavy-Duty Inducers Crate"
+	desc = "No rechargers? No problem, with the NT-100 EPI, you can recharge any standard cell-based equipment anytime, anywhere, twice faster than consumer alternatives! Contains two Engineering inducers."
+	cost = 2000
+	contains = list(/obj/item/inducer {cell_type = /obj/item/stock_parts/cell/high; opened = 0}, /obj/item/inducer {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}) //FALSE doesn't work in modified type paths apparently.
 	crate_name = "inducer crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
@@ -1003,7 +1016,6 @@
 	name = "Shield Generator Satellite"
 	desc = "Protect the very existence of this station with these Anti-Meteor defenses. Contains three Shield Generator Satellites."
 	cost = 3000
-	special = TRUE
 	access_budget = ACCESS_HEADS
 	contains = list(
 					/obj/machinery/satellite/meteor_shield,
@@ -1017,10 +1029,19 @@
 	name = "Shield System Control Board"
 	desc = "A control system for the Shield Generator Satellite system."
 	cost = 5000
-	special = TRUE
 	access_budget = ACCESS_HEADS
 	contains = list(/obj/item/circuitboard/computer/sat_control)
 	crate_name= "shield control board crate"
+
+/datum/supply_pack/engineering/bluespace_tap
+	name = "Bluespace Harvester Parts"
+	cost = 15000
+	special = TRUE
+	contains = list(
+					/obj/item/circuitboard/machine/bluespace_tap,
+					/obj/item/paper/bluespace_tap
+					)
+	crate_name = "bluespace harvester parts crate"
 
 /datum/supply_pack/engineering/shuttle_construction
 	name = "Shuttle Construction Kit"
@@ -1601,7 +1622,7 @@
 /datum/supply_pack/medical/randomvirus
 	name = "Virus Sample Crate"
 	desc = "Contains five random experimental disease cultures for epidemiological research"
-	cost = 3750
+	cost = 6000
 	access = ACCESS_VIROLOGY
 	access_budget = ACCESS_VIROLOGY
 	contains = list(/obj/item/reagent_containers/glass/bottle/random_virus,
@@ -1738,6 +1759,13 @@
 	crate_name = "recharging station crate"
 	crate_type = /obj/structure/closet/crate/secure/science
 
+/datum/supply_pack/science/inducers
+	name = "NT-50 Inducers Crate"
+	desc = "No rechargers? No problem, with the NT-50 EPI, you can recharge any standard cell-based equipment anytime, anywhere! Contains two Science inducers."
+	cost = 1000
+	contains = list(/obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}, /obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}) //FALSE doesn't work in modified type paths apparently.
+	crate_name = "inducer crate"
+
 /datum/supply_pack/science/rped
 	name = "RPED crate"
 	desc = "Need to rebuild the ORM but science got annihialted after a bomb test? Buy this for the most advanced parts NT can give you."
@@ -1807,9 +1835,9 @@
 	contains = list(/obj/item/stamp,
 					/obj/item/stamp/denied,
 					/obj/item/export_scanner,
-					/obj/item/destTagger,
+					/obj/item/dest_tagger,
 					/obj/item/hand_labeler,
-					/obj/item/stack/packageWrap)
+					/obj/item/stack/package_wrap)
 	crate_name = "cargo supplies crate"
 
 /datum/supply_pack/service/noslipfloor
@@ -2003,10 +2031,10 @@
 
 /datum/supply_pack/service/vending/ptech
 	name = "PTech Supply Crate"
-	desc = "Not enough cartridges after half the crew lost their PDA to explosions? This may fix it."
+	desc = "Not enough job disks after half the crew lost their PDA to explosions? This may fix it."
 	cost = 800
 	access_budget = ACCESS_HOP
-	contains = list(/obj/item/vending_refill/cart)
+	contains = list(/obj/item/vending_refill/job_disk)
 	crate_name = "ptech supply crate"
 
 /datum/supply_pack/service/vending/snack
@@ -2033,11 +2061,10 @@
 /datum/supply_pack/service/randomized/donkpockets
 	name = "Donk Pocket Variety Crate"
 	desc = "Featuring a line up of Donk Co.'s most popular pastry!"
-	cost = 2000
+	cost = 1500
 	contains = list(/obj/item/storage/box/donkpockets/donkpocketspicy,
 	/obj/item/storage/box/donkpockets/donkpocketteriyaki,
 	/obj/item/storage/box/donkpockets/donkpocketpizza,
-	/obj/item/storage/box/donkpockets/donkpocketgondola,
 	/obj/item/storage/box/donkpockets/donkpocketberry,
 	/obj/item/storage/box/donkpockets/donkpockethonk)
 	crate_name = "donk pocket crate"
@@ -2462,6 +2489,13 @@
 	contains = list(/mob/living/simple_animal/hostile/retaliate/goat)
 	crate_name = "goat crate"
 
+/datum/supply_pack/critter/mothroach
+	name = "Mothroach Crate"
+	desc = "Put the mothroach on your head and find out what true cuteness looks like."
+	cost = 5000
+	contains = list(/mob/living/simple_animal/mothroach)
+	crate_name = "mothroach crate"
+
 /datum/supply_pack/critter/monkey
 	name = "Monkey Cube Crate"
 	desc = "Stop monkeying around! Contains five monkey cubes. Just add water!"
@@ -2782,6 +2816,22 @@
 	)
 	crate_type = /obj/structure/closet/crate/wooden
 
+
+/datum/supply_pack/costumes_toys/randomised/plush
+	name = "Plushie Crate"
+	desc = "A crate filled with 5 plushies!"
+	cost = 1500
+	num_contained = 5
+	contains = list()
+	crate_type = /obj/structure/closet/crate/wooden
+	crate_name = "plushie crate"
+
+/datum/supply_pack/costumes_toys/randomised/plush/fill(obj/structure/closet/crate/C)
+	var/plush
+	for(var/i in 1 to num_contained)
+		plush = pick(subtypesof(/obj/item/toy/plush))
+		new plush(C)
+
 //////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Wardrobe Resupplies ////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -2922,7 +2972,7 @@
 /datum/supply_pack/misc/bicycle/generate(atom/A, datum/bank_account/paying_account)
 	. = ..()
 	for(var/client/C as() in GLOB.clients)
-		if(C?.mob.mind.assigned_role == "Quartermaster" || C?.mob.mind.assigned_role == "Cargo Technician")
+		if(C?.mob.mind.assigned_role == JOB_NAME_QUARTERMASTER || C?.mob.mind.assigned_role == JOB_NAME_CARGOTECHNICIAN)
 			C?.give_award(/datum/award/achievement/misc/bike, C?.mob)
 
 /datum/supply_pack/misc/bigband

@@ -2,7 +2,6 @@
 	name = "\improper Plasmaman"
 	id = SPECIES_PLASMAMAN
 	bodyflag = FLAG_PLASMAMAN
-	say_mod = "rattles"
 	sexes = 0
 	meat = /obj/item/stack/sheet/mineral/plasma
 	species_traits = list(NOBLOOD,NOTRANSSTING)
@@ -18,8 +17,6 @@
 	breathid = "tox"
 	damage_overlay_type = ""//let's not show bloody wounds or burns over bones.
 	var/internal_fire = FALSE //If the bones themselves are burning clothes won't help you much
-	disliked_food = FRUIT
-	liked_food = VEGETABLES
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	outfit_important_for_life = /datum/outfit/plasmaman
 	species_language_holder = /datum/language_holder/skeleton
@@ -75,30 +72,26 @@
 		return
 	var/path = J.species_outfits[SPECIES_PLASMAMAN]
 	var/datum/outfit/plasmaman/O = new path
-	var/datum/preferences/prefs = preference_source.prefs
-	if(prefs.helmet_style != HELMET_DEFAULT)
-		if(O.helmet_variants[prefs.helmet_style])
-			var/helmet = O.helmet_variants[prefs.helmet_style]
+	var/datum/character_save/CS = preference_source.prefs.active_character
+	if(CS.helmet_style != HELMET_DEFAULT)
+		if(O.helmet_variants[CS.helmet_style])
+			var/helmet = O.helmet_variants[CS.helmet_style]
 			qdel(H.head)
 			H.equip_to_slot(new helmet, ITEM_SLOT_HEAD)
 
 /datum/species/plasmaman/qualifies_for_rank(rank, list/features)
 	if(rank in GLOB.security_positions)
 		return 0
-	if(rank == "Clown" || rank == "Mime")//No funny bussiness
+	if(rank == JOB_NAME_CLOWN || rank == JOB_NAME_MIME)//No funny bussiness
 		return 0
 	return ..()
 
-/datum/species/plasmaman/random_name(gender,unique,lastname)
-	if(unique)
-		return random_unique_plasmaman_name()
+/datum/species/plasmaman/random_name(gender, unique, lastname, attempts)
+	. = "[pick(GLOB.plasmaman_names)] \Roman[rand(1,99)]"
 
-	var/randname = plasmaman_name()
-
-	if(lastname)
-		randname += " [lastname]"
-
-	return randname
+	if(unique && attempts < 10)
+		if(findname(.))
+			. = .(gender, TRUE, lastname, ++attempts)
 
 /datum/species/plasmaman/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/consumable/milk)
@@ -134,3 +127,18 @@
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	return ..()
+
+/datum/species/plasmaman/get_cough_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_COUGH_SOUND(user)
+
+/datum/species/plasmaman/get_gasp_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_GASP_SOUND(user)
+
+/datum/species/plasmaman/get_sigh_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SIGH_SOUND(user)
+
+/datum/species/plasmaman/get_sneeze_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNEEZE_SOUND(user)
+
+/datum/species/plasmaman/get_sniff_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNIFF_SOUND(user)

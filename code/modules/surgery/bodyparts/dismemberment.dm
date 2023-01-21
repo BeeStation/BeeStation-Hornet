@@ -115,8 +115,7 @@
 
 	if(!special)
 		if(C.dna)
-			for(var/X in C.dna.mutations) //some mutations require having specific limbs to be kept.
-				var/datum/mutation/human/MT = X
+			for(var/datum/mutation/MT as() in C.dna.mutations) //some mutations require having specific limbs to be kept.
 				if(MT.limb_req && MT.limb_req == body_zone)
 					C.dna.force_lose(MT)
 

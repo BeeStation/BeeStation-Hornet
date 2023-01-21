@@ -6,7 +6,7 @@
  */
 /datum/component/two_handed
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS 		// Only one of the component can exist on an item
-	var/mob/wielder = null							/// The mob that is wielding us
+	var/mob/wielder							/// The mob that is wielding us
 	var/wielded = FALSE 							/// Are we holding the two handed item properly
 	var/force_multiplier = 0						/// The multiplier applied to force when wielded, does not work with force_wielded, and force_unwielded
 	var/force_wielded = 0	 						/// The force of the item when wielded
@@ -18,7 +18,7 @@
 	var/attacksound = FALSE							/// Play sound on attack when wielded
 	var/require_twohands = FALSE					/// Does it have to be held in both hands
 	var/icon_wielded = FALSE						/// The icon that will be used when wielded
-	var/obj/item/offhand/offhand_item = null		/// Reference to the offhand created for the item
+	var/obj/item/offhand/offhand_item		/// Reference to the offhand created for the item
 	var/sharpened_increase = 0						/// The amount of increase recived from sharpening the item
 	var/unwield_on_swap								/// Allow swapping, unwield on swap
 	var/auto_wield									/// If true wielding will be performed when picked up
@@ -140,12 +140,8 @@
 
 	if(auto_wield)
 		UnregisterSignal(user, COMSIG_MOB_SWAP_HANDS)
-	if(require_twohands)
-		unwield(TRUE)
-	if(wielded)
+	if(require_twohands || wielded)
 		unwield()
-	if(source == offhand_item && !QDELETED(src))
-		qdel(src)
 
 /// Triggered on attack self of the item containing the component
 /datum/component/two_handed/proc/on_attack_self(datum/source, mob/user)
@@ -154,10 +150,7 @@
 	if(ignore_attack_self)
 		return
 
-	if(wielded)
-		unwield()
-	else
-		wield(user)
+	wielded ? unwield() : wield(user)
 
 /**
  * Wield the two handed item in both hands
@@ -227,11 +220,10 @@
 		playsound(parent_item.loc, wieldsound, 50, TRUE)
 
 	// Let's reserve the other hand
-	offhand_item = new(user)
+	offhand_item = new()
 	offhand_item.name = "[parent_item.name] - offhand"
 	offhand_item.desc = "Your second grip on [parent_item]."
 	offhand_item.wielded = TRUE
-	RegisterSignal(offhand_item, COMSIG_ITEM_DROPPED, .proc/on_drop)
 	if(swap_hands)
 		user.put_in_active_hand(offhand_item)
 	else
@@ -305,10 +297,7 @@
 
 	// Remove the object in the offhand
 	if(offhand_item)
-		UnregisterSignal(offhand_item, COMSIG_ITEM_DROPPED)
-		qdel(offhand_item)
-	// Clear any old refrence to an item that should be gone now
-	offhand_item = null
+		QDEL_NULL(offhand_item)
 
 /**
  * on_attack triggers on attack with the parent item
@@ -403,13 +392,9 @@
 	w_class = WEIGHT_CLASS_HUGE
 	item_flags = ABSTRACT | DROPDEL
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	var/wielded = FALSE // Off Hand tracking of wielded status
-
-/obj/item/offhand/Destroy()
-	wielded = FALSE
-	return ..()
+	/// Off Hand tracking of wielded status
+	var/wielded = FALSE
 
 /obj/item/offhand/equipped(mob/user, slot)
-	. = ..()
-	if(wielded && !user.is_holding(src) && !QDELETED(src))
+	if(wielded && !user.is_holding(src))
 		qdel(src)

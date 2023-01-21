@@ -71,8 +71,9 @@ Bonus
 /datum/symptom/fire/proc/Firestacks_stage_4(mob/living/M, datum/disease/advance/A)
 	M.adjust_fire_stacks(1 * power)
 	M.take_overall_damage(burn = 3 * power, required_status = BODYTYPE_ORGANIC)
-	if(infective)
-		A.spread(2)
+	if(infective && !(A.spread_flags & DISEASE_SPREAD_FALTERED))
+		addtimer(CALLBACK(A, /datum/disease/.proc/spread, 2), 20)
+		M.visible_message("<span class='danger'>[M] bursts into flames, spreading burning sparks about the area!</span>")
 	return 1
 
 /datum/symptom/fire/proc/Firestacks_stage_5(mob/living/M, datum/disease/advance/A)
@@ -82,7 +83,8 @@ Bonus
 		M.adjust_fire_stacks(3 * power)
 	M.take_overall_damage(burn = 5 * power, required_status = BODYTYPE_ORGANIC)
 	if(infective && !(A.spread_flags & DISEASE_SPREAD_FALTERED))
-		A.spread(4)
+		addtimer(CALLBACK(A, /datum/disease/.proc/spread, 4), 20)
+		M.visible_message("<span class='danger'>[M] bursts into flames, spreading burning sparks about the area!</span>")
 	return 1
 
 

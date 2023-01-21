@@ -6,7 +6,6 @@
 	semi_auto = TRUE
 	fire_sound = "sound/weapons/smgshot.ogg"
 	fire_sound_volume = 80
-	vary_fire_sound = FALSE
 	automatic = 1
 	rack_sound = "sound/weapons/smgrack.ogg"
 	weapon_weight = WEAPON_MEDIUM
@@ -100,8 +99,9 @@
 	w_class = WEIGHT_CLASS_BULKY
 	full_auto = TRUE
 
-/obj/item/gun/ballistic/automatic/wt550/rubber_loaded
-	mag_type = /obj/item/ammo_box/magazine/wt550m9/rubber
+/obj/item/gun/ballistic/automatic/wt550/rubber_loaded/Initialize(mapload)
+	magazine = new /obj/item/ammo_box/magazine/wt550m9/rubber(src)
+	. = ..()
 
 /obj/item/gun/ballistic/automatic/mini_uzi
 	name = "\improper Type U3 Uzi"
@@ -248,6 +248,8 @@
 
 
 /obj/item/gun/ballistic/automatic/l6_saw/AltClick(mob/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	cover_open = !cover_open
 	to_chat(user, "<span class='notice'>You [cover_open ? "open" : "close"] [src]'s cover.</span>")
 	if(cover_open)
@@ -297,7 +299,6 @@
 	item_state = "sniper"
 	fire_sound = "sound/weapons/sniper_shot.ogg"
 	fire_sound_volume = 90
-	vary_fire_sound = FALSE
 	load_sound = "sound/weapons/sniper_mag_insert.ogg"
 	rack_sound = "sound/weapons/sniper_rack.ogg"
 	recoil = 2

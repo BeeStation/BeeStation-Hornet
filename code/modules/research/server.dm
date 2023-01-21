@@ -66,7 +66,7 @@
 	if (panel_open)
 		icon_state = "RD-server-on_t"
 		return
-	if (stat & EMPED || stat & NOPOWER)
+	if (machine_stat & EMPED || machine_stat & NOPOWER)
 		icon_state = "RD-server-off"
 		return
 	if (research_disabled || overheated)
@@ -127,10 +127,10 @@
 
 	// If we are overheateed, start shooting out sparks
 	// don't shoot them if we have no power
-	if(overheated && !(stat & NOPOWER) && prob(40))
+	if(overheated && !(machine_stat & NOPOWER) && prob(40))
 		do_sparks(5, FALSE, src)
 
-	if(overheated || research_disabled || stat & EMPED || stat & NOPOWER)
+	if(overheated || research_disabled || machine_stat & EMPED || machine_stat & NOPOWER)
 		working = FALSE
 	else
 		working = TRUE
@@ -139,15 +139,10 @@
 
 /obj/machinery/rnd/server/emp_act()
 	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	stat |= EMPED
-	// Side note, make a little status screen on the server to show the reboot
-	addtimer(CALLBACK(src, .proc/unemp), 600)
 	refresh_working()
 
-/obj/machinery/rnd/server/proc/unemp()
-	stat &= ~EMPED
+/obj/machinery/rnd/server/emp_reset()
+	..()
 	refresh_working()
 
 /obj/machinery/rnd/server/proc/toggle_disable()
@@ -171,9 +166,6 @@
 	icon_keyboard = "rd_key"
 	req_access = list(ACCESS_RD_SERVER)
 	circuit = /obj/item/circuitboard/computer/rdservercontrol
-
-
-
 
 /obj/machinery/computer/rdservercontrol/ui_state(mob/user)
 	return GLOB.default_state
@@ -236,9 +228,7 @@
 					. = TRUE
 					break
 
-/obj/machinery/computer/rdservercontrol/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/computer/rdservercontrol/on_emag(mob/user)
+	..()
 	playsound(src, "sparks", 75, 1)
-	obj_flags |= EMAGGED
 	to_chat(user, "<span class='notice'>You disable the security protocols.</span>")

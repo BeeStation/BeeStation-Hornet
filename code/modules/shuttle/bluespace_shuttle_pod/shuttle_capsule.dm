@@ -71,6 +71,16 @@
 			message_admins("[ADMIN_LOOKUPFLW(usr)] activated a bluespace capsule away from the mining level! [ADMIN_VERBOSEJMP(T)]")
 			log_admin("[key_name(usr)] activated a bluespace capsule away from the mining level at [AREACOORD(T)]")
 		shuttle_template.load(deploy_location, centered = TRUE)
+		for(var/turf/t_index in shuttle_template.get_affected_turfs(deploy_location, centered=TRUE))
+			for(var/obj/docking_port/mobile/M in t_index)
+				if(M.docked) //This shuttle is already set up (probably)
+					continue
+				var/obj/docking_port/stationary/S = new /obj/docking_port/stationary(t_index)
+				S.delete_after = TRUE
+				S.name = "[M.name] deployment site"
+				M.linkup(shuttle_template,S)
+				M.docked = S
+				S.docked = M
 		new /obj/effect/particle_effect/smoke(get_turf(src))
 		qdel(src)
 

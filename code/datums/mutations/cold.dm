@@ -1,4 +1,4 @@
-/datum/mutation/human/geladikinesis
+/datum/mutation/geladikinesis
 	name = "Geladikinesis"
 	desc = "Allows the user to concentrate moisture and sub-zero forces into snow."
 	quality = POSITIVE
@@ -16,7 +16,7 @@
 	delete_old = FALSE
 	action_icon_state = "snow"
 
-/datum/mutation/human/wax_saliva
+/datum/mutation/wax_saliva
 	name = "Waxy Saliva"
 	desc = "Allows the user to secrete wax."
 	quality = POSITIVE
@@ -35,7 +35,7 @@
 	delete_old = FALSE
 	action_icon_state = "honey"
 
-/datum/mutation/human/cryokinesis
+/datum/mutation/cryokinesis
 	name = "Cryokinesis"
 	desc = "Draws negative energy from the sub-zero void to freeze surrounding temperatures at subject's will."
 	quality = POSITIVE //upsides and downsides

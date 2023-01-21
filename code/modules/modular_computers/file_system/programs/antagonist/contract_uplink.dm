@@ -1,6 +1,7 @@
 /datum/computer_file/program/contract_uplink
 	filename = "contractor uplink"
 	filedesc = "Syndicate Contractor Uplink"
+	category = PROGRAM_CATEGORY_MISC
 	program_icon_state = "assign"
 	extended_desc = "A standard, Syndicate issued system for handling important contracts while on the field."
 	size = 10
@@ -9,15 +10,11 @@
 	unsendable = 1
 	undeletable = 1
 	tgui_id = "SyndContractor"
-
-
+	program_icon = "tasks"
 	var/error = ""
 	var/info_screen = TRUE
 	var/assigned = FALSE
 	var/first_load = TRUE
-
-/datum/computer_file/program/contract_uplink/run_program(var/mob/living/user)
-	. = ..(user)
 
 /datum/computer_file/program/contract_uplink/ui_act(action, params)
 	if(..())

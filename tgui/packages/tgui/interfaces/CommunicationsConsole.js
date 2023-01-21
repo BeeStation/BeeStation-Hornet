@@ -182,27 +182,40 @@ const PageBuyingShuttle = (props, context) => {
                       </span>
                     )}
                     buttons={(
-                      <Button
-                        content={
-                          `${shuttle.creditCost.toLocaleString()} credits`
-                        }
-                        color={shuttle.illegal ? "red" : "default"}
-                        disabled={
-                          !canBuyShuttles || data.budget < shuttle.creditCost
-                        }
-                        onClick={() => act("purchaseShuttle", {
-                          shuttle: shuttle.ref,
-                        })}
-                        tooltip={
-                          data.budget < shuttle.creditCost ? (`You need ${
-                            shuttle.creditCost - data.budget
-                          } more credits.`
-                          ) : (shuttle.illegal 
-                            ? ILLEGAL_SHUTTLE_NOTICE 
-                            : undefined)
-                        }
-                        tooltipPosition="left"
-                      />
+                      <>
+                        {shuttle.danger === 1 ? (
+                          <Tooltip content="According to our analysis, this shuttle will not properly fulfill the duties of a typical escape shuttle.">
+                            <Icon mr={1} name="exclamation-triangle" color="yellow" />
+                          </Tooltip>
+                        ) : (
+                          shuttle.danger === 2 ? (
+                            <Tooltip content="According to our analysis, this shuttle has a high risk potential, and may result in the death of large amounts of crew.">
+                              <Icon mr={1.25} name="exclamation" color="red" />
+                            </Tooltip>
+                          ) : null
+                        )}
+                        <Button
+                          content={
+                            `${shuttle.creditCost.toLocaleString()} credits`
+                          }
+                          color={shuttle.illegal ? "red" : "default"}
+                          disabled={
+                            !canBuyShuttles || data.budget < shuttle.creditCost
+                          }
+                          onClick={() => act("purchaseShuttle", {
+                            shuttle: shuttle.ref,
+                          })}
+                          tooltip={
+                            data.budget < shuttle.creditCost ? (`You need ${
+                              shuttle.creditCost - data.budget
+                            } more credits.`
+                            ) : (shuttle.illegal
+                              ? ILLEGAL_SHUTTLE_NOTICE
+                              : undefined)
+                          }
+                          tooltipPosition="left"
+                        />
+                      </>
                     )}>
                     <Box textAlign="justify">{shuttle.description}</Box>
                     {
@@ -496,7 +509,7 @@ const PageMain = (props, context) => {
 
       {!!canMessageAssociates && messagingAssociates && <MessageModal
         label={`Message to transmit to ${emagged ? "[ABNORMAL ROUTING COORDINATES]" : "CentCom"} via quantum entanglement`}
-        notice="Please be aware that this process is very expensive, and abuse will lead to...termination. Transmission does not guarantee a response."
+        notice="Please be aware that this process is very expensive, and abuse will lead to...termination. Transmission does not guarantee a response. Use by heads of staff is only authorized during an emergency situation."
         icon="bullhorn"
         buttonText="Send"
         onBack={() => setMessagingAssociates(false)}
@@ -619,17 +632,17 @@ const PageMessages = (props, context) => {
         messages.map((message, messageIndex) => {
           let answers = null;
 
-          if (message.possibleAnswers.length > 0) {
+          if (Object.keys(message.possibleAnswers).length > 0) {
             answers = (
               <Box mt={1}>
-                {message.possibleAnswers.map((answer, answerIndex) => (
+                {Object.entries(message.possibleAnswers).map((answer) => (
                   <Button
-                    content={answer}
-                    color={message.answered === answerIndex + 1 ? "good" : undefined}
-                    key={answerIndex}
+                    content={answer[1]}
+                    color={message.answered === answer[0] ? "good" : undefined}
+                    key={answer[0]}
                     onClick={message.answered ? undefined : () => act("answerMessage", {
                       message: messageIndex + 1,
-                      answer: answerIndex + 1,
+                      answer: answer[0],
                     })}
                   />
                 ))}
@@ -678,7 +691,7 @@ const ConditionalTooltip = (props, context) => {
   {
     return children;
   }
-  
+
   return (
     <Tooltip {...rest}>
       {children}
@@ -748,7 +761,7 @@ export const CommunicationsConsole = (props, context) => {
                           <Tabs.Tab fluid
                             icon="shopping-cart"
                             selected={page===STATE_BUYING_SHUTTLE}
-                            onClick={() => act("setState", 
+                            onClick={() => act("setState",
                               { state: STATE_BUYING_SHUTTLE }
                             )}>
                             Purchase Shuttle

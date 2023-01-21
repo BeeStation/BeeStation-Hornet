@@ -43,6 +43,14 @@
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
+	if(length(smoothing_groups))
+		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
+		SET_BITFLAG_LIST(smoothing_groups)
+	if(length(canSmoothWith))
+		sortTim(canSmoothWith)
+		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
+			smoothing_flags |= SMOOTH_OBJ
+		SET_BITFLAG_LIST(canSmoothWith)
 
 	var/area/A = loc
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
@@ -178,11 +186,11 @@
 			arrived.start_pulling(AM)
 			AM.can_be_z_moved = TRUE
 
-		//now we're on the new z_level, proceed the space drifting
-		stoplag()//Let a diagonal move finish, if necessary
-		arrived.newtonian_move(arrived.inertia_dir)
-		arrived.inertia_moving = TRUE
-
+		// now we're on the new z_level, proceed the space drifting
+		// Stays as a comment for now most likely this is not needed at all but just in case i will leave it here
+		// stoplag() //Let a diagonal move finish, if necessary
+		// if(!arrived.inertia_moving)
+		// 	arrived.newtonian_move(get_dir(old_loc, src)) //we don't have inertial dir anymore so this has to do
 
 /turf/open/space/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
 	return

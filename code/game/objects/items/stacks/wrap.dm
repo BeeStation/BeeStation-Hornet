@@ -25,7 +25,7 @@
  * Package Wrap
  */
 
-/obj/item/stack/packageWrap
+/obj/item/stack/package_wrap
 	name = "package wrapper"
 	singular_name = "wrapping sheet"
 	desc = "You can use this to wrap items in."
@@ -36,10 +36,10 @@
 	max_amount = 25
 	resistance_flags = FLAMMABLE
 
-/obj/item/stack/packageWrap/suicide_act(mob/living/user)
+/obj/item/stack/package_wrap/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] begins wrapping [user.p_them()]self in \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	if(use(3))
-		var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(user.loc))
+		var/obj/structure/big_delivery/P = new /obj/structure/big_delivery(get_turf(user.loc))
 		P.icon_state = "deliverypackage5"
 		user.forceMove(P)
 		P.add_fingerprint(user)
@@ -57,10 +57,10 @@
 /obj/item/storage/box/can_be_package_wrapped()
 	return 1
 
-/obj/item/smallDelivery/can_be_package_wrapped()
+/obj/item/small_delivery/can_be_package_wrapped()
 	return 0
 
-/obj/item/stack/packageWrap/afterattack(obj/target, mob/user, proximity)
+/obj/item/stack/package_wrap/afterattack(obj/target, mob/user, proximity)
 	. = ..()
 	if(!proximity)
 		return
@@ -79,14 +79,14 @@
 		else if(!isturf(I.loc))
 			return
 		if(use(1))
-			var/obj/item/smallDelivery/P = new /obj/item/smallDelivery(get_turf(I.loc))
+			var/obj/item/small_delivery/P = new /obj/item/small_delivery(get_turf(I.loc))
 			if(user.Adjacent(I))
 				P.add_fingerprint(user)
 				I.add_fingerprint(user)
 				user.put_in_hands(P)
 			I.forceMove(P)
 			var/size = round(I.w_class)
-			P.name = "[weightclass2text(size)] parcel"
+			P.name = "[weight_class_to_text(size)] parcel"
 			P.w_class = size
 			size = min(size, 5)
 			P.icon_state = "deliverypackage[size]"
@@ -99,7 +99,7 @@
 			to_chat(user, "<span class='warning'>You can't wrap this!</span>")
 			return
 		if(use(3))
-			var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(O.loc))
+			var/obj/structure/big_delivery/P = new /obj/structure/big_delivery(get_turf(O.loc))
 			P.icon_state = O.delivery_icon
 			O.forceMove(P)
 			P.add_fingerprint(user)
@@ -114,7 +114,7 @@
 	user.visible_message("<span class='notice'>[user] wraps [target].</span>")
 	user.log_message("has used [name] on [key_name(target)]", LOG_ATTACK, color="blue")
 
-/obj/item/stack/packageWrap/use(used, transfer = FALSE)
+/obj/item/stack/package_wrap/use(used, transfer = FALSE)
 	var/turf/T = get_turf(src)
 	. = ..()
 	if(QDELETED(src) && !transfer)

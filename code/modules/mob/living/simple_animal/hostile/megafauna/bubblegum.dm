@@ -27,8 +27,8 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum
 	name = "bubblegum"
 	desc = "In what passes for a hierarchy among slaughter demons, this one is king."
-	health = 2500
-	maxHealth = 2500
+	health = 1250
+	maxHealth = 1250
 	attacktext = "rends"
 	attack_sound = 'sound/magic/demon_attack1.ogg'
 	icon_state = "bubblegum"
@@ -48,8 +48,7 @@ Difficulty: Hard
 	ranged = TRUE
 	pixel_x = -32
 	del_on_death = TRUE
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/bubblegum, /obj/item/crusher_trophy/demon_claws)
-	loot = list(/obj/structure/closet/crate/necropolis/bubblegum)
+	loot = list(/obj/effect/spawner/lootdrop/megafaunaore, /obj/structure/closet/crate/necropolis/bubblegum)
 	blood_volume = BLOOD_VOLUME_MAXIMUM //BLEED FOR ME
 	var/charging = FALSE
 	var/enrage_till = 0
@@ -106,7 +105,7 @@ Difficulty: Hard
 	if(charging)
 		return
 
-	anger_modifier = CLAMP(((maxHealth - health)/60),0,20)
+	anger_modifier = CLAMP(((maxHealth - health)/30),0,20)
 	enrage_time = initial(enrage_time) * CLAMP(anger_modifier / 20, 0.5, 1)
 	ranged_cooldown = world.time + 50
 
@@ -176,16 +175,16 @@ Difficulty: Hard
 	charging = TRUE
 	revving_charge = TRUE
 	DestroySurroundings()
-	walk(src, 0)
+	SSmove_manager.stop_looping(src)
 	setDir(dir)
 	var/obj/effect/temp_visual/decoy/D = new /obj/effect/temp_visual/decoy(loc,src)
 	animate(D, alpha = 0, color = "#FF0000", transform = matrix()*2, time = 3)
 	SLEEP_CHECK_DEATH(delay)
 	revving_charge = FALSE
 	var/movespeed = 0.7
-	walk_towards(src, T, movespeed)
+	SSmove_manager.move_towards(src, T, movespeed)
 	SLEEP_CHECK_DEATH(get_dist(src, T) * movespeed)
-	walk(src, 0) // cancel the movement
+	SSmove_manager.stop_looping(src) // cancel the movement
 	try_bloodattack()
 	charging = FALSE
 
@@ -518,7 +517,6 @@ Difficulty: Hard
 	health = 1
 	maxHealth = 1
 	alpha = 127.5
-	crusher_loot = null
 	loot = null
 	achievement_type = null
 	crusher_achievement_type = null

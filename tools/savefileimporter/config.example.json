@@ -1,0 +1,9 @@
+{
+	"db_host": "172.16.0.200",
+	"db_port": 3306,
+	"db_un": "affectedarc07",
+	"db_pw": "redacted_obviously",
+	"db_db": "beestation_dev",
+	"comment": "Set the below value to your data/player_saves area, including that part of the path, and dont forget a trailing slash",
+	"savefile_dir": "C:/tgs4_instances/beestation/Configuration/GameStaticFiles/data/player_saves/"
+}

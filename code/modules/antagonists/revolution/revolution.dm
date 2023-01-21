@@ -264,9 +264,8 @@
 	if(!ishuman(H) && !ismonkey(H))
 		return
 
-	if(remove_clumsy && owner.assigned_role == "Clown")
-		to_chat(owner, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-		H.dna.remove_mutation(CLOWNMUT)
+	if(remove_clumsy)
+		handle_clown_mutation(H, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 
 	if(give_flash)
 		var/obj/item/assembly/flash/handheld/T = new(H)
@@ -439,8 +438,7 @@
 
 		if (revs_win_injection_amount)
 			var/datum/game_mode/dynamic/dynamic = SSticker.mode
-			dynamic.create_threat(revs_win_injection_amount)
-			dynamic.threat_log += "[worldtime2text()]: Revolution victory. Added [revs_win_injection_amount] threat."
+			dynamic.unfavorable_situation()
 
 		priority_announce("A recent assessment of your station has marked your station as a severe risk area for high ranking Nanotrasen officials. \
 		For the safety of our staff, we have blacklisted your station for new employment of security and command. \

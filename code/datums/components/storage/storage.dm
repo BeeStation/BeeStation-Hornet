@@ -171,7 +171,7 @@
 
 	if(locked)
 		var/atom/host = parent
-		host.balloon_alert(M, "It's locked")
+		host.balloon_alert(M, "[host] is locked.")
 		return FALSE
 	if((M.get_active_held_item() == parent) && allow_quick_empty)
 		INVOKE_ASYNC(src, .proc/quick_empty, M)
@@ -184,7 +184,7 @@
 	. = COMPONENT_NO_ATTACK
 	if(locked)
 		var/atom/host = parent
-		host.balloon_alert(M, "It's locked")
+		host.balloon_alert(M, "[host] is locked.")
 		return FALSE
 	var/obj/item/I = O
 	if(collection_mode == COLLECT_ONE)
@@ -260,11 +260,11 @@
 		return
 	if(locked)
 		var/atom/host = parent
-		host.balloon_alert(M, "It's locked")
+		host.balloon_alert(M, "[host] is locked.")
 		return FALSE
 	A.add_fingerprint(M)
 	var/atom/host = parent
-	host.balloon_alert(M, "You start dumping out the contents")
+	host.balloon_alert(M, "You start dumping out the contents...")
 	var/turf/T = get_turf(A)
 	var/list/things = contents()
 	var/datum/progressbar/progress = new(M, length(things), T)
@@ -345,7 +345,6 @@
 			ND.sample_object.mouse_opacity = MOUSE_OPACITY_OPAQUE
 			ND.sample_object.screen_loc = "[cx]:[screen_pixel_x],[cy]:[screen_pixel_y]"
 			ND.sample_object.maptext = MAPTEXT("<font color='white'>[(ND.number > 1)? "[ND.number]" : ""]</font>")
-			ND.sample_object.layer = ABOVE_HUD_LAYER
 			ND.sample_object.plane = ABOVE_HUD_PLANE
 			cx++
 			if(cx - screen_start_x >= cols)
@@ -361,7 +360,6 @@
 			O.mouse_opacity = MOUSE_OPACITY_OPAQUE //This is here so storage items that spawn with contents correctly have the "click around item to equip"
 			O.screen_loc = "[cx]:[screen_pixel_x],[cy]:[screen_pixel_y]"
 			O.maptext = ""
-			O.layer = ABOVE_HUD_LAYER
 			O.plane = ABOVE_HUD_PLANE
 			cx++
 			if(cx - screen_start_x >= cols)
@@ -438,7 +436,6 @@
 		if(QDELETED(O))
 			continue
 		O.screen_loc = "[cx],[cy]"
-		O.layer = ABOVE_HUD_LAYER
 		O.plane = ABOVE_HUD_PLANE
 		cx++
 		if(cx > mx)
@@ -495,7 +492,7 @@
 	if(A.Adjacent(M) && dump_destination && M.Adjacent(dump_destination))
 		if(locked)
 			var/atom/host = parent
-			host.balloon_alert(M, "It's locked")
+			host.balloon_alert(M, "[host] is locked.")
 			return FALSE
 		if(dump_destination.storage_contents_dump_act(src, M))
 			playsound(A, "rustle", 50, 1, -5)
@@ -582,7 +579,7 @@
 	A.add_fingerprint(M)
 	if(locked && !force)
 		var/atom/host = parent
-		host.balloon_alert(M, "It's locked")
+		host.balloon_alert(M, "[host] is locked.")
 		return FALSE
 	if(force || M.CanReach(parent, view_only = TRUE))
 		show_to(M)
@@ -614,7 +611,7 @@
 	if(locked)
 		if(M && !stop_messages)
 			host.add_fingerprint(M)
-			host.balloon_alert(M, "It's locked")
+			host.balloon_alert(M, "[host] is locked.")
 		return FALSE
 	if(real_location.contents.len >= max_items)
 		if(!stop_messages)
@@ -790,7 +787,7 @@
 		. = COMPONENT_NO_ATTACK_HAND
 		if(locked)
 			var/atom/host = parent
-			host.balloon_alert(user, "It's locked")
+			host.balloon_alert(user, "[host] is locked.")
 		else
 			show_to(user)
 
@@ -827,23 +824,24 @@
 		return
 	if(locked)
 		var/atom/host = parent
-		host.balloon_alert(user, "It's locked")
-		return
+		host.balloon_alert(user, "[host] is locked.")
+		return COMPONENT_INTERCEPT_ALT
 
 	var/atom/A = parent
 	if(!quickdraw)
 		A.add_fingerprint(user)
 		user_show_to_mob(user)
 		playsound(A, "rustle", 50, 1, -5)
-		return
+		return COMPONENT_INTERCEPT_ALT
 
 	if(user.incapacitated())
 		return
 
 	var/obj/item/to_remove = locate() in real_location()
 	if(!to_remove)
-		return
+		return COMPONENT_INTERCEPT_ALT
 	INVOKE_ASYNC(src, .proc/attempt_put_in_hands, to_remove, user)
+	return COMPONENT_INTERCEPT_ALT
 
 ///attempt to put an item from contents into the users hands
 /datum/component/storage/proc/attempt_put_in_hands(obj/item/to_remove, mob/user)

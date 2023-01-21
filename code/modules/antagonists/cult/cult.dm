@@ -70,15 +70,13 @@
 
 
 /datum/antagonist/cult/proc/equip_cultist(metal=TRUE)
-	var/mob/living/carbon/H = owner.current
-	if(!istype(H))
+	var/mob/living/carbon/C = owner.current
+	if(!istype(C))
 		return
-	if (owner.assigned_role == "Clown")
-		to_chat(owner, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-		H.dna.remove_mutation(CLOWNMUT)
-	. += cult_give_item(/obj/item/melee/cultblade/dagger, H)
+	handle_clown_mutation(C, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
+	. += cult_give_item(/obj/item/melee/cultblade/dagger, C)
 	if(metal)
-		. += cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H)
+		. += cult_give_item(/obj/item/stack/sheet/runed_metal/ten, C)
 	to_chat(owner, "These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")
 
 

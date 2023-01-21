@@ -50,6 +50,7 @@
 /datum/brain_trauma/mild/phobia/on_gain()
 	if(is_type_in_typecache(owner.dna.species, trigger_species))
 		trigger_species -= owner.dna.species.type
+	..()
 
 /datum/brain_trauma/mild/phobia/on_life()
 	..()
@@ -162,7 +163,7 @@
 				fear_state = PHOBIA_STATE_FAINT
 				owner.remove_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE) //in the case that we get so scared by enough bullshit nearby we skip the last stage
 				owner.Sleeping(300)
-				owner.visible_message("<span class ='danger'>[owner] faints in fear!.</span>", "<span class ='userdanger'>It's too much! you faint!</span>")
+				owner.visible_message("<span class ='danger'>[owner] faints in fear!</span>", "<span class ='userdanger'>It's too much! you faint!</span>")
 				if(prob(stress * 3))
 					owner.set_heartattack(TRUE)
 					to_chat(owner, "<span class='userdanger'>Your heart stops!</span>")

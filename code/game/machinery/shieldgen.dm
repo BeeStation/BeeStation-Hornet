@@ -98,7 +98,7 @@
 
 	for(var/turf/open/space/target_tile in RANGE_TURFS(shield_range, src))
 		if(!(locate(/obj/structure/emergency_shield) in target_tile))
-			if(!(stat & BROKEN) || prob(33))
+			if(!(machine_stat & BROKEN) || prob(33))
 				deployed_shields += new /obj/structure/emergency_shield(target_tile)
 
 /obj/machinery/shieldgen/proc/shields_down()
@@ -108,15 +108,15 @@
 	QDEL_LIST(deployed_shields)
 
 /obj/machinery/shieldgen/process(delta_time)
-	if((stat & BROKEN) && active)
+	if((machine_stat & BROKEN) && active)
 		if(deployed_shields.len && DT_PROB(2.5, delta_time))
 			qdel(pick(deployed_shields))
 
 
 /obj/machinery/shieldgen/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
-		if(!(stat && BROKEN))
-			stat |= BROKEN
+		if(!(machine_stat && BROKEN))
+			set_machine_stat(machine_stat | BROKEN)
 			locked = pick(0,1)
 			update_icon()
 
@@ -154,7 +154,7 @@
 			to_chat(user, "<span class='notice'>You open the panel and expose the wiring.</span>")
 		else
 			to_chat(user, "<span class='notice'>You close the panel.</span>")
-	else if(istype(W, /obj/item/stack/cable_coil) && (stat & BROKEN) && panel_open)
+	else if(istype(W, /obj/item/stack/cable_coil) && (machine_stat & BROKEN) && panel_open)
 		var/obj/item/stack/cable_coil/coil = W
 		if (coil.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one length of cable to repair [src]!</span>")
@@ -165,7 +165,7 @@
 				return
 			coil.use(1)
 			obj_integrity = max_integrity
-			stat &= ~BROKEN
+			set_machine_stat(machine_stat & ~BROKEN)
 			to_chat(user, "<span class='notice'>You repair \the [src].</span>")
 			update_icon()
 
@@ -197,20 +197,17 @@
 	else
 		return ..()
 
-/obj/machinery/shieldgen/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		to_chat(user, "<span class='warning'>The access controller is damaged!</span>")
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/shieldgen/on_emag(mob/user)
+	..()
 	locked = FALSE
 	playsound(src, "sparks", 100, 1)
 	to_chat(user, "<span class='warning'>You short out the access controller.</span>")
 
 /obj/machinery/shieldgen/update_icon()
 	if(active)
-		icon_state = (stat & BROKEN) ? "shieldonbr":"shieldon"
+		icon_state = (machine_stat & BROKEN) ? "shieldonbr":"shieldon"
 	else
-		icon_state = (stat & BROKEN) ? "shieldoffbr":"shieldoff"
+		icon_state = (machine_stat & BROKEN) ? "shieldoffbr":"shieldoff"
 
 #define ACTIVE_SETUPFIELDS 1
 #define ACTIVE_HASFIELDS 2
@@ -231,6 +228,10 @@
 	var/locked = TRUE
 	var/shield_range = 8
 	var/obj/structure/cable/attached // the attached cable
+
+/obj/machinery/shieldwallgen/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, .proc/block_singularity_if_active)
 
 /obj/machinery/shieldwallgen/xenobiologyaccess		//use in xenobiology containment
 	name = "xenobiology shield wall generator"
@@ -337,6 +338,11 @@
 		if(F && (F.gen_primary == src || F.gen_secondary == src)) //it's ours, kill it.
 			qdel(F)
 
+/obj/machinery/shieldwallgen/proc/block_singularity_if_active()
+	SIGNAL_HANDLER
+	if(active)
+		return SINGULARITY_TRY_MOVE_BLOCK
+
 /obj/machinery/shieldwallgen/can_be_unfasten_wrench(mob/user, silent)
 	if(active)
 		if(!silent)
@@ -389,11 +395,8 @@
 		update_activity()
 	add_fingerprint(user)
 
-/obj/machinery/shieldwallgen/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		to_chat(user, "<span class='warning'>The access controller is damaged!</span>")
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/shieldwallgen/on_emag(mob/user)
+	..()
 	locked = FALSE
 	playsound(src, "sparks", 100, 1)
 	to_chat(user, "<span class='warning'>You short out the access controller.</span>")
@@ -421,6 +424,7 @@
 	for(var/mob/living/L in get_turf(src))
 		visible_message("<span class='danger'>\The [src] is suddenly occupying the same space as \the [L]!</span>")
 		L.gib()
+	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, .proc/block_singularity)
 
 /obj/machinery/shieldwall/Destroy()
 	gen_primary = null
@@ -453,6 +457,10 @@
 		gen_primary.use_stored_power(drain_amount*0.5)
 		if(gen_secondary) //using power may cause us to be destroyed
 			gen_secondary.use_stored_power(drain_amount*0.5)
+
+/obj/machinery/shieldwall/proc/block_singularity()
+	SIGNAL_HANDLER
+	return SINGULARITY_TRY_MOVE_BLOCK
 
 /obj/machinery/shieldwall/CanAllowThrough(atom/movable/mover, turf/target)
 	. = ..()

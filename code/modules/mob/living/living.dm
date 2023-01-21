@@ -45,6 +45,10 @@
 /mob/living/onZImpact(turf/T, levels)
 	if(!isgroundlessturf(T))
 		ZImpactDamage(T, levels)
+		if(pulling)
+			stop_pulling()
+		if(buckled)
+			buckled.unbuckle_mob(src)
 	return ..()
 
 /mob/living/proc/ZImpactDamage(turf/T, levels)
@@ -64,7 +68,7 @@
 		return
 	if(buckled || now_pushing)
 		return
-	if((confused || is_blind()) && stat == CONSCIOUS && (mobility_flags & MOBILITY_STAND) && m_intent == "run" && (!ismovableatom(A) || is_blocked_turf(A)) && !HAS_MOB_PROPERTY(src, PROP_CANTBUMPSLAM))  // ported from VORE, sue me
+	if((confused || is_blind()) && stat == CONSCIOUS && (mobility_flags & MOBILITY_STAND) && m_intent == "run" && (!ismovable(A) || is_blocked_turf(A)) && !HAS_MOB_PROPERTY(src, PROP_CANTBUMPSLAM))  // ported from VORE, sue me
 		APPLY_MOB_PROPERTY(src, PROP_CANTBUMPSLAM, src.type) //Bump() is called continuously so ratelimit the check to 20 seconds if it passes or 5 if it doesn't
 		if(prob(10))
 			playsound(get_turf(src), "punch", 25, 1, -1)
@@ -84,7 +88,7 @@
 		var/obj/O = A
 		if(ObjBump(O))
 			return
-	if(ismovableatom(A))
+	if(ismovable(A))
 		var/atom/movable/AM = A
 		if(PushAM(AM, move_force))
 			return
@@ -196,20 +200,17 @@
 				return
 
 /mob/living/get_photo_description(obj/item/camera/camera)
-	var/list/mob_details = list()
 	var/list/holding = list()
 	var/len = length(held_items)
 	if(len)
 		for(var/obj/item/I in held_items)
-			if(!holding.len)
+			if(!length(holding))
 				holding += "They are holding \a [I]"
 			else if(held_items.Find(I) == len)
 				holding += ", and \a [I]."
 			else
 				holding += ", \a [I]"
-	holding += "."
-	mob_details += "You can also see [src] on the photo[health < (maxHealth * 0.75) ? ", looking a bit hurt":""][holding ? ". [holding.Join("")]":"."]."
-	return mob_details.Join("")
+	return "You can also see [src] on the photo[health < (maxHealth * 0.75) ? ", looking a bit hurt":""].[length(holding) ? " [holding.Join("")].":""]"
 
 //Called when we bump onto an obj
 /mob/living/proc/ObjBump(obj/O)
@@ -758,7 +759,7 @@
 
 	if(has_limbs)
 		var/turf/T = get_step(src, angle2dir(dir2angle(direction)+90))
-		if (T)
+		if(T)
 			turfs_to_check += T
 
 		T = get_step(src, angle2dir(dir2angle(direction)-90))
@@ -770,12 +771,11 @@
 			if(T.density)
 				pressure_resistance_prob_delta -= 20
 				continue
-			for (var/atom/movable/AM in T)
-				if (AM.density && AM.anchored)
+			for(var/atom/movable/AM in T)
+				if(AM.density && AM.anchored)
 					pressure_resistance_prob_delta -= 20
 					break
-	if(!force_moving)
-		..(pressure_difference, direction, pressure_resistance_prob_delta)
+	. = ..(pressure_difference, direction, pressure_resistance_prob_delta)
 
 /mob/living/can_resist()
 	return !((next_move > world.time) || incapacitated(ignore_restraints = TRUE, ignore_stasis = TRUE))
@@ -831,7 +831,7 @@
 		else
 			visible_message("<span class='danger'>[src] struggles as they fail to break free of [pulledby]'s grip!</span>")
 		if(moving_resist && client) //we resisted by trying to move
-			client.move_delay = world.time + 20
+			client.move_delay = world.time + 2 SECONDS
 	else
 		pulledby.stop_pulling()
 		return FALSE
@@ -882,7 +882,7 @@
 // Override if a certain type of mob should be behave differently when stripping items (can't, for example)
 /mob/living/stripPanelUnequip(obj/item/what, mob/who, where)
 	if(!what.canStrip(who))
-		to_chat(src, "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>")
+		to_chat(src, "<span class='warning'>You can't remove [what.name], it appears to be stuck!</span>")
 		return
 	who.visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
 					"<span class='userdanger'>[src] tries to remove your [what.name].</span>")
@@ -965,9 +965,6 @@
 /mob/living/proc/get_standard_pixel_y_offset(lying = 0)
 	return initial(pixel_y)
 
-/mob/living/cancel_camera()
-	..()
-	cameraFollow = null
 
 /mob/living/proc/can_track(mob/living/user)
 	//basic fast checks go first. When overriding this proc, I recommend calling ..() at the end.
@@ -1028,8 +1025,8 @@
 	return TRUE
 
 /mob/living/proc/return_soul()
-	hellbound = 0
 	if(mind)
+		mind.hellbound = FALSE
 		var/datum/antagonist/devil/devilInfo = mind.soulOwner.has_antag_datum(/datum/antagonist/devil)
 		if(devilInfo)//Not sure how this could be null, but let's just try anyway.
 			devilInfo.remove_soul(mind)

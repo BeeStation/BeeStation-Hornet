@@ -115,20 +115,19 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	var/sz = summoner.current.z
 	if(sx - range < 1 || sx + range + 1 > world.maxx || sy - range - 1 < 1 || sy + range + 1 > world.maxy)
 		return
-	for(var/turf/T in getline(locate(sx - range, sy + range + 1, sz), locate(sx + range, sy + range + 1, sz)))
-		barrier_images += image('icons/effects/effects.dmi', T, "barrier", ABOVE_LIGHTING_LAYER, SOUTH)
-	for(var/turf/T in getline(locate(sx - range, sy - range - 1, sz), locate(sx + range, sy - range - 1, sz)))
-		barrier_images += image('icons/effects/effects.dmi', T, "barrier", ABOVE_LIGHTING_LAYER, NORTH)
-	for(var/turf/T in getline(locate(sx - range - 1, sy - range, sz), locate(sx - range - 1, sy + range, sz)))
-		barrier_images += image('icons/effects/effects.dmi', T, "barrier", ABOVE_LIGHTING_LAYER, EAST)
-	for(var/turf/T in getline(locate(sx + range + 1, sy - range, sz), locate(sx + range + 1, sy + range, sz)))
-		barrier_images += image('icons/effects/effects.dmi', T, "barrier", ABOVE_LIGHTING_LAYER, WEST)
-	barrier_images += image('icons/effects/effects.dmi', locate(sx - range - 1 , sy + range + 1, sz), "barrier", ABOVE_LIGHTING_LAYER, SOUTHEAST)
-	barrier_images += image('icons/effects/effects.dmi', locate(sx + range + 1, sy + range + 1, sz), "barrier", ABOVE_LIGHTING_LAYER, SOUTHWEST)
-	barrier_images += image('icons/effects/effects.dmi', locate(sx + range + 1, sy - range - 1, sz), "barrier", ABOVE_LIGHTING_LAYER, NORTHWEST)
-	barrier_images += image('icons/effects/effects.dmi', locate(sx - range - 1, sy - range - 1, sz), "barrier", ABOVE_LIGHTING_LAYER, NORTHEAST)
+	for(var/turf/T in get_line(locate(sx - range, sy + range + 1, sz), locate(sx + range, sy + range + 1, sz)))
+		barrier_images += image('icons/effects/effects.dmi', T, "barrier", FLOAT_LAYER, SOUTH)
+	for(var/turf/T in get_line(locate(sx - range, sy - range - 1, sz), locate(sx + range, sy - range - 1, sz)))
+		barrier_images += image('icons/effects/effects.dmi', T, "barrier", FLOAT_LAYER, NORTH)
+	for(var/turf/T in get_line(locate(sx - range - 1, sy - range, sz), locate(sx - range - 1, sy + range, sz)))
+		barrier_images += image('icons/effects/effects.dmi', T, "barrier", FLOAT_LAYER, EAST)
+	for(var/turf/T in get_line(locate(sx + range + 1, sy - range, sz), locate(sx + range + 1, sy + range, sz)))
+		barrier_images += image('icons/effects/effects.dmi', T, "barrier", FLOAT_LAYER, WEST)
+	barrier_images += image('icons/effects/effects.dmi', locate(sx - range - 1 , sy + range + 1, sz), "barrier", FLOAT_LAYER, SOUTHEAST)
+	barrier_images += image('icons/effects/effects.dmi', locate(sx + range + 1, sy + range + 1, sz), "barrier", FLOAT_LAYER, SOUTHWEST)
+	barrier_images += image('icons/effects/effects.dmi', locate(sx + range + 1, sy - range - 1, sz), "barrier", FLOAT_LAYER, NORTHWEST)
+	barrier_images += image('icons/effects/effects.dmi', locate(sx - range - 1, sy - range - 1, sz), "barrier", FLOAT_LAYER, NORTHEAST)
 	for(var/image/I in barrier_images)
-		I.layer = ABOVE_LIGHTING_LAYER
 		I.plane = ABOVE_LIGHTING_PLANE
 		client.images += I
 
@@ -564,6 +563,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		if(!input)
 			return
 
+		input = treat_message_min(input)
 		var/preliminary_message = "<span class='holoparasite bold'>[input]</span>" //apply basic color/bolding
 		var/my_message = "<font color=\"[guardiancolor]\"><b><i>[src]:</i></b></font> [preliminary_message]" //add source, color source with the guardian's color
 		var/ghost_message = "<font color=\"[guardiancolor]\"><b><i>[src] -> [summoner.name]:</i></b></font> [preliminary_message]"
@@ -621,7 +621,10 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	var/input = stripped_input(src, "Please enter a message to tell your guardian.", "Message", "")
 	if(!input)
 		return
-
+	if(CHAT_FILTER_CHECK(input))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
+	input = treat_message_min(input)
 	var/preliminary_message = "<span class='holoparasite bold'>[input]</span>" //apply basic color/bolding
 	var/my_message = "<span class='holoparasite bold'><i>[src]:</i> [preliminary_message]</span>" //add source, color source with default grey...
 

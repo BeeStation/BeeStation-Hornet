@@ -7,14 +7,27 @@
 /obj/machinery/computer/upload/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/gps, "Encrypted Upload")
+	GLOB.uploads_list += src
+
+/obj/machinery/computer/upload/Destroy()
+	GLOB.uploads_list -= src
+	return ..()
+
+
 
 /obj/machinery/computer/upload/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/aiModule))
 		var/obj/item/aiModule/M = O
-		if(stat & (NOPOWER|BROKEN|MAINT))
+		if(machine_stat & (NOPOWER|BROKEN|MAINT))
 			return
 		if(!current)
 			to_chat(user, "<span class='caution'>You haven't selected anything to transmit laws to!</span>")
+			return
+		var/input = stripped_input(user, "Please enter the Upload code.", "Uplode Code Check")
+		if(!GLOB.upload_code)
+			GLOB.upload_code = random_code(4)
+		if(input != GLOB.upload_code)
+			to_chat(user, "<span class='caution'>Upload failed!</span> The code inputted was incorrect!")
 			return
 		if(!can_upload_to(current))
 			to_chat(user, "<span class='caution'>Upload failed!</span> Check to make sure [current.name] is functioning properly.")
@@ -27,6 +40,11 @@
 			current = null
 			return
 		M.install(current.laws, user)
+		if(alert("Do you wish to scramble the upload code?", "Scramble Code", "Yes", "No") != "Yes")
+			return
+		message_admins("[ADMIN_LOOKUPFLW(usr)] has scrambled the upload code [GLOB.upload_code]!")
+		GLOB.upload_code = random_code(4)
+		to_chat(user, "<span class='notice'>You scramble the upload code</span>")
 	else
 		return ..()
 

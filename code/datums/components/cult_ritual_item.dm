@@ -58,8 +58,9 @@
 		COMSIG_ITEM_ATTACK,
 		COMSIG_ITEM_ATTACK_OBJ,
 		COMSIG_ITEM_ATTACK_EFFECT,
-		COMSIG_PARENT_EXAMINE,
 		))
+	if(examine_message)
+		UnregisterSignal(parent, COMSIG_PARENT_EXAMINE)
 
 /*
  * Signal proc for [COMSIG_PARENT_EXAMINE].
@@ -347,7 +348,7 @@
 		to_chat(cultist, "<span class='cultlarge'>\"I am already here. There is no need to try to summon me now.\"</span>")
 		return FALSE
 	var/confirm_final = alert(cultist, "This is the FINAL step to summon Nar'Sie; it is a long, painful ritual and the crew will be alerted to your presence.", "Are you prepared for the final battle?", "My life for Nar'Sie!", "No")
-	if(confirm_final == "No")
+	if(confirm_final == "No" || !confirm_final)
 		to_chat(cultist, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
 		return
 	if(!check_if_in_ritual_site(cultist, cult_team))

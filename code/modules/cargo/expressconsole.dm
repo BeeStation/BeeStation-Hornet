@@ -30,7 +30,7 @@
 	return ..()
 
 /obj/machinery/computer/cargo/express/attackby(obj/item/W, mob/living/user, params)
-	if((istype(W, /obj/item/card/id) || istype(W, /obj/item/pda)) && allowed(user))
+	if((istype(W, /obj/item/card/id) || istype(W, /obj/item/modular_computer/tablet/pda)) && allowed(user))
 		locked = !locked
 		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] the interface.</span>")
 		return
@@ -48,16 +48,9 @@
 			to_chat(user, "<span class='notice'>[src] is already linked to [sb].</span>")
 	..()
 
-/obj/machinery/computer/cargo/express/emag_act(mob/living/user)
-	if(obj_flags & EMAGGED)
-		return
-	if(user)
-		user.visible_message("<span class='warning'>[user] swipes a suspicious card through [src]!</span>",
-		"<span class='notice'>You change the routing protocols, allowing the Supply Pod to land anywhere on the station.</span>")
-	obj_flags |= EMAGGED
-	// This also sets this on the circuit board
-	var/obj/item/circuitboard/computer/cargo/board = circuit
-	board.obj_flags |= EMAGGED
+/obj/machinery/computer/cargo/express/on_emag(mob/user)
+	..()
+	to_chat(user,"<span class='notice'>You change the routing protocols, allowing the Supply Pod to land anywhere on the station.</span>")
 	packin_up()
 
 /obj/machinery/computer/cargo/express/proc/packin_up() // oh shit, I'm sorry
@@ -94,7 +87,7 @@
 /obj/machinery/computer/cargo/express/ui_data(mob/user)
 	var/canBeacon = beacon && (isturf(beacon.loc) || ismob(beacon.loc))//is the beacon in a valid location?
 	var/list/data = list()
-	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	if(D)
 		data["points"] = D.account_balance
 	data["locked"] = locked//swipe an ID to unlock
@@ -144,7 +137,7 @@
 				beacon.update_status(SP_READY) //turns on the beacon's ready light
 				. = TRUE
 		if("printBeacon")
-			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+			var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 			if(D)
 				if(D.adjust_money(-BEACON_COST))
 					cooldown = 10//a ~ten second cooldown for printing beacons to prevent spam
@@ -178,7 +171,7 @@
 			var/list/empty_turfs
 			var/datum/supply_order/SO = new(pack, name, rank, ckey, reason)
 			var/points_to_check
-			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+			var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 			if(D)
 				points_to_check = D.account_balance
 			if(!(obj_flags & EMAGGED))

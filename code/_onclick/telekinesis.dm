@@ -73,7 +73,7 @@
 	item_flags = NOBLUDGEON | ABSTRACT | DROPDEL
 	//item_state = null
 	w_class = WEIGHT_CLASS_GIGANTIC
-	layer = ABOVE_HUD_LAYER
+
 	plane = ABOVE_HUD_PLANE
 
 	var/atom/movable/focus = null
@@ -94,7 +94,7 @@
 
 /obj/item/tk_grab/dropped(mob/user)
 	..()
-	if(focus && user && loc != user && loc != user.loc) // drop_item() gets called when you tk-attack a table/closet with an item
+	if(focus && user && loc != user && loc != user.loc) // transferItemToLoc() gets called when you tk-attack a table/closet with an item
 		if(focus.Adjacent(loc))
 			focus.forceMove(loc)
 
@@ -140,7 +140,7 @@
 		to_chat(user, "<span class='notice'>This object is too heavy to move with something buckled to it!</span>")
 		return
 
-	if(length(focus.client_mobs_in_contents))
+	if(locate(/mob/living) in target)
 		to_chat(user, "<span class='notice'>This object is too heavy to move with something inside of it!</span>")
 		return
 

@@ -1,6 +1,11 @@
 /mob/living/carbon/human/say_mod(input, list/message_mods = list())
-	verb_say = dna.species.say_mod
-	if(slurring)
+	var/obj/item/organ/tongue/T = getorganslot(ORGAN_SLOT_TONGUE)
+	if(T)
+		verb_say = pick(T.say_mod)
+		verb_ask = pick(T.ask_mod)
+		verb_yell = pick(T.yell_mod)
+		verb_exclaim = pick(T.exclaim_mod)
+	if(slurring || !T)
 		return "slurs"
 	else
 		. = ..()
@@ -10,7 +15,7 @@
 		var/obj/item/clothing/mask/chameleon/V = wear_mask
 		if(V.vchange && wear_id)
 			var/obj/item/card/id/idcard = wear_id.GetID()
-			if(istype(idcard))
+			if(istype(idcard) && idcard.electric)
 				return idcard.registered_name
 			else
 				return real_name
@@ -28,6 +33,9 @@
 	// how do species that don't breathe talk? magic, that's what.
 	if(!HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT) && !getorganslot(ORGAN_SLOT_LUNGS))
 		return FALSE
+	if(dna?.species && !dna?.species.speak_no_tongue)
+		if(!getorganslot(ORGAN_SLOT_TONGUE))
+			return FALSE
 	if(mind)
 		return !mind.miming
 	return TRUE

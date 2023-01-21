@@ -87,7 +87,7 @@
 	icon_state = "bloodfilter"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	custom_materials = list(/datum/material/iron=2000, /datum/material/glass=1500, /datum/material/silver=500)
+	materials = list(/datum/material/iron=2000, /datum/material/glass=1500, /datum/material/silver=500)
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("pumps", "siphons")

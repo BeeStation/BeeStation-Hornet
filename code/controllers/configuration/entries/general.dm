@@ -306,6 +306,10 @@
 
 /datum/config_entry/flag/automapvote
 
+/datum/config_entry/number/automapvote_threshold
+	config_entry_value = null
+	min_val = 0
+
 /datum/config_entry/number/maprotatechancedelta
 	config_entry_value = 0.75
 	min_val = 0
@@ -502,8 +506,6 @@
 /datum/config_entry/string/default_view
 	config_entry_value = "15x15"
 
-/datum/config_entry/flag/menu_square_view
-
 /datum/config_entry/flag/log_pictures
 
 /datum/config_entry/flag/picture_logging_camera
@@ -525,26 +527,42 @@
 
 /datum/config_entry/flag/respect_global_bans
 
+/datum/config_entry/flag/disable_local_bans
+
 //Fail2Topic settings.
 /datum/config_entry/number/topic_rate_limit
 	config_entry_value = 5
 	min_val = 1
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/number/topic_max_fails
 	config_entry_value = 5
 	min_val = 1
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/string/topic_rule_name
 	config_entry_value = "_DD_Fail2topic"
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/number/topic_max_size
 	config_entry_value = 500
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/flag/topic_enabled
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/flag/auto_profile
 
 /datum/config_entry/string/centcom_ban_db	// URL for the CentCom Galactic Ban DB API
+
+/datum/config_entry/number/hard_deletes_overrun_threshold
+	integer = FALSE
+	min_val = 0
+	config_entry_value = 0.5
+
+/datum/config_entry/number/hard_deletes_overrun_limit
+	config_entry_value = 0
+	min_val = 0
 
 /datum/config_entry/flag/ic_filter_enabled
 
@@ -580,3 +598,5 @@
 /datum/config_entry/string/elasticsearch_metrics_endpoint
 
 /datum/config_entry/string/elasticsearch_metrics_apikey
+
+/datum/config_entry/flag/enable_mrat

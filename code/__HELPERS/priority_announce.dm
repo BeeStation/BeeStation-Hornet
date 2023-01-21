@@ -15,9 +15,9 @@
 		announcement += "<h1 class='alert'>Priority Announcement</h1>"
 		if (title && length(title) > 0)
 			announcement += "<br><h2 class='alert'>[html_encode(title)]</h2>"
-	else if(type == "Captain")
-		announcement += "<h1 class='alert'>Captain Announces</h1>"
-		GLOB.news_network.SubmitArticle(html_encode(text), "Captain's Announcement", "Station Announcements", null)
+	else if(type == JOB_NAME_CAPTAIN)
+		announcement += "<h1 class='alert'>[JOB_NAME_CAPTAIN] Announces</h1>"
+		GLOB.news_network.submit_article(html_encode(text), "[JOB_NAME_CAPTAIN]'s Announcement", "Station Announcements", null)
 
 	else
 		if(!sender_override)
@@ -29,9 +29,9 @@
 
 		if(!sender_override)
 			if(title == "")
-				GLOB.news_network.SubmitArticle(text, "Central Command Update", "Station Announcements", null)
+				GLOB.news_network.submit_article(text, "Central Command Update", "Station Announcements", null)
 			else
-				GLOB.news_network.SubmitArticle(title + "<br><br>" + text, "Central Command", "Station Announcements", null)
+				GLOB.news_network.submit_article(title + "<br><br>" + text, "Central Command", "Station Announcements", null)
 
 	///If the announcer overrides alert messages, use that message.
 	if(SSstation.announcer.custom_alert_message && !has_important_message)
@@ -46,7 +46,7 @@
 	for(var/mob/M in GLOB.player_list)
 		if(!isnewplayer(M) && M.can_hear())
 			to_chat(M, announcement)
-			if(M.client.prefs.toggles & SOUND_ANNOUNCEMENTS)
+			if(M.client.prefs.toggles & PREFTOGGLE_SOUND_ANNOUNCEMENTS)
 				SEND_SOUND(M, s)
 
 /proc/exploration_announce(text, z_value)
@@ -89,7 +89,7 @@
 			if(from)
 				complete_msg += "<span class='alert'>-[from]</span>"
 			to_chat(M, complete_msg)
-			if(M.client.prefs.toggles & SOUND_ANNOUNCEMENTS)
+			if(M.client.prefs.toggles & PREFTOGGLE_SOUND_ANNOUNCEMENTS)
 				if(alert)
 					SEND_SOUND(M, sound('sound/misc/notice1.ogg'))
 				else

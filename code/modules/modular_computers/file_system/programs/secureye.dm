@@ -3,13 +3,15 @@
 /datum/computer_file/program/secureye
 	filename = "secureye"
 	filedesc = "SecurEye"
+	category = PROGRAM_CATEGORY_MISC
 	program_icon_state = "generic"
 	extended_desc = "This program allows access to standard security camera networks."
 	requires_ntnet = TRUE
-	transfer_access = ACCESS_SECURITY
+	transfer_access = list(ACCESS_SECURITY)
 	usage_flags = PROGRAM_CONSOLE | PROGRAM_LAPTOP
 	size = 5
 	tgui_id = "NtosSecurEye"
+	program_icon = "eye"
 
 	var/list/network = list("ss13")
 	var/obj/machinery/camera/active_camera
@@ -40,9 +42,11 @@
 	cam_screen.del_on_map_removal = FALSE
 	cam_screen.screen_loc = "[map_name]:1,1"
 	cam_plane_masters = list()
-	for(var/plane in subtypesof(/atom/movable/screen/plane_master))
-		var/atom/movable/screen/instance = new plane()
+	for(var/plane in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
+		var/atom/movable/screen/plane_master/instance = new plane()
 		instance.assigned_map = map_name
+		if(instance.blend_mode_override)
+			instance.blend_mode = instance.blend_mode_override
 		instance.del_on_map_removal = FALSE
 		instance.screen_loc = "[map_name]:CENTER"
 		cam_plane_masters += instance
@@ -51,9 +55,9 @@
 	cam_background.del_on_map_removal = FALSE
 
 /datum/computer_file/program/secureye/Destroy()
-	qdel(cam_screen)
+	QDEL_NULL(cam_screen)
 	QDEL_LIST(cam_plane_masters)
-	qdel(cam_background)
+	QDEL_NULL(cam_background)
 	return ..()
 
 /datum/computer_file/program/secureye/ui_interact(mob/user, datum/tgui/ui)
@@ -174,20 +178,14 @@
 
 // Returns the list of cameras accessible from this computer
 /datum/computer_file/program/secureye/proc/get_available_cameras()
-	var/list/L = list()
-	for (var/obj/machinery/camera/cam in GLOB.cameranet.cameras)
+	var/list/camlist = list()
+	for(var/obj/machinery/camera/cam as() in GLOB.cameranet.cameras)
 		if(!is_station_level(cam.z))//Only show station cameras.
 			continue
-		L.Add(cam)
-	var/list/camlist = list()
-	for(var/obj/machinery/camera/cam in L)
-		if(!cam.network)
-			stack_trace("Camera in a cameranet has no camera network")
+		if(!islist(cam.network))
+			stack_trace("Camera in a cameranet has invaid camera network")
 			continue
-		if(!(islist(cam.network)))
-			stack_trace("Camera in a cameranet has a non-list camera network")
+		if(!length(cam.network & network))
 			continue
-		var/list/tempnetwork = cam.network & network
-		if(tempnetwork.len)
-			camlist["[cam.c_tag]"] = cam
+		camlist["[cam.c_tag]"] = cam
 	return camlist

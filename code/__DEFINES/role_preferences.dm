@@ -24,7 +24,6 @@
 #define ROLE_HERETIC			"Heretic"
 #define ROLE_BLOB				"Blob"
 #define ROLE_NINJA				"Space Ninja"
-#define ROLE_MONKEY				"Monkey"
 #define ROLE_ABDUCTOR			"Abductor"
 #define ROLE_REVENANT			"Revenant"
 #define ROLE_DEVIL				"Devil"
@@ -32,6 +31,7 @@
 #define ROLE_BRAINWASHED		"Brainwashed Victim"
 #define ROLE_OVERTHROW			"Syndicate Mutineer"
 #define ROLE_HIVE				"Hivemind Host"
+#define ROLE_HIVE_VESSEL		"Awakened Vessel"
 #define ROLE_OBSESSED			"Obsessed"
 #define ROLE_SENTIENCE			"Sentience Potion Spawn"
 #define ROLE_MIND_TRANSFER		"Mind Transfer Potion"
@@ -65,7 +65,6 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_BLOB,
 	ROLE_NINJA,
 	ROLE_OBSESSED,
-	ROLE_MONKEY = /datum/game_mode/monkey,
 	ROLE_REVENANT,
 	ROLE_ABDUCTOR,
 	ROLE_DEVIL = /datum/game_mode/devil,

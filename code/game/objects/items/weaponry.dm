@@ -289,6 +289,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		qdel(src)
 
 		user.put_in_hands(S)
+		log_crafting(user, S, TRUE)
 		to_chat(user, "<span class='notice'>You fasten the glass shard to the top of the rod with the cable.</span>")
 
 	else if(istype(I, /obj/item/assembly/igniter) && !(HAS_TRAIT(I, TRAIT_NODROP)))
@@ -302,6 +303,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		qdel(src)
 
 		user.put_in_hands(P)
+		log_crafting(user, P, TRUE)
 	else
 		return ..()
 
@@ -787,18 +789,57 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_flags = DROPDEL | ABSTRACT
 	attack_verb = list("slapped")
 	hitsound = 'sound/effects/snap.ogg'
+	/// How many smaller table smacks we can do before we're out
+	var/table_smacks_left = 3
 
-/obj/item/slapper/attack(mob/M, mob/living/carbon/human/user)
+/obj/item/slapper/attack(mob/living/M, mob/living/carbon/human/user)
 	if(ishuman(M))
 		var/mob/living/carbon/human/L = M
-		if(L?.dna?.species)
+		if(L && L.dna && L.dna.species)
 			L.dna.species.stop_wagging_tail(M)
 	user.do_attack_animation(M)
-	playsound(M, 'sound/weapons/slap.ogg', 50, 1, -1)
-	user.visible_message("<span class='danger'>[user] slaps [M]!</span>",
-	"<span class='notice'>You slap [M]!</span>",\
-	"You hear a slap.")
+
+	var/slap_volume = 50
+	if(user.zone_selected == BODY_ZONE_HEAD || user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+		user.visible_message("<span class='danger'>[user] slaps [M] in the face!</span>",
+			"<span class='notice'>You slap [M] in the face!</span>",
+			"<span class='hear'>You hear a slap.</span>")
+	else
+		user.visible_message("<span class='danger'>[user] slaps [M]!</span>",
+			"<span class='notice'>You slap [M]!</span>",
+			"<span class='hear'>You hear a slap.</span>")
+	playsound(M, 'sound/weapons/slap.ogg', slap_volume, TRUE, -1)
 	return
+
+/obj/item/slapper/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(!istype(target, /obj/structure/table))
+		return ..()
+
+	var/obj/structure/table/the_table = target
+
+	if(!proximity_flag)
+		return
+
+	if(user.a_intent == INTENT_HARM && table_smacks_left == initial(table_smacks_left)) // so you can't do 2 weak slaps followed by a big slam
+		transform = transform.Scale(5) // BIG slap
+		if(HAS_TRAIT(user, TRAIT_HULK))
+			transform = transform.Scale(2)
+			color = COLOR_GREEN
+		user.do_attack_animation(the_table)
+		//Uncomment if we ever port table slam signals
+		//SEND_SIGNAL(user, COMSIG_LIVING_SLAM_TABLE, the_table)
+		//SEND_SIGNAL(the_table, COMSIG_TABLE_SLAMMED, user)
+		playsound(get_turf(the_table), 'sound/effects/tableslam.ogg', 110, TRUE)
+		user.visible_message("<b><span class='danger'>[user] slams [user.p_their()] fist down on [the_table]!</span></b>", "<b><span class='danger'>You slam your fist down on [the_table]!</span></b>")
+		qdel(src)
+	else
+		user.do_attack_animation(the_table)
+		playsound(get_turf(the_table), 'sound/effects/tableslam.ogg', 40, TRUE)
+		user.visible_message("<span class='notice'>[user] slaps [user.p_their()] hand on [the_table].</span>", "<span class='notice'>You slap your hand on [the_table].</span>", vision_distance=COMBAT_MESSAGE_RANGE)
+		table_smacks_left--
+		if(table_smacks_left <= 0)
+			qdel(src)
+
 /obj/item/proc/can_trigger_gun(mob/living/user)
 	if(!user.can_use_guns(src))
 		return FALSE

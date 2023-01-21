@@ -21,6 +21,13 @@
 	time = 40
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/durathread_hoodie
+	name = "Durathread hoodie"
+	result = /obj/item/clothing/suit/hooded/hoodie/durathread
+	reqs = list(/obj/item/stack/sheet/durathread = 5)
+	time = 50
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/durathread_beret
 	name = "Durathread Beret"
 	result = /obj/item/clothing/head/beret/durathread
@@ -288,7 +295,7 @@
 	time = 40
 	tools = list(TOOL_CROWBAR, TOOL_WIRECUTTER, TOOL_SCREWDRIVER)
 	reqs = list(/obj/item/clothing/head/foilhat = 1,
-				/obj/item/stack/packageWrap = 10,
+				/obj/item/stack/package_wrap = 10,
 				/obj/item/stack/cable_coil = 15,
 				/obj/item/clothing/glasses/meson = 1,
 				/obj/item/flashlight = 1,

@@ -32,6 +32,12 @@ GLOBAL_LIST_INIT(human_recipes, list( \
 	icon_state = "sheet-corgi"
 	item_state = "sheet-corgi"
 
+/obj/item/stack/sheet/animalhide/mothroach
+	name = "mothroach hide"
+	desc = "A thin layer of mothroach hide."
+	singular_name = "mothroach hide piece"
+	icon_state = "sheet-mothroach"
+	item_state = "sheet-mothroach"
 
 GLOBAL_LIST_INIT(gondola_recipes, list ( \
 	new/datum/stack_recipe("gondola mask", /obj/item/clothing/mask/gondola, 1), \

@@ -54,7 +54,6 @@
 		"stimulum" = /obj/machinery/portable_atmospherics/canister/stimulum,
 		"pluoxium" = /obj/machinery/portable_atmospherics/canister/pluoxium,
 		"caution" = /obj/machinery/portable_atmospherics/canister,
-		"miasma" = /obj/machinery/portable_atmospherics/canister/miasma
 	)
 
 /obj/machinery/portable_atmospherics/canister/interact(mob/user)
@@ -83,14 +82,6 @@
 	gas_type = GAS_CO2
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#4e4c48"
-
-/obj/machinery/portable_atmospherics/canister/miasma
-	name = "miasma canister"
-	desc = "Miasma. Makes you wish your nose was blocked."
-	gas_type = GAS_MIASMA
-	filled = 1
-	greyscale_config = /datum/greyscale_config/canister/double_stripe
-	greyscale_colors = "#009823#f7d5d3"
 
 /obj/machinery/portable_atmospherics/canister/nitrogen
 	name = "n2 canister"
@@ -146,7 +137,7 @@
 	desc = "Plasma gas. The reason YOU are here. Highly toxic."
 	gas_type = GAS_PLASMA
 	greyscale_config = /datum/greyscale_config/canister/hazard
-	greyscale_colors = "#f62800#000000"
+	greyscale_colors = "#f64300#000000"
 
 /obj/machinery/portable_atmospherics/canister/tritium
 	name = "tritium canister"
@@ -235,7 +226,7 @@
 
 /obj/machinery/portable_atmospherics/canister/update_overlays()
 	. = ..()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		. += mutable_appearance(canister_overlay_file, "broken")
 		return
 
@@ -267,7 +258,7 @@
 
 /obj/machinery/portable_atmospherics/canister/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
-		if(!(stat & BROKEN))
+		if(!(machine_stat & BROKEN))
 			canister_break()
 		if(disassembled)
 			new /obj/item/stack/sheet/iron (loc, 10)
@@ -279,7 +270,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return FALSE
 
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		if(!I.tool_start_check(user, amount=0))
 			return TRUE
 		to_chat(user, "<span class='notice'>You begin cutting [src] apart...</span>")
@@ -291,7 +282,8 @@
 	return TRUE
 
 /obj/machinery/portable_atmospherics/canister/obj_break(damage_flag)
-	if((stat & BROKEN) || (flags_1 & NODECONSTRUCT_1))
+	. = ..()
+	if(!.)
 		return
 	canister_break()
 
@@ -301,7 +293,7 @@
 	T.assume_air(air_contents)
 	air_update_turf()
 
-	stat |= BROKEN
+	set_machine_stat(machine_stat | BROKEN)
 	density = FALSE
 	playsound(src.loc, 'sound/effects/spray.ogg', 10, 1, -3)
 	update_icon()
@@ -326,7 +318,7 @@
 
 /obj/machinery/portable_atmospherics/canister/process_atmos()
 	..()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return PROCESS_KILL
 	if(timing && valve_timer < world.time)
 		valve_open = !valve_open
