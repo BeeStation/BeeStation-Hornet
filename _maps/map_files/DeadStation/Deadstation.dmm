@@ -960,8 +960,10 @@
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
 "aWC" = (
-/obj/machinery/newscaster,
 /obj/structure/ladder,
+/obj/machinery/newscaster{
+	pixel_x = 29
+	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "aXl" = (
@@ -1603,9 +1605,6 @@
 /area/hydroponics)
 "bBa" = (
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
@@ -1615,6 +1614,7 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "bBu" = (
@@ -2625,15 +2625,15 @@
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "ctl" = (
-/obj/structure/chair/fancy/bench/pew/right{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/chair/fancy/bench/pew/left{
+	dir = 1
+	},
 /turf/open/floor/plasteel/chapel{
 	dir = 4
 	},
@@ -2877,9 +2877,13 @@
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "cEv" = (
-/obj/structure/ladder,
+/obj/structure/bed,
+/obj/item/bedsheet/orange,
+/obj/machinery/camera/autoname{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
-/area/hallway/primary/starboard)
+/area/security/prison)
 "cEV" = (
 /obj/effect/spawner/room/threexthree,
 /turf/open/floor/plating,
@@ -3131,7 +3135,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "cNK" = (
-/obj/structure/chair/fancy/bench/pew/right{
+/obj/structure/chair/fancy/bench/pew/left{
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
@@ -4910,7 +4914,7 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "eKD" = (
-/obj/structure/chair/fancy/bench/pew/left{
+/obj/structure/chair/fancy/bench/pew/right{
 	dir = 1
 	},
 /turf/open/floor/plasteel/chapel{
@@ -9727,6 +9731,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
+"jzL" = (
+/obj/structure/ladder,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/plasteel,
+/area/hallway/primary/starboard)
 "jzV" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -10885,7 +10897,6 @@
 /turf/open/floor/plasteel,
 /area/security/main)
 "kEN" = (
-/obj/structure/table/wood,
 /obj/item/clothing/head/that,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "Bar";
@@ -10893,6 +10904,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/caution/stand_clear,
+/obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "kGc" = (
@@ -12982,7 +12994,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "mVx" = (
-/obj/structure/chair/fancy/bench/pew/left{
+/obj/structure/chair/fancy/bench/pew/right{
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
@@ -18961,6 +18973,9 @@
 "sIX" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/cabbage,
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/security/prison)
 "sJp" = (
@@ -21575,6 +21590,9 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/machinery/camera/autoname{
+	dir = 5
+	},
 /turf/open/floor/plasteel,
 /area/security/prison)
 "vpL" = (
@@ -22082,6 +22100,7 @@
 /area/crew_quarters/heads/hop)
 "vPu" = (
 /obj/machinery/computer/arcade,
+/obj/machinery/camera/autoname,
 /turf/open/floor/plasteel,
 /area/security/prison)
 "vPJ" = (
@@ -23093,6 +23112,11 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
+/obj/structure/window/reinforced/spawner,
+/obj/machinery/door/window/eastleft{
+	name = "Maintenance Access";
+	req_one_access_txt = "35; 25; 26; 28"
+	},
 /turf/open/floor/plasteel,
 /area/janitor)
 "wTL" = (
@@ -23951,6 +23975,9 @@
 "xIh" = (
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
 /turf/open/floor/carpet,
 /area/security/prison)
 "xIq" = (
@@ -24111,9 +24138,6 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "xSQ" = (
-/obj/structure/chair/fancy/bench/pew/right{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
 	},
@@ -24122,6 +24146,9 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/chair/fancy/bench/pew/left{
+	dir = 1
+	},
 /turf/open/floor/plasteel/chapel{
 	dir = 4
 	},
@@ -54883,7 +54910,7 @@ tKL
 mxU
 pER
 mxU
-pER
+cEv
 nrC
 kcj
 iKy
@@ -60319,8 +60346,8 @@ phR
 phR
 phR
 fmG
-aRy
-cEv
+jzL
+dUJ
 oyP
 uYT
 eCg
@@ -60575,7 +60602,7 @@ rFJ
 rFJ
 rFJ
 rFJ
-rFJ
+cqQ
 aRy
 aRy
 oyP

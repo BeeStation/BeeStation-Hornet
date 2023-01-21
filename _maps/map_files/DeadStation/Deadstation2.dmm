@@ -6805,7 +6805,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
 	},
-/obj/effect/spawner/room/fivexthree,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/department/security)
@@ -47175,8 +47174,8 @@ uw
 qo
 Og
 Og
-Og
 KU
+QB
 QB
 QB
 QB
@@ -47431,7 +47430,7 @@ Ng
 Cm
 Ng
 Ng
-Ng
+mZ
 Og
 Og
 Gd
