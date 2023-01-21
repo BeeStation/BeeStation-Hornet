@@ -414,7 +414,7 @@
 				reagents = new()
 			reagents.reagent_list.Add(A)
 			reagents.conditional_update()
-		else if(ismovableatom(A))
+		else if(ismovable(A))
 			var/atom/movable/M = A
 			if(isliving(M.loc))
 				var/mob/living/L = M.loc
@@ -1135,7 +1135,7 @@
 /atom/vv_get_dropdown()
 	. = ..()
 	VV_DROPDOWN_OPTION("", "---------")
-	if(!ismovableatom(src))
+	if(!ismovable(src))
 		var/turf/curturf = get_turf(src)
 		if(curturf)
 			. += "<option value='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]'>Jump To</option>"
@@ -1416,6 +1416,20 @@
 		target.log_talk(message, message_type, tag="[tag] from [key_name(source)]", log_globally=FALSE)
 
 /**
+  * Log for crafting items
+  *
+  * 1 argument is for the user making the item
+  * 2 argument is for the item being created
+  * 3 argument is for if admins should be notified if a non-antag crafts this
+ */
+/proc/log_crafting(mob/blacksmith, atom/object, dangerous = FALSE)
+	var/message = "has crafted [object]"
+	blacksmith.log_message(message, LOG_GAME)
+	if(!dangerous)
+		return
+	if(isnull(locate(/datum/antagonist) in blacksmith.mind?.antag_datums))
+		message_admins("[ADMIN_LOOKUPFLW(blacksmith)] has crafted [object] as a non-antagonist.")
+/**
   * Log a combat message in the attack log
   *
   * 1 argument is the actor performing the action
@@ -1446,6 +1460,19 @@
 	if(user != target)
 		var/reverse_message = "has been [what_done] by [ssource][postfix]"
 		target.log_message(reverse_message, LOG_ATTACK, color="orange", log_globally=FALSE)
+
+/**
+  * Log for buying items from the uplink
+  *
+  * 1 argument is for the user that bought the item
+  * 2 argument is for the item that was purchased
+  * 3 argument is for the uplink type (traitor/contractor)
+ */
+/proc/log_uplink_purchase(mob/buyer, atom/object, type = "\improper uplink")
+	var/message = "has bought [object] from \a [type]"
+	buyer.log_message(message, LOG_GAME)
+	if(isnull(locate(/datum/antagonist) in buyer.mind?.antag_datums))
+		message_admins("[ADMIN_LOOKUPFLW(buyer)] has bought [object] from \a [type] as a non-antagonist.")
 
 /atom/proc/add_filter(name,priority,list/params)
 	LAZYINITLIST(filter_data)
