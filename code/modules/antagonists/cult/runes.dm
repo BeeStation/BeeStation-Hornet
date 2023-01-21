@@ -1,4 +1,3 @@
-GLOBAL_LIST_EMPTY(teleport_runes)
 /// list of weakrefs to mobs OR minds that have been sacrificed
 GLOBAL_LIST(sacrificed)
 /// List of all teleport runes
