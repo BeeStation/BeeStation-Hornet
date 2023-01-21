@@ -22,6 +22,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	var/updating = TRUE //Automatic updating of GPS list. Can be set to manual by user.
 	var/global_mode = TRUE //If disabled, only GPS signals of the same Z level are shown
 	var/distress_virtual_z
+	var/distress_activated_at
 	// The beacon sound
 	var/datum/looping_sound/beacon_sound
 
