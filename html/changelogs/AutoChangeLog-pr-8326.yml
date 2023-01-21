@@ -1,5 +1,0 @@
-author: DatBoiTim
-delete-after: true
-changes:
-  - rscadd: Added an Alt+Click Interaction to the Plasma Refinery which creates plasma
-      sheets for the cost of 100 moles.
