@@ -643,3 +643,45 @@
 	message_admins("[ADMIN_LOOKUPFLW(obsessed)] has been made Obsessed by the midround ruleset.")
 	log_game("[key_name(obsessed)] was made Obsessed by the midround ruleset.")
 	return ..()
+
+//////////////////////////////////////////////
+//                                          //
+//             SWARMER (GHOST)              //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/midround/from_ghosts/swarmer
+	name = "Swarmer"
+	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
+	antag_flag = "Swarmer"
+	antag_flag_override = ROLE_ALIEN
+	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	required_enemies = list(1,1,1,1,0,0,0,0,0,0)
+	required_candidates = 1
+	weight = 3
+	cost = 10
+	minimum_players = 15
+	repeatable = FALSE // please no
+	var/announce_chance = 25
+
+/datum/dynamic_ruleset/midround/from_ghosts/swarmer/execute()
+	if(!length(GLOB.xeno_spawn))
+		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations.")
+		return FALSE
+	. = ..()
+
+/datum/dynamic_ruleset/midround/from_ghosts/swarmer/generate_ruleset_body(mob/applicant)
+	var/datum/mind/player_mind = new /datum/mind(applicant.key)
+	player_mind.active = TRUE
+
+	var/mob/living/simple_animal/hostile/swarmer/S = new (pick(GLOB.xeno_spawn))
+	player_mind.transfer_to(S)
+	player_mind.assigned_role = "Swarmer"
+	player_mind.special_role = "Swarmer"
+	to_chat(S, "<span class='big bold'>[SWARMER_SHORT_DESC]</span>\n<span class='bold'>[SWARMER_FLAVOR_TEXT]</span>")
+
+	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a Swarmer by the midround ruleset.")
+	log_game("DYNAMIC: [key_name(S)] was spawned as a Swarmer by the midround ruleset.")
+	if(prob(announce_chance))
+		announce_swarmer()
+	return S
