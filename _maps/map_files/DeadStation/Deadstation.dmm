@@ -1114,7 +1114,7 @@
 "bfc" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Gravity Generator Room";
-	req_access_txt = "19;23"
+	req_access_txt = "19; 23"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/structure/cable/yellow{
@@ -9643,7 +9643,7 @@
 "juz" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Gravity Generator Room";
-	req_access_txt = "19;23"
+	req_access_txt = "19; 23"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -12221,9 +12221,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "mcv" = (
-/obj/machinery/vending/cart{
-	req_access_txt = "57"
-	},
 /obj/item/radio/intercom{
 	pixel_y = 24
 	},
