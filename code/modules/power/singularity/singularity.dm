@@ -8,7 +8,7 @@
 	anchored = TRUE
 	density = TRUE
 	move_resist = INFINITY
-	plane = MASSIVE_OBJ_PLANE
+	layer = MASSIVE_OBJ_LAYER
 	light_range = 6
 	appearance_flags = 0
 	var/current_size = 1

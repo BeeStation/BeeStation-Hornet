@@ -35,7 +35,7 @@
 /obj/structure/destructible/clockwork/massive
 	name = "massive construct"
 	desc = "A very large construction."
-	plane = MASSIVE_OBJ_PLANE
+	layer = MASSIVE_OBJ_LAYER
 	density = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
 

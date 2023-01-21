@@ -99,21 +99,12 @@
 		to_chat(user, "<span class='notice'>Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code].</span>")
 
 ///////////////////////
-/atom/movable/warp_effect
-	plane = GRAVITY_PULSE_PLANE
-	appearance_flags = PIXEL_SCALE // no tile bound so you can see it around corners and so
-	icon = 'icons/effects/light_overlays/light_352.dmi'
-	icon_state = "light"
-	pixel_x = -176
-	pixel_y = -176
 
 /obj/effect/anomaly/grav
 	name = "gravitational anomaly"
 	icon_state = "shield2"
 	density = FALSE
 	var/boing = 0
-	///Warp effect holder for displacement filter to "pulse" the anomaly
-	var/atom/movable/warp_effect/warp
 
 /obj/effect/anomaly/grav/Initialize(mapload, new_lifespan, drops_core)
 	. = ..()
@@ -122,16 +113,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-	warp = new(src)
-	vis_contents += warp
-
-/obj/effect/anomaly/grav/Destroy()
-	vis_contents -= warp
-	qdel(warp)
-	warp = null
-	return ..()
-
-/obj/effect/anomaly/grav/anomalyEffect(delta_time)
+/obj/effect/anomaly/grav/anomalyEffect()
 	..()
 	boing = 1
 	for(var/obj/O in orange(4, src))
@@ -147,10 +129,6 @@
 			var/mob/living/target = locate() in hearers(4,src)
 			if(target && !target.stat)
 				O.throw_at(target, 5, 10)
-
-	//anomaly quickly contracts then slowly expands it's ring
-	animate(warp, time = delta_time*3, transform = matrix().Scale(0.5,0.5))
-	animate(time = delta_time*7, transform = matrix())
 
 /obj/effect/anomaly/grav/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER

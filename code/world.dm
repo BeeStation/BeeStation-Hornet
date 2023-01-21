@@ -10,7 +10,6 @@
 	hub_password = "kMZy3U5jJHSiBQjr"
 	name = "BeeStation 13"
 	fps = 20
-	map_format = SIDE_MAP
 #ifdef FIND_REF_NO_CHECK_TICK
 	loop_checks = FALSE
 #endif

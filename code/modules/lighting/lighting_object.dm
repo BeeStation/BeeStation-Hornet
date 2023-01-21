@@ -8,6 +8,7 @@
 	color            = LIGHTING_BASE_MATRIX
 	plane            = LIGHTING_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	layer            = LIGHTING_LAYER
 	invisibility     = INVISIBILITY_LIGHTING
 
 	var/needs_update = FALSE

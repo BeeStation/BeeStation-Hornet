@@ -8,7 +8,7 @@
 	invisibility = INVISIBILITY_OBSERVER
 	health = INFINITY
 	maxHealth = INFINITY
-	plane = GHOST_PLANE
+	layer = GHOST_LAYER
 	healable = FALSE
 	spacewalk = TRUE
 	sight = SEE_SELF

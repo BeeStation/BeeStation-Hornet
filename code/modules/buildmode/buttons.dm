@@ -2,7 +2,7 @@
 	icon = 'icons/misc/buildmode.dmi'
 	var/datum/buildmode/bd
 	// If we don't do this, we get occluded by item action buttons
-	plane = ABOVE_HUD_PLANE
+	layer = ABOVE_HUD_LAYER
 
 /atom/movable/screen/buildmode/New(bld)
 	bd = bld

@@ -8,7 +8,7 @@
 	appearance_flags = LONG_GLIDE
 	move_resist = INFINITY
 	obj_flags = CAN_BE_HIT | DANGEROUS_POSSESSION
-	plane = MASSIVE_OBJ_PLANE
+	layer = MASSIVE_OBJ_LAYER
 	light_color = COLOR_RED
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	flags_1 = SUPERMATTER_IGNORES_1

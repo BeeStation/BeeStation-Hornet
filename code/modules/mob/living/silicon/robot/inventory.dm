@@ -67,6 +67,7 @@
 	if(.)
 		O.equipped(src, ITEM_SLOT_HANDS)
 		O.mouse_opacity = initial(O.mouse_opacity)
+		O.layer = ABOVE_HUD_LAYER
 		O.plane = ABOVE_HUD_PLANE
 		observer_screen_update(O,TRUE)
 		O.forceMove(src)

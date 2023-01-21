@@ -3,7 +3,7 @@
 	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "x2"
 	anchored = TRUE
-	layer = TURF_LAYER
+	layer = MID_LANDMARK_LAYER
 	invisibility = INVISIBILITY_ABSTRACT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
@@ -456,7 +456,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/event_spawn
 	name = "generic event spawn"
 	icon_state = "generic_event"
-	layer = OBJ_LAYER
+	layer = HIGH_LANDMARK_LAYER
 
 
 /obj/effect/landmark/event_spawn/Initialize(mapload)
