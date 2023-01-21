@@ -25,6 +25,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	var/distress_activated_at
 	// The beacon sound
 	var/datum/looping_sound/beacon_sound
+	var/state
 
 /datum/component/gps/item/Initialize(_gpstag = "COM0", emp_proof = FALSE, state = null, distress = FALSE)
 	. = ..()
