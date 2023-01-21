@@ -665,8 +665,8 @@
 	var/announce_chance = 25
 
 /datum/dynamic_ruleset/midround/from_ghosts/swarmer/execute()
-	if(!length(GLOB.xeno_spawn))
-		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations.")
+	if(!GLOB.the_gateway)
+		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations (no gateway on map).")
 		return FALSE
 	. = ..()
 
@@ -674,7 +674,7 @@
 	var/datum/mind/player_mind = new /datum/mind(applicant.key)
 	player_mind.active = TRUE
 
-	var/mob/living/simple_animal/hostile/swarmer/S = new (pick(GLOB.xeno_spawn))
+	var/mob/living/simple_animal/hostile/swarmer/S = new (get_turf(GLOB.the_gateway))
 	player_mind.transfer_to(S)
 	player_mind.assigned_role = "Swarmer"
 	player_mind.special_role = "Swarmer"
