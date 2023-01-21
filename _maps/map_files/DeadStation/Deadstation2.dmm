@@ -5154,13 +5154,6 @@
 /obj/machinery/power/apc/auto_name/north,
 /turf/open/floor/plating,
 /area/maintenance/lower/central)
-"wq" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Maintenance Access";
-	req_one_access_txt = "12"
-	},
-/turf/closed/wall,
-/area/crew_quarters/locker)
 "wr" = (
 /obj/structure/closet/secure_closet/personal,
 /turf/open/floor/plasteel,
@@ -45150,7 +45143,7 @@ op
 qo
 KU
 Gw
-wq
+WR
 eo
 WR
 WR
