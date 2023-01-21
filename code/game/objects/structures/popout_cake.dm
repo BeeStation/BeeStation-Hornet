@@ -68,6 +68,7 @@
 		to_chat(user, "<span class='info'>You begin climbing out of the [src]...</span>")
 		if(do_after(user, 20))
 			user.forceMove(get_turf(src))
+			occupant = null
 
 /obj/structure/popout_cake/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER && used_string == TRUE)
