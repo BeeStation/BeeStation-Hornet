@@ -782,10 +782,12 @@
 	///underlay used to indicate that someone is marked
 	var/mutable_appearance/marked_underlay
 	///path for the underlay
-	var/effect_sprite = ""
+	var/effect_icon = 'icons/effects/eldritch.dmi'
+	/// icon state for the underlay
+	var/effect_icon_state = ""
 
 /datum/status_effect/eldritch/on_creation(mob/living/new_owner, ...)
-	marked_underlay = mutable_appearance('icons/effects/effects.dmi', effect_sprite,BELOW_MOB_LAYER)
+	marked_underlay = mutable_appearance(effect_icon, effect_icon_state,BELOW_MOB_LAYER)
 	return ..()
 
 /datum/status_effect/eldritch/on_apply()
@@ -827,7 +829,7 @@
 
 //Each mark has diffrent effects when it is destroyed that combine with the mansus grasp effect.
 /datum/status_effect/eldritch/flesh
-	effect_sprite = "emark1"
+	effect_icon_state = "emark1"
 
 /datum/status_effect/eldritch/flesh/on_effect()
 	if(!ishuman(owner))
@@ -838,7 +840,7 @@
 
 /datum/status_effect/eldritch/ash
 	id = "ash_mark"
-	effect_sprite = "emark2"
+	effect_icon_state = "emark2"
 	///Dictates how much damage and stamina loss this mark will cause.
 	var/repetitions = 1
 
@@ -859,7 +861,7 @@
 	return ..()
 
 /datum/status_effect/eldritch/rust
-	effect_sprite = "emark3"
+	effect_icon_state = "emark3"
 
 /datum/status_effect/eldritch/rust/on_effect()
 	if(!iscarbon(owner))
@@ -1022,7 +1024,7 @@
 	icon_state = "grub"
 
 /datum/status_effect/eldritch/void
-	effect_sprite = "emark4"
+	effect_icon_state = "emark4"
 
 /datum/status_effect/eldritch/void/on_effect()
 	var/turf/open/turfie = get_turf(owner)
