@@ -8,7 +8,7 @@
 
 /datum/antagonist/nightmare/on_gain()
 	forge_objectives()
-	. = ..()
+	return  ..()
 
 /datum/antagonist/nightmare/greet()
 	owner.announce_objectives()
@@ -47,4 +47,4 @@
 		C.set_species(/datum/species/shadow/nightmare)
 		new_owner.assigned_role = "Nightmare"
 		new_owner.special_role = "Nightmare"
-	. = ..()
+	return ..()

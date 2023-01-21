@@ -10,7 +10,7 @@
 
 /datum/antagonist/morph/on_gain()
 	forge_objectives()
-	. = ..()
+	return ..()
 
 /datum/antagonist/morph/greet()
 	owner.announce_objectives()
@@ -55,4 +55,4 @@
 				new_mob.name = "morph"
 				new_mob.real_name = "morph"
 			qdel(M)
-	. = ..()
+	return ..()
