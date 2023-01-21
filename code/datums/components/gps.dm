@@ -21,6 +21,9 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /datum/component/gps/item
 	var/updating = TRUE //Automatic updating of GPS list. Can be set to manual by user.
 	var/global_mode = TRUE //If disabled, only GPS signals of the same Z level are shown
+	var/distress_virtual_z
+	// The beacon sound
+	var/datum/looping_sound/beacon_sound
 
 /datum/component/gps/item/Initialize(_gpstag = "COM0", emp_proof = FALSE, state = null, distress = FALSE)
 	. = ..()
