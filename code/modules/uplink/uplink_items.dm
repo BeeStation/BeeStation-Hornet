@@ -1222,7 +1222,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The minibomb is a grenade with a five-second fuse. Upon detonation, it will create a small hull breach \
 			in addition to dealing high amounts of damage to nearby personnel."
 	item = /obj/item/grenade/syndieminibomb
-	cost = 5
+	cost = 4
 	purchasable_from = ~UPLINK_CLOWN_OPS
 
 /datum/uplink_item/explosives/tearstache
