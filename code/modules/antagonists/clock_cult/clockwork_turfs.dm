@@ -47,6 +47,9 @@
 	var/obj/effect/clockwork/overlay/wall/realappearence
 	var/d_state = INTACT
 	flags_1 = NOJAUNT_1
+	icon = 'icons/turf/walls/clockwork_wall.dmi'
+	icon_state = "clockwork_wall-0"
+	base_icon_state = "clockwork_wall"
 
 /turf/closed/wall/clockwork/Initialize(mapload)
 	. = ..()
@@ -303,6 +306,8 @@
 /obj/structure/lattice/catwalk/clockwork
 	name = "clockwork catwalk"
 	icon = 'icons/obj/smooth_structures/catwalks/catwalk_clockwork.dmi'
+	icon_state = "catwalk_clockwork-0"
+	base_icon_state = "catwalk_clockwork"
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_CATWALK)
