@@ -685,3 +685,44 @@
 	if(prob(announce_chance))
 		announce_swarmer()
 	return S
+
+//////////////////////////////////////////////
+//                                          //
+//              MORPH (GHOST)               //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/midround/from_ghosts/morph
+	name = "Morph"
+	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
+	antag_flag = "Morph"
+	antag_flag_override = ROLE_ALIEN
+	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	required_enemies = list(2,2,1,1,1,1,1,1,0,0)
+	required_candidates = 1
+	weight = 3
+	cost = 8
+	minimum_players = 15
+	repeatable = FALSE // also please no
+
+/datum/dynamic_ruleset/midround/from_ghosts/morph/execute()
+	if(!length(GLOB.xeno_spawn))
+		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations.")
+		return FALSE
+	. = ..()
+
+/datum/dynamic_ruleset/midround/from_ghosts/morph/generate_ruleset_body(mob/applicant)
+	var/datum/mind/player_mind = new /datum/mind(applicant.key)
+	player_mind.active = TRUE
+
+	var/mob/living/simple_animal/hostile/morph/S = new /mob/living/simple_animal/hostile/morph(pick(GLOB.xeno_spawn))
+	player_mind.transfer_to(S)
+	player_mind.assigned_role = "Morph"
+	player_mind.special_role = "Morph"
+	player_mind.add_antag_datum(/datum/antagonist/morph)
+	to_chat(S, S.playstyle_string)
+	SEND_SOUND(S, sound('sound/magic/mutate.ogg'))
+
+	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a Swarmer by the midround ruleset.")
+	log_game("DYNAMIC: [key_name(S)] was spawned as a Swarmer by the midround ruleset.")
+	return S

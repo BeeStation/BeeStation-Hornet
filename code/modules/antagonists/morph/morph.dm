@@ -273,7 +273,7 @@
 
 /datum/round_event/ghost_role/morph
 	minimum_required = 1
-	role_name = "morphling"
+	role_name = "Morph"
 
 /datum/round_event/ghost_role/morph/spawn_role()
 	var/list/candidates = get_candidates(ROLE_ALIEN, null, ROLE_ALIEN)
