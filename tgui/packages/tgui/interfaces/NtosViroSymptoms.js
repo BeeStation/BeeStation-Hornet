@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Section, Box, Button, Table, Tabs, Tab } from '../components';
+import { Section, Box, Button, Table, Tabs, Tab, Input } from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosViroSymptoms = (props, context) => {
@@ -8,11 +8,15 @@ export const NtosViroSymptoms = (props, context) => {
     symptoms,
   } = data;
 
+  const [searchTerm, setSearchTerm] = useLocalState(context, 'searchTerm', '');
   const [selectedSymptoms, setSelectedSymptoms] = useLocalState(context, 'selectedSymptoms', {});
   const [tab, setTab] = useLocalState(context, 'tab', 1);
+  const filteredSymptoms = Object.keys(symptoms).filter(symptomName => {
+    return symptomName.toLowerCase().includes(searchTerm.toLowerCase());
+  });
   
   const renderSymptomList = () => (
-    Object.keys(symptoms).map(symptomName => (
+    filteredSymptoms.map(symptomName => (
       <Section key={symptomName}>
         <Box><h1>{symptomName}</h1></Box>
         <Box>{symptoms[symptomName]["desc"]}</Box>
@@ -93,6 +97,11 @@ export const NtosViroSymptoms = (props, context) => {
         <Section textAlign="center">
           Virology Symptom Information
         </Section>
+        <Input
+          placeholder="Search by name..."
+          value={searchTerm}
+          onChange={(e, value) => setSearchTerm(value)}
+        />
         <Tabs>
           <Tabs.Tab
             key="symptoms"
