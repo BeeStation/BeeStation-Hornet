@@ -1,4 +1,4 @@
-/mob/living/carbon/Life()
+/mob/living/carbon/Life(delta_time = SSMOBS_DT, times_fired)
 	set invisibility = 0
 
 	if(notransform)
@@ -50,10 +50,10 @@
 	if(stat == DEAD)
 		stop_sound_channel(CHANNEL_HEARTBEAT)
 
-	if(mind)
+	if(. && mind) //. == not dead
 		for(var/key in mind.addiction_points)
 			var/datum/addiction/addiction = SSaddiction.all_addictions[key]
-			addiction.process_addiction(src)
+			addiction.process_addiction(src, delta_time, times_fired)
 
 	//Updates the number of stored chemicals for changeling powers
 	if(hud_used?.lingchemdisplay && !isalien(src) && mind)

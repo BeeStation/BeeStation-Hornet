@@ -147,9 +147,10 @@
 	if(!ishuman(affected_carbon))
 		return
 	var/mob/living/carbon/human/affected_human = affected_carbon
-	affected_human.dna?.species.liked_food = initial(affected_human.dna?.species.liked_food)
-	affected_human.dna?.species.disliked_food = initial(affected_human.dna?.species.disliked_food)
-	affected_human.dna?.species.toxic_food = initial(affected_human.dna?.species.toxic_food)
+	var/obj/item/organ/tongue/T = affected_human.getorganslot(ORGAN_SLOT_TONGUE)
+	T?.liked_food = initial(T?.liked_food)
+	T?.disliked_food = initial(T?.disliked_food)
+	T?.toxic_food = initial(T?.toxic_food)
 	REMOVE_TRAIT(affected_human, TRAIT_NIGHT_VISION, "maint_drug_addiction")
 	var/obj/item/organ/eyes/eyes = affected_human.getorgan(/obj/item/organ/eyes)
 	eyes.refresh()
