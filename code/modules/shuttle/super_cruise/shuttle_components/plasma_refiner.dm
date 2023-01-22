@@ -41,7 +41,7 @@
 	if(plasmoles >= 100)
 		var/obj/item/stack/sheet/mineral/plasma/P = new(src.loc, 1)
 		air_contents.adjust_moles(GAS_PLASMA, -100)
-		say("100 moles of plasma consumed. 1 Plasma sheet created.")
+		say("100 moles of plasma consumed. A sheet of [P.name] has been created.")
 	else
 		say("Insufficient plasma. At least 100 moles of plasma are required. There are currently [plasmoles] moles of plasma.")
 	. = ..()
