@@ -23,4 +23,3 @@
 #define COMSIG_MOB_PRE_CAST_SPELL "mob_cast_spell"
 	/// Return to cancel the cast from beginning.
 	#define COMPONENT_CANCEL_SPELL (1<<0)
-#define COMSIG_LIVING_LIFE "living_life"
