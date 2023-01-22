@@ -720,7 +720,7 @@
 /datum/antagonist/swarmer/on_gain()
 	if(swarm)
 		objectives |= swarm.objectives
-	. = ..()
+	return ..()
 
 /datum/antagonist/swarmer/greet()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Swarmer",
@@ -767,7 +767,7 @@
 /datum/antagonist/swarmer/on_gain()
 	if(swarm)
 		objectives |= swarm.objectives
-	. = ..()
+	return ..()
 
 /datum/antagonist/swarmer/apply_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -798,7 +798,7 @@
 				new_owner.assigned_role = "Swarmer"
 				new_owner.special_role = "Swarmer"
 			qdel(M)
-	. = ..()
+	return ..()
 
 /datum/objective/replicate
 	explanation_text = "Consume resources and replicate until there are no more resources left."

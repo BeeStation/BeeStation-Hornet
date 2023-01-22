@@ -35,7 +35,7 @@
 
 /datum/antagonist/hypnotized/on_gain()
 	owner.current.log_message("has been hypnotized!", LOG_ATTACK, color="red")
-	. = ..()
+	return ..()
 
 /datum/antagonist/hypnotized/on_removal()
 	owner.current.log_message("is no longer hypnotized !", LOG_ATTACK, color="red")
