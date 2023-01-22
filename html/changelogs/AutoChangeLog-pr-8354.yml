@@ -1,5 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - bugfix: fixed the PAI snake inhand sprite being a white square
-  - imageadd: added new inhand snake and PAI snake icons
