@@ -70,8 +70,8 @@
 					deconstruct(TRUE)
 
 		if(1)
-			if(istype(I, /obj/item/stack/sheet/mineral/wood))
-				var/obj/item/stack/sheet/mineral/wood/W = I
+			if(istype(I, /obj/item/stack/sheet/wood))
+				var/obj/item/stack/sheet/wood/W = I
 				if(W.get_amount() >= 2)
 					W.use(2)
 					to_chat(user, "<span class='notice'>You add a shelf.</span>")
@@ -112,7 +112,7 @@
 				else
 					I.play_tool_sound(src, 100)
 					to_chat(user, "<span class='notice'>You pry the shelf out.</span>")
-					new /obj/item/stack/sheet/mineral/wood(drop_location(), 2)
+					new /obj/item/stack/sheet/wood(drop_location(), 2)
 					state = 1
 					icon_state = "bookempty"
 			else
@@ -142,7 +142,7 @@
 
 
 /obj/structure/bookcase/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/mineral/wood(loc, 4)
+	new /obj/item/stack/sheet/wood(loc, 4)
 	for(var/obj/item/book/B in contents)
 		B.forceMove(get_turf(src))
 	qdel(src)

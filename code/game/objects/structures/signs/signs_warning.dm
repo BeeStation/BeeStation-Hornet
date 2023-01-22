@@ -68,7 +68,6 @@
 /obj/structure/sign/warning/xeno_mining
 	name = "\improper DANGEROUS ALIEN LIFE"
 	desc = "A sign that warns would-be travellers of hostile alien life in the vicinity."
-	icon = 'icons/obj/mining.dmi'
 	icon_state = "xeno_warning"
 
 /obj/structure/sign/warning/enginesafety

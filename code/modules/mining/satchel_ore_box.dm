@@ -97,7 +97,7 @@
 			. = TRUE
 
 /obj/structure/ore_box/deconstruct(disassembled = TRUE, mob/user)
-	var/obj/item/stack/sheet/mineral/wood/WD = new (loc, 4)
+	var/obj/item/stack/sheet/wood/WD = new (loc, 4)
 	if(user)
 		WD.add_fingerprint(user)
 	dump_box_contents()
