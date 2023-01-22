@@ -199,7 +199,7 @@
 
 	var/turf/detonation_turf = get_turf(src)
 
-	if(!chem_splash(detonation_turf, affected_area, reactants, ignition_temp, threatscale) && !no_splash)
+	if(!chem_splash(detonation_turf, affected_area, reactants, ignition_temp, threatscale, override_atom = src) && !no_splash)
 		playsound(src, 'sound/items/screwdriver2.ogg', 50, 1)
 		if(beakers.len)
 			for(var/obj/O in beakers)
@@ -254,6 +254,7 @@
 	//I tried to just put it in the allowed_containers list but
 	//if you do that it must have reagents.  If you're going to
 	//make a special case you might as well do it explicitly. -Sayu
+	
 /obj/item/grenade/chem_grenade/large/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/slime_extract) && stage == GRENADE_WIRED)
 		if(!user.transferItemToLoc(I, src))
