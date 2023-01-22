@@ -4,6 +4,7 @@
 	name = "alien nest"
 	desc = "It's a gruesome pile of thick, sticky resin shaped like a nest."
 	icon = 'icons/obj/smooth_structures/alien/nest.dmi'
+	base_icon_state = "nest"
 	icon_state = "nest-0"
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_NEST)
