@@ -1081,7 +1081,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 			if(M.get_virtual_z_level() != get_virtual_z_level())
 				continue
 			if(dist_far <= long_range && dist_far > range)
-				M.playsound_local(distant_source, "sound/effects/[selected_sound]_distance.ogg", 100, falloff_exponent = 20)
+				M.playsound_local(distant_source, "sound/effects/[selected_sound]_distance.ogg", 60, falloff_exponent = 20)
 			else if(dist_far <= range)
 				var/source
 				if(engines.len == 0)
@@ -1093,7 +1093,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 						if(dist_near < closest_dist)
 							source = O
 							closest_dist = dist_near
-				M.playsound_local(source, "sound/effects/[selected_sound].ogg", 100, falloff_exponent = range / 2)
+				M.playsound_local(source, "sound/effects/[selected_sound].ogg", 70, falloff_exponent = range / 2)
 
 // Losing all initial engines should get you 2
 // Adding another set of engines at 0.5 time
