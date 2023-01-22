@@ -1,0 +1,12 @@
+author: itsmeow, Indie-ana Jones, redguy999, Timberpoes, Ryll-Ryll, Ghommie, read-0nly,
+  ivanmixo, JohnFulpWillard, tralezab
+delete-after: true
+changes:
+  - tweak: Space Dragon now has its own role preference. Be sure to enable it!
+  - refactor: The Space Dragon has totally new objectives where it can spawn rifts
+      that summon sentient space carp, and must defend the rifts until three are created,
+      flooding the station with sentient carp.
+  - rscadd: Space Dragon is now a ruleset in dynamic as well as a station event.
+  - tweak: Space Dragons can now set their color.
+  - rscadd: Space Dragon now has its own death sound.
+  - tweak: Space Dragon roar is now quieter.
