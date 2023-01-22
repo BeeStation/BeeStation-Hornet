@@ -771,17 +771,17 @@
 
 /datum/antagonist/swarmer/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	//Give traitor appearence on hud (If they are not an antag already)
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_SWARMER]
-	traitorhud.join_hud(owner.current)
+	//Give swarmer appearence on hud (If they are not an antag already)
+	var/datum/atom_hud/antag/swarmerhud = GLOB.huds[ANTAG_HUD_SWARMER]
+	swarmerhud.join_hud(owner.current)
 	if(!owner.antag_hud_icon_state)
 		set_antag_hud(owner.current, "swarmer")
 
 /datum/antagonist/swarmer/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	//Clear the hud if they haven't become something else and had the hud overwritten
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_SWARMER]
-	traitorhud.leave_hud(owner.current)
+	var/datum/atom_hud/antag/swarmerhud = GLOB.huds[ANTAG_HUD_SWARMER]
+	swarmerhud.leave_hud(owner.current)
 	if(owner.antag_hud_icon_state == "swarmer")
 		set_antag_hud(owner.current, null)
 

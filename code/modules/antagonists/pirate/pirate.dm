@@ -23,17 +23,17 @@
 
 /datum/antagonist/pirate/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	//Give traitor appearence on hud (If they are not an antag already)
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_PIRATE]
-	traitorhud.join_hud(owner.current)
+	//Give pirate appearence on hud (If they are not an antag already)
+	var/datum/atom_hud/antag/piratehud = GLOB.huds[ANTAG_HUD_PIRATE]
+	piratehud.join_hud(owner.current)
 	if(!owner.antag_hud_icon_state)
 		set_antag_hud(owner.current, "pirate")
 
 /datum/antagonist/pirate/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	//Clear the hud if they haven't become something else and had the hud overwritten
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_PIRATE]
-	traitorhud.leave_hud(owner.current)
+	var/datum/atom_hud/antag/piratehud = GLOB.huds[ANTAG_HUD_PIRATE]
+	piratehud.leave_hud(owner.current)
 	if(owner.antag_hud_icon_state == "pirate" || owner.antag_hud_icon_state == "pirate-captain")
 		set_antag_hud(owner.current, null)
 
