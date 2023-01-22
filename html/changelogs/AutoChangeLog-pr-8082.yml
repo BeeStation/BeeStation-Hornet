@@ -1,5 +1,0 @@
-author: dwasint
-delete-after: true
-changes:
-  - rscadd: Added warping effect to gravitational anomaly
-  - refactor: Refactored the layer and plane system
