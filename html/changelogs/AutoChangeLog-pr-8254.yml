@@ -1,0 +1,10 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added integrated welding tools going on a 30 second cooldown when being
+      smacked with a lighteater
+  - rscdel: Removed integrated welding tools getting dusted when hit with a lighteater
+  - code_imp: integrated welding tool is now a subtype of a welding tool instead of
+      the large welding tool
+  - code_imp: small integrated welding tool is now a subtype of the integrated welding
+      too
