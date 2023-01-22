@@ -16,8 +16,6 @@
 /datum/saymode/xeno/handle_message(mob/living/user, message, datum/language/language)
 	if(user.hivecheck())
 		user.alien_talk(message)
-	else if("carp" in user.faction)
-		user.carp_talk(message)
 	return FALSE
 
 
