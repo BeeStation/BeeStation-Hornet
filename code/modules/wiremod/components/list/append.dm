@@ -43,7 +43,7 @@
 		output.set_output(null)
 		return
 
-	if(input_list.len < COMPONENT_MAXIMUM_LIST_SIZE) //Prevents lists from growing too large
+	if(input_list.len < COMPONENT_MAXIMUM_LIST_SIZE && !islist(value)) //Prevents lists from growing too large and prevents recursive lists
 		input_list += value
 	output.set_output(input_list)
 

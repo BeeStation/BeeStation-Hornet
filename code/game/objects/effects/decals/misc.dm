@@ -2,7 +2,7 @@
 	name = "pointer"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "arrow"
-	layer = POINT_LAYER
+	plane = POINT_PLANE
 	duration = 25
 
 /obj/effect/temp_visual/point/Initialize(mapload, set_invis = 0)
@@ -89,6 +89,6 @@
 /obj/effect/decal/fakelattice
 	name = "lattice"
 	desc = "A lightweight support lattice."
-	icon = 'icons/obj/smooth_structures/lattice.dmi'
+	icon = 'icons/obj/smooth_structures/catwalks/lattice.dmi'
 	icon_state = "lattice"
 	density = TRUE

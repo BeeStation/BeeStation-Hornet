@@ -32,6 +32,8 @@
 	resistance_flags = FLAMMABLE
 	var/foldable = /obj/item/stack/sheet/cardboard
 	var/illustration = "writing"
+	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/cardboardbox_pickup.ogg'
 
 /obj/item/storage/box/Initialize(mapload)
 	. = ..()
@@ -765,6 +767,8 @@
 	item_state = "zippo"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT
+	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
 
 /obj/item/storage/box/matches/ComponentInitialize()
 	. = ..()
@@ -1278,16 +1282,16 @@
 		/obj/item/stack/sheet/mineral/bananium=50,\
 		/obj/item/stack/sheet/plastic/fifty=1,\
 		/obj/item/stack/sheet/runed_metal/fifty=1,\
-		/obj/item/stack/tile/brass/fifty=1,\
+		/obj/item/stack/sheet/brass/fifty=1,\
 		/obj/item/stack/sheet/mineral/abductor=50,\
 		/obj/item/stack/sheet/mineral/adamantine=50,\
-		/obj/item/stack/sheet/mineral/wood=50,\
+		/obj/item/stack/sheet/wood=50,\
 		/obj/item/stack/sheet/cotton/cloth=50,\
 		/obj/item/stack/sheet/leather=50,\
 		/obj/item/stack/sheet/bone=12,\
 		/obj/item/stack/sheet/cardboard/fifty=1,\
 		/obj/item/stack/sheet/mineral/sandstone=50,\
-		/obj/item/stack/sheet/mineral/snow=50
+		/obj/item/stack/sheet/snow=50
 		)
 	generate_items_inside(items_inside,src)
 
@@ -1316,7 +1320,7 @@
 		/obj/item/areaeditor/blueprints=1,\
 		/obj/item/card/emag=1,\
 		/obj/item/stack/spacecash/c1000=50,\
-		/obj/item/healthanalyzer/advanced=1,\
+		/obj/item/storage/belt/medical/ert=1,\
 		/obj/item/disk/tech_disk/debug=1,\
 		/obj/item/disk/surgery/debug=1,\
 		/obj/item/disk/data/debug=1,\

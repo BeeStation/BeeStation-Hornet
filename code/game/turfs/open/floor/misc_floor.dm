@@ -199,7 +199,7 @@
 	desc = "Some heavy bronze tiles."
 	icon = 'icons/obj/clockwork_objects.dmi'
 	icon_state = "clockwork_floor"
-	floor_tile = /obj/item/stack/tile/bronze
+	floor_tile = /obj/item/stack/sheet/bronze
 
 /turf/open/floor/white
 	name = "white floor"

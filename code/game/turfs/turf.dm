@@ -27,9 +27,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	//If true, turf will allow users to float up and down in 0 grav.
 	var/allow_z_travel = FALSE
 
-	/// Whether the turf blocks atmos from passing through it or not
-	var/blocks_air = FALSE
-
 	flags_1 = CAN_BE_DIRTY_1
 
 	/// For the station blueprints, images of objects eg: pipes
@@ -58,6 +55,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	///the holodeck can load onto this turf if TRUE
 	var/holodeck_compatible = FALSE
 
+	var/list/fixed_underlay = null
+
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
 	if(var_name in banned_edits)
@@ -75,8 +74,16 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	assemble_baseturfs()
 
 	levelupdate()
-	if(smooth)
-		queue_smooth(src)
+	if(length(smoothing_groups))
+		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
+		SET_BITFLAG_LIST(smoothing_groups)
+	if(length(canSmoothWith))
+		sortTim(canSmoothWith)
+		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
+			smoothing_flags |= SMOOTH_OBJ
+		SET_BITFLAG_LIST(canSmoothWith)
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH(src)
 	visibilityChanged()
 
 	for(var/atom/movable/content as anything in src)
@@ -550,7 +557,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	for(var/thing in contents)
 		var/atom/atom_thing = thing
 		if(!QDELETED(atom_thing) && atom_thing.level >= affecting_level)
-			if(ismovableatom(atom_thing))
+			if(ismovable(atom_thing))
 				var/atom/movable/movable_thing = atom_thing
 				if(!movable_thing.ex_check(explosion_id))
 					continue

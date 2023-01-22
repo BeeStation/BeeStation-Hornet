@@ -42,10 +42,15 @@ SUBSYSTEM_DEF(job)
 	spare_id_safe_code = "[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]"
 
 	crew_obj_list = subtypesof(/datum/objective/crew)
-	for(var/datum/objective/crew/obj as() in crew_obj_list) //taken from old Hippie's "job2obj" proc with adjustments.
-		var/list/availableto = splittext(initial(obj.jobs),",")
-		for(var/job in availableto)
-			crew_obj_jobs["[job]"] += list(obj)
+	for(var/type as() in crew_obj_list)
+		// Unfortunately, this is necessary because initial() doesn't work on lists
+		var/datum/objective/crew/obj = new type
+		var/list/obj_jobs = obj.jobs
+		if(!istype(obj_jobs))
+			obj_jobs = list(obj_jobs)
+		for(var/job in obj_jobs)
+			crew_obj_jobs["[job]"] += list(type)
+		qdel(obj)
 
 	return ..()
 
