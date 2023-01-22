@@ -41,18 +41,19 @@
 	completed = TRUE
 
 /datum/antagonist/morph/admin_add(datum/mind/new_owner,mob/admin)
+	if(alert(admin,"Transform the player into a morph?","Species Change","Yes","No") != "Yes")
+		return ..()
 	var/mob/living/M = new_owner.current
-	if(alert(admin,"Transform the player into a morph?","Species Change","Yes","No") == "Yes")
-		if(!QDELETED(M) && !M.notransform)
-			M.notransform = 1
-			M.unequip_everything()
-			var/mob/living/new_mob = new /mob/living/simple_animal/hostile/morph(M.loc)
-			if(istype(new_mob))
-				new_mob.a_intent = INTENT_HARM
-				M.mind.transfer_to(new_mob)
-				new_owner.assigned_role = "Morph"
-				new_owner.special_role = "Morph"
-				new_mob.name = "morph"
-				new_mob.real_name = "morph"
-			qdel(M)
+	if(!QDELETED(M) && !M.notransform)
+		M.notransform = 1
+		M.unequip_everything()
+		var/mob/living/new_mob = new /mob/living/simple_animal/hostile/morph(M.loc)
+		if(istype(new_mob))
+			new_mob.a_intent = INTENT_HARM
+			M.mind.transfer_to(new_mob)
+			new_owner.assigned_role = "Morph"
+			new_owner.special_role = "Morph"
+			new_mob.name = "morph"
+			new_mob.real_name = "morph"
+		qdel(M)
 	. = ..()
