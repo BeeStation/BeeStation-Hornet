@@ -246,8 +246,9 @@
 		if(INCORPOREAL_MOVE_JAUNT) //Incorporeal move, but blocked by holy-watered tiles and salt piles.
 			var/turf/open/floor/stepTurf = get_step_multiz(mobloc, direct)
 			if(stepTurf)
-				for(var/obj/effect/decal/cleanable/food/salt/S in stepTurf)
-					to_chat(L, "<span class='warning'>[S] bars your passage!</span>")
+				var/obj/effect/decal/cleanable/food/salt/salt = locate() in stepTurf
+				if(salt)
+					to_chat(L, "<span class='warning'>[salt] bars your passage!</span>")
 					if(isrevenant(L))
 						var/mob/living/simple_animal/revenant/R = L
 						R.reveal(20)
@@ -256,7 +257,7 @@
 				if(stepTurf.flags_1 & NOJAUNT_1)
 					to_chat(L, "<span class='warning'>Some strange aura is blocking the way.</span>")
 					return
-				if(locate(/obj/effect/blessing, stepTurf))
+				if(locate(/obj/effect/blessing) in stepTurf)
 					to_chat(L, "<span class='warning'>Holy energies block your path!</span>")
 					return
 				L.forceMove(stepTurf)
@@ -268,14 +269,15 @@
 			var/turf/open/floor/stepTurf = get_step_multiz(mobloc, direct)
 			var/turf/loccheck = get_turf(stepTurf)
 			if(stepTurf)
-				for(var/obj/effect/decal/cleanable/food/salt/S in stepTurf)
-					to_chat(L, "<span class='warning'>[S] bars your passage!</span>")
+				var/obj/effect/decal/cleanable/food/salt/salt = locate() in stepTurf
+				if(salt)
+					to_chat(L, "<span class='warning'>[salt] bars your passage!</span>")
 					return
 				if(stepTurf.flags_1 & NOJAUNT_1)
 					if(!is_reebe(loccheck.z))
 						to_chat(L, "<span class='warning'>Some strange aura is blocking the way.</span>")
 						return
-				if(locate(/obj/effect/blessing, stepTurf))
+				if(locate(/obj/effect/blessing) in stepTurf)
 					to_chat(L, "<span class='warning'>Holy energies block your path!</span>")
 					return
 				L.forceMove(stepTurf)
