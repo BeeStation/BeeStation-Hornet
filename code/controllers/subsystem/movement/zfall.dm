@@ -31,7 +31,8 @@ SUBSYSTEM_DEF(zfall)
 
 /datum/controller/subsystem/zfall/fire()
 	if(enumerator == null)
-		enumerator = get_list_enumerator(openspace_inhabitants).foreach(CALLBACK(src, .proc/check_z_fall))
+		var/datum/enumerator/E = get_list_enumerator(openspace_inhabitants)
+		enumerator = E.foreach(CALLBACK(src, .proc/check_z_fall))
 	//Run over the enumerators while we are allowed
 	var/enumerator_has_next = enumerator.has_next()
 	while (enumerator_has_next)
