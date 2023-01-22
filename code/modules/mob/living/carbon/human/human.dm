@@ -721,6 +721,8 @@
 	if(admin_revive)
 		regenerate_limbs()
 		regenerate_organs()
+		if(ismoth(src))
+			REMOVE_TRAIT(src, TRAIT_MOTH_BURNT, "fire")
 	remove_all_embedded_objects()
 	set_heartattack(FALSE)
 	drunkenness = 0
