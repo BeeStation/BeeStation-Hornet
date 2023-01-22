@@ -318,6 +318,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		return FALSE
 	return TRUE
 
+/// A non-waiting proc that calls zFall()
+/turf/proc/try_start_zFall(atom/movable/A, levels = 1, force = FALSE, old_loc = null)
+	set waitfor = FALSE
+	zFall(A, levels, force, old_loc, FALSE)
+
 /// Checks if we can start a zfall and then performs the zfall
 /turf/proc/zFall(atom/movable/A, levels = 1, force = FALSE, old_loc = null, from_zfall = FALSE)
 	var/turf/target = get_step_multiz(src, DOWN)
@@ -331,12 +336,12 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			new_turf.do_z_impact(A, levels - 1)
 			return TRUE // skip parent zimpact - do a zimpact on new turf, the turf below us is solid
 		else if(new_turf != src) // our fall continues... no need to check can_start_zFall again, because we just checked it
-			new_turf.do_zFall(A, levels, old_loc, target)
+			new_turf.zFall_Move(A, levels, old_loc, target)
 			return TRUE // don't do an impact from the parent caller. essentially terminating the old fall with no actions
-	return do_zFall(A, levels, old_loc, target)
+	return zFall_Move(A, levels, old_loc, target)
 
 /// Actually performs the zfall movement, regardless of if you can fall or not
-/turf/proc/do_zFall(atom/movable/A, levels = 1, old_loc = null, turf/target)
+/turf/proc/zFall_Move(atom/movable/A, levels = 1, old_loc = null, turf/target)
 	A.zfalling = TRUE
 	if(A.pulling && old_loc) // Moves whatever we're pulling to where we were before so we're still adjacent
 		A.pulling.moving_from_pull = A

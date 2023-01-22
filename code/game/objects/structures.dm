@@ -35,7 +35,7 @@
 	if(!istype(current_turf))
 		return
 	for(var/atom/movable/A in current_turf)
-		current_turf.zFall(A)
+		current_turf.try_start_zFall(A)
 
 /obj/structure/attack_hand(mob/user)
 	. = ..()
