@@ -1,0 +1,7 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - tweak: Adjusted the smoothing of some walls, catwalks and lattices
+  - bugfix: Fixed the missing icons for the resin nest
+  - bugfix: fixed (hopefully) the broken alien resin bug
+  - bugfix: bamboo floor no longer smooth with glass, somehow
