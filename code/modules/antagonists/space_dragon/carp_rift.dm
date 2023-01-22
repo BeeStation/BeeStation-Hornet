@@ -68,7 +68,7 @@
 	light_range = 10
 	anchored = TRUE
 	density = TRUE
-	plane = MASSIVE_OBJ_PLANE
+	layer = MASSIVE_OBJ_LAYER
 	/// The amount of time the rift has charged for.
 	var/time_charged = 0
 	/// The maximum charge the rift can have.
