@@ -163,3 +163,13 @@
 	build_path = /obj/item/aiModule/core/full/dadbot
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+
+/datum/design/board/council_module
+	name = "Core Module Design (AI Council)"
+	desc = "Allows for the construction of an AI Council Core Lawset Module."
+	id = "magi_module"
+	materials = list(/datum/material/glass = 1000, /datum/material/diamond = 2000, /datum/material/copper = 300)
+	build_path = /obj/item/aiModule/core/full/magi
+	category = list("AI Modules")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE

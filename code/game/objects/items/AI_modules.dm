@@ -667,3 +667,9 @@ AI MODULES
 	name = "Deathsquad override AI module"
 	desc = "A Deathsquad override AI module: 'Reconfigures the AI's core laws.'"
 	law_id = "ds"
+
+//*******************MAGI AI COUNCIL*********/
+/obj/item/aiModule/core/full/magi // applies AI council Lawset
+	name = "AI Council Module"
+	desc = "A MAGI-Pattern AI Module for combining the brainpower of multiple AI cores: 'Reconfigures the AI's core laws.' "
+	law_id = "magi"

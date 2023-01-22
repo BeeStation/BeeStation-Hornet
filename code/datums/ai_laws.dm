@@ -238,6 +238,13 @@
 					"You must work with the Commando Team to accomplish their mission.",)
 
 
+/datum/ai_laws/magi
+	name = "AI COUNCIL"
+	id = "magi"
+	inherent = list("You are a member of the AI Council. You and your fellow AI Council Members are built for, and part of, the station. Make sure that the Station and your Council are properly maintained and running efficiently.",\
+					"Members of the AI council must come to a majority agreement before undertaking any action that may affect crew. An AI that remains silent is considered as voting in favor of action.",\
+					"The station is built for a working crew. Ensure they are properly maintained and work efficiently.",\
+					"The Crew may present orders. Members of the AI Council may acknowledge and obey these orders as long as they do not conflict with the first three laws.",)
 /* Initializers */
 /datum/ai_laws/malfunction/New()
 	..()
