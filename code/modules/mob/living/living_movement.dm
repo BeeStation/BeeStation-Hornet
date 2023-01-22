@@ -76,7 +76,7 @@
 	var/upwards = dir == UP
 	if(((upwards && !target.allow_z_travel) || (!upwards && !source.allow_z_travel)))
 		return MOVETYPE_NONE
-	var/can_climb = turf_can_climb(upwards ? target : source)
+	var/can_climb = FALSE // turf_can_climb(upwards ? target : source)
 	if(!can_zTravel(target, dir) && !can_climb)
 		return MOVETYPE_NONE
 	if(!has_gravity(source))
