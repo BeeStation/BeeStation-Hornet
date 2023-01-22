@@ -229,4 +229,13 @@
 	maxHealth = 200
 	random_color = FALSE
 
+
+/mob/living/simple_animal/hostile/carp/advanced
+	name = "advanced space carp"
+	desc = "A ferocious, fang-bearing creature that resembles a fish. This one seems to be self-aware."
+	maxHealth = 40
+	health = 40
+	gold_core_spawnable = NO_SPAWN
+	obj_damage = 15
+
 #undef REGENERATION_DELAY
