@@ -20,10 +20,7 @@
 	B.objectives += objective
 	log_objective(M, objective.explanation_text)
 	M.add_antag_datum(B)
-	var/begin_message = "<span class='deadsay'><b>[victim]</b> has been hypnotized with the following phrase: "
-	var/obj_message = hypnotic_phrase
-	var/end_message = "</b>.</span>"
-	var/rendered = begin_message + obj_message + end_message
+	var/rendered = "<span class='deadsay'><b>[victim]</b> has been hypnotized with the following phrase: <b>[hypnotic_phrase]</b> .</span>"
 	deadchat_broadcast(rendered, follow_target = victim, turf_target = get_turf(victim), message_type=DEADCHAT_REGULAR)
 	victim.log_message(rendered, LOG_ATTACK, color="red")
 
