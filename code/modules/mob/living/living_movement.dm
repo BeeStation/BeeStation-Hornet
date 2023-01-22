@@ -150,10 +150,16 @@
 			animate(user, 0, flags = ANIMATION_END_NOW)
 			user.pixel_y = 0
 			user.transform = matrix()
+			if(iscarbon(user))
+				var/mob/living/carbon/C = user
+				C.reset_lying_transform()
 			for(var/mob/M in bucklemobs_c)
 				animate(M, 0, flags = ANIMATION_END_NOW)
 				M.pixel_y = 0
 				M.transform = matrix()
+				if(iscarbon(M))
+					var/mob/living/carbon/C = M
+					C.reset_lying_transform()
 			return
 		zmoving = FALSE
 		continue_travel_z(user, upwards ? UP : DOWN, bucklemobs_c)
@@ -165,9 +171,15 @@
 	// reset animations
 	user.pixel_y = 0
 	user.transform = matrix()
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		C.reset_lying_transform()
 	for(var/mob/M in bucklemobs_c)
 		M.pixel_y = 0
 		M.transform = matrix()
+		if(iscarbon(M))
+			var/mob/living/carbon/C = M
+			C.reset_lying_transform()
 	var/turf/source = get_turf(user)
 	var/turf/target = get_step_multiz(source, dir)
 	if(user.canZMove(dir, source, target, pre_move = FALSE)) // actually use fuel this time
@@ -187,6 +199,16 @@
 	animate(src, 0.3 SECONDS, pixel_y = 16, transform = matrix() * 0.9, easing = QUAD_EASING)
 	sleep(0.3 SECONDS)
 	animate(src, 0.1 SECONDS, pixel_y = 0, transform = matrix(), easing = QUAD_EASING)
+
+/mob/living/carbon/do_jump_animation()
+	..()
+	reset_lying_transform()
+
+/mob/living/carbon/proc/reset_lying_transform()
+	var/lying_prev_temp = lying_prev
+	lying_prev = 0
+	update_transform()
+	lying_prev = lying_prev_temp
 
 #undef MOVETYPE_NONE
 #undef MOVETYPE_CLIMB
