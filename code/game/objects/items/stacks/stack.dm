@@ -10,7 +10,7 @@
  */
 
 /obj/item/stack
-	icon = 'icons/obj/stack_objects.dmi'
+	icon = 'icons/obj/stacks/minerals.dmi'
 	gender = PLURAL
 	///The list recipes you can make with the stack
 	var/list/datum/stack_recipe/recipes
@@ -21,7 +21,7 @@
 	///also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
 	var/max_amount = 50
 	///It's TRUE if module is used by a cyborg, and uses its storage
-	var/is_cyborg = FALSE 
+	var/is_cyborg = FALSE
 	///Holder var for the cyborg energy source
 	var/datum/robot_energy_storage/source
 	///How much energy from storage it costs

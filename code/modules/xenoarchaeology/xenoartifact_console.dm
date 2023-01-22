@@ -152,7 +152,7 @@
 		else if(budget.account_balance-S.price < 0)
 			say("Error. Insufficient funds.")
 			return
-		
+
 		if(linked_inbox && budget.account_balance-S.price >= 0)
 			var/obj/item/xenoartifact/A = new (get_turf(linked_inbox.loc), S.difficulty)
 			var/datum/component/xenoartifact_pricing/X = A.GetComponent(/datum/component/xenoartifact_pricing)

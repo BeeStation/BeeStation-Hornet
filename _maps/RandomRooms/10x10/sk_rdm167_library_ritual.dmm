@@ -256,7 +256,7 @@
 	},
 /area/template_noop)
 "vA" = (
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "xZ" = (
@@ -506,7 +506,7 @@
 "Qs" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "QA" = (

@@ -157,7 +157,7 @@
 
 /obj/item/shield/riot/buckler/shatter(mob/living/carbon/human/owner)
 	playsound(owner, 'sound/effects/bang.ogg', 50)
-	new /obj/item/stack/sheet/mineral/wood(get_turf(src))
+	new /obj/item/stack/sheet/wood(get_turf(src))
 	qdel(src)
 
 /obj/item/shield/riot/goliath

@@ -279,7 +279,7 @@
 	icon_state = "wood"
 	openSound = 'sound/effects/doorcreaky.ogg'
 	closeSound = 'sound/effects/doorcreaky.ogg'
-	sheetType = /obj/item/stack/sheet/mineral/wood
+	sheetType = /obj/item/stack/sheet/wood
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
 	rad_insulation = RAD_VERY_LIGHT_INSULATION

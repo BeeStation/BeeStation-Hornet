@@ -1,15 +1,15 @@
-/obj/item/stack/telecrystal
+/obj/item/stack/sheet/telecrystal
 	name = "telecrystal"
 	desc = "It seems to be pulsing with suspiciously enticing energies."
 	singular_name = "telecrystal"
-	icon = 'icons/obj/telescience.dmi'
+	icon = 'icons/obj/stacks/minerals.dmi'
 	icon_state = "telecrystal"
 	w_class = WEIGHT_CLASS_TINY
 	max_amount = 50
 	item_flags = NOBLUDGEON
-	merge_type = /obj/item/stack/telecrystal
+	merge_type = /obj/item/stack/sheet/telecrystal
 
-/obj/item/stack/telecrystal/attack(mob/target, mob/user)
+/obj/item/stack/sheet/telecrystal/attack(mob/target, mob/user)
 	if(target == user) //You can't go around smacking people with crystals to find out if they have an uplink or not.
 		for(var/obj/item/implant/uplink/I in target)
 			if(I?.imp_in)
@@ -21,7 +21,7 @@
 	else
 		return ..()
 
-/obj/item/stack/telecrystal/afterattack(obj/item/I, mob/user, proximity)
+/obj/item/stack/sheet/telecrystal/afterattack(obj/item/I, mob/user, proximity)
 	. = ..()
 	if(istype(I, /obj/item/computer_hardware/hard_drive/role/virus/frame))
 		var/obj/item/computer_hardware/hard_drive/role/virus/frame/cart = I
@@ -32,8 +32,4 @@
 		use(amount)
 		to_chat(user, "<span class='notice'>You slot [src] into [cart].  The next time it's used, it will also give telecrystals.</span>")
 
-/obj/item/stack/telecrystal/five
-	amount = 5
-
-/obj/item/stack/telecrystal/twenty
-	amount = 20
+STACKSIZE_MACRO(/obj/item/stack/sheet/telecrystal)

@@ -1894,7 +1894,7 @@
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/obj/item/stack/telecrystal/five,
+/obj/item/stack/sheet/telecrystal/five,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)

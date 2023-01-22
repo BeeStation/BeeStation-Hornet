@@ -204,7 +204,7 @@
 /obj/item/clockwork/alloy_shards/IntegrateAmount()
 	return 10
 
-/obj/item/stack/tile/brass/IntegrateAmount()
+/obj/item/stack/sheet/brass/IntegrateAmount()
 	return 5
 
 /obj/item/clockwork/alloy_shards/medium/gear_bit/large/IntegrateAmount()

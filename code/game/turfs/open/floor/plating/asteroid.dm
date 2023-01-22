@@ -149,7 +149,7 @@
 	burnt_states = list("snow_dug")
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = null
-	digResult = /obj/item/stack/sheet/mineral/snow
+	digResult = /obj/item/stack/sheet/snow
 
 /turf/open/floor/plating/asteroid/snow/burn_tile()
 	if(!burnt)

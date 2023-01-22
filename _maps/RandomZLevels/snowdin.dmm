@@ -974,7 +974,7 @@
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/kitchen)
 "cT" = (
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
 /turf/open/floor/plating/snowed,
 /area/awaymission/snowdin/cave)
 "cU" = (
@@ -1713,7 +1713,7 @@
 /area/awaymission/snowdin/post/hydro)
 "fn" = (
 /obj/structure/rack,
-/obj/item/stack/sheet/mineral/wood{
+/obj/item/stack/sheet/wood{
 	amount = 15
 	},
 /turf/open/floor/wood,
@@ -8454,7 +8454,7 @@
 /area/awaymission/snowdin/igloo)
 "zE" = (
 /obj/structure/rack,
-/obj/item/stack/sheet/mineral/wood{
+/obj/item/stack/sheet/wood{
 	amount = 15
 	},
 /turf/open/floor/wood,
@@ -8843,7 +8843,7 @@
 /turf/open/floor/plating/snowed/smoothed,
 /area/awaymission/snowdin/post/minipost)
 "AS" = (
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/snowdin/cave)
 "AT" = (

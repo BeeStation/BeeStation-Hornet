@@ -110,7 +110,7 @@
 	/obj/item/stack/ore/bluespace_crystal/refined,
 	/obj/item/stack/sheet/mineral/abductor,
 	/obj/item/stack/sheet/plastic,
-	/obj/item/stack/sheet/mineral/wood,
+	/obj/item/stack/sheet/wood,
 	/obj/item/stack/sheet/mineral/copper
 	)
 

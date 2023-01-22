@@ -86,8 +86,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "p" = (
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
 /turf/open/floor/plating,
 /area/template_noop)
 "q" = (
@@ -105,7 +105,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "t" = (
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
 /turf/open/floor/plating,
 /area/template_noop)
 "u" = (

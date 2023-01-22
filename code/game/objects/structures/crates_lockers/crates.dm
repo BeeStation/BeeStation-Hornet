@@ -145,7 +145,7 @@
 	icon_state = "coffin"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
-	material_drop = /obj/item/stack/sheet/mineral/wood
+	material_drop = /obj/item/stack/sheet/wood
 	material_drop_amount = 5
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'

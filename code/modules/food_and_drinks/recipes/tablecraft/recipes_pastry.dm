@@ -578,7 +578,7 @@
 	name = "Rav'tart"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
-		/obj/item/stack/tile/bronze = 1,
+		/obj/item/stack/sheet/bronze = 1,
 		/obj/item/reagent_containers/food/snacks/grown/berries = 2,
 		/obj/item/reagent_containers/food/snacks/grown/citrus/orange = 1
 	)

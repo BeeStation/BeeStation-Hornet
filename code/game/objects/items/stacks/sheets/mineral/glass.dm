@@ -1,18 +1,14 @@
 /* Glass stack types
  * Contains:
- *		Glass sheets
- *		Reinforced glass sheets
+ *		Glass
+ *		Reinforced glass
+ *		Plasma glass
+ *		Reinforced plasma glass
+ *		Depleted uranium glass
  *		Glass shards - TODO: Move this into code/game/object/item/weapons
  */
 
-/*
- * Glass sheets
- */
-GLOBAL_LIST_INIT(glass_recipes, list ( \
-	new/datum/stack_recipe("glass shard", /obj/item/shard, on_floor = FALSE), \
-	new/datum/stack_recipe("directional window", /obj/structure/window/unanchored, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("fulltile window", /obj/structure/window/fulltile/unanchored, 2, on_floor = TRUE, window_checks = TRUE) \
-))
+/* Glass */
 
 /obj/item/stack/sheet/glass
 	name = "glass"
@@ -31,14 +27,6 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 /obj/item/stack/sheet/glass/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins to slice [user.p_their()] neck with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
-
-/obj/item/stack/sheet/glass/cyborg
-	materials = list()
-	is_cyborg = 1
-	cost = 500
-
-/obj/item/stack/sheet/glass/fifty
-	amount = 50
 
 /obj/item/stack/sheet/glass/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.glass_recipes
@@ -70,64 +58,7 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 	else
 		return ..()
 
-
-
-GLOBAL_LIST_INIT(pglass_recipes, list ( \
-	new/datum/stack_recipe("directional window", /obj/structure/window/plasma/unanchored, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("fulltile window", /obj/structure/window/plasma/fulltile/unanchored, 2, on_floor = TRUE, window_checks = TRUE) \
-))
-
-/obj/item/stack/sheet/plasmaglass
-	name = "plasma glass"
-	desc = "A glass sheet made out of a plasma-silicate alloy. It looks extremely tough and heavily fire resistant."
-	singular_name = "plasma glass sheet"
-	icon_state = "sheet-pglass"
-	item_state = "sheet-pglass"
-	materials = list(/datum/material/plasma=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass=MINERAL_MATERIAL_AMOUNT)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 100, "stamina" = 0)
-	resistance_flags = ACID_PROOF
-	merge_type = /obj/item/stack/sheet/plasmaglass
-	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/toxin/plasma = 10)
-	tableVariant = /obj/structure/table/glass/plasma
-
-/obj/item/stack/sheet/plasmaglass/fifty
-	amount = 50
-
-/obj/item/stack/sheet/plasmaglass/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.pglass_recipes
-	return ..()
-
-/obj/item/stack/sheet/plasmaglass/attackby(obj/item/W, mob/user, params)
-	add_fingerprint(user)
-
-	if(istype(W, /obj/item/stack/rods))
-		var/obj/item/stack/rods/V = W
-		if (V.get_amount() >= 1 && get_amount() >= 1)
-			var/obj/item/stack/sheet/plasmarglass/RG = new (get_turf(user), null, TRUE, user)
-			var/replace = user.get_inactive_held_item()==src
-			V.use(1)
-			use(1)
-			if(QDELETED(src) && replace)
-				user.put_in_hands(RG)
-		else
-			to_chat(user, "<span class='warning'>You need one rod and one sheet of plasma glass to make reinforced plasma glass!</span>")
-			return
-	else
-		return ..()
-
-
-
-/*
- * Reinforced glass sheets
- */
-GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
-	new/datum/stack_recipe("windoor frame", /obj/structure/windoor_assembly, 5, on_floor = TRUE, window_checks = TRUE), \
-	null, \
-	new/datum/stack_recipe("directional reinforced window", /obj/structure/window/reinforced/unanchored, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("fulltile reinforced window", /obj/structure/window/reinforced/fulltile/unanchored, 2, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("window firelock frame", /obj/structure/firelock_frame/window, 2, one_per_turf = TRUE, on_floor = TRUE, window_checks = FALSE, time = 5 SECONDS) \
-))
-
+/* Reinforced glass */
 
 /obj/item/stack/sheet/rglass
 	name = "reinforced glass"
@@ -167,10 +98,44 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	recipes = GLOB.reinforced_glass_recipes
 	return ..()
 
-GLOBAL_LIST_INIT(prglass_recipes, list ( \
-	new/datum/stack_recipe("directional reinforced window", /obj/structure/window/plasma/reinforced/unanchored, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("fulltile reinforced window", /obj/structure/window/plasma/reinforced/fulltile/unanchored, 2, on_floor = TRUE, window_checks = TRUE) \
-))
+/* Plasma glass */
+
+/obj/item/stack/sheet/plasmaglass
+	name = "plasma glass"
+	desc = "A glass sheet made out of a plasma-silicate alloy. It looks extremely tough and heavily fire resistant."
+	singular_name = "plasma glass sheet"
+	icon_state = "sheet-pglass"
+	item_state = "sheet-pglass"
+	materials = list(/datum/material/plasma=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass=MINERAL_MATERIAL_AMOUNT)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 100, "stamina" = 0)
+	resistance_flags = ACID_PROOF
+	merge_type = /obj/item/stack/sheet/plasmaglass
+	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/toxin/plasma = 10)
+	tableVariant = /obj/structure/table/glass/plasma
+
+/obj/item/stack/sheet/plasmaglass/Initialize(mapload, new_amount, merge = TRUE)
+	recipes = GLOB.pglass_recipes
+	return ..()
+
+/obj/item/stack/sheet/plasmaglass/attackby(obj/item/W, mob/user, params)
+	add_fingerprint(user)
+
+	if(istype(W, /obj/item/stack/rods))
+		var/obj/item/stack/rods/V = W
+		if (V.get_amount() >= 1 && get_amount() >= 1)
+			var/obj/item/stack/sheet/plasmarglass/RG = new (get_turf(user), null, TRUE, user)
+			var/replace = user.get_inactive_held_item()==src
+			V.use(1)
+			use(1)
+			if(QDELETED(src) && replace)
+				user.put_in_hands(RG)
+		else
+			to_chat(user, "<span class='warning'>You need one rod and one sheet of plasma glass to make reinforced plasma glass!</span>")
+			return
+	else
+		return ..()
+
+/* Reinforced plasma glass */
 
 /obj/item/stack/sheet/plasmarglass
 	name = "reinforced plasma glass"
@@ -189,9 +154,7 @@ GLOBAL_LIST_INIT(prglass_recipes, list ( \
 	recipes = GLOB.prglass_recipes
 	return ..()
 
-GLOBAL_LIST_INIT(titaniumglass_recipes, list(
-	new/datum/stack_recipe("shuttle window", /obj/structure/window/shuttle/unanchored, 2, on_floor = TRUE, window_checks = TRUE)
-	))
+/* Titanium glass */
 
 /obj/item/stack/sheet/titaniumglass
 	name = "titanium glass"
@@ -208,9 +171,7 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 	recipes = GLOB.titaniumglass_recipes
 	return ..()
 
-GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
-	new/datum/stack_recipe("plastitanium window", /obj/structure/window/plastitanium/unanchored, 2, on_floor = TRUE, window_checks = TRUE)
-	))
+/* Plastitanium glass */
 
 /obj/item/stack/sheet/plastitaniumglass
 	name = "plastitanium glass"
@@ -227,6 +188,7 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	recipes = GLOB.plastitaniumglass_recipes
 	return ..()
 
+/*SHARDS FROM HERE ONWARD, NOT A STACK, MOVE IT AS THE PROPHECY FORETOLD*/
 /obj/item/shard
 	name = "shard"
 	desc = "A nasty looking shard of glass."

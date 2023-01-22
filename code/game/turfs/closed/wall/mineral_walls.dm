@@ -165,7 +165,7 @@
 	icon = 'icons/turf/walls/wood_wall.dmi'
 	icon_state = "wood_wall-0"
 	base_icon_state = "wood_wall"
-	sheet_type = /obj/item/stack/sheet/mineral/wood
+	sheet_type = /obj/item/stack/sheet/wood
 	hardness = 70
 	explosion_block = 0
 	smoothing_flags = SMOOTH_BITMASK
@@ -193,7 +193,7 @@
 	icon = 'icons/turf/walls/bamboo_wall.dmi'
 	icon_state = "bamboo-0"
 	base_icon_state = "bamboo"
-	sheet_type = /obj/item/stack/sheet/mineral/bamboo
+	sheet_type = /obj/item/stack/sheet/bamboo
 	hardness = 60
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_BAMBOO_WALLS)
@@ -221,7 +221,8 @@
 	hardness = 80
 	explosion_block = 0
 	slicing_duration = 30
-	sheet_type = /obj/item/stack/sheet/mineral/snow
+	sheet_type = /obj/item/stack/sheet/snow
+
 	girder_type = null
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = null
