@@ -1,0 +1,9 @@
+author: Kapu1178, Kevinz, XSlayer300, Ryll/Shaps, Seris02, GoldenAlpharex, Shadowtail117
+delete-after: true
+changes:
+  - rscadd: Speech Format Help verb under the OOC tab.
+  - rscadd: Text emphasis. Surrounding a block of text with underscores will italicize
+      it and surrounding it with two asterisks will bold it
+  - rscadd: Emotes that start with an apostrophe wont format weirdly
+  - rscadd: You can now have custom say mods, and can use them to emote over radio.
+      say";screeches-HELP SECURITY!" results in [Common] Joe screeches, "HELP SECURITY!"
