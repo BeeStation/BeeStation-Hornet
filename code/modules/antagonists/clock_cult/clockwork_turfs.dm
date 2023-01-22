@@ -40,13 +40,16 @@
 	explosion_block = 2
 	hardness = 10
 	slicing_duration = 80
-	sheet_type = /obj/item/stack/tile/brass
+	sheet_type = /obj/item/stack/sheet/brass
 	sheet_amount = 1
 	girder_type = /obj/structure/destructible/clockwork/wall_gear
 	baseturfs = /turf/open/floor/clockwork/reebe
 	var/obj/effect/clockwork/overlay/wall/realappearence
 	var/d_state = INTACT
 	flags_1 = NOJAUNT_1
+	icon = 'icons/turf/walls/clockwork_wall.dmi'
+	icon_state = "clockwork_wall-0"
+	base_icon_state = "clockwork_wall"
 
 /turf/closed/wall/clockwork/Initialize(mapload)
 	. = ..()
@@ -211,7 +214,7 @@
 
 /turf/open/floor/clockwork/make_plating()
 	if(!dropped_brass)
-		new /obj/item/stack/tile/brass(src)
+		new /obj/item/stack/sheet/brass(src)
 		dropped_brass = TRUE
 	if(islist(baseturfs))
 		if(type in baseturfs)
@@ -303,6 +306,8 @@
 /obj/structure/lattice/catwalk/clockwork
 	name = "clockwork catwalk"
 	icon = 'icons/obj/smooth_structures/catwalks/catwalk_clockwork.dmi'
+	icon_state = "catwalk_clockwork-0"
+	base_icon_state = "catwalk_clockwork"
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_CATWALK)
@@ -403,7 +408,7 @@
 	if(!(flags_1 & NODECONSTRUCT_1))
 		var/turf/T = get_turf(src)
 		if(disassembled)
-			new/obj/item/stack/tile/brass(T, 4)
+			new/obj/item/stack/sheet/brass(T, 4)
 		else
 			new/obj/item/clockwork/alloy_shards(T)
 	qdel(src)
@@ -503,7 +508,7 @@
 	density = FALSE
 	obj_integrity = 20
 	broken = TRUE
-	rods_type = /obj/item/stack/tile/brass
+	rods_type = /obj/item/stack/sheet/brass
 	rods_amount = 1
 	rods_broken = FALSE
 	grille_type = /obj/structure/grille/ratvar
@@ -523,7 +528,7 @@
 	armor = list("melee" = 40, "bullet" = -20, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100, "stamina" = 0)
 	explosion_block = 2 //fancy AND hard to destroy. the most useful combination.
 	decon_speed = 40
-	glass_type = /obj/item/stack/tile/brass
+	glass_type = /obj/item/stack/sheet/brass
 	glass_amount = 1
 	reinf = FALSE
 	var/made_glow = FALSE

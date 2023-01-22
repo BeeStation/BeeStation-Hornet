@@ -168,7 +168,7 @@
 	icon_state = "dogbed"
 	desc = "A comfy-looking dog bed. You can even strap your pet in, in case the gravity turns off."
 	anchored = FALSE
-	buildstacktype = /obj/item/stack/sheet/mineral/wood
+	buildstacktype = /obj/item/stack/sheet/wood
 	buildstackamount = 10
 	var/owned = FALSE
 
