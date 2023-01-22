@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/stack/cable_coil/random/five = 6,
 	/obj/item/stack/medical/bruise_pack = 1,
 	/obj/item/stack/rods/ten = 9,
-	/obj/item/stack/rods/twentyfive = 1,
+	/obj/item/stack/rods/twenty = 1,
 	/obj/item/stack/rods/fifty = 1,
 	/obj/item/stack/sheet/cardboard = 2,
 	/obj/item/stack/sheet/iron/twenty = 1,

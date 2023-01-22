@@ -83,7 +83,7 @@
 			return TRUE
 		if("PRG_redeem_TC")
 			if (hard_drive.traitor_data.contractor_hub.contract_TC_to_redeem)
-				var/obj/item/stack/telecrystal/crystals = new /obj/item/stack/telecrystal(get_turf(user),
+				var/obj/item/stack/sheet/telecrystal/crystals = new /obj/item/stack/sheet/telecrystal(get_turf(user),
 															hard_drive.traitor_data.contractor_hub.contract_TC_to_redeem)
 				if(ishuman(user))
 					var/mob/living/carbon/human/H = user

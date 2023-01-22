@@ -111,6 +111,8 @@
 
 #define STATUS_EFFECT_CLOUDSTRUCK /datum/status_effect/cloudstruck //blinds and applies an overlay.
 
+#define STATUS_EFFECT_COCOONED /datum/status_effect/cocooned /// If a moth is in a cocoon
+
 ///Raises click cooldowns for everything you do.
 #define STATUS_EFFECT_WOOZY /datum/status_effect/woozy
 
@@ -119,7 +121,6 @@
 
 /// makes you seize up. reminds me of this video https://www.youtube.com/watch?v=wvkHIZg_954
 #define STATUS_EFFECT_SEIZURE /datum/status_effect/seizure
-
 
 //---------//
 // NEUTRAL //
