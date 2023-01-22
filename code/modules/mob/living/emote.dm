@@ -391,7 +391,7 @@
 			var/type = input("Is this a visible or hearable emote?") as null|anything in list("Visible", "Hearable")
 			if(type == "Hearable")
 				emote_type |= EMOTE_AUDIBLE
-			message = custom_emote
+			message = user.say_emphasis(custom_emote)
 	else
 		message = params
 		if(type_override)
