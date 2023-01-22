@@ -32,11 +32,12 @@
 	owner.clear_alert("hypnosis")
 	var/datum/mind/M = owner.mind
 	var/datum/antagonist/hypnotized/B = M.has_antag_datum(/datum/antagonist/hypnotized)
-	if(B)
-		for(var/O in hypnotic_phrase)
-			var/datum/objective/hypnotized/objective = new(O)
-			B.objectives -= objective
-		M.remove_antag_datum(/datum/antagonist/hypnotized)
+	if(!B)
+		return
+	for(var/O in hypnotic_phrase)
+		var/datum/objective/hypnotized/objective = new(O)
+		B.objectives -= objective
+	M.remove_antag_datum(/datum/antagonist/hypnotized)
 
 /datum/brain_trauma/hypnosis/on_life()
 	..()
