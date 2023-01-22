@@ -1,6 +1,0 @@
-author: Pigeonverde322, Imaginos16
-delete-after: true
-changes:
-  - imageadd: new icons for materials and ores.
-  - refactor: refactored how the material code is sorted out.
-  - imagedel: removed some unused material and ore icons that they where just bad.
