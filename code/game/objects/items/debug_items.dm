@@ -113,9 +113,10 @@
 			tool_behaviour = TOOL_RUSTSCRAPER
 
 /obj/item/construction/rcd/arcd/debug
-	name = "CentCom Admin RCD"
+	name = "\improper CentCom Admin RCD"
 	icon_state = "ircd"
 	item_state = "ircd"
+	w_class = WEIGHT_CLASS_TINY
 	max_matter = INFINITY
 	matter = INFINITY
 	delay_mod = 0.1
@@ -124,7 +125,8 @@
 	canRturf = TRUE
 
 /obj/item/construction/rld/debug
-	name = "CentCom Admin RLD"
+	name = "\improper CentCom Admin RLD"
+	w_class = WEIGHT_CLASS_TINY
 	max_matter = INFINITY
 	matter = INFINITY
 	walldelay = 0.1
@@ -133,11 +135,13 @@
 
 /obj/item/holosign_creator/atmos/debug
 	name = "\improper CentCom ATMOS holofan projector"
+	w_class = WEIGHT_CLASS_TINY
 	max_signs = 999
 	ranged = TRUE
 
 /obj/item/pipe_dispenser/debug
-	name= "CentCom Rapid Pipe Dispenser (RPD)"
+	name= "\improper CentCom Rapid Pipe Dispenser (RPD)"
+	w_class = WEIGHT_CLASS_TINY
 	atmos_build_speed = 0.1
 	disposal_build_speed = 0.1
 	transit_build_speed = 0.1
@@ -147,13 +151,13 @@
 	ranged = TRUE
 
 /obj/item/spellbook/debug
-	name = "Robehator's spell book"
+	name = "\improper Robehator's spell book"
 	uses = 200
 	debug = TRUE
 
 //Debug suit
 /obj/item/clothing/head/helmet/space/hardsuit/debug
-	name = "central command black hardsuit helmet"
+	name = "\improper Central Command black hardsuit helmet"
 	desc = "very powerful."
 	icon_state = "hardsuit0-syndielite"
 	hardsuit_type = "syndielite"
@@ -164,10 +168,11 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/item/clothing/suit/space/hardsuit/debug
-	name = "central command black hardsuit"
+	name = "\improper Central Command black hardsuit"
 	desc = "very powerful."
 	icon_state = "hardsuit0-syndielite"
 	hardsuit_type = "syndielite"
+	w_class = WEIGHT_CLASS_TINY
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/debug
 	armor = list("melee" = 300, "bullet" = 300, "laser" = 300, "energy" = 300, "bomb" = 300, "bio" = 300, "rad" = 300, "fire" = 300, "acid" = 300, "stamina" = 300) // prevent armor penetration
 	gas_transfer_coefficient = 0
@@ -204,6 +209,7 @@
 /obj/item/storage/box/debugtools
 	name = "box of debug tools"
 	icon_state = "syndiebox"
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/storage/box/debugtools/ComponentInitialize()
 	. = ..()
@@ -240,10 +246,11 @@
 	generate_items_inside(items_inside,src)
 
 /obj/item/debug/orb_of_power
-	name = "orb of power"
+	name = "\improper Orb of Power"
 	desc = "grants incredible power to its owner."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "sp_green"
+	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/traits_to_give = list(
 		TRAIT_MADNESS_IMMUNE,

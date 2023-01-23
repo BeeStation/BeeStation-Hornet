@@ -237,8 +237,26 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	var/upgrade_flags
 	var/locked = FALSE //wheter we can change categories. Useful for the plumber
 	var/ranged = FALSE
-	var/static/list/rpd_targets = list()
-	var/static/list/rpd_whitelist = list()
+
+	/// you can remove these through RPD
+	var/static/list/rpd_targets = typecacheof(list(
+			/obj/item/pipe,
+			/obj/structure/disposalconstruct,
+			/obj/structure/disposalpipe/broken,
+			/obj/structure/c_transit_tube,
+			/obj/structure/c_transit_tube_pod,
+			/obj/item/pipe_meter
+		))
+	/// you can attempt using RPD on these
+	var/static/list/rpd_whitelist = typecacheof(list(
+			/obj/structure/lattice,
+			/obj/structure/girder,
+			/obj/item/pipe,
+			/obj/structure/window,
+			/obj/structure/grille
+		))
+	/// list of atmos constructs that we don't want to attack with RPD
+	var/static/list/atmos_constructs = typecacheof(list(/obj/machinery/atmospherics, /obj/structure/transit_tube))
 
 /obj/item/pipe_dispenser/Initialize(mapload)
 	. = ..()
@@ -253,25 +271,6 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 		first_transit = GLOB.transit_tube_recipes[GLOB.transit_tube_recipes[1]][1]
 
 	recipe = first_atmos
-
-	if(!length(rpd_targets))
-		rpd_targets = typecacheof(list(
-			/obj/item/pipe,
-			/obj/structure/disposalconstruct,
-			/obj/structure/disposalpipe/broken,
-			/obj/structure/c_transit_tube,
-			/obj/structure/c_transit_tube_pod,
-			/obj/item/pipe_meter
-		))
-	if(!length(rpd_whitelist))
-		rpd_whitelist = typecacheof(list(
-			/obj/structure/lattice,
-			/obj/structure/girder,
-			/obj/item/pipe,
-			/obj/structure/window,
-			/obj/structure/grille
-		))
-
 
 /obj/item/pipe_dispenser/Destroy()
 	qdel(spark_system)
@@ -432,7 +431,6 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 
 /obj/item/pipe_dispenser/attack_obj(obj/O, mob/living/user)
 	// don't attempt to attack what we don't want to attack
-	var/static/list/atmos_constructs = typecacheof(list(/obj/machinery/atmospherics, /obj/structure/transit_tube))
 	if(is_type_in_typecache(O, atmos_constructs) || is_type_in_typecache(O, rpd_targets) || is_type_in_typecache(O, rpd_whitelist))
 		return
 
@@ -447,7 +445,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 		if(proximity || ranged)
 			rpd_create(A, user)
 			return
-	
+
 	return ..()
 
 /obj/item/pipe_dispenser/proc/rpd_create(atom/A, mob/user)
