@@ -371,7 +371,7 @@
 
 /obj/item/modular_computer/tablet/pda/Initialize(mapload)
 	. = ..()
-	install_component(new /obj/item/computer_hardware/hard_drive/small)
+	install_component(new /obj/item/computer_hardware/hard_drive/small/pda)
 	install_component(new /obj/item/computer_hardware/processor_unit/small)
 	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
 	install_component(new /obj/item/computer_hardware/network_card)
