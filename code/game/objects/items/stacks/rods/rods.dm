@@ -24,6 +24,8 @@
 
 /obj/item/stack/rods/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()
+	if(QDELETED(src)) // we can be deleted during merge, check before doing stuff
+		return
 
 	recipes = GLOB.rod_recipes
 	update_icon()
