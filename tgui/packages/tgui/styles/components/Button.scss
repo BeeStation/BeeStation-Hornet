@@ -37,8 +37,8 @@ $bg-map: colors.$bg-map !default;
   &:focus {
     background-color: if(
       $luminance > 0.6,
-      darken($color, 10%),
-      lighten($color, 15%)
+      darken($color, 15%),
+      lighten($color, 30%)
     );
     color: $text-color;
   }

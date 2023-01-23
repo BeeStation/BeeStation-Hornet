@@ -232,7 +232,7 @@
 		I.play_tool_sound(src)
 		if(I.use_tool(src, user, 30))
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
-			new /obj/item/stack/sheet/mineral/wood(get_turf(src), 5)
+			new /obj/item/stack/sheet/wood(get_turf(src), 5)
 			qdel(src)
 
 	else if(istype(I, /obj/item/electronics/airlock))

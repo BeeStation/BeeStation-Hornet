@@ -620,10 +620,10 @@
 		var/obj/item/toy/plush/carpplushie/dehy_carp/dehy = O
 		dehy.Swell() // Makes a carp
 
-	else if(istype(O, /obj/item/stack/sheet/hairlesshide))
+	else if(istype(O, /obj/item/stack/sheet/leather/hairlesshide))
 		to_chat(owner, "<span class='warning'>[linked_extract] kept your hands wet! It wets [O]!</span>")
-		var/obj/item/stack/sheet/hairlesshide/HH = O
-		new /obj/item/stack/sheet/wetleather(get_turf(HH), HH.amount)
+		var/obj/item/stack/sheet/leather/hairlesshide/HH = O
+		new /obj/item/stack/sheet/leather/wetleather(get_turf(HH), HH.amount)
 		qdel(HH)
 	..()
 
