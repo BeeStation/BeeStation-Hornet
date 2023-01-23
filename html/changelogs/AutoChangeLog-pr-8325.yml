@@ -1,4 +1,0 @@
-author: RKz
-delete-after: true
-changes:
-  - bugfix: Railings now correctly drop their iron rod components when deconstructed
