@@ -57,8 +57,8 @@
 	message = "mumbles"
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/carbon/human/givesItem
-	key = "givesitem"
+/datum/emote/living/carbon/human/offer
+	key = "offer"
 	message = "offers an item"
 
 /datum/emote/living/carbon/human/moth
