@@ -603,4 +603,4 @@
 /datum/config_entry/flag/enable_mrat
 
 
-/datum/config_entry/string/discord_ooc_channel
+/datum/config_entry/string/discord_ooc_tag
