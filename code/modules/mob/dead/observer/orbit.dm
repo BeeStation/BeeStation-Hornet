@@ -108,4 +108,3 @@
 	// Scale it up
 	I.Scale(16, 16)
 	InsertAll("job-icon", I)
-	..()
