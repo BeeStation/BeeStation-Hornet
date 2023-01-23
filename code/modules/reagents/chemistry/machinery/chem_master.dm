@@ -177,18 +177,6 @@
 		SL["className"] = assets.icon_class_name("pill[x]")
 		pill_styles += list(SL)
 
-	/* We don't have custom patch style, but It's remained here to notify how that can be done.
-	var/datum/asset/spritesheet/simple/patches_assets = get_asset_datum(/datum/asset/spritesheet/simple/patches)
-	patch_styles = list()
-	for (var/raw_patch_style in PATCH_STYLE_LIST)
-		//adding class_name for use in UI
-		var/list/patch_style = list()
-		patch_style["style"] = raw_patch_style
-		patch_style["class_name"] = patches_assets.icon_class_name(raw_patch_style)
-		patch_styles += list(patch_style)
-
-	condi_styles = strip_condi_styles_to_icons(get_condi_styles())*/
-
 /obj/machinery/chem_master/ui_assets(mob/user)
 	return list(
 		get_asset_datum(/datum/asset/spritesheet/simple/pills)
