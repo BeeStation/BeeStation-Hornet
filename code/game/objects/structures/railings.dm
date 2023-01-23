@@ -39,11 +39,14 @@
 
 /obj/structure/railing/wirecutter_act(mob/living/user, obj/item/I)
 	. = ..()
+	if(flags_1 & NODECONSTRUCT_1)
+		return
 	if(!anchored)
-		to_chat(user, "<span class='warning'>You cut apart the railing.</span>")
-		I.play_tool_sound(src, 100)
-		deconstruct()
-		return TRUE
+		to_chat(user, "<span class='warning'>You begin to cut apart [src]...</span>")
+		// Insta-disassemble is bad
+		if(I.use_tool(src, user, 2.5 SECONDS))
+			deconstruct()
+			return TRUE
 
 /obj/structure/railing/deconstruct(disassembled)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -57,7 +60,7 @@
 	if(flags_1&NODECONSTRUCT_1)
 		return
 	to_chat(user, "<span class='notice'>You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor...</span>")
-	if(I.use_tool(src, user, volume = 75, extra_checks = CALLBACK(src, .proc/check_anchored, anchored)))
+	if(I.use_tool(src, user, 1 SECONDS, volume = 75, extra_checks = CALLBACK(src, .proc/check_anchored, anchored)))
 		setAnchored(!anchored)
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor.</span>")
 	return TRUE
