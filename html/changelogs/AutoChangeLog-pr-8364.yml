@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - tweak: Railing deconstruction is no longer instant- 3.5 seconds total between
-      two steps, slightly longer than construction (3 seconds).
