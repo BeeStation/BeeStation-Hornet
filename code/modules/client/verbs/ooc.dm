@@ -105,15 +105,14 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	send_chat_to_discord(CHAT_TYPE_OOC, holder?.fakekey || key, raw_msg)
 
 /proc/send_chat_to_discord(type, sayer, msg)
-	var/discord_channel_name = CONFIG_GET(string/discord_ooc_channel) // check server config file. default value of discord_ooc_channel is `OOC-Bee`
-	if(!discord_channel_name)
-		return
+	var/discord_ooc_tag = CONFIG_GET(string/discord_ooc_tag) // check server config file. check `config.txt` file for the usage.
+	discord_ooc_tag = discord_ooc_tag ? "\[[discord_ooc_tag]\] " : ""
 	switch(type)
 		if(CHAT_TYPE_OOC)
-			discordsendmsg(discord_channel_name, "(OOC) **[sayer]:** [msg]")
+			discordsendmsg("ooc", "[discord_ooc_tag](OOC) **[sayer]:** [msg]")
 		if(CHAT_TYPE_DEADCHAT) // don't send these until a round is finished
 			if(SSticker.current_state == GAME_STATE_FINISHED)
-				discordsendmsg(discord_channel_name, "(Dead) **[sayer]:** [msg]")
+				discordsendmsg("ooc", "[discord_ooc_tag](Dead) **[sayer]:** [msg]")
 
 /proc/toggle_ooc(toggle = null)
 	if(toggle != null) //if we're specifically en/disabling ooc
