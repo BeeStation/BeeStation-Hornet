@@ -1,9 +1,0 @@
-author: Bobbanz1
-delete-after: true
-changes:
-  - code_imp: Changed the default installed PDA programs to only being installed on
-      the PDA subtype instead of the default Tablet SSD.
-  - code_imp: Changes the size of the Notepad to 0 and makes it undeletable and unavailable
-      on NTNet.
-  - code_imp: Moves the Wiki Uplink Program to only being installed by default on
-      the PDAs
