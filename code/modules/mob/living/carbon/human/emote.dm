@@ -58,8 +58,8 @@
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/givesItem
-	key = "gives"
-	message = "Holds out hand, offering it to you"
+	key = "givesitem"
+	message = "Offers you the item"
 
 /datum/emote/living/carbon/human/moth
 	// allow mothroach as well as human base mob - species check is done in can_run_emote

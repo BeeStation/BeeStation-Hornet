@@ -168,7 +168,7 @@
 	visible_message("<span class='notice'>[src] is offering [offered_item].</span>", \
 					"<span class='notice'>You offer [offered_item].</span>", null, 2)
 
-	message = "Holds out hand, offering it to you"
+	INVOKE_ASYNC(src, .proc/emote, "givesitem")
 
 	apply_status_effect(STATUS_EFFECT_OFFERING, offered_item)
 
