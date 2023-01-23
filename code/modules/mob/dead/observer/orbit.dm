@@ -101,7 +101,7 @@
 /datum/asset/spritesheet/job_icons
 	name = "job-icon"
 
-/datum/asset/spritesheet/job_icons/register()
+/datum/asset/spritesheet/job_icons/create_spritesheets()
 	var/icon/I = icon('icons/mob/hud.dmi')
 	// Get the job hud part
 	I.Crop(1, 17, 8, 24)
