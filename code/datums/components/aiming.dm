@@ -6,7 +6,7 @@
 #define DROP_WEAPON "drop_weapon"
 #define DROP_TO_FLOOR "drop_to_floor"
 #define CANCEL "cancel"
-#define SHOOT "fire"
+#define SHOOT "shoot"
 #define SURRENDER "surrender"
 #define IGNORE "ignore"
 
@@ -187,7 +187,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 			stop_aiming()
 			return
 		if(SHOOT)
-			fire()
+			shoot()
 			return
 		if(RAISE_HANDS)
 			user.say(pick("Put your hands above your head!", "Hands! Now!", "Hands up!"), forced = "Weapon aiming")
@@ -199,12 +199,12 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	COOLDOWN_START(src, voiceline_cooldown, 2 SECONDS)
 	show_ui(user, target, choice)
 
-/datum/component/aiming/proc/fire()
+/datum/component/aiming/proc/shoot()
 	var/obj/item/held = user.get_active_held_item()
 	if(held != parent)
 		stop_aiming()
 		return FALSE
-	if(istype(parent, /obj/item/gun)) // If we have a gun, fire it at the target
+	if(istype(parent, /obj/item/gun)) // If we have a gun, shoot it at the target
 		var/obj/item/gun/G = parent
 		G.afterattack(target, user, null, null, TRUE)
 		stop_aiming()
