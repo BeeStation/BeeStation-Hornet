@@ -50,7 +50,7 @@
 		P.name = pill_name
 		stored_pills += P
 		if(pill_shape == "pill_random_dummy")
-			P.icon_state = pick(PILL_SHAPE_LIST_MINUS_DUMMY)
+			P.icon_state = pick(PILL_SHAPE_LIST_WITHOUT_DUMMY)
 		else
 			P.icon_state = pill_shape
 		if(P.icon_state == "pill_shape_capsule_bloodred") //mirrored from chem masters
@@ -68,7 +68,7 @@
 
 /obj/machinery/plumbing/pill_press/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/simple/pills),
+		get_asset_datum(/datum/asset/spritesheet/simple/medicine_containers),
 	)
 
 

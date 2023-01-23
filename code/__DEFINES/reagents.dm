@@ -62,44 +62,57 @@
 	 The black line counts, so you can use that area for your sprite as well. */
 
 // pill shapes - check 'pills.dmi' for the shape
-#define PILL_SHAPE_LIST list(\
-	"pill_shape_capsule_purple_pink",\
-	"pill_shape_capsule_bloodred",\
-	"pill_shape_capsule_red_whiteline",\
-	"pill_shape_capsule_orange",\
-	"pill_shape_capsule_yellow",\
-	"pill_shape_capsule_green",\
-	"pill_shape_capsule_skyblue",\
-	"pill_shape_capsule_indigo",\
-	"pill_shape_capsule_pink",\
-	"pill_shape_capsule_white",\
-	"pill_shape_capsule_white_redlined",\
-	"pill_shape_capsule_red_orange",\
-	"pill_shape_capsule_yellow_green",\
-	"pill_shape_capsule_green_white",\
-	"pill_shape_capsule_cyan_brown",\
-	"pill_shape_capsule_purple_yellow",\
-	"pill_shape_capsule_black_white",\
-	"pill_shape_capsule_lightgreen_white",\
-	"pill_shape_tablet_red_lined",\
-	"pill_shape_tablet_lightred_flat",\
-	"pill_shape_tablet_orange_flat",\
-	"pill_shape_tablet_yellow_lined",\
-	"pill_shape_tablet_green_lined",\
-	"pill_shape_tablet_lightgreen_flat",\
-	"pill_shape_tablet_skyblue_lined",\
-	"pill_shape_tablet_navy_flat",\
-	"pill_shape_tablet_purple_lined",\
-	"pill_shape_tablet_pink_lined",\
-	"pill_shape_tablet_white_lined",\
-	"pill_shape_tablet_red_yellow_lined",\
-	"pill_shape_tablet_yellow_purple_lined",\
-	"pill_shape_tablet_green_purple_lined",\
-	"pill_shape_tablet_blue_skyblue_lined",\
-	"pill_shape_tablet_happy",\
-	"pill_shape_tablet_angry",\
-	"pill_shape_tablet_sad",\
-	"pill_random_dummy") // put this dummy pill at the end always
+GLOBAL_LIST_INIT(pill_shape_list, list(
+		"pill_shape_capsule_purple_pink",
+		"pill_shape_capsule_bloodred",
+		"pill_shape_capsule_red_whiteline",
+		"pill_shape_capsule_orange",
+		"pill_shape_capsule_yellow",
+		"pill_shape_capsule_green",
+		"pill_shape_capsule_skyblue",
+		"pill_shape_capsule_indigo",
+		"pill_shape_capsule_pink",
+		"pill_shape_capsule_white",
+		"pill_shape_capsule_white_redlined",
+		"pill_shape_capsule_red_orange",
+		"pill_shape_capsule_yellow_green",
+		"pill_shape_capsule_green_white",
+		"pill_shape_capsule_cyan_brown",
+		"pill_shape_capsule_purple_yellow",
+		"pill_shape_capsule_black_white",
+		"pill_shape_capsule_lightgreen_white",
+		"pill_shape_tablet_red_lined",
+		"pill_shape_tablet_lightred_flat",
+		"pill_shape_tablet_orange_flat",
+		"pill_shape_tablet_yellow_lined",
+		"pill_shape_tablet_green_lined",
+		"pill_shape_tablet_lightgreen_flat",
+		"pill_shape_tablet_skyblue_lined",
+		"pill_shape_tablet_navy_flat",
+		"pill_shape_tablet_purple_lined",
+		"pill_shape_tablet_pink_lined",
+		"pill_shape_tablet_white_lined",
+		"pill_shape_tablet_red_yellow_lined",
+		"pill_shape_tablet_yellow_purple_lined",
+		"pill_shape_tablet_green_purple_lined",
+		"pill_shape_tablet_blue_skyblue_lined",
+		"pill_shape_tablet_happy",
+		"pill_shape_tablet_angry",
+		"pill_shape_tablet_sad",
+		"pill_random_dummy")) // put this dummy pill at the end always
+GLOBAL_PROTECT(pill_shape_list)
 
-// this lets 'pick(PILL_SHAPE_LIST_MINUS_DUMMY)' choose a proper pill sprite randomly.
-#define PILL_SHAPE_LIST_MINUS_DUMMY PILL_SHAPE_LIST-"pill_random_dummy"
+// using these defines will be consistently manageable
+#define PILL_SHAPE_LIST (GLOB.pill_shape_list)
+#define PILL_SHAPE_LIST_WITHOUT_DUMMY (GLOB.pill_shape_list-"pill_random_dummy")
+
+GLOBAL_LIST_INIT(patch_shape_list, list(
+		"bandaid_small_cross",
+		"bandaid_small_blank",
+		"bandaid_big_brute",
+		"bandaid_big_burn",
+		"bandaid_big_both",
+		"bandaid_big_blank",))
+GLOBAL_PROTECT(patch_shape_list)
+
+#define PATCH_SHAPE_LIST (GLOB.patch_shape_list)

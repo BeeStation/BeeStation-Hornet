@@ -48,7 +48,7 @@ export const ChemPress = (props, context) => {
                   onClick={() => act('change_pill_style', { each_style: pill.id })}>
                   <Box mx={-1}
                     className={classes([
-                      'pill24x24',
+                      'medicine_containers24x24',
                       each_style.pill_icon_name,
                     ])} />
                 </Button>

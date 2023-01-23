@@ -9,7 +9,7 @@ export const ChemMaster = (props, context) => {
   return (
     <Window
       width={465}
-      height={550}>
+      height={620}>
       <Window.Content scrollable>
         {screen === 'analyze' && (
           <AnalysisResults />
@@ -293,6 +293,8 @@ const PackagingControls = ({ volume, packagingName }, context) => {
     condi,
     chosenPillStyle,
     pillStyles = [],
+    chosenPatchStyle,
+    patchStyles = [],
   } = data;
   return (
     <LabeledList>
@@ -308,8 +310,27 @@ const PackagingControls = ({ volume, packagingName }, context) => {
               onClick={() => act('pillStyle', { id: each_style.id })}>
               <Box mx={-1}
                 className={classes([
-                  'pill24x24',
+                  'medicine_containers24x24',
                   each_style.pill_icon_name,
+                ])} />
+            </Button>
+          ))}
+        </LabeledList.Item>
+      )}
+      {!condi && (
+        <LabeledList.Item label="Patch type">
+          {patchStyles.map(each_style => (
+            <Button
+              key={each_style.id}
+              width="30px"
+              selected={each_style.id === chosenPatchStyle}
+              textAlign="center"
+              color="transparent"
+              onClick={() => act('patchStyle', { id: each_style.id })}>
+              <Box mx={-1}
+                className={classes([
+                  'medicine_containers24x24',
+                  each_style.patch_icon_name,
                 ])} />
             </Button>
           ))}

@@ -1,7 +1,7 @@
 /obj/item/reagent_containers/pill
 	name = "pill"
 	desc = "A tablet or capsule."
-	icon = 'icons/obj/pills.dmi'
+	icon = 'icons/obj/medicine_containers.dmi'
 	icon_state = "pill_shape_capsule_purple_pink"
 	item_state = "pill_shape_capsule_purple_pink"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
@@ -18,7 +18,7 @@
 /obj/item/reagent_containers/pill/Initialize(mapload)
 	. = ..()
 	if(!icon_state)
-		icon_state = pick(PILL_SHAPE_LIST_MINUS_DUMMY)
+		icon_state = pick(PILL_SHAPE_LIST_WITHOUT_DUMMY)
 	if(reagents.total_volume && rename_with_volume)
 		name += " ([reagents.total_volume]u)"
 

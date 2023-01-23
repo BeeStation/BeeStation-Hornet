@@ -245,18 +245,25 @@
 		"default" = 'icons/UI_Icons/Achievements/default.png'
 	)
 
-/datum/asset/spritesheet/simple/pills
-	name ="pill"
+/datum/asset/spritesheet/simple/medicine_containers
+	name ="medicine_containers"
 
-/datum/asset/spritesheet/simple/pills/register()
-	var/dmi_file = 'icons/obj/pills.dmi'
+/datum/asset/spritesheet/simple/medicine_containers/register()
+	var/dmi_file = 'icons/obj/medicine_containers.dmi'
 	for(var/each_pill_shape in PILL_SHAPE_LIST)
 		var/icon/target_icon = icon(dmi_file, each_pill_shape, SOUTH, 1)
 		if(!target_icon)
 			continue
-		target_icon.Crop(10,21, 22,9)
+		target_icon.Crop(10,9, 22,21)
 		target_icon.Scale(24, 24)
 		Insert(each_pill_shape, target_icon)
+	for(var/each_patch_shape in PATCH_SHAPE_LIST)
+		var/icon/target_icon = icon(dmi_file, each_patch_shape, SOUTH, 1)
+		if(!target_icon)
+			continue
+		target_icon.Crop(10,11, 22,23)
+		target_icon.Scale(24, 24)
+		Insert(each_patch_shape, target_icon)
 	return ..()
 
 //this exists purely to avoid meta by pre-loading all language icons.
