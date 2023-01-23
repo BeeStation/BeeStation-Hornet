@@ -1,0 +1,5 @@
+author: RKz
+delete-after: true
+changes:
+  - spellcheck: all mentions of "°K" have been removed, because degrees are not used
+      to measure kelvin, kelvin is used to measure kelvin
