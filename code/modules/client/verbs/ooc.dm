@@ -25,6 +25,14 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 		if(prefs.muted & MUTE_OOC)
 			to_chat(src, "<span class='danger'>You cannot use OOC (muted).</span>")
 			return
+	else
+		if(SSticker.current_state == GAME_STATE_PLAYING && holder.ooc_confirmation_enabled)
+			var/choice = alert("The round is still ongoing, are you sure you wish to send an OOC message?", "Confirm midround OOC?", "No", "Yes", "Always yes for this round")
+			switch(choice)
+				if("No")
+					return
+				if("Always yes for this round")
+					holder.ooc_confirmation_enabled = FALSE
 	if(is_banned_from(ckey, "OOC"))
 		to_chat(src, "<span class='danger'>You have been banned from OOC.</span>")
 		return
@@ -301,3 +309,16 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 		return
 
 	GLOB.error_cache.show_to_minimal(src)
+
+/client/verb/speech_format_help()
+	set name = "Speech Format Help"
+	set category = "OOC"
+	set desc = "Chat formatting help"
+
+	var/message = "<span class='big'>You can add emphasis to your text by surrounding words or sentences in certain characters.</span>\n \
+		**bold**, and _italics_ are supported.\n\n \
+		<span class='big'>You can made custom saymods by doing <i>say 'screams- HELP IM DYING!'</i>. This works over the radio, and can be used to emote over the radio.</span>\n \
+		Example: say ';laughs maniacally!-' >> \[Common] Joe Schmoe laughs maniacally!"
+
+
+	to_chat(usr, "<span class='notice'>[message]</span>")

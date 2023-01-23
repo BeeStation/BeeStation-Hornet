@@ -75,7 +75,7 @@
 /datum/export/stack/wood
 	cost = 30
 	unit_name = "wood plank"
-	export_types = list(/obj/item/stack/sheet/mineral/wood)
+	export_types = list(/obj/item/stack/sheet/wood)
 
 /datum/export/stack/cardboard
 	cost = 2
