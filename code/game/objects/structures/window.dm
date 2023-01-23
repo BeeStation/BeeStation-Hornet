@@ -305,6 +305,8 @@
 		. += new /obj/item/shard(location)
 
 /obj/structure/window/proc/can_be_rotated(mob/user,rotation_type)
+	if(!in_range(user, src))
+		return
 	if(anchored)
 		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
 		return FALSE
@@ -486,7 +488,7 @@
 /obj/structure/window/depleteduranium
 	name = "depleted uranium window"
 	desc = "A window made out of depleted uranium. It looks perfect for radiation shielding!"
-	icon_state = "du_window"
+	icon_state = "duwindow"
 	reinf = TRUE
 	heat_resistance = 50000
 	armor = list("melee" = 45, "bullet" = 20, "laser" = 0, "energy" = 0, "bomb" = 60, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 0)
@@ -709,7 +711,7 @@
 		. += "<span class='info'>It looks a bit damaged, you may be able to fix it with some <b>paper</b>.</span>"
 
 /obj/structure/window/paperframe/spawnDebris(location)
-	. = list(new /obj/item/stack/sheet/mineral/wood(location))
+	. = list(new /obj/item/stack/sheet/wood(location))
 	for (var/i in 1 to rand(1,4))
 		. += new /obj/item/paper/natural(location)
 
@@ -764,7 +766,7 @@
 	desc = "A paper-thin pane of translucent yet reinforced brass. Nevermind, this is just weak bronze!"
 	icon = 'icons/obj/smooth_structures/windows/clockwork_window.dmi'
 	icon_state = "clockwork_window_single"
-	glass_type = /obj/item/stack/tile/bronze
+	glass_type = /obj/item/stack/sheet/bronze
 
 /obj/structure/window/bronze/unanchored
 	anchored = FALSE

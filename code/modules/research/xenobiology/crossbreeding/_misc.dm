@@ -325,7 +325,7 @@ Slimecrossing Items
 		return
 	var/obj/item/stack/stack_item = target
 
-	if(istype(stack_item,/obj/item/stack/telecrystal))
+	if(istype(stack_item,/obj/item/stack/sheet/telecrystal))
 		to_chat(user,"<span class='notice'>The crystal disappears!</span>")
 		qdel(src)
 		return

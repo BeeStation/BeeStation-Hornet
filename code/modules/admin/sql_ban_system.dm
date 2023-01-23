@@ -819,7 +819,7 @@
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	var/target = ban_target_string(player_key, player_ip, player_cid)
-	if(alert(usr, "Please confirm unban of [target] from [role].", "Unban confirmation", "Yes", "No") == "No")
+	if(alert(usr, "Please confirm unban of [target] from [role].", "Unban confirmation", "Yes", "No") != "Yes")
 		return
 	var/kn = key_name(usr)
 	var/kna = key_name_admin(usr)
