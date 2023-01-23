@@ -104,7 +104,7 @@
 			G.source = get_or_create_estorage(/datum/robot_energy_storage/metal)
 			G.glasource = get_or_create_estorage(/datum/robot_energy_storage/glass)
 
-		else if(istype(S, /obj/item/stack/tile/brass))
+		else if(istype(S, /obj/item/stack/sheet/brass))
 			S.cost = 500
 			S.source = get_or_create_estorage(/datum/robot_energy_storage/brass)
 
@@ -266,7 +266,7 @@
 		/obj/item/reagent_containers/borghypo/epi,
 		/obj/item/healthanalyzer,
 		/obj/item/borg/charger,
-		/obj/item/weldingtool/largetank/cyborg,
+		/obj/item/weldingtool/cyborg,
 		/obj/item/wrench/cyborg,
 		/obj/item/crowbar/cyborg,
 		/obj/item/stack/sheet/iron/cyborg,
@@ -285,7 +285,7 @@
 		/obj/item/clock_module/kindle,
 		/obj/item/clock_module/abstraction_crystal,
 		/obj/item/clockwork/replica_fabricator,
-		/obj/item/stack/tile/brass/cyborg,
+		/obj/item/stack/sheet/brass/cyborg,
 		/obj/item/clockwork/weapon/brass_spear)
 	moduleselect_icon = "standard"
 	hat_offset = -3
@@ -334,7 +334,7 @@
 		/obj/item/construction/rcd/borg,
 		/obj/item/pipe_dispenser,
 		/obj/item/extinguisher,
-		/obj/item/weldingtool/largetank/cyborg,
+		/obj/item/weldingtool/cyborg,
 		/obj/item/screwdriver/cyborg,
 		/obj/item/wrench/cyborg,
 		/obj/item/crowbar/cyborg,
@@ -361,7 +361,7 @@
 		/obj/item/clock_module/stargazer,
 		/obj/item/clock_module/abstraction_crystal,
 		/obj/item/clockwork/replica_fabricator,
-		/obj/item/stack/tile/brass/cyborg)
+		/obj/item/stack/sheet/brass/cyborg)
 	cyborg_base_icon = "engineer"
 	moduleselect_icon = "engineer"
 	magpulsing = TRUE
@@ -610,7 +610,7 @@
 		/obj/item/shovel,
 		/obj/item/borg/charger,
 		/obj/item/crowbar/cyborg,
-		/obj/item/weldingtool/mini,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/extinguisher/mini,
 		/obj/item/storage/bag/sheetsnatcher/borg,
 		/obj/item/gun/energy/kinetic_accelerator/cyborg,
@@ -721,7 +721,7 @@
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/borg/charger,
 		/obj/item/extinguisher,
-		/obj/item/weldingtool/largetank/cyborg,
+		/obj/item/weldingtool/cyborg,
 		/obj/item/screwdriver/nuke,
 		/obj/item/wrench/cyborg,
 		/obj/item/crowbar/cyborg,

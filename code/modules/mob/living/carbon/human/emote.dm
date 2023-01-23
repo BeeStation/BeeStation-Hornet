@@ -187,6 +187,8 @@
 		return FALSE
 	var/obj/item/organ/wings/wings = getorganslot(ORGAN_SLOT_WINGS)
 	if(istype(wings))
+		if(ismoth(src) && HAS_TRAIT(src, TRAIT_MOTH_BURNT))
+			return FALSE
 		if(wings.toggleopen(src))
 			return TRUE
 	return FALSE

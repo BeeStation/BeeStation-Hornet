@@ -298,7 +298,7 @@
 	name = "Wood Golem"
 	id = SPECIES_GOLEM_WOOD
 	fixed_mut_color = "9E704B"
-	meat = /obj/item/stack/sheet/mineral/wood
+	meat = /obj/item/stack/sheet/wood
 	//Can burn and take damage from heat
 	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_NOGUNS,TRAIT_RADIMMUNE,TRAIT_PIERCEIMMUNE,TRAIT_NODISMEMBER)
 	armor = 30
@@ -1129,7 +1129,7 @@
 	for(var/obj/item/W in H)
 		H.dropItemToGround(W)
 	for(var/i=1, i <= rand(3,5), i++)
-		new /obj/item/stack/sheet/mineral/snow(get_turf(H))
+		new /obj/item/stack/sheet/snow(get_turf(H))
 	new /obj/item/reagent_containers/food/snacks/grown/carrot(get_turf(H))
 	qdel(H)
 

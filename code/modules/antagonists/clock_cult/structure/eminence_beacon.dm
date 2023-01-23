@@ -21,7 +21,7 @@
 		to_chat(user, "<span class='brass'>The Eminence has already been released.</span>")
 		return
 	var/option = alert(user,"Who shall control the Eminence?",,"Yourself","A ghost", "Cancel")
-	if(option == "Cancel")
+	if(option != "A ghost")
 		return
 	else if(option == "Yourself")
 		hierophant_message("[user] has elected themselves to become the Eminence. Interact with [src] to object.", span="<span=large_brass>")

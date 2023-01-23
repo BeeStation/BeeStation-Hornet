@@ -134,7 +134,7 @@
 			current_pad.display_name = new_name
 			. = TRUE
 		if("remove")
-			if(usr && alert(usr, "Are you sure?", "Unlink Launchpad", "I'm Sure", "Abort") != "Abort")
+			if(usr && alert(usr, "Are you sure?", "Unlink Launchpad", "I'm Sure", "Abort") == "I'm Sure")
 				launchpads -= current_pad
 				selected_id = null
 			. = TRUE

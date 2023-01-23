@@ -5562,7 +5562,7 @@
 /obj/item/stack/sheet/cardboard{
 	amount = 3
 	},
-/obj/item/stack/rods/twentyfive,
+/obj/item/stack/rods/twenty,
 /obj/item/stock_parts/cell/high/plus,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
