@@ -148,7 +148,7 @@
 	. = ..()
 	if(istype(target, /obj/mecha))
 		var/obj/mecha/M = target
-		M.take_damage(50, BRUTE, "melee", 1)
+		M.take_damage(50, BRUTE, MELEE, 1)
 
 /mob/living/simple_animal/hostile/space_dragon/Move()
 	if(!using_special)
@@ -307,7 +307,7 @@
 		if(M in hit_list)
 			continue
 		hit_list += M
-		M.take_damage(50, BRUTE, "melee", 1)
+		M.take_damage(50, BRUTE, MELEE, 1)
 
 /**
   * Handles consuming and storing consumed things inside Space Dragon
