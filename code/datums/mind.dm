@@ -174,7 +174,7 @@
 /// ------------- parent types -------------------
 /// Sets a mind's role/job
 /datum/mind/proc/_set_role(list_key, role_key)
-	mind_roles[list_key][role_key] = TRUE
+	mind_roles[list_key][role_key] = role_key // `mind_roles[list_key][role_key]` will return its `role_key`
 
 /// Removes a specific role in a mind
 /datum/mind/proc/_remove_role(list_key, role_key)
@@ -196,7 +196,6 @@
 			return TRUE
 	return FALSE
 
-//-------------------------------------------------------------------------------
 /// ------------- Job -------------------
 /// Sets a mind's job
 /datum/mind/proc/set_job(job_key)
@@ -224,7 +223,6 @@
 		return
 	return _has_role(RLPK_HOLDER_JOBS, job_key)
 
-//-------------------------------------------------------------------------------
 /// ------------- role -------------------
 /// Sets a mind's role
 /datum/mind/proc/set_role(role_key)
