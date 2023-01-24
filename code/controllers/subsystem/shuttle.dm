@@ -656,9 +656,8 @@ SUBSYSTEM_DEF(shuttle)
 	if (!loaded_shuttle_reference)
 		loaded_shuttle_reference = new()
 	var/datum/map_generator/shuttle_loader = load_template(loading_template, loaded_shuttle_reference)
-	shuttle_loader.on_completion(CALLBACK(src, .proc/action_load_completed, destination_port, loaded_shuttle_reference))
-	//Linkup must be done after action load
-	shuttle_loader.on_completion(CALLBACK(src, .proc/linkup_shuttle_after_load, loading_template, destination_port, loaded_shuttle_reference))
+	shuttle_loader.on_completion(COMPLETION_PRIORITY_ACTION_LOAD, CALLBACK(src, .proc/action_load_completed, destination_port, loaded_shuttle_reference))
+	shuttle_loader.on_completion(COMPLETION_PRIORITY_LINKUP, CALLBACK(src, .proc/linkup_shuttle_after_load, loading_template, destination_port, loaded_shuttle_reference))
 	preview_template = loading_template
 	return shuttle_loader
 
@@ -728,7 +727,7 @@ SUBSYSTEM_DEF(shuttle)
 		CRASH("failed to reserve an area for shuttle template loading")
 	var/turf/BL = TURF_FROM_COORDS_LIST(preview_reservation.bottom_left_coords)
 	var/datum/map_generator/shuttle_loader = S.load(BL, FALSE, TRUE, TRUE, FALSE)
-	shuttle_loader.on_completion(CALLBACK(src, .proc/template_loaded, S, BL, shuttle_reference))
+	shuttle_loader.on_completion(COMPLETION_PRIORITY_BEFORE_INITIALISE, CALLBACK(src, .proc/template_loaded, S, BL, shuttle_reference))
 	return shuttle_loader
 
 /// Template loaded completed.
@@ -894,7 +893,7 @@ SUBSYSTEM_DEF(shuttle)
 				unload_preview()
 				var/datum/variable_ref/loaded_shuttle_reference = new()
 				var/datum/map_generator/shuttle_loader = load_template(S, loaded_shuttle_reference)
-				shuttle_loader.on_completion(CALLBACK(src, .proc/jump_to_preview, user, loaded_shuttle_reference))
+				shuttle_loader.on_completion(COMPLETION_PRIORITY_PREVIEW, CALLBACK(src, .proc/jump_to_preview, user, loaded_shuttle_reference))
 				preview_template = S
 		if("load")
 			if(existing_shuttle == backup_shuttle)
@@ -907,7 +906,7 @@ SUBSYSTEM_DEF(shuttle)
 				// If successful, returns the mobile docking port
 				var/datum/variable_ref/loaded_shuttle_reference = new()
 				var/datum/map_generator/shuttle_loader = action_load(S, null, loaded_shuttle_reference)
-				shuttle_loader.on_completion(CALLBACK(src, .proc/shuttle_manipulator_on_load, user, loaded_shuttle_reference))
+				shuttle_loader.on_completion(COMPLETION_PRIORITY_PREVIEW, CALLBACK(src, .proc/shuttle_manipulator_on_load, user, loaded_shuttle_reference))
 
 /datum/controller/subsystem/shuttle/proc/shuttle_manipulator_on_load(mob/user, datum/variable_ref/loaded_shuttle_reference)
 	var/obj/docking_port/mobile/mdp = loaded_shuttle_reference.value

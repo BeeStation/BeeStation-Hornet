@@ -47,8 +47,10 @@
 	cam_screen.screen_loc = "[map_name]:1,1"
 	cam_screen.link_to_console(src)
 	cam_plane_masters = list()
-	for(var/plane in subtypesof(/atom/movable/screen/plane_master))
-		var/atom/movable/screen/instance = new plane()
+	for(var/plane in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
+		var/atom/movable/screen/plane_master/instance = new plane()
+		if(instance.blend_mode_override)
+			instance.blend_mode = instance.blend_mode_override
 		instance.assigned_map = map_name
 		instance.del_on_map_removal = FALSE
 		instance.screen_loc = "[map_name]:CENTER"
@@ -178,7 +180,7 @@
 		var/datum/orbital_object/shuttle/our_shuttle_object = SSorbits.assoc_shuttles[shuttle_id]
 		var/datum/orbital_object/shuttle/shuttle_object = SSorbits.assoc_shuttles[selected_ship_id]
 		var/datum/shuttle_data/our_ship = SSorbits.get_shuttle_data(shuttle_id)
-		if(!our_ship || !shuttle_object || !our_shuttle_object || !our_shuttle_object.position.DistanceTo(shuttle_object.position) > our_ship.detection_range)
+		if(!our_ship || !shuttle_object || !our_shuttle_object || our_shuttle_object.position.DistanceTo(shuttle_object.position) > our_ship.detection_range)
 			show_camera_static()
 			selected_ship_id = null
 

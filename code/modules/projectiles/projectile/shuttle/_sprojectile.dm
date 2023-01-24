@@ -18,8 +18,8 @@
 	var/force_miss = FALSE
 
 /obj/item/projectile/bullet/shuttle/can_hit_target(atom/target, direct_target, ignore_loc, cross_failed)
-	// Never hit targets if we missed, but do hit turfs along the way
-	if (!isturf(target) && (miss || force_miss))
+	// Never hit targets if we missed
+	if (miss || force_miss)
 		return FALSE
 	. = ..()
 

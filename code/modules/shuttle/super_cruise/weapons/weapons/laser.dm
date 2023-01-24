@@ -2,6 +2,7 @@
 
 /obj/machinery/shuttle_weapon/laser
 	name = "Mounted Laser Cannon"
+	frame_type = /obj/item/wallframe/shuttle_weapon/laser
 	projectile_type = /obj/item/projectile/bullet/shuttle/beam/laser
 	cooldown = 60
 	innaccuracy = 1
@@ -15,6 +16,7 @@
 
 /obj/machinery/shuttle_weapon/laser/triple
 	name = "Burst Laser MKI"
+	frame_type = /obj/item/wallframe/shuttle_weapon/laser/triple
 	cooldown = 80
 	innaccuracy = 1
 	shots = 3
@@ -28,6 +30,7 @@
 
 /obj/machinery/shuttle_weapon/laser/triple/mark2
 	name = "Burst Laser MKII"
+	frame_type = /obj/item/wallframe/shuttle_weapon/laser/triple/mark2
 	cooldown = 160
 	innaccuracy = 2
 	shots = 5

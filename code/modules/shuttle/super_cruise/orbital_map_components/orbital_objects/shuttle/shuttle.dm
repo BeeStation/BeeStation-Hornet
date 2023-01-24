@@ -238,8 +238,7 @@
 			else
 				angle = 180 + angle
 
-	//FULL SPEED
-	thrust = 100
+	thrust = CLAMP((desired_vel_x - velocity.GetX()) / (ORBITAL_UPDATE_RATE_SECONDS * cos(angle) * (shuttle_data.get_thrust_force() / 100)), 0, 100)
 
 	//Fuck all that, we cheat anyway
 	if(cheating_autopilot)

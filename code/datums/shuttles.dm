@@ -93,8 +93,6 @@
 		for(var/obj/docking_port/mobile/port in place)
 			my_port = port
 			port.untowable = untowable
-			if(register)
-				port.register()
 			if(isnull(port_x_offset))
 				continue
 			switch(port.dir) // Yeah this looks a little ugly but mappers had to do this in their head before
@@ -168,6 +166,10 @@
 		initTemplateBounds(., init_atmos)
 
 		log_game("[name] loaded at [T.x],[T.y],[T.z]")
+
+	// Register should be performed after initialisation
+	if (my_port)
+		my_port.register()
 
 	maps_loading --
 	if (!maps_loading)

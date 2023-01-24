@@ -8,6 +8,7 @@
 	icon = 'icons/obj/turrets.dmi'
 	icon_state = "syndie_lethal"
 	anchored = TRUE
+	var/frame_type
 	var/projectile_type = /obj/item/projectile/bullet/shuttle/beam/laser
 	var/flight_time = 10
 
@@ -41,7 +42,7 @@
 	var/strength_rating = 0
 
 	//The angle offset to fire projectiles from
-	var/angle_offset = 180
+	var/angle_offset = 0
 
 /obj/machinery/shuttle_weapon/Initialize(mapload, ndir = 0)
 	. = ..()
@@ -56,6 +57,23 @@
 
 /obj/machinery/shuttle_weapon/Destroy()
 	SSorbits.shuttle_weapons.Remove(weapon_id)
+	. = ..()
+
+/obj/machinery/shuttle_weapon/examine(mob/user)
+	. = ..()
+	. += "It could be rotated with a <b>wrench</b>!"
+	. += "It seems to be <b>welded</b> in place!"
+
+/obj/machinery/shuttle_weapon/attackby(obj/item/I, mob/living/user, params)
+	if (I.tool_behaviour == TOOL_WRENCH && I.use_tool(src, user, 0, volume=50))
+		setDir(angle2dir(dir2angle(dir) + 90))
+		return
+	if (I.tool_behaviour == TOOL_WELDER && I.use_tool(src, user, 40, volume=50))
+		if (frame_type)
+			new frame_type(get_turf(user))
+		qdel(src)
+		user.visible_message("<span class='notice'>[user] welds [src] off of its mount.</span>")
+		return
 	. = ..()
 
 /obj/machinery/shuttle_weapon/setDir(newdir)
@@ -108,7 +126,7 @@
 		var/obj/item/projectile/bullet/shuttle/P = new projectile_type(get_offset_target_turf(get_turf(src), offset_turf_x, offset_turf_y))
 		//Outgoing shots shouldn't hit our own ship because its easier
 		P.force_miss = TRUE
-		P.fire(dir2angle(dir) + angle_offset)
+		P.fire((dir2angle(dir) + angle_offset) % 360)
 		addtimer(CALLBACK(src, .proc/spawn_incoming_fire, P, current_target_turf, missed), flight_time)
 	//Multishot cannons
 	if(shots_left > 1)
@@ -121,5 +139,4 @@
 	//Spawn the projectile to come in FTL style
 	fire_projectile_towards(target, projectile_type = projectile_type, missed = missed)
 
-/obj/machinery/shuttle_weapon/wrench_act(mob/living/user, obj/item/I)
-	setDir(turn(dir, 90))
+

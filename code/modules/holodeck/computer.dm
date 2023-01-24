@@ -229,7 +229,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 
 	template = SSmapping.holodeck_templates[map_id]
 	var/datum/map_generator/template_placer = template.load(bottom_left) //this is what actually loads the holodeck simulation into the map
-	template_placer.on_completion(CALLBACK(src, .proc/finish_spawn, template))
+	template_placer.on_completion(COMPLETION_PRIORITY_PREVIEW, CALLBACK(src, .proc/finish_spawn, template))
 
 ///finalizes objects in the spawned list
 /obj/machinery/computer/holodeck/proc/finish_spawn()

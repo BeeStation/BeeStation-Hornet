@@ -192,21 +192,22 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	//Interdicted shuttles
 	data["interdictedShuttles"] = list()
 	if(SSorbits.interdicted_shuttles[shuttleId] > world.time)
-		var/obj/docking_port/our_port = SSshuttle.getShuttle(shuttleId)
 		data["interdictionTime"] = SSorbits.interdicted_shuttles[shuttleId] - world.time
-		for(var/interdicted_id in SSorbits.interdicted_shuttles)
-			var/timer = SSorbits.interdicted_shuttles[interdicted_id]
-			if(timer < world.time)
-				continue
-			var/obj/docking_port/port = SSshuttle.getShuttle(interdicted_id)
-			if(port && port.get_virtual_z_level() == our_port.get_virtual_z_level())
+	else
+		data["interdictionTime"] = 0
+	// Display local shuttles
+	var/obj/docking_port/mobile/our_port = SSshuttle.getShuttle(shuttleId)
+	if (our_port.mode == SHUTTLE_IDLE)
+		for(var/shuttle_id in SSorbits.assoc_shuttle_data)
+			var/datum/shuttle_data/data = SSorbits.assoc_shuttle_data[shuttle_id]
+			var/obj/docking_port/mobile/port = SSshuttle.getShuttle(shuttle_id)
+			if (data)
+			if(port && port.mode == SHUTTLE_IDLE && port.get_virtual_z_level() == our_port.get_virtual_z_level())
 				data["interdictedShuttles"] += list(list(
 					"shuttleName" = port.name,
 					"x" = port.x - our_port.x,
 					"y" = port.y - our_port.y,
 				))
-	else
-		data["interdictionTime"] = 0
 
 	data["canLaunch"] = TRUE
 	if(QDELETED(shuttleObject))

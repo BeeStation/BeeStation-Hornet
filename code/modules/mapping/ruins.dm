@@ -34,7 +34,7 @@
 				qdel(plant)
 
 		var/datum/map_generator/map_placer = load(central_turf,centered = TRUE)
-		map_placer.on_completion(CALLBACK(src, .proc/after_ruin_generation, central_turf))
+		map_placer.on_completion(COMPLETION_PRIORITY_PREVIEW, CALLBACK(src, .proc/after_ruin_generation, central_turf))
 
 		return map_placer
 

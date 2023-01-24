@@ -2,6 +2,7 @@
 
 /obj/machinery/shuttle_weapon/missile
 	name = "Centaur I Missile Launcher"
+	frame_type = /obj/item/wallframe/shuttle_weapon/missile
 	projectile_type = /obj/item/projectile/bullet/shuttle/missile/mini
 	cooldown = 180
 	innaccuracy = 1
@@ -15,6 +16,7 @@
 
 /obj/machinery/shuttle_weapon/missile/tri
 	name = "Centaur II Missile Tubes"
+	frame_type = /obj/item/wallframe/shuttle_weapon/missile/tri
 	projectile_type = /obj/item/projectile/bullet/shuttle/missile/mini
 	cooldown = 250
 	innaccuracy = 3
@@ -29,6 +31,7 @@
 
 /obj/machinery/shuttle_weapon/missile/breach
 	name = "Minotaur Breaching Missile Launcher"
+	frame_type = /obj/item/wallframe/shuttle_weapon/missile/breach
 	projectile_type = /obj/item/projectile/bullet/shuttle/missile/breach
 	cooldown = 220
 	innaccuracy = 2
@@ -42,6 +45,7 @@
 
 /obj/machinery/shuttle_weapon/missile/fire
 	name = "Prometheus Incediary Missile Launcher"
+	frame_type = /obj/item/wallframe/shuttle_weapon/missile/fire
 	projectile_type = /obj/item/projectile/bullet/shuttle/missile/fire
 	cooldown = 200
 	innaccuracy = 3
@@ -63,6 +67,7 @@
 	innaccuracy = 0
 	//Please don't spawn me
 	strength_rating = 50000
+
 /obj/machinery/shuttle_weapon/missile/black_hole/Initialize(mapload, ndir)
 	. = ..()
 	priority_announce(

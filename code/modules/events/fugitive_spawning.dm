@@ -112,7 +112,7 @@
 	if(!T)
 		CRASH("Fugitive Hunters (Created from fugitive event) found no turf to load in")
 	var/datum/map_generator/template_placer = ship.load(T)
-	template_placer.on_completion(CALLBACK(src, .proc/announce_fugative_spawns, ship))
+	template_placer.on_completion(COMPLETION_PRIORITY_PREVIEW, CALLBACK(src, .proc/announce_fugative_spawns, ship))
 
 /datum/round_event/ghost_role/fugitives/proc/announce_fugative_spawns(datum/map_template/shuttle/ship, datum/map_generator/generator, turf/T)
 	for(var/turf/A in ship.get_affected_turfs(T))

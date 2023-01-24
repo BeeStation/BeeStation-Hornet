@@ -158,7 +158,7 @@ const LocatorViewWindow = (props, context) => {
   const [
     zoomScale,
     setZoomScale,
-  ] = useLocalState(context, 'zoomScale', 1/8);
+  ] = useLocalState(context, 'zoomScale', 1/16);
 
   const boxTargetStyle = {
     "fill-opacity": 0,

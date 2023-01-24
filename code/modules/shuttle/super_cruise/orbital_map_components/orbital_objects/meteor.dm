@@ -37,8 +37,7 @@
 	var/tick_proportion = min((current_tick - start_tick) / (end_tick - start_tick), 1)
 	//stop when reached the target
 	if(tick_proportion == 1)
-		velocity.Set(0)
-		velocity.Set(0)
+		velocity.Set(0, 0)
 	var/current_x = (end_x * tick_proportion) + (start_x * (1 - tick_proportion))
 	var/current_y = (end_y * tick_proportion) + (start_y * (1 - tick_proportion))
 	MOVE_ORBITAL_BODY(src, current_x, current_y)
