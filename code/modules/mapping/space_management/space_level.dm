@@ -18,3 +18,11 @@
 		var/datum/orbital_object/z_linked/orbital_body = new orbital_body_type()
 		SSorbits.assoc_z_levels["[z_value]"] = orbital_body
 		orbital_body.link_to_z(src)
+
+/datum/space_level/proc/start_generating()
+	generating ++
+
+/datum/space_level/proc/stop_generating()
+	generating --
+	if (!generating)
+		SEND_SIGNAL(src, COMSIG_SPACE_LEVEL_GENERATED)

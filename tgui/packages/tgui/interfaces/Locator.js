@@ -39,14 +39,10 @@ export const Locator = (props, context) => {
                     dropdown list.
                   </Box>
                   <Box color="yellow">
-                    3. Targets will appear on the border of the radar ping
-                    circles. Create 3 radar pings and move to the point where
-                    all 3 circles intersect.
+                    3. The circles indicate possible locations of the target location.
                   </Box>
                   <Box color="purple">
-                    The further away your pings are, the more accurate the
-                    result will be. Moving targets will require some
-                    estimation.
+                    The more pings you perform, the more accurate the pings will become.
                   </Box>
                 </Section>
               } />

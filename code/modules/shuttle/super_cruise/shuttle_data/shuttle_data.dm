@@ -16,6 +16,8 @@
 	var/shield_health = 0
 	/// Calculate fuel consumption rate
 	var/fuel_consumption
+	/// Is this shuttle stealthed?
+	var/stealth = FALSE
 	/// The thrust of the shuttle
 	/// Updates when engines run out of fuel, are dismantled or created
 	var/thrust

@@ -21,8 +21,6 @@
 	var/maintain_orbit = FALSE
 	//The object in which we are trying to maintain a stable orbit around.
 	var/datum/orbital_object/target_orbital_body
-	//Are we invisible on the map?
-	var/stealth = FALSE
 	//Multiplier for velocity
 	var/velocity_multiplier = 1
 	//Do we ignore gravity?
@@ -355,3 +353,6 @@
 
 /datum/orbital_object/proc/get_locator_name()
 	return name
+
+/datum/orbital_object/proc/is_stealth()
+	return FALSE

@@ -76,6 +76,17 @@
 	selected_weapon_system = null
 	return ..()
 
+/obj/machinery/computer/weapons/attackby(obj/item/I, mob/living/user, params)
+	if (istype(I, /obj/item/shuttle_creator))
+		var/obj/item/shuttle_creator/creator = I
+		if (creator.linkedShuttleId)
+			shuttle_id = creator.linkedShuttleId
+			to_chat(user, "<span class='notice'>You link [src] to the shuttle.</span>")
+		else
+			to_chat(user, "<span class='warning'>[I] is not attached to a shuttle.</span>")
+		return
+	. = ..()
+
 
 /obj/machinery/computer/weapons/ui_interact(mob/user, datum/tgui/ui = null)
 	if(..())
@@ -157,6 +168,9 @@
 		//Ignore ships that are too far away
 		var/obj/target_port = SSshuttle.getShuttle(ship_id)
 		if(!target_port || our_shuttle_object.position.DistanceTo(shuttle_object.position) > our_ship.detection_range)
+			continue
+		// Cannot see stealth ships
+		if (ship.stealth)
 			continue
 		var/list/other_ship = list(
 			id = ship_id,
@@ -241,6 +255,10 @@
 								clamp(top+extra_range, 1, world.maxy) - clamp(bottom-extra_range, 1, world.maxy) + 1)
 			return TRUE
 		if("set_weapon_target")
+			var/datum/shuttle_data/ship_data = SSorbits.get_shuttle_data(shuttle_id)
+			if (ship_data.stealth)
+				to_chat(usr, "<span class='warning'>Your ship's cloaking field is jamming the weapons!</span>")
+				return
 			//Select the weapon system
 			//This seems highly exploitable
 			var/id = params["id"]

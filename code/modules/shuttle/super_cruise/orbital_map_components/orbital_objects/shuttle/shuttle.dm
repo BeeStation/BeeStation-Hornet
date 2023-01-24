@@ -80,11 +80,6 @@
 /datum/orbital_object/shuttle/is_distress()
 	return SSorbits.assoc_distress_beacons["[port?.virtual_z]"]
 
-/datum/orbital_object/shuttle/stealth
-	stealth = TRUE
-
-/datum/orbital_object/shuttle/stealth/infiltrator
-
 /datum/orbital_object/shuttle/stealth/steel_rain
 	//We never miss our mark
 	cheating_autopilot = TRUE
@@ -252,9 +247,10 @@
 	name = dock.name
 	shuttle_port_id = dock.id
 	port = dock
-	stealth = dock.hidden
 	SSorbits.assoc_shuttles[shuttle_port_id] = src
 	shuttle_data = SSorbits.get_shuttle_data(dock.id)
+	if (dock.hidden)
+		shuttle_data.stealth = TRUE
 	RegisterSignal(shuttle_data, COMSIG_PARENT_QDELETING, .proc/handle_shuttle_data_deletion)
 	//Stop processin the AI pilot (Flight mode)
 	if(shuttle_data.ai_pilot)
@@ -270,7 +266,7 @@
 	if(docking_target || can_dock_with)
 		SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE, "Cannot use interdictor while docking.")
 		return FALSE
-	if(stealth)
+	if(is_stealth())
 		SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE, "Cannot use interdictor on stealthed shuttles.")
 		return FALSE
 	var/list/interdicted_shuttles = list()
@@ -279,7 +275,7 @@
 		//Do this last
 		if(other_shuttle == src)
 			continue
-		if(other_shuttle?.position?.DistanceTo(position) <= shuttle_data.interdiction_range && !other_shuttle.stealth)
+		if(other_shuttle?.position?.DistanceTo(position) <= shuttle_data.interdiction_range && !other_shuttle.is_stealth())
 			interdicted_shuttles += other_shuttle
 	if(!length(interdicted_shuttles))
 		SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE, "No targets to interdict in range.")
@@ -304,3 +300,6 @@
 
 /datum/orbital_object/shuttle/get_locator_name()
 	return "Shuttle (#[unique_id])"
+
+/datum/orbital_object/shuttle/is_stealth()
+	return shuttle_data.stealth

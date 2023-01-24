@@ -163,7 +163,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	var/list/data = SSorbits.get_orbital_map_base_data(
 		SSorbits.orbital_maps[orbital_map_index],
 		user_ref,
-		FALSE,
+		shuttle_data?.stealth,
 		map_reference_object,
 		shuttle_data
 	)
@@ -199,9 +199,10 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	var/obj/docking_port/mobile/our_port = SSshuttle.getShuttle(shuttleId)
 	if (our_port.mode == SHUTTLE_IDLE)
 		for(var/shuttle_id in SSorbits.assoc_shuttle_data)
-			var/datum/shuttle_data/data = SSorbits.assoc_shuttle_data[shuttle_id]
+			var/datum/shuttle_data/target_data = SSorbits.assoc_shuttle_data[shuttle_id]
 			var/obj/docking_port/mobile/port = SSshuttle.getShuttle(shuttle_id)
-			if (data)
+			if (target_data.stealth)
+				continue
 			if(port && port.mode == SHUTTLE_IDLE && port.get_virtual_z_level() == our_port.get_virtual_z_level())
 				data["interdictedShuttles"] += list(list(
 					"shuttleName" = port.name,
@@ -235,7 +236,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			"id" = "undock"
 		))
 		//Stealth shuttles bypass shuttle jamming.
-		if(shuttleObject.docking_target.can_dock_anywhere && (!GLOB.shuttle_docking_jammed || shuttleObject.stealth || !istype(shuttleObject.docking_target, /datum/orbital_object/z_linked/station)))
+		if(shuttleObject.docking_target.can_dock_anywhere && (!GLOB.shuttle_docking_jammed || shuttle_data.stealth || !istype(shuttleObject.docking_target, /datum/orbital_object/z_linked/station)))
 			data["validDockingPorts"] += list(list(
 				"name" = "Custom Location",
 				"id" = "custom_location"
@@ -384,7 +385,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 					if(!mobile_port)
 						say("Cannot locate shuttle.")
 						return
-					if(GLOB.shuttle_docking_jammed && !shuttleObject.stealth && istype(shuttleObject.docking_target, /datum/orbital_object/z_linked/station))
+					if(GLOB.shuttle_docking_jammed && !shuttleObject.is_stealth() && istype(shuttleObject.docking_target, /datum/orbital_object/z_linked/station))
 						say("Shuttle docking computer jammed.")
 						return
 					if(current_user)

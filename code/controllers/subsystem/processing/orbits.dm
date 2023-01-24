@@ -232,10 +232,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		if(!object)
 			continue
 		//we can't see it, unless we are stealth too
-		if(attached_orbital_object)
-			if(object != attached_orbital_object && (object.stealth && !attached_orbital_object.stealth))
-				continue
-		else if(!see_stealthed && object.stealth)
+		if(!see_stealthed && object.is_stealth())
 			continue
 		//Check visibility
 		var/distress = object.is_distress()
