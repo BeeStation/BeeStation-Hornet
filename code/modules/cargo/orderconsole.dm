@@ -3,9 +3,11 @@
 	desc = "Used to order supplies, approve requests, and control the shuttle."
 	icon_screen = "supply"
 	circuit = /obj/item/circuitboard/computer/cargo
+	light_color = COLOR_BRIGHT_ORANGE
 
 	//Can the supply console send the shuttle back and forth? Used in the UI backend.
 	var/can_send = TRUE
+	///Can this console only send requests?
 	var/requestonly = FALSE
 	//Can you approve requests placed for cargo? Works differently between the app and the computer.
 	var/can_approve_requests = TRUE
@@ -21,7 +23,8 @@
 	var/message_cooldown
 	COOLDOWN_DECLARE(order_cooldown)
 
-	light_color = "#E2853D"//orange
+	///Interface name for the ui_interact call for different subtypes.
+	var/interface_type = "Cargo"
 
 /obj/machinery/computer/cargo/request
 	name = "supply request console"
@@ -35,12 +38,6 @@
 /obj/machinery/computer/cargo/Initialize(mapload)
 	. = ..()
 	radio = new /obj/item/radio/headset/headset_cargo(src)
-	var/obj/item/circuitboard/computer/cargo/board = circuit
-	contraband = board.contraband
-	if (board.obj_flags & EMAGGED)
-		obj_flags |= EMAGGED
-	else
-		obj_flags &= ~EMAGGED
 
 /obj/machinery/computer/cargo/Destroy()
 	QDEL_NULL(radio)
@@ -60,12 +57,15 @@
 
 	contraband = TRUE
 
-	// This also permamently sets this on the circuit board
+	// This also permanently sets this on the circuit board
 	var/obj/item/circuitboard/computer/cargo/board = circuit
 	board.contraband = TRUE
 	board.obj_flags |= EMAGGED
 	update_static_data(user)
 
+/obj/machinery/computer/cargo/on_construction()
+	. = ..()
+	circuit.configure_machine(src)
 
 /obj/machinery/computer/cargo/ui_state(mob/user)
 	return GLOB.default_state
@@ -73,7 +73,7 @@
 /obj/machinery/computer/cargo/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Cargo")
+		ui = new(user, src, interface_type, name)
 		ui.open()
 		ui.set_autoupdate(TRUE) // Account balance, shuttle status
 
@@ -129,7 +129,7 @@
 				"name" = P.group,
 				"packs" = list()
 			)
-		if((P.hidden && !(obj_flags & EMAGGED)) || (P.contraband && !contraband) || (P.special && !P.special_enabled) || P.DropPodOnly)
+		if((P.hidden && !(obj_flags & EMAGGED)) || (P.contraband && !contraband) || (P.special && !P.special_enabled) || P.drop_pod_only)
 			continue
 		data["supplies"][P.group]["packs"] += list(list(
 			"name" = P.name,
@@ -184,7 +184,7 @@
 			var/datum/supply_pack/pack = SSshuttle.supply_packs[id]
 			if(!istype(pack))
 				return
-			if((pack.hidden && !(obj_flags & EMAGGED)) || (pack.contraband && !contraband) || pack.DropPodOnly)
+			if((pack.hidden && !(obj_flags & EMAGGED)) || (pack.contraband && !contraband) || pack.drop_pod_only || (pack.special && !pack.special_enabled))
 				return
 
 			var/name = "*None Provided*"

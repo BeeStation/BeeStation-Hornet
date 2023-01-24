@@ -128,9 +128,9 @@ GLOBAL_LIST_INIT(WALLITEMS_INTERIOR, typecacheof(list(
 // These do not conflict with machinery which are visually placed on the wall.
 GLOBAL_LIST_INIT(WALLITEMS_EXTERIOR, typecacheof(list(
 	/obj/machinery/camera,
+	/obj/machinery/light,
 	/obj/structure/camera_assembly,
-	/obj/structure/light_construct,
-	/obj/machinery/light
+	/obj/structure/light_construct
 	)))
 
 GLOBAL_LIST_INIT(WALLITEMS_INVERSE, typecacheof(list(

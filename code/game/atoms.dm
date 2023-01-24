@@ -87,7 +87,7 @@
 
 	var/flags_ricochet = NONE
 	///When a projectile tries to ricochet off this atom, the projectile ricochet chance is multiplied by this
-	var/ricochet_chance_mod = 1
+	var/receive_ricochet_chance_mod = 1
 	///When a projectile ricochets off this atom, it deals the normal damage * this modifier to this atom
 	var/ricochet_damage_mod = 0.33
 
@@ -266,7 +266,7 @@
   * * clears overlays and priority overlays
   * * clears the light object
   */
-/atom/Destroy()
+/atom/Destroy(force)
 	if(alternate_appearances)
 		for(var/current_alternate_appearance in alternate_appearances)
 			var/datum/atom_hud/alternate_appearance/selected_alternate_appearance = alternate_appearances[current_alternate_appearance]
@@ -282,6 +282,9 @@
 
 	QDEL_NULL(light)
 	QDEL_NULL(ai_controller)
+
+	if(smoothing_flags & SMOOTH_QUEUED)
+		SSicon_smooth.remove_from_queues(src)
 
 	for(var/i in targeted_by)
 		var/mob/M = i

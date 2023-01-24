@@ -3,6 +3,7 @@
 	desc = "A remotely-activatable dispenser for crowd-controlling foam."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "ai-slipper0"
+	base_icon_state = "ai-slipper"
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
 	plane = FLOOR_PLANE
 	max_integrity = 200
@@ -17,18 +18,14 @@
 	. = ..()
 	. += "<span class='notice'>It has <b>[uses]</b> uses of foam remaining.</span>"
 
-/obj/machinery/ai_slipper/power_change()
+/obj/machinery/ai_slipper/update_icon_state()
 	if(machine_stat & BROKEN)
-		return
-	else
-		if(powered())
-			set_machine_stat(machine_stat & ~NOPOWER)
-		else
-			set_machine_stat(machine_stat | NOPOWER)
-		if((machine_stat & (NOPOWER|BROKEN)) || cooldown_time > world.time || !uses)
-			icon_state = "ai-slipper0"
-		else
-			icon_state = "ai-slipper1"
+		return ..()
+	if((machine_stat & NOPOWER) || cooldown_time > world.time || !uses)
+		icon_state = "[base_icon_state]0"
+		return ..()
+	icon_state = "[base_icon_state]1"
+	return ..()
 
 /obj/machinery/ai_slipper/interact(mob/user)
 	if(!allowed(user))

@@ -74,7 +74,7 @@ inline string safe_substr(string * S, size_t start = 0, size_t end = string::npo
 		start = S->length();
 	return S->substr(start, end);
 }
-//getline() is slow as fucking balls. this is quicker because we prefill a buffer rather then read 1 byte at a time searching for newlines, lowering on i/o calls and overhead. (110MB/s vs 40MB/s on a 1.8GB file pre-filled into the disk cache)
+//get_line() is slow as fucking balls. this is quicker because we prefill a buffer rather then read 1 byte at a time searching for newlines, lowering on i/o calls and overhead. (110MB/s vs 40MB/s on a 1.8GB file pre-filled into the disk cache)
 //if i wanted to make it even faster, I'd use a reading thread, a new line searching thread, another thread or four for searching for runtimes in the list to see if they are unique, and finally the main thread for displaying the progress bar. but fuck that noise.
 inline string * readline(FILE * f) {
 	static char buf[LINEBUFFER];

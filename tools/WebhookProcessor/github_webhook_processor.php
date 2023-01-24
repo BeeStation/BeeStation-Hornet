@@ -55,7 +55,7 @@ set_error_handler(function($severity, $message, $file, $line) {
 });
 set_exception_handler(function($e) {
 	header('HTTP/1.1 500 Internal Server Error');
-	log_error('Error on line ' . $e->getLine() . ': ' . $e->getMessage());
+	log_error('Error on line ' . $e->get_line() . ': ' . $e->getMessage());
 	die();
 });
 $rawPost = NULL;

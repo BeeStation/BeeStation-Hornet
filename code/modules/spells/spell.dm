@@ -571,7 +571,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	//Checks for obstacles from A to B
 	var/obj/dummy = new(A.loc)
 	dummy.pass_flags |= PASSTABLE
-	for(var/turf/turf in getline(A,B))
+	for(var/turf/turf in get_line(A,B))
 		for(var/atom/movable/AM in turf)
 			if(!AM.CanPass(dummy,turf,1))
 				qdel(dummy)

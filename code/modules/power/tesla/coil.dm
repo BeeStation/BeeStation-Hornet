@@ -36,6 +36,7 @@
 
 
 /obj/machinery/power/tesla_coil/RefreshParts()
+	. = ..()
 	var/power_multiplier = 0
 	zap_cooldown = 100
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)

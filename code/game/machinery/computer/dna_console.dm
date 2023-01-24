@@ -1299,7 +1299,7 @@
 			var/len = length_char(scanner_occupant.dna.uni_identity)
 			rad_pulse_timer = world.time + (radduration*10)
 			rad_pulse_index = WRAP(text2num(params["index"]), 1, len+1)
-			START_PROCESSING(SSobj, src)
+			begin_processing()
 			return
 
 		// Cancels the delayed action - In this context it is not the radiation
@@ -1636,7 +1636,7 @@
 	// Imagine it being like a microwave stopping when you open the door.
 	rad_pulse_index = 0
 	rad_pulse_timer = 0
-	STOP_PROCESSING(SSobj, src)
+	end_processing()
 	scanner_occupant = null
 
 /**
@@ -2015,7 +2015,7 @@
 	// If we can't, abort the procedure.
 	if(!can_modify_occupant())
 		rad_pulse_index = 0
-		STOP_PROCESSING(SSobj, src)
+		end_processing()
 		return
 
 	var/len = length_char(scanner_occupant.dna.uni_identity)
@@ -2027,7 +2027,7 @@
 	scanner_occupant.updateappearance(mutations_overlay_update=1)
 
 	rad_pulse_index = 0
-	STOP_PROCESSING(SSobj, src)
+	end_processing()
 	return
 
 /**

@@ -16,6 +16,7 @@
 
 	pipe_flags = PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY
 	occupant_typecache = list(/mob/living/carbon, /mob/living/simple_animal)
+	processing_flags = NONE
 
 	var/autoeject = TRUE
 	var/volume = 100
@@ -44,6 +45,8 @@
 /obj/machinery/atmospherics/components/unary/cryo_cell/Initialize(mapload)
 	. = ..()
 	initialize_directions = dir
+	if(is_operational)
+		begin_processing()
 
 	radio = new(src)
 	radio.keyslot = new radio_key
@@ -51,16 +54,15 @@
 	radio.canhear_range = 0
 	radio.recalculateChannels()
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/Exited(atom/movable/AM, atom/newloc)
-	var/oldoccupant = occupant
-	. = ..() // Parent proc takes care of removing occupant if necessary
-	if (AM == oldoccupant)
-		update_icon()
+/obj/machinery/atmospherics/components/unary/cryo_cell/set_occupant(atom/movable/new_occupant)
+	. = ..()
+	update_icon()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/on_construction()
 	..(dir, dir)
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/RefreshParts()
+	. = ..()
 	var/C
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		C += M.rating
@@ -79,6 +81,13 @@
 /obj/machinery/atmospherics/components/unary/cryo_cell/Destroy()
 	QDEL_NULL(radio)
 	QDEL_NULL(beaker)
+	///Take the turf the cryotube is on
+	var/turf/T = get_turf(src)
+	if(T)
+		///Take the air composition inside the cryotube
+		var/datum/gas_mixture/air1 = airs[1]
+		T.assume_air(air1)
+
 	return ..()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/contents_explosion(severity, target)
@@ -173,13 +182,16 @@
 /obj/machinery/atmospherics/components/unary/cryo_cell/nap_violation(mob/violator)
 	open_machine()
 
+/obj/machinery/atmospherics/components/unary/cryo_cell/on_set_is_operational(old_value)
+	if(old_value) //Turned off
+		on = FALSE
+		end_processing()
+		update_icon()
+	else //Turned on
+		begin_processing()
+
 /obj/machinery/atmospherics/components/unary/cryo_cell/process(delta_time)
 	if(!on)
-		return
-
-	if(!is_operational)
-		on = FALSE
-		update_icon()
 		return
 
 	if(!occupant)//Won't operate unless there's an occupant.
@@ -247,8 +259,8 @@
 		var/cold_protection = 0
 		var/temperature_delta = air1.return_temperature() - mob_occupant.bodytemperature // The only semi-realistic thing here: share temperature between the cell and the occupant.
 
-		if(ishuman(occupant))
-			var/mob/living/carbon/human/H = occupant
+		if(ishuman(mob_occupant))
+			var/mob/living/carbon/human/H = mob_occupant
 			cold_protection = H.get_cold_protection(air1.return_temperature())
 
 		if(abs(temperature_delta) > 1)
@@ -280,7 +292,7 @@
 		if(isliving(M))
 			var/mob/living/L = M
 			L.update_mobility()
-	occupant = null
+	set_occupant(null)
 	flick("pod-open-anim", src)
 	..()
 

@@ -41,6 +41,13 @@
 	var/paintable = FALSE
 	var/interacts_with_air = FALSE
 
+	///keeps the name of the object from being overridden if it's vareditted.
+	var/override_naming
+
+/obj/machinery/atmospherics/LateInitialize()
+	. = ..()
+	update_name()
+
 /obj/machinery/atmospherics/examine(mob/user)
 	. = ..()
 	if(is_type_in_list(src, GLOB.ventcrawl_machinery) && isliving(user))
@@ -64,6 +71,16 @@
 			SSair.atmos_machinery += src
 	SetInitDirections()
 
+/obj/machinery/atmospherics/Initialize(mapload)
+	if(mapload && name != initial(name))
+		override_naming = TRUE
+	var/turf/turf_loc = null
+	if(isturf(loc))
+		turf_loc = loc
+	SSspatial_grid.add_grid_awareness(src, SPATIAL_GRID_CONTENTS_TYPE_ATMOS)
+	SSspatial_grid.add_grid_membership(src, turf_loc, SPATIAL_GRID_CONTENTS_TYPE_ATMOS)
+	return ..()
+
 /obj/machinery/atmospherics/Destroy()
 	for(var/i in 1 to device_type)
 		nullifyNode(i)
@@ -72,7 +89,6 @@
 	SSair.atmos_air_machinery -= src
 	SSair.pipenets_needing_rebuilt -= src
 
-	dropContents()
 	if(pipe_vision_img)
 		qdel(pipe_vision_img)
 
@@ -132,7 +148,7 @@
 	return connection_check(target, piping_layer)
 
 //Find a connecting /obj/machinery/atmospherics in specified direction
-/obj/machinery/atmospherics/proc/findConnecting(direction, prompted_layer)
+/obj/machinery/atmospherics/proc/find_connecting(direction, prompted_layer)
 	for(var/obj/machinery/atmospherics/target in get_step(src, direction))
 		if(target.initialize_directions & get_dir(target,src))
 			if(connection_check(target, prompted_layer))
@@ -159,10 +175,10 @@
 /obj/machinery/atmospherics/proc/GetInitDirections()
 	return initialize_directions
 
-/obj/machinery/atmospherics/proc/returnPipenet()
+/obj/machinery/atmospherics/proc/return_pipenet()
 	return
 
-/obj/machinery/atmospherics/proc/returnPipenetAir()
+/obj/machinery/atmospherics/proc/return_pipenetAir()
 	return
 
 /obj/machinery/atmospherics/proc/setPipenet()
@@ -283,6 +299,7 @@
 	if(can_unwrench)
 		add_atom_colour(obj_color, FIXED_COLOUR_PRIORITY)
 		pipe_color = obj_color
+	update_name()
 	setPipingLayer(set_layer)
 	var/turf/T = get_turf(src)
 	level = T.intact ? 2 : 1
@@ -292,6 +309,16 @@
 		A.atmosinit()
 		A.addMember(src)
 	build_network()
+
+/obj/machinery/atmospherics/update_name()
+	if(!override_naming)
+		name = "[GLOB.pipe_color_name[pipe_color]] [initial(name)]"
+	return ..()
+
+/obj/machinery/atmospherics/vv_edit_var(vname, vval)
+	if(vname == NAMEOF(src, name))
+		override_naming = TRUE
+	return ..()
 
 /obj/machinery/atmospherics/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	if(istype(arrived, /mob/living))
@@ -314,14 +341,14 @@
 	if(user in buckled_mobs)// fixes buckle ventcrawl edgecase fuck bug
 		return
 
-	var/obj/machinery/atmospherics/target_move = findConnecting(direction, user.ventcrawl_layer)
+	var/obj/machinery/atmospherics/target_move = find_connecting(direction, user.ventcrawl_layer)
 	if(target_move)
 		if(target_move.can_crawl_through())
 			if(is_type_in_typecache(target_move, GLOB.ventcrawl_machinery))
 				user.forceMove(target_move.loc) //handle entering and so on.
 				user.visible_message("<span class='notice'>You hear something squeezing through the ducts...</span>", "<span class='notice'>You climb out the ventilation system.")
 			else
-				var/list/pipenetdiff = returnPipenets() ^ target_move.returnPipenets()
+				var/list/pipenetdiff = return_pipenets() ^ target_move.return_pipenets()
 				if(pipenetdiff.len)
 					user.update_pipe_vision(target_move)
 				user.forceMove(target_move)
@@ -345,7 +372,7 @@
 /obj/machinery/atmospherics/proc/can_crawl_through()
 	return TRUE
 
-/obj/machinery/atmospherics/proc/returnPipenets()
+/obj/machinery/atmospherics/proc/return_pipenets()
 	return list()
 
 /obj/machinery/atmospherics/update_remote_sight(mob/user)

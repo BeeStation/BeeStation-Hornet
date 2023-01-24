@@ -14,6 +14,7 @@
 	pass_flags = PASSTABLE
 	light_color = LIGHT_COLOR_YELLOW
 	light_power = 3
+
 	var/wire_disabled = FALSE // is its internal wire cut?
 	var/operating = FALSE
 	var/dirty = 0 // 0 to 100 // Does it need cleaning?
@@ -46,6 +47,7 @@
 	. = ..()
 
 /obj/machinery/microwave/RefreshParts()
+	. = ..()
 	efficiency = 0
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		efficiency += M.rating
@@ -88,19 +90,24 @@
 		"<span class='notice'>- Capacity: <b>[max_n_of_items]</b> items.<span>\n"+\
 		"<span class='notice'>- Cook time reduced by <b>[(efficiency - 1) * 25]%</b>.</span>"
 
-/obj/machinery/microwave/update_icon()
+/obj/machinery/microwave/update_icon_state()
 	if(broken)
 		icon_state = "mwb"
-	else if(dirty_anim_playing)
+		return ..()
+	if(dirty_anim_playing)
 		icon_state = "mwbloody1"
-	else if(dirty == 100)
+		return ..()
+	if(dirty == 100)
 		icon_state = "mwbloody"
-	else if(operating)
+		return ..()
+	if(operating)
 		icon_state = "mw1"
-	else if(panel_open)
+		return ..()
+	if(panel_open)
 		icon_state = "mw-o"
-	else
-		icon_state = "mw"
+		return ..()
+	icon_state = "mw"
+	return ..()
 
 /obj/machinery/microwave/attackby(obj/item/O, mob/user, params)
 	if(operating)
@@ -290,11 +297,8 @@
 	loop(MICROWAVE_MUCK, 4)
 
 /obj/machinery/microwave/proc/loop(type, time, wait = max(12 - 2 * efficiency, 2)) // standard wait is 10
-	if(machine_stat & (NOPOWER|BROKEN))
-		operating = FALSE
-		if(type == MICROWAVE_PRE)
-			pre_fail()
-		after_finish_loop()
+	if((machine_stat & BROKEN) && type == MICROWAVE_PRE)
+		pre_fail()
 		return
 	if(!time)
 		switch(type)
@@ -308,6 +312,12 @@
 	time--
 	use_power(500)
 	addtimer(CALLBACK(src, .proc/loop, type, time, wait), wait)
+
+/obj/machinery/microwave/power_change()
+	. = ..()
+	if((machine_stat & NOPOWER) && operating)
+		pre_fail()
+		eject()
 
 /obj/machinery/microwave/proc/loop_finish()
 	operating = FALSE
@@ -324,14 +334,19 @@
 		if(prob(max(iron / 2, 33)))
 			explosion(loc, 0, 1, 2)
 	else
-		dropContents(ingredients)
-		ingredients.Cut()
+		dump_inventory_contents()
 
 	after_finish_loop()
 
+/obj/machinery/microwave/dump_inventory_contents()
+	. = ..()
+	ingredients.Cut()
+
 /obj/machinery/microwave/proc/pre_fail()
 	broken = 2
+	operating = FALSE
 	spark()
+	after_finish_loop()
 
 /obj/machinery/microwave/proc/pre_success()
 	loop(MICROWAVE_NORMAL, 10)

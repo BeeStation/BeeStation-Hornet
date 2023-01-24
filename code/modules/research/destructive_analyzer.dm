@@ -15,6 +15,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	var/decon_mod = 0
 
 /obj/machinery/rnd/destructive_analyzer/RefreshParts()
+	. = ..()
 	var/T = 0
 	for(var/obj/item/stock_parts/S in component_parts)
 		T += S.rating

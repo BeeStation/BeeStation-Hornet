@@ -146,7 +146,7 @@
 	for(var/X in atoms)
 		var/atom/A = X
 		fingerprints |= A.return_fingerprints()
-	listclearnulls(fingerprints)
+	list_clear_nulls(fingerprints)
 	if(fingerprints.len == 0)
 		return FALSE
 	return TRUE

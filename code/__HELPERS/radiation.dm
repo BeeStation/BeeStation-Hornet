@@ -1,4 +1,4 @@
-// A special GetAllContents that doesn't search past things with rad insulation
+// A special get_all_contents_type that doesn't search past things with rad insulation
 // Components which return COMPONENT_BLOCK_RADIATION prevent further searching into that object's contents. The object itself will get returned still.
 // The ignore list makes those objects never return at all
 /proc/get_rad_contents(atom/location)

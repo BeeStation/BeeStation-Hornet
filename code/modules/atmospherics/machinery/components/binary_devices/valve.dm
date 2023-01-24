@@ -150,7 +150,7 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 		normalize_cardinal_directions()
 		icon_state = "dvalve_nopower-[set_overlay_offset(piping_layer)]"
 		return
-	..()
+	return..()
 
 /obj/machinery/atmospherics/components/binary/valve/layer2
 	piping_layer = 2

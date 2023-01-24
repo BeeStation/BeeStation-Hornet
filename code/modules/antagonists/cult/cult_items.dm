@@ -622,7 +622,7 @@ Striking a noncultist, however, will tear their flesh."}
 			to_chat(user, "<span class='cult italic'>[cultist_to_receive] is not a follower of the Geometer!</span>")
 			log_game("Void torch failed - target was deconverted")
 			return
-		if(A in user.GetAllContents())
+		if(A in user.get_all_contents_type())
 			to_chat(user, "<span class='cult italic'>[A] must be on a surface in order to teleport it!</span>")
 			return
 		to_chat(user, "<span class='cult italic'>You ignite [A] with \the [src], turning it to ash, but through the torch's flames you see that [A] has reached [cultist_to_receive]!")
@@ -863,7 +863,7 @@ Striking a noncultist, however, will tear their flesh."}
 		playsound(src, 'sound/magic/exit_blood.ogg', 75, 1)
 		new /obj/effect/temp_visual/dir_setting/cult/phase(user.loc, user.dir)
 		var/turf/temp_target = get_turf_in_angle(set_angle, targets_from, 40)
-		for(var/turf/T in getline(targets_from,temp_target))
+		for(var/turf/T in get_line(targets_from,temp_target))
 			if (locate(/obj/effect/blessing, T))
 				temp_target = T
 				playsound(T, 'sound/machines/clockcult/ark_damage.ogg', 50, 1)

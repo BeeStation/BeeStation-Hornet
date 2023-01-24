@@ -70,6 +70,7 @@
 	return TRUE
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/RefreshParts()
+	. = ..()
 	var/cap = 0
 	var/eff = 0
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)

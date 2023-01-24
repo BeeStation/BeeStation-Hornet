@@ -72,6 +72,7 @@
 	. = ..()
 
 /obj/machinery/clonepod/RefreshParts()
+	. = ..()
 	speed_coeff = 0
 	efficiency = 0
 	reagents.maximum_volume = 0

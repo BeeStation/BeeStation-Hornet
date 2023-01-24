@@ -1,15 +1,13 @@
-// Relays don't handle any actual communication. Global NTNet datum does that, relays only tell the datum if it should or shouldn't work.
+//Relays don't handle any actual communication. Global NTNet datum does that, relays only tell the datum if it should or shouldn't work.
 /obj/machinery/ntnet_relay
 	name = "NTNet Quantum Relay"
 	desc = "A very complex router and transmitter capable of connecting electronic devices together. Looks fragile."
 	use_power = ACTIVE_POWER_USE
-	active_power_usage = 10000 //10kW, apropriate for machine that keeps massive cross-Zlevel wireless network operational. Used to be 20 but that actually drained the smes one round
-	idle_power_usage = 100
+	active_power_usage = BASE_MACHINE_ACTIVE_CONSUMPTION * 10 //10kW, apropriate for machine that keeps massive cross-Zlevel wireless network operational. Used to be 20 but that actually drained the smes one round
 	icon = 'icons/obj/machines/telecomms.dmi'
 	icon_state = "bus"
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/ntnet_relay
-
 
 	/// This is mostly for backwards reference and to allow varedit modifications from ingame.
 	var/datum/ntnet/NTNet = null

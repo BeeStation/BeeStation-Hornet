@@ -217,7 +217,8 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 /obj/machinery/vending/can_speak()
 	return !shut_up
 
-/obj/machinery/vending/RefreshParts()         //Better would be to make constructable child
+/obj/machinery/vending/RefreshParts() //Better would be to make constructable child
+	. = ..()
 	if(!component_parts)
 		return
 
@@ -852,6 +853,8 @@ GLOBAL_LIST_EMPTY(vending_products)
 			icon_state = "[initial(icon_state)]-off"
 			machine_stat |= NOPOWER
 			set_light(0)
+	return ..()
+
 
 //Somebody cut an important wire and now we're following a new definition of "pitch."
 /**

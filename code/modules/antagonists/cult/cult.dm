@@ -181,7 +181,7 @@
 
 /datum/antagonist/cult/proc/admin_take_all(mob/admin)
 	var/mob/living/current = owner.current
-	for(var/o in current.GetAllContents())
+	for(var/o in current.get_all_contents_type())
 		if(istype(o, /obj/item/melee/cultblade/dagger) || istype(o, /obj/item/stack/sheet/runed_metal))
 			qdel(o)
 
@@ -336,7 +336,7 @@
 		for(var/datum/mind/possible_target in get_crewmember_minds())
 			if(is_valid_target(possible_target) && !(possible_target in blacklist))
 				target_candidates += possible_target
-	listclearnulls(target_candidates)
+	list_clear_nulls(target_candidates)
 	if(LAZYLEN(target_candidates))
 		set_target(pick(target_candidates))
 	else

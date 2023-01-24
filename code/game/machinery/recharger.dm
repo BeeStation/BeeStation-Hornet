@@ -10,7 +10,9 @@
 	pass_flags = PASSTABLE
 	var/obj/item/charging = null
 	var/recharge_coeff = 1
-	var/using_power = FALSE
+	var/using_power = FALSE //Did we put power into "charging" last process()?
+	///Did we finish recharging the currently inserted item?
+	var/finished_recharging = FALSE
 
 	var/static/list/allowed_devices = typecacheof(list(
 		/obj/item/gun/energy,
@@ -20,6 +22,8 @@
 		/obj/item/modular_computer))
 
 /obj/machinery/recharger/RefreshParts()
+	. = ..()
+
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		recharge_coeff = C.rating
 
@@ -46,12 +50,15 @@
 
 /obj/machinery/recharger/proc/setCharging(new_charging)
 	charging = new_charging
-	if (new_charging)
+	if(new_charging)
 		START_PROCESSING(SSmachines, src)
-		use_power = ACTIVE_POWER_USE
+		update_use_power(ACTIVE_POWER_USE)
+		finished_recharging = FALSE
+		using_power = TRUE
 		update_icon(scan = TRUE)
 	else
-		use_power = IDLE_POWER_USE
+		update_use_power(IDLE_POWER_USE)
+		using_power = FALSE
 		update_icon()
 
 /obj/machinery/recharger/attackby(obj/item/G, mob/user, params)
@@ -59,7 +66,7 @@
 		if(charging)
 			to_chat(user, "<span class='notice'>Remove the charging item first!</span>")
 			return
-		setAnchored(!anchored)
+		set_anchored(!anchored)
 		power_change()
 		to_chat(user, "<span class='notice'>You [anchored ? "attached" : "detached"] [src].</span>")
 		G.play_tool_sound(src)
@@ -130,7 +137,7 @@
 		if(C)
 			if(C.charge < C.maxcharge)
 				C.give(C.chargerate * recharge_coeff * delta_time / 2)
-				use_power(125 * recharge_coeff * delta_time)
+				use_power(active_power_usage * recharge_coeff * delta_time)
 				using_power = TRUE
 			update_icon()
 
@@ -138,10 +145,14 @@
 			var/obj/item/ammo_box/magazine/recharge/R = charging
 			if(R.stored_ammo.len < R.max_ammo)
 				R.stored_ammo += new R.ammo_type(R)
-				use_power(100 * recharge_coeff * delta_time)
+				use_power(active_power_usage * recharge_coeff * delta_time)
 				using_power = TRUE
 			update_icon()
 			return
+		if(!using_power && !finished_recharging) //Inserted thing is at max charge/ammo, notify those around us
+			finished_recharging = TRUE
+			playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
+			say("[charging] has finished recharging!")
 	else
 		return PROCESS_KILL
 

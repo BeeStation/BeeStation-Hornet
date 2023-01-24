@@ -177,7 +177,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		var/mob/living/L = A
 		if(L.stat != DEAD)
 			return 1
-	for(var/thing in A.GetAllContents())
+	for(var/thing in A.get_all_contents_type())
 		if(isliving(A))
 			var/mob/living/L = A
 			if(L.stat != DEAD)

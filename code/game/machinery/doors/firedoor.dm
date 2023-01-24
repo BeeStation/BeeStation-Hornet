@@ -86,6 +86,7 @@
 
 
 /obj/machinery/door/firedoor/power_change()
+	. = ..()
 	if(powered(power_channel))
 		set_machine_stat(machine_stat & ~NOPOWER)
 		INVOKE_ASYNC(src, .proc/latetoggle)
@@ -103,7 +104,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	user.visible_message("[user] bangs on \the [src].",
-						 "You bang on \the [src].")
+							"You bang on \the [src].")
 	playsound(loc, 'sound/effects/glassknock.ogg', 10, FALSE, frequency = 32000)
 
 /obj/machinery/door/firedoor/attackby(obj/item/C, mob/user, params)

@@ -57,24 +57,23 @@
 #include "create_and_destroy.dm"
 #endif
 
+// Keep Alphabetical Order
 #include "dynamic_ruleset_sanity.dm"
-#include "enumerables.dm"
+#include "greyscale_config.dm"
 #include "keybinding_init.dm"
+#include "metabolizing.dm"
+#include "projectiles.dm"
+#include "random_ruin_mapsize.dm"
 #include "reagent_id_typos.dm"
 #include "reagent_recipe_collisions.dm"
-#include "shuttle_width_height_correctness.dm"
 #include "spawn_humans.dm"
 #include "species_whitelists.dm"
-#include "greyscale_config.dm"
-#include "metabolizing.dm"
-#include "ntnetwork_tests.dm"
-#include "projectiles.dm"
+#include "siunit.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
 #include "tgui_create_message.dm"
 #include "timer_sanity.dm"
 #include "unit_test.dm"
-#include "random_ruin_mapsize.dm"
 
 #ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
 #include "find_reference_sanity.dm"

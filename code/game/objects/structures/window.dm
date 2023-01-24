@@ -29,7 +29,7 @@
 	var/breaksound = "shatter"
 	var/hitsound = 'sound/effects/Glasshit.ogg'
 	flags_ricochet = RICOCHET_HARD
-	ricochet_chance_mod = 0.4
+	receive_ricochet_chance_mod = 0.4
 
 
 /obj/structure/window/examine(mob/user)
@@ -210,12 +210,12 @@
 				else if(state == WINDOW_OUT_OF_FRAME)
 					to_chat(user, "<span class='notice'>You begin to [anchored ? "unscrew the frame from":"screw the frame to"] the floor...</span>")
 					if(I.use_tool(src, user, decon_speed, extra_checks = CALLBACK(src, .proc/check_state_and_anchored, state, anchored)))
-						setAnchored(!anchored)
+						set_anchored(!anchored)
 						to_chat(user, "<span class='notice'>You [anchored ? "fasten the frame to":"unfasten the frame from"] the floor.</span>")
 			else //if we're not reinforced, we don't need to check or update state
 				to_chat(user, "<span class='notice'>You begin to [anchored ? "unscrew the window from":"screw the window to"] the floor...</span>")
 				if(I.use_tool(src, user, decon_speed, extra_checks = CALLBACK(src, .proc/check_anchored, anchored)))
-					setAnchored(!anchored)
+					set_anchored(!anchored)
 					to_chat(user, "<span class='notice'>You [anchored ? "fasten the window to":"unfasten the window from"] the floor.</span>")
 			return
 
@@ -239,7 +239,7 @@
 			return
 	return ..()
 
-/obj/structure/window/setAnchored(anchorvalue)
+/obj/structure/window/set_anchored(anchorvalue)
 	..()
 	air_update_turf(TRUE)
 	update_nearby_icons()
@@ -408,7 +408,7 @@
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
 	rad_insulation = RAD_HEAVY_INSULATION
-	ricochet_chance_mod = 0.8
+	receive_ricochet_chance_mod = 0.8
 
 /obj/structure/window/reinforced/spawner/east
 	dir = EAST
@@ -639,7 +639,7 @@
 	level = 3
 	glass_type = /obj/item/stack/sheet/titaniumglass
 	glass_amount = 2
-	ricochet_chance_mod = 0.9
+	receive_ricochet_chance_mod = 0.9
 
 /obj/structure/window/shuttle/narsie_act()
 	add_atom_colour("#3C3434", FIXED_COLOUR_PRIORITY)

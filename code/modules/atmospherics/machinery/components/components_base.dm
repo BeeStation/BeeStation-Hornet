@@ -106,7 +106,7 @@
 	parents[i] = null
 
 // We should return every air sharing a parent
-/obj/machinery/atmospherics/components/returnPipenetAir(datum/pipeline/reference)
+/obj/machinery/atmospherics/components/return_pipenetAir(datum/pipeline/reference)
 	for(var/i in 1 to device_type)
 		if(parents[i] == reference)
 			if(.)
@@ -124,7 +124,7 @@
 /obj/machinery/atmospherics/components/setPipenet(datum/pipeline/reference, obj/machinery/atmospherics/A)
 	parents[nodes.Find(A)] = reference
 
-/obj/machinery/atmospherics/components/returnPipenet(obj/machinery/atmospherics/A = nodes[1]) //returns parents[1] if called without argument
+/obj/machinery/atmospherics/components/return_pipenet(obj/machinery/atmospherics/A = nodes[1]) //returns parents[1] if called without argument
 	return parents[nodes.Find(A)]
 
 /obj/machinery/atmospherics/components/replacePipenet(datum/pipeline/Old, datum/pipeline/New)
@@ -168,10 +168,10 @@
 			continue
 		parent.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
-/obj/machinery/atmospherics/components/returnPipenets()
+/obj/machinery/atmospherics/components/return_pipenets()
 	. = list()
 	for(var/i in 1 to device_type)
-		. += returnPipenet(nodes[i])
+		. += return_pipenet(nodes[i])
 
 // UI Stuff
 

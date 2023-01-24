@@ -194,12 +194,12 @@
 /datum/syndicate_contract/proc/returnVictim(var/mob/living/M)
 	var/list/possible_drop_loc = list()
 
-	for (var/turf/possible_drop in contract.dropoff.contents)
-		if (!isspaceturf(possible_drop) && !isclosedturf(possible_drop))
-			if (!is_blocked_turf(possible_drop))
+	for(var/turf/possible_drop in contract.dropoff.contents)
+		if(!isspaceturf(possible_drop) && !isclosedturf(possible_drop))
+			if(!possible_drop.is_blocked_turf())
 				possible_drop_loc.Add(possible_drop)
 
-	if (possible_drop_loc.len > 0)
+	if(possible_drop_loc.len > 0)
 		var/pod_rand_loc = rand(1, possible_drop_loc.len)
 
 		var/obj/structure/closet/supplypod/return_pod = new()
@@ -211,7 +211,7 @@
 		M.visible_message("<span class='notice'>[M] vanishes...</span>")
 
 		for(var/obj/item/W in M)
-			if (ishuman(M))
+			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
 				if(W == H.w_uniform)
 					continue //So all they're left with are shoes and uniform.

@@ -283,7 +283,7 @@ All ShuttleMove procs go here
 		atmosinit()
 		for(var/obj/machinery/atmospherics/A in pipeline_expansion())
 			A.atmosinit()
-			if(A.returnPipenet())
+			if(A.return_pipenet())
 				A.addMember(src)
 		SSair.add_to_rebuild_queue(src)
 	else

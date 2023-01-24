@@ -85,6 +85,7 @@
 	return container
 
 /obj/machinery/modular_fabricator/RefreshParts()
+	. = ..()
 	var/mat_capacity = 0
 	for(var/obj/item/stock_parts/matter_bin/new_matter_bin in component_parts)
 		mat_capacity += new_matter_bin.rating*75000
@@ -354,7 +355,7 @@
 	var/turf/T
 	if(output_direction)
 		T = get_step(src, output_direction)
-		if(is_blocked_turf(T, TRUE))
+		if(T.is_blocked_turf(TRUE))
 			T = get_turf(src)
 	else
 		T = get_turf(src)

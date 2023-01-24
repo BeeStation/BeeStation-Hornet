@@ -100,7 +100,7 @@
 		for(var/place in shuttle_areas)
 			var/area/shuttle/shuttle_area = place
 			for(var/turf/open/floor/T in shuttle_area)
-				if(is_blocked_turf(T))
+				if(T.is_blocked_turf())
 					continue
 				empty_shuttle_turfs += T
 		if(!empty_shuttle_turfs.len)
@@ -249,7 +249,7 @@
 
 /obj/machinery/syndicatebomb/shuttle_loan/Initialize(mapload)
 	. = ..()
-	setAnchored(TRUE)
+	set_anchored(TRUE)
 	timer_set = rand(480, 600) //once the supply shuttle docks (after 5 minutes travel time), players have between 3-5 minutes to defuse the bomb
 	activate()
 	update_icon()

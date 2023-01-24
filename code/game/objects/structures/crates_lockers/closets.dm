@@ -165,7 +165,7 @@
 			return FALSE
 	return TRUE
 
-/obj/structure/closet/proc/dump_contents()
+/obj/structure/closet/dump_contents()
 	var/atom/L = drop_location()
 	for(var/atom/movable/AM in src)
 		AM.forceMove(L)
@@ -312,7 +312,7 @@
 	else if(W.tool_behaviour == TOOL_WRENCH && anchorable)
 		if(isinspace() && !anchored)
 			return
-		setAnchored(!anchored)
+		set_anchored(!anchored)
 		W.play_tool_sound(src, 75)
 		user.visible_message("<span class='notice'>[user] [anchored ? "anchored" : "unanchored"] \the [src] [anchored ? "to" : "from"] the ground.</span>", \
 						"<span class='notice'>You [anchored ? "anchored" : "unanchored"] \the [src] [anchored ? "to" : "from"] the ground.</span>", \

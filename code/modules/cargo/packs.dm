@@ -14,7 +14,7 @@
 	var/dangerous = FALSE // Should we message admins?
 	var/special = FALSE //Event/Station Goals/Admin enabled packs
 	var/special_enabled = FALSE
-	var/DropPodOnly = FALSE//only usable by the Bluespace Drop Pod via the express cargo console
+	var/drop_pod_only = FALSE//only usable by the Bluespace Drop Pod via the express cargo console
 	var/admin_spawned = FALSE
 	var/small_item = FALSE //Small items can be grouped into a single crate.
 
@@ -2459,7 +2459,7 @@
 	cost = 5000
 	contains = list(/mob/living/simple_animal/crab)
 	crate_name = "look sir free crabs"
-	DropPodOnly = TRUE
+	drop_pod_only = TRUE
 
 /datum/supply_pack/critter/crab/generate()
 	. = ..()

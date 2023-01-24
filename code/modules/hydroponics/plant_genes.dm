@@ -274,7 +274,7 @@
 /datum/plant_gene/trait/cell_charge/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
 	if(!G.reagents.total_volume)
 		var/batteries_recharged = 0
-		for(var/obj/item/stock_parts/cell/C in target.GetAllContents())
+		for(var/obj/item/stock_parts/cell/C in target.get_all_contents_type())
 			var/newcharge = min(G.seed.potency*0.01*C.maxcharge, C.maxcharge)
 			if(C.charge < newcharge)
 				C.charge = newcharge

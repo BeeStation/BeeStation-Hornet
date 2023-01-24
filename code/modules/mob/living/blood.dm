@@ -79,7 +79,7 @@
 			var/brutedamage = BP.brute_dam
 
 			//We want an accurate reading of .len
-			listclearnulls(BP.embedded_objects)
+			list_clear_nulls(BP.embedded_objects)
 			for(var/obj/item/embeddies in BP.embedded_objects)
 				if(!embeddies.isEmbedHarmless())
 					temp_bleed += 0.5

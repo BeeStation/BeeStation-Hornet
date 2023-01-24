@@ -42,7 +42,7 @@
 
 /obj/item/card/data/update_icon()
 	cut_overlays()
-	if(detail_color == COLOR_FLOORTILE_GRAY)
+	if(detail_color == COLOR_FLOORTILE_GREY)
 		return
 	var/mutable_appearance/detail_overlay = mutable_appearance('icons/obj/card.dmi', "[icon_state]-color")
 	detail_overlay.color = detail_color

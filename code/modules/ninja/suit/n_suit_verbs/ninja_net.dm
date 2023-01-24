@@ -13,7 +13,7 @@
 	if(locate(/obj/structure/energy_net) in get_turf(C))//Check if they are already being affected by an energy net.
 		to_chat(H, "<span class='warning'>[C.p_they(TRUE)] are already trapped inside an energy net!</span>")
 		return
-	for(var/turf/T in getline(get_turf(H), get_turf(C)))
+	for(var/turf/T in get_line(get_turf(H), get_turf(C)))
 		if(T.density)//Don't want them shooting nets through walls. It's kind of cheesy.
 			to_chat(H, "<span class='warning'>You may not use an energy net through solid obstacles!</span>")
 			return

@@ -151,6 +151,7 @@
 	limb.update_icon_dropped()
 
 /obj/machinery/limbgrower/RefreshParts()
+	. = ..()
 	reagents.maximum_volume = 0
 	for(var/obj/item/reagent_containers/glass/G in component_parts)
 		reagents.maximum_volume += G.volume

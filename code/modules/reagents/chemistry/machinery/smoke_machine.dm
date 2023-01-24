@@ -36,6 +36,8 @@
 	AddComponent(/datum/component/plumbing/simple_demand)
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		reagents.maximum_volume += REAGENTS_BASE_VOLUME * B.rating
+	if(is_operational)
+		begin_processing()
 
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
 
@@ -53,6 +55,7 @@
 	return ..()
 
 /obj/machinery/smoke_machine/RefreshParts()
+	. = ..()
 	var/new_volume = REAGENTS_BASE_VOLUME
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		new_volume += REAGENTS_BASE_VOLUME * B.rating
@@ -70,10 +73,14 @@
 		max_range += M.rating
 	max_range = max(3, max_range)
 
+/obj/machinery/smoke_machine/on_set_is_operational(old_value)
+	if(old_value) //Turned off
+		end_processing()
+	else //Turned on
+		begin_processing()
+
 /obj/machinery/smoke_machine/process()
 	..()
-	if(!is_operational)
-		return
 	if(reagents.total_volume == 0)
 		on = FALSE
 		update_icon()

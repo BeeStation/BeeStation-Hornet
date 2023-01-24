@@ -50,7 +50,7 @@
 	if(isspaceturf(newLoc))
 		to_chat(user, "<span class='warning'>It really would not be wise to go into space.</span>")
 		return
-	if(newLoc.get_lumcount() > SHADOW_SPECIES_LIGHT_THRESHOLD && is_blocked_turf(newLoc))
+	if(newLoc.get_lumcount() > SHADOW_SPECIES_LIGHT_THRESHOLD && newLoc.is_blocked_turf())
 		to_chat(user, "<span class='warning'>It wouldn't be wise to move here while incorporeal, I may become trapped.</span>")
 		return
 	forceMove(newLoc)

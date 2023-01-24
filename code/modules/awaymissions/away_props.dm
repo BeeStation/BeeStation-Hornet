@@ -48,7 +48,7 @@
 /obj/effect/path_blocker/CanAllowThrough(atom/movable/mover, turf/target)
 	. = ..()
 	if(blocked_types.len)
-		var/list/mover_contents = mover.GetAllContents()
+		var/list/mover_contents = mover.get_all_contents_type()
 		for(var/atom/movable/thing in mover_contents)
 			if(blocked_types[thing.type])
 				return reverse

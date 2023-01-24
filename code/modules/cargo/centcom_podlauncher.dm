@@ -774,12 +774,12 @@
 		selector.moveToNullspace() //Otherwise, we move the selector to nullspace until it is needed again
 
 /datum/centcom_podlauncher/proc/clearBay() //Clear all objs and mobs from the selected bay
-	for (var/obj/O in bay.GetAllContents())
+	for (var/obj/O in bay.get_all_contents_type())
 		if(istype(O, /obj/effect/hallucination/simple/supplypod_selector) \
 			|| istype(O, /obj/effect/hallucination/simple/dropoff_location))
 			continue // Don't clear indicators, especially since they don't recreate automatically
 		qdel(O)
-	for (var/mob/M in bay.GetAllContents())
+	for (var/mob/M in bay.get_all_contents_type())
 		qdel(M)
 	for (var/bayturf in bay)
 		var/turf/turf_to_clear = bayturf

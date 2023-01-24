@@ -91,8 +91,8 @@
 	back_nodes = list()
 	var/list/new_nodes = list()
 	for(var/iter in PIPING_LAYER_MIN to PIPING_LAYER_MAX)
-		var/obj/machinery/atmospherics/foundfront = findConnecting(dir, iter)
-		var/obj/machinery/atmospherics/foundback = findConnecting(turn(dir, 180), iter)
+		var/obj/machinery/atmospherics/foundfront = find_connecting(dir, iter)
+		var/obj/machinery/atmospherics/foundback = find_connecting(turn(dir, 180), iter)
 		front_nodes += foundfront
 		back_nodes += foundback
 		if(foundfront && !QDELETED(foundfront))

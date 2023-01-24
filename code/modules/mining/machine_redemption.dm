@@ -35,9 +35,10 @@
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/RefreshParts()
+	. = ..()
 	var/sheet_per_ore_temp = 1
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		sheet_per_ore_temp = 0.65 + (0.15 * B.rating) 
+		sheet_per_ore_temp = 0.65 + (0.15 * B.rating)
 	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
 		sheet_per_ore_temp += (0.20 * L.rating)
 	sheet_per_ore = round(sheet_per_ore_temp, 0.01)

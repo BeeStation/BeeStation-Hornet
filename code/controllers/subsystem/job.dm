@@ -679,46 +679,44 @@ SUBSYSTEM_DEF(job)
 	if(M.mind && M.mind.assigned_role && length(GLOB.jobspawn_overrides[M.mind.assigned_role])) //We're doing something special today.
 		destination = pick(GLOB.jobspawn_overrides[M.mind.assigned_role])
 		destination.JoinPlayerHere(M, FALSE)
-		return
+		return TRUE
 
 	if(latejoin_trackers.len)
 		destination = pick(latejoin_trackers)
 		destination.JoinPlayerHere(M, buckle)
-		return
+		return TRUE
 
+	destination = get_last_resort_spawn_points()
+	destination.JoinPlayerHere(M, buckle)
+
+/datum/controller/subsystem/job/proc/get_last_resort_spawn_points()
 	//bad mojo
-	var/area/shuttle/arrival/A = GLOB.areas_by_type[/area/shuttle/arrival]
-	if(A)
+	var/area/shuttle/arrival/arrivals_area = GLOB.areas_by_type[/area/shuttle/arrival]
+	if(arrivals_area)
 		//first check if we can find a chair
-		var/obj/structure/chair/C = locate() in A
-		if(C)
-			C.JoinPlayerHere(M, buckle)
-			return
+		var/obj/structure/chair/shuttle_chair = locate() in arrivals_area
+		if(shuttle_chair)
+			return shuttle_chair
 
 		//last hurrah
-		var/list/avail = list()
-		for(var/turf/T in A)
-			if(!is_blocked_turf(T, TRUE))
-				avail += T
-		if(avail.len)
-			destination = pick(avail)
-			destination.JoinPlayerHere(M, FALSE)
-			return
+		var/list/turf/available_turfs = list()
+		for(var/turf/arrivals_turf in arrivals_area)
+			if(!arrivals_turf.is_blocked_turf(TRUE))
+				available_turfs += arrivals_turf
+		if(length(available_turfs))
+			return pick(available_turfs)
 
 	//pick an open spot on arrivals and dump em
 	var/list/arrivals_turfs = shuffle(get_area_turfs(/area/shuttle/arrival))
-	if(arrivals_turfs.len)
-		for(var/turf/T in arrivals_turfs)
-			if(!is_blocked_turf(T, TRUE))
-				T.JoinPlayerHere(M, FALSE)
-				return
+	if(length(arrivals_turfs))
+		for(var/turf/arrivals_turf in arrivals_turfs)
+			if(!arrivals_turf.is_blocked_turf(TRUE))
+				return arrivals_turf
 		//last chance, pick ANY spot on arrivals and dump em
-		destination = arrivals_turfs[1]
-		destination.JoinPlayerHere(M, FALSE)
-	else
-		var/msg = "Unable to send mob [M] to late join!"
-		message_admins(msg)
-		CRASH(msg)
+		return pick(arrivals_turfs)
+
+	stack_trace("Unable to find last resort spawn point.")
+	return GET_ERROR_ROOM
 
 ///Spawns specified mob at a random spot in the hallways
 /datum/controller/subsystem/job/proc/SpawnLandAtRandom(mob/living/living_mob, areas = typesof(/area/hallway))

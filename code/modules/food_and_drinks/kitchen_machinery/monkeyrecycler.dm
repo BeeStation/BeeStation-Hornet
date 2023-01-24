@@ -28,6 +28,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	return ..()
 
 /obj/machinery/monkey_recycler/RefreshParts()	//Ranges from 0.2 to 0.8 per monkey recycled
+	. = ..()
 	cube_production = 0
 	for(var/obj/item/stock_parts/manipulator/B in component_parts)
 		cube_production += B.rating * 0.1

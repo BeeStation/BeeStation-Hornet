@@ -7,14 +7,12 @@
 	name = "circulator/heat exchanger"
 	desc = "A gas circulator pump and heat exchanger."
 	icon_state = "circ-off-0"
+	pipe_flags = PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY
+	density = TRUE
+	circuit = /obj/item/circuitboard/machine/circulator
 
 	var/active = FALSE
-
 	var/last_pressure_delta = 0
-	pipe_flags = PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY
-
-	density = TRUE
-
 
 	var/flipped = 0
 	var/mode = CIRCULATOR_HOT
@@ -26,11 +24,10 @@
 
 /obj/machinery/atmospherics/components/binary/circulator/Initialize(mapload)
 	.=..()
-	component_parts = list(new /obj/item/circuitboard/machine/circulator)
 
 /obj/machinery/atmospherics/components/binary/circulator/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS )
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS )
 
 /obj/machinery/atmospherics/components/binary/circulator/Destroy()
 	if(generator)

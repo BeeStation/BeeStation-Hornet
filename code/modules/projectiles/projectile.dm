@@ -296,7 +296,7 @@
 	if(firer && HAS_TRAIT(firer, TRAIT_NICE_SHOT))
 		best_angle += NICE_SHOT_RICOCHET_BONUS
 	for(var/mob/living/L in range(ricochet_auto_aim_range, src.loc))
-		if(L.stat == DEAD || !isInSight(src, L))
+		if(L.stat == DEAD || !is_in_sight(src, L))
 			continue
 		var/our_angle = abs(closer_angle_difference(Angle, get_angle(src.loc, L.loc)))
 		if(our_angle < best_angle)
@@ -598,7 +598,7 @@
 /obj/item/projectile/proc/return_pathing_turfs_in_moves(moves, forced_angle)
 	var/turf/current = get_turf(src)
 	var/turf/ending = return_predicted_turf_after_moves(moves, forced_angle)
-	return getline(current, ending)
+	return get_line(current, ending)
 
 /obj/item/projectile/Process_Spacemove(movement_dir = 0)
 	return TRUE	//Bullets don't drift in space

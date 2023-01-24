@@ -769,7 +769,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	// Loop over mobs
 	for(var/t in return_turfs())
 		var/turf/T = t
-		for(var/mob/living/M in T.GetAllContents())
+		for(var/mob/living/M in T.get_all_contents_type())
 			// If they have a mind and they're not in the brig, they escaped
 			if(M.mind && !istype(t, /turf/open/floor/plasteel/shuttle/red) && !istype(t, /turf/open/floor/mineral/plastitanium/red/brig))
 				M.mind.force_escaped = TRUE

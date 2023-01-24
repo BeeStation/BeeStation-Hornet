@@ -55,6 +55,7 @@
 	return ..(dir, piping_layer)
 
 /obj/machinery/atmospherics/components/unary/thermomachine/RefreshParts()
+	. = ..()
 	var/calculated_bin_rating
 	for(var/obj/item/stock_parts/matter_bin/bin in component_parts)
 		calculated_bin_rating += bin.rating
@@ -202,7 +203,7 @@
 	switch(action)
 		if("power")
 			on = !on
-			use_power = on ? ACTIVE_POWER_USE : IDLE_POWER_USE
+			update_use_power(on ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			. = TRUE
 		if("cooling")

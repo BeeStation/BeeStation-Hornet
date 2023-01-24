@@ -188,16 +188,16 @@
 	. = ..()
 	if(!is_operational && state_open)
 		open_machine()
-		dump_contents()
+		dump_inventory_contents()
 	update_icon()
 
-/obj/machinery/suit_storage_unit/proc/dump_contents()
-	dropContents()
+/obj/machinery/suit_storage_unit/dump_inventory_contents()
+	. = ..()
 	helmet = null
 	suit = null
 	mask = null
 	storage = null
-	occupant = null
+	set_occupant(null)
 
 /obj/machinery/suit_storage_unit/emp_act()
 	. = ..()
@@ -209,10 +209,18 @@
 	..()
 	to_chat(user, "<span class='warning'>You reprogram [src]'s decontamination subroutines.</span>")
 
+/obj/machinery/suit_storage_unit/dump_inventory_contents()
+	. = ..()
+	helmet = null
+	suit = null
+	mask = null
+	storage = null
+	set_occupant(null)
+
 /obj/machinery/suit_storage_unit/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		open_machine()
-		dump_contents()
+		dump_inventory_contents()
 		new /obj/item/stack/sheet/iron (loc, 2)
 	qdel(src)
 
@@ -263,12 +271,14 @@
 		uv = TRUE
 		locked = TRUE
 		update_icon()
-		if(occupant)
+		if(mob_occupant)
 			if(uv_super || (obj_flags & EMAGGED))
 				mob_occupant.adjustFireLoss(rand(20, 36))
 			else
 				mob_occupant.adjustFireLoss(rand(10, 16))
-			mob_occupant.emote("scream")
+			if(iscarbon(mob_occupant) && mob_occupant.stat < UNCONSCIOUS)
+				//Awake, organic and screaming
+				mob_occupant.emote("scream")
 		addtimer(CALLBACK(src, .proc/cook), 50)
 	else
 		uv_cycles = initial(uv_cycles)
@@ -276,7 +286,7 @@
 		locked = FALSE
 		if(uv_super || (obj_flags & EMAGGED))
 			toasted = TRUE
-			if(occupant)
+			if(mob_occupant)
 				visible_message("<span class='warning'>[src]'s door creaks open with a loud whining noise. A foul stench and a cloud of smoke exit the chamber.</span>")
 			else
 				visible_message("<span class='warning'>[src]'s door creaks open with a loud whining noise. A cloud of foul black smoke escapes from its chamber.</span>")
@@ -299,30 +309,30 @@
 				visible_message("<span class='notice'>[src]'s door slides open. The glowing yellow lights dim to a gentle green.</span>")
 		toasted = FALSE
 		playsound(src, 'sound/machines/airlockclose.ogg', 25, TRUE)
-		var/list/things_to_clear = list() //Done this way since using GetAllContents on the SSU itself would include circuitry and such.
+		var/list/things_to_clear = list() //Done this way since using get_all_contents_type on the SSU itself would include circuitry and such.
 		if(suit)
 			things_to_clear += suit
-			things_to_clear += suit.GetAllContents()
+			things_to_clear += suit.get_all_contents_type()
 		if(helmet)
 			things_to_clear += helmet
-			things_to_clear += helmet.GetAllContents()
+			things_to_clear += helmet.get_all_contents_type()
 		if(mask)
 			things_to_clear += mask
-			things_to_clear += mask.GetAllContents()
+			things_to_clear += mask.get_all_contents_type()
 		if(storage)
 			things_to_clear += storage
-			things_to_clear += storage.GetAllContents()
-		if(occupant)
-			things_to_clear += occupant
-			things_to_clear += occupant.GetAllContents()
+			things_to_clear += storage.get_all_contents_type()
+		if(mob_occupant)
+			things_to_clear += mob_occupant
+			things_to_clear += mob_occupant.get_all_contents_type()
 		for(var/atom/movable/AM in things_to_clear) //Scorches away blood and forensic evidence, although the SSU itself is unaffected
 			SEND_SIGNAL(AM, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRONG)
 			var/datum/component/radioactive/contamination = AM.GetComponent(/datum/component/radioactive)
 			if(contamination)
 				qdel(contamination)
 		open_machine(FALSE)
-		if(occupant)
-			dump_contents()
+		if(mob_occupant)
+			dump_inventory_contents()
 
 /obj/machinery/suit_storage_unit/proc/shock(mob/user, prb)
 	if(!prob(prb))
@@ -339,12 +349,12 @@
 			to_chat(user, "<span class='warning'>[src]'s door won't budge!</span>")
 		return
 	open_machine()
-	dump_contents()
+	dump_inventory_contents()
 
 /obj/machinery/suit_storage_unit/container_resist(mob/living/user)
 	if(!locked)
 		open_machine()
-		dump_contents()
+		dump_inventory_contents()
 		return
 	user.changeNext_move(CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
@@ -357,7 +367,7 @@
 		user.visible_message("<span class='warning'>[user] successfully broke out of [src]!</span>", \
 			"<span class='notice'>You successfully break out of [src]!</span>")
 		open_machine()
-		dump_contents()
+		dump_inventory_contents()
 
 	add_fingerprint(user)
 	if(locked)
@@ -366,7 +376,7 @@
 		addtimer(CALLBACK(src, .proc/resist_open, user), 300)
 	else
 		open_machine()
-		dump_contents()
+		dump_inventory_contents()
 
 /obj/machinery/suit_storage_unit/proc/resist_open(mob/user)
 	if(!state_open && occupant && (user in src) && user.stat == 0) // Check they're still here.
@@ -418,7 +428,7 @@
 			ui_update() // Wires might've changed availability of decontaminate button
 			return
 	if(default_pry_open(I))
-		dump_contents()
+		dump_inventory_contents()
 		return
 
 	return ..()
@@ -488,9 +498,9 @@
 			if(state_open)
 				close_machine()
 			else
-				open_machine(0)
+				open_machine(drop = FALSE)
 				if(occupant)
-					dump_contents() // Dump out contents if someone is in there.
+					dump_inventory_contents() // Dump out contents if someone is in there.
 			. = TRUE
 		if("lock")
 			if(state_open)

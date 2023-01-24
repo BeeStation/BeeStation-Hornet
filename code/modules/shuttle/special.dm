@@ -240,17 +240,17 @@
 
 	var/list/counted_money = list()
 
-	for(var/obj/item/coin/C in AM.GetAllContents())
+	for(var/obj/item/coin/C in AM.get_all_contents_type())
 		if(payees[AM] >= threshold)
 			break
 		payees[AM] += C.value
 		counted_money += C
-	for(var/obj/item/stack/spacecash/S in AM.GetAllContents())
+	for(var/obj/item/stack/spacecash/S in AM.get_all_contents_type())
 		if(payees[AM] >= threshold)
 			break
 		payees[AM] += S.value * S.amount
 		counted_money += S
-	for(var/obj/item/holochip/H in AM.GetAllContents())
+	for(var/obj/item/holochip/H in AM.get_all_contents_type())
 		if(payees[AM] >= threshold)
 			break
 		payees[AM] += H.credits

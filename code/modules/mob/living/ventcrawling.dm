@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 		return
 	var/list/totalMembers = list()
 
-	for(var/datum/pipeline/P in starting_machine.returnPipenets())
+	for(var/datum/pipeline/P in starting_machine.return_pipenets())
 		totalMembers += P.members
 		totalMembers += P.other_atmosmch
 

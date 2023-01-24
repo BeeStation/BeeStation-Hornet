@@ -750,7 +750,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/lighter_color
 	var/list/color_list = list( //Same 16 color selection as electronic assemblies
 		COLOR_ASSEMBLY_BLACK,
-		COLOR_FLOORTILE_GRAY,
+		COLOR_FLOORTILE_GREY,
 		COLOR_ASSEMBLY_BGRAY,
 		COLOR_ASSEMBLY_WHITE,
 		COLOR_ASSEMBLY_RED,

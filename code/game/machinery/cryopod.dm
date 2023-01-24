@@ -297,7 +297,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		visible_message("<span class='notice'>\The [src] hums and hisses as it moves [mob_occupant.real_name] into storage.</span>")
 
 
-	for(var/obj/item/W in mob_occupant.GetAllContents())
+	for(var/obj/item/W in mob_occupant.get_all_contents_type())
 		if(W.loc.loc && (( W.loc.loc == loc ) || (W.loc.loc == control_computer)))
 			continue//means we already moved whatever this thing was in
 			//I'm a professional, okay
@@ -309,7 +309,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 				else
 					mob_occupant.transferItemToLoc(W, loc, TRUE)
 
-	for(var/obj/item/W in mob_occupant.GetAllContents())
+	for(var/obj/item/W in mob_occupant.get_all_contents_type())
 		qdel(W)//because we moved all items to preserve away
 		//and yes, this totally deletes their bodyparts one by one, I just couldn't bother
 

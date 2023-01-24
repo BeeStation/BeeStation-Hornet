@@ -1,13 +1,3 @@
-//update_state
-#define UPSTATE_CELL_IN		(1<<0)
-#define UPSTATE_MAINT		(1<<3)
-#define UPSTATE_BROKE		(1<<4)
-#define UPSTATE_BLUESCREEN	(1<<5)
-#define UPSTATE_WIREEXP		(1<<6)
-#define UPSTATE_ALLGOOD		(1<<7)
-
-#define APC_RESET_EMP "emp"
-
 //update_overlay
 #define APC_UPOVERLAY_CHARGEING0	(1<<0)
 #define APC_UPOVERLAY_CHARGEING1	(1<<1)
@@ -23,18 +13,6 @@
 #define APC_UPOVERLAY_ENVIRON2		(1<<11)
 #define APC_UPOVERLAY_LOCKED		(1<<12)
 #define APC_UPOVERLAY_OPERATING		(1<<13)
-
-#define APC_ELECTRONICS_MISSING 0 // None
-#define APC_ELECTRONICS_INSTALLED 1 // Installed but not secured
-#define APC_ELECTRONICS_SECURED 2 // Installed and secured
-
-#define APC_COVER_CLOSED 0
-#define APC_COVER_OPENED 1
-#define APC_COVER_REMOVED 2
-
-#define APC_NOT_CHARGING 0
-#define APC_CHARGING 1
-#define APC_FULLY_CHARGED 2
 
 // the Area Power Controller (APC), formerly Power Distribution Unit (PDU)
 // one per area, needs wire connection to power network through a terminal
@@ -100,7 +78,7 @@
 	var/beenhit = 0 // used for counting how many times it has been hit, used for Aliens at the moment
 	var/mob/living/silicon/ai/occupier = null
 	var/transfer_in_progress = FALSE //Is there an AI being transferred out of us?
-	var/longtermpower = 10
+	var/long_term_power = 10
 	var/auto_name = FALSE
 	var/failure_timer = 0
 	var/force_update = 0
@@ -111,6 +89,9 @@
 	var/update_overlay = -1
 	var/icon_update_needed = FALSE
 	var/obj/machinery/computer/apc_control/remote_control = null
+
+	///Represents a signel source of power alarms for this apc
+	var/datum/alarm_handler/alarm_manager
 
 	var/clock_cog_rewarded = FALSE	//Clockcult - Has the reward for converting an APC been given?
 	var/integration_cog = null		//Clockcult - The integration cog inserted inside of us
@@ -196,28 +177,12 @@
 			pixel_x = -25
 	if (building)
 		area = get_area(src)
-		clear_previous_power_alarm(src, area)
 		opened = APC_COVER_OPENED
 		operating = FALSE
 		name = "\improper [get_area_name(area, TRUE)] APC"
 		set_machine_stat(machine_stat | MAINT)
 		update_appearance()
 		addtimer(CALLBACK(src, .proc/update), 5)
-		area.poweralert(FALSE, src)
-
-/obj/machinery/power/apc/proc/clear_previous_power_alarm(obj/source, area/A)
-	var/list/areas_list = GLOB.alarms["Power"]
-	for (var/found_area in areas_list)
-		if(found_area != A.name)
-			continue
-		var/list/alarm = areas_list[found_area]
-		var/list/sources  = alarm[3]
-		for(var/origin in sources)
-			if(origin != source)//We don't want to clear our own alarm, do we
-				area.poweralert(TRUE, origin)
-				sources -= origin
-		if (sources.len == 0)
-			areas_list -= found_area
 
 /obj/machinery/power/apc/Destroy()
 	GLOB.apcs_list -= src
@@ -229,9 +194,8 @@
 		area.power_equip = FALSE
 		area.power_environ = FALSE
 		area.power_change()
-		area.poweralert(FALSE, src)
 	if(occupier)
-		malfvacate(1)
+		malfvacate(TRUE)
 	qdel(wires)
 	wires = null
 	if(cell)
@@ -255,6 +219,7 @@
 
 /obj/machinery/power/apc/Initialize(mapload)
 	. = ..()
+	alarm_manager = new(src)
 	if(!mapload)
 		return
 	has_electronics = APC_ELECTRONICS_SECURED
@@ -1002,9 +967,9 @@
 
 /obj/machinery/power/apc/proc/update()
 	if(operating && !shorted && !failure_timer)
-		area.power_light = (lighting > 1)
-		area.power_equip = (equipment > 1)
-		area.power_environ = (environ > 1)
+		area.power_light = (lighting > APC_CHANNEL_AUTO_OFF)
+		area.power_equip = (equipment > APC_CHANNEL_AUTO_OFF)
+		area.power_environ = (environ > APC_CHANNEL_AUTO_OFF)
 	else
 		area.power_light = FALSE
 		area.power_equip = FALSE
@@ -1116,8 +1081,8 @@
 		if("emergency_lighting")
 			emergency_lights = !emergency_lights
 			for(var/obj/machinery/light/L in area)
-				if(!initial(L.no_emergency)) //If there was an override set on creation, keep that override
-					L.no_emergency = emergency_lights
+				if(!initial(L.no_low_power)) //If there was an override set on creation, keep that override
+					L.no_low_power = emergency_lights
 					INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
 				CHECK_TICK
 			. = TRUE
@@ -1278,18 +1243,19 @@
 		update_appearance()
 	if(machine_stat & (BROKEN|MAINT))
 		return
-	if(!area?.requires_power)
+	if(!area || !area.requires_power)
 		return
 	if(failure_timer)
 		update()
 		queue_icon_update()
 		failure_timer--
-		force_update = 1
+		force_update = TRUE
 		return
 
-	lastused_light = area.power_usage[AREA_USAGE_LIGHT] + area.power_usage[AREA_USAGE_STATIC_LIGHT]
-	lastused_equip = area.power_usage[AREA_USAGE_EQUIP] + area.power_usage[AREA_USAGE_STATIC_EQUIP]
-	lastused_environ = area.power_usage[AREA_USAGE_ENVIRON] + area.power_usage[AREA_USAGE_STATIC_ENVIRON]
+	//dont use any power from that channel if we shut that power channel off
+	lastused_light = APC_CHANNEL_IS_ON(lighting) ? area.power_usage[AREA_USAGE_LIGHT] + area.power_usage[AREA_USAGE_STATIC_LIGHT] : 0
+	lastused_equip = APC_CHANNEL_IS_ON(equipment) ? area.power_usage[AREA_USAGE_EQUIP] + area.power_usage[AREA_USAGE_STATIC_EQUIP] : 0
+	lastused_environ = APC_CHANNEL_IS_ON(environ) ? area.power_usage[AREA_USAGE_ENVIRON] + area.power_usage[AREA_USAGE_STATIC_ENVIRON] : 0
 	area.clear_usage()
 
 	lastused_total = lastused_light + lastused_equip + lastused_environ
@@ -1330,44 +1296,46 @@
 				charging = APC_NOT_CHARGING
 				chargecount = 0
 				// This turns everything off in the case that there is still a charge left on the battery, just not enough to run the room.
-				equipment = autoset(equipment, 0)
-				lighting = autoset(lighting, 0)
-				environ = autoset(environ, 0)
+				equipment = autoset(equipment, AUTOSET_FORCE_OFF)
+				lighting = autoset(lighting, AUTOSET_FORCE_OFF)
+				environ = autoset(environ, AUTOSET_FORCE_OFF)
 
 
 		// set channels depending on how much charge we have left
 
 		// Allow the APC to operate as normal if the cell can charge
-		if(charging && longtermpower < 10)
-			longtermpower += 1
-		else if(longtermpower > -10)
-			longtermpower -= 2
+		if(charging && long_term_power < 10)
+			long_term_power += 1
+		else if(long_term_power > -10)
+			long_term_power -= 2
 
-		var/power_alert_fine = TRUE
+		if(cell.charge <= 0) // zero charge, turn all off
+			equipment = autoset(equipment, AUTOSET_FORCE_OFF)
+			lighting = autoset(lighting, AUTOSET_FORCE_OFF)
+			environ = autoset(environ, AUTOSET_FORCE_OFF)
+			alarm_manager.send_alarm(ALARM_POWER)
 
-		if(cell.charge <= 0)					// zero charge, turn all off
-			equipment = autoset(equipment, 0)
-			lighting = autoset(lighting, 0)
-			environ = autoset(environ, 0)
-			power_alert_fine = FALSE
-		else if(cell.percent() < 15 && longtermpower < 0)	// <15%, turn off lighting & equipment
-			equipment = autoset(equipment, 2)
-			lighting = autoset(lighting, 2)
-			environ = autoset(environ, 1)
-			power_alert_fine = FALSE
-		else if(cell.percent() < 30 && longtermpower < 0)			// <30%, turn off equipment
-			equipment = autoset(equipment, 2)
-			lighting = autoset(lighting, 1)
-			environ = autoset(environ, 1)
-			power_alert_fine = FALSE
-		else									// otherwise all can be on
-			equipment = autoset(equipment, 1)
-			lighting = autoset(lighting, 1)
-			environ = autoset(environ, 1)
+		else if(cell.percent() < 15 && long_term_power < 0) // <15%, turn off lighting & equipment
+			equipment = autoset(equipment, AUTOSET_OFF)
+			lighting = autoset(lighting, AUTOSET_OFF)
+			environ = autoset(environ, AUTOSET_ON)
+			alarm_manager.send_alarm(ALARM_POWER)
+
+		else if(cell.percent() < 30 && long_term_power < 0) // <30%, turn off equipment
+			equipment = autoset(equipment, AUTOSET_OFF)
+			lighting = autoset(lighting, AUTOSET_ON)
+			environ = autoset(environ, AUTOSET_ON)
+			alarm_manager.send_alarm(ALARM_POWER)
+
+		else // otherwise all can be on
+			equipment = autoset(equipment, AUTOSET_ON)
+			lighting = autoset(lighting, AUTOSET_ON)
+			environ = autoset(environ, AUTOSET_ON)
+			if(cell.percent() > 75)
+				alarm_manager.clear_alarm(ALARM_POWER)
 
 		if(integration_cog)
-			power_alert_fine = TRUE
-		area.poweralert(power_alert_fine, src)
+			alarm_manager.clear_alarm(ALARM_POWER)
 
 		// now trickle-charge the cell
 		if(chargemode && charging == APC_CHARGING && operating)
@@ -1399,7 +1367,7 @@
 					charging = APC_CHARGING
 
 		else // chargemode off
-			charging = 0
+			charging = APC_NOT_CHARGING
 			chargecount = 0
 
 		//=====Clock Cult=====
@@ -1412,10 +1380,10 @@
 
 		charging = APC_NOT_CHARGING
 		chargecount = 0
-		equipment = autoset(equipment, 0)
-		lighting = autoset(lighting, 0)
-		environ = autoset(environ, 0)
-		area.poweralert(FALSE, src)
+		equipment = autoset(equipment, AUTOSET_FORCE_OFF)
+		lighting = autoset(lighting, AUTOSET_FORCE_OFF)
+		environ = autoset(environ, AUTOSET_FORCE_OFF)
+		alarm_manager.send_alarm(ALARM_POWER)
 
 	// update icon & area power if anything changed
 
@@ -1491,8 +1459,7 @@
 	machine_stat |= BROKEN
 	operating = FALSE
 	if(occupier)
-		malfvacate(1)
-	area.poweralert(FALSE, src)
+		malfvacate(TRUE)
 	update_appearance()
 	update()
 
@@ -1557,7 +1524,6 @@
 #undef UPSTATE_BROKE
 #undef UPSTATE_BLUESCREEN
 #undef UPSTATE_WIREEXP
-#undef UPSTATE_ALLGOOD
 
 #undef APC_RESET_EMP
 

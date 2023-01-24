@@ -13,8 +13,10 @@
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_HEADS, ACCESS_SECURITY) //used to control clamps
 	processing_flags = NONE
 	layer = ABOVE_WINDOW_LAYER
-	var/obj/item/defibrillator/defib //this mount's defibrillator
-	var/clamps_locked = FALSE //if true, and a defib is loaded, it can't be removed without unlocking the clamps
+	/// The mount's defib
+	var/obj/item/defibrillator/defib
+	/// if true, and a defib is loaded, it can't be removed without unlocking the clamps
+	var/clamps_locked = FALSE
 
 /obj/machinery/defibrillator_mount/loaded/Initialize(mapload) //loaded subtype for mapping use
 	. = ..()
@@ -24,8 +26,13 @@
 /obj/machinery/defibrillator_mount/Destroy()
 	if(defib)
 		QDEL_NULL(defib)
-		end_processing()
 	. = ..()
+
+/obj/machinery/defibrillator_mount/handle_atom_del(atom/A)
+	if(A == defib)
+		defib = null
+		end_processing()
+	return ..()
 
 /obj/machinery/defibrillator_mount/obj_destruction()
 	if(defib)
@@ -47,23 +54,19 @@
 	else
 		. += "<span class='notice'>It's <i>empty</i> and can be <b>pried</b> off the wall.</span>"
 
-/obj/machinery/defibrillator_mount/process()
-	if(defib?.cell && defib.cell.charge < defib.cell.maxcharge && is_operational)
-		use_power(200)
-		defib.cell.give(180) //90% efficiency, a bit worse than the cell charger's 100%
-		update_icon()
-
-/obj/machinery/defibrillator_mount/update_icon()
-	cut_overlays()
-	if(defib)
-		add_overlay("defib")
-		if(defib.powered)
-			add_overlay(defib.safety ? "online" : "emagged")
-			var/ratio = defib.cell.charge / defib.cell.maxcharge
-			ratio = CEILING(ratio * 4, 1) * 25
-			add_overlay("charge[ratio]")
-		if(clamps_locked)
-			add_overlay("clamps")
+/obj/machinery/defibrillator_mount/update_overlays()
+	. = ..()
+	if(!defib)
+		return
+	. += "defib"
+	if(defib.powered)
+		var/obj/item/stock_parts/cell/C = get_cell()
+		. += (defib.safety ? "online" : "emagged")
+		var/ratio = C.charge / C.maxcharge
+		ratio = CEILING(ratio * 4, 1) * 25
+		. += "charge[ratio]"
+	if(clamps_locked)
+		. += "clamps"
 
 /obj/machinery/defibrillator_mount/get_cell()
 	if(defib)
@@ -71,6 +74,7 @@
 
 //defib interaction
 /obj/machinery/defibrillator_mount/attack_hand(mob/living/user)
+	. = ..()
 	if(!defib)
 		to_chat(user, "<span class='warning'>There's no defibrillator unit loaded!</span>")
 		return
@@ -83,6 +87,10 @@
 	if(istype(I, /obj/item/defibrillator))
 		if(defib)
 			to_chat(user, "<span class='warning'>There's already a defibrillator in [src]!</span>")
+			return
+		var/obj/item/defibrillator/D = I
+		if(!D.get_cell())
+			to_chat(user, "<span class='warning'>Only defibrilators containing a cell can be hooked up to [src]!</span>")
 			return
 		if(HAS_TRAIT(I, TRAIT_NODROP) || !user.transferItemToLoc(I, src))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")

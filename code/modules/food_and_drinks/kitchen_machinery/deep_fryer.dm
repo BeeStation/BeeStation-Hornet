@@ -32,12 +32,14 @@ God bless America.
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	layer = BELOW_OBJ_LAYER
+	circuit = /obj/item/circuitboard/machine/deep_fryer
 	var/obj/item/reagent_containers/food/snacks/deepfryholder/frying	//What's being fried RIGHT NOW?
 	var/cook_time = 0
 	var/oil_use = 0.025 //How much cooking oil is used per second
 	var/fry_speed = 1 //How quickly we fry food
 	var/frying_fried //If the object has been fried; used for messages
 	var/frying_burnt //If the object has been burnt
+	var/datum/looping_sound/deep_fryer/fry_loop
 	var/static/list/deepfry_blacklisted_items = typecacheof(list(
 		/obj/item/screwdriver,
 		/obj/item/crowbar,
@@ -52,16 +54,11 @@ God bless America.
 		/obj/item/storage,
 		/obj/item/small_delivery,
 		/obj/item/his_grace))
-	var/datum/looping_sound/deep_fryer/fry_loop
 
 /obj/machinery/deepfryer/Initialize(mapload)
 	. = ..()
 	create_reagents(50, OPENCONTAINER)
 	reagents.add_reagent(/datum/reagent/consumable/cooking_oil, 25)
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/machine/deep_fryer(null)
-	component_parts += new /obj/item/stock_parts/micro_laser(null)
-	RefreshParts()
 	fry_loop = new(src, FALSE)
 
 /obj/machinery/deepfryer/Destroy()
@@ -69,6 +66,7 @@ God bless America.
 	return ..()
 
 /obj/machinery/deepfryer/RefreshParts()
+	. = ..()
 	var/oil_efficiency
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		oil_efficiency += M.rating

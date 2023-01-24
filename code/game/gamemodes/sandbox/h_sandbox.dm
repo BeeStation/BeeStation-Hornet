@@ -234,7 +234,7 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 					var/list/all_items = subtypesof(/obj/item/clothing)
 					for(var/typekey in spawn_forbidden)
 						all_items -= typesof(typekey)
-					for(var/O in reverseRange(all_items))
+					for(var/O in reverse_range(all_items))
 						clothinfo += "<a href='?src=[REF(src)];hsb=hsb_safespawn&path=[O]'>[O]</a><br>"
 
 				usr << browse(clothinfo,"window=sandbox")
@@ -248,7 +248,7 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 					var/list/all_items = subtypesof(/obj/item/reagent_containers)
 					for(var/typekey in spawn_forbidden)
 						all_items -= typesof(typekey)
-					for(var/O in reverseRange(all_items))
+					for(var/O in reverse_range(all_items))
 						reaginfo += "<a href='?src=[REF(src)];hsb=hsb_safespawn&path=[O]'>[O]</a><br>"
 
 				usr << browse(reaginfo,"window=sandbox")
@@ -263,7 +263,7 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 					for(var/typekey in spawn_forbidden)
 						all_items -= typesof(typekey)
 
-					for(var/O in reverseRange(all_items))
+					for(var/O in reverse_range(all_items))
 						objinfo += "<a href='?src=[REF(src)];hsb=hsb_safespawn&path=[O]'>[O]</a><br>"
 
 				usr << browse(objinfo,"window=sandbox")

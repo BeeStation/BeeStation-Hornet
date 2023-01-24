@@ -122,7 +122,7 @@
 
 	var/carried = 0
 	if(!unique_frequency)
-		for(var/obj/item/gun/energy/kinetic_accelerator/K in loc.GetAllContents())
+		for(var/obj/item/gun/energy/kinetic_accelerator/K in loc.get_all_contents_type())
 			if(!K.unique_frequency)
 				carried++
 

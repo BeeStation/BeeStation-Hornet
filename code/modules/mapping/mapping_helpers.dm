@@ -204,7 +204,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	if(!ispath(component_type,/datum/component))
 		CRASH("Wrong component type in [type] - [component_type] is not a component")
 	var/turf/T = get_turf(src)
-	for(var/atom/A in T.GetAllContents())
+	for(var/atom/A in T.get_all_contents_type())
 		if(A == src)
 			continue
 		if(target_name && A.name != target_name)

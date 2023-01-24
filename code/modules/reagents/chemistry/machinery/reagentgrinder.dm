@@ -57,6 +57,7 @@
 				SSexplosions.low_mov_atom += beaker
 
 /obj/machinery/reagentgrinder/RefreshParts()
+	. = ..()
 	speed = 1
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		speed = M.rating

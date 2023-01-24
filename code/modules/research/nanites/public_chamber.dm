@@ -23,6 +23,7 @@
 	occupant_typecache = GLOB.typecache_living
 
 /obj/machinery/public_nanite_chamber/RefreshParts()
+	. = ..()
 	var/obj/item/circuitboard/machine/public_nanite_chamber/board = circuit
 	if(board)
 		cloud_id = board.cloud_id

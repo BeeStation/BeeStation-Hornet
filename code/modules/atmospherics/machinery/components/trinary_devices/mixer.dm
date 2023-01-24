@@ -39,7 +39,7 @@
 	for(var/direction in GLOB.cardinals)
 		if(!(direction & initialize_directions))
 			continue
-		var/obj/machinery/atmospherics/node = findConnecting(direction)
+		var/obj/machinery/atmospherics/node = find_connecting(direction)
 
 		var/image/cap
 		if(node)

@@ -64,6 +64,7 @@
 	update_icon()
 
 /obj/machinery/power/smes/RefreshParts()
+	. = ..()
 	var/IO = 0
 	var/MC = 0
 	var/C

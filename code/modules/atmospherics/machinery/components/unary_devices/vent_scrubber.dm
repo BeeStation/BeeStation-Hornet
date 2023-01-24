@@ -21,7 +21,7 @@
 
 	var/filter_types = list(GAS_CO2, GAS_BZ)
 	var/volume_rate = 200
-	var/widenet = 0 //is this scrubber acting on the 3x3 area around it.
+	var/widenet = FALSE //is this scrubber acting on the 3x3 area around it.
 	var/list/turf/adjacent_turfs = list()
 
 	var/frequency = FREQ_ATMOS_CONTROL
@@ -37,31 +37,15 @@
 	. = ..()
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/Destroy()
-	var/area/A = get_area(src)
-	if (A)
-		A.air_scrub_names -= id_tag
-		A.air_scrub_info -= id_tag
+	var/area/scrub_area = get_area(src)
+	if(scrub_area)
+		scrub_area.air_scrub_info -= id_tag
+		GLOB.air_scrub_names -= id_tag
 
 	SSradio.remove_object(src,frequency)
 	radio_connection = null
 	adjacent_turfs.Cut()
 	return ..()
-
-/obj/machinery/atmospherics/components/unary/vent_scrubber/auto_use_power()
-	if(!on || welded || !is_operational || !powered(power_channel))
-		return FALSE
-
-	var/amount = idle_power_usage
-
-	if(scrubbing & SCRUBBING)
-		amount += idle_power_usage * length(filter_types)
-	else //scrubbing == SIPHONING
-		amount = active_power_usage
-
-	if(widenet)
-		amount += amount * (adjacent_turfs.len * (adjacent_turfs.len / 2))
-	use_power(amount, power_channel)
-	return TRUE
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/update_icon_nopipes()
 	cut_overlays()
@@ -79,7 +63,7 @@
 		icon_state = "scrub_off"
 		return
 
-	if(scrubbing & SCRUBBING)
+	if(scrubbing == SCRUBBING)
 		if(widenet)
 			icon_state = "scrub_wide"
 		else
@@ -112,15 +96,24 @@
 		"sigtype" = "status"
 	))
 
-	var/area/A = get_area(src)
-	if(!A.air_scrub_names[id_tag])
-		name = "\improper [A.name] air scrubber #[A.air_scrub_names.len + 1]"
-		A.air_scrub_names[id_tag] = name
+	var/area/scrub_area = get_area(src)
+	if(!GLOB.air_scrub_names[id_tag])
+		// If we do not have a name, assign one
+		update_name()
+		GLOB.air_scrub_names[id_tag] = name
 
-	A.air_scrub_info[id_tag] = signal.data
+	scrub_area.air_scrub_info[id_tag] = signal.data
+
 	radio_connection.post_signal(src, signal, radio_filter_out)
 
 	return TRUE
+
+/obj/machinery/atmospherics/components/unary/vent_scrubber/update_name()
+	. = ..()
+	if(override_naming)
+		return
+	var/area/scrub_area = get_area(src)
+	name = "\proper [scrub_area.name] [name] [id_tag]"
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/atmosinit()
 	radio_filter_in = frequency==initial(frequency)?(RADIO_FROM_AIRALARM):null
@@ -171,18 +164,20 @@
 	if(widenet)
 		check_turfs()
 
-//we populate a list of turfs with nonatmos-blocked cardinal turfs AND
-//	diagonal turfs that can share atmos with *both* of the cardinal turfs
-
+/// We populate a list of turfs with nonatmos-blocked cardinal turfs AND
+/// diagonal turfs that can share atmos with *both* of the cardinal turfs
 /obj/machinery/atmospherics/components/unary/vent_scrubber/proc/check_turfs()
 	adjacent_turfs.Cut()
 	var/turf/T = get_turf(src)
-	if(istype(T))
-		adjacent_turfs = T.GetAtmosAdjacentTurfs(alldir = 1)
+	adjacent_turfs = T.GetAtmosAdjacentTurfs(alldir = TRUE)
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/receive_signal(datum/signal/signal)
 	if(!is_operational || !signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
-		return 0
+		return
+
+	var/old_widenet = widenet
+	var/old_scrubbing = scrubbing
+	var/old_filter_length = length(filter_types)
 
 	var/atom/signal_sender = signal.data["user"]
 
@@ -196,7 +191,6 @@
 	if("toggle_widenet" in signal.data)
 		widenet = !widenet
 
-	var/old_scrubbing = scrubbing
 	if("scrubbing" in signal.data)
 		scrubbing = text2num(signal.data["scrubbing"])
 	if("toggle_scrubbing" in signal.data)
@@ -222,7 +216,25 @@
 
 	broadcast_status()
 	update_icon()
-	return
+
+	if(length(filter_types) == old_filter_length && old_scrubbing == scrubbing && old_widenet == widenet)
+		return
+
+	idle_power_usage = initial(idle_power_usage)
+	active_power_usage = initial(idle_power_usage)
+
+	var/new_power_usage = 0
+	if(scrubbing == SCRUBBING)
+		new_power_usage = idle_power_usage + idle_power_usage * length(filter_types)
+		update_use_power(IDLE_POWER_USE)
+	else
+		new_power_usage = active_power_usage
+		update_use_power(ACTIVE_POWER_USE)
+
+	if(widenet)
+		new_power_usage += new_power_usage * (length(adjacent_turfs) * (length(adjacent_turfs) / 2))
+
+	update_mode_power_usage(scrubbing == SCRUBBING ? IDLE_POWER_USE : ACTIVE_POWER_USE, new_power_usage)
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/power_change()
 	..()

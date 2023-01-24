@@ -58,7 +58,7 @@
 /obj/vv_edit_var(vname, vval)
 	switch(vname)
 		if("anchored")
-			setAnchored(vval)
+			set_anchored(vval)
 			return TRUE
 		if(NAMEOF(src, obj_flags))
 			if ((obj_flags & DANGEROUS_POSSESSION) && !(vval & DANGEROUS_POSSESSION))
@@ -108,7 +108,7 @@
 	SStgui.close_uis(src)
 	. = ..()
 
-/obj/proc/setAnchored(anchorvalue)
+/obj/proc/set_anchored(anchorvalue)
 	SEND_SIGNAL(src, COMSIG_OBJ_SETANCHORED, anchorvalue)
 	anchored = anchorvalue
 
@@ -392,6 +392,10 @@
 
 /obj/proc/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)
 	return
+
+// Should move all contained objects to it's location.
+/obj/proc/dump_contents()
+	CRASH("Unimplemented")
 
 /obj/proc/log_item(mob/user, actverb="(unknown verb)", additional_info="")
 	if(investigate_flags & ADMIN_INVESTIGATE_TARGET)

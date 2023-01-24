@@ -80,7 +80,7 @@
 
 /datum/pipeline/proc/addMachineryMember(obj/machinery/atmospherics/components/C)
 	other_atmosmch |= C
-	var/datum/gas_mixture/G = C.returnPipenetAir(src)
+	var/datum/gas_mixture/G = C.return_pipenetAir(src)
 	if(!G)
 		stack_trace("addMachineryMember: Null gasmix added to pipeline datum from [C] which is of type [C.type]. Nearby: ([C.x], [C.y], [C.z])")
 	other_airs |= G
@@ -128,7 +128,7 @@
 	parent.addMember(A, src)
 
 /obj/machinery/atmospherics/components/addMember(obj/machinery/atmospherics/A)
-	var/datum/pipeline/P = returnPipenet(A)
+	var/datum/pipeline/P = return_pipenet(A)
 	if(!P)
 		CRASH("null.addMember() called by [type] on [COORD(src)]")
 	P.addMember(A, src)
@@ -195,7 +195,7 @@
 	. = other_airs + air
 	if(null in .)
 		stack_trace("[src]([REF(src)]) has one or more null gas mixtures, which may cause bugs. Null mixtures will not be considered in reconcile_air().")
-		listclearnulls(.)
+		list_clear_nulls(.)
 
 /datum/pipeline/proc/empty()
 	for(var/datum/gas_mixture/GM in get_all_connected_airs())

@@ -1,30 +1,39 @@
 // channel numbers for power
 // These are indexes in a list, and indexes for "dynamic" and static channels should be kept contiguous
-#define AREA_USAGE_EQUIP			1
-#define AREA_USAGE_LIGHT			2
-#define AREA_USAGE_ENVIRON			3
-#define AREA_USAGE_STATIC_EQUIP 	4
+#define AREA_USAGE_EQUIP 1
+#define AREA_USAGE_LIGHT 2
+#define AREA_USAGE_ENVIRON 3
+#define AREA_USAGE_STATIC_EQUIP 4
 #define AREA_USAGE_STATIC_LIGHT	5
-#define AREA_USAGE_STATIC_ENVIRON	6
+#define AREA_USAGE_STATIC_ENVIRON 6
 #define AREA_USAGE_LEN AREA_USAGE_STATIC_ENVIRON // largest idx
+
 /// Index of the first dynamic usage channel
 #define AREA_USAGE_DYNAMIC_START AREA_USAGE_EQUIP
 /// Index of the last dynamic usage channel
 #define AREA_USAGE_DYNAMIC_END AREA_USAGE_ENVIRON
+
 /// Index of the first static usage channel
 #define AREA_USAGE_STATIC_START AREA_USAGE_STATIC_EQUIP
 /// Index of the last static usage channel
 #define AREA_USAGE_STATIC_END AREA_USAGE_STATIC_ENVIRON
 
+#define DYNAMIC_TO_STATIC_CHANNEL(dyn_channel) (dyn_channel + (AREA_USAGE_STATIC_START - AREA_USAGE_DYNAMIC_START))
+#define STATIC_TO_DYNAMIC_CHANNEL(static_channel) (static_channel - (AREA_USAGE_STATIC_START - AREA_USAGE_DYNAMIC_START))
 
 //Power use
 #define NO_POWER_USE 0
 #define IDLE_POWER_USE 1
 #define ACTIVE_POWER_USE 2
 
+///Base global power consumption for idling machines
+#define BASE_MACHINE_IDLE_CONSUMPTION 100
+///Base global power consumption for active machines
+#define BASE_MACHINE_ACTIVE_CONSUMPTION (BASE_MACHINE_IDLE_CONSUMPTION * 10)
+
 /// Bitflags for a machine's preferences on when it should start processing. For use with machinery's `processing_flags` var.
-#define START_PROCESSING_ON_INIT	(1<<0) /// Indicates the machine will automatically start processing right after it's `Initialize()` is ran.
-#define START_PROCESSING_MANUALLY	(1<<1) /// Machines with this flag will not start processing when it's spawned. Use this if you want to manually control when a machine starts processing.
+#define START_PROCESSING_ON_INIT (1<<0) /// Indicates the machine will automatically start processing right after it's `Initialize()` is ran.
+#define START_PROCESSING_MANUALLY (1<<1) /// Machines with this flag will not start processing when it's spawned. Use this if you want to manually control when a machine starts processing.
 
 //bitflags for door switches.
 #define OPEN	(1<<0)
@@ -32,6 +41,23 @@
 #define BOLTS	(1<<2)
 #define SHOCK	(1<<3)
 #define SAFE	(1<<4)
+
+// Air alarm [/obj/machinery/airalarm/buildstage]
+/// Air alarm missing circuit
+#define AIRALARM_BUILD_NO_CIRCUIT 0
+/// Air alarm has circuit but is missing wires
+#define AIRALARM_BUILD_NO_WIRES 1
+/// Air alarm has all components but isn't completed
+#define AIRALARM_BUILD_COMPLETE 2
+
+///TLV datums wont check limits set to this
+#define TLV_DONT_CHECK -1
+///the gas mixture is within the bounds of both warning and hazard limits
+#define TLV_NO_DANGER 0
+///the gas value is outside the warning limit but within the hazard limit, the air alarm will go into warning mode
+#define TLV_OUTSIDE_WARNING_LIMIT 1
+///the gas is outside the hazard limit, the air alarm will go into hazard mode
+#define TLV_OUTSIDE_HAZARD_LIMIT 2
 
 //used in design to specify which machine can build it
 #define IMPRINTER		(1<<0)	//For circuits. Uses glass/chemicals.

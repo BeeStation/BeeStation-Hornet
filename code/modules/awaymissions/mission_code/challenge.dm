@@ -33,4 +33,5 @@
 	state = 2
 
 /obj/machinery/power/emitter/energycannon/RefreshParts()
+	. = ..()
 	return

@@ -106,7 +106,7 @@
 						return
 					to_chat(user, "<span class='notice'>You secure the airlock assembly.</span>")
 					name = "secured airlock assembly"
-					setAnchored(TRUE)
+					set_anchored(TRUE)
 			else
 				to_chat(user, "There is another door here!")
 
@@ -119,7 +119,7 @@
 					return
 				to_chat(user, "<span class='notice'>You unsecure the airlock assembly.</span>")
 				name = "airlock assembly"
-				setAnchored(FALSE)
+				set_anchored(FALSE)
 
 	else if(istype(W, /obj/item/stack/cable_coil) && state == AIRLOCK_ASSEMBLY_NEEDS_WIRES && anchored )
 		if(!W.tool_start_check(user, amount=1))
@@ -284,13 +284,13 @@
 	update_name()
 	update_icon()
 
-/obj/structure/door_assembly/update_icon()
-	cut_overlays()
+/obj/structure/door_assembly/update_overlays()
+	. = ..()
 	if(!glass)
-		add_overlay(get_airlock_overlay("fill_construction", icon))
-	else if(glass)
-		add_overlay(get_airlock_overlay("glass_construction", overlays_file))
-	add_overlay(get_airlock_overlay("panel_c[state+1]", overlays_file))
+		. += get_airlock_overlay("fill_construction", icon, TRUE)
+	else
+		. += get_airlock_overlay("glass_construction", overlays_file, TRUE)
+	. += get_airlock_overlay("panel_c[state+1]", overlays_file, TRUE)
 
 /obj/structure/door_assembly/update_name()
 	name = ""
@@ -310,7 +310,7 @@
 	target.heat_proof_finished = source.heat_proof_finished
 	target.created_name = source.created_name
 	target.state = source.state
-	target.setAnchored(source.anchored)
+	target.set_anchored(source.anchored)
 	if(previous)
 		target.previous_assembly = source.type
 	if(electronics)

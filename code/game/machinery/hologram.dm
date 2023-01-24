@@ -133,6 +133,7 @@ Possible to do for anyone motivated enough:
 			record_stop()
 		if(outgoing_call)
 			outgoing_call.ConnectionFailure(src)
+	return ..()
 
 /obj/machinery/holopad/obj_break()
 	. = ..()
@@ -140,6 +141,7 @@ Possible to do for anyone motivated enough:
 		outgoing_call.ConnectionFailure(src)
 
 /obj/machinery/holopad/RefreshParts()
+	. = ..()
 	var/holograph_range = 4
 	for(var/obj/item/stock_parts/capacitor/B in component_parts)
 		holograph_range += 1 * B.rating
@@ -345,14 +347,11 @@ Possible to do for anyone motivated enough:
 	else//If there is a hologram, remove it.
 		clear_holo(user)
 
+//this really should not be processing by default with how common holopads are
+//everything in here can start processing if need be once first set and stop processing after being unset
 /obj/machinery/holopad/process()
 	if(LAZYLEN(masters))
-		for(var/I in masters)
-			var/mob/living/master = I
-			var/mob/living/silicon/ai/AI = master
-			if(!istype(AI))
-				AI = null
-
+		for(var/mob/living/master as anything in masters)
 			if(!is_operational || !validate_user(master))
 				clear_holo(master)
 
@@ -361,17 +360,18 @@ Possible to do for anyone motivated enough:
 
 	ringing = FALSE
 
-	for(var/I in holo_calls)
-		var/datum/holocall/HC = I
-		if(HC.connected_holopad != src)
-			if(force_answer_call && world.time > (HC.call_start_time + (HOLOPAD_MAX_DIAL_TIME / 2)))
-				HC.Answer(src)
-				break
-			if(outgoing_call)
-				HC.Disconnect(src)//can't answer calls while calling
-			else
-				playsound(src, 'sound/machines/twobeep.ogg', 100)	//bring, bring!
-				ringing = TRUE
+	for(var/datum/holocall/holocall as anything in holo_calls)
+		if(holocall.connected_holopad == src)
+			continue
+
+		if(force_answer_call && world.time > (holocall.call_start_time + (HOLOPAD_MAX_DIAL_TIME / 2)))
+			holocall.Answer(src)
+			break
+		if(outgoing_call)
+			holocall.Disconnect(src)//can't answer calls while calling
+		else
+			playsound(src, 'sound/machines/twobeep.ogg', 100) //bring, bring!
+			ringing = TRUE
 
 	update_icon()
 
@@ -399,7 +399,7 @@ Possible to do for anyone motivated enough:
 
 		Hologram.mouse_opacity = MOUSE_OPACITY_TRANSPARENT//So you can't click on it.
 		Hologram.layer = FLY_LAYER//Above all the other objects/mobs. Or the vast majority of them.
-		Hologram.setAnchored(TRUE)//So space wind cannot drag it.
+		Hologram.set_anchored(TRUE)//So space wind cannot drag it.
 		Hologram.name = "[user.name] (Hologram)"//If someone decides to right click.
 		Hologram.set_light(2)	//hologram lighting
 		move_hologram()
@@ -435,8 +435,8 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/holopad/proc/SetLightsAndPower()
 	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
-	use_power = total_users > 0 ? ACTIVE_POWER_USE : IDLE_POWER_USE
-	active_power_usage = HOLOPAD_PASSIVE_POWER_USAGE + (HOLOGRAM_POWER_USAGE * total_users)
+	update_use_power(total_users > 0 ? ACTIVE_POWER_USE : IDLE_POWER_USE)
+	update_mode_power_usage(ACTIVE_POWER_USE, active_power_usage + HOLOPAD_PASSIVE_POWER_USAGE + (HOLOGRAM_POWER_USAGE * total_users))
 	if(total_users || replay_mode)
 		set_light(2)
 	else
@@ -559,7 +559,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	holder.selected_language = record.language
 	Hologram.mouse_opacity = MOUSE_OPACITY_TRANSPARENT//So you can't click on it.
 	Hologram.layer = FLY_LAYER//Above all the other objects/mobs. Or the vast majority of them.
-	Hologram.setAnchored(TRUE)//So space wind cannot drag it.
+	Hologram.set_anchored(TRUE)//So space wind cannot drag it.
 	Hologram.name = "[record.caller_name] (Hologram)"//If someone decides to right click.
 	Hologram.set_light(2)	//hologram lighting
 	visible_message("<span class='notice'>A holographic image of [record.caller_name] flickers to life before your eyes!</span>")

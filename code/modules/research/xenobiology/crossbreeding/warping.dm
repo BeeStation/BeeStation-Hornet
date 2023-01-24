@@ -320,7 +320,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	var/obj/item/stock_parts/cell/C = AM.get_cell()
 	if(!C && isliving(AM))
 		var/mob/living/L = AM
-		for(var/obj/item/I in L.GetAllContents())
+		for(var/obj/item/I in L.get_all_contents_type())
 			C = I.get_cell()
 			if(C?.charge)
 				break
@@ -476,7 +476,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		if(nlog_type & LOG_SAY)
 			var/list/reversed = log_source[log_type] //reverse the list so we get the last sentences instead of the first
 			if(islist(reversed))
-				say_log = reverseRange(reversed.Copy())
+				say_log = reverse_range(reversed.Copy())
 				break
 
 	if(length(say_log) > 10) //we're going to get up to the last 10 sentences spoken by the holo_host

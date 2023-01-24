@@ -718,7 +718,7 @@ GLOBAL_LIST_EMPTY(possible_items)
 		if(!isliving(M.current))
 			continue
 
-		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+		var/list/all_items = M.current.get_all_contents_type()	//this should get things in cheesewheels, books, etc.
 
 		for(var/obj/I in all_items) //Check for items
 			if(istype(I, steal_target))
@@ -804,7 +804,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 				if(H && (H.stat != DEAD) && istype(H.wear_suit, /obj/item/clothing/suit/space/space_ninja))
 					var/obj/item/clothing/suit/space/space_ninja/S = H.wear_suit
 					S.stored_research.copy_research_to(checking)
-			var/list/otherwise = M.GetAllContents()
+			var/list/otherwise = M.get_all_contents_type()
 			for(var/obj/item/disk/tech_disk/TD in otherwise)
 				TD.stored_research.copy_research_to(checking)
 	return (checking.researched_nodes.len >= target_amount) || ..()
@@ -1008,7 +1008,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	for(var/datum/mind/M as() in get_owners())
 		if(!isliving(M.current))
 			continue
-		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+		var/list/all_items = M.current.get_all_contents_type()	//this should get things in cheesewheels, books, etc.
 		for(var/obj/I in all_items) //Check for wanted items
 			if(is_type_in_typecache(I, wanted_items))
 				stolen_count++
@@ -1033,7 +1033,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	for(var/datum/mind/M as() in get_owners())
 		if(!isliving(M.current))
 			continue
-		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+		var/list/all_items = M.current.get_all_contents_type()	//this should get things in cheesewheels, books, etc.
 		for(var/obj/I in all_items) //Check for wanted items
 			if(istype(I, /obj/item/book/granter/spell))
 				var/obj/item/book/granter/spell/spellbook = I

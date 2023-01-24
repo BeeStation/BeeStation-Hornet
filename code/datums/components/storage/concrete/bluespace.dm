@@ -14,11 +14,11 @@
 			valid = FALSE
 		//Check density LOS.
 		if(valid)
-			for(var/turf/T as() in getline(bagT, destT))
+			for(var/turf/T as() in get_line(bagT, destT))
 				if(T.density)
 					valid = FALSE
 					break
-	
+
 		//Check still valid
 		if(valid)
 			if(dumping_location.storage_contents_dump_act(src, M))

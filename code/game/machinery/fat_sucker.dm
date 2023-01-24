@@ -64,7 +64,7 @@
 		var/mob/living/L = occupant
 		if(!iscarbon(L) || HAS_TRAIT(L, TRAIT_POWERHUNGRY) || !(MOB_ORGANIC in L?.mob_biotypes))
 			occupant.forceMove(drop_location())
-			occupant = null
+			set_occupant(null)
 			return
 
 		to_chat(occupant, "<span class='notice'>You enter [src]</span>")

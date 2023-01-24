@@ -55,6 +55,7 @@
 	return ..()
 
 /obj/machinery/mass_driver/RefreshParts()
+	. = ..()
 	drive_range = initial(drive_range)
 	power_per_obj = initial(power_per_obj)
 	for(var/obj/item/stock_parts/P in component_parts)

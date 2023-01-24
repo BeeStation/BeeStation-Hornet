@@ -63,6 +63,7 @@
 		icon_state = "igniter[src.on]"
 	else
 		icon_state = "igniter0"
+	return ..()
 
 // Wall mounted remote-control igniter.
 
@@ -101,6 +102,7 @@
 		set_machine_stat(machine_stat | NOPOWER)
 		icon_state = "[base_state]-p"
 //		src.sd_SetLuminosity(0)
+	return ..()
 
 /obj/machinery/sparker/attackby(obj/item/W, mob/user, params)
 	if (W.tool_behaviour == TOOL_SCREWDRIVER)

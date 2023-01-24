@@ -30,6 +30,7 @@
 		radiation_pulse(src, 60)
 
 /obj/machinery/power/rtg/RefreshParts()
+	. = ..()
 	var/part_level = 0
 	for(var/obj/item/stock_parts/SP in component_parts)
 		part_level += SP.rating

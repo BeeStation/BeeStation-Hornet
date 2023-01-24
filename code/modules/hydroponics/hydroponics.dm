@@ -6,6 +6,7 @@
 	pixel_z = 8
 	obj_flags = CAN_BE_HIT | UNIQUE_RENAME
 	circuit = /obj/item/circuitboard/machine/hydroponics
+	use_power = NO_POWER_USE
 	var/waterlevel = 100	//The amount of water in the tray (max 100)
 	var/maxwater = 100		//The maximum amount of water in the tray
 	var/nutrilevel = 10		//The amount of nutrient in the tray (max 10)
@@ -38,6 +39,7 @@
 	icon_state = "hydrotray3"
 
 /obj/machinery/hydroponics/constructable/RefreshParts()
+	. = ..()
 	var/tmp_capacity = 0
 	for (var/obj/item/stock_parts/matter_bin/M in component_parts)
 		tmp_capacity += M.rating

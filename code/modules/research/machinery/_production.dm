@@ -97,6 +97,7 @@
 	update_icon()
 
 /obj/machinery/rnd/production/RefreshParts()
+	. = ..()
 	calculate_efficiency()
 	ui_update()
 

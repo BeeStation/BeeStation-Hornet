@@ -88,7 +88,7 @@
 	icon_state = "sat_inactive"
 	anchored = FALSE
 	density = TRUE
-	use_power = FALSE
+	use_power = NO_POWER_USE
 	var/mode = "NTPROBEV0.8"
 	var/active = FALSE
 	var/static/gid = 0
@@ -135,7 +135,7 @@
 	var/kill_range = 14
 
 /obj/machinery/satellite/meteor_shield/proc/space_los(meteor)
-	for(var/turf/T in getline(src,meteor))
+	for(var/turf/T in get_line(src,meteor))
 		if(!isspaceturf(T))
 			return FALSE
 	return TRUE

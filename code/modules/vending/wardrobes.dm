@@ -170,7 +170,8 @@
 	product_ads = "You turn me TRUE, use defines!;0110001101101100011011110111010001101000011001010111001101101000011001010111001001100101"
 	vend_reply = "Thank you for using the RoboDrobe!"
 	light_color = LIGHT_COLOR_WHITE
-	products = list(/obj/item/clothing/glasses/hud/diagnostic = 2,
+	products = list(
+					/obj/item/clothing/glasses/hud/diagnostic = 2,
 					/obj/item/reagent_containers/medspray/sterilizine = 3,
 					/obj/item/clothing/under/rank/rnd/roboticist = 2,
 					/obj/item/clothing/under/rank/rnd/roboticist/skirt = 2,
