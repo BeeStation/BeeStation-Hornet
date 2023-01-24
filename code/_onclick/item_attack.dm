@@ -70,11 +70,15 @@
 	if(item_flags & NOBLUDGEON)
 		return
 
-	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
-		return
+	var/nonharmfulhit = FALSE
+	if(user.a_intent == INTENT_HELP && !(item_flags & ISWEAPON))
+		nonharmfulhit = TRUE
 
-	if(!force)
+	if(force && HAS_TRAIT(user, TRAIT_PACIFISM) && !nonharmfulhit)
+		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+		nonharmfulhit = TRUE
+
+	if(!force || nonharmfulhit)
 		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
 	else if(hitsound)
 		playsound(loc, hitsound, get_clamped_volume(), 1, -1)
@@ -83,9 +87,12 @@
 	M.lastattackerckey = user.ckey
 
 	user.do_attack_animation(M)
-	M.attacked_by(src, user)
+	if(nonharmfulhit)
+		M.send_item_poke_message(src, user)
+	else
+		M.attacked_by(src, user)
 
-	log_combat(user, M, "attacked", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
+	log_combat(user, M, "[nonharmfulhit ? "poked" : "attacked"]", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
 	add_fingerprint(user)
 
 
@@ -123,8 +130,8 @@
 					user.add_mob_blood(src)
 		return TRUE //successful attack
 
-/mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user)
-	if(I.force < force_threshold || I.damtype == STAMINA)
+/mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user, nonharmfulhit = FALSE)
+	if(I.force < force_threshold || I.damtype == STAMINA || nonharmfulhit)
 		playsound(loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), 1, -1)
 	else
 		return ..()
@@ -160,5 +167,18 @@
 	if(user == src)
 		attack_message_local = "You [message_verb] yourself[message_hit_area] with [I]!"
 	visible_message("<span class='danger'>[attack_message]</span>",\
-		"<span class='userdanger'>[attack_message_local]</span>", null, COMBAT_MESSAGE_RANGE)
+	"<span class='userdanger'>[attack_message_local]</span>", null, COMBAT_MESSAGE_RANGE)
 	return 1
+
+/mob/living/proc/send_item_poke_message(obj/item/I, mob/living/user)
+	var/list/messages = list("poked", "prodded", "tapped", "nudged")
+	var/message_verb = "[pick(messages)]"
+	var/poke_message = "[src] is [message_verb] with [I]!"
+	var/poke_message_local = "You're [message_verb] with [I]!"
+	if(user in viewers(src))
+		poke_message = "[user] [message_verb] [src] with [I]!"
+		poke_message_local = "[user] [message_verb] you with [I]!"
+	if(user == src)
+		poke_message_local = "You [message_verb] yourself with [I]!"
+	visible_message("<span class='notice'>[poke_message]</span>",\
+	"<span class='usernotice'>[poke_message_local]</span>", null, COMBAT_MESSAGE_RANGE)

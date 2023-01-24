@@ -15,6 +15,7 @@
 	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	item_flags = ISWEAPON
 	var/charges = 1
 	var/spawn_type = /obj/tear_in_reality
 	var/spawn_amt = 1
@@ -320,6 +321,7 @@
 	var/cooldown = 0
 	max_integrity = 10
 	resistance_flags = FLAMMABLE
+	item_flags = ISWEAPON
 
 /obj/item/voodoo/attackby(obj/item/I, mob/user, params)
 	if(target && cooldown < world.time)

@@ -244,6 +244,7 @@
 	throw_speed = 3
 	throw_range = 4
 	throwforce = 10
+	item_flags = ISWEAPON
 	w_class = WEIGHT_CLASS_TINY
 	obj_flags = UNIQUE_RENAME
 	var/chaplain_spawnable = TRUE

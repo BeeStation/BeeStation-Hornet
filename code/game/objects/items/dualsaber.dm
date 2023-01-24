@@ -16,6 +16,7 @@
 	var/w_class_on = WEIGHT_CLASS_BULKY
 	hitsound = "swing_hit"
 	armour_penetration = 35
+	item_flags = ISWEAPON
 	var/saber_color = "green"
 	light_color = "#00ff00"//green
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")

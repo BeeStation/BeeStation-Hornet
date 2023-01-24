@@ -114,7 +114,7 @@
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(25,50,100)
 	volume = 500
-	item_flags = NOBLUDGEON | ABSTRACT  // don't put in storage
+	item_flags = NOBLUDGEON | ABSTRACT | ISWEAPON  // don't put in storage
 	slot_flags = 0
 
 	var/obj/item/watertank/tank
@@ -214,7 +214,7 @@
 	precision = 1
 	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE
-	item_flags = ABSTRACT  // don't put in storage
+	item_flags = ABSTRACT | ISWEAPON  // don't put in storage
 	var/obj/item/watertank/tank
 	var/nozzle_mode = 0
 	var/metal_synthesis_cooldown = 0

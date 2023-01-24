@@ -84,6 +84,7 @@ DEFINE_BITFIELD(item_flags, list(
 	"ABSTRACT" = ABSTRACT,
 	"IN_STORAGE" = IN_STORAGE,
 	"ILLEGAL" = ILLEGAL,
+	"ISWEAPON" = ISWEAPON,
 ))
 
 DEFINE_BITFIELD(admin_flags, list(

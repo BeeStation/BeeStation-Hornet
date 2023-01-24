@@ -108,6 +108,7 @@
 	has_latches = FALSE
 	force = 19
 	throwforce = 22
+	item_flags = ISWEAPON
 
 /obj/item/storage/toolbox/mechanical/old/clean/proc/calc_damage()
 	var/power = 0
@@ -159,6 +160,7 @@
 	force = 15
 	throwforce = 18
 	material_flags = MATERIAL_NO_COLOR
+	item_flags = ISWEAPON
 
 /obj/item/storage/toolbox/syndicate/ComponentInitialize()
 	. = ..()

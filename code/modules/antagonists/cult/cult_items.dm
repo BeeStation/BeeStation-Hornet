@@ -5,6 +5,7 @@
 	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
+	item_flags = ISWEAPON
 
 /obj/item/melee/cultblade/dagger
 	name = "ritual dagger"
@@ -71,7 +72,7 @@ Striking a noncultist, however, will tear their flesh."}
 /obj/item/melee/cultblade/ghost
 	name = "eldritch sword"
 	force = 19 //can't break normal airlocks
-	item_flags = NEEDS_PERMIT | DROPDEL
+	item_flags = NEEDS_PERMIT | DROPDEL | ISWEAPON
 	flags_1 = NONE
 
 /obj/item/melee/cultblade/ghost/Initialize(mapload)
@@ -110,7 +111,7 @@ Striking a noncultist, however, will tear their flesh."}
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
 	actions_types = list()
-	item_flags = SLOWS_WHILE_IN_HAND
+	item_flags = SLOWS_WHILE_IN_HAND | ISWEAPON
 	var/datum/action/innate/dash/cult/jaunt
 	var/datum/action/innate/cult/spin2win/linked_action
 	var/spinning = FALSE

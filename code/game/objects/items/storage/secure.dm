@@ -145,6 +145,7 @@
 //Syndie variant of Secure Briefcase. Contains space cash, slightly more robust.
 /obj/item/storage/secure/briefcase/syndie
 	force = 15
+	item_flags = ISWEAPON
 
 /obj/item/storage/secure/briefcase/syndie/PopulateContents()
 	..()

@@ -6,7 +6,7 @@
 	icon = 'icons/obj/shards.dmi'
 	icon_state = "large"
 	w_class = WEIGHT_CLASS_TINY
-	item_flags = DROPDEL
+	item_flags = DROPDEL | ISWEAPON
 
 /obj/item/shrapnel/stingball // stingbang grenades
 	name = "stingball"

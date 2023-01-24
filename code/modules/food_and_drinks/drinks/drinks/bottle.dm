@@ -13,6 +13,7 @@
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
 	isGlass = TRUE
 	foodtype = ALCOHOL
+	item_flags = ISWEAPON
 	///Directly relates to the 'knockdown' duration. Lowered by armor (i.e. helmets)
 	var/bottle_knockdown_duration = 1.3 SECONDS
 

@@ -89,6 +89,7 @@
 	light_range = FLASH_LIGHT_RANGE
 	light_power = FLASH_LIGHT_POWER
 	light_on = FALSE
+	item_flags = ISWEAPON
 	var/flashing_overlay = "flash-f"
 	var/last_used = 0 //last world.time it was used.
 	var/cooldown = 20

@@ -14,6 +14,7 @@
 	actions_types = list(/datum/action/item_action/equip_unequip_TED_Gun)
 	var/obj/item/gun/energy/chrono_gun/PA = null
 	var/list/erased_minds = list() //a collection of minds from the dead
+	item_flags = ISWEAPON
 
 /obj/item/chrono_eraser/proc/pass_mind(datum/mind/M)
 	erased_minds += M

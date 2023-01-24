@@ -80,6 +80,7 @@ h1.alert, h2.alert		{color: #000000;}
 .info					{color: #0000CC;}
 .notice					{color: #000099;}
 .boldnotice				{color: #000099;	font-weight: bold;}
+.usernotice				{color: #000099;	font-weight: bold; font-size: 3;}
 .adminnotice			{color: #0000ff;}
 .adminhelp              {color: #ff0000;    font-weight: bold;}
 .adminhelp_conclusion {
