@@ -121,7 +121,6 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WEEDS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WEEDS)
-	transform = matrix(1, 0, -4, 0, 1, -4)
 	max_integrity = 15
 	var/last_expand = 0 //last world.time this weed expanded
 	var/growth_cooldown_low = 150

@@ -34,6 +34,9 @@
 	if(draining)
 		to_chat(src, "<span class='revenwarning'>You are already siphoning the essence of a soul!</span>")
 		return
+	if(orbiting)
+		to_chat(src, "<span class='revenwarning'>You can't siphon essence during orbiting!</span>")
+		return
 	if(!target.stat)
 		to_chat(src, "<span class='revennotice'>[target.p_their(TRUE)] soul is too strong to harvest.</span>")
 		if(prob(10))
@@ -142,7 +145,23 @@
 	if(!isrevenant(user))
 		return FALSE
 	var/mob/living/simple_animal/revenant/revenant = user
+	// if they're trapped in consecrated tiles, they can get out with this. but they can't hide back on these tiles.
+	if(revenant.incorporeal_move != INCORPOREAL_MOVE_JAUNT)
+		var/turf/open/floor/stepTurf = get_turf(user)
+		if(stepTurf)
+			var/obj/effect/decal/cleanable/food/salt/salt = locate() in stepTurf
+			if(salt)
+				to_chat(user, "<span class='warning'>[salt] blocks your way to spirit realm!</span>")
+				// the purpose is just letting not them hide onto salt tiles incorporeally. no need to stun.
+				return
+			if(stepTurf.flags_1 & NOJAUNT_1)
+				to_chat(user, "<span class='warning'>Some strange aura blocks your way to spirit realm.</span>")
+				return
+			if(locate(/obj/effect/blessing) in stepTurf)
+				to_chat(user, "<span class='warning'>Holy energies block your way to spirit realm!</span>")
+				return
 	revenant.phase_shift()
+	revenant.orbiting?.end_orbit(revenant)
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant
 	clothes_req = 0
