@@ -67,7 +67,7 @@
 	var/offset_value = directional_offset * side
 	offset_turf_x = 0
 	offset_turf_y = 0
-	if(!fire_from_source)
+	if(fire_from_source)
 		return
 	switch(newdir)
 		if(1)

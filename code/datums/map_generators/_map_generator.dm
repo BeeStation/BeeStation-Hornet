@@ -12,6 +12,9 @@
 	SSmap_generator.executing_generators += src
 	callback_args = args.Copy(1)
 
+/// Adds a callback to be executed when this generator completes.
+/// Note that the order of execution is defined as the order the completion callbacks are added in
+/// and this property should be preserved.
 /datum/map_generator/proc/on_completion(datum/callback/completion_callback)
 	completion_callbacks += completion_callback
 

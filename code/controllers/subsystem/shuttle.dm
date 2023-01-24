@@ -25,7 +25,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/area/emergencyLastCallLoc
 	var/emergencyCallAmount = 0		//how many times the escape shuttle was called
 	var/emergencyNoEscape			//Hostile environment that prevents the shuttle from leaving after it has arrived
-	var/emergencyDelayArrival 		//Infestation that delays the shuttle arrival while contingency plans are put into place 
+	var/emergencyDelayArrival 		//Infestation that delays the shuttle arrival while contingency plans are put into place
 	var/emergencyNoRecall = FALSE
 	var/adminEmergencyNoRecall = FALSE
 	var/list/hostileEnvironments = list() //Things blocking escape shuttle from leaving
@@ -409,7 +409,7 @@ SUBSYSTEM_DEF(shuttle)
 		emergency.request(null, set_coefficient=1) //If a shuttle wasn't already called, call one now, with 10 minute delay
 	else if(emergency.mode == SHUTTLE_CALL)
 		emergency.setTimer(10 MINUTES) //If shuttle was already in transit, delay the arrival time to 10 minutes
-		//If the emergency shuttle has already passed the point of no return before a queen existed, do not delay round for Xenomorphs - they spawned too late on a round that was already coming to an end. 
+		//If the emergency shuttle has already passed the point of no return before a queen existed, do not delay round for Xenomorphs - they spawned too late on a round that was already coming to an end.
 
 //try to move/request to dockHome if possible, otherwise dockAway. Mainly used for admin buttons
 /datum/controller/subsystem/shuttle/proc/toggleShuttle(shuttleId, dockHome, dockAway, timed)
@@ -656,8 +656,9 @@ SUBSYSTEM_DEF(shuttle)
 	if (!loaded_shuttle_reference)
 		loaded_shuttle_reference = new()
 	var/datum/map_generator/shuttle_loader = load_template(loading_template, loaded_shuttle_reference)
-	shuttle_loader.on_completion(CALLBACK(src, .proc/linkup_shuttle_after_load, loading_template, destination_port, loaded_shuttle_reference))
 	shuttle_loader.on_completion(CALLBACK(src, .proc/action_load_completed, destination_port, loaded_shuttle_reference))
+	//Linkup must be done after action load
+	shuttle_loader.on_completion(CALLBACK(src, .proc/linkup_shuttle_after_load, loading_template, destination_port, loaded_shuttle_reference))
 	preview_template = loading_template
 	return shuttle_loader
 

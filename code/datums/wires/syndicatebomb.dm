@@ -1,6 +1,18 @@
+#define LONG_FUSE_THRESHOLD 61
+#define MEDIUM_FUSE_THRESHOLD 21
+#define SHORT_FUSE_THRESHOLD 11
+
 /datum/wires/syndicatebomb
 	holder_type = /obj/machinery/syndicatebomb
 	randomize = TRUE
+	/// If the delay wire has been pulsed
+	var/delayed_chirp = FALSE
+	/// If the activation wire has been pulsed
+	var/delayed_hesitate = FALSE
+	/// If the boom wire has been pulsed before
+	var/fake_delayed_hesitate = FALSE
+	/// If the time's been cut in half by a bad pulse
+	var/time_cut = FALSE
 
 /datum/wires/syndicatebomb/New(atom/holder)
 	wires = list(
@@ -14,48 +26,57 @@
 	if(P.open_panel)
 		return TRUE
 
+/datum/wires/syndicatebomb/repair()
+	. = ..()
+	delayed_chirp = FALSE
+	delayed_hesitate = FALSE
+	fake_delayed_hesitate = FALSE
+	time_cut = FALSE
+
 /datum/wires/syndicatebomb/on_pulse(wire)
 	var/obj/machinery/syndicatebomb/B = holder
 	switch(wire)
-		if(WIRE_BOOM)
-			if(B.active)
-				holder.visible_message("<span class='danger'>[icon2html(B, viewers(holder))] An alarm sounds! It's go-</span>")
-				B.explode_now = TRUE
-				tell_admins(B)
-			else
+		if(WIRE_BOOM) // Only on cutting
+			if(fake_delayed_hesitate)
 				holder.visible_message("<span class='notice'>[icon2html(B, viewers(holder))] Nothing happens.</span>")
+			else
+				holder.visible_message("<span class='notice'>[icon2html(B, viewers(holder))] The bomb seems to hesitate for a moment.</span>")
+				fake_delayed_hesitate = TRUE
 		if(WIRE_UNBOLT)
 			holder.visible_message("<span class='notice'>[icon2html(B, viewers(holder))] The bolts spin in place for a moment.</span>")
 		if(WIRE_DELAY)
-			if(B.delayedbig)
+			if(delayed_chirp)
 				holder.visible_message("<span class='notice'>[icon2html(B, viewers(holder))] Nothing happens.</span>")
 			else
 				holder.visible_message("<span class='notice'>[icon2html(B, viewers(holder))] The bomb chirps.</span>")
 				playsound(B, 'sound/machines/chime.ogg', 30, 1)
-				B.detonation_timer += 300
+				B.detonation_timer += 10 SECONDS
 				if(B.active)
-					B.delayedbig = TRUE
+					delayed_chirp = TRUE
 		if(WIRE_PROCEED)
 			holder.visible_message("<span class='danger'>[icon2html(B, viewers(holder))] The bomb buzzes ominously!</span>")
 			playsound(B, 'sound/machines/buzz-sigh.ogg', 30, 1)
 			var/seconds = B.seconds_remaining()
-			if(seconds >= 61) // Long fuse bombs can suddenly become more dangerous if you tinker with them.
-				B.detonation_timer = world.time + 600
-			else if(seconds >= 21)
-				B.detonation_timer -= 100
-			else if(seconds >= 11) // Both to prevent negative timers and to have a little mercy.
-				B.detonation_timer = world.time + 100
+			if(seconds >= LONG_FUSE_THRESHOLD) // Long fuse bombs can suddenly become more dangerous if you tinker with them.
+				B.detonation_timer = world.time + 60 SECONDS
+			else if(seconds >= MEDIUM_FUSE_THRESHOLD)
+				if(time_cut)
+					return
+				B.detonation_timer *= 0.5
+				time_cut = TRUE
+			else if(seconds >= SHORT_FUSE_THRESHOLD) // Both to prevent negative timers and to have a little mercy.
+				B.detonation_timer = world.time + 10 SECONDS
 		if(WIRE_ACTIVATE)
 			if(!B.active)
 				holder.visible_message("<span class='danger'>[icon2html(B, viewers(holder))] You hear the bomb start ticking!</span>")
 				B.activate()
 				B.update_icon()
-			else if(B.delayedlittle)
+			else if(delayed_hesitate)
 				holder.visible_message("<span class='notice'>[icon2html(B, viewers(holder))] Nothing happens.</span>")
 			else
 				holder.visible_message("<span class='notice'>[icon2html(B, viewers(holder))] The bomb seems to hesitate for a moment.</span>")
-				B.detonation_timer += 100
-				B.delayedlittle = TRUE
+				B.detonation_timer += 10 SECONDS
+				delayed_hesitate = TRUE
 
 /datum/wires/syndicatebomb/on_cut(wire, mend)
 	var/obj/machinery/syndicatebomb/B = holder
@@ -79,8 +100,9 @@
 			if(!mend && B.active)
 				holder.visible_message("<span class='notice'>[icon2html(B, viewers(holder))] The timer stops! The bomb has been defused!</span>")
 				B.active = FALSE
-				B.delayedlittle = FALSE
-				B.delayedbig = FALSE
+				delayed_hesitate = FALSE
+				delayed_chirp = FALSE
+				fake_delayed_hesitate = FALSE
 				B.update_icon()
 
 /datum/wires/syndicatebomb/proc/tell_admins(obj/machinery/syndicatebomb/B)
@@ -89,3 +111,7 @@
 	var/turf/T = get_turf(B)
 	log_game("\A [B] was detonated via boom wire at [AREACOORD(T)].")
 	message_admins("A [B.name] was detonated via boom wire at [ADMIN_VERBOSEJMP(T)].")
+
+#undef LONG_FUSE_THRESHOLD
+#undef MEDIUM_FUSE_THRESHOLD
+#undef SHORT_FUSE_THRESHOLD

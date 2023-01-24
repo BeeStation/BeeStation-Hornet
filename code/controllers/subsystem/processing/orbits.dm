@@ -279,8 +279,8 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	RETURN_TYPE(/datum/shuttle_data)
 	return assoc_shuttle_data[port_id]
 
-/datum/controller/subsystem/processing/orbits/proc/register_shuttle(port_id, ship_faction)
-	var/datum/shuttle_data/new_shuttle = new(port_id, ship_faction)
+/datum/controller/subsystem/processing/orbits/proc/register_shuttle(port_id)
+	var/datum/shuttle_data/new_shuttle = new(port_id)
 	assoc_shuttle_data[port_id] = new_shuttle
 
 /datum/controller/subsystem/processing/orbits/proc/remove_shuttle(port_id)

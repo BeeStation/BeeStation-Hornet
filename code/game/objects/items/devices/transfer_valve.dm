@@ -91,6 +91,8 @@
 //These keep attached devices synced up, for example a TTV with a mouse trap being found in a bag so it's triggered, or moving the TTV with an infrared beam sensor to update the beam's direction.
 
 /obj/item/transfer_valve/proc/process_activation(obj/item/D)
+	if(istype(loc, /obj/machinery/syndicatebomb))
+		return //must detonate the real way if in a bomb
 	if(toggle)
 		toggle = FALSE
 		toggle_valve()
