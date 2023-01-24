@@ -5,23 +5,23 @@
 	icon_state = "suspiciousphone"
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("dumped")
-	COOLDOWN_DECLARE(crab_reactivation_cooldown)
+	var/activated = FALSE
 
 /obj/item/suspiciousphone/attack_self(mob/user)
 	if(!ishuman(user))
 		to_chat(user, "<span class='warning'>This device is too advanced for you!</span>")
 		return
-	if(!COOLDOWN_FINISHED(src, crab_reactivation_cooldown))
-		to_chat(user, "<span class='warning'>CRAB-17 can be reactivated in [round(COOLDOWN_TIMELEFT(src, crab_reactivation_cooldown)/10)] seconds.</span>")
+	if(activated)
+		to_chat(user, "<span class='warning'>You already activated Protocol CRAB-17.</span>")
 		return FALSE
 	if(alert(user, "Are you sure you want to crash this market with no survivors?", "Protocol CRAB-17", "Yes", "No") == "Yes")
-		if(!COOLDOWN_FINISHED(src, crab_reactivation_cooldown) || QDELETED(src)) //Prevents fuckers from cheesing alert
+		if(activated || QDELETED(src)) //Prevents fuckers from cheesing alert
 			return FALSE
 		var/turf/targetturf = get_safe_random_station_turfs()
 		if (!targetturf)
 			return FALSE
 		new /obj/effect/dumpeetTarget(targetturf, user)
-		COOLDOWN_START(src, crab_reactivation_cooldown, 50 MINUTES)
+		activated = TRUE
 
 #define RUN_AWAY_THRESHOLD_HP 140
 #define RUN_AWAY_DELAYED_HP 30
