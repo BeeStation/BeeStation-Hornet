@@ -177,6 +177,9 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 /mob/living/carbon/monkey/angry
 	ai_controller = /datum/ai_controller/monkey/angry
 
+/mob/living/carbon/monkey/syndicate_experiment
+	faction = list(FACTION_NEUTRAL, FACTION_MONKEY, FACTION_SYNDICATE)
+
 /mob/living/carbon/monkey/angry/Initialize(mapload)
 	. = ..()
 	if(prob(10))
