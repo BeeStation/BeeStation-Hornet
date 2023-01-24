@@ -40,6 +40,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	dwidth = 5
 	height = 7
 	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0)
+	undockable = TRUE
 
 
 	//Export categories for this run, this is set by console sending the shuttle.
