@@ -76,7 +76,7 @@
 
 /datum/objective/crew/fatstacks/update_explanation_text()
 	. = ..()
-	explanation_text = "Have at least [target_amount] mining points on your ID at the end of the shift."
+	explanation_text = "Have at least [target_amount] mining points on IDs in your possession at the end of the shift."
 
 /datum/objective/crew/fatstacks/check_completion()
 	if(..())
@@ -84,7 +84,11 @@
 	var/mob/living/carbon/human/H = owner?.current
 	if(!istype(H))
 		return FALSE
-	var/obj/item/card/id/theID = H.get_idcard()
-	if(!istype(theID))
-		return FALSE
-	return theID.mining_points >= target_amount
+	var/current_points = 0
+	for(var/obj/item/card/id/each_card in H.get_contents())
+		if(!each_card.registered_account)
+			continue
+		current_points += each_card.registered_account.report_currency(ACCOUNT_CURRENCY_MINING)
+		if(current_points >= target_amount)
+			return TRUE
+	return FALSE
