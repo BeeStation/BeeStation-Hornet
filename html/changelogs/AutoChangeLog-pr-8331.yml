@@ -1,0 +1,10 @@
+author: The-Moon-Itself
+delete-after: true
+changes:
+  - bugfix: It's now impossible to land shuttles ontop of the arrival shuttle to prevent
+      spawning or the arrivals shuttle from leaving
+  - bugfix: It's also impossible now to land another shuttle on the cargo shuttle
+      to stowaway on it.
+  - bugfix: Fixes improper firedoor updates and potential failure to create shuttles
+      with the rapid shuttle designator when designating in multiple areas at the
+      same time
