@@ -122,13 +122,14 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	update_objectives()
 	update_events()
 	//Do processing.
-	if(!resumed)
-		. = ..()
-		if(MC_TICK_CHECK)
-			return
-		//Update UIs
-		for(var/datum/tgui/tgui as() in open_orbital_maps)
-			tgui.send_update()
+	if(resumed)
+		return
+	. = ..()
+	if(MC_TICK_CHECK)
+		return
+	//Update UIs
+	for(var/datum/tgui/tgui as() in open_orbital_maps)
+		tgui.send_update()
 
 /datum/controller/subsystem/processing/orbits/proc/update_ruins()
 	//Check space ruin count
