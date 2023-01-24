@@ -297,7 +297,8 @@
 				return SHUTTLE_DOCKER_BLOCKED
 
 /obj/machinery/computer/shuttle_flight/proc/update_hidden_docking_ports(list/remove_images, list/add_images)
-	if(!shuttleObject.shuttle_data.stealth && current_user && current_user.client)
+	var/datum/shuttle_data/located_data = SSorbits.get_shuttle_data(shuttleId)
+	if(!located_data?.stealth && current_user && current_user.client)
 		current_user.client.images -= remove_images
 		current_user.client.images += add_images
 

@@ -302,4 +302,6 @@
 	return "Shuttle (#[unique_id])"
 
 /datum/orbital_object/shuttle/is_stealth()
+	if (!shuttle_data)
+		return FALSE
 	return shuttle_data.stealth
