@@ -369,7 +369,7 @@
 		icon_state = icon_dead
 		if(flip_on_death)
 			transform = transform.Turn(180)
-		density = FALSE
+		set_density(FALSE)
 		..()
 
 /mob/living/simple_animal/proc/CanAttack(atom/the_target)
@@ -402,7 +402,7 @@
 	if(..()) //successfully ressuscitated from death
 		icon = initial(icon)
 		icon_state = icon_living
-		density = initial(density)
+		set_density(initial(density))
 		mobility_flags = MOBILITY_FLAGS_DEFAULT
 		update_mobility()
 		. = 1

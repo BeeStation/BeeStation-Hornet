@@ -19,7 +19,7 @@
 	emittersemicd = TRUE
 	addtimer(CALLBACK(src, .proc/emittercool), emittercd)
 	mobility_flags = MOBILITY_FLAGS_DEFAULT
-	density = TRUE
+	set_density(TRUE)
 	if(isliving(card.loc))
 		var/mob/living/L = card.loc
 		if(!L.temporarilyRemoveItemFromInventory(card))
@@ -61,7 +61,7 @@
 	card.forceMove(T)
 	forceMove(card)
 	mobility_flags = NONE
-	density = FALSE
+	set_density(FALSE)
 	set_light_on(FALSE)
 	holoform = FALSE
 	set_resting(resting)

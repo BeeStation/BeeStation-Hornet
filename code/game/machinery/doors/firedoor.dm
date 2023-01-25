@@ -397,7 +397,7 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/machinery/door/firedoor/border_only/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(1)
 	return ..()
 

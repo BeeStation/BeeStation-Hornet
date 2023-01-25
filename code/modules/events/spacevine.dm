@@ -275,7 +275,7 @@
 
 /datum/spacevine_mutation/woodening/on_grow(obj/structure/spacevine/holder)
 	if(holder.energy)
-		holder.density = TRUE
+		holder.set_density(TRUE)
 	holder.max_integrity = 100
 	holder.obj_integrity = holder.max_integrity
 
