@@ -1,0 +1,6 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - code_imp: html tooltip helping DEFINEs and proc
+  - rscadd: character pref will now notify about naming policy
+  - config: add configurable tooltip config file
