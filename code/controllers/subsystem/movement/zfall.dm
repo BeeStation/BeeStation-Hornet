@@ -21,7 +21,7 @@ SUBSYSTEM_DEF(zfall)
 	UnregisterSignal(A, COMSIG_PARENT_QDELETING)
 	openspace_inhabitants -= A
 
-/datum/controller/subsystem/zfall/proc/check_z_fall(var/atom/movable/A)
+/datum/controller/subsystem/zfall/proc/check_z_fall(atom/movable/A)
 	var/turf/T = get_turf(A)
 	if(!isopenspace(T))
 		remove_openspace_inhabitant(A)
