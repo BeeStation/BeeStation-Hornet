@@ -397,25 +397,26 @@
 	alpha = 200 //Mappers can also just set this to 255 if they want curtains that can't be seen through
 	layer = SIGN_LAYER
 	anchored = TRUE
-	opacity = 0
+	opacity = FALSE
 	density = FALSE
 	var/open = TRUE
 
 /obj/structure/curtain/proc/toggle()
 	open = !open
-	update_icon()
+
+	update_appearance()
 
 /obj/structure/curtain/update_icon()
 	if(!open)
 		icon_state = "[icon_type]-closed"
 		layer = WALL_OBJ_LAYER
-		density = TRUE
+		set_density(TRUE)
 		open = FALSE
 
 	else
 		icon_state = "[icon_type]-open"
 		layer = SIGN_LAYER
-		density = FALSE
+		set_density(FALSE)
 		open = TRUE
 
 /obj/structure/curtain/attackby(obj/item/W, mob/user)
