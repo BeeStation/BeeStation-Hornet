@@ -277,8 +277,8 @@
 	var/message = msg_input(user, target_name)
 	if(!message)
 		return FALSE
+	// notifying is done somewhere else, this is just a sanity check
 	if((last_text && world.time < last_text + 10) || (everyone && last_text_everyone && world.time < (last_text_everyone + PDA_SPAM_DELAY * multi_delay)))
-		to_chat(user, "<span class='warning'>The subspace transmitter of your tablet is still cooling down!</span>")
 		return FALSE
 	if(prob(1))
 		message += "\nSent from my PDA"
