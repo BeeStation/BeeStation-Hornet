@@ -32,7 +32,7 @@
 	var/turf/current_turf = loc
 	. = ..()
 	// Attempt zfalling for anything standing on this structure
-	if(!istype(current_turf))
+	if(!isopenspace(current_turf))
 		return
 	for(var/atom/movable/A in current_turf)
 		current_turf.try_start_zFall(A)
