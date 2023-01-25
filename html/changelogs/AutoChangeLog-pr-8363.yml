@@ -1,0 +1,4 @@
+author: RKz
+delete-after: true
+changes:
+  - bugfix: fixed bad layering for lizard snouts in mutant_bodyparts.dmi
