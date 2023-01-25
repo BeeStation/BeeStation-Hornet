@@ -449,7 +449,7 @@
 			continue
 
 		// Blind people don't get hallucinations
-		if (is_blind(near))
+		if (near.is_blind())
 			continue
 
 		// Everyone else

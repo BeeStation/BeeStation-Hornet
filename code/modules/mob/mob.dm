@@ -158,7 +158,7 @@
 	msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
 
 	if(type)
-		if(type & MSG_VISUAL && eye_blind )//Vision related
+		if(type & MSG_VISUAL && is_blind() )//Vision related
 			if(!alt_msg)
 				return
 			else
@@ -171,7 +171,7 @@
 			else
 				msg = alt_msg
 				type = alt_type
-				if(type & MSG_VISUAL && eye_blind)
+				if(type & MSG_VISUAL && is_blind())
 					return
 	// voice muffling
 	if(stat == UNCONSCIOUS)
@@ -218,7 +218,7 @@
 		if(!msg)
 			continue
 
-		if(is_emote && M.should_show_chat_message(src, null, TRUE) && !is_blind(M))
+		if(is_emote && M.should_show_chat_message(src, null, TRUE) && !M.is_blind())
 			show_to += M
 
 		M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE)
@@ -1118,7 +1118,7 @@
 
 ///Can this mob read (is literate and not blind)
 /mob/proc/can_read(obj/O)
-	if(is_blind(src))
+	if(is_blind())
 		to_chat(src, "<span class='warning'>As you are trying to read [O], you suddenly feel very stupid!</span>")
 		return
 	if(!is_literate())

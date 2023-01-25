@@ -165,7 +165,7 @@
 		stress = max(stress - 4, 0)
 
 /datum/brain_trauma/severe/monophobia/proc/check_alone()
-	if(HAS_TRAIT(owner, TRAIT_BLIND))
+	if(owner.is_blind())
 		return TRUE
 	for(var/mob/living/M in oview(7, owner))
 		if((istype(M, /mob/living/simple_animal/pet)) || M.ckey)
