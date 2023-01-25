@@ -158,6 +158,10 @@
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
+"w" = (
+/obj/machinery/computer/locator,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
 "x" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
@@ -397,7 +401,7 @@ p
 "}
 (4,1,1) = {"
 R
-d
+w
 d
 S
 g
