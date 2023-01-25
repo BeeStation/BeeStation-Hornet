@@ -2,9 +2,24 @@ import { useBackend } from '../backend';
 import { Box, Button, Dimmer, Icon, Section, Stack } from '../components';
 import { NtosWindow } from '../layouts';
 
-const NoIDDimmer = (props, context) => {
-  const { act, data } = useBackend(context);
-  const { owner } = data;
+export const NtosMessenger = (_, context) => {
+  const { data } = useBackend(context);
+  const { viewing_messages } = data;
+  return (
+    <NtosWindow width={400} height={600}>
+      <NtosWindow.Content scrollable>
+        {viewing_messages ? (
+          <MessageListScreen />
+        ) : (
+          <ContactsScreen />
+        )}
+      </NtosWindow.Content>
+    </NtosWindow>
+  );
+};
+
+const NoIDDimmer = (_, context) => {
+  const { data } = useBackend(context);
   return (
     <Stack>
       <Stack.Item>
@@ -31,81 +46,80 @@ const NoIDDimmer = (props, context) => {
   );
 };
 
-export const NtosMessenger = (props, context) => {
+const MessageListScreen = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    messages = [],
+    emoji_names = [],
+  } = data;
+  return (
+    <Stack vertical>
+      <Section fill>
+        <Button
+          icon="arrow-left"
+          content="Back"
+          onClick={() => act('PDA_viewMessages')}
+        />
+        <Button
+          icon="trash"
+          content="Clear Messages"
+          onClick={() => act('PDA_clearMessages')}
+        />
+      </Section>
+      {messages.map(message => (
+        <>
+          <Section fill textAlign="left">
+            <Box italic opacity={0.5}>
+              {message.outgoing ? (
+                "(OUTGOING)"
+              ) : (
+                "(INCOMING)"
+              )}
+            </Box>
+            {message.outgoing ? (
+              <Box bold>
+                {message.target}
+              </Box>
+            ) : (
+              <Button transparent
+                content={message.name + " (" + message.job + ")"}
+                onClick={() => act('PDA_sendMessage', {
+                  name: message.name,
+                  job: message.job,
+                  ref: message.ref,
+                })}
+              />
+            )}
+          </Section>
+          <Section fill mt={message.outgoing ? -0.9 : -1} mb={2}>
+            <MessageContent
+              contents={message.contents}
+              photo={message.photo}
+              photo_width={message.photo_width}
+              photo_height={message.photo_height}
+              emojis={message.emojis}
+              emoji_names={emoji_names} />
+          </Section>
+        </>
+      ))}
+    </Stack>
+  );
+};
+
+const ContactsScreen = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     owner,
     ringer_status,
     sending_and_receiving,
     messengers = [],
-    viewing_messages,
     sortByJob,
     canSpam,
     isSilicon,
     photo,
     virus_attach,
     sending_virus,
-    messages = [],
-    emoji_names = [],
   } = data;
-  if (viewing_messages) {
-    return (
-      <NtosWindow width={400} height={600}>
-        <NtosWindow.Content scrollable>
-          <Stack vertical>
-            <Section fill>
-              <Button
-                icon="arrow-left"
-                content="Back"
-                onClick={() => act('PDA_viewMessages')}
-              />
-              <Button
-                icon="trash"
-                content="Clear Messages"
-                onClick={() => act('PDA_clearMessages')}
-              />
-            </Section>
-            {messages.map(message => (
-              <>
-                <Section fill textAlign="left">
-                  <Box italic opacity={0.5}>
-                    {message.outgoing ? (
-                      "(OUTGOING)"
-                    ) : (
-                      "(INCOMING)"
-                    )}
-                  </Box>
-                  {message.outgoing ? (
-                    <Box bold>
-                      {message.target}
-                    </Box>
-                  ) : (
-                    <Button transparent
-                      content={message.name + " (" + message.job + ")"}
-                      onClick={() => act('PDA_sendMessage', {
-                        name: message.name,
-                        job: message.job,
-                        ref: message.ref,
-                      })}
-                    />
-                  )}
-                </Section>
-                <Section fill mt={message.outgoing ? -0.9 : -1} mb={2}>
-                  <MessageContent
-                    contents={message.contents}
-                    photo={message.photo}
-                    photo_width={message.photo_width}
-                    photo_height={message.photo_height}
-                    emojis={message.emojis}
-                    emoji_names={emoji_names} />
-                </Section>
-              </>
-            ))}
-          </Stack>
-        </NtosWindow.Content>
-      </NtosWindow>
-    );
-  }
   return (
     <NtosWindow width={400} height={600}>
       <NtosWindow.Content scrollable>
