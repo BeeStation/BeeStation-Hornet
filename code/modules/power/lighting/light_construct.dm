@@ -143,7 +143,7 @@
 				new_light.setDir(dir)
 				transfer_fingerprints_to(new_light)
 				if(!QDELETED(cell))
-					newlight.store_cell(cell)
+					new_light.store_cell(cell)
 					cell.forceMove(new_light)
 					remove_cell()
 				qdel(src)
