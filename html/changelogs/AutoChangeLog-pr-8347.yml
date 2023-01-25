@@ -1,6 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - tweak: Dynamic will now count unreadied players as half a player (round up) for
-      ruleset selection purposes, allowing rulesets to get a more accurate depiction
-      of the roundstart population.
