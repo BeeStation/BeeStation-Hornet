@@ -913,6 +913,12 @@
 	examine_text = "<span class='warning'>SUBJECTPRONOUN has a blank, catatonic like stare.</span>"
 	alert_type = /atom/movable/screen/alert/status_effect/ghoul
 
+/datum/status_effect/ghoul/get_examine_text()
+	var/mob/living/carbon/human/H = owner
+	var/obscured = H.check_obscured_slots()
+	if(!(obscured & ITEM_SLOT_EYES) && !H.glasses) //The examine text is only displayed if the ghoul's eyes are not obscured
+		return examine_text
+
 /atom/movable/screen/alert/status_effect/ghoul
 	name = "Flesh Servant"
 	desc = "You are a Ghoul! A eldritch monster reanimated to serve its master."

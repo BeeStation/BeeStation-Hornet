@@ -94,7 +94,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		mat1.f
 		)
 
-//returns the dwidth, dheight, width, and height in the order of the union bounds of all shuttles relative to our shuttle.
+//returns the dwidth, dheight, width, and height in that order of the union bounds of all shuttles relative to our shuttle.
 /obj/docking_port/proc/return_union_bounds(var/list/obj/docking_port/others)
 	var/list/coords =  return_union_coords(others, 0, 0, NORTH)
 	var/X0 = min(coords[1],coords[3]) //This will be the negative dwidth of the combined bounds
@@ -353,6 +353,9 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	//If the shuttle is unable to be moved by non-untowable shuttles.
 	//Stops interference with the arrival and escape shuttle. Use this sparingly.
 	var/untowable = FALSE
+	//If docking on this shuttle is not allowed.
+	//For important shuttles such as the arrivals shuttle where access to its shuttle area type is needed at any moment
+	var/undockable = FALSE
 
 	//The designated virtual Z-Value of this shuttle
 	var/virtual_z
