@@ -45,6 +45,9 @@ GLOBAL_PROTECT(topic_tokens)
 GLOBAL_LIST_EMPTY(topic_servers)
 GLOBAL_PROTECT(topic_servers)
 
+// Tooltips. tooltip is stored in "config/tooltips.txt"
+GLOBAL_LIST_EMPTY(tooltips)
+
 //Should be in the form of "tag to be replaced" = list("replacement for beginning", "replacement for end")
 GLOBAL_LIST_INIT(markup_tags, list("/"  = list("<i>", "</i>"),
 								   "**" = list("<b>", "</b>")))
