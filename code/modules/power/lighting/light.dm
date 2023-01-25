@@ -77,6 +77,19 @@
 		break_light_tube(TRUE)
 	return ..()
 
+/obj/machinery/light/proc/store_cell(new_cell)
+	if(cell)
+		UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
+	cell = new_cell
+	if(cell)
+		RegisterSignal(cell, COMSIG_PARENT_QDELETING, .proc/remove_cell)
+
+/obj/machinery/light/proc/remove_cell()
+	SIGNAL_HANDLER
+	if(cell)
+		UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
+		cell = null
+
 // create a new lighting fixture
 /obj/machinery/light/Initialize(mapload)
 	. = ..()
@@ -100,7 +113,7 @@
 		nightshift_enabled = temp_apc?.nightshift_lights
 
 	if(start_with_cell && !no_low_power)
-		cell = new/obj/item/stock_parts/cell/emergency_light(src)
+		store_cell(new/obj/item/stock_parts/cell/emergency_light(src))
 
 	return INITIALIZE_HINT_LATELOAD
 
@@ -380,9 +393,9 @@
 		new /obj/item/stack/cable_coil(loc, 1, "red")
 	transfer_fingerprints_to(new_light)
 	if(!QDELETED(cell))
-		new_light.cell = cell
+		new_light.store_cell(cell)
 		cell.forceMove(new_light)
-		cell = null
+		remove_cell()
 	qdel(src)
 
 /obj/machinery/light/attacked_by(obj/item/attacking_object, mob/living/user)
@@ -538,7 +551,7 @@
 
 	if(protection_amount > 0 || HAS_TRAIT(user, TRAIT_RESISTHEAT) || HAS_TRAIT(user, TRAIT_RESISTHEATHANDS))
 		to_chat(user, "<span class='notice'>You remove the light [fitting].</span>")
-	else if(istype(user) && user.dna.check_mutation(TK))
+	else if(user.has_dna() && user.dna.check_mutation(TK))
 		to_chat(user, "<span class='notice'>You telekinetically remove the light [fitting].</span>")
 	else
 		var/obj/item/bodypart/affecting = electrician.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
@@ -605,7 +618,7 @@
 	if(status == LIGHT_EMPTY || status == LIGHT_BROKEN)
 		return
 
-	if(!skip_sound_and_sparks)
+	if(!skip_sound_and_sparks && Master.current_runlevel) //not completly sure disabling this during initialize is needed but then again there are broken lights after initialize
 		if(status == LIGHT_OK || status == LIGHT_BURNED)
 			playsound(loc, 'sound/effects/glasshit.ogg', 75, TRUE)
 		if(on)

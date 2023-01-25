@@ -56,7 +56,7 @@
 	user.visible_message("<span class='notice'>[user] removes [cell] from [src]!</span>", "<span class='notice'>You remove [cell].</span>")
 	user.put_in_hands(cell)
 	cell.update_appearance()
-	cell = null
+	remove_cell()
 	add_fingerprint(user)
 
 /obj/structure/light_construct/attack_tk(mob/user)
@@ -64,7 +64,7 @@
 		return
 	to_chat(user, "<span class='notice'>You telekinetically remove [cell].</span>")
 	var/obj/item/stock_parts/cell/cell_reference = cell
-	cell = null
+	remove_cell()
 	cell_reference.forceMove(drop_location())
 	return cell_reference.attack_tk(user)
 
@@ -85,7 +85,7 @@
 			"<span class='notice'>You add [tool] to [src].</span>")
 			playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 			tool.forceMove(src)
-			cell = tool
+			store_cell(tool)
 			add_fingerprint(user)
 			return
 	if(istype(tool, /obj/item/light))
@@ -143,9 +143,9 @@
 				new_light.setDir(dir)
 				transfer_fingerprints_to(new_light)
 				if(!QDELETED(cell))
-					new_light.cell = cell
+					newlight.store_cell(cell)
 					cell.forceMove(new_light)
-					cell = null
+					remove_cell()
 				qdel(src)
 				return
 	return ..()
@@ -158,6 +158,19 @@
 	if(!(flags_1 & NODECONSTRUCT_1))
 		new /obj/item/stack/sheet/iron(loc, sheets_refunded)
 	qdel(src)
+
+/obj/structure/light_construct/proc/store_cell(new_cell)
+	if(cell)
+		UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
+	cell = new_cell
+	if(cell)
+		RegisterSignal(cell, COMSIG_PARENT_QDELETING, .proc/remove_cell)
+
+/obj/structure/light_construct/proc/remove_cell()
+	SIGNAL_HANDLER
+	if(cell)
+		UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
+		cell = null
 
 /obj/structure/light_construct/small
 	name = "small light fixture frame"
