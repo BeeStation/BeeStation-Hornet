@@ -1,5 +1,0 @@
-author: Tsar-Salat
-delete-after: true
-changes:
-  - bugfix: stuff that is supposed to make you blind (i.e. blindfolds, stabbing your
-      eyes out) will actually share the correct check with regular blindness now
