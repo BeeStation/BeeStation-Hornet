@@ -1,0 +1,7 @@
+author: Rohesie, RKz
+delete-after: true
+changes:
+  - rscadd: setter for density
+  - code_imp: density is now changed by a setter, replaced most usages of density
+      = T/F when used to change density
+  - code_imp: more update_icon has been replaced to update_appearance
