@@ -57,7 +57,7 @@
 	icon = 'icons/effects/religion_effects.dmi'
 	randomdir = 0
 	duration = 10
-	icon_state = "floorglow"
+	icon_state = "grass_convert"
 	duration = 5
 	plane = FLOOR_PLANE
 
