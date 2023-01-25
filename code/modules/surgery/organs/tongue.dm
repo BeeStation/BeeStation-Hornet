@@ -71,8 +71,8 @@
 	var/static/regex/lizard_hiSS = new("S+", "g")
 	var/static/regex/lizard_kss = new(@"(\w)x", "g")
 	var/static/regex/lizard_kSS = new(@"(\w)X", "g")
-	var/static/regex/lizard_ecks = new(@"\bx([\-|r|R]|\b)", "g")
-	var/static/regex/lizard_eckS = new(@"\bX([\-|r|R]|\b)", "g")
+	var/static/regex/lizard_ecks = new(@"\bx([-rR]|\b)", "g")
+	var/static/regex/lizard_eckS = new(@"\bX([-rR]|\b)", "g")
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		message = lizard_hiss.Replace(message, "sss")
