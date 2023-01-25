@@ -1502,39 +1502,39 @@
 /area/awaymission/cabin)
 "ew" = (
 /obj/structure/closet/crate/wooden,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "ex" = (
 /obj/structure/closet/crate/wooden,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "ey" = (
@@ -1713,38 +1713,38 @@
 /area/awaymission/cabin/snowforest)
 "eY" = (
 /obj/structure/closet/crate/wooden,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "eZ" = (
 /obj/structure/closet/crate/wooden,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "fa" = (
@@ -3700,35 +3700,35 @@
 "kM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags,
+/obj/item/stack/sheet/sandbags,
 /turf/open/floor/mineral/plastitanium/red{
 	name = "soviet floor"
 	},
