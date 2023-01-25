@@ -19,7 +19,7 @@
 	build_inventory()
 
 	if(bound_bank_account && !istype(bound_bank_account))
-		bound_bank_account = SSeconomy.get_budget_account(bound_bank_account)
+		bound_bank_account = SSeconomy.get_budget_account(bound_bank_account, force=TRUE) // grabbing united budget will be bad for this. "force=TRUE" will always grab the correct budget.
 
 /obj/machinery/vendor/proc/build_inventory()
 	for(var/p in prize_list)

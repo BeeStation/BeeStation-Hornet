@@ -168,10 +168,11 @@
 		if(!registered_account)
 			to_chat(usr, "There's no account registered!")
 			return
-		var/target_value = input(usr, "How much mining points do you want to give as?", "Give mining points", 100000) as num
-		if(!target_value)
-			to_chat(usr, "zero or negative value isn't allowed.")
-		registered_account.adjust_currency(ACCOUNT_CURRENCY_MINING, target_value)
+		var/target_value = input(usr, "How much mining points do you want to give as? (negative value works)", "Give mining points", 100000) as num
+		if(!registered_account.adjust_currency(ACCOUNT_CURRENCY_MINING, target_value))
+			to_chat(usr, "Failed: Your input was [target_value], but [registered_account.account_holder]'s account has only [registered_account.report_currency(ACCOUNT_CURRENCY_MINING)].")
+		else
+			to_chat(usr, "Success: [target_value] points are added. [registered_account.account_holder]'s account now holds [registered_account.report_currency(ACCOUNT_CURRENCY_MINING)].")
 
 /obj/item/card/id/attackby(obj/item/W, mob/user, params)
 	if(iscash(W))
