@@ -148,6 +148,9 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 		),\
 		//A list of objects that are save safe that we want to blacklist anyway
 		var/list/obj_blacklist = list())
+	// Create the output
+	var/datum/exported_map/output = new
+	
 	//Calculate the bounds
 	var/minx = world.maxx
 	var/miny = world.maxy
@@ -270,6 +273,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 						continue
 					var/metadata = generate_tgm_metadata(thing, vars_to_save, save_flag)
 					current_header += "[empty?"":",\n"][thing.get_saved_type()][metadata]"
+					output.add_type(thing.get_saved_type())
 					empty = FALSE
 					//====SAVING SPECIAL DATA====
 					//This is what causes lockers and machines to save stuff inside of them
@@ -291,13 +295,17 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 						continue
 					var/metadata = generate_tgm_metadata(thing, vars_to_save, save_flag)
 					current_header += "[empty?"":",\n"][thing.type][metadata]"
+					output.add_type(thing.type)
 					empty = FALSE
 			else
 				for(var/mob/living/thing in objects)
 					//The long gone explorers
-					current_header += "[empty?"":",\n"]/obj/effect/decal/remains/human"
+					current_header += "[empty?"":",\n"][/obj/effect/decal/remains/human]"
+					output.add_type(/obj/effect/decal/remains/human)
 					empty = FALSE
 			current_header += "[empty?"":",\n"][place],\n[location])\n"
+			output.add_type(place)
+			output.add_type(location)
 			//====Fill the contents file====
 			//Compression is done here
 			var/position_of_header = header_dat.Find(current_header)
@@ -311,7 +319,8 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 				index ++
 			contents += "[header_char]\n"
 		contents += "\"}"
-	return "[header][contents]"
+	output.output_data = "[header][contents]"
+	return output
 
 //Sorts maps in terms of their positions, so scrambled / odd shaped maps can be saved
 /proc/sort_map(var/list/map, minx, miny, maxx, maxy)
@@ -439,3 +448,15 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 	if(findtext(colour, r))
 		return colour
 	return null
+
+/datum/exported_map
+	var/list/types = list()
+	var/output_data
+
+/datum/exported_map/proc/add_type(type)
+	types[type] = TRUE
+
+/datum/exported_map/proc/get_types()
+	. = list()
+	for (var/i in types)
+		. += i

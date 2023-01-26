@@ -50,7 +50,8 @@ GLOBAL_VAR_INIT(save_area_executing, FALSE)
 
 	//Step 1: Get the data (This can take a while)
 	var/dat = "//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE\n"
-	dat += convert_map_to_tgm(L.map, admin_mode ? SAVE_ADMIN : SAVE_DEFAULT, shuttle ? SAVE_SHUTTLEAREA_ONLY : SAVE_SHUTTLEAREA_IGNORE)
+	var/datum/exported_map/exported_map = convert_map_to_tgm(L.map, admin_mode ? SAVE_ADMIN : SAVE_DEFAULT, shuttle ? SAVE_SHUTTLEAREA_ONLY : SAVE_SHUTTLEAREA_IGNORE)
+	dat += exported_map.output_data
 
 	//Step 2: Write the data to a file
 	var/filedir = file("data/temp.dmm")

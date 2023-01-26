@@ -7,16 +7,16 @@
 /datum/orbital_object/z_linked/beacon/ruin/abandoned_shuttle/assign_z_level()
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
-	assigned_space_level.orbital_body = src
+	SSorbits.assoc_z_levels["[assigned_space_level.z_value]"] = src
 	//Place the abandoned shuttle
-	if(length(SSorbits.shuttle_ruin_list))
-		var/dmm_file = pick(SSorbits.shuttle_ruin_list)
-		var/as_file = file(dmm_file)
+	if(length(SSshuttle_persistence.shuttle_ruin_list))
+		var/dmm_file = pick(SSshuttle_persistence.shuttle_ruin_list)
+		var/as_file = file("[dmm_file].dmm")
 		//Get the template
 		var/datum/map_template/shuttle/abandoned_template = new("[CONFIG_GET(string/shuttle_ruin_filepath)][as_file]", "abandoned shuttle [rand(1, 99999)]")
 		//Only spawn once
-		SSorbits.shuttle_ruin_list -= dmm_file
-		SSorbits.spawned_shuttle_files += dmm_file
+		SSshuttle_persistence.shuttle_ruin_list -= dmm_file
+		SSshuttle_persistence.spawned_shuttle_files += dmm_file
 		var/list/loaded_bounds = abandoned_template?.load(locate((world.maxx / 2) + rand(-70, 70), (world.maxy / 2) + rand(-70, 70), assigned_space_level.z_value), TRUE)
 		if(loaded_bounds && prob(80))	//Advanced optimisation system
 			//What happened?
