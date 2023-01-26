@@ -56483,12 +56483,6 @@
 /obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
-"lRI" = (
-/turf/open/floor/plating/asteroid/snow,
-/turf/closed/mineral/random/snowmountain/cavern,
-/turf/closed/mineral/random/snowmountain/cavern,
-/turf/closed/mineral/random/snowmountain/cavern,
-/area/iceland/shaded)
 "lRV" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
@@ -59196,11 +59190,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/eighties,
 /area/crew_quarters/dorms)
-"mwA" = (
-/turf/open/floor/plating/asteroid/snow,
-/turf/closed/mineral/random/snowmountain/cavern,
-/turf/closed/mineral/random/snowmountain/cavern,
-/area/iceland/shaded)
 "mxi" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -80881,10 +80870,6 @@
 /obj/item/poster/random_official,
 /turf/open/floor/plating,
 /area/maintenance/department/science)
-"rbn" = (
-/turf/open/openspace/cold,
-/turf/open/floor/plating/asteroid/snow,
-/area/iceland)
 "rbz" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -84022,10 +84007,6 @@
 	},
 /turf/open/floor/wood,
 /area/bridge/meeting_room/council)
-"rNZ" = (
-/turf/open/floor/plating/asteroid/snow,
-/turf/closed/mineral/random/snowmountain/cavern,
-/area/iceland/shaded)
 "rOg" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -323484,10 +323465,10 @@ uPG
 uPG
 uPG
 uPG
-rNZ
-rNZ
-rNZ
-rNZ
+xtZ
+xtZ
+xtZ
+xtZ
 uPG
 uPG
 uPG
@@ -323743,9 +323724,9 @@ uPG
 uPG
 uPG
 uPG
-mwA
-lRI
-rNZ
+xtZ
+xtZ
+xtZ
 uPG
 uPG
 uPG
@@ -324001,9 +323982,9 @@ uPG
 uPG
 uPG
 uPG
-lRI
-lRI
-rNZ
+xtZ
+xtZ
+xtZ
 uPG
 uPG
 uPG
@@ -324259,8 +324240,8 @@ uPG
 uPG
 uPG
 uPG
-lRI
-rNZ
+xtZ
+xtZ
 uPG
 uPG
 hgc
@@ -324516,9 +324497,9 @@ uPG
 uPG
 uPG
 uPG
-mwA
-mwA
-rNZ
+xtZ
+xtZ
+xtZ
 uPG
 hgc
 hgc
@@ -324773,9 +324754,9 @@ uPG
 uPG
 uPG
 uPG
-rNZ
-mwA
-rNZ
+xtZ
+xtZ
+xtZ
 hgc
 hgc
 hgc
@@ -325031,8 +325012,8 @@ uPG
 uPG
 uPG
 uPG
-rNZ
-mwA
+xtZ
+xtZ
 hgc
 hgc
 hgc
@@ -325289,7 +325270,7 @@ uPG
 uPG
 uPG
 uPG
-rNZ
+xtZ
 hgc
 hgc
 hgc
@@ -389020,10 +389001,10 @@ noJ
 noJ
 noJ
 noJ
-rbn
-rbn
-rbn
-rbn
+noJ
+noJ
+noJ
+noJ
 noJ
 noJ
 noJ
@@ -389279,9 +389260,9 @@ noJ
 noJ
 noJ
 noJ
-rbn
-rbn
-rbn
+noJ
+noJ
+noJ
 noJ
 noJ
 noJ
@@ -389537,9 +389518,9 @@ noJ
 noJ
 noJ
 noJ
-rbn
-rbn
-rbn
+noJ
+noJ
+noJ
 noJ
 noJ
 noJ
@@ -389795,8 +389776,8 @@ noJ
 noJ
 noJ
 noJ
-rbn
-rbn
+noJ
+noJ
 noJ
 noJ
 noJ
@@ -390052,9 +390033,9 @@ noJ
 noJ
 noJ
 noJ
-rbn
-rbn
-rbn
+noJ
+noJ
+noJ
 noJ
 noJ
 noJ
@@ -390309,9 +390290,9 @@ noJ
 noJ
 noJ
 noJ
-rbn
-rbn
-rbn
+noJ
+noJ
+noJ
 npL
 npL
 npL
@@ -390567,8 +390548,8 @@ noJ
 noJ
 noJ
 noJ
-rbn
-rbn
+noJ
+noJ
 xPY
 npL
 xPY
@@ -390825,7 +390806,7 @@ noJ
 noJ
 noJ
 noJ
-rbn
+noJ
 noJ
 noJ
 noJ
