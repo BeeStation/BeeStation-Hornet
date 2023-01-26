@@ -418,11 +418,11 @@
 
 /mob/living/proc/cure_blind(source)
 	REMOVE_TRAIT(src, TRAIT_BLIND, source)
-	if(!HAS_TRAIT(src, TRAIT_BLIND))
+	if(!is_blind())
 		adjust_blindness(-1)
 
 /mob/living/proc/become_blind(source)
-	if(!HAS_TRAIT(src, TRAIT_BLIND))
+	if(!is_blind())
 		blind_eyes(1)
 	ADD_TRAIT(src, TRAIT_BLIND, source)
 

@@ -2,7 +2,7 @@
 /obj/item/stack/ore/bluespace_crystal
 	name = "bluespace crystal"
 	desc = "A glowing bluespace crystal, not much is known about how they work. It looks very delicate."
-	icon = 'icons/obj/telescience.dmi'
+	icon = 'icons/obj/stacks/minerals.dmi'
 	icon_state = "bluespace_crystal"
 	singular_name = "bluespace crystal"
 	w_class = WEIGHT_CLASS_TINY
@@ -12,16 +12,21 @@
 	refined_type = /obj/item/stack/ore/bluespace_crystal/refined
 	grind_results = list(/datum/reagent/bluespace = 20)
 	scan_state = "rock_BScrystal"
-
-/obj/item/stack/ore/bluespace_crystal/refined
-	name = "refined bluespace crystal"
-	points = 0
-	refined_type = null
+	novariants = FALSE
+	max_amount = 50
 
 /obj/item/stack/ore/bluespace_crystal/Initialize(mapload)
 	. = ..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
+
+/obj/item/stack/ore/bluespace_crystal/update_icon()
+	if(amount <= (max_amount * (1/3)))
+		icon_state = initial(icon_state)
+	else if(amount <= (max_amount * (2/3)))
+		icon_state = "[initial(icon_state)]_2"
+	else
+		icon_state = "[initial(icon_state)]_3"
 
 /obj/item/stack/ore/bluespace_crystal/get_part_rating()
 	return 1
@@ -46,21 +51,26 @@
 			blink_mob(hit_atom)
 		use(1)
 
+STACKSIZE_MACRO(/obj/item/stack/ore/bluespace_crystal)
+
 //Artificial bluespace crystal, doesn't give you much research.
 /obj/item/stack/ore/bluespace_crystal/artificial
 	name = "artificial bluespace crystal"
 	desc = "An artificially made bluespace crystal, it looks delicate."
+	icon_state = "synthetic_bluespace_crystal"
 	materials = list(/datum/material/bluespace=MINERAL_MATERIAL_AMOUNT*0.5)
-	blink_range = 4 // Not as good as the organic stuff!
-	points = 0 //nice try
+	blink_range = 4 // Not as good as the REAL BSC!
+	points = 1 //nice try, unfortunateley, they're cheap imitations, have a point for your effort.
 	refined_type = null
 	grind_results = list(/datum/reagent/bluespace = 10, /datum/reagent/silicon = 20)
 
-/obj/item/stack/ore/bluespace_crystal/refined/fifty
-	amount = 50
+STACKSIZE_MACRO(/obj/item/stack/ore/bluespace_crystal/artificial)
 
-/obj/item/stack/ore/bluespace_crystal/refined/twenty
-	amount = 20
+/obj/item/stack/ore/bluespace_crystal/refined
+	name = "refined bluespace crystal"
+	desc = "An refined bluespace crystal, it looks as delicate as pretty."
+	icon_state = "refined_bluespace_crystal"
+	points = 1
+	refined_type = null
 
-/obj/item/stack/ore/bluespace_crystal/refined/five
-	amount = 5
+STACKSIZE_MACRO(/obj/item/stack/ore/bluespace_crystal/refined)
