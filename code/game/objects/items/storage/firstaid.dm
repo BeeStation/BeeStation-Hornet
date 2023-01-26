@@ -386,7 +386,7 @@
 		return
 
 	if(!src.skin_type)
-		to_chat(user, "<span class='warning'>[src] seems to be incompatible to make a medibot!</span>")
+		to_chat(user, "<span class='warning'>[src] cannot be used to make a medibot!</span>")
 		return
 
 	var/obj/item/bot_assembly/medbot/A = new
