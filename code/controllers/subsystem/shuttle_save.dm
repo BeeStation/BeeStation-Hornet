@@ -1,4 +1,4 @@
-PROCESSING_SUBSYSTEM_DEF(shuttle_persistence)
+SUBSYSTEM_DEF(shuttle_persistence)
 	name = "Shuttle Persistence"
 	flags = SS_NO_FIRE
 	init_order = INIT_ORDER_ORBITS
@@ -6,7 +6,7 @@ PROCESSING_SUBSYSTEM_DEF(shuttle_persistence)
 	var/list/shuttle_ruin_list
 	var/list/spawned_shuttle_files
 
-/datum/controller/subsystem/processing/shuttle_persistence/Initialize(start_timeofday)
+/datum/controller/subsystem/shuttle_persistence/Initialize(start_timeofday)
 	. = ..()
 	//Fetch shuttle ruins
 	spawned_shuttle_files = list()
@@ -17,14 +17,15 @@ PROCESSING_SUBSYSTEM_DEF(shuttle_persistence)
 		for(var/i in 1 to rand(1, min(length(shuttle_ruin_list), CONFIG_GET(number/roundstart_abandoned_ruins))))
 			new /datum/orbital_object/z_linked/beacon/ruin/abandoned_shuttle()
 
-/datum/controller/subsystem/processing/shuttle_persistence/proc/verify_save_files()
+/datum/controller/subsystem/shuttle_persistence/proc/verify_save_files()
 	to_chat(world, "<span class='boldannounce'>Verifying shuttle save files...</span>")
+	var/shuttle_path = CONFIG_GET(string/shuttle_ruin_filepath)
 	for (var/file_path in flist(CONFIG_GET(string/shuttle_ruin_filepath)))
 		// Skip
 		if (copytext(file_path, -4) != ".dmm")
 			continue
 		// Get the file name
-		var/path = copytext(file_path, 1, length(file_path) - 4)
+		var/path = "[shuttle_path][copytext(file_path, 1, length(file_path) - 3)]"
 		var/map_file = "[path].dmm"
 		var/type_file = "[path].types"
 		// Failed to identify types
@@ -36,7 +37,7 @@ PROCESSING_SUBSYSTEM_DEF(shuttle_persistence)
 		var/bad = FALSE
 		var/identified_types = splittext(file2text(type_file), "\n")
 		for (var/typepath in identified_types)
-			if (!ispath(text2path(typepath)))
+			if (length(typepath) && !ispath(text2path(typepath)))
 				message_admins("Persistent shuttle file [path] contains outdated typepaths, removing...")
 				fdel(map_file)
 				fdel(type_file)
@@ -48,7 +49,7 @@ PROCESSING_SUBSYSTEM_DEF(shuttle_persistence)
 	to_chat(world, "<span class='boldannounce'>Shuttle save files verified successfully!...</span>")
 
 //Saves custom shuttles
-/datum/controller/subsystem/processing/shuttle_persistence/proc/save_custom_shuttles()
+/datum/controller/subsystem/shuttle_persistence/proc/save_custom_shuttles()
 
 	if(!CONFIG_GET(flag/save_shuttle_ruins))
 		message_admins("Saving shuttles skipped, it is disabled in the config!")
