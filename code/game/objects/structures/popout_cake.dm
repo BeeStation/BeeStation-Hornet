@@ -30,8 +30,7 @@
 /obj/structure/popout_cake/Initialize(mapload)
 	. = ..()
 	if(!string)
-		var/datum/action/item_action/pull_string/S = new()
-		string = S
+		string = new()
 		string.cake = src
 
 /obj/structure/popout_cake/MouseDrop_T(mob/living/target, mob/user)
