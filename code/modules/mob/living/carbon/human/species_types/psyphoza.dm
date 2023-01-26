@@ -115,11 +115,17 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	var/list/overlays = list()
 	///Reference to 'kill these overlays' timer
 	var/overlay_timer
+	///Ref to change action
+	var/datum/action/change_psychic_visual/overlay_change
 
 /datum/action/item_action/organ_action/psychic_highlight/New(Target)
 	. = ..()
 	//Setup massive blacklist typecache of non-renderables. Smaller than whitelist
 	sense_blacklist = GLOB.psychic_sense_blacklist
+
+/datum/action/item_action/organ_action/psychic_highlight/Destroy()
+	. = ..()
+	QDEL_NULL(overlay_change)
 
 /datum/action/item_action/organ_action/psychic_highlight/Grant(mob/M)
 	. = ..()
@@ -128,8 +134,9 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	//Overlay used to highlight objects
 	M.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
 	//Add option to change visuals
-	var/datum/action/change_psychic_visual/P = new()
-	P.Grant(owner)
+	if(!(locate(/datum/action/change_psychic_visual) in owner.actions))
+		overlay_change = new()
+		overlay_change.Grant(owner)
 
 /datum/action/item_action/organ_action/psychic_highlight/Trigger()
 	. = ..()
@@ -345,8 +352,8 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	message = new_message
 	START_PROCESSING(SSobj, src)
 
-/obj/effect/psyphoza_spores/proc/adjust_cap_color(mcol = "#fff")
-	var/mutable_appearance/mut = mutable_appearance('icons/effects/effects.dmi', "shrooms_cap", layer+1, plane, color = mcol)
+/obj/effect/psyphoza_spores/proc/adjust_cap_color(mcol = "f0f")
+	var/mutable_appearance/mut = mutable_appearance('icons/effects/effects.dmi', "shrooms_cap", layer+1, plane, color = "#[mcol]")
 	add_overlay(mut)
 
 /obj/effect/psyphoza_spores/attack_hand(mob/living/user)
