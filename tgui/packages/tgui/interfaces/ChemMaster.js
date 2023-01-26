@@ -304,13 +304,14 @@ const PackagingControls = ({ volume, packagingName }, context) => {
             <Button
               key={each_style.id}
               width="30px"
+              height="16px"
               selected={each_style.id === chosenPillStyle}
               textAlign="center"
               color="transparent"
               onClick={() => act('pillStyle', { id: each_style.id })}>
               <Box mx={-1}
                 className={classes([
-                  'medicine_containers24x24',
+                  'medicine_containers22x22',
                   each_style.pill_icon_name,
                 ])} />
             </Button>
@@ -323,13 +324,14 @@ const PackagingControls = ({ volume, packagingName }, context) => {
             <Button
               key={each_style.id}
               width="30px"
+              height="25px"
               selected={each_style.id === chosenPatchStyle}
               textAlign="center"
               color="transparent"
               onClick={() => act('patchStyle', { id: each_style.id })}>
               <Box mx={-1}
                 className={classes([
-                  'medicine_containers24x24',
+                  'medicine_containers22x22',
                   each_style.patch_icon_name,
                 ])} />
             </Button>

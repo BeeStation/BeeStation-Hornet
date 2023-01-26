@@ -254,15 +254,15 @@
 		var/icon/target_icon = icon(dmi_file, each_pill_shape, SOUTH, 1)
 		if(!target_icon)
 			continue
-		target_icon.Crop(10,9, 22,21)
-		target_icon.Scale(24, 24)
+		target_icon.Crop(11,10, 21,20)
+		target_icon.Scale(22, 22)
 		Insert(each_pill_shape, target_icon)
 	for(var/each_patch_shape in PATCH_SHAPE_LIST)
 		var/icon/target_icon = icon(dmi_file, each_patch_shape, SOUTH, 1)
 		if(!target_icon)
 			continue
-		target_icon.Crop(10,11, 22,23)
-		target_icon.Scale(24, 24)
+		target_icon.Crop(11,12, 21,22)
+		target_icon.Scale(22, 22)
 		Insert(each_patch_shape, target_icon)
 	return ..()
 

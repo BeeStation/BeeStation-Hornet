@@ -56,10 +56,14 @@
 
 
 
-/* <pill sprite size standard>
-	 Since sprite asset code crops the pill image, you are required to make a pill image within [10,24,22,9] squared area.
-	 There is a dummy image that you can recognise the size of a cropped pill image in 'pills.dmi'
-	 The black line counts, so you can use that area for your sprite as well. */
+/*	<pill sprite size standard>
+		Since sprite asset code crops the pill image, you are required to make a pill image within [11,10,21,20] squared area.
+		There is a dummy image that you can recognise the size of a cropped pill image in 'pills.dmi'
+		The black line counts, so you can use that area for your sprite as well.
+
+	<what are the grey lines in the capsule example?>
+		it's a margin that should exist for capsules because it looks bad in TGUI if there's no margin.
+ */
 
 // pill shapes - check 'pills.dmi' for the shape
 GLOBAL_LIST_INIT(pill_shape_list, list(
