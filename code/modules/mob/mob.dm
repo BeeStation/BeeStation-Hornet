@@ -1305,3 +1305,4 @@
 			known_channels["[R.radio.frequency]"] = TRUE
 			for(var/K in R.radio.keyslot?.channels)
 				known_channels["[GLOB.radiochannels[K]]"] = TRUE
+				
