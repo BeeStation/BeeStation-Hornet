@@ -230,7 +230,7 @@ GENE SCANNER
 			message += "\t<span class='info'><b>==EYE STATUS==</b></span>"
 			if(istype(eyes))
 				var/healthy = TRUE
-				if(HAS_TRAIT(C, TRAIT_BLIND))
+				if(C.is_blind())
 					message += "\t<span class='alert'>Subject is blind.</span>"
 					healthy = FALSE
 				if(HAS_TRAIT(C, TRAIT_NEARSIGHT))
@@ -489,7 +489,6 @@ GENE SCANNER
 
 /obj/item/analyzer/attack_self(mob/user)
 	add_fingerprint(user)
-
 	if(user.stat)
 		return
 

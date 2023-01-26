@@ -418,15 +418,15 @@
 
 /mob/living/proc/cure_blind(source)
 	REMOVE_TRAIT(src, TRAIT_BLIND, source)
-	if(!HAS_TRAIT(src, TRAIT_BLIND))
+	if(!is_blind())
 		adjust_blindness(-1)
 		var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)
 		B?.RemoveComponent()
 
 /mob/living/proc/become_blind(source, atom/movable/screen/fullscreen/overlay)
-	if(!HAS_TRAIT(src, TRAIT_BLIND))
-		blind_eyes(1, overlay)
-		if(!QDELING(src) && !QDELETED(src))
+	if(!is_blind())
+		blind_eyes(1)
+    if(!QDELING(src) && !QDELETED(src))
 			AddComponent(/datum/component/blind_sense)
 	ADD_TRAIT(src, TRAIT_BLIND, source)
 
