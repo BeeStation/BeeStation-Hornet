@@ -339,10 +339,15 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	///Resource rate
 	var/resource_rate = 0.2
 
-/obj/effect/psyphoza_spores/Initialize(mapload, new_message)
+/obj/effect/psyphoza_spores/Initialize(mapload, new_message, col)
 	. = ..()
+	adjust_cap_color(mcol = col)
 	message = new_message
 	START_PROCESSING(SSobj, src)
+
+/obj/effect/psyphoza_spores/proc/adjust_cap_color(mcol = "#fff")
+	var/mutable_appearance/mut = mutable_appearance('icons/effects/effects.dmi', "shrooms_cap", layer+1, plane, color = mcol)
+	add_overlay(mut)
 
 /obj/effect/psyphoza_spores/attack_hand(mob/living/user)
 	. = ..()
