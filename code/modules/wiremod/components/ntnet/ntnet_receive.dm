@@ -1,4 +1,3 @@
-/* needs the ntnet refactor
 /**
  * # NTNet Receiver Component
  *
@@ -61,4 +60,3 @@
 	data_package.set_output(data.data["data"])
 	secondary_package.set_output(data.data["data_secondary"])
 	trigger_output.set_output(COMPONENT_SIGNAL)
-*/

@@ -31,8 +31,8 @@ Its best use is to combine it with the bitwise component to put multiple boolean
 
 /obj/item/circuit_component/compare/bitflag/do_comparisons(list/ports)
 
-	var/value = round(input.input_value)
-	var/bit_value = round(bit.input_value)
+	var/value = round(input.value)
+	var/bit_value = round(bit.value)
 
 	return (value >> bit_value) & 1
 

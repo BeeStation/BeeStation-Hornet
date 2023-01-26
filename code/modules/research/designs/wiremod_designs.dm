@@ -345,7 +345,7 @@
 	id = "comp_module"
 	build_path = /obj/item/circuit_component/module
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_CORE)
-/*
+
 /datum/design/component/ntnet_receive
 	name = "NTNet Receiver"
 	id = "comp_ntnet_receive"
@@ -357,7 +357,7 @@
 	id = "comp_ntnet_send"
 	build_path = /obj/item/circuit_component/ntnet_send
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_OUTPUT_COMPONENTS)
-*/
+
 /datum/design/component/list_literal
 	name = "List Literal Component"
 	id = "comp_list_literal"

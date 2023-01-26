@@ -17,13 +17,11 @@
 
 	var/datum/port/input/option/arithmetic_option
 
-	/// The result from the output
-	var/datum/port/output/output
 
 	var/list/arithmetic_ports
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
-/obj/item/circuit_component/arithmetic/populate_options()
+/obj/item/circuit_component/arbitrary_input_amount/arithmetic/populate_options()
 	var/static/component_options = list(
 		COMP_ARITHMETIC_ADD,
 		COMP_ARITHMETIC_SUBTRACT,
@@ -35,16 +33,16 @@
 	)
 	arithmetic_option = add_option_port("Arithmetic Option", component_options)
 
-/obj/item/circuit_component/arithmetic/Initialize()
+/obj/item/circuit_component/arbitrary_input_amount/arithmetic/Initialize()
 	. = ..()
 	arithmetic_ports = list()
 	for(var/port_id in 1 to input_port_amount)
 		var/letter = ascii2text(text2ascii("A") + (port_id-1))
 		arithmetic_ports += add_input_port(letter, PORT_TYPE_NUMBER)
 
-	output = add_output_port("Output", PORT_TYPE_NUMBER)
+	output_port = add_output_port("Output", PORT_TYPE_NUMBER)
 
-/obj/item/circuit_component/arithmetic/input_received(datum/port/input/port)
+/obj/item/circuit_component/arbitrary_input_amount/arithmetic/input_received(datum/port/input/port)
 	. = ..()
 	if(.)
 		return
@@ -84,7 +82,7 @@
 			if(COMP_ARITHMETIC_MIN)
 				result = min(result, value)
 
-	output.set_output(result)
+	output_port.set_output(result)
 
 #undef COMP_ARITHMETIC_ADD
 #undef COMP_ARITHMETIC_SUBTRACT

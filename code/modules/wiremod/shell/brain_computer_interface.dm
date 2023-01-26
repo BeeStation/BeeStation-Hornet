@@ -26,7 +26,7 @@
 	if (owner)
 		// Otherwise say_dead will be called.
 		// It's intentional that a circuit for a dead person does not speak from the shell.
-		if (owner.machine_stat == DEAD)
+		if (owner.stat == DEAD)
 			return
 
 		owner.say(message, forced = "circuit speech")
@@ -213,7 +213,7 @@
 		if (isnull(resolved_owner))
 			return
 
-		if (resolved_owner.machine_stat == DEAD)
+		if (resolved_owner.stat == DEAD)
 			return
 
 		to_chat(resolved_owner, "<i>You hear a strange, robotic voice in your head...</i> \"["<span class='robot'>[html_encode(sent_message)]</span>"]\"")
@@ -515,7 +515,7 @@
 
 	if (locked)
 		message = "it won't budge!"
-	else if (user.machine_stat != CONSCIOUS)
+	else if (user.stat != CONSCIOUS)
 		message = "you don't have the energy!"
 
 	if (!isnull(message))

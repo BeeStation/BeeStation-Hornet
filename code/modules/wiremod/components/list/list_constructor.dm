@@ -21,4 +21,4 @@
 	. = list()
 	ports.Insert(1, first_port)
 	for(var/datum/port/input/input_port as anything in ports)
-		. += islist(input_port.input_value) ? null : input_port.input_value
+		. += islist(input_port.value) ? null : input_port.value

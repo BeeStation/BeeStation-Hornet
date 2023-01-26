@@ -24,6 +24,6 @@
 
 /obj/item/circuit_component/indexer/write/calculate_output(var/index, var/list/list_input)
 
-	list_input[index] = islist(value_port.input_value) ? null : value_port.input_value
+	list_input[index] = islist(value_port.value) ? null : value_port.value
 	output.set_output(list_input)
 

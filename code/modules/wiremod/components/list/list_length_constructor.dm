@@ -35,7 +35,7 @@
 	if(.)
 		return
 
-	var/length = input_length.input_value
+	var/length = input_length.value
 	var/list/new_list = null
 	if(length > COMPONENT_MAXIMUM_LIST_SIZE)
 		length = COMPONENT_MAXIMUM_LIST_SIZE

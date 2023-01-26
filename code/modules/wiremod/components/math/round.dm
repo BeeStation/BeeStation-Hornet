@@ -48,7 +48,7 @@
 		output.set_output(null) //Pass the null along
 		return
 
-	switch(current_option)
+	switch(options_port.value)
 		if(COMP_ROUND_ROUND)
 			value = round(value,1)
 		if(COMP_ROUND_FLOOR)

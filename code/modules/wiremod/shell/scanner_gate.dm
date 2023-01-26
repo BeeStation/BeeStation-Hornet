@@ -12,6 +12,10 @@
 	AddComponent(/datum/component/shell, list(
 		new /obj/item/circuit_component/scanner_gate()
 	), SHELL_CAPACITY_LARGE, SHELL_FLAG_REQUIRE_ANCHOR)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/scanner_gate_shell/wrench_act(mob/living/user, obj/item/tool)
 	anchored = !anchored
@@ -19,7 +23,8 @@
 	balloon_alert(user, "You [anchored?"secure":"unsecure"] [src].")
 	return TRUE
 
-/obj/structure/scanner_gate_shell/Crossed(atom/movable/AM)
+/obj/structure/scanner_gate_shell/proc/on_entered(atom/movable/AM)
+	SIGNAL_HANDLER
 	set_scanline("scanning", 10)
 	SEND_SIGNAL(src, COMSIG_SCANGATE_SHELL_PASS, AM)
 

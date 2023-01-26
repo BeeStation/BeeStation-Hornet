@@ -10,7 +10,7 @@
 	var/input_port_amount = 2
 
 	/// The result from the output
-	var/datum/port/output/output
+	var/datum/port/output/output_port
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
@@ -20,10 +20,10 @@
 		var/letter = ascii2text(text2ascii("A") + (port_id-1))
 		add_input_port(letter, input_port_type)
 
-	output = add_output_port("Output", output_port_type)
+	output_port = add_output_port("Output", output_port_type)
 
 /obj/item/circuit_component/arbitrary_input_amount/Destroy()
-	output = null
+	output_port = null
 	return ..()
 
 /obj/item/circuit_component/arbitrary_input_amount/input_received(datum/port/input/port)
@@ -36,7 +36,7 @@
 	ports -= first_port
 	ports -= trigger_input
 
-	output.set_output(calculate_output(port,first_port,ports))
+	output_port.set_output(calculate_output(port,first_port,ports))
 
 //This should return the value to be set on input_received, first_port should be the first port, and ports should be every input port except the first and signal ports
 /obj/item/circuit_component/arbitrary_input_amount/proc/calculate_output(datum/port/input/port, datum/port/input/first_port, list/ports)

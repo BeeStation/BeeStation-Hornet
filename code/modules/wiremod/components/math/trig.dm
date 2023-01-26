@@ -59,7 +59,7 @@
 		COMP_TRIG_ACOSINE,
 		COMP_TRIG_ATANGENT
 	)
-	options_port = add_input_port("Option", options)
+	options_port = add_input_port("mode", options)
 
 /obj/item/circuit_component/trig/trig/do_calculation(value)
 
@@ -92,7 +92,7 @@
 		COMP_TRIG_COSECANT,
 		COMP_TRIG_COTANGENT
 	)
-	options_port = add_input_port("Option", options)
+	options_port = add_input_port("Mode", options)
 
 /obj/item/circuit_component/trig/adv_trig/do_calculation(value)
 	value = TODEGREES(value)
@@ -117,7 +117,7 @@
 		COMP_TRIG_AHYPERBOLIC_SINE,
 		COMP_TRIG_AHYPERBOLIC_COSINE,
 	)
-	options_port = add_input_port("Option", options)
+	options_port = add_input_port("Mode", options)
 
 /obj/item/circuit_component/trig/hyper_trig/do_calculation(value)
 
