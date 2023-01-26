@@ -647,3 +647,4 @@ Class Procs:
 
 /obj/machinery/rust_heretic_act()
 	take_damage(500, BRUTE, "melee", 1)
+	return TRUE

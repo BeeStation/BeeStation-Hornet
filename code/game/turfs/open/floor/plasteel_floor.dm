@@ -15,6 +15,7 @@
 		new /obj/effect/temp_visual/glowing_rune(src)
 	var/atom/changed_turf = ChangeTurf(/turf/open/floor/plating)
 	changed_turf.AddElement(/datum/element/rust)
+	return TRUE
 
 /turf/open/floor/plasteel/update_icon_state()
 	if(broken || burnt)

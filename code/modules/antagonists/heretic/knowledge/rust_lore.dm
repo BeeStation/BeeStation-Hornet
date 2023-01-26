@@ -70,7 +70,8 @@
 
 /datum/heretic_knowledge/rust_fist/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
-	target.rust_heretic_act()
+	return target.rust_heretic_act()
+
 
 /datum/heretic_knowledge/rust_regen
 	name = "Leeching Walk"

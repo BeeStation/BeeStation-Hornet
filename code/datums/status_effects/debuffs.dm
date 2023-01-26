@@ -784,7 +784,7 @@
 	///path for the underlay
 	var/effect_icon = 'icons/effects/eldritch.dmi'
 	/// icon state for the underlay
-	var/effect_icon_state = ""
+	var/effect_icon_state = "emark_RING_TEMPLATE"
 
 /datum/status_effect/eldritch/on_creation(mob/living/new_owner, ...)
 	marked_underlay = mutable_appearance(effect_icon, effect_icon_state,BELOW_MOB_LAYER)
@@ -792,19 +792,30 @@
 
 /datum/status_effect/eldritch/on_apply()
 	if(owner.mob_size >= MOB_SIZE_HUMAN)
+		/*
 		RegisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS, .proc/update_owner_underlay)
+		owner.update_overlays() */
+		marked_underlay.pixel_x = -owner.pixel_x
+		marked_underlay.pixel_y = -owner.pixel_y
+		owner.underlays += marked_underlay
 		owner.update_overlays()
 		return TRUE
 	return FALSE
 
 /datum/status_effect/eldritch/on_remove()
-	UnregisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS)
+	//UnregisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS)
 	owner.update_overlays()
 	return ..()
 
 /datum/status_effect/eldritch/Destroy()
+	if(owner)
+		owner.underlays -= marked_underlay
 	QDEL_NULL(marked_underlay)
 	return ..()
+
+/datum/status_effect/eldritch/be_replaced()
+	owner.underlays -= marked_underlay //if this is being called, we should have an owner at this point.
+	..()
 
 /**
  * Signal proc for [COMSIG_ATOM_UPDATE_OVERLAYS].
@@ -815,7 +826,25 @@
 	SIGNAL_HANDLER
 
 	overlays += marked_underlay
+/*
+/datum/status_effect/crusher_mark/on_apply()
+	if(owner.mob_size >= MOB_SIZE_LARGE)
+		marked_underlay = mutable_appearance('icons/effects/effects.dmi', "shield2")
+		marked_underlay.pixel_x = -owner.pixel_x
+		marked_underlay.pixel_y = -owner.pixel_y
+		owner.underlays += marked_underlay
+		return TRUE
+	return FALSE
 
+/datum/status_effect/crusher_mark/Destroy()
+	hammer_synced = null
+	if(owner)
+		owner.underlays -= marked_underlay
+	QDEL_NULL(marked_underlay)
+	return ..()
+
+
+*/
 /**
   * What happens when this mark gets poppedd
   *

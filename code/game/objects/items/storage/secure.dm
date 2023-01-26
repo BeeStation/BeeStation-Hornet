@@ -220,3 +220,4 @@ There appears to be a small amount of surface corrosion. It doesn't look like it
 
 /obj/item/storage/secure/safe/caps_spare/rust_heretic_act()
 	take_damage(damage_amount = 100, damage_type = BRUTE, damage_flag = "melee", armour_penetration = 100)
+	return TRUE

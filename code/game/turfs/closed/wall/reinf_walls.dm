@@ -237,7 +237,7 @@
 		return
 	if(HAS_TRAIT(src, TRAIT_RUSTY))
 		ScrapeAway()
-		return
+		return TRUE
 	return ..()
 
 /turf/closed/wall/r_wall/syndicate

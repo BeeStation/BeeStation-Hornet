@@ -27,6 +27,8 @@
 		return
 	if(!IS_HERETIC_OR_MONSTER(user))
 		return
+	if(slot != ITEM_SLOT_NECK)
+		return
 
 	ADD_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT] [REF(src)]")
 	user.update_sight()
