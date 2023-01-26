@@ -191,6 +191,7 @@
 
 /datum/component/personal_crafting/proc/construct_item_ui(mob/user, datum/crafting_recipe/TR)
 	var/atom/movable/result = construct_item(user, TR)
+	log_crafting(user, result, TR.dangerous_craft)
 	if(!istext(result)) //We made an item and didn't get a fail message
 		if(ismob(user) && isitem(result)) //In case the user is actually possessing a non mob like a machine
 			user.put_in_hands(result)

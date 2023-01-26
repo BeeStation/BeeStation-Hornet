@@ -79,7 +79,8 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/stabilize_atmos,
 	/client/proc/openTicketManager,
 	/client/proc/battle_royale,
-	/client/proc/delete_book
+	/client/proc/delete_book,
+	/client/proc/cmd_admin_send_pda_msg,
 	)
 GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel))
 GLOBAL_PROTECT(admin_verbs_ban)
@@ -801,9 +802,6 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	var/datum/gas_mixture/GM = new
 	for(var/turf/open/F in view())
-		if(F.blocks_air)
-		//skip walls
-			continue
 		GM.parse_gas_string(F.initial_gas_mix)
 		F.copy_air(GM)
 		F.update_visuals()

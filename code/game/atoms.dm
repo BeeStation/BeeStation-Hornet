@@ -1395,15 +1395,17 @@
 			log_game(log_text)
 		if(LOG_MECHA)
 			log_mecha(log_text)
+		if(LOG_RADIO_EMOTE)
+			log_radio_emote(log_text)
 		else
 			stack_trace("Invalid individual logging type: [message_type]. Defaulting to [LOG_GAME] (LOG_GAME).")
 			log_game(log_text)
 
 /// Helper for logging chat messages or other logs with arbitrary inputs (e.g. announcements)
-/atom/proc/log_talk(message, message_type, tag=null, log_globally=TRUE, forced_by=null)
+/atom/proc/log_talk(message, message_type, tag=null, log_globally=TRUE, forced_by=null, custom_say_emote = null)
 	var/prefix = tag ? "([tag]) " : ""
 	var/suffix = forced_by ? " FORCED by [forced_by]" : ""
-	log_message("[prefix]\"[message]\"[suffix]", message_type, log_globally=log_globally)
+	log_message("[prefix][custom_say_emote ? "*[custom_say_emote]*, " : ""]\"[message]\"[suffix]", message_type, log_globally=log_globally)
 
 /// Helper for logging of messages with only one sender and receiver
 /proc/log_directed_talk(atom/source, atom/target, message, message_type, tag)
@@ -1415,6 +1417,20 @@
 	if(source != target)
 		target.log_talk(message, message_type, tag="[tag] from [key_name(source)]", log_globally=FALSE)
 
+/**
+  * Log for crafting items
+  *
+  * 1 argument is for the user making the item
+  * 2 argument is for the item being created
+  * 3 argument is for if admins should be notified if a non-antag crafts this
+ */
+/proc/log_crafting(mob/blacksmith, atom/object, dangerous = FALSE)
+	var/message = "has crafted [object]"
+	blacksmith.log_message(message, LOG_GAME)
+	if(!dangerous)
+		return
+	if(isnull(locate(/datum/antagonist) in blacksmith.mind?.antag_datums))
+		message_admins("[ADMIN_LOOKUPFLW(blacksmith)] has crafted [object] as a non-antagonist.")
 /**
   * Log a combat message in the attack log
   *
@@ -1446,6 +1462,19 @@
 	if(user != target)
 		var/reverse_message = "has been [what_done] by [ssource][postfix]"
 		target.log_message(reverse_message, LOG_ATTACK, color="orange", log_globally=FALSE)
+
+/**
+  * Log for buying items from the uplink
+  *
+  * 1 argument is for the user that bought the item
+  * 2 argument is for the item that was purchased
+  * 3 argument is for the uplink type (traitor/contractor)
+ */
+/proc/log_uplink_purchase(mob/buyer, atom/object, type = "\improper uplink")
+	var/message = "has bought [object] from \a [type]"
+	buyer.log_message(message, LOG_GAME)
+	if(isnull(locate(/datum/antagonist) in buyer.mind?.antag_datums))
+		message_admins("[ADMIN_LOOKUPFLW(buyer)] has bought [object] from \a [type] as a non-antagonist.")
 
 /atom/proc/add_filter(name,priority,list/params)
 	LAZYINITLIST(filter_data)
@@ -1525,6 +1554,14 @@
 
 		custom_material.on_applied(src, materials[custom_material] * multiplier, material_flags)
 		custom_materials[custom_material] += materials[custom_material] * multiplier
+
+///Setter for the `density` variable to append behavior related to its changing.
+/atom/proc/set_density(new_value)
+	SHOULD_CALL_PARENT(TRUE)
+	if(density == new_value)
+		return
+	. = density
+	density = new_value
 
 /**
   * Causes effects when the atom gets hit by a rust effect from heretics
