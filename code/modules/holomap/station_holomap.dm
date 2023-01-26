@@ -350,6 +350,13 @@
 	pixel_x = 32
 
 
+/obj/machinery/station_map/strategic
+	name = "strategic station holomap"
+	icon = 'icons/holomap/strategic_stationmap.dmi'
+	icon_state = "strat_holomap"
+	pixel_x = -1*32/2
+	pixel_y = -1*32/2
+
 #undef HOLOMAP_LOW_LIGHT
 #undef HOLOMAP_HIGH_LIGHT
 #undef HOLOMAP_LIGHT_OFF
