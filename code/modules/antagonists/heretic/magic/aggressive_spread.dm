@@ -7,7 +7,7 @@
 	action_background_icon_state = "bg_ecult"
 	invocation = "A'GRSV SPR'D"
 	invocation_type = INVOCATION_WHISPER
-	heretical = TRUE
+	requires_heretic_focus = TRUE
 	charge_max = 300 //twice as long as mansus grasp
 	clothes_req = FALSE
 	range = 3

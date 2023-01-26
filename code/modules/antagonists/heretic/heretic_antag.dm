@@ -219,7 +219,7 @@
 	SIGNAL_HANDLER
 
 	// Heretic spells
-	if(spell.heretical)
+	if(!spell.requires_heretic_focus)
 		return
 
 	// If we've got the trait, we don't care

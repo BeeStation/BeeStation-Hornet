@@ -7,7 +7,7 @@
 	action_icon_state = "entropic_plume"
 	invocation = "'NTR'P'C PL'M'"
 	invocation_type = INVOCATION_WHISPER
-	heretical = TRUE
+	requires_heretic_focus = TRUE
 	clothes_req = FALSE
 	charge_max = 300
 	cone_levels = 5
@@ -63,7 +63,7 @@
 	name = "Patron's Reach"
 	desc = "Channels energy into your hands to release a wave of rust."
 	proj_type = /obj/item/projectile/magic/spell/rust_wave
-	heretical = TRUE
+	requires_heretic_focus = TRUE
 	charge_max = 350
 	clothes_req = FALSE
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

@@ -48,6 +48,7 @@
 			user.say(catchphrase, forced = "spell")
 	playsound(get_turf(user), on_use_sound, 50, TRUE)
 	if(--charges <= 0)
+		attached_spell.use_charge()
 		qdel(src)
 
 /obj/item/melee/touch_attack/Destroy()

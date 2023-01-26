@@ -6,7 +6,7 @@
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "mad_touch"
 	action_background_icon_state = "bg_ecult"
-	heretical = TRUE
+	requires_heretic_focus = TRUE
 	charge_max = 150
 	clothes_req = FALSE
 	invocation_type = "none"

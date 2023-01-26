@@ -6,7 +6,7 @@
 	action_background_icon_state = "bg_ecult"
 	invocation = "PI'RC' TH' M'ND"
 	invocation_type = INVOCATION_WHISPER
-	heretical = TRUE
+	requires_heretic_focus = TRUE
 	charge_max = 300
 	clothes_req = FALSE
 	range = 10

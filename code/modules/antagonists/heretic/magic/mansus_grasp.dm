@@ -3,7 +3,6 @@
 	desc = "A touch spell that lets you channel the power of the Old Gods through your grip."
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 	charge_max = 100
-	heretical = TRUE
 	clothes_req = FALSE
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "mansus_grasp"

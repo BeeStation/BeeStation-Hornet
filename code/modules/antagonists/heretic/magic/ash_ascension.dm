@@ -6,7 +6,7 @@
 	action_background_icon_state = "bg_ecult"
 	invocation = "FL'MS"
 	invocation_type = INVOCATION_WHISPER
-	heretical = TRUE
+	requires_heretic_focus = TRUE
 	clothes_req = FALSE
 	range = -1
 	include_user = TRUE
@@ -47,7 +47,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/fire_cascade
 	name = "Fire Cascade"
 	desc = "Heats the air around you."
-	heretical = TRUE
+	requires_heretic_focus = TRUE
 	charge_max = 300 //twice as long as mansus grasp
 	clothes_req = FALSE
 	invocation = "C'SC'DE"
@@ -85,7 +85,7 @@
 	action_background_icon_state = "bg_ecult"
 	invocation = "F'RE"
 	invocation_type = INVOCATION_WHISPER
-	heretical = TRUE
+	requires_heretic_focus = TRUE
 	charge_max = 300
 	range = 15
 	clothes_req = FALSE

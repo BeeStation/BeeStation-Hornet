@@ -6,7 +6,7 @@
 	action_background_icon_state = "bg_ecult"
 	invocation = "RE'L'TY PH'S'E"
 	invocation_type = INVOCATION_WHISPER
-	heretical = TRUE
+	requires_heretic_focus = TRUE
 	selection_type = "range"
 	clothes_req = FALSE
 	range = 9

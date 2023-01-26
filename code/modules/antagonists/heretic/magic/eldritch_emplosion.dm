@@ -4,7 +4,7 @@
 	action_background_icon_state = "bg_ecult"
 	invocation = "E'P"
 	invocation_type = INVOCATION_WHISPER
-	heretical = TRUE
+	requires_heretic_focus = TRUE
 	clothes_req = FALSE
 	range = -1
 	include_user = TRUE

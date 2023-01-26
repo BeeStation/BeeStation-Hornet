@@ -58,7 +58,7 @@
 		/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash/long,
 		/obj/effect/proc_holder/spell/pointed/manse_link,
 		/obj/effect/proc_holder/spell/targeted/telepathy/eldritch,
-		/obj/effect/proc_holder/spell/pointed/trigger/blind/eldritch,
+		/obj/effect/proc_holder/spell/targeted/blind/eldritch,
 	)
 
 	/// A assoc list of [mob/living ref] to [datum/action ref] - all the mobs linked to our mansus network.

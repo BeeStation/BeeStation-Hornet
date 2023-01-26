@@ -6,7 +6,7 @@
 	action_background_icon_state = "bg_ecult"
 	invocation = "ASH'N P'SSG'"
 	invocation_type = INVOCATION_WHISPER
-	heretical = TRUE
+	requires_heretic_focus = TRUE
 	charge_max = 150
 	range = -1
 	jaunt_in_time = 13

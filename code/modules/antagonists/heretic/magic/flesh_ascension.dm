@@ -5,7 +5,7 @@
 	action_icon_state = "worm_ascend"
 	invocation = "REALITY UNCOIL!"
 	invocation_type = INVOCATION_SHOUT
-	heretical = TRUE
+	requires_heretic_focus = TRUE
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
 	range = -1
@@ -47,7 +47,7 @@
 	name = "Force Contract"
 	desc = "Forces your body to contract onto a single tile."
 	invocation_type = "none"
-	heretical = TRUE
+	requires_heretic_focus = TRUE
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
 	range = -1

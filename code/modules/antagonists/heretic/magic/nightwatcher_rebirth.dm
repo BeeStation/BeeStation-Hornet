@@ -4,7 +4,7 @@
 		healing you for each victim drained. Those in critical condition will have the last of their vitality drained, killing them."
 	invocation = "GL'RY T' TH' N'GHT'W'TCH'ER"
 	invocation_type = INVOCATION_WHISPER
-	heretical = TRUE
+	requires_heretic_focus = TRUE
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
 	range = -1
