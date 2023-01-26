@@ -117,9 +117,7 @@ All ShuttleMove procs go here
 	return TRUE
 
 /turf/proc/lateShuttleMove(turf/oldT)
-	blocks_air = initial(blocks_air)
 	air_update_turf(TRUE)
-	oldT.blocks_air = initial(oldT.blocks_air)
 	oldT.air_update_turf(TRUE)
 
 
@@ -154,8 +152,6 @@ All ShuttleMove procs go here
 		update_light()
 	if(rotation)
 		shuttleRotate(rotation)
-
-	update_parallax_contents()
 
 	return TRUE
 

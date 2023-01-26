@@ -27,6 +27,7 @@
 	var/persistence_replacement
 	var/current_skin //Has the item been reskinned?
 	var/list/unique_reskin //List of options to reskin.
+	var/list/unique_reskin_icon //List of icons for said options.
 
 	// Access levels, used in modules\jobs\access.dm
 	var/list/req_access
@@ -51,6 +52,8 @@
 
 	var/investigate_flags = NONE
 	// ADMIN_INVESTIGATE_TARGET: investigate_log on pickup/drop
+	/// If the emag behavior should be toggleable
+	var/emag_toggleable = FALSE
 
 /obj/vv_edit_var(vname, vval)
 	switch(vname)
@@ -363,29 +366,24 @@
 	. = ..()
 	if(obj_flags & UNIQUE_RENAME)
 		. += "<span class='notice'>Use a pen on it to rename it or change its description.</span>"
-	if(unique_reskin && !current_skin)
+	if(unique_reskin_icon && !current_skin)
 		. += "<span class='notice'>Alt-click it to reskin it.</span>"
 
 /obj/AltClick(mob/user)
 	. = ..()
-	if(unique_reskin && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
+	if(unique_reskin_icon && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
 		reskin_obj(user)
 
 /obj/proc/reskin_obj(mob/M)
-	if(!LAZYLEN(unique_reskin))
-		return
-	to_chat(M, "<b>Reskin options for [name]:</b>")
-	for(var/V in unique_reskin)
-		var/output = icon2html(src, M, unique_reskin[V])
-		to_chat(M, "[V]: <span class='reallybig'>[output]</span>")
-
-	var/choice = input(M,"Warning, you can only reskin [src] once!","Reskin Object") as null|anything in sortList(unique_reskin)
+	var/choice = show_radial_menu(M, src, unique_reskin, radius = 42, require_near = TRUE, tooltips = TRUE)
 	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated() && in_range(M,src))
 		if(!unique_reskin[choice])
 			return
 		current_skin = choice
-		icon_state = unique_reskin[choice]
+		icon_state = unique_reskin_icon[choice]
 		to_chat(M, "[src] is now skinned as '[choice].'")
+		src.update_icon()
+	return
 
 /obj/analyzer_act(mob/living/user, obj/item/I)
 	if(atmosanalyzer_scan(user, src))
@@ -442,3 +440,20 @@
 		. += GLOB.acid_overlay
 	if(resistance_flags & ON_FIRE)
 		. += GLOB.fire_overlay
+
+/obj/use_emag(mob/user)
+	if(should_emag(user) && !SEND_SIGNAL(src, COMSIG_ATOM_SHOULD_EMAG, user))
+		SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user)
+		on_emag(user)
+
+/// Unlike COMSIG_ATOM_SHOULD_EMAG, this is not inverted. If this is true, on_emag is called.
+/obj/proc/should_emag(mob/user)
+	return emag_toggleable || !(obj_flags & EMAGGED)
+
+/// Performs the actions to emag something, given that should_emag succeeded. You should NOT call this directly. Call use_emag.
+/obj/proc/on_emag(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
+	if(emag_toggleable)
+		obj_flags ^= EMAGGED
+	else
+		obj_flags |= EMAGGED

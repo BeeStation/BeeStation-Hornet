@@ -31,20 +31,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"e" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
 "f" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/remains/human,
@@ -80,6 +66,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
+"V" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -88,7 +79,7 @@ g
 "}
 (2,1,1) = {"
 b
-e
+V
 h
 "}
 (3,1,1) = {"

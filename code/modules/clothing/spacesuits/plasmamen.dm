@@ -276,6 +276,7 @@
 	desc = "A space-worthy helmet specially designed for engineer plasmamen, the usual purple stripes being replaced by engineering's orange."
 	greyscale_colors = "#F0DE00#D75600#F0DE00"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 10, "fire" = 100, "acid" = 75, "stamina" = 0)
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering/atmospherics
 	name = "atmospherics envirosuit helmet"
@@ -492,6 +493,7 @@
 	desc = "A new iteration upon the classic space-worthy design, painted in classic engineering pigments."
 	greyscale_colors = "#E8D700#D75600"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 10, "fire" = 100, "acid" = 75, "stamina" = 0)
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /obj/item/clothing/head/helmet/space/plasmaman/mark2/engineering/atmospherics
 	name = "atmospherics Mk.II envirosuit helmet"
@@ -692,6 +694,7 @@
 	desc = "A safer looking re-imagining of the classic space-worthy design, painted in classic engineering pigments."
 	greyscale_colors = "#E8D700#D75600"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 10, "fire" = 100, "acid" = 75, "stamina" = 0)
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /obj/item/clothing/head/helmet/space/plasmaman/protective/engineering/atmospherics
 	name = "atmospherics protective envirosuit helmet"

@@ -52,6 +52,8 @@
 						"body_markings" = "None",
 						"legs" = "Normal Legs",
 						"moth_wings" = "Plain",
+						"moth_antennae" = "Plain",
+						"moth_markings" = "None",
 						"ipc_screen" = "Blue",
 						"ipc_antenna" = "None",
 						"ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)",
@@ -214,7 +216,9 @@
 	features["spines"] = sanitize_inlist(features["spines"], GLOB.spines_list)
 	features["body_markings"] = sanitize_inlist(features["body_markings"], GLOB.body_markings_list)
 	features["feature_lizard_legs"]	= sanitize_inlist(features["legs"], GLOB.legs_list, "Normal Legs")
-	features["moth_wings"] = sanitize_inlist(features["moth_wings"], GLOB.moth_wings_list, "Plain")
+	features["moth_wings"] = sanitize_inlist(features["moth_wings"], GLOB.moth_wings_roundstart_list, "Plain")
+	features["moth_antennae"] = sanitize_inlist(features["moth_antennae"], GLOB.moth_antennae_roundstart_list, "Plain")
+	features["moth_markings"] = sanitize_inlist(features["moth_markings"], GLOB.moth_markings_roundstart_list, "None")
 	features["ipc_screen"] = sanitize_inlist(features["ipc_screen"], GLOB.ipc_screens_list)
 	features["ipc_antenna"]	= sanitize_inlist(features["ipc_antenna"], GLOB.ipc_antennas_list)
 	features["ipc_chassis"]	= sanitize_inlist(features["ipc_chassis"], GLOB.ipc_chassis_list)
@@ -465,8 +469,9 @@
 		pref_species = new /datum/species/human
 		save(usr.client, async = FALSE) // This entire proc is called a lot at roundstart, and we dont want to lag that
 
-	character.dna.features = features.Copy()
 	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE)
+	character.dna.features = features.Copy()
+
 	//Because of how set_species replaces all bodyparts with new ones, hair needs to be set AFTER species.
 	character.dna.real_name = character.real_name
 	character.hair_color = hair_color

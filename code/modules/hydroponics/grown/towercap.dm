@@ -41,7 +41,7 @@
 	throw_speed = 2
 	throw_range = 3
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
-	var/plank_type = /obj/item/stack/sheet/mineral/wood
+	var/plank_type = /obj/item/stack/sheet/wood
 	var/plank_name = "wooden planks"
 	var/static/list/accepted = typecacheof(list(/obj/item/reagent_containers/food/snacks/grown/tobacco,
 	/obj/item/reagent_containers/food/snacks/grown/tea,
@@ -119,7 +119,7 @@
 	name = "bamboo log"
 	desc = "A long and resistant bamboo log."
 	icon_state = "bamboo"
-	plank_type = /obj/item/stack/sheet/mineral/bamboo
+	plank_type = /obj/item/stack/sheet/bamboo
 	plank_name = "bamboo sticks"
 	discovery_points = 300
 
@@ -249,6 +249,9 @@
 
 /obj/structure/bonfire/proc/StartBurning()
 	if(!burning && (!needs_oxygen || CheckOxygen()))
+		add_emitter(/obj/emitter/fire, "fire")
+		add_emitter(/obj/emitter/sparks/fire, "fire_spark")
+		add_emitter(/obj/emitter/fire_smoke, "smoke", 9)
 		icon_state = burn_icon
 		burning = TRUE
 		set_light(6)
@@ -302,6 +305,9 @@
 
 /obj/structure/bonfire/extinguish()
 	if(burning)
+		remove_emitter("fire")
+		remove_emitter("fire_spark")
+		remove_emitter("smoke")
 		icon_state = "bonfire"
 		burning = 0
 		set_light(0)

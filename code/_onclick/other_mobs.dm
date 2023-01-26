@@ -236,9 +236,11 @@
 	pAI
 */
 
-/mob/living/silicon/pai/UnarmedAttack(atom/A)//Stops runtimes due to attack_animal being the default
-	return
+/mob/living/silicon/pai/UnarmedAttack(atom/attack_target, proximity_flag, list/modifiers)
+	attack_target.attack_pai(src, modifiers)
 
+/atom/proc/attack_pai(mob/user, list/modifiers)
+	return
 
 /*
 	Simple animals

@@ -269,6 +269,7 @@ CREATE TABLE IF NOT EXISTS `SS13_messages` (
   `timestamp` datetime NOT NULL,
   `expire_timestamp` datetime DEFAULT NULL,
   `severity` text,
+  `playtime` int(11) unsigned NULL DEFAULT NULL,
   `server_name` varchar(32) DEFAULT NULL,
   `server_ip` int(10) unsigned NOT NULL,
   `server_port` smallint(5) unsigned NOT NULL,
@@ -454,7 +455,7 @@ CREATE TABLE IF NOT EXISTS `SS13_schema_revision` (
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`major`,`minor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (6, 0);
+INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (6, 1);
 
 
 

@@ -10,7 +10,6 @@
 /atom/movable/screen
 	name = ""
 	icon = 'icons/mob/screen_gen.dmi'
-	layer = HUD_LAYER
 	plane = HUD_PLANE
 	animate_movement = SLIDE_STEPS
 	speech_span = SPAN_ROBOT
@@ -45,7 +44,6 @@
 	maptext_width = 480
 
 /atom/movable/screen/swap_hand
-	layer = HUD_LAYER
 	plane = HUD_PLANE
 	name = "swap hand"
 
@@ -100,7 +98,6 @@
 	var/icon_empty // Icon when empty. For now used only by humans.
 	var/icon_full  // Icon when contains an item. For now used only by humans.
 	var/list/object_overlays = list()
-	layer = HUD_LAYER
 	plane = HUD_PLANE
 
 /atom/movable/screen/inventory/Click(location, control, params)
@@ -161,6 +158,7 @@
 			icon_state = icon_full
 		else
 			icon_state = icon_empty
+	return ..()
 
 /atom/movable/screen/inventory/proc/add_overlays()
 	var/mob/user = hud?.mymob
@@ -237,7 +235,7 @@
 
 /atom/movable/screen/close
 	name = "close"
-	layer = ABOVE_HUD_LAYER
+
 	plane = ABOVE_HUD_PLANE
 	icon_state = "backpack_close"
 
@@ -254,7 +252,6 @@
 	name = "drop"
 	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "act_drop"
-	layer = HUD_LAYER
 	plane = HUD_PLANE
 
 /atom/movable/screen/drop/Click()
@@ -370,6 +367,7 @@
 			icon_state = "walking"
 		if(MOVE_INTENT_RUN)
 			icon_state = "running"
+	return ..()
 
 /atom/movable/screen/mov_intent/proc/toggle(mob/user)
 	if(isobserver(user))
@@ -391,12 +389,12 @@
 		icon_state = "pull"
 	else
 		icon_state = "pull0"
+	return ..()
 
 /atom/movable/screen/resist
 	name = "resist"
 	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "act_resist"
-	layer = HUD_LAYER
 	plane = HUD_PLANE
 
 /atom/movable/screen/resist/Click()
@@ -408,7 +406,6 @@
 	name = "rest"
 	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "act_rest"
-	layer = HUD_LAYER
 	plane = HUD_PLANE
 
 /atom/movable/screen/rest/Click()
@@ -425,12 +422,12 @@
 		icon_state = "act_rest"
 	else
 		icon_state = "act_rest0"
+	return ..()
 
 /atom/movable/screen/storage
 	name = "storage"
 	icon_state = "block"
 	screen_loc = "7,7 to 10,8"
-	layer = HUD_LAYER
 	plane = HUD_PLANE
 
 /atom/movable/screen/storage/Initialize(mapload, new_master)
@@ -511,7 +508,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	alpha = 128
 	anchored = TRUE
-	layer = ABOVE_HUD_LAYER
+
 	plane = ABOVE_HUD_PLANE
 
 /atom/movable/screen/zone_sel/MouseExited(location, control, params)
@@ -705,7 +702,6 @@
 	icon = 'icons/blank_title.png'
 	icon_state = ""
 	screen_loc = "1,1"
-	layer = SPLASHSCREEN_LAYER
 	plane = SPLASHSCREEN_PLANE
 	var/client/holder
 

@@ -46,7 +46,7 @@
 	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, .proc/ntnet_receive)
 
 /obj/machinery/door/window/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(1)
 	QDEL_LIST(debris)
 	if(obj_integrity == 0)
@@ -155,7 +155,7 @@
 	icon_state ="[base_state]open"
 	sleep(10)
 
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(1)
 	update_freelook_sight()
 
@@ -177,7 +177,7 @@
 	playsound(src, 'sound/machines/windowdoor.ogg', 100, 1)
 	icon_state = base_state
 
-	density = TRUE
+	set_density(TRUE)
 	air_update_turf(1)
 	update_freelook_sight()
 	sleep(10)
@@ -214,16 +214,23 @@
 		take_damage(round(exposed_volume / 200), BURN, 0, 0)
 	..()
 
-/obj/machinery/door/window/emag_act(mob/user)
-	if(!operating && density && !(obj_flags & EMAGGED))
-		obj_flags |= EMAGGED
-		operating = TRUE
-		flick("[base_state]spark", src)
-		playsound(src, "sparks", 75, 1)
-		sleep(6)
-		operating = FALSE
-		desc += "<BR><span class='warning'>Its access panel is smoking slightly.</span>"
-		open(2)
+/obj/machinery/door/window/should_emag(mob/user)
+	// Don't allow emag if the door is currently open or moving
+	return !operating && density && ..()
+
+/obj/machinery/door/window/on_emag(mob/user)
+	..()
+	operating = TRUE
+	flick("[base_state]spark", src)
+	playsound(src, "sparks", 75, 1)
+	addtimer(CALLBACK(src, .proc/after_emag), 6)
+
+/obj/machinery/door/window/proc/after_emag()
+	if(QDELETED(src))
+		return
+	operating = FALSE
+	desc += "<BR><span class='warning'>Its access panel is smoking slightly.</span>"
+	open(2)
 
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
 
@@ -325,7 +332,7 @@
 		return
 
 	//Check radio signal jamming
-	if(is_jammed())
+	if(is_jammed(JAMMER_PROTECTION_WIRELESS))
 		return
 
 

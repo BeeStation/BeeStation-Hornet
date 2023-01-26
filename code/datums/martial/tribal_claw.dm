@@ -28,14 +28,14 @@
 		return TRUE
 	return FALSE
 
-//Tail Sweep, triggers an effect similar to Space Dragon's tail sweep but only affects stuff 1 tile next to you, basically 3x3.
+//Tail Sweep, triggers an effect similar to Alien Queen's tail sweep but only affects stuff 1 tile next to you, basically 3x3.
 /datum/martial_art/tribal_claw/proc/tailSweep(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(A == current_target)
 		return
 	log_combat(A, D, "tail sweeped(Tribal Claw)")
 	D.visible_message("<span class='warning'>[A] sweeps [D]'s legs with their tail!</span>", \
 						"<span class='userdanger'>[A] sweeps your legs with their tail!</span>")
-	var/obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon/R = new
+	var/static/obj/effect/proc_holder/spell/aoe_turf/repulse/xeno/R = new
 	R.cast(RANGE_TURFS(1,A))
 
 //Face Scratch, deals 10 brute to head(reduced by armor), blurs the target's vision and gives them the confused effect for a short time.

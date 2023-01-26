@@ -103,6 +103,7 @@
 /mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
 	default_access_list = get_all_accesses()
 	. = ..()
+	add_sensors()
 	if(!target_ai) //If there is no player/brain inside.
 		new/obj/structure/AIcore/deactivated(loc) //New empty terminal.
 		return INITIALIZE_HINT_QDEL //Delete AI.
@@ -190,7 +191,9 @@
 	GLOB.ai_list -= src
 	GLOB.shuttle_caller_list -= src
 	SSshuttle.autoEvac()
-	qdel(eyeobj) // No AI, no Eye
+	QDEL_NULL(eyeobj) // No AI, no Eye
+	QDEL_NULL(spark_system)
+	QDEL_NULL(aiMulti)
 	malfhack = null
 	ShutOffDoomsdayDevice()
 	. = ..()
@@ -342,7 +345,7 @@
 	if ((ai.get_virtual_z_level() != target.get_virtual_z_level()) && !is_station_level(ai.z))
 		return FALSE
 
-	if(A.is_jammed())
+	if(A.is_jammed(JAMMER_PROTECTION_WIRELESS))
 		return FALSE
 
 	if (istype(loc, /obj/item/aicard))
@@ -978,7 +981,7 @@
 	if(istype(A, /obj/machinery/camera))
 		current = A
 	if(client)
-		if(ismovableatom(A))
+		if(ismovable(A))
 			if(A != GLOB.ai_camera_room_landmark)
 				end_multicam()
 			client.perspective = EYE_PERSPECTIVE
@@ -1029,7 +1032,7 @@
 
 		playsound(get_turf(src), 'sound/machines/ding.ogg', 50, 1, ignore_walls = FALSE)
 		to_chat(src, "Hack complete. \The [apc] is now under your exclusive control.")
-		apc.update_icon()
+		apc.update_appearance()
 
 /mob/living/silicon/ai/verb/deploy_to_shell(var/mob/living/silicon/robot/target)
 	set category = "AI Commands"
@@ -1057,7 +1060,7 @@
 	if (!target || target.stat || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)) || (target.ratvar && !is_servant_of_ratvar(src)))
 		return
 
-	if(target.is_jammed())
+	if(target.is_jammed(JAMMER_PROTECTION_AI_SHELL))
 		to_chat(src, "<span class='warning robot'>Unable to establish communication link with target.</span>")
 		return
 

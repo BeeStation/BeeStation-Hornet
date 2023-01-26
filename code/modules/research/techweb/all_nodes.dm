@@ -667,7 +667,7 @@
 	display_name = "Cybernetic Organs"
 	description = "We have the technology to rebuild him."
 	prereq_ids = list("adv_biotech")
-	design_ids = list("cybernetic_heart", "cybernetic_liver", "cybernetic_lungs")
+	design_ids = list("cybernetic_heart", "cybernetic_liver", "cybernetic_lungs", "cybernetic_stomach")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 	export_price = 5000
 
@@ -697,7 +697,7 @@
 	display_name = "Upgraded Cybernetic Organs"
 	description = "We have the technology to upgrade him."
 	prereq_ids = list("cyber_organs")
-	design_ids = list("cybernetic_heart_u", "cybernetic_liver_u", "cybernetic_lungs_u")
+	design_ids = list("cybernetic_heart_u", "cybernetic_liver_u", "cybernetic_lungs_u", "cybernetic_stomach_u")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1500)
 	export_price = 5000
 
@@ -828,7 +828,7 @@
 /datum/techweb_node/rcd_upgrade
 	id = "rcd_upgrade"
 	tech_tier = 3
-	display_name = "rapid device upgrade designs"
+	display_name = "Rapid Device Upgrade Designs"
 	description = "Unlocks new designs that improve rapid devices."
 	design_ids = list("rcd_upgrade_frames", "rcd_upgrade_simple_circuits", "rpd_upgrade_unwrench")
 	prereq_ids = list("adv_engi")
@@ -838,7 +838,7 @@
 /datum/techweb_node/adv_rcd_upgrade
 	id = "adv_rcd_upgrade"
 	tech_tier = 4
-	display_name = "Advanced RCD designs upgrade"
+	display_name = "Advanced RCD Designs Upgrade"
 	description = "Unlocks new RCD designs."
 	design_ids = list("rcd_upgrade_silo_link")
 	prereq_ids = list("rcd_upgrade", "bluespace_travel")

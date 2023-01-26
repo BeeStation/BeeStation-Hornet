@@ -5,6 +5,7 @@
 	var/list/mob/living/buckled_mobs = null //list()
 	var/max_buckled_mobs = 1
 	var/buckle_prevents_pull = FALSE
+	var/can_be_unanchored = FALSE
 
 //Interaction
 /atom/movable/attack_hand(mob/living/user)

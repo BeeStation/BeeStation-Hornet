@@ -88,6 +88,8 @@
 				air_update_turf()
 
 				var/datum/pipeline/parent1 = parents[1]
+				if(!parent1)
+					return
 				parent1.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 	else //external -> output
@@ -190,7 +192,7 @@
 			user.visible_message("[user] unwelded the dual-port vent.", "<span class='notice'>You unweld the dual-port vent.</span>", "<span class='italics'>You hear welding.</span>")
 			welded = FALSE
 		update_icon()
-		pipe_vision_img = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
+		pipe_vision_img = image(src, loc, dir = dir)
 		pipe_vision_img.plane = ABOVE_HUD_PLANE
 	return TRUE
 
@@ -208,7 +210,7 @@
 	user.visible_message("<span class='warning'>[user] furiously claws at [src]!</span>", "<span class='notice'>You manage to clear away the stuff blocking the dual-port vent.</span>", "<span class='warning'>You hear loud scraping noises.</span>")
 	welded = FALSE
 	update_icon()
-	pipe_vision_img = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
+	pipe_vision_img = image(src, loc, dir = dir)
 	pipe_vision_img.plane = ABOVE_HUD_PLANE
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, 1)
 

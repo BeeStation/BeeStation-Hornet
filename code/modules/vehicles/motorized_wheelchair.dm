@@ -2,6 +2,7 @@
 	name = "motorized wheelchair"
 	desc = "A chair with big wheels. It seems to have a motor in it."
 	max_integrity = 150
+	move_resist = MOVE_FORCE_DEFAULT
 	var/speed = 2
 	var/power_efficiency = 1
 	var/power_usage = 25
@@ -64,11 +65,11 @@
 
 /obj/vehicle/ridden/wheelchair/motorized/post_buckle_mob(mob/living/user)
 	. = ..()
-	density = TRUE
+	set_density(TRUE)
 
 /obj/vehicle/ridden/wheelchair/motorized/post_unbuckle_mob()
 	. = ..()
-	density = FALSE
+	set_density(FALSE)
 
 /obj/vehicle/ridden/wheelchair/motorized/attack_hand(mob/living/user)
 	if(power_cell && panel_open)

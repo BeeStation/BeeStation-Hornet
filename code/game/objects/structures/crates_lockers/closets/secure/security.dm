@@ -37,7 +37,7 @@
 	new /obj/item/storage/belt/sabre(src)
 	new /obj/item/gun/energy/e_gun/mini/heads(src)
 
-/obj/item/storage/box/suitbox/cap/PopulateContents()
+/obj/item/storage/box/suitbox/cap
 	name = "compression box of captain outfits"
 
 /obj/item/storage/box/suitbox/cap/PopulateContents()

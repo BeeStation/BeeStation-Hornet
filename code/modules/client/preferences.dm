@@ -76,6 +76,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/action_buttons_screen_locs = list()
 
+	var/pai_name = ""
+	var/pai_description = ""
+	var/pai_comment = ""
+
 /datum/preferences/proc/set_max_character_slots(newmax)
 	max_usable_slots = min(TRUE_MAX_SAVE_SLOTS, newmax) // Make sure they dont go over
 	check_usable_slots()
@@ -125,7 +129,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(!user || !user.client)
 		return
 	active_character.update_preview_icon(user.client)
-	var/list/dat = list("<center>")
+	var/list/dat = list(TOOLTIP_CSS_SETUP, "<center>")
 
 	dat += "<a href='?_src_=prefs;preference=tab;tab=0' [current_tab == 0 ? "class='linkOn'" : ""]>Character Settings</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=1' [current_tab == 1 ? "class='linkOn'" : ""]>Game Preferences</a>"
@@ -169,7 +173,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<a href='?_src_=prefs;preference=name;task=random'>Random Name</A> "
 			dat += "<a href='?_src_=prefs;preference=name'>Always Random Name: [active_character.be_random_name ? "Yes" : "No"]</a><BR>"
 
-			dat += "<b>Name:</b> "
+			dat += "<b>[TOOLTIP_CONFIG_CALLER("Name:", 400, "preferences.naming_policy")] </b>"
 			dat += "<a href='?_src_=prefs;preference=name;task=input'>[active_character.real_name]</a><BR>"
 
 			if(!(AGENDER in active_character.pref_species.species_traits))
@@ -393,6 +397,32 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "</td>"
 					mutant_category = 0
 
+			if("moth_antennae" in active_character.pref_species.default_features)
+				if(!mutant_category)
+					dat += APPEARANCE_CATEGORY_COLUMN
+
+				dat += "<h3>Moth antennae</h3>"
+
+				dat += "<a href='?_src_=prefs;preference=moth_antennae;task=input'>[active_character.features["moth_antennae"]]</a><BR>"
+
+				mutant_category++
+				if(mutant_category >= MAX_MUTANT_ROWS)
+					dat += "</td>"
+					mutant_category = 0
+
+			if("moth_markings" in active_character.pref_species.default_features)
+				if(!mutant_category)
+					dat += APPEARANCE_CATEGORY_COLUMN
+
+				dat += "<h3>Moth markings</h3>"
+
+				dat += "<a href='?_src_=prefs;preference=moth_markings;task=input'>[active_character.features["moth_markings"]]</a><BR>"
+
+				mutant_category++
+				if(mutant_category >= MAX_MUTANT_ROWS)
+					dat += "</td>"
+					mutant_category = 0
+
 			if("ipc_screen" in active_character.pref_species.mutant_bodyparts)
 				if(!mutant_category)
 					dat += APPEARANCE_CATEGORY_COLUMN
@@ -536,6 +566,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<b>Ghost Whispers:</b> <a href='?_src_=prefs;preference=ghost_whispers'>[(chat_toggles & CHAT_GHOSTWHISPER) ? "All Speech" : "Nearest Creatures"]</a><br>"
 			dat += "<b>Ghost PDA:</b> <a href='?_src_=prefs;preference=ghost_pda'>[(chat_toggles & CHAT_GHOSTPDA) ? "All Messages" : "Nearest Creatures"]</a><br>"
 			dat += "<b>Ghost Law Changes:</b> <a href='?_src_=prefs;preference=ghost_laws'>[(chat_toggles & CHAT_GHOSTLAWS) ? "All Law Changes" : "No Law Changes"]</a><br>"
+			dat += "<b>Ghost (F) Chat toggle:</b> <a href='?_src_=prefs;preference=ghost_follow'>[(chat_toggles & CHAT_GHOSTFOLLOWMINDLESS) ? "All mobs" : "Only mobs with mind"]</a><br>"
 
 			if(unlock_content)
 				dat += "<b>Ghost Form:</b> <a href='?_src_=prefs;task=input;preference=ghostform'>[ghost_form]</a><br>"
@@ -1570,11 +1601,21 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("moth_wings")
 					var/new_moth_wings
-
-					new_moth_wings = input(user, "Choose your character's wings:", "Character Preference") as null|anything in GLOB.moth_wings_list
-
+					new_moth_wings = input(user, "Choose your character's wings:", "Character Preference") as null|anything in GLOB.moth_wings_roundstart_list
 					if(new_moth_wings)
 						active_character.features["moth_wings"] = new_moth_wings
+
+				if("moth_antennae")
+					var/new_moth_antennae
+					new_moth_antennae = input(user, "Choose your character's antennae:", "Character Preference") as null|anything in GLOB.moth_antennae_roundstart_list
+					if(new_moth_antennae)
+						active_character.features["moth_antennae"] = new_moth_antennae
+
+				if("moth_markings")
+					var/new_moth_markings
+					new_moth_markings = input(user, "Choose your character's markings:", "Character Preference") as null|anything in GLOB.moth_markings_roundstart_list
+					if(new_moth_markings)
+						active_character.features["moth_markings"] = new_moth_markings
 
 				if("ipc_screen")
 					var/new_ipc_screen
@@ -1798,6 +1839,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("ghost_laws")
 					chat_toggles ^= CHAT_GHOSTLAWS
+
+				if("ghost_follow")
+					chat_toggles ^= CHAT_GHOSTFOLLOWMINDLESS
 
 				if("income_pings")
 					chat_toggles ^= CHAT_BANKCARD

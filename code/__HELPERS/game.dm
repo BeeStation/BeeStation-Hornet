@@ -553,7 +553,7 @@
 	if(!istype(environment))
 		return
 	var/pressure = environment.return_pressure()
-	if(pressure <= MAXIMUM_LAVALAND_EQUIPMENT_EFFECT_PRESSURE && pressure >= MINIMUM_LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
+	if(pressure <= MAXIMUM_LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
 		. = TRUE
 
 /proc/ispipewire(item)
@@ -596,3 +596,49 @@
 				continue
 
 			C.energy_fail(rand(duration_min,duration_max))
+
+/**
+  * Poll all mentor ghosts for looking for a candidate
+  *
+  * Poll all mentor ghosts a question
+  * returns people who voted yes in a list
+  * Arguments:
+  * * Question: String, what do you want to ask them
+  * * jobbanType: List, Which roles/jobs to exclude from being asked
+  * * gametypeCheck: Datum, Check if they have the time required for that role
+  * * be_special_flag: Bool, Only notify ghosts with special antag on
+  * * poll_time: Integer, How long to poll for in deciseconds(0.1s)
+  * * ignore_category: Define, ignore_category: People with this category(defined in poll_ignore.dm) turned off dont get the message
+  * * flashwindow: Bool, Flash their window to grab their attention
+  */
+/proc/pollMentorGhostCandidates(Question, jobbanType, datum/game_mode/gametypeCheck, be_special_flag = 0, poll_time = 300, ignore_category = null, flashwindow = TRUE)
+	var/list/candidates = list()
+	if(!(GLOB.ghost_role_flags & GHOSTROLE_STATION_SENTIENCE))
+		return candidates
+
+	for(var/mob/dead/observer/G in GLOB.player_list)
+		if(G.client?.is_mentor())
+			candidates += G
+
+	return pollCandidates(Question, jobbanType, gametypeCheck, be_special_flag, poll_time, ignore_category, flashwindow, candidates)
+
+/**
+  * Poll mentor ghosts to take control of a mob
+  *
+  * Poll mentor ghosts for mob control
+  * returns people who voted yes in a list
+  * Arguments:
+  * * Question: String, what do you want to ask them
+  * * jobbanType: List, Which roles/jobs to exclude from being asked
+  * * gametypeCheck: Datum, Check if they have the time required for that role
+  * * be_special_flag: Bool, Only notify ghosts with special antag on
+  * * poll_time: Integer, How long to poll for in deciseconds(0.1s)
+  * * M: Mob, /mob to offer
+  * * ignore_category: Unknown
+  */
+/proc/pollMentorCandidatesForMob(Question, jobbanType, datum/game_mode/gametypeCheck, be_special_flag = 0, poll_time = 300, mob/M, ignore_category = null)
+	var/list/L = pollMentorGhostCandidates(Question, jobbanType, gametypeCheck, be_special_flag, poll_time, ignore_category)
+	if(!M || QDELETED(M) || !M.loc)
+		return list()
+	return L
+

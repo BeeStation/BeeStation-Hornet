@@ -721,6 +721,8 @@
 	if(admin_revive)
 		regenerate_limbs()
 		regenerate_organs()
+		if(ismoth(src))
+			REMOVE_TRAIT(src, TRAIT_MOTH_BURNT, "fire")
 	remove_all_embedded_objects()
 	set_heartattack(FALSE)
 	drunkenness = 0
@@ -1277,3 +1279,6 @@
 
 /mob/living/carbon/human/species/zombie/krokodil_addict
 	race = /datum/species/human/krokodil_addict
+
+/mob/living/carbon/human/species/pumpkin_man
+	race = /datum/species/pod/pumpkin_man

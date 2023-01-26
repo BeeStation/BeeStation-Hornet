@@ -160,8 +160,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			var/mob/living/carbon/human/H = user
 			if(H.put_in_hands(A))
 				to_chat(H, "[A] materializes into your hands!")
+				log_uplink_purchase(user, A)
 				return A
 	to_chat(user, "[A] materializes onto the floor.")
+	log_uplink_purchase(user, A)
 	return A
 
 //Discounts (dynamically filled above)
@@ -360,7 +362,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/bundles_TC/telecrystal
 	name = "1 Raw Telecrystal"
 	desc = "A telecrystal in its rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
-	item = /obj/item/stack/telecrystal
+	item = /obj/item/stack/sheet/telecrystal
 	cost = 1
 	// Don't add telecrystals to the purchase_log since
 	// it's just used to buy more items (including itself!)
@@ -369,13 +371,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/bundles_TC/telecrystal/five
 	name = "5 Raw Telecrystals"
 	desc = "Five telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
-	item = /obj/item/stack/telecrystal/five
+	item = /obj/item/stack/sheet/telecrystal/five
 	cost = 5
 
 /datum/uplink_item/bundles_TC/telecrystal/twenty
 	name = "20 Raw Telecrystals"
 	desc = "Twenty telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
-	item = /obj/item/stack/telecrystal/twenty
+	item = /obj/item/stack/sheet/telecrystal/twenty
 	cost = 20
 
 /datum/uplink_item/bundles_TC/crate
@@ -1220,7 +1222,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The minibomb is a grenade with a five-second fuse. Upon detonation, it will create a small hull breach \
 			in addition to dealing high amounts of damage to nearby personnel."
 	item = /obj/item/grenade/syndieminibomb
-	cost = 5
+	cost = 4
 	purchasable_from = ~UPLINK_CLOWN_OPS
 
 /datum/uplink_item/explosives/tearstache
@@ -1923,7 +1925,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			It teaches you how to use your claws and tail to gain an advantage in combat, \
 			don't buy this unless you are a lizard or plan to give it to one as only they can understand the ancient draconic words."
 	item = /obj/item/book/granter/martial/tribal_claw
-	cost = 14
+	cost = 6
 	surplus = 0
 	restricted_species = list(SPECIES_LIZARD)
 
@@ -2230,11 +2232,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/role_restricted/pressure_mod
 	name = "Kinetic Accelerator Pressure Mod"
-	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors and in a vacuum. \
+	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. \
 			Occupies 35% mod capacity."
 	item = /obj/item/borg/upgrade/modkit/indoors
-	cost = 5 //you need two for full damage, so total of 10 for maximum damage
-	limited_stock = 2 //you can't use more than two!
+	cost = 5 //you need one for full damage, so total of 5 for maximum damage
+	limited_stock = 1 //you can't use more than one!
 	restricted_roles = list(JOB_NAME_SHAFTMINER)
 
 /datum/uplink_item/role_restricted/esaw
@@ -2397,6 +2399,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/device_tools/antag_lasso
 	name = "Mindslave Lasso"
 	desc = "A state of the art taming device.\n Use this device to tame almost any animal by lassoing and untying them.\n Tamed animals can be rode & commanded!"
-	item = /obj/item/mob_lasso/antag
+	item = /obj/item/mob_lasso/traitor
 	cost = 3
 	surplus = 0
