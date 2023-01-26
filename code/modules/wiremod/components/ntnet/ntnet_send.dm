@@ -1,4 +1,3 @@
-/* needs the NTnet refactor, see you again
 /**
  * # NTNet Transmitter Component
  *
@@ -28,4 +27,3 @@
 	if(.)
 		return
 	ntnet_send(list("data" = data_package.value, "data_secondary" = secondary_package.value, "enc_key" = enc_key.value))
-*/
