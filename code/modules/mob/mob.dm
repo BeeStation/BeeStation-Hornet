@@ -1278,3 +1278,30 @@
 		client.movingmob.client_mobs_in_contents -= src
 		UNSETEMPTY(client.movingmob.client_mobs_in_contents)
 		client.movingmob = null
+
+/// if you hear a radio talk that you don't have access to for some reason, you can't recognise its channel name. This updates your known channel depending on radios in your possession
+/mob/proc/refresh_known_radio_channels()
+	known_channels = list() // reset first
+	for(var/obj/item/radio/R in src.get_contents())
+		if(R.listening) // if not turned off, you shouldn't be eligible for this.
+			if(istype(R, /obj/item/radio/headset)) // only headset has 2nd keyslot
+				var/mob/living/carbon/C = src
+				var/obj/item/radio/headset/H = R // only headset has `keyslot2` variable
+				if(H == C.ears) // this must be worn by you, not in your inventory.
+					known_channels["[H.frequency]"] = TRUE
+					for(var/K in H.keyslot?.channels)
+						known_channels["[GLOB.radiochannels[K]]"] = TRUE
+					for(var/K in H.keyslot2?.channels)
+						known_channels["[GLOB.radiochannels[K]]"] = TRUE
+			else
+				known_channels["[R.frequency]"] = TRUE
+				for(var/K in R.keyslot?.channels)
+					known_channels["[GLOB.radiochannels[K]]"] = TRUE
+
+/mob/living/refresh_known_radio_channels()
+	..()
+	for(var/obj/item/implant/radio/R in src.implants)
+		if(R.radio.listening)
+			known_channels["[R.radio.frequency]"] = TRUE
+			for(var/K in R.radio.keyslot?.channels)
+				known_channels["[GLOB.radiochannels[K]]"] = TRUE

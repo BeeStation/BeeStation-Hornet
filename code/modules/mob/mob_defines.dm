@@ -222,3 +222,6 @@
 
 	///Currently possesses a typing indicator icon
 	var/typing_indicator = FALSE
+
+	///the list of channels that you can hear
+	var/list/known_channels

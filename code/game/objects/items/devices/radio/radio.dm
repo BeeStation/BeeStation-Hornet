@@ -45,6 +45,48 @@
 	var/list/secure_radio_connections
 	var/radio_silent = FALSE // If true, radio doesn't make sound effects (ie for Syndicate internal radio implants)
 
+	/// this is necessary to adjust 'known_channels' in mob var properly
+	var/mob/current_holder = null
+
+/obj/item/radio/Initialize(mapload)
+	wires = new /datum/wires/radio(src)
+	if(prison_radio)
+		wires.cut(WIRE_TX) // OH GOD WHY
+	secure_radio_connections = new
+	. = ..()
+	frequency = sanitize_frequency(frequency, freerange)
+	set_frequency(frequency)
+
+	for(var/ch_name in channels)
+		secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
+
+	become_hearing_sensitive(ROUNDSTART_TRAIT)
+
+/obj/item/radio/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/empprotection, EMP_PROTECT_WIRES)
+
+/obj/item/radio/Destroy()
+	remove_radio_all(src) //Just to be sure
+	QDEL_NULL(wires)
+	QDEL_NULL(keyslot)
+	return ..()
+
+/obj/item/radio/pickup(mob/user)
+	. = ..()
+	current_holder = user
+	current_holder.refresh_known_radio_channels()
+
+/obj/item/radio/dropped(mob/user, silent)
+	. = ..()
+	current_holder.refresh_known_radio_channels()
+	current_holder = null
+
+/obj/item/radio/equipped(mob/user, slot)
+	. = ..()
+	current_holder = user
+	current_holder.refresh_known_radio_channels()
+
 /obj/item/radio/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] starts bouncing [src] off [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
@@ -53,6 +95,7 @@
 	SEND_SIGNAL(src, COMSIG_RADIO_NEW_FREQUENCY, args)
 	remove_radio(src, frequency)
 	frequency = add_radio(src, new_frequency)
+	current_holder.refresh_known_radio_channels()
 
 /obj/item/radio/proc/recalculateChannels()
 	channels = list()
@@ -83,36 +126,15 @@
 	for(var/ch_name in channels)
 		secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
 
+	current_holder.refresh_known_radio_channels()
+
 /obj/item/radio/proc/make_syndie() // Turns normal radios into Syndicate radios!
 	qdel(keyslot)
 	keyslot = new /obj/item/encryptionkey/syndicate
 	syndie = 1
 	recalculateChannels()
+	current_holder.refresh_known_radio_channels()
 	ui_update()
-
-/obj/item/radio/Destroy()
-	remove_radio_all(src) //Just to be sure
-	QDEL_NULL(wires)
-	QDEL_NULL(keyslot)
-	return ..()
-
-/obj/item/radio/Initialize(mapload)
-	wires = new /datum/wires/radio(src)
-	if(prison_radio)
-		wires.cut(WIRE_TX) // OH GOD WHY
-	secure_radio_connections = new
-	. = ..()
-	frequency = sanitize_frequency(frequency, freerange)
-	set_frequency(frequency)
-
-	for(var/ch_name in channels)
-		secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
-
-	become_hearing_sensitive(ROUNDSTART_TRAIT)
-
-/obj/item/radio/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/empprotection, EMP_PROTECT_WIRES)
 
 /obj/item/radio/AltClick(mob/user)
 	if(headset)
@@ -128,6 +150,7 @@
 	else if(user.canUseTopic(src, !issilicon(user), TRUE, FALSE))
 		listening = !listening
 		to_chat(user, "<span class='notice'>You toggle speaker [listening ? "on" : "off"].</span>")
+		current_holder.refresh_known_radio_channels()
 		ui_update()
 
 /obj/item/radio/interact(mob/user)
@@ -197,6 +220,7 @@
 				set_frequency(sanitize_frequency(tune, freerange))
 		if("listen")
 			listening = !listening
+			current_holder.refresh_known_radio_channels()
 			. = TRUE
 		if("broadcast")
 			broadcasting = !broadcasting
@@ -390,12 +414,14 @@
 		channels[ch_name] = 0
 	on = FALSE
 	addtimer(CALLBACK(src, .proc/end_emp_effect, curremp), 200)
+	current_holder.refresh_known_radio_channels()
 
 /obj/item/radio/proc/end_emp_effect(curremp)
 	if(emped != curremp) //Don't fix it if it's been EMP'd again
 		return FALSE
 	emped = FALSE
 	on = TRUE
+	current_holder.refresh_known_radio_channels()
 	return TRUE
 
 ///////////////////////////////

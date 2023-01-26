@@ -134,6 +134,17 @@
 	QDEL_NULL(radio)
 	return ..()
 
+/obj/item/implant/radio/on_implanted(mob/living/user)
+	radio.current_holder = user
+	user.refresh_known_radio_channels()
+
+/obj/item/implant/radio/removed(mob/living/source, silent = FALSE, special = 0)
+	. = ..()
+	if(!source)
+		return
+	radio.current_holder = null
+	source.refresh_known_radio_channels()
+
 /obj/item/implant/radio/mining
 	radio_key = /obj/item/encryptionkey/headset_cargo
 
@@ -166,6 +177,8 @@
 		explosion(src,0,0,2,2, flame_range = 2)
 		user.gib(1)
 		qdel(src)
+		return
+	..()
 
 /obj/item/implanter/radio
 	name = "implanter (internal radio)"
