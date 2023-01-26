@@ -16,9 +16,9 @@
 	if(id)
 		. = id.assignment
 	else
-		var/obj/item/pda/pda = wear_id
+		var/obj/item/modular_computer/pda = wear_id
 		if(istype(pda))
-			. = pda.ownjob
+			. = pda.saved_job
 		else
 			return if_no_id
 	if(!.)
@@ -30,9 +30,9 @@
 	var/obj/item/card/id/id = get_idcard(FALSE)
 	if(id)
 		return id.registered_name
-	var/obj/item/pda/pda = wear_id
+	var/obj/item/modular_computer/pda = wear_id
 	if(istype(pda))
-		return pda.owner
+		return pda.saved_identification
 	return if_no_id
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a separate proc as it'll be useful elsewhere
@@ -64,22 +64,16 @@
 //Useful when player is being seen by other mobs
 /mob/living/carbon/human/proc/get_id_name(if_no_id = "Unknown")
 	var/obj/item/storage/wallet/wallet = wear_id
-	var/obj/item/pda/pda = wear_id
-	var/obj/item/card/id/id = wear_id
 	var/obj/item/modular_computer/tablet/tablet = wear_id
+	var/obj/item/card/id/id = wear_id
 	if(istype(wallet))
 		id = wallet.front_id
 	if(istype(id))
 		. = id.registered_name
-	else if(istype(pda))
-		. = pda.owner
 	else if(istype(tablet))
 		var/obj/item/computer_hardware/card_slot/card_slot = tablet.all_components[MC_CARD]
-		if(card_slot && (card_slot.stored_card2 || card_slot.stored_card))
-			if(card_slot.stored_card2?.registered_name) //The second card is the one used for authorization in the ID changing program, so we prioritize it here for consistency
-				. = card_slot.stored_card2.registered_name
-			else if(card_slot.stored_card?.registered_name)
-				. = card_slot.stored_card.registered_name
+		if(card_slot?.stored_card)
+			. = card_slot.stored_card.registered_name
 	if(!.)
 		. = if_no_id	//to prevent null-names making the mob unclickable
 	return
@@ -113,6 +107,12 @@
 		if(id_card)
 			return id_card
 
+/mob/living/carbon/human/get_id_in_hand()
+	var/obj/item/held_item = get_active_held_item()
+	if(!held_item)
+		return
+	return held_item.GetID()
+
 /mob/living/carbon/human/IsAdvancedToolUser()
 	if(HAS_TRAIT(src, TRAIT_MONKEYLIKE))
 		return FALSE
@@ -125,11 +125,11 @@
 
 /mob/living/carbon/human/can_track(mob/living/user)
 	if(wear_id && istype(wear_id.GetID(), /obj/item/card/id/syndicate))
-		return 0
+		return FALSE
 	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/hat = head
 		if(hat.blockTracking)
-			return 0
+			return FALSE
 
 	return ..()
 
@@ -190,4 +190,15 @@
 	if(isclothing(head) && (head.clothing_flags & SCAN_REAGENTS))
 		return TRUE
 	if(isclothing(wear_mask) && (wear_mask.clothing_flags & SCAN_REAGENTS))
+		return TRUE
+
+/mob/living/carbon/human/can_see_boozepower()
+	. = ..()
+	if(.)
+		return
+	if(isclothing(glasses) && (glasses.clothing_flags & SCAN_BOOZEPOWER))
+		return TRUE
+	if(isclothing(head) && (head.clothing_flags & SCAN_BOOZEPOWER))
+		return TRUE
+	if(isclothing(wear_mask) && (wear_mask.clothing_flags & SCAN_BOOZEPOWER))
 		return TRUE

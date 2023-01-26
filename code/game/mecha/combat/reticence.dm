@@ -2,6 +2,7 @@
 	desc = "A silent, fast, and nigh-invisible miming exosuit. Popular among mimes and mime assassins."
 	name = "\improper reticence"
 	icon_state = "reticence"
+	base_icon_state = "reticence"
 	step_in = 2
 	dir_in = 1 //Facing North.
 	max_integrity = 100
@@ -20,7 +21,7 @@
 	turnsound = null
 	opacity = 0
 
-/obj/mecha/combat/reticence/loaded/Initialize()
+/obj/mecha/combat/reticence/loaded/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/silenced
 	ME.attach(src)

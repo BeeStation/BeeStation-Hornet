@@ -43,7 +43,7 @@
 	var/obj/item/paper/P = new(T)
 
 	P.name = "requisition form - #[id] ([pack.name])"
-	P.info += "<h2>[station_name()] Supply Requisition</h2>"
+	P.info += "<h2>[GLOB.station_name] Supply Requisition</h2>"
 	P.info += "<hr/>"
 	P.info += "Order #[id]<br/>"
 	P.info += "Item: [pack.name]<br/>"
@@ -60,7 +60,7 @@
 /datum/supply_order/proc/generateManifest(obj/structure/closet/crate/C, var/owner, var/packname) //generates-the-manifests.
 	var/obj/item/paper/fluff/jobs/cargo/manifest/P = new(C, id, 0)
 
-	var/station_name = (P.errors & MANIFEST_ERROR_NAME) ? new_station_name() : station_name()
+	var/station_name = (P.errors & MANIFEST_ERROR_NAME) ? new_station_name() : GLOB.station_name
 
 	P.name = "shipping manifest - [packname?"#[id] ([pack.name])":"(Grouped Item Crate)"]"
 	P.info += "<h2>[command_name()] Shipping Manifest</h2>"

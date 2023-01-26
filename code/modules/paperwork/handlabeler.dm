@@ -5,6 +5,7 @@
 	icon_state = "labeler0"
 	item_state = "flight"
 	flags_1 = SAVE_SAFE_1
+	w_class = WEIGHT_CLASS_TINY
 	var/label = null
 	var/labels_left = 30
 	var/mode = 0

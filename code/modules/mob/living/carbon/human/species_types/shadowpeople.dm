@@ -4,7 +4,7 @@
 /datum/species/shadow
 	// Humans cursed to stay in the darkness, lest their life forces drain. They regain health in shadow and die in light.
 	name = "???"
-	id = "shadow"
+	id = SPECIES_SHADOWPERSON
 	sexes = 0
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/shadow
 	species_traits = list(NOBLOOD,NOEYESPRITES,NOFLASH)
@@ -14,6 +14,13 @@
 	mutanteyes = /obj/item/organ/eyes/night_vision
 	species_language_holder = /datum/language_holder/shadowpeople
 
+	species_chest = /obj/item/bodypart/chest/shadow
+	species_head = /obj/item/bodypart/head/shadow
+	species_l_arm = /obj/item/bodypart/l_arm/shadow
+	species_r_arm = /obj/item/bodypart/r_arm/shadow
+	species_l_leg = /obj/item/bodypart/l_leg/shadow
+	species_r_leg = /obj/item/bodypart/r_leg/shadow
+
 
 /datum/species/shadow/spec_life(mob/living/carbon/human/H)
 	var/turf/T = H.loc
@@ -21,9 +28,9 @@
 		var/light_amount = T.get_lumcount()
 
 		if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD) //if there's enough light, start dying
-			H.take_overall_damage(1,1, 0, BODYPART_ORGANIC)
+			H.take_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
 		else if (light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD) //heal in the dark
-			H.heal_overall_damage(1,1, 0, BODYPART_ORGANIC)
+			H.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
 
 /datum/species/shadow/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
@@ -33,7 +40,6 @@
 /datum/species/shadow/nightmare
 	name = "Nightmare"
 	id = "nightmare"
-	limbs_id = "shadow"
 	burnmod = 1.5
 	no_equip = list(ITEM_SLOT_MASK, ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
 	species_traits = list(NOBLOOD,NO_UNDERWEAR,NO_DNA_COPY,NOTRANSSTING,NOEYESPRITES,NOFLASH)
@@ -161,8 +167,6 @@
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	force = 25
-	block_upgrade_walk = 1
-	block_level = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	armour_penetration = 35
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
@@ -171,57 +175,99 @@
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = IS_SHARP
 
-/obj/item/light_eater/Initialize()
+/obj/item/light_eater/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
+	ADD_TRAIT(src, TRAIT_DOOR_PRYER, INNATE_TRAIT)
 	AddComponent(/datum/component/butchering, 80, 70)
 
 /obj/item/light_eater/afterattack(atom/movable/AM, mob/user, proximity)
 	. = ..()
 	if(!proximity)
 		return
+	AM.lighteater_act(src)
 
-/mob/living/lighteater_act(obj/item/light_eater/light_eater)
+/atom/movable/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	..()
+	for(var/datum/component/overlay_lighting/light_source in affected_dynamic_lights)
+		if(light_source.parent != src)
+			var/atom/A = light_source.parent
+			A.lighteater_act(light_eater, src)
+
+/mob/living/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	..()
 	if(on_fire)
 		ExtinguishMob()
 		playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
-	for(var/obj/item/O in src)
-		if(O.light_range && O.light_power)
-			O.lighteater_act(light_eater)
-	if(pulling && pulling.light_range)
+	if(pulling)
 		pulling.lighteater_act(light_eater)
 
-/mob/living/carbon/human/lighteater_act(obj/item/light_eater/light_eater)
+/mob/living/carbon/human/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
 	if(isethereal(src))
 		emp_act(EMP_LIGHT)
 
-/mob/living/silicon/robot/lighteater_act(obj/item/light_eater/light_eater)
+/mob/living/silicon/robot/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
-	if(!lamp_cooldown)
-		update_headlamp(TRUE, INFINITY)
-		to_chat(src, "<span class='danger'>Your headlamp is fried! You'll need a human to help replace it.</span>")
+	if(lamp_enabled)
+		smash_headlamp()
 
-/obj/structure/bonfire/lighteater_act(obj/item/light_eater/light_eater)
+/obj/structure/bonfire/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	if(burning)
 		extinguish()
 		playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
+	..()
 
-/obj/item/pda/lighteater_act(obj/item/light_eater/light_eater)
-	if(!light_range || !light_power)
-		return
-	set_light(0)
-	light_power = 0
-	update_icon()
-	visible_message("<span class='danger'>The light in [src] shorts out!</span>")
+/obj/structure/glowshroom/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	..()
+	if (light_power > 0)
+		acid_act()
 
-/obj/item/lighteater_act(obj/item/light_eater/light_eater)
-	if(!light_range || !light_power)
+/obj/item/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	..()
+	if(!light_range || !light_power || !light_on)
 		return
 	if(light_eater)
 		visible_message("<span class='danger'>[src] is disintegrated by [light_eater]!</span>")
 	burn()
 	playsound(src, 'sound/items/welder.ogg', 50, 1)
+
+/obj/item/modular_computer/tablet/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	if(light_range && light_power > 0 && light_on)
+		// Only the queen of Beetania can save our IDs from this infernal nightmare
+		var/obj/item/computer_hardware/card_slot/card_slot2 = all_components[MC_CARD2]
+		var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
+		card_slot2?.try_eject()
+		card_slot?.try_eject()
+	..()
+
+/obj/item/clothing/head/helmet/space/hardsuit/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	if(!light_range || !light_power || !light_on || light_broken)
+		return ..()
+	if(light_eater)
+		visible_message("<span class='danger'>The headlamp of [src] is disintegrated by [light_eater]!</span>")
+	light_broken = TRUE
+	var/mob/user = ismob(parent) ? parent : null
+	attack_self(user)
+	playsound(src, 'sound/items/welder.ogg', 50, 1)
+	..()
+
+/turf/open/floor/light/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	. = ..()
+	if(!light_range || !light_power || !light_on)
+		return
+	if(light_eater)
+		visible_message("<span class='danger'>The light bulb of [src] is disintegrated by [light_eater]!</span>")
+	break_tile()
+	playsound(src, 'sound/items/welder.ogg', 50, 1)
+
+/obj/item/weldingtool/cyborg/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	if(!isOn())
+		return
+	if(light_eater)
+		loc.visible_message("<span class='danger'>The the integrated welding tool is snuffed out by [light_eater]!</span>")
+		disable()
+	..()
 
 #undef HEART_SPECIAL_SHADOWIFY
 #undef HEART_RESPAWN_THRESHHOLD

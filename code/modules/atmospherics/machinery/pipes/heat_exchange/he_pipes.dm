@@ -1,6 +1,6 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging
 	level = 2
-	var/minimum_temperature_difference = 20
+	var/minimum_temperature_difference = 1
 	var/thermal_conductivity = WINDOW_HEAT_TRANSFER_COEFFICIENT
 	color = "#404040"
 	buckle_lying = -1
@@ -8,7 +8,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	interacts_with_air = TRUE
 
-/obj/machinery/atmospherics/pipe/heat_exchanging/Initialize()
+/obj/machinery/atmospherics/pipe/heat_exchanging/Initialize(mapload)
 	. = ..()
 	add_atom_colour("#404040", FIXED_COLOUR_PRIORITY)
 
@@ -26,12 +26,12 @@
 
 	var/turf/T = loc
 	if(istype(T))
-		if(T.blocks_air)
+		if(isclosedturf(T))
 			environment_temperature = T.return_temperature()
 		else
 			var/turf/open/OT = T
 			environment_temperature = OT.GetTemperature()
-	else
+	else if(T != null)
 		environment_temperature = T.return_temperature()
 
 	if(pipe_air != null)

@@ -1,16 +1,17 @@
 /datum/species/dullahan
-	name = "Dullahan"
-	id = "dullahan"
+	name = "\improper Dullahan"
+	id = SPECIES_DULLAHAN
+	max_bodypart_count = 5 //No head
 	default_color = "FFFFFF"
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
 	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_NOBREATH, TRAIT_NONECRODISEASE)
-	default_features = list("mcolor" = "FFF", "tail_human" = "None", "ears" = "None", "wings" = "None")
+	default_features = list("mcolor" = "FFF", "tail_human" = "None", "ears" = "None", "wings" = "None", "body_size" = "Normal")
 	use_skintones = TRUE
 	mutant_brain = /obj/item/organ/brain/dullahan
 	mutanteyes = /obj/item/organ/eyes/dullahan
 	mutanttongue = /obj/item/organ/tongue/dullahan
 	mutantears = /obj/item/organ/ears/dullahan
-	limbs_id = "human"
+	examine_limb_id = SPECIES_HUMAN
 	skinned_type = /obj/item/stack/sheet/animalhide/human
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
 
@@ -72,7 +73,7 @@
 /obj/item/organ/tongue/dullahan/handle_speech(datum/source, list/speech_args)
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		if(H.dna.species.id == "dullahan")
+		if(H.dna.species.id == SPECIES_DULLAHAN)
 			var/datum/species/dullahan/D = H.dna.species
 			if(isobj(D.myhead.loc))
 				var/obj/O = D.myhead.loc
@@ -102,7 +103,7 @@
 
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		if(H.dna.species.id == "dullahan")
+		if(H.dna.species.id == SPECIES_DULLAHAN)
 			var/datum/species/dullahan/D = H.dna.species
 			D.update_vision_perspective(H)
 
@@ -132,7 +133,7 @@
 /obj/item/dullahan_relay/Destroy()
 	if(!QDELETED(owner))
 		var/mob/living/carbon/human/H = owner
-		if(H.dna.species.id == "dullahan")
+		if(H.dna.species.id == SPECIES_DULLAHAN)
 			var/datum/species/dullahan/D = H.dna.species
 			D.myhead = null
 			owner.gib()

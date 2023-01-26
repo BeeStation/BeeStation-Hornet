@@ -26,7 +26,7 @@
 	var/contains_sample = FALSE
 	var/being_harvested = FALSE
 
-/obj/item/seeds/replicapod/Initialize()
+/obj/item/seeds/replicapod/Initialize(mapload)
 	. = ..()
 
 	create_reagents(volume, INJECTABLE|DRAWABLE)
@@ -88,7 +88,7 @@
 						// Devil code
 						if(isliving(M))
 							var/mob/living/L = M
-							make_podman = !L.hellbound
+							make_podman = !L.ishellbound()
 						break
 		else //If the player has ghosted from his corpse before blood was drawn, his ckey is no longer attached to the mob, so we need to match up the cloned player through the mind key
 			for(var/mob/M in GLOB.player_list)
@@ -101,7 +101,7 @@
 					// Devil code
 					if(isliving(M))
 						var/mob/living/L = M
-						make_podman = !L.hellbound
+						make_podman = !L.ishellbound()
 					ckey_holder = M.ckey
 					break
 
@@ -109,7 +109,7 @@
 	if(!make_podman)
 		// Prevent accidental harvesting. Make sure the user REALLY wants to do this if there's a chance of this coming from a living creature.
 		if(mind || ckey)
-			if(alert("The pod is currently devoid of soul. There is a possibility that a soul could claim this creature, or you could harvest it for seeds.", "Harvest Seeds?", "Harvest Seeds", "Cancel") == "Cancel")
+			if(alert("The pod is currently devoid of soul. There is a possibility that a soul could claim this creature, or you could harvest it for seeds.", "Harvest Seeds?", "Harvest Seeds", "Cancel") != "Harvest Seeds")
 				return result
 
 		// If this plant has already been harvested, return early.

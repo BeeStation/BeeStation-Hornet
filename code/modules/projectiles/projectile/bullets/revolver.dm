@@ -31,7 +31,7 @@
 	ricochet_decay_damage = 1
 
 /obj/item/projectile/bullet/c38/match/bouncy
-	name = ".38 Rubber bullet"
+	name = ".38 Bouncy Rubber bullet"
 	damage = 10
 	stamina = 30
 	armour_penetration = -30
@@ -98,7 +98,7 @@
 /obj/item/projectile/bullet/c38/mime/on_hit(atom/target, blocked = FALSE)
 	if(isliving(target))
 		var/mob/living/carbon/human/M = target
-		if(M.job == "Mime")
+		if(M.job == JOB_NAME_MIME)
 			var/defense = M.getarmor(CHEST, "bullet")
 			M.apply_damage(5, BRUTE, CHEST, defense)
 			M.visible_message("<span class='danger'>A bullet wound appears in [M]'s chest!</span>", \

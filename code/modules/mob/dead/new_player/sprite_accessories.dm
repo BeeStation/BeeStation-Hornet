@@ -94,6 +94,10 @@
 	name = "Bald"
 	icon_state = null
 
+/datum/sprite_accessory/hair/bald2
+	name = "Bald 2"
+	icon_state = "hair_bald2"
+
 /datum/sprite_accessory/hair/balding
 	name = "Balding Hair"
 	icon_state = "hair_e"
@@ -278,6 +282,10 @@
 	name = "Curls"
 	icon_state = "hair_curls"
 
+/datum/sprite_accessory/hair/curtains
+	name = "Curtains"
+	icon_state = "hair_curtains"
+
 /datum/sprite_accessory/hair/cut
 	name = "Cut Hair"
 	icon_state = "hair_c"
@@ -365,6 +373,10 @@
 /datum/sprite_accessory/hair/gelled
 	name = "Gelled Back"
 	icon_state = "hair_gelled"
+
+/datum/sprite_accessory/hair/gelledeyebrows
+	name = "Gelled Spikes"
+	icon_state = "hair_ebgel"
 
 /datum/sprite_accessory/hair/gentle
 	name = "Gentle"
@@ -490,9 +502,17 @@
 	name = "Mohawk (Unshaven)"
 	icon_state = "hair_unshaven_mohawk"
 
+/datum/sprite_accessory/hair/moustache
+	name = "Moustache"
+	icon_state = "hair_moustache"
+
 /datum/sprite_accessory/hair/mulder
 	name = "Mulder"
 	icon_state = "hair_mulder"
+
+/datum/sprite_accessory/hair/mullet
+	name = "Mullet"
+	icon_state = "hair_mullet"
 
 /datum/sprite_accessory/hair/odango
 	name = "Odango"
@@ -517,6 +537,10 @@
 /datum/sprite_accessory/hair/parted
 	name = "Parted"
 	icon_state = "hair_parted"
+
+/datum/sprite_accessory/hair/parted2
+	name = "Parted 2"
+	icon_state ="hair_parted2"
 
 /datum/sprite_accessory/hair/partedside
 	name = "Parted (Side)"
@@ -546,6 +570,10 @@
 	name = "Pompadour (Big)"
 	icon_state = "hair_bigpompadour"
 
+/datum/sprite_accessory/hair/hugepompadour
+	name = "Pompadour (Huge)"
+	icon_state = "hair_hugepompadour"
+
 /datum/sprite_accessory/hair/ponytail1
 	name = "Ponytail"
 	icon_state = "hair_ponytail"
@@ -574,9 +602,17 @@
 	name = "Ponytail 7"
 	icon_state = "hair_ponytail7"
 
+/datum/sprite_accessory/hair/ponytailalchemist
+	name = "Ponytail (Alchemist)"
+	icon_state = "hair_alchemist"
+
 /datum/sprite_accessory/hair/highponytail
 	name = "Ponytail (High)"
 	icon_state = "hair_highponytail"
+
+/datum/sprite_accessory/hair/tightponytail
+	name = "Ponytail (Tight)"
+	icon_state = "hair_tightponytail"
 
 /datum/sprite_accessory/hair/stail
 	name = "Ponytail (Short)"
@@ -618,6 +654,10 @@
 	name = "Poofy"
 	icon_state = "hair_poofy"
 
+/datum/sprite_accessory/hair/pride
+	name = "Pride"
+	icon_state = "hair_pride"
+
 /datum/sprite_accessory/hair/quiff
 	name = "Quiff"
 	icon_state = "hair_quiff"
@@ -633,6 +673,10 @@
 /datum/sprite_accessory/hair/shavedpart
 	name = "Shaved Part"
 	icon_state = "hair_shavedpart"
+
+/datum/sprite_accessory/hair/shortafro
+	name = "Short Afro"
+	icon_state = "hair_shortafro"
 
 /datum/sprite_accessory/hair/shortbangs
 	name = "Short Bangs"
@@ -689,6 +733,10 @@
 /datum/sprite_accessory/hair/protagonist
 	name = "Slightly Long Hair"
 	icon_state = "hair_protagonist"
+
+/datum/sprite_accessory/hair/spamton
+	name = "Spamton"
+	icon_state = "hair_spamton"
 
 /datum/sprite_accessory/hair/spiky
 	name = "Spiky"
@@ -790,6 +838,65 @@
 	name = "Wisp"
 	icon_state = "hair_wisp"
 
+/*
+/////////////////////////////////////
+/  =---------------------------=    /
+/  == Gradient Hair Definitions ==  /
+/  =---------------------------=    /
+/////////////////////////////////////
+*/
+
+/datum/sprite_accessory/hair_gradient
+	icon = 'icons/mob/hair_gradients.dmi'
+
+/datum/sprite_accessory/hair_gradient/none
+	name = "None"
+	icon_state = "none"
+
+/datum/sprite_accessory/hair_gradient/fadeup
+	name = "Fade Up"
+	icon_state = "fadeup"
+
+/datum/sprite_accessory/hair_gradient/fadedown
+	name = "Fade Down"
+	icon_state = "fadedown"
+
+/datum/sprite_accessory/hair_gradient/vertical_split
+	name = "Vertical Split"
+	icon_state = "vsplit"
+
+/datum/sprite_accessory/hair_gradient/horizontal_split
+	name = "Horizontal Split"
+	icon_state = "bottomflat"
+
+/datum/sprite_accessory/hair_gradient/reflected
+	name = "Reflected"
+	icon_state = "reflected_high"
+
+/datum/sprite_accessory/hair_gradient/reflected_inverse
+	name = "Reflected Inverse"
+	icon_state = "reflected_inverse_high"
+
+/datum/sprite_accessory/hair_gradient/wavy
+	name = "Wavy"
+	icon_state = "wavy"
+
+/datum/sprite_accessory/hair_gradient/long_fade_up
+	name = "Long Fade Up"
+	icon_state = "long_fade_up"
+
+/datum/sprite_accessory/hair_gradient/long_fade_down
+	name = "Long Fade Down"
+	icon_state = "long_fade_down"
+
+/datum/sprite_accessory/hair_gradient/short_fade_up
+	name = "Short Fade Up"
+	icon_state = "short_fade_up"
+
+/datum/sprite_accessory/hair_gradient/short_fade_down
+	name = "Short Fade Down"
+	icon_state = "short_fade_down"
+
 /////////////////////////////
 // Facial Hair Definitions //
 /////////////////////////////
@@ -799,6 +906,10 @@
 	gender = MALE // barf (unless you're a dorf, dorfs dig chix w/ beards :P)
 
 // please make sure they're sorted alphabetically and categorized
+
+/datum/sprite_accessory/facial_hair/eyebrows
+	name = "Eyebrows"
+	icon_state = "facial_eyebrows"
 
 /datum/sprite_accessory/facial_hair/abe
 	name = "Beard (Abraham Lincoln)"
@@ -823,6 +934,7 @@
 /datum/sprite_accessory/facial_hair/croppedfullbeard
 	name = "Beard (Cropped Fullbeard)"
 	icon_state = "facial_croppedfullbeard"
+
 
 /datum/sprite_accessory/facial_hair/gt
 	name = "Beard (Goatee)"
@@ -864,6 +976,10 @@
 	name = "Beard (Long)"
 	icon_state = "facial_longbeard"
 
+/datum/sprite_accessory/facial_hair/powerful
+	name = "Beard (Powerful)"
+	icon_state = "facial_powerful"
+
 /datum/sprite_accessory/facial_hair/volaju
 	name = "Beard (Volaju)"
 	icon_state = "facial_volaju"
@@ -887,6 +1003,10 @@
 /datum/sprite_accessory/facial_hair/sevenoclockm
 	name = "Beard (Seven o Clock Moustache)"
 	icon_state = "facial_7oclockmoustache"
+
+/datum/sprite_accessory/facial_hair/thecolonel
+	name = "Beard (The Colonel)"
+	icon_state = "facial_thecolonel"
 
 /datum/sprite_accessory/facial_hair/moustache
 	name = "Moustache"
@@ -912,6 +1032,10 @@
 	name = "Moustache (Hulk Hogan)"
 	icon_state = "facial_hogan" //-Neek
 
+/datum/sprite_accessory/facial_hair/robotnik
+	name = "Moustache (Robotnik)"
+	icon_state = "facial_robotnik"
+
 /datum/sprite_accessory/facial_hair/selleck
 	name = "Moustache (Selleck)"
 	icon_state = "facial_selleck"
@@ -919,6 +1043,10 @@
 /datum/sprite_accessory/facial_hair/chaplin
 	name = "Moustache (Square)"
 	icon_state = "facial_chaplin"
+
+/datum/sprite_accessory/facial_hair/stachenchops
+	name = "Moustache ('Stache 'n Chops)"
+	icon_state = "facial_stachenchops"
 
 /datum/sprite_accessory/facial_hair/vandyke
 	name = "Moustache (Van Dyke)"
@@ -950,7 +1078,7 @@
 ///////////////////////////
 
 /datum/sprite_accessory/underwear
-	icon = 'icons/mob/underwear.dmi'
+	icon = 'icons/mob/clothing/underwear.dmi'
 	use_static = FALSE
 
 
@@ -1127,7 +1255,7 @@
 ////////////////////////////
 
 /datum/sprite_accessory/undershirt
-	icon = 'icons/mob/underwear.dmi'
+	icon = 'icons/mob/clothing/underwear.dmi'
 
 /datum/sprite_accessory/undershirt/nude
 	name = "Nude"
@@ -1411,7 +1539,7 @@
 ///////////////////////
 
 /datum/sprite_accessory/socks
-	icon = 'icons/mob/underwear.dmi'
+	icon = 'icons/mob/clothing/underwear.dmi'
 
 /datum/sprite_accessory/socks/nude
 	name = "Nude"
@@ -1844,7 +1972,25 @@
 	icon = 'icons/mob/moth_wings.dmi'
 	color_src = null
 
+/datum/sprite_accessory/moth_markings
+	icon = 'icons/mob/moth_markings.dmi'
+	color_src = null
+
+/datum/sprite_accessory/moth_antennae
+	icon = 'icons/mob/moth_antennae.dmi'
+	color_src = null
+
+/datum/sprite_accessory/moth_wingsopen
+	icon = 'icons/mob/moth_wingsopen.dmi'
+	color_src = null
+	dimension_x = 76
+	center = TRUE
+
 /datum/sprite_accessory/moth_wings/plain
+	name = "Plain"
+	icon_state = "plain"
+
+/datum/sprite_accessory/moth_wingsopen/plain
 	name = "Plain"
 	icon_state = "plain"
 
@@ -1852,7 +1998,15 @@
 	name = "Monarch"
 	icon_state = "monarch"
 
+/datum/sprite_accessory/moth_wingsopen/monarch
+	name = "Monarch"
+	icon_state = "monarch"
+
 /datum/sprite_accessory/moth_wings/luna
+	name = "Luna"
+	icon_state = "luna"
+
+/datum/sprite_accessory/moth_wingsopen/luna
 	name = "Luna"
 	icon_state = "luna"
 
@@ -1860,7 +2014,15 @@
 	name = "Atlas"
 	icon_state = "atlas"
 
+/datum/sprite_accessory/moth_wingsopen/atlas
+	name = "Atlas"
+	icon_state = "atlas"
+
 /datum/sprite_accessory/moth_wings/reddish
+	name = "Reddish"
+	icon_state = "redish"
+
+/datum/sprite_accessory/moth_wingsopen/reddish
 	name = "Reddish"
 	icon_state = "redish"
 
@@ -1868,7 +2030,15 @@
 	name = "Royal"
 	icon_state = "royal"
 
+/datum/sprite_accessory/moth_wingsopen/royal
+	name = "Royal"
+	icon_state = "royal"
+
 /datum/sprite_accessory/moth_wings/gothic
+	name = "Gothic"
+	icon_state = "gothic"
+
+/datum/sprite_accessory/moth_wingsopen/gothic
 	name = "Gothic"
 	icon_state = "gothic"
 
@@ -1876,7 +2046,15 @@
 	name = "Lovers"
 	icon_state = "lovers"
 
+/datum/sprite_accessory/moth_wingsopen/lovers
+	name = "Lovers"
+	icon_state = "lovers"
+
 /datum/sprite_accessory/moth_wings/whitefly
+	name = "White Fly"
+	icon_state = "whitefly"
+
+/datum/sprite_accessory/moth_wingsopen/whitefly
 	name = "White Fly"
 	icon_state = "whitefly"
 
@@ -1887,10 +2065,14 @@
 
 /datum/sprite_accessory/moth_wings/punished
 	name = "Burnt Off"
-	icon_state = "punished"
+	icon_state = "burnt_off"
 	locked = TRUE
 
 /datum/sprite_accessory/moth_wings/firewatch
+	name = "Firewatch"
+	icon_state = "firewatch"
+
+/datum/sprite_accessory/moth_wingsopen/firewatch
 	name = "Firewatch"
 	icon_state = "firewatch"
 
@@ -1898,7 +2080,15 @@
 	name = "Deathshead"
 	icon_state = "deathhead"
 
+/datum/sprite_accessory/moth_wingsopen/deathhead
+	name = "Deathshead"
+	icon_state = "deathhead"
+
 /datum/sprite_accessory/moth_wings/poison
+	name = "Poison"
+	icon_state = "poison"
+
+/datum/sprite_accessory/moth_wingsopen/poison
 	name = "Poison"
 	icon_state = "poison"
 
@@ -1906,11 +2096,23 @@
 	name = "Ragged"
 	icon_state = "ragged"
 
+/datum/sprite_accessory/moth_wingsopen/ragged
+	name = "Ragged"
+	icon_state = "ragged"
+
 /datum/sprite_accessory/moth_wings/moonfly
 	name = "Moon Fly"
 	icon_state = "moonfly"
 
+/datum/sprite_accessory/moth_wingsopen/moonfly
+	name = "Moon Fly"
+	icon_state = "moonfly"
+
 /datum/sprite_accessory/moth_wings/snow
+	name = "Snow"
+	icon_state = "snow"
+
+/datum/sprite_accessory/moth_wingsopen/snow
 	name = "Snow"
 	icon_state = "snow"
 
@@ -1922,6 +2124,133 @@
 	center = TRUE
 	dimension_y = 34
 	locked = TRUE
+
+/datum/sprite_accessory/moth_antennae //Finally splitting the sprite
+	icon = 'icons/mob/moth_antennae.dmi'
+	color_src = null
+
+/datum/sprite_accessory/moth_antennae/plain
+	name = "Plain"
+	icon_state = "plain"
+
+/datum/sprite_accessory/moth_antennae/monarch
+	name = "Monarch"
+	icon_state = "monarch"
+
+/datum/sprite_accessory/moth_antennae/luna
+	name = "Luna"
+	icon_state = "luna"
+
+/datum/sprite_accessory/moth_antennae/atlas
+	name = "Atlas"
+	icon_state = "atlas"
+
+/datum/sprite_accessory/moth_antennae/reddish
+	name = "Reddish"
+	icon_state = "reddish"
+
+/datum/sprite_accessory/moth_antennae/royal
+	name = "Royal"
+	icon_state = "royal"
+
+/datum/sprite_accessory/moth_antennae/gothic
+	name = "Gothic"
+	icon_state = "gothic"
+
+/datum/sprite_accessory/moth_antennae/whitefly
+	name = "White Fly"
+	icon_state = "whitefly"
+
+/datum/sprite_accessory/moth_antennae/lovers
+	name = "Lovers"
+	icon_state = "lovers"
+
+/datum/sprite_accessory/moth_antennae/clockwork
+	name = "Clockwork"
+	icon_state = "clockwork"
+	locked = TRUE
+
+/datum/sprite_accessory/moth_antennae/punished
+	name = "Burnt Off"
+	icon_state = "burnt_off"
+	locked = TRUE
+
+/datum/sprite_accessory/moth_antennae/firewatch
+	name = "Firewatch"
+	icon_state = "firewatch"
+
+/datum/sprite_accessory/moth_antennae/deathhead
+	name = "Deathshead"
+	icon_state = "deathhead"
+
+/datum/sprite_accessory/moth_antennae/poison
+	name = "Poison"
+	icon_state = "poison"
+
+/datum/sprite_accessory/moth_antennae/ragged
+	name = "Ragged"
+	icon_state = "ragged"
+
+/datum/sprite_accessory/moth_antennae/moonfly
+	name = "Moon Fly"
+	icon_state = "moonfly"
+
+/datum/sprite_accessory/moth_antennae/snow
+	name = "Snow"
+	icon_state = "snow"
+
+/datum/sprite_accessory/moth_markings // the markings that moths can have. finally something other than the boring tan
+	icon = 'icons/mob/moth_markings.dmi'
+	color_src = null
+
+/datum/sprite_accessory/moth_markings/none
+	name = "None"
+	icon_state = "none"
+
+/datum/sprite_accessory/moth_markings/reddish
+	name = "Reddish"
+	icon_state = "reddish"
+
+/datum/sprite_accessory/moth_markings/royal
+	name = "Royal"
+	icon_state = "royal"
+
+/datum/sprite_accessory/moth_markings/gothic
+	name = "Gothic"
+	icon_state = "gothic"
+
+/datum/sprite_accessory/moth_markings/whitefly
+	name = "White Fly"
+	icon_state = "whitefly"
+
+/datum/sprite_accessory/moth_markings/lovers
+	name = "Lovers"
+	icon_state = "lovers"
+
+/datum/sprite_accessory/moth_markings/burnt_off
+	name = "Burnt Off"
+	icon_state = "burnt_off"
+	locked = TRUE
+
+/datum/sprite_accessory/moth_markings/firewatch
+	name = "Firewatch"
+	icon_state = "firewatch"
+
+/datum/sprite_accessory/moth_markings/deathhead
+	name = "Deathshead"
+	icon_state = "deathhead"
+
+/datum/sprite_accessory/moth_markings/poison
+	name = "Poison"
+	icon_state = "poison"
+
+/datum/sprite_accessory/moth_markings/ragged
+	name = "Ragged"
+	icon_state = "ragged"
+
+/datum/sprite_accessory/moth_markings/moonfly
+	name = "Moon Fly"
+	icon_state = "moonfly"
 
 // IPC accessories.
 
@@ -2026,6 +2355,10 @@
 	name = "Sinewave"
 	icon_state = "sinewave"
 
+/datum/sprite_accessory/ipc_screens/smile
+	name = "Smile"
+	icon_state = "smile"
+
 /datum/sprite_accessory/ipc_screens/squarewave
 	name = "Square wave"
 	icon_state = "squarewave"
@@ -2125,7 +2458,7 @@
 	limbs_id = "bee"
 
 /datum/sprite_accessory/ipc_chassis/mcgreyscale
-	name = "Morpheus Cyberkinetics(Greyscale)"
+	name = "Morpheus Cyberkinetics (Custom)"
 	limbs_id = "mcgipc"
 	color_src = MUTCOLORS
 

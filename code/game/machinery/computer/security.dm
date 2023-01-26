@@ -6,13 +6,10 @@
 	req_one_access = list(ACCESS_SEC_RECORDS)
 	circuit = /obj/item/circuitboard/computer/secure_data
 	flags_1 = SAVE_SAFE_1
-	var/obj/item/card/id/scan = null
-	var/authenticated = null
 	var/rank = null
 	var/screen = null
 	var/datum/data/record/active1 = null
 	var/datum/data/record/active2 = null
-	var/a_id = null
 	var/temp = null
 	var/printing = null
 	var/can_change_id = 0
@@ -43,7 +40,7 @@
 
 	var/obj/machinery/computer/secure_data/attached_console
 
-/obj/item/circuit_component/arrest_console_data/Initialize()
+/obj/item/circuit_component/arrest_console_data/Initialize(mapload)
 	. = ..()
 	records = add_output_port("Security Records", PORT_TYPE_TABLE)
 	on_fail = add_output_port("Failed", PORT_TYPE_SIGNAL)
@@ -147,7 +144,7 @@
 	)
 	options = component_options
 
-/obj/item/circuit_component/arrest_console_arrest/Initialize()
+/obj/item/circuit_component/arrest_console_arrest/Initialize(mapload)
 	. = ..()
 	targets = add_input_port("Targets", PORT_TYPE_TABLE)
 	new_status = add_input_port("New Status", PORT_TYPE_STRING)
@@ -198,11 +195,6 @@
 		for(var/mob/living/carbon/human/human as anything in GLOB.carbon_list)
 			human.sec_hud_set_security_status()
 
-/obj/machinery/computer/secure_data/examine(mob/user)
-	. = ..()
-	if(scan)
-		. += "<span class='notice'>Alt-click to eject the ID card.</span>"
-
 /obj/machinery/computer/secure_data/syndie
 	icon_keyboard = "syndie_key"
 
@@ -216,32 +208,20 @@
 	broken_overlay_emissive = TRUE
 	pass_flags = PASSTABLE
 
-/obj/machinery/computer/secure_data/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/card/id))
-		if(!scan)
-			if(!user.transferItemToLoc(O, src))
-				return
-			scan = O
-			to_chat(user, "<span class='notice'>You insert [O].</span>")
-			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
-			updateUsrDialog()
-		else
-			to_chat(user, "<span class='warning'>There's already an ID card in the console.</span>")
-	else
-		return ..()
-
 //Someone needs to break down the dat += into chunks instead of long ass lines.
 /obj/machinery/computer/secure_data/ui_interact(mob/user)
 	. = ..()
+	if(isliving(user))
+		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 	if(src.z > 6)
 		to_chat(user, "<span class='boldannounce'>Unable to establish a connection</span>: \black You're too far away from the station!")
 		return
 	var/dat
 
 	if(temp)
-		dat = text("<TT>[]</TT><BR><BR><A href='?src=[REF(src)];choice=Clear Screen'>Clear Screen</A>", temp)
+		dat = "<TT>[temp]</TT><BR><BR><A href='?src=[REF(src)];choice=Clear Screen'>Clear Screen</A>"
 	else
-		dat = text("Confirm Identity: <A href='?src=[REF(src)];choice=Confirm Identity'>[]</A><HR>", (scan ? text("[]", scan.name) : "----------"))
+		dat = ""
 		if(authenticated)
 			switch(screen)
 				if(1)
@@ -361,12 +341,12 @@
 				if(3)
 					dat += "<font size='4'><b>Security Record</b></font><br>"
 					if(istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1))
-						if(istype(active1.fields["photo_front"], /obj/item/photo))
-							var/obj/item/photo/P1 = active1.fields["photo_front"]
-							user << browse_rsc(P1.picture.picture_image, "photo_front")
-						if(istype(active1.fields["photo_side"], /obj/item/photo))
-							var/obj/item/photo/P2 = active1.fields["photo_side"]
-							user << browse_rsc(P2.picture.picture_image, "photo_side")
+						if(istype(active1.fields["photo_front"], /datum/picture))
+							var/datum/picture/P1 = active1.fields["photo_front"]
+							user << browse_rsc(P1.picture_image, "photo_front")
+						if(istype(active1.fields["photo_side"], /datum/picture))
+							var/datum/picture/P2 = active1.fields["photo_side"]
+							user << browse_rsc(P2.picture_image, "photo_side")
 						dat += {"<table><tr><td><table>
 						<tr><td>Name:</td><td><A href='?src=[REF(src)];choice=Edit Field;field=name'>&nbsp;[active1.fields["name"]]&nbsp;</A></td></tr>
 						<tr><td>ID:</td><td><A href='?src=[REF(src)];choice=Edit Field;field=id'>&nbsp;[active1.fields["id"]]&nbsp;</A></td></tr>
@@ -378,10 +358,10 @@
 						<tr><td>Physical Status:</td><td>&nbsp;[active1.fields["p_stat"]]&nbsp;</td></tr>
 						<tr><td>Mental Status:</td><td>&nbsp;[active1.fields["m_stat"]]&nbsp;</td></tr>
 						</table></td>
-						<td><table><td align = center><a href='?src=[REF(src)];choice=Edit Field;field=show_photo_front'><img src=photo_front height=80 width=80 border=4></a><br>
+						<td><table><td align = center><img src=photo_front height=80 width=80 border=4><br>
 						<a href='?src=[REF(src)];choice=Edit Field;field=print_photo_front'>Print photo</a><br>
 						<a href='?src=[REF(src)];choice=Edit Field;field=upd_photo_front'>Update front photo</a></td>
-						<td align = center><a href='?src=[REF(src)];choice=Edit Field;field=show_photo_side'><img src=photo_side height=80 width=80 border=4></a><br>
+						<td align = center><img src=photo_side height=80 width=80 border=4><br>
 						<a href='?src=[REF(src)];choice=Edit Field;field=print_photo_side'>Print photo</a><br>
 						<a href='?src=[REF(src)];choice=Edit Field;field=upd_photo_side'>Update side photo</a></td></table>
 						</td></tr></table></td></tr></table>"}
@@ -497,36 +477,38 @@ What a mess.*/
 				active1 = null
 				active2 = null
 
-			if("Confirm Identity")
-				eject_id(usr)
-
 			if("Log Out")
 				authenticated = null
 				screen = null
 				active1 = null
 				active2 = null
+				playsound(src, 'sound/machines/terminal_off.ogg', 50, FALSE)
 
 			if("Log In")
-				if(issilicon(usr))
-					var/mob/living/silicon/borg = usr
+				var/mob/M = usr
+				var/obj/item/card/id/I = M.get_idcard(TRUE)
+				if(issilicon(M))
 					active1 = null
 					active2 = null
-					authenticated = borg.name
-					rank = "AI"
+					authenticated = M.name
+					rank = JOB_NAME_AI
 					screen = 1
-				else if(IsAdminGhost(usr))
+				else if(IsAdminGhost(M))
 					active1 = null
 					active2 = null
-					authenticated = usr.client.holder.admin_signature
-					rank = "Central Command"
+					authenticated = M.client.holder.admin_signature
+					rank = JOB_CENTCOM_CENTRAL_COMMAND
 					screen = 1
-				else if(istype(scan, /obj/item/card/id))
+				else if(I && check_access(I))
 					active1 = null
 					active2 = null
-					if(check_access(scan))
-						authenticated = scan.registered_name
-						rank = scan.assignment
-						screen = 1
+					authenticated = I.registered_name
+					rank = I.assignment
+					screen = 1
+				else
+					to_chat(usr, "<span class='danger'>Unauthorized Access.</span>")
+				playsound(src, 'sound/machines/terminal_on.ogg', 50, FALSE)
+
 //RECORD FUNCTIONS
 			if("Record Maintenance")
 				screen = 2
@@ -713,6 +695,8 @@ What a mess.*/
 				G.fields["name"] = "New Record"
 				G.fields["id"] = "[num2hex(rand(1, 1.6777215E7), 6)]"
 				G.fields["rank"] = "Unassigned"
+				G.fields["hud"] = JOB_HUD_UNKNOWN
+				G.fields["active_dept"]	= NONE
 				G.fields["sex"] = "Male"
 				G.fields["age"] = "Unknown"
 				G.fields["species"] = "Human"
@@ -793,7 +777,7 @@ What a mess.*/
 					if("age")
 						if(istype(active1, /datum/data/record))
 							var/t1 = input("Please input age:", "Secure. records", active1.fields["age"], null) as num
-							if(!canUseSecurityRecordsConsole(usr, "age", a1))
+							if(!isnum_safe(t1) || !canUseSecurityRecordsConsole(usr, "age", a1))
 								return
 							active1.fields["age"] = t1
 					if("species")
@@ -802,50 +786,40 @@ What a mess.*/
 							if(!canUseSecurityRecordsConsole(usr, t1, a1))
 								return
 							active1.fields["species"] = t1
-					if("show_photo_front")
-						if(active1.fields["photo_front"])
-							if(istype(active1.fields["photo_front"], /obj/item/photo))
-								var/obj/item/photo/P = active1.fields["photo_front"]
-								P.show(usr)
 					if("upd_photo_front")
-						var/obj/item/photo/photo = get_photo(usr)
-						if(photo)
+						var/datum/picture/picture = get_picture(usr)
+						if(picture)
 							qdel(active1.fields["photo_front"])
 							//Lets center it to a 32x32.
-							var/icon/I = photo.picture.picture_image
+							var/icon/I = picture.picture_image
 							var/w = I.Width()
 							var/h = I.Height()
 							var/dw = w - 32
 							var/dh = w - 32
 							I.Crop(dw/2, dh/2, w - dw/2, h - dh/2)
-							active1.fields["photo_front"] = photo
+							active1.fields["photo_front"] = picture
 					if("print_photo_front")
 						if(active1.fields["photo_front"])
-							if(istype(active1.fields["photo_front"], /obj/item/photo))
-								var/obj/item/photo/P = active1.fields["photo_front"]
-								print_photo(P.picture.picture_image, active1.fields["name"])
-					if("show_photo_side")
-						if(active1.fields["photo_side"])
-							if(istype(active1.fields["photo_side"], /obj/item/photo))
-								var/obj/item/photo/P = active1.fields["photo_side"]
-								P.show(usr)
+							if(istype(active1.fields["photo_front"], /datum/picture))
+								var/datum/picture/P = active1.fields["photo_front"]
+								print_photo(P.picture_image, active1.fields["name"])
 					if("upd_photo_side")
-						var/obj/item/photo/photo = get_photo(usr)
-						if(photo)
+						var/datum/picture/picture = get_picture(usr)
+						if(picture)
 							qdel(active1.fields["photo_side"])
 							//Lets center it to a 32x32.
-							var/icon/I = photo.picture.picture_image
+							var/icon/I = picture.picture_image
 							var/w = I.Width()
 							var/h = I.Height()
 							var/dw = w - 32
 							var/dh = w - 32
 							I.Crop(dw/2, dh/2, w - dw/2, h - dh/2)
-							active1.fields["photo_side"] = photo
+							active1.fields["photo_side"] = picture
 					if("print_photo_side")
 						if(active1.fields["photo_side"])
-							if(istype(active1.fields["photo_side"], /obj/item/photo))
-								var/obj/item/photo/P = active1.fields["photo_side"]
-								print_photo(P.picture.picture_image, active1.fields["name"])
+							if(istype(active1.fields["photo_side"], /datum/picture))
+								var/datum/picture/P = active1.fields["photo_side"]
+								print_photo(P.picture_image, active1.fields["name"])
 					if("crim_add")
 						if(istype(active1, /datum/data/record))
 							var/t1 = stripped_input(usr, "Please input crime name:", "Secure. records", "", null)
@@ -886,17 +860,16 @@ What a mess.*/
 
 							if(!canUseSecurityRecordsConsole(usr, t1, null, a2))
 								return
-
-							var/crime = GLOB.data_core.createCrimeEntry(t1, "", authenticated, station_time_timestamp(), fine)
-							for (var/obj/item/pda/P in GLOB.PDAs)
-								if(P.owner == active1.fields["name"])
+							var/datum/data/crime/crime = GLOB.data_core.createCrimeEntry(t1, "", authenticated, station_time_timestamp(), fine)
+							for (var/obj/item/modular_computer/tablet in GLOB.TabletMessengers)
+								if(tablet.saved_identification == active1.fields["name"])
 									var/message = "You have been fined [fine] credits for '[t1]'. Fines may be paid at security."
-									var/datum/signal/subspace/messaging/pda/signal = new(src, list(
+									var/datum/signal/subspace/messaging/tablet_msg/signal = new(src, list(
 										"name" = "Security Citation",
 										"job" = "Citation Server",
 										"message" = message,
-										"targets" = list("[P.owner] ([P.ownjob])"),
-										"automated" = 1
+										"targets" = list(tablet),
+										"automated" = TRUE
 									))
 									signal.send_to_receivers()
 									usr.log_message("(PDA: Citation Server) sent \"[message]\" to [signal.format_target()]", LOG_PDA)
@@ -927,7 +900,7 @@ What a mess.*/
 							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=released'>Discharged</a></li>"
 							temp += "</ul>"
 					if("rank")
-						var/list/L = list( "Head of Personnel", "Captain", "AI", "Central Command" )
+						var/list/L = list( JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CAPTAIN, JOB_NAME_AI, JOB_CENTCOM_CENTRAL_COMMAND)
 						//This was so silly before the change. Now it actually works without beating your head against the keyboard. /N
 						if((istype(active1, /datum/data/record) && L.Find(rank)))
 							temp = "<h5>Rank:</h5>"
@@ -943,7 +916,7 @@ What a mess.*/
 				switch(href_list["choice"])
 					if("Change Rank")
 						if(active1)
-							active1.fields["rank"] = href_list["rank"]
+							active1.fields["rank"] = strip_html(href_list["rank"])
 							if(href_list["rank"] in get_all_jobs())
 								active1.fields["real_rank"] = href_list["real_rank"]
 
@@ -996,16 +969,16 @@ What a mess.*/
 	updateUsrDialog()
 	return
 
-/obj/machinery/computer/secure_data/proc/get_photo(mob/user)
-	var/obj/item/photo/P = null
+/obj/machinery/computer/secure_data/proc/get_picture(mob/user)
+	var/datum/picture/P = null
 	if(issilicon(user))
 		var/mob/living/silicon/tempAI = user
-		var/datum/picture/selection = tempAI.GetPhoto(user)
-		if(selection)
-			P = new(null, selection)
+		var/datum/picture/selection = tempAI.aicamera?.selectpicture(user)
+		P = selection
 	else if(istype(user.get_active_held_item(), /obj/item/photo))
-		P = user.get_active_held_item()
-	return P
+		var/obj/item/photo/held = user.get_active_held_item()
+		P = held.picture
+	return P?.Copy()
 
 /obj/machinery/computer/secure_data/proc/print_photo(icon/temp, person_name)
 	if (printing)
@@ -1022,7 +995,7 @@ What a mess.*/
 /obj/machinery/computer/secure_data/emp_act(severity)
 	. = ..()
 
-	if(stat & (BROKEN|NOPOWER) || . & EMP_PROTECT_SELF)
+	if(machine_stat & (BROKEN|NOPOWER) || . & EMP_PROTECT_SELF)
 		return
 
 	for(var/datum/data/record/R in GLOB.data_core.security)
@@ -1030,7 +1003,7 @@ What a mess.*/
 			switch(rand(1,8))
 				if(1)
 					if(prob(10))
-						R.fields["name"] = "[pick(lizard_name(MALE),lizard_name(FEMALE))]"
+						R.fields["name"] = "[pick(random_lizard_name(MALE),random_lizard_name(FEMALE))]"
 					else
 						R.fields["name"] = "[pick(pick(GLOB.first_names_male), pick(GLOB.first_names_female))] [pick(GLOB.last_names)]"
 				if(2)
@@ -1065,23 +1038,3 @@ What a mess.*/
 					if(!record2 || record2 == active2)
 						return 1
 	return 0
-
-/obj/machinery/computer/secure_data/AltClick(mob/user)
-	if(user.canUseTopic(src, !issilicon(user)))
-		eject_id(user)
-
-/obj/machinery/computer/secure_data/proc/eject_id(mob/user)
-	if(scan)
-		scan.forceMove(drop_location())
-		if(!issilicon(user) && Adjacent(user))
-			user.put_in_hands(scan)
-		scan = null
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
-	else //switching the ID with the one you're holding
-		if(issilicon(user) || !Adjacent(user))
-			return
-		var/obj/item/card/id/held_id = user.is_holding_item_of_type(/obj/item/card/id)
-		if(QDELETED(held_id) || !user.transferItemToLoc(held_id, src))
-			return
-		scan = held_id
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)

@@ -82,36 +82,40 @@ CREATE TABLE IF NOT EXISTS `SS13_ban` (
 -- Dumping structure for table ss13tgdb.SS13_characters
 DROP TABLE IF EXISTS `SS13_characters`;
 CREATE TABLE IF NOT EXISTS `SS13_characters` (
-  `real_name` varchar(50) DEFAULT NULL,
-  `name_is_always_random` bit(1) NOT NULL,
-  `body_is_always_random` bit(1) NOT NULL,
-  `gender` varchar(50) NOT NULL,
-  `age` tinyint(3) unsigned NOT NULL,
-  `hair_color` varchar(50) NOT NULL,
-  `facial_hair_color` varchar(50) NOT NULL,
-  `eye_color` varchar(50) NOT NULL,
-  `skin_tone` varchar(50) NOT NULL,
-  `hair_style_name` varchar(50) NOT NULL,
-  `facial_style_name` varchar(50) NOT NULL,
-  `feature_ethcolor` varchar(50) NOT NULL,
-  `underwear` varchar(50) NOT NULL,
-  `undershirt` varchar(50) NOT NULL,
-  `socks` varchar(50) NOT NULL,
-  `backbag` varchar(50) NOT NULL,
-  `uplink_loc` varchar(50) NOT NULL,
-  `species` varchar(50) NOT NULL,
-  `features` json NOT NULL,
-  `joblessrole` smallint(6) NOT NULL,
-  `job_civlian_high` smallint(6) NOT NULL,
-  `job_civilian_med` smallint(6) NOT NULL,
-  `job_civilian_low` smallint(6) NOT NULL,
-  `job_medsci_high` smallint(6) NOT NULL,
-  `job_medsci_med` smallint(6) NOT NULL,
-  `job_medsci_low` smallint(6) NOT NULL,
-  `job_engsec_high` smallint(6) NOT NULL,
-  `job_engsec_med` smallint(6) NOT NULL,
-  `job_engsec_low` smallint(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+	`slot` INT(11) UNSIGNED NOT NULL,
+	`ckey` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`species` VARCHAR(32) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`real_name` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`name_is_always_random` TINYINT(1) NOT NULL,
+	`body_is_always_random` TINYINT(1) NOT NULL,
+	`gender` VARCHAR(16) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`age` TINYINT(3) UNSIGNED NOT NULL,
+	`hair_color` VARCHAR(8) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`gradient_color` VARCHAR(8) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`facial_hair_color` VARCHAR(8) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`eye_color` VARCHAR(8) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`skin_tone` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`hair_style_name` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`gradient_style` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`facial_style_name` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`underwear` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`underwear_color` VARCHAR(32) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`undershirt` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`socks` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`backbag` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`jumpsuit_style` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`uplink_loc` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`features` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_general_ci',
+	`custom_names` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_general_ci',
+	`helmet_style` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`preferred_ai_core_display` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`preferred_security_department` VARCHAR(32) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`joblessrole` TINYINT(4) UNSIGNED NOT NULL,
+	`job_preferences` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_general_ci',
+	`all_quirks` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_general_ci',
+	`equipped_gear` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`slot`, `ckey`) USING BTREE
+) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
 
 
 
@@ -172,6 +176,7 @@ CREATE TABLE IF NOT EXISTS `SS13_feedback` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `datetime` datetime NOT NULL,
   `round_id` int(11) unsigned NOT NULL,
+  `server_name` varchar(32) DEFAULT NULL,
   `key_name` varchar(32) NOT NULL,
   `version` tinyint(3) unsigned NOT NULL,
   `key_type` enum('text','amount','tally','nested tally','associative') NOT NULL,
@@ -214,7 +219,7 @@ DROP TABLE IF EXISTS `SS13_library`;
 CREATE TABLE IF NOT EXISTS `SS13_library` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `author` varchar(45) NOT NULL,
-  `title` varchar(45) NOT NULL,
+  `title` varchar(50) NOT NULL,
   `content` text NOT NULL,
   `category` enum('Any','Fiction','Non-Fiction','Adult','Reference','Religion') NOT NULL,
   `ckey` varchar(32) NOT NULL DEFAULT 'LEGACY',
@@ -264,6 +269,7 @@ CREATE TABLE IF NOT EXISTS `SS13_messages` (
   `timestamp` datetime NOT NULL,
   `expire_timestamp` datetime DEFAULT NULL,
   `severity` text,
+  `playtime` int(11) unsigned NULL DEFAULT NULL,
   `server_name` varchar(32) DEFAULT NULL,
   `server_ip` int(10) unsigned NOT NULL,
   `server_port` smallint(5) unsigned NOT NULL,
@@ -399,44 +405,12 @@ CREATE TABLE IF NOT EXISTS `SS13_poll_vote` (
 
 -- Dumping structure for table ss13tgdb.SS13_preferences
 DROP TABLE IF EXISTS `SS13_preferences`;
-CREATE TABLE IF NOT EXISTS `SS13_preferences` (
-  `ckey` varchar(32) NOT NULL,
-  `asaycolor` varchar(7) DEFAULT NULL,
-  `ooccolor` varchar(7) DEFAULT NULL,
-  `lastchangelog` varchar(50) DEFAULT NULL,
-  `ui_style` varchar(50) DEFAULT NULL,
-  `hotkeys` tinyint(3) unsigned DEFAULT NULL,
-  `tgui_fancy` tinyint(3) unsigned DEFAULT NULL,
-  `tgui_lock` tinyint(3) unsigned DEFAULT NULL,
-  `buttons_locked` tinyint(3) unsigned DEFAULT NULL,
-  `windowflashing` tinyint(3) unsigned DEFAULT NULL,
-  `default_slot` tinyint(3) unsigned DEFAULT NULL,
-  `toggles` smallint(5) unsigned DEFAULT NULL,
-  `chat_toggles` smallint(5) unsigned DEFAULT NULL,
-  `clientfps` smallint(5) unsigned DEFAULT NULL,
-  `parallax` tinyint(4) DEFAULT NULL,
-  `ambientocclusion` tinyint(3) unsigned DEFAULT NULL,
-  `auto_fit_viewport` tinyint(3) unsigned DEFAULT NULL,
-  `ghost_form` varchar(50) DEFAULT NULL,
-  `ghost_orbit` varchar(50) DEFAULT NULL,
-  `ghost_accs` tinyint(3) unsigned DEFAULT NULL,
-  `ghost_others` tinyint(3) unsigned DEFAULT NULL,
-  `menuoptions` json DEFAULT NULL,
-  `be_special` json DEFAULT NULL,
-  `crew_objectives` tinyint(3) unsigned DEFAULT NULL,
-  `pda_style` varchar(50) DEFAULT NULL,
-  `pda_color` varchar(7) DEFAULT NULL,
-  `key_bindings` json DEFAULT NULL,
-  `preferred_map` varchar(50) DEFAULT NULL,
-  `ghost_hud` tinyint(4) DEFAULT NULL,
-  `ignoring` json DEFAULT NULL,
-  `inquisitive_ghost` tinyint(4) unsigned DEFAULT NULL,
-  `uses_glasses_colour` tinyint(4) unsigned DEFAULT NULL,
-  `enable_tips` tinyint(4) unsigned DEFAULT NULL,
-  `tip_delay` mediumint(8) unsigned DEFAULT NULL,
-  PRIMARY KEY (`ckey`)
+CREATE TABLE `SS13_preferences` (
+	`ckey` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`preference_tag` INT(11) NOT NULL,
+	`preference_value` MEDIUMTEXT NULL COLLATE 'utf8mb4_general_ci',
+	UNIQUE INDEX `prefbinding` (`ckey`, `preference_tag`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 
 
 -- Dumping structure for table ss13tgdb.SS13_role_time
@@ -481,7 +455,7 @@ CREATE TABLE IF NOT EXISTS `SS13_schema_revision` (
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`major`,`minor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (5, 7);
+INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (6, 1);
 
 
 
@@ -532,6 +506,18 @@ CREATE TABLE IF NOT EXISTS `SS13_stickyban_matched_ip` (
   PRIMARY KEY (`stickyban`,`matched_ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Table structure for table `achievements`
+--
+DROP TABLE IF EXISTS `SS13_achievements`;
+CREATE TABLE IF NOT EXISTS `SS13_achievements` (
+	`ckey` VARCHAR(32) NOT NULL,
+	`achievement_key` VARCHAR(32) NOT NULL,
+	`value` INT NULL,
+	`last_updated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY (`ckey`,`achievement_key`)
+) ENGINE=InnoDB;
+
 DELIMITER $$
 CREATE PROCEDURE `set_poll_deleted`(
 	IN `poll_id` INT
@@ -545,6 +531,20 @@ UPDATE `SS13_poll_textreply` SET deleted = 1 WHERE pollid = poll_id;
 END
 $$
 DELIMITER ;
+
+DROP TABLE IF EXISTS `SS13_achievement_metadata`;
+CREATE TABLE IF NOT EXISTS `SS13_achievement_metadata` (
+	`achievement_key` VARCHAR(32) NOT NULL,
+	`achievement_version` SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+	`achievement_type` enum('achievement','score','award') NULL DEFAULT NULL,
+	`achievement_name` VARCHAR(64) NULL DEFAULT NULL,
+	`achievement_description` VARCHAR(512) NULL DEFAULT NULL,
+	PRIMARY KEY (`achievement_key`)
+) ENGINE=InnoDB;
+
+
+
+
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

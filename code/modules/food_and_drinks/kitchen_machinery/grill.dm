@@ -17,9 +17,9 @@
 	var/grill_time = 0
 	var/datum/looping_sound/grill/grill_loop
 
-/obj/machinery/grill/Initialize()
+/obj/machinery/grill/Initialize(mapload)
 	. = ..()
-	grill_loop = new(list(src), FALSE)
+	grill_loop = new(src, FALSE)
 
 /obj/machinery/grill/update_icon()
 	if(grilled_item)
@@ -30,7 +30,7 @@
 		icon_state = "grill_open"
 
 /obj/machinery/grill/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/stack/sheet/mineral/coal) || istype(I, /obj/item/stack/sheet/mineral/wood))
+	if(istype(I, /obj/item/stack/sheet/mineral/coal) || istype(I, /obj/item/stack/sheet/wood))
 		var/obj/item/stack/S = I
 		var/stackamount = S.get_amount()
 		to_chat(user, "<span class='notice'>You put [stackamount] [I]s in [src].</span>")
@@ -83,11 +83,11 @@
 		grill_fuel -= GRILL_FUELUSAGE_ACTIVE * delta_time
 		grilled_item.AddComponent(/datum/component/sizzle)
 
-/obj/machinery/grill/Exited(atom/movable/AM)
-	if(AM == grilled_item)
+/obj/machinery/grill/Exited(atom/movable/gone, direction)
+	if(gone == grilled_item)
 		finish_grill()
 		grilled_item = null
-	..()
+	return ..()
 
 /obj/machinery/grill/Destroy()
 	QDEL_NULL(grill_loop)

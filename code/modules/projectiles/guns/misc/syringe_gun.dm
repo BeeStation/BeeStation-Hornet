@@ -16,7 +16,7 @@
 	var/max_syringes = 1
 	var/has_syringe_overlay = TRUE ///If it has an overlay for inserted syringes. If true, the overlay is determined by the number of syringes inserted into it.
 
-/obj/item/gun/syringe/Initialize()
+/obj/item/gun/syringe/Initialize(mapload)
 	. = ..()
 	update_icon()
 	chambered = new /obj/item/ammo_casing/syringegun(src)
@@ -106,7 +106,7 @@
 	desc = "A syringe gun that has been modified to fit DNA injectors instead of normal syringes."
 	flags_1 = NONE
 
-/obj/item/gun/syringe/dna/Initialize()
+/obj/item/gun/syringe/dna/Initialize(mapload)
 	. = ..()
 	chambered = new /obj/item/ammo_casing/dnainjector(src)
 

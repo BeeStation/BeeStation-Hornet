@@ -16,7 +16,7 @@
 	var/should_supress_view_changes  = TRUE
 	light_color = LIGHT_COLOR_RED
 
-/obj/machinery/computer/camera_advanced/Initialize()
+/obj/machinery/computer/camera_advanced/Initialize(mapload)
 	. = ..()
 	for(var/i in networks)
 		networks -= i
@@ -77,7 +77,7 @@
 	playsound(src, 'sound/machines/terminal_off.ogg', 25, FALSE)
 
 /obj/machinery/computer/camera_advanced/check_eye(mob/user)
-	if( (stat & (NOPOWER|BROKEN)) || (!Adjacent(user) && !user.has_unlimited_silicon_privilege) || user.eye_blind || user.incapacitated() )
+	if( (machine_stat & (NOPOWER|BROKEN)) || (!Adjacent(user) && !user.has_unlimited_silicon_privilege) || user.is_blind() || user.incapacitated() )
 		user.unset_machine()
 
 /obj/machinery/computer/camera_advanced/Destroy()
@@ -103,7 +103,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!is_operational()) //you cant use broken machine you chumbis
+	if(!is_operational) //you cant use broken machine you chumbis
 		return
 	if(current_user)
 		to_chat(user, "The console is already in use!")
@@ -118,7 +118,7 @@
 	if(!eyeobj.eye_initialized)
 		var/camera_location
 		var/turf/myturf = get_turf(src)
-		if(eyeobj.use_static != USE_STATIC_NONE)
+		if(eyeobj.use_static != FALSE)
 			if((!z_lock.len || (myturf.z in z_lock)) && GLOB.cameranet.checkTurfVis(myturf))
 				camera_location = myturf
 			else
@@ -177,7 +177,7 @@
 	user.see_invisible = SEE_INVISIBLE_LIVING //can't see ghosts through cameras
 	user.sight = SEE_TURFS | SEE_BLACKNESS
 	user.see_in_dark = 2
-	return 1
+	return TRUE
 
 /mob/camera/ai_eye/remote/Destroy()
 	if(origin && eye_user)
@@ -191,21 +191,23 @@
 		return eye_user.client
 	return null
 
-/mob/camera/ai_eye/remote/setLoc(T)
+/mob/camera/ai_eye/remote/setLoc(destination)
 	if(eye_user)
-		T = get_turf(T)
-		if (T)
-			forceMove(T)
+		destination = get_turf(destination)
+		if (destination)
+			abstract_move(destination)
 		else
 			moveToNullspace()
+
 		update_ai_detect_hud()
-		if(use_static != USE_STATIC_NONE)
+
+		if(use_static)
 			GLOB.cameranet.visibility(src, GetViewerClient(), null, use_static)
-		if(visible_icon)
-			if(eye_user.client)
-				eye_user.client.images -= user_image
-				user_image = image(icon,loc,icon_state,FLY_LAYER)
-				eye_user.client.images += user_image
+
+		if(visible_icon && eye_user.client)
+			eye_user.client.images -= user_image
+			user_image = image(icon,loc,icon_state,FLY_LAYER)
+			eye_user.client.images += user_image
 
 /mob/camera/ai_eye/remote/relaymove(mob/user,direct)
 	var/initial = initial(sprint)

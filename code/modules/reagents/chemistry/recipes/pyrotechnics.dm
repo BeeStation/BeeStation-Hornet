@@ -24,6 +24,8 @@
 			message_admins("Reagent explosion reaction occurred at [ADMIN_VERBOSEJMP(T)][inside_msg]. Last Fingerprint: [touch_msg].")
 		log_game("Reagent explosion reaction occurred at [AREACOORD(T)]. Last Fingerprint: [lastkey ? lastkey : "N/A"]." )
 		var/datum/effect_system/reagents_explosion/e = new()
+		if(istype(holder.my_atom, /obj/item/grenade/chem_grenade))
+			e.explosion_sizes = list(0, 1, 1, 1)
 		e.set_up(power , T, 0, 0)
 		e.start()
 		holder.clear_reagents()
@@ -248,7 +250,7 @@
 	var/range = created_volume/3
 	if(isatom(holder.my_atom))
 		var/atom/A = holder.my_atom
-		A.flash_lighting_fx(_range = (range + 2), _reset_lighting = FALSE)
+		A.flash_lighting_fx(_range = (range + 2))
 	for(var/mob/living/carbon/C in hearers(range, location))
 		if(C.flash_act())
 			if(get_dist(C, location) < 4)
@@ -269,7 +271,7 @@
 	var/range = created_volume/10
 	if(isatom(holder.my_atom))
 		var/atom/A = holder.my_atom
-		A.flash_lighting_fx(_range = (range + 2), _reset_lighting = FALSE)
+		A.flash_lighting_fx(_range = (range + 2))
 	for(var/mob/living/carbon/C in hearers(range, location))
 		if(C.flash_act())
 			if(get_dist(C, location) < 4)

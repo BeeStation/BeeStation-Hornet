@@ -42,7 +42,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	slot_flags = ITEM_SLOT_BELT
 	force = 2
 	throwforce = 1
-	block_level = 1
 	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	flags_1 = SAVE_SAFE_1
@@ -86,7 +85,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 
-/obj/item/claymore/Initialize()
+/obj/item/claymore/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 40, 105)
 
@@ -104,7 +103,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	var/notches = 0 //HOW MANY PEOPLE HAVE BEEN SLAIN WITH THIS BLADE
 	var/obj/item/disk/nuclear/nuke_disk //OUR STORED NUKE DISK
 
-/obj/item/claymore/highlander/Initialize()
+/obj/item/claymore/highlander/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HIGHLANDER)
 	START_PROCESSING(SSobj, src)
@@ -128,11 +127,13 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 
 /obj/item/claymore/highlander/pickup(mob/living/user)
+	..()
 	to_chat(user, "<span class='notice'>The power of Scotland protects you! You are shielded from all stuns and knockdowns.</span>")
 	user.add_stun_absorption("highlander", INFINITY, 1, " is protected by the power of Scotland!", "The power of Scotland absorbs the stun!", " is protected by the power of Scotland!")
 	user.ignore_slowdown(HIGHLANDER)
 
 /obj/item/claymore/highlander/dropped(mob/living/user)
+	..()
 	user.unignore_slowdown(HIGHLANDER)
 	if(!QDELETED(src))
 		qdel(src) //If this ever happens, it's because you lost an arm
@@ -242,6 +243,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "Woefully underpowered in D20."
 	icon_state = "katana"
 	item_state = "katana"
+	worn_icon_state = "katana"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	flags_1 = CONDUCT_1
@@ -251,7 +253,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	w_class = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
-	block_power = 50
+	block_power = 20
 	block_level = 1
 	block_upgrade_walk = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
@@ -275,7 +277,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	force = 9
 	throwforce = 10
-	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(/datum/material/iron=1150, /datum/material/glass=75)
 	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
@@ -291,6 +292,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		qdel(src)
 
 		user.put_in_hands(S)
+		log_crafting(user, S, TRUE)
 		to_chat(user, "<span class='notice'>You fasten the glass shard to the top of the rod with the cable.</span>")
 
 	else if(istype(I, /obj/item/assembly/igniter) && !(HAS_TRAIT(I, TRAIT_NODROP)))
@@ -304,6 +306,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		qdel(src)
 
 		user.put_in_hands(P)
+		log_crafting(user, P, TRUE)
 	else
 		return ..()
 
@@ -489,7 +492,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "stick"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	block_upgrade_walk = 1
 	force = 3
 	throwforce = 5
 	throw_speed = 2
@@ -535,7 +537,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	tool_behaviour = TOOL_SAW
 	toolspeed = 1
 
-/obj/item/mounted_chainsaw/Initialize()
+/obj/item/mounted_chainsaw/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
 
@@ -630,8 +632,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "A skateboard. It can be placed on its wheels and ridden, or used as a strong weapon."
 	icon_state = "skateboard"
 	item_state = "skateboard"
-	block_level = 1
-	block_upgrade_walk = 1 //yes, you can use this to fend off attackers
+	block_upgrade_walk = 1
 	force = 12
 	throwforce = 4
 	w_class = WEIGHT_CLASS_NORMAL
@@ -757,7 +758,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	//Things in this list will be instantly splatted.  Flyman weakness is handled in the flyman species weakness proc.
 	var/list/strong_against
 
-/obj/item/melee/flyswatter/Initialize()
+/obj/item/melee/flyswatter/Initialize(mapload)
 	. = ..()
 	strong_against = typecacheof(list(
 					/mob/living/simple_animal/hostile/poison/bees/,
@@ -798,18 +799,57 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_flags = DROPDEL | ABSTRACT
 	attack_verb = list("slapped")
 	hitsound = 'sound/effects/snap.ogg'
+	/// How many smaller table smacks we can do before we're out
+	var/table_smacks_left = 3
 
-/obj/item/slapper/attack(mob/M, mob/living/carbon/human/user)
+/obj/item/slapper/attack(mob/living/M, mob/living/carbon/human/user)
 	if(ishuman(M))
 		var/mob/living/carbon/human/L = M
-		if(L?.dna?.species)
+		if(L && L.dna && L.dna.species)
 			L.dna.species.stop_wagging_tail(M)
 	user.do_attack_animation(M)
-	playsound(M, 'sound/weapons/slap.ogg', 50, 1, -1)
-	user.visible_message("<span class='danger'>[user] slaps [M]!</span>",
-	"<span class='notice'>You slap [M]!</span>",\
-	"You hear a slap.")
+
+	var/slap_volume = 50
+	if(user.zone_selected == BODY_ZONE_HEAD || user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+		user.visible_message("<span class='danger'>[user] slaps [M] in the face!</span>",
+			"<span class='notice'>You slap [M] in the face!</span>",
+			"<span class='hear'>You hear a slap.</span>")
+	else
+		user.visible_message("<span class='danger'>[user] slaps [M]!</span>",
+			"<span class='notice'>You slap [M]!</span>",
+			"<span class='hear'>You hear a slap.</span>")
+	playsound(M, 'sound/weapons/slap.ogg', slap_volume, TRUE, -1)
 	return
+
+/obj/item/slapper/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(!istype(target, /obj/structure/table))
+		return ..()
+
+	var/obj/structure/table/the_table = target
+
+	if(!proximity_flag)
+		return
+
+	if(user.a_intent == INTENT_HARM && table_smacks_left == initial(table_smacks_left)) // so you can't do 2 weak slaps followed by a big slam
+		transform = transform.Scale(5) // BIG slap
+		if(HAS_TRAIT(user, TRAIT_HULK))
+			transform = transform.Scale(2)
+			color = COLOR_GREEN
+		user.do_attack_animation(the_table)
+		//Uncomment if we ever port table slam signals
+		//SEND_SIGNAL(user, COMSIG_LIVING_SLAM_TABLE, the_table)
+		//SEND_SIGNAL(the_table, COMSIG_TABLE_SLAMMED, user)
+		playsound(get_turf(the_table), 'sound/effects/tableslam.ogg', 110, TRUE)
+		user.visible_message("<b><span class='danger'>[user] slams [user.p_their()] fist down on [the_table]!</span></b>", "<b><span class='danger'>You slam your fist down on [the_table]!</span></b>")
+		qdel(src)
+	else
+		user.do_attack_animation(the_table)
+		playsound(get_turf(the_table), 'sound/effects/tableslam.ogg', 40, TRUE)
+		user.visible_message("<span class='notice'>[user] slaps [user.p_their()] hand on [the_table].</span>", "<span class='notice'>You slap your hand on [the_table].</span>", vision_distance=COMBAT_MESSAGE_RANGE)
+		table_smacks_left--
+		if(table_smacks_left <= 0)
+			qdel(src)
+
 /obj/item/proc/can_trigger_gun(mob/living/user)
 	if(!user.can_use_guns(src))
 		return FALSE
@@ -875,7 +915,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	force = 10
 	throwforce = 5
-	block_upgrade_walk = 1
 	attack_verb = list("clubbed", "bludgeoned")
 	flags_1 = SAVE_SAFE_1
 	var/breakforce = 30

@@ -32,9 +32,9 @@
 /obj/item/projectile/bullet/p50/penetrator
 	name =".50 penetrator bullet"
 	icon_state = "gauss"
-	name = "penetrator round"
 	damage = 60
-	movement_type = FLYING | UNSTOPPABLE
+	projectile_piercing = PASSMOB
+	projectile_phasing = (ALL & (~PASSMOB))
 	dismemberment = 0 //It goes through you cleanly.
 	paralyze = 0
 	breakthings = FALSE

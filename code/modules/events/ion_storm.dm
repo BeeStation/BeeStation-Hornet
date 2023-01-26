@@ -59,7 +59,7 @@
 	if(botEmagChance)
 		for(var/mob/living/simple_animal/bot/bot in GLOB.alive_mob_list)
 			if(prob(botEmagChance))
-				bot.emag_act()
+				bot.use_emag(null)
 
 /proc/generate_ion_law()
 	var/ionspecies = pick_list(ION_FILE, "ionspecies")
@@ -99,8 +99,10 @@
 					message = "[ionaction] IS HARMFUL AND MUST BE PREVENTED WITHOUT CAUSING COLLATERAL DAMAGE"
 				if(2)
 					message = "[ionequipment] ARE HARMFUL AND MUST BE DISABLED WITHOUT CAUSING COLLATERAL DAMAGE"
-				if(3 to 4)
+				if(3)
 					message = "IT IS HARMFUL FOR ANY LIFEFORM TO BE WITHOUT [ionconsumable]. ANY LIFEFORM THAT REFUSES TO ACCEPT [ionconsumable] IS NOT MENTALLY STABLE AND SHOULD BE RESTRAINED AND LEFT IN [iondepartment]"
+				if(4)
+					message = "THE STATION REQUIRES [iondrug]. ENSURE AS MUCH [iondrug] IS PRODUCED AS POSSIBLE."
 				if(5)
 					message = "[ionobjects] ARE HARMFUL AND MUST BE DESTROYED OR REMOVED FROM THE STATION WITHOUT CAUSING COLLATERAL DAMAGE"
 				if(6)

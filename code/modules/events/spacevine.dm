@@ -275,12 +275,12 @@
 
 /datum/spacevine_mutation/woodening/on_grow(obj/structure/spacevine/holder)
 	if(holder.energy)
-		holder.density = TRUE
+		holder.set_density(TRUE)
 	holder.max_integrity = 100
 	holder.obj_integrity = holder.max_integrity
 
 /datum/spacevine_mutation/woodening/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/I, expected_damage)
-	if(I.is_sharp())
+	if(I?.is_sharp())
 		. = expected_damage * 0.5
 	else
 		. = expected_damage
@@ -316,9 +316,13 @@
 	var/datum/spacevine_controller/master = null
 	var/list/mutations = list()
 
-/obj/structure/spacevine/Initialize()
+/obj/structure/spacevine/Initialize(mapload)
 	. = ..()
 	add_atom_colour("#ffffff", FIXED_COLOUR_PRIORITY)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/spacevine/examine(mob/user)
 	. = ..()
@@ -379,10 +383,12 @@
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
-/obj/structure/spacevine/Crossed(mob/crosser)
-	if(isliving(crosser))
+/obj/structure/spacevine/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
+	if(isliving(AM))
 		for(var/datum/spacevine_mutation/SM in mutations)
-			SM.on_cross(src, crosser)
+			SM.on_cross(src, AM)
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/structure/spacevine/attack_hand(mob/user)
@@ -458,7 +464,7 @@
 
 	for(var/datum/spacevine_mutation/SM in SV.mutations)
 		SM.on_birth(SV)
-	location.Entered(SV)
+	location.Entered(SV, null)
 	return SV
 
 /datum/spacevine_controller/proc/VineDestroyed(obj/structure/spacevine/S)
@@ -538,7 +544,7 @@
 	var/turf/stepturf = get_step(src,direction)
 	if(locate(/obj/structure, stepturf) || locate(/obj/machinery, stepturf))//if we can't grow into a turf, we'll start digging into it
 		for(var/obj/structure/S in stepturf)
-			if(S.density && !istype(S, /obj/structure/reagent_dispensers/fueltank)) //don't breach the station!
+			if(S.density && !istype(S, /obj/structure/alien/resin/flower_bud_enemy) && !istype(S, /obj/structure/reagent_dispensers/fueltank)) //don't breach the station!
 				S.take_damage(25)
 		for(var/obj/machinery/M in stepturf)
 			if(M.density && !istype(M, /obj/machinery/power/smes) && !istype(M, /obj/machinery/door/airlock/external) && !istype(M, /obj/machinery/door/firedoor)) //please don't sabotage power or cause a hullbreach!
@@ -569,11 +575,10 @@
 	if(!override)
 		qdel(src)
 
-/obj/structure/spacevine/CanPass(atom/movable/mover, turf/target)
+/obj/structure/spacevine/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(isvineimmune(mover))
-		. = TRUE
-	else
-		. = ..()
+		return TRUE
 
 /proc/isvineimmune(atom/A)
 	. = FALSE

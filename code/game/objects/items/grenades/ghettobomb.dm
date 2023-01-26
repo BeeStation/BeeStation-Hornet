@@ -19,7 +19,7 @@
 	var/range = 3
 	var/list/times
 
-/obj/item/grenade/iedcasing/Initialize()
+/obj/item/grenade/iedcasing/Initialize(mapload)
 	. = ..()
 	add_overlay("improvised_grenade_filled")
 	add_overlay("improvised_grenade_wired")
@@ -52,6 +52,8 @@
 
 /obj/item/grenade/iedcasing/prime(mob/living/lanced_by) //Blowing that can up
 	. = ..()
+	if(!.)
+		return
 	update_mob()
 	explosion(src.loc,-1,-1,2, flame_range = 4)	// small explosion, plus a very large fireball.
 	qdel(src)

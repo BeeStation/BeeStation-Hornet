@@ -12,7 +12,23 @@
 		if("grab")
 			grabbedby(M)
 
-		if("harm", "disarm")
+		if("disarm")
+			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
+			playsound(src, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+			var/shove_dir = get_dir(M, src)
+			if(!Move(get_step(src, shove_dir), shove_dir))
+				log_combat(M, src, "shoved", "failing to move it")
+				M.visible_message("<span class='danger'>[M.name] shoves [src]!</span>",
+					"<span class='danger'>You shove [src]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", COMBAT_MESSAGE_RANGE, list(src))
+				to_chat(src, "<span class='userdanger'>You're shoved by [M.name]!</span>")
+				return TRUE
+			log_combat(M, src, "shoved", "pushing it")
+			M.visible_message("<span class='danger'>[M.name] shoves [src], pushing [p_them()]!</span>",
+				"<span class='danger'>You shove [src], pushing [p_them()]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", COMBAT_MESSAGE_RANGE, list(src))
+			to_chat(src, "<span class='userdanger'>You're pushed by [name]!</span>")
+			return TRUE
+
+		if("harm")
 			if(HAS_TRAIT(M, TRAIT_PACIFISM))
 				to_chat(M, "<span class='notice'>You don't want to hurt [src]!</span>")
 				return
@@ -20,7 +36,7 @@
 			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>",\
 				"<span class='userdanger'>[M] [response_harm] you!</span>", null, COMBAT_MESSAGE_RANGE)
 			playsound(loc, attacked_sound, 25, 1, -1)
-			attack_threshold_check(harm_intent_damage)
+			attack_threshold_check(M.dna.species.punchdamage)
 			log_combat(M, src, "attacked")
 			updatehealth()
 			return TRUE
@@ -108,9 +124,9 @@
 		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
 		return TRUE
 
-/mob/living/simple_animal/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/bullet_act(obj/item/projectile/Proj, def_zone, piercing_hit = FALSE)
 	apply_damage(Proj.damage, Proj.damage_type)
-	Proj.on_hit(src)
+	Proj.on_hit(src, 0, piercing_hit)
 	return BULLET_ACT_HIT
 
 /mob/living/simple_animal/ex_act(severity, target, origin)

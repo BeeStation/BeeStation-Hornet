@@ -5,7 +5,7 @@
 	icon_state = "mmi_off"
 	w_class = WEIGHT_CLASS_NORMAL
 	flags_1 = SAVE_SAFE_1
-	var/braintype = "Cyborg"
+	var/braintype = JOB_NAME_CYBORG
 	var/obj/item/radio/radio = null //Let's give it a radio.
 	var/mob/living/brain/brainmob = null //The current occupant.
 	var/mob/living/silicon/robot = null //Appears unused.
@@ -30,7 +30,7 @@
 	else
 		add_overlay("mmi_dead")
 
-/obj/item/mmi/Initialize()
+/obj/item/mmi/Initialize(mapload)
 	. = ..()
 	radio = new(src) //Spawns a radio inside the MMI.
 	radio.broadcasting = FALSE //researching radio mmis turned the robofabs into radios because this didnt start as 0.
@@ -222,7 +222,7 @@
 	overrides_aicore_laws = TRUE
 	flags_1 = NONE
 
-/obj/item/mmi/syndie/Initialize()
+/obj/item/mmi/syndie/Initialize(mapload)
 	. = ..()
 	laws = new /datum/ai_laws/syndicate_override()
 	radio.on = FALSE

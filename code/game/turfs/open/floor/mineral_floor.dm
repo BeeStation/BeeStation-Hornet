@@ -17,7 +17,7 @@
 	tiled_dirt = FALSE
 
 
-/turf/open/floor/mineral/Initialize()
+/turf/open/floor/mineral/Initialize(mapload)
 	if(!broken_states)
 		broken_states = list("[initial(icon_state)]_dam")
 	. = ..()
@@ -97,26 +97,67 @@
 
 /turf/open/floor/mineral/titanium/yellow
 	icon_state = "titanium_yellow"
+	floor_tile = /obj/item/stack/tile/mineral/titanium/yellow
 
 /turf/open/floor/mineral/titanium/yellow/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
 /turf/open/floor/mineral/titanium/blue
 	icon_state = "titanium_blue"
+	floor_tile = /obj/item/stack/tile/mineral/titanium/blue
 
 /turf/open/floor/mineral/titanium/blue/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
 /turf/open/floor/mineral/titanium/white
 	icon_state = "titanium_white"
+	floor_tile = /obj/item/stack/tile/mineral/titanium/white
 
 /turf/open/floor/mineral/titanium/white/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
 /turf/open/floor/mineral/titanium/purple
 	icon_state = "titanium_purple"
+	floor_tile = /obj/item/stack/tile/mineral/titanium/purple
 
 /turf/open/floor/mineral/titanium/purple/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/floor/mineral/titanium/alt
+	name = "titanium floor"
+	icon_state = "titanium_alt"
+	floor_tile = /obj/item/stack/tile/mineral/titanium/alt
+	broken_states = list("titanium_dam1_alt","titanium_dam2_alt","titanium_dam3_alt","titanium_dam4_alt","titanium_dam5_alt")
+
+/turf/open/floor/mineral/titanium/alt/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/floor/mineral/titanium/alt/yellow
+	icon_state = "titanium_yellow_alt"
+	floor_tile = /obj/item/stack/tile/mineral/titanium/alt/yellow
+
+/turf/open/floor/mineral/titanium/alt/yellow/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/floor/mineral/titanium/alt/blue
+	icon_state = "titanium_blue_alt"
+	floor_tile = /obj/item/stack/tile/mineral/titanium/alt/yellow
+
+/turf/open/floor/mineral/titanium/alt/blue/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/floor/mineral/titanium/alt/white
+	icon_state = "titanium_white_alt"
+	floor_tile = /obj/item/stack/tile/mineral/titanium/alt/yellow
+
+/turf/open/floor/mineral/titanium/alt/white/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/floor/mineral/titanium/alt/purple
+	icon_state = "titanium_purple_alt"
+	floor_tile = /obj/item/stack/tile/mineral/titanium/alt/yellow
+
+/turf/open/floor/mineral/titanium/alt/purple/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
 //PLASTITANIUM (syndieshuttle)
@@ -147,11 +188,12 @@
 	icons = list("bananium","bananium_dam")
 	var/spam_flag = 0
 
-/turf/open/floor/mineral/bananium/Entered(var/mob/living/L)
-	.=..()
-	if(!.)
-		if(istype(L))
-			squeak()
+/turf/open/floor/mineral/bananium/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(.)
+		return
+	if(isliving(arrived))
+		squeak()
 
 /turf/open/floor/mineral/bananium/attackby(obj/item/W, mob/user, params)
 	.=..()
@@ -200,11 +242,12 @@
 	var/last_event = 0
 	var/active = null
 
-/turf/open/floor/mineral/uranium/Entered(var/mob/AM)
-	.=..()
-	if(!.)
-		if(istype(AM))
-			radiate()
+/turf/open/floor/mineral/uranium/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(.)
+		return
+	if(isliving(arrived))
+		radiate()
 
 /turf/open/floor/mineral/uranium/attackby(obj/item/W, mob/user, params)
 	.=..()
@@ -240,7 +283,7 @@
 	icons = list("alienpod1", "alienpod2", "alienpod3", "alienpod4", "alienpod5", "alienpod6", "alienpod7", "alienpod8", "alienpod9")
 	baseturfs = /turf/open/floor/plating/abductor2
 
-/turf/open/floor/mineral/abductor/Initialize()
+/turf/open/floor/mineral/abductor/Initialize(mapload)
 	. = ..()
 	icon_state = "alienpod[rand(1,9)]"
 

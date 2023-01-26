@@ -27,7 +27,7 @@
 	var/icon_uncapped
 	var/use_overlays = FALSE
 
-	item_color = "red"
+	var/crayon_color = "red"
 	w_class = WEIGHT_CLASS_TINY
 	attack_verb = list("attacked", "coloured")
 	grind_results = list()
@@ -43,7 +43,7 @@
 	var/static/list/runes = list("rune1","rune2","rune3","rune4","rune5","rune6")
 	var/static/list/randoms = list(RANDOM_ANY, RANDOM_RUNE, RANDOM_ORIENTED,
 		RANDOM_NUMBER, RANDOM_GRAFFITI, RANDOM_LETTER, RANDOM_SYMBOL, RANDOM_PUNCTUATION, RANDOM_DRAWING)
-	var/static/list/graffiti_large_h = list("yiffhell", "secborg", "paint")
+	var/static/list/graffiti_large_h = list("secborg", "paint")
 
 	var/static/list/all_drawables = graffiti + symbols + drawings + oriented + runes + graffiti_large_h
 
@@ -79,13 +79,13 @@
 	user.visible_message("<span class='suicide'>[user] is jamming [src] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (BRUTELOSS|OXYLOSS)
 
-/obj/item/toy/crayon/Initialize()
+/obj/item/toy/crayon/Initialize(mapload)
 	. = ..()
 	// Makes crayons identifiable in things like grinders
 	if(name == "crayon")
-		name = "[item_color] crayon"
+		name = "[crayon_color] crayon"
 
-	drawtype = pick(all_drawables)
+	dye_color = crayon_color
 
 	refill()
 
@@ -352,7 +352,7 @@
 		wait_time = 1 SECONDS
 		if (territory_claimed(get_area(target), user))
 			wait_time = 20 SECONDS
-	if(!instant)
+	if(!instant || paint_mode == PAINT_LARGE_HORIZONTAL)
 		to_chat(user, "<span class='notice'>You start drawing a [temp] on the [target.name]...</span>") // hippie -- removed a weird tab that had no reason to be here
 		if(!do_after(user, wait_time, target = target))
 			return
@@ -431,66 +431,75 @@
 /obj/item/toy/crayon/red
 	icon_state = "crayonred"
 	paint_color = "#DA0000"
-	item_color = "red"
+	crayon_color = "red"
 	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent/powder/red/crayon = 1.5)
+	dye_color = DYE_RED
 
 /obj/item/toy/crayon/orange
 	icon_state = "crayonorange"
 	paint_color = "#FF9300"
-	item_color = "orange"
+	crayon_color = "orange"
 	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent/powder/orange/crayon = 1.5)
+	dye_color = DYE_ORANGE
 
 /obj/item/toy/crayon/yellow
 	icon_state = "crayonyellow"
 	paint_color = "#FFF200"
-	item_color = "yellow"
+	crayon_color = "yellow"
 	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent/powder/yellow/crayon = 1.5)
+	dye_color = DYE_YELLOW
 
 /obj/item/toy/crayon/green
 	icon_state = "crayongreen"
 	paint_color = "#A8E61D"
-	item_color = "green"
+	crayon_color = "green"
 	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent/powder/green/crayon = 1.5)
+	dye_color = DYE_GREEN
 
 /obj/item/toy/crayon/blue
 	icon_state = "crayonblue"
 	paint_color = "#00B7EF"
-	item_color = "blue"
+	crayon_color = "blue"
 	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent/powder/blue/crayon = 1.5)
+	dye_color = DYE_BLUE
 
 /obj/item/toy/crayon/purple
 	icon_state = "crayonpurple"
 	paint_color = "#DA00FF"
-	item_color = "purple"
+	crayon_color = "purple"
 	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent/powder/purple/crayon = 1.5)
+	dye_color = DYE_PURPLE
 
 /obj/item/toy/crayon/black
 	icon_state = "crayonblack"
 	paint_color = "#1C1C1C" //Not completely black because total black looks bad. So Mostly Black.
-	item_color = "black"
+	crayon_color = "black"
 	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent/powder/black/crayon = 1.5)
+	dye_color = DYE_BLACK
 
 /obj/item/toy/crayon/white
 	icon_state = "crayonwhite"
 	paint_color = "#FFFFFF"
-	item_color = "white"
+	crayon_color = "white"
 	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5,  /datum/reagent/colorful_reagent/powder/white/crayon = 1.5)
+	dye_color = DYE_WHITE
 
 /obj/item/toy/crayon/mime
 	icon_state = "crayonmime"
 	desc = "A very sad-looking crayon."
 	paint_color = "#FFFFFF"
-	item_color = "mime"
+	crayon_color = "mime"
 	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent/powder/invisible = 1.5)
 	charges = -1
+	dye_color = DYE_MIME
 
 /obj/item/toy/crayon/rainbow
 	icon_state = "crayonrainbow"
 	paint_color = "#FFF000"
-	item_color = "rainbow"
+	crayon_color = "rainbow"
 	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5, /datum/reagent/colorful_reagent = 1.5)
 	drawtype = RANDOM_ANY // just the default starter.
-
+	dye_color = DYE_RAINBOW
 	charges = -1
 
 /obj/item/toy/crayon/rainbow/afterattack(atom/target, mob/user, proximity, params)
@@ -508,7 +517,7 @@
 	icon_state = "crayonbox"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/storage/crayons/Initialize()
+/obj/item/storage/crayons/Initialize(mapload)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 7
@@ -527,12 +536,12 @@
 /obj/item/storage/crayons/update_icon()
 	cut_overlays()
 	for(var/obj/item/toy/crayon/crayon in contents)
-		add_overlay(mutable_appearance('icons/obj/crayons.dmi', crayon.item_color))
+		add_overlay(mutable_appearance('icons/obj/crayons.dmi', crayon.crayon_color))
 
 /obj/item/storage/crayons/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = W
-		switch(C.item_color)
+		switch(C.crayon_color)
 			if("mime")
 				to_chat(usr, "This crayon is too sad to be contained in this box.")
 				return
@@ -572,6 +581,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/hydroponics_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/hydroponics_righthand.dmi'
 	desc = "A metallic container containing tasty paint."
+	w_class = WEIGHT_CLASS_SMALL
 
 	instant = TRUE
 	edible = FALSE
@@ -614,7 +624,7 @@
 
 		return (OXYLOSS)
 
-/obj/item/toy/crayon/spraycan/Initialize()
+/obj/item/toy/crayon/spraycan/Initialize(mapload)
 	. = ..()
 	// If default crayon red colour, pick a more fun spraycan colour
 	if(!paint_color)
@@ -672,7 +682,7 @@
 
 		return
 
-	if(isobj(target))
+	if(isobj(target) && !(target.flags_1 & UNPAINTABLE_1))
 		if(actually_paints)
 			if(color_hex2num(paint_color) < 350 && !istype(target, /obj/structure/window)) //Colors too dark are rejected
 				if(isclothing(target))
@@ -870,7 +880,7 @@
 	pre_noise = FALSE
 	post_noise = TRUE
 
-/obj/item/toy/crayon/spraycan/gang/Initialize(loc, datum/team/gang/G)
+/obj/item/toy/crayon/spraycan/gang/Initialize(mapload, loc, datum/team/gang/G)
 	.=..()
 	if(G)
 		gang = G

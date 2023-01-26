@@ -1,3 +1,4 @@
+#define	SWITCH_EMPTY_STATEMENT	;	//For the new switch rand check so we can have an empty condition remove when no longer needed
 // Interfaces for the SpacemanDMM linter, define'd to nothing when the linter
 // is not in use.
 
@@ -36,12 +37,6 @@
 
 /proc/enable_debugging(mode, port)
 	CRASH("auxtools not loaded")
-
-/world/proc/enable_debugger()
-	var/dll = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
-	if (dll)
-		call(dll, "auxtools_init")()
-		enable_debugging()
 
 /world/Del()
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")

@@ -23,7 +23,7 @@
 	AddComponent(/datum/component/plumbing/simple_demand, bolt)
 
 /obj/machinery/plumbing/bottle_dispenser/process()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		return
 	if((reagents.total_volume >= bottle_size) && (stored_bottles.len < max_stored_bottles))
 		var/obj/item/reagent_containers/glass/bottle/P = new(src)

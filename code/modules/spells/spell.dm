@@ -15,7 +15,7 @@
 	var/action_background_icon_state = "bg_spell"
 	var/base_action = /datum/action/spell_action
 
-/obj/effect/proc_holder/Initialize()
+/obj/effect/proc_holder/Initialize(mapload)
 	. = ..()
 	if(has_action)
 		action = new base_action(src)
@@ -153,6 +153,14 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 	var/centcom_cancast = TRUE //Whether or not the spell should be allowed on z2
 
+
+	/// Typecache of clothing needed to cast the spell. Used in actual checks. Override in Initialize if your spell requires different clothing.
+	/// !!Shared between instances, make a copy to modify.
+	var/list/casting_clothes
+
+	/// Base typecache of clothing needed to cast spells. Do not modify, make a separate static var in subtypes if necessary.
+	var/static/list/casting_clothes_base
+
 	action_icon = 'icons/mob/actions/actions_spells.dmi'
 	action_icon_state = "spell_default"
 	action_background_icon_state = "bg_spell"
@@ -204,13 +212,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		if((invocation_type == "whisper" || invocation_type == "shout") && !H.can_speak_vocal())
 			to_chat(user, "<span class='notice'>You can't get the words out!</span>")
 			return FALSE
-
-		var/list/casting_clothes = typecacheof(list(/obj/item/clothing/suit/wizrobe,
-		/obj/item/clothing/suit/space/hardsuit/wizard,
-		/obj/item/clothing/head/wizard,
-		/obj/item/clothing/head/helmet/space/hardsuit/wizard,
-		/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
-		/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard))
 
 		if(clothes_req) //clothes check
 			if(!is_type_in_typecache(H.wear_suit, casting_clothes))
@@ -279,8 +280,18 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 /obj/effect/proc_holder/spell/proc/playMagSound()
 	playsound(get_turf(usr), sound,50,1)
 
-/obj/effect/proc_holder/spell/Initialize()
+/obj/effect/proc_holder/spell/Initialize(mapload)
 	. = ..()
+
+	if(!casting_clothes_base)
+		casting_clothes_base = typecacheof(list(/obj/item/clothing/suit/wizrobe,
+			/obj/item/clothing/suit/space/hardsuit/wizard,
+			/obj/item/clothing/head/wizard,
+			/obj/item/clothing/head/helmet/space/hardsuit/wizard,
+			/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
+			/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard))
+
+	casting_clothes = casting_clothes_base
 
 	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
 	charge_counter = charge_max
@@ -349,7 +360,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			spell.icon = overlay_icon
 			spell.icon_state = overlay_icon_state
 			spell.anchored = TRUE
-			spell.density = FALSE
+			spell.set_density(FALSE)
 			QDEL_IN(spell, overlay_lifespan)
 
 /obj/effect/proc_holder/spell/proc/after_cast(list/targets)
@@ -606,7 +617,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	timer_overlay.alpha = 180
 
 	if(!text_overlay)
-		text_overlay = image(loc = action.button, layer=ABOVE_HUD_LAYER)
+		text_overlay = image(loc = action.button)
 		text_overlay.maptext_width = 64
 		text_overlay.maptext_height = 64
 		text_overlay.maptext_x = -8
@@ -616,7 +627,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	if(action.owner?.client)
 		action.owner.client.images += text_overlay
 
-	action.button.add_overlay(timer_overlay, TRUE)
+	action.button.add_overlay(timer_overlay)
 	action.has_cooldown_timer = TRUE
 	update_timer_animation()
 
@@ -634,7 +645,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	timer_overlay_active = FALSE
 	if(action.owner?.client)
 		action.owner.client.images -= text_overlay
-	action.button.cut_overlay(timer_overlay, TRUE)
+	action.button.cut_overlays(timer_overlay)
 	timer_overlay = null
 	qdel(text_overlay)
 	text_overlay = null

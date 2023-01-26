@@ -8,7 +8,6 @@
 	products = list(/obj/item/clothing/glasses/meson/engine = 2,
 					/obj/item/clothing/glasses/welding = 3,
 					/obj/item/multitool = 4,
-					/obj/item/construction/rcd/loaded = 3,
 					/obj/item/grenade/chem_grenade/smart_metal_foam = 10,
 					/obj/item/geiger_counter = 5,
 					/obj/item/stock_parts/cell/high = 10,
@@ -25,7 +24,7 @@
 	refill_canister = /obj/item/vending_refill/engivend
 	default_price = 20
 	extra_price = 50
-	payment_department = ACCOUNT_ENG
+	dept_req_for_free = ACCOUNT_ENG_BITFLAG
 
 /obj/item/vending_refill/engivend
 	machine_name = "Engi-Vend"

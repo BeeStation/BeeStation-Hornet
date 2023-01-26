@@ -36,7 +36,7 @@
 	trail.icon = trail_icon
 	trail.icon_state = trail_icon_state
 	//might be changed to temp overlay
-	trail.density = FALSE
+	trail.set_density(FALSE)
 	trail.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	QDEL_IN(trail, trail_lifespan)
 
@@ -91,7 +91,7 @@
 		projectile.icon_state = proj_icon_state
 		projectile.name = proj_name
 		if(proj_insubstantial)
-			projectile.movement_type |= UNSTOPPABLE
+			projectile.movement_type |= PHASING
 		if(proj_homing)
 			projectile.homing = TRUE
 			projectile.homing_turn_speed = 360 //Perfect tracking

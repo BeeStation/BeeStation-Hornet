@@ -8,8 +8,6 @@ GLOBAL_VAR(restart_counter)
 	//Keep the auxtools stuff at the top
 	AUXTOOLS_CHECK(AUXMOS)
 
-	enable_debugger()
-
 	log_world("World loaded at [time_stamp()]!")
 	SSmetrics.world_init_time = REALTIMEOFDAY // Important
 
@@ -18,6 +16,13 @@ GLOBAL_VAR(restart_counter)
 	GLOB.config_error_log = GLOB.world_manifest_log = GLOB.world_pda_log = GLOB.world_job_debug_log = GLOB.sql_error_log = GLOB.world_href_log = GLOB.world_runtime_log = GLOB.world_attack_log = GLOB.world_game_log = "data/logs/config_error.[GUID()].log" //temporary file used to record errors with loading config, moved to log directory once logging is set bl
 
 	config.Load(params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
+
+	generate_selectable_species() // This needs to happen early on to avoid the debugger crying. It needs to be after config load but before you login.
+	make_datum_references_lists_late_setup() // late setup
+
+	#ifdef REFERENCE_DOING_IT_LIVE
+	GLOB.harddel_log = GLOB.world_game_log
+	#endif
 
 	GLOB.revdata = new
 
@@ -124,6 +129,10 @@ GLOBAL_VAR(restart_counter)
 	GLOB.test_log = file("[GLOB.log_directory]/tests.log")
 	start_log(GLOB.test_log)
 #endif
+#ifdef REFERENCE_DOING_IT_LIVE
+	GLOB.harddel_log = "[GLOB.log_directory]/harddels.log"
+	start_log(GLOB.harddel_log)
+#endif
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_attack_log)
 	start_log(GLOB.world_pda_log)
@@ -155,23 +164,35 @@ GLOBAL_VAR(restart_counter)
 
 	var/list/response[] = list()
 
-	if (length(T) > CONFIG_GET(number/topic_max_size))
+	if(length(T) > CONFIG_GET(number/topic_max_size))
 		response["statuscode"] = 413
 		response["response"] = "Payload too large"
 		return json_encode(response)
 
-	if (SSfail2topic?.IsRateLimited(addr))
+	if(SSfail2topic?.IsRateLimited(addr))
 		response["statuscode"] = 429
 		response["response"] = "Rate limited"
 		return json_encode(response)
 
-	var/list/params[] = json_decode(rustg_url_decode(T))
+	var/logging = CONFIG_GET(flag/log_world_topic)
+	var/topic_decoded = rustg_url_decode(T)
+	if(!rustg_json_is_valid(topic_decoded))
+		if(logging)
+			log_topic("(NON-JSON) \"[topic_decoded]\", from:[addr], master:[master], key:[key]")
+		// Fallback check for spacestation13.com requests
+		if(topic_decoded == "ping")
+			return length(GLOB.clients)
+		response["statuscode"] = 400
+		response["response"] = "Bad Request - Invalid JSON format"
+		return json_encode(response)
+
+	var/list/params[] = json_decode(topic_decoded)
 	params["addr"] = addr
 	var/query = params["query"]
 	var/auth = params["auth"]
 	var/source = params["source"]
 
-	if(CONFIG_GET(flag/log_world_topic))
+	if(logging)
 		var/list/censored_params = params.Copy()
 		censored_params["auth"] = "***[copytext(params["auth"], -4)]"
 		log_topic("\"[json_encode(censored_params)]\", from:[addr], master:[master], auth:[censored_params["auth"]], key:[key], source:[source]")
@@ -186,12 +207,12 @@ GLOBAL_VAR(restart_counter)
 		response["response"] = "Bad Request - No endpoint specified"
 		return json_encode(response)
 
-	if(!LAZYACCESS(GLOB.topic_tokens[auth], query))
+	if(!LAZYACCESS(GLOB.topic_tokens["[auth]"], "[query]"))
 		response["statuscode"] = 401
 		response["response"] = "Unauthorized - Bad auth"
 		return json_encode(response)
 
-	var/datum/world_topic/command = GLOB.topic_commands[query]
+	var/datum/world_topic/command = GLOB.topic_commands["[query]"]
 	if(!command)
 		response["statuscode"] = 501
 		response["response"] = "Not Implemented"
@@ -246,6 +267,7 @@ GLOBAL_VAR(restart_counter)
 
 /world/Reboot(reason = 0, fast_track = FALSE)
 	if (reason || fast_track) //special reboot, do none of the normal stuff
+		SSdbcore.Disconnect()
 		if (usr)
 			log_admin("[key_name(usr)] Has requested an immediate world restart via client side debugging tools")
 			message_admins("[key_name_admin(usr)] Has requested an immediate world restart via client side debugging tools")
@@ -299,9 +321,6 @@ GLOBAL_VAR(restart_counter)
 
 	var/list/features = list()
 
-	if(GLOB.master_mode)
-		features += GLOB.master_mode
-
 	if (!GLOB.enter_allowed)
 		features += "closed"
 
@@ -315,7 +334,8 @@ GLOBAL_VAR(restart_counter)
 		hostedby = CONFIG_GET(string/hostedby)
 
 	s += "<b>[station_name()]</b>";
-	s += "(<a href='https://discord.gg/z9ttAvA'>Discord</a>|<a href='http://beestation13.com'>Website</a>)"
+	var/discordurl = CONFIG_GET(string/discordurl)
+	s += " (<a href='[discordurl]'>Discord</a>|<a href='http://beestation13.com'>Website</a>)"
 
 	var/players = GLOB.clients.len
 
@@ -324,18 +344,17 @@ GLOBAL_VAR(restart_counter)
 	if (popcap)
 		popcaptext = "/[popcap]"
 
-	if (players > 1)
-		features += "[players][popcaptext] players"
-	else if (players > 0)
-		features += "[players][popcaptext] player"
-
 	game_state = (CONFIG_GET(number/extreme_popcap) && players >= CONFIG_GET(number/extreme_popcap)) //tells the hub if we are full
 
 	if (!host && hostedby)
 		features += "hosted by <b>[hostedby]</b>"
 
-	if (features)
+	if(length(features))
 		s += ": [jointext(features, ", ")]"
+
+	s += "<br>Time: <b>[gameTimestamp("hh:mm")]</b>"
+	s += "<br>Alert: <b>[capitalize(get_security_level())]</b>"
+	s += "<br>Players: <b>[players][popcaptext]</b>"
 
 	status = s
 

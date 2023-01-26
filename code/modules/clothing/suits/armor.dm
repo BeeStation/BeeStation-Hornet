@@ -13,7 +13,7 @@
 	clothing_flags = THICKMATERIAL
 	flags_1 = SAVE_SAFE_1
 
-/obj/item/clothing/suit/armor/Initialize()
+/obj/item/clothing/suit/armor/Initialize(mapload)
 	. = ..()
 	if(!allowed)
 		allowed = GLOB.security_vest_allowed
@@ -185,7 +185,7 @@
 	resistance_flags = FLAMMABLE
 	dog_fashion = null
 
-/obj/item/clothing/suit/armor/vest/det_suit/Initialize()
+/obj/item/clothing/suit/armor/vest/det_suit/Initialize(mapload)
 	. = ..()
 	allowed = GLOB.detective_vest_allowed
 

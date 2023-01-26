@@ -16,7 +16,7 @@
 	var/allow_clothing = FALSE
 	var/allow_living = FALSE
 
-/obj/machinery/harvester/Initialize()
+/obj/machinery/harvester/Initialize(mapload)
 	. = ..()
 	if(prob(1))
 		name = "auto-autopsy"
@@ -152,16 +152,14 @@
 		return TRUE
 
 /obj/machinery/harvester/default_pry_open(obj/item/I) //wew
-	. = !(state_open || panel_open || (flags_1 & NODECONSTRUCT_1)) && I.tool_behaviour == TOOL_CROWBAR //We removed is_operational() here
+	. = !(state_open || panel_open || (flags_1 & NODECONSTRUCT_1)) && I.tool_behaviour == TOOL_CROWBAR //We removed is_operational here
 	if(.)
 		I.play_tool_sound(src, 50)
 		visible_message("<span class='notice'>[usr] pries open \the [src].</span>", "<span class='notice'>You pry open [src].</span>")
 		open_machine()
 
-/obj/machinery/harvester/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/harvester/on_emag(mob/user)
+	..()
 	allow_living = TRUE
 	to_chat(user, "<span class='warning'>You overload [src]'s lifesign scanners.</span>")
 
@@ -173,10 +171,10 @@
 	else
 		to_chat(user,"<span class='warning'>[src] is active and can't be opened!</span>") //rip
 
-/obj/machinery/harvester/Exited(atom/movable/user)
+/obj/machinery/harvester/Exited(atom/movable/gone, direction)
 	. = ..()
-	if (!state_open && user == occupant)
-		container_resist(user)
+	if (!state_open && gone == occupant)
+		container_resist(gone)
 
 /obj/machinery/harvester/relaymove(mob/user)
 	if (!state_open)
@@ -184,7 +182,7 @@
 
 /obj/machinery/harvester/examine(mob/user)
 	. = ..()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 	if(state_open)
 		. += "<span class='notice'>[src] must be closed before harvesting.</span>"

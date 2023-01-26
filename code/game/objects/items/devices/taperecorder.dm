@@ -12,6 +12,8 @@
 	force = 2
 	throwforce = 0
 	flags_1 = SAVE_SAFE_1
+	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
+	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
 	var/recording = 0
 	var/playing = 0
 	var/playsleepseconds = 0
@@ -290,6 +292,6 @@
 /obj/item/tape/random
 	icon_state = "random_tape"
 
-/obj/item/tape/random/Initialize()
+/obj/item/tape/random/Initialize(mapload)
 	. = ..()
 	icon_state = "tape_[pick("white", "blue", "red", "yellow", "purple")]"

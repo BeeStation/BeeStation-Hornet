@@ -1,7 +1,7 @@
 /obj/item/bodypart/head
 	name = BODY_ZONE_HEAD
 	desc = "Didn't make sense not to live for fun, your brain gets smart but your head gets dumb."
-	icon = 'icons/mob/human_parts.dmi'
+	icon = 'icons/mob/human_parts_greyscale.dmi'
 	icon_state = "default_human_head"
 	max_damage = 200
 	body_zone = BODY_ZONE_HEAD
@@ -13,6 +13,7 @@
 	px_y = -8
 	stam_damage_coeff = 1
 	max_stamina_damage = 100
+	is_dimorphic = TRUE
 
 	var/mob/living/brain/brainmob = null //The current occupant.
 	var/obj/item/organ/brain/brain = null //The brain organ
@@ -64,7 +65,7 @@
 
 /obj/item/bodypart/head/examine(mob/user)
 	. = ..()
-	if(status == BODYPART_ORGANIC)
+	if(IS_ORGANIC_LIMB(src))
 		if(!brain)
 			. += "<span class='info'>The brain has been removed from [src].</span>"
 		else if(brain.suicided || brainmob?.suiciding)
@@ -98,7 +99,7 @@
 
 /obj/item/bodypart/head/drop_organs(mob/user, violent_removal)
 	var/turf/T = get_turf(src)
-	if(status != BODYPART_ROBOTIC)
+	if(IS_ORGANIC_LIMB(src))
 		playsound(T, 'sound/misc/splort.ogg', 50, 1, -1)
 	for(var/obj/item/I in src)
 		if(I == brain)
@@ -124,7 +125,7 @@
 	ears = null
 	tongue = null
 
-/obj/item/bodypart/head/update_limb(dropping_limb, mob/living/carbon/source)
+/obj/item/bodypart/head/update_limb(dropping_limb, mob/living/carbon/source, is_creating)
 	var/mob/living/carbon/C
 	if(source)
 		C = source
@@ -138,7 +139,7 @@
 		facial_hair_style = "Shaved"
 		lip_style = null
 
-	else if(!animal_origin)
+	else if(!animal_origin && ishuman(C))
 		var/mob/living/carbon/human/H = C
 		var/datum/species/S = H.dna.species
 
@@ -200,7 +201,7 @@
 	. = ..()
 	if(dropped) //certain overlays only appear when the limb is being detached from its owner.
 
-		if(status != BODYPART_ROBOTIC) //having a robotic head hides certain features.
+		if(IS_ORGANIC_LIMB(src)) //having a robotic head hides certain features.
 			//facial hair
 			if(facial_hair_style)
 				var/datum/sprite_accessory/S = GLOB.facial_hair_styles_list[facial_hair_style]
@@ -232,28 +233,30 @@
 					. += hair_overlay
 
 
-		// lipstick
-		if(lip_style)
-			var/image/lips_overlay = image('icons/mob/human_face.dmi', "lips_[lip_style]", -BODY_LAYER, SOUTH)
-			lips_overlay.color = lip_color
-			. += lips_overlay
+			// lipstick
+			if(lip_style)
+				var/image/lips_overlay = image('icons/mob/human_face.dmi', "lips_[lip_style]", -BODY_LAYER, SOUTH)
+				lips_overlay.color = lip_color
+				. += lips_overlay
 
-		// eyes
-		var/image/eyes_overlay = image('icons/mob/human_face.dmi', "eyes_missing", -BODY_LAYER, SOUTH)
-		. += eyes_overlay
-		if(eyes)
-			eyes_overlay.icon_state = eyes.eye_icon_state
+			// eyes
+			var/image/eyes_overlay = image('icons/mob/human_face.dmi', "eyes_missing", -BODY_LAYER, SOUTH)
+			. += eyes_overlay
+			if(eyes)
+				eyes_overlay.icon_state = eyes.eye_icon_state
 
-			if(eyes.eye_color)
-				eyes_overlay.color = "#" + eyes.eye_color
+				if(eyes.eye_color)
+					eyes_overlay.color = "#" + eyes.eye_color
 
 /obj/item/bodypart/head/monkey
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "default_monkey_head"
+	limb_id = SPECIES_MONKEY
 	animal_origin = MONKEY_BODYPART
 
 /obj/item/bodypart/head/monkey/teratoma
 	icon_state = "teratoma_head"
+	limb_id = "teratoma"
 	animal_origin = TERATOMA_BODYPART
 
 /obj/item/bodypart/head/alien

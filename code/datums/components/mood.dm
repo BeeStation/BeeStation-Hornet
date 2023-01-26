@@ -21,7 +21,7 @@
 
 	RegisterSignal(parent, COMSIG_ADD_MOOD_EVENT, .proc/add_event)
 	RegisterSignal(parent, COMSIG_CLEAR_MOOD_EVENT, .proc/clear_event)
-	RegisterSignal(parent, COMSIG_ENTER_AREA, .proc/check_area_mood)
+	RegisterSignal(parent, COMSIG_MOVABLE_ENTERED_AREA, .proc/check_area_mood)
 
 	RegisterSignal(parent, COMSIG_MOB_HUD_CREATED, .proc/modify_hud)
 	RegisterSignal(parent, COMSIG_HUMAN_VOID_MASK_ACT, .proc/direct_sanity_drain)
@@ -34,10 +34,11 @@
 /datum/component/mood/Destroy()
 	STOP_PROCESSING(SSmood, src)
 	unmodify_hud()
+	QDEL_LIST_ASSOC_VAL(mood_events)
 	return ..()
 
 /datum/component/mood/proc/print_mood(mob/user)
-	var/msg = "<span class='info'>*---------*\n<EM>Your current mood</EM>\n"
+	var/msg = "<span class='info'><EM>Your current mood</EM>\n"
 	msg += "<span class='notice'>My mental status: </span>" //Long term
 	switch(sanity)
 		if(SANITY_GREAT to INFINITY)
@@ -81,7 +82,7 @@
 			msg += event.description
 	else
 		msg += "<span class='nicegreen'>I don't have much of a reaction to anything right now.<span>\n"
-	to_chat(user || parent, msg)
+	to_chat(user || parent, EXAMINE_BLOCK(msg))
 
 /datum/component/mood/proc/update_mood() //Called whenever a mood event is added or removed
 	mood = 0
@@ -193,10 +194,12 @@
 		if(9)
 			setSanity(sanity+0.6*delta_time, maximum=SANITY_MAXIMUM)
 	HandleNutrition(owner)
-	HandleHygiene(owner)
 
 /datum/component/mood/proc/setSanity(amount, minimum=SANITY_INSANE, maximum=SANITY_GREAT)
 	var/mob/living/owner = parent
+
+	if(owner.stat == DEAD) // deadman can't feel mood
+		return
 
 	if(amount == sanity)
 		return
@@ -216,26 +219,32 @@
 		if(SANITY_INSANE to SANITY_CRAZY)
 			setInsanityEffect(MAJOR_INSANITY_PEN)
 			master.add_movespeed_modifier(MOVESPEED_ID_SANITY, TRUE, 100, override=TRUE, multiplicative_slowdown=0.6, movetypes=(~FLYING))
+			master.add_actionspeed_modifier(/datum/actionspeed_modifier/low_sanity)
 			sanity_level = 6
 		if(SANITY_CRAZY to SANITY_UNSTABLE)
 			setInsanityEffect(MINOR_INSANITY_PEN)
 			master.add_movespeed_modifier(MOVESPEED_ID_SANITY, TRUE, 100, override=TRUE, multiplicative_slowdown=0.3, movetypes=(~FLYING))
+			master.add_actionspeed_modifier(/datum/actionspeed_modifier/low_sanity)
 			sanity_level = 5
 		if(SANITY_UNSTABLE to SANITY_DISTURBED)
 			setInsanityEffect(0)
 			master.add_movespeed_modifier(MOVESPEED_ID_SANITY, TRUE, 100, override=TRUE, multiplicative_slowdown=0.15, movetypes=(~FLYING))
+			master.add_actionspeed_modifier(/datum/actionspeed_modifier/low_sanity)
 			sanity_level = 4
 		if(SANITY_DISTURBED to SANITY_NEUTRAL)
 			setInsanityEffect(0)
 			master.remove_movespeed_modifier(MOVESPEED_ID_SANITY, TRUE)
+			master.remove_actionspeed_modifier(ACTIONSPEED_ID_SANITY)
 			sanity_level = 3
 		if(SANITY_NEUTRAL+1 to SANITY_GREAT+1) //shitty hack but +1 to prevent it from responding to super small differences
 			setInsanityEffect(0)
 			master.remove_movespeed_modifier(MOVESPEED_ID_SANITY, TRUE)
+			master.add_actionspeed_modifier(/datum/actionspeed_modifier/high_sanity)
 			sanity_level = 2
 		if(SANITY_GREAT+1 to INFINITY)
 			setInsanityEffect(0)
 			master.remove_movespeed_modifier(MOVESPEED_ID_SANITY, TRUE)
+			master.add_actionspeed_modifier(/datum/actionspeed_modifier/high_sanity)
 			sanity_level = 1
 	update_mood_icon()
 
@@ -258,7 +267,7 @@
 			clear_event(null, category)
 		else
 			if(the_event.timeout)
-				addtimer(CALLBACK(src, .proc/clear_event, null, category), the_event.timeout, TIMER_UNIQUE|TIMER_OVERRIDE)
+				the_event.timer = addtimer(CALLBACK(src, .proc/clear_event, null, category), the_event.timeout, TIMER_STOPPABLE|TIMER_UNIQUE|TIMER_OVERRIDE)
 			return 0 //Don't have to update the event.
 	the_event = new type(src, param)
 
@@ -328,12 +337,11 @@
 	print_mood(user)
 
 /datum/component/mood/proc/HandleNutrition(mob/living/L)
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		if(isethereal(H))
-			HandleCharge(H)
-		if(HAS_TRAIT(H, TRAIT_NOHUNGER))
-			return FALSE //no mood events for nutrition
+	if(HAS_TRAIT(L, TRAIT_NOHUNGER))
+		return FALSE //no mood events for nutrition
+	if(HAS_TRAIT(L, TRAIT_POWERHUNGRY))
+		HandleCharge(L)
+		return
 	switch(L.nutrition)
 		if(NUTRITION_LEVEL_FULL to INFINITY)
 			if (!HAS_TRAIT(L, TRAIT_VORACIOUS))
@@ -351,35 +359,23 @@
 		if(0 to NUTRITION_LEVEL_STARVING)
 			add_event(null, "nutrition", /datum/mood_event/starving)
 
-/datum/component/mood/proc/HandleCharge(mob/living/carbon/human/H)
-	var/datum/species/ethereal/E = H.dna?.species
-	switch(E.get_charge(H))
-		if(ETHEREAL_CHARGE_NONE to ETHEREAL_CHARGE_LOWPOWER)
-			add_event(null, "charge", /datum/mood_event/decharged)
-		if(ETHEREAL_CHARGE_LOWPOWER to ETHEREAL_CHARGE_NORMAL)
-			add_event(null, "charge", /datum/mood_event/lowpower)
-		if(ETHEREAL_CHARGE_NORMAL to ETHEREAL_CHARGE_ALMOSTFULL)
-			clear_event(null, "charge")
-		if(ETHEREAL_CHARGE_ALMOSTFULL to ETHEREAL_CHARGE_FULL)
-			add_event(null, "charge", /datum/mood_event/charged)
-
-/datum/component/mood/proc/HandleHygiene(mob/living/carbon/human/H)
-	if(H.has_quirk(/datum/quirk/neet))
-		return //Neets don't care.
-	switch (H.hygiene)
-		if(HYGIENE_LEVEL_DISGUSTING to HYGIENE_LEVEL_DISGUSTING)//Believe it or not but this is actually the cleaner option.
-			add_event(null, "hygiene", /datum/mood_event/disgusting)
-		if(HYGIENE_LEVEL_DISGUSTING to HYGIENE_LEVEL_DIRTY)
-			add_event(null, "hygiene", /datum/mood_event/dirty)
-		if(HYGIENE_LEVEL_DIRTY to HYGIENE_LEVEL_NORMAL)
-			clear_event(null, "hygiene")
-		if(HYGIENE_LEVEL_NORMAL to HYGIENE_LEVEL_CLEAN)
-			add_event(null, "hygiene", /datum/mood_event/neat)
+/datum/component/mood/proc/HandleCharge(mob/living/L)
+	switch(L.nutrition)
+		if(NUTRITION_LEVEL_WELL_FED to INFINITY)
+			add_event(null, "nutrition", /datum/mood_event/charged)
+		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+			clear_event(null, "nutrition")
+		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_FED)
+			add_event(null, "nutrition", /datum/mood_event/lowpower)
+		if(0 to NUTRITION_LEVEL_STARVING)
+			add_event(null, "nutrition", /datum/mood_event/decharged)
 
 /datum/component/mood/proc/check_area_mood(datum/source, var/area/A)
 	SIGNAL_HANDLER
 
-	if(A.mood_bonus)
+	var/mob/living/owner = parent
+
+	if(A.mood_check(owner))
 		if(get_event("area"))	//walking between areas that give mood bonus should first clear the bonus from the previous one
 			clear_event(null, "area")
 		add_event(null, "area", /datum/mood_event/area, list(A.mood_bonus, A.mood_message))

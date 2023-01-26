@@ -28,7 +28,7 @@ Class Variables:
    component_parts (list)
       A list of component parts of machine used by frame based machines.
 
-   stat (bitflag)
+   machine_stat (bitflag)
       Machine status bit flags.
       Possible bit flags:
          BROKEN -- Machine is broken
@@ -77,9 +77,6 @@ Class Procs:
    process_atmos()
       Called by the 'air subsystem' once per atmos tick for each machine that is listed in its 'atmos_machines' list.
 
-   is_operational()
-		Returns 0 if the machine is unpowered, broken or undergoing maintenance, something else if not
-
 	Compiled by Aygar
 */
 
@@ -90,6 +87,7 @@ Class Procs:
 	verb_say = "beeps"
 	verb_yell = "blares"
 	pressure_resistance = 15
+	pass_flags_self = PASSMACHINE
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER //keeps shit coming out of the machine from ending up underneath it.
 	flags_ricochet = RICOCHET_HARD
@@ -98,7 +96,7 @@ Class Procs:
 	anchored = TRUE
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
 
-	var/stat = 0
+	var/machine_stat = NONE
 	var/use_power = IDLE_POWER_USE
 		//0 = dont run the auto
 		//1 = run auto, use idle
@@ -107,6 +105,8 @@ Class Procs:
 	var/active_power_usage = 0
 	var/power_channel = AREA_USAGE_EQUIP
 		//AREA_USAGE_EQUIP,AREA_USAGE_ENVIRON or AREA_USAGE_LIGHT
+		///A combination of factors such as having power, not being broken and so on. Boolean.
+	var/is_operational = TRUE
 	var/wire_compatible = FALSE
 
 	var/list/component_parts = null //list of all the parts used to build it, if made from certain kinds of frames.
@@ -125,13 +125,23 @@ Class Procs:
 	var/interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_SET_MACHINE
 	var/fair_market_price = 69
 	var/market_verb = "Customer"
-	var/payment_department = ACCOUNT_ENG
+	/// [Bitflag] the machine will be free when a bank holder has a specific bitflag
+	var/dept_req_for_free = ACCOUNT_ENG_BITFLAG
+	/// [Bitflag] the machine sends its profit to the corresponding department budget. if this is not specified, this will follow `dept_req_for_free` value.
+	var/seller_department
+
+	var/clickvol = 40	// sound volume played on succesful click
+	var/next_clicksound = 0	// value to compare with world.time for whether to play clicksound according to CLICKSOUND_INTERVAL
+	var/clicksound	// sound played on succesful interface use by a carbon lifeform
 
 	// For storing and overriding ui id and dimensions
 	var/tgui_id // ID of TGUI interface
 	var/ui_style // ID of custom TGUI style (optional)
 
-/obj/machinery/Initialize()
+	/// Maximum time an EMP will disable this machine for
+	var/emp_disable_time = 2 MINUTES
+
+/obj/machinery/Initialize(mapload)
 	if(!armor)
 		armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0)
 	. = ..()
@@ -145,10 +155,13 @@ Class Procs:
 		begin_processing()
 
 	power_change()
-	RegisterSignal(src, COMSIG_ENTER_AREA, .proc/power_change)
+	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, .proc/power_change)
 
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
+
+	if(!seller_department)
+		seller_department = dept_req_for_free
 
 /// Helper proc for telling a machine to start processing with the subsystem type that is located in its `subsystem_type` var.
 /obj/machinery/proc/begin_processing()
@@ -177,16 +190,45 @@ Class Procs:
 /obj/machinery/proc/process_atmos()//If you dont use process why are you here
 	return PROCESS_KILL
 
+///Called when we want to change the value of the machine_stat variable. Holds bitflags.
+/obj/machinery/proc/set_machine_stat(new_value)
+	if(new_value == machine_stat)
+		return
+	. = machine_stat
+	machine_stat = new_value
+	on_set_machine_stat(.)
+
+
+///Called when the value of `machine_stat` changes, so we can react to it.
+/obj/machinery/proc/on_set_machine_stat(old_value)
+	if(old_value & (NOPOWER|BROKEN|MAINT))
+		if(!(machine_stat & (NOPOWER|BROKEN|MAINT))) //From off to on.
+			set_is_operational(TRUE)
+	else if(machine_stat & (NOPOWER|BROKEN|MAINT)) //From on to off.
+		set_is_operational(FALSE)
+
 /obj/machinery/emp_act(severity)
 	. = ..()
-	if(use_power && !stat && !(. & EMP_PROTECT_SELF))
+	if(use_power && !machine_stat && !(. & EMP_PROTECT_SELF))
 		use_power(7500/severity)
+		//Set the machine to be EMPed
+		machine_stat |= EMPED
+		//Reset EMP state in 120/60 seconds
+		addtimer(CALLBACK(src, .proc/emp_reset), (emp_disable_time / severity) + rand(-10, 10))
+		//Update power
+		power_change()
 		new /obj/effect/temp_visual/emp(loc)
+
+/obj/machinery/proc/emp_reset()
+	//Reset EMP state
+	machine_stat &= ~EMPED
+	//Update power
+	power_change()
 
 /obj/machinery/proc/open_machine(drop = TRUE)
 	SEND_SIGNAL(src, COMSIG_MACHINE_OPEN, drop)
 	state_open = TRUE
-	density = FALSE
+	set_density(FALSE)
 	if(drop)
 		dropContents()
 	update_icon()
@@ -210,7 +252,7 @@ Class Procs:
 /obj/machinery/proc/close_machine(atom/movable/target = null)
 	SEND_SIGNAL(src, COMSIG_MACHINE_CLOSE, target)
 	state_open = FALSE
-	density = TRUE
+	set_density(TRUE)
 	if(!target)
 		for(var/am in loc)
 			if (!(can_be_occupant(am)))
@@ -241,15 +283,24 @@ Class Procs:
 		use_power(active_power_usage,power_channel)
 	return 1
 
-/obj/machinery/proc/is_operational()
-	return !(stat & (NOPOWER|BROKEN|MAINT))
+///Called when we want to change the value of the `is_operational` variable. Boolean.
+/obj/machinery/proc/set_is_operational(new_value)
+	if(new_value == is_operational)
+		return
+	. = is_operational
+	is_operational = new_value
+	on_set_is_operational(.)
+
+///Called when the value of `is_operational` changes, so we can react to it.
+/obj/machinery/proc/on_set_is_operational(old_value)
+	return
 
 /obj/machinery/can_interact(mob/user)
 	var/silicon = issilicon(user)
 	var/admin_ghost = IsAdminGhost(user)
 	var/living = isliving(user)
 
-	if((stat & (NOPOWER|BROKEN)) && !(interaction_flags_machine & INTERACT_MACHINE_OFFLINE)) // Check if the machine is broken, and if we can still interact with it if so
+	if((machine_stat & (NOPOWER|BROKEN)) && !(interaction_flags_machine & INTERACT_MACHINE_OFFLINE)) // Check if the machine is broken, and if we can still interact with it if so
 		return FALSE
 
 	if(panel_open && !(interaction_flags_machine & INTERACT_MACHINE_OPEN)) // Check if we can interact with an open panel machine, if the panel is open
@@ -267,8 +318,8 @@ Class Procs:
 			return FALSE
 
 		if(!Adjacent(user)) // Next make sure we are next to the machine unless we have telekinesis
-			var/mob/living/carbon/H = L
-			if(!(istype(H) && H.has_dna() && H.dna.check_mutation(TK)))
+			var/mob/living/carbon/C = L
+			if(!(istype(C) && C.has_dna() && C.dna.check_mutation(TK)))
 				return FALSE
 
 		if(L.incapacitated()) // Finally make sure we aren't incapacitated
@@ -297,9 +348,14 @@ Class Procs:
 						say("[market_verb] NAP Violation: Unable to pay.")
 						nap_violation(occupant)
 						return FALSE
-					var/datum/bank_account/D = SSeconomy.get_dep_account(payment_department)
-					if(D)
-						D.adjust_money(fair_market_price)
+
+					// each department (seller_department) will earn the profit
+					if(fair_market_price && seller_department)
+						var/list/dept_list = SSeconomy.get_dept_id_by_bitflag(seller_department)
+						if(length(dept_list))
+							fair_market_price = round(fair_market_price/length(dept_list))
+							for(var/datum/bank_account/department/D in dept_list)
+								D.adjust_money(fair_market_price)
 			else
 				say("[market_verb] NAP Violation: No ID card found.")
 				nap_violation(occupant)
@@ -319,6 +375,8 @@ Class Procs:
 
 /obj/machinery/ui_act(action, params)
 	add_fingerprint(usr)
+	if(isliving(usr) && in_range(src, usr))
+		play_click_sound()
 	return ..()
 
 /obj/machinery/Topic(href, href_list)
@@ -367,7 +425,7 @@ Class Procs:
 	return
 
 /obj/machinery/proc/default_pry_open(obj/item/I)
-	. = !(state_open || panel_open || is_operational() || (flags_1 & NODECONSTRUCT_1)) && I.tool_behaviour == TOOL_CROWBAR
+	. = !(state_open || panel_open || is_operational || (flags_1 & NODECONSTRUCT_1)) && I.tool_behaviour == TOOL_CROWBAR
 	if(.)
 		I.play_tool_sound(src, 50)
 		visible_message("<span class='notice'>[usr] pries open \the [src].</span>", "<span class='notice'>You pry open \the [src].</span>")
@@ -400,8 +458,13 @@ Class Procs:
 	M.icon_state = "box_1"
 
 /obj/machinery/obj_break(damage_flag)
-	if(!(flags_1 & NODECONSTRUCT_1))
-		stat |= BROKEN
+	SHOULD_CALL_PARENT(1)
+	. = ..()
+	if(!(machine_stat & BROKEN) && !(flags_1 & NODECONSTRUCT_1))
+		set_machine_stat(machine_stat | BROKEN)
+		SEND_SIGNAL(src, COMSIG_MACHINERY_BROKEN, damage_flag) //ILL THINK ABOUT IT LATER, NOW ONTO MORE OF THIS
+		update_icon()
+		return TRUE
 
 /obj/machinery/contents_explosion(severity, target)
 	if(occupant)
@@ -526,7 +589,7 @@ Class Procs:
 
 /obj/machinery/examine(mob/user)
 	. = ..()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		. += "<span class='notice'>It looks broken and non-functional.</span>"
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(resistance_flags & ON_FIRE)
@@ -541,6 +604,8 @@ Class Procs:
 				. += "<span class='warning'>It's falling apart!</span>"
 	if(user.research_scanner && component_parts)
 		. += display_parts(user, TRUE)
+	if(return_blood_DNA())
+		. += "<span class='warning'>It's smeared with blood!</span>"
 
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/on_construction()
@@ -562,9 +627,9 @@ Class Procs:
 		if(prob(40))
 			emp_act(EMP_LIGHT)
 
-/obj/machinery/Exited(atom/movable/AM, atom/newloc)
+/obj/machinery/Exited(atom/movable/gone, direction)
 	. = ..()
-	if (AM == occupant)
+	if (gone == occupant)
 		occupant = null
 
 /obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
@@ -574,6 +639,11 @@ Class Procs:
 	. = . % 9
 	AM.pixel_x = -8 + ((.%3)*8)
 	AM.pixel_y = -8 + (round( . / 3)*8)
+
+/obj/machinery/proc/play_click_sound(var/custom_clicksound)
+	if((custom_clicksound ||= clicksound) && world.time > next_clicksound)
+		next_clicksound = world.time + CLICKSOUND_INTERVAL
+		playsound(src, custom_clicksound, clickvol)
 
 /obj/machinery/rust_heretic_act()
 	take_damage(500, BRUTE, "melee", 1)

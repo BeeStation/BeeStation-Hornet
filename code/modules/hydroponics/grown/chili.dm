@@ -52,6 +52,7 @@
 	bitesize_mod = 2
 	foodtype = FRUIT
 	wine_power = 30
+	discovery_points = 300
 
 // Ghost Chili
 /obj/item/seeds/chili/ghost
@@ -79,6 +80,7 @@
 	bitesize_mod = 4
 	foodtype = FRUIT
 	wine_power = 50
+	discovery_points = 300
 
 /obj/item/reagent_containers/food/snacks/grown/ghost_chili/attack_hand(mob/user)
 	. = ..()

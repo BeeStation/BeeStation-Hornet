@@ -162,7 +162,7 @@
 	owner.whisper(invocation, language = /datum/language/common)
 	owner.visible_message("<span class='warning'>[owner]'s hand flashes a bright blue!</span>", \
 						 "<span class='cultitalic'>You speak the cursed words, emitting an EMP blast from your hand.</span>")
-	empulse(owner, 2, 5)
+	empulse(owner, 2, 5, holy=TRUE)
 	charges--
 	if(charges<=0)
 		qdel(src)
@@ -192,18 +192,20 @@
 	desc = "Allows you to summon a ritual dagger, in case you've lost the dagger that was given to you."
 	invocation = "Wur d'dai leev'mai k'sagan!" //where did I leave my keys, again?
 	button_icon_state = "equip" //this is the same icon that summon equipment uses, but eh, I'm not a spriter
+	/// The item given to the cultist when the spell is invoked. Typepath.
+	var/obj/item/summoned_type = /obj/item/melee/cultblade/dagger
 
 /datum/action/innate/cult/blood_spell/dagger/Activate()
 	var/turf/owner_turf = get_turf(owner)
 	owner.whisper(invocation, language = /datum/language/common)
 	owner.visible_message("<span class='warning'>[owner]'s hand glows red for a moment.</span>", \
 		"<span class='cultitalic'>Your plea for aid is answered, and light begins to shimmer and take form within your hand!</span>")
-	var/obj/item/melee/cultblade/dagger/summoned_blade = new (owner_turf)
+	var/obj/item/summoned_blade = new summoned_type(owner_turf)
 	if(owner.put_in_hands(summoned_blade))
-		to_chat(owner, "<span class='warning'>A ritual dagger appears in your hand!</span>")
+		to_chat(owner, "<span class='warning'>A [summoned_blade] appears in your hand!</span>")
 	else
-		owner.visible_message("<span class='warning'>A ritual dagger appears at [owner]'s feet!</span>", \
-			 "<span class='cultitalic'>A ritual dagger materializes at your feet.</span>")
+		owner.visible_message("<span class='warning'>A [summoned_blade] appears at [owner]'s feet!</span>", \
+			 "<span class='cultitalic'>A [summoned_blade] materializes at your feet.</span>")
 	SEND_SOUND(owner, sound('sound/effects/magic.ogg', FALSE, 0, 25))
 	charges--
 	if(charges <= 0)
@@ -354,17 +356,18 @@
 	var/uses = 1
 	var/health_cost = 0 //The amount of health taken from the user when invoking the spell
 	var/datum/action/innate/cult/blood_spell/source
-
-/obj/item/melee/blood_magic/New(loc, spell)
+/obj/item/melee/blood_magic/Initialize(mapload, var/spell)
+	. = ..()
+	if(!istype(spell, /datum/action/innate/cult/blood_spell))
+		return INITIALIZE_HINT_QDEL
 	source = spell
 	uses = source.charges
 	health_cost = source.health_cost
-	..()
 
 /obj/item/melee/blood_magic/Destroy()
 	if(!QDELETED(source))
 		if(uses <= 0)
-			source.hand_magic = null
+			source?.hand_magic = null
 			qdel(source)
 			source = null
 		else
@@ -420,12 +423,12 @@
 		user.visible_message("<span class='warning'>[user] floods [L]'s mind with an eldritch energy!</span>", \
 							"<span class='cultitalic'>You attempt to stun [L] with the spell!</span>")
 
-		user.mob_light(_color = LIGHT_COLOR_BLOOD_MAGIC, _range = 3, _duration = 2)
+		user.mob_light(_range = 3, _color = LIGHT_COLOR_BLOOD_MAGIC, _duration = 0.2 SECONDS)
 
-		var/anti_magic_source = L.anti_magic_check()
+		var/anti_magic_source = L.anti_magic_check(holy = TRUE)
 		if(anti_magic_source)
 
-			L.mob_light(_color = LIGHT_COLOR_HOLY_MAGIC, _range = 2, _duration = 100)
+			L.mob_light(_range = 2, _color = LIGHT_COLOR_HOLY_MAGIC, _duration = 10 SECONDS)
 			var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
 			L.add_overlay(forbearance)
 			addtimer(CALLBACK(L, /atom/proc/cut_overlay, forbearance), 100)
@@ -466,19 +469,16 @@
 	if(iscultist(user))
 		var/list/potential_runes = list()
 		var/list/teleportnames = list()
-		for(var/R in GLOB.teleport_runes)
-			var/obj/effect/rune/teleport/T = R
-			potential_runes[avoid_assoc_duplicate_keys(T.listkey, teleportnames)] = T
+		for(var/obj/effect/rune/teleport/teleport_rune as anything in GLOB.teleport_runes)
+			potential_runes[avoid_assoc_duplicate_keys(teleport_rune.listkey, teleportnames)] = teleport_rune
 
 		if(!potential_runes.len)
 			to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
-			log_game("Teleport talisman failed - no other teleport runes")
 			return
 
 		var/turf/T = get_turf(src)
 		if(is_away_level(T.z))
 			to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
-			log_game("Teleport spell failed - user in away mission")
 			return
 
 		var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
@@ -545,7 +545,7 @@
 /obj/item/restraints/handcuffs/energy/cult/used/dropped(mob/user)
 	user.visible_message("<span class='danger'>[user]'s shackles shatter in a discharge of dark magic!</span>", \
 							"<span class='userdanger'>Your [src] shatters in a discharge of dark magic!</span>")
-	. = ..()
+	..()
 
 
 //Construction: Converts 50 iron to a construct shell, plasteel to runed metal, airlock to brittle runed airlock, a borg to a construct, or borg shell to a construct shell

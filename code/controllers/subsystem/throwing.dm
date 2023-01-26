@@ -89,7 +89,7 @@ SUBSYSTEM_DEF(throwing)
 /datum/thrownthing/Destroy()
 	SSthrowing.processing -= thrownthing
 	SSthrowing.currentrun -= thrownthing
-	thrownthing.throwing = null
+	thrownthing?.throwing = null
 	thrownthing = null
 	thrower = null
 	initial_target = null
@@ -120,6 +120,8 @@ SUBSYSTEM_DEF(throwing)
 	if(dist_travelled) //to catch sneaky things moving on our tile while we slept
 		for(var/atom/movable/obstacle as anything in get_turf(thrownthing))
 			if (obstacle == thrownthing || (obstacle == thrower && !ismob(thrownthing)))
+				continue
+			if(obstacle.pass_flags_self & LETPASSTHROW)
 				continue
 			if (obstacle == actual_target || (obstacle.density && !(obstacle.flags_1 & ON_BORDER_1)))
 				finalize(TRUE, obstacle)
@@ -199,5 +201,9 @@ SUBSYSTEM_DEF(throwing)
 		var/turf/T = get_turf(thrownthing)
 		if(T && thrownthing.has_gravity(T))
 			T.zFall(thrownthing)
+
+	if(thrownthing)
+		SEND_SIGNAL(thrownthing, COMSIG_MOVABLE_THROW_LANDED, src)
+		thrownthing.movement_type &= ~THROWN
 
 	qdel(src)

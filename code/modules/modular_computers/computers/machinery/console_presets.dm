@@ -1,18 +1,19 @@
 /obj/machinery/modular_computer/console/preset
 	// Can be changed to give devices specific hardware
-	var/_has_id_slot = FALSE
+	var/_has_second_id_slot = FALSE
 	var/_has_printer = FALSE
 	var/_has_battery = FALSE
 	var/_has_ai = FALSE
 
-/obj/machinery/modular_computer/console/preset/Initialize()
+/obj/machinery/modular_computer/console/preset/Initialize(mapload)
 	. = ..()
 	if(!cpu)
 		return
 	cpu.install_component(new /obj/item/computer_hardware/processor_unit)
 
-	if(_has_id_slot)
-		cpu.install_component(new /obj/item/computer_hardware/card_slot)
+	cpu.install_component(new /obj/item/computer_hardware/card_slot)
+	if(_has_second_id_slot)
+		cpu.install_component(new /obj/item/computer_hardware/card_slot/secondary)
 	if(_has_printer)
 		cpu.install_component(new /obj/item/computer_hardware/printer)
 	if(_has_battery)
@@ -56,7 +57,7 @@
 	console_department = "Command"
 	name = "command console"
 	desc = "A stationary computer. This one comes preloaded with command programs."
-	_has_id_slot = TRUE
+	_has_second_id_slot = TRUE
 	_has_printer = TRUE
 
 /obj/machinery/modular_computer/console/preset/command/install_programs()
@@ -73,3 +74,14 @@
 /obj/machinery/modular_computer/console/preset/civilian/install_programs()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]
 	hard_drive.store_file(new/datum/computer_file/program/chatclient())
+
+// curator
+/obj/machinery/modular_computer/console/preset/curator
+	console_department = "Civilian"
+	name = "curator console"
+	desc = "A stationary computer. This one comes preloaded with art programs."
+	_has_printer = TRUE
+
+/obj/machinery/modular_computer/console/preset/curator/install_programs()
+	var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]
+	hard_drive.store_file(new/datum/computer_file/program/portrait_printer())

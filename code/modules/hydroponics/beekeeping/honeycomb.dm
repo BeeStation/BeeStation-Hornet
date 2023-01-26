@@ -13,7 +13,7 @@
 	grind_results = list()
 	var/honey_color = ""
 
-/obj/item/reagent_containers/honeycomb/Initialize()
+/obj/item/reagent_containers/honeycomb/Initialize(mapload)
 	. = ..()
 	pixel_x = rand(8,-8)
 	pixel_y = rand(8,-8)

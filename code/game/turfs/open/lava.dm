@@ -36,16 +36,16 @@
 /turf/open/lava/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
-/turf/open/lava/Entered(atom/movable/AM)
+/turf/open/lava/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
-	if(burn_stuff(AM))
+	if(burn_stuff(arrived))
 		START_PROCESSING(SSobj, src)
 
-/turf/open/lava/Exited(atom/movable/Obj, atom/newloc)
+/turf/open/lava/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(isliving(Obj))
-		var/mob/living/L = Obj
-		if(!islava(newloc) && !L.on_fire)
+	if(isliving(gone))
+		var/mob/living/L = gone
+		if(!islava(get_step(src, direction)) && !L.on_fire)
 			L.update_fire()
 
 /turf/open/lava/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
@@ -68,6 +68,9 @@
 			to_chat(user, "<span class='notice'>You build a floor.</span>")
 			PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 			return TRUE
+	return FALSE
+
+/turf/open/lava/rust_heretic_act()
 	return FALSE
 
 /turf/open/lava/singularity_act()
@@ -167,9 +170,11 @@
 	name = "lava"
 	baseturfs = /turf/open/lava/smooth
 	icon = 'icons/turf/floors/lava.dmi'
-	icon_state = "unsmooth"
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
-	canSmoothWith = list(/turf/open/lava/smooth)
+	icon_state = "lava-255"
+	base_icon_state = "lava"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_LAVA)
+	canSmoothWith = list(SMOOTH_GROUP_FLOOR_LAVA)
 
 /turf/open/lava/smooth/lava_land_surface
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS

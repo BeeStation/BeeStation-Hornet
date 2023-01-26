@@ -11,8 +11,8 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/legion
 	name = "Legion"
-	health = 800
-	maxHealth = 800
+	health = 400
+	maxHealth = 400
 	icon_state = "legion"
 	icon_living = "legion"
 	desc = "One of many."
@@ -31,8 +31,9 @@ Difficulty: Medium
 	var/size = 5
 	var/charging = FALSE
 	gps_name = "Echoing Signal"
-	medal_type = BOSS_MEDAL_LEGION
-	score_type = LEGION_SCORE
+	achievement_type = /datum/award/achievement/boss/legion_kill
+	crusher_achievement_type = /datum/award/achievement/boss/legion_crusher
+	score_achievement_type = /datum/award/score/legion_score
 	pixel_y = -90
 	pixel_x = -75
 	loot = list(/obj/item/stack/sheet/bone = 3)
@@ -153,7 +154,7 @@ Difficulty: Medium
 				last_legion = FALSE
 				break
 		if(last_legion)
-			loot = list(/obj/structure/closet/crate/necropolis/legion)
+			loot = list(/obj/structure/closet/crate/necropolis/legion, /obj/effect/spawner/lootdrop/megafaunaore)
 			elimination = FALSE
 		else if(prob(5))
 			loot = list(/obj/structure/closet/crate/necropolis/tendril)
@@ -171,22 +172,24 @@ Difficulty: Medium
 	icon = 'icons/obj/guns/magic.dmi'
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
-	force = 25
+	force = 15
 	damtype = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	var/storm_type = /datum/weather/ash_storm
 	var/storm_cooldown = 0
-	var/static/list/excluded_areas = list(/area/reebe/city_of_cogs)
+	var/static/list/allowed_areas = list(/area/lavaland/surface/outdoors)
 
 /obj/item/staff/storm/attack_self(mob/user)
 	if(storm_cooldown > world.time)
 		to_chat(user, "<span class='warning'>The staff is still recharging!</span>")
 		return
-
+	if(!is_mining_level(user.z))
+		to_chat(user, "<span class='warning'>The staff's power is too dim to function this far from the necropolis")
+		return
 	var/area/user_area = get_area(user)
 	var/turf/user_turf = get_turf(user)
-	if(!user_area || !user_turf || (user_area.type in excluded_areas))
-		to_chat(user, "<span class='warning'>Something is preventing you from using the staff here.</span>")
+	if(!user_area || !user_turf || !(user_area.type in allowed_areas))
+		to_chat(user, "<span class='warning'>You can only use this in an open area</span>")
 		return
 	var/datum/weather/A
 	for(var/V in SSweather.processing)
@@ -208,15 +211,15 @@ Difficulty: Medium
 			return
 	else
 		A = new storm_type(list(user_turf.z))
-		A.name = "staff storm"
+		A.name = "ash storm"
 		log_game("[user] ([key_name(user)]) has summoned [A] at [AREACOORD(user_turf)]")
-		if (is_special_character(user))
-			message_admins("[A] has been summoned in [ADMIN_VERBOSEJMP(user_turf)] by [ADMIN_LOOKUPFLW(user)], a non-antagonist")
+		if (!(is_special_character(user)))
+			message_admins("[A] has been summoned in [ADMIN_VERBOSEJMP(user_turf)] by [ADMIN_LOOKUPFLW(user)], a non-antagonist!") //This check actually did the opposite before now and only reported when antagonists used it, but called them non-antagonists.
 		A.area_type = user_area.type
 		A.telegraph_duration = 100
 		A.end_duration = 100
 
-	user.visible_message("<span class='warning'>[user] holds [src] skywards as red lightning crackles into the sky!</span>", \
+	user.visible_message("<span class='danger'>[user] holds [src] skywards as red lightning crackles into the sky!</span>", \
 	"<span class='notice'>You hold [src] skyward, calling down a terrible storm!</span>")
 	playsound(user, 'sound/magic/staff_change.ogg', 200, 0)
 	A.telegraph()

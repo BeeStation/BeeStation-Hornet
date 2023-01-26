@@ -10,12 +10,10 @@
 	internal_magazine = TRUE
 	fire_sound = "sound/weapons/rifleshot.ogg"
 	fire_sound_volume = 80
-	vary_fire_sound = FALSE
 	rack_sound = "sound/weapons/mosinboltout.ogg"
 	bolt_drop_sound = "sound/weapons/mosinboltin.ogg"
 	tac_reloads = FALSE
 	weapon_weight = WEAPON_MEDIUM
-	block_upgrade_walk = 1
 
 /obj/item/gun/ballistic/rifle/update_icon()
 	..()
@@ -85,8 +83,8 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage
 
 /obj/item/gun/ballistic/rifle/boltaction/enchanted/dropped()
-	. = ..()
 	guns_left = 0
+	..()
 
 /obj/item/gun/ballistic/rifle/boltaction/enchanted/proc/discard_gun(mob/living/user)
 	user.throw_item(pick(oview(7,get_turf(user))))

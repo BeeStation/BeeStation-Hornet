@@ -21,11 +21,21 @@
 
 //direction is direction of travel of A
 /turf/open/zPassIn(atom/movable/A, direction, turf/source)
-	return (direction == DOWN)
+	if(direction == DOWN)
+		for(var/obj/O in contents)
+			if(O.obj_flags & BLOCK_Z_IN_DOWN)
+				return FALSE
+		return TRUE
+	return FALSE
 
 //direction is direction of travel of A
 /turf/open/zPassOut(atom/movable/A, direction, turf/destination)
-	return (direction == UP)
+	if(direction == UP)
+		for(var/obj/O in contents)
+			if(O.obj_flags & BLOCK_Z_OUT_UP)
+				return FALSE
+		return TRUE
+	return FALSE
 
 //direction is direction of travel of air
 /turf/open/zAirIn(direction, turf/source)
@@ -63,9 +73,10 @@
 	heavyfootstep = null
 	var/sound
 
-/turf/open/indestructible/sound/Entered(var/mob/AM)
-	..()
-	if(istype(AM))
+/turf/open/indestructible/sound/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+
+	if(istype(arrived) && !(arrived.movement_type & (FLYING|FLOATING)))
 		playsound(src,sound,50,1)
 
 /turf/open/indestructible/necropolis
@@ -81,7 +92,7 @@
 	heavyfootstep = FOOTSTEP_LAVA
 	tiled_dirt = FALSE
 
-/turf/open/indestructible/necropolis/Initialize()
+/turf/open/indestructible/necropolis/Initialize(mapload)
 	. = ..()
 	if(prob(12))
 		icon_state = "necro[rand(2,3)]"
@@ -103,8 +114,8 @@
 	icon = 'icons/turf/floors/hierophant_floor.dmi'
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 	baseturfs = /turf/open/indestructible/hierophant
-	smooth = SMOOTH_TRUE
 	tiled_dirt = FALSE
+	smoothing_flags = SMOOTH_CORNERS
 
 /turf/open/indestructible/hierophant/two
 
@@ -134,15 +145,14 @@
 
 /turf/open/indestructible/airblock
 	icon_state = "bluespace"
-	blocks_air = TRUE
 	baseturfs = /turf/open/indestructible/airblock
+	CanAtmosPass = ATMOS_PASS_NO
 
 /turf/open/Initalize_Atmos(times_fired)
-	if(!blocks_air)
-		if(!istype(air,/datum/gas_mixture/turf))
-			air = new(2500,src)
-		air.copy_from_turf(src)
-		update_air_ref(planetary_atmos ? 1 : 2)
+	if(!istype(air, /datum/gas_mixture/turf))
+		air = new(2500,src)
+	air.copy_from_turf(src)
+	update_air_ref(planetary_atmos ? 1 : 2)
 
 	update_visuals()
 
@@ -183,51 +193,50 @@
 			qdel(O)
 	return TRUE
 
-/turf/open/handle_slip(mob/living/carbon/C, knockdown_amount, obj/O, lube, paralyze_amount, force_drop)
-	if(C.movement_type & FLYING)
+/turf/open/handle_slip(mob/living/carbon/slipper, knockdown_amount, obj/O, lube, paralyze_amount, force_drop)
+	if(slipper.movement_type & FLYING)
 		return 0
 	if(has_gravity(src))
 		var/obj/buckled_obj
-		if(C.buckled)
-			buckled_obj = C.buckled
+		if(slipper.buckled)
+			buckled_obj = slipper.buckled
 			if(!(lube&GALOSHES_DONT_HELP)) //can't slip while buckled unless it's lube.
 				return 0
 		else
-			if(!(lube & SLIP_WHEN_CRAWLING) && (!(C.mobility_flags & MOBILITY_STAND) || !(C.status_flags & CANKNOCKDOWN))) // can't slip unbuckled mob if they're lying or can't fall.
+			if(!(lube & SLIP_WHEN_CRAWLING) && (!(slipper.mobility_flags & MOBILITY_STAND) || !(slipper.status_flags & CANKNOCKDOWN))) // can't slip unbuckled mob if they're lying or can't fall.
 				return 0
-			if(C.m_intent == MOVE_INTENT_WALK && (lube&NO_SLIP_WHEN_WALKING))
+			if(slipper.m_intent == MOVE_INTENT_WALK && (lube&NO_SLIP_WHEN_WALKING))
 				return 0
 		if(!(lube&SLIDE_ICE))
-			to_chat(C, "<span class='notice'>You slipped[ O ? " on the [O.name]" : ""]!</span>")
-			playsound(C.loc, 'sound/misc/slip.ogg', 50, 1, -3)
+			to_chat(slipper, "<span class='notice'>You slipped[ O ? " on the [O.name]" : ""]!</span>")
+			playsound(slipper.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 
-		SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "slipped", /datum/mood_event/slipped)
+		SEND_SIGNAL(slipper, COMSIG_ADD_MOOD_EVENT, "slipped", /datum/mood_event/slipped)
 		if(force_drop)
-			for(var/obj/item/I in C.held_items)
-				C.accident(I)
+			for(var/obj/item/I in slipper.held_items)
+				slipper.accident(I)
 
-		var/olddir = C.dir
-		C.moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
+		var/olddir = slipper.dir
+		slipper.moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
 		if(!(lube & SLIDE_ICE))
-			C.Knockdown(knockdown_amount)
-			C.drop_all_held_items()
-			C.Paralyze(paralyze_amount)
-			C.stop_pulling()
+			slipper.Knockdown(knockdown_amount)
+			slipper.drop_all_held_items()
+			slipper.Paralyze(paralyze_amount)
+			slipper.stop_pulling()
 		else
-			C.Knockdown(15)
-			C.drop_all_held_items()
+			slipper.Knockdown(15)
+			slipper.drop_all_held_items()
 
 		if(buckled_obj)
-			buckled_obj.unbuckle_mob(C)
+			buckled_obj.unbuckle_mob(slipper)
 			lube |= SLIDE_ICE
 
-		if(lube&SLIDE)
-			new /datum/forced_movement(C, get_ranged_target_turf(C, olddir, 4), 1, FALSE, CALLBACK(C, /mob/living/carbon/.proc/spin, 1, 1))
+		var/turf/target = get_ranged_target_turf(slipper, olddir, 4)
+		if(lube & SLIDE)
+			slipper.AddComponent(/datum/component/force_move, target, TRUE)
 		else if(lube&SLIDE_ICE)
-			if(C.force_moving) //If we're already slipping extend it
-				qdel(C.force_moving)
-			new /datum/forced_movement(C, get_ranged_target_turf(C, olddir, 1), 1, FALSE)	//spinning would be bad for ice, fucks up the next dir
-		return 1
+			slipper.AddComponent(/datum/component/force_move, target, FALSE)//spinning would be bad for ice, fucks up the next dir
+		return TRUE
 
 /turf/open/proc/MakeSlippery(wet_setting = TURF_WET_WATER, min_wet_time = 0, wet_time_to_add = 0, max_wet_time = MAXIMUM_WET_TIME, permanent)
 	AddComponent(/datum/component/wet_floor, wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)

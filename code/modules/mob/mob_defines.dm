@@ -16,6 +16,7 @@
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	throwforce = 10
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	pass_flags_self = PASSMOB
 
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	var/datum/mind/mind
@@ -25,6 +26,12 @@
 	var/list/movespeed_modification				//Lazy list, see mob_movespeed.dm
 	/// The calculated mob speed slowdown based on the modifiers list
 	var/cached_multiplicative_slowdown
+	/// List of action speed modifiers applying to this mob
+	var/list/actionspeed_modification				//Lazy list, see mob_movespeed.dm
+	/// List of action speed modifiers ignored by this mob. List -> List (id) -> List (sources)
+	var/list/actionspeed_mod_immunities			//Lazy list, see mob_movespeed.dm
+	/// The calculated mob action speed slowdown based on the modifiers list
+	var/cached_multiplicative_actions_slowdown
 	/// List of action hud items the user has
 	var/list/datum/action/actions = list()
 	/// A special action? No idea why this lives here
@@ -138,7 +145,7 @@
 	var/research_scanner = FALSE
 
 	/// Is the mob throw intent on
-	var/in_throw_mode = 0
+	var/throw_mode = THROW_MODE_DISABLED
 
 	/// What job does this mob have
 	var/job = null//Living
@@ -193,7 +200,7 @@
 	var/list/progressbars = null	//for stacking do_after bars
 
 	///For storing what do_after's someone has, in case we want to restrict them to only one of a certain do_after at a time
-	var/list/do_afters	
+	var/list/do_afters
 
 	///Allows a datum to intercept all click calls this mob is the source of
 	var/datum/click_intercept
@@ -212,3 +219,6 @@
 
 	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
 	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
+
+	///Currently possesses a typing indicator icon
+	var/typing_indicator = FALSE

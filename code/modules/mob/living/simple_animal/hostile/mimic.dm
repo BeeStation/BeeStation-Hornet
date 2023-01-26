@@ -26,7 +26,7 @@
 
 	faction = list("mimic")
 	move_to_delay = 9
-	gold_core_spawnable = HOSTILE_SPAWN
+	gold_core_spawnable = NO_SPAWN
 	del_on_death = TRUE
 	hardattacks = TRUE
 
@@ -39,6 +39,7 @@
 	stop_automated_movement = 1
 	wander = FALSE
 	var/attempt_open = FALSE
+	gold_core_spawnable = HOSTILE_SPAWN
 
 // Pickup loot
 /mob/living/simple_animal/hostile/mimic/crate/Initialize(mapload)

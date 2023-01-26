@@ -5,7 +5,7 @@
 	horizontal = FALSE
 	allow_objects = FALSE
 	breakout_time = 600
-	material_drop = /obj/item/stack/sheet/mineral/wood
+	material_drop = /obj/item/stack/sheet/wood
 	material_drop_amount = 4
 	delivery_icon = "deliverybox"
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
@@ -17,7 +17,7 @@
 	door_anim_angle = 90
 	azimuth_angle_2 = 0.35
 
-/obj/structure/closet/crate/critter/Initialize()
+/obj/structure/closet/crate/critter/Initialize(mapload)
 	. = ..()
 	tank = new
 

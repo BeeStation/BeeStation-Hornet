@@ -266,10 +266,22 @@
 	required_reagents = list(/datum/reagent/consumable/ethanol/gin = 2, /datum/reagent/consumable/sodawater = 1, /datum/reagent/consumable/limejuice = 1)
 
 /datum/chemical_reaction/bahama_mama
-	name = "Bahama mama"
+	name = "Bahama Mama"
 	id = /datum/reagent/consumable/ethanol/bahama_mama
-	results = list(/datum/reagent/consumable/ethanol/bahama_mama = 6)
-	required_reagents = list(/datum/reagent/consumable/ethanol/rum = 2, /datum/reagent/consumable/orangejuice = 2, /datum/reagent/consumable/limejuice = 1, /datum/reagent/consumable/ice = 1)
+	results = list(/datum/reagent/consumable/ethanol/bahama_mama = 5)
+	required_reagents = list(/datum/reagent/consumable/ethanol/creme_de_coconut = 1, /datum/reagent/consumable/ethanol/kahlua = 1, /datum/reagent/consumable/ethanol/rum = 2, /datum/reagent/consumable/pineapplejuice = 1)
+
+/datum/chemical_reaction/painkiller
+	name = "Painkiller"
+	id = /datum/reagent/consumable/ethanol/painkiller
+	results = list(/datum/reagent/consumable/ethanol/painkiller = 10)
+	required_reagents = list(/datum/reagent/consumable/ethanol/creme_de_coconut = 5, /datum/reagent/consumable/pineapplejuice = 4, /datum/reagent/consumable/orangejuice = 1)
+
+/datum/chemical_reaction/pina_colada
+	name = "Pina Colada"
+	id = /datum/reagent/consumable/ethanol/pina_colada
+	results = list(/datum/reagent/consumable/ethanol/pina_colada = 5)
+	required_reagents = list(/datum/reagent/consumable/ethanol/creme_de_coconut = 1, /datum/reagent/consumable/pineapplejuice = 3, /datum/reagent/consumable/ethanol/rum = 1, /datum/reagent/consumable/limejuice = 1)
 
 /datum/chemical_reaction/singulo
 	name = "Singulo"
@@ -470,14 +482,34 @@
 /datum/chemical_reaction/cherryshake
 	name = "Cherry Shake"
 	id = /datum/reagent/consumable/cherryshake
-	results = list(/datum/reagent/consumable/cherryshake = 3)
-	required_reagents = list(/datum/reagent/consumable/cherryjelly = 1, /datum/reagent/consumable/ice = 1, /datum/reagent/consumable/cream = 1)
+	results = list(/datum/reagent/consumable/cherryshake = 5)
+	required_reagents = list(/datum/reagent/consumable/cherryjelly = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1)
 
 /datum/chemical_reaction/bluecherryshake
 	name = "Blue Cherry Shake"
 	id = /datum/reagent/consumable/bluecherryshake
-	results = list(/datum/reagent/consumable/bluecherryshake = 3)
-	required_reagents = list(/datum/reagent/consumable/bluecherryjelly = 1, /datum/reagent/consumable/ice = 1, /datum/reagent/consumable/cream = 1)
+	results = list(/datum/reagent/consumable/bluecherryshake = 5)
+	required_reagents = list(/datum/reagent/consumable/bluecherryjelly = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1)
+
+/datum/chemical_reaction/drink/vanillashake
+	results = list(/datum/reagent/consumable/vanillashake = 5)
+	required_reagents = list(/datum/reagent/consumable/vanilla = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1)
+
+/datum/chemical_reaction/drink/caramelshake
+	results = list(/datum/reagent/consumable/caramelshake = 5)
+	required_reagents = list(/datum/reagent/consumable/caramel = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1, /datum/reagent/consumable/sodiumchloride = 1)
+
+/datum/chemical_reaction/drink/choccyshake
+	results = list(/datum/reagent/consumable/choccyshake = 5)
+	required_reagents = list(/datum/reagent/consumable/milk/chocolate_milk = 4, /datum/reagent/consumable/cream = 1)
+
+/datum/chemical_reaction/drink/strawberryshake
+	results = list(/datum/reagent/consumable/strawberryshake = 5)
+	required_reagents = list(/datum/reagent/consumable/berryjuice = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1)
+
+/datum/chemical_reaction/drink/bananashake
+	results = list(/datum/reagent/consumable/bananashake = 5)
+	required_reagents = list(/datum/reagent/consumable/banana = 1, /datum/reagent/consumable/milk = 3, /datum/reagent/consumable/cream = 1)
 
 /datum/chemical_reaction/drunkenblumpkin
 	name = "Drunken Blumpkin"
@@ -712,7 +744,7 @@
 	name = "Blank Paper"
 	id = /datum/reagent/consumable/ethanol/blank_paper
 	results = list(/datum/reagent/consumable/ethanol/blank_paper = 3)
-	required_reagents = list(/datum/reagent/consumable/ethanol/silencer = 1, /datum/reagent/consumable/nothing = 1, /datum/reagent/consumable/nuka_cola = 1)
+	required_reagents = list(/datum/reagent/consumable/ethanol/silencer = 1, /datum/reagent/consumable/nothing = 1, /datum/reagent/consumable/nuka_cola = 1, /datum/reagent/consumable/clownstears = 1)
 
 
 /datum/chemical_reaction/wizz_fizz

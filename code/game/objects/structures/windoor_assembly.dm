@@ -30,15 +30,21 @@
 	var/state = "01"	//How far the door assembly has progressed
 	CanAtmosPass = ATMOS_PASS_PROC
 
-/obj/structure/windoor_assembly/New(loc, set_dir)
-	..()
+/obj/structure/windoor_assembly/Initialize(mapload, loc, set_dir)
+	. = ..()
 	if(set_dir)
 		setDir(set_dir)
 	ini_dir = dir
 	air_update_turf(1)
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = .proc/on_exit,
+	)
+
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/structure/windoor_assembly/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(1)
 	return ..()
 
@@ -51,11 +57,10 @@
 /obj/structure/windoor_assembly/update_icon()
 	icon_state = "[facing]_[secure ? "secure_" : ""]windoor_assembly[state]"
 
-/obj/structure/windoor_assembly/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && (mover.pass_flags & PASSGLASS))
-		return 1
+/obj/structure/windoor_assembly/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
-		return !density
+		return
 	if(istype(mover, /obj/structure/window))
 		var/obj/structure/window/W = mover
 		if(!valid_window_location(loc, W.ini_dir))
@@ -66,7 +71,6 @@
 			return FALSE
 	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
 		return FALSE
-	return 1
 
 /obj/structure/windoor_assembly/CanAtmosPass(turf/T)
 	if(get_dir(loc, T) == dir)
@@ -74,14 +78,15 @@
 	else
 		return 1
 
-/obj/structure/windoor_assembly/CheckExit(atom/movable/mover as mob|obj, turf/target)
-	if(istype(mover) && (mover.pass_flags & PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir)
-		return !density
-	else
-		return 1
+/obj/structure/windoor_assembly/proc/on_exit(datum/source, atom/movable/leaving, direction)
+	SIGNAL_HANDLER
 
+	if(istype(leaving) && (leaving.pass_flags & PASSGLASS))
+		return
+
+	if (direction == dir && density)
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/windoor_assembly/attackby(obj/item/W, mob/user, params)
 	//I really should have spread this out across more states but thin little windoors are hard to sprite.
@@ -97,11 +102,9 @@
 
 				if(W.use_tool(src, user, 40, volume=50))
 					to_chat(user, "<span class='notice'>You disassemble the windoor assembly.</span>")
-					var/obj/item/stack/sheet/rglass/RG = new (get_turf(src), 5)
-					RG.add_fingerprint(user)
+					new /obj/item/stack/sheet/rglass(get_turf(src), 5, TRUE, user)
 					if(secure)
-						var/obj/item/stack/rods/R = new (get_turf(src), 4)
-						R.add_fingerprint(user)
+						new /obj/item/stack/rods(get_turf(src), 4, TRUE, user)
 					qdel(src)
 				return
 
@@ -280,7 +283,7 @@
 
 				if(W.use_tool(src, user, 40, volume=100) && electronics)
 
-					density = TRUE //Shouldn't matter but just incase
+					set_density(TRUE) //Shouldn't matter but just incase
 					to_chat(user, "<span class='notice'>You finish the windoor.</span>")
 
 					if(secure)
@@ -292,7 +295,7 @@
 							windoor.icon_state = "rightsecureopen"
 							windoor.base_state = "rightsecure"
 						windoor.setDir(dir)
-						windoor.density = FALSE
+						windoor.set_density(FALSE)
 
 						if(electronics.one_access)
 							windoor.req_one_access = electronics.accesses
@@ -315,14 +318,14 @@
 							windoor.icon_state = "rightopen"
 							windoor.base_state = "right"
 						windoor.setDir(dir)
-						windoor.density = FALSE
+						windoor.set_density(FALSE)
 
 						if(electronics.one_access)
 							windoor.req_one_access = electronics.accesses
 						else
 							windoor.req_access = electronics.accesses
 						windoor.electronics = electronics
-						electronics.loc = windoor
+						electronics.forceMove(windoor)
 						if(created_name)
 							windoor.name = created_name
 						qdel(src)
@@ -343,6 +346,8 @@
 	AddComponent(/datum/component/simple_rotation, rotation_flags, can_be_rotated=CALLBACK(src, .proc/can_be_rotated), after_rotation=CALLBACK(src,.proc/after_rotation))
 
 /obj/structure/windoor_assembly/proc/can_be_rotated(mob/user,rotation_type)
+	if(!in_range(user, src))
+		return
 	if(anchored)
 		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
 		return FALSE

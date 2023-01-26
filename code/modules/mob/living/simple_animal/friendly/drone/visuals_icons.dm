@@ -33,14 +33,13 @@
 		if(!r_state)
 			r_state = r_hand.icon_state
 
-		var/mutable_appearance/r_hand_overlay = r_hand.build_worn_icon(state = r_state, default_layer = DRONE_HANDS_LAYER, default_icon_file = r_hand.righthand_file, isinhands = TRUE)
+		var/mutable_appearance/r_hand_overlay = r_hand.build_worn_icon(default_layer = DRONE_HANDS_LAYER, default_icon_file = r_hand.righthand_file, isinhands = TRUE)
 		if(y_shift)
 			r_hand_overlay.pixel_y += y_shift
 
 		hands_overlays += r_hand_overlay
 
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			r_hand.layer = ABOVE_HUD_LAYER
 			r_hand.plane = ABOVE_HUD_PLANE
 			r_hand.screen_loc = ui_hand_position(get_held_index_of_item(r_hand))
 			client.screen |= r_hand
@@ -51,14 +50,13 @@
 		if(!l_state)
 			l_state = l_hand.icon_state
 
-		var/mutable_appearance/l_hand_overlay = l_hand.build_worn_icon(state = l_state, default_layer = DRONE_HANDS_LAYER, default_icon_file = l_hand.lefthand_file, isinhands = TRUE)
+		var/mutable_appearance/l_hand_overlay = l_hand.build_worn_icon(default_layer = DRONE_HANDS_LAYER, default_icon_file = l_hand.lefthand_file, isinhands = TRUE)
 		if(y_shift)
 			l_hand_overlay.pixel_y += y_shift
 
 		hands_overlays += l_hand_overlay
 
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			l_hand.layer = ABOVE_HUD_LAYER
 			l_hand.plane = ABOVE_HUD_PLANE
 			l_hand.screen_loc = ui_hand_position(get_held_index_of_item(l_hand))
 			client.screen |= l_hand
@@ -82,10 +80,11 @@
 		if(client && hud_used && hud_used.hud_shown)
 			head.screen_loc = ui_drone_head
 			client.screen += head
-		var/used_head_icon = 'icons/mob/head.dmi'
+		var/used_head_icon = 'icons/mob/clothing/head.dmi'
 		if(istype(head, /obj/item/clothing/mask))
 			used_head_icon = 'icons/mob/mask.dmi'
-		var/mutable_appearance/head_overlay = head.build_worn_icon(state = head.icon_state, default_layer = DRONE_HEAD_LAYER, default_icon_file = used_head_icon)
+
+		var/mutable_appearance/head_overlay = head.build_worn_icon(default_layer = DRONE_HEAD_LAYER, default_icon_file = used_head_icon)
 		head_overlay.pixel_y -= 15
 
 		drone_overlays[DRONE_HEAD_LAYER] = head_overlay

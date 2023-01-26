@@ -28,6 +28,8 @@ BONUS
 	base_message_chance = 100
 	symptom_delay_min = 25
 	symptom_delay_max = 50
+	prefixes = list("Eternal ")
+	bodies = list("Immortal", "Elixir")
 
 /datum/symptom/youth/Activate(datum/disease/advance/A)
 	if(!..())

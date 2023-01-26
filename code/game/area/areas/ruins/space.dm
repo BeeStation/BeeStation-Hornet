@@ -111,6 +111,10 @@
 	name = "Hotel Staff Room"
 	icon_state = "crew_quarters"
 
+/area/ruin/space/has_grav/hotel/secondary_solars
+	name = "Hotel Secondary Solar Control"
+	icon_state = "engine_smes"
+
 
 
 

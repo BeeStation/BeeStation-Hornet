@@ -4,6 +4,9 @@
 	caliber = "38"
 	max_ammo = 6
 
+/obj/item/ammo_box/magazine/internal/cylinder/rev38/rubber
+	ammo_type = /obj/item/ammo_casing/c38/match/bouncy
+
 /obj/item/ammo_box/magazine/internal/cylinder/rev762
 	name = "\improper Nagant revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/n762
@@ -17,6 +20,6 @@
 	max_ammo = 6
 	multiload = 0
 
-/obj/item/ammo_box/magazine/internal/rus357/Initialize()
+/obj/item/ammo_box/magazine/internal/rus357/Initialize(mapload)
 	stored_ammo += new ammo_type(src)
 	. = ..()

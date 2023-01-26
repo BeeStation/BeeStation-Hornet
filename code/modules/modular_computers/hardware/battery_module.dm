@@ -7,20 +7,23 @@
 	var/obj/item/stock_parts/cell/battery
 	device_type = MC_CELL
 
+/obj/item/computer_hardware/battery/get_cell()
+	return battery
+
 /obj/item/computer_hardware/battery/Initialize(mapload, battery_type)
 	. = ..()
 	if(battery_type)
 		battery = new battery_type(src)
 
 /obj/item/computer_hardware/battery/Destroy()
-	QDEL_NULL(battery)
+	if(battery)
+		QDEL_NULL(battery)
 	return ..()
 
-///What happens when the battery is removed (or deleted) from the module, through try_eject() or not.
-/obj/item/computer_hardware/battery/Exited(atom/A, atom/newloc)
+/obj/item/computer_hardware/battery/handle_atom_del(atom/A)
 	if(A == battery)
-		try_eject(0, null, TRUE)
-	return ..()
+		try_eject(forced = TRUE)
+	. = ..()
 
 /obj/item/computer_hardware/battery/try_insert(obj/item/I, mob/living/user = null)
 	if(!holder)
@@ -46,16 +49,18 @@
 	return TRUE
 
 
-/obj/item/computer_hardware/battery/try_eject(slot=0, mob/living/user = null, forced = 0)
+/obj/item/computer_hardware/battery/try_eject(mob/living/user = null, forced = FALSE)
 	if(!battery)
 		to_chat(user, "<span class='warning'>There is no power cell connected to \the [src].</span>")
 		return FALSE
 	else
-		if(user)
+		if(user && in_range(src, user))
 			user.put_in_hands(battery)
 			to_chat(user, "<span class='notice'>You detach \the [battery] from \the [src].</span>")
 		else
 			battery.forceMove(drop_location())
+
+		battery = null
 		return TRUE
 
 /obj/item/stock_parts/cell/computer

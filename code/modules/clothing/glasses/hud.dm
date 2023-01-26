@@ -4,11 +4,14 @@
 	flags_1 = null //doesn't protect eyes because it's a monocle, duh
 	var/hud_trait = null //Used for topic calls. Just because you have a HUD display doesn't mean you should be able to interact with stuff. If something uses multiple traits, make it a list.
 	var/hud_type = null	//If something uses multiple huds, make it a list.
+	var/atom/movable/screen/plane_master/data_hud/glitching_hud
 
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot)
 	..()
 	if(slot != ITEM_SLOT_EYES)
 		return
+	if(obj_flags & (OBJ_EMPED | EMAGGED))
+		start_glitch()
 	if(hud_type)
 		if(islist(hud_type))
 			for(var/T in hud_type)
@@ -28,6 +31,7 @@
 	..()
 	if(!istype(user) || user.glasses != src)
 		return
+	stop_glitch()
 	if(hud_type)
 		if(islist(hud_type))
 			for(var/T in hud_type)
@@ -45,17 +49,73 @@
 
 /obj/item/clothing/glasses/hud/emp_act(severity)
 	. = ..()
-	if(obj_flags & EMAGGED || . & EMP_PROTECT_SELF)
+	if(obj_flags & OBJ_EMPED || . & EMP_PROTECT_SELF)
 		return
-	obj_flags |= EMAGGED
+	obj_flags |= OBJ_EMPED
 	desc = "[desc] The display is flickering slightly."
+	addtimer(CALLBACK(src, .proc/reset_emp), rand(1200 / severity, 600 / severity))
+	//If we aren't glitching out already, start glitching
+	if(!(obj_flags & EMAGGED))
+		start_glitch()
 
-/obj/item/clothing/glasses/hud/emag_act(mob/user)
+/obj/item/clothing/glasses/hud/proc/reset_emp()
+	obj_flags &= ~OBJ_EMPED
+	//If we aren't emagged, stop glitching
 	if(obj_flags & EMAGGED)
 		return
-	obj_flags |= EMAGGED
+	desc = initial(desc)
+	stop_glitch()
+
+/obj/item/clothing/glasses/hud/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
 	desc = "[desc] The display is flickering slightly."
+	//If we aren't already glitching out, start glitching
+	if(!(obj_flags & OBJ_EMPED))
+		start_glitch()
+
+/obj/item/clothing/glasses/hud/proc/start_glitch()
+	if(ismob(loc))
+		var/mob/M = loc
+		//Remove old glitching hud
+		if(glitching_hud)
+			glitching_hud.transform = matrix()
+			glitching_hud.filters = null
+			glitching_hud.color = null
+			glitching_hud = null
+		//Get a new glitching hud
+		glitching_hud = locate(/atom/movable/screen/plane_master/data_hud) in M.client?.screen
+
+	START_PROCESSING(SSobj, src)
+
+/obj/item/clothing/glasses/hud/proc/stop_glitch()
+	if(glitching_hud)
+		glitching_hud.transform = matrix()
+		glitching_hud.filters = null
+		glitching_hud.color = null
+		glitching_hud = null
+
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/clothing/glasses/hud/process(delta_time)
+	if(!glitching_hud)
+		return
+	//Invert colours
+	if(prob(35))
+		var/colour_amount = -1
+		glitching_hud.color = list(
+			colour_amount, 0, 0,
+			0, colour_amount, 0,
+			0, 0, colour_amount,
+			1, 1, 1
+		)
+	else if(prob(70))
+		glitching_hud.color = null
+
+	var/matrix/M = matrix()
+	M.Translate(rand(-5, 5), rand(-1, 1))
+	glitching_hud.transform = M
+	glitching_hud.filters = filter(type="motion_blur", x=rand(1, 3))
 
 /obj/item/clothing/glasses/hud/health
 	name = "health scanner HUD"
@@ -86,11 +146,8 @@
 
 /obj/item/clothing/glasses/hud/health/prescription
 	name = "prescription medical HUDglasses"
-	desc = "prescription glasses with a built-in medical HUD."
-	item_state = "prescmedhud"
+	desc = "Prescription glasses with a built-in medical HUD."
 	icon_state = "prescmedhud"
-	hud_type = DATA_HUD_MEDICAL_ADVANCED
-	hud_trait = TRAIT_MEDICAL_HUD
 	vision_correction = 1
 
 /obj/item/clothing/glasses/hud/health/sunglasses/degraded
@@ -128,6 +185,12 @@
 	desc = "Sunglasses with a diagnostic HUD. They do not provide flash protection."
 	flash_protect = 0
 
+/obj/item/clothing/glasses/hud/diagnostic/prescription
+	name = "prescription diagnostic HUDglasses"
+	desc = "Prescription glasses with a built-in diagnostic HUD."
+	icon_state = "prescdiaghud"
+	vision_correction = 1
+
 /obj/item/clothing/glasses/hud/security
 	name = "security HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their ID status and security records."
@@ -161,7 +224,7 @@
 	// have multiple inheritance, okay?
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/clothing/glasses/hud/security/chameleon/Initialize()
+/obj/item/clothing/glasses/hud/security/chameleon/Initialize(mapload)
 	. = ..()
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/glasses
@@ -192,7 +255,7 @@
 
 /obj/item/clothing/glasses/hud/security/sunglasses/degraded
 	name = "degraded security HUDSunglasses"
-	desc = "Sunglasses with a security HUD. They do not provide flash protection"
+	desc = "Sunglasses with a security HUD. They do not provide flash protection."
 	flash_protect = 0
 
 /obj/item/clothing/glasses/hud/security/night
@@ -202,6 +265,12 @@
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
+
+/obj/item/clothing/glasses/hud/security/prescription
+	name = "prescription security HUDglasses"
+	desc = "Prescription glasses with a built-in security HUD. They do not provide flash protection."
+	icon_state = "prescsechud"
+	vision_correction = 1
 
 /obj/item/clothing/glasses/hud/security/sunglasses/gars
 	name = "\improper HUD gar glasses"
@@ -285,3 +354,30 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	thermal_overload()
+
+/obj/item/clothing/glasses/hud/debug
+	name = "Omni HUD"
+	desc = "Glasses with every function."
+	icon_state = "doublegodeye"
+	item_state = "doublegodeye"
+	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
+	darkness_view = 8
+	flash_protect = 2
+	vision_correction = 1
+	clothing_flags = SCAN_REAGENTS | SCAN_BOOZEPOWER
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	hud_type = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED)
+	resistance_flags = INDESTRUCTIBLE
+	actions_types = list(/datum/action/item_action/toggle,/datum/action/item_action/toggle_research_scanner)
+	var/xray = TRUE
+
+/obj/item/clothing/glasses/hud/debug/attack_self(mob/user)
+	if(!ishuman(user))
+		return
+	if(xray)
+		vision_flags -= SEE_MOBS|SEE_OBJS
+	else
+		vision_flags += SEE_MOBS|SEE_OBJS
+	xray = !xray
+	var/mob/living/carbon/human/wearer = user
+	wearer.update_sight()

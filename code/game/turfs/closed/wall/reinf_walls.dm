@@ -2,7 +2,9 @@
 	name = "reinforced wall"
 	desc = "A huge chunk of reinforced metal used to separate rooms."
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
-	icon_state = "r_wall"
+	icon_state = "reinforced_wall-0"
+	base_icon_state = "reinforced_wall"
+	smoothing_flags = SMOOTH_BITMASK
 	opacity = 1
 	density = TRUE
 
@@ -61,156 +63,160 @@
 				W.play_tool_sound(src, 100)
 				d_state = SUPPORT_LINES
 				update_icon()
-				balloon_alert(user, "Outer grille cut")
+				balloon_alert(user, "You cut the outer grille.")
 				return TRUE
 
 		if(SUPPORT_LINES)
 			if(W.tool_behaviour == TOOL_SCREWDRIVER)
-				balloon_alert(user, "You begin unsecuring the support lines")
+				balloon_alert(user, "You begin unsecuring the support lines...")
 				if(W.use_tool(src, user, 40, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != SUPPORT_LINES)
 						return TRUE
 					d_state = COVER
 					update_icon()
-					balloon_alert(user, "Support lines unsecured")
+					balloon_alert(user, "You unsecure the support lines.")
 				return TRUE
 
 			else if(W.tool_behaviour == TOOL_WIRECUTTER)
 				W.play_tool_sound(src, 100)
 				d_state = INTACT
 				update_icon()
-				balloon_alert(user, "Outer grille repaired")
+				balloon_alert(user, "You repair the outer grille.")
 				return TRUE
 
 		if(COVER)
 			if(W.tool_behaviour == TOOL_WELDER)
 				if(!W.tool_start_check(user, amount=0))
 					return
-				balloon_alert(user, "You begin slicing through the metal cover")
+				balloon_alert(user, "You begin slicing through the metal cover...")
 				if(W.use_tool(src, user, 60, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != COVER)
 						return TRUE
 					d_state = CUT_COVER
 					update_icon()
-					balloon_alert(user, "Metal cover removed")
+					balloon_alert(user, "You remove the metal cover.")
 				return TRUE
 
 			if(W.tool_behaviour == TOOL_SCREWDRIVER)
-				balloon_alert(user, "You begin securing the support lines")
+				balloon_alert(user, "You begin securing the support lines...")
 				if(W.use_tool(src, user, 40, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != COVER)
 						return TRUE
 					d_state = SUPPORT_LINES
 					update_icon()
-					balloon_alert(user, "Support lines have been secured")
+					balloon_alert(user, "You secure the support lines.")
 				return TRUE
 
 		if(CUT_COVER)
 			if(W.tool_behaviour == TOOL_CROWBAR)
-				balloon_alert(user, "You struggle to pry off the cover")
+				balloon_alert(user, "You struggle to pry off the cover...")
 				if(W.use_tool(src, user, 100, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != CUT_COVER)
 						return TRUE
 					d_state = ANCHOR_BOLTS
 					update_icon()
-					balloon_alert(user, "Cover pried off")
+					balloon_alert(user, "You pry the cover off.")
 				return TRUE
 
 			if(W.tool_behaviour == TOOL_WELDER)
 				if(!W.tool_start_check(user, amount=0))
 					return
-				balloon_alert(user, "You begin welding the metal cover back to the frame")
+				balloon_alert(user, "You begin welding the metal cover back to the frame...")
 				if(W.use_tool(src, user, 60, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != CUT_COVER)
 						return TRUE
 					d_state = COVER
 					update_icon()
-					balloon_alert(user, "Metal cover welded to the frame")
+					balloon_alert(user, "You welded the metal cover to the frame.")
 				return TRUE
 
 		if(ANCHOR_BOLTS)
 			if(W.tool_behaviour == TOOL_WRENCH)
-				balloon_alert(user, "You start loosening the anchoring bolts which secure the support rods to their frame")
+				balloon_alert(user, "You start loosening the anchoring bolts which secure the support rods to their frame...")
 				if(W.use_tool(src, user, 40, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != ANCHOR_BOLTS)
 						return TRUE
 					d_state = SUPPORT_RODS
 					update_icon()
-					balloon_alert(user, "Bolts removed")
+					balloon_alert(user, "You remove the bolts.")
 				return TRUE
 
 			if(W.tool_behaviour == TOOL_CROWBAR)
-				balloon_alert(user, "You start to pry the cover back into place")
+				balloon_alert(user, "You start to pry the cover back into place...")
 				if(W.use_tool(src, user, 20, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != ANCHOR_BOLTS)
 						return TRUE
 					d_state = CUT_COVER
 					update_icon()
-					balloon_alert(user, "The metal cover pried back into place")
+					balloon_alert(user, "You pry the metal cover back in place.")
 				return TRUE
 
 		if(SUPPORT_RODS)
 			if(W.tool_behaviour == TOOL_WELDER)
 				if(!W.tool_start_check(user, amount=0))
 					return
-				balloon_alert(user, "You start slicing through the support rods")
+				balloon_alert(user, "You start slicing through the support rods...")
 				if(W.use_tool(src, user, 100, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != SUPPORT_RODS)
 						return TRUE
 					d_state = SHEATH
 					update_icon()
-					balloon_alert(user, "Support rods sliced through")
+					balloon_alert(user, "You have sliced through the support rods.")
 				return TRUE
 
 			if(W.tool_behaviour == TOOL_WRENCH)
-				balloon_alert(user, "You start tightening the bolts securing support rods")
+				balloon_alert(user, "You start tightening the bolts securing the support rods...")
 				W.play_tool_sound(src, 100)
 				if(W.use_tool(src, user, 40))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != SUPPORT_RODS)
 						return TRUE
 					d_state = ANCHOR_BOLTS
 					update_icon()
-					balloon_alert(user, "Bolts tightened")
+					balloon_alert(user, "You tighten the bolts.")
 				return TRUE
 
 		if(SHEATH)
 			if(W.tool_behaviour == TOOL_CROWBAR)
-				balloon_alert(user, "You start prying off the outer sheath")
+				balloon_alert(user, "You start prying off the outer sheath...")
 				if(W.use_tool(src, user, 100, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != SHEATH)
 						return TRUE
-					balloon_alert(user, "Outer sheath pried off")
+					balloon_alert(user, "You pried the outer sheath off.")
 					dismantle_wall()
 				return TRUE
 
 			if(W.tool_behaviour == TOOL_WELDER)
 				if(!W.tool_start_check(user, amount=0))
 					return
-				balloon_alert(user, "You start welding the support rods back together")
+				balloon_alert(user, "You start welding the support rods back together...")
 				if(W.use_tool(src, user, 100, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != SHEATH)
 						return TRUE
 					d_state = SUPPORT_RODS
 					update_icon()
-					balloon_alert(user, "Support rods welded back together")
+					balloon_alert(user, "You weld the support rods back together.")
 				return TRUE
 	return FALSE
 
-/turf/closed/wall/r_wall/update_icon()
+/turf/closed/wall/r_wall/update_icon(updates=ALL)
 	. = ..()
 	if(d_state != INTACT)
-		smooth = SMOOTH_FALSE
-		clear_smooth_overlays()
-	else
-		smooth = SMOOTH_TRUE
-		queue_smooth_neighbors(src)
-		queue_smooth(src)
+		icon_state = "r_wall-[d_state]"
+		smoothing_flags = NONE
+		return
+	if (!(updates & UPDATE_SMOOTHING))
+		return
+	smoothing_flags = SMOOTH_BITMASK
+	icon_state = "[base_icon_state]-[smoothing_junction]"
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	QUEUE_SMOOTH(src)
 
 /turf/closed/wall/r_wall/update_icon_state()
 	if(d_state != INTACT)
 		icon_state = "r_wall-[d_state]"
 	else
 		icon_state = "r_wall"
+	return ..()
 
 /turf/closed/wall/r_wall/wall_singularity_pull(current_size)
 	if(current_size >= STAGE_FIVE)
@@ -229,31 +235,36 @@
 /turf/closed/wall/r_wall/rust_heretic_act()
 	if(prob(50))
 		return
+	if(HAS_TRAIT(src, TRAIT_RUSTY))
+		ScrapeAway()
+		return
 	if(prob(70))
 		new /obj/effect/temp_visual/glowing_rune(src)
-	ChangeTurf(/turf/closed/wall/r_wall/rust)
+	return ..()
 
 /turf/closed/wall/r_wall/syndicate
 	name = "hull"
 	desc = "The armored hull of an ominous looking ship."
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
-	icon_state = "map-shuttle"
+	icon_state = "plastitanium_wall-0"
+	base_icon_state = "plastitanium_wall"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SYNDICATE_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
 	explosion_block = 20
 	sheet_type = /obj/item/stack/sheet/mineral/plastitanium
-	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
-	canSmoothWith = list(/turf/closed/wall/r_wall/syndicate, /turf/closed/wall/mineral/plastitanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/plastitanium, /obj/structure/shuttle/engine, /obj/structure/falsewall/plastitanium)
 
 /turf/closed/wall/r_wall/syndicate/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	return FALSE
 
 /turf/closed/wall/r_wall/syndicate/nodiagonal
-	smooth = SMOOTH_MORE
+	smoothing_flags = SMOOTH_BITMASK
 	icon_state = "map-shuttle_nd"
 
 /turf/closed/wall/r_wall/syndicate/nosmooth
+	smoothing_flags = NONE
 	icon = 'icons/turf/shuttle.dmi'
 	icon_state = "wall"
-	smooth = SMOOTH_FALSE
 
 /turf/closed/wall/r_wall/syndicate/overspace
 	icon_state = "map-overspace"

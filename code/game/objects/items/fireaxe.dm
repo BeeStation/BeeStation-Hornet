@@ -8,7 +8,6 @@
 	name = "fire axe"
 	desc = "Truly, the weapon of a madman. Who would think to fight fire with an axe?"
 	attack_weight = 3
-	block_upgrade_walk = 1
 	force = 5
 	throwforce = 15
 	w_class = WEIGHT_CLASS_BULKY
@@ -21,7 +20,7 @@
 	resistance_flags = FIRE_PROOF
 	var/icon_prefix = "fireaxe"
 
-/obj/item/fireaxe/Initialize()
+/obj/item/fireaxe/Initialize(mapload)
 	. = ..()
 
 /obj/item/fireaxe/ComponentInitialize()

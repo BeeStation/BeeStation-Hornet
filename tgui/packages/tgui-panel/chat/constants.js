@@ -29,11 +29,13 @@ export const MESSAGE_TYPE_WARNING = 'warning';
 export const MESSAGE_TYPE_DEADCHAT = 'deadchat';
 export const MESSAGE_TYPE_OOC = 'ooc';
 export const MESSAGE_TYPE_ADMINPM = 'adminpm';
+export const MESSAGE_TYPE_MENTORPM = 'mentorpm';
 export const MESSAGE_TYPE_COMBAT = 'combat';
 export const MESSAGE_TYPE_ADMINCHAT = 'adminchat';
-export const MESSAGE_TYPE_MODCHAT = 'modchat';
+export const MESSAGE_TYPE_MENTORCHAT = 'mentorchat';
 export const MESSAGE_TYPE_EVENTCHAT = 'eventchat';
 export const MESSAGE_TYPE_ADMINLOG = 'adminlog';
+export const MESSAGE_TYPE_MENTORLOG = 'mentorlog';
 export const MESSAGE_TYPE_ATTACKLOG = 'attacklog';
 export const MESSAGE_TYPE_DEBUG = 'debug';
 
@@ -58,13 +60,13 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_RADIO,
     name: 'Radio',
     description: 'All departments of radio messages',
-    selector: '.alert, .syndradio, .centradio, .airadio, .entradio, .comradio, .secradio, .engradio, .medradio, .sciradio, .supradio, .srvradio, .expradio, .radio, .deptradio, .newscaster',
+    selector: '.alert, .syndradio, .centcomradio, .aiprivradio, .comradio, .secradio, .engradio, .medradio, .sciradio, .suppradio, .servradio, .explradio, .entradio, .radio, .deptradio, .newscaster, .redteamradio, .blueteamradio, .sinister, .cult, .shadowling, .changeling',
   },
   {
     type: MESSAGE_TYPE_INFO,
     name: 'Info',
     description: 'Non-urgent messages from the game and items',
-    selector: '.notice:not(.pm), .adminnotice, .info, .sinister, .cult',
+    selector: '.notice:not(.pm), .adminnotice, .info',
   },
   {
     type: MESSAGE_TYPE_WARNING,
@@ -81,14 +83,20 @@ export const MESSAGE_TYPES = [
   {
     type: MESSAGE_TYPE_OOC,
     name: 'OOC',
-    description: 'The bluewall of global OOC messages',
-    selector: '.ooc, .adminooc',
+    description: 'OOC and LOOC messages',
+    selector: '.ooc, .looc, .adminooc',
   },
   {
     type: MESSAGE_TYPE_ADMINPM,
     name: 'Admin PMs',
     description: 'Messages to/from admins (adminhelp)',
     selector: '.pm, .adminhelp',
+  },
+  {
+    type: MESSAGE_TYPE_MENTORPM,
+    name: 'Mentor PMs',
+    description: 'Messages to/from mentors (mentorhelp)',
+    selector: '.mentorhelp, .mentorto, .mentorfrom',
   },
   {
     type: MESSAGE_TYPE_COMBAT,
@@ -99,7 +107,7 @@ export const MESSAGE_TYPES = [
   {
     type: MESSAGE_TYPE_UNKNOWN,
     name: 'Unsorted',
-    description: 'Everything we could not sort, always enabled',
+    description: 'Everything that was not sorted',
   },
   // Admin stuff
   {
@@ -110,17 +118,24 @@ export const MESSAGE_TYPES = [
     admin: true,
   },
   {
-    type: MESSAGE_TYPE_MODCHAT,
-    name: 'Mod Chat',
-    description: 'MSAY messages',
-    selector: '.mod_channel',
+    type: MESSAGE_TYPE_MENTORCHAT,
+    name: 'Mentor Chat',
+    description: 'MSAY (Mentor) chat',
+    selector: '.mentorsay',
     admin: true,
   },
   {
     type: MESSAGE_TYPE_ADMINLOG,
     name: 'Admin Log',
     description: 'ADMIN LOG: Urist McAdmin has jumped to coordinates X, Y, Z',
-    selector: '.log_message',
+    selector: '.adminlog',
+    admin: true,
+  },
+  {
+    type: MESSAGE_TYPE_MENTORLOG,
+    name: 'Mentor Log',
+    description: 'MENTOR LOG: Spacestation13mentor has started replying to Spacestation13player\'s mentor help.',
+    selector: '.mentorlog',
     admin: true,
   },
   {

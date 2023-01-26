@@ -28,7 +28,7 @@
 	//We assume 2D everywhere anyway
 	start = locate(min_x,min_y,Start.z)
 
-/datum/mapGenerator/ca/proc/initialize()
+/datum/mapGenerator/ca/proc/Initialize()
 	old_state = new/list(width)
 	for(var/i = 1,i<=width,i++)
 		old_state[i] = new/list(height)
@@ -40,7 +40,7 @@
 /datum/mapGenerator/ca/generate()
 	//Abandon all hope for efficency all who enter here
 	//Maybe some less basic implemetation later, but this is just simple admin tool
-	initialize()
+	Initialize()
 
 	for(var/generation = 0,generation<iterations,generation++)
 		for(var/i = 1,i<=width,i++)

@@ -13,16 +13,6 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
-/datum/design/health_hud_prescription
-	name = "Prescription Medical HUDglasses"
-	desc = "Prescription glasses with a built in medical heads-up display."
-	id = "health_hud_prescription"
-	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 600, /datum/material/glass = 750, /datum/material/copper = 400)
-	build_path = /obj/item/clothing/glasses/hud/health/prescription
-	category = list("Equipment")
-	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
-
 /datum/design/health_hud_night
 	name = "Night Vision Health Scanner HUD"
 	desc = "An advanced medical head-up display that allows doctors to find patients in complete darkness."
@@ -266,9 +256,39 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/xenoartifact_labeler
+	name = "Artifact Labeler"
+	desc = "A scientific labeler used to warn others of the dangers of an alien artifact."
+	id = "xenoa_labeler"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 2000, /datum/material/glass = 1000, /datum/material/silver = 1000, /datum/material/gold = 3000)
+	build_path = /obj/item/xenoartifact_labeler
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/artifact_pinchers
+	name = "Anti-Tactile Pinchers"
+	desc = "A pair of precise operable pinchers, used to examine artifacts."
+	id = "xenoa_gloves"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 2000, /datum/material/silver = 1000)
+	build_path = /obj/item/clothing/gloves/artifact_pinchers
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
 /////////////////////////////////////////
 ////////////Janitor Designs//////////////
 /////////////////////////////////////////
+
+/datum/design/larryframe
+	name = "Larry Frame"
+	desc = "A housing that serves as the base for constructing Larries."
+	id = "larry"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 200)
+	build_path = /obj/item/larryframe
+	category = list("Electronics")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/advmop
 	name = "Advanced Mop"
@@ -343,7 +363,6 @@
 	build_path = /obj/structure/holosign/barrier/wetsign
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
-
 
 /datum/design/holosignsec
 	name = "Security Holobarrier Projector"
@@ -472,7 +491,15 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
-
+/datum/design/glasses_prescription
+	name = "Prescription Glasses"
+	desc = "Made by Nerd. Co."
+	id = "glasses_prescription"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 500, /datum/material/glass = 2000)
+	build_path = /obj/item/clothing/glasses/regular
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /////////////////////////////////////////
 /////////////////Tape////////////////////

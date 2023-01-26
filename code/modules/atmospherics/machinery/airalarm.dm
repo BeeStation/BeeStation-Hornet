@@ -71,6 +71,7 @@
 	integrity_failure = 80
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
+	clicksound = 'sound/machines/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
 	flags_1 = SAVE_SAFE_1
 
@@ -92,7 +93,6 @@
 		GAS_O2			= new/datum/tlv(16, 19, 40, 50), // Partial pressure, kpa
 		GAS_N2			= new/datum/tlv(-1, -1, 1000, 1000),
 		GAS_CO2	= new/datum/tlv(-1, -1, 5, 10),
-		GAS_MIASMA			= new/datum/tlv/(-1, -1, 15, 30),
 		GAS_PLASMA			= new/datum/tlv/dangerous,
 		GAS_NITROUS	= new/datum/tlv/dangerous,
 		GAS_BZ				= new/datum/tlv/dangerous,
@@ -111,7 +111,6 @@
 		GAS_O2			= new/datum/tlv/no_checks,
 		GAS_N2			= new/datum/tlv/no_checks,
 		GAS_CO2	= new/datum/tlv/no_checks,
-		GAS_MIASMA			= new/datum/tlv/no_checks,
 		GAS_PLASMA			= new/datum/tlv/no_checks,
 		GAS_NITROUS	= new/datum/tlv/no_checks,
 		GAS_BZ				= new/datum/tlv/no_checks,
@@ -123,14 +122,13 @@
 		GAS_PLUOXIUM			= new/datum/tlv/no_checks
 	)
 
-/obj/machinery/airalarm/kitchen_cold_room // Kitchen cold rooms start off at -20°C or 253.15°K.
+/obj/machinery/airalarm/kitchen_cold_room // Kitchen cold rooms start off at -20°C or 253.15 K.
 	TLV = list(
 		"pressure"					= new/datum/tlv(ONE_ATMOSPHERE * 0.8, ONE_ATMOSPHERE*  0.9, ONE_ATMOSPHERE * 1.1, ONE_ATMOSPHERE * 1.2), // kPa
 		"temperature"				= new/datum/tlv(T0C-273.15, T0C-80, T0C-10, T0C+10),
 		GAS_O2			= new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
 		GAS_N2			= new/datum/tlv(-1, -1, 1000, 1000),
 		GAS_CO2	= new/datum/tlv(-1, -1, 5, 10),
-		GAS_MIASMA			= new/datum/tlv/(-1, -1, 2, 5),
 		GAS_PLASMA			= new/datum/tlv/dangerous,
 		GAS_NITROUS	= new/datum/tlv/dangerous,
 		GAS_BZ				= new/datum/tlv/dangerous,
@@ -193,8 +191,8 @@
 	var/list/air_vent_info = list()
 	var/list/air_scrub_info = list()
 
-/obj/machinery/airalarm/New(loc, ndir, nbuild)
-	..()
+/obj/machinery/airalarm/Initialize(mapload, ndir, nbuild)
+	. = ..()
 	wires = new /datum/wires/airalarm(src)
 	if(ndir)
 		setDir(ndir)
@@ -210,6 +208,9 @@
 
 	update_icon()
 
+	set_frequency(frequency)
+	GLOB.zclear_atoms += src
+
 /obj/machinery/airalarm/Destroy()
 	SSradio.remove_object(src, frequency)
 	qdel(wires)
@@ -218,11 +219,6 @@
 	ourarea.atmosalert(FALSE, src)
 	GLOB.zclear_atoms -= src
 	return ..()
-
-/obj/machinery/airalarm/Initialize(mapload)
-	. = ..()
-	set_frequency(frequency)
-	GLOB.zclear_atoms += src
 
 /obj/machinery/airalarm/examine(mob/user)
 	. = ..()
@@ -457,7 +453,7 @@
 
 
 /obj/machinery/airalarm/proc/shock(mob/user, prb)
-	if((stat & (NOPOWER)))		// unpowered, no shock
+	if((machine_stat & (NOPOWER)))		// unpowered, no shock
 		return 0
 	if(!prob(prb))
 		return 0 //you lucked out, no shock for you
@@ -530,7 +526,6 @@
 					"power" = 1,
 					"set_filters" = list(
 						GAS_CO2,
-						GAS_MIASMA,
 						GAS_PLASMA,
 						GAS_H2O,
 						GAS_HYPERNOB,
@@ -633,7 +628,7 @@
 				icon_state = "alarm_b1"
 		return
 
-	if((stat & (NOPOWER|BROKEN)) || shorted)
+	if((machine_stat & (NOPOWER|BROKEN)) || shorted)
 		icon_state = "alarmp"
 		return
 
@@ -647,7 +642,7 @@
 			icon_state = "alarm1"
 
 /obj/machinery/airalarm/process()
-	if((stat & (NOPOWER|BROKEN)) || shorted)
+	if((machine_stat & (NOPOWER|BROKEN)) || shorted)
 		return
 
 	var/turf/location = get_turf(src)
@@ -690,7 +685,7 @@
 		return
 
 	var/datum/signal/alert_signal = new(list(
-		"zone" = get_area_name(src),
+		"zone" = get_area_name(src, TRUE),
 		"type" = "Atmospheric"
 	))
 	var/area/A = get_area(src)
@@ -710,7 +705,7 @@
 
 	var/new_area_danger_level = 0
 	for(var/obj/machinery/airalarm/AA in A)
-		if (!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted)
+		if (!(AA.machine_stat & (NOPOWER|BROKEN)) && !AA.shorted)
 			new_area_danger_level = clamp(max(new_area_danger_level, AA.danger_level), 0, 1)
 	if(A.atmosalert(new_area_danger_level,src)) //if area was in normal state or if area was in alert state
 		post_alert(new_area_danger_level)
@@ -733,7 +728,7 @@
 				to_chat(user, "<span class='notice'>The wires have been [panel_open ? "exposed" : "unexposed"].</span>")
 				update_icon()
 				return
-			else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))// trying to unlock the interface with an ID card
+			else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/modular_computer/tablet/pda))// trying to unlock the interface with an ID card
 				togglelock(user)
 				return
 			else if(panel_open && is_wire_tool(W))
@@ -823,7 +818,7 @@
 		togglelock(user)
 
 /obj/machinery/airalarm/proc/togglelock(mob/living/user)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		to_chat(user, "<span class='warning'>It does nothing!</span>")
 	else
 		if(src.allowed(usr) && !wires.is_cut(WIRE_IDSCAN))
@@ -838,10 +833,8 @@
 	..()
 	update_icon()
 
-/obj/machinery/airalarm/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/airalarm/on_emag(mob/user)
+	..()
 	visible_message("<span class='warning'>Sparks fly out of [src]!</span>", "<span class='notice'>You emag [src], disabling its safeties.</span>")
 	playsound(src, "sparks", 50, 1)
 

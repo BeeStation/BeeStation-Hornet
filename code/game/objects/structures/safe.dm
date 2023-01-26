@@ -25,7 +25,7 @@ FLOOR SAFES
 	var/maxspace = 24	//the maximum combined w_class of stuff in the safe
 	var/explosion_count = 0	//Tough, but breakable
 
-/obj/structure/safe/Initialize()
+/obj/structure/safe/Initialize(mapload)
 	. = ..()
 	tumbler_1_pos = rand(0, 71)
 	tumbler_1_open = rand(0, 71)

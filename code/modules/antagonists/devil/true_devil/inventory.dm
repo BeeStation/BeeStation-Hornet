@@ -1,4 +1,4 @@
-/mob/living/carbon/true_devil/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE)
+/mob/living/carbon/true_devil/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE)
 	if(..())
 		update_inv_hands()
 		return TRUE
@@ -12,33 +12,19 @@
 	var/obj/item/r_hand = get_item_for_held_index(2)
 
 	if(r_hand)
-
-		var/r_state = r_hand.item_state
-		if(!r_state)
-			r_state = r_hand.icon_state
-
-		var/mutable_appearance/r_hand_overlay = r_hand.build_worn_icon(state = r_state, default_layer = DEVIL_HANDS_LAYER, default_icon_file = r_hand.righthand_file, isinhands = TRUE)
-
+		var/mutable_appearance/r_hand_overlay = r_hand.build_worn_icon(default_layer = DEVIL_HANDS_LAYER, default_icon_file = r_hand.righthand_file, isinhands = TRUE)
 		hands_overlays += r_hand_overlay
 
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			r_hand.layer = ABOVE_HUD_LAYER
 			r_hand.plane = ABOVE_HUD_PLANE
 			r_hand.screen_loc = ui_hand_position(get_held_index_of_item(r_hand))
 			client.screen |= r_hand
 
 	if(l_hand)
-
-		var/l_state = l_hand.item_state
-		if(!l_state)
-			l_state = l_hand.icon_state
-
-		var/mutable_appearance/l_hand_overlay = l_hand.build_worn_icon(state = l_state, default_layer = DEVIL_HANDS_LAYER, default_icon_file = l_hand.lefthand_file, isinhands = TRUE)
-
+		var/mutable_appearance/l_hand_overlay = l_hand.build_worn_icon(default_layer = DEVIL_HANDS_LAYER, default_icon_file = l_hand.lefthand_file, isinhands = TRUE)
 		hands_overlays += l_hand_overlay
 
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			l_hand.layer = ABOVE_HUD_LAYER
 			l_hand.plane = ABOVE_HUD_PLANE
 			l_hand.screen_loc = ui_hand_position(get_held_index_of_item(l_hand))
 			client.screen |= l_hand

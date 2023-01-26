@@ -8,7 +8,6 @@
 	amount_per_transfer_from_this = 10
 	volume = 100
 	throwforce = 15
-	block_upgrade_walk = 1
 	item_state = "broken_beer" //Generic held-item sprite until unique ones are made.
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
@@ -16,15 +15,6 @@
 	foodtype = ALCOHOL
 	///Directly relates to the 'knockdown' duration. Lowered by armor (i.e. helmets)
 	var/bottle_knockdown_duration = 1.3 SECONDS
-
-/obj/item/reagent_containers/food/drinks/bottle/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
-	if(isliving(hitby))
-		var/mob/living/L = hitby
-		smash(L)
-	else
-		smash()
-	return TRUE
-
 
 /obj/item/reagent_containers/food/drinks/bottle/smash(mob/living/target, mob/thrower, ranged = FALSE)
 	//Creates a shattering noise and replaces the bottle with a broken_bottle
@@ -144,7 +134,7 @@
 	sharpness = IS_SHARP
 	var/static/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
 
-/obj/item/broken_bottle/Initialize()
+/obj/item/broken_bottle/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 200, 55)
 
@@ -246,7 +236,7 @@
 	icon_state = "absinthebottle"
 	list_reagents = list(/datum/reagent/consumable/ethanol/absinthe = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/absinthe/Initialize()
+/obj/item/reagent_containers/food/drinks/bottle/absinthe/Initialize(mapload)
 	. = ..()
 	redact()
 
@@ -319,7 +309,7 @@
 	icon_state = "sakebottle"
 	list_reagents = list(/datum/reagent/consumable/ethanol/sake = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/sake/Initialize()
+/obj/item/reagent_containers/food/drinks/bottle/sake/Initialize(mapload)
 	. = ..()
 	if(prob(10))
 		name = "Fluffy Tail Sake"
@@ -403,6 +393,18 @@
 	isGlass = FALSE
 	list_reagents = list(/datum/reagent/consumable/limejuice = 100)
 	foodtype = FRUIT
+
+/obj/item/reagent_containers/food/drinks/bottle/pineapplejuice
+	name = "pineapple juice"
+	desc = "Extremely tart, yellow juice."
+	custom_price = 10
+	icon_state = "pineapplejuice"
+	item_state = "carton"
+	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
+	isGlass = FALSE
+	list_reagents = list(/datum/reagent/consumable/pineapplejuice = 100)
+	foodtype = FRUIT | PINEAPPLE
 
 /obj/item/reagent_containers/food/drinks/bottle/menthol
 	name = "menthol"

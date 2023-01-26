@@ -89,8 +89,10 @@
 #define DIGITIGRADE_STYLE 	2
 
 //flags for outfits that have mutantrace variants (try not to use this): Currently only needed if you're trying to add tight fitting bootyshorts
-#define NO_MUTANTRACE_VARIATION		0
-#define MUTANTRACE_VARIATION		1
+//This system takes priority over Sprite Sheets.
+#define NO_VARIATION			(1<<0)
+#define DIGITIGRADE_VARIATION	(1<<1)
+#define DIGITIGRADE_VARIATION_NO_NEW_ICON (1<<2)
 
 #define NOT_DIGITIGRADE				0
 #define FULL_DIGITIGRADE			1

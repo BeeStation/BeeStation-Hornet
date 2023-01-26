@@ -22,11 +22,11 @@
 	var/aisync = 1
 	var/panel_locked = TRUE
 
-/obj/item/robot_suit/Initialize()
+/obj/item/robot_suit/Initialize(mapload)
 	. = ..()
 	update_icon()
 
-/obj/item/robot_suit/prebuilt/Initialize()
+/obj/item/robot_suit/prebuilt/Initialize(mapload)
 	. = ..()
 	l_arm = new(src)
 	r_arm = new(src)
@@ -263,7 +263,7 @@
 				to_chat(user, "<span class='warning'>The MMI indicates that the brain is damaged!</span>")
 				return
 
-			if(is_banned_from(BM.ckey, "Cyborg") || QDELETED(src) || QDELETED(BM) || QDELETED(user) || QDELETED(M) || !Adjacent(user))
+			if(is_banned_from(BM.ckey, JOB_NAME_CYBORG) || QDELETED(src) || QDELETED(BM) || QDELETED(user) || QDELETED(M) || !Adjacent(user))
 				if(!QDELETED(M))
 					to_chat(user, "<span class='warning'>This [M.name] does not seem to fit!</span>")
 				return
@@ -299,7 +299,7 @@
 
 			SSticker.mode.remove_antag_for_borging(BM.mind)
 
-			O.job = "Cyborg"
+			O.job = JOB_NAME_CYBORG
 
 			O.cell = chest.cell
 			chest.cell.forceMove(O)
@@ -333,6 +333,9 @@
 	else if(istype(W, /obj/item/borg/upgrade/ai))
 		var/obj/item/borg/upgrade/ai/M = W
 		if(check_completion())
+			if(!chest.cell)
+				to_chat(user, "<span class='warning'>The endoskeleton still needs a power cell!</span>")
+				return
 			if(!isturf(loc))
 				to_chat(user, "<span class='warning'>You cannot install[M], the frame has to be standing on the ground to be perfectly precise!</span>")
 				return
@@ -358,7 +361,7 @@
 			chest.cell.forceMove(O)
 			chest.cell = null
 			O.locked = panel_locked
-			O.job = "Cyborg"
+			O.job = JOB_NAME_CYBORG
 			forceMove(O)
 			O.robot_suit = src
 			if(!locomotion)

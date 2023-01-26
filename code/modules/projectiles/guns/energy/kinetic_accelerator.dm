@@ -19,7 +19,6 @@
 	can_bayonet = TRUE
 	knife_x_offset = 20
 	knife_y_offset = 12
-	block_upgrade_walk = 1
 	flags_1 = SAVE_SAFE_1
 
 	var/max_mod_capacity = 100
@@ -73,15 +72,17 @@
 /obj/item/gun/energy/kinetic_accelerator/cyborg
 	holds_charge = TRUE
 	unique_frequency = TRUE
+	requires_wielding = FALSE
 	max_mod_capacity = 80
 
 /obj/item/gun/energy/kinetic_accelerator/minebot
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	overheat_time = 20
 	holds_charge = TRUE
+	requires_wielding = FALSE
 	unique_frequency = TRUE
 
-/obj/item/gun/energy/kinetic_accelerator/Initialize()
+/obj/item/gun/energy/kinetic_accelerator/Initialize(mapload)
 	. = ..()
 	if(!holds_charge)
 		empty()
@@ -96,7 +97,7 @@
 		attempt_reload()
 
 /obj/item/gun/energy/kinetic_accelerator/dropped()
-	. = ..()
+	..()
 	if(!QDELING(src) && !holds_charge)
 		// Put it on a delay because moving item from slot to hand
 		// calls dropped().
@@ -133,9 +134,6 @@
 	deltimer(recharge_timerid)
 	recharge_timerid = addtimer(CALLBACK(src, .proc/reload), recharge_time * carried, TIMER_STOPPABLE)
 
-/obj/item/gun/energy/kinetic_accelerator/emp_act(severity)
-	return
-
 /obj/item/gun/energy/kinetic_accelerator/proc/reload()
 	cell.give(cell.maxcharge)
 	if(!suppressed)
@@ -145,12 +143,10 @@
 	update_icon()
 	overheat = FALSE
 
-/obj/item/gun/energy/kinetic_accelerator/update_icon()
-	..()
+/obj/item/gun/energy/kinetic_accelerator/update_overlays()
+	. = ..()
 	if(!can_shoot())
-		add_overlay("[icon_state]_empty")
-	else
-		cut_overlays()
+		. += "[icon_state]_empty"
 
 //Casing
 /obj/item/ammo_casing/energy/kinetic
@@ -169,31 +165,32 @@
 /obj/item/projectile/kinetic
 	name = "kinetic force"
 	icon_state = null
-	damage = 40
+	damage = 20
 	damage_type = BRUTE
 	flag = "bomb"
 	range = 3
 	log_override = TRUE
 
 	var/pressure_decrease_active = FALSE
-	var/pressure_decrease = 0.25
+	var/pressure_decrease = 0.5
 	var/obj/item/gun/energy/kinetic_accelerator/kinetic_gun
 
 /obj/item/projectile/kinetic/Destroy()
 	kinetic_gun = null
 	return ..()
 
-/obj/item/projectile/kinetic/prehit(atom/target)
+/obj/item/projectile/kinetic/prehit_pierce(atom/target)
 	. = ..()
-	if(.)
-		if(kinetic_gun)
-			var/list/mods = kinetic_gun.get_modkits()
-			for(var/obj/item/borg/upgrade/modkit/M in mods)
-				M.projectile_prehit(src, target, kinetic_gun)
-		if(!lavaland_equipment_pressure_check(get_turf(target)))
-			name = "weakened [name]"
-			damage = damage * pressure_decrease
-			pressure_decrease_active = TRUE
+	if(. == PROJECTILE_PIERCE_PHASE)
+		return
+	if(kinetic_gun)
+		var/list/mods = kinetic_gun.get_modkits()
+		for(var/obj/item/borg/upgrade/modkit/modkit in mods)
+			modkit.projectile_prehit(src, target, kinetic_gun)
+	if(!pressure_decrease_active && !lavaland_equipment_pressure_check(get_turf(target)))
+		name = "weakened [name]"
+		damage = damage * pressure_decrease
+		pressure_decrease_active = TRUE
 
 /obj/item/projectile/kinetic/on_range()
 	strike_thing()
@@ -349,7 +346,7 @@
 	icon_state = "door_electronics"
 	icon = 'icons/obj/module.dmi'
 	denied_type = /obj/item/borg/upgrade/modkit/cooldown/minebot
-	modifier = 10
+	modifier = 5
 	cost = 0
 	minebot_upgrade = TRUE
 	minebot_exclusive = TRUE
@@ -443,7 +440,7 @@
 	desc = "Causes kinetic accelerator shots to slightly heal the firer on striking a living target."
 	icon_state = "modkit_crystal"
 	modifier = 2.5 //Not a very effective method of healing.
-	cost = 20
+	cost = 10
 	var/static/list/damage_heal_order = list(BRUTE, BURN, OXY)
 
 /obj/item/borg/upgrade/modkit/lifesteal/projectile_prehit(obj/item/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
@@ -515,7 +512,7 @@
 	desc = "A syndicate modification kit that increases the damage a kinetic accelerator does in high pressure environments."
 	modifier = 2
 	denied_type = /obj/item/borg/upgrade/modkit/indoors
-	maximum_of_type = 2
+	maximum_of_type = 1
 	cost = 35
 
 /obj/item/borg/upgrade/modkit/indoors/modify_projectile(obj/item/projectile/kinetic/K)

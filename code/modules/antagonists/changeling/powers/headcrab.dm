@@ -11,6 +11,8 @@
 
 /datum/action/changeling/headcrab/sting_action(mob/user)
 	set waitfor = FALSE
+	if(alert("Are we sure we wish to kill ourself and create a headslug?",,"Yes", "No") != "Yes")
+		return
 	if(isliving(user))
 		var/mob/living/L = user
 		var/mob/living/puller = L.pulledby
@@ -19,11 +21,13 @@
 			if(other_ling?.isabsorbing)
 				to_chat(user, "<span class='warning'>Our last resort is being disrupted by another changeling!</span>")
 				return
-	if(alert("Are we sure we wish to kill ourself and create a headslug?",,"Yes", "No") == "No")
-		return
-	..()
+	var/turf/T = user.loc
+	if(!T || !isopenturf(T) || !is_changeling(user))
+		to_chat(user, "<span class='warning'>You can't become a headslug right now!</span>")
+		return FALSE
 	var/datum/mind/M = user.mind
 	var/list/organs = user.getorganszone(BODY_ZONE_HEAD, 1)
+	..()
 
 	for(var/obj/item/organ/I in organs)
 		I.Remove(user, 1)
@@ -41,17 +45,16 @@
 			var/mob/living/silicon/S = A
 			to_chat(S, "<span class='userdanger'>Your sensors are disabled by a shower of blood!</span>")
 			S.Paralyze(60)
-	var/turf = get_turf(user)
 	// Headcrab transformation is *very* unique; origin mob death happens *before* resulting mob's creation. Action removal should happen beforehand.
 	for(var/datum/action/cp in user.actions)
 		cp.Remove(user)
-	user.gib()
 	. = TRUE
-	var/mob/living/simple_animal/hostile/headcrab/crab = new(turf)
+	var/mob/living/simple_animal/hostile/headcrab/crab = new(T)
 	for(var/obj/item/organ/I in organs)
 		I.forceMove(crab)
 	crab.origin = M
 	if(crab.origin)
 		crab.origin.active = 1
 		crab.origin.transfer_to(crab)
+		user.gib()
 		to_chat(crab, "<span class='warning'>You burst out of the remains of your former body in a shower of gore!</span>")

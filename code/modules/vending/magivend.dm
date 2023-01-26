@@ -19,5 +19,5 @@
 	resistance_flags = FIRE_PROOF
 	default_price = 25
 	extra_price = 50
-	payment_department = ACCOUNT_SRV
 	flags_1 = NONE
+	dept_req_for_free = ACCOUNT_SRV_BITFLAG

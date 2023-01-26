@@ -9,7 +9,7 @@
 	if((resistance_flags & INDESTRUCTIBLE) || obj_integrity <= 0)
 		return
 	damage_amount = run_obj_armor(damage_amount, damage_type, damage_flag, attack_dir, armour_penetration)
-	if(damage_amount <= DAMAGE_PRECISION)
+	if(damage_amount < DAMAGE_PRECISION)
 		return
 	. = damage_amount
 	var/old_integ = obj_integrity
@@ -93,6 +93,8 @@
 	return 0
 
 /obj/blob_act(obj/structure/blob/B)
+	if (!..())
+		return
 	if(isturf(loc))
 		var/turf/T = loc
 		if(T.intact && level == 1) //the blob doesn't destroy thing below the floor
@@ -176,11 +178,11 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 //the obj's reaction when touched by acid
 /obj/acid_act(acidpwr, acid_volume)
-	if(!(resistance_flags & UNACIDABLE) && acid_volume)
+	if(!(resistance_flags & (UNACIDABLE | INDESTRUCTIBLE)) && acid_volume)
 
 		if(!acid_level)
 			SSacid.processing[src] = src
-			add_overlay(GLOB.acid_overlay, TRUE)
+			update_icon()
 		var/acid_cap = acidpwr * 300 //so we cannot use huge amounts of weak acids to do as well as strong acids.
 		if(acid_level < acid_cap)
 			acid_level = min(acid_level + acidpwr * acid_volume, acid_cap)
@@ -218,7 +220,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	if(!(resistance_flags & ON_FIRE) && (resistance_flags & FLAMMABLE) && !(resistance_flags & FIRE_PROOF))
 		resistance_flags |= ON_FIRE
 		SSfire_burning.processing[src] = src
-		add_overlay(GLOB.fire_overlay, TRUE)
+		update_icon()
 		return 1
 
 //called when the obj is destroyed by fire
@@ -230,7 +232,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/proc/extinguish()
 	if(resistance_flags & ON_FIRE)
 		resistance_flags &= ~ON_FIRE
-		cut_overlay(GLOB.fire_overlay, TRUE)
+		update_icon()
 		SSfire_burning.processing -= src
 
 /obj/proc/tesla_act(power, tesla_flags, shocked_targets)

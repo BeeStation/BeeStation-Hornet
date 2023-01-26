@@ -17,7 +17,7 @@
 	var/telecrystals
 	var/selected_cat
 	var/owner = null
-	var/datum/game_mode/gamemode
+	var/uplink_flag
 	var/datum/uplink_purchase_log/purchase_log
 	var/list/uplink_items
 	var/hidden_crystals = 0
@@ -30,7 +30,7 @@
 
 	var/list/previous_attempts
 
-/datum/component/uplink/Initialize(_owner, _lockable = TRUE, _enabled = FALSE, datum/game_mode/_gamemode, starting_tc = 20)
+/datum/component/uplink/Initialize(_owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = UPLINK_TRAITORS, starting_tc = TELECRYSTALS_DEFAULT)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -42,14 +42,12 @@
 		RegisterSignal(parent, COMSIG_IMPLANT_IMPLANTING, .proc/implanting)
 		RegisterSignal(parent, COMSIG_IMPLANT_OTHER, .proc/old_implant)
 		RegisterSignal(parent, COMSIG_IMPLANT_EXISTING_UPLINK, .proc/new_implant)
-	else if(istype(parent, /obj/item/pda))
-		RegisterSignal(parent, COMSIG_PDA_CHANGE_RINGTONE, .proc/new_ringtone)
+	else if(istype(parent, /obj/item/modular_computer/tablet))
+		RegisterSignal(parent, COMSIG_TABLET_CHANGE_RINGTONE, .proc/new_ringtone)
 	else if(istype(parent, /obj/item/radio))
-		RegisterSignal(parent, COMSIG_RADIO_NEW_FREQUENCY, .proc/new_frequency)
+		RegisterSignal(parent, COMSIG_RADIO_MESSAGE, .proc/radio_message)
 	else if(istype(parent, /obj/item/pen))
 		RegisterSignal(parent, COMSIG_PEN_ROTATED, .proc/pen_rotation)
-
-	uplink_items = get_uplink_items(_gamemode, TRUE, allow_restricted)
 
 	if(_owner)
 		owner = _owner
@@ -60,7 +58,8 @@
 			purchase_log = new(owner, src)
 	lockable = _lockable
 	active = _enabled
-	gamemode = _gamemode
+	src.uplink_flag = uplink_flag
+	update_items()
 	telecrystals = starting_tc
 	if(!lockable)
 		active = TRUE
@@ -71,34 +70,42 @@
 /datum/component/uplink/InheritComponent(datum/component/uplink/U)
 	lockable |= U.lockable
 	active |= U.active
-	if(!gamemode)
-		gamemode = U.gamemode
+	uplink_flag |= U.uplink_flag
 	telecrystals += U.telecrystals
 	if(purchase_log && U.purchase_log)
 		purchase_log.MergeWithAndDel(U.purchase_log)
 
 /datum/component/uplink/Destroy()
-	gamemode = null
 	purchase_log = null
 	return ..()
 
-/datum/component/uplink/proc/LoadTC(mob/user, obj/item/stack/telecrystal/TC, silent = FALSE)
+/datum/component/uplink/proc/update_items()
+	var/updated_items
+	updated_items = get_uplink_items(uplink_flag, TRUE, allow_restricted)
+	update_sales(updated_items)
+	uplink_items = updated_items
+
+/datum/component/uplink/proc/update_sales(updated_items)
+	var/discount_categories = list("Discounted Gear", "Discounted Team Gear", "Limited Stock Team Gear")
+	if (uplink_items == null)
+		return
+	for (var/category in discount_categories) // Makes sure discounted items aren't renewed or replaced
+		if (uplink_items[category] != null && updated_items[category] != null)
+			updated_items[category] = uplink_items[category]
+
+/datum/component/uplink/proc/LoadTC(mob/user, obj/item/stack/sheet/telecrystal/TC, silent = FALSE)
 	if(!silent)
 		to_chat(user, "<span class='notice'>You slot [TC] into [parent] and charge its internal uplink.</span>")
 	var/amt = TC.amount
 	telecrystals += amt
 	TC.use(amt)
 
-/datum/component/uplink/proc/set_gamemode(_gamemode)
-	gamemode = _gamemode
-	uplink_items = get_uplink_items(gamemode, TRUE, allow_restricted)
-
 /datum/component/uplink/proc/OnAttackBy(datum/source, obj/item/I, mob/user)
 	SIGNAL_HANDLER
 
 	if(!active)
 		return	//no hitting everyone/everything just to try to slot tcs in!
-	if(istype(I, /obj/item/stack/telecrystal))
+	if(istype(I, /obj/item/stack/sheet/telecrystal))
 		LoadTC(user, I)
 	for(var/category in uplink_items)
 		for(var/item in uplink_items[category])
@@ -129,6 +136,7 @@
 	if(!non_traitor_allowed && !user.mind.special_role)
 		return
 	active = TRUE
+	update_items()
 	if(user)
 		INVOKE_ASYNC(src, .proc/ui_interact, user)
 	// an unlocked uplink blocks also opening the PDA or headset menu
@@ -142,7 +150,7 @@
 	active = TRUE
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Uplink")
+		ui = new(user, src, "Uplink", name)
 		// This UI is only ever opened by one person,
 		// and never is updated outside of user input.
 		ui.set_autoupdate(FALSE)
@@ -168,6 +176,9 @@
 			var/datum/uplink_item/I = uplink_items[category][item]
 			if(I.limited_stock == 0)
 				continue
+			if(I.murderbone_type)
+				if(!user.mind.is_murderbone()) // this is a damn proc to check a variable of every objective in you. DO NOT put it into the `if` above, or you call this proc needlessly.
+					continue
 			if(I.restricted_roles.len && I.discounted == FALSE)
 				var/is_inaccessible = TRUE
 				for(var/R in I.restricted_roles)
@@ -235,6 +246,7 @@
 		U.limited_stock -= 1
 
 	SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(U.name)]", "[U.cost]"))
+	log_game("[initial(U.name)] purchased by [user.ckey]/[user.name] the [user.job ? user.job : "Unknown Job"] for [U.cost] TC, [telecrystals] TC remaining.")
 	return TRUE
 
 // Implant signal responses
@@ -250,7 +262,13 @@
 	SIGNAL_HANDLER
 
 	var/mob/user = arguments[2]
-	owner = "[user.key]"
+	owner = user?.key
+	if(owner && !purchase_log)
+		LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
+		if(GLOB.uplink_purchase_logs_by_key[owner])
+			purchase_log = GLOB.uplink_purchase_logs_by_key[owner]
+		else
+			purchase_log = new(owner, src)
 
 /datum/component/uplink/proc/old_implant(datum/source, list/arguments, obj/item/implant/new_implant)
 	SIGNAL_HANDLER
@@ -269,7 +287,6 @@
 /datum/component/uplink/proc/new_ringtone(datum/source, mob/living/user, new_ring_text)
 	SIGNAL_HANDLER
 
-	var/obj/item/pda/master = parent
 	if(trim(lowertext(new_ring_text)) != trim(lowertext(unlock_code)))
 		if(failsafe_code && trim(lowertext(new_ring_text)) == trim(lowertext(failsafe_code)))
 			failsafe()
@@ -277,9 +294,7 @@
 		return
 	locked = FALSE
 	interact(null, user)
-	to_chat(user, "The PDA softly beeps.")
-	user << browse(null, "window=pda")
-	master.mode = 0
+	to_chat(user, "<span class='hear'>The computer softly beeps.</span>")
 	return COMPONENT_STOP_RINGTONE_CHANGE
 
 // Radio signal responses
@@ -296,6 +311,21 @@
 	locked = FALSE
 	if(ismob(master.loc))
 		interact(null, master.loc)
+
+
+/datum/component/uplink/proc/radio_message(datum/source, mob/living/user, message, channel)
+	SIGNAL_HANDLER
+
+	if(channel != RADIO_CHANNEL_UPLINK)
+		return
+
+	if(!findtext(lowertext(message), lowertext(unlock_code)))
+		if(failsafe_code && findtext(lowertext(message), lowertext(failsafe_code)))
+			failsafe()
+		return
+	locked = FALSE
+	interact(null, user)
+	to_chat(user, "As you whisper the code into your headset, a soft chime fills your ears.")
 
 // Pen signal responses
 
@@ -320,18 +350,18 @@
 /datum/component/uplink/proc/setup_unlock_code()
 	unlock_code = generate_code()
 	var/obj/item/P = parent
-	if(istype(parent,/obj/item/pda))
+	if(istype(parent,/obj/item/modular_computer/tablet))
 		unlock_note = "<B>Uplink Passcode:</B> [unlock_code] ([P.name])."
 	else if(istype(parent,/obj/item/radio))
-		unlock_note = "<B>Radio Frequency:</B> [format_frequency(unlock_code)] ([P.name])."
+		unlock_note = "<B>Radio Passcode:</B> [unlock_code] ([P.name] on the :d channel)."
 	else if(istype(parent,/obj/item/pen))
 		unlock_note = "<B>Uplink Degrees:</B> [english_list(unlock_code)] ([P.name])."
 
 /datum/component/uplink/proc/generate_code()
-	if(istype(parent,/obj/item/pda))
-		return "[rand(100,999)] [pick(GLOB.phonetic_alphabet)]"
+	if(istype(parent,/obj/item/modular_computer/tablet))
+		return "[random_code(3)] [pick(GLOB.phonetic_alphabet)]"
 	else if(istype(parent,/obj/item/radio))
-		return sanitize_frequency(rand(MIN_FREQ, MAX_FREQ), TRUE)
+		return "[pick(GLOB.phonetic_alphabet)]"
 	else if(istype(parent,/obj/item/pen))
 		var/list/L = list()
 		for(var/i in 1 to PEN_ROTATIONS)

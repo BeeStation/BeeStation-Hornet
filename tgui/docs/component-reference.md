@@ -74,8 +74,6 @@ to understand what this is about.
 - Lower case names are native browser events and should be used sparingly,
 for example when you need an explicit IE8 support. **DO NOT** use
 lowercase event handlers unless you really know what you are doing.
-- [Button](#button) component does not support the lowercase `onclick` event.
-Use the camel case `onClick` instead.
 
 ## `tgui/components`
 
@@ -226,6 +224,10 @@ the baseline alignment.
 over the button.
 - `children: any` - Content to render inside the button.
 - `onClick: function` - Called when element is clicked.
+- `verticalAlignContent: string` - Align content vertically using flex. Use lineHeight if the height is static.
+  - `top` - align content to the ceiling of the button box.
+  - `middle` - align content on the middle of the button box.
+  - `bottom` - align content on the ground of the button box.
 
 ### `Button.Checkbox`
 
@@ -794,13 +796,17 @@ If you want to have a button on the right side of an section title
 </Section>
 ```
 
+**New:** Sections can now be nested, and will automatically font size of the
+header according to their nesting level. Previously this was done via `level`
+prop, but now it is automatically calculated.
+
 - See inherited props: [Box](#box)
 - `title: string` - Title of the section.
-- `level: number` - Section level in hierarchy. Default is 1, higher number
-means deeper level of nesting. Must be an integer number.
 - `buttons: any` - Buttons to render aside the section title.
 - `fill: boolean` - If true, fills all available vertical space.
 - `fitted: boolean` - If true, removes all section padding.
+- `independent: boolean` - If true, prevents automatic adjustments done to width
+and background color when nested.
 - `scrollable: boolean` - Shows or hides the scrollbar.
 - `children: any` - Content of this section.
 

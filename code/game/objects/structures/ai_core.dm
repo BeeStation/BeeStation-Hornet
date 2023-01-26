@@ -12,7 +12,7 @@
 	var/obj/item/mmi/brain
 	var/can_deconstruct = TRUE
 
-/obj/structure/AIcore/Initialize()
+/obj/structure/AIcore/Initialize(mapload)
 	. = ..()
 	laws = new
 	laws.set_laws_config()
@@ -79,7 +79,7 @@
 		return
 	return ..()
 
-/obj/structure/AIcore/latejoin_inactive/Initialize()
+/obj/structure/AIcore/latejoin_inactive/Initialize(mapload)
 	. = ..()
 	GLOB.latejoin_ai_cores += src
 
@@ -196,7 +196,7 @@
 						to_chat(user, "<span class='warning'>Sticking an inactive [M.name] into the frame would sort of defeat the purpose.</span>")
 						return
 
-					if(!CONFIG_GET(flag/allow_ai) || (is_banned_from(M.brainmob.ckey, "AI") && !QDELETED(src) && !QDELETED(user) && !QDELETED(M) && !QDELETED(user) && Adjacent(user)))
+					if(!CONFIG_GET(flag/allow_ai) || (is_banned_from(M.brainmob.ckey, JOB_NAME_AI) && !QDELETED(src) && !QDELETED(user) && !QDELETED(M) && !QDELETED(user) && Adjacent(user)))
 						if(!QDELETED(M))
 							to_chat(user, "<span class='warning'>This [M.name] does not seem to fit!</span>")
 						return
@@ -255,8 +255,7 @@
 
 			if(AI_READY_CORE)
 				if(istype(P, /obj/item/aicard))
-					P.transfer_ai("INACTIVE", "AICARD", src, user)
-					return
+					return //handled by /obj/structure/ai_core/transfer_ai()
 
 				if(P.tool_behaviour == TOOL_SCREWDRIVER)
 					P.play_tool_sound(src)
@@ -301,7 +300,7 @@
 	anchored = TRUE
 	state = AI_READY_CORE
 
-/obj/structure/AIcore/deactivated/Initialize()
+/obj/structure/AIcore/deactivated/Initialize(mapload)
 	. = ..()
 	circuit = new(src)
 

@@ -17,7 +17,7 @@
 	var/overheat_max = 40
 	var/heat_diffusion = 0.5
 
-/obj/item/minigunpack/Initialize()
+/obj/item/minigunpack/Initialize(mapload)
 	. = ..()
 	gun = new(src)
 	START_PROCESSING(SSobj, src)
@@ -56,6 +56,7 @@
 		..()
 
 /obj/item/minigunpack/dropped(mob/user)
+	..()
 	if(armed)
 		user.dropItemToGround(gun, TRUE)
 
@@ -94,10 +95,8 @@
 	update_icon()
 	user.update_inv_back()
 
-/obj/item/minigunpack/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/item/minigunpack/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='warning'>You break the heat sensor.</span>")
 	overheat_max = 1000
 
@@ -125,10 +124,11 @@
 	can_charge = FALSE
 	fire_sound = 'sound/weapons/laser.ogg'
 	item_flags = NEEDS_PERMIT | SLOWS_WHILE_IN_HAND
+	full_auto = TRUE
 	var/cooldown = 0
 	var/obj/item/minigunpack/ammo_pack
 
-/obj/item/gun/energy/minigun/Initialize()
+/obj/item/gun/energy/minigun/Initialize(mapload)
 	if(istype(loc, /obj/item/minigunpack)) //We should spawn inside an ammo pack so let's use that one.
 		ammo_pack = loc
 	else
@@ -146,6 +146,7 @@
 	return
 
 /obj/item/gun/energy/minigun/dropped(mob/user)
+	..()
 	if(ammo_pack)
 		ammo_pack.attach_gun(user)
 	else
@@ -176,12 +177,11 @@
 	. = ..()
 
 /obj/item/gun/energy/minigun/dropped(mob/living/user)
+	..()
 	ammo_pack.attach_gun(user)
 
-/obj/item/gun/energy/minigun/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/item/gun/energy/minigun/on_emag(mob/user)
+	..()
 	fire_sound = null
 	spread = 60
 	recoil = 1

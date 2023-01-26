@@ -42,6 +42,7 @@
 	var/dual_wield_spread = 24			//additional spread when dual wielding
 	var/spread = 0						//Spread induced by the gun itself.
 	var/spread_multiplier = 1			//Multiplier for shotgun spread
+	var/requires_wielding = TRUE
 	var/spread_unwielded				//Spread induced by holding the gun with 1 hand. (40 for light weapons, 60 for medium by default)
 	var/randomspread = 1				//Set to 0 for shotguns. This is used for weapons that don't fire all their bullets at once.
 
@@ -67,6 +68,7 @@
 
 	var/ammo_x_offset = 0 //used for positioning ammo count overlay on sprite
 	var/ammo_y_offset = 0
+	var/gunlight_state = "flight"
 	var/flight_x_offset = 0
 	var/flight_y_offset = 0
 
@@ -83,7 +85,7 @@
 	var/pb_knockback = 0
 	var/ranged_cooldown = 0
 
-/obj/item/gun/Initialize()
+/obj/item/gun/Initialize(mapload)
 	. = ..()
 	if(pin)
 		if(no_pin_required)
@@ -95,15 +97,18 @@
 	if(!canMouseDown) //Some things like beam rifles override this.
 		canMouseDown = automatic //Nsv13 / Bee change.
 	build_zooming()
-	if(!spread_unwielded)
+	if(isnull(spread_unwielded))
 		spread_unwielded = weapon_weight * 20 + 20
-	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/wield)
-	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/unwield)
+	if(requires_wielding)
+		RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/wield)
+		RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/unwield)
 
 /obj/item/gun/ComponentInitialize()
 	. = ..()
 	//Smaller weapons are better when used in a single hand.
-	AddComponent(/datum/component/two_handed, unwield_on_swap = TRUE, auto_wield = TRUE, ignore_attack_self = TRUE, force_wielded = force, force_unwielded = force, block_power_wielded = block_power, block_power_unwielded = block_power, wieldsound = 'sound/effects/suitstep1.ogg', unwieldsound = 'sound/effects/suitstep2.ogg')
+	if(requires_wielding)
+		AddComponent(/datum/component/two_handed, unwield_on_swap = TRUE, auto_wield = TRUE, ignore_attack_self = TRUE, force_wielded = force, force_unwielded = force, block_power_wielded = block_power, block_power_unwielded = block_power)
+	AddComponent(/datum/component/aiming)
 
 /obj/item/gun/proc/wield()
 	is_wielded = TRUE
@@ -139,14 +144,13 @@
 
 /obj/item/gun/examine(mob/user)
 	. = ..()
-	if(no_pin_required)
-		return
 
-	if(pin)
-		. += "It has \a [pin] installed."
-		. += "<span class='info'>[pin] looks like it could be removed with some <b>tools</b>.</span>"
-	else
-		. += "It doesn't have a <b>firing pin</b> installed, and won't fire."
+	if(!no_pin_required)
+		if(pin)
+			. += "It has \a [pin] installed."
+			. += "<span class='info'>[pin] looks like it could be removed with some <b>tools</b>.</span>"
+		else
+			. += "It doesn't have a <b>firing pin</b> installed, and won't fire."
 
 	if(gun_light)
 		. += "It has \a [gun_light] [can_flashlight ? "" : "permanently "]mounted on it."
@@ -162,6 +166,10 @@
 	else if(can_bayonet)
 		. += "It has a <b>bayonet</b> lug on it."
 
+	if(weapon_weight == WEAPON_HEAVY)
+		. += "This weapon is too heavy to use with just 1 hand!"
+
+
 /obj/item/gun/equipped(mob/living/user, slot)
 	. = ..()
 	if(zoomed && user.get_active_held_item() != src)
@@ -176,41 +184,65 @@
 /obj/item/gun/proc/can_shoot()
 	return TRUE
 
+/obj/item/gun/proc/tk_firing(mob/living/user)
+	return loc != user ? TRUE : FALSE
+
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	balloon_alert(user, "Gun clicks")
+	balloon_alert(user, "[src] clicks.")
 	playsound(src, dry_fire_sound, 30, TRUE)
 
+/obj/item/gun/proc/fire_sounds()
+	if(suppressed)
+		playsound(src, suppressed_sound, suppressed_volume, vary_fire_sound)
+	else
+		playsound(src, fire_sound, fire_sound_volume, vary_fire_sound)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
-	if(recoil)
+	if(recoil && !tk_firing(user))
 		shake_camera(user, recoil + 1, recoil)
-
-	if(suppressed)
-		playsound(user, suppressed_sound, suppressed_volume, vary_fire_sound)
-	else
-		playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
+	fire_sounds()
+	if(!suppressed)
 		if(message)
-			if(pointblank)
-				user.visible_message("<span class='danger'>[user] fires [src] point blank at [pbtarget]!</span>", \
-								"<span class='danger'>You fire [src] point blank at [pbtarget]!</span>", \
-								"<span class='hear'>You hear a gunshot!</span>", COMBAT_MESSAGE_RANGE, pbtarget)
-				to_chat(pbtarget, "<span class='userdanger'>[user] fires [src] point blank at you!</span>")
+			if(tk_firing(user))
+				user.visible_message(
+					"<span class='danger'>[src] fires itself[pointblank ? " point blank at [pbtarget]!" : "!"]</span>", \
+					null ,\
+					"<span class='hear'>You hear a gunshot!</span>", \
+					COMBAT_MESSAGE_RANGE
+					)
+
+			else if(pointblank)
+				user.visible_message(
+					"<span class='danger'>[user] fires [src] point blank at [pbtarget]!</span>", \
+					"<span class='danger'>You fire [src] point blank at [pbtarget]!</span>", \
+					"<span class='hear'>You hear a gunshot!</span>", \
+					COMBAT_MESSAGE_RANGE, \
+					pbtarget
+				)
+				to_chat(pbtarget, "<span class='danger'>[user] fires [src] point blank at you!</span>")
 				if(pb_knockback > 0 && ismob(pbtarget))
-					var/mob/PBT= pbtarget
+					var/mob/PBT = pbtarget
 					var/atom/throw_target = get_edge_target_turf(PBT, user.dir)
 					PBT.throw_at(throw_target, pb_knockback, 2)
-			else
-				user.visible_message("<span class='danger'>[user] fires [src]!</span>", \
-								"<span class='danger'>You fire [src]!</span>", \
-								"<span class='hear'>You hear a gunshot!</span>", COMBAT_MESSAGE_RANGE)
+			else if(!tk_firing(user))
+				user.visible_message(
+					"<span class='danger'>[user] fires [src]!</span>", \
+					"<span class='danger'>You fire [src]!</span>", \
+					"<span class='hear'>You hear a gunshot!</span>", \
+					COMBAT_MESSAGE_RANGE, \
+					user
+				)
 
 /obj/item/gun/emp_act(severity)
 	. = ..()
 	if(!(. & EMP_PROTECT_CONTENTS))
 		for(var/obj/O in contents)
+			//Ignore cells, as we handle them ourselves.
+			if(istype(O, /obj/item/stock_parts/cell))
+				continue
 			O.emp_act(severity)
 
-/obj/item/gun/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/afterattack(atom/target, mob/living/user, flag, params, aimed)
 	. = ..()
 	if(!target)
 		return
@@ -250,9 +282,8 @@
 				user.dropItemToGround(src, TRUE)
 				return
 
-	var/obj/item/bodypart/other_hand = user.has_hand_for_held_index(user.get_inactive_hand_index()) //returns non-disabled inactive hands
-	if(weapon_weight == WEAPON_HEAVY && (!istype(user.get_inactive_held_item(), /obj/item/offhand) || !other_hand))
-		balloon_alert(user, "You need both hands free to fire")
+	if(weapon_weight == WEAPON_HEAVY && !is_wielded)
+		balloon_alert(user, "You need both hands free to fire [src]!")
 		return
 
 	//DUAL (or more!) WIELDING
@@ -268,7 +299,7 @@
 				loop_counter++
 				addtimer(CALLBACK(G, /obj/item/gun.proc/process_fire, target, user, TRUE, params, null, bonus_spread, flag), loop_counter)
 
-	process_fire(target, user, TRUE, params, null, bonus_spread)
+	process_fire(target, user, TRUE, params, null, bonus_spread, aimed)
 
 /obj/item/gun/can_trigger_gun(mob/living/user)
 	. = ..()
@@ -285,7 +316,7 @@
 			pin.auth_fail(user)
 			return FALSE
 	else
-		balloon_alert(user, "No firing pin installed")
+		balloon_alert(user, "[src] doesn't seem to have a firing pin installed..")
 	return FALSE
 
 /obj/item/gun/proc/recharge_newshot()
@@ -328,7 +359,7 @@
 	update_icon()
 	return TRUE
 
-/obj/item/gun/proc/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/proc/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0, aimed = FALSE)
 	add_fingerprint(user)
 	if(fire_rate)
 		ranged_cooldown = world.time + 10 / fire_rate
@@ -344,7 +375,7 @@
 		randomized_gun_spread =	rand(0,spread)
 	if(HAS_TRAIT(user, TRAIT_POOR_AIM)) //nice shootin' tex
 		bonus_spread += 25
-	if(!is_wielded)
+	if(!is_wielded && requires_wielding)
 		bonus_spread += spread_unwielded
 	var/randomized_bonus_spread = rand(0, bonus_spread)
 
@@ -359,7 +390,7 @@
 					to_chat(user, "<span class='notice'> [src] is lethally chambered! You don't want to risk harming anyone...</span>")
 					return
 			sprd = round((rand() - 0.5) * DUALWIELD_PENALTY_EXTRA_MULTIPLIER * (randomized_gun_spread + randomized_bonus_spread))
-			before_firing(target,user)
+			before_firing(target, user, aimed)
 			if(!chambered.fire_casing(target, user, params, , suppressed, zone_override, sprd, spread_multiplier, src))
 				shoot_with_empty_chamber(user)
 				return
@@ -381,9 +412,28 @@
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 	return TRUE
 
-/obj/item/gun/update_icon()
-	..()
+/obj/item/gun/update_overlays()
+	. = ..()
+	if(gun_light)
+		var/mutable_appearance/flashlight_overlay
+		var/state = "[gunlight_state][gun_light.on? "_on":""]" //Generic state.
+		if(gun_light.icon_state in icon_states('icons/obj/guns/flashlights.dmi')) //Snowflake state?
+			state = gun_light.icon_state
+		flashlight_overlay = mutable_appearance('icons/obj/guns/flashlights.dmi', state)
+		flashlight_overlay.pixel_x = flight_x_offset
+		flashlight_overlay.pixel_y = flight_y_offset
+		. += flashlight_overlay
 
+	if(bayonet)
+		var/mutable_appearance/knife_overlay
+		var/state = "bayonet" //Generic state.
+		if(bayonet.icon_state in icon_states('icons/obj/guns/bayonets.dmi')) //Snowflake state?
+			state = bayonet.icon_state
+		var/icon/bayonet_icons = 'icons/obj/guns/bayonets.dmi'
+		knife_overlay = mutable_appearance(bayonet_icons, state)
+		knife_overlay.pixel_x = knife_x_offset
+		knife_overlay.pixel_y = knife_y_offset
+		. += knife_overlay
 
 /obj/item/gun/proc/reset_semicd()
 	semicd = FALSE
@@ -414,10 +464,8 @@
 		if(!gun_light)
 			if(!user.transferItemToLoc(I, src))
 				return
-			balloon_alert(user, "[S] attached")
-			if(S.on)
-				set_light(0)
-			gun_light = S
+			balloon_alert(user, "You attach [S] to [src].")
+			set_gun_light(S)
 			update_gunlight()
 			alight = new(src)
 			if(loc == user)
@@ -428,7 +476,7 @@
 			return ..()
 		if(!user.transferItemToLoc(I, src))
 			return
-		balloon_alert(user, "[K] attached to [src]")
+		balloon_alert(user, "You attach [K] to [src].")
 		bayonet = K
 		var/state = "bayonet"							//Generic state.
 		if(bayonet.icon_state in icon_states('icons/obj/guns/bayonets.dmi'))		//Snowflake state?
@@ -437,7 +485,7 @@
 		knife_overlay = mutable_appearance(bayonet_icons, state)
 		knife_overlay.pixel_x = knife_x_offset
 		knife_overlay.pixel_y = knife_y_offset
-		add_overlay(knife_overlay, TRUE)
+		add_overlay(knife_overlay)
 	else
 		return ..()
 
@@ -509,7 +557,7 @@
 /obj/item/gun/proc/remove_gun_attachment(mob/living/user, obj/item/tool_item, obj/item/item_to_remove, removal_verb)
 	if(tool_item)
 		tool_item.play_tool_sound(src)
-	balloon_alert(user, "[item_to_remove] removed")
+	balloon_alert(user, "You remove [item_to_remove] from [src].")
 	item_to_remove.forceMove(drop_location())
 
 	if(Adjacent(user) && !issilicon(user))
@@ -525,7 +573,7 @@
 		return
 	bayonet = null
 	if(knife_overlay)
-		cut_overlay(knife_overlay, TRUE)
+		cut_overlay(knife_overlay)
 		knife_overlay = null
 	return TRUE
 
@@ -533,11 +581,29 @@
 	if(!gun_light)
 		return
 	var/obj/item/flashlight/seclite/removed_light = gun_light
-	gun_light = null
+	set_gun_light(null)
 	update_gunlight()
 	removed_light.update_brightness()
 	QDEL_NULL(alight)
 	return TRUE
+
+
+///Called when gun_light value changes.
+/obj/item/gun/proc/set_gun_light(obj/item/flashlight/seclite/new_light)
+	if(gun_light == new_light)
+		return
+	. = gun_light
+	gun_light = new_light
+	if(gun_light)
+		gun_light.set_light_flags(gun_light.light_flags | LIGHT_ATTACHED)
+		if(gun_light.loc != src)
+			gun_light.forceMove(src)
+	else if(.)
+		var/obj/item/flashlight/seclite/old_gun_light = .
+		old_gun_light.set_light_flags(old_gun_light.light_flags & ~LIGHT_ATTACHED)
+		if(old_gun_light.loc == src)
+			old_gun_light.forceMove(get_turf(src))
+
 
 /obj/item/gun/ui_action_click(mob/user, actiontype)
 	if(istype(actiontype, alight))
@@ -551,31 +617,14 @@
 
 	var/mob/living/carbon/human/user = usr
 	gun_light.on = !gun_light.on
-	balloon_alert(user, "Flashlight [gun_light.on ? "on":"off"]")
+	gun_light.update_brightness()
+	balloon_alert(user, "You turn the flashlight [gun_light.on ? "on" : "off"].")
 
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 	update_gunlight()
 
 /obj/item/gun/proc/update_gunlight()
-	if(gun_light)
-		if(gun_light.on)
-			set_light(gun_light.brightness_on)
-		else
-			set_light(0)
-		cut_overlays(flashlight_overlay, TRUE)
-		var/state = "flight[gun_light.on? "_on":""]"	//Generic state.
-		if(gun_light.icon_state in icon_states('icons/obj/guns/flashlights.dmi'))	//Snowflake state?
-			state = gun_light.icon_state
-		flashlight_overlay = mutable_appearance('icons/obj/guns/flashlights.dmi', state)
-		flashlight_overlay.pixel_x = flight_x_offset
-		flashlight_overlay.pixel_y = flight_y_offset
-		add_overlay(flashlight_overlay, TRUE)
-		add_overlay(knife_overlay, TRUE)
-	else
-		set_light(0)
-		cut_overlays(flashlight_overlay, TRUE)
-		flashlight_overlay = null
-	update_icon(TRUE)
+	update_icon()
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
@@ -586,7 +635,7 @@
 		azoom.Grant(user)
 
 /obj/item/gun/dropped(mob/user)
-	. = ..()
+	..()
 	if(azoom)
 		azoom.Remove(user)
 	if(zoomed)
@@ -635,8 +684,10 @@
 	pin = new /obj/item/firing_pin
 
 //Happens before the actual projectile creation
-/obj/item/gun/proc/before_firing(atom/target,mob/user)
-	return
+/obj/item/gun/proc/before_firing(atom/target, mob/user, aimed)
+	if(aimed && chambered?.BB)
+		chambered.BB.speed = initial(chambered.BB.speed) *= 0.75 // Faster bullets to account for the fact you've given the target a big warning they're about to be shot
+		chambered.BB.damage = initial(chambered.BB.damage) *= 1.25
 
 /////////////
 // ZOOMING //

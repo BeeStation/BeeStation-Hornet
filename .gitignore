@@ -11,9 +11,13 @@
 /*.so
 
 #Ignore compiled files and other files generated during compilation.
+beestation_unit_test_focus_file.dm
 *.mdme
+*.mdme.*
 *.dmb
 *.rsc
+*.m.dme
+*.test.dme
 *.lk
 *.int
 *.backup

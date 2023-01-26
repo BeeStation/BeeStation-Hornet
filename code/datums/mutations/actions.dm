@@ -1,4 +1,4 @@
-/datum/mutation/human/telepathy
+/datum/mutation/telepathy
 	name = "Telepathy"
 	desc = "A rare mutation that allows the user to telepathically communicate to others."
 	quality = POSITIVE
@@ -10,7 +10,7 @@
 	energy_coeff = 1
 
 
-/datum/mutation/human/olfaction
+/datum/mutation/olfaction
 	name = "Transcendent Olfaction"
 	desc = "Your sense of smell is comparable to that of a canine."
 	quality = POSITIVE
@@ -21,25 +21,6 @@
 	instability = 30
 	synchronizer_coeff = 1
 	var/reek = 200
-
-/datum/mutation/human/olfaction/on_life()
-	var/hygiene_now = owner.hygiene
-
-	if(hygiene_now < 100 && prob(3))
-		owner.adjust_disgust(GET_MUTATION_SYNCHRONIZER(src) * (rand(3,5)))
-	if(hygiene_now < HYGIENE_LEVEL_DIRTY && prob(15))
-		to_chat(owner,"<span class='danger'>You get a whiff of your stench and feel sick!</span>")
-		owner.adjust_disgust(GET_MUTATION_SYNCHRONIZER(src) * rand(5,10))
-
-	if(hygiene_now < HYGIENE_LEVEL_NORMAL && reek >= HYGIENE_LEVEL_NORMAL)
-		to_chat(owner,"<span class='warning'>Your inhumanly strong nose picks up a faint odor. Maybe you should shower soon.</span>")
-	if(hygiene_now < 150 && reek >= 150)
-		to_chat(owner,"<span class='warning'>Your odor is getting bad, what with you having a super-nose and all.</span>")
-	if(hygiene_now < 100 && reek >= 100)
-		to_chat(owner,"<span class='danger'>Your odor begins to make you gag. You silently curse your godly nose. You should really get clean!</span>")
-	if(hygiene_now < HYGIENE_LEVEL_DIRTY && reek >= HYGIENE_LEVEL_DIRTY)
-		to_chat(owner,"<span class='userdanger'>Your super-nose is 100% fed up with your stench. You absolutely must get clean.</span>")
-	reek = hygiene_now
 
 /obj/effect/proc_holder/spell/targeted/olfaction
 	name = "Remember the Scent"
@@ -99,7 +80,7 @@
 	if(direction_text)
 		to_chat(user,"<span class='notice'>You consider [tracking_target]'s scent. The trail leads <b>[direction_text].</b></span>")
 
-/datum/mutation/human/firebreath
+/datum/mutation/firebreath
 	name = "Fire Breath"
 	desc = "An ancient mutation that gives lizards breath of fire."
 	quality = POSITIVE
@@ -111,8 +92,10 @@
 	instability = 30
 	energy_coeff = 1
 	power_coeff = 1
+	species_allowed = list(SPECIES_LIZARD)
 
-/datum/mutation/human/firebreath/modify()
+/datum/mutation/firebreath/modify()
+	..()
 	if(power)
 		var/obj/effect/proc_holder/spell/aimed/firebreath/S = power
 		S.strength = GET_MUTATION_POWER(src)
@@ -124,7 +107,7 @@
 	charge_max = 600
 	clothes_req = FALSE
 	range = 20
-	projectile_type = /obj/item/projectile/magic/aoe/fireball/firebreath
+	projectile_type = /obj/item/projectile/magic/fireball/firebreath
 	base_icon_state = "fireball"
 	action_icon_state = "fireball0"
 	sound = 'sound/magic/demon_dies.ogg' //horrifying lizard noises
@@ -143,24 +126,21 @@
 			return FALSE
 
 /obj/effect/proc_holder/spell/aimed/firebreath/ready_projectile(obj/item/projectile/P, atom/target, mob/user, iteration)
-	if(!istype(P, /obj/item/projectile/magic/aoe/fireball))
+	if(!istype(P, /obj/item/projectile/magic/fireball))
 		return
-	var/obj/item/projectile/magic/aoe/fireball/F = P
-	switch(strength)
-		if(1 to 3)
-			F.exp_light = strength-1
-		if(4 to INFINITY)
-			F.exp_heavy = strength-3
+	var/obj/item/projectile/magic/fireball/F = P
+	F.exp_light = strength-1
 	F.exp_fire += strength
 
-/obj/item/projectile/magic/aoe/fireball/firebreath
+/obj/item/projectile/magic/fireball/firebreath
 	name = "fire breath"
 	exp_heavy = 0
 	exp_light = 0
 	exp_flash = 0
 	exp_fire= 4
+	magic = FALSE
 
-/datum/mutation/human/void
+/datum/mutation/void
 	name = "Void Magnet"
 	desc = "A rare genome that attracts odd forces not usually observed."
 	quality = MINOR_NEGATIVE //upsides and downsides
@@ -170,7 +150,7 @@
 	energy_coeff = 1
 	synchronizer_coeff = 1
 
-/datum/mutation/human/void/on_life()
+/datum/mutation/void/on_life()
 	if(!isturf(owner.loc))
 		return
 	if(prob((0.5+((100-dna.stability)/20))) * GET_MUTATION_SYNCHRONIZER(src)) //very rare, but enough to annoy you hopefully. +0.5 probability for every 10 points lost in stability
@@ -195,7 +175,7 @@
 	. = ..()
 	new /obj/effect/immortality_talisman/void(get_turf(user), user)
 
-/datum/mutation/human/self_amputation
+/datum/mutation/self_amputation
 	name = "Autotomy"
 	desc = "Allows a creature to voluntary discard a random appendage."
 	quality = POSITIVE
@@ -223,8 +203,7 @@
 		return
 
 	var/list/parts = list()
-	for(var/X in C.bodyparts)
-		var/obj/item/bodypart/BP = X
+	for(var/obj/item/bodypart/BP as() in C.bodyparts)
 		if(BP.body_part != HEAD && BP.body_part != CHEST)
 			if(BP.dismemberable)
 				parts += BP
@@ -234,3 +213,95 @@
 
 	var/obj/item/bodypart/BP = pick(parts)
 	BP.dismember()
+
+/datum/mutation/overload
+	name = "Overload"
+	desc = "Allows an Ethereal to overload their skin to cause a bright flash."
+	quality = POSITIVE
+	locked = TRUE
+	text_gain_indication = "<span class='notice'>Your skin feels more crackly.</span>"
+	instability = 30
+	power = /obj/effect/proc_holder/spell/self/overload
+	species_allowed = list(SPECIES_ETHEREAL)
+
+/obj/effect/proc_holder/spell/self/overload
+	name = "Overload"
+	desc = "Concentrate to make your skin energize."
+	clothes_req = FALSE
+	human_req = FALSE
+	charge_max = 400
+	action_icon_state = "blind"
+	var/max_distance = 4
+
+/obj/effect/proc_holder/spell/self/overload/cast(mob/user = usr)
+	if(!isethereal(user))
+		return
+
+	var/list/mob/targets = oviewers(max_distance, get_turf(user))
+	visible_message("<span class='disarm'>[user] emits a blinding light!</span>")
+	for(var/mob/living/carbon/C in targets)
+		if(C.flash_act(1))
+			C.Paralyze(10 + (5*max_distance))
+
+/datum/mutation/overload/modify()
+	if(power)
+		var/obj/effect/proc_holder/spell/self/overload/S = power
+		S.max_distance = 4 * GET_MUTATION_POWER(src)
+
+/datum/mutation/acidooze
+	name = "Acidic Hands"
+	desc = "Allows an Oozeling to metabolize some of their blood into acid, concentrated on their hands."
+	quality = POSITIVE
+	locked = TRUE
+	text_gain_indication = "<span class='notice'>Your hands feel sore.</span>"
+	instability = 30
+	power = /obj/effect/proc_holder/spell/targeted/touch/acidooze
+	species_allowed = list(SPECIES_OOZELING)
+
+/obj/effect/proc_holder/spell/targeted/touch/acidooze
+	name = "Acidic Hands"
+	desc = "Concentrate to make some of your blood become acidic."
+	clothes_req = FALSE
+	human_req = FALSE
+	charge_max = 100
+	action_icon_state = "summons"
+	var/volume = 10
+	hand_path = /obj/item/melee/touch_attack/acidooze
+	drawmessage = "You secrete acid into your hand."
+	dropmessage = "You let the acid in your hand dissipate."
+
+/obj/item/melee/touch_attack/acidooze
+	name = "\improper acidic hand"
+	desc = "Keep away from children, paperwork, and children doing paperwork."
+	catchphrase = null
+	icon = 'icons/effects/blood.dmi'
+	var/icon_left = "bloodhand_left"
+	var/icon_right = "bloodhand_right"
+	icon_state = "bloodhand_left"
+	item_state = "fleshtostone"
+
+/obj/item/melee/touch_attack/acidooze/equipped(mob/user, slot)
+	. = ..()
+	//these are intentionally inverted
+	var/i = user.get_held_index_of_item(src)
+	if(!(i % 2))
+		icon_state = icon_left
+	else
+		icon_state = icon_right
+
+/obj/item/melee/touch_attack/acidooze/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(!proximity || !isoozeling(user))
+		return
+	var/mob/living/carbon/C = user
+	if(!target || user.incapacitated())
+		return FALSE
+	if(C.blood_volume < 40)
+		to_chat(user, "<span class='warning'>You don't have enough blood to do that!</span>")
+		return FALSE
+	if(target.acid_act(50, 15))
+		user.visible_message("<span class='warning'>[user] rubs globs of vile stuff all over [target].</span>")
+		C.blood_volume = max(C.blood_volume - 20, 0)
+		return ..()
+	else
+		to_chat(user, "<span class='notice'>You cannot dissolve this object.</span>")
+		return FALSE

@@ -22,7 +22,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
 "g" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/white,
@@ -32,20 +32,20 @@
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
 "i" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
 "j" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/mob_spawn/human/corpse/assistant,
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
 "k" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/item/storage/pod{
@@ -54,7 +54,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
 "l" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/item/storage/pod{
@@ -69,7 +69,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
 "n" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/effect/mob_spawn/human/corpse/cargo_tech,

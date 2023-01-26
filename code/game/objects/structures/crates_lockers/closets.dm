@@ -63,7 +63,7 @@
 
 /obj/structure/closet/update_icon()
 	if(istype(src, /obj/structure/closet/supplypod))
-		return . = ..()
+		return ..()
 	cut_overlays()
 	if(!opened)
 		layer = OBJ_LAYER
@@ -141,10 +141,10 @@
 		if(HAS_TRAIT(L, TRAIT_SKITTISH))
 			. += "<span class='notice'>Ctrl-Shift-click [src] to jump inside.</span>"
 
-/obj/structure/closet/CanPass(atom/movable/mover, turf/target)
+/obj/structure/closet/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(wall_mounted)
 		return TRUE
-	return !density
 
 /obj/structure/closet/proc/can_open(mob/living/user)
 	if(welded || locked)
@@ -207,7 +207,9 @@
 		return FALSE
 
 /obj/structure/closet/proc/insertion_allowed(atom/movable/AM)
-	if(ismob(AM))
+	if(iseffect(AM))
+		return FALSE
+	else if(ismob(AM))
 		if(!isliving(AM)) //let's not put ghosts or camera mobs inside closets...
 			return FALSE
 		var/mob/living/L = AM
@@ -245,9 +247,9 @@
 	playsound(loc, close_sound, close_sound_volume, 1, -3)
 	climb_time = initial(climb_time)
 	opened = FALSE
-	density = TRUE
+	set_density(TRUE)
 	animate_door(TRUE)
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/structure/closet/proc/toggle(mob/living/user)
@@ -345,25 +347,24 @@
 	if(!isturf(O.loc))
 		return
 
-	var/actuallyismob = 0
+	var/actuallyismob = FALSE
 	if(isliving(O))
-		actuallyismob = 1
+		actuallyismob = TRUE
 	else if(!isitem(O))
 		return
 	var/turf/T = get_turf(src)
-	var/list/targets = list(O, src)
 	add_fingerprint(user)
-	user.visible_message("<span class='warning'>[user] [actuallyismob ? "tries to ":""]stuff [O] into [src].</span>", \
-				 	 	"<span class='warning'>You [actuallyismob ? "try to ":""]stuff [O] into [src].</span>", \
-				 	 	"<span class='italics'>You hear clanging.</span>")
+	user.visible_message("<span class='warning'>[user] [actuallyismob ? "tries to " : ""]stuff [O] into [src].</span>", \
+						"<span class='warning'>You [actuallyismob ? "try to " : ""]stuff [O] into [src].</span>", \
+						"<span class='italics'>You hear clanging.</span>")
 	if(actuallyismob)
-		if(do_after_mob(user, targets, 40))
+		if(do_mob(user, O, 4 SECONDS))
 			user.visible_message("<span class='notice'>[user] stuffs [O] into [src].</span>", \
-							 	 "<span class='notice'>You stuff [O] into [src].</span>", \
-							 	 "<span class='italics'>You hear a loud metal bang.</span>")
+								"<span class='notice'>You stuff [O] into [src].</span>", \
+								"<span class='italics'>You hear a loud metal bang.</span>")
 			var/mob/living/L = O
 			if(!issilicon(L))
-				L.Paralyze(40)
+				L.Paralyze(4 SECONDS)
 			if(istype(src, /obj/structure/closet/supplypod/extractionpod))
 				O.forceMove(src)
 			else
@@ -371,7 +372,7 @@
 				close()
 	else
 		O.forceMove(T)
-	return 1
+	return TRUE
 
 /obj/structure/closet/relaymove(mob/user)
 	if(user.stat || !isturf(loc) || !isliving(user))
@@ -420,16 +421,16 @@
 // Objects that try to exit a locker by stepping were doing so successfully,
 // and due to an oversight in turf/Enter() were going through walls.  That
 // should be independently resolved, but this is also an interesting twist.
-/obj/structure/closet/Exit(atom/movable/AM)
+/obj/structure/closet/Exit(atom/movable/leaving, direction)
 	open()
-	if(AM.loc == src)
+	if(leaving.loc == src)
 		return 0
 	return 1
 
 /obj/structure/closet/container_resist(mob/living/user)
 	if(opened)
 		return
-	if(ismovableatom(loc))
+	if(ismovable(loc))
 		user.changeNext_move(CLICK_CD_BREAKOUT)
 		user.last_special = world.time + CLICK_CD_BREAKOUT
 		var/atom/movable/AM = loc
@@ -491,15 +492,18 @@
 	else if(secure && broken)
 		to_chat(user, "<span class='warning'>\The [src] is broken!</span>")
 
-/obj/structure/closet/emag_act(mob/user)
-	if(secure && !broken)
-		user?.visible_message("<span class='warning'>Sparks fly from [src]!</span>",
-						"<span class='warning'>You scramble [src]'s lock, breaking it open!</span>",
-						"<span class='italics'>You hear a faint electrical spark.</span>")
-		playsound(src, "sparks", 50, 1)
-		broken = TRUE
-		locked = FALSE
-		update_icon()
+/obj/structure/closet/should_emag(mob/user)
+	return secure && !broken && ..()
+
+/obj/structure/closet/on_emag(mob/user)
+	..()
+	user?.visible_message("<span class='warning'>Sparks fly from [src]!</span>",
+					"<span class='warning'>You scramble [src]'s lock, breaking it open!</span>",
+					"<span class='italics'>You hear a faint electrical spark.</span>")
+	playsound(src, "sparks", 50, 1)
+	broken = TRUE
+	locked = FALSE
+	update_icon()
 
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))

@@ -83,7 +83,7 @@
 //Gets the topmost teleportable container
 /obj/item/swapper/proc/get_teleportable_container()
 	var/atom/movable/teleportable = src
-	while(ismovableatom(teleportable.loc))
+	while(ismovable(teleportable.loc))
 		var/atom/movable/AM = teleportable.loc
 		if(AM.anchored)
 			break
@@ -108,8 +108,8 @@
 	var/target_B = B.drop_location()
 
 	//TODO: add a sound effect or visual effect
-	if(do_teleport(A, target_B, forceMove = TRUE, channel = TELEPORT_CHANNEL_QUANTUM))
-		do_teleport(B, target_A, forceMove = TRUE, channel = TELEPORT_CHANNEL_QUANTUM)
+	if(do_teleport(A, target_B, channel = TELEPORT_CHANNEL_QUANTUM))
+		do_teleport(B, target_A, channel = TELEPORT_CHANNEL_QUANTUM)
 		if(ismob(B))
 			var/mob/M = B
 			to_chat(M, "<span class='warning'>[linked_swapper] activates, and you find yourself somewhere else.</span>")

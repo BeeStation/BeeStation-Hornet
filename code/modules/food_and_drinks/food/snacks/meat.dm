@@ -329,6 +329,12 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/meat/rawcutlet/chicken
 	tastes = list("chicken" = 1)
 
+/obj/item/reagent_containers/food/snacks/meat/slab/mothroach
+	name = "mothroach meat"
+	desc = "a light slab of mothroach meat"
+	tastes = list("gross" = 1)
+	foodtype = RAW | MEAT | GROSS
+
 ////////////////////////////////////// MEAT STEAKS ///////////////////////////////////////////////////////////
 
 
@@ -460,6 +466,23 @@
 	cooked_type = /obj/item/reagent_containers/food/snacks/meat/cutlet/chicken
 	tastes = list("chicken" = 1)
 
+/obj/item/reagent_containers/food/snacks/meat/rawcutlet/grub //grub meat is small, so its in cutlets
+	name = "redgrub cutlet"
+	desc = "A tough, slimy cut of raw Redgrub. Very toxic, and probably infectious, but delicious when cooked. Do not handle without proper biohazard equipment."
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/toxin/slimejelly = 2)
+	bonus_reagents = list()
+	cooked_type = /obj/item/reagent_containers/food/snacks/meat/cutlet/grub
+	icon_state = "grubmeat"
+	bitesize = 1
+	tastes = list("slime" = 1, "grub" = 1)
+	foodtype = RAW | MEAT | TOXIC
+
+/obj/item/reagent_containers/food/snacks/meat/rawcutlet/grub/initialize_cooked_food(obj/item/reagent_containers/food/snacks/S) //so the toxin and taste go away
+	if(reagents)
+		reagents.remove_all(3) 
+	..()
+	S.name = "redgrub rind"
+
 //Cooked cutlets
 
 /obj/item/reagent_containers/food/snacks/meat/cutlet
@@ -507,3 +530,13 @@
 /obj/item/reagent_containers/food/snacks/meat/cutlet/chicken
 	name = "chicken cutlet"
 	tastes = list("chicken" = 1)
+/obj/item/reagent_containers/food/snacks/meat/cutlet/grub
+	name = "redgrub rind"
+	desc = "Cooking redgrub meat causes it to 'pop', and renders it non-toxic, crunchy and deliciously sweet"
+	icon_state = "grubsteak"
+	trash = null
+	bitesize = 1
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/medicine/regen_jelly = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/medicine/regen_jelly = 1)
+	tastes = list("jelly" = 1, "sweet meat" = 1, "oil" = 1)
+	foodtype = MEAT

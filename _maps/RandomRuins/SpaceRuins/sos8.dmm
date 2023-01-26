@@ -3,7 +3,7 @@
 /turf/template_noop,
 /area/template_noop)
 "b" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/plasteel/airless,
@@ -34,7 +34,7 @@
 /turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
 "j" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/effect/decal/remains/human,
@@ -51,13 +51,13 @@
 /turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
 "m" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
 "n" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/item/storage/pod{
@@ -73,7 +73,7 @@
 /turf/open/space/basic,
 /area/ruin/unpowered)
 "q" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/item/storage/pod{

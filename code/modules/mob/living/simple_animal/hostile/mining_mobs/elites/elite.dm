@@ -15,7 +15,6 @@
 	vision_range = 6
 	aggro_vision_range = 18
 	environment_smash = ENVIRONMENT_SMASH_NONE  //This is to prevent elites smashing up the mining station, we'll make sure they can smash minerals fine below.
-	harm_intent_damage = 0 //Punching elites gets you nowhere
 	stat_attack = UNCONSCIOUS
 	layer = LARGE_MOB_LAYER
 	sentience_type = SENTIENCE_BOSS
@@ -43,7 +42,7 @@
 		var/obj/structure/elite_tumor/T = target
 		if(T.mychild == src && T.activity == TUMOR_PASSIVE)
 			var/elite_remove = alert("Re-enter the tumor?", "Despawn yourself?", "Yes", "No")
-			if(elite_remove == "No" || !src || QDELETED(src))
+			if(elite_remove != "Yes" || !src || QDELETED(src))
 				return
 			T.mychild = null
 			T.activity = TUMOR_INACTIVE
@@ -82,10 +81,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
 	elite_owner.chosen_attack = chosen_attack_num
 	to_chat(elite_owner, chosen_message)
-
-/mob/living/simple_animal/hostile/asteroid/elite/updatehealth()
-	. = ..()
-	update_health_hud()
 
 /mob/living/simple_animal/hostile/asteroid/elite/update_health_hud()
 	if(hud_used)
@@ -333,9 +328,12 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/effect/temp_visual/elite_tumor_wall
 	name = "magic wall"
 	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
-	icon_state = "wall"
+	icon_state = "hierophant_wall_temp-0"
+	base_icon_state = "hierophant_wall_temp"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_HIERO_WALL)
+	canSmoothWith = list(SMOOTH_GROUP_HIERO_WALL)
 	duration = 50
-	smooth = SMOOTH_TRUE
 	layer = BELOW_MOB_LAYER
 	color = rgb(255,0,0)
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
@@ -345,17 +343,16 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/effect/temp_visual/elite_tumor_wall/Initialize(mapload, new_caster)
 	. = ..()
-	queue_smooth_neighbors(src)
-	queue_smooth(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	QUEUE_SMOOTH(src)
 
 /obj/effect/temp_visual/elite_tumor_wall/Destroy()
-	queue_smooth_neighbors(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	activator = null
 	ourelite = null
 	return ..()
 
-/obj/effect/temp_visual/elite_tumor_wall/CanPass(atom/movable/mover, turf/target)
+/obj/effect/temp_visual/elite_tumor_wall/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(mover == ourelite || mover == activator)
 		return FALSE
-	else
-		return TRUE

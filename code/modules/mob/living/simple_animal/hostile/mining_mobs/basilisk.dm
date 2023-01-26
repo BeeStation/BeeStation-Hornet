@@ -18,8 +18,8 @@
 	throw_message = "does nothing against the hard shell of"
 	vision_range = 2
 	speed = 3
-	maxHealth = 200
-	health = 200
+	maxHealth = 100
+	health = 100
 	obj_damage = 60
 	melee_damage = 12
 	attacktext = "bites into"
@@ -81,7 +81,7 @@
 	loot = list()
 	butcher_results = list(/obj/item/stack/ore/diamond = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
 
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random/Initialize()
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random/Initialize(mapload)
 	. = ..()
 	if(prob(1))
 		if(prob(75))
@@ -97,8 +97,9 @@
 	icon_living = "watcher_magmawing"
 	icon_aggro = "watcher_magmawing"
 	icon_dead = "watcher_magmawing_dead"
-	maxHealth = 215 //Compensate for the lack of slowdown on projectiles with a bit of extra health
-	health = 215
+	maxHealth = 108 //Compensate for the lack of slowdown on projectiles with a bit of extra health
+	health = 108
+	light_system = MOVABLE_LIGHT
 	light_range = 3
 	light_power = 2.5
 	light_color = LIGHT_COLOR_LAVA
@@ -113,8 +114,8 @@
 	icon_living = "watcher_icewing"
 	icon_aggro = "watcher_icewing"
 	icon_dead = "watcher_icewing_dead"
-	maxHealth = 170
-	health = 170
+	maxHealth = 85
+	health = 85
 	projectiletype = /obj/item/projectile/temp/basilisk/icewing
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/bone = 1) //No sinew; the wings are too fragile to be usable
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing/ice_wing

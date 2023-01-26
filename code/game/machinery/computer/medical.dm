@@ -8,8 +8,6 @@
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS)
 	circuit = /obj/item/circuitboard/computer/med_data
 	flags_1 = SAVE_SAFE_1
-	var/obj/item/card/id/scan = null
-	var/authenticated = null
 	var/rank = null
 	var/screen = null
 	var/datum/data/record/active1
@@ -26,24 +24,16 @@
 /obj/machinery/computer/med_data/syndie
 	icon_keyboard = "syndie_key"
 
-/obj/machinery/computer/med_data/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/card/id) && !scan)
-		if(!user.transferItemToLoc(O, src))
-			return
-		scan = O
-		to_chat(user, "<span class='notice'>You insert [O].</span>")
-	else
-		return ..()
-
 /obj/machinery/computer/med_data/ui_interact(mob/user)
 	. = ..()
+	if(isliving(user))
+		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 	var/dat
 	if(temp)
 		dat = text("<TT>[temp]</TT><BR><BR><A href='?src=[REF(src)];temp=1'>Clear Screen</A>")
 	else
-		dat = text("Confirm Identity: <A href='?src=[REF(src)];scan=1'>[]</A><HR>", (src.scan ? text("[]", src.scan.name) : "----------"))
-		if(src.authenticated)
-			switch(src.screen)
+		if(authenticated)
+			switch(screen)
 				if(1)
 					dat += {"
 <A href='?src=[REF(src)];search=1'>Search Records</A>
@@ -200,16 +190,6 @@
 		usr.set_machine(src)
 		if(href_list["temp"])
 			src.temp = null
-		if(href_list["scan"])
-			if(src.scan)
-				usr.put_in_hands(scan)
-				scan = null
-			else
-				var/obj/item/I = usr.is_holding_item_of_type(/obj/item/card/id)
-				if(I)
-					if(!usr.transferItemToLoc(I, src))
-						return
-					src.scan = I
 		else if(href_list["logout"])
 			src.authenticated = null
 			src.screen = null
@@ -229,25 +209,29 @@
 					sortBy = href_list["sort"]
 					order = initial(order)
 		else if(href_list["login"])
-			if(issilicon(usr))
-				src.active1 = null
-				src.active2 = null
-				src.authenticated = 1
-				src.rank = "AI"
-				src.screen = 1
-			else if(IsAdminGhost(usr))
-				src.active1 = null
-				src.active2 = null
-				src.authenticated = 1
-				src.rank = "Central Command"
-				src.screen = 1
-			else if(istype(src.scan, /obj/item/card/id))
-				src.active1 = null
-				src.active2 = null
-				if(src.check_access(src.scan))
-					src.authenticated = src.scan.registered_name
-					src.rank = src.scan.assignment
-					src.screen = 1
+			var/mob/M = usr
+			var/obj/item/card/id/I = M.get_idcard(TRUE)
+			if(issilicon(M))
+				active1 = null
+				active2 = null
+				authenticated = 1
+				rank = JOB_NAME_AI
+				screen = 1
+			else if(IsAdminGhost(M))
+				active1 = null
+				active2 = null
+				authenticated = 1
+				rank = JOB_CENTCOM_CENTRAL_COMMAND
+				screen = 1
+			else if(istype(I) && check_access(I))
+				active1 = null
+				active2 = null
+				authenticated = I.registered_name
+				rank = I.assignment
+				screen = 1
+			else
+				to_chat(usr, "<span class='danger'>Unauthorized access.</span>")
+			playsound(src, 'sound/machines/terminal_on.ogg', 50, FALSE)
 		if(src.authenticated)
 
 			if(href_list["screen"])
@@ -259,20 +243,17 @@
 				src.active2 = null
 
 			else if(href_list["vir"])
-				var/type = href_list["vir"]
-				var/datum/disease/Dis = new type(0)
-				var/AfS = ""
-				for(var/mob/M in Dis.viable_mobtypes)
-					AfS += " [initial(M.name)];"
-				src.temp = {"<b>Name:</b> [Dis.name]
-<BR><b>Number of stages:</b> [Dis.max_stages]
-<BR><b>Spread:</b> [Dis.spread_text] Transmission
-<BR><b>Possible Cure:</b> [(Dis.cure_text||"none")]
-<BR><b>Affected Lifeforms:</b>[AfS]
+				var/href_type = text2path(href_list["vir"])
+				if(ispath(href_type, /datum/disease))
+					var/datum/disease/type = href_type
+					src.temp = {"<b>Name:</b> [initial(type.name)]
+<BR><b>Number of stages:</b> [initial(type.max_stages)]
+<BR><b>Spread:</b> [initial(type.spread_text)] Transmission
+<BR><b>Possible Cure:</b> [(initial(type.cure_text)||"none")]
 <BR>
-<BR><b>Notes:</b> [Dis.desc]
+<BR><b>Notes:</b> [initial(type.desc)]
 <BR>
-<BR><b>Danger:</b> [Dis.danger]"}
+<BR><b>Danger:</b> [initial(type.danger)]"}
 
 			else if(href_list["del_all"])
 				src.temp = "Are you sure you wish to delete all records?<br>\n\t<A href='?src=[REF(src)];temp=1;del_all2=1'>Yes</A><br>\n\t<A href='?src=[REF(src)];temp=1'>No</A><br>"
@@ -549,15 +530,12 @@
 
 /obj/machinery/computer/med_data/emp_act(severity)
 	. = ..()
-	if(!(stat & (BROKEN|NOPOWER)) && !(. & EMP_PROTECT_SELF))
+	if(!(machine_stat & (BROKEN|NOPOWER)) && !(. & EMP_PROTECT_SELF))
 		for(var/datum/data/record/R in GLOB.data_core.medical)
 			if(prob(10/severity))
 				switch(rand(1,6))
 					if(1)
-						if(prob(10))
-							R.fields["name"] = random_unique_lizard_name(R.fields["sex"],1)
-						else
-							R.fields["name"] = random_unique_name(R.fields["sex"],1)
+						R.fields["name"] = random_unique_name(R.fields["sex"],1)
 					if(2)
 						R.fields["sex"]	= pick("Male", "Female")
 					if(3)

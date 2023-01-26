@@ -161,7 +161,7 @@
 
 // monkeys and xenos can only pull the flush lever
 /obj/machinery/disposal/attack_paw(mob/user)
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 	flush = !flush
 	update_icon()
@@ -169,10 +169,7 @@
 
 // eject the contents of the disposal unit
 /obj/machinery/disposal/proc/eject()
-	var/turf/T = get_turf(src)
-	for(var/atom/movable/AM in src)
-		AM.forceMove(T)
-		AM.pipe_eject(0)
+	pipe_eject(src, 0, FALSE)
 	update_icon()
 
 // update the icon & overlays to reflect mode & status
@@ -198,7 +195,7 @@
 	flush = FALSE
 
 /obj/machinery/disposal/proc/newHolderDestination(obj/structure/disposalholder/H)
-	for(var/obj/item/smallDelivery/O in src)
+	for(var/obj/item/small_delivery/O in src)
 		H.tomail = TRUE
 		return
 
@@ -214,18 +211,9 @@
 /obj/machinery/disposal/proc/expel(obj/structure/disposalholder/H)
 	H.active = FALSE
 
-	var/turf/T = get_turf(src)
-	var/turf/target
 	playsound(src, 'sound/machines/hiss.ogg', 50, FALSE, FALSE)
 
-	for(var/A in H)
-		var/atom/movable/AM = A
-
-		target = get_offset_target_turf(loc, rand(5)-rand(5), rand(5)-rand(5))
-
-		AM.forceMove(T)
-		AM.pipe_eject(0)
-		AM.throw_at(target, 5, 1)
+	pipe_eject(H)
 
 	H.vent_gas(loc)
 	qdel(H)
@@ -284,7 +272,7 @@
 	return GLOB.notcontained_state
 
 /obj/machinery/disposal/bin/ui_interact(mob/user, datum/tgui/ui)
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -351,7 +339,7 @@
 
 /obj/machinery/disposal/bin/update_icon()
 	cut_overlays()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		pressure_charging = FALSE
 		flush = FALSE
 		return
@@ -361,7 +349,7 @@
 		add_overlay("dispover-handle")
 
 	//only handle is shown if no power
-	if(stat & NOPOWER || panel_open)
+	if(machine_stat & NOPOWER || panel_open)
 		return
 
 	//check for items in disposal - occupied light
@@ -381,7 +369,7 @@
 //timed process
 //charge the gas reservoir and perform flush if ready
 /obj/machinery/disposal/bin/process(delta_time)
-	if(stat & BROKEN) //nothing can happen if broken
+	if(machine_stat & BROKEN) //nothing can happen if broken
 		return
 
 	flush_count++
@@ -396,7 +384,7 @@
 	if(flush && air_contents.return_pressure() >= SEND_PRESSURE) // flush can happen even without power
 		do_flush()
 
-	if(stat & NOPOWER) // won't charge if no power
+	if(machine_stat & NOPOWER) // won't charge if no power
 		return
 
 	use_power(100) // base power usage

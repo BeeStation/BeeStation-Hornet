@@ -15,7 +15,7 @@
 	var/self_delay = 0 //pills are instant, this is because patches inheret their aplication from pills
 	var/dissolvable = TRUE
 
-/obj/item/reagent_containers/pill/Initialize()
+/obj/item/reagent_containers/pill/Initialize(mapload)
 	. = ..()
 	if(!icon_state)
 		icon_state = "pill[rand(1,20)]"
@@ -27,7 +27,7 @@
 	return
 
 
-/obj/item/reagent_containers/pill/attack(mob/M, mob/user, def_zone)
+/obj/item/reagent_containers/pill/attack(mob/M, mob/user, obj/item/bodypart/affecting)
 	if(!canconsume(M, user))
 		return FALSE
 	if(iscarbon(M))
@@ -54,7 +54,7 @@
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, M, "<span class='notice'>[makes_me_think]</span>"), 5 SECONDS)
 
 	if(reagents.total_volume)
-		reagents.reaction(M, apply_type)
+		reagents.reaction(M, apply_type, affecting = affecting)
 		reagents.trans_to(M, reagents.total_volume, transfered_by = user)
 	qdel(src)
 	return TRUE
@@ -67,11 +67,11 @@
 	if(!dissolvable || !target.is_refillable())
 		return
 	if(target.is_drainable() && !target.reagents.total_volume)
-		balloon_alert(user, "It's empty")
+		balloon_alert(user, "[target] is empty!")
 		return
 
 	if(target.reagents.holder_full())
-		balloon_alert(user, "It's full")
+		balloon_alert(user, "[target] is full!")
 		return
 
 	user.visible_message("<span class='warning'>[user] slips something into [target]!</span>", "<span class='notice'>You dissolve [src] in [target].</span>", null, 2)
@@ -139,7 +139,7 @@
 	rename_with_volume = TRUE
 
 /obj/item/reagent_containers/pill/mannitol/braintumor //For the brain tumor quirk
-	list_reagents = list(/datum/reagent/medicine/mannitol = 20)
+	list_reagents = list(/datum/reagent/medicine/mannitol = 30)
 
 /obj/item/reagent_containers/pill/mutadone
 	name = "mutadone pill"
@@ -275,8 +275,8 @@
 	prevent_grinding = TRUE
 	dissolvable = FALSE
 
-/obj/item/reagent_containers/pill/floorpill/Initialize()
-	list_reagents = list(get_unrestricted_random_reagent_id() = rand(10,50))
+/obj/item/reagent_containers/pill/floorpill/Initialize(mapload)
+	list_reagents = list(get_random_reagent_id(CHEMICAL_RNG_FUN) = rand(10,50))
 	. = ..()
 	name = pick(names)
 
@@ -285,7 +285,3 @@
 	. = ..()
 	if(prob(20))
 		. += "[pick(descs)]"
-	if(HAS_TRAIT(user, TRAIT_APPRAISAL))
-		if(length(reagents.reagent_list))
-			for(var/datum/reagent/R in reagents.reagent_list)
-				. += "It contains [R.volume] units of [R.name]"

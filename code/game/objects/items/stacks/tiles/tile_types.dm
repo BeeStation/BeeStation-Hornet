@@ -11,14 +11,21 @@
 	throw_speed = 3
 	throw_range = 7
 	max_amount = 60
-	var/turf_type = null
-	var/mineralType = null
 	novariants = TRUE
+	/// What type of turf does this tile produce.
+	var/turf_type = null
+	/// Determines certain welder interactions.
+	var/mineralType = null
+	/// Cached associative lazy list to hold the radial options for tile reskinning. See tile_reskinning.dm for more information. Pattern: list[type] -> image
+	var/list/tile_reskin_types
 
-/obj/item/stack/tile/Initialize(mapload, amount)
+/obj/item/stack/tile/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()
 	pixel_x = rand(-3, 3)
 	pixel_y = rand(-3, 3) //randomize a little
+	if(tile_reskin_types)
+		tile_reskin_types = tile_reskin_list(tile_reskin_types)
+
 
 /obj/item/stack/tile/attackby(obj/item/W, mob/user, params)
 
@@ -88,6 +95,72 @@
 	else
 		return ..()
 
+//Fairygrass
+/obj/item/stack/tile/fairygrass
+	name = "fairygrass tile"
+	singular_name = "fairygrass floor tile"
+	desc = "A patch of odd, glowing blue grass."
+	icon_state = "tile_fairygrass"
+	item_state = "tile-fairygrass"
+	turf_type = /turf/open/floor/grass/fairy
+	resistance_flags = FLAMMABLE
+	color = "#33CCFF"
+
+/obj/item/stack/tile/fairygrass/white
+	name = "white fairygrass tile"
+	singular_name = "white fairygrass floor tile"
+	desc = "A patch of odd, glowing white grass."
+	turf_type = /turf/open/floor/grass/fairy/white
+	color = "#FFFFFF"
+
+/obj/item/stack/tile/fairygrass/red
+	name = "red fairygrass tile"
+	singular_name = "red fairygrass floor tile"
+	desc = "A patch of odd, glowing red grass."
+	turf_type = /turf/open/floor/grass/fairy/red
+	color = "#FF3333"
+
+/obj/item/stack/tile/fairygrass/yellow
+	name = "yellow fairygrass tile"
+	singular_name = "yellow fairygrass floor tile"
+	desc = "A patch of odd, glowing yellow grass."
+	turf_type = /turf/open/floor/grass/fairy/yellow
+	color = "#FFFF66"
+
+/obj/item/stack/tile/fairygrass/green
+	name = "green fairygrass tile"
+	singular_name = "green fairygrass floor tile"
+	desc = "A patch of odd, glowing green grass."
+	turf_type = /turf/open/floor/grass/fairy/green
+	color = "#99FF99"
+
+/obj/item/stack/tile/fairygrass/blue
+	name = "blue fairygrass tile"
+	singular_name = "blue fairygrass floor tile"
+	desc = "A patch of odd, glowing blue grass."
+	turf_type = /turf/open/floor/grass/fairy/blue
+
+/obj/item/stack/tile/fairygrass/purple
+	name = "purple fairygrass tile"
+	singular_name = "purple fairygrass floor tile"
+	desc = "A patch of odd, glowing purple grass."
+	turf_type = /turf/open/floor/grass/fairy/purple
+	color = "#D966FF"
+
+/obj/item/stack/tile/fairygrass/pink
+	name = "pink fairygrass tile"
+	singular_name = "pink fairygrass floor tile"
+	desc = "A patch of odd, glowing pink grass."
+	turf_type = /turf/open/floor/grass/fairy/pink
+	color = "#FFB3DA"
+
+/obj/item/stack/tile/fairygrass/dark
+	name = "dark fairygrass tile"
+	singular_name = "dark fairygrass floor tile"
+	desc = "A patch of odd, light consuming grass."
+	turf_type = /turf/open/floor/grass/fairy/dark
+	color = "#410096"
+
 //Wood
 /obj/item/stack/tile/wood
 	name = "wood floor tile"
@@ -96,6 +169,16 @@
 	icon_state = "tile-wood"
 	item_state = "tile-wood"
 	turf_type = /turf/open/floor/wood
+	resistance_flags = FLAMMABLE
+
+//Bamboo
+/obj/item/stack/tile/bamboo
+	name = "bamboo mat pieces"
+	singular_name = "bamboo mat piece"
+	desc = "A piece of a bamboo mat with a decorative trim."
+	icon_state = "tile-bamboo"
+	item_state = "tile-bamboo"
+	turf_type = /turf/open/floor/bamboo
 	resistance_flags = FLAMMABLE
 
 //Basalt
@@ -196,6 +279,15 @@
 	turf_type = /turf/open/floor/carpet/royalblue
 	tableVariant = /obj/structure/table/wood/fancy/royalblue
 
+/obj/item/stack/tile/carpet/grimy
+	name = "grimy carpet"
+	singular_name = "grimy carpet floor tile"
+	desc = "A piece of carpet that feels more like floor tiles, sure it feels hard to the touch for being carpet..."
+	icon_state = "tile-carpet-grimy"
+	item_state = "tile-carpet-grimy"
+	merge_type = /obj/item/stack/tile/carpet/grimy
+	turf_type = /turf/open/floor/carpet/grimy
+
 /obj/item/stack/tile/eighties
 	name = "retro tile"
 	singular_name = "retro floor tile"
@@ -232,6 +324,9 @@
 	amount = 50
 
 /obj/item/stack/tile/carpet/royalblue/fifty
+	amount = 50
+
+/obj/item/stack/tile/carpet/grimy/fifty
 	amount = 50
 
 /obj/item/stack/tile/eighties/fifty
@@ -402,10 +497,13 @@
 	materials = list() // All other Borg versions of items have no Iron or Glass - RR
 	is_cyborg = 1
 	cost = 125
+
 //Monotiles
+
 /obj/item/stack/tile/mono
 	name = "steel mono tile"
 	singular_name = "steel mono tile"
+	desc = "A really big steel tile compared to the standard station tiles."
 	icon_state = "tile"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile
@@ -413,6 +511,7 @@
 /obj/item/stack/tile/mono/dark
 	name = "dark mono tile"
 	singular_name = "dark mono tile"
+	desc = "A really big (dark) steel tile compared to the standard station tiles."
 	icon_state = "tile"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile/dark
@@ -420,6 +519,7 @@
 /obj/item/stack/tile/mono/light
 	name = "light mono tile"
 	singular_name = "light mono tile"
+	desc = "A really big (shiny) steel tile compared to the standard station tiles."
 	icon_state = "tile"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile/light
@@ -428,6 +528,7 @@
 /obj/item/stack/tile/grid
 	name = "grey grid tile"
 	singular_name = "grey grid tile"
+	desc = "A gridded version of the standard station tiles."
 	icon_state = "tile_grid"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/grid
@@ -435,6 +536,7 @@
 /obj/item/stack/tile/ridge
 	name = "grey ridge tile"
 	singular_name = "grey ridge tile"
+	desc = "A ridged version of the standard station tiles."
 	icon_state = "tile_ridged"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/ridged
@@ -443,6 +545,7 @@
 /obj/item/stack/tile/techgrey
 	name = "grey techfloor tile"
 	singular_name = "grey techfloor tile"
+	desc = "A fancy tile usually found in secure areas and engineering bays."
 	icon_state = "tile_tech_grey"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/tech
@@ -450,6 +553,7 @@
 /obj/item/stack/tile/techgrid
 	name = "grid techfloor tile"
 	singular_name = "grid techfloor tile"
+	desc = "A fancy tile usually found in secure areas and engineering bays, this one has a grid pattern."
 	icon_state = "tile_tech_grid"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/tech/grid
@@ -457,6 +561,23 @@
 /obj/item/stack/tile/techmaint
 	name = "dark techfloor tile"
 	singular_name = "dark techfloor tile"
+	desc = "A fancy tile usually found in secure areas and engineering bays, this one is dark."
 	icon_state = "tile_tech_maint"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/techmaint
+
+/obj/item/stack/tile/dock
+	name = "dock tile"
+	singular_name = "dock tile"
+	desc = "A bulky chunk of flooring capable of holding the weight of a shuttle."
+	icon_state = "tile_dock"
+	materials = list(/datum/material/iron=500, /datum/material/plasma=500)
+	turf_type = /turf/open/floor/dock
+
+/obj/item/stack/tile/drydock
+	name = "dry dock tile"
+	singular_name = "dry dock tile"
+	desc = "An extra-bulky chunk of flooring capable of supporting shuttle construction."
+	icon_state = "tile_drydock"
+	materials = list(/datum/material/iron=1000, /datum/material/plasma=1000)
+	turf_type = /turf/open/floor/dock/drydock

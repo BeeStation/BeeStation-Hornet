@@ -1,11 +1,5 @@
 //DEFINITIONS FOR ASSET DATUMS START HERE.
 
-/datum/asset/simple/tgui_common
-	keep_local_name = TRUE
-	assets = list(
-		"tgui-common.bundle.js" = file("tgui/public/tgui-common.bundle.js"),
-	)
-
 /datum/asset/simple/tgui
 	keep_local_name = TRUE
 	assets = list(
@@ -48,6 +42,7 @@
 		"smmon_4.gif" = 'icons/program_icons/smmon_4.gif',
 		"smmon_5.gif" = 'icons/program_icons/smmon_5.gif',
 		"smmon_6.gif" = 'icons/program_icons/smmon_6.gif',
+		"borg_self_monitor.gif" = 'icons/program_icons/borg_self_monitor.gif'
 	)
 
 /datum/asset/simple/circuit_assets
@@ -196,6 +191,15 @@
 			Insert("language-[icon_state]", icon, icon_state=icon_state)
 	..()
 
+/datum/asset/spritesheet/emoji
+	name = "emoji"
+
+/datum/asset/spritesheet/emoji/register()
+	var/icon/I = icon('icons/emoji.dmi')
+	I.Scale(48, 48)
+	InsertAll("", I)
+	..()
+
 /datum/asset/simple/lobby
 	assets = list(
 		"playeroptions.css" = 'html/browser/playeroptions.css'
@@ -234,6 +238,12 @@
 		"boss5.gif" = 'icons/UI_Icons/Arcade/boss5.gif',
 		"boss6.gif" = 'icons/UI_Icons/Arcade/boss6.gif',
 		)
+
+/datum/asset/spritesheet/simple/achievements
+	name ="achievements"
+	assets = list(
+		"default" = 'icons/UI_Icons/Achievements/default.png'
+	)
 
 /datum/asset/spritesheet/simple/pills
 	name ="pills"
@@ -355,7 +365,14 @@
 				if (machine)
 					item = machine
 
-			icon_file = initial(item.icon)
+			// Check for GAGS support where necessary
+			var/greyscale_config = initial(item.greyscale_config)
+			var/greyscale_colors = initial(item.greyscale_colors)
+			if (greyscale_config && greyscale_colors)
+				icon_file = SSgreyscale.GetColoredIconByType(greyscale_config, greyscale_colors)
+			else
+				icon_file = initial(item.icon)
+
 			icon_state = initial(item.icon_state)
 
 			if(!(icon_state in icon_states(icon_file)))
@@ -386,7 +403,11 @@
 		if (!ispath(item, /atom))
 			continue
 
-		var/icon_file = initial(item.icon)
+		var/icon_file
+		if (initial(item.greyscale_colors) && initial(item.greyscale_config))
+			icon_file = SSgreyscale.GetColoredIconByType(initial(item.greyscale_config), initial(item.greyscale_colors))
+		else
+			icon_file = initial(item.icon)
 		var/icon_state = initial(item.icon_state)
 		var/icon/I
 
@@ -462,7 +483,9 @@
 	name = "sheetmaterials"
 
 /datum/asset/spritesheet/sheetmaterials/register()
-	InsertAll("", 'icons/obj/stack_objects.dmi')
+	InsertAll("", 'icons/obj/stacks/minerals.dmi')//figure to do a list here
+//	InsertAll("", 'icons/obj/stacks/miscelaneous.dmi')
+//	InsertAll("", 'icons/obj/stacks/organic.dmi')
 
 	// Special case to handle Bluespace Crystals
 	Insert("polycrystal", 'icons/obj/telescience.dmi', "polycrystal")
@@ -472,6 +495,30 @@
 	assets = list(
 		"paigrid.png" = 'html/paigrid.png'
 	)
+
+/datum/asset/simple/portraits
+	var/tab = "use subtypes of this please"
+	assets = list()
+
+/datum/asset/simple/portraits/New()
+	if(!SSpersistence.paintings || !SSpersistence.paintings[tab] || !length(SSpersistence.paintings[tab]))
+		return
+	for(var/p in SSpersistence.paintings[tab])
+		var/list/portrait = p
+		var/png = "data/paintings/[tab]/[portrait["md5"]].png"
+		if(fexists(png))
+			var/asset_name = "[tab]_[portrait["md5"]]"
+			assets[asset_name] = png
+	..() //this is where it registers all these assets we added to the list
+
+/datum/asset/simple/portraits/library
+	tab = "library"
+
+/datum/asset/simple/portraits/library_secure
+	tab = "library_secure"
+
+/datum/asset/simple/portraits/library_private
+	tab = "library_private"
 
 /datum/asset/spritesheet/fish
 	name = "fish"

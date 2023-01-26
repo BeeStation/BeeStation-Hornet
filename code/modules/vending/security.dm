@@ -10,6 +10,7 @@
 					/obj/item/restraints/handcuffs/cable/zipties = 10,
 					/obj/item/grenade/flashbang = 4,
 					/obj/item/assembly/flash/handheld = 5,
+					/obj/item/book/manual/wiki/security_space_law = 3,
 					/obj/item/reagent_containers/food/snacks/donut = 12,
 					/obj/item/storage/box/evidence = 6,
 					/obj/item/flashlight/seclite = 4,
@@ -28,7 +29,7 @@
 	refill_canister = /obj/item/vending_refill/security
 	default_price = 100
 	extra_price = 150
-	payment_department = ACCOUNT_SEC
+	dept_req_for_free = ACCOUNT_SEC_BITFLAG
 
 /obj/machinery/vending/security/pre_throw(obj/item/I)
 	if(istype(I, /obj/item/grenade))

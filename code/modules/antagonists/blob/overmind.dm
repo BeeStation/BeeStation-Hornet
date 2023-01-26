@@ -45,6 +45,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 	/// The list of strains the blob can reroll for.
 	var/list/strain_choices
+	var/need_reroll_strain = FALSE
 
 /mob/camera/blob/Initialize(mapload, starting_points = 60)
 	validate_location()
@@ -239,8 +240,11 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 	if (!message)
 		return
-
-	src.log_talk(message, LOG_SAY)
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
+	message = treat_message_min(message)
+	src.log_talk(message, LOG_SAY, tag="blob")
 
 	var/message_a = say_quote(message)
 	var/rendered = "<span class='big'><font color=\"#EE4000\"><b>\[Blob Telepathy\] [name](<font color=\"[blobstrain.color]\">[blobstrain.name]</font>)</b> [message_a]</font></span>"
@@ -268,6 +272,9 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 			tab_data["Time Before Manual Placement"] = GENERATE_STAT_TEXT("[max(round((manualplace_min_time - world.time)*0.1, 0.1), 0)]")
 		tab_data["Time Before Automatic Placement"] = GENERATE_STAT_TEXT("[max(round((autoplace_max_time - world.time)*0.1, 0.1), 0)]")
 	return tab_data
+
+/mob/camera/blob/canZMove(direction, turf/target)
+	return !placed
 
 /mob/camera/blob/Move(NewLoc, Dir = 0)
 	if(placed)

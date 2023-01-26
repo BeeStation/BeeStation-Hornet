@@ -1,14 +1,13 @@
 /proc/generate_exoplanet(center_z)
 	var/datum/space_level/space_level = SSmapping.get_level(center_z)
 	space_level.generating = TRUE
-	try
-		_generate_exoplanet(center_z, new /datum/exoplanet_biome/lavaland)
-	catch(var/exception/e)
-		message_admins("Exoplanet failed to generate!")
-		stack_trace("Exoplanet failed to generate! [e] on [e.file]:[e.line]")
+	_generate_exoplanet(center_z, new /datum/exoplanet_biome/lavaland)
 	space_level.generating = FALSE
 
 /proc/_generate_exoplanet(center_z, datum/exoplanet_biome/biome)
+
+	SSair.pause_z(center_z)
+
 	var/perlin_noise_scale = 65
 	var/river_height = 0.25
 	var/beach_height = 0.32
@@ -52,3 +51,5 @@
 			T.baseturfs = list(biome.plains_type, biome.river_type)
 		CHECK_TICK
 	new_area.update_areasize()
+
+	SSair.unpause_z(center_z)

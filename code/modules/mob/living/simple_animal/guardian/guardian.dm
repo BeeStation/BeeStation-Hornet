@@ -37,6 +37,9 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	melee_damage = 15
 	butcher_results = list(/obj/item/ectoplasm = 1)
 	AIStatus = AI_OFF
+	light_system = MOVABLE_LIGHT
+	light_range = 3
+	light_on = FALSE
 	hud_type = /datum/hud/guardian
 	dextrous_hud_type = /datum/hud/dextrous/guardian //if we're set to dextrous, account for it.
 	hardattacks = TRUE
@@ -300,7 +303,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	I.screen_loc = null // will get moved if inventory is visible
 	I.forceMove(src)
 	I.equipped(src, slot)
-	I.layer = ABOVE_HUD_LAYER
 	I.plane = ABOVE_HUD_PLANE
 
 /mob/living/simple_animal/hostile/guardian/proc/apply_overlay(cache_index)
@@ -320,27 +322,17 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	var/obj/item/r_hand = get_item_for_held_index(2)
 
 	if(r_hand)
-		var/r_state = r_hand.item_state
-		if(!r_state)
-			r_state = r_hand.icon_state
-
-		hands_overlays += r_hand.build_worn_icon(state = r_state, default_layer = GUARDIAN_HANDS_LAYER, default_icon_file = r_hand.righthand_file, isinhands = TRUE)
+		hands_overlays += r_hand.build_worn_icon(default_layer = GUARDIAN_HANDS_LAYER, default_icon_file = r_hand.righthand_file, isinhands = TRUE)
 
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			r_hand.layer = ABOVE_HUD_LAYER
 			r_hand.plane = ABOVE_HUD_PLANE
 			r_hand.screen_loc = ui_hand_position(get_held_index_of_item(r_hand))
 			client.screen |= r_hand
 
 	if(l_hand)
-		var/l_state = l_hand.item_state
-		if(!l_state)
-			l_state = l_hand.icon_state
-
-		hands_overlays +=  l_hand.build_worn_icon(state = l_state, default_layer = GUARDIAN_HANDS_LAYER, default_icon_file = l_hand.lefthand_file, isinhands = TRUE)
+		hands_overlays +=  l_hand.build_worn_icon(default_layer = GUARDIAN_HANDS_LAYER, default_icon_file = l_hand.lefthand_file, isinhands = TRUE)
 
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			l_hand.layer = ABOVE_HUD_LAYER
 			l_hand.plane = ABOVE_HUD_PLANE
 			l_hand.screen_loc = ui_hand_position(get_held_index_of_item(l_hand))
 			client.screen |= l_hand
@@ -377,13 +369,15 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	to_chat(src, "<span class='danger'><B>You don't have another mode!</span></B>")
 
+
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
-	if(light_range<3)
+	if(!light_on)
 		to_chat(src, "<span class='notice'>You activate your light.</span>")
-		set_light(3)
+		set_light_on(TRUE)
 	else
 		to_chat(src, "<span class='notice'>You deactivate your light.</span>")
-		set_light(0)
+		set_light_on(FALSE)
+
 
 /mob/living/simple_animal/hostile/guardian/verb/ShowType()
 	set name = "Check Guardian Type"
@@ -398,7 +392,10 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		var/input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
 		if(!input)
 			return
-
+		if(CHAT_FILTER_CHECK(input))
+			to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+			return
+		input = treat_message_min(input)
 		var/preliminary_message = "<span class='holoparasite bold'>[input]</span>" //apply basic color/bolding
 		var/my_message = "<font color=\"[guardiancolor]\"><b><i>[src]:</i></b></font> [preliminary_message]" //add source, color source with the guardian's color
 
@@ -419,7 +416,10 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	var/input = stripped_input(src, "Please enter a message to tell your guardian.", "Message", "")
 	if(!input)
 		return
-
+	if(CHAT_FILTER_CHECK(input))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
+	input = treat_message_min(input)
 	var/preliminary_message = "<span class='holoparasite bold'>[input]</span>" //apply basic color/bolding
 	var/my_message = "<span class='holoparasite bold'><i>[src]:</i> [preliminary_message]</span>" //add source, color source with default grey...
 

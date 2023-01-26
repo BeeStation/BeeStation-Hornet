@@ -42,6 +42,7 @@
 	icon_state = "stobacco_leaves"
 	distill_reagent = null
 	wine_power = 50
+	discovery_points = 300
 
 //Lavaland Tobacco
 
@@ -64,3 +65,4 @@
 	icon_state = "ltobacco_leaves"
 	distill_reagent = null
 	wine_power = 10
+	discovery_points = 300

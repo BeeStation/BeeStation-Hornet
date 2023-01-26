@@ -33,7 +33,7 @@ handles linking back and forth.
 		_MakeLocal()
 
 /datum/component/remote_materials/proc/LateInitialize()
-	silo = GLOB.ore_silo_default
+	set_silo(GLOB.ore_silo_default)
 	if (silo)
 		silo.connected += src
 		mat_container = silo.GetComponent(/datum/component/material_container)
@@ -44,7 +44,7 @@ handles linking back and forth.
 	if (silo)
 		silo.connected -= src
 		silo.updateUsrDialog()
-		silo = null
+		set_silo(null)
 		mat_container = null
 	else if (mat_container)
 		// specify explicitly in case the other component is deleted first
@@ -53,7 +53,7 @@ handles linking back and forth.
 	return ..()
 
 /datum/component/remote_materials/proc/_MakeLocal()
-	silo = null
+	set_silo(null)
 
 	var/static/list/allowed_mats = list(
 		/datum/material/iron,
@@ -81,10 +81,11 @@ handles linking back and forth.
 /datum/component/remote_materials/proc/disconnect_from(obj/machinery/ore_silo/old_silo)
 	if (!old_silo || silo != old_silo)
 		return
-	silo = null
+	set_silo(null)
 	mat_container = null
 	if (allow_standalone)
 		_MakeLocal()
+	SEND_SIGNAL(parent, COMSIG_REMOTE_MATERIALS_CHANGED)
 	return TRUE
 
 /datum/component/remote_materials/proc/is_valid_link(atom/targeta, atom/targetb = silo)
@@ -130,11 +131,12 @@ handles linking back and forth.
 			else if (mat_container)
 				mat_container.retrieve_all()
 				qdel(mat_container)
-			silo = M.buffer
+			set_silo(M.buffer)
 			silo.connected += src
 			silo.updateUsrDialog()
 			mat_container = silo.GetComponent(/datum/component/material_container)
 			to_chat(user, "<span class='notice'>You connect [parent] to [silo] from the multitool's buffer.</span>")
+			SEND_SIGNAL(parent, COMSIG_REMOTE_MATERIALS_CHANGED)
 			return COMPONENT_NO_AFTERATTACK
 
 	else if (silo && istype(I, /obj/item/stack))
@@ -171,3 +173,16 @@ handles linking back and forth.
 	matlist[material_ref] = eject_amount
 	silo_log(parent, "ejected", -count, "sheets", matlist)
 	return count
+
+/datum/component/remote_materials/proc/set_silo(obj/machinery/ore_silo/new_silo)
+	if(silo)
+		UnregisterSignal(silo, COMSIG_MATERIAL_CONTAINER_CHANGED)
+
+	silo = new_silo
+
+	if(!QDELETED(silo))
+		RegisterSignal(silo, COMSIG_MATERIAL_CONTAINER_CHANGED, .proc/propagate_signal)
+
+/datum/component/remote_materials/proc/propagate_signal()
+	SIGNAL_HANDLER
+	SEND_SIGNAL(parent, COMSIG_REMOTE_MATERIALS_CHANGED)

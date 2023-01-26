@@ -114,6 +114,8 @@
 	if(H.stat == CONSCIOUS)
 		to_chat(H, "<span class='notice'>You feel your heart beating again!</span>")
 
+/obj/item/organ/cyberimp/chest/reviver/syndicate
+	syndicate_implant = TRUE
 
 /obj/item/organ/cyberimp/chest/thrusters
 	name = "implantable thrusters set"

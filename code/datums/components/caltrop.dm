@@ -4,17 +4,30 @@
 	var/probability
 	var/flags
 	COOLDOWN_DECLARE(caltrop_cooldown)
+	///given to connect_loc to listen for something moving over target
+	var/static/list/crossed_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
 
 
 /datum/component/caltrop/Initialize(_min_damage = 0, _max_damage = 0, _probability = 100,  _flags = NONE)
+	. = ..()
+	if(!isatom(parent))
+		return COMPONENT_INCOMPATIBLE
+
 	min_damage = _min_damage
 	max_damage = max(_min_damage, _max_damage)
 	probability = _probability
 	flags = _flags
 
-	RegisterSignal(parent, list(COMSIG_MOVABLE_CROSSED), .proc/Crossed)
+	if(ismovable(parent))
+		AddComponent(/datum/component/connect_loc_behalf, parent, crossed_connections)
+	else
+		RegisterSignal(get_turf(parent), COMSIG_ATOM_ENTERED, .proc/on_entered)
 
-/datum/component/caltrop/proc/Crossed(datum/source, atom/movable/AM)
+/datum/component/caltrop/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
 	var/atom/A = parent
 	if(!A.has_gravity())
 		return
@@ -22,8 +35,8 @@
 	if(!prob(probability))
 		return
 
-	if(ishuman(AM))
-		var/mob/living/carbon/human/H = AM
+	if(ishuman(arrived))
+		var/mob/living/carbon/human/H = arrived
 		if(HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
 			return
 
@@ -34,7 +47,7 @@
 		var/obj/item/bodypart/O = H.get_bodypart(picked_def_zone)
 		if(!istype(O))
 			return
-		if(O.status == BODYPART_ROBOTIC)
+		if(!IS_ORGANIC_LIMB(O))
 			return
 
 		var/feetCover = (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))
@@ -48,8 +61,7 @@
 		var/damage = rand(min_damage, max_damage)
 		if(HAS_TRAIT(H, TRAIT_LIGHT_STEP))
 			damage *= 0.5
-		if(is_species(H, /datum/species/squid))
-			damage *= 1.3
+
 		H.apply_damage(damage, BRUTE, picked_def_zone)
 
 		if(COOLDOWN_FINISHED(src, caltrop_cooldown))
@@ -61,7 +73,9 @@
 				H.visible_message("<span class='danger'>[H] slides on [A]!</span>", \
 						"<span class='userdanger'>You slide on [A]!</span>")
 
-		if(is_species(H, /datum/species/squid))
-			H.Paralyze(10)
-		else
-			H.Paralyze(40)
+		H.Paralyze(40)
+
+/datum/component/caltrop/UnregisterFromParent()
+	. = ..()
+	if(ismovable(parent))
+		qdel(GetComponent(/datum/component/connect_loc_behalf))

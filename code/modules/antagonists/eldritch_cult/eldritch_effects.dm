@@ -9,7 +9,7 @@
 	///Used mainly for summoning ritual to prevent spamming the rune to create millions of monsters.
 	var/is_in_use = FALSE
 
-/obj/effect/eldritch/Initialize()
+/obj/effect/eldritch/Initialize(mapload)
 	. = ..()
 	var/image/I = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
 	I.override = TRUE
@@ -26,11 +26,6 @@
 		return
 	if(!is_in_use)
 		INVOKE_ASYNC(src, .proc/activate , user)
-
-/obj/effect/eldritch/attacked_by(obj/item/I, mob/living/user)
-	. = ..()
-	if(istype(I,/obj/item/nullrod))
-		qdel(src)
 
 /obj/effect/eldritch/proc/activate(mob/living/user)
 	is_in_use = TRUE
@@ -131,7 +126,7 @@
 	var/number = max(targets * ( 4 - (targets-1) ) - smashes,1)
 
 	for(var/i in 0 to number)
-		var/turf/chosen_location = get_safe_random_station_turf()
+		var/turf/chosen_location = get_safe_random_station_turfs()
 		//we also dont want them close to each other, at least 1 tile of seperation
 		var/obj/effect/reality_smash/what_if_i_have_one = locate() in range(1, chosen_location)
 		var/obj/effect/broken_illusion/what_if_i_had_one_but_got_used = locate() in range(1, chosen_location)
@@ -152,7 +147,7 @@
 /obj/effect/broken_illusion/ComponentInitialize()
 	AddComponent(/datum/component/discoverable, 5000)
 
-/obj/effect/broken_illusion/Initialize()
+/obj/effect/broken_illusion/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src,.proc/show_presence),15 SECONDS)
 
@@ -226,7 +221,7 @@
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	invisibility = INVISIBILITY_OBSERVER
 
-/obj/effect/reality_smash/Initialize()
+/obj/effect/reality_smash/Initialize(mapload)
 	. = ..()
 	var/img = image(icon, src, "reality_smash", OBJ_LAYER)
 	generate_name()

@@ -8,7 +8,7 @@
 	var/turf/source_turf
 	var/max_range = 12
 
-/mob/camera/ai_eye/remote/shuttle_creation/Initialize()
+/mob/camera/ai_eye/remote/shuttle_creation/Initialize(mapload)
 	. = ..()
 	setLoc(get_turf(source_turf))
 
@@ -49,6 +49,6 @@
 	if(eye_user?.client)
 		eye_user.client.images -= user_image
 		var/image/I = image(icon, loc, icon_state, FLY_LAYER, dir)
-		I.plane = MASSIVE_OBJ_LAYER
+		I.plane = MASSIVE_OBJ_PLANE
 		user_image = I
 		eye_user.client.images += user_image

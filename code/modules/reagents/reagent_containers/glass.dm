@@ -120,7 +120,7 @@
 	custom_materials = list(/datum/material/glass=500)
 	fill_icon_thresholds = list(0, 10, 25, 50, 75, 80, 90)
 
-/obj/item/reagent_containers/glass/beaker/Initialize()
+/obj/item/reagent_containers/glass/beaker/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -268,7 +268,7 @@
 		reagents.flags = NONE
 
 /obj/item/reagent_containers/glass/bucket/dropped(mob/user)
-	. = ..()
+	..()
 	reagents.flags = initial(reagent_flags)
 
 /obj/item/reagent_containers/glass/bucket/equip_to_best_slot(var/mob/M)
@@ -299,12 +299,17 @@
 	var/mutable_appearance/cap_overlay
 	var/flip_chance = 10
 
-/obj/item/reagent_containers/glass/waterbottle/Initialize()
+/obj/item/reagent_containers/glass/waterbottle/Initialize(mapload)
 	. = ..()
 	cap_overlay = mutable_appearance(icon, cap_icon_state)
 	if(cap_on)
 		spillable = FALSE
-		add_overlay(cap_overlay, TRUE)
+		update_icon()
+
+/obj/item/reagent_containers/glass/waterbottle/update_overlays()
+	. = ..()
+	if(cap_on)
+		. += cap_overlay
 
 /obj/item/reagent_containers/glass/waterbottle/examine(mob/user)
 	. = ..()
@@ -316,6 +321,8 @@
 		. += "<span class='notice'>The cap has been taken off. Alt-click to put a cap on.</span>"
 
 /obj/item/reagent_containers/glass/waterbottle/AltClick(mob/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	if(cap_lost)
 		to_chat(user, "<span class='warning'>The cap seems to be missing! Where did it go?</span>")
 		return
@@ -324,7 +331,6 @@
 	if(cap_on || fumbled)
 		cap_on = FALSE
 		spillable = TRUE
-		cut_overlay(cap_overlay, TRUE)
 		animate(src, transform = null, time = 2, loop = 0)
 		if(fumbled)
 			to_chat(user, "<span class='warning'>You fumble with [src]'s cap! The cap falls onto the ground and simply vanishes. Where the hell did it go?</span>")
@@ -334,7 +340,6 @@
 	else
 		cap_on = TRUE
 		spillable = FALSE
-		add_overlay(cap_overlay, TRUE)
 		to_chat(user, "<span class='notice'>You put the cap on [src].</span>")
 	update_icon()
 
@@ -376,7 +381,7 @@
 			animate(src, transform = matrix(prob(50)? 90 : -90, MATRIX_ROTATE), time = 3, loop = 0)
 
 /obj/item/reagent_containers/glass/waterbottle/pickup(mob/user)
-	. = ..()
+	..()
 	animate(src, transform = null, time = 1, loop = 0)
 
 /obj/item/reagent_containers/glass/waterbottle/empty
@@ -415,6 +420,8 @@
 	var/obj/item/grinded
 
 /obj/item/reagent_containers/glass/mortar/AltClick(mob/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	if(grinded)
 		grinded.forceMove(drop_location())
 		grinded = null

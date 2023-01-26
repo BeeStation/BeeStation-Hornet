@@ -15,7 +15,7 @@
 	/// The output of the signal
 	var/datum/port/output/output
 
-/obj/item/circuit_component/delay/Initialize()
+/obj/item/circuit_component/delay/Initialize(mapload)
 	. = ..()
 	delay_amount = add_input_port("Delay", PORT_TYPE_NUMBER, FALSE)
 	trigger = add_input_port("Trigger", PORT_TYPE_SIGNAL)

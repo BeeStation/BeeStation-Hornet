@@ -6,7 +6,6 @@
 	item_state = "blastcannon_empty"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 10
-	block_upgrade_walk = 1
 	fire_sound = 'sound/weapons/blastcannon.ogg'
 	item_flags = NONE
 	clumsy_check = FALSE
@@ -27,7 +26,7 @@
 	debug_power = 80
 	bombcheck = FALSE
 
-/obj/item/gun/blastcannon/Initialize()
+/obj/item/gun/blastcannon/Initialize(mapload)
 	. = ..()
 	if(!pin)
 		pin = new
@@ -115,7 +114,8 @@
 	icon_state = "blastwave"
 	damage = 0
 	nodamage = FALSE
-	movement_type = FLYING | UNSTOPPABLE
+	movement_type = FLYING
+	projectile_phasing = ALL		// just blows up the turfs lmao
 	var/heavyr = 0
 	var/mediumr = 0
 	var/lightr = 0

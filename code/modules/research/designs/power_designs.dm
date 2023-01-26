@@ -67,15 +67,36 @@
 	category = list("Power Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_ENGINEERING
 
+/datum/design/light_replacer_bluespace
+	name = "Bluespace Light Replacer"
+	desc = "A device to automatically replace lights from a distance. Refill with working light bulbs."
+	id = "light_replacer_bluespace"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 1500, /datum/material/silver = 150, /datum/material/glass = 6000, /datum/material/bluespace = 300)
+	build_path = /obj/item/lightreplacer/bluespace
+	category = list("Power Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_ENGINEERING
+
+
 /datum/design/inducer
-	name = "Inducer"
-	desc = "The NT-75 Electromagnetic Power Inducer can wirelessly induce electric charge in an object, allowing you to recharge power cells without having to remove them."
+	name = "Heavy-Duty Inducer"
+	desc = "Inducers can wirelessly induce electric charge in an object, allowing you to recharge power cells without having to remove them. This heavy-duty model is more potent."
 	id = "inducer"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 6000, /datum/material/glass = 2000, /datum/material/copper = 200)
+	build_path = /obj/item/inducer/eng
+	category = list("Power Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/inducer/sci
+	name = "Inducer"
+	desc = "Inducers can wirelessly induce electric charge in an object, allowing you to recharge power cells without having to remove them. This civilian model is less potent."
+	id = "inducersci"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 3000, /datum/material/glass = 1000, /datum/material/copper = 100)
 	build_path = /obj/item/inducer/sci
 	category = list("Power Designs")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/board/pacman
 	name = "Machine Design (PACMAN-type Generator Board)"

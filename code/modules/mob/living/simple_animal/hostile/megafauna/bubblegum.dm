@@ -27,8 +27,8 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum
 	name = "bubblegum"
 	desc = "In what passes for a hierarchy among slaughter demons, this one is king."
-	health = 2500
-	maxHealth = 2500
+	health = 1250
+	maxHealth = 1250
 	attacktext = "rends"
 	attack_sound = 'sound/magic/demon_attack1.ogg'
 	icon_state = "bubblegum"
@@ -48,16 +48,16 @@ Difficulty: Hard
 	ranged = TRUE
 	pixel_x = -32
 	del_on_death = TRUE
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/bubblegum, /obj/item/crusher_trophy/demon_claws)
-	loot = list(/obj/structure/closet/crate/necropolis/bubblegum)
+	loot = list(/obj/effect/spawner/lootdrop/megafaunaore, /obj/structure/closet/crate/necropolis/bubblegum)
 	blood_volume = BLOOD_VOLUME_MAXIMUM //BLEED FOR ME
 	var/charging = FALSE
 	var/enrage_till = 0
 	var/enrage_time = 70
 	var/revving_charge = FALSE
 	gps_name = "Bubbly Signal"
-	medal_type = BOSS_MEDAL_BUBBLEGUM
-	score_type = BUBBLEGUM_SCORE
+	achievement_type = /datum/award/achievement/boss/bubblegum_kill
+	crusher_achievement_type = /datum/award/achievement/boss/bubblegum_crusher
+	score_achievement_type = /datum/award/score/bubblegum_score
 	deathmessage = "sinks into a pool of blood, fleeing the battle. You've won, for now... "
 	deathsound = 'sound/magic/enter_blood.ogg'
 	attack_action_types = list(/datum/action/innate/megafauna_attack/triple_charge,
@@ -66,7 +66,7 @@ Difficulty: Hard
 							   /datum/action/innate/megafauna_attack/blood_warp)
 	small_sprite_type = /datum/action/small_sprite/megafauna/bubblegum
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/Initialize()
+/mob/living/simple_animal/hostile/megafauna/bubblegum/Initialize(mapload)
 	. = ..()
 	if(true_spawn)
 		for(var/mob/living/simple_animal/hostile/megafauna/bubblegum/B in GLOB.mob_living_list)
@@ -105,7 +105,7 @@ Difficulty: Hard
 	if(charging)
 		return
 
-	anger_modifier = CLAMP(((maxHealth - health)/60),0,20)
+	anger_modifier = CLAMP(((maxHealth - health)/30),0,20)
 	enrage_time = initial(enrage_time) * CLAMP(anger_modifier / 20, 0.5, 1)
 	ranged_cooldown = world.time + 50
 
@@ -175,16 +175,16 @@ Difficulty: Hard
 	charging = TRUE
 	revving_charge = TRUE
 	DestroySurroundings()
-	walk(src, 0)
+	SSmove_manager.stop_looping(src)
 	setDir(dir)
 	var/obj/effect/temp_visual/decoy/D = new /obj/effect/temp_visual/decoy(loc,src)
 	animate(D, alpha = 0, color = "#FF0000", transform = matrix()*2, time = 3)
 	SLEEP_CHECK_DEATH(delay)
 	revving_charge = FALSE
 	var/movespeed = 0.7
-	walk_towards(src, T, movespeed)
+	SSmove_manager.move_towards(src, T, movespeed)
 	SLEEP_CHECK_DEATH(get_dist(src, T) * movespeed)
-	walk(src, 0) // cancel the movement
+	SSmove_manager.stop_looping(src) // cancel the movement
 	try_bloodattack()
 	charging = FALSE
 
@@ -436,10 +436,10 @@ Difficulty: Hard
 	severity = EXPLODE_LIGHT // puny mortals
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/CanPass(atom/movable/mover, turf/target)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(istype(mover, /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination))
 		return TRUE
-	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Goto(target, delay, minimum_distance)
 	if(!charging)
@@ -517,15 +517,15 @@ Difficulty: Hard
 	health = 1
 	maxHealth = 1
 	alpha = 127.5
-	crusher_loot = null
 	loot = null
-	medal_type = null
-	score_type = null
+	achievement_type = null
+	crusher_achievement_type = null
+	score_achievement_type = null
 	deathmessage = "Explodes into a pool of blood!"
 	deathsound = 'sound/effects/splat.ogg'
 	true_spawn = FALSE
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Initialize()
+/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Initialize(mapload)
 	. = ..()
 	toggle_ai(AI_OFF)
 
@@ -537,10 +537,10 @@ Difficulty: Hard
 	new /obj/effect/decal/cleanable/blood(get_turf(src))
 	. = ..()
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/CanPass(atom/movable/mover, turf/target)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(istype(mover, /mob/living/simple_animal/hostile/megafauna/bubblegum)) // hallucinations should not be stopping bubblegum or eachother
 		return TRUE
-	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Life()
 	return
@@ -580,7 +580,8 @@ Difficulty: Hard
 	faction = list("mining", "boss")
 	weather_immunities = list("lava","ash")
 
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood/slaughter/CanPass(atom/movable/mover, turf/target)
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/slaughter/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(istype(mover, /mob/living/simple_animal/hostile/megafauna/bubblegum))
 		return TRUE
 	return FALSE

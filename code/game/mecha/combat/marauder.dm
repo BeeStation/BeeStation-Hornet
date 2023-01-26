@@ -2,6 +2,7 @@
 	desc = "Heavy-duty, combat exosuit, developed after the Durand model. Rarely found among civilian populations."
 	name = "\improper Marauder"
 	icon_state = "marauder"
+	base_icon_state = "marauder"
 	step_in = 5
 	max_integrity = 500
 	deflect_chance = 25
@@ -28,7 +29,7 @@
 	smoke_action.Remove(user)
 	zoom_action.Remove(user)
 
-/obj/mecha/combat/marauder/loaded/Initialize()
+/obj/mecha/combat/marauder/loaded/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/thrusters/ion(src)
 	ME.attach(src)
@@ -45,6 +46,7 @@
 	desc = "Heavy-duty, command-type exosuit. This is a custom model, utilized only by high-ranking military personnel."
 	name = "\improper Seraph"
 	icon_state = "seraph"
+	base_icon_state = "seraph"
 	operation_req_access = list(ACCESS_CENT_SPECOPS)
 	internals_req_access = list(ACCESS_CENT_SPECOPS)
 	step_in = 3
@@ -54,7 +56,7 @@
 	force = 55
 	max_equip = 6
 
-/obj/mecha/combat/marauder/seraph/Initialize()
+/obj/mecha/combat/marauder/seraph/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/thrusters/ion(src)
 	ME.attach(src)
@@ -73,18 +75,19 @@
 	desc = "Heavy-duty, combat exosuit, developed off of the existing Marauder model."
 	name = "\improper Mauler"
 	icon_state = "mauler"
+	base_icon_state = "mauler"
 	operation_req_access = list(ACCESS_SYNDICATE)
 	internals_req_access = list(ACCESS_SYNDICATE)
 	wreckage = /obj/structure/mecha_wreckage/mauler
 	max_equip = 6
 	destruction_sleep_duration = 20
 
-/obj/mecha/combat/marauder/mauler/Initialize()
+/obj/mecha/combat/marauder/mauler/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/thrusters/ion(src)
 	ME.attach(src)
 
-/obj/mecha/combat/marauder/mauler/loaded/Initialize()
+/obj/mecha/combat/marauder/mauler/loaded/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg(src)
 	ME.attach(src)

@@ -1,0 +1,11 @@
+#Heavily opinionated or otherwise tweakable configs related to gameplay.
+
+## Maximum fine for a citation
+MAXFINE 2000
+
+## Brig timers, In minutes.
+
+BRIG_TIMER_MAX 20
+BRIG_TIMER_PRESET_SHORT 5
+BRIG_TIMER_PRESET_MED 10
+BRIG_TIMER_PRESET_LONG 15

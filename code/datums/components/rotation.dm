@@ -14,7 +14,7 @@
 	var/default_rotation_direction = ROTATION_CLOCKWISE
 
 /datum/component/simple_rotation/Initialize(rotation_flags = NONE ,can_user_rotate,can_be_rotated,after_rotation)
-	if(!ismovableatom(parent))
+	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	//throw if no rotation direction is specificed ?
@@ -110,6 +110,7 @@
 	if(!can_be_rotated.Invoke(user, rotation) || !can_user_rotate.Invoke(user, rotation))
 		return
 	BaseRot(user, rotation)
+	return COMPONENT_INTERCEPT_ALT
 
 /datum/component/simple_rotation/proc/WrenchRot(datum/source, obj/item/I, mob/living/user)
 	SIGNAL_HANDLER

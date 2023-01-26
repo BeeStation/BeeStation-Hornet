@@ -30,6 +30,8 @@
 
 
 /datum/radial_menu/persistent/element_chosen(choice_id,mob/user)
+	if(!select_proc_callback)
+		return
 	select_proc_callback.Invoke(choices_values[choice_id])
 
 

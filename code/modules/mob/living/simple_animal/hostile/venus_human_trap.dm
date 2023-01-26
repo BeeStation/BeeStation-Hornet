@@ -1,5 +1,3 @@
-
-
 /obj/structure/alien/resin/flower_bud_enemy //inheriting basic attack/damage stuff from alien structures
 	name = "flower bud"
 	desc = "A large pulsating plant..."
@@ -8,11 +6,10 @@
 	layer = SPACEVINE_MOB_LAYER
 	opacity = 0
 	canSmoothWith = list()
-	smooth = SMOOTH_FALSE
 	var/growth_time = 1200
+	smoothing_flags = NONE
 
-
-/obj/structure/alien/resin/flower_bud_enemy/Initialize()
+/obj/structure/alien/resin/flower_bud_enemy/Initialize(mapload)
 	. = ..()
 	var/list/anchors = list()
 	anchors += locate(x-2,y+2,z)
@@ -30,21 +27,26 @@
 	new /mob/living/simple_animal/hostile/venus_human_trap(get_turf(src))
 	qdel(src)
 
-
 /obj/effect/ebeam/vine
 	name = "thick vine"
 	mouse_opacity = MOUSE_OPACITY_ICON
 	desc = "A thick vine, painful to the touch."
 
+/obj/effect/ebeam/vine/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/ebeam/vine/Crossed(atom/movable/AM)
+/obj/effect/ebeam/vine/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(!("vines" in L.faction))
 			L.adjustBruteLoss(5)
 			to_chat(L, "<span class='alert'>You cut yourself on the thorny vines.</span>")
-
-
 
 /mob/living/simple_animal/hostile/venus_human_trap
 	name = "venus human trap"

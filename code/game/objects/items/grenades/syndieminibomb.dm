@@ -4,7 +4,6 @@
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "syndicate"
 	item_state = "flashbang"
-	ex_dev = 1
 	ex_heavy = 2
 	ex_light = 4
 	ex_flame = 2
@@ -12,6 +11,8 @@
 
 /obj/item/grenade/syndieminibomb/prime(mob/living/lanced_by)
 	. = ..()
+	if(!.)
+		return
 	update_mob()
 	qdel(src)
 
@@ -41,6 +42,8 @@
 
 /obj/item/grenade/frag/prime(mob/living/lanced_by)
 	. = ..()
+	if(!.)
+		return
 	update_mob()
 	qdel(src)
 
@@ -56,6 +59,8 @@
 
 /obj/item/grenade/gluon/prime(mob/living/lanced_by)
 	. = ..()
+	if(!.)
+		return
 	update_mob()
 	playsound(loc, 'sound/effects/empulse.ogg', 50, 1)
 	radiation_pulse(src, rad_damage)

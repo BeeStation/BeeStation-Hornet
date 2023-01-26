@@ -8,7 +8,7 @@
 	var/datum/nanite_program/program
 	flags_1 = SAVE_SAFE_1
 
-/obj/item/disk/nanite_program/Initialize()
+/obj/item/disk/nanite_program/Initialize(mapload)
 	. = ..()
 	if(program_type)
 		program = new program_type

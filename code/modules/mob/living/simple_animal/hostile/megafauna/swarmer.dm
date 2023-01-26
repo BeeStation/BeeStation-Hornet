@@ -45,12 +45,13 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	desc = "That name is a bit of a mouthful, but stop paying attention to your mouth they're eating everything!"
 	icon = 'icons/mob/swarmer.dmi'
 	icon_state = "swarmer_console"
-	health = 750
-	maxHealth = 750 //""""low-ish"""" HP because it's a passive boss, and the swarm itself is the real foe
+	health = 375
+	maxHealth = 375 //""""low-ish"""" HP because it's a passive boss, and the swarm itself is the real foe
 	mob_biotypes = list(MOB_ROBOTIC)
 	gps_name = "Hungry Signal"
-	medal_type = BOSS_MEDAL_SWARMERS
-	score_type = SWARMER_BEACON_SCORE
+	achievement_type = /datum/award/achievement/boss/swarmer_beacon_kill
+	crusher_achievement_type = /datum/award/achievement/boss/swarmer_beacon_crusher
+	score_achievement_type = /datum/award/score/swarmer_beacon_score
 	faction = list("mining", "boss", "swarmer")
 	weather_immunities = list("lava","ash")
 	stop_automated_movement = TRUE
@@ -65,7 +66,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	del_on_death = TRUE
 
 
-/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/Initialize()
+/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/Initialize(mapload)
 	. = ..()
 	swarmer_caps = GLOB.AISwarmerCapsByType //for admin-edits
 	for(var/ddir in GLOB.cardinals)
@@ -94,12 +95,14 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 //AI versions of the swarmer mini-antag
 //This is an Abstract Base, it re-enables AI, but does not give the swarmer any goals/targets
 /mob/living/simple_animal/hostile/swarmer/ai
+	health = 20
+	maxHealth = 20
 	wander = TRUE
 	faction = list("swarmer", "mining")
 	weather_immunities = list("ash") //wouldn't be fun otherwise
 	AIStatus = AI_ON
 
-/mob/living/simple_animal/hostile/swarmer/ai/Initialize()
+/mob/living/simple_animal/hostile/swarmer/ai/Initialize(mapload)
 	. = ..()
 	ToggleLight() //so you can see them eating you out of house and home/shooting you/stunlocking you for eternity
 	LAZYINITLIST(GLOB.AISwarmersByType[type])
@@ -283,6 +286,6 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 /obj/structure/lattice/catwalk/swarmer_catwalk
 	name = "swarmer catwalk"
 	desc = "A catwalk-like mesh, produced by swarmers to allow them to navigate hostile terrain."
-	icon = 'icons/obj/smooth_structures/swarmer_catwalk.dmi'
+	icon = 'icons/obj/smooth_structures/catwalks/swarmer_catwalk.dmi'
 	icon_state = "swarmer_catwalk"
 	flags_1 = NONE

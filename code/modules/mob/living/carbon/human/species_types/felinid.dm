@@ -1,22 +1,21 @@
 //Subtype of human
 /datum/species/human/felinid
-	name = "Felinid"
-	id = "felinid"
-	limbs_id = "human"
-	say_mod = "meows"
-
-	disliked_food = VEGETABLES | SUGAR
-	liked_food = DAIRY | MEAT
+	name = "\improper Felinid"
+	id = SPECIES_FELINID
+	bodyflag = FLAG_FELINID
+	examine_limb_id = SPECIES_HUMAN
 
 	mutant_bodyparts = list("ears", "tail_human")
-	default_features = list("mcolor" = "FFF", "wings" = "None")
+	default_features = list("mcolor" = "FFF", "wings" = "None", "body_size" = "Normal")
 	forced_features = list("tail_human" = "Cat", "ears" = "Cat")
 
 	mutantears = /obj/item/organ/ears/cat
 	mutanttail = /obj/item/organ/tail/cat
+	mutanttongue = /obj/item/organ/tongue/cat
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 	swimming_component = /datum/component/swimming/felinid
+	inert_mutation = CATCLAWS
 
 /datum/species/human/felinid/qualifies_for_rank(rank, list/features)
 	return TRUE
@@ -74,31 +73,30 @@
 	var/obj/item/organ/tail/cat/tail = H.getorgan(/obj/item/organ/tail/cat)
 
 	if(ears)
-		var/obj/item/organ/ears/NE
+		var/obj/item/organ/ears/new_ears
 		if(new_species?.mutantears)
 			// Roundstart cat ears override new_species.mutantears, reset it here.
 			new_species.mutantears = initial(new_species.mutantears)
 			if(new_species.mutantears)
-				NE = new new_species.mutantears
-		if(!NE)
+				new_ears = new new_species.mutantears
+		if(!new_ears)
 			// Go with default ears
-			NE = new /obj/item/organ/ears
-		NE.Insert(H, drop_if_replaced = FALSE)
+			new_ears = new /obj/item/organ/ears
+		new_ears.Insert(H, drop_if_replaced = FALSE)
 
 	if(tail)
-		var/obj/item/organ/tail/NT
+		var/obj/item/organ/tail/new_tail
 		if(new_species && new_species.mutanttail)
 			// Roundstart cat tail overrides new_species.mutanttail, reset it here.
 			new_species.mutanttail = initial(new_species.mutanttail)
 			if(new_species.mutanttail)
-				NT = new new_species.mutanttail
-		if(NT)
-			NT.Insert(H, drop_if_replaced = FALSE)
+				new_tail = new new_species.mutanttail
+		if(new_tail)
+			new_tail.Insert(H, drop_if_replaced = FALSE)
 		else
 			tail.Remove(H)
 
 /datum/species/human/felinid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/M)
-	.=..()
 	if(istype(chem, /datum/reagent/consumable/cocoa))
 		if(prob(40))
 			M.adjust_disgust(20)
@@ -111,6 +109,7 @@
 			var/obj/item/organ/guts = pick(M.internal_organs)
 			guts.applyOrganDamage(15)
 		return FALSE
+	return ..() //second part of this effect is handled elsewhere
 
 
 /proc/mass_purrbation()

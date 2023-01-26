@@ -8,6 +8,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	RADIO_CHANNEL_SECURITY = RADIO_TOKEN_SECURITY,
 	RADIO_CHANNEL_CENTCOM = RADIO_TOKEN_CENTCOM,
 	RADIO_CHANNEL_SYNDICATE = RADIO_TOKEN_SYNDICATE,
+	RADIO_CHANNEL_UPLINK = RADIO_TOKEN_UPLINK,  // shouldnt show up in game
 	RADIO_CHANNEL_SUPPLY = RADIO_TOKEN_SUPPLY,
 	RADIO_CHANNEL_EXPLORATION = RADIO_TOKEN_EXPLORATION,
 	RADIO_CHANNEL_SERVICE = RADIO_TOKEN_SERVICE,
@@ -38,7 +39,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 /obj/item/radio/headset/examine(mob/user)
 	. = ..()
 
-	if(item_flags & IN_INVENTORY && loc == user)
+	if(item_flags & PICKED_UP && loc == user)
 		// construction of frequency description
 		var/list/avail_chans = list("Use [RADIO_KEY_COMMON] for the currently tuned frequency")
 		if(translate_binary)
@@ -56,7 +57,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	else
 		. += "<span class='notice'>A small screen on the headset flashes, it's too small to read without holding or wearing the headset.</span>"
 
-/obj/item/radio/headset/Initialize()
+/obj/item/radio/headset/Initialize(mapload)
 	. = ..()
 	recalculateChannels()
 
@@ -96,12 +97,12 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	name = "team leader headset"
 	command = TRUE
 
-/obj/item/radio/headset/syndicate/Initialize()
+/obj/item/radio/headset/syndicate/Initialize(mapload)
 	. = ..()
 	make_syndie()
 
 /obj/item/radio/headset/binary
-/obj/item/radio/headset/binary/Initialize()
+/obj/item/radio/headset/binary/Initialize(mapload)
 	. = ..()
 	qdel(keyslot)
 	keyslot = new /obj/item/encryptionkey/binary
@@ -184,7 +185,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	item_state = "com_headset_alt"
 	bang_protect = 1
 
-/obj/item/radio/headset/heads/rd
+/obj/item/radio/headset/heads/research_director
 	name = "\proper the research director's headset"
 	desc = "Headset of the fellow who keeps society marching towards technological singularity."
 	icon_state = "com_headset"
@@ -203,7 +204,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	item_state = "com_headset_alt"
 	bang_protect = 1
 
-/obj/item/radio/headset/heads/ce
+/obj/item/radio/headset/heads/chief_engineer
 	name = "\proper the chief engineer's headset"
 	desc = "The headset of the guy in charge of keeping the station powered and undamaged."
 	icon_state = "com_headset"
@@ -215,7 +216,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	icon_state = "com_headset"
 	keyslot = new /obj/item/encryptionkey/heads/cmo
 
-/obj/item/radio/headset/heads/hop
+/obj/item/radio/headset/heads/head_of_personnel
 	name = "\proper the head of personnel's headset"
 	desc = "The headset of the guy who will one day be captain."
 	icon_state = "com_headset"
@@ -239,7 +240,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	icon_state = "exploration_headset"
 	keyslot = new /obj/item/encryptionkey/headset_expteam
 
-/obj/item/radio/headset/headset_cargo/mining
+/obj/item/radio/headset/headset_cargo/shaft_miner
 	name = "mining radio headset"
 	desc = "Headset used by shaft miners."
 	icon_state = "mine_headset"
@@ -284,6 +285,8 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	subspace_transmission = FALSE
 	flags_1 = NONE
 
+/obj/item/radio/headset/silicon/pai/ui_status(mob/user, state)
+	return UI_INTERACTIVE
 
 /obj/item/radio/headset/silicon/ai
 	name = "\proper Integrated Subspace Transceiver "
@@ -352,6 +355,8 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 			syndie = TRUE
 		if (keyslot2.independent)
 			independent = TRUE
+		if (keyslot2.amplification)
+			command = TRUE
 
 	for(var/ch_name in channels)
 		secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])

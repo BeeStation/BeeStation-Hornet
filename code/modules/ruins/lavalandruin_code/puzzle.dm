@@ -201,6 +201,7 @@
 	icon_state = "puzzle_pillar"
 	anchored = FALSE
 	density = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/id = 0
 	var/obj/effect/sliding_puzzle/source
 	var/icon/puzzle_icon
@@ -256,7 +257,7 @@
 
 //Ruin version
 /obj/effect/sliding_puzzle/lavaland
-	reward_type = /obj/structure/closet/crate/necropolis/puzzle
+	reward_type = /obj/structure/closet/crate/necropolis/tendril/puzzle
 
 /obj/effect/sliding_puzzle/lavaland/dispense_reward()
 	if(prob(25))

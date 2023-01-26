@@ -10,7 +10,7 @@
 	resistance_flags = FIRE_PROOF
 	default_price = 1
 	extra_price = 1
-	payment_department = NO_FREEBIES
+	dept_req_for_free = NO_FREEBIES
 
 /obj/item/vending_refill/sovietsoda
 	machine_name = "BODA"

@@ -21,7 +21,7 @@
 	var/seasonal_hats = TRUE //If TRUE, and there are no default hats, different holidays will grant different hats
 	var/static/list/possible_seasonal_hats //This is built automatically in build_seasonal_hats() but can also be edited by admins!
 
-/obj/effect/mob_spawn/drone/Initialize()
+/obj/effect/mob_spawn/drone/Initialize(mapload)
 	. = ..()
 	var/area/A = get_area(src)
 	if(A)
@@ -57,7 +57,7 @@
 		to_chat(user, "Can't become a drone before the game has started.")
 		return
 	var/be_drone = alert("Become a drone? (Warning, You can no longer be cloned!)",,"Yes","No")
-	if(be_drone == "No" || QDELETED(src) || !isobserver(user))
+	if(be_drone != "Yes" || QDELETED(src) || !isobserver(user))
 		return
 	var/mob/living/simple_animal/drone/D = new mob_type(get_turf(loc))
 	if(!D.default_hatmask && seasonal_hats && possible_seasonal_hats.len)

@@ -20,6 +20,7 @@
   * * grant any actions the mob has to the client
   * * calls [auto_deadmin_on_login](mob.html#proc/auto_deadmin_on_login)
   * * send signal COMSIG_MOB_CLIENT_LOGIN
+  * * attaches the ash listener element so clients can hear weather
   */
 /mob/Login()
 	add_to_player_list()
@@ -39,9 +40,6 @@
 	next_move = 1
 
 	..()
-
-	//We do this here to prevent hanging refs from ghostize or whatever, since if we were in another mob before this'll take care of it
-	clear_client_in_contents()
 
 	if (client && key != client.key)
 		key = client.key
@@ -71,8 +69,10 @@
 	update_client_colour()
 	update_mouse_pointer()
 	if(client)
-		client.view_size?.setDefault(getScreenSize(src))	// Sets the defaul view_size because it can be different to what it was on the lobby.
-		client.change_view(getScreenSize(src)) // Resets the client.view in case it was changed.
+		if(client.view_size)
+			client.view_size.resetToDefault(getScreenSize(src))	// Sets the defaul view_size because it can be different to what it was on the lobby.
+		else
+			client.change_view(getScreenSize(src)) // Resets the client.view in case it was changed.
 
 		//Reset verb information, give verbs accessible to the mob.
 		if(client.tgui_panel)
@@ -91,8 +91,15 @@
 	//Sort verbs
 	add_verb(verbs.Copy(), TRUE)	//verbs.Copy() because otherwise you can't see the list
 
+	//Add the move relay
+	AddComponent(/datum/component/moved_relay)
+
 	log_message("Client [key_name(src)] has taken ownership of mob [src]([src.type])", LOG_OWNERSHIP)
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_LOGGED_IN, src)
+
+	AddElement(/datum/element/weather_listener, /datum/weather/ash_storm, ZTRAIT_ASHSTORM, GLOB.ash_storm_sounds)
+
 
 /**
   * Checks if the attached client is an admin and may deadmin them
@@ -108,9 +115,9 @@
 /mob/proc/auto_deadmin_on_login() //return true if they're not an admin at the end.
 	if(!client?.holder)
 		return TRUE
-	if(CONFIG_GET(flag/auto_deadmin_players) || (client.prefs?.toggles & DEADMIN_ALWAYS))
+	if(CONFIG_GET(flag/auto_deadmin_players) || (client.prefs?.toggles & PREFTOGGLE_DEADMIN_ALWAYS))
 		return client.holder.auto_deadmin()
-	if(mind.has_antag_datum(/datum/antagonist) && (CONFIG_GET(flag/auto_deadmin_antagonists) || client.prefs?.toggles & DEADMIN_ANTAGONIST))
+	if(mind.has_antag_datum(/datum/antagonist) && (CONFIG_GET(flag/auto_deadmin_antagonists) || client.prefs?.toggles & PREFTOGGLE_DEADMIN_ANTAGONIST))
 		return client.holder.auto_deadmin()
 	if(job)
 		return SSjob.handle_auto_deadmin_roles(client, job)

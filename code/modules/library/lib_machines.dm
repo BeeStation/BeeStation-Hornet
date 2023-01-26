@@ -26,13 +26,13 @@
 	var/title
 	var/category = "Any"
 	var/author
-	var/SQLquery
+	var/search_page = 0
 	clockwork = TRUE //it'd look weird
 	broken_overlay_emissive = TRUE
 
 /obj/machinery/computer/libraryconsole/ui_interact(mob/user)
 	. = ..()
-	var/dat = "" // <META HTTP-EQUIV='Refresh' CONTENT='10'>
+	var/list/dat = list() // <META HTTP-EQUIV='Refresh' CONTENT='10'>
 	switch(screenstate)
 		if(0)
 			dat += "<h2>Search Settings</h2><br>"
@@ -45,13 +45,48 @@
 				dat += "<font color=red><b>ERROR</b>: Unable to contact External Archive. Please contact your system administrator for assistance.</font><BR>"
 			else if(QDELETED(user))
 				return
-			else if(!SQLquery)
-				dat += "<font color=red><b>ERROR</b>: Malformed search request. Please contact your system administrator for assistance.</font><BR>"
 			else
 				dat += "<table>"
 				dat += "<tr><td>AUTHOR</td><td>TITLE</td><td>CATEGORY</td><td>SS<sup>13</sup>BN</td></tr>"
-
-				var/datum/DBQuery/query_library_list_books = SSdbcore.NewQuery(SQLquery)
+				var/SQLsearch = "isnull(deleted) AND "
+				if(category == "Any")
+					SQLsearch += "author LIKE '%[author]%' AND title LIKE '%[title]%'"
+				else
+					SQLsearch += "author LIKE '%[author]%' AND title LIKE '%[title]%' AND category='[category]'"
+				var/bookcount = 0
+				var/booksperpage = 20
+				var/datum/DBQuery/query_library_count_books = SSdbcore.NewQuery({"
+					SELECT COUNT(id) FROM [format_table_name("library")]
+					WHERE isnull(deleted)
+						AND author LIKE '%' + :author + '%'
+						AND title LIKE '%' + :title + '%'
+						AND (:category = 'Any' OR category = :category)
+				"}, list("author" = author, "title" = title, "category" = category))
+				if(!query_library_count_books.warn_execute())
+					qdel(query_library_count_books)
+					return
+				if(query_library_count_books.NextRow())
+					bookcount = text2num(query_library_count_books.item[1])
+				qdel(query_library_count_books)
+				if(bookcount > booksperpage)
+					dat += "<b>Page: </b>"
+					var/pagecount = 1
+					var/list/pagelist = list()
+					while(bookcount > 0)
+						pagelist += "<a href='?src=[REF(src)];bookpagecount=[pagecount - 1]'>[pagecount == search_page + 1 ? "<b>\[[pagecount]\]</b>" : "\[[pagecount]\]"]</a>"
+						bookcount -= booksperpage
+						pagecount++
+					dat += pagelist.Join(" | ")
+				search_page = text2num(search_page)
+				var/datum/DBQuery/query_library_list_books = SSdbcore.NewQuery({"
+					SELECT author, title, category, id
+					FROM [format_table_name("library")]
+					WHERE isnull(deleted)
+						AND author LIKE '%' + :author + '%'
+						AND title LIKE '%' + :title + '%'
+						AND (:category = 'Any' OR category = :category)
+					LIMIT :skip, :take
+				"}, list("author" = author, "title" = title, "category" = category, "skip" = booksperpage * search_page, "take" = booksperpage))
 				if(!query_library_list_books.Execute())
 					dat += "<font color=red><b>ERROR</b>: Unable to retrieve book listings. Please contact your system administrator for assistance.</font><BR>"
 				else
@@ -67,7 +102,7 @@
 				dat += "</table><BR>"
 			dat += "<A href='?src=[REF(src)];back=1'>\[Go Back\]</A><BR>"
 	var/datum/browser/popup = new(user, "publiclibrary", name, 600, 400)
-	popup.set_content(dat)
+	popup.set_content(jointext(dat, ""))
 	popup.open()
 
 /obj/machinery/computer/libraryconsole/Topic(href, href_list)
@@ -83,28 +118,23 @@
 			title = sanitize(newtitle)
 		else
 			title = null
-		title = sanitize(title)
 	if(href_list["setcategory"])
 		var/newcategory = input("Choose a category to search for:") in list("Any", "Fiction", "Non-Fiction", "Adult", "Reference", "Religion")
 		if(newcategory)
 			category = sanitize(newcategory)
 		else
 			category = "Any"
-		category = sanitize(category)
 	if(href_list["setauthor"])
 		var/newauthor = capped_input(usr, "Enter an author to search for:")
 		if(newauthor)
 			author = sanitize(newauthor)
 		else
 			author = null
-		author = sanitize(author)
 	if(href_list["search"])
-		SQLquery = "SELECT author, title, category, id FROM [format_table_name("library")] WHERE isnull(deleted) AND "
-		if(category == "Any")
-			SQLquery += "author LIKE '%[author]%' AND title LIKE '%[title]%'"
-		else
-			SQLquery += "author LIKE '%[author]%' AND title LIKE '%[title]%' AND category='[category]'"
 		screenstate = 1
+
+	if(href_list["bookpagecount"])
+		search_page = text2num(href_list["bookpagecount"])
 
 	if(href_list["back"])
 		screenstate = 0
@@ -200,7 +230,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			libcomp_menu[page] = ""
 		libcomp_menu[page] += "<tr><td>[C.author]</td><td>[C.title]</td><td>[C.category]</td><td><A href='?src=[REF(src)];targetid=[C.id]'>\[Order\]</A></td></tr>\n"
 
-/obj/machinery/computer/libraryconsole/bookmanagement/Initialize()
+/obj/machinery/computer/libraryconsole/bookmanagement/Initialize(mapload)
 	. = ..()
 	if(circuit)
 		circuit.name = "Book Inventory Management Console (Machine Board)"
@@ -305,6 +335,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			dat += "<h3>NTGanda(tm) Universal Printing Module</h3>"
 			dat += "What would you like to print?<BR>"
 			dat += "<A href='?src=[REF(src)];printbible=1'>\[Bible\]</A><BR>"
+			dat += "<A href='?src=[REF(src)];printspacelaw=1'>\[Space Law\]</A><BR>"
 			dat += "<A href='?src=[REF(src)];printposter=1'>\[Poster\]</A><BR>"
 			dat += "<A href='?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"
 		if(8)
@@ -342,9 +373,8 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	else
 		return ..()
 
-/obj/machinery/computer/libraryconsole/bookmanagement/emag_act(mob/user)
-	if(density && !(obj_flags & EMAGGED))
-		obj_flags |= EMAGGED
+/obj/machinery/computer/libraryconsole/bookmanagement/should_emag(mob/user)
+	return density && ..()
 
 /obj/machinery/computer/libraryconsole/bookmanagement/Topic(href, href_list)
 	if(..())
@@ -441,13 +471,13 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 		if(!GLOB.news_network)
 			alert("No news network found on station. Aborting.")
 		var/channelexists = 0
-		for(var/datum/newscaster/feed_channel/FC in GLOB.news_network.network_channels)
+		for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
 			if(FC.channel_name == "Nanotrasen Book Club")
 				channelexists = 1
 				break
 		if(!channelexists)
-			GLOB.news_network.CreateFeedChannel("Nanotrasen Book Club", "Library", null)
-		GLOB.news_network.SubmitArticle(scanner.cache.dat, "[scanner.cache.name]", "Nanotrasen Book Club", null)
+			GLOB.news_network.create_feed_channel("Nanotrasen Book Club", "Library", null)
+		GLOB.news_network.submit_article(scanner.cache.dat, "[scanner.cache.name]", "Nanotrasen Book Club", null)
 		alert("Upload complete. Your uploaded title is now available on station newscasters.")
 	if(href_list["orderbyid"])
 		if(cooldown > world.time)
@@ -496,6 +526,12 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 				B.item_state = GLOB.bible_item_state
 				B.name = GLOB.bible_name
 				B.deity_name = GLOB.deity
+			cooldown = world.time + PRINTER_COOLDOWN
+		else
+			say("Printer currently unavailable, please wait a moment.")
+	if(href_list["printspacelaw"])
+		if(cooldown < world.time)
+			new /obj/item/book/manual/wiki/security_space_law(src.loc)
 			cooldown = world.time + PRINTER_COOLDOWN
 		else
 			say("Printer currently unavailable, please wait a moment.")
@@ -587,7 +623,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 		return ..()
 
 /obj/machinery/bookbinder/proc/bind_book(mob/user, obj/item/paper/P)
-	if(stat)
+	if(machine_stat)
 		return
 	if(busy)
 		to_chat(user, "<span class='warning'>The book binder is busy. Please wait for completion of previous operation.</span>")
@@ -600,7 +636,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	sleep(rand(200,400))
 	busy = FALSE
 	if(P)
-		if(!stat)
+		if(!machine_stat)
 			visible_message("[src] whirs as it prints and binds a new book.")
 			var/obj/item/book/B = new(src.loc)
 			B.dat = P.info

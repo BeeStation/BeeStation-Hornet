@@ -15,9 +15,16 @@
 
 
 /obj/machinery/computer/prisoner/AltClick(mob/user)
+	if(!user.canUseTopic(src, !issilicon(user)))
+		return
 	id_eject(user)
 
 /obj/machinery/computer/prisoner/proc/id_insert(mob/user, obj/item/card/id/prisoner/P)
+	if(!P)
+		var/obj/item/held_item = user.get_active_held_item()
+		if(istype(held_item, /obj/item/card/id/prisoner))
+			P = held_item
+
 	if(istype(P))
 		if(contained_id)
 			to_chat(user, "<span class='warning'>There's already an ID card in the console!</span>")

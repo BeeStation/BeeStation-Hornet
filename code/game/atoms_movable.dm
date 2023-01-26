@@ -1,5 +1,6 @@
 /atom/movable
 	layer = OBJ_LAYER
+	var/move_stacks = 0 //how many times a this movable had movement procs called on it since Moved() was last called
 	var/last_move = null
 	var/last_move_time = 0
 	var/anchored = FALSE
@@ -19,15 +20,18 @@
 	var/verb_sing = "sings"
 	var/verb_yell = "yells"
 	var/speech_span
-	var/inertia_dir = 0
-	var/atom/inertia_last_loc
-	var/inertia_moving = 0
-	var/inertia_next_move = 0
+	///Are we moving with inertia? Mostly used as an optimization
+	var/inertia_moving = FALSE
+	///Delay in deciseconds between inertia based movement
 	var/inertia_move_delay = 5
-	var/pass_flags = 0
+	/// Things we can pass through while moving. If any of this matches the thing we're trying to pass's [pass_flags_self], then we can pass through.
+	var/pass_flags = NONE
+	/// If false makes CanPass call CanPassThrough on this type instead of using default behaviour
+	var/generic_canpass = TRUE
 	var/moving_diagonally = 0 //0: not doing a diagonal move. 1 and 2: doing the first/second step of the diagonal move
 	var/atom/movable/moving_from_pull		//attempt to resume grab after moving instead of before.
-	var/list/client_mobs_in_contents // This contains all the client mobs within this container
+	///Holds information about any movement loops currently running/waiting to run on the movable. Lazy, will be null if nothing's going on
+	var/datum/movement_packet/move_packet
 	var/list/acted_explosions	//for explosion dodging
 	glide_size = 8
 	appearance_flags = TILE_BOUND|PIXEL_SCALE
@@ -51,15 +55,18 @@
 	 * do NOT add channels to this for little reason as it can add considerable memory usage.
 	 */
 	var/list/important_recursive_contents
+	///Lazylist to keep track on the sources of illumination.
+	var/list/affected_dynamic_lights
+	///Highest-intensity light affecting us, which determines our visibility.
+	var/affecting_dynamic_lumi = 0
 
 
 /atom/movable/Initialize(mapload)
 	. = ..()
 	switch(blocks_emissive)
 		if(EMISSIVE_BLOCK_GENERIC)
-			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, EMISSIVE_BLOCKER_LAYER, EMISSIVE_BLOCKER_PLANE)
+			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, 0 , EMISSIVE_BLOCKER_PLANE)
 			gen_emissive_blocker.dir = dir
-			gen_emissive_blocker.alpha = alpha
 			gen_emissive_blocker.appearance_flags |= appearance_flags
 			add_overlay(list(gen_emissive_blocker))
 		if(EMISSIVE_BLOCK_UNIQUE)
@@ -70,15 +77,16 @@
 
 	if(pulling)
 		stop_pulling()
+	if(light_system == MOVABLE_LIGHT)
+		AddComponent(/datum/component/overlay_lighting)
 
 
 /atom/movable/proc/update_emissive_block()
 	if(!blocks_emissive)
 		return
 	else if (blocks_emissive == EMISSIVE_BLOCK_GENERIC)
-		var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, EMISSIVE_BLOCKER_LAYER, EMISSIVE_BLOCKER_PLANE)
+		var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, 0, EMISSIVE_BLOCKER_PLANE)
 		gen_emissive_blocker.dir = dir
-		gen_emissive_blocker.alpha = alpha
 		gen_emissive_blocker.appearance_flags |= appearance_flags
 		return gen_emissive_blocker
 	else if(blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
@@ -105,7 +113,7 @@
 	return !(movement_type & FLYING) && has_gravity(src) && !throwing
 
 /atom/movable/proc/onZImpact(turf/T, levels)
-	var/atom/highest = T
+	var/atom/highest = null
 	for(var/i in T.contents)
 		var/atom/A = i
 		if(!A.density)
@@ -114,7 +122,8 @@
 			if(A.layer > highest.layer)
 				highest = A
 	INVOKE_ASYNC(src, .proc/SpinAnimation, 5, 2)
-	throw_impact(highest)
+	if(highest)
+		throw_impact(highest)
 	return TRUE
 
 //For physical constraints to travelling up/down.
@@ -142,25 +151,25 @@
 	if((var_name in careful_edits) && (var_value % world.icon_size) != 0)
 		return FALSE
 	switch(var_name)
-		if("x")
+		if(NAMEOF(src, x))
 			var/turf/T = locate(var_value, y, z)
 			if(T)
 				forceMove(T)
 				return TRUE
 			return FALSE
-		if("y")
+		if(NAMEOF(src, y))
 			var/turf/T = locate(x, var_value, z)
 			if(T)
 				forceMove(T)
 				return TRUE
 			return FALSE
-		if("z")
+		if(NAMEOF(src, z))
 			var/turf/T = locate(x, y, var_value)
 			if(T)
 				forceMove(T)
 				return TRUE
 			return FALSE
-		if("loc")
+		if(NAMEOF(src, loc))
 			if(istype(var_value, /atom))
 				forceMove(var_value)
 				return TRUE
@@ -257,53 +266,100 @@
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1)		//separated from our puller and not in the middle of a diagonal move.
 		pulledby.stop_pulling()
 
+/* SMOOTH MOVEMENTS SHIT, PORT LATER
+/atom/movable/proc/set_glide_size(target = 8)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, target)
+	glide_size = target
+
+	for(var/m in buckled_mobs)
+		var/mob/buckled_mob = m
+		buckled_mob.set_glide_size(target)
+*/
+
+/**
+ * meant for movement with zero side effects. only use for objects that are supposed to move "invisibly" (like camera mobs or ghosts)
+ * if you want something to move onto a tile with a beartrap or recycler or tripmine or mouse without that object knowing about it at all, use this
+ * most of the time you want forceMove()
+ */
+/atom/movable/proc/abstract_move(atom/new_loc)
+	var/atom/old_loc = loc
+	move_stacks++
+	loc = new_loc
+	Moved(old_loc)
+
 ////////////////////////////////////////
 // Here's where we rewrite how byond handles movement except slightly different
 // To be removed on step_ conversion
 // All this work to prevent a second bump
-/atom/movable/Move(atom/newloc, direct=0)
+/atom/movable/Move(atom/newloc, direction)
 	. = FALSE
 	if(!newloc || newloc == loc)
 		return
 
-	if(!direct)
-		direct = get_dir(src, newloc)
-	setDir(direct)
+	if(!direction)
+		direction = get_dir(src, newloc)
+	setDir(direction)
 
-	if(!loc.Exit(src, newloc))
-		return
+	var/is_multi_tile_object = bound_width > 32 || bound_height > 32
 
-	if(!newloc.Enter(src, src.loc))
-		return
+	var/list/old_locs
+	if(is_multi_tile_object && isturf(loc))
+		old_locs = locs.Copy()
+		for(var/atom/exiting_loc as anything in old_locs)
+			if(!exiting_loc.Exit(src, direction))
+				return
+	else
+		if(!loc.Exit(src, direction))
+			return
 
-	if (SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_MOVE, newloc) & COMPONENT_MOVABLE_BLOCK_PRE_MOVE)
-		return
+	var/list/new_locs
+	if(is_multi_tile_object && isturf(newloc))
+		new_locs = block(
+			newloc,
+			locate(
+				min(world.maxx, newloc.x + CEILING(bound_width / 32, 1)),
+				min(world.maxy, newloc.y + CEILING(bound_height / 32, 1)),
+				newloc.z
+				)
+		) // If this is a multi-tile object then we need to predict the new locs and check if they allow our entrance.
+		for(var/atom/entering_loc as anything in new_locs)
+			if(!entering_loc.Enter(src))
+				return
+			if(SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_MOVE, entering_loc) & COMPONENT_MOVABLE_BLOCK_PRE_MOVE)
+				return
+	else // Else just try to enter the single destination.
+		if(!newloc.Enter(src))
+			return
+		if(SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_MOVE, newloc) & COMPONENT_MOVABLE_BLOCK_PRE_MOVE)
+			return
 
 	// Past this is the point of no return
 	var/atom/oldloc = loc
 	var/area/oldarea = get_area(oldloc)
 	var/area/newarea = get_area(newloc)
+	move_stacks++
+
 	loc = newloc
+
 	. = TRUE
-	oldloc.Exited(src, newloc)
+
+	if(old_locs) // This condition will only be true if it is a multi-tile object.
+		for(var/atom/exited_loc as anything in (old_locs - new_locs))
+			exited_loc.Exited(src, direction)
+	else // Else there's just one loc to be exited.
+		oldloc.Exited(src, direction)
 	if(oldarea != newarea)
-		oldarea.Exited(src, newloc)
+		oldarea.Exited(src, direction)
 
-	for(var/i in oldloc)
-		if(i == src) // Multi tile objects
-			continue
-		var/atom/movable/thing = i
-		thing.Uncrossed(src)
-
-	newloc.Entered(src, oldloc)
+	if(new_locs) // Same here, only if multi-tile.
+		for(var/atom/entered_loc as anything in (new_locs - old_locs))
+			entered_loc.Entered(src, oldloc, old_locs)
+	else
+		newloc.Entered(src, oldloc, old_locs)
 	if(oldarea != newarea)
-		newarea.Entered(src, oldloc)
+		newarea.Entered(src, oldarea)
 
-	for(var/i in loc)
-		if(i == src) // Multi tile objects
-			continue
-		var/atom/movable/thing = i
-		thing.Crossed(src)
+	Moved(oldloc, direction)
 
 ////////////////////////////////////////
 
@@ -317,7 +373,8 @@
 	var/atom/oldloc = loc
 
 	if(loc != newloc)
-		if (!(direct & (direct - 1))) //Cardinal move
+		var/flat_direct = direct & ~(UP|DOWN)
+		if (!(flat_direct & (flat_direct - 1))) //Cardinal move
 			. = ..()
 		else //Diagonal move, split it into cardinal moves
 			moving_diagonally = FIRST_DIAG_STEP
@@ -368,7 +425,6 @@
 				if(!.)
 					setDir(first_step_dir)
 				else if (!inertia_moving)
-					inertia_next_move = world.time + inertia_move_delay
 					newtonian_move(direct)
 			moving_diagonally = 0
 			return
@@ -377,8 +433,6 @@
 		last_move = 0
 		return
 
-	if(.)
-		Moved(oldloc, direct)
 	if(. && pulling && pulling == pullee && pulling != moving_from_pull) //we were pulling a thing and didn't lose it during our move.
 		if(pulling.anchored)
 			stop_pulling()
@@ -396,14 +450,20 @@
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc,direct)) //movement failed due to buckled mob(s)
 		return FALSE
 
-//Called after a successful Move(). By this point, we've already moved
+//Called after a successful Move(). By this point, we've alrefady moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
-	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
+	SHOULD_CALL_PARENT(TRUE)
 	if (!inertia_moving)
-		inertia_next_move = world.time + inertia_move_delay
 		newtonian_move(Dir)
-	if (length(client_mobs_in_contents))
-		update_parallax_contents()
+
+	move_stacks--
+	if(move_stacks > 0) //we want only the first Moved() call in the stack to send this signal, all the other ones have an incorrect old_loc
+		return
+	if(move_stacks < 0)
+		stack_trace("move_stacks is negative in Moved()!")
+		move_stacks = 0 //setting it to 0 so that we dont get every movable with negative move_stacks runtiming on every movement
+
+	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
 
 	return TRUE
 
@@ -431,6 +491,11 @@
 		orbiting.end_orbit(src)
 		orbiting = null
 
+	if(move_packet)
+		if(!QDELETED(move_packet))
+			qdel(move_packet)
+		move_packet = null
+
 	LAZYCLEARLIST(important_recursive_contents)
 
 	vis_contents.Cut()
@@ -442,19 +507,44 @@
 	SEND_SIGNAL(src, COMSIG_MOVABLE_CROSS, AM)
 	return CanPass(AM, AM.loc, TRUE)
 
-//oldloc = old location on atom, inserted when forceMove is called and ONLY when forceMove is called!
+///default byond proc that is deprecated for us in lieu of signals. do not call
 /atom/movable/Crossed(atom/movable/AM, oldloc)
-	SEND_SIGNAL(src, COMSIG_MOVABLE_CROSSED, AM)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	CRASH("atom/movable/Crossed() was called!")
 
-/atom/movable/Uncross(atom/movable/AM, atom/newloc)
-	. = ..()
-	if(SEND_SIGNAL(src, COMSIG_MOVABLE_UNCROSS, AM) & COMPONENT_MOVABLE_BLOCK_UNCROSS)
-		return FALSE
-	if(isturf(newloc) && !CheckExit(AM, newloc))
-		return FALSE
+/**
+ * `Uncross()` is a default BYOND proc that is called when something is *going*
+ * to exit this atom's turf. It is prefered over `Uncrossed` when you want to
+ * deny that movement, such as in the case of border objects, objects that allow
+ * you to walk through them in any direction except the one they block
+ * (think side windows).
+ *
+ * While being seemingly harmless, most everything doesn't actually want to
+ * use this, meaning that we are wasting proc calls for every single atom
+ * on a turf, every single time something exits it, when basically nothing
+ * cares.
+ *
+ * This overhead caused real problems on Sybil round #159709, where lag
+ * attributed to Uncross was so bad that the entire master controller
+ * collapsed and people made Among Us lobbies in OOC.
+ *
+ * If you want to replicate the old `Uncross()` behavior, the most apt
+ * replacement is [`/datum/element/connect_loc`] while hooking onto
+ * [`COMSIG_ATOM_EXIT`].
+ */
+/atom/movable/Uncross()
+	SHOULD_NOT_OVERRIDE(TRUE)
+	CRASH("Uncross() should not be being called, please read the doc-comment for it for why.")
 
+/**
+ * default byond proc that is normally called on everything inside the previous turf
+ * a movable was in after moving to its current turf
+ * this is wasteful since the vast majority of objects do not use Uncrossed
+ * use connect_loc to register to COMSIG_ATOM_EXITED instead
+ */
 /atom/movable/Uncrossed(atom/movable/AM)
-	SEND_SIGNAL(src, COMSIG_MOVABLE_UNCROSSED, AM)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	CRASH("/atom/movable/Uncrossed() was called")
 
 /atom/movable/Bump(atom/A)
 	if(!A)
@@ -483,24 +573,24 @@
 
 /atom/movable/proc/doMove(atom/destination)
 	. = FALSE
+	move_stacks++
+	var/atom/oldloc = loc
 	if(destination)
 		if(pulledby)
 			pulledby.stop_pulling()
-		var/atom/oldloc = loc
 		var/same_loc = oldloc == destination
 		var/area/old_area = get_area(oldloc)
 		var/area/destarea = get_area(destination)
 
-		loc = destination
 		moving_diagonally = 0
+
+		loc = destination
 
 		if(!same_loc)
 			if(oldloc)
 				oldloc.Exited(src, destination)
 				if(old_area && old_area != destarea)
 					old_area.Exited(src, destination)
-			for(var/atom/movable/AM in oldloc)
-				AM.Uncrossed(src)
 			var/turf/oldturf = get_turf(oldloc)
 			var/turf/destturf = get_turf(destination)
 			var/old_z = (oldturf ? oldturf.z : null)
@@ -509,26 +599,21 @@
 				onTransitZ(old_z, dest_z)
 			destination.Entered(src, oldloc)
 			if(destarea && old_area != destarea)
-				destarea.Entered(src, oldloc)
+				destarea.Entered(src, old_area)
 
-			for(var/atom/movable/AM in destination)
-				if(AM == src)
-					continue
-				AM.Crossed(src, oldloc)
-
-		Moved(oldloc, NONE, TRUE)
 		. = TRUE
 
 	//If no destination, move the atom into nullspace (don't do this unless you know what you're doing)
 	else
 		. = TRUE
-		if (loc)
-			var/atom/oldloc = loc
+		loc = null
+		if (oldloc)
 			var/area/old_area = get_area(oldloc)
 			oldloc.Exited(src, null)
 			if(old_area)
 				old_area.Exited(src, null)
-		loc = null
+
+	Moved(oldloc, NONE, TRUE)
 
 /atom/movable/proc/onTransitZ(old_z,new_z)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_Z_CHANGED, old_z, new_z)
@@ -563,17 +648,13 @@
 	return 0
 
 
-/atom/movable/proc/newtonian_move(direction) //Only moves the object if it's under no gravity
-	if(!loc || Process_Spacemove(0))
-		inertia_dir = 0
-		return 0
-
-	inertia_dir = direction
-	if(!direction)
-		return 1
-	inertia_last_loc = loc
-	SSspacedrift.processing[src] = src
-	return 1
+/atom/movable/proc/newtonian_move(direction, instant = FALSE) // Accepts the direction to move, and if the push should be instant
+	if(!loc || Process_Spacemove(0) || !direction)
+		return FALSE
+	if(SEND_SIGNAL(src, COMSIG_MOVABLE_NEWTONIAN_MOVE, direction) & COMPONENT_MOVABLE_NEWTONIAN_BLOCK)
+		return TRUE
+	AddComponent(/datum/component/drift, direction, instant)
+	return TRUE
 
 /atom/movable/proc/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	set waitfor = 0
@@ -663,6 +744,7 @@
 
 	if(pulledby)
 		pulledby.stop_pulling()
+	movement_type |= THROWN
 
 	throwing = TT
 	if(spin)
@@ -680,12 +762,10 @@
 	for(var/m in buckled_mobs)
 		var/mob/living/buckled_mob = m
 		if(!buckled_mob.Move(newloc, direct))
-			forceMove(buckled_mob.loc)
+			doMove(buckled_mob.loc) //forceMove breaks buckles on stairs, use doMove
 			last_move = buckled_mob.last_move
-			inertia_dir = last_move
-			buckled_mob.inertia_dir = last_move
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 /atom/movable/proc/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
@@ -703,10 +783,15 @@
 /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
 
-/atom/movable/CanPass(atom/movable/mover, turf/target)
+/atom/movable/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(mover in buckled_mobs)
-		return 1
-	return ..()
+		return TRUE
+
+/// Returns true or false to allow src to move through the blocker, mover has final say
+/atom/movable/proc/CanPassThrough(atom/blocker, turf/target, blocker_opinion)
+	SHOULD_CALL_PARENT(TRUE)
+	return blocker_opinion
 
 // called when this atom is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
 /atom/movable/proc/on_exit_storage(datum/component/storage/concrete/S)
@@ -751,20 +836,25 @@
 		return //don't do an animation if attacking self
 	var/pixel_x_diff = 0
 	var/pixel_y_diff = 0
+	var/turn_dir = 1
 
 	var/direction = get_dir(src, A)
 	if(direction & NORTH)
 		pixel_y_diff = 8
+		turn_dir = prob(50) ? -1 : 1
 	else if(direction & SOUTH)
 		pixel_y_diff = -8
+		turn_dir = prob(50) ? -1 : 1
 
 	if(direction & EAST)
 		pixel_x_diff = 8
 	else if(direction & WEST)
 		pixel_x_diff = -8
 
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
-	animate(src, pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, time = 2)
+	var/matrix/initial_transform = matrix(transform)
+	var/matrix/rotated_transform = transform.Turn(rand(13,17) * turn_dir)
+	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN)
+	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, transform=initial_transform, time = 2, easing=SINE_EASING)
 
 /atom/movable/proc/do_item_attack_animation(atom/A, visual_effect_icon, obj/item/used_item)
 	var/image/I
@@ -775,21 +865,21 @@
 		I.plane = GAME_PLANE
 
 		// Scale the icon.
-		I.transform *= 0.75
+		I.transform *= pick(0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55)
 		// The icon should not rotate.
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
 		// Set the direction of the icon animation.
 		var/direction = get_dir(src, A)
 		if(direction & NORTH)
-			I.pixel_y = -16
+			I.pixel_y = rand(-15,-11)
 		else if(direction & SOUTH)
-			I.pixel_y = 16
+			I.pixel_y = rand(11,15)
 
 		if(direction & EAST)
-			I.pixel_x = -16
+			I.pixel_x = rand(-15,-11)
 		else if(direction & WEST)
-			I.pixel_x = 16
+			I.pixel_x = rand(11,15)
 
 		if(!direction) // Attacked self?!
 			I.pixel_z = 16
@@ -797,15 +887,62 @@
 	if(!I)
 		return
 
-	flick_overlay(I, GLOB.clients, 5) // 5 ticks/half a second
+	flick_overlay(I, GLOB.clients, 10) // 10 ticks/a whole second
 
 	// And animate the attack!
-	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
+	animate(I, alpha = 175, transform = matrix() * 0.75, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
+	animate(time = 1)
+	animate(alpha = 0, time = 3, easing = CIRCULAR_EASING|EASE_OUT)
 
 /atom/movable/vv_get_dropdown()
 	. = ..()
 	. += "<option value='?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(src)]'>Follow</option>"
 	. += "<option value='?_src_=holder;[HrefToken()];admingetmovable=[REF(src)]'>Get</option>"
+
+	VV_DROPDOWN_OPTION(VV_HK_EDIT_PARTICLES, "Edit Particles")
+	VV_DROPDOWN_OPTION(VV_HK_ADD_EMITTER, "Add Emitter")
+	VV_DROPDOWN_OPTION(VV_HK_REMOVE_EMITTER, "Remove Emitter")
+
+/atom/movable/vv_do_topic(list/href_list)
+	. = ..()
+	if(href_list[VV_HK_EDIT_PARTICLES])
+		if(!check_rights(R_VAREDIT))
+			return
+		var/client/interacted_client = usr.client
+		interacted_client?.open_particle_editor(src)
+
+
+	if(href_list[VV_HK_ADD_EMITTER])
+		if(!check_rights(R_VAREDIT))
+			return
+
+		var/key = stripped_input(usr, "Enter a key for your emitter", "Emitter Key")
+		var/lifetime = input("How long should this live for in deciseconds? 0 for infinite, -1 for a single burst.", "Lifespan") as null|num
+
+		if(!key)
+			return
+		switch(alert("Should this be a pre-filled emitter (empty emitters don't support timers)?",,"Yes","No","Cancel"))
+			if("Yes")
+				var/choice = input(usr, "Choose an emitter to add", "Choose an Emitter") as null|anything in subtypesof(/obj/emitter)
+				var/should_burst = FALSE
+				if(lifetime == -1)
+					should_burst = TRUE
+				if(choice)
+					add_emitter(choice, key, lifespan = lifetime, burst_mode = should_burst)
+			if("No")
+				add_emitter(/obj/emitter, key)
+			else
+				return
+
+	if(href_list[VV_HK_REMOVE_EMITTER])
+		if(!check_rights(R_VAREDIT))
+			return
+		if(!master_holder?.emitters.len)
+			return
+		var/removee = input(usr, "Choose an emitter to remove", "Choose an Emitter") as null|anything in master_holder?.emitters
+		if(!removee)
+			return
+		remove_emitter(removee)
 
 /atom/movable/proc/ex_check(ex_id)
 	if(!ex_id)

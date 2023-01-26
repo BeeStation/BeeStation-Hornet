@@ -66,7 +66,7 @@
 	icon = 'icons/mob/easter.dmi'
 	icon_state = "basket"
 
-/obj/item/storage/bag/easterbasket/Initialize()
+/obj/item/storage/bag/easterbasket/Initialize(mapload)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.can_hold = typecacheof(list(/obj/item/reagent_containers/food/snacks/egg, /obj/item/reagent_containers/food/snacks/chocolateegg, /obj/item/reagent_containers/food/snacks/boiledegg))
@@ -76,11 +76,11 @@
 	add_overlay("basket-grass")
 	add_overlay("basket-egg[min(contents.len, 5)]")
 
-/obj/item/storage/bag/easterbasket/Exited()
+/obj/item/storage/bag/easterbasket/Exited(atom/movable/gone, direction)
 	. = ..()
 	countEggs()
 
-/obj/item/storage/bag/easterbasket/Entered()
+/obj/item/storage/bag/easterbasket/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	countEggs()
 
@@ -109,11 +109,10 @@
 /obj/item/reagent_containers/food/snacks/egg/loaded
 	containsPrize = TRUE
 
-/obj/item/reagent_containers/food/snacks/egg/loaded/Initialize()
+/obj/item/reagent_containers/food/snacks/egg/loaded/Initialize(mapload)
 	. = ..()
 	var/eggcolor = pick("blue","green","mime","orange","purple","rainbow","red","yellow")
 	icon_state = "egg-[eggcolor]"
-	item_color = "[eggcolor]"
 
 /obj/item/reagent_containers/food/snacks/egg/proc/dispensePrize(turf/where)
 	var/won = pick(/obj/item/clothing/head/bunnyhead,

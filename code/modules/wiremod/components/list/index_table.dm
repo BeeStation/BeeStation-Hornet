@@ -17,7 +17,7 @@
 	/// The filtered list
 	var/datum/port/output/output_list
 
-/obj/item/circuit_component/index_table/Initialize()
+/obj/item/circuit_component/index_table/Initialize(mapload)
 	. = ..()
 	received_table = add_input_port("Input", PORT_TYPE_TABLE)
 	target_index = add_input_port("Index", PORT_TYPE_NUMBER)

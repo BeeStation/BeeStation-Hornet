@@ -24,8 +24,9 @@
 	//two variables necessary for calculating whether we get a brain trauma or not
 	var/damage_delta = 0
 
-
 	var/list/datum/brain_trauma/traumas = list()
+
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /obj/item/organ/brain/Insert(mob/living/carbon/C, special = 0,no_id_transfer = FALSE)
 	..()
@@ -73,6 +74,12 @@
 	if(iszombie(H))//braaaaaains... otherwise, too important to eat.
 		..()
 
+/obj/item/organ/brain/setOrganDamage(d)
+	. = ..()
+	if(brain_death && !(organ_flags & ORGAN_FAILING))
+		brain_death = FALSE
+		brainmob.revive(TRUE) // We fixed the brain, fix the brainmob too.
+
 /obj/item/organ/brain/proc/transfer_identity(mob/living/L)
 	name = "[L.name]'s brain"
 	if(brainmob || decoy_override)
@@ -106,9 +113,6 @@
 
 	if((organ_flags & ORGAN_FAILING) && O.is_drainable() && O.reagents.has_reagent(/datum/reagent/medicine/mannitol)) //attempt to heal the brain
 		. = TRUE //don't do attack animation.
-		if(brain_death || brainmob?.health <= HEALTH_THRESHOLD_DEAD) //if the brain is fucked anyway, do nothing
-			to_chat(user, "<span class='warning'>[src] is far too damaged, there's nothing else we can do for it!</span>")
-			return
 
 		if(!O.reagents.has_reagent(/datum/reagent/medicine/mannitol, 10))
 			to_chat(user, "<span class='warning'>There's not enough mannitol in [O] to restore [src]!</span>")
@@ -155,43 +159,6 @@
 				. += "<span class='info'>This one seems particularly lifeless. Perhaps it will regain some of its luster later.</span>"
 		else
 			. += "<span class='info'>This one is completely devoid of life.</span>"
-
-/obj/item/organ/brain/attack(mob/living/carbon/C, mob/user)
-	if(!istype(C))
-		return ..()
-
-	add_fingerprint(user)
-
-	if(user.zone_selected != BODY_ZONE_HEAD)
-		return ..()
-
-	var/target_has_brain = C.getorgan(/obj/item/organ/brain)
-
-	if(!target_has_brain && C.is_eyes_covered())
-		to_chat(user, "<span class='warning'>You're going to need to remove [C.p_their()] head cover first!</span>")
-		return
-
-//since these people will be dead M != usr
-
-	if(!target_has_brain)
-		if(!C.get_bodypart(BODY_ZONE_HEAD) || !user.temporarilyRemoveItemFromInventory(src))
-			return
-		var/msg = "[C] has [src] inserted into [C.p_their()] head by [user]."
-		if(C == user)
-			msg = "[user] inserts [src] into [user.p_their()] head!"
-
-		C.visible_message("<span class='danger'>[msg]</span>",
-						"<span class='userdanger'>[msg]</span>")
-
-		if(C != user)
-			to_chat(C, "<span class='notice'>[user] inserts [src] into your head.</span>")
-			to_chat(user, "<span class='notice'>You insert [src] into [C]'s head.</span>")
-		else
-			to_chat(user, "<span class='notice'>You insert [src] into your head.</span>"	)
-
-		Insert(C)
-	else
-		..()
 
 /obj/item/organ/brain/Destroy() //copypasted from MMIs.
 	if(brainmob)
@@ -246,8 +213,8 @@
 
 /obj/item/organ/brain/positron
 	name = "positronic brain"
-	slot = "brain"
-	zone = "chest"
+	slot = ORGAN_SLOT_BRAIN
+	zone = BODY_ZONE_CHEST
 	status = ORGAN_ROBOTIC
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top. In order for this Posibrain to be used as a newly built Positronic Brain, it must be coupled with an MMI."
 	icon = 'icons/obj/assemblies.dmi'
@@ -260,7 +227,7 @@
 		var/mob/living/carbon/human/H = C
 		if(H.dna?.species)
 			if(REVIVESBYHEALING in H.dna.species.species_traits)
-				if(H.health > 0 && !H.hellbound)
+				if(H.health > 0 && !H.ishellbound())
 					H.revive(0)
 
 /obj/item/organ/brain/positron/emp_act(severity)

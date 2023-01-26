@@ -1,17 +1,16 @@
 /datum/species/jelly
 	// Entirely alien beings that seem to be made entirely out of gel. They have three eyes and a skeleton visible within them.
-	name = "Jellyperson"
-	id = "jelly"
+	name = "\improper Jellyperson"
+	id = SPECIES_JELLYPERSON
 	default_color = "00FF90"
-	say_mod = "blorbles"
 	species_traits = list(MUTCOLORS,EYECOLOR,NOBLOOD)
 	inherent_traits = list(TRAIT_TOXINLOVER, TRAIT_NONECRODISEASE)
 	mutantlungs = /obj/item/organ/lungs/slime
+	mutanttongue = /obj/item/organ/tongue/slime
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime
 	exotic_blood = /datum/reagent/toxin/slimejelly
 	damage_overlay_type = ""
 	var/datum/action/innate/regenerate_limbs/regenerate_limbs
-	liked_food = MEAT
 	coldmod = 6   // = 3x cold damage
 	heatmod = 0.5 // = 1/4x heat damage
 	burnmod = 0.5 // = 1/2x generic burn damage
@@ -19,6 +18,14 @@
 	inherent_factions = list("slime")
 	species_language_holder = /datum/language_holder/jelly
 	swimming_component = /datum/component/swimming/dissolve
+
+
+	species_chest = /obj/item/bodypart/chest/jelly
+	species_head = /obj/item/bodypart/head/jelly
+	species_l_arm = /obj/item/bodypart/l_arm/jelly
+	species_r_arm = /obj/item/bodypart/r_arm/jelly
+	species_l_leg = /obj/item/bodypart/l_leg/jelly
+	species_r_leg = /obj/item/bodypart/r_leg/jelly
 
 /datum/species/jelly/on_species_loss(mob/living/carbon/C)
 	if(regenerate_limbs)
@@ -110,15 +117,22 @@
 
 /datum/species/jelly/slime
 	name = "Slimeperson"
-	id = "slime"
+	id = SPECIES_SLIMEPERSON
 	default_color = "00FFFF"
 	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,NOBLOOD)
-	say_mod = "says"
 	hair_color = "mutcolor"
 	hair_alpha = 150
 	var/datum/action/innate/split_body/slime_split
 	var/list/mob/living/carbon/bodies
 	var/datum/action/innate/swap_body/swap_body
+
+	species_chest = /obj/item/bodypart/chest/slime
+	species_head = /obj/item/bodypart/head/slime
+	species_l_arm = /obj/item/bodypart/l_arm/slime
+	species_r_arm = /obj/item/bodypart/r_arm/slime
+	species_l_leg = /obj/item/bodypart/l_leg/slime
+	species_r_leg = /obj/item/bodypart/r_leg/slime
+
 
 /datum/species/jelly/slime/on_species_loss(mob/living/carbon/C)
 	if(slime_split)
@@ -405,8 +419,7 @@
 
 /datum/species/jelly/luminescent
 	name = "Luminescent"
-	id = "lum"
-	say_mod = "says"
+	id = SPECIES_LUMINESCENT
 	var/glow_intensity = LUMINESCENT_DEFAULT_GLOW
 	var/obj/effect/dummy/luminescent_glow/glow
 	var/obj/item/slime_extract/current_extract
@@ -414,6 +427,8 @@
 	var/datum/action/innate/use_extract/extract_minor
 	var/datum/action/innate/use_extract/major/extract_major
 	var/extract_cooldown = 0
+
+	examine_limb_id = SPECIES_JELLYPERSON
 
 //Species datums don't normally implement destroy, but JELLIES SUCK ASS OUT OF A STEEL STRAW
 /datum/species/jelly/luminescent/Destroy(force, ...)
@@ -463,11 +478,14 @@
 	icon_state = "nothing"
 	light_color = "#FFFFFF"
 	light_range = LUMINESCENT_DEFAULT_GLOW
+	light_system = MOVABLE_LIGHT
+	light_power = 2.5
 
-/obj/effect/dummy/luminescent_glow/Initialize()
+/obj/effect/dummy/luminescent_glow/Initialize(mapload)
 	. = ..()
 	if(!isliving(loc))
 		return INITIALIZE_HINT_QDEL
+
 
 /datum/action/innate/integrate_extract
 	name = "Integrate Extract"
@@ -577,13 +595,15 @@
 
 /datum/species/jelly/stargazer
 	name = "Stargazer"
-	id = "stargazer"
+	id = SPECIES_STARGAZER
 	var/datum/action/innate/project_thought/project_thought
 	var/datum/action/innate/link_minds/link_minds
 	var/list/mob/living/linked_mobs = list()
 	var/list/datum/action/innate/linked_speech/linked_actions = list()
 	var/datum/weakref/slimelink_owner
 	var/current_link_id = 0
+
+	examine_limb_id = SPECIES_JELLYPERSON
 
 //Species datums don't normally implement destroy, but JELLIES SUCK ASS OUT OF A STEEL STRAW
 /datum/species/jelly/stargazer/Destroy()
@@ -672,7 +692,10 @@
 		return
 
 	var/message = stripped_input(usr, "Message:", "Slime Telepathy")
-
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
+	message = H.treat_message_min(message)
 	if(!species || !(H in species.linked_mobs))
 		to_chat(H, "<span class='warning'>The link seems to have been severed...</span>")
 		Remove(H)
@@ -722,16 +745,21 @@
 		return
 
 	var/msg = stripped_input(usr, "Message:", "Telepathy")
-	if(msg)
-		log_directed_talk(H, M, msg, LOG_SAY, "slime telepathy")
-		to_chat(M, "<span class='notice'>You hear an alien voice in your head... </span><font color=#008CA2>[msg]</font>")
-		to_chat(H, "<span class='notice'>You telepathically said: \"[msg]\" to [M].</span>")
-		for(var/dead in GLOB.dead_mob_list)
-			if(!isobserver(dead))
-				continue
-			var/follow_link_user = FOLLOW_LINK(dead, H)
-			var/follow_link_target = FOLLOW_LINK(dead, M)
-			to_chat(dead, "[follow_link_user] <span class='name'>[H]</span> <span class='alertalien'>Slime Telepathy --> </span> [follow_link_target] <span class='name'>[M]</span> <span class='noticealien'>[msg]</span>")
+	if(!msg)
+		return
+	if(CHAT_FILTER_CHECK(msg))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
+	msg = H.treat_message_min(msg)
+	log_directed_talk(H, M, msg, LOG_SAY, "slime telepathy")
+	to_chat(M, "<span class='notice'>You hear an alien voice in your head... </span><font color=#008CA2>[msg]</font>")
+	to_chat(H, "<span class='notice'>You telepathically said: \"[msg]\" to [M].</span>")
+	for(var/dead in GLOB.dead_mob_list)
+		if(!isobserver(dead))
+			continue
+		var/follow_link_user = FOLLOW_LINK(dead, H)
+		var/follow_link_target = FOLLOW_LINK(dead, M)
+		to_chat(dead, "[follow_link_user] <span class='name'>[H]</span> <span class='alertalien'>Slime Telepathy --> </span> [follow_link_target] <span class='name'>[M]</span> <span class='noticealien'>[msg]</span>")
 
 /datum/action/innate/link_minds
 	name = "Link Minds"

@@ -56,6 +56,7 @@
 	foodtype = VEGETABLES
 	juice_results = list(/datum/reagent/consumable/parsnipjuice = 0)
 	wine_power = 35
+	discovery_points = 300
 
 
 // White-Beet
@@ -108,3 +109,4 @@
 	bitesize_mod = 2
 	foodtype = VEGETABLES
 	wine_power = 60
+	discovery_points = 300

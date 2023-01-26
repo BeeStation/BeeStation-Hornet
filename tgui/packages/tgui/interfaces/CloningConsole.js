@@ -15,6 +15,7 @@ export const CloningConsole = (props, context) => {
     scannerLocked,
     hasOccupant,
     recordsLength,
+    experimental,
   } = data;
   const lacksMachine = data.lacksMachine || [];
   const diskData = data.diskData || [];
@@ -22,20 +23,6 @@ export const CloningConsole = (props, context) => {
   return (
     <Window width="400" height="600" resizable>
       <Window.Content scrollable>
-        {useRecords ? (
-          <Section
-            title="Autoclone"
-            buttons={
-              <Button
-                content={autoprocess ? "Enabled" : "Disabled"}
-                color={autoprocess ? "green" : "default"}
-                icon={autoprocess ? "toggle-on" : "toggle-off"}
-                disabled={!hasAutoprocess}
-                onClick={() => act('toggle_autoprocess')}
-              />
-            }
-          />
-        ) : (null) }
         <Section>
           <Section title="Cloning Pod Status">
             <Box backgroundColor="#40638a" p="1px">
@@ -52,18 +39,18 @@ export const CloningConsole = (props, context) => {
                 </Box>
               </Box><br />
               <Button
-                content={useRecords ? "Start Scan" : "Clone"}
-                icon={useRecords ? "search" : "power-off"}
+                content={"Full Scan"}
+                icon={"search"}
                 disabled={!hasOccupant}
                 onClick={() => act('scan')}
               />
-              {!! useRecords && (
+              {(!experimental ? (
                 <Button
                   content={"Body only"}
                   disabled={!hasOccupant}
                   icon={"search"}
                   onClick={() => act('scan_body_only')}
-                />)}
+                />):"")}
               <Button
                 content={scannerLocked ? "Unlock Scanner" : "Lock Scanner"}
                 icon={scannerLocked ? "lock" : "lock-open"}
@@ -88,7 +75,9 @@ export const CloningConsole = (props, context) => {
                     <h2>Current Records: </h2>
                     {records.map(record => (
                       <Section backgroundColor="#191919" color="white" key={record}>
-                        <Collapsible title={record["name"]}>
+                        <Collapsible
+                          title={record["name"] + (record["body_only"] ? " (Body Only)" : (record["last_death"]<0 ? " (Presaved)" : ""))}
+                          color={record["body_only"] ? "yellow" : (record["last_death"]<0 ? "green" : "blue")}>
                           <div key={record["name"]} style={{
                             'word-break': 'break-all',
                           }}>
@@ -96,6 +85,7 @@ export const CloningConsole = (props, context) => {
                             <Button
                               content="Clone"
                               icon="power-off"
+                              disabled={(!record["body_only"] && record["last_death"]<0 && !experimental)}
                               onClick={() => act('clone', {
                                 target: record["id"],
                               })}
@@ -116,7 +106,7 @@ export const CloningConsole = (props, context) => {
                               })}
                             />
                             <br />
-                            {!record["body_only"] ? (
+                            {(record["damages"] ? (
                               <Fragment>
                                 Health Implant Data<br />
 
@@ -135,14 +125,13 @@ export const CloningConsole = (props, context) => {
                               <Fragment>
                                 Health implant data not available<br />
                               </Fragment>
-                            )}
+                            ))}
                             Unique Identifier:<br />
                             {record["UI"]}<br />
                             Unique Enzymes:<br />
                             {record["UE"]}<br />
                             Blood Type:<br />
                             {record["blood_type"]}<br />
-                            {record["body_only"] ? "This clone is empty" : null}
                           </div>
                         </Collapsible>
                       </Section>
@@ -169,7 +158,9 @@ export const CloningConsole = (props, context) => {
                   </Box>
                 }>
                 {diskData.length !== 0 ? (
-                  <Collapsible title={diskData["name"] ? diskData["name"] : "Empty Disk"}>
+                  <Collapsible
+                    title={diskData["name"] ? diskData["name"]+(diskData["body_only"] ? " (Body Only)" : diskData["last_death"]<0 ? " (Presaved)" : "") :"Empty Disk"}
+                    color={diskData["name"] ? (diskData["body_only"] ? "yellow" : (diskData["last_death"]<0 ? "green" : "blue")) : "grey"}>
                     {diskData["id"] ? (
                       <Box style={{
                         'word-break': 'break-all',

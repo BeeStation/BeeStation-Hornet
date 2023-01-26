@@ -1,50 +1,38 @@
-// Byond direction defines, because I want to put them somewhere.
-// #define NORTH 1
-// #define SOUTH 2
-// #define EAST 4
-// #define WEST 8
-
-#define TEXT_NORTH			"[NORTH]"
-#define TEXT_SOUTH			"[SOUTH]"
-#define TEXT_EAST			"[EAST]"
-#define TEXT_WEST			"[WEST]"
-
 //  The highest number of "for()" loop iterations before infinite loop detection triggers
 // +1 for "while()" loops, for some reason
 #define INFINITE_LOOP_DETECTION_THRESHOLD 1048574
 
 //Human Overlays Indexes/////////
-#define MUTATIONS_LAYER			30		//! mutations. Tk headglows, cold resistance glow, etc
-#define BODY_BEHIND_LAYER		29		//! certain mutantrace features (tail when looking south) that must appear behind the body parts
-#define BODYPARTS_LAYER			28		//! Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
-#define BODY_ADJ_LAYER			27		//! certain mutantrace features (snout, body markings) that must appear above the body parts
-#define BODY_LAYER				26		//! underwear, undershirts, socks, eyes, lips(makeup)
-#define FRONT_MUTATIONS_LAYER	25		//! mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
-#define DAMAGE_LAYER			24		//! damage indicators (cuts and burns)
-#define UNIFORM_LAYER			23
-#define ID_LAYER				22 		//! lmao at the idiot who put both ids and hands on the same layer
-#define HANDS_PART_LAYER		21
-#define GLOVES_LAYER			20
-#define SHOES_LAYER				19
-#define EARS_LAYER				18
-#define SUIT_LAYER				17
-#define GLASSES_LAYER			16
-#define BELT_LAYER				15		//! Possible make this an overlay of somethign required to wear a belt?
-#define SUIT_STORE_LAYER		14
-#define NECK_LAYER				13
-#define BACK_LAYER				12
-#define HAIR_LAYER				11		//! TODO: make part of head layer?
-#define FACEMASK_LAYER			10
-#define HEAD_LAYER				9
-#define HANDCUFF_LAYER			8
-#define LEGCUFF_LAYER			7
-#define HANDS_LAYER				6
-#define BODY_FRONT_LAYER		5
-#define SMELL_LAYER				4
+#define MUTATIONS_LAYER			29		//! mutations. Tk headglows, cold resistance glow, etc
+#define BODY_BEHIND_LAYER		28		//! certain mutantrace features (tail when looking south) that must appear behind the body parts
+#define BODYPARTS_LAYER			27		//! Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
+#define BODY_ADJ_LAYER			26		//! certain mutantrace features (snout, body markings) that must appear above the body parts
+#define BODY_LAYER				25		//! underwear, undershirts, socks, eyes, lips(makeup)
+#define FRONT_MUTATIONS_LAYER	24		//! mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
+#define DAMAGE_LAYER			23		//! damage indicators (cuts and burns)
+#define UNIFORM_LAYER			22
+#define ID_LAYER				21 		//! lmao at the idiot who put both ids and hands on the same layer
+#define HANDS_PART_LAYER		20
+#define GLOVES_LAYER			19
+#define SHOES_LAYER				18
+#define EARS_LAYER				17
+#define SUIT_LAYER				16
+#define GLASSES_LAYER			15
+#define BELT_LAYER				14		//! Possible make this an overlay of somethign required to wear a belt?
+#define SUIT_STORE_LAYER		13
+#define NECK_LAYER				12
+#define BACK_LAYER				11
+#define HAIR_LAYER				10		//! TODO: make part of head layer?
+#define FACEMASK_LAYER			9
+#define HEAD_LAYER				8
+#define HANDCUFF_LAYER			7
+#define LEGCUFF_LAYER			6
+#define HANDS_LAYER				5
+#define BODY_FRONT_LAYER		4
 #define HALO_LAYER				3		//! blood cult ascended halo, because there's currently no better solution for adding/removing
 #define TYPING_LAYER			2
 #define FIRE_LAYER				1		//! If you're on fire
-#define TOTAL_LAYERS			30		//! KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
+#define TOTAL_LAYERS			29		//! KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
 
 //Human Overlay Index Shortcuts for alternate_worn_layer, layers
 //Because I *KNOW* somebody will think layer+1 means "above"
@@ -141,6 +129,7 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 
 //suit sensors: sensor_mode defines
 
+#define SENSOR_NOT_SET -1
 #define SENSOR_OFF 0
 #define SENSOR_LIVING 1
 #define SENSOR_VITALS 2
@@ -170,8 +159,6 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 #define POLLTYPE_RATING		"NUMVAL"
 #define POLLTYPE_MULTI		"MULTICHOICE"
 #define POLLTYPE_IRV		"IRV"
-
-
 
 //subtypesof(), typesof() without the parent path
 #define subtypesof(typepath) ( typesof(typepath) - typepath )
@@ -331,11 +318,6 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define BEAT_SLOW 2
 #define BEAT_NONE 0
 
-//https://secure.byond.com/docs/ref/info.html#/atom/var/mouse_opacity
-#define MOUSE_OPACITY_TRANSPARENT 0
-#define MOUSE_OPACITY_ICON 1
-#define MOUSE_OPACITY_OPAQUE 2
-
 //world/proc/shelleo
 #define SHELLEO_ERRORLEVEL 1
 #define SHELLEO_STDOUT 2
@@ -376,14 +358,6 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define STACK_CHECK_CARDINALS "cardinals" //! checks if there is an object of the result type in any of the cardinal directions
 #define STACK_CHECK_ADJACENT "adjacent" //! checks if there is an object of the result type within one tile
 
-//text files
-#define BRAIN_DAMAGE_FILE "traumas.json"
-#define ION_FILE "ion_laws.json"
-#define PIRATE_NAMES_FILE "pirates.json"
-#define REDPILL_FILE "redpill.json"
-#define WANTED_FILE "wanted_message.json"
-
-
 //Fullscreen overlay resolution in tiles.
 #define FULLSCREEN_OVERLAY_RESOLUTION_X 15
 #define FULLSCREEN_OVERLAY_RESOLUTION_Y 15
@@ -396,6 +370,7 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define TELEPORT_CHANNEL_WORMHOLE "wormhole"	//! Wormhole teleportation, is not disrupted by bluespace fluctuations but tends to be very random or unsafe
 #define TELEPORT_CHANNEL_MAGIC "magic"			//! Magic teleportation, does whatever it wants (unless there's antimagic)
 #define TELEPORT_CHANNEL_CULT "cult"			//! Cult teleportation, does whatever it wants (unless there's holiness)
+#define TELEPORT_CHANNEL_BLINK "blink"			//! Teleportation with only a sender, but not disrupted by the BOH
 #define TELEPORT_CHANNEL_FREE "free"			//! Anything else
 
 //Teleport restriction modes (For areas)
@@ -417,9 +392,6 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define OVERRIDE_CONFIG_DIRECTORY_PARAMETER "config-directory"
 
 #define EGG_LAYING_MESSAGES list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
-
-// Used by PDA and cartridge code to reduce repetitiveness of spritesheets
-#define PDAIMG(what) {"<span class="pda16x16 [#what]"></span>"}
 
 //Filters
 #define AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, color="#04080FAA")
@@ -470,9 +442,17 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 
 //Religion
 
-#define HOLY_ROLE_PRIEST 1 //default priestly role
-#define HOLY_ROLE_HIGHPRIEST 2 //the one who designates the religion
+#define HOLY_ROLE_DEACON 1 //role below priests, for losing most powers of priests but still being holy.
+#define HOLY_ROLE_PRIEST 2 //default priestly role
+#define HOLY_ROLE_HIGHPRIEST 3 //the one who designates the religion
 
 #define ALIGNMENT_GOOD "good"
 #define ALIGNMENT_NEUT "neutral"
 #define ALIGNMENT_EVIL "evil"
+
+///List of monkey_icons for clothing
+GLOBAL_LIST_EMPTY(monkey_icon_cache)
+
+// Pirates threat
+#define PIRATE_RESPONSE_NO_PAY "pirate_answer_no_pay"
+#define PIRATE_RESPONSE_PAY "pirate_answer_pay"

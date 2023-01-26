@@ -77,3 +77,4 @@
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
 	cotton_type = /obj/item/stack/sheet/cotton/durathread
 	cotton_name = "raw durathread"
+	discovery_points = 300

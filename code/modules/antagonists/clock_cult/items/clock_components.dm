@@ -141,7 +141,7 @@
 	var/randomspritemax = 2
 	var/sprite_shift = 9
 
-/obj/item/clockwork/alloy_shards/Initialize()
+/obj/item/clockwork/alloy_shards/Initialize(mapload)
 	. = ..()
 	if(randomsinglesprite)
 		replace_name_desc()

@@ -61,7 +61,7 @@ Possible to do for anyone motivated enough:
 	var/offset = FALSE
 	var/on_network = TRUE
 
-/obj/machinery/holopad/Initialize()
+/obj/machinery/holopad/Initialize(mapload)
 	. = ..()
 	become_hearing_sensitive()
 
@@ -84,7 +84,7 @@ Possible to do for anyone motivated enough:
 /obj/machinery/holopad/tutorial/attack_hand(mob/user)
 	if(!istype(user))
 		return
-	if(user.incapacitated() || !is_operational())
+	if(user.incapacitated() || !is_operational)
 		return
 	if(replay_mode)
 		replay_stop()
@@ -97,7 +97,7 @@ Possible to do for anyone motivated enough:
 	if(!replay_mode && (disk && disk.record))
 		replay_start()
 
-/obj/machinery/holopad/Initialize()
+/obj/machinery/holopad/Initialize(mapload)
 	. = ..()
 	if(on_network)
 		holopads += src
@@ -125,9 +125,9 @@ Possible to do for anyone motivated enough:
 
 /obj/machinery/holopad/power_change()
 	if (powered())
-		stat &= ~NOPOWER
+		set_machine_stat(machine_stat & ~NOPOWER)
 	else
-		stat |= NOPOWER
+		set_machine_stat(machine_stat | NOPOWER)
 		if(replay_mode)
 			replay_stop()
 		if(record_mode)
@@ -183,7 +183,7 @@ Possible to do for anyone motivated enough:
 	if(!istype(user))
 		return
 
-	if(outgoing_call || user.incapacitated() || !is_operational())
+	if(outgoing_call || user.incapacitated() || !is_operational)
 		return
 
 	user.set_machine(src)
@@ -244,7 +244,7 @@ Possible to do for anyone motivated enough:
 	if(..() || isAI(usr))
 		return
 	add_fingerprint(usr)
-	if(!is_operational())
+	if(!is_operational)
 		return
 	if (href_list["AIrequest"])
 		if(last_request + 200 < world.time)
@@ -354,7 +354,7 @@ Possible to do for anyone motivated enough:
 			if(!istype(AI))
 				AI = null
 
-			if(!is_operational() || !validate_user(master))
+			if(!is_operational || !validate_user(master))
 				clear_holo(master)
 
 	if(outgoing_call)
@@ -381,7 +381,7 @@ Possible to do for anyone motivated enough:
 	if(!istype(AI))
 		AI = null
 
-	if(is_operational() && (!AI || AI.eyeobj.loc == loc))//If the projector has power and client eye is on it
+	if(is_operational && (!AI || AI.eyeobj.loc == loc))//If the projector has power and client eye is on it
 		if (AI && istype(AI.current, /obj/machinery/holopad))
 			to_chat(user, "<span class='danger'>ERROR:</span> \black Image feed in progress.")
 			return
@@ -519,7 +519,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 			else
 				transfered = TRUE
 		//All is good.
-		holo.forceMove(new_turf)
+		holo.abstract_move(new_turf)
 		if(!transfered)
 			update_holoray(user,new_turf)
 	return TRUE

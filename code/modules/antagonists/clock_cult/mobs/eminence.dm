@@ -1,5 +1,5 @@
 /mob/living/simple_animal/eminence
-	name = "\the Eminence"
+	name = "the Eminence"
 	desc = "A glowing ball of light."
 	icon = 'icons/effects/clockwork_effects.dmi'
 	icon_state = "eminence"
@@ -8,7 +8,7 @@
 	invisibility = INVISIBILITY_OBSERVER
 	health = INFINITY
 	maxHealth = INFINITY
-	layer = GHOST_LAYER
+	plane = GHOST_PLANE
 	healable = FALSE
 	spacewalk = TRUE
 	sight = SEE_SELF
@@ -21,7 +21,6 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	harm_intent_damage = 0
 	status_flags = 0
 	wander = FALSE
 	density = FALSE
@@ -36,6 +35,7 @@
 
 	var/calculated_cogs = 0
 	var/cogs = 0
+	var/obj/item/radio/borg/eminence/internal_radio
 
 	var/mob/living/selected_mob = null
 
@@ -69,7 +69,10 @@
 /mob/living/simple_animal/eminence/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
 	return FALSE
 
-/mob/living/simple_animal/eminence/Initialize()
+/mob/living/simple_animal/eminence/rad_act(amount)
+	return
+
+/mob/living/simple_animal/eminence/Initialize(mapload)
 	. = ..()
 	GLOB.clockcult_eminence = src
 	//Add spells
@@ -87,6 +90,7 @@
 	AddSpell(trigger_event)
 	//Wooooo, you are a ghost
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE)
+	internal_radio = new(src)
 	cog_change()
 
 /mob/living/simple_animal/eminence/Destroy()
@@ -129,6 +133,17 @@
 	E.runEvent()
 	SSevents.reschedule()
 
+/mob/living/simple_animal/eminence/get_stat_tab_status()
+	var/list/tab_data = ..()
+	tab_data["Cogs Available"] = GENERATE_STAT_TEXT("[cogs] Cogs")
+	return tab_data
+
+/mob/living/simple_animal/eminence/update_health_hud()
+	return
+
+/mob/living/simple_animal/eminence/flash_act(intensity, override_blindness_check, affect_silicon, visual, type)
+	return
+
 //Eminence abilities
 
 /obj/effect/proc_holder/spell/targeted/eminence
@@ -164,7 +179,7 @@
 /obj/effect/proc_holder/spell/targeted/eminence/reebe/cast(mob/living/user)
 	var/obj/structure/destructible/clockwork/massive/celestial_gateway/G = GLOB.celestial_gateway
 	if(G)
-		user.forceMove(get_turf(G))
+		user.abstract_move(get_turf(G))
 		SEND_SOUND(user, sound('sound/magic/magic_missile.ogg'))
 		flash_color(user, flash_color = "#AF0AAF", flash_time = 25)
 	else
@@ -178,7 +193,7 @@
 
 /obj/effect/proc_holder/spell/targeted/eminence/station/cast(mob/living/user)
 	if(!is_station_level(user.z))
-		user.forceMove(get_turf(pick(GLOB.generic_event_spawns)))
+		user.abstract_move(get_turf(pick(GLOB.generic_event_spawns)))
 		SEND_SOUND(user, sound('sound/magic/magic_missile.ogg'))
 		flash_color(user, flash_color = "#AF0AAF", flash_time = 25)
 	else
@@ -192,21 +207,21 @@
 
 /obj/effect/proc_holder/spell/targeted/eminence/servant_warp/cast(list/targets, mob/user)
 	//Get a list of all servants
-	var/choice = input(user, "Select servant", "Warp to...", null) in GLOB.all_servants_of_ratvar
+	var/datum/mind/choice = input(user, "Select servant", "Warp to...", null) in GLOB.all_servants_of_ratvar
+	var/mob/living/M
 	if(!choice)
 		return
-	for(var/mob/living/L in GLOB.all_servants_of_ratvar)
-		if(L.name == choice)
-			choice = L
-			break
-	if(!isliving(choice))
+	M = choice.current
+	if(!isliving(M))
 		to_chat(user, "<span class='warning'>You cannot jump to them!</span>")
 		return
-	var/mob/living/M = choice
 	if(!is_servant_of_ratvar(M))
 		to_chat(user, "<span class='warning'>They are no longer a servant of Rat'var!</span>")
 		return
 	var/turf/T = get_turf(M)
+	if(SSmapping.level_trait(T.z, ZTRAIT_CENTCOM))
+		to_chat(user, "<span class='warning'>They are out of your reach!</span>")
+		return
 	user.forceMove(get_turf(T))
 	SEND_SOUND(user, sound('sound/magic/magic_missile.ogg'))
 	flash_color(user, flash_color = "#AF0AAF", flash_time = 25)
@@ -291,11 +306,8 @@
 		"False Alarm",
 		"Grid Check",
 		"Mass Hallucination",
-		"Processor Overload",
-		"Radiation Storm"
+		"Processor Overload"
 	)
-	if(!can_cast(user))
-		return
 	if(!picked_event)
 		revert_cast(user)
 		return
@@ -310,3 +322,12 @@
 			consume_cogs(user)
 			return
 	revert_cast(user)
+
+//Internal Radio
+/obj/item/radio/borg/eminence
+	name = "eminence internal listener"
+	desc = "if you can see this, call a coder"
+	canhear_range = 0
+	radio_silent = TRUE
+	prison_radio = TRUE
+	broadcasting = TRUE

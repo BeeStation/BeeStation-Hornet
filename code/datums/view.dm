@@ -34,9 +34,11 @@
 /datum/viewData/proc/isZooming()
 	return (width || height)
 
-/datum/viewData/proc/resetToDefault()
+/datum/viewData/proc/resetToDefault(var/new_default)
 	width = 0
 	height = 0
+	if(new_default != null)
+		default = new_default
 	apply()
 
 /datum/viewData/proc/add(toAdd)
@@ -116,7 +118,10 @@
 	//Ready for this one?
 	setTo(radius)
 
-/proc/getScreenSize(mob/M) //IMPORTANT: If widescreen toggle preference gets ported, several uses of this proc need to be changed from FALSE to the player pref
-	if(CONFIG_GET(flag/menu_square_view) && M && istype(M, /mob/dead/new_player))
-		return "15x15"	//Return 15x15 for new players because we have normal sized menu screens
-	return CONFIG_GET(string/default_view) //IMPORTANT: If widescreen toggle preference gets ported, this needs to be set to the square view config
+/// Returns the size that the screen should be
+/proc/getScreenSize(mob/M)
+	// New players on the menu get the size of the lobby art
+	if(istype(M, /mob/dead/new_player))
+		return SStitle.lobby_screen_size
+	// Otherwise, they get the default view
+	return CONFIG_GET(string/default_view)

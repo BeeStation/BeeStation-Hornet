@@ -48,6 +48,7 @@
 	can_buckle = 1
 	max_integrity = 250
 	flags_1 = SAVE_SAFE_1
+	move_resist = MOVE_FORCE_STRONG
 
 /obj/structure/kitchenspike/attack_paw(mob/user)
 	return attack_hand(user)

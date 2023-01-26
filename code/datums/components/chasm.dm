@@ -7,7 +7,8 @@
 	/// List of refs to falling objects -> how many levels deep we've fallen
 	var/static/list/falling_atoms = list()
 	var/static/list/forbidden_types = typecacheof(list(
-		/obj/singularity,
+		/obj/anomaly,
+		/obj/eldritch/narsie,
 		/obj/docking_port,
 		/obj/structure/lattice,
 		/obj/structure/stone_tile,
@@ -25,15 +26,15 @@
 		))
 
 /datum/component/chasm/Initialize(turf/target)
-	RegisterSignal(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED), .proc/Entered)
+	RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/Entered)
 	target_turf = target
 	START_PROCESSING(SSobj, src) // process on create, in case stuff is still there
 
-/datum/component/chasm/proc/Entered(datum/source, atom/movable/AM)
+/datum/component/chasm/proc/Entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	START_PROCESSING(SSobj, src)
-	drop_stuff(AM)
+	drop_stuff(arrived)
 
 /datum/component/chasm/process()
 	if (!drop_stuff())

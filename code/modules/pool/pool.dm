@@ -147,18 +147,18 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 /turf/open/indestructible/sound/pool/proc/check_clothes(mob/living/carbon/human/H)
 	if(!istype(H) || iscatperson(H)) //Don't care about non humans.
 		return FALSE
-	if(H.wear_suit && (H.wear_suit.clothing_flags & SHOWEROKAY))
+	if(H.wear_suit && (H.wear_suit.clothing_flags))
 		// Do not check underclothing if the over-suit is suitable.
 		// This stops people feeling dumb if they're showering
 		// with a radiation suit on.
 		return FALSE
 
 	. = FALSE
-	if(!(H.wear_suit?.clothing_flags & SHOWEROKAY))
+	if(!(H.wear_suit?.clothing_flags))
 		return TRUE
-	if(!(H.w_uniform?.clothing_flags & SHOWEROKAY))
+	if(!(H.w_uniform?.clothing_flags))
 		return TRUE
-	if(!(H.head?.clothing_flags & SHOWEROKAY))
+	if(!(H.head?.clothing_flags))
 		return TRUE
 
 /obj/effect/turf_decal/pool
@@ -200,7 +200,7 @@ GLOBAL_LIST_EMPTY(pool_filters)
 	. = ..()
 	. += "<span class='boldnotice'>The thermostat on it reads [current_temperature].</span>"
 
-/obj/machinery/pool_filter/Initialize()
+/obj/machinery/pool_filter/Initialize(mapload)
 	. = ..()
 	create_reagents(100, OPENCONTAINER) //If you're a terrible terrible clown and want to dump reagents into the pool.
 	if(preset_reagent_type)
@@ -211,6 +211,11 @@ GLOBAL_LIST_EMPTY(pool_filters)
 			continue //Not the same id. Fine. Ignore that one then!
 		pool += water
 	GLOB.pool_filters += src
+
+/obj/machinery/pool_filter/Destroy()
+	GLOB.pool_filters -= src
+	reagents = null
+	return ..()
 
 //Brick can set the pool to low temperatures remotely. This will probably be hell on malf!
 
@@ -231,7 +236,7 @@ GLOBAL_LIST_EMPTY(pool_filters)
 	return FALSE
 
 /obj/machinery/pool_filter/process(delta_time)
-	if(!LAZYLEN(pool) || !is_operational())
+	if(!LAZYLEN(pool) || !is_operational)
 		return //No use having one of these processing for no reason is there?
 	use_power(idle_power_usage)
 	var/delta = ((current_temperature > desired_temperature) ? -0.25 : 0.25 ) * delta_time

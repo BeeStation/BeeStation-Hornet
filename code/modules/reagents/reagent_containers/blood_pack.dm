@@ -7,13 +7,24 @@
 	var/blood_type = null
 	var/unique_blood = null
 	var/labelled = 0
+	reagent_flags = TRANSPARENT | ABSOLUTELY_GRINDABLE
 	fill_icon_thresholds = list(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
 
-/obj/item/reagent_containers/blood/Initialize()
+/obj/item/reagent_containers/blood/Initialize(mapload)
 	. = ..()
 	if(blood_type != null)
 		reagents.add_reagent(unique_blood ? unique_blood : /datum/reagent/blood, 200, list("viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"resistances"=null,"trace_chem"=null))
 		update_icon()
+
+/obj/item/reagent_containers/blood/examine(mob/user)
+	. = ..()
+	if(reagents)
+		if(volume == reagents.total_volume)
+			. += "<span class='notice'>It is fully filled.</span>"
+		else if(!reagents.total_volume)
+			. += "<span class='notice'>It's empty.</span>"
+		else
+			. += "<span class='notice'>It seems [round(reagents.total_volume/volume*100)]% filled.</span>"
 
 /obj/item/reagent_containers/blood/on_reagent_change(changetype)
 	if(reagents)
@@ -35,7 +46,7 @@
 /obj/item/reagent_containers/blood/random
 	icon_state = "random_bloodpack"
 
-/obj/item/reagent_containers/blood/random/Initialize()
+/obj/item/reagent_containers/blood/random/Initialize(mapload)
 	icon_state = "bloodpack"
 	blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-", "L")
 	return ..()

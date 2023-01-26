@@ -17,7 +17,7 @@
 
 	var/max_range = 5
 
-/obj/item/circuit_component/tostring/Initialize()
+/obj/item/circuit_component/tostring/Initialize(mapload)
 	. = ..()
 	input_port = add_input_port("Input", PORT_TYPE_ANY)
 

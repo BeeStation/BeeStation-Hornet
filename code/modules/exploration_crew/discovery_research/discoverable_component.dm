@@ -41,6 +41,9 @@
 	if(linked_techweb.scanned_atoms[A.type] && !unique)
 		to_chat(user, "<span class='warning'>Datapoints about [A] already in system.</span>")
 		return
+	if(A.flags_1 & HOLOGRAM_1)
+		to_chat(user, "<span class='warning'>[A] is holographic, no datapoints can be extracted.</span>")
+		return
 	scanned = TRUE
 	linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, point_reward)
 	linked_techweb.scanned_atoms[A.type] = TRUE

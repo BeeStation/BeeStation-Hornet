@@ -29,7 +29,7 @@
 	//Update to viewers
 	ui_update()
 
-/obj/machinery/launchpad/Initialize()
+/obj/machinery/launchpad/Initialize(mapload)
 	. = ..()
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
@@ -85,7 +85,7 @@
 	ghost.forceMove(target)
 
 /obj/machinery/launchpad/proc/isAvailable()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		return FALSE
 	if(panel_open)
 		return FALSE
@@ -237,7 +237,9 @@
     src.briefcase = briefcase
 
 /obj/machinery/launchpad/briefcase/Destroy()
-	QDEL_NULL(briefcase)
+	if(!QDELETED(briefcase))
+		qdel(briefcase)
+	briefcase = null
 	return ..()
 
 /obj/machinery/launchpad/briefcase/isAvailable()
@@ -274,7 +276,7 @@
 	flags_1 = NONE
 	var/obj/machinery/launchpad/briefcase/pad
 
-/obj/item/storage/briefcase/launchpad/Initialize()
+/obj/item/storage/briefcase/launchpad/Initialize(mapload)
 	pad = new(null, src) //spawns pad in nullspace to hide it from briefcase contents
 	. = ..()
 
@@ -392,7 +394,7 @@
 			. = TRUE
 		if("remove")
 			. = TRUE
-			if(usr && alert(usr, "Are you sure?", "Unlink Launchpad", "I'm Sure", "Abort") != "Abort")
+			if(usr && alert(usr, "Are you sure?", "Unlink Launchpad", "I'm Sure", "Abort") == "I'm Sure")
 				pad = null
 		if("launch")
 			sending = TRUE

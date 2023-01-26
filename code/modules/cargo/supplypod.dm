@@ -98,7 +98,7 @@
 		style = customStyle
 	setStyle(style) //Upon initialization, give the supplypod an iconstate, name, and description based on the "style" variable. This system is important for the centcom_podlauncher to function correctly
 
-/obj/structure/closet/supplypod/extractionpod/Initialize()
+/obj/structure/closet/supplypod/extractionpod/Initialize(mapload)
 	. = ..()
 	var/turf/picked_turf = pick(GLOB.holdingfacility)
 	reverse_dropoff_coords = list(picked_turf.x, picked_turf.y, picked_turf.z)
@@ -116,7 +116,7 @@
 		door = "[base]_door"
 	else
 		door = FALSE
-	update_icon()
+	update_appearance()
 
 /obj/structure/closet/supplypod/proc/SetReverseIcon()
 	fin_mask = "bottomfin"
@@ -124,7 +124,7 @@
 		icon_state = GLOB.podstyles[style][POD_BASE] + "_reverse"
 	pixel_x = initial(pixel_x)
 	transform = matrix()
-	update_icon()
+	update_appearance()
 
 /obj/structure/closet/supplypod/proc/backToNonReverseIcon()
 	fin_mask = initial(fin_mask)
@@ -132,7 +132,7 @@
 		icon_state = GLOB.podstyles[style][POD_BASE]
 	pixel_x = initial(pixel_x)
 	transform = matrix()
-	update_icon()
+	update_appearance()
 
 /obj/structure/closet/supplypod/update_overlays()
 	. = ..()
@@ -227,7 +227,7 @@
 /obj/structure/closet/supplypod/proc/preOpen() //Called before the open_pod() proc. Handles anything that occurs right as the pod lands.
 	var/turf/turf_underneath = get_turf(src)
 	var/list/B = explosionSize //Mostly because B is more readable than explosionSize :p
-	density = TRUE //Density is originally false so the pod doesn't block anything while it's still falling through the air
+	set_density(TRUE) //Density is originally false so the pod doesn't block anything while it's still falling through the air
 	for (var/mob/living/target_living in turf_underneath)
 		if (iscarbon(target_living)) //If effectLimb is true (which means we pop limbs off when we hit people):
 			if (effectLimb)
@@ -414,18 +414,18 @@
 
 /obj/structure/closet/supplypod/setOpened() //Proc exists here, as well as in any atom that can assume the role of a "holder" of a supplypod. Check the open_pod() proc for more details
 	opened = TRUE
-	density = FALSE
-	update_icon()
+	set_density(FALSE)
+	update_appearance()
 
 /obj/structure/closet/supplypod/extractionpod/setOpened()
 	opened = TRUE
-	density = TRUE
-	update_icon()
+	set_density(TRUE)
+	update_appearance()
 
 /obj/structure/closet/supplypod/setClosed() //Ditto
 	opened = FALSE
-	density = TRUE
-	update_icon()
+	set_density(TRUE)
+	update_appearance()
 
 /obj/structure/closet/supplypod/proc/tryMakeRubble(turf/T) //Ditto
 	if (rubble_type == RUBBLE_NONE)
@@ -438,7 +438,7 @@
 		return
 	rubble = new /obj/effect/supplypod_rubble(T)
 	rubble.setStyle(rubble_type, src)
-	update_icon()
+	update_appearance()
 
 /obj/structure/closet/supplypod/Moved()
 	deleteRubble()
@@ -447,7 +447,7 @@
 /obj/structure/closet/supplypod/proc/deleteRubble()
 	rubble?.fadeAway()
 	rubble = null
-	update_icon()
+	update_appearance()
 
 /obj/structure/closet/supplypod/proc/addGlow()
 	if (GLOB.podstyles[style][POD_SHAPE] != POD_SHAPE_NORML)
@@ -604,7 +604,7 @@
 
 /obj/effect/pod_landingzone/proc/beginLaunch(effectCircle) //Begin the animation for the pod falling. The effectCircle param determines whether the pod gets to come in from any descent angle
 	pod.addGlow()
-	pod.update_icon()
+	pod.update_appearance()
 	if (pod.style != STYLE_INVISIBLE)
 		pod.add_filter("motionblur",1,list("type"="motion_blur", "x"=0, "y"=3))
 	pod.forceMove(drop_location())
@@ -613,7 +613,7 @@
 	var/angle = effectCircle ? rand(0,360) : rand(70,110) //The angle that we can come in from
 	pod.pixel_x = cos(angle)*32*length(smoke_effects) //Use some ADVANCED MATHEMATICS to set the animated pod's position to somewhere on the edge of a circle with the center being the target
 	pod.pixel_z = sin(angle)*32*length(smoke_effects)
-	var/rotation = Get_Pixel_Angle(pod.pixel_z, pod.pixel_x) //CUSTOM HOMEBREWED proc that is just arctan with extra steps
+	var/rotation = get_pixel_angle(pod.pixel_z, pod.pixel_x) //CUSTOM HOMEBREWED proc that is just arctan with extra steps
 	setupSmoke(rotation)
 	pod.transform = matrix().Turn(rotation)
 	pod.layer = FLY_LAYER

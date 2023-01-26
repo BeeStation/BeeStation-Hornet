@@ -26,6 +26,9 @@
 	anchored = FALSE
 	base_state = "pflash"
 	density = TRUE
+	light_system = MOVABLE_LIGHT //Used as a flash here.
+	light_range = FLASH_LIGHT_RANGE
+	light_on = FALSE
 
 /obj/machinery/flasher/Initialize(mapload, ndir = 0, built = 0)
 	. = ..() // ..() is EXTREMELY IMPORTANT, never forget to add it
@@ -42,13 +45,13 @@
 
 /obj/machinery/flasher/power_change()
 	if (powered() && anchored && bulb)
-		stat &= ~NOPOWER
+		set_machine_stat(machine_stat & ~NOPOWER)
 		if(bulb.burnt_out)
 			icon_state = "[base_state]1-p"
 		else
 			icon_state = "[base_state]1"
 	else
-		stat |= NOPOWER
+		set_machine_stat(machine_stat | NOPOWER)
 		icon_state = "[base_state]1-p"
 
 //Don't want to render prison breaks impossible
@@ -114,7 +117,9 @@
 
 	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
 	flick("[base_state]_flash", src)
-	flash_lighting_fx(FLASH_LIGHT_RANGE, light_power, light_color)
+	set_light_on(TRUE)
+	addtimer(CALLBACK(src, .proc/flash_end), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
+
 	last_flash = world.time
 	use_power(1000)
 
@@ -125,21 +130,23 @@
 	return 1
 
 
+/obj/machinery/flasher/proc/flash_end()
+	set_light_on(FALSE)
+
+
 /obj/machinery/flasher/emp_act(severity)
 	. = ..()
-	if(!(stat & (BROKEN|NOPOWER)) && !(. & EMP_PROTECT_SELF))
+	if(!(machine_stat & (BROKEN|NOPOWER)) && !(. & EMP_PROTECT_SELF))
 		if(bulb && prob(75/severity))
 			flash()
 			bulb.burn_out()
 			power_change()
 
 /obj/machinery/flasher/obj_break(damage_flag)
-	if(!(flags_1 & NODECONSTRUCT_1))
-		if(!(stat & BROKEN))
-			stat |= BROKEN
-			if(bulb)
-				bulb.burn_out()
-				power_change()
+	. = ..()
+	if(. && bulb)
+		bulb.burn_out()
+		power_change()
 
 /obj/machinery/flasher/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -155,7 +162,7 @@
 			new /obj/item/stack/sheet/iron (loc, 2)
 	qdel(src)
 
-/obj/machinery/flasher/portable/Initialize()
+/obj/machinery/flasher/portable/Initialize(mapload)
 	. = ..()
 	proximity_monitor = new(src, 0)
 

@@ -16,8 +16,10 @@
 /turf/open/floor/light/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>There's a <b>small crack</b> on the edge of it.</span>"
+	if(broken)
+		. += "<span class='notice'>It seems to be completely broken.</span>"
 
-/turf/open/floor/light/Initialize()
+/turf/open/floor/light/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -55,6 +57,8 @@
 /turf/open/floor/light/attack_hand(mob/user)
 	. = ..()
 	if(.)
+		return
+	if(broken)
 		return
 	if(!can_modify_colour)
 		return

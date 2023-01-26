@@ -17,7 +17,7 @@
 	/// The filtered list
 	var/datum/port/output/output_list
 
-/obj/item/circuit_component/get_column/Initialize()
+/obj/item/circuit_component/get_column/Initialize(mapload)
 	. = ..()
 	received_table = add_input_port("Input", PORT_TYPE_TABLE)
 	column_name = add_input_port("Column Name", PORT_TYPE_STRING)

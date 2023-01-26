@@ -12,7 +12,7 @@
 	flags_1 = SAVE_SAFE_1
 	var/obj/machinery/power/master = null
 
-/obj/machinery/power/terminal/Initialize()
+/obj/machinery/power/terminal/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
 	if(level == 1)

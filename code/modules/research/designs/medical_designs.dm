@@ -192,6 +192,39 @@
 	category = list("Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
+/datum/design/medipen_epi
+	name = "Epinephrine Medipen"
+	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge. Contains a powerful preservative that can delay decomposition when applied to a dead body."
+	id = "medipen_epi"
+	build_path = /obj/item/reagent_containers/hypospray/medipen
+	build_type = PROTOLATHE
+	materials = list(/datum/material/plastic = 200)
+	reagents_list = list(/datum/reagent/medicine/epinephrine = 10, /datum/reagent/toxin/formaldehyde = 3)
+	category = list("Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/medipen_dex
+	name = "Dexalin Medipen"
+	desc = "An autoinjector containing dexalin, used to heal oxygen damage quickly."
+	id = "medipen_dex"
+	build_path = /obj/item/reagent_containers/hypospray/medipen/dexalin
+	build_type = PROTOLATHE
+	materials = list(/datum/material/plastic = 200)
+	reagents_list = list(/datum/reagent/medicine/dexalin = 10)
+	category = list("Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/medipen_atropine
+	name = "Atropine Medipen"
+	desc = "A rapid way to save a person from a critical injury state!"
+	id = "medipen_atropine"
+	build_path = /obj/item/reagent_containers/hypospray/medipen/atropine
+	build_type = PROTOLATHE
+	materials = list(/datum/material/plastic = 200)
+	reagents_list = list(/datum/reagent/medicine/atropine = 10)
+	category = list("Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
 /datum/design/surgical_drapes
 	name = "Surgical Drapes"
 	id = "surgical_drapes"
@@ -389,6 +422,18 @@
 	category = list("Implants", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
+/datum/design/cyberimp_linkedsurgery
+	name = "Surgical Serverlink Brain Implant"
+	desc = "A brain implant with a bluespace technology that lets you perform an advanced surgery through your station research server."
+	id = "ci-linkedsurgery"
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(/datum/material/iron = 2500, /datum/material/glass = 1500, /datum/material/silver = 1500, /datum/material/copper = 200, /datum/material/gold = 3000, /datum/material/diamond = 1500, /datum/material/uranium = 250, /datum/material/bluespace = 2000)
+	build_path = /obj/item/organ/cyberimp/brain/linkedsurgery
+	category = list("Implants", "Medical Designs", "Bluespace Designs")
+	dangerous_construction = TRUE
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
 /datum/design/cyberimp_nutriment
 	name = "Nutriment Pump Implant"
 	desc = "This implant with synthesize and pump into your bloodstream a small amount of nutriment when you are starving."
@@ -563,6 +608,28 @@
 	construction_time = 50
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 500, /datum/material/silver = 500, /datum/material/copper = 300)
 	build_path = /obj/item/organ/lungs/cybernetic/upgraded
+	category = list("Cybernetics", "Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/cybernetic_stomach
+	name = "Cybernetic Stomach"
+	desc = "A cybernetic cybernetic stomach."
+	id = "cybernetic_stomach"
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 40
+	materials = list(/datum/material/iron = 500, /datum/material/glass = 500, /datum/material/copper = 200)
+	build_path = /obj/item/organ/stomach/cybernetic
+	category = list("Cybernetics", "Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/cybernetic_stomach_u
+	name = "Upgraded Cybernetic Stomach"
+	desc = "A upgraded cybernetic stomach."
+	id = "cybernetic_stomach_u"
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 50
+	materials = list(/datum/material/iron = 500, /datum/material/glass = 500, /datum/material/silver = 500, /datum/material/copper = 300)
+	build_path = /obj/item/organ/stomach/cybernetic/upgraded
 	category = list("Cybernetics", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 

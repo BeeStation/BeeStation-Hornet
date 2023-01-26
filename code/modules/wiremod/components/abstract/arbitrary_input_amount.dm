@@ -4,7 +4,8 @@
 	display_desc = "A modular component base that allows component designs to contain an arbitrary amount of inputs"
 
 	//The type of port to use
-	var/port_type = PORT_TYPE_ANY
+	var/input_port_type = PORT_TYPE_ANY
+	var/output_port_type = PORT_TYPE_ANY
 
 	/// The amount of input ports to have
 	var/input_port_amount = 2
@@ -14,13 +15,13 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
-/obj/item/circuit_component/arbitrary_input_amount/Initialize()
+/obj/item/circuit_component/arbitrary_input_amount/Initialize(mapload)
 	. = ..()
 	for(var/port_id in 1 to input_port_amount)
 		var/letter = ascii2text(text2ascii("A") + (port_id-1))
-		add_input_port(letter, port_type)
+		add_input_port(letter, input_port_type)
 
-	output = add_output_port("Output", port_type)
+	output = add_output_port("Output", output_port_type)
 
 /obj/item/circuit_component/arbitrary_input_amount/Destroy()
 	output = null

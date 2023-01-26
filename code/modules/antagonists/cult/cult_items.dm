@@ -17,21 +17,27 @@
 	inhand_x_dimension = 32
 	inhand_y_dimension = 32
 	w_class = WEIGHT_CLASS_SMALL
-	block_upgrade_walk = 1
 	block_power = 0
 	block_level = 0
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	force = 15
 	throwforce = 12 // unlike normal daggers, this one is curved and not designed to be thrown
 	armour_penetration = 35
-	actions_types = list(/datum/action/item_action/cult_dagger)
 	flags_1 = SAVE_SAFE_1
 
-/obj/item/melee/cultblade/dagger/Initialize()
+/obj/item/melee/cultblade/dagger/Initialize(mapload)
 	. = ..()
-	var/image/I = image(icon = 'icons/effects/blood.dmi' , icon_state = null, loc = src)
-	I.override = TRUE
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "cult_dagger", I)
+	var/image/silicon_image = image(icon = 'icons/effects/blood.dmi' , icon_state = null, loc = src)
+	silicon_image.override = TRUE
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "cult_dagger", silicon_image)
+
+	var/examine_text = {"Allows the scribing of blood runes of the cult of Nar'Sie.
+Hitting a cult structure will unanchor or reanchor it. Cult Girders will be destroyed in a single blow.
+Can be used to scrape blood runes away, removing any trace of them.
+Striking another cultist with it will purge all holy water from them and transform it into unholy water.
+Striking a noncultist, however, will tear their flesh."}
+
+	AddComponent(/datum/component/cult_ritual_item, "<span class='cult'>[examine_text]</span>")
 
 /obj/item/melee/cultblade
 	name = "eldritch longsword"
@@ -45,14 +51,13 @@
 	w_class = WEIGHT_CLASS_BULKY
 	block_level = 1
 	block_upgrade_walk = 1
-	block_power = 30
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	force = 30
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "rended")
 
-/obj/item/melee/cultblade/Initialize()
+/obj/item/melee/cultblade/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 40, 100)
 
@@ -70,7 +75,7 @@
 	item_flags = NEEDS_PERMIT | DROPDEL
 	flags_1 = NONE
 
-/obj/item/melee/cultblade/ghost/Initialize()
+/obj/item/melee/cultblade/ghost/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CULT_TRAIT)
 
@@ -95,6 +100,8 @@
 	throw_range = 3
 	sharpness = IS_SHARP
 	light_color = "#ff0000"
+	light_system = MOVABLE_LIGHT
+	light_range = 4
 	attack_verb = list("cleaved", "slashed", "tore", "hacked", "ripped", "diced", "carved")
 	icon_state = "cultbastard"
 	item_state = "cultbastard"
@@ -111,9 +118,8 @@
 	var/spin_cooldown = 250
 	var/dash_toggled = TRUE
 
-/obj/item/cult_bastard/Initialize()
+/obj/item/cult_bastard/Initialize(mapload)
 	. = ..()
-	set_light(4)
 	jaunt = new(src)
 	linked_action = new(src)
 	AddComponent(/datum/component/butchering, 50, 80)
@@ -142,7 +148,7 @@
 		to_chat(loc, "<span class='notice'>You lower [src] and prepare to swing it normally.</span>")
 
 /obj/item/cult_bastard/pickup(mob/living/user)
-	. = ..()
+	..()
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		force = 5
@@ -153,7 +159,7 @@
 	user.update_icons()
 
 /obj/item/cult_bastard/dropped(mob/user)
-	. = ..()
+	..()
 	linked_action.Remove(user)
 	jaunt.Remove(user)
 	user.update_icons()
@@ -263,6 +269,11 @@
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
 		return
+	if(ismob(hit_atom))
+		var/mob/M = hit_atom
+		if(M.anti_magic_check(holy = TRUE))
+			M.visible_message("[src] passes right through [M]!")
+			return
 	. = ..()
 
 
@@ -302,7 +313,7 @@
 /obj/item/clothing/head/culthood/alt/ghost
 	item_flags = DROPDEL
 
-/obj/item/clothing/head/culthood/alt/ghost/Initialize()
+/obj/item/clothing/head/culthood/alt/ghost/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CULT_TRAIT)
 
@@ -315,7 +326,7 @@
 /obj/item/clothing/suit/cultrobes/alt/ghost
 	item_flags = DROPDEL
 
-/obj/item/clothing/suit/cultrobes/alt/ghost/Initialize()
+/obj/item/clothing/suit/cultrobes/alt/ghost/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CULT_TRAIT)
 
@@ -345,7 +356,7 @@
 	icon_state = "cult_helmet"
 	item_state = "cult_helmet"
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75, "stamina" = 50)
-	brightness_on = 0
+	light_system = NO_LIGHT_SUPPORT
 	actions_types = list()
 	high_pressure_multiplier = 0.5
 	flags_1 = NONE
@@ -382,8 +393,19 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40,"energy" = 30, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 50, "acid" = 60, "stamina" = 40)
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	var/current_charges = 3
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
+
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/Initialize()
+	. = ..()
+	// note that these charges don't regenerate
+	AddComponent(/datum/component/shielded, recharge_start_delay = 0, shield_icon_file = 'icons/effects/cult_effects.dmi', shield_icon = "shield-cult", run_hit_callback = CALLBACK(src, .proc/shield_damaged))
+
+/// A proc for callback when the shield breaks, since cult robes are stupid and have different effects
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/proc/shield_damaged(mob/living/wearer, attack_text, new_current_charges)
+	wearer.visible_message("<span class='danger'>[wearer]'s robes neutralize [attack_text] in a burst of blood-red sparks!</span>")
+	new /obj/effect/temp_visual/cult/sparks(get_turf(wearer))
+	if(new_current_charges == 0)
+		wearer.visible_message("<span class='danger'>The runed shield around [wearer] suddenly disappears!</span>")
 
 /obj/item/clothing/head/hooded/cult_hoodie
 	name = "empowered cultist helmet"
@@ -401,22 +423,6 @@
 		user.dropItemToGround(src, TRUE)
 		user.Dizzy(30)
 		user.Paralyze(100)
-
-/obj/item/clothing/suit/hooded/cultrobes/cult_shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(current_charges)
-		owner.visible_message("<span class='danger'>\The [attack_text] is deflected in a burst of blood-red sparks!</span>")
-		current_charges--
-		new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
-		if(!current_charges)
-			owner.visible_message("<span class='danger'>The runed shield around [owner] suddenly disappears!</span>")
-			owner.update_inv_wear_suit()
-		return 1
-	return 0
-
-/obj/item/clothing/suit/hooded/cultrobes/cult_shield/worn_overlays(isinhands)
-	. = list()
-	if(!isinhands && current_charges)
-		. += mutable_appearance('icons/effects/cult_effects.dmi', "shield-cult", MOB_LAYER + 0.01)
 
 /obj/item/clothing/suit/hooded/cultrobes/berserker
 	name = "flagellant's robes"
@@ -453,6 +459,7 @@
 	item_state = "blindfold"
 	flash_protect = 1
 	flags_1 = NONE
+	vision_correction = 1
 
 /obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/living/user, slot)
 	..()
@@ -487,7 +494,7 @@
 	if(curselimit > 1)
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
-	if(locate(/obj/singularity/narsie) in GLOB.poi_list)
+	if(locate(/obj/eldritch/narsie) in GLOB.poi_list)
 		to_chat(user, "<span class='warning'>Nar'Sie is already on this plane, there is no delaying the end of all things.</span>")
 		return
 
@@ -582,7 +589,7 @@
 	name = "void torch"
 	desc = "Used by veteran cultists to instantly transport items to their needful brethren."
 	w_class = WEIGHT_CLASS_SMALL
-	brightness_on = 1
+	light_range = 1
 	icon_state = "torch"
 	item_state = "torch"
 	color = "#ff0000"
@@ -652,7 +659,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/datum/action/innate/cult/spear/spear_act
 
-/obj/item/cult_spear/Initialize()
+/obj/item/cult_spear/Initialize(mapload)
 	. = ..()
 
 /obj/item/cult_spear/ComponentInitialize()
@@ -680,7 +687,7 @@
 			else
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
 		else if(!..())
-			if(!L.anti_magic_check())
+			if(!L.anti_magic_check(magic=FALSE,holy=TRUE))
 				L.Knockdown(50)
 			break_spear(T)
 	else
@@ -748,7 +755,7 @@
 	guns_left = 24
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	fire_sound = 'sound/magic/wand_teleport.ogg'
-
+	weapon_weight = WEAPON_LIGHT
 
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage/blood
@@ -798,7 +805,7 @@
 	var/firing = FALSE
 	var/angle
 
-/obj/item/blood_beam/Initialize()
+/obj/item/blood_beam/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CULT_TRAIT)
 
@@ -808,7 +815,7 @@
 		return
 	var/C = user.client
 	if(ishuman(user) && C)
-		angle = Get_Angle(get_turf(src), get_turf(A))
+		angle = get_angle(get_turf(src), get_turf(A))
 	else
 		qdel(src)
 		return
@@ -952,7 +959,7 @@
 			else
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
 		else if(!..())
-			if(!L.anti_magic_check())
+			if(!L.anti_magic_check(magic=FALSE,holy=TRUE))
 				L.Knockdown(30)
 				if(D?.thrower)
 					for(var/mob/living/Next in orange(2, T))

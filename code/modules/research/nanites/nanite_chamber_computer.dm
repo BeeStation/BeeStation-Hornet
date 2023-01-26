@@ -6,7 +6,7 @@
 	circuit = /obj/item/circuitboard/computer/nanite_chamber_control
 	flags_1 = SAVE_SAFE_1
 
-/obj/machinery/computer/nanite_chamber_control/Initialize()
+/obj/machinery/computer/nanite_chamber_control/Initialize(mapload)
 	. = ..()
 	find_chamber()
 

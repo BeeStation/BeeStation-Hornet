@@ -857,7 +857,7 @@
 	name = "Micro-cell"
 	id = "robotic_stomach"
 	build_type = MECHFAB
-	build_path = /obj/item/organ/stomach/cell
+	build_path = /obj/item/organ/stomach/battery/ipc
 	materials = list(/datum/material/iron = 2000, /datum/material/glass = 2000, /datum/material/plasma = 200)
 	construction_time = 100
 	category = list("IPC Components")

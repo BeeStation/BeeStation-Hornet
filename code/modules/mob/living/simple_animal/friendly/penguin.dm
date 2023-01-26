@@ -19,7 +19,7 @@
 
 	do_footstep = TRUE
 
-/mob/living/simple_animal/pet/penguin/Initialize()
+/mob/living/simple_animal/pet/penguin/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/waddling)
 

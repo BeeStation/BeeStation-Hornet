@@ -1,5 +1,4 @@
 {
-	"dreammaker.extoolsDLL": "byond-extools.dll",
 	"eslint.nodePath": "./tgui/.yarn/sdks",
 	"eslint.workingDirectories": [
 		"./tgui"
@@ -10,12 +9,15 @@
 		"**/.yarn": true,
 		"**/.pnp.*": true
 	},
-	"workbench.editorAssociations": {
-		"*.dmi": "imagePreview.previewEditor"
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
 	},
 	"files.eol": "\n",
+	"files.insertFinalNewline": true,
 	"gitlens.advanced.blame.customArguments": ["-w"],
 	"tgstationTestExplorer.project.resultsType": "json",
+	"tgstationTestExplorer.project.DMEName": "beestation.dme",
+	"tgstationTestExplorer.project.defines": ["#define UNIT_TESTS", "#define CBT"],
 	"[javascript]": {
 		"editor.rulers": [80]
 	},

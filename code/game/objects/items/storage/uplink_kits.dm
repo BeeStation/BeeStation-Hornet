@@ -103,7 +103,7 @@
 			new /obj/item/doorCharge(src)
 			new /obj/item/camera_bug(src)
 			new /obj/item/sbeacondrop/powersink(src)
-			new /obj/item/cartridge/virus/syndicate(src)
+			new /obj/item/computer_hardware/hard_drive/role/virus/syndicate(src)
 			new /obj/item/storage/toolbox/syndicate(src) //To actually get to those places
 			new /obj/item/pizzabox/bomb(src)
 			new /obj/item/storage/box/syndie_kit/emp(src)
@@ -136,7 +136,7 @@
 			new /obj/item/ammo_box/magazine/m10mm/hp(src)
 			new /obj/item/clothing/under/chameleon(src)
 			new /obj/item/card/id/syndicate(src)
-			new /obj/item/reagent_containers/hypospray/medipen/pumpup(src)
+			new /obj/item/reagent_containers/hypospray/medipen/stimulants(src)
 			new /obj/item/reagent_containers/glass/rag(src)
 			new /obj/item/encryptionkey/syndicate(src)
 
@@ -196,7 +196,7 @@
 			new /obj/item/clothing/gloves/color/black(src)
 			new /obj/item/clothing/mask/chameleon(src)
 			new /obj/item/clothing/suit/hooded/wintercoat(src)
-			new /obj/item/clothing/shoes/winterboots(src)
+			new /obj/item/clothing/shoes/winterboots/noslip(src)
 			new /obj/item/grenade/gluon(src)
 			new /obj/item/grenade/gluon(src)
 			new /obj/item/grenade/gluon(src)
@@ -217,7 +217,7 @@
 /obj/item/paper/contractor_guide
 	name = "Contractor Guide"
 
-/obj/item/paper/contractor_guide/Initialize()
+/obj/item/paper/contractor_guide/Initialize(mapload)
 	info = {"<p>Welcome agent, congratulations on your new position as contractor. On top of your already assigned objectives,
 			this kit will provide you contracts to take on for TC payments.</p>
 
@@ -287,7 +287,7 @@
 		/obj/item/storage/box/syndie_kit/imp_radio,
 		/obj/item/clothing/gloves/krav_maga/combatglovesplus,
 		/obj/item/gun/ballistic/automatic/c20r/toy/unrestricted/riot,
-		/obj/item/reagent_containers/hypospray/medipen/pumpup,
+		/obj/item/reagent_containers/hypospray/medipen/stimulants,
 		/obj/item/compressionkit,
 		/obj/item/storage/box/syndie_kit/imp_freedom,
 		/obj/item/storage/box/syndie_kit/chameleon,
@@ -460,11 +460,11 @@
 	new /obj/item/clothing/glasses/chameleon(src)
 	new /obj/item/clothing/head/chameleon(src)
 	new /obj/item/clothing/mask/chameleon(src)
-	new /obj/item/clothing/neck/cloak/chameleon(src)
+	new /obj/item/clothing/neck/chameleon(src)
 	new /obj/item/storage/backpack/chameleon(src)
 	new /obj/item/radio/headset/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
-	new /obj/item/pda/chameleon(src)
+	new /obj/item/modular_computer/tablet/pda/chameleon(src)
 	new /obj/item/razor(src)
 	new /obj/item/handmirror(src)
 	new /obj/item/clothing/head/wig(src)
@@ -480,11 +480,11 @@
 	new /obj/item/clothing/glasses/chameleon(src)
 	new /obj/item/clothing/head/chameleon/envirohelm(src)
 	new /obj/item/clothing/mask/chameleon(src)
-	new /obj/item/clothing/neck/cloak/chameleon(src)
+	new /obj/item/clothing/neck/chameleon(src)
 	new /obj/item/storage/backpack/chameleon(src)
 	new /obj/item/radio/headset/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
-	new /obj/item/pda/chameleon(src)
+	new /obj/item/modular_computer/tablet/pda/chameleon(src)
 
 //5*(2*4) = 5*8 = 45, 45 damage if you hit one person with all 5 stars.
 //Not counting the damage it will do while embedded (2*4 = 8, at 15% chance)
@@ -524,7 +524,7 @@
 	new /obj/item/radio/headset/headset_cent/empty(src)
 	new /obj/item/clothing/glasses/sunglasses/advanced(src)
 	new /obj/item/storage/backpack/satchel(src)
-	new /obj/item/pda/heads(src)
+	new /obj/item/modular_computer/tablet/pda/heads(src)
 	new /obj/item/clipboard(src)
 
 /obj/item/storage/box/syndie_kit/chameleon/broken/PopulateContents()
@@ -538,7 +538,8 @@
 	new /obj/item/storage/backpack/chameleon/broken(src)
 	new /obj/item/radio/headset/chameleon/broken(src)
 	new /obj/item/stamp/chameleon/broken(src)
-	new /obj/item/pda/chameleon/broken(src)
+	new /obj/item/modular_computer/tablet/pda/chameleon/broken(src)
+	new /obj/item/card/id/syndicate/broken(src)
 	// No chameleon laser, they can't randomise for //REASONS//
 
 /obj/item/storage/box/syndie_kit/bee_grenades
@@ -582,4 +583,33 @@
 	for(var/i in implants)
 		group.register(i)
 	desc += " The implants are registered to the \"[group.name]\" group."
-  
+
+
+/obj/item/storage/box/syndie_kit/toy_box
+	name = "Box of DonkCo. toys"
+	desc = "filled with safe toys that have passed Nanotrasen saftey assurance, but contained in a suspicious red box \"for no reason.\""
+
+/obj/item/storage/box/syndie_kit/toy_box/PopulateContents()
+	new /obj/item/toy/spinningtoy(src)
+	new /obj/item/toy/talking/AI(src)
+	new /obj/item/toy/talking/codex_gigas(src)
+	new /obj/item/toy/eldrich_book(src)
+	new /obj/item/clothing/head/syndicatefake(src)
+	new /obj/item/clothing/suit/syndicatefake(src)
+	new /obj/item/card/emagfake(src)
+	new /obj/item/hot_potato/harmless/toy(src)
+	new /obj/item/toy/batong(src)
+	new /obj/item/toy/clockwork_watch(src)
+	for(var/i in 1 to 2)
+		new /obj/item/toy/cog(src)
+	new /obj/item/restraints/handcuffs/fake(src)
+	new /obj/item/toy/windupToolbox(src)
+	new /obj/item/toy/toy_dagger(src)
+	new /obj/item/toy/sword(src)
+	new /obj/item/dualsaber/toy(src)
+	new /obj/item/toy/gun(src)
+	new /obj/item/toy/foamblade(src)
+	new /obj/item/toy/redbutton(src)
+	new /obj/item/disk/nuclear/fake/obvious
+	for(var/i in 1 to 4)
+		new /obj/item/toy/reality_pierce(src)

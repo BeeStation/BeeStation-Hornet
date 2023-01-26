@@ -305,6 +305,12 @@
 	required_reagents = list(/datum/reagent/medicine/antitoxin = 1, /datum/reagent/carbon = 2)
 	required_catalysts = list(/datum/reagent/toxin/plasma = 1)
 
+/datum/chemical_reaction/meclizine
+	name = "Meclizine"
+	id = /datum/reagent/medicine/meclizine
+	results = list(/datum/reagent/medicine/meclizine = 4)
+	required_reagents = list(/datum/reagent/ammonia = 1, /datum/reagent/chlorine = 1, /datum/reagent/carbon = 2)
+
 /datum/chemical_reaction/hepanephrodaxon
 	name = "Hepanephrodaxon"
 	id = "hepanephrodaxon"

@@ -45,7 +45,7 @@
 	flags_1 = SAVE_SAFE_1
 	var/active = 1
 
-/obj/structure/firepit/Initialize()
+/obj/structure/firepit/Initialize(mapload)
 	. = ..()
 	toggleFirepit()
 

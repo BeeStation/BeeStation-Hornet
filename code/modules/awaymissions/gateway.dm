@@ -14,7 +14,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	var/list/linked = list()
 	var/can_link = FALSE	//Is this the centerpiece?
 
-/obj/machinery/gateway/Initialize()
+/obj/machinery/gateway/Initialize(mapload)
 	randomspawns = GLOB.awaydestinations
 	update_icon()
 	if(!istype(src, /obj/machinery/gateway/centerstation) && !istype(src, /obj/machinery/gateway/centeraway))
@@ -76,7 +76,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 /obj/machinery/gateway/safe_throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG)
 	return
 
-/obj/machinery/gateway/centerstation/Initialize()
+/obj/machinery/gateway/centerstation/Initialize(mapload)
 	. = ..()
 	if(!GLOB.the_gateway)
 		GLOB.the_gateway = src
@@ -87,6 +87,9 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 /obj/machinery/gateway/centerstation/Destroy()
 	if(GLOB.the_gateway == src)
 		GLOB.the_gateway = null
+	if(awaygate)
+		awaygate.stationgate = null
+		awaygate = null
 	return ..()
 
 //this is da important part wot makes things go
@@ -107,7 +110,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	icon_state = "offcenter"
 
 /obj/machinery/gateway/centerstation/process()
-	if((stat & (NOPOWER)) && use_power)
+	if((machine_stat & (NOPOWER)) && use_power)
 		if(active)
 			toggleoff()
 		return
@@ -177,11 +180,16 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	can_link = TRUE
 
 
-/obj/machinery/gateway/centeraway/Initialize()
+/obj/machinery/gateway/centeraway/Initialize(mapload)
 	. = ..()
 	update_icon()
 	stationgate = locate(/obj/machinery/gateway/centerstation)
 
+/obj/machinery/gateway/centeraway/Destroy()
+	if(stationgate)
+		stationgate.awaygate = null
+		stationgate = null
+	return ..()
 
 /obj/machinery/gateway/centeraway/update_icon()
 	if(active)
@@ -239,7 +247,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 /obj/machinery/gateway/centeraway/admin
 	desc = "A mysterious gateway built by unknown hands, this one seems more compact."
 
-/obj/machinery/gateway/centeraway/admin/Initialize()
+/obj/machinery/gateway/centeraway/admin/Initialize(mapload)
 	. = ..()
 	if(stationgate && !stationgate.awaygate)
 		stationgate.awaygate = src

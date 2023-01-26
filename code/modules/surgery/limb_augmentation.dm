@@ -15,7 +15,7 @@
 	if(istype(tool, /obj/item/organ_storage) && istype(tool.contents[1], /obj/item/bodypart))
 		tool = tool.contents[1]
 	var/obj/item/bodypart/aug = tool
-	if(aug.status != BODYPART_ROBOTIC)
+	if(IS_ORGANIC_LIMB(aug))
 		to_chat(user, "<span class='warning'>That's not an augment, silly!</span>")
 		return -1
 	if(aug.body_zone != target_zone)

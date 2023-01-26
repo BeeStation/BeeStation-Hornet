@@ -21,7 +21,7 @@
 	var/list/viable_mobtypes = list() //typepaths of viable mobs
 	var/mob/living/carbon/affected_mob = null
 	var/list/cures = list() //list of cures if the disease has the CURABLE flag, these are reagent ids
-	var/infectivity = 65
+	var/infectivity = 10
 	var/cure_chance = 8
 	var/carrier = FALSE //If our host is only a carrier
 	var/bypasses_immunity = FALSE //Does it skip species virus immunity check? Some things may diseases and not viruses
@@ -33,6 +33,7 @@
 	var/list/infectable_biotypes = list(MOB_ORGANIC) //if the disease can spread on organics, synthetics, or undead
 	var/process_dead = FALSE //if this ticks while the host is dead
 	var/copy_type = null //if this is null, copies will use the type of the instance being copied
+	var/initial = TRUE //used in advance diseases to check if a virus has already infected a mob- the first infection never mutates
 
 /datum/disease/Destroy()
 	. = ..()

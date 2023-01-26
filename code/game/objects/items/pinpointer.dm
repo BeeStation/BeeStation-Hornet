@@ -22,7 +22,7 @@
 	var/process_scan = TRUE // some pinpointers change target every time they scan, which means we can't have it change very process but instead when it turns on.
 	var/icon_suffix = "" // for special pinpointer icons
 
-/obj/item/pinpointer/Initialize()
+/obj/item/pinpointer/Initialize(mapload)
 	. = ..()
 	GLOB.pinpointer_list += src
 
@@ -106,7 +106,7 @@
 		var/obj/item/clothing/under/U = H.w_uniform
 
 		//Suit sensors radio transmitter must not be jammed.
-		if(U.is_jammed())
+		if(U.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK))
 			return FALSE
 
 		// Suit sensors must be on maximum.

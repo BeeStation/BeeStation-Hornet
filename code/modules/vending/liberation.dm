@@ -31,5 +31,5 @@
 	resistance_flags = FIRE_PROOF
 	default_price = 300
 	extra_price = 500
-	payment_department = ACCOUNT_SEC
 	flags_1 = NONE
+	dept_req_for_free = ACCOUNT_SEC_BITFLAG

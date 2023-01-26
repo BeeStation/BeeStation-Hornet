@@ -5,8 +5,9 @@
 	resistance = 2
 	stage_speed = 2
 	transmission = 0
-	level = 5
+	level = 4
 	severity = 0
+	prefixes = list("Zombie ")
 
 /datum/symptom/undead_adaptation/OnAdd(datum/disease/advance/A)
 	A.process_dead = TRUE
@@ -23,8 +24,10 @@
 	resistance = 4
 	stage_speed = -2
 	transmission = 3
-	level = 5
+	level = 4
 	severity = 0
+	prefixes = list("Crystalline ")
+
 
 /datum/symptom/inorganic_adaptation/OnAdd(datum/disease/advance/A)
 	A.infectable_biotypes |= MOB_INORGANIC

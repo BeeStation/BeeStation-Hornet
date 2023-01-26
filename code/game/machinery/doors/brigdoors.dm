@@ -2,11 +2,8 @@
 #define FONT_SIZE "5pt"
 #define FONT_COLOR "#09f"
 #define FONT_STYLE "Small Fonts"
-#define MAX_TIMER 15 MINUTES
 
-#define PRESET_SHORT 2 MINUTES
-#define PRESET_MEDIUM 3 MINUTES
-#define PRESET_LONG 5 MINUTES
+
 
 
 
@@ -47,13 +44,13 @@
 
 
 
-/obj/machinery/door_timer/Initialize()
+/obj/machinery/door_timer/Initialize(mapload)
 	. = ..()
 
 	Radio = new/obj/item/radio(src)
 	Radio.listening = 0
 
-/obj/machinery/door_timer/Initialize()
+/obj/machinery/door_timer/Initialize(mapload)
 	. = ..()
 	if(id != null)
 		for(var/obj/machinery/door/window/brigdoor/M in urange(20, src))
@@ -69,7 +66,7 @@
 				closets += WEAKREF(C)
 
 	if(!length(doors) && !length(flashers) && length(closets))
-		stat |= BROKEN
+		set_machine_stat(machine_stat | BROKEN)
 	update_icon()
 
 
@@ -77,11 +74,11 @@
 // if it's less than 0, open door, reset timer
 // update the door_timer window and the icon
 /obj/machinery/door_timer/process()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return
 
 	if(timing)
-		if(world.time - activation_time >= timer_duration)
+		if(REALTIMEOFDAY - activation_time >= timer_duration)
 			timer_end() // open doors, reset timer, clear status screen
 		update_icon()
 
@@ -93,10 +90,10 @@
 // open/closedoor checks if door_timer has power, if so it checks if the
 // linked door is open/closed (by density) then opens it/closes it.
 /obj/machinery/door_timer/proc/timer_start()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return 0
 
-	activation_time = world.time
+	activation_time = REALTIMEOFDAY
 	timing = TRUE
 
 	for(var/datum/weakref/door_ref as anything in doors)
@@ -124,7 +121,7 @@
 
 /obj/machinery/door_timer/proc/timer_end(forced = FALSE)
 
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return 0
 
 	if(!forced)
@@ -162,12 +159,12 @@
 
 
 /obj/machinery/door_timer/proc/time_left(seconds = FALSE)
-	. = max(0,timer_duration - (activation_time ? world.time - activation_time : 0))
+	. = max(0,timer_duration - (activation_time ? REALTIMEOFDAY - activation_time : 0))
 	if(seconds)
 		. /= 10
 
 /obj/machinery/door_timer/proc/set_timer(value)
-	var/new_time = clamp(value,0,MAX_TIMER)
+	var/new_time = clamp(value,0,CONFIG_GET(number/brig_timer_max) MINUTES)
 	. = new_time == timer_duration //return 1 on no change
 	timer_duration = new_time
 
@@ -191,11 +188,11 @@
 // if BROKEN, display blue screen of death icon AI uses
 // if timing=true, run update display function
 /obj/machinery/door_timer/update_icon()
-	if(stat & (NOPOWER))
+	if(machine_stat & (NOPOWER))
 		icon_state = "frame"
 		return
 
-	if(stat & (BROKEN))
+	if(machine_stat & (BROKEN))
 		set_picture("ai_bsod")
 		return
 
@@ -287,26 +284,22 @@
 			var/preset_time = time_left()
 			switch(preset)
 				if("short")
-					preset_time = PRESET_SHORT
+					preset_time = CONFIG_GET(number/brig_timer_preset_short) MINUTES
 				if("medium")
-					preset_time = PRESET_MEDIUM
+					preset_time = CONFIG_GET(number/brig_timer_preset_med) MINUTES
 				if("long")
-					preset_time = PRESET_LONG
+					preset_time = CONFIG_GET(number/brig_timer_preset_long) MINUTES
 			. = !set_timer(preset_time)
 			investigate_log("[key_name(usr)] set cell [id]'s timer to [preset_time/10] seconds", INVESTIGATE_RECORDS)
 			user.log_message("set cell [id]'s timer to [preset_time/10] seconds", LOG_ATTACK)
 			if(timing)
-				activation_time = world.time
+				activation_time = REALTIMEOFDAY
 		else
 			. = FALSE
 
 
 
-#undef PRESET_SHORT
-#undef PRESET_MEDIUM
-#undef PRESET_LONG
 
-#undef MAX_TIMER
 #undef FONT_SIZE
 #undef FONT_COLOR
 #undef FONT_STYLE

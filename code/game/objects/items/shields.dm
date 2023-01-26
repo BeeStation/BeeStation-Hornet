@@ -3,7 +3,7 @@
 	icon = 'icons/obj/shields.dmi'
 	block_level = 1
 	block_upgrade_walk = 1
-	block_flags = null
+	block_flags = BLOCKING_PROJECTILE
 	block_power = 50
 	max_integrity =  75
 	flags_1 = SAVE_SAFE_1
@@ -14,6 +14,7 @@
 	if(transparent && (hitby.pass_flags & PASSGLASS))
 		return FALSE
 	return ..()
+
 
 /obj/item/shield/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
 	if(durability)
@@ -39,6 +40,8 @@
 			if(block_flags & BLOCKING_NASTY)
 				L.attackby(src, owner)
 				owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
+		if(attackforce)
+			owner.changeNext_move(CLICK_CD_MELEE)
 		if (obj_integrity <= attackforce)
 			var/turf/T = get_turf(owner)
 			T.visible_message("<span class='warning'>[hitby] destroys [src]!</span>")
@@ -129,7 +132,6 @@
 
 /obj/item/shield/riot/roman/fake
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>. It appears to be a bit flimsy."
-	block_level = 1
 	block_upgrade_walk = 1
 	block_power = 0
 	max_integrity = 30
@@ -156,7 +158,7 @@
 
 /obj/item/shield/riot/buckler/shatter(mob/living/carbon/human/owner)
 	playsound(owner, 'sound/effects/bang.ogg', 50)
-	new /obj/item/stack/sheet/mineral/wood(get_turf(src))
+	new /obj/item/stack/sheet/wood(get_turf(src))
 	qdel(src)
 
 /obj/item/shield/riot/goliath
@@ -187,7 +189,7 @@
 	item_state = "flashshield"
 	var/obj/item/assembly/flash/handheld/embedded_flash
 
-/obj/item/shield/riot/flash/Initialize()
+/obj/item/shield/riot/flash/Initialize(mapload)
 	. = ..()
 	embedded_flash = new(src)
 
@@ -258,7 +260,7 @@
 	block_sound = 'sound/weapons/egloves.ogg'
 	block_flags = BLOCKING_PROJECTILE
 	flags_1 = NONE
-	var/base_icon_state = "eshield" // [base_icon_state]1 for expanded, [base_icon_state]0 for contracted
+	base_icon_state = "eshield" // [base_icon_state]1 for expanded, [base_icon_state]0 for contracted
 	var/on_force = 10
 	var/on_throwforce = 8
 	var/on_throw_speed = 2
@@ -278,7 +280,7 @@
 	playsound(owner, 'sound/effects/beepskyspinsabre.ogg', 35, 1)
 	to_chat(owner, "<span class='warning'>The [src] is ready to use!.</span>")
 
-/obj/item/shield/energy/Initialize()
+/obj/item/shield/energy/Initialize(mapload)
 	. = ..()
 	icon_state = "[base_icon_state]0"
 

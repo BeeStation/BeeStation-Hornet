@@ -9,7 +9,7 @@
 	delivery_icon = null
 	door_anim_time = 0
 
-/obj/structure/closet/crate/bin/Initialize()
+/obj/structure/closet/crate/bin/Initialize(mapload)
 	. = ..()
 	if(icon_state == "[initial(icon_state)]open")
 		opened = TRUE

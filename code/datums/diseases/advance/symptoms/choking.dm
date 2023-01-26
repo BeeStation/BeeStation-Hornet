@@ -29,6 +29,8 @@ Bonus
 	base_message_chance = 15
 	symptom_delay_min = 14
 	symptom_delay_max = 30
+	bodies = list("Lung")
+	suffixes = list(" Tuberculosis")
 	var/paralysis = FALSE
 	threshold_desc = "<b>Stage Speed 8:</b> Additionally synthesizes pancuronium and sodium thiopental inside the host.<br>\
 					  <b>Transmission 8:</b> Doubles the damage caused by the symptom."

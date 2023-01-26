@@ -80,7 +80,7 @@
 			to_chat(user, "<span class='warning'>You don't see anything that can be pried with [I]!</span>")
 
 
-/obj/structure/mecha_wreckage/transfer_ai(interaction, mob/user, null, obj/item/aicard/card)
+/obj/structure/mecha_wreckage/transfer_ai(interaction, mob/user, mob/living/silicon/ai/ai_mob, obj/item/aicard/card)
 	if(!..())
 		return
 
@@ -106,7 +106,7 @@
 	name = "\improper Gygax wreckage"
 	icon_state = "gygax-broken"
 
-/obj/structure/mecha_wreckage/gygax/Initialize()
+/obj/structure/mecha_wreckage/gygax/Initialize(mapload)
 	. = ..()
 	var/list/parts = list(/obj/item/mecha_parts/part/gygax_torso,
 								/obj/item/mecha_parts/part/gygax_head,
@@ -149,7 +149,7 @@
 	name = "\improper Ripley wreckage"
 	icon_state = "ripley-broken"
 
-/obj/structure/mecha_wreckage/ripley/Initialize()
+/obj/structure/mecha_wreckage/ripley/Initialize(mapload)
 	. = ..()
 	var/list/parts = list(/obj/item/mecha_parts/part/ripley_torso,
 								/obj/item/mecha_parts/part/ripley_left_arm,
@@ -166,7 +166,7 @@
 	name = "\improper Ripley MK-II wreckage"
 	icon_state = "ripleymkii-broken"
 
-/obj/structure/mecha_wreckage/ripley/mkii/Initialize()
+/obj/structure/mecha_wreckage/ripley/mkii/Initialize(mapload)
 	. = ..()
 	var/list/parts = list(/obj/item/mecha_parts/part/ripley_torso,
 								/obj/item/mecha_parts/part/ripley_left_arm,
@@ -184,7 +184,7 @@
 	name = "\improper Firefighter wreckage"
 	icon_state = "firefighter-broken"
 
-/obj/structure/mecha_wreckage/ripley/firefighter/Initialize()
+/obj/structure/mecha_wreckage/ripley/firefighter/Initialize(mapload)
 	. = ..()
 	var/list/parts = list(/obj/item/mecha_parts/part/ripley_torso,
 								/obj/item/mecha_parts/part/ripley_left_arm,
@@ -209,7 +209,7 @@
 	icon_state = "honker-broken"
 	desc = "All is right in the universe."
 
-/obj/structure/mecha_wreckage/honker/Initialize()
+/obj/structure/mecha_wreckage/honker/Initialize(mapload)
 	. = ..()
 	var/list/parts = list(
 							/obj/item/mecha_parts/chassis/honker,
@@ -230,7 +230,7 @@
 	name = "\improper Durand wreckage"
 	icon_state = "durand-broken"
 
-/obj/structure/mecha_wreckage/durand/Initialize()
+/obj/structure/mecha_wreckage/durand/Initialize(mapload)
 	. = ..()
 	var/list/parts = list(
 								/obj/item/mecha_parts/part/durand_torso,
@@ -255,7 +255,7 @@
 	name = "\improper Odysseus wreckage"
 	icon_state = "odysseus-broken"
 
-/obj/structure/mecha_wreckage/odysseus/Initialize()
+/obj/structure/mecha_wreckage/odysseus/Initialize(mapload)
 	. = ..()
 	var/list/parts = list(
 								/obj/item/mecha_parts/part/odysseus_torso,

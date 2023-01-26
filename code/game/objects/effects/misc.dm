@@ -36,16 +36,29 @@
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "2" //what?
 	anchored = TRUE
-	opacity = TRUE
-	density = TRUE
+	opacity = FALSE
+	density = FALSE
 	layer = FLY_LAYER
+
+/obj/effect/overlay/thermite/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/overlay/thermite/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+	if(isliving(AM))
+		var/mob/living/L = AM
+		L.adjust_fire_stacks(5)
+		L.IgniteMob()
 
 //Makes a tile fully lit no matter what
 /obj/effect/fullbright
 	icon = 'icons/effects/alphacolors.dmi'
 	icon_state = "white"
 	plane = LIGHTING_PLANE
-	layer = LIGHTING_LAYER
 	blend_mode = BLEND_ADD
 
 /obj/effect/abstract/marker
@@ -72,12 +85,18 @@
 	desc = "Tell a coder if you're seeing this."
 	icon_state = "nothing"
 	light_color = "#FFFFFF"
+	light_system = MOVABLE_LIGHT
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/obj/effect/dummy/lighting_obj/Initialize(mapload, _color, _range, _power, _duration)
+/obj/effect/dummy/lighting_obj/Initialize(mapload, _range, _power, _color, _duration)
 	. = ..()
-	set_light(_range ? _range : light_range, _power ? _power : light_power, _color ? _color : light_color)
+	if(!isnull(_range))
+		set_light_range(_range)
+	if(!isnull(_power))
+		set_light_power(_power)
+	if(!isnull(_color))
+		set_light_color(_color)
 	if(_duration)
 		QDEL_IN(src, _duration)
 

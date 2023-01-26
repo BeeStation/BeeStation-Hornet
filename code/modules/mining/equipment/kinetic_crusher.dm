@@ -12,7 +12,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	throwforce = 5
-	block_upgrade_walk = 1
 	throw_speed = 4
 	armour_penetration = 10
 	materials = list(/datum/material/iron=1150, /datum/material/glass=2075)
@@ -21,18 +20,19 @@
 	sharpness = IS_SHARP
 	actions_types = list(/datum/action/item_action/toggle_light)
 	flags_1 = SAVE_SAFE_1
+	light_system = MOVABLE_LIGHT
+	light_range = 5
+	light_on = FALSE
 	var/list/trophies = list()
 	var/charged = TRUE
 	var/charge_time = 15
-	var/detonation_damage = 50
-	var/backstab_bonus = 30
-	var/light_on = FALSE
-	var/brightness_on = 5
+	var/detonation_damage = 25
+	var/backstab_bonus = 15
 
 /obj/item/kinetic_crusher/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/butchering, 60, 110) //technically it's huge and bulky, but this provides an incentive to use it
-	AddComponent(/datum/component/two_handed, force_unwielded=0, force_wielded=20)
+	AddComponent(/datum/component/two_handed, force_unwielded=0, force_wielded=14)
 
 /obj/item/kinetic_crusher/Destroy()
 	QDEL_LIST(trophies)
@@ -135,16 +135,9 @@
 		playsound(src.loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
 
 /obj/item/kinetic_crusher/ui_action_click(mob/user, actiontype)
-	light_on = !light_on
+	set_light_on(!light_on)
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
-	update_brightness(user)
 	update_icon()
-
-/obj/item/kinetic_crusher/proc/update_brightness(mob/user = null)
-	if(light_on)
-		set_light(brightness_on)
-	else
-		set_light(0)
 
 /obj/item/kinetic_crusher/update_icon()
 	..()
@@ -428,17 +421,11 @@
 	denied_type = /obj/item/crusher_trophy/vortex_talisman
 
 /obj/item/crusher_trophy/vortex_talisman/effect_desc()
-	return "mark detonation to create a barrier you can pass"
+	return "mark detonation to create a homing hierophant chaser" //Wall was way too cheesy and allowed miners to be nearly invincible while dumb mob AI just rubbed its face on the wall.
 
 /obj/item/crusher_trophy/vortex_talisman/on_mark_detonation(mob/living/target, mob/living/user)
-	var/turf/T = get_turf(user)
-	new /obj/effect/temp_visual/hierophant/wall/crusher(T, user) //a wall only you can pass!
-	var/turf/otherT = get_step(T, turn(user.dir, 90))
-	if(otherT)
-		new /obj/effect/temp_visual/hierophant/wall/crusher(otherT, user)
-	otherT = get_step(T, turn(user.dir, -90))
-	if(otherT)
-		new /obj/effect/temp_visual/hierophant/wall/crusher(otherT, user)
-
-/obj/effect/temp_visual/hierophant/wall/crusher
-	duration = 75
+	if(isliving(target)) //living
+		var/obj/effect/temp_visual/hierophant/chaser/C = new(get_turf(user), user, target, 3, TRUE)
+		C.damage = 10 // Weaker because there is no cooldown
+		C.monster_damage_boost = FALSE
+		log_combat(user, target, "fired a chaser at", src)

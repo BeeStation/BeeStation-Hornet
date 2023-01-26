@@ -26,7 +26,7 @@ SUBSYSTEM_DEF(acid)
 	while (currentrun.len)
 		var/obj/O = currentrun[currentrun.len]
 		currentrun.len--
-		if (!O || QDELETED(O))
+		if (QDELETED(O))
 			processing -= O
 			if (MC_TICK_CHECK)
 				return
@@ -34,7 +34,7 @@ SUBSYSTEM_DEF(acid)
 
 		if(O.acid_level && O.acid_processing())
 		else
-			O.cut_overlay(GLOB.acid_overlay, TRUE)
+			O.update_icon()
 			processing -= O
 
 		if (MC_TICK_CHECK)

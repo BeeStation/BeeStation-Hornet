@@ -19,3 +19,7 @@
 
 /obj/machinery/atmospherics/components/binary/getNodeConnects()
 	return list(turn(dir, 180), dir)
+
+///Used by binary devices to set what the offset will be for each layer
+/obj/machinery/atmospherics/components/binary/proc/set_overlay_offset(pipe_layer)
+	return pipe_layer & 1 ? 1 : 2

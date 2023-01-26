@@ -76,7 +76,8 @@
 
 /obj/item/assembly/flash
 	name = "flash"
-	desc = "A powerful and versatile flashbulb device, with applications ranging from disorienting attackers to acting as visual receptors in robot production."
+	desc = "A powerful and versatile flashbulb device, with applications ranging from disorienting attackers to acting as visual receptors in robot production. \
+		It is highly effective against targets who aren't standing or are suffering from exhaustion."
 	icon_state = "flash"
 	item_state = "flashtool"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
@@ -85,8 +86,11 @@
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(/datum/material/iron = 300, /datum/material/glass = 300)
 	light_color = LIGHT_COLOR_WHITE
+	light_system = MOVABLE_LIGHT //Used as a flash here.
+	light_range = FLASH_LIGHT_RANGE
 	light_power = FLASH_LIGHT_POWER
 	flags_1 = SAVE_SAFE_1
+	light_on = FALSE
 	var/flashing_overlay = "flash-f"
 	var/last_used = 0 //last world.time it was used.
 	var/cooldown = 20
@@ -100,7 +104,7 @@
 /obj/item/assembly/flash/handheld/strong
 	bulb = /obj/item/flashbulb/recharging/revolution
 
-/obj/item/assembly/flash/Initialize()
+/obj/item/assembly/flash/Initialize(mapload)
 	. = ..()
 	bulb = new bulb
 
@@ -115,7 +119,7 @@
 	if(bulb.charges_left <= 0)
 		user.visible_message("<span class='suicide'>[user] raises \the [src] up to [user.p_their()] eyes and activates it ... but it's burnt out!</span>")
 		return SHAME
-	else if(user.eye_blind)
+	else if(user.is_blind())
 		user.visible_message("<span class='suicide'>[user] raises \the [src] up to [user.p_their()] eyes and activates it ... but [user.p_theyre()] blind!</span>")
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] raises \the [src] up to [user.p_their()] eyes and activates it! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -158,6 +162,7 @@
 	return TRUE
 
 /obj/item/assembly/flash/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
+	bulb.charges_left = 0
 	if(!burnt_out)
 		burnt_out = TRUE
 		update_icon()
@@ -218,11 +223,17 @@
 			bulb.charges_left ++
 	last_trigger = world.time
 	playsound(src, 'sound/weapons/flash.ogg', 100, TRUE)
-	flash_lighting_fx(FLASH_LIGHT_RANGE, light_power, light_color)
+	set_light_on(TRUE)
+	addtimer(CALLBACK(src, .proc/flash_end), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
 	update_icon(TRUE)
 	if(user && !clown_check(user))
 		return FALSE
 	return TRUE
+
+
+/obj/item/assembly/flash/proc/flash_end()
+	set_light_on(FALSE)
+
 
 /obj/item/assembly/flash/proc/flash_carbon(mob/living/carbon/M, mob/user, power = 15, targeted = TRUE, generic_message = FALSE)
 	if(!istype(M))
@@ -234,7 +245,8 @@
 	if(generic_message && M != user)
 		to_chat(M, "<span class='disarm'>[src] emits a blinding light!</span>")
 	if(targeted)
-		if(M.flash_act(1, 1))
+		//No flash protection, blind and stun
+		if(M.flash_act(1, TRUE))
 			if(user)
 				terrible_conversion_proc(M, user)
 				visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
@@ -242,8 +254,28 @@
 				to_chat(M, "<span class='userdanger'>[user] blinds you with the flash!</span>")
 			else
 				to_chat(M, "<span class='userdanger'>You are blinded by [src]!</span>")
-			M.Paralyze(70)
+			//Will be 0 if the user has no stmaina loss, will be 1 if they are in stamcrit
+			var/flash_proportion = CLAMP01(M.getStaminaLoss() / (M.maxHealth - M.crit_threshold))
+			if (!(M.mobility_flags & MOBILITY_STAND))
+				flash_proportion = 1
+			if(flash_proportion > 0.4)
+				M.Paralyze(70 * flash_proportion)
+			else
+				M.Knockdown(max(70 * flash_proportion, 5))
+			M.confused = max(M.confused, 4)
 
+		//Basic flash protection, only blind
+		else if(M.flash_act(2, TRUE))
+			if(user)
+				//Tell the user that their flash failed
+				visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
+				to_chat(user, "<span class='warning'>You fail to blind [M] with the flash!</span>")
+				//Tell the victim that they have been blinded
+				to_chat(M, "<span class='userdanger'>[user] blinds you with the flash!</span>")
+			else
+				to_chat(M, "<span class='userdanger'>You are blinded by [src]!</span>")
+
+		//Complete failure to blind
 		else if(user)
 			visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
 			to_chat(user, "<span class='warning'>You fail to blind [M] with the flash!</span>")
@@ -251,7 +283,7 @@
 		else
 			to_chat(M, "<span class='danger'>[src] fails to blind you!</span>")
 	else
-		M.flash_act()
+		M.flash_act(2)
 
 /obj/item/assembly/flash/attack(mob/living/M, mob/user)
 	if(!try_use_flash(user))

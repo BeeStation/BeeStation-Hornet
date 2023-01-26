@@ -1,6 +1,6 @@
 /client
 	/// A list of any keys held currently
-	var/list/keys_held = list() 
+	var/list/keys_held = list()
 	// These next two vars are to apply movement for keypresses and releases made while move delayed.
 	// Because discarding that input makes the game less responsive.
 	var/next_move_dir_add // On next move, add this dir to the move that would otherwise be done
@@ -22,6 +22,8 @@
 	var/erase_output = ""
 	for(var/i in 1 to macro_sets.len)
 		var/setname = macro_sets[i]
+		if(copytext(setname, 1, 9) == "persist_") // Don't remove macro sets not handled by input. Used in input_box.dm by create_input_window
+			continue
 		var/list/macro_set = params2list(winget(src, "[setname].*", "command")) // The third arg doesnt matter here as we're just removing them all
 		for(var/k in 1 to macro_set.len)
 			var/list/split_name = splittext(macro_set[k], ".")
@@ -45,7 +47,7 @@
 			var/command = macro_set[key]
 			winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[command]")
 
-	if(prefs.hotkeys)
+	if(prefs.toggles2 & PREFTOGGLE_2_HOTKEYS)
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=default")
 	else
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=old_default")

@@ -13,6 +13,7 @@
 	state_open = TRUE
 	circuit = /obj/item/circuitboard/machine/sleeper
 	flags_1 = SAVE_SAFE_1
+	clicksound = 'sound/machines/pda_button1.ogg'
 
 	var/efficiency = 1
 	var/min_health = -25
@@ -27,9 +28,9 @@
 	var/list/chem_buttons	//Used when emagged to scramble which chem is used, eg: antitoxin -> morphine
 	var/scrambled_chems = FALSE //Are chem buttons scrambled? used as a warning
 	var/enter_message = "<span class='notice'><b>You feel cool air surround you. You go numb as your senses turn inward.</b></span>"
-	payment_department = ACCOUNT_MED
+	dept_req_for_free = ACCOUNT_MED_BITFLAG
 	fair_market_price = 5
-/obj/machinery/sleeper/Initialize()
+/obj/machinery/sleeper/Initialize(mapload)
 	. = ..()
 	occupant_typecache = GLOB.typecache_living
 	update_icon()
@@ -62,10 +63,10 @@
 		"<span class='notice'>You climb out of [src]!</span>")
 	open_machine()
 
-/obj/machinery/sleeper/Exited(atom/movable/user)
+/obj/machinery/sleeper/Exited(atom/movable/gone, direction)
 	. = ..()
-	if (!state_open && user == occupant)
-		container_resist(user)
+	if (!state_open && gone == occupant)
+		container_resist(gone)
 
 /obj/machinery/sleeper/relaymove(mob/user)
 	if (!state_open)
@@ -89,7 +90,7 @@
 	. = ..()
 	if (. & EMP_PROTECT_SELF)
 		return
-	if(is_operational() && occupant)
+	if(is_operational && occupant)
 		open_machine()
 
 /obj/machinery/sleeper/MouseDrop_T(mob/target, mob/user)
@@ -225,7 +226,7 @@
 			. = TRUE
 		if("inject")
 			var/chem = text2path(params["chem"])
-			if(!is_operational() || !mob_occupant || isnull(chem))
+			if(!is_operational || !mob_occupant || isnull(chem))
 				return
 			if(mob_occupant.health < min_health && chem != /datum/reagent/medicine/epinephrine)
 				return
@@ -234,7 +235,11 @@
 				if(scrambled_chems && prob(5))
 					to_chat(usr, "<span class='warning'>Chemical system re-route detected, results may not be as expected!</span>")
 
-/obj/machinery/sleeper/emag_act(mob/user)
+/obj/machinery/sleeper/should_emag(mob/user)
+	return TRUE
+
+/obj/machinery/sleeper/on_emag(mob/user)
+	..()
 	scramble_chem_buttons()
 	to_chat(user, "<span class='warning'>You scramble the sleeper's user interface!</span>")
 
@@ -242,6 +247,7 @@
 	if((chem in available_chems) && chem_allowed(chem))
 		occupant.reagents.add_reagent(chem_buttons[chem], 10) //emag effect kicks in here so that the "intended" chem is used for all checks, for extra FUUU
 		if(user)
+			playsound(src, pick('sound/items/hypospray.ogg','sound/items/hypospray2.ogg'), 50, TRUE, 2)
 			log_combat(user, occupant, "injected [chem] into", addition = "via [src]")
 		use_power(100)
 		return TRUE

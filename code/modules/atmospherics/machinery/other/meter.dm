@@ -13,7 +13,6 @@
 	flags_1 = SAVE_SAFE_1
 	var/frequency = 0
 	var/atom/target
-	var/id_tag
 	var/target_layer = PIPING_LAYER_DEFAULT
 
 /obj/machinery/meter/atmos
@@ -60,7 +59,7 @@
 		icon_state = "meterX"
 		return 0
 
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_stat & (BROKEN|NOPOWER))
 		icon_state = "meter0"
 		return 0
 
@@ -130,7 +129,7 @@
 	qdel(src)
 
 /obj/machinery/meter/interact(mob/user)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return
 	else
 		to_chat(user, status())

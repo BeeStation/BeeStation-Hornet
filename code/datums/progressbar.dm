@@ -16,7 +16,7 @@
 		EXCEPTION("Invalid target given")
 	if (goal_number)
 		goal = goal_number
-	bar = image('icons/effects/progessbar.dmi', target, "prog_bar_0", HUD_LAYER)
+	bar = image('icons/effects/progessbar.dmi', target, "prog_bar_0")
 	bar.plane = ABOVE_HUD_PLANE
 	bar.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	user = User
@@ -58,7 +58,7 @@
 /datum/progressbar/Destroy()
 	if(last_progress != goal)
 		bar.icon_state = "[bar.icon_state]_fail"
-	for(var/I in user.progressbars[bar.loc])
+	for(var/I in user?.progressbars[bar.loc])
 		var/datum/progressbar/P = I
 		if(P != src && P.listindex > listindex)
 			P.shiftDown()

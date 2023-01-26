@@ -82,6 +82,16 @@ h1.alert, h2.alert		{color: #000000;}
 .boldnotice				{color: #000099;	font-weight: bold;}
 .adminnotice			{color: #0000ff;}
 .adminhelp              {color: #ff0000;    font-weight: bold;}
+.adminhelp_conclusion {
+  display: block;
+  color: white;
+  text-align: center;
+  background-color: black;
+  border: 2px solid red;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 20px;
+}
 .unconscious			{color: #0000ff;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #03ff39;}
@@ -91,6 +101,7 @@ h1.alert, h2.alert		{color: #000000;}
 .cultlarge				{color: #960000; font-weight: bold; font-size: 3;}
 .narsie					{color: #960000; font-weight: bold; font-size: 15;}
 .narsiesmall			{color: #960000; font-weight: bold; font-size: 6;}
+.narsiesmaller			{color: #960000; font-weight: bold; font-size: 3;}
 .colossus				{color: #7F282A; font-size: 5;}
 .hierophant				{color: #660099; font-weight: bold; font-style: italic;}
 .hierophant_warning		{color: #660099; font-style: italic;}
@@ -115,6 +126,7 @@ h1.alert, h2.alert		{color: #000000;}
 .leader_brass			{color: #BE8700; font-size: 16px;}
 .big_brass				{color: #BE8700; font-size: 3; font-weight: bold; font-style: italic;}
 .ratvar					{color: #BE8700; font-size: 6; font-weight: bold; font-style: italic; animation: ratvarcolor 5000ms infinite;}
+.ratvarsmall			{color: #BE8700; font-size: 3; font-weight: bold; font-style: italic; animation: ratvarcolor 5000ms infinite;}
 .alloy					{color: #42474D;}
 .heavy_alloy			{color: #42474D; font-weight: bold; font-style: italic;}
 .nezbere_large			{color: #42474D; font-size: 3; font-weight: bold; font-style: italic;}
@@ -159,6 +171,7 @@ h1.alert, h2.alert		{color: #000000;}
 .bigassimilator			{color: #800080;	font-size: 4 ; font-weight: bold;}
 
 .spider					{color: #4d004d;}
+.spiderlarge			{color: #4d004d;	font-size: 3 ; font-weight: bold;}
 
 .interface				{color: #330033;}
 

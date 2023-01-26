@@ -25,7 +25,6 @@
 	var/toggle_message = null
 	var/alt_toggle_message = null
 	var/active_sound = null
-	var/toggle_cooldown = null
 	var/cooldown = 0
 	var/envirosealed = FALSE //is it safe for plasmamen
 
@@ -53,7 +52,7 @@
 	///These are armor values that protect the clothing, taken from its armor datum. List updates on examine because it's currently only used to print armor ratings to chat in Topic().
 	var/list/durability_list = list()
 
-/obj/item/clothing/Initialize()
+/obj/item/clothing/Initialize(mapload)
 	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
 		actions_types += /datum/action/item_action/toggle_voice_box
 	. = ..()
@@ -144,7 +143,7 @@
 		else
 			how_cool_are_your_threads += "[src]'s storage opens when dragged to yourself.\n"
 		how_cool_are_your_threads += "[src] can store [pockets.max_items] item\s.\n"
-		how_cool_are_your_threads += "[src] can store items that are [weightclass2text(pockets.max_w_class)] or smaller.\n"
+		how_cool_are_your_threads += "[src] can store items that are [weight_class_to_text(pockets.max_w_class)] or smaller.\n"
 		if(pockets.quickdraw)
 			how_cool_are_your_threads += "You can quickly remove an item from [src] using Alt-Click.\n"
 		if(pockets.silent)
@@ -242,22 +241,27 @@
 		var/mob/M = loc
 		to_chat(M, "<span class='warning'>Your [name] starts to fall apart!</span>")
 
+
+//This mostly exists so subtypes can call appriopriate update icon calls on the wearer.
 /obj/item/clothing/proc/update_clothes_damaged_state(damaging = TRUE)
-	var/index = "[REF(initial(icon))]-[initial(icon_state)]"
-	var/static/list/damaged_clothes_icons = list()
 	if(damaging)
 		damaged_clothes = 1
+	else
+		damaged_clothes = 0
+
+/obj/item/clothing/update_overlays()
+	. = ..()
+	if(damaged_clothes)
+		var/index = "[REF(initial(icon))]-[initial(icon_state)]"
+		var/static/list/damaged_clothes_icons = list()
 		var/icon/damaged_clothes_icon = damaged_clothes_icons[index]
 		if(!damaged_clothes_icon)
-			damaged_clothes_icon = icon(initial(icon), initial(icon_state), , 1)	//we only want to apply damaged effect to the initial icon_state for each object
+			damaged_clothes_icon = icon(icon, icon_state, null, 1)
 			damaged_clothes_icon.Blend("#fff", ICON_ADD) 	//fills the icon_state with white (except where it's transparent)
 			damaged_clothes_icon.Blend(icon('icons/effects/item_damage.dmi', "itemdamaged"), ICON_MULTIPLY) //adds damage effect and the remaining white areas become transparant
 			damaged_clothes_icon = fcopy_rsc(damaged_clothes_icon)
 			damaged_clothes_icons[index] = damaged_clothes_icon
-		add_overlay(damaged_clothes_icon, 1)
-	else
-		damaged_clothes = 0
-		cut_overlay(damaged_clothes_icons[index], TRUE)
+		. += damaged_clothes_icon
 
 
 /*
@@ -272,7 +276,7 @@ BLIND     // can't see anything
 
 /proc/generate_female_clothing(index,t_color,icon,type)
 	var/icon/female_clothing_icon	= icon("icon"=icon, "icon_state"=t_color)
-	var/icon/female_s				= icon("icon"='icons/mob/uniform.dmi', "icon_state"="[(type == FEMALE_UNIFORM_FULL) ? "female_full" : "female_top"]")
+	var/icon/female_s				= icon("icon"='icons/mob/clothing/uniform.dmi', "icon_state"="[(type == FEMALE_UNIFORM_FULL) ? "female_full" : "female_top"]")
 	female_clothing_icon.Blend(female_s, ICON_MULTIPLY)
 	female_clothing_icon 			= fcopy_rsc(female_clothing_icon)
 	GLOB.female_clothing_icons[index] = female_clothing_icon
@@ -310,7 +314,7 @@ BLIND     // can't see anything
 				to_chat(user, "<span class='notice'>Your suit will now only report your exact vital lifesigns.</span>")
 			if(SENSORS_TRACKING)
 				to_chat(user, "<span class='notice'>Your suit will now report your exact vital lifesigns as well as your coordinate position.</span>")
-		sensor_mode = sensor_selection
+		update_sensors(sensor_selection)
 	else if(istype(src.loc, /mob))
 		var/mob/living/carbon/human/wearer = src.loc
 		wearer.visible_message("<span class='notice'>[user] tries to set [wearer]'s sensors.</span>", \
@@ -329,9 +333,9 @@ BLIND     // can't see anything
 				if(SENSORS_TRACKING)
 					wearer.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to maximum.</span>", \
 						 "<span class='notice'>[user] turns your remote sensors to maximum.</span>", null, COMBAT_MESSAGE_RANGE)
-			sensor_mode = sensor_selection
+			update_sensors(sensor_selection)
 			log_combat(user, wearer, "changed sensors to [switchMode]")
-	if(ishuman(loc))
+	if(ishuman(loc) || ismonkey(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.w_uniform == src)
 			H.update_suit_sensors()
@@ -405,7 +409,7 @@ BLIND     // can't see anything
 
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		C.head_update(src, forced = 1)
+		C.head_update(src, forced = TRUE)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()

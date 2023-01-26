@@ -64,6 +64,7 @@
 
 
 	if(bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT && !HAS_TRAIT(src, TRAIT_RESISTHEAT))
+		remove_movespeed_modifier(MOVESPEED_ID_MONKEY_TEMPERATURE_SPEEDMOD)
 		switch(bodytemperature)
 			if(360 to 400)
 				throw_alert("temp", /atom/movable/screen/alert/hot, 1)
@@ -80,8 +81,9 @@
 
 	else if(bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !HAS_TRAIT(src, TRAIT_RESISTCOLD))
 		if(!istype(loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
+			add_movespeed_modifier(MOVESPEED_ID_MONKEY_TEMPERATURE_SPEEDMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = ((BODYTEMP_COLD_DAMAGE_LIMIT - bodytemperature) / COLD_SLOWDOWN_FACTOR))
 			switch(bodytemperature)
-				if(200 to 260)
+				if(200 to BODYTEMP_COLD_DAMAGE_LIMIT)
 					throw_alert("temp", /atom/movable/screen/alert/cold, 1)
 					apply_damage(COLD_DAMAGE_LEVEL_1, BURN)
 				if(120 to 200)
@@ -94,6 +96,7 @@
 			clear_alert("temp")
 
 	else
+		remove_movespeed_modifier(MOVESPEED_ID_MONKEY_TEMPERATURE_SPEEDMOD)
 		clear_alert("temp")
 
 	//Account for massive pressure differences
@@ -111,8 +114,11 @@
 		if(HAZARD_LOW_PRESSURE to WARNING_LOW_PRESSURE)
 			throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 1)
 		else
-			adjustBruteLoss( LOW_PRESSURE_DAMAGE )
-			throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 2)
+			if(HAS_TRAIT(src, TRAIT_RESISTLOWPRESSURE))
+				clear_alert("pressure")
+			else
+				adjustBruteLoss( LOW_PRESSURE_DAMAGE )
+				throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 2)
 
 	return
 
@@ -140,10 +146,10 @@
 	//the fire tries to damage the exposed clothes and items
 	var/list/burning_items = list()
 	//HEAD//
-	var/list/obscured = check_obscured_slots(TRUE)
-	if(wear_mask && !(ITEM_SLOT_MASK in obscured))
+	var/obscured = check_obscured_slots(TRUE)
+	if(wear_mask && !(obscured & ITEM_SLOT_MASK))
 		burning_items += wear_mask
-	if(wear_neck && !(ITEM_SLOT_NECK in obscured))
+	if(wear_neck && !(obscured & ITEM_SLOT_NECK))
 		burning_items += wear_neck
 	if(head)
 		burning_items += head
@@ -151,8 +157,7 @@
 	if(back)
 		burning_items += back
 
-	for(var/X in burning_items)
-		var/obj/item/I = X
+	for(var/obj/item/I as() in burning_items)
 		I.fire_act((fire_stacks * 50)) //damage taken is reduced to 2% of this value by fire_act()
 
 	if(!head?.max_heat_protection_temperature || head.max_heat_protection_temperature < FIRE_IMMUNITY_MAX_TEMP_PROTECT)

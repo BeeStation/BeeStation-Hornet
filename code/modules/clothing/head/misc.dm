@@ -5,7 +5,7 @@
 	icon_state = "centcom"
 	desc = "It's good to be emperor."
 	item_state = "that"
-	flags_inv = 0
+	flags_inv = NONE
 	armor = list("melee" = 30, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 30)
 	strip_delay = 80
 	clothing_flags = SNUG_FIT // prevents bypassing the strip delay
@@ -117,17 +117,6 @@
 	icon_state = "justicepink"
 	item_state = "justicepink"
 
-/obj/item/clothing/head/rabbitears
-	name = "rabbit ears"
-	desc = "Wearing these makes you look useless, and only good for your sex appeal."
-	icon_state = "bunny"
-	clothing_flags = SNUG_FIT
-	dynamic_hair_suffix = ""
-	flags_1 = SAVE_SAFE_1
-
-	dog_fashion = /datum/dog_fashion/head/rabbit
-
-
 /obj/item/clothing/head/flatcap
 	name = "flat cap"
 	desc = "A working man's cap."
@@ -154,6 +143,7 @@
 		to_chat(user, "You suddenly know how to speak like a pirate!")
 
 /obj/item/clothing/head/pirate/dropped(mob/user)
+	..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
@@ -266,7 +256,7 @@
 	desc = "Once it's on, it never comes off."
 	dog_fashion = null
 
-/obj/item/clothing/head/sombrero/shamebrero/Initialize()
+/obj/item/clothing/head/sombrero/shamebrero/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, SHAMEBRERO_TRAIT)
 
@@ -415,7 +405,7 @@
 
 /obj/item/clothing/head/frenchberet/equipped(mob/M, slot)
 	. = ..()
-	if (slot == ITEM_SLOT_HEAD)
+	if(slot == ITEM_SLOT_HEAD)
 		RegisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
 	else
 		UnregisterSignal(M, COMSIG_MOB_SAY)
@@ -430,7 +420,7 @@
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		message = " [message]"
-		var/list/french_words = strings("french_replacement.json", "french")
+		var/list/french_words = strings(FRENCH_TALK_FILE, "french")
 
 		for(var/key in french_words)
 			var/value = french_words[key]
@@ -490,7 +480,7 @@
 	dynamic_hair_suffix = ""
 	attack_verb = list("crowned")
 
-/obj/item/clothing/head/rainbowbunchcrown/Initialize()
+/obj/item/clothing/head/rainbowbunchcrown/Initialize(mapload)
 	. = ..()
 	var/crown_type = rand(1,4)
 	switch(crown_type)
@@ -528,6 +518,16 @@
 	dynamic_hair_suffix = ""
 	attack_verb = list("crowned")
 
+/obj/item/clothing/head/cowboy
+	name = "ranching hat"
+	desc = "King of the plains, the half cow half man mutant, the cowboy."
+	icon_state = "cowboy_alt"
+
+/obj/item/clothing/head/cowboy_science
+	name = "slime ranching hat"
+	desc = "King of the labs, the half slime half man mutant, the slimeboy."
+	icon_state = "cowboy_alt_science"
+
 /////////////////
 //DONATOR ITEMS//
 /////////////////
@@ -556,4 +556,10 @@
 	desc = "Looks just like a real one."
 	icon_state = "chicken"
 	flags_inv = HIDEHAIR
+	flags_1 = SAVE_SAFE_1
+
+/obj/item/clothing/head/maidheadband
+	name = "maid headband"
+	desc = "Just like from one of those chinese cartoons!"
+	icon_state = "maid_headband"
 	flags_1 = SAVE_SAFE_1

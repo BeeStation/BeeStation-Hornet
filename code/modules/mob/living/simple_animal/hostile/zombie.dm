@@ -18,7 +18,7 @@
 	spacewalk = FALSE
 	status_flags = CANPUSH
 	del_on_death = TRUE
-	var/zombiejob = "Medical Doctor"
+	var/zombiejob = JOB_NAME_MEDICALDOCTOR
 	var/infection_chance = 0
 	var/obj/effect/mob_spawn/human/corpse/delayed/corpse
 	mobchatspan = "bartender"
@@ -29,9 +29,9 @@
 	setup_visuals()
 
 /mob/living/simple_animal/hostile/zombie/proc/setup_visuals()
-	var/datum/preferences/dummy_prefs = new
-	dummy_prefs.pref_species = new /datum/species/zombie
-	dummy_prefs.be_random_body = TRUE
+	var/datum/character_save/CS = new
+	CS.pref_species = new /datum/species/zombie
+	CS.be_random_body = TRUE
 	var/datum/job/J = SSjob.GetJob(zombiejob)
 	var/datum/outfit/O
 	if(J.outfit)
@@ -40,7 +40,7 @@
 		O.r_hand = null
 		O.l_hand = null
 
-	var/icon/P = get_flat_human_icon("zombie_[zombiejob]", J , dummy_prefs, "zombie", outfit_override = O)
+	var/icon/P = get_flat_human_icon("zombie_[zombiejob]", J , CS, "zombie", outfit_override = O)
 	icon = P
 	corpse = new(src)
 	corpse.outfit = O

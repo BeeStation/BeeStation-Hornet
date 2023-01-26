@@ -26,7 +26,7 @@
 	interaction_flags_item = NONE			//Don't pick us up!!
 	var/construct_type
 
-/obj/item/mecha_parts/chassis/Initialize()
+/obj/item/mecha_parts/chassis/Initialize(mapload)
 	. = ..()
 	if(construct_type)
 		AddComponent(construct_type)

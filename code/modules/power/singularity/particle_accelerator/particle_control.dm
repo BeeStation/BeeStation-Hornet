@@ -21,7 +21,7 @@
 	var/strength = 0
 	var/powered = FALSE
 
-/obj/machinery/particle_accelerator/control_box/Initialize()
+/obj/machinery/particle_accelerator/control_box/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/particle_accelerator/control_box(src)
 	connected_parts = list()
@@ -103,10 +103,10 @@
 
 /obj/machinery/particle_accelerator/control_box/power_change()
 	..()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		active = FALSE
 		use_power = NO_POWER_USE
-	else if(!stat && construction_state == PA_CONSTRUCTION_COMPLETE)
+	else if(!machine_stat && construction_state == PA_CONSTRUCTION_COMPLETE)
 		use_power = IDLE_POWER_USE
 
 /obj/machinery/particle_accelerator/control_box/process()

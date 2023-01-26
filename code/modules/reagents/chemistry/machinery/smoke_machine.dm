@@ -29,7 +29,7 @@
 	opaque = FALSE
 	alpha = 100
 
-/obj/machinery/smoke_machine/Initialize()
+/obj/machinery/smoke_machine/Initialize(mapload)
 	. = ..()
 	create_reagents(REAGENTS_BASE_VOLUME)
 	AddComponent(/datum/component/plumbing/simple_demand)
@@ -42,7 +42,7 @@
 	return !anchored
 
 /obj/machinery/smoke_machine/update_icon()
-	if((!is_operational()) || (!on) || (reagents.total_volume == 0))
+	if((!is_operational) || (!on) || (reagents.total_volume == 0))
 		if (panel_open)
 			icon_state = "smoke0-o"
 		else
@@ -71,7 +71,7 @@
 
 /obj/machinery/smoke_machine/process()
 	..()
-	if(!is_operational())
+	if(!is_operational)
 		return
 	if(reagents.total_volume == 0)
 		on = FALSE

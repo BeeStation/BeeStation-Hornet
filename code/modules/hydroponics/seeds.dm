@@ -344,31 +344,32 @@
 		to_chat(user, "<span class='info'>*---------*\n This is \a <span class='name'>[src]</span>.</span>")
 		var/text = get_analyzer_text()
 		if(text)
-			to_chat(user, "<span class='notice'>[text]</span>")
+			to_chat(user, EXAMINE_BLOCK("<span class='notice'>[text]</span>"))
 
 		return
 
 	if (istype(O, /obj/item/pen))
 		var/penchoice = input(user, "What would you like to edit?") as null|anything in list("Plant Name","Plant Description","Seed Description")
-		if(QDELETED(O) || !user.canUseTopic(O, BE_CLOSE))
+		if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
 			return
 
 		if(penchoice == "Plant Name")
-			var/input = stripped_input(user,"What do you want to name the plant?", ,"", MAX_NAME_LEN)
-			if(QDELETED(O) || !user.canUseTopic(O, BE_CLOSE))
+			var/input = stripped_input(user,"What do you want to name the plant?", default=plantname, max_length=MAX_NAME_LEN)
+			if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
 				return
 			name = "pack of [input] seeds"
 			plantname = input
+			renamedByPlayer = TRUE
 
 		if(penchoice == "Plant Description")
-			var/input = stripped_input(user,"What do you want to change the description of \the plant to?", ,"", MAX_NAME_LEN)
-			if(QDELETED(O) || !user.canUseTopic(O, BE_CLOSE))
+			var/input = stripped_input(user,"What do you want to change the description of the plant to?", default=plantdesc, max_length=MAX_NAME_LEN)
+			if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
 				return
 			plantdesc = input
 
 		if(penchoice == "Seed Description")
-			var/input = stripped_input(user,"What do you want to change the description of \the seeds to?", ,"", MAX_NAME_LEN)
-			if(QDELETED(O) || !user.canUseTopic(O, BE_CLOSE))
+			var/input = stripped_input(user,"What do you want to change the description of the seeds to?", default=desc, max_length=MAX_NAME_LEN)
+			if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
 				return
 			desc = input
 	..() // Fallthrough to item/attackby() so that bags can pick seeds up
@@ -418,7 +419,7 @@
 	var/amount_random_reagents = rand(lower, upper)
 	for(var/i in 1 to amount_random_reagents)
 		var/random_amount = rand(4, 15) * 0.01 // this must be multiplied by 0.01, otherwise, it will not properly associate
-		var/datum/plant_gene/reagent/R = new(get_random_reagent_id(), random_amount)
+		var/datum/plant_gene/reagent/R = new(get_random_reagent_id(CHEMICAL_RNG_BOTANY), random_amount)
 		if(R.can_add(src))
 			genes += R
 		else

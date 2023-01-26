@@ -162,7 +162,7 @@
 
 	minor_announce(input["message"], "Incoming message from [input["message_sender"]]")
 	for(var/obj/machinery/computer/communications/CM in GLOB.machines)
-		CM.overrideCooldown()
+		CM.override_cooldown()
 	statuscode = 200
 	response = "Message received"
 
@@ -228,7 +228,7 @@
 	data["vote"] = CONFIG_GET(flag/allow_vote_mode)
 	data["ai"] = CONFIG_GET(flag/allow_ai)
 	data["host"] = world.host ? world.host : null
-	data["round_id"] = GLOB.round_id
+	data["round_id"] = text2num(GLOB.round_id) // I don't know who's fault it is that round id is loaded as a string but screw you
 	data["players"] = GLOB.clients.len
 	data["revision"] = GLOB.revdata.commit
 	data["revision_date"] = GLOB.revdata.date
@@ -243,7 +243,7 @@
 	data["map_name"] = SSmapping.config?.map_name || "Loading..."
 
 	data["security_level"] = get_security_level()
-	data["round_duration"] = SSticker ? round((world.time-SSticker.round_start_time)/10) : 0
+	data["round_duration"] = SSticker?.round_start_timeofday ? round((world.timeofday - SSticker.round_start_timeofday)/10) : 0
 	// Amount of world's ticks in seconds, useful for calculating round duration
 
 	//Time dilation stats.
@@ -257,6 +257,8 @@
 	data["hard_popcap"] = CONFIG_GET(number/hard_popcap) || 0
 	data["extreme_popcap"] = CONFIG_GET(number/extreme_popcap) || 0
 	data["popcap"] = max(CONFIG_GET(number/soft_popcap), CONFIG_GET(number/hard_popcap), CONFIG_GET(number/extreme_popcap)) //generalized field for this concept for use across ss13 codebases
+	data["bunkered"] = CONFIG_GET(flag/panic_bunker) || 0
+	data["interviews"] = CONFIG_GET(flag/panic_bunker_interview) || 0
 
 	if(SSshuttle?.emergency)
 		data["shuttle_mode"] = SSshuttle.emergency.mode

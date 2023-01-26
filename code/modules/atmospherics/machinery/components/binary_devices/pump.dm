@@ -11,7 +11,7 @@
 //     but overall network volume is also increased as this increases...
 
 /obj/machinery/atmospherics/components/binary/pump
-	icon_state = "pump_map-2"
+	icon_state = "pump_map-3"
 	name = "gas pump"
 	desc = "A pump that moves gas by pressure."
 
@@ -40,7 +40,7 @@
 /obj/machinery/atmospherics/components/binary/pump/AltClick(mob/user)
 	if(can_interact(user))
 		target_pressure = MAX_OUTPUT_PRESSURE
-		balloon_alert(user, "Set to [target_pressure] kPa")
+		balloon_alert(user, "You set the target pressure to [target_pressure] kPa.")
 		update_icon()
 		ui_update()
 	return
@@ -52,11 +52,11 @@
 	return ..()
 
 /obj/machinery/atmospherics/components/binary/pump/update_icon_nopipes()
-	icon_state = (on && is_operational()) ? "pump_on" : "pump_off"
+	icon_state = "pump_[on && is_operational ? "on" : "off"]-[set_overlay_offset(piping_layer)]"
 
 /obj/machinery/atmospherics/components/binary/pump/process_atmos()
 //	..()
-	if(!on || !is_operational())
+	if(!on || !is_operational)
 		return
 	var/datum/gas_mixture/air1 = airs[1]
 	var/datum/gas_mixture/air2 = airs[2]
@@ -169,27 +169,27 @@
 
 /obj/machinery/atmospherics/components/binary/pump/can_unwrench(mob/user)
 	. = ..()
-	if(. && on && is_operational())
+	if(. && on && is_operational)
 		to_chat(user, "<span class='warning'>You cannot unwrench [src], turn it off first!</span>")
 		return FALSE
 
 
-/obj/machinery/atmospherics/components/binary/pump/layer1
-	piping_layer = 1
-	icon_state= "pump_map-1"
+/obj/machinery/atmospherics/components/binary/pump/layer2
+	piping_layer = 2
+	icon_state= "pump_map-2"
 
-/obj/machinery/atmospherics/components/binary/pump/layer3
-	piping_layer = 3
-	icon_state= "pump_map-3"
+/obj/machinery/atmospherics/components/binary/pump/layer4
+	piping_layer = 4
+	icon_state= "pump_map-4"
 
 /obj/machinery/atmospherics/components/binary/pump/on
 	on = TRUE
-	icon_state = "pump_on_map-2"
+	icon_state = "pump_on_map-3"
 
-/obj/machinery/atmospherics/components/binary/pump/on/layer1
-	piping_layer = 1
-	icon_state= "pump_on_map-1"
+/obj/machinery/atmospherics/components/binary/pump/on/layer2
+	piping_layer = 2
+	icon_state= "pump_on_map-2"
 
-/obj/machinery/atmospherics/components/binary/pump/on/layer3
-	piping_layer = 3
-	icon_state= "pump_on_map-3"
+/obj/machinery/atmospherics/components/binary/pump/on/layer4
+	piping_layer = 4
+	icon_state= "pump_on_map-4"

@@ -21,7 +21,16 @@
 	var/pick_style = PICK_STYLE_ORDERED
 	var/requirehuman = TRUE
 
-/obj/effect/trap/trigger/Crossed(AM as mob|obj)
+/obj/effect/trap/trigger/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/trap/trigger/proc/on_entered(datum/source, AM as mob|obj)
+	SIGNAL_HANDLER
+
 	if(isturf(loc))
 		if(ismob(AM) && grounded)
 			var/mob/MM = AM
@@ -73,7 +82,6 @@
 					if(!chosen.reusable)
 						qdel(chosen)
 					success = TRUE
-				stoplag()
 			if(success)
 				inuse = FALSE
 				return TRUE
@@ -164,7 +172,7 @@
 	reusable = TRUE
 	var/mob/living/simple_animal/hostile/spawned = /mob/living/simple_animal/hostile/retaliate/spaceman
 
-/obj/effect/trap/nexus/trickyspawner/Initialize()
+/obj/effect/trap/nexus/trickyspawner/Initialize(mapload)
 	. = ..()
 	crossattempts = rand(1, 10)
 
@@ -278,6 +286,7 @@
 	pixel_x = -32
 	pixel_y = -32
 	rune_in_use = FALSE
+	can_be_scribed = FALSE
 
 /obj/effect/rune/cluwne/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
@@ -297,7 +306,7 @@
 	if(!cluwne && !iscultist(user))
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
-			if(HAS_TRAIT(H, TRAIT_CLUMSY) || H.job == "Clown" || H.dna.check_mutation(CLUWNEMUT))
+			if(HAS_TRAIT(H, TRAIT_CLUMSY) || H.job == JOB_NAME_CLOWN || H.dna.check_mutation(CLUWNEMUT))
 				to_chat(user, "<span class='warning'>We need a connection! One of the honkmother's manifested forms!</span>")
 			else
 				to_chat(user, "<span class='warning'>You touch the crayon drawing, and feel somewhat foolish.</span>")
@@ -310,7 +319,7 @@
 		if(HAS_TRAIT(H, TRAIT_LAW_ENFORCEMENT_METABOLISM) || HAS_TRAIT(H, TRAIT_MINDSHIELD))// NO SHITSEC
 			to_chat(user, "<span class='warning'>You're too disgusted by [src] to even consider touching it.</span>")
 			return
-		if(HAS_TRAIT(H, TRAIT_CLUMSY) || H.job == "Clown" || H.dna.check_mutation(CLUWNEMUT))
+		if(HAS_TRAIT(H, TRAIT_CLUMSY) || H.job == JOB_NAME_CLOWN || H.dna.check_mutation(CLUWNEMUT))
 			var/list/invokers = can_invoke(user)
 			if(invokers.len >= 5)
 				to_chat(user, "<span class='warning'>Honestly, this is so simple even a baby could do it!</span>")

@@ -7,6 +7,7 @@
 	use_power = NO_POWER_USE
 	can_unwrench = 1
 	var/datum/pipeline/parent = null
+	paintable = TRUE
 
 	//Buckling
 	can_buckle = 1
@@ -23,6 +24,10 @@
 	add_atom_colour(pipe_color, FIXED_COLOUR_PRIORITY)
 	volume = 35 * device_type
 	..()
+
+/obj/machinery/atmospherics/pipe/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[src] is on layer [piping_layer].</span>"
 
 /obj/machinery/atmospherics/pipe/nullifyNode(i)
 	var/obj/machinery/atmospherics/oldN = nodes[i]
@@ -118,8 +123,9 @@
 		return 0
 	. = ..()
 
-/obj/machinery/atmospherics/pipe/proc/paint(paint_color)
-	add_atom_colour(paint_color, FIXED_COLOUR_PRIORITY)
-	pipe_color = paint_color
-	update_node_icon()
-	return TRUE
+/obj/machinery/atmospherics/pipe/paint(paint_color)
+	if(paintable)
+		add_atom_colour(paint_color, FIXED_COLOUR_PRIORITY)
+		pipe_color = paint_color
+		update_node_icon()
+	return paintable

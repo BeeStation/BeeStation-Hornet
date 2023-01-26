@@ -70,7 +70,7 @@
 	materials = list(/datum/material/iron = 60000, /datum/material/glass = 5000)  // costs more than what it did in the autolathe, this one comes loaded.
 	build_path = /obj/item/construction/rcd/loaded
 	category = list("Tool Designs")
-	departmental_flags =  DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_CARGO
+	departmental_flags =  DEPARTMENTAL_FLAG_ENGINEERING
 
 
 /datum/design/rcd_upgrade/frames
@@ -100,6 +100,16 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 2500, /datum/material/glass = 2500, /datum/material/silver = 2500, /datum/material/titanium = 2500, /datum/material/bluespace = 2500)
 	build_path = /obj/item/rcd_upgrade/silo_link
+	category = list("Tool Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/rpd_upgrade/unwrench
+	name = "RPD unwrenching upgrade"
+	desc = "Adds reverse wrench mode to the RPD. Warning: This mode is hard linked to the destroy mode control button."
+	id = "rpd_upgrade_unwrench"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 5000, /datum/material/glass = 2500)
+	build_path = /obj/item/rpd_upgrade/unwrench
 	category = list("Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
@@ -239,3 +249,33 @@
 	build_path = /obj/item/discovery_scanner
 	category = list("Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/researchdisklocator
+	name = "Research Disk Locator"
+	id = "researchdisk_locator"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 250, /datum/material/glass = 25)
+	build_path = /obj/item/research_disk_pinpointer
+	category = list("Tool Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/wirebrush
+	name = "Wirebrush"
+	desc = "A tool to remove rust from walls."
+	id = "wirebrush"
+	build_type = AUTOLATHE | PROTOLATHE
+	category = list("initial", "Tools")
+	materials = list(/datum/material/iron = 200, /datum/material/glass = 200)
+	build_path = /obj/item/wirebrush
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+/datum/design/wirebrush_adv
+	name = "Advanced Wirebrush"
+	desc = "An advanced wirebrush."
+	id = "wirebrush_adv"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 200, /datum/material/glass = 200, /datum/material/uranium = 200, /datum/material/plasma = 200)
+	build_path = /obj/item/wirebrush/advanced
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE

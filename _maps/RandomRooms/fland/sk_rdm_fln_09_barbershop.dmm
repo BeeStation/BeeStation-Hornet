@@ -1,0 +1,363 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall,
+/area/template_noop)
+"b" = (
+/obj/structure/table/wood,
+/obj/item/clothing/head/wig/random,
+/obj/item/clothing/head/wig/random,
+/turf/open/floor/plasteel/ameridiner,
+/area/template_noop)
+"c" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 10
+	},
+/turf/open/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/template_noop)
+"d" = (
+/obj/effect/landmark/start/randommaint/backalley_doc,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/turf/open/floor/wood,
+/area/template_noop)
+"e" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/machinery/door/window/westleft{
+	base_state = "right";
+	dir = 2;
+	icon_state = "right"
+	},
+/turf/open/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/template_noop)
+"o" = (
+/obj/item/hemostat,
+/obj/item/retractor,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/clothing/suit/apron/surgical,
+/obj/item/roller,
+/obj/item/tank/internals/anesthetic,
+/obj/structure/closet/cardboard,
+/obj/item/cautery,
+/obj/effect/spawner/lootdrop/teratoma/major,
+/obj/item/surgical_drapes,
+/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/toxin,
+/obj/item/storage/box/syringes,
+/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/stack/sheet/mineral/silver{
+	amount = 2
+	},
+/obj/item/stack/sheet/iron/ten,
+/obj/item/chainsaw,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/item/clothing/head/wig/random,
+/obj/item/reagent_containers/medspray/spraytan,
+/obj/item/radio,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"p" = (
+/obj/structure/table/wood,
+/obj/item/clothing/head/wig/random,
+/obj/item/clothing/head/wig/random,
+/obj/item/radio/intercom{
+	pixel_x = 28
+	},
+/turf/open/floor/plasteel/ameridiner,
+/area/template_noop)
+"q" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"r" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/turf/open/floor/wood,
+/area/template_noop)
+"t" = (
+/obj/machinery/door/window/westleft{
+	dir = 2
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 10
+	},
+/turf/open/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/template_noop)
+"u" = (
+/obj/effect/decal/remains/human,
+/obj/machinery/vending/wallmed{
+	pixel_y = -28
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating,
+/area/template_noop)
+"v" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/turf/open/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/template_noop)
+"w" = (
+/obj/structure/mirror{
+	pixel_x = -28
+	},
+/obj/structure/chair/comfy{
+	dir = 8
+	},
+/turf/open/floor/plasteel/ameridiner,
+/area/template_noop)
+"x" = (
+/obj/structure/chair/fancy/sofa/right{
+	dir = 8
+	},
+/turf/open/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/template_noop)
+"y" = (
+/obj/structure/table,
+/obj/item/handmirror{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/item/razor{
+	pixel_x = -5
+	},
+/obj/machinery/newscaster{
+	pixel_x = -28;
+	pixel_y = 1
+	},
+/turf/open/floor/plasteel/ameridiner,
+/area/template_noop)
+"B" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"C" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"D" = (
+/obj/machinery/light_switch{
+	pixel_x = 27
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/dresser,
+/obj/item/flashlight/lamp{
+	pixel_x = 2;
+	pixel_y = 14
+	},
+/turf/open/floor/plasteel/ameridiner,
+/area/template_noop)
+"G" = (
+/turf/open/floor/wood,
+/area/template_noop)
+"H" = (
+/obj/structure/mineral_door/wood,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/turf/open/floor/plating,
+/area/template_noop)
+"J" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Barber Shop Maintenance"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/turf/template_noop,
+/area/template_noop)
+"K" = (
+/turf/closed/wall/r_wall,
+/area/template_noop)
+"L" = (
+/obj/structure/sign/poster/official/moth6{
+	pixel_x = -32
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/item/reagent_containers/medspray/dye{
+	pixel_x = 10;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/medspray/spraytan{
+	pixel_x = 8;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/medspray/barber{
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/medspray/sterilizine{
+	pixel_x = -8;
+	pixel_y = 5
+	},
+/turf/open/floor/plasteel/ameridiner,
+/area/template_noop)
+"M" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/turf/open/floor/plating,
+/area/template_noop)
+"N" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/open/floor/plating,
+/area/template_noop)
+"O" = (
+/obj/item/kirbyplants/random,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 4
+	},
+/turf/open/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/template_noop)
+"Q" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/window/spawner,
+/obj/item/kirbyplants/random,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/turf/open/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/template_noop)
+"R" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"U" = (
+/obj/structure/chair/fancy/sofa/left{
+	dir = 8
+	},
+/turf/open/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/template_noop)
+"V" = (
+/turf/open/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/template_noop)
+"W" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/public/glass{
+	name = "Barber Shop"
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/template_noop)
+"Y" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/window/spawner,
+/obj/structure/table/wood,
+/obj/item/paper/pamphlet/ruin/spacehotel,
+/turf/open/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/template_noop)
+"Z" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -24
+	},
+/obj/structure/table,
+/obj/item/reagent_containers/spray/cleaner,
+/turf/open/floor/plasteel/ameridiner,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+O
+V
+Q
+Z
+w
+y
+L
+a
+N
+a
+"}
+(2,1,1) = {"
+W
+c
+v
+t
+C
+d
+r
+B
+H
+M
+J
+"}
+(3,1,1) = {"
+W
+V
+V
+g
+q
+G
+G
+R
+a
+u
+a
+"}
+(4,1,1) = {"
+a
+x
+U
+Y
+p
+b
+b
+D
+a
+o
+K
+"}
+(5,1,1) = {"
+a
+a
+e
+a
+a
+e
+e
+a
+a
+a
+K
+"}

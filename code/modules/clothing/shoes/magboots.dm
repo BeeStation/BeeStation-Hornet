@@ -12,6 +12,7 @@
 	resistance_flags = FIRE_PROOF
 	flags_1 = SAVE_SAFE_1
 
+
 /obj/item/clothing/shoes/magboots/verb/toggle()
 	set name = "Toggle Magboots"
 	set category = "Object"
@@ -52,6 +53,7 @@
 	magboot_state = "advmag"
 	slowdown_active = SHOES_SLOWDOWN
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /obj/item/clothing/shoes/magboots/syndie
 	desc = "Reverse-engineered magnetic boots that have a heavy magnetic pull. Property of Gorlex Marauders."
@@ -113,5 +115,5 @@
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED,.proc/crush)
 
 /obj/item/clothing/shoes/magboots/crushing/dropped(mob/user)
-	. = ..()
+	..()
 	UnregisterSignal(user,COMSIG_MOVABLE_MOVED)

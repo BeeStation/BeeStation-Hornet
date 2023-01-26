@@ -162,7 +162,7 @@
 	CanAtmosPassVertical =	ATMOS_PASS_NO
 
 
-/turf/open/floor/engine/cult/Initialize()
+/turf/open/floor/engine/cult/Initialize(mapload)
 	. = ..()
 	new /obj/effect/temp_visual/cult/turf/floor(src)
 	realappearance = new /obj/effect/clockwork/overlay/floor/bloodcult(src)

@@ -14,7 +14,7 @@
 	resistance_flags = FLAMMABLE
 	flags_1 = SAVE_SAFE_1
 
-/obj/item/pushbroom/Initialize()
+/obj/item/pushbroom/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/on_wield)
 	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/on_unwield)

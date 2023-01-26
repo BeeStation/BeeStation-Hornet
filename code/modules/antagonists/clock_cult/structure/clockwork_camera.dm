@@ -63,7 +63,7 @@
 	flags_1 = NONE
 	var/datum/action/innate/clockcult/warp/warp_action
 
-/obj/machinery/computer/camera_advanced/ratvar/Initialize()
+/obj/machinery/computer/camera_advanced/ratvar/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 	warp_action = new

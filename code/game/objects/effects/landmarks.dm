@@ -3,7 +3,7 @@
 	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "x2"
 	anchored = TRUE
-	layer = MID_LANDMARK_LAYER
+	layer = TURF_LAYER
 	invisibility = INVISIBILITY_ABSTRACT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
@@ -19,7 +19,7 @@
 
 INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
-/obj/effect/landmark/Initialize()
+/obj/effect/landmark/Initialize(mapload)
 	. = ..()
 	GLOB.landmarks_list += src
 
@@ -41,11 +41,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	if(delete_after_roundstart)
 		qdel(src)
 
-/obj/effect/landmark/start/Initialize()
+/obj/effect/landmark/start/Initialize(mapload)
 	. = ..()
 	GLOB.start_landmarks_list += src
 	if(jobspawn_override)
-		LAZYADDASSOC(GLOB.jobspawn_overrides, name, src)
+		LAZYADDASSOCLIST(GLOB.jobspawn_overrides, name, src)
 	if(name != "start")
 		tag = "start*[name]"
 
@@ -153,7 +153,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Medical Doctor"
 	icon_state = "Medical Doctor"
 
-/obj/effect/landmark/start/emt
+/obj/effect/landmark/start/paramedic
 	name = "Paramedic"
 	icon_state = "Medical Doctor"
 
@@ -211,7 +211,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	primary_ai = FALSE
 	latejoin_active = FALSE
 
-/obj/effect/landmark/start/brig_phys
+/obj/effect/landmark/start/brig_physician
 	name = "Brig Physician"
 
 /obj/effect/landmark/start/randommaint
@@ -233,17 +233,17 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Stage Magician"
 	job = "Stage Magician"
 
-/obj/effect/landmark/start/randommaint/hobo
-	name = "Debtor"
-	job = "Debtor"
-
-/obj/effect/landmark/start/randommaint/shrink
+/obj/effect/landmark/start/randommaint/psychiatrist
 	name = "Psychiatrist"
 	job = "Psychiatrist"
 
-/obj/effect/landmark/start/randommaint/celebrity
+/obj/effect/landmark/start/randommaint/vip
 	name = "VIP"
 	job = "VIP"
+
+/obj/effect/landmark/start/randommaint/experiment
+	name = "Experiment"
+	job = "Experiment"
 
 //Department Security spawns
 
@@ -251,8 +251,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "department_sec"
 	icon_state = "Security Officer"
 
-/obj/effect/landmark/start/depsec/New()
-	..()
+/obj/effect/landmark/start/depsec/Initialize(mapload)
+	. = ..()
 	GLOB.department_security_spawns += src
 
 /obj/effect/landmark/start/depsec/Destroy()
@@ -278,7 +278,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "wiznerd_spawn"
 
-/obj/effect/landmark/start/wizard/Initialize()
+/obj/effect/landmark/start/wizard/Initialize(mapload)
 	..()
 	GLOB.wizardstart += loc
 	return INITIALIZE_HINT_QDEL
@@ -288,7 +288,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "snukeop_spawn"
 
-/obj/effect/landmark/start/nukeop/Initialize()
+/obj/effect/landmark/start/nukeop/Initialize(mapload)
 	..()
 	GLOB.nukeop_start += loc
 	return INITIALIZE_HINT_QDEL
@@ -298,7 +298,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "snukeop_leader_spawn"
 
-/obj/effect/landmark/start/nukeop_leader/Initialize()
+/obj/effect/landmark/start/nukeop_leader/Initialize(mapload)
 	..()
 	GLOB.nukeop_leader_start += loc
 	return INITIALIZE_HINT_QDEL
@@ -310,9 +310,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/start/new_player
 	name = "New Player"
 
-/obj/effect/landmark/start/new_player/Initialize()
+/obj/effect/landmark/start/new_player/Initialize(mapload)
 	..()
 	GLOB.newplayer_start += loc
+	if (SStitle.newplayer_start_loc)
+		forceMove(SStitle.newplayer_start_loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/latejoin
@@ -454,11 +456,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/event_spawn
 	name = "generic event spawn"
 	icon_state = "generic_event"
-	layer = HIGH_LANDMARK_LAYER
+	layer = OBJ_LAYER
 
 
-/obj/effect/landmark/event_spawn/New()
-	..()
+/obj/effect/landmark/event_spawn/Initialize(mapload)
+	. = ..()
 	GLOB.generic_event_spawns += src
 
 /obj/effect/landmark/event_spawn/Destroy()
@@ -468,9 +470,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/ruin
 	var/datum/map_template/ruin/ruin_template
 
-/obj/effect/landmark/ruin/New(loc, my_ruin_template)
+/obj/effect/landmark/ruin/Initialize(mapload, my_ruin_template)
+	. = ..()
 	name = "ruin_[GLOB.ruin_landmarks.len + 1]"
-	..(loc)
 	ruin_template = my_ruin_template
 	GLOB.ruin_landmarks |= src
 
@@ -479,62 +481,27 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	ruin_template = null
 	. = ..()
 
-/obj/effect/landmark/start/hangover
-	name = "hangover spawn"
-	icon_state = "hangover_spawn"
+/// Marks the bottom left of the testing zone.
+/// In landmarks.dm and not unit_test.dm so it is always active in the mapping tools.
+/obj/effect/landmark/unit_test_bottom_left
+	name = "unit test zone bottom left"
 
-/obj/effect/landmark/start/hangover/Initialize()
-	. = ..()
-	return INITIALIZE_HINT_LATELOAD
+/// Marks the top right of the testing zone.
+/// In landmarks.dm and not unit_test.dm so it is always active in the mapping tools.
+/obj/effect/landmark/unit_test_top_right
+	name = "unit test zone top right"
 
-/obj/effect/landmark/start/hangover/LateInitialize()
-	. = ..()
-	if(!HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
-		return
+/obj/effect/spawner/hangover_spawn
+	name = "hangover spawner"
+
+/obj/effect/spawner/hangover_spawn/Initialize(mapload)
+	..()
 	if(prob(60))
 		new /obj/effect/decal/cleanable/vomit(get_turf(src))
 	if(prob(70))
-		var/bottle_count = rand(1, 3)
+		var/bottle_count = pick(10;1, 5;2, 2;3)
 		for(var/index in 1 to bottle_count)
-			var/turf/turf_to_spawn_on = get_step(src, pick(GLOB.alldirs))
-			if(!isopenturf(turf_to_spawn_on))
-				continue
-			var/dense_object = FALSE
-			for(var/atom/content in turf_to_spawn_on.contents)
-				if(content.density)
-					dense_object = TRUE
-					break
-			if(dense_object)
-				continue
-			new /obj/item/reagent_containers/food/drinks/beer/almost_empty(turf_to_spawn_on)
-
-///Spawns the mob with some drugginess/drunkeness, and some disgust.
-/obj/effect/landmark/start/hangover/proc/make_hungover(mob/hangover_mob)
-	if(!iscarbon(hangover_mob))
-		return
-	var/mob/living/carbon/spawned_carbon = hangover_mob
-	spawned_carbon.set_resting(TRUE, silent = TRUE)
-	if(prob(50))
-		spawned_carbon.adjust_drugginess(rand(15, 20))
-	else
-		spawned_carbon.drunkenness += rand(15, 25)
-	spawned_carbon.adjust_disgust(rand(5, 55)) //How hungover are you?
-	if(spawned_carbon.head)
-		return
-
-/obj/effect/landmark/start/hangover/JoinPlayerHere(mob/M, buckle)
-	. = ..()
-	make_hungover(M)
-
-/obj/effect/landmark/start/hangover/closet
-	name = "hangover spawn closet"
-	icon_state = "hangover_spawn_closet"
-
-/obj/effect/landmark/start/hangover/closet/JoinPlayerHere(mob/M, buckle)
-	make_hungover(M)
-	for(var/obj/structure/closet/closet in contents)
-		if(closet.opened)
-			continue
-		M.forceMove(closet)
-		return
-	..() //Call parent as fallback
+			var/obj/item/reagent_containers/food/drinks/beer/almost_empty/B = new(get_turf(src))
+			B.pixel_x += rand(-6, 6)
+			B.pixel_y += rand(-6, 6)
+	return INITIALIZE_HINT_QDEL

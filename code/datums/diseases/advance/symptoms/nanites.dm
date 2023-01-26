@@ -5,10 +5,12 @@
 	resistance = 2
 	stage_speed = 2
 	transmission = -1
-	level = 7
+	level = 6
 	severity = 0
 	symptom_delay_min = 1
 	symptom_delay_max = 1
+	prefixes = list("Nano-")
+	suffixes = list(" Silicophilia")
 	var/reverse_boost = FALSE
 	threshold_desc = "<b>Transmission 5:</b> Increases the virus' growth rate while nanites are present.<br>\
 					  <b>Stage Speed 7:</b> Increases the replication boost."
@@ -35,7 +37,7 @@
 			if(prob(2 * power))
 				NP.software_error(rand(3, 4)) //activate, deactivate, or trigger the nanites
 	if(A.stage >= 4)
-		M.heal_overall_damage((0.5 * power), (0.5 * power), required_status = BODYPART_ROBOTIC)
+		M.heal_overall_damage((0.5 * power), (0.5 * power), required_status = BODYTYPE_ROBOTIC)
 
 /datum/symptom/nano_destroy
 	name = "Silicolysis"
@@ -44,10 +46,12 @@
 	resistance = 4
 	stage_speed = -1
 	transmission = 1
-	level = 7
+	level = 6
 	severity = 0
 	symptom_delay_min = 1
 	symptom_delay_max = 1
+	prefixes = list("Nano-")
+	suffixes = list(" Silicophobia")
 	var/reverse_boost = FALSE
 	threshold_desc = "<b>Stage Speed 5:</b> Increases the virus' growth rate while nanites are present.<br>\
 					  <b>Resistance 7:</b> Severely increases the rate at which the nanites are destroyed."
@@ -76,4 +80,4 @@
 			else if(prob(2))
 				NP.software_error()
 	if(A.stage >= 4)
-		M.take_overall_damage((1 * power), required_status = BODYPART_ROBOTIC)
+		M.take_overall_damage((1 * power), required_status = BODYTYPE_ROBOTIC)

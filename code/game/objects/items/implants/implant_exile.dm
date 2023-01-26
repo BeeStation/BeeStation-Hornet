@@ -60,4 +60,3 @@
 		message_admins("[ADMIN_LOOKUPFLW(hotelstaff)] tried to enter the station as hotel staff and was dusted.")
 	else
 		qdel(src) // This should only ever be applied to mobs
-	

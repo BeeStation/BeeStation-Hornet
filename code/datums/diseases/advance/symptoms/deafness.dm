@@ -20,14 +20,16 @@ Bonus
 	name = "Deafness"
 	desc = "The virus causes inflammation of the eardrums, causing intermittent deafness."
 	stealth = -1
-	resistance = -2
-	stage_speed = -1
+	resistance = -1
+	stage_speed = 1
 	transmission = -3
-	level = 4
+	level = 3
 	severity = 2
 	base_message_chance = 100
 	symptom_delay_min = 25
 	symptom_delay_max = 80
+	prefixes = list("Aural ")
+	bodies = list("Ear")
 	threshold_desc = "<b>Resistance 9:</b> Causes permanent deafness, instead of intermittent.<br>\
 					  <b>Stealth 4:</b> The symptom remains hidden until active."
 

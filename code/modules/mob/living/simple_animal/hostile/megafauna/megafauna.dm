@@ -1,8 +1,8 @@
 /mob/living/simple_animal/hostile/megafauna
 	name = "boss of this gym"
 	desc = "Attack the weak point for massive damage."
-	health = 1000
-	maxHealth = 1000
+	health = 500
+	maxHealth = 500
 	spacewalk = TRUE
 	a_intent = INTENT_HARM
 	sentience_type = SENTIENCE_BOSS
@@ -31,9 +31,9 @@
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
 	hardattacks = TRUE
 	discovery_points = 10000
-	var/list/crusher_loot
-	var/medal_type
-	var/score_type = BOSS_SCORE
+	var/achievement_type
+	var/crusher_achievement_type
+	var/score_achievement_type
 	var/elimination = 0
 	var/anger_modifier = 0
 	var/gps_name = null
@@ -43,6 +43,8 @@
 	var/chosen_attack = 1 // chosen attack num
 	var/list/attack_action_types = list()
 	var/small_sprite_type
+	/// Determines what a megafauna will say or do to telegraph its next attack. (Currently only used by Colossus). Set to 1 by default so the opening attack will always be the same.
+	var/random_attack_num = 1
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
@@ -57,6 +59,9 @@
 		small_action.Grant(src)
 
 /mob/living/simple_animal/hostile/megafauna/Moved()
+	//Safety check
+	if(!loc)
+		return ..()
 	if(nest && nest.parent && get_dist(nest.parent, src) > nest_range)
 		var/turf/closest = get_turf(nest.parent)
 		for(var/i = 1 to nest_range)
@@ -72,20 +77,16 @@
 	else
 		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 		var/crusher_kill = FALSE
-		if(C && crusher_loot && C.total_damage >= maxHealth * 0.6)
-			spawn_crusher_loot()
+		if(C && C.total_damage >= maxHealth * 0.6)
 			crusher_kill = TRUE
 		if(true_spawn && !(flags_1 & ADMIN_SPAWNED_1))
 			var/tab = "megafauna_kills"
 			if(crusher_kill)
 				tab = "megafauna_kills_crusher"
 			if(!elimination)	//used so the achievment only occurs for the last legion to die.
-				grant_achievement(medal_type, score_type, crusher_kill, force_grant)
+				grant_achievement(achievement_type, score_achievement_type, crusher_kill, force_grant)
 				SSblackbox.record_feedback("tally", tab, 1, "[initial(name)]")
 		..()
-
-/mob/living/simple_animal/hostile/megafauna/proc/spawn_crusher_loot()
-	loot = crusher_loot
 
 /mob/living/simple_animal/hostile/megafauna/gib()
 	if(health > 0)
@@ -141,7 +142,7 @@
 	ranged_cooldown = world.time + buffer_time
 
 /mob/living/simple_animal/hostile/megafauna/proc/grant_achievement(medaltype, scoretype, crusher_kill, var/list/grant_achievement = list())
-	if(!medal_type || (flags_1 & ADMIN_SPAWNED_1) || !SSmedals.hub_enabled) //Don't award medals if the medal type isn't set
+	if(!achievement_type || (flags_1 & ADMIN_SPAWNED_1) || !SSachievements.achievements_enabled) //Don't award medals if the medal type isn't set
 		return FALSE
 	if(!grant_achievement.len)
 		for(var/mob/living/L in oviewers(7,src))
@@ -149,13 +150,12 @@
 	for(var/mob/living/L in grant_achievement)
 		if(L.stat || !L.client)
 			continue
-		var/client/C = L.client
-		SSmedals.UnlockMedal("Boss [BOSS_KILL_MEDAL]", C)
-		SSmedals.UnlockMedal("[medaltype] [BOSS_KILL_MEDAL]", C)
+		L.client.give_award(/datum/award/achievement/boss/boss_killer, L)
+		L.client.give_award(achievement_type, L)
 		if(crusher_kill && istype(L.get_active_held_item(), /obj/item/kinetic_crusher))
-			SSmedals.UnlockMedal("[medaltype] [BOSS_KILL_MEDAL_CRUSHER]", C)
-		SSmedals.SetScore(BOSS_SCORE, C, 1)
-		SSmedals.SetScore(score_type, C, 1)
+			L.client.give_award(crusher_achievement_type, L)
+		L.client.give_award(/datum/award/score/boss_score, L) //Score progression for bosses killed in general
+		L.client.give_award(score_achievement_type, L) //Score progression for specific boss killed
 	return TRUE
 
 /datum/action/innate/megafauna_attack

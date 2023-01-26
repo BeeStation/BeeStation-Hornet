@@ -60,7 +60,7 @@
 		var/mob/living/carbon/human/tar = target
 		if(tar.check_shields(src,10, "the [tar.name]"))
 			return ..()
-		if(tar.anti_magic_check())
+		if(tar.anti_magic_check(magic=FALSE,holy=TRUE))
 			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The spell bounces off of you!</span>")
 			return ..()
 	var/datum/mind/M = user.mind
@@ -155,7 +155,7 @@
 	playsound(user, 'sound/magic/demon_attack1.ogg', 75, TRUE)
 	if(ishuman(target))
 		var/mob/living/carbon/human/tar = target
-		if(tar.anti_magic_check())
+		if(tar.anti_magic_check(magic=FALSE,holy=TRUE))
 			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The spell bounces off of you!</span>")
 			return ..()
 	var/mob/living/carbon/human/C2 = user
@@ -252,7 +252,7 @@
 		var/mob/living/carbon/human/target = X
 		if(target == user)
 			continue
-		if(target.anti_magic_check())
+		if(target.anti_magic_check(magic=FALSE,holy=TRUE))
 			to_chat(user, "<span class='warning'>The spell had no effect!</span>")
 			target.visible_message("<span class='danger'>[target]'s veins flash with fire, but their magic protection repulses the blaze!</span>", \
 							"<span class='danger'>Your veins flash with fire, but your magic protection repels the blaze!</span>")
@@ -324,7 +324,7 @@
 			break
 
 		for(var/mob/living/L in T.contents)
-			if(L.anti_magic_check())
+			if(L.anti_magic_check(magic=FALSE,holy=TRUE))
 				L.visible_message("<span class='danger'>Spell bounces off of [L]!</span>","<span class='danger'>The spell bounces off of you!</span>")
 				continue
 			if(L in hit_list || L == source)
@@ -551,7 +551,7 @@
 	duration = 1 MINUTES
 	layer = LOW_SIGIL_LAYER
 
-/obj/effect/temp_visual/glowing_rune/Initialize()
+/obj/effect/temp_visual/glowing_rune/Initialize(mapload)
 	. = ..()
 	pixel_y = rand(-6,6)
 	pixel_x = rand(-6,6)
@@ -610,7 +610,10 @@
 		CRASH("Uh oh the mansus link got somehow activated without it being linked to a raw prophet or the mob not being in a list of mobs that should be able to do it.")
 
 	var/message = sanitize(input("Message:", "Telepathy from the Manse") as text|null)
-
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(living_owner, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
+	message = living_owner.treat_message_min(message)
 	if(QDELETED(living_owner))
 		return
 
@@ -631,3 +634,75 @@
 	range = 10
 	invocation = "E'E'S"
 	action_background_icon_state = "bg_ecult"
+
+/obj/effect/temp_visual/dir_setting/entropic
+	icon = 'icons/effects/160x160.dmi'
+	icon_state = "entropic_plume"
+	duration = 3 SECONDS
+
+/obj/effect/temp_visual/dir_setting/entropic/setDir(dir)
+	. = ..()
+	switch(dir)
+		if(NORTH)
+			pixel_x = -64
+		if(SOUTH)
+			pixel_x = -64
+			pixel_y = -128
+		if(EAST)
+			pixel_y = -64
+		if(WEST)
+			pixel_y = -64
+			pixel_x = -128
+
+/obj/effect/temp_visual/glowing_rune
+	icon = 'icons/effects/eldritch.dmi'
+	icon_state = "small_rune_1"
+	duration = 1 MINUTES
+	layer = LOW_SIGIL_LAYER
+
+/obj/effect/temp_visual/glowing_rune/Initialize()
+	. = ..()
+	pixel_y = rand(-6,6)
+	pixel_x = rand(-6,6)
+	icon_state = "small_rune_[rand(12)]"
+	update_icon()
+
+/obj/effect/proc_holder/spell/cone/staggered/entropic_plume
+	name = "Entropic Plume"
+	desc = "Spews forth a disorienting plume that causes enemies to strike each other, briefly blinds them(increasing with range) and poisons them(decreasing with range). Also spreads rust in the path of the plume."
+	school = "illusion"
+	invocation = "'NTR'P'C PL'M'"
+	invocation_type = INVOCATION_WHISPER
+	clothes_req = FALSE
+	action_background_icon_state = "bg_ecult"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "entropic_plume"
+	charge_max = 300
+	cone_levels = 5
+	respect_density = TRUE
+
+/obj/effect/proc_holder/spell/cone/staggered/entropic_plume/cast(list/targets,mob/user = usr)
+	. = ..()
+	new /obj/effect/temp_visual/dir_setting/entropic(get_step(user,user.dir), user.dir)
+
+/obj/effect/proc_holder/spell/cone/staggered/entropic_plume/do_turf_cone_effect(turf/target_turf, level)
+	. = ..()
+	target_turf.rust_heretic_act()
+
+/obj/effect/proc_holder/spell/cone/staggered/entropic_plume/do_mob_cone_effect(mob/living/victim, level)
+	. = ..()
+	if(victim.anti_magic_check() || IS_HERETIC(victim) || victim.mind?.has_antag_datum(/datum/antagonist/heretic_monster))
+		return
+	victim.apply_status_effect(STATUS_EFFECT_AMOK)
+	victim.apply_status_effect(STATUS_EFFECT_CLOUDSTRUCK, (level*10))
+	if(iscarbon(victim))
+		var/mob/living/carbon/carbon_victim = victim
+		carbon_victim.reagents.add_reagent(/datum/reagent/eldritch, min(1, 6-level))
+
+/obj/effect/proc_holder/spell/cone/staggered/entropic_plume/calculate_cone_shape(current_level)
+	if(current_level == cone_levels)
+		return 5
+	else if(current_level == cone_levels-1)
+		return 3
+	else
+		return 2

@@ -36,7 +36,7 @@
 /mob/living/silicon/setStaminaLoss(amount, updating_health = TRUE)
 	return FALSE
 
-/mob/living/silicon/adjustOrganLoss(slot, amount, maximum = 500)
+/mob/living/silicon/adjustOrganLoss(slot, amount, maximum = 500, required_status)
 	return FALSE
 
 /mob/living/silicon/setOrganLoss(slot, amount)

@@ -36,13 +36,12 @@
 	desc = "It's better than bad, it's good!"
 	icon_state = "logs"
 	force = 5
-	block_upgrade_walk = 1
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 2
 	throw_range = 3
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
-	var/plank_type = /obj/item/stack/sheet/mineral/wood
+	var/plank_type = /obj/item/stack/sheet/wood
 	var/plank_name = "wooden planks"
 	var/static/list/accepted = typecacheof(list(/obj/item/reagent_containers/food/snacks/grown/tobacco,
 	/obj/item/reagent_containers/food/snacks/grown/tea,
@@ -94,6 +93,7 @@
 	icon_state = "steellogs"
 	plank_type = /obj/item/stack/rods
 	plank_name = "rods"
+	discovery_points = 300
 
 /obj/item/grown/log/steel/CheckAccepted(obj/item/I)
 	return FALSE
@@ -110,9 +110,8 @@
 	production = 2
 	yield = 5
 	potency = 50
-	growthstages = 2
+	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing.dmi'
-	icon_dead = "bamboo-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 
 /obj/item/grown/log/bamboo
@@ -120,8 +119,9 @@
 	name = "bamboo log"
 	desc = "A long and resistant bamboo log."
 	icon_state = "bamboo"
-	plank_type = /obj/item/stack/sheet/mineral/bamboo
+	plank_type = /obj/item/stack/sheet/bamboo
 	plank_name = "bamboo sticks"
+	discovery_points = 300
 
 /obj/item/grown/log/bamboo/CheckAccepted(obj/item/I)
 	return FALSE
@@ -153,6 +153,7 @@
 	anchored = TRUE
 	buckle_lying = 0
 	flags_1 = SAVE_SAFE_1
+	pass_flags_self = PASSTABLE | LETPASSTHROW
 	var/burning = 0
 	var/burn_icon = "bonfire_on_fire" //for a softer more burning embers icon, use "bonfire_warm"
 	var/grill = FALSE
@@ -168,7 +169,7 @@
 /obj/structure/bonfire/dense/askwalker
 	needs_oxygen = FALSE
 
-/obj/structure/bonfire/prelit/Initialize()
+/obj/structure/bonfire/prelit/Initialize(mapload)
 	. = ..()
 	StartBurning()
 
@@ -178,6 +179,13 @@
 	if(mover.throwing)
 		return TRUE
 	return ..()
+
+/obj/structure/bonfire/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddComponent(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/bonfire/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/rods) && !can_buckle && !grill)
@@ -243,6 +251,9 @@
 
 /obj/structure/bonfire/proc/StartBurning()
 	if(!burning && (!needs_oxygen || CheckOxygen()))
+		add_emitter(/obj/emitter/fire, "fire")
+		add_emitter(/obj/emitter/sparks/fire, "fire_spark")
+		add_emitter(/obj/emitter/fire_smoke, "smoke", 9)
 		icon_state = burn_icon
 		burning = TRUE
 		set_light(6)
@@ -252,7 +263,9 @@
 /obj/structure/bonfire/fire_act(exposed_temperature, exposed_volume)
 	StartBurning()
 
-/obj/structure/bonfire/Crossed(atom/movable/AM)
+/obj/structure/bonfire/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
 	if(burning & !grill)
 		Burn()
 
@@ -294,6 +307,9 @@
 
 /obj/structure/bonfire/extinguish()
 	if(burning)
+		remove_emitter("fire")
+		remove_emitter("fire_spark")
+		remove_emitter("smoke")
 		icon_state = "bonfire"
 		burning = 0
 		set_light(0)

@@ -19,7 +19,7 @@
 	var/extra_reagent = null
 	var/decorated_adjective = "sprinkled"
 
-/obj/item/reagent_containers/food/snacks/donut/Initialize()
+/obj/item/reagent_containers/food/snacks/donut/Initialize(mapload)
 	. = ..()
 	if(prob(30))
 		decorate_donut()
@@ -57,7 +57,7 @@
 	tastes = list("donut" = 3, "chaos" = 1)
 	is_decorated = TRUE
 
-/obj/item/reagent_containers/food/snacks/donut/chaos/Initialize()
+/obj/item/reagent_containers/food/snacks/donut/chaos/Initialize(mapload)
 	. = ..()
 	extra_reagent = pick(/datum/reagent/consumable/nutriment, /datum/reagent/consumable/capsaicin, /datum/reagent/consumable/frostoil, /datum/reagent/drug/krokodil, /datum/reagent/toxin/plasma, /datum/reagent/consumable/cocoa, /datum/reagent/toxin/slimejelly, /datum/reagent/consumable/banana, /datum/reagent/consumable/berryjuice, /datum/reagent/medicine/omnizine)
 	reagents.add_reagent(extra_reagent, 3)
@@ -155,7 +155,7 @@
 	tastes = list("jelly" = 1, "donut" = 3)
 	foodtype = JUNKFOOD | GRAIN | FRIED | FRUIT | SUGAR | BREAKFAST
 
-/obj/item/reagent_containers/food/snacks/donut/jelly/Initialize()
+/obj/item/reagent_containers/food/snacks/donut/jelly/Initialize(mapload)
 	. = ..()
 	if(extra_reagent)
 		reagents.add_reagent(extra_reagent, 3)
@@ -398,6 +398,26 @@
 	foodtype = GRAIN | VEGETABLES | SUGAR | BREAKFAST
 ////////////////////////////////////////////DONK POCKETS////////////////////////////////////////////
 
+/obj/item/reagent_containers/food/snacks/donkpocket/random
+	name = "\improper Random Donk-pocket"
+	icon_state = "random_donkpocket"
+	desc = "The food of choice for the seasoned coder (if you see this, contact DonkCo. as soon as possible)."
+
+/obj/item/reagent_containers/food/snacks/donkpocket/random/Initialize()
+	var/list/donkblock = list(/obj/item/reagent_containers/food/snacks/donkpocket/warm,
+	/obj/item/reagent_containers/food/snacks/donkpocket/spicy/warm,
+	/obj/item/reagent_containers/food/snacks/donkpocket/teriyaki/warm,
+	/obj/item/reagent_containers/food/snacks/donkpocket/pizza/warm,
+	/obj/item/reagent_containers/food/snacks/donkpocket/honk/warm,
+	/obj/item/reagent_containers/food/snacks/donkpocket/berry/warm,
+	/obj/item/reagent_containers/food/snacks/donkpocket/gondola,
+	/obj/item/reagent_containers/food/snacks/donkpocket/gondola/warm,
+	)
+
+	var donk_type = pick(subtypesof(/obj/item/reagent_containers/food/snacks/donkpocket) - donkblock)
+	new donk_type(loc)
+	return INITIALIZE_HINT_QDEL
+
 /obj/item/reagent_containers/food/snacks/donkpocket
 	name = "\improper Donk-pocket"
 	desc = "The food of choice for the seasoned traitor."
@@ -417,13 +437,24 @@
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
 	foodtype = GRAIN
 
-/obj/item/reagent_containers/food/snacks/dankpocket
+/obj/item/reagent_containers/food/snacks/donkpocket/dank
 	name = "\improper Dank-pocket"
 	desc = "The food of choice for the seasoned botanist."
 	icon_state = "dankpocket"
 	list_reagents = list(/datum/reagent/toxin/lipolicide = 3, /datum/reagent/drug/space_drugs = 3, /datum/reagent/consumable/nutriment = 4)
+	cooked_type = /obj/item/reagent_containers/food/snacks/donkpocket/dank/warm
 	filling_color = "#00FF00"
-	tastes = list("meat" = 2, "dough" = 2)
+	tastes = list("meat" = 2, "dough" = 2, "cannabis" = 2)
+	foodtype = GRAIN | VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/donkpocket/dank/warm
+	name = "\improper Dank-pocket"
+	desc = "The food of choice for the baked botanist."
+	icon_state = "dankpocket"
+	bonus_reagents = list(/datum/reagent/medicine/omnizine = 1, /datum/reagent/drug/space_drugs = 2)
+	list_reagents = list(/datum/reagent/toxin/lipolicide = 3, /datum/reagent/drug/space_drugs = 3, /datum/reagent/consumable/nutriment = 4)
+	cooked_type = null
+	tastes = list("meat" = 2, "dough" = 2, "cannabis" = 2)
 	foodtype = GRAIN | VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/donkpocket/spicy
@@ -578,7 +609,7 @@
 	tastes = list("mushroom" = 1, "biscuit" = 1)
 	foodtype = GRAIN | VEGETABLES
 
-/obj/item/reagent_containers/food/snacks/plumphelmetbiscuit/Initialize()
+/obj/item/reagent_containers/food/snacks/plumphelmetbiscuit/Initialize(mapload)
 	var/fey = prob(10)
 	if(fey)
 		name = "exceptional plump helmet biscuit"
@@ -734,7 +765,7 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 3)
 	tastes = list("pancakes" = 1, "chocolate" = 1)
 
-/obj/item/reagent_containers/food/snacks/pancakes/Initialize()
+/obj/item/reagent_containers/food/snacks/pancakes/Initialize(mapload)
 	. = ..()
 	update_icon()
 

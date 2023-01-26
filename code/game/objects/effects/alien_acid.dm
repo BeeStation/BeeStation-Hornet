@@ -25,6 +25,11 @@
 
 	START_PROCESSING(SSobj, src)
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/effect/acid/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -41,7 +46,9 @@
 		playsound(loc, 'sound/items/welder.ogg', 100, 1)
 
 	for(var/obj/O in target)
-		if(prob(20) && !(resistance_flags & UNACIDABLE))
+		if(O.resistance_flags & (UNACIDABLE | INDESTRUCTIBLE))
+			continue
+		if(prob(20))
 			if(O.acid_level < acid_level*0.3)
 				var/acid_used = min(acid_level*0.05, 20)
 				O.acid_act(10, acid_used)
@@ -52,7 +59,9 @@
 		qdel(src)
 		return 0
 
-/obj/effect/acid/Crossed(AM as mob|obj)
+/obj/effect/acid/proc/on_entered(datum/source, AM as mob|obj)
+	SIGNAL_HANDLER
+
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(L.movement_type & FLYING)

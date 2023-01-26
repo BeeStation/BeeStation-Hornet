@@ -10,7 +10,7 @@
 	var/depowered = FALSE	//Makes sure the depowered proc is only called when its depowered and not while its depowered
 	var/minimum_power = 0	//Minimum operation power
 
-/obj/structure/destructible/clockwork/gear_base/Initialize()
+/obj/structure/destructible/clockwork/gear_base/Initialize(mapload)
 	. = ..()
 	update_icon_state()
 	transmission_sigils = list()

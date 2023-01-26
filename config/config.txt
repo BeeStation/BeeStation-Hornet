@@ -1,10 +1,23 @@
+# This file controls basic or highly important, but not strictly gameplay related options.
+
+
 # You can use the "$include" directive to split your configs however you want
 
+# Core gameplay options
 $include game_options.txt
+# More opinionated gameplay tweaks
+$include gameplay_tweaks.txt
+# Database (SQL), Sensitive stuff
 $include dbconfig.txt
+# Cross-Server Communications
 $include comms.txt
+# Antag Reputation (Alternative weighting)
 $include antag_rep.txt
+# Asset Transport (TGUI)
 $include resources.txt
+$include interviews.txt
+# Performance stuff
+$include performance.txt
 
 # You can use the @ character at the beginning of a config option to lock it from being edited in-game
 # Example usage:
@@ -156,6 +169,9 @@ LOG_MANIFEST
 ## log mecha actions
 # LOG_MECHA
 
+## Log all timers on timer auto reset
+# LOG_TIMERS_ON_BUCKET_RESET
+
 ##Log camera pictures - Must have picture logging enabled
 PICTURE_LOGGING_CAMERA
 
@@ -237,6 +253,9 @@ CHECK_RANDOMIZER
 
 ## Set to prevent anyone but those ckeys listed in config/whitelist.txt and config/admins.txt from joining your server
 #USEWHITELIST
+
+## Use the patron list as a whitelist. 'USEWHITELIST' must also be enabled. The two lists will be joined together.
+#USE_PATRONS_AS_WHITELIST
 
 ## set a server location for world reboot. Don't include the byond://, just give the address and port.
 ## Don't set this to the same server, BYOND will automatically restart players to the server when it has restarted.
@@ -325,6 +344,9 @@ AUTOMUTE_ON
 ## Uncomment this to let players see their own notes (they can still be set by admins only)
 SEE_OWN_NOTES
 
+## Uncomment this to prevent the game from creating automatically expring notes, and to skip the prompt for admins to enter an expiry time for notes. They can still be added manually.
+MANUAL_NOTE_EXPIRY
+
 ### Comment these two out to prevent notes fading out over time for admins.
 ## Notes older then this will start fading out.
 NOTE_FRESH_DAYS 91.31055
@@ -367,6 +389,14 @@ NOTIFY_NEW_PLAYER_ACCOUNT_AGE 1
 ##	Requires database
 #PANIC_BUNKER
 
+## Uncomment to enable the interview system for players who are below the living hour requirement instead of explicitly blocking them from the server
+## Note this requires the PANIC_BUNKER to be enabled to do anything.
+#PANIC_BUNKER_INTERVIEW
+
+## Uncomment to allow players to try interviewing again instead of being removed for the duration of the round
+## Note this requires the PANIC_BUNKER_INTERVIEW to be enabled to do anything.
+#PANIC_BUNKER_INTERVIEW_RETRIES
+
 ## If a player connects during a bunker with less then or this amount of living time (Minutes), we deny the connection
 #PANIC_BUNKER_LIVING 60
 
@@ -403,7 +433,11 @@ MAPROTATION
 PREFERENCE_MAP_VOTING 0
 
 ## Starts a map vote at the end of rounds
-#AUTOMAPVOTE
+AUTOMAPVOTE
+
+## Sets a minimum round length (in minutes) before a map vote will be called to discourage players from forcing early round ends just to change map
+## Set to 0 to disable.
+AUTOMAPVOTE_THRESHOLD 45
 
 ## Map rotate chance delta
 ## This is the chance of map rotation factored to the round length.
@@ -426,10 +460,10 @@ AUTOADMIN_RANK Admin
 #CLIENT_WARN_VERSION 513
 #CLIENT_WARN_POPUP
 #CLIENT_WARN_MESSAGE 512 is no longer being directly supported as version 513 is set to become the new stable version soon. We've made a number of changes to take advantage of the improvements made in 513 which should make for a smoother experience. We will be removing support for 512 when this new version replaces it as stable, so it's recommended that you upgrade now. (You can update to the BETA via the website or directly in the BYOND client)
-CLIENT_ERROR_VERSION 513
+CLIENT_ERROR_VERSION 514
 CLIENT_ERROR_MESSAGE Your version of byond is not supported. Please upgrade.
 ## The minimum build needed for joining the server, if using 513, a good minimum build would be 1526.
-CLIENT_ERROR_BUILD 1526
+CLIENT_ERROR_BUILD 1583
 
 ## TOPIC RATE LIMITING
 ## This allows you to limit how many topic calls (clicking on an interface window) the client can do in any given game second and/or game minute.
@@ -497,9 +531,6 @@ ROUNDS_UNTIL_HARD_RESTART 3
 ##	For reference, Goonstation uses a resolution of 21x15 for it's widescreen mode.
 ##	Do note that changing this value will affect the title screen. The title screen will have to be updated manually if this is changed.
 DEFAULT_VIEW 17x15
-
-##Should we use square view (15x15) while a new player (main menu)
-MENU_SQUARE_VIEW
 
 ## Name your perpetual currency here
 ## This is used within the metashop and earned by playing the game.
@@ -589,3 +620,12 @@ ELASTICSEARCH_METRICS_ENDPOINT http://10.0.0.40:9201/ss13-metrics-stream/_doc
 
 ## ElasticSearch API key. This is formatted into the headers. Look at the ElasticSearch doc for how to make this
 ELASTICSEARCH_METRICS_APIKEY thisIsSomethingThatsBased64Encoded==
+
+## How long in seconds after which a hard delete is treated as causing lag. This can be a float and supports a precision as low as nanoseconds.
+#HARD_DELETES_OVERRUN_THRESHOLD 0.5
+
+## Once a typepath causes overrun from hard deletes this many times, stop hard deleting it on garbage collection failures. (set to 0 to disable)
+#HARD_DELETES_OVERRUN_LIMIT 0
+
+## Enable/disable the mentor mrat verb ("Request Mentor Assistance")
+ENABLE_MRAT

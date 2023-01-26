@@ -1,5 +1,6 @@
 /obj/machinery/portable_atmospherics/scrubber
 	name = "portable air scrubber"
+	desc = "It's a small portable scrubber, capable of siphoning selected gasses from its surroundings. It has an internal tank, and a slot for inserting an external tank. It can be wrenched to connection ports to pump and withdraw gasses from the internal tank."
 	icon_state = "pscrubber:0"
 	density = TRUE
 
@@ -50,7 +51,7 @@
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	if(is_operational())
+	if(is_operational)
 		if(prob(50 / severity))
 			on = !on
 		update_icon()
@@ -132,7 +133,7 @@
 	icon_state = "scrubber:[on]"
 
 /obj/machinery/portable_atmospherics/scrubber/huge/process_atmos()
-	if((!anchored && !movable) || !is_operational())
+	if((!anchored && !movable) || !is_operational)
 		on = FALSE
 		update_icon()
 	use_power = on ? ACTIVE_POWER_USE : IDLE_POWER_USE

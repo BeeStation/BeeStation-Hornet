@@ -27,18 +27,10 @@
 	..()
 
 /datum/antagonist/traitor/apply_innate_effects()
-	if(owner.assigned_role == "Clown")
-		var/mob/living/carbon/human/traitor_mob = owner.current
-		if(traitor_mob && istype(traitor_mob))
-			if(!silent)
-				to_chat(traitor_mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-			traitor_mob.dna.remove_mutation(CLOWNMUT)
+	handle_clown_mutation(owner.current, silent ? null : "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 
 /datum/antagonist/traitor/remove_innate_effects()
-	if(owner.assigned_role == "Clown")
-		var/mob/living/carbon/human/traitor_mob = owner.current
-		if(traitor_mob && istype(traitor_mob))
-			traitor_mob.dna.add_mutation(CLOWNMUT)
+	handle_clown_mutation(owner.current, removing=FALSE)
 
 /datum/antagonist/traitor/on_removal()
 	//Remove malf powers.
@@ -48,6 +40,8 @@
 		A.remove_verb(/mob/living/silicon/ai/proc/choose_modules)
 		A.malf_picker.remove_malf_verbs(A)
 		qdel(A.malf_picker)
+		QDEL_NULL(A.radio.keyslot)
+		A.radio.recalculateChannels()
 
 	SSticker.mode.traitors -= owner
 	if(!silent && owner.current)
@@ -91,8 +85,15 @@
 			assign_exchange_role(SSticker.mode.exchange_blue)
 		objective_count += 1					//Exchange counts towards number of objectives
 	var/toa = CONFIG_GET(number/traitor_objectives_amount)
-	for(var/i = objective_count, i < toa, i++)
+	for(var/i = objective_count, i < toa - 1, i++)
 		forge_single_objective()
+
+	//Add a gimmick objective
+	var/datum/objective/gimmick/gimmick_objective = new
+	gimmick_objective.owner = owner
+	gimmick_objective.find_target()
+	gimmick_objective.update_explanation_text()
+	add_objective(gimmick_objective) //Does not count towards the number of objectives, to allow hijacking as well
 
 	if(is_hijacker && objective_count <= toa) //Don't assign hijack if it would exceed the number of objectives set in config.traitor_objectives_amount
 		if (!(locate(/datum/objective/hijack) in objectives))
@@ -165,7 +166,7 @@
 			kill_objective.find_target()
 			add_objective(kill_objective)
 	else
-		if(prob(15) && !(locate(/datum/objective/download) in objectives) && !(owner.assigned_role in list("Research Director", "Scientist", "Roboticist")))
+		if(prob(15) && !(locate(/datum/objective/download) in objectives) && !(owner.assigned_role in list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST)))
 			var/datum/objective/download/download_objective = new
 			download_objective.owner = owner
 			download_objective.gen_amount_goal()
@@ -199,7 +200,7 @@
 			yandere_one.find_target()
 			var/datum/objective/maroon/yandere_two = new
 			yandere_two.owner = owner
-			yandere_two.target = yandere_one.target
+			yandere_two.set_target(yandere_one.target)
 			yandere_two.update_explanation_text() // normally called in find_target()
 			add_objective(yandere_two)
 			.=2
@@ -345,8 +346,10 @@
 	if(objectives.len)//If the traitor had no objectives, don't need to process this.
 		var/count = 1
 		for(var/datum/objective/objective in objectives)
-			if(objective.check_completion())
+			if(objective.check_completion() && !objective.optional)
 				objectives_text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <span class='greentext'>Success!</span>"
+			else if (objective.optional)
+				objectives_text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <span class='greentext'>Optional.</span>"
 			else
 				objectives_text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
 				traitorwin = FALSE

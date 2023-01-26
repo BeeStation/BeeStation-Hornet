@@ -21,11 +21,10 @@
 		return
 
 	if (action == "orbit")
-		var/list/pois = getpois(skip_mindless = 1)
-		var/atom/movable/poi = pois[params["name"]]
+		var/ref = params["ref"]
+		var/atom/movable/poi = (locate(ref) in GLOB.mob_list) || (locate(ref) in GLOB.poi_list)
 		if (poi != null)
 			owner.ManualFollow(poi)
-			ui.close()
 
 /datum/orbit_menu/ui_data(mob/user)
 	var/list/data = list()
@@ -44,6 +43,8 @@
 
 		var/poi = pois[name]
 
+		serialized["ref"] = REF(poi)
+
 		var/mob/M = poi
 		if (istype(M))
 			if (isobserver(M))
@@ -59,6 +60,16 @@
 
 				var/datum/mind/mind = M.mind
 				var/was_antagonist = FALSE
+
+				//If we have an ID, use that
+				var/obj/item/card/id/identification_card = M.get_idcard()
+				if (identification_card)
+					serialized["role_icon"] = "hud[ckey(identification_card.GetJobIcon())]"
+				else
+					//If we have no ID, use the mind job
+					var/datum/job/located_job = SSjob.GetJob(mind.assigned_role)
+					if (located_job)
+						serialized["role_icon"] = "hud[ckey(located_job.title)]"
 
 				for (var/_A in mind.antag_datums)
 					var/datum/antagonist/A = _A
@@ -85,3 +96,16 @@
 /datum/orbit_menu/ui_assets()
 	. = ..() || list()
 	. += get_asset_datum(/datum/asset/simple/orbit)
+	. += get_asset_datum(/datum/asset/spritesheet/job_icons)
+
+/datum/asset/spritesheet/job_icons
+	name = "job-icon"
+
+/datum/asset/spritesheet/job_icons/register()
+	var/icon/I = icon('icons/mob/hud.dmi')
+	// Get the job hud part
+	I.Crop(1, 17, 8, 24)
+	// Scale it up
+	I.Scale(16, 16)
+	InsertAll("job-icon", I)
+	..()

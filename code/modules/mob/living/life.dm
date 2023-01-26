@@ -2,12 +2,7 @@
 	set waitfor = FALSE
 	set invisibility = 0
 
-	if(HAS_TRAIT(src,TRAIT_DIGINVIS)) //AI unable to see mob
-		if(!digitaldisguise)
-			src.digitaldisguise = image(loc = src)
-		src.digitaldisguise.override = 1
-		for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
-			AI.client?.images |= src.digitaldisguise
+	SEND_SIGNAL(src, COMSIG_LIVING_LIFE, seconds, times_fired)
 
 	if((movement_type & FLYING) && !(movement_type & FLOATING))	//TODO: Better floating
 		float(on = TRUE)
@@ -48,7 +43,6 @@
 		if(gravity > STANDARD_GRAVITY)
 			if(!get_filter("gravity"))
 				add_filter("gravity",1,list("type"="motion_blur", "x"=0, "y"=0))
-			INVOKE_ASYNC(src, .proc/gravity_pulse_animation)
 			handle_high_gravity(gravity)
 
 		if(stat != DEAD)
@@ -120,16 +114,6 @@
 
 /mob/living/proc/update_damage_hud()
 	return
-
-/mob/living/proc/gravity_animate()
-	if(!get_filter("gravity"))
-		add_filter("gravity",1,list("type"="motion_blur", "x"=0, "y"=0))
-	INVOKE_ASYNC(src, .proc/gravity_pulse_animation)
-
-/mob/living/proc/gravity_pulse_animation()
-	animate(get_filter("gravity"), y = 1, time = 10)
-	sleep(10)
-	animate(get_filter("gravity"), y = 0, time = 10)
 
 /mob/living/proc/handle_high_gravity(gravity)
 	if(gravity >= GRAVITY_DAMAGE_TRESHOLD) //Aka gravity values of 3 or more

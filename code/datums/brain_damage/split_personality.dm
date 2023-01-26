@@ -19,7 +19,12 @@
 
 /datum/brain_trauma/severe/split_personality/proc/make_backseats()
 	stranger_backseat = new(owner, src)
+	var/obj/effect/proc_holder/spell/targeted/personality_commune/stranger_spell = new(src)
+	stranger_backseat.AddSpell(stranger_spell)
+
 	owner_backseat = new(owner, src)
+	var/obj/effect/proc_holder/spell/targeted/personality_commune/owner_spell = new(src)
+	owner_backseat.AddSpell(owner_spell)
 
 /datum/brain_trauma/severe/split_personality/proc/get_ghost()
 	set waitfor = FALSE
@@ -172,12 +177,12 @@
 	if(_codeword)
 		codeword = _codeword
 	else
-		codeword = pick(strings("ion_laws.json", "ionabstract")\
-			| strings("ion_laws.json", "ionobjects")\
-			| strings("ion_laws.json", "ionadjectives")\
-			| strings("ion_laws.json", "ionthreats")\
-			| strings("ion_laws.json", "ionfood")\
-			| strings("ion_laws.json", "iondrinks"))
+		codeword = pick(strings(ION_LAWS_FILE, "ionabstract")\
+			| strings(ION_LAWS_FILE, "ionobjects")\
+			| strings(ION_LAWS_FILE, "ionadjectives")\
+			| strings(ION_LAWS_FILE, "ionthreats")\
+			| strings(ION_LAWS_FILE, "ionfood")\
+			| strings(ION_LAWS_FILE, "iondrinks"))
 
 /datum/brain_trauma/severe/split_personality/brainwashing/on_gain()
 	..()

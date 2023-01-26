@@ -75,7 +75,7 @@
 	tastes = list("popcorn" = 3, "butter" = 1)
 	foodtype = JUNKFOOD
 
-/obj/item/reagent_containers/food/snacks/popcorn/Initialize()
+/obj/item/reagent_containers/food/snacks/popcorn/Initialize(mapload)
 	. = ..()
 	eatverb = pick("bite","nibble","gnaw","gobble","chomp")
 
@@ -139,6 +139,16 @@
 	list_reagents = list(/datum/reagent/toxin/bad_food = 30)
 	filling_color = "#8B4513"
 	foodtype = GROSS
+
+/obj/item/reagent_containers/food/snacks/badrecipe/burn()
+	if(QDELETED(src))
+		return
+	var/turf/T = get_turf(src)
+	var/obj/effect/decal/cleanable/ash/A = new /obj/effect/decal/cleanable/ash(T)
+	A.desc += "\nLooks like this used to be \an [name] some time ago."
+	if(resistance_flags & ON_FIRE)
+		SSfire_burning.processing -= src
+	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/carrotfries
 	name = "carrot fries"
@@ -421,8 +431,15 @@
 	var/headcolor = rgb(0, 0, 0)
 	tastes = list("candy" = 1)
 	foodtype = JUNKFOOD | SUGAR
+	slot_flags = ITEM_SLOT_MASK
+	///Essentially IsEquipped
+	var/chewing = TRUE
+	///Time between bites
+	var/bite_frequency = 30 SECONDS
+	///ID for timer
+	var/timer_id
 
-/obj/item/reagent_containers/food/snacks/lollipop/Initialize()
+/obj/item/reagent_containers/food/snacks/lollipop/Initialize(mapload)
 	. = ..()
 	head = mutable_appearance('icons/obj/lollipop.dmi', "lollipop_head")
 	change_head_color(rgb(rand(0, 255), rand(0, 255), rand(0, 255)))
@@ -438,10 +455,56 @@
 	throw_speed = 1
 	throwforce = 0
 
+/obj/item/reagent_containers/food/snacks/lollipop/Destroy()
+	if(timer_id)
+		deltimer(timer_id)
+	..()
+
+/obj/item/reagent_containers/food/snacks/lollipop/equipped(mob/user, slot)
+	. = ..()
+	if(timer_id)
+		deltimer(timer_id)
+		timer_id = null
+	chewing = (slot == ITEM_SLOT_MASK ? TRUE : FALSE)
+	if(chewing) //Set a timer to chew(), instead of calling chew for the convenience of being able to equip/unequip our pop
+		timer_id = addtimer(CALLBACK(src, .proc/chew), bite_frequency, TIMER_STOPPABLE)
+
+/obj/item/reagent_containers/food/snacks/lollipop/dropped(mob/user)
+	. = ..()
+	if(timer_id)
+		deltimer(timer_id)
+		timer_id = null
+
+/obj/item/reagent_containers/food/snacks/lollipop/proc/chew()
+	if(iscarbon(loc) && chewing)
+		var/mob/living/carbon/M = loc
+		if(M.health <= 0)
+			return
+		attack(M, M)
+		timer_id = addtimer(CALLBACK(src, .proc/chew), bite_frequency, TIMER_STOPPABLE)
+
+/obj/item/reagent_containers/food/snacks/lollipop/long
+	name = "longpop"
+	desc = "Twice the size, half the flavour!"
+	icon = 'icons/obj/lollipop.dmi'
+	icon_state = "lollipop_stick_long"
+
+/obj/item/reagent_containers/food/snacks/lollipop/long/equipped(mob/user, slot)
+	..()
+	if(chewing)
+		RegisterSignal(user, COMSIG_LIVING_STATUS_KNOCKDOWN, .proc/on_trip, user)
+	else
+		UnregisterSignal(user, COMSIG_LIVING_STATUS_KNOCKDOWN)
+
+/obj/item/reagent_containers/food/snacks/lollipop/long/proc/on_trip(mob/living/carbon/user)
+	visible_message("<span class='danger'>[user] is impailed by the [src]!</span>", "<span class='danger'>You are impaled by the [src]!</span>")
+	user.adjustBruteLoss(50)
+	user.adjustOxyLoss(50)
+
 /obj/item/reagent_containers/food/snacks/lollipop/cyborg
 	var/spamchecking = TRUE
 
-/obj/item/reagent_containers/food/snacks/lollipop/cyborg/Initialize()
+/obj/item/reagent_containers/food/snacks/lollipop/cyborg/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, .proc/spamcheck), 1200)
 
@@ -462,14 +525,14 @@
 	tastes = list("candy")
 	foodtype = JUNKFOOD
 
-/obj/item/reagent_containers/food/snacks/gumball/Initialize()
+/obj/item/reagent_containers/food/snacks/gumball/Initialize(mapload)
 	. = ..()
 	color = rgb(rand(0, 255), rand(0, 255), rand(0, 255))
 
 /obj/item/reagent_containers/food/snacks/gumball/cyborg
 	var/spamchecking = TRUE
 
-/obj/item/reagent_containers/food/snacks/gumball/cyborg/Initialize()
+/obj/item/reagent_containers/food/snacks/gumball/cyborg/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, .proc/spamcheck), 1200)
 
@@ -557,6 +620,7 @@
 	desc = "A sliced piece of juicy pineapple."
 	icon_state = "pineapple_slice"
 	filling_color = "#F6CB0B"
+	juice_results = list(/datum/reagent/consumable/pineapplejuice = 3)
 	tastes = list("pineapple" = 1)
 	foodtype = FRUIT | PINEAPPLE
 
@@ -656,4 +720,13 @@
 	list_reagents = list(/datum/reagent/consumable/beefbroth = 50)
 	filling_color = "#100800"
 	tastes = list("disgust" = 7, "tin" = 1)
-	foodtype = MEAT | GROSS | JUNKFOOD 
+	foodtype = MEAT | GROSS | JUNKFOOD
+
+/obj/item/reagent_containers/food/snacks/pingles
+	name = "pingles"
+	desc = "A perfect blend of sour cream and onion on a potato chip. May cause space lag."
+	icon_state = "pingles"
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/cooking_oil = 2, /datum/reagent/consumable/sodiumchloride = 2)
+	trash = /obj/item/c_tube
+	tastes = list("sour cream" = 2, "onion" = 1)
+	foodtype = FRIED

@@ -9,7 +9,7 @@
 	point_return = 25
 	resistance_flags = LAVA_PROOF
 
-/obj/structure/blob/node/Initialize()
+/obj/structure/blob/node/Initialize(mapload)
 	GLOB.blob_nodes += src
 	START_PROCESSING(SSobj, src)
 	. = ..()

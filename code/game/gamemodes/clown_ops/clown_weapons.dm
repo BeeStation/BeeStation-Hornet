@@ -40,7 +40,7 @@
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 	always_noslip = TRUE
 
-/obj/item/clothing/shoes/clown_shoes/banana_shoes/combat/Initialize()
+/obj/item/clothing/shoes/clown_shoes/banana_shoes/combat/Initialize(mapload)
 	. = ..()
 	var/datum/component/material_container/bananium = GetComponent(/datum/component/material_container)
 	bananium.insert_amount_mat(BANANA_SHOES_MAX_CHARGE, /datum/material/bananium)
@@ -75,16 +75,23 @@
 	attack_verb_on = list("slipped")
 	clumsy_check = FALSE
 	sharpness = IS_BLUNT
-	item_color = "yellow"
+	sword_color = "yellow"
 	heat = 0
 	light_color = "#ffff00"
 	var/next_trombone_allowed = 0
 
-/obj/item/melee/transforming/energy/sword/bananium/ComponentInitialize()
+/obj/item/melee/transforming/energy/sword/bananium/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/slippery, 60, GALOSHES_DONT_HELP)
-	var/datum/component/slippery/slipper = GetComponent(/datum/component/slippery)
-	slipper.signal_enabled = active
+	adjust_slipperiness()
+
+/* Adds or removes a slippery component, depending on whether the sword
+ * is active or not.
+ */
+/obj/item/melee/transforming/energy/sword/proc/adjust_slipperiness()
+	if(active)
+		AddComponent(/datum/component/slippery, 60, GALOSHES_DONT_HELP)
+	else
+		qdel(GetComponent(/datum/component/slippery))
 
 /obj/item/melee/transforming/energy/sword/bananium/attack(mob/living/M, mob/living/user)
 	..()
@@ -107,9 +114,8 @@
 	return ..()
 
 /obj/item/melee/transforming/energy/sword/bananium/transform_weapon(mob/living/user, supress_message_text)
-	..()
-	var/datum/component/slippery/slipper = GetComponent(/datum/component/slippery)
-	slipper.signal_enabled = active
+	. = ..()
+	adjust_slipperiness()
 
 /obj/item/melee/transforming/energy/sword/bananium/ignition_effect(atom/A, mob/user)
 	return ""
@@ -137,22 +143,28 @@
 	on_throwforce = 0
 	on_throw_speed = 1
 
-/obj/item/shield/energy/bananium/ComponentInitialize()
+/obj/item/shield/energy/bananium/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/slippery, 60, GALOSHES_DONT_HELP)
-	var/datum/component/slippery/slipper = GetComponent(/datum/component/slippery)
-	slipper.signal_enabled = active
+	adjust_slipperiness()
+
+/* Adds or removes a slippery component, depending on whether the shield
+ * is active or not.
+ */
+/obj/item/shield/energy/bananium/proc/adjust_slipperiness()
+	if(active)
+		AddComponent(/datum/component/slippery, 60, GALOSHES_DONT_HELP)
+	else
+		qdel(GetComponent(/datum/component/slippery))
 
 /obj/item/shield/energy/bananium/attack_self(mob/living/carbon/human/user)
-	..()
-	var/datum/component/slippery/slipper = GetComponent(/datum/component/slippery)
-	slipper.signal_enabled = active
+	. = ..()
+	adjust_slipperiness()
 
 /obj/item/shield/energy/bananium/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
 	if(active)
 		if(iscarbon(thrower))
 			var/mob/living/carbon/C = thrower
-			C.throw_mode_on() //so they can catch it on the return.
+			C.throw_mode_on(THROW_MODE_TOGGLE) //so they can catch it on the return.
 	return ..()
 
 /obj/item/shield/energy/bananium/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -186,14 +198,14 @@
 	var/det_time = 50
 	var/obj/item/grenade/syndieminibomb/bomb
 
-/obj/item/grown/bananapeel/bombanana/Initialize()
+/obj/item/grown/bananapeel/bombanana/Initialize(mapload)
 	. = ..()
 	bomb = new /obj/item/grenade/syndieminibomb(src)
 	bomb.det_time = det_time
 	if(iscarbon(loc))
 		to_chat(loc, "[src] begins to beep.")
 		var/mob/living/carbon/C = loc
-		C.throw_mode_on()
+		C.throw_mode_on(THROW_MODE_TOGGLE)
 	bomb.preprime(loc, null, FALSE)
 
 /obj/item/grown/bananapeel/bombanana/ComponentInitialize()
@@ -230,7 +242,7 @@
 /obj/item/clothing/mask/fakemoustache/sticky
 	var/unstick_time = 600
 
-/obj/item/clothing/mask/fakemoustache/sticky/Initialize()
+/obj/item/clothing/mask/fakemoustache/sticky/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, STICKY_MOUSTACHE_TRAIT)
 	addtimer(CALLBACK(src, .proc/unstick), unstick_time)
@@ -292,7 +304,7 @@
 		return
 	cell = new /obj/item/stock_parts/cell/hyper(src)
 
-/obj/mecha/combat/honker/dark/loaded/Initialize()
+/obj/mecha/combat/honker/dark/loaded/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/thrusters/ion(src)
 	ME.attach(src)

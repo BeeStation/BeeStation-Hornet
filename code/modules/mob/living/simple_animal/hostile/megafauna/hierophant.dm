@@ -37,8 +37,8 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/hierophant
 	name = "hierophant"
 	desc = "A massive metal club that hangs in the air as though waiting. It'll make you dance to its beat."
-	health = 2500
-	maxHealth = 2500
+	health = 1250
+	maxHealth = 1250
 	attacktext = "clubs"
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	icon_state = "hierophant"
@@ -54,12 +54,12 @@ Difficulty: Hard
 	ranged = TRUE
 	ranged_cooldown_time = 40
 	aggro_vision_range = 21 //so it can see to one side of the arena to the other
-	loot = list(/obj/structure/closet/crate/necropolis/hierophant)
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/hierophant, /obj/item/crusher_trophy/vortex_talisman)
+	loot = list(/obj/effect/spawner/lootdrop/megafaunaore, /obj/structure/closet/crate/necropolis/hierophant)
 	wander = FALSE
 	gps_name = "Zealous Signal"
-	medal_type = BOSS_MEDAL_HIEROPHANT
-	score_type = HIEROPHANT_SCORE
+	achievement_type = /datum/award/achievement/boss/hierophant_kill
+	crusher_achievement_type = /datum/award/achievement/boss/hierophant_crusher
+	score_achievement_type = /datum/award/score/hierophant_score
 	del_on_death = TRUE
 	deathsound = 'sound/magic/repulse.ogg'
 	attack_action_types = list(/datum/action/innate/megafauna_attack/blink,
@@ -82,7 +82,7 @@ Difficulty: Hard
 
 	mobchatspan = "hierosay"
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/Initialize()
+/mob/living/simple_animal/hostile/megafauna/hierophant/Initialize(mapload)
 	. = ..()
 	spawned_beacon = new(loc)
 
@@ -340,13 +340,13 @@ Difficulty: Hard
 	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
 	SLEEP_CHECK_DEATH(1)
 	visible_message("<span class='hierophant_warning'>[src] fades out!</span>")
-	density = FALSE
+	set_density(FALSE)
 	SLEEP_CHECK_DEATH(2)
 	forceMove(T)
 	SLEEP_CHECK_DEATH(1)
 	animate(src, alpha = 255, time = 2, easing = EASE_IN) //fade IN
 	SLEEP_CHECK_DEATH(1)
-	density = TRUE
+	set_density(TRUE)
 	visible_message("<span class='hierophant_warning'>[src] fades in!</span>")
 	SLEEP_CHECK_DEATH(1) //at this point the blasts we made detonate
 	blinking = FALSE
@@ -482,7 +482,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/calculate_rage() //how angry we are overall
 	did_reset = FALSE //oh hey we're doing SOMETHING, clearly we might need to heal if we recall
-	anger_modifier = CLAMP(((maxHealth - health) / 42),0,50)
+	anger_modifier = CLAMP(((maxHealth - health) / 21),0,50)
 	burst_range = initial(burst_range) + round(anger_modifier * 0.08)
 	beam_range = initial(beam_range) + round(anger_modifier * 0.12)
 
@@ -512,32 +512,22 @@ Difficulty: Hard
 /obj/effect/temp_visual/hierophant/wall //smoothing and pooling were not friends, but pooling is dead.
 	name = "vortex wall"
 	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
-	icon_state = "wall"
+	icon_state = "hierophant_wall_temp-0"
+	base_icon_state = "hierophant_wall_temp"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_HIERO_WALL)
+	canSmoothWith = list(SMOOTH_GROUP_HIERO_WALL)
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	duration = 100
-	smooth = SMOOTH_TRUE
 
 /obj/effect/temp_visual/hierophant/wall/Initialize(mapload, new_caster)
 	. = ..()
-	queue_smooth_neighbors(src)
-	queue_smooth(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	QUEUE_SMOOTH(src)
 
 /obj/effect/temp_visual/hierophant/wall/Destroy()
-	queue_smooth_neighbors(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
-
-/obj/effect/temp_visual/hierophant/wall/CanPass(atom/movable/mover, turf/target)
-	if(QDELETED(caster))
-		return FALSE
-	if(mover == caster.pulledby)
-		return TRUE
-	if(istype(mover, /obj/item/projectile))
-		var/obj/item/projectile/P = mover
-		if(P.firer == caster)
-			return TRUE
-	if(mover == caster)
-		return TRUE
-	return FALSE
 
 /obj/effect/temp_visual/hierophant/chaser //a hierophant's chaser. follows target around, moving and producing a blast every speed deciseconds.
 	duration = 98
@@ -645,6 +635,10 @@ Difficulty: Hard
 		var/turf/closed/mineral/M = loc
 		M.gets_drilled(caster)
 	INVOKE_ASYNC(src, .proc/blast)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/temp_visual/hierophant/blast/proc/blast()
 	var/turf/T = get_turf(src)
@@ -657,8 +651,9 @@ Difficulty: Hard
 	sleep(1.3) //slightly forgiving; the burst animation is 1.5 deciseconds
 	bursting = FALSE //we no longer damage crossers
 
-/obj/effect/temp_visual/hierophant/blast/Crossed(atom/movable/AM)
-	..()
+/obj/effect/temp_visual/hierophant/blast/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
 	if(bursting)
 		do_damage(get_turf(src))
 

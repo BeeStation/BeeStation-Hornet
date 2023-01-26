@@ -4,6 +4,7 @@
 	max_integrity = 300
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
 	layer = BELOW_OBJ_LAYER
+	pass_flags_self = PASSSTRUCTURE
 
 	var/climb_time = 20
 	var/climb_stun = 20
@@ -14,20 +15,20 @@
 	flags_ricochet = RICOCHET_HARD
 	ricochet_chance_mod = 0.5
 
-/obj/structure/Initialize()
+/obj/structure/Initialize(mapload)
 	if (!armor)
 		armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 0)
 	. = ..()
-	if(smooth)
-		queue_smooth(src)
-		queue_smooth_neighbors(src)
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 		icon_state = ""
 	GLOB.cameranet.updateVisibility(src)
 
 /obj/structure/Destroy()
 	GLOB.cameranet.updateVisibility(src)
-	if(smooth)
-		queue_smooth_neighbors(src)
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
 
 /obj/structure/attack_hand(mob/user)
@@ -64,12 +65,12 @@
 
 /obj/structure/proc/do_climb(atom/movable/A)
 	if(climbable)
-		density = FALSE
+		set_density(FALSE)
 		. = step(A,get_dir(A,src.loc))
-		density = TRUE
+		set_density(TRUE)
 
 /obj/structure/proc/climb_structure(mob/living/user)
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 	user.visible_message("<span class='warning'>[user] starts climbing onto [src].</span>", \
 								"<span class='notice'>You start climbing onto [src]...</span>")
 	var/adjusted_climb_time = climb_time

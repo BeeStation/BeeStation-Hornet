@@ -291,6 +291,7 @@
 /datum/status_effect/cultghost/on_apply()
 	owner.see_invisible = SEE_INVISIBLE_OBSERVER
 	owner.see_in_dark = 2
+	return ..()
 
 /datum/status_effect/cultghost/tick()
 	if(owner.reagents)
@@ -499,7 +500,7 @@
 /obj/effect/temp_visual/curse
 	icon_state = "curse"
 
-/obj/effect/temp_visual/curse/Initialize()
+/obj/effect/temp_visual/curse/Initialize(mapload)
 	. = ..()
 	deltimer(timerid)
 
@@ -667,11 +668,11 @@
 	to_chat(new_owner, "<span class='boldwarning'>My body can't handle the mutations! I need to get my mutations removed fast!</span>")
 
 /datum/status_effect/dna_melt/on_remove()
-	if(!ishuman(owner))
+	if(!owner.has_dna())
 		owner.gib() //fuck you in particular
 		return
-	var/mob/living/carbon/human/H = owner
-	H.something_horrible(kill_either_way)
+	var/mob/living/carbon/C = owner
+	C.something_horrible(kill_either_way)
 
 /atom/movable/screen/alert/status_effect/dna_melt
 	name = "Genetic Breakdown"
@@ -912,6 +913,12 @@
 	examine_text = "<span class='warning'>SUBJECTPRONOUN has a blank, catatonic like stare.</span>"
 	alert_type = /atom/movable/screen/alert/status_effect/ghoul
 
+/datum/status_effect/ghoul/get_examine_text()
+	var/mob/living/carbon/human/H = owner
+	var/obscured = H.check_obscured_slots()
+	if(!(obscured & ITEM_SLOT_EYES) && !H.glasses) //The examine text is only displayed if the ghoul's eyes are not obscured
+		return examine_text
+
 /atom/movable/screen/alert/status_effect/ghoul
 	name = "Flesh Servant"
 	desc = "You are a Ghoul! A eldritch monster reanimated to serve its master."
@@ -944,3 +951,111 @@
 	name = "Electro-Magnetic Pulse"
 	desc = "You've been hit with an EMP! You're malfunctioning!"
 	icon_state = "hypnosis"
+
+/datum/status_effect/slimegrub
+	id = "grub_infection"
+	duration = 60 SECONDS //a redgrub infestation in a slime
+	status_type = STATUS_EFFECT_UNIQUE
+	tick_interval = 1
+	alert_type = /atom/movable/screen/alert/status_effect/grub
+	var/adult = FALSE
+	var/spawnbonus = 0
+	var/deathcounter = 300
+	var/list/diseases = list()
+
+/datum/status_effect/slimegrub/on_apply(mob/living/new_owner, ...)
+	. = ..()
+	if(isslime(new_owner))
+		var/mob/living/simple_animal/slime/S = new_owner
+		if(S.is_adult)
+			adult = TRUE
+			duration = world.time + 120 SECONDS
+			if(S.amount_grown >= 9)
+				S.amount_grown = 8 //can't split or evolve
+		deathcounter = (300 + (300 * adult))
+
+/datum/status_effect/slimegrub/tick()
+	if(isslime(owner))
+		var/mob/living/simple_animal/slime/S = owner
+		if(S.amount_grown >= 9)
+			S.amount_grown = 8
+		if((S.reagents.has_reagent(/datum/reagent/consumable/capsaicin) || S.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)) //redgrubs don't like heat. heating them up for too long kills them
+			if(prob(10))
+				qdel(src)
+		else //don't tick while being cured
+			deathcounter -= 2
+			if(deathcounter <= 0)
+				var/spawns = rand(1, 3 + (adult * 3))
+				for(var/I in 1 to (spawns + spawnbonus))
+					var/mob/living/simple_animal/hostile/redgrub/grub = new(S.loc)
+					grub.grubdisease = diseases
+					grub.food += 15
+				playsound(S, 'sound/effects/attackblob.ogg', 60, 1)
+				S.visible_message("<span class='warning'>[S] is eaten from the inside by [spawns] red grubs, leaving no trace!</span>")
+				S.gib()
+	else
+		qdel(src)//no effect on nonslimes
+
+/atom/movable/screen/alert/status_effect/grub
+	name = "Infected"
+	desc = "You have a redgrub infection, and can't reproduce or grow! If you don't find a source of heat, you will die!"
+	icon_state = "grub"
+
+/datum/status_effect/amok
+	id = "amok"
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null
+	duration = 10 SECONDS
+	tick_interval = 1 SECONDS
+
+/datum/status_effect/amok/on_apply(mob/living/afflicted)
+	. = ..()
+	to_chat(owner, "<span class='boldwarning'>You feel filled with a rage that is not your own!</span>")
+
+/datum/status_effect/amok/tick()
+	. = ..()
+	var/prev_intent = owner.a_intent
+	owner.a_intent = INTENT_HARM
+
+	var/list/mob/living/targets = list()
+	for(var/mob/living/potential_target in oview(owner, 1))
+		if(IS_HERETIC(potential_target) || potential_target.mind?.has_antag_datum(/datum/antagonist/heretic_monster))
+			continue
+		targets += potential_target
+	if(LAZYLEN(targets))
+		owner.log_message(" attacked someone due to the amok debuff.", LOG_ATTACK) //the following attack will log itself
+		owner.ClickOn(pick(targets))
+	owner.a_intent = prev_intent
+
+/datum/status_effect/cloudstruck
+	id = "cloudstruck"
+	status_type = STATUS_EFFECT_REPLACE
+	duration = 3 SECONDS
+	on_remove_on_mob_delete = TRUE
+	///This overlay is applied to the owner for the duration of the effect.
+	var/mutable_appearance/mob_overlay
+
+/datum/status_effect/cloudstruck/on_creation(mob/living/new_owner, set_duration)
+	if(isnum(set_duration))
+		duration = set_duration
+	. = ..()
+
+/datum/status_effect/cloudstruck/on_apply()
+	mob_overlay = mutable_appearance('icons/effects/eldritch.dmi', "cloud_swirl", ABOVE_MOB_LAYER)
+	owner.overlays += mob_overlay
+	owner.update_icon()
+	ADD_TRAIT(owner, TRAIT_BLIND, "cloudstruck")
+	return TRUE
+
+/datum/status_effect/cloudstruck/on_remove()
+	. = ..()
+	if(QDELETED(owner))
+		return
+	REMOVE_TRAIT(owner, TRAIT_BLIND, "cloudstruck")
+	if(owner)
+		owner.overlays -= mob_overlay
+		owner.update_icon()
+
+/datum/status_effect/cloudstruck/Destroy()
+	. = ..()
+	QDEL_NULL(mob_overlay)

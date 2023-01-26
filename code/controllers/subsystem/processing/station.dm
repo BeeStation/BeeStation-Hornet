@@ -1,3 +1,6 @@
+#define REPORT_WAIT_TIME_MINIMUM 600
+#define REPORT_WAIT_TIME_MAXIMUM 1500
+
 PROCESSING_SUBSYSTEM_DEF(station)
 	name = "Station"
 	init_order = INIT_ORDER_STATION
@@ -20,7 +23,8 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	//If doing unit tests we don't do none of that trait shit ya know?
 	#ifndef UNIT_TESTS
 	if(CONFIG_GET(flag/station_traits))
-		SetupTraits()
+		setup_traits()
+		prepare_report()
 	#endif
 
 	announcer = new announcer() //Initialize the station's announcer datum
@@ -28,7 +32,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	return ..()
 
 ///Rolls for the amount of traits and adds them to the traits list
-/datum/controller/subsystem/processing/station/proc/SetupTraits()
+/datum/controller/subsystem/processing/station/proc/setup_traits()
 	for(var/i in subtypesof(/datum/station_trait))
 		var/datum/station_trait/trait_typepath = i
 		if(initial(trait_typepath.trait_flags) & STATION_TRAIT_ABSTRACT)
@@ -59,3 +63,21 @@ PROCESSING_SUBSYSTEM_DEF(station)
 		for(var/i in picked_trait.blacklist)
 			var/datum/station_trait/trait_to_remove = i
 			selectable_traits_by_types[initial(trait_to_remove.trait_type)] -= trait_to_remove
+
+/datum/controller/subsystem/processing/station/proc/prepare_report()
+	if(!station_traits.len)		//no active traits why bother
+		return
+
+	var/report = "<b><i>Central Command Divergency Report</i></b><hr>"
+
+	for(var/datum/station_trait/trait as() in station_traits)
+		if(trait.trait_flags & STATION_TRAIT_ABSTRACT)
+			continue
+		if(!trait.report_message || !trait.show_in_report)
+			continue
+		report += "[trait.get_report()]<BR><hr>"
+
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/print_command_report, report, "Central Command Divergency Report", FALSE), rand(REPORT_WAIT_TIME_MINIMUM, REPORT_WAIT_TIME_MAXIMUM))
+
+#undef REPORT_WAIT_TIME_MINIMUM
+#undef REPORT_WAIT_TIME_MAXIMUM

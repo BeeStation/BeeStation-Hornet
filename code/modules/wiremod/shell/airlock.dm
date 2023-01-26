@@ -3,7 +3,7 @@
 	autoclose = FALSE
 	flags_1 = NONE
 
-/obj/machinery/door/airlock/shell/Initialize()
+/obj/machinery/door/airlock/shell/Initialize(mapload)
 	. = ..()
 	AddComponent( \
 		/datum/component/shell, \
@@ -51,7 +51,7 @@
 	/// Called when the airlock is touched
 	var/datum/port/output/trigger_port
 
-/obj/item/circuit_component/airlock/Initialize()
+/obj/item/circuit_component/airlock/Initialize(mapload)
 	. = ..()
 	// Input Signals
 	bolt = add_input_port("Bolt", PORT_TYPE_SIGNAL)

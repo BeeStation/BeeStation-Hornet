@@ -51,6 +51,7 @@ export class Section extends Component<SectionProps> {
       buttons,
       fill,
       fitted,
+      independent,
       scrollable,
       children,
       ...rest
@@ -64,6 +65,7 @@ export class Section extends Component<SectionProps> {
           fill && 'Section--fill',
           fitted && 'Section--fitted',
           scrollable && 'Section--scrollable',
+          independent && 'Section--independent',
           className,
           computeBoxClassName(rest),
         ])}

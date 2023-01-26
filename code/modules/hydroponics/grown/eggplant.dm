@@ -48,3 +48,4 @@
 	bitesize_mod = 2
 	foodtype = MEAT
 	distill_reagent = /datum/reagent/consumable/ethanol/eggnog
+	discovery_points = 300

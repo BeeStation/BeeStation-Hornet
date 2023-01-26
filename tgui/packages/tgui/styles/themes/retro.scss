@@ -7,9 +7,10 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-  $primary: #000000,
   $fg-map-keys: (),
   $bg-map-keys: (),
+  $primary: #000000,
+  $label: #353535,
 );
 @use '../base.scss' with (
   $color-bg: #E8E4C9,
@@ -20,9 +21,15 @@
 // A fat warning to anyone who wants to use this: this only half works.
 // It was made almost purely for the nuke ui, and requires a good amount of manual hacks to get it working as intended.
 .theme-retro {
-  // Atomic classes
-  @include meta.load-css('../atomic/color.scss');
-
+  .color-label {
+    color: #353535 !important;
+  }
+  .Tab {
+    color: rgba(0, 0, 0, 0.39) !important;
+  }
+  .Tab--selected {
+    color: black !important;
+  }
   // Components
   @include meta.load-css('../components/Button.scss', $with: (
     'color-default': #E8E4C9,
@@ -48,6 +55,11 @@
     color: #161613;
     border: base.em(2px) outset #E8E4C9;
     outline: base.em(1px) solid #161613;
+    box-sizing: content-box;
+  }
+
+  .Dropdown__control.Button {
+    box-sizing: border-box;
   }
 
   .Layout__content {
