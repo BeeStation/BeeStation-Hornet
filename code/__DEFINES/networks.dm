@@ -50,6 +50,7 @@
 #define __NETWORK_BOTS					"BOTS"
 #define __NETWORK_COMPUTER				"COMPUTER"
 #define __NETWORK_CARDS					"CARDS"
+#define __NETWORK_CIRCUITS				"CIRCUITS"
 
 /// Various combined subnetworks
 
