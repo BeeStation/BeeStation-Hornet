@@ -72,6 +72,20 @@
 	. = ..()
 	client?.view_size.setTo(10)
 
+/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/verb/change_sight_range()
+	set category = "IC"
+	set name = "Sight Range"
+	set desc = "Change your sight range."
+
+	var/list/views = list()
+	for(var/i in 1 to 10)
+		views |= i
+	var/new_view = input("Choose your new view", "Modify view range", 0) as null|anything in views
+	if(new_view)
+		client.view_size.setTo(clamp(new_view, 1, 10))
+	else
+		client.view_size.setTo(10)
+
 /**
  * Link [linked_mob] to our mansus link, if possible.
  * Creates a mansus speech action and grants it to the linked mob,
