@@ -1272,13 +1272,6 @@
 	SIGNAL_HANDLER
 	set_active_storage(null)
 
-///Clears the client in contents list of our current "eye". Prevents hard deletes
-/mob/proc/clear_client_in_contents()
-	if(client?.movingmob) //In the case the client was transferred to another mob and not deleted.
-		client.movingmob.client_mobs_in_contents -= src
-		UNSETEMPTY(client.movingmob.client_mobs_in_contents)
-		client.movingmob = null
-
 /// if you hear a radio talk that you don't have access to for some reason, you can't recognise its channel name. This updates your known channel depending on radios in your possession
 /mob/proc/refresh_known_radio_channels()
 	known_channels = list() // reset first
@@ -1305,4 +1298,4 @@
 			known_channels["[R.radio.frequency]"] = TRUE
 			for(var/K in R.radio.keyslot?.channels)
 				known_channels["[GLOB.radiochannels[K]]"] = TRUE
-				
+

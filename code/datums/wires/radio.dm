@@ -19,9 +19,9 @@
 		if(WIRE_SIGNAL)
 			R.listening = !R.listening
 			R.broadcasting = R.listening
-			R.current_holder.refresh_known_radio_channels()
+			R.current_holder?.refresh_known_radio_channels()
 		if(WIRE_RX)
 			R.listening = !R.listening
-			R.current_holder.refresh_known_radio_channels()
+			R.current_holder?.refresh_known_radio_channels()
 		if(WIRE_TX)
 			R.broadcasting = !R.broadcasting

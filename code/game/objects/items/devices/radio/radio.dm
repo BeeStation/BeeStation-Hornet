@@ -95,7 +95,7 @@
 	SEND_SIGNAL(src, COMSIG_RADIO_NEW_FREQUENCY, args)
 	remove_radio(src, frequency)
 	frequency = add_radio(src, new_frequency)
-	current_holder.refresh_known_radio_channels()
+	current_holder?.refresh_known_radio_channels()
 
 /obj/item/radio/proc/recalculateChannels()
 	channels = list()
@@ -126,14 +126,14 @@
 	for(var/ch_name in channels)
 		secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
 
-	current_holder.refresh_known_radio_channels()
+	current_holder?.refresh_known_radio_channels()
 
 /obj/item/radio/proc/make_syndie() // Turns normal radios into Syndicate radios!
 	qdel(keyslot)
 	keyslot = new /obj/item/encryptionkey/syndicate
 	syndie = 1
 	recalculateChannels()
-	current_holder.refresh_known_radio_channels()
+	current_holder?.refresh_known_radio_channels()
 	ui_update()
 
 /obj/item/radio/AltClick(mob/user)
@@ -150,7 +150,7 @@
 	else if(user.canUseTopic(src, !issilicon(user), TRUE, FALSE))
 		listening = !listening
 		to_chat(user, "<span class='notice'>You toggle speaker [listening ? "on" : "off"].</span>")
-		current_holder.refresh_known_radio_channels()
+		current_holder?.refresh_known_radio_channels()
 		ui_update()
 
 /obj/item/radio/interact(mob/user)
@@ -220,7 +220,7 @@
 				set_frequency(sanitize_frequency(tune, freerange))
 		if("listen")
 			listening = !listening
-			current_holder.refresh_known_radio_channels()
+			current_holder?.refresh_known_radio_channels()
 			. = TRUE
 		if("broadcast")
 			broadcasting = !broadcasting
@@ -419,14 +419,14 @@
 		channels[ch_name] = 0
 	on = FALSE
 	addtimer(CALLBACK(src, .proc/end_emp_effect, curremp), 200)
-	current_holder.refresh_known_radio_channels()
+	current_holder?.refresh_known_radio_channels()
 
 /obj/item/radio/proc/end_emp_effect(curremp)
 	if(emped != curremp) //Don't fix it if it's been EMP'd again
 		return FALSE
 	emped = FALSE
 	on = TRUE
-	current_holder.refresh_known_radio_channels()
+	current_holder?.refresh_known_radio_channels()
 	return TRUE
 
 ///////////////////////////////
