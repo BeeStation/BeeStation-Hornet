@@ -937,12 +937,14 @@
 				if(!possible_ticket_id)
 					continue
 
-				var/datum/help_ticket/ticket_check = GLOB.ahelp_tickets?.TicketByID(possible_ticket_id)
-				if(!ticket_check)
+				var/datum/help_ticket/ahelp_check = GLOB.ahelp_tickets?.TicketByID(possible_ticket_id)
+				var/datum/help_ticket/mhelp_check = GLOB.mhelp_tickets?.TicketByID(possible_ticket_id)
+
+				if(!ahelp_check)
 					continue
 
 				var/state_word
-				switch(ticket_check.state)
+				switch(ahelp_check.state)
 					if(TICKET_UNCLAIMED)
 						state_word = "Unclaimed"
 					if(TICKET_ACTIVE)
@@ -952,7 +954,21 @@
 					if(TICKET_RESOLVED)
 						state_word = "Resolved"
 
-				msglist[i]= "<u><A href='?_src_=holder;[HrefToken()];ahelp=[REF(ticket_check)];ahelp_action=ticket'>[word] ([state_word] | [ticket_check.initiator_key_name])</A></u>"
+				if(!mhelp_check)
+					continue
+
+				switch(mhelp_check.state)
+					if(TICKET_UNCLAIMED)
+						state_word = "Unclaimed"
+					if(TICKET_ACTIVE)
+						state_word = "Active"
+					if(TICKET_CLOSED)
+						state_word = "Closed"
+					if(TICKET_RESOLVED)
+						state_word = "Resolved"
+
+				msglist[i]= "<u><A href='?_src_=holder;[HrefToken()];ahelp=[REF(ahelp_check)];ahelp_action=ticket'>[word] ([state_word] | [ahelp_check.initiator_key_name])</A></u>"
+				msglist[i]= "<u><A href='?_src_=holder;[HrefToken()];mhelp=[REF(mhelp_check)];mhelp_action=ticket'>[word] ([state_word] | [mhelp_check.initiator_key_name])</A></u>"
 				modified = TRUE
 
 	if(modified)
