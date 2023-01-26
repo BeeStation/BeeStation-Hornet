@@ -6,7 +6,7 @@
  */
 /obj/item/circuit_component/arbitrary_input_amount/bitwise
 	display_name = "Bitwise"
-	display_desc = "A component that operates on the bits of integers. Any decimal values are ignored."
+
 
 	//The type of port to use
 	input_port_type = PORT_TYPE_NUMBER

@@ -26,7 +26,7 @@
 	if (owner)
 		// Otherwise say_dead will be called.
 		// It's intentional that a circuit for a dead person does not speak from the shell.
-		if (owner.stat == DEAD)
+		if (owner.machine_stat == DEAD)
 			return
 
 		owner.say(message, forced = "circuit speech")
@@ -213,7 +213,7 @@
 		if (isnull(resolved_owner))
 			return
 
-		if (resolved_owner.stat == DEAD)
+		if (resolved_owner.machine_stat == DEAD)
 			return
 
 		to_chat(resolved_owner, "<i>You hear a strange, robotic voice in your head...</i> \"["<span class='robot'>[html_encode(sent_message)]</span>"]\"")
@@ -371,11 +371,11 @@
 /obj/machinery/bci_implanter/update_overlays()
 	var/list/overlays = ..()
 
-	if ((stat & MAINT) || panel_open)
+	if ((machine_stat & MAINT) || panel_open)
 		overlays += "maint"
 		return overlays
 
-	if (stat & (NOPOWER|BROKEN))
+	if (machine_stat & (NOPOWER|BROKEN))
 		return overlays
 
 	if (busy || locked)
@@ -442,9 +442,9 @@
 	return ..()
 
 /obj/machinery/bci_implanter/proc/start_process()
-	if (stat & (NOPOWER|BROKEN))
+	if (machine_stat & (NOPOWER|BROKEN))
 		return
-	if ((stat & MAINT) || panel_open)
+	if ((machine_stat & MAINT) || panel_open)
 		return
 	if (!occupant || busy)
 		return
@@ -515,7 +515,7 @@
 
 	if (locked)
 		message = "it won't budge!"
-	else if (user.stat != CONSCIOUS)
+	else if (user.machine_stat != CONSCIOUS)
 		message = "you don't have the energy!"
 
 	if (!isnull(message))

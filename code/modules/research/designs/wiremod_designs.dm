@@ -98,7 +98,7 @@
 /datum/design/component/index
 	name = "Index Component"
 	id = "comp_index"
-	build_path = /obj/item/circuit_component/indexer/index
+	build_path = /obj/item/circuit_component/index
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
 
 /datum/design/component/write
@@ -200,18 +200,13 @@
 /datum/design/component/typecast
 	name = "Typecast Component"
 	id = "comp_typecast"
-	build_path = /obj/item/circuit_component/compare/typecast
+	build_path = /obj/item/circuit_component/typecast
 /datum/design/component/tonumber
 	name = "To Number"
 	id = "comp_tonumber"
 	build_path = /obj/item/circuit_component/tonumber
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_STRING_COMPONENTS, WIREMOD_CONVERSION_COMPONENTS)
 
-/datum/design/component/typecheck
-	name = "Typecheck Component"
-	id = "comp_typecheck"
-	build_path = /obj/item/circuit_component/compare/typecheck
-	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
 
 /datum/design/component/concat
 	name = "Concatenation Component"

@@ -244,7 +244,7 @@
 			failed.set_output(COMPONENT_SIGNAL)
 			return
 
-		if(targeted_pad.stat & NOPOWER)
+		if(targeted_pad.machine_stat & NOPOWER)
 			failed.set_output(COMPONENT_SIGNAL)
 			return
 		attached_pad.doteleport(target_pad = targeted_pad)
@@ -253,7 +253,7 @@
 			failed.set_output(COMPONENT_SIGNAL)
 			return
 
-		if(attached_pad.linked_pad.stat & NOPOWER)
+		if(attached_pad.linked_pad.machine_stat & NOPOWER)
 			failed.set_output(COMPONENT_SIGNAL)
 			return
 		attached_pad.doteleport(target_pad = attached_pad.linked_pad)

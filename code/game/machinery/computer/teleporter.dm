@@ -190,13 +190,13 @@
 /// Given a target station, will power and link it.
 /obj/machinery/computer/teleporter/proc/lock_in_station(obj/machinery/teleport/station/target_station)
 	target_station.linked_stations |= power_station
-	target_station.stat &= ~NOPOWER
+	target_station.machine_stat &= ~NOPOWER
 	if(target_station.teleporter_hub)
-		target_station.teleporter_hub.stat &= ~NOPOWER
+		target_station.teleporter_hub.machine_stat &= ~NOPOWER
 		target_station.teleporter_hub.update_icon_state()
 		target_station.teleporter_hub.update_icon()
 	if(target_station.teleporter_console)
-		target_station.teleporter_console.stat &= ~NOPOWER
+		target_station.teleporter_console.machine_stat &= ~NOPOWER
 		target_station.teleporter_console.update_icon_state()
 		target_station.teleporter_console.update_icon()
 
