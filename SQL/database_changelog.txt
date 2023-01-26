@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `SS13_characters` (
 	`facial_hair_color` VARCHAR(8) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`eye_color` VARCHAR(8) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`skin_tone` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
-	`hair_style_name` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`hairstyle_name` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`gradient_style` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`facial_style_name` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`underwear` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',

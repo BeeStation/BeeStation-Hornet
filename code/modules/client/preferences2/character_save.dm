@@ -28,11 +28,11 @@
 	var/helmet_style = HELMET_DEFAULT
 	var/backbag = DBACKPACK
 	var/jumpsuit_style = PREF_SUIT
-	var/hair_style = "Bald"
+	var/hairstyle = "Bald"
 	var/hair_color = "000"
 	var/gradient_color = "000"
 	var/gradient_style = "None"
-	var/facial_hair_style = "Shaved"
+	var/facial_hairstyle = "Shaved"
 	var/facial_hair_color = "000"
 	var/skin_tone = "caucasian1"
 	var/eye_color = "000"
@@ -110,9 +110,9 @@
 	SAFE_READ_QUERY(10, facial_hair_color)
 	SAFE_READ_QUERY(11, eye_color)
 	SAFE_READ_QUERY(12, skin_tone)
-	SAFE_READ_QUERY(13, hair_style)
+	SAFE_READ_QUERY(13, hairstyle)
 	SAFE_READ_QUERY(14, gradient_style)
-	SAFE_READ_QUERY(15, facial_hair_style)
+	SAFE_READ_QUERY(15, facial_hairstyle)
 	SAFE_READ_QUERY(16, underwear)
 	SAFE_READ_QUERY(17, underwear_color)
 	SAFE_READ_QUERY(18, undershirt)
@@ -183,13 +183,13 @@
 	be_random_body	= sanitize_integer(be_random_body, 0, 1, initial(be_random_body))
 
 	if(gender == MALE)
-		hair_style = sanitize_inlist(hair_style, GLOB.hair_styles_male_list)
-		facial_hair_style = sanitize_inlist(facial_hair_style, GLOB.facial_hair_styles_male_list)
+		hairstyle = sanitize_inlist(hairstyle, GLOB.hairstyles_male_list)
+		facial_hairstyle = sanitize_inlist(facial_hairstyle, GLOB.facial_hairstyles_male_list)
 		underwear = sanitize_inlist(underwear, GLOB.underwear_m)
 		undershirt = sanitize_inlist(undershirt, GLOB.undershirt_m)
 	else
-		hair_style = sanitize_inlist(hair_style, GLOB.hair_styles_female_list)
-		facial_hair_style = sanitize_inlist(facial_hair_style, GLOB.facial_hair_styles_female_list)
+		hairstyle = sanitize_inlist(hairstyle, GLOB.hairstyles_female_list)
+		facial_hairstyle = sanitize_inlist(facial_hairstyle, GLOB.facial_hairstyles_female_list)
 		underwear = sanitize_inlist(underwear, GLOB.underwear_f)
 		undershirt = sanitize_inlist(undershirt, GLOB.undershirt_f)
 	socks = sanitize_inlist(socks, GLOB.socks_list)
@@ -253,8 +253,8 @@
 	undershirt = random_undershirt(gender)
 	socks = random_socks()
 	skin_tone = random_skin_tone()
-	hair_style = random_hair_style(gender)
-	facial_hair_style = random_facial_hair_style(gender)
+	hairstyle = random_hairstyle(gender)
+	facial_hairstyle = random_facial_hairstyle(gender)
 	hair_color = random_short_color()
 	facial_hair_color = hair_color
 	eye_color = random_eye_color()
@@ -319,7 +319,7 @@
 			facial_hair_color,
 			eye_color,
 			skin_tone,
-			hair_style_name,
+			hairstyle_name,
 			gradient_style,
 			facial_style_name,
 			underwear,
@@ -352,7 +352,7 @@
 			:facial_hair_color,
 			:eye_color,
 			:skin_tone,
-			:hair_style_name,
+			:hairstyle_name,
 			:gradient_style,
 			:facial_style_name,
 			:underwear,
@@ -387,9 +387,9 @@
 		"facial_hair_color" = facial_hair_color,
 		"eye_color" = eye_color,
 		"skin_tone" = skin_tone,
-		"hair_style_name" = hair_style,
+		"hairstyle_name" = hairstyle,
 		"gradient_style" = gradient_style,
-		"facial_style_name" = facial_hair_style,
+		"facial_style_name" = facial_hairstyle,
 		"underwear" = underwear,
 		"underwear_color" = underwear_color,
 		"undershirt" = undershirt,
@@ -477,8 +477,8 @@
 	character.hair_color = hair_color
 	character.facial_hair_color = facial_hair_color
 
-	character.hair_style = hair_style
-	character.facial_hair_style = facial_hair_style
+	character.hairstyle = hairstyle
+	character.facial_hairstyle = facial_hairstyle
 
 	if("tail_lizard" in pref_species.default_features)
 		character.dna.species.mutant_bodyparts |= "tail_lizard"

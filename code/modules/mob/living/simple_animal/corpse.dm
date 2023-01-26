@@ -11,8 +11,8 @@
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier
 	name = "Syndicate Operative"
 	id_job = "Operative"
-	hair_style = "Bald"
-	facial_hair_style = "Shaved"
+	hairstyle = "Bald"
+	facial_hairstyle = "Shaved"
 	outfit = /datum/outfit/syndicatesoldiercorpse
 
 /datum/outfit/syndicatesoldiercorpse
@@ -30,8 +30,8 @@
 /obj/effect/mob_spawn/human/corpse/syndicatecommando
 	name = "Syndicate Commando"
 	id_job = "Operative"
-	hair_style = "Bald"
-	facial_hair_style = "Shaved"
+	hairstyle = "Bald"
+	facial_hairstyle = "Shaved"
 	outfit = /datum/outfit/syndicatecommandocorpse
 
 /datum/outfit/syndicatecommandocorpse
@@ -50,8 +50,8 @@
 /obj/effect/mob_spawn/human/corpse/syndicatestormtrooper
 	name = "Syndicate Stormtrooper"
 	id_job = "Operative"
-	hair_style = "Bald"
-	facial_hair_style = "Shaved"
+	hairstyle = "Bald"
+	facial_hairstyle = "Shaved"
 	outfit = /datum/outfit/syndicatestormtroopercorpse
 
 /datum/outfit/syndicatestormtroopercorpse
@@ -70,15 +70,15 @@
 	roundstart = FALSE
 	instant = TRUE
 	skin_tone = "caucasian1"
-	hair_style = "Bald"
-	facial_hair_style = "Shaved"
+	hairstyle = "Bald"
+	facial_hairstyle = "Shaved"
 
 /obj/effect/mob_spawn/human/corpse/pirate
 	name = "Pirate"
 	skin_tone = "caucasian1" //all pirates are white because it's easier that way
 	outfit = /datum/outfit/piratecorpse
-	hair_style = "Bald"
-	facial_hair_style = "Shaved"
+	hairstyle = "Bald"
+	facial_hairstyle = "Shaved"
 
 /datum/outfit/piratecorpse
 	name = "Pirate Corpse"
@@ -101,8 +101,8 @@
 /obj/effect/mob_spawn/human/corpse/russian
 	name = "Russian"
 	outfit = /datum/outfit/russiancorpse
-	hair_style = "Bald"
-	facial_hair_style = "Shaved"
+	hairstyle = "Bald"
+	facial_hairstyle = "Shaved"
 
 /datum/outfit/russiancorpse
 	name = "Russian Corpse"
@@ -152,8 +152,8 @@
 /obj/effect/mob_spawn/human/corpse/wizard
 	name = "Space Wizard Corpse"
 	outfit = /datum/outfit/wizardcorpse
-	hair_style = "Bald"
-	facial_hair_style = "Long Beard"
+	hairstyle = "Bald"
+	facial_hairstyle = "Long Beard"
 	skin_tone = "caucasian1"
 
 /datum/outfit/wizardcorpse
@@ -169,8 +169,8 @@
 	id_job = "Private Security Force"
 	id_access = JOB_NAME_SECURITYOFFICER
 	outfit = /datum/outfit/nanotrasensoldiercorpse2
-	hair_style = "Bald"
-	facial_hair_style = "Shaved"
+	hairstyle = "Bald"
+	facial_hairstyle = "Shaved"
 
 /datum/outfit/nanotrasensoldiercorpse2
 	name = "NT Private Security Officer Corpse"
@@ -188,8 +188,8 @@
 	name = "The Cat Surgeon"
 	id_job = "Cat Surgeon"
 	id_access_list = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_MAINT)
-	hair_style = "Cut Hair"
-	facial_hair_style = "Watson Mustache"
+	hairstyle = "Cut Hair"
+	facial_hairstyle = "Watson Mustache"
 	skin_tone = "caucasian1"
 	outfit = /datum/outfit/cat_butcher
 
@@ -224,8 +224,8 @@
 	name = "Sniper"
 	outfit = /datum/outfit/sniper
 	skin_tone = "caucasian1"
-	hair_style = "Bald"
-	facial_hair_style = "Full beard"
+	hairstyle = "Bald"
+	facial_hairstyle = "Full beard"
 	id_job = JOB_NAME_WARDEN
 	mob_gender = MALE
 
@@ -244,8 +244,8 @@
 
 /obj/effect/mob_spawn/human/corpse/psychost
 	name = "Psycho"
-	hair_style = "Bald"
-	facial_hair_style = "Shaved"
+	hairstyle = "Bald"
+	facial_hairstyle = "Shaved"
 	skin_tone = "caucasian1"
 	brute_damage = 100
 	outfit = /datum/outfit/straightjacket
@@ -275,8 +275,8 @@
 /obj/effect/mob_spawn/human/corpse/heavy
 	name = "Heavy gunner"
 	brute_damage = 300
-	hair_style = "Bald"
-	facial_hair_style = "Shaved"
+	hairstyle = "Bald"
+	facial_hairstyle = "Shaved"
 	mob_gender = MALE
 	skin_tone = "caucasian1"
 	outfit = /datum/outfit/minigunheavy
@@ -313,8 +313,8 @@
 	mob_species = /datum/species/ipc
 	brute_damage = 800
 	burn_damage = 100
-	hair_style = "Crewcut"
-	facial_hair_style = "Shaved"
+	hairstyle = "Crewcut"
+	facial_hairstyle = "Shaved"
 	skin_tone = "caucasian1"
 	mob_gender = MALE
 	outfit = /datum/outfit/facboss

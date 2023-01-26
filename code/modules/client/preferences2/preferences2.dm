@@ -222,7 +222,7 @@
 			facial_hair_color,
 			eye_color,
 			skin_tone,
-			hair_style_name,
+			hairstyle_name,
 			gradient_style,
 			facial_style_name,
 			underwear,

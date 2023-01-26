@@ -10,7 +10,7 @@
 	///Hair color
 	var/hair_color = "000"
 	///Hair style
-	var/hair_style = "Bald"
+	var/hairstyle = "Bald"
 	///Colour used for the hair gradient.
 	var/gradient_color = "000"
 	///Style used for the hair gradient.
@@ -18,7 +18,7 @@
 	///Facial hair colour
 	var/facial_hair_color = "000"
 	///Facial hair style
-	var/facial_hair_style = "Shaved"
+	var/facial_hairstyle = "Shaved"
 	//Eye colour
 	var/eye_color = "000"
 	var/skin_tone = "caucasian1"	//Skin tone

@@ -272,8 +272,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				dat += "<h3>Hair Style</h3>"
 
-				dat += "<a href='?_src_=prefs;preference=hair_style;task=input'>[active_character.hair_style]</a><BR>"
-				dat += "<a href='?_src_=prefs;preference=previous_hair_style;task=input'>&lt;</a> <a href='?_src_=prefs;preference=next_hair_style;task=input'>&gt;</a><BR>"
+				dat += "<a href='?_src_=prefs;preference=hairstyle;task=input'>[active_character.hairstyle]</a><BR>"
+				dat += "<a href='?_src_=prefs;preference=previous_hairstyle;task=input'>&lt;</a> <a href='?_src_=prefs;preference=next_hairstyle;task=input'>&gt;</a><BR>"
 				dat += "<span style='border:1px solid #161616; background-color: #[active_character.hair_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=hair_color;task=input'>Change</a><BR>"
 
 				dat += "<h3>Gradient Style</h3>"
@@ -284,8 +284,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				dat += "<h3>Facial Hair Style</h3>"
 
-				dat += "<a href='?_src_=prefs;preference=facial_hair_style;task=input'>[active_character.facial_hair_style]</a><BR>"
-				dat += "<a href='?_src_=prefs;preference=previous_facehair_style;task=input'>&lt;</a> <a href='?_src_=prefs;preference=next_facehair_style;task=input'>&gt;</a><BR>"
+				dat += "<a href='?_src_=prefs;preference=facial_hairstyle;task=input'>[active_character.facial_hairstyle]</a><BR>"
+				dat += "<a href='?_src_=prefs;preference=previous_facehairstyle;task=input'>&lt;</a> <a href='?_src_=prefs;preference=next_facehairstyle;task=input'>&gt;</a><BR>"
 				dat += "<span style='border: 1px solid #161616; background-color: #[active_character.facial_hair_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=facial;task=input'>Change</a><BR>"
 
 				dat += "</td>"
@@ -1308,12 +1308,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					active_character.age = rand(AGE_MIN, AGE_MAX)
 				if("hair_color")
 					active_character.hair_color = random_short_color()
-				if("hair_style")
-					active_character.hair_style = random_hair_style(active_character.gender)
+				if("hairstyle")
+					active_character.hairstyle = random_hairstyle(active_character.gender)
 				if("facial")
 					active_character.facial_hair_color = random_short_color()
-				if("facial_hair_style")
-					active_character.facial_hair_style = random_facial_hair_style(active_character.gender)
+				if("facial_hairstyle")
+					active_character.facial_hairstyle = random_facial_hairstyle(active_character.gender)
 				if("underwear")
 					active_character.underwear = random_underwear(active_character.gender)
 				if("underwear_color")
@@ -1389,14 +1389,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					var/new_hair = input(user, "Choose your character's hair colour:", "Character Preference","#" + active_character.hair_color) as color|null
 					if(new_hair)
 						active_character.hair_color = sanitize_hexcolor(new_hair)
-				if("hair_style")
-					var/new_hair_style
+				if("hairstyle")
+					var/new_hairstyle
 					if(active_character.gender == MALE)
-						new_hair_style = input(user, "Choose your character's hair style:", "Character Preference")  as null|anything in GLOB.hair_styles_male_list
+						new_hairstyle = input(user, "Choose your character's hair style:", "Character Preference")  as null|anything in GLOB.hairstyles_male_list
 					else
-						new_hair_style = input(user, "Choose your character's hair style:", "Character Preference")  as null|anything in GLOB.hair_styles_female_list
-					if(new_hair_style)
-						active_character.hair_style = new_hair_style
+						new_hairstyle = input(user, "Choose your character's hair style:", "Character Preference")  as null|anything in GLOB.hairstyles_female_list
+					if(new_hairstyle)
+						active_character.hairstyle = new_hairstyle
 
 				if("gradient_style")
 					var/new_gradient_style
@@ -1409,17 +1409,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_hair_gradient)
 						active_character.gradient_color = sanitize_hexcolor(new_hair_gradient)
 
-				if("next_hair_style")
+				if("next_hairstyle")
 					if(active_character.gender == MALE)
-						active_character.hair_style = next_list_item(active_character.hair_style, GLOB.hair_styles_male_list)
+						active_character.hairstyle = next_list_item(active_character.hairstyle, GLOB.hairstyles_male_list)
 					else
-						active_character.hair_style = next_list_item(active_character.hair_style, GLOB.hair_styles_female_list)
+						active_character.hairstyle = next_list_item(active_character.hairstyle, GLOB.hairstyles_female_list)
 
-				if("previous_hair_style")
+				if("previous_hairstyle")
 					if(active_character.gender == MALE)
-						active_character.hair_style = previous_list_item(active_character.hair_style, GLOB.hair_styles_male_list)
+						active_character.hairstyle = previous_list_item(active_character.hairstyle, GLOB.hairstyles_male_list)
 					else
-						active_character.hair_style = previous_list_item(active_character.hair_style, GLOB.hair_styles_female_list)
+						active_character.hairstyle = previous_list_item(active_character.hairstyle, GLOB.hairstyles_female_list)
 
 				if("next_gradient_style")
 					active_character.gradient_style = next_list_item(active_character.gradient_style, GLOB.hair_gradients_list)
@@ -1432,26 +1432,26 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_facial)
 						active_character.facial_hair_color = sanitize_hexcolor(new_facial)
 
-				if("facial_hair_style")
-					var/new_facial_hair_style
+				if("facial_hairstyle")
+					var/new_facial_hairstyle
 					if(active_character.gender == MALE)
-						new_facial_hair_style = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in GLOB.facial_hair_styles_male_list
+						new_facial_hairstyle = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in GLOB.facial_hairstyles_male_list
 					else
-						new_facial_hair_style = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in GLOB.facial_hair_styles_female_list
-					if(new_facial_hair_style)
-						active_character.facial_hair_style = new_facial_hair_style
+						new_facial_hairstyle = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in GLOB.facial_hairstyles_female_list
+					if(new_facial_hairstyle)
+						active_character.facial_hairstyle = new_facial_hairstyle
 
-				if("next_facehair_style")
+				if("next_facehairstyle")
 					if (active_character.gender == MALE)
-						active_character.facial_hair_style = next_list_item(active_character.facial_hair_style, GLOB.facial_hair_styles_male_list)
+						active_character.facial_hairstyle = next_list_item(active_character.facial_hairstyle, GLOB.facial_hairstyles_male_list)
 					else
-						active_character.facial_hair_style = next_list_item(active_character.facial_hair_style, GLOB.facial_hair_styles_female_list)
+						active_character.facial_hairstyle = next_list_item(active_character.facial_hairstyle, GLOB.facial_hairstyles_female_list)
 
-				if("previous_facehair_style")
+				if("previous_facehairstyle")
 					if (active_character.gender == MALE)
-						active_character.facial_hair_style = previous_list_item(active_character.facial_hair_style, GLOB.facial_hair_styles_male_list)
+						active_character.facial_hairstyle = previous_list_item(active_character.facial_hairstyle, GLOB.facial_hairstyles_male_list)
 					else
-						active_character.facial_hair_style = previous_list_item(active_character.facial_hair_style, GLOB.facial_hair_styles_female_list)
+						active_character.facial_hairstyle = previous_list_item(active_character.facial_hairstyle, GLOB.facial_hairstyles_female_list)
 
 				if("underwear")
 					var/new_underwear
@@ -1746,8 +1746,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					active_character.underwear = random_underwear(active_character.gender)
 					active_character.undershirt = random_undershirt(active_character.gender)
 					active_character.socks = random_socks()
-					active_character.facial_hair_style = random_facial_hair_style(active_character.gender)
-					active_character.hair_style = random_hair_style(active_character.gender)
+					active_character.facial_hairstyle = random_facial_hairstyle(active_character.gender)
+					active_character.hairstyle = random_hairstyle(active_character.gender)
 
 				if("hotkeys")
 					toggles2 ^= PREFTOGGLE_2_HOTKEYS
