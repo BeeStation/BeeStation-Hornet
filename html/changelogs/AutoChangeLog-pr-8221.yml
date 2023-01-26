@@ -1,5 +1,0 @@
-author: RKz
-delete-after: true
-changes:
-  - bugfix: fixed lizard frills and moth wings disappearing after choosing a new one
-  - code_imp: capitalized a wing name
