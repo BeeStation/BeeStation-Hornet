@@ -250,7 +250,11 @@
 		var/message = input(owner, "What message would you like to imprint on the deposit?", "Deposit message:") as text|null
 		log_game("[key_name(owner)] as [owner] made a new spore deposit with the message [message] at [world.time]. [key_name(owner)] located at [AREACOORD(owner)]")
 		message_admins("[key_name(owner)] as [owner] made a new spore deposit with the message [message] at [world.time]. [key_name(owner)] located at [AREACOORD(owner)]")
-		new /obj/effect/psyphoza_spores(get_turf(owner), message)
+		var/color = "#fff"
+		if(iscarbon(owner))
+			var/mob/living/carbon/M = owner
+			color = M?.dna?.features["mcolor"]
+		new /obj/effect/psyphoza_spores(get_turf(owner), message, color)
 		to_chat(owner, "<span class='notice'>You create a deposit.</span>")
 	else
 		return
