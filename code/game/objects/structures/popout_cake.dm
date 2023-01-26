@@ -13,13 +13,18 @@
 	move_resist = MOVE_FORCE_WEAK
 	layer = OBJ_LAYER
 	var/mob/living/occupant = null
-	var/datum/action/item_action/pull_string/string //Action for pulling the string for a surprise reveal
-	var/used_string = FALSE //If the string for a surprise reveal has been pulled from inside
-	var/amount_of_slices = 16 //How many cake slices will appear once it's cut up
-	var/slice_path  = /obj/item/reagent_containers/food/snacks/cakeslice/plain/full //What kind of cake slice will appear
-	var/strong_surprise = FALSE //If the surprise reveal has an extra oomph to it, used for the newcop exclusive cake
+	///Action for pulling the string for a surprise reveal
+	var/datum/action/item_action/pull_string/string
+	///If the string for a surprise reveal has been pulled from inside
+	var/used_string = FALSE
+	///How many cake slices will appear once it's cut up
+	var/amount_of_slices = 16
+	///What kind of cake slice will appear
+	var/slice_path  = /obj/item/reagent_containers/food/snacks/cakeslice/plain/full
+	///If the surprise reveal has an extra oomph to it, used for the nukeop exclusive cake
+	var/strong_surprise = FALSE
 
-/obj/structure/popout_cake/newcop
+/obj/structure/popout_cake/nukeop
 	strong_surprise = TRUE
 
 /obj/structure/popout_cake/Initialize(mapload)
@@ -42,16 +47,16 @@
 		return
 
 	if(target == user)
-		user.visible_message("<span class = 'notice'>[user] starts climbing into [src].</span>", "<span class = 'notice'>You start climbing into [src].</span>")
+		user.visible_message("<span class='notice'>[user] starts climbing into [src].</span>", "<span class='notice'>You start climbing into [src].</span>")
 	else
-		user.visible_message("<span class = 'warning'>[user] starts stuffing [target] into [src]!</span>", "<span class = 'warning'>You start stuffing [target] into [src]!</span>")
+		user.visible_message("<span class='warning'>[user] starts stuffing [target] into [src]!</span>", "<span class= warning'>You start stuffing [target] into [src]!</span>")
 
 	if(do_after(user, 60, TRUE, src))
 		if(occupant)
 			to_chat(user, "<span class='warning'>There's already someone inside!</span>")
 			return
 		if(target != user)
-			to_chat(user, "<span class = 'notice'>You stuff [target] into [src]!</span>")
+			to_chat(user, "<span class='notice'>You stuff [target] into [src]!</span>")
 		target.forceMove(src)
 		occupant = target
 		if(target != user)
@@ -72,16 +77,16 @@
 
 /obj/structure/popout_cake/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER && used_string == TRUE)
-		user.visible_message("<span class = 'notice'>[user] sticks the [W] inside [src] and stars fiddling around!</span>", \
-		"<span class = 'notice>You start to rewind the hidden mechanism inside [src] with [W].</span>")
+		user.visible_message("<span class='notice'>[user] sticks the [W] inside [src] and stars fiddling around!</span>", \
+		"<span class='notice>You start to rewind the hidden mechanism inside [src] with [W].</span>")
 		W.play_tool_sound(src, 50)
 		if(do_after(user, 20, FALSE, src))
 			used_string = FALSE
-			user.visible_message("<span class = 'notice'>After hearing a click from [src], [user] pulls the [W] outside.</span>", \
-		"<span class = 'notice>You successfully rewind the string inside [src]!</span>")
+			user.visible_message("<span class='notice'>After hearing a click from [src], [user] pulls the [W] outside.</span>", \
+		"<span class='notice>You successfully rewind the string inside [src]!</span>")
 			return FALSE
 	if(W.is_sharp())
-		user.visible_message("<span class = 'notice'>[user] begins cutting into [src] with [W]!</span>", "<span class = 'notice>You starts cutting [src] with [W]!</span>")
+		user.visible_message("<span class= notice'>[user] begins cutting into [src] with [W]!</span>", "<span class='notice>You starts cutting [src] with [W]!</span>")
 		if(do_after(user, 60, FALSE, src))
 			do_popout()
 			if(!strong_surprise)
@@ -94,10 +99,10 @@
 		if(strong_surprise)
 			to_chat(user, "<span class='notice'>There's no space for [src] inside!</span>")
 		else
-			user.visible_message("<span class = 'notice'>[user] begins inserting [W] into [src]!</span>", "<span class = 'notice'>You begin inserting [W] into [src]!</span>")
+			user.visible_message("<span class='notice'>[user] begins inserting [W] into [src]!</span>", "<span class='notice'>You begin inserting [W] into [src]!</span>")
 			if(do_after(user, 30, FALSE, src))
 				strong_surprise = TRUE
-				user.visible_message("<span class = 'notice'>After some fiddling, [user] inserts [W] into [src]!</span>", "<span class = 'notice'>You attach [W] to the hidden mechanism inside!</span>")
+				user.visible_message("<span class='notice'>After some fiddling, [user] inserts [W] into [src]!</span>", "<span class='notice'>You attach [W] to the hidden mechanism inside!</span>")
 				qdel(W)
 				return FALSE
 	else
@@ -106,7 +111,7 @@
 /obj/structure/popout_cake/proc/do_popout()
 	if(isnull(occupant))
 		return
-	visible_message("<span class = 'notice'>Loud shuffling can be heard from inside [src]!</span>")
+	visible_message("<span class='notice'>Loud shuffling can be heard from inside [src]!</span>")
 	if(!used_string)
 		used_string = TRUE
 		playsound(src, 'sound/items/party_horn.ogg', 50, 1)
@@ -116,12 +121,13 @@
 	if(strong_surprise) //This is the extra OOMPH, a mini flashbang plus a small explosion that scatters all the pie slices around!
 		var/flashing_turf = get_turf(src)
 		for(var/mob/living/M in viewers(5, flashing_turf))
-			if(M != occupant) //So that the guy hiding inside doesn't get flashed
-				flash_and_bang(get_turf(M), M)
-				for(var/i=1 to (amount_of_slices))
-					var/obj/item/reagent_containers/food/snacks/slice = new slice_path (loc)
-					slice.initialize_slice(slice, 0)
-					slice.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),5)
+			if(M == occupant)
+				continue //So that the guy hiding inside doesn't get flashed
+			flash_and_bang(get_turf(M), M)
+			for(var/i=1 to (amount_of_slices))
+				var/obj/item/reagent_containers/food/snacks/slice = new slice_path (loc)
+				slice.initialize_slice(slice, 0)
+				slice.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),5)
 	string.Remove(occupant)
 	occupant.forceMove(get_turf(src))
 	occupant = null
@@ -143,7 +149,7 @@
 			M.Knockdown(200 * distance_proportion)
 	else
 		M.flash_act(intensity = 2)
-	if(!distance || loc == M || loc == M.loc)	//Stop allahu akbarring rooms with this.
+	if(!distance || loc == M || loc == M.loc)
 		M.Paralyze(20)
 		M.Knockdown(200)
 		M.soundbang_act(1, 200, 10, 15)
@@ -158,6 +164,7 @@
 /obj/structure/popout_cake/Destroy()
 	if(occupant)
 		do_popout()
+	string.cake = null
 	..()
 
 /datum/action/item_action/pull_string
@@ -177,7 +184,7 @@
 
 /datum/action/item_action/pull_string/Trigger()
 	if(cake.used_string)
-		to_chat(usr, "<span class ='notice'>The string is loose, it's already been used!</span>")
+		to_chat(usr, "<span class='notice'>The string is loose, it's already been used!</span>")
 		return
 	cake.do_popout()
 

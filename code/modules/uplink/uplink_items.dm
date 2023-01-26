@@ -2332,7 +2332,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/badass/surprise_cake
 	name = "Rigged towering cake"
 	desc = "For hosting a surprise birthday party for the Captain, with a flashy surprise."
-	item = /obj/structure/popout_cake
+	item = /obj/structure/popout_cake/nukeop
 	cost = 4
 	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
