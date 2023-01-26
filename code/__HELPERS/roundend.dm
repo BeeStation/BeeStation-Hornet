@@ -304,7 +304,7 @@
 			SSvote.initiate_vote("map", "BeeBot", forced=TRUE, popup=TRUE) //automatic map voting
 
 	//Save shuttles
-	INVOKE_ASYNC(SSorbits, /datum/controller/subsystem/shuttle_persistence.proc/save_custom_shuttles)
+	INVOKE_ASYNC(SSshuttle_persistence, /datum/controller/subsystem/shuttle_persistence.proc/save_custom_shuttles)
 
 	sleep(50)
 	ready_for_reboot = TRUE
