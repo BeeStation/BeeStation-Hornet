@@ -1,4 +1,0 @@
-author: BriggsIDP
-delete-after: true
-changes:
-  - rscadd: Added new "givesitem" emote. Added trigger to inventory.dm to call it.
