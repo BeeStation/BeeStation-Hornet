@@ -597,9 +597,6 @@
 	if(E)
 		. += E.tint
 
-	else
-		. += INFINITY
-
 //this handles hud updates
 /mob/living/carbon/update_damage_hud()
 
