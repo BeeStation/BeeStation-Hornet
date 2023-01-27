@@ -45,6 +45,10 @@
 #define ROLE_KEY_SANTA           "Santa"
 
 #define ROLE_KEY_UNDEFINED_ANTAG_ROLE "Undefined Antagonist Role" // default for all antag datum
+#define ROLE_HYPNOTIZED			"Hypnotized Victim"
+#define ROLE_SWARMER			"Swarmer"
+#define ROLE_MORPH				"Morph"
+#define ROLE_NIGHTMARE			"Nightmare"
 
 // mid-spawn NON-antags
 #define ROLE_KEY_POSIBRAIN          "Positronic Brain"

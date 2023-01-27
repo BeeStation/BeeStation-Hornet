@@ -251,7 +251,7 @@
 	button_icon_state = "wavespeak"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/cult/IsAvailable()
+/datum/action/innate/wavespeak/IsAvailable()
 	if(!("carp" in owner.faction))
 		return FALSE
 	return ..()

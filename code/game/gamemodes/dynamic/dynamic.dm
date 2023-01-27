@@ -435,10 +435,14 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 	for(var/i in GLOB.new_player_list)
 		var/mob/dead/new_player/player = i
-		if(player.ready == PLAYER_READY_TO_PLAY && player.mind)
+		if(!player.mind || player.ready == PLAYER_READY_TO_OBSERVE)
+			continue
+		if(player.ready == PLAYER_READY_TO_PLAY)
 			roundstart_pop_ready++
 			candidates.Add(player)
-
+		else
+			roundstart_pop_ready += 0.5
+	roundstart_pop_ready = round(roundstart_pop_ready, 1)
 	setup_parameters()
 	setup_hijacking()
 	setup_rulesets()
