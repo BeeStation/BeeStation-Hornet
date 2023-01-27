@@ -18,6 +18,8 @@
 	mob_name = "a swarmer"
 	death = FALSE
 	roundstart = FALSE
+	assignedrole = ROLE_SWARMER
+	banType = ROLE_SWARMER
 
 /obj/effect/mob_spawn/swarmer/Initialize(mapload)
 	. = ..()
