@@ -110,13 +110,13 @@
 	can_distill = FALSE
 
 // Shamrocks
-/obj/item/seeds/Shamrock
+/obj/item/seeds/grass/Shamrock
 	name = "pack of Shamrock seeds"
 	desc = "These seeds grow into Shamrock producing plants."
 	icon_state = "seed-Shamrock"
 	species = "Shamrocks"
 	plantname = "Shamrock Plants"
-	product = /obj/item/reagent_containers/food/snacks/grown/Shamrocks
+	product = /obj/item/reagent_containers/food/snacks/grown/grass/Shamrocks
 	mutatelist = list()
 	rarity = 10
 	genes = list(/datum/plant_gene/trait/repeated_harvest)

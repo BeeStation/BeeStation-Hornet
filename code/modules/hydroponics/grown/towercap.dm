@@ -26,6 +26,7 @@
 	plantname = "Steel Caps"
 	product = /obj/item/grown/log/steel
 	mutatelist = list()
+	reagents_add = list(/datum/reagent/iron = 0.2)
 	rarity = 20
 
 
@@ -94,7 +95,6 @@
 	icon_state = "steellogs"
 	plank_type = /obj/item/stack/rods
 	plank_name = "rods"
-	reagents_add = list(/datum/reagent/iron = 0.5)
 	discovery_points = 300
 
 /obj/item/grown/log/steel/CheckAccepted(obj/item/I)
