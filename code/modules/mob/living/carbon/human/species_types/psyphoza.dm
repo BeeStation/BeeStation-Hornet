@@ -360,6 +360,12 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	. = ..()
 	to_chat(user, "<span class='notice'>Available resources: [resources] \nThe deposit echos: '[message]'</span>")
 
+/obj/effect/psyphoza_spores/welder_act(mob/living/user, obj/item/weldingtool/I)
+	. = ..()
+	if(istype(I) && I.welding)
+		to_chat(user, "<span class='warning'>You destroy the spore deposit.</span>")
+		qdel(src)
+
 /obj/effect/psyphoza_spores/process(delta_time)
 	resources = min(resources + (upgrades * resource_rate * delta_time), resource_limit*upgrades)
 

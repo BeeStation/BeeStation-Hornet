@@ -235,7 +235,7 @@
 
 /datum/action/item_action/organ_action/place_spores/Trigger()
 	. = ..()
-	if(cooldown_timer)
+	if(cooldown_timer || IS_DEAD_OR_INCAP(owner))
 		to_chat(owner, "<span class='warning'>You can't do that right now!</span>")
 		return
 	var/obj/effect/psyphoza_spores/P = locate(/obj/effect/psyphoza_spores) in owner.loc
@@ -246,7 +246,8 @@
 		else
 			to_chat(owner, "<span class='warning'>This deposit is already upgraded!</span>")
 			return
-	else if(alert(owner, "Do you want to place a spore deposit here?", "Deposit:", "Yes", "No") == "Yes")
+	//Double up on dead check in-case people activate it before death
+	else if(alert(owner, "Do you want to place a spore deposit here?", "Deposit:", "Yes", "No") == "Yes" && !IS_DEAD_OR_INCAP(owner))
 		var/message = input(owner, "What message would you like to imprint on the deposit?", "Deposit message:") as text|null
 		log_game("[key_name(owner)] as [owner] made a new spore deposit with the message [message] at [world.time]. [key_name(owner)] located at [AREACOORD(owner)]")
 		message_admins("[key_name(owner)] as [owner] made a new spore deposit with the message [message] at [world.time]. [key_name(owner)] located at [AREACOORD(owner)]")
