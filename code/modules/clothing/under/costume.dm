@@ -91,6 +91,7 @@
 
 /obj/item/clothing/under/costume/kilt/highlander
 	desc = "You're the only one worthy of this kilt."
+	flags_1 = NONE
 
 /obj/item/clothing/under/costume/kilt/highlander/Initialize(mapload)
 	. = ..()
