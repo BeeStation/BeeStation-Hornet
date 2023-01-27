@@ -621,7 +621,7 @@
 /datum/dynamic_ruleset/midround/pirates
 	name = "Space Pirates"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
-	antag_flag = "Space Pirates"
+	antag_flag = ROLE_SPACE_PIRATE
 	required_type = /mob/dead/observer
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(2,2,2,1,1,1,1,0,0,0)
