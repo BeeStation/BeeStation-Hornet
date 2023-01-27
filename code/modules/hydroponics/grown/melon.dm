@@ -84,7 +84,7 @@
 	species = "Ballolon"
 	plantname = "Ballolon Vines"
 	product = /obj/item/reagent_containers/food/snacks/grown/Ballolon
-	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/gaseous_pores)
+	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/smoke)
 	mutatelist = list()
 	reagents_add = list(/datum/reagent/oxygen = 0.2, /datum/reagent/hydrogen = 0.2)
 	rarity = 15
