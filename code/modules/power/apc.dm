@@ -251,6 +251,8 @@
 	terminal = new/obj/machinery/power/terminal(loc)
 	terminal.setDir(tdir)
 	terminal.master = src
+	// Disable saving
+	terminal.flags_1 &= ~SAVE_SAFE_1
 
 /obj/machinery/power/apc/Initialize(mapload)
 	. = ..()
