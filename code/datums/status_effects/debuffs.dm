@@ -795,8 +795,8 @@
 		/*
 		RegisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS, .proc/update_owner_underlay)
 		owner.update_overlays() */
-		marked_underlay.pixel_x = -owner.pixel_x
-		marked_underlay.pixel_y = -owner.pixel_y
+		//marked_underlay.pixel_x = -owner.pixel_x
+		//marked_underlay.pixel_y = -owner.pixel_y
 		owner.underlays += marked_underlay
 		owner.update_overlays()
 		return TRUE
@@ -826,25 +826,7 @@
 	SIGNAL_HANDLER
 
 	overlays += marked_underlay
-/*
-/datum/status_effect/crusher_mark/on_apply()
-	if(owner.mob_size >= MOB_SIZE_LARGE)
-		marked_underlay = mutable_appearance('icons/effects/effects.dmi', "shield2")
-		marked_underlay.pixel_x = -owner.pixel_x
-		marked_underlay.pixel_y = -owner.pixel_y
-		owner.underlays += marked_underlay
-		return TRUE
-	return FALSE
 
-/datum/status_effect/crusher_mark/Destroy()
-	hammer_synced = null
-	if(owner)
-		owner.underlays -= marked_underlay
-	QDEL_NULL(marked_underlay)
-	return ..()
-
-
-*/
 /**
   * What happens when this mark gets poppedd
   *

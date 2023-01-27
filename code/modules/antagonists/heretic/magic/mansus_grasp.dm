@@ -41,8 +41,8 @@
 
 	if(isliving(target))
 		if(on_mob_hit(target, user))
-			if(SEND_SIGNAL(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, target))
-				use_charge(user)
+			//if(SEND_SIGNAL(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, target))
+				//use_charge(user)
 			return
 	else
 		if(SEND_SIGNAL(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, target))
@@ -81,6 +81,8 @@
 		var/mob/living/carbon/carbon_hit = hit
 		carbon_hit.AdjustKnockdown(5 SECONDS)
 		carbon_hit.adjustStaminaLoss(80)
+
+	use_charge(heretic)
 
 	return TRUE
 
