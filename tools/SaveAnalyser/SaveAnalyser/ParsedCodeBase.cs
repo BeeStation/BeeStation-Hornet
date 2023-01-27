@@ -25,40 +25,34 @@ namespace SaveAnalyser
 		//Used to get all of the stuff we care about parsing
 		//Note that this doesn't handle /datum/tgs_event_handler/impl/var/thing but I don't care
 		private static Regex datumPathRegex = new Regex(@"((?:^|\n)((?:\/(?:\w)+)+)(?:\n|\r)+(?:(.|\n|\r)*?))(?=(?:^|\n)(?:\/(:?\w)+)+|$)", RegexOptions.Compiled);
-		private static Regex saveSafeRegex = new Regex(@"flags_1\s*=.*SAVE_SAFE_1", RegexOptions.Compiled);
+		private static Regex saveSafeRegex = new Regex(@"flags_1\s*=\s*(\w| |\|)*", RegexOptions.Compiled);
 
-		public void ParseFile(string fileText)
+		public void ParseFile(string fileName, string fileText)
 		{
 			MatchCollection matches = datumPathRegex.Matches(fileText);
 			foreach (Match match in matches)
 			{
 				string typePath = match.Groups[2].Value;
-				if (typePath == "/obj/item/gun/energy/laser/instakill")
-					;
 				ParsedDatums.AddOrUpdate(typePath,
 					path => {
 						ParsedDatum createdDatum = new ParsedDatum(this, path);
+						createdDatum.ReferencedFiles.Add(fileName);
 						Match flag1Match = saveSafeRegex.Match(match.Groups[1].Value);
 						if (!flag1Match.Success)
 						{
-							// Detect overrides
-							if (match.Groups[1].Value.Contains("flags_1"))
-								createdDatum.AddVar("save_safe", false);
 							return createdDatum;
 						}
-						createdDatum.AddVar("save_safe", true);
+						createdDatum.AddVar("flags_1", flag1Match.Value);
 						return createdDatum;
 					},
 					(path, parsedDatum) => {
+						parsedDatum.ReferencedFiles.Add(fileName);
 						Match flag1Match = saveSafeRegex.Match(match.Groups[1].Value);
 						if (!flag1Match.Success)
 						{
-							// Detect overrides
-							if (match.Groups[1].Value.Contains("flags_1"))
-								parsedDatum.AddVar("save_safe", false);
 							return parsedDatum;
 						}
-						parsedDatum.AddVar("save_safe", true);
+						parsedDatum.AddVar("flags_1", flag1Match.Value);
 						return parsedDatum;
 					});
 			}

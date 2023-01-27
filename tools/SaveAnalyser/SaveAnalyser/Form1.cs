@@ -31,7 +31,7 @@ namespace SaveAnalyser
 						for (int i = 0; i < files.Length; i++)
 						{
 							string fileText = File.ReadAllText(files[i]);
-							parsedCodeBase.ParseFile(fileText);
+							parsedCodeBase.ParseFile(files[i], fileText);
 							Invoke(() => {
 								txtLog.Text = files[i];
 							});
@@ -54,7 +54,7 @@ namespace SaveAnalyser
 						{
 							(TreeNode, ParsedDatum) top = buildQueue.Dequeue();
 							//Colour it accordingly
-							top.Item1.BackColor = (top.Item2.GetVar("save_safe")?.Equals(true) ?? false)
+							top.Item1.BackColor = (top.Item2.GetVar("flags_1")?.ToString()?.Contains("SAVE_SAFE_1") ?? false)
 								? Color.LightGreen
 								: Color.PaleVioletRed;
 							foreach (ParsedDatum child in top.Item2.Children)
@@ -84,5 +84,26 @@ namespace SaveAnalyser
 				MessageBox.Show(err.ToString(), "An error occurred.", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
+
+		/*
+		private void btnToggle_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				string? nodeName = trvCodebase.SelectedNode?.Name;
+				if (nodeName == null)
+					return;
+				if (!parsedCodeBase.ParsedDatums.ContainsKey(nodeName))
+					return;
+				ParsedDatum selectedDatum = parsedCodeBase.ParsedDatums[nodeName];
+				// Try to edit the code to toggle the save flag
+			}
+			// How to truly handle errors elegantly :^)
+			catch (Exception err)
+			{
+				MessageBox.Show(err.ToString(), "An error occurred.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+		*/
 	}
 }

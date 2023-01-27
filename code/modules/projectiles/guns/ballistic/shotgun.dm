@@ -173,6 +173,7 @@
 	recoil = 0
 	bolt_type = BOLT_TYPE_STANDARD	//Not using a pump
 	full_auto = TRUE
+	flags_1 = CONDUCT_1
 
 /obj/item/gun/ballistic/shotgun/bulldog/unrestricted
 	pin = /obj/item/firing_pin

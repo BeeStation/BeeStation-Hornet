@@ -11,6 +11,8 @@ namespace SaveAnalyser
 
 		public string Typepath { get; }
 
+		public List<string> ReferencedFiles { get; } = new List<string>();
+
 		private ParsedCodeBase attachedCodebase;
 
 		private ParsedDatum? _cachedParent = null;
