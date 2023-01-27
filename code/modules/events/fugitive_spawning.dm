@@ -9,7 +9,7 @@
 
 /datum/round_event/ghost_role/fugitives
 	minimum_required = 1
-	role_name = "fugitive"
+	role_name = ROLE_FUGITIVE
 	fakeable = FALSE
 
 /datum/round_event/ghost_role/fugitives/spawn_role()
@@ -17,94 +17,72 @@
 	for(var/turf/X in GLOB.xeno_spawn)
 		if(istype(X.loc, /area/maintenance))
 			possible_spawns += X
-	if(!possible_spawns.len)
+	if(!length(possible_spawns))
 		message_admins("No valid spawn locations found, aborting...")
 		return MAP_ERROR
 	var/turf/landing_turf = pick(possible_spawns)
 	var/list/possible_backstories = list()
-	var/list/candidates = get_candidates(ROLE_TRAITOR, null, ROLE_TRAITOR)
-	if(candidates.len >= 1) //solo refugees
-		if(prob(30))
-			possible_backstories.Add("waldo") //less common as it comes with magicks and is kind of immershun shattering
-	if(candidates.len >= 4)//group refugees
-		possible_backstories.Add("prisoner", "cultist", "synth")
-	if(!possible_backstories.len)
+
+	var/list/candidates = get_candidates(ROLE_FUGITIVE, null, ROLE_FUGITIVE)
+
+	for(var/type_key as() in GLOB.fugitive_types)
+		var/datum/fugitive_type/F = GLOB.fugitive_types[type_key]
+		if(length(candidates) > F.max_amount)
+			continue
+		possible_backstories += F
+	if(!length(possible_backstories) || length(candidates) < 1)
 		return NOT_ENOUGH_PLAYERS
 
-	var/backstory = pick(possible_backstories)
-	var/member_size = 3
+	var/datum/fugitive_type/backstory = pick(possible_backstories)
+	var/member_size = min(length(candidates), backstory.max_amount)
 	var/leader
-	switch(backstory)
-		if("synth")
-			leader = pick_n_take(candidates)
-		if("waldo")
-			member_size = 0 //solo refugees have no leader so the member_size gets bumped to one a bit later
-	var/list/members = list()
-	var/list/spawned_mobs = list()
-	if(isnull(leader))
-		member_size++ //if there is no leader role, then the would be leader is a normal member of the team.
+	if(backstory.has_leader)
+		leader = pick_n_take(candidates)
+		member_size--
+		var/mob/living/carbon/human/S = gear_fugitive(1, leader, landing_turf, backstory, leader = TRUE)
+		spawned_mobs += S
 
 	for(var/i in 1 to member_size)
-		members += pick_n_take(candidates)
-
-	for(var/mob/dead/selected in members)
-		var/mob/living/carbon/human/S = gear_fugitive(selected, landing_turf, backstory)
+		var/mob/dead/selected = pick_n_take(candidates)
+		if(!selected)
+			continue
+		var/mob/living/carbon/human/S = gear_fugitive(i, selected, landing_turf, backstory)
 		spawned_mobs += S
-	if(!isnull(leader))
-		gear_fugitive_leader(leader, landing_turf, backstory)
 
-//after spawning
+	// After spawning:
 	playsound(src, 'sound/weapons/emitter.ogg', 50, 1)
-	new /obj/item/storage/toolbox/mechanical(landing_turf) //so they can actually escape maint
+	// Tools so they can actually escape maintenance
+	new /obj/item/storage/toolbox/mechanical(landing_turf)
+
+	// Switch the round event to "hunter" mode
 	addtimer(CALLBACK(src, .proc/spawn_hunters), 10 MINUTES)
-	role_name = "fugitive hunter"
+	role_name = ROLE_FUGITIVE_HUNTER
 	return SUCCESSFUL_SPAWN
 
-/datum/round_event/ghost_role/fugitives/proc/gear_fugitive(var/mob/dead/selected, var/turf/landing_turf, backstory) //spawns normal fugitive
+/datum/round_event/ghost_role/fugitives/proc/gear_fugitive(index, mob/dead/selected, turf/landing_turf, datum/fugitive_type/backstory, leader = FALSE)
 	var/datum/mind/player_mind = new /datum/mind(selected.key)
 	player_mind.active = TRUE
 	var/mob/living/carbon/human/S = new(landing_turf)
 	player_mind.transfer_to(S)
-	player_mind.assigned_role = "Fugitive"
-	player_mind.special_role = "Fugitive"
-	player_mind.add_antag_datum(/datum/antagonist/fugitive)
-	var/datum/antagonist/fugitive/fugitiveantag = player_mind.has_antag_datum(/datum/antagonist/fugitive)
-	INVOKE_ASYNC(fugitiveantag, /datum/antagonist/fugitive.proc/greet, backstory) //some fugitives have a sleep on their greet, so we don't want to stop the entire antag granting proc with fluff
+	player_mind.assigned_role = ROLE_FUGITIVE
+	player_mind.special_role = ROLE_FUGITIVE
+	var/datum/antagonist/fugitive/A = new()
+	A.backstory = backstory
+	player_mind.add_antag_datum(A)
+	var/outfit = (leader && backstory.has_leader) ? backstory.leader_outfit : backstory.outfit
+	if(islist(outfit))
+		outfit = outfit[((index - 1) % length(outfit)) + 1]
+	S.equipOutfit(outfit)
 
-	switch(backstory)
-		if("prisoner")
-			S.equipOutfit(/datum/outfit/prisoner)
-		if("cultist")
-			S.equipOutfit(/datum/outfit/yalp_cultist)
-		if("waldo")
-			S.equipOutfit(/datum/outfit/waldo)
-		if("synth")
-			S.equipOutfit(/datum/outfit/synthetic)
 	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a Fugitive by an event.")
 	log_game("[key_name(S)] was spawned as a Fugitive by an event.")
-	spawned_mobs += S
 	return S
 
- //special spawn for one member. it can be used for a special mob or simply to give one normal member special items.
-/datum/round_event/ghost_role/fugitives/proc/gear_fugitive_leader(var/mob/dead/leader, var/turf/landing_turf, backstory)
-	var/datum/mind/player_mind = new /datum/mind(leader.key)
-	player_mind.active = TRUE
-	//if you want to add a fugitive with a special leader in the future, make this switch with the backstory
-	var/mob/living/carbon/human/S = gear_fugitive(leader, landing_turf, backstory)
-	var/obj/item/choice_beacon/augments/A = new(S)
-	S.put_in_hands(A)
-	new /obj/item/autosurgeon(landing_turf)
-
-//security team gets called in after 10 minutes of prep to find the refugees
+// Security team gets called in after 10 minutes of prep to find the fugitives
 /datum/round_event/ghost_role/fugitives/proc/spawn_hunters()
-	var/backstory = pick("space cop", "russian", "bounty hunter")
-	var/datum/map_template/shuttle/ship
-	if(backstory == "space cop")
-		ship = new /datum/map_template/shuttle/hunter/space_cop
-	else if (backstory == "russian")
-		ship = new /datum/map_template/shuttle/hunter/russian
-	else
-		ship = new /datum/map_template/shuttle/hunter/bounty
+	var/datum/fugitive_type/hunter/backstory = GLOB.hunter_types[pick(GLOB.hunter_types)]
+	var/list/candidates = pollGhostCandidates("The Fugitive Hunters are looking for a [backstory.name]. Would you like to be considered for this role?", ROLE_FUGITIVE_HUNTER)
+	var/datum/map_template/shuttle/ship = new backstory.ship_type
 	var/x = rand(TRANSITIONEDGE,world.maxx - TRANSITIONEDGE - ship.width)
 	var/y = rand(TRANSITIONEDGE,world.maxy - TRANSITIONEDGE - ship.height)
 	var/z = SSmapping.empty_space.z_value
@@ -112,10 +90,16 @@
 	if(!T)
 		CRASH("Fugitive Hunters (Created from fugitive event) found no turf to load in")
 	var/datum/map_generator/template_placer = ship.load(T)
-	template_placer.on_completion(CALLBACK(src, .proc/announce_fugative_spawns, ship))
+	template_placer.on_completion(CALLBACK(src, .proc/announce_fugitive_spawns, ship, candidates, backstory))
 
-/datum/round_event/ghost_role/fugitives/proc/announce_fugative_spawns(datum/map_template/shuttle/ship, datum/map_generator/generator, turf/T)
+/datum/round_event/ghost_role/fugitives/proc/announce_fugitive_spawns(datum/map_template/shuttle/ship, list/candidates, backstory, datum/map_generator/map_generator, turf/T)
 	for(var/turf/A in ship.get_affected_turfs(T))
-		for(var/obj/effect/mob_spawn/human/fugitive/spawner in A)
-			announce_to_ghosts(spawner)
+		for(var/obj/effect/mob_spawn/human/fugitive_hunter/spawner in A)
+			spawner.backstory = backstory
+			if(length(candidates))
+				var/mob/M = pick_n_take(candidates)
+				spawner.create(M.ckey)
+				notify_ghosts("The fugitive hunter ship has an object of interest: [M]!", source=M, action=NOTIFY_ORBIT, header="Something's Interesting!")
+			else
+				notify_ghosts("The fugitive hunter ship has an object of interest: [spawner]!", source=spawner, action=NOTIFY_ORBIT, header="Something's Interesting!")
 	priority_announce("Unidentified ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())

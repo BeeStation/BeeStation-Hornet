@@ -69,6 +69,10 @@
 	maxHealth = 120
 	armored = TRUE
 
+// No more murder!
+/mob/living/simple_animal/hostile/bear/russian/hunter/proc/ListTargets()
+	return list()
+
 /mob/living/simple_animal/hostile/bear/update_icons()
 	..()
 	if(armored)
