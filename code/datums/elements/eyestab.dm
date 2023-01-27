@@ -60,7 +60,7 @@
 
 	user.do_attack_animation(target)
 
-	if (target == user
+	if (target == user)
 		user.visible_message(
 			"<span class='danger'>[user] stabs [user.p_them()]self in the eyes with [item]!</span>",
 			"<span class='userdanger'>You stab yourself in the eyes with [item]!</span>",
@@ -69,7 +69,7 @@
 		target.visible_message(
 			"<span class='danger'>[user] stabs [target] in the eye with [item]!</span>",
 			"<span class='userdanger'>[user] stabs you in the eye with [item]!</span>",
-		))
+		)
 
 	if (target_limb)
 		target.apply_damage(damage, BRUTE, target_limb)
