@@ -116,7 +116,7 @@
 	icon_state = "seed-Shamrock"
 	species = "Shamrocks"
 	plantname = "Shamrock Plants"
-	product = /obj/item/reagent_containers/food/snacks/grown/grass/Shamrocks
+	product = /obj/item/reagent_containers/food/snacks/grown/grass/Shamrock
 	mutatelist = list()
 	rarity = 10
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
