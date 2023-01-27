@@ -98,15 +98,3 @@
 #define IS_HIVEHOST(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivemind))
 ///Checks if given mob is an awakened vessel
 #define IS_WOKEVESSEL(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivevessel))
-
-#define SWARMER_SHORT_DESC "You are a swarmer, a weapon of a long dead civilization."
-
-#define SWARMER_FLAVOR_TEXT {" \
-	<b>You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate.</b> \
-	<b>Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful.</b> \
-	<b>Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.</b> \
-	<b>Objectives:</b> \
-	1. Consume resources and replicate until there are no more resources left. \
-	2. Ensure that this location is fit for invasion at a later date; do not perform actions that would render it dangerous or inhospitable. \
-	3. Biological resources will be harvested at a later date; do not harm them. \
-	"}
