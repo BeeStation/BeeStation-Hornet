@@ -12,7 +12,7 @@
 
 /mob/camera/blob/proc/place_blob_core(placement_override, pop_override = FALSE)
 	if(placed && placement_override != -1)
-		return 1
+		return TRUE
 	if(!placement_override)
 		if(!pop_override)
 			for(var/mob/living/M in range(7, src))
@@ -20,44 +20,47 @@
 					continue
 				if(M.client)
 					to_chat(src, "<span class='warning'>There is someone too close to place your blob core!</span>")
-					return 0
+					return FALSE
 			for(var/mob/living/M in hearers(13, src))
 				if(ROLE_BLOB in M.faction)
 					continue
 				if(M.client)
 					to_chat(src, "<span class='warning'>Someone could see your blob core from here!</span>")
-					return 0
+					return FALSE
 		var/turf/T = get_turf(src)
+		if(!is_valid_turf(T))
+			to_chat(src, "<span class='warning'>You cannot place your core in this area!</span>")
+			return FALSE
 		if(T.density)
 			to_chat(src, "<span class='warning'>This spot is too dense to place a blob core on!</span>")
-			return 0
+			return FALSE
 		for(var/obj/O in T)
 			if(istype(O, /obj/structure/blob))
 				if(istype(O, /obj/structure/blob/normal))
 					qdel(O)
 				else
 					to_chat(src, "<span class='warning'>There is already a blob here!</span>")
-					return 0
+					return FALSE
 			else if(O.density)
 				to_chat(src, "<span class='warning'>This spot is too dense to place a blob core on!</span>")
-				return 0
+				return FALSE
 		if(!pop_override && world.time <= manualplace_min_time && world.time <= autoplace_max_time)
 			to_chat(src, "<span class='warning'>It is too early to place your blob core!</span>")
-			return 0
+			return FALSE
 	else if(placement_override == 1)
 		var/turf/T = pick(GLOB.blobstart)
 		forceMove(T) //got overrided? you're somewhere random, motherfucker
 	if(placed && blob_core)
 		blob_core.forceMove(loc)
 	else
-		var/obj/structure/blob/core/core = new(get_turf(src), src, 1)
+		var/obj/structure/blob/core/core = new(get_turf(src), src, TRUE)
 		core.overmind = src
 		blobs_legit += src
 		blob_core = core
 		core.update_icon()
 	update_health_hud()
-	placed = 1
-	return 1
+	placed = TRUE
+	return TRUE
 
 /mob/camera/blob/verb/transport_core()
 	set category = "Blob"
@@ -213,8 +216,7 @@
 	if(!blob_core)
 		to_chat(src, "<span class='userdanger'>You have no core and are about to die! May you rest in peace.</span>")
 		return
-	var/area/A = get_area(T)
-	if(isspaceturf(T) || A && !(A.area_flags & BLOBS_ALLOWED))
+	if(!is_valid_turf(T))
 		to_chat(src, "<span class='warning'>You cannot relocate your core here!</span>")
 		return
 	if(!can_buy(80))
