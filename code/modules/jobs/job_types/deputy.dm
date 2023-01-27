@@ -1,6 +1,6 @@
 /datum/job/deputy
 	jkey = JOB_KEY_DEPUTY
-	title = JOB_NAME_DEPUTY
+	jtitle = JOB_NAME_DEPUTY
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = DEPUTY
 	department_head = list(JOB_NAME_HEADOFSECURITY)

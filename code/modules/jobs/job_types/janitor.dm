@@ -1,6 +1,6 @@
 /datum/job/janitor
 	jkey = JOB_KEY_JANITOR
-	title = JOB_NAME_JANITOR
+	jtitle = JOB_NAME_JANITOR
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = JANITOR
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)

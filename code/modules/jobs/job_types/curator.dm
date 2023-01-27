@@ -1,6 +1,6 @@
 /datum/job/curator
 	jkey = JOB_KEY_CURATOR
-	title = JOB_NAME_CURATOR
+	jtitle = JOB_NAME_CURATOR
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = CURATOR
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)

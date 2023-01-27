@@ -1,6 +1,6 @@
 /datum/job/chief_engineer
 	jkey = JOB_KEY_CHIEFENGINEER
-	title = JOB_NAME_CHIEFENGINEER
+	jtitle = JOB_NAME_CHIEFENGINEER
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = CHIEF
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD

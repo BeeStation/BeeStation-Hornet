@@ -37,8 +37,8 @@
 		if(J.current_positions < 1)
 			jobs -= J
 	if(jobs.len > 0)
-		var/datum/job/target = pick(jobs)
-		explanation_text += " a [target.title]."
+		var/datum/job/picked_job = pick(jobs)
+		explanation_text += " a [picked_job.get_title()]."
 	else
 		explanation_text += " someone."
 

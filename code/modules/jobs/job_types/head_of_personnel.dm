@@ -1,6 +1,6 @@
 /datum/job/head_of_personnel
 	jkey = JOB_KEY_HEADOFPERSONNEL
-	title = JOB_NAME_HEADOFPERSONNEL
+	jtitle = JOB_NAME_HEADOFPERSONNEL
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = HOP
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD

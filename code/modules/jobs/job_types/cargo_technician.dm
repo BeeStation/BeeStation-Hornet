@@ -1,6 +1,6 @@
 /datum/job/cargo_technician
 	jkey = JOB_KEY_CARGOTECHNICIAN
-	title = JOB_NAME_CARGOTECHNICIAN
+	jtitle = JOB_NAME_CARGOTECHNICIAN
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = CARGOTECH
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)

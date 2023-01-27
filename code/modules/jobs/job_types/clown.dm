@@ -1,6 +1,6 @@
 /datum/job/clown
 	jkey = JOB_KEY_CLOWN
-	title = JOB_NAME_CLOWN
+	jtitle = JOB_NAME_CLOWN
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = CLOWN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)

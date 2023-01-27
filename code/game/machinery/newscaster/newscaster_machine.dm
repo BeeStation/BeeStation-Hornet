@@ -736,7 +736,7 @@
 		creating_comment = FALSE
 		return TRUE
 	var/datum/feed_comment/new_feed_comment = new/datum/feed_comment
-	var/author_text = issilicon(usr) ? "[usr.name] ([usr.mind.get_station_role()])" : "[account.account_holder] ([account.account_job?.title])"
+	var/author_text = issilicon(usr) ? "[usr.name] ([usr.mind.get_station_role()])" : "[account.account_holder] ([account.account_job?.get_title()])"
 	new_feed_comment.author = author_text
 	new_feed_comment.body = comment_text
 	new_feed_comment.time_stamp = station_time_timestamp()

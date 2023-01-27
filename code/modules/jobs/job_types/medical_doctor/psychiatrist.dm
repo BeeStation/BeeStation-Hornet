@@ -1,6 +1,6 @@
 /datum/job/medical_doctor/psychiatrist
 	g_jkey = JOB_KEY_PSYCHIATRIST
-	g_title = JOB_NAME_PSYCHIATRIST
+	g_jtitle = JOB_NAME_PSYCHIATRIST
 	job_bitflags = JOB_BITFLAG_GIMMICK
 
 	outfit = /datum/outfit/job/psychiatrist

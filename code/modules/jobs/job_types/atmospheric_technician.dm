@@ -1,6 +1,6 @@
 /datum/job/atmospheric_technician
 	jkey = JOB_KEY_ATMOSPHERICTECHNICIAN
-	title = JOB_NAME_ATMOSPHERICTECHNICIAN
+	jtitle = JOB_NAME_ATMOSPHERICTECHNICIAN
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = ATMOSTECH
 	department_head = list(JOB_NAME_CHIEFENGINEER)

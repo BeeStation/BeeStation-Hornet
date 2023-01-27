@@ -1,6 +1,6 @@
 /datum/job/mime
 	jkey = JOB_KEY_MIME
-	title = JOB_NAME_MIME
+	jtitle = JOB_NAME_MIME
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = MIME
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)

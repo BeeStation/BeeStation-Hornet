@@ -1,6 +1,6 @@
 /datum/job/captain
 	jkey = JOB_KEY_CAPTAIN
-	title = JOB_NAME_CAPTAIN
+	jtitle = JOB_NAME_CAPTAIN
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = CAPTAIN
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD|PREFTOGGLE_DEADMIN_POSITION_SECURITY

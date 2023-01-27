@@ -1,6 +1,6 @@
 /datum/job/lawyer
 	jkey = JOB_KEY_LAWYER
-	title = JOB_NAME_LAWYER
+	jtitle = JOB_NAME_LAWYER
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = LAWYER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)

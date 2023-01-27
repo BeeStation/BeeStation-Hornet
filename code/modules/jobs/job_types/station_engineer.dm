@@ -1,6 +1,6 @@
 /datum/job/station_engineer
 	jkey = JOB_KEY_STATIONENGINEER
-	title = JOB_NAME_STATIONENGINEER
+	jtitle = JOB_NAME_STATIONENGINEER
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = ENGINEER
 	department_head = list(JOB_NAME_CHIEFENGINEER)

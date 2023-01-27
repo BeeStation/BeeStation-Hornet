@@ -297,8 +297,8 @@ GLOBAL_VAR_INIT(say_disabled, FALSE)
 	var/mob/living/carbon/human/dummy/D = new(locate(1,1,1)) //spawn on 1,1,1 so we don't have runtimes when items are deleted
 	D.setDir(SOUTH)
 	for(var/job in subtypesof(/datum/job))
-		var/datum/job/JB = new job
-		switch(JB.get_jkey())
+		var/datum/job/target_job = new job
+		switch(target_job.get_jkey())
 			if(JOB_KEY_AI)
 				final.Insert(icon('icons/mob/ai.dmi', "ai", SOUTH, 1), JOB_KEY_AI)
 			if(JOB_KEY_CYBORG)
@@ -307,10 +307,10 @@ GLOBAL_VAR_INIT(say_disabled, FALSE)
 				for(var/obj/item/I in D)
 					qdel(I)
 				randomize_human(D)
-				JB.equip(D, TRUE, FALSE)
+				target_job.equip(D, TRUE, FALSE)
 				COMPILE_OVERLAYS(D)
 				var/icon/I = icon(getFlatIcon(D), frame = 1)
-				final.Insert(I, JB.title)
+				final.Insert(I, target_job.get_jkey())
 	qdel(D)
 	//Also add the x
 	for(var/x_number in 1 to 4)

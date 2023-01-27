@@ -1,6 +1,6 @@
 /datum/job/clown/stage_magician
 	g_jkey = JOB_KEY_STAGEMAGICIAN
-	g_title = JOB_NAME_STAGEMAGICIAN
+	g_jtitle = JOB_NAME_STAGEMAGICIAN
 	job_bitflags = JOB_BITFLAG_GIMMICK
 	flag = MAGICIAN
 

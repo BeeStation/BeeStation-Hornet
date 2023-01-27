@@ -3,7 +3,6 @@
 	antag_role_type = ROLE_KEY_MORPH
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
-	job_rank = ROLE_MORPH
 	antagpanel_category = "Morph"
 	show_name_in_check_antagonists = TRUE
 
@@ -52,8 +51,6 @@
 		if(istype(new_mob))
 			new_mob.a_intent = INTENT_HARM
 			M.mind.transfer_to(new_mob)
-			new_owner.assigned_role = "Morph"
-			new_owner.special_role = "Morph"
 			new_mob.name = "morph"
 			new_mob.real_name = "morph"
 		qdel(M)

@@ -1,6 +1,6 @@
 /datum/job/warden
 	jkey = JOB_KEY_WARDEN
-	title = JOB_NAME_WARDEN
+	jtitle = JOB_NAME_WARDEN
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = WARDEN
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SECURITY

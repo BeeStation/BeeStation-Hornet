@@ -3,7 +3,7 @@ Assistant
 */
 /datum/job/assistant
 	jkey = JOB_KEY_ASSISTANT
-	title = JOB_NAME_ASSISTANT
+	jtitle = JOB_NAME_ASSISTANT
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = ASSISTANT
 	supervisors = "absolutely everyone"

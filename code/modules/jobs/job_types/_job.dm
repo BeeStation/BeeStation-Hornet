@@ -2,11 +2,11 @@
 	///Path of the job. used for preferences, bans and more. Make sure you know what you're doing before changing this. ***WARN: call this variable through 'get_jkey()' proc if you can.
 	var/jkey = "NOPE"
 	///The name of the job. only used to display the job title. ***WARN: call this variable through 'get_title()' proc if you can.
-	var/title = "NOPE"
+	var/jtitle = "NOPE"
 
 	// these are identical above but only used for gimmick jobs.
 	var/g_jkey
-	var/g_title
+	var/g_jtitle
 	// WARN: these variables are the reason why you should call jkey/title variables through the said procs above.
 
 	/// if a job should have multiple jobs in their mind, use this then it will give all listed jobs to a mob's mind instead of jkey variable
@@ -14,7 +14,7 @@
 	// example: "job: Chaplain of Honkmother (Chaplain Gimmick)" should have 'list(JOB_KEY_CLOWN, JOB_KEY_CHAPLAIN)' as they are elitible for both (it's not a real job, but just for an example)
 	// as a result of that, a mob's mind will have "list/mind_roles[JOB_HOLDER] = list(JOB_KEY_CLOWN_CHAPLAIN, JOB_KEY_CLOWN, JOB_KEY_CHAPLAIN)"
 	// leave this blank if you're going to give them a default key
-	
+
 	/// literally job bitflags. see DEFINE\jobs.dm for bitflags
 	var/job_bitflags = NONE
 
@@ -109,7 +109,7 @@
 	. = ..()
 
 /datum/job/proc/get_title(gimmick=TRUE)
-	return gimmick ? (g_title || title) : title
+	return gimmick ? (g_jtitle || jtitle) : jtitle
 
 /datum/job/proc/get_jkey(gimmick=TRUE)
 	return gimmick ? (g_jkey || jkey) : jkey
@@ -218,7 +218,7 @@
 		if(!rep_value)
 			rep_value = 0
 		return rep_value
-	. = CONFIG_GET(keyed_list/antag_rep)[lowertext(title)]
+	. = CONFIG_GET(keyed_list/antag_rep)[lowertext(get_jkey())]
 	if(. == null)
 		return antag_rep
 
@@ -226,7 +226,7 @@
 /datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source)
 	if(!H)
 		return FALSE
-	if(CONFIG_GET(flag/enforce_human_authority) && (title in GLOB.command_positions))
+	if(CONFIG_GET(flag/enforce_human_authority) && (get_jkey() in GLOB.command_positions))
 		if(H.dna.species.id != SPECIES_HUMAN)
 			H.set_species(/datum/species/human)
 			H.apply_pref_name("human", preference_source)

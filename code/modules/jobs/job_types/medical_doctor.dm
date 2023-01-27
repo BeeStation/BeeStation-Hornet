@@ -1,6 +1,6 @@
 /datum/job/medical_doctor
 	jkey = JOB_KEY_MEDICALDOCTOR
-	title = JOB_NAME_MEDICALDOCTOR
+	jtitle = JOB_NAME_MEDICALDOCTOR
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = DOCTOR
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)

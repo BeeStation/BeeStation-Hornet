@@ -1,6 +1,6 @@
 /datum/job/ai
 	jkey = JOB_KEY_AI
-	title = JOB_NAME_AI
+	jtitle = JOB_NAME_AI
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = AI_JF
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SILICON

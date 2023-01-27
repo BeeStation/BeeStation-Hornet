@@ -1,6 +1,6 @@
 /datum/job/shaft_miner
 	jkey = JOB_KEY_SHAFTMINER
-	title = JOB_NAME_SHAFTMINER
+	jtitle = JOB_NAME_SHAFTMINER
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = MINER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)

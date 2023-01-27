@@ -1,6 +1,6 @@
 /datum/job/virologist
 	jkey = JOB_KEY_VIROLOGIST
-	title = JOB_NAME_VIROLOGIST
+	jtitle = JOB_NAME_VIROLOGIST
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = VIROLOGIST
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)

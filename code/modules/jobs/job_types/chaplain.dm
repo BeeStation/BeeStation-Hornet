@@ -1,6 +1,6 @@
 /datum/job/chaplain
 	jkey = JOB_KEY_CHAPLAIN
-	title = JOB_NAME_CHAPLAIN
+	jtitle = JOB_NAME_CHAPLAIN
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	flag = CHAPLAIN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)

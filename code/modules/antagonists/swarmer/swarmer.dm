@@ -711,7 +711,7 @@
 
 /datum/antagonist/swarmer
 	name = "Swarmer"
-	job_rank = ROLE_SWARMER
+	antag_role_type = ROLE_SWARMER
 	roundend_category = "Swarmer"
 	antagpanel_category = "Swarmer"
 	show_to_ghosts = TRUE
@@ -795,8 +795,6 @@
 			if(istype(new_mob))
 				new_mob.a_intent = INTENT_HARM
 				M.mind.transfer_to(new_mob)
-				new_owner.assigned_role = "Swarmer"
-				new_owner.special_role = "Swarmer"
 			qdel(M)
 	return ..()
 
