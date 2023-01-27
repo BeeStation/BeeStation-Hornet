@@ -15,7 +15,7 @@
 	icon_grow = "grass-grow"
 	icon_dead = "grass-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	mutatelist = list(/obj/item/seeds/grass/carpet, /obj/item/seeds/grass/fairy, /obj/item/seeds/grass/Shamrock)
+	mutatelist = list(/obj/item/seeds/grass/carpet, /obj/item/seeds/grass/fairy, /obj/item/seeds/grass/shamrock)
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.02, /datum/reagent/hydrogen = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/grass
@@ -109,24 +109,24 @@
 	stacktype = /obj/item/stack/tile/carpet
 	can_distill = FALSE
 
-// Shamrocks
-/obj/item/seeds/grass/Shamrock
-	name = "pack of Shamrock seeds"
-	desc = "These seeds grow into Shamrock producing plants."
-	icon_state = "seed-Shamrock"
-	species = "Shamrocks"
-	plantname = "Shamrock Plants"
-	product = /obj/item/reagent_containers/food/snacks/grown/grass/Shamrock
+// shamrocks
+/obj/item/seeds/grass/shamrock
+	name = "pack of shamrock seeds"
+	desc = "These seeds grow into shamrock producing plants."
+	icon_state = "seed-shamrock"
+	species = "shamrocks"
+	plantname = "shamrock Plants"
+	product = obj/item/reagent_containers/food/snacks/grown/shamrock
 	mutatelist = list()
 	rarity = 10
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list(/datum/reagent/nitrogen = 0.1, /datum/reagent/consumable/nutriment = 0.02, /datum/reagent/hydrogen = 0.05)
 
-/obj/item/reagent_containers/food/snacks/grown/Shamrock
-	seed = /obj/item/seeds/grass/Shamrock
-	name = "Shamrock"
+/obj/item/reagent_containers/food/snacks/grown/shamrock
+	seed = /obj/item/seeds/grass/shamrock
+	name = "shamrock"
 	desc = "Luck of the irish."
-	icon_state = "Shamrock"
+	icon_state = "shamrock"
 	slot_flags = ITEM_SLOT_HEAD
 	filling_color = "#245c39"
 	bitesize_mod = 3
