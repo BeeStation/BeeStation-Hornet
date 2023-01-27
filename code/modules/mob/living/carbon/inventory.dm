@@ -48,7 +48,6 @@
 	if(!(I.item_flags & PICKED_UP))
 		I.pickup(src)
 	I.forceMove(src)
-	I.layer = ABOVE_HUD_LAYER
 	I.plane = ABOVE_HUD_PLANE
 	var/not_handled = FALSE
 	switch(slot)
@@ -168,6 +167,8 @@
 
 	visible_message("<span class='notice'>[src] is offering [offered_item].</span>", \
 					"<span class='notice'>You offer [offered_item].</span>", null, 2)
+
+	INVOKE_ASYNC(src, .proc/emote, "offer")
 
 	apply_status_effect(STATUS_EFFECT_OFFERING, offered_item)
 

@@ -97,7 +97,7 @@
 
 /obj/structure/displaycase/obj_break(damage_flag)
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
-		density = FALSE
+		set_density(FALSE)
 		broken = TRUE
 		if(shatter)
 			new /obj/item/shard(drop_location())
@@ -217,12 +217,12 @@
 		take_damage(2)
 
 /obj/structure/displaycase_chassis
-	anchored = TRUE
-	density = FALSE
 	name = "display case chassis"
 	desc = "The wooden base of a display case."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "glassbox_chassis"
+	anchored = TRUE
+	density = FALSE
 	var/obj/item/electronics/airlock/electronics
 
 
@@ -232,7 +232,7 @@
 		I.play_tool_sound(src)
 		if(I.use_tool(src, user, 30))
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
-			new /obj/item/stack/sheet/mineral/wood(get_turf(src), 5)
+			new /obj/item/stack/sheet/wood(get_turf(src), 5)
 			qdel(src)
 
 	else if(istype(I, /obj/item/electronics/airlock))

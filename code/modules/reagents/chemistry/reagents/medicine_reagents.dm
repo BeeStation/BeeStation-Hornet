@@ -852,7 +852,7 @@
 		to_chat(M, "<span class='warning'>The blackness in your peripheral vision fades.</span>")
 		M.cure_nearsighted(EYE_DAMAGE)
 		M.blur_eyes(10)
-	else if(M.eye_blind || M.eye_blurry)
+	else if(M.is_blind() || M.eye_blurry)
 		M.set_blindness(0)
 		M.set_blurriness(0)
 	..()
