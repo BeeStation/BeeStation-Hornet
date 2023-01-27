@@ -474,9 +474,6 @@
 
 	var/mob/living/carbon/human/S = new (pick(spawn_locs))
 	player_mind.transfer_to(S)
-	player_mind.assigned_role = ROLE_NIGHTMARE
-	player_mind.special_role = ROLE_NIGHTMARE
-	player_mind.add_antag_datum(/datum/antagonist/nightmare)
 	S.set_species(/datum/species/shadow/nightmare)
 
 	playsound(S, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
@@ -518,9 +515,6 @@
 
 	var/mob/living/simple_animal/hostile/space_dragon/S = new (pick(spawn_locs))
 	player_mind.transfer_to(S)
-	player_mind.assigned_role = "Space Dragon"
-	player_mind.special_role = "Space Dragon"
-	player_mind.add_antag_datum(/datum/antagonist/space_dragon)
 
 	playsound(S, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
 	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a Space Dragon by the midround ruleset.")
@@ -576,8 +570,7 @@
 	name = "Revenant"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
 	antag_datum = /datum/antagonist/revenant
-	antag_flag = "Revenant"
-	antag_flag_override = ROLE_REVENANT
+	antag_flag = ROLE_REVENANT
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(1,1,1,1,0,0,0,0,0,0)
 	required_candidates = 1
@@ -696,6 +689,7 @@
 /datum/dynamic_ruleset/midround/from_ghosts/swarmer
 	name = "Swarmer"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
+	antag_datum = /datum/antagonist/swarmer
 	antag_flag = ROLE_SWARMER
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(1,1,1,1,0,0,0,0,0,0)
@@ -718,9 +712,6 @@
 
 	var/mob/living/simple_animal/hostile/swarmer/S = new (get_turf(GLOB.the_gateway))
 	player_mind.transfer_to(S)
-	player_mind.assigned_role = ROLE_SWARMER
-	player_mind.special_role = ROLE_SWARMER
-	player_mind.add_antag_datum(/datum/antagonist/swarmer)
 
 	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a Swarmer by the midround ruleset.")
 	log_game("DYNAMIC: [key_name(S)] was spawned as a Swarmer by the midround ruleset.")
@@ -737,6 +728,7 @@
 /datum/dynamic_ruleset/midround/from_ghosts/morph
 	name = "Morph"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
+	antag_datum = /datum/antagonist/morph
 	antag_flag = ROLE_MORPH
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(2,2,1,1,1,1,1,1,0,0)
@@ -758,12 +750,9 @@
 
 	var/mob/living/simple_animal/hostile/morph/S = new /mob/living/simple_animal/hostile/morph(pick(GLOB.xeno_spawn))
 	player_mind.transfer_to(S)
-	player_mind.assigned_role = ROLE_MORPH
-	player_mind.special_role = ROLE_MORPH
-	player_mind.add_antag_datum(/datum/antagonist/morph)
 	to_chat(S, S.playstyle_string)
 	SEND_SOUND(S, sound('sound/magic/mutate.ogg'))
 
-	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a Swarmer by the midround ruleset.")
-	log_game("DYNAMIC: [key_name(S)] was spawned as a Swarmer by the midround ruleset.")
+	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a Morph by the midround ruleset.")
+	log_game("DYNAMIC: [key_name(S)] was spawned as a Morph by the midround ruleset.")
 	return S
