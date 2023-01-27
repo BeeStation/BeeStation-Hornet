@@ -42,13 +42,10 @@
 #define ROLE_KEY_BLOB            "Blob"
 #define ROLE_KEY_HOLOPARASITE    "Guardian"
 #define ROLE_KEY_TERATOMA        "Teratoma"
+#define ROLE_KEY_SWARMER         "Swarmer"
 #define ROLE_KEY_SANTA           "Santa"
 
 #define ROLE_KEY_UNDEFINED_ANTAG_ROLE "Undefined Antagonist Role" // default for all antag datum
-#define ROLE_HYPNOTIZED			"Hypnotized Victim"
-#define ROLE_SWARMER			"Swarmer"
-#define ROLE_MORPH				"Morph"
-#define ROLE_NIGHTMARE			"Nightmare"
 
 // mid-spawn NON-antags
 #define ROLE_KEY_POSIBRAIN          "Positronic Brain"
@@ -129,7 +126,8 @@ GLOBAL_LIST_INIT(midround_antag_list, list(
 	ROLE_KEY_MORPH,
 	ROLE_KEY_BLOB,
 	ROLE_KEY_HOLOPARASITE,
-	ROLE_KEY_TERATOMA
+	ROLE_KEY_TERATOMA,
+	ROLE_KEY_SWARMER
 ))
 
 GLOBAL_LIST_INIT(misc_ghost_ban_list, list(

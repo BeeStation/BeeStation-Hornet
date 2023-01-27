@@ -660,14 +660,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			// warning pannel
 			var/banned = 0
 			if(is_banned_from(user.ckey, ROLE_BANCHECK_MAJOR_ANTAGONIST))
-				banned += 1
+				banned |= (1<<0)
 			if(is_banned_from(user.ckey, ROLE_BANCHECK_MAJOR_GHOSTSPAWN))
-				banned += 2
+				banned |= (1<<1)
 			if(banned)
 				dat += "<h2>Notification</h2>"
-				if(banned & 1)
+				if(banned & (1<<0))
 					dat += "<b>You are banned from all antagonist type roles.</b><br>"
-				if(banned & 2)
+				if(banned & (1<<1))
 					dat += "<b>You are banned from all ghostspawn type roles.</b><br>"
 
 			// --------------------------------------------

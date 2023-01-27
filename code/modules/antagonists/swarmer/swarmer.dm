@@ -711,7 +711,7 @@
 
 /datum/antagonist/swarmer
 	name = "Swarmer"
-	antag_role_type = ROLE_SWARMER
+	antag_role_type = ROLE_KEY_SWARMER
 	roundend_category = "Swarmer"
 	antagpanel_category = "Swarmer"
 	show_to_ghosts = TRUE
