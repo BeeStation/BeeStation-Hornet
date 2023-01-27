@@ -326,7 +326,7 @@
 				break_counter++
 			output += "</div></div>"
 		var/list/long_job_lists = list(("Civilian" = GLOB.civilian_positions | JOB_NAME_GIMMICK),
-									"Ghost and Other Roles" = list(ROLE_BRAINWASHED, ROLE_DEATHSQUAD, ROLE_DRONE, ROLE_LAVALAND, ROLE_MIND_TRANSFER, ROLE_POSIBRAIN, ROLE_SENTIENCE),
+									"Ghost and Other Roles" = list(ROLE_BRAINWASHED, ROLE_HYPNOTIZED, ROLE_DEATHSQUAD, ROLE_DRONE, ROLE_LAVALAND, ROLE_MIND_TRANSFER, ROLE_POSIBRAIN, ROLE_SENTIENCE),
 									"Antagonist Positions" = list(ROLE_ABDUCTOR, ROLE_ALIEN, ROLE_BLOB,
 									ROLE_BROTHER, ROLE_CHANGELING, ROLE_CULTIST, ROLE_HERETIC,
 									ROLE_DEVIL, ROLE_INTERNAL_AFFAIRS, ROLE_MALF,
@@ -334,7 +334,7 @@
 									ROLE_SERVANT_OF_RATVAR,
 									ROLE_OVERTHROW, ROLE_REV, ROLE_REVENANT,
 									ROLE_REV_HEAD, ROLE_SYNDICATE,
-									ROLE_TRAITOR, ROLE_WIZARD, ROLE_HIVE, ROLE_GANG, ROLE_TERATOMA)) //ROLE_REV_HEAD is excluded from this because rev jobbans are handled by ROLE_REV
+									ROLE_TRAITOR, ROLE_WIZARD, ROLE_HIVE, ROLE_GANG, ROLE_TERATOMA, ROLE_NIGHTMARE, ROLE_MORPH, ROLE_SWARMER)) //ROLE_REV_HEAD is excluded from this because rev jobbans are handled by ROLE_REV
 		for(var/department in long_job_lists)
 			output += "<div class='column'><label class='rolegroup long [ckey(department)]'><input type='checkbox' name='[department]' class='hidden' [(usr.client.prefs.toggles2 & PREFTOGGLE_2_FANCY_TGUI) ? " onClick='toggle_checkboxes(this, \"_com\")'" : ""]>[department]</label><div class='content'>"
 			break_counter = 0

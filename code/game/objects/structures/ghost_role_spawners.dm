@@ -602,6 +602,11 @@
 /obj/effect/mob_spawn/human/pirate/captain
 	rank = "Captain"
 	outfit = /datum/outfit/pirate/space/captain
+	assignedrole = "Space Pirate Captain"
+
+/obj/effect/mob_spawn/human/pirate/captain/special(mob/living/new_spawn)
+	new_spawn.fully_replace_character_name(new_spawn.real_name,generate_pirate_name())
+	new_spawn.mind.add_antag_datum(/datum/antagonist/pirate/captain)
 
 /obj/effect/mob_spawn/human/pirate/gunner
 	rank = "Gunner"

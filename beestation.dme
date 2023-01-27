@@ -1793,6 +1793,7 @@
 #include "code\modules\antagonists\hivemind\spells\hivemind_shock.dm"
 #include "code\modules\antagonists\hivemind\spells\hivemind_spells.dm"
 #include "code\modules\antagonists\hivemind\spells\hivemind_thrall.dm"
+#include "code\modules\antagonists\hypnotization\hypnotized.dm"
 #include "code\modules\antagonists\incursion\incursion.dm"
 #include "code\modules\antagonists\magic_servant\servant.dm"
 #include "code\modules\antagonists\morph\morph.dm"

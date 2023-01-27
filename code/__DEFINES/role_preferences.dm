@@ -29,6 +29,7 @@
 #define ROLE_DEVIL				"Devil"
 #define ROLE_BROTHER			"Blood Brother"
 #define ROLE_BRAINWASHED		"Brainwashed Victim"
+#define ROLE_HYPNOTIZED			"Hypnotized Victim"
 #define ROLE_OVERTHROW			"Syndicate Mutineer"
 #define ROLE_HIVE				"Hivemind Host"
 #define ROLE_HIVE_VESSEL		"Awakened Vessel"
@@ -45,6 +46,9 @@
 #define ROLE_HOLOPARASITE		"Holoparasite"
 #define ROLE_TERATOMA			"Teratoma"
 #define ROLE_EXPERIMENTAL_CLONE "Experimental Clone"
+#define ROLE_SWARMER			"Swarmer"
+#define ROLE_MORPH				"Morph"
+#define ROLE_NIGHTMARE			"Nightmare"
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
@@ -77,7 +81,10 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_GANG = /datum/game_mode/gang,
 	ROLE_HOLOPARASITE,
 	ROLE_HERETIC = /datum/game_mode/heretics,
-	ROLE_TERATOMA
+	ROLE_TERATOMA,
+	ROLE_MORPH,
+	ROLE_NIGHTMARE,
+	ROLE_SWARMER
 ))
 
 //Job defines for what happens when you fail to qualify for any job during job selection
