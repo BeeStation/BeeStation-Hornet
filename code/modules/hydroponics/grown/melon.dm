@@ -11,7 +11,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_dead = "watermelon-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	mutatelist = list(/obj/item/seeds/watermelon/holy)
+	mutatelist = list(/obj/item/seeds/watermelon/holy, /obj/item/seeds/watermelon/Ballolon)
 	reagents_add = list(/datum/reagent/water = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.2)
 
 /obj/item/seeds/watermelon/suicide_act(mob/user)
@@ -75,3 +75,24 @@
 	to_chat(user, "<span class='warning'>[src] rapidly turns into ash!</span>")
 	qdel(src)
 	new /obj/effect/decal/cleanable/ash(drop_location())
+
+// Ballolon
+/obj/item/seeds/watermelon/Ballolon
+	name = "pack of Ballolon seeds"
+	desc = "These seeds grow into Ballolon plants."
+	icon_state = "seed-Ballolon"
+	species = "Ballolon"
+	plantname = "Ballolon Vines"
+	product = /obj/item/reagent_containers/food/snacks/grown/Ballolon
+	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/gaseous_pores)
+	mutatelist = list()
+	reagents_add = list(/datum/reagent/oxygen = 0.2, /datum/reagent/hydrogen = 0.2)
+	rarity = 15
+
+/obj/item/reagent_containers/food/snacks/grown/Ballolon
+	seed = /obj/item/seeds/watermelon/Ballolon
+	name = "Ballolon"
+	desc = "A organic balloon, lighter then air."
+	icon_state = "Ballolon"
+	filling_color = "#e35b6f"
+	discovery_points = 300
