@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Fixed blobs being able to place their core and move onto disallowed tiles
+      that were not in space.
