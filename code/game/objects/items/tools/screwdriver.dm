@@ -49,6 +49,7 @@
 		var/our_color = pick(screwdriver_colors)
 		set_greyscale(colors=list(screwdriver_colors[our_color]))
 	. = ..()
+	AddElement(/datum/element/eyestab)
 	if(prob(75))
 		pixel_y = rand(0, 16)
 
@@ -60,9 +61,6 @@
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm [M]!</span>")
 		return
-	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		M = user
-	return eyestab(M,user)
 
 /obj/item/screwdriver/brass
 	name = "brass screwdriver"

@@ -259,6 +259,10 @@
 	icon_state = "pendriver"
 	toolspeed = 1.20  // gotta have some downside
 
+/obj/item/pen/screwdriver/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/eyestab)
+
 /obj/item/pen/screwdriver/attack_self(mob/living/user)
 	if(extended)
 		extended = FALSE
@@ -292,9 +296,6 @@
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm [M]!</span>")
 		return
-	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		M = user
-	return eyestab(M,user)
 
 /obj/item/pen/screwdriver/update_icon()
 	if(extended)

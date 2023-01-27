@@ -35,6 +35,10 @@
 	tool_behaviour = TOOL_SCREWDRIVER
 	usesound = 'sound/items/drill_use.ogg'
 
+/obj/item/powertool/jaws_of_life/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/eyestab)
+
 /obj/item/powertool/hand_drill/toggle_mode(mob/user)
 	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, 1)
 	if(tool_behaviour == TOOL_SCREWDRIVER)
@@ -77,9 +81,6 @@
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm [M]!</span>")
 		return
-	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		M = user
-	return eyestab(M,user)
 
 //Jaws of life
 
