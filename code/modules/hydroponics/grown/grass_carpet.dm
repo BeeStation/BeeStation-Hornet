@@ -114,7 +114,7 @@
 	name = "pack of shamrock seeds"
 	desc = "These seeds grow into shamrock producing plants."
 	icon_state = "seed-shamrock"
-	species = "shamrocks"
+	species = "shamrock"
 	plantname = "shamrock Plants"
 	product = obj/item/reagent_containers/food/snacks/grown/grass/shamrock
 	mutatelist = list()
