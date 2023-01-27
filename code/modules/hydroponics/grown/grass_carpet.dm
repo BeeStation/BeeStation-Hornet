@@ -123,7 +123,7 @@
 	reagents_add = list(/datum/reagent/nitrogen = 0.1, /datum/reagent/consumable/nutriment = 0.02, /datum/reagent/hydrogen = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/Shamrock
-	seed = /obj/item/seeds/Shamrock
+	seed = /obj/item/seeds/grass/Shamrock
 	name = "Shamrock"
 	desc = "Luck of the irish."
 	icon_state = "Shamrock"
