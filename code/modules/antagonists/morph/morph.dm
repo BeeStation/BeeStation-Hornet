@@ -263,6 +263,12 @@
 	else
 		..()
 
+/mob/living/simple_animal/hostile/morph/mind_initialize()
+	. = ..()
+	to_chat(src, playstyle_string)
+	if(!mind.has_antag_datum(/datum/antagonist/morph))
+		to_chat(src, "<span class='boldwarning'>If you were not an antagonist before you did not become one now. You still retain your retain your original loyalties and mind!</span>")
+
 //Spawn Event
 
 /datum/round_event_control/morph
