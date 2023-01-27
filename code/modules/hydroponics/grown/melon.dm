@@ -95,4 +95,6 @@
 	desc = "A organic balloon, lighter then air."
 	icon_state = "Ballolon"
 	filling_color = "#e35b6f"
+	throw_range = 1
+	throw_speed = 1
 	discovery_points = 300

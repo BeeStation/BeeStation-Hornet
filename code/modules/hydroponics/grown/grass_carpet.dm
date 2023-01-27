@@ -116,13 +116,13 @@
 	icon_state = "seed-shamrock"
 	species = "shamrocks"
 	plantname = "shamrock Plants"
-	product = obj/item/reagent_containers/food/snacks/grown/shamrock
+	product = obj/item/reagent_containers/food/snacks/grown/grass/shamrock
 	mutatelist = list()
 	rarity = 10
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list(/datum/reagent/nitrogen = 0.1, /datum/reagent/consumable/nutriment = 0.02, /datum/reagent/hydrogen = 0.05)
 
-/obj/item/reagent_containers/food/snacks/grown/shamrock
+/obj/item/reagent_containers/food/snacks/grown/grass/shamrock
 	seed = /obj/item/seeds/grass/shamrock
 	name = "shamrock"
 	desc = "Luck of the irish."
