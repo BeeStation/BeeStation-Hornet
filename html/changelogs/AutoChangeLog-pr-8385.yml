@@ -1,5 +1,0 @@
-author: RKz
-delete-after: true
-changes:
-  - tweak: added missing weight_class to toy figurines. They will no longer be comically
-      overweight and should be more congruent with their size.
