@@ -57,6 +57,10 @@
 	message = "mumbles"
 	emote_type = EMOTE_AUDIBLE
 
+/datum/emote/living/carbon/human/offer
+	key = "offer"
+	message = "offers an item"
+
 /datum/emote/living/carbon/human/moth
 	// allow mothroach as well as human base mob - species check is done in can_run_emote
 	mob_type_allowed_typecache = list(/mob/living/carbon/human,/mob/living/simple_animal/mothroach)
