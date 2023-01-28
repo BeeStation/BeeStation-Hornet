@@ -1,6 +1,6 @@
 GLOBAL_LIST_INIT(hunter_types, list(
-	//FUGITIVE_HUNTER_SPACE_POLICE = new /datum/fugitive_type/hunter/space_police,
-	FUGITIVE_HUNTER_RUSSIAN = new /datum/fugitive_type/hunter/russian,
+	FUGITIVE_HUNTER_SPACE_POLICE = new /datum/fugitive_type/hunter/space_police,
+	//FUGITIVE_HUNTER_RUSSIAN = new /datum/fugitive_type/hunter/russian,
 	//FUGITIVE_HUNTER_BOUNTY = new /datum/fugitive_type/hunter/bounty
 ))
 
@@ -18,7 +18,9 @@ GLOBAL_LIST_INIT(hunter_types, list(
 	<span class='bold'>The criminals should be on the station, we have special HUDs implanted to recognize them.</span>\n\
 	<span class='bold'>As we have lost pretty much all power over these damned lawless megacorporations, it's a mystery if their security will even cooperate with us.</span>"
 	ship_type = /datum/map_template/shuttle/hunter/space_cop
-	outfit = /datum/outfit/spacepol
+	outfit = /datum/outfit/spacepol/officer
+	has_leader = TRUE
+	leader_outfit = /datum/outfit/spacepol/sergeant
 
 /datum/fugitive_type/hunter/russian
 	name = "Space-Russian Smuggler"
@@ -30,6 +32,8 @@ GLOBAL_LIST_INIT(hunter_types, list(
 	ship_type = /datum/map_template/shuttle/hunter/russian
 	max_amount = 5
 	outfit = /datum/outfit/russian_hunter
+	has_leader = TRUE
+	leader_outfit = /datum/outfit/russian_hunter/leader
 
 /datum/fugitive_type/hunter/bounty
 	name = "Bounty Hunter"

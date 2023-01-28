@@ -83,6 +83,10 @@
 	resistance_flags = FLAMMABLE
 	dog_fashion = null
 
+/obj/item/clothing/suit/armor/vest/warden/sergeant
+	name = "sergeant's jacket"
+	desc = "A jacket worn by SpacePol sergeants in active duty. Let's hope they're not coming for you."
+
 /obj/item/clothing/suit/armor/vest/warden/alt
 	name = "warden's armored jacket"
 	desc = "A red jacket with silver rank pips and body armor strapped on top."

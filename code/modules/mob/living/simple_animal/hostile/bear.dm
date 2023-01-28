@@ -70,7 +70,7 @@
 	armored = TRUE
 
 // No more murder!
-/mob/living/simple_animal/hostile/bear/russian/hunter/proc/ListTargets()
+/mob/living/simple_animal/hostile/bear/russian/hunter/ListTargets()
 	return list()
 
 /mob/living/simple_animal/hostile/bear/update_icons()

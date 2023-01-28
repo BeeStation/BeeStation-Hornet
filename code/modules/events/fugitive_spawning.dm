@@ -93,13 +93,26 @@
 	template_placer.on_completion(CALLBACK(src, .proc/announce_fugitive_spawns, ship, candidates, backstory))
 
 /datum/round_event/ghost_role/fugitives/proc/announce_fugitive_spawns(datum/map_template/shuttle/ship, list/candidates, backstory, datum/map_generator/map_generator, turf/T)
+	var/obj/effect/mob_spawn/human/fugitive_hunter/leader_spawn
+	var/list/spawners = list()
 	for(var/turf/A in ship.get_affected_turfs(T))
 		for(var/obj/effect/mob_spawn/human/fugitive_hunter/spawner in A)
 			spawner.backstory = backstory
-			if(length(candidates))
-				var/mob/M = pick_n_take(candidates)
-				spawner.create(M.ckey)
-				notify_ghosts("The fugitive hunter ship has an object of interest: [M]!", source=M, action=NOTIFY_ORBIT, header="Something's Interesting!")
+			if(istype(spawner, /obj/effect/mob_spawn/human/fugitive_hunter/leader))
+				leader_spawn = spawner
 			else
-				notify_ghosts("The fugitive hunter ship has an object of interest: [spawner]!", source=spawner, action=NOTIFY_ORBIT, header="Something's Interesting!")
+				spawners += spawner
+	// Leader goes first, so this is the first one taken
+	if(istype(leader_spawn))
+		announce_pod(leader_spawn, candidates)
+	for(var/obj/effect/mob_spawn/human/fugitive_hunter/spawner as() in spawners)
+		announce_pod(spawner, candidates)
 	priority_announce("Unidentified ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())
+
+/datum/round_event/ghost_role/fugitives/proc/announce_pod(obj/effect/mob_spawn/human/fugitive_hunter/spawner, list/candidates)
+	if(length(candidates))
+		var/mob/M = pick_n_take(candidates)
+		spawner.create(M.ckey)
+		notify_ghosts("The fugitive hunter ship has an object of interest: [M]!", source=M, action=NOTIFY_ORBIT, header="Something's Interesting!")
+	else
+		notify_ghosts("The fugitive hunter ship has an object of interest: [spawner]!", source=spawner, action=NOTIFY_ORBIT, header="Something's Interesting!")

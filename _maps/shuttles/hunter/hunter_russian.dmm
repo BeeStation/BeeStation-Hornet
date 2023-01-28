@@ -77,6 +77,11 @@
 /obj/effect/turf_decal/siding/thinplating/dark/corner,
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/hunter)
+"gY" = (
+/obj/machinery/gulag_teleporter,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
 "hn" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 8
@@ -316,10 +321,6 @@
 	name = "\improper TOZ-1";
 	pixel_y = -7
 	},
-/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/sawn{
-	name = "\improper TOZ-1";
-	pixel_y = -7
-	},
 /obj/effect/decal/cleanable/robot_debris{
 	pixel_x = 8
 	},
@@ -332,7 +333,7 @@
 /obj/machinery/light{
 	dir = 2
 	},
-/obj/effect/mob_spawn/human/fugitive_hunter{
+/obj/effect/mob_spawn/human/fugitive_hunter/leader{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -363,21 +364,21 @@
 	id = "russian_bounty_cargo"
 	},
 /obj/docking_port/stationary{
-	dir = 1;
-	dwidth = 3;
-	height = 20;
+	dwidth = 14;
+	height = 12;
 	id = "huntership_home";
 	name = "Deep Space";
-	width = 25
+	width = 19
 	},
 /obj/docking_port/mobile{
-	dir = 8;
-	dheight = 3;
-	height = 19;
+	height = 12;
 	id = "huntership";
 	name = "hunter shuttle";
 	rechargeTime = 600;
-	width = 12
+	width = 19;
+	dwidth = 14;
+	preferred_direction = 4;
+	port_direction = 4
 	},
 /turf/open/floor/plating,
 /area/shuttle/hunter)
@@ -438,6 +439,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-6"
 	},
+/obj/effect/decal/cleanable/oil/slippery,
 /turf/open/floor/mineral/plastitanium{
 	icon_state = "plastitanium_dam3"
 	},
@@ -450,9 +452,6 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/arrows{
-	dir = 1
-	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
 "yi" = (
@@ -516,7 +515,6 @@
 "zj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/oil/slippery,
 /obj/effect/turf_decal/caution,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
@@ -594,9 +592,6 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
@@ -617,11 +612,19 @@
 	pixel_x = 4;
 	pixel_y = -1
 	},
+/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/sawn{
+	name = "\improper TOZ-1";
+	pixel_y = -4
+	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/hunter)
 "Ec" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/gulag_teleporter,
+/obj/machinery/computer/prisoner/gulag_teleporter_computer{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "ET" = (
@@ -699,6 +702,9 @@
 	pixel_y = 7
 	},
 /obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/machinery/light{
 	dir = 1
 	},
 /turf/open/floor/wood,
@@ -806,9 +812,6 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/arrows{
-	dir = 8
-	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
 "Pz" = (
@@ -852,7 +855,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	cell_type = /obj/item/stock_parts/cell/high/plus
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/portable_atmospherics/canister/toxins,
 /obj/effect/turf_decal/delivery,
@@ -899,9 +904,12 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed/dogbed{
-	name = "Anastasia's bed"
+	name = "Anatoly's bed"
 	},
-/mob/living/simple_animal/hostile/bear/russian/hunter,
+/mob/living/simple_animal/hostile/bear/russian/hunter{
+	name = "Anatoly";
+	desc = "Молодец! Who's a good boy?"
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
 "Ro" = (
@@ -1208,7 +1216,7 @@ cM
 (12,1,1) = {"
 UO
 Al
-Al
+gY
 Ec
 xP
 rs

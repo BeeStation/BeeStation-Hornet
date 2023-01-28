@@ -264,6 +264,13 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50, "stamina" = 30)
 	strip_delay = 60
 
+/obj/item/clothing/head/beret/spacepol
+	name = "spacepol officer beret"
+	desc = "A special black beret for the mundane life of a SpacePol officer."
+	icon_state = "beret_corporate_officer"
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50, "stamina" = 30)
+	strip_delay = 60
+
 /obj/item/clothing/head/beret/sec/navyhos
 	name = "head of security's beret"
 	desc = "A special beret with the Head of Security's insignia emblazoned on it. A symbol of excellence, a badge of courage, a mark of distinction."
@@ -369,6 +376,13 @@
 /obj/item/clothing/head/beret/ccguardnavy
 	name = "navy officer beret"
 	desc = "A navy CentCom guard's beret."
+	icon_state = "beret_centcom_officer_navy"
+	armor = list(melee = 40, bullet = 20, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5, fire = 5, acid = 30, stamina = 30)
+	strip_delay = 60
+
+/obj/item/clothing/head/beret/sergeant
+	name = "spacepol sergeant beret"
+	desc = "A navy SpacePol sergeant's beret."
 	icon_state = "beret_centcom_officer_navy"
 	armor = list(melee = 40, bullet = 20, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5, fire = 5, acid = 30, stamina = 30)
 	strip_delay = 60
