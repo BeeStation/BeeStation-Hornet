@@ -13,6 +13,10 @@
 	fakeable = FALSE
 
 /datum/round_event/ghost_role/fugitives/spawn_role()
+	for(var/datum/team/fugitive/F in GLOB.antagonist_teams)
+		return MAP_ERROR
+	for(var/datum/team/fugitive_hunters/F in GLOB.antagonist_teams)
+		return MAP_ERROR
 	var/list/possible_spawns = list()//Some xeno spawns are in some spots that will instantly kill the refugees, like atmos
 	for(var/turf/X in GLOB.xeno_spawn)
 		if(istype(X.loc, /area/maintenance))
@@ -21,10 +25,16 @@
 		message_admins("No valid spawn locations found, aborting...")
 		return MAP_ERROR
 	var/turf/landing_turf = pick(possible_spawns)
-	var/list/possible_backstories = list()
-
 	var/list/candidates = get_candidates(ROLE_FUGITIVE, null, ROLE_FUGITIVE)
+	var/result = spawn_fugitives(landing_turf, candidates, spawned_mobs)
+	if(result != SUCCESSFUL_SPAWN)
+		return result
+	// Switch the round event to "hunter" mode
+	role_name = ROLE_FUGITIVE_HUNTER
+	return SUCCESSFUL_SPAWN
 
+/proc/spawn_fugitives(turf/landing_turf, list/candidates, list/spawned_mobs)
+	var/list/possible_backstories = list()
 	for(var/type_key as() in GLOB.fugitive_types)
 		var/datum/fugitive_type/F = GLOB.fugitive_types[type_key]
 		if(length(candidates) > F.max_amount)
@@ -50,16 +60,14 @@
 		spawned_mobs += S
 
 	// After spawning:
-	playsound(src, 'sound/weapons/emitter.ogg', 50, 1)
+	playsound(landing_turf, 'sound/weapons/emitter.ogg', 50, TRUE)
 	// Tools so they can actually escape maintenance
 	new /obj/item/storage/toolbox/mechanical(landing_turf)
 
-	// Switch the round event to "hunter" mode
-	addtimer(CALLBACK(src, .proc/spawn_hunters), 10 MINUTES)
-	role_name = ROLE_FUGITIVE_HUNTER
+	addtimer(CALLBACK(GLOBAL_PROC, /proc/spawn_hunters), 10 MINUTES)
 	return SUCCESSFUL_SPAWN
 
-/datum/round_event/ghost_role/fugitives/proc/gear_fugitive(index, mob/dead/selected, turf/landing_turf, datum/fugitive_type/backstory, leader = FALSE)
+/proc/gear_fugitive(index, mob/dead/selected, turf/landing_turf, datum/fugitive_type/backstory, leader = FALSE)
 	var/datum/mind/player_mind = new /datum/mind(selected.key)
 	player_mind.active = TRUE
 	var/mob/living/carbon/human/S = new(landing_turf)
@@ -79,7 +87,7 @@
 	return S
 
 // Security team gets called in after 10 minutes of prep to find the fugitives
-/datum/round_event/ghost_role/fugitives/proc/spawn_hunters()
+/proc/spawn_hunters()
 	var/datum/fugitive_type/hunter/backstory = GLOB.hunter_types[pick(GLOB.hunter_types)]
 	var/list/candidates = pollGhostCandidates("The Fugitive Hunters are looking for a [backstory.name]. Would you like to be considered for this role?", ROLE_FUGITIVE_HUNTER)
 	var/datum/map_template/shuttle/ship = new backstory.ship_type
@@ -90,9 +98,9 @@
 	if(!T)
 		CRASH("Fugitive Hunters (Created from fugitive event) found no turf to load in")
 	var/datum/map_generator/template_placer = ship.load(T)
-	template_placer.on_completion(CALLBACK(src, .proc/announce_fugitive_spawns, ship, candidates, backstory))
+	template_placer.on_completion(CALLBACK(GLOBAL_PROC, /proc/announce_fugitive_spawns, ship, candidates, backstory))
 
-/datum/round_event/ghost_role/fugitives/proc/announce_fugitive_spawns(datum/map_template/shuttle/ship, list/candidates, backstory, datum/map_generator/map_generator, turf/T)
+/proc/announce_fugitive_spawns(datum/map_template/shuttle/ship, list/candidates, backstory, datum/map_generator/map_generator, turf/T)
 	var/obj/effect/mob_spawn/human/fugitive_hunter/leader_spawn
 	var/list/spawners = list()
 	for(var/turf/A in ship.get_affected_turfs(T))
@@ -104,12 +112,12 @@
 				spawners += spawner
 	// Leader goes first, so this is the first one taken
 	if(istype(leader_spawn))
-		announce_pod(leader_spawn, candidates)
+		announce_fugitive_pod(leader_spawn, candidates)
 	for(var/obj/effect/mob_spawn/human/fugitive_hunter/spawner as() in spawners)
-		announce_pod(spawner, candidates)
+		announce_fugitive_pod(spawner, candidates)
 	priority_announce("Unidentified ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())
 
-/datum/round_event/ghost_role/fugitives/proc/announce_pod(obj/effect/mob_spawn/human/fugitive_hunter/spawner, list/candidates)
+/proc/announce_fugitive_pod(obj/effect/mob_spawn/human/fugitive_hunter/spawner, list/candidates)
 	if(length(candidates))
 		var/mob/M = pick_n_take(candidates)
 		spawner.create(M.ckey)

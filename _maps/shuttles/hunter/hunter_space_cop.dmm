@@ -26,7 +26,7 @@
 	},
 /obj/item/kirbyplants{
 	icon_state = "plant-10";
-	pixel_x = 6
+	pixel_x = null
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/hunter)
@@ -448,8 +448,7 @@
 	dir = 10
 	},
 /obj/item/kirbyplants{
-	icon_state = "plant-03";
-	pixel_x = -5
+	icon_state = "plant-03"
 	},
 /obj/structure/sign/poster/contraband/the_griffin{
 	pixel_x = -32
@@ -482,9 +481,7 @@
 	},
 /obj/effect/turf_decal/caution,
 /obj/item/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -8;
-	pixel_y = 17
+	icon_state = "plant-21"
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/supplymain/hidden,
 /turf/open/floor/engine,
@@ -748,15 +745,14 @@
 "Cc" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/toilet{
-	pixel_y = 13;
-	contents = /obj/item/clothing/head/helmet/justice
-	},
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/vomit/old{
 	pixel_x = 5
 	},
 /obj/machinery/light/small,
+/obj/structure/toilet/secret{
+	contents = /obj/item/clothing/head/helmet/justice
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/shuttle/hunter)
 "CE" = (
