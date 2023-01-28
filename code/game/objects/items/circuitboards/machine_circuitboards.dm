@@ -403,8 +403,8 @@
 	icon_state = "generic"
 	build_path = /obj/machinery/suit_storage_unit/
 	req_components = list(
-		/obj/item/assembly/igniter = 1,
-		/obj/item/stack/cable_coil = 2)
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/micro_laser = 1)
 
 //Generic
 
