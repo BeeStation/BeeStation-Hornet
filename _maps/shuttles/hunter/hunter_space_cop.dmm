@@ -748,7 +748,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/toilet{
 	pixel_y = 13;
-	contents = s
+	contents = /obj/item/clothing/head/helmet/justice
 	},
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/vomit/old{
