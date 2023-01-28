@@ -20,11 +20,8 @@
  * can go past the border. No attachment points can be generated past the border.
  */
 /proc/generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
-	var/datum/space_level/level = SSmapping.get_level(center_z)
-	level.start_generating()
 	var/datum/map_generator/space_ruin/ruin = new(center_x, center_y, center_z, border_x, border_y, linked_objective, forced_decoration, ruin_event)
 	ruin.generate()
-	level.stop_generating()
 
 /datum/map_generator/space_ruin
 	/// The X position to start generating the ruin at
@@ -84,7 +81,7 @@
 	src.ruin_event = ruin_event
 
 	var/datum/space_level/space_level = SSmapping.get_level(center_z)
-	space_level.generating = TRUE
+	space_level.start_generating()
 
 	//Select ruin type
 	var/datum/generator_settings/generator_settings = forced_decoration
@@ -127,7 +124,7 @@
 /datum/map_generator/space_ruin/complete()
 	..()
 	var/datum/space_level/space_level = SSmapping.get_level(center_z)
-	space_level.generating = FALSE
+	space_level.stop_generating()
 
 /datum/map_generator/space_ruin/execute_run()
 	..()
