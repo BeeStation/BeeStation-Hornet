@@ -9,7 +9,7 @@
 	icon = 'icons/obj/contraband.dmi'
 	force = 0
 	resistance_flags = FLAMMABLE
-	flags_1 = SAVE_SAFE_1
+	flags_1 = NONE
 	var/poster_type
 	var/obj/structure/sign/poster/poster_structure
 
