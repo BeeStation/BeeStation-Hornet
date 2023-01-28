@@ -12,8 +12,8 @@
 	icon_state = "station_map"
 	layer = ABOVE_WINDOW_LAYER
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 100
+	idle_power_usage = 16
+	active_power_usage = 128
 	circuit = /obj/item/circuitboard/machine/station_map
 	light_color = HOLOMAP_HOLOFIER
 
@@ -354,8 +354,7 @@
 	name = "strategic station holomap"
 	icon = 'icons/holomap/strategic_stationmap.dmi'
 	icon_state = "strat_holomap"
-	pixel_x = -1*32/2
-	pixel_y = -1*32/2
+
 
 #undef HOLOMAP_LOW_LIGHT
 #undef HOLOMAP_HIGH_LIGHT
