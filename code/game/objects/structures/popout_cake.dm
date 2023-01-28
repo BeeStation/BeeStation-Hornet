@@ -79,7 +79,7 @@
 		user.visible_message("<span class='notice'>[user] sticks the [W] inside [src] and stars fiddling around!</span>", \
 		"<span class='notice>You start to rewind the hidden mechanism inside [src] with [W].</span>")
 		W.play_tool_sound(src, 50)
-		if(do_after(user, 20, FALSE, src))
+		if(do_after(user, 20, FALSE, target=src))
 			used_string = FALSE
 			user.visible_message("<span class='notice'>After hearing a click from [src], [user] pulls the [W] outside.</span>", \
 		"<span class='notice>You successfully rewind the string inside [src]!</span>")
