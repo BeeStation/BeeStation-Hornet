@@ -85,7 +85,7 @@ const IntroductionSection = () => {
 const FlavorSection = () => {
   return (
     <Stack.Item>
-      <Stack vertical textAlign="center" fontSize="14px">
+      <Stack vertical textAlign="center" fontSize="14px" width="45%">
         <Stack.Item>
           <i>
             Another day at a meaningless job. You feel a&nbsp;
@@ -96,7 +96,7 @@ const FlavorSection = () => {
             discover something that will change your life.
           </i>
         </Stack.Item>
-        <Stack.Item>
+        <Stack.Item >
           <b>
             The <span style={hereticPurple}>Gates of Mansus</span>
             &nbsp;open up to your mind.
@@ -110,7 +110,7 @@ const FlavorSection = () => {
 const GuideSection = () => {
   return (
     <Stack.Item>
-      <Stack vertical fontSize="12px">
+      <Stack vertical fontSize="12px" width="45%">
         <Stack.Item>
           - Find reality smashing&nbsp;
           <span style={hereticPurple}>influences</span>
