@@ -96,7 +96,6 @@
 /obj/machinery/fugitive_capture/proc/add_prisoner(mob/living/carbon/human/fugitive)
 	var/datum/antagonist/fugitive/antag = fugitive.mind.has_antag_datum(/datum/antagonist/fugitive)
 	if(!antag)
-		to_chat(fugitive_hunter, "<span class='warning'>This is not a wanted fugitive!</span>")
 		return
 	fugitive.forceMove(src)
 	antag.is_captured = TRUE
