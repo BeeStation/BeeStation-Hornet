@@ -701,8 +701,8 @@
 	required_candidates = 1
 	weight = 3
 	cost = 7
-	//minimum_players = 20
-	//minimum_round_time = 30 MINUTES
+	minimum_players = 20
+	minimum_round_time = 30 MINUTES
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/nuclear)
 	repeatable = FALSE
 	var/list/spawn_locs = list()
