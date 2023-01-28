@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	/obj/machinery/advanced_airlock_controller, /obj/machinery/computer/security/telescreen, /obj/structure/grille, /obj/machinery/light_switch,
 	/obj/structure/noticeboard, /area, /obj/item/storage/secure/safe, /obj/machinery/requests_console, /obj/item/storage/backpack/satchel/flat,
 	/obj/effect/countdown, /obj/machinery/button, /obj/effect/clockwork/overlay/floor, /obj/structure/reagent_dispensers/peppertank,
-	/mob/dead/observer, /mob/camera, /obj/structure/chisel_message, /obj/effect/particle_effect)))
+	/mob/dead/observer, /mob/camera, /obj/structure/chisel_message, /obj/effect/particle_effect, /obj/structure/alien/weeds)))
 
 /datum/species/psyphoza
 	name = "\improper Psyphoza"
@@ -131,6 +131,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	. = ..()
 	//Register signal for TK highlights
 	RegisterSignal(M, COMSIG_MOB_ATTACK_RANGED, .proc/handle_ranged, TRUE)
+	RegisterSignal(M, COMSIG_MOB_ITEM_AFTERATTACK, .proc/handle_ranged, TRUE)
 	//Overlay used to highlight objects
 	M.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
 	//Add option to change visuals
