@@ -249,6 +249,8 @@
 	//Double up on dead check in-case people activate it before death
 	else if(alert(owner, "Do you want to place a spore deposit here?", "Deposit:", "Yes", "No") == "Yes" && !IS_DEAD_OR_INCAP(owner))
 		var/message = input(owner, "What message would you like to imprint on the deposit?", "Deposit message:") as text|null
+		if(!message)
+			return
 		log_game("[key_name(owner)] as [owner] made a new spore deposit with the message [message] at [world.time]. [key_name(owner)] located at [AREACOORD(owner)]")
 		message_admins("[key_name(owner)] as [owner] made a new spore deposit with the message [message] at [world.time]. [key_name(owner)] located at [AREACOORD(owner)]")
 		var/color = "#fff"

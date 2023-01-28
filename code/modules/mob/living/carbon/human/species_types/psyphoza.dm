@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	/obj/machinery/advanced_airlock_controller, /obj/machinery/computer/security/telescreen, /obj/structure/grille, /obj/machinery/light_switch,
 	/obj/structure/noticeboard, /area, /obj/item/storage/secure/safe, /obj/machinery/requests_console, /obj/item/storage/backpack/satchel/flat,
 	/obj/effect/countdown, /obj/machinery/button, /obj/effect/clockwork/overlay/floor, /obj/structure/reagent_dispensers/peppertank,
-	/mob/dead/observer, /mob/camera, /obj/structure/chisel_message, /obj/effect/particle_effect, /obj/structure/alien/weeds)))
+	/mob/dead, /mob/camera, /obj/structure/chisel_message, /obj/effect/particle_effect, /obj/structure/alien/weeds)))
 
 /datum/species/psyphoza
 	name = "\improper Psyphoza"
@@ -97,6 +97,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 /datum/action/item_action/organ_action/psychic_highlight
 	name = "Psychic Sense"
 	desc = "Sense your surroundings psychically."
+	transparent_when_unavailable = TRUE
 	///The distant our psychic sense works
 	var/sense_range = 5
 	///The range we can hear-ping things from
@@ -139,16 +140,28 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 		overlay_change = new()
 		overlay_change.Grant(owner)
 
+/datum/action/item_action/organ_action/psychic_highlight/IsAvailable()
+	if(has_cooldown_timer)
+		return FALSE
+	return ..()
+
 /datum/action/item_action/organ_action/psychic_highlight/Trigger()
 	. = ..()
 	if(has_cooldown_timer || !owner)
 		return
 	ping_turf(get_turf(owner))
 	has_cooldown_timer = TRUE
+	UpdateButtonIcon()
 	addtimer(CALLBACK(src, .proc/finish_cooldown), cooldown + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
+
+/datum/action/item_action/organ_action/psychic_highlight/UpdateButtonIcon()
+	. = ..()
+	if(!IsAvailable())
+		button.color = transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0) //Overwrite this line from the original to support my fucked up use
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/finish_cooldown()
 	has_cooldown_timer = FALSE
+	UpdateButtonIcon()
 
 //Allows user to see images through walls
 /datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_fowards()
@@ -252,6 +265,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	if(get_dist(get_turf(owner), T) > 1)
 		ping_turf(T, 2)
 		has_cooldown_timer = TRUE
+		UpdateButtonIcon()
 		addtimer(CALLBACK(src, .proc/finish_cooldown), (cooldown/1.5) + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
 
 //Handles eyes being deleted
