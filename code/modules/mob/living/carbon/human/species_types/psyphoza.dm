@@ -176,7 +176,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	//Highlight layer
 	var/atom/movable/screen/plane_master/psychic/B = locate (/atom/movable/screen/plane_master/psychic) in owner.client?.screen
 	if(B)
-		B.alpha = 255
+		animate(B, alpha = 255)
 		animate(B, alpha = 0, time = sense_time, easing = QUAD_EASING, flags = EASE_IN)
 	//Setup timer to delete image
 	if(overlay_timer)
