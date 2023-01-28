@@ -354,7 +354,8 @@
 	name = "strategic station holomap"
 	icon = 'icons/holomap/strategic_stationmap.dmi'
 	icon_state = "strat_holomap"
-
+	pixel_x = -16
+	pixel_y = -16
 
 #undef HOLOMAP_LOW_LIGHT
 #undef HOLOMAP_HIGH_LIGHT
