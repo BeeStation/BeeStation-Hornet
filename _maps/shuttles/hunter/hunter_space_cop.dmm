@@ -122,7 +122,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 26
 	},
-/obj/machinery/computer/prisoner/gulag_teleporter_computer{
+/obj/machinery/computer/fugitive_capture_computer{
 	dir = 1
 	},
 /turf/open/floor/plasteel/tech/grid,
@@ -468,9 +468,11 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/structure/closet{
-	name = "mastercraft traditional russian clothes"
-	},
+/obj/structure/closet,
+/obj/item/clothing/under/syndicate/combat,
+/obj/item/clothing/under/syndicate/combat,
+/obj/item/clothing/under/syndicate/combat,
+/obj/item/clothing/under/syndicate/combat,
 /turf/open/floor/wood,
 /area/shuttle/hunter)
 "ou" = (
@@ -598,12 +600,12 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/hunter)
 "uI" = (
-/obj/machinery/gulag_teleporter,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 1
 	},
 /obj/machinery/light,
+/obj/machinery/fugitive_capture,
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/hunter)
 "uR" = (
@@ -1132,16 +1134,9 @@
 	},
 /obj/item/storage/belt/military,
 /obj/item/storage/belt/military,
-/obj/item/storage/belt/military,
-/obj/item/storage/belt/military,
-/obj/item/clothing/gloves/combat,
-/obj/item/clothing/gloves/combat,
-/obj/item/clothing/gloves/combat,
-/obj/item/clothing/gloves/combat,
 /obj/item/clothing/suit/armor/vest/blueshirt,
 /obj/item/clothing/suit/armor/vest/blueshirt,
 /obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/suit/armor/vest/leather,
 /obj/item/clothing/head/helmet/alt,
 /obj/item/clothing/head/helmet/alt,
 /obj/item/clothing/head/helmet/riot,
@@ -1151,6 +1146,7 @@
 /obj/item/clothing/glasses/hud/security,
 /obj/item/clothing/glasses/hud/security,
 /obj/item/clothing/glasses/hud/security,
+/obj/item/clothing/suit/armor/bulletproof,
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/hunter)
 "Ri" = (

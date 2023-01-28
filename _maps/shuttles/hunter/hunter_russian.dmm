@@ -78,9 +78,14 @@
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/hunter)
 "gY" = (
-/obj/machinery/gulag_teleporter,
+/obj/machinery/computer/fugitive_capture_computer{
+	dir = 4
+	},
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/mineral/plastitanium,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 4
+	},
+/turf/open/floor/plasteel/tech/grid,
 /area/shuttle/hunter)
 "hn" = (
 /obj/effect/turf_decal/box/corners{
@@ -298,7 +303,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/hunter)
 "sr" = (
-/obj/effect/turf_decal/stripes/corner{
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red,
@@ -373,7 +378,7 @@
 /obj/docking_port/mobile{
 	height = 12;
 	id = "huntership";
-	name = "hunter shuttle";
+	name = "Ruskis Shuttle";
 	rechargeTime = 600;
 	width = 19;
 	dwidth = 14;
@@ -619,13 +624,16 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/hunter)
 "Ec" = (
-/obj/machinery/computer/prisoner/gulag_teleporter_computer{
-	dir = 4
-	},
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/mineral/plastitanium,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/fugitive_capture,
+/obj/effect/turf_decal/siding/thinplating/dark/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating/dark,
+/turf/open/floor/plasteel/tech/grid,
 /area/shuttle/hunter)
 "ET" = (
 /obj/machinery/atmospherics/components/unary/plasma_refiner{
@@ -808,11 +816,15 @@
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/hunter)
 "OG" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/mineral/plastitanium/red,
+/obj/effect/turf_decal/loading_area{
+	dir = 8;
+	pixel_x = -2
+	},
+/obj/effect/turf_decal/siding/thinplating/dark/end{
+	dir = 4
+	},
+/turf/open/floor/plasteel/tech/grid,
 /area/shuttle/hunter)
 "Pz" = (
 /obj/machinery/atmospherics/pipe/simple/purple/visible,
@@ -899,9 +911,6 @@
 /turf/open/floor/plating,
 /area/shuttle/hunter)
 "Rg" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed/dogbed{
 	name = "Anatoly's bed"
@@ -909,6 +918,9 @@
 /mob/living/simple_animal/hostile/bear/russian/hunter{
 	name = "Anatoly";
 	desc = "Молодец! Who's a good boy?"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
@@ -985,6 +997,9 @@
 /area/shuttle/hunter)
 "Um" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
 "Uo" = (

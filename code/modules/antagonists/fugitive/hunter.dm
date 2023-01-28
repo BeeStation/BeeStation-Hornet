@@ -48,33 +48,61 @@
 /datum/antagonist/fugitive_hunter/get_team()
 	return hunter_team
 
+
+/datum/objective/capture_fugitive
+	name = "Capture Fugitive"
+
+/datum/objective/capture_fugitive/update_explanation_text()
+	if(target)
+		explanation_text = "Capture [target.name] (ideally, alive) in the fugitive capture device aboard the hunter shuttle."
+	else
+		explanation_text = "Free Objective"
+
+/datum/objective/capture_fugitive/check_completion()
+	var/datum/antagonist/fugitive/A = target.has_antag_datum(/datum/antagonist/fugitive)
+	if(istype(A) && A.is_captured)
+		return TRUE
+	return explanation_text == "Free Objective" || ..()
+
+/datum/objective/capture_fugitive/on_target_cryo()
+	qdel(src)
+
 /datum/team/fugitive_hunters
+	name = "Fugitive Hunters"
+	member_name = "hunter"
 	var/datum/fugitive_type/hunter/backstory
 
-/datum/team/fugitive_hunters/proc/forge_team_objectives() //this isn't an actual objective because it's about round end rosters
-	var/datum/objective/capture = new /datum/objective
-	capture.team = src
-	capture.explanation_text = "Capture the fugitives in the station and put them into the bluespace capture machine on your ship."
-	objectives += capture
+/datum/team/fugitive_hunters/proc/forge_team_objectives()
+	for(var/datum/antagonist/fugitive/A in GLOB.antagonists)
+		if(!A.owner)
+			continue
+		var/datum/objective/capture_fugitive/capture = new()
+		capture.team = src
+		capture.set_target(A.owner)
+		capture.update_explanation_text()
+		objectives += capture
 
 /datum/team/fugitive_hunters/proc/assemble_fugitive_results()
 	var/list/fugitives_counted = list()
 	var/list/fugitives_dead = list()
 	var/list/fugitives_captured = list()
-	for(var/datum/antagonist/fugitive/A in GLOB.antagonists)
-		if(!A.owner)
+	for(var/datum/objective/capture_fugitive/O in objectives)
+		var/datum/mind/T = O.target
+		if(!T)
+			continue
+		var/datum/antagonist/fugitive/A = T.has_antag_datum(/datum/antagonist/fugitive)
+		if(!A)
 			continue
 		fugitives_counted += A
-		if(A.owner.current.stat == DEAD)
+		if(!A.living_on_capture)
 			fugitives_dead += A
 		if(A.is_captured)
 			fugitives_captured += A
-	. = list(fugitives_counted, fugitives_dead, fugitives_captured) //okay, check out how cool this is.
+	return list(fugitives_counted, fugitives_dead, fugitives_captured)
 
 /datum/team/fugitive_hunters/proc/all_hunters_dead()
 	var/dead_boys = 0
-	for(var/I in members)
-		var/datum/mind/hunter_mind = I
+	for(var/datum/mind/hunter_mind in members)
 		if(!(ishuman(hunter_mind.current) || (hunter_mind.current.stat == DEAD)))
 			dead_boys++
 	return dead_boys >= members.len
@@ -115,11 +143,22 @@
 		return
 
 	var/list/result = list()
+	result += "<div class='panel redborder'>...And <b>[members.len]</b> [backstory.multiple_name] tried to hunt them down!<br />"
+	result += "<span class='header'>[backstory.multiple_name] ([name]):</span>"
+	result += "The [member_name]s were:"
+	result += printplayerlist(members)
 
-	result += "<div class='panel redborder'>...And <b>[members.len]</b> [backstory.multiple_name] tried to hunt them down!"
+	if(objectives.len)
+		result += "<span class='header'>Team had following objectives:</span>"
+		var/objective_count = 1
+		for(var/datum/objective/objective in objectives)
+			if(objective.check_completion())
+				result += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='greentext'>Success!</span>"
+			else
+				result += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+			objective_count++
 
-	for(var/datum/mind/M in members)
-		result += "<b>[printplayer(M)]</b>"
+	result += "<br />"
 
 	switch(get_result())
 		if(FUGITIVE_RESULT_BADASS_HUNTER)//use defines

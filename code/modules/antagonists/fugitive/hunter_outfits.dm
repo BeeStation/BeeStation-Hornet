@@ -23,7 +23,7 @@
 	mask = /obj/item/clothing/mask/gas/sechailer/swat/spacepol
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	back = /obj/item/storage/backpack/security
-	l_hand = /obj/item/melee/classic_baton/police/telescopic
+	l_pocket = /obj/item/melee/classic_baton/police/telescopic
 
 /datum/outfit/spacepol/officer
 	name = "Spacepol Officer"

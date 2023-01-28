@@ -9,6 +9,7 @@
 	count_against_dynamic_roll_chance = FALSE
 	var/datum/team/fugitive/fugitive_team
 	var/is_captured = FALSE
+	var/living_on_capture = TRUE
 	var/datum/fugitive_type/backstory
 
 /datum/antagonist/fugitive/apply_innate_effects(mob/living/mob_override)
@@ -50,29 +51,50 @@
 /datum/antagonist/fugitive/get_team()
 	return fugitive_team
 
+/datum/objective/escape_capture
+	name = "Escape Capture"
+	explanation_text = "Ensure that no fugitives are captured by fugitive hunters."
+
+/datum/objective/escape_capture/check_completion()
+	if(!team || explanation_text == "Free Objective" || ..())
+		return TRUE
+	for(var/datum/mind/T in team.members)
+		var/datum/antagonist/fugitive/A = T.has_antag_datum(/datum/antagonist/fugitive)
+		if(istype(A) && A.is_captured)
+			return FALSE
+	return TRUE
+
+/datum/team/fugitive
+	name = "Fugitives"
+	member_name = "fugitive"
+
 /datum/team/fugitive/roundend_report() //shows the number of fugitives, but not if they won in case there is no security
 	var/list/fugitives = list()
-	for(var/datum/antagonist/fugitive/fugitive_antag in GLOB.antagonists)
-		if(!fugitive_antag.owner)
-			continue
-		fugitives += fugitive_antag
+	for(var/datum/mind/T in members)
+		var/datum/antagonist/fugitive/A = T.has_antag_datum(/datum/antagonist/fugitive)
+		fugitives += A
 	if(!fugitives.len)
 		return
 
 	var/list/result = list()
-
-	result += "<div class='panel redborder'><B>[fugitives.len]</B> [fugitives.len == 1 ? "fugitive" : "fugitives"] took refuge on [station_name()]!"
-
+	result += "<div class='panel redborder'>"
+	result += "<span class='header'>[name]:</span>"
+	result += "<b>[fugitives.len]</b> fugitive\s took refuge on [station_name()]!<br />"
+	var/list/parts = list()
+	parts += "<ul class='playerlist'>"
 	for(var/datum/antagonist/fugitive/antag in fugitives)
-		if(antag.owner)
-			result += "<b>[printplayer(antag.owner)]</b>"
-
-	return result.Join("<br>")
+		if(!antag.owner)
+			continue
+		parts += "<li>[printplayer(antag.owner)]\
+		<br />  - and they [antag.is_captured ? "<span class='redtext'>were captured by the hunters, [antag.living_on_capture ? "alive" : "dead"]</span>" : "<span class='greentext'>escaped the hunters</span>"]</li>"
+	parts += "</ul>"
+	result += parts.Join()
+	result += "</div>"
+	return result.Join("<br />")
 
 /datum/team/fugitive/proc/forge_team_objectives()
-	var/datum/objective/survive = new /datum/objective
+	var/datum/objective/escape_capture/survive = new()
 	survive.team = src
-	survive.explanation_text = "Avoid capture from the fugitive hunters."
 	objectives += survive
 
 /datum/antagonist/fugitive/proc/update_fugitive_icons_added(var/mob/living/carbon/human/fugitive)

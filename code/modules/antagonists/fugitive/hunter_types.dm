@@ -1,6 +1,6 @@
 GLOBAL_LIST_INIT(hunter_types, list(
 	FUGITIVE_HUNTER_SPACE_POLICE = new /datum/fugitive_type/hunter/space_police,
-	//FUGITIVE_HUNTER_RUSSIAN = new /datum/fugitive_type/hunter/russian,
+	FUGITIVE_HUNTER_RUSSIAN = new /datum/fugitive_type/hunter/russian,
 	//FUGITIVE_HUNTER_BOUNTY = new /datum/fugitive_type/hunter/bounty
 ))
 
