@@ -40,7 +40,7 @@
 			current = null
 			return
 		M.install(current.laws, user)
-		if(alert("Do you wish to scramble the upload code?", "Scramble Code", "Yes", "No") == "No")
+		if(alert("Do you wish to scramble the upload code?", "Scramble Code", "Yes", "No") != "Yes")
 			return
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has scrambled the upload code [GLOB.upload_code]!")
 		GLOB.upload_code = random_code(4)
