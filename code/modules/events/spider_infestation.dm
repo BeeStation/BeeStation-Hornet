@@ -7,7 +7,7 @@
 	can_malf_fake_alert = TRUE
 
 /datum/round_event/ghost_role/spider_infestation
-	role_name = "spider"
+	role_name = ROLE_SPIDER
 	announceWhen = 400
 	fakeable = TRUE
 	minimum_required = 1
