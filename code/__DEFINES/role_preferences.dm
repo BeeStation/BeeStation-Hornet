@@ -46,6 +46,7 @@
 #define ROLE_KEY_SANTA           "Santa"
 
 #define ROLE_KEY_UNDEFINED_ANTAG_ROLE "Undefined Antagonist Role" // default for all antag datum
+#define ROLE_SPIDER				"Spider"
 
 // mid-spawn NON-antags
 #define ROLE_KEY_POSIBRAIN          "Positronic Brain"
@@ -88,6 +89,7 @@ GLOBAL_LIST_INIT(misc_antag_ban_list, list(
 	ROLE_BANCHECK_REV_HEAD,
 	ROLE_BANCHECK_BRAINWASHED,
 	ROLE_BANCHECK_HIVEVESSEL
+	ROLE_SPIDER,
 ))
 
 GLOBAL_LIST_INIT(roundstart_antag_prefs, list(
