@@ -154,7 +154,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	UpdateButtonIcon()
 	addtimer(CALLBACK(src, .proc/finish_cooldown), cooldown + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
 
-/datum/action/item_action/organ_action/psychic_highlight/UpdateButtonIcon()
+/datum/action/item_action/organ_action/psychic_highlight/UpdateButtonIcon(status_only = FALSE, force = FALSE)
 	. = ..()
 	if(!IsAvailable())
 		button.color = transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0) //Overwrite this line from the original to support my fucked up use
@@ -255,7 +255,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	eyes?.sight_flags = sight_flags
 	owner.update_sight()
 
-//Handle clicking for ranged trigger
+//Handle clicking for ranged trigger.
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_ranged(datum/source, atom/target)
 	SIGNAL_HANDLER
 
