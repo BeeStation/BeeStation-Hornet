@@ -298,6 +298,7 @@
 			toasted = TRUE
 			if(occupant)
 				visible_message("<span class='warning'>[src]'s door creaks open with a loud whining noise. A foul stench and a cloud of smoke exit the chamber.</span>")
+				mob_occupant.radiation = 0 //The guy inside is toasted to a crisp, no need to leave him with the rads
 			else
 				visible_message("<span class='warning'>[src]'s door creaks open with a loud whining noise. A cloud of foul black smoke escapes from its chamber.</span>")
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 50, TRUE)
