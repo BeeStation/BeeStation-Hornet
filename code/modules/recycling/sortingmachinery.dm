@@ -7,6 +7,7 @@
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	var/giftwrapped = FALSE
 	var/sortTag = 0
+	var/faked = FALSE
 
 /obj/structure/big_delivery/Initialize()
 	. = ..()
@@ -86,7 +87,7 @@
 
 /obj/structure/big_delivery/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
 	SIGNAL_HANDLER
-	if(!hasmob)
+	if(!hasmob || faked)
 		disposal_holder.destinationTag = sortTag
 
 /obj/item/small_delivery
@@ -188,6 +189,74 @@
 /obj/item/dest_tagger/borg
 	name = "cyborg destination tagger"
 	desc = "Used to fool the disposal mail network into thinking that you're a harmless parcel. Does actually work as a regular destination tagger as well."
+
+/obj/item/dest_tagger/syndicate
+	name = "conterfeit destination tagger"
+	desc = "Used to set the destination of properly wrapped packages. This one was tampered with to allow for self-wrapping and tagging."
+	var/uses = 2
+	var/max_uses = 4
+	var/autowrap = TRUE
+
+/obj/item/dest_tagger/syndicate/proc/status_string()
+	var/return_string
+	if(uses > 0)
+		return_string = "The internal wrapping paper compartment holds enough paper for [uses] automatic wrappings."
+	else
+		return_string = "The internal wrapping paper compartment is empty!"
+	return return_string
+
+/obj/item/dest_tagger/syndicate/AltClick(mob/user)
+	if(autowrap)
+		autowrap = FALSE
+	else
+		autowrap = TRUE
+	to_chat(user, "<span class='notice'>You turn the autowrap function [autowrap ? "on" : "off"]</span>")
+	. = ..()
+
+/obj/item/dest_tagger/syndicate/examine(mob/user)
+	. = ..()
+	. += status_string()
+	. += "The autowrap function is [autowrap ? "on" : "off"]"
+
+/obj/item/dest_tagger/syndicate/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/stack/package_wrap))
+		Refill(W, user)
+
+/obj/item/dest_tagger/syndicate/proc/Refill(obj/item/W, mob/user)
+	var/obj/item/stack/wrapping_paper/G = W
+	if(uses >= max_uses)
+		to_chat(user, "<span class='warning'>[src.name]'s internal wrapping paper compartment is full.</span>")
+		return
+	else if(G.use(1))
+		AddUses(1)
+		to_chat(user, "<span class='notice'>You insert a sheet of wrapping paper into \the [src.name]. It now holds [uses] paper\s.</span>")
+		return
+	else
+		to_chat(user, "<span class='warning'>You need at least one sheet of paper to insert it!</span>")
+
+
+/obj/item/dest_tagger/syndicate/proc/AddUses(amount = 1)
+	uses = CLAMP(uses + amount, 0, max_uses)
+
+/obj/item/dest_tagger/syndicate/attack(mob/living/M, mob/living/user)
+	if(user != M)
+		to_chat(user, "<span class='warning'>You cannot tag other people with [src]!</span>")
+		return
+	if(!autowrap)
+		to_chat(user, "<span class='warning'>You need to turn on the autowrap function!</span>")
+		return
+	if(uses <= 0)
+		to_chat(user, "<span class='warning'>The [src]'s internal wrapping paper compartment is empty!</span>")
+		return
+	AddUses(-1)
+	var/obj/structure/big_delivery/P = new /obj/structure/big_delivery(get_turf(user.loc))
+	P.icon_state = "deliverycrate"
+	P.faked = TRUE
+	user.forceMove(P)
+	P.add_fingerprint(user)
+	if(P.sortTag != currTag)
+		P.sortTag = currTag
+		playsound(loc, 'sound/machines/twobeep_high.ogg', 100, 1)
 
 /obj/item/dest_tagger/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] begins tagging [user.p_their()] final destination!  It looks like [user.p_theyre()] trying to commit suicide!</span>")

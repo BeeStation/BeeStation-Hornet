@@ -2299,6 +2299,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/autosurgeon/syndicate/laser_arm
 	restricted_roles = list(JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
 
+/datum/uplink_item/role_restricted/syndicate_dest_tagger
+	name = "Counterfeit Destination Tagger"
+	desc = "A reverse-engineered destination tagger that was outfitted with an internal wrapping paper compartment to allow for easy travelsal through the station's disposal system.\
+	Simply pick a destination and use the tagger on yourself."
+	cost = 2
+	item = /obj/item/dest_tagger/syndicate
+	restricted_roles = list(JOB_NAME_CARGOTECHNICIAN, JOB_NAME_QUARTERMASTER)
+
 
 // Pointless
 /datum/uplink_item/badass

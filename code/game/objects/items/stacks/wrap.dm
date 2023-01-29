@@ -54,6 +54,9 @@
 /obj/item/small_delivery/can_be_package_wrapped()
 	return 0
 
+/obj/item/dest_tagger/syndicate/can_be_package_wrapped()
+	return 0
+
 /obj/item/stack/package_wrap/afterattack(obj/target, mob/user, proximity)
 	. = ..()
 	if(!proximity)
@@ -66,6 +69,9 @@
 	if(isitem(target))
 		var/obj/item/I = target
 		if(!I.can_be_package_wrapped())
+			if(istype(target, /obj/item/dest_tagger/syndicate/))
+				var/obj/item/dest_tagger/syndicate/S = target
+				S.Refill()
 			return
 		if(user.is_holding(I))
 			if(!user.dropItemToGround(I))
