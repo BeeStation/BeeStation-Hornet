@@ -23,20 +23,19 @@
 			H.adjust_nutrition(nutriment_factor)
 	holder.remove_reagent(type, metabolization_rate)
 
-/datum/reagent/consumable/expose_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(method == INGEST)
-		if (quality && !HAS_TRAIT(M, TRAIT_AGEUSIA))
-			switch(quality)
-				if (DRINK_BAD)
-					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
-				if (DRINK_NICE)
-					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_nice)
-				if (DRINK_GOOD)
-					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_good)
-				if (DRINK_VERYGOOD)
-					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_verygood)
-				if (DRINK_FANTASTIC)
-					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_fantastic)
+/datum/reagent/consumable/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
+	if((methods & INGEST) && quality && !HAS_TRAIT(M, TRAIT_AGEUSIA))
+		switch(quality)
+			if (DRINK_BAD)
+				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
+			if (DRINK_NICE)
+				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_nice)
+			if (DRINK_GOOD)
+				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_good)
+			if (DRINK_VERYGOOD)
+				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_verygood)
+			if (DRINK_FANTASTIC)
+				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_fantastic)
 	return ..()
 
 /datum/reagent/consumable/nutriment
@@ -123,12 +122,12 @@
 			F.fry(volume)
 			F.reagents.add_reagent(/datum/reagent/consumable/cooking_oil, reac_volume)
 
-/datum/reagent/consumable/cooking_oil/expose_mob(mob/living/M, method = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
+/datum/reagent/consumable/cooking_oil/expose_mob(mob/living/M, methods = TOUCH, reac_volume, show_message = 1, touch_protection = 0)
 	if(!istype(M))
 		return
 	if(holder && holder.chem_temp >= fry_temperature)
 		boiling = TRUE
-	if(method == VAPOR || method == TOUCH) //Directly coats the mob, and doesn't go into their bloodstream
+	if(methods & (VAPOR|TOUCH)) //Directly coats the mob, and doesn't go into their bloodstream
 		if(boiling)
 			M.visible_message("<span class='warning'>The boiling oil sizzles as it covers [M]!</span>", \
 			"<span class='userdanger'>You're covered in boiling oil!</span>")
@@ -287,12 +286,12 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "scorching agony"
 
-/datum/reagent/consumable/condensedcapsaicin/expose_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/consumable/condensedcapsaicin/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
 	if(!ishuman(M) && !ismonkey(M))
 		return
 
 	var/mob/living/carbon/victim = M
-	if(method == TOUCH || method == VAPOR)
+	if(methods & (TOUCH|VAPOR))
 		//check for protection
 		//actually handle the pepperspray effects
 		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
@@ -319,7 +318,7 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "salt"
 
-/datum/reagent/consumable/sodiumchloride/expose_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/consumable/sodiumchloride/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
 	if(!istype(M))
 		return
 	if(M.has_bane(BANE_SALT))
@@ -590,8 +589,8 @@
 		M.adjustToxLoss(-1*REM+power, 0)
 	..()
 
-/datum/reagent/consumable/honey/expose_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(iscarbon(M) && (method in list(TOUCH, VAPOR, PATCH)))
+/datum/reagent/consumable/honey/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
+	if(iscarbon(M) && (methods & (TOUCH|VAPOR|PATCH)))
 		var/mob/living/carbon/C = M
 		for(var/s in C.surgeries)
 			var/datum/surgery/S = s
@@ -617,18 +616,12 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "bitterness"
 
-/datum/reagent/consumable/tearjuice/expose_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/consumable/tearjuice/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
 	if(!istype(M))
 		return
 	var/unprotected = FALSE
-	switch(method)
-		if(INGEST)
-			unprotected = TRUE
-		if(INJECT)
-			unprotected = FALSE
-		else	//Touch or vapor
-			if(!M.is_mouth_covered() && !M.is_eyes_covered())
-				unprotected = TRUE
+	if((methods & INGEST) || ((methods & (TOUCH|PATCH|VAPOR)) && !M.is_mouth_covered() && !M.is_eyes_covered()))
+		unprotected = TRUE
 	if(unprotected)
 		if(!M.getorganslot(ORGAN_SLOT_EYES))	//can't blind somebody with no eyes
 			to_chat(M, "<span class = 'notice'>Your eye sockets feel wet.</span>")
