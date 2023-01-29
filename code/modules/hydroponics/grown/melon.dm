@@ -87,6 +87,8 @@
 	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/smoke)
 	mutatelist = list()
 	reagents_add = list(/datum/reagent/oxygen = 0.2, /datum/reagent/hydrogen = 0.2)
+	throw_range = 1
+	throw_speed = 1
 	rarity = 15
 
 /obj/item/reagent_containers/food/snacks/grown/Ballolon
