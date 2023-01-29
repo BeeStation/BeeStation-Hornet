@@ -113,6 +113,8 @@
 		//Disable autopilot and thrust while docking to prevent fuel usage.
 		thrust = 0
 		angle = 0
+		//Redisable collisions so if we undock, we aren't flung by gravity
+		collision_ignored = TRUE
 		return
 	else
 		//If our docking target was deleted, null it to prevent docking interface etc.
