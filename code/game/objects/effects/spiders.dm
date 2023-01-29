@@ -19,8 +19,6 @@
 		switch(damage_type)
 			if(BURN)
 				damage_amount *= 2
-			if(BRUTE)
-				damage_amount *= 0.25
 	. = ..()
 
 /obj/structure/spider/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -53,11 +51,25 @@
 	desc = "They seem to pulse slightly with an inner life."
 	icon_state = "eggs"
 	var/amount_grown = 0
-	var/player_spiders = 0
-	var/directive = "" //Message from the mother
-	var/poison_type = /datum/reagent/toxin
-	var/poison_per_bite = 5
+	// Spawn info
+	var/spawns_remaining = 2
+	var/enriched_spawns = 0
+	var/using_enriched_spawn = FALSE
+	var/enriched_spawn_prob = 50 // Probability (%) of someone who clicks on an eggcluster getting an enriched spawn if one's available
+	// Team info
+	var/datum/team/spiders/spider_team
 	var/list/faction = list("spiders")
+	// Whether or not a ghost can use the cluster to become a spider.
+	var/ghost_ready = FALSE
+	var/grow_time = 60 // Grow time (in seconds because delta-time)
+	// The types of spiders the egg sac can produce.
+	var/list/mob/living/potential_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/guard,
+								/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+								/mob/living/simple_animal/hostile/poison/giant_spider/nurse)
+	// The types of spiders the egg sac produces when we have enriched spawns left (laying spider ate a human)
+	var/list/mob/living/potential_enriched_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/tarantula,
+							/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,
+							/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife)
 
 /obj/structure/spider/eggcluster/Initialize(mapload)
 	pixel_x = rand(3,-3)
@@ -66,16 +78,86 @@
 	. = ..()
 
 /obj/structure/spider/eggcluster/process(delta_time)
-	amount_grown += rand(0,1) * delta_time
-	if(amount_grown >= 100)
-		var/num = round(rand(1.5, 6) * delta_time)
-		for(var/i=0, i<num, i++)
-			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(src.loc)
-			S.faction = faction.Copy()
-			S.directive = directive
-			if(player_spiders)
-				S.player_spiders = 1
+	amount_grown += delta_time
+	if(amount_grown >= grow_time && !ghost_ready) // 1 minute to grow
+		notify_ghosts("[src] is ready to hatch!", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = POLL_IGNORE_SPIDER)
+		ghost_ready = TRUE
+		LAZYADD(GLOB.mob_spawners[name], src)
+		SSmobs.update_spawners()
+		GLOB.poi_list |= src
+
+/obj/structure/spider/eggcluster/Topic(href, href_list)
+	if(..())
+		return
+	if(href_list["activate"])
+		var/mob/dead/observer/ghost = usr
+		if(istype(ghost))
+			attack_ghost(ghost)
+
+/obj/structure/spider/eggcluster/attack_ghost(mob/user)
+	. = ..()
+	if(ghost_ready)
+		make_spider(user)
+	else
+		to_chat(user, "<span class='warning'>[src] isn't ready yet!</span>")
+
+/obj/structure/spider/eggcluster/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	if(exposed_temperature > 500)
+		take_damage(5, BURN, 0, 0)
+
+/obj/structure/spider/eggcluster/Destroy()
+	GLOB.poi_list -= src
+	var/list/spawners = GLOB.mob_spawners[name]
+	LAZYREMOVE(spawners, src)
+	if(!LAZYLEN(spawners))
+		GLOB.mob_spawners -= name
+	SSmobs.update_spawners()
+	return ..()
+
+/**
+  * Makes a ghost into a spider based on the type of egg cluster.
+  *
+  * Allows a ghost to get a prompt to use the egg cluster to become a spider.
+  * Arguments:
+  * * user - The ghost attempting to become a spider.
+  */
+/obj/structure/spider/eggcluster/proc/make_spider(mob/user)
+	// Get what spiders the user can choose, and check to make sure their choice makes sense
+	var/list/to_spawn = list()
+	var/list/spider_list = list()
+	if(!spider_team) // We don't have a team, just make one up
+		spider_team = new()
+	if(enriched_spawns && !using_enriched_spawn && (prob(enriched_spawn_prob) || !spawns_remaining))
+		using_enriched_spawn = TRUE
+		to_spawn = potential_enriched_spawns
+	else
+		to_spawn = potential_spawns
+	for(var/choice in to_spawn)
+		var/mob/living/simple_animal/spider = choice
+		spider_list[initial(spider.name)] = choice
+	var/chosen_spider = input("Spider Type", "Egg Cluster") as null|anything in spider_list
+	if(QDELETED(src) || QDELETED(user) || !chosen_spider || !(spawns_remaining || enriched_spawns))
+		using_enriched_spawn = FALSE
+		return FALSE
+	if(spider_list[chosen_spider] in potential_enriched_spawns)
+		enriched_spawns--
+	else
+		spawns_remaining--
+	if(using_enriched_spawn)
+		using_enriched_spawn = FALSE
+
+	// Setup our spooder
+	var/spider_to_spawn = spider_list[chosen_spider]
+	var/mob/living/simple_animal/hostile/poison/giant_spider/new_spider = new spider_to_spawn(get_turf(src))
+	new_spider.faction = faction.Copy()
+	new_spider.key = user.key
+	var/datum/antagonist/spider/spider_antag = new_spider.mind.has_antag_datum(/datum/antagonist/spider)
+	spider_antag.set_spider_team(spider_team)
+
+	// Check to see if we need to delete ourselves
+	if(!enriched_spawns && !spawns_remaining)
 		qdel(src)
+	return TRUE
 
 /obj/structure/spider/spiderling
 	name = "spiderling"
@@ -88,8 +170,6 @@
 	var/grow_as = null
 	var/obj/machinery/atmospherics/components/unary/vent_pump/entry_vent
 	var/travelling_in_vent = 0
-	var/player_spiders = 0
-	var/directive = "" //Message from the mother
 	var/list/faction = list("spiders")
 
 /obj/structure/spider/spiderling/Destroy()
@@ -191,10 +271,6 @@
 					grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider, /mob/living/simple_animal/hostile/poison/giant_spider/hunter, /mob/living/simple_animal/hostile/poison/giant_spider/nurse)
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(src.loc)
 			S.faction = faction.Copy()
-			S.directive = directive
-			if(player_spiders)
-				S.set_playable()
-				S.flavor_text = FLAVOR_TEXT_GOAL_ANTAG
 			qdel(src)
 
 

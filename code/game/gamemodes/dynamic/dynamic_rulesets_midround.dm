@@ -687,3 +687,59 @@
 	message_admins("[ADMIN_LOOKUPFLW(obsessed)] has been made Obsessed by the midround ruleset.")
 	log_game("[key_name(obsessed)] was made Obsessed by the midround ruleset.")
 	return ..()
+
+//////////////////////////////////////////////
+//                                          //
+//            SPIDERS     (GHOST)           //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/midround/from_ghosts/spiders
+	name = "Spider Infestation"
+	antag_flag = ROLE_SPIDER
+	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
+	required_type = /mob/dead/observer
+	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
+	required_candidates = 2
+	weight = 3
+	cost = 11
+	repeatable = TRUE
+	minimum_players = 27
+	var/fed = 1
+	var/list/vents = list()
+	var/datum/team/spiders/spider_team
+
+/datum/dynamic_ruleset/midround/from_ghosts/spiders/execute()
+	for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in GLOB.machines)
+		if(QDELETED(temp_vent))
+			continue
+		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
+			var/datum/pipeline/temp_vent_parent = temp_vent.parents[1]
+			if(!temp_vent_parent)
+				continue // No parent vent
+			if(length(temp_vent_parent.other_atmosmch) > 20)
+				vents += temp_vent // Makes sure the pipeline is large enough
+	if(!length(vents))
+		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations.")
+		return FALSE
+	. = ..()
+
+/datum/dynamic_ruleset/midround/from_ghosts/spiders/generate_ruleset_body(mob/applicant)
+	var/obj/vent = pick_n_take(vents)
+	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/spider = new(vent.loc)
+	spider.key = applicant.key
+	if(fed)
+		spider.enriched_fed++
+		fed--
+	message_admins("[ADMIN_LOOKUPFLW(spider)] has been made into a spider by the midround ruleset.")
+	log_game("DYNAMIC: [key_name(spider)] was spawned as a spider by the midround ruleset.")
+	return spider
+
+/datum/dynamic_ruleset/midround/from_ghosts/spiders/finish_setup(mob/new_character, index)
+	if(!spider_team)
+		spider_team = new()
+		spider_team.directive ="Ensure the survival of your brood and overtake whatever structure you find yourself in."
+	var/datum/antagonist/spider/spider_antag = new_character.mind.has_antag_datum(/datum/antagonist/spider)
+	spider_antag.set_spider_team(spider_team)
+	new_character.mind.special_role = antag_flag
