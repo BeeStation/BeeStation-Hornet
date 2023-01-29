@@ -686,7 +686,7 @@
 
 /datum/dynamic_ruleset/midround/from_ghosts/spiders
 	name = "Spider Infestation"
-	antag_flag = ROLE_SPIDER
+	antag_flag = ROLE_KEY_SPIDER
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	required_type = /mob/dead/observer
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
@@ -732,4 +732,3 @@
 		spider_team.directive ="Ensure the survival of your brood and overtake whatever structure you find yourself in."
 	var/datum/antagonist/spider/spider_antag = new_character.mind.has_antag_datum(/datum/antagonist/spider)
 	spider_antag.set_spider_team(spider_team)
-	new_character.mind.special_role = antag_flag

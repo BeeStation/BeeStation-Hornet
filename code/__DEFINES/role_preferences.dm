@@ -43,10 +43,10 @@
 #define ROLE_KEY_HOLOPARASITE    "Guardian"
 #define ROLE_KEY_TERATOMA        "Teratoma"
 #define ROLE_KEY_SWARMER         "Swarmer"
+#define ROLE_KEY_SPIDER	         "Spider"
 #define ROLE_KEY_SANTA           "Santa"
 
 #define ROLE_KEY_UNDEFINED_ANTAG_ROLE "Undefined Antagonist Role" // default for all antag datum
-#define ROLE_SPIDER				"Spider"
 
 // mid-spawn NON-antags
 #define ROLE_KEY_POSIBRAIN          "Positronic Brain"
@@ -89,7 +89,6 @@ GLOBAL_LIST_INIT(misc_antag_ban_list, list(
 	ROLE_BANCHECK_REV_HEAD,
 	ROLE_BANCHECK_BRAINWASHED,
 	ROLE_BANCHECK_HIVEVESSEL
-	ROLE_SPIDER,
 ))
 
 GLOBAL_LIST_INIT(roundstart_antag_prefs, list(
@@ -129,7 +128,8 @@ GLOBAL_LIST_INIT(midround_antag_list, list(
 	ROLE_KEY_BLOB,
 	ROLE_KEY_HOLOPARASITE,
 	ROLE_KEY_TERATOMA,
-	ROLE_KEY_SWARMER
+	ROLE_KEY_SWARMER,
+	ROLE_KEY_SPIDER
 ))
 
 GLOBAL_LIST_INIT(misc_ghost_ban_list, list(
