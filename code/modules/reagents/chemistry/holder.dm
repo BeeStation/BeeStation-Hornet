@@ -201,7 +201,7 @@
 				trans_data = copy_data(T)
 			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1) //we only handle reaction after every reagent has been transfered.
 			if(method)
-				R.react_single(T, target_atom, method, part, show_message)
+				R.expose_single(T, target_atom, method, part, show_message)
 				T.on_transfer(target_atom, method, transfer_amount * multiplier)
 			remove_reagent(T.type, transfer_amount)
 			transfer_log[T.type] = transfer_amount
@@ -221,7 +221,7 @@
 			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1)
 			to_transfer = max(to_transfer - transfer_amount , 0)
 			if(method)
-				R.react_single(T, target_atom, method, transfer_amount, show_message)
+				R.expose_single(T, target_atom, method, transfer_amount, show_message)
 				T.on_transfer(target_atom, method, transfer_amount * multiplier)
 			remove_reagent(T.type, transfer_amount)
 			transfer_log[T.type] = transfer_amount
@@ -584,37 +584,41 @@
 			can_process = TRUE
 	return can_process
 
-/datum/reagents/proc/reaction(atom/A, method = TOUCH, volume_modifier = 1, show_message = 1, obj/item/bodypart/affecting)
-	var/react_type
-	if(isliving(A))
-		react_type = "LIVING"
-		if(method == INGEST)
-			var/mob/living/L = A
-			L.taste(src)
-	else if(isturf(A))
-		react_type = "TURF"
-	else if(isobj(A))
-		react_type = "OBJ"
-	else
-		return
+/**
+  * Applies the relevant expose_ proc for every reagent in this holder
+  * * [/datum/reagent/proc/expose_mob]
+  * * [/datum/reagent/proc/expose_turf]
+  * * [/datum/reagent/proc/expose_obj]
+  */
+/datum/reagents/proc/expose(atom/A, method = TOUCH, volume_modifier = 1, show_message = 1)
+	if(isnull(A))
+		return null
+
 	var/list/cached_reagents = reagent_list
+	if(!cached_reagents.len)
+		return null
+
+	var/list/reagents = list()
 	for(var/reagent in cached_reagents)
 		var/datum/reagent/R = reagent
-		switch(react_type)
-			if("LIVING")
-				var/check = reaction_check(A, R)
-				if(!check)
-					continue
-				var/touch_protection = 0
-				if(method == VAPOR)
-					var/mob/living/L = A
-					touch_protection = L.get_permeability_protection()
-				R.reaction_mob(A, method, R.volume * volume_modifier, show_message, touch_protection, affecting)
-			if("TURF")
-				R.reaction_turf(A, R.volume * volume_modifier, show_message)
-			if("OBJ")
-				R.reaction_obj(A, R.volume * volume_modifier, show_message)
+		reagents[R] = R.volume * volume_modifier
 
+	return A.expose_reagents(reagents, src, method, volume_modifier, show_message)
+
+
+/// Same as [/datum/reagents/proc/expose] but only for one reagent
+/datum/reagents/proc/expose_single(datum/reagent/R, atom/A, method = TOUCH, volume_modifier = 1, show_message = TRUE)
+	if(isnull(A))
+		return null
+
+	if(!istype(R))
+		R = get_reagent(R)
+		if(isnull(R))
+			return null
+
+	return A.expose_reagents(list(R = R.volume * volume_modifier), src, method, volume_modifier, show_message)
+
+/// is this holder full or not
 /datum/reagents/proc/holder_full()
 	if(total_volume >= maximum_volume)
 		return TRUE
