@@ -1,0 +1,15 @@
+author: IndieanaJones, Rukofamicom, Benbot16
+delete-after: true
+changes:
+  - rscadd: The Spider infestation midround event now spawns sentient spiders. These
+      fall under the "spider" midround preference.
+  - rscadd: Nurse spiders can now heal other spiders.
+  - tweak: Webs can now be stacked, up to a limit of 3.
+  - tweak: Reworks how spider eggs spawn new spiders.
+  - tweak: Spiders now take damage slowdown below 75% health.
+  - tweak: Spider venom will now cause stamina damage, and paralyzes in large doses
+      or if purged with chemicals.
+  - tweak: Spiders now speak buzzwords. They can still understand common.
+  - tweak: Tweaks spider AI.
+  - balance: Tweaks several spider stats, mostly decreasing health and increasing
+      speed.
