@@ -40,6 +40,25 @@
 	icon_state = "mailman"
 	desc = "<i>'Right-on-time'</i> mail service head wear."
 
+/obj/item/clothing/head/mailman/syndicate
+	name = "odd mailman's hat"
+	desc = "<i>'Right-on-time'</i> mail service head wear. This one allows you to freely open mail packages."
+
+/obj/item/clothing/head/mailman/syndicate/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
+		ADD_TRAIT(user, TRAIT_MAILTAMPER, CLOTHING_TRAIT)
+
+/obj/item/clothing/head/mailman/syndicate/dropped(mob/living/carbon/human/user)
+	..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.head != src)
+			return
+		else
+			REMOVE_TRAIT(user, TRAIT_MAILTAMPER, CLOTHING_TRAIT)
+
+
 /obj/item/clothing/head/plaguedoctorhat
 	name = "plague doctor's hat"
 	desc = "These were once used by plague doctors. They're pretty much useless."

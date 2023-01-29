@@ -288,6 +288,24 @@
 	desc = "<i>'Right-on-time'</i> mail plasmamen service head wear."
 	greyscale_colors = "#091544#e6c447#091544"
 
+/obj/item/clothing/head/helmet/space/plasmaman/mailman/syndicate
+	name = "odd mailman envirosuit helmet"
+	desc = "<i>'Right-on-time'</i> mail plasmamen service head wear. This one allows you to freely open mail packages."
+
+/obj/item/clothing/head/helmet/space/plasmaman/mailman/syndicate/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
+		ADD_TRAIT(user, TRAIT_MAILTAMPER, CLOTHING_TRAIT)
+
+/obj/item/clothing/head/helmet/space/plasmaman/mailman/syndicate/dropped(mob/living/carbon/human/user)
+	..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.head != src)
+			return
+		else
+			REMOVE_TRAIT(user, TRAIT_MAILTAMPER, CLOTHING_TRAIT)
+
 /obj/item/clothing/head/helmet/space/plasmaman/cargo
 	name = "cargo envirosuit helmet"
 	desc = "An plasmaman envirohelmet designed for cargo techs and quartermasters."

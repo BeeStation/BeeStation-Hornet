@@ -2307,6 +2307,19 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/dest_tagger/syndicate
 	restricted_roles = list(JOB_NAME_CARGOTECHNICIAN, JOB_NAME_QUARTERMASTER)
 
+/datum/uplink_item/role_restricted/syndicate_mailman_hat
+	name = "Odd Mailman Hat"
+	desc = "This piece of head apparel is fashioned with special nanotechnology which teaches the user how to open any mail package without ripping them apart while worn."
+	cost = 1
+	item = /obj/item/clothing/head/mailman/syndicate
+	restricted_roles = list(JOB_NAME_CARGOTECHNICIAN, JOB_NAME_QUARTERMASTER)
+
+/datum/uplink_item/role_restricted/syndicate_mailman_helmet
+	name = "Odd Mailman Envirosuit Helmet"
+	desc = "This piece of plasmaman head apparel is fashioned with special nanotechnology which teaches the user how to open any mail package without ripping them apart while worn."
+	cost = 1
+	item = /obj/item/clothing/head/helmet/space/plasmaman/mailman/syndicate
+	restricted_roles = list(JOB_NAME_CARGOTECHNICIAN, JOB_NAME_QUARTERMASTER)
 
 // Pointless
 /datum/uplink_item/badass

@@ -22,6 +22,8 @@
 	var/datum/weakref/recipient_ref
 	/// Goodies which can be given to anyone. The base weight for cash is 56. For there to be a 50/50 chance of getting a department item, they need 56 weight as well.
 	var/goodie_count = 1
+	var/tampered = FALSE
+	var/original_name = "mail"
 
 	var/static/list/generic_goodies = list(
 		/obj/item/stack/spacecash/c10										= 22, //the lamest chance to get item, what do you expect really?
@@ -76,6 +78,7 @@
 	goodie_count = 2
 	stamp_max = 2
 	stamp_offset_y = 5
+	original_name = "envelope"
 
 /obj/item/mail/examine(mob/user)
 	. = ..()
@@ -88,6 +91,8 @@
 		msg += "\n<span class='info'>Certified NT mail for [recipient].</span>"
 	else
 		msg += "\n<span class='info'>Certified mail for [GLOB.station_name].</span>"
+	if(tampered)
+		msg += "\n<span class='warning'>This package has been tampered with and is missing its contents!</span>"
 	. += "\n[msg]"
 
 
@@ -129,10 +134,19 @@
 		add_overlay(postmark_image)
 
 /obj/item/mail/attackby(obj/item/W, mob/user, params)
+	//stuffing items inside tampered mail
+	if(W.w_class < WEIGHT_CLASS_BULKY && tampered)	//too large to fit inside
+		if(!user.transferItemToLoc(W, src))
+			to_chat(user, "<span class='warning'>\The [W] is stuck to your hand, you cannot insert it into [src]!</span>")
+			return
+		to_chat(user, "<span class='notice'>You insert \the [W] into the mail package and re-seal it.</span>")
+		icon_state = initial(icon_state)
+		tampered = FALSE
+		name = original_name
+		update_appearance()
 	// Destination tagging
 	if(istype(W, /obj/item/dest_tagger))
 		var/obj/item/dest_tagger/destination_tag = W
-
 		if(sort_tag != destination_tag.currTag)
 			var/tag = uppertext(GLOB.TAGGERLOCATIONS[destination_tag.currTag])
 			to_chat(user, "<span class='notice'>*[tag]*</span>")
@@ -140,6 +154,12 @@
 			playsound(loc, 'sound/machines/twobeep_high.ogg', 100, 1)
 
 /obj/item/mail/attack_self(mob/user)
+	if(tampered)
+		to_chat(user, "<span class='warning'>You can't open this package, it's already been opened!</span>")
+		return
+	if(HAS_TRAIT(user, TRAIT_MAILTAMPER))
+		Tamper(user)
+		return
 	if(recipient_ref)
 		var/datum/mind/recipient = recipient_ref.resolve()
 		// If the recipient's mind has gone, then anyone can open their mail
@@ -163,6 +183,23 @@
 	playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	qdel(src)
 
+//opens the mail package without destroying it
+/obj/item/mail/proc/Tamper(mob/user)
+	user.visible_message("[user] start to unwrap a package...", \
+			"<span class='notice'>You start to carefully open the package...</span>", \
+			"<span class='italics'>You hear paper ripping.</span>")
+	if(!do_after(user, 1.5 SECONDS, target = user))
+		return
+	to_chat(user, "<span class='notice'>You extract the contents of the package without destroying it!</span>")
+	icon_state = "[icon_state]_tampered"
+	name = "Opened [name]"
+	update_icon()
+	if(contents.len)
+		user.put_in_hands(contents[1])
+	contents = list()
+	tampered = TRUE
+	playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
+
 // Accepts a mind to initialize goodies for a piece of mail.
 /obj/item/mail/proc/initialize_for_recipient(datum/mind/recipient)
 	switch(rand(1,5))
@@ -170,6 +207,7 @@
 			name = "[initial(name)] critical to [recipient.name] ([recipient.assigned_role])"
 		else
 			name = "[initial(name)] for [recipient.name] ([recipient.assigned_role])"
+	original_name = name
 	recipient_ref = WEAKREF(recipient)
 
 	//Recipients
@@ -235,7 +273,7 @@
 			name = special_name ? junk_names[junk] : "DO NOT OPEN"
 		else
 			name = special_name ? junk_names[junk] : "[pick("important","critical","crucial","serious","vital")] [initial(name)]"
-
+	original_name = name
 	junk = new junk(src)
 	return TRUE
 
