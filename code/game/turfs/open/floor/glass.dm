@@ -4,7 +4,6 @@
 	icon = 'icons/turf/floors/glass.dmi'
 	icon_state = "glass-0"
 	base_icon_state = "glass"
-	plane = FLOOR_PLANE
 	baseturfs = /turf/open/openspace
 
 	intact = TRUE //fuck it yall can remove them, can't really fix the plating though :/
@@ -34,7 +33,7 @@
 		if(object.level == 1 && (object.flags_1 & INITIALIZED_1))
 			if(istype(object, /obj/machinery/atmospherics/components/unary/vent_pump) || istype(object, /obj/machinery/atmospherics/components/unary/vent_scrubber))
 				return
-			object.plane = OPENSPACE_PLANE
+			object.plane = PLANE_SPACE
 
 /turf/open/floor/glass/LateInitialize()
 	. = ..()
