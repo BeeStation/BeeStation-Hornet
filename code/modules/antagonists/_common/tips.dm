@@ -18,3 +18,6 @@
 
 /datum/antagonist/changeling
 	tips = "changeling"
+
+/datum/antagonist/spider
+	tips = "spider"
