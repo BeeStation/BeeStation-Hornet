@@ -36,11 +36,11 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
 	initial_language_holder = /datum/language_holder/spider // Speaks buzzwords, understands buzzwords and common
-	maxHealth = 80
-	health = 80
+	maxHealth = 75
+	health = 75
 	obj_damage = 25
-	melee_damage = 20
-	poison_per_bite = 0
+	melee_damage = 15
+	poison_per_bite = 3
 	poison_type = /datum/reagent/toxin/spidervenom
 	faction = list("spiders")
 	pass_flags = PASSTABLE
@@ -154,11 +154,13 @@
 		return
 	return ..()
 
-// Guard spiders are more tanky than hunters, but slower.
-/mob/living/simple_animal/hostile/poison/giant_spider/guard
-	name = "guard"
-	obj_damage = 50
-	onweb_speed = -0.1
+// Tarantulas are the balanced generalist of the spider family: Moderate stats all around.
+/mob/living/simple_animal/hostile/poison/giant_spider/tarantula
+	name = "Tarantula"
+	obj_damage = 35
+	speed = 0.5
+	onweb_speed = 0
+	web_speed = 0.5
 
 // Nurses lay eggs and can heal other spiders. However, they're squishy and less powerful.
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
@@ -366,50 +368,52 @@
 	QDEL_NULL(letmetalkpls)
 	return ..()
 
-// Hunters have a decent amount of poison and have decent general stats, making them offensive spiders. They're a bit squishier
-// than regular spiders, though
+// Hunters are the most independant of the spiders, not relying on web and having a bit more damage and venom at the cost of health.
+// They are intended to bring prey back from outside of the web.
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter
 	name = "hunter"
 	desc = "Furry and black, it makes you shudder to look at it. This one has sparkling purple eyes."
 	icon_state = "hunter"
 	icon_living = "hunter"
 	icon_dead = "hunter_dead"
-	maxHealth = 70
-	health = 70
-	melee_damage = 15
+	maxHealth = 65
+	health = 65
+	melee_damage = 18
 	poison_per_bite = 5
 	move_to_delay = 3
 	speed = 0
 
-// vipers are the upgraded variant of the hunter, able to move quickly and inject a lot of venom.
+// Vipers are physically very weak and fragile, but also very fast and inject a lot of venom. 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper
 	name = "viper"
 	desc = "Furry and black, it makes you shudder to look at it. This one has effervescent purple eyes."
 	icon_state = "viper"
 	icon_living = "viper"
 	icon_dead = "viper_dead"
-	maxHealth = 50
-	health = 50
-	melee_damage = 1
+	maxHealth = 35
+	health = 35
+	melee_damage = 8
 	poison_per_bite = 8
+	web_speed = -1
 	move_to_delay = 2
-	poison_type = /datum/reagent/toxin/venom
+	poison_type = /datum/reagent/toxin/spidervenom
 	gold_core_spawnable = NO_SPAWN
 
-//tarantulas are really tanky, but slower than normal spiders. They can also break stuff much easier, and can do more damage.
-/mob/living/simple_animal/hostile/poison/giant_spider/tarantula
-	name = "tarantula"
+//Guards are really tanky brutes that rely on force more than venom but perform very poorly away from webs. 
+/mob/living/simple_animal/hostile/poison/giant_spider/guard
+	name = "guard"
 	desc = "Furry and black, it makes you shudder to look at it. This one has abyssal red eyes."
 	icon_state = "tarantula"
 	icon_living = "tarantula"
 	icon_dead = "tarantula_dead"
 	maxHealth = 160
 	health = 160
-	melee_damage = 25
+	melee_damage = 22
+	poison_per_bite = 1 //rely on brute force, but they're still spiders. 
 	obj_damage = 50
 	move_to_delay = 5
-	speed = 5
-	web_speed = 0.5
+	speed = 3
+	web_speed = 1
 	onweb_speed = 0
 	status_flags = NONE
 	mob_size = MOB_SIZE_LARGE
