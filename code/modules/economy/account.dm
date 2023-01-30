@@ -246,7 +246,6 @@
 	account_holder = ACCOUNT_NEET_NAME
 	department_id = ACCOUNT_NEET_ID
 	department_bitflag = NONE // this doesn't need bitflag
-	show_budget_information = FALSE
 
 /datum/bank_account/department/welfare/New()
 	exclusive_budget_pool = NON_STATION_BUDGET_BASE
@@ -257,7 +256,6 @@
 	account_holder = ACCOUNT_GOLEM_NAME
 	department_id = ACCOUNT_GOLEM_ID
 	department_bitflag = NONE
-	show_budget_information = TRUE // It's shared on all golem cards
 	exclusive_budget_pool = 13 // oh no, someone used it! damn communism!
 
 #undef DUMPTIME
