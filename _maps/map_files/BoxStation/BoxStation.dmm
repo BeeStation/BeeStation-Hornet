@@ -10142,7 +10142,7 @@
 "bzo" = (
 /obj/structure/table/glass,
 /obj/item/folder/white,
-/obj/item/radio/headset/headset_medsci,
+/obj/item/radio/headset/headset_med,
 /obj/machinery/requests_console{
 	department = "Genetics";
 	name = "Genetics Requests Console";
