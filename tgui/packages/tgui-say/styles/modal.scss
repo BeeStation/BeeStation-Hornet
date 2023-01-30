@@ -1,16 +1,6 @@
 @use 'sass:color';
 @use './colors.scss';
 
-@keyframes gradient {
-  0% {
-    background-position: 0 0;
-  }
-
-  100% {
-    background-position: 100% 0;
-  }
-}
-
 .modal {
   background-color: colors.$background;
   display: flex;
@@ -28,7 +18,7 @@
   display: flex;
   flex-direction: row;
   height: 100%;
-  padding: 1px 0 1px 5px;
+  padding: 5px;
 }
 
 /** Window sizes */
@@ -45,19 +35,52 @@
 }
 
 /** Creates an animated border for each channel */
-@each $channel,
-$color in colors.$channel-map {
+@each $channel, $color in colors.$channel-map {
   .modal-#{$channel} {
-    &:after {
-      animation: gradient 10s linear infinite;
-      background: linear-gradient(to right,
-          darken($color, 35%),
-          $color,
-          lighten($color, 10%),
-          $color,
-          darken($color, 35%));
-      background-position: 0% 0%;
-      background-size: 500% auto;
+    .top-border {
+      background: linear-gradient(
+        to right,
+        $color,
+        darken($color, 10%),
+        $color
+      );
+      background-attachment: fixed;
+      top: 0px;
+      content: '';
+      height: 2px;
+      left: 0px;
+      position: absolute;
+      right: 0px;
+      z-index: 999;
+    }
+    .left-border {
+      background-color: $color;
+      top: 0px;
+      bottom: 0px;
+      content: '';
+      width: 2px;
+      left: 0px;
+      position: absolute;
+      z-index: 1000;
+    }
+    .right-border {
+      background-color: $color;
+      top: 0px;
+      bottom: 0px;
+      content: '';
+      width: 2px;
+      right: 0px;
+      position: absolute;
+      z-index: 1000;
+    }
+    .bottom-border {
+      background: linear-gradient(
+        to right,
+        $color,
+        darken($color, 10%),
+        $color
+      );
+      background-attachment: fixed;
       bottom: 0px;
       content: '';
       height: 2px;

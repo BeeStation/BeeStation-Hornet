@@ -34,6 +34,10 @@ export const RADIO_PREFIXES = {
     id: 'command',
     label: 'Cmd',
   },
+  ':d ': {
+    id: 'uplink',
+    label: 'Upl',
+  },
   ':e ': {
     id: 'engi',
     label: 'Engi',
@@ -49,6 +53,10 @@ export const RADIO_PREFIXES = {
   ':o ': {
     id: 'ai',
     label: 'AI',
+  },
+  ':q ': {
+    id: 'exploration',
+    label: 'Explo',
   },
   ':s ': {
     id: 'security',

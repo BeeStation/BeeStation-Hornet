@@ -39,6 +39,8 @@
 	var/list/macro_sets = SSinput.macro_sets
 	var/say = tgui_say_create_open_command(SAY_CHANNEL)
 	var/me = tgui_say_create_open_command(ME_CHANNEL)
+	var/radio = tgui_say_create_open_command(RADIO_CHANNEL)
+	var/ooc = tgui_say_create_open_command(OOC_CHANNEL)
 	for(var/i in 1 to macro_sets.len)
 		var/setname = macro_sets[i]
 		if(setname != "default")
@@ -50,6 +52,8 @@
 			winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[command]")
 		winset(src, "[setname]-say", "parent=[setname];name=T;command=[say]")
 		winset(src, "[setname]-me", "parent=[setname];name=M;command=[me]")
+		winset(src, "[setname]-radio", "parent=[setname];name=Y;command=[me]")
+		winset(src, "[setname]-ooc", "parent=[setname];name=O;command=[me]")
 
 
 	if(prefs.toggles2 & PREFTOGGLE_2_HOTKEYS)

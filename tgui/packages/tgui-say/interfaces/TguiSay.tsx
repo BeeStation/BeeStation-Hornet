@@ -1,6 +1,6 @@
 import { TextArea } from 'tgui/components';
 import { WINDOW_SIZES } from '../constants';
-import { Dragzone } from '../components/dragzone';
+import { dragStartHandler } from 'tgui/drag';
 import { eventHandlerMap } from '../handlers';
 import { getCss, getTheme, timers } from '../helpers';
 import { Component, createRef } from 'inferno';
@@ -42,10 +42,13 @@ export class TguiSay extends Component<{}, State> {
     const theme = getTheme(lightMode, radioPrefix, channel);
 
     return (
-      <div className={getCss('modal', theme, size)} $HasKeyedChildren>
-        <Dragzone theme={theme} top />
+      <div
+        className={getCss('modal', theme, size)}
+        onmousedown={dragStartHandler}
+        $HasKeyedChildren>
+        <div className="top-border" />
+        <div className="left-border" />
         <div className="modal__content" $HasKeyedChildren>
-          <Dragzone theme={theme} left />
           {!!theme && (
             <button
               className={getCss('button', theme)}
@@ -66,9 +69,9 @@ export class TguiSay extends Component<{}, State> {
             selfClear
             value={edited && value}
           />
-          <Dragzone theme={theme} right />
         </div>
-        <Dragzone theme={theme} bottom />
+        <div className="bottom-border" />
+        <div className="right-border" />
       </div>
     );
   }
