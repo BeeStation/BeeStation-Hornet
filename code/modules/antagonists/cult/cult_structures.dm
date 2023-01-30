@@ -8,7 +8,7 @@
 	debris = list(/obj/item/stack/sheet/runed_metal = 1)
 
 /obj/structure/destructible/cult/proc/conceal() //for spells that hide cult presence
-	density = FALSE
+	set_density(FALSE)
 	visible_message("<span class='danger'>[src] fades away.</span>")
 	invisibility = INVISIBILITY_OBSERVER
 	alpha = 100 //To help ghosts distinguish hidden runes
@@ -18,7 +18,7 @@
 	STOP_PROCESSING(SSfastprocess, src)
 
 /obj/structure/destructible/cult/proc/reveal() //for spells that reveal cult presence
-	density = initial(density)
+	set_density(initial(density))
 	invisibility = 0
 	visible_message("<span class='danger'>[src] suddenly appears!</span>")
 	alpha = initial(alpha)

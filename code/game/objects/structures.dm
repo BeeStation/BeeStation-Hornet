@@ -65,9 +65,9 @@
 
 /obj/structure/proc/do_climb(atom/movable/A)
 	if(climbable)
-		density = FALSE
+		set_density(FALSE)
 		. = step(A,get_dir(A,src.loc))
-		density = TRUE
+		set_density(TRUE)
 
 /obj/structure/proc/climb_structure(mob/living/user)
 	add_fingerprint(user)

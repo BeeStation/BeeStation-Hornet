@@ -243,9 +243,9 @@
 	playsound(loc, close_sound, close_sound_volume, 1, -3)
 	climb_time = initial(climb_time)
 	opened = FALSE
-	density = TRUE
+	set_density(TRUE)
 	animate_door(TRUE)
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/structure/closet/proc/toggle(mob/living/user)

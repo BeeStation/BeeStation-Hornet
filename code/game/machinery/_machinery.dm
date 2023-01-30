@@ -346,7 +346,7 @@
  */
 /obj/machinery/proc/open_machine(drop = TRUE)
 	state_open = TRUE
-	density = FALSE
+	set_density(FALSE)
 	if(drop)
 		dump_inventory_contents()
 	update_icon()
@@ -414,7 +414,7 @@
 
 /obj/machinery/proc/close_machine(atom/movable/target = null)
 	state_open = FALSE
-	density = TRUE
+	set_density(TRUE)
 	if(!target)
 		for(var/atom in loc)
 			if (!(can_be_occupant(atom)))

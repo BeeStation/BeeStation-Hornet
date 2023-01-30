@@ -1,0 +1,6 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - tweak: Phobias can now be weighted
+  - tweak: The phobias of Robots and Doctors are slightly less likely to occur
+  - tweak: The phobia of Space is significantly less likely to occur
