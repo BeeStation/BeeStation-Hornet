@@ -55,7 +55,7 @@
 	var/spawns_remaining = 2
 	var/enriched_spawns = 0
 	var/using_enriched_spawn = FALSE
-	var/enriched_spawn_prob = 50 // Probability (%) of someone who clicks on an eggcluster getting an enriched spawn if one's available
+	var/enriched_spawn_prob = 25 // Probability (%) of someone who clicks on an eggcluster getting an enriched spawn if one's available
 	// Team info
 	var/datum/team/spiders/spider_team
 	var/list/faction = list("spiders")
@@ -65,10 +65,10 @@
 	// The types of spiders the egg sac can produce.
 	var/list/mob/living/potential_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/guard,
 								/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
-								/mob/living/simple_animal/hostile/poison/giant_spider/nurse)
+								/mob/living/simple_animal/hostile/poison/giant_spider/nurse,
+								/mob/living/simple_animal/hostile/poison/giant_spider/tarantula)
 	// The types of spiders the egg sac produces when we have enriched spawns left (laying spider ate a human)
-	var/list/mob/living/potential_enriched_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/tarantula,
-							/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,
+	var/list/mob/living/potential_enriched_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,
 							/mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
 
 /obj/structure/spider/eggcluster/Initialize(mapload)
