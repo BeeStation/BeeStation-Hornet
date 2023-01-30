@@ -274,6 +274,7 @@
 	var/datum/action/innate/spider/comm/letmetalkpls
 
 /mob/living/simple_animal/hostile/poison/giant_spider/broodmother/Initialize(mapload)
+	. = ..()
 	wrap = new
 	AddAbility(wrap)
 	lay_eggs = new
