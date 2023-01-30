@@ -69,7 +69,7 @@
 	// The types of spiders the egg sac produces when we have enriched spawns left (laying spider ate a human)
 	var/list/mob/living/potential_enriched_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/tarantula,
 							/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,
-							/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife)
+							/mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
 
 /obj/structure/spider/eggcluster/Initialize(mapload)
 	pixel_x = rand(3,-3)
@@ -189,8 +189,8 @@
 /obj/structure/spider/spiderling/nurse
 	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/nurse
 
-/obj/structure/spider/spiderling/midwife
-	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife
+/obj/structure/spider/spiderling/broodmother
+	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/broodmother
 
 /obj/structure/spider/spiderling/viper
 	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper
@@ -266,7 +266,7 @@
 		if(amount_grown >= 100)
 			if(!grow_as)
 				if(prob(3))
-					grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider/tarantula, /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper, /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife)
+					grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider/tarantula, /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
 				else
 					grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider, /mob/living/simple_animal/hostile/poison/giant_spider/hunter, /mob/living/simple_animal/hostile/poison/giant_spider/nurse)
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(src.loc)
