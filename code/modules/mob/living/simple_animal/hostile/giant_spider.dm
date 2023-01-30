@@ -36,8 +36,8 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
 	initial_language_holder = /datum/language_holder/spider // Speaks buzzwords, understands buzzwords and common
-	maxHealth = 75
-	health = 75
+	maxHealth = 85
+	health = 85
 	obj_damage = 25
 	melee_damage = 15
 	poison_per_bite = 3
