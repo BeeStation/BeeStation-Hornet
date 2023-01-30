@@ -4,7 +4,9 @@
 	icon = 'icons/turf/floors/glass.dmi'
 	icon_state = "glass-0"
 	base_icon_state = "glass"
+	plane = FLOOR_PLANE
 	baseturfs = /turf/open/openspace
+
 	intact = TRUE //fuck it yall can remove them, can't really fix the plating though :/
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_TRANSPARENT_GLASS)
