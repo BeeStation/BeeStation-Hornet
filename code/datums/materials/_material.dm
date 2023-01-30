@@ -75,13 +75,13 @@ Simple datum which is instanced once per type and is used for every object of sa
 
 /datum/material/proc/on_applied_turf(turf/T, amount, material_flags)
 	if(alpha < 255)
-		T.AddElement(/datum/element/turf_z_transparency, TRUE)
+		T.AddElement(/datum/element/turf_z_transparency)
 	return
 
 
-/datum/material/proc/on_removed_turf(turf/T, material_flags)
-	if(alpha)
-		RemoveElement(/datum/element/turf_z_transparency, FALSE)
+/datum/material/proc/on_removed_turf(turf/T, amount, material_flags)
+	if(alpha < 255)
+		RemoveElement(/datum/element/turf_z_transparency)
 
 
 ///This proc is called when the material is removed from an object.

@@ -45,7 +45,7 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	return INITIALIZE_HINT_LATELOAD
 
 /turf/open/openspace/LateInitialize()
-	AddElement(/datum/element/turf_z_transparency, FALSE)
+	AddElement(/datum/element/turf_z_transparency, is_openspace = TRUE)
 
 /turf/open/openspace/Destroy()
 	vis_contents.len = 0
