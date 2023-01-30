@@ -1,0 +1,6 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added a new malnourished bear type which is overall weaker than the normal
+      one
+  - tweak: Tweaked the bear malfunction of artifacts to spawn malnourished bears
