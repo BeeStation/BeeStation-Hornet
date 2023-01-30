@@ -445,18 +445,22 @@
 	. = 1
 
 /datum/reagent/drug/happiness/overdose_process(mob/living/M)
+	var/mob/living/carbon/C = L
 	if(prob(30))
 		var/reaction = rand(1,3)
 		switch(reaction)
 			if(1)
 				M.emote("laugh")
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug_good_od)
+				C.hal_screwyhud = SCREWYHUD_HEALTHY
 			if(2)
 				M.emote("sway")
 				M.Dizzy(25)
+				C.hal_screwyhud = 0
 			if(3)
 				M.emote("frown")
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug_bad_od)
+				C.hal_screwyhud = 0
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.5)
 	..()
 	. = 1
