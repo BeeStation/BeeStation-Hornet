@@ -168,11 +168,11 @@
 		if(!registered_account)
 			to_chat(usr, "There's no account registered!")
 			return
-		var/target_value = input(usr, "How much mining points do you want to give as? (negative value works)", "Give mining points", 100000) as num
+		var/target_value = input(usr, "How many mining points do you like to give? (use nagative to take)", "Give mining points") as num
 		if(!registered_account.adjust_currency(ACCOUNT_CURRENCY_MINING, target_value))
 			to_chat(usr, "Failed: Your input was [target_value], but [registered_account.account_holder]'s account has only [registered_account.report_currency(ACCOUNT_CURRENCY_MINING)].")
 		else
-			to_chat(usr, "Success: [target_value] points are added. [registered_account.account_holder]'s account now holds [registered_account.report_currency(ACCOUNT_CURRENCY_MINING)].")
+			to_chat(usr, "Success: [target_value] points have been added. [registered_account.account_holder]'s account now holds [registered_account.report_currency(ACCOUNT_CURRENCY_MINING)].")
 
 /obj/item/card/id/attackby(obj/item/W, mob/user, params)
 	if(iscash(W))
@@ -735,8 +735,7 @@ update_label("John Doe", "Clowny")
 	. = ..()
 	if(need_setup)
 		if(isgolem(user))
-			registered_name = user.name
-			to_chat(user, "<span class='notice'>The ID card's assigned name is automatically changed as yours.</span>")
+			registered_name = user.name // automatically change registered name if it's picked up by a golem at first time
 			update_label()
 		need_setup = FALSE
 		// if non-golem picks it up, the renaming feature will be disabled

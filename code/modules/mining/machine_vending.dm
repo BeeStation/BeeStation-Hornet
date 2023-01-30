@@ -107,10 +107,12 @@
 /obj/machinery/vendor/ui_act(action, params)
 	if(..())
 		return
+	var/mob/M = usr
+	if(isobserver(M))
+		return
 
 	switch(action)
 		if("purchase")
-			var/mob/M = usr
 			var/datum/bank_account/target_account = bound_bank_account
 			if(!target_account) // if bound_bank_account is null, it means you need to get a new account
 				var/obj/item/card/id/I = M.get_idcard(TRUE)
@@ -126,8 +128,7 @@
 			if(!target_account)
 				to_chat(usr, "<span class='alert'>Error: Something's bugged. Tell a coder!</span>")
 				flick(icon_deny, src)
-				stack_trace("the mining vendor failed to find a target account for purchase.")
-				return
+				CRASH("the mining vendor failed to find a target account for purchase.")
 			var/datum/data/vendor_equipment/prize = locate(params["ref"]) in prize_list
 			if(!prize || !(prize in prize_list))
 				to_chat(usr, "<span class='alert'>Error: Invalid choice!</span>")

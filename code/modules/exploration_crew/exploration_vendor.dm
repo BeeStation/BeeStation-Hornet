@@ -42,11 +42,10 @@
 	. = ..()
 
 	if(href_list[VV_ID_GIVE_EXPLO_POINT])
-		if(!(bound_bank_account == SSeconomy.get_budget_account(ACCOUNT_SCI_ID, force=TRUE)))
-			to_chat(usr, "Did you play editing vars? That's not cool. The code autocorrected it.")
-			bound_bank_account = SSeconomy.get_budget_account(ACCOUNT_SCI_ID, force=TRUE)
-		var/target_value = input(usr, "How much mining points do you want to give as? (negative value works)", "Give mining points", 100000) as num
+		if(bound_bank_account != SSeconomy.get_budget_account(ACCOUNT_SCI_ID, force=TRUE))
+			bound_bank_account = SSeconomy.get_budget_account(ACCOUNT_SCI_ID, force=TRUE) // failsafe - why are you playing var edits
+		var/target_value = input(usr, "How many exploration points do you would to give? (use negative to take)", "Give exploration points") as num
 		if(!bound_bank_account.adjust_currency(ACCOUNT_CURRENCY_EXPLO, target_value))
 			to_chat(usr, "Failed: Your input was [target_value], but [bound_bank_account.account_holder] has only [bound_bank_account.report_currency(ACCOUNT_CURRENCY_EXPLO)].")
 		else
-			to_chat(usr, "Success: [target_value] points are added. [bound_bank_account.account_holder] now holds [bound_bank_account.report_currency(ACCOUNT_CURRENCY_EXPLO)].")
+			to_chat(usr, "Success: [target_value] points have been added. [bound_bank_account.account_holder] now holds [bound_bank_account.report_currency(ACCOUNT_CURRENCY_EXPLO)].")
