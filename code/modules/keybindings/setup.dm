@@ -52,8 +52,8 @@
 			winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[command]")
 		winset(src, "[setname]-say", "parent=[setname];name=T;command=[say]")
 		winset(src, "[setname]-me", "parent=[setname];name=M;command=[me]")
-		winset(src, "[setname]-radio", "parent=[setname];name=Y;command=[me]")
-		winset(src, "[setname]-ooc", "parent=[setname];name=O;command=[me]")
+		winset(src, "[setname]-radio", "parent=[setname];name=Y;command=[radio]")
+		winset(src, "[setname]-ooc", "parent=[setname];name=O;command=[ooc]")
 
 
 	if(prefs.toggles2 & PREFTOGGLE_2_HOTKEYS)
