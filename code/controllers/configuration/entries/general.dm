@@ -602,4 +602,4 @@
 /datum/config_entry/flag/enable_mrat
 
 /datum/config_entry/flag/cache_assets
-	default = TRUE
+	config_entry_value = TRUE
