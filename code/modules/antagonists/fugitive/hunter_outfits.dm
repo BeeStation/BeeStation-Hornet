@@ -64,10 +64,10 @@
 
 /datum/outfit/bounty/armor
 	name = "Bounty Hunter - Armored"
-	head = /obj/item/clothing/head/hunter
+	head = /obj/item/clothing/head/helmet/space/hunter
 	suit = /obj/item/clothing/suit/space/hunter
 	gloves = /obj/item/clothing/gloves/combat
-	mask = /obj/item/clothing/mask/gas/hunter
+	mask = /obj/item/clothing/mask/gas
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced/garb
 	l_hand = /obj/item/tank/internals/plasma/full
 	r_hand = /obj/item/flamethrower/full/tank
