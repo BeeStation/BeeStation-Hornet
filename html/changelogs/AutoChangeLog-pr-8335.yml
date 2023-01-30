@@ -1,0 +1,6 @@
+author: CydiaLamiales, unid15
+delete-after: true
+changes:
+  - rscadd: Added a new cake structure - towering cake
+  - rscadd: Added an upgraded version of this cake to the nuke up uplink
+  - imageadd: new icon for the towering cake and the pull string action
