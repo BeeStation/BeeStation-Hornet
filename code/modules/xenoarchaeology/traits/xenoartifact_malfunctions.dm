@@ -13,11 +13,11 @@
 	if(length(bears) >= XENOA_MAX_BEARS)
 		return
 	var/turf/T = get_turf(X)
-	var/mob/living/simple_animal/hostile/bear/new_bear = new(T)
+	var/mob/living/simple_animal/hostile/bear/malnourished/new_bear = new(T)
 	new_bear.name = pick("Freddy", "Bearington", "Smokey", "Beorn", "Pooh", "Winnie", "Baloo", "Rupert", "Yogi", "Fozzie", "Boo") //Why not?
 	bears += new_bear
 	RegisterSignal(new_bear, COMSIG_MOB_DEATH, .proc/handle_death)
-	log_game("[X] spawned a (/mob/living/simple_animal/hostile/bear) at [world.time]. [X] located at [AREACOORD(X)]")
+	log_game("[X] spawned a (/mob/living/simple_animal/hostile/bear/malnourished) at [world.time]. [X] located at [AREACOORD(X)]")
 	X.cooldown += 20 SECONDS
 
 /datum/xenoartifact_trait/malfunction/bear/proc/handle_death(datum/source)
