@@ -62,12 +62,12 @@
 	if (opacity)
 		has_opaque_atom = TRUE
 
-	var/turf/T = SSmapping.get_turf_above(src)
-	if(T)
-		T.multiz_turf_new(src, DOWN)
-	T = SSmapping.get_turf_below(src)
-	if(T)
-		T.multiz_turf_new(src, UP)
+	var/turf/above_turf = SSmapping.get_turf_above(src)
+	if(above_turf)
+		above_turf.multiz_turf_new(src, DOWN)
+	above_turf = SSmapping.get_turf_below(src)
+	if(above_turf)
+		above_turf.multiz_turf_new(src, UP)
 
 	ComponentInitialize()
 

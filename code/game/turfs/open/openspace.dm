@@ -31,17 +31,26 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	var/can_cover_up = TRUE
 	var/can_build_on = TRUE
 
+	intact = 0
 /turf/open/openspace/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
 /turf/open/openspace/Initialize() // handle plane and layer here so that they don't cover other obs/turfs in Dream Maker
 	. = ..()
+	plane = OPENSPACE_PLANE
+	layer = OPENSPACE_LAYER
+
 	overlays += GLOB.openspace_backdrop_one_for_all //Special grey square for projecting backdrop darkness filter on it.
+
 	return INITIALIZE_HINT_LATELOAD
 
 /turf/open/openspace/LateInitialize()
 	. = ..()
 	AddElement(/datum/element/turf_z_transparency, FALSE)
+
+/turf/open/openspace/Destroy()
+	vis_contents.len = 0
+	return ..()
 
 /turf/open/openspace/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))
