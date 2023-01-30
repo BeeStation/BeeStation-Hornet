@@ -1,0 +1,8 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Geneticist flavor blurb now matches current Beestation SOP
+  - tweak: Geneticist is no longer partially paid by Science and no longer has science
+      departmental or radio access
+  - tweak: Science no longer has access to genetics
+  - rscdel: Removes medsci headset from code
