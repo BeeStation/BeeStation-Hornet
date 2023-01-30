@@ -32,7 +32,7 @@
 			to_chat(S, "<span class='warning'>You've already summoned a rift in this area! You have to summon again somewhere else!</span>")
 			return
 	var/turf/rift_spawn_turf = get_turf(S)
-	if(istype(rift_spawn_turf, /turf/open/transparent/openspace))
+	if(istype(rift_spawn_turf, /turf/open/openspace))
 		owner.balloon_alert(S, "needs stable ground!")
 		return
 	to_chat(S, "<span class='warning'>You begin to open a rift...</span>")

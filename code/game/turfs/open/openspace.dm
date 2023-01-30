@@ -13,12 +13,14 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	//I don't know why the others are aligned but I shall do the same.
 	vis_flags		= VIS_INHERIT_ID
 
-/turf/open/transparent/openspace
+/turf/open/openspace
 	name = "open space"
 	desc = "Watch your step!"
 	icon_state = "transparent"
-	baseturfs = /turf/open/transparent/openspace
+	baseturfs = /turf/open/openspace
 	CanAtmosPassVertical = ATMOS_PASS_YES
+	baseturfs = /turf/open/openspace
+	intact = FALSE //this means wires go on top
 	allow_z_travel = TRUE
 
 	FASTDMM_PROP(\
@@ -29,22 +31,19 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	var/can_cover_up = TRUE
 	var/can_build_on = TRUE
 
-/turf/open/transparent/openspace/airless
+/turf/open/openspace/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
-/turf/open/transparent/openspace/debug/update_multiz()
-	..()
-	return TRUE
-
-///No bottom level for openspace.
-/turf/open/transparent/openspace/show_bottom_level()
-	return FALSE
-
-/turf/open/transparent/openspace/Initialize() // handle plane and layer here so that they don't cover other obs/turfs in Dream Maker
+/turf/open/openspace/Initialize() // handle plane and layer here so that they don't cover other obs/turfs in Dream Maker
 	. = ..()
 	overlays += GLOB.openspace_backdrop_one_for_all //Special grey square for projecting backdrop darkness filter on it.
+	return INITIALIZE_HINT_LATELOAD
 
-/turf/open/transparent/openspace/can_have_cabling()
+/turf/open/openspace/LateInitialize()
+	. = ..()
+	AddElement(/datum/element/turf_z_transparency, FALSE)
+
+/turf/open/openspace/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))
 		return TRUE
 	var/turf/B = below()
@@ -52,13 +51,13 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 		return B.can_lay_cable()
 	return FALSE
 
-/turf/open/transparent/openspace/zAirIn()
+/turf/open/openspace/zAirIn()
 	return TRUE
 
-/turf/open/transparent/openspace/zAirOut()
+/turf/open/openspace/zAirOut()
 	return TRUE
 
-/turf/open/transparent/openspace/zPassIn(atom/movable/A, direction, turf/source)
+/turf/open/openspace/zPassIn(atom/movable/A, direction, turf/source)
 	if(direction == DOWN)
 		for(var/obj/O in contents)
 			if(O.obj_flags & BLOCK_Z_IN_DOWN)
@@ -71,7 +70,7 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 		return TRUE
 	return FALSE
 
-/turf/open/transparent/openspace/zPassOut(atom/movable/A, direction, turf/destination)
+/turf/open/openspace/zPassOut(atom/movable/A, direction, turf/destination)
 	//Check if our fall location has gravity
 	if(!A.has_gravity(destination))
 		return FALSE
@@ -89,13 +88,13 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 		return TRUE
 	return FALSE
 
-/turf/open/transparent/openspace/proc/CanCoverUp()
+/turf/open/openspace/proc/CanCoverUp()
 	return can_cover_up
 
-/turf/open/transparent/openspace/proc/CanBuildHere()
+/turf/open/openspace/proc/CanBuildHere()
 	return can_build_on
 
-/turf/open/transparent/openspace/attackby(obj/item/C, mob/user, params)
+/turf/open/openspace/attackby(obj/item/C, mob/user, params)
 	..()
 	if(!CanBuildHere())
 		return
@@ -137,7 +136,7 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 		else
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place iron rods first.</span>")
 
-/turf/open/transparent/openspace/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
+/turf/open/openspace/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	if(!CanBuildHere())
 		return FALSE
 
@@ -150,7 +149,7 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 				return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 3)
 	return FALSE
 
-/turf/open/transparent/openspace/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
+/turf/open/openspace/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_FLOORWALL)
 			to_chat(user, "<span class='notice'>You build a floor.</span>")
@@ -158,11 +157,11 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 			return TRUE
 	return FALSE
 
-/turf/open/transparent/openspace/rust_heretic_act()
+/turf/open/openspace/rust_heretic_act()
 	return FALSE
 
 //Returns FALSE if gravity is force disabled. True if grav is possible
-/turf/open/transparent/openspace/check_gravity()
+/turf/open/openspace/check_gravity()
 	var/turf/T = below()
 	if(!T)
 		return TRUE
