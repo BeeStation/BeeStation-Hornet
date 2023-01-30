@@ -713,7 +713,7 @@
 			if(length(temp_vent_parent.other_atmosmch) > 20)
 				vents += temp_vent // Makes sure the pipeline is large enough
 	if(!length(vents))
-			log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations.")
+		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations.")
 		return FALSE
 	. = ..()
 
