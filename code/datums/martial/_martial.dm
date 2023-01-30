@@ -73,7 +73,7 @@
 	log_combat(A, D, "punched")
 
 	if(!(D.mobility_flags & MOBILITY_STAND))
-		D.forcesay(GLOB.hit_appends)
+		D.force_say(A)
 	return 1
 
 /datum/martial_art/proc/teach(mob/living/carbon/human/H,make_temporary=0)

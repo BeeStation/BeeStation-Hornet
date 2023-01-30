@@ -24,7 +24,7 @@
 	/// The user who opened the window
 	var/client/client
 	/// Injury phrases to blurt out
-	var/list/hurt_phrases = list("GACK!", "GLORF!", "OOF!", "AUGH!", "OW!", "URGH!", "HRNK!")
+	var/list/hurt_phrases = list("GACK!", "GLORF!", "OOF!", "AUGH!", "OW!", "URGH!", "HRNK!", "ACK!")
 	/// Max message length
 	var/max_length = MAX_MESSAGE_LEN
 	/// The modal window
