@@ -255,7 +255,7 @@
 	icon_dead = "midwife_dead"
 	maxHealth = 90
 	health = 90
-	melee_damage = 10
+	melee_damage = 15
 	poison_per_bite = 5
 	speed = 2
 	onweb_speed = 1
@@ -432,8 +432,8 @@
 	icon_state = "tarantula"
 	icon_living = "tarantula"
 	icon_dead = "tarantula_dead"
-	maxHealth = 160
-	health = 160
+	maxHealth = 125
+	health = 125
 	melee_damage = 22
 	poison_per_bite = 1 //rely on brute force, but they're still spiders. 
 	obj_damage = 50
