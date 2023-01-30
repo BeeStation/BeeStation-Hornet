@@ -260,7 +260,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 			"priority" = object.priority,
 			"distress" = distress,
 			"vel_mult" = object.velocity_multiplier,
-		))aster
+		))
 	return data
 
 //====================================
