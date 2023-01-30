@@ -206,3 +206,14 @@
 	)
 	result = /mob/living/simple_animal/pet/cat/cak
 	subcategory = CAT_CAKE //Cat! Haha, get it? CAT? GET IT? We get it - Love Felines
+
+/datum/crafting_recipe/food/popup_cake
+	name = "Towering pile of cakes"
+	reqs = list(
+			/obj/item/reagent_containers/food/snacks/store/cake/plain = 3,
+			/datum/reagent/consumable/sugar = 10,
+			/datum/reagent/consumable/cream = 5,
+			/obj/item/bikehorn/airhorn = 1
+	)
+	result = /obj/structure/popout_cake
+	subcategory = CAT_CAKE
