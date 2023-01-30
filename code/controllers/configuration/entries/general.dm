@@ -600,6 +600,3 @@
 /datum/config_entry/string/elasticsearch_metrics_apikey
 
 /datum/config_entry/flag/enable_mrat
-
-/datum/config_entry/flag/cache_assets
-	config_entry_value = TRUE
