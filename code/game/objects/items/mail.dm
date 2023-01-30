@@ -143,6 +143,7 @@
 		if(istype(W, /obj/item/assembly/mousetrap) && !rigged)
 			to_chat(user, "<span class='notice'>You rig the [src] to activate a grenade upon getting opened if one is inserted inside!</span>")
 			rigged = TRUE
+			user.log_message("has rigged a mail package with a mouse trap.", LOG_GAME)
 		else
 			to_chat(user, "<span class='notice'>You insert \the [W] into the mail package and re-seal it.</span>")
 			user.log_message("has inserted [W] into a mail package.", LOG_GAME)
