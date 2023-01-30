@@ -1727,11 +1727,11 @@
 	taste_description = "sourness"
 
 /datum/reagent/concentrated_barbers_aid/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if(methods & (TOUCH|VAPOR)) && ishuman(M)
-			var/mob/living/carbon/human/H = M
-			H.hair_style = "Very Long Hair"
-			H.facial_hair_style = "Beard (Very Long)"
-			H.update_hair()
+	if((methods & (TOUCH|VAPOR)) && ishuman(M))
+		var/mob/living/carbon/human/exposed_human = M
+		exposed_human.hair_style = "Very Long Hair"
+		exposed_human.facial_hair_style = "Beard (Very Long)"
+		exposed_human.update_hair()
 
 /datum/reagent/saltpetre
 	name = "Saltpetre"
