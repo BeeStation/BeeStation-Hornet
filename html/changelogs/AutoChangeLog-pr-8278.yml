@@ -1,0 +1,4 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added a line of text showing the Security Level in the current round
