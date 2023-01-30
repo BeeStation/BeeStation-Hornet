@@ -77,7 +77,7 @@
 	new /obj/effect/decal/cleanable/ash(drop_location())
 
 // ballolon
-/obj/item/seeds/watermelon/Ballolon
+/obj/item/seeds/watermelon/ballolon
 	name = "pack of ballolon seeds"
 	desc = "These seeds grow into ballolon plants."
 	icon_state = "seed-ballolon"
