@@ -161,7 +161,6 @@
 	obj_damage = 35
 	speed = 0.5
 	onweb_speed = 0
-	web_speed = 0.5
 
 // Nurses heal other spiders and maintain the core of the nest.
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
@@ -443,6 +442,7 @@
 	onweb_speed = 0
 	status_flags = NONE
 	mob_size = MOB_SIZE_LARGE
+	web_speed = 0.5
 
 // Ice spiders - for when you want a spider that really doesn't care about atmos
 /mob/living/simple_animal/hostile/poison/giant_spider/ice
