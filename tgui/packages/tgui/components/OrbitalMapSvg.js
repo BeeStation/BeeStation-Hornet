@@ -66,6 +66,7 @@ export class OrbitalMapSvg extends Component {
         mapObject.velocity_x,
         mapObject.velocity_y,
         mapObject.radius,
+        mapObject.vel_mult,
         mapObject.created_at,
         mapObject.distress,
       );
@@ -283,11 +284,11 @@ export class OrbitalMapSvg extends Component {
             <line
               x1={Math.max(Math.min((ourRenderableObject.position_x
                 + xOffset
-                + ourRenderableObject.velocity_x * elapsed)
+                + ourRenderableObject.velocity_x * elapsed * ourRenderableObject.vel_mult)
                 * zoomScale * mapDistanceScale, 250), -250)}
               y1={Math.max(Math.min((ourRenderableObject.position_y
                 + yOffset
-                + ourRenderableObject.velocity_y * elapsed)
+                + ourRenderableObject.velocity_y * elapsed * ourRenderableObject.vel_mult)
                 * zoomScale * mapDistanceScale, 250), -250)}
               x2={Math.max(Math.min((shuttleTargetX
                 + xOffset)
@@ -302,11 +303,11 @@ export class OrbitalMapSvg extends Component {
           <circle
             cx={(ourRenderableObject.position_x
               + xOffset
-              + ourRenderableObject.velocity_x * elapsed)
+              + ourRenderableObject.velocity_x * elapsed * ourRenderableObject.vel_mult)
               * zoomScale * mapDistanceScale}
             cy={(ourRenderableObject.position_y
               + yOffset
-              + ourRenderableObject.velocity_y * elapsed)
+              + ourRenderableObject.velocity_y * elapsed * ourRenderableObject.vel_mult)
               * zoomScale * mapDistanceScale}
             r={Math.max(5 * zoomScale, interdiction_range
               * zoomScale)}
@@ -371,7 +372,7 @@ class RenderableObjectType {
   // Called every second
   // Updates the data
   onTick(name, position_x, position_y, velocity_x, velocity_y, radius,
-    created_at, distress)
+    created_at, distress, vel_mult)
   {
     this.name = name;
     this.position_x = position_x;
@@ -381,6 +382,7 @@ class RenderableObjectType {
     this.radius = radius;
     this.created_at = created_at;
     this.distress = distress;
+    this.vel_mult = vel_mult;
   }
 
   // Called on render()
@@ -398,11 +400,11 @@ class RenderableObjectType {
 
     let outputXPosition = (this.position_x
       + xOffset
-      + this.velocity_x * elapsed)
+      + this.velocity_x * elapsed * this.vel_mult)
       * zoomScale * mapDistanceScale;
     let outputYPosition = (this.position_y
       + yOffset
-      + this.velocity_y * elapsed)
+      + this.velocity_y * elapsed * this.vel_mult)
       * zoomScale * mapDistanceScale;
     let outputRadius = this.radius * zoomScale;
 
@@ -502,11 +504,11 @@ class Beacon extends RenderableObjectType {
 
     let outputXPosition = (this.position_x
       + xOffset
-      + this.velocity_x * elapsed)
+      + this.velocity_x * elapsed * this.vel_mult)
       * zoomScale * mapDistanceScale;
     let outputYPosition = (this.position_y
       + yOffset
-      + this.velocity_y * elapsed)
+      + this.velocity_y * elapsed * this.vel_mult)
       * zoomScale * mapDistanceScale;
 
     let beaconTimer = ((elapsed + this.random_offset) % 1);
@@ -579,12 +581,12 @@ class Shuttle extends RenderableObjectType {
   // Called every updateTick
   // Record the path and update variables.
   onTick(name, position_x, position_y, velocity_x, velocity_y, radius,
-    created_at, distress)
+    created_at, distress, vel_mult)
   {
     // wtf is this
     RenderableObjectType.prototype.onTick.call(
       this, name, position_x, position_y, velocity_x, velocity_y, radius,
-      created_at);
+      vel_mult, created_at);
     // Set the position
     this.recordedTrack[this.recordedTrackLastIndex] = {
       x: this.position_x,
@@ -625,11 +627,11 @@ class Shuttle extends RenderableObjectType {
 
     let outputXPosition = (this.position_x
       + xOffset
-      + this.velocity_x * elapsed)
+      + this.velocity_x * elapsed * this.vel_mult)
       * zoomScale * mapDistanceScale;
     let outputYPosition = (this.position_y
       + yOffset
-      + this.velocity_y * elapsed)
+      + this.velocity_y * elapsed * this.vel_mult)
       * zoomScale * mapDistanceScale;
     let outputRadius = this.radius * zoomScale;
 
@@ -766,13 +768,12 @@ class Projectile extends RenderableObjectType {
 
     let outputXPosition = (this.position_x
       + xOffset
-      + this.velocity_x * elapsed)
+      + this.velocity_x * elapsed * this.vel_mult)
       * zoomScale * mapDistanceScale;
     let outputYPosition = (this.position_y
       + yOffset
-      + this.velocity_y * elapsed)
+      + this.velocity_y * elapsed * this.vel_mult)
       * zoomScale * mapDistanceScale;
-    let outputRadius = this.radius * zoomScale;
 
     this.inBounds = outputXPosition < 250 && outputYPosition < 250
       && outputXPosition > -250 && outputYPosition > -250;

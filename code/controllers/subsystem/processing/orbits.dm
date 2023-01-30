@@ -259,7 +259,8 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 			"render_mode" = object.render_mode,
 			"priority" = object.priority,
 			"distress" = distress,
-		))
+			"vel_mult" = object.velocity_multiplier,
+		))aster
 	return data
 
 //====================================

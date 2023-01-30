@@ -475,6 +475,25 @@
 	else
 		..()
 
+/datum/reagent/toxin/spidervenom
+	name = "Spider Venom"
+	description = "A type of venom extracted from spiders. Causes toxin damage and can paralyze in large doses."
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	reagent_state = LIQUID
+	color = "#00A080"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	toxpwr = 0.5
+
+/datum/reagent/toxin/spidervenom/on_mob_life(mob/living/carbon/M)
+	if(M.getStaminaLoss() <= 70)				//Should not stamcrit under most conditions, but will greatly slow down given some time.
+		M.adjustStaminaLoss((volume * 0.75) * REM, 0)
+	if(current_cycle > 10 && prob(current_cycle + (volume * 0.3))) 	//The longer it is in your system and the more of it you have the more frequently you drop
+		M.Paralyze(3 SECONDS, 0)
+		toxpwr += 0.1							//The venom gets stronger until completely purged.
+	if(holder.has_reagent(/datum/reagent/medicine/calomel) || holder.has_reagent(/datum/reagent/medicine/pen_acid) || holder.has_reagent(/datum/reagent/medicine/charcoal))
+		current_cycle += 5						// Prevents using purgatives while in combat
+	..()
+
 /datum/reagent/toxin/fentanyl
 	name = "Fentanyl"
 	description = "Fentanyl will inhibit brain function and cause toxin damage before eventually incapacitating its victim."
