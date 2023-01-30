@@ -445,7 +445,7 @@
 	. = 1
 
 /datum/reagent/drug/happiness/overdose_process(mob/living/M)
-	var/mob/living/carbon/C = L
+	var/mob/living/carbon/C = M
 	if(prob(30))
 		var/reaction = rand(1,3)
 		switch(reaction)
