@@ -3,7 +3,7 @@
 // Bear, produces a bear until it reaches its upper limit
 //============
 /datum/xenoartifact_trait/malfunction/bear
-	label_name = "P.B.R." 
+	label_name = "P.B.R."
 	label_desc = "Parallel Bearspace Retrieval: A strange malfunction causes the Artifact to open a gateway to deep bearspace."
 	weight = 15
 	flags = URANIUM_TRAIT
@@ -13,11 +13,11 @@
 	if(length(bears) >= XENOA_MAX_BEARS)
 		return
 	var/turf/T = get_turf(X)
-	var/mob/living/simple_animal/hostile/bear/new_bear = new(T)
+	var/mob/living/simple_animal/hostile/bear/malnourished/new_bear = new(T)
 	new_bear.name = pick("Freddy", "Bearington", "Smokey", "Beorn", "Pooh", "Winnie", "Baloo", "Rupert", "Yogi", "Fozzie", "Boo") //Why not?
 	bears += new_bear
 	RegisterSignal(new_bear, COMSIG_MOB_DEATH, .proc/handle_death)
-	log_game("[X] spawned a (/mob/living/simple_animal/hostile/bear) at [world.time]. [X] located at [AREACOORD(X)]")
+	log_game("[X] spawned a (/mob/living/simple_animal/hostile/bear/malnourished) at [world.time]. [X] located at [AREACOORD(X)]")
 	X.cooldown += 20 SECONDS
 
 /datum/xenoartifact_trait/malfunction/bear/proc/handle_death(datum/source)
@@ -92,14 +92,14 @@
 // Heated, causes artifact explode in flames
 //============
 /datum/xenoartifact_trait/malfunction/heated
-	label_name = "Combustible" 
+	label_name = "Combustible"
 	label_desc = "Combustible: A strange malfunction that causes the Artifact to violently combust."
 	weight = 15
 	flags = URANIUM_TRAIT
 
 /datum/xenoartifact_trait/malfunction/heated/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	var/turf/T = get_turf(X)
-	playsound(T, 'sound/effects/bamf.ogg', 50, TRUE) 
+	playsound(T, 'sound/effects/bamf.ogg', 50, TRUE)
 	for(var/turf/open/turf in RANGE_TURFS(max(1, 4*((X.charge*1.5)/100)), T))
 		if(!locate(/obj/effect/safe_fire) in turf)
 			new /obj/effect/safe_fire(turf)
