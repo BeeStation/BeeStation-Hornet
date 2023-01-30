@@ -422,7 +422,7 @@
 	poison_per_bite = 8
 	web_speed = -1
 	move_to_delay = 2
-	poison_type = /datum/reagent/toxin/spidervenom
+	poison_type = /datum/reagent/toxin/venom
 
 //Guards are really tanky brutes that rely on force more than venom but perform very poorly away from webs. 
 /mob/living/simple_animal/hostile/poison/giant_spider/guard
