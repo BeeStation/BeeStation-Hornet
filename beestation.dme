@@ -539,6 +539,7 @@
 #include "code\datums\components\conveyor_movement.dm"
 #include "code\datums\components\cult_ritual_item.dm"
 #include "code\datums\components\deadchat_control.dm"
+#include "code\datums\components\dejavu.dm"
 #include "code\datums\components\drift.dm"
 #include "code\datums\components\edit_complainer.dm"
 #include "code\datums\components\effect_remover.dm"
