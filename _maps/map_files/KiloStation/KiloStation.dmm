@@ -7628,7 +7628,7 @@
 /obj/item/storage/box/disks{
 	pixel_y = 5
 	},
-/obj/item/radio/headset/headset_medsci,
+/obj/item/radio/headset/headset_med,
 /obj/structure/noticeboard{
 	pixel_y = 30
 	},
