@@ -21,9 +21,9 @@
 /mob/living/simple_animal/hostile/poison/giant_spider
 	name = "giant spider"
 	desc = "Furry and black, it makes you shudder to look at it. This one has deep red eyes."
-	icon_state = "guard"
-	icon_living = "guard"
-	icon_dead = "guard_dead"
+	icon_state = "tarantula"
+	icon_living = "tarantula"
+	icon_dead = "tarantula_dead"
 	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
 	speak_emote = list("chitters")
 	emote_hear = list("chitters")
@@ -250,9 +250,9 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/broodmother
 	name = "broodmother"
 	desc = "Furry and black, it makes you shudder to look at it. This one has scintillating green eyes."
-	icon_state = "midwife"
-	icon_living = "midwife"
-	icon_dead = "midwife_dead"
+	icon_state = "broodmother"
+	icon_living = "broodmother"
+	icon_dead = "broodmother_dead"
 	maxHealth = 90
 	health = 90
 	melee_damage = 15
@@ -429,9 +429,9 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/guard
 	name = "guard"
 	desc = "Furry and black, it makes you shudder to look at it. This one has abyssal red eyes."
-	icon_state = "tarantula"
-	icon_living = "tarantula"
-	icon_dead = "tarantula_dead"
+	icon_state = "guard"
+	icon_living = "guard"
+	icon_dead = "guard_dead"
 	maxHealth = 125
 	health = 125
 	melee_damage = 22
