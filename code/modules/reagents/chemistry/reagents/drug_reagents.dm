@@ -422,10 +422,16 @@
 
 /datum/reagent/drug/happiness/on_mob_metabolize(mob/living/L)
 	..()
+	if(iscarbon(L))
+		var/mob/living/carbon/C = L
+		C.hal_screwyhud = SCREWYHUD_HEALTHY // I AM TOTALLY FINE!!
 	ADD_TRAIT(L, TRAIT_FEARLESS, type)
 	SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug)
 
 /datum/reagent/drug/happiness/on_mob_delete(mob/living/L)
+	if(iscarbon(L))
+		var/mob/living/carbon/C = L
+		C.hal_screwyhud = 0 // okay, I wasn't really fine
 	REMOVE_TRAIT(L, TRAIT_FEARLESS, type)
 	SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "happiness_drug")
 	..()
