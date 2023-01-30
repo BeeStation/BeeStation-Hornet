@@ -535,14 +535,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, gone, direction)
 	SEND_SIGNAL(gone, COMSIG_EXIT_AREA, src) //The atom that exits the area
 
-///Setter for the `density` variable to append behavior related to its changing.
-/atom/proc/set_density(new_value)
-	SHOULD_CALL_PARENT(TRUE)
-	if(density == new_value)
-		return
-	. = density
-	density = new_value
-
 /**
   * Returns true if this atom has gravity for the passed in turf or other gravity-mimicking behaviors
   * In other words, it returns whether the atom can be *on* the turf (i.e. not forced to float)
