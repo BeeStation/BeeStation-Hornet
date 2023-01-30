@@ -730,7 +730,7 @@
 	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/spider = new(vent.loc)
 	spider.key = applicant.key
 	if(fed)
-		spider.enriched_fed++
+		spider.fed += 3
 		fed--
 	message_admins("[ADMIN_LOOKUPFLW(spider)] has been made into a spider by the midround ruleset.")
 	log_game("DYNAMIC: [key_name(spider)] was spawned as a spider by the midround ruleset.")

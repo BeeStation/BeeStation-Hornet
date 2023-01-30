@@ -53,7 +53,7 @@
 		var/datum/antagonist/spider/spider_antag = spooder.mind.has_antag_datum(/datum/antagonist/spider)
 		spider_antag.set_spider_team(spider_team)
 		if(fed)
-			spooder.enriched_fed++ // Give our spiders some friends to help them get started
+			spooder.fed += 3 // Give our spiders some friends to help them get started
 			fed--
 		spawncount--
 		message_admins("[ADMIN_LOOKUPFLW(spooder)] has been made into a spider by an event.")

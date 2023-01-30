@@ -52,24 +52,29 @@
 	icon_state = "eggs"
 	var/amount_grown = 0
 	// Spawn info
-	var/spawns_remaining = 2
+	var/spawns_remaining = 1
 	var/enriched_spawns = 0
 	var/using_enriched_spawn = FALSE
-	var/enriched_spawn_prob = 25 // Probability (%) of someone who clicks on an eggcluster getting an enriched spawn if one's available
+	// Probability (%) an egg cluster presenting enriched spawn choices
+	var/enriched_spawn_prob = 25 
 	// Team info
 	var/datum/team/spiders/spider_team
 	var/list/faction = list("spiders")
 	// Whether or not a ghost can use the cluster to become a spider.
 	var/ghost_ready = FALSE
 	var/grow_time = 60 // Grow time (in seconds because delta-time)
-	// The types of spiders the egg sac can produce.
+	// The types of spiders the egg sac can produce by default.
 	var/list/mob/living/potential_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/guard,
 								/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
 								/mob/living/simple_animal/hostile/poison/giant_spider/nurse,
 								/mob/living/simple_animal/hostile/poison/giant_spider/tarantula)
-	// The types of spiders the egg sac produces when we have enriched spawns left (laying spider ate a human)
-	var/list/mob/living/potential_enriched_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,
-							/mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
+	// The types of spiders the egg sac produces when we proc an enriched spawn
+	var/list/mob/living/potential_enriched_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/guard,
+								/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+								/mob/living/simple_animal/hostile/poison/giant_spider/nurse,
+								/mob/living/simple_animal/hostile/poison/giant_spider/tarantula,
+								/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,
+								/mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
 
 /obj/structure/spider/eggcluster/Initialize(mapload)
 	pixel_x = rand(3,-3)
@@ -80,6 +85,8 @@
 /obj/structure/spider/eggcluster/process(delta_time)
 	amount_grown += delta_time
 	if(amount_grown >= grow_time && !ghost_ready) // 1 minute to grow
+		if(enriched_spawns && prob(enriched_spawn_prob))
+			using_enriched_spawn = TRUE
 		notify_ghosts("[src] is ready to hatch!", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = POLL_IGNORE_SPIDER)
 		ghost_ready = TRUE
 		LAZYADD(GLOB.mob_spawners[name], src)
@@ -127,8 +134,7 @@
 	var/list/spider_list = list()
 	if(!spider_team) // We don't have a team, just make one up
 		spider_team = new()
-	if(enriched_spawns && !using_enriched_spawn && (prob(enriched_spawn_prob) || !spawns_remaining))
-		using_enriched_spawn = TRUE
+	if(using_enriched_spawn)
 		to_spawn = potential_enriched_spawns
 	else
 		to_spawn = potential_spawns
@@ -136,16 +142,21 @@
 		var/mob/living/simple_animal/spider = choice
 		spider_list[initial(spider.name)] = choice
 	var/chosen_spider = input("Spider Type", "Egg Cluster") as null|anything in spider_list
-	if(QDELETED(src) || QDELETED(user) || !chosen_spider || !(spawns_remaining || enriched_spawns))
-		using_enriched_spawn = FALSE
-		return FALSE
-	if(spider_list[chosen_spider] in potential_enriched_spawns)
-		enriched_spawns--
-	else
-		spawns_remaining--
+	//if spider chosen is not in the basic spawn list, it is special
+	//turn off enriched spawns so only one special spider per proc activation
 	if(using_enriched_spawn)
-		using_enriched_spawn = FALSE
-
+		if(!(spider_list[chosen_spider] in potential_spawns)) 
+			using_enriched_spawn = FALSE 
+	//Failsafe to prevent chosing special spider spawns after someone else has already chosen one
+	//Multiple players can be presented the dialogue box to choose enriched spawns at the same time
+	//and we don't wantthem choosing a special spider after the spawn has already been consumed
+	else if(!(spider_list[chosen_spider] in potential_spawns)) 
+		to_chat(user, "<span class='warning'>Special spawn already used by another player!</span>")
+		return FALSE
+	//And finally a catch-all for every other case where someone may have a dialogue box open that is invalidated. 
+	if(QDELETED(src) || QDELETED(user) || !chosen_spider || !spawns_remaining)
+		return FALSE
+	spawns_remaining--
 	// Setup our spooder
 	var/spider_to_spawn = spider_list[chosen_spider]
 	var/mob/living/simple_animal/hostile/poison/giant_spider/new_spider = new spider_to_spawn(get_turf(src))
@@ -155,7 +166,7 @@
 	spider_antag.set_spider_team(spider_team)
 
 	// Check to see if we need to delete ourselves
-	if(!enriched_spawns && !spawns_remaining)
+	if(!spawns_remaining)
 		qdel(src)
 	return TRUE
 

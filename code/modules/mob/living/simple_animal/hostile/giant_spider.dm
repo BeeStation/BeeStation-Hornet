@@ -57,6 +57,8 @@
 	var/mob/master // The spider's master, used by sentience
 	var/onweb_speed
 
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
 	do_footstep = TRUE
 	discovery_points = 1000
 	gold_core_spawnable = NO_SPAWN  //Spiders are introduced to the rounds through two types of antagonists 
@@ -157,7 +159,7 @@
 
 // Tarantulas are the balanced generalist of the spider family: Moderate stats all around.
 /mob/living/simple_animal/hostile/poison/giant_spider/tarantula
-	name = "Tarantula"
+	name = "tarantula"
 	obj_damage = 35
 	speed = 0.5
 	onweb_speed = 0
@@ -447,24 +449,18 @@
 // Ice spiders - for when you want a spider that really doesn't care about atmos
 /mob/living/simple_animal/hostile/poison/giant_spider/ice
 	name = "ice spider"
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 	maxbodytemp = 1500
 	poison_type = /datum/reagent/consumable/frostoil
 	color = rgb(114,228,250)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/ice
 	name = "ice nurse"
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 	maxbodytemp = 1500
 	poison_type = /datum/reagent/consumable/frostoil
 	color = rgb(114,228,250)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/ice
 	name = "ice hunter"
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 	maxbodytemp = 1500
 	poison_type = /datum/reagent/consumable/frostoil
 	color = rgb(114,228,250)
@@ -605,8 +601,9 @@
 				cluster = locate() in get_turf(spider)
 				if(!cluster || !isturf(spider.loc))
 					var/obj/structure/spider/eggcluster/new_cluster = new /obj/structure/spider/eggcluster(get_turf(spider))
-					if(spider.enriched_fed) // Add a special spider if the spider that made us ate a person instead of just a monkey
+					if(spider.enriched_fed) // Adds an extra spawn and the potential for an enriched spawn if feeding on high quality food
 						new_cluster.enriched_spawns++
+						new_cluster.spawns_remaining++
 						spider.enriched_fed--
 					else
 						spider.fed--
