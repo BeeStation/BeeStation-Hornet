@@ -24,6 +24,7 @@
 	var/goodie_count = 1
 	var/tampered = FALSE
 	var/original_name = "mail"
+	var/rigged = FALSE
 
 	var/static/list/generic_goodies = list(
 		/obj/item/stack/spacecash/c10										= 22, //the lamest chance to get item, what do you expect really?
@@ -139,7 +140,12 @@
 		if(!user.transferItemToLoc(W, src))
 			to_chat(user, "<span class='warning'>\The [W] is stuck to your hand, you cannot insert it into [src]!</span>")
 			return
-		to_chat(user, "<span class='notice'>You insert \the [W] into the mail package and re-seal it.</span>")
+		if(istype(W, /obj/item/assembly/mousetrap) && !rigged)
+			to_chat(user, "<span class='notice'>You rig the [src] to activate a grenade upon getting opened if one is inserted inside!</span>")
+			rigged = TRUE
+		else
+			to_chat(user, "<span class='notice'>You insert \the [W] into the mail package and re-seal it.</span>")
+			user.log_message("has inserted [W] into a mail package.", LOG_GAME)
 		icon_state = initial(icon_state)
 		tampered = FALSE
 		name = original_name
@@ -178,7 +184,21 @@
 	if(!do_after(user, 1.5 SECONDS, target = user))
 		return
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
-	if(contents.len)
+	if(rigged)
+		if(contents.len)
+			if(istype(contents[1], /obj/item/grenade))
+				var/obj/item/grenade/G = contents[1]
+				visible_message("<span class='warning'>As [user] opens [src], the mouse trap hidden inside springs to life and activates [G]!</span>",
+				"<span class='warning'>As you open [src] the mouse trap hidden inside springs to life and activates [G]!</span>")
+				G.preprime(user, msg = FALSE)
+				user.put_in_hands(G)
+				user.log_message("has opened a rigged mail package, activating [G]", LOG_ATTACK)
+			else
+				var/obj/item/assembly/mousetrap/trap = new(get_turf(user))
+				trap.armed = TRUE
+				to_chat(user, "<span class= notice'>As you open [src] a [trap] hidden inside snaps against your fingers!</span>")//Pranked
+				trap.triggered(user, user.get_active_hand())
+	else if(contents.len)
 		user.put_in_hands(contents[1])
 	playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	qdel(src)
@@ -239,8 +259,11 @@
 
 	return TRUE
 
+/obj/item/mail/proc/Forge()
+	junk_mail(TRUE)
+
 // Alternate setup, just complete garbage inside and anyone can open
-/obj/item/mail/proc/junk_mail()
+/obj/item/mail/proc/junk_mail(var/just_name = FALSE)
 
 	var/obj/junk = /obj/item/paper/fluff/junkmail_generic
 	var/special_name = FALSE
@@ -274,7 +297,8 @@
 		else
 			name = special_name ? junk_names[junk] : "[pick("important","critical","crucial","serious","vital")] [initial(name)]"
 	original_name = name
-	junk = new junk(src)
+	if(!just_name)
+		junk = new junk(src)
 	return TRUE
 
 /obj/item/mail/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)

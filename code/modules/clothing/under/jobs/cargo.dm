@@ -85,3 +85,8 @@
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+
+/obj/item/clothing/under/misc/mailman/syndicate
+	name = "odd mailman's jumpsuit"
+	desc = "<i>'Special delivery!'</i> This one allows you to create your own mail!"
+	actions_types = list(/datum/action/item_action/make_new_mail_package)

@@ -10,6 +10,11 @@
 	icon_state = "mailman_envirosuit"
 	item_state = "mailman_envirosuit"
 
+/obj/item/clothing/under/plasmaman/mailman/syndicate
+	name = "odd mailman plasma envirosuit"
+	desc = "<i>'Special hazardous delivery!'</i> This one allows you to create your own mail!"
+	actions_types = list(/datum/action/item_action/make_new_mail_package)
+
 /obj/item/clothing/under/plasmaman/mining
 	name = "mining plasma envirosuit"
 	desc = "An air-tight khaki suit designed for operations on lavaland by plasmamen."

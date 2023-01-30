@@ -788,3 +788,36 @@
 	target.layer = old_layer
 	target.plane = old_plane
 	current_button.appearance_cache = target.appearance
+
+/datum/action/item_action/make_new_mail_package
+	name = "Fabricate Mail Package"
+	icon_icon = 'icons/obj/bureaucracy.dmi'
+	button_icon_state = "mail_small"
+
+/datum/action/item_action/make_new_mail_package/Trigger()
+	if(IsAvailable())
+		var/obj/item/item_to_package = null
+		item_to_package = owner.get_active_held_item()
+		if(isnull(item_to_package))
+			item_to_package = owner.get_inactive_held_item()
+		if(isnull(item_to_package))
+			to_chat(owner, "<span class='warning'>You're not holding anything to wrap up!</span>")
+			return FALSE
+		if(item_to_package.w_class >= WEIGHT_CLASS_BULKY)
+			to_chat(owner,"<span class='warning'>[item_to_package] is too large to be packaged into mail!</span>")
+			return FALSE
+		to_chat(owner, "<span class='notice'>You start wrapping up [item_to_package] into a package.</span>")
+		if(!do_after(owner, 30, target=owner))
+			return FALSE
+		var/obj/item/mail/M = new(get_turf(owner))
+		if(!owner.transferItemToLoc(item_to_package, M))
+			to_chat(owner, "<span class='warning'>\The [item_to_package] is stuck to your hand, you cannot insert it into [src]!</span>")
+			qdel(M)
+			return FALSE
+		M.Forge()
+		M.rigged = TRUE
+		to_chat(owner, "<span class='notice'>You wrap up [item_to_package] into [M], rigging it to activate any grenade in the process!</span>")
+		owner.put_in_hands(M)
+		owner.log_message("created a mail package containing [item_to_package]", LOG_GAME)
+
+
