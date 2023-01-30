@@ -1,0 +1,6 @@
+author: Zytolg, RKz
+delete-after: true
+changes:
+  - rscadd: Lizard speech now has a variation on the use of X in normal conversation.
+      Things like "Xenomorph" will sound the same as before as it is phonetically
+      similiar, however uses of "x-ray" will become "ecks-ray".
