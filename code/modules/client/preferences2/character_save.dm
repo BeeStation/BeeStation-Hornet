@@ -469,6 +469,7 @@
 		pref_species = new /datum/species/human
 		save(usr.client, async = FALSE) // This entire proc is called a lot at roundstart, and we dont want to lag that
 
+	character.dna.features = features.Copy()
 	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE)
 	character.dna.features = features.Copy()
 
