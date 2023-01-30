@@ -129,7 +129,7 @@
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
 "au" = (
-/turf/open/openspace,
+/turf/open/transparent/openspace,
 /area/security)
 "aw" = (
 /turf/open/floor/plating,
@@ -173,7 +173,7 @@
 /area/space/nearstation)
 "aC" = (
 /obj/effect/spawner/structure/window/reinforced,
-/turf/open/openspace,
+/turf/open/transparent/openspace,
 /area/security)
 "aD" = (
 /obj/structure/cable{
@@ -320,7 +320,7 @@
 /area/engine/gravity_generator)
 "aX" = (
 /obj/machinery/gravity_generator/main/station,
-/turf/open/openspace,
+/turf/open/transparent/openspace,
 /area/security)
 "aY" = (
 /obj/machinery/light{
@@ -1401,7 +1401,7 @@
 	},
 /area/crew_quarters/dorms)
 "eC" = (
-/turf/open/openspace,
+/turf/open/transparent/openspace,
 /area/maintenance/department/bridge)
 "eD" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -1594,7 +1594,7 @@
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/captain)
 "qS" = (
-/turf/open/openspace,
+/turf/open/transparent/openspace,
 /area/shuttle/turbolift/shaft)
 "rr" = (
 /obj/structure/cable{
@@ -1671,7 +1671,7 @@
 	id = "turbolift_primary";
 	width = 5
 	},
-/turf/open/openspace,
+/turf/open/transparent/openspace,
 /area/shuttle/turbolift/shaft)
 "Bm" = (
 /obj/machinery/light{
@@ -1708,7 +1708,7 @@
 /turf/open/floor/plating,
 /area/shuttle/turbolift/shaft)
 "Ed" = (
-/turf/open/openspace,
+/turf/open/transparent/openspace,
 /area/construction)
 "Ej" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -1841,7 +1841,7 @@
 /obj/docking_port/stationary/turbolift{
 	id = "turbolift_primary"
 	},
-/turf/open/openspace,
+/turf/open/transparent/openspace,
 /area/shuttle/turbolift/shaft)
 "PD" = (
 /obj/structure/disposalpipe/segment,

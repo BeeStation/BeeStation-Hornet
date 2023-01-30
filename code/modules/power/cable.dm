@@ -600,7 +600,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		d2 = dirnew
 
 	var/d1 = 0
-	if(istype(T, /turf/open/openspace))
+	if(istype(T, /turf/open/transparent/openspace))
 		if(!(get_amount() >= 2))
 			to_chat(user, "<span class='warning'>You need at least 2 pieces of cable to wire between decks!</span>")
 			return

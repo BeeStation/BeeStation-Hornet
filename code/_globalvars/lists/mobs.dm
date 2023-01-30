@@ -11,7 +11,7 @@ GLOBAL_LIST_INIT(dangerous_turfs, typecacheof(list(
 	/turf/open/lava,
 	/turf/open/chasm,
 	/turf/open/space,
-	/turf/open/openspace)))
+	/turf/open/transparent/openspace)))
 
 
 //Since it didn't really belong in any other category, I'm putting this here
