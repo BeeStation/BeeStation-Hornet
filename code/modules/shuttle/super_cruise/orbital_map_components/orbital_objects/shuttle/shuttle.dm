@@ -93,7 +93,7 @@
 		port.jumpToNullSpace()
 	qdel(src)
 
-/datum/orbital_object/shuttle/process()
+/datum/orbital_object/shuttle/process(delta_time)
 	if(check_stuck())
 		return
 
@@ -143,7 +143,7 @@
 		return
 	//Process shuttle fuel consumption
 	if(shuttle_data && !cheating_autopilot)
-		shuttle_data.process_flight(thrust)
+		shuttle_data.process_flight(thrust, delta_time)
 		if(shuttle_data.is_stranded())
 			if(world.time > immunity_time)
 				strand_shuttle()
