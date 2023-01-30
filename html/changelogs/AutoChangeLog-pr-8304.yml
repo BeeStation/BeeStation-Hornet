@@ -1,7 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - tweak: medibots have more skins based on which first aid kit was used when it's
-      made. These currently have no speicla ability by its shape which means these
-      are just skins.
-  - imageadd: more medibot skins (advanced, rad, syndi, doctors roundstart kit)
