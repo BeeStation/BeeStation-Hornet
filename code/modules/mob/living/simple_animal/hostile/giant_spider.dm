@@ -138,6 +138,12 @@
 			addtimer(CALLBACK(src, .proc/do_action), 5 SECONDS)
 		return TRUE // We're idle, thus free to do stuff
 
+/mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_movement()
+	if(AIStatus == AI_IDLE)
+		var/obj/structure/spider/stickyweb/W = locate() in get_turf(src)
+		if(!W)
+			lay_web.Activate()
+
 /mob/living/simple_animal/hostile/poison/giant_spider/proc/do_action()
 	stop_automated_movement = FALSE
 	SSmove_manager.stop_looping(src)
@@ -229,10 +235,6 @@
 					//give up if we can't reach them after 10 seconds
 					addtimer(CALLBACK(src, .proc/GiveUp, C), 10 SECONDS)
 					return
-			//second, spin a sticky spiderweb on this tile
-			var/obj/structure/spider/stickyweb/W = locate() in get_turf(src)
-			if(!W)
-				lay_web.Activate()
 		else if(busy == MOVING_TO_TARGET)
 			if (heal_target && get_dist(src, heal_target) <= 1)
 				UnarmedAttack(heal_target)
@@ -310,29 +312,24 @@
 					addtimer(CALLBACK(src, .proc/GiveUp, C), 10 SECONDS)
 					return
 
-			//second, spin a sticky spiderweb on this tile
-			var/obj/structure/spider/stickyweb/W = locate() in get_turf(src)
-			if(!W)
-				lay_web.Activate()
+			//third, lay an egg cluster there if we can
+			if(fed || enriched_fed)
+				lay_eggs.Activate()
 			else
-				//third, lay an egg cluster there if we can
-				if(fed || enriched_fed)
-					lay_eggs.Activate()
-				else
-					//fourthly, cocoon any nearby items so those pesky pinkskins can't use them
-					for(var/obj/O in can_see)
+				//fourthly, cocoon any nearby items so those pesky pinkskins can't use them
+				for(var/obj/O in can_see)
 
-						if(O.anchored)
-							continue
+					if(O.anchored)
+						continue
 
-						if(isitem(O) || isstructure(O) || ismachinery(O))
-							cocoon_target = O
-							busy = MOVING_TO_TARGET
-							stop_automated_movement = TRUE
-							Goto(O, move_to_delay)
-							//give up if we can't reach them after 10 seconds
-							addtimer(CALLBACK(src, .proc/GiveUp, O), 10 SECONDS)
-							break
+					if(isitem(O) || isstructure(O) || ismachinery(O))
+						cocoon_target = O
+						busy = MOVING_TO_TARGET
+						stop_automated_movement = TRUE
+						Goto(O, move_to_delay)
+						//give up if we can't reach them after 10 seconds
+						addtimer(CALLBACK(src, .proc/GiveUp, O), 10 SECONDS)
+						break
 
 		else if(busy == MOVING_TO_TARGET)
 			if(cocoon_target && get_dist(src, cocoon_target) <= 1)
@@ -503,8 +500,7 @@
 		spider.visible_message("<span class='notice'>[spider] begins to secrete a sticky substance.</span>","<span class='notice'>You begin to lay a web.</span>")
 		spider.stop_automated_movement = TRUE
 		if(do_after(spider, 40 * spider.web_speed, target = target_turf))
-			if(spider.busy == SPINNING_WEB && spider.loc == target_turf)
-				new /obj/structure/spider/stickyweb(target_turf)
+			new /obj/structure/spider/stickyweb(target_turf)
 		spider.busy = SPIDER_IDLE
 		spider.stop_automated_movement = FALSE
 	else
