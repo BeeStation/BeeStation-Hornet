@@ -437,7 +437,7 @@
 	if(W.tool_behaviour == TOOL_WELDER && (user.a_intent != INTENT_HARM))
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(user == src)
-			to_chat(user, "<span class='warning'>You are unable to maneuver your [W] properly to repair yourself, seek assistance!</span>")
+			to_chat(user, "<span class='warning'>You are unable to maneuver [W] properly to repair yourself, seek assistance!</span>")
 			return
 		if (!getBruteLoss())
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
