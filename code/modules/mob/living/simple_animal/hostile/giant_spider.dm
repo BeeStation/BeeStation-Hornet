@@ -229,7 +229,7 @@ s
 					heal_target = C
 					busy = MOVING_TO_TARGET
 					Goto(C, move_to_delay)
-					addtimer(CALLBACK(src, .proc/GiveUp), 10 SECONDS) //to prevent infinite chases
+					addtimer(CALLBACK(src, .proc/GiveUp), 20 SECONDS) //to prevent infinite chases
 		if(heal_target && get_dist(src, heal_target) <= 1)
 			UnarmedAttack(heal_target)
 			if(heal_target.health >= heal_target.maxHealth)
@@ -280,13 +280,11 @@ s
 	QDEL_NULL(letmetalkpls)
 	return ..()
 
-// Broodmother AI Handling
-// Handles webbing and feeding.
-/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/handle_automated_action()
-	if(..())
-		var/list/can_see = view(10, src)
+//Handles Broodmother feeding and egglaying
+/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/handle_automated_movement()
+	if(AIStatus == AI_IDLE)
 		if(!busy)
-			//first, check for potential food nearby to cocoon
+			var/list/can_see = view(10, src)
 			for(var/mob/living/C in can_see)
 				if(istype(C, /mob/living/simple_animal/hostile/poison/giant_spider))
 					continue //Not interested in other spiders for food
@@ -294,36 +292,22 @@ s
 					cocoon_target = C
 					busy = MOVING_TO_TARGET
 					Goto(C, move_to_delay)
-					//give up if we can't reach them after 10 seconds
-					addtimer(CALLBACK(src, .proc/GiveUp, C), 10 SECONDS)
-					return
-
-			//third, lay an egg cluster there if we can
-			if(fed || enriched_fed)
-				lay_eggs.Activate()
-			else
-				//fourthly, cocoon any nearby items so those pesky pinkskins can't use them
+					addtimer(CALLBACK(src, .proc/GiveUp, C), 20 SECONDS)
+			if(!cocoon_target) //No need to search for objects to wrap if we have found food
 				for(var/obj/O in can_see)
-
 					if(O.anchored)
-						continue
-
+						continue //Can't wrap anchored objects
 					if(isitem(O) || isstructure(O) || ismachinery(O))
 						cocoon_target = O
 						busy = MOVING_TO_TARGET
-						stop_automated_movement = TRUE
 						Goto(O, move_to_delay)
-						//give up if we can't reach them after 10 seconds
-						addtimer(CALLBACK(src, .proc/GiveUp, O), 10 SECONDS)
-						break
-
-		else if(busy == MOVING_TO_TARGET)
-			if(cocoon_target && get_dist(src, cocoon_target) <= 1)
-				cocoon()
-
-	else
-		busy = SPIDER_IDLE
-		stop_automated_movement = FALSE
+						addtimer(CALLBACK(src, .proc/GiveUp, O), 20 SECONDS)
+		if(cocoon_target && get_dist(src, cocoon_target) <= 1)
+			cocoon()
+			GiveUp()
+		if(prob(100) && lay_eggs.IsAvailable()) //so eggs aren't always placed directly on the corpse
+			lay_eggs.Activate()
+	..()
 
 // Handles cocooning items
 /mob/living/simple_animal/hostile/poison/giant_spider/broodmother/proc/cocoon()
