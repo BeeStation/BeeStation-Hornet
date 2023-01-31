@@ -13,13 +13,14 @@ $say: #bdcce6;
 $radio: #1ecc43;
 $me: #5975da;
 $ooc: #cca300;
+$looc: #fafa3b;
 
 ////////////////////////////////////////////////
 // Subchannel chat colors
 $ai: #d65d95;
-$binary: #1e90ff;
+$binary: #1eff44;
 $centcom: #2681a5;
-$command: #fcdf03;
+$command: #1403fc;
 $engi: #f37746;
 $exploration: #5bd4a6;
 $hive: #855d85;
@@ -36,6 +37,7 @@ $_channel_map: (
   'radio': $radio,
   'me': $me,
   'ooc': $ooc,
+  'looc': $looc,
 
   'ai': $ai,
   'binary': $binary,

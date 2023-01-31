@@ -42,6 +42,7 @@
 	var/me = use_tgui_say ? tgui_say_create_open_command(ME_CHANNEL) : "\".winset \\\"command=\\\".start_typing me\\\";command=.init_me;mewindow.is-visible=true;mewindow.input.focus=true\\\"\""
 	var/radio = use_tgui_say ? tgui_say_create_open_command(RADIO_CHANNEL) : null
 	var/ooc = use_tgui_say ? tgui_say_create_open_command(OOC_CHANNEL) : "ooc"
+	var/looc = use_tgui_say ? tgui_say_create_open_command(LOOC_CHANNEL) : null
 	for(var/i in 1 to macro_sets.len)
 		var/setname = macro_sets[i]
 		if(setname != "default")
@@ -56,6 +57,8 @@
 		if(radio)
 			winset(src, "[setname]-radio", "parent=[setname];name=Y;command=[radio]")
 		winset(src, "[setname]-ooc", "parent=[setname];name=O;command=[ooc]")
+		if(looc)
+			winset(src, "[setname]-looc", "parent=[setname];name=U;command=[looc]")
 
 
 	if(prefs.toggles2 & PREFTOGGLE_2_HOTKEYS)
