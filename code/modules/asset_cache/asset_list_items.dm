@@ -466,12 +466,12 @@
 		"mech.png" = 'html/img/mech.png',
 		"scitool.png" = 'html/img/scitool.png',
 		"alienorgan.png"= 'html/img/alienorgan.png',
-		"spider.png"= 'html/img/spider.png',
-		"midwife.png"= 'html/img/midwife.png',
-		"nurse.png"= 'html/img/nurse.png',
-		"hunter.png"= 'html/img/hunter.png',
-		"viper.png"= 'html/img/viper.png',
-		"tarantula.png"= 'html/img/tarantula.png'
+		"spiderguard.png"= 'html/img/spiderguard.png',
+		"spiderbroodmother.png"= 'html/img/spiderbroodmother.png',
+		"spidernurse.png"= 'html/img/spidernurse.png',
+		"spiderhunter.png"= 'html/img/spiderhunter.png',
+		"spiderviper.png"= 'html/img/spiderviper.png',
+		"spidertarantula.png"= 'html/img/spidertarantula.png'
 	)
 
 /datum/asset/simple/orbit
