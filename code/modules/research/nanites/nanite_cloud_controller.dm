@@ -5,6 +5,7 @@
 	icon_state = "nanite_cloud_controller"
 	circuit = /obj/item/circuitboard/computer/nanite_cloud_controller
 
+	req_access = list(ACCESS_RESEARCH)
 
 
 	var/obj/item/disk/nanite_program/disk
@@ -66,6 +67,10 @@
 	return GLOB.default_state
 
 /obj/machinery/computer/nanite_cloud_controller/ui_interact(mob/user, datum/tgui/ui)
+	if(!allowed(user))
+		to_chat(user, "<span class='warning'>Missing required access!</span>")
+		return
+	..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "NaniteCloudControl")
@@ -256,3 +261,8 @@
 	storage.cloud_backups -= src
 	SSnanites.cloud_backups -= src
 	return ..()
+
+/obj/machinery/computer/nanite_cloud_controller/on_emag(mob/user)
+	..()
+	req_access = list()
+	to_chat(user, "<span class='warning'>You bypass [src]'s access requirements.</span>")
