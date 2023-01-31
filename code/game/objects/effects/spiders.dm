@@ -142,19 +142,19 @@
 		var/mob/living/simple_animal/spider = choice
 		spider_list[initial(spider.name)] = choice
 	var/chosen_spider = input("Spider Type", "Egg Cluster") as null|anything in spider_list
+	//Player does not get to spawn if the eggs were destroyed or consumed, and we also want to return if no choice was made.
+	if(QDELETED(src) || QDELETED(user) || !chosen_spider || !spawns_remaining)
+		return FALSE
 	//if spider chosen is not in the basic spawn list, it is special
 	//turn off enriched spawns so only one special spider per proc activation
 	if(using_enriched_spawn)
 		if(!(spider_list[chosen_spider] in potential_spawns)) 
-			using_enriched_spawn = FALSE 
+			using_enriched_spawn = FALSE
 	//Failsafe to prevent chosing special spider spawns after someone else has already chosen one
 	//Multiple players can be presented the dialogue box to choose enriched spawns at the same time
-	//and we don't wantthem choosing a special spider after the spawn has already been consumed
+	//and we don't want them choosing a special spider after the spawn has already been consumed
 	else if(!(spider_list[chosen_spider] in potential_spawns)) 
 		to_chat(user, "<span class='warning'>Special spawn already used by another player!</span>")
-		return FALSE
-	//And finally a catch-all for every other case where someone may have a dialogue box open that is invalidated. 
-	if(QDELETED(src) || QDELETED(user) || !chosen_spider || !spawns_remaining)
 		return FALSE
 	spawns_remaining--
 	// Setup our spooder
