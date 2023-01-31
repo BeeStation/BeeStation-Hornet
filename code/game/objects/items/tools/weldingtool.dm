@@ -331,6 +331,12 @@
 	max_fuel = 40
 	materials = list(/datum/material/glass=60)
 
+/obj/item/weldingtool/mini/cyborg
+	name = "integrated welding tool"
+	desc = "A miniature welder designed to be used in robotic systems. This model does not hold very much fuel"
+	icon = 'icons/obj/items_cyborg.dmi'
+	icon_state = "indwelder_cyborg"
+
 /obj/item/weldingtool/cyborg/cyborg_unequip(mob/user)
 	if(!isOn())
 		return
