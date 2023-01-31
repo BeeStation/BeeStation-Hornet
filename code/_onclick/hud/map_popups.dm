@@ -29,7 +29,7 @@
 /atom/movable/screen/map_view
 	// Map view has to be on the lowest plane to enable proper lighting
 	layer = GAME_PLANE
-	plane = GAME_PLANE
+	plane = LOWEST_EVER_PLANE
 
 /**
  * A generic background object.
