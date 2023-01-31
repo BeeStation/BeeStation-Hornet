@@ -37,6 +37,7 @@
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_MULTIPLY
 	alpha = 255
+
 /atom/movable/screen/plane_master/openspace
 	name = "open space plane master"
 	plane = OPENSPACE_PLANE
@@ -53,7 +54,6 @@
 	name = "transparent plane master"
 	plane = TRANSPARENT_FLOOR_PLANE
 	appearance_flags = PLANE_MASTER
-	render_relay_plane = RENDER_PLANE_GAME
 
 ///Contains just the floor
 /atom/movable/screen/plane_master/floor

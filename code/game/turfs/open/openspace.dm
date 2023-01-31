@@ -1,35 +1,31 @@
 GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdrop, new)
 
 /atom/movable/openspace_backdrop
-	name			= "openspace_backdrop"
+	name = "openspace_backdrop"
 
-	anchored		= TRUE
+	anchored = TRUE
 
-	icon            = 'icons/turf/floors.dmi'
-	icon_state      = "grey"
-	plane           = OPENSPACE_BACKDROP_PLANE
-	mouse_opacity 	= MOUSE_OPACITY_TRANSPARENT
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "grey"
+	plane = OPENSPACE_BACKDROP_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	vis_flags = VIS_INHERIT_ID
-	//I don't know why the others are aligned but I shall do the same.
-	vis_flags		= VIS_INHERIT_ID
 
 /turf/open/openspace
 	name = "open space"
 	desc = "Watch your step!"
-	icon_state = "transparent"
+	icon_state = "invisible"
 	baseturfs = /turf/open/openspace
 	CanAtmosPassVertical = ATMOS_PASS_YES
-	baseturfs = /turf/open/openspace
 	intact = FALSE //this means wires go on top
 	allow_z_travel = TRUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	var/can_cover_up = TRUE
+	var/can_build_on = TRUE
 
 	FASTDMM_PROP(\
 		pipe_astar_cost = 100\
 	)
-
-	//mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	var/can_cover_up = TRUE
-	var/can_build_on = TRUE
 
 	intact = 0
 /turf/open/openspace/airless
@@ -37,19 +33,12 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 
 /turf/open/openspace/Initialize(mapload) // handle plane and layer here so that they don't cover other obs/turfs in Dream Maker
 	. = ..()
-	plane = OPENSPACE_PLANE
-	layer = OPENSPACE_LAYER
-
 	overlays += GLOB.openspace_backdrop_one_for_all //Special grey square for projecting backdrop darkness filter on it.
-
 	return INITIALIZE_HINT_LATELOAD
 
 /turf/open/openspace/LateInitialize()
+	. = ..()
 	AddElement(/datum/element/turf_z_transparency, is_openspace = TRUE)
-
-/turf/open/openspace/Destroy()
-	vis_contents.len = 0
-	return ..()
 
 /turf/open/openspace/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))
@@ -67,13 +56,13 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 
 /turf/open/openspace/zPassIn(atom/movable/A, direction, turf/source)
 	if(direction == DOWN)
-		for(var/obj/O in contents)
-			if(O.obj_flags & BLOCK_Z_IN_DOWN)
+		for(var/obj/contained_object in contents)
+			if(contained_object.obj_flags & BLOCK_Z_IN_DOWN)
 				return FALSE
 		return TRUE
 	if(direction == UP)
-		for(var/obj/O in contents)
-			if(O.obj_flags & BLOCK_Z_IN_UP)
+		for(var/obj/contained_object in contents)
+			if(contained_object.obj_flags & BLOCK_Z_IN_UP)
 				return FALSE
 		return TRUE
 	return FALSE
@@ -85,13 +74,13 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	if(A.anchored)
 		return FALSE
 	if(direction == DOWN)
-		for(var/obj/O in contents)
-			if(O.obj_flags & BLOCK_Z_OUT_DOWN)
+		for(var/obj/contained_object in contents)
+			if(contained_object.obj_flags & BLOCK_Z_OUT_DOWN)
 				return FALSE
 		return TRUE
 	if(direction == UP)
-		for(var/obj/O in contents)
-			if(O.obj_flags & BLOCK_Z_OUT_UP)
+		for(var/obj/contained_object in contents)
+			if(contained_object.obj_flags & BLOCK_Z_OUT_UP)
 				return FALSE
 		return TRUE
 	return FALSE
