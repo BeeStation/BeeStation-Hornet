@@ -2026,6 +2026,7 @@
 #include "code\modules\client\preferences2\character_save.dm"
 #include "code\modules\client\preferences2\preferences2.dm"
 #include "code\modules\client\verbs\etips.dm"
+#include "code\modules\client\verbs\input_box.dm"
 #include "code\modules\client\verbs\looc.dm"
 #include "code\modules\client\verbs\ooc.dm"
 #include "code\modules\client\verbs\ping.dm"

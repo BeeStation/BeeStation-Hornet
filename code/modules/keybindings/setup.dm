@@ -37,10 +37,11 @@
 	erase_all_macros()
 
 	var/list/macro_sets = SSinput.macro_sets
-	var/say = tgui_say_create_open_command(SAY_CHANNEL)
-	var/me = tgui_say_create_open_command(ME_CHANNEL)
-	var/radio = tgui_say_create_open_command(RADIO_CHANNEL)
-	var/ooc = tgui_say_create_open_command(OOC_CHANNEL)
+	var/use_tgui_say = !prefs || (prefs.toggles2 & PREFTOGGLE_2_TGUI_SAY)
+	var/say = use_tgui_say ? tgui_say_create_open_command(SAY_CHANNEL) : "\".winset \\\"command=\\\".start_typing say\\\";command=.init_say;saywindow.is-visible=true;saywindow.input.focus=true\\\"\""
+	var/me = use_tgui_say ? tgui_say_create_open_command(ME_CHANNEL) : "\".winset \\\"command=\\\".start_typing me\\\";command=.init_me;mewindow.is-visible=true;mewindow.input.focus=true\\\"\""
+	var/radio = use_tgui_say ? tgui_say_create_open_command(RADIO_CHANNEL) : null
+	var/ooc = use_tgui_say ? tgui_say_create_open_command(OOC_CHANNEL) : "ooc"
 	for(var/i in 1 to macro_sets.len)
 		var/setname = macro_sets[i]
 		if(setname != "default")
@@ -52,7 +53,8 @@
 			winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[command]")
 		winset(src, "[setname]-say", "parent=[setname];name=T;command=[say]")
 		winset(src, "[setname]-me", "parent=[setname];name=M;command=[me]")
-		winset(src, "[setname]-radio", "parent=[setname];name=Y;command=[radio]")
+		if(radio)
+			winset(src, "[setname]-radio", "parent=[setname];name=Y;command=[radio]")
 		winset(src, "[setname]-ooc", "parent=[setname];name=O;command=[ooc]")
 
 

@@ -9,7 +9,7 @@ $lightHover: #eaeaea;
 
 ////////////////////////////////////////////////
 // Normal chat colors
-$say: #e8f1ff;
+$say: #bdcce6;
 $radio: #1ecc43;
 $me: #5975da;
 $ooc: #cca300;
@@ -29,6 +29,7 @@ $security: #dd3535;
 $syndicate: #8f4a4b;
 $service: #6ca729;
 $supply: #b88646;
+$uplink: #830a0a;
 
 $_channel_map: (
   'say': $say,
@@ -49,6 +50,7 @@ $_channel_map: (
   'syndicate': $syndicate,
   'service': $service,
   'supply': $supply,
+  'uplink': $uplink,
 );
 
 $channel_keys: map.keys($_channel_map) !default;

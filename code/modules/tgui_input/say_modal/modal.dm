@@ -64,7 +64,7 @@
 	window_open = FALSE
 	winshow(client, "tgui_say", FALSE)
 	window.send_message("props", list(
-		lightMode = FALSE,
+		lightMode = (client?.prefs?.toggles2 & PREFTOGGLE_2_SAY_LIGHT_THEME),
 		maxLength = max_length,
 	))
 	stop_thinking()

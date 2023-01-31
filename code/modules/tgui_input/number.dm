@@ -25,15 +25,47 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	//if(!user.client.prefs.read_preference(/datum/preference/toggle/tgui_input))
-	//	var/input_number = input(user, message, title, default) as null|num
-	//	return clamp(round_value ? round(input_number) : input_number, min_value, max_value)
+	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
+		var/input_number = input(user, message, title, default) as null|num
+		return clamp(round_value ? round(input_number) : input_number, min_value, max_value)
 	var/datum/tgui_input_number/number_input = new(user, message, title, default, max_value, min_value, timeout, round_value)
 	number_input.ui_interact(user)
 	number_input.wait()
 	if (number_input)
 		. = number_input.entry
 		qdel(number_input)
+
+/**
+ * Creates an asynchronous TGUI number input window with an associated callback.
+ *
+ * This proc should be used to create number inputs that invoke a callback with the user's entry.
+ *
+ * Arguments:
+ * * user - The user to show the number input to.
+ * * message - The content of the number input, shown in the body of the TGUI window.
+ * * title - The title of the number input modal, shown on the top of the TGUI window.
+ * * default - The default (or current) value, shown as a placeholder. Users can press refresh with this.
+ * * max_value - Specifies a maximum value. If none is set, any number can be entered. Pressing "max" defaults to 1000.
+ * * min_value - Specifies a minimum value. Often 0.
+ * * callback - The callback to be invoked when a choice is made.
+ * * timeout - The timeout of the number input, after which the modal will close and qdel itself. Set to zero for no timeout.
+ * * round_value - whether the inputted number is rounded down into an integer.
+ */
+/proc/tgui_input_number_async(mob/user, message, title = "Number Input", default = 0, max_value = 10000, min_value = 0, datum/callback/callback, timeout = 60 SECONDS, round_value = TRUE)
+	if (!user)
+		user = usr
+	if (!istype(user))
+		if (istype(user, /client))
+			var/client/client = user
+			user = client.mob
+		else
+			return
+	// Client does NOT have tgui_input on: Returns regular input
+	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
+		var/input_number = input(user, message, title, default) as null|num
+		return clamp(round_value ? round(input_number) : input_number, min_value, max_value)
+	var/datum/tgui_input_number/async/number_input = new(user, message, title, default, max_value, min_value, callback, timeout, round_value)
+	number_input.ui_interact(user)
 
 /**
  * # tgui_input_number
@@ -54,14 +86,15 @@
 	var/message
 	/// The minimum value that can be entered.
 	var/min_value
-	/// Whether the submitted number is rounded down into an integer.
-	var/round_value
 	/// The time at which the number input was created, for displaying timeout progress.
 	var/start_time
 	/// The lifespan of the number input, after which the window will close and delete itself.
 	var/timeout
 	/// The title of the TGUI window
 	var/title
+	/// Whether the submitted number is rounded down into an integer.
+	var/round_value
+
 
 /datum/tgui_input_number/New(mob/user, message, title, default, max_value, min_value, timeout, round_value)
 	src.default = default
@@ -87,7 +120,7 @@
 
 /datum/tgui_input_number/Destroy(force, ...)
 	SStgui.close_uis(src)
-	return ..()
+	. = ..()
 
 /**
  * Waits for a user's response to the tgui_input_number's prompt before returning. Returns early if
@@ -110,22 +143,22 @@
 /datum/tgui_input_number/ui_state(mob/user)
 	return GLOB.always_state
 
-/datum/tgui_input_number/ui_static_data(mob/user)
-	var/list/data = list()
-	data["init_value"] = default // Default is a reserved keyword
-	data["large_buttons"] = TRUE//user.client.prefs.read_preference(/datum/preference/toggle/tgui_input_large)
-	data["max_value"] = max_value
-	data["message"] = message
-	data["min_value"] = min_value
-	data["swapped_buttons"] = TRUE//user.client.prefs.read_preference(/datum/preference/toggle/tgui_input_swapped)
-	data["title"] = title
-	return data
-
 /datum/tgui_input_number/ui_data(mob/user)
-	var/list/data = list()
+	. = list()
+	.["init_value"] = default // Default is a reserved keyword
+	.["max_value"] = max_value
+	.["message"] = message
+	.["min_value"] = min_value
+	.["preferences"] = list()
+	if(!user.client || !user.client.prefs)
+		.["preferences"]["large_buttons"] = TRUE
+		.["preferences"]["swapped_buttons"] = TRUE
+	else
+		.["preferences"]["large_buttons"] = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_BIG_BUTTONS)
+		.["preferences"]["swapped_buttons"] = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_SWITCHED_BUTTONS)
+	.["title"] = title
 	if(timeout)
-		data["timeout"] = CLAMP01((timeout - (world.time - start_time) - 1 SECONDS) / (timeout - 1 SECONDS))
-	return data
+		.["timeout"] = CLAMP01((timeout - (world.time - start_time) - 1 SECONDS) / (timeout - 1 SECONDS))
 
 /datum/tgui_input_number/ui_act(action, list/params)
 	. = ..()
@@ -151,3 +184,28 @@
 
 /datum/tgui_input_number/proc/set_entry(entry)
 	src.entry = entry
+
+/**
+ * # async tgui_input_number
+ *
+ * An asynchronous version of tgui_input_number to be used with callbacks instead of waiting on user responses.
+ */
+/datum/tgui_input_number/async
+	/// The callback to be invoked by the tgui_input_number upon having a choice made.
+	var/datum/callback/callback
+
+/datum/tgui_input_number/async/New(mob/user, message, title, default, max_value, min_value, callback, timeout)
+	..(user, message, title, default, max_value, min_value, timeout)
+	src.callback = callback
+
+/datum/tgui_input_number/async/Destroy(force, ...)
+	QDEL_NULL(callback)
+	. = ..()
+
+/datum/tgui_input_number/async/set_entry(entry)
+	. = ..()
+	if(!isnull(src.entry))
+		callback?.InvokeAsync(src.entry)
+
+/datum/tgui_input_number/async/wait()
+	return
