@@ -796,6 +796,9 @@
 
 /datum/dynamic_ruleset/midround/from_ghosts/morph/execute()
 	if(!length(GLOB.xeno_spawn))
+		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations.")
+		return FALSE
+	. = ..()
 
 /datum/dynamic_ruleset/midround/from_ghosts/morph/generate_ruleset_body(mob/applicant)
 	var/datum/mind/player_mind = new /datum/mind(applicant.key)
