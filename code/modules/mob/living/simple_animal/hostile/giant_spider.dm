@@ -123,7 +123,7 @@
 	var/turf/T = get_turf(src)
 	if(locate(/obj/structure/spider/stickyweb) in T)
 		set_varspeed(onweb_speed)
-		move_to_delay = onweb_speed
+		move_to_delay = max(2, initial(move_to_delay)-1) //Clamps AI at a maximum speed equivalent to that of vipers
 	else
 		set_varspeed(initial(speed))
 		move_to_delay = initial(move_to_delay)
