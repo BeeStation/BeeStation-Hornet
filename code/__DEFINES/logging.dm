@@ -16,7 +16,6 @@
 #define INVESTIGATE_NANITES			"nanites"
 #define INVESTIGATE_PRESENTS		"presents"
 #define INVESTIGATE_ITEMS			"items"
-#define INVESTIGATE_AIRLOCKS		"airlocks"
 
 #define INVESTIGATE_VERB_PICKEDUP	"picked up"
 #define INVESTIGATE_VERB_DROPPED	"dropped"

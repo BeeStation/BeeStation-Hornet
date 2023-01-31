@@ -1112,8 +1112,7 @@
 				welded = !welded
 				user.visible_message("[user.name] has [welded? "welded shut":"unwelded"] [src].", \
 									"<span class='notice'>You [welded ? "weld the airlock shut":"unweld the airlock"].</span>")
-				investigate_log("[key_name(user)] has [welded? "welded shut":"unwelded"] [src] which is located at [AREACOORD(src)].", INVESTIGATE_AIRLOCKS)
-				message_admins("[key_name_admin(user)] has [welded? "welded shut":"unwelded"] [src] which is located at [AREACOORD(src)].")
+				log_combat(user, src, welded? "welded shut":"unwelded")
 				update_icon()
 		else
 			if(obj_integrity < max_integrity)
