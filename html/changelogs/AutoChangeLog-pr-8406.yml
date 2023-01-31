@@ -1,0 +1,4 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - code_imp: timers are put in the closest future bucket, as a precaution
