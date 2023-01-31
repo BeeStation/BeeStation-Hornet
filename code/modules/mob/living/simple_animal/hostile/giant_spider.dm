@@ -305,7 +305,7 @@ s
 		if(cocoon_target && get_dist(src, cocoon_target) <= 1)
 			cocoon()
 			GiveUp()
-		if(prob(100) && lay_eggs.IsAvailable()) //so eggs aren't always placed directly on the corpse
+		if(prob(10) && lay_eggs.IsAvailable()) //so eggs aren't always placed directly by the corpse
 			lay_eggs.Activate()
 	..()
 
