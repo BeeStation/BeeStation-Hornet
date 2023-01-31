@@ -1,5 +1,0 @@
-author: Bobbanz1
-delete-after: true
-changes:
-  - bugfix: Fixed an issue that was being caused by custom say that was clashing with
-      roleplaying by changing the trigger letter to |
