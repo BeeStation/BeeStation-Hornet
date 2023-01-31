@@ -769,12 +769,10 @@ What a mess.*/
 							active1.fields["fingerprint"] = t1
 					if("gender")
 						if(istype(active1, /datum/data/record))
-							if(active1.fields["gender"] == "Male")
-								active1.fields["gender"] = "Female"
-							else if(active1.fields["gender"] == "Female")
-								active1.fields["gender"] = "Other"
-							else
-								active1.fields["gender"] = "Male"
+							var/t1 = input(usr, "Select gender", "Secure. records", active1.fields["gender"]) as null|anything in list(MALE, FEMALE, PLURAL)
+							if(!canUseSecurityRecordsConsole(usr, t1, a1))
+								return
+							active1.fields["gender"] = capitalize(t1)
 					if("age")
 						if(istype(active1, /datum/data/record))
 							var/t1 = input("Please input age:", "Secure. records", active1.fields["age"], null) as num

@@ -274,12 +274,10 @@
 							src.active1.fields["fingerprint"] = t1
 					if("gender")
 						if(active1)
-							if(src.active1.fields["gender"] == "Male")
-								src.active1.fields["gender"] = "Female"
-							else if(src.active1.fields["gender"] == "Female")
-								src.active1.fields["gender"] = "Other"
-							else
-								src.active1.fields["gender"] = "Male"
+							var/t1 = input(usr, "Select gender", "Med. records", src.active1.fields["gender"]) as null|anything in list(MALE, FEMALE, PLURAL)
+							if(!canUseMedicalRecordsConsole(usr, t1, a1))
+								return
+							src.active1.fields["gender"] = capitalize(t1)
 					if("age")
 						if(active1)
 							var/t1 = input("Please input age:", "Med. records", src.active1.fields["age"], null)  as num
@@ -536,7 +534,7 @@
 			if(prob(10/severity))
 				switch(rand(1,6))
 					if(1)
-						R.fields["name"] = random_unique_name(R.fields["gender"],1, TRUE)
+						R.fields["name"] = random_unique_name(R.fields["gender"],1)
 					if(2)
 						R.fields["gender"]	= pick("Male", "Female", "Other")
 					if(3)
