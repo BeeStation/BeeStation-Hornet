@@ -289,7 +289,7 @@
 	greyscale_colors = "#091544#e6c447#091544"
 
 /obj/item/clothing/head/helmet/space/plasmaman/mailman/syndicate
-	name = "odd mailman envirosuit helmet"
+	name = "counterfeit mailman envirosuit helmet"
 	desc = "<i>'Right-on-time'</i> mail plasmamen service head wear. This one allows you to freely open mail packages."
 
 /obj/item/clothing/head/helmet/space/plasmaman/mailman/syndicate/equipped(mob/user, slot)

@@ -87,6 +87,51 @@
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/under/misc/mailman/syndicate
-	name = "odd mailman's jumpsuit"
+	name = "counterfeit mailman's jumpsuit"
 	desc = "<i>'Special delivery!'</i> This one allows you to create your own mail!"
 	actions_types = list(/datum/action/item_action/make_new_mail_package)
+	var/tailored = FALSE
+
+/obj/item/clothing/under/misc/mailman/syndicate/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(I.tool_behaviour == TOOL_WIRECUTTER && !tailored)
+		to_chat(user,"<span class='notice'>You cut off the pants of [src], turning it into a jumpskirt!</span>")
+		var/obj/item/stack/sheet/cotton/cloth/C = new(get_turf(user))
+		C.amount = 1
+		user.put_in_hands(C)
+		tailored = TRUE
+		name = "counterfeit mailman's jumpskirt"
+		desc = "<i>'Special delivery!'</i> Beware of spacewind. This one allows you to create your own mail!"
+		icon_state = "mailman_skirt"
+		item_state = "b_suit"
+		body_parts_covered = CHEST|GROIN|ARMS
+		can_adjust = FALSE
+		fitted = FEMALE_UNIFORM_TOP
+		supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+		update_appearance()
+		user.update_inv_w_uniform()
+		return 1
+	if(istype(I, /obj/item/stack/sheet/cotton/cloth) && tailored)
+		var/obj/item/stack/sheet/cotton/cloth/C = I
+		C.use(1)
+		to_chat(user, "<span class='notice'>You sew back some cloth to [src], turning it into a jumpsuit!</span>")
+		tailored = FALSE
+		name = initial(name)
+		desc = initial(desc)
+		icon_state = initial(icon_state)
+		item_state = initial(item_state)
+		body_parts_covered = initial(body_parts_covered)
+		can_adjust = initial(can_adjust)
+		fitted = initial(fitted)
+		supports_variations = initial(supports_variations)
+		update_appearance()
+		user.update_inv_w_uniform()
+		return 1
+
+/obj/item/clothing/under/misc/mailman/syndicate/examine(mob/user)
+	. = ..()
+	if(tailored)
+		. += "\n<span class='notice'>It can be tailored with some cloth.</span>"
+	else
+		. += "\n<span class='notice'>It can be tailored with some scissors.</span>"
+

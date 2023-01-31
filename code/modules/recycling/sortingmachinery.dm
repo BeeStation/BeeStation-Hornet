@@ -191,7 +191,7 @@
 	desc = "Used to fool the disposal mail network into thinking that you're a harmless parcel. Does actually work as a regular destination tagger as well."
 
 /obj/item/dest_tagger/syndicate
-	name = "conterfeit destination tagger"
+	name = "hacked destination tagger"
 	desc = "Used to set the destination of properly wrapped packages. This one was tampered with to allow for self-wrapping and tagging."
 	var/uses = 2
 	var/max_uses = 4

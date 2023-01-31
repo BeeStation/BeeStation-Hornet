@@ -2300,7 +2300,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	restricted_roles = list(JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
 
 /datum/uplink_item/role_restricted/syndicate_dest_tagger
-	name = "Counterfeit Destination Tagger"
+	name = "Hacked Destination Tagger"
 	desc = "A reverse-engineered destination tagger that was outfitted with an internal wrapping paper compartment to allow for easy travelsal through the station's disposal system.\
 	Simply pick a destination and use the tagger on yourself. Arrival to the destination is not guaranteed in case of disposal system malfunction."
 	cost = 2
@@ -2308,14 +2308,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	restricted_roles = list(JOB_NAME_CARGOTECHNICIAN, JOB_NAME_QUARTERMASTER)
 
 /datum/uplink_item/role_restricted/syndicate_mailman_hat
-	name = "Odd Mailman Hat"
+	name = "Counterfeit Mailman Hat"
 	desc = "This piece of head apparel is fashioned with special nanotechnology which teaches the user how to open any mail package without ripping them apart while worn."
 	cost = 1
 	item = /obj/item/clothing/head/mailman/syndicate
 	restricted_roles = list(JOB_NAME_CARGOTECHNICIAN, JOB_NAME_QUARTERMASTER)
 
 /datum/uplink_item/role_restricted/syndicate_mailman_uniform
-	name = "Odd Mailman Uniform"
+	name = "Counterfeit Mailman Uniform"
 	desc = "This mailman uniform is fashioned with special nanotechnology which allows the user to create a mail package with the item they're \
 	holding in their hand as well as fabricating its appearance and name. Note : mail created this way will always trigger a grenade if one is hidden inside."
 	cost = 2
@@ -2323,14 +2323,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	restricted_roles = list(JOB_NAME_CARGOTECHNICIAN, JOB_NAME_QUARTERMASTER)
 
 /datum/uplink_item/role_restricted/syndicate_mailman_helmet
-	name = "Odd Mailman Envirosuit Helmet"
+	name = "Counterfeit Mailman Envirosuit Helmet"
 	desc = "This piece of plasmaman head apparel is fashioned with special nanotechnology which teaches the user how to open any mail package without ripping them apart while worn."
 	cost = 1
 	item = /obj/item/clothing/head/helmet/space/plasmaman/mailman/syndicate
 	restricted_roles = list(JOB_NAME_CARGOTECHNICIAN, JOB_NAME_QUARTERMASTER)
 
 /datum/uplink_item/role_restricted/syndicate_mailman_envirosuit
-	name = "Odd Mailman Plasma Envirosuit"
+	name = "Counterfeit Mailman Plasma Envirosuit"
 	desc = "This mailman plasma envirosuit is fashioned with special nanotechnology which allows the user to create a mail package with the item they're \
 	holding in their hand as well as fabricating its appearance and name. Note : mail created this way will always trigger a grenade if one is hidden inside."
 	cost = 2

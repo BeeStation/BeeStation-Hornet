@@ -41,7 +41,7 @@
 	desc = "<i>'Right-on-time'</i> mail service head wear."
 
 /obj/item/clothing/head/mailman/syndicate
-	name = "odd mailman's hat"
+	name = "counterfeit mailman's hat"
 	desc = "<i>'Right-on-time'</i> mail service head wear. This one allows you to freely open mail packages."
 
 /obj/item/clothing/head/mailman/syndicate/equipped(mob/user, slot)
