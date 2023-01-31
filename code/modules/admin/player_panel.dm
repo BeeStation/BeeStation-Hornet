@@ -315,4 +315,4 @@
 	I.Crop(24, 24, 32, 32)
 	// Scale it up
 	I.Scale(16, 16)
-	InsertAll("antag-hud", I)
+	InsertAll("", I)
