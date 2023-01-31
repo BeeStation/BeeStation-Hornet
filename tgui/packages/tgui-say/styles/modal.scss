@@ -12,6 +12,42 @@
 .modal-lightMode {
   @extend .modal;
   background-color: colors.$lightMode;
+  .top-border {
+    background-color: colors.$lightBorder;
+    top: 0px;
+    height: 2px;
+    left: 0px;
+    position: absolute;
+    right: 0px;
+    z-index: 999;
+  }
+  .left-border {
+    background-color: colors.$lightBorder;
+    top: 0px;
+    bottom: 0px;
+    width: 2px;
+    left: 0px;
+    position: absolute;
+    z-index: 1000;
+  }
+  .right-border {
+    background-color: colors.$lightBorder;
+    top: 0px;
+    bottom: 0px;
+    width: 2px;
+    right: 0px;
+    position: absolute;
+    z-index: 1000;
+  }
+  .bottom-border {
+    background-color: colors.$lightBorder;
+    bottom: 0px;
+    height: 2px;
+    left: 0px;
+    position: absolute;
+    right: 0px;
+    z-index: 999;
+  }
 }
 
 .modal__content {
@@ -46,7 +82,6 @@
       );
       background-attachment: fixed;
       top: 0px;
-      content: '';
       height: 2px;
       left: 0px;
       position: absolute;
@@ -57,7 +92,6 @@
       background-color: $color;
       top: 0px;
       bottom: 0px;
-      content: '';
       width: 2px;
       left: 0px;
       position: absolute;
@@ -67,7 +101,6 @@
       background-color: $color;
       top: 0px;
       bottom: 0px;
-      content: '';
       width: 2px;
       right: 0px;
       position: absolute;
@@ -82,7 +115,6 @@
       );
       background-attachment: fixed;
       bottom: 0px;
-      content: '';
       height: 2px;
       left: 0px;
       position: absolute;

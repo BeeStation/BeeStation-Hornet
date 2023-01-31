@@ -65,6 +65,9 @@ export class TguiSay extends Component<{}, State> {
           <TextArea
             className={getCss('textarea', theme)}
             dontUseTabForIndent
+            onmousedown={(e) => {
+              e.stopPropagation();
+            }}
             innerRef={innerRef}
             maxLength={maxLength}
             onEnter={onEnter}
