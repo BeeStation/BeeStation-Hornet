@@ -24,9 +24,9 @@
 	item_state = "sterile"
 	flags_1 = SAVE_SAFE_1
 	w_class = WEIGHT_CLASS_TINY
-	flags_inv = HIDEFACE
+	flags_inv = HIDEFACE|HIDESNOUT
 	flags_cover = MASKCOVERSMOUTH
-	visor_flags_inv = HIDEFACE
+	visor_flags_inv = HIDEFACE|HIDESNOUT
 	visor_flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.9
 	permeability_coefficient = 0.01
@@ -73,6 +73,7 @@
 	icon_state = "joy"
 	flags_1 = SAVE_SAFE_1
 	item_state = "joy"
+	flags_inv = HIDESNOUT
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 	actions_types = list(/datum/action/item_action/adjust)
@@ -106,7 +107,7 @@
 	icon_state = "pig"
 	item_state = "pig"
 	flags_1 = SAVE_SAFE_1
-	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	clothing_flags = VOICEBOX_TOGGLABLE
 	w_class = WEIGHT_CLASS_SMALL
 	modifies_speech = TRUE
@@ -134,7 +135,7 @@
 	icon_state = "frog"
 	item_state = "frog"
 	flags_1 = SAVE_SAFE_1
-	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	w_class = WEIGHT_CLASS_SMALL
 	clothing_flags = VOICEBOX_TOGGLABLE
 	modifies_speech = TRUE
@@ -166,7 +167,7 @@
 	item_state = "cowmask"
 	flags_1 = SAVE_SAFE_1
 	clothing_flags = VOICEBOX_TOGGLABLE
-	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	w_class = WEIGHT_CLASS_SMALL
 	modifies_speech = TRUE
 
@@ -192,7 +193,7 @@
 	icon_state = "horsehead"
 	item_state = "horsehead"
 	flags_1 = SAVE_SAFE_1
-	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDEEYES|HIDEEARS
+	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDEEYES|HIDEEARS|HIDESNOUT
 	w_class = WEIGHT_CLASS_SMALL
 	clothing_flags = VOICEBOX_TOGGLABLE
 	modifies_speech = TRUE
@@ -219,7 +220,7 @@
 	icon_state = "rat"
 	item_state = "rat"
 	flags_1 = SAVE_SAFE_1
-	flags_inv = HIDEFACE
+	flags_inv = HIDEFACE|HIDESNOUT
 	flags_cover = MASKCOVERSMOUTH
 
 /obj/item/clothing/mask/rat/fox
@@ -269,8 +270,8 @@
 	desc = "A fine bandana with nanotech lining and a hydroponics pattern."
 	w_class = WEIGHT_CLASS_TINY
 	flags_cover = MASKCOVERSMOUTH
-	flags_inv = HIDEFACE|HIDEFACIALHAIR
-	visor_flags_inv = HIDEFACE|HIDEFACIALHAIR
+	flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
+	visor_flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 	visor_flags_cover = MASKCOVERSMOUTH
 	slot_flags = ITEM_SLOT_MASK
 	adjusted_flags = ITEM_SLOT_HEAD
@@ -345,7 +346,7 @@
 	desc = "Ancient bandages."
 	icon_state = "mummy_mask"
 	item_state = "mummy_mask"
-	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/mask/scarecrow
@@ -353,7 +354,7 @@
 	desc = "A burlap sack with eyeholes."
 	icon_state = "scarecrow_sack"
 	item_state = "scarecrow_sack"
-	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/mask/gondola
@@ -361,7 +362,7 @@
 	desc = "Genuine gondola fur."
 	icon_state = "gondola"
 	item_state = "gondola"
-	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	w_class = WEIGHT_CLASS_SMALL
 	modifies_speech = TRUE
 	flags_1 = SAVE_SAFE_1

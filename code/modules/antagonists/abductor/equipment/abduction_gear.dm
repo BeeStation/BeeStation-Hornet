@@ -745,7 +745,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	item_state = "alienhelmet"
 	flash_protect = 1
 	blockTracking = TRUE
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	flags_1 = NONE
 
 // Operating Table / Beds / Lockers

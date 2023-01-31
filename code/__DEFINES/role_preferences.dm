@@ -46,6 +46,7 @@
 #define ROLE_HOLOPARASITE		"Holoparasite"
 #define ROLE_TERATOMA			"Teratoma"
 #define ROLE_EXPERIMENTAL_CLONE "Experimental Clone"
+#define ROLE_SPIDER				"Spider"
 #define ROLE_SWARMER			"Swarmer"
 #define ROLE_MORPH				"Morph"
 #define ROLE_NIGHTMARE			"Nightmare"
@@ -64,6 +65,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_MALF,
 	ROLE_REV = /datum/game_mode/revolution,
 	ROLE_ALIEN,
+	ROLE_SPIDER,
 	ROLE_PAI,
 	ROLE_CULTIST = /datum/game_mode/cult,
 	ROLE_SERVANT_OF_RATVAR = /datum/game_mode/clockcult,

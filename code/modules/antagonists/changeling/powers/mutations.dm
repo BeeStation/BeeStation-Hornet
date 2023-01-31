@@ -476,7 +476,7 @@
 	icon_state = "lingarmorhelmet"
 	item_flags = DROPDEL
 	armor = list("melee" = 40, "bullet" = 40, "laser" = 50, "energy" = 50, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 25, "acid" = 25, "stamina" = 30)
-	flags_inv = HIDEEARS|HIDEHAIR|HIDEEYES|HIDEFACIALHAIR|HIDEFACE
+	flags_inv = HIDEEARS|HIDEHAIR|HIDEEYES|HIDEFACIALHAIR|HIDEFACE|HIDESNOUT
 	flags_1 = NONE
 
 /obj/item/clothing/head/helmet/changeling/Initialize(mapload)

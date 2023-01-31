@@ -34,6 +34,10 @@
 	tastes = list("sweetness" = 2,"cake" = 5)
 	foodtype = GRAIN | DAIRY | SUGAR
 
+/obj/item/reagent_containers/food/snacks/cakeslice/plain/full
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/nutriment/vitamin = 1)
+
+
 /obj/item/reagent_containers/food/snacks/store/cake/carrot
 	name = "carrot cake"
 	desc = "A favorite desert of a certain wascally wabbit. Not a lie."

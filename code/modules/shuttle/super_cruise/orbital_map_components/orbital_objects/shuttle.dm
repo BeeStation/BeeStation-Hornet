@@ -70,7 +70,7 @@
 		port.jumpToNullSpace()
 	qdel(src)
 
-/datum/orbital_object/shuttle/process()
+/datum/orbital_object/shuttle/process(delta_time)
 	if(check_stuck())
 		return
 
@@ -99,7 +99,7 @@
 	var/thrust_amount = thrust * max_thrust / 100
 	var/thrust_x = cos(angle) * thrust_amount
 	var/thrust_y = sin(angle) * thrust_amount
-	accelerate_towards(new /datum/orbital_vector(thrust_x, thrust_y), ORBITAL_UPDATE_RATE_SECONDS)
+	accelerate_towards(new /datum/orbital_vector(thrust_x, thrust_y), ORBITAL_UPDATE_RATE_SECONDS * delta_time)
 	//Do gravity and movement
 	can_dock_with = null
 	. = ..()
