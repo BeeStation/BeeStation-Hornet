@@ -623,11 +623,12 @@
 
 /datum/action/innate/spider/set_directive/IsAvailable()
 	if(..())
-		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider))
+		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
 			return FALSE
 		var/mob/living/simple_animal/hostile/poison/giant_spider/S = owner
 		var/datum/antagonist/spider/spider_antag = S.mind?.has_antag_datum(/datum/antagonist/spider)
 		if(spider_antag?.spider_team.directive)
+			to_chat(owner, "<span class='notice'>You already have a directive from your own broodmother, you cannot change it!</span>")
 			return FALSE
 		return TRUE
 
