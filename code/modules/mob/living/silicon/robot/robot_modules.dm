@@ -672,6 +672,7 @@
 		/obj/item/gun/ballistic/revolver/grenadelauncher/cyborg,
 		/obj/item/card/emag,
 		/obj/item/borg/charger,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/crowbar/cyborg,
 		/obj/item/extinguisher/mini,
 		/obj/item/pinpointer/syndicate_cyborg)
@@ -699,6 +700,7 @@
 		/obj/item/healthanalyzer,
 		/obj/item/surgical_drapes,
 		/obj/item/borg/charger,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/retractor,
 		/obj/item/hemostat,
 		/obj/item/cautery,
