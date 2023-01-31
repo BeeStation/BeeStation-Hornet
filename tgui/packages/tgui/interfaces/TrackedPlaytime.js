@@ -1,6 +1,6 @@
 import { sortBy } from "common/collections";
-import { useBackend } from "../backend";
-import { Box, Flex, ProgressBar, Section, Table } from "../components";
+import { useBackend, useSharedState } from "../backend";
+import { Box, Flex, ProgressBar, Stack, Tabs, Section, Table } from "../components";
 import { Window } from "../layouts";
 
 const JOB_REPORT_MENU_FAIL_REASON_TRACKING_DISABLED = 1;
@@ -56,6 +56,11 @@ export const TrackedPlaytime = (props, context) => {
     livingTime,
     ghostTime,
   } = data;
+  const SCREEN_MODE_JOB = 1;
+  const SCREEN_MODE_ANTAG = 2;
+  const SCREEN_MODE_SPECIAL = 3;
+  const SCREEN_MODE_DEPRECATED = 4;
+  const [screenmode, setScreenmode] = useSharedState(context, 'tab_main', SCREEN_MODE_JOB);
   return (
     <Window
       title="Tracked Playtime"
@@ -77,18 +82,54 @@ export const TrackedPlaytime = (props, context) => {
                 }}
               />
             </Section>
-            <Section title="Jobs">
-              <PlaytimeSection playtimes={jobPlaytimes} />
-            </Section>
-            <Section title="Antagonists">
-              <PlaytimeSection playtimes={antagPlaytimes} />
-            </Section>
-            <Section title="Special">
-              <PlaytimeSection playtimes={specialPlaytimes} />
-            </Section>
-            <Section title="Deprecated roles">
-              <PlaytimeSection playtimes={outdatedPlaytimes} />
-            </Section>
+            <Stack fill vertical>
+              {(
+                <Stack.Item>
+                  <Tabs fluid textAlign="center">
+                    <Tabs.Tab
+                      color="Blue"
+                      selected={screenmode === SCREEN_MODE_JOB}
+                      onClick={() => setScreenmode(SCREEN_MODE_JOB)}>
+                      Station Job Roles
+                    </Tabs.Tab>
+                    <Tabs.Tab
+                      Color="Orange"
+                      selected={screenmode === SCREEN_MODE_ANTAG}
+                      onClick={() => setScreenmode(SCREEN_MODE_ANTAG)}>
+                      Antagonist Roles
+                    </Tabs.Tab>
+                    <Tabs.Tab
+                      Color="Green"
+                      selected={screenmode === SCREEN_MODE_SPECIAL}
+                      onClick={() => setScreenmode(SCREEN_MODE_SPECIAL)}>
+                      Special Roles
+                    </Tabs.Tab>
+                    <Tabs.Tab
+                      Color="Red"
+                      selected={screenmode === SCREEN_MODE_DEPRECATED}
+                      onClick={() => setScreenmode(SCREEN_MODE_DEPRECATED)}>
+                      Deprecated Roles
+                    </Tabs.Tab>
+                  </Tabs>
+                </Stack.Item>
+              )}
+            </Stack>
+            {screenmode === SCREEN_MODE_JOB && (
+              <Section title="Jobs">
+                <PlaytimeSection playtimes={jobPlaytimes} />
+              </Section>)}
+            {screenmode === SCREEN_MODE_ANTAG && (
+              <Section title="Antagonists">
+                <PlaytimeSection playtimes={antagPlaytimes} />
+              </Section>)}
+            {screenmode === SCREEN_MODE_SPECIAL && (
+              <Section title="Special">
+                <PlaytimeSection playtimes={specialPlaytimes} />
+              </Section>)}
+            {screenmode === SCREEN_MODE_DEPRECATED && (
+              <Section title="Deprecated roles">
+                <PlaytimeSection playtimes={outdatedPlaytimes} />
+              </Section>)}
           </Box>
         )}
       </Window.Content>
