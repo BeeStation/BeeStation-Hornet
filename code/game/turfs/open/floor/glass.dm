@@ -15,24 +15,10 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	floor_tile = /obj/item/stack/tile/glass
 
-/turf/open/floor/glass/Initialize()
+/turf/open/floor/glass/Initialize(mapload)
 	icon_state = "" //Prevent the normal icon from appearing behind the smooth overlays
 	..()
 	return INITIALIZE_HINT_LATELOAD
-
-/turf/open/floor/glass/Destroy()
-	. = ..()
-	RemoveElement(/datum/element/turf_z_transparency)
-	for(var/obj/object in src)
-		if(object.level == 1 && (object.flags_1 & INITIALIZED_1))
-			object.plane = initial(object.plane)
-
-/turf/open/floor/glass/levelupdate()
-	for(var/obj/object in src)
-		if(object.level == 1 && (object.flags_1 & INITIALIZED_1))
-			if(istype(object, /obj/machinery/atmospherics/components/unary/vent_pump) || istype(object, /obj/machinery/atmospherics/components/unary/vent_scrubber))
-				return
-			object.plane = PLANE_SPACE
 
 /turf/open/floor/glass/LateInitialize()
 	. = ..()
@@ -61,3 +47,4 @@
 	icon_state = "reinf_plasma_glass-0"
 	base_icon_state = "reinf_plasma_glass"
 	floor_tile = /obj/item/stack/tile/rglass/plasma
+	heat_capacity = INFINITY

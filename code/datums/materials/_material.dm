@@ -78,12 +78,6 @@ Simple datum which is instanced once per type and is used for every object of sa
 		T.AddElement(/datum/element/turf_z_transparency)
 	return
 
-
-/datum/material/proc/on_removed_turf(turf/T, amount, material_flags)
-	if(alpha < 255)
-		RemoveElement(/datum/element/turf_z_transparency)
-
-
 ///This proc is called when the material is removed from an object.
 /datum/material/proc/on_removed(atom/source, material_flags)
 	if(!(material_flags & MATERIAL_NO_COLOR)) //Prevent changing things with pre-set colors, to keep colored toolboxes their looks for example
@@ -117,6 +111,10 @@ Simple datum which is instanced once per type and is used for every object of sa
 			new_inhand_left = initial(item.greyscale_config_inhand_left),
 			new_inhand_right = initial(item.greyscale_config_inhand_right)
 		)
+
+/datum/material/proc/on_removed_turf(turf/T, amount, material_flags)
+	if(alpha < 255)
+		T.RemoveElement(/datum/element/turf_z_transparency)
 
 /datum/material/proc/get_greyscale_config_for(datum/greyscale_config/config_path)
 	if(!config_path)
