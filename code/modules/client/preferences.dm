@@ -1728,11 +1728,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							else
 								active_character.features["body_model"] = friendlyGenders[pickedGender]
 						active_character.gender = friendlyGenders[pickedGender]
-						active_character.underwear = random_underwear(active_character.gender)
-						active_character.undershirt = random_undershirt(active_character.gender)
-						active_character.socks = random_socks()
-						active_character.facial_hair_style = random_facial_hair_style(active_character.gender)
-						active_character.hair_style = random_hair_style(active_character.gender)
 				if("body_model")
 					active_character.features["body_model"] = active_character.features["body_model"] == MALE ? FEMALE : MALE
 				if("hotkeys")

@@ -128,12 +128,14 @@
 		else
 			return pick(GLOB.facial_hair_styles_list)
 
-/proc/random_unique_name(gender, attempts_to_find_unique_name=10)
+/proc/random_unique_name(gender, attempts_to_find_unique_name=10, neutral = FALSE)
 	for(var/i in 1 to attempts_to_find_unique_name)
-		if(gender==FEMALE)
+		if(gender==FEMALE && !neutral)
 			. = capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
-		else
+		else if(gender==MALE && !neutral)
 			. = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
+		else
+			. = capitalize(pick(GLOB.first_names)) + " " + capitalize(pick(GLOB.last_names))
 
 		if(!findname(.))
 			break

@@ -536,7 +536,7 @@
 			if(prob(10/severity))
 				switch(rand(1,6))
 					if(1)
-						R.fields["name"] = random_unique_name(R.fields["gender"],1)
+						R.fields["name"] = random_unique_name(R.fields["gender"],1, TRUE)
 					if(2)
 						R.fields["gender"]	= pick("Male", "Female", "Other")
 					if(3)

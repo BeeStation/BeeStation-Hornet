@@ -258,9 +258,7 @@
 		var/datum/species/spath = GLOB.species_list[pick(GLOB.roundstart_races)]
 		pref_species = new spath
 	features = random_features()
-	if(gender == MALE || gender != FEMALE)
-		features["body_model"] = gender
-	else if(gender == PLURAL)
+	if(gender)
 		features["body_model"] = pick(MALE,FEMALE)
 	age = rand(AGE_MIN,AGE_MAX)
 
