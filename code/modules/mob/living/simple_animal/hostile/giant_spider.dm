@@ -57,6 +57,10 @@
 	var/mob/master // The spider's master, used by sentience
 	var/onweb_speed
 
+	//Special spider variables defined here to prevent duplicate procs
+	var/mob/living/simple_animal/hostile/poison/giant_spider/heal_target //used by nurses for healing
+	var/atom/movable/cocoon_target //used by Broodmothers for cocoon
+
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	do_footstep = TRUE
@@ -128,18 +132,10 @@
 		set_varspeed(initial(speed))
 		move_to_delay = initial(move_to_delay)
 
-/mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_action()
-	if(!..()) //AIStatus is off
-		return FALSE
-	if(AIStatus == AI_IDLE)
-		if(!busy && prob(10))
-			stop_automated_movement = TRUE
-			Goto(pick(urange(20, src, 1)), move_to_delay)
-			addtimer(CALLBACK(src, .proc/do_action), 5 SECONDS)
-		return TRUE // We're idle, thus free to do stuff
-
+//handles webspinning when spiders are moving about in idle
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_movement()
-	if(AIStatus == AI_IDLE)
+	..()
+	if(AIStatus == AI_IDLE && !busy)
 		var/obj/structure/spider/stickyweb/W = locate() in get_turf(src)
 		if(!W)
 			lay_web.Activate()
@@ -155,13 +151,19 @@
 	if(!istype(target_mob))
 		return ..()
 	// Spider IFF
-	var/datum/antagonist/spider/target_spider_antag = target_mob.mind?.has_antag_datum(/datum/antagonist/spider)
-	var/datum/antagonist/spider/spider_antag = mind?.has_antag_datum(/datum/antagonist/spider)
-	if(spider_antag && target_spider_antag?.spider_team == spider_antag?.spider_team)
+	if(istype(target, /mob/living/simple_animal/hostile/poison/giant_spider))
 		visible_message("<span class='notice'>[src] nuzzles [target_mob.name]!</span>", \
 			"<span class='notice'>You nuzzle [target_mob.name]!</span>", null, COMBAT_MESSAGE_RANGE)
 		return
 	return ..()
+s
+/mob/living/simple_animal/hostile/poison/giant_spider/proc/GiveUp()
+	if(busy == MOVING_TO_TARGET)
+		cocoon_target = null
+		heal_target = null
+		busy = FALSE
+		stop_automated_movement = FALSE
+		SSmove_manager.stop_looping(src)
 
 // Tarantulas are the balanced generalist of the spider family: Moderate stats all around.
 /mob/living/simple_animal/hostile/poison/giant_spider/tarantula
@@ -184,7 +186,6 @@
 	poison_per_bite = 3
 	speed = 1
 	onweb_speed = 0
-	var/mob/living/simple_animal/hostile/poison/giant_spider/heal_target
 	web_speed = 0.33
 	///The health HUD applied to the mob.
 	var/health_hud = DATA_HUD_MEDICAL_ADVANCED
@@ -201,9 +202,7 @@
 	var/mob/target_mob = target
 	if(!istype(target_mob))
 		return ..()
-	var/datum/antagonist/spider/target_spider_antag = target_mob.mind?.has_antag_datum(/datum/antagonist/spider)
-	var/datum/antagonist/spider/spider_antag = mind?.has_antag_datum(/datum/antagonist/spider)
-	if(!istype(target, /mob/living/simple_animal/hostile/poison/giant_spider) || target_spider_antag?.spider_team != spider_antag?.spider_team)
+	if(!istype(target, /mob/living/simple_animal/hostile/poison/giant_spider))
 		return ..()
 	var/mob/living/simple_animal/hostile/poison/giant_spider/hurt_spider = target
 	if(hurt_spider == src)
@@ -215,39 +214,27 @@
 	visible_message("<span class='notice'>[src] begins wrapping the wounds of [hurt_spider].</span>","<span class='notice'>You begin wrapping the wounds of [hurt_spider].</span>")
 	is_busy = TRUE
 	if(do_after(src, 20, target = hurt_spider))
-		hurt_spider.heal_overall_damage(20, 20)
+		hurt_spider.heal_overall_damage(20)
 		new /obj/effect/temp_visual/heal(get_turf(hurt_spider), "#80F5FF")
 		visible_message("<span class='notice'>[src] wraps the wounds of [hurt_spider].</span>","<span class='notice'>You wrap the wounds of [hurt_spider].</span>")
 	is_busy = FALSE
 
-// Nurse AI Handling
-// Handles webbing and healing.
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/handle_automated_action()
-	if(..())
-		var/list/can_see = view(10, src)
+//Handles AI nurse healing when spiders are idle
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/handle_automated_movement()
+	if(AIStatus == AI_IDLE)
 		if(!busy)
-			//first check for spiders to tend to
+			var/list/can_see = view(10, src)
 			for(var/mob/living/C in can_see)
-				if(istype(C, /mob/living/simple_animal/hostile/poison/giant_spider)) // AI spiders are equal opportunity medics
+				if(istype(C, /mob/living/simple_animal/hostile/poison/giant_spider) && C.health < C.maxHealth)
 					heal_target = C
 					busy = MOVING_TO_TARGET
 					Goto(C, move_to_delay)
-					//give up if we can't reach them after 10 seconds
-					addtimer(CALLBACK(src, .proc/GiveUp, C), 10 SECONDS)
-					return
-		else if(busy == MOVING_TO_TARGET)
-			if (heal_target && get_dist(src, heal_target) <= 1)
-				UnarmedAttack(heal_target)
-	else
-		busy = SPIDER_IDLE
-		stop_automated_movement = FALSE
-
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(C)
-	if(busy == MOVING_TO_TARGET)
-		heal_target = null
-		busy = FALSE
-		stop_automated_movement = FALSE
-		SSmove_manager.stop_looping(src)
+					addtimer(CALLBACK(src, .proc/GiveUp), 10 SECONDS) //to prevent infinite chases
+		if(heal_target && get_dist(src, heal_target) <= 1)
+			UnarmedAttack(heal_target)
+			if(heal_target.health >= heal_target.maxHealth)
+				GiveUp(heal_target)
+	..() //Do normal stuff after giving priority to healing attempts
 
 //Broodmothers have well rounded stats and are able to lay eggs, but somewhat slow.
 /mob/living/simple_animal/hostile/poison/giant_spider/broodmother
@@ -266,7 +253,6 @@
 
 	gender = FEMALE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/spider = 2, /obj/item/reagent_containers/food/snacks/spiderleg = 8, /obj/item/reagent_containers/food/snacks/spidereggs = 4)
-	var/atom/movable/cocoon_target
 	var/fed = 0
 	var/enriched_fed = 0
 	var/obj/effect/proc_holder/wrap/wrap
@@ -338,13 +324,6 @@
 	else
 		busy = SPIDER_IDLE
 		stop_automated_movement = FALSE
-
-/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/proc/GiveUp(C)
-	if(busy == MOVING_TO_TARGET)
-		cocoon_target = null
-		busy = FALSE
-		stop_automated_movement = FALSE
-		SSmove_manager.stop_looping(src)
 
 // Handles cocooning items
 /mob/living/simple_animal/hostile/poison/giant_spider/broodmother/proc/cocoon()
