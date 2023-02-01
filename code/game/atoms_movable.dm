@@ -99,7 +99,7 @@
 	. = ..()
 	. += update_emissive_block()
 
-/atom/movable/proc/can_zFall(turf/source, levels = 1, turf/target, direction)
+/atom/movable/proc/can_zFall(turf/source, turf/target, direction)
 	if(!direction)
 		direction = DOWN
 	if(!source)
@@ -119,7 +119,7 @@
 		if(!A.density)
 			continue
 		if(isobj(A) || ismob(A))
-			if(A.layer > highest.layer)
+			if(!highest || A.layer > highest.layer)
 				highest = A
 	INVOKE_ASYNC(src, .proc/SpinAnimation, 5, 2)
 	if(highest)
@@ -371,9 +371,8 @@
 	if(!loc || !newloc)
 		return FALSE
 	var/atom/oldloc = loc
-
+	var/flat_direct = direct & ~(UP|DOWN)
 	if(loc != newloc)
-		var/flat_direct = direct & ~(UP|DOWN)
 		if (!(flat_direct & (flat_direct - 1))) //Cardinal move
 			. = ..()
 		else //Diagonal move, split it into cardinal moves
@@ -446,13 +445,19 @@
 			check_pulling()
 
 	last_move = direct
-	setDir(direct)
+	if(flat_direct)
+		setDir(flat_direct)
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc,direct)) //movement failed due to buckled mob(s)
 		return FALSE
 
 //Called after a successful Move(). By this point, we've alrefady moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
+	if(OldLoc)
+		var/turf/old_turf = get_turf(OldLoc)
+		var/turf/new_turf = get_turf(src)
+		if(old_turf && new_turf && old_turf.z != new_turf.z)
+			onTransitZ(old_turf.z, new_turf.z)
 	if (!inertia_moving)
 		newtonian_move(Dir)
 
@@ -591,12 +596,6 @@
 				oldloc.Exited(src, destination)
 				if(old_area && old_area != destarea)
 					old_area.Exited(src, destination)
-			var/turf/oldturf = get_turf(oldloc)
-			var/turf/destturf = get_turf(destination)
-			var/old_z = (oldturf ? oldturf.z : null)
-			var/dest_z = (destturf ? destturf.z : null)
-			if (old_z != dest_z)
-				onTransitZ(old_z, dest_z)
 			destination.Entered(src, oldloc)
 			if(destarea && old_area != destarea)
 				destarea.Entered(src, old_area)
