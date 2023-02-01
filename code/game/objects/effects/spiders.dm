@@ -134,8 +134,8 @@
 	// Get what spiders the user can choose, and check to make sure their choice makes sense
 	var/list/to_spawn = list()
 	var/list/spider_list = list()
-	if(!spider_team) // We don't have a team, just make one up
-		spider_team = new()
+	if(!spider_team) // If this object is created by anything other than a broodmother, it will not have a team
+		spider_team = new() //So we make one to keep all future spiders on the same team
 	if(using_enriched_spawn)
 		to_spawn = potential_enriched_spawns
 	else
