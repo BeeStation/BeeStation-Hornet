@@ -144,7 +144,7 @@
 ///! from base of atom/animal_attack(): (/mob/user)
 #define COMSIG_ATOM_ATTACK_ANIMAL "attack_animal"
 ///This signal return value bitflags can be found in __DEFINES/misc.dm
-///called for each movable in a turf contents on /turf/zImpact(): (atom/movable/A, levels)
+///called for each movable in a turf contents on /turf/attempt_z_impact(): (atom/movable/A, levels)
 #define COMSIG_ATOM_INTERCEPT_Z_FALL "movable_intercept_z_impact"
 
 #define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE "atom_init_success"

@@ -49,6 +49,11 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isplatingturf(A) (istype(A, /turf/open/floor/plating))
 
+// Temporary, but the code needs a way to differentiate if transparent turfs are added in the future.
+#define istransparentturf(A) (istype(A, /turf/open/openspace))
+
+#define isopenspace(A) (istype(A, /turf/open/openspace))
+
 //Mobs
 #define isliving(A) (istype(A, /mob/living))
 

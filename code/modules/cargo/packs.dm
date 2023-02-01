@@ -893,6 +893,14 @@
 					/obj/item/tank/jetpack/carbondioxide)
 	crate_name = "bulk jetpack crate"
 
+/datum/supply_pack/engineering/jetpack_combustion
+	name = "Combustion Jetpack Crate"
+	desc = "A powerful jetpack, capable of in-gravity flight using the high energy potential of plasma combustion."
+	cost = 1000
+	access_budget = FALSE
+	contains = list(/obj/item/tank/jetpack/combustion)
+	crate_name = "high-energy jetpack crate"
+
 /datum/supply_pack/engineering/spacecapsule
 	name = "Space Shelter Capsule"
 	desc = "A crate containing an RCD, some compressed matter cartridges, and a single bluespace capsule containing a spaceworthy shelter for construction/emergencies."

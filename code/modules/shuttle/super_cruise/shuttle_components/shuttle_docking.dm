@@ -319,7 +319,7 @@
 	src.origin = origin
 	return ..()
 
-/mob/camera/ai_eye/remote/shuttle_docker/canZMove(direction, turf/target)
+/mob/camera/ai_eye/remote/shuttle_docker/canZMove(direction, turf/source, turf/target, pre_move = TRUE)
 	return TRUE
 
 /mob/camera/ai_eye/remote/shuttle_docker/setLoc(destination)

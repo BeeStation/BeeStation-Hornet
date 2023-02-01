@@ -661,33 +661,31 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		T = get_turf(src)
 
 	if(!T)
-		return 0
+		return FALSE
 
 	var/list/forced_gravity = list()
 	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, T, forced_gravity)
-	if(!forced_gravity.len)
+	if(!length(forced_gravity))
 		SEND_SIGNAL(T, COMSIG_TURF_HAS_GRAVITY, src, forced_gravity)
-	if(forced_gravity.len)
+	if(length(forced_gravity))
 		var/max_grav
 		for(var/i in forced_gravity)
 			max_grav = max(max_grav, i)
 		return max_grav
 
-
 	if(!T.check_gravity()) // Turf never has gravity
-		return 0
-
+		return FALSE
 	var/area/A = get_area(T)
 	if(A.has_gravity) // Areas which always has gravity
-		return A.has_gravity
-	else
-		// There's a gravity generator on our z level
-		if(GLOB.gravity_generators["[T.get_virtual_z_level()]"])
-			var/max_grav = 0
-			for(var/obj/machinery/gravity_generator/main/G in GLOB.gravity_generators["[T.get_virtual_z_level()]"])
-				max_grav = max(G.setting,max_grav)
-			return max_grav
-	return SSmapping.level_trait(T.z, ZTRAIT_GRAVITY)
+		return TRUE
+	else if(SSmapping.level_trait(T.z, ZTRAIT_GRAVITY)) // If the z-level always has gravity
+		return TRUE
+	else if(GLOB.gravity_generators["[T.get_virtual_z_level()]"]) // If there's a gravity generator on our z level
+		var/max_grav = 0
+		for(var/obj/machinery/gravity_generator/main/G in GLOB.gravity_generators["[T.get_virtual_z_level()]"])
+			max_grav = max(G.setting,max_grav)
+		return max_grav
+	return FALSE
 /**
   * Setup an area (with the given name)
   *

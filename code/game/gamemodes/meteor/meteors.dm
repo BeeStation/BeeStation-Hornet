@@ -255,6 +255,9 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 			shake_camera(M, dist > 20 ? 2 : 4, dist > 20 ? 1 : 3)
 			M.playsound_local(src.loc, null, 50, 1, random_frequency, 10, S = meteor_sound)
 
+/obj/effect/meteor/has_gravity(turf/T)
+	return FALSE
+
 ///////////////////////
 //Meteor types
 ///////////////////////

@@ -12,10 +12,14 @@
 
 /mob/camera/ai_eye/remote/xenobio/setLoc(destination)
 	var/area/new_area = get_area(destination)
-	if(new_area && new_area.name == allowed_area || new_area && (new_area.area_flags & XENOBIOLOGY_COMPATIBLE))
-		return ..()
-	else
-		return
+	return is_valid_area(new_area) ? ..() : FALSE
+
+/mob/camera/ai_eye/remote/xenobio/canZMove(direction, turf/source, turf/target, pre_move = TRUE)
+	var/area/new_area = get_area(target)
+	return is_valid_area(new_area) ? ..() : FALSE
+
+/mob/camera/ai_eye/remote/xenobio/proc/is_valid_area(area/new_area)
+	return new_area && new_area.name == allowed_area || new_area && (new_area.area_flags & XENOBIOLOGY_COMPATIBLE)
 
 /obj/machinery/computer/camera_advanced/xenobio
 	name = "Slime management console"

@@ -190,6 +190,7 @@
 	if(isturf(target))
 		AI.eyeobj.forceMove(target)
 		AI.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/flash/static)
+		AI.camera_visibility(AI.eyeobj)
 		AI.clear_fullscreen("flash", 5)
 	else
 		to_chat(AI, "<span class='warning'>There is nothing in that direction!</span>")

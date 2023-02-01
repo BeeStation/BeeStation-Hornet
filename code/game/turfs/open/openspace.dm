@@ -88,7 +88,7 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 /turf/open/openspace/zAirOut()
 	return TRUE
 
-/turf/open/openspace/zPassIn(atom/movable/A, direction, turf/source)
+/turf/open/openspace/zPassIn(atom/movable/A, direction, turf/source, falling = FALSE)
 	if(direction == DOWN)
 		for(var/obj/O in contents)
 			if(O.obj_flags & BLOCK_Z_IN_DOWN)
@@ -101,9 +101,9 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 		return TRUE
 	return FALSE
 
-/turf/open/openspace/zPassOut(atom/movable/A, direction, turf/destination)
-	//Check if our fall location has gravity
-	if(!A.has_gravity(destination))
+/turf/open/openspace/zPassOut(atom/movable/A, direction, turf/destination, falling = FALSE)
+	//Check if our current location has gravity
+	if(falling && !A.has_gravity(src))
 		return FALSE
 	if(A.anchored)
 		return FALSE
