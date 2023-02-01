@@ -92,6 +92,8 @@
 		LAZYADD(GLOB.mob_spawners[name], src)
 		SSmobs.update_spawners()
 		GLOB.poi_list |= src
+	if(amount_grown >= grow_time *3)
+		make_AI_spider()
 
 /obj/structure/spider/eggcluster/Topic(href, href_list)
 	if(..())
@@ -169,6 +171,19 @@
 	if(!spawns_remaining)
 		qdel(src)
 	return TRUE
+
+/obj/structure/spider/eggcluster/proc/make_AI_spider()
+	var/mob/living/simple_animal/hostile/poison/giant_spider/random_spider
+	if(using_enriched_spawn)
+		random_spider = pick(potential_enriched_spawns)
+		using_enriched_spawn = FALSE
+	else
+		random_spider = pick(potential_spawns)
+	random_spider = new random_spider(get_turf(src))
+	random_spider.faction = faction.Copy()
+	spawns_remaining--
+	if(!spawns_remaining)
+		qdel(src)
 
 /obj/structure/spider/spiderling
 	name = "spiderling"
