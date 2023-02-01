@@ -1,7 +1,0 @@
-author: RKz, TemporalOroboros
-delete-after: true
-changes:
-  - code_imp: Reagent exposure proc names now accurately describe their function.
-  - refactor: Reagent exposure code is less istype dependent.
-  - code_imp: Reagent exposure methods are now bitflags. There have been some additional
-      changes to reflect and take advantage of this.
