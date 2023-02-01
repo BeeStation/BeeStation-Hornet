@@ -95,7 +95,8 @@
 	seed = /obj/item/seeds/watermelon/ballolon
 	name = "ballolon"
 	desc = "A organic balloon, lighter then air."
-	icon_state = "ballolon"
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "balloon"
 	filling_color = "#e35b6f"
 	throw_range = 1
 	throw_speed = 1
