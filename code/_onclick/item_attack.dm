@@ -67,10 +67,11 @@
 		return
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
 	SEND_SIGNAL(M, COMSIG_MOB_ITEM_ATTACKBY, user, src)
-	if(item_flags & NOBLUDGEON)
-		return
 
 	var/nonharmfulhit = FALSE
+	if(item_flags & NOBLUDGEON)
+		nonharmfulhit = TRUE
+
 	if(user.a_intent == INTENT_HELP && !(item_flags & ISWEAPON))
 		nonharmfulhit = TRUE
 
@@ -87,10 +88,16 @@
 	M.lastattackerckey = user.ckey
 
 	user.do_attack_animation(M)
+	var/time = world.time
 	if(nonharmfulhit)
 		M.send_item_poke_message(src, user)
+		user.time_of_last_poke = time
 	else
+		user.record_accidental_poking()
 		M.attacked_by(src, user)
+		M.time_of_last_attack_recieved = time
+		user.time_of_last_attack_dealt = time
+		user.check_for_accidental_attack()
 
 	log_combat(user, M, "[nonharmfulhit ? "poked" : "attacked"]", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
 	add_fingerprint(user)
@@ -182,3 +189,19 @@
 		poke_message_local = "You [message_verb] yourself with [I]!"
 	visible_message("<span class='notice'>[poke_message]</span>",\
 	"<span class='usernotice'>[poke_message_local]</span>", null, COMBAT_MESSAGE_RANGE)
+
+/mob/living/proc/record_accidental_poking()
+	if(time_of_last_poke != 0 && world.time - time_of_last_poke <= 50)
+		SSblackbox.record_feedback("tally", "poking_data", 1, "Hit someone shortly after poking them")
+
+/mob/living/proc/check_for_accidental_attack()
+	addtimer(CALLBACK(src, .proc/record_accidental_attack, time_of_last_attack_dealt), 100, TIMER_OVERRIDE|TIMER_UNIQUE)
+
+/mob/living/proc/record_accidental_attack(var/time)
+	if(time_of_last_attack_dealt == 0) // We haven't attacked at all
+		return
+	if(time_of_last_attack_dealt > time) //We attacked again after the proc got called
+		return
+	//10 seconds passed after we last attacked someone - either it was an accident, or we robusted someone into being horizontal
+	if(time_of_last_attack_dealt > time_of_last_attack_recieved + 100)
+		SSblackbox.record_feedback("tally", "accidental_attack_data", 1, "Lasted ten seconds of not being hit after hitting somoene")

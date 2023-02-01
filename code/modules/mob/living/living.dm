@@ -1,3 +1,11 @@
+/mob/living
+	///Used for tracking poking data
+	var/time_of_last_poke = 0
+	///Used for tracking accidental attacks
+	var/time_of_last_attack_dealt = 0
+	///Used for tracking accidental attacks
+	var/time_of_last_attack_recieved = 0
+
 /mob/living/Initialize(mapload)
 	. = ..()
 	if(unique_name)
