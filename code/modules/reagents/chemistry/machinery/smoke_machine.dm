@@ -60,7 +60,7 @@
 		create_reagents(new_volume)
 	reagents.maximum_volume = new_volume
 	if(new_volume < reagents.total_volume)
-		reagents.reaction(loc, TOUCH) // if someone manages to downgrade it without deconstructing
+		reagents.expose(loc, TOUCH) // if someone manages to downgrade it without deconstructing
 		reagents.clear_reagents()
 	efficiency = 9
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
@@ -104,7 +104,7 @@
 	return ..()
 
 /obj/machinery/smoke_machine/deconstruct()
-	reagents.reaction(loc, TOUCH)
+	reagents.expose(loc, TOUCH)
 	reagents.clear_reagents()
 	return ..()
 

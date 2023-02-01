@@ -410,7 +410,7 @@
 	if(affected_turfs.len)
 		fraction /= affected_turfs.len
 	for(var/t in affected_turfs)
-		reagents.reaction(t, TOUCH, fraction * volume_multiplier)
+		reagents.expose(t, TOUCH, fraction * volume_multiplier)
 		reagents.trans_to(t, ., volume_multiplier, transfered_by = user)
 	check_empty(user)
 
@@ -421,7 +421,7 @@
 		if(check_empty(user)) //Prevents divsion by zero
 			return
 		var/fraction = min(eaten / reagents.total_volume, 1)
-		reagents.reaction(M, INGEST, fraction * volume_multiplier)
+		reagents.expose(M, INGEST, fraction * volume_multiplier)
 		reagents.trans_to(M, eaten, volume_multiplier, transfered_by = user)
 		// check_empty() is called during afterattack
 	else
@@ -618,7 +618,7 @@
 			H.update_body()
 		var/used = use_charges(user, 10, FALSE)
 		var/fraction = min(1, used / reagents.maximum_volume)
-		reagents.reaction(user, VAPOR, fraction * volume_multiplier)
+		reagents.expose(user, VAPOR, fraction * volume_multiplier)
 		reagents.trans_to(user, used, volume_multiplier, transfered_by = user)
 
 		return (OXYLOSS)
@@ -677,7 +677,7 @@
 
 		. = use_charges(user, 10, FALSE)
 		var/fraction = min(1, . / reagents.maximum_volume)
-		reagents.reaction(C, VAPOR, fraction * volume_multiplier)
+		reagents.expose(C, VAPOR, fraction * volume_multiplier)
 
 		return
 
@@ -712,7 +712,7 @@
 		if(!.)
 			return FALSE
 		var/fraction = min(1, . / reagents.maximum_volume)
-		reagents.reaction(target, TOUCH, fraction * volume_multiplier)
+		reagents.expose(target, TOUCH, fraction * volume_multiplier)
 		reagents.trans_to(target, ., volume_multiplier, transfered_by = user)
 
 		if(pre_noise || post_noise)
