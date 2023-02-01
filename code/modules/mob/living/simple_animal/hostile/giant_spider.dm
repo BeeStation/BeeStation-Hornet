@@ -65,6 +65,7 @@
 	var/fed = 0 //used by broodmothers to track food
 	var/enriched_fed = 0
 	var/datum/action/innate/spider/lay_eggs/lay_eggs //the ability to lay eggs, granted to broodmothers
+	var/datum/team/spiders/spider_team = null //utilized by AI controlled broodmothers to pass antag team info onto their eggs without a mind
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -579,7 +580,14 @@ s
 					else
 						spider.fed--
 						new_cluster.grow_time *= 2
-					new_cluster.spider_team = spider_antag?.spider_team
+					if(spider_antag?.spider_team) //Is or was this broodmother sentient?
+						new_cluster.spider_team = spider_antag?.spider_team //pass that team she has along to the children
+					else if(spider.spider_team) //No? then it is probably a second generation broodmother that spawned for a lack of ghosts
+						new_cluster.spider_team = spider.spider_team //so we pass the team inherited directly via the previous broodmother
+					else //This is a first generation, non-sentient broodmother likely spawned by admins and laying eggs for the first time.
+						var/datum/team/spiders/spiders = new() 
+						spider.spider_team = spiders					//lets make sure her potentially sentient children are all on the same team
+						new_cluster.spider_team = spider.spider_team
 					new_cluster.faction = spider.faction.Copy()
 					UpdateButtonIcon(TRUE)
 		spider.busy = SPIDER_IDLE
