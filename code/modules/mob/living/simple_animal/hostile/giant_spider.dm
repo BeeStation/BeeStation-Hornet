@@ -139,7 +139,7 @@
 		set_varspeed(initial(speed))
 		move_to_delay = initial(move_to_delay)
 
-// Handles webspinning when spiders are moving about in idle
+// Handles webspinning of all varieties for spiders
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_movement()
 	..()
 	if(AIStatus == AI_IDLE)
@@ -159,7 +159,7 @@
 						addtimer(CALLBACK(src, .proc/GiveUp, O), 20 SECONDS)
 		if(cocoon_target && get_dist(src, cocoon_target) <= 1)
 			cocoon()
-			GiveUp()
+			GiveUp() //if something interrupts the attempt to cocoon, there is probably an enemy entity nearby and we need to reset
 
 // Handles cocooning items and food
 /mob/living/simple_animal/hostile/poison/giant_spider/proc/cocoon()
@@ -351,18 +351,17 @@ s
 
 //Handles Broodmother feeding and egglaying
 /mob/living/simple_animal/hostile/poison/giant_spider/broodmother/handle_automated_movement()
-	if(AIStatus == AI_IDLE)
-		if(!busy)
-			var/list/can_see = view(10, src)
-			for(var/mob/living/C in can_see)
-				if(istype(C, /mob/living/simple_animal/hostile/poison/giant_spider))
-					continue //Not interested in other spiders for food
-				else if(C.stat && !C.anchored)
-					cocoon_target = C
-					busy = MOVING_TO_TARGET
-					Goto(C, move_to_delay)
-					addtimer(CALLBACK(src, .proc/GiveUp, C), 20 SECONDS)
-		if(prob(10) && lay_eggs.IsAvailable()) //so eggs aren't always placed directly by the corpse
+	if(AIStatus == AI_IDLE && !busy)
+		var/list/can_see = view(10, src)
+		for(var/mob/living/C in can_see)
+			if(istype(C, /mob/living/simple_animal/hostile/poison/giant_spider))
+				continue //Not interested in other spiders for food
+			else if(C.stat && !C.anchored)
+				cocoon_target = C
+				busy = MOVING_TO_TARGET
+				Goto(C, move_to_delay)
+				addtimer(CALLBACK(src, .proc/GiveUp, C), 20 SECONDS)
+		if(prob(10) && lay_eggs.IsAvailable()) //so eggs aren't always placed immediately and directly by corpses
 			lay_eggs.Activate()
 	..()
 
