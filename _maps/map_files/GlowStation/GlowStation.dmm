@@ -7464,6 +7464,13 @@
 	dir = 8
 	},
 /area/hallway/primary/fore)
+"bDP" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/upper/fore/secondary)
 "bDQ" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -8647,6 +8654,13 @@
 	},
 /turf/open/floor/plasteel/dark/corner,
 /area/hallway/primary/aft)
+"bQe" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating/snowed,
+/area/maintenance/upper/fore/secondary)
 "bQf" = (
 /obj/machinery/door/airlock/external{
 	name = "External Airlock";
@@ -13069,18 +13083,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
-"cRd" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/disposaloutlet,
-/obj/structure/railing,
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
-/turf/open/openspace/cold,
-/area/iceland/shaded)
 "cRh" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/wood,
@@ -18751,11 +18753,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/lattice/catwalk,
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/turf/open/openspace/cold,
+/turf/open/floor/plating,
 /area/maintenance/upper/port)
 "ecP" = (
 /obj/structure/table,
@@ -25410,13 +25408,6 @@
 	},
 /turf/open/floor/wood,
 /area/bridge/meeting_room/council)
-"fwn" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/sign/warning/cold{
-	pixel_x = -32
-	},
-/turf/open/floor/plating,
-/area/maintenance/upper/port)
 "fwv" = (
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plasteel,
@@ -29747,6 +29738,10 @@
 	dir = 4
 	},
 /area/security/main)
+"gsd" = (
+/obj/structure/disposalpipe/trunk/multiz,
+/turf/open/openspace/cold,
+/area/maintenance/upper/port)
 "gsh" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Primary stairway"
@@ -31374,9 +31369,7 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
+/obj/structure/disposalpipe/junction/flip,
 /turf/open/floor/plating,
 /area/maintenance/upper/port)
 "gKC" = (
@@ -31969,11 +31962,10 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/lattice/catwalk,
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/turf/open/openspace/cold,
+/turf/open/floor/plating,
 /area/maintenance/upper/port)
 "gQA" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -32396,13 +32388,6 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plasteel/dark,
 /area/engineering/hallway)
-"gVc" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plating/snowed,
-/area/iceland/shaded)
 "gVf" = (
 /turf/open/floor/plating/snowed/smoothed,
 /area/iceland/shaded)
@@ -35741,6 +35726,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"hCX" = (
+/obj/structure/disposalpipe/junction{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/maintenance/upper/port)
 "hDa" = (
 /turf/closed/wall/r_wall,
 /area/security/warden)
@@ -40111,9 +40102,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/obj/machinery/door/airlock/external{
-	name = "External Airlock";
-	req_one_access_txt = "13;24;10"
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
 	},
 /turf/open/floor/plating,
 /area/maintenance/upper/port)
@@ -44232,6 +44223,11 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/iceland/shaded)
+"jrf" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating/snowed,
+/area/maintenance/upper/fore/secondary)
 "jrg" = (
 /obj/machinery/vending/coffee,
 /turf/open/floor/plasteel/grid/steel,
@@ -44566,12 +44562,6 @@
 /obj/structure/chair/fancy/sofa/corp/right,
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/port)
-"juZ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
-/turf/open/floor/plating/snowed,
-/area/iceland)
 "jvh" = (
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
@@ -45884,15 +45874,11 @@
 /area/science/shuttledock)
 "jHL" = (
 /obj/structure/window/reinforced/spawner,
-/obj/structure/disposaloutlet{
-	eject_range = 1;
-	dir = 1
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
+/obj/machinery/disposal/deliveryChute{
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/quartermaster/office)
@@ -47635,12 +47621,12 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "kaG" = (
-/obj/structure/railing/corner{
+/obj/structure/disposalpipe/junction/yjunction{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating/snowed,
-/area/iceland/shaded)
+/area/maintenance/upper/fore/secondary)
 "kaK" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -47796,7 +47782,7 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8
+	dir = 6
 	},
 /turf/open/floor/plating,
 /area/maintenance/upper/port)
@@ -51454,6 +51440,13 @@
 	},
 /turf/open/floor/carpet/royalblack,
 /area/crew_quarters/bar/atrium)
+"kPW" = (
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating/snowed,
+/area/maintenance/upper/fore/secondary)
 "kPX" = (
 /obj/machinery/space_heater,
 /turf/open/floor/plating,
@@ -51671,7 +51664,10 @@
 /area/maintenance/fore)
 "kSm" = (
 /obj/structure/disposalpipe/segment{
-	dir = 5
+	dir = 8
+	},
+/obj/structure/disposalpipe/trunk/multiz/down{
+	dir = 1
 	},
 /turf/open/floor/plating/snowed,
 /area/iceland/shaded)
@@ -51709,11 +51705,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge/ai_upload)
 "kSP" = (
-/obj/structure/disposaloutlet{
-	dir = 1
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/disposalpipe/trunk,
+/obj/structure/disposalpipe/trunk/multiz/down,
 /turf/open/openspace/cold,
 /area/maintenance/upper/port)
 "kSQ" = (
@@ -56708,6 +56700,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"lUa" = (
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating/snowed,
+/area/maintenance/upper/fore/secondary)
 "lUd" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/ruinloot/medical,
@@ -60586,6 +60585,9 @@
 	icon_state = "platingdmg2"
 	},
 /area/iceland/shaded)
+"mMV" = (
+/turf/open/openspace/cold,
+/area/maintenance/upper/fore/secondary)
 "mMX" = (
 /obj/machinery/light{
 	dir = 1
@@ -74913,16 +74915,9 @@
 /turf/open/floor/plating,
 /area/iceland/shaded)
 "pNy" = (
-/obj/structure/railing,
-/obj/structure/lattice/catwalk,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/structure/disposaloutlet{
-	eject_range = 1;
-	dir = 1
-	},
-/turf/open/openspace/cold,
+/obj/structure/disposalpipe/segment,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating/snowed,
 /area/iceland)
 "pNQ" = (
 /obj/machinery/vending/cola/random,
@@ -76008,12 +76003,7 @@
 	},
 /area/chapel/main/monastery)
 "pZK" = (
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
+/obj/structure/disposalpipe/junction/flip,
 /turf/open/floor/plating/snowed,
 /area/iceland/shaded)
 "qaj" = (
@@ -78064,13 +78054,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/aft)
-"qwW" = (
-/obj/structure/railing/corner,
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/turf/open/floor/plating/snowed,
-/area/iceland)
 "qwX" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "custodialshutters";
@@ -79923,16 +79906,6 @@
 	},
 /turf/open/floor/plasteel/dark/snowdin,
 /area/iceland/shaded)
-"qPm" = (
-/obj/structure/disposaloutlet{
-	dir = 1
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/turf/open/openspace/cold,
-/area/maintenance/upper/port)
 "qPo" = (
 /obj/structure/sign/painting/library{
 	pixel_y = 32
@@ -81665,6 +81638,11 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/primary/port)
+"rku" = (
+/obj/structure/disposalpipe/trunk/multiz,
+/obj/structure/lattice/catwalk,
+/turf/open/openspace/cold,
+/area/iceland)
 "rkD" = (
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
@@ -85533,6 +85511,16 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/lava/smooth/cold,
 /area/iceland/underground)
+"sdG" = (
+/obj/structure/disposalpipe/trunk/multiz/down{
+	dir = 8
+	},
+/obj/structure/lattice/catwalk/over,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/openspace/cold,
+/area/maintenance/upper/fore/secondary)
 "sdH" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -86686,12 +86674,6 @@
 	},
 /turf/open/floor/plasteel/checker,
 /area/security/main)
-"sog" = (
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/turf/open/floor/plating,
-/area/quartermaster/office)
 "soj" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 5
@@ -87697,12 +87679,6 @@
 /obj/effect/turf_decal/tile/dark/fourcorners,
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/secondary/command)
-"szN" = (
-/obj/structure/sign/warning/cold{
-	pixel_x = -32
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
 "szP" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -88010,15 +87986,6 @@
 	dir = 1
 	},
 /area/hallway/primary/fore)
-"sCq" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/disposaloutlet,
-/obj/structure/railing,
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/turf/open/openspace/cold,
-/area/iceland/shaded)
 "sCw" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel/dark/side{
@@ -89463,19 +89430,11 @@
 /turf/open/floor/carpet/red,
 /area/library)
 "sPV" = (
-/obj/structure/railing{
+/obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/structure/lattice/catwalk,
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/obj/structure/disposalpipe/trunk,
-/obj/structure/disposaloutlet{
-	eject_range = 1;
-	dir = 1
-	},
-/turf/open/openspace/cold,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating/snowed,
 /area/iceland/shaded)
 "sQd" = (
 /obj/structure/rack,
@@ -96235,13 +96194,6 @@
 /area/engine/atmospherics_engine)
 "ulB" = (
 /obj/structure/window/reinforced/spawner,
-/obj/structure/disposaloutlet{
-	eject_range = 1;
-	dir = 1
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
 /turf/open/floor/plating,
 /area/quartermaster/office)
 "ulE" = (
@@ -96446,6 +96398,13 @@
 /obj/machinery/disposal/bin,
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
+"uno" = (
+/obj/structure/lattice/catwalk/over,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/openspace/cold,
+/area/maintenance/upper/fore/secondary)
 "unp" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/donkpockets,
@@ -97233,19 +97192,6 @@
 /obj/effect/turf_decal/tile/yellow,
 /turf/open/floor/plasteel/techmaint,
 /area/engine/engineering)
-"uwS" = (
-/obj/structure/railing,
-/obj/structure/lattice/catwalk,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/disposalpipe/trunk,
-/obj/structure/disposaloutlet{
-	eject_range = 1;
-	dir = 1
-	},
-/turf/open/openspace/cold,
-/area/iceland)
 "uwT" = (
 /obj/structure/railing{
 	dir = 1
@@ -97643,6 +97589,12 @@
 	dir = 1
 	},
 /area/hallway/primary/starboard)
+"uAY" = (
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 1
+	},
+/turf/open/floor/plating/snowed,
+/area/iceland/shaded)
 "uBg" = (
 /obj/structure/closet/secure_closet/evidence,
 /turf/open/floor/plasteel/dark,
@@ -98438,10 +98390,6 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/quartermaster/exploration_prep)
-"uIx" = (
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plating,
-/area/quartermaster/office)
 "uIC" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
@@ -103167,15 +103115,8 @@
 /area/hallway/primary/fore)
 "vKl" = (
 /obj/structure/window/reinforced/spawner,
-/obj/structure/disposaloutlet{
-	eject_range = 1;
-	dir = 1
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
+/obj/structure/disposalpipe/trunk/multiz{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/quartermaster/office)
@@ -106369,6 +106310,16 @@
 	},
 /turf/open/floor/plating/airless,
 /area/science/test_area)
+"wsX" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/lattice/catwalk/over,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/openspace/cold,
+/area/maintenance/upper/fore/secondary)
 "wtb" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -107133,14 +107084,10 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/lattice/catwalk,
-/obj/structure/disposalpipe/segment{
-	dir = 10
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 8
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/turf/open/openspace/cold,
+/turf/open/floor/plating,
 /area/maintenance/upper/port)
 "wAv" = (
 /obj/structure/table/wood/fancy,
@@ -108198,6 +108145,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
+"wMJ" = (
+/obj/structure/disposalpipe/junction{
+	dir = 8
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating/snowed,
+/area/maintenance/upper/fore/secondary)
 "wMK" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -111862,15 +111816,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"xFF" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/obj/structure/sign/warning/cold{
-	pixel_x = -32
-	},
-/turf/open/floor/plating,
-/area/maintenance/upper/port)
 "xFL" = (
 /obj/machinery/light{
 	dir = 1
@@ -112477,15 +112422,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/central)
-"xNN" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/disposaloutlet,
-/obj/structure/railing,
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
-/turf/open/openspace/cold,
-/area/iceland/shaded)
 "xNQ" = (
 /obj/structure/table,
 /obj/item/stack/sheet/rglass{
@@ -112631,6 +112567,12 @@
 "xPY" = (
 /obj/structure/lattice/catwalk/over,
 /turf/open/openspace/cold,
+/area/iceland)
+"xQd" = (
+/obj/structure/disposalpipe/junction/flip{
+	dir = 4
+	},
+/turf/open/floor/plating/snowed,
 /area/iceland)
 "xQn" = (
 /turf/open/floor/plasteel/dark/side{
@@ -112886,6 +112828,13 @@
 	},
 /turf/open/floor/carpet/red,
 /area/library)
+"xSS" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating/snowed,
+/area/iceland/shaded)
 "xSW" = (
 /obj/machinery/holopad,
 /obj/structure/cable/yellow{
@@ -202366,8 +202315,8 @@ mas
 mas
 mas
 jHL
-uIx
-uIx
+sVB
+sVB
 lfD
 eHW
 dzQ
@@ -202623,7 +202572,7 @@ neb
 uqV
 bHx
 vKl
-sog
+sVB
 sVB
 cbp
 kIX
@@ -203134,7 +203083,7 @@ qdb
 cbp
 cbp
 uQy
-szN
+qVA
 okA
 sVB
 okA
@@ -267642,9 +267591,9 @@ noJ
 noJ
 dOo
 noJ
-noJ
+rku
 pNy
-jFj
+xQd
 nkK
 nkK
 tus
@@ -267899,9 +267848,9 @@ noJ
 noJ
 dOo
 noJ
-noJ
-uwS
-juZ
+cJP
+eCz
+jFj
 nkK
 hDi
 kgm
@@ -268156,7 +268105,7 @@ noJ
 noJ
 dOo
 noJ
-liU
+cJP
 sPV
 kSm
 nkK
@@ -268414,7 +268363,7 @@ sfP
 dOo
 dOo
 sKK
-lLG
+xSS
 lLG
 nkK
 brm
@@ -268671,8 +268620,8 @@ pKC
 hIj
 aBH
 fMJ
-lLG
-lLG
+qkd
+uAY
 nkK
 jiv
 jiv
@@ -333435,7 +333384,7 @@ gdp
 qch
 kPQ
 vuZ
-kSP
+gsd
 wAp
 tqn
 ngr
@@ -333692,7 +333641,7 @@ dfl
 qch
 kPQ
 vuZ
-qPm
+vuZ
 ecO
 ryn
 ngr
@@ -333951,7 +333900,7 @@ pCw
 tRi
 kbI
 gKA
-ryn
+hCX
 ngr
 rho
 pCk
@@ -334462,10 +334411,10 @@ mba
 rEB
 bVg
 xeA
-fwn
+epw
 gGA
 qhx
-xFF
+ryn
 ngr
 aaU
 gYZ
@@ -398454,12 +398403,12 @@ noJ
 noJ
 noJ
 dwz
-kUk
-qwW
-gVc
+kPW
+jrf
+jrf
 kaG
-qbX
-xva
+jrf
+lUa
 qnT
 fpW
 lEh
@@ -398711,12 +398660,12 @@ noJ
 noJ
 noJ
 dwz
-qqK
-cRd
-tSl
-dcQ
-gqR
-gqR
+bQe
+mMV
+mMV
+wsX
+hFv
+xEF
 qnT
 jzR
 nCI
@@ -398968,12 +398917,12 @@ noJ
 liU
 uoE
 rde
-lLG
-sCq
-tSl
-dcQ
-hFv
-xEF
+bQe
+mMV
+mMV
+sdG
+vJn
+fjN
 qnT
 fPD
 jXJ
@@ -399225,10 +399174,10 @@ noJ
 dwz
 kUk
 qqK
-pZK
-xNN
-tSl
-dcQ
+wMJ
+mMV
+mMV
+uno
 vJn
 fjN
 qnT
@@ -399482,12 +399431,12 @@ bvf
 rde
 kUk
 jFj
-lLG
+bQe
 dcQ
 dcQ
 dcQ
-vJn
-fjN
+bDP
+dcQ
 qnT
 ocG
 jXJ
