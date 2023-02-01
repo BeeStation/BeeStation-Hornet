@@ -142,10 +142,24 @@
 // Handles webspinning when spiders are moving about in idle
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_movement()
 	..()
-	if(AIStatus == AI_IDLE && !busy)
-		var/obj/structure/spider/stickyweb/W = locate() in get_turf(src)
-		if(!W)
-			lay_web.Activate()
+	if(AIStatus == AI_IDLE)
+		if(!busy)
+			var/obj/structure/spider/stickyweb/W = locate() in get_turf(src)
+			if(!W)
+				lay_web.Activate()
+			else
+				var/list/can_see = view(10, src)
+				for(var/obj/O in can_see)
+					if(O.anchored)
+						continue //Can't wrap anchored objects
+					if(isitem(O) || isstructure(O) || ismachinery(O))
+						cocoon_target = O
+						busy = MOVING_TO_TARGET
+						Goto(O, move_to_delay)
+						addtimer(CALLBACK(src, .proc/GiveUp, O), 20 SECONDS)
+		if(cocoon_target && get_dist(src, cocoon_target) <= 1)
+			cocoon()
+			GiveUp()
 
 // Handles cocooning items and food
 /mob/living/simple_animal/hostile/poison/giant_spider/proc/cocoon()
@@ -348,18 +362,6 @@ s
 					busy = MOVING_TO_TARGET
 					Goto(C, move_to_delay)
 					addtimer(CALLBACK(src, .proc/GiveUp, C), 20 SECONDS)
-			if(!cocoon_target) //No need to search for objects to wrap if we have found food
-				for(var/obj/O in can_see)
-					if(O.anchored)
-						continue //Can't wrap anchored objects
-					if(isitem(O) || isstructure(O) || ismachinery(O))
-						cocoon_target = O
-						busy = MOVING_TO_TARGET
-						Goto(O, move_to_delay)
-						addtimer(CALLBACK(src, .proc/GiveUp, O), 20 SECONDS)
-		if(cocoon_target && get_dist(src, cocoon_target) <= 1)
-			cocoon()
-			GiveUp()
 		if(prob(10) && lay_eggs.IsAvailable()) //so eggs aren't always placed directly by the corpse
 			lay_eggs.Activate()
 	..()
