@@ -98,11 +98,11 @@
 		to_chat(user, "<span class='notice'>[src] beeps: 'Virus already present on client, aborting.'</span>")
 		return ..()
 	to_chat(user, "<span class='notice'>You upload the virus to [target]!</span>")
-	var/list/sig_list = list()
+	var/list/sig_list
 	if(istype(target, /obj/machinery/door/airlock))
-		sig_list += list(COMSIG_AIRLOCK_OPEN, COMSIG_AIRLOCK_CLOSE)
+		sig_list = list(COMSIG_AIRLOCK_OPEN, COMSIG_AIRLOCK_CLOSE)
 	else
-		sig_list += list(COMSIG_ATOM_ATTACK_HAND)
+		sig_list = list(COMSIG_ATOM_ATTACK_HAND)
 	disk.charges--
 	target.AddComponent(
 		/datum/component/sound_player, \
