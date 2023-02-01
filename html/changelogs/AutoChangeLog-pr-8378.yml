@@ -1,9 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - rscadd: Added name and job searching to the PDA Messenger contacts panel.
-  - tweak: PDA message inputs are now TGUI-based.
-  - tweak: When inputting a new PDA ringtone, the old one will be in the input text
-      box already.
-  - code_imp: Improved some PDA messenger code.
-  - code_imp: TGUI text inputs now properly autofocus text.
