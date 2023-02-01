@@ -515,8 +515,9 @@
 	if(grab_ghost_when == CLONER_MATURE_CLONE)
 		mob_occupant.grab_ghost()
 		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br><i>You feel like a new being.</i></span>")
-		if(CONFIG_GET(flag/post_revival_message))
-			to_chat(occupant, "<span class='boldannounce'>You have forgotten all the knowledge you gained while being a ghost aswell as the five minutes leading up to your death!</span>")
+		var/postclonemessage = CONFIG_GET(string/policy_postclonetext)
+		if(postclonemessage)
+			to_chat(occupant, postclonemessage)
 		mob_occupant.flash_act()
 
 	if(move)
