@@ -469,7 +469,7 @@
 	return FALSE
 
 /mob/living/simple_animal/hostile/swarmer/proc/add_to_total_resources_eaten(var/gains)
-	var/datum/antagonist/swarmer/S = mind.has_antag_datum(/datum/antagonist/swarmer)
+	var/datum/antagonist/swarmer/S = mind?.has_antag_datum(/datum/antagonist/swarmer)
 	if(S)
 		S.swarm.total_resources_eaten += gains
 
