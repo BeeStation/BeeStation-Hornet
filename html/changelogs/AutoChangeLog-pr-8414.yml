@@ -1,6 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - admin: welding/unwelding an airlock will be logged
-  - code_imp: changed a long var declaration from a single line into multiple lines
-      for better readability
