@@ -133,7 +133,6 @@ export class TextArea extends Component {
     if (this.props.autoFocus || this.props.autoSelect) {
       setTimeout(() => {
         input.focus();
-
         if (this.props.autoSelect) {
           input.select();
         }

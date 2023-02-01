@@ -56,6 +56,91 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">01 February 2023</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">welding/unwelding an airlock will be logged</li>
+				<li class="code_imp">changed a long var declaration from a single line into multiple lines for better readability</li>
+			</ul>
+			<h3 class="author">RKz, TemporalOroboros updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Reagent exposure proc names now accurately describe their function.</li>
+				<li class="refactor">Reagent exposure code is less istype dependent.</li>
+				<li class="code_imp">Reagent exposure methods are now bitflags. There have been some additional changes to reflect and take advantage of this.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added name and job searching to the PDA Messenger contacts panel.</li>
+				<li class="tweak">PDA message inputs are now TGUI-based.</li>
+				<li class="tweak">When inputting a new PDA ringtone, the old one will be in the input text box already.</li>
+				<li class="code_imp">Improved some PDA messenger code.</li>
+				<li class="code_imp">TGUI text inputs now properly autofocus text.</li>
+			</ul>
+
+			<h2 class="date">31 January 2023</h2>
+			<h3 class="author">Bobbanz1 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed an issue that was being caused by custom say that was clashing with roleplaying by changing the trigger letter to |</li>
+			</ul>
+			<h3 class="author">Tsar-Salat updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">timers are put in the closest future bucket, as a precaution</li>
+			</ul>
+
+			<h2 class="date">30 January 2023</h2>
+			<h3 class="author">Bobbanz1, ninjanomnom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Moves the dejavu component out of the crossbreeding file and into a file in the component folder</li>
+			</ul>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a new malnourished bear type which is overall weaker than the normal one</li>
+				<li class="tweak">Tweaked the bear malfunction of artifacts to spawn malnourished bears</li>
+				<li class="rscadd">Added a line of text showing the Security Level in the current round</li>
+			</ul>
+			<h3 class="author">CydiaLamiales, unid15 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a new cake structure - towering cake</li>
+				<li class="rscadd">Added an upgraded version of this cake to the nuke up uplink</li>
+				<li class="imageadd">new icon for the towering cake and the pull string action</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">medibots have more skins based on which first aid kit was used when it's made. These currently have no speicla ability by its shape which means these are just skins.</li>
+				<li class="imageadd">more medibot skins (advanced, rad, syndi, doctors roundstart kit)</li>
+			</ul>
+			<h3 class="author">Ghommie, RKz updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">new advancements in Object Permanence Theory at NT Labs have been discovered! Lizard snoots will no longer disappear when wearing certain hoods or helmets.</li>
+			</ul>
+			<h3 class="author">Ivniinvi updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Phobias can now be weighted</li>
+				<li class="tweak">The phobias of Robots and Doctors are slightly less likely to occur</li>
+				<li class="tweak">The phobia of Space is significantly less likely to occur</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Improved the smoothness of shuttles on the orbital map.</li>
+				<li class="tweak">Orbital map now updates according to real time rather than tick time.</li>
+				<li class="bugfix">Meteors should move at the correct speed on the map now.</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Geneticist flavor blurb now matches current Beestation SOP</li>
+				<li class="tweak">Geneticist is no longer partially paid by Science and no longer has science departmental or radio access</li>
+				<li class="tweak">Science no longer has access to genetics</li>
+				<li class="rscdel">Removes medsci headset from code</li>
+			</ul>
+			<h3 class="author">Zytolg, RKz updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Lizard speech now has a variation on the use of X in normal conversation. Things like "Xenomorph" will sound the same as before as it is phonetically similiar, however uses of "x-ray" will become "ecks-ray".</li>
+			</ul>
+			<h3 class="author">spockye updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed techfloor_grey icon name</li>
+			</ul>
+
 			<h2 class="date">29 January 2023</h2>
 			<h3 class="author">IndieanaJones, Rukofamicom, Benbot16 updated:</h3>
 			<ul class="changes bgimages16">
@@ -779,52 +864,6 @@
 			<ul class="changes bgimages16">
 				<li class="rscadd">Added seven new random maintenance rooms</li>
 				<li class="tweak">Kilo Station - the Xenoarchaeology Lab has been moved to above the Exploration Docks.</li>
-			</ul>
-
-			<h2 class="date">30 November 2022</h2>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added a new Scientist crew objective: "Make sure the research for [X design] is available on the R&D server by the end of the shift."</li>
-				<li class="rscdel">Removed the Chemistry "Have X pills containing X" crew objective.</li>
-				<li class="rscdel">Removed the Chemistry "Have X in your bloodstream" crew objective.</li>
-				<li class="rscadd">Added a new Chemistry crew objective "Have at least X units total of (X chemical) in the chemistry smartfridge(s) or with you when the shift ends." - it requires actually useful chems to be made.</li>
-				<li class="tweak">The Roboticist crew objective "Make X cyborgs" has been changed from 2-10 to 1-3, and it now also mentions that AI shells count.</li>
-				<li class="tweak">The janitor "keep X areas clean" objective no longer requires them to be completely spotless, instead requiring that you keep it clean under 12-20 "cleanables" per area.</li>
-				<li class="tweak">The janitor "keep X areas clean" objective no longer makes you clean maintenance.</li>
-				<li class="bugfix">Fixed the Curator newscaster objective not working.</li>
-				<li class="tweak">The Curator newscaster objective now uses word counts and is more reasonable in its expectations.</li>
-				<li class="bugfix">The lawyer's "Ensure there are no members of security in the prison wing when the shift ends." crew objective no longer does the opposite.</li>
-				<li class="bugfix">The virologist "Ensure no crew have harmful diseases" objective now properly checks the harm level of the disease instead of targeting harmless disease, and properly checks that the disease-haver is living before failing.</li>
-				<li class="bugfix">Fixed a runtime with the Mime "Don't break your vow" crew objective.</li>
-				<li class="bugfix">Fixed crew objectives showing as failed if you break the completion conditions and then re-open the roundend report.</li>
-				<li class="bugfix">Fixed some formatting and spacing issues with the janitor area clean objective.</li>
-				<li class="bugfix">The mime's "never break your vow" crew objective now checks if you broke the vow directly instead of if you talked at all (with false positives from dchat).</li>
-				<li class="code_imp">Improved crew objective code.</li>
-				<li class="code_imp">Slightly optimized and improved camera console camera detection code.</li>
-				<li class="rscadd">Added dangerous shuttle warnings to the communications console.</li>
-				<li class="tweak">Tweaked the description on Oh Hi Daniel shuttle to not reference "space roleplay".</li>
-				<li class="tweak">Tweaked the description on STV5 shuttle to include the fact that the crates included are potentially explosive.</li>
-			</ul>
-			<h3 class="author">mystery3525 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">halved lavaland mobs health</li>
-				<li class="balance">halved PKA and PKC damage</li>
-				<li class="balance">Removed minimum pressure requirement from PKA and PKC, so they do the same amount of damage in vacuums again.</li>
-			</ul>
-
-			<h2 class="date">29 November 2022</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">round end report now reports station traits</li>
-				<li class="tweak">Nanites programs 'force speech' and 'skull echo' now share its cooldown with other same programs.</li>
-				<li class="rscadd">ghosts now can read nanites skull echo messages.</li>
-				<li class="code_imp">relocated cartridge.dm to job_disk.dm. repathed cartridge vendor to /job_disk</li>
-				<li class="tweak">HoP disk vendor sells various job disks now. there're contraband inside.</li>
-				<li class="tweak">HoP disk vendor no longer sells PDAs that have weirdly-pre-inserted-head-only-job-disks. It sells normal PDAs now.</li>
-			</ul>
-			<h3 class="author">mystery3525 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="config">Disables the revolutionary gamemode and revolutionary dynamic ruleset</li>
 			</ul>
 		</div>
 

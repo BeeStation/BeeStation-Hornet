@@ -736,7 +736,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			bodyparts_to_add -= "waggingspines"
 
 	if("snout" in mutant_bodyparts) //Take a closer look at that snout!
-		if((H.wear_mask?.flags_inv & HIDEFACE) || (H.head?.flags_inv & HIDEFACE) || !HD)
+		if((H.wear_mask?.flags_inv & HIDESNOUT) || (H.head?.flags_inv & HIDESNOUT) || !HD)
 			bodyparts_to_add -= "snout"
 
 	if("frills" in mutant_bodyparts)
@@ -2169,6 +2169,30 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species/proc/get_harm_descriptors()
 	return
+
+/datum/species/proc/z_impact_damage(mob/living/carbon/human/H, turf/T, levels)
+	H.apply_general_zimpact_damage(T, levels)
+	if(levels < 2)
+		return
+	// SPLAT!
+	// 5: 50%, 4: 32%, 3: 18%
+	if(levels >= 3 && prob(min((levels ** 2) * 2, 50)))
+		H.gib()
+		return
+	// owie
+	// 5: 60%, 4: 45%, 3: 30%, 2: 15%
+	if(prob(min((levels - 1) * 15, 75)))
+		if(levels >= 3 && prob(25))
+			for(var/selected_part in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+				var/obj/item/bodypart/bp = H.get_bodypart(selected_part)
+				if(bp)
+					bp.dismember()
+			return
+		var/selected_part = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+		var/obj/item/bodypart/bp = H.get_bodypart(selected_part)
+		if(bp)
+			bp.dismember()
+			return
 
 /datum/species/proc/get_laugh_sound(mob/living/carbon/user)
 	return
