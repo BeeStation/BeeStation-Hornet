@@ -456,3 +456,9 @@ GLOBAL_LIST_EMPTY(monkey_icon_cache)
 // Pirates threat
 #define PIRATE_RESPONSE_NO_PAY "pirate_answer_no_pay"
 #define PIRATE_RESPONSE_PAY "pirate_answer_pay"
+
+// Jetpack Thrust
+#define THRUST_REQUIREMENT_GRAVITY 0.2
+#define THRUST_REQUIREMENT_SPACEMOVE 0.01
+#define GRAVITY_JOULE_REQUIREMENT 100 // small number because we don't actually care about the energy here, just balance
+#define JETPACK_COMBUSTION_CONSUMPTION_ADJUSTMENT 500

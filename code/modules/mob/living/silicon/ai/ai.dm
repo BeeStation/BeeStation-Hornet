@@ -1088,5 +1088,5 @@
 	if(.)
 		end_multicam()
 
-/mob/living/silicon/ai/zMove(dir, feedback = FALSE)
-	. = eyeobj.zMove(dir, feedback)
+/mob/living/silicon/ai/zMove(dir, feedback = FALSE, feedback_to = src)
+	. = eyeobj.zMove(dir, feedback, feedback_to)

@@ -135,10 +135,16 @@
 #define COMSIG_ATOM_ATTACK_PAW "atom_attack_paw"
 	//works on all 3.
 	#define COMPONENT_NO_ATTACK_HAND 1
+
+///from base of atom/expose_reagents():
+#define COMSIG_ATOM_EXPOSE_REAGENTS "atom_expose_reagents"
+	/// Prevents the atom from being exposed to reagents if returned on [COMPONENT_ATOM_EXPOSE_REAGENTS]
+	#define COMPONENT_NO_EXPOSE_REAGENTS (1<<0)
+
 ///! from base of atom/animal_attack(): (/mob/user)
 #define COMSIG_ATOM_ATTACK_ANIMAL "attack_animal"
 ///This signal return value bitflags can be found in __DEFINES/misc.dm
-///called for each movable in a turf contents on /turf/zImpact(): (atom/movable/A, levels)
+///called for each movable in a turf contents on /turf/attempt_z_impact(): (atom/movable/A, levels)
 #define COMSIG_ATOM_INTERCEPT_Z_FALL "movable_intercept_z_impact"
 
 #define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE "atom_init_success"

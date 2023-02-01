@@ -199,7 +199,7 @@
 			if(T)
 				L.forceMove(T)
 			else
-				to_chat(L, "<span class='warning'>There's nothing in that direction!</span>")
+				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
 			L.setDir(direct)
 		if(INCORPOREAL_MOVE_SHADOW)
 			if(prob(50))
@@ -262,7 +262,7 @@
 					return
 				L.forceMove(stepTurf)
 			else
-				to_chat(L, "<span class='warning'>There's nothing in that direction!</span>")
+				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
 			L.setDir(direct)
 
 		if(INCORPOREAL_MOVE_EMINENCE) //Incorporeal move for emincence. Blocks move like Jaunt but lets it pass through clockwalls
@@ -282,7 +282,7 @@
 					return
 				L.forceMove(stepTurf)
 			else
-				to_chat(L, "<span class='warning'>There's nothing in that direction!</span>")
+				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
 			L.setDir(direct)
 	return TRUE
 
@@ -498,21 +498,27 @@
 		to_chat(src, "<span class='notice'>You move down.</span>")
 
 ///Move a mob between z levels, if it's valid to move z's on this turf
-/mob/proc/zMove(dir, feedback = FALSE)
+/mob/proc/zMove(dir, feedback = FALSE, feedback_to = src)
 	if(dir != UP && dir != DOWN)
 		return FALSE
+	var/turf/source = get_turf(src)
 	var/turf/target = get_step_multiz(src, dir)
 	if(!target)
 		if(feedback)
-			to_chat(src, "<span class='warning'>There's nothing in that direction!</span>")
+			to_chat(feedback_to, "<span class='warning'>There's nowhere to go in that direction!</span>")
 		return FALSE
-	if(!canZMove(dir, target))
+	var/ventcrawling = movement_type & VENTCRAWLING
+	if(!canZMove(dir, source, target) && !ventcrawling)
 		if(feedback)
-			to_chat(src, "<span class='warning'>You couldn't move there!</span>")
+			to_chat(feedback_to, "<span class='warning'>You couldn't move there!</span>")
 		return FALSE
-	forceMove(target)
+	if(!ventcrawling) //let this be handled in atmosmachinery.dm
+		forceMove(target)
+	else
+		var/obj/machinery/atmospherics/pipe = loc
+		pipe.relaymove(src, dir)
 	return TRUE
 
-/// Can this mob move between z levels
-/mob/proc/canZMove(direction, turf/target)
+/// Can this mob move between z levels. pre_move is using in /mob/living to dictate is fuel is used based on move delay
+/mob/proc/canZMove(direction, turf/source, turf/target, pre_move = TRUE)
 	return FALSE
