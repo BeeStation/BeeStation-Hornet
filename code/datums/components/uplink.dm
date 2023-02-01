@@ -93,7 +93,7 @@
 		if (uplink_items[category] != null && updated_items[category] != null)
 			updated_items[category] = uplink_items[category]
 
-/datum/component/uplink/proc/LoadTC(mob/user, obj/item/stack/telecrystal/TC, silent = FALSE)
+/datum/component/uplink/proc/LoadTC(mob/user, obj/item/stack/sheet/telecrystal/TC, silent = FALSE)
 	if(!silent)
 		to_chat(user, "<span class='notice'>You slot [TC] into [parent] and charge its internal uplink.</span>")
 	var/amt = TC.amount
@@ -105,7 +105,7 @@
 
 	if(!active)
 		return	//no hitting everyone/everything just to try to slot tcs in!
-	if(istype(I, /obj/item/stack/telecrystal))
+	if(istype(I, /obj/item/stack/sheet/telecrystal))
 		LoadTC(user, I)
 	for(var/category in uplink_items)
 		for(var/item in uplink_items[category])

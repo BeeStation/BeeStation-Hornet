@@ -96,7 +96,6 @@
 	var/list/blacklisted_hats = list( //Hats that don't really work on borgos
 	/obj/item/clothing/head/helmet/space/santahat,
 	/obj/item/clothing/head/welding,
-	/obj/item/clothing/head/mob_holder, //I am so very upset that this breaks things
 	/obj/item/clothing/head/helmet/space/eva,
 	)
 
@@ -120,7 +119,6 @@
 
 	robot_modules_background = new()
 	robot_modules_background.icon_state = "block"
-	robot_modules_background.layer = HUD_LAYER	//Objects that appear on screen are on layer ABOVE_HUD_LAYER, UI should be just below it.
 	robot_modules_background.plane = HUD_PLANE
 
 	ident = rand(1, 999)
@@ -148,6 +146,7 @@
 	module.rebuild_modules()
 	update_icons()
 	. = ..()
+	add_sensors()
 
 	//If this body is meant to be a borg controlled by the AI player
 	if(shell)
@@ -309,15 +308,16 @@
 	alerts.set_content(dat)
 	alerts.open()
 
-/mob/living/silicon/robot/proc/ionpulse()
+/mob/living/silicon/robot/proc/ionpulse(thrust = 0.01, use_fuel = TRUE)
 	if(!ionpulse_on)
-		return
+		return FALSE
 
 	if(cell.charge <= 10)
 		toggle_ionpulse()
-		return
+		return FALSE
 
-	cell.charge -= 10
+	if(use_fuel)
+		cell.charge -= (thrust * 1000)
 	return TRUE
 
 /mob/living/silicon/robot/proc/toggle_ionpulse()
@@ -1150,6 +1150,16 @@
 	hat = new_hat
 	new_hat.forceMove(src)
 	update_icons()
+
+/**
+	*Checking Exited() to detect if a hat gets up and walks off.
+	*Drones and pAIs might do this, after all.
+*/
+/mob/living/silicon/robot/Exited(atom/A)
+	if(hat && hat == A)
+		hat = null
+	update_icons()
+	. = ..()
 
 /mob/living/silicon/robot/proc/make_shell(var/obj/item/borg/upgrade/ai/board)
 	if(!board)

@@ -273,7 +273,8 @@
 
 /obj/structure/statue/snow
 	max_integrity = 50
-	material_drop_type = /obj/item/stack/sheet/mineral/snow
+	material_drop_type = /obj/item/stack/sheet/snow
+
 
 /obj/structure/statue/snow/snowman
 	name = "snowman"

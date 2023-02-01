@@ -65,7 +65,7 @@
 
 	var/fraction = min(gulp_amount/reagents.total_volume, 1)
 	checkLiked(fraction, M)
-	reagents.reaction(M, INGEST, fraction)
+	reagents.expose(M, INGEST, fraction)
 	reagents.trans_to(M, gulp_amount, transfered_by = user)
 	playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	return 1
@@ -406,7 +406,7 @@
 	if(!reagents.total_volume)
 		user.visible_message("<span class='warning'>[user] snaps the [src] into 2 pieces!</span>",
 		"<span class='notice'>You snap [src] in half.</span>")
-		new /obj/item/stack/sheet/mineral/wax(user.loc, 2)
+		new /obj/item/stack/sheet/wax(user.loc, 2)
 		qdel(src)
 		return
 	return ..()

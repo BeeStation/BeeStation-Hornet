@@ -6,12 +6,36 @@
 	show_to_ghosts = TRUE
 	var/datum/team/pirate/crew
 
+/datum/antagonist/pirate/captain
+	name = "Space Pirate Captain"
+
+/datum/antagonist/pirate/captain/on_gain()
+	. = ..()
+	var/mob/living/current = owner.current
+	set_antag_hud(current, "pirate-captain")
+
 /datum/antagonist/pirate/greet()
 	to_chat(owner, "<span class='boldannounce'>You are a Space Pirate!</span>")
 	to_chat(owner, "<B>The station refused to pay for your protection, protect the ship, siphon the credits from the station and raid it for even more loot.</B>")
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Space Pirate",
 		"The station refused to pay for your protection, protect the ship, siphon the credits from the station and raid it for even more loot.")
+
+/datum/antagonist/pirate/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	//Give pirate appearence on hud (If they are not an antag already)
+	var/datum/atom_hud/antag/piratehud = GLOB.huds[ANTAG_HUD_PIRATE]
+	piratehud.join_hud(owner.current)
+	if(!owner.antag_hud_icon_state)
+		set_antag_hud(owner.current, "pirate")
+
+/datum/antagonist/pirate/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	//Clear the hud if they haven't become something else and had the hud overwritten
+	var/datum/atom_hud/antag/piratehud = GLOB.huds[ANTAG_HUD_PIRATE]
+	piratehud.leave_hud(owner.current)
+	if(owner.antag_hud_icon_state == "pirate" || owner.antag_hud_icon_state == "pirate-captain")
+		set_antag_hud(owner.current, null)
 
 /datum/antagonist/pirate/get_team()
 	return crew
@@ -36,6 +60,18 @@
 	if(crew)
 		objectives |= crew.objectives
 	. = ..()
+
+/datum/antagonist/pirate/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	var/mob/living/owner_mob = mob_override || owner.current
+	var/datum/language_holder/holder = owner_mob.get_language_holder()
+	holder.grant_language(/datum/language/piratespeak, TRUE, TRUE, LANGUAGE_PIRATE)
+	holder.selected_language = /datum/language/piratespeak
+
+/datum/antagonist/pirate/remove_innate_effects(mob/living/mob_override)
+	var/mob/living/owner_mob = mob_override || owner.current
+	owner_mob.remove_language(/datum/language/piratespeak, TRUE, TRUE, LANGUAGE_PIRATE)
+	return ..()
 
 /datum/team/pirate
 	name = "Pirate crew"

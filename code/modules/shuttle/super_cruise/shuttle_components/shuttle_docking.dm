@@ -281,6 +281,9 @@
 
 	// Checking for overlapping dock boundaries
 	for(var/i in 1 to overlappers.len)
+		var/obj/docking_port/mobile/shuttle = overlappers[i]
+		if(istype(shuttle) && shuttle.undockable)
+			return SHUTTLE_DOCKER_BLOCKED
 		var/obj/docking_port/stationary/port = overlappers[i]
 		if(port == my_port)
 			continue
@@ -316,7 +319,7 @@
 	src.origin = origin
 	return ..()
 
-/mob/camera/ai_eye/remote/shuttle_docker/canZMove(direction, turf/target)
+/mob/camera/ai_eye/remote/shuttle_docker/canZMove(direction, turf/source, turf/target, pre_move = TRUE)
 	return TRUE
 
 /mob/camera/ai_eye/remote/shuttle_docker/setLoc(destination)
