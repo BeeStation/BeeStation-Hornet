@@ -136,7 +136,7 @@
 		smashes++
 
 /obj/effect/broken_illusion
-	name = "???"
+	name = "pierced reality"
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "pierced_illusion"
 	anchored = TRUE
