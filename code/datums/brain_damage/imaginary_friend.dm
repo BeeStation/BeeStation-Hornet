@@ -196,7 +196,7 @@
 			hearers += client
 		if(owner_chat_map)
 			hearers += owner.client
-		
+
 	var/rendered = "<span class='game say'><span class='name'>[name]</span> <span class='message'>[say_quote(message)]</span></span>"
 	var/dead_rendered = "<span class='game say'><span class='name'>[name] (Imaginary friend of [owner])</span> <span class='message'>[say_quote(message)]</span></span>"
 
@@ -234,7 +234,8 @@
 
 	var/turf/our_tile = get_turf(src)
 	var/turf/tile = get_turf(A)
-	var/image/arrow = image(icon = 'icons/mob/screen_gen.dmi', loc = our_tile, icon_state = "arrow", layer = POINT_LAYER)
+	var/image/arrow = image(icon = 'icons/mob/screen_gen.dmi', loc = our_tile, icon_state = "arrow")
+	arrow.plane = POINT_PLANE
 	animate(arrow, pixel_x = (tile.x - our_tile.x) * world.icon_size + A.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + A.pixel_y, time = 1.7, easing = EASE_OUT)
 	owner?.client?.images += arrow
 	client?.images += arrow
