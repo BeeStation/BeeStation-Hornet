@@ -2,7 +2,7 @@
 	name = "pointer"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "arrow"
-	layer = POINT_LAYER
+	plane = POINT_PLANE
 	duration = 25
 
 /obj/effect/temp_visual/point/Initialize(mapload, set_invis = 0)
@@ -76,12 +76,12 @@
 			lifetime--
 		else if(travelled_max_distance)
 			lifetime--
-		reagents?.reaction(turf_atom, VAPOR)
+		reagents.expose(turf_atom, VAPOR)
 		if(user)
 			log_combat(user, turf_atom, "sprayed", sprayer, addition="which had [puff_reagents_string]")
 
 	if(lifetime >= 0 && (!stream || travelled_max_distance))
-		reagents?.reaction(our_turf, VAPOR)
+		reagents.expose(our_turf, VAPOR)
 		lifetime--
 		if(user)
 			log_combat(user, our_turf, "sprayed", sprayer, addition="which had [puff_reagents_string]")

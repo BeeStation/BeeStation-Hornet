@@ -98,7 +98,7 @@
 				to_chat(M, "<span class='notice'>You can finally focus your eyes on distant objects.</span>")
 				M.cure_nearsighted(EYE_DAMAGE)
 				M.blur_eyes(10)
-			else if(M.eye_blind || M.eye_blurry)
+			else if(M.is_blind() || M.eye_blurry)
 				M.set_blindness(0)
 				M.set_blurriness(0)
 			else if(eyes.damage > 0)
@@ -121,7 +121,7 @@
 	symptom_delay_max = 1
 	prefixes = list("Organ ")
 	var/curing = FALSE
-	var/regenorgans = FALSE 
+	var/regenorgans = FALSE
 	threshold_desc = "<b>Stealth 4:</b> The host will regenerate missing organs over a long period of time.<br>\
 					  <b>Stage Speed 10:</b> The virus causes the host's internal organs to gain some self-correcting behaviour, preventing heart attacks and appendicitis.<br>"
 

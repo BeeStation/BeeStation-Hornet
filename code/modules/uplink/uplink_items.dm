@@ -160,8 +160,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			var/mob/living/carbon/human/H = user
 			if(H.put_in_hands(A))
 				to_chat(H, "[A] materializes into your hands!")
+				log_uplink_purchase(user, A)
 				return A
 	to_chat(user, "[A] materializes onto the floor.")
+	log_uplink_purchase(user, A)
 	return A
 
 //Discounts (dynamically filled above)
@@ -360,7 +362,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/bundles_TC/telecrystal
 	name = "1 Raw Telecrystal"
 	desc = "A telecrystal in its rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
-	item = /obj/item/stack/telecrystal
+	item = /obj/item/stack/sheet/telecrystal
 	cost = 1
 	// Don't add telecrystals to the purchase_log since
 	// it's just used to buy more items (including itself!)
@@ -369,13 +371,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/bundles_TC/telecrystal/five
 	name = "5 Raw Telecrystals"
 	desc = "Five telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
-	item = /obj/item/stack/telecrystal/five
+	item = /obj/item/stack/sheet/telecrystal/five
 	cost = 5
 
 /datum/uplink_item/bundles_TC/telecrystal/twenty
 	name = "20 Raw Telecrystals"
 	desc = "Twenty telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
-	item = /obj/item/stack/telecrystal/twenty
+	item = /obj/item/stack/sheet/telecrystal/twenty
 	cost = 20
 
 /datum/uplink_item/bundles_TC/crate
@@ -1220,7 +1222,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The minibomb is a grenade with a five-second fuse. Upon detonation, it will create a small hull breach \
 			in addition to dealing high amounts of damage to nearby personnel."
 	item = /obj/item/grenade/syndieminibomb
-	cost = 5
+	cost = 4
 	purchasable_from = ~UPLINK_CLOWN_OPS
 
 /datum/uplink_item/explosives/tearstache
@@ -2328,6 +2330,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Clown Costume"
 	desc = "Nothing is more terrifying than clowns with fully automatic weaponry."
 	item = /obj/item/storage/backpack/duffelbag/clown/syndie
+
+/datum/uplink_item/badass/surprise_cake
+	name = "Rigged towering cake"
+	desc = "For hosting a surprise birthday party for the Captain, with a flashy surprise."
+	item = /obj/structure/popout_cake/nukeop
+	cost = 4
+	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/badass/balloon
 	name = "Syndicate Balloon"

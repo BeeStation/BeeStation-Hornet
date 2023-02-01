@@ -26,9 +26,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	//If true, turf will allow users to float up and down in 0 grav.
 	var/allow_z_travel = FALSE
 
-	/// Whether the turf blocks atmos from passing through it or not
-	var/blocks_air = FALSE
-
 	flags_1 = CAN_BE_DIRTY_1
 
 	/// For the station blueprints, images of objects eg: pipes
@@ -680,6 +677,15 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 //Should return new turf
 /turf/proc/Melt()
 	return ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
+
+/// Handles exposing a turf to reagents.
+/turf/expose_reagents(list/reagents, datum/reagents/source, methods=TOUCH, volume_modifier=1, show_message=TRUE)
+	if((. = ..()) & COMPONENT_NO_EXPOSE_REAGENTS)
+		return
+
+	for(var/reagent in reagents)
+		var/datum/reagent/R = reagent
+		. |= R.expose_turf(src, reagents[R])
 
 /turf/proc/check_gravity()
 	return TRUE
