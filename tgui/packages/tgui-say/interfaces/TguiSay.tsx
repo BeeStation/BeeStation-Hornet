@@ -51,8 +51,6 @@ export class TguiSay extends Component<{}, State> {
         className={getCss('modal', theme, size)}
         onmousedown={dragStartHandler}
         $HasKeyedChildren>
-        <div className="top-border" />
-        <div className="left-border" />
         <div className="modal__content" $HasKeyedChildren>
           {!!theme && (
             <button
@@ -78,8 +76,6 @@ export class TguiSay extends Component<{}, State> {
             value={edited && value}
           />
         </div>
-        <div className="bottom-border" />
-        <div className="right-border" />
       </div>
     );
   }

@@ -15,7 +15,7 @@
   .top-border {
     background-color: colors.$lightBorder;
     top: 0px;
-    height: 2px;
+    height: 1px;
     left: 0px;
     position: absolute;
     right: 0px;
@@ -25,7 +25,7 @@
     background-color: colors.$lightBorder;
     top: 0px;
     bottom: 0px;
-    width: 2px;
+    width: 1px;
     left: 0px;
     position: absolute;
     z-index: 1000;
@@ -34,7 +34,7 @@
     background-color: colors.$lightBorder;
     top: 0px;
     bottom: 0px;
-    width: 2px;
+    width: 1px;
     right: 0px;
     position: absolute;
     z-index: 1000;
@@ -42,7 +42,7 @@
   .bottom-border {
     background-color: colors.$lightBorder;
     bottom: 0px;
-    height: 2px;
+    height: 1px;
     left: 0px;
     position: absolute;
     right: 0px;
@@ -70,56 +70,17 @@
   height: 70px;
 }
 
-/** Creates an animated border for each channel */
 @each $channel, $color in colors.$channel-map {
   .modal-#{$channel} {
-    .top-border {
-      background: linear-gradient(
-        to right,
-        $color,
-        darken($color, 10%),
-        $color
-      );
-      background-attachment: fixed;
-      top: 0px;
-      height: 2px;
-      left: 0px;
-      position: absolute;
-      right: 0px;
-      z-index: 999;
-    }
-    .left-border {
-      background-color: $color;
-      top: 0px;
-      bottom: 0px;
-      width: 2px;
-      left: 0px;
-      position: absolute;
-      z-index: 1000;
-    }
-    .right-border {
-      background-color: $color;
-      top: 0px;
-      bottom: 0px;
-      width: 2px;
-      right: 0px;
-      position: absolute;
-      z-index: 1000;
-    }
-    .bottom-border {
-      background: linear-gradient(
-        to right,
-        $color,
-        darken($color, 10%),
-        $color
-      );
-      background-attachment: fixed;
-      bottom: 0px;
-      height: 2px;
-      left: 0px;
-      position: absolute;
-      right: 0px;
-      z-index: 999;
-    }
+    border-image: linear-gradient(
+        30deg,
+        adjust-hue($color, 15deg),
+        darken($color, 20%),
+        darken(adjust-hue($color, 15deg), 10%)
+      )
+      1;
+    border-width: 1px;
+    border-image-width: 1px;
+    border-style: solid;
   }
 }

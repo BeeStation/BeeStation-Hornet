@@ -50,8 +50,12 @@
 	window.initialize(
 			strict_mode = TRUE,
 			fancy = TRUE,
+			// Switch inline to assets for hot-reload in development
 			inline_css = file("tgui/public/tgui-say.bundle.css"),
 			inline_js = file("tgui/public/tgui-say.bundle.js"),
+			//assets = list(
+			//	get_asset_datum(/datum/asset/simple/tgui_say),
+			//),
 	);
 
 /**

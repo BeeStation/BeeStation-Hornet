@@ -1,7 +1,7 @@
 @use 'sass:color';
 @use 'sass:map';
 
-$background: #0a0a0a;
+$background: black;
 $button: #161616;
 $lightMode: #ffffff;
 $lightBorder: #bbbbbb;
@@ -9,10 +9,10 @@ $lightHover: #eaeaea;
 
 ////////////////////////////////////////////////
 // Normal chat colors
-$say: #bdcce6;
+$say: #c1fffc;
 $radio: #1ecc43;
 $me: #74a1e4;
-$ooc: #cca300;
+$ooc: #e64100;
 $looc: #fafa3b;
 
 ////////////////////////////////////////////////
