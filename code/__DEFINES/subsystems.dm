@@ -226,6 +226,13 @@
 #define SSEXPLOSIONS_TURFS 2
 #define SSEXPLOSIONS_THROWS 3
 
+// Liquid
+#define SSLIQUIDS_RUN_TYPE_TURFS 1
+#define SSLIQUIDS_RUN_TYPE_GROUPS 2
+#define SSLIQUIDS_RUN_TYPE_IMMUTABLES 3
+#define SSLIQUIDS_RUN_TYPE_EVAPORATION 4
+#define SSLIQUIDS_RUN_TYPE_FIRE 5
+
 //! ## Overlays subsystem
 
 /// Compile all the overlays for an atom from the cache lists

@@ -480,3 +480,6 @@
 #define THROW_MODE_DISABLED 0
 #define THROW_MODE_TOGGLE 1
 #define THROW_MODE_HOLD 2
+
+/// If other mobs (monkeys, aliens, etc) can use this
+#define NO_DEXTERITY TRUE

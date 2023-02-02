@@ -130,6 +130,11 @@
 /obj/structure/barricade/security/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, .proc/deploy), deploy_time)
+	AddElement(/datum/element/liquids_height, 20)
+
+/obj/structure/barricade/security/Destroy()
+	. = ..()
+	RemoveElement(/datum/element/liquids_height, 20)
 
 /obj/structure/barricade/security/proc/deploy()
 	icon_state = "barrier1"

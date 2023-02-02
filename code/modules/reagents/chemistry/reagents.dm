@@ -41,6 +41,16 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/self_consuming = FALSE
 	var/reagent_weight = 1 //affects how far it travels when sprayed
 	var/metabolizing = FALSE
+	///Whether it will evaporate if left untouched on a liquids simulated puddle
+	var/evaporates = FALSE
+	///How much fire power does the liquid have, for burning on simulated liquids. Not enough fire power/unit of entire mixture may result in no fire
+	var/liquid_fire_power = 0
+	///How fast does the liquid burn on simulated turfs, if it does
+	var/liquid_fire_burnrate = 0
+	///Whether a fire from this requires oxygen in the atmosphere
+	var/fire_needs_oxygen = TRUE
+	///The opacity of the chems used to determine the alpha of liquid turfs
+	var/opacity = 175
 
 /datum/reagent/Destroy() // This should only be called by the holder, so it's already handled clearing its references
 	. = ..()
@@ -75,7 +85,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /datum/reagent/proc/on_transfer(atom/A, methods=TOUCH, trans_volume) //Called after a reagent is transfered
 	return
 
-/datum/reagents/proc/react_single(datum/reagent/R, atom/A, methods = TOUCH, volume_modifier = 1, show_message = TRUE)
+/datum/reagents/proc/react_single(datum/reagent/R, atom/A, methods = TOUCH, volume_modifier = 1, show_message = TRUE, liquid = FALSE)
 	var/react_type
 	if(isliving(A))
 		react_type = "LIVING"
@@ -86,6 +96,8 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 		react_type = "TURF"
 	else if(isobj(A))
 		react_type = "OBJ"
+	else if(liquid == TRUE)
+		react_type = "LIQUID"
 	else
 		return
 	switch(react_type)
@@ -99,6 +111,8 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 			R.expose_turf(A, R.volume * volume_modifier, show_message)
 		if("OBJ")
 			R.expose_obj(A, R.volume * volume_modifier, show_message)
+		if("LIQUID")
+			R.reaction_liquid(A, R.volume * volume_modifier, show_message)
 
 // Called when this reagent is first added to a mob
 /datum/reagent/proc/on_mob_add(mob/living/L)
@@ -136,6 +150,9 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 
 // Called if the reagent has passed the overdose threshold and is set to be triggering overdose effects
 /datum/reagent/proc/overdose_process(mob/living/M)
+	return
+
+/datum/reagent/proc/reaction_liquid(obj/O, volume)
 	return
 
 /datum/reagent/proc/overdose_start(mob/living/M)

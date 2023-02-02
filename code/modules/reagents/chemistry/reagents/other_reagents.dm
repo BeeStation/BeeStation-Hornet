@@ -10,6 +10,7 @@
 	glass_name = "glass of tomato juice"
 	glass_desc = "Are you sure this is tomato juice?"
 	shot_glass_icon_state = "shotglassred"
+	opacity = 255
 
 /datum/reagent/blood/expose_mob(mob/living/L, methods=TOUCH, reac_volume)
 	if(data && data["viruses"])
@@ -165,7 +166,7 @@
 	glass_desc = "The father of all refreshments."
 	shot_glass_icon_state = "shotglassclear"
 	process_flags = ORGANIC | SYNTHETIC
-
+	evaporates = TRUE
 
 /*
  *	Water reaction to turf
@@ -304,6 +305,15 @@
 			qdel(R)
 	T.Bless()
 
+/datum/reagent/water/holywater/reaction_liquid(obj/O, reac_volume)
+	var/turf/open/T = get_turf(O)
+	if (!istype(T))
+		return
+	if(reac_volume>=10)
+		for(var/obj/effect/rune/R in T)
+			qdel(R)
+	T.Bless()
+
 /datum/reagent/fuel/unholywater		//if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
 	name = "Unholy Water"
 	description = "Something that shouldn't exist on this plane of existence."
@@ -366,6 +376,13 @@
 	var/lube_kind = TURF_WET_LUBE ///What kind of slipperiness gets added to turfs.
 
 /datum/reagent/lube/expose_turf(turf/open/T, reac_volume)
+	if (!istype(T))
+		return
+	if(reac_volume >= 1)
+		T.MakeSlippery(lube_kind, 15 SECONDS, min(reac_volume * 2 SECONDS, 120))
+
+/datum/reagent/lube/reaction_liquid(obj/O, reac_volume)
+	var/turf/open/T = get_turf(O)
 	if (!istype(T))
 		return
 	if(reac_volume >= 1)
@@ -771,19 +788,6 @@
 	chem_flags = CHEMICAL_BASIC_ELEMENT
 	taste_mult = 0 // oderless and tasteless
 
-
-/datum/reagent/oxygen/expose_obj(obj/O, reac_volume)
-	if((!O) || (!reac_volume))
-		return 0
-	var/temp = holder ? holder.chem_temp : T20C
-	O.atmos_spawn_air("o2=[reac_volume/2];TEMP=[temp]")
-
-/datum/reagent/oxygen/expose_turf(turf/open/T, reac_volume)
-	if(istype(T))
-		var/temp = holder ? holder.chem_temp : T20C
-		T.atmos_spawn_air("o2=[reac_volume/2];TEMP=[temp]")
-	return
-
 /datum/reagent/copper
 	name = "Copper"
 	description = "A highly ductile metal. Things made out of copper aren't very durable, but it makes a decent material for electrical wiring."
@@ -807,19 +811,6 @@
 	color = "#808080" // rgb: 128, 128, 128
 	chem_flags = CHEMICAL_BASIC_ELEMENT
 	taste_mult = 0
-
-
-/datum/reagent/nitrogen/expose_obj(obj/O, reac_volume)
-	if((!O) || (!reac_volume))
-		return 0
-	var/temp = holder ? holder.chem_temp : T20C
-	O.atmos_spawn_air("n2=[reac_volume/2];TEMP=[temp]")
-
-/datum/reagent/nitrogen/expose_turf(turf/open/T, reac_volume)
-	if(istype(T))
-		var/temp = holder ? holder.chem_temp : T20C
-		T.atmos_spawn_air("n2=[reac_volume/2];TEMP=[temp]")
-	return
 
 /datum/reagent/hydrogen
 	name = "Hydrogen"
@@ -1084,7 +1075,8 @@
 	glass_name = "glass of welder fuel"
 	glass_desc = "Unless you're an industrial tool, this is probably not safe for consumption."
 	process_flags = ORGANIC | SYNTHETIC
-
+	liquid_fire_power = 10
+	liquid_fire_burnrate = 1
 
 /datum/reagent/fuel/expose_mob(mob/living/M, methods=TOUCH, reac_volume)//Splashing people with welding fuel to make them easy to ignite!
 	if(methods & (TOUCH|VAPOR))
@@ -1163,6 +1155,17 @@
 			SEND_SIGNAL(M, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
 	else if(methods & (INGEST|INJECT)) //why the fuck did you drink space cleaner you fucking buffoon
 		toxic = TRUE
+
+/datum/reagent/space_cleaner/reaction_liquid(obj/O, reac_volume)
+	var/turf/open/T = get_turf(O)
+	if(reac_volume >= 1)
+		T.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+		SEND_SIGNAL(T, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
+		for(var/obj/effect/decal/cleanable/C in T)
+			qdel(C)
+
+		for(var/mob/living/simple_animal/slime/M in T)
+			M.adjustToxLoss(rand(5,10))
 
 /datum/reagent/space_cleaner/ez_clean
 	name = "EZ Clean"
@@ -1306,18 +1309,6 @@
 	chem_flags = NONE
 	taste_description = "something unknowable"
 
-/datum/reagent/carbondioxide/expose_obj(obj/O, reac_volume)
-	if((!O) || (!reac_volume))
-		return 0
-	var/temp = holder ? holder.chem_temp : T20C
-	O.atmos_spawn_air("co2=[reac_volume/5];TEMP=[temp]")
-
-/datum/reagent/carbondioxide/expose_turf(turf/open/T, reac_volume)
-	if(istype(T))
-		var/temp = holder ? holder.chem_temp : T20C
-		T.atmos_spawn_air("co2=[reac_volume/5];TEMP=[temp]")
-	return
-
 /datum/reagent/nitrous_oxide
 	name = "Nitrous Oxide"
 	description = "A potent oxidizer used as fuel in rockets and as an anaesthetic during surgery."
@@ -1326,17 +1317,6 @@
 	color = "#808080"
 	chem_flags = NONE
 	taste_description = "sweetness"
-
-/datum/reagent/nitrous_oxide/expose_obj(obj/O, reac_volume)
-	if((!O) || (!reac_volume))
-		return 0
-	var/temp = holder ? holder.chem_temp : T20C
-	O.atmos_spawn_air("n2o=[reac_volume/5];TEMP=[temp]")
-
-/datum/reagent/nitrous_oxide/expose_turf(turf/open/T, reac_volume)
-	if(istype(T))
-		var/temp = holder ? holder.chem_temp : T20C
-		T.atmos_spawn_air("n2o=[reac_volume/5];TEMP=[temp]")
 
 /datum/reagent/nitrous_oxide/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
 	if(methods & VAPOR)
@@ -1620,6 +1600,10 @@
 		F.PlaceOnTop(/turf/open/floor/carpet, flags = CHANGETURF_INHERIT_AIR)
 	..()
 
+/datum/reagent/carpet/reaction_liquid(obj/O, reac_volume)
+	var/turf/open/T = get_turf(O)
+	expose_turf(T, reac_volume)
+
 /datum/reagent/bromine
 	name = "Bromine"
 	description = "A brownish liquid that's highly reactive. Useful for stopping free radicals, but not intended for human consumption."
@@ -1682,6 +1666,11 @@
 	if(T)
 		T.add_atom_colour(pick(random_color_list), WASHABLE_COLOUR_PRIORITY)
 	..()
+
+/datum/reagent/colorful_reagent/reaction_liquid(obj/O, reac_volume)
+	var/turf/open/T = get_turf(O)
+	if(T)
+		T.add_atom_colour(pick(random_color_list), WASHABLE_COLOUR_PRIORITY)
 
 /datum/reagent/hair_dye
 	name = "Quantum Hair Dye"

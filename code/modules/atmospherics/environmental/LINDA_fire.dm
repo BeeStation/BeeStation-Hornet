@@ -9,6 +9,9 @@
 	return
 
 /turf/open/hotspot_expose(exposed_temperature, exposed_volume, soh)
+	if(liquids && !liquids.fire_state && liquids.check_fire(TRUE))
+		SSliquids.processing_fire[src] = TRUE
+	
 	if(!air)
 		return
 

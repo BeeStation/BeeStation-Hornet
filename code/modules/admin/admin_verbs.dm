@@ -19,7 +19,8 @@ GLOBAL_PROTECT(admin_verbs_default)
 	/client/proc/cmd_admin_pm_panel,		/*admin-pm list*/
 	/client/proc/stop_sounds,
 	/client/proc/mark_datum_mapview,
-	/client/proc/requests
+	/client/proc/requests,
+	/client/proc/remove_liquid
 	)
 GLOBAL_LIST_INIT(admin_verbs_admin, world.AVerbsAdmin())
 GLOBAL_PROTECT(admin_verbs_admin)
@@ -111,7 +112,8 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/admin_away,
 	/client/proc/healall,
 	/client/proc/spawn_floor_cluwne,
-	/client/proc/spawnhuman
+	/client/proc/spawnhuman,
+	/client/proc/spawn_liquid
 	))
 GLOBAL_PROTECT(admin_verbs_fun)
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
@@ -200,7 +202,8 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	#endif
 	/client/proc/toggle_cdn,
 	/client/proc/check_timer_sources,
-	/client/proc/test_dview_to_lum_changes
+	/client/proc/test_dview_to_lum_changes,
+	/client/proc/toggle_liquid_debug
 	)
 
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, /proc/release))
@@ -274,7 +277,8 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/client/proc/toggle_nuke,
 	/client/proc/cmd_display_del_log,
 	/client/proc/toggle_combo_hud,
-	/client/proc/debug_huds
+	/client/proc/debug_huds,
+	/client/proc/spawn_liquid
 	))
 GLOBAL_PROTECT(admin_verbs_hideable)
 

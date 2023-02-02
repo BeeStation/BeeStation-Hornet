@@ -131,6 +131,7 @@
 /turf/air_update_turf(command = 0)
 	if(command)
 		ImmediateCalculateAdjacentTurfs()
+	liquid_update_turf()
 
 /atom/movable/proc/move_update_air(turf/T)
     if(isturf(T))

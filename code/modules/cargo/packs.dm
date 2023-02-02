@@ -1084,6 +1084,17 @@
 	crate_name = "portable pump crate"
 	crate_type = /obj/structure/closet/crate/large
 
+/datum/supply_pack/engineering/portable_liquid_pumps
+	name = "Portable Liquid Pumps"
+	desc = "A set of spare portable pumps. Perfect for when the station is flooding."
+	cost = 1500
+	contains = list(
+		/obj/structure/liquid_pump,
+		/obj/structure/liquid_pump
+	)
+	crate_name = "portable pump crate"
+	crate_type = /obj/structure/closet/crate/large
+
 /datum/supply_pack/engineering/portable_scrubbers
 	name = "Portable Scrubbers"
 	desc = "A set of spare portable scrubbers. Perfect for when plasma 'accidentally' gets into the air supply."

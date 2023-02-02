@@ -7,6 +7,8 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "sweet tasting metal"
 	process_flags = ORGANIC | SYNTHETIC
+	liquid_fire_power = 20
+	liquid_fire_burnrate = 1
 
 /datum/reagent/thermite/expose_turf(turf/T, reac_volume)
 	if(reac_volume >= 1)
@@ -41,6 +43,8 @@
 	metabolization_rate = 4
 	taste_description = "burning"
 	process_flags = ORGANIC | SYNTHETIC
+	liquid_fire_power = 30
+	liquid_fire_burnrate = 1
 
 /datum/reagent/clf3/on_mob_life(mob/living/carbon/M)
 	M.adjust_fire_stacks(2)
@@ -147,6 +151,8 @@
 	taste_description = "burning"
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
+	liquid_fire_power = 20
+	liquid_fire_burnrate = 1 
 
 /datum/reagent/phlogiston/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
 	M.adjust_fire_stacks(1)
@@ -171,6 +177,8 @@
 	taste_description = "burning"
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
+	liquid_fire_power = 30
+	liquid_fire_burnrate = 1 
 
 /datum/reagent/napalm/on_mob_life(mob/living/carbon/M)
 	M.adjust_fire_stacks(1)

@@ -203,7 +203,7 @@
 			if(methods)
 				R.expose_single(T, target_atom, methods, part, show_message)
 				T.on_transfer(target_atom, methods, transfer_amount * multiplier)
-			remove_reagent(T.type, transfer_amount)
+			remove_reagent(T.type, transfer_amount, no_react)
 			transfer_log[T.type] = transfer_amount
 	else
 		var/to_transfer = amount
@@ -237,7 +237,7 @@
 		src.handle_reactions()
 	return amount
 
-/datum/reagents/proc/copy_to(obj/target, amount=1, multiplier=1, preserve_data=1)
+/datum/reagents/proc/copy_to(obj/target, amount=1, multiplier=1, preserve_data=1, no_react=0)
 	var/list/cached_reagents = reagent_list
 	if(!target || !total_volume)
 		return
@@ -264,8 +264,9 @@
 
 	src.update_total()
 	R.update_total()
-	R.handle_reactions()
-	src.handle_reactions()
+	if(!no_react)
+		R.handle_reactions()
+		src.handle_reactions()
 	return amount
 
 /datum/reagents/proc/trans_id_to(obj/target, reagent, amount=1, preserve_data=1)//Not sure why this proc didn't exist before. It does now! /N
@@ -703,12 +704,14 @@
 		handle_reactions()
 	return TRUE
 
-/datum/reagents/proc/add_reagent_list(list/list_reagents, list/data=null) // Like add_reagent but you can enter a list. Format it like this: list(/datum/reagent/toxin = 10, "beer" = 15)
+/datum/reagents/proc/add_reagent_list(list/list_reagents, list/data=null, no_react = FALSE) // Like add_reagent but you can enter a list. Format it like this: list(/datum/reagent/toxin = 10, "beer" = 15)
 	for(var/r_id in list_reagents)
 		var/amt = list_reagents[r_id]
-		add_reagent(r_id, amt, data)
+		add_reagent(r_id, amt, data, no_react = TRUE)
+	if(!no_react)
+		handle_reactions()
 
-/datum/reagents/proc/remove_reagent(reagent, amount, safety)//Added a safety check for the trans_id_to
+/datum/reagents/proc/remove_reagent(reagent, amount, safety = TRUE)//Added a safety check for the trans_id_to
 
 	if(isnull(amount))
 		amount = 0

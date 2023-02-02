@@ -87,6 +87,9 @@
 
 	else if(reagents.total_volume)
 		if(user.a_intent == INTENT_HARM)
+			if(istype(target, /turf/open))
+				var/turf/T = get_turf(target)
+				T.add_liquid_from_reagents(reagents)
 			user.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [target]!</span>", \
 								"<span class='notice'>You splash the contents of [src] onto [target].</span>")
 			reagents.expose(target, TOUCH)
@@ -226,7 +229,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	amount_per_transfer_from_this = 20
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,70)
-	volume = 70
+	volume = 100
 	flags_inv = HIDEHAIR
 	slot_flags = ITEM_SLOT_HEAD
 	resistance_flags = NONE
@@ -242,14 +245,24 @@
 		ITEM_SLOT_DEX_STORAGE
 	)
 
-/obj/item/reagent_containers/glass/bucket/attackby(obj/O, mob/user, params)
+#define SQUEEZING_DISPERSAL_PERCENT 0.10
+/obj/item/reagent_containers/glass/bucket/attackby(obj/O, mob/living/user, params)
 	if(istype(O, /obj/item/mop))
-		if(reagents.total_volume < 1)
-			to_chat(user, "<span class='warning'>[src] is out of water!</span>")
-		else
-			reagents.trans_to(O, 5, transfered_by = user)
-			to_chat(user, "<span class='notice'>You wet [O] in [src].</span>")
-			playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
+		if(O.reagents.total_volume == 0)
+			if(reagents.total_volume < 1)
+				to_chat(user, "<span class='warning'>[src] is out of water!</span>")
+				return
+			else
+				reagents.trans_to(O, 5, transfered_by = user)
+				to_chat(user, "<span class='notice'>You wet [O] in [src].</span>")
+				playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
+				return
+		if(reagents.total_volume == reagents.maximum_volume)
+			to_chat(user, "<span class='warning'>[src] is full!</span>")
+			return
+		O.reagents.remove_any(O.reagents.total_volume*SQUEEZING_DISPERSAL_PERCENT)
+		O.reagents.trans_to(src, O.reagents.total_volume, transfered_by = user)
+		to_chat(user, "<span class='notice'>You squeeze the liquids from [O] to [src].</span>")
 	else if(isprox(O))
 		to_chat(user, "<span class='notice'>You add [O] to [src].</span>")
 		qdel(O)
@@ -257,6 +270,7 @@
 		user.put_in_hands(new /obj/item/bot_assembly/cleanbot)
 	else
 		..()
+#undef SQUEEZING_DISPERSAL_PERCENT
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)
 	..()

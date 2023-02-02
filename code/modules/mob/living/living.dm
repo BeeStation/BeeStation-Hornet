@@ -62,6 +62,10 @@
 	apply_general_zimpact_damage(T, levels)
 
 /mob/living/proc/apply_general_zimpact_damage(turf/T, levels)
+	SEND_SIGNAL(T, COMSIG_TURF_MOB_FALL, src)
+	if(T.liquids && T.liquids.liquid_state >= LIQUID_STATE_WAIST)
+		Knockdown(20)
+		return
 	visible_message("<span class='danger'>[src] falls [levels] level\s into [T] with a sickening noise!</span>")
 	var/amount_total = get_distributed_zimpact_damage(levels)
 	var/total_damage_percent_left = 1
