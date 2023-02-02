@@ -69,13 +69,9 @@
 		. = ..()
 
 /obj/effect/abstract/liquid_turf/proc/passthrough_evaporation_reaction(datum/reagent/reagent, reac_volume)
-	/*
-	uncomment if you port chem gasses
 	var/datum/reagent/evaporated_reagent = GLOB.chemical_reagents_list[reagent.type]
 	var/turf/open/evaporated_turf = get_turf(src)
-	evaporated_reagent.reaction_evaporation(evaporated_turf, reac_volume)
-	*/
-	return
+	evaporated_reagent.expose_evaporation(evaporated_turf, reac_volume)
 
 /obj/effect/abstract/liquid_turf/proc/set_new_liquid_state(new_state)
 	if(no_effects)

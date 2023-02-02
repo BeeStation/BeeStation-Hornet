@@ -809,7 +809,7 @@
 	taste_description = "acid"
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
-	evaporates = TRUE
+	evaporation_rate = 4
 
 /datum/reagent/toxin/acid/expose_mob(mob/living/carbon/C, methods=TOUCH, reac_volume)
 	if(!istype(C))

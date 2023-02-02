@@ -166,7 +166,7 @@
 	glass_desc = "The father of all refreshments."
 	shot_glass_icon_state = "shotglassclear"
 	process_flags = ORGANIC | SYNTHETIC
-	evaporates = TRUE
+	evaporates = 3
 
 /*
  *	Water reaction to turf
@@ -373,6 +373,7 @@
 	color = "#009CA8" // rgb: 0, 156, 168
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_BARTENDER_SERVING
 	taste_description = "cherry" // by popular demand
+	evaporation_rate = 2.5 //slightly slower than water
 	var/lube_kind = TURF_WET_LUBE ///What kind of slipperiness gets added to turfs.
 
 /datum/reagent/lube/expose_turf(turf/open/T, reac_volume)
@@ -787,6 +788,13 @@
 	color = "#808080" // rgb: 128, 128, 128
 	chem_flags = CHEMICAL_BASIC_ELEMENT
 	taste_mult = 0 // oderless and tasteless
+
+/datum/reagent/oxygen/expose_evaporation(turf/open/exposed_turf, reac_volume)
+	. = ..()
+	if(istype(exposed_turf))
+		var/temp = holder ? holder.chem_temp : T20C
+		exposed_turf.atmos_spawn_air("o2=[reac_volume/20];TEMP=[temp]")
+	return
 
 /datum/reagent/copper
 	name = "Copper"

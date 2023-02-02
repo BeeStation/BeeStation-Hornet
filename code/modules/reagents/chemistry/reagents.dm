@@ -84,6 +84,10 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /datum/reagent/proc/expose_turf(turf/T, volume)
 	return
 
+//Chem gas stuff - not yet ported
+/datum/reagent/proc/expose_evaporation(turf/T, volume)
+	return
+
 /datum/reagent/proc/on_mob_life(mob/living/carbon/M)
 	current_cycle++
 	holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency) //By default it slowly disappears.

@@ -17,14 +17,13 @@
 
 	var/mopping = 0
 	var/mopcount = 0
-	var/mopcap = 100 //MONKESTATION EDIT CHANGE
+	var/mopcap = 100
 	var/mopspeed = 8
 	var/insertable = TRUE
 
 /obj/item/mop/Initialize(mapload)
 	. = ..()
 	create_reagents(mopcap)
-	//MONKESTATION EDIT ADDITION
 	AddElement(/datum/element/liquids_interaction, on_interaction_callback = /obj/item/mop/.proc/attack_on_liquids_turf)
 
 /obj/item/mop/Destroy()
@@ -60,7 +59,6 @@
 			looping = FALSE
 	user.changeNext_move(CLICK_CD_MELEE)
 	return TRUE
-	//MONKESTATION EDIT END
 
 /obj/item/mop/proc/clean(turf/A)
 	if(reagents.has_reagent(/datum/reagent/water, 1) || reagents.has_reagent(/datum/reagent/water/holywater, 1) || reagents.has_reagent(/datum/reagent/consumable/ethanol/vodka, 1) || reagents.has_reagent(/datum/reagent/space_cleaner, 1))
@@ -74,10 +72,8 @@
 
 /obj/item/mop/afterattack(atom/A, mob/user, proximity)
 	. = ..()
-	//MONKESTATION EDIT ADDITION
 	if(.)
 		return
-	//MONKESTATION EDIT END
 	if(!proximity)
 		return
 
@@ -124,7 +120,7 @@
 /obj/item/mop/advanced
 	desc = "The most advanced tool in a custodian's arsenal, complete with a condenser for self-wetting! Just think of all the viscera you will clean up with this! Due to the self-wetting technology, also comes equipped with a self drying mode toggle with ALT." //MONKESTATION EDIT
 	name = "advanced mop"
-	mopcap = 100 //MONKESTATION EDIT CHANGE
+	mopcap = 100
 	icon_state = "advmop"
 	item_state = "mop"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'

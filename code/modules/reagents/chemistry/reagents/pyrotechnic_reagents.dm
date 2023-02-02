@@ -9,6 +9,7 @@
 	process_flags = ORGANIC | SYNTHETIC
 	liquid_fire_power = 20
 	liquid_fire_burnrate = 1
+	evaporation_rate = 0.1
 
 /datum/reagent/thermite/expose_turf(turf/T, reac_volume)
 	if(reac_volume >= 1)
@@ -25,6 +26,7 @@
 	color = "#808080" // rgb: 128, 128, 128
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "oil"
+	evaporation_rate = 2
 
 /datum/reagent/stabilizing_agent
 	name = "Stabilizing Agent"
@@ -45,6 +47,7 @@
 	process_flags = ORGANIC | SYNTHETIC
 	liquid_fire_power = 30
 	liquid_fire_burnrate = 1
+	evaporation_rate = 2
 
 /datum/reagent/clf3/on_mob_life(mob/living/carbon/M)
 	M.adjust_fire_stacks(2)
@@ -152,7 +155,8 @@
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
 	liquid_fire_power = 20
-	liquid_fire_burnrate = 1 
+	liquid_fire_burnrate = 1
+	evaporation_rate = 1.2
 
 /datum/reagent/phlogiston/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
 	M.adjust_fire_stacks(1)
@@ -179,6 +183,7 @@
 	process_flags = ORGANIC | SYNTHETIC
 	liquid_fire_power = 30
 	liquid_fire_burnrate = 1 
+	evaporation_rate = 0.1
 
 /datum/reagent/napalm/on_mob_life(mob/living/carbon/M)
 	M.adjust_fire_stacks(1)
@@ -239,6 +244,7 @@
 	self_consuming = TRUE
 	var/shock_timer = 0
 	process_flags = ORGANIC | SYNTHETIC
+	evaporation_rate = 3
 
 /datum/reagent/teslium/on_mob_life(mob/living/carbon/M)
 	shock_timer++
