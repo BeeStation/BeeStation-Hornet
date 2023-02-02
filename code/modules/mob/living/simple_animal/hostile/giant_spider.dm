@@ -110,7 +110,10 @@
 			spiders = team
 			break
 	if(!spiders)
-		spiders = new(null, user)
+		if(spider_team)
+			spiders = spider_team //Spider was AI controlled and then taken over by a ghost, so we apply the stored team datum
+		else
+			spiders = new(null, user)
 	var/datum/antagonist/spider/spider_antag = mind.has_antag_datum(/datum/antagonist/spider)
 	spider_antag.set_spider_team(spiders)
 

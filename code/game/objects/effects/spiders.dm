@@ -182,6 +182,7 @@
 	random_spider = new random_spider(get_turf(src))
 	random_spider.faction = faction.Copy()
 	random_spider.spider_team = spider_team
+	random_spider.set_playable()
 	spawns_remaining--
 	if(!spawns_remaining)
 		qdel(src)
