@@ -1,0 +1,8 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - balance: Cyborgs are no longer able to repair themselves and must seek assistance
+      from others
+  - tweak: All cyborg modules now have access to a welding tool
+  - tweak: Cyborg repairs are now repeated automatically without the need to spam
+      click
