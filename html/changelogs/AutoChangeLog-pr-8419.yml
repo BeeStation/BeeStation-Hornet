@@ -1,4 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: fixed a runtime caused by lavaland swarmers
