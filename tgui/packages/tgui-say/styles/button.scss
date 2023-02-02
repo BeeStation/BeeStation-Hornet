@@ -27,7 +27,8 @@
 
 .button-lightMode {
   @extend .button;
-  background-color: colors.$lightBorder;
+  background-color: colors.$lightButton;
+  border-color: colors.$lightBorder;
 
   &:hover {
     background-color: colors.$lightHover;
