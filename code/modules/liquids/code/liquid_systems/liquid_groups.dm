@@ -316,15 +316,17 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	process_group()
 
 /datum/liquid_group/proc/transfer_reagents_to_secondary_group(obj/effect/abstract/liquid_turf/member, obj/effect/abstract/liquid_turf/transfer)
-	var/remove_amount = reagents_per_turf / length(reagents.reagent_list)
+	var/total_removed = length(members) + 1 / total_reagent_volume
+	var/remove_amount = total_removed / length(reagents.reagent_list)
 	if(!transfer)
 		transfer = new()
 	if(!transfer.liquid_group)
 		transfer.liquid_group = new(1, transfer)
 	for(var/datum/reagent/reagent_type in reagents.reagent_list)
-		transfer.liquid_group.reagents.add_reagent(reagent_type, remove_amount)
+		transfer.liquid_group.reagents.add_reagent(reagent_type.type, remove_amount)
 		remove_specific(amount = remove_amount, reagent_type = reagent_type)
-	remove_from_group(member.my_turf)
+		total_removed += remove_amount
+	check_liquid_removal(member, total_removed)
 	handle_visual_changes()
 	process_group()
 
@@ -714,19 +716,29 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	if(!source_turf.atmos_adjacent_turfs[new_turf])
 		return
 
+	if(new_turf.allow_z_travel)
+		var/turf/Z_turf_below = SSmapping.get_turf_below(new_turf)
+		if(isspaceturf(Z_turf_below))
+			return FALSE
+		if(!Z_turf_below.liquids)
+			Z_turf_below.liquids = new(Z_turf_below)
+		source_turf.liquids.liquid_group.transfer_reagents_to_secondary_group(source_turf.liquids, Z_turf_below.liquids)
+		var/obj/splashy = new /obj/effect/temp_visual/liquid_splash(Z_turf_below)
+		if(Z_turf_below.liquids.liquid_group)
+			splashy.color = Z_turf_below.liquids.liquid_group.group_color
+		return TRUE
+
 	if(!new_turf.liquids && !isspaceturf(new_turf) && !istype(new_turf, /turf/open/floor/plating/ocean) && source_turf.turf_height == new_turf.turf_height) // no space turfs, or oceans turfs, also don't attempt to spread onto a turf that already has liquids wastes processing time
 		if(reagents_per_turf < LIQUID_HEIGHT_DIVISOR)
 			return FALSE
 
 		reagents_per_turf = total_reagent_volume / members.len
-
 		expected_turf_height = CEILING(reagents_per_turf, 1) / LIQUID_HEIGHT_DIVISOR
-
 		new_turf.liquids = new(new_turf, src)
 		new_turf.liquids.alpha = group_alpha
 		check_edges(new_turf)
 
-		var/obj/splashy = new /obj/effect/temp_visual/liquid_splash(new_turf.liquids.my_turf)
+		var/obj/splashy = new /obj/effect/temp_visual/liquid_splash(new_turf)
 		if(new_turf.liquids.liquid_group)
 			splashy.color = new_turf.liquids.liquid_group.group_color
 
