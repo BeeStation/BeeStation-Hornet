@@ -430,41 +430,43 @@
 	togglelock(user)
 
 /mob/living/silicon/robot/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WELDER && (user.a_intent != INTENT_HARM || user == src))
+	if(length(user.progressbars))
+		if(W.tool_behaviour == TOOL_WELDER || istype(W, /obj/item/stack/cable_coil))
+			user.changeNext_move(CLICK_CD_MELEE)
+			to_chat(user, "<span class='notice'>You are already busy!</span>")
+			return
+	if(W.tool_behaviour == TOOL_WELDER && (user.a_intent != INTENT_HARM))
 		user.changeNext_move(CLICK_CD_MELEE)
+		if(user == src)
+			to_chat(user, "<span class='warning'>You are unable to maneuver [W] properly to repair yourself, seek assistance!</span>")
+			return
 		if (!getBruteLoss())
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
 			return
-		if (!W.tool_start_check(user, amount=0)) //The welder has 1u of fuel consumed by it's afterattack, so we don't need to worry about taking any away.
-			return
-		if(src == user)
-			to_chat(user, "<span class='notice'>You start fixing yourself.</span>")
-			if(!W.use_tool(src, user, 50))
-				return
-
-		adjustBruteLoss(-30)
-		updatehealth()
-		add_fingerprint(user)
-		user.visible_message("[user] has fixed some of the dents on [src].", "<span class='notice'>You fix some of the dents on [src].</span>")
+		//repeatedly repairs until the cyborg is fully repaired
+		while(getBruteLoss() && W.tool_start_check(user, amount=0) && W.use_tool(src, user, 60))
+			W.use(1) //use one fuel for each repair step
+			adjustBruteLoss(-10)
+			updatehealth()
+			add_fingerprint(user)
+			user.visible_message("[user] has fixed some of the dents on [src].", "<span class='notice'>You fix some of the dents on [src].</span>")
 		return TRUE
 
 	else if(istype(W, /obj/item/stack/cable_coil) && wiresexposed)
 		user.changeNext_move(CLICK_CD_MELEE)
+		if(!(getFireLoss() || getToxLoss()))
+			to_chat(user, "The wires seem fine, there's no need to fix them.")
+			return
 		var/obj/item/stack/cable_coil/coil = W
-		if (getFireLoss() > 0 || getToxLoss() > 0)
-			if(src == user)
-				to_chat(user, "<span class='notice'>You start fixing yourself.</span>")
-				if(!do_after(user, 50, target = src))
-					return
-			if (coil.use(1))
-				adjustFireLoss(-30)
-				adjustToxLoss(-30)
+		while((getFireLoss() || getToxLoss()) && do_after(user, 60, target = src))
+			if(coil.use(1))
+				adjustFireLoss(-10)
+				adjustToxLoss(-10)
 				updatehealth()
+				add_fingerprint(user)
 				user.visible_message("[user] has fixed some of the burnt wires on [src].", "<span class='notice'>You fix some of the burnt wires on [src].</span>")
 			else
 				to_chat(user, "<span class='warning'>You need more cable to repair [src]!</span>")
-		else
-			to_chat(user, "The wires seem fine, there's no need to fix them.")
 
 	else if(W.tool_behaviour == TOOL_CROWBAR)	// crowbar means open or close the cover
 		if(opened)
