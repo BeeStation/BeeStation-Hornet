@@ -1102,6 +1102,7 @@
 	src.Paralyze(10 * power)
 
 /mob/living/carbon/human/proc/copy_features(var/datum/character_save/CS)
+	dna.features = CS.features
 	gender = CS.gender
 	age = CS.age
 	underwear = CS.underwear
@@ -1116,8 +1117,7 @@
 	facial_hair_color = CS.facial_hair_color
 	skin_tone = CS.skin_tone
 	eye_color = CS.eye_color
-	dna.features = CS.features
-	regenerate_icons()
+	updateappearance(TRUE, TRUE, TRUE)
 
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey
