@@ -56,7 +56,65 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">02 February 2023</h2>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed a runtime caused by lavaland swarmers</li>
+			</ul>
+
+			<h2 class="date">01 February 2023</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">welding/unwelding an airlock will be logged</li>
+				<li class="code_imp">changed a long var declaration from a single line into multiple lines for better readability</li>
+				<li class="code_imp">added exclusive station trait system. it is modularizing, so it does nothing currently.</li>
+			</ul>
+			<h3 class="author">RKz, TemporalOroboros updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Reagent exposure proc names now accurately describe their function.</li>
+				<li class="refactor">Reagent exposure code is less istype dependent.</li>
+				<li class="code_imp">Reagent exposure methods are now bitflags. There have been some additional changes to reflect and take advantage of this.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added name and job searching to the PDA Messenger contacts panel.</li>
+				<li class="tweak">PDA message inputs are now TGUI-based.</li>
+				<li class="tweak">When inputting a new PDA ringtone, the old one will be in the input text box already.</li>
+				<li class="code_imp">Improved some PDA messenger code.</li>
+				<li class="code_imp">TGUI text inputs now properly autofocus text.</li>
+				<li class="rscadd">Added the "Look Up" and "Look Down" Multi-Z verbs, with keybinds L (up) and ; (down).</li>
+				<li class="rscadd">Added zmove keybinds, F for up, C for down.</li>
+				<li class="rscadd">Added the Combustion Jetpack crate, an engineering crate that includes the combustion jetpack, which can move up and down in gravity as well as function in space like a normal jetpack. It burns a plasma-oxygen mix and is refillable (ideally at a ~50% ratio).</li>
+				<li class="rscadd">Added z-level changing buttons to the advanced camera console.</li>
+				<li class="balance">Zfalls now do more damage per level fallen, and felinids falling more than one level will still take damage, but reduced. Damage is also mostly applied to legs and split between the rest of the body in the case of missing or broken legs.</li>
+				<li class="code_imp">Refactored multi-z sound code slightly.</li>
+				<li class="tweak">Using an RCD on open space (above another z-level) will now place floors.</li>
+				<li class="tweak">Placing lattices on open space no longer requires pixelhunting.</li>
+				<li class="tweak">Tweaked failure messages for Move Upwards/Move Down verbs.</li>
+				<li class="bugfix">Fixed zfalls stating that you fell one more z-level than you actually did.</li>
+				<li class="bugfix">Fixed sound breaking when changing z-levels.</li>
+				<li class="bugfix">Fixed various z-level changes not registering.</li>
+				<li class="bugfix">You can no longer move up and down through catwalks, and you also cannot "float" up while in gravity.</li>
+				<li class="bugfix">Fixed the move up/down animations being reversed.</li>
+				<li class="code_imp">Removed a broken old deconstruction hint for catwalks.</li>
+				<li class="bugfix">Fixed a runtime caused by zfalls.</li>
+				<li class="bugfix">Fixed zfalls stopping midair after one level.</li>
+				<li class="bugfix">Fixed AI camera static not updating when you move up and down.</li>
+				<li class="bugfix">Fixed the removal of a lattice or catwalk under someone not triggering a zfall.</li>
+				<li class="rscadd">Added jetpack and wing multiz flight. Regular jetpacks are not capable of enough thrust to resist gravity.</li>
+				<li class="tweak">Moving up and down in space only takes 1 second, while in-gravity flight, etc take 3 seconds.</li>
+				<li class="code_imp">Slightly optimized gravity code for ztrait-style gravity.</li>
+				<li class="rscadd">Added the "rocket jetpack", a jetpack designed for in-gravity flight, that burns plasma and oxygen.</li>
+				<li class="bugfix">Fixed nightmare multiz jaunting</li>
+				<li class="tweak">Falling is no longer instant, there is a period of 0.2s between zlevels (you can even move onto a solid tile to "break" your fall)</li>
+				<li class="tweak">You can now move during all types of zmove except for climbing (which is disabled currently).</li>
+			</ul>
+
 			<h2 class="date">31 January 2023</h2>
+			<h3 class="author">Bobbanz1 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed an issue that was being caused by custom say that was clashing with roleplaying by changing the trigger letter to |</li>
+			</ul>
 			<h3 class="author">Tsar-Salat updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="code_imp">timers are put in the closest future bucket, as a precaution</li>
@@ -832,44 +890,6 @@
 			<h3 class="author">EvilDragonfiend updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="rscadd">Server reboot delay reason will be notified in Status Tab</li>
-			</ul>
-
-			<h2 class="date">01 December 2022</h2>
-			<h3 class="author">dog132 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added seven new random maintenance rooms</li>
-				<li class="tweak">Kilo Station - the Xenoarchaeology Lab has been moved to above the Exploration Docks.</li>
-			</ul>
-
-			<h2 class="date">30 November 2022</h2>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added a new Scientist crew objective: "Make sure the research for [X design] is available on the R&D server by the end of the shift."</li>
-				<li class="rscdel">Removed the Chemistry "Have X pills containing X" crew objective.</li>
-				<li class="rscdel">Removed the Chemistry "Have X in your bloodstream" crew objective.</li>
-				<li class="rscadd">Added a new Chemistry crew objective "Have at least X units total of (X chemical) in the chemistry smartfridge(s) or with you when the shift ends." - it requires actually useful chems to be made.</li>
-				<li class="tweak">The Roboticist crew objective "Make X cyborgs" has been changed from 2-10 to 1-3, and it now also mentions that AI shells count.</li>
-				<li class="tweak">The janitor "keep X areas clean" objective no longer requires them to be completely spotless, instead requiring that you keep it clean under 12-20 "cleanables" per area.</li>
-				<li class="tweak">The janitor "keep X areas clean" objective no longer makes you clean maintenance.</li>
-				<li class="bugfix">Fixed the Curator newscaster objective not working.</li>
-				<li class="tweak">The Curator newscaster objective now uses word counts and is more reasonable in its expectations.</li>
-				<li class="bugfix">The lawyer's "Ensure there are no members of security in the prison wing when the shift ends." crew objective no longer does the opposite.</li>
-				<li class="bugfix">The virologist "Ensure no crew have harmful diseases" objective now properly checks the harm level of the disease instead of targeting harmless disease, and properly checks that the disease-haver is living before failing.</li>
-				<li class="bugfix">Fixed a runtime with the Mime "Don't break your vow" crew objective.</li>
-				<li class="bugfix">Fixed crew objectives showing as failed if you break the completion conditions and then re-open the roundend report.</li>
-				<li class="bugfix">Fixed some formatting and spacing issues with the janitor area clean objective.</li>
-				<li class="bugfix">The mime's "never break your vow" crew objective now checks if you broke the vow directly instead of if you talked at all (with false positives from dchat).</li>
-				<li class="code_imp">Improved crew objective code.</li>
-				<li class="code_imp">Slightly optimized and improved camera console camera detection code.</li>
-				<li class="rscadd">Added dangerous shuttle warnings to the communications console.</li>
-				<li class="tweak">Tweaked the description on Oh Hi Daniel shuttle to not reference "space roleplay".</li>
-				<li class="tweak">Tweaked the description on STV5 shuttle to include the fact that the crates included are potentially explosive.</li>
-			</ul>
-			<h3 class="author">mystery3525 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">halved lavaland mobs health</li>
-				<li class="balance">halved PKA and PKC damage</li>
-				<li class="balance">Removed minimum pressure requirement from PKA and PKC, so they do the same amount of damage in vacuums again.</li>
 			</ul>
 		</div>
 

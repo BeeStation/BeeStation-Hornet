@@ -35,7 +35,7 @@
 	if(!..()) //was it caught by a mob?
 		var/turf/T = get_turf(hit_atom)
 		new/obj/effect/decal/cleanable/food/egg_smudge(T)
-		reagents.reaction(hit_atom, TOUCH)
+		reagents.expose(hit_atom, TOUCH)
 		qdel(src)
 
 /obj/item/reagent_containers/food/snacks/egg/attackby(obj/item/W, mob/user, params)
