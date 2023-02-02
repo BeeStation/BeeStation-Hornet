@@ -72,3 +72,8 @@
 #define CHOKE_REAGENTS_INGEST_ON_BREATH_AMOUNT 2
 
 #define SUBMERGEMENT_PERCENT(carbon, liquids) min(1,(!MOBILITY_STAND ? liquids.liquid_state+LYING_DOWN_SUBMERGEMENT_STATE_BONUS : liquids.liquid_state)/TOTAL_LIQUID_STATES)
+
+GLOBAL_LIST_INIT(liquid_blacklist, list(
+	/datum/reagent/sorium,
+	/datum/reagent/liquid_dark_matter
+))

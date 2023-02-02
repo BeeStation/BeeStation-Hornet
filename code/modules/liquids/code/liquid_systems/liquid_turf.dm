@@ -75,7 +75,8 @@
 	var/list/compiled_list = list()
 	for(var/r in giver.reagent_list)
 		var/datum/reagent/R = r
-		compiled_list[R.type] = R.volume
+		if(!(R.type in GLOB.liquid_blacklist))
+			compiled_list[R.type] = R.volume
 	if(!compiled_list.len) //No reagents to add, don't bother going further
 		return
 	add_liquid_list(compiled_list, no_react, giver.chem_temp)
@@ -134,6 +135,8 @@
 		lgroup.dirty = TRUE
 
 /turf/proc/add_liquid(reagent, amount, no_react = FALSE, chem_temp = 300)
+	if(reagent in GLOB.liquid_blacklist)
+		return
 	if(!liquids)
 		liquids = new(src)
 	if(liquids.immutable)
@@ -202,7 +205,7 @@
 
 	var/difference = abs(target_height - my_liquid_height)
 	//The: sand effect or "piling" Very good for performance
-	if(difference > 1) //SHOULD BE >= 1 or > 1? '>= 1' can lead into a lot of unnessecary processes, while ' > 1' will lead to a "piling" phenomena
+	if(difference >= 1) //SHOULD BE >= 1 or > 1? '>= 1' can lead into a lot of unnessecary processes, while ' > 1' will lead to a "piling" phenomena
 		return TRUE
 	return FALSE
 

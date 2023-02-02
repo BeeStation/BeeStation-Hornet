@@ -685,7 +685,7 @@
 	category = list ("Hydroponics Machinery")
 
 /datum/design/board/liquid_output_pump
-	name = "Machine Design (Smoke Machine)"
+	name = "Machine Design (Liquid Output Pump Machine)"
 	desc = "The circuit board for a smoke machine."
 	id = "liquid_output_pump"
 	build_path = /obj/item/circuitboard/machine/liquid_output_pump
