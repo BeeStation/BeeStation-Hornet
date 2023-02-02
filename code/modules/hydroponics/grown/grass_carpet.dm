@@ -131,18 +131,12 @@
 	filling_color = "#245c39"
 	bitesize_mod = 3
 	can_distill = FALSE
-	var/value = 0
 
 	//clover
 	/obj/item/reagent_containers/food/snacks/grown/grass/shamrock/Initialize(mapload, obj/item/seeds/new_seed)
 		. = ..()
 		if(prob(0.001)) // 0.001% chance to be a clover
 			name = "four leafed clover"
-			icon_state = "clover"
 			desc = "A rare sought after trinket said to grant luck to it's holder."
 			icon_state = "clover"
-			slot_flags = ITEM_SLOT_HEAD
 			filling_color = "#358a55"
-			bitesize_mod = 3
-			can_distill = FALSE
-			value = 200
