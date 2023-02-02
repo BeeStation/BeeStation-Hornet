@@ -1,11 +1,14 @@
 #define WATER_HEIGH_DIFFERENCE_SOUND_CHANCE 50
 #define WATER_HEIGH_DIFFERENCE_DELTA_SPLASH 7 //Delta needed for the splash effect to be made in 1 go
 
-#define REQUIRED_EVAPORATION_PROCESSES 80
-#define EVAPORATION_CHANCE 30
+#define REQUIRED_EVAPORATION_PROCESSES 40
+#define EVAPORATION_CHANCE 10
 
-#define REQUIRED_FIRE_PROCESSES 4
+#define REQUIRED_FIRE_PROCESSES 2
 #define REQUIRED_FIRE_POWER_PER_UNIT 5
+#define FIRE_BURN_PERCENT 10
+
+#define REQUIRED_OCEAN_PROCESSES 5
 
 #define PARTIAL_TRANSFER_AMOUNT 0.3
 
@@ -57,7 +60,7 @@
 
 #define IMMUTABLE_LIQUID_SHARE 1
 
-#define LIQUID_RECURSIVE_LOOP_SAFETY 100 //Hundred loops at maximum for adjacency checking
+#define LIQUID_RECURSIVE_LOOP_SAFETY 255
 
 //Height at which we consider the tile "full" and dont drop liquids on it from the upper Z level
 #define LIQUID_HEIGHT_CONSIDER_FULL_TILE 50
@@ -71,7 +74,7 @@
 
 #define CHOKE_REAGENTS_INGEST_ON_BREATH_AMOUNT 2
 
-#define SUBMERGEMENT_PERCENT(carbon, liquids) min(1,(!MOBILITY_STAND ? liquids.liquid_state+LYING_DOWN_SUBMERGEMENT_STATE_BONUS : liquids.liquid_state)/TOTAL_LIQUID_STATES)
+#define SUBMERGEMENT_PERCENT(carbon, liquids) min(1,(!MOBILITY_STAND ? liquids.liquid_group.group_overlay_state+LYING_DOWN_SUBMERGEMENT_STATE_BONUS : liquids.liquid_group.group_overlay_state)/TOTAL_LIQUID_STATES)
 
 GLOBAL_LIST_INIT(liquid_blacklist, list(
 	/datum/reagent/sorium,

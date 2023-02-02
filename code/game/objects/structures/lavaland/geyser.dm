@@ -6,7 +6,6 @@
 	icon = 'icons/obj/lavaland/terrain.dmi'
 	icon_state = "geyser"
 	anchored = TRUE
-	max_integrity = 150 //default is 300, override to have 1/2 half
 
 	var/erupting_state = null //set to null to get it greyscaled from "[icon_state]_soup". Not very usable with the whole random thing, but more types can be added if you change the spawn prob
 	var/activated = FALSE //whether we are active and generating chems
@@ -19,7 +18,7 @@
 	activated = TRUE
 	create_reagents(max_volume, DRAINABLE)
 	reagents.add_reagent(reagent_id, start_volume)
-	START_PROCESSING(SSfluids, src) //It's main function is to be plumbed, so use SSfluids
+	START_PROCESSING(SSplumbing, src) //It's main function is to be plumbed, so use SSplumbing
 	if(erupting_state)
 		icon_state = erupting_state
 	else
@@ -57,12 +56,44 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "plunger"
 
+	///alt sprite for the toggleable layer change mode
+	var/layer_mode_sprite = "plunger"
 	var/plunge_mod = 1 //time*plunge_mod = total time we take to plunge an object
 	var/reinforced = FALSE //whether we do heavy duty stuff like geysers
+	var/layer_mode = FALSE
+	///What layer we set it to
+	var/target_layer = DUCT_LAYER_DEFAULT
 
 /obj/item/plunger/attack_obj(obj/O, mob/living/user)
-	if(!O.plunger_act(src, user, reinforced))
+	if(layer_mode)
+		SEND_SIGNAL(O, COMSIG_MOVABLE_CHANGE_DUCT_LAYER, O, target_layer)
 		return ..()
+	else
+		if(!O.plunger_act(src, user, reinforced))
+			return ..()
+
+/obj/item/plunger/attack_self(mob/user)
+	. = ..()
+
+	layer_mode = !layer_mode
+
+	if(!layer_mode)
+		icon_state = initial(icon_state)
+		to_chat(user, span_notice("You set the plunger to 'Plunger Mode'."))
+	else
+		icon_state = layer_mode_sprite
+		to_chat(user, span_notice("You set the plunger to 'Layer Mode'."))
+
+	playsound(src, 'sound/machines/click.ogg', 10, TRUE)
+
+/obj/item/plunger/AltClick(mob/user)
+	if(!istype(user) || !user.canUseTopic(src, be_close = TRUE))
+		return
+
+	var/new_layer = input("Select a layer", "Layer") as null|anything in GLOB.plumbing_layers
+	if(isnull(new_layer))
+		return
+	target_layer = GLOB.plumbing_layers[new_layer]
 
 /obj/item/plunger/reinforced
 	name = "reinforced plunger"

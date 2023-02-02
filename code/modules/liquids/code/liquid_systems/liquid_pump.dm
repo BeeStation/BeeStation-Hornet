@@ -64,7 +64,7 @@
 		var/free_space = reagents.maximum_volume - reagents.total_volume
 		if(!free_space)
 			return
-		var/target_siphon_amt = (T.liquids.total_reagents * pump_speed_percentage) + pump_speed_flat
+		var/target_siphon_amt = (T.liquids.liquid_group.total_reagent_volume * pump_speed_percentage) + pump_speed_flat
 		if(target_siphon_amt > free_space)
 			target_siphon_amt = free_space
 		var/datum/reagents/tempr = T.liquids.take_reagents_flat(target_siphon_amt)

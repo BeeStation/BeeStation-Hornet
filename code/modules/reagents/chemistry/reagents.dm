@@ -41,8 +41,9 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/self_consuming = FALSE
 	var/reagent_weight = 1 //affects how far it travels when sprayed
 	var/metabolizing = FALSE
+
 	///Whether it will evaporate if left untouched on a liquids simulated puddle
-	var/evaporates = FALSE
+	var/evaporates = TRUE
 	///How much fire power does the liquid have, for burning on simulated liquids. Not enough fire power/unit of entire mixture may result in no fire
 	var/liquid_fire_power = 0
 	///How fast does the liquid burn on simulated turfs, if it does
@@ -51,6 +52,12 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/fire_needs_oxygen = TRUE
 	///The opacity of the chems used to determine the alpha of liquid turfs
 	var/opacity = 175
+	///The rate of evaporation in units per call
+	var/evaporation_rate = 0.5
+	///if this reagent should condense down into a liquid
+	var/condenses_liquid = TRUE
+	///does this reagent convert into a gas
+	var/converts_to_gas = FALSE
 
 /datum/reagent/Destroy() // This should only be called by the holder, so it's already handled clearing its references
 	. = ..()

@@ -23,3 +23,10 @@
 #define Z_TURFS(ZLEVEL) block(locate(1,1,ZLEVEL), locate(world.maxx, world.maxy, ZLEVEL))
 
 #define TURF_FROM_COORDS_LIST(List) (locate(List[1], List[2], List[3]))
+
+/// The pipes, disposals, and wires are hidden
+#define UNDERFLOOR_HIDDEN 0
+/// The pipes, disposals, and wires are visible but cannot be interacted with
+#define UNDERFLOOR_VISIBLE 1
+/// The pipes, disposals, and wires are visible and can be interacted with
+#define UNDERFLOOR_INTERACTABLE 2

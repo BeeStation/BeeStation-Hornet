@@ -16,9 +16,9 @@
 
 
 
-/obj/machinery/plumbing/filter/Initialize(mapload, bolt)
+/obj/machinery/plumbing/filter/Initialize(mapload, bolt, layer)
 	. = ..()
-	AddComponent(/datum/component/plumbing/filter, bolt)
+	AddComponent(/datum/component/plumbing/filter, bolt, layer)
 
 
 /obj/machinery/plumbing/filter/ui_state(mob/user)

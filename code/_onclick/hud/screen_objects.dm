@@ -139,7 +139,7 @@
 		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
 		if(inv_item)
 			if(hud?.mymob.incapacitated())
-				inv_item.apply_outline(COLOR_RED_GRAY)
+				inv_item.apply_outline(COLOR_RED)
 			else
 				inv_item.apply_outline()
 

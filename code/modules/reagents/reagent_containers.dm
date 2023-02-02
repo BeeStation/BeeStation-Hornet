@@ -63,7 +63,7 @@
 	if(liquids.fire_state) //Use an extinguisher first
 		to_chat(user, "<span class='warning'>You can't scoop up anything while it's on fire!</span>")
 		return TRUE
-	if(liquids.height == 1)
+	if(liquids.liquid_group.expected_turf_height == 1)
 		to_chat(user, "<span class='warning'>The puddle is too shallow to scoop anything up!</span>")
 		return TRUE
 	var/free_space = my_beaker.reagents.maximum_volume - my_beaker.reagents.total_volume
@@ -73,10 +73,10 @@
 	var/desired_transfer = my_beaker.amount_per_transfer_from_this
 	if(desired_transfer > free_space)
 		desired_transfer = free_space
-	var/datum/reagents/tempr = liquids.take_reagents_flat(desired_transfer)
-	tempr.trans_to(my_beaker.reagents, tempr.total_volume)
-	to_chat(user, "<span class='notice'>You scoop up around [my_beaker.amount_per_transfer_from_this] units of liquids with [my_beaker].</span>")
-	qdel(tempr)
+	if(desired_transfer > liquids.liquid_group.reagents_per_turf)
+		desired_transfer = liquids.liquid_group.reagents_per_turf
+	liquids.liquid_group.trans_to_seperate_group(my_beaker.reagents, desired_transfer, liquids)
+	to_chat(user, "<span class='notice'>You scoop up around [round(desired_transfer)] units of liquids with [my_beaker].</span>")
 	user.changeNext_move(CLICK_CD_MELEE)
 	return TRUE
 

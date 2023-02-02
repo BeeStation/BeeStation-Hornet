@@ -47,3 +47,6 @@
 #define COMSIG_STORAGE_ENTERED "storage_entered"
 ///from base of atom/movable/on_exit_storage(): (datum/component/storage/concrete/master_storage)
 #define COMSIG_STORAGE_EXITED "storage_exited"
+
+///Called when a movable is hit by a plunger in layer mode, from /obj/item/plunger/attack_atom()
+#define COMSIG_MOVABLE_CHANGE_DUCT_LAYER "movable_change_duct_layer"

@@ -66,6 +66,7 @@
 	src.atmos_adjacent_turfs = atmos_adjacent_turfs
 	set_sleeping(isclosedturf(src))
 	__update_auxtools_turf_adjacency_info(isspaceturf(get_z_base_turf()))
+	SEND_SIGNAL(src, COMSIG_TURF_UPDATE_AIR)
 
 /turf/proc/ImmediateDisableAdjacency(disable_adjacent = TRUE)
 	if(SSair.thread_running())
@@ -131,7 +132,6 @@
 /turf/air_update_turf(command = 0)
 	if(command)
 		ImmediateCalculateAdjacentTurfs()
-	liquid_update_turf()
 
 /atom/movable/proc/move_update_air(turf/T)
     if(isturf(T))

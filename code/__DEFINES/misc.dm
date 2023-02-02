@@ -268,13 +268,6 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define LUMA_G 0.715
 #define LUMA_B 0.072
 
-//different types of atom colorations
-#define ADMIN_COLOUR_PRIORITY 		1 //! only used by rare effects like greentext coloring mobs and when admins varedit color
-#define TEMPORARY_COLOUR_PRIORITY 	2 //! e.g. purple effect of the revenant on a mob, black effect when mob electrocuted
-#define WASHABLE_COLOUR_PRIORITY 	3 //! color splashed onto an atom (e.g. paint on turf)
-#define FIXED_COLOUR_PRIORITY 		4 //! color inherent to the atom (e.g. blob color)
-#define COLOUR_PRIORITY_AMOUNT 4 //! how many priority levels there are.
-
 //Endgame Results
 #define NUKE_NEAR_MISS 1
 #define NUKE_MISS_STATION 2
@@ -392,10 +385,6 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define OVERRIDE_CONFIG_DIRECTORY_PARAMETER "config-directory"
 
 #define EGG_LAYING_MESSAGES list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
-
-//Filters
-#define AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, color="#04080FAA")
-#define GAUSSIAN_BLUR(filter_size) filter(type="blur", size=filter_size)
 
 #define STANDARD_GRAVITY 1 //! Anything above this is high gravity, anything below no grav
 #define GRAVITY_DAMAGE_TRESHOLD 3 //! Starting with this value gravity will start to damage mobs

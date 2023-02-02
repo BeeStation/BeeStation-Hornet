@@ -9,101 +9,105 @@ SUBSYSTEM_DEF(liquids)
 
 	var/list/active_groups = list()
 
-	var/list/active_immutables = list()
-
 	var/list/evaporation_queue = list()
 	var/evaporation_counter = 0 //Only process evaporation on intervals
 
-	var/list/processing_fire = list()
-	var/fire_counter = 0 //Only process fires on intervals
-
 	var/list/singleton_immutables = list()
+
+	var/list/active_ocean_turfs = list()
+	var/list/ocean_turfs = list()
+	var/list/currentrun_active_ocean_turfs = list()
+	var/ocean_counter = 0
 
 	var/run_type = SSLIQUIDS_RUN_TYPE_TURFS
 
-/datum/controller/subsystem/liquids/proc/get_immutable(type)
-	if(!singleton_immutables[type])
-		var/obj/effect/abstract/liquid_turf/immutable/new_one = new type()
-		singleton_immutables[type] = new_one
-	return singleton_immutables[type]
+	///debug variable to toggle evaporation from running
+	var/debug_evaporation = FALSE
 
+	var/list/burning_turfs = list()
+	var/fire_counter = 0
 
 /datum/controller/subsystem/liquids/stat_entry(msg)
-	msg += "AT:[active_turfs.len]|AG:[active_groups.len]|AIM:[active_immutables.len]|EQ:[evaporation_queue.len]|PF:[processing_fire.len]"
+	msg += "AT:[active_turfs.len]|AG:[active_groups.len]|BT:[burning_turfs.len]|EQ:[evaporation_queue.len]|AO:[active_ocean_turfs.len]"
 	return ..()
 
-
 /datum/controller/subsystem/liquids/fire(resumed = FALSE)
-	if(run_type == SSLIQUIDS_RUN_TYPE_TURFS)
-		if(!currentrun_active_turfs.len && active_turfs.len)
-			currentrun_active_turfs = active_turfs.Copy()
-		for(var/tur in currentrun_active_turfs)
-			if(MC_TICK_CHECK)
-				return
-			var/turf/T = tur
-			T.process_liquid_cell()
-			currentrun_active_turfs -= T //work off of index later
-		if(!currentrun_active_turfs.len)
-			run_type = SSLIQUIDS_RUN_TYPE_GROUPS
-	if (run_type == SSLIQUIDS_RUN_TYPE_GROUPS)
+	if(!active_turfs.len && !active_groups.len && !evaporation_queue.len && !active_ocean_turfs.len && !burning_turfs.len)
+		return
+	if(!currentrun_active_turfs.len && active_turfs.len && active_groups.len)
 		for(var/g in active_groups)
 			var/datum/liquid_group/LG = g
-			if(LG.dirty)
-				LG.share()
-				LG.dirty = FALSE
-			else if(!LG.amount_of_active_turfs)
-				LG.decay_counter++
-				if(LG.decay_counter >= LIQUID_GROUP_DECAY_TIME)
-					//Perhaps check if any turfs in here can spread before removing it? It's not unlikely they would
-					LG.break_group()
-			if(MC_TICK_CHECK)
-				run_type = SSLIQUIDS_RUN_TYPE_IMMUTABLES //No currentrun here for now
-				return
-		run_type = SSLIQUIDS_RUN_TYPE_IMMUTABLES
-	if(run_type == SSLIQUIDS_RUN_TYPE_IMMUTABLES)
-		for(var/t in active_immutables)
-			var/turf/T = t
-			T.process_immutable_liquid()
-			/*
-			if(MC_TICK_CHECK)
-				return
-			*/
+			currentrun_active_turfs |= LG.members
+
+	if(active_groups.len)
+		for(var/g in active_groups)
+			var/datum/liquid_group/LG = g
+			if(length(LG.burning_members))
+				for(var/turf/burning_turf in LG.burning_members)
+					LG.process_spread(burning_turf)
+
+			LG.process_cached_edges()
+			LG.process_group()
 		run_type = SSLIQUIDS_RUN_TYPE_EVAPORATION
 
-	if(run_type == SSLIQUIDS_RUN_TYPE_EVAPORATION)
+	if(currentrun_active_turfs.len)
+		for(var/tur in currentrun_active_turfs)
+			var/turf/T = get_turf(tur)
+			if(T.liquids) ///there may be a bigger problem as this shouldn't be needed
+				T.process_liquid_cell()
+				T.liquids.liquid_group.process_member(T)
+			currentrun_active_turfs -= T //work off of index later
+
+	if(run_type == SSLIQUIDS_RUN_TYPE_EVAPORATION && !debug_evaporation)
+		run_type = SSLIQUIDS_RUN_TYPE_FIRE
 		evaporation_counter++
 		if(evaporation_counter >= REQUIRED_EVAPORATION_PROCESSES)
+			evaporation_counter = 0
+			for(var/g in active_groups)
+				var/datum/liquid_group/LG = g
+				LG.check_dead()
+				LG.process_turf_disperse()
 			for(var/t in evaporation_queue)
 				var/turf/T = t
-				if(prob(EVAPORATION_CHANCE))
-					T.liquids.process_evaporation()
-				if(MC_TICK_CHECK)
-					return
-			evaporation_counter = 0
-		run_type = SSLIQUIDS_RUN_TYPE_FIRE
+				if(T.liquids)
+					if(prob(EVAPORATION_CHANCE))
+						T.liquids.process_evaporation()
+				else
+					evaporation_queue -= T
 
 	if(run_type == SSLIQUIDS_RUN_TYPE_FIRE)
 		fire_counter++
-		if(fire_counter >= REQUIRED_FIRE_PROCESSES)
-			for(var/t in processing_fire)
-				var/turf/T = t
-				T.liquids.process_fire()
-			if(MC_TICK_CHECK)
-				return
+		if(fire_counter > REQUIRED_FIRE_PROCESSES)
+			for(var/g in active_groups)
+				if(MC_TICK_CHECK)
+					return
+				var/datum/liquid_group/LG = g
+				if(LG.burning_members.len)
+					for(var/turf/burning_turf in LG.burning_members)
+						LG.process_spread(burning_turf)
+					LG.process_fire()
 			fire_counter = 0
-		run_type = SSLIQUIDS_RUN_TYPE_TURFS
+
+	run_type = SSLIQUIDS_RUN_TYPE_OCEAN
+	if(!currentrun_active_ocean_turfs.len)
+		currentrun_active_ocean_turfs = active_ocean_turfs
+	if(run_type == SSLIQUIDS_RUN_TYPE_OCEAN)
+		ocean_counter++
+		if(ocean_counter >= REQUIRED_OCEAN_PROCESSES)
+			for(var/turf/open/floor/plating/ocean/active_ocean in currentrun_active_ocean_turfs)
+				if(MC_TICK_CHECK)
+					return
+				active_ocean.process_turf()
+			ocean_counter = 0
+
 
 /datum/controller/subsystem/liquids/proc/add_active_turf(turf/T)
 	if(!active_turfs[T])
 		active_turfs[T] = TRUE
-		if(T.lgroup)
-			T.lgroup.amount_of_active_turfs++
 
 /datum/controller/subsystem/liquids/proc/remove_active_turf(turf/T)
 	if(active_turfs[T])
 		active_turfs -= T
-		if(T.lgroup)
-			T.lgroup.amount_of_active_turfs--
 
 /client/proc/toggle_liquid_debug()
 	set category = "Debug"

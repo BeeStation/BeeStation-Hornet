@@ -232,6 +232,7 @@
 #define SSLIQUIDS_RUN_TYPE_IMMUTABLES 3
 #define SSLIQUIDS_RUN_TYPE_EVAPORATION 4
 #define SSLIQUIDS_RUN_TYPE_FIRE 5
+#define SSLIQUIDS_RUN_TYPE_OCEAN 6
 
 //! ## Overlays subsystem
 
@@ -271,3 +272,4 @@
 #define SSMACHINES_DT (SSmachines.wait/10)
 #define SSMOBS_DT (SSmobs.wait/10)
 #define SSOBJ_DT (SSobj.wait/10)
+#define SSFLUIDS_DT (SSplumbing.wait/10)

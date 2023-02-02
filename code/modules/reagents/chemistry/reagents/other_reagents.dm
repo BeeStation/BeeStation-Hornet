@@ -1752,6 +1752,8 @@
 /datum/reagent/drying_agent/expose_turf(turf/open/T, reac_volume)
 	if(istype(T))
 		T.MakeDry(ALL, TRUE, reac_volume * 5 SECONDS)		//50 deciseconds per unit
+		if(T.liquids)
+			T.liquids.liquid_group.remove_any(T.liquids, reac_volume)
 
 /datum/reagent/drying_agent/expose_obj(obj/O, reac_volume)
 	if(O.type == /obj/item/clothing/shoes/galoshes)

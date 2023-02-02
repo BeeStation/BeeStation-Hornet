@@ -83,7 +83,6 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	"Fluid Ducts" = list(
 		new /datum/pipe_info/plumbing("Duct",				/obj/machinery/duct, PIPE_ONEDIR),
-		new /datum/pipe_info/plumbing/multilayer("Duct Layer-Manifold",/obj/machinery/duct/multilayered, PIPE_STRAIGHT)
 	)
 ))
 

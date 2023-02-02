@@ -22,16 +22,13 @@
 	///max amount of pills allowed on our tile before we start storing them instead
 	var/max_floor_pills = 10
 
-
-
-
 /obj/machinery/plumbing/pill_press/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>The [name] currently has [stored_pills.len] stored. There needs to be less than [max_floor_pills] on the floor to continue dispensing.</span>"
 
-/obj/machinery/plumbing/pill_press/Initialize(mapload, bolt)
+/obj/machinery/plumbing/pill_press/Initialize(mapload, bolt, layer)
 	. = ..()
-	AddComponent(/datum/component/plumbing/simple_demand, bolt)
+	AddComponent(/datum/component/plumbing/simple_demand, bolt, layer)
 
 	//expertly copypasted from chemmasters
 	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/pills)

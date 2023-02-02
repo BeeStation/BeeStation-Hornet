@@ -22,8 +22,8 @@
 	var/volume = input(usr, "Volume:", "Choose volume") as num
 	if(!volume)
 		return
-	if(volume >= 1000)
-		to_chat(usr, span_warning("Please limit the volume to below 1000 units!"))
+	if(volume >= 100000)
+		to_chat(usr, span_warning("Please limit the volume to below 100000 units!"))
 		return
 	var/turf/epicenter = get_turf(mob)
 	epicenter.add_liquid(choice, volume)
@@ -39,7 +39,8 @@
 	var/range = input(usr, "Enter range:", "Range selection", 2) as num
 
 	for(var/obj/effect/abstract/liquid_turf/liquid in range(range, epicenter))
-		qdel(liquid, TRUE)
+		liquid.liquid_group.remove_any(liquid.liquid_group.reagents_per_turf)
+		qdel(liquid)
 
 	message_admins("[key_name_admin(usr)] removed liquids with range [range] in [epicenter.loc.name]")
 	log_game("[key_name_admin(usr)] removed liquids with range [range] in [epicenter.loc.name]")

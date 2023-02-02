@@ -21,7 +21,7 @@
 	var/atom/movable/movable_target = target
 	if(isturf(movable_target.loc))
 		var/turf/turf_loc = movable_target.loc
-		turf_loc.liquid_height += height_applied
+		turf_loc.turf_height += height_applied
 		turf_loc.reasses_liquids()
 
 /datum/element/liquids_height/Detach(atom/movable/target)
@@ -30,16 +30,16 @@
 	var/atom/movable/movable_target = target
 	if(isturf(movable_target.loc))
 		var/turf/turf_loc = movable_target.loc
-		turf_loc.liquid_height -= height_applied
+		turf_loc.turf_height -= height_applied
 		turf_loc.reasses_liquids()
 
 /datum/element/liquids_height/proc/on_target_move(atom/movable/source, atom/OldLoc, Dir, Forced = FALSE)
 	SIGNAL_HANDLER
 	if(isturf(OldLoc))
 		var/turf/old_turf = OldLoc
-		old_turf.liquid_height += height_applied
+		old_turf.turf_height += height_applied
 		old_turf.reasses_liquids()
 	if(isturf(source.loc))
 		var/turf/new_turf = source.loc
-		new_turf.liquid_height -= height_applied
+		new_turf.turf_height -= height_applied
 		new_turf.reasses_liquids()

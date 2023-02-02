@@ -132,7 +132,7 @@
 			else if(isturf(loc)) //Breathe from loc as turf
 				//Underwater breathing
 				var/turf/T = loc
-				if(T.liquids && !HAS_TRAIT(src, TRAIT_NOBREATH) && ((!MOBILITY_STAND && T.liquids.liquid_state >= LIQUID_STATE_WAIST) || (MOBILITY_STAND && T.liquids.liquid_state >= LIQUID_STATE_FULLTILE)))
+				if(istype(T, /turf/open/floor/plating/ocean) || (T.liquids && !HAS_TRAIT(src, TRAIT_NOBREATH) && ((!MOBILITY_STAND && T.liquids.liquid_group.group_overlay_state >= LIQUID_STATE_WAIST) || (MOBILITY_STAND && T.liquids.liquid_group.group_overlay_state >= LIQUID_STATE_FULLTILE))))
 					//Officially trying to breathe underwater
 					if(HAS_TRAIT(src, TRAIT_WATER_BREATHING))
 						failed_last_breath = FALSE
@@ -143,10 +143,7 @@
 					if(oxyloss <= OXYGEN_DAMAGE_CHOKING_THRESHOLD && stat == CONSCIOUS)
 						to_chat(src, "<span class='userdanger'>You hold in your breath!</span>")
 					else
-						//Try and drink water#]
-						var/datum/reagents/tempr = T.liquids.take_reagents_flat(CHOKE_REAGENTS_INGEST_ON_BREATH_AMOUNT)
-						tempr.trans_to(src, tempr.total_volume, methods = INGEST)
-						qdel(tempr)
+						T.liquids.liquid_group.transfer_to_atom(T.liquids, CHOKE_REAGENTS_INGEST_ON_BREATH_AMOUNT, src)
 						visible_message("<span class='warning'>[src] chokes on water!</span>", \
 									"<span class='userdanger'>You're choking on water!</span>")
 					return FALSE

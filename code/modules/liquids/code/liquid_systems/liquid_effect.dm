@@ -17,24 +17,20 @@
 	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WATER)
 
 	mouse_opacity = FALSE
-	var/height = 1
-	var/only_big_diffs = 1
+
+	var/datum/liquid_group/liquid_group
 	var/turf/my_turf
-	var/liquid_state = LIQUID_STATE_PUDDLE
-	var/has_cached_share = FALSE
-
-	var/attrition = 0
-
-	var/immutable = FALSE
-
-	var/list/reagent_list = list()
-	var/total_reagents = 0
-	var/temp = T20C
 
 	var/fire_state = LIQUID_FIRE_STATE_NONE
-
+	var/liquid_state = LIQUID_STATE_PUDDLE
 	var/no_effects = FALSE
 
+
+	var/static/obj/effect/abstract/fire/small_fire/small_fire
+	var/static/obj/effect/abstract/fire/medium_fire/medium_fire
+	var/static/obj/effect/abstract/fire/big_fire/big_fire
+
+	var/mutable_appearance/displayed_content
 	/// State-specific message chunks for examine_turf()
 	var/static/list/liquid_state_messages = list(
 		"[LIQUID_STATE_PUDDLE]" = "a puddle of $",
@@ -44,162 +40,49 @@
 		"[LIQUID_STATE_FULLTILE]" = "$ going [span_danger("over your head")]",
 	)
 
-/obj/effect/abstract/liquid_turf/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock)
-	return
+	var/temporary_split_key
 
-/obj/effect/abstract/liquid_turf/proc/check_fire(hotspotted = FALSE)
-	var/my_burn_power = get_burn_power(hotspotted)
-	if(!my_burn_power)
-		if(fire_state)
-			//Set state to 0
-			set_fire_state(LIQUID_FIRE_STATE_NONE)
-		return FALSE
-	//Calculate appropriate state
-	var/new_state = LIQUID_FIRE_STATE_SMALL
-	switch(my_burn_power)
-		if(0 to 7)
-			new_state = LIQUID_FIRE_STATE_SMALL
-		if(7 to 8)
-			new_state = LIQUID_FIRE_STATE_MILD
-		if(8 to 9)
-			new_state = LIQUID_FIRE_STATE_MEDIUM
-		if(9 to 10)
-			new_state = LIQUID_FIRE_STATE_HUGE
-		if(10 to INFINITY)
-			new_state = LIQUID_FIRE_STATE_INFERNO
-
-	if(fire_state != new_state)
-		set_fire_state(new_state)
-
-	return TRUE
-
-/obj/effect/abstract/liquid_turf/proc/set_fire_state(new_state)
-	fire_state = new_state
-	switch(fire_state)
-		if(LIQUID_FIRE_STATE_NONE)
-			set_light_range(0)
-		if(LIQUID_FIRE_STATE_SMALL)
-			set_light_range(LIGHT_RANGE_FIRE)
-		if(LIQUID_FIRE_STATE_MILD)
-			set_light_range(LIGHT_RANGE_FIRE)
-		if(LIQUID_FIRE_STATE_MEDIUM)
-			set_light_range(LIGHT_RANGE_FIRE)
-		if(LIQUID_FIRE_STATE_HUGE)
-			set_light_range(LIGHT_RANGE_FIRE)
-		if(LIQUID_FIRE_STATE_INFERNO)
-			set_light_range(LIGHT_RANGE_FIRE)
-	update_light()
-	update_liquid_vis()
-
-/obj/effect/abstract/liquid_turf/proc/get_burn_power(hotspotted = FALSE)
-	//We are not on fire and werent ignited by a hotspot exposure, no fire pls
-	if(!hotspotted && !fire_state)
-		return FALSE
-	var/total_burn_power = 0
-	var/datum/reagent/R //Faster declaration
-	for(var/reagent_type in reagent_list)
-		R = reagent_type
-		var/burn_power = initial(R.liquid_fire_power)
-		if(burn_power)
-			total_burn_power += burn_power * reagent_list[reagent_type]
-	if(!total_burn_power)
-		return FALSE
-	total_burn_power /= total_reagents //We get burn power per unit.
-	if(total_burn_power <= REQUIRED_FIRE_POWER_PER_UNIT)
-		return FALSE
-	//Finally, we burn
-	return total_burn_power
-
-/obj/effect/abstract/liquid_turf/extinguish()
-	if(fire_state)
-		set_fire_state(LIQUID_FIRE_STATE_NONE)
-
-/obj/effect/abstract/liquid_turf/proc/process_fire()
-	if(!fire_state)
-		SSliquids.processing_fire -= my_turf
-	var/old_state = fire_state
-	if(!check_fire())
-		SSliquids.processing_fire -= my_turf
-	//Try spreading
-	if(fire_state == old_state) //If an extinguisher made our fire smaller, dont spread, else it's too hard to put out
-		for(var/t in my_turf.atmos_adjacent_turfs)
-			var/turf/T = t
-			if(T.liquids && !T.liquids.fire_state && T.liquids.check_fire(TRUE))
-				SSliquids.processing_fire[T] = TRUE
-	//Burn our resources
-	var/datum/reagent/R //Faster declaration
-	var/burn_rate
-	for(var/reagent_type in reagent_list)
-		R = reagent_type
-		burn_rate = initial(R.liquid_fire_burnrate)
-		if(burn_rate)
-			var/amt = reagent_list[reagent_type]
-			if(burn_rate >= amt)
-				reagent_list -= reagent_type
-				total_reagents -= amt
-			else
-				reagent_list[reagent_type] -= burn_rate
-				total_reagents -= burn_rate
-			my_turf.atmos_spawn_air("co2=[burn_rate/5];TEMP=[temp]")
-
-	my_turf.hotspot_expose((T20C+50) + (50*fire_state), 125)
-	for(var/A in my_turf.contents)
-		var/atom/AT = A
-		if(!QDELETED(AT))
-			AT.fire_act((T20C+50) + (50*fire_state), 125)
-
-	if(reagent_list.len == 0)
-		qdel(src, TRUE)
-	else
-		has_cached_share = FALSE
-		if(!my_turf.lgroup)
-			calculate_height()
-			set_reagent_color_for_liquid()
 
 /obj/effect/abstract/liquid_turf/proc/process_evaporation()
-	if(immutable)
+	if(liquid_group.expected_turf_height > LIQUID_ANKLES_LEVEL_HEIGHT)
 		SSliquids.evaporation_queue -= my_turf
 		return
-	//We're in a group. dont try and evaporate
-	if(my_turf.lgroup)
-		SSliquids.evaporation_queue -= my_turf
-		return
-	if(liquid_state != LIQUID_STATE_PUDDLE)
-		SSliquids.evaporation_queue -= my_turf
-		return
+
 	//See if any of our reagents evaporates
 	var/any_change = FALSE
 	var/datum/reagent/R //Faster declaration
-	for(var/reagent_type in reagent_list)
+	for(var/reagent_type in liquid_group.reagents.reagent_list)
 		R = reagent_type
 		//We evaporate. bye bye
 		if(initial(R.evaporates))
-			total_reagents -= reagent_list[reagent_type]
-			reagent_list -= reagent_type
+			var/remove_amount = min((initial(R.evaporation_rate)), R.volume, (liquid_group.reagents_per_turf / liquid_group.reagents.reagent_list.len))
+			passthrough_evaporation_reaction(R, remove_amount)
+			liquid_group.remove_specific(src, remove_amount, R)
 			any_change = TRUE
+
 	if(!any_change)
 		SSliquids.evaporation_queue -= my_turf
 		return
-	//No total reagents. Commit death
-	if(reagent_list.len == 0)
-		qdel(src, TRUE)
-	//Reagents still left. Recalculte height and color and remove us from the queue
-	else
-		has_cached_share = FALSE
-		SSliquids.evaporation_queue -= my_turf
-		calculate_height()
-		set_reagent_color_for_liquid()
 
 /obj/effect/abstract/liquid_turf/forceMove(atom/destination, no_tp=FALSE, harderforce = FALSE)
 	if(harderforce)
 		. = ..()
 
+/obj/effect/abstract/liquid_turf/proc/passthrough_evaporation_reaction(datum/reagent/reagent, reac_volume)
+	/*
+	uncomment if you port chem gasses
+	var/datum/reagent/evaporated_reagent = GLOB.chemical_reagents_list[reagent.type]
+	var/turf/open/evaporated_turf = get_turf(src)
+	evaporated_reagent.reaction_evaporation(evaporated_turf, reac_volume)
+	*/
+	return
+
 /obj/effect/abstract/liquid_turf/proc/set_new_liquid_state(new_state)
-	liquid_state = new_state
 	if(no_effects)
 		return
 	cut_overlays()
-	switch(liquid_state)
+	liquid_state = new_state
+	switch(new_state)
 		if(LIQUID_STATE_PUDDLE)
 			QUEUE_SMOOTH(src)
 			QUEUE_SMOOTH_NEIGHBORS(src)
@@ -235,174 +118,42 @@
 			overlay.plane = GAME_PLANE
 			overlay.layer = ABOVE_MOB_LAYER
 			add_overlay(overlay)
-/obj/effect/abstract/liquid_turf/proc/update_liquid_vis()
-	if(no_effects)
+
+/obj/effect/abstract/liquid_turf/proc/set_fire_effect()
+	if(displayed_content)
+		vis_contents -= displayed_content
+
+	if(!liquid_group)
 		return
-	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
-	//Add a fire overlay too
-	switch(fire_state)
+
+	switch(liquid_group.group_fire_state)
 		if(LIQUID_FIRE_STATE_SMALL)
-			SSvis_overlays.add_vis_overlay(src, icon, "fire_small", BELOW_MOB_LAYER, GAME_PLANE, add_appearance_flags = RESET_COLOR|RESET_ALPHA)
+			displayed_content = small_fire
 		if(LIQUID_FIRE_STATE_MILD)
-			SSvis_overlays.add_vis_overlay(src, icon, "fire_small", BELOW_MOB_LAYER, GAME_PLANE, add_appearance_flags = RESET_COLOR|RESET_ALPHA)
+			displayed_content = small_fire
 		if(LIQUID_FIRE_STATE_MEDIUM)
-			SSvis_overlays.add_vis_overlay(src, icon, "fire_medium", BELOW_MOB_LAYER, GAME_PLANE, add_appearance_flags = RESET_COLOR|RESET_ALPHA)
+			displayed_content = medium_fire
 		if(LIQUID_FIRE_STATE_HUGE)
-			SSvis_overlays.add_vis_overlay(src, icon, "fire_big", BELOW_MOB_LAYER, GAME_PLANE, add_appearance_flags = RESET_COLOR|RESET_ALPHA)
+			displayed_content = big_fire
 		if(LIQUID_FIRE_STATE_INFERNO)
-			SSvis_overlays.add_vis_overlay(src, icon, "fire_big", BELOW_MOB_LAYER, GAME_PLANE, add_appearance_flags = RESET_COLOR|RESET_ALPHA)
+			displayed_content = big_fire
+		else
+			displayed_content = null
+
+	if(displayed_content)
+		vis_contents |= displayed_content
 
 //Takes a flat of our reagents and returns it, possibly qdeling our liquids
 /obj/effect/abstract/liquid_turf/proc/take_reagents_flat(flat_amount)
-	var/datum/reagents/tempr = new(10000)
-	if(flat_amount >= total_reagents)
-		tempr.add_reagent_list(reagent_list, no_react = TRUE)
-		qdel(src, TRUE)
-	else
-		var/fraction = flat_amount/total_reagents
-		var/passed_list = list()
-		for(var/reagent_type in reagent_list)
-			var/amount = fraction * reagent_list[reagent_type]
-			reagent_list[reagent_type] -= amount
-			total_reagents -= amount
-			passed_list[reagent_type] = amount
-		tempr.add_reagent_list(passed_list, no_react = TRUE)
-		has_cached_share = FALSE
-	tempr.chem_temp = temp
-	return tempr
-
-/obj/effect/abstract/liquid_turf/immutable/take_reagents_flat(flat_amount)
-	return simulate_reagents_flat(flat_amount)
-
-//Returns a reagents holder with all the reagents with a higher volume than the threshold
-/obj/effect/abstract/liquid_turf/proc/simulate_reagents_threshold(amount_threshold)
-	var/datum/reagents/tempr = new(10000)
-	var/passed_list = list()
-	for(var/reagent_type in reagent_list)
-		var/amount = reagent_list[reagent_type]
-		if(amount_threshold && amount < amount_threshold)
-			continue
-		passed_list[reagent_type] = amount
-	tempr.add_reagent_list(passed_list, no_react = TRUE)
-	tempr.chem_temp = temp
-	return tempr
-
-//Returns a flat of our reagents without any effects on the liquids
-/obj/effect/abstract/liquid_turf/proc/simulate_reagents_flat(flat_amount)
-	var/datum/reagents/tempr = new(10000)
-	if(flat_amount >= total_reagents)
-		tempr.add_reagent_list(reagent_list, no_react = TRUE)
-	else
-		var/fraction = flat_amount/total_reagents
-		var/passed_list = list()
-		for(var/reagent_type in reagent_list)
-			var/amount = fraction * reagent_list[reagent_type]
-			passed_list[reagent_type] = amount
-		tempr.add_reagent_list(passed_list, no_react = TRUE)
-	tempr.chem_temp = temp
-	return tempr
-
-/obj/effect/abstract/liquid_turf/fire_act(temperature, volume)
-	if(!fire_state)
-		if(check_fire(TRUE))
-			SSliquids.processing_fire[my_turf] = TRUE
-
-/obj/effect/abstract/liquid_turf/proc/set_reagent_color_for_liquid()
-	color = mix_color_from_reagents(reagent_list)
-
-/obj/effect/abstract/liquid_turf/proc/calculate_height()
-	var/new_height = CEILING(total_reagents, 1)/LIQUID_HEIGHT_DIVISOR
-	set_height(new_height)
-	var/determined_new_state
-	//We add the turf height if it's positive to state calculations
-	if(my_turf.turf_height > 0)
-		new_height += my_turf.turf_height
-	switch(new_height)
-		if(0 to LIQUID_ANKLES_LEVEL_HEIGHT-1)
-			determined_new_state = LIQUID_STATE_PUDDLE
-		if(LIQUID_ANKLES_LEVEL_HEIGHT to LIQUID_WAIST_LEVEL_HEIGHT-1)
-			determined_new_state = LIQUID_STATE_ANKLES
-		if(LIQUID_WAIST_LEVEL_HEIGHT to LIQUID_SHOULDERS_LEVEL_HEIGHT-1)
-			determined_new_state = LIQUID_STATE_WAIST
-		if(LIQUID_SHOULDERS_LEVEL_HEIGHT to LIQUID_FULLTILE_LEVEL_HEIGHT-1)
-			determined_new_state = LIQUID_STATE_SHOULDERS
-		if(LIQUID_FULLTILE_LEVEL_HEIGHT to INFINITY)
-			determined_new_state = LIQUID_STATE_FULLTILE
-	if(determined_new_state != liquid_state)
-		set_new_liquid_state(determined_new_state)
-
-/obj/effect/abstract/liquid_turf/immutable/calculate_height()
-	var/new_height = CEILING(total_reagents, 1)/LIQUID_HEIGHT_DIVISOR
-	set_height(new_height)
-	var/determined_new_state
-	switch(new_height)
-		if(0 to LIQUID_ANKLES_LEVEL_HEIGHT-1)
-			determined_new_state = LIQUID_STATE_PUDDLE
-		if(LIQUID_ANKLES_LEVEL_HEIGHT to LIQUID_WAIST_LEVEL_HEIGHT-1)
-			determined_new_state = LIQUID_STATE_ANKLES
-		if(LIQUID_WAIST_LEVEL_HEIGHT to LIQUID_SHOULDERS_LEVEL_HEIGHT-1)
-			determined_new_state = LIQUID_STATE_WAIST
-		if(LIQUID_SHOULDERS_LEVEL_HEIGHT to LIQUID_FULLTILE_LEVEL_HEIGHT-1)
-			determined_new_state = LIQUID_STATE_SHOULDERS
-		if(LIQUID_FULLTILE_LEVEL_HEIGHT to INFINITY)
-			determined_new_state = LIQUID_STATE_FULLTILE
-	if(determined_new_state != liquid_state)
-		set_new_liquid_state(determined_new_state)
-
-/obj/effect/abstract/liquid_turf/proc/set_height(new_height)
-	var/prev_height = height
-	height = new_height
-	if(abs(height - prev_height) > WATER_HEIGH_DIFFERENCE_DELTA_SPLASH)
-		//Splash
-		if(prob(WATER_HEIGH_DIFFERENCE_SOUND_CHANCE))
-			var/sound_to_play = pick(list(
-				'code/modules/liquids/sound/effects/water_wade1.ogg',
-				'code/modules/liquids/sound/effects/water_wade2.ogg',
-				'code/modules/liquids/sound/effects/water_wade3.ogg',
-				'code/modules/liquids/sound/effects/water_wade4.ogg'
-				))
-			playsound(my_turf, sound_to_play, 60, 0)
-		var/obj/splashy = new /obj/effect/temp_visual/liquid_splash(my_turf)
-		splashy.color = color
-		if(height >= LIQUID_WAIST_LEVEL_HEIGHT)
-			//Push things into some direction, like space wind
-			var/turf/dest_turf
-			var/last_height = height
-			for(var/turf in my_turf.atmos_adjacent_turfs)
-				var/turf/T = turf
-				if(T.z != my_turf.z)
-					continue
-				if(!T.liquids) //Automatic winner
-					dest_turf = T
-					break
-				if(T.liquids.height < last_height)
-					dest_turf = T
-					last_height = T.liquids.height
-			if(dest_turf)
-				var/dir = get_dir(my_turf, dest_turf)
-				var/atom/movable/AM
-				for(var/thing in my_turf)
-					AM = thing
-					if(!AM.anchored && !AM.pulledby && !isobserver(AM) && (AM.move_resist < INFINITY))
-						if(iscarbon(AM))
-							var/mob/living/carbon/C = AM
-							if(!(C.shoes && C.shoes.clothing_flags & NOSLIP))
-								step(C, dir)
-								if(prob(60) && MOBILITY_STAND)
-									to_chat(C, span_userdanger("The current knocks you down!"))
-									C.Paralyze(60)
-						else
-							step(AM, dir)
-
-/obj/effect/abstract/liquid_turf/immutable/set_height(new_height)
-	height = new_height
+	liquid_group.remove_any(src, flat_amount)
 
 /obj/effect/abstract/liquid_turf/proc/movable_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	var/turf/T = source
 	if(isobserver(AM))
 		return //ghosts, camera eyes, etc. don't make water splashy splashy
-	if(liquid_state >= LIQUID_STATE_ANKLES)
+	if(liquid_group.group_overlay_state >= LIQUID_STATE_ANKLES)
 		if(prob(30))
 			var/sound_to_play = pick(list(
 				'code/modules/liquids/sound/effects/water_wade1.ogg',
@@ -414,26 +165,40 @@
 		if(iscarbon(AM))
 			var/mob/living/carbon/C = AM
 			C.apply_status_effect(/datum/status_effect/water_affected)
+		if(isliving(AM))
+			var/mob/living/carbon/human/stepped_human = AM
+			liquid_group.expose_atom(stepped_human, stepped_human.get_permeability_protection(), TOUCH)
 	else if (isliving(AM))
 		var/mob/living/L = AM
 		if(prob(7) && !(L.movement_type & FLYING))
 			L.slip(30, T, NO_SLIP_WHEN_WALKING, 0, TRUE)
+		if(ishuman(L))
+			var/mob/living/carbon/human/entered_human = L
+			if(entered_human.shoes)
+				var/obj/item/clothing/shoes/stepped_shoes = entered_human.shoes
+				if(stepped_shoes.permeability_coefficient) //may want to snowflake this into a waterproofing variable.
+					liquid_group.expose_atom(entered_human, stepped_shoes.permeability_coefficient, TOUCH)
+			else
+				liquid_group.expose_atom(entered_human, 0 , TOUCH)
+			for(var/datum/reagent/listed_reagent in liquid_group.reagents.reagent_list)
+				if(listed_reagent.type == /datum/reagent/blood && entered_human.shoes)
+					var/obj/item/clothing/shoes/stepped_shoes = entered_human.shoes
+					stepped_shoes.bloody_shoes[BLOOD_STATE_HUMAN] = min(MAX_SHOE_BLOODINESS, stepped_shoes.bloody_shoes[BLOOD_STATE_HUMAN] + BLOOD_GAIN_PER_STEP)
+					stepped_shoes.blood_state = "blood"
 	if(fire_state)
 		AM.fire_act((T20C+50) + (50*fire_state), 125)
 
 /obj/effect/abstract/liquid_turf/proc/mob_fall(datum/source, mob/M)
 	SIGNAL_HANDLER
 	var/turf/T = source
-	if(liquid_state >= LIQUID_STATE_ANKLES && T.has_gravity(T))
+	if(liquid_group.group_overlay_state >= LIQUID_STATE_ANKLES && T.has_gravity(T))
 		playsound(T, 'code/modules/liquids/sound/effects/splash.ogg', 50, 0)
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
 			if(C.wear_mask && C.wear_mask.flags_cover & MASKCOVERSMOUTH)
 				to_chat(C, span_userdanger("You fall in the water!"))
 			else
-				var/datum/reagents/tempr = take_reagents_flat(CHOKE_REAGENTS_INGEST_ON_FALL_AMOUNT)
-				tempr.trans_to(C, tempr.total_volume, methods = INGEST)
-				qdel(tempr)
+				liquid_group.transfer_to_atom(src, CHOKE_REAGENTS_INGEST_ON_FALL_AMOUNT, C)
 				C.adjustOxyLoss(5)
 				//C.emote("cough")
 				INVOKE_ASYNC(C, /mob.proc/emote, "cough")
@@ -441,59 +206,55 @@
 		else
 			to_chat(M, span_userdanger("You fall in the water!"))
 
-/obj/effect/abstract/liquid_turf/Initialize()
+/obj/effect/abstract/liquid_turf/Initialize(mapload, datum/liquid_group/group_to_add)
 	. = ..()
+	if(!small_fire)
+		small_fire = new
+	if(!medium_fire)
+		medium_fire = new
+	if(!big_fire)
+		big_fire = new
+
+	if(!my_turf)
+		my_turf = loc
+
+	if(!my_turf.liquids)
+		my_turf.liquids = src
+
+	if(group_to_add)
+		group_to_add.add_to_group(my_turf)
+		set_new_liquid_state(liquid_group.group_overlay_state)
+
+	if(!liquid_group && !group_to_add)
+		liquid_group = new(1, src)
+
 	if(!SSliquids)
 		CRASH("Liquid Turf created with the liquids sybsystem not yet initialized!")
-	if(!immutable)
-		my_turf = loc
-		RegisterSignal(my_turf, COMSIG_ATOM_ENTERED, .proc/movable_entered)
-		RegisterSignal(my_turf, COMSIG_TURF_MOB_FALL, .proc/mob_fall)
-		RegisterSignal(my_turf, COMSIG_PARENT_EXAMINE, .proc/examine_turf)
-		SSliquids.add_active_turf(my_turf)
+	my_turf = loc
+	RegisterSignal(my_turf, COMSIG_ATOM_ENTERED, .proc/movable_entered)
+	RegisterSignal(my_turf, COMSIG_TURF_MOB_FALL, .proc/mob_fall)
+	RegisterSignal(my_turf, COMSIG_PARENT_EXAMINE, .proc/examine_turf)
+	SSliquids.add_active_turf(my_turf)
 
-		SEND_SIGNAL(my_turf, COMSIG_TURF_LIQUIDS_CREATION, src)
+	SEND_SIGNAL(my_turf, COMSIG_TURF_LIQUIDS_CREATION, src)
 
-	update_liquid_vis()
 	if(z)
 		QUEUE_SMOOTH(src)
 		QUEUE_SMOOTH_NEIGHBORS(src)
 
-	/* //Cant do it immediately, hmhm
-	if(isspaceturf(my_turf))
-		qdel(src, TRUE)
-	*/
 
 /obj/effect/abstract/liquid_turf/Destroy(force)
-	if(force)
-		UnregisterSignal(my_turf, list(COMSIG_ATOM_ENTERED, COMSIG_TURF_MOB_FALL, COMSIG_PARENT_EXAMINE))
-		if(my_turf.lgroup)
-			my_turf.lgroup.remove_from_group(my_turf)
-		if(SSliquids.evaporation_queue[my_turf])
-			SSliquids.evaporation_queue -= my_turf
-		if(SSliquids.processing_fire[my_turf])
-			SSliquids.processing_fire -= my_turf
-		//Is added because it could invoke a change to neighboring liquids
-		SSliquids.add_active_turf(my_turf)
-		my_turf.liquids = null
-		my_turf = null
-		QUEUE_SMOOTH_NEIGHBORS(src)
-	else
-		return QDEL_HINT_LETMELIVE
+	UnregisterSignal(my_turf, list(COMSIG_ATOM_ENTERED, COMSIG_TURF_MOB_FALL, COMSIG_PARENT_EXAMINE))
+	if(liquid_group)
+		liquid_group.remove_from_group(my_turf)
+	if(my_turf in SSliquids.evaporation_queue)
+		SSliquids.evaporation_queue -= my_turf
+	if(my_turf in SSliquids.burning_turfs)
+		SSliquids.burning_turfs -= my_turf
+	my_turf.liquids = null
+	my_turf = null
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
-
-/obj/effect/abstract/liquid_turf/immutable/Destroy(force)
-	if(force)
-		stack_trace("Something tried to hard destroy an immutable liquid.")
-	return ..()
-
-//Exposes my turf with simulated reagents
-/obj/effect/abstract/liquid_turf/proc/ExposeMyTurf()
-	var/datum/reagents/tempr = simulate_reagents_threshold(LIQUID_REAGENT_THRESHOLD_TURF_EXPOSURE)
-	var/turf/T = get_turf(src)
-	for(var/atom/movable/AM in T)
-		tempr.expose(AM, TOUCH)
-	qdel(tempr)
 
 /obj/effect/abstract/liquid_turf/proc/ChangeToNewTurf(turf/NewT)
 	if(NewT.liquids)
@@ -506,11 +267,9 @@
 	if(SSliquids.evaporation_queue[my_turf])
 		SSliquids.evaporation_queue -= my_turf
 		SSliquids.evaporation_queue[NewT] = TRUE
-	if(SSliquids.processing_fire[my_turf])
-		SSliquids.processing_fire -= my_turf
-		SSliquids.processing_fire[NewT] = TRUE
 	my_turf.liquids = null
 	my_turf = NewT
+	liquid_group.move_liquid_group(src)
 	NewT.liquids = src
 	loc = NewT
 	RegisterSignal(my_turf, COMSIG_ATOM_ENTERED, .proc/movable_entered)
@@ -529,33 +288,33 @@
 	SIGNAL_HANDLER
 
 	// This should always have reagents if this effect object exists, but as a sanity check...
-	if(!length(reagent_list))
+	if(!length(liquid_group.reagents.reagent_list))
 		return
 
-	var/liquid_state_template = liquid_state_messages["[liquid_state]"]
+	var/liquid_state_template = liquid_state_messages["[liquid_group.group_overlay_state]"]
 
 	examine_list +=  "<hr>"
 
 	if(examiner.can_see_reagents())
 		examine_list +=  "<hr>"
 
-		if(length(reagent_list) == 1)
+		if(length(liquid_group.reagents.reagent_list) == 1)
 			// Single reagent text.
-			var/datum/reagent/reagent_type = reagent_list[1]
+			var/datum/reagent/reagent_type = liquid_group.reagents.reagent_list[1]
 			var/reagent_name = initial(reagent_type.name)
-			var/volume = round(reagent_list[reagent_type], 0.01)
+			var/volume = round(reagent_type.volume / length(liquid_group.members), 0.01)
 
 			examine_list += span_notice("There is [replacetext(liquid_state_template, "$", "[volume] units of [reagent_name]")] here.")
 		else
 			// Show each individual reagent
 			examine_list += "There is [replacetext(liquid_state_template, "$", "the following")] here:"
 
-			for(var/datum/reagent/reagent_type as anything in reagent_list)
+			for(var/datum/reagent/reagent_type as anything in liquid_group.reagents.reagent_list)
 				var/reagent_name = initial(reagent_type.name)
-				var/volume = round(reagent_list[reagent_type], 0.01)
+				var/volume = round(reagent_type.volume / length(liquid_group.members), 0.01)
 				examine_list += "&bull; [volume] units of [reagent_name]"
 
-		examine_list += span_notice("The solution has a temperature of [temp]K.")
+		examine_list += span_notice("The solution has a temperature of [liquid_group.group_temperature]K.")
 		examine_list +=  "<hr>"
 		return
 
@@ -568,43 +327,18 @@
 	layer = FLY_LAYER
 	randomdir = FALSE
 
-/obj/effect/abstract/liquid_turf/immutable
-	immutable = TRUE
-	var/list/starting_mixture = list(/datum/reagent/water = 600)
-	var/starting_temp = T20C
+/obj/effect/abstract/fire
+	icon = 'code/modules/liquids/icons/obj/effects/liquid.dmi'
+	plane = FLOOR_PLANE
+	layer = BELOW_MOB_LAYER
+	mouse_opacity = FALSE
+	appearance_flags = RESET_COLOR | RESET_ALPHA
 
-//STRICTLY FOR IMMUTABLES DESPITE NOT BEING /immutable
-/obj/effect/abstract/liquid_turf/proc/add_turf(turf/T)
-	T.liquids = src
-	T.vis_contents += src
-	SSliquids.active_immutables[T] = TRUE
-	RegisterSignal(T, COMSIG_ATOM_ENTERED, .proc/movable_entered)
-	RegisterSignal(T, COMSIG_TURF_MOB_FALL, .proc/mob_fall)
+/obj/effect/abstract/fire/small_fire
+	icon_state = "fire_small"
 
-/obj/effect/abstract/liquid_turf/proc/remove_turf(turf/T)
-	SSliquids.active_immutables -= T
-	T.liquids = null
-	T.vis_contents -= src
-	UnregisterSignal(T, list(COMSIG_ATOM_ENTERED, COMSIG_TURF_MOB_FALL))
+/obj/effect/abstract/fire/medium_fire
+	icon_state = "fire_medium"
 
-/obj/effect/abstract/liquid_turf/immutable/ocean
-	icon_state = "ocean"
-	base_icon_state = "ocean"
-	plane = BLACKNESS_PLANE //Same as weather, etc.
-	layer = ABOVE_MOB_LAYER
-	starting_temp = T20C-150
-	no_effects = TRUE
-	vis_flags = NONE
-
-/obj/effect/abstract/liquid_turf/immutable/ocean/warm
-	starting_temp = T20C+20
-
-/obj/effect/abstract/liquid_turf/immutable/Initialize()
-	. = ..()
-	reagent_list = starting_mixture.Copy()
-	total_reagents = 0
-	for(var/key in reagent_list)
-		total_reagents += reagent_list[key]
-	temp = starting_temp
-	calculate_height()
-	set_reagent_color_for_liquid()
+/obj/effect/abstract/fire/big_fire
+	icon_state = "fire_big"

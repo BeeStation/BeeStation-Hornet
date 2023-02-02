@@ -18,9 +18,9 @@
 
 
 
-/obj/machinery/plumbing/splitter/Initialize(mapload, bolt)
+/obj/machinery/plumbing/splitter/Initialize(mapload, bolt, layer)
 	. = ..()
-	AddComponent(/datum/component/plumbing/splitter, bolt)
+	AddComponent(/datum/component/plumbing/splitter, bolt, layer)
 
 
 /obj/machinery/plumbing/splitter/ui_state(mob/user)

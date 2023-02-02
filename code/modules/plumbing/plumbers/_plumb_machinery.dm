@@ -98,3 +98,18 @@
 /obj/machinery/plumbing/tank/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/tank, bolt)
+
+///Layer manifold machine that connects a bunch of layers
+/obj/machinery/plumbing/layer_manifold
+	name = "layer manifold"
+	desc = "A plumbing manifold for layers."
+	icon_state = "manifold"
+	density = FALSE
+/obj/machinery/plumbing/layer_manifold/Initialize(mapload, bolt, layer)
+	. = ..()
+
+	AddComponent(/datum/component/plumbing/manifold, bolt, FIRST_DUCT_LAYER)
+	AddComponent(/datum/component/plumbing/manifold, bolt, SECOND_DUCT_LAYER)
+	AddComponent(/datum/component/plumbing/manifold, bolt, THIRD_DUCT_LAYER)
+	AddComponent(/datum/component/plumbing/manifold, bolt, FOURTH_DUCT_LAYER)
+	AddComponent(/datum/component/plumbing/manifold, bolt, FIFTH_DUCT_LAYER)

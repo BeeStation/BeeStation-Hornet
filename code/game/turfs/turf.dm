@@ -57,6 +57,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 	var/list/fixed_underlay = null
 
+	/// How accessible underfloor pieces such as wires, pipes, etc are on this turf. Can be HIDDEN, VISIBLE, or INTERACTABLE.
+	var/underfloor_accessibility = UNDERFLOOR_HIDDEN
+
+
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
 	if(var_name in banned_edits)
@@ -160,6 +164,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	..()
 
 	vis_contents.Cut()
+	SEND_SIGNAL(src, COMSIG_TURF_DESTROY)
 
 /// WARNING WARNING
 /// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
@@ -500,6 +505,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
 		if(O.level == 1 && (O.flags_1 & INITIALIZED_1))
+			SEND_SIGNAL(O, COMSIG_OBJ_HIDE, underfloor_accessibility < UNDERFLOOR_VISIBLE)
 			O.hide(src.intact)
 
 // override for space turfs, since they should never hide anything

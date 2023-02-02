@@ -43,11 +43,11 @@
 	return TRUE
 
 /obj/structure/drain/process()
-	if(!my_turf.liquids || my_turf.liquids.immutable)
+	if(!my_turf.liquids)
 		STOP_PROCESSING(SSobj, src)
 		processing = FALSE
 		return
-	my_turf.liquids.liquid_simple_delete_flat(drain_flat + (drain_percent * my_turf.liquids.total_reagents))
+	my_turf.liquids.liquid_group.remove_any(my_turf.liquids, drain_flat + (drain_percent * my_turf.liquids.liquid_group.total_reagent_volume))
 
 /obj/structure/drain/Initialize()
 	. = ..()
