@@ -511,6 +511,13 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/security/checkpoint/escape)
+"ahi" = (
+/obj/effect/turf_decal/bot/left,
+/obj/machinery/light_switch{
+	pixel_x = 24
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/science/misc_lab)
 "ahj" = (
 /obj/machinery/power/apc/auto_name/west,
 /obj/structure/cable/yellow{
@@ -1821,15 +1828,13 @@
 /area/science/xenobiology)
 "awf" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
+	dir = 5
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 5
 	},
-/obj/machinery/camera{
-	c_tag = "Science - Toxins Launch Site";
-	dir = 6;
-	name = "science camera"
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 9
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/misc_lab)
@@ -4120,7 +4125,7 @@
 	name = "robotics shutters"
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/science/robotics/lab)
 "aTQ" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -7098,6 +7103,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/airalarm{
+	pixel_y = 22
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/misc_lab)
 "bGg" = (
@@ -7535,7 +7543,7 @@
 	pixel_y = 7
 	},
 /turf/open/floor/plasteel/grid/steel,
-/area/space)
+/area/science/robotics/lab)
 "bNq" = (
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -7806,6 +7814,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb,
+/obj/structure/railing,
 /turf/open/floor/plasteel/techmaint,
 /area/science/misc_lab)
 "bPZ" = (
@@ -13800,6 +13809,13 @@
 /obj/structure/table,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
+"dwU" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/bluespace_beacon,
+/turf/open/floor/plasteel/dark,
+/area/teleporter)
 "dxc" = (
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
@@ -18791,6 +18807,17 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar/atrium)
+"eMv" = (
+/obj/effect/turf_decal/trimline/purple/filled/line,
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/machinery/airalarm{
+	dir = 1;
+	pixel_y = -22
+	},
+/turf/open/floor/plasteel/white,
+/area/science/lobby)
 "eMF" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -18888,9 +18915,6 @@
 "eNB" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/modular_fabricator/exosuit_fab,
-/obj/machinery/airalarm{
-	pixel_y = 22
-	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/robotics/lab)
 "eNE" = (
@@ -21533,7 +21557,6 @@
 /turf/open/floor/plasteel/techmaint,
 /area/engine/engine_room)
 "fvh" = (
-/obj/effect/turf_decal/bot/left,
 /obj/machinery/firealarm/directional/east,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/misc_lab)
@@ -21857,6 +21880,9 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/backpack/duffelbag/med/surgery,
 /obj/effect/turf_decal/trimline/blue/filled/line{
+	dir = 1
+	},
+/obj/machinery/light{
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
@@ -31314,8 +31340,10 @@
 	},
 /area/hallway/primary/central)
 "hVF" = (
-/obj/machinery/teleport/station,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/computer/teleporter{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/teleporter)
 "hVN" = (
@@ -33386,7 +33414,7 @@
 /obj/item/assembly/flash/handheld/weak,
 /obj/item/stack/cable_coil/white,
 /turf/open/floor/plasteel/grid/steel,
-/area/space)
+/area/science/robotics/lab)
 "ivT" = (
 /obj/vehicle/ridden/wheelchair,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
@@ -36734,9 +36762,6 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/camera{
 	c_tag = "Medbay - Surgery";
 	dir = 8;
@@ -36986,12 +37011,12 @@
 /turf/open/floor/plating,
 /area/bridge)
 "jxc" = (
-/obj/machinery/light,
 /obj/structure/table/reinforced,
 /obj/machinery/computer/security/telescreen/toxins{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/railing,
 /turf/open/floor/plasteel/techmaint,
 /area/science/misc_lab)
 "jxg" = (
@@ -45246,16 +45271,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"lzL" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/bluespace_beacon,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/teleporter)
 "lzU" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall/rust,
@@ -46339,6 +46354,7 @@
 	dir = 4;
 	pixel_x = -22
 	},
+/obj/structure/railing,
 /turf/open/floor/plasteel/techmaint,
 /area/science/misc_lab)
 "lNF" = (
@@ -48310,7 +48326,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/space)
+/area/science/robotics/lab)
 "mqX" = (
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -57706,6 +57722,9 @@
 	dir = 8
 	},
 /obj/structure/chair/foldable,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/science/misc_lab)
 "oNs" = (
@@ -76851,11 +76870,9 @@
 /turf/open/floor/vault,
 /area/engine/engine_room)
 "tyd" = (
-/obj/machinery/computer/teleporter{
-	dir = 1
-	},
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/teleport/station,
 /turf/open/floor/plasteel/dark,
 /area/teleporter)
 "tyj" = (
@@ -83024,17 +83041,6 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/maintenance/port)
-"uXO" = (
-/obj/effect/turf_decal/trimline/purple/filled/line,
-/obj/machinery/airalarm{
-	dir = 1;
-	pixel_y = -22
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/science/lobby)
 "uXX" = (
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -87768,7 +87774,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/grid/steel,
-/area/space)
+/area/science/robotics/lab)
 "wad" = (
 /obj/machinery/door/firedoor,
 /obj/structure/railing,
@@ -91710,6 +91716,9 @@
 /obj/item/borg/upgrade/rename,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
+/obj/machinery/airalarm{
+	pixel_y = 22
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/robotics/lab)
 "wVe" = (
@@ -94532,12 +94541,13 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "xwA" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 5
+/obj/machinery/camera{
+	c_tag = "Science - Toxins Launch Site";
+	dir = 6;
+	name = "science camera"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 5
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 6
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/misc_lab)
@@ -97891,7 +97901,7 @@
 	pixel_x = 26
 	},
 /turf/open/floor/plasteel/grid/steel,
-/area/space)
+/area/science/robotics/lab)
 "yer" = (
 /turf/open/floor/plasteel/ridged/steel,
 /area/engine/storage_shared)
@@ -130185,7 +130195,7 @@ ltV
 urx
 pdQ
 lrx
-lzL
+vqF
 bOg
 vwT
 xUL
@@ -130442,7 +130452,7 @@ pGa
 usv
 mpS
 lrx
-vqF
+dwU
 tyd
 cnM
 vDc
@@ -132760,7 +132770,7 @@ lyS
 dcM
 qgo
 uFq
-vBG
+eMv
 yfq
 eNB
 xph
@@ -133531,8 +133541,8 @@ cuj
 wQu
 khb
 hZQ
-uXO
-xlH
+vBG
+yfq
 bNn
 yeo
 ivN
@@ -135369,7 +135379,7 @@ kFN
 lkl
 oMZ
 lNu
-fRu
+mHj
 abN
 nnx
 csJ
@@ -135616,9 +135626,9 @@ eYX
 sWK
 wUG
 ktD
-weg
-xeF
-aPJ
+ygj
+lXI
+jGx
 xwA
 wtQ
 dkb
@@ -135872,10 +135882,10 @@ wUv
 pIw
 iaG
 wUG
-kOi
-mYF
-lXI
-jGx
+ktD
+weg
+xeF
+aPJ
 awf
 sTZ
 sTZ
@@ -135883,7 +135893,7 @@ eeu
 mKd
 iIX
 bPY
-fRu
+mHj
 abN
 abN
 csJ
@@ -136129,11 +136139,12 @@ wVJ
 tcZ
 xZv
 wUG
-ktD
-ygj
+kOi
+mYF
 xEK
 fRu
 bFY
+sTZ
 lfR
 fRu
 fRu
@@ -136144,7 +136155,6 @@ fRu
 fRu
 fRu
 fRu
-csJ
 csJ
 csJ
 csJ
@@ -136391,6 +136401,7 @@ ygj
 xEK
 fbb
 blx
+sTZ
 tKI
 qjA
 cRG
@@ -136401,7 +136412,6 @@ kwM
 fiW
 eON
 bqu
-nnx
 nnx
 nnx
 nnx
@@ -136649,6 +136659,7 @@ vjw
 fRu
 uGw
 fvh
+ahi
 fRu
 fRu
 fRu
@@ -136658,7 +136669,6 @@ fRu
 fRu
 fRu
 fRu
-csJ
 csJ
 csJ
 csJ
@@ -136907,7 +136917,7 @@ fRu
 fRu
 fRu
 fRu
-kHH
+fRu
 kHH
 kHH
 abN
