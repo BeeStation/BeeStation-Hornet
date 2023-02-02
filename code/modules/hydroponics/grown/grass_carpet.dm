@@ -132,11 +132,11 @@
 	bitesize_mod = 3
 	can_distill = FALSE
 
-	//clover
-	/obj/item/reagent_containers/food/snacks/grown/grass/shamrock/Initialize(mapload, obj/item/seeds/new_seed)
-		. = ..()
-		if(prob(0.001)) // 0.001% chance to be a clover
-			name = "four leafed clover"
-			desc = "A rare sought after trinket said to grant luck to it's holder."
-			icon_state = "clover"
-			filling_color = "#358a55"
+//clover
+/obj/item/reagent_containers/food/snacks/grown/grass/shamrock/Initialize(mapload, /obj/item/seeds/new_seed)
+	. = ..()
+	if(prob(0.001)) // 0.001% chance to be a clover
+		name = "four leafed clover"
+		desc = "A rare sought after trinket said to grant luck to it's holder."
+		icon_state = "clover"
+		filling_color = "#358a55"
