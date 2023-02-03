@@ -1,3 +1,5 @@
+GLOBAL_VAR_INIT(pirates_spawned, FALSE)
+
 /datum/round_event_control/pirates
 	name = "Space Pirates"
 	typepath = /datum/round_event/pirates
@@ -14,9 +16,11 @@
 	return ..()
 
 /datum/round_event/pirates/start()
-	send_pirate_threat()
+	if(!GLOB.pirates_spawned)
+		send_pirate_threat()
 
 /proc/send_pirate_threat()
+	GLOB.pirates_spawned = TRUE
 	var/ship_name = "Space Privateers Association"
 	var/payoff_min = 20000
 	var/payoff = 0
