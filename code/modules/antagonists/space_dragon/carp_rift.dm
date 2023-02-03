@@ -114,7 +114,8 @@
 	if(time_charged != max_charge + 1)
 		if(dragon)
 			restore_rift_ability()
-			to_chat(dragon, "<span class='boldwarning'>A rift has been destroyed!</span>")
+			if(dragon.owner.current)
+				to_chat(dragon.owner.current, "<span class='boldwarning'>A rift has been destroyed!</span>")
 			dragon = null
 	return ..()
 
