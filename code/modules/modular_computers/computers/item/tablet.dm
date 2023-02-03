@@ -83,33 +83,10 @@
 /obj/item/modular_computer/tablet/pre_attack(atom/target, mob/living/user, params)
 	if(try_scan_paper(target, user))
 		return FALSE
-	// CLOWN VIRUS
-	var/obj/item/computer_hardware/hard_drive/role/virus/clown/disk = all_components[MC_HDD_JOB]
-	if(!istype(disk) || !ismachinery(target))
-		return ..()
-	var/obj/machinery/target_machine = target
-	if(!target_machine.panel_open && !istype(target, /obj/machinery/computer))
-		return ..()
-
-	if(!disk.charges)
-		to_chat(user, "<span class='notice'>[src] beeps: 'Out of charge. Please insert a new cartridge.'</span>")
-		return ..()
-	if(target.GetComponent(/datum/component/sound_player))
-		to_chat(user, "<span class='notice'>[src] beeps: 'Virus already present on client, aborting.'</span>")
-		return ..()
-	to_chat(user, "<span class='notice'>You upload the virus to [target]!</span>")
-	var/list/sig_list
-	if(istype(target, /obj/machinery/door/airlock))
-		sig_list = list(COMSIG_AIRLOCK_OPEN, COMSIG_AIRLOCK_CLOSE)
-	else
-		sig_list = list(COMSIG_ATOM_ATTACK_HAND)
-	disk.charges--
-	target.AddComponent(
-		/datum/component/sound_player, \
-		uses = rand(30,50), \
-		signal_list = sig_list, \
-	)
-	return FALSE
+	var/obj/item/computer_hardware/hard_drive/role/job_disk = all_components[MC_HDD_JOB]
+	if(istype(job_disk) && !job_disk.pre_attack(target, user, params))
+		return FALSE
+	return ..()
 
 /obj/item/modular_computer/tablet/attack(atom/target, mob/living/user, params)
 	// Send to programs for processing - this should go LAST
