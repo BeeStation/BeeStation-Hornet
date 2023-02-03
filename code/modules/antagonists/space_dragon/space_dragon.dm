@@ -87,6 +87,7 @@
 	owner.current.faction |= "carp"
 	RegisterSignal(owner.current, COMSIG_LIVING_LIFE, .proc/rift_checks)
 	RegisterSignal(owner.current, COMSIG_MOB_DEATH, .proc/destroy_rifts)
+	RegisterSignal(owner.current, COMSIG_PARENT_QDELETING, .proc/destroy_rifts)
 	if(istype(owner.current, /mob/living/simple_animal/hostile/space_dragon))
 		var/mob/living/simple_animal/hostile/space_dragon/S = owner.current
 		S.can_summon_rifts = TRUE
@@ -173,6 +174,9 @@
 	SIGNAL_HANDLER
 	if(objective_complete) // this will always trigger on death, be sure that we didn't succeed already
 		return
+	for(var/mob/S in GLOB.player_list)
+		if(!S.stat && ("carp" in S.faction))
+			to_chat(S, "<span class='big bold'><font color=\"#44aaff\">The Space Dragon has died! All is lost, and the rifts have closed...</font></span>")
 	rifts_charged = 0
 	playsound(owner.current, 'sound/vehicles/rocketlaunch.ogg', 100, TRUE)
 	for(var/obj/structure/carp_rift/rift in rift_list)
