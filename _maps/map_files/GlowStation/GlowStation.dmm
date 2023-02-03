@@ -7838,10 +7838,7 @@
 	dir = 10;
 	id = "disposals"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/quartermaster/office)
 "bHz" = (
 /obj/structure/table/reinforced,
@@ -8252,6 +8249,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/misc_lab)
+"bMG" = (
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/turf/open/floor/plating,
+/area/quartermaster/office)
 "bMI" = (
 /obj/machinery/atmospherics/pipe/simple/yellow/visible,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -35324,7 +35327,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/quartermaster/office)
 "hyp" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/nitrous_output{
@@ -45880,7 +45883,7 @@
 /obj/machinery/disposal/deliveryChute{
 	dir = 1
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/quartermaster/office)
 "jHN" = (
 /obj/effect/turf_decal/trimline/yellow/filled/corner{
@@ -47122,8 +47125,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/junction/flip{
-	dir = 8
+/obj/structure/disposalpipe/junction{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark/side,
 /area/security/brig)
@@ -56163,9 +56166,6 @@
 	name = "Disposals Sorting Maintenance";
 	req_one_access_txt = "31;48"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
 /turf/open/floor/plating,
 /area/quartermaster/office)
 "lPr" = (
@@ -57309,7 +57309,7 @@
 	dir = 4;
 	id = "disposals"
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/quartermaster/office)
 "mau" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -61857,6 +61857,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/upper/fore)
+"naA" = (
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/plating,
+/area/quartermaster/office)
 "naH" = (
 /obj/machinery/light{
 	dir = 4
@@ -62142,7 +62146,7 @@
 	dir = 5;
 	id = "disposals"
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/quartermaster/office)
 "nec" = (
 /obj/effect/turf_decal/trimline/purple/filled/line{
@@ -63101,6 +63105,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/starboard)
+"npF" = (
+/obj/structure/disposalpipe/junction{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/quartermaster/office)
 "npG" = (
 /obj/structure/railing{
 	dir = 4
@@ -87729,6 +87739,16 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"sAc" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "disposals"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "sAh" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -96194,7 +96214,11 @@
 /area/engine/atmospherics_engine)
 "ulB" = (
 /obj/structure/window/reinforced/spawner,
-/turf/open/floor/plating,
+/obj/structure/disposalpipe/trunk,
+/obj/machinery/disposal/deliveryChute{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/quartermaster/office)
 "ulE" = (
 /obj/effect/turf_decal/trimline/blue/filled/line{
@@ -96666,7 +96690,7 @@
 	dir = 1;
 	id = "disposals"
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/quartermaster/office)
 "uqW" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -103118,7 +103142,7 @@
 /obj/structure/disposalpipe/trunk/multiz{
 	dir = 8
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/quartermaster/office)
 "vKp" = (
 /obj/structure/railing{
@@ -202058,7 +202082,7 @@ mas
 mas
 mas
 ulB
-sVB
+bMG
 sVB
 cbp
 kIX
@@ -202313,9 +202337,9 @@ hjc
 cbp
 mas
 mas
-mas
+sAc
 jHL
-sVB
+okA
 sVB
 lfD
 eHW
@@ -202572,7 +202596,7 @@ neb
 uqV
 bHx
 vKl
-sVB
+okA
 sVB
 cbp
 kIX
@@ -203084,9 +203108,9 @@ cbp
 cbp
 uQy
 qVA
-okA
-sVB
-okA
+nTf
+naA
+npF
 sVB
 cbp
 cbp
