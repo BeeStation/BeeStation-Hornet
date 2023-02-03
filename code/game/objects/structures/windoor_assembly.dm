@@ -43,7 +43,7 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/windoor_assembly/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(1)
 	return ..()
 
@@ -282,7 +282,7 @@
 
 				if(W.use_tool(src, user, 40, volume=100) && electronics)
 
-					density = TRUE //Shouldn't matter but just incase
+					set_density(TRUE) //Shouldn't matter but just incase
 					to_chat(user, "<span class='notice'>You finish the windoor.</span>")
 
 					if(secure)
@@ -294,7 +294,7 @@
 							windoor.icon_state = "rightsecureopen"
 							windoor.base_state = "rightsecure"
 						windoor.setDir(dir)
-						windoor.density = FALSE
+						windoor.set_density(FALSE)
 
 						if(electronics.one_access)
 							windoor.req_one_access = electronics.accesses
@@ -317,7 +317,7 @@
 							windoor.icon_state = "rightopen"
 							windoor.base_state = "right"
 						windoor.setDir(dir)
-						windoor.density = FALSE
+						windoor.set_density(FALSE)
 
 						if(electronics.one_access)
 							windoor.req_one_access = electronics.accesses
@@ -345,6 +345,8 @@
 	AddComponent(/datum/component/simple_rotation, rotation_flags, can_be_rotated=CALLBACK(src, .proc/can_be_rotated), after_rotation=CALLBACK(src,.proc/after_rotation))
 
 /obj/structure/windoor_assembly/proc/can_be_rotated(mob/user,rotation_type)
+	if(!in_range(user, src))
+		return
 	if(anchored)
 		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
 		return FALSE

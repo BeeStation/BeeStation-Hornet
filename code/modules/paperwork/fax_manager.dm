@@ -69,7 +69,7 @@ GLOBAL_DATUM_INIT(fax_manager, /datum/fax_manager, new)
 					return TRUE
 		if("flw_fax")
 			for(var/obj/machinery/fax/fax in GLOB.machines)
-				if(faxfax_id == params["fax_id"])
+				if(fax.fax_id == params["fax_id"])
 					admin_datum.admin_follow(fax)
 					return TRUE
 		if("read_message")

@@ -8539,6 +8539,9 @@
 	pixel_x = 9;
 	pixel_y = 2
 	},
+/obj/item/storage/secure/safe{
+	pixel_x = 32
+	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/hor)
 "cDr" = (
@@ -12052,6 +12055,9 @@
 "dNp" = (
 /obj/structure/chair/office/light,
 /obj/effect/landmark/start/chief_medical_officer,
+/obj/item/storage/secure/safe{
+	pixel_x = -21
+	},
 /turf/open/floor/carpet/cyan,
 /area/crew_quarters/heads/cmo)
 "dNq" = (
@@ -22019,7 +22025,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/radio/headset/headset_medsci,
+/obj/item/radio/headset/headset_med,
 /obj/item/storage/box/monkeycubes,
 /obj/item/storage/box/monkeycubes,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
@@ -35042,16 +35048,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/misc_lab/range)
-"lyZ" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -24
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/science/research)
 "lzn" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -41048,6 +41044,9 @@
 /obj/structure/bed,
 /obj/item/bedsheet/ce,
 /obj/effect/landmark/start/chief_engineer,
+/obj/item/storage/secure/safe{
+	pixel_x = 32
+	},
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/heads/chief)
 "nya" = (
@@ -43234,9 +43233,6 @@
 /turf/open/floor/carpet/blue,
 /area/security/brig)
 "ogD" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -25
-	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
@@ -43367,6 +43363,9 @@
 /obj/item/flashlight/lamp/green{
 	pixel_x = -6;
 	pixel_y = 13
+	},
+/obj/item/storage/secure/safe{
+	pixel_y = 32
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
@@ -50795,6 +50794,9 @@
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
 	dir = 2
+	},
+/obj/item/storage/secure/safe{
+	pixel_x = 32
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
@@ -64116,6 +64118,9 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
 	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -25
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "vgF" = (
@@ -68438,6 +68443,7 @@
 /area/medical/medbay/aft)
 "wCe" = (
 /obj/effect/turf_decal/tile/purple/opposingcorners,
+/obj/machinery/firealarm/directional/west,
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "wCt" = (
@@ -103643,7 +103649,7 @@ tZF
 bSu
 tZF
 tZF
-lyZ
+tZF
 tZF
 wCe
 hdz

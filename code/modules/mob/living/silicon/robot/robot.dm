@@ -119,7 +119,6 @@
 
 	robot_modules_background = new()
 	robot_modules_background.icon_state = "block"
-	robot_modules_background.layer = HUD_LAYER	//Objects that appear on screen are on layer ABOVE_HUD_LAYER, UI should be just below it.
 	robot_modules_background.plane = HUD_PLANE
 
 	ident = rand(1, 999)
@@ -309,15 +308,16 @@
 	alerts.set_content(dat)
 	alerts.open()
 
-/mob/living/silicon/robot/proc/ionpulse()
+/mob/living/silicon/robot/proc/ionpulse(thrust = 0.01, use_fuel = TRUE)
 	if(!ionpulse_on)
-		return
+		return FALSE
 
 	if(cell.charge <= 10)
 		toggle_ionpulse()
-		return
+		return FALSE
 
-	cell.charge -= 10
+	if(use_fuel)
+		cell.charge -= (thrust * 1000)
 	return TRUE
 
 /mob/living/silicon/robot/proc/toggle_ionpulse()
