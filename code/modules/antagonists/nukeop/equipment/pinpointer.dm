@@ -25,7 +25,6 @@
 			if(bomb.timing)
 				if(!alert)
 					alert = TRUE
-					tracks_grand_z = TRUE
 					playsound(src, 'sound/items/nuke_toy_lowpower.ogg', 50, 0)
 					if(isliving(loc))
 						var/mob/living/L = loc

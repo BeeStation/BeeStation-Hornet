@@ -68,10 +68,7 @@
 	cut_overlays()
 	if(!active)
 		return
-	if(!target)
-		add_overlay("pinon[alert ? "alert" : ""]null[icon_suffix]")
-		return
-	if(jamming_resistance && src.is_jammed(jamming_resistance))
+	if(!target || (jamming_resistance && src.is_jammed(jamming_resistance)))
 		add_overlay("pinon[alert ? "alert" : ""]null[icon_suffix]")
 		return
 	var/turf/here = get_turf(src)
@@ -223,6 +220,7 @@
 /obj/item/pinpointer/pair
 	name = "pair pinpointer"
 	desc = "A handheld tracking device that locks onto its other half of the matching pair."
+	tracks_grand_z = TRUE
 	var/other_pair
 
 /obj/item/pinpointer/pair/Destroy()
@@ -256,6 +254,7 @@
 	desc = "A handheld tracking device that locates the bounty hunter shuttle for quick escapes."
 	icon_state = "pinpointer_hunter"
 	icon_suffix = "-hunter"
+	tracks_grand_z = TRUE
 	var/obj/shuttleport
 
 /obj/item/pinpointer/shuttle/Initialize(mapload)
