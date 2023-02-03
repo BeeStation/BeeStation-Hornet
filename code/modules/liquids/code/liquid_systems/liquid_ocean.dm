@@ -67,6 +67,19 @@
 	if(!static_overlay)
 		static_overlay = new(null, ocean_reagents)
 	vis_contents += static_overlay
+	SSliquids.unvalidated_oceans |= src
+	SSliquids.ocean_turfs |= src
+
+
+/turf/open/floor/plating/ocean/Destroy()
+	. = ..()
+	UnregisterSignal(src, list(COMSIG_ATOM_ENTERED, COMSIG_TURF_MOB_FALL))
+	SSliquids.active_ocean_turfs -= src
+	SSliquids.ocean_turfs -= src
+	for(var/turf/open/floor/plating/ocean/listed_ocean in ocean_turfs)
+		listed_ocean.rebuild_adjacent()
+
+/turf/open/floor/plating/ocean/proc/assume_self()
 	for(var/direction in GLOB.cardinals)
 		var/turf/directional_turf = get_step(src, direction)
 		if(istype(directional_turf, /turf/open/floor/plating/ocean))
@@ -82,15 +95,7 @@
 	if(open_turfs.len)
 		SSliquids.active_ocean_turfs |= src
 	SSliquids.ocean_turfs |= src
-
-
-/turf/open/floor/plating/ocean/Destroy()
-	. = ..()
-	UnregisterSignal(src, list(COMSIG_ATOM_ENTERED, COMSIG_TURF_MOB_FALL))
-	SSliquids.active_ocean_turfs -= src
-	SSliquids.ocean_turfs -= src
-	for(var/turf/open/floor/plating/ocean/listed_ocean in ocean_turfs)
-		listed_ocean.rebuild_adjacent()
+	SSliquids.unvalidated_oceans -= src
 
 /turf/open/floor/plating/ocean/proc/process_turf()
 	for(var/direction in open_turfs)

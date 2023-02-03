@@ -17,6 +17,7 @@ SUBSYSTEM_DEF(liquids)
 	var/list/active_ocean_turfs = list()
 	var/list/ocean_turfs = list()
 	var/list/currentrun_active_ocean_turfs = list()
+	var/list/unvalidated_oceans = list()
 	var/ocean_counter = 0
 
 	var/run_type = SSLIQUIDS_RUN_TYPE_TURFS
@@ -28,16 +29,20 @@ SUBSYSTEM_DEF(liquids)
 	var/fire_counter = 0
 
 /datum/controller/subsystem/liquids/stat_entry(msg)
-	msg += "AT:[active_turfs.len]|AG:[active_groups.len]|BT:[burning_turfs.len]|EQ:[evaporation_queue.len]|AO:[active_ocean_turfs.len]"
+	msg += "AT:[active_turfs.len]|AG:[active_groups.len]|BT:[burning_turfs.len]|EQ:[evaporation_queue.len]|AO:[active_ocean_turfs.len]|UO:[length(unvalidated_oceans)]"
 	return ..()
 
 /datum/controller/subsystem/liquids/fire(resumed = FALSE)
-	if(!active_turfs.len && !active_groups.len && !evaporation_queue.len && !active_ocean_turfs.len && !burning_turfs.len)
+	if(!active_turfs.len && !active_groups.len && !evaporation_queue.len && !active_ocean_turfs.len && !burning_turfs.len && !unvalidated_oceans.len)
 		return
 	if(!currentrun_active_turfs.len && active_turfs.len && active_groups.len)
 		for(var/g in active_groups)
 			var/datum/liquid_group/LG = g
 			currentrun_active_turfs |= LG.members
+
+	if(length(unvalidated_oceans))
+		for(var/turf/open/floor/plating/ocean/unvalidated_turf in unvalidated_oceans)
+			unvalidated_turf.assume_self()
 
 	if(active_groups.len)
 		for(var/g in active_groups)

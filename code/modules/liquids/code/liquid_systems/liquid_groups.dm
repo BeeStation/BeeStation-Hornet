@@ -68,9 +68,14 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 
 ///GROUP CONTROLLING
 /datum/liquid_group/proc/add_to_group(turf/T)
+	if(!T)
+		return
 	if(!T.liquids)
 		T.liquids = new(null, src)
 		cached_edge_turfs[T] = list(NORTH, SOUTH, EAST, WEST)
+	if(!members)
+		qdel(T.liquids)
+		return
 	members[T] = TRUE
 	T.liquids.liquid_group = src
 	reagents.maximum_volume += 1000 /// each turf will hold 1000 units plus the base amount spread across the group
@@ -731,7 +736,8 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	if(!new_turf.liquids && !isspaceturf(new_turf) && !istype(new_turf, /turf/open/floor/plating/ocean) && source_turf.turf_height == new_turf.turf_height) // no space turfs, or oceans turfs, also don't attempt to spread onto a turf that already has liquids wastes processing time
 		if(reagents_per_turf < LIQUID_HEIGHT_DIVISOR)
 			return FALSE
-
+		if(!length(members))
+			return FALSE
 		reagents_per_turf = total_reagent_volume / members.len
 		expected_turf_height = CEILING(reagents_per_turf, 1) / LIQUID_HEIGHT_DIVISOR
 		new_turf.liquids = new(new_turf, src)
