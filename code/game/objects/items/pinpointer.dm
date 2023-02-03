@@ -71,7 +71,7 @@
 	cut_overlays()
 	if(!active)
 		return
-	if(!target || (jamming_resistance && src.is_jammed(jamming_resistance)))
+	if(!target || (!isnull(jamming_resistance) && src.is_jammed(jamming_resistance)))
 		add_overlay("pinon[alert ? "alert" : ""]null[icon_suffix]")
 		return
 	var/turf/here = get_turf(src)
