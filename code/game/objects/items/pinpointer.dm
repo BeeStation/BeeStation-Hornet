@@ -28,6 +28,9 @@
 	/// if this is declared (like JAMMER_PROTECTION_SENSOR_NETWORK), it will be not usable when it's jammed
 	var/jamming_resistance = null
 
+	/// Lets you to know where you should go to whne you examine
+	var/z_level_direction = ""
+
 /obj/item/pinpointer/Initialize(mapload)
 	. = ..()
 	GLOB.pinpointer_list += src
@@ -75,6 +78,7 @@
 	var/turf/there = get_turf(target)
 	var/pin_xy_result = "pinondirect"
 	var/pin_z_result = ""
+	z_level_direction = ""
 
 
 	// getting z result first
@@ -84,13 +88,20 @@
 		pin_z_result = "above"
 
 	if(pin_z_result)
-		if(SSorbits.get_orbital_map_name_from_z(here.get_virtual_z_level()) != SSorbits.get_orbital_map_name_from_z(there.get_virtual_z_level()))
-			// if line: it checks they're at the same z-group level. (i.e. multi-floored station)
+		var/result = compare_z(here.get_virtual_z_level(), there.get_virtual_z_level())
+		if(isnull(result)) // null: no good to track z levels
+			add_overlay("pinon[alert ? "alert" : ""]null[icon_suffix]")
+			return
+		else if(!result) // FALSE: z-levels are in different groups. (i.e. Station v.s. Lavaland)
 			if(!tracks_grand_z)
 				add_overlay("pinon[alert ? "alert" : ""]null[icon_suffix]")
 				return
 			else
-				pin_z_result = "[pin_z_result]2"
+				z_level_direction = "at too far [pin_z_result], much more than you can think"
+				add_overlay("pinon_[pin_z_result][icon_suffix]")
+				return
+		else // TRUE: z-levels are in the same group (i.e. multi-floored station)
+			z_level_direction = "at a floor [pin_z_result] here"
 
 	// getting xy result
 	if(get_dist_euclidian(here,there) <= minimum_range)
@@ -105,6 +116,8 @@
 			if(16 to INFINITY)
 				pin_xy_result = "far"
 
+
+	// building overlays with sprite components
 	add_overlay(alert ? "pincomp_base_alert" : "pincomp_base")
 	if(pin_z_result)
 		add_overlay("pincomp_z_[pin_z_result][icon_suffix]")
@@ -113,6 +126,16 @@
 		pin_xy_result = pin_xy_result=="direct" ? "direct_" : ""
 		add_overlay("pincomp_arrow_[pin_xy_result]alert[icon_suffix]")
 
+/// compares if get_virtual_z_level() of two parameters is the same orbital map
+/obj/item/pinpointer/proc/compare_z(here_z, there_z)
+	var/here_map = SSorbits.get_orbital_map_name_from_z(here_z)
+	var/there_map = SSorbits.get_orbital_map_name_from_z(there_z)
+	if(isnull(here_map) || isnull(there_map))
+		return null
+	if(here_map == there_map)
+		return TRUE
+	else
+		return FALSE
 
 /obj/item/pinpointer/crew // A replacement for the old crew monitoring consoles
 	name = "crew pinpointer"
@@ -128,6 +151,8 @@
 	if(!active || !target)
 		return
 	. += "It is currently tracking <b>[target]</b>."
+	if(z_level_direction)
+		. += "Pinpointer informs its target is [z_level_direction]."
 
 /obj/item/pinpointer/crew/proc/trackable(mob/living/L)
 	var/turf/here = get_turf(src)
@@ -137,7 +162,7 @@
 		return FALSE
 
 	if(!tracks_grand_z)
-		if(SSorbits.get_orbital_map_name_from_z(here.get_virtual_z_level()) != SSorbits.get_orbital_map_name_from_z(there.get_virtual_z_level()))
+		if(!compare_z(here.get_virtual_z_level(), there.get_virtual_z_level()))
 			return FALSE
 
 	if(HAS_TRAIT(L, TRAIT_NANITE_SENSORS) && (ishuman(L) || L.mind)) // they should be fakehuman with no mind, or be a mob with mind. Nanites spam to mobs will be annoying

@@ -433,7 +433,6 @@
 			for(var/obj/item/pinpointer/nuke/syndicate/S in GLOB.pinpointer_list)
 				S.switch_mode_to(initial(S.mode))
 				S.alert = FALSE
-				S.tracks_grand_z = FALSE
 		timing = FALSE
 		detonation_timer = null
 		countdown.stop()
@@ -463,7 +462,6 @@
 		for(var/obj/item/pinpointer/nuke/syndicate/S in GLOB.pinpointer_list)
 			S.switch_mode_to(initial(S.mode))
 			S.alert = FALSE
-			S.tracks_grand_z = FALSE
 		countdown.stop()
 	COOLDOWN_START(src, arm_cooldown, ARM_ACTION_COOLDOWN)
 	update_icon()
@@ -591,7 +589,6 @@
 	for(var/obj/item/pinpointer/nuke/syndicate/S in GLOB.pinpointer_list)
 		S.switch_mode_to(initial(S.mode))
 		S.alert = FALSE
-		S.tracks_grand_z = FALSE
 	countdown.stop()
 	update_icon()
 	update_ui_mode()
