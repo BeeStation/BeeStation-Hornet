@@ -1,4 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - tweak: Prevented multiple Space Pirates spawning in a round.
