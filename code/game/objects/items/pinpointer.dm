@@ -22,6 +22,12 @@
 	var/process_scan = TRUE // some pinpointers change target every time they scan, which means we can't have it change very process but instead when it turns on.
 	var/icon_suffix = "" // for special pinpointer icons
 
+	/// FALSE: only tracks multiple z levels that are in the same group (i.e. multi-floored station) / TRUE: can track always regardless of the group (from station to laveland). This shouldn't be TRUE in general.
+	var/tracks_grand_z = FALSE
+
+	/// if this is declared (like JAMMER_PROTECTION_SENSOR_NETWORK), it will be not usable when it's jammed
+	var/jamming_resistance = null
+
 /obj/item/pinpointer/Initialize(mapload)
 	. = ..()
 	GLOB.pinpointer_list += src
@@ -65,32 +71,58 @@
 	if(!target)
 		add_overlay("pinon[alert ? "alert" : ""]null[icon_suffix]")
 		return
+	if(jamming_resistance && src.is_jammed(jamming_resistance))
+		add_overlay("pinon[alert ? "alert" : ""]null[icon_suffix]")
+		return
 	var/turf/here = get_turf(src)
 	var/turf/there = get_turf(target)
+	var/pin_xy_result = "pinondirect"
+	var/pin_z_result = ""
 
-	if(here.get_virtual_z_level() != there.get_virtual_z_level())
-		if(here.get_virtual_z_level() > there.get_virtual_z_level())
-			add_overlay("pinon_below[icon_suffix]")
-		else
-			add_overlay("pinon_above[icon_suffix]")
-		return
+
+	// getting z result first
+	if(here.get_virtual_z_level() > there.get_virtual_z_level()) // target is at below
+		pin_z_result = "below"
+	else if(here.get_virtual_z_level() < there.get_virtual_z_level()) // target is at above
+		pin_z_result = "above"
+
+	if(pin_z_result)
+		if(SSorbits.get_orbital_map_name_from_z(here.get_virtual_z_level()) != SSorbits.get_orbital_map_name_from_z(there.get_virtual_z_level()))
+			// if line: it checks they're at the same z-group level. (i.e. multi-floored station)
+			if(!tracks_grand_z)
+				add_overlay("pinon[alert ? "alert" : ""]null[icon_suffix]")
+				return
+			else
+				pin_z_result = "[pin_z_result]2"
+
+	// getting xy result
 	if(get_dist_euclidian(here,there) <= minimum_range)
-		add_overlay("pinon[alert ? "alert" : ""]direct[icon_suffix]")
+		pin_xy_result = "direct"
 	else
 		setDir(get_dir(here, there))
 		switch(get_dist(here, there))
 			if(1 to 8)
-				add_overlay("pinon[alert ? "alert" : "close"][icon_suffix]")
+				pin_xy_result = "close"
 			if(9 to 16)
-				add_overlay("pinon[alert ? "alert" : "medium"][icon_suffix]")
+				pin_xy_result = "medium"
 			if(16 to INFINITY)
-				add_overlay("pinon[alert ? "alert" : "far"][icon_suffix]")
+				pin_xy_result = "far"
+
+	add_overlay(alert ? "pincomp_base_alert" : "pincomp_base")
+	if(pin_z_result)
+		add_overlay("pincomp_z_[pin_z_result][icon_suffix]")
+	add_overlay("pincomp_arrow_[pin_xy_result][icon_suffix]")
+	if(alert)
+		pin_xy_result = pin_xy_result=="direct" ? "direct_" : ""
+		add_overlay("pincomp_arrow_[pin_xy_result]alert[icon_suffix]")
+
 
 /obj/item/pinpointer/crew // A replacement for the old crew monitoring consoles
 	name = "crew pinpointer"
 	desc = "A handheld tracking device that points to crew suit sensors."
 	icon_state = "pinpointer_crew"
 	custom_price = 150
+	jamming_resistance = JAMMER_PROTECTION_SENSOR_NETWORK
 	var/has_owner = FALSE
 	var/pinpointer_owner = null
 
@@ -100,23 +132,33 @@
 		return
 	. += "It is currently tracking <b>[target]</b>."
 
-/obj/item/pinpointer/crew/proc/trackable(mob/living/carbon/human/H)
+/obj/item/pinpointer/crew/proc/trackable(mob/living/L)
 	var/turf/here = get_turf(src)
-	if((H.z == 0 || H.get_virtual_z_level() == here.get_virtual_z_level() || (is_station_level(here.z) && is_station_level(H.z))) && istype(H.w_uniform, /obj/item/clothing/under))
-		var/obj/item/clothing/under/U = H.w_uniform
+	var/turf/there = get_turf(L)
 
-		//Suit sensors radio transmitter must not be jammed.
-		if(U.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK))
+	if(there.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK))
+		return FALSE
+
+	if(!tracks_grand_z)
+		if(SSorbits.get_orbital_map_name_from_z(here.get_virtual_z_level()) != SSorbits.get_orbital_map_name_from_z(there.get_virtual_z_level()))
 			return FALSE
 
-		// Suit sensors must be on maximum.
-		if(!U.has_sensor || (U.sensor_mode < SENSOR_COORDS && !ignore_suit_sensor_level))
-			return FALSE
+	if(HAS_TRAIT(L, TRAIT_NANITE_SENSORS) && (ishuman(L) || L.mind)) // they should be fakehuman with no mind, or be a mob with mind. Nanites spam to mobs will be annoying
+		return TRUE
 
-		var/turf/there = get_turf(H)
-		return (H.z != 0 || (there && ((there.get_virtual_z_level() == here.get_virtual_z_level()) || (is_station_level(there.z) && is_station_level(here.z)))))
+	if(!ishuman(L)) // now human only code
+		return FALSE
 
-	return FALSE
+	var/mob/living/carbon/human/H = L
+	if(!H.w_uniform)
+		return FALSE
+
+	var/obj/item/clothing/under/U = H.w_uniform
+	if(!U.has_sensor || (U.sensor_mode < SENSOR_COORDS && !ignore_suit_sensor_level))
+		return FALSE
+
+	return TRUE
+
 
 /obj/item/pinpointer/crew/attack_self(mob/living/user)
 	if(active)
@@ -134,20 +176,26 @@
 	var/list/name_counts = list()
 	var/list/names = list()
 
-	for(var/mob/living/carbon/human/H in GLOB.carbon_list)
-		if(!trackable(H))
+	for(var/mob/living/L in GLOB.suit_sensors_list)
+		if(user.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK))
+			break
+		if(!trackable(L))
 			continue
 
 		var/crewmember_name = "Unknown"
-		if(H.wear_id)
-			var/obj/item/card/id/I = H.wear_id.GetID()
-			if(I?.registered_name)
-				crewmember_name = I.registered_name
+		if(ishuman(L))
+			var/mob/living/carbon/human/H = L
+			if(H.wear_id)
+				var/obj/item/card/id/I = H.wear_id.GetID()
+				if(I?.registered_name)
+					crewmember_name = I.registered_name
+		else
+			crewmember_name = L.name // non-human can't get ID card, but displaying them as Unknown is annoying
 
 		while(crewmember_name in name_counts)
 			name_counts[crewmember_name]++
 			crewmember_name = text("[] ([])", crewmember_name, name_counts[crewmember_name])
-		names[crewmember_name] = H
+		names[crewmember_name] = L
 		name_counts[crewmember_name] = 1
 
 	if(!names.len)
@@ -207,7 +255,7 @@
 	name = "fugitive pinpointer"
 	desc = "A handheld tracking device that locates the bounty hunter shuttle for quick escapes."
 	icon_state = "pinpointer_hunter"
-	icon_suffix = "_hunter"
+	icon_suffix = "-hunter"
 	var/obj/shuttleport
 
 /obj/item/pinpointer/shuttle/Initialize(mapload)
