@@ -5914,7 +5914,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "aQU" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/vending/autodrobe/all_access,
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "aQV" = (

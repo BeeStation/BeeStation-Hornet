@@ -3118,21 +3118,10 @@
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "avj" = (
-/obj/machinery/camera{
-	c_tag = "Dormitories Fore"
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the monastery.";
-	name = "Monastery Monitor";
-	network = list("monastery");
-	pixel_y = 32
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
+/obj/machinery/vending/autodrobe/all_access,
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "avl" = (
@@ -25721,6 +25710,21 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
+"fBD" = (
+/obj/machinery/camera{
+	c_tag = "Dormitories Fore"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching the monastery.";
+	name = "Monastery Monitor";
+	network = list("monastery");
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
 "fBU" = (
 /obj/machinery/newscaster{
 	pixel_y = -30
@@ -98880,7 +98884,7 @@ aaa
 apX
 apX
 apX
-dbi
+fBD
 oJh
 axr
 ayq

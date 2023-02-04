@@ -6734,12 +6734,18 @@
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/toilet/restrooms)
 "aGJ" = (
-/obj/machinery/light/small,
-/obj/machinery/airalarm{
-	dir = 1;
-	pixel_y = -22
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tile/neutral,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/machinery/airalarm{
+	dir = 4;
+	pixel_x = -23
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "aGN" = (
@@ -32284,6 +32290,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/storage)
+"dvh" = (
+/obj/machinery/vending/autodrobe/all_access,
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
 "dvq" = (
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
@@ -35966,8 +35977,8 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "eYT" = (
 /obj/structure/cable/yellow{
@@ -37236,8 +37247,8 @@
 /obj/item/clothing/under/misc/assistantformal,
 /obj/item/clothing/suit/hooded/wintercoat,
 /obj/item/clothing/shoes/winterboots,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "fBQ" = (
 /obj/structure/cable/yellow{
@@ -46011,6 +46022,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"jMT" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/machinery/light/small{
+	dir = 4;
+	light_color = "#d8b1b1"
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
 "jMW" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -67554,8 +67573,8 @@
 /area/maintenance/department/science/xenobiology)
 "twq" = (
 /obj/structure/closet/wardrobe/pjs,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "twB" = (
 /obj/structure/cable/yellow{
@@ -113546,7 +113565,7 @@ qdE
 arB
 ooc
 kNE
-qpm
+aGJ
 mWQ
 sXR
 fbN
@@ -114063,9 +114082,9 @@ wWC
 aCE
 aDZ
 rlz
+aCH
 aJg
-aJg
-aJg
+jMT
 uYi
 aLT
 aNf
@@ -114320,8 +114339,8 @@ kzQ
 aCF
 aEa
 pDJ
-aGJ
-arB
+aCH
+dvh
 aJh
 aJh
 aJh
@@ -114577,7 +114596,7 @@ ijn
 aCG
 aEb
 pDJ
-aJg
+aCH
 eYL
 aJh
 aKp
@@ -114834,7 +114853,7 @@ aBA
 aCH
 aFm
 jgt
-aJg
+aCH
 fBL
 aJh
 aKq
