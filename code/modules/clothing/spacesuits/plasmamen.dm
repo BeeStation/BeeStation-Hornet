@@ -108,7 +108,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/attackby(obj/item/item, mob/living/user)
 	. = ..()
-	if(istype(item, /obj/item/flashlight) && !lamp_functional)
+	if(istype(item, /obj/item/light/bulb) && !lamp_functional)
 		lamp_functional = TRUE
 		qdel(item)
 		to_chat(user, "<span class='notice'>You repair the broken headlamp!</span>")
