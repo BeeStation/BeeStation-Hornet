@@ -25431,7 +25431,7 @@
 	dir = 1;
 	id = "garbage"
 	},
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "fwM" = (
@@ -85491,13 +85491,13 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "rZP" = (
-/obj/structure/plasticflaps,
 /obj/machinery/conveyor{
 	id = "sorting"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
+/obj/structure/plasticflaps/opaque,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "rZR" = (
