@@ -2330,7 +2330,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "azu" = (
 /turf/closed/wall,
 /area/quartermaster/warehouse)
@@ -13559,11 +13559,6 @@
 /obj/effect/turf_decal/bot_red/left,
 /turf/open/floor/carpet/royalblack,
 /area/storage/art)
-"cWf" = (
-/obj/structure/lattice/catwalk/over,
-/obj/structure/railing/corner,
-/turf/open/floor/plating/snowed,
-/area/iceland)
 "cWg" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -19768,7 +19763,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel/dark,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "epf" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -22468,6 +22463,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"eSM" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/open/floor/plating/snowed/smoothed,
+/area/iceland)
 "eSQ" = (
 /obj/machinery/door/airlock/hatch{
 	id_tag = "caravansyndicate3_bolt_bridge";
@@ -23681,6 +23682,12 @@
 "fgw" = (
 /turf/closed/wall,
 /area/security/courtroom)
+"fgz" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/plating/snowed,
+/area/iceland)
 "fgS" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/wood,
@@ -31203,7 +31210,7 @@
 /obj/machinery/power/apc/auto_name/south,
 /obj/structure/cable/yellow,
 /turf/open/floor/plasteel/dark,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "gHJ" = (
 /obj/machinery/computer/camera_advanced/base_construction{
 	dir = 4
@@ -32656,7 +32663,7 @@
 	dir = 1
 	},
 /turf/open/floor/circuit,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "gXy" = (
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/research/glass/incinerator/toxmix_exterior,
@@ -35597,7 +35604,7 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/plasteel/dark,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "hCa" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/security_space_law,
@@ -44237,7 +44244,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "jrG" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -46589,13 +46596,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/bridge)
-"jQv" = (
-/obj/structure/lattice/catwalk/over,
-/obj/structure/railing{
-	dir = 4
-	},
-/turf/open/floor/plating/snowed,
-/area/iceland)
 "jQx" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -48865,7 +48865,7 @@
 /area/hallway/primary/aft)
 "kow" = (
 /turf/closed/wall/r_wall,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "koF" = (
 /obj/machinery/airalarm{
 	dir = 1;
@@ -51635,7 +51635,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "kSP" = (
 /obj/structure/disposalpipe/trunk/multiz/down,
 /turf/open/openspace/cold,
@@ -53567,7 +53567,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "lnC" = (
 /obj/machinery/button/door{
 	id = "armouryaccess";
@@ -53819,6 +53819,12 @@
 	dir = 8
 	},
 /area/hallway/primary/aft)
+"lpY" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plating/snowed,
+/area/iceland)
 "lqa" = (
 /obj/machinery/vending/snack/random,
 /obj/machinery/camera{
@@ -58529,6 +58535,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
+"mnZ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plating/snowed,
+/area/iceland)
 "mob" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/disposalpipe/segment{
@@ -59213,10 +59225,6 @@
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "mwk" = (
-/obj/structure/lattice/catwalk/over,
-/obj/structure/railing{
-	dir = 10
-	},
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating/snowed,
@@ -60274,7 +60282,7 @@
 "mIh" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall/r_wall,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "mIs" = (
 /obj/machinery/door_timer{
 	id = "Cell 4";
@@ -64464,12 +64472,10 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
 "nFv" = (
-/obj/structure/railing/corner,
-/obj/structure/lattice/catwalk,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed/smoothed,
 /area/iceland)
 "nFx" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -68617,13 +68623,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/upper/aft)
-"oqW" = (
-/obj/structure/lattice/catwalk/over,
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/turf/open/floor/plating/snowed,
-/area/iceland)
 "orf" = (
 /obj/structure/stairs,
 /turf/open/floor/plasteel/dark,
@@ -68711,7 +68710,7 @@
 "orE" = (
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/dark,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "orF" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -69754,16 +69753,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"oDJ" = (
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plating/snowed,
-/area/iceland)
 "oDQ" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 8
@@ -71753,7 +71742,7 @@
 /obj/machinery/porta_turret/ai,
 /obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/circuit,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "pcw" = (
 /obj/machinery/space_heater{
 	on = 1
@@ -73527,7 +73516,9 @@
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland/shaded)
 "pwh" = (
-/obj/structure/lattice/catwalk/over,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plating/snowed,
 /area/iceland)
 "pwj" = (
@@ -74390,6 +74381,10 @@
 	width = 18
 	},
 /turf/open/floor/plating/snowed,
+/area/iceland)
+"pFP" = (
+/obj/structure/railing,
+/turf/open/floor/plating/snowed/smoothed,
 /area/iceland)
 "pGc" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
@@ -75886,7 +75881,7 @@
 /obj/effect/spawner/lootdrop/aimodule_harmful,
 /obj/effect/spawner/lootdrop/aimodule_harmful,
 /turf/open/floor/plasteel/dark,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "pWp" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/manifold/green/visible{
@@ -77048,6 +77043,12 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
+"qjI" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plating/snowed,
+/area/iceland)
 "qjJ" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -79505,13 +79506,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
-"qIv" = (
-/obj/structure/lattice/catwalk/over,
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/open/floor/plating/snowed,
-/area/iceland)
 "qIA" = (
 /obj/item/kirbyplants/random,
 /obj/structure/disposalpipe/segment,
@@ -81467,7 +81461,6 @@
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/starboard)
 "rfy" = (
-/obj/structure/lattice/catwalk/over,
 /obj/item/stack/marker_beacon{
 	anchored = 1;
 	icon_state = "markerburgundy-on";
@@ -81602,7 +81595,7 @@
 /obj/machinery/porta_turret/ai,
 /obj/structure/window/reinforced/spawner,
 /turf/open/floor/circuit,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "rgE" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/blue{
@@ -85154,7 +85147,7 @@
 "rWL" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/plasteel/dark,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "rWN" = (
 /obj/machinery/flasher/portable,
 /obj/item/radio/intercom{
@@ -86270,7 +86263,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel/dark,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "sgN" = (
 /obj/structure/table/wood,
 /obj/item/book/random,
@@ -90222,7 +90215,7 @@
 	},
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/dark,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "sSt" = (
 /obj/structure/closet/firecloset,
 /turf/open/floor/plasteel/dark,
@@ -92928,6 +92921,12 @@
 /obj/effect/turf_decal/trimline/red/filled/line,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
+"tvk" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/plating/snowed,
+/area/iceland)
 "tvl" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/dark/side{
@@ -95345,7 +95344,7 @@
 	pixel_y = -1
 	},
 /turf/open/floor/plasteel/dark,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "tWw" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -95945,7 +95944,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "ucN" = (
 /turf/closed/wall,
 /area/hallway/upper/primary/central)
@@ -103888,7 +103887,7 @@
 "vNp" = (
 /obj/structure/sign/departments/minsky/security/security,
 /turf/closed/wall/r_wall,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "vNq" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -105101,20 +105100,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/secondary/command)
-"waq" = (
-/obj/machinery/porta_turret/ai{
-	dir = 4
-	},
-/obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/aisat/hallway";
-	name = "Chamber Hallway Turret Control";
-	pixel_x = 32;
-	pixel_y = -24;
-	req_access = null;
-	req_access_txt = "65"
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/aisat_interior)
 "wav" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/lights/mixed,
@@ -105658,15 +105643,6 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
-/turf/open/floor/plating/snowed,
-/area/iceland)
-"wfW" = (
-/obj/structure/lattice/catwalk/over,
-/obj/structure/railing{
-	dir = 6
-	},
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating/snowed,
 /area/iceland)
 "wgi" = (
@@ -108018,6 +107994,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hydroponics)
+"wEL" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plating/snowed/smoothed,
+/area/iceland)
 "wEN" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -109326,7 +109308,7 @@
 	},
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/dark,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "wVK" = (
 /obj/machinery/light{
 	dir = 1;
@@ -109348,7 +109330,7 @@
 	network = list("aiupload")
 	},
 /turf/open/floor/circuit,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "wVR" = (
 /obj/structure/lattice/catwalk/over,
 /turf/open/openspace,
@@ -111065,7 +111047,7 @@
 /obj/effect/spawner/lootdrop/aimodule_neutral,
 /obj/effect/spawner/lootdrop/aimodule_neutral,
 /turf/open/floor/plasteel/dark,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "xqp" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
@@ -111555,7 +111537,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "xvO" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -112126,6 +112108,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/techmaint,
 /area/bridge/showroom/corporate)
+"xBC" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plating/snowed,
+/area/iceland)
 "xBD" = (
 /obj/machinery/air_sensor/atmos/toxins_mixing_tank,
 /turf/open/floor/engine/vacuum,
@@ -112881,12 +112869,10 @@
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "xMH" = (
-/obj/structure/railing,
-/obj/structure/lattice/catwalk,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/asteroid/snow,
 /area/iceland)
 "xMI" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -112944,7 +112930,7 @@
 	},
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/dark,
-/area/ruin/space/derelict/bridge/ai_upload)
+/area/ai_monitored/turret_protected/ai_upload)
 "xNE" = (
 /obj/structure/table,
 /obj/machinery/microwave{
@@ -113196,6 +113182,10 @@
 	},
 /turf/open/lava/smooth/cold,
 /area/iceland/underground)
+"xRa" = (
+/obj/structure/railing/corner,
+/turf/open/floor/plating/snowed/smoothed,
+/area/iceland)
 "xRf" = (
 /obj/machinery/computer{
 	dir = 8
@@ -339183,19 +339173,19 @@ oiP
 fBr
 tRq
 tAK
-cWf
-jQv
-jQv
-jQv
-jQv
-jQv
-jQv
-jQv
-jQv
-jQv
-jQv
-jQv
-iFy
+hjc
+hgc
+hgc
+hgc
+hjc
+kUk
+kUk
+hgc
+hgc
+hjc
+kUk
+hjc
+xRa
 iFy
 iFy
 iFy
@@ -339440,21 +339430,21 @@ hlR
 cIu
 tRq
 nFv
-wfW
-kUk
-kUk
-kUk
-kUk
-kUk
-kUk
-pwh
-kUk
-kUk
-kUk
-kUk
-kUk
-kUk
-kUk
+hkO
+qjI
+wEL
+xBC
+xBC
+xBC
+xBC
+xBC
+xBC
+xBC
+xBC
+xBC
+pFP
+noJ
+noJ
 noJ
 noJ
 noJ
@@ -339697,7 +339687,8 @@ eAO
 okC
 fSX
 xMH
-pwh
+qjI
+fgz
 kUk
 kUk
 kUk
@@ -339707,11 +339698,10 @@ kUk
 kUk
 kUk
 kUk
-kUk
-kUk
-kUk
-kUk
-kUk
+hgc
+pFP
+noJ
+noJ
 noJ
 noJ
 noJ
@@ -339955,7 +339945,7 @@ okC
 fSX
 xMH
 pwh
-pwh
+kUk
 rfy
 kUk
 kUk
@@ -339965,10 +339955,10 @@ kUk
 kUk
 kUk
 kUk
-kUk
-kUk
-kUk
-kUk
+hgc
+pFP
+noJ
+noJ
 noJ
 noJ
 noJ
@@ -340211,7 +340201,8 @@ vAY
 okC
 fSX
 xMH
-pwh
+mnZ
+tvk
 kUk
 kUk
 kUk
@@ -340221,11 +340212,10 @@ kUk
 kUk
 kUk
 kUk
-kUk
-kUk
-kUk
-kUk
-kUk
+hgc
+pFP
+noJ
+noJ
 noJ
 noJ
 noJ
@@ -340467,22 +340457,22 @@ okC
 okC
 okC
 tRq
-oDJ
+nFv
 mwk
-kUk
-kUk
-kUk
-kUk
-kUk
-kUk
-pwh
-kUk
-kUk
-kUk
-kUk
-kUk
-kUk
-kUk
+mnZ
+lpY
+lpY
+lpY
+lpY
+lpY
+lpY
+lpY
+lpY
+hgc
+hjc
+pFP
+noJ
+noJ
 noJ
 noJ
 noJ
@@ -340725,19 +340715,19 @@ mjW
 mWI
 tRq
 tAK
-oqW
-qIv
-qIv
-qIv
-qIv
-qIv
-qIv
-qIv
-qIv
-qIv
-qIv
-qIv
-vmG
+hgc
+hgc
+kUk
+kUk
+hjc
+hjc
+hjc
+hjc
+hgc
+kUk
+hjc
+hgc
+eSM
 vmG
 vmG
 sHY
@@ -410285,7 +410275,7 @@ wDH
 wDH
 wDH
 ueI
-waq
+meT
 bmm
 bnC
 qRr
