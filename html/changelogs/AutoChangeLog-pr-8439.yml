@@ -1,0 +1,5 @@
+author: Shiraizawa
+delete-after: true
+changes:
+  - bugfix: Tying and untying bandanas will give the proper notice to people seeing
+      it
