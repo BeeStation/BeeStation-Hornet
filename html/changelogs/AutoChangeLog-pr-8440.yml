@@ -1,4 +1,0 @@
-author: Shiraizawa
-delete-after: true
-changes:
-  - bugfix: Engineer goggles wont give meson lighting effects in their off state anymore.

@@ -1,4 +1,0 @@
-author: dwasint
-delete-after: true
-changes:
-  - bugfix: opening game prefs no longer deepfrys the game
