@@ -201,7 +201,7 @@
 /obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/user)
 	helmet_on = !helmet_on
 	if(!lamp_functional)
-		to_chat(user, "<span class='notice'>Your helmet's torch is broken!</span>")
+		to_chat(user, "<span class='notice'>Your helmet's torch is broken! You'll have to repair it with a lightbulb!</span>")
 		set_light_on(FALSE)
 		helmet_on = FALSE
 		return
