@@ -73345,7 +73345,7 @@
 	pixel_x = 29;
 	pixel_y = -2
 	},
-/obj/machinery/vending/autodrobe,
+/obj/machinery/vending/autodrobe/all_access,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/theatre)
 "ylf" = (
