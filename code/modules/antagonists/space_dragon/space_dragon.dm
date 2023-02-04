@@ -205,7 +205,6 @@
 		parts += "<span class='greentext big'>The [name] was successful!</span>"
 	else
 		parts += "<span class='redtext big'>The [name] has failed!</span>"
-	parts += "<span class='header'>The [name] was assisted by:</span>"
 	if(length(carp))
 		parts += "<span class='header'>The [name] was assisted by:</span>"
 		parts += printplayerlist(carp)
