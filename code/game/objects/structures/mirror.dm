@@ -12,10 +12,17 @@
 	layer = ABOVE_WINDOW_LAYER
 	var/magical = FALSE
 
-/obj/structure/mirror/Initialize(mapload)
+/obj/structure/mirror/Initialize(mapload, dir, building)
 	. = ..()
 	if(icon_state == "mirror_broke" && !broken)
 		obj_break(null, mapload)
+	if(mapload)
+		return
+	if(dir)
+		setDir(dir)
+	if(building)
+		pixel_x = (dir & 3)? 0 : (dir == 4 ? -30 : 30)
+		pixel_y = (dir & 3)? (dir ==1 ? -30 : 30) : 0
 
 /obj/structure/mirror/attack_hand(mob/user)
 	. = ..()
@@ -268,3 +275,9 @@
 			P.setAngle(new_angle_s)
 
 	return BULLET_ACT_FORCE_PIERCE // complete projectile permutation
+
+/obj/item/wallframe/mirror
+	name = "wall mirror frame"
+	desc = "Now with 100% less lead!"
+	icon_state = "wallmirror"
+	result_path = /obj/structure/mirror
