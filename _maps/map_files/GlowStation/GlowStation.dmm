@@ -45023,9 +45023,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
 "jzG" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
-/obj/item/reagent_containers/food/condiment/sugar,
-/obj/item/reagent_containers/food/condiment/sugar,
+/obj/structure/closet/secure_closet/freezer/kitchen,
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "jzR" = (
@@ -48814,9 +48812,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "kog" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
-/obj/item/reagent_containers/food/condiment/rice,
-/obj/item/reagent_containers/food/condiment/rice,
+/obj/structure/closet/secure_closet/freezer/meat,
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "koh" = (
@@ -76632,13 +76628,13 @@
 /turf/open/floor/plating,
 /area/maintenance/upper/central)
 "qeE" = (
-/obj/machinery/sleeper{
-	dir = 1
-	},
 /obj/structure/sign/map/left{
 	desc = "A framed detailed picture of the station. You can see Departures to the northwest, Security - red, Exploation Dock - purple, Medical - blue, Theater - green, ShuttleConstructionYards,TechStorage,ToolStorage - yellow";
 	icon_state = "map-left-glow4";
 	pixel_y = -32
+	},
+/obj/machinery/sleeper{
+	dir = 8
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/medbay/central)
@@ -89844,12 +89840,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
-"sOX" = (
-/obj/structure/bodycontainer/morgue{
-	dir = 8
-	},
-/turf/open/floor/plating/snowed/smoothed,
-/area/iceland/shaded)
 "sPg" = (
 /obj/machinery/light{
 	dir = 8
@@ -93388,13 +93378,13 @@
 /turf/open/floor/plating/snowed,
 /area/iceland)
 "tAW" = (
-/obj/machinery/sleeper{
-	dir = 1
-	},
 /obj/structure/sign/map/right{
 	desc = "A framed detailed picture of the station. You can see Departures to the northwest, Security - red, Exploation Dock - purple, Medical - blue, Theater - green, ShuttleConstructionYards,TechStorage,ToolStorage - yellow";
 	icon_state = "map-right-glow4";
 	pixel_y = -32
+	},
+/obj/machinery/sleeper{
+	dir = 4
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/medbay/central)
@@ -112089,12 +112079,6 @@
 /area/iceland/shaded)
 "xBu" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
-/obj/item/reagent_containers/food/condiment/flour{
-	pixel_x = 4
-	},
-/obj/item/reagent_containers/food/condiment/flour{
-	pixel_x = 4
-	},
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "xBv" = (
@@ -292875,7 +292859,7 @@ uPG
 uPG
 gVf
 sKK
-sOX
+gVf
 gRL
 ttW
 bam
