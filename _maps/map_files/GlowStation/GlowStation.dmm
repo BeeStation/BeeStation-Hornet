@@ -4578,8 +4578,9 @@
 	name = "Supply Dock Loading Door"
 	},
 /obj/machinery/conveyor{
-	dir = 1;
-	id = "cargoload"
+	id = "QMLoading";
+	name = "Loading Ramp";
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/quartermaster/storage)
@@ -44997,8 +44998,9 @@
 /area/bridge)
 "jzE" = (
 /obj/machinery/conveyor{
-	dir = 1;
-	id = "cargoload"
+	id = "QMLoading";
+	name = "Loading Ramp";
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -45474,7 +45476,7 @@
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "innerbrig";
 	name = "Brig";
-	req_access_txt = "63;4"
+	req_one_access_txt = "63;4;3"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
@@ -46530,10 +46532,6 @@
 	dir = 8;
 	light_color = "#e8eaff"
 	},
-/obj/machinery/smartfridge{
-	name = "Sample Storage";
-	pixel_x = -32
-	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "jPP" = (
@@ -46651,7 +46649,8 @@
 	},
 /obj/machinery/conveyor/inverted{
 	dir = 10;
-	id = "cargoload"
+	id = "QMLoading";
+	name = "Loading Ramp"
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -47613,6 +47612,10 @@
 /area/crew_quarters/heads/hos)
 "kbD" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "AIshutters";
+	name = "AI Core Shutter"
+	},
 /turf/open/floor/circuit/green,
 /area/ai_monitored/turret_protected/ai)
 "kbE" = (
@@ -50991,6 +50994,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "aicoredoor";
+	name = "AI Core Shutter"
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat/hallway)
@@ -57153,8 +57160,9 @@
 	dir = 1
 	},
 /obj/machinery/conveyor{
-	dir = 4;
-	id = "cargoload"
+	id = "QMLoading";
+	name = "Loading Ramp";
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -57703,8 +57711,9 @@
 	dir = 1
 	},
 /obj/machinery/conveyor{
-	dir = 4;
-	id = "cargoload"
+	id = "QMLoading";
+	name = "Loading Ramp";
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -57800,6 +57809,12 @@
 	name = "AI Chamber turret control";
 	pixel_x = 5;
 	pixel_y = -24
+	},
+/obj/machinery/button/door{
+	id = "aicoredoor";
+	name = "AI Chamber Access Control";
+	pixel_y = 24;
+	req_access_txt = "16"
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
@@ -58680,8 +58695,9 @@
 	dir = 1
 	},
 /obj/machinery/conveyor{
-	dir = 4;
-	id = "cargounload"
+	id = "QMUnload";
+	name = "Unloading ramp";
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -64005,7 +64021,8 @@
 "nAw" = (
 /obj/machinery/conveyor/inverted{
 	dir = 9;
-	id = "cargounload"
+	id = "QMUnload";
+	name = "Unloading ramp"
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -74206,7 +74223,8 @@
 	name = "Supply Dock Loading Door"
 	},
 /obj/machinery/conveyor{
-	id = "cargounload"
+	id = "QMUnload";
+	name = "Unloading ramp"
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/quartermaster/storage)
@@ -77710,7 +77728,8 @@
 	name = "Supply Dock Loading Door"
 	},
 /obj/machinery/conveyor{
-	id = "cargounload"
+	id = "QMUnload";
+	name = "Unloading ramp"
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -78578,7 +78597,8 @@
 /area/iceland)
 "qzY" = (
 /obj/machinery/conveyor{
-	id = "cargounload"
+	id = "QMUnload";
+	name = "Unloading ramp"
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -89867,6 +89887,12 @@
 	pixel_x = -11;
 	pixel_y = -24
 	},
+/obj/machinery/button/door{
+	id = "AIshutters";
+	name = "AI Core shutters Control";
+	req_access_txt = "16";
+	pixel_y = 24
+	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
 "sPp" = (
@@ -93086,7 +93112,7 @@
 	dir = 1
 	},
 /obj/machinery/conveyor_switch/oneway{
-	id = "cargoload"
+	id = "QMLoading"
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -93526,9 +93552,16 @@
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/central)
 "tDb" = (
-/obj/machinery/disposal/bin,
-/turf/closed/wall,
-/area/hallway/upper/primary/aft)
+/obj/machinery/turretid{
+	control_area = "/area/ai_monitored/turret_protected/aisat/hallway";
+	name = "Chamber Hallway Turret Control";
+	pixel_x = 32;
+	pixel_y = 24;
+	req_access = null;
+	req_access_txt = "65"
+	},
+/turf/open/floor/plating/snowed,
+/area/iceland)
 "tDd" = (
 /obj/structure/table/wood,
 /obj/item/storage/photo_album{
@@ -105666,10 +105699,6 @@
 	id = "QMLoadingDoor";
 	name = "Supply Dock Loading Door"
 	},
-/obj/machinery/conveyor{
-	dir = 1;
-	id = "cargoload"
-	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "wgF" = (
@@ -107818,7 +107847,7 @@
 	},
 /obj/machinery/conveyor_switch/oneway{
 	dir = 8;
-	id = "cargounload"
+	id = "QMUnload"
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -108425,12 +108454,14 @@
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/secondary/command)
 "wJX" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/railing{
-	dir = 1
+/obj/machinery/turretid{
+	control_area = "/area/ai_monitored/turret_protected/ai_upload";
+	icon_state = "control_stun";
+	name = "AI Upload turret control";
+	pixel_y = -32
 	},
-/turf/open/openspace,
-/area/hallway/primary/starboard)
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai_upload_foyer)
 "wKa" = (
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
@@ -148131,7 +148162,7 @@ ghG
 dpM
 siC
 gak
-jvh
+wJX
 qfB
 orE
 rWL
@@ -274387,8 +274418,8 @@ eYn
 dkp
 dXu
 idQ
-ktc
 bgX
+ktc
 ktc
 ktc
 ktc
@@ -287455,8 +287486,8 @@ oVh
 oVh
 oVh
 oVh
-sXM
-wIz
+ovT
+gYY
 kmc
 jLI
 ovT
@@ -287712,9 +287743,9 @@ kVg
 bei
 bei
 gAQ
-lvJ
-gAT
-lWc
+sXM
+wIz
+ovT
 kmc
 jLI
 ovT
@@ -287970,8 +288001,8 @@ pke
 wLB
 vDn
 lvJ
-lvJ
-wJX
+gAT
+lWc
 lxY
 jWM
 jLI
@@ -339164,9 +339195,9 @@ jQv
 jQv
 jQv
 jQv
-jQv
-jQv
-jQv
+iFy
+iFy
+iFy
 iFy
 iFy
 aJo
@@ -339424,7 +339455,7 @@ kUk
 kUk
 kUk
 kUk
-kUk
+noJ
 noJ
 noJ
 noJ
@@ -339681,8 +339712,8 @@ kUk
 kUk
 kUk
 kUk
-kUk
-kUk
+noJ
+noJ
 noJ
 noJ
 noJ
@@ -339938,8 +339969,8 @@ kUk
 kUk
 kUk
 kUk
-kUk
-kUk
+noJ
+noJ
 noJ
 noJ
 noJ
@@ -340195,8 +340226,8 @@ kUk
 kUk
 kUk
 kUk
-kUk
-kUk
+noJ
+noJ
 noJ
 noJ
 noJ
@@ -340452,7 +340483,7 @@ kUk
 kUk
 kUk
 kUk
-kUk
+noJ
 noJ
 noJ
 noJ
@@ -340706,9 +340737,9 @@ qIv
 qIv
 qIv
 qIv
-qIv
-qIv
-qIv
+vmG
+vmG
+vmG
 sHY
 npL
 kcY
@@ -342211,7 +342242,7 @@ iOu
 aVU
 oat
 hjW
-tDb
+aUM
 aUM
 bRA
 xiF
@@ -416706,7 +416737,7 @@ kUk
 kUk
 kUk
 kUk
-kUk
+tDb
 kUk
 hjc
 sKK
