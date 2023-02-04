@@ -14078,7 +14078,7 @@
 "dcG" = (
 /obj/machinery/light,
 /obj/structure/bodycontainer/morgue{
-	dir = 2
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
