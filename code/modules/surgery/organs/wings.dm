@@ -120,7 +120,7 @@
 	icon_state = "mothwings"
 	flight_level = WINGS_FLIGHTLESS
 	basewings = "moth_wings"
-	wing_type = "plain"
+	wing_type = "Plain"
 	canopen = TRUE
 
 /obj/item/organ/wings/moth/Remove(mob/living/carbon/human/H, special)

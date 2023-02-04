@@ -191,7 +191,7 @@
 	name = "ominous hood"
 	icon_state = "eldritch"
 	desc = "A torn, dust-caked hood. Strange eyes line the inside."
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	flash_protect = 1
 
@@ -221,7 +221,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
-	flags_inv = HIDEFACE|HIDEFACIALHAIR
+	flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 	///Who is wearing this
 	var/mob/living/carbon/human/local_user
 
