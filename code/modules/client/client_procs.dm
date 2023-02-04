@@ -1022,7 +1022,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		for (var/plane_master_type in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
 			var/atom/movable/screen/plane_master/plane_master = new plane_master_type()
 			char_render_holders["plane_master-[plane_master.plane]"] = plane_master
-			plane_master.backdrop(mob)
 			screen |= plane_master
 			plane_master.screen_loc = "character_preview_map:0,CENTER"
 
