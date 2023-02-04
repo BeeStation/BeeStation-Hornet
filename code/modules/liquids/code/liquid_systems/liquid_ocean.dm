@@ -80,6 +80,8 @@
 		listed_ocean.rebuild_adjacent()
 
 /turf/open/floor/plating/ocean/proc/assume_self()
+	if(!atmos_adjacent_turfs)
+		ImmediateCalculateAdjacentTurfs()
 	for(var/direction in GLOB.cardinals)
 		var/turf/directional_turf = get_step(src, direction)
 		if(istype(directional_turf, /turf/open/floor/plating/ocean))
