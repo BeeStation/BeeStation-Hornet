@@ -242,7 +242,9 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 		return
 
 	var/list/removed_turf = list()
-	while(reagents_per_turf < 5)
+	var/recursion_sanity = 0
+	while(reagents_per_turf < 5 && recursion_sanity <= 200)
+		recursion_sanity++
 		if(members && members.len)
 			var/turf/picked_turf = pick(members)
 			if(picked_turf.liquids)
