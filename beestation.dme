@@ -2958,6 +2958,7 @@
 #include "code\modules\NTNet\relays.dm"
 #include "code\modules\paperwork\clipboard.dm"
 #include "code\modules\paperwork\contract.dm"
+#include "code\modules\paperwork\desk_bell.dm"
 #include "code\modules\paperwork\filingcabinet.dm"
 #include "code\modules\paperwork\folder_premade.dm"
 #include "code\modules\paperwork\folders.dm"
