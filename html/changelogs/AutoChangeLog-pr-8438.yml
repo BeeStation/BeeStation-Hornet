@@ -1,0 +1,9 @@
+author: Shiraizawa
+delete-after: true
+changes:
+  - balance: Decreased the snowball effect of fear build-up from (stress x10)% to
+      (stress x5)%. Your stress levels build up faster with each fainting now, which
+      leads to a higher chance of a heartattack
+  - bugfix: You wont faint immediately after waking up from a faint caused by a phobia
+  - bugfix: The message for fainting from a phobia will actually be visible for the
+      one fainting now
