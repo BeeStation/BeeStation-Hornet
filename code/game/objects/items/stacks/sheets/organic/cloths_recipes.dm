@@ -28,7 +28,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	new/datum/stack_recipe("white gloves",							/obj/item/clothing/gloves/color/white, 3, time = 4 SECONDS), \
 	new/datum/stack_recipe("white softcap",							/obj/item/clothing/head/soft, 2, time = 4 SECONDS), \
 	new/datum/stack_recipe("white beanie",							/obj/item/clothing/head/beanie, 2, time = 4 SECONDS), \
-	new/datum/stack_recipe("white bandana",					/obj/item/clothing/mask/bandana/durathread, 1, time = 2.5 SECONDS), \
+	new/datum/stack_recipe("white bandana",							/obj/item/clothing/mask/bandana, 1, time = 2.5 SECONDS), \
 	null, \
 	new/datum/stack_recipe("blindfold",								/obj/item/clothing/glasses/blindfold, 2, time = 4 SECONDS), \
 	null, \
