@@ -679,7 +679,7 @@
 		else
 			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_e[ratvar ? "_r" : ""]"
 			eye_lights.color = COLOR_WHITE
-			eye_lights.plane = OBJ_LAYER
+			eye_lights.plane = ABOVE_LIGHTING_PLANE //still glowy, but don't emit actual light
 		eye_lights.icon = icon
 		add_overlay(eye_lights)
 
