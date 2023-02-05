@@ -166,46 +166,6 @@
 /area/ruin/space/has_grav/gasthelizard
 	name = "Gas the lizard"
 
-
-//Ruin of Deep Storage
-
-/area/ruin/space/has_grav/deepstorage
-	name = "Deep Storage"
-	icon_state = "storage"
-
-/area/ruin/space/has_grav/deepstorage/airlock
-	name = "Deep Storage Airlock"
-	icon_state = "quart"
-
-/area/ruin/space/has_grav/deepstorage/power
-	name = "Deep Storage Power and Atmospherics Room"
-	icon_state = "engi_storage"
-
-/area/ruin/space/has_grav/deepstorage/hydroponics
-	name = "Deep Storage Hydroponics"
-	icon_state = "garden"
-
-/area/ruin/space/has_grav/deepstorage/armory
-	name = "Deep Storage Secure Storage"
-	icon_state = "armory"
-
-/area/ruin/space/has_grav/deepstorage/storage
-	name = "Deep Storage Storage"
-	icon_state = "storage_wing"
-
-/area/ruin/space/has_grav/deepstorage/dorm
-	name = "Deep Storage Dormitory"
-	icon_state = "crew_quarters"
-
-/area/ruin/space/has_grav/deepstorage/kitchen
-	name = "Deep Storage Kitchen"
-	icon_state = "kitchen"
-
-/area/ruin/space/has_grav/deepstorage/crusher
-	name = "Deep Storage Recycler"
-	icon_state = "storage"
-
-
 //Ruin of Abandoned Zoo
 
 /area/ruin/space/has_grav/abandonedzoo

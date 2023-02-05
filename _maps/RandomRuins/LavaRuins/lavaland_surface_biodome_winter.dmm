@@ -67,7 +67,6 @@
 /turf/open/floor/plating/ice,
 /area/ruin/powered/snow_biodome)
 "ap" = (
-/obj/structure/flora/rock/icy,
 /turf/open/floor/plating/asteroid/snow,
 /area/ruin/powered/snow_biodome)
 "aq" = (
@@ -119,7 +118,6 @@
 /turf/open/floor/wood,
 /area/ruin/powered/snow_biodome)
 "aB" = (
-/obj/structure/flora/rock/pile/icy,
 /turf/open/floor/plating/asteroid/snow,
 /area/ruin/powered/snow_biodome)
 "aC" = (

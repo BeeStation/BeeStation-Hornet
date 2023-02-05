@@ -795,9 +795,6 @@ update_label("John Doe", "Clowny")
 	hud_state = JOB_HUD_UNKNOWN
 	access = list(ACCESS_ENGINE_EQUIP)
 
-/obj/item/card/id/away/deep_storage //deepstorage.dmm space ruin
-	name = "bunker access ID"
-
 ///Department Budget Cards///
 
 /obj/item/card/id/departmental_budget
