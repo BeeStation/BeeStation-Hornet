@@ -519,7 +519,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(!mutant_category)
 					dat += APPEARANCE_CATEGORY_COLUMN
 
-				dat += "<h3>apid stripes</h3>"
+				dat += "<h3>Stripe Pattern</h3>"
 
 				dat += "<a href='?_src_=prefs;preference=apid_stripes;task=input'>[active_character.features["apid_stripes"]]</a><BR>"
 
