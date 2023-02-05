@@ -252,6 +252,13 @@
 	playsound(src, 'sound/items/welder.ogg', 50, 1)
 	..()
 
+/obj/item/clothing/head/helmet/space/plasmaman/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	if(!lamp_functional)
+		return
+	if(helmet_on)
+		smash_headlamp()
+	..()
+
 /turf/open/floor/light/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	. = ..()
 	if(!light_range || !light_power || !light_on)
