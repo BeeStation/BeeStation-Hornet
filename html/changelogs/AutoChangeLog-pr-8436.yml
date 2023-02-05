@@ -1,6 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - tweak: Instead of being dusted, plasmaman helmets now have their lamps broken
-      when hit with the Light Eater
-  - rscadd: Added the ability to repair broken plasmaman helmet lamps with light bulbs
