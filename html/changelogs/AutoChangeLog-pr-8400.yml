@@ -1,0 +1,9 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added research for a Suit Storage Unit circuit board
+  - rscadd: Added the ability to build and deconstruct Suit Storage Units
+  - rscadd: Added machine parts to the Suit Storage Unit
+  - rscadd: Added the ability to crowbar open and pry the items out of a depowered
+      Suit Storage Unit on harm intent
+  - balance: Suit storage unit's decontamination damage is lower by default when unhacked
