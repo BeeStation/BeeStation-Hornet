@@ -1,0 +1,5 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added a small bit of text indicating AIs should Ahelp before using the
+      "Wipe-Core" verb
