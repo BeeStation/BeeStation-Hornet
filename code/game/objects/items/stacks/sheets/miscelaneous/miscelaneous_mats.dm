@@ -50,7 +50,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	icon = 'icons/obj/stacks/miscelaneous.dmi'
 	icon_state = "sandbags"
 	w_class = WEIGHT_CLASS_TINY
-	novariants = TRUE
 
 /obj/item/emptysandbag/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/ore/glass))
