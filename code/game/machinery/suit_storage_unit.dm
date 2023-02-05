@@ -44,7 +44,7 @@
 	///how strong is the burn damage during cook(), decreases with micro laser tier
 	var/laser_strength = 10
 	///how strong is the burn damage if hacked/emagged during cook(), increases with micro laser tier
-	var/laser_strength_hacked =  20
+	var/laser_strength_hacked = 20
 	var/uv_super = FALSE
 	/// For managing the messages sent back when the machine was hacked
 	var/toasted = FALSE
@@ -211,10 +211,7 @@
 	occupant = null
 
 /obj/machinery/suit_storage_unit/proc/is_empty()
-	var empty = FALSE
-	if(isnull(helmet) && isnull(suit) && isnull(mask) && isnull(storage) && isnull(occupant))
-		empty = TRUE
-	return empty
+	return isnull(helmet) && isnull(suit) && isnull(mask) && isnull(storage) && isnull(occupant)
 
 /obj/machinery/suit_storage_unit/emp_act()
 	. = ..()
@@ -278,9 +275,7 @@
 */
 /obj/machinery/suit_storage_unit/proc/cook()
 	var/mob/living/mob_occupant = occupant
-	var/burn_damage = laser_strength
-	if(uv_super || (obj_flags & EMAGGED))
-		burn_damage = laser_strength_hacked
+	var/burn_damage = uv_super || (obj_flags & EMAGGED) ? laser_strength_hacked : laser_strength
 	if(uv_cycles)
 		uv_cycles--
 		uv = TRUE
