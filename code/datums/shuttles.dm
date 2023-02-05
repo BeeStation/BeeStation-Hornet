@@ -236,10 +236,6 @@
 	port_id = "ruin"
 	can_be_bought = FALSE
 
-/datum/map_template/shuttle/snowdin
-	port_id = "snowdin"
-	can_be_bought = FALSE
-
 // Shuttles start here:
 
 /datum/map_template/shuttle/emergency/backup
@@ -749,14 +745,6 @@
 /datum/map_template/shuttle/ruin/syndicate_fighter_shiv
 	suffix = "syndicate_fighter_shiv"
 	name = "Syndicate Fighter"
-
-/datum/map_template/shuttle/snowdin/mining
-	suffix = "mining"
-	name = "Snowdin Mining Elevator"
-
-/datum/map_template/shuttle/snowdin/excavation
-	suffix = "excavation"
-	name = "Snowdin Excavation Elevator"
 
  // Turbolifts
 /datum/map_template/shuttle/turbolift/debug/primary

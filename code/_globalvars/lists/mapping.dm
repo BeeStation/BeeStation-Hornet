@@ -39,10 +39,6 @@ GLOBAL_LIST_EMPTY(city_of_cogs_spawns) //Anyone entering the City of Cogs spawns
 GLOBAL_LIST_EMPTY(ruin_landmarks)
 GLOBAL_LIST_EMPTY(bar_areas)
 
-	//away missions
-GLOBAL_LIST_EMPTY(awaydestinations)	//a list of landmarks that the warpgate can take you to
-GLOBAL_LIST_EMPTY(vr_spawnpoints)
-
 	//used by jump-to-area etc. Updated by area/updateName()
 GLOBAL_LIST_EMPTY(sortedAreas)
 /// An association from typepath to area instance. Only includes areas with `unique` set.

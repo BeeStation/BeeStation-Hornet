@@ -389,7 +389,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/list/potential_runes = list()
 	var/list/teleportnames = list()
 	for(var/obj/effect/rune/teleport/teleport_rune as anything in GLOB.teleport_runes)
-		if(teleport_rune != src && !is_away_level(teleport_rune.z))
+		if(teleport_rune != src)
 			potential_runes[avoid_assoc_duplicate_keys(teleport_rune.listkey, teleportnames)] = teleport_rune
 
 	if(!potential_runes.len)
@@ -399,11 +399,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 
 	var/turf/T = get_turf(src)
-	if(is_away_level(T.z))
-		to_chat(user, "<span class='cult italic'>You are not in the right dimension!</span>")
-		log_game("Teleport rune failed - user in away mission")
-		fail_invoke()
-		return
 
 	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
@@ -772,11 +767,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 		to_chat(user, "<span class='cult italic'>[cultist_to_summon] is not a follower of the Geometer!</span>")
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target was deconverted")
-		return
-	if(is_away_level(cultist_to_summon.z))
-		to_chat(user, "<span class='cult italic'>[cultist_to_summon] is not in our dimension!</span>")
-		fail_invoke()
-		log_game("Summon Cultist rune failed - target in away mission")
 		return
 	cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
 									  "<span class='cult italic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")

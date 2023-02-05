@@ -755,18 +755,15 @@ update_label("John Doe", "Clowny")
 	name = "\proper a perfectly generic identification card"
 	desc = "A perfectly generic identification card. Looks like it could use some flavor."
 	hud_state = JOB_HUD_UNKNOWN
-	access = list(ACCESS_AWAY_GENERAL)
 
 /obj/item/card/id/away/hotel
 	name = "Staff ID"
 	desc = "A staff ID used to access the hotel's doors."
 	hud_state = JOB_HUD_RAWSERVICE
-	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_MAINT)
 
 /obj/item/card/id/away/hotel/securty
 	name = "Officer ID"
 	hud_state = JOB_HUD_RAWSECURITY
-	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_MAINT, ACCESS_AWAY_SEC)
 
 /obj/item/card/id/away/old
 	name = "\proper a perfectly generic identification card"
@@ -779,21 +776,18 @@ update_label("John Doe", "Clowny")
 	desc = "A faded Charlie Station ID card. You can make out the rank \"Security Officer\"."
 	assignment = "Charlie Station Security Officer"
 	hud_state = JOB_HUD_RAWSECURITY
-	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_SEC)
 
 /obj/item/card/id/away/old/sci
 	name = "Charlie Station Scientist's ID card"
 	desc = "A faded Charlie Station ID card. You can make out the rank \"Scientist\"."
 	assignment = "Charlie Station Scientist"
 	hud_state = JOB_HUD_RAWSCIENCE
-	access = list(ACCESS_AWAY_GENERAL)
 
 /obj/item/card/id/away/old/eng
 	name = "Charlie Station Engineer's ID card"
 	desc = "A faded Charlie Station ID card. You can make out the rank \"Station Engineer\"."
 	assignment = "Charlie Station Engineer"
 	hud_state = JOB_HUD_RAWENGINEERING
-	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_ENGINE)
 
 /obj/item/card/id/away/old/apc
 	name = "APC Access ID"

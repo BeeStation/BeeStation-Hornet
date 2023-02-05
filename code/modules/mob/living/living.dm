@@ -929,8 +929,6 @@
 		return FALSE
 	if(is_centcom_level(T.z)) //dont detect mobs on centcom
 		return FALSE
-	if(is_away_level(T.z))
-		return FALSE
 	if(user != null && src == user)
 		return FALSE
 	if(invisibility || alpha == 0)//cloaked

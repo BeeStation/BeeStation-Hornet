@@ -34,7 +34,6 @@ require only minor tweaks.
 #define ZTRAIT_MINING "Mining"
 #define ZTRAIT_REEBE "Reebe"
 #define ZTRAIT_RESERVED "Transit/Reserved"
-#define ZTRAIT_AWAY "Away Mission"
 #define ZTRAIT_DYNAMIC_LEVEL "Dynamic Level"
 #define ZTRAIT_LAVA_RUINS "Lava Ruins"
 #define ZTRAIT_POCKETDIM "Pocket Dimension"

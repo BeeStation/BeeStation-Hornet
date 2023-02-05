@@ -380,3 +380,15 @@
 	 "down" = CALLBACK(GLOBAL_PROC, .proc/_step, src, SOUTH),
 	 "left" = CALLBACK(GLOBAL_PROC, .proc/_step, src, WEST),
 	 "right" = CALLBACK(GLOBAL_PROC, .proc/_step, src, EAST)))
+
+/obj/anomaly/singularity/arcade
+	move_self = FALSE
+
+/obj/anomaly/singularity/arcade/Initialize(mapload)
+	. = ..()
+	var/datum/component/singularity/singularity = singularity_component.resolve()
+	singularity?.grav_pull = TRUE
+
+/obj/anomaly/singularity/arcade/process(delta_time)
+	if(DT_PROB(0.5, delta_time))
+		mezzer()

@@ -9,13 +9,11 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/active = 0
 	var/checkparts = TRUE
-	var/list/obj/effect/landmark/randomspawns = list()
 	var/calibrated = TRUE
 	var/list/linked = list()
 	var/can_link = FALSE	//Is this the centerpiece?
 
 /obj/machinery/gateway/Initialize(mapload)
-	randomspawns = GLOB.awaydestinations
 	update_icon()
 	if(!istype(src, /obj/machinery/gateway/centerstation) && !istype(src, /obj/machinery/gateway/centeraway))
 		switch(dir)
@@ -152,13 +150,6 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 			var/mob/M = AM
 			if (M.client)
 				M.client.move_delay = max(world.time + 5, M.client.move_delay)
-		return
-	else
-		var/obj/effect/landmark/dest = pick(randomspawns)
-		if(dest)
-			AM.forceMove(get_turf(dest))
-			AM.setDir(SOUTH)
-			use_power(5000)
 		return
 
 /obj/machinery/gateway/centeraway/multitool_act(mob/living/user, obj/item/I)

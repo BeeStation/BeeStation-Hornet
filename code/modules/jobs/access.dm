@@ -174,11 +174,8 @@
 /proc/get_all_syndicate_access()
 	return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER)
 
-/proc/get_all_away_access()
-	return list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_MAINT, ACCESS_AWAY_MED, ACCESS_AWAY_SEC, ACCESS_AWAY_ENGINE, ACCESS_AWAY_GENERIC1, ACCESS_AWAY_GENERIC2, ACCESS_AWAY_GENERIC3, ACCESS_AWAY_GENERIC4)
-
 /proc/get_every_access()
-	return get_all_accesses() + get_all_centcom_access() + get_all_syndicate_access() + get_all_away_access() + ACCESS_BLOODCULT + ACCESS_CLOCKCULT
+	return get_all_accesses() + get_all_centcom_access() + get_all_syndicate_access() + ACCESS_BLOODCULT + ACCESS_CLOCKCULT
 
 /proc/get_region_accesses(code)
 	switch(code)

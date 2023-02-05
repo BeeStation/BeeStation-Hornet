@@ -209,7 +209,7 @@
 /obj/machinery/computer/security/proc/get_available_cameras()
 	var/list/camlist = list()
 	for(var/obj/machinery/camera/cam as() in GLOB.cameranet.cameras)
-		if((is_away_level(z) || is_away_level(cam.z)) && (cam.get_virtual_z_level() != get_virtual_z_level()))//if on away mission, can only receive feed from same z_level cameras
+		if(cam.get_virtual_z_level() != get_virtual_z_level())//if on away mission, can only receive feed from same z_level cameras
 			continue
 		if(!islist(cam.network))
 			stack_trace("Camera in a cameranet has invaid camera network")

@@ -429,3 +429,11 @@
 	I.assignment = "Joker"
 	I.registered_name = H.real_name
 	I.update_label()
+
+/datum/outfit/butler
+	name = "Butler"
+	uniform = /obj/item/clothing/under/suit/black_really
+	shoes = /obj/item/clothing/shoes/laceup
+	head = /obj/item/clothing/head/bowler
+	glasses = /obj/item/clothing/glasses/monocle
+	gloves = /obj/item/clothing/gloves/color/white

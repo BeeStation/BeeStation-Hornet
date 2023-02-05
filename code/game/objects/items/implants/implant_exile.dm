@@ -3,7 +3,7 @@
 
 /obj/item/implant/exile
 	name = "exile implant"
-	desc = "Prevents you from returning from away missions."
+	desc = "Prevents you from returning via a gateway."
 	activated = 0
 
 /obj/item/implant/exile/get_data()

@@ -268,8 +268,7 @@
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "aO" = (
 /obj/machinery/door/airlock/highsecurity{
-	name = "Recycling Room";
-	req_access_txt = "200"
+	name = "Recycling Room"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -279,8 +278,7 @@
 /area/ruin/space/has_grav/deepstorage/crusher)
 "aP" = (
 /obj/machinery/door/airlock/highsecurity{
-	name = "Recycling Room";
-	req_access_txt = "200"
+	name = "Recycling Room"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
@@ -805,8 +803,8 @@
 /area/ruin/space/has_grav/deepstorage/storage)
 "bX" = (
 /obj/machinery/door/airlock/highsecurity{
-	name = "General Storage";
-	req_access_txt = "200"
+	name = "General Storage"
+
 	},
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
 /obj/effect/decal/cleanable/dirt,
@@ -1043,8 +1041,7 @@
 /area/ruin/space/has_grav/deepstorage/storage)
 "cD" = (
 /obj/machinery/door/airlock/highsecurity{
-	name = "Provisions Storage";
-	req_access_txt = "200"
+	name = "Provisions Storage"
 	},
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
 	dir = 4
@@ -1513,8 +1510,7 @@
 /area/ruin/space/has_grav/deepstorage)
 "dM" = (
 /obj/machinery/door/airlock/highsecurity{
-	name = "Secure Storage";
-	req_access_txt = "200"
+	name = "Secure Storage"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -1694,8 +1690,7 @@
 /area/ruin/space/has_grav/deepstorage)
 "ee" = (
 /obj/machinery/door/airlock/highsecurity{
-	name = "Secure Storage";
-	req_access_txt = "200"
+	name = "Secure Storage"
 	},
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
 	dir = 4
@@ -1771,8 +1766,7 @@
 /area/ruin/space/has_grav/deepstorage/dorm)
 "en" = (
 /obj/machinery/door/airlock/highsecurity{
-	name = "Canister Storage";
-	req_access_txt = "200"
+	name = "Canister Storage"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage)
@@ -1798,8 +1792,7 @@
 /area/ruin/space/has_grav/deepstorage/airlock)
 "er" = (
 /obj/machinery/door/airlock/highsecurity{
-	name = "Airlock Control";
-	req_access_txt = "200"
+	name = "Airlock Control"
 	},
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
 /obj/structure/cable/yellow{
@@ -1943,21 +1936,18 @@
 	id = "bunkerexterior";
 	name = "exterior blast door access";
 	pixel_x = -24;
-	pixel_y = -8;
-	req_access_txt = "200"
+	pixel_y = -8
 	},
 /obj/machinery/button/door{
 	id = "bunkerinterior";
 	name = "interior blast door access";
-	pixel_x = -24;
-	req_access_txt = "200"
+	pixel_x = -24
 	},
 /obj/machinery/button/door{
 	id = "bunkershutter";
 	name = "hallway shutter toggle";
 	pixel_x = -24;
-	pixel_y = 8;
-	req_access_txt = "200"
+	pixel_y = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/orange/hidden{
 	dir = 4
@@ -2133,8 +2123,7 @@
 /area/ruin/space/has_grav/deepstorage/airlock)
 "eY" = (
 /obj/machinery/door/airlock/highsecurity{
-	name = "Atmospherics and Power Storage";
-	req_access_txt = "200"
+	name = "Atmospherics and Power Storage"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/structure/cable/yellow{
@@ -2145,8 +2134,7 @@
 /area/ruin/space/has_grav/deepstorage/power)
 "eZ" = (
 /obj/machinery/door/airlock/highsecurity{
-	name = "Atmospherics and Power Storage";
-	req_access_txt = "200"
+	name = "Atmospherics and Power Storage"
 	},
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
 /obj/effect/decal/cleanable/dirt,
@@ -2754,8 +2742,7 @@
 "gz" = (
 /obj/machinery/door/airlock/highsecurity{
 	desc = "Nothing to see here, folks, just an inconspicuous airlock. Now go away!";
-	name = "Inconspicuous Airlock";
-	req_access_txt = "200"
+	name = "Inconspicuous Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plating,
@@ -2841,8 +2828,7 @@
 /area/ruin/space/has_grav/deepstorage/power)
 "gL" = (
 /obj/machinery/door/airlock/highsecurity{
-	name = "RTG Observation";
-	req_access_txt = "200"
+	name = "RTG Observation"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2878,8 +2864,7 @@
 "gQ" = (
 /obj/machinery/door/airlock/highsecurity{
 	desc = "Nothing to see here, folks, just an inconspicuous airlock. Now go away!";
-	name = "Inconspicuous Airlock";
-	req_access_txt = "200"
+	name = "Inconspicuous Airlock"
 	},
 /obj/structure/fans/tiny,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -2945,8 +2930,7 @@
 /area/ruin/space/has_grav/deepstorage/power)
 "gY" = (
 /obj/machinery/door/airlock/highsecurity{
-	name = "Telecomms";
-	req_access_txt = "200"
+	name = "Telecomms"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/power)

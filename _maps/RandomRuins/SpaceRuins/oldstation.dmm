@@ -722,8 +722,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/command{
-	name = "Charlie Station Access";
-	req_access_txt = "200"
+	name = "Charlie Station Access"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
@@ -1865,8 +1864,7 @@
 /area/template_noop)
 "gg" = (
 /obj/machinery/door/airlock/external{
-	name = "Engineering External Access";
-	req_access_txt = "200"
+	name = "Engineering External Access"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -2713,8 +2711,7 @@
 /area/ruin/space/has_grav/ancientstation/rnd)
 "is" = (
 /obj/machinery/door/airlock/medical/glass{
-	name = "Chemical Storage";
-	req_access_txt = "200"
+	name = "Chemical Storage"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -3070,8 +3067,7 @@
 "js" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/command{
-	name = "Charlie Station Access";
-	req_access_txt = "200"
+	name = "Charlie Station Access"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
@@ -3140,9 +3136,7 @@
 /obj/item/assembly/flash/handheld,
 /obj/item/assembly/flash/handheld,
 /obj/item/storage/box/firingpins,
-/obj/structure/closet/crate/secure/weapon{
-	req_access_txt = "203"
-	},
+/obj/structure/closet/crate/secure/weapon,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "jB" = (
@@ -3291,8 +3285,7 @@
 "jW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/highsecurity{
-	name = "Prototype Laboratory";
-	req_access_txt = "200"
+	name = "Prototype Laboratory"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -3303,8 +3296,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/airlock/highsecurity{
-	name = "Prototype Laboratory";
-	req_access_txt = "200"
+	name = "Prototype Laboratory"
 	},
 /turf/open/floor/plasteel/white/side,
 /area/ruin/space/has_grav/ancientstation/proto)
@@ -3967,8 +3959,7 @@
 /area/ruin/space/has_grav/ancientstation/rnd)
 "oM" = (
 /obj/machinery/door/airlock/external{
-	name = "Engineering External Access";
-	req_access_txt = "200"
+	name = "Engineering External Access"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -4555,8 +4546,7 @@
 /obj/item/tank/internals/plasma/full,
 /obj/item/tank/internals/plasma/full,
 /obj/structure/closet/crate/secure/engineering{
-	name = "plasma tank crate";
-	req_access_txt = "204"
+	name = "plasma tank crate"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/deltacorridor)

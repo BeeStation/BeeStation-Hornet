@@ -79,15 +79,13 @@
 /area/ruin/space/has_grav/powered/cat_man)
 "aq" = (
 /obj/machinery/door/airlock/maintenance_hatch{
-	name = "Misc Supplies";
-	req_access_txt = "201"
+	name = "Misc Supplies"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "ar" = (
 /obj/machinery/door/airlock/maintenance_hatch{
-	name = "Custodial Supplies";
-	req_access_txt = "201"
+	name = "Custodial Supplies"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
@@ -207,8 +205,7 @@
 	name = "kitty protection door"
 	},
 /obj/machinery/door/window{
-	name = "kitty door";
-	req_access_txt = "200"
+	name = "kitty door"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
@@ -281,8 +278,7 @@
 	name = "kitty protection door"
 	},
 /obj/machinery/door/window/westleft{
-	name = "kitty door";
-	req_access_txt = "200"
+	name = "kitty door"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
@@ -442,8 +438,7 @@
 	name = "kitty protection door"
 	},
 /obj/machinery/door/window/northleft{
-	name = "kitty door";
-	req_access_txt = "200"
+	name = "kitty door"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
@@ -499,9 +494,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "bY" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "201"
-	},
+/obj/machinery/door/airlock/maintenance_hatch,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "bZ" = (
@@ -551,8 +544,7 @@
 /area/ruin/space/has_grav/powered/cat_man)
 "cg" = (
 /obj/machinery/door/airlock/maintenance_hatch{
-	name = "Portable Atmos Equipment";
-	req_access_txt = "201"
+	name = "Portable Atmos Equipment"
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/powered/cat_man)
@@ -606,8 +598,7 @@
 /area/ruin/space/has_grav/powered/cat_man)
 "cp" = (
 /obj/machinery/door/airlock{
-	name = "Limb Storage";
-	req_access_txt = "200"
+	name = "Limb Storage"
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/space/has_grav/powered/cat_man)

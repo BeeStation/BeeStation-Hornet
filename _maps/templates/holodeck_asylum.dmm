@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/obj/effect/holodeck_effect/mobspawner/psycho,
+/obj/effect/holodeck_effect/mobspawner/clown,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "ab" = (
@@ -67,7 +67,7 @@
 /area/template_noop)
 "al" = (
 /obj/machinery/igniter,
-/obj/effect/holodeck_effect/mobspawner/psycho,
+/obj/effect/holodeck_effect/mobspawner/clown,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "am" = (

@@ -854,8 +854,7 @@
 /area/ruin/space/has_grav/hotel)
 "cK" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Hotel Maintenance";
-	req_access_txt = "201"
+	name = "Hotel Maintenance"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -1540,8 +1539,7 @@
 /area/ruin/space/has_grav/hotel)
 "eN" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Hotel Maintenance";
-	req_access_txt = "201"
+	name = "Hotel Maintenance"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel)
@@ -1854,8 +1852,7 @@
 /area/ruin/space/has_grav/hotel/bar)
 "fT" = (
 /obj/machinery/door/airlock/freezer{
-	name = "Freezer";
-	req_access_txt = "200"
+	name = "Freezer"
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/space/has_grav/hotel/bar)
@@ -1985,8 +1982,7 @@
 /area/ruin/space/has_grav/hotel/bar)
 "gs" = (
 /obj/machinery/door/airlock/grunge{
-	name = "Hotel Staff Room";
-	req_access_txt = "200"
+	name = "Hotel Staff Room"
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/workroom)
@@ -2057,8 +2053,7 @@
 /area/ruin/space/has_grav/hotel/bar)
 "gC" = (
 /obj/structure/closet/secure_closet/freezer/meat{
-	req_access = null;
-	req_access_txt = "200"
+	req_access = null
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/hotel/bar)
@@ -2153,8 +2148,7 @@
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/structure/closet/secure_closet/freezer/fridge{
-	req_access = null;
-	req_access_txt = "200"
+	req_access = null
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/hotel/bar)
@@ -2265,8 +2259,7 @@
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/structure/closet/secure_closet/freezer/kitchen{
-	req_access = null;
-	req_access_txt = "200"
+	req_access = null
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/hotel/bar)
@@ -2507,9 +2500,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel)
 "hT" = (
-/obj/machinery/vending/dinnerware{
-	req_access_txt = "200"
-	},
+/obj/machinery/vending/dinnerware,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/hotel/bar)
 "hU" = (
@@ -2687,8 +2678,7 @@
 "iA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/machinery/door/airlock{
-	name = "Theatre";
-	req_access_txt = "200"
+	name = "Theatre"
 	},
 /turf/open/floor/plasteel/grimy,
 /area/ruin/space/has_grav/hotel/bar)
@@ -2930,8 +2920,7 @@
 /area/ruin/space/has_grav/hotel/security)
 "jq" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Hotel Security Checkpoint";
-	req_access_txt = "203"
+	name = "Hotel Security Checkpoint"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -3550,8 +3539,7 @@
 /area/ruin/space/has_grav/hotel)
 "mA" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Hotel Maintenance";
-	req_access_txt = "201"
+	name = "Hotel Maintenance"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -3594,8 +3582,7 @@
 /area/ruin/space/has_grav/hotel/workroom)
 "mQ" = (
 /obj/machinery/door/airlock/grunge{
-	name = "Hotel Staff Room";
-	req_access_txt = "200"
+	name = "Hotel Staff Room"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -4047,8 +4034,7 @@
 	dir = 4;
 	icon_state = "rightsecure";
 	name = "Cell Door";
-	req_access = null;
-	req_access_txt = "203"
+	req_access = null
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel,
@@ -4085,8 +4071,7 @@
 /area/ruin/space/has_grav/hotel/security)
 "GP" = (
 /obj/structure/closet/secure_closet/security{
-	req_access = null;
-	req_access_txt = "203"
+	req_access = null
 	},
 /obj/item/gun/energy/laser/scatter/shotty,
 /obj/item/clothing/head/helmet/justice,
@@ -4148,8 +4133,7 @@
 /area/ruin/space/has_grav/hotel/power)
 "If" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Hotel Security Checkpoint";
-	req_access_txt = "203"
+	name = "Hotel Security Checkpoint"
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
@@ -4417,9 +4401,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/security)
 "SF" = (
-/obj/machinery/vending/boozeomat{
-	req_access_txt = "200"
-	},
+/obj/machinery/vending/boozeomat,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/bar)

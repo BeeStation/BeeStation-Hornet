@@ -90,19 +90,6 @@
 #define ACCESS_PIRATES 180 //! Pirate ship access
 #define ACCESS_HUNTERS 181 //! Bounty hunter access
 
-	//Away Missions or Ruins
-	/*For generic away-mission/ruin access. Why would normal crew have access to a long-abandoned derelict
-	or a 2000 year-old temple? */
-#define ACCESS_AWAY_GENERAL 200 //!General facilities.
-#define ACCESS_AWAY_MAINT 201 //!Away maintenance
-#define ACCESS_AWAY_MED 202 //!Away medical
-#define ACCESS_AWAY_SEC 203 //!Away security
-#define ACCESS_AWAY_ENGINE 204 //!Away engineering
-#define ACCESS_AWAY_GENERIC1 205 //!Away generic access
-#define ACCESS_AWAY_GENERIC2 206
-#define ACCESS_AWAY_GENERIC3 207
-#define ACCESS_AWAY_GENERIC4 208
-
 	//Special, for anything that's basically internal
 #define ACCESS_BLOODCULT 250
 #define ACCESS_CLOCKCULT 251

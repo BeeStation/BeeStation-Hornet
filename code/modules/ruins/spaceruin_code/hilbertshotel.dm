@@ -488,7 +488,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	mob_species = /datum/species/skeleton
 	id_job = "Head Researcher"
 	id_access = ACCESS_RESEARCH
-	id_access_list = list(ACCESS_AWAY_GENERIC3, ACCESS_RESEARCH)
+	id_access_list = list(ACCESS_RESEARCH)
 	instant = TRUE
 	id = /obj/item/card/id/silver
 	uniform = /obj/item/clothing/under/rank/rnd/research_director
