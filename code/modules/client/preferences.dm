@@ -244,16 +244,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				dat += "<span style='border: 1px solid #161616; background-color: #[active_character.features["ethcolor"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=color_ethereal;task=input'>Change</a><BR>"
 
-			if("apidcolor" in active_character.pref_species.default_features)
-
-				if(!use_skintones)
-					dat += APPEARANCE_CATEGORY_COLUMN
-
-				dat += "<h3>Apid Color</h3>"
-
-				dat += "<span style='border: 1px solid #161616; background-color: #[active_character.features["apidcolor"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=color_apid;task=input'>Change</a><BR>"
-
-
 			if(istype(active_character.pref_species, /datum/species/plasmaman))
 
 				if(!use_skintones)
