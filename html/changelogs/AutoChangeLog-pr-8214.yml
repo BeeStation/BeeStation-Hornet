@@ -1,0 +1,8 @@
+author: Kit_Katz, RKz
+delete-after: true
+changes:
+  - rscadd: Added new customization options for apids. Color is now selectable from
+      a pallette, and three customization options have been added for stripes, antenna,
+      and bodymarkings
+  - imageadd: entirely new APID sprites for sprite_accessories, including stripes,
+      antenna, and bodymarkings
