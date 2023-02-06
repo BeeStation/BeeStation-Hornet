@@ -658,8 +658,7 @@
 /datum/religion_rites/summon_animals/invoke_effect(mob/living/user, atom/religious_tool)
 	..()
 	var/turf/altar_turf = get_turf(religious_tool)
-	var/animals = rand(1,10)
-	for(var/counter = 1; counter < animals; counter++)
+	for(var/i in 1 to 8)
 		var/mob/living/simple_animal/S = create_random_mob(altar_turf, FRIENDLY_SPAWN)
 		S.faction |= "neutral"
 	playsound(altar_turf, 'sound/ambience/servicebell.ogg', 25, TRUE)
@@ -672,7 +671,7 @@
 /datum/religion_rites/create_sandstone
 	name = "Create Sandstone"
 	desc = "Create Sandstone for soil production to help create a plant garden."
-	ritual_length = 30 SECONDS
+	ritual_length = 35 SECONDS
 	ritual_invocations = list("Bring to us ...",
 	"... the stone we need ...",
 	"... so we can toil away ...")
