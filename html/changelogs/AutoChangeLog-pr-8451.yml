@@ -1,0 +1,7 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - rscadd: Added cloth recipes craft time
+  - rscadd: Added the mail bag and bandana to cloth recipes
+  - bugfix: fixed the double bedsheet crafting output and empty sandbag icon
+  - bugfix: fixed durathread recipes using cloth recipes, somehow
