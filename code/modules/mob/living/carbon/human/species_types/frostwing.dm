@@ -5,6 +5,7 @@
 	default_color = "00FFFF"
 	species_traits = list(NO_UNDERWEAR, NOEYESPRITES)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_AVIAN)
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	mutanttongue = /obj/item/organ/tongue/frostwing
 	// Allow frozen, low pressure atmos. This doesn't cause damage for the station atmos, instead using bodytemp
 	mutantlungs = /obj/item/organ/lungs/frostwing
