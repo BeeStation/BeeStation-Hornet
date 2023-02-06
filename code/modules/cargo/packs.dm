@@ -893,6 +893,14 @@
 					/obj/item/tank/jetpack/carbondioxide)
 	crate_name = "bulk jetpack crate"
 
+/datum/supply_pack/engineering/jetpack_combustion
+	name = "Combustion Jetpack Crate"
+	desc = "A powerful jetpack, capable of in-gravity flight using the high energy potential of plasma combustion."
+	cost = 1000
+	access_budget = FALSE
+	contains = list(/obj/item/tank/jetpack/combustion)
+	crate_name = "high-energy jetpack crate"
+
 /datum/supply_pack/engineering/spacecapsule
 	name = "Space Shelter Capsule"
 	desc = "A crate containing an RCD, some compressed matter cartridges, and a single bluespace capsule containing a spaceworthy shelter for construction/emergencies."
@@ -1344,17 +1352,17 @@
 	crate_name = "plastic sheets crate"
 
 /datum/supply_pack/materials/sandstone30
-	name = "30 Sandstone Blocks"
+	name = "50 Sandstone Blocks"
 	desc = "Neither sandy nor stoney, these thirty blocks will still get the job done."
-	cost = 800
-	contains = list(/obj/item/stack/sheet/mineral/sandstone/thirty)
+	cost = 1100
+	contains = list(/obj/item/stack/sheet/mineral/sandstone/fifty)
 	crate_name = "sandstone blocks crate"
 
 /datum/supply_pack/materials/wood50
 	name = "50 Wood Planks"
 	desc = "Turn cargo's boring metal groundwork into beautiful panelled flooring and much more with fifty wooden planks!"
 	cost = 1700
-	contains = list(/obj/item/stack/sheet/mineral/wood/fifty)
+	contains = list(/obj/item/stack/sheet/wood/fifty)
 	crate_name = "wood planks crate"
 
 /datum/supply_pack/materials/bz

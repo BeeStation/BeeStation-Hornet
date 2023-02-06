@@ -180,14 +180,14 @@
 /datum/status_effect/syringe/on_apply()
 	. = ..()
 	var/amount = syringe.initial_inject
-	syringe.reagents.reaction(owner, INJECT)
+	syringe.reagents.expose(owner, INJECT)
 	syringe.reagents.trans_to(owner, max(3.1, amount * injectmult))
 	owner.throw_alert("syringealert", /atom/movable/screen/alert/syringe)
 
 /datum/status_effect/syringe/tick()
 	. = ..()
 	var/amount = syringe.units_per_tick
-	syringe.reagents.reaction(owner, INJECT, amount / 10)//so the slow drip-feed of reagents isn't exploited
+	syringe.reagents.expose(owner, INJECT, amount / 10)//so the slow drip-feed of reagents isn't exploited
 	syringe.reagents.trans_to(owner, amount * injectmult)
 
 
@@ -222,7 +222,7 @@
 			else
 				to_chat(C, "<span class='userdanger'>You screw up, and inject yourself with more chemicals by mistake!</span>")
 				var/amount = syringe.initial_inject
-				syringe.reagents.reaction(C, INJECT)
+				syringe.reagents.expose(C, INJECT)
 				syringe.reagents.trans_to(C, amount)
 				syringe.forceMove(C.loc)
 				qdel(syringestatus)
@@ -912,6 +912,12 @@
 	duration = -1
 	examine_text = "<span class='warning'>SUBJECTPRONOUN has a blank, catatonic like stare.</span>"
 	alert_type = /atom/movable/screen/alert/status_effect/ghoul
+
+/datum/status_effect/ghoul/get_examine_text()
+	var/mob/living/carbon/human/H = owner
+	var/obscured = H.check_obscured_slots()
+	if(!(obscured & ITEM_SLOT_EYES) && !H.glasses) //The examine text is only displayed if the ghoul's eyes are not obscured
+		return examine_text
 
 /atom/movable/screen/alert/status_effect/ghoul
 	name = "Flesh Servant"

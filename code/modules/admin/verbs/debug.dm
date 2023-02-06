@@ -92,28 +92,26 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/makepAI(turf/T in GLOB.mob_list)
 	set category = "Fun"
 	set name = "Make pAI"
-	set desc = "Specify a location to spawn a pAI device, then specify a key to play that pAI"
+	set desc = "Specify a location to spawn a pAI device, then specify a ckey to play that pAI"
 
 	var/list/available = list()
 	for(var/mob/C in GLOB.mob_list)
-		if(C.key)
+		if(C.ckey)
 			available.Add(C)
 	var/mob/choice = input("Choose a player to play the pAI", "Spawn pAI") in sortNames(available)
 	if(!choice)
 		return 0
 	if(!isobserver(choice))
-		var/confirm = input("[choice.key] isn't ghosting right now. Are you sure you want to yank him out of them out of their body and place them in this pAI?", "Spawn pAI Confirmation", "No") in list("Yes", "No")
+		var/confirm = input("[choice.ckey] isn't ghosting right now. Are you sure you want to yank him out of them out of their body and place them in this pAI?", "Spawn pAI Confirmation", "No") in list("Yes", "No")
 		if(confirm != "Yes")
 			return 0
 	var/obj/item/paicard/card = new(T)
 	var/mob/living/silicon/pai/pai = new(card)
 	pai.name = capped_input(choice, "Enter your pAI name:", "pAI Name", "Personal AI")
 	pai.real_name = pai.name
-	pai.key = choice.key
+	pai.ckey = choice.ckey
 	card.setPersonality(pai)
-	for(var/datum/paiCandidate/candidate in SSpai.candidates)
-		if(candidate.key == choice.key)
-			SSpai.candidates.Remove(candidate)
+	SSpai.candidates.Remove(SSpai.candidates[choice.ckey])
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make pAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_alienize(mob/M in GLOB.mob_list)
@@ -508,7 +506,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	else
 		H = M
 		if(H.l_store || H.r_store || H.s_store) //saves a lot of time for admins and coders alike
-			if(alert("Drop Items in Pockets? No will delete them.", "Robust quick dress shop", "Yes", "No") == "No")
+			if(alert("Drop Items in Pockets? No will delete them.", "Robust quick dress shop", "Yes", "No") != "Yes")
 				delete_pocket = TRUE
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Select Equipment") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -778,7 +776,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if (response == "Jump")
 			usr.forceMove(get_turf(exists[template]))
 			return
-		else if (response == "Cancel")
+		else if (response != "Place Another")
 			return
 
 	var/len = GLOB.ruin_landmarks.len
@@ -802,7 +800,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(ruin_size < 10 || ruin_size >= 200)
 		return
 	var/response = alert(src, "This will place the ruin at your current location.", "Spawn Ruin", "Spawn Ruin", "Cancel")
-	if (response == "Cancel")
+	if (response != "Spawn Ruin")
 		return
 	var/border_size = (world.maxx - ruin_size) / 2
 	generate_space_ruin(mob.x, mob.y, mob.z, border_size, border_size)

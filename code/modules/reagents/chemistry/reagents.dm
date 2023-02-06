@@ -46,10 +46,14 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	. = ..()
 	holder = null
 
-/datum/reagent/proc/reaction_mob(mob/living/M, method = TOUCH, reac_volume, show_message = 1, touch_protection = 0, obj/item/bodypart/affecting)
+/// Applies this reagent to an [/atom]
+/datum/reagent/proc/expose_atom(atom/A, volume)
+	return
+
+/datum/reagent/proc/expose_mob(mob/living/M, methods = TOUCH, reac_volume, show_message = 1, touch_protection = 0, obj/item/bodypart/affecting)
 	if(!istype(M))
 		return FALSE
-	if(method == VAPOR) //smoke, foam, spray
+	if(methods & VAPOR) //smoke, foam, spray
 		if(M.reagents)
 			var/modifier = CLAMP((1 - touch_protection), 0, 1)
 			var/amount = round(reac_volume*modifier, 0.1)
@@ -57,10 +61,10 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 				M.reagents.add_reagent(type, amount)
 	return TRUE
 
-/datum/reagent/proc/reaction_obj(obj/O, volume)
+/datum/reagent/proc/expose_obj(obj/O, volume)
 	return
 
-/datum/reagent/proc/reaction_turf(turf/T, volume)
+/datum/reagent/proc/expose_turf(turf/T, volume)
 	return
 
 /datum/reagent/proc/on_mob_life(mob/living/carbon/M)
@@ -68,14 +72,14 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency) //By default it slowly disappears.
 	return
 
-/datum/reagent/proc/on_transfer(atom/A, method=TOUCH, trans_volume) //Called after a reagent is transfered
+/datum/reagent/proc/on_transfer(atom/A, methods=TOUCH, trans_volume) //Called after a reagent is transfered
 	return
 
-/datum/reagents/proc/react_single(datum/reagent/R, atom/A, method = TOUCH, volume_modifier = 1, show_message = TRUE)
+/datum/reagents/proc/react_single(datum/reagent/R, atom/A, methods = TOUCH, volume_modifier = 1, show_message = TRUE)
 	var/react_type
 	if(isliving(A))
 		react_type = "LIVING"
-		if(method == INGEST)
+		if(methods & INGEST)
 			var/mob/living/L = A
 			L.taste(src)
 	else if(isturf(A))
@@ -87,14 +91,14 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	switch(react_type)
 		if("LIVING")
 			var/touch_protection = 0
-			if(method == VAPOR)
+			if(methods & VAPOR)
 				var/mob/living/L = A
 				touch_protection = L.get_permeability_protection()
-			R.reaction_mob(A, method, R.volume * volume_modifier, show_message, touch_protection)
+			R.expose_mob(A, methods, R.volume * volume_modifier, show_message, touch_protection)
 		if("TURF")
-			R.reaction_turf(A, R.volume * volume_modifier, show_message)
+			R.expose_turf(A, R.volume * volume_modifier, show_message)
 		if("OBJ")
-			R.reaction_obj(A, R.volume * volume_modifier, show_message)
+			R.expose_obj(A, R.volume * volume_modifier, show_message)
 
 // Called when this reagent is first added to a mob
 /datum/reagent/proc/on_mob_add(mob/living/L)

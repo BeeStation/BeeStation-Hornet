@@ -2363,6 +2363,10 @@
 	name = "Sinewave"
 	icon_state = "sinewave"
 
+/datum/sprite_accessory/ipc_screens/smile
+	name = "Smile"
+	icon_state = "smile"
+
 /datum/sprite_accessory/ipc_screens/squarewave
 	name = "Square wave"
 	icon_state = "squarewave"

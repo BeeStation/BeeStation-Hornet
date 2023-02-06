@@ -5,7 +5,7 @@
 // Extra heat affects the temperature of the mixture, and may cause it to react in different ways.
 
 
-/proc/chem_splash(turf/epicenter, affected_range = 3, list/datum/reagents/reactants = list(), extra_heat = 0, threatscale = 1, adminlog = 1)
+/proc/chem_splash(turf/epicenter, affected_range = 3, list/datum/reagents/reactants = list(), extra_heat = 0, threatscale = 1, adminlog = 1, atom/override_atom = null)
 	if(!isturf(epicenter) || !reactants.len || threatscale <= 0)
 		return
 	var/has_reagents
@@ -19,7 +19,7 @@
 		return
 
 	var/datum/reagents/splash_holder = new/datum/reagents(total_reagents*threatscale)
-	splash_holder.my_atom = epicenter // For some reason this is setting my_atom to null, and causing runtime errors.
+	splash_holder.my_atom = override_atom ? override_atom : epicenter // For some reason this is setting my_atom to null, and causing runtime errors.
 	var/total_temp = 0
 
 	for(var/datum/reagents/R in reactants)
@@ -66,7 +66,7 @@
 		for(var/atom/A as() in reactable)
 			var/distance = max(1,get_dist(A, epicenter))
 			var/fraction = 0.5/(2 ** distance) //50/25/12/6... for a 200u splash, 25/12/6/3... for a 100u, 12/6/3/1 for a 50u
-			splash_holder.reaction(A, TOUCH, fraction)
+			splash_holder.expose(A, TOUCH, fraction)
 
 	qdel(splash_holder)
 	return 1

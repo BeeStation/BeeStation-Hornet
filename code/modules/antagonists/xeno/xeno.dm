@@ -35,6 +35,23 @@
 /datum/antagonist/xeno/get_team()
 	return xeno_team
 
+/datum/antagonist/xeno/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	//Give traitor appearence on hud (If they are not an antag already)
+	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_XENOMORPH]
+	traitorhud.join_hud(owner.current)
+	if(!owner.antag_hud_icon_state)
+		set_antag_hud(owner.current, "xenomorph")
+
+/datum/antagonist/xeno/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	//Clear the hud if they haven't become something else and had the hud overwritten
+	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_XENOMORPH]
+	traitorhud.leave_hud(owner.current)
+	if(owner.antag_hud_icon_state == "xenomorph")
+		set_antag_hud(owner.current, null)
+
+
 //XENO
 /mob/living/carbon/alien/mind_initialize()
 	..()
