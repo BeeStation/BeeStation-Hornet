@@ -1726,6 +1726,7 @@
 #include "code\modules\antagonists\eldritch_cult\knowledge\rust_lore.dm"
 #include "code\modules\antagonists\ert\ert.dm"
 #include "code\modules\antagonists\frostwing\frostwing.dm"
+#include "code\modules\antagonists\frostwing\frostwing_incubator.dm"
 #include "code\modules\antagonists\fugitive\fugitive.dm"
 #include "code\modules\antagonists\fugitive\fugitive_outfits.dm"
 #include "code\modules\antagonists\fugitive\fugitive_ship.dm"

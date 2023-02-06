@@ -611,21 +611,24 @@
 // ----------
 
 /obj/effect/mob_spawn/human/frostwing
-	name = "frostwing cloner"
-	desc = "A cloner composed of what looks like old salvaged human technology."
+	name = "frostwing egg"
+	desc = "A cold, icy egg. You feel movement inside, it could hatch at any moment."
 	mob_name = "a frostwing"
-	icon = 'icons/obj/machines/sleeper.dmi'
-	icon_state = "oldpod"
+	icon = 'icons/obj/lavaland/spawners.dmi'
+	icon_state = "frostwing_egg"
 	mob_species = /datum/species/frostwing
 	roundstart = FALSE
 	death = FALSE
+	move_resist = MOVE_FORCE_NORMAL
+	density = FALSE
 	short_desc = "You are an agile, cunning frostwing. Grow your homestead."
 	flavour_text = "The ice is your home, the sprawling ravine your domain. The intruding space station caused major losses to your kind, you can no longer reproduce. \
-	However, with your great cunning you built a cloner with materials scavenged from a shipwreck, in order to ensure the survival of your species. \
+	However, with your great cunning you built an incubator with materials scavenged from a shipwreck, in order to ensure the survival of your species. \
 	Now you must grow your homestead using resources from the station, using your agility and cunning."
 	assignedrole = "Frostwing"
-	var/datum/team/frostwings/team
+	banType = ROLE_LAVALAND
 	use_cooldown = TRUE
+	var/datum/team/frostwings/team
 
 /obj/effect/mob_spawn/human/frostwing/special(mob/living/new_spawn)
 	new_spawn.mind.add_antag_datum(/datum/antagonist/frostwing, team)
@@ -635,9 +638,8 @@
 		H.update_body()
 		H.fully_replace_character_name(null, H.dna.species.random_name(gender))
 
-/obj/effect/mob_spawn/human/frostwing/Initialize(mapload, datum/team/frostwings/frostteam)
+/obj/effect/mob_spawn/human/frostwing/Initialize(mapload)
 	. = ..()
 	var/area/A = get_area(src)
-	team = frostteam
 	if(A)
-		notify_ghosts("A frostwing clone is ready in \the [A.name].", source = src, action=NOTIFY_ATTACK, flashwindow = FALSE, ignore_key = POLL_IGNORE_FROSTWING)
+		notify_ghosts("A frostwing egg has been incubated in [A.name].", source = src, action=NOTIFY_ORBIT, flashwindow = FALSE, header = "Frostwings Incubator")
