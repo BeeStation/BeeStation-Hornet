@@ -488,8 +488,12 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	map_templates[R.name] = R
 
 /datum/controller/subsystem/mapping/proc/LoadFrostwingBase()
+	if(!length(GLOB.frostwing_landmarks))
+		return
 	var/obj/effect/landmark/frostwing_base_spawn/landmark = pick(GLOB.frostwing_landmarks)
 	frostwing_base_template.stationinitload(get_turf(landmark))
+	for(/obj/effect/landmark/frostwing_base_spawn/L as() in GLOB.frostwing_landmarks)
+		qdel(L)
 
 //Manual loading of away missions.
 /client/proc/admin_away()

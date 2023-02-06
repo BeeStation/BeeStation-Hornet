@@ -74,6 +74,7 @@
 	else
 		H.dna.species.mutant_bodyparts -= "wingsopen"
 	H.update_body()
+	H.update_inv_hands() // hide/show inhands
 
 /datum/species/frostwing/on_species_gain(mob/living/carbon/C)
 	. = ..()
@@ -101,4 +102,4 @@
 
 // Hide inhands if the wings are open
 /datum/species/frostwing/process_inhands(mob/living/carbon/human/H, mutable_appearance/hand_overlay, is_right_hand)
-	return "wingsopen" in H.dna.species.mutant_bodyparts
+	return !("wingsopen" in H.dna.species.mutant_bodyparts)
