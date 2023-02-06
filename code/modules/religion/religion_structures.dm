@@ -71,10 +71,8 @@
 
 /obj/structure/destructible/religion/nature_pylon/LateInitialize()
 	. = ..()
-	START_PROCESSING(SSfastprocess, src)
 
 /obj/structure/destructible/religion/nature_pylon/Destroy()
-	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
 /obj/structure/destructible/religion/nature_pylon/process(delta_time)
