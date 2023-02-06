@@ -393,10 +393,6 @@
 /obj/proc/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)
 	return
 
-// Should move all contained objects to it's location.
-/obj/proc/dump_contents()
-	CRASH("Unimplemented")
-
 /obj/proc/log_item(mob/user, actverb="(unknown verb)", additional_info="")
 	if(investigate_flags & ADMIN_INVESTIGATE_TARGET)
 		if(x == 0 && y == 0 && z == 0)

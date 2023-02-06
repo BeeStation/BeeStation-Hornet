@@ -196,6 +196,7 @@
 	update_icon()
 
 /obj/machinery/suit_storage_unit/RefreshParts()
+	. = ..()
 	var/calculated_laser_rating = 0
 	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
 		calculated_laser_rating += laser.rating
