@@ -82,6 +82,12 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_chassis, GLOB.ipc_chassis_list)
 	if(!GLOB.insect_type_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/insect_type, GLOB.insect_type_list)
+	if(!GLOB.apid_antenna_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_antenna, GLOB.apid_antenna_list)
+	if(!GLOB.apid_stripes_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_stripes, GLOB.apid_stripes_list)
+	if(!GLOB.apid_headstripes_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_headstripes, GLOB.apid_headstripes_list)
 	//For now we will always return none for tail_human and ears.
 	return(
 		list(
@@ -105,7 +111,10 @@
 		"ipc_screen" = pick(GLOB.ipc_screens_list),
 		"ipc_antenna" = pick(GLOB.ipc_antennas_list),
 		"ipc_chassis" = pick(GLOB.ipc_chassis_list),
-		"insect_type" = pick(GLOB.insect_type_list)
+		"insect_type" = pick(GLOB.insect_type_list),
+		"apid_antenna" = pick(GLOB.apid_antenna_list),
+		"apid_stripes" = pick(GLOB.apid_stripes_list),
+		"apid_headstripes" = pick(GLOB.apid_headstripes_list)
 		)
 	)
 
