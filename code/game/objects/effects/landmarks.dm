@@ -503,3 +503,17 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 			B.pixel_x += rand(-6, 6)
 			B.pixel_y += rand(-6, 6)
 	return INITIALIZE_HINT_QDEL
+
+/obj/effect/landmark/frostwing_base_spawn
+	name = "frostwing base spawn"
+	icon_state = "frostwing_base"
+	layer = HIGH_LANDMARK_LAYER
+
+/obj/effect/landmark/frostwing_base_spawn/Initialize(mapload)
+	. = ..()
+	name = "frostwing_[GLOB.frostwing_landmarks.len + 1]"
+	GLOB.frostwing_landmarks |= src
+
+/obj/effect/landmark/frostwing_base_spawn/Destroy()
+	GLOB.frostwing_landmarks -= src
+	. = ..()

@@ -1,0 +1,395 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/monotile/dark,
+/area/frostwing_base)
+"b" = (
+/turf/template_noop,
+/area/frostwing_base)
+"c" = (
+/obj/effect/turf_decal/stripes,
+/obj/machinery/power/smes{
+	charge = 20000
+	},
+/turf/open/floor/monotile/dark,
+/area/frostwing_base)
+"d" = (
+/obj/effect/turf_decal/stripes{
+	dir = 8
+	},
+/turf/open/floor/monotile/dark,
+/area/frostwing_base)
+"f" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plasteel/dark,
+/area/frostwing_base)
+"g" = (
+/obj/effect/turf_decal/stripes,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/auto_name/north,
+/turf/open/floor/monotile/dark,
+/area/frostwing_base)
+"i" = (
+/obj/effect/turf_decal/stripes,
+/turf/open/floor/monotile/dark,
+/area/frostwing_base)
+"j" = (
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
+/obj/structure/railing,
+/obj/structure/table,
+/turf/open/floor/monotile/dark,
+/area/frostwing_base)
+"o" = (
+/obj/effect/turf_decal/stripes{
+	dir = 6
+	},
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/open/floor/monotile/dark,
+/area/frostwing_base)
+"q" = (
+/obj/machinery/door/airlock/hatch,
+/turf/open/floor/plating/snowed,
+/area/frostwing_base)
+"r" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel/dark,
+/area/frostwing_base)
+"t" = (
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/table,
+/turf/open/floor/monotile/dark,
+/area/frostwing_base)
+"w" = (
+/obj/effect/turf_decal/stripes{
+	dir = 9
+	},
+/turf/open/floor/monotile/dark,
+/area/frostwing_base)
+"y" = (
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
+/obj/machinery/frostwing_incubator/roundstart,
+/turf/open/floor/monotile/dark,
+/area/frostwing_base)
+"z" = (
+/obj/effect/turf_decal/stripes{
+	dir = 1
+	},
+/turf/open/floor/monotile/dark,
+/area/frostwing_base)
+"A" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plasteel/dark,
+/area/frostwing_base)
+"B" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/monotile/dark,
+/area/frostwing_base)
+"F" = (
+/turf/closed/wall,
+/area/frostwing_base)
+"H" = (
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
+/turf/open/floor/monotile/dark,
+/area/frostwing_base)
+"J" = (
+/turf/open/floor/plasteel/dark,
+/area/frostwing_base)
+"P" = (
+/turf/open/floor/plating/snowed,
+/area/frostwing_base)
+
+(1,1,1) = {"
+b
+b
+b
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+"}
+(2,1,1) = {"
+b
+b
+P
+P
+P
+F
+F
+F
+F
+F
+F
+F
+F
+F
+P
+"}
+(3,1,1) = {"
+b
+P
+P
+P
+F
+F
+j
+y
+y
+y
+t
+H
+B
+F
+P
+"}
+(4,1,1) = {"
+b
+P
+P
+F
+F
+o
+J
+J
+J
+J
+J
+J
+z
+F
+P
+"}
+(5,1,1) = {"
+P
+P
+F
+F
+o
+J
+J
+J
+J
+J
+J
+J
+z
+F
+P
+"}
+(6,1,1) = {"
+P
+F
+F
+o
+J
+J
+J
+J
+J
+J
+J
+J
+z
+F
+P
+"}
+(7,1,1) = {"
+P
+F
+c
+f
+J
+J
+J
+J
+J
+J
+J
+J
+z
+F
+P
+"}
+(8,1,1) = {"
+P
+F
+i
+r
+J
+J
+J
+J
+J
+J
+J
+J
+z
+F
+P
+"}
+(9,1,1) = {"
+P
+F
+g
+A
+J
+J
+J
+J
+J
+J
+J
+w
+F
+F
+P
+"}
+(10,1,1) = {"
+P
+F
+i
+J
+J
+J
+J
+J
+J
+J
+w
+F
+F
+P
+P
+"}
+(11,1,1) = {"
+P
+F
+i
+J
+J
+J
+J
+J
+J
+w
+F
+F
+P
+P
+P
+"}
+(12,1,1) = {"
+P
+F
+i
+J
+J
+J
+J
+J
+w
+F
+F
+P
+P
+b
+b
+"}
+(13,1,1) = {"
+P
+F
+a
+d
+d
+d
+d
+d
+F
+F
+P
+P
+b
+b
+b
+"}
+(14,1,1) = {"
+P
+F
+F
+F
+q
+q
+F
+F
+F
+P
+P
+b
+b
+b
+b
+"}
+(15,1,1) = {"
+P
+P
+P
+P
+P
+P
+P
+P
+P
+P
+b
+b
+b
+b
+b
+"}
+(16,1,1) = {"
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+"}

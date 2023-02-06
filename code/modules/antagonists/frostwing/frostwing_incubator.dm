@@ -124,3 +124,13 @@
 
 #undef FROSTWING_SYNTHFLESH_REQUIRED
 #undef FROSTWING_INCUBATION_TIME
+
+/datum/map_template/frostwing_base
+	name = "Frostwing Base"
+	mappath = '_maps/templates/frostwing_base.dmm'
+
+/area/frostwing_base
+    name = "Frostwing Home Base"
+    icon_state = "frostwing"
+    has_gravity = TRUE
+    area_flags = UNIQUE_AREA

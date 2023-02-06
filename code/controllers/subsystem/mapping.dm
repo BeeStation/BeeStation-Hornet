@@ -26,6 +26,7 @@ SUBSYSTEM_DEF(mapping)
 	///Temporary list, where room spawners are kept roundstart. Not used later.
 	var/list/random_room_spawners = list()
 	var/list/holodeck_templates = list()
+	var/datum/map_template/frostwing_base/frostwing_base_template
 
 	var/list/areas_in_z = list()
 
@@ -277,6 +278,9 @@ SUBSYSTEM_DEF(mapping)
 	LoadStationRoomTemplates()
 	LoadStationRooms()
 
+	LoadFrostwingBaseTemplate()
+	LoadFrostwingBase()
+
 	if(SSdbcore.Connect())
 		var/datum/DBQuery/query_round_map_name = SSdbcore.NewQuery({"
 			UPDATE [format_table_name("round")] SET map_name = :map_name WHERE id = :round_id
@@ -475,6 +479,17 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		var/datum/map_template/holodeck/holo_template = new holodeck_type()
 
 		holodeck_templates[holo_template.template_id] = holo_template
+
+/datum/controller/subsystem/mapping/proc/LoadFrostwingBaseTemplate()
+	if(!length(GLOB.frostwing_landmarks)) // no need to load the template if nowhere to spawn
+		return
+	var/datum/map_template/frostwing_base/R = new()
+	frostwing_base_template = R
+	map_templates[R.name] = R
+
+/datum/controller/subsystem/mapping/proc/LoadFrostwingBase()
+	var/obj/effect/landmark/frostwing_base_spawn/landmark = pick(GLOB.frostwing_landmarks)
+	frostwing_base_template.stationinitload(get_turf(landmark))
 
 //Manual loading of away missions.
 /client/proc/admin_away()
