@@ -13,7 +13,6 @@
 	oxymod = 0.5
 	default_features = list("wings" = "Frostwing", "body_size" = "Normal")
 	mutant_bodyparts = list("frostwing_wings")
-	//changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
