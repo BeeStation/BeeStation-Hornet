@@ -11,12 +11,6 @@
 	var/datum/action/innate/summon_rift/rift_ability
 	/// The innate ability to use wavespeak
 	var/datum/action/innate/wavespeak/wavespeak_ability
-	/// timer used to check if the dragon failed to summon a rift
-	var/rift_fail_timer_id = TIMER_ID_NULL
-	/// warning for rift_fail_timer
-	var/rift_warning_timer_id = TIMER_ID_NULL
-	/// Maximum amount of time which can pass without a rift before Space Dragon fails.
-	var/max_time_to_rift_fail = 5 MINUTES
 	/// A list of all of the rifts created by Space Dragon.  Used for setting them all to infinite carp spawn when Space Dragon wins, and removing them when Space Dragon dies.
 	var/list/obj/structure/carp_rift/rift_list = list()
 	/// How many rifts have been successfully charged
@@ -93,7 +87,10 @@
 	owner.current.faction |= "carp"
 	RegisterSignal(owner.current, COMSIG_LIVING_LIFE, .proc/rift_checks)
 	RegisterSignal(owner.current, COMSIG_MOB_DEATH, .proc/destroy_rifts)
-	start_rift_timer()
+	RegisterSignal(owner.current, COMSIG_PARENT_QDELETING, .proc/destroy_rifts)
+	if(istype(owner.current, /mob/living/simple_animal/hostile/space_dragon))
+		var/mob/living/simple_animal/hostile/space_dragon/S = owner.current
+		S.can_summon_rifts = TRUE
 
 /datum/antagonist/space_dragon/on_removal()
 	. = ..()
@@ -131,32 +128,6 @@
 	SIGNAL_HANDLER
 	if((rifts_charged == 3 || (SSshuttle.emergency.mode == SHUTTLE_DOCKED && rifts_charged > 0)) && !objective_complete)
 		victory()
-
-/datum/antagonist/space_dragon/proc/start_rift_timer()
-	rift_warning_timer_id = addtimer(CALLBACK(src, .proc/rift_warn_callback), max_time_to_rift_fail - 1 MINUTES, TIMER_STOPPABLE)
-	rift_fail_timer_id = addtimer(CALLBACK(src, .proc/rift_fail_callback), max_time_to_rift_fail, TIMER_STOPPABLE)
-	if(istype(owner.current, /mob/living/simple_animal/hostile/space_dragon))
-		var/mob/living/simple_animal/hostile/space_dragon/S = owner.current
-		S.can_summon_rifts = FALSE
-
-/datum/antagonist/space_dragon/proc/stop_rift_timer()
-	deltimer(rift_warning_timer_id)
-	rift_warning_timer_id = TIMER_ID_NULL
-	deltimer(rift_fail_timer_id)
-	rift_fail_timer_id = TIMER_ID_NULL
-	if(istype(owner.current, /mob/living/simple_animal/hostile/space_dragon))
-		var/mob/living/simple_animal/hostile/space_dragon/S = owner.current
-		S.can_summon_rifts = TRUE
-
-/datum/antagonist/space_dragon/proc/rift_warn_callback()
-	to_chat(owner.current, "<span class='boldwarning'>You have a minute left to summon a rift! Get to it!</span>")
-	rift_warning_timer_id = TIMER_ID_NULL
-
-/datum/antagonist/space_dragon/proc/rift_fail_callback()
-	to_chat(owner.current, "<span class='boldwarning'>You've failed to summon a rift in a timely manner, and find yourself weakened.</span>")
-	destroy_rifts()
-	playsound(owner.current, 'sound/magic/demon_dies.ogg', 100, TRUE)
-	rift_fail_timer_id = TIMER_ID_NULL
 
 /**
  * Handles Space Dragon's temporary empowerment after boosting a rift.
@@ -197,18 +168,16 @@
  *
  * QDeletes all the current rifts after removing their references to other objects.
  * Currently, the only reference they have is to the Dragon which created them, so we clear that before deleting them.
- * Currently used when Space Dragon dies or one of his rifts is destroyed.
+ * Currently used when Space Dragon dies.
  */
 /datum/antagonist/space_dragon/proc/destroy_rifts()
 	SIGNAL_HANDLER
 	if(objective_complete) // this will always trigger on death, be sure that we didn't succeed already
 		return
+	for(var/mob/S in GLOB.player_list)
+		if(!S.stat && ("carp" in S.faction))
+			to_chat(S, "<span class='big bold'><font color=\"#44aaff\">The Space Dragon has died! All is lost, and the rifts have closed...</font></span>")
 	rifts_charged = 0
-	owner.current.add_movespeed_modifier(MOVESPEED_ID_DRAGON_DEPRESSION, multiplicative_slowdown = 5)
-	stop_rift_timer()
-	if(istype(owner.current, /mob/living/simple_animal/hostile/space_dragon))
-		var/mob/living/simple_animal/hostile/space_dragon/S = owner.current
-		S.tiredness_mult = 5
 	playsound(owner.current, 'sound/vehicles/rocketlaunch.ogg', 100, TRUE)
 	for(var/obj/structure/carp_rift/rift in rift_list)
 		if(!QDELETED(rift))
@@ -236,7 +205,6 @@
 		parts += "<span class='greentext big'>The [name] was successful!</span>"
 	else
 		parts += "<span class='redtext big'>The [name] has failed!</span>"
-	parts += "<span class='header'>The [name] was assisted by:</span>"
 	if(length(carp))
 		parts += "<span class='header'>The [name] was assisted by:</span>"
 		parts += printplayerlist(carp)

@@ -76,7 +76,7 @@
 	/// The color of the space dragon.
 	var/chosen_color
 	/// If the dragon is allowed to summon rifts or not
-	var/can_summon_rifts = FALSE
+	var/can_summon_rifts = TRUE
 
 
 /mob/living/simple_animal/hostile/space_dragon/Initialize(mapload)
