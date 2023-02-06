@@ -39,7 +39,7 @@
 /datum/round_event/anomaly/start()
 	var/turf/T = safepick(get_area_turfs(impact_area))
 	var/max_rolls=0 //In case all the turfs in the area are walls, will break out of rolling for a new turf forever and will just spawn the anomaly inside a wall
-	while(is_blocked_turf_ignore_climbable(T) && max_rolls<15)   //Will roll for a new turf if the selected turf is a wall until it's not a wall
+	while(T.is_blocked_turf_ignore_climbable() && max_rolls<15)   //Will roll for a new turf if the selected turf is a wall until it's not a wall
 		T = safepick(get_area_turfs(impact_area))
 		max_rolls++
 	var/newAnomaly

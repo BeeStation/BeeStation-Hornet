@@ -203,8 +203,8 @@
 	laser_strength_hacked = 15 + (5 * (calculated_laser_rating)) //20 on T1, 35 on T4
 	laser_strength = 12 - (2 * (calculated_laser_rating)) //10 on T1, 4 on T4
 
-/obj/machinery/suit_storage_unit/proc/dump_contents()
-	dropContents()
+/obj/machinery/suit_storage_unit/dump_contents()
+	. = ..()
 	helmet = null
 	suit = null
 	mask = null
