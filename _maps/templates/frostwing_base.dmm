@@ -3,29 +3,32 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/turf/open/floor/monotile/dark,
+/turf/open/floor/plating/snowed/smoothed,
 /area/frostwing_base)
 "b" = (
 /turf/template_noop,
-/area/frostwing_base)
+/area/template_noop)
 "c" = (
 /obj/effect/turf_decal/stripes,
 /obj/machinery/power/smes{
 	charge = 20000
 	},
-/turf/open/floor/monotile/dark,
+/turf/open/floor/plating/snowed/smoothed,
 /area/frostwing_base)
 "d" = (
 /obj/effect/turf_decal/stripes{
 	dir = 8
 	},
-/turf/open/floor/monotile/dark,
+/turf/open/floor/plating/snowed/smoothed,
 /area/frostwing_base)
 "f" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/turf/open/floor/plasteel/dark,
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/turf/open/floor/plating/snowed,
 /area/frostwing_base)
 "g" = (
 /obj/effect/turf_decal/stripes,
@@ -33,11 +36,11 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/auto_name/north,
-/turf/open/floor/monotile/dark,
+/turf/open/floor/plating/snowed/smoothed,
 /area/frostwing_base)
 "i" = (
 /obj/effect/turf_decal/stripes,
-/turf/open/floor/monotile/dark,
+/turf/open/floor/plating/snowed/smoothed,
 /area/frostwing_base)
 "j" = (
 /obj/effect/turf_decal/stripes{
@@ -45,14 +48,28 @@
 	},
 /obj/structure/railing,
 /obj/structure/table,
-/turf/open/floor/monotile/dark,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 10
+	},
+/turf/open/floor/plating/snowed/smoothed,
+/area/frostwing_base)
+"m" = (
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
+/obj/machinery/frostwing_incubator/roundstart,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plating/snowed/smoothed,
 /area/frostwing_base)
 "o" = (
 /obj/effect/turf_decal/stripes{
 	dir = 6
 	},
-/obj/machinery/suit_storage_unit/standard_unit,
-/turf/open/floor/monotile/dark,
+/obj/structure/closet/firecloset/full,
+/turf/open/floor/plating/snowed/smoothed,
 /area/frostwing_base)
 "q" = (
 /obj/machinery/door/airlock/hatch,
@@ -62,7 +79,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating/snowed,
 /area/frostwing_base)
 "t" = (
 /obj/effect/turf_decal/stripes{
@@ -72,78 +89,139 @@
 	dir = 1
 	},
 /obj/structure/table,
-/turf/open/floor/monotile/dark,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 10
+	},
+/turf/open/floor/plating/snowed/smoothed,
 /area/frostwing_base)
 "w" = (
 /obj/effect/turf_decal/stripes{
 	dir = 9
 	},
-/turf/open/floor/monotile/dark,
+/obj/structure/closet/emcloset,
+/turf/open/floor/plating/snowed/smoothed,
+/area/frostwing_base)
+"x" = (
+/obj/effect/turf_decal/stripes,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plating/snowed/smoothed,
 /area/frostwing_base)
 "y" = (
 /obj/effect/turf_decal/stripes{
 	dir = 4
 	},
 /obj/machinery/frostwing_incubator/roundstart,
-/turf/open/floor/monotile/dark,
+/turf/open/floor/plating/snowed/smoothed,
 /area/frostwing_base)
 "z" = (
 /obj/effect/turf_decal/stripes{
 	dir = 1
 	},
-/turf/open/floor/monotile/dark,
+/turf/open/floor/plating/snowed/smoothed,
 /area/frostwing_base)
 "A" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating/snowed,
 /area/frostwing_base)
 "B" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/turf/open/floor/monotile/dark,
+/turf/open/floor/plating/snowed/smoothed,
+/area/frostwing_base)
+"D" = (
+/obj/effect/turf_decal/stripes{
+	dir = 9
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/closet/emcloset,
+/turf/open/floor/plating/snowed/smoothed,
 /area/frostwing_base)
 "F" = (
 /turf/closed/wall,
 /area/frostwing_base)
+"G" = (
+/obj/machinery/power/floodlight{
+	active_power_usage = 0;
+	idle_power_usage = 0
+	},
+/turf/open/floor/plating/snowed/smoothed,
+/area/template_noop)
 "H" = (
 /obj/effect/turf_decal/stripes{
 	dir = 4
 	},
-/turf/open/floor/monotile/dark,
+/turf/open/floor/plating/snowed/smoothed,
 /area/frostwing_base)
-"J" = (
-/turf/open/floor/plasteel/dark,
+"M" = (
+/obj/effect/turf_decal/stripes{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plating/snowed/smoothed,
 /area/frostwing_base)
 "P" = (
 /turf/open/floor/plating/snowed,
+/area/frostwing_base)
+"Q" = (
+/obj/effect/turf_decal/stripes{
+	dir = 9
+	},
+/turf/open/floor/plating/snowed/smoothed,
+/area/frostwing_base)
+"T" = (
+/turf/open/floor/plating/snowed/smoothed,
+/area/template_noop)
+"U" = (
+/obj/effect/turf_decal/stripes{
+	dir = 1
+	},
+/obj/machinery/light,
+/turf/open/floor/plating/snowed/smoothed,
+/area/frostwing_base)
+"Y" = (
+/obj/effect/turf_decal/stripes{
+	dir = 6
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/closet/firecloset/full,
+/turf/open/floor/plating/snowed/smoothed,
 /area/frostwing_base)
 
 (1,1,1) = {"
 b
 b
 b
-P
-P
-P
-P
-P
-P
-P
-P
-P
-P
-P
-P
+G
+T
+T
+T
+T
+T
+T
+T
+T
+T
+T
+G
 "}
 (2,1,1) = {"
 b
 b
-P
-P
-P
+T
+T
+T
 F
 F
 F
@@ -153,197 +231,197 @@ F
 F
 F
 F
-P
+T
 "}
 (3,1,1) = {"
 b
-P
-P
-P
+T
+T
+T
 F
 F
 j
 y
-y
+m
 y
 t
 H
 B
 F
-P
+T
 "}
 (4,1,1) = {"
 b
-P
-P
+T
+T
 F
 F
 o
-J
-J
-J
-J
-J
-J
+P
+P
+P
+P
+P
+P
 z
 F
-P
+T
 "}
 (5,1,1) = {"
-P
-P
+G
+T
 F
 F
-o
-J
-J
-J
-J
-J
-J
-J
-z
-F
+Y
 P
+P
+P
+P
+P
+P
+P
+U
+F
+T
 "}
 (6,1,1) = {"
-P
+T
 F
 F
 o
-J
-J
-J
-J
-J
-J
-J
-J
+P
+P
+P
+P
+P
+P
+P
+P
 z
 F
-P
+T
 "}
 (7,1,1) = {"
-P
+T
 F
 c
 f
-J
-J
-J
-J
-J
-J
-J
-J
+P
+P
+P
+P
+P
+P
+P
+P
 z
 F
-P
+T
 "}
 (8,1,1) = {"
-P
+T
 F
 i
 r
-J
-J
-J
-J
-J
-J
-J
-J
+P
+P
+P
+P
+P
+P
+P
+P
 z
 F
-P
+T
 "}
 (9,1,1) = {"
-P
+T
 F
 g
 A
-J
-J
-J
-J
-J
-J
-J
+P
+P
+P
+P
+P
+P
+P
 w
 F
 F
-P
+T
 "}
 (10,1,1) = {"
-P
+T
 F
-i
-J
-J
-J
-J
-J
-J
-J
+x
+P
+P
+P
+P
+P
+P
+P
 w
 F
 F
-P
-P
+T
+G
 "}
 (11,1,1) = {"
-P
+T
 F
 i
-J
-J
-J
-J
-J
-J
-w
+P
+P
+P
+P
+P
+P
+D
 F
 F
-P
-P
-P
+T
+T
+T
 "}
 (12,1,1) = {"
-P
+T
 F
 i
-J
-J
-J
-J
-J
-w
-F
-F
 P
 P
+P
+P
+P
+Q
+F
+F
+T
+T
 b
 b
 "}
 (13,1,1) = {"
-P
+T
 F
 a
+M
 d
 d
-d
-d
+M
 d
 F
 F
-P
-P
+T
+T
 b
 b
 b
 "}
 (14,1,1) = {"
-P
+T
 F
 F
 F
@@ -352,24 +430,24 @@ q
 F
 F
 F
-P
-P
+T
+T
 b
 b
 b
 b
 "}
 (15,1,1) = {"
-P
-P
-P
-P
-P
-P
-P
-P
-P
-P
+G
+T
+T
+T
+T
+T
+T
+T
+T
+G
 b
 b
 b
