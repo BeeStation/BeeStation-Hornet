@@ -13446,6 +13446,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"cUr" = (
+/obj/effect/landmark/frostwing_base_spawn,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland/planetgen)
 "cUG" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
@@ -41197,6 +41201,10 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/engine/storage)
+"iJI" = (
+/obj/effect/landmark/frostwing_base_spawn,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
 "iJR" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	req_one_access_txt = "12"
@@ -295845,7 +295853,7 @@ uPG
 uPG
 uPG
 uPG
-uPG
+cUr
 uPG
 uPG
 uPG
@@ -378490,7 +378498,7 @@ hgc
 hgc
 hgc
 hgc
-hgc
+iJI
 hgc
 hgc
 hgc
@@ -379845,7 +379853,7 @@ hgc
 hgc
 hgc
 hgc
-hgc
+iJI
 hgc
 hgc
 hgc
@@ -391410,7 +391418,7 @@ uPG
 uPG
 uPG
 uPG
-uPG
+cUr
 uPG
 uPG
 hgc
@@ -429447,7 +429455,7 @@ hgc
 hgc
 hgc
 hgc
-hgc
+iJI
 hgc
 hgc
 hgc
@@ -430955,7 +430963,7 @@ hgc
 hgc
 hgc
 hgc
-hgc
+iJI
 hgc
 hgc
 hgc
