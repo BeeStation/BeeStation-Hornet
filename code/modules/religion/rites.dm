@@ -700,7 +700,6 @@
 		new /obj/structure/destructible/religion/nature_pylon(T)
 	return ..()
 
-
 /datum/religion_rites/create_podperson
 	name = "Nature Conversion"
 	desc = "Convert a human-esque individual into a being of nature. Buckle a human to convert them, otherwise it will convert you."
