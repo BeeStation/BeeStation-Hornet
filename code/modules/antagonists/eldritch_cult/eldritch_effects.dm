@@ -160,15 +160,15 @@
 	I.alpha = 255
 	I.appearance_flags = RESET_ALPHA
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/heretics,"pierced_reality_heretics",I)
-	addtimer(CALLBACK(src,.proc/dissipate),15 MINUTES)
+	addtimer(CALLBACK(src,.proc/dissipate),40 SECONDS)
 
 ///Makes this obj appear out of nothing
 /obj/effect/broken_illusion/proc/show_presence()
 	animate(src,alpha = 255,time = 15 SECONDS)
 
 /obj/effect/broken_illusion/proc/dissipate()
-	animate(src,alpha = 0,time = 2 MINUTES)
-	QDEL_IN(src, 2 MINUTES)
+	animate(src,alpha = 0,time = 15 SECONDS)
+	QDEL_IN(src, 15 SECONDS)
 
 /obj/effect/broken_illusion/attack_hand(mob/living/user)
 	if(!ishuman(user))
@@ -234,8 +234,7 @@
 ///Custom effect that happens on destruction
 /obj/effect/reality_smash/proc/on_destroy()
 	GLOB.reality_smash_track.smashes--
-	var/obj/effect/broken_illusion/illusion = new /obj/effect/broken_illusion(drop_location())
-	illusion.name = pick("Researched","Siphoned","Analyzed","Emptied","Drained") + " " + name
+	new /obj/effect/broken_illusion(drop_location())
 
 ///Generates random name
 /obj/effect/reality_smash/proc/generate_name()
