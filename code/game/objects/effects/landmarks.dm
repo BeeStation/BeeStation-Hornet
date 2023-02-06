@@ -509,7 +509,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/frostwing_base_spawn
 	name = "frostwing base spawn"
 	icon_state = "frostwing_base"
-	layer = HIGH_LANDMARK_LAYER
+	layer = OBJ_LAYER
 
 /obj/effect/landmark/frostwing_base_spawn/Initialize(mapload)
 	. = ..()
