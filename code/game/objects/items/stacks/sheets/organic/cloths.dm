@@ -38,8 +38,8 @@ Cloth Sheets (a linen?)
 	loom_result = /obj/item/stack/sheet/silk
 
 /obj/item/stack/sheet/cotton/cloth/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
 	recipes = GLOB.cloth_recipes
-	return ..()
 
 /* Durathread cloth */
 
@@ -67,8 +67,8 @@ Cloth Sheets (a linen?)
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
 /obj/item/stack/sheet/cotton/cloth/durathread/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
 	recipes = GLOB.durathread_recipes
-	return ..()
 
 /* Silk */
 
