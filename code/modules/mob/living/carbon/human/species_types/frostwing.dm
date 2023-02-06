@@ -56,7 +56,7 @@
 	if(istype(chest_item) && chest_item.clothing_flags & THICKMATERIAL)
 		to_chat(H, "<span class='warning'>Your wings are inside of [chest_item]!</span>")
 		return FALSE
-	if(H.stat || !(H.mobility_flags & MOBILITY_STAND))
+	if(H.stat || !(H.mobility_flags & MOBILITY_STAND) || H.restrained(ignore_grab = TRUE))
 		return FALSE
 	var/turf/T = get_turf(H)
 	if(!T)
@@ -103,3 +103,36 @@
 // Hide inhands if the wings are open
 /datum/species/frostwing/process_inhands(mob/living/carbon/human/H, mutable_appearance/hand_overlay, is_right_hand)
 	return !("wingsopen" in H.dna.species.mutant_bodyparts)
+
+/datum/species/frostwing/z_impact_damage(mob/living/carbon/human/H, turf/T, levels)
+	//Check to make sure legs are working
+	var/obj/item/bodypart/left_leg = H.get_bodypart(BODY_ZONE_L_LEG)
+	var/obj/item/bodypart/right_leg = H.get_bodypart(BODY_ZONE_R_LEG)
+	if(!left_leg || !right_leg || left_leg.disabled || right_leg.disabled)
+		return ..()
+	if(levels == 1)
+		//Nailed it!
+		H.visible_message("<span class='notice'>[H] lands elegantly on [H.p_their()] feet!</span>",
+			"<span class='warning'>You fall [levels] level\s into [T], perfecting the landing!</span>")
+		H.Stun(levels * 35)
+	else
+		H.visible_message("<span class='danger'>[H] falls [levels] level\s into [T], barely landing on [H.p_their()] feet, with a sickening crunch!</span>")
+		var/amount_total = H.get_distributed_zimpact_damage(levels) * 0.5
+		H.apply_damage(amount_total * 0.35, BRUTE, BODY_ZONE_L_LEG)
+		H.apply_damage(amount_total * 0.35, BRUTE, BODY_ZONE_R_LEG)
+		H.adjustBruteLoss(amount_total * 0.1)
+		H.Stun(levels * 50)
+		// owie
+		// 5: 32%, 4: 24%, 3: 16%
+		if(levels >= 3 && prob(min((levels - 1) * 8, 75)))
+			if(levels >= 3 && prob(25))
+				for(var/selected_part in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+					var/obj/item/bodypart/bp = H.get_bodypart(selected_part)
+					if(bp)
+						bp.dismember()
+				return
+			var/selected_part = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+			var/obj/item/bodypart/bp = H.get_bodypart(selected_part)
+			if(bp)
+				bp.dismember()
+				return
