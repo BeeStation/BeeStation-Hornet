@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: added exclusive station trait system. it is modularizing, so it does
-      nothing currently.
