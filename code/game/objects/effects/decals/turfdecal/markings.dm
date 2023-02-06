@@ -457,3 +457,9 @@
 
 /obj/effect/turf_decal/siding/wideplating_new/terracotta/end
 	icon_state = "siding_wideplating_new_end"
+
+/obj/effect/turf_decal/numbers
+	icon_state = "number_0-1"
+
+/obj/effect/turf_decal/numbers/two_nine
+	icon_state = "number_2-9"

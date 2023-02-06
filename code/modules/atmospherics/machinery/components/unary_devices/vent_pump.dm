@@ -441,6 +441,14 @@
 	name = "air mix tank output inlet"
 	id_tag = ATMOS_GAS_MONITOR_OUTPUT_AIR
 
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/toxins_waste_output
+	name = "toxins waste output inlet"
+	id_tag = ATMOS_GAS_MONITOR_OUTPUT_TOXINS_WASTE
+
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/sm_waste
+	name = "supermatter waste output inlet"
+	id_tag = ATMOS_GAS_MONITOR_OUTPUT_SM_WASTE
+
 #undef INT_BOUND
 #undef EXT_BOUND
 #undef NO_BOUND

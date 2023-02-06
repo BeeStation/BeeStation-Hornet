@@ -254,3 +254,10 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxins_mixing_input
 	name = "toxins mixing input injector"
 	id = ATMOS_GAS_MONITOR_INPUT_TOXINS_LAB
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxins_waste_input
+	name = "toxins waste input injector"
+	id = ATMOS_GAS_MONITOR_INPUT_TOXINS_WASTE
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/sm_waste_input
+	name = "supermatter waste input injector"
+	id = ATMOS_GAS_MONITOR_INPUT_SM_WASTE
+
