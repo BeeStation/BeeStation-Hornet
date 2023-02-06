@@ -635,7 +635,6 @@
 		T.atmos_spawn_air("water_vapor=5000;TEMP=255")
 	return ..()
 
-
 /**** Plant rites ****/
 
 /datum/religion_rites/summon_animals
