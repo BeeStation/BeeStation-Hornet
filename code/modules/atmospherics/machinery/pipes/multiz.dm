@@ -19,9 +19,6 @@
 	var/mutable_appearance/pipe = null
 	var/obj/machinery/atmospherics/front_node = null
 
-// Do not hide when under floor
-/obj/machinery/atmospherics/pipe/multiz/hide(i)
-	return
 
 /* We use New() instead of Initialize() because these values are used in update_icon()
  * in the mapping subsystem init before Initialize() is called in the atoms subsystem init.
