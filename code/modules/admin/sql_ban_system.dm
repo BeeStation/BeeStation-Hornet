@@ -6,6 +6,8 @@
 /proc/is_banned_from(player_ckey, list/roles)
 	if(!player_ckey)
 		return
+	if(!roles || !length(roles))
+		return
 	player_ckey = lowertext(player_ckey)
 	var/client/C = GLOB.directory[player_ckey]
 	if(C)
@@ -13,6 +15,8 @@
 			build_ban_cache(C)
 		if(islist(roles))
 			for(var/R in roles)
+				if(!R) // in case the value is empty
+					continue
 				if(R in C.ban_cache)
 					return TRUE //they're banned from at least one role, no need to keep checking
 		else if(roles in C.ban_cache)
