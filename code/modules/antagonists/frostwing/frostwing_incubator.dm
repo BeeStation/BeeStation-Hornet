@@ -3,7 +3,7 @@
 
 /obj/machinery/frostwing_incubator
 	name = "avian egg synthesizer"
-	desc = "An egg synsthesizer, using modified cloning technology to produce a synthetic frostwing egg. Includes an incubator specifically designed to cool eggs to a temperature suitable for frostwing hatching."
+	desc = "An egg synsthesizer, using modified cloning technology to produce a synthetic frostwing egg via the use of synthflesh. Includes an incubator specifically designed to cool eggs to a temperature suitable for frostwing hatching."
 	density = TRUE
 	icon = 'icons/obj/machines/cloning.dmi'
 	icon_state = "pod_incubator"

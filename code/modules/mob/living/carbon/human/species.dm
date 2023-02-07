@@ -1886,7 +1886,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			natural = H.natural_bodytemperature_stabilization(autorecovery_divisor = body_temperature_auto_recovery_divisor, autorecovery_minimum = body_temperature_auto_recovery_minimum)
 		var/thermal_protection = 1
 		if(loc_temp < H.bodytemperature) //Place is colder than we are
-			thermal_protection -= H.get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
+			thermal_protection -= get_cold_protection(H, loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 			if(H.bodytemperature < H.get_bodytemp_normal()) //we're cold, insulation helps us retain body heat and will reduce the heat we lose to the environment
 				H.adjust_bodytemperature((thermal_protection+1)*natural + max(thermal_protection * (loc_temp - H.bodytemperature) / body_temperature_cold_divisor, body_temperature_cooling_max))
 			else //we're sweating, insulation hinders our ability to reduce heat - and it will reduce the amount of cooling you get from the environment
@@ -1896,7 +1896,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(H.stat != DEAD)
 			natural = H.natural_bodytemperature_stabilization(autorecovery_divisor = body_temperature_auto_recovery_divisor, autorecovery_minimum = body_temperature_auto_recovery_minimum)
 		var/thermal_protection = 1
-		thermal_protection -= H.get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
+		thermal_protection -= get_heat_protection(H, loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 		if(H.bodytemperature < H.get_bodytemp_normal()) //and we're cold, insulation enhances our ability to retain body heat but reduces the heat we get from the environment
 			H.adjust_bodytemperature((thermal_protection+1)*natural + min(thermal_protection * (loc_temp - H.bodytemperature) / body_temperature_heat_divisor, body_temperature_heating_max))
 		else //we're sweating, insulation hinders out ability to reduce heat - but will reduce the amount of heat we get from the environment
@@ -1974,6 +1974,120 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			else
 				H.adjustBruteLoss(LOW_PRESSURE_DAMAGE * H.physiology.pressure_mod)
 				H.throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 2)
+
+
+//This proc returns a number made up of the flags for body parts which you are protected on. (such as HEAD, CHEST, GROIN, etc. See setup.dm for the full list)
+/datum/species/proc/get_heat_protection_flags(mob/living/carbon/human/H, temperature) //Temperature is the temperature you're being exposed to.
+	var/thermal_protection_flags = 0
+	//Handle normal clothing
+	if(H.head)
+		if(H.head.max_heat_protection_temperature && H.head.max_heat_protection_temperature >= temperature)
+			thermal_protection_flags |= H.head.heat_protection
+	if(H.wear_suit)
+		if(H.wear_suit.max_heat_protection_temperature && H.wear_suit.max_heat_protection_temperature >= temperature)
+			thermal_protection_flags |= H.wear_suit.heat_protection
+	if(H.w_uniform)
+		if(H.w_uniform.max_heat_protection_temperature && H.w_uniform.max_heat_protection_temperature >= temperature)
+			thermal_protection_flags |= H.w_uniform.heat_protection
+	if(H.shoes)
+		if(H.shoes.max_heat_protection_temperature && H.shoes.max_heat_protection_temperature >= temperature)
+			thermal_protection_flags |= H.shoes.heat_protection
+	if(H.gloves)
+		if(H.gloves.max_heat_protection_temperature && H.gloves.max_heat_protection_temperature >= temperature)
+			thermal_protection_flags |= H.gloves.heat_protection
+	if(H.wear_mask)
+		if(H.wear_mask.max_heat_protection_temperature && H.wear_mask.max_heat_protection_temperature >= temperature)
+			thermal_protection_flags |= H.wear_mask.heat_protection
+
+	return thermal_protection_flags
+
+/datum/species/proc/get_heat_protection(mob/living/carbon/human/H, temperature) //Temperature is the temperature you're being exposed to.
+	var/thermal_protection_flags = get_heat_protection_flags(H, temperature)
+
+	var/thermal_protection = 0
+	if(thermal_protection_flags)
+		if(thermal_protection_flags & HEAD)
+			thermal_protection += THERMAL_PROTECTION_HEAD
+		if(thermal_protection_flags & CHEST)
+			thermal_protection += THERMAL_PROTECTION_CHEST
+		if(thermal_protection_flags & GROIN)
+			thermal_protection += THERMAL_PROTECTION_GROIN
+		if(thermal_protection_flags & LEG_LEFT)
+			thermal_protection += THERMAL_PROTECTION_LEG_LEFT
+		if(thermal_protection_flags & LEG_RIGHT)
+			thermal_protection += THERMAL_PROTECTION_LEG_RIGHT
+		if(thermal_protection_flags & FOOT_LEFT)
+			thermal_protection += THERMAL_PROTECTION_FOOT_LEFT
+		if(thermal_protection_flags & FOOT_RIGHT)
+			thermal_protection += THERMAL_PROTECTION_FOOT_RIGHT
+		if(thermal_protection_flags & ARM_LEFT)
+			thermal_protection += THERMAL_PROTECTION_ARM_LEFT
+		if(thermal_protection_flags & ARM_RIGHT)
+			thermal_protection += THERMAL_PROTECTION_ARM_RIGHT
+		if(thermal_protection_flags & HAND_LEFT)
+			thermal_protection += THERMAL_PROTECTION_HAND_LEFT
+		if(thermal_protection_flags & HAND_RIGHT)
+			thermal_protection += THERMAL_PROTECTION_HAND_RIGHT
+
+
+	return min(1,thermal_protection)
+
+//See proc/get_heat_protection_flags(temperature) for the description of this proc.
+/datum/species/proc/get_cold_protection_flags(mob/living/carbon/human/H, temperature)
+	var/thermal_protection_flags = 0
+	//Handle normal clothing
+
+	if(H.head)
+		if(H.head.min_cold_protection_temperature && H.head.min_cold_protection_temperature <= temperature)
+			thermal_protection_flags |= H.head.cold_protection
+	if(H.wear_suit)
+		if(H.wear_suit.min_cold_protection_temperature && H.wear_suit.min_cold_protection_temperature <= temperature)
+			thermal_protection_flags |= H.wear_suit.cold_protection
+	if(H.w_uniform)
+		if(H.w_uniform.min_cold_protection_temperature && H.w_uniform.min_cold_protection_temperature <= temperature)
+			thermal_protection_flags |= H.w_uniform.cold_protection
+	if(H.shoes)
+		if(H.shoes.min_cold_protection_temperature && H.shoes.min_cold_protection_temperature <= temperature)
+			thermal_protection_flags |= H.shoes.cold_protection
+	if(H.gloves)
+		if(H.gloves.min_cold_protection_temperature && H.gloves.min_cold_protection_temperature <= temperature)
+			thermal_protection_flags |= H.gloves.cold_protection
+	if(H.wear_mask)
+		if(H.wear_mask.min_cold_protection_temperature && H.wear_mask.min_cold_protection_temperature <= temperature)
+			thermal_protection_flags |= H.wear_mask.cold_protection
+
+	return thermal_protection_flags
+
+/datum/species/proc/get_cold_protection(mob/living/carbon/human/H, temperature)
+	temperature = max(temperature, 2.7) //There is an occasional bug where the temperature is miscalculated in ares with a small amount of gas on them, so this is necessary to ensure that that bug does not affect this calculation. Space's temperature is 2.7K and most suits that are intended to protect against any cold, protect down to 2.0K.
+	var/thermal_protection_flags = get_cold_protection_flags(H, temperature)
+
+	var/thermal_protection = 0
+	if(thermal_protection_flags)
+		if(thermal_protection_flags & HEAD)
+			thermal_protection += THERMAL_PROTECTION_HEAD
+		if(thermal_protection_flags & CHEST)
+			thermal_protection += THERMAL_PROTECTION_CHEST
+		if(thermal_protection_flags & GROIN)
+			thermal_protection += THERMAL_PROTECTION_GROIN
+		if(thermal_protection_flags & LEG_LEFT)
+			thermal_protection += THERMAL_PROTECTION_LEG_LEFT
+		if(thermal_protection_flags & LEG_RIGHT)
+			thermal_protection += THERMAL_PROTECTION_LEG_RIGHT
+		if(thermal_protection_flags & FOOT_LEFT)
+			thermal_protection += THERMAL_PROTECTION_FOOT_LEFT
+		if(thermal_protection_flags & FOOT_RIGHT)
+			thermal_protection += THERMAL_PROTECTION_FOOT_RIGHT
+		if(thermal_protection_flags & ARM_LEFT)
+			thermal_protection += THERMAL_PROTECTION_ARM_LEFT
+		if(thermal_protection_flags & ARM_RIGHT)
+			thermal_protection += THERMAL_PROTECTION_ARM_RIGHT
+		if(thermal_protection_flags & HAND_LEFT)
+			thermal_protection += THERMAL_PROTECTION_HAND_LEFT
+		if(thermal_protection_flags & HAND_RIGHT)
+			thermal_protection += THERMAL_PROTECTION_HAND_RIGHT
+
+	return min(1,thermal_protection)
 
 //////////
 // FIRE //
@@ -2263,3 +2377,14 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 /// Allows for additional inhand processing, the return value determines if the hand overlay is added or not.
 /datum/species/proc/process_inhands(mob/living/carbon/human/H, mutable_appearance/hand_overlay, is_right_hand)
 	return TRUE
+
+/datum/species/proc/get_thermal_protection(mob/living/carbon/human/H)
+	var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
+	if(H.wear_suit)
+		if(H.wear_suit.max_heat_protection_temperature >= FIRE_SUIT_MAX_TEMP_PROTECT)
+			thermal_protection += (H.wear_suit.max_heat_protection_temperature*THERMAL_PROTECTION_SUIT)
+	if(H.head)
+		if(H.head.max_heat_protection_temperature >= FIRE_HELM_MAX_TEMP_PROTECT)
+			thermal_protection += (H.head.max_heat_protection_temperature*THERMAL_PROTECTION_HEAD)
+	thermal_protection = round(thermal_protection)
+	return thermal_protection

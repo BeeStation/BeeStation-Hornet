@@ -249,7 +249,8 @@
 
 		if(ishuman(occupant))
 			var/mob/living/carbon/human/H = occupant
-			cold_protection = H.get_cold_protection(air1.return_temperature())
+			if(istype(H.dna.species))
+				cold_protection = H.dna.species.get_cold_protection(H, air1.return_temperature())
 
 		if(abs(temperature_delta) > 1)
 			var/air_heat_capacity = air1.heat_capacity()

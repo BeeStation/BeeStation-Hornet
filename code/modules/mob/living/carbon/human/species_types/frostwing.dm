@@ -136,3 +136,25 @@
 			if(bp)
 				bp.dismember()
 				return
+
+/datum/species/frostwing/get_thermal_protection(mob/living/carbon/human/H)
+	var/thermal_protection = 0
+	if(H.wear_suit)
+		if(H.wear_suit.max_heat_protection_temperature >= FIRE_SUIT_MAX_TEMP_PROTECT)
+			thermal_protection += (H.wear_suit.max_heat_protection_temperature*THERMAL_PROTECTION_SUIT)
+	if(H.head) // greatly reduced protection from helmets - otherwise fire helmets are super abusable
+		if(H.head.max_heat_protection_temperature >= FIRE_HELM_MAX_TEMP_PROTECT)
+			thermal_protection += (H.head.max_heat_protection_temperature*0.1) // reduced head protection
+	thermal_protection = round(thermal_protection)
+	return thermal_protection
+
+// Reduces their ability to just slap on a fire helmet and be immune, since fire helmets don't block flight
+/datum/species/frostwing/get_heat_protection(mob/living/carbon/human/H, temperature)
+	var/thermal_protection = ..()
+	var/thermal_protection_flags = get_heat_protection_flags(H, temperature)
+	if(thermal_protection_flags)
+		if(thermal_protection_flags & HEAD)
+			thermal_protection -= (THERMAL_PROTECTION_HEAD - 0.1) // adjusting to match target of 0.1
+	return thermal_protection
+
+
