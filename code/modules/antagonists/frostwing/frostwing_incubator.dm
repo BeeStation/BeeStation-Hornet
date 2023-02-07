@@ -112,9 +112,9 @@
 		output_location = loc
 	new /obj/effect/mob_spawn/human/frostwing(output_location)
 
-/// A special variant with a shorter initial cooldown
+/// A special variant with a longer initial cooldown
 /obj/machinery/frostwing_incubator/roundstart
-	incubation_length = 1.5 MINUTES
+	incubation_length = 8 MINUTES
 
 /obj/machinery/frostwing_incubator/roundstart/Initialize(mapload)
 	. = ..()
