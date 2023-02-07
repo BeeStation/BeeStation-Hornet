@@ -349,6 +349,7 @@
 /obj/item/weldingtool/cyborg/mini
 	name = "integrated emergency welding tool"
 	desc = "A miniature integrated welder used during emergencies."
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "miniwelder"
 	max_fuel = 10
 	w_class = WEIGHT_CLASS_TINY
