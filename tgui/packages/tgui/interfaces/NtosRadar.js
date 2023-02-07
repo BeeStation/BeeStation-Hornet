@@ -47,11 +47,12 @@ export const NtosRadarContentSmall = (props, context) => {
             <Box>
               Distance: {target.dist}<br />
               Location: ({target.gpsx}, {target.gpsy}){" "}
-              {target.userot ? (
+              {}
+              {target.use_rotate ? (
                 <Icon
                   name={target.dist > 0 ? "arrow-up" : "crosshairs"}
                   style={{
-                    'transform': `rotate(${target.rot}deg)`,
+                    'transform': `rotate(${target.rotate_angle}deg)`,
                   }} />
               ) : null}
             </Box>
@@ -174,14 +175,14 @@ export const NtosRadarContent = (props, context) => {
               {sig_err}
             </NoticeBox>
           )
-          : !!target.userot && (
+          : !!target.use_rotate && (
             <Box as="img"
               src={resolveAsset(target.arrowstyle)}
               position="absolute"
               top="20px"
               left="243px"
               style={{
-                'transform': `rotate(${target.rot}deg)`,
+                'transform': `rotate(${target.rotate_angle}deg)`,
               }} />
           ) || (
             <Icon

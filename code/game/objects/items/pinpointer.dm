@@ -54,6 +54,7 @@
 		START_PROCESSING(SSfastprocess, src)
 	else
 		target = null
+		z_level_direction = ""
 		STOP_PROCESSING(SSfastprocess, src)
 	update_icon()
 
@@ -76,9 +77,8 @@
 		return
 	var/turf/here = get_turf(src)
 	var/turf/there = get_turf(target)
-	var/pin_xy_result = "pinondirect"
+	var/pin_xy_result = "direct"
 	var/pin_z_result = ""
-	z_level_direction = ""
 
 
 	// getting z result first
@@ -97,11 +97,13 @@
 				add_overlay("pinon[alert ? "alert" : ""]null[icon_suffix]")
 				return
 			else
-				z_level_direction = "at too far [pin_z_result], much more than you can think"
-				add_overlay("pinon_[pin_z_result][icon_suffix]")
+				z_level_direction = "located at [SSorbits.get_orbital_map_name_from_z(there.get_virtual_z_level()) || scramble_message_replace_chars("???????", replaceprob=85)]"
+				add_overlay("pinon[alert ? "alert" : ""]z[icon_suffix]")
 				return
 		else // TRUE: z-levels are in the same group (i.e. multi-floored station)
-			z_level_direction = "at a floor [pin_z_result] here"
+			z_level_direction = "located at a floor [pin_z_result] here"
+	if(!tracks_grand_z)
+		z_level_direction = ""
 
 	// getting xy result
 	if(get_dist_euclidian(here,there) <= minimum_range)
@@ -126,8 +128,8 @@
 		pin_xy_result = pin_xy_result=="direct" ? "direct_" : ""
 		add_overlay("pincomp_arrow_[pin_xy_result]alert[icon_suffix]")
 
-/// compares if get_virtual_z_level() of two parameters is the same orbital map
-/obj/item/pinpointer/proc/compare_z(here_z, there_z)
+/// compares if get_virtual_z_level() of two parameters is the same orbital map. this can be used in lifeline app too
+/proc/compare_z(here_z, there_z)
 	var/here_map = SSorbits.get_orbital_map_name_from_z(here_z)
 	var/there_map = SSorbits.get_orbital_map_name_from_z(there_z)
 	if(isnull(here_map) || isnull(there_map))

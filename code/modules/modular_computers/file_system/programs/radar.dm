@@ -24,6 +24,8 @@
 	var/arrowstyle = "ntosradarpointer.png"
 	///Used by the tgui interface, themed for NT or Syndicate colors.
 	var/pointercolor = "green"
+	///tracks the target between z-level groups (i.e. Station v.s. Lavaland)
+	var/tracks_grand_z = FALSE
 	COOLDOWN_DECLARE(last_scan)
 
 /datum/computer_file/program/radar/on_start(mob/living/user)
@@ -94,27 +96,33 @@
 
 	var/turf/here_turf = (get_turf(computer))
 	var/turf/target_turf = (get_turf(signal))
-	var/userot = FALSE
-	var/rot = 0
+	var/use_rotate = FALSE
+	var/rotate_angle = 0
 	var/pointer = "crosshairs"
 	var/locx = (target_turf.x - here_turf.x) + 24
 	var/locy = (here_turf.y - target_turf.y) + 24
 	var/dist = get_dist_euclidian(here_turf, target_turf)
 
+	var/pin_z_result = ""
+
 	if(dist > 24 || istype(computer, /obj/item/modular_computer/tablet/pda))
-		userot = TRUE
-		rot = round(get_angle(here_turf, target_turf))
+		use_rotate = TRUE
+		rotate_angle = round(get_angle(here_turf, target_turf))
 	else
-		if(target_turf.z > here_turf.z)
-			pointer="caret-up"
-		else if(target_turf.z < here_turf.z)
-			pointer="caret-down"
+		var/result = compare_z(here.get_virtual_z_level(), there.get_virtual_z_level())
+		if(isnull(result))
+			return
+		else if(!result) // FALSE: z-levels are in different groups. (i.e. Station v.s. Lavaland)
+			if(target_turf.z > here_turf.z)
+				pointer="caret-up"
+			else if(target_turf.z < here_turf.z)
+				pointer="caret-down"
 
 	var/list/trackinfo = list(
 		"locx" = locx,
 		"locy" = locy,
-		"userot" = userot,
-		"rot" = rot,
+		"use_rotate" = use_rotate,
+		"rotate_angle" = rotate_angle,
 		"arrowstyle" = arrowstyle,
 		"color" = pointercolor,
 		"pointer" = pointer,
@@ -122,6 +130,7 @@
 		"gpsy" = target_turf.y,
 		"dist" = round(dist),
 		)
+
 	return trackinfo
 
 /**
