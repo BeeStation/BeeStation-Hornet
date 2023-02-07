@@ -1,0 +1,6 @@
+author: spockye
+delete-after: true
+changes:
+  - bugfix: fixed /turf/closed/mineral/random/snowmountain/cavern
+  - bugfix: fixed /turf/closed/mineral/snowmountain
+  - bugfix: fixed /turf/closed/mineral/snowmountain/cavern
