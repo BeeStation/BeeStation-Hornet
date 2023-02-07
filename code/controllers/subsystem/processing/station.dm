@@ -45,7 +45,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 
 	var/possible_types = list(STATION_TRAIT_POSITIVE, STATION_TRAIT_NEUTRAL, STATION_TRAIT_NEGATIVE, STATION_TRAIT_EXCLUSIVE)
 	while(length(possible_types))
-		var/picked = pick(possible_types)
+		var/picked = pick_n_take(possible_types)
 		switch(picked)
 			if(STATION_TRAIT_POSITIVE)
 				pick_traits(STATION_TRAIT_POSITIVE, positive_trait_count)
@@ -55,7 +55,6 @@ PROCESSING_SUBSYSTEM_DEF(station)
 				pick_traits(STATION_TRAIT_NEGATIVE, negative_trait_count)
 			if(STATION_TRAIT_EXCLUSIVE)
 				adds_exclusive_traits()
-		possible_types -= picked
 
 ///Picks traits of a specific category (e.g. bad or good) and a specified amount, then initializes them and adds them to the list of traits.
 /datum/controller/subsystem/processing/station/proc/pick_traits(trait_type, amount)
