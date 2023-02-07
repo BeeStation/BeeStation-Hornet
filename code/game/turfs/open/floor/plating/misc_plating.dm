@@ -241,3 +241,16 @@
 /turf/open/floor/plating/snowed/temperatre
 	initial_temperature = 255.37
 
+/turf/open/floor/plating/cold
+	initial_gas_mix = FROZEN_ATMOS
+	initial_temperature = 180
+	icon_state = "plating"
+
+/turf/open/floor/cold/rust
+	icon_state = "plating_rust"
+	icon_plating = "plating_rust"
+
+/turf/open/floor/cold/snow_dug
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "snow_dug"
+	icon_plating = "snow_dug"

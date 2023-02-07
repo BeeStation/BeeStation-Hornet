@@ -173,3 +173,6 @@
 		return 0
 	return 1
 
+/turf/open/floor/plating/foam/cold
+	initial_gas_mix = FROZEN_ATMOS
+	initial_temperature = 180

@@ -1,473 +1,2492 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/plating/snowed/smoothed,
+"ar" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil/cut/green,
+/turf/open/floor/plating/foam/cold,
 /area/frostwing_base)
-"b" = (
-/turf/template_noop,
-/area/template_noop)
-"c" = (
-/obj/effect/turf_decal/stripes,
+"aJ" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/effect/decal/cleanable/glass,
+/obj/machinery/light/broken{
+	dir = 1
+	},
+/turf/open/floor/plasteel/tech/cold,
+/area/frostwing_base)
+"aZ" = (
+/turf/closed/mineral/snowmountain,
+/area/frostwing_base)
+"cs" = (
+/obj/structure/grille/broken,
+/obj/structure/marker_beacon,
+/turf/open/floor/plating/cold/rust,
+/area/frostwing_base)
+"dd" = (
+/turf/open/floor/plating/snowed,
+/area/frostwing_base)
+"do" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 9
+	},
+/obj/structure/railing/corner,
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/item/circuitboard/machine/pacman{
+	pixel_x = 5;
+	pixel_y = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plasteel/tech/cold,
+/area/frostwing_base)
+"dr" = (
+/obj/structure/lattice/catwalk/over,
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"dx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/effect/turf_decal/caution/stand_clear,
+/turf/open/floor/plating/cold{
+	icon_state = "panelscorched"
+	},
+/area/frostwing_base)
+"dX" = (
+/obj/item/bedsheet/black,
+/obj/structure/bed/maint,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"ek" = (
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"eN" = (
+/turf/closed/mineral/snowmountain/cavern,
+/area/frostwing_base)
+"eV" = (
 /obj/machinery/power/smes{
 	charge = 20000
 	},
-/turf/open/floor/plating/snowed/smoothed,
-/area/frostwing_base)
-"d" = (
-/obj/effect/turf_decal/stripes{
-	dir = 8
+/obj/structure/railing{
+	dir = 4;
+	layer = 3.1
 	},
-/turf/open/floor/plating/snowed/smoothed,
+/turf/open/floor/plasteel/tech/cold,
 /area/frostwing_base)
-"f" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
+"fb" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 5
 	},
-/obj/machinery/power/terminal{
-	dir = 1
+/obj/effect/turf_decal/trimline/neutral/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel/tech/cold,
+/area/frostwing_base)
+"fo" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"fN" = (
+/obj/structure/flora/rock/pile/icy,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
+"fR" = (
+/obj/structure/closet/crate/wooden,
+/obj/item/vending_refill/cigarette{
+	pixel_x = 5;
+	pixel_y = 2
+	},
+/obj/item/vending_refill/coffee{
+	pixel_y = -3;
+	pixel_x = -2
 	},
 /turf/open/floor/plating/snowed,
 /area/frostwing_base)
-"g" = (
-/obj/effect/turf_decal/stripes,
+"fS" = (
+/obj/effect/decal/cleanable/glass{
+	dir = 8;
+	pixel_x = -9
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/cold/rust,
+/area/frostwing_base)
+"ga" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/cold,
+/area/frostwing_base)
+"gd" = (
+/obj/item/wallframe/firealarm,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/cold{
+	icon_state = "panelscorched"
+	},
+/area/frostwing_base)
+"gi" = (
+/obj/structure/curtain/bounty,
+/turf/open/floor/plating/cold,
+/area/frostwing_base)
+"gq" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1;
+	layer = 2.0392
+	},
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"gC" = (
+/obj/effect/turf_decal/stripes{
+	dir = 6
+	},
+/obj/item/kirbyplants{
+	icon_state = "plant-25"
+	},
+/obj/effect/decal/cleanable/oil,
+/obj/effect/turf_decal/trimline/neutral/line{
+	dir = 6
+	},
+/turf/open/floor/plasteel/tech/cold,
+/area/frostwing_base)
+"gH" = (
+/obj/item/bedsheet/black,
+/obj/structure/bed/maint,
+/obj/item/toy/plush/beeplushie{
+	pixel_y = 4;
+	pixel_x = -2
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 8
+	},
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"gQ" = (
+/obj/item/flashlight/lantern{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/item/stack/cable_coil/cut/red{
+	pixel_y = -9;
+	pixel_x = 9
+	},
+/turf/open/floor/plating/snowed,
+/area/frostwing_base)
+"hb" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/trimline/neutral/line,
+/turf/open/floor/plasteel/tech/cold,
+/area/frostwing_base)
+"hp" = (
+/obj/structure/lattice/catwalk/over,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
+"hr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/glowstick/lit,
+/turf/open/floor/grass/snow/safe{
+	icon_state = "snow_dug"
+	},
+/area/frostwing_base)
+"hJ" = (
+/obj/effect/decal/cleanable/glass,
+/obj/structure/marker_beacon,
+/turf/open/floor/plating/cold,
+/area/frostwing_base)
+"hK" = (
+/turf/open/floor/plating/ice,
+/area/iceland)
+"hX" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"ib" = (
+/obj/structure/chair/fancy/shuttle,
+/obj/effect/decal/cleanable/vomit/old,
+/obj/effect/turf_decal/delivery,
+/obj/item/instrument/guitar,
+/turf/open/floor/plating/cold,
+/area/frostwing_base)
+"ix" = (
+/obj/structure/fermenting_barrel{
+	pixel_x = 6;
+	pixel_y = -4
+	},
+/obj/structure/filingcabinet{
+	pixel_x = -9
+	},
+/obj/effect/decal/cleanable/greenglow,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
+	},
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"iy" = (
+/turf/open/floor/plating/cold/rust,
+/area/frostwing_base)
+"iG" = (
+/obj/machinery/frostwing_incubator/roundstart,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot/left,
+/obj/effect/turf_decal/bot/right,
+/obj/effect/turf_decal/arrows{
+	dir = 4
+	},
+/turf/open/floor/plasteel/tech/cold,
+/area/frostwing_base)
+"iT" = (
+/obj/effect/decal/cleanable/glass{
+	pixel_y = 3;
+	pixel_x = 16
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil/cut/red,
+/turf/open/floor/plating/cold{
+	icon_state = "panelscorched"
+	},
+/area/frostwing_base)
+"iV" = (
+/obj/effect/decal/cleanable/glass{
+	pixel_y = -10;
+	pixel_x = 9
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/cold/rust,
+/area/frostwing_base)
+"iW" = (
+/obj/structure/bonfire,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 5
+	},
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"ja" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"ji" = (
+/obj/structure/grille,
+/turf/open/floor/plating/cold{
+	icon_state = "platingdmg3"
+	},
+/area/frostwing_base)
+"jl" = (
+/obj/structure/table,
+/obj/item/spear,
+/obj/structure/fluff/paper/stack{
+	dir = 1;
+	pixel_x = 6;
+	pixel_y = 3
+	},
+/obj/structure/fluff/paper/stack,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/lighter{
+	pixel_x = -8
+	},
+/turf/open/floor/plating/cold/rust,
+/area/frostwing_base)
+"jF" = (
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/grille,
+/turf/open/floor/plating/cold/rust,
+/area/frostwing_base)
+"jK" = (
+/obj/structure/rack,
+/obj/item/wallframe/apc{
+	pixel_x = -3
+	},
+/obj/item/wallframe/apc{
+	pixel_x = -7;
+	pixel_y = -3
+	},
+/turf/open/floor/plating/foam/cold,
+/area/frostwing_base)
+"jR" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 9
+	},
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"ka" = (
+/obj/item/stack/cable_coil/cut/red,
+/turf/open/floor/plating/asteroid/snow,
+/area/frostwing_base)
+"kb" = (
+/obj/structure/curtain/bounty,
+/obj/structure/grille/broken,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/cold/rust,
+/area/frostwing_base)
+"ke" = (
+/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/cobweb,
+/turf/open/floor/plating/dirt{
+	initial_gas_mix = "o2=22;n2=82;TEMP=180"
+	},
+/area/frostwing_base)
+"kA" = (
+/obj/item/stock_parts/matter_bin{
+	pixel_y = -6;
+	pixel_x = 5
+	},
+/obj/item/stock_parts/micro_laser,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/cold,
+/area/frostwing_base)
+"me" = (
+/obj/structure/flora/rock/pile/icy,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"mT" = (
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"nz" = (
+/obj/structure/flora/stump,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 9
+	},
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"nK" = (
+/obj/structure/flora/stump,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 5
+	},
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"nT" = (
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"nV" = (
+/obj/structure/flora/grass/both,
+/obj/structure/flora/tree/pine,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
+"oo" = (
+/obj/structure/closet/crate,
+/obj/item/coin/plasma{
+	pixel_x = 6
+	},
+/obj/item/coin/silver{
+	pixel_y = -3
+	},
+/obj/item/coin/silver{
+	pixel_x = -9;
+	pixel_y = -5
+	},
+/obj/item/coin/silver{
+	pixel_y = -6;
+	pixel_x = -4
+	},
+/obj/item/coin/silver{
+	pixel_y = -6;
+	pixel_x = 7
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"oK" = (
+/obj/structure/lattice/catwalk/over,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1;
+	layer = 2.0392
+	},
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"oM" = (
+/obj/effect/turf_decal/stripes{
+	dir = 10
+	},
+/obj/item/flashlight/lantern{
+	pixel_y = -4;
+	pixel_x = -10
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/trimline/neutral/line{
+	dir = 10
+	},
+/turf/open/floor/plasteel/tech/cold,
+/area/frostwing_base)
+"oV" = (
+/obj/machinery/light/small/broken{
+	dir = 1
+	},
+/turf/open/floor/plating/snowed/smoothed,
+/area/frostwing_base)
+"pn" = (
+/obj/structure/barricade/wooden/snowed,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1;
+	layer = 2.0392
+	},
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"pO" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/stairs,
+/area/frostwing_base)
+"pQ" = (
+/obj/item/stock_parts/micro_laser,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"qN" = (
+/obj/structure/barricade/wooden/snowed,
+/turf/open/floor/plating/snowed,
+/area/frostwing_base)
+"qQ" = (
+/obj/structure/grille,
+/turf/open/floor/plating/cold{
+	icon_state = "platingdmg1"
+	},
+/area/frostwing_base)
+"ra" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/cold{
+	icon_state = "platingdmg3"
+	},
+/area/frostwing_base)
+"rp" = (
+/obj/effect/turf_decal/stripes{
+	dir = 5
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/trimline/neutral/line{
+	dir = 5
+	},
+/turf/open/floor/plasteel/tech/cold,
+/area/frostwing_base)
+"ry" = (
+/obj/item/stack/cable_coil/cut/red,
+/turf/open/floor/plating/snowed,
+/area/frostwing_base)
+"rM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"rS" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 9
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"sp" = (
+/obj/structure/railing{
+	dir = 4;
+	layer = 3.1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/stairs,
+/area/frostwing_base)
+"sM" = (
+/obj/structure/girder,
+/turf/open/floor/plating/foam/cold,
+/area/frostwing_base)
+"sT" = (
+/obj/structure/closet/secure_closet/freezer/fridge/open,
+/obj/item/reagent_containers/food/snacks/fishfingers,
+/obj/item/storage/box/ingredients/carnivore{
+	pixel_x = -4;
+	pixel_y = 6
+	},
+/obj/item/storage/box/ingredients/fruity,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 9
+	},
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"sW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/rods{
+	pixel_x = -9;
+	pixel_y = 1
+	},
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"te" = (
+/obj/item/wallframe/firealarm{
+	pixel_x = 5;
+	pixel_y = -8
+	},
+/obj/effect/decal/cleanable/generic,
+/turf/open/floor/plating/cold,
+/area/frostwing_base)
+"tt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil/cut/red,
+/turf/open/floor/plating/cold{
+	icon_state = "panelscorched"
+	},
+/area/frostwing_base)
+"tQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/marker_beacon,
+/turf/open/floor/plasteel/tech/cold,
+/area/frostwing_base)
+"ui" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1;
+	color = "3e3735"
+	},
+/mob/living/simple_animal/cockroach,
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"uU" = (
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/decal/cleanable/robot_debris,
+/turf/open/floor/plating/cold/rust,
+/area/frostwing_base)
+"uW" = (
+/obj/structure/grille,
+/turf/open/floor/plating/cold,
+/area/frostwing_base)
+"vp" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 5
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
+	},
+/obj/structure/marker_beacon,
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"vB" = (
+/obj/structure/lattice/catwalk/over,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 9
+	},
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"vD" = (
+/obj/structure/grille,
+/turf/open/floor/plating/asteroid/snow,
+/area/frostwing_base)
+"vH" = (
+/obj/structure/girder/displaced,
+/turf/open/floor/plating/foam/cold,
+/area/frostwing_base)
+"vW" = (
+/obj/structure/chair/fancy/shuttle,
+/obj/effect/decal/cleanable/oil,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plating/cold,
+/area/frostwing_base)
+"wG" = (
+/turf/closed/mineral/snowmountain,
+/area/iceland)
+"wI" = (
+/obj/item/stock_parts/cell/high{
+	pixel_x = 8;
+	pixel_y = -6
+	},
+/turf/open/floor/plating/foam/cold,
+/area/frostwing_base)
+"wW" = (
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_x = 3;
+	pixel_y = -4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/rods{
+	pixel_x = -9;
+	pixel_y = 1
+	},
+/turf/open/floor/plating/cold{
+	icon_state = "panelscorched"
+	},
+/area/frostwing_base)
+"xh" = (
+/obj/structure/flora/tree/pine,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
+"xk" = (
+/obj/structure/firelock_frame,
+/turf/open/floor/plating/cold,
+/area/frostwing_base)
+"xM" = (
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
+/obj/structure/frame/computer{
+	dir = 4
+	},
+/turf/open/floor/plasteel/tech/cold,
+/area/frostwing_base)
+"xV" = (
+/obj/item/shard,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"yi" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/snowed,
+/area/frostwing_base)
+"yl" = (
+/turf/open/floor/plating/cold{
+	icon_state = "panelscorched"
+	},
+/area/frostwing_base)
+"yK" = (
+/mob/living/simple_animal/cockroach,
+/turf/open/floor/plating/snowed,
+/area/frostwing_base)
+"yM" = (
+/obj/structure/frame/machine,
+/turf/open/floor/plating/snowed,
+/area/frostwing_base)
+"yW" = (
+/turf/open/floor/plating/dirt{
+	initial_gas_mix = "o2=22;n2=82;TEMP=180"
+	},
+/area/frostwing_base)
+"zD" = (
+/obj/machinery/light/small/broken{
+	dir = 4
+	},
+/turf/open/floor/plating/snowed/smoothed,
+/area/frostwing_base)
+"zI" = (
+/obj/item/stack/rods{
+	pixel_x = 2;
+	pixel_y = 9
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"zK" = (
+/obj/structure/barricade/wooden/snowed,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
+	},
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"zT" = (
+/obj/item/pickaxe/mini{
+	pixel_x = -9;
+	pixel_y = 12
+	},
+/obj/structure/marker_beacon,
+/turf/open/floor/plating/snowed,
+/area/frostwing_base)
+"Aq" = (
+/obj/machinery/frostwing_incubator/roundstart,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot/left,
+/obj/effect/turf_decal/bot/right,
+/obj/effect/turf_decal/arrows{
+	dir = 4
+	},
+/turf/open/floor/plasteel/tech/cold,
+/area/frostwing_base)
+"At" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 5;
+	color = "3e3735"
+	},
+/obj/item/grown/log,
+/obj/item/grown/log{
+	pixel_y = 4;
+	pixel_x = -5
+	},
+/obj/item/grown/log{
+	pixel_y = -2;
+	pixel_x = -1
+	},
+/obj/item/grown/log{
+	pixel_y = 6;
+	pixel_x = 2
+	},
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"AA" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plasteel/tech/cold,
+/area/frostwing_base)
+"AD" = (
+/obj/structure/chair/fancy/bench{
+	pixel_y = 17
+	},
+/obj/effect/decal/cleanable/oil/slippery,
+/turf/open/floor/plating/cold{
+	icon_state = "panelscorched"
+	},
+/area/frostwing_base)
+"AF" = (
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/glass{
+	dir = 8;
+	pixel_x = -9
+	},
+/turf/open/floor/plating/cold,
+/area/frostwing_base)
+"AQ" = (
+/turf/open/floor/plating/ice,
+/area/frostwing_base)
+"Bg" = (
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/frostwing_base)
+"BJ" = (
+/obj/item/stack/rods{
+	pixel_x = 9;
+	pixel_y = -11
+	},
+/turf/open/floor/grass/snow/safe{
+	icon_state = "snow_dug"
+	},
+/area/frostwing_base)
+"BK" = (
+/obj/item/poster/random_contraband,
+/obj/item/poster/random_contraband{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/poster/random_contraband{
+	pixel_x = 1;
+	pixel_y = 1
+	},
+/obj/structure/rack,
+/turf/open/floor/plating/cold{
+	icon_state = "panelscorched"
+	},
+/area/frostwing_base)
+"BP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/critter,
+/mob/living/simple_animal/pet/penguin/baby{
+	dir = 1
+	},
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"BW" = (
+/obj/item/stack/cable_coil/cut/green,
+/turf/open/floor/plating/cold,
+/area/frostwing_base)
+"Cj" = (
+/turf/open/floor/plating/foam/cold,
+/area/frostwing_base)
+"Ck" = (
+/obj/structure/fermenting_barrel,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
+	},
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"Cv" = (
+/turf/open/floor/plating/asteroid/snow{
+	initial_gas_mix = s
+	},
+/area/iceland)
+"Cy" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1;
+	color = "3e3735"
+	},
+/obj/structure/table_frame,
+/obj/item/reagent_containers/spray/plantbgone{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/snacks/grown/corn{
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/snacks/grown/tomato{
+	pixel_y = 2;
+	pixel_x = -3
+	},
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"CP" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 4
+	},
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"Dy" = (
+/obj/structure/flora/tree/dead,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
+"DV" = (
+/turf/template_noop,
+/area/template_noop)
+"EB" = (
+/obj/machinery/power/floodlight,
+/turf/open/floor/plating/snowed,
+/area/frostwing_base)
+"EG" = (
+/obj/structure/closet/crate/trashcart,
+/obj/item/trash/can,
+/obj/item/trash/candy{
+	pixel_y = 4
+	},
+/obj/item/trash/cheesie,
+/obj/item/trash/chips{
+	pixel_x = 8
+	},
+/obj/item/trash/popcorn{
+	pixel_y = -4
+	},
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/plating/cold{
+	icon_state = "platingdmg2"
+	},
+/area/frostwing_base)
+"EJ" = (
+/obj/machinery/door/airlock/hatch,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating/cold/rust,
+/area/frostwing_base)
+"Fe" = (
+/obj/item/shard,
+/obj/effect/decal/cleanable/glass{
+	dir = 8;
+	pixel_y = -10
+	},
+/obj/effect/decal/cleanable/greenglow,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/cold/rust,
+/area/frostwing_base)
+"Fk" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 8;
+	pixel_x = 3
+	},
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/plating/cold,
+/area/frostwing_base)
+"Fr" = (
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
+"Fw" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/trimline/neutral/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel/tech/cold,
+/area/frostwing_base)
+"FQ" = (
+/obj/machinery/hydroponics/soil,
+/turf/open/floor/plating/dirt{
+	initial_gas_mix = "o2=22;n2=82;TEMP=180"
+	},
+/area/frostwing_base)
+"FX" = (
+/obj/structure/closet/emcloset/anchored,
+/turf/open/floor/plating/cold,
+/area/frostwing_base)
+"Gh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/rods,
+/turf/open/floor/plating/foam/cold,
+/area/frostwing_base)
+"Gj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/glowstick/lit,
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"GC" = (
+/obj/structure/flora/stump,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
+"GG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/rods/ten,
+/turf/open/floor/plating/cold{
+	icon_state = "panelscorched"
+	},
+/area/frostwing_base)
+"Hh" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = 4;
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/electrical{
+	pixel_y = -4;
+	pixel_x = 3
+	},
+/obj/structure/tubes,
+/obj/item/stack/sheet/glass/ten{
+	pixel_x = -11
+	},
+/obj/structure/sign/poster/official/moth7{
+	pixel_y = 32
+	},
+/turf/open/floor/plating/cold,
+/area/frostwing_base)
+"Hm" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
+	},
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"Ho" = (
+/obj/structure/girder/reinforced,
+/turf/open/floor/plating/snowed/smoothed,
+/area/frostwing_base)
+"HH" = (
+/obj/structure/table,
+/obj/item/shovel/spade,
+/obj/item/cultivator{
+	pixel_x = 6
+	},
+/obj/item/plant_analyzer,
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"HT" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 9
+	},
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"Io" = (
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"Ix" = (
+/obj/item/wallframe/extinguisher_cabinet,
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"IP" = (
+/obj/structure/door_assembly/door_assembly_highsecurity,
+/turf/open/floor/plating/snowed,
+/area/frostwing_base)
+"JD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/light/broken{
+	dir = 8
+	},
+/turf/open/floor/plating/cold/rust,
+/area/frostwing_base)
+"JR" = (
+/obj/structure/ore_box,
+/obj/machinery/light/small/broken{
+	dir = 8
+	},
+/obj/structure/sign/warning/docking{
+	desc = "A warning sign which reads 'MONKEY AREA '.";
+	name = "\improper KEEP CLEAR:  MONKEY AREA";
+	pixel_y = 29
+	},
+/turf/open/floor/plating/asteroid/snow,
+/area/frostwing_base)
+"KG" = (
+/obj/item/flashlight/glowstick/orange,
+/turf/open/floor/plating/snowed,
+/area/frostwing_base)
+"KL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil/cut/red,
+/turf/open/floor/plating/snowed,
+/area/frostwing_base)
+"KP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"KW" = (
+/obj/structure/closet/crate/large,
+/obj/item/book/fish_catalog,
+/obj/item/fish_feed{
+	pixel_y = -3;
+	pixel_x = 6
+	},
+/obj/item/fish_feed{
+	pixel_y = 1;
+	pixel_x = -6
+	},
+/obj/item/fish_feed{
+	pixel_y = -6;
+	pixel_x = -2
+	},
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"Le" = (
+/turf/open/floor/plating/snowed/smoothed,
+/area/frostwing_base)
+"LB" = (
+/obj/machinery/power/floodlight,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
+	},
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"LJ" = (
+/obj/structure/light_construct,
+/obj/machinery/pipedispenser,
+/turf/open/floor/plating/snowed,
+/area/frostwing_base)
+"LO" = (
+/obj/structure/closet,
+/obj/item/clothing/under/color/jumpskirt/random,
+/obj/item/clothing/under/color/jumpskirt/random,
+/obj/item/clothing/under/color/jumpskirt/random,
+/obj/item/clothing/under/color/random,
+/obj/item/clothing/under/color/random,
+/obj/item/clothing/under/color/random,
+/obj/item/clothing/under/color/random,
+/obj/item/storage/wallet,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/auto_name/north,
-/turf/open/floor/plating/snowed/smoothed,
+/obj/effect/turf_decal/bot_red,
+/turf/open/floor/plating/cold,
 /area/frostwing_base)
-"i" = (
-/obj/effect/turf_decal/stripes,
-/turf/open/floor/plating/snowed/smoothed,
-/area/frostwing_base)
-"j" = (
-/obj/effect/turf_decal/stripes{
-	dir = 4
+"LR" = (
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "floor6-old";
+	pixel_x = 12
 	},
-/obj/structure/railing,
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/electrical{
-	pixel_y = 10
-	},
-/turf/open/floor/plating/snowed/smoothed,
-/area/frostwing_base)
-"m" = (
-/obj/effect/turf_decal/stripes{
-	dir = 4
-	},
-/obj/machinery/frostwing_incubator/roundstart,
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/plating/snowed/smoothed,
-/area/frostwing_base)
-"o" = (
-/obj/effect/turf_decal/stripes{
-	dir = 6
-	},
-/obj/structure/closet/firecloset/full,
-/turf/open/floor/plating/snowed/smoothed,
-/area/frostwing_base)
-"q" = (
-/obj/machinery/door/airlock/hatch,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/snowed,
 /area/frostwing_base)
-"r" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
+"Mg" = (
+/obj/structure/closet/cardboard,
+/obj/item/rack_parts,
+/obj/item/rack_parts,
+/obj/item/newspaper,
+/obj/item/soap/deluxe{
+	pixel_y = -1
 	},
+/obj/item/soap/deluxe{
+	pixel_y = -6;
+	pixel_x = 7
+	},
+/obj/effect/spawner/lootdrop/gloves,
+/obj/item/shovel,
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"MM" = (
+/obj/structure/firelock_frame,
 /turf/open/floor/plating/snowed,
 /area/frostwing_base)
-"t" = (
-/obj/effect/turf_decal/stripes{
-	dir = 4
-	},
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/electrical{
-	pixel_y = 10
-	},
-/turf/open/floor/plating/snowed/smoothed,
+"MV" = (
+/obj/structure/marker_beacon,
+/turf/open/floor/plating/cold,
 /area/frostwing_base)
-"w" = (
-/obj/effect/turf_decal/stripes{
-	dir = 9
-	},
-/obj/structure/closet/emcloset,
-/turf/open/floor/plating/snowed/smoothed,
-/area/frostwing_base)
-"x" = (
-/obj/effect/turf_decal/stripes,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/plating/snowed/smoothed,
-/area/frostwing_base)
-"y" = (
-/obj/effect/turf_decal/stripes{
-	dir = 4
-	},
-/obj/machinery/frostwing_incubator/roundstart,
-/turf/open/floor/plating/snowed/smoothed,
-/area/frostwing_base)
-"z" = (
-/obj/effect/turf_decal/stripes{
-	dir = 1
-	},
-/turf/open/floor/plating/snowed/smoothed,
-/area/frostwing_base)
-"A" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+"NC" = (
+/obj/structure/fluff/fokoff_sign,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
+"NG" = (
+/obj/structure/grille,
 /turf/open/floor/plating/snowed,
 /area/frostwing_base)
-"B" = (
+"Ob" = (
+/obj/item/shard{
+	pixel_x = 6;
+	pixel_y = -13
+	},
+/obj/item/shard{
+	icon_state = "small"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/foam/cold,
+/area/frostwing_base)
+"Os" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/turf/open/floor/plating/snowed/smoothed,
-/area/frostwing_base)
-"D" = (
-/obj/effect/turf_decal/stripes{
 	dir = 9
 	},
-/obj/machinery/light{
-	dir = 4
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
-/obj/structure/closet/emcloset,
-/turf/open/floor/plating/snowed/smoothed,
-/area/frostwing_base)
-"F" = (
-/turf/closed/wall,
-/area/frostwing_base)
-"G" = (
-/obj/machinery/power/floodlight{
-	active_power_usage = 0;
-	idle_power_usage = 0
+/obj/effect/turf_decal/caution,
+/obj/effect/turf_decal/trimline/neutral/line{
+	dir = 1
 	},
-/turf/open/floor/plating/snowed/smoothed,
-/area/template_noop)
-"H" = (
+/turf/open/floor/plasteel/tech/cold,
+/area/frostwing_base)
+"OF" = (
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/grille,
+/turf/open/floor/plating/cold,
+/area/frostwing_base)
+"OI" = (
 /obj/effect/turf_decal/stripes{
 	dir = 4
 	},
-/turf/open/floor/plating/snowed/smoothed,
+/obj/machinery/vending/cigarette,
+/obj/effect/turf_decal/bot_white,
+/turf/open/floor/plasteel/tech/cold,
 /area/frostwing_base)
-"M" = (
-/obj/effect/turf_decal/stripes{
-	dir = 8
+"OJ" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/open/floor/plating/snowed/smoothed,
+/turf/open/floor/plating/cold/rust,
 /area/frostwing_base)
-"P" = (
-/turf/open/floor/plating/snowed,
+"OP" = (
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/turf/open/floor/plating/cold,
 /area/frostwing_base)
-"Q" = (
-/obj/effect/turf_decal/stripes{
-	dir = 9
-	},
-/turf/open/floor/plating/snowed/smoothed,
+"Pw" = (
+/obj/machinery/space_heater,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating/cold/rust,
 /area/frostwing_base)
-"T" = (
-/turf/open/floor/plating/snowed/smoothed,
-/area/template_noop)
-"U" = (
+"PC" = (
+/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/stripes{
 	dir = 1
 	},
 /obj/machinery/light,
-/turf/open/floor/plating/snowed/smoothed,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/obj/item/flashlight/flare,
+/turf/open/floor/plasteel/tech/cold,
 /area/frostwing_base)
-"Y" = (
+"PP" = (
+/obj/item/seeds/tower,
+/obj/item/seeds/soya{
+	pixel_y = -6;
+	pixel_x = -6
+	},
+/obj/item/seeds/bamboo{
+	pixel_x = 7
+	},
+/turf/open/floor/plating/dirt{
+	initial_gas_mix = "o2=22;n2=82;TEMP=180"
+	},
+/area/frostwing_base)
+"Qt" = (
+/obj/structure/closet/crate/internals,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/surgical_drapes{
+	pixel_y = -4;
+	pixel_x = -5
+	},
+/obj/item/hatchet,
+/obj/item/stack/medical/bruise_pack,
+/obj/item/storage/pill_bottle/mannitol{
+	pixel_y = -6;
+	pixel_x = -11
+	},
+/obj/item/reagent_containers/hypospray/medipen{
+	pixel_y = -9
+	},
+/obj/item/reagent_containers/hypospray/medipen{
+	pixel_y = -7;
+	pixel_x = 2
+	},
+/obj/item/reagent_containers/hypospray/medipen{
+	pixel_y = -4;
+	pixel_x = 4
+	},
+/turf/open/floor/plating/snowed,
+/area/frostwing_base)
+"Qw" = (
+/obj/structure/frame/computer{
+	dir = 1
+	},
+/turf/open/floor/plating/cold{
+	icon_state = "platingdmg1"
+	},
+/area/frostwing_base)
+"Qy" = (
+/obj/machinery/power/smes{
+	charge = 20000
+	},
+/turf/open/floor/plasteel/tech/cold,
+/area/frostwing_base)
+"QM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/wirerod{
+	pixel_x = -7;
+	pixel_y = 6
+	},
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"QS" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/open/floor/plating/ice,
+/area/frostwing_base)
+"QU" = (
+/obj/structure/closet/firecloset,
 /obj/effect/turf_decal/stripes{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/robot_debris,
+/obj/effect/turf_decal/bot,
+/obj/item/flashlight/flare,
+/turf/open/floor/plasteel/tech/cold,
+/area/frostwing_base)
+"Rg" = (
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/turf/open/floor/plating/cold/rust,
+/area/frostwing_base)
+"Rw" = (
+/obj/item/storage/pod{
+	pixel_y = 32
+	},
+/turf/open/floor/plating/cold{
+	icon_state = "panelscorched"
+	},
+/area/frostwing_base)
+"RD" = (
+/obj/item/target,
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 13;
+	pixel_y = -9
+	},
+/turf/open/floor/plating/cold,
+/area/frostwing_base)
+"RK" = (
+/obj/item/larryframe,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/cold{
+	icon_state = "panelscorched"
+	},
+/area/frostwing_base)
+"RP" = (
+/obj/structure/flora/grass/both,
+/turf/open/floor/plating/asteroid/snow,
+/area/iceland)
+"Sh" = (
+/obj/item/stock_parts/capacitor{
+	pixel_x = -7;
+	pixel_y = 8
+	},
+/obj/item/stock_parts/manipulator{
+	pixel_y = -6;
+	pixel_x = -7
+	},
+/obj/item/stock_parts/manipulator{
+	pixel_y = -2;
+	pixel_x = -1
+	},
+/turf/open/floor/plating/cold,
+/area/frostwing_base)
+"SJ" = (
+/obj/item/rcl/ghetto{
+	pixel_y = -6;
+	pixel_x = 5
+	},
+/turf/open/floor/plating/cold{
+	icon_state = "platingdmg3"
+	},
+/area/frostwing_base)
+"Ts" = (
+/obj/machinery/frostwing_incubator/roundstart,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/bot/left,
+/obj/effect/turf_decal/bot/right,
+/obj/effect/turf_decal/arrows{
+	dir = 4
+	},
+/turf/open/floor/plasteel/tech/cold,
+/area/frostwing_base)
+"TG" = (
+/obj/structure/lattice/catwalk/over,
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"Uy" = (
+/obj/structure/flora/rock/icy,
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"UC" = (
+/obj/item/shard,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1;
+	layer = 2.0392
+	},
+/turf/open/floor/grass/snow/safe{
+	icon_state = "snow_dug"
+	},
+/area/iceland)
+"UK" = (
+/obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
 	},
-/obj/machinery/light{
+/obj/structure/marker_beacon,
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"UN" = (
+/obj/structure/grille/broken,
+/obj/structure/barricade/wooden/crude/snow,
+/obj/effect/decal/cleanable/glass{
+	pixel_y = -12;
+	pixel_x = -9
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/obj/structure/closet/firecloset/full,
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"Vh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/crayons{
+	pixel_x = 5;
+	pixel_y = -11
+	},
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"Vn" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 5
+	},
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"Vw" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1;
+	layer = 2.0392
+	},
+/obj/structure/marker_beacon,
+/turf/open/floor/plating/cold/dug,
+/area/iceland)
+"VB" = (
+/obj/structure/frame/machine,
+/obj/structure/grille/broken,
+/turf/open/floor/plating/cold{
+	icon_state = "panelscorched"
+	},
+/area/frostwing_base)
+"Wl" = (
+/obj/structure/foamedmetal,
+/turf/open/floor/plating/foam/cold,
+/area/frostwing_base)
+"Wp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/paint/blue,
+/obj/item/paint/green{
+	pixel_y = -7;
+	pixel_x = 6
+	},
+/obj/item/toy/crayon/spraycan{
+	pixel_x = -7
+	},
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"WF" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating/cold/rust,
+/area/frostwing_base)
+"WI" = (
+/obj/structure/marker_beacon,
+/turf/open/floor/plating/cold/rust,
+/area/frostwing_base)
+"WK" = (
+/obj/effect/spawner/lootdrop/glowstick/lit,
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"Xc" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/blood/old{
+	pixel_x = -2;
+	pixel_y = -3;
+	icon_state = "gib2-old"
+	},
+/obj/structure/marker_beacon,
+/turf/open/floor/plating/foam/cold,
+/area/frostwing_base)
+"Xp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil/cut/red,
+/turf/open/floor/plating/foam/cold,
+/area/frostwing_base)
+"XC" = (
+/obj/structure/bed/roller,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating/cold{
+	icon_state = "panelscorched"
+	},
+/area/frostwing_base)
+"Yj" = (
+/obj/item/stock_parts/capacitor,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil/cut/red,
+/turf/open/floor/plating/cold/rust,
+/area/frostwing_base)
+"Yt" = (
+/obj/effect/turf_decal/stripes{
+	dir = 9
+	},
+/obj/structure/noticeboard{
+	pixel_y = 32
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/backpack/duffelbag,
+/obj/item/storage/backpack/duffelbag{
+	pixel_y = -5;
+	pixel_x = 4
+	},
+/obj/effect/turf_decal/trimline/neutral/line{
+	dir = 9
+	},
+/turf/open/floor/plasteel/tech/cold,
+/area/frostwing_base)
+"YP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/large,
+/obj/item/weldingtool/hugetank,
+/obj/item/melee/skateboard,
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"YV" = (
+/turf/open/floor/plating/cold/dug{
+	base_icon_state = "floors"
+	},
+/area/frostwing_base)
+"YX" = (
+/obj/item/stock_parts/scanning_module{
+	pixel_x = -5;
+	pixel_y = -6
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/cold/rust,
+/area/frostwing_base)
+"Zf" = (
+/obj/item/flashlight/glowstick,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/cold/dug,
+/area/frostwing_base)
+"Zx" = (
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/snowed/smoothed,
+/area/frostwing_base)
+"Zy" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/railing{
+	dir = 6;
+	layer = 3.1
+	},
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plasteel/tech/cold,
+/area/frostwing_base)
+"ZB" = (
+/obj/structure/girder/displaced,
+/obj/effect/spawner/lootdrop/glowstick/lit,
+/turf/open/floor/plating/cold,
+/area/frostwing_base)
+"ZK" = (
+/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/dirt{
+	initial_gas_mix = "o2=22;n2=82;TEMP=180"
+	},
 /area/frostwing_base)
 
 (1,1,1) = {"
-b
-b
-b
-G
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-G
+DV
+DV
+DV
+Fr
+Fr
+Fr
+Fr
+xh
+Fr
+Fr
+Fr
+Fr
+Fr
+xh
+Fr
+Fr
+aZ
+aZ
+Fr
+Fr
+Fr
+xh
+RP
+Fr
+DV
+DV
+DV
+DV
+DV
+DV
+DV
 "}
 (2,1,1) = {"
-b
-b
-T
-T
-T
-F
-F
-F
-F
-F
-F
-F
-F
-F
-T
+DV
+DV
+Fr
+Fr
+RP
+Fr
+RP
+Fr
+GC
+RP
+Fr
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+Fr
+Fr
+RP
+Fr
+Fr
+Fr
+DV
+DV
+DV
+DV
+DV
 "}
 (3,1,1) = {"
-b
-T
-T
-T
-F
-F
-j
-y
-m
-y
-t
-H
-B
-F
-T
+DV
+Fr
+Fr
+Fr
+xh
+Fr
+Fr
+Fr
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+Fr
+Fr
+xh
+RP
+RP
+Fr
+DV
+DV
+DV
+DV
 "}
 (4,1,1) = {"
-b
-T
-T
-F
-F
-o
-P
-P
-P
-P
-P
-P
-z
-F
-T
+Fr
+Fr
+xh
+RP
+Fr
+Fr
+Fr
+xh
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+eN
+eN
+eN
+aZ
+aZ
+aZ
+aZ
+Fr
+Fr
+xh
+RP
+Fr
+Fr
+DV
+DV
+DV
 "}
 (5,1,1) = {"
-G
-T
-F
-F
-Y
-P
-P
-P
-P
-P
-P
-P
-U
-F
-T
+Fr
+Fr
+Fr
+RP
+Fr
+Fr
+RP
+rS
+aZ
+aZ
+aZ
+aZ
+aZ
+eN
+eN
+eN
+eN
+eN
+eN
+eN
+aZ
+aZ
+aZ
+aZ
+Fr
+Fr
+Fr
+Fr
+Fr
+DV
+DV
 "}
 (6,1,1) = {"
-T
-F
-F
-o
-P
-P
-P
-P
-P
-P
-P
-P
-z
-F
-T
+Fr
+Fr
+GC
+Fr
+Dy
+fN
+jR
+UK
+aZ
+aZ
+Bg
+Bg
+eN
+eN
+Bg
+Bg
+Bg
+eN
+eN
+eN
+eN
+aZ
+aZ
+aZ
+wG
+xh
+Fr
+RP
+Fr
+DV
+DV
 "}
 (7,1,1) = {"
-T
-F
-c
-f
-P
-P
-P
-P
-P
-P
-P
-P
-z
-F
-T
+Fr
+xh
+Fr
+Fr
+hp
+vB
+TG
+Bg
+Bg
+Bg
+Bg
+sM
+Wl
+Wl
+Wl
+Wl
+Bg
+Bg
+eN
+eN
+eN
+eN
+aZ
+aZ
+aZ
+aZ
+Fr
+Fr
+Fr
+Fr
+Fr
 "}
 (8,1,1) = {"
-T
-F
-i
-r
-P
-P
-P
-P
-P
-P
-P
-P
-z
-F
-T
+Fr
+Fr
+Fr
+hp
+hp
+gq
+mT
+EB
+Wl
+Wl
+Wl
+ar
+Xc
+Wl
+Wl
+Wl
+Wl
+Bg
+eN
+eN
+eN
+eN
+eN
+eN
+aZ
+aZ
+aZ
+aZ
+Fr
+nV
+Fr
 "}
 (9,1,1) = {"
-T
-F
-g
-A
-P
-P
-P
-P
-P
-P
-P
-w
-F
-F
-T
+Fr
+Fr
+hK
+hK
+Fr
+UC
+mT
+dd
+dd
+MM
+BW
+Gh
+Xp
+vH
+Bg
+Bg
+Bg
+Bg
+Bg
+Bg
+Bg
+Bg
+eN
+eN
+eN
+aZ
+aZ
+aZ
+Fr
+Fr
+Fr
 "}
 (10,1,1) = {"
-T
-F
-x
-P
-P
-P
-P
-P
-P
-P
-w
-F
-F
-T
-G
+Fr
+hK
+hK
+hK
+RP
+Vw
+Hm
+Bg
+Bg
+Bg
+Yj
+Ob
+wI
+Pw
+Bg
+iG
+Aq
+Ts
+Bg
+OI
+xM
+Bg
+Bg
+eN
+eN
+aZ
+aZ
+aZ
+aZ
+aZ
+Fr
 "}
 (11,1,1) = {"
-T
-F
-i
-P
-P
-P
-P
-P
-P
-D
-F
-F
-T
-T
-T
+hK
+hK
+hK
+Fr
+Fr
+pn
+Bg
+Bg
+JR
+gQ
+Sh
+WI
+VB
+Bg
+Bg
+Yt
+Fw
+oM
+Bg
+RK
+fS
+PC
+Bg
+eN
+eN
+eN
+aZ
+aZ
+aZ
+aZ
+aZ
 "}
 (12,1,1) = {"
-T
-F
-i
-P
-P
-P
-P
-P
-Q
-F
-F
-T
-T
-b
-b
+hK
+hK
+Fr
+RP
+Fr
+gq
+me
+vD
+ka
+zT
+KL
+te
+Bg
+Bg
+LO
+Os
+tQ
+hb
+pO
+dx
+GG
+QU
+Bg
+eN
+eN
+eN
+eN
+eN
+aZ
+aZ
+aZ
 "}
 (13,1,1) = {"
-T
-F
-a
-M
-d
-d
-M
-d
-F
-F
-T
-T
-b
-b
-b
+Fr
+Fr
+Fr
+xh
+nz
+Io
+Io
+UN
+sW
+Zf
+LR
+LJ
+Bg
+jl
+AF
+rp
+fb
+gC
+Bg
+WF
+BK
+Bg
+Bg
+eN
+eN
+eN
+eN
+eN
+eN
+eN
+aZ
 "}
 (14,1,1) = {"
-T
-F
-F
-F
-q
-q
-F
-F
-F
-T
-T
-b
-b
-b
-b
+Fr
+Dy
+Fr
+Cv
+Vw
+Io
+mT
+Bg
+pQ
+Ix
+SJ
+Qw
+Bg
+Hh
+Fk
+yl
+XC
+Bg
+Bg
+EJ
+eN
+eN
+eN
+eN
+eN
+eN
+eN
+eN
+eN
+eN
+aZ
 "}
 (15,1,1) = {"
-G
-T
-T
-T
-T
-T
-T
-T
-T
-G
-b
-b
-b
-b
-b
+Fr
+hp
+hp
+hp
+gq
+Io
+LB
+Bg
+Rw
+jF
+OF
+Bg
+Bg
+Bg
+Bg
+uU
+Bg
+Bg
+ib
+rM
+ZB
+eN
+eN
+eN
+eN
+eN
+eN
+eN
+eN
+eN
+aZ
 "}
 (16,1,1) = {"
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
+Fr
+Fr
+Fr
+dr
+oK
+TG
+Bg
+Bg
+AD
+gd
+FX
+Bg
+Qy
+AA
+Bg
+Bg
+Bg
+Rg
+vW
+rM
+ek
+Qt
+eN
+eN
+sT
+gH
+dX
+eN
+eN
+aZ
+aZ
+"}
+(17,1,1) = {"
+Fr
+fN
+Fr
+jR
+Io
+Io
+zI
+Rg
+hr
+YX
+wW
+Bg
+aJ
+do
+sp
+JD
+kb
+OJ
+KP
+xV
+dd
+dd
+dd
+dd
+ek
+WK
+ek
+oo
+eN
+aZ
+aZ
+"}
+(18,1,1) = {"
+Fr
+xh
+RP
+gq
+CP
+CP
+Io
+cs
+iV
+BJ
+ra
+Bg
+eV
+Zy
+jK
+iy
+eN
+eN
+eN
+eN
+yK
+yi
+yi
+yi
+YV
+ek
+KW
+nT
+eN
+aZ
+aZ
+"}
+(19,1,1) = {"
+Fr
+Fr
+Fr
+vp
+Fr
+Fr
+iW
+uW
+Fe
+iy
+ga
+gi
+MV
+Cj
+Cj
+yi
+eN
+eN
+eN
+eN
+eN
+fR
+dd
+hX
+hX
+hX
+ek
+ix
+eN
+aZ
+Fr
+"}
+(20,1,1) = {"
+Fr
+Fr
+NC
+Fr
+Fr
+HT
+Bg
+Bg
+Bg
+OP
+xk
+Bg
+Bg
+Bg
+IP
+yi
+eN
+eN
+eN
+eN
+eN
+yi
+yi
+hX
+Vh
+Wp
+BP
+eN
+eN
+aZ
+Fr
+"}
+(21,1,1) = {"
+Fr
+RP
+Fr
+Fr
+nz
+mT
+Bg
+yM
+iT
+kA
+tt
+RD
+uW
+Bg
+KG
+Le
+eN
+eN
+eN
+eN
+eN
+HH
+hX
+ja
+ek
+QM
+Ck
+eN
+eN
+aZ
+xh
+"}
+(22,1,1) = {"
+Fr
+Fr
+Fr
+Dy
+Vn
+mT
+qN
+ry
+Zx
+Le
+Le
+hJ
+qQ
+Bg
+oV
+Le
+Le
+eN
+eN
+eN
+ke
+At
+Gj
+ek
+YP
+Mg
+eN
+eN
+aZ
+aZ
+RP
+"}
+(23,1,1) = {"
+DV
+Fr
+Fr
+Fr
+Fr
+Vw
+fo
+Le
+zD
+Ho
+EG
+ji
+Bg
+Bg
+AQ
+AQ
+Le
+eN
+eN
+eN
+ZK
+yW
+ui
+Uy
+eN
+eN
+eN
+eN
+aZ
+Fr
+Fr
+"}
+(24,1,1) = {"
+DV
+Fr
+Fr
+xh
+Fr
+nK
+zK
+vD
+Bg
+Bg
+NG
+Bg
+Bg
+aZ
+AQ
+AQ
+AQ
+eN
+eN
+eN
+FQ
+PP
+Cy
+eN
+eN
+eN
+aZ
+aZ
+wG
+xh
+Fr
+"}
+(25,1,1) = {"
+DV
+DV
+Fr
+Fr
+Fr
+Fr
+xh
+RP
+Fr
+Fr
+Fr
+aZ
+aZ
+aZ
+QS
+AQ
+AQ
+eN
+eN
+eN
+eN
+eN
+eN
+eN
+eN
+aZ
+aZ
+aZ
+Fr
+Fr
+DV
+"}
+(26,1,1) = {"
+DV
+DV
+DV
+Fr
+Fr
+Fr
+Fr
+Fr
+xh
+RP
+Fr
+xh
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+eN
+eN
+eN
+eN
+aZ
+aZ
+aZ
+aZ
+aZ
+Fr
+RP
+DV
+DV
+"}
+(27,1,1) = {"
+DV
+DV
+DV
+DV
+Fr
+Fr
+RP
+Fr
+Fr
+Fr
+xh
+Fr
+RP
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+Fr
+xh
+Fr
+Fr
+DV
+DV
+"}
+(28,1,1) = {"
+DV
+DV
+DV
+DV
+Fr
+Fr
+Fr
+Fr
+Fr
+Fr
+Fr
+Fr
+Fr
+Fr
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+Fr
+Fr
+xh
+RP
+Fr
+Fr
+DV
+DV
+DV
 "}

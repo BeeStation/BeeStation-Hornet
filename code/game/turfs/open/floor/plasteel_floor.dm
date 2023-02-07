@@ -284,3 +284,7 @@
 /turf/open/floor/plasteel/smart_checker
 	icon_state = "smart_checker"
 	base_icon_state = "smart_checker"
+
+/turf/open/floor/plasteel/tech/cold
+	initial_gas_mix = FROZEN_ATMOS
+	initial_temperature = 180
