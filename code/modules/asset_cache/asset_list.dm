@@ -53,10 +53,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	return
 
 /datum/asset/proc/send(client)
-	SHOULD_CALL_PARENT(TRUE)
-	if(!client)
-		return FALSE
-	return TRUE
+	return
 
 /// Returns whether or not the asset should attempt to read from cache
 /datum/asset/proc/should_refresh()
@@ -88,10 +85,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		assets[asset_name] = ACI
 
 /datum/asset/simple/send(client)
-	if(!..())
-		return FALSE
-	SSassets.transport.send_assets(client, assets)
-	return TRUE
+	. = SSassets.transport.send_assets(client, assets)
 
 /datum/asset/simple/get_url_mappings()
 	. = list()
@@ -109,8 +103,6 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		load_asset_datum(type)
 
 /datum/asset/group/send(client/C)
-	if(!..())
-		return FALSE
 	for(var/type in children)
 		var/datum/asset/A = get_asset_datum(type)
 		. = A.send(C) || .
@@ -145,6 +137,13 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	/// Defaults to false so we can process this stuff nicely
 	var/load_immediately = FALSE
 
+/datum/asset/spritesheet/proc/should_load_immediately()
+#ifdef DO_NOT_DEFER_ASSETS
+	return TRUE
+#else
+	return load_immediately
+#endif
+
 /datum/asset/spritesheet/should_refresh()
 	if (..())
 		return TRUE
@@ -173,10 +172,10 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		load_immediately = TRUE
 
 	create_spritesheets()
-	if(load_immediately)
+	if(should_load_immediately())
 		realize_spritesheets(yield = FALSE)
 	else
-		SSasset_loading.generate_queue += src
+		SSasset_loading.queue_asset(src)
 
 /datum/asset/spritesheet/proc/realize_spritesheets(yield)
 	if(fully_generated)
@@ -203,7 +202,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		write_to_cache()
 	fully_generated = TRUE
 	// If we were ever in there, remove ourselves
-	SSasset_loading.generate_queue -= src
+	SSasset_loading.dequeue_asset(src)
 
 /datum/asset/spritesheet/queued_generation()
 	realize_spritesheets(yield = TRUE)
@@ -213,25 +212,28 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		realize_spritesheets(yield = FALSE)
 	return ..()
 
-/datum/asset/spritesheet/send(client/C)
-	if(!..())
-		return FALSE
+/datum/asset/spritesheet/send(client/client)
 	if (!name)
-		return FALSE
+		return
+
+	if (!should_refresh())
+		return send_from_cache(client)
+
 	var/all = list("spritesheet_[name].css")
 	for(var/size_id in sizes)
 		all += "[name]_[size_id].png"
-	SSassets.transport.send_assets(C, all)
-	return TRUE
+	. = SSassets.transport.send_assets(client, all)
 
 /datum/asset/spritesheet/get_url_mappings()
 	if (!name)
 		return
+
+	if (!should_refresh())
+		return get_cached_url_mappings()
+
 	. = list("spritesheet_[name].css" = SSassets.transport.get_asset_url("spritesheet_[name].css"))
 	for(var/size_id in sizes)
 		.["[name]_[size_id].png"] = SSassets.transport.get_asset_url("[name]_[size_id].png")
-
-
 
 /datum/asset/spritesheet/proc/ensure_stripped(sizes_to_strip = sizes)
 	for(var/size_id in sizes_to_strip)
@@ -254,7 +256,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	for (var/size_id in sizes)
 		var/size = sizes[size_id]
 		var/icon/tiny = size[SPRSZ_ICON]
-		out += ".[name][size_id]{display:inline-block;width:[tiny.Width()]px;height:[tiny.Height()]px;background:url('[SSassets.transport.get_asset_url("[name]_[size_id].png")]') no-repeat;}"
+		out += ".[name][size_id]{display:inline-block;width:[tiny.Width()]px;height:[tiny.Height()]px;background:url('[get_background_url("[name]_[size_id].png")]') no-repeat;}"
 
 	for (var/sprite_id in sprites)
 		var/sprite = sprites[sprite_id]
@@ -332,7 +334,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	CRASH("create_spritesheets() not implemented for [type]!")
 
 /datum/asset/spritesheet/proc/Insert(sprite_name, icon/I, icon_state="", dir=SOUTH, frame=1, moving=FALSE)
-	if(load_immediately)
+	if(should_load_immediately())
 		queuedInsert(sprite_name, I, icon_state, dir, frame, moving)
 	else
 		to_generate += list(args.Copy())
@@ -398,7 +400,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	if (!sprite)
 		return null
 	var/size_id = sprite[SPR_SIZE]
-	return {"<span class="[name][size_id] [sprite_name]"></span>"}
+	return {"<span class='[name][size_id] [sprite_name]'></span>"}
 
 /datum/asset/spritesheet/proc/icon_class_name(sprite_name)
 	var/sprite = sprites[sprite_name]
@@ -407,6 +409,12 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/size_id = sprite[SPR_SIZE]
 	return {"[name][size_id] [sprite_name]"}
 
+/**
+ * Returns the size class (ex design32x32) for a given sprite's icon
+ *
+ * Arguments:
+ * * sprite_name - The sprite to get the size of
+ */
 /datum/asset/spritesheet/proc/icon_size_id(sprite_name)
 	var/sprite = sprites[sprite_name]
 	if (!sprite)
@@ -477,7 +485,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	if (legacy)
 		assets |= parents
 	var/list/hashlist = list()
-	var/list/sorted_assets = sortList(assets)
+	var/list/sorted_assets = sort_list(assets)
 
 	for (var/asset_name in sorted_assets)
 		var/datum/asset_cache_item/ACI = new(asset_name, sorted_assets[asset_name])

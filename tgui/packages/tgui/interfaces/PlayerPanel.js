@@ -1,5 +1,4 @@
 /* eslint-disable react/prefer-stateless-function */
-import { classes } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
 import { Box, ColorBox, Input, Section, Table, Tooltip, Button, Flex, ByondUi, Tabs, NumberInput } from '../components';
 import { COLORS } from '../constants';
@@ -1050,7 +1049,7 @@ class PlayerTraitorPanelButton extends PureComponent {
         style={{
           "padding": "0px 2px",
         }}
-        content={<Box style={{ "transform": "translateY(2.5px)" }} className={classes(['antag-hud16x16', antag_hud])} />}
+        content={<Box style={{ "transform": "translateY(2.5px)" }} className={`antag-hud16x16 antag-hud-${antag_hud}`} />}
         tooltip={has_mind ? "Open Traitor Panel" : "Initialize Mind"}
         onClick={() => act(has_mind ? 'open_traitor_panel' : 'init_mind', { who: ckey })}
       />
