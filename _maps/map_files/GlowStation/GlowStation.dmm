@@ -504,7 +504,7 @@
 	pixel_y = 32
 	},
 /obj/structure/sign/map/right{
-	desc = "A framed detailed picture of the station... Its all just engineering and atmos"ss;
+	desc = "A framed detailed picture of the station... It's all just engineering and atmos";
 	icon_state = "map-right-glow1";
 	pixel_y = 32
 	},
@@ -108224,7 +108224,7 @@
 /area/iceland/shaded)
 "wDq" = (
 /obj/structure/sign/map/left{
-	desc = "A framed detailed picture of the station... Its all just engineering and atmos";
+	desc = "A framed detailed picture of the station... It's all just engineering and atmos";
 	icon_state = "map-left-glow1";
 	pixel_y = 32
 	},
