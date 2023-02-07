@@ -215,7 +215,7 @@
 		var/mob/living/carbon/human/fartee = user
 		if(COOLDOWN_FINISHED(fartee, fart_cooldown))
 			..()
-			COOLDOWN_START(fartee, fart_cooldown, 2 MINUTES)
+			COOLDOWN_START(fartee, fart_cooldown, 20 SECONDS)
 		else
 			if(prob(20) && HAS_TRAIT(fartee, TRAIT_CLUMSY))
 				var/turf/T = get_turf(fartee)
@@ -227,7 +227,7 @@
 			else
 				to_chat(user, "<span class='warning'>You strain, but can't seem to fart again just yet.</span>")
 		return TRUE
-		
+
 // Robotic Tongue emotes. Beep!
 
 /datum/emote/living/carbon/human/robot_tongue/can_run_emote(mob/user, status_check = TRUE , intentional)
