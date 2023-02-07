@@ -319,6 +319,20 @@ const PackagingControls = ({ volume, packagingName }, context) => {
         </LabeledList.Item>
       )}
       {!condi && (
+        <PackagingControlsItem
+          label="Pills"
+          amount={pillAmount}
+          amountUnit="pills"
+          sideNote="max 50u"
+          onChangeAmount={(e, value) => setPillAmount(value)}
+          onCreate={() => act('create', {
+            type: 'pill',
+            amount: pillAmount,
+            volume: volume,
+            name: packagingName,
+          })} />
+      )}
+      {!condi && (
         <LabeledList.Item label="Patch type">
           {patchStyles.map(each_style => (
             <Button
@@ -337,20 +351,6 @@ const PackagingControls = ({ volume, packagingName }, context) => {
             </Button>
           ))}
         </LabeledList.Item>
-      )}
-      {!condi && (
-        <PackagingControlsItem
-          label="Pills"
-          amount={pillAmount}
-          amountUnit="pills"
-          sideNote="max 50u"
-          onChangeAmount={(e, value) => setPillAmount(value)}
-          onCreate={() => act('create', {
-            type: 'pill',
-            amount: pillAmount,
-            volume: volume,
-            name: packagingName,
-          })} />
       )}
       {!condi && (
         <PackagingControlsItem

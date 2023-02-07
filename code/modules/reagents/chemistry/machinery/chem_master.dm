@@ -36,7 +36,7 @@
 
 	//Calculate the span tags and ids fo all the available pill icons
 	if(!length(pillStyles))
-		for (var/each_pill_shape in PILL_SHAPE_LIST)
+		for (var/each_pill_shape in PILL_SHAPE_LIST_WITH_DUMMY)
 			var/list/style_list = list()
 			style_list["id"] = each_pill_shape
 			style_list["pill_icon_name"] = each_pill_shape
@@ -376,7 +376,7 @@
 						P.name = trim("[name] pill")
 						P.label_name = trim(name)
 						if(chosenPillStyle == "pill_random_dummy")
-							P.icon_state = pick(PILL_SHAPE_LIST_WITHOUT_DUMMY)
+							P.icon_state = pick(PILL_SHAPE_LIST)
 						else
 							P.icon_state = chosenPillStyle
 						if(P.icon_state == "pill_shape_capsule_bloodred")

@@ -250,7 +250,7 @@
 
 /datum/asset/spritesheet/simple/medicine_containers/register()
 	var/dmi_file = 'icons/obj/medicine_containers.dmi'
-	for(var/each_pill_shape in PILL_SHAPE_LIST)
+	for(var/each_pill_shape in PILL_SHAPE_LIST_WITH_DUMMY)
 		var/icon/target_icon = icon(dmi_file, each_pill_shape, SOUTH, 1)
 		if(!target_icon)
 			continue

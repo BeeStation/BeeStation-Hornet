@@ -18,7 +18,7 @@
 /obj/item/reagent_containers/pill/Initialize(mapload)
 	. = ..()
 	if(!icon_state)
-		icon_state = pick(PILL_SHAPE_LIST_WITHOUT_DUMMY)
+		icon_state = pick(PILL_SHAPE_LIST)
 	if(reagents.total_volume && rename_with_volume)
 		name += " ([reagents.total_volume]u)"
 

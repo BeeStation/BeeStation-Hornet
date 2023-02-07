@@ -102,13 +102,11 @@ GLOBAL_LIST_INIT(pill_shape_list, list(
 		"pill_shape_tablet_blue_skyblue_lined",
 		"pill_shape_tablet_happy",
 		"pill_shape_tablet_angry",
-		"pill_shape_tablet_sad",
-		"pill_random_dummy")) // put this dummy pill at the end always
-GLOBAL_PROTECT(pill_shape_list)
+		"pill_shape_tablet_sad"))
 
 // using these defines will be consistently manageable
 #define PILL_SHAPE_LIST (GLOB.pill_shape_list)
-#define PILL_SHAPE_LIST_WITHOUT_DUMMY (GLOB.pill_shape_list-"pill_random_dummy")
+#define PILL_SHAPE_LIST_WITH_DUMMY (GLOB.pill_shape_list+"pill_random_dummy")
 
 GLOBAL_LIST_INIT(patch_shape_list, list(
 		"bandaid_small_cross",
@@ -117,6 +115,5 @@ GLOBAL_LIST_INIT(patch_shape_list, list(
 		"bandaid_big_burn",
 		"bandaid_big_both",
 		"bandaid_big_blank",))
-GLOBAL_PROTECT(patch_shape_list)
 
 #define PATCH_SHAPE_LIST (GLOB.patch_shape_list)

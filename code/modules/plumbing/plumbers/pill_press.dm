@@ -35,7 +35,7 @@
 
 	//expertly copypasted from chemmasters
 	if(!length(pill_styles))
-		for (var/each_pill_shape in PILL_SHAPE_LIST)
+		for (var/each_pill_shape in PILL_SHAPE_LIST_WITH_DUMMY)
 			var/list/SL = list()
 			SL["id"] = each_pill_shape
 			SL["pill_icon_name"] = each_pill_shape
@@ -50,7 +50,7 @@
 		P.name = pill_name
 		stored_pills += P
 		if(pill_shape == "pill_random_dummy")
-			P.icon_state = pick(PILL_SHAPE_LIST_WITHOUT_DUMMY)
+			P.icon_state = pick(PILL_SHAPE_LIST)
 		else
 			P.icon_state = pill_shape
 		if(P.icon_state == "pill_shape_capsule_bloodred") //mirrored from chem masters
