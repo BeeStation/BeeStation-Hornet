@@ -529,6 +529,52 @@
 	if(message_admins)
 		message_admins("[ADMIN_LOOKUPFLW(owner)] has caused a delimber pulse affecting [english_list(affected)].")
 
+//Fluid Anomaly (Random Fluid)
+
+#define NORMAL_FLUID_AMOUNT 25
+#define DANGEROUS_FLUID_AMOUNT 100
+
+/obj/effect/anomaly/fluid
+	name = "Fluidic Anomaly"
+	desc = "An anomaly pulling in liquids from places unknown. Better get the mop."
+	icon_state = "bluestream_fade"
+	var/dangerous = FALSE
+	var/list/fluid_choices = list()
+
+/obj/effect/anomaly/fluid/Initialize(mapload, new_lifespan)
+	. = ..()
+	if(prob(10))
+		dangerous = TRUE //Unrestricts the reagent choice and increases fluid amounts
+
+	for(var/i = 1, i <= rand(1,5), i++) //Between 1 and 5 random chemicals
+		fluid_choices += dangerous ? get_random_reagent_id(CHEMICAL_RNG_FUN) : get_random_reagent_id(CHEMICAL_RNG_GENERAL)
+
+/obj/effect/anomaly/fluid/examine(mob/user)
+	. = ..()
+	if(isobserver(user))
+		. += "\nThis anomaly may spawn\n"
+		for(var/i in fluid_choices)
+			. += "[i]\n"
+
+/obj/effect/anomaly/fluid/anomalyEffect(delta_time)
+	..()
+
+	if(isinspace(src) || !isopenturf(get_turf(src)))
+		return
+
+	var/turf/spawn_point = get_turf(src)
+	spawn_point.add_liquid(pick(fluid_choices), dangerous ? DANGEROUS_FLUID_AMOUNT : NORMAL_FLUID_AMOUNT, chem_temp = rand(BODYTEMP_COLD_DAMAGE_LIMIT, BODYTEMP_HEAT_DAMAGE_LIMIT))
+
+/obj/effect/anomaly/fluid/detonate()
+
+	if(isinspace(src) || !isopenturf(get_turf(src)))
+		return
+
+	var/turf/spawn_point = get_turf(src)
+	spawn_point.add_liquid(pick(fluid_choices), (dangerous ? DANGEROUS_FLUID_AMOUNT : NORMAL_FLUID_AMOUNT) * 5, chem_temp = rand(BODYTEMP_COLD_DAMAGE_LIMIT, BODYTEMP_HEAT_DAMAGE_LIMIT))
+
+#undef NORMAL_FLUID_AMOUNT
+#undef DANGEROUS_FLUID_AMOUNT
 #undef ANOMALY_MOVECHANCE
 #undef ANOMALY_DELIMBER_ZONES
 #undef ANOMALY_DELIMBER_ZONE_CHEST

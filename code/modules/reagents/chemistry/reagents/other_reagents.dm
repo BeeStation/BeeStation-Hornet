@@ -1298,7 +1298,7 @@
 	name = "Ammonia"
 	description = "A caustic substance commonly used in fertilizer or household cleaners."
 	reagent_state = GAS
-	color = "#404030" // rgb: 64, 64, 48
+	color = "#f3e62f"
 	chem_flags = NONE
 	taste_description = "mordant"
 

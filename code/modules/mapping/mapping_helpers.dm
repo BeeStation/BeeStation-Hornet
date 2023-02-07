@@ -258,3 +258,31 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 				O.organ_flags |= ORGAN_FROZEN
 		j.update_icon()
 	qdel(src)
+
+//Liquids
+/obj/effect/mapping_helpers/liquid_spawner
+	name = "Liquid Spawner"
+	late = TRUE
+	icon_state = "component_infective"
+	///What reagent this helper spawn
+	var/reagent
+	///How much we're spawning of the given liquid
+	var/amount = 100
+	///Do we use the no_react variable?
+	var/no_react = FALSE
+	///What temperature is our chem?
+	var/temp = T20C
+	///The chance to spawn
+	var/chance = 100
+
+/obj/effect/mapping_helpers/liquid_spawner/LateInitialize()
+	. = ..()
+	var/turf/T = get_turf(src)
+	if(T && prob(chance))
+		T.add_liquid(reagent || get_random_reagent_id(CHEMICAL_RNG_GENERAL), amount, no_react, temp)
+	qdel(src)
+
+/obj/effect/mapping_helpers/liquid_spawner/piss_possiblity
+	name = "Piss Spawner"
+	reagent = /datum/reagent/ammonia
+	chance = 13

@@ -91,6 +91,8 @@
 				RegisterSignal(directional_turf, COMSIG_TURF_DESTROY, .proc/add_turf_direction)
 			else if(!(directional_turf in atmos_adjacent_turfs))
 				RegisterSignal(directional_turf, COMSIG_TURF_UPDATE_AIR, .proc/add_turf_direction_non_closed)
+			else if(isopenspace(directional_turf))
+				continue
 			else
 				open_turfs.Add(direction)
 
