@@ -345,11 +345,14 @@
 		security_records_out += list(crew_record)
 	return security_records_out
 
-/datum/datacore/proc/get_id_photo(mob/living/carbon/human/H, client/C, show_directions = list(SOUTH))
+/datum/datacore/proc/get_id_photo(mob/living/carbon/human/H, client/C, show_directions = list(SOUTH), humanoverride = FALSE)
 	var/datum/job/J = SSjob.GetJob(H.mind.assigned_role)
 	var/datum/character_save/CS
 	if(!C)
 		C = H.client
 	if(C)
 		CS = C.prefs.active_character
+		if(humanoverride)
+			CS.pref_species = new /datum/species/human
+			H.copy_features(CS)
 	return get_flat_human_icon(null, J, CS, DUMMY_HUMAN_SLOT_MANIFEST, show_directions)
