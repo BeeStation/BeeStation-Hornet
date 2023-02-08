@@ -95,18 +95,11 @@
 	return
 
 //Process orbital objects, calculate gravity
-/datum/orbital_object/process()
+/datum/orbital_object/process(delta_time)
 	//Dont process updates for static objects.
 	if(static_object)
 		return PROCESS_KILL
 
-	//NOTE TO SELF: This does nothing because world.time is in ticks not realtime.
-	var/delta_time = 0
-	if(last_update_tick)
-		//Don't go too crazy.
-		delta_time = CLAMP(world.time - last_update_tick, 10, 50) * 0.1
-	else
-		delta_time = 1
 	last_update_tick = world.time
 
 	var/datum/orbital_map/parent_map = SSorbits.orbital_maps[orbital_map_index]

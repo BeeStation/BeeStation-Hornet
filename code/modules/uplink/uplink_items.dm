@@ -2044,17 +2044,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5
 	restricted_roles = list(JOB_NAME_CLOWN)
 
-
-/datum/uplink_item/role_restricted/spider_injector
-	name = "Australicus Slime Mutator"
-	desc = "Crikey mate, it's been a wild travel from the Australicus sector but we've managed to get \
-			some special spider extract from the giant spiders down there. Use this injector on a gold slime core \
-			to create a few of the same type of spiders we found on the planets over there. They're a bit tame until you \
-			also give them a bit of sentience though."
-	item = /obj/item/reagent_containers/syringe/spider_extract
-	cost = 10
-	restricted_roles = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST)
-
 /datum/uplink_item/role_restricted/clowncar
 	name = "Clown Car"
 	desc = "The Clown Car is the ultimate transportation method for any worthy clown! \
@@ -2330,6 +2319,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Clown Costume"
 	desc = "Nothing is more terrifying than clowns with fully automatic weaponry."
 	item = /obj/item/storage/backpack/duffelbag/clown/syndie
+
+/datum/uplink_item/badass/surprise_cake
+	name = "Rigged towering cake"
+	desc = "For hosting a surprise birthday party for the Captain, with a flashy surprise."
+	item = /obj/structure/popout_cake/nukeop
+	cost = 4
+	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/badass/balloon
 	name = "Syndicate Balloon"

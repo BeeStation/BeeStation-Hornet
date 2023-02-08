@@ -129,7 +129,7 @@ GENE SCANNER
 
 // Used by the PDA medical scanner too
 /proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE, to_chat = TRUE)
-	if(isliving(user) && (user.incapacitated() || user.eye_blind))
+	if(isliving(user) && (user.incapacitated() || user.is_blind()))
 		return
 
 	// the final list of strings to render
@@ -230,7 +230,7 @@ GENE SCANNER
 			message += "\t<span class='info'><b>==EYE STATUS==</b></span>"
 			if(istype(eyes))
 				var/healthy = TRUE
-				if(HAS_TRAIT(C, TRAIT_BLIND))
+				if(C.is_blind())
 					message += "\t<span class='alert'>Subject is blind.</span>"
 					healthy = FALSE
 				if(HAS_TRAIT(C, TRAIT_NEARSIGHT))
@@ -490,7 +490,7 @@ GENE SCANNER
 /obj/item/analyzer/attack_self(mob/user)
 	add_fingerprint(user)
 
-	if(user.stat || user.eye_blind)
+	if(user.stat || user.is_blind())
 		return
 
 	//Functionality moved down to proc/scan_turf()
@@ -692,7 +692,7 @@ GENE SCANNER
 	materials = list(/datum/material/iron=30, /datum/material/glass=20)
 
 /obj/item/slime_scanner/attack(mob/living/M, mob/living/user)
-	if(user.stat || user.eye_blind)
+	if(user.stat || user.is_blind())
 		return
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>This device can only scan slimes!</span>")
@@ -1039,7 +1039,7 @@ GENE SCANNER
 		symptomholder.Finalize()
 		symptomholder.Refresh()
 		to_chat(user, "<span class='warning'>You begin isolating [chosen].</span>")
-		if(do_after(user, (600 / (scanner.rating + 1)), target = AM))
+		if(do_after(user, (300 / (scanner.rating + 1)), target = AM))
 			create_culture(symptomholder, user, AM)
 	else
 		using = TRUE

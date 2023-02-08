@@ -163,6 +163,8 @@ RLD
 	return .
 
 /obj/item/construction/proc/range_check(atom/A, mob/user)
+	if(A.z != user.z)
+		return
 	if(!(user in viewers(7, get_turf(A))))
 		to_chat(user, "<span class='warning'>The \'Out of Range\' light on [src] blinks red.</span>")
 		return FALSE
@@ -428,11 +430,17 @@ RLD
 	airlock_electronics.name = "Access Control"
 	airlock_electronics.holder = src
 	GLOB.rcd_list += src
+	AddElement(/datum/element/openspace_item_click_handler)
 
 /obj/item/construction/rcd/Destroy()
 	QDEL_NULL(airlock_electronics)
 	GLOB.rcd_list -= src
 	. = ..()
+
+/obj/item/construction/rcd/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+	if(proximity_flag)
+		mode = RCD_FLOORWALL
+		rcd_create(target, user)
 
 /obj/item/construction/rcd/attack_self(mob/user)
 	..()
@@ -627,7 +635,10 @@ RLD
 		user.Beam(A,icon_state="rped_upgrade",time=30)
 	rcd_create(A,user)
 
-
+/obj/item/construction/rcd/arcd/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+	if(ranged && range_check(target, user))
+		mode = RCD_FLOORWALL
+		rcd_create(target, user)
 
 // RAPID LIGHTING DEVICE
 
