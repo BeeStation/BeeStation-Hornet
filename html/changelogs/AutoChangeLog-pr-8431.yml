@@ -1,0 +1,4 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - tweak: doubled the extrapolation speed of the Virus Extrapolator
