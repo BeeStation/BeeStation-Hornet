@@ -425,7 +425,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		if(1)
 			oneway = -1
 			newdirtext = "reverse one-way"
-	to_chat(user, "<span class='notice'>You set the conveyor switch to [newdirtext] mode.")
+	to_chat(user, "<span class='notice'>You set the conveyor switch to [newdirtext] mode.</span>")
 	return TRUE
 
 /obj/machinery/conveyor_switch/oneway
