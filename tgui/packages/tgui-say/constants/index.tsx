@@ -42,6 +42,18 @@ export const RADIO_PREFIXES = {
     id: 'engi',
     label: 'Engi',
   },
+  ':h ': {
+    id: 'holo',
+    label: 'Holo',
+  },
+  ':i ': {
+    id: 'intercom',
+    label: 'ICom',
+  },
+  ':l ': {
+    id: 'left',
+    label: 'Left',
+  },
   ':m ': {
     id: 'medical',
     label: 'Med',
@@ -57,6 +69,10 @@ export const RADIO_PREFIXES = {
   ':q ': {
     id: 'exploration',
     label: 'Explo',
+  },
+  ':r ': {
+    id: 'right',
+    label: 'Right',
   },
   ':s ': {
     id: 'security',

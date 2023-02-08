@@ -32,6 +32,10 @@ $syndicate: #8f4a4b;
 $service: #6ca729;
 $supply: #b88646;
 $uplink: #830a0a;
+$holo: #d61b5a;
+$intercom: #56bd03;
+$left: #4c0675;
+$right: #4c0675;
 
 $_channel_map: (
   'say': $say,
@@ -54,6 +58,10 @@ $_channel_map: (
   'service': $service,
   'supply': $supply,
   'uplink': $uplink,
+  'left': $left,
+  'right': $right,
+  'holo': $holo,
+  'intercom': $intercom,
 );
 
 $channel_keys: map.keys($_channel_map) !default;
