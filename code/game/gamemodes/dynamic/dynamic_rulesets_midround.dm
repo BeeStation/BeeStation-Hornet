@@ -722,10 +722,10 @@
 
 /datum/dynamic_ruleset/midround/from_ghosts/spiders/generate_ruleset_body(mob/applicant)
 	var/obj/vent = pick_n_take(vents)
-	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/spider = new(vent.loc)
+	var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/spider = new(vent.loc)
 	spider.key = applicant.key
 	if(fed)
-		spider.enriched_fed++
+		spider.fed += 3
 		fed--
 	message_admins("[ADMIN_LOOKUPFLW(spider)] has been made into a spider by the midround ruleset.")
 	log_game("DYNAMIC: [key_name(spider)] was spawned as a spider by the midround ruleset.")
