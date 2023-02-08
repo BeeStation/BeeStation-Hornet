@@ -168,7 +168,7 @@
 		if(!registered_account)
 			to_chat(usr, "There's no account registered!")
 			return
-		var/target_value = input(usr, "How many mining points do you like to add? (use nagative to take)", "Give mining points") as num
+		var/target_value = input(usr, "How many mining points would you like to add? (use nagative to take)", "Give mining points") as num
 		if(!registered_account.adjust_currency(ACCOUNT_CURRENCY_MINING, target_value))
 			to_chat(usr, "Failed: Your input was [target_value], but [registered_account.account_holder]'s account has only [registered_account.report_currency(ACCOUNT_CURRENCY_MINING)].")
 		else
