@@ -210,6 +210,16 @@
 		return
 	return 'sound/misc/fart1.ogg'
 
+/datum/emote/living/carbon/human/fart/run_emote(mob/user, params, type_override, intentional)
+	if(ishuman(user))
+		var/mob/living/carbon/human/fartee = user
+		if(COOLDOWN_FINISHED(fartee, special_emote_cooldown))
+			..()
+			COOLDOWN_START(fartee, special_emote_cooldown, 20 SECONDS)
+		else
+			to_chat(user, "<span class='warning'>You strain, but can't seem to fart again just yet.</span>")
+		return TRUE
+
 // Robotic Tongue emotes. Beep!
 
 /datum/emote/living/carbon/human/robot_tongue/can_run_emote(mob/user, status_check = TRUE , intentional)
