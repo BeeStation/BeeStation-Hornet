@@ -1,0 +1,5 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - bugfix: IPCs who become changelings now properly have their medical records updated
+      and no longer spawn bald
