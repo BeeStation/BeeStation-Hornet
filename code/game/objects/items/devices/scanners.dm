@@ -1037,7 +1037,7 @@ GENE SCANNER
 		symptomholder.Finalize()
 		symptomholder.Refresh()
 		to_chat(user, "<span class='warning'>You begin isolating [chosen].</span>")
-		if(do_after(user, (600 / (scanner.rating + 1)), target = AM))
+		if(do_after(user, (300 / (scanner.rating + 1)), target = AM))
 			create_culture(symptomholder, user, AM)
 	else
 		using = TRUE

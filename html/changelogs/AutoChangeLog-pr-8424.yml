@@ -1,0 +1,4 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - tweak: Station traits are now chosen with more equalised randomness.
