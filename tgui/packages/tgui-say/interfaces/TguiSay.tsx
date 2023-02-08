@@ -5,6 +5,8 @@ import { eventHandlerMap } from '../handlers';
 import { getCss, getTheme, timers } from '../helpers';
 import { Component, createRef } from 'inferno';
 import { Modal, State } from '../types';
+import { KEY_ESCAPE } from 'common/keycodes';
+import { windowClose } from '../helpers';
 
 /** Primary class for the TGUI say modal. */
 export class TguiSay extends Component<{}, State> {
@@ -50,6 +52,11 @@ export class TguiSay extends Component<{}, State> {
       <div
         className={getCss('modal', theme, size)}
         onmousedown={dragStartHandler}
+        onKeyDown={(event) => {
+          if (event.keyCode === KEY_ESCAPE) {
+            onEscape();
+          }
+        }}
         $HasKeyedChildren>
         <div className="top-border" />
         <div className="left-border" />
