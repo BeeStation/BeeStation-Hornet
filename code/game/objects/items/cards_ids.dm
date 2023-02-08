@@ -667,8 +667,8 @@ update_label("John Doe", "Clowny")
 	icon_state = "centcom"
 
 /obj/item/card/id/ert/lawyer/Initialize(mapload)
-	access = list(ACCESS_CENT_GENERAL, ACCESS_COURT, ACCESS_BRIG, ACCESS_FORENSICS_LOCKERS)
 	. = ..()
+	access = list(ACCESS_CENT_GENERAL, ACCESS_COURT, ACCESS_BRIG, ACCESS_FORENSICS_LOCKERS)
 
 /obj/item/card/id/prisoner
 	name = "prisoner ID card"
