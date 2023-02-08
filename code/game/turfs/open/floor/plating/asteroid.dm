@@ -187,3 +187,8 @@
 /turf/open/floor/plating/asteroid/snow/atmosphere
 	initial_gas_mix = FROZEN_ATMOS
 	planetary_atmos = FALSE
+
+/turf/open/floor/plating/asteroid/snow/dug
+	icon_state = "snow_dug"
+	burnt = TRUE
+	floor_variance = 0

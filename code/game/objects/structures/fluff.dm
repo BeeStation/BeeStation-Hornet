@@ -113,6 +113,7 @@
 	icon = 'icons/obj/fluff.dmi'
 	icon_state = "paper"
 	deconstructible = FALSE
+	max_integrity = 20
 
 /obj/structure/fluff/paper/corner
 	icon_state = "papercorner"

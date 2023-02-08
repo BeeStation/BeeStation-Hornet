@@ -2,7 +2,7 @@
 "ar" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil/cut/green,
-/turf/open/floor/plating/foam/cold,
+/turf/open/floor/plating/cold,
 /area/frostwing_base)
 "aJ" = (
 /obj/effect/turf_decal/stripes/closeup{
@@ -21,10 +21,12 @@
 "cs" = (
 /obj/structure/grille/broken,
 /obj/structure/marker_beacon,
-/turf/open/floor/plating/cold/rust,
+/turf/open/floor/plating/rust/cold,
 /area/frostwing_base)
 "dd" = (
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed{
+	icon_plating = "snowplating"
+	},
 /area/frostwing_base)
 "do" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -46,7 +48,7 @@
 /area/frostwing_base)
 "dr" = (
 /obj/structure/lattice/catwalk/over,
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "dx" = (
 /obj/effect/decal/cleanable/dirt,
@@ -55,7 +57,8 @@
 	},
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/open/floor/plating/cold{
-	icon_state = "panelscorched"
+	icon_state = "panelscorched";
+	burnt = 1
 	},
 /area/frostwing_base)
 "dX" = (
@@ -64,10 +67,10 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "ek" = (
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "eN" = (
 /turf/closed/mineral/snowmountain/cavern,
@@ -95,7 +98,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "fN" = (
 /obj/structure/flora/rock/pile/icy,
@@ -111,7 +114,9 @@
 	pixel_y = -3;
 	pixel_x = -2
 	},
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed{
+	icon_plating = "snowplating"
+	},
 /area/frostwing_base)
 "fS" = (
 /obj/effect/decal/cleanable/glass{
@@ -119,7 +124,7 @@
 	pixel_x = -9
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/cold/rust,
+/turf/open/floor/plating/rust/cold,
 /area/frostwing_base)
 "ga" = (
 /obj/effect/decal/cleanable/dirt,
@@ -129,7 +134,8 @@
 /obj/item/wallframe/firealarm,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/cold{
-	icon_state = "panelscorched"
+	icon_state = "panelscorched";
+	burnt = 1
 	},
 /area/frostwing_base)
 "gi" = (
@@ -141,7 +147,7 @@
 	dir = 1;
 	layer = 2.0392
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "gC" = (
 /obj/effect/turf_decal/stripes{
@@ -166,7 +172,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "gQ" = (
 /obj/item/flashlight/lantern{
@@ -177,7 +183,9 @@
 	pixel_y = -9;
 	pixel_x = 9
 	},
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed{
+	icon_plating = "snowplating"
+	},
 /area/frostwing_base)
 "hb" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -193,25 +201,14 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
-"hr" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/glowstick/lit,
-/turf/open/floor/grass/snow/safe{
-	icon_state = "snow_dug"
-	},
-/area/frostwing_base)
 "hJ" = (
 /obj/effect/decal/cleanable/glass,
 /obj/structure/marker_beacon,
 /turf/open/floor/plating/cold,
 /area/frostwing_base)
 "hK" = (
-/turf/open/floor/plating/ice,
+/turf/open/floor/plating/ice/smooth,
 /area/iceland)
-"hX" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/cold/dug,
-/area/frostwing_base)
 "ib" = (
 /obj/structure/chair/fancy/shuttle,
 /obj/effect/decal/cleanable/vomit/old,
@@ -231,10 +228,10 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "iy" = (
-/turf/open/floor/plating/cold/rust,
+/turf/open/floor/plating/rust/cold,
 /area/frostwing_base)
 "iG" = (
 /obj/machinery/frostwing_incubator/roundstart,
@@ -256,7 +253,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil/cut/red,
 /turf/open/floor/plating/cold{
-	icon_state = "panelscorched"
+	icon_state = "panelscorched";
+	burnt = 1
 	},
 /area/frostwing_base)
 "iV" = (
@@ -265,7 +263,7 @@
 	pixel_x = 9
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/cold/rust,
+/turf/open/floor/plating/rust/cold,
 /area/frostwing_base)
 "iW" = (
 /obj/structure/bonfire,
@@ -275,17 +273,13 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
-"ja" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/cold/dug,
-/area/frostwing_base)
 "ji" = (
 /obj/structure/grille,
 /turf/open/floor/plating/cold{
-	icon_state = "platingdmg3"
+	icon_state = "platingdmg3";
+	broken = 1
 	},
 /area/frostwing_base)
 "jl" = (
@@ -303,14 +297,14 @@
 /obj/item/lighter{
 	pixel_x = -8
 	},
-/turf/open/floor/plating/cold/rust,
+/turf/open/floor/plating/rust/cold,
 /area/frostwing_base)
 "jF" = (
 /obj/structure/window/reinforced/spawner/east,
 /obj/structure/window/reinforced/spawner/west,
 /obj/structure/window/reinforced/spawner/north,
 /obj/structure/grille,
-/turf/open/floor/plating/cold/rust,
+/turf/open/floor/plating/rust/cold,
 /area/frostwing_base)
 "jK" = (
 /obj/structure/rack,
@@ -327,7 +321,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "ka" = (
 /obj/item/stack/cable_coil/cut/red,
@@ -341,13 +335,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plating/cold/rust,
+/turf/open/floor/plating/rust/cold,
 /area/frostwing_base)
 "ke" = (
 /obj/machinery/hydroponics/soil,
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/plating/dirt{
-	initial_gas_mix = "o2=22;n2=82;TEMP=180"
+	initial_gas_mix = "o2=22;n2=82;TEMP=180";
+	icon_plating = "dirt"
 	},
 /area/frostwing_base)
 "kA" = (
@@ -364,29 +359,29 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "mT" = (
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "nz" = (
 /obj/structure/flora/stump,
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "nK" = (
 /obj/structure/flora/stump,
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "nT" = (
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "nV" = (
 /obj/structure/flora/grass/both,
@@ -416,7 +411,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "oK" = (
 /obj/structure/lattice/catwalk/over,
@@ -424,7 +419,7 @@
 	dir = 1;
 	layer = 2.0392
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "oM" = (
 /obj/effect/turf_decal/stripes{
@@ -453,7 +448,7 @@
 	layer = 2.0392
 	},
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "pO" = (
 /obj/structure/cable/yellow{
@@ -463,23 +458,26 @@
 /area/frostwing_base)
 "pQ" = (
 /obj/item/stock_parts/micro_laser,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "qN" = (
 /obj/structure/barricade/wooden/snowed,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed{
+	icon_plating = "snowplating"
+	},
 /area/frostwing_base)
 "qQ" = (
 /obj/structure/grille,
 /turf/open/floor/plating/cold{
-	icon_state = "platingdmg1"
+	icon_state = "platingdmg1";
+	broken = 1
 	},
 /area/frostwing_base)
 "ra" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/cold{
-	icon_state = "platingdmg3"
+	icon_state = "platingdmg3";
+	broken = 1
 	},
 /area/frostwing_base)
 "rp" = (
@@ -492,16 +490,11 @@
 	},
 /turf/open/floor/plasteel/tech/cold,
 /area/frostwing_base)
-"ry" = (
-/obj/item/stack/cable_coil/cut/red,
-/turf/open/floor/plating/snowed,
-/area/frostwing_base)
 "rM" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "rS" = (
 /obj/effect/turf_decal/weather/snow/corner{
@@ -510,7 +503,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "sp" = (
 /obj/structure/railing{
@@ -537,15 +530,14 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "sW" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/item/stack/rods{
 	pixel_x = -9;
 	pixel_y = 1
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "te" = (
 /obj/item/wallframe/firealarm{
@@ -559,7 +551,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil/cut/red,
 /turf/open/floor/plating/cold{
-	icon_state = "panelscorched"
+	icon_state = "panelscorched";
+	burnt = 1
 	},
 /area/frostwing_base)
 "tQ" = (
@@ -576,12 +569,12 @@
 	color = "3e3735"
 	},
 /mob/living/simple_animal/cockroach,
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "uU" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/decal/cleanable/robot_debris,
-/turf/open/floor/plating/cold/rust,
+/turf/open/floor/plating/rust/cold,
 /area/frostwing_base)
 "uW" = (
 /obj/structure/grille,
@@ -595,14 +588,14 @@
 	dir = 6
 	},
 /obj/structure/marker_beacon,
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "vB" = (
 /obj/structure/lattice/catwalk/over,
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "vD" = (
 /obj/structure/grille,
@@ -626,7 +619,7 @@
 	pixel_x = 8;
 	pixel_y = -6
 	},
-/turf/open/floor/plating/foam/cold,
+/turf/open/floor/plating/cold,
 /area/frostwing_base)
 "wW" = (
 /obj/item/shard{
@@ -640,7 +633,8 @@
 	pixel_y = 1
 	},
 /turf/open/floor/plating/cold{
-	icon_state = "panelscorched"
+	icon_state = "panelscorched";
+	burnt = 1
 	},
 /area/frostwing_base)
 "xh" = (
@@ -661,33 +655,33 @@
 /turf/open/floor/plasteel/tech/cold,
 /area/frostwing_base)
 "xV" = (
-/obj/item/shard,
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/turf/open/floor/plating/cold/dug,
-/area/frostwing_base)
-"yi" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "yl" = (
 /turf/open/floor/plating/cold{
-	icon_state = "panelscorched"
+	icon_state = "panelscorched";
+	burnt = 1
 	},
 /area/frostwing_base)
 "yK" = (
 /mob/living/simple_animal/cockroach,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed{
+	icon_plating = "snowplating"
+	},
 /area/frostwing_base)
 "yM" = (
 /obj/structure/frame/machine,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed{
+	icon_plating = "snowplating"
+	},
 /area/frostwing_base)
 "yW" = (
 /turf/open/floor/plating/dirt{
-	initial_gas_mix = "o2=22;n2=82;TEMP=180"
+	initial_gas_mix = "o2=22;n2=82;TEMP=180";
+	icon_plating = "dirt"
 	},
 /area/frostwing_base)
 "zD" = (
@@ -704,14 +698,14 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "zK" = (
 /obj/structure/barricade/wooden/snowed,
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "zT" = (
 /obj/item/pickaxe/mini{
@@ -719,7 +713,9 @@
 	pixel_y = 12
 	},
 /obj/structure/marker_beacon,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed{
+	icon_plating = "snowplating"
+	},
 /area/frostwing_base)
 "Aq" = (
 /obj/machinery/frostwing_incubator/roundstart,
@@ -752,7 +748,7 @@
 	pixel_y = 6;
 	pixel_x = 2
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "AA" = (
 /obj/effect/turf_decal/stripes/line{
@@ -773,7 +769,8 @@
 	},
 /obj/effect/decal/cleanable/oil/slippery,
 /turf/open/floor/plating/cold{
-	icon_state = "panelscorched"
+	icon_state = "panelscorched";
+	burnt = 1
 	},
 /area/frostwing_base)
 "AF" = (
@@ -787,7 +784,7 @@
 /turf/open/floor/plating/cold,
 /area/frostwing_base)
 "AQ" = (
-/turf/open/floor/plating/ice,
+/turf/open/floor/plating/ice/smooth,
 /area/frostwing_base)
 "Bg" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
@@ -797,9 +794,7 @@
 	pixel_x = 9;
 	pixel_y = -11
 	},
-/turf/open/floor/grass/snow/safe{
-	icon_state = "snow_dug"
-	},
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "BK" = (
 /obj/item/poster/random_contraband,
@@ -813,7 +808,8 @@
 	},
 /obj/structure/rack,
 /turf/open/floor/plating/cold{
-	icon_state = "panelscorched"
+	icon_state = "panelscorched";
+	burnt = 1
 	},
 /area/frostwing_base)
 "BP" = (
@@ -823,7 +819,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "BW" = (
 /obj/item/stack/cable_coil/cut/green,
@@ -837,13 +833,8 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
-"Cv" = (
-/turf/open/floor/plating/asteroid/snow{
-	initial_gas_mix = s
-	},
-/area/iceland)
 "Cy" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1;
@@ -861,13 +852,13 @@
 	pixel_y = 2;
 	pixel_x = -3
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "CP" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "Dy" = (
 /obj/structure/flora/tree/dead,
@@ -878,7 +869,9 @@
 /area/template_noop)
 "EB" = (
 /obj/machinery/power/floodlight,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed{
+	icon_plating = "snowplating"
+	},
 /area/frostwing_base)
 "EG" = (
 /obj/structure/closet/crate/trashcart,
@@ -895,7 +888,8 @@
 	},
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/plating/cold{
-	icon_state = "platingdmg2"
+	icon_state = "platingdmg2";
+	broken = 1
 	},
 /area/frostwing_base)
 "EJ" = (
@@ -903,7 +897,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/cold/rust,
+/turf/open/floor/plating/rust/cold,
 /area/frostwing_base)
 "Fe" = (
 /obj/item/shard,
@@ -913,7 +907,7 @@
 	},
 /obj/effect/decal/cleanable/greenglow,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/cold/rust,
+/turf/open/floor/plating/rust/cold,
 /area/frostwing_base)
 "Fk" = (
 /obj/structure/table,
@@ -935,12 +929,18 @@
 /obj/effect/turf_decal/trimline/neutral/line{
 	dir = 8
 	},
+/obj/item/storage/backpack,
+/obj/item/storage/backpack{
+	pixel_x = 6;
+	pixel_y = -4
+	},
 /turf/open/floor/plasteel/tech/cold,
 /area/frostwing_base)
 "FQ" = (
 /obj/machinery/hydroponics/soil,
 /turf/open/floor/plating/dirt{
-	initial_gas_mix = "o2=22;n2=82;TEMP=180"
+	initial_gas_mix = "o2=22;n2=82;TEMP=180";
+	icon_plating = "dirt"
 	},
 /area/frostwing_base)
 "FX" = (
@@ -950,12 +950,7 @@
 "Gh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/rods,
-/turf/open/floor/plating/foam/cold,
-/area/frostwing_base)
-"Gj" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/glowstick/lit,
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/cold,
 /area/frostwing_base)
 "GC" = (
 /obj/structure/flora/stump,
@@ -966,7 +961,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/rods/ten,
 /turf/open/floor/plating/cold{
-	icon_state = "panelscorched"
+	icon_state = "panelscorched";
+	burnt = 1
 	},
 /area/frostwing_base)
 "Hh" = (
@@ -992,7 +988,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "Ho" = (
 /obj/structure/girder/reinforced,
@@ -1005,25 +1001,27 @@
 	pixel_x = 6
 	},
 /obj/item/plant_analyzer,
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "HT" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
 	},
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "Io" = (
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "Ix" = (
 /obj/item/wallframe/extinguisher_cabinet,
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "IP" = (
 /obj/structure/door_assembly/door_assembly_highsecurity,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed{
+	icon_plating = "snowplating"
+	},
 /area/frostwing_base)
 "JD" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1033,7 +1031,7 @@
 /obj/machinery/light/broken{
 	dir = 8
 	},
-/turf/open/floor/plating/cold/rust,
+/turf/open/floor/plating/rust/cold,
 /area/frostwing_base)
 "JR" = (
 /obj/structure/ore_box,
@@ -1049,19 +1047,21 @@
 /area/frostwing_base)
 "KG" = (
 /obj/item/flashlight/glowstick/orange,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed{
+	icon_plating = "snowplating"
+	},
 /area/frostwing_base)
 "KL" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil/cut/red,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed{
+	icon_plating = "snowplating"
+	},
 /area/frostwing_base)
 "KP" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "KW" = (
 /obj/structure/closet/crate/large,
@@ -1078,7 +1078,7 @@
 	pixel_y = -6;
 	pixel_x = -2
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "Le" = (
 /turf/open/floor/plating/snowed/smoothed,
@@ -1088,12 +1088,14 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "LJ" = (
 /obj/structure/light_construct,
 /obj/machinery/pipedispenser,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed{
+	icon_plating = "snowplating"
+	},
 /area/frostwing_base)
 "LO" = (
 /obj/structure/closet,
@@ -1108,7 +1110,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	cell_type = /obj/item/stock_parts/cell/super;
+	start_charge = 90s;
+	locked = 0
+	},
 /obj/effect/turf_decal/bot_red,
 /turf/open/floor/plating/cold,
 /area/frostwing_base)
@@ -1117,8 +1123,9 @@
 	icon_state = "floor6-old";
 	pixel_x = 12
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed{
+	icon_plating = "snowplating"
+	},
 /area/frostwing_base)
 "Mg" = (
 /obj/structure/closet/cardboard,
@@ -1134,11 +1141,13 @@
 	},
 /obj/effect/spawner/lootdrop/gloves,
 /obj/item/shovel,
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "MM" = (
 /obj/structure/firelock_frame,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed{
+	icon_plating = "snowplating"
+	},
 /area/frostwing_base)
 "MV" = (
 /obj/structure/marker_beacon,
@@ -1150,7 +1159,9 @@
 /area/iceland)
 "NG" = (
 /obj/structure/grille,
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed{
+	icon_plating = "snowplating"
+	},
 /area/frostwing_base)
 "Ob" = (
 /obj/item/shard{
@@ -1161,7 +1172,7 @@
 	icon_state = "small"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/foam/cold,
+/turf/open/floor/plating/cold,
 /area/frostwing_base)
 "Os" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -1195,7 +1206,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plating/cold/rust,
+/turf/open/floor/plating/rust/cold,
 /area/frostwing_base)
 "OP" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
@@ -1204,7 +1215,7 @@
 "Pw" = (
 /obj/machinery/space_heater,
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plating/cold/rust,
+/turf/open/floor/plating/rust/cold,
 /area/frostwing_base)
 "PC" = (
 /obj/structure/closet/firecloset,
@@ -1228,7 +1239,8 @@
 	pixel_x = 7
 	},
 /turf/open/floor/plating/dirt{
-	initial_gas_mix = "o2=22;n2=82;TEMP=180"
+	initial_gas_mix = "o2=22;n2=82;TEMP=180";
+	icon_plating = "dirt"
 	},
 /area/frostwing_base)
 "Qt" = (
@@ -1258,14 +1270,17 @@
 	pixel_y = -4;
 	pixel_x = 4
 	},
-/turf/open/floor/plating/snowed,
+/turf/open/floor/plating/snowed{
+	icon_plating = "snowplating"
+	},
 /area/frostwing_base)
 "Qw" = (
 /obj/structure/frame/computer{
 	dir = 1
 	},
 /turf/open/floor/plating/cold{
-	icon_state = "platingdmg1"
+	icon_state = "platingdmg1";
+	broken = 1
 	},
 /area/frostwing_base)
 "Qy" = (
@@ -1275,16 +1290,15 @@
 /turf/open/floor/plasteel/tech/cold,
 /area/frostwing_base)
 "QM" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/item/wirerod{
 	pixel_x = -7;
 	pixel_y = 6
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "QS" = (
 /obj/structure/reagent_dispensers/watertank,
-/turf/open/floor/plating/ice,
+/turf/open/floor/plating/ice/smooth,
 /area/frostwing_base)
 "QU" = (
 /obj/structure/closet/firecloset,
@@ -1298,15 +1312,7 @@
 /area/frostwing_base)
 "Rg" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
-/turf/open/floor/plating/cold/rust,
-/area/frostwing_base)
-"Rw" = (
-/obj/item/storage/pod{
-	pixel_y = 32
-	},
-/turf/open/floor/plating/cold{
-	icon_state = "panelscorched"
-	},
+/turf/open/floor/plating/rust/cold,
 /area/frostwing_base)
 "RD" = (
 /obj/item/target,
@@ -1320,7 +1326,8 @@
 /obj/item/larryframe,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/cold{
-	icon_state = "panelscorched"
+	icon_state = "panelscorched";
+	burnt = 1
 	},
 /area/frostwing_base)
 "RP" = (
@@ -1348,7 +1355,8 @@
 	pixel_x = 5
 	},
 /turf/open/floor/plating/cold{
-	icon_state = "platingdmg3"
+	icon_state = "platingdmg3";
+	broken = 1
 	},
 /area/frostwing_base)
 "Ts" = (
@@ -1364,11 +1372,11 @@
 "TG" = (
 /obj/structure/lattice/catwalk/over,
 /obj/effect/turf_decal/weather/snow/corner,
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "Uy" = (
 /obj/structure/flora/rock/icy,
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "UC" = (
 /obj/item/shard,
@@ -1385,7 +1393,7 @@
 	dir = 6
 	},
 /obj/structure/marker_beacon,
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "UN" = (
 /obj/structure/grille/broken,
@@ -1400,21 +1408,20 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "Vh" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/item/storage/crayons{
 	pixel_x = 5;
 	pixel_y = -11
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "Vn" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "Vw" = (
 /obj/effect/turf_decal/weather/snow/corner{
@@ -1422,13 +1429,14 @@
 	layer = 2.0392
 	},
 /obj/structure/marker_beacon,
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/iceland)
 "VB" = (
 /obj/structure/frame/machine,
 /obj/structure/grille/broken,
 /turf/open/floor/plating/cold{
-	icon_state = "panelscorched"
+	icon_state = "panelscorched";
+	burnt = 1
 	},
 /area/frostwing_base)
 "Wl" = (
@@ -1436,7 +1444,6 @@
 /turf/open/floor/plating/foam/cold,
 /area/frostwing_base)
 "Wp" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/item/paint/blue,
 /obj/item/paint/green{
 	pixel_y = -7;
@@ -1445,21 +1452,21 @@
 /obj/item/toy/crayon/spraycan{
 	pixel_x = -7
 	},
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "WF" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plating/cold/rust,
+/turf/open/floor/plating/rust/cold,
 /area/frostwing_base)
 "WI" = (
 /obj/structure/marker_beacon,
-/turf/open/floor/plating/cold/rust,
+/turf/open/floor/plating/rust/cold,
 /area/frostwing_base)
 "WK" = (
 /obj/effect/spawner/lootdrop/glowstick/lit,
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "Xc" = (
 /obj/effect/decal/cleanable/glass,
@@ -1469,25 +1476,26 @@
 	icon_state = "gib2-old"
 	},
 /obj/structure/marker_beacon,
-/turf/open/floor/plating/foam/cold,
+/turf/open/floor/plating/cold,
 /area/frostwing_base)
 "Xp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil/cut/red,
-/turf/open/floor/plating/foam/cold,
+/turf/open/floor/plating/cold,
 /area/frostwing_base)
 "XC" = (
 /obj/structure/bed/roller,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/cold{
-	icon_state = "panelscorched"
+	icon_state = "panelscorched";
+	burnt = 1
 	},
 /area/frostwing_base)
 "Yj" = (
 /obj/item/stock_parts/capacitor,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil/cut/red,
-/turf/open/floor/plating/cold/rust,
+/turf/open/floor/plating/rust/cold,
 /area/frostwing_base)
 "Yt" = (
 /obj/effect/turf_decal/stripes{
@@ -1512,10 +1520,10 @@
 /obj/structure/closet/crate/large,
 /obj/item/weldingtool/hugetank,
 /obj/item/melee/skateboard,
-/turf/open/floor/plating/cold/dug,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "YV" = (
-/turf/open/floor/plating/cold/dug{
+/turf/open/floor/plating/asteroid/snow/dug{
 	base_icon_state = "floors"
 	},
 /area/frostwing_base)
@@ -1525,16 +1533,11 @@
 	pixel_y = -6
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/cold/rust,
+/turf/open/floor/plating/rust/cold,
 /area/frostwing_base)
 "Zf" = (
 /obj/item/flashlight/glowstick,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/cold/dug,
-/area/frostwing_base)
-"Zx" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/snowed/smoothed,
+/turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "Zy" = (
 /obj/effect/turf_decal/stripes/line{
@@ -1562,7 +1565,8 @@
 /obj/machinery/hydroponics/soil,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/dirt{
-	initial_gas_mix = "o2=22;n2=82;TEMP=180"
+	initial_gas_mix = "o2=22;n2=82;TEMP=180";
+	icon_plating = "dirt"
 	},
 /area/frostwing_base)
 
@@ -1999,7 +2003,7 @@ aZ
 Fr
 Dy
 Fr
-Cv
+Fr
 Vw
 Io
 mT
@@ -2037,7 +2041,7 @@ gq
 Io
 LB
 Bg
-Rw
+yl
 jF
 OF
 Bg
@@ -2103,7 +2107,7 @@ Io
 Io
 zI
 Rg
-hr
+WK
 YX
 wW
 Bg
@@ -2149,9 +2153,9 @@ eN
 eN
 eN
 yK
-yi
-yi
-yi
+dd
+dd
+dd
 YV
 ek
 KW
@@ -2176,7 +2180,7 @@ gi
 MV
 Cj
 Cj
-yi
+dd
 eN
 eN
 eN
@@ -2184,9 +2188,9 @@ eN
 eN
 fR
 dd
-hX
-hX
-hX
+ek
+ek
+ek
 ek
 ix
 eN
@@ -2209,15 +2213,15 @@ Bg
 Bg
 Bg
 IP
-yi
+dd
 eN
 eN
 eN
 eN
 eN
-yi
-yi
-hX
+dd
+dd
+ek
 Vh
 Wp
 BP
@@ -2249,8 +2253,8 @@ eN
 eN
 eN
 HH
-hX
-ja
+ek
+ek
 ek
 QM
 Ck
@@ -2267,8 +2271,8 @@ Dy
 Vn
 mT
 qN
-ry
-Zx
+KL
+Le
 Le
 Le
 hJ
@@ -2282,7 +2286,7 @@ eN
 eN
 ke
 At
-Gj
+WK
 ek
 YP
 Mg

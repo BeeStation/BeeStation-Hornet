@@ -130,7 +130,8 @@
 	mappath = '_maps/templates/frostwing_base.dmm'
 
 /area/frostwing_base
-    name = "Frostwing Home Base"
-    icon_state = "frostwing"
-    has_gravity = TRUE
-    area_flags = UNIQUE_AREA
+	name = "Frostwing Home Base"
+	icon_state = "frostwing"
+	has_gravity = TRUE
+	area_flags = UNIQUE_AREA
+	flags_1 = NONE // disable CAN_BE_DIRTY_1, VERY IMPORTANT or floors break
