@@ -44,7 +44,7 @@
 	if(href_list[VV_ID_GIVE_EXPLO_POINT])
 		if(bound_bank_account != SSeconomy.get_budget_account(ACCOUNT_SCI_ID, force=TRUE))
 			bound_bank_account = SSeconomy.get_budget_account(ACCOUNT_SCI_ID, force=TRUE) // failsafe - why are you playing var edits
-		var/target_value = input(usr, "How many exploration points do you would to add? (use negative to take)", "Give exploration points") as num
+		var/target_value = input(usr, "How many exploration points would you like to add? (use negative to take)", "Give exploration points") as num
 		if(!bound_bank_account.adjust_currency(ACCOUNT_CURRENCY_EXPLO, target_value))
 			to_chat(usr, "Failed: Your input was [target_value], but [bound_bank_account.account_holder] has only [bound_bank_account.report_currency(ACCOUNT_CURRENCY_EXPLO)].")
 		else
