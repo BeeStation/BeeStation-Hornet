@@ -76696,9 +76696,7 @@
 	},
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating/ice/smooth,
-/area/engine/atmospherics_engine{
-	ambient_buzz = 'sound/ambience/shipambience.ogg'
-	})
+/area/engine/atmospherics_engine)
 "qbA" = (
 /obj/machinery/airalarm{
 	dir = 1;
