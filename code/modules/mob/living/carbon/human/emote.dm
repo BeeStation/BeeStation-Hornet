@@ -213,19 +213,11 @@
 /datum/emote/living/carbon/human/fart/run_emote(mob/user, params, type_override, intentional)
 	if(ishuman(user))
 		var/mob/living/carbon/human/fartee = user
-		if(COOLDOWN_FINISHED(fartee, fart_cooldown))
+		if(COOLDOWN_FINISHED(fartee, special_emote_cooldown))
 			..()
-			COOLDOWN_START(fartee, fart_cooldown, 20 SECONDS)
+			COOLDOWN_START(fartee, special_emote_cooldown, 20 SECONDS)
 		else
-			if(prob(5) && HAS_TRAIT(fartee, TRAIT_CLUMSY))
-				var/turf/T = get_turf(fartee)
-				fartee.spew_organ(0, 1)
-				fartee.add_splatter_floor(T)
-				playsound(T, 'sound/effects/splat.ogg', 50, 1)
-				fartee.visible_message("<span class='warning'>[fartee] sprays a bloody mess out of their rear!</span>", "<span class='warning'>You manage to strain out more than just a fart!</span>")
-				..()
-			else
-				to_chat(user, "<span class='warning'>You strain, but can't seem to fart again just yet.</span>")
+			to_chat(user, "<span class='warning'>You strain, but can't seem to fart again just yet.</span>")
 		return TRUE
 
 // Robotic Tongue emotes. Beep!
