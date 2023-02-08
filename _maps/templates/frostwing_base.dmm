@@ -1112,7 +1112,7 @@
 	},
 /obj/machinery/power/apc/auto_name/north{
 	cell_type = /obj/item/stock_parts/cell/super;
-	start_charge = 90s;
+	start_charge = 90;
 	locked = 0
 	},
 /obj/effect/turf_decal/bot_red,
