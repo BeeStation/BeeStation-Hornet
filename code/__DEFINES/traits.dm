@@ -245,7 +245,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// From anti-convulsant medication against seizures.
 #define TRAIT_ANTICONVULSANT "anticonvulsant"
-#define TRAIT_BLOODSHOT_EYES "bloodshot_eyes"
 
 // You can stare into the abyss, but it does not stare back.
 // You're immune to the hallucination effect of the supermatter, either
@@ -327,7 +326,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STATION_TRAIT "station-trait"
 #define TRAIT_RUSTY "rust_trait"
 
-// unique trait sources, still defines
+//// unique trait sources, still defines
 #define CLONING_POD_TRAIT "cloning-pod"
 #define STATUE_MUTE "statue"
 #define CHANGELING_DRAIN "drain"
@@ -337,7 +336,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STASIS_MUTE "stasis"
 #define GENETICS_SPELL "genetics_spell"
 #define EYES_COVERED "eyes_covered"
-#define CULT_EYES "cult_eyes"
+/// Special examine if eyes are visible
+#define TRAIT_CULT_EYES "cult_eyes"
+/// Special examine if eyes are visible
+#define TRAIT_BLOODSHOT_EYES "bloodshot_eyes"
 #define TRAIT_SANTA "santa"
 #define SCRYING_ORB "scrying-orb"
 #define ABDUCTOR_ANTAGONIST "abductor-antagonist"
