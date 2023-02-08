@@ -6,7 +6,6 @@ import { getCss, getTheme, timers } from '../helpers';
 import { Component, createRef } from 'inferno';
 import { Modal, State } from '../types';
 import { KEY_ESCAPE } from 'common/keycodes';
-import { windowClose } from '../helpers';
 
 /** Primary class for the TGUI say modal. */
 export class TguiSay extends Component<{}, State> {
