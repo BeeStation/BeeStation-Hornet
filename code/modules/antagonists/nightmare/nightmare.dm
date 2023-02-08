@@ -45,6 +45,6 @@
 	var/mob/living/carbon/C = new_owner.current
 	if(alert(admin,"Transform the player into a nightmare?","Species Change","Yes","No") == "Yes")
 		C.set_species(/datum/species/shadow/nightmare)
-		new_owner.assigned_role = "Nightmare"
-		new_owner.special_role = "Nightmare"
+		new_owner.assigned_role = ROLE_NIGHTMARE
+		new_owner.special_role = ROLE_NIGHTMARE
 	return ..()

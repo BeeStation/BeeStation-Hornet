@@ -50,6 +50,7 @@
 #define ROLE_SWARMER			"Swarmer"
 #define ROLE_MORPH				"Morph"
 #define ROLE_NIGHTMARE			"Nightmare"
+#define ROLE_SPACE_PIRATE		"Space Pirate"
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
@@ -86,7 +87,8 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_TERATOMA,
 	ROLE_MORPH,
 	ROLE_NIGHTMARE,
-	ROLE_SWARMER
+	ROLE_SWARMER,
+	ROLE_SPACE_PIRATE,
 ))
 
 //Job defines for what happens when you fail to qualify for any job during job selection
