@@ -84,8 +84,10 @@
 		if(bodytemperature <= (T0C - 50)) // hurt temperature
 			if(bodytemperature <= 50) // sqrting negative numbers is bad
 				adjustBruteLoss(200)
+				ADD_TRAIT(src, TRAIT_IMMOBILIZED, SLIME_COLD)
 			else
 				adjustBruteLoss(round(sqrt(bodytemperature)) * 2)
+				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, SLIME_COLD)
 
 	if(stat != DEAD)
 		var/bz_percentage = environment.total_moles() ? (environment.get_moles(GAS_BZ) / environment.total_moles()) : 0
@@ -102,12 +104,10 @@
 			set_stat(UNCONSCIOUS)
 			powerlevel = 0
 			rabid = 0
-			update_mobility()
 			regenerate_icons()
 		else if(stat == UNCONSCIOUS && !stasis)
 			to_chat(src, "<span class='notice'>You wake up from the stasis.</span>")
 			set_stat(CONSCIOUS)
-			update_mobility()
 			regenerate_icons()
 
 	updatehealth()
@@ -228,8 +228,6 @@
 				powerlevel += gainpower
 
 /mob/living/simple_animal/slime/proc/handle_targets()
-	update_mobility()
-
 	if(attacked > 50)
 		attacked = 50
 
@@ -292,19 +290,19 @@
 		if (Leader)
 			if(holding_still)
 				holding_still = max(holding_still - 1, 0)
-			else if((mobility_flags & MOBILITY_MOVE) && isturf(loc))
+			else if(!HAS_TRAIT(src, TRAIT_IMMOBILIZED) && isturf(loc))
 				step_to(src, Leader)
 		else if(hungry)
 			if (holding_still)
 				holding_still = max(holding_still - hungry, 0)
-			else if((mobility_flags & MOBILITY_MOVE) && isturf(loc) && prob(50))
+			else if(!HAS_TRAIT(src, TRAIT_IMMOBILIZED) && isturf(loc) && prob(50))
 				step(src, pick(GLOB.cardinals))
 		else
 			if(holding_still)
 				holding_still = max(holding_still - 1, 0)
 			else if (docile && pulledby)
 				holding_still = 10
-			else if((mobility_flags & MOBILITY_MOVE) && isturf(loc) && prob(33))
+			else if(!HAS_TRAIT(src, TRAIT_IMMOBILIZED) && isturf(loc) && prob(33))
 				step(src, pick(GLOB.cardinals))
 	else if(!special_process)
 		special_process = TRUE

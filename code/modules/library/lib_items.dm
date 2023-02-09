@@ -131,7 +131,7 @@
 	if(contents.len)
 		var/obj/item/book/choice = input(user, "Which book would you like to remove from the shelf?") as null|obj in sortNames(contents)
 		if(choice)
-			if(!(user.mobility_flags & MOBILITY_USE) || user.stat || user.restrained() || !in_range(loc, user))
+			if(!(user.mobility_flags & MOBILITY_USE) || user.stat || HAS_TRAIT(user, TRAIT_RESTRAINED) || !in_range(loc, user))
 				return
 			if(ishuman(user))
 				if(!user.get_active_held_item())

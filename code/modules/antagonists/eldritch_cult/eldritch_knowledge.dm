@@ -452,7 +452,6 @@
 	REMOVE_TRAIT(chosen_mortal,TRAIT_PARALYSIS_L_ARM,CURSE_TRAIT)
 	REMOVE_TRAIT(chosen_mortal,TRAIT_PARALYSIS_L_LEG,CURSE_TRAIT)
 	REMOVE_TRAIT(chosen_mortal,TRAIT_PARALYSIS_R_LEG,CURSE_TRAIT)
-	chosen_mortal.update_mobility()
 
 	return .
 

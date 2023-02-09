@@ -43,7 +43,7 @@
 	if(!istype(H))
 		return
 	var/feetCover = (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))
-	if(!HAS_TRAIT(H, TRAIT_ALWAYS_STUBS) && (H.shoes || feetCover || !(H.mobility_flags & MOBILITY_STAND) || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || H.m_intent == MOVE_INTENT_WALK))
+	if(!HAS_TRAIT(H, TRAIT_ALWAYS_STUBS) && (H.shoes || feetCover || H.body_position == LYING_DOWN || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || H.m_intent == MOVE_INTENT_WALK))
 		return
 	if(HAS_TRAIT(H, TRAIT_ALWAYS_STUBS) || ((world.time >= last_bump + 100) && prob(5)))
 		to_chat(H, "<span class='warning'>You stub your toe on the [name]!</span>")
@@ -546,7 +546,7 @@
 	smoothing_groups = null
 	canSmoothWith = null
 	can_buckle = 1
-	buckle_lying = -1
+	buckle_lying = NO_BUCKLE_LYING
 	buckle_requires_restraints = 1
 	var/mob/living/carbon/human/patient = null
 	var/obj/machinery/computer/operating/computer = null
@@ -650,7 +650,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!(user.mobility_flags & MOBILITY_STAND) || user.get_num_legs() < 2)
+	if(user.body_position == LYING_DOWN || user.usable_legs < 2)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)

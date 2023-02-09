@@ -40,7 +40,7 @@
 	ui_interact(user)
 
 /obj/item/instrument/ui_interact(mob/living/user)
-	if(!isliving(user) || user.stat || (user.restrained() && !ispAI(user)))
+	if(!isliving(user) || user.stat || (HAS_TRAIT(user, TRAIT_RESTRAINED) && !ispAI(user)))
 		return
 
 	user.set_machine(src)

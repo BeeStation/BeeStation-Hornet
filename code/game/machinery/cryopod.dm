@@ -231,7 +231,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		"<span class='notice'>You climb out of [src]!</span>")
 	open_machine()
 
-/obj/machinery/cryopod/relaymove(mob/user)
+/obj/machinery/cryopod/relaymove(mob/living/user, direction)
 	container_resist(user)
 
 /obj/machinery/cryopod/process()

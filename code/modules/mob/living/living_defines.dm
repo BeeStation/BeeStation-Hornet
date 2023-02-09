@@ -23,13 +23,22 @@
 	var/cloneloss = 0	//Damage caused by being cloned or ejected from the cloner early. slimes also deal cloneloss damage to victims
 	var/staminaloss = 0		//Stamina damage, or exhaustion. You recover it slowly naturally, and are knocked down if it gets too high. Holodeck and hallucinations deal this.
 	var/crit_threshold = HEALTH_THRESHOLD_CRIT // when the mob goes from "normal" to crit
+	///When the mob enters hard critical state and is fully incapacitated.
+	var/hardcrit_threshold = HEALTH_THRESHOLD_FULLCRIT
 
+	/// Generic bitflags for boolean conditions at the [/mob/living] level. Keep this for inherent traits of living types, instead of runtime-changeable ones.
+	var/living_flags = NONE
+
+	/// Flags that determine the potential of a mob to perform certain actions. Do not change this directly.
 	var/mobility_flags = MOBILITY_FLAGS_DEFAULT
 
 	var/resting = FALSE
-
-	var/lying = 0			//number of degrees. DO NOT USE THIS IN CHECKS. CHECK FOR MOBILITY FLAGS INSTEAD!!
-	var/lying_prev = 0		//last value of lying on update_mobility
+	/// Variable to track the body position of a mob, regardgless of the actual angle of rotation (usually matching it, but not necessarily).
+	var/body_position = STANDING_UP
+	/// Number of degrees of rotation of a mob. 0 means no rotation, up-side facing NORTH. 90 means up-side rotated to face EAST, and so on.
+	var/lying_angle = 0
+	/// Value of lying lying_angle before last change. TODO: Remove the need for this.
+	var/lying_prev = 0
 
 	var/confused = 0	//Makes the mob move in random directions.
 
@@ -62,6 +71,20 @@
 	var/list/mob_biotypes = list(MOB_ORGANIC)
 	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
 	var/has_limbs = 0 //does the mob have distinct limbs?(arms,legs, chest,head)
+
+	///How many legs does this mob have by default. This shouldn't change at runtime.
+	var/default_num_legs = 2
+	///How many legs does this mob currently have. Should only be changed through set_num_legs()
+	var/num_legs = 2
+	///How many usable legs this mob currently has. Should only be changed through set_usable_legs()
+	var/usable_legs = 2
+
+	///How many hands does this mob have by default. This shouldn't change at runtime.
+	var/default_num_hands = 2
+	///How many hands hands does this mob currently have. Should only be changed through set_num_hands()
+	var/num_hands = 2
+	///How many usable hands does this mob currently have. Should only be changed through set_usable_hands()
+	var/usable_hands = 2
 
 	var/list/pipes_shown = list()
 	var/last_played_vent

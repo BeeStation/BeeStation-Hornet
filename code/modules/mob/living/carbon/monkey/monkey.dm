@@ -37,7 +37,7 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 
 /mob/living/carbon/monkey/Initialize(mapload, cubespawned=FALSE, mob/spawner)
 	add_verb(/mob/living/proc/mob_sleep)
-	add_verb(/mob/living/proc/lay_down)
+	add_verb(/mob/living/proc/toggle_resting)
 
 	if(unique_name) //used to exclude pun pun
 		gender = pick(MALE, FEMALE)
@@ -119,6 +119,8 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	return FALSE
 
 /mob/living/carbon/monkey/canBeHandcuffed()
+	if(num_hands < 2)
+		return FALSE
 	return TRUE
 
 /mob/living/carbon/monkey/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null)

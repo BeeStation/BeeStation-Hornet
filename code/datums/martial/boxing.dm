@@ -44,7 +44,7 @@
 			D.SetSleeping(100)
 			D.forcesay(GLOB.hit_appends)
 			log_combat(A, D, "knocked out (boxing) ")
-		else if(!(D.mobility_flags & MOBILITY_STAND))
+		else if(D.body_position == LYING_DOWN)
 			D.forcesay(GLOB.hit_appends)
 	return 1
 

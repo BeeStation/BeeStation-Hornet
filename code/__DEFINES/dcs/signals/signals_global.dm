@@ -11,6 +11,8 @@
 #define COMSIG_GLOB_MOB_CREATED "!mob_created"					//! mob was created somewhere : (mob)
 #define COMSIG_GLOB_MOB_DEATH "!mob_death"						//! mob died somewhere : (mob , gibbed)
 #define COMSIG_GLOB_LIVING_SAY_SPECIAL "!say_special"			//! global living say plug - use sparingly: (mob/speaker , message)
+///! a sound was played : (sound_player, sound_file)
+#define COMSIG_GLOB_SOUND_PLAYED "!sound_played"
 #define COMSIG_GLOB_CARBON_THROW_THING	"!throw_thing"			//! a person somewhere has thrown something : (mob/living/carbon/carbon_thrower, target)
 #define COMSIG_GLOB_SECURITY_ALERT_CHANGE "!alert_change"		//! security level was changed : (new_alert)
 /// called by datum/cinematic/play() : (datum/cinematic/new_cinematic)

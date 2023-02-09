@@ -65,7 +65,8 @@
 	if(istype(S))
 		// Things that *really should always* happen to the shade when it comes out should go here.
 		S.status_flags &= ~GODMODE
-		S.mobility_flags = MOBILITY_FLAGS_DEFAULT
+		REMOVE_TRAIT(S, TRAIT_IMMOBILIZED, SOULSTONE_TRAIT)
+		REMOVE_TRAIT(S, TRAIT_HANDS_BLOCKED, SOULSTONE_TRAIT)
 		S.cancel_camera()
 		if(purified)
 			S.icon_state = "ghost1"
@@ -303,7 +304,8 @@
 	T.dust_animation()
 	var/mob/living/simple_animal/shade/S = new /mob/living/simple_animal/shade(src)
 	S.status_flags |= GODMODE //So they won't die inside the stone somehow
-	S.mobility_flags = NONE //Can't move out of the soul stone
+	ADD_TRAIT(S, TRAIT_IMMOBILIZED, SOULSTONE_TRAIT)
+	ADD_TRAIT(S, TRAIT_HANDS_BLOCKED, SOULSTONE_TRAIT)
 	S.name = "Shade of [T.real_name]"
 	S.real_name = "Shade of [T.real_name]"
 	S.key = T.key

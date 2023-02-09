@@ -8,7 +8,7 @@
 
 /mob/living/carbon/human/Initialize(mapload)
 	add_verb(/mob/living/proc/mob_sleep)
-	add_verb(/mob/living/proc/lay_down)
+	add_verb(/mob/living/proc/toggle_resting)
 
 	icon_state = ""		//Remove the inherent human icon that is visible on the map editor. We're rendering ourselves limb by limb, having it still be there results in a bug where the basic human icon appears below as south in all directions and generally looks nasty.
 
@@ -866,10 +866,10 @@
 	. = ..()
 	if(ishuman(over))
 		var/mob/living/carbon/human/T = over  // curbstomp, ported from PP with modifications
-		if(!src.is_busy && (src.zone_selected == BODY_ZONE_HEAD || src.zone_selected == BODY_ZONE_PRECISE_GROIN) && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP && !HAS_TRAIT(src, TRAIT_PACIFISM)) //all the stars align, time to curbstomp
+		if(!src.is_busy && (src.zone_selected == BODY_ZONE_HEAD || src.zone_selected == BODY_ZONE_PRECISE_GROIN) && get_turf(src) == get_turf(T) && T.body_position == LYING_DOWN && src.a_intent != INTENT_HELP && !HAS_TRAIT(src, TRAIT_PACIFISM)) //all the stars align, time to curbstomp
 			src.is_busy = TRUE
 
-			if (!do_mob(src,T,25) || get_turf(src) != get_turf(T) || (T.mobility_flags & MOBILITY_STAND) || src.a_intent == INTENT_HELP || src == T) //wait 30ds and make sure the stars still align (Body zone check removed after PR #958)
+			if (!do_mob(src,T,25) || get_turf(src) != get_turf(T) || T.body_position == STANDING_UP || src.a_intent == INTENT_HELP || src == T) //wait 30ds and make sure the stars still align (Body zone check removed after PR #958)
 				src.is_busy = FALSE
 				return
 
@@ -877,7 +877,7 @@
 
 			if(src.zone_selected == BODY_ZONE_HEAD) //curbstomp specific code
 
-				var/increment = (T.lying/90)-2
+				var/increment = (T.lying_angle/90)-2
 				setDir(increment > 0 ? WEST : EAST)
 				for(var/i in 1 to 5)
 					src.pixel_y += 8-i
@@ -901,7 +901,7 @@
 
 			else if(src.zone_selected == BODY_ZONE_PRECISE_GROIN) //groinkick specific code
 
-				var/increment = (T.lying/90)-2
+				var/increment = (T.lying_angle/90)-2
 				setDir(increment > 0 ? WEST : EAST)
 				for(var/i in 1 to 5)
 					src.pixel_y += 2-i
@@ -926,7 +926,7 @@
 
 				log_combat(src, T, "groinkicked")
 
-			var/increment = (T.lying/90)-2
+			var/increment = (T.lying_angle/90)-2
 			for(var/i in 1 to 10)
 				src.pixel_x = src.pixel_x + increment
 				sleep(0.1)
@@ -948,7 +948,7 @@
 	return (istype(target) && target.stat == CONSCIOUS && (target.mobility_flags & MOBILITY_STAND))
 
 /mob/living/carbon/human/proc/can_be_firemanned(mob/living/carbon/target)
-	return ((ishuman(target) || ismonkey(target)) && !(target.mobility_flags & MOBILITY_STAND))
+	return ((ishuman(target) || ismonkey(target)) && target.body_position == LYING_DOWN)
 
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
 	var/carrydelay = 50 //if you have latex you are faster at grabbing

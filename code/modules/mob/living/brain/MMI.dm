@@ -55,7 +55,7 @@
 		log_attack("[key_name(user)] inserted [newbrain] into \the [src] at [AREACOORD(src)].")
 
 		SEND_SIGNAL(src, COMSIG_MMI_SET_BRAINMOB, newbrain.brainmob)
-		brainmob = newbrain.brainmob
+		set_brainmob(newbrain.brainmob)
 		newbrain.brainmob = null
 		brainmob.forceMove(src)
 		brainmob.container = src
@@ -117,7 +117,7 @@
 
 /obj/item/mmi/proc/transfer_identity(mob/living/L) //Same deal as the regular brain proc. Used for human-->robot people.
 	if(!brainmob)
-		brainmob = new(src)
+		set_brainmob(new /mob/living/brain(src))
 	brainmob.name = L.real_name
 	brainmob.real_name = L.real_name
 	if(L.has_dna())
@@ -187,7 +187,7 @@
 		qdel(brain)
 		brain = null
 	if(mecha)
-		mecha = null
+		set_mecha(null)
 	if(radio)
 		qdel(radio)
 		radio = null
@@ -212,8 +212,41 @@
 		else
 			. += "<span class='notice'>The MMI indicates the brain is active.</span>"
 
-/obj/item/mmi/relaymove(mob/user)
+/obj/item/mmi/relaymove(mob/living/user, direction)
 	return //so that the MMI won't get a warning about not being able to move if it tries to move
+
+/// Proc to hook behavior associated to the change in value of the [/obj/item/mmi/var/brainmob] variable.
+/obj/item/mmi/proc/set_brainmob(mob/living/brain/new_brainmob)
+	if(brainmob == new_brainmob)
+		return FALSE
+	. = brainmob
+	brainmob = new_brainmob
+	if(new_brainmob)
+		if(mecha)
+			REMOVE_TRAIT(new_brainmob, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
+			REMOVE_TRAIT(new_brainmob, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
+		else
+			ADD_TRAIT(new_brainmob, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
+			ADD_TRAIT(new_brainmob, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
+	if(.)
+		var/mob/living/brain/old_brainmob = .
+		ADD_TRAIT(old_brainmob, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
+		ADD_TRAIT(old_brainmob, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
+
+
+/// Proc to hook behavior associated to the change in value of the [obj/vehicle/sealed/var/mecha] variable.
+/obj/item/mmi/proc/set_mecha(obj/mecha/new_mecha)
+	if(mecha == new_mecha)
+		return FALSE
+	. = mecha
+	mecha = new_mecha
+	if(new_mecha)
+		if(!. && brainmob) // There was no mecha, there now is, and we have a brain mob that is no longer unaided.
+			REMOVE_TRAIT(brainmob, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
+			REMOVE_TRAIT(brainmob, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
+	else if(. && brainmob) // There was a mecha, there no longer is one, and there is a brain mob that is now again unaided.
+		ADD_TRAIT(brainmob, TRAIT_IMMOBILIZED, BRAIN_UNAIDED)
+		ADD_TRAIT(brainmob, TRAIT_HANDS_BLOCKED, BRAIN_UNAIDED)
 
 /obj/item/mmi/syndie
 	name = "\improper Syndicate Man-Machine Interface"

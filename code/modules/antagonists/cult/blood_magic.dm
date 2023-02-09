@@ -508,7 +508,7 @@
 /obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(iscultist(user) && iscarbon(target) && proximity)
 		var/mob/living/carbon/C = target
-		if(C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore())
+		if(C.canBeHandcuffed())
 			CuffAttack(C, user)
 		else
 			user.visible_message("<span class='cultitalic'>This victim doesn't have enough arms to complete the restraint!</span>")
@@ -522,7 +522,7 @@
 								"<span class='userdanger'>[user] begins shaping dark magic shackles around your wrists!</span>")
 		if(do_mob(user, C, 30))
 			if(!C.handcuffed)
-				C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult/used(C)
+				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult/used(C))
 				C.update_handcuffed()
 				C.silent += 5
 				to_chat(user, "<span class='notice'>You shackle [C].</span>")

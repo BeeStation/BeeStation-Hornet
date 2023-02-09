@@ -93,7 +93,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(!on)
 		icon_state = "medibot0"
 		return
-	if(IsStun() || IsParalyzed())
+	if(HAS_TRAIT(src, TRAIT_INCAPACITATED))
 		icon_state = "medibota"
 		return
 	if(mode == BOT_HEALING)
@@ -117,10 +117,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		GLOB.medibot_unique_id_gen = 0
 	medibot_counter = GLOB.medibot_unique_id_gen
 	GLOB.medibot_unique_id_gen++
-
-/mob/living/simple_animal/bot/medbot/update_mobility()
-	. = ..()
-	update_icon()
 
 /mob/living/simple_animal/bot/medbot/bot_reset()
 	..()
@@ -247,7 +243,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		return
 
 /mob/living/simple_animal/bot/medbot/proc/tip_over(mob/user)
-	mobility_flags &= ~MOBILITY_MOVE
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, BOT_TIPPED_OVER)
 	playsound(src, 'sound/machines/warning-buzzer.ogg', 50)
 	user.visible_message("<span class='danger'>[user] tips over [src]!</span>", "<span class='danger'>You tip [src] over!</span>")
 	tipped = TRUE
@@ -256,7 +252,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	tipper_name = user.name
 
 /mob/living/simple_animal/bot/medbot/proc/set_right(mob/user)
-	mobility_flags &= MOBILITY_MOVE
+	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, BOT_TIPPED_OVER)
 	var/list/messagevoice
 
 	if(user)
@@ -338,7 +334,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(mode == BOT_HEALING)
 		return
 
-	if(IsStun() || IsParalyzed())
+	if(HAS_TRAIT(src, TRAIT_INCAPACITATED))
 		set_patient(null)
 		mode = BOT_IDLE
 		return

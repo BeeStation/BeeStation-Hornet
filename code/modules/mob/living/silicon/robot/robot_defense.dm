@@ -12,7 +12,7 @@
 
 /mob/living/silicon/robot/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if (M.a_intent == INTENT_DISARM)
-		if(mobility_flags & MOBILITY_STAND)
+		if(body_position == STANDING_UP)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			var/obj/item/I = get_active_held_item()
 			if(I)
@@ -187,3 +187,24 @@
 	updatehealth()
 	if(prob(75) && Proj.damage > 0)
 		spark_system.start()
+
+/mob/living/silicon/robot/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE)
+	. = ..()
+	if(isnull(.))
+		return
+	if(. <= (maxHealth * 0.5))
+		if(getOxyLoss() > (maxHealth * 0.5))
+			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+	else if(getOxyLoss() <= (maxHealth * 0.5))
+		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+
+
+/mob/living/silicon/robot/setOxyLoss(amount, updating_health = TRUE, forced = FALSE)
+	. = ..()
+	if(isnull(.))
+		return
+	if(. <= (maxHealth * 0.5))
+		if(getOxyLoss() > (maxHealth * 0.5))
+			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+	else if(getOxyLoss() <= (maxHealth * 0.5))
+		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)

@@ -298,10 +298,6 @@
 /mob/proc/get_item_by_slot(slot_id)
 	return null
 
-///Is the mob restrained
-/mob/proc/restrained(ignore_grab)
-	return
-
 ///Is the mob incapacitated
 /mob/proc/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, check_immobilized = FALSE)
 	return
@@ -494,23 +490,15 @@
 
 /mob/living/blind_examine_check(atom/examined_thing)
 	//need to be next to something and awake
-	if(!Adjacent(examined_thing) || incapacitated())
+	if(!in_range(examined_thing, src) || incapacitated())
 		to_chat(src, "<span class='warning'>Something is there, but you can't see it!</span>")
 		return FALSE
-
-	var/active_item = get_active_held_item()
-	if(active_item && active_item != examined_thing)
-		to_chat(src, "<span class='warning'>Your hands are too full to examine this!</span>")
-		return FALSE
-
-	//you can only initiate exaimines if you have a hand, it's not disabled, and only as many examines as you have hands
-	/// our active hand, to check if it's disabled/detatched
-	var/obj/item/bodypart/active_hand = has_active_hand()? get_active_hand() : null
-	if(!active_hand || active_hand.is_disabled() || LAZYLEN(do_afters) >= get_num_arms())
+	//also neeed an empty hand, and you can only initiate as many examines as you have hands
+	if(LAZYLEN(do_afters) >= usable_hands || get_active_held_item())
 		to_chat(src, "<span class='warning'>You don't have a free hand to examine this!</span>")
 		return FALSE
 
-	//you can only queue up one examine on something at a time
+	//can only queue up one examine on something at a time
 	if(examined_thing in do_afters)
 		return FALSE
 
@@ -827,7 +815,7 @@
 		return FALSE
 	if(notransform)
 		return FALSE
-	if(restrained())
+	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
 		return FALSE
 	return TRUE
 
@@ -1223,18 +1211,11 @@
 /mob/proc/set_nutrition(var/change) //Seriously fuck you oldcoders.
 	nutrition = max(0, change)
 
-///Set the movement type of the mob and update it's movespeed
-/mob/setMovetype(newval)
+/mob/setMovetype(newval) //Set the movement type of the mob and update it's movespeed
 	. = ..()
+	if(isnull(.))
+		return
 	update_movespeed(FALSE)
-
-/// Updates the grab state of the mob and updates movespeed
-/mob/setGrabState(newstate)
-	. = ..()
-	if(grab_state == GRAB_PASSIVE)
-		remove_movespeed_modifier(MOVESPEED_ID_MOB_GRAB_STATE, update=TRUE)
-	else
-		add_movespeed_modifier(MOVESPEED_ID_MOB_GRAB_STATE, update=TRUE, priority=100, override=TRUE, multiplicative_slowdown=grab_state*3, blacklisted_movetypes=FLOATING)
 
 /mob/proc/update_equipment_speed_mods()
 	var/speedies = equipped_speed_mods()

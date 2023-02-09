@@ -29,9 +29,6 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	. = ..()
 	AddElement(/datum/element/strippable, GLOB.strippable_alien_humanoid_items)
 
-/mob/living/carbon/alien/humanoid/restrained(ignore_grab)
-	return handcuffed
-
 /mob/living/carbon/alien/humanoid/cuff_resist(obj/item/I)
 	playsound(src, 'sound/voice/hiss5.ogg', 40, 1, 1)  //Alien roars when starting to break free
 	..(I, cuff_break = INSTANT_CUFFBREAK)
@@ -43,7 +40,7 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	pulledby.stop_pulling()
 	. = 0
 
-/mob/living/carbon/alien/humanoid/get_standard_pixel_y_offset(lying = 0)
+/mob/living/carbon/alien/humanoid/get_standard_pixel_y_offset(lying_angle = 0)
 	if(leaping)
 		return -32
 	else if(custom_pixel_y_offset)
@@ -51,7 +48,7 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	else
 		return initial(pixel_y)
 
-/mob/living/carbon/alien/humanoid/get_standard_pixel_x_offset(lying = 0)
+/mob/living/carbon/alien/humanoid/get_standard_pixel_x_offset(lying_angle = 0)
 	if(leaping)
 		return -32
 	else if(custom_pixel_x_offset)

@@ -679,7 +679,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				else
 					standing += mutable_appearance(undershirt.icon, undershirt.icon_state, -BODY_LAYER)
 
-		if(H.socks && H.get_num_legs(FALSE) >= 2 && !(H.dna.species.bodytype & BODYTYPE_DIGITIGRADE) && !(NOSOCKS in species_traits))
+		if(H.socks && H.num_legs >= 2 && !(H.dna.species.bodytype & BODYTYPE_DIGITIGRADE) && !(NOSOCKS in species_traits))
 			var/datum/sprite_accessory/socks/socks = GLOB.socks_list[H.socks]
 			if(socks)
 				standing += mutable_appearance(socks.icon, socks.icon_state, -BODY_LAYER)
@@ -973,8 +973,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(I.species_restricted & H.dna?.species.bodyflag)
 		to_chat(H, "<span class='warning'>Your species cannot wear this item!</span>")
 		return FALSE
-	var/num_arms = H.get_num_arms(FALSE)
-	var/num_legs = H.get_num_legs(FALSE)
 
 	switch(slot)
 		if(ITEM_SLOT_HANDS)
@@ -1012,7 +1010,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				return FALSE
 			if( !(I.slot_flags & ITEM_SLOT_GLOVES) )
 				return FALSE
-			if(num_arms < 2)
+			if(H.num_hands < 2)
 				return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(ITEM_SLOT_FEET)
@@ -1020,7 +1018,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				return FALSE
 			if( !(I.slot_flags & ITEM_SLOT_FEET) )
 				return FALSE
-			if(num_legs < 2)
+			if(H.num_legs < 2)
 				return FALSE
 			if((bodytype & BODYTYPE_DIGITIGRADE) && !(I.supports_variations & DIGITIGRADE_VARIATION))
 				if(!disable_warning)
@@ -1139,7 +1137,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				return FALSE
 			if(!istype(I, /obj/item/restraints/handcuffs))
 				return FALSE
-			if(num_arms < 2)
+			if(H.num_hands < 2)
 				return FALSE
 			return TRUE
 		if(ITEM_SLOT_LEGCUFFED)
@@ -1147,7 +1145,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				return FALSE
 			if(!istype(I, /obj/item/restraints/legcuffs))
 				return FALSE
-			if(num_legs < 2)
+			if(H.num_legs < 2)
 				return FALSE
 			return TRUE
 		if(ITEM_SLOT_BACKPACK)
@@ -1410,21 +1408,21 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	return
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(!((target.health < 0 || HAS_TRAIT(target, TRAIT_FAKEDEATH)) && !(target.mobility_flags & MOBILITY_STAND)))
+	if(target.body_position == STANDING_UP || (target.health >= 0 && !HAS_TRAIT(target, TRAIT_FAKEDEATH)))
 		target.help_shake_act(user)
 		if(target != user)
 			log_combat(user, target, "shaken")
-		return 1
-	else
-		var/we_breathe = !HAS_TRAIT(user, TRAIT_NOBREATH)
-		var/we_lung = user.getorganslot(ORGAN_SLOT_LUNGS)
+		return TRUE
 
-		if(we_breathe && we_lung)
-			user.do_cpr(target)
-		else if(we_breathe && !we_lung)
-			to_chat(user, "<span class='warning'>You have no lungs to breathe with, so you cannot perform CPR.</span>")
-		else
-			to_chat(user, "<span class='notice'>You do not breathe, so you cannot perform CPR.</span>")
+	var/we_breathe = !HAS_TRAIT(user, TRAIT_NOBREATH)
+	var/we_lung = user.getorganslot(ORGAN_SLOT_LUNGS)
+
+	if(we_breathe && we_lung)
+		user.do_cpr(target)
+	else if(we_breathe && !we_lung)
+		to_chat(user, "<span class='warning'>You have no lungs to breathe with, so you cannot perform CPR.</span>")
+	else
+		to_chat(user, "<span class='notice'>You do not breathe, so you cannot perform CPR.</span>")
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(HAS_TRAIT(target, TRAIT_ONEWAYROAD))
@@ -1439,7 +1437,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		return TRUE
 	else
 		//Steal them shoes
-		if(!(target.mobility_flags & MOBILITY_STAND) && (user.zone_selected == BODY_ZONE_L_LEG || user.zone_selected == BODY_ZONE_R_LEG) && user.a_intent == INTENT_GRAB && target.shoes)
+		if(target.body_position == LYING_DOWN && (user.zone_selected == BODY_ZONE_L_LEG || user.zone_selected == BODY_ZONE_R_LEG) && user.a_intent == INTENT_GRAB && target.shoes)
 			if(HAS_TRAIT(target.shoes, TRAIT_NODROP))
 				target.grabbedby(user)
 				return TRUE
@@ -1471,7 +1469,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	else
 
 		var/atk_verb = user.dna.species.attack_verb
-		if(!(target.mobility_flags & MOBILITY_STAND))
+		if(target.body_position == LYING_DOWN)
 			atk_verb = ATTACK_EFFECT_KICK
 
 		switch(atk_verb)//this code is really stupid but some genius apparently made "claw" and "slash" two attack types but also the same one so it's needed i guess
@@ -2084,7 +2082,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
 	if(!H.getorgan(/obj/item/organ/wings))
 		return FALSE
-	if(H.stat || !(H.mobility_flags & MOBILITY_STAND))
+	if(H.stat || H.body_position == LYING_DOWN)
 		return FALSE
 	var/turf/T = get_turf(H)
 	if(!T)
@@ -2126,7 +2124,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		H.setMovetype(H.movement_type | FLYING)
 		override_float = TRUE
 		H.pass_flags |= PASSTABLE
-		H.update_mobility()
 		if(("wings" in H.dna.species.mutant_bodyparts) || ("moth_wings" in H.dna.species.mutant_bodyparts))
 			H.Togglewings()
 	else

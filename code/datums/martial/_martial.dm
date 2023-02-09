@@ -41,7 +41,7 @@
 	var/damage = A.dna.species.punchdamage
 
 	var/atk_verb = A.dna.species.attack_verb
-	if(!(D.mobility_flags & MOBILITY_STAND))
+	if(D.body_position == LYING_DOWN)
 		atk_verb = "kick"
 
 	switch(atk_verb)
@@ -72,7 +72,7 @@
 
 	log_combat(A, D, "punched")
 
-	if(!(D.mobility_flags & MOBILITY_STAND))
+	if(D.body_position == LYING_DOWN)
 		D.forcesay(GLOB.hit_appends)
 	return 1
 

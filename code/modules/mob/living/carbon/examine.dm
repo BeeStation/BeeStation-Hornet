@@ -38,7 +38,7 @@
 	var/list/missing = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
 	var/list/disabled = list()
 	for(var/obj/item/bodypart/BP as() in bodyparts)
-		if(BP.disabled)
+		if(BP.bodypart_disabled)
 			disabled += BP
 		missing -= BP.body_zone
 		for(var/obj/item/I in BP.embedded_objects)

@@ -52,7 +52,7 @@
 		STOP_PROCESSING(SSobj, src)
 		M.pixel_x = initial(M.pixel_x)
 		pixel_x = initial(pixel_x)
-		M.pixel_y = M.get_standard_pixel_y_offset(M.lying)
+		M.pixel_y = M.get_standard_pixel_y_offset(M.lying_angle)
 
 /obj/structure/chair/noose/user_unbuckle_mob(mob/living/M,mob/living/user)
 	if(has_buckled_mobs())
@@ -84,7 +84,7 @@
 		add_fingerprint(user)
 
 /obj/structure/chair/noose/user_buckle_mob(mob/living/carbon/human/M, mob/user, check_loc = TRUE)
-	if(!in_range(user, src) || user.stat || user.restrained() || !iscarbon(M))
+	if(!in_range(user, src) || user.stat || HAS_TRAIT(user, TRAIT_RESTRAINED) || !iscarbon(M))
 		return FALSE
 
 	if (!M.get_bodypart("head"))

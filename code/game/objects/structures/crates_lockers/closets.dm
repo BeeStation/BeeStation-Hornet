@@ -332,7 +332,7 @@
 /obj/structure/closet/MouseDrop_T(atom/movable/O, mob/living/user)
 	if(!istype(O) || O.anchored || istype(O, /atom/movable/screen))
 		return
-	if(!istype(user) || user.incapacitated() || !(user.mobility_flags & MOBILITY_STAND))
+	if(!istype(user) || user.incapacitated() || user.body_position == LYING_DOWN)
 		return
 	if(!Adjacent(user) || !user.Adjacent(O))
 		return
@@ -370,8 +370,8 @@
 		O.forceMove(T)
 	return TRUE
 
-/obj/structure/closet/relaymove(mob/user)
-	if(user.stat || !isturf(loc) || !isliving(user))
+/obj/structure/closet/relaymove(mob/living/user, direction)
+	if(user.stat || !isturf(loc))
 		return
 	if(locked)
 		if(message_cooldown <= world.time)
@@ -384,7 +384,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!(user.mobility_flags & MOBILITY_STAND) && get_dist(src, user) > 0)
+	if(user.body_position == LYING_DOWN && get_dist(src, user) > 0)
 		return
 
 	if(!toggle(user))
@@ -556,12 +556,12 @@
 	step_towards(user, T2)
 	T1 = get_turf(user)
 	if(T1 == T2)
-		user.resting = TRUE //so people can jump into crates without slamming the lid on their head
+		user.set_resting(TRUE) //so people can jump into crates without slamming the lid on their head
 		if(!close(user))
 			to_chat(user, "<span class='warning'>You can't get [src] to close!</span>")
-			user.resting = FALSE
+			user.set_resting(FALSE)
 			return
-		user.resting = FALSE
+		user.set_resting(FALSE)
 		togglelock(user)
 		T1.visible_message("<span class='warning'>[user] dives into [src]!</span>")
 

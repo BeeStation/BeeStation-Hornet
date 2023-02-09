@@ -91,7 +91,7 @@
 	var/atom/Tsec = owner.drop_location()
 	var/mob/living/carbon/C = owner
 	update_limb(1)
-	C.bodyparts -= src
+	C.remove_bodypart(src)
 
 	if(held_index)
 		C.dropItemToGround(owner.get_item_for_held_index(held_index), 1)
@@ -133,7 +133,6 @@
 	C.update_health_hud() //update the healthdoll
 	C.update_body()
 	C.update_hair()
-	C.update_mobility()
 
 	if(!Tsec)	// Tsec = null happens when a "dummy human" used for rendering icons on prefs screen gets its limbs replaced.
 		qdel(src)
@@ -186,7 +185,7 @@
 		if(C.handcuffed)
 			C.handcuffed.forceMove(drop_location())
 			C.handcuffed.dropped(C)
-			C.handcuffed = null
+			C.set_handcuffed(null)
 			C.update_handcuffed()
 		if(C.hud_used)
 			var/atom/movable/screen/inventory/hand/R = C.hud_used.hand_slots["[held_index]"]
@@ -204,7 +203,7 @@
 		if(C.handcuffed)
 			C.handcuffed.forceMove(drop_location())
 			C.handcuffed.dropped(C)
-			C.handcuffed = null
+			C.set_handcuffed(null)
 			C.update_handcuffed()
 		if(C.hud_used)
 			var/atom/movable/screen/inventory/hand/L = C.hud_used.hand_slots["[held_index]"]
@@ -278,8 +277,8 @@
 
 /obj/item/bodypart/proc/attach_limb(mob/living/carbon/C, special, is_creating = FALSE)
 	moveToNullspace()
-	owner = C
-	C.bodyparts += src
+	set_owner(C)
+	C.add_bodypart(src)
 	if(held_index)
 		if(held_index > C.hand_bodyparts.len)
 			C.hand_bodyparts.len = held_index
@@ -312,7 +311,6 @@
 	C.updatehealth()
 	C.update_body()
 	C.update_hair()
-	C.update_mobility()
 
 
 /obj/item/bodypart/head/attach_limb(mob/living/carbon/C, special)

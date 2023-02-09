@@ -497,7 +497,6 @@
 /mob/living/simple_animal/slime/proc/slime_move(mob/user)
 	if(user)
 		step_away(src,user,15)
-	update_mobility()
 
 /mob/living/simple_animal/slime/pet
 	docile = 1

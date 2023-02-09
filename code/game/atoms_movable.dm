@@ -1,5 +1,7 @@
 /atom/movable
 	layer = OBJ_LAYER
+	glide_size = 8
+	appearance_flags = TILE_BOUND|PIXEL_SCALE
 	var/move_stacks = 0 //how many times a this movable had movement procs called on it since Moved() was last called
 	var/last_move = null
 	var/last_move_time = 0
@@ -32,11 +34,10 @@
 	var/atom/movable/moving_from_pull		//attempt to resume grab after moving instead of before.
 	///Holds information about any movement loops currently running/waiting to run on the movable. Lazy, will be null if nothing's going on
 	var/datum/movement_packet/move_packet
-	var/list/acted_explosions	//for explosion dodging
-	glide_size = 8
-	appearance_flags = TILE_BOUND|PIXEL_SCALE
+	var/list/acted_explosions	//for explosion dodgings
 	var/datum/forced_movement/force_moving = null	//handled soley by forced_movement.dm
-	var/movement_type = GROUND		//Incase you have multiple types, you automatically use the most useful one. IE: Skating on ice, flippers on water, flying over chasm/space, etc.
+	///In case you have multiple types, you automatically use the most useful one. IE: Skating on ice, flippers on water, flying over chasm/space, etc. Should only be changed through setMovetype()
+	var/movement_type = GROUND
 	var/atom/movable/pulling
 	var/grab_state = 0
 	var/throwforce = 0
@@ -202,7 +203,7 @@
 		log_combat(AM, AM.pulledby, "pulled from", src)
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
 	pulling = AM
-	AM.pulledby = src
+	AM.set_pulledby(src)
 	setGrabState(state)
 	if(ismob(AM))
 		var/mob/M = AM
@@ -214,13 +215,16 @@
 
 /atom/movable/proc/stop_pulling()
 	if(pulling)
-		pulling.pulledby = null
-		var/mob/living/ex_pulled = pulling
+		pulling.set_pulledby(null)
+		setGrabState(GRAB_PASSIVE)
 		pulling = null
-		setGrabState(0)
-		if(isliving(ex_pulled))
-			var/mob/living/L = ex_pulled
-			L.update_mobility()// mob gets up if it was lyng down in a chokehold
+
+///Reports the event of the change in value of the pulledby variable.
+/atom/movable/proc/set_pulledby(new_pulledby)
+	if(new_pulledby == pulledby)
+		return FALSE //null signals there was a change, be sure to return FALSE if none happened here.
+	. = pulledby
+	pulledby = new_pulledby
 
 /atom/movable/proc/Move_Pulled(atom/A)
 	if(!pulling)
@@ -620,7 +624,11 @@
 		var/atom/movable/AM = item
 		AM.onTransitZ(old_z,new_z)
 
+///Proc to modify the movement_type and hook behavior associated with it changing.
 /atom/movable/proc/setMovetype(newval)
+	if(movement_type == newval)
+		return
+	. = movement_type
 	movement_type = newval
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space
@@ -1066,7 +1074,23 @@
 /// Updates the grab state of the movable
 /// This exists to act as a hook for behaviour
 /atom/movable/proc/setGrabState(newstate)
+	if(newstate == grab_state)
+		return
+	SEND_SIGNAL(src, COMSIG_MOVABLE_SET_GRAB_STATE, newstate)
+	. = grab_state
 	grab_state = newstate
+	switch(.) //Previous state.
+		if(GRAB_PASSIVE, GRAB_AGGRESSIVE)
+			if(grab_state >= GRAB_NECK)
+				ADD_TRAIT(pulling, TRAIT_IMMOBILIZED, CHOKEHOLD_TRAIT)
+				ADD_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
+				ADD_TRAIT(pulling, TRAIT_HANDS_BLOCKED, CHOKEHOLD_TRAIT)
+	switch(grab_state) //Current state.
+		if(GRAB_PASSIVE, GRAB_AGGRESSIVE)
+			if(. >= GRAB_NECK)
+				REMOVE_TRAIT(pulling, TRAIT_IMMOBILIZED, CHOKEHOLD_TRAIT)
+				REMOVE_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
+				REMOVE_TRAIT(pulling, TRAIT_HANDS_BLOCKED, CHOKEHOLD_TRAIT)
 
 /obj/item/proc/do_pickup_animation(atom/target)
 	set waitfor = FALSE

@@ -54,7 +54,6 @@
 		var/mob/living/carbon/human/HMN = M
 		HMN.eye_color = old_eye_color
 		HMN.regenerate_icons()
-	M.update_tint()
 	M.update_sight()
 
 

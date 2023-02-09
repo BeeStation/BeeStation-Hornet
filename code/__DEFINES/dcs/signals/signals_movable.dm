@@ -47,3 +47,5 @@
 #define COMSIG_STORAGE_ENTERED "storage_entered"
 ///from base of atom/movable/on_exit_storage(): (datum/component/storage/concrete/master_storage)
 #define COMSIG_STORAGE_EXITED "storage_exited"
+///from base of atom/movable/setGrabState(): (newstate)
+#define COMSIG_MOVABLE_SET_GRAB_STATE "living_set_grab_state"

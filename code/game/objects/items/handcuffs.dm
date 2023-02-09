@@ -5,19 +5,6 @@
 	user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return(OXYLOSS)
 
-/obj/item/restraints/Destroy()
-	if(iscarbon(loc))
-		var/mob/living/carbon/M = loc
-		if(M.handcuffed == src)
-			M.handcuffed = null
-			M.update_handcuffed()
-			if(M.buckled?.buckle_requires_restraints)
-				M.buckled.unbuckle_mob(M)
-		if(M.legcuffed == src)
-			M.legcuffed = null
-			M.update_inv_legcuffed()
-	return ..()
-
 //Handcuffs
 
 /obj/item/restraints/handcuffs
@@ -52,12 +39,12 @@
 		return
 
 	if(!C.handcuffed)
-		if(C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore())
+		if(C.canBeHandcuffed())
 			C.visible_message("<span class='danger'>[user] is trying to put [src.name] on [C]!</span>", \
 								"<span class='userdanger'>[user] is trying to put [src.name] on you!</span>")
 
 			playsound(loc, cuffsound, 30, 1, -2)
-			if(do_mob(user, C, 40) && (C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore()))
+			if(do_mob(user, C, 30) && C.canBeHandcuffed())
 				if(iscyborg(user))
 					apply_cuffs(C, user, TRUE)
 				else
@@ -86,7 +73,7 @@
 		cuffs = new type()
 
 	cuffs.forceMove(target)
-	target.handcuffed = cuffs
+	target.set_handcuffed(cuffs)
 
 	target.update_handcuffed()
 	if(trashtype && !dispense)
@@ -238,11 +225,12 @@
 	return (BRUTELOSS)
 
 /obj/item/restraints/legcuffs/beartrap/attack_self(mob/user)
-	..()
-	if(ishuman(user) && !user.stat && !user.restrained())
-		armed = !armed
-		update_icon()
-		to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
+	. = ..()
+	if(!ishuman(user) || user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	armed = !armed
+	update_icon()
+	to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
 
 /obj/item/restraints/legcuffs/beartrap/proc/close_trap()
 	armed = FALSE
@@ -267,9 +255,9 @@
 			var/def_zone = BODY_ZONE_CHEST
 			if(snap && iscarbon(L))
 				var/mob/living/carbon/C = L
-				if(C.mobility_flags & MOBILITY_STAND)
+				if(C.body_position == STANDING_UP)
 					def_zone = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-					if(!C.legcuffed && C.get_num_legs(FALSE) >= 2) //beartrap can't cuff your leg if there's already a beartrap or legcuffs, or you don't have two legs.
+					if(!C.legcuffed && C.num_legs >= 2) //beartrap can't cuff your leg if there's already a beartrap or legcuffs, or you don't have two legs.
 						C.legcuffed = src
 						forceMove(C)
 						C.update_equipment_speed_mods()
@@ -342,7 +330,7 @@
   * * C - the carbon that we will try to ensnare
   */
 /obj/item/restraints/legcuffs/bola/proc/ensnare(mob/living/carbon/C)
-	if(!C.legcuffed && C.get_num_legs(FALSE) >= 2)
+	if(!C.legcuffed && C.num_legs >= 2)
 		visible_message("<span class='danger'>\The [src] ensnares [C]!</span>")
 		C.legcuffed = src
 		forceMove(C)

@@ -47,12 +47,6 @@
 	mobchatspan = "cultmobsay"
 	discovery_points = 1000
 
-/mob/living/simple_animal/hostile/construct/get_num_legs()
-	return 0
-
-/mob/living/simple_animal/hostile/construct/get_num_arms()
-	return 0
-
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
 	update_health_hud()

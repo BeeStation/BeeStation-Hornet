@@ -64,7 +64,7 @@
 
 /mob/living/carbon/attackby(obj/item/I, mob/user, params)
 	for(var/datum/surgery/S in surgeries)
-		if(!(mobility_flags & MOBILITY_STAND) || !S.lying_required)
+		if(body_position == LYING_DOWN || !S.lying_required)
 			if((S.self_operable || user != src) && (user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM))
 				if(S.next_step(user,user.a_intent))
 					return TRUE
@@ -176,9 +176,6 @@
 		return TRUE
 	return FALSE
 
-/mob/living/carbon/restrained(ignore_grab)
-	. = (handcuffed || (!ignore_grab && pulledby && pulledby.grab_state >= GRAB_NECK))
-
 /mob/living/carbon/proc/canBeHandcuffed()
 	return FALSE
 
@@ -194,8 +191,9 @@
 		SEND_SIGNAL(src, COMSIG_CARBON_EMBED_RIP, I, L)
 		return
 
-/mob/living/carbon/fall(forced)
-    loc.handle_fall(src, forced)//it's loc so it doesn't call the mob's handle_fall which does nothing
+/mob/living/carbon/on_fall()
+	. = ..()
+	loc.handle_fall(src)//it's loc so it doesn't call the mob's handle_fall which does nothing
 
 /mob/living/carbon/is_muzzled()
 	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
@@ -207,7 +205,7 @@
 		return FALSE
 
 /mob/living/carbon/resist_buckle()
-	if(restrained())
+	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
 		changeNext_move(CLICK_CD_BREAKOUT)
 		last_special = world.time + CLICK_CD_BREAKOUT
 		var/buckle_cd = 600
@@ -228,7 +226,7 @@
 
 /mob/living/carbon/resist_fire()
 	fire_stacks -= 5
-	Paralyze(60, TRUE, TRUE)
+	Paralyze(60, ignore_canstun = TRUE)
 	spin(32,2)
 	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_them()]self out!</span>", \
 		"<span class='notice'>You stop, drop, and roll!</span>")
@@ -288,7 +286,7 @@
 /mob/living/carbon/proc/uncuff()
 	if (handcuffed)
 		var/obj/item/W = handcuffed
-		handcuffed = null
+		set_handcuffed(null)
 		if (buckled && buckled.buckle_requires_restraints)
 			buckled.unbuckle_mob(src)
 		update_handcuffed()
@@ -318,36 +316,35 @@
 
 /mob/living/carbon/proc/clear_cuffs(obj/item/I, cuff_break)
 	if(!I.loc || buckled)
-		return
+		return FALSE
+	if(I != handcuffed && I != legcuffed)
+		return FALSE
 	visible_message("<span class='danger'>[src] manages to [cuff_break ? "break" : "remove"] [I]!</span>")
 	to_chat(src, "<span class='notice'>You successfully [cuff_break ? "break" : "remove"] [I].</span>")
 
 	if(cuff_break)
 		. = !((I == handcuffed) || (I == legcuffed))
 		qdel(I)
-		return
+		return TRUE
 
 	else
 		if(I == handcuffed)
 			handcuffed.forceMove(drop_location())
-			handcuffed = null
+			set_handcuffed(null)
 			I.dropped(src)
-			if(buckled && buckled.buckle_requires_restraints)
+			if(buckled?.buckle_requires_restraints)
 				buckled.unbuckle_mob(src)
 			update_handcuffed()
-			return
+			return TRUE
 		if(I == legcuffed)
 			legcuffed.forceMove(drop_location())
 			legcuffed = null
 			I.dropped(src)
 			update_inv_legcuffed()
-			return
-		else
-			dropItemToGround(I)
-			return
+			return TRUE
 
-/mob/living/carbon/get_standard_pixel_y_offset(lying = 0)
-	if(lying)
+/mob/living/carbon/get_standard_pixel_y_offset(lying_angle = 0)
+	if(lying_angle)
 		return -6
 	else
 		return initial(pixel_y)
@@ -472,9 +469,11 @@
 	if(dna)
 		dna.real_name = real_name
 
-/mob/living/carbon/update_mobility()
+/mob/living/carbon/set_body_position(new_value)
 	. = ..()
-	if(!(mobility_flags & MOBILITY_STAND))
+	if(isnull(.))
+		return
+	if(new_value == LYING_DOWN)
 		add_movespeed_modifier(MOVESPEED_ID_CARBON_CRAWLING, TRUE, multiplicative_slowdown = CRAWLING_ADD_SLOWDOWN)
 	else
 		remove_movespeed_modifier(MOVESPEED_ID_CARBON_CRAWLING, TRUE)
@@ -490,10 +489,9 @@
 		total_brute	+= (BP.brute_dam * BP.body_damage_coeff)
 		total_burn	+= (BP.burn_dam * BP.body_damage_coeff)
 		total_stamina += (BP.stamina_dam * BP.stam_damage_coeff)
-	health = round(maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute, DAMAGE_PRECISION)
+	set_health(round(maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute, DAMAGE_PRECISION))
 	staminaloss = round(total_stamina, DAMAGE_PRECISION)
 	update_stat()
-	update_mobility()
 	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD*2) && stat == DEAD )
 		become_husk("burn")
 	med_hud_set_health()
@@ -506,10 +504,12 @@
 /mob/living/carbon/update_stamina(extend_stam_crit = FALSE)
 	var/stam = getStaminaLoss()
 	if(stam >= DAMAGE_PRECISION && (maxHealth - stam) <= crit_threshold && !stat && !HAS_TRAIT(src, TRAIT_NOSTAMCRIT))
-		if(extend_stam_crit || !stam_paralyzed)
+		if(!stat)
 			enter_stamcrit()
-	else if(stam_paralyzed)
-		stam_paralyzed = FALSE
+	else if(HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))
+		REMOVE_TRAIT(src, TRAIT_INCAPACITATED, STAMINA)
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, STAMINA)
+		REMOVE_TRAIT(src, TRAIT_FLOORED, STAMINA)
 	else
 		return
 	update_health_hud()
@@ -717,6 +717,20 @@
 	if(hud_used && hud_used.internals)
 		hud_used.internals.icon_state = "internal[internal_state]"
 
+/mob/living/carbon/set_health(new_value)
+	. = ..()
+	if(. > hardcrit_threshold)
+		if(health <= hardcrit_threshold && !HAS_TRAIT(src, TRAIT_NOHARDCRIT))
+			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT)
+	else if(health > hardcrit_threshold)
+		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, CRIT_HEALTH_TRAIT)
+	if(CONFIG_GET(flag/near_death_experience))
+		if(. > HEALTH_THRESHOLD_NEARDEATH)
+			if(health <= HEALTH_THRESHOLD_NEARDEATH && !HAS_TRAIT(src, TRAIT_NODEATH))
+				ADD_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
+		else if(health > HEALTH_THRESHOLD_NEARDEATH)
+			REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
+
 /mob/living/carbon/update_stat()
 	if(status_flags & GODMODE)
 		return
@@ -724,21 +738,13 @@
 		if(health <= HEALTH_THRESHOLD_DEAD && !HAS_TRAIT(src, TRAIT_NODEATH))
 			death()
 			return
-		if(IsUnconscious() || IsSleeping() || getOxyLoss() > 50 || (HAS_TRAIT(src, TRAIT_DEATHCOMA)) || (health <= HEALTH_THRESHOLD_FULLCRIT && !HAS_TRAIT(src, TRAIT_NOHARDCRIT)))
+		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT))
 			set_stat(UNCONSCIOUS)
-			blind_eyes(1)
-			if(CONFIG_GET(flag/near_death_experience) && health <= HEALTH_THRESHOLD_NEARDEATH && !HAS_TRAIT(src, TRAIT_NODEATH))
-				ADD_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
-			else
-				REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
 		else
 			if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
 				set_stat(SOFT_CRIT)
 			else
 				set_stat(CONSCIOUS)
-			adjust_blindness(-1)
-			REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
-		update_mobility()
 	update_damage_hud()
 	update_health_hud()
 	med_hud_set_status()
@@ -756,7 +762,6 @@
 	update_action_buttons_icon() //some of our action buttons might be unusable when we're handcuffed.
 	update_inv_handcuffed()
 	update_hud_handcuffed()
-	update_mobility()
 
 /mob/living/carbon/fully_heal(admin_revive = FALSE)
 	if(reagents)
@@ -775,7 +780,7 @@
 		suiciding = FALSE
 		regenerate_limbs()
 		regenerate_organs()
-		handcuffed = initial(handcuffed)
+		set_handcuffed(null)
 		for(var/obj/item/restraints/R in contents) //actually remove cuffs from inventory
 			qdel(R)
 		update_handcuffed()
@@ -824,28 +829,54 @@
 /mob/living/carbon/proc/create_bodyparts()
 	var/l_arm_index_next = -1
 	var/r_arm_index_next = 0
-	for(var/X in bodyparts)
-		var/obj/item/bodypart/O = new X()
-		O.owner = src
-		bodyparts.Remove(X)
-		bodyparts.Add(O)
-		if(O.body_part == ARM_LEFT)
-			l_arm_index_next += 2
-			O.held_index = l_arm_index_next //1, 3, 5, 7...
-			hand_bodyparts += O
-		else if(O.body_part == ARM_RIGHT)
-			r_arm_index_next += 2
-			O.held_index = r_arm_index_next //2, 4, 6, 8...
-			hand_bodyparts += O
+	for(var/bodypart_path in bodyparts)
+		var/obj/item/bodypart/bodypart_instance = new bodypart_path()
+		bodypart_instance.set_owner(src)
+		bodyparts.Remove(bodypart_path)
+		add_bodypart(bodypart_instance)
+		switch(bodypart_instance.body_part)
+			if(ARM_LEFT)
+				l_arm_index_next += 2
+				bodypart_instance.held_index = l_arm_index_next //1, 3, 5, 7...
+				hand_bodyparts += bodypart_instance
+			if(ARM_RIGHT)
+				r_arm_index_next += 2
+				bodypart_instance.held_index = r_arm_index_next //2, 4, 6, 8...
+				hand_bodyparts += bodypart_instance
+
+///Proc to hook behavior on bodypart additions.
+/mob/living/carbon/proc/add_bodypart(obj/item/bodypart/new_bodypart)
+	bodyparts += new_bodypart
+	new_bodypart.set_owner(src)
+
+	switch(new_bodypart.body_part)
+		if(LEG_LEFT, LEG_RIGHT)
+			set_num_legs(num_legs + 1)
+			if(!new_bodypart.bodypart_disabled)
+				set_usable_legs(usable_legs + 1)
+		if(ARM_LEFT, ARM_RIGHT)
+			set_num_hands(num_hands + 1)
+			if(!new_bodypart.bodypart_disabled)
+				set_usable_hands(usable_hands + 1)
+
+///Proc to hook behavior on bodypart removals.
+/mob/living/carbon/proc/remove_bodypart(obj/item/bodypart/old_bodypart)
+	bodyparts -= old_bodypart
+
+	switch(old_bodypart.body_part)
+		if(LEG_LEFT, LEG_RIGHT)
+			set_num_legs(num_legs - 1)
+			if(!old_bodypart.bodypart_disabled)
+				set_usable_legs(usable_legs - 1)
+		if(ARM_LEFT, ARM_RIGHT)
+			set_num_hands(num_hands - 1)
+			if(!old_bodypart.bodypart_disabled)
+				set_usable_hands(usable_hands - 1)
 
 /mob/living/carbon/proc/create_internal_organs()
 	for(var/X in internal_organs)
 		var/obj/item/organ/I = X
 		I.Insert(src)
-
-/mob/living/carbon/proc/update_disabled_bodyparts()
-	for(var/obj/item/bodypart/BP as() in bodyparts)
-		BP.update_disabled()
 
 /mob/living/carbon/vv_get_dropdown()
 	. = ..()
@@ -983,3 +1014,28 @@
 	if(mood)
 		if(mood.sanity < SANITY_UNSTABLE)
 			return TRUE
+
+/// Modifies the handcuffed value if a different value is passed, returning FALSE otherwise. The variable should only be changed through this proc.
+/mob/living/carbon/proc/set_handcuffed(new_value)
+	if(handcuffed == new_value)
+		return FALSE
+	. = handcuffed
+	handcuffed = new_value
+	if(.)
+		if(!handcuffed)
+			REMOVE_TRAIT(src, TRAIT_RESTRAINED, HANDCUFFED_TRAIT)
+	else if(handcuffed)
+		ADD_TRAIT(src, TRAIT_RESTRAINED, HANDCUFFED_TRAIT)
+
+/mob/living/carbon/on_lying_down(new_lying_angle)
+	. = ..()
+	if(!buckled || buckled.buckle_lying != 0)
+		lying_angle_on_lying_down(new_lying_angle)
+
+
+/// Special carbon interaction on lying down, to transform its sprite by a rotation.
+/mob/living/carbon/proc/lying_angle_on_lying_down(new_lying_angle)
+	if(!new_lying_angle)
+		set_lying_angle(pick(90, 270))
+	else
+		set_lying_angle(new_lying_angle)

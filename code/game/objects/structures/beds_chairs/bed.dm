@@ -102,8 +102,8 @@
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/M)
 	set_density(FALSE)
 	icon_state = "down"
-	M.pixel_x = M.get_standard_pixel_x_offset(M.lying)
-	M.pixel_y = M.get_standard_pixel_y_offset(M.lying)
+	M.pixel_x = M.get_standard_pixel_x_offset(M.lying_angle)
+	M.pixel_y = M.get_standard_pixel_y_offset(M.lying_angle)
 
 /obj/item/roller
 	name = "roller bed"
@@ -248,7 +248,7 @@
 		RegisterSignal(goldilocks, COMSIG_PARENT_QDELETING, .proc/goldilocks_deleted)
 
 /obj/structure/bed/double/post_unbuckle_mob(mob/living/M)
-	M.pixel_y = initial(M.pixel_y) + M.get_standard_pixel_y_offset(M.lying)
+	M.pixel_y = initial(M.pixel_y) + M.get_standard_pixel_y_offset(M.lying_angle)
 	if(M == goldilocks)
 		UnregisterSignal(goldilocks, COMSIG_PARENT_QDELETING)
 		goldilocks = null

@@ -58,7 +58,7 @@
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
 			var/feetCover = (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))
-			if((H.movement_type & FLYING) || !(H.mobility_flags & MOBILITY_STAND)|| H.buckled || H.shoes || feetCover)
+			if((H.movement_type & FLYING) || H.body_position == LYING_DOWN|| H.buckled || H.shoes || feetCover)
 				prick(H, 0.5)
 			else
 				prick(H, 2)

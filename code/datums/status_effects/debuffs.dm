@@ -1,3 +1,4 @@
+#define TRAIT_STATUS_EFFECT(effect_id) "[effect_id]-trait"
 //Largely negative status effects go here, even if they have small benificial effects
 //STUN EFFECTS
 /datum/status_effect/incapacitating
@@ -6,46 +7,113 @@
 	alert_type = null
 	var/needs_update_stat = FALSE
 
-/datum/status_effect/incapacitating/on_creation(mob/living/new_owner, set_duration, updating_canmove)
+/datum/status_effect/incapacitating/on_creation(mob/living/new_owner, set_duration)
 	if(isnum_safe(set_duration))
 		duration = set_duration
 	. = ..()
-	if(.)
-		if(updating_canmove)
-			owner.update_mobility()
-			if(needs_update_stat || issilicon(owner))
-				owner.update_stat()
+	if(. && (needs_update_stat || issilicon(owner)))
+		owner.update_stat()
 
 /datum/status_effect/incapacitating/on_remove()
-	owner.update_mobility()
 	if(needs_update_stat || issilicon(owner)) //silicons need stat updates in addition to normal canmove updates
 		owner.update_stat()
+	return ..()
 
 //STUN
 /datum/status_effect/incapacitating/stun
 	id = "stun"
 
+/datum/status_effect/incapacitating/stun/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+
+/datum/status_effect/incapacitating/stun/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	return ..()
+
 //KNOCKDOWN
 /datum/status_effect/incapacitating/knockdown
 	id = "knockdown"
+
+/datum/status_effect/incapacitating/knockdown/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_FLOORED, TRAIT_STATUS_EFFECT(id))
+
+/datum/status_effect/incapacitating/knockdown/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_FLOORED, TRAIT_STATUS_EFFECT(id))
+	return ..()
 
 //IMMOBILIZED
 /datum/status_effect/incapacitating/immobilized
 	id = "immobilized"
 
+/datum/status_effect/incapacitating/immobilized/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+
+/datum/status_effect/incapacitating/immobilized/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	return ..()
+
 /datum/status_effect/incapacitating/paralyzed
 	id = "paralyzed"
+
+/datum/status_effect/incapacitating/paralyzed/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	ADD_TRAIT(owner, TRAIT_FLOORED, TRAIT_STATUS_EFFECT(id))
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+
+/datum/status_effect/incapacitating/paralyzed/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	REMOVE_TRAIT(owner, TRAIT_FLOORED, TRAIT_STATUS_EFFECT(id))
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	return ..()
 
 //UNCONSCIOUS
 /datum/status_effect/incapacitating/unconscious
 	id = "unconscious"
 	needs_update_stat = TRUE
 
+/datum/status_effect/incapacitating/unconscious/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+
+/datum/status_effect/incapacitating/unconscious/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+	return ..()
+
 /datum/status_effect/incapacitating/unconscious/tick()
 	if(owner.getStaminaLoss())
 		owner.adjustStaminaLoss(-0.3) //reduce stamina loss by 0.3 per tick, 6 per 2 seconds
 
 //SLEEPING
+/datum/status_effect/incapacitating/sleeping/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_KNOCKEDOUT, TRAIT_STATUS_EFFECT(id))
+
+/datum/status_effect/incapacitating/sleeping/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_KNOCKEDOUT, TRAIT_STATUS_EFFECT(id))
+	return ..()
+
 /datum/status_effect/incapacitating/sleeping
 	id = "sleeping"
 	alert_type = /atom/movable/screen/alert/status_effect/asleep
@@ -53,7 +121,7 @@
 	var/mob/living/carbon/carbon_owner
 	var/mob/living/carbon/human/human_owner
 
-/datum/status_effect/incapacitating/sleeping/on_creation(mob/living/new_owner, updating_canmove)
+/datum/status_effect/incapacitating/sleeping/on_creation(mob/living/new_owner)
 	. = ..()
 	if(.)
 		if(iscarbon(owner)) //to avoid repeated istypes
@@ -101,6 +169,13 @@
         alert_type = /atom/movable/screen/alert/status_effect/stasis
         var/last_dead_time
 
+/datum/status_effect/incapacitating/stasis/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+
 /datum/status_effect/incapacitating/stasis/proc/update_time_of_death()
         if(last_dead_time)
                 var/delta = world.time - last_dead_time
@@ -111,7 +186,7 @@
         if(owner.stat == DEAD)
                 last_dead_time = world.time
 
-/datum/status_effect/incapacitating/stasis/on_creation(mob/living/new_owner, set_duration, updating_canmove)
+/datum/status_effect/incapacitating/stasis/on_creation(mob/living/new_owner, set_duration)
         . = ..()
         update_time_of_death()
         owner.reagents?.end_metabolization(owner, FALSE)
@@ -120,8 +195,10 @@
         update_time_of_death()
 
 /datum/status_effect/incapacitating/stasis/on_remove()
-        update_time_of_death()
-        return ..()
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	update_time_of_death()
+	return ..()
 
 /datum/status_effect/incapacitating/stasis/be_replaced()
         update_time_of_death()
@@ -538,7 +615,7 @@
 
 /datum/status_effect/trance/tick()
 	if(stun)
-		owner.Stun(60, TRUE, TRUE)
+		owner.Stun(6 SECONDS, TRUE)
 	owner.dizziness = 20
 
 /datum/status_effect/trance/on_apply()
@@ -663,7 +740,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/dna_melt
 	var/kill_either_way = FALSE //no amount of removing mutations is gonna save you now
 
-/datum/status_effect/dna_melt/on_creation(mob/living/new_owner, set_duration, updating_canmove)
+/datum/status_effect/dna_melt/on_creation(mob/living/new_owner, set_duration)
 	. = ..()
 	to_chat(new_owner, "<span class='boldwarning'>My body can't handle the mutations! I need to get my mutations removed fast!</span>")
 
@@ -687,7 +764,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/go_away
 	var/direction
 
-/datum/status_effect/go_away/on_creation(mob/living/new_owner, set_duration, updating_canmove)
+/datum/status_effect/go_away/on_creation(mob/living/new_owner, set_duration)
 	. = ..()
 	direction = pick(NORTH, SOUTH, EAST, WEST)
 	new_owner.setDir(direction)

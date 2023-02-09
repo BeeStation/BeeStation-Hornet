@@ -4,6 +4,7 @@
 	health = 20
 	maxHealth = 20
 	gender = PLURAL //placeholder
+	living_flags = MOVES_ON_ITS_OWN
 
 	status_flags = CANPUSH
 
@@ -135,11 +136,6 @@
 /mob/living/simple_animal/initialize_footstep()
 	if(do_footstep)
 		..()
-
-/mob/living/simple_animal/updatehealth()
-	..()
-	health = CLAMP(health, 0, maxHealth)
-	update_health_hud()
 
 /mob/living/simple_animal/update_health_hud()
 	if(!hud_used)
@@ -399,14 +395,13 @@
 	return
 
 /mob/living/simple_animal/revive(full_heal = 0, admin_revive = 0)
-	if(..()) //successfully ressuscitated from death
-		icon = initial(icon)
-		icon_state = icon_living
-		set_density(initial(density))
-		mobility_flags = MOBILITY_FLAGS_DEFAULT
-		update_mobility()
-		. = 1
-		setMovetype(initial(movement_type))
+	. = ..()
+	if(!.)
+		return
+	icon = initial(icon)
+	icon_state = icon_living
+	density = initial(density)
+	setMovetype(initial(movement_type))
 
 /mob/living/simple_animal/proc/make_babies() // <3 <3 <3
 	set waitfor = 0
@@ -458,22 +453,12 @@
 	else
 		..()
 
-/mob/living/simple_animal/update_mobility(value_otherwise = TRUE)
-	if(IsUnconscious() || IsParalyzed() || IsStun() || IsKnockdown() || IsParalyzed() || stat || resting)
-		drop_all_held_items()
-		mobility_flags = NONE
-	else if(buckled)
-		mobility_flags = MOBILITY_FLAGS_INTERACTION
+/mob/living/simple_animal/update_resting()
+	if(resting)
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 	else
-		if(value_otherwise)
-			mobility_flags = MOBILITY_FLAGS_DEFAULT
-		else
-			mobility_flags = NONE
-	if(!(mobility_flags & MOBILITY_MOVE))
-		SSmove_manager.stop_looping(src) //stop mid walk
-
-	update_transform()
-	update_action_buttons_icon()
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
+	return ..()
 
 /mob/living/simple_animal/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
@@ -584,7 +569,7 @@
 		M.forceMove(get_turf(src))
 		return ..()
 
-/mob/living/simple_animal/relaymove(mob/user, direction)
+/mob/living/simple_animal/relaymove(mob/living/user, direction)
 	var/datum/component/riding/riding_datum = GetComponent(/datum/component/riding)
 	if(tame && riding_datum)
 		riding_datum.handle_ride(user, direction)

@@ -134,11 +134,6 @@
 ///AI Camera Static
 #define CAMERA_STATIC_PLANE 200
 
-///Popup Chat Messages
-#define RUNECHAT_PLANE 250
-/// Plane for balloon text (text that fades up)
-#define BALLOON_CHAT_PLANE 31
-
 ///--------------- FULLSCREEN IMAGES ------------
 #define FULLSCREEN_PLANE 500
 #define FLASH_LAYER 1
@@ -148,6 +143,12 @@
 #define CRIT_LAYER 5
 #define CURSE_LAYER 6
 
+///--------------- FULLSCREEN RUNECHAT BUBBLES ------------
+
+///Popup Chat Messages
+#define RUNECHAT_PLANE 501
+/// Plane for balloon text (text that fades up)
+#define BALLOON_CHAT_PLANE 502
 
 //-------------------- Rendering ---------------------
 #define RENDER_PLANE_GAME 990
@@ -158,6 +159,7 @@
 //HUD layer defines
 #define HUD_PLANE 1000
 #define ABOVE_HUD_PLANE 1100
+
 ///1000 is an unimportant number, it's just to normalize copied layers
 #define RADIAL_LAYER 1000
 

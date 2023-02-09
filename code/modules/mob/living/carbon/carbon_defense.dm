@@ -49,9 +49,7 @@
 		return
 	if(get_active_held_item())
 		return
-	if(!(mobility_flags & MOBILITY_MOVE))
-		return
-	if(restrained())
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	return TRUE
 
@@ -131,7 +129,7 @@
 			ContactContractDisease(D)
 
 	for(var/datum/surgery/S in surgeries)
-		if(!(mobility_flags & MOBILITY_STAND) || !S.lying_required)
+		if(body_position == LYING_DOWN || !S.lying_required)
 			if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM)
 				if(S.next_step(user, user.a_intent))
 					return 1
@@ -267,7 +265,7 @@
 	if(M == src && check_self_for_injuries())
 		return
 
-	if(!(mobility_flags & MOBILITY_STAND))
+	if(body_position == LYING_DOWN)
 		if(buckled)
 			to_chat(M, "<span class='warning'>You need to unbuckle [src] first to do that!")
 			return
@@ -431,3 +429,24 @@
 	var/obj/item/organ/ears/ears = getorganslot(ORGAN_SLOT_EARS)
 	if(istype(ears) && !ears.deaf)
 		. = TRUE
+
+/mob/living/carbon/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE)
+	. = ..()
+	if(isnull(.))
+		return
+	if(. <= 50)
+		if(getOxyLoss() > 50)
+			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+	else if(getOxyLoss() <= 50)
+		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+
+
+/mob/living/carbon/setOxyLoss(amount, updating_health = TRUE, forced = FALSE)
+	. = ..()
+	if(isnull(.))
+		return
+	if(. <= 50)
+		if(getOxyLoss() > 50)
+			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+	else if(getOxyLoss() <= 50)
+		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)

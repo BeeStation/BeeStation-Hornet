@@ -22,10 +22,13 @@
 	#define COMPONENT_CANT_TRACK 1
 
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
-#define COMSIG_LIVING_STATUS_STUN "living_stun"					//! from base of mob/living/Stun() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown"		//! from base of mob/living/Knockdown() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_PARALYZE "living_paralyze"			//! from base of mob/living/Paralyze() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_IMMOBILIZE "living_immobilize"		//! from base of mob/living/Immobilize() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_UNCONSCIOUS "living_unconscious"	//! from base of mob/living/Unconscious() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"			//! from base of mob/living/Sleeping() (amount, update, ignore)
+#define COMSIG_LIVING_STATUS_STUN "living_stun"					//! from base of mob/living/Stun() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown"		//! from base of mob/living/Knockdown() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_PARALYZE "living_paralyze"			//! from base of mob/living/Paralyze() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_IMMOBILIZE "living_immobilize"		//! from base of mob/living/Immobilize() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_UNCONSCIOUS "living_unconscious"	//! from base of mob/living/Unconscious() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"			//! from base of mob/living/Sleeping() (amount, ignore_canstun)
 	#define COMPONENT_NO_STUN 1			//For all of them
+
+///from base of mob/living/set_buckled(): (new_buckled)
+#define COMSIG_LIVING_SET_BUCKLED "living_set_buckled"

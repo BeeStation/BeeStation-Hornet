@@ -114,7 +114,7 @@
 
 /obj/vehicle/proc/after_remove_occupant(mob/M)
 
-/obj/vehicle/relaymove(mob/user, direction)
+/obj/vehicle/relaymove(mob/living/user, direction)
 	if(is_driver(user))
 		return driver_move(user, direction)
 	return FALSE

@@ -133,10 +133,10 @@
 	var/damage = weapon.w_class * pain_mult
 	var/max_damage = weapon.w_class * max_damage_mult + weapon.throwforce
 	var/chance = DT_PROB_RATE(pain_chance / 100, delta_time) * 100
-	if(pain_stam_pct && victim.stam_paralyzed) //if it's a less-lethal embed, give them a break if they're already stamcritted
+	if(pain_stam_pct && HAS_TRAIT_FROM(victim, TRAIT_INCAPACITATED, STAMINA)) //if it's a less-lethal embed, give them a break if they're already stamcritted
 		chance *= 0.2
 		damage *= 0.5
-	else if(victim.lying)
+	else if(victim.lying_angle)
 		chance *= 0.2
 
 	if(harmful && prob(chance))
@@ -164,7 +164,7 @@
 
 	var/mob/living/carbon/victim = parent
 	var/chance = jostle_chance
-	if(victim.m_intent == MOVE_INTENT_WALK || victim.lying)
+	if(victim.m_intent == MOVE_INTENT_WALK || victim.lying_angle)
 		chance *= 0.5
 
 	if(harmful && prob(chance))

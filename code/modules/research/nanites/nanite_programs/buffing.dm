@@ -31,7 +31,6 @@
 	host_mob.SetAllImmobility(0)
 	host_mob.adjustStaminaLoss(-75)
 	host_mob.set_resting(FALSE)
-	host_mob.update_mobility()
 
 /datum/nanite_program/hardening
 	name = "Dermal Hardening"

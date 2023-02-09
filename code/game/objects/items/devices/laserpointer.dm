@@ -156,9 +156,11 @@
 		else if(iscat(M)) //cats!
 			var/mob/living/simple_animal/pet/cat/C = M
 			if(prob(50))
+				if(C.resting)
+					C.set_resting(FALSE, instant = TRUE)
 				C.visible_message("<span class='notice'>[C] pounces on the light!</span>","<span class='warning'>LIGHT!</span>")
 				C.Move(targloc)
-				C.set_resting(TRUE, FALSE)
+				C.Immobilize(1 SECONDS)
 			else
 				C.visible_message("<span class='notice'>[C] looks uninterested in your games.</span>","<span class='warning'>You spot [user] shining [src] at you. How insulting!</span>")
 

@@ -12,7 +12,7 @@
 	//Buckling
 	can_buckle = 1
 	buckle_requires_restraints = 1
-	buckle_lying = -1
+	buckle_lying = NO_BUCKLE_LYING
 
 	FASTDMM_PROP(\
 		set_instance_vars(\

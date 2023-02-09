@@ -17,7 +17,7 @@
 	else if(leap_on_click)
 		icon_state = "alien[caste]_pounce"
 
-	else if(!(mobility_flags & MOBILITY_STAND))
+	else if(body_position == LYING_DOWN)
 		icon_state = "alien[caste]_sleep"
 	else if(mob_size == MOB_SIZE_LARGE)
 		icon_state = "alien[caste]"
@@ -52,9 +52,7 @@
 		update_transform()
 
 /mob/living/carbon/alien/humanoid/update_transform() //The old method of updating lying/standing was update_icons(). Aliens still expect that.
-	if(lying)
-		lying = 90 //Anything else looks stupid
-	..()
+	. = ..()
 	update_icons()
 
 /mob/living/carbon/alien/humanoid/update_inv_handcuffed()

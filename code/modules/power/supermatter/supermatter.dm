@@ -770,7 +770,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			var/mob/living/carbon/human/H = P
 			if(H.incapacitated() || !(H.mobility_flags & MOBILITY_STAND) || H.mob_negates_gravity())
 				return //You can't knock down someone who is already knocked down or has immunity to gravity
-			H.visible_message("<span class='danger'>[H] is suddenly knocked down, as if [H.p_their()] [(H.get_num_legs() == 1) ? "leg had" : "legs have"] been pulled out from underneath [H.p_them()]!</span>",\
+			H.visible_message("<span class='danger'>[H] is suddenly knocked down, as if [H.p_their()] [(H.usable_legs == 1) ? "leg had" : "legs have"] been pulled out from underneath [H.p_them()]!</span>",\
 				"<span class='userdanger'>A sudden gravitational pulse knocks you down!</span>",\
 				"<span class='italics'>You hear a thud.</span>")
 			H.apply_effect(40, EFFECT_PARALYZE, 0)
