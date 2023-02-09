@@ -21,14 +21,20 @@
 /obj/structure/closet/crate/necropolis/proc/try_spawn_loot(datum/source, obj/item/item, mob/user, params)
 	SIGNAL_HANDLER
 
-	if(!istype(item, /obj/item/skeleton_key) || spawned_loot)
+	if(!(istype(item, /obj/item/skeleton_key) || GLOB.magical_access) || spawned_loot)
 		return FALSE
 	spawned_loot = TRUE
-	if(!GLOB.magical_access) // you should be capable of opening the chest without a skeleton key if we have magical access, but let miners should buy a key at least.
+	if(GLOB.magical_access)
+		to_chat(user, "<span class='notice'>The magic lock disappears as you touch the chest.</span>")
+	else
 		qdel(item)
-	to_chat(user, "<span class='notice'>You disable the magic lock with the [item].</span>")
+		to_chat(user, "<span class='notice'>You disable the magic lock with the [item].</span>")
 	return TRUE
 
+/obj/structure/closet/crate/necropolis/attack_hand(mob/living/user)
+	if(GLOB.magical_access && !spawned_loot)
+		try_spawn_loot(user=user)
+	..()
 
 /obj/effect/spawner/mail/maintloot
 	name = "\improper Random maintenance loot spawner"

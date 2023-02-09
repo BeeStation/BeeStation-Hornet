@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/knock
 	name = "Knock"
-	desc = "This spell opens nearby doors and closets and uncuffs nearby people. if it uncuffs someone, its cooldown time gets doubled."
+	desc = "This spell opens nearby doors and closets and uncuffs nearby people."
 
 	school = "transmutation"
 	charge_max = 100
@@ -33,7 +33,7 @@
 				continue
 			targets += target
 
-	if(!targets.len)
+	if(!length(targets))
 		revert_cast()
 		return
 
