@@ -11,7 +11,8 @@
 /obj/effect/proc_holder/spell/targeted/conjure_item/snow
 	name = "Create Snow"
 	desc = "Concentrates cryokinetic forces to create snow, useful for snow-like construction."
-	item_type = /obj/item/stack/sheet/mineral/snow
+	item_type = /obj/item/stack/sheet/snow
+
 	charge_max = 50
 	delete_old = FALSE
 	action_icon_state = "snow"
@@ -30,7 +31,7 @@
 /obj/effect/proc_holder/spell/targeted/conjure_item/wax
 	name = "Secrete Wax"
 	desc = "Concentrate to spit out some wax, useful for bee-themed construction."
-	item_type = /obj/item/stack/sheet/mineral/wax
+	item_type = /obj/item/stack/sheet/wax
 	charge_max = 50
 	delete_old = FALSE
 	action_icon_state = "honey"

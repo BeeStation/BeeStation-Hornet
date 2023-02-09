@@ -4,6 +4,7 @@
 	icon = 'icons/mob/human.dmi'
 	icon_state = ""
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
+	COOLDOWN_DECLARE(special_emote_cooldown)
 
 /mob/living/carbon/human/Initialize(mapload)
 	add_verb(/mob/living/proc/mob_sleep)
@@ -721,6 +722,8 @@
 	if(admin_revive)
 		regenerate_limbs()
 		regenerate_organs()
+		if(ismoth(src))
+			REMOVE_TRAIT(src, TRAIT_MOTH_BURNT, "fire")
 	remove_all_embedded_objects()
 	set_heartattack(FALSE)
 	drunkenness = 0
@@ -1077,18 +1080,10 @@
 	return ..()
 
 /mob/living/carbon/human/ZImpactDamage(turf/T, levels)
-	//Non cat-people smash into the ground
-	if(!iscatperson(src))
+	var/datum/species/species_datum = dna?.species
+	if(!istype(species_datum))
 		return ..()
-	//Check to make sure legs are working
-	var/obj/item/bodypart/left_leg = get_bodypart(BODY_ZONE_L_LEG)
-	var/obj/item/bodypart/right_leg = get_bodypart(BODY_ZONE_R_LEG)
-	if(!left_leg || !right_leg || left_leg.disabled || right_leg.disabled)
-		return ..()
-	//Nailed it!
-	visible_message("<span class='notice'>[src] lands elegantly on [p_their()] feet!</span>",
-		"<span class='warning'>You fall [levels] level[levels > 1 ? "s" : ""] into [T], perfecting the landing!</span>")
-	Stun(levels * 50)
+	species_datum.z_impact_damage(src, T, levels)
 
 /mob/living/carbon/human/proc/stub_toe(var/power)
 	if(HAS_TRAIT(src, TRAIT_LIGHT_STEP))
@@ -1098,6 +1093,24 @@
 		src.emote("scream")
 	src.apply_damage(power, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
 	src.Paralyze(10 * power)
+
+/mob/living/carbon/human/proc/copy_features(var/datum/character_save/CS)
+	dna.features = CS.features
+	gender = CS.gender
+	age = CS.age
+	underwear = CS.underwear
+	underwear_color = CS.underwear_color
+	undershirt = CS.undershirt
+	socks = CS.socks
+	hair_style = CS.hair_style
+	hair_color = CS.hair_color
+	gradient_color = CS.gradient_color
+	gradient_style = CS.gradient_style
+	facial_hair_style = CS.facial_hair_style
+	facial_hair_color = CS.facial_hair_color
+	skin_tone = CS.skin_tone
+	eye_color = CS.eye_color
+	updateappearance(TRUE, TRUE, TRUE)
 
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey

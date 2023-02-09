@@ -109,11 +109,11 @@
 	if(open)
 		new /obj/effect/temp_visual/necropolis(T)
 		visible_message("<span class='boldwarning'>The door slams closed!</span>")
-		sleep(1)
+		sleep(0.1 SECONDS)
 		playsound(T, 'sound/effects/stonedoor_openclose.ogg', 300, TRUE, frequency = 80000)
-		sleep(1)
-		density = TRUE
-		sleep(1)
+		sleep(0.1 SECONDS)
+		set_density(TRUE)
+		sleep(0.1 SECONDS)
 		var/turf/sight_blocker_turf = get_turf(src)
 		if(sight_blocker_distance)
 			for(var/i in 1 to sight_blocker_distance)
@@ -123,20 +123,20 @@
 		if(sight_blocker_turf)
 			sight_blocker.pixel_y = initial(sight_blocker.pixel_y) - (32 * sight_blocker_distance)
 			sight_blocker.forceMove(sight_blocker_turf)
-		sleep(2.5)
+		sleep(0.25 SECONDS)
 		playsound(T, 'sound/magic/clockwork/invoke_general.ogg', 30, TRUE, frequency = 15000)
 		add_overlay(door_overlay)
 		open = FALSE
 	else
 		cut_overlay(door_overlay)
 		new /obj/effect/temp_visual/necropolis/open(T)
-		sleep(2)
+		sleep(0.2 SECONDS)
 		visible_message("<span class='warning'>The door starts to grind open...</span>")
 		playsound(T, 'sound/effects/stonedoor_openclose.ogg', 300, TRUE, frequency = 20000)
-		sleep(22)
+		sleep(2.2 SECONDS)
 		sight_blocker.forceMove(src)
-		sleep(5)
-		density = FALSE
+		sleep(0.5 SECONDS)
+		set_density(FALSE)
 		sleep(5)
 		open = TRUE
 	changing_openness = FALSE

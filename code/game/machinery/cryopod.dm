@@ -223,7 +223,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 /obj/machinery/cryopod/open_machine()
 	..()
 	icon_state = "cryopod-open"
-	density = TRUE
+	set_density(TRUE)
 	name = initial(name)
 
 /obj/machinery/cryopod/container_resist(mob/living/user)

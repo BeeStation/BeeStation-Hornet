@@ -86,7 +86,7 @@
 /datum/crafting_recipe/charcoal_stylus
 	name = "Charcoal Stylus"
 	result = /obj/item/pen/charcoal
-	reqs = list(/obj/item/stack/sheet/mineral/wood = 1, /datum/reagent/ash = 30)
+	reqs = list(/obj/item/stack/sheet/wood = 1, /datum/reagent/ash = 30)
 	time = 30
 	category = CAT_PRIMAL
 
@@ -187,7 +187,7 @@
 	if(..())
 		if(reagents.total_volume)
 			if(M.reagents)
-				reagents.trans_to(M, reagents.total_volume, transfered_by = user, method = INJECT)
+				reagents.trans_to(M, reagents.total_volume, transfered_by = user, methods = INJECT)
 
 
 /obj/item/pen/sleepy/Initialize(mapload)
