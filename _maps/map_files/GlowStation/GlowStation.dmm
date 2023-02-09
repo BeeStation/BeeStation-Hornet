@@ -68182,7 +68182,7 @@
 	req_access_txt = "47"
 	},
 /obj/machinery/door/poddoor/preopen{
-	id = s;
+	id = "xenosecure";
 	name = "Secure Pen Shutters"
 	},
 /obj/effect/turf_decal/stripes/red/full,
