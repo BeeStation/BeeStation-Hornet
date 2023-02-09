@@ -48,16 +48,12 @@
 			INVOKE_ASYNC(src, .proc/open_closet, C)
 
 	if(open_cuffs)
-		var/uncuff_cooldown_check = FALSE
 		for(var/mob/living/carbon/C in targets)
-			if(C.uncuff())
-				uncuff_cooldown_check = TRUE
+			C.uncuff()
 			var/mob/living/carbon/human/H = ishuman(C) ? C : null
 			if(H?.wear_suit?.breakouttime)
 				H.dropItemToGround(H.wear_suit, TRUE)
-				uncuff_cooldown_check = TRUE
-		if(uncuff_cooldown_check && charge_type == "recharge")
-			charge_counter -= charge_max // If you uncuff someone, cooldown time gets doubled
+
 
 
 /obj/effect/proc_holder/spell/knock/proc/open_door(var/obj/machinery/door/door)
