@@ -65,6 +65,13 @@ export const ChemDispenser = (props, context) => {
                   content="Record"
                   onClick={() => act('record_recipe')} />
               )}
+              {!recording && (
+                <Button
+                  icon="ban"
+                  disabled={recipes.map===[]}
+                  content="Delete"
+                  onClick={() => act('delete_recipe')} />
+              )}
               {recording && (
                 <Button
                   icon="ban"
