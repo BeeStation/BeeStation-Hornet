@@ -1539,6 +1539,12 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"fY" = (
+/obj/structure/elevator_segment{
+	id = "debug"
+	},
+/turf/closed/wall/r_wall,
+/area/construction)
 "ho" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1632,6 +1638,15 @@
 /obj/structure/ladder,
 /turf/open/floor/plasteel,
 /area/security)
+"uI" = (
+/obj/structure/elevator_segment{
+	id = "debug"
+	},
+/obj/machinery/elevator_interface{
+	id = "debug"
+	},
+/turf/open/floor/plasteel,
+/area/construction)
 "vF" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -1707,9 +1722,6 @@
 "DO" = (
 /turf/open/floor/plating,
 /area/shuttle/turbolift/shaft)
-"Ed" = (
-/turf/open/openspace,
-/area/construction)
 "Ej" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -1809,6 +1821,13 @@
 "LO" = (
 /turf/closed/wall/r_wall,
 /area/crew_quarters/dorms)
+"LP" = (
+/obj/structure/elevator_segment{
+	id = "debug"
+	},
+/obj/machinery/door/airlock/glass,
+/turf/open/floor/plating,
+/area/construction)
 "LW" = (
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
@@ -1854,6 +1873,12 @@
 /obj/structure/disposaloutlet,
 /turf/open/floor/plasteel,
 /area/storage/primary)
+"Rk" = (
+/obj/structure/elevator_segment{
+	id = "debug"
+	},
+/turf/open/floor/plasteel,
+/area/construction)
 "RP" = (
 /obj/machinery/door/airlock/turbolift,
 /turf/open/floor/plasteel,
@@ -1946,6 +1971,13 @@
 /obj/structure/disposalpipe/trunk/multiz/down,
 /turf/open/floor/plasteel,
 /area/storage/primary)
+"ZL" = (
+/obj/structure/elevator_segment{
+	id = "debug"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/construction)
 
 (1,1,1) = {"
 aa
@@ -2840,11 +2872,11 @@ bE
 bE
 cQ
 cY
-dn
-dn
-dn
-dn
-dn
+fY
+fY
+fY
+fY
+fY
 dn
 WK
 cN
@@ -2894,11 +2926,11 @@ bE
 bE
 cN
 cY
-dn
-dn
-dn
-dn
-dn
+fY
+Rk
+Rk
+Rk
+ZL
 dn
 dn
 Eq
@@ -2948,11 +2980,11 @@ bE
 bE
 cR
 cY
-dn
-dn
-dn
-dn
-dn
+fY
+Rk
+uI
+Rk
+LP
 dn
 dn
 Eq
@@ -3002,11 +3034,11 @@ bE
 bE
 cR
 og
-dn
-dn
-dn
-dn
-dn
+fY
+Rk
+Rk
+Rk
+ZL
 dn
 dn
 Eq
@@ -3056,11 +3088,11 @@ bE
 bE
 cR
 cY
-dn
-dn
-dn
-dn
-dn
+fY
+fY
+fY
+fY
+fY
 dn
 Tg
 cN
@@ -5707,7 +5739,7 @@ au
 au
 au
 au
-Ed
+au
 eL
 ep
 sG
