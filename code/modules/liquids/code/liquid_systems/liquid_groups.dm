@@ -793,4 +793,4 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 			if(isliving(target_atom) && prob(60))
 				var/mob/living/target_living = target_atom
 				target_living.Paralyze(6 SECONDS)
-				to_chat(target_living, span_danger("You are knocked down by the currents!"))
+				to_chat(target_living, "<span class='danger'>You are knocked down by the currents!<span>")

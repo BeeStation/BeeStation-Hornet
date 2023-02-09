@@ -28,9 +28,9 @@
 		return TRUE
 
 	playsound(src, 'sound/items/welder2.ogg', 50, TRUE)
-	to_chat(user, span_notice("You start [welded ? "unwelding" : "welding"] [src]..."))
+	to_chat(user, "<span class='notice'>You start [welded ? "unwelding" : "welding"] [src]...</span>")
 	if(I.use_tool(src, user, 20))
-		to_chat(user, span_notice("You [welded ? "unweld" : "weld"] [src]."))
+		to_chat(user, "<span class='notice'>You [welded ? "unweld" : "weld"] [src].</span>")
 		welded = !welded
 		update_icon()
 		if(welded)

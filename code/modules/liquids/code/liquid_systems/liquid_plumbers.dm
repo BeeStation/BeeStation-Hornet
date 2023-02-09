@@ -33,8 +33,8 @@
 
 /obj/machinery/plumbing/floor_pump/examine(mob/user)
 	. = ..()
-	. += span_notice("It's currently turned [turned_on ? "ON" : "OFF"].")
-	. += span_notice("Its height regulator [height_regulator ? "points at [height_regulator]" : "is disabled"]. Click while unanchored to change.")
+	. += "<span class='notice'>It's currently turned [turned_on ? "ON" : "OFF"].</span>"
+	. += "<span class='notice'>Its height regulator [height_regulator ? "points at [height_regulator]" : "is disabled"]. Click while unanchored to change.</span>"
 
 /obj/machinery/plumbing/floor_pump/update_appearance(updates)
 	. = ..()
@@ -256,9 +256,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/plumbing/floor_pump/input/on/waste, 0
 /obj/machinery/plumbing/floor_pump/output/examine(mob/user)
 	. = ..()
 	if(over_pressure)
-		. += span_warning("The gas regulator light is blinking.")
+		. += "<span class='notice'>The gas regulator light is blinking.</span>"
 	if(over_volume)
-		. += span_warning("The liquid volume regulator light is blinking.")
+		. += "<span class='notice'>The liquid volume regulator light is blinking.</span>"
 
 /obj/machinery/plumbing/floor_pump/output/are_reagents_ready()
 	return reagents.total_volume > 0

@@ -34,10 +34,10 @@
 	/// State-specific message chunks for examine_turf()
 	var/static/list/liquid_state_messages = list(
 		"[LIQUID_STATE_PUDDLE]" = "a puddle of $",
-		"[LIQUID_STATE_ANKLES]" = "$ going [span_warning("up to your ankles")]",
-		"[LIQUID_STATE_WAIST]" = "$ going [span_warning("up to your waist")]",
-		"[LIQUID_STATE_SHOULDERS]" = "$ going [span_warning("up to your shoulders")]",
-		"[LIQUID_STATE_FULLTILE]" = "$ going [span_danger("over your head")]",
+		"[LIQUID_STATE_ANKLES]" = "$ going ["<span class='warning'>up to your ankles</span>"]",
+		"[LIQUID_STATE_WAIST]" = "$ going ["<span class='warning'>up to your waist</span>"]",
+		"[LIQUID_STATE_SHOULDERS]" = "$ going ["<span class='warning'>up to your shoulders</span>"]",
+		"[LIQUID_STATE_FULLTILE]" = "$ going ["<span class='warning'>over your head</span>"]",
 	)
 
 	var/temporary_split_key
@@ -192,15 +192,15 @@
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
 			if(C.wear_mask && C.wear_mask.flags_cover & MASKCOVERSMOUTH)
-				to_chat(C, span_userdanger("You fall in the water!"))
+				to_chat(C, "<span class='userdanger'>You fall in the water!</span>")
 			else
 				liquid_group.transfer_to_atom(src, CHOKE_REAGENTS_INGEST_ON_FALL_AMOUNT, C)
 				C.adjustOxyLoss(5)
 				//C.emote("cough")
 				INVOKE_ASYNC(C, /mob.proc/emote, "cough")
-				to_chat(C, span_userdanger("You fall in and swallow some water!"))
+				to_chat(C, "<span class='userdanger'>You fall in and swallow some water!</span>")
 		else
-			to_chat(M, span_userdanger("You fall in the water!"))
+			to_chat(M, "<span class='userdanger'>You fall in the water!</span>")
 
 /obj/effect/abstract/liquid_turf/Initialize(mapload, datum/liquid_group/group_to_add)
 	. = ..()
@@ -300,7 +300,7 @@
 			var/reagent_name = initial(reagent_type.name)
 			var/volume = round(reagent_type.volume / length(liquid_group.members), 0.01)
 
-			examine_list += span_notice("There is [replacetext(liquid_state_template, "$", "[volume] units of [reagent_name]")] here.")
+			examine_list += "<span class='notice'>There is [replacetext(liquid_state_template, "$", "[volume] units of [reagent_name]")] here.</span>"
 		else
 			// Show each individual reagent
 			examine_list += "There is [replacetext(liquid_state_template, "$", "the following")] here:"
@@ -310,12 +310,12 @@
 				var/volume = round(reagent_type.volume / length(liquid_group.members), 0.01)
 				examine_list += "&bull; [volume] units of [reagent_name]"
 
-		examine_list += span_notice("The solution has a temperature of [liquid_group.group_temperature]K.")
+		examine_list += "<span class='notice'>The solution has a temperature of [liquid_group.group_temperature]K.</span>"
 		examine_list +=  "<hr>"
 		return
 
 	// Otherwise, just show the total volume
-	examine_list += span_notice("There is [replacetext(liquid_state_template, "$", "liquid")] here.")
+	examine_list += "<span class='notice'>There is [replacetext(liquid_state_template, "$", "liquid")] here.</span>"
 
 /obj/effect/temp_visual/liquid_splash
 	icon = 'code/modules/liquids/icons/obj/effects/splash.dmi'

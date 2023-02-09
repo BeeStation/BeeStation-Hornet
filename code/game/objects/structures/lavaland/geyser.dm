@@ -79,10 +79,10 @@
 
 	if(!layer_mode)
 		icon_state = initial(icon_state)
-		to_chat(user, span_notice("You set the plunger to 'Plunger Mode'."))
+		to_chat(user, "<span class='notice'>You set the plunger to 'Plunger Mode'.</span>")
 	else
 		icon_state = layer_mode_sprite
-		to_chat(user, span_notice("You set the plunger to 'Layer Mode'."))
+		to_chat(user, "<span class='info'>You set the plunger to 'Layer Mode'.</span>")
 
 	playsound(src, 'sound/machines/click.ogg', 10, TRUE)
 

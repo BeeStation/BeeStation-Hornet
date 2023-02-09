@@ -270,8 +270,8 @@ All the important duct code:
 		setAnchored(!anchored)
 		user.visible_message( \
 		"[user] [anchored ? null : "un"]fastens \the [src].", \
-		span_notice("You [anchored ? null : "un"]fasten \the [src]."), \
-		span_hear("You hear ratcheting."))
+		"<span class='notice'>You [anchored ? null : "un"]fasten \the [src].</span>", \
+		"<span class='hear'>You hear ratcheting.</span>")
 	return TRUE
 
 ///collection of all the sanity checks to prevent us from stacking ducts that shouldn't be stacked
@@ -306,11 +306,11 @@ All the important duct code:
 	if(!(direction in GLOB.cardinals))
 		return
 	if(!(duct_layer & other.duct_layer))
-		to_chat(user, span_warning("The ducts must be on the same layer to connect them!"))
+		to_chat(user, "<span class='warning'>The ducts must be on the same layer to connect them!</span>")
 		return
 	var/obj/item/held_item = user.get_active_held_item()
 	if(held_item?.tool_behaviour != TOOL_WRENCH)
-		to_chat(user, span_warning("You need to be holding a wrench in your active hand to do that!"))
+		to_chat(user, "<span class='warning'>You need to be holding a wrench in your active hand to do that!</span>")
 		return
 
 	add_connects(direction) //the connect of the other duct is handled in connect_network, but do this here for the parent duct because it's not necessary in normal cases
@@ -318,7 +318,7 @@ All the important duct code:
 	connect_network(other, direction)
 	update_appearance()
 	held_item.play_tool_sound(src)
-	to_chat(user, span_notice("You connect the two plumbing ducts."))
+	to_chat(user, "<span class='notice'>You connect the two plumbing ducts.</span")
 
 /obj/item/stack/ducts
 	name = "stack of duct"
@@ -340,7 +340,7 @@ All the important duct code:
 
 /obj/item/stack/ducts/examine(mob/user)
 	. = ..()
-	. += span_notice("It's current color and layer are [duct_color] and [duct_layer]. Use in-hand to change.")
+	. += "<span class='notice'>It's current color and layer are [duct_color] and [duct_layer]. Use in-hand to change.</span>"
 
 /obj/item/stack/ducts/attack_self(mob/user)
 	var/new_layer = input("Select a layer", "Layer") as null|anything in GLOB.plumbing_layers
@@ -358,7 +358,7 @@ All the important duct code:
 	if(istype(target, /obj/machinery/duct))
 		var/obj/machinery/duct/duct = target
 		if(duct.anchored)
-			to_chat(user, span_warning("The duct must be unanchored before it can be picked up."))
+			to_chat(user, "<span class='warning'>The duct must be unanchored before it can be picked up.</span>")
 			return
 		qdel(duct)
 		return

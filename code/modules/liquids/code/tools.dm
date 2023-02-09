@@ -16,14 +16,14 @@
 		else
 			valid_id = TRUE
 		if(!valid_id)
-			to_chat(usr, span_warning("A reagent with that ID doesn't exist!"))
+			to_chat(usr, "<span class='warning'>A reagent with that ID doesn't exist!</span>")
 	if(!choice)
 		return
 	var/volume = input(usr, "Volume:", "Choose volume") as num
 	if(!volume)
 		return
 	if(volume >= 100000)
-		to_chat(usr, span_warning("Please limit the volume to below 100000 units!"))
+		to_chat(usr, "<span class='warning'>Please limit the volume to below 100000 units!</span>")
 		return
 	var/turf/epicenter = get_turf(mob)
 	epicenter.add_liquid(choice, volume)

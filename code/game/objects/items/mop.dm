@@ -102,7 +102,7 @@
 
 /obj/item/mop/examine(mob/user)
 	. = ..()
-	. += span_info("<b>Alt-click</b> a bucket to wring out the fluids.")
+	. += "<span class='info'><b>Alt-click</b> a bucket to wring out the fluids.</span>"
 
 
 /obj/item/mop/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)

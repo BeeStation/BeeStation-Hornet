@@ -153,7 +153,7 @@
 	playsound(T, 'code/modules/liquids/sound/effects/splash.ogg', 50, 0)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		to_chat(C, span_userdanger("You fall in the water!"))
+		to_chat(C, "<span class='userdanger'>You fall in the water!</span>")
 
 /turf/open/floor/plating/ocean/proc/movable_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
