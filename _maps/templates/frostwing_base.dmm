@@ -566,9 +566,9 @@
 "ui" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1;
-	color = "3e3735"
+	color = "#3e3735"
 	},
-/mob/living/simple_animal/cockroach,
+/mob/living/simple_animal/cockroach/snow,
 /turf/open/floor/plating/asteroid/snow/dug,
 /area/frostwing_base)
 "uU" = (
@@ -667,7 +667,7 @@
 	},
 /area/frostwing_base)
 "yK" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/simple_animal/cockroach/snow,
 /turf/open/floor/plating/snowed{
 	icon_plating = "snowplating"
 	},
@@ -733,7 +733,7 @@
 "At" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5;
-	color = "3e3735"
+	color = "#3e3735"
 	},
 /obj/item/grown/log,
 /obj/item/grown/log{
@@ -838,7 +838,7 @@
 "Cy" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1;
-	color = "3e3735"
+	color = "#3e3735"
 	},
 /obj/structure/table_frame,
 /obj/item/reagent_containers/spray/plantbgone{

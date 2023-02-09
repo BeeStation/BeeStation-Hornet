@@ -62,3 +62,9 @@
 
 /mob/living/simple_animal/cockroach/ex_act() //Explosions are a terrible way to handle a cockroach.
 	return
+
+/mob/living/simple_animal/cockroach/snow
+	name = "snow cockroach"
+	desc = "A particularly resilient cockroach, known to inhabit snowed-over structures."
+	icon_state = "cockroach-snow"
+	minbodytemp = 180
