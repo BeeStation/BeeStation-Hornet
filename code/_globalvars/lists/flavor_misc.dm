@@ -50,6 +50,9 @@ GLOBAL_LIST_EMPTY(ipc_antennas_list)
 GLOBAL_LIST_EMPTY(ipc_chassis_list)
 GLOBAL_LIST_EMPTY(insect_type_list)
 GLOBAL_LIST_EMPTY(psyphoza_cap_list)
+GLOBAL_LIST_EMPTY(apid_antenna_list)
+GLOBAL_LIST_EMPTY(apid_stripes_list)
+GLOBAL_LIST_EMPTY(apid_headstripes_list)
 
 GLOBAL_LIST_INIT(color_list_ethereal, list(
 	"Red" = "ff3131",

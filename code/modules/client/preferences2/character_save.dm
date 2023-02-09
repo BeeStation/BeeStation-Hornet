@@ -58,7 +58,10 @@
 						"ipc_antenna" = "None",
 						"ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)",
 						"insect_type" = "Common Fly",
-						"psyphoza_cap" = "Portobello"
+						"psyphoza_cap" = "Portobello",
+						"apid_antenna" = "Curled",
+						"apid_stripes" = "Thick",
+						"apid_headstripes" = "Thick"
 					)
 	var/list/custom_names = list()
 	var/preferred_ai_core_display = "Blue"
@@ -225,6 +228,9 @@
 	features["ipc_chassis"]	= sanitize_inlist(features["ipc_chassis"], GLOB.ipc_chassis_list)
 	features["insect_type"]	= sanitize_inlist(features["insect_type"], GLOB.insect_type_list)
 	features["psyphoza_cap"] = sanitize_inlist(features["psyphoza_cap"], GLOB.psyphoza_cap_list)
+	features["apid_antenna"] = sanitize_inlist(features["apid_antenna"], GLOB.apid_antenna_list)
+	features["apid_stripes"] = sanitize_inlist(features["apid_stripes"], GLOB.apid_stripes_list)
+	features["apid_headstripes"] = sanitize_inlist(features["apid_headstripes"], GLOB.apid_headstripes_list)
 
 	//Validate species forced mutant parts
 	for(var/forced_part in pref_species.forced_features)

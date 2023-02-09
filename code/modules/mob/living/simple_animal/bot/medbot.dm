@@ -75,13 +75,13 @@ GLOBAL_VAR(medibot_unique_id_gen)
 /mob/living/simple_animal/bot/medbot/mysterious
 	name = "\improper Mysterious Medibot"
 	desc = "International Medibot of mystery."
-	skin = "bezerk"
+	skin = MEDBOT_SKIN_BEZERK
 	heal_amount = 10
 
 /mob/living/simple_animal/bot/medbot/derelict
 	name = "\improper Old Medibot"
 	desc = "Looks like it hasn't been modified since the late 2080s."
-	skin = "bezerk"
+	skin = MEDBOT_SKIN_BEZERK
 	heal_threshold = 0
 	declare_crit = 0
 	heal_amount = 5
