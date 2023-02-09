@@ -306,12 +306,6 @@
 "rb" = (
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"rj" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "rY" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/recharger,
@@ -521,7 +515,7 @@
 /obj/effect/turf_decal/box,
 /obj/structure/closet/crate/critter,
 /mob/living/simple_animal/chicken/turkey{
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
 	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
 	dir = 4;
 	health = 200;
@@ -570,6 +564,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Ec" = (
@@ -683,6 +678,7 @@
 	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
 	width = 22
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Lx" = (
@@ -1166,7 +1162,7 @@ fo
 lw
 rb
 aA
-rj
+VZ
 VZ
 VZ
 Fm
