@@ -239,7 +239,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		deaf_type = 2 // Since you should be able to hear yourself without looking
 
 	// this makes you difficult to identify a radio channel as "Unknown" to prevent you to get metaknowledge of radio channel names
-	if(radio_freq)
+	if(radio_freq && known_channels)
 		var/radio_found = FALSE
 		if(src.known_channels["[radio_freq]"] || src.known_channels["[FREQ_SYNDICATE]"] || isdead(src))
 			radio_found = TRUE
