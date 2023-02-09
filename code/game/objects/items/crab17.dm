@@ -41,6 +41,8 @@
 	var/next_health_to_teleport
 	var/mob/living/carbon/human/bogdanoff
 	var/canwalk = FALSE
+	var/static/existing_machines = 0
+	var/protected_accounts = list()
 
 
 /obj/structure/checkoutmachine/Initialize(mapload, mob/living/user)
@@ -50,40 +52,29 @@
 	add_overlay("legs_retracted")
 	addtimer(CALLBACK(src, .proc/startUp), 50)
 	next_health_to_teleport = max_integrity - RUN_AWAY_THRESHOLD_HP
+	existing_machines++
 	. = ..()
 
 /obj/structure/checkoutmachine/examine(mob/living/user)
 	. = ..()
 	. += "<span class='info'>It's integrated integrity meter reads: <b>HEALTH: [obj_integrity]</b>.</span>"
 
-/obj/structure/checkoutmachine/proc/check_if_finished()
-	for(var/datum/bank_account/B in SSeconomy.bank_accounts)
-		if (B.crab_protected)
-			return FALSE
-	return TRUE
-
 /obj/structure/checkoutmachine/attackby(obj/item/W, mob/user, params)
-	if(check_if_finished())
-		qdel(src)
-		return
 	if(istype(W, /obj/item/card/id))
 		var/obj/item/card/id/card = W
 		if(!card.registered_account)
 			to_chat(user, "<span class='warning'>This card does not have a registered account!</span>")
 			return
-		if(card.registered_account.crab_protected)
+		if(protected_accounts["[card.registered_account.account_id]"])
 			to_chat(user, "<span class='warning'>It appears that your funds are safe from draining!</span>")
 			return
 		if(do_after(user, 40, target = src))
-			if(card.registered_account.crab_protected)
+			if(protected_accounts["[card.registered_account.account_id]"])
 				return
 			to_chat(user, "<span class='warning'>You quickly cash out your funds to a more secure banking location. Funds are safu.</span>") // This is a reference and not a typo
-			card.registered_account.crab_protected |= ACCOUNT_FLAG_CRAB_FREED
+			protected_accounts["[card.registered_account.account_id]"] = TRUE
 			card.registered_account.withdrawDelay = 0
 			next_health_to_teleport -= RUN_AWAY_DELAYED_HP // swipe your card, then it will likely less run away
-			if(check_if_finished())
-				qdel(src)
-				return
 	else
 		return ..()
 
@@ -153,20 +144,18 @@
 
 /obj/structure/checkoutmachine/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
-	var/datum/bank_account/crab_account = bogdanoff.get_bank_account()
-	for(var/datum/bank_account/B in SSeconomy.bank_accounts)
-		B.withdrawDelay = 0
+	existing_machines--
+	if(!existing_machines)
+		for(var/datum/bank_account/B in SSeconomy.bank_accounts)
+			B.withdrawDelay = 0
 	priority_announce("The credit deposit machine at [get_area(src)] has been destroyed. Station funds have stopped draining!", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = "CRAB-17 Protocol", )
 	explosion(src, 0,0,1, flame_range = 2)
 	return ..()
 
 /obj/structure/checkoutmachine/proc/start_dumping()
-	var/datum/bank_account/crab_account = bogdanoff.get_bank_account()
 	for(var/datum/bank_account/B in SSeconomy.bank_accounts)
-		if(B == crab_account)
-			B.crab_protected |= ACCOUNT_FLAG_CRAB_USER
+		if(protected_accounts["[B.account_id]"])
 			continue
-		B.crab_protected &= ~ACCOUNT_FLAG_CRAB_FREED // we do round 2, haha
 		B.withdrawDelay = world.time + 4 MINUTES
 	dump()
 
@@ -176,7 +165,7 @@
 	var/total_credits_stolen = 0
 	var/victim_count = 0
 	for(var/datum/bank_account/B in SSeconomy.bank_accounts)
-		if(B.crab_protected)
+		if(protected_accounts["[B.account_id]"])
 			continue
 		var/amount = 0
 		if(B.account_balance)
@@ -187,20 +176,16 @@
 				total_credits_stolen += amount
 				victim_count += 1
 				B.bank_card_talk("You have lost [percentage_lost * 100]% of your funds! A spacecoin credit deposit machine is located at: [get_area(src)].")
-			else
-				B.bank_card_talk("You have lost nothing of your funds, you poor! We don't have to let you know the location of our space-coin market as you lose nothing, right?")
 		else
 			if(amount)
 				B.adjust_money(-amount)
 				total_credits_stolen += amount
 				victim_count += 1
 				B.bank_card_talk("You have lost [percentage_lost * 100]% of your funds! A spacecoin credit deposit machine is located at: [get_area(src)].")
-			else
-				B.bank_card_talk("You have lost nothing of your funds, you poor! We don't have to let you know the location of our space-coin market as you lose nothing, right?")
 		B.withdrawDelay += 30 SECONDS // we apologize for the extended maintenance, but we need to steal your credits
 	for(var/M in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(M, src)
-		to_chat(M, "[link] [name] [total_credits_stolen ? "siphons total [total_credits_stolen] credits from [victim_count] bank accounts." : "tried to siphon bank accounts, but there're no victims."] location: [get_area(src)]")
+		to_chat(M, "<span class='deadsay'>[link] [name] [total_credits_stolen ? "siphons total [total_credits_stolen] credits from [victim_count] bank accounts." : "tried to siphon bank accounts, but there're no victims."] location: [get_area(src)]</span>")
 	addtimer(CALLBACK(src, .proc/dump), 150) //Drain every 15 seconds
 
 /obj/structure/checkoutmachine/process()
@@ -209,14 +194,14 @@
 		Move(get_step(src, anydir), anydir)
 
 	// Oh no, it RUNS AWAY!!!
-	if(obj_integrity && obj_integrity < next_health_to_teleport)
+	if(obj_integrity && obj_integrity < next_health_to_teleport) // checks if obj_integrity is positive first
 		next_health_to_teleport -= RUN_AWAY_THRESHOLD_HP
 		var/turf/targetturf = get_safe_random_station_turfs()
 		if(targetturf)
 			var/turf/message_turf = get_turf(src) // 'visible_message' from teleported mob will be visible after it's teleported...
 			if(do_teleport(src, targetturf, 0, channel = TELEPORT_CHANNEL_BLUESPACE))
-				message_turf.visible_message("<span class='danger'>[name] suddenly disappeared into nowhere!</span>")
-				visible_message("<span class='danger'>[name] suddenly appeared from nowhere!</span>")
+				message_turf.visible_message("<span class='danger'>[name] violently whirs before disappearing with a flash of light!</span>")
+				visible_message("<span class='danger'>[name] suddenly appears with a flash of light!</span>")
 
 /obj/effect/dumpeetFall //Falling pod
 	name = ""
