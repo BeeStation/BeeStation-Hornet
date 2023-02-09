@@ -81235,7 +81235,7 @@
 	},
 /obj/structure/sign/departments/minsky/security/security{
 	pixel_x = -32;
-	desc = "A sign labelling the security department of the station.This one has "Securitybookclub" written at the bottom."
+	desc = "A sign labelling the security department of the station. This one has Security book club written at the bottom."
 	},
 /turf/open/floor/carpet/black,
 /area/security/main)
