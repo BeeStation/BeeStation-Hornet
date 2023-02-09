@@ -34,10 +34,10 @@
 	/// State-specific message chunks for examine_turf()
 	var/static/list/liquid_state_messages = list(
 		"[LIQUID_STATE_PUDDLE]" = "a puddle of $",
-		"[LIQUID_STATE_ANKLES]" = "$ going ["<span class='warning'>up to your ankles</span>"]",
-		"[LIQUID_STATE_WAIST]" = "$ going ["<span class='warning'>up to your waist</span>"]",
-		"[LIQUID_STATE_SHOULDERS]" = "$ going ["<span class='warning'>up to your shoulders</span>"]",
-		"[LIQUID_STATE_FULLTILE]" = "$ going ["<span class='warning'>over your head</span>"]",
+		"[LIQUID_STATE_ANKLES]" = "$ going <span class='warning'>up to your ankles</span>",
+		"[LIQUID_STATE_WAIST]" = "$ going <span class='warning'>up to your waist</span>",
+		"[LIQUID_STATE_SHOULDERS]" = "$ going <span class='warning'>up to your shoulders</span>",
+		"[LIQUID_STATE_FULLTILE]" = "$ going <span class='warning'>over your head</span>",
 	)
 
 	var/temporary_split_key
