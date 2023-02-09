@@ -18,16 +18,8 @@
 	mob_name = "a swarmer"
 	death = FALSE
 	roundstart = FALSE
-	short_desc = "You are a swarmer, a weapon of a long dead civilization."
-	flavour_text = {"
-	<b>You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate.</b>
-	<b>Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful.</b>
-	<b>Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.</b>
-	<b>Objectives:</b>
-	1. Consume resources and replicate until there are no more resources left.
-	2. Ensure that this location is fit for invasion at a later date; do not perform actions that would render it dangerous or inhospitable.
-	3. Biological resources will be harvested at a later date; do not harm them.
-	"}
+	assignedrole = ROLE_SWARMER
+	banType = ROLE_SWARMER
 
 /obj/effect/mob_spawn/swarmer/Initialize(mapload)
 	. = ..()
@@ -724,7 +716,9 @@
 
 /datum/antagonist/swarmer/greet()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Swarmer",
-		"You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate.")
+		"You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate. \
+		Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful. \
+		Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.")
 
 /datum/team/swarmer
 	name = "The Swarm"
@@ -795,8 +789,8 @@
 			if(istype(new_mob))
 				new_mob.a_intent = INTENT_HARM
 				M.mind.transfer_to(new_mob)
-				new_owner.assigned_role = "Swarmer"
-				new_owner.special_role = "Swarmer"
+				new_owner.assigned_role = ROLE_SWARMER
+				new_owner.special_role = ROLE_SWARMER
 			qdel(M)
 	return ..()
 
