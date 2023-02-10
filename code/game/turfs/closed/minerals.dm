@@ -4,9 +4,11 @@
 	name = "rock"
 	icon = 'icons/turf/mining.dmi'
 	icon_state = "rock"
+	base_icon_state = "smoothrocks"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_MINERAL_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_MINERAL_WALLS)
 	var/smooth_icon = 'icons/turf/smoothrocks.dmi'
-	smooth = SMOOTH_MORE|SMOOTH_BORDER
-	canSmoothWith = null
 	baseturfs = /turf/open/floor/plating/asteroid/airless
 	initial_gas_mix = AIRLESS_ATMOS
 	opacity = 1
@@ -22,8 +24,6 @@
 	var/defer_change = 0
 
 /turf/closed/mineral/Initialize(mapload)
-	if (!canSmoothWith)
-		canSmoothWith = list(/turf/closed/mineral, /turf/closed/indestructible)
 	var/matrix/M = new
 	M.Translate(-4, -4)
 	transform = M
@@ -197,6 +197,25 @@
 		/turf/closed/mineral/gibtonite = 2, /obj/item/stack/ore/bluespace_crystal = 1)
 
 
+/turf/closed/mineral/random/snowmountain/cavern
+	name = "ice cavern rock"
+	icon = 'icons/turf/mining.dmi'
+	smooth_icon = 'icons/turf/walls/icerock_wall.dmi'
+	icon_state = "icerock_wall"
+	base_icon_state = "icerock_wall"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	baseturfs = /turf/open/floor/plating/asteroid/basalt/iceland_surface
+	environment_type = "snow_cavern"
+	turf_type = /turf/open/floor/plating/asteroid/basalt/iceland_surface
+	initial_gas_mix = FROZEN_ATMOS
+	defer_change = TRUE
+	mineralChance = 6
+	mineralSpawnChanceList = list(
+		/obj/item/stack/ore/uranium = 2, /obj/item/stack/ore/diamond = 1, /obj/item/stack/ore/gold = 4, /obj/item/stack/ore/titanium = 4,
+		/obj/item/stack/ore/silver = 6, /obj/item/stack/ore/copper = 6, /obj/item/stack/ore/plasma = 15, /obj/item/stack/ore/iron = 40,
+		/turf/closed/mineral/gibtonite = 2, /obj/item/stack/ore/bluespace_crystal = 1)
+
+
 /turf/closed/mineral/random/volcanic
 	environment_type = "basalt"
 	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
@@ -239,6 +258,7 @@
 /turf/closed/mineral/iron/ice
 	environment_type = "snow_cavern"
 	icon_state = "icerock_iron"
+	base_icon_state = "icerock_wall"
 	smooth_icon = 'icons/turf/walls/icerock_wall.dmi'
 	turf_type = /turf/open/floor/plating/asteroid/snow/ice
 	baseturfs = /turf/open/floor/plating/asteroid/snow/ice
@@ -271,6 +291,7 @@
 /turf/closed/mineral/diamond/ice
 	environment_type = "snow_cavern"
 	icon_state = "icerock_iron"
+	base_icon_state = "icerock_wall"
 	smooth_icon = 'icons/turf/walls/icerock_wall.dmi'
 	turf_type = /turf/open/floor/plating/asteroid/snow/ice
 	baseturfs = /turf/open/floor/plating/asteroid/snow/ice
@@ -337,13 +358,12 @@
 /turf/closed/mineral/plasma/ice
 	environment_type = "snow_cavern"
 	icon_state = "icerock_plasma"
+	base_icon_state = "icerock_wall"
 	smooth_icon = 'icons/turf/walls/icerock_wall.dmi'
 	turf_type = /turf/open/floor/plating/asteroid/snow/ice
 	baseturfs = /turf/open/floor/plating/asteroid/snow/ice
 	initial_gas_mix = FROZEN_ATMOS
 	defer_change = TRUE
-
-
 
 /turf/closed/mineral/bananium
 	mineralType = /obj/item/stack/ore/bananium
@@ -380,8 +400,9 @@
 	icon = 'icons/turf/mining.dmi'
 	smooth_icon = 'icons/turf/walls/rock_wall.dmi'
 	icon_state = "rock2"
-	smooth = SMOOTH_MORE|SMOOTH_BORDER
-	canSmoothWith = list (/turf/closed)
+	base_icon_state = "rock_wall"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	canSmoothWith = list(SMOOTH_GROUP_CLOSED_TURFS)
 	baseturfs = /turf/open/floor/plating/ashplanet/wateryrock
 	initial_gas_mix = OPENTURF_LOW_PRESSURE
 	environment_type = "waste"
@@ -392,9 +413,10 @@
 	name = "snowy mountainside"
 	icon = 'icons/turf/mining.dmi'
 	smooth_icon = 'icons/turf/walls/mountain_wall.dmi'
-	icon_state = "mountainrock"
-	smooth = SMOOTH_MORE|SMOOTH_BORDER
-	canSmoothWith = list (/turf/closed)
+	icon_state = "mountain_wall"
+	base_icon_state = "mountain_wall"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	canSmoothWith = list(SMOOTH_GROUP_CLOSED_TURFS)
 	baseturfs = /turf/open/floor/plating/asteroid/snow
 	initial_gas_mix = FROZEN_ATMOS
 	environment_type = "snow"
@@ -405,12 +427,13 @@
 	name = "ice cavern rock"
 	icon = 'icons/turf/mining.dmi'
 	smooth_icon = 'icons/turf/walls/icerock_wall.dmi'
-	icon_state = "icerock"
-	smooth = SMOOTH_MORE|SMOOTH_BORDER
-	canSmoothWith = list (/turf/closed)
-	baseturfs = /turf/open/floor/plating/asteroid/snow/ice
+	icon_state = "icerock_wall"
+	base_icon_state = "icerock_wall"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	baseturfs = /turf/open/floor/plating/asteroid/basalt/iceland_surface
 	environment_type = "snow_cavern"
-	turf_type = /turf/open/floor/plating/asteroid/snow/ice
+	turf_type = /turf/open/floor/plating/asteroid/basalt/iceland_surface
+
 
 //GIBTONITE
 

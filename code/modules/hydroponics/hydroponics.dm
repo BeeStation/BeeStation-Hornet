@@ -943,13 +943,14 @@
 	self_sustaining = TRUE
 	update_icon()
 
-/obj/machinery/hydroponics/proc/update_name()
+/obj/machinery/hydroponics/update_name()
 	if(renamedByPlayer)
 		return
 	if(myseed)
 		name = "[initial(name)] ([myseed.plantname])"
 	else
 		name = initial(name)
+	return ..()
 
 ///////////////////////////////////////////////////////////////////////////////
 /obj/machinery/hydroponics/soil //Not actually hydroponics at all! Honk!

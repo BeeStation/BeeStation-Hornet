@@ -243,9 +243,9 @@
 	playsound(loc, close_sound, close_sound_volume, 1, -3)
 	climb_time = initial(climb_time)
 	opened = FALSE
-	density = TRUE
+	set_density(TRUE)
 	animate_door(TRUE)
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/structure/closet/proc/toggle(mob/living/user)
@@ -426,7 +426,7 @@
 /obj/structure/closet/container_resist(mob/living/user)
 	if(opened)
 		return
-	if(ismovableatom(loc))
+	if(ismovable(loc))
 		user.changeNext_move(CLICK_CD_BREAKOUT)
 		user.last_special = world.time + CLICK_CD_BREAKOUT
 		var/atom/movable/AM = loc

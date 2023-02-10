@@ -758,7 +758,7 @@
 		var/mob/dead/observer/C = pick(candidates)
 		SM.key = C.key
 		SM.mind.enslave_mind_to_creator(user)
-		SM.sentience_act()
+		SM.sentience_act(user)
 		to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 		to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user.real_name] a great debt. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 		if(SM.flags_1 & HOLOGRAM_1) //Check to see if it's a holodeck creature
@@ -773,13 +773,14 @@
 		..()
 
 /obj/item/slimepotion/slime/sentience/proc/after_success(mob/living/user, mob/living/simple_animal/SM)
-	return
+	SM.faction = user.faction.Copy()
 
 /obj/item/slimepotion/slime/sentience/nuclear
 	name = "syndicate intelligence potion"
 	desc = "A miraculous chemical mix that grants human like intelligence to living beings. It has been modified with Syndicate technology to also grant an internal radio implant to the target and authenticate with identification systems."
 
 /obj/item/slimepotion/slime/sentience/nuclear/after_success(mob/living/user, mob/living/simple_animal/SM)
+	..()
 	var/obj/item/implant/radio/syndicate/imp = new(src)
 	imp.implant(SM, user)
 
@@ -825,7 +826,7 @@
 
 	user.mind.transfer_to(SM)
 	SM.faction = user.faction.Copy()
-	SM.sentience_act() //Same deal here as with sentience
+	SM.sentience_act(user) //Same deal here as with sentience
 	user.death()
 	to_chat(SM, "<span class='notice'>In a quick flash, you feel your consciousness flow into [SM]!</span>")
 	to_chat(SM, "<span class='warning'>You are now [SM]. Your allegiances, alliances, and role is still the same as it was prior to consciousness transfer!</span>")

@@ -55,12 +55,12 @@
 			foodtype |= S.foodtype
 			update_customizable_overlays(S)
 			to_chat(user, "<span class='notice'>You add the [I.name] to the [name].</span>")
-			update_name(S)
+			update_food_name(S)
 	else
 		. = ..()
 
 
-/obj/item/reagent_containers/food/snacks/customizable/proc/update_name(obj/item/reagent_containers/food/snacks/S)
+/obj/item/reagent_containers/food/snacks/customizable/proc/update_food_name(obj/item/reagent_containers/food/snacks/S)
 	for(var/obj/item/I in ingredients)
 		if(!istype(S, I.type))
 			customname = "custom"

@@ -5,6 +5,7 @@
  */
 
 export { AnimatedNumber } from './AnimatedNumber';
+export { Autofocus } from './Autofocus';
 export { Blink } from './Blink';
 export { BlockQuote } from './BlockQuote';
 export { Box } from './Box';
@@ -34,6 +35,7 @@ export { OrbitalMapSvg } from './OrbitalMapSvg';
 export { ProgressBar } from './ProgressBar';
 export { ScrollableBox } from './ScrollableBox';
 export { Popper } from './Popper';
+export { RestrictedInput } from './RestrictedInput';
 export { Section } from './Section';
 export { Slider } from './Slider';
 export { Stack } from './Stack';

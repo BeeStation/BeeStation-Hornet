@@ -69,7 +69,10 @@
 			.["user"]["points"] = get_points(C)
 			if(C.registered_account)
 				.["user"]["name"] = C.registered_account.account_holder
-				if(C.registered_account.account_job)
+				var/datum/data/record/R = find_record("name", C.registered_account.account_holder, GLOB.data_core.general)
+				if(R)
+					.["user"]["job"] = R.fields["rank"]
+				else if(C.registered_account.account_job)
 					.["user"]["job"] = C.registered_account.account_job.title
 				else
 					.["user"]["job"] = "No Job"

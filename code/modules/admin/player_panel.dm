@@ -13,6 +13,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		log_admin("[key_name(user)] checked the player panel.")
+		search_text = null
 		ui = new(user, src, "PlayerPanel", "Player Panel")
 		ui.open()
 

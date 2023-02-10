@@ -218,10 +218,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 /atom/movable/proc/machine_wash(obj/machinery/washing_machine/WM)
 	return
 
-/obj/item/stack/sheet/hairlesshide/machine_wash(obj/machinery/washing_machine/WM)
-	new /obj/item/stack/sheet/wetleather(drop_location(), amount)
-	qdel(src)
-
 /obj/item/clothing/suit/hooded/ian_costume/machine_wash(obj/machinery/washing_machine/WM)
 	new /obj/item/reagent_containers/food/snacks/meat/slab/corgi(loc)
 	qdel(src)
@@ -344,5 +340,5 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 /obj/machinery/washing_machine/open_machine(drop = 1)
 	..()
-	density = TRUE //because machinery/open_machine() sets it to 0
+	set_density(TRUE) //because machinery/open_machine() sets it to FALSE
 	color_source = null

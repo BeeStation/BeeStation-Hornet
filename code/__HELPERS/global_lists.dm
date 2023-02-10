@@ -31,11 +31,19 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/wings, GLOB.r_wings_list,roundstart = TRUE)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/caps, GLOB.caps_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_roundstart_list, roundstart = TRUE)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_antennae, GLOB.moth_antennae_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_antennae, GLOB.moth_antennae_roundstart_list, roundstart = TRUE)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_markings, GLOB.moth_markings_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_markings, GLOB.moth_markings_roundstart_list, roundstart = TRUE)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wingsopen, GLOB.moth_wingsopen_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_screens, GLOB.ipc_screens_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_antennas, GLOB.ipc_antennas_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_chassis, GLOB.ipc_chassis_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/insect_type, GLOB.insect_type_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_antenna, GLOB.apid_antenna_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_stripes, GLOB.apid_stripes_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_headstripes, GLOB.apid_headstripes_list)
 
 	//Species
 	for(var/spath in subtypesof(/datum/species))
@@ -70,6 +78,23 @@
 
 
 	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)
+
+/proc/make_datum_references_lists_late_setup()
+	// this should be done lately because it needs something pre-setup
+
+	// Tooltips - this one needs config but config is loaded before this
+	for(var/each in world.file2list("config/tooltips.txt"))
+		if(!each)
+			continue
+		if(each[1] == "#")
+			continue
+		var/keycut = findtext(each, " ")
+		var/key = copytext(each, 1, keycut)
+		var/text_value = copytext(each, keycut+1)
+
+		text_value = encode_wiki_link(text_value)
+		GLOB.tooltips[key] = text_value
+		// if runtime error happens, that means your config file is wrong
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
 //if no list/L is provided, one is created.

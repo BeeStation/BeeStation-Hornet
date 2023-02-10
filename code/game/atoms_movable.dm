@@ -32,7 +32,6 @@
 	var/atom/movable/moving_from_pull		//attempt to resume grab after moving instead of before.
 	///Holds information about any movement loops currently running/waiting to run on the movable. Lazy, will be null if nothing's going on
 	var/datum/movement_packet/move_packet
-	var/list/client_mobs_in_contents // This contains all the client mobs within this container
 	var/list/acted_explosions	//for explosion dodging
 	glide_size = 8
 	appearance_flags = TILE_BOUND|PIXEL_SCALE
@@ -66,9 +65,8 @@
 	. = ..()
 	switch(blocks_emissive)
 		if(EMISSIVE_BLOCK_GENERIC)
-			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, EMISSIVE_BLOCKER_LAYER, EMISSIVE_BLOCKER_PLANE)
+			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, 0 , EMISSIVE_BLOCKER_PLANE)
 			gen_emissive_blocker.dir = dir
-			gen_emissive_blocker.alpha = alpha
 			gen_emissive_blocker.appearance_flags |= appearance_flags
 			add_overlay(list(gen_emissive_blocker))
 		if(EMISSIVE_BLOCK_UNIQUE)
@@ -87,9 +85,8 @@
 	if(!blocks_emissive)
 		return
 	else if (blocks_emissive == EMISSIVE_BLOCK_GENERIC)
-		var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, EMISSIVE_BLOCKER_LAYER, EMISSIVE_BLOCKER_PLANE)
+		var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, 0, EMISSIVE_BLOCKER_PLANE)
 		gen_emissive_blocker.dir = dir
-		gen_emissive_blocker.alpha = alpha
 		gen_emissive_blocker.appearance_flags |= appearance_flags
 		return gen_emissive_blocker
 	else if(blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
@@ -102,7 +99,7 @@
 	. = ..()
 	. += update_emissive_block()
 
-/atom/movable/proc/can_zFall(turf/source, levels = 1, turf/target, direction)
+/atom/movable/proc/can_zFall(turf/source, turf/target, direction)
 	if(!direction)
 		direction = DOWN
 	if(!source)
@@ -122,7 +119,7 @@
 		if(!A.density)
 			continue
 		if(isobj(A) || ismob(A))
-			if(A.layer > highest.layer)
+			if(!highest || A.layer > highest.layer)
 				highest = A
 	INVOKE_ASYNC(src, .proc/SpinAnimation, 5, 2)
 	if(highest)
@@ -374,9 +371,8 @@
 	if(!loc || !newloc)
 		return FALSE
 	var/atom/oldloc = loc
-
+	var/flat_direct = direct & ~(UP|DOWN)
 	if(loc != newloc)
-		var/flat_direct = direct & ~(UP|DOWN)
 		if (!(flat_direct & (flat_direct - 1))) //Cardinal move
 			. = ..()
 		else //Diagonal move, split it into cardinal moves
@@ -449,17 +445,21 @@
 			check_pulling()
 
 	last_move = direct
-	setDir(direct)
+	if(flat_direct)
+		setDir(flat_direct)
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc,direct)) //movement failed due to buckled mob(s)
 		return FALSE
 
 //Called after a successful Move(). By this point, we've alrefady moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
+	if(OldLoc)
+		var/turf/old_turf = get_turf(OldLoc)
+		var/turf/new_turf = get_turf(src)
+		if(old_turf && new_turf && old_turf.z != new_turf.z)
+			onTransitZ(old_turf.z, new_turf.z)
 	if (!inertia_moving)
 		newtonian_move(Dir)
-	if (length(client_mobs_in_contents))
-		update_parallax_contents()
 
 	move_stacks--
 	if(move_stacks > 0) //we want only the first Moved() call in the stack to send this signal, all the other ones have an incorrect old_loc
@@ -487,7 +487,6 @@
 		loc.handle_atom_del(src)
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
-	LAZYCLEARLIST(client_mobs_in_contents)
 	moveToNullspace()
 	invisibility = INVISIBILITY_ABSTRACT
 	if(pulledby)
@@ -597,12 +596,6 @@
 				oldloc.Exited(src, destination)
 				if(old_area && old_area != destarea)
 					old_area.Exited(src, destination)
-			var/turf/oldturf = get_turf(oldloc)
-			var/turf/destturf = get_turf(destination)
-			var/old_z = (oldturf ? oldturf.z : null)
-			var/dest_z = (destturf ? destturf.z : null)
-			if (old_z != dest_z)
-				onTransitZ(old_z, dest_z)
 			destination.Entered(src, oldloc)
 			if(destarea && old_area != destarea)
 				destarea.Entered(src, old_area)

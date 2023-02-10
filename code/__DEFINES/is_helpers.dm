@@ -5,8 +5,6 @@
 /// Within given range, but not counting z-levels
 #define IN_GIVEN_RANGE(source, other, given_range) (get_dist(source, other) <= given_range && (get_step(source, 0)?:z) == (get_step(other, 0)?:z))
 
-#define ismovableatom(A) ismovable(A)
-
 #define isatom(A) (isloc(A))
 
 #define isdatum(thing) (istype(thing, /datum))
@@ -50,6 +48,11 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define ischasm(A) (istype(A, /turf/open/chasm))
 
 #define isplatingturf(A) (istype(A, /turf/open/floor/plating))
+
+// Temporary, but the code needs a way to differentiate if transparent turfs are added in the future.
+#define istransparentturf(A) (istype(A, /turf/open/openspace))
+
+#define isopenspace(A) (istype(A, /turf/open/openspace))
 
 //Mobs
 #define isliving(A) (istype(A, /mob/living))

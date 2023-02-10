@@ -23,7 +23,7 @@
 	var/del_on_unbuckle_all = FALSE
 
 /datum/component/riding/Initialize()
-	if(!ismovableatom(parent))
+	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, COMSIG_MOVABLE_BUCKLE, .proc/vehicle_mob_buckle)
 	RegisterSignal(parent, COMSIG_MOVABLE_UNBUCKLE, .proc/vehicle_mob_unbuckle)
@@ -177,7 +177,13 @@
 			return
 		if(!Process_Spacemove(direction) || !isturf(AM.loc))
 			return
-		step(AM, direction)
+		if(!(direction & UP) && !(direction & DOWN))
+			step(AM, direction)
+		else if(ismob(AM))
+			var/mob/M = AM
+			var/old_dir = M.dir
+			M.zMove((direction & UP) ? UP : DOWN, feedback = TRUE, feedback_to = user)
+			M.setDir(old_dir)
 
 		if((direction & (direction - 1)) && (AM.loc == next))		//moved diagonally
 			last_move_diagonal = TRUE

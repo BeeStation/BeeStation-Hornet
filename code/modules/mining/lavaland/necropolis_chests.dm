@@ -241,7 +241,7 @@
 /obj/item/wisp_lantern/Destroy()
 	if(wisp)
 		if(wisp.loc == src)
-			qdel(wisp)
+			QDEL_NULL(wisp)
 		else
 			wisp.visible_message("<span class='notice'>[wisp] has a sad feeling for a moment, then it passes.</span>")
 	return ..()
@@ -260,6 +260,11 @@
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	COOLDOWN_DECLARE(wisp_tired)
 	var/time
+
+/obj/effect/wisp/Destroy(force)
+	home = null
+	return ..()
+
 
 /obj/effect/wisp/orbit(atom/thing, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lockinorbit)
 	. = ..()
@@ -430,7 +435,7 @@
 
 /obj/item/projectile/hook/on_hit(atom/target)
 	. = ..()
-	if(ismovableatom(target))
+	if(ismovable(target))
 		var/atom/movable/A = target
 		if(A.anchored)
 			return
@@ -610,12 +615,12 @@
 	color = "#FFEBEB"
 	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
-/datum/reagent/flightpotion/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
+/datum/reagent/flightpotion/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
 		var/mob/living/carbon/C = M
 		var/holycheck = ishumanbasic(C)
 		if(reac_volume < 5) // implying xenohumans are holy //as with all things,
-			if(method == INGEST && show_message)
+			if((methods & INGEST) && show_message)
 				to_chat(C, "<span class='notice'><i>You feel nothing but a terrible aftertaste.</i></span>")
 			return ..()
 		if(ishuman(C))

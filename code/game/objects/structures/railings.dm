@@ -39,27 +39,28 @@
 
 /obj/structure/railing/wirecutter_act(mob/living/user, obj/item/I)
 	. = ..()
+	if(flags_1 & NODECONSTRUCT_1)
+		return
 	if(!anchored)
-		to_chat(user, "<span class='warning'>You cut apart the railing.</span>")
-		I.play_tool_sound(src, 100)
-		deconstruct()
-		return TRUE
+		to_chat(user, "<span class='warning'>You begin to cut apart [src]...</span>")
+		// Insta-disassemble is bad
+		if(I.use_tool(src, user, 2.5 SECONDS))
+			deconstruct()
+			return TRUE
 
 /obj/structure/railing/deconstruct(disassembled)
-	. = ..()
-	if(!loc) //quick check if it's qdeleted already.
-		return
 	if(!(flags_1 & NODECONSTRUCT_1))
 		var/obj/item/stack/rods/rod = new /obj/item/stack/rods(drop_location(), 3)
 		transfer_fingerprints_to(rod)
-		qdel(src)
+	return ..()
+
 ///Implements behaviour that makes it possible to unanchor the railing.
 /obj/structure/railing/wrench_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(flags_1&NODECONSTRUCT_1)
 		return
 	to_chat(user, "<span class='notice'>You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor...</span>")
-	if(I.use_tool(src, user, volume = 75, extra_checks = CALLBACK(src, .proc/check_anchored, anchored)))
+	if(I.use_tool(src, user, 1 SECONDS, volume = 75, extra_checks = CALLBACK(src, .proc/check_anchored, anchored)))
 		setAnchored(!anchored)
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor.</span>")
 	return TRUE
@@ -108,6 +109,8 @@
 	return
 
 /obj/structure/railing/proc/can_be_rotated(mob/user,rotation_type)
+	if(!in_range(user, src))
+		return
 	if(anchored)
 		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
 		return FALSE

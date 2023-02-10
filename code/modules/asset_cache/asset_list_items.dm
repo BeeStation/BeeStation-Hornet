@@ -466,7 +466,12 @@
 		"mech.png" = 'html/img/mech.png',
 		"scitool.png" = 'html/img/scitool.png',
 		"alienorgan.png"= 'html/img/alienorgan.png',
-		"abaton.png"= 'html/img/abaton.png'
+		"spiderguard.png"= 'html/img/spiderguard.png',
+		"spiderbroodmother.png"= 'html/img/spiderbroodmother.png',
+		"spidernurse.png"= 'html/img/spidernurse.png',
+		"spiderhunter.png"= 'html/img/spiderhunter.png',
+		"spiderviper.png"= 'html/img/spiderviper.png',
+		"spidertarantula.png"= 'html/img/spidertarantula.png'
 	)
 
 /datum/asset/simple/orbit
@@ -483,7 +488,9 @@
 	name = "sheetmaterials"
 
 /datum/asset/spritesheet/sheetmaterials/register()
-	InsertAll("", 'icons/obj/stack_objects.dmi')
+	InsertAll("", 'icons/obj/stacks/minerals.dmi')//figure to do a list here
+//	InsertAll("", 'icons/obj/stacks/miscelaneous.dmi')
+//	InsertAll("", 'icons/obj/stacks/organic.dmi')
 
 	// Special case to handle Bluespace Crystals
 	Insert("polycrystal", 'icons/obj/telescience.dmi', "polycrystal")

@@ -14,10 +14,6 @@
 #define CHAT_MESSAGE_WIDTH			128
 /// Max length of chat message in characters
 #define CHAT_MESSAGE_MAX_LENGTH		110
-/// Maximum precision of float before rounding errors occur (in this context)
-#define CHAT_LAYER_Z_STEP			0.0001
-/// The number of z-layer 'slices' usable by the chat message layering
-#define CHAT_LAYER_MAX_Z			(CHAT_LAYER_MAX - CHAT_LAYER) / CHAT_LAYER_Z_STEP
 /// The dimensions of the chat message icons
 #define CHAT_MESSAGE_ICON_SIZE		7
 /// How much the message moves up before fading out.
@@ -209,7 +205,7 @@
 	text = "[prefixes?.Join("&nbsp;")][text]"
 
 	// Approximate text height
-	var/complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[text]</span>"
+	var/complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[target.say_emphasis(text)]</span>"
 	var/mheight = WXH_TO_HEIGHT(first_hearer.MeasureText(complete_text, null, CHAT_MESSAGE_WIDTH))
 	approx_lines = max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT)
 
@@ -241,7 +237,7 @@
 
 	var/bound_height = world.icon_size
 	var/bound_width = world.icon_size
-	if(ismovableatom(message_loc))
+	if(ismovable(message_loc))
 		var/atom/movable/AM = message_loc
 		bound_height = AM.bound_height
 		bound_width = AM.bound_width
@@ -476,7 +472,7 @@
 	hearers -= ignored_mobs
 
 	for (var/mob/hearer in hearers)
-		if (is_blind(hearer))
+		if (hearer.is_blind())
 			continue
 
 		balloon_alert(hearer, (hearer == src && self_message) || message)
