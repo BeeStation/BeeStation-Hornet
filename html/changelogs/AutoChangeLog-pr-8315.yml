@@ -1,0 +1,9 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - code_imp: fixed some RPD code
+  - rscadd: added more debug items
+  - code_imp: made debugging items better
+  - code_imp: made the debug outfit better
+  - code_imp: changed some item paths from 'obj/.../admin' to 'obj/.../debug'
+  - tweak: admin RCD is now ranged
