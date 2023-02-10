@@ -191,7 +191,7 @@
 		SSmove_manager.stop_looping(src)
 		if(do_after(src, 50, target = cocoon_target))
 			if(busy == SPINNING_COCOON)
-				var/obj/structure/spider/cocoon/Coc = new(cocoon_target.loc)
+				var/obj/structure/spider/cocoon/C = new(cocoon_target.loc)
 				if(isliving(cocoon_target))
 					var/mob/living/L = cocoon_target
 					if(L.stat != DEAD)
@@ -208,10 +208,10 @@
 						visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>","<span class='notice'>You suck the nutriment out of [L], feeding you enough to lay a cluster of eggs.</span>")
 					else
 						to_chat(src, "<span class='warning'>[L] cannot sate your hunger!</span>")
-				cocoon_target.forceMove(Coc)
+				cocoon_target.forceMove(C)
 
 				if(cocoon_target.density || ismob(cocoon_target))
-					Coc.icon_state = pick("cocoon_large1","cocoon_large2","cocoon_large3")
+					C.icon_state = pick("cocoon_large1","cocoon_large2","cocoon_large3")
 	cocoon_target = null
 	busy = SPIDER_IDLE
 	stop_automated_movement = FALSE
