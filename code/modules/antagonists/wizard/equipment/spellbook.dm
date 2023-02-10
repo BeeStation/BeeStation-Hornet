@@ -61,8 +61,14 @@
 					to_chat(user, "<span class='notice'>This spell cannot be strengthened any further.</span>")
 				SSblackbox.record_feedback("nested tally", "wizard_spell_improved", 1, list("[name]", "[aspell.spell_level]"))
 				return TRUE
+	//debug handling
+	if(!book.debug)
+		SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
+	else
+		SSblackbox.record_feedback("tally", "debug_wizard_spell_learned", 1, name)
+		S.clothes_req = FALSE // You'd want no cloth req if you learned spells from a debug spellbook
+
 	//No same spell found - just learn it
-	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	user.mind.AddSpell(S)
 	to_chat(user, "<span class='notice'>You have learned [S.name].</span>")
 	return TRUE
@@ -627,6 +633,7 @@
 	var/mob/living/carbon/human/owner
 	var/list/datum/spellbook_entry/entries = list()
 	var/list/categories = list()
+	var/debug = FALSE
 
 /obj/item/spellbook/examine(mob/user)
 	. = ..()
