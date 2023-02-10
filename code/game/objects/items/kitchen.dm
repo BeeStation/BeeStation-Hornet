@@ -67,7 +67,7 @@
 	if(!M.can_inject(user, 1))
 		amount_inject = 1
 	var/amount = min(amount_inject/reagents.total_volume,1)
-	reagents.reaction(M,INJECT,amount)
+	reagents.expose(M,INJECT,amount)
 	reagents.trans_to(M,amount_inject)
 
 /obj/item/kitchen/knife

@@ -48,7 +48,7 @@
 	to_chat(user, "<span class='notice'>You start furiously plunging [name].")
 	if(do_after(user, 30, target = src))
 		to_chat(user, "<span class='notice'>You finish plunging the [name].")
-		reagents.reaction(get_turf(src), TOUCH) //splash on the floor
+		reagents.expose(get_turf(src), TOUCH) //splash on the floor
 		reagents.clear_reagents()
 
 /obj/machinery/plumbing/welder_act(mob/living/user, obj/item/I)
