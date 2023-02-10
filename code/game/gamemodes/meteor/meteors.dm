@@ -255,6 +255,9 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 			shake_camera(M, dist > 20 ? 2 : 4, dist > 20 ? 1 : 3)
 			M.playsound_local(src.loc, null, 50, 1, random_frequency, 10, S = meteor_sound)
 
+/obj/effect/meteor/has_gravity(turf/T)
+	return FALSE
+
 ///////////////////////
 //Meteor types
 ///////////////////////
@@ -436,7 +439,7 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	var/prefalltime = 8 SECONDS
 	layer = METEOR_LAYER
 
-/obj/effect/falling_meteor/Initialize(mapload, loc, meteor_type)
+/obj/effect/falling_meteor/Initialize(mapload, meteor_type)
 	. = ..()
 	if(!meteor_type)
 		meteor_type = /obj/effect/meteor/big
@@ -468,10 +471,33 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	animate(src, 5, alpha = 255)
 	animate(src, falltime, transform = matrix(), flags = ANIMATION_PARALLEL)
 	sleep(falltime)
+	if (istype(loc, /turf/open/openspace))
+		fall_below()
+	//Trigger multiple simulated bumps (Z levels are much more expensive to travel)
 	contained_meteor.forceMove(loc)
-	contained_meteor.make_debris()
-	contained_meteor.meteor_effect()
-	qdel(src)
+	contained_meteor.hits -= rand(4, 10)
+	contained_meteor.Bump(loc)
+	//If the meteor was deleted by the bumps, destroy the falling meteor
+	if (QDELETED(contained_meteor))
+		qdel(src)
+	else
+		//Fall down and repeat if possible
+		contained_meteor.forceMove(src)
+		//Try to fall down
+		if (!fall_below())
+			qdel(src)
+
+/obj/effect/falling_meteor/proc/fall_below()
+	var/turf/current = loc
+	if (!istype(current))
+		return FALSE
+	var/turf/below = current.below()
+	//Move down a layer and fall again
+	if (below != null)
+		forceMove(below)
+		fall_animation()
+		return TRUE
+	return FALSE
 
 /obj/effect/meteor_shadow
 	name = "shadow"

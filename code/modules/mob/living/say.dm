@@ -102,6 +102,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(!message)
 		return
 
+	message = check_for_custom_say_emote(message, message_mods)
+
 	if(stat == DEAD)
 		say_dead(original_message)
 		return
@@ -139,25 +141,29 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	var/succumbed = FALSE
 
-	var/fullcrit = InFullCritical()
-	if((in_critical && !fullcrit) || message_mods[WHISPER_MODE] == MODE_WHISPER)
-		if(saymode || message_mods[RADIO_EXTENSION]) //no radio while in crit
-			saymode = null
-			message_mods -= RADIO_EXTENSION
-		message_range = 1
-		message_mods[WHISPER_MODE] = MODE_WHISPER
-		log_talk(message, LOG_WHISPER)
-		if(fullcrit)
-			var/health_diff = round(-HEALTH_THRESHOLD_DEAD + health)
-			// If we cut our message short, abruptly end it with a-..
-			var/message_len = length_char(message)
-			message = copytext_char(message, 1, health_diff) + "[message_len > health_diff ? "-.." : "..."]"
-			message = Ellipsis(message, 10, 1)
-			last_words = message
-			message_mods[WHISPER_MODE] = MODE_WHISPER_CRIT
-			succumbed = TRUE
-	else
-		log_talk(message, LOG_SAY, forced_by = forced)
+	if(message_mods[MODE_CUSTOM_SAY_EMOTE])
+		log_message(message_mods[MODE_CUSTOM_SAY_EMOTE], LOG_RADIO_EMOTE)
+
+	if(!message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
+		var/fullcrit = InFullCritical()
+		if((in_critical && !fullcrit) || message_mods[WHISPER_MODE] == MODE_WHISPER)
+			if(saymode || message_mods[RADIO_EXTENSION]) //no radio while in crit
+				saymode = null
+				message_mods -= RADIO_EXTENSION
+			message_range = 1
+			message_mods[WHISPER_MODE] = MODE_WHISPER
+			log_talk(message, LOG_WHISPER, custom_say_emote = message_mods[MODE_CUSTOM_SAY_EMOTE])
+			if(fullcrit)
+				var/health_diff = round(-HEALTH_THRESHOLD_DEAD + health)
+				// If we cut our message short, abruptly end it with a-..
+				var/message_len = length_char(message)
+				message = copytext_char(message, 1, health_diff) + "[message_len > health_diff ? "-.." : "..."]"
+				message = Ellipsis(message, 10, 1)
+				last_words = message
+				message_mods[WHISPER_MODE] = MODE_WHISPER_CRIT
+				succumbed = TRUE
+		else
+			log_talk(message, LOG_SAY, forced_by = forced, custom_say_emote = message_mods[MODE_CUSTOM_SAY_EMOTE])
 
 	message = treat_message(message) // unfortunately we still need this
 	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
@@ -287,7 +293,10 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 					show_overhead_message_to += M
 			AM.Hear(rendered, src, message_language, message, , spans, message_mods)
 	if(length(show_overhead_message_to))
-		create_chat_message(src, message_language, show_overhead_message_to, message, spans)
+		if(message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
+			create_chat_message(src, message_language, show_overhead_message_to, message_mods[MODE_CUSTOM_SAY_EMOTE], spans)
+		else
+			create_chat_message(src, message_language, show_overhead_message_to, message, spans)
 	if(length(show_overhead_message_to_eavesdrop))
 		create_chat_message(src, message_language, show_overhead_message_to_eavesdrop, eavesdropping, spans)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_LIVING_SAY_SPECIAL, src, message)

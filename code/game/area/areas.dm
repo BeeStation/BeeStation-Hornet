@@ -86,6 +86,9 @@
 	///Used to decide what kind of reverb the area makes sound have
 	var/sound_environment = SOUND_ENVIRONMENT_NONE
 
+	///Typepath to limit the areas (subtypes included) that atoms in this area can smooth with. Used for shuttles.
+	var/area/area_limited_icon_smoothing
+
 	//Lighting overlay
 	var/obj/effect/lighting_overlay
 	var/lighting_overlay_colour = "#FFFFFF"
@@ -101,6 +104,9 @@
 	var/network_root_id = null
 	/// Area network id when you want to find all devices hooked up to this area
 	var/network_area_id = null
+
+	/// How hard it is to hack airlocks in this area
+	var/airlock_hack_difficulty = AIRLOCK_SECURITY_NONE
 
 /**
   * A list of teleport locations
@@ -182,15 +188,11 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 	. = ..()
 
-	blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.
-
 	if(!IS_DYNAMIC_LIGHTING(src))
+		blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.
 		add_overlay(/obj/effect/fullbright)
 	else if(lighting_overlay_opacity && lighting_overlay_colour)
-		lighting_overlay = new /obj/effect/fullbright
-		lighting_overlay.color = lighting_overlay_colour
-		lighting_overlay.alpha = lighting_overlay_opacity
-		add_overlay(lighting_overlay)
+		generate_lighting_overlay()
 	reg_in_areas_in_z()
 	if(!mapload)
 		if(!network_root_id)
@@ -204,6 +206,25 @@ GLOBAL_LIST_EMPTY(teleportlocs)
   */
 /area/LateInitialize()
 	power_change()		// all machines set to current power level, also updates icon
+
+/**
+ * Performs initial setup of the lighting overlays.
+ */
+/area/proc/generate_lighting_overlay()
+	if(lighting_overlay)
+		//Remove the old lighting overlay
+		cut_overlay(lighting_overlay)
+		//Delete the old lighting overlay object
+		QDEL_NULL(lighting_overlay)
+	//Create the lighting overlay object for this area
+	lighting_overlay = new /obj/effect/fullbright
+	lighting_overlay.color = lighting_overlay_colour
+	lighting_overlay.alpha = lighting_overlay_opacity
+	//Areas with a lighting overlay should be fully visible, and the tiles adjacent to them should also
+	//be luminous
+	luminosity = 1
+	//Add the lighting overlay
+	add_overlay(lighting_overlay)
 
 /area/proc/RunGeneration()
 	if(map_generator)
@@ -656,33 +677,31 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		T = get_turf(src)
 
 	if(!T)
-		return 0
+		return FALSE
 
 	var/list/forced_gravity = list()
 	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, T, forced_gravity)
-	if(!forced_gravity.len)
+	if(!length(forced_gravity))
 		SEND_SIGNAL(T, COMSIG_TURF_HAS_GRAVITY, src, forced_gravity)
-	if(forced_gravity.len)
+	if(length(forced_gravity))
 		var/max_grav
 		for(var/i in forced_gravity)
 			max_grav = max(max_grav, i)
 		return max_grav
 
-
 	if(!T.check_gravity()) // Turf never has gravity
-		return 0
-
+		return FALSE
 	var/area/A = get_area(T)
 	if(A.has_gravity) // Areas which always has gravity
-		return A.has_gravity
-	else
-		// There's a gravity generator on our z level
-		if(GLOB.gravity_generators["[T.get_virtual_z_level()]"])
-			var/max_grav = 0
-			for(var/obj/machinery/gravity_generator/main/G in GLOB.gravity_generators["[T.get_virtual_z_level()]"])
-				max_grav = max(G.setting,max_grav)
-			return max_grav
-	return SSmapping.level_trait(T.z, ZTRAIT_GRAVITY)
+		return TRUE
+	else if(SSmapping.level_trait(T.z, ZTRAIT_GRAVITY)) // If the z-level always has gravity
+		return TRUE
+	else if(GLOB.gravity_generators["[T.get_virtual_z_level()]"]) // If there's a gravity generator on our z level
+		var/max_grav = 0
+		for(var/obj/machinery/gravity_generator/main/G in GLOB.gravity_generators["[T.get_virtual_z_level()]"])
+			max_grav = max(G.setting,max_grav)
+		return max_grav
+	return FALSE
 /**
   * Setup an area (with the given name)
   *

@@ -339,7 +339,7 @@
 	var/obj/item/clothing/suit/space/hardsuit/syndi/linkedsuit = null
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode,\
 		/datum/action/item_action/toggle_beacon_hud)
-	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDEEARS
+	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDEEARS|HIDESNOUT
 	visor_flags = STOPSPRESSUREDAMAGE
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon()
@@ -723,6 +723,7 @@
 	desc = "A tactical SWAT helmet MK.II."
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 50, "energy" = 60, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100, "stamina" = 60)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	actions_types = list()
@@ -791,6 +792,7 @@
 	icon_state = "hardsuit0-ancient"
 	item_state = "anc_helm"
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 5, "energy" = 10, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 75, "stamina" = 30)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/gun/energy/plasmacutter, /obj/item/gun/energy/plasmacutter/adv, /obj/item/gun/energy/laser/retro, /obj/item/gun/energy/laser/retro/old, /obj/item/gun/energy/e_gun/old)
 	hardsuit_type = "ancient"
 	resistance_flags = FIRE_PROOF
 
@@ -800,6 +802,7 @@
 	icon_state = "hardsuit-ancient"
 	item_state = "anc_hardsuit"
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 5, "energy" = 10, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 75, "stamina" = 30)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/gun/energy/laser/retro, /obj/item/gun/energy/laser/retro/old, /obj/item/gun/energy/e_gun/old)
 	slowdown = 3
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ancient
 	resistance_flags = FIRE_PROOF
