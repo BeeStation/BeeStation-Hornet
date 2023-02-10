@@ -50,6 +50,7 @@
 #define ROLE_SWARMER			"Swarmer"
 #define ROLE_MORPH				"Morph"
 #define ROLE_NIGHTMARE			"Nightmare"
+#define ROLE_SPACE_PIRATE		"Space Pirate"
 #define ROLE_FUGITIVE			"Fugitive"
 #define ROLE_FUGITIVE_HUNTER	"Fugitive Hunter"
 
@@ -89,8 +90,9 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_MORPH,
 	ROLE_NIGHTMARE,
 	ROLE_SWARMER,
+	ROLE_SPACE_PIRATE,
 	ROLE_FUGITIVE,
-	ROLE_FUGITIVE_HUNTER
+	ROLE_FUGITIVE_HUNTER,
 ))
 
 //Job defines for what happens when you fail to qualify for any job during job selection

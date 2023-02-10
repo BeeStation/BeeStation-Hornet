@@ -103,18 +103,18 @@
 
 /**
  * Checks the inputted message for a custom say emote
- * Basically it checks every message for "-"
- * If a message contains it then it will mark everything that came before "-" as a custom say emote, IE: "stammers-", "cackles-", "screams-", "yells-", and everything after as the message
- * If a message contains "-" but nothing after it then it will convert everything that came before "-" into an emote
- * If a message doesn't contain "-" then it will simply return the input as a message
+ * Basically it checks every message for "|"
+ * If a message contains it then it will mark everything that came before "|" as a custom say emote, IE: "stammers|", "cackles|", "screams|", "yells|", and everything after as the message
+ * If a message contains "|" but nothing after it then it will convert everything that came before "|" into an emote
+ * If a message doesn't contain "|" then it will simply return the input as a message
  *
  * Example
- * * "mutters- hello" will be marked as a custom say emote of "mutters" and the message will be "hello"
+ * * "mutters| hello" will be marked as a custom say emote of "mutters" and the message will be "hello"
  * * and it will appear as Joe Average mutters, "hello"
- * * "screams-" will be marked as a custom say emote of "screams" and it will appear as Joe Average screams
+ * * "screams|" will be marked as a custom say emote of "screams" and it will appear as Joe Average screams
  */
 /mob/proc/check_for_custom_say_emote(message, list/mods)
-	var/customsaypos = findtext(message, "-")
+	var/customsaypos = findtext(message, "|")
 	var/messagetextpos = 1
 	if(!customsaypos)
 		return message
@@ -126,7 +126,7 @@
 	message = copytext(message, customsaypos + messagetextpos)
 	if(!message)
 		mods[MODE_CUSTOM_SAY_ERASE_INPUT] = TRUE
-		stack_trace("check_for_custom_say_emote failed to find a message for [key]")
+		message = ""
 	return message
 
 /**
