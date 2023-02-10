@@ -61,7 +61,6 @@
 
 	//Special spider variables defined here to prevent duplicate procs
 	var/mob/living/simple_animal/hostile/poison/giant_spider/heal_target //used by nurses for healing
-	var/static/list/consumed_mobs = list() //the tags of mobs that have been consumed by broodmothers
 	var/fed = 0 //used by broodmothers to track food
 	var/enriched_fed = 0
 	var/datum/action/innate/spider/lay_eggs/lay_eggs //the ability to lay eggs, granted to broodmothers
@@ -192,26 +191,36 @@
 		SSmove_manager.stop_looping(src)
 		if(do_after(src, 50, target = cocoon_target))
 			if(busy == SPINNING_COCOON)
-				var/obj/structure/spider/cocoon/C = new(cocoon_target.loc)
+				var/obj/structure/spider/cocoon/Coc = new(cocoon_target.loc)
 				if(isliving(cocoon_target))
 					var/mob/living/L = cocoon_target
-					if(L.blood_volume && (L.stat != DEAD || !consumed_mobs[L.tag]) && !isipc(L)) //if they're not dead, you can consume them anyway
-						if(istype(L, /mob/living/carbon/human))
-							enriched_fed++
+					if(L.blood_volume && !isipc(L) && !HAS_TRAIT(L, TRAIT_HUSK)) //If any of these fail there is no nourishment
+						if(iscarbon(L)) 
+							var/mob/living/carbon/C = L
+							C.death()
+							C.Drain() //drains blood and husks target to prevent repeated feeding
+							if(istype(C,/mob/living/carbon/human))
+								enriched_fed++ //it is a humanoid
+							else
+								fed++ //it is a monkey or equivalent to a monkey
 						else
-							fed++
-						consumed_mobs[L.tag] = TRUE
+							fed++ //it is neither human nor monkey, but it still has blood so we will eat it.
+							L.death()
+							L.blood_volume = 0 //And now it does not have blood so no broodmother can eat it again
+
+						//At this point, regardless of what it was we have fed on it, cannot feed on it again without significant outside intervention, and it is dead. 
 						health = maxHealth //heal up from feeding.
 						if(lay_eggs)
 							lay_eggs.UpdateButtonIcon(TRUE)
 						visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>","<span class='notice'>You suck the nutriment out of [L], feeding you enough to lay a cluster of eggs.</span>")
-						L.death() //you just ate them, they're dead.
 					else
 						to_chat(src, "<span class='warning'>[L] cannot sate your hunger!</span>")
-				cocoon_target.forceMove(C)
+						if(L.stat != DEAD)
+							L.death() //Even if it is not nourishing, it is still killed by our attempt to feed
+				cocoon_target.forceMove(Coc)
 
 				if(cocoon_target.density || ismob(cocoon_target))
-					C.icon_state = pick("cocoon_large1","cocoon_large2","cocoon_large3")
+					Coc.icon_state = pick("cocoon_large1","cocoon_large2","cocoon_large3")
 	cocoon_target = null
 	busy = SPIDER_IDLE
 	stop_automated_movement = FALSE
