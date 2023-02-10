@@ -23,7 +23,7 @@
 	else
 		to_chat(user, "<span class='notice'>ERROR: Could not find device.</span>")
 
-/obj/item/computer_hardware/hard_drive/role/virus/clown/pre_attack(atom/target, mob/living/user, params)
+/obj/item/computer_hardware/hard_drive/role/virus/clown/process_pre_attack(atom/target, mob/living/user, params)
 	// only run if we're inside a computer
 	if(!istype(loc, /obj/item/modular_computer))
 		return ..()

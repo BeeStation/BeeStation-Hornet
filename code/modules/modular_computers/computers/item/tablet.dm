@@ -84,7 +84,7 @@
 	if(try_scan_paper(target, user))
 		return FALSE
 	var/obj/item/computer_hardware/hard_drive/role/job_disk = all_components[MC_HDD_JOB]
-	if(istype(job_disk) && !job_disk.pre_attack(target, user, params))
+	if(istype(job_disk) && !job_disk.process_pre_attack(target, user, params))
 		return FALSE
 	return ..()
 
