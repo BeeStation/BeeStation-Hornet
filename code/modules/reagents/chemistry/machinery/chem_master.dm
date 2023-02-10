@@ -16,11 +16,13 @@
 	var/obj/item/storage/pill_bottle/bottle = null
 	var/mode = 1
 	var/condi = FALSE
-	var/chosenPillStyle = 1
+	var/chosenPillStyle = "pill_shape_capsule_purple_pink"
+	var/chosenPatchStyle = "bandaid_small_cross"
 	var/screen = "home"
 	var/analyzeVars[0]
 	var/useramount = 30 // Last used amount
-	var/list/pillStyles = null
+	var/static/list/pillStyles = list()
+	var/static/list/patchStyles = list()
 
 	// Persistent UI states
 	var/saved_name_state = "Auto"
@@ -33,13 +35,18 @@
 	create_reagents(100)
 
 	//Calculate the span tags and ids fo all the available pill icons
-	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/pills)
-	pillStyles = list()
-	for (var/x in 1 to PILL_STYLE_COUNT)
-		var/list/SL = list()
-		SL["id"] = x
-		SL["className"] = assets.icon_class_name("pill[x]")
-		pillStyles += list(SL)
+	if(!length(pillStyles))
+		for (var/each_pill_shape in PILL_SHAPE_LIST_WITH_DUMMY)
+			var/list/style_list = list()
+			style_list["id"] = each_pill_shape
+			style_list["pill_icon_name"] = each_pill_shape
+			pillStyles += list(style_list)
+	if(!length(patchStyles))
+		for (var/each_patch_shape in PATCH_SHAPE_LIST)
+			var/list/style_list = list()
+			style_list["id"] = each_patch_shape
+			style_list["patch_icon_name"] = each_patch_shape
+			patchStyles += list(style_list)
 
 	. = ..()
 
@@ -173,7 +180,7 @@
 
 /obj/machinery/chem_master/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/simple/pills)
+		get_asset_datum(/datum/asset/spritesheet/simple/medicine_containers)
 	)
 
 /obj/machinery/chem_master/ui_data(mob/user)
@@ -190,6 +197,7 @@
 	data["saved_volume_state"] = saved_volume_state
 	data["analyzeVars"] = analyzeVars
 	data["chosenPillStyle"] = chosenPillStyle
+	data["chosenPatchStyle"] = chosenPatchStyle
 	data["isPillBottleLoaded"] = bottle ? 1 : 0
 	if(bottle)
 		var/datum/component/storage/STRB = bottle.GetComponent(/datum/component/storage)
@@ -210,6 +218,7 @@
 
 	//Calculated at init time as it never changes
 	data["pillStyles"] = pillStyles
+	data["patchStyles"] = patchStyles
 	return data
 
 /obj/machinery/chem_master/ui_act(action, params)
@@ -279,8 +288,10 @@
 			mode = !mode
 			. = TRUE
 		if("pillStyle")
-			var/id = text2num(params["id"])
-			chosenPillStyle = id
+			chosenPillStyle = "[params["id"]]"
+			. = TRUE
+		if("patchStyle")
+			chosenPatchStyle = "[params["id"]]"
 			. = TRUE
 		if("create")
 			if(reagents.total_volume == 0)
@@ -364,11 +375,11 @@
 							P = new/obj/item/reagent_containers/pill(drop_location())
 						P.name = trim("[name] pill")
 						P.label_name = trim(name)
-						if(chosenPillStyle == RANDOM_PILL_STYLE)
-							P.icon_state ="pill[rand(1,21)]"
+						if(chosenPillStyle == "pill_random_dummy")
+							P.icon_state = pick(PILL_SHAPE_LIST)
 						else
-							P.icon_state = "pill[chosenPillStyle]"
-						if(P.icon_state == "pill4")
+							P.icon_state = chosenPillStyle
+						if(P.icon_state == "pill_shape_capsule_bloodred")
 							P.desc = "A tablet or capsule, but not just any, a red one, one taken by the ones not scared of knowledge, freedom, uncertainty and the brutal truths of reality."
 						adjust_item_drop_location(P)
 						reagents.trans_to(P, vol_each, transfered_by = usr)
@@ -379,6 +390,7 @@
 						P = new/obj/item/reagent_containers/pill/patch(drop_location())
 						P.name = trim("[name] patch")
 						P.label_name = trim(name)
+						P.icon_state = chosenPatchStyle
 						adjust_item_drop_location(P)
 						reagents.trans_to(P, vol_each, transfered_by = usr)
 					. = TRUE
