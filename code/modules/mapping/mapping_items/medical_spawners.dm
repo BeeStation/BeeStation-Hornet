@@ -11,6 +11,8 @@
 	loot = list(/obj/item/storage/firstaid/brute, /obj/item/storage/firstaid/fire, /obj/item/storage/firstaid/toxin, /obj/item/storage/firstaid/o2)
 	fan_out_items = TRUE
 	linear_scaling_rate = 0.5
+	minimum = 1
+	maximum = 3
 
 /obj/effect/spawner/lootdrop/job_scale/medical/brute_kit
 	icon = 'icons/obj/storage.dmi'
