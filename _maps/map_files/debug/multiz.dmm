@@ -1539,12 +1539,6 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"fY" = (
-/obj/structure/elevator_segment{
-	id = "debug"
-	},
-/turf/closed/wall/r_wall,
-/area/construction)
 "ho" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1558,6 +1552,18 @@
 /obj/machinery/disposal/deliveryChute,
 /turf/open/floor/plating,
 /area/storage/primary)
+"kC" = (
+/obj/structure/elevator_segment/primary,
+/obj/machinery/elevator_indicator{
+	id = "primary";
+	pixel_x = -24
+	},
+/turf/open/floor/carpet/grimy,
+/area/shuttle/turbolift/shaft)
+"ll" = (
+/obj/structure/elevator_segment/primary,
+/turf/closed/wall/r_wall,
+/area/shuttle/turbolift/shaft)
 "ne" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -1596,6 +1602,14 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"oY" = (
+/obj/machinery/elevator_indicator{
+	id = "primary";
+	pixel_y = -24;
+	preset_z = 1
+	},
+/turf/open/floor/plasteel,
+/area/security)
 "pR" = (
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/captain)
@@ -1611,14 +1625,10 @@
 	},
 /area/bridge)
 "rS" = (
-/obj/machinery/turbolift_button{
-	pixel_y = -23;
-	shuttle_id = "turbolift_primary"
+/obj/machinery/elevator_interface/primary{
+	preset_z = 1;
+	pixel_y = -24
 	},
-/turf/open/floor/plasteel,
-/area/construction)
-"sG" = (
-/obj/machinery/door/airlock/turbolift,
 /turf/open/floor/plasteel,
 /area/construction)
 "ty" = (
@@ -1638,18 +1648,17 @@
 /obj/structure/ladder,
 /turf/open/floor/plasteel,
 /area/security)
-"uI" = (
-/obj/structure/elevator_segment{
-	id = "debug"
-	},
-/obj/machinery/elevator_interface{
-	id = "debug"
-	},
-/turf/open/floor/plasteel,
-/area/construction)
 "vF" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/construction)
+"vN" = (
+/obj/machinery/elevator_indicator{
+	id = "primary";
+	pixel_y = -24;
+	preset_z = 1
 	},
 /turf/open/floor/plasteel,
 /area/construction)
@@ -1679,15 +1688,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/storage/primary)
-"Ao" = (
-/obj/docking_port/stationary/turbolift{
-	dwidth = 2;
-	height = 4;
-	id = "turbolift_primary";
-	width = 5
-	},
-/turf/open/openspace,
-/area/shuttle/turbolift/shaft)
 "Bm" = (
 /obj/machinery/light{
 	dir = 4
@@ -1720,6 +1720,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "DO" = (
+/obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
 /area/shuttle/turbolift/shaft)
 "Ej" = (
@@ -1727,8 +1728,9 @@
 /turf/open/floor/plating,
 /area/crew_quarters/heads/captain)
 "Eq" = (
-/obj/machinery/door/airlock/turbolift,
-/turf/open/floor/plating,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/public/glass,
+/turf/open/floor/plasteel,
 /area/construction)
 "Fz" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -1821,13 +1823,6 @@
 "LO" = (
 /turf/closed/wall/r_wall,
 /area/crew_quarters/dorms)
-"LP" = (
-/obj/structure/elevator_segment{
-	id = "debug"
-	},
-/obj/machinery/door/airlock/glass,
-/turf/open/floor/plating,
-/area/construction)
 "LW" = (
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
@@ -1836,10 +1831,23 @@
 /obj/machinery/light,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"NC" = (
+/obj/machinery/light,
+/obj/machinery/elevator_indicator{
+	id = "primary";
+	pixel_y = -24;
+	preset_z = 1
+	},
+/turf/open/floor/plating,
+/area/construction)
+"OE" = (
+/obj/structure/elevator_segment/primary,
+/turf/open/floor/carpet/grimy,
+/area/shuttle/turbolift/shaft)
 "OJ" = (
-/obj/machinery/turbolift_button{
-	pixel_y = -23;
-	shuttle_id = "turbolift_primary"
+/obj/machinery/elevator_interface/primary{
+	preset_z = 1;
+	pixel_y = -24
 	},
 /turf/open/floor/plasteel,
 /area/security)
@@ -1856,10 +1864,17 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel,
 /area/security)
-"PB" = (
-/obj/docking_port/stationary/turbolift{
-	id = "turbolift_primary"
+"Pw" = (
+/obj/structure/elevator_segment/primary,
+/obj/machinery/elevator_interface/primary{
+	pixel_x = -24
 	},
+/obj/machinery/light,
+/turf/open/floor/carpet/grimy,
+/area/shuttle/turbolift/shaft)
+"PB" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/light,
 /turf/open/openspace,
 /area/shuttle/turbolift/shaft)
 "PD" = (
@@ -1873,14 +1888,10 @@
 /obj/structure/disposaloutlet,
 /turf/open/floor/plasteel,
 /area/storage/primary)
-"Rk" = (
-/obj/structure/elevator_segment{
-	id = "debug"
-	},
-/turf/open/floor/plasteel,
-/area/construction)
 "RP" = (
-/obj/machinery/door/airlock/turbolift,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/public/glass,
 /turf/open/floor/plasteel,
 /area/security)
 "RU" = (
@@ -1902,39 +1913,36 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel,
 /area/security)
+"SI" = (
+/obj/structure/lattice/catwalk,
+/turf/open/openspace,
+/area/shuttle/turbolift/shaft)
 "Tg" = (
-/obj/machinery/turbolift_button{
-	pixel_y = -23;
-	shuttle_id = "turbolift_primary"
+/obj/machinery/elevator_interface/primary{
+	preset_z = 1;
+	pixel_y = -24
+	},
+/obj/machinery/elevator_interface/primary{
+	preset_z = 1;
+	pixel_y = -24
+	},
+/obj/machinery/elevator_interface/primary{
+	preset_z = 1;
+	pixel_y = -24
 	},
 /turf/open/floor/plating,
 /area/construction)
 "TU" = (
-/obj/docking_port/stationary/turbolift{
-	dwidth = 2;
-	height = 4;
-	id = "turbolift_primary";
-	roundstart_template = /datum/map_template/shuttle/turbolift/debug/primary;
-	width = 5
-	},
+/obj/structure/lattice/catwalk,
+/obj/machinery/light,
+/obj/machinery/light,
+/obj/machinery/light,
 /turf/open/floor/plating,
 /area/shuttle/turbolift/shaft)
 "Uc" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel,
 /area/security)
-"Vd" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/closed/wall/r_wall,
-/area/construction)
-"VL" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
-	},
-/turf/closed/wall/r_wall,
-/area/construction)
 "Wf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -1952,6 +1960,11 @@
 /obj/machinery/light,
 /turf/open/floor/plating,
 /area/construction)
+"WL" = (
+/obj/structure/elevator_segment/primary,
+/obj/machinery/light,
+/turf/closed/wall/r_wall,
+/area/shuttle/turbolift/shaft)
 "Xm" = (
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/captain)
@@ -1971,13 +1984,6 @@
 /obj/structure/disposalpipe/trunk/multiz/down,
 /turf/open/floor/plasteel,
 /area/storage/primary)
-"ZL" = (
-/obj/structure/elevator_segment{
-	id = "debug"
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/construction)
 
 (1,1,1) = {"
 aa
@@ -2828,7 +2834,7 @@ dn
 cN
 cN
 cN
-Vd
+cN
 cN
 ad
 ad
@@ -2872,13 +2878,13 @@ bE
 bE
 cQ
 cY
-fY
-fY
-fY
-fY
-fY
 dn
-WK
+dn
+dn
+dn
+dn
+dn
+NC
 cN
 DO
 DO
@@ -2926,17 +2932,17 @@ bE
 bE
 cN
 cY
-fY
-Rk
-Rk
-Rk
-ZL
+dn
+dn
+dn
+dn
+dn
 dn
 dn
 Eq
-DO
-DO
-DO
+OE
+kC
+Pw
 DO
 ad
 ad
@@ -2980,17 +2986,17 @@ bE
 bE
 cR
 cY
-fY
-Rk
-uI
-Rk
-LP
+dn
+dn
+dn
+dn
+dn
 dn
 dn
 Eq
-DO
-DO
-DO
+OE
+OE
+OE
 TU
 ad
 ad
@@ -3034,17 +3040,17 @@ bE
 bE
 cR
 og
-fY
-Rk
-Rk
-Rk
-ZL
+dn
+dn
+dn
+dn
+dn
 dn
 dn
 Eq
-DO
-DO
-DO
+ll
+ll
+WL
 DO
 ad
 ad
@@ -3088,11 +3094,11 @@ bE
 bE
 cR
 cY
-fY
-fY
-fY
-fY
-fY
+dn
+dn
+dn
+dn
+dn
 dn
 Tg
 cN
@@ -3152,7 +3158,7 @@ WK
 cN
 cN
 cN
-Vd
+cN
 cN
 ad
 ad
@@ -5637,7 +5643,7 @@ ep
 cN
 cN
 cN
-VL
+cN
 cN
 ad
 ad
@@ -5687,12 +5693,12 @@ au
 au
 au
 eL
-ep
+vN
 cN
-qS
-qS
-qS
-qS
+SI
+SI
+SI
+SI
 ad
 ad
 au
@@ -5742,11 +5748,11 @@ au
 au
 eL
 ep
-sG
+Eq
 qS
 qS
 qS
-qS
+SI
 ad
 ad
 au
@@ -5796,7 +5802,7 @@ au
 au
 eL
 ep
-sG
+Eq
 qS
 qS
 qS
@@ -5850,11 +5856,11 @@ au
 au
 eL
 ep
-sG
+Eq
 qS
 qS
 qS
-qS
+SI
 ad
 ad
 au
@@ -5905,10 +5911,10 @@ au
 eL
 rS
 cN
-qS
-qS
-qS
-qS
+SI
+SI
+SI
+SI
 ad
 ad
 au
@@ -5961,7 +5967,7 @@ ep
 cN
 cN
 cN
-VL
+cN
 cN
 ad
 ad
@@ -8496,12 +8502,12 @@ au
 au
 au
 Jz
-KR
+oY
 yz
-qS
-qS
-qS
-qS
+SI
+SI
+SI
+SI
 yz
 fn
 au
@@ -8555,7 +8561,7 @@ RP
 qS
 qS
 qS
-qS
+SI
 yz
 fn
 au
@@ -8609,7 +8615,7 @@ RP
 qS
 qS
 qS
-Ao
+PB
 yz
 fn
 au
@@ -8663,7 +8669,7 @@ RP
 qS
 qS
 qS
-qS
+SI
 yz
 fn
 au
@@ -8714,10 +8720,10 @@ au
 Jz
 OJ
 yz
-qS
-qS
-qS
-qS
+SI
+SI
+SI
+SI
 yz
 fn
 au

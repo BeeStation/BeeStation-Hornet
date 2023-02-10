@@ -8,14 +8,20 @@
 	var/list/available_levels = list()
 	///Do we call the elevator down or up to us
 	var/preset_z = FALSE
+	//The detail offset
+	var/z_offset = -1
 
 //Mapping preset - Primary Elevator
 /obj/machinery/elevator_interface/primary
 	id = "primary"
+	available_levels = list(1, 2, 3)
 
 /obj/machinery/elevator_interface/attack_hand(mob/living/user)
 	. = ..()
-	var/destination = preset_z ? z : input(user, "Select Level", "Select Level", z) as num|null
-	if(!destination || destination == z)
+	var/destination = preset_z ? z : input(user, "Select Level", "Select Level", z+z_offset) as num|null
+	if(!(destination in available_levels))
+		return
+	destination -= preset_z ? 0 : z_offset
+	if(!destination || (destination == z && !preset_z))
 		return
 	SSelevator_controller.move_elevator(id, destination)

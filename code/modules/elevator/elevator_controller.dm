@@ -4,11 +4,26 @@ SUBSYSTEM_DEF(elevator_controller)
 	init_order = INIT_ORDER_ELEVATOR
 	///List of elevator groups
 	var/list/elevator_groups = list()
+	///List of elevator group positional stuff
+	var/list/elevator_group_positions = list()
 
 /datum/controller/subsystem/elevator_controller/Initialize(start_timeofday)
 	. = ..()
 
-/datum/controller/subsystem/elevator_controller/proc/append_id(id)
+/datum/controller/subsystem/elevator_controller/proc/append_id(id, obj/structure/elevator_segment/EV)
+	//append positions
+	if(!elevator_group_positions[id])
+		elevator_group_positions[id] += list("bar" = list("x", "y"), "floor" = list("x", "y"), "middle" = list("x", "y"))
+	//Bar
+	elevator_group_positions[id]["bar"]["x"] = max(elevator_group_positions[id]["bar"]["x"], EV.x)
+	elevator_group_positions[id]["bar"]["y"] = max(elevator_group_positions[id]["bar"]["y"], EV.y)
+	//Floor
+	elevator_group_positions[id]["floor"]["x"] = elevator_group_positions[id]["floor"]["x"] ? min(elevator_group_positions[id]["floor"]["x"], EV.x) : EV.x
+	elevator_group_positions[id]["floor"]["y"] = elevator_group_positions[id]["floor"]["y"] ? min(elevator_group_positions[id]["floor"]["y"], EV.y) : EV.y
+	//Middle
+	elevator_group_positions[id]["middle"]["x"] = (elevator_group_positions[id]["bar"]["x"] + elevator_group_positions[id]["floor"]["x"]) / 2
+	elevator_group_positions[id]["middle"]["y"] = (elevator_group_positions[id]["bar"]["y"] + elevator_group_positions[id]["floor"]["y"]) / 2
+	//Append id
 	elevator_groups |= id
 	
 /datum/controller/subsystem/elevator_controller/proc/move_elevator(id, destination_z)
