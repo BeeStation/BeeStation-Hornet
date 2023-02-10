@@ -194,29 +194,20 @@
 				var/obj/structure/spider/cocoon/Coc = new(cocoon_target.loc)
 				if(isliving(cocoon_target))
 					var/mob/living/L = cocoon_target
-					if(L.blood_volume && !isipc(L) && !HAS_TRAIT(L, TRAIT_HUSK)) //If any of these fail there is no nourishment
-						if(iscarbon(L)) 
-							var/mob/living/carbon/C = L
-							C.death()
-							C.Drain() //drains blood and husks target to prevent repeated feeding
-							if(istype(C,/mob/living/carbon/human))
-								enriched_fed++ //it is a humanoid
-							else
-								fed++ //it is a monkey or equivalent to a monkey
-						else
-							fed++ //it is neither human nor monkey, but it still has blood so we will eat it.
-							L.death()
-							L.blood_volume = 0 //And now it does not have blood so no broodmother can eat it again
-
-						//At this point, regardless of what it was we have fed on it, cannot feed on it again without significant outside intervention, and it is dead. 
+					if(L.stat != DEAD)
+						L.death() //If it's not already dead, we want it dead regardless of nourishment
+					if(L.blood_volume && !isipc(L)) //IPCs and bloodless mobs are not nourishing.
+						L.blood_volume = 0 //Remove all fluids from this mob so they are no longer nourishing.
 						health = maxHealth //heal up from feeding.
+						if(istype(L,/mob/living/carbon/human)) 
+							enriched_fed++ //it is a humanoid, and is very nourishing
+						else
+							fed++ //it is not a humanoid, but still has nourishment
 						if(lay_eggs)
 							lay_eggs.UpdateButtonIcon(TRUE)
 						visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>","<span class='notice'>You suck the nutriment out of [L], feeding you enough to lay a cluster of eggs.</span>")
 					else
 						to_chat(src, "<span class='warning'>[L] cannot sate your hunger!</span>")
-						if(L.stat != DEAD)
-							L.death() //Even if it is not nourishing, it is still killed by our attempt to feed
 				cocoon_target.forceMove(Coc)
 
 				if(cocoon_target.density || ismob(cocoon_target))
