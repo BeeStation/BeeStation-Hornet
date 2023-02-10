@@ -25,7 +25,7 @@ GLOBAL_LIST_INIT(hunter_types, list(
 /datum/fugitive_type/hunter/russian
 	name = "Space-Russian Smuggler"
 	multiple_name = "Space-Russian Smugglers"
-	greet_message = "<span class='bold'>Ay blyat. I am a space-russian smuggler! We were mid-flight when our cargo was beamed off our ship!</span>\n\
+	greet_message = "<span class='bold'>Ay blyat. I am a Space-Russian smuggler! We were mid-flight when our cargo was beamed off our ship!</span>\n\
 	<span class='bold'>We were hailed by a man in a green uniform, promising the safe return of our goods in exchange for a favor:</span>\n\
 	<span class='bold'>There is a local station housing fugitives that the man is after, he wants them returned; dead or alive.</span>\n\
 	<span class='bold'>We will not be able to make ends meet without our cargo, so we must do as he says and capture them.</span>"
