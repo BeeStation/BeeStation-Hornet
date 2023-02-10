@@ -70,23 +70,25 @@
 	C.adjustPlasma(20)
 	return ..()
 
-/datum/reagent/toxin/plasma/expose_obj(obj/O, reac_volume)
-	if((!O) || (!reac_volume))
-		return 0
-	var/temp = holder ? holder.chem_temp : T20C
-	O.atmos_spawn_air("plasma=[reac_volume];TEMP=[temp]")
-
-/datum/reagent/toxin/plasma/expose_turf(turf/open/T, reac_volume)
-	if(istype(T))
-		var/temp = holder ? holder.chem_temp : T20C
-		T.atmos_spawn_air("plasma=[reac_volume];TEMP=[temp]")
-	return
-
-/datum/reagent/toxin/plasma/expose_mob(mob/living/M, methods=TOUCH, reac_volume)//Splashing people with plasma is stronger than fuel!
-	if(methods & (TOUCH|VAPOR))
-		M.adjust_fire_stacks(reac_volume / 5)
+/datum/reagent/toxin/plasma/expose_obj(obj/exposed_obj, reac_volume)
+	. = ..()
+	if((!exposed_obj) || (!reac_volume))
 		return
-	..()
+	var/temp = holder ? holder.chem_temp : T20C
+	exposed_obj.atmos_spawn_air("plasma=[reac_volume];TEMP=[temp]")
+
+/datum/reagent/toxin/plasma/expose_turf(turf/open/exposed_turf, reac_volume)
+	if(!istype(exposed_turf))
+		return
+	var/temp = holder ? holder.chem_temp : T20C
+	exposed_turf.atmos_spawn_air("plasma=[reac_volume];TEMP=[temp]")
+	return ..()
+
+/datum/reagent/toxin/plasma/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)//Splashing people with plasma is stronger than fuel!
+	. = ..()
+	if(methods & (TOUCH|VAPOR))
+		exposed_mob.adjust_fire_stacks(reac_volume / 5)
+		return
 
 /datum/reagent/toxin/lexorin
 	name = "Lexorin"
@@ -238,21 +240,25 @@
 	toxpwr = 1
 	taste_mult = 1
 
-/datum/reagent/toxin/plantbgone/expose_obj(obj/O, reac_volume)
-	if(istype(O, /obj/structure/alien/weeds))
-		var/obj/structure/alien/weeds/alien_weeds = O
+/datum/reagent/toxin/plantbgone/expose_obj(obj/exposed_obj, reac_volume)
+	. = ..()
+	if(istype(exposed_obj, /obj/structure/alien/weeds))
+		var/obj/structure/alien/weeds/alien_weeds = exposed_obj
 		alien_weeds.take_damage(rand(15,35), BRUTE, 0) // Kills alien weeds pretty fast
-	else if(istype(O, /obj/structure/glowshroom)) //even a small amount is enough to kill it
-		qdel(O)
-	else if(istype(O, /obj/structure/spacevine))
-		var/obj/structure/spacevine/SV = O
+	else if(istype(exposed_obj, /obj/structure/glowshroom)) //even a small amount is enough to kill it
+		qdel(exposed_obj)
+	else if(istype(exposed_obj, /obj/structure/spacevine))
+		var/obj/structure/spacevine/SV = exposed_obj
 		SV.on_chem_effect(src)
 
-/datum/reagent/toxin/plantbgone/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if((methods & VAPOR) && iscarbon(M))
-		var/mob/living/carbon/exposed_carbon = M
-		if(!exposed_carbon.wear_mask)
-			exposed_carbon.adjustToxLoss(min(round(0.4 * reac_volume, 0.1), 10))
+/datum/reagent/toxin/plantbgone/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume)
+	. = ..()
+	var/damage = min(round(0.4 * reac_volume, 0.1), 10)
+	if(!(methods & VAPOR) || !iscarbon(exposed_mob))
+		return
+	var/mob/living/carbon/exposed_carbon = exposed_mob
+	if(!exposed_carbon.wear_mask)
+		exposed_carbon.adjustToxLoss(damage)
 
 /datum/reagent/toxin/plantbgone/weedkiller
 	name = "Weed Killer"
@@ -549,6 +555,7 @@
 	toxpwr = 0
 
 /datum/reagent/toxin/itching_powder/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
+	. = ..()
 	if(methods & (TOUCH|VAPOR))
 		M.reagents?.add_reagent(/datum/reagent/toxin/itching_powder, reac_volume)
 
@@ -822,29 +829,32 @@
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/toxin/acid/expose_mob(mob/living/carbon/C, methods=TOUCH, reac_volume)
-	if(!istype(C))
+/datum/reagent/toxin/acid/expose_mob(mob/living/carbon/exposed_carbon, methods=TOUCH, reac_volume)
+	. = ..()
+	if(!istype(exposed_carbon))
 		return
 	reac_volume = round(reac_volume,0.1)
 	if(methods & INGEST)
-		C.adjustBruteLoss(min(6*toxpwr, reac_volume * toxpwr))
+		exposed_carbon.adjustBruteLoss(min(6*toxpwr, reac_volume * toxpwr))
 		return
 	if(methods & INJECT)
-		C.adjustBruteLoss(1.5 * min(6*toxpwr, reac_volume * toxpwr))
+		exposed_carbon.adjustBruteLoss(1.5 * min(6*toxpwr, reac_volume * toxpwr))
 		return
-	C.acid_act(acidpwr, reac_volume)
+	exposed_carbon.acid_act(acidpwr, reac_volume)
 
-/datum/reagent/toxin/acid/expose_obj(obj/O, reac_volume)
-	if(ismob(O.loc)) //handled in human acid_act()
+/datum/reagent/toxin/acid/expose_obj(obj/exposed_obj, reac_volume)
+	. = ..()
+	if(ismob(exposed_obj.loc)) //handled in human acid_act()
 		return
 	reac_volume = round(reac_volume,0.1)
-	O.acid_act(acidpwr, reac_volume)
+	exposed_obj.acid_act(acidpwr, reac_volume)
 
-/datum/reagent/toxin/acid/expose_turf(turf/T, reac_volume)
-	if (!istype(T))
+/datum/reagent/toxin/acid/expose_turf(turf/exposed_turf, reac_volume)
+	. = ..()
+	if (!istype(exposed_turf))
 		return
 	reac_volume = round(reac_volume,0.1)
-	T.acid_act(acidpwr, reac_volume)
+	exposed_turf.acid_act(acidpwr, reac_volume)
 
 /datum/reagent/toxin/acid/fluacid
 	name = "Fluorosulfuric acid"

@@ -47,32 +47,42 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	holder = null
 
 /// Applies this reagent to an [/atom]
-/datum/reagent/proc/expose_atom(atom/A, volume)
-	return
+/datum/reagent/proc/expose_atom(atom/exposed_atom, reac_volume)
+	SHOULD_CALL_PARENT(TRUE)
 
-/datum/reagent/proc/expose_mob(mob/living/M, methods = TOUCH, reac_volume, show_message = 1, touch_protection = 0, obj/item/bodypart/affecting)
-	if(!istype(M))
-		return FALSE
-	if(methods & VAPOR) //smoke, foam, spray
-		if(M.reagents)
-			var/modifier = CLAMP((1 - touch_protection), 0, 1)
-			var/amount = round(reac_volume*modifier, 0.1)
-			if(amount >= 0.5)
-				M.reagents.add_reagent(type, amount)
-	return TRUE
+	. = 0
+	. |= SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_ATOM, exposed_atom, reac_volume)
+	. |= SEND_SIGNAL(exposed_atom, COMSIG_ATOM_EXPOSE_REAGENT, src, reac_volume)
 
-/datum/reagent/proc/expose_obj(obj/O, volume)
-	return
+/// Applies this reagent to a [/mob/living]
+/datum/reagent/proc/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message = TRUE, touch_protection = 0)
+	SHOULD_CALL_PARENT(TRUE)
 
-/datum/reagent/proc/expose_turf(turf/T, volume)
-	return
+	. = SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_MOB, exposed_mob, methods, reac_volume, show_message, touch_protection)
+	if((methods & VAPOR) && exposed_mob.reagents) //smoke, foam, spray
+		var/amount = round(reac_volume*clamp((1 - touch_protection), 0, 1), 0.1)
+		if(amount >= 0.5)
+			exposed_mob.reagents.add_reagent(type, amount)
+
+/// Applies this reagent to an [/obj]
+/datum/reagent/proc/expose_obj(obj/exposed_obj, reac_volume)
+	SHOULD_CALL_PARENT(TRUE)
+
+	return SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_OBJ, exposed_obj, reac_volume)
+
+/// Applies this reagent to a [/turf]
+/datum/reagent/proc/expose_turf(turf/exposed_turf, reac_volume)
+	SHOULD_CALL_PARENT(TRUE)
+
+	return SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_TURF, exposed_turf, reac_volume)
 
 /datum/reagent/proc/on_mob_life(mob/living/carbon/M)
 	current_cycle++
 	holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency) //By default it slowly disappears.
 	return
 
-/datum/reagent/proc/on_transfer(atom/A, methods=TOUCH, trans_volume) //Called after a reagent is transfered
+//Called after a reagent is transfered
+/datum/reagent/proc/on_transfer(atom/A, methods=TOUCH, trans_volume)
 	return
 
 /datum/reagents/proc/react_single(datum/reagent/R, atom/A, methods = TOUCH, volume_modifier = 1, show_message = TRUE)

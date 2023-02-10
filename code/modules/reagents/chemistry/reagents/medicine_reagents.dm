@@ -430,22 +430,25 @@
 	overdose_threshold = 125
 
 /datum/reagent/medicine/synthflesh/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message = 1, touch_protection, obj/item/bodypart/affecting)
+	. = ..()
+	if(!iscarbon(M))
+		return
 	if(iscarbon(M))
 		if(M.stat == DEAD)
 			show_message = FALSE
-		if(methods & PATCH)
-			if(affecting.heal_damage(reac_volume, reac_volume))
-				M.update_damage_overlays()
-			M.adjustStaminaLoss(reac_volume*2)
-			if(show_message)
-				to_chat(M, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
-			M.emote("scream")
-			//Has to be at less than THRESHOLD_UNHUSK burn damage and have at least 100 synthflesh (currently inside the body + amount now being applied). Corpses dont metabolize.
-			if(HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn") && M.getFireLoss() < THRESHOLD_UNHUSK && (M.reagents.get_reagent_amount(/datum/reagent/medicine/synthflesh) + reac_volume) >= 100)
-				M.cure_husk("burn")
-				M.visible_message("<span class='nicegreen'>You successfully replace most of the burnt off flesh of [M].")
-	..()
+		if(!(methods & (PATCH|TOUCH|VAPOR)))
+			return
+		if(affecting.heal_damage(reac_volume, reac_volume))
+			M.update_damage_overlays()
+		M.adjustStaminaLoss(reac_volume*2)
+		if(show_message)
+			to_chat(M, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
+		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
+		M.emote("scream")
+		//Has to be at less than THRESHOLD_UNHUSK burn damage and have at least 100 synthflesh (currently inside the body + amount now being applied). Corpses dont metabolize.
+		if(HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn") && M.getFireLoss() < THRESHOLD_UNHUSK && (M.reagents.get_reagent_amount(/datum/reagent/medicine/synthflesh) + reac_volume) >= 100)
+			M.cure_husk("burn")
+			M.visible_message("<span class='nicegreen'>You successfully replace most of the burnt off flesh of [M].")
 
 /datum/reagent/medicine/synthflesh/on_mob_life(mob/living/carbon/M)
 	M.adjustFireLoss(-0.5*REM, 0)
@@ -1704,18 +1707,18 @@
 	..()
 	. = 1
 
-/datum/reagent/medicine/polypyr/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if(methods & (TOUCH|VAPOR))
-		if(M && ishuman(M) && reac_volume >= 0.5)
-			var/mob/living/carbon/human/H = M
-			H.hair_color = "92f"
-			H.facial_hair_color = "92f"
-			H.update_hair()
+/datum/reagent/medicine/polypyr/expose_mob(mob/living/carbon/human/exposed_human, methods=TOUCH, reac_volume)
+	. = ..()
+	if(!(methods & (TOUCH|VAPOR)) || !ishuman(exposed_human) || (reac_volume < 0.5))
+		return
+	exposed_human.hair_color = "92f"
+	exposed_human.facial_hair_color = "92f"
+	exposed_human.update_hair()
 
 /datum/reagent/medicine/polypyr/overdose_process(mob/living/M)
 	M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 0.5)
 	..()
-	. = 1
+	. = TRUE
 
 /datum/reagent/medicine/stabilizing_nanites
 	name = "Stabilizing nanites"
