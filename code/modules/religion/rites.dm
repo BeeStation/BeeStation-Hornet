@@ -663,7 +663,7 @@
 	playsound(altar_turf, 'sound/ambience/servicebell.ogg', 25, TRUE)
 	if(prob(0.1))
 		playsound(altar_turf, 'sound/effects/bamf.ogg', 100, TRUE)
-		user.visible_message("<span class='boldwarning'>A large form seems to be forcing its way into your reality via the portal you opened! RUN!!!</span>")
+		altar_turf.visible_message("<span class='boldwarning'>A large form seems to be forcing its way into your reality via the portal [user] opened! RUN!!!</span>")
 		new /mob/living/simple_animal/hostile/jungle/leaper(altar_turf)
 	return ..()
 
@@ -723,7 +723,7 @@
 		if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
 			to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
 			return FALSE
-		if(isandroid(user))
+		if(ispodperson(user))
 			to_chat(user,"<span class='warning'>You've already converted yourself. To convert others, they must be buckled to [movable_reltool].</span>")
 			return FALSE
 		to_chat(user,"<span class='warning'>You're going to convert yourself with this ritual.</span>")
