@@ -30349,7 +30349,7 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/research{
-	name = "Research Division Access"ssss;
+	name = "Research Division Access";
 	req_access_txt = "47"
 	},
 /turf/open/floor/plasteel/white,
@@ -68216,7 +68216,7 @@
 	req_access_txt = "47"
 	},
 /obj/machinery/door/poddoor/preopen{
-	id = s;
+	id = "xenosecure";
 	name = "Secure Pen Shutters"
 	},
 /obj/effect/turf_decal/stripes/red/full,
@@ -76696,9 +76696,7 @@
 	},
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating/ice/smooth,
-/area/engine/atmospherics_engine{
-	ambient_buzz = s'sound/ambience/shipambience.ogg'
-	})
+/area/engine/atmospherics_engine)
 "qbA" = (
 /obj/machinery/airalarm{
 	dir = 1;
@@ -81276,7 +81274,7 @@
 	},
 /obj/structure/sign/departments/minsky/security/security{
 	pixel_x = -32;
-	desc = "A sign labelling the security department of the station.This one has "Securitybookclub" written at the bottom."
+	desc = "A sign labelling the security department of the station. This one has 'security book club' written at the bottom."
 	},
 /turf/open/floor/carpet/black,
 /area/security/main)
@@ -274790,8 +274788,8 @@ eYn
 dkp
 dXu
 idQ
-bgX
 ktc
+bgX
 ktc
 ktc
 ktc
@@ -339567,9 +339565,9 @@ hgc
 hjc
 kUk
 hjc
+hjc
 xRa
-iFy
-iFy
+qBZ
 iFy
 iFy
 aJo
@@ -339824,11 +339822,11 @@ xBC
 xBC
 xBC
 xBC
+xBC
 pFP
-noJ
-noJ
-noJ
-noJ
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -340080,12 +340078,12 @@ kUk
 kUk
 kUk
 kUk
-hgc
+kUk
+hjc
 pFP
-noJ
-noJ
-noJ
-noJ
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -340337,12 +340335,12 @@ kUk
 kUk
 kUk
 kUk
-hgc
+kUk
+hjc
 pFP
-noJ
-noJ
-noJ
-noJ
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -340594,12 +340592,12 @@ kUk
 kUk
 kUk
 kUk
-hgc
+kUk
+hjc
 pFP
-noJ
-noJ
-noJ
-noJ
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -340850,13 +340848,13 @@ lpY
 lpY
 lpY
 lpY
+lpY
 hgc
-hjc
+hgc
 pFP
-noJ
-noJ
-noJ
-noJ
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -341109,9 +341107,9 @@ hgc
 kUk
 hjc
 hgc
+hjc
 eSM
-vmG
-vmG
+sfP
 sHY
 npL
 kcY
