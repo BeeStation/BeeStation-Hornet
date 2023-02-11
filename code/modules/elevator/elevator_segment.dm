@@ -55,7 +55,7 @@
 
 //Get a turf and move all it's contents with us
 /obj/structure/elevator_segment/proc/travel(datum/source, _id, z_destination, calltime)
-	SIGNAL_HANDLER
+	//We can't use SIGNAL_HANDLER since A.close() fucking sleeps
 
 	if(_id != id || z_destination == z)
 		return
@@ -86,12 +86,14 @@
 		//lock airlocks and setup a timer to undo them
 		if(istype(i, /obj/machinery/door/airlock))
 			var/obj/machinery/door/airlock/A = i
+			A.close()
 			A.lock()
 			addtimer(CALLBACK(src, .proc/unlock, A), calltime || 2 SECONDS)
 	elevator_fx(src, old_z_this, z_destination, calltime)
 
 /obj/structure/elevator_segment/proc/unlock(obj/machinery/door/airlock/A)
 	A.unlock()
+	A.open()
 
 /obj/structure/elevator_segment/proc/elevator_fx(atom/target, input_z, z_destination, calltime, icon_size = 32)
 	//animate us too - color

@@ -28,7 +28,9 @@
 
 /obj/machinery/elevator_interface/attack_hand(mob/living/user)
 	. = ..()
-	if(!powered())
+	if(!powered() || SSelevator_controller.elevator_group_timers[id])
+		if(powered())
+			say("Unable to call elevator...")
 		return
 	var/destination = preset_z ? z : input(user, "Select Level", "Select Level", z+z_offset) as num|null
 	if(!(destination in available_levels))
@@ -36,4 +38,6 @@
 	destination -= preset_z ? 0 : z_offset
 	if(!destination || (destination == z && !preset_z))
 		return
+	if(preset_z)
+		say("Calling elevator...")
 	SSelevator_controller.move_elevator(id, destination, calltime * abs(z - destination))
