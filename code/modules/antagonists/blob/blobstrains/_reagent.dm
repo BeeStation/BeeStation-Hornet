@@ -25,6 +25,7 @@
 	color = "#FFFFFF"
 	chem_flags = CHEMICAL_NOT_DEFINED
 	taste_description = "bad code and slime"
+	penetrates_skin = NONE
 
 
 /// Used by blob reagents to calculate the reaction volume they should use when exposing mobs.

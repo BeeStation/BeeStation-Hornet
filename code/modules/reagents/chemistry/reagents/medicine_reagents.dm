@@ -408,22 +408,20 @@
 	if(methods & (INGEST|VAPOR|INJECT))
 		exposed_mob.adjust_nutrition(-5)
 		if(show_message)
-			to_chat(M, "<span class='warning'>Your stomach feels empty and cramps!</span>")
+			to_chat(exposed_mob, "<span class='warning'>Your stomach feels empty and cramps!</span>")
 
 	if(methods & (PATCH|TOUCH))
 		var/mob/living/carbon/exposed_carbon = exposed_mob
-		for(var/s in exposed_carbon.surgeries)
-			var/datum/surgery/surgery = s
+		for(var/datum/surgery/surgery as anything in exposed_carbon.surgeries)
 			surgery.speed_modifier = max(0.1, surgery.speed_modifier)
 
 		if(show_message)
-				to_chat(M, "<span class='danger'>You feel your wounds fade away to nothing!</span>" )
+			to_chat(exposed_carbon, "<span class='danger'>You feel your injuries fade away to nothing!</span>" )
 
-/datum/reagent/medicine/mine_salve/on_mob_end_metabolize(mob/living/M)
-	if(iscarbon(M))
-		var/mob/living/carbon/N = M
+/datum/reagent/medicine/mine_salve/on_mob_end_metabolize(mob/living/metabolizer)
+	if(iscarbon(metabolizer))
+		var/mob/living/carbon/N = metabolizer
 		N.hal_screwyhud = SCREWYHUD_NONE
-	..()
 
 /datum/reagent/medicine/synthflesh
 	name = "Synthflesh"
