@@ -75,17 +75,20 @@
 /obj/item/radio/pickup(mob/user)
 	. = ..()
 	current_holder = user
-	current_holder.refresh_known_radio_channels()
+	if(current_holder)
+		addtimer(CALLBACK(current_holder, /mob/.proc/refresh_known_radio_channels), 2)
 
 /obj/item/radio/dropped(mob/user, silent)
 	. = ..()
-	current_holder.refresh_known_radio_channels()
+	if(current_holder)
+		addtimer(CALLBACK(current_holder, /mob/.proc/refresh_known_radio_channels), 2)
 	current_holder = null
 
 /obj/item/radio/equipped(mob/user, slot)
 	. = ..()
 	current_holder = user
-	current_holder.refresh_known_radio_channels()
+	if(current_holder)
+		addtimer(CALLBACK(current_holder, /mob/.proc/refresh_known_radio_channels), 2)
 
 /obj/item/radio/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] starts bouncing [src] off [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!</span>")
