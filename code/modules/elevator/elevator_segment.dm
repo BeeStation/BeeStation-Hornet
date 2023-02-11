@@ -54,7 +54,7 @@
 	T.cut_overlays()
 
 //Get a turf and move all it's contents with us
-/obj/structure/elevator_segment/proc/travel(datum/source, _id, z_destination, calltime)
+/obj/structure/elevator_segment/proc/travel(datum/source, _id, z_destination, calltime, crashing)
 	//We can't use SIGNAL_HANDLER since A.close() fucking sleeps
 
 	if(_id != id || z_destination == z)
@@ -89,6 +89,12 @@
 			A.close()
 			A.lock()
 			addtimer(CALLBACK(src, .proc/unlock, A), calltime || 2 SECONDS)
+		if(crashing && isliving(i))
+			var/turf/trg = get_edge_target_turf(i, pick(NORTH, EAST, SOUTH, WEST))
+			i.throw_at(trg, 8, 8)
+			var/mob/living/L = i
+			L.Paralyze(3 SECONDS)
+
 	elevator_fx(src, old_z_this, z_destination, calltime)
 
 /obj/structure/elevator_segment/proc/unlock(obj/machinery/door/airlock/A)

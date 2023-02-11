@@ -2,6 +2,7 @@
 	icon = 'icons/obj/elevator.dmi'
 	icon_state = "elevator_interface"
 	density = FALSE
+	emag_toggleable = TRUE
 	//Helps us group elevator components
 	var/id
 	///List of levels we can travel to
@@ -40,5 +41,11 @@
 		return
 	if(preset_z)
 		say("Calling elevator...")
-	if(!SSelevator_controller.move_elevator(id, destination, calltime * abs(z - destination)))
+	if(!SSelevator_controller.move_elevator(id, destination, calltime * abs(z - destination), obj_flags & EMAGGED))
 		say("Elevator obstructed...")
+
+/obj/machinery/elevator_interface/on_emag(mob/user)
+	. = ..()
+	if(!(obj_flags & EMAGGED))
+		say("Recalibrating...")
+	
