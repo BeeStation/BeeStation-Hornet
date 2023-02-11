@@ -231,13 +231,15 @@
 	..()
 	. = 1
 
-/datum/reagent/medicine/rezadone/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
+/datum/reagent/medicine/rezadone/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
 	. = ..()
-	if(iscarbon(M))
-		var/mob/living/carbon/patient = M
-		if(reac_volume >= 5 && HAS_TRAIT_FROM(patient, TRAIT_HUSK, "burn") && patient.getFireLoss() < THRESHOLD_UNHUSK) //One carp yields 12u rezadone.
-			patient.cure_husk("burn")
-			patient.visible_message("<span class='nicegreen'>[patient]'s body rapidly absorbs moisture from the environment, taking on a more healthy appearance.")
+	if(!iscarbon(exposed_mob))
+		return
+
+	var/mob/living/carbon/patient = exposed_mob
+	if(reac_volume >= 5 && HAS_TRAIT_FROM(patient, TRAIT_HUSK, "burn") && patient.getFireLoss() < UNHUSK_DAMAGE_THRESHOLD) //One carp yields 12u rezadone.
+		patient.cure_husk("burn")
+		patient.visible_message("<span class='nicegreen'>[patient]'s body rapidly absorbs moisture from the environment, taking on a more healthy appearance.")
 
 /datum/reagent/medicine/spaceacillin
 	name = "Spaceacillin"
@@ -257,6 +259,7 @@
 	overdose_threshold = 100
 
 /datum/reagent/medicine/silver_sulfadiazine/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message = 1, touch_protection, obj/item/bodypart/affecting)
+
 	if(iscarbon(M) && M.stat != DEAD)
 		if(methods & (INGEST|VAPOR|INJECT))
 			M.adjustToxLoss(0.5*reac_volume)
@@ -397,22 +400,24 @@
 	..()
 	return TRUE
 
-/datum/reagent/medicine/mine_salve/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message = 1)
-	if(iscarbon(M) && M.stat != DEAD)
-		if(methods & (INGEST|VAPOR|INJECT))
-			M.adjust_nutrition(-5)
-			if(show_message)
-				to_chat(M, "<span class='warning'>Your stomach feels empty and cramps!</span>")
-		else
-			var/mob/living/carbon/C = M
-			for(var/s in C.surgeries)
-				var/datum/surgery/S = s
-				S.speed_modifier = max(0.1, S.speed_modifier)
-				// +10% surgery speed on each step, useful while operating in less-than-perfect conditions
+/datum/reagent/medicine/mine_salve/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message = TRUE)
+	. = ..()
+	if(!iscarbon(exposed_mob) || (exposed_mob.stat == DEAD))
+		return
 
-			if(show_message)
+	if(methods & (INGEST|VAPOR|INJECT))
+		exposed_mob.adjust_nutrition(-5)
+		if(show_message)
+			to_chat(M, "<span class='warning'>Your stomach feels empty and cramps!</span>")
+
+	if(methods & (PATCH|TOUCH))
+		var/mob/living/carbon/exposed_carbon = exposed_mob
+		for(var/s in exposed_carbon.surgeries)
+			var/datum/surgery/surgery = s
+			surgery.speed_modifier = max(0.1, surgery.speed_modifier)
+
+		if(show_message)
 				to_chat(M, "<span class='danger'>You feel your wounds fade away to nothing!</span>" )
-	..()
 
 /datum/reagent/medicine/mine_salve/on_mob_end_metabolize(mob/living/M)
 	if(iscarbon(M))
@@ -429,26 +434,26 @@
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	overdose_threshold = 125
 
-/datum/reagent/medicine/synthflesh/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message = 1, touch_protection, obj/item/bodypart/affecting)
+/datum/reagent/medicine/synthflesh/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message = TRUE, touch_protection, obj/item/bodypart/affecting)
 	. = ..()
-	if(!iscarbon(M))
+	if(!iscarbon(exposed_mob))
 		return
-	if(iscarbon(M))
-		if(M.stat == DEAD)
-			show_message = FALSE
-		if(!(methods & (PATCH|TOUCH|VAPOR)))
-			return
-		if(affecting.heal_damage(reac_volume, reac_volume))
-			M.update_damage_overlays()
-		M.adjustStaminaLoss(reac_volume*2)
-		if(show_message)
-			to_chat(M, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
-		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
-		M.emote("scream")
-		//Has to be at less than THRESHOLD_UNHUSK burn damage and have at least 100 synthflesh (currently inside the body + amount now being applied). Corpses dont metabolize.
-		if(HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn") && M.getFireLoss() < THRESHOLD_UNHUSK && (M.reagents.get_reagent_amount(/datum/reagent/medicine/synthflesh) + reac_volume) >= 100)
-			M.cure_husk("burn")
-			M.visible_message("<span class='nicegreen'>You successfully replace most of the burnt off flesh of [M].")
+	var/mob/living/carbon/carb = exposed_mob
+	if(carb.stat == DEAD)
+		show_message = 0
+	if(!(methods & (PATCH|TOUCH|VAPOR)))
+		return
+	if(affecting.heal_damage(reac_volume, reac_volume))
+		carb.update_damage_overlays()
+	carb.adjustStaminaLoss(reac_volume*2)
+	if(show_message)
+		to_chat(carb, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
+	SEND_SIGNAL(carb, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
+	carb.emote("scream")
+	//Has to be at less than UNHUSK_DAMAGE_THRESHOLD burn damage and have at least 100 synthflesh (currently inside the body + amount now being applied). Corpses dont metabolize.
+	if(HAS_TRAIT_FROM(exposed_mob, TRAIT_HUSK, "burn") && carb.getFireLoss() < UNHUSK_DAMAGE_THRESHOLD && (carb.reagents.get_reagent_amount(/datum/reagent/medicine/synthflesh) + reac_volume) >= SYNTHFLESH_UNHUSK_AMOUNT)
+		carb.cure_husk("burn")
+		carb.visible_message("<span class='nicegreen'>You successfully replace most of the burnt off flesh of [carb].")
 
 /datum/reagent/medicine/synthflesh/on_mob_life(mob/living/carbon/M)
 	M.adjustFireLoss(-0.5*REM, 0)
@@ -941,29 +946,34 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "magnets"
 
-/datum/reagent/medicine/strange_reagent/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if(M.stat == DEAD)
-		if(M.suiciding || M.ishellbound()) //they are never coming back
-			M.visible_message("<span class='warning'>[M]'s body does not react...</span>")
-			return
-		if(M.getBruteLoss() >= 100 || M.getFireLoss() >= 100 || HAS_TRAIT(M, TRAIT_HUSK)) //body is too damaged to be revived
-			M.visible_message("<span class='warning'>[M]'s body convulses a bit, and then falls still once more.</span>")
-			M.do_jitter_animation(10)
-			return
-		else
-			M.visible_message("<span class='warning'>[M]'s body starts convulsing!</span>")
-			M.notify_ghost_cloning(source = M)
-			M.do_jitter_animation(10)
-			addtimer(CALLBACK(M, /mob/living/carbon.proc/do_jitter_animation, 10), 40) //jitter immediately, then again after 4 and 8 seconds
-			addtimer(CALLBACK(M, /mob/living/carbon.proc/do_jitter_animation, 10), 80)
-			addtimer(CALLBACK(M, /mob/living.proc/revive, FALSE, FALSE), 100)
+/datum/reagent/medicine/strange_reagent/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	if(exposed_mob.stat != DEAD)
+		return ..()
+	if(exposed_mob.suiciding || exposed_mob.ishellbound()) //they are never coming back
+		exposed_mob.visible_message("<span class='warning'>[exposed_mob]'s body does not react...</span>")
+		return
+	if(iscarbon(exposed_mob) && !(methods & INGEST)) //simplemobs can still be splashed
+		return ..()
+	var/amount_to_revive = round((exposed_mob.getBruteLoss()+exposed_mob.getFireLoss())/20)
+	if(exposed_mob.getBruteLoss()+exposed_mob.getFireLoss() >= 200 || HAS_TRAIT(exposed_mob, TRAIT_HUSK) || reac_volume < amount_to_revive) //body will die from brute+burn on revive or you haven't provided enough to revive.
+		exposed_mob.visible_message("<span class='warning'>[exposed_mob]'s body convulses a bit, and then falls still once more.</span>")
+		exposed_mob.do_jitter_animation(10)
+		return
+	exposed_mob.visible_message("<span class='warning'>[exposed_mob]'s body starts convulsing!</span>")
+	exposed_mob.notify_ghost_cloning("Your body is being revived with Strange Reagent!")
+	exposed_mob.do_jitter_animation(10)
+	var/excess_healing = 5*(reac_volume-amount_to_revive) //excess reagent will heal blood and organs across the board
+	addtimer(CALLBACK(exposed_mob, /mob/living/carbon.proc/do_jitter_animation, 10), 40) //jitter immediately, then again after 4 and 8 seconds
+	addtimer(CALLBACK(exposed_mob, /mob/living/carbon.proc/do_jitter_animation, 10), 80)
+	addtimer(CALLBACK(exposed_mob, /mob/living.proc/revive, FALSE, FALSE, excess_healing), 79)
 	..()
 
-/datum/reagent/medicine/strange_reagent/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(0.5*REM, 0)
-	M.adjustFireLoss(0.5*REM, 0)
+/datum/reagent/medicine/strange_reagent/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	var/damage_at_random = rand(0, 250)/100 //0 to 2.5
+	M.adjustBruteLoss(damage_at_random * REM * delta_time, FALSE)
+	M.adjustFireLoss(damage_at_random * REM * delta_time, FALSE)
 	..()
-	. = 1
+	. = TRUE
 
 /datum/reagent/medicine/mannitol
 	name = "Mannitol"

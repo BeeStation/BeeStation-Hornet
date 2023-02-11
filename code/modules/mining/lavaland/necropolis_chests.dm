@@ -615,16 +615,17 @@
 	color = "#FFEBEB"
 	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
-/datum/reagent/flightpotion/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message = 1)
-	if(iscarbon(M) && M.stat != DEAD)
-		var/mob/living/carbon/C = M
-		var/holycheck = ishumanbasic(C)
+/datum/reagent/flightpotion/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message = TRUE)
+	. = ..()
+	if(iscarbon(exposed_mob) && exposed_mob.stat != DEAD)
+		var/mob/living/carbon/exposed_carbon = exposed_mob
+		var/holycheck = ishumanbasic(exposed_carbon)
 		if(reac_volume < 5) // implying xenohumans are holy //as with all things,
 			if((methods & INGEST) && show_message)
-				to_chat(C, "<span class='notice'><i>You feel nothing but a terrible aftertaste.</i></span>")
-			return ..()
-		if(ishuman(C))
-			var/mob/living/carbon/human/H = C
+				to_chat(exposed_carbon, "<span class='notice'><i>You feel nothing but a terrible aftertaste.</i></span>")
+			return
+		if(ishuman(exposed_carbon))
+			var/mob/living/carbon/human/H = exposed_carbon
 			var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
 			if(H.getorgan(/obj/item/organ/wings))
 				if(wings.flight_level <= WINGS_FLIGHTLESS)
@@ -640,14 +641,13 @@
 				else
 					var/obj/item/organ/wings/dragon/newwings = new()
 					newwings.Insert(H)
-				to_chat(C, "<span class='userdanger'>A terrible pain travels down your back as wings burst out!</span>")
-				playsound(C.loc, 'sound/items/poster_ripped.ogg', 50, TRUE, -1)
-				C.adjustBruteLoss(20)
-				C.emote("scream")
+				to_chat(exposed_carbon, "<span class='userdanger'>A terrible pain travels down your back as wings burst out!</span>")
+				playsound(exposed_carbon.loc, 'sound/items/poster_ripped.ogg', 50, TRUE, -1)
+				exposed_carbon.adjustBruteLoss(20)
+				exposed_carbon.emote("scream")
 		if(holycheck)
-			to_chat(C, "<span class='notice'>You feel blessed!</span>")
-			ADD_TRAIT(C, TRAIT_HOLY, SPECIES_TRAIT)
-	..()
+			to_chat(exposed_carbon, "<span class='notice'>You feel blessed!</span>")
+			ADD_TRAIT(exposed_carbon, TRAIT_HOLY, SPECIES_TRAIT)
 
 
 /obj/item/jacobs_ladder

@@ -341,7 +341,7 @@
 	holder.remove_reagent(type, 1)
 	return TRUE
 
-/datum/reagent/hellwater			//if someone has this in their system they've really pissed off an eldrich god
+/datum/reagent/hellwater //if someone has this in their system they've really pissed off an eldrich god
 	name = "Hell Water"
 	description = "YOUR FLESH! IT BURNS!"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
@@ -394,38 +394,39 @@
 	overdose_threshold = 11 //Slightly more than one un-nozzled spraybottle.
 	taste_description = "sour oranges"
 
-/datum/reagent/spraytan/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message = 1)
-	if(ishuman(M))
+/datum/reagent/spraytan/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message = TRUE)
+	. = ..()
+	if(ishuman(exposed_mob))
 		if(methods & (PATCH|VAPOR))
-			var/mob/living/carbon/human/N = M
-			if(N.dna.species.id == SPECIES_HUMAN)
-				switch(N.skin_tone)
+			var/mob/living/carbon/human/exposed_human = exposed_mob
+			if(exposed_human.dna.species.id == SPECIES_HUMAN)
+				switch(exposed_human.skin_tone)
 					if("african1")
-						N.skin_tone = "african2"
+						exposed_human.skin_tone = "african2"
 					if("indian")
-						N.skin_tone = "african1"
+						exposed_human.skin_tone = "african1"
 					if("arab")
-						N.skin_tone = "indian"
+						exposed_human.skin_tone = "indian"
 					if("asian2")
-						N.skin_tone = "arab"
+						exposed_human.skin_tone = "arab"
 					if("asian1")
-						N.skin_tone = "asian2"
+						exposed_human.skin_tone = "asian2"
 					if("mediterranean")
-						N.skin_tone = "african1"
+						exposed_human.skin_tone = "african1"
 					if("latino")
-						N.skin_tone = "mediterranean"
+						exposed_human.skin_tone = "mediterranean"
 					if("caucasian3")
-						N.skin_tone = "mediterranean"
+						exposed_human.skin_tone = "mediterranean"
 					if("caucasian2")
-						N.skin_tone = pick("caucasian3", "latino")
+						exposed_human.skin_tone = pick("caucasian3", "latino")
 					if("caucasian1")
-						N.skin_tone = "caucasian2"
+						exposed_human.skin_tone = "caucasian2"
 					if ("albino")
-						N.skin_tone = "caucasian1"
+						exposed_human.skin_tone = "caucasian1"
 
-			if(MUTCOLORS in N.dna.species.species_traits) //take current alien color and darken it slightly
+			if(MUTCOLORS in exposed_human.dna.species.species_traits) //take current alien color and darken it slightly
 				var/newcolor = ""
-				var/string = N.dna.features["mcolor"]
+				var/string = exposed_human.dna.features["mcolor"]
 				var/len = length(string)
 				var/char = ""
 				var/ascii = 0
@@ -448,15 +449,11 @@
 						else
 							break
 				if(ReadHSV(newcolor)[3] >= ReadHSV("#7F7F7F")[3])
-					N.dna.features["mcolor"] = newcolor
-			N.regenerate_icons()
+					exposed_human.dna.features["mcolor"] = newcolor
+			exposed_human.regenerate_icons()
 
-
-
-		if(methods & INGEST)
-			if(show_message)
-				to_chat(M, "<span class='notice'>That tasted horrible.</span>")
-	..()
+		if((methods & INGEST) && show_message)
+			to_chat(exposed_mob, "<span class='notice'>That tasted horrible.</span>")
 
 /datum/reagent/spraytan/overdose_start(mob/living/M)
 	metabolization_rate = 1 * REAGENTS_METABOLISM
@@ -973,10 +970,10 @@
 		C.blood_volume += 0.5
 	..()
 
-/datum/reagent/iron/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if(M.has_bane(BANE_IRON)) //If the target is weak to cold iron, then poison them.
+/datum/reagent/iron/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	if(exposed_mob.has_bane(BANE_IRON)) //If the target is weak to cold iron, then poison them.
 		if(holder && holder.chem_temp < 100) // COLD iron.
-			M.reagents.add_reagent(/datum/reagent/toxin, reac_volume)
+			exposed_mob.reagents.add_reagent(/datum/reagent/toxin, reac_volume)
 	..()
 
 /datum/reagent/gold
@@ -1045,10 +1042,10 @@
 	taste_description = "fizzling blue"
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/bluespace/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
+/datum/reagent/bluespace/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	. = ..()
 	if(methods & (TOUCH|VAPOR))
-		do_teleport(M, get_turf(M), (reac_volume / 5), asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE) //4 tiles per crystal
-	..()
+		do_teleport(exposed_mob, get_turf(exposed_mob), (reac_volume / 5), asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE) //4 tiles per crystal
 
 /datum/reagent/bluespace/on_mob_life(mob/living/carbon/M)
 	if(current_cycle > 10 && prob(15))
@@ -1091,11 +1088,10 @@
 	process_flags = ORGANIC | SYNTHETIC
 
 
-/datum/reagent/fuel/expose_mob(mob/living/M, methods=TOUCH, reac_volume)//Splashing people with welding fuel to make them easy to ignite!
+/datum/reagent/fuel/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)//Splashing people with welding fuel to make them easy to ignite!
+	. = ..()
 	if(methods & (TOUCH|VAPOR))
-		M.adjust_fire_stacks(reac_volume / 10)
-		return
-	..()
+		exposed_mob.adjust_fire_stacks(reac_volume / 10)
 
 /datum/reagent/fuel/on_mob_life(mob/living/carbon/M)
 	M.adjustToxLoss(1, 0)
@@ -1139,24 +1135,24 @@
 	for(var/mob/living/simple_animal/slime/M in exposed_turf)
 		M.adjustToxLoss(rand(5,10))
 
-/datum/reagent/space_cleaner/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
+/datum/reagent/space_cleaner/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message=TRUE, touch_protection=0)
 	. = ..()
 	if(methods & (TOUCH|VAPOR))
-		M.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-		if(iscarbon(M))
-			var/mob/living/carbon/C = M
-			if(ishuman(M))
-				var/mob/living/carbon/human/H = M
+		exposed_mob.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+		if(iscarbon(exposed_mob))
+			var/mob/living/carbon/exposed_carbon = exposed_mob
+			if(ishuman(exposed_mob))
+				var/mob/living/carbon/human/H = exposed_mob
 				if(H.lip_style)
 					H.lip_style = null
 					H.update_body()
-			for(var/obj/item/I in C.held_items)
+			for(var/obj/item/I in exposed_carbon.held_items)
 				SEND_SIGNAL(I, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
-			if(C.wear_mask)
-				if(SEND_SIGNAL(C.wear_mask, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD))
-					C.update_inv_wear_mask()
-			if(ishuman(M))
-				var/mob/living/carbon/human/H = C
+			if(exposed_carbon.wear_mask)
+				if(SEND_SIGNAL(exposed_carbon.wear_mask, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD))
+					exposed_carbon.update_inv_wear_mask()
+			if(ishuman(exposed_mob))
+				var/mob/living/carbon/human/H = exposed_carbon
 				if(H.head)
 					if(SEND_SIGNAL(H.head, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD))
 						H.update_inv_head()
@@ -1187,11 +1183,11 @@
 	M.adjustToxLoss(3.33)
 	..()
 
-/datum/reagent/space_cleaner/ez_clean/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	..()
-	if((methods & (TOUCH|VAPOR)) && !issilicon(M))
-		M.adjustBruteLoss(1.5)
-		M.adjustFireLoss(1.5)
+/datum/reagent/space_cleaner/ez_clean/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	. = ..()
+	if((methods & (TOUCH|VAPOR)) && !issilicon(exposed_mob))
+		exposed_mob.adjustBruteLoss(1.5)
+		exposed_mob.adjustFireLoss(1.5)
 
 /datum/reagent/cryptobiolin
 	name = "Cryptobiolin"
@@ -1672,10 +1668,11 @@
 		M.add_atom_colour(pick(random_color_list), WASHABLE_COLOUR_PRIORITY)
 	return ..()
 
-/datum/reagent/colorful_reagent/expose_mob(mob/living/M, reac_volume)
-	if(can_colour_mobs)
-		M.add_atom_colour(pick(random_color_list), WASHABLE_COLOUR_PRIORITY)
-	..()
+/// Colors anything it touches a random color.
+/datum/reagent/colorful_reagent/expose_atom(atom/exposed_atom, reac_volume)
+	. = ..()
+	if(!isliving(exposed_atom) || can_colour_mobs)
+		exposed_atom.add_atom_colour(pick(random_color_list), WASHABLE_COLOUR_PRIORITY)
 
 /datum/reagent/colorful_reagent/expose_obj(obj/exposed_obj, reac_volume)
 	if(exposed_obj)
@@ -2124,9 +2121,9 @@
 	metabolization_rate = 0.8 * REAGENTS_METABOLISM
 	var/datum/language_holder/prev_language
 
-/datum/reagent/consumable/ratlight/expose_mob(mob/living/M)
-	M.set_light(2)
-	..()
+/datum/reagent/consumable/ratlight/expose_mob(mob/living/exposed_mob)
+	. = ..()
+	exposed_mob.set_light(2)
 
 /datum/reagent/consumable/ratlight/on_mob_life(mob/living/carbon/M)
 	if(prob(10))

@@ -273,11 +273,11 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 1
 
-/datum/reagent/toxin/pestkiller/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	..()
-	if(MOB_BUG in M.mob_biotypes)
+/datum/reagent/toxin/pestkiller/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	. = ..()
+	if(exposed_mob.mob_biotypes & MOB_BUG)
 		var/damage = min(round(0.4*reac_volume, 0.1),10)
-		M.adjustToxLoss(damage)
+		exposed_mob.adjustToxLoss(damage)
 
 /datum/reagent/toxin/spore
 	name = "Spore Toxin"

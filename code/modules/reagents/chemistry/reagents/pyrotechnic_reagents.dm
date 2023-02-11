@@ -148,17 +148,16 @@
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/phlogiston/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	M.adjust_fire_stacks(1)
-	var/burndmg = max(0.3*M.fire_stacks, 0.3)
-	M.adjustFireLoss(burndmg, 0)
-	M.IgniteMob()
-	..()
+/datum/reagent/phlogiston/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	. = ..()
+	exposed_mob.adjust_fire_stacks(1)
+	var/burndmg = max(0.3*exposed_mob.fire_stacks, 0.3)
+	exposed_mob.adjustFireLoss(burndmg, 0)
+	exposed_mob.IgniteMob()
 
-/datum/reagent/phlogiston/on_mob_life(mob/living/carbon/M)
-	M.adjust_fire_stacks(1)
-	var/burndmg = max(0.3*M.fire_stacks, 0.3)
-	M.adjustFireLoss(burndmg, 0)
+/datum/reagent/phlogiston/on_mob_life(mob/living/carbon/metabolizer, delta_time, times_fired)
+	metabolizer.adjust_fire_stacks(1 * REM * delta_time)
+	metabolizer.adjustFireLoss(0.3 * max(metabolizer.fire_stacks, 0.15) * REM * delta_time, 0)
 	..()
 	return TRUE
 

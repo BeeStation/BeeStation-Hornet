@@ -32,16 +32,16 @@
 	color = "#E88D5D"
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 
-/datum/reagent/blob/zombifying_pods/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
+/datum/reagent/blob/zombifying_pods/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)
 	reac_volume = ..()
-	M.apply_damage(0.6*reac_volume, TOX)
-	if(O && ishuman(M) && M.stat == UNCONSCIOUS)
-		M.death() //sleeping in a fight? bad plan.
+	exposed_mob.apply_damage(0.6*reac_volume, TOX)
+	if(overmind && ishuman(exposed_mob) && exposed_mob.stat == UNCONSCIOUS)
+		exposed_mob.death() //sleeping in a fight? bad plan.
 		var/points = rand(5, 10)
-		var/mob/living/simple_animal/hostile/blob/blobspore/BS = new/mob/living/simple_animal/hostile/blob/blobspore/weak(get_turf(M))
-		BS.overmind = O
+		var/mob/living/simple_animal/hostile/blob/blobspore/BS = new/mob/living/simple_animal/hostile/blob/blobspore/weak(get_turf(exposed_mob))
+		BS.overmind = overmind
 		BS.update_icons()
-		O.blob_mobs.Add(BS)
-		BS.Zombify(M)
-		O.add_points(points)
-		to_chat(O, "<span class='notice'>Gained [points] resources from the zombification of [M].</span>")
+		overmind.blob_mobs.Add(BS)
+		BS.Zombify(exposed_mob)
+		overmind.add_points(points)
+		to_chat(overmind, "<span class='notice'>Gained [points] resources from the zombification of [exposed_mob].</span>")

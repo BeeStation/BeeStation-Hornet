@@ -23,20 +23,21 @@
 			H.adjust_nutrition(nutriment_factor)
 	holder.remove_reagent(type, metabolization_rate)
 
-/datum/reagent/consumable/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if((methods & INGEST) && quality && !HAS_TRAIT(M, TRAIT_AGEUSIA))
-		switch(quality)
-			if (DRINK_BAD)
-				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
-			if (DRINK_NICE)
-				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_nice)
-			if (DRINK_GOOD)
-				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_good)
-			if (DRINK_VERYGOOD)
-				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_verygood)
-			if (DRINK_FANTASTIC)
-				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_fantastic)
-	return ..()
+/datum/reagent/consumable/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	. = ..()
+	if(!(methods & INGEST) || !quality || HAS_TRAIT(exposed_mob, TRAIT_AGEUSIA))
+		return
+	switch(quality)
+		if (DRINK_BAD)
+			SEND_SIGNAL(exposed_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
+		if (DRINK_NICE)
+			SEND_SIGNAL(exposed_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_nice)
+		if (DRINK_GOOD)
+			SEND_SIGNAL(exposed_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_good)
+		if (DRINK_VERYGOOD)
+			SEND_SIGNAL(exposed_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_verygood)
+		if (DRINK_FANTASTIC)
+			SEND_SIGNAL(exposed_mob, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_fantastic)
 
 /datum/reagent/consumable/nutriment
 	name = "Nutriment"
@@ -600,13 +601,15 @@
 		M.adjustToxLoss(-1*REM+power, 0)
 	..()
 
-/datum/reagent/consumable/honey/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if(iscarbon(M) && (methods & (TOUCH|VAPOR|PATCH)))
-		var/mob/living/carbon/C = M
-		for(var/s in C.surgeries)
-			var/datum/surgery/S = s
-			S.speed_modifier = max(0.6, S.speed_modifier) // +60% surgery speed on each step, compared to bacchus' blessing's ~46%
-	..()
+/datum/reagent/consumable/honey/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	. = ..()
+	if(!iscarbon(exposed_mob) || !(methods & (TOUCH|VAPOR|PATCH)))
+		return
+
+	var/mob/living/carbon/exposed_carbon = exposed_mob
+	for(var/s in exposed_carbon.surgeries)
+		var/datum/surgery/surgery = s
+		surgery.speed_modifier = max(0.6, surgery.speed_modifier) // +60% surgery speed on each step, compared to bacchus' blessing's ~46%
 
 /datum/reagent/consumable/honey/special
 	name = "Royal Honey"
@@ -627,21 +630,18 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "bitterness"
 
-/datum/reagent/consumable/tearjuice/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if(!istype(M))
+/datum/reagent/consumable/tearjuice/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	. = ..()
+	if(!(methods & INGEST) || !((methods & (TOUCH|PATCH|VAPOR)) && (exposed_mob.is_mouth_covered() || exposed_mob.is_eyes_covered())))
 		return
-	var/unprotected = FALSE
-	if((methods & INGEST) || ((methods & (TOUCH|PATCH|VAPOR)) && !M.is_mouth_covered() && !M.is_eyes_covered()))
-		unprotected = TRUE
-	if(unprotected)
-		if(!M.getorganslot(ORGAN_SLOT_EYES))	//can't blind somebody with no eyes
-			to_chat(M, "<span class = 'notice'>Your eye sockets feel wet.</span>")
-		else
-			if(!M.eye_blurry)
-				to_chat(M, "<span class = 'warning'>Tears well up in your eyes!</span>")
-			M.blind_eyes(2)
-			M.blur_eyes(5)
-	..()
+
+	if(!exposed_mob.getorganslot(ORGAN_SLOT_EYES))	//can't blind somebody with no eyes
+		to_chat(exposed_mob, "<span class = 'notice'>Your eye sockets feel wet.</span>")
+	else
+		if(!exposed_mob.eye_blurry)
+			to_chat(exposed_mob, "<span class = 'warning'>Tears well up in your eyes!</span>")
+		exposed_mob.blind_eyes(2)
+		exposed_mob.blur_eyes(5)
 
 /datum/reagent/consumable/tearjuice/on_mob_life(mob/living/carbon/M)
 	..()
