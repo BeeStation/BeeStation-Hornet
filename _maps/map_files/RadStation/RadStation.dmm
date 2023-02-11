@@ -16671,20 +16671,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"krZ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/landmark/start/randommaint/vip,
-/turf/open/floor/carpet/grimy,
-/area/hallway/primary/central{
-	dynamic_lighting = 3;
-	lighting_brightness_tube = 11;
-	lighting_colour_bulb = "#FFE6CC";
-	lighting_colour_night = "#FFDBB5";
-	lighting_colour_tube = "#FFF6ED";
-	name = "Central Primary Hallway Skylight"
-	})
 "ksd" = (
 /turf/open/floor/plating,
 /area/maintenance/department/security)
@@ -31045,6 +31031,21 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/engine/atmospherics_engine)
+"tus" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/landmark/start/randommaint/vip,
+/obj/effect/landmark/observer_start,
+/turf/open/floor/carpet/grimy,
+/area/hallway/primary/central{
+	dynamic_lighting = 3;
+	lighting_brightness_tube = 11;
+	lighting_colour_bulb = "#FFE6CC";
+	lighting_colour_night = "#FFDBB5";
+	lighting_colour_tube = "#FFF6ED";
+	name = "Central Primary Hallway Skylight"
+	})
 "tvZ" = (
 /obj/machinery/airalarm/directional/north,
 /obj/structure/table/reinforced,
@@ -71279,7 +71280,7 @@ tFW
 nIc
 teQ
 rJP
-krZ
+tus
 aqu
 bVb
 gDl
