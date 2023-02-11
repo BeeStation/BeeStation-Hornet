@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Fixed GlowStation arrivals.
-  - bugfix: Fixed GlowStation parsing errors.
