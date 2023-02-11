@@ -26,5 +26,5 @@ SUBSYSTEM_DEF(elevator_controller)
 	//Append id
 	elevator_groups |= id
 	
-/datum/controller/subsystem/elevator_controller/proc/move_elevator(id, destination_z)
-	SEND_SIGNAL(src, COMSIG_ELEVATOR_MOVE, id, destination_z)
+/datum/controller/subsystem/elevator_controller/proc/move_elevator(id, destination_z, calltime)
+	SEND_SIGNAL(src, COMSIG_ELEVATOR_MOVE, id, destination_z, calltime)

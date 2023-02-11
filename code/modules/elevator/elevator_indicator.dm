@@ -10,6 +10,8 @@
 	var/preset_z = FALSE
 	//The detail offset for the level indicator
 	var/z_offset = -1
+	///Do we add the standing overlay?
+	var/standing = FALSE
 
 /obj/machinery/elevator_indicator/primary
 	id = "primary"
@@ -18,6 +20,9 @@
 	. = ..()
 	update_display(force = TRUE)
 	RegisterSignal(SSelevator_controller, COMSIG_ELEVATOR_MOVE, .proc/update_display)
+	if(standing)
+		var/mutable_appearance/M = mutable_appearance('icons/obj/elevator.dmi', "elevator_stand")
+		add_overlay(M)
 
 /obj/machinery/elevator_indicator/proc/update_display(datum/source, _id, z_destination, force = FALSE)
 	if(_id != id && !force)

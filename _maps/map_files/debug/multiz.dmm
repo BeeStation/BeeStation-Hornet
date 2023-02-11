@@ -1773,14 +1773,6 @@
 	preset_z = 1;
 	pixel_y = -24
 	},
-/obj/machinery/elevator_interface/primary{
-	preset_z = 1;
-	pixel_y = -24
-	},
-/obj/machinery/elevator_interface/primary{
-	preset_z = 1;
-	pixel_y = -24
-	},
 /obj/machinery/light,
 /turf/open/floor/plating,
 /area/construction)
