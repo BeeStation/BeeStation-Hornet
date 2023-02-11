@@ -248,6 +248,8 @@
 	. = list()
 	// Returns a list of mobs who can hear any of the radios given in @radios
 	for(var/obj/item/radio/R in radios)
+		if(R.current_holder) // its owner should hear themselves' voice
+			. |= R.current_holder
 		if(R.canhear_range != -1)
 			. |= get_hearers_in_view(R.canhear_range, R)
 		else
