@@ -90,8 +90,6 @@
 			A.lock()
 			addtimer(CALLBACK(src, .proc/unlock, A), calltime || 2 SECONDS)
 		if(crashing && isliving(i))
-			var/turf/trg = get_edge_target_turf(i, pick(NORTH, EAST, SOUTH, WEST))
-			i.throw_at(trg, 8, 8)
 			var/mob/living/L = i
 			L.Paralyze(3 SECONDS)
 
