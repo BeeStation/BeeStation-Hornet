@@ -26,6 +26,7 @@
 	base_icon_state = T.base_icon_state
 	layer = T.layer
 	plane = T.plane
+	RegisterSignal(T, COMSIG_ATOM_UPDATE_OVERLAYS, .proc/stage_one_copy)
 	//Smoothing
 	smoothing_flags = T.smoothing_flags
 	smoothing_groups = T.smoothing_groups
@@ -37,8 +38,19 @@
 	RegisterSignal(SSelevator_controller, COMSIG_ELEVATOR_MOVE, .proc/travel)
 	//Register this for some animation stuff
 	SSelevator_controller.append_id(id, src)
-	//possible shit code
+	//Now that we have smoothing shit, we can do this
 	return ..()
+
+/obj/structure/elevator_segment/proc/stage_one_copy()
+	SIGNAL_HANDLER
+
+	//wack
+	addtimer(CALLBACK(src, .proc/stage_two_copy), 1 SECONDS)
+
+/obj/structure/elevator_segment/proc/stage_two_copy()
+	var/turf/T = get_turf(src)
+	copy_overlays(T)
+	T.cut_overlays()
 
 //Get a turf and move all it's contents with us
 /obj/structure/elevator_segment/proc/travel(datum/source, _id, z_destination)
@@ -72,9 +84,9 @@
 	var/matrix/otransform = matrix(target.transform)
 	var/scale = 1
 	if(z_destination > input_z)
-		scale = 0.5 * (input_z * z_destination)
+		scale = 0.5
 	else if(z_destination < input_z)
-		scale = 2 * (z_destination / input_z)
+		scale = 2
 	ntransform.Scale(scale)
 	target.transform = ntransform
 	animate(target, transform = otransform, time = 1 SECONDS, flags = ANIMATION_PARALLEL)

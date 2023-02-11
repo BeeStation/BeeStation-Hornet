@@ -18,6 +18,8 @@
 
 /obj/machinery/elevator_interface/attack_hand(mob/living/user)
 	. = ..()
+	if(!powered())
+		return
 	var/destination = preset_z ? z : input(user, "Select Level", "Select Level", z+z_offset) as num|null
 	if(!(destination in available_levels))
 		return
