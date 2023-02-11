@@ -124,7 +124,7 @@
 	// "must be in ears to hear" restriction.
 	radio.name = "internal radio"
 	radio.subspace_transmission = subspace_transmission
-	radio.canhear_range = -1
+	radio.canhear_range = RADIO_HEARING_RANGE_STEALTHY
 	radio.radio_silent = radio_silent
 	if(radio_key)
 		radio.keyslot = new radio_key

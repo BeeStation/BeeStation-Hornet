@@ -245,9 +245,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			radio_found = TRUE
 		if(!radio_found) // standing around intercom can make you understand
 			for(var/obj/item/radio/intercom/R in view_or_range(RADIO_HEARING_RANGE_INTERCOM, src, "view"))
-				if(R.listening)
-					if(R.frequency == "[radio_freq]")
-						radio_found = TRUE
+				if(R.listening && R.frequency == "[radio_freq]")
+					radio_found = TRUE
 		if(!radio_found) // have an enc key or a syndi key, or channel will be seen as unknown
 			radio_freq = FREQ_UNKNOWN
 

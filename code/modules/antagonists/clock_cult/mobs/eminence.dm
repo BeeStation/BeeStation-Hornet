@@ -327,7 +327,7 @@
 /obj/item/radio/borg/eminence
 	name = "eminence internal listener"
 	desc = "if you can see this, call a coder"
-	canhear_range = 0
+	canhear_range = RADIO_HEARING_RANGE_STEALTHY
 	radio_silent = TRUE
 	prison_radio = TRUE
 	broadcasting = TRUE
