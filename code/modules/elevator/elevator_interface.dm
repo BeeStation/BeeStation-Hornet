@@ -40,4 +40,5 @@
 		return
 	if(preset_z)
 		say("Calling elevator...")
-	SSelevator_controller.move_elevator(id, destination, calltime * abs(z - destination))
+	if(!SSelevator_controller.move_elevator(id, destination, calltime * abs(z - destination)))
+		say("Elevator obstructed...")
