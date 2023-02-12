@@ -1,13 +1,3 @@
- /*
-What are the archived variables for?
-	Calculations are done using the archived variables with the results merged into the regular variables.
-	This prevents race conditions that arise based on the order of tile processing.
-*/
-#define MINIMUM_HEAT_CAPACITY	0.0003
-#define MINIMUM_MOLE_COUNT		0.01
-#define QUANTIZE(variable)		(round(variable,0.0000001))/*I feel the need to document what happens here. Basically this is used to catch most rounding errors, however it's previous value made it so that
-															once gases got hot enough, most procedures wouldnt occur due to the fact that the mole counts would get rounded away. Thus, we lowered it a few orders of magnititude */
-
 /datum/gas_mixture
 	/// Never ever set this variable, hooked into vv_get_var for view variables viewing.
 	var/gas_list_view_only

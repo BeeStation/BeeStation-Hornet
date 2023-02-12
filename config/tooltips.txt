@@ -1,0 +1,17 @@
+## About this
+# These are 'configurable' tooltips for ingame html.
+# if you don't want to use it, comment a line
+
+## Wiki link wrappers
+# [[ ]] is wiki format.
+# "you need to [[guide_to_chemisty read this guide]]."" will become
+# "you need to <a href='wiki://guide_to_chemisty'>read this guide</a>."
+# if your config has no wiki address, messages will not have hyperlinks.
+
+## Key and values
+# first string is a key, and later string after first whitespace is value.
+# if you have "rule2_4 please read rule2_4"
+# rule2_4 will be a key for `TOOLTIP_CONFIG_CALLER(hover_text, width, "put key here")`
+
+#### Configurable tooltips
+#preferences.naming_policy Each species must follow a naming policy. Please read the [[Naming_Guidelines "Naming Guidelines"]] page on the wiki and [[Rules#1_You_Must_Roleplay Rule 1.7]].
