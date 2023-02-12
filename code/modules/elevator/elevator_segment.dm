@@ -86,8 +86,9 @@
 		//lock airlocks and setup a timer to undo them
 		if(istype(i, /obj/machinery/door/airlock))
 			var/obj/machinery/door/airlock/A = i
+			A.unbolt()
 			A.close()
-			A.lock()
+			A.bolt()
 			addtimer(CALLBACK(src, .proc/unlock, A), calltime || 2 SECONDS)
 		if(crashing && isliving(i))
 			var/mob/living/L = i
@@ -96,7 +97,7 @@
 	elevator_fx(src, old_z_this, z_destination, calltime)
 
 /obj/structure/elevator_segment/proc/unlock(obj/machinery/door/airlock/A)
-	A.unlock()
+	A.unbolt()
 	A.open()
 
 /obj/structure/elevator_segment/proc/elevator_fx(atom/target, input_z, z_destination, calltime, icon_size = 32)
