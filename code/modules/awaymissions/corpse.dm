@@ -183,6 +183,8 @@
 /obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
 	if(mob_species)
 		H.set_species(mob_species)
+		// Because species is set late, Initialize() won't set the right temperature
+		H.bodytemperature = H.get_bodytemp_normal()
 	if(husk)
 		H.Drain()
 	else //Because for some reason I can't track down, things are getting turned into husks even if husk = false. It's in some damage proc somewhere.
