@@ -16,7 +16,7 @@ export const FugitiveCaptureConsole = (_, context) => {
     <Window
       width={380}
       height={300}
-      theme="generic">
+      theme="neutral">
       <Window.Content scrollable>
         <Section
           title="Containment Console"

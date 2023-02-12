@@ -1907,6 +1907,16 @@
 			return
 		GLOB.interviews.ui_interact(usr)
 
+	else if(href_list["backstory_select"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/list/L = locate(href_list["backstory_select"])
+		var/choice = input(usr, "Select backstory to use", "Select backstory") as null|anything in L
+		if(choice != null)
+			GLOB.fugitive_backstory_selection = list(choice)
+			message_admins("[key_name_admin(usr)] selected backstory: [choice]")
+			log_admin("[key_name(usr)] selected backstory: [choice]")
+
 /datum/admins/proc/HandleCMode()
 	if(!check_rights(R_ADMIN))
 		return

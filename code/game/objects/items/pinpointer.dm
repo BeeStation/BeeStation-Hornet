@@ -204,7 +204,7 @@
 	B.other_pair = A
 
 /obj/item/pinpointer/shuttle
-	name = "fugitive pinpointer"
+	name = "hunter shuttle pinpointer"
 	desc = "A handheld tracking device that locates the bounty hunter shuttle for quick escapes."
 	icon_state = "pinpointer_hunter"
 	icon_suffix = "_hunter"

@@ -141,6 +141,12 @@
 	helmet_type = /obj/item/clothing/head/radiation
 	storage_type = /obj/item/geiger_counter
 
+/obj/machinery/suit_storage_unit/bounty
+	name = "bounty suit storage unit"
+	helmet_type = /obj/item/clothing/head/helmet/space/hunter
+	suit_type = /obj/item/clothing/suit/space/hunter
+	mask_type = /obj/item/clothing/mask/breath
+
 /obj/machinery/suit_storage_unit/open
 	state_open = TRUE
 	density = FALSE

@@ -48,6 +48,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/machinery/airalarm/directional/east{
+	req_access = null;
+	req_access_txt = "181"
+	},
 /turf/open/floor/plasteel/stairs,
 /area/shuttle/hunter)
 "ce" = (
@@ -272,6 +276,12 @@
 	},
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/machinery/button/door{
+	id = "hunter_police_windows";
+	name = "window lockdown";
+	pixel_x = 24;
+	req_access_txt = "181"
 	},
 /turf/open/floor/plating,
 /area/shuttle/hunter)
@@ -804,6 +814,10 @@
 	pixel_x = -5
 	},
 /obj/structure/table/reinforced,
+/obj/item/pinpointer/shuttle{
+	pixel_x = -8;
+	pixel_y = 9
+	},
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/hunter)
 "Dn" = (
@@ -817,7 +831,9 @@
 /turf/open/floor/plasteel,
 /area/shuttle/hunter)
 "DY" = (
-/obj/structure/guncase,
+/obj/structure/guncase{
+	req_access_txt = "181"
+	},
 /obj/item/gun/ballistic/automatic/wt550,
 /obj/item/gun/ballistic/automatic/pistol/m1911{
 	pixel_y = 4
@@ -943,6 +959,10 @@
 /obj/structure/sign/poster/official/obey{
 	pixel_x = 32
 	},
+/obj/machinery/airalarm/directional/north{
+	req_access = null;
+	req_access_txt = "181"
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/shuttle/hunter)
 "Ju" = (
@@ -966,6 +986,10 @@
 "Lc" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 1
+	},
+/obj/machinery/airalarm/directional/south{
+	req_access = null;
+	req_access_txt = "181"
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/hunter)
@@ -1016,7 +1040,8 @@
 	pixel_y = -3
 	},
 /obj/machinery/power/apc/auto_name/east{
-	cell_type = /obj/item/stock_parts/cell/high/plus
+	cell_type = /obj/item/stock_parts/cell/high/plus;
+	req_access = list(181)
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -1043,7 +1068,7 @@
 /obj/docking_port/mobile{
 	height = 12;
 	id = "huntership";
-	name = "hunter shuttle";
+	name = "SpacePol Shuttle";
 	rechargeTime = 600;
 	width = 22;
 	dwidth = 10;
@@ -1282,6 +1307,10 @@
 /obj/item/cigbutt{
 	pixel_y = 4;
 	pixel_x = -4
+	},
+/obj/machinery/airalarm/directional/east{
+	req_access = null;
+	req_access_txt = "181"
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/hunter)

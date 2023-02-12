@@ -1,3 +1,6 @@
+// Global list used by admins to force a backstory
+GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
+
 /datum/round_event_control/fugitives
 	name = "Spawn Fugitives"
 	typepath = /datum/round_event/ghost_role/fugitives
@@ -39,11 +42,11 @@
 		var/datum/fugitive_type/F = GLOB.fugitive_types[type_key]
 		if(length(candidates) > F.max_amount)
 			continue
-		possible_backstories += F
+		possible_backstories += type_key
 	if(!length(possible_backstories) || length(candidates) < 1)
 		return NOT_ENOUGH_PLAYERS
 
-	var/datum/fugitive_type/backstory = pick(possible_backstories)
+	var/datum/fugitive_type/backstory = GLOB.fugitive_types[admin_select_backstory(possible_backstories)]
 	var/member_size = min(length(candidates), backstory.max_amount)
 	var/leader
 	if(backstory.has_leader)
@@ -88,7 +91,8 @@
 
 // Security team gets called in after 10 minutes of prep to find the fugitives
 /proc/spawn_hunters()
-	var/datum/fugitive_type/hunter/backstory = GLOB.hunter_types[pick(GLOB.hunter_types)]
+	set waitfor = FALSE
+	var/datum/fugitive_type/hunter/backstory = GLOB.hunter_types[admin_select_backstory(GLOB.hunter_types)]
 	var/list/candidates = pollGhostCandidates("The Fugitive Hunters are looking for a [backstory.name]. Would you like to be considered for this role?", ROLE_FUGITIVE_HUNTER)
 	var/datum/map_template/shuttle/ship = new backstory.ship_type
 	var/x = rand(TRANSITIONEDGE,world.maxx - TRANSITIONEDGE - ship.width)
@@ -100,15 +104,17 @@
 	var/datum/map_generator/template_placer = ship.load(T)
 	template_placer.on_completion(CALLBACK(GLOBAL_PROC, /proc/announce_fugitive_spawns, ship, candidates, backstory))
 
-/proc/announce_fugitive_spawns(datum/map_template/shuttle/ship, list/candidates, backstory, datum/map_generator/map_generator, turf/T)
+/proc/announce_fugitive_spawns(datum/map_template/shuttle/ship, list/candidates, datum/fugitive_type/hunter/backstory, datum/map_generator/map_generator, turf/T)
 	var/obj/effect/mob_spawn/human/fugitive_hunter/leader_spawn
 	var/list/spawners = list()
 	for(var/turf/A in ship.get_affected_turfs(T))
 		for(var/obj/effect/mob_spawn/human/fugitive_hunter/spawner in A)
 			spawner.backstory = backstory
 			if(istype(spawner, /obj/effect/mob_spawn/human/fugitive_hunter/leader))
+				spawner.name = "[backstory.name] leader pod"
 				leader_spawn = spawner
 			else
+				spawner.name = "[backstory.name] pod"
 				spawners += spawner
 	// Leader goes first, so this is the first one taken
 	if(istype(leader_spawn))
@@ -124,3 +130,10 @@
 		notify_ghosts("The fugitive hunter ship has an object of interest: [M]!", source=M, action=NOTIFY_ORBIT, header="Something's Interesting!")
 	else
 		notify_ghosts("The fugitive hunter ship has an object of interest: [spawner]!", source=spawner, action=NOTIFY_ORBIT, header="Something's Interesting!")
+
+/proc/admin_select_backstory(list/backstory_keys)
+	GLOB.fugitive_backstory_selection = backstory_keys
+	message_admins("Choosing random fugitive backstory in 15 seconds. \
+		<a href='?_src_=holder;[HrefToken(TRUE)];backstory_select=[REF(backstory_keys)]'>SELECT MANUALLY</a>")
+	sleep(15 SECONDS)
+	return pick(GLOB.fugitive_backstory_selection)

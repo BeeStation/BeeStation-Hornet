@@ -126,7 +126,10 @@
 	dir = 6
 	},
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/machinery/airalarm/directional/north,
+/obj/machinery/airalarm/directional/north{
+	req_access = null;
+	req_access_txt = "181"
+	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
@@ -309,7 +312,9 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
 "sM" = (
-/obj/structure/guncase,
+/obj/structure/guncase{
+	req_access_txt = "181"
+	},
 /obj/item/gun/ballistic/rifle/boltaction{
 	pixel_x = 2;
 	pixel_y = 7
@@ -444,7 +449,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-6"
 	},
-/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/decal/cleanable/oil,
 /turf/open/floor/mineral/plastitanium{
 	icon_state = "plastitanium_dam3"
 	},
@@ -715,6 +720,10 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/item/pinpointer/shuttle{
+	pixel_x = -3;
+	pixel_y = -2
+	},
 /turf/open/floor/wood,
 /area/shuttle/hunter)
 "JE" = (
@@ -868,7 +877,8 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/auto_name/east{
-	cell_type = /obj/item/stock_parts/cell/high/plus
+	cell_type = /obj/item/stock_parts/cell/high/plus;
+	req_access = list(181)
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/portable_atmospherics/canister/toxins,
@@ -898,7 +908,10 @@
 	dir = 4;
 	layer = 4.1
 	},
-/obj/machinery/airalarm/directional/south,
+/obj/machinery/airalarm/directional/south{
+	req_access = null;
+	req_access_txt = "181"
+	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
