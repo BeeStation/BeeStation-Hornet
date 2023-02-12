@@ -112,7 +112,7 @@
 	anchored = TRUE
 	density = TRUE
 	move_resist = INFINITY
-	layer = MASSIVE_OBJ_LAYER
+	plane = MASSIVE_OBJ_PLANE
 	light_range = 6
 	appearance_flags = LONG_GLIDE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
@@ -149,14 +149,14 @@
 	C.death()
 
 /obj/tear_in_reality/Bump(atom/A)
-	if(ismovableatom(A))
+	if(ismovable(A))
 		free(A)
 
 /obj/tear_in_reality/Bumped(atom/movable/AM)
 	free(AM)
 
 /obj/tear_in_reality/proc/consume(atom/A)
-	if(ismovableatom(A))
+	if(ismovable(A))
 		free(A)
 
 /obj/tear_in_reality/proc/free(atom/movable/A)
@@ -271,7 +271,7 @@
 	to_chat(M, "<span class='userdanger'>[user.p_theyre(TRUE)] your master now, assist [user.p_them()] even if it costs you your new life!</span>")
 
 	equip_roman_skeleton(M)
-	
+
 	log_combat(user, M, "used a necromantic stone to reanimate")
 
 	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [spooky_scaries.len]/3 active thralls."]"

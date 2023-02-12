@@ -6,7 +6,7 @@
 //Drone hands
 
 //Does nobody read the comments telling you to not touch shit you souldn't?
-/mob/living/simple_animal/drone/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE)
+/mob/living/simple_animal/drone/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE)
 	if(..())
 		update_inv_hands()
 		if(I == head)
@@ -59,7 +59,6 @@
 
 	I.screen_loc = null // will get moved if inventory is visible
 	I.forceMove(src)
-	I.layer = ABOVE_HUD_LAYER
 	I.plane = ABOVE_HUD_PLANE
 
 	switch(slot)

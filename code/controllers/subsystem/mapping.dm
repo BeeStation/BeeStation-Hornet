@@ -246,7 +246,7 @@ SUBSYSTEM_DEF(mapping)
 		shuffle_inplace(random_room_templates)
 		for(var/ID in random_room_templates)
 			candidate = random_room_templates[ID]
-			if(candidate.spawned || R.room_height != candidate.template_height || R.room_width != candidate.template_width)
+			if((!R.rooms.len && candidate.spawned) || (!R.rooms.len && (R.room_height != candidate.template_height || R.room_width != candidate.template_width)) || (R.rooms.len && !(candidate.room_id in R.rooms)))
 				candidate = null
 				continue
 			possibletemplates[candidate] = candidate.weight

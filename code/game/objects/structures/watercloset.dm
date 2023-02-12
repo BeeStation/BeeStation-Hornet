@@ -345,7 +345,7 @@
 		O.acid_level = 0
 		create_reagents(5)
 		reagents.add_reagent(dispensedreagent, 5)
-		reagents.reaction(O, TOUCH)
+		reagents.expose(O, TOUCH)
 		user.visible_message("<span class='notice'>[user] washes [O] using [src].</span>", \
 							"<span class='notice'>You wash [O] using [src].</span>")
 		return 1
@@ -403,19 +403,22 @@
 
 /obj/structure/curtain/proc/toggle()
 	open = !open
-	update_icon()
+
+	update_appearance()
 
 /obj/structure/curtain/update_icon()
 	if(!open)
 		icon_state = "[icon_type]-closed"
 		layer = WALL_OBJ_LAYER
-		density = TRUE
+		set_density(TRUE)
+		set_opacity(1)
 		open = FALSE
 
 	else
 		icon_state = "[icon_type]-open"
 		layer = SIGN_LAYER
-		density = FALSE
+		set_density(FALSE)
+		set_opacity(0)
 		open = TRUE
 
 /obj/structure/curtain/attackby(obj/item/W, mob/user)

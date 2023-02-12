@@ -19,6 +19,6 @@
 
 /obj/item/circuit_component/arbitrary_input_amount/list_constructor/calculate_output(datum/port/input/port, datum/port/input/first_port, list/ports)
 	. = list()
-	. += first_port.input_value
+	ports.Insert(1, first_port)
 	for(var/datum/port/input/input_port as anything in ports)
-		. += input_port.input_value
+		. += islist(input_port.input_value) ? null : input_port.input_value
