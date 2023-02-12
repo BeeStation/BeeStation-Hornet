@@ -66100,6 +66100,15 @@
 /obj/item/clothing/head/helmet/justice,
 /obj/structure/table/reinforced,
 /obj/item/clothing/head/beret/sec/navyhos,
+/obj/item/tank/jetpack/combustion{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/item/tank/jetpack/combustion{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/tank/jetpack/combustion,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "nSh" = (
