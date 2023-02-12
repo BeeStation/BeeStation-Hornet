@@ -1,7 +1,7 @@
 /mob/living/Initialize(mapload)
-	. = ..()
 	// Set the proper body temperature
 	bodytemperature = get_bodytemp_normal()
+	. = ..()
 	if(unique_name)
 		name = "[name] ([rand(1, 1000)])"
 		real_name = name

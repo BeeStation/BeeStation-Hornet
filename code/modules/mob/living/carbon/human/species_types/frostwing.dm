@@ -69,12 +69,26 @@
 
 /datum/species/frostwing/toggle_flight(mob/living/carbon/human/H)
 	. = ..()
+	// Sound credit
+	// https://freesound.org/people/ani_music/sounds/244978/
+	playsound(H, 'sound/effects/wings_fold.ogg', 100, TRUE)
 	if(H.movement_type & FLYING)
 		H.dna.species.mutant_bodyparts |= "wingsopen"
 	else
 		H.dna.species.mutant_bodyparts -= "wingsopen"
 	H.update_body()
 	H.update_inv_hands() // hide/show inhands
+	return TRUE
+
+/datum/species/frostwing/proc/toggle_wings_cosmetic(mob/living/carbon/human/H)
+	playsound(H, 'sound/effects/wings_fold.ogg', 100, TRUE)
+	if("wingsopen" in H.dna.species.mutant_bodyparts)
+		H.dna.species.mutant_bodyparts -= "wingsopen"
+	else
+		H.dna.species.mutant_bodyparts |= "wingsopen"
+	H.update_body()
+	H.update_inv_hands() // hide/show inhands
+	return TRUE
 
 /datum/species/frostwing/on_species_gain(mob/living/carbon/C)
 	. = ..()

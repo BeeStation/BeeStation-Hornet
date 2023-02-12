@@ -168,6 +168,8 @@
 /datum/emote/living/carbon/human/wing/select_message_type(mob/user, intentional)
 	. = ..()
 	var/mob/living/carbon/human/H = user
+	if(isfrostwing(H))
+		return (("wingsopen" in H.dna.species.mutant_bodyparts) ? "closes " : "opens ") + message
 	if(("wings" in H.dna.species.mutant_bodyparts) || ("moth_wings" in H.dna.species.mutant_bodyparts))
 		. = "opens " + message
 	else
@@ -189,6 +191,10 @@
 /mob/living/carbon/human/proc/Togglewings()
 	if(!dna || !dna.species)
 		return FALSE
+	if(isfrostwing(src))
+		var/datum/species/frostwing/S = dna.species
+		S.toggle_wings_cosmetic(src)
+		return TRUE
 	var/obj/item/organ/wings/wings = getorganslot(ORGAN_SLOT_WINGS)
 	if(istype(wings))
 		if(ismoth(src) && HAS_TRAIT(src, TRAIT_MOTH_BURNT))
@@ -197,6 +203,42 @@
 			return TRUE
 	return FALSE
 
+/datum/emote/living/carbon/human/frostwing/can_run_emote(mob/user, status_check = TRUE, intentional)
+	if(!..())
+		return FALSE
+	return ishuman(user) && isfrostwing(user)
+
+/datum/emote/living/carbon/human/frostwing/caw
+	key = "caw"
+	key_third_person = "caws"
+	message = "caws"
+	emote_type = EMOTE_AUDIBLE
+	vary = TRUE
+	sound_volume = 75
+
+/datum/emote/living/carbon/human/frostwing/caw/get_sound(mob/living/user)
+	if(!ishuman(user))
+		return
+	// Sound credit
+	// https://freesound.org/people/basedMedia/sounds/548106/
+	return pick('sound/emotes/caw1.ogg', 'sound/emotes/caw2.ogg')
+
+
+/datum/emote/living/carbon/human/frostwing/acaw
+	key = "acaw"
+	key_third_person = "acaws"
+	message = "aggressively caws"
+	emote_type = EMOTE_AUDIBLE
+	vary = TRUE
+	// These sounds are much quieter
+	sound_volume = 100
+
+/datum/emote/living/carbon/human/frostwing/acaw/get_sound(mob/living/user)
+	if(!ishuman(user))
+		return
+	// Sound credit
+	// https://freesound.org/people/nigelcoop/sounds/75162/
+	return pick('sound/emotes/caw3.ogg', 'sound/emotes/caw4.ogg')
 
 /datum/emote/living/carbon/human/fart
 	key = "fart"
