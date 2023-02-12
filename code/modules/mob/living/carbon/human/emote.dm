@@ -213,7 +213,7 @@
 	key_third_person = "caws"
 	message = "caws"
 	emote_type = EMOTE_AUDIBLE
-	vary = TRUE
+	vary = FALSE
 	sound_volume = 75
 
 /datum/emote/living/carbon/human/frostwing/caw/get_sound(mob/living/user)
@@ -229,7 +229,7 @@
 	key_third_person = "acaws"
 	message = "aggressively caws"
 	emote_type = EMOTE_AUDIBLE
-	vary = TRUE
+	vary = FALSE
 	// These sounds are much quieter
 	sound_volume = 100
 
