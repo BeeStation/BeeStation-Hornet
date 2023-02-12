@@ -636,7 +636,7 @@
 	assignedrole = "Frostwing"
 	banType = ROLE_LAVALAND
 	use_cooldown = TRUE
-	var/datum/team/frostwings/team
+	var/datum/team/frostwing/team
 
 /obj/effect/mob_spawn/human/frostwing/special(mob/living/new_spawn)
 	new_spawn.mind.add_antag_datum(/datum/antagonist/frostwing, team)
