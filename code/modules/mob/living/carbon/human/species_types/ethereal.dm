@@ -50,7 +50,6 @@
 	return ..()
 
 /datum/species/ethereal/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
-	//ethereal_light = C.mob_light()
 	. = ..()
 	if(!ishuman(C))
 		return

@@ -51,7 +51,7 @@
 		)
 
 	///Overlay effect to cut into the darkness and provide light.
-	var/obj/effect/overlay/light_visible/visible_mask
+	var/image/visible_mask
 	///Lazy list to track the turfs being affected by our light, to determine their visibility.
 	var/list/turf/affected_turfs
 	///Movable atom currently holding the light. Parent might be a flashlight, for example, but that might be held by a mob or something else.
@@ -81,11 +81,6 @@
 	current_direction = newdir
 	if(overlay_lighting_flags & LIGHTING_ON)
 		make_luminosity_update()
-
-///Called when parent changes loc.
-/datum/component/overlay_lighting/proc/on_parent_dir_change(atom/movable/source, olddir, newdir)
-	SIGNAL_HANDLER
-	set_direction(newdir)
 
 /datum/component/overlay_lighting/Initialize(_range, _power, _color, starts_on, is_directional)
 	if(!ismovable(parent))
@@ -305,7 +300,6 @@
 		return
 	make_luminosity_update()
 
-
 ///Called when the current_holder is qdeleted, to remove the light effect.
 /datum/component/overlay_lighting/proc/on_parent_attached_to_qdel(atom/movable/source, force)
 	SIGNAL_HANDLER
@@ -491,6 +485,11 @@
 
 ///Called when current_holder changes loc.
 /datum/component/overlay_lighting/proc/on_holder_dir_change(atom/movable/source, olddir, newdir)
+	SIGNAL_HANDLER
+	set_direction(newdir)
+
+///Called when parent changes loc.
+/datum/component/overlay_lighting/proc/on_parent_dir_change(atom/movable/source, olddir, newdir)
 	SIGNAL_HANDLER
 	set_direction(newdir)
 
