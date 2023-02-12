@@ -293,7 +293,7 @@ window "preferences_window"
 	elem "preferences_window"
 		type = MAIN
 		pos = 372,0
-		size = 1280x1000
+		size = 1280x1060
 		anchor1 = none
 		anchor2 = none
 		is-visible = false
