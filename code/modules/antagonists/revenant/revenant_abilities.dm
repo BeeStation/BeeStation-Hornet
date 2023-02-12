@@ -37,7 +37,7 @@
 	if(orbiting)
 		to_chat(src, "<span class='revenwarning'>You can't siphon essence during orbiting!</span>")
 		return
-	if(!target.stat)
+	if(!target.stat && !target.stam_paralyzed)
 		to_chat(src, "<span class='revennotice'>[target.p_their(TRUE)] soul is too strong to harvest.</span>")
 		if(prob(10))
 			to_chat(target, "You feel as if you are being watched.")
