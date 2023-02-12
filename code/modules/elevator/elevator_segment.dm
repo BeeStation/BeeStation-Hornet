@@ -7,7 +7,7 @@
 	///What turf we'll throw under us when we kill daddy. If not set, we just use dad
 	var/turf/base_turf
 	///List of things we refuse to transport
-	var/static/list/move_blacklist = typecacheof(list(/atom/movable/lighting_object))
+	var/static/list/move_blacklist = typecacheof(list(/atom/movable/lighting_object, /obj/structure/cable, /obj/structure/disposalpipe, /obj/machinery/atmospherics/pipe))
 
 //Mapping preset - Primary Elevator
 /obj/structure/elevator_segment/primary
