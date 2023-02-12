@@ -556,7 +556,7 @@
 
 /obj/item/melee/classic_baton/retractible_stun/contractor_baton
 	name = "contractor baton"
-	desc = "A compact, specialised baton assigned to Syndicate contractors. Applies light electric shocks that can resonate with a specific targets brain frequency causing significant stunning effects."
+	desc = "A compact, specialised baton assigned to Syndicate contractors. Applies light electric shocks that can resonate with a specific target's brain frequency causing significant stunning effects."
 	var/datum/antagonist/traitor/owner_data = null
 
 /obj/item/melee/classic_baton/retractible_stun/contractor_baton/check_disabled(mob/living/target, mob/living/user)
