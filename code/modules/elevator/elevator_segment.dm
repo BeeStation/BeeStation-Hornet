@@ -55,7 +55,7 @@
 
 //Get a turf and move all it's contents with us
 /obj/structure/elevator_segment/proc/travel(datum/source, _id, z_destination, calltime, crashing)
-	//We can't use SIGNAL_HANDLER since A.close() fucking sleeps
+	SIGNAL_HANDLER
 
 	if(_id != id || z_destination == z)
 		return
@@ -86,9 +86,9 @@
 		//lock airlocks and setup a timer to undo them
 		if(istype(i, /obj/machinery/door/airlock))
 			var/obj/machinery/door/airlock/A = i
-			A.unbolt()
-			A.close()
-			A.bolt()
+			INVOKE_ASYNC(A, /obj/machinery/door/airlock/.proc/unbolt)
+			INVOKE_ASYNC(A, /obj/machinery/door/airlock/.proc/close)
+			INVOKE_ASYNC(A, /obj/machinery/door/airlock/.proc/bolt)
 			addtimer(CALLBACK(src, .proc/unlock, A), calltime || 2 SECONDS)
 		if(crashing && isliving(i))
 			var/mob/living/L = i
