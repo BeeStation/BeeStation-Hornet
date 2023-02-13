@@ -1437,8 +1437,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					var/new_hair = input(user, "Choose your character's hair colour:", "Character Preference","#" + active_character.hair_color) as color|null
 					if(new_hair)
 						active_character.hair_color = sanitize_hexcolor(new_hair)
+
 				if("hair_style")
-					var/new_hair_style = input(user, "Choose your character's hair style:", "Character Preference")  as null|anything in GLOB.hair_styles_list
+					var/new_hair_style = tgui_input_list(user, "Choose your character's hair style:", "Character Preference", GLOB.hair_styles_list, active_character.hair_style)
 					if(new_hair_style)
 						active_character.hair_style = new_hair_style
 
@@ -1471,7 +1472,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						active_character.facial_hair_color = sanitize_hexcolor(new_facial)
 
 				if("facial_hair_style")
-					var/new_facial_hair_style = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in GLOB.facial_hair_styles_list
+					var/new_facial_hair_style = tgui_input_list(user, "Choose your character's facial-hair style:", "Character Preference", GLOB.facial_hair_styles_list, active_character.facial_hair_style)
 					if(new_facial_hair_style)
 						active_character.facial_hair_style = new_facial_hair_style
 
@@ -1482,7 +1483,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					active_character.facial_hair_style = previous_list_item(active_character.facial_hair_style, GLOB.facial_hair_styles_list)
 
 				if("underwear")
-					var/new_underwear = input(user, "Choose your character's underwear:", "Character Preference")  as null|anything in GLOB.underwear_list
+					var/new_underwear = tgui_input_list(user, "Choose your character's underwear:", "Character Preference", GLOB.underwear_list, active_character.underwear)
 					if(new_underwear)
 						active_character.underwear = new_underwear
 
@@ -1492,13 +1493,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						active_character.underwear_color = sanitize_hexcolor(new_underwear_color)
 
 				if("undershirt")
-					var/new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in GLOB.undershirt_list
+					var/new_undershirt = tgui_input_list(user, "Choose your character's undershirt:", "Character Preference", GLOB.undershirt_list, active_character.undershirt)
 					if(new_undershirt)
 						active_character.undershirt = new_undershirt
 
 				if("socks")
 					var/new_socks
-					new_socks = input(user, "Choose your character's socks:", "Character Preference") as null|anything in GLOB.socks_list
+					new_socks = tgui_input_list(user, "Choose your character's socks:", "Character Preference", GLOB.socks_list, active_character.socks)
 					if(new_socks)
 						active_character.socks = new_socks
 

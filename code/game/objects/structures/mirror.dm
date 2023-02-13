@@ -29,19 +29,19 @@
 
 		//see code/modules/mob/dead/new_player/preferences.dm at approx line 545 for comments!
 		//this is largely copypasted from there.
-
-		var/choice = input(user, "Style your Hair or Facial Hair?", "Grooming") as null|anything in list("Hair", "Facial")
+		var/options = list("Hair", "Facial")
+		var/choice = tgui_input_list(user, "Style your Hair or Facial Hair?", "Grooming", options, null)
 		switch(choice)
 			if("Hair")
 				//handle normal hair
-				var/new_style = input(user, "Select a hair style", "Grooming")  as null|anything in GLOB.hair_styles_list
+				var/new_style = tgui_input_list(user, "Select a hair style", "Grooming", GLOB.hair_styles_list, H.hair_style)
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return	//no tele-grooming
 				if(new_style)
 					H.hair_style = new_style
 			if("Facial")
 				//handle facial hair
-				var/new_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in GLOB.facial_hair_styles_list
+				var/new_style = tgui_input_list(user, "Select a facial hair style", "Grooming", GLOB.facial_hair_styles_list, H.facial_hair_style)
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return	//no tele-grooming
 				if(new_style)
