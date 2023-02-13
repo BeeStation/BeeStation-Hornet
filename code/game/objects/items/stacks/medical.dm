@@ -18,6 +18,9 @@
 	var/stop_bleeding = 0
 	///How long does it take to apply on yourself?
 	var/self_delay = 2 SECONDS
+	///What is the maximum this can heal when applied to self?
+	///0 for infinite
+	var/self_maximum = 0
 
 /obj/item/stack/medical/attack(mob/living/M, mob/user)
 	if(!M || !user || (isliving(M) && !M.can_inject(user, TRUE))) //If no mob, user and if we can't inject the mob just return
@@ -81,14 +84,28 @@
 		to_chat(user, "<span class='warning'>This type of medicine isn't appropriate for this type of wound.</span>")
 		return
 
+	var/brute_healed = heal_brute
+	var/burn_healed = heal_burn
+
 	if(C == user)
+
+		// Check if this will be effective
+		brute_healed = CLAMP(C.getBruteLoss() - self_maximum, 0, heal_brute)
+		burn_healed = CLAMP(C.getFireLoss() - self_maximum, 0, heal_burn)
+
+		if (!brute_healed && !burn_healed)
+			to_chat(user, "<span class='warning'>You cannot self-tend your wounds any further.</span>")
+			return
+
 		user.visible_message("<span class='notice'>[user] starts to apply [src] on [user.p_them()]self...</span>", "<span class='notice'>You begin applying [src] on yourself...</span>")
 		if(!do_mob(user, M, self_delay))
 			return
 
-	user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", "<span class='green'>You apply [src] on [M].</span>")
+		user.visible_message("<span class='green'>[user] applies [src] on themselves.</span>", "<span class='green'>You apply [src] on yourself, reducing its effectiveness.</span>")
+	else
+		user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", "<span class='green'>You apply [src] on [M].</span>")
 
-	if(affecting.heal_damage(heal_brute, heal_burn) || stop_bleeding)
+	if(affecting.heal_damage(brute_healed, burn_healed) || stop_bleeding)
 		C.update_damage_overlays()
 		use(1)
 
@@ -101,6 +118,8 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	heal_brute = 40
 	grind_results = list(/datum/reagent/medicine/styptic_powder = 40)
+	/// Once you have healed up to 35 damage, you cannot heal any further and need to find someone else to do it for you
+	self_maximum = 35
 
 /obj/item/stack/medical/bruise_pack/one
 	amount = 1
@@ -117,6 +136,8 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	heal_burn = 40
 	grind_results = list(/datum/reagent/medicine/silver_sulfadiazine = 40)
+	/// Once you have healed up to 35 damage, you cannot heal any further and need to find someone else to do it for you
+	self_maximum = 35
 
 /obj/item/stack/medical/ointment/one
 	amount = 1
