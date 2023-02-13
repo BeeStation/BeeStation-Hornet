@@ -1,9 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - rscadd: deadchat will be sent to discord as well as long as a round ended.
-  - config: New config line - discord_ooc_channel. used to determine which discord
-      channel OOC messages will be sent to.
-  - server: Sending OOC message to discord now includes dead chats (after round finished
-      only). OOC Discord message will describe whether the message is OOC or deadchat,
-      and which server it was sent from.
