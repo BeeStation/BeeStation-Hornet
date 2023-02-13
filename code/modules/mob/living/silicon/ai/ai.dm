@@ -1029,7 +1029,8 @@
 		apc.malfhack = TRUE
 		apc.locked = TRUE
 		apc.coverlocked = TRUE
-
+		var/turf/T = get_turf(apc)
+		log_message("hacked APC [apc] at [AREACOORD(T)] (NEW PROCESSING: [malf_picker.processing_time])", LOG_GAME)
 		playsound(get_turf(src), 'sound/machines/ding.ogg', 50, 1, ignore_walls = FALSE)
 		to_chat(src, "Hack complete. \The [apc] is now under your exclusive control.")
 		apc.update_appearance()
