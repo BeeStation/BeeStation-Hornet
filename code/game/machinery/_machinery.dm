@@ -548,9 +548,8 @@ Class Procs:
 					RefreshParts()
 					playsound(src, 'sound/surgery/taperecorder_close.ogg', 50, FALSE)
 					to_chat(user, "<span class='notice'>You replace [P.name] with [C.name].</span>")
-					break
-	else
-		..()
+					return
+	..()
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	if(!istype(W))
