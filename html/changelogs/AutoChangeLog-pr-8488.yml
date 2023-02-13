@@ -1,0 +1,4 @@
+author: itsmeow
+delete-after: true
+changes:
+  - admin: Added logging to purchases and uses of Malf AI modules.
