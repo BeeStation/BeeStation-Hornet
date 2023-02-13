@@ -33,6 +33,7 @@
 	var/weaponscheck = FALSE //If true, arrest people for weapons if they lack access
 	var/check_records = TRUE //Does it check security records?
 	var/arrest_type = FALSE //If true, don't handcuff
+	var/ranged = FALSE //used for EDs
 
 /mob/living/simple_animal/bot/secbot/beepsky
 	name = "Officer Beep O'sky"
@@ -156,24 +157,26 @@ Auto Patrol: []"},
 			update_controls()
 
 /mob/living/simple_animal/bot/secbot/proc/retaliate(mob/living/carbon/human/H)
-	var/judgment_criteria = judgment_criteria()
-	threatlevel = H.assess_threat(judgment_criteria, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
+	var/judgement_criteria = judgement_criteria()
+	threatlevel = H.assess_threat(judgement_criteria, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
 	threatlevel += 6
 	if(threatlevel >= 4)
 		target = H
 		mode = BOT_HUNT
 
-/mob/living/simple_animal/bot/secbot/proc/judgment_criteria()
-    var/final = FALSE
-    if(idcheck)
-        final = final|JUDGE_IDCHECK
-    if(check_records)
-        final = final|JUDGE_RECORDCHECK
-    if(weaponscheck)
-        final = final|JUDGE_WEAPONCHECK
-    if(emagged == 2)
-        final = final|JUDGE_EMAGGED
-    return final
+/mob/living/simple_animal/bot/secbot/proc/judgement_criteria()
+	var/final = FALSE
+	if(idcheck)
+		final |= JUDGE_IDCHECK
+	if(check_records)
+		final |= JUDGE_RECORDCHECK
+	if(weaponscheck)
+		final |= JUDGE_WEAPONCHECK
+	if(emagged == 2)
+		final |= JUDGE_EMAGGED
+	if(ranged)
+		final |= JUDGE_IGNOREMONKEYS
+	return final
 
 /mob/living/simple_animal/bot/secbot/proc/special_retaliate_after_attack(mob/user) //allows special actions to take place after being attacked.
 	return
@@ -254,7 +257,7 @@ Auto Patrol: []"},
 		var/mob/living/carbon/human/H = C
 		if(H.check_shields(src, 0))
 			return
-	var/judgment_criteria = judgment_criteria()
+	var/judgement_criteria = judgement_criteria()
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	icon_state = "[initial(icon_state)]-c"
 	addtimer(CALLBACK(src, /atom/.proc/update_icon), 2)
@@ -263,11 +266,11 @@ Auto Patrol: []"},
 		C.stuttering = 5
 		C.Paralyze(100)
 		var/mob/living/carbon/human/H = C
-		threat = H.assess_threat(judgment_criteria, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
+		threat = H.assess_threat(judgement_criteria, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
 	else
 		C.Paralyze(100)
 		C.stuttering = 5
-		threat = C.assess_threat(judgment_criteria, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
+		threat = C.assess_threat(judgement_criteria, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
 
 	log_combat(src,C,"stunned")
 	if(declare_arrests)
@@ -381,7 +384,7 @@ Auto Patrol: []"},
 
 /mob/living/simple_animal/bot/secbot/proc/look_for_perp()
 	anchored = FALSE
-	var/judgment_criteria = judgment_criteria()
+	var/judgement_criteria = judgement_criteria()
 	for (var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
 			continue
@@ -389,7 +392,7 @@ Auto Patrol: []"},
 		if((C.name == oldtarget_name) && (world.time < last_found + 100))
 			continue
 
-		threatlevel = C.assess_threat(judgment_criteria, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
+		threatlevel = C.assess_threat(judgement_criteria, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
 
 		if(!threatlevel)
 			continue
@@ -398,7 +401,10 @@ Auto Patrol: []"},
 			target = C
 			oldtarget_name = C.name
 			speak("Level [threatlevel] infraction alert!")
-			playsound(loc, pick('sound/voice/beepsky/criminal.ogg', 'sound/voice/beepsky/justice.ogg', 'sound/voice/beepsky/freeze.ogg'), 50, FALSE)
+			if(ranged)
+				playsound(src, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/edplaceholder.ogg'), 50, FALSE)
+			else
+				playsound(src, pick('sound/voice/beepsky/criminal.ogg', 'sound/voice/beepsky/justice.ogg', 'sound/voice/beepsky/freeze.ogg'), 50, FALSE)
 			visible_message("<b>[src]</b> points at [C.name]!")
 			mode = BOT_HUNT
 			INVOKE_ASYNC(src, .proc/handle_automated_action)
@@ -414,17 +420,34 @@ Auto Patrol: []"},
 /mob/living/simple_animal/bot/secbot/explode()
 	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
 	var/atom/Tsec = drop_location()
-
-	var/obj/item/bot_assembly/secbot/Sa = new (Tsec)
-	Sa.build_step = 1
-	Sa.add_overlay("hs_hole")
-	Sa.created_name = name
-	new /obj/item/assembly/prox_sensor(Tsec)
-	if(!noloot)
+	if(ranged)
+		var/obj/item/bot_assembly/ed209/Sa = new (Tsec)
+		Sa.build_step = 1
+		Sa.add_overlay("hs_hole")
+		Sa.created_name = name
+		new /obj/item/assembly/prox_sensor(Tsec)
+		var/obj/item/gun/energy/disabler/G = new (Tsec)
+		G.cell.charge = 0
+		G.update_icon()
+		if(prob(50))
+			new /obj/item/bodypart/l_leg/robot(Tsec)
+			if(prob(25))
+				new /obj/item/bodypart/r_leg/robot(Tsec)
+		if(prob(25))//50% chance for a helmet OR vest
+			if(prob(50))
+				new /obj/item/clothing/head/helmet(Tsec)
+			else
+				new /obj/item/clothing/suit/armor/vest(Tsec)
+	else
+		var/obj/item/bot_assembly/secbot/Sa = new (Tsec)
+		Sa.build_step = 1
+		Sa.add_overlay("hs_hole")
+		Sa.created_name = name
+		new /obj/item/assembly/prox_sensor(Tsec)
 		drop_part(baton_type, Tsec)
 
-	if(prob(50))
-		drop_part(robot_arm, Tsec)
+		if(prob(50))
+			drop_part(robot_arm, Tsec)
 
 	do_sparks(3, TRUE, src)
 
