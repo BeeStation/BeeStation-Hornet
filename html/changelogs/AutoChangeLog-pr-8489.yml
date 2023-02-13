@@ -1,7 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: Motorized wheelchairs now drain power cells as intended instead of dozens
-      of times per second when a directional key is held down.
-  - rscadd: Motorized wheelchairs now play a soft beep and alert when the installed
-      power cell reaches 25% charge
