@@ -1,0 +1,8 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: fixed a bug where broodmothers did not kill certain mobs when feeding
+      on them
+  - bugfix: fixed an exploit that allowed broodmothers to feed on the same target
+      multiple times
+  - tweak: Broodmothers now drain all blood from their victims when feeding.
