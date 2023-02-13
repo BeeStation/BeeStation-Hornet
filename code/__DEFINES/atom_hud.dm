@@ -72,6 +72,7 @@
 #define ANTAG_HUD_PIRATE		35
 #define ANTAG_HUD_SPIDER		36
 #define ANTAG_HUD_VALENTINE		37
+#define ANTAG_HUD_HEARTBREAKER	38
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

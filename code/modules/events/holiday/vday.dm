@@ -47,7 +47,7 @@ GLOBAL_LIST(valentine_mobs)
 
 			forge_valentines_objective(L, date)
 			forge_valentines_objective(date, L)
-		else
+		else if(prob(15)) // 15% of people who didn't get a date will become martyr. this will only be one player per round, so 15% of rounds during valentines
 			L.mind.add_antag_datum(/datum/antagonist/heartbreaker)
 
 /proc/forge_valentines_objective(mob/living/lover,mob/living/date)

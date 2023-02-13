@@ -22,3 +22,19 @@
 /datum/antagonist/heartbreaker/greet()
 	to_chat(owner, "<span class='warning'><B>You didn't get a date! They're all having fun without you! you'll show them though...</B></span>")
 	owner.announce_objectives()
+
+/datum/antagonist/heartbreaker/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	//Give valentine appearence on hud (If they are not an antag already)
+	var/datum/atom_hud/antag/valhud = GLOB.huds[ANTAG_HUD_HEARTBREAKER]
+	valhud.join_hud(owner.current)
+	if(!owner.antag_hud_icon_state)
+		set_antag_hud(owner.current, "heartbreaker")
+
+/datum/antagonist/heartbreaker/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	//Clear the hud if they haven't become something else and had the hud overwritten
+	var/datum/atom_hud/antag/valhud = GLOB.huds[ANTAG_HUD_HEARTBREAKER]
+	valhud.leave_hud(owner.current)
+	if(owner.antag_hud_icon_state == "heartbreaker")
+		set_antag_hud(owner.current, null)
