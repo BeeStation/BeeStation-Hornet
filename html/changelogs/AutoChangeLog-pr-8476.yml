@@ -1,5 +1,0 @@
-author: RKz, lizardqueenlexi
-delete-after: true
-changes:
-  - bugfix: Alternative steps will now show on Operating Computers! We technically
-      have had this feature for the last 3 years, it just wasn't displaying correctly.
