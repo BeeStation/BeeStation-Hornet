@@ -1,4 +1,5 @@
 /obj/machinery/elevator_interface
+	name = "elevator interface"
 	icon = 'icons/obj/elevator.dmi'
 	icon_state = "elevator_interface"
 	density = FALSE
@@ -29,11 +30,15 @@
 
 /obj/machinery/elevator_interface/attack_hand(mob/living/user)
 	. = ..()
+	if(preset_z)
+		select_level()
+
+/obj/machinery/elevator_interface/proc/select_level(level)
 	if(!powered() || SSelevator_controller.elevator_group_timers[id])
 		if(powered())
 			say("Unable to call elevator...")
 		return
-	var/destination = preset_z ? z : input(user, "Select Level", "Select Level", z+z_offset) as num|null
+	var/destination = preset_z ? z : level + z_offset
 	if(!(destination in available_levels))
 		return
 	destination -= preset_z ? 0 : z_offset
@@ -44,8 +49,30 @@
 	if(!SSelevator_controller.move_elevator(id, destination, calltime * abs(z - destination), obj_flags & EMAGGED))
 		say("Elevator obstructed...")
 
+
 /obj/machinery/elevator_interface/on_emag(mob/user)
 	. = ..()
 	if(!(obj_flags & EMAGGED))
 		say("Recalibrating...")
 	
+/obj/machinery/elevator_interface/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Elevator", name)
+		ui.open()
+
+/obj/machinery/elevator_interface/ui_data(mob/user)
+	var/list/data = list()
+	data["current_z"] = z+z_offset
+	data["available_levels"] = available_levels
+	return data
+
+
+/obj/machinery/elevator_interface/ui_act(action, list/params)
+	. = ..()
+	if(.)
+		return
+	var/num = text2num(action)
+	if(isnum(num))
+		select_level(num-z_offset)
+		ui_update()

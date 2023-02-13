@@ -1,4 +1,5 @@
 /obj/machinery/elevator_indicator
+	name = "floor indicator"
 	icon = 'icons/obj/elevator.dmi'
 	icon_state = "elevator_indicator"
 	density = FALSE

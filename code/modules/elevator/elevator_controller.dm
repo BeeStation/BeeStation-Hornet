@@ -39,7 +39,7 @@ SUBSYSTEM_DEF(elevator_controller)
 	if((abs(destination_z - S.z) > 1 || destination_z > S.z))
 		for(var/i in min(S.z, destination_z) to max(S.z, destination_z))
 			for(var/obj/structure/elevator_segment/ES as() in elevator_groups[id])
-				if(!isopenspace(locate(ES.x, ES.y, i)) && i != ES.z && !(ES.z > destination_z && abs(ES.z - destination_z) <= 1)) //2 is default bottom ground floor
+				if(!isopenspace(locate(ES.x, ES.y, i)) && i != ES.z && !(ES.z > destination_z && abs(ES.z - destination_z) <= 1) && i != destination_z)
 					if(!force)
 						destination_z = i-1
 						if(destination_z == ES.z)

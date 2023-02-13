@@ -1744,6 +1744,7 @@
 "Eq" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/public/glass,
+/obj/structure/elevator_segment/primary,
 /turf/open/floor/plasteel,
 /area/construction)
 "Fz" = (
@@ -1916,12 +1917,6 @@
 /obj/structure/disposaloutlet,
 /turf/open/floor/plasteel,
 /area/storage/primary)
-"RP" = (
-/obj/effect/turf_decal/stripes/closeup,
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/airlock/public/glass,
-/turf/open/floor/plasteel,
-/area/security)
 "RU" = (
 /obj/structure/stairs,
 /turf/open/floor/plating,
@@ -5757,7 +5752,7 @@ au
 eL
 ep
 ep
-Eq
+SI
 SI
 SI
 SI
@@ -5811,7 +5806,7 @@ au
 eL
 ep
 ep
-Eq
+SI
 SI
 SI
 SI
@@ -5865,7 +5860,7 @@ au
 eL
 ep
 ep
-Eq
+SI
 SI
 SI
 SI
@@ -8566,7 +8561,7 @@ au
 Jz
 KR
 KR
-RP
+au
 au
 au
 au
@@ -8620,7 +8615,7 @@ au
 Jz
 KR
 KR
-RP
+au
 au
 au
 au
@@ -8674,7 +8669,7 @@ au
 Jz
 KR
 KR
-RP
+au
 au
 au
 au

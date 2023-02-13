@@ -33,7 +33,7 @@
   // Components
   @include meta.load-css('../components/Button.scss', $with: (
     'color-default': #E8E4C9,
-    'color-disabled': #363636,
+    'color-disabled': #505046,
     'color-selected': #9d0808,
     'color-caution': #be6209,
     'color-danger': #9a9d00,
@@ -56,6 +56,17 @@
     border: base.em(2px) outset #E8E4C9;
     outline: base.em(1px) solid #161613;
     box-sizing: content-box;
+  }
+
+  .Button--disabled {
+    color: #c5c5c2;
+    font-family: monospace;
+    &:hover {
+      color: #ffffff;
+    }
+    &:focus {
+      color: #ffffff;
+    }
   }
 
   .Dropdown__control.Button {
