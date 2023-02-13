@@ -538,7 +538,6 @@ Class Procs:
 // Power cell in hand replacement
 /obj/machinery/attackby(obj/item/C, mob/user)
 	if(istype(C, /obj/item/stock_parts/cell) && panel_open)
-		locate(/obj/item/circuitboard/machine) in component_parts
 		for(var/obj/item/P in component_parts)
 			if(istype(P,/obj/item/stock_parts/cell))
 				if(user.transferItemToLoc(C, src))
