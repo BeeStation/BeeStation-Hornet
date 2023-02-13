@@ -16,37 +16,58 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 
 /datum/reagent
 	var/name = "Reagent"
+	///No descriptions by default
 	var/description = ""
-	var/specific_heat = SPECIFIC_HEAT_DEFAULT		//J/(K*mol)
+	///J/(K*mol)
+	var/specific_heat = SPECIFIC_HEAT_DEFAULT
+	/// used by taste messages
 	var/taste_description = "metaphorical salt"
-	var/taste_mult = 1 //how this taste compares to others. Higher values means it is more noticable
-	var/glass_name = "glass of ...what?" // use for specialty drinks.
+	///how this taste compares to others. Higher values means it is more noticable
+	var/taste_mult = 1
+	/// use for specialty drinks.
+	var/glass_name = "glass of ...what?"
+	/// desc applied to glasses with this reagent
 	var/glass_desc = "You can't really tell what this is."
-	var/glass_icon_state = null // Otherwise just sets the icon to a normal glass with the mixture of the reagents in the glass.
+	/// Otherwise just sets the icon to a normal glass with the mixture of the reagents in the glass.
+	var/glass_icon_state = null
+	/// used for shot glasses, mostly for alcohol
 	var/shot_glass_icon_state = null
+	/// reagent holder this belongs to
 	var/datum/reagents/holder = null
+	/// LIQUID, SOLID, GAS
 	var/reagent_state = LIQUID
+	/// Special data associated with the reagent that will be passed on upon transfer to a new holder.
 	var/list/data
+	/// increments everytime on_mob_life is called
 	var/current_cycle = 0
-	var/volume = 0									//pretend this is moles
+	///pretend this is moles
+	var/volume = 0
+	/// color it looks in containers etc
 	var/color = "#000000" // rgb: 0, 0, 0
-	var/chem_flags = CHEMICAL_NOT_DEFINED   // default = I am not sure this shit + CHEMICAL_NOT_SYNTH
-	var/metabolization_rate = REAGENTS_METABOLISM //how fast the reagent is metabolized by the mob
+	// default = I am not sure this shit + CHEMICAL_NOT_SYNTH
+	var/chem_flags = CHEMICAL_NOT_DEFINED
+	///how fast the reagent is metabolized by the mob
+	var/metabolization_rate = REAGENTS_METABOLISM
+	/// appears unused
 	var/overrides_metab = 0
+	/// above this overdoses happen
 	var/overdose_threshold = 0
 	var/addiction_threshold = 0
 	var/addiction_stage = 0
-	var/process_flags = ORGANIC // What can process this? ORGANIC, SYNTHETIC, or ORGANIC | SYNTHETIC?. We'll assume by default that it affects organics.
-	var/overdosed = 0 // You fucked up and this is now triggering its overdose effects, purge that shit quick.
+	// What can process this? ORGANIC, SYNTHETIC, or ORGANIC | SYNTHETIC?. We'll assume by default that it affects organics.
+	var/process_flags = ORGANIC
+	// You fucked up and this is now triggering its overdose effects, purge that shit quick.
+	var/overdosed = 0
+	///if false stops metab in liverless mobs
 	var/self_consuming = FALSE
-	var/reagent_weight = 1 //affects how far it travels when sprayed
+	///affects how far it travels when sprayed
+	var/reagent_weight = 1
+	///is it currently metabolizing
 	var/metabolizing = FALSE
+	///A list of causes why this chem should skip being removed, if the length is 0 it will be removed from holder naturally, if this is >0 it will not be removed from the holder.
+	var/list/reagent_removal_skip_list = list()
 	///The set of exposure methods this penetrates skin with.
 	var/penetrates_skin = VAPOR
-
-/datum/reagent/Destroy() // This should only be called by the holder, so it's already handled clearing its references
-	. = ..()
-	holder = null
 
 /// Applies this reagent to an [/atom]
 /datum/reagent/proc/expose_atom(atom/exposed_atom, reac_volume)
@@ -78,10 +99,12 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 
 	return SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_TURF, exposed_turf, reac_volume)
 
+/// Called from [/datum/reagents/proc/metabolize]
 /datum/reagent/proc/on_mob_life(mob/living/carbon/M)
 	current_cycle++
+	if(length(reagent_removal_skip_list))
+		return
 	holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency) //By default it slowly disappears.
-	return
 
 //Called after a reagent is transfered
 /datum/reagent/proc/on_transfer(atom/A, methods=TOUCH, trans_volume)

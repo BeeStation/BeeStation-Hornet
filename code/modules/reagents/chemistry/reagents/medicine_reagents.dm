@@ -14,6 +14,8 @@
 
 /datum/reagent/medicine/on_mob_life(mob/living/carbon/M)
 	current_cycle++
+	if(length(reagent_removal_skip_list))
+		return
 	holder.remove_reagent(type, metabolization_rate / M.metabolism_efficiency) //medicine reagents stay longer if you have a better metabolism
 
 /datum/reagent/medicine/leporazine
@@ -238,7 +240,7 @@
 
 	var/mob/living/carbon/patient = exposed_mob
 	if(reac_volume >= 5 && HAS_TRAIT_FROM(patient, TRAIT_HUSK, "burn") && patient.getFireLoss() < UNHUSK_DAMAGE_THRESHOLD) //One carp yields 12u rezadone.
-		patient.cure_husk("burn")
+		patient.cure_husk(BURN)
 		patient.visible_message("<span class='nicegreen'>[patient]'s body rapidly absorbs moisture from the environment, taking on a more healthy appearance.")
 
 /datum/reagent/medicine/spaceacillin
@@ -432,26 +434,26 @@
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	overdose_threshold = 125
 
-/datum/reagent/medicine/synthflesh/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message = TRUE, touch_protection, obj/item/bodypart/affecting)
+/datum/reagent/medicine/synthflesh/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message = TRUE, obj/item/bodypart/affecting)
 	. = ..()
 	if(!iscarbon(exposed_mob))
 		return
-	var/mob/living/carbon/carb = exposed_mob
-	if(carb.stat == DEAD)
+	var/mob/living/carbon/carbies = exposed_mob
+	if(carbies.stat == DEAD)
 		show_message = 0
 	if(!(methods & (PATCH|TOUCH|VAPOR)))
 		return
 	if(affecting.heal_damage(reac_volume, reac_volume))
-		carb.update_damage_overlays()
-	carb.adjustStaminaLoss(reac_volume*2)
+		carbies.update_damage_overlays()
+	carbies.adjustStaminaLoss(reac_volume*2)
 	if(show_message)
-		to_chat(carb, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
-	SEND_SIGNAL(carb, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
-	carb.emote("scream")
+		to_chat(carbies, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
+	SEND_SIGNAL(carbies, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
+	carbies.emote("scream")
 	//Has to be at less than UNHUSK_DAMAGE_THRESHOLD burn damage and have at least 100 synthflesh (currently inside the body + amount now being applied). Corpses dont metabolize.
-	if(HAS_TRAIT_FROM(exposed_mob, TRAIT_HUSK, "burn") && carb.getFireLoss() < UNHUSK_DAMAGE_THRESHOLD && (carb.reagents.get_reagent_amount(/datum/reagent/medicine/synthflesh) + reac_volume) >= SYNTHFLESH_UNHUSK_AMOUNT)
-		carb.cure_husk("burn")
-		carb.visible_message("<span class='nicegreen'>You successfully replace most of the burnt off flesh of [carb].")
+	if(HAS_TRAIT_FROM(exposed_mob, TRAIT_HUSK, "burn") && carbies.getFireLoss() < UNHUSK_DAMAGE_THRESHOLD && (carbies.reagents.get_reagent_amount(/datum/reagent/medicine/synthflesh) + reac_volume >= SYNTHFLESH_UNHUSK_AMOUNT))
+		carbies.cure_husk(BURN)
+		carbies.visible_message("<span class='nicegreen'>You successfully replace most of the burnt off flesh of [carbies].")
 
 /datum/reagent/medicine/synthflesh/on_mob_life(mob/living/carbon/M)
 	M.adjustFireLoss(-0.5*REM, 0)

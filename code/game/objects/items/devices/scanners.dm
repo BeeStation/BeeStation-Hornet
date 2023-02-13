@@ -153,6 +153,14 @@ GENE SCANNER
 
 	message += "<span class='info'>Analyzing results for [M]:\n\tOverall status: [mob_status]</span>"
 
+	// Husk detection
+	if(advanced && HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn"))
+		message += "<span class='alert ml-1'>Subject has been husked by severe burns.</span>\n"
+	else if (advanced && HAS_TRAIT_FROM(M, TRAIT_HUSK, CHANGELING_DRAIN))
+		message += "<span class='alert ml-1'>Subject has been husked by dessication.</span>\n"
+	else if(HAS_TRAIT(M, TRAIT_HUSK))
+		message += "<span class='alert ml-1'>Subject has been husked.</span>\n"
+
 	// Damage descriptions
 	if(brute_loss > 10)
 		message += "\t<span class='alert'>[brute_loss > 50 ? "Severe" : "Minor"] tissue damage detected.</span>"

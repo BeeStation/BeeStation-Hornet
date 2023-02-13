@@ -82,8 +82,8 @@
 	name = "roburger"
 	desc = "The lettuce is the only organic component. Beep."
 	icon_state = "roburger"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/nanomachines = 2, /datum/reagent/consumable/nutriment/vitamin = 5)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/nanomachines = 5, /datum/reagent/consumable/nutriment/vitamin = 1)
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/cyborg_mutation_nanomachines = 2, /datum/reagent/consumable/nutriment/vitamin = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/cyborg_mutation_nanomachines = 5, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 1)
 	foodtype = GRAIN | TOXIC
 
@@ -92,8 +92,8 @@
 	desc = "This massive patty looks like poison. Beep."
 	icon_state = "roburger"
 	volume = 120
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/nanomachines = 70, /datum/reagent/consumable/nutriment/vitamin = 10)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/nanomachines = 70, /datum/reagent/consumable/nutriment/vitamin = 5)
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/cyborg_mutation_nanomachines = 70, /datum/reagent/consumable/nutriment/vitamin = 10)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/cyborg_mutation_nanomachines = 70, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 1)
 	foodtype = GRAIN | TOXIC
 
