@@ -14,19 +14,21 @@ export const Elevator = (props, context) => {
         height={500}
         theme="retro">
         <Window.Content scrollable={1}>
-        <Stack direction="row" wrap="wrap" grow = {1} align = "center" spacing = {`10%`}>
-            {
-                available_levels.map(level => (
-                    <Stack.Item basis = {`50%`}>
-                        <Button disabled = {level == current_z}
-                        onClick={() => act(`${level}`)}
-                        fontSize = {`50px`}
-                        bold = {1}>
-                            {level}
-                        </Button>
-                    </Stack.Item>))
-            }
-        </Stack>
+            <Stack direction="row" wrap="wrap" grow = {1} 
+            align = "center" 
+            spacing = {`10%`}>
+                {
+                    available_levels.map(level => (
+                        <Stack.Item basis = {`50%`}>
+                            <Button disabled = {level == current_z}
+                            onClick={() => act(`${level}`)}
+                            fontSize = {`50px`}
+                            bold = {1}>
+                                {level}
+                            </Button>
+                        </Stack.Item>))
+                }
+            </Stack>
         </Window.Content>
     </Window>
     );
