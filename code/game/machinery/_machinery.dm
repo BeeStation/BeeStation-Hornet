@@ -547,7 +547,7 @@ Class Procs:
 					component_parts-=P
 					RefreshParts()
 					playsound(src, 'sound/surgery/taperecorder_close.ogg', 50, FALSE)
-					to_chat(user, "<span class='notice'>you replaced [capitalize(P.name)]  with [C.name] via power cell socket.</span>")
+					to_chat(user, "<span class='notice'>You replace [P.name] with [C.name].</span>")
 					break
 	else
 		..()
