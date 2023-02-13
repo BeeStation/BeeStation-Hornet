@@ -14,6 +14,7 @@
 	danger = DISEASE_HARMFUL
 	var/finalstage = 0 //Ensures the final stage effects that should only happen once do not happen repeatedly.
 	var/startresting
+	var/turf/restingat
 
 /datum/disease/revblight/cure()
 	if(affected_mob)
@@ -31,8 +32,9 @@
 	if(!(affected_mob.mobility_flags & MOBILITY_STAND))
 		if(affected_mob.stam_paralyzed && !finalstage)
 			stage = 5 
-		if(!startresting)
+		if(!startresting || restingat != get_turf(affected_mob))
 			startresting = world.time
+			restingat = get_turf(affected_mob)
 		else if(world.time - startresting >= 30 SECONDS) //Ensures nobody is left in permanent stamcrit, and also enables players to rest in a safe location to cure themselves
 			cure()
 	else
