@@ -512,15 +512,15 @@
 	if((stun_all || attacked) && !allowed(perp))
 		if(!allowed(perp))
 			return 10
-	//Check for judgement
-	var/judgement = NONE
+	//Check for judgment
+	var/judgment = NONE
 	if(obj_flags & EMAGGED)
-		judgement |= JUDGE_EMAGGED
+		judgment |= JUDGE_EMAGGED
 	if(auth_weapons)
-		judgement |= JUDGE_WEAPONCHECK
+		judgment |= JUDGE_WEAPONCHECK
 	if(check_records)
-		judgement |= JUDGE_RECORDCHECK
-	. = perp.assess_threat(judgement, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
+		judgment |= JUDGE_RECORDCHECK
+	. = perp.assess_threat(judgment, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
 	if(shoot_unloyal)
 		if (!perp.has_mindshield_hud_icon())
 			. += 4
