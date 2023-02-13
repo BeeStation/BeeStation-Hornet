@@ -1,0 +1,4 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Ability icons no longer go blank after cooldown completion
