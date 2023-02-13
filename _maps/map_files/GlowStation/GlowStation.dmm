@@ -8437,7 +8437,7 @@
 /area/tcommsat/computer)
 "bNC" = (
 /obj/machinery/air_sensor/atmos/sm_waste,
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/engine,
 /area/engine/atmospherics_engine)
 "bNE" = (
 /obj/effect/turf_decal/trimline/purple/filled/corner{
@@ -10656,6 +10656,11 @@
 /obj/machinery/space_heater,
 /turf/open/floor/plating/snowed,
 /area/iceland)
+"cna" = (
+/obj/structure/chair/wood/normal,
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/wood,
+/area/crew_quarters/bar/atrium)
 "cnp" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -17695,7 +17700,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/sm_waste_input{
 	dir = 1
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/engine,
 /area/engine/atmospherics_engine)
 "dRM" = (
 /obj/machinery/door/airlock/engineering{
@@ -37277,8 +37282,10 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "hRg" = (
-/obj/structure/table/wood/fancy,
 /obj/structure/disposalpipe/segment,
+/obj/structure/chair/wood/normal{
+	dir = 4
+	},
 /turf/open/floor/carpet/royalblack,
 /area/crew_quarters/bar/atrium)
 "hRo" = (
@@ -78041,7 +78048,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/sm_waste{
 	dir = 1
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/engine,
 /area/engine/atmospherics_engine)
 "qrG" = (
 /obj/machinery/vending/snack/random,
@@ -86902,7 +86909,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/chair/wood{
@@ -279042,8 +279048,8 @@ wcq
 aHc
 qZL
 qrB
-tsV
-tsV
+qwI
+qwI
 cEA
 gYS
 kUr
@@ -279299,8 +279305,8 @@ tsV
 tsV
 cEA
 bNC
-tsV
-tsV
+qwI
+qwI
 cEA
 tVq
 kTu
@@ -279556,8 +279562,8 @@ fKs
 nsk
 iSf
 dRG
-tsV
-tsV
+qwI
+qwI
 cEA
 gYS
 kUr
@@ -281084,7 +281090,7 @@ uCS
 tIB
 vCW
 qpw
-hah
+sLw
 sLw
 xAF
 oEq
@@ -281597,8 +281603,8 @@ iAM
 ocd
 sos
 wzR
-ocd
-gwb
+cna
+slp
 sLw
 oBC
 bje
