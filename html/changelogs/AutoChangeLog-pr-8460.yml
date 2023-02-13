@@ -1,6 +1,0 @@
-author: benbot16
-delete-after: true
-changes:
-  - rscadd: Conveyors may now be linked to conveyor switches using a multitool.
-  - rscadd: Using a screwdriver on a conveyor switch will now toggle it between one-way
-      and two-way mode.
