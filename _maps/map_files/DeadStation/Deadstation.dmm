@@ -2738,6 +2738,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
+/obj/machinery/advanced_airlock_controller/directional/north,
 /turf/open/floor/plasteel,
 /area/science/shuttledock)
 "cwQ" = (
@@ -18397,13 +18398,13 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "sgU" = (
-/obj/machinery/door/airlock/external/glass{
-	req_one_access_txt = "13"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/external/glass{
+	req_one_access_txt = "13; 49"
 	},
 /turf/open/floor/plasteel,
 /area/science/shuttledock)
@@ -20826,7 +20827,7 @@
 /area/hallway/primary/port)
 "uzV" = (
 /obj/machinery/door/airlock/external/glass{
-	req_one_access_txt = "13"
+	req_one_access_txt = "13; 49"
 	},
 /turf/open/floor/plasteel,
 /area/science/shuttledock)
