@@ -732,6 +732,12 @@
 /obj/item/flashlight/lamp,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
+"cH" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/bridge/meeting_room/council)
 "cI" = (
 /obj/structure/chair{
 	dir = 8
@@ -1604,6 +1610,14 @@
 	},
 /turf/open/floor/plasteel/grimy,
 /area/tcommsat/computer)
+"gi" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "32-8"
+	},
+/obj/structure/railing,
+/turf/open/openspace,
+/area/bridge/meeting_room/council)
 "gl" = (
 /obj/machinery/holopad,
 /obj/structure/cable/yellow{
@@ -6166,6 +6180,13 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel,
 /area/hallway/lower/primary/central)
+"Bb" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/railing,
+/turf/open/floor/plasteel/dark,
+/area/bridge/meeting_room/council)
 "Be" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -6790,12 +6811,6 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/bridge/meeting_room/council)
-"El" = (
-/obj/structure/cable/yellow{
-	icon_state = "32-8"
-	},
-/turf/open/floor/plating,
-/area/bridge/meeting_room/council)
 "Em" = (
 /obj/structure/table,
 /obj/machinery/light{
@@ -6966,15 +6981,18 @@
 /turf/open/floor/plasteel/white,
 /area/security/prison)
 "Fk" = (
+/obj/machinery/power/apc/auto_name/south,
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "0-8"
 	},
-/obj/machinery/door/airlock/maintenance{
-	name = "Maintenance Access";
-	req_one_access_txt = "12"
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/plating,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
 /area/bridge/meeting_room/council)
 "Fl" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -8632,14 +8650,7 @@
 /turf/open/floor/wood,
 /area/lawoffice)
 "Ms" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc/auto_name/north,
-/turf/open/floor/plating,
+/turf/open/openspace,
 /area/bridge/meeting_room/council)
 "Mt" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -10908,6 +10919,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
+"XZ" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/railing/corner,
+/turf/open/floor/plasteel/dark,
+/area/bridge/meeting_room/council)
 "Ya" = (
 /turf/closed/wall/r_wall,
 /area/science/test_area)
@@ -50273,7 +50292,7 @@ Lj
 Lj
 Lj
 Lj
-Lj
+XZ
 Fk
 Lj
 Lj
@@ -50530,7 +50549,7 @@ Lj
 Lj
 Lj
 Lj
-Lj
+Bb
 Ms
 Lj
 Lj
@@ -50786,9 +50805,9 @@ ds
 QI
 ds
 ds
-ds
 Lj
-El
+gi
+Ms
 Lj
 Ng
 ds
@@ -51043,9 +51062,9 @@ ds
 ds
 ds
 QI
-ds
 Lj
-Lj
+cH
+Nt
 Lj
 Ng
 ds
@@ -51298,12 +51317,12 @@ QI
 QI
 QI
 QI
-QI
-QI
 ds
 ds
-ds
-ds
+Lj
+Lj
+Lj
+Lj
 ds
 ds
 rp
@@ -51556,10 +51575,10 @@ QI
 QI
 QI
 QI
-QI
-QI
-QI
-QI
+ds
+ds
+ds
+ds
 ds
 QI
 ds

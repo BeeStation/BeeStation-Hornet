@@ -476,6 +476,9 @@
 /obj/effect/turf_decal/tile/dark_blue{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plasteel,
 /area/teleporter)
 "azb" = (
@@ -12250,11 +12253,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/plasteel,
 /area/teleporter)
@@ -13478,9 +13481,6 @@
 "noS" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
 	},
 /turf/open/floor/plasteel,
 /area/teleporter)
@@ -19076,6 +19076,9 @@
 /obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "16-8"
+	},
 /turf/open/floor/plasteel/dark,
 /area/teleporter)
 "sQd" = (
@@ -19561,8 +19564,8 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted,
-/obj/structure/cable/yellow{
-	icon_state = "16-8"
+/obj/structure/stairs{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/teleporter)
@@ -19944,8 +19947,8 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "tNz" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
+/obj/structure/stairs{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/teleporter)
