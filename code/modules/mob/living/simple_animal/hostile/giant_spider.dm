@@ -196,7 +196,7 @@
 					var/mob/living/L = cocoon_target
 					if(L.stat != DEAD)
 						L.death() //If it's not already dead, we want it dead regardless of nourishment
-					if(L.blood_volume && !isipc(L)) //IPCs and bloodless mobs are not nourishing.
+					if(L.blood_volume >= BLOOD_VOLUME_BAD && !isipc(L)) //IPCs and drained mobs are not nourishing.
 						L.blood_volume = 0 //Remove all fluids from this mob so they are no longer nourishing.
 						health = maxHealth //heal up from feeding.
 						if(istype(L,/mob/living/carbon/human)) 
