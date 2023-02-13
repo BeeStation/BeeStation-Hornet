@@ -61,7 +61,6 @@
 
 	//Special spider variables defined here to prevent duplicate procs
 	var/mob/living/simple_animal/hostile/poison/giant_spider/heal_target //used by nurses for healing
-	var/static/list/consumed_mobs = list() //the tags of mobs that have been consumed by broodmothers
 	var/fed = 0 //used by broodmothers to track food
 	var/enriched_fed = 0
 	var/datum/action/innate/spider/lay_eggs/lay_eggs //the ability to lay eggs, granted to broodmothers
@@ -195,17 +194,18 @@
 				var/obj/structure/spider/cocoon/C = new(cocoon_target.loc)
 				if(isliving(cocoon_target))
 					var/mob/living/L = cocoon_target
-					if(L.blood_volume && (L.stat != DEAD || !consumed_mobs[L.tag]) && !isipc(L)) //if they're not dead, you can consume them anyway
-						if(istype(L, /mob/living/carbon/human))
-							enriched_fed++
-						else
-							fed++
-						consumed_mobs[L.tag] = TRUE
+					if(L.stat != DEAD)
+						L.death() //If it's not already dead, we want it dead regardless of nourishment
+					if(L.blood_volume >= BLOOD_VOLUME_BAD && !isipc(L)) //IPCs and drained mobs are not nourishing.
+						L.blood_volume = 0 //Remove all fluids from this mob so they are no longer nourishing.
 						health = maxHealth //heal up from feeding.
+						if(istype(L,/mob/living/carbon/human)) 
+							enriched_fed++ //it is a humanoid, and is very nourishing
+						else
+							fed++ //it is not a humanoid, but still has nourishment
 						if(lay_eggs)
 							lay_eggs.UpdateButtonIcon(TRUE)
 						visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>","<span class='notice'>You suck the nutriment out of [L], feeding you enough to lay a cluster of eggs.</span>")
-						L.death() //you just ate them, they're dead.
 					else
 						to_chat(src, "<span class='warning'>[L] cannot sate your hunger!</span>")
 				cocoon_target.forceMove(C)
