@@ -6,10 +6,18 @@
 
 
 /datum/antagonist/heartbreaker/proc/forge_objectives()
-	var/datum/objective/martyr/normiesgetout = new
-	normiesgetout.owner = owner
-	objectives += normiesgetout
-	log_objective(owner, normiesgetout.explanation_text)
+	var/datum/objective/O = new
+	O.explanation_text = "Ruin people's dates through non-lethal means."
+	O.owner = owner
+	O.completed = TRUE // no good way to check this
+	objectives += O
+	log_objective(owner, O.explanation_text)
+	if(prob(15)) // rare chance to get martyr, really ruin those dates!
+		O.explanation_text = "Ruin people's dates however necessary."
+		var/datum/objective/martyr/normiesgetout = new
+		normiesgetout.owner = owner
+		objectives += normiesgetout
+		log_objective(owner, normiesgetout.explanation_text)
 
 /datum/antagonist/heartbreaker/on_gain()
 	forge_objectives()
@@ -20,7 +28,7 @@
 	. = ..()
 
 /datum/antagonist/heartbreaker/greet()
-	to_chat(owner, "<span class='warning'><B>You didn't get a date! They're all having fun without you! you'll show them though...</B></span>")
+	to_chat(owner, "<span class='big bold warning'>You didn't get a date! They're all having fun without you! you'll show them though...</span>")
 	owner.announce_objectives()
 
 /datum/antagonist/heartbreaker/apply_innate_effects(mob/living/mob_override)

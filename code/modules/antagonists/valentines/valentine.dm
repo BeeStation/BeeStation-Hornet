@@ -7,7 +7,7 @@
 	count_against_dynamic_roll_chance = FALSE
 
 /datum/antagonist/valentine/proc/forge_objectives()
-	var/datum/objective/protect/protect_objective = new /datum/objective/protect
+	var/datum/objective/protect/protect_objective = new
 	protect_objective.owner = owner
 	protect_objective.set_target(date)
 	if(!ishuman(date.current))
@@ -20,7 +20,7 @@
 	forge_objectives()
 	if(isliving(owner))
 		var/mob/living/L = owner
-		L.apply_status_effect(STATUS_EFFECT_INLOVE, date)
+		L.apply_status_effect(STATUS_EFFECT_INLOVE, date.current)
 		//Faction assignation
 		L.faction |= "[REF(date.current)]"
 		L.faction |= date.current.faction
@@ -38,9 +38,7 @@
 		L.faction -= "[REF(date.current)]"
 
 /datum/antagonist/valentine/greet()
-	to_chat(owner, "<span class='clown'><B>You're on a date with [date.name]! Protect [date.p_them()] at all costs. This takes priority over all other loyalties.</B></span>")
-	owner.current.client?.tgui_panel?.give_antagonist_popup("You are on a date with [date.name]",
-		"Protect your date no matter the cost. Your loyalities are insignificant compared to your true love, you may do whatever you can to help and protect them!")
+	to_chat(owner, "<span class='big bold clown'>You're on a date with [date.name]! Protect [date.current.p_them()] at all costs. This takes priority over all other loyalties, you may do whatever you can to help and protect them.</span>")
 
 //Squashed up a bit
 /datum/antagonist/valentine/roundend_report()
@@ -52,9 +50,9 @@
 				break
 
 	if(objectives_complete)
-		return "<span class='greentext big'>[owner.name] protected [owner.p_their()] date</span>"
+		return "<span class='greentext big'>[owner.name] protected their date, [date.name]!</span>"
 	else
-		return "<span class='redtext big'>[owner.name] date failed!</span>"
+		return "<span class='redtext big'>[owner.name] failed to protect their date, [date.name]!</span>"
 
 /datum/antagonist/valentine/apply_innate_effects(mob/living/mob_override)
 	. = ..()
