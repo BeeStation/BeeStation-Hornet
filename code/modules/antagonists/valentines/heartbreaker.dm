@@ -6,10 +6,8 @@
 
 
 /datum/antagonist/heartbreaker/proc/forge_objectives()
-	var/datum/objective/O = new
-	O.explanation_text = "Ruin people's dates through non-lethal means."
+	var/datum/objective/heartbroken/O = new
 	O.owner = owner
-	O.completed = TRUE // no good way to check this
 	objectives += O
 	log_objective(owner, O.explanation_text)
 	if(prob(30)) // rare chance to get martyr, really ruin those dates!
@@ -46,3 +44,12 @@
 	valhud.leave_hud(owner.current)
 	if(owner.antag_hud_icon_state == "heartbreaker")
 		set_antag_hud(owner.current, null)
+
+/datum/objective/heartbroken
+	name = "heartbroken"
+	explanation_text = "Ruin people's dates through non-lethal means."
+	completed = TRUE
+
+/datum/objective/heartbroken/update_explanation_text()
+	..()
+	explanation_text = "Ruin people's dates through non-lethal means."
