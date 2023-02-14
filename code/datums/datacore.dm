@@ -345,12 +345,11 @@
 		security_records_out += list(crew_record)
 	return security_records_out
 
-/datum/datacore/proc/get_id_photo(mob/living/carbon/human/H, client/C, show_directions = list(SOUTH))
-	var/datum/job/J = SSjob.GetJob(H.mind.get_job())
-	if(!J)
-		J = SSjob.GetJob(JOB_KEY_ASSISTANT)
 /datum/datacore/proc/get_id_photo(mob/living/carbon/human/H, client/C, show_directions = list(SOUTH), humanoverride = FALSE)
-	var/datum/job/J = SSjob.GetJob(H.mind.assigned_role)
+	var/job_holder = H.mind?.get_job()
+	var/datum/job/J
+	if(job_holder)
+		J = SSjob.GetJob(job_holder)
 	var/datum/character_save/CS
 	if(!C)
 		C = H.client
