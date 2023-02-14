@@ -55,6 +55,7 @@ GLOBAL_LIST_INIT(disposal_pipe_recipes, list(
 		new /datum/pipe_info/disposal("Junction",		/obj/structure/disposalpipe/junction, PIPE_TRIN_M),
 		new /datum/pipe_info/disposal("Y-Junction",		/obj/structure/disposalpipe/junction/yjunction),
 		new /datum/pipe_info/disposal("Sort Junction",	/obj/structure/disposalpipe/sorting/mail, PIPE_TRIN_M),
+		new /datum/pipe_info/disposal("Package Junction",	/obj/structure/disposalpipe/sorting/wrap, PIPE_TRIN_M),
 		new /datum/pipe_info/disposal("Trunk",			/obj/structure/disposalpipe/trunk),
 		new /datum/pipe_info/disposal("Bin",			/obj/machinery/disposal/bin, PIPE_ONEDIR),
 		new /datum/pipe_info/disposal("Outlet",			/obj/structure/disposaloutlet),
