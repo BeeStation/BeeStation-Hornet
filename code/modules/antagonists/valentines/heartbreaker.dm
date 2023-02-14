@@ -6,16 +6,20 @@
 
 
 /datum/antagonist/heartbreaker/proc/forge_objectives()
-	var/datum/objective/heartbroken/O = new
-	O.owner = owner
-	objectives += O
-	log_objective(owner, O.explanation_text)
 	if(prob(30)) // rare chance to get martyr, really ruin those dates!
-		O.explanation_text = "Ruin people's dates however necessary."
+		var/datum/objective/heartbroken/murder/O = new
+		O.owner = owner
+		objectives += O
+		log_objective(owner, O.explanation_text)
 		var/datum/objective/martyr/normiesgetout = new
 		normiesgetout.owner = owner
 		objectives += normiesgetout
 		log_objective(owner, normiesgetout.explanation_text)
+	else
+		var/datum/objective/heartbroken/O = new
+		O.owner = owner
+		objectives += O
+		log_objective(owner, O.explanation_text)
 
 /datum/antagonist/heartbreaker/on_gain()
 	forge_objectives()
@@ -53,3 +57,12 @@
 /datum/objective/heartbroken/update_explanation_text()
 	..()
 	explanation_text = "Ruin people's dates through non-lethal means."
+
+/datum/objective/heartbroken/murderbone
+	name = "murdery heartbroken"
+	explanation_text = "Ruin people's dates however necessary."
+	murderbone_flag = TRUE
+
+/datum/objective/heartbroken/update_explanation_text()
+	..()
+	explanation_text = "Ruin people's dates however necessary."
