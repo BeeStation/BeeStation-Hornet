@@ -1,0 +1,5 @@
+author: benbot16
+delete-after: true
+changes:
+  - rscadd: Adds package sorting disposals pipes to RPDs and disposals dispensers.
+      These sort wrapped and unwrapped objects.
