@@ -34,6 +34,8 @@
 	if(key)
 		to_chat(user, "<span class='notice'>Someone else already took [name].</span>")
 		return TRUE
+	if(!user.canGhostRole(role, TRUE))
+		return
 	key = user.key
 	log_game("[key_name(src)] took control of [name].")
 	remove_from_spawner_menu()

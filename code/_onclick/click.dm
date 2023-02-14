@@ -502,7 +502,7 @@
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER) && !(flags_1 & ADMIN_SPAWNED_1))
 		to_chat(src, "<span class='warning'>An admin has temporarily disabled non-admin ghost roles!</span>")
 		return FALSE
-	if(is_banned_from(key, role))
+	if(role && is_banned_from(key, role)) //role can be null, no reason to check for a roleban if there is no special role assigned
 		to_chat(src, "<span class='warning'>You are jobanned!</span>")
 		return FALSE
 	if(use_cooldown && client.next_ghost_role_tick > world.time)
