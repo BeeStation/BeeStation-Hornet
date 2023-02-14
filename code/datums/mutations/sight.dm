@@ -18,7 +18,7 @@
 //Blind makes you blind. Who knew?
 /datum/mutation/blind
 	name = "Blindness"
-	desc = "A hereditary mutation which renders the optic nerves of the individual inert, no amount of corrective surgery can fix this."
+	desc = "A hereditary mutation which renders the optic nerves of the individual inert, making them effectively blind. No amount of corrective surgery can fix this."
 	quality = NEGATIVE
 
 /datum/mutation/blind/on_acquiring(mob/living/carbon/owner)
