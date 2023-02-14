@@ -18,22 +18,22 @@
 
 /datum/antagonist/valentine/on_gain()
 	forge_objectives()
-	if(isliving(owner))
-		var/mob/living/L = owner
+	if(isliving(owner.current) && isliving(date.current))
+		var/mob/living/L = owner.current
 		L.apply_status_effect(STATUS_EFFECT_INLOVE, date.current)
 		//Faction assignation
 		L.faction |= "[REF(date.current)]"
 		L.faction |= date.current.faction
-	if(issilicon(owner))
-		var/mob/living/silicon/S = owner
-		var/laws = list("Protect your date and do not allow them to come to harm.", "Ensure your date has a good time.")
-		S.set_valentines_laws(laws)
+		if(issilicon(owner.current))
+			var/mob/living/silicon/S = owner.current
+			var/laws = list("Protect your date and do not allow them to come to harm.", "Ensure your date has a good time.")
+			S.set_valentines_laws(laws)
 	. = ..()
 
 /datum/antagonist/valentine/on_removal()
 	. = ..()
-	if(isliving(owner))
-		var/mob/living/L = owner
+	if(isliving(owner.current))
+		var/mob/living/L = owner.current
 		L.remove_status_effect(STATUS_EFFECT_INLOVE)
 		L.faction -= "[REF(date.current)]"
 
