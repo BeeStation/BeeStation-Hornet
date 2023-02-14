@@ -2,14 +2,14 @@
 	g_jkey = JOB_KEY_STAGEMAGICIAN
 	g_jtitle = JOB_NAME_STAGEMAGICIAN
 	job_bitflags = JOB_BITFLAG_GIMMICK
-	flag = MAGICIAN
+	total_positions = 0
+	spawn_positions = 0
 
 	outfit = /datum/outfit/job/stage_magician
 
 	access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)

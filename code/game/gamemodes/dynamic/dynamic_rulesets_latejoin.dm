@@ -13,11 +13,11 @@
 			candidates.Remove(P)
 			continue
 		if(antag_flag_override)
-			if(!(antag_flag_override in P.client.prefs.be_special) || is_banned_from(P.ckey, list(ROLE_BANCHECK_MAJOR_ANTAGONIST, antag_flag_override)))
+			if(!(antag_flag_override in P.client.prefs.be_special) || is_banned_from(P.ckey, list(BANCHECK_ROLE_MAJOR_ANTAGONIST, antag_flag_override)))
 				candidates.Remove(P)
 				continue
 		else
-			if(!(antag_flag in P.client.prefs.be_special) || is_banned_from(P.ckey, list(ROLE_BANCHECK_MAJOR_ANTAGONIST, antag_flag)))
+			if(!(antag_flag in P.client.prefs.be_special) || is_banned_from(P.ckey, list(BANCHECK_ROLE_MAJOR_ANTAGONIST, antag_flag)))
 				candidates.Remove(P)
 				continue
 		if (P.mind.get_role())
@@ -95,7 +95,7 @@
 	name = "Provocateur"
 	persistent = TRUE
 	antag_datum = /datum/antagonist/rev/head
-	antag_flag = ROLE_BANCHECK_REV_HEAD
+	antag_flag = BANCHECK_ROLE_REV_HEAD
 	antag_flag_override = ROLE_KEY_REVOLUTION
 	restricted_roles = list(JOB_KEY_AI, JOB_KEY_CYBORG, JOB_KEY_SECURITYOFFICER, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN, JOB_KEY_HEADOFPERSONNEL, JOB_KEY_CHIEFENGINEER, JOB_KEY_CHIEFMEDICALOFFICER, JOB_KEY_RESEARCHDIRECTOR)
 	enemy_roles = list(JOB_KEY_AI, JOB_KEY_CYBORG, JOB_KEY_SECURITYOFFICER,JOB_KEY_DETECTIVE,JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN, JOB_KEY_WARDEN)

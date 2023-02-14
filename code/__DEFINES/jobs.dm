@@ -30,57 +30,6 @@
 #define JOB_BITFLAG_SELECTABLE (1<<0) // basically given to all 'standard' jobs (not gimmicks). if a gimmick job has with this flag, it will be shown in 'job pref' window and people can join a round with that job.
 #define JOB_BITFLAG_GIMMICK    (1<<1) // basically given to all gimmick jobs. this is alwo used to block HoP to touch the amount of a job
 
-
-// Job bitflags
-// Note: I really have no idea what these are for
-#define ENGSEC			(1<<0)
-
-#define CAPTAIN			(1<<0)
-#define HOS				(1<<1)
-#define WARDEN			(1<<2)
-#define DETECTIVE		(1<<3)
-#define OFFICER			(1<<4)
-#define CHIEF			(1<<5)
-#define ENGINEER		(1<<6)
-#define ATMOSTECH		(1<<7)
-#define ROBOTICIST		(1<<8)
-#define AI_JF			(1<<9)
-#define CYBORG			(1<<10)
-#define BRIG_PHYS		(1<<11)
-#define DEPUTY  		(1<<12)
-
-#define RD_JF			(1<<0)
-#define SCIENTIST		(1<<1)
-#define EXPLORATION_CREW (1<<2)
-#define CHEMIST			(1<<3)
-#define CMO_JF			(1<<4)
-#define DOCTOR			(1<<5)
-#define GENETICIST		(1<<6)
-#define VIROLOGIST		(1<<7)
-#define PARAMEDIC		(1<<8)
-
-
-#define CIVILIAN		(1<<2)
-
-#define HOP				(1<<0)
-#define BARTENDER		(1<<1)
-#define BOTANIST		(1<<2)
-#define COOK			(1<<3)
-#define JANITOR			(1<<4)
-#define CURATOR			(1<<5)
-#define QUARTERMASTER	(1<<6)
-#define CARGOTECH		(1<<7)
-#define MINER			(1<<8)
-#define LAWYER			(1<<9)
-#define CHAPLAIN		(1<<10)
-#define CLOWN			(1<<11)
-#define MIME			(1<<12)
-#define ASSISTANT		(1<<13)
-#define BARBER		    (1<<14)
-#define MAGICIAN        (1<<15)
-#define PSYCHIATRIST    (1<<16)
-#define CELEBRITY       (1<<17)
-
 // return values for job selection results
 #define JOB_AVAILABLE 0
 #define JOB_UNAVAILABLE_GENERIC 1

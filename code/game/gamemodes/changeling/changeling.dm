@@ -75,7 +75,7 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 		return
 	if(changelings.len <= (changelingcap - 2) || prob(100 - (csc * 2)))
 		if(ROLE_KEY_CHANGELING in character.client.prefs.be_special)
-			if(!is_banned_from(character.ckey, list(ROLE_BANCHECK_MAJOR_ANTAGONIST, ROLE_KEY_CHANGELING, ROLE_KEY_TRAITOR)) && !QDELETED(character))
+			if(!is_banned_from(character.ckey, list(BANCHECK_ROLE_MAJOR_ANTAGONIST, ROLE_KEY_CHANGELING, ROLE_KEY_TRAITOR)) && !QDELETED(character))
 				if(age_check(character.client))
 					if(!character.mind.has_job(restricted_jobs))
 						character.mind.make_Changeling()

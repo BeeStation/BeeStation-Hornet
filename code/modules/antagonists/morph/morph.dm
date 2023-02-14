@@ -283,10 +283,10 @@
 
 /datum/round_event/ghost_role/morph
 	minimum_required = 1
-	role_name = ROLE_MORPH
+	role_name = ROLE_KEY_MORPH
 
 /datum/round_event/ghost_role/morph/spawn_role()
-	var/list/candidates = get_candidates(ROLE_MORPH, null, ROLE_MORPH)
+	var/list/candidates = get_candidates(ROLE_KEY_MORPH, null, ROLE_KEY_MORPH)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 

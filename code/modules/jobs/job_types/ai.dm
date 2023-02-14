@@ -2,9 +2,7 @@
 	jkey = JOB_KEY_AI
 	jtitle = JOB_NAME_AI
 	job_bitflags = JOB_BITFLAG_SELECTABLE
-	flag = AI_JF
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SILICON
-	department_flag = ENGSEC
 	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1

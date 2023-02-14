@@ -204,7 +204,7 @@
 				if(!storedid)//is the ID still there?
 					return
 				storedid.icon_state = get_cardstyle_by_jobname(newidskin)
-				storedid.hud_state = get_hud_by_jobname(newidskin)
+				storedid.hud_state = get_hud_by_jobkey(newidskin)
 
 				// QoL to correct the system behavior
 				GLOB.data_core.manifest_modify(storedid.registered_name, storedid.assignment, storedid.hud_state) // update crew manifest

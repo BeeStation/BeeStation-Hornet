@@ -2,7 +2,6 @@
 	jkey = JOB_KEY_RESEARCHDIRECTOR
 	jtitle = JOB_NAME_RESEARCHDIRECTOR
 	job_bitflags = JOB_BITFLAG_SELECTABLE
-	flag = RD_JF
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"

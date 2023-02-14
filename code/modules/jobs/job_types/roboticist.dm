@@ -2,7 +2,6 @@
 	jkey = JOB_KEY_ROBOTICIST
 	jtitle = JOB_NAME_ROBOTICIST
 	job_bitflags = JOB_BITFLAG_SELECTABLE
-	flag = ROBOTICIST
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
 	faction = FACTION_STATION

@@ -76,7 +76,7 @@
 
 // This returns a hud icon (from `hud.dmi`) by given job name.
 // Some custom title is from `PDApainter.dm`. You neec to check it if you're going to remove custom job.
-/proc/get_hud_by_jobname(jobname)
+/proc/get_hud_by_jobkey(jobname)
 	if(!jobname)
 		CRASH("The proc has taken a null value")
 

@@ -2,7 +2,6 @@
 	jkey = JOB_KEY_BRIGPHYSICIAN
 	jtitle = JOB_NAME_BRIGPHYSICIAN
 	job_bitflags = JOB_BITFLAG_SELECTABLE
-	flag = BRIG_PHYS
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "chief medical officer"
 	faction = FACTION_STATION
@@ -17,7 +16,6 @@
 	access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_MEDICAL, ACCESS_BRIGPHYS)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_MEDICAL, ACCESS_BRIGPHYS)
 
-	department_flag = ENGSEC
 	departments = DEPT_BITFLAG_MED | DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)

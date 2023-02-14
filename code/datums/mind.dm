@@ -277,7 +277,7 @@
 	return mind_roles[RLPK_DISPLAY_SPECIAL_ROLE] // can return null
 
 //-------------------------------------------------------------------------------
-/datum/mind/proc/assign_crew_role(datum/job/J)
+/datum/mind/proc/assign_station_role(datum/job/J)
 	if(!J)
 		return
 	if(!istype(J))
@@ -927,7 +927,7 @@
 /mob/living/silicon/robot/mind_initialize()
 	..()
 	mind.set_job(JOB_KEY_CYBORG)
-	// assign_crew_role() proc doesn't fit here, because they can be syndi-borg
+	// assign_station_role() proc doesn't fit here, because they can be syndi-borg
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()

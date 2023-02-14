@@ -40,7 +40,7 @@
 		return FALSE
 	if(!considered_alive(applicant.mind) || considered_afk(applicant.mind)) //makes sure the player isn't a zombie, brain, or just afk all together
 		return FALSE
-	return !is_banned_from(applicant.ckey, list(targetrole, ROLE_BANCHECK_MAJOR_ANTAGONIST))
+	return !is_banned_from(applicant.ckey, list(targetrole, BANCHECK_ROLE_MAJOR_ANTAGONIST))
 
 
 /datum/admins/proc/makeTraitors(maxCount = 3)

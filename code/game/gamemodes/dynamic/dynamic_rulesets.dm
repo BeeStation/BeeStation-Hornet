@@ -219,11 +219,11 @@
 		if(P.mind.get_special_role()) // We really don't want to give antag to an antag.
 			candidates.Remove(P)
 		else if(antag_flag_override)
-			if(!(antag_flag_override in client.prefs.be_special) || is_banned_from(P.ckey, list(ROLE_BANCHECK_MAJOR_ANTAGONIST, antag_flag_override)))
+			if(!(antag_flag_override in client.prefs.be_special) || is_banned_from(P.ckey, list(BANCHECK_ROLE_MAJOR_ANTAGONIST, antag_flag_override)))
 				candidates.Remove(P)
 				continue
 		else
-			if(!(antag_flag in client.prefs.be_special) || is_banned_from(P.ckey, list(ROLE_BANCHECK_MAJOR_ANTAGONIST, antag_flag)))
+			if(!(antag_flag in client.prefs.be_special) || is_banned_from(P.ckey, list(BANCHECK_ROLE_MAJOR_ANTAGONIST, antag_flag)))
 				candidates.Remove(P)
 				continue
 

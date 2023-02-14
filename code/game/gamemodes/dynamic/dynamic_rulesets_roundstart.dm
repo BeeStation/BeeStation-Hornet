@@ -344,7 +344,7 @@
 /datum/dynamic_ruleset/roundstart/revs
 	name = "Revolution"
 	persistent = TRUE
-	antag_flag = ROLE_BANCHECK_REV_HEAD
+	antag_flag = BANCHECK_ROLE_REV_HEAD
 	antag_flag_override = ROLE_KEY_REVOLUTION
 	antag_datum = /datum/antagonist/rev/head
 	minimum_required_age = 14

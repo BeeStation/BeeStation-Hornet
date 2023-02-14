@@ -432,12 +432,12 @@
 
 	for(var/mob/dead/observer/G in GLOB.player_list)
 		candidates += G
-	
-	if(!islist(jobbanType)) // injects ROLE_BANCHECK_MAJOR_GHOSTSPAWN. it blocks every ghost having it banned
+
+	if(!islist(jobbanType)) // injects BANCHECK_ROLE_MAJOR_GHOSTSPAWN. it blocks every ghost having it banned
 		if(jobbanType)
-			jobbanType = list(ROLE_BANCHECK_MAJOR_GHOSTSPAWN, jobbanType)
+			jobbanType = list(BANCHECK_ROLE_MAJOR_GHOSTSPAWN, jobbanType)
 		else
-			jobbanType = ROLE_BANCHECK_MAJOR_GHOSTSPAWN
+			jobbanType = BANCHECK_ROLE_MAJOR_GHOSTSPAWN
 	else
 		jobbanType |= jobbanType
 
@@ -459,7 +459,7 @@
 			if(!gametypeCheck.age_check(M.client))
 				continue
 		if(jobbanType)
-			if(QDELETED(M) || is_banned_from(M.ckey, list(jobbanType, ROLE_BANCHECK_MAJOR_ANTAGONIST)))
+			if(QDELETED(M) || is_banned_from(M.ckey, list(jobbanType, BANCHECK_ROLE_MAJOR_ANTAGONIST)))
 				continue
 		if(req_hours) //minimum living hour count
 			if((M.client.get_exp_living(TRUE)/60) < req_hours)

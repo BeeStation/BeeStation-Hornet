@@ -2,17 +2,17 @@
 	g_jkey = JOB_KEY_VIP
 	g_jtitle = JOB_NAME_VIP
 	job_bitflags = JOB_BITFLAG_GIMMICK
-	flag = CELEBRITY
 	department_head = list()
 	supervisors = "yourself"
 	antag_rep = 3 // you're having fun with shitton of money already
+	total_positions = 0
+	spawn_positions = 0
 
 	outfit = /datum/outfit/job/vip
 
 	access = list(ACCESS_MAINT_TUNNELS) //Assistants with shitloads of money, what could go wrong?
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_VIP
 	bank_account_department = ACCOUNT_VIP_BITFLAG
 	payment_per_department = list(ACCOUNT_VIP_ID = PAYCHECK_VIP)  //our power is being fucking rich

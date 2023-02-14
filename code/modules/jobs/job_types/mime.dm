@@ -2,7 +2,6 @@
 	jkey = JOB_KEY_MIME
 	jtitle = JOB_NAME_MIME
 	job_bitflags = JOB_BITFLAG_SELECTABLE
-	flag = MIME
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = FACTION_STATION
@@ -15,7 +14,6 @@
 	access = list(ACCESS_THEATRE)
 	minimal_access = list(ACCESS_THEATRE)
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)

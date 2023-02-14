@@ -55,11 +55,11 @@
 			trimmed_list.Remove(M)
 			continue
 		if(antag_flag_override)
-			if(!(antag_flag_override in M.client.prefs.be_special) || is_banned_from(M.ckey, list(ROLE_BANCHECK_MAJOR_ANTAGONIST, antag_flag_override)))
+			if(!(antag_flag_override in M.client.prefs.be_special) || is_banned_from(M.ckey, list(BANCHECK_ROLE_MAJOR_ANTAGONIST, antag_flag_override)))
 				trimmed_list.Remove(M)
 				continue
 		else
-			if(!(antag_flag in M.client.prefs.be_special) || is_banned_from(M.ckey, list(ROLE_BANCHECK_MAJOR_ANTAGONIST, antag_flag)))
+			if(!(antag_flag in M.client.prefs.be_special) || is_banned_from(M.ckey, list(BANCHECK_ROLE_MAJOR_ANTAGONIST, antag_flag)))
 				trimmed_list.Remove(M)
 				continue
 		if (M.mind)
@@ -489,7 +489,7 @@
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/space_dragon
 	antag_flag = ROLE_KEY_SPACE_DRAGON
-	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	enemy_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_DETECTIVE, JOB_KEY_WARDEN, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
 	required_enemies = list(1,1,1,1,0,0,0,0,0,0)
 	required_candidates = 1
 	weight = 4
@@ -619,7 +619,7 @@
 /datum/dynamic_ruleset/midround/pirates
 	name = "Space Pirates"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
-	antag_flag = ROLE_SPACE_PIRATE
+	antag_flag = ROLE_KEY_SPACE_PIRATE
 	required_type = /mob/dead/observer
 	enemy_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_DETECTIVE, JOB_KEY_WARDEN, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
 	required_enemies = list(2,2,2,1,1,1,1,0,0,0)
@@ -692,7 +692,7 @@
 	antag_flag = ROLE_KEY_SPIDER
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	required_type = /mob/dead/observer
-	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	enemy_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_DETECTIVE, JOB_KEY_WARDEN, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 2
 	weight = 3
@@ -746,8 +746,8 @@
 	name = "Swarmer"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/swarmer
-	antag_flag = ROLE_SWARMER
-	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	antag_flag = ROLE_KEY_SWARMER
+	enemy_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_DETECTIVE, JOB_KEY_WARDEN, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
 	required_enemies = list(1,1,1,1,0,0,0,0,0,0)
 	required_candidates = 1
 	weight = 3
@@ -785,8 +785,8 @@
 	name = "Morph"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/morph
-	antag_flag = ROLE_MORPH
-	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	antag_flag = ROLE_KEY_MORPH
+	enemy_roles = list(JOB_KEY_SECURITYOFFICER, JOB_KEY_DETECTIVE, JOB_KEY_WARDEN, JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN)
 	required_enemies = list(2,2,1,1,1,1,1,1,0,0)
 	required_candidates = 1
 	weight = 3

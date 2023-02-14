@@ -29,11 +29,7 @@
 	var/list/head_announce = null
 
 	///Bitflags for the job
-	var/flag = NONE //Deprecated //Except not really, still used throughout the codebase
 	var/auto_deadmin_role_flags = NONE
-
-	///Mostly deprecated, but only used in pref job savefiles
-	var/department_flag = NONE
 
 	///Players will be allowed to spawn in as jobs that are set to "Station"
 	var/faction = "None"
@@ -397,7 +393,7 @@
 	var/datum/symptom/guaranteed
 	var/sickrisk = 1
 	var/unfunny = 4
-	if((flag == CLOWN) || (flag == MIME))
+	if((jkey == JOB_KEY_CLOWN) || (jkey == JOB_KEY_MIME))
 		unfunny = 0
 	if(islizard(H) || iscatperson(H))
 		sickrisk += 0.5 //these races like eating diseased mice, ew

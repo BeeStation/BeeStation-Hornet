@@ -298,7 +298,7 @@
 					O.make_laws()
 
 			SSticker.mode.remove_antag_for_borging(BM.mind)
-			O.mind.assign_crew_role(JOB_KEY_CYBORG)
+			O.mind.assign_station_role(JOB_KEY_CYBORG)
 
 			O.cell = chest.cell
 			chest.cell.forceMove(O)

@@ -2,6 +2,8 @@
 	g_jkey = JOB_KEY_PSYCHIATRIST
 	g_jtitle = JOB_NAME_PSYCHIATRIST
 	job_bitflags = JOB_BITFLAG_GIMMICK
+	total_positions = 0
+	spawn_positions = 0
 
 	outfit = /datum/outfit/job/psychiatrist
 

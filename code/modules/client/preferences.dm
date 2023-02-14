@@ -698,9 +698,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			// --------------------------------------------
 			// warning pannel
 			var/banned = 0
-			if(is_banned_from(user.ckey, ROLE_BANCHECK_MAJOR_ANTAGONIST))
+			if(is_banned_from(user.ckey, BANCHECK_ROLE_MAJOR_ANTAGONIST))
 				banned |= (1<<0)
-			if(is_banned_from(user.ckey, ROLE_BANCHECK_MAJOR_GHOSTSPAWN))
+			if(is_banned_from(user.ckey, BANCHECK_ROLE_MAJOR_GHOSTSPAWN))
 				banned |= (1<<1)
 			if(banned)
 				dat += "<h2>Notification</h2>"
@@ -736,8 +736,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			for (var/count in 1 to length(ghost_roles_list))
 				if(count == 1)
 					dat += "<h2>Midround antagonists</h2>"
-				else
-					dat += "<h2>Ghost notifying roles</h2>"
+				else if(count == 2)
+					dat += "<h2>Ghost spawning roles</h2>"
 				for (var/each_role in ghost_roles_list[count])
 					if(is_banned_from(user.ckey, each_role))
 						dat += "<b>Be [capitalize(each_role)]:</b> <a href='?_src_=prefs;bancheck=[each_role]'>BANNED</a><br>"

@@ -60,6 +60,17 @@
 	// `priority_candidates` first, and ghost roles randomly shuffled and
 	// appended after
 	var/list/mob/dead/observer/regular_candidates
+
+	// refresh ban checks
+	if(!islist(jobban))
+		if(jobban in GLOB.midround_antag_list+GLOB.roundstart_antag_prefs)
+			jobban = list(BANCHECK_ROLE_MAJOR_ANTAGONIST, jobban)
+	else
+		for(var/each in jobban)
+			if(each in GLOB.midround_antag_list+GLOB.roundstart_antag_prefs)
+				jobban += BANCHECK_ROLE_MAJOR_ANTAGONIST
+				break
+
 	// don't get their hopes up
 	if(priority_candidates.len < minimum_required)
 		regular_candidates = pollGhostCandidates("Do you wish to be considered for the special role of '[role_name]'?", jobban, gametypecheck, be_special)

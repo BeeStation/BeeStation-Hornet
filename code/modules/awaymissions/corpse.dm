@@ -29,7 +29,7 @@
 	var/spawner_special_role
 	var/spawner_special_role_name // basically 'name' variable is the special role name, but use this when you want different title
 	var/show_flavour = TRUE
-	var/banType = list(ROLE_BANCHECK_MAJOR_GHOSTSPAWN) // basically checks ghost ban, and spawner_special_role is added to this as well
+	var/banType = list(BANCHECK_ROLE_MAJOR_GHOSTSPAWN) // basically checks ghost ban, and spawner_special_role is added to this as well
 	var/ghost_usable = TRUE
 	var/use_cooldown = FALSE
 
@@ -66,7 +66,7 @@
 		LAZYADD(GLOB.mob_spawners[name], src)
 		SSmobs.update_spawners()
 	if(spawner_special_role in GLOB.midround_antag_list) // if the role is in the antag list, prob you should bancheck that too
-		banType |= ROLE_BANCHECK_MAJOR_ANTAGONIST
+		banType |= BANCHECK_ROLE_MAJOR_ANTAGONIST
 	banType |= spawner_special_role
 
 /obj/effect/mob_spawn/Destroy()

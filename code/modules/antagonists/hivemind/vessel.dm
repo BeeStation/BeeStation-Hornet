@@ -2,8 +2,8 @@
 
 /datum/antagonist/hivevessel
 	name = "Awoken Vessel"
-	antag_role_type = ROLE_BANCHECK_HIVEVESSEL
-	antag_major_bancheck_type = ROLE_BANCHECK_BRAINWASHED
+	antag_role_type = BANCHECK_ROLE_HIVEVESSEL
+	antag_major_bancheck_type = BANCHECK_ROLE_BRAINWASHED
 	roundend_category = "awoken vessels"
 	antagpanel_category = "Other"
 	show_name_in_check_antagonists = TRUE

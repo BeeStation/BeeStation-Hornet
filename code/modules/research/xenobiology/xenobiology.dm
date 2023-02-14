@@ -808,7 +808,7 @@
 	if(SM.sentience_type != animal_type)
 		to_chat(user, "<span class='warning'>You cannot transfer your consciousness to [SM].</span>" )
 		return ..()
-	var/jb = is_banned_from(user.ckey, ROLE_BANCHECK_MIND_TRANSFER)
+	var/jb = is_banned_from(user.ckey, BANCHECK_BEHAVIOR_MIND_TRANSFER)
 	if(QDELETED(src) || QDELETED(M) || QDELETED(user))
 		return
 

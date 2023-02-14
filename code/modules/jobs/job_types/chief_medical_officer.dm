@@ -2,7 +2,6 @@
 	jkey = JOB_KEY_CHIEFMEDICALOFFICER
 	jtitle = JOB_NAME_CHIEFMEDICALOFFICER
 	job_bitflags = JOB_BITFLAG_SELECTABLE
-	flag = CMO_JF
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD

@@ -134,7 +134,7 @@
 
 /obj/item/card/id/proc/set_hud_icon_on_spawn(jobname)
 	if(jobname)
-		var/temp = get_hud_by_jobname(jobname)
+		var/temp = get_hud_by_jobkey(jobname)
 		if(temp != JOB_HUD_UNKNOWN)
 			hud_state = temp
 	// This is needed for some irregular jobs
@@ -488,7 +488,7 @@ update_label("John Doe", "Clowny")
 			assignment = capitalize(target_occupation)
 			if(target_id_style)
 				icon_state = get_cardstyle_by_jobname(target_id_style)
-				hud_state = get_hud_by_jobname(target_id_style)
+				hud_state = get_hud_by_jobkey(target_id_style)
 				var/mob/living/carbon/human/H = user
 				H.sec_hud_set_ID()
 			update_label()

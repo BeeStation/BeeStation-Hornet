@@ -177,7 +177,7 @@
 	roundend_category = "abductees"
 	antagpanel_category = "Abductee"
 	antag_role_type = NONE
-	antag_major_bancheck_type = ROLE_BANCHECK_BRAINWASHED
+	antag_major_bancheck_type = BANCHECK_ROLE_BRAINWASHED
 
 /datum/antagonist/abductee/on_gain()
 	give_objective()

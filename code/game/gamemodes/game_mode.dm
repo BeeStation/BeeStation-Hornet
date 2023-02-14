@@ -487,7 +487,7 @@
 	for(var/mob/dead/new_player/player in players)
 		if(player.client && player.ready == PLAYER_READY_TO_PLAY)
 			if(role in player.client.prefs.be_special)
-				if(!is_banned_from(player.ckey, list(ROLE_BANCHECK_MAJOR_ANTAGONIST, role)) && !QDELETED(player))
+				if(!is_banned_from(player.ckey, list(BANCHECK_ROLE_MAJOR_ANTAGONIST, role)) && !QDELETED(player))
 					if(age_check(player.client)) //Must be older than the minimum age
 						candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
 
@@ -501,7 +501,7 @@
 		for(var/mob/dead/new_player/player in players)
 			if(player.client && player.ready == PLAYER_READY_TO_PLAY)
 				if(!(role in player.client.prefs.be_special)) // We don't have enough people who want to be antagonist, make a separate list of people who don't want to be one
-					if(!is_banned_from(player.ckey, list(ROLE_BANCHECK_MAJOR_ANTAGONIST, role)) && !QDELETED(player))
+					if(!is_banned_from(player.ckey, list(BANCHECK_ROLE_MAJOR_ANTAGONIST, role)) && !QDELETED(player))
 						drafted += player.mind
 
 	if(restricted_jobs)
@@ -551,7 +551,7 @@
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(player.client && is_station_level(player.z))
 			if(role in player.client.prefs.be_special)
-				if(!is_banned_from(player.ckey, list(ROLE_BANCHECK_MAJOR_ANTAGONIST, role)) && !QDELETED(player))
+				if(!is_banned_from(player.ckey, list(BANCHECK_ROLE_MAJOR_ANTAGONIST, role)) && !QDELETED(player))
 					if(age_check(player.client) && !player.mind.get_special_role()) //Must be older than the minimum age
 						candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
 

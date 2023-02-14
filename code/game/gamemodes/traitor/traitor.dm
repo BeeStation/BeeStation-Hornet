@@ -90,7 +90,7 @@
 		return
 	if((SSticker.mode.traitors.len + pre_traitors.len) <= (traitorcap - 2) || prob(100 / (tsc * 2)))
 		if(antag_flag in character.client.prefs.be_special)
-			if(!is_banned_from(character.ckey, list(ROLE_BANCHECK_MAJOR_ANTAGONIST, ROLE_KEY_TRAITOR)) && !QDELETED(character))
+			if(!is_banned_from(character.ckey, list(BANCHECK_ROLE_MAJOR_ANTAGONIST, ROLE_KEY_TRAITOR)) && !QDELETED(character))
 				if(age_check(character.client))
 					if(!character.mind.has_job(restricted_jobs))
 						add_latejoin_traitor(character.mind)

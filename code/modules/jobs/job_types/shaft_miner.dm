@@ -2,7 +2,6 @@
 	jkey = JOB_KEY_SHAFTMINER
 	jtitle = JOB_NAME_SHAFTMINER
 	job_bitflags = JOB_BITFLAG_SELECTABLE
-	flag = MINER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the quartermaster and the head of personnel"
 	faction = FACTION_STATION
@@ -17,7 +16,6 @@
 	minimal_access = list(ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM,
 					ACCESS_AUX_BASE)
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_CAR
 	bank_account_department = ACCOUNT_CAR_BITFLAG
 	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_HARD)

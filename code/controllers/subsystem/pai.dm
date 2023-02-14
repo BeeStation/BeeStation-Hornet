@@ -85,7 +85,7 @@ SUBSYSTEM_DEF(pai)
 		return
 	/// The matching candidate from search
 	var/datum/pai_candidate/candidate = candidates[usr.ckey]
-	if(is_banned_from(usr.ckey, list(ROLE_BANCHECK_MAJOR_GHOSTSPAWN, ROLE_KEY_PAI)))
+	if(is_banned_from(usr.ckey, list(BANCHECK_ROLE_MAJOR_GHOSTSPAWN, ROLE_KEY_PAI)))
 		to_chat(usr, "<span class='warning'>You are banned from playing pAI!</span>")
 		ui.close()
 		return FALSE

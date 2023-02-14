@@ -4,7 +4,7 @@ SUBSYSTEM_DEF(job)
 	flags = SS_NO_FIRE
 
 	var/list/occupations = list()		//List of all jobs
-	var/list/datum/job/name_occupations = list()	//Dict of all jobs, keys are titles
+	var/list/name_occupations = list()	//Dict of all jobs, keys are titles
 	var/list/type_occupations = list()	//Dict of all jobs, keys are types
 	var/list/unassigned = list()		//Players who need jobs
 	var/initial_players_to_assign = 0 	//used for checking against population caps
@@ -12,7 +12,7 @@ SUBSYSTEM_DEF(job)
 	var/list/prioritized_jobs = list()
 	var/list/latejoin_trackers = list()	//Don't read this list, use GetLateJoinTurfs() instead
 
-	var/overflow_role = JOB_KEY_ASSISTANT
+	var/overflow_role = JOB_KEY_ASSISTANT // this value will be changed by `set_overflow_role()` proc later
 
 	var/list/level_order = list(JP_HIGH,JP_MEDIUM,JP_LOW)
 
@@ -89,9 +89,9 @@ SUBSYSTEM_DEF(job)
 			testing("Removed [job.type] due to map config")
 			continue
 
-		if(job.job_bitflags & JOB_BITFLAG_GIMMICK) // setting gimmick positions to 0 at default
-			job.total_positions = 0
-			job.spawn_positions = 0
+		if(job.job_bitflags & JOB_BITFLAG_GIMMICK) // if a gimmick job has a slot, set it to selectable
+			if(job.total_positions || job.spawn_positions)
+				job_bitflags |= JOB_BITFLAG_SELECTABLE
 
 		occupations += job
 		// Key is job path. gimmick job path is prioritised if it exists.
@@ -159,7 +159,7 @@ SUBSYSTEM_DEF(job)
 			position_limit = job.spawn_positions
 		JobDebug("Player: [player] is now Rank: [job_key], JCP:[job.current_positions], JPL:[position_limit]")
 
-		player.mind.assign_crew_role(job)
+		player.mind.assign_station_role(job)
 		unassigned -= player
 		job.current_positions++
 		return TRUE
@@ -495,7 +495,7 @@ SUBSYSTEM_DEF(job)
 
 	var/datum/job/job = GetJob(job_key)
 	if(living_mob.mind)
-		living_mob.mind.assign_crew_role(job) // stores a job string in your mind
+		living_mob.mind.assign_station_role(job) // stores a job string in your mind
 
 	//If we joined at roundstart we should be positioned at our workstation
 	if(!joined_late)

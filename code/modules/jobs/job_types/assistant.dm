@@ -5,7 +5,6 @@ Assistant
 	jkey = JOB_KEY_ASSISTANT
 	jtitle = JOB_NAME_ASSISTANT
 	job_bitflags = JOB_BITFLAG_SELECTABLE
-	flag = ASSISTANT
 	supervisors = "absolutely everyone"
 	faction = FACTION_STATION
 	total_positions = 5
@@ -18,7 +17,6 @@ Assistant
 	access = list()			//See /datum/job/assistant/get_access()
 	minimal_access = list()	//See /datum/job/assistant/get_access()
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = NONE // nothing is free for them
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT) // Get a job. Job reassignment changes your paycheck now. Get over it.

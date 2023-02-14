@@ -2,7 +2,6 @@
 	jkey = JOB_KEY_CAPTAIN
 	jtitle = JOB_NAME_CAPTAIN
 	job_bitflags = JOB_BITFLAG_SELECTABLE
-	flag = CAPTAIN
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD|PREFTOGGLE_DEADMIN_POSITION_SECURITY
 	department_head = list("CentCom")
 	supervisors = "Nanotrasen officials and Space law"
@@ -21,7 +20,6 @@
 	access = list() 			//See get_access()
 	minimal_access = list() 	//See get_access()
 
-	department_flag = ENGSEC
 	departments = DEPT_BITFLAG_COM
 	bank_account_department = ACCOUNT_SEC_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(

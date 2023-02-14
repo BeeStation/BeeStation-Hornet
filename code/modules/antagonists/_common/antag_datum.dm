@@ -13,7 +13,7 @@ GLOBAL_LIST(admin_antag_list)
 	var/list/typecache_datum_blacklist = list()	//List of datums this type can't coexist with
 	var/delete_on_mind_deletion = TRUE
 	var/antag_role_type = ROLE_KEY_UNDEFINED_ANTAG_ROLE
-	var/antag_major_bancheck_type = ROLE_BANCHECK_MAJOR_ANTAGONIST
+	var/antag_major_bancheck_type = BANCHECK_ROLE_MAJOR_ANTAGONIST
 	var/give_objectives = TRUE //Should the default objectives be generated?
 	var/replace_banned = TRUE //Should replace jobbanned player with ghosts if granted.
 	var/list/objectives = list()

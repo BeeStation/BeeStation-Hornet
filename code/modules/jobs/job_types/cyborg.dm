@@ -2,9 +2,7 @@
 	jkey = JOB_KEY_CYBORG
 	jtitle = JOB_NAME_CYBORG
 	job_bitflags = JOB_BITFLAG_SELECTABLE
-	flag = CYBORG
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SILICON
-	department_flag = ENGSEC
 	faction = FACTION_STATION
 	total_positions = 0
 	spawn_positions = 1

@@ -2,16 +2,16 @@
 	g_jkey = JOB_KEY_BARBER
 	g_jtitle = JOB_NAME_BARBER
 	job_bitflags = JOB_BITFLAG_GIMMICK
-	flag = BARBER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
+	total_positions = 0
+	spawn_positions = 0
 
 	outfit = /datum/outfit/job/barber
 
 	access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_ASSISTANT)

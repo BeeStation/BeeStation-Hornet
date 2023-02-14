@@ -244,7 +244,7 @@
 	G.fields["id"]			= id
 	G.fields["name"]		= H.real_name
 	G.fields["rank"]		= assignment
-	G.fields["hud"]			= get_hud_by_jobname(job_key)
+	G.fields["hud"]			= get_hud_by_jobkey(job_key)
 	G.fields["active_dept"]	= SSjob.GetJobActiveDepartment(job_key)
 	G.fields["age"]			= H.age
 	G.fields["species"]     = H.dna.species.name
