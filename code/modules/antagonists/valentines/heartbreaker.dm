@@ -12,7 +12,7 @@
 	O.completed = TRUE // no good way to check this
 	objectives += O
 	log_objective(owner, O.explanation_text)
-	if(prob(15)) // rare chance to get martyr, really ruin those dates!
+	if(prob(30)) // rare chance to get martyr, really ruin those dates!
 		O.explanation_text = "Ruin people's dates however necessary."
 		var/datum/objective/martyr/normiesgetout = new
 		normiesgetout.owner = owner
