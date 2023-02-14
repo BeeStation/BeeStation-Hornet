@@ -58,11 +58,11 @@
 	..()
 	explanation_text = "Ruin people's dates through non-lethal means."
 
-/datum/objective/heartbroken/murderbone
+/datum/objective/heartbroken/murder
 	name = "murdery heartbroken"
 	explanation_text = "Ruin people's dates however necessary."
 	murderbone_flag = TRUE
 
-/datum/objective/heartbroken/update_explanation_text()
+/datum/objective/heartbroken/murder/update_explanation_text()
 	..()
 	explanation_text = "Ruin people's dates however necessary."
