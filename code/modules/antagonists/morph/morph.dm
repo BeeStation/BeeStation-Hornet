@@ -266,6 +266,10 @@
 /mob/living/simple_animal/hostile/morph/mind_initialize()
 	. = ..()
 	to_chat(src, playstyle_string)
+	// sometimes the datum is not added for a bit
+	addtimer(CALLBACK(src, .proc/notify_non_antag), 3 SECONDS)
+
+/mob/living/simple_animal/hostile/morph/proc/notify_non_antag()
 	if(!mind.has_antag_datum(/datum/antagonist/morph))
 		to_chat(src, "<span class='boldwarning'>If you were not an antagonist before you did not become one now. You still retain your retain your original loyalties and mind!</span>")
 
@@ -279,10 +283,10 @@
 
 /datum/round_event/ghost_role/morph
 	minimum_required = 1
-	role_name = "morphling"
+	role_name = ROLE_MORPH
 
 /datum/round_event/ghost_role/morph/spawn_role()
-	var/list/candidates = get_candidates(ROLE_KEY_XENOMORPH, null, ROLE_KEY_XENOMORPH)
+	var/list/candidates = get_candidates(ROLE_MORPH, null, ROLE_MORPH)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 
