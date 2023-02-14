@@ -227,14 +227,6 @@
 		var/message
 		if(alert)
 			switch(stability)
-				if(70 to 90)
-					message = "<span class='warning'>You shiver.</span>"
-				if(60 to 69)
-					message = "<span class='warning'>You feel cold.</span>"
-				if(40 to 59)
-					message = "<span class='warning'>You feel sick.</span>"
-				if(20 to 39)
-					message = "<span class='warning'>It feels like your skin is moving.</span>"
 				if(1 to 19)
 					message = "<span class='warning'>You can feel your cells burning.</span>"
 				if(-INFINITY to 0)

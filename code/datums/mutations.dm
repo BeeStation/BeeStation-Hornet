@@ -3,8 +3,6 @@
 	var/desc = "A mutation."
 	var/locked
 	var/quality
-	var/text_gain_indication = ""
-	var/text_lose_indication = ""
 	var/static/list/visual_indicators = list()
 	var/obj/effect/proc_holder/spell/power
 	var/layer_used = MUTATIONS_LAYER //which mutation layer to use
@@ -68,8 +66,6 @@
 	owner = C
 	dna = C.dna
 	dna.mutations += src
-	if(text_gain_indication)
-		to_chat(owner, text_gain_indication)
 	if(length(visual_indicators))
 		var/list/mut_overlay = list(get_visual_indicator())
 		if(owner.overlays_standing[layer_used])
@@ -101,8 +97,6 @@
 
 /datum/mutation/proc/on_losing(mob/living/carbon/owner)
 	if(owner && istype(owner) && (owner.dna.mutations.Remove(src)))
-		if(text_lose_indication && owner.stat != DEAD)
-			to_chat(owner, text_lose_indication)
 		if(length(visual_indicators))
 			var/list/mut_overlay = list()
 			if(owner.overlays_standing[layer_used])
