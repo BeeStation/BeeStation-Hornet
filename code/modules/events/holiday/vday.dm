@@ -52,7 +52,11 @@ GLOBAL_LIST(valentine_mobs)
 			forge_valentines_objective(L, date)
 			forge_valentines_objective(date, L)
 		else // Uh oh, you got left out!
-			L.mind.add_antag_datum(/datum/antagonist/heartbreaker)
+			var/datum/antagonist/heartbreaker/D = new
+			if(!D.is_banned(L))
+				L.mind.add_antag_datum(D)
+			else
+				qdel(D)
 
 /proc/forge_valentines_objective(mob/living/lover, mob/living/date)
 	lover.mind.special_role = "valentine"

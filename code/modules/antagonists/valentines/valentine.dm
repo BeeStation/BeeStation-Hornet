@@ -3,6 +3,7 @@
 	roundend_category = "valentines" //there's going to be a ton of them so put them in separate category
 	show_in_antagpanel = FALSE
 	prevent_roundtype_conversion = FALSE
+	replace_banned = FALSE
 	var/datum/mind/date
 	count_against_dynamic_roll_chance = FALSE
 
