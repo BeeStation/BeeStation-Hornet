@@ -112,7 +112,10 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 			discordsendmsg("ooc", "[discord_ooc_tag](OOC) **[sayer]:** [msg]")
 		if(CHAT_TYPE_DEADCHAT) // don't send these until a round is finished
 			if(SSticker.current_state == GAME_STATE_FINISHED)
-				msg = copytext(msg, 24, length(msg)-7) // wipes some bad dchat format
+				var/regex/R = regex("<span class=' '>(.+)</span>\"")
+				if(!R.Find(msg))
+					return
+				msg = R.group[1] // wipes some bad dchat format
 				discordsendmsg("ooc", "[discord_ooc_tag](Dead) **[sayer]:** [msg]")
 
 /proc/toggle_ooc(toggle = null)
