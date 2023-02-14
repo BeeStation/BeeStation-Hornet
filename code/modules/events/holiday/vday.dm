@@ -22,11 +22,11 @@ GLOBAL_LIST(valentine_mobs)
 /datum/round_event/valentines/start()
 	GLOB.valentine_mobs = list()
 	//Blammo
-	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
-		if(M.stat == DEAD || !M.mind || M.mind.has_antag_datum(/datum/antagonist/valentine))
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
+		if(H.stat == DEAD || !H.mind || H.mind.has_antag_datum(/datum/antagonist/valentine))
 			continue
 		var/turf/T = get_turf(H)
-		if(M.mind.assigned_role && SSjob.GetJob(M.mind.assigned_role)) // only give valentines to people who are actually eligible
+		if(H.mind.assigned_role && SSjob.GetJob(H.mind.assigned_role)) // only give valentines to people who are actually eligible
 			H.put_in_hands(new /obj/item/valentine(T))
 			to_chat(H, "<span class='clown'>A message appears in your hand, it looks like it has space to write somebody's name on it!</span>")
 		// everyone else gets chocolates and a heart
