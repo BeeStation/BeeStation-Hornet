@@ -23,11 +23,18 @@ GLOBAL_LIST(valentine_mobs)
 	GLOB.valentine_mobs = list()
 	//Blammo
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
-		H.put_in_hands(new /obj/item/valentine(get_turf(H)))
-		var/obj/item/storage/backpack/b = locate() in H.contents
+		if(M.stat == DEAD || !M.mind || M.mind.has_antag_datum(/datum/antagonist/valentine))
+			continue
+		var/turf/T = get_turf(H)
+		if(M.mind.assigned_role && SSjob.GetJob(M.mind.assigned_role)) // only give valentines to people who are actually eligible
+			H.put_in_hands(new /obj/item/valentine(T))
+			to_chat(H, "<span class='clown'>A message appears in your hand, it looks like it has space to write somebody's name on it!</span>")
+		// everyone else gets chocolates and a heart
+		var/b = locate(/obj/item/storage/backpack) in H.contents
+		if(!b)
+			b = T
 		new /obj/item/reagent_containers/food/snacks/candyheart(b)
 		new /obj/item/storage/fancy/heart_box(b)
-		to_chat(H, "<span class='clown'>A message appears in your hand, it looks like it has space to write somebody's name on it!</span>")
 
 /datum/round_event/valentines/end()
 
