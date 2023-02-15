@@ -230,8 +230,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(should_have_tail && !tail)
 		tail = new mutanttail()
 		if(islizard(C))
-			tail.tail_type = C.dna.features["tail_lizard"]
-			tail.spines = C.dna.features["spines"]
+			var/obj/item/organ/tail/lizard/lizard_tail = tail
+			lizard_tail.tail_type = C.dna.features["tail_lizard"]
+			lizard_tail.spines = C.dna.features["spines"]
+			tail = lizard_tail
 		tail.Insert(C)
 
 	if(wings && (!should_have_wings || replace_current))
