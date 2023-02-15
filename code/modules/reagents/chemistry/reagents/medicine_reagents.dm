@@ -434,7 +434,7 @@
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	overdose_threshold = 125
 
-/datum/reagent/medicine/synthflesh/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message = TRUE)
+/datum/reagent/medicine/synthflesh/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message = TRUE, obj/item/bodypart/affecting)
 	. = ..()
 	if(!iscarbon(exposed_mob))
 		return
