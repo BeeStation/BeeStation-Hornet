@@ -24187,11 +24187,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold/visible,
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "fjG" = (
@@ -49550,6 +49550,20 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/quartermaster/exploration_prep)
+"kuE" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 8;
+	name = "N2O to Pure"
+	},
+/turf/open/floor/plasteel/dark,
+/area/engine/atmos)
 "kuF" = (
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
@@ -51000,15 +51014,14 @@
 /turf/open/floor/grass,
 /area/hydroponics/garden/monastery)
 "kLg" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 8;
-	name = "co2 to Pure"
-	},
 /obj/structure/lattice/catwalk,
 /obj/structure/railing/corner{
 	dir = 8
 	},
 /obj/structure/railing/corner,
+/obj/machinery/atmospherics/pipe/simple/yellow/visible{
+	dir = 4
+	},
 /turf/open/lava/smooth/cold,
 /area/engine/atmos)
 "kLp" = (
@@ -55068,12 +55081,11 @@
 /turf/open/floor/plasteel/tech/grid,
 /area/medical/morgue)
 "lCA" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 8;
-	name = "N2O to Pure"
-	},
 /obj/structure/lattice/catwalk,
 /obj/structure/railing/corner,
+/obj/machinery/atmospherics/pipe/simple/yellow/visible{
+	dir = 4
+	},
 /turf/open/lava/smooth/cold,
 /area/engine/atmos)
 "lCC" = (
@@ -61255,9 +61267,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "mQc" = (
-/obj/machinery/atmospherics/pipe/simple/yellow/visible{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -61270,6 +61279,10 @@
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
+	},
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 8;
+	name = "co2 to Pure"
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
@@ -65607,10 +65620,6 @@
 /turf/open/floor/plasteel/chapel,
 /area/chapel/main/monastery)
 "nOa" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 8;
-	name = "Plasma to Pure"
-	},
 /obj/structure/lattice/catwalk,
 /obj/structure/railing/corner{
 	dir = 8
@@ -65619,6 +65628,9 @@
 	dir = 1
 	},
 /obj/structure/railing/corner,
+/obj/machinery/atmospherics/pipe/simple/yellow/visible{
+	dir = 4
+	},
 /turf/open/lava/smooth/cold,
 /area/engine/atmos)
 "nOe" = (
@@ -81962,6 +81974,20 @@
 	dir = 1
 	},
 /turf/open/floor/engine/air/light,
+/area/engine/atmos)
+"rhb" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 8;
+	name = "Plasma to Pure"
+	},
+/turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "rho" = (
 /obj/structure/chair/wood{
@@ -154736,11 +154762,11 @@ bFq
 ifa
 kjd
 qgC
-dWB
+kuE
 nYd
 sQR
 nYd
-dWB
+rhb
 nYd
 sQR
 nYd
