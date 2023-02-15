@@ -12,6 +12,9 @@
 #define BROKEN_SPARKS_MIN (30 SECONDS)
 #define BROKEN_SPARKS_MAX (90 SECONDS)
 
+///How many reagents the lights can hold
+#define LIGHT_REAGENT_CAPACITY 5
+
 /obj/item/wallframe/light_fixture
 	name = "light fixture frame"
 	desc = "Used for building lights."
@@ -928,23 +931,32 @@
 	if(status == LIGHT_BURNED || status == LIGHT_OK)
 		shatter()
 
-// attack bulb/tube with object
-// if a syringe, can inject plasma to make it explode
-/obj/item/light/attackby(obj/item/I, mob/user, params)
-	..()
-	if(istype(I, /obj/item/reagent_containers/syringe))
-		var/obj/item/reagent_containers/syringe/S = I
+/obj/item/light/create_reagents(max_vol, flags)
+	. = ..()
+	RegisterSignal(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_REM_REAGENT), .proc/on_reagent_change)
+	RegisterSignal(reagents, COMSIG_PARENT_QDELETING, .proc/on_reagents_del)
 
-		to_chat(user, "<span class='notice'>You inject the solution into \the [src].</span>")
+/**
+ * Handles rigging the cell if it contains enough plasma.
+ */
+/obj/item/light/proc/on_reagent_change(datum/reagents/holder, ...)
+	SIGNAL_HANDLER
+	rigged = (reagents.has_reagent(/datum/reagent/toxin/plasma, LIGHT_REAGENT_CAPACITY)) ? TRUE : FALSE //has_reagent returns the reagent datum, we don't want to hold a reference to prevent hard dels
+	return NONE
 
-		if(S.reagents.has_reagent(/datum/reagent/toxin/plasma, 5))
-
-			rigged = TRUE
-
-		S.reagents.clear_reagents()
-	else
-		..()
-	return
+/**
+ * Handles the reagent holder datum being deleted for some reason. Probably someone making pizza lights.
+ */
+/obj/item/light/proc/on_reagents_del(datum/reagents/holder)
+	SIGNAL_HANDLER
+	UnregisterSignal(holder, list(
+		COMSIG_PARENT_QDELETING,
+		COMSIG_REAGENTS_NEW_REAGENT,
+		COMSIG_REAGENTS_ADD_REAGENT,
+		COMSIG_REAGENTS_REM_REAGENT,
+		COMSIG_REAGENTS_DEL_REAGENT,
+	))
+	return NONE
 
 /obj/item/light/attack(mob/living/M, mob/living/user, def_zone)
 	..()

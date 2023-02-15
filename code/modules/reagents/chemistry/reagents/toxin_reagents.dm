@@ -53,6 +53,8 @@
 	C.apply_effect(5,EFFECT_IRRADIATE,0)
 	return ..()
 
+#define LIQUID_PLASMA_BP (50+T0C)
+
 /datum/reagent/toxin/plasma
 	name = "Plasma"
 	description = "Plasma in its liquid form."
@@ -65,18 +67,31 @@
 	process_flags = ORGANIC | SYNTHETIC
 	penetrates_skin = NONE
 
+/datum/reagent/toxin/plasma/on_new(data)
+	. = ..()
+	RegisterSignal(holder, COMSIG_REAGENTS_TEMP_CHANGE, .proc/on_temp_change)
+
+/datum/reagent/toxin/plasma/Destroy()
+	UnregisterSignal(holder, COMSIG_REAGENTS_TEMP_CHANGE)
+	return ..()
+
 /datum/reagent/toxin/plasma/on_mob_life(mob/living/carbon/C)
 	if(holder.has_reagent(/datum/reagent/medicine/epinephrine))
 		holder.remove_reagent(/datum/reagent/medicine/epinephrine, 2*REM)
 	C.adjustPlasma(20)
 	return ..()
 
-/datum/reagent/toxin/plasma/expose_obj(obj/exposed_obj, reac_volume)
-	. = ..()
-	if((!exposed_obj) || (!reac_volume))
+/// Handles plasma boiling.
+/datum/reagent/toxin/plasma/proc/on_temp_change(datum/reagents/_holder, old_temp)
+	SIGNAL_HANDLER
+	if(holder.chem_temp < LIQUID_PLASMA_BP)
 		return
-	var/temp = holder ? holder.chem_temp : T20C
-	exposed_obj.atmos_spawn_air("plasma=[reac_volume];TEMP=[temp]")
+	if(!holder.my_atom)
+		return
+
+	var/atom/A = holder.my_atom
+	A.atmos_spawn_air("plasma=[volume];TEMP=[holder.chem_temp]")
+	holder.del_reagent(type)
 
 /datum/reagent/toxin/plasma/expose_turf(turf/open/exposed_turf, reac_volume)
 	if(!istype(exposed_turf))
