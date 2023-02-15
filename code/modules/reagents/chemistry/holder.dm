@@ -66,16 +66,15 @@
 	flags = new_flags
 
 /datum/reagents/Destroy()
-	. = ..()
 	var/list/cached_reagents = reagent_list
-	for(var/reagent in cached_reagents)
-		var/datum/reagent/R = reagent
-		qdel(R)
+	for(var/datum/reagent/reagent as anything in reagent_list)
+		qdel(reagent)
 	cached_reagents.Cut()
 	cached_reagents = null
 	if(my_atom?.reagents == src)
 		my_atom.reagents = null
 	my_atom = null
+	return ..()
 
 // Used in attack logs for reagents in pills and such
 /datum/reagents/proc/log_list()
@@ -83,9 +82,8 @@
 		return "no reagents"
 
 	var/list/data = list()
-	for(var/r in reagent_list) //no reagents will be left behind
-		var/datum/reagent/R = r
-		data += "[R.type] ([round(R.volume, 0.1)]u)"
+	for(var/datum/reagent/reagent as anything in reagent_list) //no reagents will be left behind
+		data += "[reagent.type] ([round(reagent.volume, 0.1)]u)"
 		//Using IDs because SOME chemicals (I'm looking at you, chlorhydrate-beer) have the same names as other chemicals.
 	return english_list(data)
 
@@ -197,40 +195,39 @@
 		R = target.reagents
 		target_atom = target
 
-
-
 	amount = min(min(amount, src.total_volume), R.maximum_volume-R.total_volume)
 	var/trans_data = null
 	var/transfer_log = list()
 	if(!round_robin)
 		var/part = amount / src.total_volume
-		for(var/reagent in cached_reagents)
-			var/datum/reagent/T = reagent
-			if(remove_blacklisted && (T.chem_flags & CHEMICAL_NOT_SYNTH))
+		for(var/datum/reagent/reagent as anything in cached_reagents)
+			if(remove_blacklisted && (reagent.chem_flags & CHEMICAL_NOT_SYNTH))
 				continue
-			var/transfer_amount = T.volume * part
+			var/transfer_amount = reagent.volume * part
 			if(preserve_data)
-				trans_data = copy_data(T)
-			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1) //we only handle reaction after every reagent has been transfered.
+				trans_data = copy_data(reagent)
+			R.add_reagent(reagent.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1) //we only handle reaction after every reagent has been transfered.
 			if(methods)
-				R.expose_single(T, target_atom, methods, part, show_message)
-				T.on_transfer(target_atom, methods, transfer_amount * multiplier)
-			remove_reagent(T.type, transfer_amount)
-			transfer_log[T.type] = transfer_amount
+				if(istype(target_atom))
+					R.expose_single(reagent, target, methods, part, show_message)
+				else
+					R.expose_single(reagent, target_atom, methods, part, show_message)
+				reagent.on_transfer(target_atom, methods, transfer_amount * multiplier)
+			remove_reagent(reagent.type, transfer_amount)
+			transfer_log[reagent.type] = transfer_amount
 	else
 		var/to_transfer = amount
-		for(var/reagent in cached_reagents)
+		for(var/datum/reagent/reagent as anything in cached_reagents)
 			if(!to_transfer)
 				break
-			var/datum/reagent/T = reagent
-			if(remove_blacklisted && (T.chem_flags & CHEMICAL_NOT_SYNTH))
+			if(remove_blacklisted && (reagent.chem_flags & CHEMICAL_NOT_SYNTH))
 				continue
 			if(preserve_data)
-				trans_data = copy_data(T)
+				trans_data = copy_data(reagent)
 			var/transfer_amount = amount
-			if(amount > T.volume)
-				transfer_amount = T.volume
-			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1)
+			if(amount > reagent.volume)
+				transfer_amount = reagent.volume
+			R.add_reagent(reagent.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1)
 			to_transfer = max(to_transfer - transfer_amount , 0)
 			if(methods)
 				if(isorgan(target_atom))
@@ -238,8 +235,8 @@
 				else
 					R.expose_single(reagent, target_atom, methods, transfer_amount, show_message)
 				reagent.on_transfer(target_atom, methods, transfer_amount * multiplier)
-			remove_reagent(T.type, transfer_amount)
-			transfer_log[T.type] = transfer_amount
+			remove_reagent(reagent.type, transfer_amount)
+			transfer_log[reagent.type] = transfer_amount
 
 	if(transfered_by && target_atom)
 		target_atom.add_hiddenprint(transfered_by) //log prints so admins can figure out who touched it last.
@@ -562,17 +559,16 @@
 				my_atom.on_reagent_change(DEL_REAGENT)
 	return 1
 
+/// Updates [/datum/reagents/var/total_volume]
 /datum/reagents/proc/update_total()
 	var/list/cached_reagents = reagent_list
 	total_volume = 0
-	for(var/reagent in cached_reagents)
-		var/datum/reagent/R = reagent
-		if(R.volume < 0.1)
-			del_reagent(R.type)
+	for(var/datum/reagent/reagent as anything in cached_reagents)
+		if(reagent.volume < 0.1)
+			del_reagent(reagent.type)
 		else
-			total_volume += R.volume
-
-	return 0
+			. += reagent.volume
+	total_volume = .
 
 /datum/reagents/proc/clear_reagents()
 	var/list/cached_reagents = reagent_list
@@ -614,9 +610,8 @@
 		return null
 
 	var/list/reagents = list()
-	for(var/reagent in cached_reagents)
-		var/datum/reagent/R = reagent
-		reagents[R] = R.volume * volume_modifier
+	for(var/datum/reagent/reagent as anything in cached_reagents)
+		reagents[reagent] = reagent.volume * volume_modifier
 
 	return A.expose_reagents(reagents, src, methods, volume_modifier, show_message)
 
@@ -816,17 +811,15 @@
 //two helper functions to preserve data across reactions (needed for xenoarch)
 /datum/reagents/proc/get_data(reagent_id)
 	var/list/cached_reagents = reagent_list
-	for(var/reagent in cached_reagents)
-		var/datum/reagent/R = reagent
-		if(R.type == reagent_id)
-			return R.data
+	for(var/datum/reagent/reagent as anything in cached_reagents)
+		if(reagent.type == reagent_id)
+			return reagent.data
 
 /datum/reagents/proc/set_data(reagent_id, new_data)
 	var/list/cached_reagents = reagent_list
-	for(var/reagent in cached_reagents)
-		var/datum/reagent/R = reagent
-		if(R.type == reagent_id)
-			R.data = new_data
+	for(var/datum/reagent/reagent as anything in cached_reagents)
+		if(reagent.type == reagent_id)
+			reagent.data = new_data
 
 /datum/reagents/proc/copy_data(datum/reagent/current_reagent)
 	if(!current_reagent || !current_reagent.data)
@@ -858,22 +851,22 @@
 	var/list/out = list()
 	var/list/tastes = list() //descriptor = strength
 	if(minimum_percent <= 100)
-		for(var/datum/reagent/R in reagent_list)
-			if(!R.taste_mult)
+		for(var/datum/reagent/reagent as anything in reagent_list)
+			if(!reagent.taste_mult)
 				continue
 
-			if(istype(R, /datum/reagent/consumable/nutriment))
-				var/list/taste_data = R.data
+			if(istype(reagent, /datum/reagent/consumable/nutriment))
+				var/list/taste_data = reagent.data
 				for(var/taste in taste_data)
 					var/ratio = taste_data[taste]
-					var/amount = ratio * R.taste_mult * R.volume
+					var/amount = ratio * reagent.taste_mult * reagent.volume
 					if(taste in tastes)
 						tastes[taste] += amount
 					else
 						tastes[taste] = amount
 			else
-				var/taste_desc = R.taste_description
-				var/taste_amount = R.volume * R.taste_mult
+				var/taste_desc = reagent.taste_description
+				var/taste_amount = reagent.volume * reagent.taste_mult
 				if(taste_desc in tastes)
 					tastes[taste_desc] += taste_amount
 				else
@@ -985,9 +978,9 @@
 			var/i = 0
 			for(var/each_define in chem_defines)
 				i += 1
-				var/datum/reagent/R = thing
-				if(initial(R.chem_flags) & each_define)
-					random_reagent[i] += R
+				var/datum/reagent/reagent = thing
+				if(initial(reagent.chem_flags) & each_define)
+					random_reagent[i] += reagent
 
 	// returns a pick from a static before making a list - saving memory
 	var/j = 0
@@ -1018,7 +1011,7 @@
 	return (return_as_list ? possible : pick(possible))
 
 /proc/get_chem_id(chem_name)
-	for(var/X in GLOB.chemical_reagents_list)
-		var/datum/reagent/R = GLOB.chemical_reagents_list[X]
-		if(ckey(chem_name) == ckey(lowertext(R.name)))
-			return X
+	for(var/entry in GLOB.chemical_reagents_list)
+		var/datum/reagent/reagent = GLOB.chemical_reagents_list[entry]
+		if(ckey(chem_name) == ckey(lowertext(reagent.name)))
+			return entry
