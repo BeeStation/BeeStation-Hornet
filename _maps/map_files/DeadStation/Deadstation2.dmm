@@ -1687,8 +1687,10 @@
 /turf/open/floor/plating,
 /area/maintenance/lower/starboard/aft)
 "gA" = (
-/obj/machinery/space_heater,
 /obj/effect/decal/cleanable/cobweb,
+/obj/structure/toilet{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "gE" = (
@@ -2264,6 +2266,13 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/security)
+"iZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/locker)
 "jb" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -5200,7 +5209,7 @@
 /turf/open/floor/plating,
 /area/maintenance/lower/central)
 "wr" = (
-/obj/structure/closet/secure_closet/personal,
+/obj/machinery/space_heater,
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "ws" = (
@@ -5890,6 +5899,12 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/hallway/lower/primary/aft)
+"zs" = (
+/obj/machinery/door/airlock{
+	name = "Toilet"
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/locker)
 "zt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -6393,7 +6408,13 @@
 /turf/open/floor/wood,
 /area/maintenance/lower/starboard/central)
 "BU" = (
-/obj/machinery/space_heater,
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
+/obj/structure/mirror{
+	pixel_x = 30
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "BV" = (
@@ -8483,9 +8504,9 @@
 /turf/open/floor/plasteel/white,
 /area/security/prison)
 "Lr" = (
-/obj/structure/closet/secure_closet/personal,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/space_heater,
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "Ls" = (
@@ -42180,7 +42201,7 @@ yv
 yv
 Gw
 WR
-MM
+WR
 WR
 Gw
 yv
@@ -42437,7 +42458,7 @@ KU
 KU
 Gw
 gA
-bp
+iZ
 BU
 Gw
 KU
@@ -42693,9 +42714,9 @@ Tv
 KU
 Gw
 Gw
-BU
-yi
-BU
+WR
+zs
+WR
 Gw
 Og
 Og
