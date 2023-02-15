@@ -210,9 +210,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		if("Cancel")
 			return
 		if("Up")
-			travel_z(user, above, UP)
+			if(user.zMove(UP, TRUE))
+				to_chat(user, "<span class='notice'>You move upwards.</span>")
 		if("Down")
-			travel_z(user, below, DOWN)
+			if(user.zMove(DOWN, TRUE))
+				to_chat(user, "<span class='notice'>You move down.</span>")
 
 /turf/proc/travel_z(mob/user, turf/target, dir)
 	var/mob/living/L = user
