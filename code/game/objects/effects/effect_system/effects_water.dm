@@ -21,7 +21,7 @@
 
 /obj/effect/particle_effect/water/Bump(atom/A)
 	if(reagents)
-		reagents.expose(A)
+		reagents.reaction(A)
 	return ..()
 
 ///Extinguisher snowflake
@@ -31,9 +31,9 @@
 	. = ..()
 	if(!reagents)
 		return
-	reagents.expose(get_turf(src))
+	reagents.reaction(get_turf(src))
 	for(var/atom/thing as anything in get_turf(src))
-		reagents.expose(thing)
+		reagents.reaction(thing)
 
 /////////////////////////////////////////////
 // GENERIC STEAM SPREAD SYSTEM
