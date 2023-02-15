@@ -306,13 +306,9 @@
 			recording_recipe = list()
 			. = TRUE
 		if("delete_recipe")
-			var/deletion_target = stripped_input(usr,"Name","please type the recipe you wish to delete", "Recipe", MAX_NAME_LEN)
+			//open a dialogue box to choose what recipe to delete
+			var/deletion_target = input("Select recipe to delete." , "Recipe Deletion") as null|anything in saved_recipes
 			if(!usr.canUseTopic(src, !issilicon(usr)))
-				return
-			if(!saved_recipes.Find(deletion_target))
-				say("No recipe by that name!")
-				return
-			if(saved_recipes[deletion_target] && alert("\"[deletion_target]\" exists, do you want to Delete it?",, "Yes", "No") == "No")
 				return
 			if(deletion_target)
 				saved_recipes.Remove(deletion_target)
