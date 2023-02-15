@@ -1,5 +1,0 @@
-author: RKz
-delete-after: true
-changes:
-  - tweak: Fixes minor oversight in GlowStation atmos. Gas miner pumps are now in
-      Atmospherics, rather than outside on the planet's surface
