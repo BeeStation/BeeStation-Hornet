@@ -41,8 +41,7 @@
 	var/current_x = (end_x * tick_proportion) + (start_x * (1 - tick_proportion))
 	var/current_y = (end_y * tick_proportion) + (start_y * (1 - tick_proportion))
 	//Set the velocity for better rendering
-	velocity.x = current_x - position.x
-	velocity.y = current_y - position.y
+	velocity.Set(current_x - position.GetX(), current_y - position.GetY())
 	. = ..()
 	MOVE_ORBITAL_BODY(src, current_x, current_y)
 	if(abs(position.GetX()) > 10000 || abs(position.GetY()) > 10000)
