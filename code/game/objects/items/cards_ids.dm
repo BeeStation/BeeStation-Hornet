@@ -109,7 +109,6 @@
 	slot_flags = ITEM_SLOT_ID
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	var/mining_points = 0 //For redeeming at mining equipment vendors
 	var/list/access = list()
 	var/registered_name// The name registered_name on the card
 	var/assignment
@@ -155,6 +154,7 @@
 	. = ..()
 	VV_DROPDOWN_OPTION("", "---------")
 	VV_DROPDOWN_OPTION(VV_ID_PAYDAY, "Trigger Payday")
+	VV_DROPDOWN_OPTION(VV_ID_GIVE_MINING_POINT, "Give Mining Points")
 
 /obj/item/card/id/vv_do_topic(list/href_list)
 	. = ..()
@@ -163,6 +163,16 @@
 			to_chat(usr, "There's no account registered!")
 			return
 		registered_account.payday(1)
+
+	if(href_list[VV_ID_GIVE_MINING_POINT])
+		if(!registered_account)
+			to_chat(usr, "There's no account registered!")
+			return
+		var/target_value = input(usr, "How many mining points would you like to add? (use nagative to take)", "Give mining points") as num
+		if(!registered_account.adjust_currency(ACCOUNT_CURRENCY_MINING, target_value))
+			to_chat(usr, "Failed: Your input was [target_value], but [registered_account.account_holder]'s account has only [registered_account.report_currency(ACCOUNT_CURRENCY_MINING)].")
+		else
+			to_chat(usr, "Success: [target_value] points have been added. [registered_account.account_holder]'s account now holds [registered_account.report_currency(ACCOUNT_CURRENCY_MINING)].")
 
 /obj/item/card/id/attackby(obj/item/W, mob/user, params)
 	if(iscash(W))
@@ -289,9 +299,9 @@
 	. = ..()
 	if(!electric)  // forces off bank info for paper slip
 		return .
-	if(mining_points)
-		. += "There's [mining_points] mining equipment redemption point\s loaded onto this card."
 	if(registered_account)
+		if(registered_account.report_currency(ACCOUNT_CURRENCY_MINING))
+			. += "There's [registered_account.report_currency(ACCOUNT_CURRENCY_MINING)] mining equipment redemption point\s loaded onto the account of this card."
 		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of $[registered_account.account_balance]."
 		if(!istype(src, /obj/item/card/id/departmental_budget))
 			var/list/payment_result = list()
@@ -431,7 +441,7 @@ update_label("John Doe", "Clowny")
 		/obj/item/card/id/away/old/apc,
 		/obj/item/card/id/away/deep_storage,
 		/obj/item/card/id/changeling,
-		/obj/item/card/id/mining,
+		/obj/item/card/id/golem,
 		/obj/item/card/id/pass), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
 
@@ -710,10 +720,28 @@ update_label("John Doe", "Clowny")
 	name = "Prisoner #13-007"
 	registered_name = "Prisoner #13-007"
 
-/obj/item/card/id/mining
-	name = "mining ID"
+/obj/item/card/id/golem
+	name = "Golem Mining ID"
+	assignment = "Free Golem"
 	hud_state = JOB_HUD_RAWCARGO
 	access = list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
+	var/need_setup = TRUE
+
+/obj/item/card/id/golem/Initialize(mapload)
+	registered_account = SSeconomy.get_budget_account(ACCOUNT_GOLEM_ID)
+	. = ..()
+
+/obj/item/card/id/golem/pickup(mob/user)
+	. = ..()
+	if(need_setup)
+		if(isgolem(user))
+			registered_name = user.name // automatically change registered name if it's picked up by a golem at first time
+			update_label()
+		need_setup = FALSE
+		// if non-golem picks it up, the renaming feature will be disabled
+
+/obj/item/card/id/golem/spawner
+	need_setup = FALSE
 
 /obj/item/card/id/paper
 	name = "paper nametag"
