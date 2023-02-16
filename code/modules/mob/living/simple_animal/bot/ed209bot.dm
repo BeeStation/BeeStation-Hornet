@@ -39,13 +39,13 @@
 	set_weapon()
 
 /mob/living/simple_animal/bot/secbot/ed209/handle_automated_action()
-	var/judgement_criteria = judgement_criteria()
+	var/judgment_criteria = judgment_criteria()
 	var/list/targets = list()
 	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a target
 		var/threatlevel = 0
 		if(C.incapacitated())
 			continue
-		threatlevel = C.assess_threat(judgement_criteria, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
+		threatlevel = C.assess_threat(judgment_criteria, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
 		//speak(C.real_name + text(": threat: []", threatlevel))
 		if(threatlevel < 4 )
 			continue
