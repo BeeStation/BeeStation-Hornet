@@ -112,6 +112,12 @@ SUBSYSTEM_DEF(mapping)
 	initialize_reserved_level(transit.z_value)
 	return ..()
 
+/datum/controller/subsystem/mapping/get_metrics()
+	. = ..()
+	var/list/custom = list()
+	custom["map"] = config.map_name
+	.["custom"] = custom
+
 /datum/controller/subsystem/mapping/proc/wipe_reservations(wipe_safety_delay = 100)
 	if(clearing_reserved_turfs || !initialized)			//in either case this is just not needed.
 		return

@@ -251,6 +251,20 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	else
 		return ..()
 
+/obj/machinery/conveyor/multitool_act(mob/living/user, obj/item/multitool/tool)
+	if(!multitool_check_buffer(user, tool)) //make sure it has a data buffer
+		return TRUE
+	var/obj/machinery/conveyor_switch/cswitch = tool.buffer
+	if(!cswitch || !istype(cswitch))
+		return TRUE
+
+	// Set up the conveyor with our new ID
+	LAZYREMOVE(GLOB.conveyors_by_id[id], src)
+	id = cswitch.id
+	LAZYADD(GLOB.conveyors_by_id[id], src)
+	to_chat(user, "<span class='notice'>You link [src] to [cswitch].</span>")
+	return TRUE
+
 // attack with hand, move pulled object onto conveyor
 /obj/machinery/conveyor/attack_hand(mob/user)
 	. = ..()
@@ -384,13 +398,35 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	update_linked_switches()
 
 
-/obj/machinery/conveyor_switch/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_CROWBAR)
-		var/obj/item/conveyor_switch_construct/C = new/obj/item/conveyor_switch_construct(src.loc)
-		C.id = id
-		transfer_fingerprints_to(C)
-		to_chat(user, "<span class='notice'>You detach the conveyor switch.</span>")
-		qdel(src)
+/obj/machinery/conveyor_switch/crowbar_act(mob/living/user, obj/item/I)
+	var/obj/item/conveyor_switch_construct/C = new/obj/item/conveyor_switch_construct(src.loc)
+	C.id = id
+	transfer_fingerprints_to(C)
+	to_chat(user, "<span class='notice'>You detach the conveyor switch.</span>")
+	qdel(src)
+	return TRUE
+
+/obj/machinery/conveyor_switch/multitool_act(mob/living/user, obj/item/multitool/tool)
+	if(!istype(tool))
+		return
+	tool.buffer = src
+	to_chat(user, "<span class='notice'>You store [src] in [tool]'s buffer.</span>")
+	return TRUE
+
+/obj/machinery/conveyor_switch/screwdriver_act(mob/living/user, obj/item/I)
+	var/newdirtext = ""
+	switch(oneway)
+		if(-1)
+			oneway = 0
+			newdirtext = "two-way"
+		if(0)
+			oneway = 1
+			newdirtext = "one-way"
+		if(1)
+			oneway = -1
+			newdirtext = "reverse one-way"
+	to_chat(user, "<span class='notice'>You set the conveyor switch to [newdirtext] mode.</span>")
+	return TRUE
 
 /obj/machinery/conveyor_switch/oneway
 	icon_state = "conveyor_switch_oneway"
