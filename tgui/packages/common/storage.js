@@ -6,6 +6,8 @@
  * @license MIT
  */
 
+import { get_pref_addition_key } from './setting_config';
+
 export const IMPL_MEMORY = 0;
 export const IMPL_LOCAL_STORAGE = 1;
 export const IMPL_INDEXED_DB = 2;
@@ -45,15 +47,15 @@ class MemoryBackend {
   }
 
   get(key) {
-    return this.store[key];
+    return this.store[key+get_pref_addition_key()];
   }
 
   set(key, value) {
-    this.store[key] = value;
+    this.store[key+get_pref_addition_key()] = value;
   }
 
   remove(key) {
-    this.store[key] = undefined;
+    this.store[key+get_pref_addition_key()] = undefined;
   }
 
   clear() {
@@ -67,18 +69,18 @@ class LocalStorageBackend {
   }
 
   get(key) {
-    const value = localStorage.getItem(key);
+    const value = localStorage.getItem(key+get_pref_addition_key());
     if (typeof value === 'string') {
       return JSON.parse(value);
     }
   }
 
   set(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
+    localStorage.setItem(key+get_pref_addition_key(), JSON.stringify(value));
   }
 
   remove(key) {
-    localStorage.removeItem(key);
+    localStorage.removeItem(key+get_pref_addition_key());
   }
 
   clear() {
