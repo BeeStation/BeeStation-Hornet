@@ -349,12 +349,15 @@
 			R.add_reagent(reagent.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1) //we only handle reaction after every reagent has been transfered.
 			if(methods)
 				r_to_send += reagent
-			remove_reagent(reagent.type, transfer_amount)
-			transfer_log[reagent.type] = transfer_amount
 		if(istype(target_atom, /obj/item/organ))
 			R.expose_multiple(r_to_send, target, methods, part, show_message)
 		else
 			R.expose_multiple(r_to_send, target_atom, methods, part, show_message)
+
+		for(var/datum/reagent/reagent as anything in r_to_send)
+			var/transfer_amount = reagent.volume * part
+			remove_reagent(reagent.type, transfer_amount)
+			transfer_log[reagent.type] = transfer_amount
 	else
 		var/to_transfer = amount
 		for(var/datum/reagent/reagent as anything in cached_reagents)

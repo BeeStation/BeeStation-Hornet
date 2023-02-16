@@ -966,14 +966,13 @@
 	addtimer(CALLBACK(exposed_mob, /mob/living/carbon.proc/do_jitter_animation, 10), 40) //jitter immediately, then again after 4 and 8 seconds
 	addtimer(CALLBACK(exposed_mob, /mob/living/carbon.proc/do_jitter_animation, 10), 80)
 	addtimer(CALLBACK(exposed_mob, /mob/living.proc/revive, FALSE, FALSE, excess_healing), 79)
-	..()
+	return ..()
 
 /datum/reagent/medicine/strange_reagent/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	var/damage_at_random = rand(0, 250)/100 //0 to 2.5
 	M.adjustBruteLoss(damage_at_random * REM * delta_time, FALSE)
 	M.adjustFireLoss(damage_at_random * REM * delta_time, FALSE)
-	..()
-	. = TRUE
+	return ..()
 
 /datum/reagent/medicine/mannitol
 	name = "Mannitol"
