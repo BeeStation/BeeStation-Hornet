@@ -18,11 +18,17 @@
 #define OPENCONTAINER 	(REFILLABLE | DRAINABLE | TRANSPARENT)
 
 
-#define TOUCH			1	//! splashing
-#define INGEST			2	//! ingestion
-#define VAPOR			3	//! foam, spray, blob attack
-#define PATCH			4	//! patches
-#define INJECT			5	//! injection
+// Reagent exposure methods.
+/// Used for splashing.
+#define TOUCH (1<<0)
+/// Used for ingesting the reagents. Food, drinks, inhaling smoke.
+#define INGEST (1<<1)
+/// Used by foams, sprays, and blob attacks.
+#define VAPOR (1<<2)
+/// Used by medical patches and gels.
+#define PATCH (1<<3)
+/// Used for direct injection of reagents.
+#define INJECT (1<<4)
 
 
 //defines passed through to the on_reagent_change proc
@@ -34,9 +40,6 @@
 #define MIMEDRINK_SILENCE_DURATION 30  //ends up being 60 seconds given 1 tick every 2 seconds
 #define THRESHOLD_UNHUSK 50 //Health treshold for synthflesh and rezadone to unhusk someone
 
-//used by chem masters and pill presses
-#define PILL_STYLE_COUNT 22 //Update this if you add more pill icons or you die
-#define RANDOM_PILL_STYLE 22 //Dont change this one though
 
 
 // synthesizable part - can this reagent be synthesized? (for example: odysseus syringe gun)
@@ -56,3 +59,67 @@
 #define CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE         (1<<23)  // chemist objective - i.e.) make at least 5 units of synthflesh
 #define CHEMICAL_GOAL_BOTANIST_HARVEST     (1<<22)  // botanist objective - i.e.) make 12 crops of 10u omnizine
 #define CHEMICAL_GOAL_BARTENDER_SERVING    (1<<21) // !NOTE: not implemented, but refactored for preparation - i.e.) serve Bacchus' blessing to 10 crews
+
+
+
+/*	<pill sprite size standard>
+		Since sprite asset code crops the pill image, you are required to make a pill image within [11,10,21,20] squared area.
+		There is a dummy image that you can recognise the size of a cropped pill image in 'pills.dmi'
+		The black line counts, so you can use that area for your sprite as well.
+
+	<what are the grey lines in the capsule example?>
+		it's a margin that should exist for capsules because it looks bad in TGUI if there's no margin.
+ */
+
+// pill shapes - check 'pills.dmi' for the shape
+GLOBAL_LIST_INIT(pill_shape_list, list(
+		"pill_shape_capsule_purple_pink",
+		"pill_shape_capsule_bloodred",
+		"pill_shape_capsule_red_whiteline",
+		"pill_shape_capsule_orange",
+		"pill_shape_capsule_yellow",
+		"pill_shape_capsule_green",
+		"pill_shape_capsule_skyblue",
+		"pill_shape_capsule_indigo",
+		"pill_shape_capsule_pink",
+		"pill_shape_capsule_white",
+		"pill_shape_capsule_white_redlined",
+		"pill_shape_capsule_red_orange",
+		"pill_shape_capsule_yellow_green",
+		"pill_shape_capsule_green_white",
+		"pill_shape_capsule_cyan_brown",
+		"pill_shape_capsule_purple_yellow",
+		"pill_shape_capsule_black_white",
+		"pill_shape_capsule_lightgreen_white",
+		"pill_shape_tablet_red_lined",
+		"pill_shape_tablet_lightred_flat",
+		"pill_shape_tablet_orange_flat",
+		"pill_shape_tablet_yellow_lined",
+		"pill_shape_tablet_green_lined",
+		"pill_shape_tablet_lightgreen_flat",
+		"pill_shape_tablet_skyblue_lined",
+		"pill_shape_tablet_navy_flat",
+		"pill_shape_tablet_purple_lined",
+		"pill_shape_tablet_pink_lined",
+		"pill_shape_tablet_white_lined",
+		"pill_shape_tablet_red_yellow_lined",
+		"pill_shape_tablet_yellow_purple_lined",
+		"pill_shape_tablet_green_purple_lined",
+		"pill_shape_tablet_blue_skyblue_lined",
+		"pill_shape_tablet_happy",
+		"pill_shape_tablet_angry",
+		"pill_shape_tablet_sad"))
+
+// using these defines will be consistently manageable
+#define PILL_SHAPE_LIST (GLOB.pill_shape_list)
+#define PILL_SHAPE_LIST_WITH_DUMMY (GLOB.pill_shape_list+"pill_random_dummy")
+
+GLOBAL_LIST_INIT(patch_shape_list, list(
+		"bandaid_small_cross",
+		"bandaid_small_blank",
+		"bandaid_big_brute",
+		"bandaid_big_burn",
+		"bandaid_big_both",
+		"bandaid_big_blank",))
+
+#define PATCH_SHAPE_LIST (GLOB.patch_shape_list)

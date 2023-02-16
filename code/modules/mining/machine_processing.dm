@@ -109,16 +109,20 @@
 		machine.toggle_on()
 
 	if(href_list["redeem"])
+		if(!machine.stored_points)
+			to_chat(usr, "<span class='warning'>No points to claim.</span>")
+			return
+
 		var/mob/M = usr
 		var/obj/item/card/id/I = M.get_idcard(TRUE)
 		if(!I)
 			to_chat(usr, "<span class='warning'>No ID detected.</span>")
 			return
-		if(!machine.points)
-			to_chat(usr, "<span class='warning'>No points to claim.</span>")
+		if(!I.registered_account)
+			to_chat(usr, "<span class='warning'>No bank account detected on the ID card.</span>")
 			return
-		I.mining_points += machine.points
-		machine.points = 0
+		I.registered_account.adjust_currency(ACCOUNT_CURRENCY_MINING, machine.stored_points)
+		machine.stored_points = 0
 
 	updateUsrDialog()
 	return
@@ -143,7 +147,7 @@
 	var/selected_alloy = null
 	var/datum/techweb/stored_research
 	var/link_id = null
-	var/points = 0
+	var/stored_points = 0
 	var/allow_point_redemption = FALSE
 
 /obj/machinery/mineral/processing_unit/laborcamp
@@ -170,7 +174,7 @@
 		unload_mineral(O)
 	else
 		if(allow_point_redemption)
-			points += O.points * O.amount
+			stored_points += O.points * O.amount
 		materials.insert_item(O)
 		qdel(O)
 		if(CONSOLE)
@@ -185,7 +189,7 @@
 
 	//Points
 	if(allow_point_redemption)
-		dat += "Stored points: [points] "
+		dat += "Stored points: [stored_points] "
 		dat += "<A href='?src=[REF(CONSOLE)];redeem=1'><b>Redeem</b></A> "
 		dat += "<br><br>"
 
