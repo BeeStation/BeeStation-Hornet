@@ -39,7 +39,7 @@
 	if(!uses)
 		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
 		return
-	if(!user?.client.canGhostRole(banType, use_cooldown, src))
+	if(!user?.client.canGhostRole(banType, use_cooldown, flags_1))
 		return
 	if(QDELETED(src) || QDELETED(user))
 		return	

@@ -922,10 +922,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	..()
 
-/client/proc/canGhostRole(role, use_cooldown = FALSE, atom/callsource)
+/client/proc/canGhostRole(role, use_cooldown = FALSE, spawned_by_admin)
 	if(!SSticker.HasRoundStarted())
 		return FALSE
-	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER) && !(callsource.flags_1 & ADMIN_SPAWNED_1))
+	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER) && !(spawned_by_admin & ADMIN_SPAWNED_1))
 		to_chat(src, "<span class='warning'>An admin has temporarily disabled non-admin ghost roles!</span>")
 		return FALSE
 	if(role && is_banned_from(key, role)) //role can be null, no reason to check for a roleban if there is no special role assigned

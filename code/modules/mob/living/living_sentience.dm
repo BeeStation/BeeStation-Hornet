@@ -34,7 +34,7 @@
 	if(key)
 		to_chat(user, "<span class='notice'>Someone else already took [name].</span>")
 		return TRUE
-	if(!user?.client.canGhostRole(role, TRUE, src))
+	if(!user?.client.canGhostRole(role, TRUE, flags_1))
 		return
 	key = user.key
 	log_game("[key_name(src)] took control of [name].")
