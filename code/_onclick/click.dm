@@ -495,17 +495,3 @@
 			return TRUE
 
 	return FALSE
-
-/mob/proc/canGhostRole(role, use_cooldown = FALSE)
-	if(!SSticker.HasRoundStarted())
-		return FALSE
-	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER) && !(flags_1 & ADMIN_SPAWNED_1))
-		to_chat(src, "<span class='warning'>An admin has temporarily disabled non-admin ghost roles!</span>")
-		return FALSE
-	if(role && is_banned_from(key, role)) //role can be null, no reason to check for a roleban if there is no special role assigned
-		to_chat(src, "<span class='warning'>You are jobanned!</span>")
-		return FALSE
-	if(use_cooldown && client.next_ghost_role_tick > world.time)
-		to_chat(src, "<span class='warning'>You have died recently, you must wait [(client.next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner.</span>")
-		return FALSE
-	return TRUE
