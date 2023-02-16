@@ -1,6 +1,6 @@
 /**
  * This helps to let players have different settings upto each codebase.
- * The path is determined by a value declared here
+ * The key for backend (check storage.js) is determined by a value declared here
  *
  * @file
  * @copyright 2023 EvilDragonfiend
