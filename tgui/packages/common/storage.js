@@ -119,7 +119,7 @@ class IndexedDbBackend {
   async get(key) {
     const store = await this.getStore(READ_ONLY);
     return new Promise((resolve, reject) => {
-      const req = store.get(key);
+      const req = store.get(key+get_pref_addition_key());
       req.onsuccess = () => resolve(req.result);
       req.onerror = () => reject(req.error);
     });
@@ -135,13 +135,13 @@ class IndexedDbBackend {
     }
     // NOTE: We deliberately make this operation transactionless
     const store = await this.getStore(READ_WRITE);
-    store.put(value, key);
+    store.put(value, key+get_pref_addition_key());
   }
 
   async remove(key) {
     // NOTE: We deliberately make this operation transactionless
     const store = await this.getStore(READ_WRITE);
-    store.delete(key);
+    store.delete(key+get_pref_addition_key());
   }
 
   async clear() {
