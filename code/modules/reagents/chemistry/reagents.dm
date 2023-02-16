@@ -110,31 +110,6 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /datum/reagent/proc/on_transfer(atom/A, methods=TOUCH, trans_volume)
 	return
 
-/datum/reagents/proc/react_single(datum/reagent/R, atom/A, methods = TOUCH, volume_modifier = 1, show_message = TRUE)
-	var/react_type
-	if(isliving(A))
-		react_type = "LIVING"
-		if(methods & INGEST)
-			var/mob/living/L = A
-			L.taste(src)
-	else if(isturf(A))
-		react_type = "TURF"
-	else if(isobj(A))
-		react_type = "OBJ"
-	else
-		return
-	switch(react_type)
-		if("LIVING")
-			var/touch_protection = 0
-			if(methods & VAPOR)
-				var/mob/living/L = A
-				touch_protection = L.get_permeability_protection()
-			R.expose_mob(A, methods, R.volume * volume_modifier, show_message, touch_protection)
-		if("TURF")
-			R.expose_turf(A, R.volume * volume_modifier, show_message)
-		if("OBJ")
-			R.expose_obj(A, R.volume * volume_modifier, show_message)
-
 // Called when this reagent is first added to a mob
 /datum/reagent/proc/on_mob_add(mob/living/L)
 	return
