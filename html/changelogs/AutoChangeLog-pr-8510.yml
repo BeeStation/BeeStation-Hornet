@@ -1,0 +1,5 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: science budget card will properly get exploration points instead of the
+      wrong type - mining points when exploration team completed their mission.
