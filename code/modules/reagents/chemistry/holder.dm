@@ -337,6 +337,7 @@
 	amount = min(min(amount, src.total_volume), R.maximum_volume-R.total_volume)
 	var/trans_data = null
 	var/transfer_log = list()
+	var/r_to_send = list() // Validated list of reagents to be exposed
 	if(!round_robin)
 		var/part = amount / src.total_volume
 		for(var/datum/reagent/reagent as anything in cached_reagents)
@@ -347,13 +348,13 @@
 				trans_data = copy_data(reagent)
 			R.add_reagent(reagent.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1) //we only handle reaction after every reagent has been transfered.
 			if(methods)
-				if(istype(target_atom))
-					R.expose_single(reagent, target, methods, part, show_message)
-				else
-					R.expose_single(reagent, target_atom, methods, part, show_message)
-				reagent.on_transfer(target_atom, methods, transfer_amount * multiplier)
+				r_to_send += reagent
 			remove_reagent(reagent.type, transfer_amount)
 			transfer_log[reagent.type] = transfer_amount
+		if(istype(target_atom, /obj/item/organ))
+			R.expose_multiple(r_to_send, target, methods, part, show_message)
+		else
+			R.expose_multiple(r_to_send, target_atom, methods, part, show_message)
 	else
 		var/to_transfer = amount
 		for(var/datum/reagent/reagent as anything in cached_reagents)
@@ -746,6 +747,21 @@
 		return null
 
 	var/list/cached_reagents = reagent_list
+	if(!cached_reagents.len)
+		return null
+
+	var/list/reagents = list()
+	for(var/datum/reagent/reagent as anything in cached_reagents)
+		reagents[reagent] = reagent.volume * volume_modifier
+
+	return A.expose_reagents(reagents, src, methods, volume_modifier, show_message)
+
+// Same as [/datum/reagents/proc/expose] but only for multiple reagents (through a list)
+/datum/reagents/proc/expose_multiple(list/r_to_expose, atom/A, methods = TOUCH, volume_modifier = 1, show_message = 1)
+	if(isnull(A))
+		return null
+
+	var/list/cached_reagents = r_to_expose
 	if(!cached_reagents.len)
 		return null
 
