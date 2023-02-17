@@ -11,18 +11,15 @@
 	flags_ricochet = RICOCHET_SHINY
 	layer = ABOVE_WINDOW_LAYER
 	var/magical = FALSE
+	var/dir_north = NORTH
+	var/dir_east = EAST
+	var/dir_south = SOUTH
+	var/dir_west = WEST
 
 /obj/structure/mirror/Initialize(mapload, dir, building)
 	. = ..()
 	if(icon_state == "mirror_broke" && !broken)
 		obj_break(null, mapload)
-	if(mapload)
-		return
-	if(dir)
-		setDir(dir)
-	if(building)
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -30 : 30)
-		pixel_y = (dir & 3)? (dir ==1 ? -30 : 30) : 0
 
 /obj/structure/mirror/attack_hand(mob/user)
 	. = ..()
@@ -281,3 +278,4 @@
 	desc = "Now with 100% less lead!"
 	icon_state = "wallmirror"
 	result_path = /obj/structure/mirror
+	pixel_shift = -28
