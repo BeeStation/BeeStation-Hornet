@@ -303,7 +303,6 @@
 	icon_state = "atmos_resin"
 	alpha = 120
 	max_integrity = 10
-	pass_flags_self = PASSGLASS
 
 /obj/structure/foamedmetal/resin/Initialize(mapload)
 	. = ..()
