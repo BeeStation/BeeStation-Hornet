@@ -1,5 +1,6 @@
 /datum/station_trait/announcement_intern
 	name = "Announcement Intern"
+	id = "announcement_intern"
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 3
 	show_in_report = TRUE
@@ -14,6 +15,7 @@
 
 /datum/station_trait/carp_infestation
 	name = "Carp infestation"
+	id = "carp_infestation"
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 5
 	show_in_report = TRUE
@@ -22,6 +24,7 @@
 
 /datum/station_trait/distant_supply_lines
 	name = "Distant supply lines"
+	id = "distant_supply_lines"
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 3
 	show_in_report = TRUE
@@ -31,6 +34,7 @@
 
 /datum/station_trait/late_arrivals
 	name = "Late Arrivals"
+	id = "late_arrivals"
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 2
 	show_in_report = TRUE
@@ -42,6 +46,7 @@
 
 /datum/station_trait/random_spawns
 	name = "Drive-by landing"
+	id = "random_spawns"
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 2
 	show_in_report = TRUE
@@ -53,6 +58,7 @@
 
 /datum/station_trait/hangover
 	name = "Hangover"
+	id = "hangover"
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 2
 	show_in_report = TRUE
@@ -99,6 +105,7 @@
 
 /datum/station_trait/blackout
 	name = "Blackout"
+	id = "blackout"
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 5
 	show_in_report = TRUE
@@ -113,6 +120,7 @@
 
 /datum/station_trait/empty_maint
 	name = "Cleaned out maintenance"
+	id = "empty_maint"
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 5
 	show_in_report = TRUE
@@ -123,6 +131,7 @@
 
 /datum/station_trait/overflow_job_bureacracy
 	name = "Overflow bureacracy mistake"
+	id = "overflow_job_bureacracy"
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 5
 	show_in_report = TRUE
@@ -144,6 +153,7 @@
 
 /datum/station_trait/slow_shuttle
 	name = "Slow Shuttle"
+	id = "slow_shuttle"
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 5
 	show_in_report = TRUE
@@ -156,6 +166,7 @@
 
 /datum/station_trait/bot_languages
 	name = "Bot Language Matrix Malfunction"
+	id = "bot_languages"
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 3
 	show_in_report = TRUE
@@ -177,6 +188,7 @@
 
 /datum/station_trait/united_budget
 	name = "United Department Budget Management"
+	id = "united_budget"
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 2
 	show_in_report = TRUE

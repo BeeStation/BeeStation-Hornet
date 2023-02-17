@@ -1,7 +1,10 @@
 ///Base class of station traits. These are used to influence rounds in one way or the other by influencing the levers of the station.
+///Remember to enable your station trait in config\game_options.txt! (search for "STATION TRAITS")
 /datum/station_trait
 	///Name of the trait
 	var/name = "unnamed station trait"
+	///The trait's id, which tends to just be the name of the datum
+	var/id = "unidentified"
 	///The type of this trait. Used to classify how this trait influences the station
 	var/trait_type = STATION_TRAIT_NEUTRAL
 	///Whether or not this trait uses process()

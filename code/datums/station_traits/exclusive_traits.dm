@@ -26,6 +26,7 @@
 /* subtype example:
 /datum/station_trait/special_jobs/barber
 	trait_type = STATION_TRAIT_EXCLUSIVE
+	id = "exclusivebarber"
 	weight = 33
 	chosen_job = JOB_BARBER
 // barber will have a 33% chance to appear for each round

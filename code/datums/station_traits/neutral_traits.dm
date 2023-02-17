@@ -1,5 +1,6 @@
 /datum/station_trait/bananium_shipment
 	name = "Bananium Shipment"
+	id = "bananium_shipment"
 	trait_type = STATION_TRAIT_NEUTRAL
 	weight = 5
 	report_message = "Rumors has it that the clown planet has been sending support packages to clowns in this system"
@@ -7,6 +8,7 @@
 
 /datum/station_trait/ian_adventure
 	name = "Ian's Adventure"
+	id = "ian_adventure"
 	trait_type = STATION_TRAIT_NEUTRAL
 	weight = 5
 	show_in_report = FALSE
@@ -30,6 +32,7 @@
 
 /datum/station_trait/glitched_pdas
 	name = "PDA glitch"
+	id = "glitched_pdas"
 	trait_type = STATION_TRAIT_NEUTRAL
 	weight = 8
 	show_in_report = TRUE
@@ -38,6 +41,7 @@
 
 /datum/station_trait/announcement_medbot
 	name = "Announcement \"System\""
+	id = "announcement_medbot"
 	trait_type = STATION_TRAIT_NEUTRAL
 	weight = 5
 	show_in_report = TRUE
@@ -53,6 +57,7 @@
 
 /datum/station_trait/announcement_baystation
 	name = "Announcer: Archival Tape"
+	id = "announcement_baystation"
 	trait_type = STATION_TRAIT_NEUTRAL
 	weight = 5
 	show_in_report = TRUE

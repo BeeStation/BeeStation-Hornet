@@ -4,6 +4,7 @@
 
 /datum/station_trait/lucky_winner
 	name = "Lucky winner"
+	id = "lucky_winner"
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 1
 	show_in_report = TRUE
@@ -33,6 +34,7 @@
 
 /datum/station_trait/galactic_grant
 	name = "Galactic grant"
+	id = "galactic_grant"
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 5
 	show_in_report = TRUE
@@ -44,6 +46,7 @@
 
 /datum/station_trait/premium_internals_box
 	name = "Premium internals boxes"
+	id = "premium_internals_box"
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 10
 	show_in_report = TRUE
@@ -52,6 +55,7 @@
 
 /datum/station_trait/bountiful_bounties
 	name = "Bountiful bounties"
+	id = "bountiful_bounties"
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 5
 	show_in_report = TRUE
@@ -62,6 +66,7 @@
 
 /datum/station_trait/strong_supply_lines
 	name = "Strong supply lines"
+	id = "strong_supply_lines"
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 5
 	show_in_report = TRUE
@@ -71,6 +76,7 @@
 
 /datum/station_trait/scarves
 	name = "Scarves"
+	id = "scarves"
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 5
 	show_in_report = TRUE
@@ -103,6 +109,7 @@
 
 /datum/station_trait/filled_maint
 	name = "Filled up maintenance"
+	id = "filled_maint"
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 5
 	show_in_report = TRUE
@@ -112,6 +119,7 @@
 
 /datum/station_trait/quick_shuttle
 	name = "Quick Shuttle"
+	id = "quick_shuttle"
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 5
 	show_in_report = TRUE

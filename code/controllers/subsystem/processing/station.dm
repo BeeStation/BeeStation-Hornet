@@ -33,10 +33,16 @@ PROCESSING_SUBSYSTEM_DEF(station)
 
 ///Rolls for the amount of traits and adds them to the traits list
 /datum/controller/subsystem/processing/station/proc/setup_traits()
+	var/list/enabled_traits = CONFIG_GET(keyed_list/enabled_station_traits)
+
 	for(var/i in subtypesof(/datum/station_trait))
 		var/datum/station_trait/trait_typepath = i
+
 		if(initial(trait_typepath.trait_flags) & STATION_TRAIT_ABSTRACT)
 			continue //Dont add abstract ones to it
+		if(!(initial(trait_typepath.id) in enabled_traits))
+			continue //Skip over traits that aren't enabled
+
 		selectable_traits_by_types[initial(trait_typepath.trait_type)][trait_typepath] = initial(trait_typepath.weight)
 
 	var/positive_trait_count = pick(20;0, 5;1, 1;2)
