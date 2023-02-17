@@ -325,7 +325,7 @@
 		return TRUE
 	if(mover.throwing && (pass_flags_self & LETPASSTHROW))
 		return TRUE
-	if ((pass_flags_self & PASSTRANSPARENT) && alpha < 255 && prob(100 - (alpha/2.55)))
+	if ((mover.pass_flags & PASSTRANSPARENT) && alpha < 255 && prob(100 - (alpha/2.55)))
 		return TRUE
 	return !density
 
