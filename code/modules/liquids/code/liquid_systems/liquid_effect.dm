@@ -230,7 +230,6 @@
 	RegisterSignal(my_turf, COMSIG_ATOM_ENTERED, .proc/movable_entered)
 	RegisterSignal(my_turf, COMSIG_TURF_MOB_FALL, .proc/mob_fall)
 	RegisterSignal(my_turf, COMSIG_PARENT_EXAMINE, .proc/examine_turf)
-	SSliquids.add_active_turf(my_turf)
 
 	SEND_SIGNAL(my_turf, COMSIG_TURF_LIQUIDS_CREATION, src)
 
@@ -257,9 +256,6 @@
 		stack_trace("Liquids tried to change to a new turf, that already had liquids on it!")
 
 	UnregisterSignal(my_turf, list(COMSIG_ATOM_ENTERED, COMSIG_TURF_MOB_FALL))
-	if(SSliquids.active_turfs[my_turf])
-		SSliquids.active_turfs -= my_turf
-		SSliquids.active_turfs[NewT] = TRUE
 	if(SSliquids.evaporation_queue[my_turf])
 		SSliquids.evaporation_queue -= my_turf
 		SSliquids.evaporation_queue[NewT] = TRUE

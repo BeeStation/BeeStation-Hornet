@@ -8,7 +8,6 @@
 		return
 	if(!liquids.liquid_group)
 		liquids.liquid_group = new(1, liquids)
-	SSliquids.add_active_turf(src)
 
 /turf/proc/liquid_update_turf()
 	if(!liquids)
@@ -23,8 +22,6 @@
 			var/turf/T = get_step(src, direction)
 			if(!T.liquids)
 				return
-
-	SSliquids.add_active_turf(src)
 
 /turf/proc/add_liquid_from_reagents(datum/reagents/giver, no_react = FALSE)
 	var/list/compiled_list = list()
@@ -55,29 +52,3 @@
 	liquids.liquid_group.add_reagent(liquids, reagent, amount)
 	//Expose turf
 	liquids.liquid_group.expose_members_turf(liquids)
-
-/turf/proc/process_liquid_cell()
-
-	if(liquids)
-		var/turf/open/temp_turf = get_turf(src)
-		var/datum/gas_mixture/gas = temp_turf.air
-		if(gas)
-			if(gas.return_temperature() > liquids.liquid_group.group_temperature)
-				var/increaser =((gas.return_temperature() * gas.total_moles()) + (liquids.liquid_group.group_temperature * liquids.liquid_group.total_reagent_volume)) / (2 + liquids.liquid_group.total_reagent_volume + gas.total_moles())
-				if(increaser > liquids.liquid_group.group_temperature + 3)
-					gas.set_temperature(increaser)
-					liquids.liquid_group.group_temperature = increaser
-					gas.react()
-			else if(liquids.liquid_group.group_temperature > gas.return_temperature())
-				var/increaser =((gas.return_temperature() * gas.total_moles()) + (liquids.liquid_group.group_temperature * liquids.liquid_group.total_reagent_volume)) / (2 + liquids.liquid_group.total_reagent_volume + gas.total_moles())
-				if(increaser > gas.return_temperature() + 3)
-					liquids.liquid_group.group_temperature = increaser
-					gas.set_temperature(increaser)
-					gas.react()
-
-	if(!liquids)
-		SSliquids.remove_active_turf(src)
-		return
-	if(QDELETED(liquids)) //Liquids may be deleted in process cell
-		SSliquids.remove_active_turf(src)
-		return

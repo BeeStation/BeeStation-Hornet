@@ -46,6 +46,8 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	var/merging = FALSE
 	///list of cached edge turfs with a sublist of directions stored
 	var/list/cached_edge_turfs = list()
+	///list of cached adjacent turfs for each member
+	var/list/cached_adjacent_turfs = list()
 
 ///NEW/DESTROY
 /datum/liquid_group/New(height, obj/effect/abstract/liquid_turf/created_liquid)
@@ -84,13 +86,12 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	updated_total = TRUE
 	if(group_color)
 		T.liquids.color = group_color
-	SSliquids.currentrun_active_turfs |= T
 	process_group()
 
 /datum/liquid_group/proc/remove_from_group(turf/T)
-	if(SSliquids.currentrun_active_turfs[T])
-		SSliquids.currentrun_active_turfs -= T
-	SSliquids.remove_active_turf(T)
+
+	if(cached_adjacent_turfs[T])
+		cached_adjacent_turfs -= T
 
 	if(burning_members[T])
 		burning_members -= T
@@ -158,6 +159,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 
 	if(group_temperature != reagents.chem_temp)
 		reagents.chem_temp = group_temperature
+
 	var/new_color
 	if(GLOB.liquid_debug_colors)
 		group_color = color
@@ -207,32 +209,20 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	if(old_overlay != group_overlay_state)
 		for(var/turf/member in members)
 			member.liquids.set_new_liquid_state(group_overlay_state)
+			member.liquid_height = expected_turf_height + member.turf_height
 
-/datum/liquid_group/proc/process_member(turf/member)
-	if(member.liquids.liquid_state != group_overlay_state)
-		member.liquids.set_new_liquid_state(group_overlay_state)
-	if(member.liquids.color != group_color)
-		member.liquids.color = group_color
-	if(expected_turf_height < LIQUID_ANKLES_LEVEL_HEIGHT)
-		SSliquids.evaporation_queue |= member
-	if(member.liquid_height != expected_turf_height + member.turf_height)
-		member.liquid_height = expected_turf_height + member.turf_height
-
-	var/list/adjacent_turfs = member.GetAtmosAdjacentTurfs()
-	shuffle(adjacent_turfs)
-	for(var/tur in adjacent_turfs)
-		var/turf/adjacent_turf = tur
-		if(member.z != adjacent_turf.z)
-			var/turf/Z_turf_below = SSmapping.get_turf_below(member)
-			if(adjacent_turf == Z_turf_below)
-				if(!(adjacent_turf.liquids && adjacent_turf.liquids.liquid_group != member.liquids.liquid_group && adjacent_turf.liquids.liquid_group.expected_turf_height >= LIQUID_HEIGHT_CONSIDER_FULL_TILE))
-					member.liquids.liquid_group.transfer_reagents_to_secondary_group(member.liquids, adjacent_turf.liquids)
-					. = TRUE
-			continue
-		. = TRUE
-
-		if(!SSliquids.active_turfs[adjacent_turf] && adjacent_turf.liquids)
-			SSliquids.add_active_turf(adjacent_turf)
+/datum/liquid_group/proc/build_liquid_cache(turf/member)
+	var/cached_openspace = FALSE
+	cached_adjacent_turfs |= member
+	var/list/temporary_list = member.GetAtmosAdjacentTurfs()
+	cached_adjacent_turfs[member] = temporary_list
+	if(!cached_openspace)
+		for(var/turf in temporary_list)
+			var/turf/listed_turf = turf
+			if(istype(listed_turf, /turf/open/openspace))
+				cached_openspace = TRUE
+				continue
+	return cached_openspace
 
 /datum/liquid_group/proc/process_turf_disperse()
 	if(!total_reagent_volume)
@@ -265,6 +255,29 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 		for(var/turf/outputted_turf in output)
 			if(outputted_turf in removed_turf)
 				removed_turf -= outputted_turf
+
+///currently shelved while this gets reworked
+/datum/liquid_group/proc/handle_group_temperature_shift()
+	var/turf/open/picked_turf = pick(members)
+	var/datum/gas_mixture/math_cache = picked_turf.air
+	if(!math_cache)
+		return //we may or may not lose some air processing
+	var/increaser =((math_cache.return_temperature() * math_cache.total_moles()) + (group_temperature * total_reagent_volume)) / (2 + total_reagent_volume + math_cache.total_moles())
+
+	for(var/turf/member in members)
+		var/turf/open/member_open = member
+		var/datum/gas_mixture/gas = member_open.air
+		if(gas)
+			if(gas.return_temperature() > group_temperature)
+				if(increaser > group_temperature + 3)
+					gas.set_temperature(increaser)
+					group_temperature = increaser
+					gas.react()
+			else if(group_temperature > gas.return_temperature())
+				if(increaser > gas.return_temperature() + 3)
+					group_temperature = increaser
+					gas.set_temperature(increaser)
+					gas.react()
 
 ///REAGENT ADD/REMOVAL HANDLING
 /datum/liquid_group/proc/check_liquid_removal(obj/effect/abstract/liquid_turf/remover, amount)
@@ -678,7 +691,6 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	if(return_list)
 		return connected_liquids
 
-	SSliquids.currentrun_active_turfs = list()
 	return TRUE
 
 ///EXPOSURE AND SPREADING
@@ -727,6 +739,8 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 
 	if(new_turf.allow_z_travel)
 		var/turf/Z_turf_below = SSmapping.get_turf_below(new_turf)
+		if(!Z_turf_below)
+			return
 		if(isspaceturf(Z_turf_below))
 			return FALSE
 		if(!Z_turf_below.liquids)
@@ -793,4 +807,4 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 			if(isliving(target_atom) && prob(60))
 				var/mob/living/target_living = target_atom
 				target_living.Paralyze(6 SECONDS)
-				to_chat(target_living, "<span class='danger'>You are knocked down by the currents!<span>")
+				to_chat(target_living, "<span class='danger'>You are knocked down by the currents!</span>")
