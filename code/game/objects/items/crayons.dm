@@ -419,7 +419,6 @@
 		var/eaten = use_charges(user, 5, FALSE)
 		if(check_empty(user)) //Prevents divsion by zero
 			return
-		var/fraction = min(eaten / reagents.total_volume, 1)
 		reagents.trans_to(M, eaten, volume_multiplier, transfered_by = user, methods = INGEST)
 		// check_empty() is called during afterattack
 	else

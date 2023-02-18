@@ -41,7 +41,6 @@
 		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
 		to_chat(user, "<span class='notice'>You inject [M] with [src].</span>")
 		playsound(loc, pick('sound/items/hypospray.ogg','sound/items/hypospray2.ogg'), 50, TRUE)
-
 		var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
 
 		if(M.reagents)
@@ -51,7 +50,6 @@
 			else
 				reagents.expose(M, INJECT, fraction)
 				trans = reagents.copy_to(M, amount_per_transfer_from_this)
-
 			to_chat(user, "<span class='notice'>[trans] unit\s injected.  [reagents.total_volume] unit\s remaining in [src].</span>")
 			log_combat(user, M, "injected", src, "([contained])")
 		return TRUE

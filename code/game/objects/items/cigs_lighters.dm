@@ -252,24 +252,25 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		M.update_inv_hands()
 
 /obj/item/clothing/mask/cigarette/proc/handle_reagents()
-	if(reagents.total_volume)
-		var/to_smoke = REAGENTS_METABOLISM
-		if(iscarbon(loc))
-			var/mob/living/carbon/C = loc
-			if (src == C.wear_mask) // if it's in the human/monkey mouth, transfer reagents to the mob
-				var/fraction = min(REAGENTS_METABOLISM/reagents.total_volume, 1)
-				/*
-				 * Given the amount of time the cig will last, and how often we take a hit, find the number
-				 * of chems to give them each time so they'll have smoked it all by the end
-				 */
-				if (smoke_all)
-					to_smoke = reagents.total_volume / (smoketime / dragtime)
+	if(!reagents.total_volume)
+		return
+	var/to_smoke = REAGENTS_METABOLISM
+	if(iscarbon(loc))
+		var/mob/living/carbon/C = loc
+		if (src == C.wear_mask) // if it's in the human/monkey mouth, transfer reagents to the mob
+			var/fraction = min(REAGENTS_METABOLISM/reagents.total_volume, 1)
+			/*
+			 * Given the amount of time the cig will last, and how often we take a hit, find the number
+			 * of chems to give them each time so they'll have smoked it all by the end
+			 */
+			if (smoke_all)
+				to_smoke = reagents.total_volume / (smoketime / dragtime)
 
-				reagents.expose(C, INGEST, fraction)
-				if(!reagents.trans_to(C, to_smoke, methods = INGEST))
-					reagents.remove_any(to_smoke)
-				return
-		reagents.remove_any(to_smoke)
+			reagents.expose(C, INGEST, fraction)
+			if(!reagents.trans_to(C, to_smoke, methods = INGEST))
+				reagents.remove_any(to_smoke)
+			return
+	reagents.remove_any(to_smoke)
 
 /obj/item/clothing/mask/cigarette/process(delta_time)
 	var/turf/location = get_turf(src)

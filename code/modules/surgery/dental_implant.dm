@@ -16,7 +16,7 @@
 
 /datum/surgery_step/insert_pill/success(mob/user, mob/living/carbon/target, target_zone, var/obj/item/reagent_containers/pill/tool, datum/surgery/surgery)
 	if(!istype(tool))
-		return 0
+		return FALSE
 
 	user.transferItemToLoc(tool, target, TRUE)
 
@@ -39,7 +39,6 @@
 	to_chat(owner, "<span class='caution'>You grit your teeth and burst the implanted [target.name]!</span>")
 	log_combat(owner, null, "swallowed an implanted pill", target)
 	if(target.reagents.total_volume)
-		target.reagents.expose(owner, INGEST)
 		target.reagents.trans_to(owner, target.reagents.total_volume, transfered_by = owner, methods = INGEST)
 	qdel(target)
 	return TRUE
