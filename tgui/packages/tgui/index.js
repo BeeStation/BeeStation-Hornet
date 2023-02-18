@@ -46,6 +46,7 @@ import { captureExternalLinks } from './links';
 import { createRenderer } from './renderer';
 import { configureStore, StoreProvider } from './store';
 import { setupGlobalEvents } from './events';
+import { init_config_key } from '../common/setting_config';
 
 perf.mark('inception', window.performance?.timing?.navigationStart);
 perf.mark('init');
@@ -72,6 +73,7 @@ const setupApp = () => {
   setupGlobalEvents();
   setupHotKeys();
   captureExternalLinks();
+  init_config_key();
 
   // Re-render UI on store updates
   store.subscribe(renderApp);
