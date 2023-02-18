@@ -57869,21 +57869,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/science/xenobiology)
-"pld" = (
-/obj/structure/rack,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/breacherslug,
-/obj/item/storage/box/breacherslug,
-/obj/item/storage/box/breacherslug,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/armoury/riot_shotgun,
-/turf/open/space/basic,
-/area/ai_monitored/security/armory)
 "plk" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
@@ -73906,6 +73891,21 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
+"wss" = (
+/obj/structure/rack,
+/obj/item/storage/box/rubbershot,
+/obj/item/storage/box/rubbershot,
+/obj/item/storage/box/rubbershot,
+/obj/item/storage/box/rubbershot,
+/obj/item/storage/box/rubbershot,
+/obj/item/storage/box/rubbershot,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/spawner/lootdrop/job_scale/armoury/riot_shotgun,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "wsx" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -106039,7 +106039,7 @@ aeq
 iLI
 grO
 mCc
-pld
+wss
 vnN
 aiA
 ajw
