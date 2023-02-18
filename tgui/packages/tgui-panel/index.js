@@ -23,7 +23,6 @@ import { pingMiddleware, pingReducer } from './ping';
 import { settingsMiddleware, settingsReducer } from './settings';
 import { statMiddleware, statReducer } from './stat';
 import { telemetryMiddleware } from './telemetry';
-import { init_config_key } from '../common/setting_config';
 
 perf.mark('inception', window.performance?.timing?.navigationStart);
 perf.mark('init');
