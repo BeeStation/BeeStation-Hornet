@@ -172,7 +172,7 @@ export const SettingUIConfig = (props, context) => {
       {PREF_KEYS.map(each => (
         <Button.Checkbox
           key={each.id}
-          checked={each.value === get_config_key()}
+          checked={(each.value === get_config_key()) || (!each.value && !get_config_key())}
           onClick={() => {
             set_config_key(each.value);
             location.reload();

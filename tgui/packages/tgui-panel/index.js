@@ -90,7 +90,6 @@ const setupApp = () => {
   });
 
   based_winset();
-  init_config_key();
 
   // Enable hot module reloading
   if (module.hot) {
