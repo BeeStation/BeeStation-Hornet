@@ -20,7 +20,7 @@
 					return BULLET_ACT_HIT
 				else
 					reagents.expose(M, INJECT)
-					reagents.trans_to(M, reagents.total_volume)
+					reagents.trans_to(M, reagents.total_volume, methods = INJECT)
 					return BULLET_ACT_HIT
 			else
 				blocked = 100

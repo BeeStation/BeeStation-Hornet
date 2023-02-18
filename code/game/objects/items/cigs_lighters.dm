@@ -266,7 +266,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 					to_smoke = reagents.total_volume / (smoketime / dragtime)
 
 				reagents.expose(C, INGEST, fraction)
-				if(!reagents.trans_to(C, to_smoke))
+				if(!reagents.trans_to(C, to_smoke, methods = INGEST))
 					reagents.remove_any(to_smoke)
 				return
 		reagents.remove_any(to_smoke)

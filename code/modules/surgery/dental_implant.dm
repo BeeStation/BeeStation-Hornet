@@ -40,6 +40,6 @@
 	log_combat(owner, null, "swallowed an implanted pill", target)
 	if(target.reagents.total_volume)
 		target.reagents.expose(owner, INGEST)
-		target.reagents.trans_to(owner, target.reagents.total_volume, transfered_by = owner)
+		target.reagents.trans_to(owner, target.reagents.total_volume, transfered_by = owner, methods = INGEST)
 	qdel(target)
 	return TRUE

@@ -461,7 +461,7 @@
 	var/injecting_amount = max(1, G.seed.potency*0.2) // Minimum of 1, max of 20
 	var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
 	G.reagents.expose(L, INJECT, fraction)
-	G.reagents.trans_to(L, injecting_amount)
+	G.reagents.trans_to(L, injecting_amount, methods = INJECT)
 	to_chat(L, "<span class='danger'>You are pricked by [G]!</span>")
 	return TRUE
 
