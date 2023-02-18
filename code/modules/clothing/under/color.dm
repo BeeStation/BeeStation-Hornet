@@ -18,6 +18,7 @@
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
 	icon_state = "jumpskirt"
+	desc = "A standard issue colored jumpskirt. Variety is the spice of life!"
 
 /obj/item/clothing/under/color/random
 	icon_state = "random_jumpsuit"
