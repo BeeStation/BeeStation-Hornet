@@ -26046,17 +26046,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
-"fMq" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow/half/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/maintenance/disposal/incinerator)
 "fMB" = (
 /obj/machinery/light{
 	dir = 8
@@ -31507,15 +31496,6 @@
 "iUX" = (
 /turf/closed/wall/r_wall,
 /area/science/mixing/chamber)
-"iVi" = (
-/obj/machinery/atmospherics/pipe/simple/general/visible,
-/obj/structure/reagent_dispensers/fueltank,
-/obj/item/storage/toolbox/emergency,
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/maintenance/disposal/incinerator)
 "iVl" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -35282,6 +35262,13 @@
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"kQb" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible,
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/disposal/incinerator)
 "kQi" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -39536,6 +39523,13 @@
 /obj/effect/spawner/lootdrop/costume,
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
+"nij" = (
+/obj/machinery/atmospherics/components/trinary/filter{
+	dir = 1;
+	flipped = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/disposal/incinerator)
 "nis" = (
 /obj/structure/table/glass,
 /obj/item/storage/backpack/duffelbag/sec/surgery{
@@ -42812,6 +42806,16 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/teleporter)
+"oQd" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/disposal/incinerator)
 "oQn" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/yellow,
@@ -45638,6 +45642,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
+"qmA" = (
+/obj/structure/table,
+/turf/open/space/basic,
+/area/space)
 "qmQ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -47405,12 +47413,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hor)
-"rqx" = (
-/obj/machinery/atmospherics/components/trinary/filter{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/maintenance/disposal/incinerator)
 "rrq" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -48505,6 +48507,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"rTu" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/tile/yellow/half/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/disposal/incinerator)
 "rTz" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "EVA Maintenance";
@@ -53924,18 +53935,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore)
-"vhN" = (
-/obj/machinery/atmospherics/pipe/simple/general/visible{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/effect/turf_decal/tile/yellow/half/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/maintenance/disposal/incinerator)
 "vip" = (
 /obj/structure/closet/secure_closet/atmospherics,
 /obj/effect/turf_decal/delivery,
@@ -56523,6 +56522,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
+"wIS" = (
+/obj/machinery/portable_atmospherics/canister,
+/turf/open/space/basic,
+/area/space)
 "wIU" = (
 /obj/structure/transit_tube/curved{
 	dir = 1
@@ -98293,9 +98296,9 @@ iVt
 lLh
 kmU
 sDn
-rqx
+nij
 nEA
-iVi
+kQb
 oiL
 ceA
 aht
@@ -98806,8 +98809,8 @@ aht
 qFJ
 hVl
 gAB
-vhN
-fMq
+rTu
+oQd
 ydC
 qIk
 mHb
@@ -100609,7 +100612,7 @@ jKU
 qNY
 aaa
 aaa
-aaa
+qmA
 aaa
 aaa
 aaa
@@ -101123,7 +101126,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+wIS
 aaa
 aaa
 aaa
