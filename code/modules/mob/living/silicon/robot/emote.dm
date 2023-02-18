@@ -6,6 +6,7 @@
 	key = "boop"
 	key_third_person = "boops"
 	message = "boops."
+	sound = 'sound/machines/terminal_success.ogg'
 
 /datum/emote/silicon/buzz
 	key = "buzz"
