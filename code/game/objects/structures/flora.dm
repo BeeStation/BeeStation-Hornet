@@ -392,6 +392,14 @@
 	desc = "A pile of rocks."
 	density = FALSE
 
+/obj/structure/flora/rock/icy
+	name = "icy rock"
+	color = rgb(204,233,235)
+
+/obj/structure/flora/rock/pile/icy
+	name = "icy rocks"
+	color = rgb(204,233,235)
+
 //Jungle grass
 
 /obj/structure/flora/grass/jungle
