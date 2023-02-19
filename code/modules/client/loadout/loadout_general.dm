@@ -22,6 +22,12 @@
 	path = /obj/item/coin/antagtoken
 	cost = 10000
 
+/datum/gear/misc/valentines
+	display_name = "valentines card"
+	description = "A card with a cheesy message written in it, how cute."
+	path = /obj/item/valentine
+	cost = 700
+
 //LIGHTERS & CIGARETTES
 
 /datum/gear/misc/lighter
