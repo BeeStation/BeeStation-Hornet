@@ -65252,7 +65252,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "svj" = (
-/turf/closed/wall,
+/turf/closed/wall/r_wall,
 /area/science/storage)
 "svP" = (
 /obj/structure/chair{
