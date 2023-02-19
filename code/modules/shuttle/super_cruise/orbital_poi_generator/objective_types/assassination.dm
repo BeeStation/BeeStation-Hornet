@@ -35,6 +35,7 @@
 /datum/orbital_objective/assassination/generate_objective_stuff(turf/chosen_turf)
 	var/mob/living/carbon/human/created_human = new(chosen_turf)
 	//Maybe polling ghosts would be better than the shintience code
+	created_human.role = ROLE_TRAITOR
 	created_human.set_playable()
 	created_human.mind_initialize()
 	//Remove nearby dangers

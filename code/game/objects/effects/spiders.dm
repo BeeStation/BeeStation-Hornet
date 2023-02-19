@@ -105,6 +105,8 @@
 
 /obj/structure/spider/eggcluster/attack_ghost(mob/user)
 	. = ..()
+	if(!user?.client.canGhostRole(ROLE_SPIDER, TRUE, flags_1))
+		return
 	if(ghost_ready)
 		make_spider(user)
 	else
