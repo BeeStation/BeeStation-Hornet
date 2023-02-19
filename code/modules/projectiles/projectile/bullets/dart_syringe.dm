@@ -19,7 +19,7 @@
 					syringe.embed(M)
 					return BULLET_ACT_HIT
 				else
-					reagents.reaction(M, INJECT)
+					reagents.expose(M, INJECT)
 					reagents.trans_to(M, reagents.total_volume)
 					return BULLET_ACT_HIT
 			else
