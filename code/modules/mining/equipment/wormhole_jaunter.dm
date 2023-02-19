@@ -75,7 +75,7 @@
 
 /obj/item/wormhole_jaunter/proc/chasm_react(mob/user)
 	if(user.get_item_by_slot(ITEM_SLOT_BELT) == src)
-		user.visible_message("<span class='notice'>[user.name] is saved by their [src]!</span>", "<span class='warning'>Your [src] activates, saving you from the chasm!</span>")
+		user.visible_message("<span class='notice'>[user] is saved by their [src]!</span>", "<span class='warning'>Your [src] activates, saving you from the chasm!</span>")
 		SSblackbox.record_feedback("tally", "jaunter", 1, "Chasm") // chasm automatic activation
 		INVOKE_ASYNC(user.client, /client.proc/give_award, /datum/award/achievement/misc/chasmjaunt, user)
 		activate(user, FALSE)
