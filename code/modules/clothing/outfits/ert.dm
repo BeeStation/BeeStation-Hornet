@@ -323,6 +323,22 @@
 	R.keyslot = new /obj/item/encryptionkey/headset_service
 	R.recalculateChannels()
 
+/datum/outfit/centcom_attorney
+	name = "CentCom Attorney"
+
+	uniform = /obj/item/clothing/under/rank/centcom/intern
+	suit = /obj/item/clothing/suit/toggle/lawyer
+	shoes = /obj/item/clothing/shoes/laceup
+	ears = /obj/item/radio/headset/headset_cent
+	glasses = /obj/item/clothing/glasses/sunglasses/advanced
+	belt = /obj/item/modular_computer/tablet/pda/lawyer
+	back = /obj/item/storage/backpack/satchel
+	l_hand = /obj/item/storage/briefcase/lawyer
+	l_pocket = /obj/item/laser_pointer
+	r_pocket = /obj/item/clothing/accessory/lawyers_badge
+	id = /obj/item/card/id/ert/lawyer
+	backpack_contents = list(/obj/item/storage/box/survival = 1)
+
 /datum/outfit/centcom_intern
 	name = "CentCom Intern"
 
