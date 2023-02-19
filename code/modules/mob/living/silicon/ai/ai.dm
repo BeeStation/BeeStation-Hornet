@@ -367,7 +367,7 @@
 		return
 
 	// Guard against misclicks, this isn't the sort of thing we want happening accidentally
-	if(alert("WARNING: This will immediately wipe your core and ghost you, removing your character from the round permanently (similar to cryo). Are you entirely sure you want to do this?",
+	if(alert("WARNING: This will immediately wipe your core and ghost you, removing your character from the round permanently (similar to cryo, so you should ahelp before doing so). Are you entirely sure you want to do this?",
 					"Wipe Core", "No", "No", "Yes") != "Yes")
 		return
 
@@ -1029,7 +1029,8 @@
 		apc.malfhack = TRUE
 		apc.locked = TRUE
 		apc.coverlocked = TRUE
-
+		var/turf/T = get_turf(apc)
+		log_message("hacked APC [apc] at [AREACOORD(T)] (NEW PROCESSING: [malf_picker.processing_time])", LOG_GAME)
 		playsound(get_turf(src), 'sound/machines/ding.ogg', 50, 1, ignore_walls = FALSE)
 		to_chat(src, "Hack complete. \The [apc] is now under your exclusive control.")
 		apc.update_appearance()

@@ -1,4 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: Cyborgs now have properly functioning emissive lights again
