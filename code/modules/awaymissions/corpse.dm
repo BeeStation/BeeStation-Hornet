@@ -34,22 +34,15 @@
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /obj/effect/mob_spawn/attack_ghost(mob/user)
-	if(!SSticker.HasRoundStarted() || !loc || !ghost_usable)
-		return
-	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER) && !(flags_1 & ADMIN_SPAWNED_1))
-		to_chat(user, "<span class='warning'>An admin has temporarily disabled non-admin ghost roles!</span>")
+	if(!loc || !ghost_usable)
 		return
 	if(!uses)
 		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
 		return
-	if(is_banned_from(user.key, banType))
-		to_chat(user, "<span class='warning'>You are jobanned!</span>")
+	if(!user?.client.canGhostRole(banType, use_cooldown, flags_1))
 		return
 	if(QDELETED(src) || QDELETED(user))
-		return
-	if(use_cooldown && user.client.next_ghost_role_tick > world.time)
-		to_chat(user, "<span class='warning'>You have died recently, you must wait [(user.client.next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner.</span>")
-		return
+		return	
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(ghost_role != "Yes" || !loc)
 		return
