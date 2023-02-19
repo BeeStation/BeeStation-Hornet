@@ -131,7 +131,7 @@ GLOBAL_LIST(valentine_mobs)
 	to_chat(user, "<span class='notice'>The card vanishes out of your hand! Lets hope they got it...</span>")
 	// Assign our side of the date, if they picked us then create the objective
 	GLOB.valentine_mobs[user] = picked_human
-	if(!hugbox && GLOB.valentine_mobs[picked_human] == user)
+	if(GLOB.valentine_mobs[picked_human] == user)
 		// they picked each other, so now they get to go on a date
 		forge_valentines_objective(user, picked_human)
 		forge_valentines_objective(picked_human, user)
@@ -157,7 +157,7 @@ GLOBAL_LIST(valentine_mobs)
 		. += "<span class='notice'>It is too far away.</span>"
 
 /obj/item/valentine/attack_self(mob/user)
-	if(!used)
+	if(!used && !hugbox)
 		write_valentine(user)
 		return
 	user.examinate(src)
