@@ -47,7 +47,7 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 		else
 			stack_trace("Invalid quirk \"[V]\" in client [cli.ckey] preferences. the game has reset their quirks automatically.")
 			bad_quirks += V
-	if(bad_quirk_checker || length(bad_quirks)) // negative & zero value = calculation good / positive quirk value = something's wrong
+	if(bad_quirk_checker > 0 || length(bad_quirks)) // negative & zero value = calculation good / positive quirk value = something's wrong
 		cli.prefs.active_character.all_quirks = list()
 		cli.prefs.active_character.save(cli)
 		client_alert(cli, "You have one or more outdated quirks[length(bad_quirks) ? ": [english_list(bad_quirks)]" : ""]. Your eligible quirks are kept at this round, but your character preference has been reset. Please review them at any time.", "Oh, no!")

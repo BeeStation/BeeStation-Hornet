@@ -1,9 +1,9 @@
 /obj/item/reagent_containers/pill/patch
 	name = "chemical patch"
 	desc = "A chemical patch for touch based applications."
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bandaid"
-	item_state = "bandaid"
+	icon = 'icons/obj/medicine_containers.dmi'
+	icon_state = "bandaid_small_cross"
+	item_state = "bandaid_small_cross"
 	volume = 40
 	apply_type = PATCH
 	apply_method = "apply"
@@ -31,16 +31,16 @@
 	name = "brute patch"
 	desc = "Helps with brute injuries."
 	list_reagents = list(/datum/reagent/medicine/styptic_powder = 30)
-	icon_state = "bandaid_brute"
+	icon_state = "bandaid_big_brute"
 
 /obj/item/reagent_containers/pill/patch/silver_sulf
 	name = "burn patch"
 	desc = "Helps with burn injuries."
 	list_reagents = list(/datum/reagent/medicine/silver_sulfadiazine = 30)
-	icon_state = "bandaid_burn"
+	icon_state = "bandaid_big_burn"
 
 /obj/item/reagent_containers/pill/patch/synthflesh
 	name = "synthflesh patch"
 	desc = "Helps with brute and burn injuries."
 	list_reagents = list(/datum/reagent/medicine/synthflesh = 30)
-	icon_state = "bandaid_both"
+	icon_state = "bandaid_big_both"

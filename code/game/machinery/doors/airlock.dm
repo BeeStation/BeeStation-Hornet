@@ -1112,6 +1112,7 @@
 				welded = !welded
 				user.visible_message("[user.name] has [welded? "welded shut":"unwelded"] [src].", \
 									"<span class='notice'>You [welded ? "weld the airlock shut":"unweld the airlock"].</span>")
+				log_combat(user, src, welded? "welded shut":"unwelded")
 				update_icon()
 		else
 			if(obj_integrity < max_integrity)
@@ -1259,11 +1260,11 @@
 	update_icon(AIRLOCK_CLOSING, 1)
 	layer = CLOSED_DOOR_LAYER
 	if(air_tight)
-		density = TRUE
+		set_density(TRUE)
 		air_update_turf(1)
 	sleep(1)
 	if(!air_tight)
-		density = TRUE
+		set_density(TRUE)
 		air_update_turf(1)
 	sleep(open_speed - 1)
 	if(!safe)

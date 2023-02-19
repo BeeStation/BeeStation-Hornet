@@ -116,6 +116,9 @@
 	bullet_bounce_sound = null
 	tiled_dirt = FALSE
 
+/turf/open/floor/holofloor/hyperspace/nograv/check_gravity()
+    return FALSE
+
 /turf/open/floor/holofloor/hyperspace/Initialize(mapload)
 	icon_state = "speedspace_ns_[(x + 5*y + (y%2+1)*7)%15+1]"
 	. = ..()
