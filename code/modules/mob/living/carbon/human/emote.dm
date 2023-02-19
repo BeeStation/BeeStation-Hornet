@@ -239,7 +239,7 @@
 	key = "boop"
 	key_third_person = "boops"
 	message = "boops."
-	sound = 'sound/machines/terminal_success.ogg'
+	sound = 'sound/machines/boop.ogg'
 
 /datum/emote/living/carbon/human/robot_tongue/beep/run_emote(mob/user, params)
 	if(..())
