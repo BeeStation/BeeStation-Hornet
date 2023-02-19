@@ -86,6 +86,7 @@ GLOBAL_LIST(valentine_mobs)
 	var/mob/target = null
 	var/mob/sender = null
 	var/used = FALSE
+	var/hugbox = FALSE
 
 /obj/item/valentine/Initialize(mapload)
 	. = ..()
@@ -130,7 +131,7 @@ GLOBAL_LIST(valentine_mobs)
 	to_chat(user, "<span class='notice'>The card vanishes out of your hand! Lets hope they got it...</span>")
 	// Assign our side of the date, if they picked us then create the objective
 	GLOB.valentine_mobs[user] = picked_human
-	if(GLOB.valentine_mobs[picked_human] == user)
+	if(!hugbox && GLOB.valentine_mobs[picked_human] == user)
 		// they picked each other, so now they get to go on a date
 		forge_valentines_objective(user, picked_human)
 		forge_valentines_objective(picked_human, user)
@@ -160,6 +161,9 @@ GLOBAL_LIST(valentine_mobs)
 		write_valentine(user)
 		return
 	user.examinate(src)
+
+/obj/item/valentine/hugbox
+	hugbox = TRUE
 
 /obj/item/reagent_containers/food/snacks/candyheart
 	name = "candy heart"
