@@ -1,0 +1,5 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - admin: Added a Lawyer ERT, accessible in the Create a Central Command Response
+      Team menu.
