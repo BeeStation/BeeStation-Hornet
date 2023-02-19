@@ -31,7 +31,7 @@
 	if (alert(user, "Are you sure you want to empty the incubator's synthflesh container?", "Empty Reagent Storage:", "Yes", "No") != "Yes")
 		return
 	to_chat(user, "<span class='notice'>You empty \the [src]'s release valve onto the floor.</span>")
-	reagents.expose(user.loc)
+	//reagents.expose(user.loc)
 	src.reagents.clear_reagents()
 
 /obj/machinery/frostwing_incubator/examine(mob/user)
