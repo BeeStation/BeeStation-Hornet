@@ -156,6 +156,7 @@
 		/obj/item/storage/backpack/industrial = 1,
 		/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 3,
 		/obj/item/clothing/under/rank/engineering/atmospheric_technician = 3,
+		/obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt = 3,
 		/obj/item/clothing/shoes/sneakers/black = 3,
 		/obj/item/clothing/head/beret/atmos = 3)
 	generate_items_inside(items_inside,src)
@@ -173,6 +174,7 @@
 		/obj/item/storage/backpack/satchel/eng = 1,
 		/obj/item/clothing/suit/hooded/wintercoat/engineering = 1,
 		/obj/item/clothing/under/rank/engineering/engineer = 3,
+		/obj/item/clothing/under/rank/engineering/engineer/skirt = 3,
 		/obj/item/clothing/suit/hazardvest = 3,
 		/obj/item/clothing/shoes/workboots = 3,
 		/obj/item/clothing/head/hardhat = 3,
