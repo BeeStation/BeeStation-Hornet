@@ -1,0 +1,6 @@
+author: spockye
+delete-after: true
+changes:
+  - rscdel: removes suit storage units from bridge (corgstation)
+  - rscadd: adds wood lining to most wood tiles (corgstation)
+  - rscadd: adds wood lining around most grass (corgstation)
