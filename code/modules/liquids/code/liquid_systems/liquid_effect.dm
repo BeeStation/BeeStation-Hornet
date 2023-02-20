@@ -1,6 +1,6 @@
 /obj/effect/abstract/liquid_turf
 	name = "liquid"
-	icon = 'code/modules/liquids/icons/obj/effects/liquid.dmi'
+	icon = 'icons/effects/liquid.dmi'
 	icon_state = "water-0"
 	base_icon_state = "water"
 	anchored = TRUE
@@ -188,7 +188,7 @@
 	SIGNAL_HANDLER
 	var/turf/T = source
 	if(liquid_group.group_overlay_state >= LIQUID_STATE_ANKLES && T.has_gravity(T))
-		playsound(T, 'code/modules/liquids/sound/effects/splash.ogg', 50, 0)
+		playsound(T, 'sound/effects/splash.ogg', 50, 0)
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
 			if(C.wear_mask && C.wear_mask.flags_cover & MASKCOVERSMOUTH)

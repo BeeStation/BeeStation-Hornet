@@ -204,7 +204,11 @@
 	for(var/turf/listed_turf in removed_turfs)
 		targeted_group.remove_from_group(listed_turf)
 		qdel(listed_turf.liquids)
-		targeted_group.check_edges(listed_turf)
+		for(var/dir in GLOB.cardinals)
+			var/turf/open/direction_turf = get_step(listed_turf, dir)
+			if(!isopenturf(direction_turf) || !direction_turf.liquids)
+				continue
+			listed_turf.liquids.liquid_group.check_edges(direction_turf)
 
 	///recalculate the values here because processing
 	targeted_group.total_reagent_volume = targeted_group.reagents.total_volume
@@ -256,9 +260,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/plumbing/floor_pump/input/on/waste, 0
 /obj/machinery/plumbing/floor_pump/output/examine(mob/user)
 	. = ..()
 	if(over_pressure)
-		. += "<span class='notice'>The gas regulator light is blinking.</span>"
+		. += "<span class='warning'>The gas regulator light is blinking.</span>"
 	if(over_volume)
-		. += "<span class='notice'>The liquid volume regulator light is blinking.</span>"
+		. += "<span class='warning'>The liquid volume regulator light is blinking.</span>"
 
 /obj/machinery/plumbing/floor_pump/output/are_reagents_ready()
 	return reagents.total_volume > 0
