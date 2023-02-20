@@ -434,6 +434,10 @@
 /mob/living/simple_animal/revenant/get_photo_description(obj/item/camera/camera)
 	return "You can also see a g-g-g-g-ghooooost of malice!"
 
+/mob/living/simple_animal/revenant/set_resting(rest, silent = TRUE)
+	to_chat(src, "<span class='warning'>You are too restless to rest now!</span>")
+	return FALSE
+
 //reforming
 /obj/item/ectoplasm/revenant
 	name = "glimmering residue"
