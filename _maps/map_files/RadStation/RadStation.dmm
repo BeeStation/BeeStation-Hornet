@@ -8167,6 +8167,25 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
+"dHq" = (
+/obj/item/reagent_containers/food/drinks/britcup{
+	pixel_x = 3;
+	pixel_y = 12
+	},
+/obj/structure/table/wood{
+	base_icon_state = null;
+	canSmoothWith = null;
+	desc = "For when it all gets too much to bear. Do not taunt.";
+	icon = 'icons/obj/machines/nuke_terminal.dmi';
+	icon_state = "nuclearbomb_base";
+	name = "Cup holder";
+	parent_type = /obj/structure/table;
+	pass_flags_self = 128;
+	smoothing_flags = 0;
+	smoothing_groups = null
+	},
+/turf/open/floor/plasteel/dark,
+/area/bridge/meeting_room)
 "dHL" = (
 /obj/structure/rack,
 /obj/item/restraints/handcuffs{
@@ -30006,25 +30025,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/dorms)
-"mTF" = (
-/obj/item/reagent_containers/food/drinks/britcup{
-	pixel_x = 3;
-	pixel_y = 12
-	},
-/obj/structure/table/wood{
-	base_icon_state = null;
-	canSmoothWith = null;
-	desc = "For when it all gets too much to bear. Do not taunt.";
-	icon = 'icons/obj/machines/nuke_terminal.dmi';
-	icon_state = "nuclearbomb_base";
-	name = "Cup holder";
-	parent_type = /obj/machinery/neclearbomb;
-	pass_flags_self = 128;
-	smoothing_flags = 0;
-	smoothing_groups = null
-	},
-/turf/open/floor/plasteel/dark,
-/area/bridge/meeting_room)
 "mTR" = (
 /turf/open/space/basic,
 /area/ai_monitored/turret_protected/ai)
@@ -36690,9 +36690,6 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/science/misc_lab)
-"pSX" = (
-/turf/closed/wall,
-/area/engine/atmos)
 "pTh" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
@@ -42214,19 +42211,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/robotics)
-"stb" = (
-/obj/structure/lattice/catwalk,
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
-/turf/open/space/basic,
-/area/space/nearstation)
 "sue" = (
 /obj/structure/sign/warning/radiation_shelter{
 	pixel_x = 1;
@@ -51212,10 +51196,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science)
-"wlG" = (
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space/nearstation)
 "wlS" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -51586,9 +51566,6 @@
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/plasteel/dark,
 /area/storage/primary)
-"wuJ" = (
-/turf/closed/wall/r_wall,
-/area/ai_monitored/turret_protected/ai)
 "wvm" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -65906,7 +65883,7 @@ yeA
 yeA
 yeA
 yeA
-wlG
+pAK
 nif
 nif
 tnI
@@ -66163,7 +66140,7 @@ yeA
 yeA
 yeA
 yeA
-wlG
+pAK
 nif
 tnI
 eKP
@@ -66419,8 +66396,8 @@ yeA
 yeA
 fQL
 pAK
-wlG
-wlG
+pAK
+pAK
 uuS
 ryP
 jFe
@@ -66429,7 +66406,7 @@ gvW
 drn
 uuS
 pAK
-wlG
+pAK
 pAK
 fQL
 yeA
@@ -66677,7 +66654,7 @@ yeA
 yeA
 yeA
 yeA
-wlG
+pAK
 nif
 wpw
 qTV
@@ -66934,7 +66911,7 @@ yeA
 yeA
 yeA
 yeA
-wlG
+pAK
 nif
 nif
 wpw
@@ -68736,7 +68713,7 @@ yeA
 yeA
 yeA
 yeA
-stb
+fQL
 yeA
 pAK
 yeA
@@ -75130,7 +75107,7 @@ tXy
 pAK
 ewB
 ewB
-wlG
+pAK
 pAK
 pAK
 pAK
@@ -86376,7 +86353,7 @@ sgM
 hIa
 qpK
 aIw
-mTF
+dHq
 oOu
 jXO
 jXO
@@ -87625,15 +87602,15 @@ xDX
 tyh
 ipV
 ceL
-wuJ
+vHK
 icT
 icT
-wuJ
+vHK
 icT
-wuJ
+vHK
 icT
 icT
-wuJ
+vHK
 vKw
 aJf
 vch
@@ -87882,7 +87859,7 @@ dFs
 pDI
 dFs
 dFs
-wuJ
+vHK
 dSO
 qRH
 lHA
@@ -87890,7 +87867,7 @@ cco
 nQz
 qRH
 dbR
-wuJ
+vHK
 jDI
 uoY
 xJS
@@ -88139,7 +88116,7 @@ gHr
 ogV
 uRI
 jAI
-wuJ
+vHK
 vHK
 hxB
 rwL
@@ -89167,7 +89144,7 @@ kQR
 ogV
 uRI
 cKR
-wuJ
+vHK
 vHK
 aii
 rwL
@@ -89424,7 +89401,7 @@ dFs
 xwl
 dFs
 dFs
-wuJ
+vHK
 lIk
 ueJ
 qJk
@@ -89432,7 +89409,7 @@ maa
 tfy
 ueJ
 feH
-wuJ
+vHK
 tam
 dqJ
 xXJ
@@ -89681,15 +89658,15 @@ chu
 xOd
 pHE
 lWo
-wuJ
+vHK
 icT
 icT
-wuJ
+vHK
 icT
-wuJ
+vHK
 icT
 icT
-wuJ
+vHK
 cSi
 dut
 wPb
@@ -93941,7 +93918,7 @@ qtn
 avH
 avH
 drp
-pSX
+drp
 drp
 jGx
 bhN
@@ -94455,7 +94432,7 @@ vdH
 wQA
 bMp
 avH
-pSX
+drp
 drp
 jGx
 bhN
@@ -99546,7 +99523,7 @@ kyR
 hTj
 pmR
 aDN
-wlG
+pAK
 kyR
 xkC
 ubl
@@ -99744,7 +99721,7 @@ yeA
 yeA
 yeA
 yeA
-wlG
+pAK
 ewB
 pAK
 pAK
