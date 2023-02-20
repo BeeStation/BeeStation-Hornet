@@ -9788,7 +9788,6 @@
 "era" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/structure/table/glass,
-/obj/structure/table/glass,
 /obj/item/reagent_containers/food/drinks/bottle/virusfood{
 	pixel_x = 2;
 	pixel_y = 12
@@ -18783,7 +18782,6 @@
 /area/hallway/primary/central)
 "ihJ" = (
 /obj/structure/table,
-/obj/structure/table,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -26358,7 +26356,6 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/lattice,
 /obj/structure/lattice/catwalk,
 /obj/machinery/disposal/deliveryChute{
 	name = "Failed send off input"
@@ -26978,7 +26975,6 @@
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/medical/exam_room)
 "lGU" = (
@@ -27564,7 +27560,6 @@
 	})
 "lTs" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/obj/structure/table/glass,
 /obj/structure/table/glass,
 /obj/item/reagent_containers/syringe/antiviral{
 	pixel_x = 7;
@@ -42230,7 +42225,6 @@
 	name = "landing marker";
 	picked_color = "Burgundy"
 	},
-/obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
 "sue" = (
