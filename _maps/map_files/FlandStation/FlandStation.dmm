@@ -44734,6 +44734,11 @@
 	},
 /obj/structure/closet/radiation,
 /obj/effect/turf_decal/bot,
+/obj/machinery/door/window/eastright{
+	dir = 1;
+	name = "Artifact containment";
+	req_access_txt = "47"
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/explab)
 "lsS" = (
@@ -55049,7 +55054,7 @@
 /obj/machinery/door/window/eastright{
 	dir = 1;
 	name = "Artifact containment";
-	req_access_txt = "29"
+	req_access_txt = "47"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
