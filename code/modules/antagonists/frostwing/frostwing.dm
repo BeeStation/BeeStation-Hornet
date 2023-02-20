@@ -1,6 +1,5 @@
 /datum/team/frostwing
 	name = "Frostwings"
-	show_roundend_report = FALSE
 
 /datum/team/frostwing/proc/gain_objectives()
 	var/datum/objective/O = new
@@ -16,6 +15,21 @@
 	objectives += objective_2
 	for(var/datum/mind/M in members)
 		log_objective(M, objective_2.explanation_text)
+
+/datum/team/frostwing/roundend_report()
+	var/list/parts = list()
+	if(members.len)
+		parts += "<span class='header'>The Frostwings were:</span>"
+		parts += printplayerlist(members)
+
+	if(length(objectives))
+		parts += "<span class='header'>The Frostwings' objectives were:</span>"
+		var/count = 1
+		for(var/datum/objective/objective in objectives)
+			parts += "<b>Objective #[count]</b>: [objective.explanation_text]"
+			count++
+
+	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
 
 /datum/antagonist/frostwing
 	name = "Frostwing"
