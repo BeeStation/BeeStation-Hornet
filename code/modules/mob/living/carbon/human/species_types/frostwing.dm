@@ -5,6 +5,7 @@
 	default_color = "00FFFF"
 	species_traits = list(NO_UNDERWEAR, NOEYESPRITES)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_AVIAN)
+	action
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	mutanttongue = /obj/item/organ/tongue/frostwing
 	// Allow frozen, low pressure atmos. This doesn't cause damage for the station atmos, instead using bodytemp
@@ -37,6 +38,9 @@
 	body_temperature_heat_divisor = BODYTEMP_COLD_DIVISOR
 	// We can heat up double a human in one tick
 	body_temperature_heating_max = BODYTEMP_HEATING_MAX * 2
+
+	/// Action used to show frostwings to other frostwings
+	var/datum/action/cooldown/frostwing_call/call_action
 
 /datum/species/frostwing/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.frostwing_names)]-[pick(GLOB.frostwing_names)][prob(50) ? "-[pick(GLOB.frostwing_names)]" : ""][prob(10) ? "-[pick(GLOB.frostwing_names)]" : ""]"
@@ -97,12 +101,81 @@
 		fly.Grant(C)
 	if(islist(C.dna?.features))
 		C.dna.features["wings"] = "Frostwing"
+	var/datum/component/tracking_beacon/component_beacon = C.AddComponent(/datum/component/tracking_beacon, "frostwing", null, null, FALSE, "#2fd6db", TRUE, TRUE, "#005e61")
+	component_beacon.attached_monitor = C.AddComponent(/datum/component/team_monitor, "frostwing", 1, component_beacon, TRUE)
+	component_beacon.attached_monitor.show_hud(C)
+	// For some reason doing this initially doesn't work
+	component_beacon.toggle_visibility(FALSE)
+	call_action = new()
+	call_action.Grant(C)
 
 /datum/species/frostwing/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	if(ishuman(C) && fly)
 		fly.Remove(C)
 		toggle_flight(C)
+	call_action.Remove(C)
+	QDEL_NULL(call_action)
+	var/datum/component/tracking_beacon/beacon = C.GetComponent(/datum/component/tracking_beacon)
+	if(beacon)
+		beacon.RemoveComponent()
+	var/datum/component/team_monitor/monitor = C.GetComponent(/datum/component/team_monitor)
+	if(monitor)
+		monitor.RemoveComponent()
+
+/datum/species/frostwing/spec_life(mob/living/carbon/human/H)
+	if(call_action)
+		call_action.UpdateButtonIcon()
+
+/datum/action/cooldown/frostwing_call
+	name = "Call"
+	desc = "Performs a loud bird call, allowing your fellow frostwings to pinpoint you if they're close enough."
+	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUN|AB_CHECK_CONSCIOUS
+	button_icon_state = "call"
+	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	cooldown_time = 15 SECONDS
+
+/datum/action/cooldown/frostwing_call/Trigger()
+	if(!..())
+		return FALSE
+	var/mob/living/carbon/H = owner
+	var/obj/item/organ/tongue/tongue = H.getorgan(/obj/item/organ/tongue)
+	if(!tongue)
+		to_chat(H, "<span class='warning'>You try to call out, but you have no tongue!</span>")
+		return
+	if(HAS_TRAIT(H, TRAIT_MUTE))
+		to_chat(H, "<span class='warning'>You can't speak!</span>")
+		return
+	to_chat(H, "<span class='notice'>You call out loudly to your fellow frostwings...</span>")
+	H.emote("acaw")
+	var/turf/turf_source = get_turf(H)
+	var/list/listeners = list()
+	if(is_station_level(turf_source.z))
+		for(var/z in SSmapping.levels_by_trait(ZTRAIT_STATION))
+			listeners += SSmobs.clients_by_zlevel[z]
+	else
+		listeners += SSmobs.clients_by_zlevel[turf_source.z]
+		var/turf/above_turf = SSmapping.get_turf_above(turf_source)
+		var/turf/below_turf = SSmapping.get_turf_below(turf_source)
+		if(above_turf)
+			listeners += SSmobs.clients_by_zlevel[above_turf.z]
+		if(below_turf)
+			listeners += SSmobs.clients_by_zlevel[below_turf.z]
+
+	for(var/mob/living/carbon/human/listening_mob in listeners)
+		if(!isfrostwing(listening_mob) || get_dist(listening_mob, turf_source) > 75)
+			continue
+		SEND_SOUND(listening_mob, sound(pick('sound/emotes/caw3.ogg', 'sound/emotes/caw4.ogg'), volume=75))
+	var/datum/component/tracking_beacon/beacon = H.GetComponent(/datum/component/tracking_beacon)
+	if(beacon)
+		beacon.toggle_visibility(TRUE)
+		addtimer(CALLBACK(beacon, /datum/component/tracking_beacon.proc/toggle_visibility, FALSE), 5 SECONDS)
+
+/datum/action/cooldown/frostwing_call/IsAvailable()
+	if(..())
+		var/mob/living/carbon/human/H = owner
+		return !HAS_TRAIT(H, TRAIT_MUTE) && H.getorgan(/obj/item/organ/tongue)
+	return FALSE
 
 /datum/species/frostwing/handle_environment(datum/gas_mixture/environment, mob/living/carbon/human/H)
 	..()

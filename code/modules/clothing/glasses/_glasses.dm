@@ -327,7 +327,7 @@
 /obj/item/clothing/glasses/welding/ghostbuster/ComponentInitialize()
 	. = ..()
 	//Have the HUD enabled by default, since the glasses start in the down position.
-	var/datum/component/team_monitor/ghost_vision = AddComponent(/datum/component/team_monitor, "ghost", 1)
+	var/datum/component/team_monitor/worn/ghost_vision = AddComponent(/datum/component/team_monitor/worn, "ghost", 1)
 	ghost_vision.toggle_hud(TRUE, null)
 
 /obj/item/clothing/glasses/welding/ghostbuster/weldingvisortoggle()
@@ -347,7 +347,7 @@
 			C = null
 	//Toggle the hud of the component
 	//Pass in the wearer, or null if they are not wearing the goggles
-	var/datum/component/team_monitor/ghost_vision = GetComponent(/datum/component/team_monitor)
+	var/datum/component/team_monitor/worn/ghost_vision = GetComponent(/datum/component/team_monitor/worn)
 	ghost_vision.toggle_hud(!ghost_vision.hud_visible, C)
 	//Update the hud colour
 	if(ghost_vision.hud_visible)

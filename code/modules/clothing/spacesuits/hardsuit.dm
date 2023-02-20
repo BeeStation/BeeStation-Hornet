@@ -354,9 +354,9 @@
 		//Add the monitor (Default to null - No tracking)
 		var/datum/component/tracking_beacon/component_beacon = linkedsuit.AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#8f4a4b")
 		//Add the monitor (Default to null - No tracking)
-		component_beacon.attached_monitor = AddComponent(/datum/component/team_monitor, "synd", null, component_beacon)
+		component_beacon.attached_monitor = AddComponent(/datum/component/team_monitor/worn, "synd", null, component_beacon)
 	else
-		AddComponent(/datum/component/team_monitor, "synd", null)
+		AddComponent(/datum/component/team_monitor/worn, "synd", null)
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/ui_action_click(mob/user, datum/action)
 	switch(action.type)
@@ -366,7 +366,7 @@
 			toggle_hud(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/toggle_hud(mob/user)
-	var/datum/component/team_monitor/monitor = GetComponent(/datum/component/team_monitor)
+	var/datum/component/team_monitor/worn/monitor = GetComponent(/datum/component/team_monitor/worn)
 	if(!monitor)
 		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
 		return
@@ -967,9 +967,9 @@
 		//Add the monitor (Default to null - No tracking)
 		var/datum/component/tracking_beacon/component_beacon = linkedsuit.AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#8f4a4b")
 		//Add the monitor (Default to null - No tracking)
-		component_beacon.attached_monitor = AddComponent(/datum/component/team_monitor, "synd", null, component_beacon)
+		component_beacon.attached_monitor = AddComponent(/datum/component/team_monitor/worn, "synd", null, component_beacon)
 	else
-		AddComponent(/datum/component/team_monitor, "synd", null)
+		AddComponent(/datum/component/team_monitor/worn, "synd", null)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi/ui_action_click(mob/user, datum/action)
 	switch(action.type)
@@ -979,7 +979,7 @@
 			toggle_hud(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi/proc/toggle_hud(mob/user)
-	var/datum/component/team_monitor/monitor = GetComponent(/datum/component/team_monitor)
+	var/datum/component/team_monitor/worn/monitor = GetComponent(/datum/component/team_monitor/worn)
 	if(!monitor)
 		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
 		return

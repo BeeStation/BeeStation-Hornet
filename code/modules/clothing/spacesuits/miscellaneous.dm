@@ -187,9 +187,9 @@ Contains:
 		//Add the monitor (Default to null - No tracking)
 		var/datum/component/tracking_beacon/component_beacon = linkedsuit.AddComponent(/datum/component/tracking_beacon, "cent", null, null, TRUE, beacon_colour)
 		//Add the monitor (Default to null - No tracking)
-		component_beacon.attached_monitor = AddComponent(/datum/component/team_monitor, "cent", null, component_beacon)
+		component_beacon.attached_monitor = AddComponent(/datum/component/team_monitor/worn, "cent", null, component_beacon)
 	else
-		AddComponent(/datum/component/team_monitor, "cent", null)
+		AddComponent(/datum/component/team_monitor/worn, "cent", null)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/ui_action_click(mob/user, datum/action)
 	switch(action.type)
@@ -199,7 +199,7 @@ Contains:
 			toggle_hud(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/proc/toggle_hud(mob/user)
-	var/datum/component/team_monitor/monitor = GetComponent(/datum/component/team_monitor)
+	var/datum/component/team_monitor/worn/monitor = GetComponent(/datum/component/team_monitor/worn)
 	if(!monitor)
 		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
 		return
