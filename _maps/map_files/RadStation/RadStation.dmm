@@ -36696,7 +36696,6 @@
 /turf/open/floor/plasteel/techmaint,
 /area/science/misc_lab)
 "pSX" = (
-/obj/structure/lattice/catwalk,
 /turf/closed/wall,
 /area/engine/atmos)
 "pTh" = (
@@ -43194,7 +43193,6 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "sOi" = (
-/obj/structure/table/reinforced,
 /obj/structure/table/reinforced,
 /obj/machinery/microwave{
 	pixel_y = 6
@@ -49752,7 +49750,6 @@
 /turf/open/floor/plasteel,
 /area/science/lobby)
 "vHK" = (
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/ai_monitored/turret_protected/ai)
 "vHO" = (
@@ -51223,7 +51220,6 @@
 /area/maintenance/department/science)
 "wlG" = (
 /obj/structure/lattice,
-/obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
 "wlS" = (
@@ -51715,8 +51711,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/advanced_airlock_controller{
 	dir = 4;
-	pixel_x = 31;
-	pixel_y = 0
+	pixel_x = 31
 	},
 /obj/machinery/computer/security/mining,
 /obj/item/radio/intercom{
