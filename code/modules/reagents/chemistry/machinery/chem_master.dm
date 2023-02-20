@@ -188,6 +188,8 @@
 	data["isBeakerLoaded"] = beaker ? 1 : 0
 	data["beakerCurrentVolume"] = beaker ? beaker.reagents.total_volume : null
 	data["beakerMaxVolume"] = beaker ? beaker.volume : null
+	data["machineCurrentVolume"] = reagents.total_volume
+	data["machineMaxVolume"] = reagents.maximum_volume
 	data["mode"] = mode
 	data["condi"] = condi
 	data["screen"] = screen
