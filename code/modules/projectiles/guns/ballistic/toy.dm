@@ -14,6 +14,7 @@
 	fire_rate = 3
 	weapon_weight = WEAPON_LIGHT
 	burst_size = 3
+	fire_delay = 3 // Slightly worse than the actual sabre
 
 /obj/item/gun/ballistic/automatic/toy/update_icon()
 	. = ..()
