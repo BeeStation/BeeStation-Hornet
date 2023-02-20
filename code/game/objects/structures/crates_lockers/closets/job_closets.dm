@@ -154,14 +154,14 @@
 		/obj/item/storage/backpack/duffelbag/engineering = 1,
 		/obj/item/storage/backpack/satchel/eng = 1,
 		/obj/item/storage/backpack/industrial = 1,
-		/obj/item/storage/box/suitbox/wardrobe/atmospherics_yellow = 1
+		/obj/item/storage/box/suitbox/wardrobe/atmospherics_yellow = 3
 	)
 	generate_items_inside(items_inside,src)
 	return
 
 /obj/item/storage/box/suitbox/wardrobe/atmospherics_yellow
 	name = "compression box of atmospherics uniforms"
-	max_repetition = 3
+	max_repetition = 1
 	repeated_items = list(
 		/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos,
 		/obj/item/clothing/under/rank/engineering/atmospheric_technician,
@@ -180,14 +180,14 @@
 		/obj/item/storage/backpack/duffelbag/engineering = 1,
 		/obj/item/storage/backpack/industrial = 1,
 		/obj/item/storage/backpack/satchel/eng = 1,
-		/obj/item/storage/box/suitbox/wardrobe/engineering = 1
+		/obj/item/storage/box/suitbox/wardrobe/engineering = 3
 	)
 	generate_items_inside(items_inside,src)
 	return
 
 /obj/item/storage/box/suitbox/wardrobe/engineering
 	name = "compression box of engineering uniforms"
-	max_repetition = 3
+	max_repetition = 1
 	repeated_items = list(
 		/obj/item/clothing/suit/hooded/wintercoat/engineering,
 		/obj/item/clothing/under/rank/engineering/engineer,
