@@ -1615,3 +1615,24 @@
 /atom/proc/InitializeAIController()
 	if(ai_controller)
 		ai_controller = new ai_controller(src)
+
+/**
+* Called when something made out of plasma is exposed to high temperatures. 
+* Intended for use only with plasma that is ignited outside of some form of containment
+* Contained plasma ignitions (such as power cells or light fixtures) should explode with proper force
+*/
+/atom/proc/plasma_ignition(strength, mob/user)
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/environment = T.return_air()
+	if(environment.get_moles(GAS_O2) >= PLASMA_MINIMUM_OXYGEN_NEEDED) //Flashpoint ignition can only occur with at least this much oxygen present
+		if(user)
+			message_admins("[src] ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
+			log_game("[src] ignited by [key_name(user)] in [AREACOORD(T)]")
+		else
+			message_admins("[src] ignited by unidentified causes in [ADMIN_VERBOSEJMP(T)]")
+			log_game("[src] ignited by unidentified causes in [AREACOORD(T)]")
+		src.visible_message("<b><span class='userdanger'>[src] ignites in a brilliant flash!</span></b>")
+		explosion(T, 0, 0, light_impact_range = strength/4, flash_range = strength/2, flame_range = strength)
+		qdel(src)
+		return TRUE
+	return FALSE
