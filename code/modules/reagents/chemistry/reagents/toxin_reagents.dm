@@ -70,18 +70,6 @@
 	C.adjustPlasma(20)
 	return ..()
 
-/datum/reagent/toxin/plasma/expose_obj(obj/O, reac_volume)
-	if((!O) || (!reac_volume))
-		return 0
-	var/temp = holder ? holder.chem_temp : T20C
-	O.atmos_spawn_air("plasma=[reac_volume];TEMP=[temp]")
-
-/datum/reagent/toxin/plasma/expose_turf(turf/open/T, reac_volume)
-	if(istype(T))
-		var/temp = holder ? holder.chem_temp : T20C
-		T.atmos_spawn_air("plasma=[reac_volume];TEMP=[temp]")
-	return
-
 /datum/reagent/toxin/plasma/expose_mob(mob/living/M, methods=TOUCH, reac_volume)//Splashing people with plasma is stronger than fuel!
 	if(methods & (TOUCH|VAPOR))
 		M.adjust_fire_stacks(reac_volume / 5)

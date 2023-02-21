@@ -1,5 +1,5 @@
 /datum/chemical_reaction/reagent_explosion
-	name = "Generic explosive"
+	name = "reagent explosion reaction"
 	id = "reagent_explosion"
 	var/strengthdiv = 10
 	var/modifier = 0
@@ -7,28 +7,32 @@
 /datum/chemical_reaction/reagent_explosion/on_reaction(datum/reagents/holder, created_volume)
 	explode(holder, created_volume)
 
-/datum/chemical_reaction/reagent_explosion/proc/explode(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/reagent_explosion/proc/explode(datum/reagents/holder, created_volume)	
 	var/power = modifier + round(created_volume/strengthdiv, 1)
 	if(power > 0)
+		reaction_alert_admins(holder)
 		var/turf/T = get_turf(holder.my_atom)
-		var/inside_msg
-		if(ismob(holder.my_atom))
-			var/mob/M = holder.my_atom
-			inside_msg = " inside [ADMIN_LOOKUPFLW(M)]"
-		var/lastkey = holder.my_atom?.fingerprintslast
-		var/touch_msg = "N/A"
-		if(lastkey)
-			var/mob/toucher = get_mob_by_ckey(lastkey)
-			touch_msg = "[ADMIN_LOOKUPFLW(toucher)]"
-		if(!istype(holder.my_atom, /obj/machinery/plumbing)) //excludes standard plumbing equipment from spamming admins with this shit
-			message_admins("Reagent explosion reaction occurred at [ADMIN_VERBOSEJMP(T)][inside_msg]. Last Fingerprint: [touch_msg].")
-		log_game("Reagent explosion reaction occurred at [AREACOORD(T)]. Last Fingerprint: [lastkey ? lastkey : "N/A"]." )
 		var/datum/effect_system/reagents_explosion/e = new()
 		if(istype(holder.my_atom, /obj/item/grenade/chem_grenade))
 			e.explosion_sizes = list(0, 1, 1, 1)
 		e.set_up(power , T, 0, 0)
 		e.start()
 		holder.clear_reagents()
+
+/datum/chemical_reaction/proc/reaction_alert_admins(datum/reagents/holder)
+	var/turf/T = get_turf(holder.my_atom)
+	var/inside_msg
+	if(ismob(holder.my_atom))
+		var/mob/M = holder.my_atom
+		inside_msg = " inside [ADMIN_LOOKUPFLW(M)]"
+	var/lastkey = holder.my_atom?.fingerprintslast
+	var/touch_msg = "N/A"
+	if(lastkey)
+		var/mob/toucher = get_mob_by_ckey(lastkey)
+		touch_msg = "[ADMIN_LOOKUPFLW(toucher)]"
+	if(!istype(holder.my_atom, /obj/machinery/plumbing)) //excludes standard plumbing equipment from spamming admins with this shit
+		message_admins("[src] created at [ADMIN_VERBOSEJMP(T)][inside_msg]. Last Fingerprint: [touch_msg].")
+	log_game("[src] created at [AREACOORD(T)]. Last Fingerprint: [lastkey ? lastkey : "N/A"]." )
 
 
 /datum/chemical_reaction/reagent_explosion/nitroglycerin
@@ -89,6 +93,9 @@
 	id = /datum/reagent/blackpowder
 	results = list(/datum/reagent/blackpowder = 3)
 	required_reagents = list(/datum/reagent/saltpetre = 1, /datum/reagent/medicine/charcoal = 1, /datum/reagent/sulfur = 1)
+
+/datum/chemical_reaction/blackpowder/on_reaction(datum/reagents/holder, created_volume)
+	reaction_alert_admins(holder)
 
 /datum/chemical_reaction/reagent_explosion/blackpowder_explosion
 	name = "Black Powder Kaboom"
@@ -347,12 +354,13 @@
 		C.soundbang_act(1, 100, rand(0, 5))
 
 /datum/chemical_reaction/phlogiston
-	name = /datum/reagent/phlogiston
+	name = "phlogiston"
 	id = /datum/reagent/phlogiston
 	results = list(/datum/reagent/phlogiston = 3)
 	required_reagents = list(/datum/reagent/phosphorus = 1, /datum/reagent/toxin/acid = 1, /datum/reagent/stable_plasma = 1)
 
 /datum/chemical_reaction/phlogiston/on_reaction(datum/reagents/holder, created_volume)
+	reaction_alert_admins(holder)
 	if(holder.has_reagent(/datum/reagent/stabilizing_agent))
 		return
 	var/turf/open/T = get_turf(holder.my_atom)
