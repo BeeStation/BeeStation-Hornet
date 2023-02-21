@@ -97,6 +97,12 @@
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#d41010"
 
+/obj/machinery/portable_atmospherics/canister/oxygen
+	name = "o2 canister"
+	desc = "Oxygen. Necessary for human life."
+	icon_state = "blue"
+	gas_type = GAS_O2
+
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide
 	name = "n2o canister"
 	desc = "Nitrous oxide gas. Known to cause drowsiness."
