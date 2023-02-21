@@ -1629,11 +1629,13 @@
 			message_admins("[src] ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
 			log_game("[src] ignited by [key_name(user)] in [AREACOORD(T)]")
 		else
+			//if we can't get a direct source for ignition, we'll take the last person who touched what is blowing up
 			var/mob/toucher = get_mob_by_ckey(fingerprintslast)
 			if(toucher)
 				message_admins("[src] ignited in [ADMIN_VERBOSEJMP(T)], last touched by [ADMIN_LOOKUPFLW(toucher)]")
 				log_game("[src] ignited in [AREACOORD(T)], last touched by [key_name(toucher)]")
 			else
+				//Nobody directly touched the source of ignition or what ignited. Probably caused by burning atmos.
 				message_admins("[src] ignited by unidentified causes in [ADMIN_VERBOSEJMP(T)]")
 				log_game("[src] ignited by unidentified causes in [AREACOORD(T)]")
 		T.visible_message("<b><span class='userdanger'>[src] ignites in a brilliant flash!</span></b>")
