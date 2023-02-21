@@ -32,7 +32,6 @@
 	name = "Zauker crystal"
 	desc = "A crystal made from the Zauker Gas, you can see the liquid plasma inside."
 	icon_state = "zauker_crystal"
-	ex_dev = 1
 	ex_heavy = 2
 	ex_light = 4
 	ex_flame = 2
