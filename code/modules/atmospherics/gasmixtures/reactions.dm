@@ -282,7 +282,7 @@ nobiliumsuppression = INFINITY
 	return cached_results["fire"] ? REACTING : NO_REACTION
 
 /datum/gas_reaction/genericfire
-	priority = -4 // very last reaction
+	priority = -4
 	name = "Combustion"
 	id = "genericfire"
 
@@ -360,7 +360,7 @@ nobiliumsuppression = INFINITY
 	return cached_results["fire"] ? REACTING : NO_REACTION
 
 /datum/gas_reaction/freonfire
-	priority = -4
+	priority = -5 //very last reaction
 	name = "Freon combustion"
 	id = "freonfire"
 
