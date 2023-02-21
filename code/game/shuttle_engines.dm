@@ -155,6 +155,26 @@
 	bound_height = 96
 	appearance_flags = 0
 
+/obj/structure/shuttle/engine/hugeion
+	name = "engine"
+	opacity = 1
+	icon = 'icons/obj/4x7.dmi'
+	icon_state = "huge_ion_engine"
+	desc = "An extremely large bluespace engine used to propel even stations."
+	bound_width = 128
+	bound_height = 224
+	appearance_flags = 0
+
+/obj/structure/shuttle/engine/hugeion
+	name = "Ion"
+	opacity = 1
+	icon = 'icons/obj/4x7.dmi'
+	icon_state = "huge_ion_afterburn"
+	desc = "Quite hot!."
+	bound_width = 128
+	bound_height = 224
+	appearance_flags = 0
+
 #undef ENGINE_UNWRENCHED
 #undef ENGINE_WRENCHED
 #undef ENGINE_WELDED
