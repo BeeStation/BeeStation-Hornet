@@ -212,7 +212,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<b>Socks:</b><BR><a href ='?_src_=prefs;preference=socks;task=input'>[active_character.socks]</a><BR>"
 			dat += "<b>Backpack:</b><BR><a href ='?_src_=prefs;preference=bag;task=input'>[active_character.backbag]</a><BR>"
 			var/preferred_clothing_style = "<a href ='?_src_=prefs;preference=suit;task=input'>[active_character.jumpsuit_style]</a>"
-			dat += "<b>Preferred Clothing Style:</b><BR>[TOOLTIP_WRAPPER(preferred_clothing_style, 400, "Preferred style of uniform (If available).")]<BR>"
+			dat += "<b>Preferred Clothing Style:</b><BR>[TOOLTIP_WRAPPER(preferred_clothing_style, 200, "Preferred style of uniform (If available).")]<BR>"
 			dat += "<b>Uplink Spawn Location:</b><BR><a href ='?_src_=prefs;preference=uplink_loc;task=input'>[active_character.uplink_spawn_loc == UPLINK_IMPLANT ? UPLINK_IMPLANT_WITH_PRICE : active_character.uplink_spawn_loc]</a><BR></td>"
 
 			var/use_skintones = active_character.pref_species.use_skintones

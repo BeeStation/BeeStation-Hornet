@@ -309,13 +309,10 @@
 			back = backpack //Department backpack
 
 	//converts the uniform string into the path we'll wear, whether it's the skirt or regular variant
-	var/holder
-	if(H.jumpsuit_style == PREF_SKIRT)
-		holder = skirt_uniform
+	if(H.jumpsuit_style == PREF_SKIRT && skirt_uniform)
+		uniform = skirt_uniform
 	else
-		holder = uniform
-	uniform = text2path(holder)
-
+		uniform = initial(uniform)
 
 /datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
