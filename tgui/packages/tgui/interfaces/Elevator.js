@@ -10,20 +10,21 @@ export const Elevator = (props, context) => {
     } = data;
     return (
     <Window        
-        width={300}
+        width={240}
         height={500}
         theme="retro">
         <Window.Content scrollable={1}>
             <Stack direction="row" wrap="wrap" grow = {1} 
             align = "center" 
-            spacing = {`10%`}>
+            spacing = {`0%`}>
                 {
                     available_levels.map(level => (
-                        <Stack.Item basis = {`50%`}>
+                        <Stack.Item basis = {`100px`}>
                             <Button disabled = {level == current_z}
                             onClick={() => act(`${level}`)}
                             fontSize = {`50px`}
-                            bold = {1}>
+                            bold = {1}
+                            m = {`5%`}>
                                 {level}
                             </Button>
                         </Stack.Item>))
