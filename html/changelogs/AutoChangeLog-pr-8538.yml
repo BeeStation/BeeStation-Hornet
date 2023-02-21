@@ -1,0 +1,4 @@
+author: spockye
+delete-after: true
+changes:
+  - bugfix: fixed wrong access_txt on the artifact containment windoor (FlandStation)
