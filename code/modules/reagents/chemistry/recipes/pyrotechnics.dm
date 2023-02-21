@@ -7,7 +7,7 @@
 /datum/chemical_reaction/reagent_explosion/on_reaction(datum/reagents/holder, created_volume)
 	explode(holder, created_volume)
 
-/datum/chemical_reaction/reagent_explosion/proc/explode(datum/reagents/holder, created_volume)	
+/datum/chemical_reaction/reagent_explosion/proc/explode(datum/reagents/holder, created_volume)
 	var/power = modifier + round(created_volume/strengthdiv, 1)
 	if(power > 0)
 		reaction_alert_admins(holder)
