@@ -331,7 +331,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			to_chat_immediate(src, "<span class='danger'>Byond build [byond_build] ([byond_version].[byond_build]) has been blacklisted for the following reason: [GLOB.blacklisted_builds[num2text(byond_build)]].</span>")
 			to_chat_immediate(src, "<span class='danger'>Please download a new version of byond. If [byond_build] is the latest, you can go to <a href=\"https://secure.byond.com/download/build\">BYOND's website</a> to download other versions.</span>")
 			if(connecting_admin)
-				to_chat(src, "As an admin, you are being allowed to continue using this version, but please consider changing byond versions")
+				to_chat_immediate(src, "As an admin, you are being allowed to continue using this version, but please consider changing byond versions")
 			else
 				qdel(src)
 				return
@@ -352,7 +352,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			log_admin_private("MULTIKEYING: [key_name(src)] has a matching CID+IP with another player and is clearly multikeying. They have been warned to leave the server or risk getting banned.")
 		spawn(0.5 SECONDS) //needs to run during world init, do not convert to add timer
 			alert(mob, dupe_login_message) //players get banned if they don't see this message, do not convert to tgui_alert (or even tg_alert) please.
-			to_chat(mob, "<span class='danger'>[dupe_login_message]</span>")
+			to_chat_immediate(mob, "<span class='danger'>[dupe_login_message]</span>")
 
 
 	connection_time = world.time
@@ -365,13 +365,13 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	var/warn_build = CONFIG_GET(number/client_warn_build)
 
 	if (byond_version < breaking_version || (byond_version == breaking_version && byond_build < breaking_build)) //Out of date client.
-		to_chat(src, "<span class='danger'><b>Your version of BYOND is too old:</b></span>")
-		to_chat(src, CONFIG_GET(string/client_error_message))
-		to_chat(src, "Your version: [byond_version].[byond_build]")
-		to_chat(src, "Required version: [breaking_version].[breaking_build] or later")
-		to_chat(src, "Visit <a href=\"https://secure.byond.com/download\">BYOND's website</a> to get the latest version of BYOND.")
+		to_chat_immediate(src, "<span class='danger'><b>Your version of BYOND is too old:</b></span>")
+		to_chat_immediate(src, CONFIG_GET(string/client_error_message))
+		to_chat_immediate(src, "Your version: [byond_version].[byond_build]")
+		to_chat_immediate(src, "Required version: [breaking_version].[breaking_build] or later")
+		to_chat_immediate(src, "Visit <a href=\"https://secure.byond.com/download\">BYOND's website</a> to get the latest version of BYOND.")
 		if (connecting_admin)
-			to_chat(src, "Because you are an admin, you are being allowed to walk past this limitation, But it is still STRONGLY suggested you upgrade")
+			to_chat_immediate(src, "Because you are an admin, you are being allowed to walk past this limitation, But it is still STRONGLY suggested you upgrade")
 		else
 			qdel(src)
 			return
@@ -859,7 +859,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	var/url = winget(src, null, "url")
 	//special javascript to make them reconnect under a new window.
 	src << browse({"<a id='link' href="byond://[url]?token=[token]">byond://[url]?token=[token]</a><script type="text/javascript">document.getElementById("link").click();window.location="byond://winset?command=.quit"</script>"}, "border=0;titlebar=0;size=1x1;window=redirect")
-	to_chat(src, {"<a href="byond://[url]?token=[token]">You will be automatically taken to the game, if not, click here to be taken manually</a>"})
+	to_chat_immediate(src, {"<a href="byond://[url]?token=[token]">You will be automatically taken to the game, if not, click here to be taken manually</a>"})
 
 /client/proc/note_randomizer_user()
 	add_system_note("CID-Error", "Detected as using a cid randomizer.")
