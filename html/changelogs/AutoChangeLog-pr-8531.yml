@@ -1,7 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: Revenants can no longer rest because it is pointless to do so as a revenant.
-      Coincidentally revenants will no longer be able to accidentally turn off their
-      ability to travel between Z-levels on glowstation because this is how they were
-      doing that.
