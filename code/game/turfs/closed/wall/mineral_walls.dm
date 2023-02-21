@@ -144,7 +144,7 @@
 			plasma_ignition(6)
 
 /turf/closed/wall/mineral/plasma/bullet_act(obj/item/projectile/Proj)
-	if(!(Proj.nodamage) && Proj.damage_type == BURN && !QDELETED(src))
+	if(!(Proj.nodamage) && Proj.damage_type == BURN)
 		if(plasma_canignite())
 			new /obj/structure/girder/displaced(loc)
 			plasma_ignition(6)

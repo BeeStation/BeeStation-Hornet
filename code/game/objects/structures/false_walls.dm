@@ -274,6 +274,12 @@
 			new /obj/structure/girder/displaced(loc)
 			plasma_ignition(6)
 
+/obj/structure/falsewall/plasma/bullet_act(obj/item/projectile/Proj)
+	if(!(Proj.nodamage) && Proj.damage_type == BURN)
+		new /obj/structure/girder/displaced(loc)
+		plasma_ignition(6, Proj?.firer)
+	. = ..()
+
 /obj/structure/falsewall/bananium
 	name = "bananium wall"
 	desc = "A wall with bananium plating. Honk!"

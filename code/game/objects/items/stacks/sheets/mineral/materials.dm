@@ -101,6 +101,15 @@ Mineral Sheets
 	else
 		return ..()
 
+/obj/item/stack/sheet/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	if(exposed_temperature > 300)
+		plasma_ignition(amount/5)
+
+/obj/item/stack/sheet/mineral/plasma/bullet_act(obj/item/projectile/Proj)
+	if(!(Proj.nodamage) && Proj.damage_type == BURN)
+		plasma_ignition(amount/5, Proj?.firer)
+	. = ..()
+
 /* Gold */
 
 /obj/item/stack/sheet/mineral/gold

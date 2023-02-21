@@ -227,6 +227,12 @@
 			PlasmaBurn()
 			plasma_ignition(6)
 
+/obj/machinery/door/airlock/plasma/bullet_act(obj/item/projectile/Proj)
+	if(!(Proj.nodamage) && Proj.damage_type == BURN)
+		PlasmaBurn()
+		plasma_ignition(6, Proj?.firer)
+	. = ..()
+
 /obj/machinery/door/airlock/plasma/proc/PlasmaBurn()
 	var/obj/structure/door_assembly/DA
 	DA = new /obj/structure/door_assembly(loc)

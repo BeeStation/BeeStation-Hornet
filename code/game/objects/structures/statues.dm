@@ -111,7 +111,7 @@
 
 
 /obj/structure/statue/plasma/bullet_act(obj/item/projectile/Proj)
-	if(!(Proj.nodamage) && Proj.damage_type == BURN && !QDELETED(src))
+	if(!(Proj.nodamage) && Proj.damage_type == BURN)
 		plasma_ignition(6, Proj?.firer)
 	. = ..()
 

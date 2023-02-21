@@ -261,6 +261,11 @@
 	if(exposed_temperature > 300)
 		plasma_ignition(6)
 
+/obj/structure/mineral_door/transparent/plasma/bullet_act(obj/item/projectile/Proj)
+	if(!(Proj.nodamage) && Proj.damage_type == BURN)
+		plasma_ignition(6, Proj?.firer)
+	. = ..()
+
 /obj/structure/mineral_door/transparent/diamond
 	name = "diamond door"
 	icon_state = "diamond"
