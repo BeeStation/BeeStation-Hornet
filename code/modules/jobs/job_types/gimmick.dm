@@ -54,6 +54,7 @@
 	l_hand = /obj/item/storage/wallet
 	l_pocket = /obj/item/razor/straightrazor
 	can_be_admin_equipped = TRUE
+
 /datum/job/gimmick/stage_magician
 	title = JOB_NAME_STAGEMAGICIAN
 	flag = MAGICIAN

@@ -34,6 +34,7 @@
 	belt = /obj/item/modular_computer/tablet/pda/janitor
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/janitor
+	skirt_uniform = /obj/item/clothing/under/rank/civilian/janitor/skirt
 
 /datum/outfit/job/janitor/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()

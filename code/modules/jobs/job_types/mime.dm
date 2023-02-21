@@ -37,6 +37,7 @@
 	belt = /obj/item/modular_computer/tablet/pda/mime
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/mime
+	skirt_uniform = /obj/item/clothing/under/rank/civilian/mime/skirt
 	mask = /obj/item/clothing/mask/gas/mime
 	gloves = /obj/item/clothing/gloves/color/white
 	head = /obj/item/clothing/head/frenchberet

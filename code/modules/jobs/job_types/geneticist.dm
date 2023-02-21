@@ -38,6 +38,7 @@
 	belt = /obj/item/modular_computer/tablet/pda/geneticist
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/geneticist
+	skirt_uniform = /obj/item/clothing/under/rank/medical/geneticist/skirt
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	suit =  /obj/item/clothing/suit/toggle/labcoat/genetics
 	suit_store =  /obj/item/flashlight/pen

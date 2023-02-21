@@ -38,6 +38,7 @@
 	l_pocket = /obj/item/modular_computer/tablet/pda/roboticist
 	ears = /obj/item/radio/headset/headset_sci
 	uniform = /obj/item/clothing/under/rank/rnd/roboticist
+	skirt_uniform = /obj/item/clothing/under/rank/rnd/roboticist/skirt
 	suit = /obj/item/clothing/suit/toggle/labcoat
 
 	backpack = /obj/item/storage/backpack/science

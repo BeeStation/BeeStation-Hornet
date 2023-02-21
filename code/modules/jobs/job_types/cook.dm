@@ -35,6 +35,7 @@
 	belt = /obj/item/modular_computer/tablet/pda/cook
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/chef
+	skirt_uniform = /obj/item/clothing/under/rank/civilian/chef/skirt
 	suit = /obj/item/clothing/suit/toggle/chef
 	head = /obj/item/clothing/head/chefhat
 	mask = /obj/item/clothing/mask/fakemoustache/italian

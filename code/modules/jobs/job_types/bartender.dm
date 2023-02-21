@@ -34,6 +34,8 @@
 	belt = /obj/item/modular_computer/tablet/pda/bartender
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/bartender
+	skirt_uniform = /obj/item/clothing/under/rank/civilian/bartender/skirt
+
 	suit = /obj/item/clothing/suit/armor/vest
 	backpack_contents = list(/obj/item/storage/box/beanbag=1)
 	shoes = /obj/item/clothing/shoes/laceup

@@ -282,6 +282,9 @@
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	box = /obj/item/storage/box/survival
 
+	/// The skirt uniform, if one is provided
+	var/skirt_uniform
+
 	var/backpack = /obj/item/storage/backpack
 	var/satchel  = /obj/item/storage/backpack/satchel
 	var/duffelbag = /obj/item/storage/backpack/duffelbag
@@ -308,11 +311,9 @@
 	//converts the uniform string into the path we'll wear, whether it's the skirt or regular variant
 	var/holder
 	if(H.jumpsuit_style == PREF_SKIRT)
-		holder = "[uniform]/skirt"
-		if(!text2path(holder))
-			holder = "[uniform]"
+		holder = skirt_uniform
 	else
-		holder = "[uniform]"
+		holder = uniform
 	uniform = text2path(holder)
 
 

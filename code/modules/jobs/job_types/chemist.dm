@@ -37,6 +37,7 @@
 	belt = /obj/item/modular_computer/tablet/pda/chemist
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/chemist
+	skirt_uniform = /obj/item/clothing/under/rank/medical/chemist/skirt
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	suit =  /obj/item/clothing/suit/toggle/labcoat/chemist
 	backpack = /obj/item/storage/backpack/chemistry
