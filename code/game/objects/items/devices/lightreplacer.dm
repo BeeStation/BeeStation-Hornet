@@ -212,7 +212,7 @@
 			qdel(L2)
 
 			if(target.on && target.rigged)
-				target.explode()
+				target.plasma_ignition(4)
 			return
 
 		else
