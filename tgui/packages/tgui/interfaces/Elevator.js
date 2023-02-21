@@ -19,15 +19,15 @@ export const Elevator = (props, context) => {
           spacing={`0%`}>
           {
             available_levels.map(level => (
-            <Stack.Item basis={`100px`}>
-              <Button disabled={level==current_z}
-                onClick={() => act(`${level}`)}
-                fontSize={`50px`}
-                bold={1}
-                m={`5%`}>
-                {level}
-              </Button>
-            </Stack.Item>))
+              <Stack.Item basis={`100px`}>
+                <Button disabled={level==current_z}
+                  onClick={() => act(`${level}`)}
+                  fontSize={`50px`}
+                  bold={1}
+                  m={`5%`}>
+                  {level}
+                </Button>
+              </Stack.Item>))
           }
         </Stack>
       </Window.Content>
