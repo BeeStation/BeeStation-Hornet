@@ -143,7 +143,8 @@
 
 /obj/structure/carp_rift/attack_ghost(mob/user)
 	. = ..()
-	summon_carp(user)
+	if(user?.client.canGhostRole(ROLE_SPACE_DRAGON, TRUE, flags_1))
+		summon_carp(user)
 
 /**
  * Does a series of checks based on the portal's status.
