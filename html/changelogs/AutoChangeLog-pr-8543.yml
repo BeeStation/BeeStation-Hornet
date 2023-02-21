@@ -1,0 +1,6 @@
+author: spockye
+delete-after: true
+changes:
+  - bugfix: fixed pubbystation chapel windows
+  - bugfix: fixed random pubbystation tiles having 1e+006 Heat capacity
+  - bugfix: fixed random pubbystation maintenance tiles having luminosity set to 2
