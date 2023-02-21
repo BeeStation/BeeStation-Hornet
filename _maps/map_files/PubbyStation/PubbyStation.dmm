@@ -27171,14 +27171,6 @@
 /obj/structure/sign/warning/biohazard,
 /turf/closed/wall,
 /area/medical/virology)
-"gvf" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel{
-	heat_capacity = 1e+006
-	},
-/area/hallway/secondary/exit/departure_lounge)
 "gvG" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 4
@@ -36477,9 +36469,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "lxE" = (
 /obj/structure/cable/yellow{
@@ -40848,9 +40838,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "nSE" = (
 /obj/structure/closet/emcloset,
@@ -49284,9 +49272,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "sol" = (
 /obj/machinery/door/airlock/maintenance{
@@ -51335,7 +51321,7 @@
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "tvj" = (
-/obj/structure/window/reinforced/fulltile,
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/library/lounge)
 "tvm" = (
@@ -56285,9 +56271,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "wDl" = (
 /obj/structure/cable/yellow{
@@ -56477,9 +56461,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel{
-	heat_capacity = 1e+006
-	},
+/turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "wHm" = (
 /obj/effect/turf_decal/loading_area{
@@ -79721,7 +79703,7 @@ vKV
 aiu
 imI
 gMy
-gvf
+aWE
 tKj
 aOk
 aWE
