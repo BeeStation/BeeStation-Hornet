@@ -1625,21 +1625,27 @@
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/environment = T.return_air()
 	if(environment.get_moles(GAS_O2) >= PLASMA_MINIMUM_OXYGEN_NEEDED) //Flashpoint ignition can only occur with at least this much oxygen present
-		if(user)
-			message_admins("[src] ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
-			log_game("[src] ignited by [key_name(user)] in [AREACOORD(T)]")
-		else
-			//if we can't get a direct source for ignition, we'll take the last person who touched what is blowing up
-			var/mob/toucher = get_mob_by_ckey(fingerprintslast)
-			if(toucher)
-				message_admins("[src] ignited in [ADMIN_VERBOSEJMP(T)], last touched by [ADMIN_LOOKUPFLW(toucher)]")
-				log_game("[src] ignited in [AREACOORD(T)], last touched by [key_name(toucher)]")
+		//no reason to alert admins or create an explosion if there's not enough power to actually make an explosion
+		if(strength > 1) 
+			if(user)
+				message_admins("[src] ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
+				log_game("[src] ignited by [key_name(user)] in [AREACOORD(T)]")
 			else
-				//Nobody directly touched the source of ignition or what ignited. Probably caused by burning atmos.
-				message_admins("[src] ignited by unidentified causes in [ADMIN_VERBOSEJMP(T)]")
-				log_game("[src] ignited by unidentified causes in [AREACOORD(T)]")
-		T.visible_message("<b><span class='userdanger'>[src] ignites in a brilliant flash!</span></b>")
-		explosion(T, 0, 0, light_impact_range = strength/4, flash_range = strength/2, flame_range = strength)
+				//if we can't get a direct source for ignition, we'll take the last person who touched what is blowing up
+				var/mob/toucher = get_mob_by_ckey(fingerprintslast)
+				if(toucher)
+					message_admins("[src] ignited in [ADMIN_VERBOSEJMP(T)], last touched by [ADMIN_LOOKUPFLW(toucher)]")
+					log_game("[src] ignited in [AREACOORD(T)], last touched by [key_name(toucher)]")
+				else
+					//Nobody directly touched the source of ignition or what ignited. Probably caused by burning atmos.
+					message_admins("[src] ignited by unidentified causes in [ADMIN_VERBOSEJMP(T)]")
+					log_game("[src] ignited by unidentified causes in [AREACOORD(T)]")
+			explosion(T, 0, 0, light_impact_range = strength/4, flash_range = strength/2, flame_range = strength, silent = TRUE)
+		else
+			new /obj/effect/hotspot(T)
+		//Regardless of power, whatever is burning will go up in a brilliant flash with at least a fizzle
+		playsound(T,'sound/magic/fireball.ogg', max(strength*20, 20), 1)
+		T.visible_message("<b><span class='userdanger'>[src] ignites in a brilliant flash!</span></b>") 
 		if(isturf(src))
 			var/turf/srcTurf = src
 			srcTurf.ScrapeAway() //Can't just qdel turfs

@@ -204,7 +204,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	force = 4
 	var/turf/T = get_turf(src)
 	if(reagents.get_reagent_amount(/datum/reagent/toxin/plasma)) // the plasma explodes when exposed to fire
-		plasma_ignition(reagents.get_reagent_amount(/datum/reagent/toxin/plasma)/5)
+		plasma_ignition(reagents.get_reagent_amount(/datum/reagent/toxin/plasma)/10)
 		return
 	if(reagents.get_reagent_amount(/datum/reagent/fuel)) // the fuel explodes too, but much less violently
 		T.visible_message("<b><span class='userdanger'>[src] violently explodes!</span></b>")
