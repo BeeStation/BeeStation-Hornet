@@ -12,7 +12,7 @@
 	if(!isMotion())
 		. = PROCESS_KILL
 		return
-	if(stat & EMPED)
+	if(machine_stat & EMPED)
 		return
 	if (detectTime > 0)
 		var/elapsed = world.time - detectTime
@@ -84,7 +84,7 @@
 	c_tag = "Arena"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
 
-/obj/machinery/camera/motion/thunderdome/Initialize()
+/obj/machinery/camera/motion/thunderdome/Initialize(mapload)
 	. = ..()
 	proximity_monitor.SetRange(7)
 

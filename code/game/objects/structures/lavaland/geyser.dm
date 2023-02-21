@@ -6,6 +6,7 @@
 	icon = 'icons/obj/lavaland/terrain.dmi'
 	icon_state = "geyser"
 	anchored = TRUE
+	max_integrity = 150 //default is 300, override to have 1/2 half
 
 	var/erupting_state = null //set to null to get it greyscaled from "[icon_state]_soup". Not very usable with the whole random thing, but more types can be added if you change the spawn prob
 	var/activated = FALSE //whether we are active and generating chems
@@ -46,7 +47,7 @@
 	erupting_state = null
 	var/list/options = list(/datum/reagent/oil = 2, /datum/reagent/clf3 = 1) //fucking add more
 
-/obj/structure/geyser/random/Initialize()
+/obj/structure/geyser/random/Initialize(mapload)
 	. = ..()
 	reagent_id = pickweight(options)
 
@@ -65,7 +66,7 @@
 
 /obj/item/plunger/reinforced
 	name = "reinforced plunger"
-	desc = " It's an M. 7 Reinforced Plunger© for heavy duty plunging."
+	desc = " It's an M. 7 Reinforced Plungerï¿½ for heavy duty plunging."
 	icon_state = "reinforced_plunger"
 
 	reinforced = TRUE

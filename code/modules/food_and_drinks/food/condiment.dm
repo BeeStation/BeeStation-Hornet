@@ -37,7 +37,7 @@
 	var/icon_empty = ""
 	fill_icon_thresholds = list(0, 10, 25, 50, 75, 100)
 
-/obj/item/reagent_containers/food/condiment/Initialize()
+/obj/item/reagent_containers/food/condiment/Initialize(mapload)
 	. = ..()
 	possible_states = typelist("possible_states", possible_states)
 
@@ -93,7 +93,7 @@
 		log_combat(user, M, "fed", reagents.log_list())
 
 	var/fraction = min(10/reagents.total_volume, 1)
-	reagents.reaction(M, INGEST, fraction)
+	reagents.expose(M, INGEST, fraction)
 	reagents.trans_to(M, 10, transfered_by = user)
 	playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	return 1

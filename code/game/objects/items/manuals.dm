@@ -245,7 +245,7 @@
 /obj/item/book/manual/wiki
 	var/page_link = ""
 
-/obj/item/book/manual/wiki/Initialize()
+/obj/item/book/manual/wiki/Initialize(mapload)
 	. = ..()
 
 /obj/item/book/manual/wiki/attack_self(mob/user)
@@ -436,3 +436,10 @@
 	author = "Nanotrasen"
 	title = "Chemical Factories Without Narcotics"
 	page_link = "Guide_to_plumbing"
+
+/obj/item/book/manual/wiki/xenoarchaeology
+	name = "Xenoarchaeology Fieldguide"
+	icon_state ="xenoarchaeology"
+	author = "Phillippe French"
+	title = "Xenoarchaeology Fieldguide"
+	page_link = "Guide_to_Artifacts"

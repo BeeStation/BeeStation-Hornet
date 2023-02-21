@@ -1,10 +1,10 @@
 // CHAPLAIN CUSTOM ARMORS //
 
-/obj/item/clothing/suit/armor/riot/chaplain/Initialize()
+/obj/item/clothing/suit/armor/riot/chaplain/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE)
 
-/obj/item/clothing/suit/hooded/chaplain_hoodie/leader/Initialize()
+/obj/item/clothing/suit/hooded/chaplain_hoodie/leader/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE) //makes the leader hoodie immune without giving the follower hoodies immunity
 
@@ -14,7 +14,7 @@
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80, "stamina" = 40)
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
 	dog_fashion = null
@@ -51,15 +51,9 @@
 	return holy_item_list
 
 /obj/item/choice_beacon/holy/spawn_option(obj/choice,mob/living/M)
-	if(!GLOB.holy_armor_type)
-		..()
-		playsound(src, 'sound/effects/pray_chaplain.ogg', 40, 1)
-		SSblackbox.record_feedback("tally", "chaplain_armor", 1, "[choice]")
-		GLOB.holy_armor_type = choice
-	else
-		to_chat(M, "<span class='warning'>A selection has already been made. Self-Destructing...</span>")
-		return
-
+	..()
+	playsound(src, 'sound/effects/pray_chaplain.ogg', 40, 1)
+	SSblackbox.record_feedback("tally", "chaplain_armor", 1, "[choice]")
 
 /obj/item/storage/box/holy
 	name = "Templar Kit"
@@ -86,7 +80,7 @@
 /obj/item/clothing/head/helmet/chaplain/cage
 	name = "cage"
 	desc = "A cage that restrains the will of the self, allowing one to see the profane world for what it is."
-	alternate_worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
+	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
 	icon_state = "cage"
 	item_state = "cage"
 	worn_x_dimension = 64
@@ -175,7 +169,6 @@
 	desc = "A shirt and some leather pants in poor condition."
 	icon_state = "graverobber_under"
 	item_state = "graverobber_under"
-	item_color = "graverobber_under"
 	can_adjust = FALSE
 
 /obj/item/storage/box/holy/adept
@@ -253,47 +246,118 @@
 	throwforce = 10
 	w_class = WEIGHT_CLASS_TINY
 	obj_flags = UNIQUE_RENAME
-	var/reskinned = FALSE
 	var/chaplain_spawnable = TRUE
 
-/obj/item/nullrod/Initialize()
+/obj/item/nullrod/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE)
+	AddComponent(/datum/component/effect_remover, \
+	success_feedback = "You disrupt the magic of %THEEFFECT with %THEWEAPON.", \
+	success_forcesay = "BEGONE FOUL MAGIKS!!", \
+	on_clear_callback = CALLBACK(src, .proc/on_cult_rune_removed), \
+	effects_we_clear = list(/obj/effect/rune, /obj/effect/eldritch))
 
 /obj/item/nullrod/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
 	return (BRUTELOSS|FIRELOSS)
 
 /obj/item/nullrod/attack_self(mob/user)
-	if(user.mind && (user.mind.holy_role) && !reskinned)
+	if(user.mind && (user.mind.holy_role) && !current_skin)
 		reskin_holy_weapon(user)
 
 /obj/item/nullrod/proc/reskin_holy_weapon(mob/M)
-	if(GLOB.holy_weapon_type)
-		return
-	var/obj/item/nullrod/holy_weapon
-	var/list/holy_weapons_list = typesof(/obj/item/nullrod)
-	var/list/display_names = list()
-	for(var/V in holy_weapons_list)
-		var/obj/item/nullrod/rodtype = V
-		if (initial(rodtype.chaplain_spawnable))
-			display_names[initial(rodtype.name)] = rodtype
-
-	var/choice = input(M,"What theme would you like for your holy weapon?","Holy Weapon Theme") as null|anything in sortList(display_names, /proc/cmp_typepaths_asc)
-	if(QDELETED(src) || !choice || M.stat || !in_range(M, src) || M.incapacitated() || reskinned)
-		return
-
-	var/A = display_names[choice] // This needs to be on a separate var as list member access is not allowed for new
-	holy_weapon = new A
-
-	GLOB.holy_weapon_type = holy_weapon.type
-
-	SSblackbox.record_feedback("tally", "chaplain_weapon", 1, "[choice]")
-
-	if(holy_weapon)
-		holy_weapon.reskinned = TRUE
+	if(isnull(unique_reskin))
+		unique_reskin = list(
+			"Null Rod" = /obj/item/nullrod,
+			"God Hand" = /obj/item/nullrod/godhand,
+			"Red Holy Staff" = /obj/item/nullrod/staff,
+			"Blue Holy Staff" = /obj/item/nullrod/staff/blue,
+			"Claymore" = /obj/item/nullrod/claymore,
+			"Dark Blade" = /obj/item/nullrod/claymore/darkblade,
+			"Sacred Chainsaw Sword" = /obj/item/nullrod/claymore/chainsaw_sword,
+			"Force Weapon" = /obj/item/nullrod/claymore/glowing,
+			"Hanzo Steel" = /obj/item/nullrod/claymore/katana,
+			"Extradimensional Blade" = /obj/item/nullrod/claymore/multiverse,
+			"Light Energy Sword" = /obj/item/nullrod/claymore/saber,
+			"Dark Energy Sword" = /obj/item/nullrod/claymore/saber/red,
+			"Nautical Energy Sword" = /obj/item/nullrod/claymore/saber/pirate,
+			"UNREAL SORD" = /obj/item/nullrod/sord,
+			"Reaper Scythe" = /obj/item/nullrod/scythe,
+			"High Frequency Blade" = /obj/item/nullrod/scythe/vibro,
+			"Dormant Spellblade" = /obj/item/nullrod/scythe/spellblade,
+			"Possessed Blade" = /obj/item/nullrod/scythe/talking,
+			"Possessed Chainsaw Sword" = /obj/item/nullrod/scythe/talking/chainsword,
+			"Relic War Hammer" = /obj/item/nullrod/hammmer,
+			"Chainsaw Hand" = /obj/item/nullrod/chainsaw,
+			"Clown Dagger" = /obj/item/nullrod/clown,
+			"Pride-struck Hammer" = /obj/item/nullrod/pride_hammer,
+			"Holy Whip" = /obj/item/nullrod/whip,
+			"Atheist's Fedora" = /obj/item/nullrod/fedora,
+			"Dark Blessing" = /obj/item/nullrod/armblade,
+			"Unholy Blessing" = /obj/item/nullrod/armblade/tentacle,
+			"Carp-Sie Plushie" = /obj/item/nullrod/carp,
+			"Monk's Staff" = /obj/item/nullrod/claymore/bostaff,
+			"Arrythmic Knife" = /obj/item/nullrod/tribal_knife,
+			"Unholy Pitchfork" = /obj/item/nullrod/pitchfork,
+			"Egyptian Staff" = /obj/item/nullrod/egyptian,
+			"Hypertool" = /obj/item/nullrod/hypertool,
+			"Ancient Spear" = /obj/item/nullrod/spear
+		)
+	if(isnull(unique_reskin_icon))
+		unique_reskin_icon = list(
+			"Null Rod" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "nullrod"),
+			"God Hand" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "disintegrate"),
+			"Red Holy Staff" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "godstaff-red"),
+			"Blue Holy Staff" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "godstaff-blue"),
+			"Claymore" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "claymore"),
+			"Dark Blade" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "cultblade"),
+			"Sacred Chainsaw Sword" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "chainswordon"),
+			"Force Weapon" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "swordon"),
+			"Hanzo Steel" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "katana"),
+			"Extradimensional Blade" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "multiverse"),
+			"Light Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "swordblue"),
+			"Dark Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "swordred"),
+			"Nautical Energy Sword" = image(icon = 'icons/obj/transforming_energy.dmi', icon_state = "cutlass1"),
+			"UNREAL SORD" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "sord"),
+			"Reaper Scythe" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "scythe1"),
+			"High Frequency Blade" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "hfrequency1"),
+			"Dormant Spellblade" = image(icon = 'icons/obj/guns/magic.dmi', icon_state = "spellblade"),
+			"Possessed Blade" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "talking_sword"),
+			"Possessed Chainsaw Sword" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "chainswordon"),
+			"Relic War Hammer" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "hammeron"),
+			"Chainsaw Hand" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "chainsaw_on"),
+			"Clown Dagger" = image(icon = 'icons/obj/wizard.dmi', icon_state = "clownrender"),
+			"Pride-struck Hammer" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "pride"),
+			"Holy Whip" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "chain"),
+			"Atheist's Fedora" = image(icon = 'icons/obj/clothing/hats.dmi', icon_state = "fedora"),
+			"Dark Blessing" = image(icon = 'icons/obj/changeling_items.dmi', icon_state = "arm_blade"),
+			"Unholy Blessing" = image(icon = 'icons/obj/changeling_items.dmi', icon_state = "tentacle"),
+			"Carp-Sie Plushie" = image(icon = 'icons/obj/plushes.dmi', icon_state = "carpplush"),
+			"Monk's Staff" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "bostaff0"),
+			"Arrythmic Knife" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "crysknife"),
+			"Unholy Pitchfork" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "pitchfork0"),
+			"Egyptian Staff" = image(icon = 'icons/obj/guns/magic.dmi', icon_state = "pharoah_sceptre"),
+			"Hypertool" = image(icon = 'icons/obj/device.dmi', icon_state = "hypertool"),
+			"Ancient Spear" = image(icon = 'icons/obj/clockwork_objects.dmi', icon_state = "ratvarian_spear")
+	)
+	var/choice = show_radial_menu(M, src, unique_reskin_icon, radius = 42, require_near = TRUE, tooltips = TRUE)
+	SSblackbox.record_feedback("tally", "chaplain_weapon", 1, "[choice]") //Keeping this here just in case removing it breaks something
+	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated() && in_range(M,src))
 		qdel(src)
+		var A = unique_reskin[choice]
+		var/obj/item/nullrod/holy_weapon = new A
+		holy_weapon.current_skin = choice
 		M.put_in_active_hand(holy_weapon)
+
+/obj/item/nullrod/proc/on_cult_rune_removed(obj/effect/target, mob/living/user)
+	if(!istype(target, /obj/effect/rune))
+		return
+
+	var/obj/effect/rune/target_rune = target
+	if(target_rune.log_when_erased)
+		log_game("[target_rune.cultist_name] rune erased by [key_name(user)] using a null rod.")
+		message_admins("[ADMIN_LOOKUPFLW(user)] erased a [target_rune.cultist_name] rune with a null rod.")
+	SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_NARNAR] = TRUE
 
 /obj/item/nullrod/godhand
 	icon_state = "disintegrate"
@@ -309,7 +373,7 @@
 	attack_verb = list("punched", "cross countered", "pummeled")
 	block_upgrade_walk = 0
 
-/obj/item/nullrod/godhand/Initialize()
+/obj/item/nullrod/godhand/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
 
@@ -328,10 +392,10 @@
 	block_power = 20
 	var/shield_icon = "shield-red"
 
-/obj/item/nullrod/staff/worn_overlays(isinhands)
+/obj/item/nullrod/staff/worn_overlays(mutable_appearance/standing, isinhands)
 	. = list()
 	if(isinhands)
-		. += mutable_appearance('icons/effects/effects.dmi', shield_icon, MOB_LAYER + 0.01)
+		. += mutable_appearance('icons/effects/effects.dmi', shield_icon, MOB_SHIELD_LAYER)
 
 /obj/item/nullrod/staff/blue
 	name = "blue holy staff"
@@ -390,6 +454,7 @@
 	desc = "Capable of cutting clean through a holy claymore."
 	icon_state = "katana"
 	item_state = "katana"
+	worn_icon_state = "katana"
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	block_power = 0
@@ -464,7 +529,7 @@
 	sharpness = IS_SHARP
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 
-/obj/item/nullrod/scythe/Initialize()
+/obj/item/nullrod/scythe/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 70, 110) //the harvest gives a high bonus chance
 
@@ -582,7 +647,7 @@
 	block_upgrade_walk = 0
 
 
-/obj/item/nullrod/chainsaw/Initialize()
+/obj/item/nullrod/chainsaw/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
 	AddComponent(/datum/component/butchering, 30, 100, 0, hitsound)
@@ -656,9 +721,10 @@
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = IS_SHARP
 
-/obj/item/nullrod/armblade/Initialize()
+/obj/item/nullrod/armblade/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
+//	ADD_TRAIT(src, TRAIT_DOOR_PRYER, INNATE_TRAIT)	//uncomment if you want chaplains to have AA as a null rod option. The armblade will behave even more like a changeling one then!
 	AddComponent(/datum/component/butchering, 80, 70)
 
 /obj/item/nullrod/armblade/tentacle

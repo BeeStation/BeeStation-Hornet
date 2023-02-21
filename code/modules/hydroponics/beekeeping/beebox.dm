@@ -40,7 +40,7 @@
 	var/bee_resources = 0
 
 
-/obj/structure/beebox/Initialize()
+/obj/structure/beebox/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
@@ -58,7 +58,7 @@
 	var/random_reagent = FALSE
 
 
-/obj/structure/beebox/premade/Initialize()
+/obj/structure/beebox/premade/Initialize(mapload)
 	. = ..()
 
 	icon_state = "beebox"
@@ -255,7 +255,7 @@
 				queen_bee = null
 
 /obj/structure/beebox/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/mineral/wood (loc, 20)
+	new /obj/item/stack/sheet/wood (loc, 20)
 	for(var/mob/living/simple_animal/hostile/poison/bees/B in bees)
 		if(B.loc == src)
 			B.forceMove(drop_location())

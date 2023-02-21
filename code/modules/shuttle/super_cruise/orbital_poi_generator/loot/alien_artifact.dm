@@ -10,7 +10,7 @@
 /obj/item/alienartifact/examine(mob/user)
 	. = ..()
 	var/mob/living/L = user
-	if(istype(L) && L.mind?.assigned_role != "Curator")
+	if(istype(L) && L.mind?.assigned_role != JOB_NAME_CURATOR)
 		return
 	for(var/datum/artifact_effect/effect in effects)
 		for(var/verb in effect.effect_act_descs)
@@ -23,7 +23,7 @@
 	. = ..()
 	AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
 
-/obj/item/alienartifact/Initialize()
+/obj/item/alienartifact/Initialize(mapload)
 	. = ..()
 	effects = list()
 	for(var/i in 1 to pick(1, 500; 2, 70; 3, 20; 1))
@@ -63,7 +63,7 @@
 	teleport_restriction = TELEPORT_ALLOW_NONE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
-/area/tear_in_reality/Initialize()
+/area/tear_in_reality/Initialize(mapload)
 	. = ..()
 	mood_message = "<span class='warning'>[scramble_message_replace_chars("###### ### #### ###### #######", 100)]!</span>"
 
@@ -91,6 +91,8 @@
 /datum/artifact_effect/Destroy()
 	if(requires_processing)
 		STOP_PROCESSING(SSobj, src)
+
+	return ..()
 
 //===================
 // Chaos Throw
@@ -154,8 +156,7 @@
 /atom/movable/proximity_monitor_holder/Initialize(mapload, datum/proximity_monitor/_monitor, datum/callback/_callback)
 	monitor = _monitor
 	callback = _callback
-
-	monitor.hasprox_receiver = src
+	monitor?.hasprox_receiver = src
 
 /atom/movable/proximity_monitor_holder/HasProximity(atom/movable/AM)
 	return callback.Invoke(AM)
@@ -280,7 +281,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 /obj/effect/landmark/destabilization_loc
 	name = "destabilization spawn"
 
-/obj/effect/landmark/destabilization_loc/Initialize()
+/obj/effect/landmark/destabilization_loc/Initialize(mapload)
 	..()
 	GLOB.destabilization_spawns += get_turf(src)
 	return INITIALIZE_HINT_QDEL
@@ -358,7 +359,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 		return
 	var/turf/T = get_turf(warper)
 	if(T)
-		do_teleport(warper, pick(RANGE_TURFS(10, T)), channel = TELEPORT_CHANNEL_FREE)
+		do_teleport(warper, pick(RANGE_TURFS(10, T)), channel = TELEPORT_CHANNEL_BLINK)
 		next_use_world_time = world.time + 150
 
 //===================
@@ -396,7 +397,6 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	var/static/list/valid_outputs = list(
 		/datum/gas/bz = 3,
 		/datum/gas/hypernoblium = 1,
-		/datum/gas/miasma = 3,
 		/datum/gas/plasma = 3,
 		/datum/gas/tritium = 2,
 		/datum/gas/nitryl = 1
@@ -451,7 +451,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	if(world.time < next_world_time)
 		return
 	var/turf/T = get_turf(source_object)
-	for(var/datum/light_source/light_source in T.affecting_lights)
+	for(var/datum/light_source/light_source in T.light_sources)
 		var/atom/movable/AM = light_source.source_atom
 		//Starts at light but gets stronger the longer it is in light.
 		AM.lighteater_act()

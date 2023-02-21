@@ -24,8 +24,9 @@
 	//two variables necessary for calculating whether we get a brain trauma or not
 	var/damage_delta = 0
 
-
 	var/list/datum/brain_trauma/traumas = list()
+
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /obj/item/organ/brain/Insert(mob/living/carbon/C, special = 0,no_id_transfer = FALSE)
 	..()
@@ -73,6 +74,12 @@
 	if(iszombie(H))//braaaaaains... otherwise, too important to eat.
 		..()
 
+/obj/item/organ/brain/setOrganDamage(d)
+	. = ..()
+	if(brain_death && !(organ_flags & ORGAN_FAILING))
+		brain_death = FALSE
+		brainmob.revive(TRUE) // We fixed the brain, fix the brainmob too.
+
 /obj/item/organ/brain/proc/transfer_identity(mob/living/L)
 	name = "[L.name]'s brain"
 	if(brainmob || decoy_override)
@@ -106,9 +113,6 @@
 
 	if((organ_flags & ORGAN_FAILING) && O.is_drainable() && O.reagents.has_reagent(/datum/reagent/medicine/mannitol)) //attempt to heal the brain
 		. = TRUE //don't do attack animation.
-		if(brain_death || brainmob?.health <= HEALTH_THRESHOLD_DEAD) //if the brain is fucked anyway, do nothing
-			to_chat(user, "<span class='warning'>[src] is far too damaged, there's nothing else we can do for it!</span>")
-			return
 
 		if(!O.reagents.has_reagent(/datum/reagent/medicine/mannitol, 10))
 			to_chat(user, "<span class='warning'>There's not enough mannitol in [O] to restore [src]!</span>")
@@ -223,7 +227,7 @@
 		var/mob/living/carbon/human/H = C
 		if(H.dna?.species)
 			if(REVIVESBYHEALING in H.dna.species.species_traits)
-				if(H.health > 0 && !H.hellbound)
+				if(H.health > 0 && !H.ishellbound())
 					H.revive(0)
 
 /obj/item/organ/brain/positron/emp_act(severity)

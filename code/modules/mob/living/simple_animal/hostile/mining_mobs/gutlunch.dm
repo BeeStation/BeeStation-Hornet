@@ -42,7 +42,7 @@
 	wanted_objects = list(/obj/effect/decal/cleanable/xenoblood/xgibs, /obj/effect/decal/cleanable/blood/gibs/, /obj/item/organ)
 	var/obj/item/udder/gutlunch/udder = null
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/Initialize()
+/mob/living/simple_animal/hostile/asteroid/gutlunch/Initialize(mapload)
 	udder = new()
 	. = ..()
 
@@ -69,6 +69,7 @@
 	return FALSE
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Destroy()
+	reagents = null
 	QDEL_NULL(udder)
 	return ..()
 
@@ -98,7 +99,7 @@
 	name = "gubbuck"
 	gender = MALE
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck/Initialize()
+/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck/Initialize(mapload)
 	. = ..()
 	add_atom_colour(pick("#E39FBB", "#D97D64", "#CF8C4A"), FIXED_COLOUR_PRIORITY)
 	resize = 0.85
@@ -127,7 +128,7 @@
 	var/growth = 0
 
 //Baby gutlunch
-/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/Initialize()
+/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/Initialize(mapload)
 	. = ..()
 	add_atom_colour("#9E9E9E", FIXED_COLOUR_PRIORITY) //Somewhat hidden
 	resize = 0.45
@@ -156,7 +157,7 @@
 /obj/item/udder/gutlunch
 	name = "nutrient sac"
 
-/obj/item/udder/gutlunch/Initialize()
+/obj/item/udder/gutlunch/Initialize(mapload)
 	. = ..()
 	reagents = new(50)
 	reagents.my_atom = src

@@ -14,8 +14,11 @@
 #define MESSAGE_TYPE_MENTORPM "mentorpm"
 #define MESSAGE_TYPE_COMBAT "combat"
 #define MESSAGE_TYPE_ADMINCHAT "adminchat"
-#define MESSAGE_TYPE_MODCHAT "modchat"
+#define MESSAGE_TYPE_MENTORCHAT "mentorchat"
 #define MESSAGE_TYPE_EVENTCHAT "eventchat"
 #define MESSAGE_TYPE_ADMINLOG "adminlog"
+#define MESSAGE_TYPE_MENTORLOG "mentorlog"
 #define MESSAGE_TYPE_ATTACKLOG "attacklog"
 #define MESSAGE_TYPE_DEBUG "debug"
+/// Adds a generic box around whatever message you're sending in chat. Really makes things stand out.
+#define EXAMINE_BLOCK(str) ("<div class='examine_block'>" + str + "</div>")

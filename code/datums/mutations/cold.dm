@@ -1,4 +1,4 @@
-/datum/mutation/human/geladikinesis
+/datum/mutation/geladikinesis
 	name = "Geladikinesis"
 	desc = "Allows the user to concentrate moisture and sub-zero forces into snow."
 	quality = POSITIVE
@@ -11,12 +11,13 @@
 /obj/effect/proc_holder/spell/targeted/conjure_item/snow
 	name = "Create Snow"
 	desc = "Concentrates cryokinetic forces to create snow, useful for snow-like construction."
-	item_type = /obj/item/stack/sheet/mineral/snow
+	item_type = /obj/item/stack/sheet/snow
+
 	charge_max = 50
 	delete_old = FALSE
 	action_icon_state = "snow"
 
-/datum/mutation/human/wax_saliva
+/datum/mutation/wax_saliva
 	name = "Waxy Saliva"
 	desc = "Allows the user to secrete wax."
 	quality = POSITIVE
@@ -30,12 +31,12 @@
 /obj/effect/proc_holder/spell/targeted/conjure_item/wax
 	name = "Secrete Wax"
 	desc = "Concentrate to spit out some wax, useful for bee-themed construction."
-	item_type = /obj/item/stack/sheet/mineral/wax
+	item_type = /obj/item/stack/sheet/wax
 	charge_max = 50
 	delete_old = FALSE
 	action_icon_state = "honey"
 
-/datum/mutation/human/cryokinesis
+/datum/mutation/cryokinesis
 	name = "Cryokinesis"
 	desc = "Draws negative energy from the sub-zero void to freeze surrounding temperatures at subject's will."
 	quality = POSITIVE //upsides and downsides

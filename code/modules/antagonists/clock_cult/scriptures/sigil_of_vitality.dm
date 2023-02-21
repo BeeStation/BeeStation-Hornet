@@ -32,7 +32,7 @@
 		return TRUE
 	if(M.stat == DEAD)
 		return FALSE
-	var/amc = M.anti_magic_check(holy = TRUE)
+	var/amc = M.anti_magic_check(magic=FALSE,holy=TRUE)
 	if(amc)
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_NODEATH))
@@ -73,7 +73,7 @@
 		else
 			visible_message("<span class='neovgre'>\The [src] fails to heal [M]!</span>", "<span class='neovgre'>There is insufficient vitality to heal your wounds!</span>")
 	else
-		if(M.anti_magic_check(holy = TRUE))
+		if(M.anti_magic_check(magic=FALSE,holy=TRUE))
 			return
 		if(is_convertable_to_clockcult(M) && !GLOB.gateway_opening)
 			visible_message("<span class='neovgre'>\The [src] refuses to siphon [M]'s vitality, their mind has great potential!</span>")

@@ -21,7 +21,7 @@
 	. = ..()
 	. += create_ui_notice("Speech Cooldown: [DisplayTimeText(speech_cooldown)]", "orange", "stopwatch")
 
-/obj/item/circuit_component/speech/Initialize()
+/obj/item/circuit_component/speech/Initialize(mapload)
 	. = ..()
 	message = add_input_port("Message", PORT_TYPE_STRING, FALSE)
 

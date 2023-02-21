@@ -37,3 +37,8 @@
 #define REVENANT_NAME_FILE "revenant_names.json"
 #define ITALIAN_TALK_FILE "italian_replacement.json"
 #define VALENTINE_FILE "valentines.json"
+#define GIMMICK_OBJ_FILE "[STRING_DIRECTORY]/gimmick_objectives.txt"
+#define DEPT_GIMMICK_OBJ_FILE "[STRING_DIRECTORY]/dept_gimmick_objectives.txt"
+#define TARGET_GIMMICK_OBJ_FILE "[STRING_DIRECTORY]/target_gimmick_objectives.txt"
+#define SPLASH_DESC_FILE "splash.json"
+#define MEDIEVAL_SPEECH_FILE "medieval_speech.json"

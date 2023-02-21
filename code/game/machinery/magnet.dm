@@ -27,7 +27,7 @@
 	var/center_y = 0
 	var/max_dist = 20 // absolute value of center_x,y cannot exceed this integer
 
-/obj/machinery/magnetic_module/Initialize()
+/obj/machinery/magnetic_module/Initialize(mapload)
 	..()
 	var/turf/T = loc
 	hide(T.intact)
@@ -134,7 +134,7 @@
 
 
 /obj/machinery/magnetic_module/process()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		on = FALSE
 
 	// Sanity checks:
@@ -213,7 +213,7 @@
 	var/datum/radio_frequency/radio_connection
 
 
-/obj/machinery/magnetic_controller/Initialize()
+/obj/machinery/magnetic_controller/Initialize(mapload)
 	. = ..()
 	if(autolink)
 		for(var/obj/machinery/magnetic_module/M in GLOB.machines)
@@ -327,7 +327,7 @@
 
 	while(moving && rpath.len >= 1)
 
-		if(stat & (BROKEN|NOPOWER))
+		if(machine_stat & (BROKEN|NOPOWER))
 			break
 
 		looping = 1

@@ -5,9 +5,9 @@
 	icon_state = "Replicant"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_flags = NOBLUDGEON
-	var/scripture_datum
+	var/scripture_datum = /datum/clockcult/scripture
 
-/obj/item/clock_module/Initialize()
+/obj/item/clock_module/Initialize(mapload)
 	..()
 	var/datum/clockcult/scripture/S = new scripture_datum
 	name = S.name

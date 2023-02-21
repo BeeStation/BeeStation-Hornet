@@ -64,7 +64,7 @@
 
 
 //Returns null if there is any bad text in the string
-/proc/reject_bad_text(text, max_length = 512, ascii_only = TRUE)
+/proc/reject_bad_text(text, max_length = 512, ascii_only = TRUE, alphanumeric_only = FALSE, underscore_allowed = TRUE)
 	var/char_count = 0
 	var/non_whitespace = FALSE
 	var/lenbytes = length(text)
@@ -79,13 +79,51 @@
 				return
 			if(0 to 31)
 				return
-			if(32)
-				continue
+			if(32 to 47)
+				if(alphanumeric_only)
+					return
+				else
+					non_whitespace = TRUE
+					continue
+			if(58 to 64)
+				if(alphanumeric_only)
+					return
+				else
+					non_whitespace = TRUE
+					continue
+			if(91 to 94)
+				if(alphanumeric_only)
+					return
+				else
+					non_whitespace = TRUE
+					continue
+			if(95)
+				if(underscore_allowed)
+					non_whitespace = TRUE
+					continue
+				else if(alphanumeric_only)
+					return
+				else
+					non_whitespace = TRUE
+					continue
+			if(96)
+				if(alphanumeric_only)
+					return
+				else
+					non_whitespace = TRUE
+					continue
+			if(123 to 126)
+				if(alphanumeric_only)
+					return
+				else
+					non_whitespace = TRUE
+					continue
 			if(127 to INFINITY)
 				if(ascii_only)
 					return
 			else
 				non_whitespace = TRUE
+
 	if(non_whitespace)
 		return text		//only accepts the text if it has some non-spaces
 
@@ -122,6 +160,29 @@
 		return copytext(html_encode(name), 1, max_length)
 	else
 		return trim(html_encode(name), max_length)
+
+/// returns a text after replacing wiki square brackets blacket in a given text into clickable wiki hyperlink
+/proc/encode_wiki_link(text_value)
+	// replaces [[ ]] into wiki link format
+	// "you need to [[guide_to_chemisty read this guide]] please."" will become
+	// "you need to <a href='wiki://guide_to_chemisty'>read this guide</a> please."
+	var/opencut = findtext(text_value, "\[\[")
+	while(opencut)
+		var/list/stacker = list()
+		stacker += copytext(text_value, 1, opencut)       // >> "you need to
+		text_value = splicetext(text_value, 1, opencut+1) // >> [[guide_to_chemisty read this guide]] please."
+		var/spacecut = findtext(text_value, " ")
+		var/closecut = findtext(text_value, "\]\]")
+
+		// if `spacecut > closecut`, it's [[wikipage]]. if not, it's [[wikipage something long text]]
+		var/text_url = spacecut > closecut || !spacecut ? copytext(text_value, 2, closecut) : copytext(text_value, 2, spacecut) // "guide_to_chemisty"
+		var/text_clicker = replacetext(spacecut > closecut || !spacecut ? text_url : copytext(text_value, spacecut+1, closecut), "_", " ") // "read this guide"
+		stacker += OPEN_WIKI(text_url, text_clicker)  // replace [[ ]] wapper in text_value to hyperlink
+		stacker += copytext(text_value, closecut+2)       // >> please."
+
+		text_value = jointext(stacker, "")    // result >> "you need to <a>read this guys</a> please."
+		opencut = findtext(text_value, "\[\[")
+	return text_value
 
 #define NO_CHARS_DETECTED 0
 #define SPACES_DETECTED 1
@@ -842,3 +903,99 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 	for (var/i in 1 to numSquares)
 		loadstring += i <= limit ? "█" : "░"
 	return "\[[loadstring]\]"
+
+///Properly format a string of text by using replacetext()
+/proc/format_text(text)
+	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
+
+///Returns a string based on the weight class define used as argument
+/proc/weight_class_to_text(var/w_class)
+	switch(w_class)
+		if(WEIGHT_CLASS_TINY)
+			. = "tiny"
+		if(WEIGHT_CLASS_SMALL)
+			. = "small"
+		if(WEIGHT_CLASS_NORMAL)
+			. = "normal-sized"
+		if(WEIGHT_CLASS_BULKY)
+			. = "bulky"
+		if(WEIGHT_CLASS_HUGE)
+			. = "huge"
+		if(WEIGHT_CLASS_GIGANTIC)
+			. = "gigantic"
+		else
+			. = ""
+
+/atom/proc/get_boozepower_text(booze_power, mob/living/L)
+	if(isnull(booze_power))
+		return
+
+	if(HAS_TRAIT(L, TRAIT_SOMMELIER)) // A trained sommelier will have different identifying flavour
+		// because of float values, you need to write like `0 to 10`, `10 to 20`
+		switch(booze_power)
+			if(-INFINITY to 1)
+				. = "For children"
+			if(300 to INFINITY)
+				. = pick("Shift wrecking hammering",
+						"Get new liver after consumption",
+						"Post-consumption support groups exist",
+						"Place in Molotov instead",
+						"To stumble and slur, the will of Bacchus")
+			if(100 to 100)
+				. = "For a real man"
+			// these values must be detected first.
+
+			if(100 to 300)
+				. = "Cheated the blessing"
+			if(90 to 100)
+				. = "Get to drunk tank"
+			if(80 to 90)
+				. = "Liver pickler"
+			if(70 to 80)
+				. = "Drunkard's Challenge"
+			if(60 to 70)
+				. = "Have Shotgun ready"
+			if(50 to 60)
+				. = "3 rounds till down"
+			if(40 to 50)
+				. = "Drunkard's fixers"
+			if(30 to 40)
+				. = "Stick arounds"
+			if(20 to 30)
+				. = "Flask fillers"
+			if(10 to 20)
+				. = "Tipsy stuff"
+			if(1 to 10)
+				. = "Lightweight's dream"
+	else
+		switch(booze_power)
+			if(-INFINITY to 1)
+				. = "Safe for work"
+			if(300 to INFINITY)
+				. = "Lethal"
+			if(100 to 300)
+				. = "Deadly"
+			if(90 to 100)
+				. = "Dangerous"
+			if(80 to 90)
+				. = "Extreme"
+			if(70 to 80)
+				. = "Challenging"
+			if(60 to 70)
+				. = "Stronger"
+			if(50 to 60)
+				. = "Strong"
+			if(40 to 50)
+				. = "Average"
+			if(30 to 40)
+				. = "Less than average"
+			if(20 to 30)
+				. = "Light"
+			if(10 to 20)
+				. = "Mild"
+			if(1 to 10)
+				. = "Delightfully mild"
+
+	if(!.)
+		. = "not measurable. Ask the space god for what's wrong with this drink."
+		CRASH("not valid booze power value is detected: [booze_power]")

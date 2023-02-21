@@ -18,7 +18,8 @@
 	name = "radiant dance machine mark IV"
 	desc = "The first three prototypes were discontinued after mass casualty incidents."
 	icon_state = "disco"
-	req_access = list(ACCESS_ENGINE)
+	req_access = null
+	req_one_access = list(ACCESS_HEADS, ACCESS_THEATRE, ACCESS_BAR) // you need one of these
 	anchored = FALSE
 	var/list/spotlights = list()
 	var/list/sparkles = list()
@@ -27,6 +28,7 @@
 	name = "radiant dance machine mark V"
 	desc = "Now redesigned with data gathered from the extensive disco and plasma research."
 	req_access = null
+	req_one_access = null
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_1 = NODECONSTRUCT_1
@@ -43,7 +45,7 @@
 	song_length = length
 	song_beat = beat
 
-/obj/machinery/jukebox/Initialize()
+/obj/machinery/jukebox/Initialize(mapload)
 	. = ..()
 	var/list/tracks = flist("config/jukebox_music/sounds/")
 
@@ -351,51 +353,32 @@
 		sleep(20)
 
 /obj/machinery/jukebox/disco/proc/dance3(var/mob/living/M)
-	var/matrix/initial_matrix = matrix(M.transform)
 	for (var/i in 1 to 75)
 		if (!M)
 			return
 		switch(i)
 			if (1 to 15)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(0,1)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_y = M.pixel_y + 1, time = 1, loop = 0)
 			if (16 to 30)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(1,-1)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_x = M.pixel_x + 1, pixel_y = M.pixel_y - 1, time = 1, loop = 0)
 			if (31 to 45)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(-1,-1)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_x = M.pixel_x - 1, pixel_y = M.pixel_y - 1, time = 1, loop = 0)
 			if (46 to 60)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(-1,1)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_x = M.pixel_x - 1, pixel_y = M.pixel_y + 1, time = 1, loop = 0)
 			if (61 to 75)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(1,0)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_x = M.pixel_x + 1, time = 1, loop = 0)
 		M.setDir(turn(M.dir, 90))
 		switch (M.dir)
 			if (NORTH)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(0,3)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_y = M.pixel_y + 3, time = 1, loop = 0)
 			if (SOUTH)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(0,-3)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_y = M.pixel_y - 3, time = 1, loop = 0)
 			if (EAST)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(3,0)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_x = M.pixel_x + 3, time = 1, loop = 0)
 			if (WEST)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(-3,0)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_x = M.pixel_x - 3, time = 1, loop = 0)
 		sleep(1)
-	M.lying_fix()
+	animate(M, pixel_x = M.get_standard_pixel_x_offset(), pixel_y = M.get_standard_pixel_y_offset(), time = 1, loop = 0)
 
 /obj/machinery/jukebox/disco/proc/dance4(var/mob/living/M)
 	var/speed = rand(1,3)
@@ -410,43 +393,26 @@
 		 time--
 
 /obj/machinery/jukebox/disco/proc/dance5(var/mob/living/M)
-	animate(M, transform = matrix(180, MATRIX_ROTATE), time = 1, loop = 0)
-	var/matrix/initial_matrix = matrix(M.transform)
+	animate(M, transform = matrix(M.transform).Scale(-1), time = 1, loop = 0)
 	for (var/i in 1 to 60)
 		if (!M)
 			return
 		if (i<31)
-			initial_matrix = matrix(M.transform)
-			initial_matrix.Translate(0,1)
-			animate(M, transform = initial_matrix, time = 1, loop = 0)
+			animate(M, pixel_y = M.pixel_y + 1, time = 1, loop = 0)
 		if (i>30)
-			initial_matrix = matrix(M.transform)
-			initial_matrix.Translate(0,-1)
-			animate(M, transform = initial_matrix, time = 1, loop = 0)
+			animate(M, pixel_y = M.pixel_y - 1, time = 1, loop = 0)
 		M.setDir(turn(M.dir, 90))
 		switch (M.dir)
 			if (NORTH)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(0,3)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_y = M.pixel_y + 3, time = 1, loop = 0)
 			if (SOUTH)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(0,-3)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_y = M.pixel_y - 3, time = 1, loop = 0)
 			if (EAST)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(3,0)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_x = M.pixel_x + 3, time = 1, loop = 0)
 			if (WEST)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(-3,0)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_x = M.pixel_x - 3, time = 1, loop = 0)
 		sleep(1)
-	M.lying_fix()
-
-/mob/living/proc/lying_fix()
-	animate(src, transform = null, time = 1, loop = 0)
-	lying_prev = 0
+	animate(M, transform = matrix(M.transform).Scale(-1), pixel_x = M.get_standard_pixel_x_offset(), pixel_y = M.get_standard_pixel_y_offset(), time = 1, loop = 0) //dance end
 
 /obj/machinery/jukebox/proc/dance_over()
 	for(var/mob/living/L in rangers)
@@ -471,7 +437,7 @@
 					continue
 				L.stop_sound_channel(CHANNEL_JUKEBOX)
 		for(var/mob/M as() in hearers(10,src))
-			if(!M.client || !(M.client.prefs.toggles & SOUND_INSTRUMENTS))
+			if(!M.client || !(M.client.prefs.toggles & PREFTOGGLE_SOUND_INSTRUMENTS))
 				continue
 			if(!(M in rangers))
 				rangers += M

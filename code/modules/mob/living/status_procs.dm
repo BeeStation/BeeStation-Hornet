@@ -404,6 +404,10 @@
 			return TRUE
 	return FALSE
 
+/mob/living/proc/remove_all_quirks()
+	for(var/datum/quirk/Q in roundstart_quirks)
+		qdel(Q)
+
 /mob/living/proc/has_quirk(quirktype)
 	for(var/datum/quirk/Q in roundstart_quirks)
 		if(Q.type == quirktype)
@@ -414,11 +418,11 @@
 
 /mob/living/proc/cure_blind(source)
 	REMOVE_TRAIT(src, TRAIT_BLIND, source)
-	if(!HAS_TRAIT(src, TRAIT_BLIND))
+	if(!is_blind())
 		adjust_blindness(-1)
 
 /mob/living/proc/become_blind(source)
-	if(!HAS_TRAIT(src, TRAIT_BLIND))
+	if(!is_blind())
 		blind_eyes(1)
 	ADD_TRAIT(src, TRAIT_BLIND, source)
 

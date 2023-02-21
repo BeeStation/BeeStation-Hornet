@@ -19,7 +19,7 @@
 		var/datum/mind/L = S
 		if(L.soulOwner == owner)
 			count++
-	return count >= target_amount
+	return (count >= target_amount) || ..()
 
 
 
@@ -57,7 +57,7 @@
 		var/datum/mind/L = S
 		if(!L.owns_soul() && L.damnation_type == contractType)
 			count++
-	return count>=target_amount
+	return (count >= target_amount) || ..()
 
 
 
@@ -70,7 +70,7 @@
 
 /datum/objective/devil/sintouch/check_completion()
 	var/list/touched = get_antag_minds(/datum/antagonist/sintouched)
-	return touched.len >= target_amount
+	return (touched.len >= target_amount) || ..()
 
 
 /datum/objective/devil/buy_target
@@ -83,7 +83,7 @@
 		explanation_text = "Free objective."
 
 /datum/objective/devil/buy_target/check_completion()
-	return target.soulOwner == owner
+	return (target.soulOwner == owner) || ..()
 
 
 /datum/objective/devil/outsell
@@ -110,4 +110,4 @@
 		var/datum/mind/L = S
 		if(L.soulOwner == target)
 			targetcount++
-	return selfcount > targetcount
+	return (selfcount > targetcount) || ..()

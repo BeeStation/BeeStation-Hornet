@@ -14,17 +14,17 @@
 /* RECIPES */
 
 /datum/generecipe/hulk
-	required = "/datum/mutation/human/strong; /datum/mutation/human/radioactive"
+	required = "/datum/mutation/strong; /datum/mutation/radioactive"
 	result = HULK
 
 /datum/generecipe/shock
-	required = "/datum/mutation/human/insulated; /datum/mutation/human/radioactive"
+	required = "/datum/mutation/insulated; /datum/mutation/radioactive"
 	result = SHOCKTOUCH
 
 /datum/generecipe/antiglow
-	required = "/datum/mutation/human/glow; /datum/mutation/human/void"
+	required = "/datum/mutation/glow; /datum/mutation/void"
 	result = ANTIGLOWY
 
 /datum/generecipe/cluwne
-	required = "/datum/mutation/human/clumsy; /datum/mutation/human/badblink"
+	required = "/datum/mutation/clumsy; /datum/mutation/badblink"
 	result = CLUWNEMUT

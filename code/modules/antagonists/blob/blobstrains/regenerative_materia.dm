@@ -3,17 +3,18 @@
 	name = "Regenerative Materia"
 	description = "will do toxin damage and cause targets to believe they are fully healed."
 	analyzerdescdamage = "Does toxin damage and injects a toxin that causes the target to believe they are fully healed."
-	color = "#C8A5DC"
-	complementary_color = "#CD7794"
+	color = "#A88FB7"
+	complementary_color = "#AF7B8D"
 	message_living = ", and you feel <i>alive</i>"
 	reagent = /datum/reagent/blob/regenerative_materia
 
 /datum/reagent/blob/regenerative_materia
 	name = "Regenerative Materia"
 	taste_description = "heaven"
-	color = "#C8A5DC"
+	color = "#A88FB7"
+	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 
-/datum/reagent/blob/regenerative_materia/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
+/datum/reagent/blob/regenerative_materia/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
 	reac_volume = ..()
 	M.adjust_drugginess(reac_volume)
 	if(M.reagents)

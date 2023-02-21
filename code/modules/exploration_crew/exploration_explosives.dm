@@ -15,7 +15,7 @@
 	var/devastation_range = 0
 	var/list/attached_detonators = list()
 
-/obj/item/grenade/exploration/Initialize()
+/obj/item/grenade/exploration/Initialize(mapload)
 	. = ..()
 	plastic_overlay = mutable_appearance(icon, "[item_state]2", HIGH_OBJ_LAYER)
 
@@ -70,16 +70,18 @@
 		else if(istype(AM, /mob/living))
 			plastic_overlay.layer = FLOAT_LAYER
 
-		target.add_overlay(plastic_overlay, TRUE)
+		target.add_overlay(plastic_overlay)
 		to_chat(user, "<span class='notice'>You plant the bomb.</span>")
 
 /obj/item/grenade/exploration/prime(mob/living/lanced_by)
 	. = ..()
+	if(!.)
+		return
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))
 			location = get_turf(target)
-			target.cut_overlay(plastic_overlay, TRUE)
+			target.cut_overlay(plastic_overlay)
 			target.ex_act(EXPLODE_HEAVY, target)
 	else
 		location = get_turf(src)
@@ -121,9 +123,6 @@
 			explosives_trigged ++
 	to_chat(user, "<span class='notice'>[explosives_trigged] explosives triggered.</span>")
 
-/obj/item/exploration_detonator/emag_act(mob/user)
-	. = ..()
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/item/exploration_detonator/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class'warning'>You override the safety controls of [src]. You can now trigger explosives on the station.</span>")

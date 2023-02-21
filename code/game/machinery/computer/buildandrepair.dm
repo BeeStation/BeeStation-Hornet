@@ -21,8 +21,7 @@
 				to_chat(user, "<span class='notice'>You start deconstructing the frame...</span>")
 				if(P.use_tool(src, user, 20, volume=50))
 					to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
-					var/obj/item/stack/sheet/iron/M = new (drop_location(), 5)
-					M.add_fingerprint(user)
+					new /obj/item/stack/sheet/iron(drop_location(), 5, TRUE, user)
 					qdel(src)
 				return
 		if(1)
@@ -85,10 +84,8 @@
 				to_chat(user, "<span class='notice'>You remove the cables.</span>")
 				state = 2
 				icon_state = "2"
-				var/obj/item/stack/cable_coil/A = new (drop_location(), 5)
-				A.add_fingerprint(user)
+				new /obj/item/stack/cable_coil(drop_location(), 5, TRUE, user)
 				return
-
 			if(istype(P, /obj/item/stack/sheet/glass))
 				if(!P.tool_start_check(user, amount=2))
 					return
@@ -107,8 +104,7 @@
 				to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
 				state = 3
 				icon_state = "3"
-				var/obj/item/stack/sheet/glass/G = new(drop_location(), 2)
-				G.add_fingerprint(user)
+				new /obj/item/stack/sheet/glass(drop_location(), 2, TRUE, user)
 				return
 			if(P.tool_behaviour == TOOL_SCREWDRIVER)
 				P.play_tool_sound(src)

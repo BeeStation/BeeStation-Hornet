@@ -1,6 +1,6 @@
 //Severe traumas, when your brain gets abused way too much.
 //These range from very annoying to completely debilitating.
-//They cannot be cured with chemicals, and require brain surgery to solve.
+//They cannot be cured with chemicals, and require brain recalibration to solve.
 
 /datum/brain_trauma/severe
 	resilience = TRAUMA_RESILIENCE_SURGERY
@@ -165,7 +165,7 @@
 		stress = max(stress - 4, 0)
 
 /datum/brain_trauma/severe/monophobia/proc/check_alone()
-	if(HAS_TRAIT(owner, TRAIT_BLIND))
+	if(owner.is_blind())
 		return TRUE
 	for(var/mob/living/M in oview(7, owner))
 		if((istype(M, /mob/living/simple_animal/pet)) || M.ckey)
@@ -177,7 +177,7 @@
 		return
 
 	var/high_stress = (stress > 60) //things get psychosomatic from here on
-	switch(rand(1,6))
+	switch(rand(1, 6))
 		if(1)
 			if(!high_stress)
 				to_chat(owner, "<span class='warning'>You feel sick...</span>")
@@ -216,6 +216,8 @@
 				else
 					to_chat(owner, "<span class='userdanger'>You feel your heart lurching in your chest...</span>")
 					owner.adjustOxyLoss(8)
+		else
+			SWITCH_EMPTY_STATEMENT
 
 /datum/brain_trauma/severe/discoordination
 	name = "Discoordination"
@@ -236,7 +238,7 @@
 	name = "Traumatic Non-Violence"
 	desc = "Patient is extremely unwilling to harm others in violent ways."
 	scan_desc = "pacific syndrome"
-	gain_text = "<span class='notice'>You feel oddly peaceful.</span>"
+	gain_text = "<span class='userdanger'>You are no longer willing to harm others!</span>"
 	lose_text = "<span class='notice'>You no longer feel compelled to not harm.</span>"
 
 /datum/brain_trauma/severe/pacifism/on_gain()
@@ -254,7 +256,7 @@
 	gain_text = "<span class='warning'>You feel somewhat dazed.</span>"
 	lose_text = "<span class='notice'>You feel like a fog was lifted from your mind.</span>"
 
-/datum/brain_trauma/severe/hypnotic_stupor/on_lose() //hypnosis must be cleared separately, but brain surgery should get rid of both anyway
+/datum/brain_trauma/severe/hypnotic_stupor/on_lose() //hypnosis must be cleared separately, but brain recalibration should get rid of both anyway
 	..()
 	owner.remove_status_effect(/datum/status_effect/trance)
 

@@ -26,7 +26,6 @@
 	var/on = TRUE
 	var/cooldown = 64
 	var/blending = FALSE		//lets not take pictures while the previous is still processing!
-	var/see_ghosts = CAMERA_NO_GHOSTS //for the spoop of it
 	var/obj/item/disk/holodisk/disk
 	var/sound/custom_sound
 	var/silent = FALSE
@@ -39,6 +38,18 @@
 	var/can_customise = TRUE
 	var/default_picture_name
 
+	var/see_ghosts = CAMERA_NO_GHOSTS //for the spoop of it
+	var/static/list/detectable_invisible_atom = list() // even if atom is invisible, camera will reveal it. fill the list in Init proc.
+
+/obj/item/camera/Initialize(mapload)
+	. = ..()
+	if(!length(detectable_invisible_atom))
+		detectable_invisible_atom = typecacheof(list(
+			// put detactable atom list here
+			/mob/dead/observer,
+			/mob/living/simple_animal/revenant,
+			/mob/living/simple_animal/hostile/floor_cluwne
+		))
 
 /obj/item/camera/attack_self(mob/user)
 	if(!disk)
@@ -102,9 +113,9 @@
 	if(istype(user))
 		if(isAI(user) && !GLOB.cameranet.checkTurfVis(T))
 			return FALSE
-		else if(user.client && !(get_turf(target) in get_hear(user.client.view, user)))
+		else if(user.client && !(T in get_hear(user.client.view, get_turf(user))))
 			return FALSE
-		else if(!(get_turf(target) in get_hear(world.view, user)))
+		else if(!(T in get_hear(world.view, get_turf(user))))
 			return FALSE
 	else					//user is an atom
 		if(!(user in viewers(world.view, get_turf(target))))
@@ -163,7 +174,7 @@
 		return FALSE
 	size_x = CLAMP(size_x, 0, CAMERA_PICTURE_SIZE_HARD_LIMIT)
 	size_y = CLAMP(size_y, 0, CAMERA_PICTURE_SIZE_HARD_LIMIT)
-	var/list/desc = list("This is a photo of an area of [size_x+1] meters by [size_y+1] meters.")
+	var/list/desc = list("This is a photo of an area of [(2*size_x)+1] meters by [(2*size_y)+1] meters.")
 	var/list/mobs_spotted = list()
 	var/list/dead_spotted = list()
 	var/ai_user = isAI(user)
@@ -171,7 +182,7 @@
 	var/list/viewlist = (user && user.client)? getviewsize(user.client.view) : getviewsize(world.view)
 	var/viewr = max(viewlist[1], viewlist[2]) + max(size_x, size_y)
 	var/viewc = user.client? user.client.eye : target
-	seen = get_hear(viewr, viewc)
+	seen = get_hear(viewr, get_turf(viewc))
 	var/list/turfs = list()
 	var/list/mobs = list()
 	var/blueprints = FALSE
@@ -189,12 +200,15 @@
 				mobs += M
 			if(locate(/obj/item/areaeditor/blueprints) in T)
 				blueprints = TRUE
-	for(var/i in mobs)
-		var/mob/M = i
+	for(var/mob/M in mobs)
+		// No describing invisible stuff (except ghosts)!
+		if(M.alpha <= 50 || !((M.invisibility < SEE_INVISIBLE_LIVING) || (see_ghosts && can_camera_see_atom(M))))
+			continue
 		mobs_spotted += M
 		if(M.stat == DEAD)
 			dead_spotted += M
-		desc += M.get_photo_description(src)
+		// |=, let's not spam "You can also see a ... thing? 8 times"
+		desc |= M.get_photo_description(src)
 
 	var/psize_x = (size_x * 2 + 1) * world.icon_size
 	var/psize_y = (size_y * 2 + 1) * world.icon_size
@@ -209,6 +223,8 @@
 	after_picture(user, P, flag)
 	blending = FALSE
 
+/obj/item/camera/proc/can_camera_see_atom(atom/A)
+	return is_type_in_typecache(A, detectable_invisible_atom)
 
 /obj/item/camera/proc/flash_end()
 	set_light_on(FALSE)
@@ -220,9 +236,10 @@
 /obj/item/camera/proc/printpicture(mob/user, datum/picture/picture) //Normal camera proc for creating photos
 	var/obj/item/photo/p = new(get_turf(src), picture)
 	if(in_range(src, user)) //needed because of TK
-		user.put_in_hands(p)
-		pictures_left--
-		to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
+		if(!ispAI(user))
+			user.put_in_hands(p)
+			pictures_left--
+			to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
 		var/customise = "No"
 		if(can_customise)
 			customise = alert(user, "Do you want to customize the photo?", "Customization", "Yes", "No")

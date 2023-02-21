@@ -30,7 +30,7 @@
 	var/radius_2 = 1.35
 	var/static/list/animation_math //assoc list with pre calculated values
 
-/obj/structure/closet/crate/Initialize()
+/obj/structure/closet/crate/Initialize(mapload)
 	. = ..()
 	if(animation_math == null) //checks if there is already a list for animation_math if not creates one to avoid runtimes
 		animation_math = new/list()
@@ -145,7 +145,7 @@
 	icon_state = "coffin"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
-	material_drop = /obj/item/stack/sheet/mineral/wood
+	material_drop = /obj/item/stack/sheet/wood
 	material_drop_amount = 5
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
@@ -195,7 +195,7 @@
 	recursive_organ_check(src)
 	return ..()
 
-/obj/structure/closet/crate/freezer/Initialize()
+/obj/structure/closet/crate/freezer/Initialize(mapload)
 	..()
 	recursive_organ_check(src)
 

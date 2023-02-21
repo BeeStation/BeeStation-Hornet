@@ -11,6 +11,7 @@
 	max_integrity = 100
 	buckle_lying = FALSE
 	layer = ABOVE_MOB_LAYER
+	move_resist = MOVE_FORCE_STRONG
 	var/view_range = 2.5
 	var/cooldown = 0
 	var/projectile_type = /obj/item/projectile/bullet/manned_turret
@@ -185,7 +186,7 @@
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/obj/machinery/manned_turret/turret
 
-/obj/item/gun_control/Initialize()
+/obj/item/gun_control/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	turret = loc

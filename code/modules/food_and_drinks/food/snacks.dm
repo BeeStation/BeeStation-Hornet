@@ -19,7 +19,7 @@ Here is an example of the new formatting for anyone who wants to add more food i
 	name = "Xenoburger"													//Name that displays in the UI.
 	desc = "Smells caustic. Tastes like heresy."						//Duh
 	icon_state = "xburger"												//Refers to an icon in food.dmi
-/obj/item/reagent_containers/food/snacks/xenoburger/Initialize()		//Don't mess with this. | nO I WILL MESS WITH THIS
+/obj/item/reagent_containers/food/snacks/xenoburger/Initialize(mapload)		//Don't mess with this. | nO I WILL MESS WITH THIS
 	. = ..()														//Same here.
 	reagents.add_reagent(/datum/reagent/xenomicrobes, 10)						//This is what is in the food item. you may copy/paste
 	reagents.add_reagent(/datum/reagent/consumable/nutriment, 2)							//this line of code for all the contents.
@@ -144,7 +144,7 @@ All foods are distributed among various categories. Use common sense.
 			if(reagents.total_volume)
 				SEND_SIGNAL(src, COMSIG_FOOD_EATEN, M, user)
 				var/fraction = min(bitesize / reagents.total_volume, 1)
-				reagents.reaction(M, INGEST, fraction)
+				reagents.expose(M, INGEST, fraction)
 				reagents.trans_to(M, bitesize, transfered_by = user)
 				bitecount++
 				On_Consume(M)
@@ -314,11 +314,15 @@ All foods are distributed among various categories. Use common sense.
 	return result
 
 /obj/item/reagent_containers/food/snacks/burn()
+	if(QDELETED(src))
+		return
 	if(prob(25))
 		microwave_act()
 	else
 		var/turf/T = get_turf(src)
 		new /obj/item/reagent_containers/food/snacks/badrecipe(T)
+		if(resistance_flags & ON_FIRE)
+			SSfire_burning.processing -= src
 		qdel(src)
 
 /obj/item/reagent_containers/food/snacks/Destroy()

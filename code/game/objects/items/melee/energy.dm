@@ -9,8 +9,9 @@
 	light_range = 3
 	light_power = 1
 	light_on = FALSE
+	var/sword_color
 
-/obj/item/melee/transforming/energy/Initialize()
+/obj/item/melee/transforming/energy/Initialize(mapload)
 	. = ..()
 	if(active)
 		START_PROCESSING(SSobj, src)
@@ -38,8 +39,8 @@
 	. = ..()
 	if(.)
 		if(active)
-			if(item_color)
-				icon_state = "sword[item_color]"
+			if(sword_color)
+				icon_state = "sword[sword_color]"
 			START_PROCESSING(SSobj, src)
 		else
 			STOP_PROCESSING(SSobj, src)
@@ -111,15 +112,15 @@
 
 /obj/item/melee/transforming/energy/sword/transform_weapon(mob/living/user, supress_message_text)
 	. = ..()
-	if(. && active && item_color)
-		icon_state = "sword[item_color]"
+	if(. && active && sword_color)
+		icon_state = "sword[sword_color]"
 
 /obj/item/melee/transforming/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
 		return ..()
 	return 0
 
-/obj/item/melee/transforming/energy/sword/esaw //Energy Saw Arm Implant
+/obj/item/melee/transforming/energy/sword/esaw //Energy Saw on it's own
 	name = "energy saw"
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
 	force_on = 30
@@ -130,14 +131,14 @@
 	icon_state_on = "esaw_1"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	item_color = null //stops icon from breaking when turned on.
+	sword_color = null //stops icon from breaking when turned on.
 	w_class = WEIGHT_CLASS_NORMAL
 	sharpness = IS_SHARP
 	light_color = "#40ceff"
 	toolspeed = 0.7 //faster as a saw
 
 /obj/item/melee/transforming/energy/sword/cyborg
-	item_color = "red"
+	sword_color = "red"
 	var/hitcost = 50
 
 /obj/item/melee/transforming/energy/sword/cyborg/attack(mob/M, var/mob/living/silicon/robot/R)
@@ -145,7 +146,7 @@
 		var/obj/item/stock_parts/cell/C = R.cell
 		if(active && !(C.use(hitcost)))
 			attack_self(R)
-			balloon_alert(R, "Out of charge")
+			balloon_alert(R, "Your [name] is out of charge.")
 			return
 		return ..()
 
@@ -156,9 +157,9 @@
 	force = 18 //About as much as a spear
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	icon = 'icons/obj/surgery.dmi'
-	icon_state = "esaw_0"
-	icon_state_on = "esaw_1"
-	item_color = null //stops icon from breaking when turned on.
+	icon_state = "implant-esaw_0"
+	icon_state_on = "implant-esaw_1"
+	sword_color = null //stops icon from breaking when turned on.
 	hitcost = 75 //Costs more than a standard cyborg esword
 	w_class = WEIGHT_CLASS_NORMAL
 	sharpness = IS_SHARP
@@ -174,14 +175,12 @@
 /obj/item/melee/transforming/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
-/*
-/obj/item/melee/transforming/energy/sword/cyborg/saw/implant //Energy Saw Arm Implant
-	icon_state = "saw"
-	icon_state_on = "saw"
+/obj/item/melee/transforming/energy/sword/esaw/implant //Energy Saw Arm Implant
+	icon_state = "implant-esaw_0"
+	icon_state_on = "implant-esaw_1"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	hitcost = 0
-*/
+
 
 /obj/item/melee/transforming/energy/sword/saber
 	var/list/possible_colors = list("red" = LIGHT_COLOR_RED, "blue" = LIGHT_COLOR_LIGHT_CYAN, "green" = LIGHT_COLOR_GREEN, "purple" = LIGHT_COLOR_LAVENDER)
@@ -191,7 +190,7 @@
 	. = ..()
 	if(LAZYLEN(possible_colors))
 		var/set_color = pick(possible_colors)
-		item_color = set_color
+		sword_color = set_color
 		light_color = possible_colors[set_color]
 
 /obj/item/melee/transforming/energy/sword/saber/process()
@@ -216,7 +215,7 @@
 	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(!hacked)
 			hacked = TRUE
-			item_color = "rainbow"
+			sword_color = "rainbow"
 			balloon_alert(user, "RNBW_ENGAGE")
 
 			if(active)
@@ -234,7 +233,7 @@
 	throwforce = 0
 	force_on = 22
 	throwforce_on = 16
-	item_color = "yellow"
+	sword_color = "yellow"
 	light_color = "#ffff00"
 
 /obj/item/melee/transforming/energy/sword/pirate
@@ -263,7 +262,7 @@
 	sharpness = IS_SHARP
 
 //Most of the other special functions are handled in their own files. aka special snowflake code so kewl
-/obj/item/melee/transforming/energy/blade/Initialize()
+/obj/item/melee/transforming/energy/blade/Initialize(mapload)
 	. = ..()
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)

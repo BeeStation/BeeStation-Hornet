@@ -1,11 +1,5 @@
 //DEFINITIONS FOR ASSET DATUMS START HERE.
 
-/datum/asset/simple/tgui_common
-	keep_local_name = TRUE
-	assets = list(
-		"tgui-common.bundle.js" = file("tgui/public/tgui-common.bundle.js"),
-	)
-
 /datum/asset/simple/tgui
 	keep_local_name = TRUE
 	assets = list(
@@ -48,6 +42,7 @@
 		"smmon_4.gif" = 'icons/program_icons/smmon_4.gif',
 		"smmon_5.gif" = 'icons/program_icons/smmon_5.gif',
 		"smmon_6.gif" = 'icons/program_icons/smmon_6.gif',
+		"borg_self_monitor.gif" = 'icons/program_icons/borg_self_monitor.gif'
 	)
 
 /datum/asset/simple/circuit_assets
@@ -194,6 +189,15 @@
 		if (icon != 'icons/misc/language.dmi')
 			var/icon_state = initial(L.icon_state)
 			Insert("language-[icon_state]", icon, icon_state=icon_state)
+	..()
+
+/datum/asset/spritesheet/emoji
+	name = "emoji"
+
+/datum/asset/spritesheet/emoji/register()
+	var/icon/I = icon('icons/emoji.dmi')
+	I.Scale(48, 48)
+	InsertAll("", I)
 	..()
 
 /datum/asset/simple/lobby
@@ -361,7 +365,14 @@
 				if (machine)
 					item = machine
 
-			icon_file = initial(item.icon)
+			// Check for GAGS support where necessary
+			var/greyscale_config = initial(item.greyscale_config)
+			var/greyscale_colors = initial(item.greyscale_colors)
+			if (greyscale_config && greyscale_colors)
+				icon_file = SSgreyscale.GetColoredIconByType(greyscale_config, greyscale_colors)
+			else
+				icon_file = initial(item.icon)
+
 			icon_state = initial(item.icon_state)
 
 			if(!(icon_state in icon_states(icon_file)))
@@ -392,7 +403,11 @@
 		if (!ispath(item, /atom))
 			continue
 
-		var/icon_file = initial(item.icon)
+		var/icon_file
+		if (initial(item.greyscale_colors) && initial(item.greyscale_config))
+			icon_file = SSgreyscale.GetColoredIconByType(initial(item.greyscale_config), initial(item.greyscale_colors))
+		else
+			icon_file = initial(item.icon)
 		var/icon_state = initial(item.icon_state)
 		var/icon/I
 
@@ -451,7 +466,12 @@
 		"mech.png" = 'html/img/mech.png',
 		"scitool.png" = 'html/img/scitool.png',
 		"alienorgan.png"= 'html/img/alienorgan.png',
-		"abaton.png"= 'html/img/abaton.png'
+		"spiderguard.png"= 'html/img/spiderguard.png',
+		"spiderbroodmother.png"= 'html/img/spiderbroodmother.png',
+		"spidernurse.png"= 'html/img/spidernurse.png',
+		"spiderhunter.png"= 'html/img/spiderhunter.png',
+		"spiderviper.png"= 'html/img/spiderviper.png',
+		"spidertarantula.png"= 'html/img/spidertarantula.png'
 	)
 
 /datum/asset/simple/orbit
@@ -468,7 +488,9 @@
 	name = "sheetmaterials"
 
 /datum/asset/spritesheet/sheetmaterials/register()
-	InsertAll("", 'icons/obj/stack_objects.dmi')
+	InsertAll("", 'icons/obj/stacks/minerals.dmi')//figure to do a list here
+//	InsertAll("", 'icons/obj/stacks/miscelaneous.dmi')
+//	InsertAll("", 'icons/obj/stacks/organic.dmi')
 
 	// Special case to handle Bluespace Crystals
 	Insert("polycrystal", 'icons/obj/telescience.dmi', "polycrystal")

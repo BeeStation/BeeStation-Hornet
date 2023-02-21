@@ -9,10 +9,10 @@
 	var/scanning = FALSE
 	var/timing = FALSE
 	var/time = 20
-	var/sensitivity = 1
+	var/sensitivity = 0
 	var/hearing_range = 3
 
-/obj/item/assembly/prox_sensor/Initialize()
+/obj/item/assembly/prox_sensor/Initialize(mapload)
 	. = ..()
 	proximity_monitor = new(src, 0)
 	START_PROCESSING(SSobj, src)

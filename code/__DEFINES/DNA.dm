@@ -3,54 +3,59 @@
 #define CHECK_DNA_AND_SPECIES(C) if((!(C.dna)) || (!(C.dna.species))) return
 
 // Defines copying names of mutations in all cases, make sure to change this if you change mutation's type
-#define HULK		/datum/mutation/human/hulk
-#define XRAY		/datum/mutation/human/thermal/x_ray
-#define SPACEMUT	/datum/mutation/human/space_adaptation
-#define TK			/datum/mutation/human/telekinesis
-#define NERVOUS		/datum/mutation/human/nervousness
-#define EPILEPSY	/datum/mutation/human/epilepsy
-#define MUTATE		/datum/mutation/human/bad_dna
-#define COUGH		/datum/mutation/human/cough
-#define DWARFISM	/datum/mutation/human/dwarfism
-#define GIGANTISM	/datum/mutation/human/gigantism
-#define CLOWNMUT	/datum/mutation/human/clumsy
-#define TOURETTES	/datum/mutation/human/tourettes
-#define DEAFMUT		/datum/mutation/human/deaf
-#define BLINDMUT	/datum/mutation/human/blind
-#define RACEMUT		/datum/mutation/human/race
-#define BADSIGHT	/datum/mutation/human/nearsight
-#define LASEREYES	/datum/mutation/human/laser_eyes
-#define CHAMELEON	/datum/mutation/human/chameleon
-#define WACKY		/datum/mutation/human/wacky
-#define MUT_MUTE	/datum/mutation/human/mute
-#define SMILE		/datum/mutation/human/smile
-#define STONER		/datum/mutation/human/stoner
-#define UNINTELLIGIBLE		/datum/mutation/human/unintelligible
-#define SWEDISH		/datum/mutation/human/swedish
-#define CHAV		/datum/mutation/human/chav
-#define ELVIS		/datum/mutation/human/elvis
-#define RADIOACTIVE	/datum/mutation/human/radioactive
-#define GLOWY		/datum/mutation/human/glow
-#define ANTIGLOWY	/datum/mutation/human/glow/anti
-#define TELEPATHY	/datum/mutation/human/telepathy
-#define FIREBREATH	/datum/mutation/human/firebreath
-#define VOID		/datum/mutation/human/void
-#define STRONG    	/datum/mutation/human/strong
-#define FIRESWEAT	/datum/mutation/human/fire
-#define THERMAL		/datum/mutation/human/thermal
-#define ANTENNA		/datum/mutation/human/antenna
-#define PARANOIA	/datum/mutation/human/paranoia
-#define INSULATED	/datum/mutation/human/insulated
-#define SHOCKTOUCH	/datum/mutation/human/shock
-#define OLFACTION	/datum/mutation/human/olfaction
-#define ACIDFLESH	/datum/mutation/human/acidflesh
-#define BADBLINK	/datum/mutation/human/badblink
-#define SPASTIC		/datum/mutation/human/spastic
-#define EXTRASTUN	/datum/mutation/human/extrastun
-#define GELADIKINESIS		/datum/mutation/human/geladikinesis
-#define CRYOKINESIS /datum/mutation/human/cryokinesis
-#define CLUWNEMUT   /datum/mutation/human/cluwne
-#define WAXSALIVA   /datum/mutation/human/wax_saliva
+#define HULK		/datum/mutation/hulk
+#define XRAY		/datum/mutation/thermal/x_ray
+#define SPACEMUT	/datum/mutation/space_adaptation
+#define TK			/datum/mutation/telekinesis
+#define NERVOUS		/datum/mutation/nervousness
+#define EPILEPSY	/datum/mutation/epilepsy
+#define MUTATE		/datum/mutation/bad_dna
+#define COUGH		/datum/mutation/cough
+#define DWARFISM	/datum/mutation/dwarfism
+#define GIGANTISM	/datum/mutation/gigantism
+#define CLOWNMUT	/datum/mutation/clumsy
+#define TOURETTES	/datum/mutation/tourettes
+#define DEAFMUT		/datum/mutation/deaf
+#define BLINDMUT	/datum/mutation/blind
+#define RACEMUT		/datum/mutation/race
+#define BADSIGHT	/datum/mutation/nearsight
+#define LASEREYES	/datum/mutation/laser_eyes
+#define CHAMELEON	/datum/mutation/chameleon
+#define WACKY		/datum/mutation/wacky
+#define MUT_MUTE	/datum/mutation/mute
+#define SMILE		/datum/mutation/smile
+#define STONER		/datum/mutation/stoner
+#define UNINTELLIGIBLE		/datum/mutation/unintelligible
+#define SWEDISH		/datum/mutation/swedish
+#define CHAV		/datum/mutation/chav
+#define ELVIS		/datum/mutation/elvis
+#define RADIOACTIVE	/datum/mutation/radioactive
+#define GLOWY		/datum/mutation/glow
+#define ANTIGLOWY	/datum/mutation/glow/anti
+#define TELEPATHY	/datum/mutation/telepathy
+#define FIREBREATH	/datum/mutation/firebreath
+#define VOID		/datum/mutation/void
+#define STRONG    	/datum/mutation/strong
+#define FIRESWEAT	/datum/mutation/fire
+#define THERMAL		/datum/mutation/thermal
+#define ANTENNA		/datum/mutation/antenna
+#define PARANOIA	/datum/mutation/paranoia
+#define INSULATED	/datum/mutation/insulated
+#define SHOCKTOUCH	/datum/mutation/shock
+#define OLFACTION	/datum/mutation/olfaction
+#define ACIDFLESH	/datum/mutation/acidflesh
+#define BADBLINK	/datum/mutation/badblink
+#define SPASTIC		/datum/mutation/spastic
+#define EXTRASTUN	/datum/mutation/extrastun
+#define GELADIKINESIS		/datum/mutation/geladikinesis
+#define CRYOKINESIS /datum/mutation/cryokinesis
+#define CLUWNEMUT   /datum/mutation/cluwne
+#define WAXSALIVA   /datum/mutation/wax_saliva
+#define STRONGWINGS /datum/mutation/strongwings
+#define CATCLAWS    /datum/mutation/catclaws
+#define OVERLOAD    /datum/mutation/overload
+#define ACIDOOZE    /datum/mutation/acidooze
+#define MEDIEVAL    /datum/mutation/medieval
 
 #define UI_CHANGED "ui changed"
 #define UE_CHANGED "ue changed"
@@ -110,22 +115,27 @@
 #define NOTRANSSTING	7
 #define MUTCOLORS_PARTSONLY	8	//! Used if we want the mutant colour to be only used by mutant bodyparts. Don't combine this with MUTCOLORS, or it will be useless.
 #define NOZOMBIE		9
-#define DIGITIGRADE		10	//! Uses weird leg sprites. Optional for Lizards, required for ashwalkers. Don't give it to other races unless you make sprites for this (see human_parts_greyscale.dmi)
-#define NO_UNDERWEAR	11
-#define NOLIVER			12
-#define NOSTOMACH		13
-#define NO_DNA_COPY     14
-#define DRINKSBLOOD		15
-#define NOFLASH			16
-#define DYNCOLORS		17 //! Use this if you want to change the race's color without the player being able to pick their own color. AKA special color shifting
-#define AGENDER			18
-#define NOEYESPRITES	19 //! Do not draw eyes or eyeless overlay
-#define NOREAGENTS     20 //! DO NOT PROCESS REAGENTS
-#define REVIVESBYHEALING 21 // Will revive on heal when healing and total HP > 0.
-#define NOHUSK			22 // Can't be husked.
-#define ROBOTIC_LIMBS	23 //limbs start out as robotic; but also use organic icons. If you want to use the default ones, you'll have to use on_species_gain
-#define NOMOUTH			24
-#define NOSOCKS       25 // You cannot wear socks.
+#define NO_UNDERWEAR	10
+#define NOLIVER			11
+#define NOSTOMACH		12
+#define NO_DNA_COPY     13
+#define NOFLASH			14
+#define DYNCOLORS		15 //! Use this if you want to change the race's color without the player being able to pick their own color. AKA special color shifting TRANSLATION: AWFUL.
+#define AGENDER			16
+#define NOEYESPRITES	17 //! Do not draw eyes or eyeless overlay
+#define NOREAGENTS     18 //! DO NOT PROCESS REAGENTS
+#define REVIVESBYHEALING 19 // Will revive on heal when healing and total HP > 0.
+#define NOHUSK			20 // Can't be husked.
+#define NOMOUTH			21
+#define NOSOCKS       22 // You cannot wear socks.
+
+/// Used for determining which wounds are applicable to this species.
+/// if we have flesh (can suffer slash/piercing/burn wounds, requires they don't have NOBLOOD)
+// #define HAS_FLESH 23 [add if we ever port TGs wound system]
+/// if we have bones (can suffer bone wounds)
+// #define HAS_BONE 24 [add if we ever port TGs wound system]
+/// If we have a limb-specific overlay sprite
+#define HAS_MARKINGS 25
 
 //organ slots
 #define ORGAN_SLOT_BRAIN "brain"
@@ -149,6 +159,7 @@
 #define ORGAN_SLOT_HEART_AID "heartdrive"
 #define ORGAN_SLOT_BRAIN_ANTIDROP "brain_antidrop"
 #define ORGAN_SLOT_BRAIN_ANTISTUN "brain_antistun"
+#define ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT "brain_surgical"
 #define ORGAN_SLOT_TAIL "tail"
 #define ORGAN_SLOT_WINGS "wings"
 

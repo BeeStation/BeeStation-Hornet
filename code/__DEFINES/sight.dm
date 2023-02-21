@@ -14,6 +14,7 @@
 #define SEE_INVISIBLE_OBSERVER 60
 
 #define INVISIBILITY_MAXIMUM 100 //! the maximum allowed for "real" objects
+#define SEE_INVISIBLE_MAXIMUM 100
 
 #define INVISIBILITY_ABSTRACT 101 //! only used for abstract objects (e.g. spacevine_controller), things that are not really there.
 
@@ -29,7 +30,3 @@
 #define VISOR_DARKNESSVIEW	(1<<3)
 #define VISOR_INVISVIEW		(1<<4)
 
-//for whether AI eyes see static, and whether it is mouse-opaque or not
-#define USE_STATIC_NONE			0
-#define USE_STATIC_TRANSPARENT	1
-#define USE_STATIC_OPAQUE		2

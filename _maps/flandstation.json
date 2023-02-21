@@ -1,5 +1,6 @@
 {
     "map_name": "Fland Station",
+    "map_link": "FlandStation",
     "map_path": "map_files/FlandStation",
     "map_file": "FlandStation.dmm",
     "shuttles": {

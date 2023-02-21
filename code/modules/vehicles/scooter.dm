@@ -5,7 +5,7 @@
 	are_legs_exposed = TRUE
 	fall_off_if_missing_arms = TRUE
 
-/obj/vehicle/ridden/scooter/Initialize()
+/obj/vehicle/ridden/scooter/Initialize(mapload)
 	. = ..()
 	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
 	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0), TEXT_SOUTH = list(-2), TEXT_EAST = list(0), TEXT_WEST = list( 2)))
@@ -60,7 +60,7 @@
 	///Stamina drain multiplier
 	var/instability = 10
 
-/obj/vehicle/ridden/scooter/skateboard/Initialize()
+/obj/vehicle/ridden/scooter/skateboard/Initialize(mapload)
 	. = ..()
 	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
 	D.vehicle_move_delay = 1.5
@@ -85,14 +85,15 @@
 /obj/vehicle/ridden/scooter/skateboard/generate_actions()
 	. = ..()
 	initialize_controller_action_type(/datum/action/vehicle/ridden/scooter/skateboard/ollie, VEHICLE_CONTROL_DRIVE)
+	initialize_controller_action_type(/datum/action/vehicle/ridden/scooter/skateboard/kflip, VEHICLE_CONTROL_DRIVE)
 
 /obj/vehicle/ridden/scooter/skateboard/post_buckle_mob(mob/living/M)//allows skateboards to be non-dense but still allows 2 skateboarders to collide with each other
-	density = TRUE
+	set_density(TRUE)
 	return ..()
 
 /obj/vehicle/ridden/scooter/skateboard/post_unbuckle_mob(mob/living/M)
 	if(!has_buckled_mobs())
-		density = FALSE
+		set_density(FALSE)
 	return ..()
 
 /obj/vehicle/ridden/scooter/skateboard/Bump(atom/A)
@@ -263,7 +264,7 @@
 	icon = null
 	density = FALSE
 
-/obj/vehicle/ridden/scooter/wheelys/Initialize()
+/obj/vehicle/ridden/scooter/wheelys/Initialize(mapload)
 	. = ..()
 	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
 	D.vehicle_move_delay = 0

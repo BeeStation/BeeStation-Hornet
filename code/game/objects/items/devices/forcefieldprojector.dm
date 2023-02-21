@@ -95,7 +95,7 @@
 /obj/structure/projected_forcefield/Destroy()
 	visible_message("<span class='warning'>[src] flickers and disappears!</span>")
 	playsound(src,'sound/weapons/resonator_blast.ogg',25,1)
-	generator.current_fields -= src
+	generator?.current_fields -= src
 	generator = null
 	return ..()
 

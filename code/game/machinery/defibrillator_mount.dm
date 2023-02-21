@@ -16,15 +16,25 @@
 	var/obj/item/defibrillator/defib //this mount's defibrillator
 	var/clamps_locked = FALSE //if true, and a defib is loaded, it can't be removed without unlocking the clamps
 
-/obj/machinery/defibrillator_mount/loaded/Initialize() //loaded subtype for mapping use
+/obj/machinery/defibrillator_mount/loaded/Initialize(mapload) //loaded subtype for mapping use
 	. = ..()
 	defib = new/obj/item/defibrillator/loaded(src)
+	update_icon()
 
 /obj/machinery/defibrillator_mount/Destroy()
 	if(defib)
 		QDEL_NULL(defib)
 		end_processing()
 	. = ..()
+
+/obj/machinery/defibrillator_mount/obj_destruction()
+	if(defib)
+		defib.forceMove(get_turf(src))
+		defib.visible_message("<span class='notice'>[defib] falls to the ground from the destroyed wall mount.</span>")
+		defib = null
+		end_processing()
+	return ..()
+
 
 /obj/machinery/defibrillator_mount/examine(mob/user)
 	. = ..()
@@ -34,9 +44,11 @@
 			. += "<span class='notice'>Due to a security situation, its locking clamps can be toggled by swiping any ID.</span>"
 		else
 			. += "<span class='notice'>Its locking clamps can be [clamps_locked ? "dis" : ""]engaged by swiping an ID with access.</span>"
+	else
+		. += "<span class='notice'>It's <i>empty</i> and can be <b>pried</b> off the wall.</span>"
 
 /obj/machinery/defibrillator_mount/process()
-	if(defib?.cell && defib.cell.charge < defib.cell.maxcharge && is_operational())
+	if(defib?.cell && defib.cell.charge < defib.cell.maxcharge && is_operational)
 		use_power(200)
 		defib.cell.give(180) //90% efficiency, a bit worse than the cell charger's 100%
 		update_icon()
@@ -137,6 +149,19 @@
 	end_processing()
 	defib = null
 	update_icon()
+
+/obj/machinery/defibrillator_mount/crowbar_act(mob/living/user, obj/item/W)
+	if(!defib)
+		W.play_tool_sound(src, 75)
+		user.visible_message("<span class='notice'>[user.name] starts prying the [src] off the wall.</span>", \
+							"<span class='notice'>You start prying the defibrillator mount off the wall.</span>")
+		if(W.use_tool(src, user, 30, volume=50, amount = 0))
+			new /obj/item/wallframe/defib_mount(loc)
+			user.visible_message(\
+				"<span class='notice'>[user.name] pries the [src] off the wall with [W].</span>",\
+				"<span class='notice'>You pry the defibrillator mount off the wall.</span>")
+			qdel(src)
+			return TRUE
 
 //wallframe, for attaching the mounts easily
 /obj/item/wallframe/defib_mount

@@ -8,7 +8,7 @@
 	var/set_luminosity = 8
 	var/set_cap = 0
 
-/obj/effect/light_emitter/Initialize()
+/obj/effect/light_emitter/Initialize(mapload)
 	. = ..()
 	set_light(set_luminosity, set_cap)
 
@@ -31,9 +31,9 @@
 	new /obj/item/clothing/under/plasmaman/mining(src)
 	new /obj/item/clothing/under/plasmaman/mining(src)
 	new /obj/item/clothing/under/plasmaman/mining(src)
-	new /obj/item/clothing/head/helmet/space/plasmaman/replacement/mining(src)
-	new /obj/item/clothing/head/helmet/space/plasmaman/replacement/mining(src)
-	new /obj/item/clothing/head/helmet/space/plasmaman/replacement/mining(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/mining(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/mining(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/mining(src)
 	new /obj/item/clothing/under/rank/cargo/miner/lavaland(src)
 	new /obj/item/clothing/under/rank/cargo/miner/lavaland(src)
 	new /obj/item/clothing/under/rank/cargo/miner/lavaland(src)
@@ -54,11 +54,11 @@
 
 /obj/structure/closet/secure_closet/miner/PopulateContents()
 	..()
-	new /obj/item/stack/sheet/mineral/sandbags(src, 5)
+	new /obj/item/stack/sheet/sandbags(src, 5)
 	new /obj/item/storage/box/emptysandbags(src)
 	new /obj/item/shovel(src)
 	new /obj/item/pickaxe/mini(src)
-	new /obj/item/radio/headset/headset_cargo/mining(src)
+	new /obj/item/radio/headset/headset_cargo/shaft_miner(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/storage/bag/plants(src)
 	new /obj/item/storage/bag/ore(src)
@@ -74,7 +74,7 @@
 /obj/machinery/computer/shuttle_flight/mining
 	name = "mining shuttle console"
 	desc = "Used to call and send the mining shuttle."
-	circuit = /obj/item/circuitboard/computer/mining_shuttle
+	circuit = /obj/item/circuitboard/computer/shuttle/mining_shuttle
 	shuttleId = "mining"
 	possible_destinations = "mining_home;mining_away;landing_zone_dock;mining_public"
 	req_access = list(ACCESS_MINING)
@@ -92,7 +92,7 @@
 /obj/machinery/computer/shuttle_flight/science
 	name = "science outpost shuttle console"
 	desc = "Used to call and send the science shuttle."
-	circuit = /obj/item/circuitboard/computer/science_shuttle
+	circuit = /obj/item/circuitboard/computer/shuttle/science_shuttle
 	shuttleId = "science"
 	possible_destinations = "science_station;science_outpost"
 

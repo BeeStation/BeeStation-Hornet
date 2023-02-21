@@ -28,13 +28,18 @@
 	H.dna.features["mcolor"] = random_short_color()
 	H.dna.features["ethcolor"] = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]
 	H.dna.features["tail_lizard"] = pick(GLOB.tails_list_lizard)
-	H.dna.features["snout"] = pick(GLOB.snouts_list) 
-	H.dna.features["horns"] = pick(GLOB.horns_list) 
+	H.dna.features["snout"] = pick(GLOB.snouts_list)
+	H.dna.features["horns"] = pick(GLOB.horns_list)
 	H.dna.features["frills"] = pick(GLOB.frills_list)
 	H.dna.features["spines"] = pick(GLOB.spines_list)
 	H.dna.features["body_markings"] = pick(GLOB.body_markings_list)
-	H.dna.features["moth_wings"] = pick(GLOB.moth_wings_list)
+	H.dna.features["moth_wings"] = pick(GLOB.moth_wings_roundstart_list)
+	H.dna.features["moth_antennae"] = pick(GLOB.moth_antennae_roundstart_list)
+	H.dna.features["moth_markings"] = pick(GLOB.moth_markings_roundstart_list)
+	H.dna.features["apid_antenna"] = pick(GLOB.apid_antenna_list)
+	H.dna.features["apid_stripes"] = pick(GLOB.apid_stripes_list)
+	H.dna.features["apid_headstripes"] = pick(GLOB.apid_headstripes_list)
 
 	H.update_body()
 	H.update_hair()
-	H.update_body_parts()
+

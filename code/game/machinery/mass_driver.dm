@@ -14,7 +14,7 @@
 	var/power_per_obj = 1000
 
 
-/obj/machinery/mass_driver/Initialize()
+/obj/machinery/mass_driver/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/mass_driver(src)
 
@@ -23,7 +23,7 @@
 	. = ..()
 
 /obj/machinery/mass_driver/proc/drive(amount)
-	if(stat & (BROKEN|NOPOWER) || panel_open)
+	if(machine_stat & (BROKEN|NOPOWER) || panel_open)
 		return
 	use_power(power_per_obj)
 	var/O_limit
@@ -68,6 +68,6 @@
 	. = ..()
 	if (. & EMP_PROTECT_SELF)
 		return
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_stat & (BROKEN|NOPOWER))
 		return
 	drive()

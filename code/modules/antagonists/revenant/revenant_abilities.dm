@@ -11,11 +11,20 @@
 		AltClickNoInteract(src, A)
 		return
 
+	if(modifiers["ctrl"])
+		CtrlClickOn(A)
+		return
+
 	if(ishuman(A))
 		if(A in drained_mobs)
 			to_chat(src, "<span class='revenwarning'>[A]'s soul is dead and empty.</span>" )
 		else if(in_range(src, A))
 			Harvest(A)
+
+	if(isturf(A))
+		var/turf/T = A
+		if(T == get_turf(src))
+			T.check_z_travel(src)
 
 
 //Harvest; activated by clicking the target, will try to drain their essence.
@@ -24,6 +33,9 @@
 		return
 	if(draining)
 		to_chat(src, "<span class='revenwarning'>You are already siphoning the essence of a soul!</span>")
+		return
+	if(orbiting)
+		to_chat(src, "<span class='revenwarning'>You can't siphon essence during orbiting!</span>")
 		return
 	if(!target.stat)
 		to_chat(src, "<span class='revennotice'>[target.p_their(TRUE)] soul is too strong to harvest.</span>")
@@ -119,6 +131,38 @@
 	boldnotice = "revenboldnotice"
 	holy_check = TRUE
 
+/obj/effect/proc_holder/spell/self/revenant_phase_shift
+	name = "Phase Shift"
+	desc = "Shift in and out of your corporeal form"
+	panel = "Revenant Abilities"
+	action_icon = 'icons/mob/actions/actions_revenant.dmi'
+	action_icon_state = "r_phase"
+	action_background_icon_state = "bg_revenant"
+	clothes_req = FALSE
+	charge_max = 0
+
+/obj/effect/proc_holder/spell/self/revenant_phase_shift/cast(mob/user = usr)
+	if(!isrevenant(user))
+		return FALSE
+	var/mob/living/simple_animal/revenant/revenant = user
+	// if they're trapped in consecrated tiles, they can get out with this. but they can't hide back on these tiles.
+	if(revenant.incorporeal_move != INCORPOREAL_MOVE_JAUNT)
+		var/turf/open/floor/stepTurf = get_turf(user)
+		if(stepTurf)
+			var/obj/effect/decal/cleanable/food/salt/salt = locate() in stepTurf
+			if(salt)
+				to_chat(user, "<span class='warning'>[salt] blocks your way to spirit realm!</span>")
+				// the purpose is just letting not them hide onto salt tiles incorporeally. no need to stun.
+				return
+			if(stepTurf.flags_1 & NOJAUNT_1)
+				to_chat(user, "<span class='warning'>Some strange aura blocks your way to spirit realm.</span>")
+				return
+			if(locate(/obj/effect/blessing) in stepTurf)
+				to_chat(user, "<span class='warning'>Holy energies block your way to spirit realm!</span>")
+				return
+	revenant.phase_shift()
+	revenant.orbiting?.end_orbit(revenant)
+
 /obj/effect/proc_holder/spell/aoe_turf/revenant
 	clothes_req = 0
 	action_icon = 'icons/mob/actions/actions_revenant.dmi'
@@ -131,7 +175,7 @@
 	var/unlock_amount = 100 //How much essence it costs to unlock
 	var/cast_amount = 50 //How much essence it costs to use
 
-/obj/effect/proc_holder/spell/aoe_turf/revenant/Initialize()
+/obj/effect/proc_holder/spell/aoe_turf/revenant/Initialize(mapload)
 	. = ..()
 	if(locked)
 		name = "[initial(name)] ([unlock_amount]SE)"
@@ -252,10 +296,10 @@
 		floor.make_plating(1)
 	if(T.type == /turf/closed/wall && prob(15))
 		new /obj/effect/temp_visual/revenant(T)
-		T.ChangeTurf(/turf/closed/wall/rust)
+		T.AddElement(/datum/element/rust)
 	if(T.type == /turf/closed/wall/r_wall && prob(10))
 		new /obj/effect/temp_visual/revenant(T)
-		T.ChangeTurf(/turf/closed/wall/r_wall/rust)
+		T.AddElement(/datum/element/rust)
 	for(var/obj/effect/decal/cleanable/food/salt/salt in T)
 		new /obj/effect/temp_visual/revenant(T)
 		qdel(salt)
@@ -295,7 +339,7 @@
 			new /obj/effect/temp_visual/revenant(bot.loc)
 			bot.locked = FALSE
 			bot.open = TRUE
-			bot.emag_act()
+			bot.use_emag()
 	for(var/mob/living/carbon/human/human in T)
 		if(human == user)
 			continue
@@ -310,7 +354,7 @@
 		if(prob(20))
 			if(prob(50))
 				new /obj/effect/temp_visual/revenant(thing.loc)
-			thing.emag_act(null)
+			thing.use_emag(null)
 		else
 			if(!istype(thing, /obj/machinery/clonepod)) //I hate everything but mostly the fact there's no better way to do this without just not affecting it at all
 				thing.emp_act(EMP_HEAVY)

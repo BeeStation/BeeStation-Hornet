@@ -25,7 +25,7 @@
 	floor_tile = /obj/item/stack/tile/circuit
 	var/on = TRUE
 
-/turf/open/floor/circuit/Initialize()
+/turf/open/floor/circuit/Initialize(mapload)
 	SSmapping.nuke_tiles += src
 	update_icon()
 	. = ..()
@@ -111,17 +111,14 @@
 /turf/open/floor/pod
 	name = "pod floor"
 	icon_state = "podfloor"
-	icon_regular_floor = "podfloor"
 	floor_tile = /obj/item/stack/tile/pod
 
 /turf/open/floor/pod/light
 	icon_state = "podfloor_light"
-	icon_regular_floor = "podfloor_light"
 	floor_tile = /obj/item/stack/tile/pod/light
 
 /turf/open/floor/pod/dark
 	icon_state = "podfloor_dark"
-	icon_regular_floor = "podfloor_dark"
 	floor_tile = /obj/item/stack/tile/pod/dark
 
 
@@ -202,7 +199,7 @@
 	desc = "Some heavy bronze tiles."
 	icon = 'icons/obj/clockwork_objects.dmi'
 	icon_state = "clockwork_floor"
-	floor_tile = /obj/item/stack/tile/bronze
+	floor_tile = /obj/item/stack/sheet/bronze
 
 /turf/open/floor/white
 	name = "white floor"
@@ -235,9 +232,14 @@
 	icon_state = "stone"
 
 /turf/open/floor/plating/rust
-	name = "rusted plating"
-	desc = "Corrupted steel."
-	icon_state = "plating_rust"
+	//SDMM supports colors, this is simply for easier mapping
+	//and should be removed on initialize
+	color = COLOR_BROWN
 
-/turf/open/floor/plating/rust/rust_heretic_act()
-	return
+/turf/open/floor/plating/rust/Initialize(mapload)
+	. = ..()
+	color = null
+
+/turf/open/floor/plating/rust/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/rust)

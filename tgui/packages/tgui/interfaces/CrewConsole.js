@@ -2,8 +2,9 @@ import { useBackend } from '../backend';
 import { Box, Button, ColorBox, Section, Table } from '../components';
 import { COLORS } from '../constants';
 import { Window } from '../layouts';
+import { sortBy } from 'common/collections';
 
-const HEALTH_COLOR_BY_LEVEL = [
+export const HEALTH_COLOR_BY_LEVEL = [
   '#17d568',
   '#2ecc71',
   '#e67e22',
@@ -12,10 +13,10 @@ const HEALTH_COLOR_BY_LEVEL = [
   '#ed2814',
 ];
 
-const jobIsHead = jobId => jobId % 10 === 0;
+export const jobIsHead = jobId => jobId % 10 === 0;
 
-const jobToColor = jobId => {
-  if (jobId === 0) {
+export const jobToColor = jobId => {
+  if (jobId >= 0 && jobId < 10) {
     return COLORS.department.captain;
   }
   if (jobId >= 10 && jobId < 20) {
@@ -36,16 +37,19 @@ const jobToColor = jobId => {
   if (jobId >= 200 && jobId < 230) {
     return COLORS.department.centcom;
   }
+  if (jobId === -1) {
+    return null;
+  }
   return COLORS.department.other;
 };
 
-const healthToColor = (oxy, tox, burn, brute) => {
+export const healthToColor = (oxy, tox, burn, brute) => {
   const healthSum = oxy + tox + burn + brute;
   const level = Math.min(Math.max(Math.ceil(healthSum / 25), 0), 5);
   return HEALTH_COLOR_BY_LEVEL[level];
 };
 
-const HealthStat = props => {
+export const HealthStat = props => {
   const { type, value } = props;
   return (
     <Box
@@ -74,7 +78,9 @@ export const CrewConsole = () => {
 
 const CrewTable = (props, context) => {
   const { act, data } = useBackend(context);
-  const sensors = data.sensors || [];
+  const sensors = sortBy(
+    s => s.ijob
+  )(data.sensors ?? []);
   return (
     <Table>
       <Table.Row>
@@ -95,50 +101,76 @@ const CrewTable = (props, context) => {
         )}
       </Table.Row>
       {sensors.map(sensor => (
-        <Table.Row key={sensor.name}>
-          <Table.Cell
-            bold={jobIsHead(sensor.ijob)}
-            color={jobToColor(sensor.ijob)}>
-            {sensor.name} ({sensor.assignment})
-          </Table.Cell>
-          <Table.Cell collapsing textAlign="center">
-            <ColorBox
-              color={healthToColor(
-                sensor.oxydam,
-                sensor.toxdam,
-                sensor.burndam,
-                sensor.brutedam)} />
-          </Table.Cell>
-          <Table.Cell collapsing textAlign="center">
-            {sensor.oxydam !== null ? (
-              <Box inline>
-                <HealthStat type="oxy" value={sensor.oxydam} />
-                {'/'}
-                <HealthStat type="toxin" value={sensor.toxdam} />
-                {'/'}
-                <HealthStat type="burn" value={sensor.burndam} />
-                {'/'}
-                <HealthStat type="brute" value={sensor.brutedam} />
-              </Box>
-            ) : (
-              sensor.life_status ? 'Alive' : 'Dead'
-            )}
-          </Table.Cell>
-          <Table.Cell>
-            {sensor.pos_x !== null ? sensor.area : 'N/A'}
-          </Table.Cell>
-          {!!data.link_allowed && (
-            <Table.Cell collapsing>
-              <Button
-                content="Track"
-                disabled={!sensor.can_track}
-                onClick={() => act('select_person', {
-                  name: sensor.name,
-                })} />
-            </Table.Cell>
-          )}
-        </Table.Row>
+        <CrewTableEntry sensor_data={sensor} key={sensor.ref} />
       ))}
     </Table>
+  );
+};
+
+const CrewTableEntry = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { link_allowed } = data;
+  const { sensor_data } = props;
+  const {
+    name,
+    assignment,
+    ijob,
+    life_status,
+    oxydam,
+    toxdam,
+    burndam,
+    brutedam,
+    area,
+    can_track,
+  } = sensor_data;
+
+  return (
+    <Table.Row>
+      <Table.Cell
+        bold={jobIsHead(ijob)}
+        color={jobToColor(ijob)}>
+        {name}{assignment !== undefined ? ` (${assignment})` : ""}
+      </Table.Cell>
+      <Table.Cell collapsing textAlign="center">
+        {life_status ? (
+          <ColorBox
+            color={healthToColor(
+              oxydam,
+              toxdam,
+              burndam,
+              brutedam)} />
+        ) : (
+          <ColorBox color={'#ed2814'} />
+        )}
+      </Table.Cell>
+      <Table.Cell collapsing textAlign="center">
+        {oxydam !== undefined ? (
+          <Box inline>
+            <HealthStat type="oxy" value={oxydam} />
+            {'/'}
+            <HealthStat type="toxin" value={toxdam} />
+            {'/'}
+            <HealthStat type="burn" value={burndam} />
+            {'/'}
+            <HealthStat type="brute" value={brutedam} />
+          </Box>
+        ) : (
+          life_status ? 'Alive' : 'Dead'
+        )}
+      </Table.Cell>
+      <Table.Cell>
+        {area !== undefined ? area : 'N/A'}
+      </Table.Cell>
+      {!!link_allowed && (
+        <Table.Cell collapsing>
+          <Button
+            content="Track"
+            disabled={!can_track}
+            onClick={() => act('select_person', {
+              name: name,
+            })} />
+        </Table.Cell>
+      )}
+    </Table.Row>
   );
 };

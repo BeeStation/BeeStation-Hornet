@@ -16,9 +16,14 @@
 	var/max_signs = 4
 
 
-/obj/structure/janitorialcart/Initialize()
+/obj/structure/janitorialcart/Initialize(mapload)
 	. = ..()
 	create_reagents(100, OPENCONTAINER)
+	GLOB.janitor_devices += src
+
+/obj/structure/janitorialcart/Destroy()
+	GLOB.janitor_devices -= src
+	return ..()
 
 /obj/structure/janitorialcart/proc/wet_mop(obj/item/mop, mob/user)
 	if(reagents.total_volume < 1)
@@ -89,7 +94,7 @@
 		user.visible_message("[user] begins to empty the contents of [src].", "<span class='notice'>You begin to empty the contents of [src]...</span>")
 		if(I.use_tool(src, user, 30))
 			to_chat(usr, "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>")
-			reagents.reaction(src.loc)
+			reagents.expose(src.loc)
 			src.reagents.clear_reagents()
 	else
 		return ..()

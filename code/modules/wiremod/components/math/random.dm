@@ -17,7 +17,7 @@
 	/// The result from the output
 	var/datum/port/output/output
 
-/obj/item/circuit_component/random/Initialize()
+/obj/item/circuit_component/random/Initialize(mapload)
 	. = ..()
 	minimum = add_input_port("Minimum", PORT_TYPE_NUMBER, FALSE)
 	maximum = add_input_port("Maximum", PORT_TYPE_NUMBER, FALSE)

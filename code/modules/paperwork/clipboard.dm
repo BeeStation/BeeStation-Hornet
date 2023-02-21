@@ -27,7 +27,7 @@
 	user.visible_message("<span class='suicide'>[user] begins putting [user.p_their()] head into the clip of \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS//the clipboard's clip is very strong. industrial duty. can kill a man easily.
 
-/obj/item/clipboard/Initialize()
+/obj/item/clipboard/Initialize(mapload)
 	update_icon()
 	. = ..()
 
@@ -69,6 +69,8 @@
 
 /obj/item/clipboard/AltClick(mob/user)
 	..()
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	if(pen)
 		remove_pen(user)
 

@@ -40,11 +40,11 @@
 	var/turf/T = get_turf(hit_atom)
 	new/obj/effect/decal/cleanable/food/pie_smudge(T)
 	if(reagents?.total_volume)
-		reagents.reaction(hit_atom, TOUCH)
+		reagents.expose(hit_atom, TOUCH)
 	if(ishuman(hit_atom))
 		var/mob/living/carbon/human/H = hit_atom
 		var/mutable_appearance/creamoverlay = mutable_appearance('icons/effects/creampie.dmi')
-		if(H.dna.species.limbs_id == "lizard")
+		if(istype(H.get_bodypart(BODY_ZONE_HEAD), /obj/item/bodypart/head/lizard))
 			creamoverlay.icon_state = "creampie_lizard"
 		else
 			creamoverlay.icon_state = "creampie_human"
@@ -136,7 +136,7 @@
 	tastes = list("pie" = 1, "mushroom" = 1)
 	foodtype = GRAIN | VEGETABLES
 
-/obj/item/reagent_containers/food/snacks/pie/plump_pie/Initialize()
+/obj/item/reagent_containers/food/snacks/pie/plump_pie/Initialize(mapload)
 	. = ..()
 	var/fey = prob(10)
 	if(fey)

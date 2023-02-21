@@ -21,7 +21,7 @@
 	var/atom/target = parent
 
 	target.orbiters = src
-	if(ismovableatom(target))
+	if(ismovable(target))
 		tracker = new(target, CALLBACK(src, .proc/move_react))
 
 /datum/component/orbiter/UnregisterFromParent()
@@ -31,7 +31,7 @@
 
 /datum/component/orbiter/Destroy()
 	var/atom/master = parent
-	master.orbiters = null
+	master?.orbiters = null
 	for(var/i in orbiters)
 		end_orbit(i)
 	orbiters = null

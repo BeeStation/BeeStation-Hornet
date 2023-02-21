@@ -236,7 +236,6 @@
 /datum/chemical_reaction/mix_virus
 	name = "Mix Virus"
 	id = "mixvirus"
-	results = list(/datum/reagent/blood = 1)
 	required_reagents = list(/datum/reagent/consumable/virus_food = 1)
 	required_catalysts = list(/datum/reagent/blood = 1)
 	var/level_min = 1
@@ -249,7 +248,7 @@
 		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
 		if(D)
 			D.Evolve(level_min, level_max)
-
+			D.logchanges(holder, "EVOLVE")
 
 /datum/chemical_reaction/mix_virus/mix_virus_2
 	name = "Mix Virus 2"
@@ -356,6 +355,7 @@
 		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
 		if(D)
 			D.Devolve()
+			D.logchanges(holder, "DEVOLVE")
 
 //prevents a random symptom from showing while keeping the stats
 /datum/chemical_reaction/mix_virus/neuter_virus
@@ -371,6 +371,7 @@
 		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
 		if(D)
 			D.Neuter()
+			D.logchanges(holder, "NEUTER")
 
 //prevents the altering of disease symptoms
 /datum/chemical_reaction/mix_virus/preserve_virus
@@ -386,6 +387,7 @@
 		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
 		if(D)
 			D.mutable = FALSE
+			D.logchanges(holder, "PRESERVE")
 
 //prevents the disease from spreading via symptoms
 /datum/chemical_reaction/mix_virus/falter_virus
@@ -403,6 +405,7 @@
 			D.faltered = TRUE
 			D.spread_flags = DISEASE_SPREAD_FALTERED
 			D.spread_text = "Intentional Injection"
+			D.logchanges(holder, "FALTER")
 
 
 ////////////////////////////////// foam and foam precursor ///////////////////////////////////////////////////
@@ -728,12 +731,6 @@
 	id = /datum/reagent/mutationtoxin/abductor
 	results = list(/datum/reagent/mutationtoxin/abductor = 5)
 	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/medicine/morphine = 10, /datum/reagent/toxin/mutetoxin = 10)
-
-/datum/chemical_reaction/mutationtoxin/ipc
-	name = /datum/reagent/mutationtoxin/ipc
-	id = /datum/reagent/mutationtoxin/ipc
-	results = list(/datum/reagent/mutationtoxin/ipc = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/teslium = 20)
 
 /datum/chemical_reaction/mutationtoxin/ethereal
 	name = /datum/reagent/mutationtoxin/ethereal

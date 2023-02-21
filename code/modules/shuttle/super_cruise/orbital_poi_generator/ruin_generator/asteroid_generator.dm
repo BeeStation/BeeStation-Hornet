@@ -5,11 +5,7 @@
 /proc/generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset = 0, scale = 65)
 	var/datum/space_level/space_level = SSmapping.get_level(center_z)
 	space_level.generating = TRUE
-	try
-		_generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset, scale)
-	catch(var/exception/e)
-		message_admins("Asteroid failed to generate!")
-		stack_trace("Asteroid failed to generate! [e] on [e.file]:[e.line]")
+	_generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset, scale)
 	space_level.generating = FALSE
 
 /proc/_generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset = 0, scale = 65)

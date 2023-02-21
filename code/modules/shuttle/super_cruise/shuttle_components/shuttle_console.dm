@@ -47,15 +47,30 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	. = ..()
 	SSorbits.open_orbital_maps -= SStgui.get_all_open_uis(src)
 	shuttleObject = null
+	//De-link the port
+	if(my_port)
+		my_port.delete_after = TRUE
+		my_port.id = null
+		my_port.name = "Old [my_port.name]"
+		my_port = null
+
+/obj/machinery/computer/shuttle_flight/examine(mob/user)
+	. = ..()
+	var/obj/item/circuitboard/computer/shuttle/circuit_board = circuit
+	if(istype(circuit_board))
+		if(circuit_board.hacked)
+			. += "It's access requirements have been disabled."
+		else
+			. += "It's access requirements could be disabled by disassembling the computer and using a multitool on the circuitboard."
 
 /obj/machinery/computer/shuttle_flight/process()
 	. = ..()
 
-	//Check to see if the shuttleobject was launched by another console.
+	//Check to see if the shuttleObject was launched by another console.
 	if(QDELETED(shuttleObject) && SSorbits.assoc_shuttles.Find(shuttleId))
 		shuttleObject = SSorbits.assoc_shuttles[shuttleId]
 
-	if(recall_docking_port_id && shuttleObject?.docking_target && shuttleObject.autopilot && shuttleObject.shuttleTarget == shuttleObject.docking_target && shuttleObject.controlling_computer == src)
+	if(recall_docking_port_id && shuttleObject?.docking_target && shuttleObject.shuttleTarget == shuttleObject.docking_target && shuttleObject.controlling_computer == src)
 		//We are at destination, dock.
 		shuttleObject.controlling_computer = null
 		switch(SSshuttle.moveShuttle(shuttleId, recall_docking_port_id, 1))
@@ -104,31 +119,18 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	return data
 
 /obj/machinery/computer/shuttle_flight/ui_data(mob/user)
-	var/list/data = list()
-	data["update_index"] = SSorbits.times_fired
-	//Add orbital bodies
-	data["map_objects"] = list()
-	var/datum/orbital_map/showing_map = SSorbits.orbital_maps[orbital_map_index]
-	for(var/map_key in showing_map.collision_zone_bodies)
-		for(var/datum/orbital_object/object as() in showing_map.collision_zone_bodies[map_key])
-			if(!object)
-				continue
-			//we can't see it, unless we are stealth too
-			if(shuttleObject)
-				if(object != shuttleObject && (object.stealth && !shuttleObject.stealth))
-					continue
-			else
-				if(object.stealth)
-					continue
-			//Send to be rendered on the UI
-			data["map_objects"] += list(list(
-				"name" = object.name,
-				"position_x" = object.position.x,
-				"position_y" = object.position.y,
-				"velocity_x" = object.velocity.x * object.velocity_multiplier,
-				"velocity_y" = object.velocity.y * object.velocity_multiplier,
-				"radius" = object.radius
-			))
+	//Fetch data
+	var/user_ref = "[REF(user)]"
+
+	//Get the base map data
+	var/list/data = SSorbits.get_orbital_map_base_data(
+		SSorbits.orbital_maps[orbital_map_index],
+		user_ref,
+		FALSE,
+		shuttleObject
+	)
+
+	//Send shuttle data
 	if(!SSshuttle.getShuttle(shuttleId))
 		data["linkedToShuttle"] = FALSE
 		return data
@@ -162,8 +164,6 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	data["shuttleAngle"] = shuttleObject.angle
 	data["shuttleThrust"] = shuttleObject.thrust
 	data["autopilot_enabled"] = shuttleObject.autopilot
-	data["desired_vel_x"] = shuttleObject.desired_vel_x
-	data["desired_vel_y"] = shuttleObject.desired_vel_y
 	if(shuttleObject?.shuttleTarget)
 		data["shuttleVelX"] = shuttleObject.velocity.x - shuttleObject.shuttleTarget.velocity.x
 		data["shuttleVelY"] = shuttleObject.velocity.y - shuttleObject.shuttleTarget.velocity.y
@@ -326,7 +326,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				//Do this last
 				if(other_shuttle == shuttleObject)
 					continue
-				if(other_shuttle?.position?.Distance(shuttleObject.position) <= interdiction_range && !other_shuttle.stealth)
+				if(other_shuttle?.position?.DistanceTo(shuttleObject.position) <= interdiction_range && !other_shuttle.stealth)
 					interdicted_shuttles += other_shuttle
 			if(!length(interdicted_shuttles))
 				say("No targets to interdict in range.")
@@ -376,13 +376,13 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			if(params["port"] == "custom_location")
 				//Open up internal docking computer if any location is allowed.
 				if(shuttleObject.docking_target.can_dock_anywhere)
-					if(GLOB.shuttle_docking_jammed)
+					if(GLOB.shuttle_docking_jammed && !shuttleObject.stealth && istype(shuttleObject.docking_target, /datum/orbital_object/z_linked/station))
 						say("Shuttle docking computer jammed.")
 						return
 					if(current_user)
 						to_chat(usr, "<span class='warning'>Somebody is already docking the shuttle.</span>")
 						return
-					view_range = max(mobile_port.width, mobile_port.height) + 4
+					view_range = max(mobile_port.width, mobile_port.height, mobile_port.dwidth, mobile_port.dheight) * 0.5 - 4
 					give_eye_control(usr)
 					eyeobj.forceMove(locate(world.maxx * 0.5, world.maxy * 0.5, shuttleObject.docking_target.linked_z_level[1].z_value))
 					return
@@ -429,6 +429,9 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			return
 	var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
 	if(!mobile_port)
+		return
+	if(!mobile_port.canMove())
+		say("Supercruise Warning: The shuttle's movement is being inhibited.")
 		return
 	if(mobile_port.mode == SHUTTLE_RECHARGING)
 		say("Supercruise Warning: Shuttle engines not ready for use.")
@@ -523,10 +526,13 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		log_mapping("CAUTION: SHUTTLE [shuttleId] REACHED THE GENERATION TIMEOUT OF 3 MINUTES. THE ASSIGNED Z-LEVEL IS STILL MARKED AS GENERATING, BUT WE ARE DOCKING ANYWAY.")
 	shuttle_dock.setTimer(20)
 
-/obj/machinery/computer/shuttle_flight/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/computer/shuttle_flight/on_emag(mob/user)
+	..()
 	req_access = list()
-	obj_flags |= EMAGGED
 	to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
 
+/obj/machinery/computer/shuttle_flight/allowed(mob/M)
+	var/obj/item/circuitboard/computer/shuttle/circuit_board = circuit
+	if(istype(circuit_board) && circuit_board.hacked)
+		return TRUE
+	return ..()

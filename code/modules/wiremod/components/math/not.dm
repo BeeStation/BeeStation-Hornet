@@ -14,7 +14,7 @@
 	var/datum/port/output/result
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
-/obj/item/circuit_component/not/Initialize()
+/obj/item/circuit_component/not/Initialize(mapload)
 	. = ..()
 	input_port = add_input_port("Input", PORT_TYPE_ANY)
 

@@ -4,7 +4,7 @@
 	helptext = "Our kind are immune to the gases internals are not necessary"
 	button_icon_state = "smoke"
 	chemical_cost = 25
-	dna_cost = 2
+	dna_cost = 1
 	req_stat = UNCONSCIOUS
 	var/range = 4
 

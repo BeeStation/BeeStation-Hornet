@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/structure/lattice,
-/turf/template_noop,
+/turf/template_noop/open,
 /area/template_noop)
 "c" = (
 /turf/open/floor/plasteel,
@@ -39,6 +39,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin)
+"t" = (
+/turf/template_noop/open,
+/area/template_noop)
 "x" = (
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel,
@@ -72,7 +75,7 @@
 /area/ruin)
 "N" = (
 /obj/effect/decal/fakelattice,
-/turf/template_noop,
+/turf/template_noop/open,
 /area/template_noop)
 "R" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
@@ -236,15 +239,15 @@ c
 c
 c
 C
-X
+t
 N
-X
+t
 N
-X
+t
 N
-X
+t
 N
-X
+t
 C
 x
 c
@@ -261,11 +264,11 @@ c
 R
 N
 o
-X
+t
 S
 S
 S
-X
+t
 o
 N
 R
@@ -282,15 +285,15 @@ c
 c
 c
 R
-X
-X
-X
+t
+t
+t
 a
-X
+t
 a
-X
-X
-X
+t
+t
+t
 R
 E
 W
@@ -328,15 +331,15 @@ c
 c
 c
 C
-X
+t
 S
-X
+t
 S
 l
 S
-X
+t
 S
-X
+t
 C
 x
 c
@@ -374,15 +377,15 @@ c
 c
 c
 R
-X
-X
-X
+t
+t
+t
 a
-X
+t
 a
-X
-X
-X
+t
+t
+t
 R
 E
 W
@@ -399,11 +402,11 @@ c
 R
 N
 o
-X
+t
 S
 S
 S
-X
+t
 o
 N
 R
@@ -420,15 +423,15 @@ c
 c
 c
 C
-X
+t
 N
-X
+t
 N
-X
+t
 N
-X
+t
 N
-X
+t
 C
 x
 c

@@ -1,9 +1,13 @@
 /datum/orbital_object
 	var/name = "undefined"
+	//Unique ID of the orbital object
+	var/unique_id = ""
 	//Mass of the object in solar masses
 	var/mass = 0
-	//Radius of the object in parsecs
+	//Radius of the object in ~~parsecs~~ arbitary space units
 	var/radius = 1
+	//What render mode to use
+	var/render_mode = RENDER_MODE_DEFAULT
 	//Position of the object (0,0) is the center of the map.
 	//Position is in kilometers
 	//If this is modified, on_body_move() MUST be called. (Really this should be a helper proc)
@@ -21,6 +25,10 @@
 	var/stealth = FALSE
 	//Multiplier for velocity
 	var/velocity_multiplier = 1
+	//Do we ignore gravity?
+	var/ignore_gravity = FALSE
+	//Priority in the sorted list
+	var/priority = 0
 
 	//Delta time updates
 	//Ship translations are smooth so must use a delta time
@@ -47,6 +55,7 @@
 	//Our collision type
 	var/collision_type = COLLISION_UNDEFINED
 	//The collision flags we register with
+	//Add to this when you want THIS objects collision proc to be called.
 	var/collision_flags = NONE
 
 /datum/orbital_object/New(datum/orbital_vector/position, datum/orbital_vector/velocity, orbital_map_index)
@@ -56,6 +65,8 @@
 		src.position = position
 	if(velocity)
 		src.velocity = velocity
+	var/static/created_amount = 0
+	unique_id = "ObjID[++created_amount]"
 	. = ..()
 	//Calculate relevant grav range
 	relevant_gravity_range = sqrt((mass * GRAVITATIONAL_CONSTANT) / MINIMUM_EFFECTIVE_GRAVITATIONAL_ACCEELRATION)
@@ -84,18 +95,11 @@
 	return
 
 //Process orbital objects, calculate gravity
-/datum/orbital_object/process()
+/datum/orbital_object/process(delta_time)
 	//Dont process updates for static objects.
 	if(static_object)
 		return PROCESS_KILL
 
-	//NOTE TO SELF: This does nothing because world.time is in ticks not realtime.
-	var/delta_time = 0
-	if(last_update_tick)
-		//Don't go too crazy.
-		delta_time = CLAMP(world.time - last_update_tick, 10, 50) * 0.1
-	else
-		delta_time = 1
 	last_update_tick = world.time
 
 	var/datum/orbital_map/parent_map = SSorbits.orbital_maps[orbital_map_index]
@@ -104,7 +108,7 @@
 	// GRAVITATIONAL ATTRACTION
 	//===================================
 	//Gravity is not considered while we have just undocked and are at the center of a massive body.
-	if(!collision_ignored)
+	if(!collision_ignored && !ignore_gravity)
 		//Find relevant gravitational bodies.
 		var/list/gravitational_bodies =parent_map.get_relevnant_bodies(src)
 		//Calculate acceleration vector
@@ -112,16 +116,16 @@
 		//Calculate gravity
 		for(var/datum/orbital_object/gravitational_body as() in gravitational_bodies)
 			//https://en.wikipedia.org/wiki/Gravitational_acceleration
-			var/distance = position.Distance(gravitational_body.position)
+			var/distance = position.DistanceTo(gravitational_body.position)
 			if(!distance)
 				continue
 			var/acceleration_amount = (GRAVITATIONAL_CONSTANT * gravitational_body.mass) / (distance * distance)
 			//Calculate acceleration direction
 			var/datum/orbital_vector/direction = new (gravitational_body.position.x - position.x, gravitational_body.position.y - position.y)
-			direction.Normalize()
-			direction.Scale(acceleration_amount)
+			direction.NormalizeSelf()
+			direction.ScaleSelf(acceleration_amount)
 			//Add on the gravitational acceleration
-			acceleration_per_second.Add(direction)
+			acceleration_per_second.AddSelf(direction)
 		//Divide acceleration per second by the tick rate
 		accelerate_towards(acceleration_per_second, delta_time)
 
@@ -133,10 +137,10 @@
 		//Velocity should always be perpendicular to the planet
 		var/datum/orbital_vector/perpendicular_vector = new(position.y - target_orbital_body.position.y, target_orbital_body.position.x - position.x)
 		//Calculate the relative velocity we should have
-		perpendicular_vector.Normalize()
-		perpendicular_vector.Scale(relative_velocity_required)
+		perpendicular_vector.NormalizeSelf()
+		perpendicular_vector.ScaleSelf(relative_velocity_required)
 		//Set it because we are a lazy shit
-		velocity = perpendicular_vector.Add(target_orbital_body.velocity)
+		velocity = perpendicular_vector.AddSelf(target_orbital_body.velocity)
 
 	//===================================
 	// MOVEMENT
@@ -147,7 +151,7 @@
 
 	//Move the gravitational body.
 	var/datum/orbital_vector/vel_new = new(velocity.x * delta_time * velocity_multiplier, velocity.y * delta_time * velocity_multiplier)
-	position.Add(vel_new)
+	position.AddSelf(vel_new)
 
 	//Oh we moved btw
 	parent_map.on_body_move(src, prev_x, prev_y)
@@ -217,9 +221,9 @@
 	for(var/datum/orbital_object/object as() in valid_objects)
 		if(object == src)
 			continue
-		if(!((collision_flags & object.collision_type) || (object.collision_flags & collision_type)))
+		if(!(object.collision_type & collision_flags) && !(object.static_object && (collision_type & object.collision_flags)))
 			continue
-		var/distance = object.position.Distance(position)
+		var/distance = object.position.DistanceTo(position)
 		if(distance < radius + object.radius)
 			//Collision
 			LAZYADD(colliding_with, object)
@@ -272,7 +276,7 @@
 
 //We do a little suvatting
 /datum/orbital_object/proc/accelerate_towards(datum/orbital_vector/acceleration_vector, time)
-	velocity.Add(acceleration_vector.Scale(time))
+	velocity.AddSelf(acceleration_vector.ScaleSelf(time))
 
 //Called when we collide with another orbital object.
 //Make sure to check if(other.collision_ignored || collision_ignored)
@@ -297,15 +301,15 @@
 	//Move all orbitting b()odies too.
 	if(orbitting_bodies)
 		for(var/datum/orbital_object/object in orbitting_bodies)
-			object.position.Add(new /datum/orbital_vector(delta_x, delta_y))
+			object.position.AddSelf(new /datum/orbital_vector(delta_x, delta_y))
 	//Set velocity
 	var/relative_velocity = sqrt((GRAVITATIONAL_CONSTANT * (target_body.mass + mass)) / orbit_radius)
 	velocity.x = target_body.velocity.x
 	velocity.y = target_body.velocity.y + relative_velocity
 	//Set random angle
 	var/random_angle = rand(0, 360)	//Is cos and sin in radians?
-	position.Rotate(random_angle)
-	velocity.Rotate(random_angle)
+	position.RotateSelf(random_angle)
+	velocity.RotateSelf(random_angle)
 	//Update target
 	target_orbital_body = target_body
 	LAZYADD(target_body.orbitting_bodies, src)

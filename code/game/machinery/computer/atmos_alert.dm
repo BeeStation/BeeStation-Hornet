@@ -13,7 +13,7 @@
 
 	light_color = LIGHT_COLOR_CYAN
 
-/obj/machinery/computer/atmos_alert/Initialize()
+/obj/machinery/computer/atmos_alert/Initialize(mapload)
 	. = ..()
 	set_frequency(receive_frequency)
 
@@ -87,7 +87,7 @@
 
 /obj/machinery/computer/atmos_alert/update_icon()
 	..()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return
 	if(priority_alarms.len)
 		add_overlay("alert:2")

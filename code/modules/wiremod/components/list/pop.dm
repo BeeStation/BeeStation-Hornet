@@ -24,7 +24,7 @@
 	)
 
 
-/obj/item/circuit_component/pop/Initialize()
+/obj/item/circuit_component/pop/Initialize(mapload)
 	. = ..()
 	list_port = add_input_port("List", PORT_TYPE_LIST)
 	output_list = add_output_port("New List", PORT_TYPE_LIST)

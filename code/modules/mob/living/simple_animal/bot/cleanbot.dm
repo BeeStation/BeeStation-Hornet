@@ -33,7 +33,7 @@
 	var/next_dest
 	var/next_dest_loc
 
-/mob/living/simple_animal/bot/cleanbot/Initialize()
+/mob/living/simple_animal/bot/cleanbot/Initialize(mapload)
 	. = ..()
 	get_targets()
 	icon_state = "cleanbot[on]"
@@ -41,6 +41,11 @@
 	var/datum/job/janitor/J = new/datum/job/janitor
 	access_card.access += J.get_access()
 	prev_access = access_card.access
+	GLOB.janitor_devices += src
+
+/mob/living/simple_animal/bot/cleanbot/Destroy()
+	GLOB.janitor_devices -= src
+	return ..()
 
 /mob/living/simple_animal/bot/cleanbot/turn_on()
 	..()
@@ -64,7 +69,7 @@
 	text_dehack_fail = "[name] does not seem to respond to your repair code!"
 
 /mob/living/simple_animal/bot/cleanbot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
+	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/modular_computer/tablet/pda))
 		if(bot_core.allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] \the [src] behaviour controls.</span>")
@@ -78,7 +83,7 @@
 	else
 		return ..()
 
-/mob/living/simple_animal/bot/cleanbot/emag_act(mob/user)
+/mob/living/simple_animal/bot/cleanbot/on_emag(atom/target, mob/user)
 	..()
 	if(emagged == 2)
 		if(user)
@@ -276,18 +281,18 @@
 	do_sparks(3, TRUE, src)
 	..()
 
-/obj/item/roombaframe
-	name = "Roomba Frame"
-	desc = "A housing that serves as the base for constructing Roombas."
+/obj/item/larryframe
+	name = "Larry Frame"
+	desc = "A housing that serves as the base for constructing Larries."
 	icon = 'icons/obj/janitor.dmi'
-	icon_state = "roombaframe"
+	icon_state = "larryframe"
 
-/obj/item/roombaframe/attackby(obj/O, mob/user, params)
+/obj/item/larryframe/attackby(obj/O, mob/user, params)
 	if(isprox(O))
 		to_chat(user, "<span class='notice'>You add [O] to [src].</span>")
 		qdel(O)
 		qdel(src)
-		user.put_in_hands(new /obj/item/bot_assembly/roomba)
+		user.put_in_hands(new /obj/item/bot_assembly/larry)
 	else
 		..()
 
@@ -296,35 +301,36 @@
 	bot_core_type = /obj/machinery/bot_core/cleanbot/medbay
 	on = FALSE
 
-//Crossed Wanted Roomba Sprites to be Separate
-/mob/living/simple_animal/bot/cleanbot/roomba
-	name = "\improper Roomba"
-	desc = "A little Roomba, he looks so excited!"
-	icon_state = "roomba0"
+//Crossed Wanted Larry Sprites to be Separate
+/mob/living/simple_animal/bot/cleanbot/larry
+	name = "\improper Larry"
+	desc = "A little Larry, he looks so excited!"
+	icon_state = "larry0"
+	var/obj/item/kitchen/knife/knife //You know exactly what this is about
 
-/mob/living/simple_animal/bot/cleanbot/roomba/Initialize()
+/mob/living/simple_animal/bot/cleanbot/larry/Initialize(mapload)
 	. = ..()
 	get_targets()
-	icon_state = "roomba[on]"
+	icon_state = "larry[on]"
 
 	var/datum/job/janitor/J = new/datum/job/janitor
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
-/mob/living/simple_animal/bot/cleanbot/roomba/turn_on()
+/mob/living/simple_animal/bot/cleanbot/larry/turn_on()
 	..()
-	icon_state = "roomba[on]"
+	icon_state = "larry[on]"
 	bot_core.updateUsrDialog()
 
-/mob/living/simple_animal/bot/cleanbot/roomba/turn_off()
+/mob/living/simple_animal/bot/cleanbot/larry/turn_off()
 	..()
-	icon_state = "roomba[on]"
+	icon_state = "larry[on]"
 	bot_core.updateUsrDialog()
-	
-/mob/living/simple_animal/bot/cleanbot/roomba/UnarmedAttack(atom/A)
+
+/mob/living/simple_animal/bot/cleanbot/larry/UnarmedAttack(atom/A)
 	if(istype(A, /obj/effect/decal/cleanable))
 		anchored = TRUE
-		icon_state = "roomba-c"
+		icon_state = "larry-c"
 		visible_message("<span class='notice'>[src] begins to clean up [A].</span>")
 		mode = BOT_CLEANING
 		addtimer(CALLBACK(src, .proc/clean, A), 50)
@@ -365,9 +371,9 @@
 	else
 		..()
 
-/mob/living/simple_animal/bot/cleanbot/roomba/clean(atom/A)
+/mob/living/simple_animal/bot/cleanbot/larry/clean(atom/A)
 	mode = BOT_IDLE
-	icon_state = "roomba[on]"
+	icon_state = "larry[on]"
 	if(!on)
 		return
 	if(A && isturf(A.loc))
@@ -377,6 +383,47 @@
 				qdel(C)
 	anchored = FALSE
 	target = null
+
+
+/mob/living/simple_animal/bot/cleanbot/larry/attackby(obj/item/I, mob/living/user)
+	if(user.a_intent == INTENT_HELP)
+		if(istype(I, /obj/item/kitchen/knife) && !knife) //Is it a knife?
+			var/obj/item/kitchen/knife/newknife = I
+			knife = newknife
+			newknife.forceMove(src)
+			message_admins("[user] attached a [newknife.name] to [src]") //This should definitely be a notified thing.
+			AddComponent(/datum/component/knife_attached_to_movable, knife.force)
+			update_icons()
+		else
+			return ..()
+	else
+		return ..()
+
+/mob/living/simple_animal/bot/cleanbot/larry/update_icons()
+	if(knife)
+		var/mutable_appearance/knife_overlay = knife.build_worn_icon(default_layer = 20, default_icon_file = 'icons/mob/inhands/misc/larry.dmi')
+		add_overlay(knife_overlay)
+
+/mob/living/simple_animal/bot/cleanbot/larry/explode()
+	on = FALSE
+	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
+	var/atom/Tsec = drop_location()
+
+	new /obj/item/larryframe(Tsec)
+	new /obj/item/assembly/prox_sensor(Tsec)
+
+	if(prob(50))
+		drop_part(robot_arm, Tsec)
+	if(knife && prob(50))
+		new knife(Tsec)
+
+	do_sparks(3, TRUE, src)
+	qdel(src)
+
+/mob/living/simple_animal/bot/cleanbot/larry/Destroy()
+	..()
+	if(knife)
+		QDEL_NULL(knife)
 
 /obj/machinery/bot_core/cleanbot
 	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)

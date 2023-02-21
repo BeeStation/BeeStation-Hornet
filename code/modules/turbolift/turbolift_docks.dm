@@ -1,6 +1,5 @@
 /obj/docking_port/stationary/turbolift
 	name = "turbolift"
-	area_type = /area/shuttle/turbolift/shaft
 	var/bottom_floor = FALSE
 	var/deck = 1
 
@@ -10,9 +9,12 @@
 	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0)
 	var/datum/weakref/turbolift_computer
 
-/obj/docking_port/mobile/turbolift/Initialize()
+/obj/docking_port/mobile/turbolift/Initialize(mapload)
 	register()
 	..()
+	for(var/area/A in shuttle_areas)
+		for(var/turf/T in A.contents)
+			underlying_turf_area[T] = GLOB.areas_by_type[/area/shuttle/turbolift/shaft]
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/docking_port/mobile/turbolift/LateInitialize()
@@ -46,7 +48,7 @@
 
 	turbolift_dock.locate_floors(src)
 
-/obj/docking_port/stationary/turbolift/Initialize()
+/obj/docking_port/stationary/turbolift/Initialize(mapload)
 	. = ..()
 	id = "[id]_[src.z]"
 	var/lower_dock = (locate(/obj/docking_port/stationary/turbolift) in SSmapping.get_turf_below(get_turf(src)))

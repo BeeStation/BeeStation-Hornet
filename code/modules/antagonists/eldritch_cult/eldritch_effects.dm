@@ -9,7 +9,7 @@
 	///Used mainly for summoning ritual to prevent spamming the rune to create millions of monsters.
 	var/is_in_use = FALSE
 
-/obj/effect/eldritch/Initialize()
+/obj/effect/eldritch/Initialize(mapload)
 	. = ..()
 	var/image/I = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
 	I.override = TRUE
@@ -26,11 +26,6 @@
 		return
 	if(!is_in_use)
 		INVOKE_ASYNC(src, .proc/activate , user)
-
-/obj/effect/eldritch/attacked_by(obj/item/I, mob/living/user)
-	. = ..()
-	if(istype(I,/obj/item/nullrod))
-		qdel(src)
 
 /obj/effect/eldritch/proc/activate(mob/living/user)
 	is_in_use = TRUE
@@ -152,7 +147,7 @@
 /obj/effect/broken_illusion/ComponentInitialize()
 	AddComponent(/datum/component/discoverable, 5000)
 
-/obj/effect/broken_illusion/Initialize()
+/obj/effect/broken_illusion/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src,.proc/show_presence),15 SECONDS)
 
@@ -165,15 +160,15 @@
 	I.alpha = 255
 	I.appearance_flags = RESET_ALPHA
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/heretics,"pierced_reality_heretics",I)
-	addtimer(CALLBACK(src,.proc/dissipate),15 MINUTES)
+	addtimer(CALLBACK(src,.proc/dissipate),40 SECONDS)
 
 ///Makes this obj appear out of nothing
 /obj/effect/broken_illusion/proc/show_presence()
 	animate(src,alpha = 255,time = 15 SECONDS)
 
 /obj/effect/broken_illusion/proc/dissipate()
-	animate(src,alpha = 0,time = 2 MINUTES)
-	QDEL_IN(src, 2 MINUTES)
+	animate(src,alpha = 0,time = 15 SECONDS)
+	QDEL_IN(src, 15 SECONDS)
 
 /obj/effect/broken_illusion/attack_hand(mob/living/user)
 	if(!ishuman(user))
@@ -226,7 +221,7 @@
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	invisibility = INVISIBILITY_OBSERVER
 
-/obj/effect/reality_smash/Initialize()
+/obj/effect/reality_smash/Initialize(mapload)
 	. = ..()
 	var/img = image(icon, src, "reality_smash", OBJ_LAYER)
 	generate_name()
@@ -239,8 +234,7 @@
 ///Custom effect that happens on destruction
 /obj/effect/reality_smash/proc/on_destroy()
 	GLOB.reality_smash_track.smashes--
-	var/obj/effect/broken_illusion/illusion = new /obj/effect/broken_illusion(drop_location())
-	illusion.name = pick("Researched","Siphoned","Analyzed","Emptied","Drained") + " " + name
+	new /obj/effect/broken_illusion(drop_location())
 
 ///Generates random name
 /obj/effect/reality_smash/proc/generate_name()

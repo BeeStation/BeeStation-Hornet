@@ -7,7 +7,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 
-/obj/effect/particle_effect/water/Initialize()
+/obj/effect/particle_effect/water/Initialize(mapload)
 	. = ..()
 	QDEL_IN(src, 70)
 
@@ -21,9 +21,19 @@
 
 /obj/effect/particle_effect/water/Bump(atom/A)
 	if(reagents)
-		reagents.reaction(A)
+		reagents.expose(A)
 	return ..()
 
+///Extinguisher snowflake
+/obj/effect/particle_effect/water/extinguisher
+
+/obj/effect/particle_effect/water/extinguisher/Move()
+	. = ..()
+	if(!reagents)
+		return
+	reagents.expose(get_turf(src))
+	for(var/atom/thing as anything in get_turf(src))
+		reagents.expose(thing)
 
 /////////////////////////////////////////////
 // GENERIC STEAM SPREAD SYSTEM
@@ -45,7 +55,7 @@ steam.start() -- spawns the effect
 	icon_state = "extinguish"
 	density = FALSE
 
-/obj/effect/particle_effect/steam/Initialize()
+/obj/effect/particle_effect/steam/Initialize(mapload)
 	. = ..()
 	QDEL_IN(src, 20)
 

@@ -16,7 +16,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	var/shuttle_id //Needs to match the turbolift computer & mobile dock
 	var/floor_id
 
-/obj/machinery/turbolift_button/Initialize()
+/obj/machinery/turbolift_button/Initialize(mapload)
 	. = ..()
 	if(!shuttle_id)
 		log_mapping("TURBOLIFT: [src] has no shuttle_id at [AREACOORD(src)]")
@@ -25,7 +25,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	floor_id = "[shuttle_id]_[src.z]"
 
 /obj/machinery/turbolift_button/attack_hand(mob/user)
-	if (stat & NOPOWER)
+	if (machine_stat & NOPOWER)
 		to_chat(user, "<span class='warning'>[src] does not respond.</span>")
 	if(!shuttle_id || !floor_id)
 		say("An unexpected error has occured. Please contact a Nanotrasen Turbolift Repair Technician.")
@@ -67,7 +67,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	var/online = TRUE //Is the elevator functional? Will be expanded upon later
 
 
-/obj/machinery/computer/turbolift/Initialize()
+/obj/machinery/computer/turbolift/Initialize(mapload)
 	. = ..()
 	GLOB.turbolifts += src
 
@@ -93,7 +93,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	wires.ui_update()
 	update_icon()
 
-/obj/machinery/door/airlock/turbolift/Initialize()
+/obj/machinery/door/airlock/turbolift/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
 	var/area/A = get_area(src)
@@ -132,13 +132,15 @@ GLOBAL_LIST_EMPTY(turbolifts)
 /turf/closed/indestructible/turbolift
 	name = "turbolift wall"
 	desc = "A turbolift wall. One of the strongest walls known to man."
-	icon = 'icons/turf/walls/wall.dmi'
-	icon_state = "wall"
-	canSmoothWith = list(/turf/closed/indestructible/turbolift)
-	smooth = SMOOTH_TRUE
+	icon = 'icons/turf/walls/riveted.dmi'
+	icon_state = "riveted-0"
+	base_icon_state = "riveted"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS)
 
 /turf/closed/indestructible/turbolift/afterShuttleMove()
-	queue_smooth(src)
+	QUEUE_SMOOTH(src)
 	..()
 
 /obj/machinery/computer/turbolift/Destroy()

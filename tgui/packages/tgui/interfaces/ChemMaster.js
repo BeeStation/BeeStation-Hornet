@@ -1,5 +1,5 @@
 import { useBackend, useSharedState } from '../backend';
-import { AnimatedNumber, Box, Button, ColorBox, LabeledList, NumberInput, Section, Table } from '../components';
+import { AnimatedNumber, Box, Button, ColorBox, Input, LabeledList, NumberInput, Section, Table } from '../components';
 import { Window } from '../layouts';
 
 export const ChemMaster = (props, context) => {
@@ -22,6 +22,12 @@ export const ChemMaster = (props, context) => {
 
 const ChemMasterContent = (props, context) => {
   const { act, data } = useBackend(context);
+  const {
+    saved_volume,
+    saved_name,
+    saved_volume_state,
+    saved_name_state,
+  } = data;
   const {
     screen,
     beakerContents = [],
@@ -102,8 +108,51 @@ const ChemMasterContent = (props, context) => {
         </ChemicalBuffer>
       </Section>
       <Section
-        title="Packaging">
-        <PackagingControls />
+        title="Packaging"
+        buttons={(
+          <>
+            <Box inline color="label" mr={1}>
+              Mode:
+            </Box>
+            <Button
+              icon={saved_volume_state === "Exact" ? "eye-dropper" : "flask"}
+              content={`${saved_volume_state}`}
+              tooltip="Volume Distribution"
+              onClick={() => act('setSavedVolumeState', { volume_state: saved_volume_state === "Exact" ? "Auto" : "Exact" })}
+            />
+            {saved_volume_state === "Exact" && (
+              <NumberInput
+                width="84px"
+                unit="units"
+                stepPixelSize={15}
+                value={saved_volume}
+                minValue={0.01}
+                maxValue={50}
+                onChange={(e, value) => act('setSavedVolume', { volume: value })} />
+            )}
+          </>
+        )}>
+        <Box mb={2}>
+          <Box inline color="label" mr={1}>
+            Naming Mode:
+          </Box>
+          <Button
+            icon={saved_name_state === "Manual" ? "pen" : "print"}
+            content={`${saved_name_state}`}
+            onClick={() => act('setSavedNameState', { name_state: saved_name_state === "Manual" ? "Auto" : "Manual" })}
+          />
+          {saved_name_state === "Manual" && (
+            <Input
+              fluid
+              value={saved_name}
+              placeholder="Name"
+              onInput={(e, value) => {
+                act('setSavedName', { name: value });
+              }} />
+          )}
+        </Box>
+        <PackagingControls
+          volume={saved_volume_state === "Exact" ? saved_volume : "auto"} packagingName={saved_name_state === "Manual" ? saved_name : null} />
       </Section>
       {!!isPillBottleLoaded && (
         <Section
@@ -216,7 +265,7 @@ const PackagingControlsItem = props => {
   );
 };
 
-const PackagingControls = (props, context) => {
+const PackagingControls = ({ volume, packagingName }, context) => {
   const { act, data } = useBackend(context);
   const [
     pillAmount,
@@ -230,6 +279,10 @@ const PackagingControls = (props, context) => {
     bottleAmount,
     setBottleAmount,
   ] = useSharedState(context, 'bottleAmount', 1);
+  const [
+    bagAmount,
+    setBagAmount,
+  ] = useSharedState(context, 'bagAmount', 1);
   const [
     packAmount,
     setPackAmount,
@@ -266,7 +319,8 @@ const PackagingControls = (props, context) => {
           onCreate={() => act('create', {
             type: 'pill',
             amount: pillAmount,
-            volume: 'auto',
+            volume: volume,
+            name: packagingName,
           })} />
       )}
       {!condi && (
@@ -279,7 +333,8 @@ const PackagingControls = (props, context) => {
           onCreate={() => act('create', {
             type: 'patch',
             amount: patchAmount,
-            volume: 'auto',
+            volume: volume,
+            name: packagingName,
           })} />
       )}
       {!condi && (
@@ -292,6 +347,20 @@ const PackagingControls = (props, context) => {
           onCreate={() => act('create', {
             type: 'bottle',
             amount: bottleAmount,
+            volume: volume,
+            name: packagingName,
+          })} />
+      )}
+      {!condi && (
+        <PackagingControlsItem
+          label="Bags"
+          amount={bagAmount}
+          amountUnit="bags"
+          sideNote="max 200u"
+          onChangeAmount={(e, value) => setBagAmount(value)}
+          onCreate={() => act('create', {
+            type: 'bag',
+            amount: bagAmount,
             volume: 'auto',
           })} />
       )}
@@ -305,7 +374,8 @@ const PackagingControls = (props, context) => {
           onCreate={() => act('create', {
             type: 'condimentPack',
             amount: packAmount,
-            volume: 'auto',
+            volume: volume,
+            name: packagingName,
           })} />
       )}
       {!!condi && (
@@ -318,7 +388,8 @@ const PackagingControls = (props, context) => {
           onCreate={() => act('create', {
             type: 'condimentBottle',
             amount: bottleAmount,
-            volume: 'auto',
+            volume: volume,
+            name: packagingName,
           })} />
       )}
     </LabeledList>

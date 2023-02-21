@@ -10,6 +10,7 @@
 
 	if (IS_DYNAMIC_LIGHTING(src))
 		cut_overlay(/obj/effect/fullbright)
+		blend_mode = BLEND_DEFAULT
 		if(lighting_overlay)
 			cut_overlay(lighting_overlay)
 		if(lighting_overlay_opacity && lighting_overlay_colour)
@@ -25,6 +26,7 @@
 		if(lighting_overlay)
 			cut_overlay(lighting_overlay)
 		add_overlay(/obj/effect/fullbright)
+		blend_mode = BLEND_DEFAULT
 		for (var/turf/T in src)
 			if (T.lighting_object)
 				T.lighting_clear_overlay()

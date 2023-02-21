@@ -8,7 +8,5 @@
 		"ferry": "ferry_fancy",
 		"whiteship": "whiteship_box",
 		"emergency": "emergency_corg"
-	},
-	"allow_night_lighting": 0,
-	"traits": [{"Up" : 1, "Linkage": "Self"}, {"Down": -1, "Baseturf" : "/turf/open/openspace", "Linkage": "Self"}]
+	}
 }

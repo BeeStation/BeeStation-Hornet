@@ -9,9 +9,9 @@
 	var/obj/item/clothing/suit/space/chronos/suit
 
 /obj/item/clothing/head/helmet/space/chronos/dropped()
+	..()
 	if(suit)
 		suit.deactivate(1, 1)
-	..()
 
 /obj/item/clothing/head/helmet/space/chronos/Destroy()
 	dropped()
@@ -30,13 +30,13 @@
 	var/obj/item/clothing/head/helmet/space/chronos/helmet
 	var/obj/effect/chronos_cam/camera
 	var/datum/action/innate/chrono_teleport/teleport_now = new
-	var/activating = 0
-	var/activated = 0
-	var/cooldowntime = 50 //deciseconds
-	var/teleporting = 0
+	var/activating = FALSE
+	var/activated = FALSE
+	var/cooldowntime = 5 SECONDS
+	var/teleporting = FALSE
 	var/phase_timer_id
 
-/obj/item/clothing/suit/space/chronos/Initialize()
+/obj/item/clothing/suit/space/chronos/Initialize(mapload)
 	teleport_now.chronosuit = src
 	teleport_now.target = src
 	return ..()
@@ -59,9 +59,9 @@
 			deactivate()
 
 /obj/item/clothing/suit/space/chronos/dropped()
+	..()
 	if(activated)
 		deactivate()
-	..()
 
 /obj/item/clothing/suit/space/chronos/Destroy()
 	dropped()
@@ -86,7 +86,7 @@
 		user = src.loc
 	if(phase_timer_id)
 		deltimer(phase_timer_id)
-		phase_timer_id = 0
+		phase_timer_id = null
 	if(istype(user))
 		if(do_teleport(user, to_turf, no_effects = TRUE, channel = TELEPORT_CHANNEL_FREE))
 			user.SetStun(0)
@@ -94,9 +94,9 @@
 		user.alpha = 255
 		user.update_atom_colour()
 		user.animate_movement = FORWARD_STEPS
-		user.notransform = 0
+		user.notransform = FALSE
 		user.anchored = FALSE
-		teleporting = 0
+		teleporting = FALSE
 		for(var/obj/item/I in user.held_items)
 			REMOVE_TRAIT(I, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 		if(camera)
@@ -237,6 +237,9 @@
 			REMOVE_TRAIT(helmet, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 			helmet.suit = null
 			helmet = null
+		user.reset_perspective()
+		user.set_machine()
+		user.remote_control = null
 		if(camera)
 			QDEL_NULL(camera)
 
@@ -260,7 +263,7 @@
 	return
 
 /obj/effect/chronos_cam/proc/create_target_ui()
-	if(holder && holder.client && chronosuit)
+	if(holder?.client && chronosuit)
 		if(target_ui)
 			remove_target_ui()
 		target_ui = new(src, holder)
@@ -270,7 +273,7 @@
 	if(target_ui)
 		QDEL_NULL(target_ui)
 
-/obj/effect/chronos_cam/relaymove(var/mob/user, direction)
+/obj/effect/chronos_cam/relaymove(mob/living/user, direction)
 	if(!holder)
 		qdel(src)
 		return

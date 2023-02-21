@@ -261,7 +261,7 @@
 	config_entry_value = list(			//DEFAULTS
 	/mob/living/simple_animal = 1,
 	/mob/living/silicon/pai = 1,
-	/mob/living/carbon/alien/humanoid/hunter = -1,
+	/mob/living/carbon/alien/humanoid/hunter = -0.5,
 	/mob/living/carbon/alien/humanoid/royal/praetorian = 1,
 	/mob/living/carbon/alien/humanoid/royal/queen = 3
 	)
@@ -295,28 +295,6 @@
 /datum/config_entry/number/movedelay/walk_delay
 	integer = FALSE
 
-/////////////////////////////////////////////////Outdated move delay
-/datum/config_entry/number/outdated_movedelay
-	deprecated_by = /datum/config_entry/keyed_list/multiplicative_movespeed
-	abstract_type = /datum/config_entry/number/outdated_movedelay
-	integer = FALSE
-	var/movedelay_type
-
-/datum/config_entry/number/outdated_movedelay/DeprecationUpdate(value)
-	return "[movedelay_type] [value]"
-
-/datum/config_entry/number/outdated_movedelay/human_delay
-	movedelay_type = /mob/living/carbon/human
-/datum/config_entry/number/outdated_movedelay/robot_delay
-	movedelay_type = /mob/living/silicon/robot
-/datum/config_entry/number/outdated_movedelay/monkey_delay
-	movedelay_type = /mob/living/carbon/monkey
-/datum/config_entry/number/outdated_movedelay/alien_delay
-	movedelay_type = /mob/living/carbon/alien
-/datum/config_entry/number/outdated_movedelay/slime_delay
-	movedelay_type = /mob/living/simple_animal/slime
-/datum/config_entry/number/outdated_movedelay/animal_delay
-	movedelay_type = /mob/living/simple_animal
 /////////////////////////////////////////////////
 
 /datum/config_entry/flag/virtual_reality	//Will virtual reality be loaded
@@ -363,7 +341,7 @@
 	min_val = -1
 
 /datum/config_entry/string/overflow_job
-	config_entry_value = "Assistant"
+	config_entry_value = JOB_NAME_ASSISTANT
 
 /datum/config_entry/flag/starlight
 /datum/config_entry/flag/grey_assistants

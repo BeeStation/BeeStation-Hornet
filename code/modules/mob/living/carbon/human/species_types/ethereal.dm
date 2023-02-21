@@ -1,7 +1,7 @@
 
 /datum/species/ethereal
-	name = "Ethereal"
-	id = "ethereal"
+	name = "\improper Ethereal"
+	id = SPECIES_ETHEREAL
 	attack_verb = "burn"
 	attack_sound = 'sound/weapons/etherealhit.ogg'
 	miss_sound = 'sound/weapons/etherealmiss.ogg'
@@ -18,10 +18,17 @@
 	species_language_holder = /datum/language_holder/ethereal
 	inherent_traits = list(TRAIT_POWERHUNGRY)
 	sexes = FALSE //no fetish content allowed
-	toxic_food = NONE
 	hair_color = "fixedmutcolor"
 	hair_alpha = 140
 	swimming_component = /datum/component/swimming/ethereal
+
+	species_chest = /obj/item/bodypart/chest/ethereal
+	species_head = /obj/item/bodypart/head/ethereal
+	species_l_arm = /obj/item/bodypart/l_arm/ethereal
+	species_r_arm = /obj/item/bodypart/r_arm/ethereal
+	species_l_leg = /obj/item/bodypart/l_leg/ethereal
+	species_r_leg = /obj/item/bodypart/r_leg/ethereal
+
 	var/current_color
 	var/EMPeffect = FALSE
 	var/emageffect = FALSE
@@ -33,6 +40,7 @@
 	var/static/b2 = 149
 	//this is shit but how do i fix it? no clue.
 	var/drain_time = 0 //used to keep ethereals from spam draining power sources
+	inert_mutation = OVERLOAD
 	var/obj/effect/dummy/lighting_obj/ethereal_light
 
 
@@ -41,9 +49,11 @@
 		QDEL_NULL(ethereal_light)
 	return ..()
 
-
 /datum/species/ethereal/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+	ethereal_light = C.mob_light()
+
 	. = ..()
+
 	if(!ishuman(C))
 		return
 	var/mob/living/carbon/human/ethereal = C
@@ -51,26 +61,35 @@
 	r1 = GETREDPART(default_color)
 	g1 = GETGREENPART(default_color)
 	b1 = GETBLUEPART(default_color)
-	RegisterSignal(ethereal, COMSIG_ATOM_EMAG_ACT, .proc/on_emag_act)
+	RegisterSignal(ethereal, COMSIG_ATOM_SHOULD_EMAG, .proc/should_emag)
+	RegisterSignal(ethereal, COMSIG_ATOM_ON_EMAG, .proc/on_emag)
 	RegisterSignal(ethereal, COMSIG_ATOM_EMP_ACT, .proc/on_emp_act)
-	ethereal_light = ethereal.mob_light()
+
 	spec_updatehealth(ethereal)
 
 
+	//The following code is literally only to make admin-spawned ethereals not be black.
+	C.dna.features["mcolor"] = C.dna.features["ethcolor"] //Ethcolor and Mut color are both dogshit and will be replaced
+	for(var/obj/item/bodypart/BP as() in C.bodyparts)
+		if(BP.limb_id == SPECIES_ETHEREAL)
+			BP.update_limb(is_creating = TRUE)
+
 /datum/species/ethereal/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
-	UnregisterSignal(C, COMSIG_ATOM_EMAG_ACT)
+	UnregisterSignal(C, COMSIG_ATOM_SHOULD_EMAG)
+	UnregisterSignal(C, COMSIG_ATOM_ON_EMAG)
 	UnregisterSignal(C, COMSIG_ATOM_EMP_ACT)
 	QDEL_NULL(ethereal_light)
 	return ..()
 
 
-/datum/species/ethereal/random_name(gender,unique,lastname)
-	if(unique)
-		return random_unique_ethereal_name()
+/datum/species/ethereal/random_name(gender, unique, lastname, attempts)
+	. = "[pick(GLOB.ethereal_names)] [random_capital_letter()]"
+	if(prob(65))
+		. += "[random_capital_letter()]"
 
-	var/randname = ethereal_name()
-
-	return randname
+	if(unique && attempts < 10)
+		if(findname(.))
+			. = .(gender, TRUE, lastname, ++attempts)
 
 
 /datum/species/ethereal/spec_updatehealth(mob/living/carbon/human/H)
@@ -99,11 +118,13 @@
 		if(EMP_HEAVY)
 			addtimer(CALLBACK(src, .proc/stop_emp, H), 20 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE) //We're out for 20 seconds
 
-/datum/species/ethereal/proc/on_emag_act(mob/living/carbon/human/H, mob/user)
+/datum/species/ethereal/proc/should_emag(mob/living/carbon/human/H, mob/user)
+	SIGNAL_HANDLER
+	return !(!emageffect || !istype(H)) // signal is inverted
+
+/datum/species/ethereal/proc/on_emag(mob/living/carbon/human/H, mob/user)
 	SIGNAL_HANDLER
 
-	if(emageffect)
-		return
 	emageffect = TRUE
 	if(user)
 		to_chat(user, "<span class='notice'>You tap [H] on the back with your card.</span>")
@@ -148,3 +169,18 @@
 			if(H.health > 10.5)
 				apply_damage(1, TOX, null, null, H)
 			brutemod = 2
+
+/datum/species/ethereal/get_cough_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_COUGH_SOUND(user)
+
+/datum/species/ethereal/get_gasp_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_GASP_SOUND(user)
+
+/datum/species/ethereal/get_sigh_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SIGH_SOUND(user)
+
+/datum/species/ethereal/get_sneeze_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNEEZE_SOUND(user)
+
+/datum/species/ethereal/get_sniff_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNIFF_SOUND(user)

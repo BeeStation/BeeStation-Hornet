@@ -25,7 +25,7 @@
 /obj/vehicle/sealed/car/clowncar/auto_assign_occupant_flags(mob/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.mind?.assigned_role == "Clown") //Ensures only clowns can drive the car. (Including more at once)
+		if(H.mind?.assigned_role == JOB_NAME_CLOWN) //Ensures only clowns can drive the car. (Including more at once)
 			add_control_flags(H, VEHICLE_CONTROL_DRIVE|VEHICLE_CONTROL_PERMISSION)
 			RegisterSignal(H, COMSIG_MOB_CLICKON, .proc/FireCannon)
 			return
@@ -106,10 +106,8 @@
 	name = "tangle of limbs"
 	desc = "You are restrained in a tangle of bodies!"
 
-/obj/vehicle/sealed/car/clowncar/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/vehicle/sealed/car/clowncar/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='danger'>You scramble the clowncar child safety lock and a panel with 6 colorful buttons appears!</span>")
 	initialize_controller_action_type(/datum/action/vehicle/sealed/RollTheDice, VEHICLE_CONTROL_DRIVE)
 	initialize_controller_action_type(/datum/action/vehicle/sealed/Cannon, VEHICLE_CONTROL_DRIVE)
@@ -138,7 +136,7 @@
 			visible_message("<span class='danger'>[user] has pressed one of the colorful buttons on [src] and unknown chemicals flood out of it.</span>")
 			var/datum/reagents/R = new/datum/reagents(300)
 			R.my_atom = src
-			R.add_reagent(get_random_reagent_id(), 100)
+			R.add_reagent(get_random_reagent_id(CHEMICAL_RNG_GENERAL), 100)
 			var/datum/effect_system/foam_spread/foam = new
 			foam.set_up(200, loc, R)
 			foam.start()

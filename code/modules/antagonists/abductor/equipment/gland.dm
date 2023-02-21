@@ -17,7 +17,7 @@
 	var/mind_control_duration = 1800
 	var/active_mind_control = FALSE
 
-/obj/item/organ/heart/gland/Initialize()
+/obj/item/organ/heart/gland/Initialize(mapload)
 	. = ..()
 	icon_state = pick(list("health", "spider", "slime", "emp", "species", "egg", "vent", "mindshock", "viral"))
 
@@ -271,8 +271,7 @@
 /obj/item/organ/heart/gland/spiderman/activate()
 	to_chat(owner, "<span class='warning'>You feel something crawling in your skin.</span>")
 	owner.faction |= "spiders"
-	var/obj/structure/spider/spiderling/S = new(owner.drop_location())
-	S.directive = "Protect your nest inside [owner.real_name]."
+	new /obj/structure/spider/spiderling(owner.drop_location())
 
 /obj/item/organ/heart/gland/egg
 	true_name = "roe/enzymatic synthesizer"
@@ -325,7 +324,7 @@
 	mind_control_duration = 1200
 	var/list/possible_reagents = list()
 
-/obj/item/organ/heart/gland/chem/Initialize()
+/obj/item/organ/heart/gland/chem/Initialize(mapload)
 	. = ..()
 	for(var/R in subtypesof(/datum/reagent/drug) + subtypesof(/datum/reagent/medicine) + typesof(/datum/reagent/toxin))
 		possible_reagents += R

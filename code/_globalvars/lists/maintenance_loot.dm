@@ -48,11 +48,12 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/t_scanner = 5,
 	/obj/item/airlock_painter = 1,
 	/obj/item/airlock_painter/decal = 1,
+	/obj/item/airlock_painter/decal/tile = 1,
 	/obj/item/stack/cable_coil/random = 4,
 	/obj/item/stack/cable_coil/random/five = 6,
 	/obj/item/stack/medical/bruise_pack = 1,
 	/obj/item/stack/rods/ten = 9,
-	/obj/item/stack/rods/twentyfive = 1,
+	/obj/item/stack/rods/twenty = 1,
 	/obj/item/stack/rods/fifty = 1,
 	/obj/item/stack/sheet/cardboard = 2,
 	/obj/item/stack/sheet/iron/twenty = 1,
@@ -111,5 +112,7 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/reagent_containers/food/drinks/bottle/homemaderum = 1,
 	/obj/item/reagent_containers/food/snacks/grown/poppy = 10,
 	/obj/item/throwing_star = 1,
+	/obj/item/xenoartifact/maint = 1,
+	/obj/item/pen/screwdriver = 8,
 	"" = 3
 	))

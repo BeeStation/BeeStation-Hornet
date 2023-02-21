@@ -14,12 +14,7 @@ dependencies.sh @crossedfall
 Dockerfile @crossedfall
 /SQL @crossedfall
 /tools @crossedfall
-
-
-# ike709
-
-/code/modules/client/loadout @ike709
-
+/config @crossedfall
 
 # powerfulbacon
 
@@ -27,3 +22,12 @@ Dockerfile @crossedfall
 /code/modules/shuttle/super_cruise @powerfulbacon
 /code/modules/shuttle/shuttle_creation @powerfulbacon
 /_maps/map_files/CorgStation @powerfulbacon
+
+# pestoverde322
+
+/_maps @pestoverde322
+
+# itsmeow
+
+/code/game/gamemodes/dynamic @itsmeow
+/code/modules/modular_computers @itsmeow

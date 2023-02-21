@@ -1,14 +1,14 @@
 /datum/species/oozeling
-	name = "Oozeling"
+	name = "\improper Oozeling"
 	id = SPECIES_OOZELING
 	bodyflag = FLAG_OOZELING
 	default_color = "00FF90"
-	say_mod = "blorbles"
 	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR)
 	inherent_traits = list(TRAIT_TOXINLOVER,TRAIT_NOFIRE,TRAIT_ALWAYS_CLEAN,TRAIT_EASYDISMEMBER)
 	hair_color = "mutcolor"
 	hair_alpha = 150
 	mutantlungs = /obj/item/organ/lungs/oozeling
+	mutanttongue = /obj/item/organ/tongue/slime
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime
 	exotic_blood = /datum/reagent/toxin/slimeooze
 	damage_overlay_type = ""
@@ -17,21 +17,26 @@
 	heatmod = 0.5 // = 1/4x heat damage
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/oozeling
-	limbs_id = "ooze"
 	swimming_component = /datum/component/swimming/dissolve
-	toxic_food = NONE
-	disliked_food = NONE
+	inert_mutation = ACIDOOZE
 
-/datum/species/oozeling/random_name(gender,unique,lastname)
-	if(unique)
-		return random_unique_ooze_name()
+	species_chest = /obj/item/bodypart/chest/oozeling
+	species_head = /obj/item/bodypart/head/oozeling
+	species_l_arm = /obj/item/bodypart/l_arm/oozeling
+	species_r_arm = /obj/item/bodypart/r_arm/oozeling
+	species_l_leg = /obj/item/bodypart/l_leg/oozeling
+	species_r_leg = /obj/item/bodypart/r_leg/oozeling
 
-	var/randname = ooze_name()
-
+/datum/species/oozeling/random_name(gender, unique, lastname, attempts)
+	. = "[pick(GLOB.oozeling_first_names)]"
 	if(lastname)
-		randname += " [lastname]"
+		. += " [lastname]"
+	else
+		. += " [pick(GLOB.oozeling_last_names)]"
 
-	return randname
+	if(unique && attempts < 10)
+		if(findname(.))
+			. = .(gender, TRUE, lastname, ++attempts)
 
 /datum/species/oozeling/on_species_loss(mob/living/carbon/C)
 	if(regenerate_limbs)
@@ -160,3 +165,34 @@
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	return ..()
+
+/datum/species/oozeling/z_impact_damage(mob/living/carbon/human/H, turf/T, levels)
+	// Splat!
+	H.visible_message("<span class='notice'>[H] hits the ground, flattening on impact!</span>",
+		"<span class='warning'>You fall [levels] level\s into [T]. Your body flattens upon landing!</span>")
+	H.Paralyze(levels * 8 SECONDS)
+	var/amount_total = H.get_distributed_zimpact_damage(levels) * 0.45
+	H.adjustBruteLoss(amount_total)
+	playsound(H, 'sound/effects/blobattack.ogg', 40, TRUE)
+	playsound(H, 'sound/effects/splat.ogg', 50, TRUE)
+	H.AddElement(/datum/element/squish, levels * 15 SECONDS)
+	// SPLAT!
+	// 5: 25%, 4: 16%, 3: 9%
+	if(levels >= 3 && prob(min((levels ** 2), 50)))
+		H.gib()
+		return
+
+/datum/species/oozeling/get_cough_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_COUGH_SOUND(user)
+
+/datum/species/oozeling/get_gasp_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_GASP_SOUND(user)
+
+/datum/species/oozeling/get_sigh_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SIGH_SOUND(user)
+
+/datum/species/oozeling/get_sneeze_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNEEZE_SOUND(user)
+
+/datum/species/oozeling/get_sniff_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNIFF_SOUND(user)

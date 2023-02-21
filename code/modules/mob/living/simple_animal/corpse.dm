@@ -167,7 +167,7 @@
 /obj/effect/mob_spawn/human/corpse/nanotrasensoldier
 	name = "\improper Nanotrasen Private Security Officer"
 	id_job = "Private Security Force"
-	id_access = "Security Officer"
+	id_access = JOB_NAME_SECURITYOFFICER
 	outfit = /datum/outfit/nanotrasensoldiercorpse2
 	hair_style = "Bald"
 	facial_hair_style = "Shaved"
@@ -182,7 +182,7 @@
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	head = /obj/item/clothing/head/helmet/swat/nanotrasen
 	back = /obj/item/storage/backpack/security
-	id = /obj/item/card/id/job/sec
+	id = /obj/item/card/id/job/security_officer
 
 /obj/effect/mob_spawn/human/corpse/cat_butcher
 	name = "The Cat Surgeon"
@@ -226,7 +226,7 @@
 	skin_tone = "caucasian1"
 	hair_style = "Bald"
 	facial_hair_style = "Full beard"
-	id_job = "Warden"
+	id_job = JOB_NAME_WARDEN
 	mob_gender = MALE
 
 /datum/outfit/sniper

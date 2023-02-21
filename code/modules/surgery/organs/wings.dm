@@ -11,7 +11,7 @@
 	var/wingsound = null
 	var/datum/action/innate/flight/fly
 
-/obj/item/organ/wings/Initialize()
+/obj/item/organ/wings/Initialize(mapload)
 	. = ..()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
@@ -23,6 +23,7 @@
 		Refresh(H)
 
 /obj/item/organ/wings/proc/Refresh(mob/living/carbon/human/H)
+	H.dna.species.mutant_bodyparts -= "[basewings]open"
 	if(!(basewings in H.dna.species.mutant_bodyparts))
 		H.dna.species.mutant_bodyparts |= basewings
 		H.dna.features[basewings] = wing_type
@@ -30,11 +31,17 @@
 	if(flight_level >= WINGS_FLYING)
 		fly = new
 		fly.Grant(H)
+	else if(fly)
+		fly.Remove(H)
+		QDEL_NULL(fly)
+		if(H.movement_type & FLYING)
+			H.dna.species.toggle_flight(H)
 
 /obj/item/organ/wings/Remove(mob/living/carbon/human/H,  special = 0)
 	..()
 	if(istype(H))
 		H.dna.species.mutant_bodyparts -= basewings
+		H.dna.species.mutant_bodyparts -= "[basewings]open"
 		wing_type = H.dna.features[basewings]
 		H.update_body()
 	if(flight_level >= WINGS_FLYING)
@@ -48,13 +55,19 @@
 		return FALSE
 	if(wingsound)
 		playsound(H, wingsound, 100, 7)
-	if(basewings == "wings")
+	if(basewings == "wings" || basewings == "moth_wings")
 		if("wings" in H.dna.species.mutant_bodyparts)
 			H.dna.species.mutant_bodyparts -= "wings"
 			H.dna.species.mutant_bodyparts |= "wingsopen"
 		else if("wingsopen" in H.dna.species.mutant_bodyparts)
 			H.dna.species.mutant_bodyparts -= "wingsopen"
 			H.dna.species.mutant_bodyparts |= "wings"
+		else if("moth_wings" in H.dna.species.mutant_bodyparts)
+			H.dna.species.mutant_bodyparts |= "moth_wingsopen"
+			H.dna.species.mutant_bodyparts -= "moth_wings"
+		else if("moth_wingsopen" in H.dna.species.mutant_bodyparts)
+			H.dna.species.mutant_bodyparts -= "moth_wingsopen"
+			H.dna.species.mutant_bodyparts |= "moth_wings"
 		else //it appears we don't actually have wing icons. apply them!!
 			Refresh(H)
 		H.update_body()
@@ -107,8 +120,12 @@
 	icon_state = "mothwings"
 	flight_level = WINGS_FLIGHTLESS
 	basewings = "moth_wings"
-	wing_type = "plain"
-	canopen = FALSE
+	wing_type = "Plain"
+	canopen = TRUE
+
+/obj/item/organ/wings/moth/Remove(mob/living/carbon/human/H, special)
+	flight_level = initial(flight_level)
+	return ..()
 
 /obj/item/organ/wings/moth/robust
 	desc = "A pair of moth wings. They look robust enough to fly in an atmosphere"
@@ -120,11 +137,15 @@
 		var/mob/living/carbon/human/H = owner
 		if(flight_level >= WINGS_FLIGHTLESS && H.bodytemperature >= 800 && H.fire_stacks > 0)
 			flight_level = WINGS_COSMETIC
+			if((H.movement_type & FLYING))//Closes wings if they're open and flying
+				var/datum/species/S = H.dna.species
+				S.toggle_flight(H)
 			to_chat(H, "<span class='danger'>Your precious wings burn to a crisp!</span>")
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "burnt_wings", /datum/mood_event/burnt_wings)
-			H.dna.features["moth_wings"] = "Burnt Off"
-			wing_type = "Burnt Off"
+			ADD_TRAIT(H, TRAIT_MOTH_BURNT, "fire")
 			H.dna.species.handle_mutant_bodyparts(H)
+			H.dna.species.handle_body(H)
+
 
 /obj/item/organ/wings/angel
 	name = "pair of feathered wings"
@@ -149,15 +170,21 @@
 	flight_level = WINGS_COSMETIC
 	actions_types = list(/datum/action/item_action/organ_action/use/bee_dash)
 	wing_type = "Bee"
+	var/jumpdist = 3
+
+/obj/item/organ/wings/bee/Remove(mob/living/carbon/human/H, special)
+	jumpdist = initial(jumpdist)
+	return ..()
 
 /datum/action/item_action/organ_action/use/bee_dash
-	var/jumpdistance = 3
 	var/jumpspeed = 1
 	var/recharging_rate = 100
 	var/recharging_time = 0
 
 /datum/action/item_action/organ_action/use/bee_dash/Trigger()
 	var/mob/living/carbon/L = owner
+	var/obj/item/organ/wings/bee/wings = locate(/obj/item/organ/wings/bee) in L.internal_organs
+	var/jumpdistance = wings.jumpdist
 
 	if(L.stat != CONSCIOUS || L.buckling || L.restrained()) // Has to be concious and unbuckled
 		return

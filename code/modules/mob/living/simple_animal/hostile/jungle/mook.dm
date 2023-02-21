@@ -67,7 +67,7 @@
 /mob/living/simple_animal/hostile/jungle/mook/proc/WarmupAttack(forced_slash_combo = FALSE)
 	if(attack_state == MOOK_ATTACK_NEUTRAL && target)
 		attack_state = MOOK_ATTACK_WARMUP
-		walk(src,0)
+		SSmove_manager.stop_looping(src)
 		update_icons()
 		if(prob(50) && get_dist(src,target) <= 3 || forced_slash_combo)
 			addtimer(CALLBACK(src, .proc/SlashCombo), ATTACK_INTERMISSION_TIME)
@@ -104,7 +104,7 @@
 /mob/living/simple_animal/hostile/jungle/mook/proc/LeapAttack()
 	if(target && !stat && attack_state == MOOK_ATTACK_WARMUP)
 		attack_state = MOOK_ATTACK_ACTIVE
-		density = FALSE
+		set_density(FALSE)
 		melee_damage = 30
 		update_icons()
 		new /obj/effect/temp_visual/mook_dust(get_turf(src))
@@ -119,7 +119,7 @@
 /mob/living/simple_animal/hostile/jungle/mook/proc/AttackRecovery()
 	if(attack_state == MOOK_ATTACK_ACTIVE && !stat)
 		attack_state = MOOK_ATTACK_RECOVERY
-		density = TRUE
+		set_density(TRUE)
 		face_atom(target)
 		if(!struck_target_leap)
 			update_icons()
@@ -152,7 +152,7 @@
 		if(CanAttack(L))
 			L.attack_animal(src)
 			struck_target_leap = TRUE
-			density = TRUE
+			set_density(TRUE)
 			update_icons()
 	var/mook_under_us = FALSE
 	for(var/A in get_turf(src))
@@ -165,7 +165,7 @@
 			if(!struck_target_leap && CanAttack(ML))//Check if some joker is attempting to use rest to evade us
 				struck_target_leap = TRUE
 				ML.attack_animal(src)
-				density = TRUE
+				set_density(TRUE)
 				struck_target_leap = TRUE
 				update_icons()
 				continue

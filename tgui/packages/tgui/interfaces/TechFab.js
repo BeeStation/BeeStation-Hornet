@@ -3,7 +3,7 @@ import { Stack, Collapsible, Tooltip, Icon, Box, Button, LabeledList, Input, Sec
 import { Window } from '../layouts';
 import { Fragment } from 'inferno';
 import { capitalize, createSearch } from 'common/string';
-import { sendLogEntry } from 'tgui-dev-server/link/client';
+import { sendLogEntry } from 'tgui-dev-server/link/client.cjs';
 
 // Handles protolathes, circuit fabricators, and techfabs
 
@@ -269,8 +269,7 @@ const Recipe = (props, context) => {
     const reagent = reagents[id];
     const total = reagent?.volume || 0;
     const recipeReagent = recipe.reagents[id];
-    const amountNeeded = Math.floor(recipeReagent.volume 
-      / (recipe.efficiency_affects ? efficiency : 1));
+    const amountNeeded = Math.floor(recipeReagent.volume);
     const mat_max = Math.floor(total/amountNeeded);
     max = Math.min(max, mat_max);
     return (

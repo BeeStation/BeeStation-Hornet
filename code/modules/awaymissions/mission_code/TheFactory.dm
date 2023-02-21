@@ -1,4 +1,4 @@
-/obj/singularity/factory
+/obj/anomaly/singularity/factory
 	name = "tear in the fabric of reality"
 	desc = "Your own comprehension of reality starts bending as you stare this."
 	icon = 'icons/effects/96x96.dmi'
@@ -9,7 +9,7 @@
 	move_self = 0
 	grav_pull = 1
 
-/obj/singularity/factory/admin_investigate_setup()
+/obj/anomaly/singularity/factory/admin_investigate_setup()
 	return
 
 //AREAS//
@@ -114,11 +114,10 @@
 	ambientsounds = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambitech.ogg','sound/ambience/ambitech2.ogg','sound/ambience/ambitech3.ogg','sound/ambience/ambiatmos.ogg','sound/ambience/ambiatmos2.ogg','sound/ambience/signal.ogg','sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg','sound/ambience/ambiruin2.ogg')
 
 /area/awaymission/factory/factoryduring/down/levelthree/engine
-	name = "The old reality engine"
+	name = "The reality engine"
 	mood_bonus = 1
 	mood_message = "<span class='nicegreen'>Uhm... Ok?... I guess...\n</span>"
 	ambientsounds = list('sound/ambience/singulambience.ogg','sound/ambience/ambisin1.ogg','sound/ambience/ambisin2.ogg','sound/ambience/ambisin3.ogg','sound/ambience/ambisin4.ogg','sound/ambience/antag/assimilation.ogg','sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg')
-	name = "The reality engine"
 
 /area/awaymission/factory/factoryduring/down/leveltwo
 	name = "The old Factory - middle level"
@@ -425,7 +424,7 @@
 	var/cooldown = 0
 	var/static/list/idle_sounds
 
-/mob/living/simple_animal/hostile/psycho/regular/Initialize()
+/mob/living/simple_animal/hostile/psycho/regular/Initialize(mapload)
 	. = ..()
 	idle_sounds = list('sound/creatures/psycidle1.ogg','sound/creatures/psycidle2.ogg','sound/creatures/psycidle3.ogg')
 
@@ -469,7 +468,7 @@
 	speed = 0
 	loot = list(/obj/effect/mob_spawn/human/corpse/psychost/muzzle)
 
-/mob/living/simple_animal/hostile/psycho/muzzle/Initialize()
+/mob/living/simple_animal/hostile/psycho/muzzle/Initialize(mapload)
 	. = ..()
 	idle_sounds = list('sound/creatures/psychidle.ogg','sound/creatures/psychidle2.ogg')
 
@@ -521,7 +520,7 @@
 		cooldown = world.time + 300
 		playsound(get_turf(src), chosen_sound, 70, TRUE, 0)
 
-/mob/living/simple_animal/hostile/psycho/trap/Initialize()
+/mob/living/simple_animal/hostile/psycho/trap/Initialize(mapload)
 	. = ..()
 	idle_sounds = list('sound/creatures/psychidle.ogg','sound/creatures/psychidle2.ogg')
 
@@ -581,7 +580,7 @@
 	loot = list(/obj/effect/mob_spawn/human/corpse/heavy)
 	var/cooldown = 0
 
-/mob/living/simple_animal/hostile/syndicate/factory/heavy/Initialize()
+/mob/living/simple_animal/hostile/syndicate/factory/heavy/Initialize(mapload)
 	..()
 
 /mob/living/simple_animal/hostile/syndicate/factory/heavy/Aggro()
@@ -674,7 +673,7 @@
 /obj/item/grenade/syndieminibomb/concussion/frag/activated
 	det_time = 30
 
-/obj/item/grenade/syndieminibomb/concussion/frag/activated/Initialize()
+/obj/item/grenade/syndieminibomb/concussion/frag/activated/Initialize(mapload)
 	..()
 	preprime()
 

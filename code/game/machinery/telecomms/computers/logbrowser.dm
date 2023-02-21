@@ -80,7 +80,7 @@
 						race = "Monkey"
 
 					// sometimes M gets deleted prematurely for AIs... just check the job
-					else if(ispath(mobtype, /mob/living/silicon) || C.parameters["job"] == "AI")
+					else if(ispath(mobtype, /mob/living/silicon) || C.parameters["job"] == JOB_NAME_AI)
 						race = "Artificial Life"
 
 					else if(isobj(mobtype))

@@ -1,14 +1,14 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
+"aa" = (
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"b" = (
+"ab" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"c" = (
+"ac" = (
 /obj/structure/table,
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/iron/fifty,
@@ -18,25 +18,25 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"d" = (
+"ad" = (
 /obj/structure/table,
 /obj/item/storage/box/lights/mixed,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"e" = (
+"ae" = (
 /obj/machinery/vending/cigarette,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"f" = (
+"af" = (
 /obj/structure/closet/boxinggloves,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"g" = (
+"ag" = (
 /obj/structure/closet/masks,
 /obj/item/reagent_containers/food/snacks/deadmouse,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"h" = (
+"ah" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -51,11 +51,11 @@
 	},
 /turf/open/floor/engine,
 /area/template_noop)
-"i" = (
+"ai" = (
 /obj/effect/decal/cleanable/vomit/old,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"j" = (
+"aj" = (
 /obj/machinery/door/window/eastright{
 	base_state = "left";
 	dir = 8;
@@ -70,7 +70,7 @@
 	},
 /turf/open/floor/engine,
 /area/template_noop)
-"k" = (
+"ak" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -79,11 +79,11 @@
 	},
 /turf/open/floor/engine,
 /area/template_noop)
-"l" = (
+"al" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"m" = (
+"am" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -96,8 +96,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"n" = (
-/obj/structure/chair/comfy/black,
+"an" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666"
+	},
 /obj/item/trash/pistachios,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -111,8 +113,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"o" = (
-/obj/structure/chair/comfy/black,
+"ao" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666"
+	},
 /obj/item/stack/spacecash/c100,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -126,8 +130,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"p" = (
-/obj/structure/chair/comfy/black,
+"ap" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666"
+	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -140,8 +146,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"q" = (
-/obj/structure/chair/comfy/black,
+"aq" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666"
+	},
 /obj/item/cigbutt,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -155,7 +163,7 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"r" = (
+"ar" = (
 /obj/item/trash/popcorn,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -169,7 +177,7 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"s" = (
+"as" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -181,7 +189,7 @@
 	},
 /turf/open/floor/engine,
 /area/template_noop)
-"t" = (
+"at" = (
 /obj/machinery/door/window/eastright{
 	base_state = "left";
 	icon_state = "left";
@@ -193,7 +201,7 @@
 	},
 /turf/open/floor/engine,
 /area/template_noop)
-"u" = (
+"au" = (
 /obj/machinery/door/window/eastright{
 	base_state = "left";
 	dir = 8;
@@ -206,7 +214,7 @@
 /obj/structure/chair/stool,
 /turf/open/floor/engine,
 /area/template_noop)
-"v" = (
+"av" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -215,13 +223,13 @@
 	},
 /turf/open/floor/engine,
 /area/template_noop)
-"w" = (
+"aw" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /turf/open/floor/engine,
 /area/template_noop)
-"x" = (
+"ax" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -230,7 +238,7 @@
 	},
 /turf/open/floor/engine,
 /area/template_noop)
-"y" = (
+"ay" = (
 /obj/item/stack/medical/gauze,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -244,7 +252,7 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"z" = (
+"az" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -257,33 +265,33 @@
 	},
 /turf/open/floor/engine,
 /area/template_noop)
-"A" = (
+"aA" = (
 /obj/effect/decal/cleanable/oil{
 	icon_state = "floor6"
 	},
 /obj/effect/decal/cleanable/robot_debris/old,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"B" = (
+"aB" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /turf/open/floor/engine,
 /area/template_noop)
-"C" = (
+"aC" = (
 /turf/open/floor/engine,
 /area/template_noop)
-"D" = (
+"aD" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/open/floor/engine,
 /area/template_noop)
-"E" = (
+"aE" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/engine,
 /area/template_noop)
-"F" = (
+"aF" = (
 /obj/item/stack/spacecash/c10,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -297,38 +305,38 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"G" = (
+"aG" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"H" = (
+"aH" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"I" = (
+"aI" = (
 /obj/item/stack/medical/bruise_pack,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"J" = (
+"aJ" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /turf/open/floor/engine,
 /area/template_noop)
-"K" = (
+"aK" = (
 /obj/structure/window/reinforced,
 /turf/open/floor/engine,
 /area/template_noop)
-"L" = (
+"aL" = (
 /obj/structure/window/reinforced,
 /mob/living/simple_animal/chicken{
 	name = "Killer Cluck"
 	},
 /turf/open/floor/engine,
 /area/template_noop)
-"M" = (
+"aM" = (
 /obj/machinery/door/window/eastright{
 	base_state = "left";
 	icon_state = "left";
@@ -338,8 +346,9 @@
 /obj/structure/chair/stool,
 /turf/open/floor/engine,
 /area/template_noop)
-"N" = (
-/obj/structure/chair/comfy/black{
+"aN" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -354,12 +363,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"O" = (
+"aO" = (
 /obj/structure/mopbucket,
 /obj/item/mop,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"P" = (
+"aP" = (
 /obj/structure/table,
 /obj/item/storage/box/mousetraps,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -368,35 +377,35 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"Q" = (
+"aQ" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"R" = (
+"aR" = (
 /obj/structure/table,
 /obj/item/stack/cable_coil,
 /obj/item/extinguisher,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"S" = (
+"aS" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"T" = (
+"aT" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"U" = (
+"aU" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"V" = (
+"aV" = (
 /obj/item/trash/chips,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"W" = (
+"aW" = (
 /obj/structure/table,
 /obj/item/paper,
 /obj/item/pen,
@@ -405,128 +414,188 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"X" = (
-/obj/structure/chair/stool,
+"aX" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"aY" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"aZ" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"ip" = (
+/obj/item/stack/spacecash/c10,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"Hq" = (
+/obj/item/trash/popcorn,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"Im" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666"
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"RY" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666"
+	},
+/obj/item/trash/pistachios,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"VF" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666"
+	},
+/obj/item/stack/spacecash/c100,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"Wz" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666"
+	},
+/obj/item/cigbutt,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"YK" = (
+/obj/item/stack/medical/gauze,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 
 (1,1,1) = {"
-a
-h
-k
-t
-a
-a
-H
-H
-P
-R
+aa
+ah
+ak
+at
+aa
+aa
+aH
+aH
+aP
+aR
 "}
 (2,1,1) = {"
-b
-a
-l
-a
-A
-a
-I
-a
-a
-S
+ab
+aa
+al
+aa
+aA
+aa
+aI
+aa
+aa
+aS
 "}
 (3,1,1) = {"
-c
-a
-m
-m
-m
-m
-m
-m
-a
-T
+ac
+aa
+aY
+aY
+aY
+aY
+aY
+aY
+aa
+aT
 "}
 (4,1,1) = {"
-d
-a
-n
-u
-B
-B
-J
-N
-a
-U
+ad
+aa
+RY
+au
+aB
+aB
+aJ
+aZ
+aa
+aU
 "}
 (5,1,1) = {"
-a
-a
-o
-v
-C
-C
-K
-N
-a
-a
+aa
+aa
+VF
+av
+aC
+aC
+aK
+aZ
+aa
+aa
 "}
 (6,1,1) = {"
-a
-a
-p
-w
-C
-E
-L
-N
-a
-a
+aa
+aa
+Im
+aw
+aC
+aE
+aL
+aZ
+aa
+aa
 "}
 (7,1,1) = {"
-e
-i
-q
-x
-D
-D
-M
-N
-a
-V
+ae
+ai
+Wz
+ax
+aD
+aD
+aM
+aZ
+aa
+aV
 "}
 (8,1,1) = {"
-f
-a
-r
-y
-m
-F
-m
-m
-a
-W
+af
+aa
+Hq
+YK
+aY
+ip
+aY
+aY
+aa
+aW
 "}
 (9,1,1) = {"
-g
-a
-a
-a
-a
-G
-a
-a
-a
-X
+ag
+aa
+aa
+aa
+aa
+aG
+aa
+aa
+aa
+aX
 "}
 (10,1,1) = {"
-a
-j
-s
-z
-a
-a
-a
-O
-Q
-a
+aa
+aj
+as
+az
+aa
+aa
+aa
+aO
+aQ
+aa
 "}

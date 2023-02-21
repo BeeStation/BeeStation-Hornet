@@ -117,6 +117,16 @@
 	mood_change = 10 //maybe being a cultist isn't that bad after all
 	hidden = TRUE
 
+/datum/mood_event/hivehost
+	description = "<span class='nicegreen'>Our psyche expands, our influence broadens.</span>\n"
+	mood_change = 5
+	hidden = TRUE
+
+/datum/mood_event/hiveawakened
+	description = "<span class='nicegreen'>True purpose has been revealed to us, at last!.</span>\n"
+	mood_change =  2
+	hidden = TRUE
+
 /datum/mood_event/family_heirloom
 	description = "<span class='nicegreen'>My family heirloom is safe with me.</span>\n"
 	mood_change = 1
@@ -213,3 +223,21 @@
 	description = "<span class='nicegreen'>Watching fish in aquarium is calming.</span>\n"
 	mood_change = 3
 	timeout = 1.5 MINUTES
+
+/datum/mood_event/toxoplasmosis
+	description = "<span class='nicegreen'>I really like being around cats!</span>\n"
+	mood_change = 2
+	timeout = 30 SECONDS
+
+/datum/mood_event/feline_mania
+	description = "<span class='nicegreen'>I'M SO HECKIN CUTE OMIGOSH!</span>\n"
+	mood_change = 5
+
+/datum/mood_event/brain_tumor_mannitol
+	description = "<span class='nicegreen'>Mannitol makes my brain calm down.</span>\n"
+	mood_change = 0
+	timeout = 30 SECONDS
+
+/datum/mood_event/brain_tumor_mannitol/New(mob/M, param)
+	timeout = rand(30,60) SECONDS // makes the timing unreliable on your mood
+	..()

@@ -7,7 +7,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	move_resist = INFINITY
 	throwforce = 0
 
-/mob/dead/Initialize()
+/mob/dead/Initialize(mapload)
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
@@ -31,17 +31,10 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 /mob/dead/gib()		//ghosts can't be gibbed.
 	return
 
-/mob/dead/abstract_move(atom/destination)
-	var/turf/old_turf = get_turf(src)
-	var/turf/new_turf = get_turf(destination)
-	if (old_turf?.z != new_turf?.z)
-		onTransitZ(old_turf?.z, new_turf?.z)
-	return ..()
-
 /mob/dead/get_stat_tab_status()
 	var/list/tab_data = ..()
-
-	tab_data["Game Mode"] = GENERATE_STAT_TEXT("[SSticker.hide_mode ? "Secret" : "[GLOB.master_mode]"]")
+	if(!SSticker.hide_mode)
+		tab_data["Game Mode"] = GENERATE_STAT_TEXT("[GLOB.master_mode]")
 
 	if(SSticker.HasRoundStarted())
 		return tab_data
@@ -54,14 +47,11 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	else
 		tab_data["Time To Start"] = GENERATE_STAT_TEXT("SOON")
 
-	tab_data["Players"] = GENERATE_STAT_TEXT("[SSticker.totalPlayers]")
-	if(client.holder)
-		tab_data["Players Ready"] = GENERATE_STAT_TEXT("[SSticker.totalPlayersReady]")
 	return tab_data
 
 /mob/dead/proc/server_hop()
 	set category = "OOC"
-	set name = "Server Hop!"
+	set name = "Server Hop"
 	set desc= "Jump to the other server"
 	if(notransform)
 		return
@@ -86,7 +76,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 
 	var/client/C = client
 	to_chat(C, "<span class='notice'>Sending you to [pick].</span>")
-	new /atom/movable/screen/splash(C)
+	new /atom/movable/screen/splash(null, C)
 
 	notransform = TRUE
 	sleep(29)	//let the animation play
@@ -115,6 +105,9 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	var/turf/T = get_turf(src)
 	if (isturf(T))
 		update_z(T.z)
+	// Update SSD indicator for ghost's body
+	if(isliving(mind?.current))
+		mind.current.med_hud_set_status()
 
 /mob/dead/auto_deadmin_on_login()
 	return
@@ -126,3 +119,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 /mob/dead/onTransitZ(old_z,new_z)
 	..()
 	update_z(new_z)
+
+// Ghosts cannot fall
+/mob/dead/has_gravity(turf/T)
+	return FALSE

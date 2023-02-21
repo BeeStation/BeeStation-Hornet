@@ -14,8 +14,8 @@
 	vision_range = 5
 	aggro_vision_range = 9
 	speed = 3
-	maxHealth = 75
-	health = 75
+	maxHealth = 38
+	health = 38
 	melee_damage = 0
 	attacktext = "lashes out at"
 	speak_emote = list("telepathically cries")
@@ -81,7 +81,7 @@
 	pass_flags = PASSTABLE
 	del_on_death = TRUE
 
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood/Initialize()
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, .proc/death), 100)
 
@@ -112,7 +112,7 @@
 	var/dwarf_mob = FALSE
 	var/mob/living/carbon/human/stored_mob
 
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion/random/Initialize()
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/random/Initialize(mapload)
 	. = ..()
 	if(prob(5))
 		new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf(loc)
@@ -125,8 +125,8 @@
 	icon_living = "dwarf_legion"
 	icon_aggro = "dwarf_legion"
 	icon_dead = "dwarf_legion"
-	maxHealth = 60
-	health = 60
+	maxHealth = 30
+	health = 30
 	speed = 2 //faster!
 	crusher_drop_mod = 20
 	dwarf_mob = TRUE
@@ -198,8 +198,8 @@
 //Advanced Legion is slightly tougher to kill and can raise corpses (revive other legions)
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/advanced
 	stat_attack = DEAD
-	maxHealth = 120
-	health = 120
+	maxHealth = 60
+	health = 60
 	brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced
 	icon_state = "dwarf_legion"
 	icon_living = "dwarf_legion"
@@ -242,7 +242,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 
-/mob/living/simple_animal/hostile/big_legion/Initialize()
+/mob/living/simple_animal/hostile/big_legion/Initialize(mapload)
 	.=..()
 	AddComponent(/datum/component/spawner, list(/mob/living/simple_animal/hostile/asteroid/hivelord/legion), 200, faction, "peels itself off from", 3)
 
@@ -262,8 +262,8 @@
 	. = ..()
 	H.dna.add_mutation(DWARFISM)
 
-/obj/effect/mob_spawn/human/corpse/damaged/legioninfested/Initialize()
-	var/type = pickweight(list("Miner" = 66, "Ashwalker" = 10, "Golem" = 10,"Clown" = 10, pick(list("Shadow", "YeOlde","Operative", "Cultist")) = 4))
+/obj/effect/mob_spawn/human/corpse/damaged/legioninfested/Initialize(mapload)
+	var/type = pickweight(list("Miner" = 66, "Ashwalker" = 10, "Golem" = 10,JOB_NAME_CLOWN = 10, pick(list("Shadow", "YeOlde","Operative", "Cultist")) = 4))
 	switch(type)
 		if("Miner")
 			mob_species = pickweight(list(/datum/species/human = 70, /datum/species/lizard = 26, /datum/species/fly = 2, /datum/species/plasmaman = 2))
@@ -306,7 +306,7 @@
 				r_pocket = /obj/item/kitchen/knife/combat/bone
 			if(prob(30))
 				l_pocket = /obj/item/kitchen/knife/combat/bone
-		if("Clown")
+		if(JOB_NAME_CLOWN)
 			name = pick(GLOB.clown_names)
 			outfit = /datum/outfit/job/clown
 			belt = null

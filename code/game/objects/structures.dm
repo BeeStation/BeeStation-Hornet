@@ -15,21 +15,27 @@
 	flags_ricochet = RICOCHET_HARD
 	ricochet_chance_mod = 0.5
 
-/obj/structure/Initialize()
+/obj/structure/Initialize(mapload)
 	if (!armor)
 		armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 0)
 	. = ..()
-	if(smooth)
-		queue_smooth(src)
-		queue_smooth_neighbors(src)
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 		icon_state = ""
 	GLOB.cameranet.updateVisibility(src)
 
 /obj/structure/Destroy()
 	GLOB.cameranet.updateVisibility(src)
-	if(smooth)
-		queue_smooth_neighbors(src)
-	return ..()
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH_NEIGHBORS(src)
+	var/turf/current_turf = loc
+	. = ..()
+	// Attempt zfalling for anything standing on this structure
+	if(!isopenspace(current_turf))
+		return
+	for(var/atom/movable/A in current_turf)
+		current_turf.try_start_zFall(A)
 
 /obj/structure/attack_hand(mob/user)
 	. = ..()
@@ -65,12 +71,12 @@
 
 /obj/structure/proc/do_climb(atom/movable/A)
 	if(climbable)
-		density = FALSE
+		set_density(FALSE)
 		. = step(A,get_dir(A,src.loc))
-		density = TRUE
+		set_density(TRUE)
 
 /obj/structure/proc/climb_structure(mob/living/user)
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 	user.visible_message("<span class='warning'>[user] starts climbing onto [src].</span>", \
 								"<span class='notice'>You start climbing onto [src]...</span>")
 	var/adjusted_climb_time = climb_time
@@ -118,3 +124,7 @@
 
 /obj/structure/rust_heretic_act()
 	take_damage(500, BRUTE, "melee", 1)
+
+/// If you can climb WITHIN this structure, lattices for example. Used by z_transit (Move Upwards verb)
+/obj/structure/proc/can_climb_through()
+	return FALSE

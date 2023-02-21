@@ -43,7 +43,6 @@
 		action_intent.hud = src
 		static_inventory += action_intent
 
-
 	zone_select = new /atom/movable/screen/zone_sel()
 	zone_select.icon = ui_style
 	zone_select.update_icon()

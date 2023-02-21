@@ -52,10 +52,7 @@
 				to_chat(H, "<span class='warning'><b>[pick("You feel a grinding pain in your abdomen.", "You exhale a jet of steam.")]</span>")
 		if(5)
 			if(replaceorgans || replacebody)
-				if(Replace(H))
-					return
-				if(replacebody)
-					H.adjustCloneLoss(-20) //repair mechanical integrity
+				Replace(H)
 			ADD_TRAIT(H, TRAIT_NANITECOMPATIBLE, DISEASE_TRAIT)
 	return
 
@@ -154,7 +151,7 @@
 					return TRUE
 	if(replacebody)
 		for(var/obj/item/bodypart/O in H.bodyparts)
-			if(O.status == BODYPART_ROBOTIC)
+			if(!IS_ORGANIC_LIMB(O))
 				if(robustbits && O.brute_reduction < 3 || O.burn_reduction < 2)
 					O.burn_reduction = max(2, O.burn_reduction)
 					O.brute_reduction = max(3, O.brute_reduction)
@@ -225,7 +222,7 @@
 		to_chat(H, "<span class='userdanger'>You feel lighter and springier as your innards lose their clockwork facade.</span>")
 		H.dna.species.regenerate_organs(H, replace_current = TRUE)
 		for(var/obj/item/bodypart/O in H.bodyparts)
-			if(O.status == BODYPART_ROBOTIC)
+			if(!IS_ORGANIC_LIMB(O))
 				O.burn_reduction = initial(O.burn_reduction)
 				O.brute_reduction = initial(O.brute_reduction)
 
@@ -324,7 +321,7 @@
 	desc = "A pair of thin metallic membranes."
 	flight_level = WINGS_FLIGHTLESS
 	wing_type = "Clockwork"
-	icon_state = "clockwings"
+	icon_state = "clockwork"
 	basewings = "moth_wings"
 	canopen = FALSE
 
@@ -354,41 +351,41 @@
 /obj/item/bodypart/l_arm/robot/clockwork
 	name = "clockwork left arm"
 	desc = "An odd metal arm with fingers driven by blood-based hydraulics."
-	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
 /obj/item/bodypart/r_arm/robot/clockwork
 	name = "clockwork right arm"
 	desc = "An odd metal arm with fingers driven by blood-based hydraulics."
-	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
 /obj/item/bodypart/l_leg/robot/clockwork
 	name = "clockwork left leg"
 	desc = "An odd metal leg full of intricate mechanisms."
-	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
 /obj/item/bodypart/r_leg/robot/clockwork
 	name = "clockwork right leg"
 	desc = "An odd metal leg full of intricate mechanisms."
-	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
 /obj/item/bodypart/head/robot/clockwork
 	name = "clockwork head"
 	desc = "An odd metal head that still feels warm to the touch."
-	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
 /obj/item/bodypart/chest/robot/clockwork
 	name = "clockwork torso"
 	desc = "An odd metal body full of gears and pipes. It still seems alive."
-	icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0

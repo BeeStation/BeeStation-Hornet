@@ -1,7 +1,10 @@
 /datum/orbital_object/shuttle
 	name = "Shuttle"
 	collision_type = COLLISION_SHUTTLES
-	collision_flags = COLLISION_Z_LINKED | COLLISION_METEOR
+	//Collision is handled by z-linked.
+	collision_flags = NONE
+	render_mode = RENDER_MODE_SHUTTLE
+	priority = 10
 	var/shuttle_port_id
 	//Shuttle data
 	var/max_thrust = 2
@@ -50,6 +53,7 @@
 	stealth = TRUE
 
 /datum/orbital_object/shuttle/Destroy()
+	var/z_level = port?.z
 	port = null
 	can_dock_with = null
 	docking_target = null
@@ -57,6 +61,8 @@
 	shuttleTarget = null
 	. = ..()
 	SSorbits.assoc_shuttles.Remove(shuttle_port_id)
+	if(z_level)
+		SSorbits.assoc_z_levels.Remove("[z_level]")
 
 //Dont fly into the sun idiot.
 /datum/orbital_object/shuttle/explode()
@@ -64,7 +70,7 @@
 		port.jumpToNullSpace()
 	qdel(src)
 
-/datum/orbital_object/shuttle/process()
+/datum/orbital_object/shuttle/process(delta_time)
 	if(check_stuck())
 		return
 
@@ -93,7 +99,7 @@
 	var/thrust_amount = thrust * max_thrust / 100
 	var/thrust_x = cos(angle) * thrust_amount
 	var/thrust_y = sin(angle) * thrust_amount
-	accelerate_towards(new /datum/orbital_vector(thrust_x, thrust_y), ORBITAL_UPDATE_RATE_SECONDS)
+	accelerate_towards(new /datum/orbital_vector(thrust_x, thrust_y), ORBITAL_UPDATE_RATE_SECONDS * delta_time)
 	//Do gravity and movement
 	can_dock_with = null
 	. = ..()
@@ -118,13 +124,13 @@
 		return
 
 	//Relative velocity to target needs to point towards target.
-	var/distance_to_target = position.Distance(target_pos)
+	var/distance_to_target = position.DistanceTo(target_pos)
 
 	//Cheat and slow down.
 	//Remove this if you make better autopilot logic ever.
 	if(distance_to_target < 100 && velocity.Length() > 25)
-		velocity.Normalize()
-		velocity.Scale(20)
+		velocity.NormalizeSelf()
+		velocity.ScaleSelf(20)
 
 	//If there is an object in the way, we need to fly around it.
 	var/datum/orbital_vector/next_position = target_pos
@@ -132,8 +138,8 @@
 	//Adjust our speed to target to point towards it.
 	var/datum/orbital_vector/desired_velocity = new(next_position.x - position.x, next_position.y - position.y)
 	var/desired_speed = distance_to_target * 0.02 + 10
-	desired_velocity.Normalize()
-	desired_velocity.Scale(desired_speed)
+	desired_velocity.NormalizeSelf()
+	desired_velocity.ScaleSelf(desired_speed)
 
 	//Adjust thrust to make our velocity = desired_velocity
 	var/thrust_dir_x = desired_velocity.x - velocity.x
@@ -178,6 +184,7 @@
 	port = dock
 	stealth = dock.hidden
 	SSorbits.assoc_shuttles[shuttle_port_id] = src
+	SSorbits.assoc_z_levels["[dock.virtual_z]"] = src
 
 /datum/orbital_object/shuttle/proc/commence_docking(datum/orbital_object/z_linked/docking, forced = FALSE)
 	//Check for valid docks on z-level

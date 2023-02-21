@@ -30,7 +30,7 @@
 	opaque = FALSE
 	alpha = 100
 
-/obj/machinery/smoke_machine/Initialize()
+/obj/machinery/smoke_machine/Initialize(mapload)
 	. = ..()
 	create_reagents(REAGENTS_BASE_VOLUME)
 	AddComponent(/datum/component/plumbing/simple_demand)
@@ -43,7 +43,7 @@
 	return !anchored
 
 /obj/machinery/smoke_machine/update_icon()
-	if((!is_operational()) || (!on) || (reagents.total_volume == 0))
+	if((!is_operational) || (!on) || (reagents.total_volume == 0))
 		if (panel_open)
 			icon_state = "smoke0-o"
 		else
@@ -60,7 +60,7 @@
 		create_reagents(new_volume)
 	reagents.maximum_volume = new_volume
 	if(new_volume < reagents.total_volume)
-		reagents.reaction(loc, TOUCH) // if someone manages to downgrade it without deconstructing
+		reagents.expose(loc, TOUCH) // if someone manages to downgrade it without deconstructing
 		reagents.clear_reagents()
 	efficiency = 9
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
@@ -72,7 +72,7 @@
 
 /obj/machinery/smoke_machine/process()
 	..()
-	if(!is_operational())
+	if(!is_operational)
 		return
 	if(reagents.total_volume == 0)
 		on = FALSE
@@ -104,7 +104,7 @@
 	return ..()
 
 /obj/machinery/smoke_machine/deconstruct()
-	reagents.reaction(loc, TOUCH)
+	reagents.expose(loc, TOUCH)
 	reagents.clear_reagents()
 	return ..()
 

@@ -33,8 +33,8 @@ BONUS
 	threshold_desc = "<b>Resistance 3:</b> Host will drop small items when coughing.<br>\
 					  <b>Resistance 10:</b> Occasionally causes coughing fits that stun the host.<br>\
 					  <b>Stage Speed 6:</b> Increases cough frequency.<br>\
-					  <b>If Airborne:</b> Coughing will infect bystanders.<br>\
-					  <b>Stealth 4:</b> The symptom remains hidden until active."
+					  <b>Stealth 4:</b> The symptom remains hidden until active.<br>\
+					  <b>Transmission 11:</b> The host's coughing will occasionally spread the virus."
 
 /datum/symptom/cough/severityset(datum/disease/advance/A)
 	. = ..()
@@ -48,14 +48,14 @@ BONUS
 		return
 	if(A.stealth >= 4)
 		suppress_warning = TRUE
-	if(A.spread_flags & DISEASE_SPREAD_AIRBORNE) //infect bystanders
-		infective = TRUE
 	if(A.resistance >= 3) //strong enough to drop items
 		power = 1.5
 		if(A.resistance >= 10) //strong enough to stun (rarely)
 			power = 2
 	if(A.stage_rate >= 6) //cough more often
 		symptom_delay_max = 10
+	if(A.transmission >= 11) //spread virus
+		infective =TRUE
 
 /datum/symptom/cough/Activate(datum/disease/advance/A)
 	if(!..())
@@ -78,6 +78,7 @@ BONUS
 				addtimer(CALLBACK(M, /mob/.proc/emote, "cough"), 6)
 				addtimer(CALLBACK(M, /mob/.proc/emote, "cough"), 12)
 				addtimer(CALLBACK(M, /mob/.proc/emote, "cough"), 18)
-			if(infective && M.CanSpreadAirborneDisease())
-				A.spread(1)
+			if(infective && !(A.spread_flags & DISEASE_SPREAD_FALTERED) && prob(50))
+				addtimer(CALLBACK(A, /datum/disease/.proc/spread, 2), 20)
+
 

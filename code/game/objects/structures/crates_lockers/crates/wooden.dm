@@ -1,7 +1,7 @@
 /obj/structure/closet/crate/wooden
 	name = "wooden crate"
 	desc = "Works just as well as a metal one."
-	material_drop = /obj/item/stack/sheet/mineral/wood
+	material_drop = /obj/item/stack/sheet/wood
 	material_drop_amount = 6
 	icon_state = "wooden"
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
@@ -21,3 +21,4 @@
 	new /obj/item/reagent_containers/food/snacks/pie/cream(src)
 	new /obj/item/storage/crayons(src)
 	new /obj/item/soundsynth(src)
+	new /obj/item/storage/box/radiokey/clown(src)

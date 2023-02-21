@@ -18,7 +18,7 @@
 		return FALSE
 	if(target.stat != DEAD)
 		return FALSE
-	if(target.suiciding || target.hellbound || HAS_TRAIT(target, TRAIT_HUSK))
+	if(target.suiciding || target.ishellbound() || HAS_TRAIT(target, TRAIT_HUSK))
 		return FALSE
 	var/obj/item/organ/brain/B = target.getorganslot(ORGAN_SLOT_BRAIN)
 	if(!B)
@@ -30,6 +30,8 @@
 	implements = list(/obj/item/shockpaddles = 100, /obj/item/melee/baton = 75, /obj/item/gun/energy = 60)
 	repeatable = TRUE
 	time = 120
+	success_sound = 'sound/magic/lightningbolt.ogg'
+	failure_sound = 'sound/magic/lightningbolt.ogg'
 
 /datum/surgery_step/revive/tool_check(mob/user, obj/item/tool)
 	. = TRUE

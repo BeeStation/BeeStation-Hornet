@@ -12,7 +12,7 @@
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	light_range = FALSE
 
-/obj/item/scanner/Initialize()
+/obj/item/scanner/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/shell, list(
 		new /obj/item/circuit_component/scanner()
@@ -27,7 +27,7 @@
 	/// Called when scanner is used.
 	var/datum/port/output/signal
 
-/obj/item/circuit_component/scanner/Initialize()
+/obj/item/circuit_component/scanner/Initialize(mapload)
 	. = ..()
 	scanned = add_output_port("Scanned", PORT_TYPE_ATOM)
 	signal = add_output_port("Signal", PORT_TYPE_SIGNAL)
@@ -48,7 +48,7 @@
  */
 /obj/item/circuit_component/scanner/proc/send_trigger(atom/source, atom/target, mob/user)
 	SIGNAL_HANDLER
-	target.balloon_alert(user, "scanned [target]")
+	target.balloon_alert(user, "Scanned [target].")
 	playsound(user, get_sfx("terminal_type"), 25, FALSE)
 	. = COMPONENT_NO_ATTACK
 	scanned.set_output(target)

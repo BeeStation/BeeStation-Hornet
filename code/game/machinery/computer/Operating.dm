@@ -14,7 +14,7 @@
 	var/datum/techweb/linked_techweb
 	light_color = LIGHT_COLOR_BLUE
 
-/obj/machinery/computer/operating/Initialize()
+/obj/machinery/computer/operating/Initialize(mapload)
 	. = ..()
 	linked_techweb = SSresearch.science_tech
 	find_table()
@@ -49,7 +49,7 @@
 		advanced_surgeries |= D.surgery
 
 /obj/machinery/computer/operating/proc/find_table()
-	for(var/direction in GLOB.cardinals)
+	for(var/direction in GLOB.alldirs)
 		table = locate(/obj/structure/table/optable) in get_step(src, direction)
 		if(table)
 			table.computer = src
@@ -81,7 +81,7 @@
 		surgery["desc"] = initial(S.desc)
 		surgeries += list(surgery)
 	data["surgeries"] = surgeries
-	
+
 	//If there's no patient just hop to it yeah?
 	if(!table && !sbed)
 		data["patient"] = null

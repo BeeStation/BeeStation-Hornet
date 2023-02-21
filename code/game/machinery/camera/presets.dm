@@ -4,13 +4,13 @@
 /obj/machinery/camera/emp_proof
 	start_active = TRUE
 
-/obj/machinery/camera/emp_proof/Initialize()
+/obj/machinery/camera/emp_proof/Initialize(mapload)
 	. = ..()
 	upgradeEmpProof()
 
 // EMP + Motion
 
-/obj/machinery/camera/emp_proof/motion/Initialize()
+/obj/machinery/camera/emp_proof/motion/Initialize(mapload)
 	. = ..()
 	upgradeMotion()
 
@@ -20,16 +20,16 @@
 	start_active = TRUE
 	icon_state = "xraycamera" //mapping icon - Thanks to Krutchen for the icons.
 
-/obj/machinery/camera/xray/Initialize()
+/obj/machinery/camera/xray/Initialize(mapload)
 	. = ..()
-	upgradeXRay()
+	upgradeXRay(TRUE)
 
 // MOTION
 /obj/machinery/camera/motion
 	start_active = TRUE
 	name = "motion-sensitive security camera"
 
-/obj/machinery/camera/motion/Initialize()
+/obj/machinery/camera/motion/Initialize(mapload)
 	. = ..()
 	upgradeMotion()
 
@@ -38,10 +38,9 @@
 	start_active = TRUE
 	icon_state = "xraycamera" //mapping icon.
 
-/obj/machinery/camera/all/Initialize()
+/obj/machinery/camera/all/Initialize(mapload)
 	. = ..()
 	upgradeEmpProof()
-	upgradeXRay()
 	upgradeMotion()
 
 // AUTONAME
@@ -50,7 +49,7 @@
 	var/number = 0 //camera number in area
 
 //This camera type automatically sets it's name to whatever the area that it's in is called.
-/obj/machinery/camera/autoname/Initialize()
+/obj/machinery/camera/autoname/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
 
@@ -110,11 +109,6 @@
 	if(malf_upgrade)
 		assembly.malf_xray_firmware_active = TRUE //don't add parts to drop, update icon, ect. reconstructing it will also retain the upgrade.
 		assembly.malf_xray_firmware_present = TRUE //so the upgrade is retained after incompatible parts are removed.
-
-	else if(!assembly.xray_module) //only happens via upgrading in camera/attackby()
-		assembly.xray_module = new(assembly)
-		if(assembly.malf_xray_firmware_active)
-			assembly.malf_xray_firmware_active = FALSE //make it appear like it's just normally upgraded so the icons and examine texts are restored.
 
 	upgrades |= CAMERA_UPGRADE_XRAY
 	update_icon()

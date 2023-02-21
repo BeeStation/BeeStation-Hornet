@@ -6,7 +6,7 @@
 #define RELEASING	1
 
 /obj/machinery/atmospherics/components/unary/vent_pump
-	icon_state = "vent_map-2"
+	icon_state = "vent_map-3"
 
 	name = "air vent"
 	desc = "Has a valve and pump attached to it."
@@ -16,10 +16,10 @@
 	welded = FALSE
 	level = 1
 	layer = GAS_SCRUBBER_LAYER
+	shift_underlay_only = FALSE
 
 	interacts_with_air = TRUE
 
-	var/id_tag = null
 	var/pump_direction = RELEASING
 
 	var/pressure_checks = EXT_BOUND
@@ -39,9 +39,9 @@
 	pipe_state = "uvent"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/New()
-	..()
 	if(!id_tag)
-		id_tag = assign_uid_vents()
+		id_tag = id_tag = SSnetworks.assign_random_name()
+	. = ..()
 
 /obj/machinery/atmospherics/components/unary/vent_pump/Destroy()
 	var/area/A = get_area(src)
@@ -58,14 +58,16 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/update_icon_nopipes()
 	cut_overlays()
 	if(showpipe)
-		var/image/cap = getpipeimage(icon, "vent_cap", initialize_directions, piping_layer = piping_layer)
+		var/image/cap = getpipeimage(icon, "vent_cap", initialize_directions)
 		add_overlay(cap)
+	else
+		PIPING_LAYER_SHIFT(src, PIPING_LAYER_DEFAULT)
 
 	if(welded)
 		icon_state = "vent_welded"
 		return
 
-	if(!nodes[1] || !on || !is_operational())
+	if(!nodes[1] || !on || !is_operational)
 		if(icon_state == "vent_welded")
 			icon_state = "vent_off"
 			return
@@ -92,7 +94,7 @@
 
 /obj/machinery/atmospherics/components/unary/vent_pump/process_atmos()
 	..()
-	if(!is_operational() || !isopenturf(loc))
+	if(!is_operational || !isopenturf(loc))
 		return
 	if(!nodes[1])
 		on = FALSE
@@ -116,7 +118,7 @@
 			pressure_delta = min(pressure_delta, (air_contents.return_pressure() - internal_pressure_bound))
 
 		if(pressure_delta > 0)
-			if(air_contents.return_temperature() > 0)
+			if(air_contents.return_temperature() > 0 && air_contents.return_volume() > 0)
 				var/transfer_moles = pressure_delta*environment.return_volume()/(air_contents.return_temperature() * R_IDEAL_GAS_EQUATION)
 
 				loc.assume_air_moles(air_contents, transfer_moles)
@@ -181,7 +183,7 @@
 	..()
 
 /obj/machinery/atmospherics/components/unary/vent_pump/receive_signal(datum/signal/signal)
-	if(!is_operational())
+	if(!is_operational)
 		return
 	// log_admin("DEBUG \[[world.timeofday]\]: /obj/machinery/atmospherics/components/unary/vent_pump/receive_signal([signal.debug_print()])")
 	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
@@ -263,13 +265,13 @@
 			user.visible_message("[user] unwelded the vent.", "<span class='notice'>You unweld the vent.</span>", "<span class='italics'>You hear welding.</span>")
 			welded = FALSE
 		update_icon()
-		pipe_vision_img = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
+		pipe_vision_img = image(src, loc, dir = dir)
 		pipe_vision_img.plane = ABOVE_HUD_PLANE
 	return TRUE
 
 /obj/machinery/atmospherics/components/unary/vent_pump/can_unwrench(mob/user)
 	. = ..()
-	if(. && on && is_operational())
+	if(. && on && is_operational)
 		to_chat(user, "<span class='warning'>You cannot unwrench [src], turn it off first!</span>")
 		return FALSE
 
@@ -291,7 +293,7 @@
 	user.visible_message("<span class='warning'>[user] furiously claws at [src]!</span>", "<span class='notice'>You manage to clear away the stuff blocking the vent.</span>", "<span class='warning'>You hear loud scraping noises.</span>")
 	welded = FALSE
 	update_icon()
-	pipe_vision_img = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
+	pipe_vision_img = image(src, loc, dir = dir)
 	pipe_vision_img.plane = ABOVE_HUD_PLANE
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, 1)
 
@@ -307,24 +309,24 @@
 // mapping
 
 /obj/machinery/atmospherics/components/unary/vent_pump/layer1
-	piping_layer = 1
-	icon_state = "vent_map-1"
+	piping_layer = 2
+	icon_state = "vent_map-2"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/layer3
-	piping_layer = 3
-	icon_state = "vent_map-3"
+	piping_layer = 4
+	icon_state = "vent_map-4"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/on
 	on = TRUE
+	icon_state = "vent_map_on-3"
+
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2
+	piping_layer = 2
 	icon_state = "vent_map_on-2"
 
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1
-	piping_layer = 1
-	icon_state = "vent_map_on-1"
-
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer3
-	piping_layer = 3
-	icon_state = "vent_map_on-3"
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4
+	piping_layer = 4
+	icon_state = "vent_map_on-4"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon
 	pump_direction = SIPHONING
@@ -332,30 +334,30 @@
 	internal_pressure_bound = 4000
 	external_pressure_bound = 0
 
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/layer1
-	piping_layer = 1
-	icon_state = "vent_map-1"
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/layer2
+	piping_layer = 2
+	icon_state = "vent_map-2"
 
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/layer3
-	piping_layer = 3
-	icon_state = "vent_map-3"
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/layer4
+	piping_layer = 4
+	icon_state = "vent_map-4"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on
 	on = TRUE
+	icon_state = "vent_map_siphon_on-3"
+
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on/layer2
+	piping_layer = 2
 	icon_state = "vent_map_siphon_on-2"
 
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on/layer1
-	piping_layer = 1
-	icon_state = "vent_map_siphon_on-1"
-
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on/layer3
-	piping_layer = 3
-	icon_state = "vent_map_siphon_on-3"
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on/layer4
+	piping_layer = 4
+	icon_state = "vent_map_siphon_on-4"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos
 	frequency = FREQ_ATMOS_STORAGE
 	on = TRUE
-	icon_state = "vent_map_siphon_on-2"
+	icon_state = "vent_map_siphon_on-3"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/toxin_output
 	name = "plasma tank output inlet"
@@ -384,25 +386,25 @@
 	id_tag = ATMOS_GAS_MONITOR_OUTPUT_TOXINS_LAB
 	frequency = FREQ_ATMOS_CONTROL
 
-/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/layer1
-	piping_layer = 1
-	icon_state = "vent_map-1"
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/layer2
+	piping_layer = 2
+	icon_state = "vent_map-2"
 
-/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/layer3
-	piping_layer = 3
-	icon_state = "map_vent-3"
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/layer4
+	piping_layer = 4
+	icon_state = "map_vent-4"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/on
 	on = TRUE
+	icon_state = "vent_map_on-3"
+
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/on/layer2
+	piping_layer = 2
 	icon_state = "vent_map_on-2"
 
-/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/on/layer1
-	piping_layer = 1
-	icon_state = "vent_map_on-1"
-
-/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/on/layer3
-	piping_layer = 3
-	icon_state = "map_vent_on-3"
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/on/layer4
+	piping_layer = 4
+	icon_state = "map_vent_on-4"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon
 	pump_direction = SIPHONING
@@ -410,34 +412,42 @@
 	internal_pressure_bound = 2000
 	external_pressure_bound = 0
 
-/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/layer1
-	piping_layer = 1
-	icon_state = "vent_map-1"
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/layer2
+	piping_layer = 2
+	icon_state = "vent_map-2"
 
-/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/layer3
-	piping_layer = 3
-	icon_state = "map_vent-3"
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/layer4
+	piping_layer = 4
+	icon_state = "map_vent-4"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/on
 	on = TRUE
+	icon_state = "vent_map_siphon_on-3"
+
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/on/layer2
+	piping_layer = 2
 	icon_state = "vent_map_siphon_on-2"
 
-/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/on/layer1
-	piping_layer = 1
-	icon_state = "vent_map_siphon_on-1"
-
-/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/on/layer3
-	piping_layer = 3
-	icon_state = "vent_map_siphon_on-3"
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/on/layer4
+	piping_layer = 4
+	icon_state = "vent_map_siphon_on-4"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos
 	frequency = FREQ_ATMOS_STORAGE
 	on = TRUE
-	icon_state = "vent_map_siphon_on-2"
+	icon_state = "vent_map_siphon_on-3"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/air_output
 	name = "air mix tank output inlet"
 	id_tag = ATMOS_GAS_MONITOR_OUTPUT_AIR
+
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/toxins_waste_output
+	name = "toxins waste output inlet"
+	id_tag = ATMOS_GAS_MONITOR_OUTPUT_TOXINS_WASTE
+
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/sm_waste
+	name = "supermatter waste output inlet"
+	id_tag = ATMOS_GAS_MONITOR_OUTPUT_SM_WASTE
 
 #undef INT_BOUND
 #undef EXT_BOUND

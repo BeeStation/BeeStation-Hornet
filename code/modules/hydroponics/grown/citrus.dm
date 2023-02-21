@@ -117,9 +117,6 @@
 /obj/item/reagent_containers/food/snacks/grown/firelemon/attack_self(mob/living/user)
 	user.visible_message("<span class='warning'>[user] primes [src]!</span>", "<span class='userdanger'>You prime [src]!</span>")
 	log_bomber(user, "primed a", src, "for detonation")
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		C.throw_mode_on()
 	icon_state = "firelemon_active"
 	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
 	addtimer(CALLBACK(src, .proc/prime), rand(10, 60))
@@ -189,9 +186,9 @@
 	discovery_points = 300
 
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/pickup(mob/user)
-	. = ..()
+	..()
 	icon_state = "orange"
 
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/dropped(mob/user)
-	. = ..()
+	..()
 	icon_state = "orang"

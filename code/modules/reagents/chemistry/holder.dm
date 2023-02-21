@@ -163,7 +163,7 @@
 
 	return master
 
-/datum/reagents/proc/trans_to(obj/target, amount = 1, multiplier = 1, preserve_data = TRUE, no_react = FALSE, mob/transfered_by, remove_blacklisted = FALSE, method = null, show_message = TRUE, round_robin = FALSE)
+/datum/reagents/proc/trans_to(obj/target, amount = 1, multiplier = 1, preserve_data = TRUE, no_react = FALSE, mob/transfered_by, remove_blacklisted = FALSE, methods = NONE, show_message = TRUE, round_robin = FALSE)
 	//if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
 	//if round_robin=TRUE, so transfer 5 from 15 water, 15 sugar and 15 plasma becomes 10, 15, 15 instead of 13.3333, 13.3333 13.3333. Good if you hate floating point errors
 	var/list/cached_reagents = reagent_list
@@ -194,15 +194,15 @@
 		var/part = amount / src.total_volume
 		for(var/reagent in cached_reagents)
 			var/datum/reagent/T = reagent
-			if(remove_blacklisted && !T.can_synth)
+			if(remove_blacklisted && (T.chem_flags & CHEMICAL_NOT_SYNTH))
 				continue
 			var/transfer_amount = T.volume * part
 			if(preserve_data)
 				trans_data = copy_data(T)
 			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1) //we only handle reaction after every reagent has been transfered.
-			if(method)
-				R.react_single(T, target_atom, method, part, show_message)
-				T.on_transfer(target_atom, method, transfer_amount * multiplier)
+			if(methods)
+				R.expose_single(T, target_atom, methods, part, show_message)
+				T.on_transfer(target_atom, methods, transfer_amount * multiplier)
 			remove_reagent(T.type, transfer_amount)
 			transfer_log[T.type] = transfer_amount
 	else
@@ -211,7 +211,7 @@
 			if(!to_transfer)
 				break
 			var/datum/reagent/T = reagent
-			if(remove_blacklisted && !T.can_synth)
+			if(remove_blacklisted && (T.chem_flags & CHEMICAL_NOT_SYNTH))
 				continue
 			if(preserve_data)
 				trans_data = copy_data(T)
@@ -220,9 +220,9 @@
 				transfer_amount = T.volume
 			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1)
 			to_transfer = max(to_transfer - transfer_amount , 0)
-			if(method)
-				R.react_single(T, target_atom, method, transfer_amount, show_message)
-				T.on_transfer(target_atom, method, transfer_amount * multiplier)
+			if(methods)
+				R.expose_single(T, target_atom, methods, transfer_amount, show_message)
+				T.on_transfer(target_atom, methods, transfer_amount * multiplier)
 			remove_reagent(T.type, transfer_amount)
 			transfer_log[T.type] = transfer_amount
 
@@ -527,12 +527,19 @@
 	for(var/_reagent in cached_reagents)
 		var/datum/reagent/R = _reagent
 		if(R.type == reagent)
-			if(my_atom && isliving(my_atom))
-				var/mob/living/M = my_atom
+			var/mob/living/mob_consumer
+
+			if (isliving(my_atom))
+				mob_consumer = my_atom
+			else if (istype(my_atom, /obj/item/organ))
+				var/obj/item/organ/organ = my_atom
+				mob_consumer = organ.owner
+
+			if (mob_consumer)
 				if(R.metabolizing)
 					R.metabolizing = FALSE
-					R.on_mob_end_metabolize(M)
-				R.on_mob_delete(M)
+					R.on_mob_end_metabolize(mob_consumer)
+				R.on_mob_delete(mob_consumer)
 			qdel(R)
 			reagent_list -= R
 			update_total()
@@ -577,37 +584,42 @@
 			can_process = TRUE
 	return can_process
 
-/datum/reagents/proc/reaction(atom/A, method = TOUCH, volume_modifier = 1, show_message = 1)
-	var/react_type
-	if(isliving(A))
-		react_type = "LIVING"
-		if(method == INGEST)
-			var/mob/living/L = A
-			L.taste(src)
-	else if(isturf(A))
-		react_type = "TURF"
-	else if(isobj(A))
-		react_type = "OBJ"
-	else
-		return
+/**
+  * Applies the relevant expose_ proc for every reagent in this holder
+  * * [/datum/reagent/proc/expose_mob]
+  * * [/datum/reagent/proc/expose_turf]
+  * * [/datum/reagent/proc/expose_obj]
+  */
+/datum/reagents/proc/expose(atom/A, methods = TOUCH, volume_modifier = 1, show_message = 1)
+	if(isnull(A))
+		return null
+
 	var/list/cached_reagents = reagent_list
+	if(!cached_reagents.len)
+		return null
+
+	var/list/reagents = list()
 	for(var/reagent in cached_reagents)
 		var/datum/reagent/R = reagent
-		switch(react_type)
-			if("LIVING")
-				var/check = reaction_check(A, R)
-				if(!check)
-					continue
-				var/touch_protection = 0
-				if(method == VAPOR)
-					var/mob/living/L = A
-					touch_protection = L.get_permeability_protection()
-				R.reaction_mob(A, method, R.volume * volume_modifier, show_message, touch_protection)
-			if("TURF")
-				R.reaction_turf(A, R.volume * volume_modifier, show_message)
-			if("OBJ")
-				R.reaction_obj(A, R.volume * volume_modifier, show_message)
+		reagents[R] = R.volume * volume_modifier
 
+	return A.expose_reagents(reagents, src, methods, volume_modifier, show_message)
+
+
+/// Same as [/datum/reagents/proc/expose] but only for one reagent
+/datum/reagents/proc/expose_single(datum/reagent/R, atom/A, methods = TOUCH, volume_modifier = 1, show_message = TRUE)
+	if(isnull(A))
+		return null
+
+	if(ispath(R))
+		R = get_reagent(R)
+	if(isnull(R))
+		return null
+
+	// Yes, we need the parentheses.
+	return A.expose_reagents(list((R) = R.volume * volume_modifier), src, methods, volume_modifier, show_message)
+
+/// is this holder full or not
 /datum/reagents/proc/holder_full()
 	if(total_volume >= maximum_volume)
 		return TRUE
@@ -891,25 +903,104 @@
 	reagents = new /datum/reagents(max_vol, flags)
 	reagents.my_atom = src
 
-/proc/get_random_reagent_id()	// Returns a random reagent ID minus blacklisted reagents and most foods and drinks
-	var/static/list/random_reagents = list()
-	if(!random_reagents.len)
-		for(var/thing  in subtypesof(/datum/reagent))
-			var/datum/reagent/R = thing
-			if(initial(R.can_synth) && initial(R.random_unrestricted))
-				random_reagents += R
-	var/picked_reagent = pick(random_reagents)
-	return picked_reagent
+/proc/get_random_reagent_id(var/flag_check, var/blacklist_flag = NONE, var/union = TRUE, var/return_as_list = FALSE)
+	/* This proc returns a random reagent ID based on given 'flag_check' which is used to check bitflag for each reagent.
+	 *--- arguments ---*
+		* flag_check
+			the method will return a random reagent id which has this flag.
+			if you want a single category - get_random_reagent_id(CHEMICAL_BASIC_ELEMENT)
+			if you want a multiple category - get_random_reagent_id(CHEMICAL_BASIC_ELEMENT|CHEMICAL_BASIC_DRINK|CHEMICAL_RNG_GENERAL)
+			(check defines at `code\__DEFINES\reagents.dm`)
+		* blacklist_flag
+			the method will remove random reagents from the possible list when they have this flag. default NONE(0)
+			same rule above
+			(uses chemical defines)
+		* union
+			default TRUE. if FALSE, the same item will be added to the possible list, making some reagent higher chance to spawn when a reagent is called more than once.
+			you will hardly use this though.
+			(Bicaridine, Bicardine, Bicaridine means 3x chance than normal.)
+		* return_as_list
+			default FALSE. if TRUE, the proc will return its list rather than pick a certain ID from the list. Useful when you're going to set blacklist yourself (or add)
 
-/proc/get_unrestricted_random_reagent_id()	// Returns a random reagent ID minus most foods and drinks
-	var/static/list/random_reagents = list()
-	if(!random_reagents.len)
-		for(var/thing  in subtypesof(/datum/reagent))
-			var/datum/reagent/R = thing
-			if(initial(R.random_unrestricted))
-				random_reagents += R
-	var/picked_reagent = pick(random_reagents)
-	return picked_reagent
+	 *--- How to add a new random reagent category ---*
+		1. add a new flag at 'code\__DEFINES\reagents.dm' and `var/list/chem_defines` below
+			i.e.) `#define CHEMICAL_SOMETHING_NEW (1<10)`
+		2. add a new static variable which is corresponding to the new flag.
+			i.e.) `var/static/list/random_reagents_xx = list() // CHEMICAL_SOMETHING_NEW`
+		3. add the new static variable to the 'random_reagent' list
+			then done! (of course, don't forget to turn on the new flag at each desired reagent)
+	*/
+
+
+	// ----below is a section you might want to edit for more chem RNGs----
+	var/static/list/chem_defines = list( // check `code/__DEFINES/reagents.dm`
+		CHEMICAL_NOT_SYNTH,     // (1<<0)
+		CHEMICAL_BASIC_ELEMENT, // (1<<1)
+		CHEMICAL_BASIC_DRINK,   // (1<<2)
+		CHEMICAL_RNG_GENERAL,   // (1<<3)
+		CHEMICAL_RNG_FUN,       // (1<<4)
+		CHEMICAL_RNG_BOTANY,    // (1<<5)
+		CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE,         // (1<<23) - goal_define starts at 23 and goes reversed.
+		CHEMICAL_GOAL_BOTANIST_HARVEST,     // (1<<22)
+		CHEMICAL_GOAL_BARTENDER_SERVING)    // (1<<21)
+	var/static/list/random_reagents_a = list()  // CHEMICAL_NOT_SYNTH
+	var/static/list/random_reagents_b = list()  // CHEMICAL_BASIC_ELEMENT
+	var/static/list/random_reagents_c = list()  // CHEMICAL_BASIC_DRINK
+	var/static/list/random_reagents_d = list()  // CHEMICAL_RNG_GENERAL
+	var/static/list/random_reagents_e = list()  // CHEMICAL_RNG_FUN
+	var/static/list/random_reagents_f = list()  // CHEMICAL_RNG_BOTANY
+	var/static/list/random_reagents_goal_a = list()  // CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	var/static/list/random_reagents_goal_b = list()  // CHEMICAL_GOAL_BOTANIST_HARVEST
+	var/static/list/random_reagents_goal_c = list()  // CHEMICAL_GOAL_BARTENDER_SERVING
+	var/static/list/random_reagent = list(
+		random_reagents_a,
+		random_reagents_b,
+		random_reagents_c,
+		random_reagents_d,
+		random_reagents_e,
+		random_reagents_f,
+		random_reagents_goal_a,
+		random_reagents_goal_b,
+		random_reagents_goal_c)
+	// ----above is a section you might want to edit for more chem RNGs----
+
+	// initialize random reagent static lists
+	if(!random_reagents_a.len)
+		for(var/thing in subtypesof(/datum/reagent))
+			var/i = 0
+			for(var/each_define in chem_defines)
+				i += 1
+				var/datum/reagent/R = thing
+				if(initial(R.chem_flags) & each_define)
+					random_reagent[i] += R
+
+	// returns a pick from a static before making a list - saving memory
+	var/j = 0
+	if(!blacklist_flag)
+		for(var/each_define in chem_defines)
+			j += 1
+			if(each_define == flag_check)
+				return (return_as_list ? random_reagent[j] : pick(random_reagent[j]))
+
+	// if flag_check has multiple bitflags, then we're going to make a possible list.
+	var/list/possible = list()
+	j = 0
+	for(var/each_define in chem_defines)
+		j += 1
+		if(each_define & flag_check)
+			if(union)
+				possible |= random_reagent[j]
+			else //concatenation
+				possible += random_reagent[j]
+
+	if(blacklist_flag)
+		j = 0
+		for(var/each_define in chem_defines)
+			j += 1
+			if(each_define & flag_check)
+				possible -= random_reagent[j]
+
+	return (return_as_list ? possible : pick(possible))
 
 /proc/get_chem_id(chem_name)
 	for(var/X in GLOB.chemical_reagents_list)

@@ -21,6 +21,11 @@
 	update_icon()
 	component_parts = list(new /obj/item/circuitboard/machine/generator)
 
+/obj/machinery/power/generator/examine()
+	. = ..()
+	if(panel_open)
+		. += "<span class='notice'>Its panel is open.</span>"
+
 /obj/machinery/power/generator/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS )
@@ -32,7 +37,7 @@
 
 /obj/machinery/power/generator/update_icon()
 
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		cut_overlays()
 	else
 		cut_overlays()
@@ -43,6 +48,8 @@
 
 		if(hot_circ && cold_circ)
 			add_overlay("teg-oc[lastcirc]")
+	if(panel_open)
+		icon_state = "teg_open"
 
 
 #define GENRATE 800		// generator output coefficient from Q
@@ -115,7 +122,7 @@
 
 		t += "<div class='statusDisplay'>"
 
-		t += "Output: [DisplayPower(lastgenlev)]"
+		t += "Output: [display_power(lastgenlev)]"
 
 		t += "<BR>"
 
@@ -215,6 +222,7 @@
 	panel_open = !panel_open
 	I.play_tool_sound(src)
 	to_chat(user, "<span class='notice'>You [panel_open?"open":"close"] the panel on [src].</span>")
+	update_icon()
 	return TRUE
 
 /obj/machinery/power/generator/crowbar_act(mob/user, obj/item/I)

@@ -1,6 +1,6 @@
 /obj/item/inducer
-	name = "inducer"
-	desc = "A tool for inductively charging internal power cells."
+	name = "heavy-duty inducer"
+	desc = "A tool for inductively charging internal power cells. It is ruggedized for frequent use."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "inducer-engi"
 	item_state = "inducer-engi"
@@ -13,7 +13,7 @@
 	var/obj/item/stock_parts/cell/cell
 	var/recharging = FALSE
 
-/obj/item/inducer/Initialize()
+/obj/item/inducer/Initialize(mapload)
 	. = ..()
 	if(!cell && cell_type)
 		cell = new cell_type
@@ -104,22 +104,34 @@
 	var/obj/item/stock_parts/cell/C = A.get_cell()
 	var/obj/O
 	var/coefficient = 1
+	var/obj/item/organ/stomach/battery/battery
 	if(istype(A, /obj/item/gun/energy))
 		to_chat(user,"Error unable to interface with device")
 		return FALSE
 	if(istype(A, /obj))
 		O = A
-	if(C)
+	if(iscarbon(A))
+		var/mob/living/carbon/human_target = A
+		if(HAS_TRAIT(human_target, TRAIT_POWERHUNGRY))
+			battery = human_target.getorganslot(ORGAN_SLOT_STOMACH)
+			if(!istype(battery))
+				return
+
+	var/maxcharge = battery?.max_charge || C?.maxcharge
+	if(C || battery)
 		var/done_any = FALSE
-		if(C.charge >= C.maxcharge)
+		if((battery?.charge || C.charge) >= maxcharge)
 			to_chat(user, "<span class='notice'>[A] is fully charged!</span>")
 			recharging = FALSE
 			return TRUE
 		user.visible_message("[user] starts recharging [A] with [src].","<span class='notice'>You start recharging [A] with [src].</span>")
-		while(C.charge < C.maxcharge)
+		while((battery?.charge || C.charge) < maxcharge)
 			if(do_after(user, 10, target = user) && cell.charge)
 				done_any = TRUE
-				induce(C, coefficient)
+				if(battery)
+					battery.adjust_charge(min(cell.charge,250))
+				else
+					induce(C, coefficient)
 				do_sparks(1, FALSE, A)
 				if(O)
 					O.update_icon()
@@ -151,12 +163,14 @@
 		user.put_in_hands(cell)
 		cell = null
 		update_icon()
+	if(!opened)
+		recharge(user, user)
 
 
 /obj/item/inducer/examine(mob/living/M)
 	. = ..()
 	if(cell)
-		. += "<span class='notice'>Its display shows: [DisplayEnergy(cell.charge)].</span>"
+		. += "<span class='notice'>Its display shows: [display_energy(cell.charge)].</span>"
 	else
 		. += "<span class='notice'>Its display is dark.</span>"
 	if(opened)
@@ -170,7 +184,18 @@
 		else
 			add_overlay("inducer-bat")
 
+///Starts empty for engineering protolathe
+/obj/item/inducer/eng
+	name = "heavy-duty inducer"
+	cell_type = null
+	opened = TRUE
+
+/obj/item/inducer/eng/Initialize(mapload)
+	. = ..()
+	update_icon()
+
 /obj/item/inducer/sci
+	name = "inducer"
 	icon_state = "inducer-sci"
 	item_state = "inducer-sci"
 	desc = "A tool for inductively charging internal power cells. This one has a science color scheme, and is less potent than its engineering counterpart."
@@ -178,6 +203,6 @@
 	powertransfer = 500
 	opened = TRUE
 
-/obj/item/inducer/sci/Initialize()
+/obj/item/inducer/sci/Initialize(mapload)
 	. = ..()
 	update_icon()

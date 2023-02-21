@@ -33,10 +33,14 @@
 
 	var/mood_bonus = 0 //Mood for being here
 	var/mood_message = "<span class='nicegreen'>This area is pretty nice!\n</span>" //Mood message for being here, only shows up if mood_bonus != 0
+	/// if defined, restricts what jobs get this buff using JOB_NAME defines (-candycane/etherware)
+	var/list/mood_job_allowed = null
+	/// if true, mood_job_allowed will represent jobs exempt from getting the mood.
+	var/mood_job_reverse = FALSE
 
 	///Will objects this area be needing power?
 	var/requires_power = TRUE
-	/// This gets overridden to 1 for space in area/Initialize().
+	/// This gets overridden to 1 for space in area/Initialize(mapload).
 	var/always_unpowered = FALSE
 
 	var/power_equip = TRUE
@@ -82,6 +86,9 @@
 	///Used to decide what kind of reverb the area makes sound have
 	var/sound_environment = SOUND_ENVIRONMENT_NONE
 
+	///Typepath to limit the areas (subtypes included) that atoms in this area can smooth with. Used for shuttles.
+	var/area/area_limited_icon_smoothing
+
 	//Lighting overlay
 	var/obj/effect/lighting_overlay
 	var/lighting_overlay_colour = "#FFFFFF"
@@ -93,6 +100,13 @@
 	///Lazylist that contains additional turfs that map generation should be ran on. This is used for ruins which need a noop turf under non-noop areas so they don't leave genturfs behind.
 	var/list/additional_genturfs
 
+	/// Default network root for this area aka station, lavaland, etc
+	var/network_root_id = null
+	/// Area network id when you want to find all devices hooked up to this area
+	var/network_area_id = null
+
+	/// How hard it is to hack airlocks in this area
+	var/airlock_hack_difficulty = AIRLOCK_SECURITY_NONE
 
 /**
   * A list of teleport locations
@@ -147,7 +161,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
   *
   * returns INITIALIZE_HINT_LATELOAD
   */
-/area/Initialize()
+/area/Initialize(mapload)
 	icon_state = ""
 	canSmoothWithAreas = typecacheof(canSmoothWithAreas)
 
@@ -174,16 +188,16 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 	. = ..()
 
-	blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.
-
 	if(!IS_DYNAMIC_LIGHTING(src))
+		blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.
 		add_overlay(/obj/effect/fullbright)
 	else if(lighting_overlay_opacity && lighting_overlay_colour)
-		lighting_overlay = new /obj/effect/fullbright
-		lighting_overlay.color = lighting_overlay_colour
-		lighting_overlay.alpha = lighting_overlay_opacity
-		add_overlay(lighting_overlay)
+		generate_lighting_overlay()
 	reg_in_areas_in_z()
+	if(!mapload)
+		if(!network_root_id)
+			network_root_id = STATION_NETWORK_ROOT // default to station root because this might be created with a blueprint
+		SSnetworks.assign_area_network_id(src)
 
 	return INITIALIZE_HINT_LATELOAD
 
@@ -192,6 +206,25 @@ GLOBAL_LIST_EMPTY(teleportlocs)
   */
 /area/LateInitialize()
 	power_change()		// all machines set to current power level, also updates icon
+
+/**
+ * Performs initial setup of the lighting overlays.
+ */
+/area/proc/generate_lighting_overlay()
+	if(lighting_overlay)
+		//Remove the old lighting overlay
+		cut_overlay(lighting_overlay)
+		//Delete the old lighting overlay object
+		QDEL_NULL(lighting_overlay)
+	//Create the lighting overlay object for this area
+	lighting_overlay = new /obj/effect/fullbright
+	lighting_overlay.color = lighting_overlay_colour
+	lighting_overlay.alpha = lighting_overlay_opacity
+	//Areas with a lighting overlay should be fully visible, and the tiles adjacent to them should also
+	//be luminous
+	luminosity = 1
+	//Add the lighting overlay
+	add_overlay(lighting_overlay)
 
 /area/proc/RunGeneration()
 	if(map_generator)
@@ -349,7 +382,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 					if(A.fire)
 						cont = FALSE
 						break
-			if(cont && D.is_operational())
+			if(cont && D.is_operational)
 				if(D.operating)
 					D.nextstate = opening ? FIREDOOR_OPEN : FIREDOOR_CLOSED
 				else if(!(D.density ^ opening))
@@ -525,13 +558,13 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 			weather_icon = TRUE
 	if(!weather_icon)
 		icon_state = null
-
+	return ..()
 /**
   * Update the icon of the area (overridden to always be null for space
   */
 /area/space/update_icon_state()
 	icon_state = null
-
+	return ..()
 
 /**
   * Returns int 1 or 0 if the area has power for the given channel
@@ -606,23 +639,23 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /**
   * Call back when an atom enters an area
   *
-  * Sends signals COMSIG_AREA_ENTERED and COMSIG_ENTER_AREA (to the atom)
+  * Sends signals COMSIG_AREA_ENTERED and COMSIG_MOVABLE_ENTERED_AREA (to the atom)
   *
   * If the area has ambience, then it plays some ambience music to the ambience channel
   */
 /area/Entered(atom/movable/arrived, area/old_area)
 	set waitfor = FALSE
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, old_area)
-	SEND_SIGNAL(arrived, COMSIG_ENTER_AREA, src) //The atom that enters the area
+	SEND_SIGNAL(arrived, COMSIG_MOVABLE_ENTERED_AREA, src) //The atom that enters the area
 
 /**
   * Called when an atom exits an area
   *
-  * Sends signals COMSIG_AREA_EXITED and COMSIG_EXIT_AREA (to the atom)
+  * Sends signals COMSIG_AREA_EXITED and COMSIG_MOVABLE_EXITTED_AREA (to the atom)
   */
 /area/Exited(atom/movable/gone, direction)
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, gone, direction)
-	SEND_SIGNAL(gone, COMSIG_EXIT_AREA, src) //The atom that exits the area
+	SEND_SIGNAL(gone, COMSIG_MOVABLE_EXITTED_AREA, src) //The atom that exits the area
 
 /**
   * Returns true if this atom has gravity for the passed in turf or other gravity-mimicking behaviors
@@ -644,33 +677,31 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		T = get_turf(src)
 
 	if(!T)
-		return 0
+		return FALSE
 
 	var/list/forced_gravity = list()
 	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, T, forced_gravity)
-	if(!forced_gravity.len)
+	if(!length(forced_gravity))
 		SEND_SIGNAL(T, COMSIG_TURF_HAS_GRAVITY, src, forced_gravity)
-	if(forced_gravity.len)
+	if(length(forced_gravity))
 		var/max_grav
 		for(var/i in forced_gravity)
 			max_grav = max(max_grav, i)
 		return max_grav
 
-
 	if(!T.check_gravity()) // Turf never has gravity
-		return 0
-
+		return FALSE
 	var/area/A = get_area(T)
 	if(A.has_gravity) // Areas which always has gravity
-		return A.has_gravity
-	else
-		// There's a gravity generator on our z level
-		if(GLOB.gravity_generators["[T.get_virtual_z_level()]"])
-			var/max_grav = 0
-			for(var/obj/machinery/gravity_generator/main/G in GLOB.gravity_generators["[T.get_virtual_z_level()]"])
-				max_grav = max(G.setting,max_grav)
-			return max_grav
-	return SSmapping.level_trait(T.z, ZTRAIT_GRAVITY)
+		return TRUE
+	else if(SSmapping.level_trait(T.z, ZTRAIT_GRAVITY)) // If the z-level always has gravity
+		return TRUE
+	else if(GLOB.gravity_generators["[T.get_virtual_z_level()]"]) // If there's a gravity generator on our z level
+		var/max_grav = 0
+		for(var/obj/machinery/gravity_generator/main/G in GLOB.gravity_generators["[T.get_virtual_z_level()]"])
+			max_grav = max(G.setting,max_grav)
+		return max_grav
+	return FALSE
 /**
   * Setup an area (with the given name)
   *
@@ -711,7 +742,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	CRASH("Bad op: area/drop_location() called")
 
 /// A hook so areas can modify the incoming args (of what??)
-/area/proc/PlaceOnTopReact(list/new_baseturfs, turf/fake_turf_type, flags)
+/area/proc/PlaceOnTopReact(turf/T, list/new_baseturfs, turf/fake_turf_type, flags)
 	return flags
 
 /// Gets an areas virtual z value. For having multiple areas on the same z-level treated mechanically as different z-levels
@@ -720,3 +751,17 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 /area/get_virtual_z_level()
 	return get_virtual_z(get_turf(src))
+
+/// if it returns true, the mood effect assigned to the area is defined. Defaults to checking mood_job_allowed
+/area/proc/mood_check(mob/living/carbon/subject)
+	if(!mood_bonus)
+		return FALSE
+
+	. = TRUE
+
+	if(!length(mood_job_allowed))
+		return .
+	if(!(subject.mind?.assigned_role in mood_job_allowed))
+		. = FALSE
+	if(mood_job_reverse)
+		return !.  // the most eye bleeding syntax ive written

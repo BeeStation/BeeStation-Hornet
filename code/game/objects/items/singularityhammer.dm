@@ -17,7 +17,7 @@
 	force_string = "LORD SINGULOTH HIMSELF"
 	var/charged = 5
 
-/obj/item/singularityhammer/Initialize()
+/obj/item/singularityhammer/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
@@ -93,7 +93,7 @@
 	attack_weight = 3
 	w_class = WEIGHT_CLASS_HUGE
 
-/obj/item/mjollnir/Initialize()
+/obj/item/mjollnir/Initialize(mapload)
 	. = ..()
 
 /obj/item/mjollnir/ComponentInitialize()
@@ -102,6 +102,7 @@
 
 /obj/item/mjollnir/update_icon_state()
 	icon_state = "mjollnir0"
+	return ..()
 
 /obj/item/mjollnir/proc/shock(mob/living/target)
 	target.Stun(60)

@@ -57,7 +57,7 @@
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 
-/obj/item/clothing/suit/det_suit/Initialize()
+/obj/item/clothing/suit/det_suit/Initialize(mapload)
 	. = ..()
 	allowed = GLOB.detective_vest_allowed
 
@@ -74,7 +74,7 @@
 	item_state = "detsuit"
 
 //Brig Phys
-/obj/item/clothing/suit/hazardvest/brig_phys
+/obj/item/clothing/suit/hazardvest/brig_physician
 	name = "brig physician's vest"
 	desc = "A lightweight vest worn by the Brig Physician."
 	icon_state = "brig_phys_vest"

@@ -15,12 +15,6 @@
 	projectile_type = /obj/item/projectile/bullet/shotgun_beanbag
 	materials = list(/datum/material/iron=250)
 
-/obj/item/ammo_casing/shotgun/sleepytime
-	name = "soporific shell"
-	desc = "A shotgun shell loaded with a hypodermic needle containing a low strength knock-out agent that will confuse a target on the first shot, and put them to sleep on the second."
-	icon_state = "sleepy"
-	projectile_type = /obj/item/projectile/bullet/sleepy
-
 /obj/item/ammo_casing/shotgun/incendiary
 	name = "incendiary slug"
 	desc = "An incendiary-coated shotgun slug."
@@ -127,7 +121,7 @@
 	projectile_type = /obj/item/projectile/bullet/dart
 	var/reagent_amount = 30
 
-/obj/item/ammo_casing/shotgun/dart/Initialize()
+/obj/item/ammo_casing/shotgun/dart/Initialize(mapload)
 	. = ..()
 	create_reagents(reagent_amount, OPENCONTAINER)
 
@@ -140,14 +134,14 @@
 	icon_state = "cnrshell"
 	reagent_amount = 10
 
-/obj/item/ammo_casing/shotgun/dart/noreact/Initialize()
+/obj/item/ammo_casing/shotgun/dart/noreact/Initialize(mapload)
 	. = ..()
 	ENABLE_BITFIELD(reagents.flags, NO_REACT)
 
 /obj/item/ammo_casing/shotgun/dart/bioterror
 	desc = "A shotgun dart filled with deadly toxins."
 
-/obj/item/ammo_casing/shotgun/dart/bioterror/Initialize()
+/obj/item/ammo_casing/shotgun/dart/bioterror/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/consumable/ethanol/neurotoxin, 6)
 	reagents.add_reagent(/datum/reagent/toxin/spore, 6)

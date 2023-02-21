@@ -23,6 +23,7 @@
 #define APPRENTICE_BLUESPACE "bluespace"
 #define APPRENTICE_ROBELESS "robeless"
 #define APPRENTICE_HEALING "healing"
+#define APPRENTICE_WILDMAGIC "wildmagic"
 
 
 //Blob
@@ -34,13 +35,6 @@
 
 //Overthrow time to update heads obj
 #define OBJECTIVE_UPDATING_TIME 300
-
-//Assimilation
-#define TRACKER_DEFAULT_TIME 900
-#define TRACKER_MINDSHIELD_TIME 1200
-#define TRACKER_AWAKENED_TIME	3000
-#define TRACKER_BONUS_LARGE 300
-#define TRACKER_BONUS_SMALL 100
 
 //gang dominators
 #define NOT_DOMINATING			-1
@@ -75,6 +69,9 @@
 #define SPAWNTYPE_MIDROUND "midround"
 #define SPAWNTYPE_EITHER "either"
 
+/// Checks if the given mob is a blood cultist
+#define IS_CULTIST(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/cult))
+
 ///It is faster as a macro than a proc
 #define IS_HERETIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic))
 #define IS_HERETIC_MONSTER(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic_monster))
@@ -96,3 +93,8 @@
 /// TC to charge someone if they get a free implant through choice or
 /// because they have nothing else that supports an implant.
 #define UPLINK_IMPLANT_TELECRYSTAL_COST 3
+
+///Checks if given mob is a hive host
+#define IS_HIVEHOST(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivemind))
+///Checks if given mob is an awakened vessel
+#define IS_WOKEVESSEL(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivevessel))

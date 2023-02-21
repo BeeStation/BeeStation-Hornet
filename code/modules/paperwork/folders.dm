@@ -13,7 +13,7 @@
 	user.visible_message("<span class='suicide'>[user] begins filing an imaginary death warrant! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return OXYLOSS
 
-/obj/item/folder/Initialize()
+/obj/item/folder/Initialize(mapload)
 	update_icon()
 	. = ..()
 
@@ -26,7 +26,7 @@
 
 /obj/item/folder/examine()
 	. = ..()
-	if(contents)
+	if(length(contents))
 		. += "<span class='notice'>Alt-click to remove [contents[1]].</span>"
 
 /obj/item/folder/proc/rename(mob/user)
@@ -52,7 +52,9 @@
 
 /obj/item/folder/AltClick(mob/user)
 	..()
-	if(contents)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
+	if(length(contents))
 		remove_item(contents[1], user)
 
 /obj/item/folder/update_overlays()

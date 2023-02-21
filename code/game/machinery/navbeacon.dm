@@ -21,18 +21,18 @@
 
 	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
 
-/obj/machinery/navbeacon/Initialize()
+/obj/machinery/navbeacon/Initialize(mapload)
 	. = ..()
 
 	set_codes()
 
 	var/turf/T = loc
 	hide(T.intact)
-	if(codes["patrol"])
+	if(codes?["patrol"])
 		if(!GLOB.navbeacons["[z]"])
 			GLOB.navbeacons["[z]"] = list()
 		GLOB.navbeacons["[z]"] += src //Register with the patrol list!
-	if(codes["delivery"])
+	if(codes?["delivery"])
 		GLOB.deliverybeacons += src
 		GLOB.deliverybeacontags += location
 
@@ -96,7 +96,7 @@
 
 		update_icon()
 
-	else if (istype(I, /obj/item/card/id)||istype(I, /obj/item/pda))
+	else if (istype(I, /obj/item/card/id) || istype(I, /obj/item/modular_computer/tablet))
 		if(open)
 			if (src.allowed(user))
 				src.locked = !src.locked

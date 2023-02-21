@@ -12,6 +12,8 @@
 	spillable = TRUE
 	resistance_flags = ACID_PROOF
 	obj_flags = UNIQUE_RENAME
+	drop_sound = 'sound/items/handling/drinkglass_drop.ogg'
+	pickup_sound =  'sound/items/handling/drinkglass_pickup.ogg'
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/on_reagent_change(changetype)
 	cut_overlays()
@@ -73,7 +75,7 @@
 		desc = "A shot glass - the universal symbol for bad decisions."
 		return
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/filled/Initialize()
+/obj/item/reagent_containers/food/drinks/drinkingglass/filled/Initialize(mapload)
 	. = ..()
 	on_reagent_change(ADD_REAGENT)
 
@@ -108,7 +110,7 @@
 		target.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [target]!</span>", \
 						"<span class='userdanger'>[user] splashes the contents of [src] onto you!</span>")
 		log_combat(user, target, "splashed", src)
-		reagents.reaction(target, TOUCH)
+		reagents.expose(target, TOUCH)
 		reagents.clear_reagents()
 		return
 	..()
@@ -121,6 +123,6 @@
 	else if(reagents.total_volume && user.a_intent == INTENT_HARM)
 		user.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [target]!</span>", \
 							"<span class='notice'>You splash the contents of [src] onto [target].</span>")
-		reagents.reaction(target, TOUCH)
+		reagents.expose(target, TOUCH)
 		reagents.clear_reagents()
 		return

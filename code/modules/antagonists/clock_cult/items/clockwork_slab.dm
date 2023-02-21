@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	//For trap linkage
 	var/datum/component/clockwork_trap/buffer
 
-/obj/item/clockwork/clockwork_slab/Initialize()
+/obj/item/clockwork/clockwork_slab/Initialize(mapload)
 	if(!length(GLOB.clockcult_all_scriptures))
 		generate_clockcult_scriptures()
 	var/pos = 1
@@ -57,7 +57,12 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		bind_spell(null, default_script, pos++)
 	..()
 
+/obj/item/clockwork/clockwork_slab/Destroy()
+	GLOB.clockwork_slabs -= src
+	return ..()
+
 /obj/item/clockwork/clockwork_slab/dropped(mob/user)
+	..()
 	//Clear quickbinds
 	for(var/datum/action/innate/clockcult/quick_bind/script in quick_bound_scriptures)
 		script.Remove(user)
@@ -65,10 +70,9 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		active_scripture.end_invokation()
 	if(buffer)
 		buffer = null
-	. = ..()
 
 /obj/item/clockwork/clockwork_slab/pickup(mob/user)
-	. = ..()
+	..()
 	if(!is_servant_of_ratvar(user))
 		return
 	//Grant quickbound spells

@@ -12,7 +12,7 @@
 /obj/structure/plasticflaps/opaque
 	opacity = TRUE
 
-/obj/structure/plasticflaps/Initialize()
+/obj/structure/plasticflaps/Initialize(mapload)
 	. = ..()
 	alpha = 0
 	SSvis_overlays.add_vis_overlay(src, icon, icon_state, ABOVE_MOB_LAYER, plane, dir, add_appearance_flags = RESET_ALPHA) //you see mobs under it, but you hit them like they are above it
@@ -45,8 +45,7 @@
 			if(anchored)
 				return TRUE
 			to_chat(user, "<span class='notice'>You cut apart [src].</span>")
-			var/obj/item/stack/sheet/plastic/five/P = new(loc)
-			P.add_fingerprint(user)
+			new /obj/item/stack/sheet/plastic/five(loc, null, TRUE, user)
 			qdel(src)
 			return TRUE
 		else
@@ -102,7 +101,7 @@
 		new /obj/item/stack/sheet/plastic/five(loc)
 	qdel(src)
 
-/obj/structure/plasticflaps/Initialize()
+/obj/structure/plasticflaps/Initialize(mapload)
 	. = ..()
 	air_update_turf(TRUE)
 

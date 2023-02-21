@@ -19,7 +19,7 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
-/obj/item/circuit_component/list_length_constructor/Initialize()
+/obj/item/circuit_component/list_length_constructor/Initialize(mapload)
 	. = ..()
 	input_length = add_input_port("Length", PORT_TYPE_NUMBER)
 	output_port = add_output_port("Output", PORT_TYPE_LIST)

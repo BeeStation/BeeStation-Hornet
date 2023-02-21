@@ -40,7 +40,7 @@
 	var/list/extrapolatordisease = list()
 
 
-/mob/living/simple_animal/pet/hamster/vector/Initialize()
+/mob/living/simple_animal/pet/hamster/vector/Initialize(mapload)
 	. = ..()
 	if(prob(5))
 		var/datum/disease/disease = pick(/datum/disease/cold, /datum/disease/flu, /datum/disease/fluspanish)

@@ -5,9 +5,15 @@ GLOBAL_LIST_EMPTY(radial_menus)
 
 /atom/movable/screen/radial
 	icon = 'icons/mob/radial.dmi'
-	layer = ABOVE_HUD_LAYER
+
 	plane = ABOVE_HUD_PLANE
 	var/datum/radial_menu/parent
+
+/atom/movable/screen/radial/Destroy()
+	if(parent)
+		parent.elements -= src
+		UnregisterSignal(parent, COMSIG_PARENT_QDELETING)
+	. = ..()
 
 /atom/movable/screen/radial/proc/set_parent(new_value)
 	if(parent)
@@ -18,7 +24,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 
 /atom/movable/screen/radial/proc/handle_parent_del()
 	SIGNAL_HANDLER
-	set_parent(null)
+	qdel(src) // No reason for us to exist if our parent menu's gone and we don't have a new one
 
 /atom/movable/screen/radial/slice
 	icon_state = "radial_slice"
@@ -60,6 +66,11 @@ GLOBAL_LIST_EMPTY(radial_menus)
 /atom/movable/screen/radial/center/Click(location, control, params)
 	if(usr.client == parent.current_user)
 		parent.finished = TRUE
+
+/atom/movable/screen/radial/center/Destroy()
+	if(parent)
+		parent.close_button = null
+	return ..()
 
 /datum/radial_menu
 	/// List of choice IDs
@@ -216,6 +227,9 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	else
 		if(istext(choices_values[choice_id]))
 			E.name = choices_values[choice_id]
+		else if(ispath(choices_values[choice_id],/atom))
+			var/atom/A = choices_values[choice_id]
+			E.name = initial(A.name)
 		else
 			var/atom/movable/AM = choices_values[choice_id] //Movables only
 			E.name = AM.name
@@ -228,7 +242,8 @@ GLOBAL_LIST_EMPTY(radial_menus)
 			var/datum/radial_menu_choice/choice_datum = choice_datums[choice_id]
 			if (choice_datum.info)
 				var/obj/effect/abstract/info/info_button = new(E, choice_datum.info)
-				info_button.layer = ABOVE_HUD_LAYER
+				info_button.plane = ABOVE_HUD_PLANE
+				info_button.layer = RADIAL_BACKGROUND_LAYER
 				E.vis_contents += info_button
 
 /datum/radial_menu/New()
@@ -270,7 +285,8 @@ GLOBAL_LIST_EMPTY(radial_menus)
 
 	var/mutable_appearance/MA = new /mutable_appearance(to_extract_from)
 	if(MA)
-		MA.layer = ABOVE_HUD_LAYER
+		MA.plane = ABOVE_HUD_PLANE
+		MA.layer = RADIAL_CONTENT_LAYER
 		MA.appearance_flags |= RESET_TRANSFORM
 	return MA
 
@@ -287,7 +303,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		return
 	current_user = M.client
 	//Blank
-	menu_holder = image(icon='icons/effects/effects.dmi',loc=anchor,icon_state="nothing",layer = ABOVE_HUD_LAYER)
+	menu_holder = image(icon='icons/effects/effects.dmi',loc=anchor,icon_state="nothing")
 	menu_holder.appearance_flags |= KEEP_APART
 	menu_holder.vis_contents += elements + close_button
 	current_user.images += menu_holder
@@ -308,6 +324,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		stoplag(1)
 
 /datum/radial_menu/Destroy()
+	QDEL_LIST(elements)
 	Reset()
 	hide()
 	QDEL_NULL(custom_check_callback)

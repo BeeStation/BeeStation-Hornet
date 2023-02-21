@@ -22,7 +22,7 @@
 	knockdown = 0
 	irradiate = 400
 
-/obj/item/projectile/energy/bolt/radbolt/Initialize()
+/obj/item/projectile/energy/bolt/radbolt/Initialize(mapload)
 	. = ..()
 	create_reagents(30, NO_REACT)
 	reagents.add_reagent(/datum/reagent/toxin/polonium, 10)
@@ -36,7 +36,7 @@
 		if(blocked != 100) // not completely blocked
 			if(M.can_inject(null, FALSE, def_zone,)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
-				reagents.reaction(M, INJECT)
+				reagents.expose(M, INJECT)
 				reagents.trans_to(M, reagents.total_volume)
 				M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 15, 170)
 				M.confused += 3

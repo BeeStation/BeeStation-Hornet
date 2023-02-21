@@ -10,7 +10,7 @@
 	var/air_frequency = FREQ_ATMOS_ALARMS
 	autoclose = FALSE
 
-/obj/machinery/door/airlock/alarmlock/Initialize()
+/obj/machinery/door/airlock/alarmlock/Initialize(mapload)
 	. = ..()
 	air_connection = new
 
@@ -19,7 +19,7 @@
 	air_connection = null
 	return ..()
 
-/obj/machinery/door/airlock/alarmlock/Initialize()
+/obj/machinery/door/airlock/alarmlock/Initialize(mapload)
 	. = ..()
 	SSradio.remove_object(src, air_frequency)
 	air_connection = SSradio.add_object(src, air_frequency, RADIO_TO_AIRALARM)
@@ -27,7 +27,7 @@
 
 /obj/machinery/door/airlock/alarmlock/receive_signal(datum/signal/signal)
 	..()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return
 
 	var/alarm_area = signal.data["zone"]

@@ -107,6 +107,7 @@
 	desc = "A tank of plasma gas designed specifically for use as internals, particularly for plasma-based lifeforms. If you're not a Plasmaman, you probably shouldn't use this."
 	icon_state = "plasmaman_tank"
 	item_state = "plasmaman_tank"
+	worn_icon_state = "plasmaman_tank"
 	force = 10
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 
@@ -124,6 +125,7 @@
 	name = "plasma internals belt tank"
 	icon_state = "plasmaman_tank_belt"
 	item_state = "plasmaman_tank_belt"
+	worn_icon_state = "plasmaman_tank_belt"
 	slot_flags = ITEM_SLOT_BELT
 	force = 5
 	volume = 6
@@ -144,6 +146,7 @@
 	name = "emergency oxygen tank"
 	desc = "Used for emergencies. Contains very little oxygen, so try to conserve it until you actually need it."
 	icon_state = "emergency"
+	worn_icon_state = "emergency"
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
@@ -161,6 +164,7 @@
 /obj/item/tank/internals/emergency_oxygen/engi
 	name = "extended-capacity emergency oxygen tank"
 	icon_state = "emergency_engi"
+	worn_icon_state = "emergency_engi"
 	volume = 2 // should last a bit over 30 minutes if full
 
 /obj/item/tank/internals/emergency_oxygen/engi/empty/populate_gas()

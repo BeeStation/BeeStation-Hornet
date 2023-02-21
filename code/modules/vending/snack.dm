@@ -17,7 +17,7 @@
 	var/chef_compartment_access = "28" //ACCESS_KITCHEN
 	default_price = 20
 	extra_price = 30
-	payment_department = ACCOUNT_SRV
+	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
 /obj/item/vending_refill/snack
 	machine_name = "Getmore Chocolate Corp"
@@ -93,7 +93,7 @@
 	icon_state = "random_snack"
 	desc = "Uh oh!"
 
-/obj/machinery/vending/snack/random/Initialize()
+/obj/machinery/vending/snack/random/Initialize(mapload)
 	..()
 	var/T = pick(subtypesof(/obj/machinery/vending/snack) - /obj/machinery/vending/snack/random)
 	new T(loc)

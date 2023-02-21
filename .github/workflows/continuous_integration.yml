@@ -14,9 +14,13 @@ on:
 
 jobs:
   run_linters:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
+      - name: Python setup
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.9"
       - name: Setup cache
         id: cache-spacemandmm
         uses: actions/cache@v2
@@ -28,24 +32,23 @@ jobs:
         run: bash tools/ci/install_spaceman_dmm.sh dreamchecker
       - name: Install Tools
         run: |
-          pip3 install setuptools
+          pip install setuptools
           bash tools/ci/install_node.sh
           bash tools/ci/install_auxmos.sh
-          pip3 install -r tools/requirements.txt
+          pip install -r tools/requirements.txt
       - name: Run Linters
         run: |
           bash tools/ci/check_filedirs.sh beestation.dme
           bash tools/ci/check_changelogs.sh
           find . -name "*.php" -print0 | xargs -0 -n1 php -l
-          find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python3 ./tools/json_verifier.py
+          find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python ./tools/json_verifier.py
           bash tools/ci/check_grep.sh
-          tgui/bin/tgui --lint
-          tgui/bin/tgui --test
+          tools/build/build --ci lint tgui-test
           tools/bootstrap/python -m dmi.test
           tools/bootstrap/python -m mapmerge2.dmm_test
           ~/dreamchecker
   compile_all_maps:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - name: Setup cache
@@ -61,9 +64,9 @@ jobs:
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
           python3 tools/ci/template_dm_generator.py
-          tools/build/build dm -DCIBUILDING -DCITESTING -DALL_MAPS
+          tools/build/build --ci dm -DCIBUILDING -DCITESTING -DALL_MAPS
   run_all_tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     services:
       mysql:
         image: mysql:latest
@@ -100,7 +103,7 @@ jobs:
       - name: Compile and run tests
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
-          tools/build/build -DCIBUILDING
+          tools/build/build --ci build -DCIBUILDING
           bash tools/ci/run_server.sh
   test_windows:
     runs-on: windows-latest

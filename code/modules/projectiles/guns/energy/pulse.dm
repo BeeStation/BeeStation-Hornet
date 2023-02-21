@@ -13,13 +13,10 @@
 	fire_rate = 3
 	automatic = 1
 
-/obj/item/gun/energy/pulse/emp_act(severity)
-	return
-
 /obj/item/gun/energy/pulse/prize
 	pin = /obj/item/firing_pin
 
-/obj/item/gun/energy/pulse/prize/Initialize()
+/obj/item/gun/energy/pulse/prize/Initialize(mapload)
 	. = ..()
 	GLOB.poi_list += src
 	var/turf/T = get_turf(src)

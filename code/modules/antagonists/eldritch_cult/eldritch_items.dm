@@ -30,6 +30,17 @@
 	if(target.stat == DEAD)
 		to_chat(user,"<span class='warning'>[target.real_name] is dead. Bring them to a transmutation rune!</span>")
 
+/obj/item/living_heart/proc/set_target(datum/mind/new_target)
+	if(target?.mind)
+		UnregisterSignal(target.mind, COMSIG_MIND_CRYOED)
+	target = new_target?.current
+	if(target?.mind)
+		RegisterSignal(target.mind, COMSIG_MIND_CRYOED, .proc/on_target_cryo)
+
+/obj/item/living_heart/proc/on_target_cryo()
+	SIGNAL_HANDLER
+	set_target(null)
+
 /datum/action/innate/heretic_shatter
 	name = "Shattering Offer"
 	desc = "By breaking your blade, you will be granted salvation from a dire situation. (Teleports you to a random safe turf on your current z level, but destroys your blade.)"
@@ -58,6 +69,12 @@
 	to_chat(holder,"<span class='warning'>You feel a gust of energy flow through your body... the Rusted Hills heard your call...</span>")
 	qdel(sword)
 
+/datum/action/innate/heretic_shatter/Destroy()
+	if(sword)
+		sword.linked_action = null
+		sword = null
+	holder = null
+	return ..()
 
 /obj/item/melee/sickly_blade
 	name = "Sickly blade"
@@ -78,7 +95,7 @@
 	attack_verb = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
 	var/datum/action/innate/heretic_shatter/linked_action
 
-/obj/item/melee/sickly_blade/Initialize()
+/obj/item/melee/sickly_blade/Initialize(mapload)
 	. = ..()
 	linked_action = new(src)
 
@@ -91,11 +108,11 @@
 	return ..()
 
 /obj/item/melee/sickly_blade/pickup(mob/user)
-	. = ..()
+	..()
 	linked_action.Grant(user, src)
 
 /obj/item/melee/sickly_blade/dropped(mob/user, silent)
-	. = ..()
+	..()
 	linked_action.Remove(user, src)
 
 /obj/item/melee/sickly_blade/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -145,7 +162,7 @@
 		user.update_sight()
 
 /obj/item/clothing/neck/eldritch_amulet/dropped(mob/user)
-	. = ..()
+	..()
 	REMOVE_TRAIT(user, trait, CLOTHING_TRAIT)
 	user.update_sight()
 
@@ -158,13 +175,23 @@
 	name = "guise of Istasha"
 	desc = "An odd amulet formed out of multiple floating parts, strung togethere by forces from another world."
 	icon_state = "eye_medalion"
-	trait = TRAIT_DIGINVIS
+
+/obj/item/clothing/neck/eldritch_amulet/guise/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_NECK)
+		user.AddElement(/datum/element/digital_camo)
+	else
+		user.RemoveElement(/datum/element/digital_camo)
+
+/obj/item/clothing/neck/eldritch_amulet/guise/dropped(mob/user)
+	. = ..()
+	user.RemoveElement(/datum/element/digital_camo)
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	name = "ominous hood"
 	icon_state = "eldritch"
 	desc = "A torn, dust-caked hood. Strange eyes line the inside."
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	flash_protect = 1
 
@@ -194,7 +221,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
-	flags_inv = HIDEFACE|HIDEFACIALHAIR
+	flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 	///Who is wearing this
 	var/mob/living/carbon/human/local_user
 
@@ -209,10 +236,10 @@
 		ADD_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
 
 /obj/item/clothing/mask/void_mask/dropped(mob/M)
+	..()
 	local_user = null
 	STOP_PROCESSING(SSobj,src)
 	REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
-	return ..()
 
 /obj/item/clothing/mask/void_mask/process()
 	if(!local_user)
@@ -254,7 +281,7 @@
 		ADD_TRAIT(user, TRAIT_WARDED, CLOTHING_TRAIT)
 
 /obj/item/clothing/neck/crucifix/dropped(mob/user)
-	. = ..()
+	..()
 	REMOVE_TRAIT(user, TRAIT_WARDED, CLOTHING_TRAIT)
 
 /obj/item/clothing/neck/crucifix/rosary

@@ -11,7 +11,7 @@
 	var/obj/docking_port/stationary/my_port //the custom docking port placed by this console
 	var/obj/docking_port/mobile/shuttle_port //the mobile docking port of the connected shuttle
 	var/view_range = 0
-	var/list/whitelist_turfs = list(/turf/open/space, /turf/open/floor/plating/lavaland, /turf/open/floor/plating/asteroid, /turf/open/lava)
+	var/list/whitelist_turfs = list(/turf/open/space, /turf/open/floor/plating/lavaland, /turf/open/floor/plating/asteroid, /turf/open/lava, /turf/open/floor/dock, /turf/open/floor/plating/asteroid/snow, /turf/open/floor/plating/snowed, /turf/open/floor/plating/snowed/smoothed)
 	var/designate_time = 50
 	var/turf/designating_target_loc
 	var/datum/action/innate/camera_jump/shuttle_docker/docker_action = new
@@ -52,29 +52,30 @@
 		shuttle_port = null
 		return
 
-	eyeobj = new /mob/camera/ai_eye/remote/shuttle_docker(null, src)
+	var/turf/origin = locate(shuttle_port.x, shuttle_port.y, shuttle_port.z)
+	eyeobj = new /mob/camera/ai_eye/remote/shuttle_docker(origin, src)
 	var/mob/camera/ai_eye/remote/shuttle_docker/the_eye = eyeobj
 	the_eye.setDir(shuttle_port.dir)
-	var/turf/origin = locate(shuttle_port.x, shuttle_port.y, shuttle_port.z)
-	for(var/V in shuttle_port.shuttle_areas)
-		var/area/A = V
-		for(var/turf/T in A)
-			if(T.get_virtual_z_level() != origin.get_virtual_z_level())
-				continue
-			var/image/I = image('icons/effects/alphacolors.dmi', origin, "red")
-			var/x_off = T.x - origin.x
-			var/y_off = T.y - origin.y
-			I.loc = locate(origin.x + x_off, origin.y + y_off, origin.z) //we have to set this after creating the image because it might be null, and images created in nullspace are immutable.
-			I.layer = ABOVE_NORMAL_TURF_LAYER
-			I.plane = 0
-			I.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-			the_eye.placement_images[I] = list(x_off, y_off)
+	for(var/obj/docking_port/mobile/M in shuttle_port.get_all_towed_shuttles())
+		for(var/area/A in M.shuttle_areas)
+			for(var/turf/T in A)
+				if(T.get_virtual_z_level() != origin.get_virtual_z_level())
+					continue
+				var/image/I = image('icons/effects/alphacolors.dmi', origin, "red")
+				var/x_off = T.x - origin.x
+				var/y_off = T.y - origin.y
+				I.loc = locate(origin.x + x_off, origin.y + y_off, origin.z) //we have to set this after creating the image because it might be null, and images created in nullspace are immutable.
+				I.layer = ABOVE_NORMAL_TURF_LAYER
+				I.plane = 0
+				I.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+				the_eye.placement_images[I] = list(x_off, y_off)
 
 /obj/machinery/computer/shuttle_flight/proc/give_eye_control(mob/user)
 	if(!isliving(user))
 		return
-	if(!eyeobj)
-		CreateEye()
+	if(eyeobj)
+		qdel(eyeobj) //Custom shuttles can be modified, this needs to be updated to catch for that.
+	CreateEye()
 	GrantActions(user)
 	current_user = user
 	eyeobj.eye_user = user
@@ -82,7 +83,6 @@
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
 	eyeobj.setLoc(eyeobj.loc)
-	user.client.view_size.supress()
 	if(!QDELETED(user) && user.client)
 		var/mob/camera/ai_eye/remote/shuttle_docker/the_eye = eyeobj
 		var/list/to_add = list()
@@ -108,8 +108,6 @@
 		user.reset_perspective(null)
 		if(eyeobj.visible_icon && user.client)
 			user.client.images -= eyeobj.user_image
-
-		user.client.view_size.unsupress()
 
 	eyeobj.eye_user = null
 	user.remote_control = null
@@ -168,14 +166,16 @@
 		my_port = null
 
 	if(!my_port)
+		var/list/bounds = shuttle_port.return_union_bounds(shuttle_port.get_all_towed_shuttles())
 		my_port = new()
 		my_port.name = shuttlePortName
 		my_port.id = shuttlePortId
-		my_port.height = shuttle_port.height
-		my_port.width = shuttle_port.width
-		my_port.dheight = shuttle_port.dheight
-		my_port.dwidth = shuttle_port.dwidth
+		my_port.dwidth = bounds[1]
+		my_port.dheight = bounds[2]
+		my_port.width = bounds[3]
+		my_port.height = bounds[4]
 		my_port.hidden = shuttle_port.hidden
+		my_port.delete_after = TRUE
 	my_port.setDir(the_eye.dir)
 	my_port.forceMove(locate(eyeobj.x, eyeobj.y, eyeobj.z))
 
@@ -211,7 +211,7 @@
 	return TRUE
 
 /obj/machinery/computer/shuttle_flight/proc/canDesignateTarget()
-	if(!designating_target_loc || !current_user || (eyeobj.loc != designating_target_loc) || (stat & (NOPOWER|BROKEN)) )
+	if(!designating_target_loc || !current_user || (eyeobj.loc != designating_target_loc) || (machine_stat & (NOPOWER|BROKEN)) )
 		return FALSE
 	return TRUE
 
@@ -276,10 +276,18 @@
 		if(!is_type_in_typecache(turf_type, whitelist_turfs))
 			return SHUTTLE_DOCKER_BLOCKED
 
+	for(var/obj/machinery/M in T.contents) //An inprecise check to prevent theft of important machines such the SM or the communication console.
+		return SHUTTLE_DOCKER_BLOCKED
+
 	// Checking for overlapping dock boundaries
 	for(var/i in 1 to overlappers.len)
-		var/obj/docking_port/port = overlappers[i]
+		var/obj/docking_port/mobile/shuttle = overlappers[i]
+		if(istype(shuttle) && shuttle.undockable)
+			return SHUTTLE_DOCKER_BLOCKED
+		var/obj/docking_port/stationary/port = overlappers[i]
 		if(port == my_port)
+			continue
+		if(port.delete_after) //Don't worry about it, we're landing on another ship, no ship will land on this port.
 			continue
 		var/port_hidden = !shuttleObject.stealth && port.hidden
 		var/list/overlap = overlappers[port]
@@ -303,13 +311,16 @@
 
 /mob/camera/ai_eye/remote/shuttle_docker
 	visible_icon = FALSE
-	use_static = USE_STATIC_NONE
+	use_static = FALSE
 	var/list/placement_images = list()
 	var/list/placed_images = list()
 
 /mob/camera/ai_eye/remote/shuttle_docker/Initialize(mapload, obj/machinery/computer/camera_advanced/origin)
 	src.origin = origin
 	return ..()
+
+/mob/camera/ai_eye/remote/shuttle_docker/canZMove(direction, turf/source, turf/target, pre_move = TRUE)
+	return TRUE
 
 /mob/camera/ai_eye/remote/shuttle_docker/setLoc(destination)
 	. = ..()

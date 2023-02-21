@@ -13,8 +13,8 @@
 	aggro_vision_range = 9
 	move_to_delay = 5
 	friendly = "harmlessly rolls into"
-	maxHealth = 45
-	health = 45
+	maxHealth = 23
+	health = 23
 	melee_damage = 0
 	attacktext = "barrels into"
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -30,7 +30,7 @@
 	var/chase_time = 100
 	var/will_burrow = TRUE
 
-/mob/living/simple_animal/hostile/asteroid/goldgrub/Initialize()
+/mob/living/simple_animal/hostile/asteroid/goldgrub/Initialize(mapload)
 	. = ..()
 	var/i = rand(1,3)
 	while(i)

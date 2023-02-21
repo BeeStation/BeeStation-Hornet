@@ -1,24 +1,52 @@
 
 //Hat Station 13
 
+/* 
+
+	Contents: 
+
+		Pete's collectible hat
+		Collectable slime cap
+		Collectable xenomorph helmet
+		Collectable chef's hat
+		Collectable paper hat
+		Collectable top hat
+		Collectable captain's hat
+		Collectable polic officer's hat
+		Collectable beret
+		Collectable welding helmet
+		Collectable slime hat
+		Collectable flat cap
+		Collectable pirate hat
+		Collectable kitty ears
+		Collectable rabbit ears
+		Collectable wizard's hat
+		Collectable hard hat
+		Collectable HoS hat
+		Collectable HoP hat
+		Collectable thunderdome helmet
+		Collectable SWAT helmet
+
+*/
+
 /obj/item/clothing/head/collectable
 	name = "collectable hat"
 	desc = "A rare collectable hat."
 
 /obj/item/clothing/head/collectable/petehat
-	name = "ultra rare Pete's hat!"
+	name = "ultra rare Pete's hat"
 	desc = "It smells faintly of plasma."
 	icon_state = "petehat"
 
 /obj/item/clothing/head/collectable/slime
-	name = "collectable slime cap!"
+	name = "collectable slime cap"
 	desc = "It just latches right in place!"
 	icon_state = "slime"
 	clothing_flags = SNUG_FIT
 	dynamic_hair_suffix = ""
 
 /obj/item/clothing/head/collectable/xenom
-	name = "collectable xenomorph helmet!"
+	name = "collectable xenomorph helmet"
 	desc = "Hiss hiss hiss!"
 	icon_state = "xenom"
 	clothing_flags = SNUG_FIT
@@ -142,6 +170,7 @@
 	name = "collectable HoP hat"
 	desc = "It's your turn to demand excessive paperwork, signatures, stamps, and hire more clowns! Papers, please!"
 	icon_state = "hopcap"
+
 	dog_fashion = /datum/dog_fashion/head/hop
 
 /obj/item/clothing/head/collectable/thunderdome

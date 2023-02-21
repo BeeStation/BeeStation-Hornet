@@ -16,6 +16,7 @@
 	pass_flags_self = PASSGLASS
 	CanAtmosPass = ATMOS_PASS_PROC
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
+	network_id = NETWORK_DOOR_AIRLOCKS
 	var/obj/item/electronics/airlock/electronics = null
 	var/reinf = 0
 	var/shards = 2
@@ -42,13 +43,10 @@
 	)
 
 	AddElement(/datum/element/connect_loc, loc_connections)
-
-/obj/machinery/door/window/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/ntnet_interface)
+	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, .proc/ntnet_receive)
 
 /obj/machinery/door/window/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(1)
 	QDEL_LIST(debris)
 	if(obj_integrity == 0)
@@ -95,10 +93,8 @@
 	if( operating || !density )
 		return
 	add_fingerprint(user)
-	if(!requiresID())
-		user = null
-
-	if(allowed(user))
+	// Cutting WIRE_IDSCAN disables normal entry... or it would, if we could hack windowdoors.
+	if(!id_scan_hacked() && allowed(user))
 		open_and_close()
 	else
 		do_animate("deny")
@@ -159,7 +155,7 @@
 	icon_state ="[base_state]open"
 	sleep(10)
 
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(1)
 	update_freelook_sight()
 
@@ -181,7 +177,7 @@
 	playsound(src, 'sound/machines/windowdoor.ogg', 100, 1)
 	icon_state = base_state
 
-	density = TRUE
+	set_density(TRUE)
 	air_update_turf(1)
 	update_freelook_sight()
 	sleep(10)
@@ -218,16 +214,23 @@
 		take_damage(round(exposed_volume / 200), BURN, 0, 0)
 	..()
 
-/obj/machinery/door/window/emag_act(mob/user)
-	if(!operating && density && !(obj_flags & EMAGGED))
-		obj_flags |= EMAGGED
-		operating = TRUE
-		flick("[base_state]spark", src)
-		playsound(src, "sparks", 75, 1)
-		sleep(6)
-		operating = FALSE
-		desc += "<BR><span class='warning'>Its access panel is smoking slightly.</span>"
-		open(2)
+/obj/machinery/door/window/should_emag(mob/user)
+	// Don't allow emag if the door is currently open or moving
+	return !operating && density && ..()
+
+/obj/machinery/door/window/on_emag(mob/user)
+	..()
+	operating = TRUE
+	flick("[base_state]spark", src)
+	playsound(src, "sparks", 75, 1)
+	addtimer(CALLBACK(src, .proc/after_emag), 6)
+
+/obj/machinery/door/window/proc/after_emag()
+	if(QDELETED(src))
+		return
+	operating = FALSE
+	desc += "<BR><span class='warning'>Its access panel is smoking slightly.</span>"
+	open(2)
 
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
 
@@ -320,24 +323,22 @@
 			flick("[base_state]deny", src)
 
 /obj/machinery/door/window/check_access_ntnet(datum/netdata/data)
-	return !requiresID() || ..()
+	// Cutting WIRE_IDSCAN grants remote access... or it would, if we could hack windowdoors.
+	return id_scan_hacked() || ..()
 
-/obj/machinery/door/window/ntnet_receive(datum/netdata/data)
+/obj/machinery/door/window/proc/ntnet_receive(datum/source, datum/netdata/data)
 	// Check if the airlock is powered.
 	if(!hasPower())
 		return
 
 	//Check radio signal jamming
-	if(is_jammed())
+	if(is_jammed(JAMMER_PROTECTION_WIRELESS))
 		return
 
-	// Check packet access level.
-	if(!check_access_ntnet(data))
-		return
 
 	// Handle received packet.
-	var/command = lowertext(data.data["data"])
-	var/command_value = lowertext(data.data["data_secondary"])
+	var/command = data.data["data"]
+	var/command_value = data.data["data_secondary"]
 	switch(command)
 		if("open")
 			if(command_value == "on" && !density)

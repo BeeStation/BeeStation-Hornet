@@ -14,6 +14,8 @@
 	throwforce = 5
 	hitsound = "swing_hit"
 	usesound = list('sound/items/welder.ogg', 'sound/items/welder2.ogg')
+	drop_sound = 'sound/items/handling/weldingtool_drop.ogg'
+	pickup_sound =  'sound/items/handling/weldingtool_pickup.ogg'
 	var/acti_sound = 'sound/items/welderactivate.ogg'
 	var/deac_sound = 'sound/items/welderdeactivate.ogg'
 	light_system = MOVABLE_LIGHT
@@ -37,11 +39,12 @@
 	var/progress_flash_divisor = 10
 	var/burned_fuel_for = 0	//when fuel was last removed
 	var/light_intensity = 2
+	var/disabled_time = 0 //Used by the cyborg welders to determine how long they remain off after getting hit by a nightmare
 	heat = 3800
 	tool_behaviour = TOOL_WELDER
 	toolspeed = 1
 
-/obj/item/weldingtool/Initialize()
+/obj/item/weldingtool/Initialize(mapload)
 	. = ..()
 	create_reagents(max_fuel)
 	reagents.add_reagent(/datum/reagent/fuel, max_fuel)
@@ -107,23 +110,10 @@
 	dyn_explosion(T, plasmaAmount/5)//20 plasma in a standard welder has a 4 power explosion. no breaches, but enough to kill/dismember holder
 	qdel(src)
 
-/obj/item/weldingtool/attack(mob/living/carbon/human/H, mob/user)
-	if(!istype(H))
-		return ..()
-
-	var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
-
-	if(affecting && affecting.status == BODYPART_ROBOTIC && user.a_intent != INTENT_HARM)
-		if(src.use_tool(H, user, 0, volume=50, amount=1))
-			if(user == H)
-				user.visible_message("<span class='notice'>[user] starts to fix some of the dents on [H]'s [affecting.name].</span>",
-					"<span class='notice'>You start fixing some of the dents on [H == user ? "your" : "[H]'s"] [affecting.name].</span>")
-				if(!do_mob(user, H, 50))
-					return
-			item_heal_robotic(H, user, 15, 0)
-	else
-		return ..()
-
+/obj/item/weldingtool/use_tool(atom/target, mob/living/user, delay, amount, volume, datum/callback/extra_checks)
+	target.add_overlay(GLOB.welding_sparks)
+	. = ..()
+	target.cut_overlay(GLOB.welding_sparks)
 
 /obj/item/weldingtool/afterattack(atom/O, mob/user, proximity)
 	. = ..()
@@ -131,7 +121,7 @@
 		return
 	if(!status && O.is_refillable())
 		reagents.trans_to(O, reagents.total_volume, transfered_by = user)
-		balloon_alert(user, "Fuel tank emptied")
+		balloon_alert(user, "You empty the fuel tank.")
 		update_icon()
 	if(isOn())
 		use(1)
@@ -203,12 +193,15 @@
 //Switches the welder on
 /obj/item/weldingtool/proc/switched_on(mob/user)
 	if(!status)
-		balloon_alert(user, "It can't be turned on while unsecured")
+		balloon_alert(user, "You try to turn [src] on, but it's unsecured!")
+		return
+	if(world.time < disabled_time)
+		balloon_alert(user, "You try to turn [src] on, but nothing happens!")
 		return
 	set_welding(!welding)
 	if(welding)
 		if(get_fuel() >= 1)
-			balloon_alert(user, "[src] turned on")
+			balloon_alert(user, "You turn [src] on.")
 			playsound(loc, acti_sound, 50, 1)
 			force = 15
 			damtype = "fire"
@@ -216,10 +209,10 @@
 			update_icon()
 			START_PROCESSING(SSobj, src)
 		else
-			balloon_alert(user, "No fuel")
+			balloon_alert(user, "The [src] is empty!")
 			switched_off(user)
 	else
-		balloon_alert(user, "[src] turned off")
+		balloon_alert(user, "You turn [src] off.")
 		playsound(loc, deac_sound, 50, 1)
 		switched_off(user)
 
@@ -263,26 +256,26 @@
 // If welding tool ran out of fuel during a construction task, construction fails.
 /obj/item/weldingtool/tool_use_check(mob/living/user, amount)
 	if(!isOn() || !check_fuel())
-		balloon_alert(user, "[src] has to be on")
+		balloon_alert(user, "You need to turn [src] on to do that.")
 		return FALSE
 
 	if(get_fuel() >= amount)
 		return TRUE
 	else
-		balloon_alert(user, "Not enough fuel to complete this task")
+		balloon_alert(user, "The [src] doesn't have enough fuel to complete this task.")
 		return FALSE
 
 
 /obj/item/weldingtool/proc/flamethrower_screwdriver(obj/item/I, mob/user)
 	if(welding)
-		balloon_alert(user, "[src] should be turned off")
+		balloon_alert(user, "You should turn [src] off before doing this...")
 		return
 	status = !status
 	if(status)
-		balloon_alert(user, "[src] secured and fuel tank closed")
+		balloon_alert(user, "You close the fuel tank.")
 		DISABLE_BITFIELD(reagents.flags, OPENCONTAINER)
 	else
-		balloon_alert(user, "[src] can now be attached, modified, and refuelled")
+		balloon_alert(user, "You can now attach, modify and refuel [src].")
 		ENABLE_BITFIELD(reagents.flags, OPENCONTAINER)
 	add_fingerprint(user)
 
@@ -295,10 +288,11 @@
 				user.transferItemToLoc(src, F, TRUE)
 			F.weldtool = src
 			add_fingerprint(user)
-			balloon_alert(user, "You start bulding flamethrower")
+			balloon_alert(user, "You start bulding a flamethrower...")
 			user.put_in_hands(F)
+			log_crafting(user, F, TRUE)
 		else
-			balloon_alert(user, "You need one rod to build flamethrower")
+			balloon_alert(user, "You need one rod to build a flamethrower!")
 
 /obj/item/weldingtool/ignition_effect(atom/A, mob/user)
 	if(use_tool(A, user, 0, amount=1))
@@ -316,18 +310,6 @@
 /obj/item/weldingtool/largetank/flamethrower_screwdriver()
 	return
 
-/obj/item/weldingtool/largetank/cyborg
-	name = "integrated welding tool"
-	desc = "An advanced welder designed to be used in robotic systems. Custom framework doubles the speed of welding."
-	icon = 'icons/obj/items_cyborg.dmi'
-	icon_state = "indwelder_cyborg"
-	toolspeed = 0.5
-
-/obj/item/weldingtool/largetank/cyborg/cyborg_unequip(mob/user)
-	if(!isOn())
-		return
-	switched_on(user)
-
 /obj/item/weldingtool/mini
 	name = "emergency welding tool"
 	desc = "A miniature welder used during emergencies."
@@ -339,6 +321,40 @@
 
 /obj/item/weldingtool/mini/flamethrower_screwdriver()
 	return
+
+/obj/item/weldingtool/cyborg
+	name = "integrated welding tool"
+	desc = "An advanced welder designed to be used in robotic systems. Custom framework doubles the speed of welding."
+	icon = 'icons/obj/items_cyborg.dmi'
+	icon_state = "indwelder_cyborg"
+	toolspeed = 0.5
+	max_fuel = 40
+	materials = list(/datum/material/glass=60)
+
+/obj/item/weldingtool/cyborg/cyborg_unequip(mob/user)
+	if(!isOn())
+		return
+	switched_on(user)
+
+/obj/item/weldingtool/cyborg/flamethrower_screwdriver()
+	return
+
+///This gets called by the lighteater to temporarity disable it
+/obj/item/weldingtool/cyborg/proc/disable()
+	disabled_time = world.time + 30 SECONDS
+	switched_off(usr)
+	playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
+
+
+/obj/item/weldingtool/cyborg/mini
+	name = "integrated emergency welding tool"
+	desc = "A miniature integrated welder used during emergencies."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "miniwelder"
+	max_fuel = 10
+	w_class = WEIGHT_CLASS_TINY
+	materials = list(/datum/material/iron=30, /datum/material/glass=10)
+	change_icons = 0
 
 /obj/item/weldingtool/abductor
 	name = "alien welding tool"

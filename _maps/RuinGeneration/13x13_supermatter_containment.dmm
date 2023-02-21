@@ -38,8 +38,8 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "N" = (
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop/open,
+/area/template_noop)
 "P" = (
 /obj/machinery/power/supermatter_crystal/shard/hugbox,
 /turf/open/floor/plating,

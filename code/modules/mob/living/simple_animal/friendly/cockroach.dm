@@ -28,7 +28,7 @@
 	del_on_death = TRUE
 	chat_color = "#BC7658"
 
-/mob/living/simple_animal/cockroach/Initialize()
+/mob/living/simple_animal/cockroach/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,

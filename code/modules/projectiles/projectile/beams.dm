@@ -13,6 +13,7 @@
 	light_range = 2
 	light_power = 1
 	light_color = LIGHT_COLOR_RED
+	light_flags = LIGHT_NO_LUMCOUNT
 	ricochets_max = 50	//Honk!
 	ricochet_chance = 80
 	reflectable = REFLECT_NORMAL
@@ -39,7 +40,7 @@
 		impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser/wall
 
 /obj/item/projectile/beam/weak
-	damage = 8
+	damage = 12
 
 /obj/item/projectile/beam/weak/penetrator //laser gatling and centcom shuttle turret
 	damage = 15
@@ -62,6 +63,7 @@
 	damage = 15
 	irradiate = 300
 	range = 15
+	armour_penetration = 60
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS
 
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser

@@ -33,7 +33,7 @@
 /turf/open/floor/wax,
 /area/template_noop)
 "o" = (
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/fancy/sofa/corp/right{
 	color = "#ffd966";
 	dir = 8
 	},
@@ -58,27 +58,27 @@
 /turf/open/floor/wax,
 /area/template_noop)
 "t" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/wax,
 /area/template_noop)
 "v" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/wax,
 /area/template_noop)
 "x" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
 /turf/open/floor/wax,
 /area/template_noop)
 "C" = (
-/obj/structure/chair/sofa/corp/corner{
+/obj/structure/chair/fancy/sofa/corp/corner/concave{
 	color = "#ffd966";
 	dir = 8
 	},
@@ -90,8 +90,8 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Bee Lounge Backroom"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/grid/steel,
 /area/template_noop)
 "E" = (
@@ -109,15 +109,15 @@
 /turf/open/floor/noslip/standard,
 /area/template_noop)
 "G" = (
-/obj/structure/chair/sofa/corp/right{
-	color = "#ffd966";
-	dir = 1
-	},
 /obj/machinery/light_switch{
 	pixel_x = -4;
 	pixel_y = -32
 	},
 /obj/item/toy/plush/beeplushie,
+/obj/structure/chair/fancy/sofa/corp/left{
+	color = "#ffd966";
+	dir = 1
+	},
 /turf/open/floor/wax,
 /area/template_noop)
 "H" = (
@@ -129,16 +129,16 @@
 	name = "Bee Lounge Maintenance";
 	req_access_txt = "12"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/template_noop,
 /area/template_noop)
 "K" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/wax,
 /area/template_noop)
 "M" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
 /turf/open/floor/wax,
@@ -157,7 +157,7 @@
 /turf/open/floor/wax,
 /area/template_noop)
 "Q" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
 /turf/open/floor/wax,
@@ -166,7 +166,7 @@
 /turf/closed/wall/r_wall,
 /area/template_noop)
 "S" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
 /turf/open/floor/wax,
@@ -187,6 +187,7 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/template_noop)
 "X" = (
+/obj/machinery/door/airlock/public,
 /turf/open/floor/noslip/standard,
 /area/template_noop)
 

@@ -193,7 +193,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	var/matrix/rotationMatrix = matrix()
 	rotationMatrix.Scale(1.5)
 	rotationMatrix.Translate(0, -distance)
-	rotationMatrix.Turn(Get_Angle(target_turf, parent_turf))
+	rotationMatrix.Turn(get_angle(target_turf, parent_turf))
 	animate(screen, transform = rotationMatrix, time = 2)
 
 //===========
@@ -225,10 +225,10 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 //===========
 
 /datum/component/team_monitor/proc/show_hud(mob/target)
-	updating = target
 	//Our hud is disabled
-	if(!hud_visible)
+	if(!hud_visible || !target)
 		return
+	updating = target
 	//Start processing to update in weird situations
 	START_PROCESSING(SSprocessing, src)
 	//Register parent signal
@@ -251,6 +251,8 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	updating = null
 	//Stop processing
 	STOP_PROCESSING(SSprocessing, src)
+	if(!target)
+		return
 	//UnRegister parent signal
 	UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 	//Remove our arrows

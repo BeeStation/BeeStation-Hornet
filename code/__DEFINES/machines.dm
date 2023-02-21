@@ -52,13 +52,19 @@
 //Modular computer part defines
 #define MC_CPU "CPU"
 #define MC_HDD "HDD"
+#define MC_HDD_JOB "HDD_JOB"
 #define MC_SDD "SDD"
 #define MC_CARD "CARD"
+#define MC_CARD2 "CARD2"
+#define MC_CART "CART"
 #define MC_NET "NET"
 #define MC_PRINT "PRINT"
 #define MC_CELL "CELL"
 #define MC_CHARGE "CHARGE"
 #define MC_AI "AI"
+#define MC_SENSORS "SENSORS"
+#define MC_SIGNALLER "SIGNALER"
+#define MC_IDENTIFY "IDENTIFY"
 
 //! ## NTNet stuff, for modular computers
 //!  **NTNet module-configuration values. Do not change these. If you need to add another use larger number (5..6..7 etc)**
@@ -85,6 +91,12 @@
 #define PROGRAM_STATE_KILLED 0
 #define PROGRAM_STATE_BACKGROUND 1
 #define PROGRAM_STATE_ACTIVE 2
+//Program categories
+#define PROGRAM_CATEGORY_CREW "Crew"
+#define PROGRAM_CATEGORY_ENGI "Engineering"
+#define PROGRAM_CATEGORY_ROBO "Robotics"
+#define PROGRAM_CATEGORY_SUPL "Supply"
+#define PROGRAM_CATEGORY_MISC "Other"
 
 #define FIREDOOR_OPEN 1
 #define FIREDOOR_CLOSED 2
@@ -128,7 +140,39 @@
 //cloning defines. These are flags.
 #define CLONING_SUCCESS (1<<0)
 #define CLONING_DELETE_RECORD (1<<1)
+#define CLONING_SUCCESS_EXPERIMENTAL (1<<2)
+
+#define ERROR_NO_SYNTHFLESH 101
+#define ERROR_PANEL_OPENED 102
+#define ERROR_MESS_OR_ATTEMPTING 103
+#define ERROR_MISSING_EXPERIMENTAL_POD 104
+#define ERROR_NOT_MIND 201
+#define ERROR_PRESAVED_CLONE 202
+#define ERROR_OUTDATED_CLONE 203
+#define ERROR_ALREADY_ALIVE 204
+#define ERROR_COMMITED_SUICIDE 205
+#define ERROR_SOUL_DEPARTED 206
+#define ERROR_SUICIDED_BODY 207
+#define ERROR_SOUL_DAMNED 666
+#define ERROR_UNCLONABLE 901
 
 //these flags are used to tell the DNA modifier if a plant gene cannot be extracted or modified.
 #define PLANT_GENE_REMOVABLE	(1<<0)
 #define PLANT_GENE_EXTRACTABLE	(1<<1)
+
+#define CLICKSOUND_INTERVAL (0.1 SECONDS)	//clicky noises, how much time needed in between clicks on the machine for the sound to play on click again.
+
+// From code/game/machinery/computer/communications.dm
+// ---------------------------------------------------
+
+// for setting status display. Used in modpc status app as well.
+#define MAX_STATUS_LINE_LENGTH 40
+// approvied pictures, also used in modpc app
+GLOBAL_LIST_INIT(approved_status_pictures, list(
+	"biohazard",
+	"blank",
+	"default",
+	"lockdown",
+	"redalert",
+	"shuttle",
+))

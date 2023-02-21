@@ -12,7 +12,7 @@
 	var/obj/machinery/power/master = null
 
 
-/obj/machinery/power/terminal/Initialize()
+/obj/machinery/power/terminal/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
 	if(level == 1)

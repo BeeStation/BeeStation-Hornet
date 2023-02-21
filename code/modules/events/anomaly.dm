@@ -16,17 +16,10 @@
 	var/static/list/allowed_areas
 	if(!allowed_areas)
 		//Places that shouldn't explode
-		var/list/safe_area_types = typecacheof(list(
-		/area/ai_monitored/turret_protected/ai,
-		/area/ai_monitored/turret_protected/ai_upload,
-		/area/engine,
-		/area/solar,
-		/area/holodeck,
-		/area/shuttle)
-		)
+		var/list/safe_area_types = typecacheof(ANOMALY_AREA_BLACKLIST)
 
 		//Subtypes from the above that actually should explode.
-		var/list/unsafe_area_subtypes = typecacheof(list(/area/engine/break_room))
+		var/list/unsafe_area_subtypes = typecacheof(ANOMALY_AREA_SUBTYPE_WHITELIST)
 
 		allowed_areas = make_associative(GLOB.the_station_areas) - safe_area_types + unsafe_area_subtypes
 
@@ -45,6 +38,10 @@
 
 /datum/round_event/anomaly/start()
 	var/turf/T = safepick(get_area_turfs(impact_area))
+	var/max_rolls=0 //In case all the turfs in the area are walls, will break out of rolling for a new turf forever and will just spawn the anomaly inside a wall
+	while(is_anchored_dense_turf(T) && max_rolls<15)   //Will roll for a new turf if the selected turf is a wall until it's not a wall
+		T = safepick(get_area_turfs(impact_area))
+		max_rolls++
 	var/newAnomaly
 	if(T)
 		newAnomaly = new anomaly_path(T)

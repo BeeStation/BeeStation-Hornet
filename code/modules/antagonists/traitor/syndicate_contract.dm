@@ -127,7 +127,7 @@
 			// This is slightly delayed because of the sleep calls above to handle the narrative.
 			// We don't want to tell the station instantly.
 			var/points_to_check
-			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+			var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 			if(D)
 				points_to_check = D.account_balance
 			if(points_to_check >= ransom)
@@ -164,10 +164,8 @@
 	addtimer(CALLBACK(src, .proc/returnVictim, M), (60 * 10) * 4)
 
 	if (M.stat != DEAD)
-		// Heal them up - gets them out of crit/soft crit. If omnizine is removed in the future, this needs to be replaced with a
-		// method of healing them, consequence free, to a reasonable amount of health.
-		M.reagents.add_reagent(/datum/reagent/medicine/omnizine, 20)
-
+		// Heal them up - gets them out of crit/soft crit.
+		M.reagents.add_reagent(/datum/reagent/medicine/stabilizing_nanites, 10)
 		M.flash_act()
 		M.confused += 10
 		M.blur_eyes(5)

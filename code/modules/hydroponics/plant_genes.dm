@@ -421,7 +421,7 @@
 				pocell.maxcharge *= CG.rate*100
 			pocell.charge = pocell.maxcharge
 			pocell.name = "[G.name] battery"
-			pocell.desc = "A rechargeable plant-based power cell. This one has a rating of [DisplayEnergy(pocell.maxcharge)], and you should not swallow it."
+			pocell.desc = "A rechargeable plant-based power cell. This one has a rating of [display_energy(pocell.maxcharge)], and you should not swallow it."
 
 			if(G.reagents.has_reagent(/datum/reagent/toxin/plasma, 2))
 				pocell.rigged = TRUE
@@ -460,7 +460,7 @@
 
 	var/injecting_amount = max(1, G.seed.potency*0.2) // Minimum of 1, max of 20
 	var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
-	G.reagents.reaction(L, INJECT, fraction)
+	G.reagents.expose(L, INJECT, fraction)
 	G.reagents.trans_to(L, injecting_amount)
 	to_chat(L, "<span class='danger'>You are pricked by [G]!</span>")
 	return TRUE

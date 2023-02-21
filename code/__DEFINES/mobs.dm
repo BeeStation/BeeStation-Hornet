@@ -57,8 +57,14 @@
 #define ORGAN_ORGANIC   1
 #define ORGAN_ROBOTIC   2
 
-#define BODYPART_ORGANIC   1
-#define BODYPART_ROBOTIC   2
+
+//Bodytype defines for how things can be worn.
+#define BODYTYPE_ORGANIC		(1<<0)
+#define BODYTYPE_ROBOTIC		(1<<1)
+#define BODYTYPE_HUMANOID		(1<<2) //Everything that isnt Grod
+#define BODYTYPE_BOXHEAD		(1<<3) //TV Head
+#define BODYTYPE_DIGITIGRADE	(1<<4) //Cancer
+#define NUMBER_OF_BODYTYPES	5 //KEEP THIS UPDATED OR SHIT WILL BREAK
 
 #define BODYPART_NOT_DISABLED 0
 #define BODYPART_DISABLED_DAMAGE 1
@@ -73,21 +79,73 @@
 #define LARVA_BODYPART "larva"
 #define DEVIL_BODYPART "devil"
 
-//Species gib types
+//Bodypart change blocking flags
+#define BP_BLOCK_CHANGE_SPECIES	(1<<0)
 
+//Species gib types
 #define GIB_TYPE_HUMAN "human"
 #define GIB_TYPE_ROBOTIC "robotic"
-//Species ID defines
-#define SPECIES_HUMAN			"human"
-#define SPECIES_IPC 			"ipc"
-#define SPECIES_ETHEREAL 		"ethereal"
-#define SPECIES_PLASMAMAN 		"plasmaman"
-#define SPECIES_APID 			"apid"
-#define SPECIES_MOTH			"moth"
-#define SPECIES_LIZARD			"lizard"
-#define SPECIES_FELINID			"felinid"
-#define SPECIES_OOZELING		"oozeling"
-#define SPECIES_FLY 			"fly"
+
+//Defines for Species IDs
+#define SPECIES_ABDUCTOR "abductor"
+#define SPECIES_ANDROID "android"
+#define SPECIES_APID "apid"
+#define SPECIES_DEBUG "debug"
+#define SPECIES_DULLAHAN "dullahan"
+#define SPECIES_ETHEREAL "ethereal"
+#define SPECIES_FELINID "felinid"
+#define SPECIES_FLY "fly"
+#define SPECIES_HUMAN "human"
+#define SPECIES_IPC "ipc"
+#define SPECIES_JELLYPERSON "jelly"
+ #define SPECIES_LUMINESCENT "lum"
+ #define SPECIES_SLIMEPERSON "slime"
+ #define SPECIES_STARGAZER "stargazer"
+#define SPECIES_LIZARD "lizard"
+ #define SPECIES_ASHWALKER "ashlizard"
+#define SPECIES_MONKEY "monkey"
+#define SPECIES_MOTH "moth"
+#define SPECIES_OOZELING "oozeling"
+#define SPECIES_PLASMAMAN "plasmaman"
+#define SPECIES_PODPERSON "pod"
+#define SPECIES_PUMPKINPERSON "pumpkin_man"
+#define SPECIES_SHADOWPERSON "shadow"
+#define SPECIES_SKELETON "skeleton"
+#define SPECIES_SNAILPERSON "snail"
+#define SPECIES_SUPERSOILDER "supersoldier"
+#define SPECIES_VAMPIRE "vampire"
+
+//Defines for Golem Species IDs
+#define SPECIES_GOLEM_ADAMANTINE "adamantine_golem"
+#define SPECIES_GOLEM_ALLOY "alloy_golem"
+#define SPECIES_GOLEM_BANANIUM "bananium_golem"
+#define SPECIES_GOLEM_BLUESPACE "bluespace_golem"
+#define SPECIES_GOLEM_BONE "bone_golem"
+#define SPECIES_GOLEM_BRONZE "bronze_golem"
+#define SPECIES_GOLEM_CAPITALIST "capitalist_golem"
+#define SPECIES_GOLEM_CARDBOARD "cardboard_golem"
+#define SPECIES_GOLEM_CLOCKWORK "clockwork_golem"
+#define SPECIES_GOLEM_CLOCKWORK_SERVANT "clockwork golem servant"
+#define SPECIES_GOLEM_CLOTH "cloth_golem"
+#define SPECIES_GOLEM_COPPER "copper_golem"
+#define SPECIES_GOLEM_DIAMOND "diamond_golem"
+#define SPECIES_GOLEM_DURATHREAD "durathread_golem"
+#define SPECIES_GOLEM_GLASS "glass_golem"
+#define SPECIES_GOLEM_GOLD "gold_golem"
+#define SPECIES_GOLEM_IRON "iron_golem"
+#define SPECIES_GOLEM_LEATHER "leather_golem"
+#define SPECIES_GOLEM_PLASMA "plasma_golem"
+#define SPECIES_GOLEM_PLASTEEL "plasteel_golem"
+#define SPECIES_GOLEM_PLASTIC "plastic_golem"
+#define SPECIES_GOLEM_PLASTITANIUM "plastitanium_golem"
+#define SPECIES_GOLEM_RUNIC "cult_golem"
+#define SPECIES_GOLEM_SAND "sand_golem"
+#define SPECIES_GOLEM_SILVER "silver_golem"
+#define SPECIES_GOLEM_SNOW "snow_golem"
+#define SPECIES_GOLEM_SOVIET "soviet_golem"
+#define SPECIES_GOLEM_TITANIUM "titanium_golem"
+#define SPECIES_GOLEM_URANIUM "uranium_golem"
+#define SPECIES_GOLEM_WOOD "wood_golem"
 
 //Species bitflags, used for species_restricted. If this somehow ever gets above 23 Bee has larger problems.
 #define FLAG_HUMAN			(1<<0)
@@ -101,6 +159,11 @@
 #define FLAG_OOZELING		(1<<8)
 #define FLAG_FLY			(1<<9)
 #define FLAG_DEBUG_SPECIES	(1<<10)
+#define FLAG_MONKEY (1<<11)
+
+#define DIGITIGRADE_NEVER 0
+#define DIGITIGRADE_OPTIONAL 1
+#define DIGITIGRADE_FORCED 2
 
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
@@ -147,7 +210,7 @@
 #define BRAIN_TRAUMA_MAGIC /datum/brain_trauma/magic
 
 #define TRAUMA_RESILIENCE_BASIC 1      //! Curable with chems
-#define TRAUMA_RESILIENCE_SURGERY 2    //! Curable with brain surgery
+#define TRAUMA_RESILIENCE_SURGERY 2    //! Curable with brain recalibration
 #define TRAUMA_RESILIENCE_LOBOTOMY 3   //! Curable with lobotomy
 #define TRAUMA_RESILIENCE_MAGIC 4      //! Curable only with magic
 #define TRAUMA_RESILIENCE_ABSOLUTE 5   //! This is here to stay
@@ -198,12 +261,6 @@
 #define SANITY_UNSTABLE 50
 #define SANITY_CRAZY 25
 #define SANITY_INSANE 0
-
-//Hygiene levels for humans
-#define HYGIENE_LEVEL_CLEAN 250
-#define HYGIENE_LEVEL_NORMAL 200
-#define HYGIENE_LEVEL_DIRTY 75
-#define HYGIENE_LEVEL_DISGUSTING 0
 
 //Nutrition levels for humans
 #define NUTRITION_LEVEL_FAT 600
@@ -295,6 +352,7 @@
 #define GALOSHES_DONT_HELP		(1<<2)
 #define SLIDE_ICE				(1<<3)
 #define SLIP_WHEN_CRAWLING		(1<<4) //clown planet ruin
+#define NO_SLIP_ON_CATWALK      (1<<5)
 
 ///Flags used by the flags parameter of electrocute act.
 ///Makes it so that the shock doesn't take gloves into account.
@@ -319,8 +377,7 @@
 //ED209's ignore monkeys
 #define JUDGE_IGNOREMONKEYS	(1<<4)
 
-#define SHADOW_SPECIES_LIGHT_THRESHOLD 0.2
-
+#define SHADOW_SPECIES_LIGHT_THRESHOLD 0.25
 // Offsets defines
 
 #define OFFSET_UNIFORM "uniform"
@@ -346,11 +403,10 @@
 #define WIZARD_AGE_MIN		30	//! youngest a wizard can be
 #define APPRENTICE_AGE_MIN	29	//! youngest an apprentice can be
 #define SHOES_SLOWDOWN		0	//! How much shoes slow you down by default. Negative values speed you up
-#define POCKET_STRIP_DELAY			40	//! time taken (in deciseconds) to search somebody's pockets
+#define POCKET_STRIP_DELAY	(4 SECONDS)	//! time taken to search somebody's pockets
 #define DOOR_CRUSH_DAMAGE	15	//! the amount of damage that airlocks deal when they crush you
 
 #define	HUNGER_FACTOR		0.1	//! factor at which mob nutrition decreases
-#define	HYGIENE_FACTOR  0.1	//! factor at which mob hygiene decreases
 #define	REAGENTS_METABOLISM 0.4	//! How many units of reagent are consumed per tick, by default.
 #define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4)	//! By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
 
@@ -416,3 +472,12 @@
 ///Define for spawning megafauna instead of a mob for cave gen
 #define SPAWN_MEGAFAUNA "bluh bluh huge boss"
 
+//Body sizes
+#define BODY_SIZE_NORMAL 1
+#define BODY_SIZE_SHORT 0.93
+#define BODY_SIZE_TALL 1.03
+
+/// Throw modes, defines whether or not to turn off throw mode after
+#define THROW_MODE_DISABLED 0
+#define THROW_MODE_TOGGLE 1
+#define THROW_MODE_HOLD 2

@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	var/storage_name = "Cryogenic Oversight Control"
 	var/allow_items = TRUE
 
-/obj/machinery/computer/cryopod/Initialize()
+/obj/machinery/computer/cryopod/Initialize(mapload)
 	. = ..()
 	GLOB.cryopod_computers += src
 
@@ -41,7 +41,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	attack_hand()
 
 /obj/machinery/computer/cryopod/attack_hand(mob/user = usr)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return
 
 	user.set_machine(src)
@@ -177,12 +177,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		/obj/item/documents,
 		/obj/item/nuke_core_container
 	)
-	// These items will NOT be preserved
-	var/static/list/do_not_preserve_items = list (
-		/obj/item/mmi/posibrain
-	)
 
-/obj/machinery/cryopod/Initialize()
+/obj/machinery/cryopod/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD //Gotta populate the cryopod computer GLOB first
 
@@ -227,7 +223,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 /obj/machinery/cryopod/open_machine()
 	..()
 	icon_state = "cryopod-open"
-	density = TRUE
+	set_density(TRUE)
 	name = initial(name)
 
 /obj/machinery/cryopod/container_resist(mob/living/user)
@@ -257,48 +253,6 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 			despawn_occupant()
 
-/obj/machinery/cryopod/proc/handle_objectives()
-	var/mob/living/mob_occupant = occupant
-	if(!mob_occupant.mind)
-		return
-	//Update any existing objectives involving this mob.
-	for(var/datum/objective/O as() in GLOB.objectives)
-		if(!O.target || O.target != mob_occupant.mind)
-			continue
-		// We don't want revs to get objectives that aren't for heads of staff. Letting
-		// them win or lose based on cryo is silly so we remove the objective.
-		if(istype(O,/datum/objective/mutiny))
-			O.team.objectives -= O
-			for(var/datum/mind/M as() in O.team.members)
-				to_chat(M.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
-				M.announce_objectives()
-			qdel(O)
-		else if(istype(O, /datum/objective/contract))
-			var/datum/antagonist/traitor/affected_traitor = O.owner.has_antag_datum(/datum/antagonist/traitor)
-			for(var/datum/syndicate_contract/affected_contract as anything in affected_traitor.contractor_hub.assigned_contracts)
-				if(affected_contract.contract == O)
-					affected_contract.generate(affected_traitor.contractor_hub.assigned_targets)
-					affected_traitor.contractor_hub.assigned_targets.Add(affected_contract.contract.target)
-					to_chat(O.owner.current, "<BR><span class='userdanger'>Contract target out of reach. Contract rerolled.")
-					break
-		else
-			O.target = null
-			O.find_target()
-			if(!O.target || O.target == mob_occupant.mind)
-				for(var/datum/mind/own as() in O.get_owners())
-					to_chat(own.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
-					for(var/datum/antagonist/A as() in own.antag_datums)
-						A.objectives -= O
-					own.announce_objectives()
-				if(O.team)
-					O.team.objectives -= O
-				qdel(O)
-			else
-				O.update_explanation_text()
-				for(var/datum/mind/own as() in O.get_owners())
-					to_chat(own.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
-					own.announce_objectives()
-
 // This function can not be undone; do not call this unless you are sure
 /obj/machinery/cryopod/proc/despawn_occupant()
 	var/mob/living/mob_occupant = occupant
@@ -307,9 +261,6 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		//Handle job slot/tater cleanup.
 		var/job = mob_occupant.mind.assigned_role
 		SSjob.FreeRole(job)
-		if(LAZYLEN(mob_occupant.mind.objectives))
-			mob_occupant.mind.objectives.Cut()
-			mob_occupant.mind.special_role = null
 
 	// Delete them from datacore.
 
@@ -339,7 +290,10 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	if(GLOB.announcement_systems.len)
 		var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
-		announcer.announce("CRYOSTORAGE", mob_occupant.real_name, announce_rank, list())
+		if(mob_occupant.job == JOB_NAME_CAPTAIN)
+			minor_announce("[JOB_NAME_CAPTAIN] [mob_occupant.real_name] has entered cryogenic storage.")  // for when the admins do a stupid british gimmick that makes 0 sense cough
+		else
+			announcer.announce("CRYOSTORAGE", mob_occupant.real_name, announce_rank, list())
 		visible_message("<span class='notice'>\The [src] hums and hisses as it moves [mob_occupant.real_name] into storage.</span>")
 
 
@@ -359,6 +313,17 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		qdel(W)//because we moved all items to preserve away
 		//and yes, this totally deletes their bodyparts one by one, I just couldn't bother
 
+	// Suspend their bank payment
+	if(mob_occupant.mind?.account_id)
+		var/datum/bank_account/target_account = SSeconomy.get_bank_account_by_id(mob_occupant.mind.account_id)
+		if(target_account)
+			for(var/D in target_account.payment_per_department)
+				target_account.payment_per_department[D] = 0
+				target_account.bonus_per_department[D] = 0
+			target_account.suspended = TRUE // bank account will not be deleted, just suspended
+
+	// This should be done after item removal because it checks if your ID card still exists
+
 	if(iscyborg(mob_occupant))
 		var/mob/living/silicon/robot/R = occupant
 		if(!istype(R)) return
@@ -372,7 +337,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			mob_occupant.ghostize(FALSE,SENTIENCE_ERASE) // Players despawned too early may not re-enter the game
 		else
 			mob_occupant.ghostize(TRUE,SENTIENCE_ERASE)
-	handle_objectives()
+	if(mob_occupant.mind)
+		SEND_SIGNAL(mob_occupant.mind, COMSIG_MIND_CRYOED)
 	QDEL_NULL(occupant)
 	open_machine()
 	name = initial(name)
@@ -396,7 +362,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			to_chat(user, "<span class='danger'>You can't put [target] into [src]. They're conscious.</span>")
 		return
 	else if(target.client)
-		if(alert(target,"Would you like to enter cryosleep?",,"Yes","No") == "No")
+		if(alert(target,"Would you like to enter cryosleep?",,"Yes","No") != "Yes")
 			return
 
 	var/generic_plsnoleave_message = " Please adminhelp before leaving the round, even if there are no administrators online!"
@@ -430,8 +396,11 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	to_chat(target, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
 	name = "[name] ([occupant.name])"
-	log_admin("<span class='notice'>[key_name(target)] entered a stasis pod.</span>")
-	message_admins("[key_name_admin(target)] entered a stasis pod. (<A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+	if((world.time - SSticker.round_start_time) < 5 MINUTES)
+		message_admins("<span class='danger'>[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a></span>)")
+	else
+		message_admins("[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+	log_admin("<span class='notice'>[key_name(target)], the [target.job] entered a stasis pod.</span>")
 	add_fingerprint(target)
 
 //Attacks/effects.

@@ -16,7 +16,7 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
-/obj/item/circuit_component/append/Initialize()
+/obj/item/circuit_component/append/Initialize(mapload)
 	. = ..()
 	list_port = add_input_port("List", PORT_TYPE_LIST)
 	value_port = add_input_port("Value", PORT_TYPE_ANY)
@@ -43,7 +43,7 @@
 		output.set_output(null)
 		return
 
-	if(input_list.len < COMPONENT_MAXIMUM_LIST_SIZE) //Prevents lists from growing too large
+	if(input_list.len < COMPONENT_MAXIMUM_LIST_SIZE && !islist(value)) //Prevents lists from growing too large and prevents recursive lists
 		input_list += value
 	output.set_output(input_list)
 

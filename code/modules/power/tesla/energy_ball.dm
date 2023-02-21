@@ -2,44 +2,50 @@
 #define TESLA_MINI_POWER 869130
 #define TESLA_MAX_BALLS 10
 
-/obj/singularity/energy_ball
+/obj/anomaly/energy_ball
 	name = "energy ball"
 	desc = "An energy ball."
 	icon = 'icons/obj/tesla_engine/energy_ball.dmi'
 	icon_state = "energy_ball"
+	anchored = TRUE
+	appearance_flags = LONG_GLIDE
+	density = TRUE
+	plane = MASSIVE_OBJ_PLANE
+	light_range = 6
+	move_resist = INFINITY
+	obj_flags = CAN_BE_HIT | DANGEROUS_POSSESSION
 	pixel_x = -32
 	pixel_y = -32
-	current_size = STAGE_TWO
-	move_self = 1
-	grav_pull = 0
-	contained = 0
-	density = TRUE
-	energy = 0
-	dissipate = 1
-	dissipate_delay = 5
-	dissipate_strength = 1
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	flags_1 = SUPERMATTER_IGNORES_1
+	var/target
 	var/list/orbiting_balls = list()
+	dissipate = TRUE //Do we lose energy over time?
+	dissipate_delay = 5
+	time_since_last_dissipiation = 0
+	dissipate_strength = 1
 	var/produced_power
 	var/energy_to_raise = 32
 	var/energy_to_lower = -20
 
-/*
-/obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50)
+/obj/anomaly/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	. = ..()
-	//TODO: Renable when we get a better lighting system that doesn't need constant updating
-	if(!is_miniball)
-		set_light(10, 7, "#EEEEFF")
-*/
+	energy = starting_energy
+	START_PROCESSING(SSobj, src)
+	var/turf/spawned_turf = get_turf(src)
+	message_admins("A tesla has been created at [ADMIN_VERBOSEJMP(spawned_turf)].")
+	investigate_log("(tesla) was created at [AREACOORD(spawned_turf)].", INVESTIGATE_ENGINES)
 
-/obj/singularity/energy_ball/ex_act(severity, target)
+/obj/anomaly/energy_ball/ex_act(severity, target)
 	return
 
-/obj/singularity/energy_ball/Destroy()
+/obj/anomaly/energy_ball/Destroy()
 	QDEL_LIST(orbiting_balls)
+	STOP_PROCESSING(SSobj, src)
 	. = ..()
 
-/obj/singularity/energy_ball/process()
-	handle_energy()
+/obj/anomaly/energy_ball/process(delta_time)
+	handle_energy(delta_time)
 
 	move_the_basket_ball(4 + orbiting_balls.len * 1.5)
 
@@ -68,13 +74,13 @@
 		//Miniballs don't explode.
 		tesla_zap(ball, range, TESLA_MINI_POWER/7*range, TESLA_ENERGY_MINI_BALL_FLAGS)
 
-/obj/singularity/energy_ball/examine(mob/user)
+/obj/anomaly/energy_ball/examine(mob/user)
 	. = ..()
 	if(orbiting_balls.len)
 		. += "There are [orbiting_balls.len] mini-balls orbiting it."
 
 
-/obj/singularity/energy_ball/proc/move_the_basket_ball(var/move_amount)
+/obj/anomaly/energy_ball/proc/move_the_basket_ball(var/move_amount)
 	//we face the last thing we zapped, so this lets us favor that direction a bit
 	var/move_bias = pick(GLOB.alldirs)
 	for(var/i in 0 to move_amount)
@@ -89,7 +95,9 @@
 				dust_mobs(C)
 
 
-/obj/singularity/energy_ball/proc/handle_energy()
+/obj/anomaly/energy_ball/proc/handle_energy(delta_time)
+	if(!COOLDOWN_FINISHED(src, RESTART_DISSIPATE))
+		return
 	if(energy >= energy_to_raise)
 		energy_to_lower = energy_to_raise - 20
 		energy_to_raise = energy_to_raise * 1.25
@@ -105,9 +113,9 @@
 		qdel(Orchiectomy_target)
 
 	else if(orbiting_balls.len)
-		dissipate() //sing code has a much better system.
+		dissipate(delta_time) //sing code has a much better system.
 
-/obj/singularity/energy_ball/proc/new_mini_ball()
+/obj/anomaly/energy_ball/proc/new_mini_ball()
 	if(!loc)
 		return
 	if(orbiting_balls.len >= TESLA_MAX_BALLS)
@@ -122,14 +130,23 @@
 
 	EB.orbit(src, orbitsize, pick(FALSE, TRUE), rand(10, 25), pick(3, 4, 5, 6, 36))
 
+/obj/anomaly/energy_ball/proc/can_move(turf/to_move)
+	if (!to_move)
+		return FALSE
 
-/obj/singularity/energy_ball/Bump(atom/A)
+	for (var/_thing in to_move)
+		var/atom/thing = _thing
+		if (SEND_SIGNAL(thing, COMSIG_ATOM_SINGULARITY_TRY_MOVE) & SINGULARITY_TRY_MOVE_BLOCK)
+			return FALSE
+	return TRUE
+
+/obj/anomaly/energy_ball/Bump(atom/A)
 	dust_mobs(A)
 
-/obj/singularity/energy_ball/Bumped(atom/movable/AM)
+/obj/anomaly/energy_ball/Bumped(atom/movable/AM)
 	dust_mobs(AM)
 
-/obj/singularity/energy_ball/attack_tk(mob/user)
+/obj/anomaly/energy_ball/attack_tk(mob/user)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		to_chat(C, "<span class='userdanger'>That was a shockingly dumb idea.</span>")
@@ -138,7 +155,7 @@
 		qdel(rip_u)
 		C.death()
 
-/obj/singularity/energy_ball/proc/dust_mobs(atom/A)
+/obj/anomaly/energy_ball/proc/dust_mobs(atom/A)
 	if(isliving(A))
 		var/mob/living/L = A
 		if(L.incorporeal_move || L.status_flags & GODMODE)
@@ -161,13 +178,13 @@
 	pixel_y = -32
 
 /obj/effect/energy_ball/Destroy(force)
-	if(orbiting && istype(orbiting.parent, /obj/singularity/energy_ball))
-		var/obj/singularity/energy_ball/EB = orbiting.parent
+	if(orbiting && istype(orbiting.parent, /obj/anomaly/energy_ball))
+		var/obj/anomaly/energy_ball/EB = orbiting.parent
 		EB.orbiting_balls -= src
 		EB.dissipate_strength = EB.orbiting_balls.len
 	. = ..()
 
-/obj/effect/energy_ball/orbit(obj/singularity/energy_ball/target)
+/obj/effect/energy_ball/orbit(obj/anomaly/energy_ball/target)
 	if (istype(target))
 		target.orbiting_balls += src
 		target.dissipate_strength = target.orbiting_balls.len
@@ -176,7 +193,7 @@
 /obj/effect/energy_ball/stop_orbit()
 	. = ..()
 	//Qdel handles removing from the parent ball list.
-	if (!QDELETED(src))
+	if(!QDELETED(src))
 		qdel(src)
 
 /proc/tesla_zap(atom/source, zap_range = 3, power, tesla_flags = TESLA_DEFAULT_FLAGS, list/shocked_targets)

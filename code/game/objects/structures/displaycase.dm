@@ -10,18 +10,26 @@
 	max_integrity = 200
 	integrity_failure = 25
 	var/obj/item/showpiece = null
-	var/obj/item/showpiece_type = null //This allows for showpieces that can only hold items if they're the same istype as this.
+	///This allows for showpieces that can only hold items if they're the same istype as this.
+	var/obj/item/showpiece_type = null
 	var/alert = TRUE
 	var/open = FALSE
 	var/openable = TRUE
-	var/custom_glass_overlay = FALSE ///If we have a custom glass overlay to use.
+	///Is the case made of glass? Should it sound like that when it is being whacked?
+	var/shatter = TRUE
+	///If the case should be completely locked out at green alert, for cases containing equipment intended to be accessed only by antagonists or after threat level is raised
+	var/security_level_locked = SEC_LEVEL_GREEN
+	///If we have a custom glass overlay to use.
+	var/custom_glass_overlay = FALSE
 	var/obj/item/electronics/airlock/electronics
-	var/start_showpiece_type = null //add type for items on display
-	var/list/start_showpieces = list() //Takes sublists in the form of list("type" = /obj/item/bikehorn, "trophy_message" = "henk")
+	///add type for items on display
+	var/start_showpiece_type = null
+	///Takes sublists in the form of list("type" = /obj/item/bikehorn, "trophy_message" = "henk")
+	var/list/start_showpieces = list()
 	var/trophy_message = ""
 	var/glass_fix = TRUE
 
-/obj/structure/displaycase/Initialize()
+/obj/structure/displaycase/Initialize(mapload)
 	. = ..()
 	if(start_showpieces.len && !start_showpiece_type)
 		var/list/showpiece_entry = pick(start_showpieces)
@@ -69,26 +77,33 @@
 	update_icon()
 
 /obj/structure/displaycase/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
-	switch(damage_type)
-		if(BRUTE)
-			playsound(src, 'sound/effects/glasshit.ogg', 75, 1)
-		if(BURN)
-			playsound(src, 'sound/items/welder.ogg', 100, 1)
+	if(!shatter)
+		playsound(src, 'sound/weapons/egloves.ogg', 35, 1)
+	else
+		switch(damage_type)
+			if(BRUTE)
+				playsound(src, 'sound/effects/glasshit.ogg', 75, 1)
+			if(BURN)
+				playsound(src, 'sound/items/welder.ogg', 100, 1)
 
 /obj/structure/displaycase/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		dump()
 		if(!disassembled)
-			new /obj/item/shard(drop_location())
+			if(shatter)
+				new /obj/item/shard(drop_location())
 			trigger_alarm()
 	qdel(src)
 
 /obj/structure/displaycase/obj_break(damage_flag)
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
-		density = FALSE
+		set_density(FALSE)
 		broken = TRUE
-		new /obj/item/shard(drop_location())
-		playsound(src, "shatter", 70, TRUE)
+		if(shatter)
+			new /obj/item/shard(drop_location())
+			playsound(src, "shatter", 70, TRUE)
+		else
+			playsound(src, "sound/magic/summonitems_generic.ogg", 70, TRUE)
 		update_icon()
 		trigger_alarm()
 
@@ -116,11 +131,14 @@
 
 /obj/structure/displaycase/attackby(obj/item/W, mob/user, params)
 	if(W.GetID() && !broken && openable)
-		if(allowed(user))
-			to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
+		if(open)	//You do not require access to close a case, only to open it.
+			to_chat(user,  "<span class='notice'>You close [src].</span>")
 			toggle_lock(user)
-		else
+		else if(security_level_locked > GLOB.security_level || !allowed(user))
 			to_chat(user,  "<span class='alert'>Access denied.</span>")
+		else
+			to_chat(user,  "<span class='notice'>You open [src].</span>")
+			toggle_lock(user)
 	else if(W.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP && !broken)
 		if(obj_integrity < max_integrity)
 			if(!W.tool_start_check(user, amount=5))
@@ -199,12 +217,12 @@
 		take_damage(2)
 
 /obj/structure/displaycase_chassis
-	anchored = TRUE
-	density = FALSE
 	name = "display case chassis"
 	desc = "The wooden base of a display case."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "glassbox_chassis"
+	anchored = TRUE
+	density = FALSE
 	var/obj/item/electronics/airlock/electronics
 
 
@@ -214,7 +232,7 @@
 		I.play_tool_sound(src)
 		if(I.use_tool(src, user, 30))
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
-			new /obj/item/stack/sheet/mineral/wood(get_turf(src), 5)
+			new /obj/item/stack/sheet/wood(get_turf(src), 5)
 			qdel(src)
 
 	else if(istype(I, /obj/item/electronics/airlock))
@@ -261,10 +279,16 @@
 
 //The captains display case requiring specops ID access is intentional.
 //The lab cage and captains display case do not spawn with electronics, which is why req_access is needed.
-/obj/structure/displaycase/captain
+/obj/structure/displaycase/lavaland
 	alert = TRUE
 	start_showpiece_type = /obj/item/gun/energy/laser/captain
 	req_access = list(ACCESS_CENT_SPECOPS)
+
+/obj/structure/displaycase/captain
+	alert = TRUE
+	start_showpiece_type = /obj/item/gun/energy/laser/captain
+	req_access = list(ACCESS_CAPTAIN)
+	security_level_locked = SEC_LEVEL_BLUE  // Cap's case is locked even to him unless the station is facing a threat
 
 /obj/structure/displaycase/labcage
 	name = "lab cage"
@@ -281,7 +305,7 @@
 	integrity_failure = 0
 	openable = FALSE
 
-/obj/structure/displaycase/trophy/Initialize()
+/obj/structure/displaycase/trophy/Initialize(mapload)
 	. = ..()
 	GLOB.trophy_cases += src
 
@@ -385,6 +409,7 @@
 	density = FALSE
 	max_integrity = 100
 	req_access = null
+	shatter = FALSE
 	alert = FALSE //No, we're not calling the fire department because someone stole your cookie.
 	glass_fix = FALSE //Fixable with tools instead.
 	pass_flags = PASSTABLE ///Can be placed and moved onto a table.
@@ -420,7 +445,7 @@
 	data["product_icon"] = null
 	if(showpiece)
 		data["product_name"] = capitalize(showpiece.name)
-		var/base64 = icon2base64(icon(showpiece.icon, showpiece.icon_state))
+		var/base64 = icon2base64(icon(showpiece.icon, showpiece.icon_state, frame=1))
 		data["product_icon"] = base64
 	data["registered"] = register
 	data["product_cost"] = sale_price
@@ -519,7 +544,7 @@
 			playsound(src, 'sound/machines/click.ogg', 20, TRUE)
 			toggle_lock()
 			return
-	if(istype(I, /obj/item/pda))
+	if(istype(I, /obj/item/modular_computer))
 		return TRUE
 	ui_update()
 	. = ..()
@@ -556,8 +581,8 @@
 		to_chat(user, "<span class='notice'>[src] must be open to move it.</span>")
 		return
 
-/obj/structure/displaycase/forsale/emag_act(mob/user)
-	. = ..()
+/obj/structure/displaycase/forsale/on_emag(mob/user)
+	..()
 	payments_acc = null
 	req_access = list()
 	to_chat(user, "<span class='warning'>[src]'s card reader fizzles and smokes, and the account owner is reset.</span>")

@@ -1,8 +1,7 @@
 /datum/species/skeleton
 	// 2spooky
-	name = "Spooky Scary Skeleton"
-	id = "skeleton"
-	say_mod = "rattles"
+	name = "\improper Spooky Scary Skeleton"
+	id = SPECIES_SKELETON
 	sexes = 0
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/skeleton
 	species_traits = list(NOBLOOD,NOHUSK)
@@ -11,11 +10,16 @@
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	mutanttongue = /obj/item/organ/tongue/bone
 	damage_overlay_type = ""//let's not show bloody wounds or burns over bones.
-	disliked_food = NONE
-	liked_food = GROSS | MEAT | RAW
 	//They can technically be in an ERT
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 	species_language_holder = /datum/language_holder/skeleton
+
+	species_chest = /obj/item/bodypart/chest/skeleton
+	species_head = /obj/item/bodypart/head/skeleton
+	species_l_arm = /obj/item/bodypart/l_arm/skeleton
+	species_r_arm = /obj/item/bodypart/r_arm/skeleton
+	species_l_leg = /obj/item/bodypart/l_leg/skeleton
+	species_r_leg = /obj/item/bodypart/r_leg/skeleton
 
 /datum/species/skeleton/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])

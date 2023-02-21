@@ -27,7 +27,7 @@
 	var/datum/proximity_monitor/advanced/dampening_field
 	var/obj/item/borg/projectile_dampen/clockcult/internal_dampener
 
-/obj/structure/destructible/clockwork/gear_base/interdiction_lens/Initialize()
+/obj/structure/destructible/clockwork/gear_base/interdiction_lens/Initialize(mapload)
 	internal_dampener = new
 	. = ..()
 

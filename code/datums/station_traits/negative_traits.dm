@@ -1,3 +1,17 @@
+/datum/station_trait/announcement_intern
+	name = "Announcement Intern"
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 3
+	show_in_report = TRUE
+	report_message = "Please be nice to him."
+	blacklist = list(/datum/station_trait/announcement_medbot,
+	/datum/station_trait/announcement_baystation
+	)
+
+/datum/station_trait/announcement_intern/New()
+	. = ..()
+	SSstation.announcer = /datum/centcom_announcer/intern
+
 /datum/station_trait/carp_infestation
 	name = "Carp infestation"
 	trait_type = STATION_TRAIT_NEGATIVE
@@ -54,18 +68,20 @@
 	RegisterSignal(SSmapping, COMSIG_SUBSYSTEM_POST_INITIALIZE, .proc/create_spawners)
 
 /datum/station_trait/hangover/proc/create_spawners()
-	var/list/turf/turfs = get_safe_random_station_turfs(typesof(/area/hallway), rand(200, 300))
-	for(var/turf/T as() in turfs)
-		new /obj/effect/spawner/hangover_spawn(T)
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, .proc/pick_turfs_and_spawn)
 	UnregisterSignal(SSmapping, COMSIG_SUBSYSTEM_POST_INITIALIZE)
 
+/datum/station_trait/hangover/proc/pick_turfs_and_spawn()
+	var/list/turf/turfs = get_safe_random_station_turfs(typesof(/area/hallway) | typesof(/area/crew_quarters/bar) | typesof(/area/crew_quarters/dorms), rand(200, 300))
+	for(var/turf/T as() in turfs)
+		new /obj/effect/spawner/hangover_spawn(T)
 
 /datum/station_trait/hangover/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/living_mob, mob/spawned_mob, joined_late)
 	SIGNAL_HANDLER
 
-	if(joined_late)
-		return
-	if(!iscarbon(living_mob))
+	if(joined_late || !iscarbon(living_mob))
 		return
 
 	var/mob/living/carbon/spawned_carbon = living_mob
@@ -80,20 +96,6 @@
 		var/obj/item/hat = pick(list(/obj/item/clothing/head/sombrero, /obj/item/clothing/head/fedora, /obj/item/clothing/mask/balaclava, /obj/item/clothing/head/ushanka, /obj/item/clothing/head/cardborg, /obj/item/clothing/head/pirate, /obj/item/clothing/head/cone))
 		hat = new hat(spawned_mob)
 		spawned_mob.equip_to_slot(hat, ITEM_SLOT_HEAD)
-
-/obj/effect/spawner/hangover_spawn
-	name = "hangover spawner"
-
-/obj/effect/spawner/hangover_spawn/Initialize()
-	if(prob(60))
-		new /obj/effect/decal/cleanable/vomit(get_turf(src))
-	if(prob(70))
-		var/bottle_count = pick(10;1, 5;2, 2;3)
-		for(var/index in 1 to bottle_count)
-			var/obj/item/reagent_containers/food/drinks/beer/almost_empty/B = new(get_turf(src))
-			B.pixel_x += rand(-6, 6)
-			B.pixel_y += rand(-6, 6)
-	return INITIALIZE_HINT_QDEL
 
 /datum/station_trait/blackout
 	name = "Blackout"
@@ -124,7 +126,7 @@
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 5
 	show_in_report = TRUE
-	var/list/jobs_to_use = list("Clown", "Bartender", "Cook", "Botanist", "Cargo Technician", "Mime", "Janitor")
+	var/list/jobs_to_use = list(JOB_NAME_CLOWN, JOB_NAME_BARTENDER, JOB_NAME_COOK, JOB_NAME_BOTANIST, JOB_NAME_CARGOTECHNICIAN, JOB_NAME_MIME, JOB_NAME_JANITOR)
 	var/chosen_job
 
 /datum/station_trait/overflow_job_bureacracy/New()
@@ -172,3 +174,25 @@
 		/// The bot's language holder - so we can randomize and change their language
 		var/datum/language_holder/bot_languages = found_bot.get_language_holder()
 		bot_languages.selected_language = bot_languages.get_random_spoken_language()
+
+/datum/station_trait/united_budget
+	name = "United Department Budget Management"
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 2
+	show_in_report = TRUE
+	report_message = "Your station has been selected for one of our financial experiments! All station budgets have been united into one, and all budget cards will be linked to one account!"
+	trait_to_give = STATION_TRAIT_UNITED_BUDGET
+
+/datum/station_trait/united_budget/New()
+	. = ..()
+	var/event_source = pick(list("As your station has been selected for one of our financial experiments,",
+		                         "Our financial planner has decided:",
+		                         "Our new AI financial plan support module has generated a new budgeting system:",
+		                         "We thought the current budget categorisation system was too complicated, so",
+		                         "It appears one of your superiors has it out for you, so",
+		                         "The Syndicate damaged documents on procedures for the station's budgeting system, so",
+		                         "Due to our intern having free reign over the station budget system,",
+		                         "Thanks to our financial intern,",
+		                         "Due to the budget cuts in Nanotrasen Space Finance,",
+		                         "Since \[REDACTED\] has been \[REDACTED\] by \[REDACTED\],"))
+	report_message = "[event_source] all station budgets have been united into one, and all budget cards will be linked to one account."

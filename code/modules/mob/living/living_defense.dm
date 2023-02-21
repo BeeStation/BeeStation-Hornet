@@ -394,7 +394,7 @@
 
 //called when the mob receives a bright flash
 /mob/living/proc/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash)
-	if(get_eye_protection() < intensity && (override_blindness_check || !(HAS_TRAIT(src, TRAIT_BLIND))))
+	if(get_eye_protection() < intensity && (override_blindness_check || !is_blind()))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), 25)
 		return TRUE
@@ -415,6 +415,23 @@
 	..()
 	setMovetype(movement_type & ~FLOATING) // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
+/** Handles exposing a mob to reagents.
+  *
+  * If the methods include INGEST the mob tastes the reagents.
+  * If the methods include VAPOR it incorporates permiability protection.
+  */
+/mob/living/expose_reagents(list/reagents, datum/reagents/source, methods=TOUCH, volume_modifier=1, show_message=TRUE)
+	if((. = ..()) & COMPONENT_NO_EXPOSE_REAGENTS)
+		return
+
+	if(methods & INGEST)
+		taste(source)
+
+	var/touch_protection = (methods & VAPOR) ? get_permeability_protection() : 0
+	for(var/reagent in reagents)
+		var/datum/reagent/R = reagent
+		. |= R.expose_mob(src, methods, reagents[R], show_message, touch_protection)
+
 /mob/living/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 	if(istype(E) && diseases.len)
 		if(scan)
@@ -424,3 +441,16 @@
 		return TRUE
 	else
 		return FALSE
+
+/mob/living/proc/sethellbound()
+	if(mind)
+		mind.hellbound = TRUE
+		med_hud_set_status()
+		return TRUE
+	return FALSE
+
+/mob/living/proc/ishellbound()
+	return mind?.hellbound
+
+/mob/living/proc/force_hit_projectile(obj/item/projectile/projectile)
+	return FALSE

@@ -26,7 +26,7 @@
 		if(contained_id)
 			dat += text("<A href='?src=[REF(src)];id=eject'>[contained_id]</A><br>")
 			dat += text("Collected Points: [contained_id.points]. <A href='?src=[REF(src)];id=reset'>Reset.</A><br>")
-			dat += text("Card goal: [contained_id.goal].  <A href='?src=[REF(src)];id=setgoal'>Set </A><br>")
+			dat += text("Card goal: [contained_id.goal].  <A href='?src=[REF(src)];id=setgoal'>Set</A> <A href='?src=[REF(src)];id=setpermanent'>Make [contained_id.permanent ? "temporary" : "permanent"].</A><br>")
 			dat += text("Space Law recommends quotas of 100 points per minute they would normally serve in the brig.<BR>")
 		else
 			dat += text("<A href='?src=[REF(src)];id=insert'>Insert Prisoner ID.</A><br>")
@@ -100,8 +100,10 @@
 					if("setgoal")
 						var/num = round(input(usr, "Choose prisoner's goal:", "Input an Integer", null) as num|null)
 						if(num >= 0)
-							num = min(num,1000) //Cap the quota to the equivilent of 10 minutes.
+							num = min(num, 1500) //Cap the quota to the equivilent of 10 minutes.
 							contained_id.goal = num
+					if("setpermanent")
+						contained_id.permanent = !contained_id.permanent
 		else if(href_list["inject1"])
 			var/obj/item/implant/I = locate(href_list["inject1"]) in GLOB.tracked_chem_implants
 			if(I && istype(I))
@@ -126,6 +128,10 @@
 			var/warning = stripped_input(usr, "Message:", "Enter your message here!", "", MAX_MESSAGE_LEN)
 			if(!warning)
 				return
+			if(CHAT_FILTER_CHECK(warning))
+				to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+				return
+			warning = usr.treat_message_min(warning)
 			var/obj/item/implant/I = locate(href_list["warn"]) in GLOB.tracked_implants
 			if(I && istype(I) && I.imp_in)
 				var/mob/living/R = I.imp_in

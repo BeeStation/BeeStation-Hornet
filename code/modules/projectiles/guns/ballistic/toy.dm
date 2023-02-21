@@ -18,6 +18,9 @@
 	. = ..()
 	add_overlay("[icon_state]_toy")
 
+/obj/item/gun/ballistic/automatic/toy/before_firing()
+	return
+
 /obj/item/gun/ballistic/automatic/toy/unrestricted
 	pin = /obj/item/firing_pin
 
@@ -37,7 +40,7 @@
 /obj/item/gun/ballistic/automatic/toy/pistol/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol/riot
 
-/obj/item/gun/ballistic/automatic/toy/pistol/riot/Initialize()
+/obj/item/gun/ballistic/automatic/toy/pistol/riot/Initialize(mapload)
 	magazine = new /obj/item/ammo_box/magazine/toy/pistol/riot(src)
 	return ..()
 

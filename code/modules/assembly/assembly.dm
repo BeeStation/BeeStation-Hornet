@@ -16,6 +16,8 @@
 	throwforce = 2
 	throw_speed = 3
 	throw_range = 7
+	drop_sound = 'sound/items/handling/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 
 	var/is_position_sensitive = FALSE	//set to true if the device has different icons for each position.
 										//This will prevent things such as visible lasers from facing the incorrect direction when transformed by assembly_holder's update_icon()
@@ -30,7 +32,7 @@
 	var/next_activate = 0 //When we're next allowed to activate - for spam control
 	var/activate_delay = 30
 
-/obj/item/assembly/Initialize()
+/obj/item/assembly/Initialize(mapload)
 	. = ..()
 	secured &&= securable
 

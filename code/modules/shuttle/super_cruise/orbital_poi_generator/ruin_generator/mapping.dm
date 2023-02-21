@@ -3,7 +3,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinonfar"
 
-/obj/effect/abstract/open_area_marker/Initialize()
+/obj/effect/abstract/open_area_marker/Initialize(mapload)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/abstract/doorway_marker
@@ -11,7 +11,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinonmedium"
 
-/obj/effect/abstract/doorway_marker/Initialize()
+/obj/effect/abstract/doorway_marker/Initialize(mapload)
 	return INITIALIZE_HINT_QDEL
 
 //Basic loot, utility and maybe some weapons
@@ -96,7 +96,7 @@
 		/obj/item/wrench = 6,
 		/obj/item/assembly/signaler = 5,
 		/obj/item/transfer_valve = 6,
-		/obj/item/cartridge/rd = 3,
+		/obj/item/computer_hardware/hard_drive/role/rd = 3,
 		/obj/item/radio = 5,
 		/obj/item/camera = 4,
 		/obj/item/encryptionkey/headset_sci = 3,
@@ -107,8 +107,8 @@
 		/obj/item/hand_tele = 1,
 		/obj/item/inducer/sci = 3,
 		/obj/item/megaphone = 1,
-		/obj/item/pda/roboticist = 3,
-		/obj/item/pda/toxins = 3,
+		/obj/item/modular_computer/tablet/pda/roboticist = 3,
+		/obj/item/modular_computer/tablet/pda/science = 3,
 		/obj/item/pinpointer/crew = 4,
 		/obj/item/reactive_armour_shell = 1,
 		/obj/item/anomaly_neutralizer = 1,
@@ -186,7 +186,7 @@
 	loot = list(
 		"" = 4,
 		/obj/item/disk/tech_disk/research/random = 24,
-		/obj/item/alienartifact = 6,
+		/obj/item/xenoartifact = 6,
 		/obj/item/gun/energy/vortex = 3,
 		/obj/item/gun/energy/alien = 1
 	)

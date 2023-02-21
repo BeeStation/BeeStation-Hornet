@@ -13,7 +13,7 @@
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	light_range = FALSE
 
-/obj/item/compact_remote/Initialize()
+/obj/item/compact_remote/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/shell, list(
 		new /obj/item/circuit_component/compact_remote()
@@ -26,7 +26,7 @@
 	/// Called when attack_self is called on the shell.
 	var/datum/port/output/signal
 
-/obj/item/circuit_component/compact_remote/Initialize()
+/obj/item/circuit_component/compact_remote/Initialize(mapload)
 	. = ..()
 	signal = add_output_port("Signal", PORT_TYPE_SIGNAL)
 
@@ -45,6 +45,6 @@
  */
 /obj/item/circuit_component/compact_remote/proc/send_trigger(atom/source, mob/user)
 	SIGNAL_HANDLER
-	source.balloon_alert(user, "clicked primary button")
+	source.balloon_alert(user, "Clicked the primary button.")
 	playsound(source, get_sfx("terminal_type"), 25, FALSE)
 	signal.set_output(COMPONENT_SIGNAL)

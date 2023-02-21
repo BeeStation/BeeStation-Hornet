@@ -132,16 +132,6 @@
 	T.visible_message("<span class='danger'>The slime extract begins to vibrate adorably!</span>")
 	addtimer(CALLBACK(src, .proc/chemical_mob_spawn, holder, 1, "Friendly Gold Slime", FRIENDLY_SPAWN, "neutral"), 50)
 
-/datum/chemical_reaction/slime/slimemobspawn/spider
-	name = "Slime Crit Traitor Spider"
-	id = "m_tele6"
-	required_reagents = list(/datum/reagent/spider_extract = 1)
-
-/datum/chemical_reaction/slime/slimemobspawn/spider/summon_mobs(datum/reagents/holder, turf/T)
-	T.visible_message("<span class='danger'>The slime extract begins to vibrate crikey-ingly!</span>")
-	addtimer(CALLBACK(src, .proc/chemical_mob_spawn, holder, 3, "Traitor Spider Slime", /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife, "neutral", FALSE), 50)
-
-
 //Silver
 /datum/chemical_reaction/slime/slimebork
 	name = "Slime Bork"
@@ -158,18 +148,13 @@
 
 	for(var/mob/living/carbon/C in viewers(T))
 		C.flash_act()
-
-	for(var/i in 1 to 4 + rand(1,2))
-		var/chosen = getbork()
-		var/obj/B = new chosen(T)
-		if(prob(5))//Fry it!
-			var/obj/item/reagent_containers/food/snacks/deepfryholder/fried
-			fried = new(T, B)
-			fried.fry() // actually set the name and colour it
-			B = fried
-		if(prob(50))
-			for(var/j in 1 to rand(1, 3))
-				step(B, pick(NORTH,SOUTH,EAST,WEST))
+	var/chosen = getbork()
+	var/obj/B = new chosen(T)
+	if(prob(5))//Fry it!
+		var/obj/item/reagent_containers/food/snacks/deepfryholder/fried
+		fried = new(T, B)
+		fried.fry() // actually set the name and colour it
+		B = fried
 	..()
 
 /datum/chemical_reaction/slime/slimebork/proc/getbork()
@@ -296,7 +281,7 @@
 	required_other = TRUE
 
 /datum/chemical_reaction/slime/slimeoverload/on_reaction(datum/reagents/holder, created_volume)
-	empulse(get_turf(holder.my_atom), 3, 7)
+	empulse(get_turf(holder.my_atom), 3, 7, magic=TRUE)
 	..()
 
 /datum/chemical_reaction/slime/slimecell
@@ -455,7 +440,7 @@
 
 /datum/chemical_reaction/slime/slimeexplosion/proc/boom(datum/reagents/holder)
 	if(holder?.my_atom)
-		explosion(get_turf(holder.my_atom), 1 ,3, 6)
+		explosion(get_turf(holder.my_atom), 0, 2, 3)
 
 
 /datum/chemical_reaction/slime/slimecornoil

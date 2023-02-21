@@ -3,70 +3,153 @@
 		weight = WEIGHT_MOB
 
 
-/datum/keybinding/mob/face_north
-	key = "Ctrl-W"
-	name = "face_north"
-	full_name = "Face North"
+/datum/keybinding/mob/move_north
+	key = "W"
+	name = "move_north"
+	full_name = "Move North"
 	description = ""
-	keybind_signal = COMSIG_KB_MOB_FACENORTH_DOWN
+	keybind_signal = COMSIG_KB_MOB_MOVENORTH_DOWN
+	any_modifier = TRUE
 
-/datum/keybinding/mob/face_north/down(client/user)
+/datum/keybinding/mob/move_north/down(client/user)
 	. = ..()
 	if(.)
 		return
 	if(!user.mob) return
-	var/mob/M = user.mob
-	M.northface()
+	user.keyDown("North")
+	return TRUE
+
+/datum/keybinding/mob/move_north/up(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) return
+	user.keyUp("North")
 	return TRUE
 
 
-/datum/keybinding/mob/face_east
-	key = "Ctrl-D"
-	name = "face_east"
-	full_name = "Face East"
+/datum/keybinding/mob/move_east
+	key = "D"
+	name = "move_east"
+	full_name = "Move East"
 	description = ""
-	keybind_signal = COMSIG_KB_MOB_FACEEAST_DOWN
+	keybind_signal = COMSIG_KB_MOB_MOVEEAST_DOWN
+	any_modifier = TRUE
 
-/datum/keybinding/mob/face_east/down(client/user)
+/datum/keybinding/mob/move_east/down(client/user)
 	. = ..()
 	if(.)
 		return
 	if(!user.mob) return
-	var/mob/M = user.mob
-	M.eastface()
+	user.keyDown("East")
+	return TRUE
+
+/datum/keybinding/mob/move_east/up(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) return
+	user.keyUp("East")
 	return TRUE
 
 
-/datum/keybinding/mob/face_south
-	key = "Ctrl-S"
-	name = "face_south"
-	full_name = "Face South"
+/datum/keybinding/mob/move_south
+	key = "S"
+	name = "move_south"
+	full_name = "Move South"
 	description = ""
-	keybind_signal = COMSIG_KB_MOB_FACESOUTH_DOWN
+	keybind_signal = COMSIG_KB_MOB_MOVESOUTH_DOWN
+	any_modifier = TRUE
 
-/datum/keybinding/mob/face_south/down(client/user)
+/datum/keybinding/mob/move_south/down(client/user)
 	. = ..()
 	if(.)
 		return
 	if(!user.mob) return
-	var/mob/M = user.mob
-	M.southface()
+	user.keyDown("South")
 	return TRUE
 
-/datum/keybinding/mob/face_west
-	key = "Ctrl-A"
-	name = "face_west"
-	full_name = "Face West"
-	description = ""
-	keybind_signal = COMSIG_KB_MOB_FACEWEST_DOWN
-
-/datum/keybinding/mob/face_west/down(client/user)
+/datum/keybinding/mob/move_south/up(client/user)
 	. = ..()
 	if(.)
 		return
 	if(!user.mob) return
-	var/mob/M = user.mob
-	M.westface()
+	user.keyUp("South")
+	return TRUE
+
+
+/datum/keybinding/mob/move_west
+	key = "A"
+	name = "move_west"
+	full_name = "Move West"
+	description = ""
+	keybind_signal = COMSIG_KB_MOB_MOVEWEST_DOWN
+	any_modifier = TRUE
+
+/datum/keybinding/mob/move_west/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) return
+	user.keyDown("West")
+	return TRUE
+
+/datum/keybinding/mob/move_west/up(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) return
+	user.keyUp("West")
+	return TRUE
+
+/datum/keybinding/mob/move_up
+	key = "F"
+	name = "move up"
+	full_name = "Move Up"
+	description = "Try moving upwards."
+	keybind_signal = COMSIG_KB_MOB_MOVEUP_DOWN
+
+/datum/keybinding/mob/move_up/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(isliving(user.mob))
+		var/mob/living/L = user.mob
+		L.zMove(UP, TRUE)
+	else if(isobserver(user.mob))
+		var/turf/original = get_turf(user.mob)
+		if(!istype(original))
+			return
+		var/turf/new_turf = get_step_multiz(original, UP)
+		if(!istype(new_turf))
+			to_chat(user.mob, "<span class='warning'>There is nothing above you!</span>")
+			return
+		user.mob.Move(new_turf, UP)
+	return TRUE
+
+/datum/keybinding/mob/move_down
+	key = "C"
+	name = "move down"
+	full_name = "Move Down"
+	description = "Try moving downwards."
+	keybind_signal = COMSIG_KB_MOB_MOVEDOWN_DOWN
+
+/datum/keybinding/mob/move_down/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(isliving(user.mob))
+		var/mob/living/L = user.mob
+		L.zMove(DOWN, TRUE)
+	else if(isobserver(user.mob))
+		var/turf/original = get_turf(user.mob)
+		if(!istype(original))
+			return
+		var/turf/new_turf = get_step_multiz(original, DOWN)
+		if(!istype(new_turf))
+			to_chat(user.mob, "<span class='warning'>There is nothing below you!</span>")
+			return
+		user.mob.Move(new_turf, DOWN)
 	return TRUE
 
 /datum/keybinding/mob/stop_pulling
@@ -316,7 +399,7 @@
 /datum/keybinding/mob/prevent_movement
 	key = "Ctrl"
 	name = "block_movement"
-	full_name = "Block movement"
+	full_name = "Hold to change facing"
 	description = "While pressed, prevents movement when pressing directional keys; instead just changes your facing direction"
 	keybind_signal = COMSIG_KB_MOB_PREVENTMOVEMENT_DOWN
 
