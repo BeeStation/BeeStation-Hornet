@@ -202,11 +202,12 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	hitsound = 'sound/items/welder.ogg'
 	damtype = "fire"
 	force = 4
+	var/turf/T = get_turf(src)
 	if(reagents.get_reagent_amount(/datum/reagent/toxin/plasma)) // the plasma explodes when exposed to fire
 		plasma_ignition(reagents.get_reagent_amount(/datum/reagent/toxin/plasma)/5)
 		return
 	if(reagents.get_reagent_amount(/datum/reagent/fuel)) // the fuel explodes too, but much less violently
-		visible_message("<b><span class='userdanger'>[src] violently explodes!</span></b>")
+		T.visible_message("<b><span class='userdanger'>[src] violently explodes!</span></b>")
 		explosion(src, 0, 0, 1, 0, flame_range = 1)
 		qdel(src)
 		return
@@ -216,7 +217,6 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_state = icon_on
 	item_state = icon_on
 	if(flavor_text)
-		var/turf/T = get_turf(src)
 		T.visible_message(flavor_text)
 	START_PROCESSING(SSobj, src)
 
