@@ -211,7 +211,7 @@ nobiliumsuppression = INFINITY
 
 //plasma combustion: combustion of oxygen and plasma (treated as hydrocarbons). creates hotspots. exothermic
 /datum/gas_reaction/plasmafire
-	priority = -2 //fire should ALWAYS be last, but plasma fires happen after tritium fires
+	priority = -3 //fire should ALWAYS be last, but plasma fires happen after tritium fires
 	name = "Plasma Combustion"
 	id = "plasmafire"
 
@@ -282,7 +282,7 @@ nobiliumsuppression = INFINITY
 	return cached_results["fire"] ? REACTING : NO_REACTION
 
 /datum/gas_reaction/genericfire
-	priority = -3 // very last reaction
+	priority = -4 // very last reaction
 	name = "Combustion"
 	id = "genericfire"
 
@@ -604,7 +604,7 @@ nobiliumsuppression = INFINITY
 		return REACTING
 
 /datum/gas_reaction/stimformation //Stimulum formation follows a strange pattern of how effective it will be at a given temperature, having some multiple peaks and some large dropoffs. Exo and endo thermic.
-	priority = 5
+	priority = 6
 	name = "Stimulum formation"
 	id = "stimformation"
 
@@ -637,7 +637,7 @@ nobiliumsuppression = INFINITY
 		return REACTING
 
 /datum/gas_reaction/nobliumformation //Hyper-Noblium formation is extrememly endothermic, but requires high temperatures to start. Due to its high mass, hyper-nobelium uses large amounts of nitrogen and tritium. BZ can be used as a catalyst to make it less endothermic.
-	priority = 6
+	priority = 7
 	name = "Hyper-Noblium condensation"
 	id = "nobformation"
 
@@ -665,7 +665,7 @@ nobiliumsuppression = INFINITY
 			air.set_temperature(max(((air.return_temperature()*old_heat_capacity - energy_taken)/new_heat_capacity),TCMB))
 
 /datum/gas_reaction/stim_ball
-	priority = 7
+	priority = 8
 	name ="Stimulum Energy Ball"
 	id = "stimball"
 
@@ -752,7 +752,7 @@ nobiliumsuppression = INFINITY
 	var/energy_used = heat_efficency * 600
 	if ((air.get_moles(GAS_CO2) - heat_efficency * 5 < 0 ) || (air.get_moles(GAS_BZ) - heat_efficency * 0.25 < 0)) //Shouldn't produce gas from nothing.
 		return NO_REACTION
-	air.adjust_moles(GAS_CO2, -(heat_efficency * 5)) 
+	air.adjust_moles(GAS_CO2, -(heat_efficency * 5))
 	air.adjust_moles(GAS_BZ, -(heat_efficency * 0.25))
 	air.adjust_moles(GAS_HEXANE,  heat_efficency * 5.25)
 
@@ -782,7 +782,7 @@ nobiliumsuppression = INFINITY
 	var/energy_used = heat_efficency * 9000
 	if ((air.get_moles(GAS_FREON) - heat_efficency * 2.75 < 0 ) || (air.get_moles(GAS_BZ) - heat_efficency * 0.25 < 0)) //Shouldn't produce gas from nothing.
 		return NO_REACTION
-	air.adjust_moles(GAS_FREON, -(heat_efficency * 2.75)) 
+	air.adjust_moles(GAS_FREON, -(heat_efficency * 2.75))
 	air.adjust_moles(GAS_BZ,  -(heat_efficency * 0.25))
 	air.adjust_moles(GAS_HEALIUM, heat_efficency * 3)
 
@@ -842,8 +842,8 @@ nobiliumsuppression = INFINITY
 	var/energy_used = heat_efficency * 5000
 	if ((air.get_moles(GAS_HYPERNOB) - heat_efficency * 0.01 < 0 ) || (air.get_moles(GAS_STIMULUM) - heat_efficency * 0.5 < 0)) //Shouldn't produce gas from nothing.
 		return NO_REACTION
-	air.adjust_moles(GAS_HYPERNOB, -(heat_efficency * 0.01)) 
-	air.adjust_moles(GAS_STIMULUM, -(heat_efficency * 0.5)) 
+	air.adjust_moles(GAS_HYPERNOB, -(heat_efficency * 0.01))
+	air.adjust_moles(GAS_STIMULUM, -(heat_efficency * 0.5))
 	air.adjust_moles(GAS_ZAUKER, heat_efficency * 0.5)
 
 	if(energy_used)
@@ -865,7 +865,7 @@ nobiliumsuppression = INFINITY
 	)
 
 /datum/gas_reaction/halon_o2removal/react(datum/gas_mixture/air, datum/holder)
-	 
+
 	var/temperature =  air.return_temperature()
 	var/old_heat_capacity = air.heat_capacity()
 	var/heat_efficency = min(temperature / ( FIRE_MINIMUM_TEMPERATURE_TO_EXIST * 10), air.get_moles(GAS_HALON), air.get_moles(GAS_O2))
@@ -895,7 +895,7 @@ nobiliumsuppression = INFINITY
 	)
 
 /datum/gas_reaction/hexane_plasma_filtering/react(datum/gas_mixture/air, datum/holder)
-	 
+
 	var/temperature =  air.return_temperature()
 	var/old_heat_capacity = air.heat_capacity()
 	var/heat_efficency = min(temperature * 0.01, air.get_moles(GAS_HEXANE), air.get_moles(GAS_PLASMA))
@@ -924,7 +924,7 @@ nobiliumsuppression = INFINITY
 	)
 
 /datum/gas_reaction/hexane_n2o_filtering/react(datum/gas_mixture/air, datum/holder)
-	 
+
 	var/temperature =  air.return_temperature()
 	var/old_heat_capacity = air.heat_capacity()
 	var/heat_efficency = min(temperature * 0.01, air.get_moles(GAS_HEXANE), air.get_moles(GAS_NITROUS))
@@ -992,7 +992,7 @@ nobiliumsuppression = INFINITY
 /datum/gas_reaction/healium_crystal_formation/react(datum/gas_mixture/air, datum/holder)
 	var/energy_released = 0
 	var/old_heat_capacity = air.heat_capacity()
-	 
+
 	var/temperature =  air.return_temperature()
 	if(!isturf(holder))
 		return NO_REACTION
@@ -1028,7 +1028,7 @@ nobiliumsuppression = INFINITY
 /datum/gas_reaction/proto_nitrate_crystal_formation/react(datum/gas_mixture/air, datum/holder)
 	var/energy_released = 0
 	var/old_heat_capacity = air.heat_capacity()
-	 
+
 	var/temperature =  air.return_temperature()
 	if(!isturf(holder))
 		return NO_REACTION
@@ -1064,7 +1064,7 @@ nobiliumsuppression = INFINITY
 /datum/gas_reaction/zauker_crystal_formation/react(datum/gas_mixture/air, datum/holder)
 	var/energy_released = 0
 	var/old_heat_capacity = air.heat_capacity()
-	 
+
 	var/temperature =  air.return_temperature()
 	if(!isturf(holder))
 		return NO_REACTION
@@ -1100,7 +1100,7 @@ nobiliumsuppression = INFINITY
 /datum/gas_reaction/proto_nitrate_plasma_response/react(datum/gas_mixture/air, datum/holder)
 	var/energy_released = 0
 	var/old_heat_capacity = air.heat_capacity()
-	 
+
 	var/temperature =  air.return_temperature()
 	if(!isturf(holder))
 		return NO_REACTION
@@ -1137,7 +1137,7 @@ nobiliumsuppression = INFINITY
 /datum/gas_reaction/proto_nitrate_bz_response/react(datum/gas_mixture/air, datum/holder)
 	var/energy_released = 0
 	var/old_heat_capacity = air.heat_capacity()
-	 
+
 	var/temperature =  air.return_temperature()
 	var/turf/open/location = isturf(holder) ? holder : null
 	var consumed_amount = min(5, air.get_moles(GAS_BZ), air.get_moles(GAS_PROTO_NITRATE))
@@ -1173,7 +1173,7 @@ nobiliumsuppression = INFINITY
 /datum/gas_reaction/proto_nitrate_freon_fire_response/react(datum/gas_mixture/air, datum/holder)
 	var/energy_released = 0
 	var/old_heat_capacity = air.heat_capacity()
-	 
+
 	var/temperature =  air.return_temperature()
 	if(air.adjust_moles(GAS_FREON, ) > 100 && air.get_moles(GAS_O2) > 100)
 		var fuel_consumption = min(5, temperature * 0.03, air.get_moles(GAS_FREON), air.get_moles(GAS_O2))
@@ -1205,7 +1205,7 @@ nobiliumsuppression = INFINITY
 /datum/gas_reaction/proto_nitrate_tritium_response/react(datum/gas_mixture/air, datum/holder)
 	var/energy_released = 0
 	var/old_heat_capacity = air.heat_capacity()
-	 
+
 	var/temperature =  air.return_temperature()
 	var/turf/open/location = isturf(holder) ? holder : null
 	if(location == null)
@@ -1238,7 +1238,7 @@ nobiliumsuppression = INFINITY
 /datum/gas_reaction/proto_nitrate_n2o_response/react(datum/gas_mixture/air, datum/holder)
 	var/energy_released = 0
 	var/old_heat_capacity = air.heat_capacity()
-	 
+
 	var/temperature =  air.return_temperature()
 	var produced_amount = min(5, air.get_moles(GAS_NITROUS), air.adjust_moles(GAS_PROTO_NITRATE))
 	if(air.get_moles(GAS_NITROUS) - produced_amount < 0)
@@ -1265,7 +1265,7 @@ nobiliumsuppression = INFINITY
 	)
 
 /datum/gas_reaction/proto_nitrate_zauker_response/react(datum/gas_mixture/air, datum/holder)
-	 
+
 	var/turf/open/location = isturf(holder) ? holder : null
 	var max_power = min(5, air.get_moles(GAS_ZAUKER))
 	air.adjust_moles(GAS_ZAUKER, -(air.get_moles(GAS_ZAUKER)))
