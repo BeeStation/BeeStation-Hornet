@@ -292,7 +292,6 @@
 #define GAS_BZ					"bz"
 #define GAS_STIMULUM			"stim"
 #define GAS_PLUOXIUM			"pluox"
-#define GAS_MIASMA				"miasma"
 #define GAS_FREON				"freon"
 #define GAS_HEALIUM				"healium"
 #define GAS_PROTO_NITRATE		"proto-nitrate"
