@@ -7,9 +7,29 @@
 #define BZ_HEAT_PENALTY 5
 #define PLUOXIUM_HEAT_PENALTY -1
 #define TRITIUM_HEAT_PENALTY 10
+#define H2O_HEAT_PENALTY 12 //This'll get made slowly over time, I want my spice rock spicy god damnit
+#define FREON_HEAT_PENALTY -10 //very good heat absorbtion and less plasma and o2 generation
+#define HEALIUM_HEAT_PENALTY 4
+#define PROTO_NITRATE_HEAT_PENALTY -3
+#define ZAUKER_HEAT_PENALTY 8
+
+
+//All of these get divided by 10-bzcomp * 5 before having 1 added and being multiplied with power to determine rads
+//Keep the negative values here above -10 and we won't get negative rads
+
+
+
+#define PROTO_NITRATE_HEAT_RESISTANCE 5
 
 #define OXYGEN_TRANSMIT_MODIFIER 1.5   //Higher == Bigger bonus to power generation.
 #define PLASMA_TRANSMIT_MODIFIER 4
+#define BZ_TRANSMIT_MODIFIER -2
+#define TRITIUM_TRANSMIT_MODIFIER 30 //We divide by 10, so this works out to 3
+#define PLUOXIUM_TRANSMIT_MODIFIER -5 //Should halve the power output
+#define H2O_TRANSMIT_MODIFIER 2
+#define HEALIUM_TRANSMIT_MODIFIER 2.4
+#define PROTO_NITRATE_TRANSMIT_MODIFIER 15
+#define ZAUKER_TRANSMIT_MODIFIER 20
 
 #define N2O_HEAT_RESISTANCE 6          //Higher == Gas makes the crystal more resistant against heat damage.
 
