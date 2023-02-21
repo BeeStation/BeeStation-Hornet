@@ -19,8 +19,8 @@ export const Elevator = (props, context) => {
           spacing={`0%`}>
           {
             available_levels.map(level => (
-              <Stack.Item basis={`100px`}>
-                <Button disabled={level==current_z}
+              <Stack.Item basis={`100px`} key={level}>
+                <Button disabled={level===current_z}
                   onClick={() => act(`${level}`)}
                   fontSize={`50px`}
                   bold={1}
