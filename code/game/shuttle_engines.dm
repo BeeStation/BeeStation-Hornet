@@ -155,7 +155,7 @@
 	bound_height = 96
 	appearance_flags = 0
 
-/obj/structure/shuttle/engine/hugeion
+/obj/structure/shuttle/engine/hugeionengine
 	name = "engine"
 	opacity = 1
 	icon = 'icons/obj/4x7.dmi'
@@ -165,7 +165,7 @@
 	bound_height = 224
 	appearance_flags = 0
 
-/obj/structure/shuttle/engine/hugeion
+/obj/structure/shuttle/engine/hugeionafterburn
 	name = "Ion"
 	opacity = 1
 	icon = 'icons/obj/4x7.dmi'
