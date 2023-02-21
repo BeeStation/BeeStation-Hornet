@@ -4,6 +4,7 @@
 	icon_state = "pinonfar"
 
 /obj/effect/abstract/open_area_marker/Initialize(mapload)
+	. = ..()
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/abstract/doorway_marker
@@ -12,6 +13,7 @@
 	icon_state = "pinonmedium"
 
 /obj/effect/abstract/doorway_marker/Initialize(mapload)
+	. = ..()
 	return INITIALIZE_HINT_QDEL
 
 //Basic loot, utility and maybe some weapons

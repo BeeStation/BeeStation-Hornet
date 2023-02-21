@@ -18,6 +18,7 @@
 	)
 
 /obj/effect/spawner/ocular_warden_setup/Initialize(mapload)
+	. = ..()
 	var/turf/T = get_turf(src)
 	new /obj/structure/destructible/clockwork/ocular_warden(T)
 	var/turf/open/power_turf = locate() in shuffle(view(3, src))
@@ -25,6 +26,7 @@
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/ocular_warden_setup/Initialize(mapload)
+	. = ..()
 	var/turf/T = get_turf(src)
 	new /obj/structure/destructible/clockwork/ocular_warden(T)
 	var/turf/open/power_turf = locate() in shuffle(view(3, src))
@@ -32,6 +34,7 @@
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/interdiction_lens_setup/Initialize(mapload)
+	. = ..()
 	var/turf/T = get_turf(src)
 	new /obj/structure/destructible/clockwork/gear_base/interdiction_lens/free(T)
 	var/turf/open/power_turf = locate() in shuffle(view(3, src))
