@@ -1,0 +1,7 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added the Durathread Jumpskirt, which shares the armor values with the
+      Durathread Jumpsuit but doesn't cover up the legs
+  - rscadd: Added the crafting recipes for jumpskirts out of Cloth and Durathread
+  - spellcheck: Capitalized the crafting recipe for the hoodie
