@@ -3,7 +3,7 @@
 	icon_state = "hot-ice"
 	item_state = "hot-ice"
 	singular_name = "hot ice"
-	icon = 'icons/obj/stack_objects.dmi'
+	icon = 'icons/obj/stacks/minerals.dmi'
 	materials = list(/datum/material/hot_ice=MINERAL_MATERIAL_AMOUNT)
 	grind_results = list(/datum/reagent/toxin/plasma = 300)
 
