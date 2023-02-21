@@ -1631,7 +1631,7 @@
 		else
 			message_admins("[src] ignited by unidentified causes in [ADMIN_VERBOSEJMP(T)]")
 			log_game("[src] ignited by unidentified causes in [AREACOORD(T)]")
-		src.visible_message("<b><span class='userdanger'>[src] ignites in a brilliant flash!</span></b>")
+		visible_message("<b><span class='userdanger'>[src] ignites in a brilliant flash!</span></b>")
 		explosion(T, 0, 0, light_impact_range = strength/4, flash_range = strength/2, flame_range = strength)
 		if(isturf(src))
 			var/turf/srcTurf = src
