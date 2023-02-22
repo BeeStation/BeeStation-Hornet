@@ -39,6 +39,7 @@
 	icon_state = "dk_yellow"
 	ambience_index = AMBIENCE_DANGER
 	ambient_buzz = 'sound/ambience/magma.ogg'
+	ambient_buzz_vol = 10
 
 /area/ruin/unpowered/syndicate_lava_base/engineering
 	name = "Syndicate Lavaland Engineering"
@@ -87,6 +88,7 @@
 	power_light = FALSE
 	poweralm = FALSE
 	ambient_buzz = 'sound/ambience/magma.ogg'
+	ambient_buzz_vol = 10
 
 //ash walker nest
 /area/ruin/unpowered/ash_walkers

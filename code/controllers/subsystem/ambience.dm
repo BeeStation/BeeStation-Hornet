@@ -54,6 +54,11 @@ SUBSYSTEM_DEF(ambience)
 
 	ambience_listening_clients[to_process] = world.time + rand(current_area.min_ambience_cooldown, current_area.max_ambience_cooldown)
 
+/datum/controller/subsystem/ambience/proc/add_ambience_client(client/to_add)
+	if(SSambience.ambience_listening_clients[src] > world.time)
+		return // If already properly set we don't want to reset the timer.
+	SSambience.ambience_listening_clients[src] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.
+
 /datum/controller/subsystem/ambience/proc/remove_ambience_client(client/to_remove)
 	ambience_listening_clients -= to_remove
 	currentrun -= to_remove
@@ -62,7 +67,7 @@ SUBSYSTEM_DEF(ambience)
 /datum/controller/subsystem/ambience/proc/play_buzz(mob/M, area/A)
 	if(M.can_hear_ambience() && (M.client.prefs.toggles & PREFTOGGLE_SOUND_SHIP_AMBIENCE))
 		if (!M.client.buzz_playing || (A.ambient_buzz != M.client.buzz_playing))
-			SEND_SOUND(M, sound(A.ambient_buzz, repeat = 1, wait = 0, volume = 40, channel = CHANNEL_BUZZ))
+			SEND_SOUND(M, sound(A.ambient_buzz, repeat = 1, wait = 0, volume = A.ambient_buzz_vol, channel = CHANNEL_BUZZ))
 			M.client.buzz_playing = A.ambient_buzz // It's done this way so I can tell when the user switches to an area that has a different buzz effect, so we can seamlessly swap over to that one
 		return
 

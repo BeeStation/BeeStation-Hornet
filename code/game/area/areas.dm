@@ -61,10 +61,12 @@
 	///Used to decide what the minimum time between ambience is
 	var/min_ambience_cooldown = 30 SECONDS
 	///Used to decide what the maximum time between ambience is
-	var/max_ambience_cooldown = 90 SECONDS
+	var/max_ambience_cooldown = 60 SECONDS
 
 	///Ambient buzz of the station, plays repeatedly, also IC
 	var/ambient_buzz = 'sound/ambience/shipambience.ogg'
+	///The volume of the ambient buzz
+	var/ambient_buzz_vol = 30
 
 	var/ambient_music_index
 	var/list/ambientmusic

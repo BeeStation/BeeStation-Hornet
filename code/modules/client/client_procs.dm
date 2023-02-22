@@ -1129,9 +1129,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /client/proc/update_ambience_pref()
 	if(prefs.toggles & PREFTOGGLE_SOUND_AMBIENCE)
-		if(SSambience.ambience_listening_clients[src] > world.time)
-			return // If already properly set we don't want to reset the timer.
-		SSambience.ambience_listening_clients[src] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.
+		SSambience.add_ambience_client(src)
 	else
 		SSambience.remove_ambience_client(src)
 
