@@ -1,7 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - tweak: wild magic apprentice will not learn soul tap/binding soul spells
-  - bugfix: wild magic apprentice will not learn the certain spells again
-  - bugfix: wild magic apprentice will not learn spells that are blacklisted by spells
-      that you learned already
