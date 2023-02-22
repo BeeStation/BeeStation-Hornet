@@ -38,6 +38,7 @@
 	name = "Secret Base"
 	icon_state = "dk_yellow"
 	ambience_index = AMBIENCE_DANGER
+	ambient_buzz = 'sound/ambience/magma.ogg'
 
 /area/ruin/unpowered/syndicate_lava_base/engineering
 	name = "Syndicate Lavaland Engineering"
@@ -85,7 +86,9 @@
 	power_equip = FALSE
 	power_light = FALSE
 	poweralm = FALSE
+	ambient_buzz = 'sound/ambience/magma.ogg'
 
 //ash walker nest
 /area/ruin/unpowered/ash_walkers
 	icon_state = "red"
+	ambient_buzz = 'sound/ambience/magma.ogg'
