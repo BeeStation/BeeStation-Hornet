@@ -444,7 +444,7 @@
 /obj/effect/proc_holder/spell/targeted/worm_contract
 	name = "Force Contract"
 	desc = "Forces all the worm parts to collapse onto a single turf"
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
 	range = -1
@@ -565,7 +565,7 @@
 	charge_max = 300
 	clothes_req = FALSE
 	invocation = "PI'RC' TH' M'ND"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	range = 10
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "mansus_link"

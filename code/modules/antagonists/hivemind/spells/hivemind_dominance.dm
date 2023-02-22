@@ -4,7 +4,7 @@
 	panel = "Hivemind Abilities"
 	charge_type = "charges"
 	charge_max = 1
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	clothes_req = 0
 	human_req = 1
 	action_icon = 'icons/mob/actions/actions_hive.dmi'
