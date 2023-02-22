@@ -14,27 +14,28 @@ SUBSYSTEM_DEF(ambience)
 	if(!resumed)
 		currentrun = ambience_listening_clients.Copy()
 	var/list/cached_clients = currentrun
+	for(var/client/client_iterator as anything in cached_clients)
+		if(isnull(client_iterator))
+			continue
 
-	while(cached_clients.len)
-		var/client/client_iterator = cached_clients[cached_clients.len]
-		cached_clients.len--
+		if(isnewplayer(client_iterator.mob))
+			continue
+
 		process_ambience_client(client_iterator)
 
 		if(MC_TICK_CHECK)
 			return
 
 /datum/controller/subsystem/ambience/proc/process_ambience_client(client/to_process)
-	if(isnull(to_process) || isnewplayer(to_process.mob))
-		return
-
-	var/area/current_area = get_area(to_process.mob)
+	var/mob/current_mob = to_process.mob
+	var/area/current_area = get_area(current_mob)
 	if(!current_area) //Something's gone horribly wrong
 		stack_trace("[key_name(to_process)] has somehow ended up in nullspace. WTF did you do -xoxo ambience subsystem")
 		ambience_listening_clients -= to_process
 		return
 
 	if(current_area.ambient_buzz)
-		play_buzz(to_process.mob, current_area)
+		play_buzz(current_mob, current_area)
 
 	if(ambience_listening_clients[to_process] > world.time)
 		return //Not ready for the next sound
@@ -46,18 +47,18 @@ SUBSYSTEM_DEF(ambience)
 		if(current_area.rare_ambient_sounds && length(current_area.rare_ambient_sounds) && prob(0.5))
 			ambi_fx = pick(current_area.rare_ambient_sounds)
 
-		play_ambience_effects(to_process.mob, ambi_fx, current_area)
+		play_ambience_effects(current_mob, ambi_fx, current_area)
 
 	if(current_area.ambientmusic && length(current_area.ambientmusic))
 		var/ambi_music = pick(current_area.ambientmusic)
-		play_ambience_music(to_process.mob, ambi_music, current_area)
+		play_ambience_music(current_mob, ambi_music, current_area)
 
 	ambience_listening_clients[to_process] = world.time + rand(current_area.min_ambience_cooldown, current_area.max_ambience_cooldown)
 
 /datum/controller/subsystem/ambience/proc/add_ambience_client(client/to_add)
-	if(SSambience.ambience_listening_clients[src] > world.time)
+	if(SSambience.ambience_listening_clients[to_add] > world.time)
 		return // If already properly set we don't want to reset the timer.
-	SSambience.ambience_listening_clients[src] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.
+	SSambience.ambience_listening_clients[to_add] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.
 
 /datum/controller/subsystem/ambience/proc/remove_ambience_client(client/to_remove)
 	ambience_listening_clients -= to_remove
