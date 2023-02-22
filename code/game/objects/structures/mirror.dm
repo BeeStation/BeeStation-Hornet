@@ -10,6 +10,7 @@
 	integrity_failure = 100
 	flags_ricochet = RICOCHET_SHINY
 	layer = ABOVE_WINDOW_LAYER
+	var/magical = FALSE
 
 /obj/structure/mirror/Initialize(mapload, dir, building)
 	. = ..()
