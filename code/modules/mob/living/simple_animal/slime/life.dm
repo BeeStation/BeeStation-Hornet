@@ -5,6 +5,7 @@
 	var/monkey_bonus_damage = 2
 	var/attack_cooldown = 0
 	var/attack_cooldown_time = 20 //How long, in deciseconds, the cooldown of attacks is
+	role = ROLE_SENTIENCE
 
 /mob/living/simple_animal/slime/Life()
 	set invisibility = 0
@@ -149,7 +150,7 @@
 	var/mob/living/M = buckled
 	if(transformeffects & SLIME_EFFECT_OIL)
 		var/datum/reagent/fuel/fuel = new
-		fuel.reaction_mob(buckled,TOUCH,20)
+		fuel.expose_mob(buckled,TOUCH,20)
 		qdel(fuel)
 	if(M.stat == DEAD)
 		if(client)
