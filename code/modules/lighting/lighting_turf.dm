@@ -1,15 +1,6 @@
 /turf
-	///Bool, whether this turf will always be illuminated no matter what area it is in
-	var/always_lit = FALSE
+	var/dynamic_lighting = TRUE
 	luminosity           = 1
-	///The mutable appearance we underlay to show light
-	var/mutable_appearance/lighting_effect = null
-	///Whether this area has a currently active base lighting, bool
-	var/area_has_base_lighting = FALSE
-	///alpha 0-255 of lighting_effect and thus baselighting intensity
-	var/base_lighting_alpha = 0
-	///The colour of the light acting on this area
-	var/base_lighting_color = null
 
 	var/tmp/lighting_corners_initialised = FALSE
 
@@ -39,7 +30,7 @@
 		qdel(lighting_object,force=TRUE) //Shitty fix for lighting objects persisting after death
 
 	var/area/A = loc
-	if(!A.static_lighting && !light_sources)
+	if (!IS_DYNAMIC_LIGHTING(A) && !light_sources)
 		return
 
 	new/atom/movable/lighting_object(src)
@@ -101,16 +92,11 @@
 
 /turf/proc/change_area(var/area/old_area, var/area/new_area)
 	if(SSlighting.initialized)
-		if (new_area.static_lighting != old_area.static_lighting)
-			if (new_area.static_lighting)
+		if (new_area.dynamic_lighting != old_area.dynamic_lighting)
+			if (new_area.dynamic_lighting)
 				lighting_build_overlay()
 			else
 				lighting_clear_overlay()
-	//Inherit overlay of new area
-	if(old_area.lighting_effect)
-		cut_overlay(old_area.lighting_effect)
-	if(new_area.lighting_effect)
-		add_overlay(new_area.lighting_effect)
 
 /turf/proc/generate_missing_corners()
 	if (!lighting_corner_NE)

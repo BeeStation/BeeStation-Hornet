@@ -95,8 +95,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	for(var/atom/movable/content as anything in src)
 		Entered(content, null)
 
-	if(always_lit)
-		add_overlay(GLOB.fullbright_overlay)
+	var/area/A = loc
+	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
+		add_overlay(/obj/effect/fullbright)
 
 	if(requires_activation)
 		CALCULATE_ADJACENT_TURFS(src)
