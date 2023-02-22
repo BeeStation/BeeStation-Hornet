@@ -1,7 +1,7 @@
 /area/iceland
 	name = "iceland plains"
 	icon_state = "iceland"
-	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
+	area_flags = UNIQUE_AREA | AREA_USES_STARLIGHT
 	always_unpowered = TRUE
 	requires_power = TRUE
 	poweralm = FALSE

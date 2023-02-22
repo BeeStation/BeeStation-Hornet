@@ -111,6 +111,11 @@
 ///Things that should render ignoring lighting
 #define ABOVE_LIGHTING_PLANE 120
 
+#define LIGHTING_PRIMARY_LAYER 15 //The layer for the main lights of the station
+#define LIGHTING_PRIMARY_DIMMER_LAYER 15.1 //The layer that dims the main lights of the station
+#define LIGHTING_SECONDARY_LAYER 16 //The colourful, usually small lights that go on top
+
+
 ///visibility + hiding of things outside of light source range
 #define BYOND_LIGHTING_PLANE 130
 //---------- EMISSIVES -------------
