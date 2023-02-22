@@ -332,6 +332,11 @@
 	name = "Yellow Bioluminescence"
 	glow_color = "#FFFF66"
 
+/datum/plant_gene/trait/glow/orange
+	//because Yellow doesn't suit Engineering
+	name = "Orange Bioluminescence"
+	glow_color = "#D05800"
+
 /datum/plant_gene/trait/glow/green
 	//oh no, now I'm radioactive
 	name = "Green Bioluminescence"
