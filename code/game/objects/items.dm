@@ -835,6 +835,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	else
 		return
 
+/obj/item/on_exit_storage(datum/component/storage/concrete/master_storage)
+	. = ..()
+	var/atom/location = master_storage.real_location()
+	do_drop_animation(location)
+
 /obj/item/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(hit_atom && !QDELETED(hit_atom))
 		SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
@@ -872,6 +877,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if (callback) //call the original callback
 		. = callback.Invoke()
 	item_flags &= ~PICKED_UP
+	if(!pixel_y && !pixel_x && !(item_flags & NO_PIXEL_RANDOM_DROP))
+		pixel_x = rand(-8,8)
+		pixel_y = rand(-8,8)
 
 /obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/storage
 	if(!newLoc)
