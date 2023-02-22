@@ -25,7 +25,7 @@
 /datum/gear/uniform/color/blue
 	display_name = "blue jumpsuit"
 	path = /obj/item/clothing/under/color/blue
-	skirt_display_name = "grey jumpskirt"
+	skirt_display_name = "blue jumpskirt"
 	skirt_path = /obj/item/clothing/under/color/jumpskirt/blue
 
 /datum/gear/uniform/color/orange
