@@ -420,7 +420,7 @@
 	REMOVE_TRAIT(src, TRAIT_BLIND, source)
 	if(!is_blind())
 		adjust_blindness(-1)
-		var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)
+		var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)	
 		B?.RemoveComponent()
 
 /mob/living/proc/become_blind(source, atom/movable/screen/fullscreen/overlay)

@@ -734,6 +734,8 @@
 			else
 				set_stat(CONSCIOUS)
 			adjust_blindness(-1)
+			var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)	
+			B?.RemoveComponent()
 			REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
 		update_mobility()
 	update_damage_hud()

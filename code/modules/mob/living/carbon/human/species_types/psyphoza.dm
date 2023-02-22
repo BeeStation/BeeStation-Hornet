@@ -3,7 +3,7 @@
 ///Burn mod for our species - we're weak to fire
 #define PSYPHOZA_BURNMOD 1.25
 ///Invisibility layer for shrooms
-#define SHROOM_DEPOSIT_INVISIBILITY 99
+#define SHROOM_DEPOSIT_INVISIBILITY 55
 
 GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/machinery/door, /obj/machinery/light, /obj/machinery/firealarm,
 	/obj/machinery/camera, /obj/machinery/atmospherics, /obj/structure/cable, /obj/structure/sign, /obj/machinery/airalarm, 
@@ -118,6 +118,12 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	var/overlay_timer
 	///Ref to change action
 	var/datum/action/change_psychic_visual/overlay_change
+	///The amount of time between auto uses
+	var/auto_cooldown = 7.5 SECONDS
+	///Do we have auto sense toggled?
+	var/auto_sense = FALSE
+	///Ref to sense auto toggle action
+	var/datum/action/change_psychic_auto/auto_action
 
 /datum/action/item_action/organ_action/psychic_highlight/New(Target)
 	. = ..()
@@ -137,8 +143,13 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	M.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
 	//Add option to change visuals
 	if(!(locate(/datum/action/change_psychic_visual) in owner.actions))
-		overlay_change = new()
+		overlay_change = new(src)
 		overlay_change.Grant(owner)
+	///Give owner auto action
+	auto_action = new(src)
+	auto_action.Grant(M)
+	///Start auto timer
+	addtimer(CALLBACK(src, .proc/auto_sense), auto_cooldown)
 
 /datum/action/item_action/organ_action/psychic_highlight/IsAvailable()
 	if(has_cooldown_timer)
@@ -158,6 +169,11 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	. = ..()
 	if(!IsAvailable())
 		button.color = transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0) //Overwrite this line from the original to support my fucked up use
+
+/datum/action/item_action/organ_action/psychic_highlight/proc/auto_sense()
+	if(auto_sense)
+		Trigger()
+	addtimer(CALLBACK(src, .proc/auto_sense), auto_cooldown)
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/finish_cooldown()
 	has_cooldown_timer = FALSE
@@ -328,6 +344,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	//Wrap index back around
 	visual_index = visual_index >= 2 ? 0 :  visual_index
 
+//Action for changing screen color
 /datum/action/change_psychic_visual
 	name = "Change Psychic Sense"
 	desc = "Change the visual style of your psychic sense."
@@ -336,11 +353,57 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	///Ref to the overlay - hard del edition
 	var/atom/movable/screen/fullscreen/blind/psychic_highlight/psychic_overlay
 
+/datum/action/change_psychic_visual/New(Target)
+	. = ..()
+	RegisterSignal(psychic_overlay, COMSIG_PARENT_QDELETING, .proc/parent_destroy)
+
+/datum/action/change_psychic_visual/Destroy()
+	. = ..()
+	QDEL_NULL(psychic_overlay)
+
+/datum/action/change_psychic_visual/proc/parent_destroy()
+	SIGNAL_HANDLER
+
+	Destroy()
+
 /datum/action/change_psychic_visual/Trigger()
 	. = ..()
 	if(!psychic_overlay)
 		psychic_overlay = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight) in owner?.client?.screen
 	psychic_overlay?.cycle_visuals()
+
+//Action for toggling auto sense
+/datum/action/change_psychic_auto
+	name = "Auto Psychic Sense"
+	desc = "Change your psychic sense to auto."
+	icon_icon = 'icons/mob/actions.dmi'
+	button_icon_state = "unknown"
+	///Ref to the action
+	var/datum/action/item_action/organ_action/psychic_highlight/psychic_action
+
+/datum/action/change_psychic_auto/New(Target)
+	. = ..()
+	psychic_action = Target
+	RegisterSignal(psychic_action, COMSIG_PARENT_QDELETING, .proc/parent_destroy)
+
+/datum/action/change_psychic_auto/Destroy()
+	. = ..()
+	QDEL_NULL(psychic_action)
+
+/datum/action/change_psychic_auto/proc/parent_destroy()
+	SIGNAL_HANDLER
+
+	Destroy()
+
+/datum/action/change_psychic_auto/Trigger()
+	. = ..()
+	psychic_action?.auto_sense = !psychic_action?.auto_sense
+	UpdateButtonIcon()
+
+/datum/action/change_psychic_auto/IsAvailable()
+	. = ..()
+	if(psychic_action?.auto_sense)
+		return FALSE
 
 /obj/effect/psyphoza_spores
 	name = "psyphoza sprore deposit"
@@ -391,6 +454,26 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 
 /obj/effect/psyphoza_spores/proc/upgrade()
 	upgrades = min(upgrade_limit, upgrades+1)
+
+//Keybind for sense
+/datum/keybinding/mob/psychic_sense
+	key = "Shift-Space"
+	name = "psuchic_sense"
+	full_name = "Psychic Sense"
+	description = "Activates psyphoza psychic sense"
+	keybind_signal = COMSIG_SPECIES_ACTION_PRIMARY
+	///Ref to sense
+	var/datum/action/item_action/organ_action/psychic_highlight/PH
+
+/datum/keybinding/mob/psychic_sense/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) 
+		return
+	PH = PH || locate(/datum/action/item_action/organ_action/psychic_highlight) in user.mob.actions
+	PH?.Trigger()
+	return TRUE
 
 #undef PSYCHIC_OVERLAY_UPPER
 #undef PSYPHOZA_BURNMOD
