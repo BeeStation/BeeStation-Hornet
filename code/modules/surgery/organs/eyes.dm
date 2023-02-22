@@ -416,7 +416,7 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	blind_type = /atom/movable/screen/fullscreen/blind/psychic
-	see_invisible = 99 //Magic number for shroom deposits, sorry
+	see_invisible = 55 //Magic number for shroom deposits, sorry
 
 /obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special, drop_if_replaced, initialising)
 	. = ..()

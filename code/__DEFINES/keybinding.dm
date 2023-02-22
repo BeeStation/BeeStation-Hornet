@@ -78,3 +78,6 @@
 #define COMSIG_KB_SILICON_UNEQUIPMODULE_DOWN "keybinding_silicon_unequipmodule_down"
 #define COMSIG_KB_SILION_UNDEPLOY_DOWN "keybinding_silicon_undeploy_down"
 #define COMSIG_KB_SILICON_RECONNECT_DOWN "keybinding_silicon_reconnect_down"
+
+//Species Specific
+#define COMSIG_SPECIES_ACTION_PRIMARY "keybinding_species_action_primary"
