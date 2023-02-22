@@ -31,7 +31,7 @@ GLOBAL_LIST_INIT(poll_ignore_desc, list(
 	POLL_IGNORE_CONTRACTOR_SUPPORT = "Contractor Support Unit",
 	POLL_IGNORE_DEFECTIVECLONE = "Defective clone",
 	POLL_IGNORE_DRONE = "Drone shells",
-	POLL_IGNORE_EXPERIMENTAL_CLONE = "Experimental clone"
+	POLL_IGNORE_EXPERIMENTAL_CLONE = "Experimental clone",
 	POLL_IGNORE_FUGITIVE = "Fugitive Hunter",
 	POLL_IGNORE_GOLEM = "Golems",
 	POLL_IGNORE_HOLOPARASITE = "Holoparasite",

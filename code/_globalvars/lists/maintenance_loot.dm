@@ -25,7 +25,7 @@
 //port:					5  items,  5 spots 0 extra (08/08/2014)
 
 GLOBAL_LIST_INIT(maintenance_loot, list(
-	"" = 3
+	"" = 3,
 	/obj/effect/spawner/lootdrop/gloves = 8,
 	/obj/effect/spawner/lootdrop/glowstick = 4,
 	/obj/item/airlock_painter = 1,
@@ -115,4 +115,4 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/wirecutters = 1,
 	/obj/item/wrench = 4,
 	/obj/item/xenoartifact/maint = 1,
-	))
+))

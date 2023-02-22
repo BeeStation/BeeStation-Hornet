@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(color_list_ethereal, list(
 	"Dark Green" = "0ab432",
 	"Dark Teal" = "5ea699",
 	"Denim Blue" = "3399ff",
-	"Gray" = "979497"
+	"Gray" = "979497",
 	"Green" = "97ee63",
 	"Lavender" = "d1acff",
 	"Maroon" = "9c3030",
@@ -158,20 +158,20 @@ GLOBAL_LIST_INIT(backbaglist, list(
 
 
 GLOBAL_LIST_INIT(jumpsuitlist, list(
-	PREF_SKIRT
+	PREF_SKIRT,
 	PREF_SUIT,
 ))
 
 // What we show to the user
 GLOBAL_LIST_INIT(uplink_spawn_loc_list, list(
-	UPLINK_IMPLANT_WITH_PRICE
+	UPLINK_IMPLANT_WITH_PRICE,
 	UPLINK_PDA,
 	UPLINK_PEN,
 	UPLINK_RADIO,
 ))
 // What is actually saved; if the uplink implant price changes, it won't affect save files then
 GLOBAL_LIST_INIT(uplink_spawn_loc_list_save, list(
-	UPLINK_IMPLANT
+	UPLINK_IMPLANT,
 	UPLINK_PDA,
 	UPLINK_PEN,
 	UPLINK_RADIO,
@@ -183,7 +183,7 @@ GLOBAL_LIST_EMPTY(female_clothing_icons)
 	//radical shit
 GLOBAL_LIST_INIT(hit_appends, list(
 	"-ACK",
-	"-GLORF"
+	"-GLORF",
 	"-HRNK",
 	"-HURGH",
 	"-OOF",
@@ -192,7 +192,7 @@ GLOBAL_LIST_INIT(hit_appends, list(
 
 GLOBAL_LIST_INIT(scarySounds, list(
 	'sound/effects/clownstep1.ogg',
-	'sound/effects/clownstep2.ogg'
+	'sound/effects/clownstep2.ogg',
 	'sound/effects/glassbr1.ogg',
 	'sound/effects/glassbr2.ogg',
 	'sound/effects/glassbr3.ogg',
@@ -263,7 +263,7 @@ GLOBAL_LIST_INIT(TAGGERLOCATIONS, list(
 	"Chapel",
 	"Chemistry",
 	"CMO Office",
-	"Detective's Office"
+	"Detective's Office",
 	"Disposals",
 	"Dormitories",
 	"Engineering",
@@ -314,7 +314,7 @@ GLOBAL_LIST_INIT(admiral_messages, list(
 	"<i>null</i>",
 	"Do you know how expensive these stations are?",
 	"I was sleeping, thanks a lot.",
-	"It's a good day to die!"
+	"It's a good day to die!",
 	"No.",
 	"Stand and fight you cowards!",
 	"Stop being paranoid.",
@@ -334,7 +334,7 @@ GLOBAL_LIST_INIT(pAI_faces_list, list(
 	"Laugh" = "laugh",
 	"Off" = "off",
 	"Sad" = "sad",
-	"Sunglasses" = "sunglasses"
+	"Sunglasses" = "sunglasses",
 	"What" = "what",
 ))
 
@@ -347,6 +347,6 @@ GLOBAL_LIST_INIT(pAI_faces_icons, list(
 	"Laugh" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-laugh"),
 	"Off" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-off"),
 	"Sad" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-sad"),
-	"Sunglasses" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-sunglasses")
+	"Sunglasses" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-sunglasses"),
 	"What" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-what"),
 ))

@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(mining_ambience,list(
 	'sound/ambience/ambicave.ogg',
 	'sound/ambience/ambidanger.ogg',
 	'sound/ambience/ambidanger2.ogg',
-	'sound/ambience/ambilava.ogg'
+	'sound/ambience/ambilava.ogg',
 	'sound/ambience/ambimaint1.ogg',
 	'sound/ambience/ambimine.ogg',
 	'sound/ambience/ambiruin.ogg',
@@ -79,7 +79,7 @@ GLOBAL_LIST_INIT(medical_ambience,list('sound/ambience/ambinice.ogg'))
 GLOBAL_LIST_INIT(spooky_ambience,list(
 	'sound/ambience/ambimo1.ogg',
 	'sound/ambience/ambimo2.ogg',
-	'sound/ambience/ambimystery.ogg'
+	'sound/ambience/ambimystery.ogg',
 	'sound/ambience/ambiodd.ogg',
 	'sound/ambience/ambiruin6.ogg',
 	'sound/ambience/ambiruin7.ogg',
@@ -91,7 +91,7 @@ GLOBAL_LIST_INIT(maint_ambience,list(
 	'sound/ambience/ambimaint3.ogg',
 	'sound/ambience/ambimaint4.ogg',
 	'sound/ambience/ambimaint5.ogg',
-	'sound/ambience/ambitech2.ogg'
+	'sound/ambience/ambitech2.ogg',
 	'sound/voice/lowHiss2.ogg',
 	'sound/voice/lowHiss3.ogg',
 	'sound/voice/lowHiss4.ogg',
@@ -103,7 +103,7 @@ GLOBAL_LIST_INIT(away_ambience,list(
 	'sound/ambience/ambidanger.ogg',
 	'sound/ambience/ambidanger2.ogg',
 	'sound/ambience/ambimaint.ogg',
-	'sound/ambience/ambiodd.ogg'
+	'sound/ambience/ambiodd.ogg',
 	'sound/ambience/ambiruin.ogg',
 	'sound/ambience/ambiruin2.ogg',
 	'sound/ambience/ambiruin3.ogg',
@@ -157,7 +157,7 @@ GLOBAL_LIST_INIT(ambience_assoc,list(
 	AMBIENCE_MAINT = GLOB.maint_ambience,
 	AMBIENCE_MEDICAL = GLOB.medical_ambience,
 	AMBIENCE_MINING = GLOB.mining_ambience,
-	AMBIENCE_NONE = list()
+	AMBIENCE_NONE = list(),
 	AMBIENCE_REEBE = GLOB.reebe_ambience,
 	AMBIENCE_RUINS = GLOB.ruins_ambience,
 	AMBIENCE_SPOOKY = GLOB.spooky_ambience,
@@ -168,10 +168,10 @@ GLOBAL_LIST_INIT(space_ambient_music,list(
 	'sound/ambience/ambispace.ogg',
 	'sound/ambience/ambispace2.ogg',
 	'sound/ambience/qwerty/constellations.ogg',
-	'sound/ambience/qwerty/drifting.ogg'
+	'sound/ambience/qwerty/drifting.ogg',
 	'sound/ambience/qwerty/starlight.ogg',
 ))
 
 GLOBAL_LIST_INIT(ambient_music_assoc, list(
-	AMBIENCE_SPACE = GLOB.space_ambient_music
+	AMBIENCE_SPACE = GLOB.space_ambient_music,
 ))
