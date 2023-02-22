@@ -436,11 +436,11 @@
 			qdel(T)
 
 /obj/item/seeds/proc/add_random_glow()
-	var/random_trait = pick(subtypesof(/datum/plant_gene/trait/glow))
+	var/static/glow_traits  = subtypesof(/datum/plant_gene/trait/glow) - /datum/plant_gene/trait/glow/shadow
+	var/random_trait = pick(glow_traits)
 	var/datum/plant_gene/trait/T = new random_trait
-	for(var/datum/plant_gene/trait/R in genes) //Replaces the old color
-		if(istype(R, /datum/plant_gene/trait/glow))
-			genes -= R
+	for(var/datum/plant_gene/trait/glow/R in genes) //Replaces the old color
+		genes -= R
 	genes += T
 
 /obj/item/seeds/proc/add_random_plant_type(normal_plant_chance = 75)

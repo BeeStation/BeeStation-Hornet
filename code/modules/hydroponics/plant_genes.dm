@@ -338,7 +338,7 @@
 	glow_color = "#D05800"
 
 /datum/plant_gene/trait/glow/green
-	//oh no, now I'm radioactive
+	//not a creative color
 	name = "Green Bioluminescence"
 	glow_color = "#99FF99"
 
