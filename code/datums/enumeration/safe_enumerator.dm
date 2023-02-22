@@ -1,5 +1,5 @@
 /**
- * Enumerator with overhead to handle poor code.
+ * Enumerator with overhead to handle hard-dels.
  * This will automatically add signals to the things in the list to dereference them upon
  * deletion.
  * Note that this will make nulls in the list, you are still responsible for handling nulls.
