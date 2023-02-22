@@ -10,11 +10,6 @@
 	integrity_failure = 100
 	flags_ricochet = RICOCHET_SHINY
 	layer = ABOVE_WINDOW_LAYER
-	var/magical = FALSE
-	var/dir_north = NORTH
-	var/dir_east = EAST
-	var/dir_south = SOUTH
-	var/dir_west = WEST
 
 /obj/structure/mirror/Initialize(mapload, dir, building)
 	. = ..()
