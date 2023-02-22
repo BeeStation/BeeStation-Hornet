@@ -126,6 +126,7 @@
 	take_damage(500, BRUTE, "melee", 1)
 	return TRUE
 
+
 /// If you can climb WITHIN this structure, lattices for example. Used by z_transit (Move Upwards verb)
 /obj/structure/proc/can_climb_through()
 	return FALSE
