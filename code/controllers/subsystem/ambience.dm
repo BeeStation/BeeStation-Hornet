@@ -7,32 +7,48 @@ SUBSYSTEM_DEF(ambience)
 	wait = 2
 	///Assoc list of listening client - next ambience time
 	var/list/ambience_listening_clients = list()
+	///Cache for sanic speed :D
+	var/list/currentrun = list()
 
 /datum/controller/subsystem/ambience/fire(resumed)
-	for(var/client/client_iterator as anything in ambience_listening_clients)
+	if(!resumed)
+		currentrun = ambience_listening_clients.Copy()
+	var/list/cached_clients = currentrun
 
-		if(isnull(client_iterator))
-			ambience_listening_clients -= client_iterator
-			continue
+	while(cached_clients.len)
+		var/client/client_iterator = cached_clients[cached_clients.len]
+		cached_clients.len--
+		process_ambience_client(client_iterator)
 
-		if(isnewplayer(client_iterator.mob))
-			continue
+		if(MC_TICK_CHECK)
+			return
 
-		var/area/current_area = get_area(client_iterator.mob)
+/datum/controller/subsystem/ambience/proc/process_ambience_client(client/to_process)
+	if(isnull(to_process) || isnewplayer(to_process.mob))
+		return
 
-		play_buzz(client_iterator.mob, current_area)
+	var/area/current_area = get_area(to_process.mob)
+	if(!current_area) //Something's gone horribly wrong
+		stack_trace("[key_name(to_process)] has somehow ended up in nullspace. WTF did you do -xoxo ambience subsystem")
+		ambience_listening_clients -= to_process
+		return
 
-		if(ambience_listening_clients[client_iterator] > world.time)
-			continue //Not ready for the next sound
+	play_buzz(to_process.mob, current_area)
 
-		var/ambi_fx = pick(current_area.ambientsounds)
-		var/ambi_music = pick(current_area.ambientmusic)
+	if(ambience_listening_clients[to_process] > world.time)
+		return //Not ready for the next sound
 
-		play_ambience_music(client_iterator.mob, ambi_music, current_area)
+	var/ambi_fx = pick(current_area.ambientsounds)
+	var/ambi_music = pick(current_area.ambientmusic)
 
-		play_ambience_effects(client_iterator.mob, ambi_fx, current_area)
+	play_ambience_music(to_process.mob, ambi_music, current_area)
+	play_ambience_effects(to_process.mob, ambi_fx, current_area)
 
-		ambience_listening_clients[client_iterator] = world.time + rand(current_area.min_ambience_cooldown, current_area.max_ambience_cooldown)
+	ambience_listening_clients[to_process] = world.time + rand(current_area.min_ambience_cooldown, current_area.max_ambience_cooldown)
+
+/datum/controller/subsystem/ambience/proc/remove_ambience_client(client/to_remove)
+	ambience_listening_clients -= to_remove
+	currentrun -= to_remove
 
 /datum/controller/subsystem/ambience/proc/play_buzz(mob/M, area/A)
 	if (A.ambient_buzz && (M.client.prefs.toggles & PREFTOGGLE_SOUND_SHIP_AMBIENCE) && M.can_hear_ambience())

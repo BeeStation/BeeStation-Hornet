@@ -542,7 +542,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	GLOB.directory -= ckey
 	GLOB.clients -= src
 	GLOB.mentors -= src
-	SSambience.ambience_listening_clients -= src
+	SSambience.remove_ambience_client(src)
 	QDEL_LIST_ASSOC_VAL(char_render_holders)
 	Master.UpdateTickRate()
 	return ..()
@@ -1133,7 +1133,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			return // If already properly set we don't want to reset the timer.
 		SSambience.ambience_listening_clients[src] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.
 	else
-		SSambience.ambience_listening_clients -= src
+		SSambience.remove_ambience_client(src)
 
 /client/proc/give_award(achievement_type, mob/user)
 	return player_details.achievements.unlock(achievement_type, user)
