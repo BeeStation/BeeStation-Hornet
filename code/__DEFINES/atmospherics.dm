@@ -217,6 +217,14 @@
 #define ATMOS_GAS_MONITOR_OUTPUT_SM "sm_out"
 #define ATMOS_GAS_MONITOR_SENSOR_SM "sm_sense"
 
+#define ATMOS_GAS_MONITOR_INPUT_SM_WASTE "sm_waste_in"
+#define ATMOS_GAS_MONITOR_OUTPUT_SM_WASTE "sm_waste_out"
+#define ATMOS_GAS_MONITOR_SENSOR_SM_WASTE "sm_waste_sense"
+
+#define ATMOS_GAS_MONITOR_INPUT_TOXINS_WASTE "toxins_waste_in"
+#define ATMOS_GAS_MONITOR_OUTPUT_TOXINS_WASTE "toxins_waste_out"
+#define ATMOS_GAS_MONITOR_SENSOR_TOXINS_WASTE "toxins_waste_sense"
+
 //AIRLOCK CONTROLLER TAGS
 
 //RnD toxins burn chamber

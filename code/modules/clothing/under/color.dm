@@ -214,6 +214,12 @@
 	greyscale_colors = "#8291a1"
 	armor = list("melee" = 10, "laser" = 10, "fire" = 40, "acid" = 10, "bomb" = 5, "stamina" = 30)
 
+/obj/item/clothing/under/color/jumpskirt/durathread
+	name = "durathread jumpskirt"
+	desc = "A jumpskirt made from durathread, its resilient fibres provide some protection to the wearer."
+	greyscale_colors = "#8291a1"
+	armor = list("melee" = 10, "laser" = 10, "fire" = 40, "acid" = 10, "bomb" = 5, "stamina" = 30)
+
 /obj/item/clothing/under/color/rainbow
 	name = "rainbow jumpsuit"
 	desc = "A multi-colored jumpsuit!"
