@@ -404,7 +404,6 @@
 	desc = "The food of choice for the seasoned coder (if you see this, contact DonkCo. as soon as possible)."
 
 /obj/item/reagent_containers/food/snacks/donkpocket/random/Initialize()
-	. = ..()
 	var/list/donkblock = list(/obj/item/reagent_containers/food/snacks/donkpocket/warm,
 	/obj/item/reagent_containers/food/snacks/donkpocket/spicy/warm,
 	/obj/item/reagent_containers/food/snacks/donkpocket/teriyaki/warm,

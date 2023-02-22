@@ -571,7 +571,6 @@
 	desc = "An undefined mothperson plushy. It's a debuggable bug! (if you see this, contact an upper beign as soon as possible)."
 
 /obj/item/toy/plush/moth/random/Initialize()
-	. = ..()
 	var moff_type = pick(subtypesof(/obj/item/toy/plush/moth) - /obj/item/toy/plush/moth/random/)
 	new moff_type(loc)
 	return INITIALIZE_HINT_QDEL

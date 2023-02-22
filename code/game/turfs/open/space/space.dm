@@ -31,13 +31,7 @@
 	//This is used to optimize the map loader
 	return
 
-/**
-  * Space Initialize
-  *
-  * Doesn't call parent, see [/atom/proc/Initialize]
-  */
 /turf/open/space/Initialize(mapload)
-	SHOULD_CALL_PARENT(FALSE)
 	icon_state = SPACE_ICON_STATE
 	if(!space_gas)
 		space_gas = new
