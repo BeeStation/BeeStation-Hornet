@@ -1,4 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: fixed a variable typo in viper spiders - they can no longer lay webs instantly.
