@@ -154,7 +154,7 @@
 		if(. && beegent && isliving(target))
 			var/mob/living/L = target
 			if(L.reagents)
-				beegent.expose_mob(L, INJECT)
+				beegent.reaction_mob(L, INJECT)
 				L.reagents.add_reagent(beegent.type, rand(1,5))
 
 
@@ -239,7 +239,7 @@
 	. = ..()
 	if(. && beegent && isliving(target))
 		var/mob/living/L = target
-		beegent.expose_mob(L, TOUCH)
+		beegent.reaction_mob(L, TOUCH)
 		L.reagents.add_reagent(beegent.type, rand(1,5))
 
 
