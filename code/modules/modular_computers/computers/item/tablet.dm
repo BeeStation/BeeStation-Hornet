@@ -83,8 +83,10 @@
 /obj/item/modular_computer/tablet/pre_attack(atom/target, mob/living/user, params)
 	if(try_scan_paper(target, user))
 		return FALSE
+	var/obj/item/computer_hardware/hard_drive/role/job_disk = all_components[MC_HDD_JOB]
+	if(istype(job_disk) && !job_disk.process_pre_attack(target, user, params))
+		return FALSE
 	return ..()
-
 
 /obj/item/modular_computer/tablet/attack(atom/target, mob/living/user, params)
 	// Send to programs for processing - this should go LAST
