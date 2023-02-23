@@ -8,7 +8,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	actions_types = list(/datum/action/item_action/adjust)
 
-
 /obj/item/clothing/mask/balaclava/attack_self(mob/user)
 	adjustmask(user)
 
