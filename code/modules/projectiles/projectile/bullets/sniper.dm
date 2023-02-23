@@ -4,7 +4,8 @@
 	name =".50 bullet"
 	speed = 0.4
 	damage = 45
-	paralyze = 100
+	paralyze = 10
+	knockdown = 30
 	dismemberment = 50
 	armour_penetration = 50
 	var/breakthings = TRUE
@@ -21,6 +22,7 @@
 	damage = 25
 	dismemberment = 0
 	paralyze = 0
+	knockdown = 0
 	breakthings = FALSE
 
 /obj/item/projectile/bullet/p50/soporific/on_hit(atom/target, blocked = FALSE)
@@ -37,6 +39,7 @@
 	projectile_phasing = (ALL & (~PASSMOB))
 	dismemberment = 0 //It goes through you cleanly.
 	paralyze = 0
+	knockdown = 0
 	breakthings = FALSE
 
 /obj/item/projectile/bullet/p50/penetrator/shuttle //Nukeop Shuttle Variety
