@@ -150,7 +150,7 @@
 	var/mob/living/M = buckled
 	if(transformeffects & SLIME_EFFECT_OIL)
 		var/datum/reagent/fuel/fuel = new
-		fuel.expose_mob(buckled,TOUCH,20)
+		fuel.reaction_mob(buckled,TOUCH,20)
 		qdel(fuel)
 	if(M.stat == DEAD)
 		if(client)
