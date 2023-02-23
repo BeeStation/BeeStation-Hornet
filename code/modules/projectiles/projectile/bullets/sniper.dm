@@ -4,7 +4,6 @@
 	name =".50 bullet"
 	speed = 0.4
 	damage = 45
-	paralyze = 10
 	knockdown = 30
 	dismemberment = 50
 	armour_penetration = 50
@@ -21,7 +20,6 @@
 	armour_penetration = 20
 	damage = 25
 	dismemberment = 0
-	paralyze = 0
 	knockdown = 0
 	breakthings = FALSE
 
@@ -38,7 +36,6 @@
 	projectile_piercing = PASSMOB
 	projectile_phasing = (ALL & (~PASSMOB))
 	dismemberment = 0 //It goes through you cleanly.
-	paralyze = 0
 	knockdown = 0
 	breakthings = FALSE
 
