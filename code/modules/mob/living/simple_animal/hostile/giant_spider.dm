@@ -396,7 +396,7 @@ s
 	health = 35
 	melee_damage = 8
 	poison_per_bite = 8
-	web_speed = -1
+	onweb_speed = -1
 	move_to_delay = 2
 	poison_type = /datum/reagent/toxin/venom
 
