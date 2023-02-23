@@ -1129,11 +1129,11 @@
 //Trek Chems, used primarily by medibots. Only heals a specific damage type, but is very efficient.
 /datum/reagent/medicine/bicaridine
 	name = "Bicaridine"
-	description = "Restores bruising. Overdose causes liver damage."
+	description = "Restores mild bruising. Awful to heal severe brute damage. Overdose causes liver damage."
 	reagent_state = LIQUID
 	color = "#bf0000"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
-	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	overdose_threshold = 30
 
 /datum/reagent/medicine/bicaridine/on_mob_life(mob/living/carbon/M)
@@ -1151,16 +1151,17 @@
 	*/
 
 /datum/reagent/medicine/bicaridine/overdose_process(mob/living/M)
-	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 0.5)
 	..()
 	. = 1
 
 /datum/reagent/medicine/dexalin
 	name = "Dexalin"
-	description = "Restores oxygen loss. Overdose causes it instead."
+	description = "Restores mild oxygen loss. Awful to heal severe oxygen damage. Overdose causes heart damage."
 	reagent_state = LIQUID
 	color = "#0080FF"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	overdose_threshold = 30
 
 /datum/reagent/medicine/dexalin/on_mob_life(mob/living/carbon/M)
@@ -1170,7 +1171,7 @@
 	. = 1
 
 /datum/reagent/medicine/dexalin/overdose_process(mob/living/M)
-	M.adjustOrganLoss(ORGAN_SLOT_HEART, 2)
+	M.adjustOrganLoss(ORGAN_SLOT_HEART, 0.7)
 	..()
 	. = 1
 
@@ -1196,11 +1197,11 @@
 
 /datum/reagent/medicine/kelotane
 	name = "Kelotane"
-	description = "Restores fire damage. Overdose causes liver damage."
+	description = "Restores mild burn damage. Awful to heal severe burn damage. Overdose causes liver damage."
 	reagent_state = LIQUID
 	color = "#FFa800"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
-	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	overdose_threshold = 30
 
 /datum/reagent/medicine/kelotane/on_mob_life(mob/living/carbon/M)
@@ -1210,17 +1211,17 @@
 	. = 1
 
 /datum/reagent/medicine/kelotane/overdose_process(mob/living/M)
-	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 0.5)
 	..()
 	. = 1
 
 /datum/reagent/medicine/antitoxin
 	name = "Anti-Toxin"
-	description = "Heals toxin damage and removes toxins in the bloodstream. Overdose causes liver damage."
+	description = "Heals mild toxin damage. Awful to heal severe toxin damage. Overdose causes liver damage."
 	reagent_state = LIQUID
 	color = "#00a000"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
-	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	overdose_threshold = 30
 	taste_description = "a roll of gauze"
 
@@ -1231,7 +1232,7 @@
 	. = 1
 
 /datum/reagent/medicine/antitoxin/overdose_process(mob/living/M)
-	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 0.5)
 	..()
 	. = 1
 
@@ -1326,11 +1327,11 @@
 
 /datum/reagent/medicine/tricordrazine
 	name = "Tricordrazine"
-	description = "Has a high chance to heal all types of damage. Overdose causes toxin damage and liver damage."
+	description = "Heals all types of damage based on damage types you have and its severity. Overdose causes toxin damage and liver damage."
 	reagent_state = LIQUID
 	color = "#707A00" //tricord's component chems mixed together, olive.
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	metabolization_rate = 3 * REAGENTS_METABOLISM
+	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	overdose_threshold = 50
 	taste_description = "grossness"
 
@@ -1347,8 +1348,8 @@
 	..()
 
 /datum/reagent/medicine/tricordrazine/overdose_process(mob/living/M)
-	M.adjustToxLoss(2*REM, 0)
-	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 3)
+	M.adjustToxLoss(0.5*REM, 0)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 0.7)
 	..()
 	. = 1
 
