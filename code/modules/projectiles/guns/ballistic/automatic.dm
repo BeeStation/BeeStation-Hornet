@@ -294,7 +294,7 @@
 
 /obj/item/gun/ballistic/automatic/sniper_rifle
 	name = "sniper rifle"
-	desc = "A long ranged weapon that does significant damage. No, you can't quickscope."
+	desc = "A long ranged semi-automatic marksman rifle that does significant damage. No, you can't quickscope."
 	icon_state = "sniper"
 	item_state = "sniper"
 	fire_sound = "sound/weapons/sniper_shot.ogg"
@@ -304,7 +304,7 @@
 	recoil = 2
 	weapon_weight = WEAPON_HEAVY
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
-	fire_delay = 40
+	fire_delay = 7
 	burst_size = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	zoomable = TRUE

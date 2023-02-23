@@ -3,7 +3,7 @@
 /obj/item/projectile/bullet/p50
 	name =".50 bullet"
 	speed = 0.4
-	damage = 70
+	damage = 45
 	paralyze = 100
 	dismemberment = 50
 	armour_penetration = 50
@@ -17,8 +17,8 @@
 
 /obj/item/projectile/bullet/p50/soporific
 	name =".50 soporific bullet"
-	armour_penetration = 0
-	damage = 0
+	armour_penetration = 20
+	damage = 25
 	dismemberment = 0
 	paralyze = 0
 	breakthings = FALSE
@@ -32,7 +32,7 @@
 /obj/item/projectile/bullet/p50/penetrator
 	name =".50 penetrator bullet"
 	icon_state = "gauss"
-	damage = 60
+	damage = 40
 	projectile_piercing = PASSMOB
 	projectile_phasing = (ALL & (~PASSMOB))
 	dismemberment = 0 //It goes through you cleanly.
