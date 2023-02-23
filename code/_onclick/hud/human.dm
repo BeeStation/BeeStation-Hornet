@@ -118,6 +118,7 @@
 	inv_box.icon = ui_style
 	inv_box.slot_id = ITEM_SLOT_ICLOTHING
 	inv_box.icon_state = "uniform"
+	inv_box.icon_full = "template"
 	inv_box.screen_loc = ui_iclothing
 	inv_box.hud = src
 	toggleable_inventory += inv_box
@@ -127,6 +128,7 @@
 	inv_box.icon = ui_style
 	inv_box.slot_id = ITEM_SLOT_OCLOTHING
 	inv_box.icon_state = "suit"
+	inv_box.icon_full = "template"
 	inv_box.screen_loc = ui_oclothing
 	inv_box.hud = src
 	toggleable_inventory += inv_box
@@ -151,6 +153,7 @@
 	inv_box.name = "id"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "id"
+	inv_box.icon_full = "template_small"
 	inv_box.screen_loc = ui_id
 	inv_box.slot_id = ITEM_SLOT_ID
 	inv_box.hud = src
@@ -160,6 +163,7 @@
 	inv_box.name = "mask"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "mask"
+	inv_box.icon_full = "template"
 	inv_box.screen_loc = ui_mask
 	inv_box.slot_id = ITEM_SLOT_MASK
 	inv_box.hud = src
@@ -169,6 +173,7 @@
 	inv_box.name = "neck"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "neck"
+	inv_box.icon_full = "template"
 	inv_box.screen_loc = ui_neck
 	inv_box.slot_id = ITEM_SLOT_NECK
 	inv_box.hud = src
@@ -178,6 +183,7 @@
 	inv_box.name = "back"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "back"
+	inv_box.icon_full = "template"
 	inv_box.screen_loc = ui_back
 	inv_box.slot_id = ITEM_SLOT_BACK
 	inv_box.hud = src
@@ -187,6 +193,7 @@
 	inv_box.name = "storage1"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "pocket"
+	inv_box.icon_full = "template_small"
 	inv_box.screen_loc = ui_storage1
 	inv_box.slot_id = ITEM_SLOT_LPOCKET
 	inv_box.hud = src
@@ -196,6 +203,7 @@
 	inv_box.name = "storage2"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "pocket"
+	inv_box.icon_full = "template_small"
 	inv_box.screen_loc = ui_storage2
 	inv_box.slot_id = ITEM_SLOT_RPOCKET
 	inv_box.hud = src
@@ -205,6 +213,7 @@
 	inv_box.name = "suit storage"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "suit_storage"
+	inv_box.icon_full = "template"
 	inv_box.screen_loc = ui_sstore1
 	inv_box.slot_id = ITEM_SLOT_SUITSTORE
 	inv_box.hud = src
@@ -232,6 +241,7 @@
 	inv_box.name = "gloves"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "gloves"
+	inv_box.icon_full = "template"
 	inv_box.screen_loc = ui_gloves
 	inv_box.slot_id = ITEM_SLOT_GLOVES
 	inv_box.hud = src
@@ -241,6 +251,7 @@
 	inv_box.name = "eyes"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "glasses"
+	inv_box.icon_full = "template"
 	inv_box.screen_loc = ui_glasses
 	inv_box.slot_id = ITEM_SLOT_EYES
 	inv_box.hud = src
@@ -250,6 +261,7 @@
 	inv_box.name = "ears"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "ears"
+	inv_box.icon_full = "template"
 	inv_box.screen_loc = ui_ears
 	inv_box.slot_id = ITEM_SLOT_EARS
 	inv_box.hud = src
@@ -259,6 +271,7 @@
 	inv_box.name = "head"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "head"
+	inv_box.icon_full = "template"
 	inv_box.screen_loc = ui_head
 	inv_box.slot_id = ITEM_SLOT_HEAD
 	inv_box.hud = src
@@ -268,6 +281,7 @@
 	inv_box.name = "shoes"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "shoes"
+	inv_box.icon_full = "template"
 	inv_box.screen_loc = ui_shoes
 	inv_box.slot_id = ITEM_SLOT_FEET
 	inv_box.hud = src
@@ -277,6 +291,7 @@
 	inv_box.name = "belt"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "belt"
+	inv_box.icon_full = "template"
 	inv_box.screen_loc = ui_belt
 	inv_box.slot_id = ITEM_SLOT_BELT
 	inv_box.hud = src
