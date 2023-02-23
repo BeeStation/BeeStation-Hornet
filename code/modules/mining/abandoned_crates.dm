@@ -239,7 +239,7 @@
 		if(96)
 			new /obj/item/hand_tele(src)
 		if(97)
-			new /obj/item/clothing/mask/balaclava
+			new /obj/item/clothing/mask/bandit_balaclava
 			new /obj/item/gun/ballistic/automatic/pistol(src)
 			new /obj/item/ammo_box/magazine/m10mm(src)
 		if(98)
