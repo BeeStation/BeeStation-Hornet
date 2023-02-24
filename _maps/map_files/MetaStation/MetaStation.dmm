@@ -50481,9 +50481,7 @@
 /area/hallway/secondary/exit/departure_lounge)
 "lMn" = (
 /obj/structure/table/glass,
-/obj/machinery/power/apc/auto_name/north{
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/auto_name/north,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
