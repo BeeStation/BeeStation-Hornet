@@ -242,7 +242,7 @@
 	if(!ismob(source))
 		return FALSE
 
-	if(!do_mob(user, source, get_equip_delay(equipping)))
+	if(!do_mob(user, source, get_equip_delay(equipping), show_to_world = TRUE, add_image = equipping.appearance))
 		return FALSE
 
 	if(!equipping.mob_can_equip(
