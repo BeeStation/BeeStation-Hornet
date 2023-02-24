@@ -1335,10 +1335,10 @@
 	metabolite = /datum/reagent/metabolite/medicine/tricordrazine
 
 /datum/reagent/medicine/tricordrazine/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-1/METABOLITE_PENALTY(metabolite), 0)
-	M.adjustFireLoss(-1/METABOLITE_PENALTY(metabolite), 0)
-	M.adjustToxLoss(-1/METABOLITE_PENALTY(metabolite), 0)
-	M.adjustOxyLoss(-1/METABOLITE_PENALTY(metabolite), 0)
+	M.adjustBruteLoss(-2/METABOLITE_PENALTY(metabolite), 0)
+	M.adjustFireLoss(-2/METABOLITE_PENALTY(metabolite), 0)
+	M.adjustToxLoss(-2/METABOLITE_PENALTY(metabolite), 0)
+	M.adjustOxyLoss(-2/METABOLITE_PENALTY(metabolite), 0)
 	. = 1
 	..()
 
