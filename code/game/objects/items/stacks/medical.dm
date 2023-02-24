@@ -52,7 +52,7 @@
 		if(!heal_brute) //simplemobs can only take brute damage, and can only benefit from items intended to heal it
 			to_chat(user, "<span class='notice'>[src] won't help [M] at all.</span>")
 			return
-		M.heal_bodypart_damage(20)
+		M.heal_bodypart_damage(REAGENT_AMOUNT_PER_ITEM)
 		user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", "<span class='green'>You apply [src] on [M].</span>")
 		use(1)
 		return
