@@ -693,6 +693,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
 	item_flags |= PICKED_UP
+	if(item_flags & WAS_THROWN)
+		item_flags &= ~WAS_THROWN
 	if(verbs && user.client)
 		user.client.add_verbs(verbs)
 	log_item(user, INVESTIGATE_VERB_PICKEDUP)
@@ -869,6 +871,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
 	if(HAS_TRAIT(src, TRAIT_NODROP))
 		return
+	item_flags |= WAS_THROWN
 	thrownby = WEAKREF(thrower)
 	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
 	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force, quickstart = quickstart)
@@ -877,9 +880,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if (callback) //call the original callback
 		. = callback.Invoke()
 	item_flags &= ~PICKED_UP
-	if(!pixel_y && !pixel_x && !(item_flags & NO_PIXEL_RANDOM_DROP))
-		pixel_x = rand(-8,8)
-		pixel_y = rand(-8,8)
 
 /obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/storage
 	if(!newLoc)

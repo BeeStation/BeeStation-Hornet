@@ -1103,6 +1103,8 @@
 
 /obj/item/proc/do_drop_animation(atom/moving_from)
 	set waitfor = FALSE
+	if(item_flags & WAS_THROWN)
+		return
 	if(!istype(loc, /turf))
 		return
 
