@@ -922,6 +922,20 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	..()
 
+/client/proc/canGhostRole(role, use_cooldown = FALSE, spawned_by_admin)
+	if(!SSticker.HasRoundStarted())
+		return FALSE
+	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER) && !(spawned_by_admin & ADMIN_SPAWNED_1))
+		to_chat(src, "<span class='warning'>An admin has temporarily disabled non-admin ghost roles!</span>")
+		return FALSE
+	if(role && is_banned_from(key, role)) //role can be null, no reason to check for a roleban if there is no special role assigned
+		to_chat(src, "<span class='warning'>You are jobanned!</span>")
+		return FALSE
+	if(use_cooldown && next_ghost_role_tick > world.time)
+		to_chat(src, "<span class='warning'>You have died recently, you must wait [(next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner.</span>")
+		return FALSE
+	return TRUE
+
 /client/proc/add_verbs_from_config()
 	if (interviewee)
 		return
@@ -1016,7 +1030,15 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(prefs && prefs.chat_toggles & CHAT_PULLR)
 		to_chat(src, announcement)
 
-/client/proc/show_character_previews(mutable_appearance/MA)
+/client/proc/show_character_previews(mutable_appearance/source)
+	LAZYINITLIST(char_render_holders)
+	if(!LAZYLEN(char_render_holders))
+		for (var/plane_master_type in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
+			var/atom/movable/screen/plane_master/plane_master = new plane_master_type()
+			char_render_holders["plane_master-[plane_master.plane]"] = plane_master
+			screen |= plane_master
+			plane_master.screen_loc = "character_preview_map:0,CENTER"
+
 	var/pos = 0
 	for(var/D in GLOB.cardinals)
 		pos++
@@ -1025,7 +1047,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			O = new
 			LAZYSET(char_render_holders, "[D]", O)
 			screen |= O
-		O.appearance = MA
+		O.appearance = source
 		O.dir = D
 		O.screen_loc = "character_preview_map:0,[pos]"
 
@@ -1045,23 +1067,22 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	addtimer(CALLBACK(src, .proc/restore_account_identifier), 20) //Don't DoS DB queries, asshole
 
 	var/confirm = alert("Do NOT share the verification ID in the following popup. Understand?", "Important Warning", "Yes", "Cancel")
-	if(confirm == "Cancel")
+	if(confirm != "Yes")
 		return
-	if(confirm == "Yes")
-		var/uuid = fetch_uuid()
-		if(!uuid)
-			alert("Failed to fetch your verification ID. Try again later. If problems persist, tell an admin.", "Account Verification", "Okay")
-			log_sql("Failed to fetch UUID for [key_name(src)]")
-		else
-			var/dat
-			dat += "<h3>Account Identifier</h3>"
-			dat += "<br>"
-			dat += "<h3>Do NOT share this id:</h3>"
-			dat += "<br>"
-			dat += "[uuid]"
+	var/uuid = fetch_uuid()
+	if(!uuid)
+		alert("Failed to fetch your verification ID. Try again later. If problems persist, tell an admin.", "Account Verification", "Okay")
+		log_sql("Failed to fetch UUID for [key_name(src)]")
+	else
+		var/dat
+		dat += "<h3>Account Identifier</h3>"
+		dat += "<br>"
+		dat += "<h3>Do NOT share this id:</h3>"
+		dat += "<br>"
+		dat += "[uuid]"
 
-			src << browse(dat, "window=accountidentifier;size=600x320")
-			onclose(src, "accountidentifier")
+		src << browse(dat, "window=accountidentifier;size=600x320")
+		onclose(src, "accountidentifier")
 
 /client/proc/restore_account_identifier()
 	add_verb(/client/proc/show_account_identifier)

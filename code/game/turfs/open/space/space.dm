@@ -251,9 +251,9 @@
 	destination_y = dest_y
 	destination_z = dest_z
 
-//If someone is floating above space in 0 gravity, don't fall.
-/turf/open/space/zPassIn(atom/movable/A, direction, turf/source)
-	return A.has_gravity(src)
+//Don't fall if in zero gravity, but we should allow non-fall movement
+/turf/open/space/zPassIn(atom/movable/A, direction, turf/source, falling = FALSE)
+	return !falling || A.has_gravity(src)
 
 /turf/open/space/check_gravity()
 	return FALSE

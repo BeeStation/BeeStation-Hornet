@@ -39,6 +39,7 @@
 	var/progress_flash_divisor = 10
 	var/burned_fuel_for = 0	//when fuel was last removed
 	var/light_intensity = 2
+	var/disabled_time = 0 //Used by the cyborg welders to determine how long they remain off after getting hit by a nightmare
 	heat = 3800
 	tool_behaviour = TOOL_WELDER
 	toolspeed = 1
@@ -194,6 +195,9 @@
 	if(!status)
 		balloon_alert(user, "You try to turn [src] on, but it's unsecured!")
 		return
+	if(world.time < disabled_time)
+		balloon_alert(user, "You try to turn [src] on, but nothing happens!")
+		return
 	set_welding(!welding)
 	if(welding)
 		if(get_fuel() >= 1)
@@ -286,6 +290,7 @@
 			add_fingerprint(user)
 			balloon_alert(user, "You start bulding a flamethrower...")
 			user.put_in_hands(F)
+			log_crafting(user, F, TRUE)
 		else
 			balloon_alert(user, "You need one rod to build a flamethrower!")
 
@@ -305,18 +310,6 @@
 /obj/item/weldingtool/largetank/flamethrower_screwdriver()
 	return
 
-/obj/item/weldingtool/largetank/cyborg
-	name = "integrated welding tool"
-	desc = "An advanced welder designed to be used in robotic systems. Custom framework doubles the speed of welding."
-	icon = 'icons/obj/items_cyborg.dmi'
-	icon_state = "indwelder_cyborg"
-	toolspeed = 0.5
-
-/obj/item/weldingtool/largetank/cyborg/cyborg_unequip(mob/user)
-	if(!isOn())
-		return
-	switched_on(user)
-
 /obj/item/weldingtool/mini
 	name = "emergency welding tool"
 	desc = "A miniature welder used during emergencies."
@@ -328,6 +321,40 @@
 
 /obj/item/weldingtool/mini/flamethrower_screwdriver()
 	return
+
+/obj/item/weldingtool/cyborg
+	name = "integrated welding tool"
+	desc = "An advanced welder designed to be used in robotic systems. Custom framework doubles the speed of welding."
+	icon = 'icons/obj/items_cyborg.dmi'
+	icon_state = "indwelder_cyborg"
+	toolspeed = 0.5
+	max_fuel = 40
+	materials = list(/datum/material/glass=60)
+
+/obj/item/weldingtool/cyborg/cyborg_unequip(mob/user)
+	if(!isOn())
+		return
+	switched_on(user)
+
+/obj/item/weldingtool/cyborg/flamethrower_screwdriver()
+	return
+
+///This gets called by the lighteater to temporarity disable it
+/obj/item/weldingtool/cyborg/proc/disable()
+	disabled_time = world.time + 30 SECONDS
+	switched_off(usr)
+	playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
+
+
+/obj/item/weldingtool/cyborg/mini
+	name = "integrated emergency welding tool"
+	desc = "A miniature integrated welder used during emergencies."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "miniwelder"
+	max_fuel = 10
+	w_class = WEIGHT_CLASS_TINY
+	materials = list(/datum/material/iron=30, /datum/material/glass=10)
+	change_icons = 0
 
 /obj/item/weldingtool/abductor
 	name = "alien welding tool"

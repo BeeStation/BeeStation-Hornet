@@ -11,13 +11,15 @@
 	var/listindex
 	var/image/shown_image
 
+
 /datum/progressbar/New(mob/User, goal_number, atom/target, mutable_appearance/additional_image)
 	. = ..()
 	if (!istype(target))
 		EXCEPTION("Invalid target given")
 	if (goal_number)
 		goal = goal_number
-	bar = image('icons/effects/progessbar.dmi', target, "prog_bar_0", HUD_LAYER)
+
+	bar = image('icons/effects/progessbar.dmi', target, "prog_bar_0")
 	if(additional_image)
 		shown_image = image(additional_image.icon, target, additional_image.icon_state, (HUD_LAYER - 0.1))
 		shown_image.plane = ABOVE_HUD_PLANE

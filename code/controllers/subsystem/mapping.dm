@@ -112,6 +112,12 @@ SUBSYSTEM_DEF(mapping)
 	initialize_reserved_level(transit.z_value)
 	return ..()
 
+/datum/controller/subsystem/mapping/get_metrics()
+	. = ..()
+	var/list/custom = list()
+	custom["map"] = config.map_name
+	.["custom"] = custom
+
 /datum/controller/subsystem/mapping/proc/wipe_reservations(wipe_safety_delay = 100)
 	if(clearing_reserved_turfs || !initialized)			//in either case this is just not needed.
 		return
@@ -246,7 +252,7 @@ SUBSYSTEM_DEF(mapping)
 		shuffle_inplace(random_room_templates)
 		for(var/ID in random_room_templates)
 			candidate = random_room_templates[ID]
-			if(candidate.spawned || R.room_height != candidate.template_height || R.room_width != candidate.template_width)
+			if((!R.rooms.len && candidate.spawned) || (!R.rooms.len && (R.room_height != candidate.template_height || R.room_width != candidate.template_width)) || (R.rooms.len && !(candidate.room_id in R.rooms)))
 				candidate = null
 				continue
 			possibletemplates[candidate] = candidate.weight

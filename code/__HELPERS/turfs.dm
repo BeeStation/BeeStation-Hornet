@@ -369,3 +369,11 @@ Turf and target are separate in case you want to teleport some distance from a t
 			if(rail.dir == test_dir || is_fulltile)
 				return FALSE
 	return TRUE
+
+/proc/turf_can_climb(turf/target)
+	if(!isopenspace(target))
+		return FALSE
+	for(var/obj/structure/S in target)
+		if(S.can_climb_through())
+			return TRUE
+	return FALSE
