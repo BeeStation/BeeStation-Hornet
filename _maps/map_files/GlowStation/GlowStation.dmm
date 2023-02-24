@@ -9512,6 +9512,9 @@
 	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark/corner{
 	dir = 4
 	},
@@ -30654,6 +30657,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"gAF" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
+	dir = 5
+	},
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "gAQ" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	req_one_access_txt = "12"
@@ -33622,7 +33631,7 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/siding/wood{
-	dir = 10
+	dir = 8
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
@@ -49806,6 +49815,12 @@
 "kwN" = (
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/chief)
+"kwR" = (
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "kwT" = (
 /obj/structure/mopbucket,
 /obj/item/mop,
@@ -69520,6 +69535,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/port)
+"ozy" = (
+/obj/machinery/atmospherics/pipe/manifold/supply/visible{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "ozN" = (
 /obj/structure/reagent_dispensers/foamtank,
 /obj/machinery/firealarm{
@@ -75678,6 +75699,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
+"pSc" = (
+/obj/machinery/atmospherics/pipe/simple/supply/visible,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 8
+	},
+/obj/machinery/portable_atmospherics/scrubber,
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "pSf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -79744,6 +79773,14 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
+"qIy" = (
+/obj/structure/ladder,
+/obj/effect/turf_decal/stripes/box,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "qIA" = (
 /obj/item/kirbyplants/random,
 /obj/structure/disposalpipe/segment,
@@ -82327,6 +82364,15 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
+"rmq" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "rmt" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -347150,7 +347196,7 @@ eub
 xmc
 oGS
 aQd
-lUF
+aQd
 ePZ
 aQd
 hWu
@@ -347407,7 +347453,7 @@ bGm
 bHh
 gck
 ibb
-kev
+ozy
 gNh
 aQd
 wDY
@@ -347664,7 +347710,7 @@ ldp
 aQd
 pUL
 aQd
-vxI
+kwR
 spa
 aQd
 wDY
@@ -347919,9 +347965,9 @@ mkg
 wfL
 aQd
 aQd
-iLH
+rmq
 cAW
-nQk
+gAF
 vUI
 aQd
 wDY
@@ -348176,7 +348222,7 @@ gji
 qJN
 aQd
 cBD
-rGn
+qIy
 vRf
 xAM
 spa
@@ -348433,7 +348479,7 @@ gji
 cpg
 aQd
 exl
-aJe
+pSc
 lca
 aJe
 hqj
