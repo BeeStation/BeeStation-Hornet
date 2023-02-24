@@ -15285,7 +15285,6 @@
 /area/engine/supermatter)
 "gsA" = (
 /obj/structure/lattice,
-/obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
 "gsC" = (
