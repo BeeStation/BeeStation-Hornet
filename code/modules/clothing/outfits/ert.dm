@@ -506,6 +506,6 @@
 		/obj/item/reagent_containers/hypospray/combat,\
 		/obj/item/radio=1,\
 		/obj/item/chainsaw/energy/doom=1,\
-		/obj/item/gun/ballistic/automatic/sniper_rifle=1,\
+		/obj/item/gun/ballistic/sniper_rifle=1,\
 		/obj/item/gun/grenadelauncher/security=1,\
 		/obj/item/gun/ballistic/automatic/ar=1)

@@ -623,7 +623,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/dangerous/sniper
 	name = "Sniper Rifle"
 	desc = "Ranged fury, Syndicate style. Guaranteed to cause shock and awe or your TC back!"
-	item = /obj/item/gun/ballistic/automatic/sniper_rifle/syndicate
+	item = /obj/item/gun/ballistic/sniper_rifle/syndicate
 	cost = 16
 	surplus = 25
 	purchasable_from = UPLINK_NUKE_OPS
@@ -948,13 +948,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/ammo/sniper/magazine
 	name = ".50 Magazine"
 	desc = "An additional standard 6-round magazine for use with .50 sniper rifles. Bullets are not included."
-	item = /obj/item/ammo_box/magazine/sniper_rounds
+	item = /obj/item/ammo_box/magazine/sniper_rounds/empty
 	cost = 2
 
 /datum/uplink_item/ammo/sniper/basic
 	name = ".50 Rounds"
-	desc = "An ammo box containing 6 highly powerful .50 caliber projectiles which can be inserted into .50 magazines."
-	item = /obj/item/ammo_box/magazine/sniper_rounds
+	desc = "An ammo box containing 6 highly powerful .50 caliber projectiles which can be inserted into .50 magazines to be used in a sniper rifle."
+	item = /obj/item/ammo_box/sniper
 	cost = 2
 
 /datum/uplink_item/ammo/sniper/penetrator
@@ -980,7 +980,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/ammo/sniper/explosive
 	name = ".50 Explosive Shell"
 	desc = "An explosive shell for the sniper rifle, upon impact will create a small explosion which damages nearby targets."
-	item = /obj/item/ammo_casing/p50/emp
+	item = /obj/item/ammo_casing/p50/explosive
 	cost = 3
 
 /datum/uplink_item/ammo/sniper/inferno
@@ -992,7 +992,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/ammo/sniper/antimatter
 	name = ".50 Antimatter-tipped Shell"
 	desc = "An antimatter-tipped sniper rifle shell. Upon impact the antimatter core will collapse, releasing the energy contained within. Handle with extreme care."
-	item = /obj/item/ammo_casing/p50/inferno
+	item = /obj/item/ammo_casing/p50/antimatter
 	cost = 14
 
 /datum/uplink_item/ammo/carbine

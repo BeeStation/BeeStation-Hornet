@@ -12,6 +12,9 @@
 	else
 		icon_state = "[initial(icon_state)]"
 
+/obj/item/ammo_box/magazine/sniper_rounds/empty
+	start_empty = TRUE
+
 /obj/item/ammo_box/magazine/sniper_rounds/soporific
 	name = "sniper rounds (Zzzzz)"
 	desc = "Soporific sniper rounds, designed for happy days and dead quiet nights..."
@@ -28,8 +31,7 @@
 
 /obj/item/ammo_box/sniper
 	name = "ammo box (.50)"
-	icon = 'icons/obj/guns/toy.dmi'
-	icon_state = "foambox"
+	icon_state = "50cal"
 	ammo_type = /obj/item/ammo_casing/p50
 	max_ammo = 6
 	materials = list(/datum/material/iron = 50000)

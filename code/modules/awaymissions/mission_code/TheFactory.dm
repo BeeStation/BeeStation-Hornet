@@ -362,7 +362,7 @@
 	speak_chance = 2
 	var/cooldown = 0
 	speak = list("You're pretty good.","You can't dodge everything!","Fall down already!")
-	loot = list(/obj/item/gun/ballistic/automatic/sniper_rifle,
+	loot = list(/obj/item/gun/ballistic/sniper_rifle,
 					/obj/effect/mob_spawn/human/corpse/sniper,
 					/obj/item/ammo_box/magazine/sniper_rounds,
 					/obj/item/ammo_box/magazine/sniper_rounds/penetrator,
