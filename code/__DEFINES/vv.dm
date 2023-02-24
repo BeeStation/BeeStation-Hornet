@@ -103,6 +103,10 @@
 
 // /obj/item/card/id
 #define VV_ID_PAYDAY "id_payday"
+#define VV_ID_GIVE_MINING_POINT "id_give_mining_points"
+
+// /obj/machinery/vendor/exploration
+#define VV_ID_GIVE_EXPLO_POINT "id_give_explo_points"
 
 // /mob
 #define VV_HK_GIB "gib"

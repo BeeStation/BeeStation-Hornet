@@ -18,6 +18,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	throw_speed = 3
 	throw_range = 7
+	var/skin_type = MEDBOT_SKIN_DEFAULT
 	var/empty = FALSE
 	var/damagetype_healed //defines damage type of the medkit. General ones stay null. Used for medibot healing bonuses
 
@@ -46,6 +47,7 @@
 	icon_state = "firstaid-surgery"
 	item_state = "firstaid-surgery"
 	desc = "A high capacity aid kit for doctors, full of medical supplies and basic surgical equipment"
+	skin_type = MEDBOT_SKIN_SURGERY
 
 /obj/item/storage/firstaid/medical/ComponentInitialize()
 	. = ..()
@@ -123,11 +125,13 @@
 	icon_state = "firstaid-surgeryalt"
 	item_state = "firstaid-surgeryalt"
 	desc = "A fancy high capacity aid kit for doctors, full of medical supplies and basic surgical equipment"
+	skin_type = null
 
 //First Aid kit (ancient)
 /obj/item/storage/firstaid/ancient
 	icon_state = "firstaid-old"
 	desc = "A first aid kit with the ability to heal common types of injuries."
+	skin_type = null
 
 /obj/item/storage/firstaid/ancient/PopulateContents()
 	if(empty)
@@ -146,6 +150,7 @@
 	icon_state = "firstaid-burn"
 	item_state = "firstaid-burn"
 	damagetype_healed = BURN
+	skin_type = MEDBOT_SKIN_BURN
 
 /obj/item/storage/firstaid/fire/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins rubbing \the [src] against [user.p_them()]self! It looks like [user.p_theyre()] trying to start a fire!</span>")
@@ -172,6 +177,7 @@
 	icon_state = "firstaid-toxin"
 	item_state = "firstaid-toxin"
 	damagetype_healed = TOX
+	skin_type = MEDBOT_SKIN_TOXIN
 
 /obj/item/storage/firstaid/toxin/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins licking the lead paint off \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -198,6 +204,7 @@
 	desc = "Used to treat minor toxic blood content and major radiation poisoning."
 	icon_state = "firstaid-rad"
 	item_state = "firstaid-rad"
+	skin_type = MEDBOT_SKIN_RADIATION
 
 /obj/item/storage/firstaid/radbgone/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins licking the lead paint off \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -225,6 +232,7 @@
 	icon_state = "firstaid-o2"
 	item_state = "firstaid-o2"
 	damagetype_healed = OXY
+	skin_type = MEDBOT_SKIN_OXY
 
 /obj/item/storage/firstaid/o2/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins hitting [user.p_their()] neck with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -251,6 +259,7 @@
 	icon_state = "firstaid-brute"
 	item_state = "firstaid-brute"
 	damagetype_healed = BRUTE
+	skin_type = MEDBOT_SKIN_BRUTE
 
 /obj/item/storage/firstaid/brute/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins beating [user.p_them()]self over the head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -278,6 +287,7 @@
 	icon_state = "firstaid-advanced"
 	item_state = "firstaid-advanced"
 	custom_premium_price = 600
+	skin_type = MEDBOT_SKIN_ADVANCED
 
 /obj/item/storage/firstaid/advanced/PopulateContents()
 	if(empty)
@@ -299,6 +309,7 @@
 	desc = "Are you feeling lucky today?"
 	icon_state = "firstaid-mystery"
 	item_state = "firstaid-mystery"
+	skin_type = NONE
 
 /obj/item/storage/firstaid/random/ComponentInitialize()
 	. = ..()
@@ -342,6 +353,7 @@
 	desc = "I hope you've got insurance."
 	icon_state = "firstaid-combat"
 	item_state = "firstaid-combat"
+	skin_type = MEDBOT_SKIN_SYNDI
 
 /obj/item/storage/firstaid/tactical/Initialize(mapload)
 	. = ..()
@@ -373,15 +385,13 @@
 		to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
 		return
 
+	if(!src.skin_type)
+		to_chat(user, "<span class='warning'>[src] cannot be used to make a medibot!</span>")
+		return
+
 	var/obj/item/bot_assembly/medbot/A = new
-	if(istype(src, /obj/item/storage/firstaid/fire))
-		A.skin = "ointment"
-	else if(istype(src, /obj/item/storage/firstaid/toxin))
-		A.skin = "tox"
-	else if(istype(src, /obj/item/storage/firstaid/o2))
-		A.skin = "o2"
-	else if(istype(src, /obj/item/storage/firstaid/brute))
-		A.skin = "brute"
+	A.skin = src.skin_type
+
 
 	user.put_in_hands(A)
 	to_chat(user, "<span class='notice'>You add [S] to [src].</span>")
@@ -398,7 +408,7 @@
 	name = "pill bottle"
 	desc = "It's an airtight container for storing medication."
 	icon_state = "pill_canister_0"
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medicine_containers.dmi'
 	item_state = "contsolid"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'

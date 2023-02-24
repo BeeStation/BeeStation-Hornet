@@ -83,8 +83,10 @@
 /obj/item/modular_computer/tablet/pre_attack(atom/target, mob/living/user, params)
 	if(try_scan_paper(target, user))
 		return FALSE
+	var/obj/item/computer_hardware/hard_drive/role/job_disk = all_components[MC_HDD_JOB]
+	if(istype(job_disk) && !job_disk.process_pre_attack(target, user, params))
+		return FALSE
 	return ..()
-
 
 /obj/item/modular_computer/tablet/attack(atom/target, mob/living/user, params)
 	// Send to programs for processing - this should go LAST
@@ -371,7 +373,7 @@
 
 /obj/item/modular_computer/tablet/pda/Initialize(mapload)
 	. = ..()
-	install_component(new /obj/item/computer_hardware/hard_drive/small)
+	install_component(new /obj/item/computer_hardware/hard_drive/small/pda)
 	install_component(new /obj/item/computer_hardware/processor_unit/small)
 	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
 	install_component(new /obj/item/computer_hardware/network_card)

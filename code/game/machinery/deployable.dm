@@ -64,8 +64,8 @@
 	var/drop_amount = 3
 
 /obj/structure/barricade/wooden/attackby(obj/item/I, mob/user)
-	if(istype(I,/obj/item/stack/sheet/mineral/wood))
-		var/obj/item/stack/sheet/mineral/wood/W = I
+	if(istype(I,/obj/item/stack/sheet/wood))
+		var/obj/item/stack/sheet/wood/W = I
 		if(W.amount < 5)
 			to_chat(user, "<span class='warning'>You need at least five wooden planks to make a wall!</span>")
 			return
@@ -95,7 +95,7 @@
 	max_integrity = 75
 
 /obj/structure/barricade/wooden/make_debris()
-	new /obj/item/stack/sheet/mineral/wood(get_turf(src), drop_amount)
+	new /obj/item/stack/sheet/wood(get_turf(src), drop_amount)
 
 /obj/structure/barricade/sandbags
 	name = "sandbags"
@@ -133,7 +133,7 @@
 
 /obj/structure/barricade/security/proc/deploy()
 	icon_state = "barrier1"
-	density = TRUE
+	set_density(TRUE)
 	anchored = TRUE
 	if(deploy_message)
 		visible_message("<span class='warning'>[src] deploys!</span>")
