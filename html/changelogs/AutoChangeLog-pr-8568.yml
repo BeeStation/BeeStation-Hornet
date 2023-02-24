@@ -1,0 +1,5 @@
+author: spockye
+delete-after: true
+changes:
+  - bugfix: fixed wooden lining error /Glowstation
+  - bugfix: fixed illegal corner /Glowstation
