@@ -2377,12 +2377,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
-"bbW" = (
-/obj/machinery/power/smes/magical{
-	name = "DONT FORGET TO DELETE THIS IDOT!!"
-	},
-/turf/open/floor/plasteel/dark,
-/area/hallway/primary/central)
 "bcd" = (
 /obj/structure/table/glass,
 /obj/item/clothing/glasses/science{
@@ -9344,10 +9338,6 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
-"dYG" = (
-/obj/effect/turf_decal/guideline/guideline_in_arrow,
-/turf/open/floor/plasteel/dark,
-/area/hallway/primary/central)
 "dYQ" = (
 /obj/structure/chair{
 	dir = 8
@@ -33627,15 +33617,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/storage/tech)
-"ohM" = (
-/obj/machinery/power/terminal{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/plasteel/dark,
-/area/hallway/primary/central)
 "oiK" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -39684,12 +39665,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/tech,
 /area/engine/atmos)
-"qMK" = (
-/obj/effect/turf_decal/guideline/guideline_in_arrow{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/hallway/primary/central)
 "qMQ" = (
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -44769,12 +44744,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
-"teJ" = (
-/obj/effect/turf_decal/guideline/guideline_in_arrow{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/hallway/primary/central)
 "teL" = (
 /obj/machinery/conveyor{
 	dir = 8;
@@ -54207,6 +54176,16 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar)
+"xch" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/turf/open/floor/plasteel/dark/corner{
+	dir = 4
+	},
+/area/hallway/primary/central)
 "xcE" = (
 /obj/structure/chair/fancy/bench{
 	pixel_y = 13
@@ -54903,19 +54882,6 @@
 /obj/machinery/holopad,
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
-"xrH" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/open/floor/plasteel/dark/corner{
-	dir = 4
-	},
-/area/hallway/primary/central)
 "xrL" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -86109,7 +86075,7 @@ qHh
 qHh
 qHh
 gJT
-xrH
+xch
 gNp
 gNp
 pRK
@@ -86366,7 +86332,7 @@ vmW
 pDb
 pDb
 pDb
-ohM
+pDb
 uTN
 myK
 myK
@@ -86622,9 +86588,9 @@ idH
 eNl
 eNl
 pDb
-qMK
-bbW
-teJ
+pDb
+pDb
+pDb
 uTN
 myK
 wMH
@@ -86880,7 +86846,7 @@ fTq
 fTq
 deG
 pDb
-dYG
+pDb
 pDb
 pDb
 esr
