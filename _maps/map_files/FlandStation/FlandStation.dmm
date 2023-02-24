@@ -2515,6 +2515,9 @@
 /obj/structure/chair/fancy/comfy{
 	color = "#596479"
 	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "aEN" = (
@@ -5498,9 +5501,6 @@
 /area/medical/medbay/central)
 "bjF" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
 	dir = 1
 	},
 /mob/living/carbon/monkey,
@@ -55076,6 +55076,8 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple/opposingcorners,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/chem_heater,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/apothecary)
 "ocr" = (
@@ -61920,8 +61922,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "pRv" = (
-/obj/machinery/chem_heater,
-/obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/green/opposingcorners{
 	dir = 1
