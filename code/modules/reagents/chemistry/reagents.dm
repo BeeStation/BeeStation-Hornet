@@ -1,5 +1,6 @@
 #define REM REAGENTS_EFFECT_MULTIPLIER
 #define METABOLITE_RATE     0.5 // How much of a reagent is converted metabolites if one is defined
+#define MAX_METABOLITES		20  // The maximum amount of a given metabolite someone can have at a time
 #define METABOLITE_PENALTY(path) min(max(M.reagents.get_reagent_amount(path)/3, 1), 5) //Ranges from 1 to 5 depending on level of metabolites. 
 
 GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
@@ -69,7 +70,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /datum/reagent/proc/on_mob_life(mob/living/carbon/M)
 	current_cycle++
 	holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency) //By default it slowly disappears.
-	if(metabolite)
+	if(metabolite && M.get_reagent_amount(metabolite) <= MAX_METABOLITES)
 		holder.add_reagent(metabolite, metabolization_rate * M.metabolism_efficiency * METABOLITE_RATE)
 	return
 
