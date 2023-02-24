@@ -1135,9 +1135,17 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	metabolite = /datum/reagent/metabolite/medicine/bicaridine
+	overdose_threshold = 30
 
 /datum/reagent/medicine/bicaridine/on_mob_life(mob/living/carbon/M)
 	M.adjustBruteLoss(-1/METABOLITE_PENALTY(metabolite), 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/bicaridine/overdose_process(mob/living/M)
+	M.reagents.add_reagent(metabolite, 1)
+	M.reagents.remove_reagent(/datum/reagent/medicine/bicaridine, 1)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1)
 	..()
 	. = 1
 
@@ -1187,9 +1195,17 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	metabolite = /datum/reagent/metabolite/medicine/kelotane
+	overdose_threshold = 30
 
 /datum/reagent/medicine/kelotane/on_mob_life(mob/living/carbon/M)
 	M.adjustFireLoss(-1/METABOLITE_PENALTY(metabolite), 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/kelotane/overdose_process(mob/living/M)
+	M.reagents.add_reagent(metabolite, 1)
+	M.reagents.remove_reagent(/datum/reagent/medicine/kelotane, 1)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1)
 	..()
 	. = 1
 
@@ -1202,9 +1218,17 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "a roll of gauze"
 	metabolite = /datum/reagent/metabolite/medicine/antitoxin
+	overdose_threshold = 30
 
 /datum/reagent/medicine/antitoxin/on_mob_life(mob/living/carbon/M)
 	M.adjustToxLoss(-1/METABOLITE_PENALTY(metabolite), 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/antitoxin/overdose_process(mob/living/M)
+	M.reagents.add_reagent(metabolite, 1)
+	M.reagents.remove_reagent(/datum/reagent/medicine/antitoxin, 1)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1)
 	..()
 	. = 1
 
@@ -1318,7 +1342,7 @@
 
 /datum/reagent/medicine/tricordrazine/overdose_process(mob/living/M)
 	M.adjustToxLoss(2*REM, 0)
-	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 3)
+	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 1)
 	..()
 	. = 1
 
