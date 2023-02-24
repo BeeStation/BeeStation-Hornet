@@ -36,3 +36,13 @@
 /datum/reagent/metabolite/medicine/tricordrazine
     name = "TC1 metabolites"
     description = "A byproduct of the body processing tricordrazine"
+
+/datum/reagent/metabolite/medicine/styptic_powder
+    name = "SP1 metabolites"
+    description = "A byproduct of the body processing styptic_powder"
+    metabolization_rate = REAGENTS_METABOLISM * 0.5 //higher rate just like the base reagent.
+
+/datum/reagent/metabolite/medicine/silver_sulfadiazine
+    name = "SV1 metabolites"
+    description = "A byproduct of the body processing silver sulfadiazine"
+    metabolization_rate = REAGENTS_METABOLISM * 0.5

@@ -13,7 +13,7 @@
 /datum/reagent/medicine/on_mob_life(mob/living/carbon/M)
 	current_cycle++
 	holder.remove_reagent(type, metabolization_rate / M.metabolism_efficiency) //medicine reagents stay longer if you have a better metabolism
-	if(metabolite)
+	if(metabolite && M.get_reagent_amount(metabolite) <= MAX_METABOLITES)
 		holder.add_reagent(metabolite, metabolization_rate / M.metabolism_efficiency * METABOLITE_RATE)
 
 /datum/reagent/medicine/leporazine
@@ -255,6 +255,7 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	overdose_threshold = 100
+	metabolite = /datum/reagent/metabolite/medicine/silver_sulfadiazine
 
 /datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1, touch_protection, obj/item/bodypart/affecting)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -312,6 +313,7 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	overdose_threshold = 100
+	metabolite = /datum/reagent/metabolite/medicine/styptic_powder
 
 /datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1, touch_protection, obj/item/bodypart/affecting)
 	if(iscarbon(M) && M.stat != DEAD)
