@@ -25,3 +25,23 @@
 	desc = "An extremely powerful round capable of passing straight through cover and anyone unfortunate enough to be behind it."
 	ammo_type = /obj/item/ammo_casing/p50/penetrator
 	max_ammo = 5
+
+/obj/item/ammo_box/sniper
+	name = "ammo box (.50)"
+	icon = 'icons/obj/guns/toy.dmi'
+	icon_state = "foambox"
+	ammo_type = /obj/item/ammo_casing/p50
+	max_ammo = 6
+	materials = list(/datum/material/iron = 50000)
+
+/obj/item/ammo_box/sniper/soporific
+	name = "ammo box (.50 Soporific)"
+	ammo_type = /obj/item/ammo_casing/p50/soporific
+	max_ammo = 2
+	materials = list(/datum/material/iron = 20000)
+
+/obj/item/ammo_box/sniper/penetrator
+	name = "ammo box (.50 Penetrator)"
+	ammo_type = /obj/item/ammo_casing/p50/penetrator
+	max_ammo = 2
+	materials = list(/datum/material/iron = 40000)

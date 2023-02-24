@@ -304,7 +304,8 @@
 	recoil = 2
 	weapon_weight = WEAPON_HEAVY
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
-	fire_delay = 40
+	automatic = 0
+	fire_rate = 1.5
 	burst_size = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	zoomable = TRUE
