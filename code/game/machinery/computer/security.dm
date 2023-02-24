@@ -796,7 +796,9 @@ What a mess.*/
 							var/dw = w - 32
 							var/dh = w - 32
 							I.Crop(dw/2, dh/2, w - dw/2, h - dh/2)
-							active1.fields["photo_front"] = picture
+							var/obj/item/photo/new_photo = new
+							new_photo.picture = picture
+							active1.fields["photo_front"] = new_photo
 					if("print_photo_front")
 						if(active1.fields["photo_front"])
 							if(istype(active1.fields["photo_front"], /datum/picture))
