@@ -99,7 +99,7 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 		/obj/item/his_grace,
 		/obj/mecha/combat/marauder/mauler/loaded,
 		/obj/item/guardiancreator/tech,
-		/obj/item/mjollnir,
+		/obj/item/mjolnir,
 		/obj/item/pneumatic_cannon/pie/selfcharge,
 		/obj/item/uplink/nuclear
 	))
