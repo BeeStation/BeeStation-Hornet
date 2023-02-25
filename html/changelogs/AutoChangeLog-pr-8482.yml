@@ -1,0 +1,7 @@
+author: spockye
+delete-after: true
+changes:
+  - bugfix: fixed rouge wire in kilo ai sat
+  - bugfix: fixed missing wire in kilo ai upload
+  - bugfix: fixed missing nearstation in kilo space
+  - bugfix: fixed rouge wire in kilo sci shuttle dock
