@@ -82,21 +82,21 @@
 	desc = "These seeds grow into ballolon plants."
 	icon_state = "seed-ballolon"
 	species = "ballolon"
-	plantname = "ballolon Vines"
+	plantname = "Ballolon Vines"
 	product = /obj/item/reagent_containers/food/snacks/grown/ballolon
 	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/smoke)
 	mutatelist = list()
 	reagents_add = list(/datum/reagent/oxygen = 0.2, /datum/reagent/hydrogen = 0.2)
-	throw_range = 1
-	throw_speed = 1
 	rarity = 15
 
 /obj/item/reagent_containers/food/snacks/grown/ballolon
 	seed = /obj/item/seeds/watermelon/ballolon
 	name = "ballolon"
 	desc = "A organic balloon, lighter then air."
-	icon = 'icons/obj/items_and_weapons.dmi'
-	icon_state = "balloon"
+	icon_state = "ballolon"
+	item_state = "ballolon"
+	lefthand_file = 'icons/mob/inhands/antag/balloons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/antag/balloons_righthand.dmi'
 	filling_color = "#e35b6f"
 	throw_range = 1
 	throw_speed = 1
