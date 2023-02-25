@@ -1,0 +1,5 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - tweak: BYOND member variant-ghosts can now display their accessories just like
+      normal ghosts. No Corgi's though, sorry Bacon.
