@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Mjolnir can only be picked up by wizards.
+  - balance: Mjolnir can be thrown with immeasurable strength.
