@@ -364,7 +364,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 /datum/action/change_psychic_visual/proc/parent_destroy()
 	SIGNAL_HANDLER
 
-	Destroy()
+	qdel(src)
 
 /datum/action/change_psychic_visual/Trigger()
 	. = ..()
@@ -454,26 +454,6 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 
 /obj/effect/psyphoza_spores/proc/upgrade()
 	upgrades = min(upgrade_limit, upgrades+1)
-
-//Keybind for sense
-/datum/keybinding/mob/psychic_sense
-	key = "Shift-Space"
-	name = "psuchic_sense"
-	full_name = "Psychic Sense"
-	description = "Activates psyphoza psychic sense"
-	keybind_signal = COMSIG_SPECIES_ACTION_PRIMARY
-	///Ref to sense
-	var/datum/action/item_action/organ_action/psychic_highlight/PH
-
-/datum/keybinding/mob/psychic_sense/down(client/user)
-	. = ..()
-	if(.)
-		return
-	if(!user.mob) 
-		return
-	PH = PH || locate(/datum/action/item_action/organ_action/psychic_highlight) in user.mob.actions
-	PH?.Trigger()
-	return TRUE
 
 #undef PSYCHIC_OVERLAY_UPPER
 #undef PSYPHOZA_BURNMOD
