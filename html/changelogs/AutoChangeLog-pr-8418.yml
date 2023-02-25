@@ -1,6 +1,0 @@
-author: MatiAvanti
-delete-after: true
-changes:
-  - rscadd: Added Nanite restricted acccess
-  - rscadd: Added Power Cell swapping.
-  - rscdel: Removed Nanite restricted acccess (one feature per PR they say)
