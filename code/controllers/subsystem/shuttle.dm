@@ -37,14 +37,8 @@ SUBSYSTEM_DEF(shuttle)
 
 		//supply shuttle stuff
 	var/obj/docking_port/mobile/supply/supply
-	var/ordernum = 1					//order number given to next order
 	var/centcom_message = ""			//Remarks from CentCom on how well you checked the last order.
 	var/list/discoveredPlants = list()	//Typepaths for unusual plants we've already sent CentCom, associated with their potencies
-
-	var/list/supply_packs = list()
-	var/list/shoppinglist = list()
-	var/list/requestlist = list()
-	var/list/orderhistory = list()
 
 	var/list/hidden_shuttle_turfs = list() //all turfs hidden from navigation computers associated with a list containing the image hiding them and the type of the turf they are pretending to be
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
@@ -69,14 +63,6 @@ SUBSYSTEM_DEF(shuttle)
 	var/shuttles_loaded = FALSE
 
 /datum/controller/subsystem/shuttle/Initialize(timeofday)
-	ordernum = rand(1, 9000)
-
-	for(var/pack in subtypesof(/datum/supply_pack))
-		var/datum/supply_pack/P = new pack()
-		if(!P.contains)
-			continue
-		supply_packs[P.type] = P
-
 	initial_load()
 
 	if(!arrivals)
@@ -550,13 +536,6 @@ SUBSYSTEM_DEF(shuttle)
 	if (istype(SSshuttle.discoveredPlants))
 		discoveredPlants = SSshuttle.discoveredPlants
 
-	if (istype(SSshuttle.shoppinglist))
-		shoppinglist = SSshuttle.shoppinglist
-	if (istype(SSshuttle.requestlist))
-		requestlist = SSshuttle.requestlist
-	if (istype(SSshuttle.orderhistory))
-		orderhistory = SSshuttle.orderhistory
-
 	if (istype(SSshuttle.shuttle_loan))
 		shuttle_loan = SSshuttle.shuttle_loan
 
@@ -564,7 +543,6 @@ SUBSYSTEM_DEF(shuttle)
 		shuttle_purchase_requirements_met = SSshuttle.shuttle_purchase_requirements_met
 
 	centcom_message = SSshuttle.centcom_message
-	ordernum = SSshuttle.ordernum
 	emergencyNoEscape = SSshuttle.emergencyNoEscape
 	emergencyCallAmount = SSshuttle.emergencyCallAmount
 	shuttle_purchased = SSshuttle.shuttle_purchased
