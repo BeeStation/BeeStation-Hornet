@@ -1,0 +1,7 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - bugfix: Fixed the Shamrock and the Ballolon plants being invisible
+  - imageadd: Added inhand sprites for the Ballolon
+  - imagedel: Removed the old ballolon plant sprite
+  - spellcheck: Capitalized the Shamrock and the Ballolon plants
