@@ -82,3 +82,23 @@
 	var/mob/living/L = user.mob
 	L.look_reset()
 	return TRUE
+
+//Keybind for sense
+/datum/keybinding/mob/psychic_sense
+	key = "Shift-Space"
+	name = "psychic_sense"
+	full_name = "Psychic Sense"
+	description = "Activates a psyphoza's psychic sense"
+	keybind_signal = COMSIG_SPECIES_ACTION_PRIMARY
+	///Ref to sense
+	var/datum/action/item_action/organ_action/psychic_highlight/PH
+
+/datum/keybinding/mob/psychic_sense/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) 
+		return
+	PH = PH || locate(/datum/action/item_action/organ_action/psychic_highlight) in user.mob.actions
+	PH?.Trigger()
+	return TRUE
