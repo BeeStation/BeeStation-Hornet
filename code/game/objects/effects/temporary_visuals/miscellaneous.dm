@@ -246,6 +246,9 @@
 	name = "spooky lights"
 	icon_state = "purplesparkles"
 
+/obj/effect/temp_visual/revenant/blightcure
+	icon_state = "blessed"
+
 /obj/effect/temp_visual/blightdisease
 	name = "spreadingsickness"
 	icon_state = "greenshatter"
