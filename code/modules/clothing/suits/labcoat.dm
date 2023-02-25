@@ -10,19 +10,23 @@
 	togglename = "buttons"
 	species_exception = list(/datum/species/golem)
 
-/obj/item/clothing/suit/toggle/labcoat/cmo
+/obj/item/clothing/suit/toggle/labcoat/med
+	desc = "A coat with additional capacity to carry medical supplies"
+	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/storage/firstaid, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/pill, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/police/telescopic, /obj/item/soap, /obj/item/sensor_device, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
+
+/obj/item/clothing/suit/toggle/labcoat/med/cmo
 	name = "chief medical officer's labcoat"
 	desc = "Bluer than the standard model. Issued to Chief Medical Officers, keeping them visible at all times among the sea of the wounded and other doctors."
 	icon_state = "labcoat_cmo"
 	item_state = "labcoat_cmo"
 
-/obj/item/clothing/suit/toggle/labcoat/paramedic
+/obj/item/clothing/suit/toggle/labcoat/med/paramedic
 	name = "\improper EMT's jacket"
 	desc = "A dark blue jacket with reflective strips for emergency medical technicians."
 	icon_state = "labcoat_emt"
 	item_state = "labcoat_cmo"
 
-/obj/item/clothing/suit/toggle/labcoat/brig_physician
+/obj/item/clothing/suit/toggle/labcoat/med/brig_physician
 	name = "security medic's labcoat"
 	icon_state = "labcoat_sec"
 	item_state = "labcoat_sec"
