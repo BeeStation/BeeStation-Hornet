@@ -183,7 +183,7 @@
 	inv_box.name = "back"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "back"
-	inv_box.icon_full = "template_small"
+	inv_box.icon_full = "template"
 	inv_box.screen_loc = ui_back
 	inv_box.slot_id = ITEM_SLOT_BACK
 	inv_box.hud = src
