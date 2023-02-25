@@ -1,0 +1,5 @@
+author: Bobbanz1
+delete-after: true
+changes:
+  - bugfix: Fixes an issue bots have where they randomly get stuck while trying to
+      navigate up a bot elevator.
