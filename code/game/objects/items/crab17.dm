@@ -5,23 +5,26 @@
 	icon_state = "suspiciousphone"
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("dumped")
-	var/dumped = FALSE
+	var/activated = FALSE
 
 /obj/item/suspiciousphone/attack_self(mob/user)
 	if(!ishuman(user))
 		to_chat(user, "<span class='warning'>This device is too advanced for you!</span>")
 		return
-	if(dumped)
+	if(activated)
 		to_chat(user, "<span class='warning'>You already activated Protocol CRAB-17.</span>")
 		return FALSE
 	if(alert(user, "Are you sure you want to crash this market with no survivors?", "Protocol CRAB-17", "Yes", "No") == "Yes")
-		if(dumped || QDELETED(src)) //Prevents fuckers from cheesing alert
+		if(activated || QDELETED(src)) //Prevents fuckers from cheesing alert
 			return FALSE
 		var/turf/targetturf = get_safe_random_station_turfs()
 		if (!targetturf)
 			return FALSE
 		new /obj/effect/dumpeetTarget(targetturf, user)
-		dumped = TRUE
+		activated = TRUE
+
+#define RUN_AWAY_THRESHOLD_HP 140
+#define RUN_AWAY_DELAYED_HP 30
 
 /obj/structure/checkoutmachine
 	name = "\improper Nanotrasen Space-Coin Market"
@@ -34,53 +37,46 @@
 	pixel_z = -8
 	layer = LARGE_MOB_LAYER
 	max_integrity = 600
-	var/list/accounts_to_rob
+	/// when this gets at this hp, it will run away! oh no!
+	var/next_health_to_teleport
 	var/mob/living/carbon/human/bogdanoff
 	var/canwalk = FALSE
+	var/static/existing_machines = 0
+	var/protected_accounts = list()
 
-/obj/structure/checkoutmachine/examine(mob/living/user)
-	. = ..()
-	. += "<span class='info'>It's integrated integrity meter reads: <b>HEALTH: [obj_integrity]</b>.</span>"
-
-/obj/structure/checkoutmachine/proc/check_if_finished()
-	for(var/i in accounts_to_rob)
-		var/datum/bank_account/B = i
-		if (B.being_dumped)
-			return FALSE
-	return TRUE
-
-/obj/structure/checkoutmachine/attackby(obj/item/W, mob/user, params)
-	if(check_if_finished())
-		qdel(src)
-		return
-	if(istype(W, /obj/item/card/id))
-		var/obj/item/card/id/card = W
-		if(!card.registered_account)
-			to_chat(user, "<span class='warning'>This card does not have a registered account!</span>")
-			return
-		if(!card.registered_account.being_dumped)
-			to_chat(user, "<span class='warning'>It appears that your funds are safe from draining!</span>")
-			return
-		if(do_after(user, 40, target = src))
-			if(!card.registered_account.being_dumped)
-				return
-			to_chat(user, "<span class='warning'>You quickly cash out your funds to a more secure banking location. Funds are safu.</span>") // This is a reference and not a typo
-			card.registered_account.being_dumped = FALSE
-			card.registered_account.withdrawDelay = 0
-			if(check_if_finished())
-				qdel(src)
-				return
-	else
-		return ..()
 
 /obj/structure/checkoutmachine/Initialize(mapload, mob/living/user)
-	. = ..()
 	bogdanoff = user
 	add_overlay("flaps")
 	add_overlay("hatch")
 	add_overlay("legs_retracted")
 	addtimer(CALLBACK(src, .proc/startUp), 50)
-	QDEL_IN(WEAKREF(src), 8 MINUTES) //Self destruct after 8 min
+	next_health_to_teleport = max_integrity - RUN_AWAY_THRESHOLD_HP
+	existing_machines++
+	. = ..()
+
+/obj/structure/checkoutmachine/examine(mob/living/user)
+	. = ..()
+	. += "<span class='info'>It's integrated integrity meter reads: <b>HEALTH: [obj_integrity]</b>.</span>"
+
+/obj/structure/checkoutmachine/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/card/id))
+		var/obj/item/card/id/card = W
+		if(!card.registered_account)
+			to_chat(user, "<span class='warning'>This card does not have a registered account!</span>")
+			return
+		if(protected_accounts["[card.registered_account.account_id]"])
+			to_chat(user, "<span class='warning'>It appears that your funds are safe from draining!</span>")
+			return
+		if(do_after(user, 40, target = src))
+			if(protected_accounts["[card.registered_account.account_id]"])
+				return
+			to_chat(user, "<span class='warning'>You quickly cash out your funds to a more secure banking location. Funds are safu.</span>") // This is a reference and not a typo
+			protected_accounts["[card.registered_account.account_id]"] = TRUE
+			card.registered_account.withdrawDelay = 0
+			next_health_to_teleport -= RUN_AWAY_DELAYED_HP // swipe your card, then it will likely less run away
+	else
+		return ..()
 
 
 /obj/structure/checkoutmachine/proc/startUp() //very VERY snowflake code that adds a neat animation when the pod lands.
@@ -147,31 +143,49 @@
 	START_PROCESSING(SSfastprocess, src)
 
 /obj/structure/checkoutmachine/Destroy()
-	stop_dumping()
 	STOP_PROCESSING(SSfastprocess, src)
+	existing_machines--
+	if(!existing_machines)
+		for(var/datum/bank_account/B in SSeconomy.bank_accounts)
+			B.withdrawDelay = 0
 	priority_announce("The credit deposit machine at [get_area(src)] has been destroyed. Station funds have stopped draining!", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = "CRAB-17 Protocol", )
 	explosion(src, 0,0,1, flame_range = 2)
 	return ..()
 
 /obj/structure/checkoutmachine/proc/start_dumping()
-	accounts_to_rob = SSeconomy.bank_accounts.Copy()
-	accounts_to_rob -= bogdanoff.get_bank_account()
-	for(var/i in accounts_to_rob)
-		var/datum/bank_account/B = i
-		B.dumpeet()
+	for(var/datum/bank_account/B in SSeconomy.bank_accounts)
+		if(protected_accounts["[B.account_id]"])
+			continue
+		B.withdrawDelay = world.time + 4 MINUTES
 	dump()
 
 /obj/structure/checkoutmachine/proc/dump()
-	var/percentage_lost = (rand(1, 10) / 100)
-	for(var/i in accounts_to_rob)
-		var/datum/bank_account/B = i
-		if(!B.being_dumped)
+	var/percentage_lost = (rand(10, 30) / 1000) // 1~3% randomly chosen. the value is nerfed since the market machine will run away
+	var/datum/bank_account/crab_account = bogdanoff.get_bank_account()
+	var/total_credits_stolen = 0
+	var/victim_count = 0
+	for(var/datum/bank_account/B in SSeconomy.bank_accounts)
+		if(protected_accounts["[B.account_id]"])
 			continue
-		var/amount = B.account_balance * percentage_lost
-		var/datum/bank_account/account = bogdanoff.get_bank_account()
-		if (account) // get_bank_account() may return FALSE
-			account.transfer_money(B, amount)
-			B.bank_card_talk("You have lost [percentage_lost * 100]% of your funds! A spacecoin credit deposit machine is located at: [get_area(src)].")
+		var/amount = 0
+		if(B.account_balance)
+			amount = max(round(B.account_balance * percentage_lost), 1) // we'll steal at least 1 credit
+		if(crab_account)
+			if(amount)
+				crab_account.transfer_money(B, amount)
+				total_credits_stolen += amount
+				victim_count += 1
+				B.bank_card_talk("You have lost [percentage_lost * 100]% of your funds! A spacecoin credit deposit machine is located at: [get_area(src)].")
+		else
+			if(amount)
+				B.adjust_money(-amount)
+				total_credits_stolen += amount
+				victim_count += 1
+				B.bank_card_talk("You have lost [percentage_lost * 100]% of your funds! A spacecoin credit deposit machine is located at: [get_area(src)].")
+		B.withdrawDelay += 30 SECONDS // we apologize for the extended maintenance, but we need to steal your credits
+	for(var/M in GLOB.dead_mob_list)
+		var/link = FOLLOW_LINK(M, src)
+		to_chat(M, "<span class='deadsay'>[link] [name] [total_credits_stolen ? "siphons total [total_credits_stolen] credits from [victim_count] bank accounts." : "tried to siphon bank accounts, but there're no victims."] location: [get_area(src)]</span>")
 	addtimer(CALLBACK(src, .proc/dump), 150) //Drain every 15 seconds
 
 /obj/structure/checkoutmachine/process()
@@ -179,10 +193,15 @@
 	if(Process_Spacemove(anydir))
 		Move(get_step(src, anydir), anydir)
 
-/obj/structure/checkoutmachine/proc/stop_dumping()
-	for(var/i in accounts_to_rob)
-		var/datum/bank_account/B = i
-		B.being_dumped = FALSE
+	// Oh no, it RUNS AWAY!!!
+	if(obj_integrity && obj_integrity < next_health_to_teleport) // checks if obj_integrity is positive first
+		next_health_to_teleport -= RUN_AWAY_THRESHOLD_HP
+		var/turf/targetturf = get_safe_random_station_turfs()
+		if(targetturf)
+			var/turf/message_turf = get_turf(src) // 'visible_message' from teleported mob will be visible after it's teleported...
+			if(do_teleport(src, targetturf, 0, channel = TELEPORT_CHANNEL_BLUESPACE))
+				message_turf.visible_message("<span class='danger'>[name] violently whirs before disappearing with a flash of light!</span>")
+				visible_message("<span class='danger'>[name] suddenly appears with a flash of light!</span>")
 
 /obj/effect/dumpeetFall //Falling pod
 	name = ""
@@ -228,3 +247,6 @@
 	playsound(src, "explosion", 80, 1)
 	dump.forceMove(get_turf(src))
 	qdel(src) //The target's purpose is complete. It can rest easy now
+
+#undef RUN_AWAY_THRESHOLD_HP
+#undef RUN_AWAY_DELAYED_HP

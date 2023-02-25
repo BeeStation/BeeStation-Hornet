@@ -1,4 +1,3 @@
-#define DUMPTIME 3000
 #define ACCOUNT_CREATION_MAX_ATTEMPT 2000
 
 /datum/bank_account
@@ -11,7 +10,6 @@
 	/// If TRUE, SSeconomy will store an account into `SSeconomy.bank_accounts`
 	var/add_to_accounts = TRUE
 	var/account_id
-	var/being_dumped = FALSE //pink levels are rising
 	var/withdrawDelay = 0
 	/// used for cryo'ed people's account. Once it's TRUE, most bank features of the bank account will be disabled.
 	var/suspended = FALSE
@@ -50,10 +48,6 @@
 	if(add_to_accounts)
 		SSeconomy.bank_accounts -= src
 	return ..()
-
-/datum/bank_account/proc/dumpeet()
-	being_dumped = TRUE
-	withdrawDelay = world.time + DUMPTIME
 
 /datum/bank_account/proc/_adjust_money(amt)
 	account_balance += amt
@@ -256,6 +250,4 @@
 	account_holder = ACCOUNT_GOLEM_NAME
 	department_id = ACCOUNT_GOLEM_ID
 	department_bitflag = NONE
-	exclusive_budget_pool = 13 // oh no, someone used it! damn communism!
-
-#undef DUMPTIME
+	exclusive_budget_pool = 13 // oh no, someone used it! damn communism
