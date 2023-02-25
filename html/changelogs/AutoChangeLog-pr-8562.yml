@@ -1,6 +1,0 @@
-author: Imaginos16, imsynthex
-delete-after: true
-changes:
-  - imageadd: added TG's Trasen-Knox HUD
-  - code_imp: human HUD active hand icons can now be separate for each hand
-  - tweak: midnight is now the default theme instead of clockwork
