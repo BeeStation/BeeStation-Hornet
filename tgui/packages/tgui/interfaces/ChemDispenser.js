@@ -31,11 +31,20 @@ export const ChemDispenser = (props, context) => {
       <Window.Content scrollable>
         <Section
           title="Status"
-          buttons={recording && (
-            <Box inline mx={1} color="red">
-              <Icon name="circle" mr={1} />
-              Recording
-            </Box>
+          buttons={(
+            <>
+              {recording && (
+                <Box inline mx={1} color="red">
+                  <Icon name="circle" mr={1} />
+                  Recording
+                </Box>
+              )}
+              <Button
+                icon="book"
+                disabled={!data.isBeakerLoaded}
+                content={"Reaction search"}
+                onClick={() => act('reaction_lookup')} />
+            </>
           )}>
           <LabeledList>
             <LabeledList.Item label="Energy">

@@ -14,6 +14,7 @@
 	required_reagents = list(/datum/reagent/consumable/soymilk = 10)
 	required_catalysts = list(/datum/reagent/consumable/enzyme = 5)
 	mob_react = FALSE
+	
 
 /datum/chemical_reaction/tofu/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)

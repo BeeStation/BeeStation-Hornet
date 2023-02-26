@@ -6,15 +6,24 @@
 	var/list/required_catalysts = new/list()
 
 	// Both of these variables are mostly going to be used with slime cores - but if you want to, you can use them for other things
-	var/required_container = null // the exact container path required for the reaction to happen
-	var/required_other = 0 // an integer required for the reaction to happen
+	/// the exact container path required for the reaction to happen
+	var/required_container = null
+	/// an integer required for the reaction to happen
+	var/required_other = 0
 
-	var/mob_react = TRUE //Determines if a chemical reaction can occur inside a mob
-
+	//Determines if a chemical reaction can occur inside a mob
+	var/mob_react = TRUE
+	//the component reagents must meet this minimum kelvin temp to begin the recipe reagent's reaction
 	var/required_temp = 0
-	var/is_cold_recipe = 0 // Set to 1 if you want the recipe to only react when it's BELOW the required temp.
-	var/mix_message = "The solution begins to bubble." //The message shown to nearby people upon mixing, if applicable
-	var/mix_sound = 'sound/effects/bubbles.ogg' //The sound played upon mixing, if applicable
+	//Set to 1 if you want the recipe to only react when it's BELOW the required temp.
+	var/is_cold_recipe = 0
+	//The message shown to nearby people upon mixing, if applicable
+	var/mix_message = "The solution begins to bubble."
+	//The sound played upon mixing, if applicable
+	var/mix_sound = 'sound/effects/bubbles.ogg'
+	//the tags that the recipe/reagent is sorted by in the Reagent Lookup UI, default set to NONE if no tags apply.
+	///If you are making a new drug, you should at the minimum add a difficulty tag(REACTION_TAG_EASY, REACTION_TAG_MODERATE), a tag delianating if its category(DRUG, OTHER...), and a REACTION_TAG_UNIQUE tag if applicable.
+	var/reaction_tags = NONE
 
 /datum/chemical_reaction/proc/on_reaction(datum/reagents/holder, created_volume)
 	return

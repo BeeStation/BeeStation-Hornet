@@ -17,7 +17,7 @@
 
 //Grey
 /datum/chemical_reaction/slime/slimespawn
-	name = "Slime Spawn"
+	name = "Spawn Slime" //if it shows up in the reagent search UI, it needs to have name thats grammatically correct
 	id = "m_spawn"
 	required_reagents = list(/datum/reagent/toxin/plasma = 1)
 	required_container = /obj/item/slime_extract/grey

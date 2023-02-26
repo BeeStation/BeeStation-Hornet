@@ -38,15 +38,9 @@
 				beaker = null
 				. = TRUE
 		if("input")
-			var/input_reagent = replacetext(lowertext(capped_input(usr, "Enter the name of any reagent", "Input")), " ", "") //95% of the time, the reagent id is a lowercase/no spaces version of the name
+			var/input_reagent = (input("Enter the name of any reagent", "Input") as text|null)
+			input_reagent = get_reagent_type_from_product_string(input_reagent) //from string to type
 
-			if (isnull(input_reagent))
-				return
-
-			if(shortcuts[input_reagent])
-				input_reagent = shortcuts[input_reagent]
-			else
-				input_reagent = find_reagent(input_reagent)
 			if(!input_reagent)
 				say("REAGENT NOT FOUND")
 				return
