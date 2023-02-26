@@ -594,11 +594,6 @@ s
 	if(..())
 		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
 			return FALSE
-		var/mob/living/simple_animal/hostile/poison/giant_spider/S = owner
-		var/datum/antagonist/spider/spider_antag = S.mind?.has_antag_datum(/datum/antagonist/spider)
-		if(spider_antag?.spider_team.directive)
-			to_chat(owner, "<span class='notice'>You already have a directive, you cannot change it!</span>")
-			return FALSE
 		return TRUE
 
 /datum/action/innate/spider/set_directive/Activate()
@@ -613,7 +608,6 @@ s
 	var/new_directive = stripped_input(S, "Enter the new directive", "Create directive")
 	if(new_directive)
 		spider_antag.spider_team.update_directives(new_directive)
-		message_admins("[ADMIN_LOOKUPFLW(owner)] set its directive to: '[new_directive]'.")
 		log_game("[key_name(owner)][spider_antag.spider_team.master ? " (master: [spider_antag.spider_team.master]" : ""] set its directive to: '[new_directive]'.")
 		S.lay_eggs.UpdateButtonIcon(TRUE)
 
