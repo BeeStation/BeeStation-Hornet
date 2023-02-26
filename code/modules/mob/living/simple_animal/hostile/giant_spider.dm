@@ -51,6 +51,7 @@
 	unique_name = 1
 	gold_core_spawnable = HOSTILE_SPAWN
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	sentience_type = SENTIENCE_OTHER // not eligible for sentience potions
 	var/busy = SPIDER_IDLE // What a spider's doing
 	var/datum/action/innate/spider/lay_web/lay_web // Web action
 	var/obj/effect/proc_holder/wrap/lesser/lesserwrap // Wrap action
@@ -101,21 +102,6 @@
 	if(spider_antag.spider_team.directive)
 		log_game("[key_name(src)] took control of [name] with the objective: '[spider_antag.spider_team.directive]'.")
 	return TRUE
-
-/mob/living/simple_animal/hostile/poison/giant_spider/sentience_act(mob/user)
-	. = ..()
-	var/datum/team/spiders/spiders
-	for(var/datum/team/spiders/team in GLOB.antagonist_teams)
-		if(team.master == user)
-			spiders = team
-			break
-	if(!spiders)
-		if(spider_team)
-			spiders = spider_team //Spider was AI controlled and then taken over by a ghost, so we apply the stored team datum
-		else
-			spiders = new(null, user)
-	var/datum/antagonist/spider/spider_antag = mind.has_antag_datum(/datum/antagonist/spider)
-	spider_antag.set_spider_team(spiders)
 
 // Allows spiders to take damage slowdown. 2 max, but they don't start moving slower until under 75% health
 /mob/living/simple_animal/hostile/poison/giant_spider/updatehealth()
