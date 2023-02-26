@@ -21,8 +21,15 @@
 	time = 40
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/durathread_jumpskirt
+	name = "Durathread Jumpskirt"
+	result = /obj/item/clothing/under/color/jumpskirt/durathread
+	reqs = list(/obj/item/stack/sheet/cotton/cloth/durathread = 4)
+	time = 40
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/durathread_hoodie
-	name = "Durathread hoodie"
+	name = "Durathread Hoodie"
 	result = /obj/item/clothing/suit/hooded/hoodie/durathread
 	reqs = list(/obj/item/stack/sheet/cotton/cloth/durathread = 5)
 	time = 50
