@@ -31545,20 +31545,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/tcommsat/computer)
-"dkY" = (
-/obj/structure/rack,
-/obj/item/gun/energy/e_gun{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/energy/e_gun,
-/obj/item/gun/energy/e_gun{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "dlt" = (
 /obj/machinery/space_heater,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
@@ -38843,6 +38829,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
+"gnQ" = (
+/obj/structure/rack,
+/obj/machinery/button/door{
+	id = "armory";
+	name = "Armory Shutters";
+	pixel_x = 28;
+	req_access_txt = "3"
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/spawner/lootdrop/job_scale/armoury/riot_shield,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "gnR" = (
 /obj/item/radio/intercom{
 	pixel_y = 21
@@ -39231,30 +39229,6 @@
 /obj/item/crowbar,
 /turf/open/floor/plasteel,
 /area/science/mixing)
-"gyk" = (
-/obj/item/storage/firstaid/regular{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/firstaid/fire{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/firstaid/fire,
-/obj/item/storage/firstaid/fire{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/structure/table/glass,
-/obj/machinery/door/window/eastleft{
-	name = "First-Aid Supplies";
-	req_access_txt = "5"
-	},
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/storage)
 "gym" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -39889,20 +39863,6 @@
 	},
 /turf/open/floor/wood,
 /area/library)
-"gRV" = (
-/obj/structure/rack,
-/obj/item/gun/energy/laser{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/energy/laser,
-/obj/item/gun/energy/laser{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "gRW" = (
 /obj/machinery/computer/objective{
 	dir = 8
@@ -46711,21 +46671,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"kex" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/head/helmet/riot,
-/obj/item/clothing/head/helmet/riot,
-/obj/item/clothing/head/helmet/riot,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 28
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "keB" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -50002,6 +49947,19 @@
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
+"lCI" = (
+/obj/structure/table/glass,
+/obj/machinery/door/window/westleft{
+	name = "First-Aid Supplies";
+	req_access_txt = "5"
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted,
+/obj/effect/spawner/lootdrop/job_scale/medical/medkits,
+/turf/open/floor/plasteel/white,
+/area/medical/storage)
 "lCJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -50481,7 +50439,9 @@
 /area/hallway/secondary/exit/departure_lounge)
 "lMn" = (
 /obj/structure/table/glass,
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -52198,6 +52158,15 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/engine/engineering)
+"mCc" = (
+/obj/structure/rack,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/spawner/lootdrop/job_scale/armoury/disabler,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "mCf" = (
 /obj/item/screwdriver{
 	pixel_y = 10
@@ -52468,6 +52437,12 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
+"mGm" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/spawner/lootdrop/job_scale/armoury/laser_gun,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "mGx" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -56557,17 +56532,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
-"oGf" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/head/helmet/alt,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "oGg" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -58864,6 +58828,22 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
+"pJY" = (
+/obj/machinery/light_switch{
+	pixel_x = -26
+	},
+/obj/machinery/light/small,
+/obj/structure/table/glass,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 8
+	},
+/obj/effect/spawner/lootdrop/job_scale/medical/medkits,
+/turf/open/floor/plasteel/white,
+/area/medical/storage)
 "pKf" = (
 /obj/structure/disposalpipe/sorting/mail{
 	sortType = 21
@@ -59441,6 +59421,18 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"pVr" = (
+/obj/machinery/airalarm{
+	dir = 4;
+	pixel_x = -22
+	},
+/obj/structure/rack,
+/obj/item/storage/fancy/donut_box,
+/obj/item/beacon/nettingportal,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/spawner/lootdrop/job_scale/armoury/dragnet,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "pVv" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -60226,6 +60218,12 @@
 	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
+"qlF" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/spawner/lootdrop/job_scale/armoury/energy_gun,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "qlX" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -64783,19 +64781,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
-"sga" = (
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = -22
-	},
-/obj/structure/rack,
-/obj/item/storage/fancy/donut_box,
-/obj/item/gun/energy/e_gun/dragnet,
-/obj/item/gun/energy/e_gun/dragnet,
-/obj/item/beacon/nettingportal,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "sgr" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -65285,6 +65270,18 @@
 	icon_state = "platingdmg1"
 	},
 /area/maintenance/port)
+"stz" = (
+/obj/structure/table/glass,
+/obj/machinery/door/window/eastleft{
+	name = "First-Aid Supplies";
+	req_access_txt = "5"
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/job_scale/medical/first_aid_kit,
+/turf/open/floor/plasteel/white,
+/area/medical/storage)
 "stB" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
@@ -65462,34 +65459,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
-"syv" = (
-/obj/item/storage/firstaid/regular{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/firstaid/brute{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/firstaid/brute,
-/obj/item/storage/firstaid/brute{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/machinery/light_switch{
-	pixel_x = -26
-	},
-/obj/machinery/light/small,
-/obj/structure/table/glass,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/storage)
 "szo" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -65917,31 +65886,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/carpet/purple,
 /area/vacant_room/office)
-"sGZ" = (
-/obj/item/storage/firstaid/regular{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/firstaid/toxin{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/firstaid/toxin,
-/obj/item/storage/firstaid/toxin{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/structure/table/glass,
-/obj/machinery/door/window/westleft{
-	name = "First-Aid Supplies";
-	req_access_txt = "5"
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue/half/contrasted,
-/turf/open/floor/plasteel/white,
-/area/medical/storage)
 "sHi" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -69565,6 +69509,16 @@
 	},
 /turf/open/floor/plasteel/dark/corner,
 /area/engine/storage_shared)
+"upR" = (
+/obj/structure/table/glass,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted,
+/obj/effect/spawner/lootdrop/job_scale/medical/medkits,
+/turf/open/floor/plasteel/white,
+/area/medical/storage)
 "uqd" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -70416,23 +70370,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
-"uNM" = (
-/obj/structure/rack,
-/obj/item/gun/energy/disabler{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/energy/disabler,
-/obj/item/gun/energy/disabler{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "uNT" = (
 /obj/machinery/firealarm{
 	pixel_y = -24
@@ -71017,28 +70954,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/surgery)
-"vdr" = (
-/obj/item/storage/firstaid/regular{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/firstaid/o2{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/firstaid/o2,
-/obj/item/storage/firstaid/o2{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/structure/table/glass,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue/anticorner/contrasted,
-/turf/open/floor/plasteel/white,
-/area/medical/storage)
 "vdF" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 8
@@ -72369,27 +72284,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/hor)
-"vGb" = (
-/obj/structure/rack,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/breacherslug,
-/obj/item/storage/box/breacherslug,
-/obj/item/storage/box/breacherslug,
-/obj/item/gun/ballistic/shotgun/riot{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/ballistic/shotgun/riot,
-/obj/item/gun/ballistic/shotgun/riot,
-/obj/item/gun/ballistic/shotgun/riot,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "vGk" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -73291,26 +73185,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore)
-"wdU" = (
-/obj/structure/rack,
-/obj/item/shield/riot{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/shield/riot,
-/obj/item/shield/riot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/machinery/button/door{
-	id = "armory";
-	name = "Armory Shutters";
-	pixel_x = 28;
-	req_access_txt = "3"
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "wee" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -74017,6 +73891,21 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
+"wss" = (
+/obj/structure/rack,
+/obj/item/storage/box/rubbershot,
+/obj/item/storage/box/rubbershot,
+/obj/item/storage/box/rubbershot,
+/obj/item/storage/box/rubbershot,
+/obj/item/storage/box/rubbershot,
+/obj/item/storage/box/rubbershot,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/spawner/lootdrop/job_scale/armoury/riot_shotgun,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "wsx" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -74458,6 +74347,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
+"wCk" = (
+/obj/structure/rack,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 28
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/spawner/lootdrop/job_scale/armoury/bulletproof_vest,
+/obj/effect/spawner/lootdrop/job_scale/armoury/riot_helmet,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "wCC" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -74579,6 +74479,13 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"wFr" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/spawner/lootdrop/job_scale/armoury/bulletproof_vest,
+/obj/effect/spawner/lootdrop/job_scale/armoury/bulletproof_helmet,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "wFH" = (
 /obj/structure/grille,
 /obj/effect/landmark/blobstart,
@@ -101063,8 +100970,8 @@ rKU
 yjf
 ssF
 cdr
-gyk
-syv
+stz
+pJY
 bXK
 iBJ
 hRc
@@ -102091,8 +101998,8 @@ bXL
 pTX
 cbP
 nrR
-sGZ
-vdr
+lCI
+upR
 bXK
 cio
 cjO
@@ -105618,7 +105525,7 @@ aaf
 aeq
 aeq
 aAm
-sga
+pVr
 wXY
 aiA
 akD
@@ -106131,8 +106038,8 @@ aaa
 aeq
 iLI
 grO
-uNM
-vGb
+mCc
+wss
 vnN
 aiA
 ajw
@@ -106645,8 +106552,8 @@ aaa
 aeq
 qEq
 agc
-gRV
-dkY
+mGm
+qlF
 fsC
 aeq
 ajy
@@ -107159,9 +107066,9 @@ aaa
 aaf
 aeq
 aeq
-oGf
-kex
-wdU
+wFr
+wCk
+gnQ
 aeq
 ajA
 arj

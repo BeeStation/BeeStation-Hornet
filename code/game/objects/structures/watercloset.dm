@@ -345,7 +345,7 @@
 		O.acid_level = 0
 		create_reagents(5)
 		reagents.add_reagent(dispensedreagent, 5)
-		reagents.expose(O, TOUCH)
+		reagents.reaction(O, TOUCH)
 		user.visible_message("<span class='notice'>[user] washes [O] using [src].</span>", \
 							"<span class='notice'>You wash [O] using [src].</span>")
 		return 1
