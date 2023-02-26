@@ -115,7 +115,7 @@ GLOBAL_VAR_INIT(frostwings_spawned, FALSE)
 
 /// A special variant with a longer initial cooldown
 /obj/machinery/frostwing_incubator/roundstart
-	incubation_length = 1 MINUTES
+	incubation_length = 8 MINUTES
 
 /obj/machinery/frostwing_incubator/roundstart/Initialize(mapload)
 	. = ..()
