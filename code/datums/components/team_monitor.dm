@@ -308,9 +308,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 			arrow.alpha = 240
 			var/turf/target_turf = get_turf(beacon.parent)
 			var/turf/parent_turf = get_turf(parent)
-			var/share_z = target_turf.get_virtual_z_level() == parent_turf.get_virtual_z_level()
-			var/share_zgroup = SSorbits.assoc_z_levels["[target_turf.get_virtual_z_level()]"] == SSorbits.assoc_z_levels["[parent_turf.get_virtual_z_level()]"]
-			if(multiz && !share_z && arrow.color != beacon.z_diff_colour)
+			if(multiz && target_turf.get_virtual_z_level() != parent_turf.get_virtual_z_level() && arrow.color != beacon.z_diff_colour)
 				arrow.color = beacon.z_diff_colour
 			else if(arrow.color != beacon.colour)
 				arrow.color = beacon.colour
