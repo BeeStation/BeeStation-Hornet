@@ -53,6 +53,11 @@ GLOBAL_LIST_EMPTY(apid_antenna_list)
 GLOBAL_LIST_EMPTY(apid_stripes_list)
 GLOBAL_LIST_EMPTY(apid_headstripes_list)
 
+GLOBAL_LIST_INIT(frostwing_variant_list, list(
+	"Light",
+	"Dark",
+))
+
 GLOBAL_LIST_INIT(color_list_ethereal, list(
 	"Red" = "ff3131",
 	"Maroon" = "9c3030",

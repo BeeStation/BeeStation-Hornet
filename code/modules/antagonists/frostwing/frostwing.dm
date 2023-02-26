@@ -33,7 +33,7 @@
 
 /datum/antagonist/frostwing
 	name = "Frostwing"
-	job_rank = ROLE_LAVALAND
+	job_rank = ROLE_FROSTWING
 	show_in_antagpanel = FALSE
 	show_to_ghosts = TRUE
 	prevent_roundtype_conversion = FALSE

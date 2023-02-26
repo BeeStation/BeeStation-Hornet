@@ -312,6 +312,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	new_species ||= C.dna.species //If no new species is provided, assume its src.
 	//Note for future: Potentionally add a new C.dna.species() to build a template species for more accurate limb replacement
 
+	modify_body(C, new_species)
+
 	if((new_species.digitigrade_customization == DIGITIGRADE_OPTIONAL && C.dna.features["legs"] == "Digitigrade Legs") || new_species.digitigrade_customization == DIGITIGRADE_FORCED)
 		new_species.species_r_leg = /obj/item/bodypart/r_leg/digitigrade
 		new_species.species_l_leg = /obj/item/bodypart/l_leg/digitigrade
@@ -352,6 +354,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				new_part.update_limb(is_creating = TRUE)
 				qdel(old_part)
 
+/datum/species/proc/modify_body(mob/living/carbon/C, var/datum/species/new_species)
+	return
 
 /datum/species/proc/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	// Drop the items the new species can't wear

@@ -1,5 +1,6 @@
 #define FROSTWING_SYNTHFLESH_REQUIRED 100
 #define FROSTWING_INCUBATION_TIME (5 MINUTES)
+GLOBAL_VAR_INIT(frostwings_spawned, FALSE)
 
 /obj/machinery/frostwing_incubator
 	name = "avian egg synthesizer"
@@ -114,13 +115,48 @@
 
 /// A special variant with a longer initial cooldown
 /obj/machinery/frostwing_incubator/roundstart
-	incubation_length = 8 MINUTES
+	incubation_length = 1 MINUTES
 
 /obj/machinery/frostwing_incubator/roundstart/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/medicine/synthflesh, FROSTWING_SYNTHFLESH_REQUIRED)
 	start_incubation()
 	incubation_length = FROSTWING_INCUBATION_TIME
+
+/obj/machinery/frostwing_incubator/roundstart/end_incubation(complete)
+	if(GLOB.frostwings_spawned)
+		return
+	GLOB.frostwings_spawned = TRUE
+	var/list/candidates = pollGhostCandidates("Do you wish to be considered for Frostwings?", ROLE_FROSTWING)
+	var/list/incubators = list()
+	for(var/turf/incubator_turf in get_area_turfs(/area/frostwing_base))
+		for(var/obj/machinery/frostwing_incubator/roundstart/F in incubator_turf)
+			incubators += F
+	for(var/obj/machinery/frostwing_incubator/roundstart/F in incubators)
+		var/turf/incubator_turf = get_turf(F)
+		var/turf/output_location
+		for(var/dir_c in GLOB.cardinals)
+			var/turf/T = get_step(incubator_turf, dir_c)
+			if(!isopenturf(T))
+				continue
+			if(T.density)
+				continue
+			var/ok_turf = TRUE
+			for(var/obj/checked_object in T)
+				if(checked_object.density)
+					ok_turf = FALSE
+					break
+			if(ok_turf)
+				output_location = T
+				break
+		if(!output_location)
+			output_location = incubator_turf
+		var/obj/effect/mob_spawn/human/frostwing/egg = new(output_location)
+		var/mob/choice = pick_n_take(candidates)
+		if(choice?.ckey && choice?.client)
+			egg.create(choice.ckey)
+		qdel(F)
+		new /obj/machinery/frostwing_incubator(incubator_turf)
 
 #undef FROSTWING_SYNTHFLESH_REQUIRED
 #undef FROSTWING_INCUBATION_TIME

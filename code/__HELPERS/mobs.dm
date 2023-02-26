@@ -114,7 +114,8 @@
 		"insect_type" = pick(GLOB.insect_type_list),
 		"apid_antenna" = pick(GLOB.apid_antenna_list),
 		"apid_stripes" = pick(GLOB.apid_stripes_list),
-		"apid_headstripes" = pick(GLOB.apid_headstripes_list)
+		"apid_headstripes" = pick(GLOB.apid_headstripes_list),
+		"frostwing_variant" = pick(GLOB.frostwing_variant_list)
 		)
 	)
 

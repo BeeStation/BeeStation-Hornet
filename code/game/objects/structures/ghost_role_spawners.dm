@@ -638,8 +638,8 @@
 	flavour_text = "The ice is your home, the sprawling ravine your domain. The intruding space station caused major losses to your kind, you can no longer reproduce. \
 	However, with your great cunning you built an incubator with materials scavenged from a shipwreck, in order to ensure the survival of your species. \
 	Now you must grow your homestead using resources from the station, using your agility and cunning."
-	assignedrole = "Frostwing"
-	banType = ROLE_LAVALAND
+	assignedrole = ROLE_FROSTWING
+	banType = ROLE_FROSTWING
 	use_cooldown = TRUE
 	var/datum/team/frostwing/team
 

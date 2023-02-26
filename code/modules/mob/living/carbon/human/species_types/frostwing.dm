@@ -2,7 +2,6 @@
 	name = "\improper Frostwing"
 	id = SPECIES_FROSTWING
 	bodyflag = FLAG_FROSTWING
-	default_color = "00FFFF"
 	species_traits = list(NO_UNDERWEAR, NOEYESPRITES)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_AVIAN)
 	action
@@ -12,7 +11,7 @@
 	mutantlungs = /obj/item/organ/lungs/frostwing
 	// Their biology requires less oxygen due to the low pressure environment, so they don't take as much oxyloss.
 	oxymod = 0.5
-	default_features = list("wings" = "Frostwing", "body_size" = "Normal")
+	default_features = list("wings" = "Frostwing Light", "body_size" = "Normal", "frostwing_variant" = "Light")
 	mutant_bodyparts = list("frostwing_wings")
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
@@ -23,12 +22,12 @@
 	// They cannot speak Common, only Icaelic
 	species_language_holder = /datum/language_holder/frostwing
 
-	species_chest = /obj/item/bodypart/chest/frostwing
-	species_head = /obj/item/bodypart/head/frostwing
-	species_l_arm = /obj/item/bodypart/l_arm/frostwing
-	species_r_arm = /obj/item/bodypart/r_arm/frostwing
-	species_l_leg = /obj/item/bodypart/l_leg/frostwing
-	species_r_leg = /obj/item/bodypart/r_leg/frostwing
+	species_chest = /obj/item/bodypart/chest/frostwing/light
+	species_head = /obj/item/bodypart/head/frostwing/light
+	species_l_arm = /obj/item/bodypart/l_arm/frostwing/light
+	species_r_arm = /obj/item/bodypart/r_arm/frostwing/light
+	species_l_leg = /obj/item/bodypart/l_leg/frostwing/light
+	species_r_leg = /obj/item/bodypart/r_leg/frostwing/light
 
 	// 310.15 (normal bodytemp) - 293.15 (normal atmos) = 17, 180 + 17 = 197
 	body_temperature_normal = 197
@@ -94,13 +93,32 @@
 	H.update_inv_hands() // hide/show inhands
 	return TRUE
 
+/datum/species/frostwing/modify_body(mob/living/carbon/C, var/datum/species/new_species)
+	switch(C.dna.features["frostwing_variant"])
+		if("Light")
+			species_chest = /obj/item/bodypart/chest/frostwing/light
+			species_head = /obj/item/bodypart/head/frostwing/light
+			species_l_arm = /obj/item/bodypart/l_arm/frostwing/light
+			species_r_arm = /obj/item/bodypart/r_arm/frostwing/light
+			species_l_leg = /obj/item/bodypart/l_leg/frostwing/light
+			species_r_leg = /obj/item/bodypart/r_leg/frostwing/light
+			return
+		if("Dark")
+			species_chest = /obj/item/bodypart/chest/frostwing/dark
+			species_head = /obj/item/bodypart/head/frostwing/dark
+			species_l_arm = /obj/item/bodypart/l_arm/frostwing/dark
+			species_r_arm = /obj/item/bodypart/r_arm/frostwing/dark
+			species_l_leg = /obj/item/bodypart/l_leg/frostwing/dark
+			species_r_leg = /obj/item/bodypart/r_leg/frostwing/dark
+			return
+
 /datum/species/frostwing/on_species_gain(mob/living/carbon/C)
 	. = ..()
 	if(ishuman(C) && !fly)
 		fly = new
 		fly.Grant(C)
 	if(islist(C.dna?.features))
-		C.dna.features["wings"] = "Frostwing"
+		C.dna.features["wings"] = C.dna.features["frostwing_variant"] == "Light" ? "Frostwing Light" : "Frostwing Dark"
 	var/datum/component/tracking_beacon/component_beacon = C.AddComponent(/datum/component/tracking_beacon, "frostwing", null, null, FALSE, "#2fd6db", TRUE, TRUE, "#005e61")
 	component_beacon.attached_monitor = C.AddComponent(/datum/component/team_monitor, "frostwing", 1, component_beacon, TRUE)
 	component_beacon.attached_monitor.show_hud(C)
@@ -163,13 +181,16 @@
 			listeners += SSmobs.clients_by_zlevel[below_turf.z]
 
 	for(var/mob/living/carbon/human/listening_mob in listeners)
-		if(!isfrostwing(listening_mob) || get_dist(listening_mob, turf_source) > 75)
+		if(!isfrostwing(listening_mob) || get_dist(listening_mob, turf_source) > 75 || !listening_mob.can_hear())
 			continue
 		SEND_SOUND(listening_mob, sound(pick('sound/emotes/caw3.ogg', 'sound/emotes/caw4.ogg'), volume=75))
+		to_chat(listening_mob, "<span class='notice'>You hear a distant call...</span>")
 	var/datum/component/tracking_beacon/beacon = H.GetComponent(/datum/component/tracking_beacon)
 	if(beacon)
 		beacon.toggle_visibility(TRUE)
 		addtimer(CALLBACK(beacon, /datum/component/tracking_beacon.proc/toggle_visibility, FALSE), 5 SECONDS)
+	StartCooldown()
+	return TRUE
 
 /datum/action/cooldown/frostwing_call/IsAvailable()
 	if(..())

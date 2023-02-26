@@ -1878,9 +1878,17 @@
 	center = TRUE
 	dimension_y = 34
 
-/datum/sprite_accessory/wings_open/frostwing
-	name = "Frostwing"
-	icon_state = "frostwing"
+/datum/sprite_accessory/wings_open/frostwing_light
+	name = "Frostwing Light"
+	icon_state = "frostwing_light"
+	color_src = 0
+	dimension_x = 52
+	center = TRUE
+	dimension_y = 25
+
+/datum/sprite_accessory/wings_open/frostwing_dark
+	name = "Frostwing Dark"
+	icon_state = "frostwing_dark"
 	color_src = 0
 	dimension_x = 52
 	center = TRUE
