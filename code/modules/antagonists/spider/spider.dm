@@ -48,10 +48,14 @@
 	show_to_ghosts = TRUE
 	var/datum/team/spiders/spider_team
 
-// Team handling, for when we have a bunch of different spiders with different directives.
 /datum/antagonist/spider/create_team(datum/team/spiders/new_team)
 	if(!new_team)
-		spider_team = new()
+		for(var/datum/antagonist/spider/spooder in GLOB.antagonists) 
+			if(!spooder.owner || !spooder.spider_team)
+				continue
+			spider_team = spooder.spider_team //if we can find any existing team, use that one
+			return
+		spider_team = new //otherwise we make a new team
 	else
 		if(!istype(new_team))
 			CRASH("Wrong spider team type provided to create_team")

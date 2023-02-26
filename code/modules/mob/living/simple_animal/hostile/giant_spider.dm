@@ -84,7 +84,11 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/mind_initialize()
 	. = ..()
 	if(!mind.has_antag_datum(/datum/antagonist/spider))
-		mind.add_antag_datum(/datum/antagonist/spider)
+		var/datum/antagonist/spider/spooder = new
+		if(!spider_team)
+			spooder.create_team()
+			spider_team = spooder.spider_team
+		mind.add_antag_datum(spooder, spider_team)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Destroy()
 	QDEL_NULL(lay_web)
