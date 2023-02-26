@@ -217,7 +217,12 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 			continue
 		var/atom/movable/screen/arrow/arrow = new
 		arrow.alpha = 240
-		arrow.color = key.colour
+		var/turf/target_turf = get_turf(key.parent)
+		var/turf/parent_turf = get_turf(parent)
+		if(multiz && target_turf.get_virtual_z_level() != parent_turf.get_virtual_z_level() && arrow.color != key.z_diff_colour)
+			arrow.color = key.z_diff_colour
+		else if(arrow.color != key.colour)
+			arrow.color = key.colour
 		arrow.hud = target.hud_used
 		target.hud_used.team_finder_arrows += arrow
 		tracking[key] = arrow
