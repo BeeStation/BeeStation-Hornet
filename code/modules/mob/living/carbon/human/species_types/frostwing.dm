@@ -142,6 +142,7 @@
 		monitor.RemoveComponent()
 
 /datum/species/frostwing/spec_life(mob/living/carbon/human/H)
+	..()
 	if(call_action)
 		call_action.UpdateButtonIcon()
 
