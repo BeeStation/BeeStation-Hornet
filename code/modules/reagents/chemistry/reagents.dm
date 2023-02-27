@@ -96,7 +96,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/react_type
 	if(isliving(A))
 		react_type = "LIVING"
-		if(method == INGEST)
+		if(methods == INGEST)
 			var/mob/living/L = A
 			L.taste(src)
 	else if(isturf(A))
@@ -110,14 +110,14 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	switch(react_type)
 		if("LIVING")
 			var/touch_protection = 0
-			if(method == VAPOR)
+			if(methods == VAPOR)
 				var/mob/living/L = A
 				touch_protection = L.get_permeability_protection()
-			R.reaction_mob(A, method, R.volume * volume_modifier, show_message, touch_protection)
+			R.reaction_mob(A, methods, R.volume * volume_modifier, show_message, touch_protection)
 		if("TURF")
 			R.reaction_turf(A, R.volume * volume_modifier, show_message)
 		if("OBJ")
-			R.expose_obj(A, R.volume * volume_modifier, show_message)
+			R.reaction_obj(A, R.volume * volume_modifier, show_message)
 		if("LIQUID")
 			R.reaction_liquid(A, R.volume * volume_modifier, show_message)
 

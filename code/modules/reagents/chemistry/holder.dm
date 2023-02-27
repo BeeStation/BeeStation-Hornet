@@ -200,9 +200,9 @@
 			if(preserve_data)
 				trans_data = copy_data(T)
 			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1) //we only handle reaction after every reagent has been transfered.
-			if(methods)
-				R.expose_single(T, target_atom, methods, part, show_message)
-				T.on_transfer(target_atom, methods, transfer_amount * multiplier)
+			if(method)
+				R.react_single(T, target_atom, method, part, show_message)
+				T.on_transfer(target_atom, method, transfer_amount * multiplier)
 			remove_reagent(T.type, transfer_amount, no_react)
 			transfer_log[T.type] = transfer_amount
 	else

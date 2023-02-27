@@ -1357,9 +1357,9 @@
 	taste_description = "sweetness"
 
 
-/datum/reagent/nitrous_oxide/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if(methods & VAPOR)
-    M.drowsyness += max(round(reac_volume, 1), 2)
+/datum/reagent/nitrous_oxide/reaction_mob(mob/living/M, method, reac_volume)
+	if(method & VAPOR)
+		M.drowsyness += max(round(reac_volume, 1), 2)
 
 /datum/reagent/nitrous_oxide/reaction_obj(obj/O, reac_volume)
 	if((!O) || (!reac_volume))
@@ -1656,7 +1656,7 @@
 
 /datum/reagent/carpet/reaction_liquid(obj/O, reac_volume)
 	var/turf/open/T = get_turf(O)
-	expose_turf(T, reac_volume)
+	reaction_turf(T, reac_volume)
 
 /datum/reagent/bromine
 	name = "Bromine"

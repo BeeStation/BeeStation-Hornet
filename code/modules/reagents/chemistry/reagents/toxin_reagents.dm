@@ -70,9 +70,9 @@
 	C.adjustPlasma(20)
 	return ..()
 
-/datum/reagent/toxin/plasma/expose_mob(mob/living/M, methods=TOUCH, reac_volume)//Splashing people with plasma is stronger than fuel!
-	if(methods & (TOUCH|VAPOR))
-    M.adjust_fire_stacks(reac_volume / 5)
+/datum/reagent/toxin/plasma/reaction_mob(mob/living/M, method, reac_volume, show_message, touch_protection, obj/item/bodypart/affecting)//Splashing people with plasma is stronger than fuel!
+	if(method & (TOUCH|VAPOR))
+		M.adjust_fire_stacks(reac_volume / 5)
 		return
 	..()
 

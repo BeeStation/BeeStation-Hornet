@@ -278,7 +278,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	total_reagent_volume = reagents.total_volume
 
 /datum/liquid_group/proc/transfer_to_atom(obj/effect/abstract/liquid_turf/remover, amount, atom/transfer_target, transfer_method = INGEST)
-	reagents.trans_to(transfer_target, amount, methods = transfer_method)
+	reagents.trans_to(transfer_target, amount, method = transfer_method)
 	if(remover)
 		check_liquid_removal(remover, amount)
 	updated_total = TRUE
@@ -705,7 +705,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	exposed_reagents.chem_temp = group_temperature
 
 	for(var/atom/movable/target_atom in members_turf)
-		exposed_reagents.expose(target_atom, TOUCH)
+		exposed_reagents.reaction(target_atom, TOUCH)
 	qdel(exposed_reagents)
 
 /datum/liquid_group/proc/expose_atom(atom/target, modifier = 0, method)
@@ -723,7 +723,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	if(modifier)
 		exposed_reagents.remove_any((exposed_reagents.total_volume * modifier))
 
-	exposed_reagents.expose(target, method)
+	exposed_reagents.reaction(target, method)
 
 /datum/liquid_group/proc/spread_liquid(turf/new_turf, turf/source_turf)
 	if(isclosedturf(new_turf) || !source_turf.atmos_adjacent_turfs)
@@ -796,7 +796,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	var/direction = get_dir(source_turf, new_turf)
 	for(var/atom/movable/target_atom in new_turf)
 		if(!target_atom.anchored && !target_atom.pulledby && !isobserver(target_atom) && (target_atom.move_resist < INFINITY))
-			reagents.expose(target_atom, TOUCH, (reagents_per_turf * 0.5))
+			reagents.reaction(target_atom, TOUCH, (reagents_per_turf * 0.5))
 			if(expected_turf_height < LIQUID_ANKLES_LEVEL_HEIGHT)
 				return
 			step(target_atom, direction)
