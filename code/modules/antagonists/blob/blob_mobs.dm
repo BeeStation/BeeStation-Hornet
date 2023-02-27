@@ -163,6 +163,7 @@
 	H.update_hair()
 	H.forceMove(src)
 	oldguy = H
+	role = ROLE_BLOB
 	update_icons()
 	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 	if(!key)
