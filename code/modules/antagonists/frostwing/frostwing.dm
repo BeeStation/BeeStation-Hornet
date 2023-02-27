@@ -52,7 +52,7 @@
 	to_chat(owner.current, "<span>The ice is your home, the sprawling ravine your domain. The intruding space station caused major losses to your kind, you can no longer reproduce. \
 	However, with your great cunning you built an incubator, powered by synthflesh, with materials scavenged from a shipwreck, in order to ensure the survival of your species. \
 	Now you must grow your homestead using resources from the station, using your agility and cunning.</span>")
-	to_chat(owner.current, "<span class='bold'>As a frostwing, your knowledge of the station and its technology is adequate. You have lived on the ice plains for a long time, and you have watched the station from afar. Human culture and language, however, is a mystery to you.</span>")
+	to_chat(owner.current, "<span class='bold'>As a frostwing, your knowledge of the station, its layout, and its technology is adequate for the purpose of locating the tech you need. You have lived on the ice plains for a long time, and you have watched the station from afar. Human culture and language, however, is a mystery to you.</span>")
 	to_chat(owner.current, "<span class='bold'>What the station makes of your intrusion is up to you.</span>")
 	to_chat(owner.current, "<span class='big warning bold'>You should NOT be killing people for no reason, you're an intelligent being with respect for other lifeforms. Self-defense is the only valid reason to kill.</span>")
 	owner.announce_objectives()
