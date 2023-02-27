@@ -36,6 +36,8 @@ export const ReagentLookup = (props, context) => {
             <LabeledList.Item label="Overdose">
               {reagent.OD}u
             </LabeledList.Item>
+
+          /*
           )}
           {reagent.addictions[0] && (
             <LabeledList.Item label="Addiction">
@@ -45,6 +47,8 @@ export const ReagentLookup = (props, context) => {
                 </Box>
               ))}
             </LabeledList.Item>
+            */
+
           )}
           <LabeledList.Item label="Metabolization rate">
             {reagent.metaRate}u/s
