@@ -220,12 +220,6 @@
 	data["recipes"] = saved_recipes
 
 	data["recordingRecipe"] = recording_recipe
-	data["recipeReagents"] = list()
-	if(beaker?.reagents.ui_reaction_id)
-		var/datum/chemical_reaction/reaction = get_chemical_reaction(beaker.reagents.ui_reaction_id)
-		for(var/_reagent in reaction.required_reagents)
-			var/datum/reagent/reagent = find_reagent_object_from_type(_reagent)
-			data["recipeReagents"] += ckey(reagent.name)
 	return data
 
 /obj/machinery/chem_dispenser/ui_act(action, params)
@@ -328,9 +322,6 @@
 				saved_recipes[name] = recording_recipe
 				recording_recipe = null
 				. = TRUE
-		if("reaction_lookup")
-			if(beaker)
-				beaker.reagents.ui_interact(usr)
 		if("cancel_recording")
 			recording_recipe = null
 			. = TRUE
@@ -352,7 +343,7 @@
 		to_chat(user, "<span class='notice'>You add [B] to [src].</span>")
 		updateUsrDialog()
 		update_icon()
-	else if(user.a_intent != INTENT_HARM && !istype(I, /obj/item/card/emag))
+	else if(user.a_intent != INTENT_HARM && !istype(I, /obj/item/card/emag) && !istype(I, /obj/item/stock_parts/cell))
 		to_chat(user, "<span class='warning'>You can't load [I] into [src]!</span>")
 		return ..()
 	else
