@@ -84,21 +84,19 @@
 	return TRUE
 
 //Keybind for sense
-/datum/keybinding/mob/psychic_sense
+/datum/keybinding/living/primary_species_action
 	key = "Shift-Space"
-	name = "psychic_sense"
-	full_name = "Psychic Sense"
-	description = "Activates a psyphoza's psychic sense"
+	name = "species_primary"
+	full_name = "Primary Species Action"
+	description = "Activates a species primary action."
 	keybind_signal = COMSIG_SPECIES_ACTION_PRIMARY
-	///Ref to sense
-	var/datum/action/item_action/organ_action/psychic_highlight/PH
 
-/datum/keybinding/mob/psychic_sense/down(client/user)
+/datum/keybinding/living/primary_species_action/down(client/user)
 	. = ..()
 	if(.)
 		return
-	if(!user.mob) 
+	if(!iscarbon(user.mob)) 
 		return
-	PH = PH || locate(/datum/action/item_action/organ_action/psychic_highlight) in user.mob.actions
-	PH?.Trigger()
+	var/mob/living/carbon/L = user.mob
+	L.dna.species.primary_species_action()
 	return TRUE
