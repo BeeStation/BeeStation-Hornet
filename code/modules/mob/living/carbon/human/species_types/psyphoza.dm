@@ -52,6 +52,13 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	//Fire bad!
 	burnmod = PSYPHOZA_BURNMOD
 
+	//Reference to psychic highlight action
+	var/datum/action/item_action/organ_action/psychic_highlight/PH
+
+/datum/species/psyphoza/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+	. = ..()
+	PH = locate(/datum/action/item_action/organ_action/psychic_highlight) in C.actions
+
 /datum/species/psyphoza/random_name(gender, unique, lastname, attempts)
 	var/num = rand(1, 9)
 	var/end
@@ -87,10 +94,14 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 /datum/species/psyphoza/get_scream_sound(mob/living/carbon/user)
 	return pick('sound/voice/psyphoza/psyphoza_scream_1.ogg', 'sound/voice/psyphoza/psyphoza_scream_2.ogg')
 
+/datum/species/psyphoza/primary_species_action()
+	. = ..()
+	PH?.Trigger()
+
 //This originally held the psychic action until I moved it to the eyes, keep it please.
 /obj/item/organ/brain/psyphoza
 	name = "psyphoza brain"
-	desc = "Bubbling with psychic energy..no wait...that's blood."
+	desc = "Bubbling with psychic energy...no wait...that's blood."
 	color = "#ff00ee"
 
 // PSYCHIC ECHOLOCATION

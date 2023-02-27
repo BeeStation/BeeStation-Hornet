@@ -2235,3 +2235,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species/proc/get_huff_sound(mob/living/carbon/user)
 	return
+
+//generic action proc for keybind stuff
+/datum/species/proc/primary_species_action()
+	return
