@@ -15,7 +15,7 @@
 	icon_grow = "poppy-grow"
 	icon_dead = "poppy-dead"
 	mutatelist = list(/obj/item/seeds/poppy/geranium, /obj/item/seeds/poppy/lily)
-	reagents_add = list(/datum/reagent/medicine/bicaridine = 0.2, /datum/reagent/consumable/nutriment = 0.05)
+	reagents_add = list(/datum/reagent/medicine/morphine = 0.15, /datum/reagent/medicine/bicaridine = 0.2, /datum/reagent/consumable/nutriment = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/poppy
 	seed = /obj/item/seeds/poppy
@@ -213,7 +213,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/moonflower
 	genes = list(/datum/plant_gene/trait/glow/purple)
 	mutatelist = list()
-	reagents_add = list(/datum/reagent/consumable/ethanol/moonshine = 0.2,/datum/reagent/medicine/morphine = 0.3, /datum/reagent/consumable/nutriment = 0.02)
+	reagents_add = list(/datum/reagent/acetone = 0.08, /datum/reagent/consumable/ethanol/moonshine = 0.2, /datum/reagent/medicine/morphine = 0.3, /datum/reagent/consumable/nutriment = 0.02)
 	rarity = 20
 
 /obj/item/reagent_containers/food/snacks/grown/moonflower

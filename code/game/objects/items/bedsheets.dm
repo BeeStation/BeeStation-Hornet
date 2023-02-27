@@ -246,6 +246,7 @@
 	dream_messages = list("the infinite cosmos", "Hans Zimmer music", "a flight through space", "the galaxy", "being fabulous", "shooting stars")
 	light_power = 2
 	light_range = 1.4
+	light_system = MOVABLE_LIGHT
 
 /obj/item/bedsheet/random
 	icon_state = "random_bedsheet"
@@ -481,6 +482,7 @@
 	desc = "Made from the dreams of those who wonder at the stars."
 	light_power = 2.1
 	light_range = 1.8
+	light_system = MOVABLE_LIGHT
 
 /obj/item/bedsheet/double/random
 	name = "random double bedsheet"

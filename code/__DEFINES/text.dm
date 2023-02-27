@@ -8,6 +8,11 @@
 
 #define SANITIZE_FILENAME(text) (GLOB.filename_forbidden_chars.Replace(text, ""))
 
+
+/// type of a chat to send discord servers
+#define CHAT_TYPE_OOC "chat_ooc"
+#define CHAT_TYPE_DEADCHAT "chat_dead"
+
 ///Base layer of chat elements
 #define CHAT_LAYER 1
 ///Highest possible layer of chat elements
