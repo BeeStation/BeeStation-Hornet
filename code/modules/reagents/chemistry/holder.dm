@@ -224,7 +224,8 @@
 			data["reagent_mode_reagent"] = list("name" = reagent.name, "id" = reagent.type, "desc" = reagent.description, "reagentCol" = reagent.color, "metaRate" = (reagent.metabolization_rate/2), "OD" = reagent.overdose_threshold)
 		  /*data["reagent_mode_reagent"]["addictions"] = list()
 			data["reagent_mode_reagent"]["addictions"] = parse_addictions(reagent) */
-
+	else
+		data["reagent_mode_reagent"] = null
 
 	//reaction lookup data
 	if (ui_reaction_id)
@@ -319,6 +320,8 @@
 					tooltip_bool = TRUE
 			data["reagent_mode_recipe"]["catalysts"] += list(list("name" = reagent.name, "id" = reagent.type, "ratio" = reaction.required_catalysts[reagent.type], "color" = color_r, "tooltipBool" = tooltip_bool, "tooltip" = tooltip))
 		data["reagent_mode_recipe"]["isColdRecipe"] = reaction.is_cold_recipe
+	else
+		data["reagent_mode_recipe"] = null
 
 	return data
 
