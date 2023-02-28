@@ -4369,26 +4369,6 @@
 	},
 /turf/open/floor/plasteel/white/side,
 /area/medical/medbay/central)
-"bZI" = (
-/obj/structure/table/wood{
-	base_icon_state = null;
-	canSmoothWith = null;
-	desc = "For when it all gets too much to bear. Do not taunt.";
-	icon = 'icons/obj/machines/nuke_terminal.dmi';
-	icon_state = "nuclearbomb_base";
-	name = "Coffee warmer";
-	parent_type = /obj/structure/table;
-	pass_flags_self = 128;
-	smoothing_flags = 0;
-	smoothing_groups = null
-	},
-/obj/item/reagent_containers/food/drinks/britcup{
-	pixel_x = 3;
-	pixel_y = 12
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/dark,
-/area/bridge/meeting_room)
 "bZL" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -25067,6 +25047,18 @@
 "kFd" = (
 /turf/closed/wall,
 /area/crew_quarters/heads/chief)
+"kFI" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
+/area/tcommsat/server)
 "kFN" = (
 /obj/structure/kitchenspike_frame,
 /turf/open/floor/plasteel/dark,
@@ -38750,6 +38742,17 @@
 	dir = 8
 	},
 /area/hallway/primary/central)
+"qum" = (
+/obj/item/reagent_containers/food/drinks/britcup{
+	pixel_x = 3;
+	pixel_y = 12
+	},
+/obj/effect/turf_decal/bot,
+/obj/structure/table/wood{
+	name = "Coffee warmer"
+	},
+/turf/open/floor/plasteel/dark,
+/area/bridge/meeting_room)
 "qvD" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -53642,21 +53645,6 @@
 /obj/effect/spawner/lootdrop/glowstick,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"wWg" = (
-/obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/tcommsat/server";
-	dir = 4;
-	name = "Telecomms Server Room APC";
-	pixel_x = 24
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/open/floor/engine{
-	initial_gas_mix = "n2=100;TEMP=80";
-	name = "mainframe floor"
-	},
-/area/tcommsat/server)
 "wWC" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -90152,7 +90140,7 @@ cgL
 fVo
 haY
 dbZ
-bZI
+qum
 jot
 ydT
 hZJ
@@ -91192,7 +91180,7 @@ mIn
 wjm
 cMI
 rEO
-wWg
+kFI
 tBY
 iGJ
 akJ
