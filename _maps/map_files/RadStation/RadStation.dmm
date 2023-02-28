@@ -9597,16 +9597,6 @@
 /obj/effect/spawner/room/fivexthree,
 /turf/open/floor/plating,
 /area/maintenance/central)
-"ehC" = (
-/obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
-	},
-/obj/structure/chair{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/security/prison)
 "eit" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	name = "Port Mix to East Ports"
@@ -13806,6 +13796,16 @@
 /obj/effect/turf_decal/stripes,
 /turf/open/floor/plasteel,
 /area/medical/medbay/lobby)
+"fNF" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4;
+	layer = 3
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/prison)
 "fNH" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -17069,6 +17069,20 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmospherics_engine)
+"hfa" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/computer/prisoner/gulag_teleporter_computer{
+	pixel_x = -4;
+	pixel_y = -1
+	},
+/obj/structure/window/reinforced{
+	dir = 4;
+	layer = 3
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/prison)
 "hfc" = (
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/plasteel,
@@ -36797,19 +36811,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/tech,
 /area/ai_monitored/storage/eva)
-"pGJ" = (
-/obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
-	},
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel/dark,
-/area/security/prison)
 "pGO" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -37413,15 +37414,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
-"pRE" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
-/turf/open/floor/plasteel/dark,
-/area/security/prison)
 "pRK" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -39246,6 +39238,16 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
+"qHB" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/obj/machinery/gulag_teleporter,
+/turf/open/floor/plasteel/dark,
+/area/security/prison)
 "qHF" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -78875,7 +78877,7 @@ kro
 tKp
 veW
 ifC
-pRE
+qHB
 sDu
 rLD
 woY
@@ -79132,8 +79134,8 @@ ifC
 ifC
 kfO
 ifC
-pGJ
-ehC
+hfa
+fNF
 rLD
 smU
 wix
