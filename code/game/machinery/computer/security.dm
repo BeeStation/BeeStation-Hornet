@@ -66,7 +66,6 @@
 		"id",
 		"rank",
 		"arrest_status",
-		"sex",
 		"gender",
 		"age",
 		"species",
@@ -97,7 +96,6 @@
 		entry["name"] = player_record.fields["name"]
 		entry["id"] = player_record.fields["id"]
 		entry["rank"] = player_record.fields["rank"]
-		entry["sex"] = player_record.fields["sex"]
 		entry["gender"] = player_record.fields["gender"]
 		entry["age"] = player_record.fields["age"]
 		entry["species"] = player_record.fields["species"]
@@ -352,7 +350,6 @@
 						<tr><td>Name:</td><td><A href='?src=[REF(src)];choice=Edit Field;field=name'>&nbsp;[active1.fields["name"]]&nbsp;</A></td></tr>
 						<tr><td>ID:</td><td><A href='?src=[REF(src)];choice=Edit Field;field=id'>&nbsp;[active1.fields["id"]]&nbsp;</A></td></tr>
 						<tr><td>Gender:</td><td><A href='?src=[REF(src)];choice=Edit Field;field=gender'>&nbsp;[active1.fields["gender"]]&nbsp;</A></td></tr>
-						<tr><td>Sex:</td><td><A href='?src=[REF(src)];choice=Edit Field;field=sex'>&nbsp;[active1.fields["sex"]]&nbsp;</A></td></tr>
 						<tr><td>Age:</td><td><A href='?src=[REF(src)];choice=Edit Field;field=age'>&nbsp;[active1.fields["age"]]&nbsp;</A></td></tr>"}
 						dat += "<tr><td>Species:</td><td><A href ='?src=[REF(src)];choice=Edit Field;field=species'>&nbsp;[active1.fields["species"]]&nbsp;</A></td></tr>"
 						dat += {"<tr><td>Rank:</td><td><A href='?src=[REF(src)];choice=Edit Field;field=rank'>&nbsp;[active1.fields["rank"]]&nbsp;</A></td></tr>
@@ -557,7 +554,7 @@ What a mess.*/
 					var/obj/item/paper/P = new /obj/item/paper( loc )
 					P.info = "<CENTER><B>Security Record - (SR-[GLOB.data_core.securityPrintCount])</B></CENTER><BR>"
 					if((istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1)))
-						P.info += text("Name: [] ID: []<BR>\nGender: []<BR>\nSex: []<BR>\nAge: []<BR>", active1.fields["name"], active1.fields["id"], active1.fields["gender"], active1.fields["sex"], active1.fields["age"])
+						P.info += text("Name: [] ID: []<BR>\nGender: []<BR>\nAge: []<BR>", active1.fields["name"], active1.fields["id"], active1.fields["gender"], active1.fields["age"])
 						P.info += "\nSpecies: [active1.fields["species"]]<BR>"
 						P.info += text("\nFingerprint: []<BR>\nPhysical Status: []<BR>\nMental Status: []<BR>", active1.fields["fingerprint"], active1.fields["p_stat"], active1.fields["m_stat"])
 					else
@@ -699,7 +696,6 @@ What a mess.*/
 				G.fields["rank"] = "Unassigned"
 				G.fields["hud"] = JOB_HUD_UNKNOWN
 				G.fields["active_dept"]	= NONE
-				G.fields["sex"]	= "Male"
 				G.fields["gender"] = "Male"
 				G.fields["age"] = "Unknown"
 				G.fields["species"] = "Human"
@@ -771,12 +767,6 @@ What a mess.*/
 							if(!canUseSecurityRecordsConsole(usr, t1, a1))
 								return
 							active1.fields["fingerprint"] = t1
-					if("sex")
-						if(istype(active1, /datum/data/record))
-							var/t1 = input(usr, "Select sex", "Secure. records", active1.fields["sex"]) as null|anything in list(MALE, FEMALE, PLURAL)
-							if(!canUseSecurityRecordsConsole(usr, t1, a1))
-								return
-							active1.fields["sex"] = capitalize(t1)
 					if("gender")
 						if(istype(active1, /datum/data/record))
 							var/t1 = input(usr, "Select gender", "Secure. records", active1.fields["gender"]) as null|anything in list(MALE, FEMALE, PLURAL)
