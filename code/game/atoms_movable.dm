@@ -1105,6 +1105,8 @@
 	set waitfor = FALSE
 	if(item_flags & WAS_THROWN)
 		return
+	if(movement_type & THROWN)
+		return
 	if(!istype(loc, /turf))
 		return
 
