@@ -4310,7 +4310,9 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/quartermaster/exploration_prep)
 "ahS" = (
@@ -6980,7 +6982,7 @@
 	icon_state = "1-8"
 	},
 /mob/living/simple_animal/chicken/turkey{
-	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
 	health = 200;
 	maxHealth = 200;
@@ -30997,7 +30999,7 @@
 "aXN" = (
 /obj/machinery/igniter/incinerator_toxmix,
 /mob/living/simple_animal/chicken{
-	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=1,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	desc = "A timeless classic.";
 	name = "Kentucky"
 	},
@@ -77771,8 +77773,8 @@
 	dir = 1
 	},
 /obj/machinery/door/window/southright{
-	name = "Secure Artifact Storage";
 	dir = 8;
+	name = "Secure Artifact Storage";
 	req_one_access_txt = "8;49"
 	},
 /obj/structure/rack,
@@ -85242,7 +85244,9 @@
 /area/maintenance/department/science)
 "cGo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -92334,10 +92338,10 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/machinery/button/door{
-	pixel_x = -27;
-	pixel_y = 5;
+	id = "xenoarch";
 	name = "containment shutters";
-	id = "xenoarch"
+	pixel_x = -27;
+	pixel_y = 5
 	},
 /obj/effect/turf_decal/box,
 /turf/open/floor/plasteel/showroomfloor,
@@ -92641,7 +92645,7 @@
 	},
 /obj/item/reagent_containers/food/drinks/beer{
 	desc = "A station exclusive. Consumption may result in seizures, blindness, drunkenness, or even death.";
-	list_reagents = list(/datum/reagent/consumable/ethanol/thirteenloko=30);
+	list_reagents = list(/datum/reagent/consumable/ethanol/thirteenloko = 30);
 	name = "Kilo-Kocktail";
 	pixel_x = 5;
 	pixel_y = 5
@@ -93414,13 +93418,13 @@
 	},
 /obj/structure/table,
 /obj/item/clothing/glasses/science{
-	pixel_y = 7;
-	pixel_x = -5
+	pixel_x = -5;
+	pixel_y = 7
 	},
 /obj/item/clothing/gloves/artifact_pinchers,
 /obj/item/clothing/gloves/artifact_pinchers{
-	pixel_y = -13;
-	pixel_x = 2
+	pixel_x = 2;
+	pixel_y = -13
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -94148,7 +94152,9 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -94238,8 +94244,8 @@
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate/secure/plasma{
-	req_access_txt = "39";
-	name = "virology crate"
+	name = "virology crate";
+	req_access_txt = "39"
 	},
 /obj/machinery/light{
 	dir = 1
@@ -95053,9 +95059,9 @@
 /area/maintenance/starboard/aft)
 "jGH" = (
 /obj/structure/disposalpipe/sorting/mail/flip{
-	sortType = 27;
+	dir = 1;
 	name = "virology sorting disposals pipe";
-	dir = 1
+	sortType = 27
 	},
 /obj/machinery/airalarm/directional/east,
 /turf/open/floor/plasteel/showroomfloor,
@@ -95182,16 +95188,16 @@
 	pixel_y = -1
 	},
 /obj/item/paper_bin{
-	pixel_y = 3;
-	pixel_x = -9
+	pixel_x = -9;
+	pixel_y = 3
 	},
 /obj/item/reagent_containers/glass/bottle/spaceacillin{
 	pixel_x = 9;
 	pixel_y = -7
 	},
 /obj/item/pen{
-	pixel_y = 3;
-	pixel_x = -8
+	pixel_x = -8;
+	pixel_y = 3
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
@@ -95998,9 +96004,9 @@
 /obj/machinery/button/door{
 	id = "quarantineshutters";
 	name = "Quarantine Lockdown";
+	pixel_x = -7;
 	pixel_y = 23;
-	req_access_txt = "39";
-	pixel_x = -7
+	req_access_txt = "39"
 	},
 /obj/machinery/button/flasher{
 	id = "monkeypen";
@@ -96009,9 +96015,9 @@
 /obj/machinery/button/door{
 	id = "monkeyshutters";
 	name = "Monkey Pen Lockdown";
+	pixel_x = 8;
 	pixel_y = 23;
-	req_access_txt = "39";
-	pixel_x = 8
+	req_access_txt = "39"
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
@@ -97786,8 +97792,8 @@
 	light_color = "#e8eaff"
 	},
 /obj/item/radio/intercom{
-	pixel_y = -4;
-	pixel_x = -26
+	pixel_x = -26;
+	pixel_y = -4
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
@@ -98211,8 +98217,8 @@
 /area/quartermaster/warehouse)
 "quE" = (
 /obj/structure/closet/crate/secure/plasma{
-	req_access_txt = "39";
-	name = "virology crate"
+	name = "virology crate";
+	req_access_txt = "39"
 	},
 /obj/item/extrapolator,
 /obj/item/book/manual/wiki/infections,
@@ -98885,8 +98891,8 @@
 	id = "quarantineshutters";
 	name = "Quarantine Lockdown";
 	pixel_x = 32;
-	req_access_txt = "39";
-	pixel_y = -37
+	pixel_y = -37;
+	req_access_txt = "39"
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/cmo)
@@ -99042,15 +99048,17 @@
 /obj/structure/table/glass,
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/spray/cleaner,
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
 "rAU" = (
 /obj/machinery/door/window/eastleft{
+	dir = 1;
 	name = "Testing Pen";
-	req_access_txt = "39";
-	dir = 1
+	req_access_txt = "39"
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -99760,7 +99768,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /turf/open/floor/plating/airless,
 /area/docking/arrival{
 	lighting_colour_bulb = "#ffdbb4";
@@ -100130,8 +100140,8 @@
 /area/quartermaster/exploration_dock)
 "tPc" = (
 /obj/item/book/manual/wiki/xenoarchaeology{
-	pixel_y = 6;
-	pixel_x = -5
+	pixel_x = -5;
+	pixel_y = 6
 	},
 /obj/structure/table,
 /obj/machinery/camera/autoname{
@@ -100378,8 +100388,8 @@
 /obj/machinery/button/door{
 	id = "quarantineshutters";
 	name = "Quarantine Lockdown";
-	req_access_txt = "39";
-	pixel_x = -24
+	pixel_x = -24;
+	req_access_txt = "39"
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -100927,9 +100937,9 @@
 	},
 /obj/effect/turf_decal/bot_white/left,
 /obj/machinery/door/window/eastleft{
+	dir = 2;
 	name = "Quarantine Pen A";
-	req_access_txt = "39";
-	dir = 2
+	req_access_txt = "39"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
