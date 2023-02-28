@@ -297,7 +297,6 @@
 	if(!. || !I) //ensure the item exists and that it was dropped properly.
 		return
 	if(!(I.item_flags & NO_PIXEL_RANDOM_DROP) && !(I.item_flags & WAS_THROWN))
-	//if(!(I.item_flags & NO_PIXEL_RANDOM_DROP) && !(movement_type & THROWN))
 		I.pixel_x = rand(-6, 6)
 		I.pixel_y = rand(-6, 6)
 	I.do_drop_animation(src)
