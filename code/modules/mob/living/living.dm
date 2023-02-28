@@ -1397,23 +1397,10 @@
 		to_chat(eminence, "<span class='brass'>You select [src].</span>")
 
 /mob/living/proc/set_gender(ngender = NEUTER, silent = FALSE, update_icon = TRUE, forced = FALSE)
-	var/bender = gender != ngender
 	if(forced)
 		gender = ngender
-	if(bender)
-		if(ishuman(src))
-			var/mob/living/carbon/human/human = src
-			if(!human.dna)
-				return
-			if(ngender == MALE || ngender == FEMALE)
-				human.dna.features["body_model"] = ngender
-			else if(ngender == NEUTER)
-				human.dna.features["body_model"] = MALE
-		if(!silent)
-			var/adj = ngender == MALE ? "masculine" : "feminine"
-			visible_message("<span class='boldnotice'>[src] suddenly looks more [adj]!</span>", "<span class='boldwarning'>You suddenly feel more [adj]!</span>")
-	if(update_icon)
-		update_body()
+		return TRUE
+	return FALSE
 
 #define LOOKING_DIRECTION_UP 1
 #define LOOKING_DIRECTION_NONE 0

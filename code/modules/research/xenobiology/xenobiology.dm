@@ -992,7 +992,7 @@
 
 	to_chat(user, "<span class='notice'>You feed [L] the gender change potion!</span>")
 
-	if(!L.set_gender(L.gender == MALE ? FEMALE : MALE))
+	if(!L.set_gender(L.gender == MALE ? FEMALE : MALE, forced = TRUE))
 		return
 	qdel(src)
 
