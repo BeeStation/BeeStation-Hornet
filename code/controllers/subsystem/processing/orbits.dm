@@ -38,7 +38,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//value = world time of next launch
 	var/list/interdicted_shuttles = list()
 
-	var/next_objective_time = 0
+	var/next_objective_time = 60000
 
 	//Research disks
 	var/list/research_disks = list()
@@ -119,7 +119,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 			tgui.send_update()
 	//Check creating objectives / missions.
 	if(next_objective_time < world.time && length(possible_objectives) < 6)
-		create_objective()
+//		create_objective()
 		next_objective_time = world.time + rand(30 SECONDS, 5 MINUTES)
 	//Check space ruin count
 	if(ruin_levels < 2 && prob(5))

@@ -172,7 +172,7 @@
 			query_round_game_mode.Execute()
 			qdel(query_round_game_mode)
 	create_special_antags()
-	generate_station_goals()
+//	generate_station_goals()
 	if(report)
 		addtimer(CALLBACK(src, .proc/send_intercept, 0), rand(waittime_l, waittime_h))
 	else // goals only become purchasable when on_report is called, this also makes a replacement announcement.
