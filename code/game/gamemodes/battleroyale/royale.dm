@@ -12,3 +12,25 @@
         <span class='notice'>Loot drops will periodically rain from the sky in random locations</span>\n\
         <span class='notice'>Random events will keep things spicy from time to time, stay on your toes!</span>\n\
 	    <span class='danger'>Mild banter is fine, but don't be toxic to others unless you want to be smited</span>"
+    var/winner
+
+/datum/game_mode/battle_royale/check_win()
+    var/player_list = get_sentient_mobs()
+    var/list/active_players = list()
+
+    for(var/mob/player in player_list) //checking for all mobs instead of just humans
+        if((!player.client) || (is_centcom_level(player.z)))
+            continue
+        active_players += player
+    if(length(active_players) >= 1) //There are two or more living players
+        return ..()
+    if(length(active_players) == 0) //There are zero living players
+        winner = "draw"
+    else if(active_players[0]) //With all other options eliminated, there is only one living player
+        winner = active_players[0]
+    ..()
+
+/datum/game_mode/battle_royale/check_finished()
+    if(winner)
+        return TRUE
+
