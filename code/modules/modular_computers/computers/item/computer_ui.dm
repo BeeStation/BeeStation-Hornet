@@ -1,3 +1,9 @@
+/obj/item/modular_computer/interact(mob/user)
+	if(enabled)
+		ui_interact(user)
+	else
+		turn_on(user)
+
 // Operates TGUI
 
 /obj/item/modular_computer/ui_state(mob/user)
@@ -10,27 +16,16 @@
 	)
 
 /obj/item/modular_computer/ui_interact(mob/user, datum/tgui/ui)
-	if(!enabled)
+	if(!enabled || !user.can_read(src) || !use_power())
 		if(ui)
 			ui.close()
-		return FALSE
-	if(!use_power())
-		if(ui)
-			ui.close()
-		return FALSE
+		return
 
 	// Robots don't really need to see the screen, their wireless connection works as long as computer is on.
 	if(!screen_on && !issilicon(user))
 		if(ui)
 			ui.close()
 		return FALSE
-
-	// If we have an active program switch to it now.
-	if(active_program)
-		if(ui) // This is the main laptop screen. Since we are switching to program's UI close it for now.
-			ui.close()
-		active_program.ui_interact(user)
-		return
 
 	// We are still here, that means there is no program loaded. Load the BIOS/ROM/OS/whatever you want to call it.
 	// This screen simply lists available programs and user may select them.
@@ -44,15 +39,45 @@
 		playsound(src, 'sound/items/bikehorn.ogg', 30, TRUE)
 
 	ui = SStgui.try_update_ui(user, src, ui)
-	if (!ui)
-		ui = new(user, src, "NtosMain")
-		ui.set_autoupdate(TRUE)
-		if(ui.open())
-			ui.send_asset(get_asset_datum(/datum/asset/simple/headers))
+	if(!ui)
+		if(active_program)
+			ui = new(user, src, active_program.tgui_id, active_program.filedesc)
+		else
+			ui = new(user, src, "NtosMain")
+		ui.open()
+		return
+
+	var/old_open_ui = ui.interface
+	if(active_program)
+		ui.interface = active_program.tgui_id
+		ui.title = active_program.filedesc
+	else
+		ui.interface = "NtosMain"
+	//opened a new UI
+	if(old_open_ui != ui.interface)
+		update_static_data(user, ui) // forces a static UI update for the new UI
+		ui.send_assets() // sends any new asset datums from the new UI
+
+/obj/item/modular_computer/ui_assets(mob/user)
+	var/list/data = list()
+	data += get_asset_datum(/datum/asset/simple/headers)
+	if(active_program)
+		data += active_program.ui_assets(user)
+	return data
+
+/obj/item/modular_computer/ui_static_data(mob/user)
+	. = ..()
+	var/list/data = list()
+	if(active_program)
+		data += active_program.ui_static_data(user)
+		return data
+	return data
 
 /obj/item/modular_computer/ui_data(mob/user)
 	var/list/data = get_header_data()
-	data["device_theme"] = device_theme
+	if(active_program)
+		data += active_program.ui_data(user)
+		return data
 	data["login"] = list()
 
 	data["disk"] = null
@@ -118,9 +143,8 @@
 	data["comp_light_color"] = comp_light_color
 	return data
 
-
 // Handles user's GUI input
-/obj/item/modular_computer/ui_act(action, params)
+/obj/item/modular_computer/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 	if(device_theme == THEME_THINKTRONIC)
@@ -134,7 +158,6 @@
 			shutdown_computer()
 			return TRUE
 		if("PC_minimize")
-			var/mob/user = usr
 			if(!active_program || !all_components[MC_CPU])
 				return
 
@@ -143,21 +166,18 @@
 
 			active_program = null
 			update_icon()
-			if(user && istype(user))
-				ui_interact(user) // Re-open the UI on this computer. It should show the main screen now.
 
 		if("PC_killprogram")
 			var/prog = params["name"]
-			var/datum/computer_file/program/P = null
-			var/mob/user = usr
+			var/datum/computer_file/program/killed_program  = null
 			if(hard_drive)
-				P = hard_drive.find_file_by_name(prog)
+				killed_program  = hard_drive.find_file_by_name(prog)
 
-			if(!istype(P) || P.program_state == PROGRAM_STATE_KILLED)
+			if(!istype(killed_program) || killed_program.program_state == PROGRAM_STATE_KILLED)
 				return
 
-			P.kill_program(forced = TRUE)
-			to_chat(user, "<span class='notice'>Program [P.filename].[P.filetype] with PID [rand(100,999)] has been killed.</span>")
+			killed_program.kill_program(forced = TRUE)
+			to_chat(usr, "<span class='notice'>Program [killed_program.filename].[killed_program.filetype] with PID [rand(100,999)] has been killed.</span>")
 			return TRUE
 
 		if("PC_runprogram")
@@ -251,8 +271,8 @@
 				remove_pai()
 				to_chat(usr, "<span class='notice'>You remove the pAI from [src].</span>")
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
-		else
-			return
+	if(active_program)
+		return active_program.ui_act(action, params, ui, state)
 
 /obj/item/modular_computer/ui_host()
 	if(physical)

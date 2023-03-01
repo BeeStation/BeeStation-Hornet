@@ -8,9 +8,6 @@
 	available_on_ntnet = FALSE
 	tgui_id = "NtosEmagConsole"
 
-/datum/computer_file/program/emag_console/ui_data(mob/user)
-	return get_header_data()
-
 /datum/computer_file/program/emag_console/ui_act(action,params,datum/tgui/ui)
 	if(!ui || ui.status != UI_INTERACTIVE)
 		return TRUE

@@ -298,14 +298,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		add_overlay(mutable_appearance(init_icon, "bsod"))
 		add_overlay(mutable_appearance(init_icon, "broken"))
 
-
-// On-click handling. Turns on the computer if it's off and opens the GUI.
-/obj/item/modular_computer/interact(mob/user)
-	if(enabled)
-		ui_interact(user)
-	else
-		turn_on(user)
-
 /obj/item/modular_computer/proc/turn_on(mob/user, open_ui = TRUE)
 	if(enabled)
 		if(open_ui)
@@ -503,7 +495,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			program.alert_pending = FALSE
 			idle_threads.Remove(program)
 			update_icon()
-			updateUsrDialog()
 			return TRUE
 	else if(program in idle_threads)
 		return TRUE
@@ -522,7 +513,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(!in_background)
 		active_program = program
 		program.alert_pending = FALSE
-		updateUsrDialog()
+		ui_interact(user)
 	else
 		program.program_state = PROGRAM_STATE_BACKGROUND
 		idle_threads.Add(program)

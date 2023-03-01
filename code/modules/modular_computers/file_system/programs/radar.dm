@@ -49,7 +49,7 @@
 	)
 
 /datum/computer_file/program/radar/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 	// PDAs should not have full radar capabilities
 	data["full_capability"] = !istype(computer, /obj/item/modular_computer/tablet/pda)
 	data["selected"] = selected
