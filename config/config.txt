@@ -534,7 +534,7 @@ DEFAULT_VIEW 17x15
 
 ## Name your perpetual currency here
 ## This is used within the metashop and earned by playing the game.
-METACURRENCY_NAME BeeCoin
+METACURRENCY_NAME Bloodybuck
 
 ## Grant metacurrency
 ## Comment this out if you don't want players to earn metacurrency
