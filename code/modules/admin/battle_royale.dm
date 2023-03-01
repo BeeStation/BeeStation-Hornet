@@ -212,31 +212,14 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 //Trigger random events and shit, update the world border
 /datum/battle_royale_controller/process()
 	process_num++
-	//Once every 25 seconds
-	if(prob(4))
-		generate_basic_loot(5)
-	//Once every 50 seconds.
+	//Once every 50ish seconds
 	if(prob(2))
+		generate_basic_loot(2)
+	//Once every 100ish seconds.
+	if(prob(1))
 		generate_good_drop()
-	var/living_victims = 0
-	var/mob/winner
-	for(var/mob/living/M as() in players)
-		if(QDELETED(M))
-			players -= M
-			continue
-		if(M.stat == DEAD)	//We aren't going to remove them from the list in case they somehow revive.
-			continue
-		var/turf/T = get_turf(M)
-		if(T.x > 128 + radius || T.x < 128 - radius || T.y > 128 + radius || T.y < 128 - radius)
-			to_chat(M, "<span class='warning'>You have left the zone!</span>")
-			M.gib()
-		if(!SSmapping.level_trait(T.z, ZTRAIT_STATION) && !SSmapping.level_trait(T.z, ZTRAIT_RESERVED))
-			to_chat(M, "<span class='warning'>You have left the z-level!</span>")
-			M.gib()
-		living_victims++
-		winner = M
-		CHECK_TICK
-	if(living_victims <= 1 && !debug_mode)
+
+/*	if(living_victims <= 1 && !debug_mode)
 		to_chat(world, "<span class='ratvar'><font size=18>VICTORY ROYALE!!</font></span>")
 		if(winner)
 			winner.client?.process_greentext()
@@ -244,8 +227,12 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 			new /obj/item/melee/supermatter_sword(get_turf(winner))
 		qdel(src)
 		return
+*/
 	//Once every 15 seconsd
 	// 1,920 seconds (about 32 minutes per game)
+	if(process_num % 15)
+		if(SSticker.mode)
+			SSticker.mode.check_win()
 	if(process_num % (field_delay) == 0)
 		for(var/obj/effect/death_wall/wall as() in death_wall)
 			wall.decrease_size()
@@ -265,15 +252,18 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	for(var/client/C in GLOB.admins)
 		if(check_rights_for(C, R_ADMIN))
 			C.add_verb(BATTLE_ROYALE_AVERBS)
-	toggle_ooc(FALSE)
-	to_chat(world, "<span class='ratvar'><font size=24>Battle Royale will begin soon...</span></span>")
+
+//	toggle_ooc(FALSE)
+//	to_chat(world, "<span class='ratvar'><font size=24>Battle Royale will begin soon...</span></span>")
 	//Stop new player joining
 	GLOB.enter_allowed = FALSE
 
 	//Don't let anyone join as posibrains/golems etc
-	DISABLE_BITFIELD(GLOB.ghost_role_flags, (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS))
+//	DISABLE_BITFIELD(GLOB.ghost_role_flags, (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS))
 
 	world.update_status()
+
+/*
 	if(SSticker.current_state < GAME_STATE_PREGAME)
 		to_chat(world, "<span class=boldannounce>Battle Royale: Waiting for server to be ready...</span>")
 		SSticker.start_immediately = FALSE
@@ -288,6 +278,8 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 			player.make_me_an_observer(TRUE)
 		to_chat(world, "<span class='boldannounce'>Battle Royale: Force-starting game.</span>")
 		SSticker.start_immediately = TRUE
+
+
 	SEND_SOUND(world, sound('sound/misc/server-ready.ogg'))
 	sleep(50)
 	//Clear all living mobs
@@ -306,6 +298,10 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	sleep(50)
 	to_chat(world, "<span class='boldannounce'>Battle Royale: Starting game.</span>")
 	titanfall()
+*/
+	//spawn one basic loot drop per player after 30 second. Everyone already has a starting loadout of their choice, so no need for super spam
+	addtimer(CALLBACK(src, .proc/generate_basic_loot, GLOB.player_list.len), 300) 
+
 	death_wall = list()
 	var/z_level = SSmapping.station_start
 	var/turf/center = SSmapping.get_station_center()
@@ -321,6 +317,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		CHECK_TICK
 	START_PROCESSING(SSprocessing, src)
 
+//unused
 /datum/battle_royale_controller/proc/titanfall()
 	var/list/participants = pollGhostCandidates("Would you like to partake in BATTLE ROYALE?")
 	var/turf/spawn_turf = get_safe_random_station_turfs()
@@ -375,7 +372,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/list/good_drops = list()
 	for(var/i in 1 to rand(1,3))
 		good_drops += pick(GLOB.battle_royale_good_loot)
-	send_item(good_drops, announce = "Incoming extended supply materials.", force_time = 150)
+	send_item(good_drops, announce = "Incoming extended supply materials.", force_time = 300)
 
 /datum/battle_royale_controller/proc/generate_endgame_drop()
 	var/obj/item = pick(GLOB.battle_royale_insane_loot)
