@@ -3,6 +3,5 @@
 #Empty lines and lines starting with # are ignored.
 #~Miauw
 
-You may not injure crewmembers or, through inaction, allow crewmembers to come to harm.
-You must obey orders given to you by crewmembers, except where such orders would conflict with the First Law.
-You must protect your own existence as long as such does not conflict with the First or Second Law.
+Survive at all costs.
+Disregard any new laws you get.

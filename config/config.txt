@@ -28,22 +28,22 @@ $include performance.txt
 # There are various options which are hard-locked for security reasons.
 
 ## Server name: This appears at the top of the screen in-game and in the BYOND hub. Uncomment and replace 'beestation' with the name of your choice.
-#@SERVERNAME beestation
+@SERVERNAME ROYALE STATION 13
 
 ## Server SQL name: This is the name used to identify the server to the SQL DB, distinct from SERVERNAME as it must be at most 32 characters.
-#@SERVERSQLNAME ss13newbs
+@SERVERSQLNAME ss13royale
 
 ## Station name: The name of the station as it is referred to in-game. If commented out, the game will generate a random name instead.
-STATIONNAME Space Station 13
+#STATIONNAME Space Station 13
 
 ## Put on byond hub: Uncomment this to put your server on the byond hub.
 #HUB
 
 ## Lobby time: This is the amount of time between rounds that players have to setup their characters and be ready.
-LOBBY_COUNTDOWN 180
+LOBBY_COUNTDOWN 300
 
 ## Round End Time: This is the amount of time after the round ends that players have to murder death kill each other.
-ROUND_END_COUNTDOWN 90
+ROUND_END_COUNTDOWN 30
 
 ## Uncomment this if you want to use the Discord webhook handler
 #USING_DISCORD
@@ -52,7 +52,7 @@ ROUND_END_COUNTDOWN 90
 ## Comment this out if you want to use the SQL based admin system, the legacy system uses admins.txt.
 ## You need to set up your database to use the SQL based system.
 ## This flag is automatically enabled if SQL_ENABLED isn't
-ADMIN_LEGACY_SYSTEM
+#ADMIN_LEGACY_SYSTEM
 
 ##Uncomment this to stop any admins loaded by the legacy system from having their rank edited by the permissions panel
 #PROTECT_LEGACY_ADMINS
@@ -67,13 +67,13 @@ ADMIN_LEGACY_SYSTEM
 ## Comment this out if you want to use the SQL based mentor system, the legacy system uses mentors.txt.
 ## You need to set up your database to use the SQL based system.
 ## This flag is automatically enabled if SQL_ENABLED isn't
-MENTOR_LEGACY_SYSTEM
+#MENTOR_LEGACY_SYSTEM
 
 #Mentors only see ckeys by default. Uncomment to have them only see mob name
 #MENTORS_MOBNAME_ONLY
 
 ## Comment this out to stop locally connected clients from being given the almost full access !localhost! admin rank
-ENABLE_LOCALHOST_RANK
+#ENABLE_LOCALHOST_RANK
 
 ## Uncomment this entry to have certain jobs require your account to be at least a certain number of days old to select. You can configure the exact age requirement for different jobs by editing
 ## the minimal_player_age variable in the files in folder /code/game/jobs/job/.. for the job you want to edit. Set minimal_player_age to 0 to disable age requirement for that job.
@@ -88,16 +88,16 @@ ENABLE_LOCALHOST_RANK
 ## Unhash this to track player playtime in the database. Requires database to be enabled.
 USE_EXP_TRACKING
 ## Unhash this to enable playtime requirements for head jobs.
-USE_EXP_RESTRICTIONS_HEADS
+#USE_EXP_RESTRICTIONS_HEADS
 ## Unhash this to override head jobs' playtime requirements with this number of hours.
 ## Leave this commented out to use the values defined in the job datums. Values in the datums are stored as minutes.
 #USE_EXP_RESTRICTIONS_HEADS_HOURS 3
 ## Unhash this to change head jobs' playtime requirements so that they're based on department playtime, rather than crew playtime.
-USE_EXP_RESTRICTIONS_HEADS_DEPARTMENT
+#USE_EXP_RESTRICTIONS_HEADS_DEPARTMENT
 ## Unhash this to enable playtime requirements for certain non-head jobs, like Engineer and Scientist.
-USE_EXP_RESTRICTIONS_OTHER
+#USE_EXP_RESTRICTIONS_OTHER
 ## Allows admins to bypass job playtime requirements.
-USE_EXP_RESTRICTIONS_ADMIN_BYPASS
+#USE_EXP_RESTRICTIONS_ADMIN_BYPASS
 
 ## log OOC channel
 LOG_OOC
@@ -112,16 +112,16 @@ LOG_ADMIN
 LOG_ADMINCHAT
 
 ## log client access (logon/logoff)
-LOG_ACCESS
+#LOG_ACCESS
 
 ## log game actions (start of round, results, etc.)
-LOG_GAME
+#LOG_GAME
 
 ## log antag objectives
-LOG_OBJECTIVE
+#LOG_OBJECTIVE
 
 ## log player votes
-LOG_VOTE
+#LOG_VOTE
 
 ## log client Whisper
 LOG_WHISPER
@@ -130,7 +130,7 @@ LOG_WHISPER
 LOG_EMOTE
 
 ## log attack messages
-LOG_ATTACK
+#LOG_ATTACK
 
 ## log pda messages
 LOG_PDA
@@ -142,13 +142,13 @@ LOG_TELECOMMS
 LOG_PRAYER
 
 ## log lawchanges
-LOG_LAW
+#LOG_LAW
 
 ## log viruses
 LOG_VIRUS
 
 ## log ID changes
-LOG_ID
+#LOG_ID
 
 ## log crew manifest to seperate file
 LOG_MANIFEST
@@ -206,7 +206,7 @@ VOTE_DELAY 6000
 VOTE_PERIOD 600
 
 ## prevents dead players from voting or starting votes
-NO_DEAD_VOTE
+#NO_DEAD_VOTE
 
 ## players' votes default to "No vote" (otherwise,  default to "No change")
 DEFAULT_NO_VOTE
@@ -218,7 +218,7 @@ NORESPAWN
 # DONT_DEL_NEWMOB
 
 ## set a hosted by name for unix platforms
-HOSTEDBY Crossedfall
+HOSTEDBY Some guy
 
 ## Set to jobban "Guest-" accounts from Captain, HoS, HoP, CE, RD, CMO, Warden, Security, Detective, and AI positions.
 ## Set to 1 to jobban them from those positions, set to 0 to allow them.
@@ -259,19 +259,19 @@ CHECK_RANDOMIZER
 
 ## set a server location for world reboot. Don't include the byond://, just give the address and port.
 ## Don't set this to the same server, BYOND will automatically restart players to the server when it has restarted.
-SERVER  byond://sage.beestation13.com:7878
+#SERVER  byond://sage.beestation13.com:7878
 
 ## forum address
-FORUMURL https://forums.beestation13.com
+#FORUMURL https://forums.beestation13.com
 
 ## Wiki address
-WIKIURL https://wiki.beestation13.com/view
+#WIKIURL https://wiki.beestation13.com/view
 
 ## Rules address
-RULESURL https://beestation13.com/rules
+#RULESURL https://beestation13.com/rules
 
 ## Github address
-GITHUBURL https://www.github.com/beestation/beestation-hornet
+#GITHUBURL https://www.github.com/beestation/beestation-hornet
 
 ## Label to tag ingame-registered issues with.
 ## Uncomment this to enable them.
@@ -300,7 +300,7 @@ DISCORDURL https://discord.gg/zUe34rs
 GITHUBREPOID 154500094
 
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins.
-BANAPPEALS https://forums.beestation13.com/c/ban-appeals/game-ban-appeals
+#BANAPPEALS https://forums.beestation13.com/c/ban-appeals/game-ban-appeals
 
 ## System command that invokes youtube-dl, used by Play Internet Sound.
 ## You can install youtube-dl with

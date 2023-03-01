@@ -1,7 +1,7 @@
 ## HEALTH ###
 
 ##Damage multiplier, effects both weapons and healing on all mobs. For example, 1.25 would result in 25% higher damage.
-DAMAGE_MULTIPLIER 1
+DAMAGE_MULTIPLIER 0.75
 
 ## REVIVAL ###
 
@@ -20,7 +20,7 @@ REVIVAL_BRAIN_LIFE -1
 
 ## LOOC
 ## Comment this out to disable LOOC
-LOOC_ENABLED
+#LOOC_ENABLED
 
 ## EMOJI ###
 ## Comment this out if you want to disable emojis
@@ -57,7 +57,7 @@ MULTIPLICATIVE_MOVESPEED /mob/living/simple_animal 1
 
 ## NAMES ###
 ## If uncommented this adds a random surname to a player's name if they only specify one name.
-HUMANS_NEED_SURNAMES
+#HUMANS_NEED_SURNAMES
 
 ## If uncommented, this forces all players to use random names !and appearances!.
 #FORCE_RANDOM_NAMES
@@ -90,7 +90,7 @@ ALERT_DELTA Destruction of the station is imminent. All crew are instructed to o
 ## GAME MODES ###
 
 #Set the Master (Default) Game Mode.
-MASTER_MODE secret_extended
+MASTER_MODE battle_royale
 
 ## Uncomment to not send a roundstart intercept report. Gamemodes may override this.
 NO_INTERCEPT_REPORT
@@ -282,7 +282,7 @@ INCURSION_OBJECTIVE_AMOUNT 4
 ## roll antagonist in subsequent rounds until they get it.
 ##
 ## For details See the comments for /datum/game_mode/proc/antag_pick in code/game/gamemodes/game_mode.dm
-USE_ANTAG_REP
+#USE_ANTAG_REP
 
 ## The maximum amount of antagonist reputation tickets a player can bank (not use at once)
 ANTAG_REP_MAXIMUM 200
@@ -321,14 +321,14 @@ EVENTS_MIN_PLAYERS_MUL 1
 ## AI ###
 
 ## Allow the AI job to be picked.
-ALLOW_AI
+#ALLOW_AI
 
 ## Allow the AI Multicamera feature to be used by AI players
-ALLOW_AI_MULTICAM
+#ALLOW_AI_MULTICAM
 
 ## Secborg ###
 ## Uncomment to prevent the security cyborg module from being chosen
-DISABLE_SECBORG
+#DISABLE_SECBORG
 
 ## Peacekeeper Borg ###
 ## Uncomment to prevent the peacekeeper cyborg module from being chosen
@@ -341,7 +341,7 @@ DISABLE_SECBORG
 
 ## How long the delay is before the Away Mission gate opens. Default is half an hour.
 ## 600 is one minute.
-GATEWAY_DELAY 18000
+GATEWAY_DELAY 180000
 
 
 ## ACCESS ###
@@ -361,10 +361,10 @@ MINIMAL_ACCESS_THRESHOLD 20
 #ASSISTANTS_HAVE_MAINT_ACCESS
 
 ## Uncomment to give security maint access. Note that if you dectivate JOBS_HAVE_MINIMAL_ACCESS security already gets maint from that.
-SECURITY_HAS_MAINT_ACCESS
+#SECURITY_HAS_MAINT_ACCESS
 
 ## Uncomment to give everyone maint access.
-#EVERYONE_HAS_MAINT_ACCESS
+EVERYONE_HAS_MAINT_ACCESS
 
 ## Comment this out this to make security officers spawn in departmental security posts
 SEC_START_BRIG
@@ -396,7 +396,7 @@ NEAR_DEATH_EXPERIENCE
 ## Set to 1 for "custom", silicons will start with the custom laws defined in silicon_laws.txt. (If silicon_laws.txt is empty, the AI will spawn with asimov and Custom boards will auto-delete.)
 ## Set to 2 for "random", silicons will start with a random lawset picked from random laws specified below.
 ## Set to 3 for "weighted random", using values in "silicon_weights.txt", a law will be selected, with weights specifed in that file.
-DEFAULT_LAWS 2
+DEFAULT_LAWS 1
 
 ## RANDOM LAWS ##
 ## ------------------------------------------------------------------------------------------
@@ -480,7 +480,7 @@ ROUNDSTART_RACES human
 ROUNDSTART_RACES felinid
 ROUNDSTART_RACES lizard
 ROUNDSTART_RACES moth
-#ROUNDSTART_RACES fly
+ROUNDSTART_RACES fly
 
 
 ## Races that are better than humans in some ways, but worse in others
@@ -489,21 +489,23 @@ ROUNDSTART_RACES ethereal
 ROUNDSTART_RACES ipc
 ROUNDSTART_RACES oozeling
 ROUNDSTART_RACES plasmaman
-#ROUNDSTART_RACES abductor
+ROUNDSTART_RACES abductor
 #ROUNDSTART_RACES adamantine_golem
 #ROUNDSTART_RACES diamond_golem
-#ROUNDSTART_RACES gold_golem
-#ROUNDSTART_RACES iron_golem
+ROUNDSTART_RACES gold_golem
+ROUNDSTART_RACES iron_golem
 #ROUNDSTART_RACES jelly
-#ROUNDSTART_RACES plasma_golem
+ROUNDSTART_RACES plasma_golem
 #ROUNDSTART_RACES shadow
 #ROUNDSTART_RACES silver_golem
 #ROUNDSTART_RACES uranium_golem
+ROUNDSTART_RACES glass_golem
+ROUNDSTART_RACES bananium_golem
 
 ## Races that are straight upgrades. If these are on expect powergamers to always pick them
 #ROUNDSTART_RACES agent
-#ROUNDSTART_RACES pod
-#ROUNDSTART_RACES skeleton
+ROUNDSTART_RACES pod
+ROUNDSTART_RACES skeleton
 #ROUNDSTART_RACES slime
 #ROUNDSTART_RACES zombie
 
