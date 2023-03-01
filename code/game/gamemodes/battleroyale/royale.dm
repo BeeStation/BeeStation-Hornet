@@ -22,15 +22,14 @@
         if((!player.client) || (is_centcom_level(player.z)))
             continue
         active_players += player
-    if(length(active_players) >= 1) //There are two or more living players
+    if(length(active_players) > 1) //There are two or more living players, round continues
         return ..()
-    if(length(active_players) == 0) //There are zero living players
+    if(length(active_players) == 0) //There are zero living players, round ends in draw
         winner = "draw"
-    else if(active_players[0]) //With all other options eliminated, there is only one living player
+    else if(active_players[0]) //With all other options eliminated, there is only one living player, round ends with them victorious
         winner = active_players[0]
     ..()
 
 /datum/game_mode/battle_royale/check_finished()
     if(winner)
         return TRUE
-
