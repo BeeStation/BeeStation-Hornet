@@ -1,0 +1,4 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: Climbing over railings on the edge of tiles works again
