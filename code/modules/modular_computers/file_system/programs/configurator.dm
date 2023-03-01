@@ -65,9 +65,9 @@
 				H.enabled = !H.enabled
 			. = TRUE
 		if("PC_select_theme")
-			if(computer.theme_locked || !(params["theme"] in computer.allowed_themes))
+			if(computer.theme_locked || !(params["theme"] in computer.allowed_themes)) // filtering based on theme name here
 				return
-			computer.device_theme = computer.allowed_themes[params["theme"]]
+			computer.device_theme = computer.allowed_themes[params["theme"]] // converting theme name to ID
 			. = TRUE
 		if("PC_set_classic_color")
 			if(computer.device_theme != THEME_THINKTRONIC)

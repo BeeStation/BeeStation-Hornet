@@ -9,6 +9,7 @@
 	var/list/slip_victims = list()
 	init_ringtone = "honk"
 	device_theme = THEME_NTOS_CLOWN_PINK // Give the clown the best theme
+	ignore_theme_pref = TRUE
 
 /obj/item/modular_computer/tablet/pda/clown/ComponentInitialize()
 	. = ..()
