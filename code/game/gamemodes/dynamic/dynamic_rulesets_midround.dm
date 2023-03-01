@@ -499,7 +499,6 @@
 	cost = 11
 	minimum_players = 25
 	repeatable = TRUE
-	flags = HIGH_IMPACT_RULESET
 	var/list/spawn_locs = list()
 
 /datum/dynamic_ruleset/midround/from_ghosts/space_dragon/execute()
