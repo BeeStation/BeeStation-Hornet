@@ -26,8 +26,8 @@
         return ..()
     if(length(active_players) == 0) //There are zero living players, round ends in draw
         winner = "draw"
-    else if(active_players[0]) //With all other options eliminated, there is only one living player, round ends with them victorious
-        winner = active_players[0]
+    else if(active_players[1]) //With all other options eliminated, there is only one living player, round ends with them victorious
+        winner = active_players[1]
     ..()
 
 /datum/game_mode/battle_royale/check_finished()
