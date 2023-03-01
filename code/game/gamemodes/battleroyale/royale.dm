@@ -11,4 +11,4 @@
         <span class='notice'>All players start with the same access regardless of where they spawned</span>\n\
         <span class='notice'>Loot drops will periodically rain from the sky in random locations</span>\n\
         <span class='notice'>Random events will keep things spicy from time to time, stay on your toes!</span>\n\
-	    <span class='danger'>Banter is fine and to be expected, but don't be toxic to others unless you want to be smited</span>"
+	    <span class='danger'>Mild banter is fine, but don't be toxic to others unless you want to be smited</span>"
