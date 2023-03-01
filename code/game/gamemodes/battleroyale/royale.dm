@@ -12,7 +12,7 @@
         <span class='notice'>Loot drops will periodically rain from the sky in random locations</span>\n\
         <span class='notice'>Random events will keep things spicy from time to time, stay on your toes!</span>\n\
 	    <span class='danger'>Mild banter is fine, but don't be toxic to others unless you want to be smited</span>"
-    var/winner
+    var/mob/winner
 
 /datum/game_mode/battle_royale/check_win()
     var/player_list = get_sentient_mobs()
@@ -33,3 +33,14 @@
 /datum/game_mode/battle_royale/check_finished()
     if(winner)
         return TRUE
+
+/datum/game_mode/battle_royale/special_report()
+    if(winner == "draw")
+        to_chat(world, "<span class='ratvar'><font size=12>Everybody died!</font></span>")
+        return "<div class='panel redborder'><span class='redtext big'>Nobody claims victory!</span></div>"
+    if(winner?.real_name)
+        to_chat(world, "<span class='ratvar'><font size=12>[winner.real_name] claims victory!</font></span>")
+        return "<div class='panel redborder'><span class='greentext big'>[winner.real_name] claims victory!</span></div>"
+    else
+        to_chat(world, "<span class='ratvar'><font size=12>Something is bugged!</font></span>")
+        return "<div class='panel redborder'><span class='redtext big'>Winner:[winner] has an invalid value and couldn't be processed!</span></div>"

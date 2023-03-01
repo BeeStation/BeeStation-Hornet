@@ -326,7 +326,7 @@
 	CHECK_TICK
 
 	//AI laws
-	parts += law_report()
+//	parts += law_report()
 
 	CHECK_TICK
 
@@ -335,9 +335,9 @@
 
 	CHECK_TICK
 	//Medals
-	parts += medal_report()
+//	parts += medal_report()
 	//Station Goals
-	parts += goal_report()
+//	parts += goal_report()
 
 	listclearnulls(parts)
 
@@ -418,11 +418,11 @@
 					parts += "<span class='greentext'>You managed to survive the events on [station_name()] as [M.real_name].</span>"
 			else
 				parts += "<div class='panel greenborder'>"
-				parts += "<span class='greentext'>You managed to survive the events on [station_name()] as [M.real_name].</span>"
+				parts += "<span class='greentext'>You managed to survive the [pick("slaughterfest", "bloodbath", "clusterfuck", "battle royale")] on [station_name()] as [M.real_name].</span>"
 
 		else
 			parts += "<div class='panel redborder'>"
-			parts += "<span class='redtext'>You did not survive the events on [station_name()]...</span>"
+			parts += "<span class='redtext'>You did not survive the [pick("slaughterfest", "bloodbath", "clusterfuck", "battle royale")] on [station_name()]...</span>"
 
 		if(CONFIG_GET(flag/allow_crew_objectives))
 			if(M.mind.current && LAZYLEN(M.mind.crew_objectives))
