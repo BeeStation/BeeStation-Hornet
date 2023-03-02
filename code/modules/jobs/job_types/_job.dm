@@ -132,6 +132,7 @@
 					continue
 
 				if(G.slot)
+					H.doUnEquip(H.get_item_by_slot(G.slot), newloc = H.drop_location(), invdrop = FALSE, silent = TRUE)
 					if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot))
 						to_chat(M, "<span class='notice'>Equipping you with [G.display_name]!</span>")
 					else
