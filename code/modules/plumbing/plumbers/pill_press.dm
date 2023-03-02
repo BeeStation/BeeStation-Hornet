@@ -13,9 +13,9 @@
 	///pill name
 	var/pill_name = "factory pill"
 	///the icon_state number for the pill.
-	var/pill_number = RANDOM_PILL_STYLE
+	var/pill_shape = "pill_shape_capsule_purple_pink"
 	///list of id's and icons for the pill selection of the ui
-	var/list/pill_styles
+	var/static/list/pill_styles = list()
 	///list of pills stored in the machine, so we dont have 610 pills on one tile
 	var/list/stored_pills = list()
 	var/max_stored_pills = 3
@@ -34,13 +34,12 @@
 	AddComponent(/datum/component/plumbing/simple_demand, bolt)
 
 	//expertly copypasted from chemmasters
-	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/pills)
-	pill_styles = list()
-	for (var/x in 1 to PILL_STYLE_COUNT)
-		var/list/SL = list()
-		SL["id"] = x
-		SL["class_name"] = assets.icon_class_name("pill[x]")
-		pill_styles += list(SL)
+	if(!length(pill_styles))
+		for (var/each_pill_shape in PILL_SHAPE_LIST_WITH_DUMMY)
+			var/list/SL = list()
+			SL["id"] = each_pill_shape
+			SL["pill_icon_name"] = each_pill_shape
+			pill_styles += list(SL)
 
 /obj/machinery/plumbing/pill_press/process()
 	if(machine_stat & NOPOWER)
@@ -50,11 +49,11 @@
 		reagents.trans_to(P, pill_size)
 		P.name = pill_name
 		stored_pills += P
-		if(pill_number == RANDOM_PILL_STYLE)
-			P.icon_state = "pill[rand(1,21)]"
+		if(pill_shape == "pill_random_dummy")
+			P.icon_state = pick(PILL_SHAPE_LIST)
 		else
-			P.icon_state = "pill[pill_number]"
-		if(P.icon_state == "pill4") //mirrored from chem masters
+			P.icon_state = pill_shape
+		if(P.icon_state == "pill_shape_capsule_bloodred") //mirrored from chem masters
 			P.desc = "A tablet or capsule, but not just any, a red one, one taken by the ones not scared of knowledge, freedom, uncertainty and the brutal truths of reality."
 	if(stored_pills.len)
 		var/pill_amount = 0
@@ -69,7 +68,7 @@
 
 /obj/machinery/plumbing/pill_press/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/simple/pills),
+		get_asset_datum(/datum/asset/spritesheet/simple/medicine_containers),
 	)
 
 
@@ -84,7 +83,7 @@
 
 /obj/machinery/plumbing/pill_press/ui_data(mob/user)
 	var/list/data = list()
-	data["pill_style"] = pill_number
+	data["pill_style"] = pill_shape
 	data["pill_size"] = pill_size
 	data["pill_name"] = pill_name
 	data["pill_styles"] = pill_styles
@@ -95,7 +94,7 @@
 		return
 	switch(action)
 		if("change_pill_style")
-			pill_number = CLAMP(text2num(params["id"]), 1 , PILL_STYLE_COUNT)
+			pill_shape = "[params["id"]]"
 			. = TRUE
 		if("change_pill_size")
 			pill_size = CLAMP(text2num(params["volume"]), minimum_pill, maximum_pill)
