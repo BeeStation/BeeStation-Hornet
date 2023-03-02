@@ -92,6 +92,9 @@
 /mob/living/zMove(dir, feedback = FALSE, feedback_to = src)
 	if((dir != UP && dir != DOWN) || zmoving)
 		return FALSE
+	if(remote_control)
+		remote_control.relaymove(src, dir)
+		return
 	var/turf/source = get_turf(src)
 	var/turf/target = get_step_multiz(src, dir)
 	if(!target)
