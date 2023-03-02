@@ -15,7 +15,7 @@
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
 	rad_flags = RAD_PROTECT_CONTENTS
 	pass_flags_self = PASSGLASS
-	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	var/ini_dir = null
 	var/state = WINDOW_OUT_OF_FRAME
 	var/reinf = FALSE
