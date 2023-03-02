@@ -326,7 +326,7 @@
 	CHECK_TICK
 
 	//AI laws
-	parts += law_report()
+//	parts += law_report()
 
 	CHECK_TICK
 
@@ -335,9 +335,9 @@
 
 	CHECK_TICK
 	//Medals
-	parts += medal_report()
+//	parts += medal_report()
 	//Station Goals
-	parts += goal_report()
+//	parts += goal_report()
 
 	listclearnulls(parts)
 
@@ -360,11 +360,11 @@
 		if(station_evacuated)
 			parts += "<BR>[GLOB.TAB]Evacuation Rate: <B>[popcount[POPCOUNT_ESCAPEES]] ([PERCENT(popcount[POPCOUNT_ESCAPEES]/total_players)]%)</B>"
 			parts += "[GLOB.TAB](on emergency shuttle): <B>[popcount[POPCOUNT_SHUTTLE_ESCAPEES]] ([PERCENT(popcount[POPCOUNT_SHUTTLE_ESCAPEES]/total_players)]%)</B>"
-		parts += "[GLOB.TAB]Survival Rate: <B>[popcount[POPCOUNT_SURVIVORS]] ([PERCENT(popcount[POPCOUNT_SURVIVORS]/total_players)]%)</B>"
+//		parts += "[GLOB.TAB]Survival Rate: <B>[popcount[POPCOUNT_SURVIVORS]] ([PERCENT(popcount[POPCOUNT_SURVIVORS]/total_players)]%)</B>"
 		if(SSblackbox.first_death)
 			var/list/ded = SSblackbox.first_death
 			if(ded.len)
-				parts += "[GLOB.TAB]First Death: <b>[ded["name"]], [ded["role"]], at [ded["area"]]. Damage taken: [ded["damage"]].[ded["last_words"] ? " Their last words were: \"[ded["last_words"]]\"" : ""]</b>"
+				parts += "[GLOB.TAB]First Death: <b>[ded["name"]], at [ded["area"]]. Damage taken: [ded["damage"]].[ded["last_words"] ? " Their last words were: \"[ded["last_words"]]\"" : ""]</b>"
 			//ignore this comment, it fixes the broken sytax parsing caused by the " above
 			else
 				parts += "[GLOB.TAB]<i>Nobody died this shift!</i>"
@@ -418,11 +418,11 @@
 					parts += "<span class='greentext'>You managed to survive the events on [station_name()] as [M.real_name].</span>"
 			else
 				parts += "<div class='panel greenborder'>"
-				parts += "<span class='greentext'>You managed to survive the events on [station_name()] as [M.real_name].</span>"
+				parts += "<span class='greentext'>You managed to survive the [pick("slaughterfest", "bloodbath", "clusterfuck", "battle royale")] on [station_name()] as [M.real_name].</span>"
 
 		else
 			parts += "<div class='panel redborder'>"
-			parts += "<span class='redtext'>You did not survive the events on [station_name()]...</span>"
+			parts += "<span class='redtext'>You did not survive the [pick("slaughterfest", "bloodbath", "clusterfuck", "battle royale")] on [station_name()]...</span>"
 
 		if(CONFIG_GET(flag/allow_crew_objectives))
 			if(M.mind.current && LAZYLEN(M.mind.crew_objectives))
