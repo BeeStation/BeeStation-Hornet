@@ -164,14 +164,14 @@
 	icon_state = "bone_spear0"
 	name = "bone spear"
 	desc = "A haphazardly-constructed yet still deadly weapon. The pinnacle of modern technology."
-	force = 12
-	throwforce = 22
-	armour_penetration = 15				//Enhanced armor piercing
+/*	force = 12
+//	throwforce = 22
+//	armour_penetration = 15				//Enhanced armor piercing
 
 /obj/item/spear/bonespear/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=12, force_wielded=20, block_power_wielded=25, icon_wielded="[icon_prefix]1")
-
+*/
 /obj/item/spear/bamboospear
 	icon_prefix = "bamboo_spear"
 	icon_state = "bamboo_spear0"
@@ -179,7 +179,7 @@
 	righthand_file = 'icons/mob/inhands/weapons/polearms_righthand.dmi'
 	name = "bamboo spear"
 	desc = "A haphazardly-constructed bamboo stick with a sharpened tip, ready to poke holes into unsuspecting people."
-	force = 10
+/*	force = 10
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	block_upgrade_walk = 1
@@ -193,5 +193,5 @@
 
 /obj/item/spear/bamboospear/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=18, \
-				block_power_wielded=25, icon_wielded="[icon_prefix]1")
+	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=18, block_power_wielded=25, icon_wielded="[icon_prefix]1")
+*/

@@ -5,6 +5,12 @@
     desc = "A box containing your selected loadout equipment"
     illustration = "writing_syndie"
 
+/obj/item/storage/box/loadout/explosives/Initialize(mapload)
+    new /obj/item/grenade/plastic/x4(src)
+    new /obj/item/grenade/plastic/x4(src)
+    new /obj/item/grenade/plastic/x4(src)
+    new /obj/item/grenade/plastic/x4(src)
+
 /obj/item/gun/energy/e_gun/mini/heads/royale
     gun_charge = 300
     desc = "It has two settings: Kill and Disable. It isn't very good at either of them, but recharges over time"
@@ -14,6 +20,42 @@
     gun_charge = 100
     force = 10
     desc = "A mining tool capable of expelling concentrated plasma bursts. Not very strong, but good at removing limbs"
+
+/obj/item/holo/esword/blue/Initialize(mapload)
+	. = ..()
+	saber_color = "blue"
+
+/obj/item/holo/esword/purple/Initialize(mapload)
+	. = ..()
+	saber_color = "purple"
+
+/obj/item/claymore/bone/royale
+    block_level = 1
+    desc = "Jagged pieces of bone are tied to what looks like a goliaths femur. This one has improved blocking capabilities."
+
+/obj/item/shield/energy/royale
+    max_integrity = 25
+    block_power = 75
+    desc = "An advanced hard-light shield able to reflect lasers, but not very good at blocking physical attacks. Recharges in ten seconds."
+
+/obj/item/book/granter/martial/karate/royale
+    pages_to_mastery = 0
+
+/obj/item/melee/curator_whip/royale
+    force = 5 //this one actually stings
+    desc= "Somewhat eccentric and outdated, but this one actually hurts"
+
+/obj/item/storage/firstaid/royale
+    name = "combat medical kit"
+    desc = "I hope you've got insurance."
+    icon_state = "firstaid-combat"
+    item_state = "firstaid-combat"
+    skin_type = MEDBOT_SKIN_SYNDI
+    w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/firstaid/royale/Initialize(mapload)
+    . = ..()
+
 
 /obj/item/dice/d20/fate/one_use/stealth/d4
     name = "d4"
@@ -77,7 +119,7 @@
 
 /obj/item/storage/pill_bottle/dicefate
     name = "bag of dice"
-    desc = "May your fate be ever in your favor"
+    desc = "May fate be ever in your favor"
     icon = 'icons/obj/dice.dmi'
     icon_state = "dicebag"
     pill_variance = 0
@@ -85,47 +127,47 @@
 /obj/item/storage/pill_bottle/dicefate/Initialize(mapload)
     if(prob(25))
         if(prob(25))
-            new/obj/item/dice/d20/fate/stealth/d4(src)
+            new /obj/item/dice/d20/fate/stealth/d4(src)
         else
-            new/obj/item/dice/d20/fate/one_use/stealth/d4(src)
+            new /obj/item/dice/d20/fate/one_use/stealth/d4(src)
     else
         new /obj/item/dice/d4(src)
     if(prob(16))
         if(prob(16))
-            new/obj/item/dice/d20/fate/stealth/d6(src)
+            new /obj/item/dice/d20/fate/stealth/d6(src)
         else
-            new/obj/item/dice/d20/fate/one_use/stealth/d6(src)
+            new /obj/item/dice/d20/fate/one_use/stealth/d6(src)
     else
         new /obj/item/dice/d6(src)
     if(prob(12))
         if(prob(12))
-            new/obj/item/dice/d20/fate/stealth/d8(src)
+            new /obj/item/dice/d20/fate/stealth/d8(src)
         else
-            new/obj/item/dice/d20/fate/one_use/stealth/d8(src)
+            new /obj/item/dice/d20/fate/one_use/stealth/d8(src)
     else
         new /obj/item/dice/d8(src)
     
     if(prob(10))
         if(prob(10))
-            new/obj/item/dice/d20/fate/stealth/d10(src)
+            new /obj/item/dice/d20/fate/stealth/d10(src)
         else
-            new/obj/item/dice/d20/fate/one_use/stealth/d10(src)
+            new /obj/item/dice/d20/fate/one_use/stealth/d10(src)
     else
         new /obj/item/dice/d10(src)
 
     if(prob(8))
         if(prob(8))
-            new/obj/item/dice/d20/fate/stealth/d12(src)
+            new /obj/item/dice/d20/fate/stealth/d12(src)
         else
-            new/obj/item/dice/d20/fate/one_use/stealth/d12(src)
+            new /obj/item/dice/d20/fate/one_use/stealth/d12(src)
     else
         new /obj/item/dice/d12(src)
 
     if(prob(5))
         if(prob(5))
-            new/obj/item/dice/d20/fate/stealth(src)
+            new /obj/item/dice/d20/fate/stealth(src)
         else
-            new/obj/item/dice/d20/fate/one_use/stealth(src)
+            new /obj/item/dice/d20/fate/one_use/stealth(src)
     else
         new /obj/item/dice/d20(src)
 
@@ -156,16 +198,129 @@
 // MELEE WEAPONS
 
 
-// UTILITY AND MEDICAL SUPPLIES
+/datum/gear/equipment/holosword/blue
+    display_name = "blue holo sword"
+    path = /obj/item/holo/esword/blue
+
+/datum/gear/equipment/holosword/green
+    display_name = "green holo sword"
+    path = /obj/item/holo/esword/red
+
+/datum/gear/equipment/holosword/purple
+    display_name = "purple holo sword"
+    path = /obj/item/holo/esword/green
+
+/datum/gear/equipment/holosword/red
+    display_name = "red holo sword"
+    path = /obj/item/holo/esword/red
+
+/datum/gear/equipment/holosword/random
+    display_name = "random holo sword"
+    path = /obj/item/holo/esword
+
+/datum/gear/equipment/bonesword
+    display_name = "bone sword"
+    path = /obj/item/claymore/bone/royale
+
+/datum/gear/equipment/spear
+    display_name = "metal spear"
+    path = /obj/item/spear
+
+/datum/gear/equipment/spear/bone
+    display_name = "bone spear"
+    path = /obj/item/spear/bonespear
+
+/datum/gear/equipment/spear/bamboo
+    display_name = "bamboo spear"
+    path = /obj/item/spear/bamboospear
+
+/datum/gear/equipment/eshield
+    display_name = "energy shield"
+    path = /obj/item/shield/energy/royale
+
+/datum/gear/equipment/romanshield
+    display_name = "roman shield"
+    path = /obj/item/shield/riot/roman
+
+/datum/gear/equipment/riotshield
+    display_name = "riot shield"
+    path = /obj/item/shield/riot/tele
+    description = "A sturdy lightweight shield that collapses for easy storage, but is unable to block lasers"
+
+/datum/gear/equipment/whip
+    display_name = "whip"
+    path = /obj/item/melee/curator_whip/royale
+
+/datum/gear/equipment/mop
+    display_name = "advanced mop"
+    path = /obj/item/mop/advanced
+    description = "Just think of all the viscera you will clean up with this! Produces its own water."
+
+/datum/gear/equipment/karate
+    display_name = "karate scroll"
+    path = /obj/item/book/granter/martial/karate/royale
+
+// UTILITY AND CONSUMABLES
+
+/datum/gear/equipment/explosives
+    display_name = "box of explosives"
+    path = /obj/item/storage/box/loadout/explosives
+    description = "Contains multiple X4 to use in creative ways"
+
+/datum/gear/equipment/bluespace
+    display_name = "bluespace crystals"
+    path = /obj/item/stack/ore/bluespace_crystal/ten
+    description = "Ten bluespace crystals to teleport yourself or people you throw them at somewhere else"
+
+/datum/gear/equipment/cables
+    display_name = "cables"
+    path = /obj/item/stack/cable_coil
+
+/datum/gear/equipment/implant/adrenal
+    display_name = "adrenaline implant"
+    path = /obj/item/implanter/adrenalin
+    description = "Three bursts of adrenaline for extra speed, stun resistance and a little healing"
+
+/datum/gear/equipment/implant/emp
+    display_name = "emp implant"
+    path = /obj/item/implanter/emp
+    description = "Three EMP bursts to drain energy weapons and cause equipment malfunctions"
+
+/datum/gear/equipment/implant/explosive
+    display_name = "explosive implant"
+    path = /obj/item/implanter/explosive
+    description = "Go out with a bang and take most of your stuff with you to the grave. Go on, have the last laugh."
+
+/datum/gear/equipment/soap
+    display_name = "a bar of soap"
+    path = /obj/item/soap
+
+//MEDICAL ITEMS
+
+/datum/gear/equipment/medkit
+    display_name = "compact medkit"
+    path = /obj/item/storage/firstaid/royale
+
+
 
 
 // JUST FOR FUN
+/datum/gear/equipment/syndicards
+    display_name = "syndicate playing cards"
+    path = /obj/item/toy/cards/deck/syndicate
 
 /datum/gear/equipment/fate
-    display_name = "Fateful bag of dice"
-    description = "May fate be ever in your favor"
+    display_name = "fateful bag of dice"
+    path = /obj/item/storage/pill_bottle/dicefate
+    cost = 3000
+
+/datum/gear/equipment/skub
+    display_name = "skub"
+    path = /obj/item/skub
+    cost = 3000
 
 /datum/gear/equipment/bananasword
-    display_name = "Bananium Energy Sword"
+    display_name = "bananium energy sword"
     path = /obj/item/melee/transforming/energy/sword/bananium
     description = "Honk"
+    cost = 5000
