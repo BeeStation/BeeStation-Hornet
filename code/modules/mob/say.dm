@@ -145,10 +145,6 @@
   */
 /mob/proc/get_message_mods(message, list/mods)
 	for(var/I in 1 to MESSAGE_MODS_LENGTH)
-		// Prevents "...text" from being read as a radio message
-		if (length(message) > 1 && message[2] == message[1])
-			continue
-
 		var/key = message[1]
 		var/chop_to = 2 //By default we just take off the first char
 		if(key == "#" && !mods[WHISPER_MODE])
@@ -158,9 +154,15 @@
 		else if(key == ";" && !mods[MODE_HEADSET] && stat == CONSCIOUS)
 			mods[MODE_HEADSET] = TRUE
 		else if((key in GLOB.department_radio_prefixes) && length(message) > length(key) + 1 && !mods[RADIO_EXTENSION])
-			mods[RADIO_KEY] = lowertext(message[1 + length(key)])
-			mods[RADIO_EXTENSION] = GLOB.department_radio_keys[mods[RADIO_KEY]]
-			chop_to = length(key) + 2
+			key = lowertext(message[1 + length(key)])
+			var/valid_extension = GLOB.department_radio_keys[key]
+			var/valid_say_mode = SSradio.saymodes[key]
+			if(valid_extension || valid_say_mode)
+				mods[RADIO_KEY] = key
+				mods[RADIO_EXTENSION] = GLOB.department_radio_keys[key]
+				chop_to = length(key) + 2
+			else
+				continue
 		else if(key == "," && !mods[LANGUAGE_EXTENSION])
 			for(var/ld in GLOB.all_languages)
 				var/datum/language/LD = ld
