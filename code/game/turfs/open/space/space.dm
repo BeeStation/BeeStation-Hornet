@@ -58,6 +58,10 @@
 			smoothing_flags |= SMOOTH_OBJ
 		SET_BITFLAG_LIST(canSmoothWith)
 
+	var/area/our_area = loc
+	if(our_area.area_has_base_lighting && always_lit)
+		add_overlay(GLOB.fullbright_overlay)
+
 	if (light_system == STATIC_LIGHT && light_power && light_range)
 		update_light()
 
