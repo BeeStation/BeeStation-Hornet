@@ -144,6 +144,7 @@
 	requires_power = FALSE
 	teleport_restriction = TELEPORT_ALLOW_ABDUCTORS
 	area_flags = VALID_TERRITORY | UNIQUE_AREA
+	static_lighting = FALSE
 	base_lighting_color = COLOR_WHITE
 	base_lighting_alpha = 255
 	has_gravity = STANDARD_GRAVITY
