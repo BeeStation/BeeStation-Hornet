@@ -1,0 +1,5 @@
+author: ro5490
+delete-after: true
+changes:
+  - bugfix: Nature orb now anchors with null rod
+  - bugfix: Nature orb now actually works
