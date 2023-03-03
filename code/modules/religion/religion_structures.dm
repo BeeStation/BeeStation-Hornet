@@ -88,9 +88,11 @@
 
 /obj/structure/destructible/religion/nature_pylon/LateInitialize()
 	. = ..()
+	START_PROCESSING(SSfastprocess, src)
 
 /obj/structure/destructible/religion/nature_pylon/Destroy()
 	return ..()
+	STOP_PROCESSING(SSfastprocess, src)
 
 /obj/structure/destructible/religion/nature_pylon/process(delta_time)
 	if(last_heal <= world.time)
