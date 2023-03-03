@@ -1,0 +1,9 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Spiders are now correctly assigned to their team all of the time
+  - bugfix: Fixes a bug with "lay eggs" not lighting up when it should for broodmothers
+  - tweak: Broodmothers may now set new directives again, and a history of known directives
+      are kept in each spiders "notes".
+  - tweak: Spiders are are now invalid targets for sentience potions due to their
+      innate intelligence
