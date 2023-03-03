@@ -1,0 +1,4 @@
+author: RKz
+delete-after: true
+changes:
+  - bugfix: fixed map error with corg that pushed a whole column down 1 tile
