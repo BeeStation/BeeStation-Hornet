@@ -1,0 +1,7 @@
+author: itsmeow
+delete-after: true
+changes:
+  - config: Polymorph config now properly applies.
+  - tweak: The antagonist transform message on polymorph/staff of change now always
+      sends, regardless of what you changed into.
+  - config: Post-Clone message config now properly applies.
