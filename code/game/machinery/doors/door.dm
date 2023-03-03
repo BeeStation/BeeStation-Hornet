@@ -144,8 +144,8 @@
 	. = ..()
 	if(.)
 		return
-	// Snowflake handling for PASSGLASS.
-	if(istype(mover) && (mover.pass_flags & PASSGLASS))
+	// Snowflake handling for PASSTRANSPARENT.
+	if(istype(mover) && (mover.pass_flags & PASSTRANSPARENT))
 		return !opacity
 
 /// Helper method for bumpopen() and try_to_activate_door(). Don't override.
