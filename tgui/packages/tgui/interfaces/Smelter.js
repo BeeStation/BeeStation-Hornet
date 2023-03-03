@@ -96,7 +96,7 @@ const MaterialRow = (props, context) => {
         <Button
           color={material.smelting ? "good" : "bad"}
           content={material.smelting ? "Smelting" : "Not Smelting"}
-          onClick={() => onRelease(amount)} />
+          onClick={() => onRelease()} />
       </Table.Cell>
     </Table.Row>
   );
