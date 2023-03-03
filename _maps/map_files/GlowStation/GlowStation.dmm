@@ -106092,6 +106092,11 @@
 	id = "QMLoadingDoor";
 	name = "Supply Dock Loading Door"
 	},
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "QMLoading";
+	name = "Loading Ramp"
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "wgF" = (
