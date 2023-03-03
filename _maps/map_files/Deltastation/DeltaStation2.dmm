@@ -10017,7 +10017,7 @@
 "bbz" = (
 /obj/docking_port/stationary/random{
 	dir = 4;
-	id = "pod_lavaland4";
+	id = "pod_lavaland3";
 	name = "lavaland"
 	},
 /turf/open/space,
