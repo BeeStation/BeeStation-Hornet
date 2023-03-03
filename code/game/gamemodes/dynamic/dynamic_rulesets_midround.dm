@@ -726,6 +726,7 @@
 	spider.key = applicant.key
 	if(fed)
 		spider.fed += 3
+		spider.lay_eggs.UpdateButtonIcon()
 		fed--
 	message_admins("[ADMIN_LOOKUPFLW(spider)] has been made into a spider by the midround ruleset.")
 	log_game("DYNAMIC: [key_name(spider)] was spawned as a spider by the midround ruleset.")
