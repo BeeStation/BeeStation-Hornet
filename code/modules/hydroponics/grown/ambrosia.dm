@@ -17,7 +17,12 @@
 
 /obj/item/reagent_containers/food/snacks/grown/ambrosia/dropped(mob/user)
 	..()
-	SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.head != src)
+			return
+		else
+			SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
 
 // Ambrosia Vulgaris
 /obj/item/seeds/ambrosia
