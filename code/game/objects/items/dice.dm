@@ -35,6 +35,27 @@
 	user.visible_message("<span class='suicide'>[user] is gambling with death! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (OXYLOSS)
 
+/obj/item/storage/pill_bottle/dicefate
+	name = "bag of dice"
+	desc = "May fate be ever on your side"
+	icon = 'icons/obj/dice.dmi'
+	icon_state = "dicebag"
+	pill_variance = 0
+
+/obj/item/storage/pill_bottle/dicefate/Initialize(mapload)
+	new /obj/item/dice/d4(src)
+	new /obj/item/dice/d6(src)
+	new /obj/item/dice/d8(src)
+	new /obj/item/dice/d10(src)
+	new /obj/item/dice/d12(src)
+	if(prob(5))
+		if(prob(5))
+			new/obj/item/dice/d20/fate(src)
+		else
+			new/obj/item/dice/d20/fate/one_use(src)
+	else
+		new /obj/item/dice/d20(src)
+
 /obj/item/storage/pill_bottle/dice_cup
 	name = "dice cup"
 	desc = "For rolling several dice at once. A favorite of street urchins."
