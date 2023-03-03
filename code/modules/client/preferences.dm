@@ -72,7 +72,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	//Loadout stuff
 	var/list/purchased_gear = list()
-	var/gear_tab = "General"
+	var/gear_tab = "Inner Clothing"
 
 	var/action_buttons_screen_locs = list()
 
