@@ -771,16 +771,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			dat += "<tr><td colspan=4><hr></td></tr>"
 			dat += "<tr><td><b>Name</b></td>"
-			if(LC.category != "Donator")
-				dat += "<td><b>Cost</b></td>"
-			dat += "<td><b>Restricted Jobs</b></td>"
+			dat += "<td><b>Cost</b></td>"
 			dat += "<td><b>Description</b></td></tr>"
 			dat += "<tr><td colspan=4><hr></td></tr>"
 			for(var/gear_id in LC.gear)
 				var/datum/gear/G = LC.gear[gear_id]
 				var/ticked = (G.id in active_character.equipped_gear)
 
-				dat += "<tr style='vertical-align:top;'><td width=15%>[G.display_name]\n"
+				dat += "<tr style='vertical-align:top;'><td width=20%>[G.display_name]\n"
 				var/donator = G.sort_category == "Donator" // purchase box and cost coloumns doesn't appear on donator items
 				if(G.id in purchased_gear)
 					if(G.sort_category == "OOC")
