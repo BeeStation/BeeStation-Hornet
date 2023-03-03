@@ -1,0 +1,4 @@
+author: san7890 ported by mystery352
+delete-after: true
+changes:
+  - code_imp: _globalvars/lists now has a lot of lists spanned out and alphabetized.
