@@ -253,8 +253,8 @@
 	path = /obj/item/clothing/under/misc/overalls
 
 /datum/gear/uniform/rank/cargo/mining_classic
-	display_name = "asteroid purple miner's overalls"
-	description = "Purple jumpsuit, dirty overalls. Standard Nanotrasen Shaft Miner attire, from when Lavaland had yet to be discovered and exploited for plasma."
+	display_name = "asteroid miner suit"
+	description = "Standard Nanotrasen Shaft Miner attire, from when Lavaland had yet to be discovered and exploited for plasma."
 	path = /obj/item/clothing/under/rank/cargo/miner
 
 /datum/gear/uniform/rank/medical/nurse_dress
@@ -290,15 +290,15 @@
 	path = /obj/item/clothing/under/rank/security/officer/skirt
 
 /datum/gear/uniform/rank/security/blueshift
-	display_name = "security jumpsuit - blue shirt and tie"
+	display_name = "blue shirt and tie"
 	path = /obj/item/clothing/under/rank/security/officer/blueshirt
 
 /datum/gear/uniform/rank/security/blart
-	display_name = "security jumpsuit - Nanotrasen mall cop uniform"
+	display_name = "mall cop uniform"
 	path = /obj/item/clothing/under/rank/security/officer/mallcop
 
 /datum/gear/uniform/rank/janitor/maid
-	display_name = "janitor jumpsuit - heavy on the frills"
+	display_name = "frilly janitor suit"
 	path = /obj/item/clothing/under/rank/civilian/janitor/maid
 
 

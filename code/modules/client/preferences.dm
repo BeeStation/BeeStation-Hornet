@@ -778,16 +778,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				var/datum/gear/G = LC.gear[gear_id]
 				var/ticked = (G.id in active_character.equipped_gear)
 
-				dat += "<tr style='vertical-align:top;'><td width=20%>[G.display_name]\n"
-				var/donator = G.sort_category == "Donator" // purchase box and cost coloumns doesn't appear on donator items
+				dat += "<tr style='vertical-align:top;'><td width=16%>[G.display_name]</td>"
 				if(G.id in purchased_gear)
-					if(G.sort_category == "OOC")
-						dat += "<i>Purchased.</i></td>"
-					else
-						dat += "<a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.id]'>Equip</a></td>"
+					dat += "<td width = 9% style='vertical-align:top'><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.id]'>Equip</a></td>"
 				else
-					dat += "<a style='white-space:normal;' href='?_src_=prefs;preference=gear;purchase_gear=[G.id]'>[donator ? "Donator" : "Purchase"]</a></td>"
-				dat += "<td width = 5% style='vertical-align:top'>[donator ? "" : "[G.cost]"]</td><td>"
+					dat += "<td width = 9% style='vertical-align:top'><a style='white-space:normal;' href='?_src_=prefs;preference=gear;purchase_gear=[G.id]'>["Purchase"] [G.cost]</a></td>"
 
 				if(G.allowed_roles)
 					dat += "<font size=2>"
