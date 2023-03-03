@@ -496,7 +496,7 @@
 	required_enemies = list(1,1,1,1,0,0,0,0,0,0)
 	required_candidates = 1
 	weight = 4
-	cost = 9
+	cost = 11
 	minimum_players = 25
 	repeatable = TRUE
 	var/list/spawn_locs = list()
