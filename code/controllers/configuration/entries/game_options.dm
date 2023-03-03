@@ -242,6 +242,8 @@
 
 /datum/config_entry/flag/revival_cloning
 
+/datum/config_entry/flag/post_revival_message
+
 /datum/config_entry/number/revival_brain_life
 	config_entry_value = -1
 	integer = FALSE
