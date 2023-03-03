@@ -1,12 +1,9 @@
 /datum/gear/misc
-	subtype_path = /datum/gear/misc //nothing should actually utilize this subtype_path
-	sort_category = "Misc."
+	subtype_path = /datum/gear/misc
+	sort_category = "Extras"
+	cost = 500
 
 //GAMBLING
-
-/datum/gear/misc/unlimited
-	subtype_path = /datum/gear/misc/unlimited //There are no limits to how many items of this group can be equipped, hardcoded in preferences.dm
-	cost = 1000
 
 /datum/gear/misc/dicebag
 	display_name = "bag of dice"
@@ -30,6 +27,7 @@
 //LIGHTERS & CIGARETTES
 
 /datum/gear/misc/lighter
+	subtype_path = /datum/gear/misc/lighter
 	display_name = "Zippo lighter"
 	path = /obj/item/lighter
 
@@ -38,6 +36,7 @@
 	path = /obj/item/lighter/greyscale
 
 /datum/gear/misc/cigarettes
+	subtype_path = /datum/gear/misc/cigarettes
 	display_name = "cigarettes, Space Cigarettes"
 	path = /obj/item/storage/fancy/cigarettes
 
