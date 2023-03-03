@@ -1,0 +1,6 @@
+author: spockye
+delete-after: true
+changes:
+  - bugfix: fixed chem machines on fland
+  - bugfix: fixed missing decal on fland
+  - bugfix: misplaced directional window in Fland Genetics
