@@ -153,6 +153,29 @@ SUBSYSTEM_DEF(explosions)
 		A.color = null
 		A.maptext = ""
 
+/**
+ * Using default dyn_ex scale:
+ *
+ * 100 explosion power is a (5, 10, 20) explosion.
+ * 75 explosion power is a (4, 8, 17) explosion.
+ * 50 explosion power is a (3, 7, 14) explosion.
+ * 25 explosion power is a (2, 5, 10) explosion.
+ * 10 explosion power is a (1, 3, 6) explosion.
+ * 5 explosion power is a (0, 1, 3) explosion.
+ * 1 explosion power is a (0, 0, 1) explosion.
+ *
+ * Arguments:
+ * * epicenter: Turf the explosion is centered at.
+ * * power - Dyn explosion power. See reference above.
+ * * flame_range: Flame range. Equal to the equivalent of the light impact range multiplied by this value.
+ * * flash_range: The range at which the explosion flashes people. Equal to the equivalent of the light impact range multiplied by this value.
+ * * adminlog: Whether to log the explosion/report it to the administration.
+ * * ignorecap: Whether to ignore the relevant bombcap. Defaults to FALSE.
+ * * flame_range: The range at which the explosion should produce hotspots.
+ * * silent: Whether to generate/execute sound effects.
+ * * smoke: Whether to generate a smoke cloud provided the explosion is powerful enough to warrant it.
+ * * explosion_cause: [Optional] The atom that caused the explosion, when different to the origin. Used for logging.
+ */
 /proc/dyn_explosion(turf/epicenter, power, flame_range = 0, flash_range = null, adminlog = TRUE, ignorecap = TRUE, silent = FALSE, smoke = TRUE, list/explosion_multiplier = list(1, 1, 1, 1))
 	if(!power)
 		return
@@ -160,14 +183,7 @@ SUBSYSTEM_DEF(explosions)
 	range = round((2 * power)**GLOB.DYN_EX_SCALE)
 	explosion(epicenter, devastation_range = round(range * 0.25 * explosion_multiplier[1]), heavy_impact_range = round(range * 0.5 * explosion_multiplier[2]), light_impact_range = round(range * explosion_multiplier[3]), flame_range = flame_range*range, flash_range = flash_range*range * explosion_multiplier[4], adminlog = adminlog, ignorecap = ignorecap, silent = silent, smoke = smoke)
 
-// Using default dyn_ex scale:
-// 100 explosion power is a (5, 10, 20) explosion.
-// 75 explosion power is a (4, 8, 17) explosion.
-// 50 explosion power is a (3, 7, 14) explosion.
-// 25 explosion power is a (2, 5, 10) explosion.
-// 10 explosion power is a (1, 3, 6) explosion.
-// 5 explosion power is a (0, 1, 3) explosion.
-// 1 explosion power is a (0, 0, 1) explosion.
+
 
 /**
  * Makes a given atom explode.
@@ -185,7 +201,7 @@ SUBSYSTEM_DEF(explosions)
  * - smoke: Whether to generate a smoke cloud provided the explosion is powerful enough to warrant it.
  */
 /proc/explosion(atom/origin, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 0, flame_range = 0, flash_range = 0, adminlog = TRUE, ignorecap = FALSE, silent = FALSE, smoke = FALSE, magic = FALSE, holy = FALSE, cap_modifier = 1)
-	SSexplosions.explode(arglist(args))
+	. = SSexplosions.explode(arglist(args))
 
 
 /**
@@ -215,7 +231,11 @@ SUBSYSTEM_DEF(explosions)
 		EXARG_KEY_ADMIN_LOG = adminlog, 
 		EXARG_KEY_IGNORE_CAP = ignorecap, 
 		EXARG_KEY_SILENT = silent, 
-		EXARG_KEY_SMOKE = smoke
+		EXARG_KEY_SMOKE = smoke,
+		EXARG_KEY_MAGIC = magic,
+		EXARG_KEY_HOLY = holy,
+		EXARG_KEY_CAP_MODIFIER = cap_modifier,
+		EXARG_KEY_EXPLODE_Z = explode_z,
 	)
 	var/atom/location = isturf(origin) ? origin : origin.loc
 	if(SEND_SIGNAL(origin, COMSIG_ATOM_EXPLODE, arguments) & COMSIG_CANCEL_EXPLOSION)

@@ -30,3 +30,11 @@
 #define EXARG_KEY_SILENT STRINGIFY(silent)
 /// Whether or not the explosion should produce smoke if it is large enough to warrant it.
 #define EXARG_KEY_SMOKE STRINGIFY(smoke)
+/// Whether or not the explosion is magical
+#define EXARG_KEY_MAGIC STRINGIFY(magic)
+/// Whether or not the explosion is holy
+#define EXARG_KEY_HOLY STRINGIFY(holy)
+/// The explosion's explode cap
+#define EXARG_KEY_CAP_MODIFIER STRINGIFY(cap_modifier)
+/// Whether the explosion should effect z levels
+#define EXARG_KEY_EXPLODE_Z STRINGIFY(explode_z)

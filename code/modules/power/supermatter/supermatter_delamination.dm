@@ -83,13 +83,14 @@
 
 /datum/supermatter_delamination/proc/call_explosion()
 	//Dear mappers, balance the sm max explosion radius to 17.5, 37, 39, 41
-	explosion(origin = supermatter_turf,
+	explosion(origin = src,
 		devastation_range = supermatter_explosion_power * max(supermatter_gasmix_power_ratio, 0.205) * 0.5,
 		heavy_impact_range = supermatter_explosion_power * max(supermatter_gasmix_power_ratio, 0.205) + 2,
 		light_impact_range = supermatter_explosion_power * max(supermatter_gasmix_power_ratio, 0.205) + 4,
 		flash_range = supermatter_explosion_power * max(supermatter_gasmix_power_ratio, 0.205) + 6,
 		adminlog = TRUE,
-		ignorecap = TRUE)
+		ignorecap = TRUE
+	)
 
 /datum/supermatter_delamination/proc/setup_anomalies()
 	anomalies_to_spawn = max(round(0.005 * supermatter_power, 1) + rand(-2, 5), 1)

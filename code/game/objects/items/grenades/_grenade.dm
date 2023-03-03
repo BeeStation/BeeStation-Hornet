@@ -134,8 +134,8 @@
 
 /obj/item/grenade/proc/update_mob()
 	if(ismob(loc))
-		var/mob/M = loc
-		M.dropItemToGround(src)
+		var/mob/mob = loc
+		mob.dropItemToGround(src)
 
 /obj/item/grenade/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
