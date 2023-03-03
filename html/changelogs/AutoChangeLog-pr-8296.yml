@@ -1,0 +1,19 @@
+author: RKz
+delete-after: true
+changes:
+  - rscadd: 'All station incinerators now utilize the breakthrough new anti-radiation
+      technology of Depleted Uranium! Incident #36690, #39352, #40930, and others
+      anomalies should now be _99.99%_ totally preventable!'
+  - tweak: Repiped corg incinerator in its entirety. Its waste pipe now has a pipenet
+      route to a space outlet or TEG. Minor simplifications to Meta incinerator
+  - tweak: I standardized the layout of some of the turbines. They are supposedly
+      cookie-cutter technology just brought over and welded onto their respective
+      station, and it gave me the opportunity to cut out some of the unnecessary piping
+      bullshit(looking at you meta) that overcomplicated the turbine's purpose. None
+      of my changes (save corg) should effect the turbine's actual functionality of
+      put gas in, filter it out.
+  - balance: rwalls of some incinerators have been replaced with iron walls to decrease
+      stifling of atmosian creativity. Technically a balance change as it makes incinerators
+      easier to break into. Technically...
+  - admin: Accidental radleaks much less likely. "Why didnt you burn that risky mix
+      where there is equipment to handle it", is now a viable question to ask griefers.

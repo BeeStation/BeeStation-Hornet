@@ -80,7 +80,7 @@
 	icon_state = "forcefield"
 	layer = ABOVE_ALL_MOB_LAYER
 	anchored = TRUE
-	pass_flags_self = PASSGLASS
+	pass_flags_self = PASSTRANSPARENT
 	density = TRUE
 	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
