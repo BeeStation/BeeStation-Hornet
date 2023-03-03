@@ -5,7 +5,7 @@
 	species = "rainbowbunch"
 	plantname = "Rainbow Bunch"
 	icon_harvest = "rainbowbunch-harvest"
-	product = /obj/item/reagent_containers/food/snacks/grown/rainbow_flower
+	product = /obj/item/reagent_containers/food/snacks/grown/flower/rainbow
 	lifespan = 25
 	endurance = 10
 	maturation = 6
@@ -17,12 +17,11 @@
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05)
 
-/obj/item/reagent_containers/food/snacks/grown/rainbow_flower
+/obj/item/reagent_containers/food/snacks/grown/flower/rainbow
 	seed = /obj/item/seeds/rainbow_bunch
 	name = "rainbow flower"
 	desc = "A beautiful flower capable of being used for most dyeing processes."
 	icon_state = "rainbow_flower"
-	slot_flags = ITEM_SLOT_HEAD
 	force = 0
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
@@ -30,16 +29,7 @@
 	throw_range = 3
 	attack_verb = list("pompfed")
 
-/obj/item/reagent_containers/food/snacks/grown/rainbow_flower/equipped(mob/user, slot)
-	. = ..()
-	if(slot == ITEM_SLOT_HEAD)
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn)
-
-/obj/item/reagent_containers/food/snacks/grown/rainbow_flower/dropped(mob/user)
-	..()
-	SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
-
-/obj/item/reagent_containers/food/snacks/grown/rainbow_flower/Initialize(mapload)
+/obj/item/reagent_containers/food/snacks/grown/flower/rainbow/Initialize(mapload)
 	. = ..()
 	var/flower_color = rand(1,8)
 	switch(flower_color)
