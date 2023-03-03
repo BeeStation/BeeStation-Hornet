@@ -7687,7 +7687,7 @@
 /area/maintenance/disposal)
 "bEM" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/head/lilycrown,
+/obj/item/clothing/head/flowercrown/lily,
 /obj/item/clothing/under/costume/maid,
 /obj/item/flashlight/lantern,
 /obj/machinery/light{
@@ -31128,13 +31128,13 @@
 /area/engine/atmospherics_engine)
 "gGk" = (
 /obj/structure/table/wood,
-/obj/item/clothing/head/sunflowercrown{
+/obj/item/clothing/head/flowercrown/sunflower{
 	pixel_y = -1
 	},
-/obj/item/clothing/head/poppycrown{
+/obj/item/clothing/head/flowercrown/poppy{
 	pixel_y = 9
 	},
-/obj/item/clothing/head/lilycrown{
+/obj/item/clothing/head/flowercrown/lily{
 	pixel_y = 1
 	},
 /obj/item/radio/intercom{
@@ -44011,7 +44011,7 @@
 /area/hallway/upper/primary/central)
 "jly" = (
 /obj/structure/table,
-/obj/item/clothing/head/lilycrown,
+/obj/item/clothing/head/flowercrown/lily,
 /obj/machinery/newscaster{
 	pixel_y = 31
 	},

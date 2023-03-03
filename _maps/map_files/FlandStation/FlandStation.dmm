@@ -19758,7 +19758,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
 "eYB" = (
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
 /obj/structure/table/wood,
 /obj/machinery/button/massdriver{
 	id = "chapelgun";

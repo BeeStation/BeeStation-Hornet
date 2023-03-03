@@ -18769,7 +18769,7 @@
 /area/chapel/office)
 "crx" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
 "cry" = (

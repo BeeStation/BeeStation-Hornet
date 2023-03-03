@@ -69,7 +69,7 @@
 	icon_state = "seed-trumpet"
 	species = "spacemanstrumpet"
 	plantname = "Spaceman's Trumpet Plant"
-	product = /obj/item/reagent_containers/food/snacks/grown/trumpet
+	product = /obj/item/reagent_containers/food/snacks/grown/flower/trumpet
 	lifespan = 80
 	production = 5
 	endurance = 10
@@ -92,7 +92,7 @@
 	if(!nogenes)
 		unset_mutability(/datum/plant_gene/reagent/polypyr, PLANT_GENE_EXTRACTABLE)
 
-/obj/item/reagent_containers/food/snacks/grown/trumpet
+/obj/item/reagent_containers/food/snacks/grown/flower/trumpet
 	seed = /obj/item/seeds/poppy/lily/trumpet
 	name = "spaceman's trumpet"
 	desc = "A vivid flower that smells faintly of freshly cut grass. Touching the flower seems to stain the skin some time after contact, yet most other surfaces seem to be unaffected by this phenomenon."
@@ -100,6 +100,7 @@
 	filling_color = "#8324f0"
 	bitesize_mod = 3
 	foodtype = VEGETABLES
+	slot_flags = null
 
 // Geranium
 /obj/item/seeds/poppy/geranium
@@ -154,7 +155,7 @@
 	icon_state = "seed-harebell"
 	species = "harebell"
 	plantname = "Harebells"
-	product = /obj/item/reagent_containers/food/snacks/grown/harebell
+	product = /obj/item/reagent_containers/food/snacks/grown/flower/harebell
 	lifespan = 100
 	endurance = 20
 	maturation = 7
@@ -171,7 +172,6 @@
 	name = "harebell"
 	desc = "\"I'll sweeten thy sad grave: thou shalt not lack the flower that's like thy face, pale primrose, nor the azured hare-bell, like thy veins; no, nor the leaf of eglantine, whom not to slander, out-sweeten'd not thy breath.\""
 	icon_state = "harebell"
-	slot_flags = ITEM_SLOT_HEAD
 	filling_color = "#E6E6FA"
 	bitesize_mod = 3
 	distill_reagent = /datum/reagent/consumable/ethanol/vermouth
@@ -249,15 +249,6 @@
 	bitesize_mod = 2
 	distill_reagent = /datum/reagent/consumable/ethanol/absinthe //It's made from flowers.
 	discovery_points = 300
-
-/obj/item/reagent_containers/food/snacks/grown/moonflower/equipped(mob/user, slot)
-	. = ..()
-	if(slot == ITEM_SLOT_HEAD)
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn)
-
-/obj/item/reagent_containers/food/snacks/grown/moonflower/dropped(mob/user)
-	..()
-	SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
 
 // Novaflower
 /obj/item/seeds/sunflower/novaflower

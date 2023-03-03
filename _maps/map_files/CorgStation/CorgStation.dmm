@@ -19915,8 +19915,8 @@
 /area/crew_quarters/fitness/recreation)
 "gtG" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
