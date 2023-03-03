@@ -156,18 +156,21 @@
 					to_chat(M, "<span class='noticed'>Placing [G.display_name] in [placed_in.name]]")
 				continue
 
-			if(H.equip_to_appropriate_slot(item))
-				to_chat(M, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")
-				continue
-			if(H.put_in_hands(item))
-				to_chat(M, "<span class='notice'>Placing [G.display_name] in your hands!</span>")
-				continue
-
 			var/obj/item/storage/B = (locate() in H)
 			if(B)
 				G.spawn_item(B, metadata)
 				to_chat(M, "<span class='notice'>Placing [G.display_name] in [B.name]!</span>")
 				continue
+			if(H.equip_to_appropriate_slot(item))
+				to_chat(M, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")
+				continue
+
+			//Nobody should start with something in their hands unless they immediately put it there. Too easy to snatch something at roundstart.
+			/*
+			if(H.put_in_hands(item))
+				to_chat(M, "<span class='notice'>Placing [G.display_name] in your hands!</span>")
+				continue
+			*/
 
 			to_chat(M, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
 			qdel(item)
