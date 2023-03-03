@@ -21,7 +21,7 @@
 	if(..())
 		return
 	///if the thrown object's target zone isn't the head
-	if(thrownthing.target_zone != BODY_ZONE_HEAD)
+	if(!thrownthing || thrownthing.target_zone != BODY_ZONE_HEAD)
 		return
 	///ignore any hats with special effects that prevent removal ie tinfoil hats
 	if(clothing_flags & EFFECT_HAT)
