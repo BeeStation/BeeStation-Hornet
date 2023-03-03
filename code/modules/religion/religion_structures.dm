@@ -60,3 +60,88 @@
 			icon = sect_to_altar.altar_icon
 		if(sect_to_altar.altar_icon_state)
 			icon_state = sect_to_altar.altar_icon_state
+
+/obj/structure/destructible/religion
+	density = TRUE
+	anchored = FALSE
+	icon = 'icons/obj/religion.dmi'
+	light_power = 2
+	var/cooldowntime = 0
+	break_sound = 'sound/effects/glassbr2.ogg'
+
+/obj/structure/destructible/religion/nature_pylon
+	name = "Orb of Nature"
+	desc = "A floating crystal that slowly heals all plantlife and holy creatures. It can be bolted in place."
+	icon_state = "nature_orb"
+	anchored = FALSE
+	light_range = 5
+	light_color = LIGHT_COLOR_GREEN
+	break_message = "<span class='warning'>The luminous green crystal shatters!</span>"
+	var/heal_delay = 20
+	var/last_heal = 0
+	var/spread_delay = 45
+	var/last_spread = 0
+
+/obj/structure/destructible/religion/nature_pylon/Initialize(mapload)
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/structure/destructible/religion/nature_pylon/LateInitialize()
+	. = ..()
+
+/obj/structure/destructible/religion/nature_pylon/Destroy()
+	return ..()
+
+/obj/structure/destructible/religion/nature_pylon/process(delta_time)
+	if(last_heal <= world.time)
+		last_heal = world.time + heal_delay
+		for(var/mob/living/L in range(5, src))
+			if(L.health == L.maxHealth)
+				continue
+			if(!ispodperson(L) && !L.mind?.holy_role)
+				continue
+			new /obj/effect/temp_visual/heal(get_turf(src), "#47ac05")
+			if(ispodperson(L) || L.mind?.holy_role)
+				L.adjustBruteLoss(-2*delta_time, 0)
+				L.adjustToxLoss(-2*delta_time, 0)
+				L.adjustOxyLoss(-2*delta_time, 0)
+				L.adjustFireLoss(-2*delta_time, 0)
+				L.adjustCloneLoss(-2*delta_time, 0)
+				L.updatehealth()
+				if(L.blood_volume < BLOOD_VOLUME_NORMAL)
+					L.blood_volume += 1.0
+			CHECK_TICK
+	if(last_spread <= world.time)
+		var/list/validturfs = list()
+		var/list/natureturfs = list()
+		for(var/T in circleviewturfs(src, 5))
+			if(istype(T, /turf/open/floor/grass))
+				natureturfs |= T
+				continue
+			var/static/list/blacklisted_pylon_turfs = typecacheof(list(
+				/turf/closed,
+				/turf/open/floor/grass,
+				/turf/open/space,
+				/turf/open/lava,
+				/turf/open/chasm))
+			if(is_type_in_typecache(T, blacklisted_pylon_turfs))
+				continue
+			else
+				validturfs |= T
+
+		last_spread = world.time + spread_delay
+
+		var/turf/T = safepick(validturfs)
+		if(T)
+			if(istype(T, /turf/open/floor/plating))
+				T.PlaceOnTop(pick(/turf/open/floor/grass, /turf/open/floor/grass/fairy/green), flags = CHANGETURF_INHERIT_AIR)
+			else
+				T.ChangeTurf(pick(/turf/open/floor/grass, /turf/open/floor/grass/fairy/green), flags = CHANGETURF_INHERIT_AIR)
+		else
+			var/turf/open/floor/grass/F = safepick(natureturfs)
+			if(F)
+				new /obj/effect/temp_visual/religion/turf/floor(F)
+			else
+				// Are we in space or something? No grass turfs or
+				// convertable turfs?
+				last_spread = world.time + spread_delay*2
