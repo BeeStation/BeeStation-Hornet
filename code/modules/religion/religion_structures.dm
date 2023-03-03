@@ -36,6 +36,23 @@
 	pushed_mob.forceMove(loc)
 	return ..()
 
+/obj/structure/altar_of_gods/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/nullrod))
+		if(user.mind?.holy_role == NONE)
+			to_chat(user, "<span class='warning'>Only the faithful may control the disposition of [src]!</span>")
+			return
+		anchored = !anchored
+		if(GLOB.religious_sect)
+			GLOB.religious_sect.altar_anchored = anchored //Having more than one altar of the gods is only possible through adminbus so this should screw with normal gameplay
+		user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
+		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
+		user.do_attack_animation(src)
+		return
+	if(I.tool_behaviour == TOOL_WRENCH)
+		return
+	return ..()
+
+
 /obj/structure/altar_of_gods/proc/reflect_sect_in_icons()
 	if(GLOB.religious_sect)
 		sect_to_altar = GLOB.religious_sect

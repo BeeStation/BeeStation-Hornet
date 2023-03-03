@@ -554,7 +554,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 	else if(path.len == 1)
 		step_to(src, dest)
 		if(last_waypoint != null)
-			if(z != last_waypoint.z)
+			var/obj/structure/bot_elevator/E = locate(/obj/structure/bot_elevator) in get_turf(src)
+			if(z != last_waypoint.z && E)
 				bot_z_movement()
 		set_path(null)
 	return TRUE
@@ -625,11 +626,19 @@ Pass a positive integer as an argument to override a bot's default speed.
 	access_card.access = prev_access
 	tries = 0
 	mode = BOT_IDLE
+	hard_reset()
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
 
 
-
+//Hard Reset - Literally tries to make it forget everything about it's last path in the hopes that resetting it will make it start fresh.
+/mob/living/simple_animal/bot/proc/hard_reset()
+	patrol_target = null
+	last_waypoint = null
+	ai_waypoint = null
+	original_patrol = null
+	nearest_beacon = null
+	nearest_beacon_loc = null
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //Patrol and summon code!
@@ -677,7 +686,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 	if(loc == patrol_target)		// reached target
 		if(original_patrol != null)
-			if(z != original_patrol.z)
+			var/obj/structure/bot_elevator/E = locate(/obj/structure/bot_elevator) in get_turf(src)
+			if(z != original_patrol.z && E)
 				bot_z_movement()
 				return
 		//Find the next beacon matching the target.
@@ -834,7 +844,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 	if(loc == summon_target)		// Arrived to summon location.
 		if(last_summon != null)
-			if(z != last_summon.z)
+			var/obj/structure/bot_elevator/E = locate(/obj/structure/bot_elevator) in get_turf(src)
+			if(z != last_summon.z && E)
 				bot_z_movement()
 				return
 		bot_reset()
@@ -1177,6 +1188,10 @@ Pass a positive integer as an argument to override a bot's default speed.
 				E.travel(TRUE, src, FALSE, E.up, FALSE)
 				ai_waypoint = last_waypoint
 				call_bot(calling_ai, ai_waypoint)
+		if(!E) //We're stuck in a loop, terminate our attempt because we're not where we're supposed to be.
+			bot_z_mode = null
+			last_waypoint = null
+			summon_step() //We've gotten stuck, as such the loop needs to be broken, so re-run the summon_step().
 
 	if(bot_z_mode == BOT_Z_MODE_PATROLLING)
 		if(E)
@@ -1188,6 +1203,11 @@ Pass a positive integer as an argument to override a bot's default speed.
 				E.travel(TRUE, src, FALSE, E.up, FALSE)
 				patrol_target = original_patrol
 				calc_path()
+		if(!E) //We're stuck in a loop, terminate our attempt because we're not where we're supposed to be.
+			bot_z_mode = null
+			original_patrol = null
+			patrol_step() //We've gotten stuck, as such the loop needs to be broken, so re-run the patrol_step().
+
 	if(bot_z_mode == BOT_Z_MODE_SUMMONED)
 		if(E)
 			if(z > last_summon.z)
@@ -1198,6 +1218,10 @@ Pass a positive integer as an argument to override a bot's default speed.
 				E.travel(TRUE, src, FALSE, E.up, FALSE)
 				summon_target = last_summon
 				calc_summon_path()
+		if(!E) //We're stuck in a loop, terminate our attempt because we're not where we're supposed to be.
+			bot_z_mode = null
+			last_summon = null
+			summon_step() //We've gotten stuck, as such the loop needs to be broken. so re-run the summon_step().
 
 //BOT MULTI-Z MOVEMENT
 /mob/living/simple_animal/bot/proc/call_bot_z_move(caller, turf/ori_dest, message=TRUE)

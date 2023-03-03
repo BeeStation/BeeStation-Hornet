@@ -671,6 +671,15 @@ update_label("John Doe", "Clowny")
 	access = get_all_accesses()
 	. = ..()
 
+/obj/item/card/id/ert/lawyer
+	registered_name = "CentCom Attorney"
+	assignment = "CentCom Attorney"
+	icon_state = "centcom"
+
+/obj/item/card/id/ert/lawyer/Initialize(mapload)
+	. = ..()
+	access = list(ACCESS_CENT_GENERAL, ACCESS_COURT, ACCESS_BRIG, ACCESS_FORENSICS_LOCKERS)
+
 /obj/item/card/id/prisoner
 	name = "prisoner ID card"
 	desc = "You are a number, you are not a free man."
