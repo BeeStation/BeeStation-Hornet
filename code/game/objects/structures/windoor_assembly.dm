@@ -80,7 +80,7 @@
 /obj/structure/windoor_assembly/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
-	if(istype(leaving) && (leaving.pass_flags & PASSGLASS))
+	if(istype(leaving) && (leaving.pass_flags & PASSTRANSPARENT))
 		return
 
 	if (direction == dir && density)
