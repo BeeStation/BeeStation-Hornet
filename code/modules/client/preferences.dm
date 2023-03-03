@@ -1309,13 +1309,18 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				for(var/gear_id in active_character.equipped_gear)
 					var/datum/gear/G = GLOB.gear_datums[gear_id]
 					if(istype(G))
-						if(!(G.subtype_path in type_blacklist))
-							type_blacklist += G.subtype_path
+						type_blacklist += G.subtype_path
 						if(!(G.slot in slot_blacklist))
 							slot_blacklist += G.slot
 				if((TG.id in purchased_gear))
 					if(!(TG.subtype_path in type_blacklist) || !(TG.slot in slot_blacklist))
 						active_character.equipped_gear += TG.id
+					else if(TG.subtype_path == /datum/gear/equipment)
+						type_blacklist -= /datum/gear/equipment
+						if(!(TG.subtype_path in type_blacklist))
+							active_character.equipped_gear += TG.id
+						else
+							to_chat(user, "<span class='warning'>Can't equip [TG.display_name]. You can only chose two pieces of combat equipment.</span>")
 					else
 						to_chat(user, "<span class='warning'>Can't equip [TG.display_name]. It conflicts with an already-equipped item.</span>")
 				else
