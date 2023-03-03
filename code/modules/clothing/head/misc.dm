@@ -441,11 +441,11 @@
 	if(slot == ITEM_SLOT_HEAD)
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_crown_worn", /datum/mood_event/flower_crown_worn)
 
-/obj/item/clothing/head/flowercrown/dropped(mob/living/carbon/human/user)
+/obj/item/clothing/head/flowercrown/dropped(mob/living/carbon/user)
 	..()
 	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.head != src)
+		var/mob/living/carbon/C = user
+		if(C.head != src)
 			return
 		else
 			SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_crown_worn")
