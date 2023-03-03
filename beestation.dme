@@ -2030,6 +2030,7 @@
 #include "code\modules\client\loadout\loadout_accessories.dm"
 #include "code\modules\client\loadout\loadout_colorizers.dm"
 #include "code\modules\client\loadout\loadout_donator.dm"
+#include "code\modules\client\loadout\loadout_equipment.dm"
 #include "code\modules\client\loadout\loadout_footwear.dm"
 #include "code\modules\client\loadout\loadout_gloves.dm"
 #include "code\modules\client\loadout\loadout_general.dm"
