@@ -344,9 +344,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     has_gravity = TRUE
     teleport_restriction = TELEPORT_ALLOW_NONE
     area_flags = HIDDEN_AREA
-    static_lighting = FALSE
-    base_lighting_alpha = 255
-    base_lighting_color = COLOR_WHITE
+    static_lighting = TRUE
     ambientsounds = list('sound/ambience/servicebell.ogg')
     var/roomnumber = 0
     var/obj/item/hilbertshotel/parentSphere

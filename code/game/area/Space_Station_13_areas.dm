@@ -68,9 +68,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	area_flags = UNIQUE_AREA
 
 /area/asteroid/nearstation
-	static_lighting = FALSE
-	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
+	static_lighting = TRUE
 	ambience_index = AMBIENCE_RUINS
 	always_unpowered = FALSE
 	requires_power = TRUE
