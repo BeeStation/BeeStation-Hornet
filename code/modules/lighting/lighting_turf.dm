@@ -38,10 +38,6 @@
 	if (lighting_object)
 		qdel(lighting_object,force=TRUE) //Shitty fix for lighting objects persisting after death
 
-	var/area/A = loc
-	if(!A.static_lighting && !light_sources)
-		return
-
 	new/atom/movable/lighting_object(src)
 
 // Used to get a scaled lumcount.
