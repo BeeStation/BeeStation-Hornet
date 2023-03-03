@@ -106,7 +106,7 @@
 		var/obj/item/clothing/under/U = H.w_uniform
 
 		//Suit sensors radio transmitter must not be jammed.
-		if(U.is_jammed())
+		if(U.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK))
 			return FALSE
 
 		// Suit sensors must be on maximum.

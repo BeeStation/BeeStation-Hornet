@@ -11,7 +11,7 @@
 	var/obj/docking_port/stationary/my_port //the custom docking port placed by this console
 	var/obj/docking_port/mobile/shuttle_port //the mobile docking port of the connected shuttle
 	var/view_range = 0
-	var/list/whitelist_turfs = list(/turf/open/space, /turf/open/floor/plating/lavaland, /turf/open/floor/plating/asteroid, /turf/open/lava, /turf/open/floor/dock)
+	var/list/whitelist_turfs = list(/turf/open/space, /turf/open/floor/plating/lavaland, /turf/open/floor/plating/asteroid, /turf/open/lava, /turf/open/floor/dock, /turf/open/floor/plating/asteroid/snow, /turf/open/floor/plating/snowed, /turf/open/floor/plating/snowed/smoothed)
 	var/designate_time = 50
 	var/turf/designating_target_loc
 	var/datum/action/innate/camera_jump/shuttle_docker/docker_action = new
@@ -281,6 +281,9 @@
 
 	// Checking for overlapping dock boundaries
 	for(var/i in 1 to overlappers.len)
+		var/obj/docking_port/mobile/shuttle = overlappers[i]
+		if(istype(shuttle) && shuttle.undockable)
+			return SHUTTLE_DOCKER_BLOCKED
 		var/obj/docking_port/stationary/port = overlappers[i]
 		if(port == my_port)
 			continue
@@ -316,7 +319,7 @@
 	src.origin = origin
 	return ..()
 
-/mob/camera/ai_eye/remote/shuttle_docker/canZMove(direction, turf/target)
+/mob/camera/ai_eye/remote/shuttle_docker/canZMove(direction, turf/source, turf/target, pre_move = TRUE)
 	return TRUE
 
 /mob/camera/ai_eye/remote/shuttle_docker/setLoc(destination)

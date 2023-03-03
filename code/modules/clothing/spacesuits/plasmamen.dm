@@ -58,10 +58,11 @@
 	var/smile_color = "#FF0000"
 	var/smile_state = "envirohelm_smile"
 	var/visor_state = "enviro_visor"
+	var/lamp_functional = TRUE
 	var/obj/item/clothing/head/attached_hat
 	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_welding_screen/plasmaman)
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 	visor_flags_inv = HIDEEYES|HIDEFACE|HIDEFACIALHAIR
 
@@ -107,6 +108,10 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/attackby(obj/item/item, mob/living/user)
 	. = ..()
+	if(istype(item, /obj/item/light/bulb) && !lamp_functional)
+		lamp_functional = TRUE
+		qdel(item)
+		to_chat(user, "<span class='notice'>You repair the broken headlamp!</span>")
 	if(istype(item, /obj/item/toy/crayon))
 		if(smile)
 			to_chat(user, "<span class='notice'>Seems like someone already drew something on the helmet's visor.</span>")
@@ -195,7 +200,11 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/user)
 	helmet_on = !helmet_on
-
+	if(!lamp_functional)
+		to_chat(user, "<span class='notice'>Your helmet's torch is broken! You'll have to repair it with a lightbulb!</span>")
+		set_light_on(FALSE)
+		helmet_on = FALSE
+		return
 	if(helmet_on)
 		if(!up)
 			to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
@@ -209,6 +218,20 @@
 	update_icon()
 	user.update_inv_head() //So the mob overlay updates
 	update_button_icons(user)
+
+/obj/item/clothing/head/helmet/space/plasmaman/proc/smash_headlamp()
+	if(!lamp_functional)
+		return
+	if(!helmet_on)
+		return
+	set_light_on(FALSE)
+	helmet_on = FALSE
+	playsound(src, 'sound/effects/glass_step.ogg', 100)
+	to_chat(usr, "<span class='danger'>The [src]'s headlamp is smashed to pieces!</span>")
+	lamp_functional = FALSE
+	update_icon()
+	usr.update_inv_head() //So the mob overlay updates
+	update_button_icons(usr)
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_overlays()
 	cut_overlays()
@@ -276,6 +299,7 @@
 	desc = "A space-worthy helmet specially designed for engineer plasmamen, the usual purple stripes being replaced by engineering's orange."
 	greyscale_colors = "#F0DE00#D75600#F0DE00"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 10, "fire" = 100, "acid" = 75, "stamina" = 0)
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering/atmospherics
 	name = "atmospherics envirosuit helmet"
@@ -492,6 +516,7 @@
 	desc = "A new iteration upon the classic space-worthy design, painted in classic engineering pigments."
 	greyscale_colors = "#E8D700#D75600"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 10, "fire" = 100, "acid" = 75, "stamina" = 0)
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /obj/item/clothing/head/helmet/space/plasmaman/mark2/engineering/atmospherics
 	name = "atmospherics Mk.II envirosuit helmet"
@@ -692,6 +717,7 @@
 	desc = "A safer looking re-imagining of the classic space-worthy design, painted in classic engineering pigments."
 	greyscale_colors = "#E8D700#D75600"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 10, "fire" = 100, "acid" = 75, "stamina" = 0)
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /obj/item/clothing/head/helmet/space/plasmaman/protective/engineering/atmospherics
 	name = "atmospherics protective envirosuit helmet"

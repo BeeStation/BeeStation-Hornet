@@ -105,6 +105,7 @@ Burning extracts:
 /obj/item/slimecross/burning/darkpurple
 	colour = "dark purple"
 	effect_desc = "Creates a cloud of plasma."
+	dangerous = TRUE
 
 /obj/item/slimecross/burning/darkpurple/do_effect(mob/user)
 	user.visible_message("<span class='danger'>[src] sublimates into a cloud of plasma!</span>")
@@ -147,6 +148,7 @@ Burning extracts:
 /obj/item/slimecross/burning/bluespace
 	colour = "bluespace"
 	effect_desc = "Teleports anyone directly next to you."
+	dangerous = TRUE
 
 /obj/item/slimecross/burning/bluespace/do_effect(mob/user)
 	user.visible_message("<span class='danger'>[src] sparks, and lets off a shockwave of bluespace energy!</span>")
@@ -241,6 +243,7 @@ Burning extracts:
 /obj/item/slimecross/burning/gold
 	colour = "gold"
 	effect_desc = "Creates a gank squad of monsters that are friendly to the user."
+	dangerous = TRUE
 
 /obj/item/slimecross/burning/gold/do_effect(mob/user)
 	user.visible_message("<span class='danger'>[src] shudders violently, and summons an army for [user]!</span>")
@@ -301,6 +304,7 @@ Burning extracts:
 /obj/item/slimecross/burning/rainbow
 	colour = "rainbow"
 	effect_desc = "Creates the Rainbow Knife, a kitchen knife that deals random types of damage."
+	dangerous = TRUE
 
 /obj/item/slimecross/burning/rainbow/do_effect(mob/user)
 	user.visible_message("<span class='notice'>[src] flattens into a glowing rainbow blade.</span>")

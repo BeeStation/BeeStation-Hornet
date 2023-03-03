@@ -228,7 +228,7 @@ Class Procs:
 /obj/machinery/proc/open_machine(drop = TRUE)
 	SEND_SIGNAL(src, COMSIG_MACHINE_OPEN, drop)
 	state_open = TRUE
-	density = FALSE
+	set_density(FALSE)
 	if(drop)
 		dropContents()
 	update_icon()
@@ -252,7 +252,7 @@ Class Procs:
 /obj/machinery/proc/close_machine(atom/movable/target = null)
 	SEND_SIGNAL(src, COMSIG_MACHINE_CLOSE, target)
 	state_open = FALSE
-	density = TRUE
+	set_density(TRUE)
 	if(!target)
 		for(var/am in loc)
 			if (!(can_be_occupant(am)))
@@ -534,6 +534,21 @@ Class Procs:
 	if(can_be_unfasten_wrench(user, TRUE) != SUCCESSFUL_UNFASTEN) //if we aren't explicitly successful, cancel the fuck out
 		return FALSE
 	return TRUE
+
+// Power cell in hand replacement
+/obj/machinery/attackby(obj/item/C, mob/user)
+	if(istype(C, /obj/item/stock_parts/cell) && panel_open)
+		for(var/obj/item/P in component_parts)
+			if(istype(P,/obj/item/stock_parts/cell))
+				if(user.transferItemToLoc(C, src))
+					user.put_in_active_hand(P)
+					component_parts+=C
+					component_parts-=P
+					RefreshParts()
+					playsound(src, 'sound/surgery/taperecorder_close.ogg', 50, FALSE)
+					to_chat(user, "<span class='notice'>You replace [P.name] with [C.name].</span>")
+					return
+	..()
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	if(!istype(W))

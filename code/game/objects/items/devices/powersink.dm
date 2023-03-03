@@ -28,6 +28,7 @@
 
 /obj/item/powersink/update_icon()
 	icon_state = "powersink[mode == OPERATING]"
+	return ..()
 
 /obj/item/powersink/proc/set_mode(value)
 	if(value == mode)
@@ -38,7 +39,7 @@
 			if(mode == OPERATING)
 				STOP_PROCESSING(SSobj, src)
 			anchored = FALSE
-			density = FALSE
+			set_density(FALSE)
 
 		if(CLAMPED_OFF)
 			if(!attached)
@@ -46,17 +47,17 @@
 			if(mode == OPERATING)
 				STOP_PROCESSING(SSobj, src)
 			anchored = TRUE
-			density = TRUE
+			set_density(TRUE)
 
 		if(OPERATING)
 			if(!attached)
 				return
 			START_PROCESSING(SSobj, src)
 			anchored = TRUE
-			density = TRUE
+			set_density(TRUE)
 
 	mode = value
-	update_icon()
+	update_appearance()
 	set_light(0)
 
 /obj/item/powersink/attackby(obj/item/I, mob/user, params)

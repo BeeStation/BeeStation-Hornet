@@ -1,10 +1,11 @@
 //update_state
-#define UPSTATE_CELL_IN		(1<<0)
+//Shifts 0/1/2 are used by UPSTATE_OPENED1 and UPSTATE_OPENED2 with a base shift of 0 (see _DEFINES/apc.dm)
 #define UPSTATE_MAINT		(1<<3)
 #define UPSTATE_BROKE		(1<<4)
 #define UPSTATE_BLUESCREEN	(1<<5)
 #define UPSTATE_WIREEXP		(1<<6)
 #define UPSTATE_ALLGOOD		(1<<7)
+#define UPSTATE_CELL_IN		(1<<8)
 
 #define APC_RESET_EMP "emp"
 
@@ -196,12 +197,28 @@
 			pixel_x = -25
 	if (building)
 		area = get_area(src)
+		clear_previous_power_alarm(src, area)
 		opened = APC_COVER_OPENED
 		operating = FALSE
 		name = "\improper [get_area_name(area, TRUE)] APC"
 		set_machine_stat(machine_stat | MAINT)
 		update_appearance()
 		addtimer(CALLBACK(src, .proc/update), 5)
+		area.poweralert(FALSE, src)
+
+/obj/machinery/power/apc/proc/clear_previous_power_alarm(obj/source, area/A)
+	var/list/areas_list = GLOB.alarms["Power"]
+	for (var/found_area in areas_list)
+		if(found_area != A.name)
+			continue
+		var/list/alarm = areas_list[found_area]
+		var/list/sources  = alarm[3]
+		for(var/origin in sources)
+			if(origin != source)//We don't want to clear our own alarm, do we
+				area.poweralert(TRUE, origin)
+				sources -= origin
+		if (sources.len == 0)
+			areas_list -= found_area
 
 /obj/machinery/power/apc/Destroy()
 	GLOB.apcs_list -= src
@@ -325,7 +342,7 @@
 		icon_state = "apc0"
 		return ..()
 	if(update_state & (UPSTATE_OPENED1|UPSTATE_OPENED2))
-		var/basestate = "apc[cell ? 2 : 1]"
+		var/basestate = "apc[update_state & UPSTATE_CELL_IN ? 2 : 1]"
 		if(update_state & UPSTATE_OPENED1)
 			icon_state = (update_state & (UPSTATE_MAINT|UPSTATE_BROKE)) ? "apcmaint" : basestate
 		else if(update_state & UPSTATE_OPENED2)
@@ -646,11 +663,12 @@
 		if (!(machine_stat & BROKEN || opened==APC_COVER_REMOVED || obj_integrity < max_integrity)) // There is nothing to repair
 			to_chat(user, "<span class='warning'>You find no reason for repairing this APC.</span>")
 			return
-		if (!(machine_stat & BROKEN) && opened==APC_COVER_REMOVED) // Cover is the only thing broken, we do not need to remove elctronicks to replace cover
+		if (!(machine_stat & BROKEN) && opened==APC_COVER_REMOVED)
+		// Cover is the only thing broken, we do not need to remove elctronicks to replace cover
 			user.visible_message("[user.name] replaces missing APC's cover.",\
-							"<span class='notice'>You begin to replace APC's cover.</span>")
+							"<span class='notice'>You begin to replace the APC's cover.</span>")
 			if(do_after(user, 20, target = src)) // replacing cover is quicker than replacing whole frame
-				to_chat(user, "<span class='notice'>You replace missing APC's cover.</span>")
+				to_chat(user, "<span class='notice'>You replace the missing APC cover.</span>")
 				qdel(W)
 				opened = APC_COVER_OPENED
 				update_appearance()
@@ -1398,7 +1416,7 @@
 		equipment = autoset(equipment, 0)
 		lighting = autoset(lighting, 0)
 		environ = autoset(environ, 0)
-		area.poweralert(0, src)
+		area.poweralert(FALSE, src)
 
 	// update icon & area power if anything changed
 
@@ -1475,6 +1493,7 @@
 	operating = FALSE
 	if(occupier)
 		malfvacate(1)
+	area.poweralert(FALSE, src)
 	update_appearance()
 	update()
 

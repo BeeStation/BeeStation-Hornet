@@ -110,6 +110,11 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		RegisterSignal(target, COMSIG_MIND_CRYOED, .proc/on_target_cryo)
 		target.isAntagTarget = TRUE
 
+/datum/objective/proc/unset_target()
+	if(target)
+		UnregisterSignal(target, COMSIG_MIND_CRYOED)
+		target = null
+
 /datum/objective/proc/get_crewmember_minds()
 	. = list()
 	for(var/datum/data/record/R as() in GLOB.data_core.locked)
@@ -390,8 +395,12 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/obj/item/organ/brain/brain_target
 	if(human_check)
 		brain_target = target?.current.getorganslot(ORGAN_SLOT_BRAIN)
+	if(..() || !target)
+		return TRUE
+	if(considered_alive(target, enforce_human = human_check))
+		return TRUE
 	//Protect will always suceed when someone suicides
-	return ..() || !target || considered_alive(target, enforce_human = human_check) || (human_check == TRUE && brain_target)? brain_target.suicided : FALSE
+	return (human_check && brain_target) ? brain_target.suicided : FALSE
 
 /datum/objective/protect/update_explanation_text()
 	..()
@@ -447,6 +456,8 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 	var/selected_gimmick = pick(gimmick_list)
 	selected_gimmick = replacetext(selected_gimmick, "%DEPARTMENT", selected_department)
+	if(!findtext(selected_gimmick, "%TARGET"))
+		unset_target()
 	if(target?.current)
 		selected_gimmick = replacetext(selected_gimmick, "%TARGET", target.name)
 

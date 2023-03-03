@@ -13,7 +13,7 @@
 	visible = FALSE
 	flags_1 = ON_BORDER_1
 	opacity = FALSE
-	pass_flags_self = PASSGLASS
+	pass_flags_self = PASSTRANSPARENT
 	CanAtmosPass = ATMOS_PASS_PROC
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	network_id = NETWORK_DOOR_AIRLOCKS
@@ -46,7 +46,7 @@
 	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, .proc/ntnet_receive)
 
 /obj/machinery/door/window/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(1)
 	QDEL_LIST(debris)
 	if(obj_integrity == 0)
@@ -132,7 +132,7 @@
 /obj/machinery/door/window/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
-	if(istype(leaving) && (leaving.pass_flags & PASSGLASS))
+	if(istype(leaving) && (leaving.pass_flags & PASSTRANSPARENT))
 		return
 
 	if(direction == dir && density)
@@ -155,7 +155,7 @@
 	icon_state ="[base_state]open"
 	sleep(10)
 
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(1)
 	update_freelook_sight()
 
@@ -177,7 +177,7 @@
 	playsound(src, 'sound/machines/windowdoor.ogg', 100, 1)
 	icon_state = base_state
 
-	density = TRUE
+	set_density(TRUE)
 	air_update_turf(1)
 	update_freelook_sight()
 	sleep(10)
@@ -332,7 +332,7 @@
 		return
 
 	//Check radio signal jamming
-	if(is_jammed())
+	if(is_jammed(JAMMER_PROTECTION_WIRELESS))
 		return
 
 

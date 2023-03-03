@@ -57,7 +57,10 @@
 						"ipc_screen" = "Blue",
 						"ipc_antenna" = "None",
 						"ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)",
-						"insect_type" = "Common Fly"
+						"insect_type" = "Common Fly",
+						"apid_antenna" = "Curled",
+						"apid_stripes" = "Thick",
+						"apid_headstripes" = "Thick"
 					)
 	var/list/custom_names = list()
 	var/preferred_ai_core_display = "Blue"
@@ -223,6 +226,10 @@
 	features["ipc_antenna"]	= sanitize_inlist(features["ipc_antenna"], GLOB.ipc_antennas_list)
 	features["ipc_chassis"]	= sanitize_inlist(features["ipc_chassis"], GLOB.ipc_chassis_list)
 	features["insect_type"]	= sanitize_inlist(features["insect_type"], GLOB.insect_type_list)
+	features["apid_antenna"] = sanitize_inlist(features["apid_antenna"], GLOB.apid_antenna_list)
+	features["apid_stripes"] = sanitize_inlist(features["apid_stripes"], GLOB.apid_stripes_list)
+	features["apid_headstripes"] = sanitize_inlist(features["apid_headstripes"], GLOB.apid_headstripes_list)
+
 
 	//Validate species forced mutant parts
 	for(var/forced_part in pref_species.forced_features)
@@ -469,8 +476,10 @@
 		pref_species = new /datum/species/human
 		save(usr.client, async = FALSE) // This entire proc is called a lot at roundstart, and we dont want to lag that
 
+
 	character.dna.features = features.Copy()
 	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE)
+
 	//Because of how set_species replaces all bodyparts with new ones, hair needs to be set AFTER species.
 	character.dna.real_name = character.real_name
 	character.hair_color = hair_color

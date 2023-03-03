@@ -117,9 +117,7 @@ All ShuttleMove procs go here
 	return TRUE
 
 /turf/proc/lateShuttleMove(turf/oldT)
-	blocks_air = initial(blocks_air)
 	air_update_turf(TRUE)
-	oldT.blocks_air = initial(oldT.blocks_air)
 	oldT.air_update_turf(TRUE)
 
 
@@ -145,11 +143,6 @@ All ShuttleMove procs go here
 
 // Called on atoms after everything has been moved
 /atom/movable/proc/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
-
-	var/turf/newT = get_turf(src)
-	if (newT.z != oldT.z)
-		onTransitZ(oldT.z, newT.z)
-
 	if(light)
 		update_light()
 	if(rotation)

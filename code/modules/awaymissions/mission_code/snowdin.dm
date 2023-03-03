@@ -505,7 +505,7 @@
 /obj/effect/spawner/lootdrop/snowdin/dungeonheavy
 	name = "dungeon heavy"
 	loot = list(/obj/item/singularityhammer = 25,
-				/obj/item/mjollnir = 10,
+				/obj/item/mjolnir = 10,
 				/obj/item/fireaxe = 25,
 				/obj/item/organ/brain/alien = 17,
 				/obj/item/dualsaber = 15,
@@ -526,7 +526,7 @@
 	lootdoubles = 2
 	lootcount = 1
 
-	loot = list(/obj/item/stack/sheet/mineral/snow{amount = 25} = 10,
+	loot = list(/obj/item/stack/sheet/snow{amount = 25} = 10,
 				/obj/item/toy/snowball = 15,
 				/obj/item/shovel = 10,
 				/obj/item/spear = 8,
