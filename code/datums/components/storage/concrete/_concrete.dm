@@ -129,6 +129,7 @@
 	if(isitem(AM))
 		var/obj/item/I = AM
 		I.item_flags &= ~IN_STORAGE
+		animate_parent()
 		I.remove_outline()
 		if(ismob(parent.loc))
 			var/mob/M = parent.loc
