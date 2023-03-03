@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - rscadd: Added preference for default PDA theme
+  - rscdel: Removed old PDA Style preference
