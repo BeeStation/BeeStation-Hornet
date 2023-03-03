@@ -287,12 +287,9 @@
 
 	to_chat(new_mob, "<span class='warning'>Your form morphs into that of a [randomize].</span>")
 
-	var/poly_msg = CONFIG_GET(keyed_list/policy)["polymorph"]
+	var/poly_msg = CONFIG_GET(string/policy_polymorph)
 	if(poly_msg)
 		to_chat(new_mob, poly_msg)
-
-	if((istype(new_mob, /mob/living/silicon/robot/modules/syndicate) || istype(new_mob, /mob/living/carbon/alien/humanoid) || istype(new_mob, /mob/living/simple_animal/hostile)))
-		to_chat(new_mob, "<span class='userdanger'>Despite taking the form of an antagonistic being, you have the same mind as before your transformation. Your loyalties and interests remain the same. Unless you were turned into a shade, or were previously an antagonist, this is not a pass to go antagonize the station.</span>")
 
 	M.transfer_observers_to(new_mob)
 
