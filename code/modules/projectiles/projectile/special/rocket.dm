@@ -5,7 +5,7 @@
 
 /obj/item/projectile/bullet/gyro/on_hit(atom/target, blocked = FALSE)
 	..()
-	explosion(target, -1, 0, 2)
+	explosion(target, devastation_range = -1, light_impact_range = 2)
 	return BULLET_ACT_HIT
 
 /obj/item/projectile/bullet/a84mm
@@ -19,7 +19,7 @@
 
 /obj/item/projectile/bullet/a84mm/on_hit(atom/target, blocked = FALSE)
 	..()
-	explosion(target, -1, 1, 3, 1, 0, flame_range = 4)
+	explosion(target, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 3, flame_range = 4, flash_range = 1, adminlog = FALSE)
 
 	if(ismecha(target))
 		var/obj/mecha/M = target
@@ -39,7 +39,7 @@
 /obj/item/projectile/bullet/a84mm_he/on_hit(atom/target, blocked=0)
 	..()
 	if(!isliving(target)) //if the target isn't alive, so is a wall or something
-		explosion(target, 0, 1, 2, 4)
+		explosion(target, heavy_impact_range = 1, light_impact_range = 2, flame_range = 3, flash_range = 4)
 	else
-		explosion(target, 0, 0, 2, 4)
+		explosion(target, light_impact_range = 2, flame_range = 3, flash_range = 4)
 	return BULLET_ACT_HIT

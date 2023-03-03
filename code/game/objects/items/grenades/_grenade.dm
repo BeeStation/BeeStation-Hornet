@@ -129,7 +129,7 @@
 
 	SEND_SIGNAL(src, COMSIG_GRENADE_PRIME, lanced_by)
 	if(ex_heavy || ex_light || ex_flame)
-		explosion(loc, 0, ex_heavy, ex_light, flame_range = ex_flame)
+		explosion(src, ex_heavy, ex_light, ex_flame)
 	return TRUE
 
 /obj/item/grenade/proc/update_mob()

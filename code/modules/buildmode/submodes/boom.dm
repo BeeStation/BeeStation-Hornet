@@ -35,5 +35,5 @@
 	var/left_click = pa.Find("left")
 
 	if(left_click)
-		explosion(object, devastation, heavy, light, flash, FALSE, TRUE, flames)
+		explosion(object, devastation, heavy, light, flames, flash, adminlog = FALSE, ignorecap = TRUE)
 		log_admin("Build Mode: [key_name(c)] caused an explosion(dev=[devastation], hvy=[heavy], lgt=[light], flash=[flash], flames=[flames]) at [AREACOORD(object)]")

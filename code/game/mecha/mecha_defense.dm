@@ -121,12 +121,12 @@
 /obj/mecha/ex_act(severity, target)
 	log_message("Affected by explosion of severity: [severity].", LOG_MECHA, color="red")
 	if(prob(deflect_chance))
-		severity++
+		severity--
 		log_message("Armor saved, changing severity to [severity]", LOG_MECHA)
 	. = ..()
 
 /obj/mecha/contents_explosion(severity, target)
-	severity++
+	severity--
 	for(var/X in equipment)
 		var/obj/item/mecha_parts/mecha_equipment/ME = X
 		switch(severity)

@@ -91,7 +91,7 @@
 	var/dev_range = FLOOR(nanite_amount/200, 1) - 1
 	var/heavy_range = FLOOR(nanite_amount/100, 1) - 1
 	var/light_range = FLOOR(nanite_amount/50, 1) - 1
-	explosion(host_mob, dev_range, heavy_range, light_range)
+	dyn_explosion(host_mob, dev_range, heavy_range, light_range)
 	qdel(nanites)
 
 //TODO make it defuse if triggered again

@@ -60,6 +60,9 @@
 	..()
 
 /obj/item/grenade/plastic/prime(mob/living/lanced_by)
+	if(QDELETED(src))
+		return FALSE
+
 	. = ..()
 	if(!.)
 		return
@@ -76,13 +79,10 @@
 		location = get_turf(src)
 	if(location)
 		if(directional && target && density_check)
-			var/turf/T = get_step(location, aim_dir)
-			explosion(get_step(T, aim_dir), boom_sizes[1], boom_sizes[2], boom_sizes[3])
+			var/turf/turf = get_step(location, aim_dir)
+			explosion(get_step(turf, aim_dir), devastation_range = boom_sizes[1], heavy_impact_range = boom_sizes[2], light_impact_range = boom_sizes[3])
 		else
-			explosion(location, boom_sizes[1], boom_sizes[2], boom_sizes[3])
-	if(ismob(target))
-		var/mob/M = target
-		M.gib()
+			explosion(location, devastation_range = boom_sizes[1], heavy_impact_range = boom_sizes[2], light_impact_range = boom_sizes[3])
 	qdel(src)
 
 //assembly stuff
@@ -169,7 +169,7 @@
 	log_game("[key_name(user)] suicided with [src] at [AREACOORD(user)]")
 	user.visible_message("<span class='suicide'>[user] activates [src] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!</span>")
 	shout_syndicate_crap(user)
-	explosion(user,0,2,0) //Cheap explosion imitation because putting prime() here causes runtimes
+	explosion(user, heavy_impact_range = 2) //Cheap explosion imitation because putting prime() here causes runtimes
 	user.gib(1, 1)
 	qdel(src)
 

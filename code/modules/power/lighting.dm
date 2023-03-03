@@ -800,7 +800,7 @@
 /obj/machinery/light/tesla_act(power, tesla_flags)
 	if(tesla_flags & TESLA_MACHINE_EXPLOSIVE)
 		//Fire can cause a lot of lag, just do a mini explosion.
-		explosion(src,0,0,1, adminlog = 0)
+		explosion(src, flame_range = 1, adminlog = FALSE)
 		for(var/mob/living/L in range(3, src))
 			L.fire_stacks = max(L.fire_stacks, 3)
 			L.IgniteMob()
@@ -824,10 +824,9 @@
 
 /obj/machinery/light/proc/explode()
 	set waitfor = 0
-	var/turf/T = get_turf(src.loc)
 	break_light_tube()	// break it first to give a warning
 	sleep(2)
-	explosion(T, 0, 0, 2, 2)
+	explosion(src, light_impact_range = 2, flash_range = -1)
 	sleep(1)
 	qdel(src)
 

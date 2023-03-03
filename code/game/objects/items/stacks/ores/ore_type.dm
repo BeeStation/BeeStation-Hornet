@@ -64,9 +64,8 @@ STACKSIZE_MACRO(/obj/item/stack/ore/iron)
 	qdel(src)
 
 /obj/item/stack/ore/glass/ex_act(severity, target)
-	if (severity == EXPLODE_NONE)
-		return
-	qdel(src)
+	if(severity)
+		qdel(src)
 
 GLOBAL_LIST_INIT(sand_recipes, list(\
 		new /datum/stack_recipe("sandstone", /obj/item/stack/sheet/mineral/sandstone, 1, 1, 50),\

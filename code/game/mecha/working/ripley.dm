@@ -198,7 +198,7 @@
 /obj/mecha/working/ripley/contents_explosion(severity, target)
 	for(var/X in cargo)
 		var/obj/O = X
-		if(prob(30/severity))
+		if(prob(10 * severity))
 			cargo -= O
 			O.forceMove(drop_location())
 	. = ..()

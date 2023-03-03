@@ -66,8 +66,7 @@
 	pixel_y = rand(0,8)-8
 
 /obj/item/stack/ore/ex_act(severity, target)
-	if (!severity || severity >= 2)
-		return
-	qdel(src)
+	if (!severity || severity >= EXPLODE_DEVASTATE)
+		qdel(src)
 
 #undef ORESTACK_OVERLAYS_MAX

@@ -146,8 +146,9 @@
 	dispensable_reagents |= emagged_reagents//add the emagged reagents to the dispensable ones
 
 /obj/machinery/chem_dispenser/ex_act(severity, target)
-	if(severity < 3)
-		..()
+	if(severity <= EXPLODE_LIGHT)
+		return FALSE
+	return ..()
 
 /obj/machinery/chem_dispenser/contents_explosion(severity, target)
 	..()

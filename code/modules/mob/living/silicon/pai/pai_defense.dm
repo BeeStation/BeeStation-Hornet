@@ -14,7 +14,7 @@
 	//Need more effects that aren't instadeath or permanent law corruption.
 
 /mob/living/silicon/pai/ex_act(severity, target)
-	take_holo_damage(severity * 50)
+	take_holo_damage(50 * severity)
 	switch(severity)
 		if(1)	//RIP
 			qdel(card)

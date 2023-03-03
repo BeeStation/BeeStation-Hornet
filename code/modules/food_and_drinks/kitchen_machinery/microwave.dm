@@ -322,7 +322,7 @@
 		spark()
 		broken = 2
 		if(prob(max(iron / 2, 33)))
-			explosion(loc, 0, 1, 2)
+			explosion(src, heavy_impact_range = 1, light_impact_range = 2)
 	else
 		dropContents(ingredients)
 		ingredients.Cut()

@@ -108,4 +108,4 @@
 		location.visible_message("<span class='danger'>The solution violently explodes!</span>", \
 								"<span class='italics'>You hear an explosion!</span>")
 
-	dyn_explosion(location, amount, flashing_factor, explosion_multiplier = explosion_sizes)
+	dyn_explosion(location, amount, flash_range = flashing_factor, explosion_multiplier = explosion_sizes)
