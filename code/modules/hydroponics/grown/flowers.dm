@@ -9,9 +9,14 @@
 	if(slot == ITEM_SLOT_HEAD)
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn)
 
-/obj/item/reagent_containers/food/snacks/grown/flower/dropped(mob/user)
+/obj/item/reagent_containers/food/snacks/grown/flower/dropped(mob/living/carbon/human/user)
 	..()
-	SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.head != src)
+			return
+		else
+			SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
 
 // Poppy
 /obj/item/seeds/poppy
@@ -214,9 +219,15 @@
 	if(slot == ITEM_SLOT_HEAD)
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn)
 
-/obj/item/grown/sunflower/dropped(mob/user)
+/obj/item/grown/sunflower/dropped(mob/living/carbon/human/user)
 	..()
-	SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.head != src)
+			return
+		else
+			SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
+
 
 /obj/item/grown/sunflower/attack(mob/M, mob/user)
 	to_chat(M, "<font color='green'><b> [user] smacks you with a sunflower!< /font><font color='yellow'><b>FLOWER POWER<b></font>")
@@ -233,18 +244,17 @@
 	plantname = "Moonflowers"
 	icon_grow = "moonflower-grow"
 	icon_dead = "sunflower-dead"
-	product = /obj/item/reagent_containers/food/snacks/grown/moonflower
+	product = /obj/item/reagent_containers/food/snacks/grown/flower/moonflower
 	genes = list(/datum/plant_gene/trait/glow/purple)
 	mutatelist = list()
 	reagents_add = list(/datum/reagent/acetone = 0.08, /datum/reagent/consumable/ethanol/moonshine = 0.2, /datum/reagent/medicine/morphine = 0.3, /datum/reagent/consumable/nutriment = 0.02)
 	rarity = 20
 
-/obj/item/reagent_containers/food/snacks/grown/moonflower
+/obj/item/reagent_containers/food/snacks/grown/flower/moonflower
 	seed = /obj/item/seeds/sunflower/moonflower
 	name = "moonflower"
 	desc = "Store in a location at least 50 yards away from werewolves."
 	icon_state = "moonflower"
-	slot_flags = ITEM_SLOT_HEAD
 	filling_color = "#E6E6FA"
 	bitesize_mod = 2
 	distill_reagent = /datum/reagent/consumable/ethanol/absinthe //It's made from flowers.
@@ -311,3 +321,17 @@
 	if(!user.gloves)
 		to_chat(user, "<span class='danger'>The [name] burns your bare hand!</span>")
 		user.adjustFireLoss(rand(1, 5))
+
+/obj/item/grown/novaflower/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_HEAD)
+		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn)
+
+/obj/item/grown/novaflower/dropped(mob/living/carbon/human/user)
+	..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.head != src)
+			return
+		else
+			SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")

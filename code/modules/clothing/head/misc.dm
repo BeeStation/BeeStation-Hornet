@@ -430,7 +430,7 @@
 	item_state = "intern_hat"
 
 /obj/item/clothing/head/flowercrown
-	name = "genetir flower crown"
+	name = "generic flower crown"
 	desc = "You should not be seeing this"
 	icon_state = "lily_crown"
 	dynamic_hair_suffix = ""
@@ -441,9 +441,14 @@
 	if(slot == ITEM_SLOT_HEAD)
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_crown_worn", /datum/mood_event/flower_crown_worn)
 
-/obj/item/clothing/head/flowercrown/dropped(mob/user)
+/obj/item/clothing/head/flowercrown/dropped(mob/living/carbon/human/user)
 	..()
-	SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_crown_worn")
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.head != src)
+			return
+		else
+			SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_crown_worn")
 
 /obj/item/clothing/head/flowercrown/rainbowbunch
 	name = "rainbow flower crown"
