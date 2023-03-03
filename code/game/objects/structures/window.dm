@@ -14,7 +14,7 @@
 	CanAtmosPass = ATMOS_PASS_PROC
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
 	rad_flags = RAD_PROTECT_CONTENTS
-	pass_flags_self = PASSGLASS
+	pass_flags_self = PASSTRANSPARENT
 	var/ini_dir = null
 	var/state = WINDOW_OUT_OF_FRAME
 	var/reinf = FALSE
@@ -137,7 +137,7 @@
 /obj/structure/window/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
-	if (istype(leaving) && (leaving.pass_flags & PASSGLASS))
+	if (istype(leaving) && (leaving.pass_flags & PASSTRANSPARENT))
 		return
 
 	if (fulltile)
