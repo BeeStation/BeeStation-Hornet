@@ -35,6 +35,14 @@
 /datum/religion_rites/proc/perform_rite(mob/living/user, atom/religious_tool)
 	if(!can_afford(user))
 		return FALSE
+	var/turf/T = get_turf(religious_tool)
+	var/area/A = T.loc
+	if(!istype(A, /area/chapel))
+		to_chat(user, "<span class='warning'>The altar can only function in a holy area!</span>")
+		return FALSE
+	if(!GLOB.religious_sect.altar_anchored)
+		to_chat(user, "<span class='warning'>The altar must be secured to the floor if you wish to perform the rite!</span>")
+		return FALSE
 	to_chat(user, "<span class='notice'>You begin to perform the rite of [name]...</span>")
 	if(!ritual_invocations)
 		if(do_after(user, target = user, delay = ritual_length))
@@ -42,6 +50,9 @@
 		return FALSE
 	var/first_invoke = TRUE
 	for(var/i in ritual_invocations)
+		if(!GLOB.religious_sect.altar_anchored)
+			to_chat(user, "<span class='warning'>The altar must be secured to the floor if you wish to perform the rite!</span>")
+			return FALSE
 		if(first_invoke) //instant invoke
 			user.say(i)
 			first_invoke = FALSE
@@ -52,6 +63,9 @@
 			return FALSE
 		user.say(i)
 	if(!do_after(user, target = user, delay = ritual_length/length(ritual_invocations))) //because we start at 0 and not the first fraction in invocations, we still have another fraction of ritual_length to complete
+		return FALSE
+	if(!GLOB.religious_sect.altar_anchored)
+		to_chat(user, "<span class='warning'>The altar must be secured to the floor if you wish to perform the rite!</span>")
 		return FALSE
 	if(invoke_msg)
 		user.say(invoke_msg)
@@ -70,7 +84,7 @@
 /datum/religion_rites/synthconversion
 	name = "Synthetic Conversion"
 	desc = "Convert a human-esque individual into a (superior) Android. Buckle a human to convert them, otherwise it will convert you."
-	ritual_length = 30 SECONDS
+	ritual_length = 25 SECONDS
 	ritual_invocations = list("By the inner workings of our god ...",
 						"... We call upon you, in the face of adversity ...",
 						"... to complete us, removing that which is undesirable ...")
@@ -145,7 +159,7 @@
 /datum/religion_rites/machine_implantation
 	name = "Machine Implantation"
 	desc = "Apply a provided upgrade to your body. Place a cybernetic item on the altar, then buckle someone to implant them, otherwise it will implant you."
-	ritual_length = 30 SECONDS
+	ritual_length = 20 SECONDS
 	ritual_invocations = list("Lend us your power ...",
 						"... We call upon you, grant us this upgrade ...",
 						"... Complete us, joining man and machine ...")
@@ -238,7 +252,7 @@
 /datum/religion_rites/burning_sacrifice
 	name = "Burning Offering"
 	desc = "Sacrifice a buckled burning corpse for favor, the more burn damage the corpse has the more favor you will receive."
-	ritual_length = 20 SECONDS
+	ritual_length = 15 SECONDS
 	ritual_invocations = list("Burning body ...",
 	"... cleansed by the flame ...",
 	"... we were all created from fire ...",
@@ -312,7 +326,7 @@
 /datum/religion_rites/create_lesser_lich
 	name = "Create Lesser Lich"
 	desc = "Gives the bound creature a spell granting them the ability to create a lesser phylactery, causing them to become a skeleton and revive on death twice if the phylactery still exists on-station. Be warned, becoming a lesser lich will prevent revivial by any other means."
-	ritual_length = 70 SECONDS
+	ritual_length = 60 SECONDS //This one's pretty powerful so it'll still be long
 	ritual_invocations = list("From the depths of the soul pool ...",
 	"... come forth into this being ...",
 	"... grant this servant power ...",
@@ -433,7 +447,7 @@
 /datum/religion_rites/raise_dead
 	name = "Raise Dead"
 	desc = "Revives a buckled dead creature or person."
-	ritual_length = 70 SECONDS
+	ritual_length = 40 SECONDS
 	ritual_invocations = list("Rejoin our world ...",
 	"... come forth from the beyond ...",
 	"... fresh life awaits you ...",
@@ -491,7 +505,7 @@
 /datum/religion_rites/living_sacrifice
 	name = "Living Sacrifice"
 	desc = "Sacrifice a non-sentient living buckled creature for favor."
-	ritual_length = 40 SECONDS
+	ritual_length = 25 SECONDS
 	ritual_invocations = list("To offer this being unto the gods ...",
 	"... to feed them with its soul ...",
 	"... so that they may consume all within their path ...",
@@ -519,6 +533,9 @@
 			to_chat(user, "<span class='warning'>This sacrifice is sentient! [GLOB.deity] will not accept this offering.</span>")
 			chosen_sacrifice = null
 			return FALSE
+		var/mob/living/carbon/C = creature
+		if(!isnull(C))
+			cuff(C)
 		return ..()
 
 /datum/religion_rites/living_sacrifice/invoke_effect(mob/living/user, atom/movable/religious_tool)
@@ -540,12 +557,20 @@
 	chosen_sacrifice = null
 	return ..()
 
+/datum/religion_rites/living_sacrifice/proc/cuff(var/mob/living/carbon/C)
+	if(C.handcuffed)
+		return
+	C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult(C)
+	C.update_handcuffed()
+	playsound(C, 'sound/magic/smoke.ogg', 50, 1)
+	C.visible_message("<span class='warning'>Darkness forms around [C]'s wrists as shadowy bindings appear on them!</span>")
+
 /**** Carp rites ****/
 
 /datum/religion_rites/summon_carp
 	name = "Summon Carp"
 	desc = "Creates a Sentient Space Carp, if a soul is willing to take it. If not, the favor is refunded."
-	ritual_length = 90 SECONDS
+	ritual_length = 50 SECONDS
 	ritual_invocations = list("Grant us a new follower ...",
 	"... let them enter our realm ...",
 	"... become one with our world ...",
@@ -585,7 +610,7 @@
 /datum/religion_rites/summon_carpsuit
 	name = "Summon Carp-Suit"
 	desc = "Summons a Space-Carp Suit"
-	ritual_length = 60 SECONDS
+	ritual_length = 30 SECONDS
 	ritual_invocations = list("We shall become one ...",
 	"... we shall blend in ...",
 	"... we shall join in the ways of the carp ...",
@@ -620,7 +645,7 @@
 /datum/religion_rites/flood_area
 	name = "Flood Area"
 	desc = "Flood the area with water vapor, great for learning to swim!"
-	ritual_length = 40 SECONDS
+	ritual_length = 25 SECONDS
 	ritual_invocations = list("We must swim ...",
 	"... but to do so, we need water ...",
 	"... grant us a great flood ...",
