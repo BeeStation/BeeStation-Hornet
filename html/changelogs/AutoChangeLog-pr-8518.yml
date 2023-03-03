@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Lasers can now pass through anything that has a low alpha value rather
+      than just glass.
