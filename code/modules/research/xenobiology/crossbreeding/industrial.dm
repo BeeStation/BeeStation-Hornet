@@ -175,6 +175,7 @@ Industrial extracts:
 	effect_desc = "Produces IEDs."
 	plasmarequired = 4
 	itempath = /obj/item/grenade/iedcasing
+	dangerous = TRUE
 
 /obj/item/slimecross/industrial/black //What does this have to do with black slimes? No clue! Fun, though
 	colour = "black"

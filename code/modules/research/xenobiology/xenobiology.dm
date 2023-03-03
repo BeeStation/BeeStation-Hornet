@@ -76,7 +76,7 @@
 	playsound(M, 'sound/effects/attackblob.ogg', 50, 1)
 
 	if(M.applied >= SLIME_EXTRACT_CROSSING_REQUIRED)
-		M.spawn_corecross()
+		M.spawn_corecross(user)
 
 /obj/item/slime_extract/grey
 	name = "grey slime extract"

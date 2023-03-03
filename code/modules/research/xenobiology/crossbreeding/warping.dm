@@ -682,6 +682,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	colour = "oil"
 	runepath = /obj/effect/warped_rune/oilspace
 	effect_desc = "Draw a rune that can explode whoever steps on it."
+	dangerous = TRUE
 
 /obj/effect/warped_rune/oilspace
 	icon_state = "rune_oil"
