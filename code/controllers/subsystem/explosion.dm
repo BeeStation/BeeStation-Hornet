@@ -407,14 +407,16 @@ SUBSYSTEM_DEF(explosions)
 	//Calculate above and below Zs
 	//Multi-z explosions only work on station levels.
 	if(explode_z)
-		var/max_z_range = max(devastation_range, heavy_impact_range, light_impact_range, flash_range, flame_range) / (MULTI_Z_DISTANCE + 1)
+		var/max_z_range = max(devastation_range, heavy_impact_range, light_impact_range, flash_range, flame_range) / (MULTI_Z_DISTANCE * MULTI_Z_EXPLODE_FACTOR + 1)
 		var/list/z_list = get_zs_in_range(epicenter.z, max_z_range)
 		//Dont blow up our level again
 		z_list -= epicenter.z
 		for(var/affecting_z in z_list)
-			var/z_reduction = abs(epicenter.z - affecting_z) * (MULTI_Z_DISTANCE + 1)
+			var/z_reduction = abs(epicenter.z - affecting_z) * (MULTI_Z_DISTANCE * MULTI_Z_EXPLODE_FACTOR + 1)
 			var/turf/T = locate(epicenter.x, epicenter.y, affecting_z)
 			if(!T)
+				continue
+			if(max(devastation_range, heavy_impact_range, light_impact_range, flash_range, flame_range) - z_reduction <= 0)
 				continue
 			SSexplosions.explode(T,
 				max(devastation_range - z_reduction, 0),
