@@ -42,6 +42,8 @@
 	var/list/active_rites
 	/// Whether the structure has CANDLE OVERLAYS!
 	var/candle_overlay = TRUE
+	/// Whether the altar of the gods is anchored
+	var/altar_anchored = TRUE
 
 
 /datum/religion_sect/New()
