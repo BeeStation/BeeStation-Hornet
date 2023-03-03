@@ -72,7 +72,8 @@
 /obj/structure/proc/do_climb(atom/movable/A)
 	if(climbable)
 		set_density(FALSE)
-		. = step(A,get_dir(A,src.loc))
+		var/step_dir = (get_turf(A) == get_turf(src)) ? dir : get_dir(A, src.loc)
+		. = step(A, step_dir)
 		set_density(TRUE)
 
 /obj/structure/proc/climb_structure(mob/living/user)

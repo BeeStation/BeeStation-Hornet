@@ -97,9 +97,9 @@
 		else
 			T = get_turf(src)
 		T.visible_message("<span class='danger'>[src] bursts!</span>","<span class='italics'>You hear a pop and a splash.</span>")
-		reagents.expose(T)
+		reagents.reaction(T)
 		for(var/atom/A in T)
-			reagents.expose(A)
+			reagents.reaction(A)
 		icon_state = "burst"
 		qdel(src)
 

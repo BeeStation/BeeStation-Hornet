@@ -20,7 +20,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	attacktext = "attacks"
 	attack_sound = 'sound/items/bikehorn.ogg'
 	del_on_death = TRUE
-	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | LETPASSTHROW | PASSGLASS | PASSBLOB//it's practically a ghost when unmanifested (under the floor)
+	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | LETPASSTHROW | PASSTRANSPARENT | PASSBLOB//it's practically a ghost when unmanifested (under the floor)
 	loot = list(/obj/item/clothing/mask/cluwne)
 	wander = FALSE
 	minimum_distance = 2
