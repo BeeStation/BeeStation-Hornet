@@ -1095,7 +1095,7 @@
 		to_y = 10
 		I.pixel_x += 6 * (prob(50) ? 1 : -1) //6 to the right or left, helps break up the straight upward move
 	flick_overlay(I, GLOB.clients, 6)
-	var/matrix/M = new
+	var/matrix/M = new(I.transform)
 	M.Turn(pick(-30, 30))
 	animate(I, alpha = 175, pixel_x = to_x, pixel_y = to_y, time = 3, transform = M, easing = CUBIC_EASING)
 	sleep(1)
@@ -1131,6 +1131,7 @@
 	var/old_x = pixel_x
 	var/old_y = pixel_y
 	var/old_alpha = alpha
+	var/matrix/old_transform = transform
 	var/matrix/M = new
 	M.Turn(pick(-30, 30))
 	M.Scale(0.7) // Shrink to start, end up normal sized
@@ -1141,7 +1142,7 @@
 	transform = M
 
 	// This is instant on byond's end, but to our clients this looks like a quick drop
-	animate(src, alpha = old_alpha, pixel_x = old_x, pixel_y = old_y, transform = matrix(), time = 3, easing = CUBIC_EASING)
+	animate(src, alpha = old_alpha, pixel_x = old_x, pixel_y = old_y, transform = old_transform, time = 3, easing = CUBIC_EASING)
 
 /atom/movable/proc/get_spawner_desc()
 	return name
