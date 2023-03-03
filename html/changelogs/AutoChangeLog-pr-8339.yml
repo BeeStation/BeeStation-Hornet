@@ -1,0 +1,4 @@
+author: dwasint
+delete-after: true
+changes:
+  - bugfix: RCDs now properly display their buttons instead of being behind the background
