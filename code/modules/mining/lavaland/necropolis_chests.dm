@@ -1122,9 +1122,10 @@
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	actions_types = list(/datum/action/item_action/vortex_recall, /datum/action/item_action/toggle_unfriendly_fire)
 	var/cooldown_time = 20 //how long the cooldown between non-melee ranged attacks is
-	var/chaser_cooldown = 81 //how long the cooldown between firing chasers at mobs is
+	var/chaser_cooldown = 50 //how long the cooldown between firing chasers at mobs is
 	var/chaser_timer = 0 //what our current chaser cooldown is
 	var/chaser_speed = 0.8 //how fast our chasers are
+	var/nolavalandpenalty = 5 //cooldown multiplier for using the club anywhere but lavaland
 	var/timer = 0 //what our current cooldown is
 	var/blast_range = 13 //how long the cardinal blast's walls are
 	var/obj/effect/hierophant/beacon //the associated beacon we teleport to
@@ -1159,7 +1160,7 @@
 	if(!T || timer > world.time)
 		return
 	calculate_anger_mod(user)
-	timer = world.time + CLICK_CD_MELEE //by default, melee attacks only cause melee blasts, and have an accordingly short cooldown
+	timer = world.time + cooldown_time
 	if(proximity_flag)
 		INVOKE_ASYNC(src, .proc/aoe_burst, T, user)
 		log_combat(user, target, "fired 3x3 blast at", src)
@@ -1171,16 +1172,19 @@
 			timer = world.time + cooldown_time
 			if(isliving(target) && chaser_timer <= world.time) //living and chasers off cooldown? fire one!
 				chaser_timer = world.time + chaser_cooldown
-				var/obj/effect/temp_visual/hierophant/chaser/C = new(get_turf(user), user, target, chaser_speed, friendly_fire_check)
+				var/obj/effect/temp_visual/hierophant/chaser/C = new(get_turf(target), user, target, chaser_speed, friendly_fire_check)
 				C.damage = 15
 				C.monster_damage_boost = FALSE
 				log_combat(user, target, "fired a chaser at", src)
-			else
-				INVOKE_ASYNC(src, .proc/cardinal_blasts, T, user) //otherwise, just do cardinal blast
-				log_combat(user, target, "fired cardinal blast at", src)
+			INVOKE_ASYNC(src, .proc/cardinal_blasts, T, user)
+			log_combat(user, target, "fired cardinal blast at", src)
 		else
 			to_chat(user, "<span class='warning'>That target is out of range!</span>" )
 			timer = world.time
+	if(!is_mining_level(user.z))
+//		timer += nolavalandpenalty*(timer - world.time)
+		if(timer > world.time) //so this only shows after a successful attack
+			to_chat(user, "<span class='warning'>[name] is too far from the source of its power!</span>")
 	INVOKE_ASYNC(src, .proc/prepare_icon_update)
 
 /obj/item/hierophant_club/proc/calculate_anger_mod(mob/user) //we get stronger as the user loses health
