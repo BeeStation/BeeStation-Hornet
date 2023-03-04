@@ -19226,6 +19226,18 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/machinery/button/door/incinerator_vent_atmos_aux{
+	pixel_x = -8;
+	pixel_y = -24
+	},
+/obj/machinery/button/door/incinerator_vent_atmos_main{
+	pixel_x = -8;
+	pixel_y = -36
+	},
+/obj/machinery/button/ignition/incinerator/atmos{
+	pixel_x = 8;
+	pixel_y = -36
+	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/disposal/incinerator)
 "aFI" = (
@@ -81311,12 +81323,12 @@
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/public/glass/incinerator/atmos_interior,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/embedded_controller/radio/airlock_controller/incinerator_atmos{
-	pixel_x = 38;
-	pixel_y = 6
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/embedded_controller/radio/airlock_controller/incinerator_atmos{
+	pixel_x = -24;
+	pixel_y = 6
 	},
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
@@ -81655,9 +81667,6 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/port/fore)
-"czI" = (
-/turf/closed/wall/r_wall,
-/area/maintenance/disposal/incinerator)
 "czJ" = (
 /obj/machinery/atmospherics/components/trinary/filter/flipped/critical{
 	dir = 8
@@ -82141,11 +82150,6 @@
 /turf/closed/wall,
 /area/maintenance/fore)
 "cAI" = (
-/obj/machinery/button/ignition{
-	id = "Incinerator";
-	pixel_x = -6;
-	pixel_y = -24
-	},
 /obj/machinery/atmospherics/components/trinary/filter/flipped,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
@@ -82401,7 +82405,8 @@
 /area/engine/engineering)
 "cBe" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible,
-/turf/closed/wall/rust,
+/obj/effect/spawner/structure/window/depleteduranium,
+/turf/open/floor/plating/airless,
 /area/maintenance/disposal/incinerator)
 "cBf" = (
 /obj/structure/grille,
@@ -82759,14 +82764,6 @@
 	},
 /area/maintenance/starboard)
 "cBP" = (
-/obj/machinery/button/door/incinerator_vent_atmos_aux{
-	pixel_x = 6;
-	pixel_y = -24
-	},
-/obj/machinery/button/door/incinerator_vent_atmos_main{
-	pixel_x = -6;
-	pixel_y = -24
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
 	},
@@ -82948,10 +82945,7 @@
 /area/maintenance/disposal)
 "cCd" = (
 /obj/structure/lattice,
-/obj/machinery/atmospherics/components/binary/pump/on{
-	name = "Incinerator Output Pump";
-	target_pressure = 4500
-	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /turf/open/space,
 /area/maintenance/disposal/incinerator)
 "cCe" = (
@@ -129333,7 +129327,7 @@ aFI
 aFI
 aFI
 gFe
-aFJ
+aFI
 agw
 agw
 aoc
@@ -129590,7 +129584,7 @@ cBV
 mDY
 cBe
 qkn
-aFJ
+aFI
 aFI
 cyt
 aod
@@ -130102,7 +130096,7 @@ czV
 cAI
 cBe
 qNC
-cBV
+cBe
 skv
 aFI
 aFI
@@ -130352,15 +130346,15 @@ aMI
 cpn
 anB
 aFJ
-czI
-aFJ
-aFI
-aFJ
-aFI
 aFI
 aFJ
 aFI
 aFJ
+aFI
+aFI
+aFI
+aFI
+aFI
 aFI
 aob
 aob

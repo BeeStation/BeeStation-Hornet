@@ -1,0 +1,4 @@
+author: Absolucy, Wayland-Smithy
+delete-after: true
+changes:
+  - bugfix: Spectral blades no longer trap ghosts for eternity.

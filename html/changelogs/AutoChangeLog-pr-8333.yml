@@ -1,0 +1,8 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added text that appears to the person got cloned, stating they forgot
+      some of their previous life
+  - config: Added a config option to show text that appears to the person got cloned,
+      stating they forgot five minutes of their previous life
+  - spellcheck: Fixed a typo in a comment about the polymorph staff policy

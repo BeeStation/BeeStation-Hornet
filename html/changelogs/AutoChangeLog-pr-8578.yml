@@ -1,0 +1,4 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - admin: Added logging and admin messaging to a certain science subdepartment
