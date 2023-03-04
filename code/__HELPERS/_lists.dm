@@ -434,7 +434,7 @@
 	if(islist(wordlist))
 		var/max = min(wordlist.len,16)
 		var/bit = 1
-		for(var/i=1, i<=max, i++)
+		for(var/i in 1 to max)
 			if(bitfield & bit)
 				r += wordlist[i]
 			bit = bit << 1
@@ -499,7 +499,7 @@
 			return	//no need to move
 		fromIndex += len	//we want to shift left instead of right
 
-		for(var/i=0, i<distance, ++i)
+		for(var/i in 1 to distance)
 			L.Insert(fromIndex, null)
 			L.Swap(fromIndex, toIndex)
 			L.Cut(toIndex, toIndex+1)
@@ -507,7 +507,7 @@
 		if(fromIndex > toIndex)
 			fromIndex += len
 
-		for(var/i=0, i<len, ++i)
+		for(var/i in 1 to len)
 			L.Insert(toIndex, null)
 			L.Swap(fromIndex, toIndex)
 			L.Cut(fromIndex, fromIndex+1)
@@ -527,7 +527,7 @@
 		else
 			fromIndex += len
 
-		for(var/i=0, i<distance, ++i)
+		for(var/i in 1 to distance)
 			L.Insert(fromIndex, null)
 			L.Swap(fromIndex, toIndex)
 			L.Cut(toIndex, toIndex+1)
@@ -537,7 +537,7 @@
 			toIndex = fromIndex
 			fromIndex = a
 
-		for(var/i=0, i<len, ++i)
+		for(var/i in 1 to len)
 			L.Swap(fromIndex++, toIndex++)
 
 /// reverseList, but a range of the list specified
