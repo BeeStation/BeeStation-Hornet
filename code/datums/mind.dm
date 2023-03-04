@@ -85,6 +85,7 @@
 	SSticker.minds -= src
 	QDEL_LIST(antag_datums)
 	QDEL_NULL(language_holder)
+	soulOwner = null
 	set_current(null)
 	return ..()
 
