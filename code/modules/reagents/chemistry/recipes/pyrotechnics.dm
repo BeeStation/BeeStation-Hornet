@@ -56,7 +56,7 @@
 
 
 /datum/chemical_reaction/reagent_explosion/potassium_explosion
-	name = "Explosion"
+	name = "Potassium Water explosion"
 	id = "potassium_explosion"
 	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/potassium = 1)
 	strengthdiv = 10
@@ -107,7 +107,7 @@
 	reaction_alert_admins(holder)
 
 /datum/chemical_reaction/reagent_explosion/blackpowder_explosion
-	name = "Black Powder Kaboom"
+	name = "Black Powder explosion"
 	id = "blackpowder_explosion"
 	required_reagents = list(/datum/reagent/blackpowder = 1)
 	required_temp = 474
@@ -181,7 +181,7 @@
 	holder.chem_temp = 1000 // hot as shit
 
 /datum/chemical_reaction/reagent_explosion/methsplosion
-	name = "Meth explosion"
+	name = "Strong meth explosion"
 	id = "methboom1"
 	required_temp = 380 //slightly above the meth mix time.
 	required_reagents = list(/datum/reagent/drug/methamphetamine = 1)
@@ -198,6 +198,7 @@
 	..()
 
 /datum/chemical_reaction/reagent_explosion/methsplosion/methboom2
+	name = "Weak meth explosion"
 	id = "methboom2"
 	required_reagents = list(/datum/reagent/diethylamine = 1, /datum/reagent/iodine = 1, /datum/reagent/phosphorus = 1, /datum/reagent/hydrogen = 1) //diethylamine is often left over from mixing the ephedrine.
 	required_temp = 300 //room temperature, chilling it even a little will prevent the explosion
