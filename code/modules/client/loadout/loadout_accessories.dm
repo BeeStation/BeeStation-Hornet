@@ -2,11 +2,11 @@
 
 /datum/gear/accessory
 	subtype_path = /datum/gear/accessory
-	slot = ITEM_SLOT_NECK
 	sort_category = "Accessories"
 
 /datum/gear/accessory/scarf
 	subtype_path = /datum/gear/accessory/scarf
+	slot = ITEM_SLOT_NECK
 	cost = 1000
 
 /datum/gear/accessory/scarf/black
@@ -84,6 +84,7 @@
 //ties
 /datum/gear/accessory/tie
 	subtype_path = /datum/gear/accessory/tie
+	slot = ITEM_SLOT_NECK
 	cost = 1500
 
 /datum/gear/accessory/tie/blue
@@ -105,17 +106,21 @@
 //necklaces and shiz
 
 /datum/gear/accessory/petcollar
+	slot = ITEM_SLOT_NECK
 	display_name = "pet collar"
 	path = /obj/item/clothing/neck/petcollar
 	cost = 20000
 
 /datum/gear/accessory/necklace
+	slot = ITEM_SLOT_NECK
 	display_name = "dope necklace"
 	path = /obj/item/clothing/neck/necklace/dope
 	cost = 25000
 
 /datum/gear/accessory/oldnecklace
+	slot = ITEM_SLOT_NECK
 	display_name = "necklace, gold"
+	description = "All about that bling" //Just so it isn't completely obvious this is the exact same item as above
 	path = /obj/item/clothing/neck/necklace/dope
 	cost = 25000
 
@@ -207,6 +212,7 @@
 
 /datum/gear/accessory/cloak
 	subtype_path = /datum/gear/accessory/cloak
+	slot = ITEM_SLOT_NECK
 	cost = 10000
 
 /datum/gear/accessory/cloak/blackbishop
