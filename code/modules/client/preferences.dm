@@ -1356,9 +1356,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if(TG.slot && (G.slot == TG.slot))
 							to_chat(user, "<span class='warning'>Can't equip [TG.display_name]. You already have an item equipped in the same slot.</span>")
 							return
-						if((G.subtype_path == TG.subtype_path))
-							to_chat(user, "<span class='warning'>Can't equip [TG.display_name]. You already have an item of this type.</span>")
-							return
 				if((TG.id in purchased_gear))
 					active_character.equipped_gear += TG.id						
 				else
