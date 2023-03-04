@@ -132,11 +132,29 @@
 					continue
 
 				if(G.slot)
-					H.doUnEquip(H.get_item_by_slot(G.slot), newloc = H.drop_location(), invdrop = FALSE, silent = TRUE)
-					if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot))
-						to_chat(M, "<span class='notice'>Equipping you with [G.display_name]!</span>")
+					if(G.slot == ITEM_SLOT_BACK)
+						var/obj/item/storage/backpack/oldbag = H.get_item_by_slot(ITEM_SLOT_BACK)
+						var/metadata = M.client.prefs.active_character.equipped_gear[G.id]
+						var/obj/item/storage/backpack/newbag = G.spawn_item(null, metadata)
+						//This was much cleaner than trying to safely transfer contents in the correct orientation
+						oldbag.name = newbag.name
+						oldbag.desc = newbag.desc
+						if(oldbag.slowdown)
+							oldbag.name += " XL" //indicates it is dufflebag sized
+							oldbag.desc += "\nHolds as much as a duffel bag, and just as hard on your back too!"
+						oldbag.icon_state = newbag.icon_state
+						oldbag.item_state = newbag.item_state
+						H.update_inv_back()
+						to_chat(H, "<span class='notice'>Equipping you with [G.display_name]!</span>")
+						qdel(newbag)
 					else
-						gear_leftovers += G
+						var/obj/o = H.get_item_by_slot(G.slot)
+						H.doUnEquip(H.get_item_by_slot(G.slot), newloc = H.drop_location(), invdrop = FALSE, silent = TRUE)
+						if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot))
+							to_chat(H, "<span class='notice'>Equipping you with [G.display_name]!</span>")
+							qdel(o)
+						else
+							gear_leftovers += G
 				else
 					gear_leftovers += G
 
@@ -145,7 +163,15 @@
 
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
+			var/obj/item/storage/B = (locate() in H)
 			var/metadata = M.client.prefs.active_character.equipped_gear[G.id]
+
+			//Try putting it in their bag first
+			if(B)
+				G.spawn_item(B, metadata)
+				to_chat(M, "<span class='notice'>Placing [G.display_name] in [B.name]!</span>")
+				continue
+
 			var/item = G.spawn_item(null, metadata)
 			var/atom/placed_in = human.equip_or_collect(item)
 
@@ -161,12 +187,6 @@
 				continue
 			if(H.put_in_hands(item))
 				to_chat(M, "<span class='notice'>Placing [G.display_name] in your hands!</span>")
-				continue
-
-			var/obj/item/storage/B = (locate() in H)
-			if(B)
-				G.spawn_item(B, metadata)
-				to_chat(M, "<span class='notice'>Placing [G.display_name] in [B.name]!</span>")
 				continue
 
 			to_chat(M, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
