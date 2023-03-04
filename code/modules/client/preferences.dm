@@ -1311,20 +1311,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if(TG.id in active_character.equipped_gear)
 				active_character.equipped_gear -= TG.id
 			else
-				var/list/type_blacklist = list()
-				var/list/slot_blacklist = list()
 				for(var/gear_id in active_character.equipped_gear)
 					var/datum/gear/G = GLOB.gear_datums[gear_id]
 					if(istype(G))
-						if(!(G.subtype_path in type_blacklist))
-							type_blacklist += G.subtype_path
-						if(!(G.slot in slot_blacklist))
-							slot_blacklist += G.slot
+						if(TG.slot && (G.slot == TG.slot))
+							to_chat(user, "<span class='warning'>Can't equip [TG.display_name]. You already have an item equipped in the same slot.</span>")
+							return
+						if((G.subtype_path == TG.subtype_path))
+							to_chat(user, "<span class='warning'>Can't equip [TG.display_name]. You already have an item of this type.</span>")
+							return
 				if((TG.id in purchased_gear))
-					if(!(TG.subtype_path in type_blacklist) || !(TG.slot in slot_blacklist))
-						active_character.equipped_gear += TG.id
-					else
-						to_chat(user, "<span class='warning'>Can't equip [TG.display_name]. It conflicts with an already-equipped item.</span>")
+					active_character.equipped_gear += TG.id						
 				else
 					log_href_exploit(user)
 			active_character.save(user.client)
