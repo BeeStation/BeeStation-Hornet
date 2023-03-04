@@ -1292,7 +1292,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if(TG.sort_category == "Donator")
 				if(CONFIG_GET(flag/donator_items) && alert(parent, "This item is only accessible to our patrons. Would you like to subscribe?", "Patron Locked", "Yes", "No") == "Yes")
 					parent.donate()
-			else if(TG.cost < user.client.get_metabalance())
+			else if(TG.cost <= user.client.get_metabalance())
 				purchased_gear += TG.id
 				TG.purchase(user.client)
 				user.client.inc_metabalance((TG.cost * -1), TRUE, "Purchased [TG.display_name].")
@@ -1310,8 +1310,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					var/datum/gear/G = GLOB.gear_datums[gear_id]
 					if(istype(G))
 						type_blacklist += G.subtype_path
-						if(!(G.slot in slot_blacklist))
-							slot_blacklist += G.slot
+						if((G.slot == TG.slot))
+							to_chat(user, "<span class='warning'>Can't equip [TG.display_name]. You already have an item equipped in that slot.</span>")
+							return
+						else
+							continue
 				if((TG.id in purchased_gear))
 					if(!(TG.subtype_path in type_blacklist) || !(TG.slot in slot_blacklist))
 						active_character.equipped_gear += TG.id
