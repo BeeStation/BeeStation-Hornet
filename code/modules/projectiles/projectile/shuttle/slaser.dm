@@ -2,7 +2,7 @@
 	name = "beam"
 	desc = "A heavy damage laser that will deal good damage to people and machines, but does little to penetrate hull, especially that which is reflective."
 	icon_state = "laser"
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+	pass_flags = PASSTABLE | PASSTRANSPARENT | PASSGRILLE
 	damage = 40
 	light_range = 2
 	damage_type = BURN
