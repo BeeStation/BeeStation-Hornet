@@ -775,23 +775,67 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<td><b>Restricted Jobs</b></td>"
 			dat += "<td><b>Description</b></td></tr>"
 			dat += "<tr><td colspan=4><hr></td></tr>"
+			var/endingdat
 			for(var/gear_id in LC.gear)
 				var/datum/gear/G = LC.gear[gear_id]
 				var/ticked = (G.id in active_character.equipped_gear)
-
-				dat += "<tr style='vertical-align:top;'><td width=15%>[G.display_name]</td>"
 				var/donator = G.sort_category == "Donator"
-				if(G.sort_category != "OOC" && (G.id in purchased_gear))
-					dat += "<td width = 10% style='vertical-align:top'><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.id]'>Equip</a></td><td width = 12%>"
-				else
-					dat += "<td width = 10% style='vertical-align:top'><a style='white-space:normal;' href='?_src_=prefs;preference=gear;purchase_gear=[G.id]'>[donator ? "Donator" : "Purchase: [G.cost]"]</a></td><td width = 12%>"
 
-				if(G.allowed_roles)
-					dat += "<font size=2>"
-					for(var/role in G.allowed_roles)
-						dat += role + ",	 "
-					dat += "</font>"
-				dat += "</td><td><font size=2><i>[G.description]</i></font></td></tr>"
+				if(G.sort_category != "OOC" && (G.id in purchased_gear))
+					//Defines the beginning of the row
+					dat += "<tr style='vertical-align:top;'>"
+
+					//First column of info - the item's name
+					dat += "<td width=15%>[G.display_name]</td>" 
+					
+					//Second column for the equip button, since we already own this item
+					dat += "<td width = 10% style='vertical-align:top'>"
+					dat += "<a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.id]'>Equip</a></td>" 
+					
+					//Third column gets a bit messy, it's for listing restricted jobs
+					dat += "<td width = 12%>"
+					if(G.allowed_roles)
+						dat += "<font size=2>"
+						for(var/role in G.allowed_roles)
+							dat += role + ", "
+						dat += "</font>"
+					dat += "</td>"
+
+					//And the fourth and final column is just for the item's description
+					dat += "<td><font size=2><i>[G.description]</i></font></td>"
+
+					//Finally, we close out the row
+					dat += "</tr>"
+
+				else
+
+					//beginning of the row
+					endingdat += "<tr style='vertical-align:top;'>"
+
+					//First column
+					endingdat += "<td width=15%>[G.display_name]</td>" 
+					
+					//Second column for the purchase or donator button since we have not purchased items in this loop
+					endingdat += "<td width = 10% style='vertical-align:top'>"
+					endingdat += "<a style='white-space:normal;' href='?_src_=prefs;preference=gear;purchase_gear=[G.id]'>[donator ? "Donator" : "Purchase: [G.cost]"]</a></td>"
+
+					//Third column
+					endingdat += "<td width = 12%>"
+					if(G.allowed_roles)
+						endingdat += "<font size=2>"
+						for(var/role in G.allowed_roles)
+							endingdat += role + ", "
+						endingdat += "</font>"
+					endingdat += "</td>"
+
+					//fourth column
+					endingdat += "<td><font size=2><i>[G.description]</i></font></td>"
+
+					//end of row
+					endingdat += "</tr>"
+
+			//time to combine our purchased and non-purchased rows and end the table
+			dat += endingdat
 			dat += "</table>"
 
 		if(3) //OOC Preferences
