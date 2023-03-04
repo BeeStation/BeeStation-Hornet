@@ -166,21 +166,14 @@
 			var/obj/item/storage/B = (locate() in H)
 			var/metadata = M.client.prefs.active_character.equipped_gear[G.id]
 
-			//Try putting it in their bag first
+			//Try putting it in their bag first. All roles spawn with a bag, so this should always succeed unless that has changed. 
 			if(B)
 				G.spawn_item(B, metadata)
 				to_chat(M, "<span class='notice'>Placing [G.display_name] in [B.name]!</span>")
 				continue
 
-			var/item = G.spawn_item(null, metadata)
-			var/atom/placed_in = human.equip_or_collect(item)
-
-			if(istype(placed_in))
-				if(isturf(placed_in))
-					to_chat(M, "<span class='notice'>Placing [G.display_name] on [placed_in]!</span>")
-				else
-					to_chat(M, "<span class='noticed'>Placing [G.display_name] in [placed_in.name]]")
-				continue
+			//This is where it is placed at their feet - the next two steps try to move it before we give up and send an error message. 
+			var/item = G.spawn_item(H.loc, metadata) 
 
 			if(H.equip_to_appropriate_slot(item))
 				to_chat(M, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")
@@ -189,8 +182,7 @@
 				to_chat(M, "<span class='notice'>Placing [G.display_name] in your hands!</span>")
 				continue
 
-			to_chat(M, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
-			qdel(item)
+			to_chat(M, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug. [G.display_name] has been placed at your feet.</span>")
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 	if(head_announce)
