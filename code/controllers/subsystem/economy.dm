@@ -4,7 +4,7 @@ SUBSYSTEM_DEF(economy)
 	init_order = INIT_ORDER_ECONOMY
 	runlevels = RUNLEVEL_GAME
 	var/roundstart_paychecks = 5
-	var/budget_pool = 25000
+	var/budget_pool = 50000
 	var/full_ancap = FALSE // Enables extra money charges for things that normally would be free, such as sleepers/cryo/cloning.
 							//Take care when enabling, as players will NOT respond well if the economy is set up for low cash flows.
 	/// List of normal accounts (not department accounts)
@@ -68,7 +68,7 @@ SUBSYSTEM_DEF(economy)
 	return null
 
 /// Returns a budget account type, but it will return the united budget account(cargo one) if united budget is active
-/datum/controller/subsystem/economy/proc/get_budget_account(dept_id)
+/datum/controller/subsystem/economy/proc/get_budget_account(dept_id, force=FALSE)
 	var/static/datum/bank_account/department/united_budget
 	if(!united_budget)
 		for(var/datum/bank_account/department/D in budget_accounts)
@@ -87,8 +87,8 @@ SUBSYSTEM_DEF(economy)
 		stack_trace("failed to get a budget account with the given parameter: [dept_id]")
 		return budget_id_list[ACCOUNT_CAR_ID] // this will prevent the game being broken
 
-	if(target_budget.is_nonstation_account())  // Warning: do not replace this into `is_nonstation_account(target_budget)` or it will loop. We have 2 types of the procs that have the same name for conveniet purpose.
-		return target_budget
+	if(force || target_budget.is_nonstation_account())  // Warning: do not replace this into `is_nonstation_account(target_budget)` or it will loop. We have 2 types of the procs that have the same name for conveniet purpose.
+		return target_budget // 'force' is used to grab a correct budget regardless of united budget.
 	else if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
 		return united_budget
 	else

@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Improved the smoothness of shuttles on the orbital map.
-  - tweak: Orbital map now updates according to real time rather than tick time.
-  - bugfix: Meteors should move at the correct speed on the map now.
