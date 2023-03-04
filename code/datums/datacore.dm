@@ -162,10 +162,17 @@
 			if(dept_bitflags & dept_list[department])
 				if(!manifest_out[department])
 					manifest_out[department] = list()
-				manifest_out[department] += list(list(
-					"name" = name,
-					"rank" = rank
-				))
+				// Append to beginning of list if captain or department head
+				if (rank == "Captain" || (department != "Command" && (rank in GLOB.command_positions)))
+					manifest_out[department] = list(list(
+						"name" = name,
+						"rank" = rank
+					)) + manifest_out[department]
+				else
+					manifest_out[department] += list(list(
+						"name" = name,
+						"rank" = rank
+					))
 				has_department = TRUE
 		if(!has_department)
 			if(!manifest_out["Misc"])
