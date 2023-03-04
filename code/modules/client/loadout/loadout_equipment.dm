@@ -24,7 +24,7 @@
 /obj/item/reagent_containers/spray/flame
     volume = 50
     list_reagents = list(/datum/reagent/clf3 = 50)
-    description = "A spray bottle, with an unscrewable top. This one came filled with chlorine triflouride"
+    desc = "A spray bottle, with an unscrewable top. This one came filled with chlorine triflouride"
 
 /obj/item/holo/esword/blue/Initialize(mapload)
 	. = ..()
@@ -67,10 +67,23 @@
         /obj/item/storage/pill_bottle/penacid = 1,
         /obj/item/storage/pill_bottle/happy = 1,
 		/obj/item/reagent_containers/hypospray/medipen/atropine = 1)
-	generate_items_inside(items_inside,src)
+    generate_items_inside(items_inside,src)
 
 /obj/item/syndie_glue/royale
     uses = 3
+
+/obj/item/clothing/suit/hooded/cloak/goliath/royale
+    desc = "A tattered cloak made of goliath leather. Offers well-rounded protection without hindering movement but leaves the legs exposed."
+    armor = list("melee" = 20, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60, "stamina" = 30)
+    hoodtype = /obj/item/clothing/head/hooded/cloakhood/goliath/royale
+
+/obj/item/clothing/head/hooded/cloakhood/goliath/royale
+    armor = list("melee" = 20, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60, "stamina" = 30)
+
+/obj/item/clothing/suit/armor/reactive/stealth/royale
+    name = "reactive stealth armor"
+    reactivearmor_cooldown_duration = 20 SECONDS
+    desc = "Stealths the wearer for four seconds and projects a hologram which runs away upon taking damage. Twenty second cooldown"
 
 /obj/item/dice/d20/fate/one_use/stealth/d4
     name = "d4"
@@ -325,6 +338,20 @@
     display_name = "survival medipen"
     path = /obj/item/reagent_containers/hypospray/medipen/survival
     description = "A medipen for surviving in the harshest of environments, heals and protects from environmental hazards."
+
+//ARMOR
+
+/datum/gear/equipment/armor
+    slot = ITEM_SLOT_OCLOTHING
+
+/datum/gear/equipment/armor/cloak
+    display_name = "goliath cloak"
+    path = /obj/item/clothing/suit/hooded/cloak/goliath/royale
+
+/datum/gear/equipment/armor/stealth
+    display_name = "reactive stealth armor"
+    path = /obj/item/clothing/suit/armor/reactive/stealth/royale
+
 
 
 // JUST FOR FUN
