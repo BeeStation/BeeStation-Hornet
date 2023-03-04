@@ -17,14 +17,14 @@
 /datum/antagonist/wizard/on_gain()
 	register()
 	equip_wizard()
-	if(give_objectives)
-		create_objectives()
-	if(move_to_lair)
-		send_to_lair()
+//	if(give_objectives)
+//		create_objectives()
+//	if(move_to_lair)
+//		send_to_lair()
 	. = ..()
-	if(allow_rename)
-		rename_wizard()
-	owner.current.remove_all_quirks()
+//	if(allow_rename)
+//		rename_wizard()
+//	owner.current.remove_all_quirks()
 
 /datum/antagonist/wizard/proc/register()
 	SSticker.mode.wizards |= owner
@@ -127,24 +127,54 @@
 	var/mob/living/carbon/human/H = owner.current
 	if(!istype(H))
 		return
-	if(strip)
-		H.delete_equipment()
+//	if(strip)
+//		H.delete_equipment()
 	//Wizards are human by default. Use the mirror if you want something else.
-	H.set_species(/datum/species/human)
-	if(H.age < wiz_age)
-		H.age = wiz_age
-	H.equipOutfit(outfit_type)
+//	H.set_species(/datum/species/human)
+//	if(H.age < wiz_age)
+//		H.age = wiz_age
+//	H.equipOutfit(outfit_type)
+	var/obj/item/spellbook/S = new
+	var/obj/item/teleportation_scroll/ts = new
+	S.forceMove(H.loc)
+	ts.forceMove(H.loc)
+	S.owner = H
+	
+	if(H.equip_to_appropriate_slot(S))
+		to_chat(H, "Successfully placed [S] in inventory")
+	else
+		var/list/obj/item/possible = list(H.get_inactive_held_item(), H.get_item_by_slot(ITEM_SLOT_BELT), H.get_item_by_slot(ITEM_SLOT_DEX_STORAGE), H.get_item_by_slot(ITEM_SLOT_BACK))
+		for(var/i in possible)
+			if(!i)
+				continue
+			var/obj/item/I = i
+			if(SEND_SIGNAL(I, COMSIG_TRY_STORAGE_INSERT, S, H))
+				to_chat(H, "Successfully placed [S] in inventory")
+				break
+
+	if(H.equip_to_appropriate_slot(ts))
+		to_chat(H, "Successfully placed [ts] in inventory")
+	else
+		var/list/obj/item/possible = list(H.get_inactive_held_item(), H.get_item_by_slot(ITEM_SLOT_BELT), H.get_item_by_slot(ITEM_SLOT_DEX_STORAGE), H.get_item_by_slot(ITEM_SLOT_BACK))
+		for(var/i in possible)
+			if(!i)
+				continue
+			var/obj/item/I = i
+			if(SEND_SIGNAL(I, COMSIG_TRY_STORAGE_INSERT, ts, H))
+				to_chat(H, "Successfully placed [ts] in inventory")
+				break
+
 
 /datum/antagonist/wizard/greet()
-	to_chat(owner, "<span class='boldannounce'>You are the Space Wizard!</span>")
-	to_chat(owner, "<B>The Space Wizards Federation has given you the following tasks:</B>")
-	owner.announce_objectives()
+	to_chat(owner, "<span class='boldannounce'>You are a Space Wizard!</span>")
+//	to_chat(owner, "<B>The Space Wizards Federation has given you the following tasks:</B>")
+//	owner.announce_objectives()
 	to_chat(owner, "You will find a list of available spells in your spell book. Choose your magic arsenal carefully.")
-	to_chat(owner, "The spellbook is bound to you, and others cannot use it.")
-	to_chat(owner, "In your pockets you will find a teleport scroll. Use it as needed.")
-	to_chat(owner,"<B>Remember:</B> Do not forget to prepare your spells.")
-	owner.current.client?.tgui_panel?.give_antagonist_popup("Space Wizard",
-		"Prepare your spells and cause havok upon the accursed station.")
+	to_chat(owner, "If you don't already own some robes, you may find the more advanced spells are not possible to cast.")
+	to_chat(owner, "If you didn't have room in your inventory, you will find your book and teleportation scroll on the ground nearby")
+//	to_chat(owner,"<B>Remember:</B> Do not forget to prepare your spells.")
+//	owner.current.client?.tgui_panel?.give_antagonist_popup("Space Wizard",
+//		"Prepare your spells and cause havok upon the accursed station.")
 
 /datum/antagonist/wizard/farewell()
 	to_chat(owner, "<span class='userdanger'>You have been brainwashed! You are no longer a wizard!</span>")

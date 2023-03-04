@@ -72,7 +72,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	//Loadout stuff
 	var/list/purchased_gear = list()
-	var/gear_tab = "General"
+	var/gear_tab = "Inner Clothing"
 
 	var/action_buttons_screen_locs = list()
 
@@ -771,25 +771,18 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			dat += "<tr><td colspan=4><hr></td></tr>"
 			dat += "<tr><td><b>Name</b></td>"
-			if(LC.category != "Donator")
-				dat += "<td><b>Cost</b></td>"
-			dat += "<td><b>Restricted Jobs</b></td>"
+			dat += "<td><b>Cost</b></td>"
 			dat += "<td><b>Description</b></td></tr>"
 			dat += "<tr><td colspan=4><hr></td></tr>"
 			for(var/gear_id in LC.gear)
 				var/datum/gear/G = LC.gear[gear_id]
 				var/ticked = (G.id in active_character.equipped_gear)
 
-				dat += "<tr style='vertical-align:top;'><td width=15%>[G.display_name]\n"
-				var/donator = G.sort_category == "Donator" // purchase box and cost coloumns doesn't appear on donator items
+				dat += "<tr style='vertical-align:top;'><td width=16%>[G.display_name]</td>"
 				if(G.id in purchased_gear)
-					if(G.sort_category == "OOC")
-						dat += "<i>Purchased.</i></td>"
-					else
-						dat += "<a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.id]'>Equip</a></td>"
+					dat += "<td width = 9% style='vertical-align:top'><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.id]'>Equip</a></td>"
 				else
-					dat += "<a style='white-space:normal;' href='?_src_=prefs;preference=gear;purchase_gear=[G.id]'>[donator ? "Donator" : "Purchase"]</a></td>"
-				dat += "<td width = 5% style='vertical-align:top'>[donator ? "" : "[G.cost]"]</td><td>"
+					dat += "<td width = 9% style='vertical-align:top'><a style='white-space:normal;' href='?_src_=prefs;preference=gear;purchase_gear=[G.id]'>["Purchase"] [G.cost]</a></td>"
 
 				if(G.allowed_roles)
 					dat += "<font size=2>"
@@ -1299,7 +1292,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if(TG.sort_category == "Donator")
 				if(CONFIG_GET(flag/donator_items) && alert(parent, "This item is only accessible to our patrons. Would you like to subscribe?", "Patron Locked", "Yes", "No") == "Yes")
 					parent.donate()
-			else if(TG.cost < user.client.get_metabalance())
+			else if(TG.cost <= user.client.get_metabalance())
 				purchased_gear += TG.id
 				TG.purchase(user.client)
 				user.client.inc_metabalance((TG.cost * -1), TRUE, "Purchased [TG.display_name].")
@@ -1316,13 +1309,21 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				for(var/gear_id in active_character.equipped_gear)
 					var/datum/gear/G = GLOB.gear_datums[gear_id]
 					if(istype(G))
-						if(!(G.subtype_path in type_blacklist))
-							type_blacklist += G.subtype_path
-						if(!(G.slot in slot_blacklist))
-							slot_blacklist += G.slot
+						type_blacklist += G.subtype_path
+						if((G.slot == TG.slot))
+							to_chat(user, "<span class='warning'>Can't equip [TG.display_name]. You already have an item equipped in that slot.</span>")
+							return
+						else
+							continue
 				if((TG.id in purchased_gear))
 					if(!(TG.subtype_path in type_blacklist) || !(TG.slot in slot_blacklist))
 						active_character.equipped_gear += TG.id
+					else if(TG.subtype_path == /datum/gear/equipment)
+						type_blacklist -= /datum/gear/equipment
+						if(!(TG.subtype_path in type_blacklist))
+							active_character.equipped_gear += TG.id
+						else
+							to_chat(user, "<span class='warning'>Can't equip [TG.display_name]. You can only chose two pieces of combat equipment.</span>")
 					else
 						to_chat(user, "<span class='warning'>Can't equip [TG.display_name]. It conflicts with an already-equipped item.</span>")
 				else

@@ -96,7 +96,7 @@
 /obj/item/clothing/neck/scarf //Default white color, same functionality as beanies.
 	name = "white scarf"
 	icon_state = "scarf"
-	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
+	desc = "A stylish scarf"
 	dog_fashion = /datum/dog_fashion/head
 	custom_price = 10
 
@@ -160,16 +160,19 @@
 //This is because Ian can equip anything from that subtype
 //However, these 3 don't have corgi versions of their sprites
 /obj/item/clothing/neck/stripedredscarf
+	desc = "A stylish scarf"
 	name = "striped red scarf"
 	icon_state = "stripedredscarf"
 	custom_price = 10
 
 /obj/item/clothing/neck/stripedgreenscarf
+	desc = "A stylish scarf"
 	name = "striped green scarf"
 	icon_state = "stripedgreenscarf"
 	custom_price = 10
 
 /obj/item/clothing/neck/stripedbluescarf
+	desc = "A stylish scarf"
 	name = "striped blue scarf"
 	icon_state = "stripedbluescarf"
 	custom_price = 10

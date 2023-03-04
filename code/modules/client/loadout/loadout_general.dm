@@ -1,43 +1,44 @@
-//MISC TRINKETS LIKE D20s AND CIGS, ETC...
-
 /datum/gear/misc
 	subtype_path = /datum/gear/misc
-	sort_category = "General"
-	cost = 1000
-
-/datum/gear/misc/d20
-	display_name = "d20"
-	path = /obj/item/dice/d20
-	cost = 300
-
-/datum/gear/misc/eightball
-	display_name = "Magic Eightball"
-	description = "A black ball with a stenciled number eight in white on the side. It seems full of dark liquid. The instructions state that you should ask your question aloud, and then shake."
-	path = /obj/item/toy/eightball
+	sort_category = "Extras"
 	cost = 500
 
-/datum/gear/misc/antagtoken
-	display_name = "Discount Antag Token"
-	description = "Says \"Made in China\" on the back. Seems fishy."
-	path = /obj/item/coin/antagtoken
-	cost = 10000
+//GAMBLING
+
+/datum/gear/misc/dicebag
+	display_name = "bag of dice"
+	path = /obj/item/storage/pill_bottle/dice
+	description = "An ordinary bag of dice with no special powers"
+
+/datum/gear/misc/eightball
+	display_name = "magic eightball"
+	description = "Seems to have some connection to the spirits of the fallen"
+	path = /obj/item/toy/eightball/haunted
+
+/datum/gear/misc/coin
+	display_name = "lucky silver coin"
+	description = "Heads or tails?"
+	path = /obj/item/coin/silver
+
+/datum/gear/misc/cards
+	display_name = "deck of cards"
+	path = /obj/item/toy/cards/deck
 
 //LIGHTERS & CIGARETTES
 
 /datum/gear/misc/lighter
+	subtype_path = /datum/gear/misc/lighter
 	display_name = "Zippo lighter"
 	path = /obj/item/lighter
-	cost = 1500
 
 /datum/gear/misc/lighter/random
 	display_name = "random cheap lighter"
 	path = /obj/item/lighter/greyscale
-	cost = 1000
 
 /datum/gear/misc/cigarettes
+	subtype_path = /datum/gear/misc/cigarettes
 	display_name = "cigarettes, Space Cigarettes"
 	path = /obj/item/storage/fancy/cigarettes
-	cost = 800
 
 /datum/gear/misc/cigarettes/dromedaryco
 	display_name = "cigarettes, DromedaryCo"
@@ -62,9 +63,7 @@
 /datum/gear/misc/cigarettes/cohiba
 	display_name = "cigar, Cohiba Robusto"
 	path = /obj/item/clothing/mask/cigarette/cigar/cohiba
-	cost = 2400
 
 /datum/gear/misc/cigarettes/havana
 	display_name = "cigar, premium Havanian"
 	path = /obj/item/clothing/mask/cigarette/cigar/havana
-	cost = 2400

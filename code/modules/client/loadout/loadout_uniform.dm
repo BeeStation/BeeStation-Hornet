@@ -1,15 +1,10 @@
-// Uniform slot
 /datum/gear/uniform
 	subtype_path = /datum/gear/uniform
 	slot = ITEM_SLOT_ICLOTHING
-	sort_category = "Uniforms and Casual Dress"
+	sort_category = "Inner Clothing"
 	species_blacklist = list("plasmaman") //Envirosuit moment
-	cost = 1000
 
-//STANDARD UNIFORM COLORS
-
-/datum/gear/uniform/color
-	subtype_path = /datum/gear/uniform/color
+//Standard jumpsuits
 
 /datum/gear/uniform/color/black
 	display_name = "black jumpsuit"
@@ -75,101 +70,110 @@
 	display_name = "maroon jumpsuit"
 	path = /obj/item/clothing/under/color/maroon
 
-//PANTS
-
-/datum/gear/uniform/pants
-	subtype_path = /datum/gear/uniform/pants
-
-/datum/gear/uniform/pants/bluejeans
-	display_name = "pants, blue jeans"
-	path = /obj/item/clothing/under/pants/jeans
-
-/datum/gear/uniform/pants/classicjeans
-	display_name = "pants, classic blue jeans"
-	path = /obj/item/clothing/under/pants/classicjeans
-
-/datum/gear/uniform/pants/mustangjeans
-	display_name = "pants, faded blue (Must Hang brand) jeans"
-	path = /obj/item/clothing/under/pants/mustangjeans
-
-/datum/gear/uniform/pants/youngfolksjeans
-	display_name = "pants, faded blue jeans"
-	path = /obj/item/clothing/under/pants/youngfolksjeans
-
-/datum/gear/uniform/pants/blackjeans
-	display_name = "pants, black jeans"
-	path = /obj/item/clothing/under/pants/blackjeans
-
-/datum/gear/uniform/pants/white
-	display_name = "pants, white"
-	path = /obj/item/clothing/under/pants/white
-
-/datum/gear/uniform/pants/red
-	display_name = "pants, red"
-	path = /obj/item/clothing/under/pants/red
-
-/datum/gear/uniform/pants/black
-	display_name = "pants, black"
-	path = /obj/item/clothing/under/pants/black
-
-/datum/gear/uniform/pants/tan
-	display_name = "pants, tan"
-	path = /obj/item/clothing/under/pants/tan
-
-/datum/gear/uniform/pants/track
-	display_name = "track pants, black"
-	path = /obj/item/clothing/under/pants/track
-
-/datum/gear/uniform/pants/khaki
-	display_name = "pants, khaki"
-	path = /obj/item/clothing/under/pants/khaki
-
-/datum/gear/uniform/pants/camo
-	display_name = "pants, camoflauge"
-	path = /obj/item/clothing/under/pants/camo
-
-//SKIRTS
-
-/datum/gear/uniform/skirt
-	subtype_path = /datum/gear/uniform/skirt
-	cost = 2500
+//Standard Jumpskirts
 
 /datum/gear/uniform/skirt/blue
-	display_name = "skirt, blue"
+	display_name = "blue skirt"
 	path = /obj/item/clothing/under/dress/skirt/blue
 
 /datum/gear/uniform/skirt/purple
-	display_name = "skirt, purple"
+	display_name = "purple skirt"
 	path = /obj/item/clothing/under/dress/skirt/purple
 
 /datum/gear/uniform/skirt/red
-	display_name = "skirt, red"
+	display_name = "red skirt"
 	path = /obj/item/clothing/under/dress/skirt/red
 
 /datum/gear/uniform/skirt/plaid_skirt
-	display_name = "skirt, plaid red"
+	display_name = "red plaid skirt"
 	path = /obj/item/clothing/under/dress/skirt/plaid
 
 /datum/gear/uniform/skirt/plaid_skirt/blue
-	display_name = "skirt, plaid blue"
+	display_name = "blue plaid skirt"
 	path = /obj/item/clothing/under/dress/skirt/plaid/blue
 
 /datum/gear/uniform/skirt/plaid_skirt/purple
-	display_name = "skirt, plaid purple"
+	display_name = "purple plaid skirt"
 	path = /obj/item/clothing/under/dress/skirt/plaid/purple
 
 /datum/gear/uniform/skirt/plaid_skirt/green
-	display_name = "skirt, plaid green"
+	display_name = "green plaid skirt"
 	path = /obj/item/clothing/under/dress/skirt/plaid/green
 
-//SUITS & SUIT JACKETS
+//Going shirtless
 
-/datum/gear/uniform/suit
-	subtype_path = /datum/gear/uniform/suit
-	cost = 2500
+/datum/gear/uniform/pants/bluejeans
+	display_name = "blue jeans"
+	path = /obj/item/clothing/under/pants/jeans
 
-/datum/gear/uniform/suit/suit_jacket
-	subtype_path = /datum/gear/uniform/suit/suit_jacket
+/datum/gear/uniform/pants/classicjeans
+	display_name = "classic blue jeans"
+	path = /obj/item/clothing/under/pants/classicjeans
+
+/datum/gear/uniform/pants/youngfolksjeans
+	display_name = "faded blue jeans"
+	path = /obj/item/clothing/under/pants/youngfolksjeans
+
+/datum/gear/uniform/pants/blackjeans
+	display_name = "black jeans"
+	path = /obj/item/clothing/under/pants/blackjeans
+
+/datum/gear/uniform/pants/white
+	display_name = "white pants"
+	path = /obj/item/clothing/under/pants/white
+
+/datum/gear/uniform/pants/red
+	display_name = "red pants"
+	path = /obj/item/clothing/under/pants/red
+
+/datum/gear/uniform/pants/black
+	display_name = "black pants"
+	path = /obj/item/clothing/under/pants/black
+
+/datum/gear/uniform/pants/tan
+	display_name = "tan pants"
+	path = /obj/item/clothing/under/pants/tan
+
+/datum/gear/uniform/pants/track
+	display_name = "black track pants"
+	path = /obj/item/clothing/under/pants/track
+
+/datum/gear/uniform/pants/khaki
+	display_name = "khaki pants"
+	path = /obj/item/clothing/under/pants/khaki
+
+/datum/gear/uniform/pants/camo
+	display_name = "camoflauge pants"
+	path = /obj/item/clothing/under/pants/camo
+
+/datum/gear/uniform/shorts/red
+	display_name = "red shorts"
+	path = /obj/item/clothing/under/shorts/red
+
+/datum/gear/uniform/shorts/green
+	display_name = "green shorts"
+	path = /obj/item/clothing/under/shorts/green
+
+/datum/gear/uniform/shorts/blue
+	display_name = "blue shorts"
+	path = /obj/item/clothing/under/shorts/blue
+
+/datum/gear/uniform/shorts/black
+	display_name = "black shorts"
+	path = /obj/item/clothing/under/shorts/black
+
+/datum/gear/uniform/shorts/grey
+	display_name = "grey shorts"
+	path = /obj/item/clothing/under/shorts/grey
+
+/datum/gear/uniform/shorts/purple
+	display_name = "purple shorts"
+	path = /obj/item/clothing/under/shorts/purple
+
+//Suits for the professionals
+
+/datum/gear/uniform/suit/
+	cost = 500
 
 /datum/gear/uniform/suit/suit_jacket/black
 	display_name = "black suit"
@@ -223,50 +227,14 @@
 	display_name = "amish suit"
 	path = /obj/item/clothing/under/suit/sl
 
-//MEME & COSTUME ITEMS
+/datum/gear/uniform/suit/waiter
+	display_name = "waiter suit"
+	path = /obj/item/clothing/under/suit/waiter
 
-/datum/gear/uniform/misc
-	subtype_path = /datum/gear/uniform/misc
-	cost = 5000
-
-/datum/gear/uniform/misc/jabroni
-	display_name = "jabroni leathers"
-	path = /obj/item/clothing/under/costume/jabroni
-	cost = 20000
-
-/datum/gear/uniform/misc/geisha
-	display_name = "geisha suit"
-	path = /obj/item/clothing/under/costume/geisha
-	cost = 20000
-
-/datum/gear/uniform/misc/soviet
-	display_name = "soviet uniform"
-	path = /obj/item/clothing/under/costume/soviet
-
-/datum/gear/uniform/misc/pirate
-	display_name = "pirate outfit"
-	path = /obj/item/clothing/under/costume/pirate
-
-/datum/gear/uniform/misc/sailor
-	display_name = "sailor outfit"
-	path = /obj/item/clothing/under/costume/sailor
-
-/datum/gear/uniform/misc/swagoutfit
-	display_name = "swag outfit"
-	path = /obj/item/clothing/under/costume/swagoutfit
-	cost = 69000
-
-//RANK SUBTYPE
+//Slightly more stylish jumpsuits
 
 /datum/gear/uniform/rank
-	subtype_path = /datum/gear/uniform/rank
-	cost = 2500
-
-//ASSISTANTS FORMALS
-
-/datum/gear/uniform/rank/assistant
-	subtype_path = /datum/gear/uniform/rank/assistant
-	allowed_roles = list(JOB_NAME_ASSISTANT)
+	cost = 500
 
 /datum/gear/uniform/rank/assistant/formal
 	display_name = "assistant's formal uniform"
@@ -276,41 +244,21 @@
 	display_name = "vice officer's jumpsuit"
 	path = /obj/item/clothing/under/misc/vice_officer
 
-
-//COOKING ALT UNI
-
-/datum/gear/uniform/rank/cook
-	subtype_path = /datum/gear/uniform/rank/cook
-	allowed_roles = list(JOB_NAME_COOK)
-
 /datum/gear/uniform/rank/cook/red
-	display_name = "cook's suit, red"
+	display_name = "red cook's suit"
 	path = /obj/item/clothing/under/rank/civilian/altchef
 
-//CARGO ALT UNIS
-
-/datum/gear/uniform/rank/cargo
-	subtype_path = /datum/gear/uniform/rank/cargo
-	allowed_roles = list(JOB_NAME_QUARTERMASTER, JOB_NAME_CARGOTECHNICIAN, JOB_NAME_SHAFTMINER)
-
 /datum/gear/uniform/rank/cargo/overalls
-	display_name = "laborer's overalls, light blue"
+	display_name = "light blue laborer's overalls,"
 	path = /obj/item/clothing/under/misc/overalls
 
 /datum/gear/uniform/rank/cargo/mining_classic
-	display_name = "miner's overalls, asteroid purple"
-	description = "Purple jumpsuit, dirty overalls. Standard Nanotrasen Shaft Miner attire, from when Lavaland had yet to be discovered and exploited for plasma."
+	display_name = "asteroid miner suit"
+	description = "Standard Nanotrasen Shaft Miner attire, from when Lavaland had yet to be discovered and exploited for plasma."
 	path = /obj/item/clothing/under/rank/cargo/miner
-	allowed_roles = list (JOB_NAME_SHAFTMINER)
-
-//MEDICAL ALT UNIS
-
-/datum/gear/uniform/rank/medical
-	subtype_path = /datum/gear/uniform/rank/medical
-	allowed_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER)
 
 /datum/gear/uniform/rank/medical/nurse_dress
-	display_name = "medical, nurse's dress"
+	display_name = "nurse's dress"
 	path = /obj/item/clothing/under/rank/medical/doctor/nurse
 
 /datum/gear/uniform/rank/medical/paramedic
@@ -318,35 +266,23 @@
 	path = /obj/item/clothing/under/rank/medical/paramedic
 
 /datum/gear/uniform/rank/medical/scrubs_blue
-	display_name = "medical scrubs, baby blue"
+	display_name = "blue medical scrubs"
 	path = /obj/item/clothing/under/rank/medical/doctor/blue
 
 /datum/gear/uniform/rank/medical/scrubs_green
-	display_name = "medical scrubs, green"
+	display_name = "green medical scrubs"
 	path = /obj/item/clothing/under/rank/medical/doctor/green
 
 /datum/gear/uniform/rank/medical/scrubs_purple
-	display_name = "medical scrubs, purple"
+	display_name = "purple medical scrubs"
 	path = /obj/item/clothing/under/rank/medical/doctor/purple
-
-//ENGINEERING ALT UNIS
-
-/datum/gear/uniform/rank/engineering
-	subtype_path = /datum/gear/uniform/rank/engineering
-	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
 
 /datum/gear/uniform/rank/engineering/hazard
 	display_name = "engineering jumpsuit, hazard"
 	path = /obj/item/clothing/under/rank/engineering/engineer/hazard
 
-//SECURITY ALT UNIS
-
-/datum/gear/uniform/rank/security
-	subtype_path = /datum/gear/uniform/rank/security
-	allowed_roles = list(JOB_NAME_SECURITYOFFICER)
-
 /datum/gear/uniform/rank/security/white
-	display_name = "security jumpsuit, white"
+	display_name = "white security jumpsuit"
 	path = /obj/item/clothing/under/rank/security/officer/white
 
 /datum/gear/uniform/rank/security/skirt
@@ -354,11 +290,188 @@
 	path = /obj/item/clothing/under/rank/security/officer/skirt
 
 /datum/gear/uniform/rank/security/blueshift
-	display_name = "security jumpsuit, blue shirt and tie"
+	display_name = "blue shirt and tie"
 	path = /obj/item/clothing/under/rank/security/officer/blueshirt
-	cost = 7500
 
 /datum/gear/uniform/rank/security/blart
-	display_name = "security jumpsuit, Nanotrasen mall cop uniform"
+	display_name = "mall cop uniform"
 	path = /obj/item/clothing/under/rank/security/officer/mallcop
-	cost = 7500
+
+/datum/gear/uniform/rank/janitor/maid
+	display_name = "frilly janitor suit"
+	path = /obj/item/clothing/under/rank/civilian/janitor/maid
+
+
+//Costumes and especially fancy suits
+
+/datum/gear/uniform/costume
+	cost = 1000
+
+/datum/gear/uniform/costume/gladiator
+	display_name = "gladiator costume"
+	path = /obj/item/clothing/under/costume/gladiator
+
+/datum/gear/uniform/costume/roman
+	display_name = "roman armor costume"
+	path = /obj/item/clothing/under/costume/roman
+
+/datum/gear/uniform/costume/kilt
+	display_name = "kilt"
+	path = /obj/item/clothing/under/costume/kilt
+
+/datum/gear/uniform/costume/jabroni
+	display_name = "jabroni leathers"
+	path = /obj/item/clothing/under/costume/jabroni
+
+/datum/gear/uniform/costume/geisha
+	display_name = "geisha outfit"
+	path = /obj/item/clothing/under/costume/geisha
+
+/datum/gear/uniform/costume/kamishimo
+	display_name = "kamishimo"
+	path = /obj/item/clothing/under/costume/kamishimo
+
+/datum/gear/uniform/costume/wine_gown
+	display_name = "wine gown"
+	path = /obj/item/clothing/under/dress/gown
+
+/datum/gear/uniform/costume/teal_gown
+	display_name = "teal gown"
+	path = /obj/item/clothing/under/dress/gown/teal
+
+/datum/gear/uniform/costume/midnight_gown
+	display_name = "midnight gown"
+	path = /obj/item/clothing/under/dress/gown/midnight
+
+/datum/gear/uniform/costume/gangster
+	display_name = "gangster suit"
+	path = /obj/item/clothing/under/gangster
+
+/datum/gear/uniform/costume/gangster_purple
+	display_name = "purple gangster suit"
+	path = /obj/item/clothing/under/gangster/purple
+
+/datum/gear/uniform/costume/soviet
+	display_name = "soviet uniform"
+	path = /obj/item/clothing/under/costume/soviet
+
+/datum/gear/uniform/costume/pirate
+	display_name = "pirate outfit"
+	path = /obj/item/clothing/under/costume/pirate
+
+/datum/gear/uniform/costume/sailor
+	display_name = "sailor outfit"
+	path = /obj/item/clothing/under/costume/sailor
+
+/datum/gear/uniform/costume/maid
+	display_name = "maid outfit"
+	path = /obj/item/clothing/under/costume/maid
+
+/datum/gear/uniform/costume/villain
+	display_name = "villain outfit"
+	path = /obj/item/clothing/under/costume/villain
+
+/datum/gear/uniform/costume/russian
+	display_name = "russian officer uniform"
+	path = /obj/item/clothing/under/costume/russian_officer
+
+/datum/gear/uniform/costume/mummy
+	display_name = "scarecrow clothes"
+	path = /obj/item/clothing/under/costume/scarecrow
+
+/datum/gear/uniform/costume/freeze
+	display_name = "doctor freeze suit"
+	path = /obj/item/clothing/under/costume/drfreeze
+
+/datum/gear/uniform/costume/swagoutfit
+	display_name = "swag outfit"
+	path = /obj/item/clothing/under/costume/swagoutfit
+	cost = 6900
+
+/datum/gear/uniform/costume/anime
+	display_name = "blue schoolgirl costume"
+	path = /obj/item/clothing/under/costume/schoolgirl
+
+/datum/gear/uniform/costume/anime/red
+	display_name = "red schoolgirl costume"
+	path = /obj/item/clothing/under/costume/schoolgirl/red
+
+/datum/gear/uniform/costume/anime/green
+	display_name = "green schoolgirl costume"
+	path = /obj/item/clothing/under/costume/schoolgirl/green
+
+/datum/gear/uniform/costume/anime/orange
+	display_name = "orange schoolgirl costume"
+	path = /obj/item/clothing/under/costume/schoolgirl/orange
+
+/datum/gear/uniform/costume/furry
+	cost = 5000
+
+/datum/gear/uniform/costume/furry/owl
+	display_name = "owl suit"
+	path = /obj/item/clothing/under/costume/owl
+
+/datum/gear/uniform/costume/furry/griffon
+	display_name = "griffon suit"
+	path = /obj/item/clothing/under/costume/griffin
+
+/datum/gear/uniform/costume/furry/lobster
+	display_name = "lobster suit"
+	path = /obj/item/clothing/under/costume/lobster
+
+/datum/gear/uniform/costume/furry/gondola
+	display_name = "gondola suit"
+	path = /obj/item/clothing/under/costume/gondola
+
+// Clown and mime
+
+/datum/gear/uniform/entertainer
+	cost = 2000
+
+/datum/gear/uniform/entertainer/clown
+	display_name = "original clown suit"
+	path = /obj/item/clothing/under/rank/civilian/clown
+
+/datum/gear/uniform/entertainer/clown/blue
+	display_name = "blue clown suit"
+	path = /obj/item/clothing/under/rank/civilian/clown/blue
+
+/datum/gear/uniform/entertainer/clown/green
+	display_name = "green clown suit"
+	path = /obj/item/clothing/under/rank/civilian/clown/green
+
+/datum/gear/uniform/entertainer/clown/yellow
+	display_name = "yellow clown suit"
+	path = /obj/item/clothing/under/rank/civilian/clown/yellow
+
+/datum/gear/uniform/entertainer/clown/orange
+	display_name = "orange clown suit"
+	path = /obj/item/clothing/under/rank/civilian/clown/orange
+
+/datum/gear/uniform/entertainer/clown/rainbow
+	display_name = "rainbow clown suit"
+	path = /obj/item/clothing/under/rank/civilian/clown/rainbow
+
+/datum/gear/uniform/entertainer/clown/sexy
+	display_name = "alternative clown suit"
+	path = /obj/item/clothing/under/rank/civilian/clown/sexy
+
+/datum/gear/uniform/entertainer/clown/society
+	display_name = "society clown suit"
+	path = /obj/item/clothing/under/costume/joker
+
+/datum/gear/uniform/entertainer/clown/jester
+	display_name = "jester suit"
+	path = /obj/item/clothing/under/rank/civilian/clown/jester
+
+/datum/gear/uniform/entertainer/mime
+	display_name = "mime outfit"
+	path = /obj/item/clothing/under/rank/civilian/mime
+
+/datum/gear/uniform/entertainer/mime/skirt
+	display_name = "mime outfit - skirt"
+	path = /obj/item/clothing/under/rank/civilian/mime/skirt
+
+/datum/gear/uniform/entertainer/mime/sexy
+	display_name = "alternative mime outfit"
+	path = /obj/item/clothing/under/rank/civilian/mime/sexy

@@ -30,9 +30,6 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		if(use_id in used_ids)
 			WARNING("Loadout - ID Already Exists: [G], with ID:[use_id], Conflicts with: [used_ids[use_id]]")
 			continue
-		if(!initial(G.cost))
-			WARNING("Loadout - Missing cost: [G]")
-			continue
 		if(!initial(G.path) && use_category != "OOC") //OOC category does not contain actual items
 			WARNING("Loadout - Missing path definition: [G]")
 			continue
@@ -51,7 +48,7 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	var/id                 //ID string. MUST be unique.
 	var/description        //Description of this gear. If left blank will default to the description of the pathed item.
 	var/path               //Path to item.
-	var/cost = INFINITY    //Number of metacoins
+	var/cost = 0		   //Number of metacoins
 	var/slot               //Slot to equip to.
 	var/list/allowed_roles //Roles that can spawn with this item.
 	var/list/species_blacklist //Stop certain species from receiving this gear
