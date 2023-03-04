@@ -168,22 +168,28 @@
 	for(var/datum/bank_account/B in SSeconomy.bank_accounts)
 		if(protected_accounts["[B.account_id]"])
 			continue
+		B.withdrawDelay += 30 SECONDS // we apologize for the extended maintenance, but we need to steal your credits
+
 		var/amount = 0
 		if(B.account_balance)
-			amount = max(round(B.account_balance * percentage_lost), 1) // we'll steal at least 1 credit
+			amount = round(max(B.account_balance * percentage_lost, 1)) // we'll steal at least 1 credit
+		if(!amount)
+			B.bank_card_talk("A spacecoin credit deposit machine is located at: [get_area(src)].")
+			continue
 		if(crab_account)
-			if(amount)
-				crab_account.transfer_money(B, amount)
-				total_credits_stolen += amount
-				victim_count += 1
-				B.bank_card_talk("You have lost [percentage_lost * 100]% of your funds! A spacecoin credit deposit machine is located at: [get_area(src)].")
+			if(!crab_account.transfer_money(B, amount))
+				B.bank_card_talk("A spacecoin credit deposit machine is located at: [get_area(src)].")
+				continue
 		else
-			if(amount)
-				B.adjust_money(-amount)
-				total_credits_stolen += amount
-				victim_count += 1
-				B.bank_card_talk("You have lost [percentage_lost * 100]% of your funds! A spacecoin credit deposit machine is located at: [get_area(src)].")
-		B.withdrawDelay += 30 SECONDS // we apologize for the extended maintenance, but we need to steal your credits
+			if(!B.adjust_money(-amount))
+				B.bank_card_talk("A spacecoin credit deposit machine is located at: [get_area(src)].")
+				continue
+		total_credits_stolen += amount
+		victim_count += 1
+		B.bank_card_talk("You have lost [percentage_lost * 100]% of your funds!. A spacecoin credit deposit machine is located at: [get_area(src)].")
+
+	if(crab_account)
+		crab_account.bank_card_talk("You have stolen [total_credits_stolen] credits, and the machine is located at [get_area(src)].")
 	for(var/M in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(M, src)
 		to_chat(M, "<span class='deadsay'>[link] [name] [total_credits_stolen ? "siphons total [total_credits_stolen] credits from [victim_count] bank accounts." : "tried to siphon bank accounts, but there're no victims."] location: [get_area(src)]</span>")
@@ -197,7 +203,11 @@
 	// Oh no, it RUNS AWAY!!!
 	if(obj_integrity && obj_integrity < next_health_to_teleport) // checks if obj_integrity is positive first
 		next_health_to_teleport -= RUN_AWAY_THRESHOLD_HP
-		var/turf/targetturf = get_safe_random_station_turfs()
+		var/turf/targetturf
+		for(var/i in 1 to 100) // teleporting across z-levels is painful
+			targetturf = get_safe_random_station_turfs()
+			if(targetturf.z == src.z)
+				break
 		if(targetturf)
 			var/turf/message_turf = get_turf(src) // 'visible_message' from teleported mob will be visible after it's teleported...
 			if(do_teleport(src, targetturf, 0, channel = TELEPORT_CHANNEL_BLUESPACE))
