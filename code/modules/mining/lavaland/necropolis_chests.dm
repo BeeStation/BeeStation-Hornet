@@ -1125,7 +1125,7 @@
 	var/chaser_cooldown = 81 //how long the cooldown between firing chasers at mobs is
 	var/chaser_timer = 0 //what our current chaser cooldown is
 	var/chaser_speed = 0.8 //how fast our chasers are
-	var/nolavalandpenalty = 5 //cooldown multiplier for using the club anywhere but lavaland
+	var/nolavalandpenalty = 10 //cooldown multiplier for using the club anywhere but lavaland
 	var/timer = 0 //what our current cooldown is
 	var/blast_range = 13 //how long the cardinal blast's walls are
 	var/obj/effect/hierophant/beacon //the associated beacon we teleport to
@@ -1182,7 +1182,7 @@
 			to_chat(user, "<span class='warning'>That target is out of range!</span>" )
 			timer = world.time
 	if(!is_mining_level(user.z))
-//		timer += nolavalandpenalty*(timer - world.time)
+		timer += nolavalandpenalty*(timer - world.time)
 		if(timer > world.time) //so this only shows after a successful attack
 			to_chat(user, "<span class='warning'>[name] is too far from the source of its power!</span>")
 	INVOKE_ASYNC(src, .proc/prepare_icon_update)
