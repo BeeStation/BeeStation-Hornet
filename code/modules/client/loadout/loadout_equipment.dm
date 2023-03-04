@@ -21,6 +21,11 @@
     force = 10
     desc = "A mining tool capable of expelling concentrated plasma bursts. Not very strong, but good at removing limbs"
 
+/obj/item/reagent_containers/spray/flame
+    volume = 50
+    list_reagents = list(/datum/reagent/clf3 = 50)
+    description = "A spray bottle, with an unscrewable top. This one came filled with chlorine triflouride"
+
 /obj/item/holo/esword/blue/Initialize(mapload)
 	. = ..()
 	saber_color = "blue"
@@ -46,16 +51,26 @@
     desc= "Somewhat eccentric and outdated, but this one actually hurts"
 
 /obj/item/storage/firstaid/royale
-    name = "combat medical kit"
+    name = "compact medical kit"
     desc = "I hope you've got insurance."
     icon_state = "firstaid-combat"
     item_state = "firstaid-combat"
     skin_type = MEDBOT_SKIN_SYNDI
     w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/storage/firstaid/royale/Initialize(mapload)
-    . = ..()
+/obj/item/storage/firstaid/royale/PopulateContents()
+    var/static/items_inside = list(
+        /obj/item/healthanalyzer = 1,
+		/obj/item/stack/medical/gauze = 1,
+		/obj/item/stack/medical/bruise_pack = 1,
+		/obj/item/stack/medical/ointment = 1,
+        /obj/item/storage/pill_bottle/penacid = 1,
+        /obj/item/storage/pill_bottle/happy = 1,
+		/obj/item/reagent_containers/hypospray/medipen/atropine = 1)
+	generate_items_inside(items_inside,src)
 
+/obj/item/syndie_glue/royale
+    uses = 3
 
 /obj/item/dice/d20/fate/one_use/stealth/d4
     name = "d4"
@@ -186,6 +201,11 @@
     path = /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/sawn
     description = "A short tube that kind of aims a shotgun shell. Comes with one round"
 
+/datum/gear/equipment/sprayfire
+    display_name = "ghetto flamethrower"
+    path = /obj/item/reagent_containers/spray/flame
+    description = "Looks like an ordinary spray bottle to me"
+
 /datum/gear/equipment/ptsd
     display_name = "PTSD"
     path = /obj/item/gun/energy/e_gun/mini/heads/royale
@@ -301,13 +321,21 @@
     display_name = "compact medkit"
     path = /obj/item/storage/firstaid/royale
 
-
+/datum/gear/equipment/survival
+    display_name = "survival medipen"
+    path = /obj/item/reagent_containers/hypospray/medipen/survival
+    description = "A medipen for surviving in the harshest of environments, heals and protects from environmental hazards."
 
 
 // JUST FOR FUN
 /datum/gear/equipment/syndicards
     display_name = "syndicate playing cards"
     path = /obj/item/toy/cards/deck/syndicate
+
+/datum/gear/equipment/glue
+    display_name = "bottle of super glue"
+    path = /obj/item/syndie_glue/royale
+    description = "A black market brand of high strength adhesive, rarely sold to the public. This bottle contains three applications, use them well."
 
 /datum/gear/equipment/fate
     display_name = "fateful bag of dice"
