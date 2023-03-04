@@ -22,6 +22,7 @@
 			return FALSE
 		new /obj/effect/dumpeetTarget(targetturf, user)
 		activated = TRUE
+		log_game("[key_name(user)] has activated the Crab-17 protocol at [AREACOORD(src)]")
 
 #define RUN_AWAY_THRESHOLD_HP 140
 #define RUN_AWAY_DELAYED_HP 30
