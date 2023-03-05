@@ -1120,17 +1120,16 @@
 	force = 5 //Melee attacks also invoke a 15 burn damage AoE, for a total of 20 damage
 	attack_verb = list("clubbed", "beat", "pummeled")
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
-	actions_types = list(/datum/action/item_action/vortex_recall, /datum/action/item_action/toggle_unfriendly_fire)
+	actions_types = list(/datum/action/item_action/vortex_recall)
 	var/cooldown_time = 20 //how long the cooldown between non-melee ranged attacks is
 	var/chaser_cooldown = 81 //how long the cooldown between firing chasers at mobs is
 	var/chaser_timer = 0 //what our current chaser cooldown is
 	var/chaser_speed = 0.8 //how fast our chasers are
-	var/nolavalandpenalty = 10 //cooldown multiplier for using the club anywhere but lavaland
 	var/timer = 0 //what our current cooldown is
 	var/blast_range = 13 //how long the cardinal blast's walls are
 	var/obj/effect/hierophant/beacon //the associated beacon we teleport to
 	var/teleporting = FALSE //if we ARE teleporting
-	var/friendly_fire_check = FALSE //if the blasts we make will consider our faction against the faction of hit targets
+	var/friendly_fire_check = TRUE //if the blasts we make will consider our faction against the faction of hit targets
 
 /obj/item/hierophant_club/examine(mob/user)
 	. = ..()
@@ -1181,10 +1180,6 @@
 		else
 			to_chat(user, "<span class='warning'>That target is out of range!</span>" )
 			timer = world.time
-	if(!is_mining_level(user.z))
-		timer += nolavalandpenalty*(timer - world.time)
-		if(timer > world.time) //so this only shows after a successful attack
-			to_chat(user, "<span class='warning'>[name] is too far from the source of its power!</span>")
 	INVOKE_ASYNC(src, .proc/prepare_icon_update)
 
 /obj/item/hierophant_club/proc/calculate_anger_mod(mob/user) //we get stronger as the user loses health
@@ -1214,10 +1209,6 @@
 	update_icon()
 
 /obj/item/hierophant_club/ui_action_click(mob/user, action)
-	if(istype(action, /datum/action/item_action/toggle_unfriendly_fire)) //toggle friendly fire...
-		friendly_fire_check = !friendly_fire_check
-		to_chat(user, "<span class='warning'>You toggle friendly fire [friendly_fire_check ? "off":"on"]!</span>")
-		return
 	if(timer > world.time)
 		return
 	if(!user.is_holding(src)) //you need to hold the staff to teleport
