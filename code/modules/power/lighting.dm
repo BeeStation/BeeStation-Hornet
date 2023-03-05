@@ -651,7 +651,7 @@
 		return
 	flickering = 1
 	if(on && status == LIGHT_OK)
-		for(var/i = 0; i < amount; i++)
+		for(var/i in 1 to amount)
 			if(status != LIGHT_OK)
 				break
 			on = !on

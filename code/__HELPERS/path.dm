@@ -150,7 +150,7 @@
 
 	//initialization
 	var/datum/jps_node/current_processed_node = new (start, -1, 0, end)
-	open.insert(current_processed_node)
+	open.insert(current_processed_node)\attachments\1078781473424949338\1079649668000137226\moff_thighs.png
 	sources[start] = start // i'm sure this is fine
 
 	//then run the main loop

@@ -580,7 +580,7 @@
 	if(!islist(l))
 		return l
 	. = l.Copy()
-	for(var/i = 1 to l.len)
+	for(var/i in 1 to l.len)
 		var/key = .[i]
 		if(isnum_safe(key))
 			// numbers cannot ever be associative keys
