@@ -1,6 +1,15 @@
 // Grown Flowers
+/obj/item/seeds/flower
+	name = "pack of generic flower seeds"
+	desc = "You should not be seeing this."
+	endurance = 10
+	maturation = 8
+	yield = 6
+	potency = 20
+	growthstages = 3
+
 /obj/item/reagent_containers/food/snacks/grown/flower
-	name = "flower"
+	name = "generic flower"
 	desc = "You should not be seeing this"
 	slot_flags = ITEM_SLOT_HEAD
 
