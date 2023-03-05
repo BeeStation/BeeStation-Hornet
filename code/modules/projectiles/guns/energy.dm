@@ -93,7 +93,7 @@
 
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot
-	for(var/i in 1 to affected_range)
+	for(var/i in 1 to ammo_type)
 		var/shottype = ammo_type[i]
 		shot = new shottype(src)
 		ammo_type[i] = shot

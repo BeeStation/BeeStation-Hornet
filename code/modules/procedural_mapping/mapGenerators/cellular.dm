@@ -55,7 +55,7 @@
 			if(T)
 				T.ChangeTurf(type_map[current_state[x][y]+1])
 
-/datum/map_generator/ca/proc/apply_rule(x, y)
+/datum/mapGenerator/ca/proc/apply_rule(x, y)
 	var/value = 0
 	for(var/dist_x in -1 to 1)
 		for(var/dist_y in -1 to 1)
