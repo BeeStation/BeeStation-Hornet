@@ -158,6 +158,7 @@ SUBSYSTEM_DEF(throwing)
 			return
 
 		dist_travelled++
+		AM.Move(step, get_dir(AM, step), DELAY_TO_GLIDE_SIZE(1 / speed))
 
 		if(actual_target && !(actual_target.pass_flags & LETPASSTHROW) && actual_target.loc == AM.loc) // we crossed a movable with no density (e.g. a mouse or APC) we intend to hit anyway.
 			finalize(TRUE, actual_target)
