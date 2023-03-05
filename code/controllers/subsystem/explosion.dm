@@ -222,15 +222,15 @@ SUBSYSTEM_DEF(explosions)
 
 /datum/controller/subsystem/explosions/proc/explode(atom/origin, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 0, flame_range = 0, flash_range = 0, adminlog = TRUE, ignorecap = FALSE, silent = FALSE, smoke = FALSE, magic = FALSE, holy = FALSE, cap_modifier, explode_z = TRUE)
 	var/list/arguments = list(
-		EXARG_KEY_ORIGIN = origin, 
-		EXARG_KEY_DEV_RANGE = devastation_range, 
-		EXARG_KEY_HEAVY_RANGE = heavy_impact_range, 
-		EXARG_KEY_LIGHT_RANGE = light_impact_range, 
-		EXARG_KEY_FLAME_RANGE = flame_range, 
-		EXARG_KEY_FLASH_RANGE = flash_range, 
-		EXARG_KEY_ADMIN_LOG = adminlog, 
-		EXARG_KEY_IGNORE_CAP = ignorecap, 
-		EXARG_KEY_SILENT = silent, 
+		EXARG_KEY_ORIGIN = origin,
+		EXARG_KEY_DEV_RANGE = devastation_range,
+		EXARG_KEY_HEAVY_RANGE = heavy_impact_range,
+		EXARG_KEY_LIGHT_RANGE = light_impact_range,
+		EXARG_KEY_FLAME_RANGE = flame_range,
+		EXARG_KEY_FLASH_RANGE = flash_range,
+		EXARG_KEY_ADMIN_LOG = adminlog,
+		EXARG_KEY_IGNORE_CAP = ignorecap,
+		EXARG_KEY_SILENT = silent,
 		EXARG_KEY_SMOKE = smoke,
 		EXARG_KEY_MAGIC = magic,
 		EXARG_KEY_HOLY = holy,
@@ -503,11 +503,11 @@ SUBSYSTEM_DEF(explosions)
 /// The probability that a distant explosion SFX will be a far explosion sound rather than an echo. (0-100)
 #define FAR_SOUND_PROB 75
 /// The upper limit on screenshake amplitude for nearby explosions.
-#define NEAR_SHAKE_CAP 5
+#define NEAR_SHAKE_CAP 10
 /// The upper limit on screenshake amplifude for distant explosions.
-#define FAR_SHAKE_CAP 1.5
+#define FAR_SHAKE_CAP 2.5
 /// The duration of the screenshake for nearby explosions.
-#define NEAR_SHAKE_DURATION (1.5 SECONDS)
+#define NEAR_SHAKE_DURATION (2.5 SECONDS)
 /// The duration of the screenshake for distant explosions.
 #define FAR_SHAKE_DURATION (1 SECONDS)
 /// The lower limit for the randomly selected hull creaking frequency.
