@@ -306,7 +306,7 @@
 		autoclose = FALSE
 
 /obj/machinery/door/window/try_to_crowbar(obj/item/I, mob/user)
-	if(!hasPower())
+	if(!hasPower() || HAS_TRAIT(I, TRAIT_DOOR_PRYER))
 		if(density)
 			open(2)
 		else
