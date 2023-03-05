@@ -72,9 +72,9 @@
 		close()
 
 /obj/machinery/door/window/Bumped(atom/movable/AM)
-	if( operating || !density )
+	if(operating || !density)
 		return
-	if(!( ismob(AM) ))
+	if(!(ismob(AM)))
 		if(ismecha(AM))
 			var/obj/mecha/mecha = AM
 			if(mecha.occupant && allowed(mecha.occupant))
@@ -82,7 +82,7 @@
 			else
 				do_animate("deny")
 		return
-	if(!( SSticker ))
+	if(!(SSticker))
 		return
 	var/mob/M = AM
 	if(M.restrained() || ((isdrone(M) || iscyborg(M)) && M.stat))
@@ -90,7 +90,7 @@
 	bumpopen(M)
 
 /obj/machinery/door/window/bumpopen(mob/user)
-	if( operating || !density )
+	if(operating || !density)
 		return
 	add_fingerprint(user)
 	// Cutting WIRE_IDSCAN disables normal entry... or it would, if we could hack windowdoors.
