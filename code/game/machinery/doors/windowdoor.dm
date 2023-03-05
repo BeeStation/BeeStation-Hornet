@@ -1,6 +1,6 @@
 /obj/machinery/door/window
-	name = "interior door"
-	desc = "A strong door."
+	name = "windoor"
+	desc = "A thin door with translucent glass paneling."
 	icon = 'icons/obj/doors/windoor.dmi'
 	icon_state = "left"
 	layer = ABOVE_WINDOW_LAYER
@@ -74,7 +74,7 @@
 /obj/machinery/door/window/Bumped(atom/movable/AM)
 	if( operating || !density )
 		return
-	if (!( ismob(AM) ))
+	if(!( ismob(AM) ))
 		if(ismecha(AM))
 			var/obj/mecha/mecha = AM
 			if(mecha.occupant && allowed(mecha.occupant))
@@ -82,7 +82,7 @@
 			else
 				do_animate("deny")
 		return
-	if (!( SSticker ))
+	if(!( SSticker ))
 		return
 	var/mob/M = AM
 	if(M.restrained() || ((isdrone(M) || iscyborg(M)) && M.stat))
@@ -140,7 +140,7 @@
 		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/machinery/door/window/open(forced=FALSE)
-	if (operating) //doors can still open when emag-disabled
+	if(operating) //doors can still open when emag-disabled
 		return 0
 	if(!forced)
 		if(!hasPower())
@@ -153,7 +153,7 @@
 	do_animate("opening")
 	playsound(src, 'sound/machines/windowdoor.ogg', 100, 1)
 	icon_state ="[base_state]open"
-	sleep(10)
+	sleep(5)
 
 	set_density(FALSE)
 	air_update_turf(1)
@@ -164,7 +164,7 @@
 	return 1
 
 /obj/machinery/door/window/close(forced=FALSE)
-	if (operating)
+	if(operating)
 		return 0
 	if(!forced)
 		if(!hasPower())
@@ -180,7 +180,7 @@
 	set_density(TRUE)
 	air_update_turf(1)
 	update_freelook_sight()
-	sleep(10)
+	sleep(5)
 
 	operating = FALSE
 	return 1
@@ -301,7 +301,7 @@
 	try_to_activate_door(null, user)
 
 /obj/machinery/door/window/try_to_activate_door(obj/item/I, mob/user)
-	if (..())
+	if(..())
 		autoclose = FALSE
 
 /obj/machinery/door/window/try_to_crowbar(obj/item/I, mob/user)
