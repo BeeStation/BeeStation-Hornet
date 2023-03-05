@@ -696,6 +696,8 @@
 		/obj/item/reagent_containers/glass/beaker = 2,
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stack/sheet/glass = 1)
+	def_components = list(
+		/obj/item/reagent_containers/glass/beaker = /obj/item/reagent_containers/glass/beaker/large)
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/chem_master/attackby(obj/item/I, mob/user, params)
