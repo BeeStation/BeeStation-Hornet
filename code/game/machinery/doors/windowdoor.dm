@@ -17,6 +17,7 @@
 	CanAtmosPass = ATMOS_PASS_PROC
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	network_id = NETWORK_DOOR_AIRLOCKS
+	var/operationdelay = 5
 	var/obj/item/electronics/airlock/electronics = null
 	var/reinf = 0
 	var/shards = 2
@@ -153,7 +154,7 @@
 	do_animate("opening")
 	playsound(src, 'sound/machines/windowdoor.ogg', 100, 1)
 	icon_state ="[base_state]open"
-	sleep(5)
+	sleep(operationdelay)
 
 	set_density(FALSE)
 	air_update_turf(1)
@@ -180,7 +181,7 @@
 	set_density(TRUE)
 	air_update_turf(1)
 	update_freelook_sight()
-	sleep(5)
+	sleep(operationdelay)
 
 	operating = FALSE
 	return 1
@@ -382,6 +383,7 @@
 	max_integrity = 50
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100, "stamina" = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	operationdelay = 10
 	var/made_glow = FALSE
 
 /obj/machinery/door/window/clockwork/Initialize(mapload, set_dir)
