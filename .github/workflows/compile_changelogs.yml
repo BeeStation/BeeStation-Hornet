@@ -30,7 +30,8 @@ jobs:
           git pull origin master
           git commit -m "Automatic changelog compile [ci skip]" -a || true
       - name: Push
-        uses: ad-m/github-push-action@master
+        uses: CasperWA/push-protected@v2
         with:
           #github_token: ${{ secrets.GITHUB_TOKEN }} Use this instead if you have unprotected branches
-          github_token: ${{ secrets.CL_TOKEN }}
+          github_token: ${{ secrets.CL_TOKEN }} 
+          branch: master
