@@ -335,7 +335,7 @@ GLOBAL_VAR(restart_counter)
 
 	s += "<b>[station_name()]</b>";
 	var/discordurl = CONFIG_GET(string/discordurl)
-	s += " (<a href='[discordurl]'>Discord</a>|<a href='http://beestation13.com'>Website</a>)"
+	s += " (<a href='[discordurl]'>Discord</a>|<a href='https://discord.gg/m5wTK9fxa3'>Website</a>)"
 
 	var/players = GLOB.clients.len
 

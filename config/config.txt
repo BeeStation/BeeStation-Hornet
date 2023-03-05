@@ -264,26 +264,26 @@ CHECK_RANDOMIZER
 #SERVER  byond://sage.beestation13.com:7878
 
 ## forum address
-#FORUMURL https://forums.beestation13.com
+#FORUMURL https://discord.gg/m5wTK9fxa3
 
 ## Wiki address
 #WIKIURL https://wiki.beestation13.com/view
 
 ## Rules address
-#RULESURL https://beestation13.com/rules
+#RULESURL https://discord.gg/m5wTK9fxa3
 
 ## Github address
-#GITHUBURL https://www.github.com/beestation/beestation-hornet
+#GITHUBURL https://github.com/Rukofamicom/BeeStation-Hornet/tree/Station-royale
 
 ## Label to tag ingame-registered issues with.
 ## Uncomment this to enable them.
 #ISSUE_LABEL Ingame Issue Report
 
 ## Donation URL
-DONATEURL https://www.patreon.com/user?u=10639001
+DONATEURL https://ko-fi.com/rukofamicom
 
 ## Discord Invite
-DISCORDURL https://discord.gg/zUe34rs
+DISCORDURL https://discord.gg/m5wTK9fxa3
 
 ## Round specific stats address
 ## Link to round specific parsed logs; IE statbus. It is appended with the RoundID automatically by ticker/Reboot()

@@ -1,7 +1,11 @@
-<!-- Most valid html will work in here, excluding images. -->
+<h1>Welcome to Royale Station 13!</h1>
+<br><b>Discord: 	<a href="https://discord.gg/m5wTK9fxa3">Click Me!</a></b>
+<br><b>Donate:	<a href="https://ko-fi.com/rukofamicom">Click Me!</a></b>
 
-<h1>Welcome to BeeStation!</h1>
+<b>Change your loadout in preferences to adjust your starting gear</b>
+<b>All jobs have unlimited slots, but mostly only offer different spawn locations</b>
+<b>All players start with the same access regardless of where they spawned</b>
+<b>Loot drops will periodically rain from the sky in random locations</b>
+<b>Random events will keep things spicy from time to time, stay on your toes!</b>
 
-<br><b>Website: 	<a href="http://beestation13.com">Click Me!</a></b>
-<br><b>Discord: 	<a href="https://discord.gg/z9ttAvA">Click Me!</a></b>
-<br><b>Donate:	<a href="https://www.patreon.com/user?u=10639001">Click Me!</a></b>
+<b>Be sure to click the discord link above for more information!</b>

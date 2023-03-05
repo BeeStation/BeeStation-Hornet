@@ -214,21 +214,21 @@
 	config_entry_value = "https://wiki.beestation13.com/view/Main_Page"
 
 /datum/config_entry/string/forumurl
-	config_entry_value = "https://forums.beestation13.com/"
+	config_entry_value = "https://discord.gg/m5wTK9fxa3"
 
 /datum/config_entry/string/rulesurl
-	config_entry_value = "https://beestation13.com/rules"
+	config_entry_value = "https://discord.gg/m5wTK9fxa3"
 
 /datum/config_entry/string/githuburl
-	config_entry_value = "https://github.com/BeeStation/BeeStation-Hornet"
+	config_entry_value = "https://github.com/Rukofamicom/BeeStation-Hornet/tree/Station-royale"
 
 /datum/config_entry/string/issue_label
 
 /datum/config_entry/string/donateurl
-	config_entry_value = "https://www.patreon.com/user?u=10639001"
+	config_entry_value = "https://ko-fi.com/rukofamicom"
 
 /datum/config_entry/string/discordurl
-	config_entry_value = "https://discord.gg/zUe34rs"
+	config_entry_value = "https://discord.gg/m5wTK9fxa3"
 
 /datum/config_entry/string/roundstatsurl
 

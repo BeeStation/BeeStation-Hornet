@@ -8,7 +8,7 @@
 	view = "17x15"
 	hub = "Exadv1.spacestation13"
 	hub_password = "kMZy3U5jJHSiBQjr"
-	name = "BeeStation 13"
+	name = "Royale Station 13"
 	fps = 20
 
 #ifdef FIND_REF_NO_CHECK_TICK
