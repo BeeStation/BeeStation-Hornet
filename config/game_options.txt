@@ -1,7 +1,7 @@
 ## HEALTH ###
 
 ##Damage multiplier, effects both weapons and healing on all mobs. For example, 1.25 would result in 25% higher damage.
-DAMAGE_MULTIPLIER 0.75
+DAMAGE_MULTIPLIER 1
 
 ## REVIVAL ###
 
@@ -617,7 +617,7 @@ RANDOMIZE_SHIFT_TIME
 #SHIFT_TIME_REALTIME
 
 ## Crew objectives
-ALLOW_CREW_OBJECTIVES
+#ALLOW_CREW_OBJECTIVES
 
 ## Mob spam prevention. The number of each mobtype that can be alive at once. Stops people from crashing the server with chickens/monkeycubes/slimes. Altering these values is recommended based on server hardware.
 MAX_CUBE_MONKEYS 100
