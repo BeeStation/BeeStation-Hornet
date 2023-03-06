@@ -40863,7 +40863,6 @@
 	},
 /obj/item/flashlight/lantern{
 	desc = "A dim lantern that attracts moths.";
-	level = 3;
 	light_on = 1;
 	pixel_y = 11
 	},
