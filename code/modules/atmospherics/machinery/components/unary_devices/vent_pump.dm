@@ -14,9 +14,9 @@
 	use_power = IDLE_POWER_USE
 	can_unwrench = TRUE
 	welded = FALSE
-	level = 1
 	layer = GAS_SCRUBBER_LAYER
 	shift_underlay_only = FALSE
+	hide = TRUE
 
 	interacts_with_air = TRUE
 
