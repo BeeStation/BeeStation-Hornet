@@ -1,0 +1,9 @@
+author: Time-Green, RKz
+delete-after: true
+changes:
+  - rscadd: Plumbing can now (technically) be mapped.
+  - tweak: atmos pipe/machine tile hiding is now a variable, mappers and admins rejoice.
+  - bugfix: Plumbing should have been mapped long ago.
+  - refactor: quite a few .dm outside atmos pipes, such as satchel bags, have been
+      simplified now that the feature is tacked onto a variable
+  - code_imp: a few update_appearance replacing update_icon
