@@ -557,15 +557,15 @@
 //Because I *KNOW* somebody will think layer+1 means "above"
 //IT DOESN'T OK, IT MEANS "UNDER"
 /// The layer underneath the suit
-#define UNDER_SUIT_LAYER			(SUIT_LAYER+1)
+#define UNDER_SUIT_LAYER (SUIT_LAYER+1)
 /// The layer underneath the head (for hats)
-#define UNDER_HEAD_LAYER			(HEAD_LAYER+1)
+#define UNDER_HEAD_LAYER (HEAD_LAYER+1)
 
 //AND -1 MEANS "ABOVE", OK?, OK!?!
 /// The layer above shoes
-#define ABOVE_SHOES_LAYER			(SHOES_LAYER-1)
+#define ABOVE_SHOES_LAYER (SHOES_LAYER-1)
 /// The layer above mutant body parts
-#define ABOVE_BODY_FRONT_LAYER		(BODY_FRONT_LAYER-1)
+#define ABOVE_BODY_FRONT_LAYER (BODY_FRONT_LAYER-1)
 
 
 //used by canUseTopic()

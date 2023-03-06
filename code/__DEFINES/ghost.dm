@@ -1,14 +1,14 @@
 //Ghost orbit types:
 /// Ghosts will orbit objects in a circle
-#define GHOST_ORBIT_CIRCLE		"circle"
+#define GHOST_ORBIT_CIRCLE "circle"
 /// Ghosts will orbit objects in a triangle
-#define GHOST_ORBIT_TRIANGLE	"triangle"
+#define GHOST_ORBIT_TRIANGLE "triangle"
 /// Ghosts will orbit objects in a hexagon
-#define GHOST_ORBIT_HEXAGON		"hexagon"
+#define GHOST_ORBIT_HEXAGON "hexagon"
 /// Ghosts will orbit objects in a square
-#define GHOST_ORBIT_SQUARE		"square"
+#define GHOST_ORBIT_SQUARE "square"
 /// Ghosts will orbit objects in a pentagon
-#define GHOST_ORBIT_PENTAGON	"pentagon"
+#define GHOST_ORBIT_PENTAGON "pentagon"
 
 /////////   Ghost showing preferences SQL values:   /////////
 /// The main player's ghost will display as a simple white ghost
