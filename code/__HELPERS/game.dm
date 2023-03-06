@@ -1,5 +1,8 @@
 #define CULT_POLL_WAIT 2400
 
+/// 200 proc calls deep and shit breaks, this is a bit lower to give some safety room
+#define MAX_PROC_DEPTH 195 // no idea where to put this
+
 /proc/get_area_name(atom/X, format_text = FALSE)
 	var/area/A = isarea(X) ? X : get_area(X)
 	if(!A)
