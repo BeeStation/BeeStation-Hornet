@@ -1,0 +1,5 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: One Mind vessels now stop glowing after being deconverted
+  - bugfix: Hivemind vessels now lose the hivemind HUD after being deconverted
