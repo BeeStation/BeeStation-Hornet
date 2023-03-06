@@ -29144,9 +29144,9 @@
 /area/crew_quarters/dorms)
 "cVb" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy/lily,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy/lily,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy/lily,
+/obj/item/reagent_containers/food/snacks/grown/flower/lily,
+/obj/item/reagent_containers/food/snacks/grown/flower/lily,
+/obj/item/reagent_containers/food/snacks/grown/flower/lily,
 /obj/machinery/airalarm{
 	dir = 1;
 	pixel_y = -22
@@ -39937,11 +39937,11 @@
 /area/solar/port/aft)
 "efX" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy/geranium{
+/obj/item/reagent_containers/food/snacks/grown/flower/geranium{
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy/lily,
+/obj/item/reagent_containers/food/snacks/grown/flower/lily,
 /turf/open/floor/plasteel/grimy,
 /area/chapel/office)
 "efY" = (

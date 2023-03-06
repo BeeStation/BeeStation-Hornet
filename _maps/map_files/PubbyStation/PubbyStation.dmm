@@ -17655,7 +17655,7 @@
 /area/hydroponics/garden/monastery)
 "ciT" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/harebell,
+/obj/item/seeds/flower/harebell,
 /turf/open/floor/grass,
 /area/hydroponics/garden/monastery)
 "ciV" = (

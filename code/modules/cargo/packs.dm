@@ -3292,7 +3292,7 @@
 	access_budget = ACCESS_CHAPEL_OFFICE
 	contains = list(/obj/item/clothing/under/misc/burial,
 					/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-					/obj/item/reagent_containers/food/snacks/grown/flower/poppy/geranium)
+					/obj/item/reagent_containers/food/snacks/grown/flower/geranium)
 	crate_name = "coffin"
 	crate_type = /obj/structure/closet/crate/coffin
 

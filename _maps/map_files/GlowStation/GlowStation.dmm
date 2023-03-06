@@ -59030,15 +59030,15 @@
 	dir = 8;
 	light_color = "#e8eaff"
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy/lily{
+/obj/item/reagent_containers/food/snacks/grown/flower/lily{
 	pixel_x = 1;
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy/lily{
+/obj/item/reagent_containers/food/snacks/grown/flower/lily{
 	pixel_x = 10;
 	pixel_y = -5
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy/lily{
+/obj/item/reagent_containers/food/snacks/grown/flower/lily{
 	pixel_x = -6;
 	pixel_y = -4
 	},
@@ -105796,11 +105796,11 @@
 /area/engine/atmospherics_engine)
 "wdp" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy/geranium{
+/obj/item/reagent_containers/food/snacks/grown/flower/geranium{
 	pixel_x = 9;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy/geranium{
+/obj/item/reagent_containers/food/snacks/grown/flower/geranium{
 	pixel_x = 6;
 	pixel_y = -5
 	},

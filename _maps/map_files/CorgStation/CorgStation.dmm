@@ -15600,9 +15600,9 @@
 /area/science/robotics/lab)
 "eYb" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy/lily,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy/lily,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy/lily,
+/obj/item/reagent_containers/food/snacks/grown/flower/lily,
+/obj/item/reagent_containers/food/snacks/grown/flower/lily,
+/obj/item/reagent_containers/food/snacks/grown/flower/lily,
 /obj/item/reagent_containers/food/snacks/grown/flower/harebell,
 /obj/item/reagent_containers/food/snacks/grown/flower/harebell,
 /turf/open/floor/plasteel/grimy,

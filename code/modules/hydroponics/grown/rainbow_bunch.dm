@@ -27,6 +27,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 2
 	throw_range = 3
+	bitesize_mod = 0
+	foodtype = null
 	attack_verb = list("pompfed")
 
 /obj/item/reagent_containers/food/snacks/grown/flower/rainbow/Initialize(mapload)

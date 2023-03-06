@@ -84244,11 +84244,11 @@
 /area/engine/engine_room)
 "vmD" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy/geranium{
+/obj/item/reagent_containers/food/snacks/grown/flower/geranium{
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy/lily,
+/obj/item/reagent_containers/food/snacks/grown/flower/lily,
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
