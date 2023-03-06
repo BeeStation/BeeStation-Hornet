@@ -76,9 +76,6 @@
 	adjustBruteLoss(amount_total * total_damage_percent_left)
 	Knockdown(levels * 50)
 
-/mob/living/proc/OpenCraftingMenu()
-	return
-
 /mob/living/proc/can_bumpslam()
 	REMOVE_MOB_PROPERTY(src, PROP_CANTBUMPSLAM, src.type)
 

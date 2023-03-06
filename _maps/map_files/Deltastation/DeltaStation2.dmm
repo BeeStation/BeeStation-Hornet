@@ -27883,7 +27883,6 @@
 	},
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 4;
-	level = 1;
 	name = "Xenobiology Positive Pressure Pump";
 	target_pressure = 500
 	},
