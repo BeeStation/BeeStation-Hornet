@@ -8,7 +8,7 @@ import fs from 'fs';
 import path from 'path';
 import { require } from './require.js';
 
-const { globSync } = require('glob');
+const globPkg = require('glob');
 
 export const resolvePath = path.resolve;
 
@@ -16,7 +16,7 @@ export const resolvePath = path.resolve;
  * Combines path.resolve with glob patterns.
  */
 export const resolveGlob = (...sections) => {
-  const unsafePaths = globSync(path.resolve(...sections), {
+  const unsafePaths = globPkg.sync(path.resolve(...sections), {
     strict: false,
     silent: true,
   });
