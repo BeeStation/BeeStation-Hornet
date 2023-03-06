@@ -9172,7 +9172,8 @@ __metadata:
     sass-loader: ^13.2.0
     style-loader: ^3.3.1
     terser-webpack-plugin: ^5.3.6
-    typescript: ^4.9.5
+    ts-plugin-inferno: ^1.1.0
+    typescript: 4.6.4
     url-loader: ^4.1.1
     webpack: ^5.75.0
     webpack-bundle-analyzer: ^4.8.0
@@ -9278,6 +9279,15 @@ __metadata:
   dependencies:
     punycode: ^2.1.1
   checksum: 44c3cc6767fb800490e6e9fd64fd49041aa4e49e1f6a012b34a75de739cc9ed3a6405296072c1df8b6389ae139c5e7c6496f659cfe13a04a4bff3a1422981270
+  languageName: node
+  linkType: hard
+
+"ts-plugin-inferno@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "ts-plugin-inferno@npm:1.1.0"
+  dependencies:
+    typescript: ^4.9.4
+  checksum: 1366f0f6019e5369e6c76a61f18fd7bb638322f579a9571ded972c08f10dc600f8e11eff3a684e0161993def197a176539240c19c95abea3ef730cd64ad2b60d
   languageName: node
   linkType: hard
 
@@ -9415,7 +9425,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.9.5":
+"typescript@npm:4.6.4":
+  version: 4.6.4
+  resolution: "typescript@npm:4.6.4"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: e7bfcc39cd4571a63a54e5ea21f16b8445268b9900bf55aee0e02ad981be576acc140eba24f1af5e3c1457767c96cea6d12861768fb386cf3ffb34013718631a
+  languageName: node
+  linkType: hard
+
+"typescript@npm:^4.9.4":
   version: 4.9.5
   resolution: "typescript@npm:4.9.5"
   bin:
@@ -9425,7 +9445,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.9.5#~builtin<compat/typescript>":
+"typescript@patch:typescript@4.6.4#~builtin<compat/typescript>":
+  version: 4.6.4
+  resolution: "typescript@patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=493e53"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 8cff08bf66d9ecfbf9fcc5edde04a5a7923e6cac3b21d99b4e9a06973bf5bd7f9a83ec7eed24129c1b9e13fd861de8c1070110d4b9ce9f18ab57c6999e9c9a6f
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@^4.9.4#~builtin<compat/typescript>":
   version: 4.9.5
   resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=493e53"
   bin:
