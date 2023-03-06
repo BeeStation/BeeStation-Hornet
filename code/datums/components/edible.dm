@@ -8,6 +8,8 @@ Behavior that's still missing from this component that original food items had t
 	Drying component (jerky etc)
 	Customizable component (custom pizzas etc)
 	Processable component (Slicing and cooking behavior essentialy, making it go from item A to B when conditions are met.)
+	Microwavability component
+	Frying component
 
 	Misc:
 	Something for cakes (You can store things inside)
@@ -31,7 +33,7 @@ Behavior that's still missing from this component that original food items had t
 	var/list/eatverbs
 	///Callback to be ran for when you take a bite of something
 	var/datum/callback/after_eat
-	///Callback to be ran for when you take a bite of something
+	///Callback to be ran for when you finish eating something
 	var/datum/callback/consume_callback
 	///Last time we checked for food likes
 	var/last_check_time
@@ -50,7 +52,6 @@ Behavior that's still missing from this component that original food items had t
 								list/tastes,
 								list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"),
 								bite_consumption = 2,
-								microwaved_type,
 								junkiness,
 								datum/callback/after_eat,
 								datum/callback/consume_callback)
