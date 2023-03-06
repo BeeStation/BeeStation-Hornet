@@ -3,6 +3,7 @@
 // ********************************************************
 
 /obj/item/seeds
+	name = "seed"
 	icon = 'icons/obj/hydroponics/seeds.dmi'
 	icon_state = "seed"				// Unknown plant seed - these shouldn't exist in-game.
 	w_class = WEIGHT_CLASS_TINY
