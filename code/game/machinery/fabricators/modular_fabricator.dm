@@ -496,7 +496,7 @@
 		var/obj/item/stack/N = new being_built.build_path(A, multiplier)
 		N.update_icon()
 	else
-		for(var/i=1, i<=multiplier, i++)
+		for(var/i in 1 to multiplier)
 			var/obj/item/new_item = new being_built.build_path(A)
 			new_item.materials.Cut()	//appearantly the material datum gets initialized in a subsystem so there is no need to qdelete it but we still need to empty the list
 			for(var/mat in materials_used)

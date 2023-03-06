@@ -288,7 +288,7 @@
 			total_laws_count++
 			sleep(10)
 
-	for (var/index = 1, index <= laws.hacked.len, index++)
+	for (var/index in 1 to laws.hacked.len)
 		var/law = laws.hacked[index]
 		var/num = ion_num()
 		if (length(law) > 0)
@@ -298,7 +298,7 @@
 				total_laws_count++
 				sleep(10)
 
-	for (var/index = 1, index <= laws.ion.len, index++)
+	for (var/index in 1 to laws.ion.len)
 		var/law = laws.ion[index]
 		var/num = ion_num()
 		if (length(law) > 0)
@@ -308,7 +308,7 @@
 				total_laws_count++
 				sleep(10)
 
-	for (var/index = 1, index <= laws.inherent.len, index++)
+	for (var/index in 1 to laws.inherent.len)
 		var/law = laws.inherent[index]
 
 		if (length(law) > 0)
@@ -319,7 +319,7 @@
 				number++
 				sleep(10)
 
-	for (var/index = 1, index <= laws.supplied.len, index++)
+	for (var/index in 1 to laws.supplied.len)
 		var/law = laws.supplied[index]
 
 		if (length(law) > 0)
