@@ -341,14 +341,18 @@
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H.dna.species.id in list("shadow", "nightmare"))
 		return //we're tied with the dark, so we don't get scared of it; don't cleanse outright to avoid cheese
-	var/turf/T = get_turf(quirk_holder)
-	if(T.get_lumcount() <= 0.2)
+	var/turf/holder_turf = get_turf(quirk_holder)
+
+	var/lums = holder_turf.get_lumcount()
+
+	if(lums > LIGHTING_TILE_IS_DARK)
+		SEND_SIGNAL(quirk_holder, COMSIG_CLEAR_MOOD_EVENT, "nyctophobia")
+		return
+
 		if(quirk_holder.m_intent == MOVE_INTENT_RUN)
 			to_chat(quirk_holder, "<span class='warning'>Easy, easy, take it slow... you're in the dark...</span>")
 			quirk_holder.toggle_move_intent()
-		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "nyctophobia", /datum/mood_event/nyctophobia)
-	else
-		SEND_SIGNAL(quirk_holder, COMSIG_CLEAR_MOOD_EVENT, "nyctophobia")
+	SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "nyctophobia", /datum/mood_event/nyctophobia)
 
 /datum/quirk/nonviolent
 	name = "Pacifist"
