@@ -143,7 +143,7 @@
 	desc = "A very large bluespace engine used to propel very large ships."
 	bound_width = 64
 	bound_height = 64
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 
 /obj/structure/shuttle/engine/huge
 	name = "engine"
@@ -153,7 +153,7 @@
 	desc = "An extremely large bluespace engine used to propel extremely large ships."
 	bound_width = 96
 	bound_height = 96
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 
 #undef ENGINE_UNWRENCHED
 #undef ENGINE_WRENCHED

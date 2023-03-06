@@ -139,11 +139,11 @@
 	return loc
 
 /obj/item/tank/jetpack/suicide_act(mob/user)
-	if (!istype(user, /mob/living/carbon/human))
+	if (!ishuman(user))
 		return ..()
 	var/mob/living/carbon/human/suffocater = user
 	suffocater.say("WHAT THE FUCK IS CARBON DIOXIDE?")
-	suffocater.visible_message("<span class='suicide'>[user] is suffocating [user.p_them()]self with [src]! It looks like [user.p_they()] didn't read what that jetpack says!</span>"))
+	suffocater.visible_message("<span class='suicide'>[user] is suffocating [user.p_them()]self with [src]! It looks like [user.p_they()] didn't read what that jetpack says!</span>")
 	return (OXYLOSS)
 
 /obj/item/tank/jetpack/improvised
