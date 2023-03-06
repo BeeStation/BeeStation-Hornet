@@ -350,7 +350,6 @@ B --><-- A
 	else
 		return get_step(ref, base_dir)
 
-/// same as do_mob except for movables and it allows both to drift and doesn't draw progressbar
 /proc/do_atom(atom/movable/user , atom/movable/target, time = 30, uninterruptible = 0,datum/callback/extra_checks = null)
 	if(!user || !target)
 		return TRUE

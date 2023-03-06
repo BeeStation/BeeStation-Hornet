@@ -33,6 +33,7 @@
 	RegisterSignal(drifting_loop, COMSIG_MOVELOOP_PREPROCESS_CHECK, .proc/before_move)
 	RegisterSignal(drifting_loop, COMSIG_MOVELOOP_POSTPROCESS, .proc/after_move)
 	RegisterSignal(drifting_loop, COMSIG_PARENT_QDELETING, .proc/loop_death)
+	RegisterSignal(movable_parent, COMSIG_MOVABLE_NEWTONIAN_MOVE, .proc/newtonian_impulse)
 	if(drifting_loop.running)
 		drifting_start(drifting_loop) // There's a good chance it'll autostart, gotta catch that
 
@@ -76,7 +77,8 @@
 	SIGNAL_HANDLER
 	var/atom/movable/movable_parent = parent
 	inertia_last_loc = movable_parent.loc
-	drifting_loop.direction = inertia_direction
+	if(drifting_loop)
+		drifting_loop.direction = inertia_direction
 	if(!inertia_direction)
 		qdel(src)
 	return COMPONENT_MOVABLE_NEWTONIAN_BLOCK
@@ -105,6 +107,7 @@
 	var/atom/movable/movable_parent = parent
 	movable_parent.inertia_moving = TRUE
 	old_dir = movable_parent.dir
+	delayed = FALSE
 
 /datum/component/drift/proc/after_move(datum/source, succeeded, visual_delay)
 	SIGNAL_HANDLER
@@ -113,8 +116,8 @@
 		return
 
 	var/atom/movable/movable_parent = parent
-	movable_parent.inertia_moving = FALSE
 	movable_parent.setDir(old_dir)
+	movable_parent.inertia_moving = FALSE
 	if(movable_parent.Process_Spacemove(drifting_loop.direction, continuous_move = TRUE))
 		glide_to_halt(visual_delay)
 		return
@@ -136,7 +139,7 @@
 	if(!isturf(movable_parent.loc))
 		qdel(src)
 		return
-	if(movable_parent.inertia_moving) //This'll be handled elsewhere
+	if(movable_parent.inertia_moving)
 		return
 	if(!movable_parent.Process_Spacemove(drifting_loop.direction, continuous_move = TRUE))
 		return
