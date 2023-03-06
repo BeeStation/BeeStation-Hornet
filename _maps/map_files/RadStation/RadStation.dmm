@@ -5474,6 +5474,15 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/ai)
+"csz" = (
+/obj/machinery/rnd/production/circuit_imprinter/department/science{
+	pixel_y = 11
+	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/science/robotics)
 "csG" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
@@ -10025,6 +10034,16 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"elW" = (
+/obj/machinery/aug_manipulator{
+	pixel_x = 1;
+	pixel_y = 11
+	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/science/robotics)
 "elX" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -23596,16 +23615,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
-"jLk" = (
-/obj/structure/table/reinforced,
-/obj/machinery/rnd/production/circuit_imprinter/department/science{
-	pixel_y = 11
-	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/science/robotics)
 "jLy" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Chapel"
@@ -23976,17 +23985,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
-"jSW" = (
-/obj/structure/table/reinforced,
-/obj/machinery/aug_manipulator{
-	pixel_x = 1;
-	pixel_y = 11
-	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/science/robotics)
 "jTf" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel/tech,
@@ -31917,8 +31915,7 @@
 "nhg" = (
 /obj/machinery/power/apc/auto_name/west{
 	dir = 1;
-	pixel_x = 0;
-	pixel_y = 32
+	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -85358,7 +85355,7 @@ mVN
 nnB
 cdY
 saq
-jLk
+csz
 iGM
 ipA
 xzW
@@ -85615,7 +85612,7 @@ mVN
 nnB
 lkB
 hSX
-jSW
+elW
 clo
 vhr
 xGG
