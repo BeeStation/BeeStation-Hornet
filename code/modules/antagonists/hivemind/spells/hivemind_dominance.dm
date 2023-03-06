@@ -27,6 +27,9 @@
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='boldwarning'>You try to remember who you are...</span>"), 90)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='assimilator'>There is no you...</span>"), 110)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='bigassimilator'>...there is only us.</span>"), 130)
+		var/datum/antagonist/hivevessel/woke_vessel = IS_WOKEVESSEL(C)
+		if (woke_vessel)
+			woke_vessel.glow = hive.glow
 		addtimer(CALLBACK(C, /atom/proc/add_overlay, hive.glow), 150)
 
 	for(var/datum/antagonist/hivemind/enemy in GLOB.hivehosts)
