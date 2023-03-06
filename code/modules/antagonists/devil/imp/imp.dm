@@ -30,7 +30,7 @@
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	obj_damage = 40
 	melee_damage = 10
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	var/boost = 0
 	bloodcrawl = BLOODCRAWL_EAT

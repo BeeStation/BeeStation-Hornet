@@ -349,8 +349,16 @@ GLOBAL_LIST_INIT(ghost_others_options, list(GHOST_OTHERS_SIMPLE, GHOST_OTHERS_DE
 #define STACK_CHECK_CARDINALS "cardinals" //! checks if there is an object of the result type in any of the cardinal directions
 #define STACK_CHECK_ADJACENT "adjacent" //! checks if there is an object of the result type within one tile
 
-//Fullscreen overlay resolution in tiles.
+/// Range at which FOV effects treat nearsightness as blind and play
+#define NEARSIGHTNESS_FOV_BLINDNESS 2
+
+/// Range in tiles that a mob can see in the dark (used to determine if a mob has night_vision)
+#define NIGHTVISION_FOV_RANGE 8
+
+//Fullscreen overlay resolution in tiles for the clients view.
+/// The fullscreen overlay in tiles for x axis
 #define FULLSCREEN_OVERLAY_RESOLUTION_X 15
+/// The fullscreen overlay in tiles for y axis
 #define FULLSCREEN_OVERLAY_RESOLUTION_Y 15
 
 #define SUMMON_GUNS "guns"

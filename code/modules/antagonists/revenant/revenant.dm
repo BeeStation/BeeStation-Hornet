@@ -26,7 +26,7 @@
 	sight = SEE_SELF
 	throwforce = 0
 
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	response_help   = "passes through"
 	response_disarm = "swings through"
@@ -430,7 +430,7 @@
 			to_chat(src, "<span class='warning'>Holy energies block your path!</span>")
 			return
 	return TRUE
-  
+
 /mob/living/simple_animal/revenant/get_photo_description(obj/item/camera/camera)
 	return "You can also see a g-g-g-g-ghooooost of malice!"
 

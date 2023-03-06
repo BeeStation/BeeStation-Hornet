@@ -16,7 +16,7 @@
 	var/crusher_loot
 	var/throw_message = "bounces off of"
 	var/fromtendril = FALSE
-	see_in_dark = 8
+	see_in_dark = NIGHTVISION_FOV_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	mob_size = MOB_SIZE_LARGE
 	hardattacks = TRUE //nasty_blocks wont help you here
