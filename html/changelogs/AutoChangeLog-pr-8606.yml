@@ -1,4 +1,0 @@
-author: mystery3525
-delete-after: true
-changes:
-  - code_imp: modules/power/lighting.dm is split into separate files
