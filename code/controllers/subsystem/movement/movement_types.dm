@@ -99,6 +99,11 @@
 	if(QDELETED(src) || !success) //Can happen
 		return
 
+	if(flags & MOVEMENT_LOOP_IGNORE_GLIDE)
+		return
+
+	moving.set_glide_size(MOVEMENT_ADJUSTED_GLIDE_SIZE(delay, visual_delay))
+
 ///Handles the actual move, overriden by children
 ///Returns FALSE if nothing happen, TRUE otherwise
 /datum/move_loop/proc/move()

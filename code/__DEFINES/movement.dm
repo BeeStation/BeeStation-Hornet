@@ -1,22 +1,3 @@
-//Movement loop priority. Only one loop can run at a time, this dictates that
-// Higher numbers beat lower numbers
-///Standard, go lower then this if you want to override, higher otherwise
-#define MOVEMENT_DEFAULT_PRIORITY 10
-///Very few things should override this
-#define MOVEMENT_SPACE_PRIORITY 100
-///Higher then the heavens
-#define MOVEMENT_ABOVE_SPACE_PRIORITY (MOVEMENT_SPACE_PRIORITY + 1)
-
-//Movement loop flags
-///Should the loop act immediately following its addition?
-#define MOVEMENT_LOOP_START_FAST (1<<0)
-///Do we not use the priority system?
-#define MOVEMENT_LOOP_IGNORE_PRIORITY (1<<1)
-
-//Index defines for movement bucket data packets
-#define MOVEMENT_BUCKET_TIME 1
-#define MOVEMENT_BUCKET_LIST 2
-
 //The minimum for glide_size to be clamped to.
 #define MIN_GLIDE_SIZE 1
 //The maximum for glide_size to be clamped to.
@@ -33,3 +14,27 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 /// The whole result is then clamped to within the range above.
 /// Not very readable but it works
 #define DELAY_TO_GLIDE_SIZE(delay) (CLAMP(((32 / max((delay) / world.tick_lag, 1)) * GLOB.glide_size_multiplier), MIN_GLIDE_SIZE, MAX_GLIDE_SIZE))
+
+///Similar to DELAY_TO_GLIDE_SIZE, except without the clamping, and it supports piping in an unrelated scalar
+#define MOVEMENT_ADJUSTED_GLIDE_SIZE(delay, movement_disparity) (world.icon_size / ((delay) / world.tick_lag) * movement_disparity * GLOB.glide_size_multiplier)
+
+//Movement loop priority. Only one loop can run at a time, this dictates that
+// Higher numbers beat lower numbers
+///Standard, go lower then this if you want to override, higher otherwise
+#define MOVEMENT_DEFAULT_PRIORITY 10
+///Very few things should override this
+#define MOVEMENT_SPACE_PRIORITY 100
+///Higher then the heavens
+#define MOVEMENT_ABOVE_SPACE_PRIORITY (MOVEMENT_SPACE_PRIORITY + 1)
+
+//Movement loop flags
+///Should the loop act immediately following its addition?
+#define MOVEMENT_LOOP_START_FAST (1<<0)
+///Do we not use the priority system?
+#define MOVEMENT_LOOP_IGNORE_PRIORITY (1<<1)\
+///Should we override the loop's glide?
+#define MOVEMENT_LOOP_IGNORE_GLIDE (1<<2)
+
+//Index defines for movement bucket data packets
+#define MOVEMENT_BUCKET_TIME 1
+#define MOVEMENT_BUCKET_LIST 2

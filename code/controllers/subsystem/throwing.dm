@@ -152,13 +152,12 @@ SUBSYSTEM_DEF(throwing)
 			finalize()
 			return
 
-		if(!AM.Move(step, get_dir(AM, step))) // we hit something during our move...
+		if(!AM.Move(step, get_dir(AM, step), DELAY_TO_GLIDE_SIZE(1 / speed))) // we hit something during our move...
 			if(AM.throwing) // ...but finalize() wasn't called on Bump() because of a higher level definition that doesn't always call parent.
 				finalize()
 			return
 
 		dist_travelled++
-		AM.Move(step, get_dir(AM, step), DELAY_TO_GLIDE_SIZE(1 / speed))
 
 		if(actual_target && !(actual_target.pass_flags & LETPASSTHROW) && actual_target.loc == AM.loc) // we crossed a movable with no density (e.g. a mouse or APC) we intend to hit anyway.
 			finalize(TRUE, actual_target)
