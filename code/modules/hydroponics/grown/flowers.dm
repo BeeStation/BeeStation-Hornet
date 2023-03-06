@@ -19,7 +19,7 @@
 /obj/item/reagent_containers/food/snacks/grown/flower/equipped(mob/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn)
+		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn, src)
 
 /obj/item/reagent_containers/food/snacks/grown/flower/dropped(mob/living/carbon/user)
 	..()
@@ -215,7 +215,7 @@
 /obj/item/grown/sunflower/equipped(mob/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn)
+		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn, src)
 
 /obj/item/grown/sunflower/dropped(mob/living/carbon/user)
 	..()
@@ -324,7 +324,7 @@
 /obj/item/grown/novaflower/equipped(mob/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn)
+		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn, src)
 
 /obj/item/grown/novaflower/dropped(mob/living/carbon/user)
 	..()

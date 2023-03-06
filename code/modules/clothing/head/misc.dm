@@ -439,7 +439,7 @@
 /obj/item/clothing/head/flowercrown/equipped(mob/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_crown_worn", /datum/mood_event/flower_crown_worn)
+		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_crown_worn", /datum/mood_event/flower_crown_worn, src)
 
 /obj/item/clothing/head/flowercrown/dropped(mob/living/carbon/user)
 	..()

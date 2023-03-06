@@ -135,7 +135,7 @@
 /obj/item/reagent_containers/food/snacks/grown/grass/shamrock/equipped(mob/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn)
+		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn, src)
 
 /obj/item/reagent_containers/food/snacks/grown/grass/shamrock/dropped(mob/living/carbon/user)
 	..()
