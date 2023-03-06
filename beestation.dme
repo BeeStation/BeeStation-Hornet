@@ -186,6 +186,7 @@
 #include "code\__DEFINES\dcs\signals\signals_obj\signals_object.dm"
 #include "code\__DEFINES\dcs\signals\signals_obj\signals_projectile.dm"
 #include "code\__DEFINES\dcs\signals\signals_obj\signals_item\signals_clothing.dm"
+#include "code\__DEFINES\dcs\signals\signals_obj\signals_item\signals_food.dm"
 #include "code\__DEFINES\dcs\signals\signals_obj\signals_item\signals_grenade.dm"
 #include "code\__DEFINES\dcs\signals\signals_obj\signals_item\signals_implant.dm"
 #include "code\__DEFINES\dcs\signals\signals_obj\signals_item\signals_item.dm"

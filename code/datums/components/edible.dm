@@ -8,13 +8,13 @@ Behavior that's still missing from this component that original food items had t
 	Drying component (jerky etc)
 	Customizable component (custom pizzas etc)
 	Processable component (Slicing and cooking behavior essentialy, making it go from item A to B when conditions are met.)
-	Dunkable component (Dunking things into reagent containers to absorb a specific amount of reagents)
 
 	Misc:
 	Something for cakes (You can store things inside)
 
 */
 /datum/component/edible
+	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 	///Amount of reagents taken per bite
 	var/bite_consumption = 2
 	///Amount of bites taken so far
@@ -31,19 +31,42 @@ Behavior that's still missing from this component that original food items had t
 	var/list/eatverbs
 	///Callback to be ran for when you take a bite of something
 	var/datum/callback/after_eat
+	///Callback to be ran for when you take a bite of something
+	var/datum/callback/consume_callback
 	///Last time we checked for food likes
 	var/last_check_time
+	///The initial reagents of this food when it is made
+	var/list/initial_reagents
+	///The initial volume of the foods reagents
+	var/volume
+	///The flavortext for taste
+	var/list/tastes
 
-/datum/component/edible/Initialize(list/initial_reagents, food_flags = NONE, foodtypes = NONE, volume = 50, eat_time = 30, list/tastes, list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"), bite_consumption = 2, datum/callback/after_eat)
+/datum/component/edible/Initialize(list/initial_reagents,
+								food_flags = NONE,
+								foodtypes = NONE,
+								volume = 50,
+								eat_time = 10,
+								list/tastes,
+								list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"),
+								bite_consumption = 2,
+								microwaved_type,
+								junkiness,
+								datum/callback/after_eat,
+								datum/callback/consume_callback)
+
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/examine)
-	RegisterSignal(parent, COMSIG_ATOM_ATTACK_ANIMAL, .proc/UseByAnimal)
+	RegisterSignal(parent, COMSIG_ATOM_ATTACK_ANIMAL, .proc/use_by_animal)
+
 	if(isitem(parent))
-		RegisterSignal(parent, COMSIG_ITEM_ATTACK, .proc/UseFromHand)
-	else if(isturf(parent))
-		RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, .proc/TryToEatTurf)
+		RegisterSignal(parent, COMSIG_ITEM_ATTACK, .proc/use_from_hand)
+
+		var/obj/item/item = parent
+		if (!item.grind_results)
+			item.grind_results = list() //If this doesn't already exist, add it as an empty list. This is needed for the grinder to accept it.
 
 	src.bite_consumption = bite_consumption
 	src.food_flags = food_flags
@@ -52,21 +75,54 @@ Behavior that's still missing from this component that original food items had t
 	src.eatverbs = eatverbs
 	src.junkiness = junkiness
 	src.after_eat = after_eat
+	src.consume_callback = consume_callback
+	src.initial_reagents = initial_reagents
+	src.tastes = tastes
 
 	var/atom/owner = parent
 
 	owner.create_reagents(volume, INJECTABLE)
 
-	if(initial_reagents)
-		for(var/rid in initial_reagents)
-			var/amount = initial_reagents[rid]
-			if(tastes && tastes.len && (rid == /datum/reagent/consumable/nutriment || rid == /datum/reagent/consumable/nutriment/vitamin))
-				owner.reagents.add_reagent(rid, amount, tastes.Copy())
-			else
-				owner.reagents.add_reagent(rid, amount)
+	for(var/rid in initial_reagents)
+		var/amount = initial_reagents[rid]
+		if(length(tastes) && (rid == /datum/reagent/consumable/nutriment || rid == /datum/reagent/consumable/nutriment/vitamin))
+			owner.reagents.add_reagent(rid, amount, tastes.Copy())
+		else
+			owner.reagents.add_reagent(rid, amount)
+
+/datum/component/edible/InheritComponent(datum/component/C,
+	i_am_original,
+	list/initial_reagents,
+	food_flags = NONE,
+	foodtypes = NONE,
+	volume = 50,
+	eat_time = 30,
+	list/tastes,
+	list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"),
+	bite_consumption = 2,
+	datum/callback/after_eat,
+	datum/callback/consume_callback
+	)
+
+	. = ..()
+	src.bite_consumption = bite_consumption
+	src.food_flags = food_flags
+	src.foodtypes = foodtypes
+	src.eat_time = eat_time
+	src.eatverbs = eatverbs
+	src.junkiness = junkiness
+	src.after_eat = after_eat
+	src.consume_callback = consume_callback
+
+/datum/component/edible/Destroy(force, silent)
+	QDEL_NULL(after_eat)
+	QDEL_NULL(consume_callback)
+	return ..()
 
 /datum/component/edible/proc/examine(datum/source, mob/user, list/examine_list)
-	if(!food_flags & FOOD_IN_CONTAINER)
+	SIGNAL_HANDLER
+
+	if(!(food_flags & FOOD_IN_CONTAINER))
 		switch (bitecount)
 			if (0)
 				return
@@ -77,33 +133,42 @@ Behavior that's still missing from this component that original food items had t
 			else
 				examine_list += "[parent] was bitten multiple times!"
 
-/datum/component/edible/proc/UseFromHand(obj/item/source, mob/living/M, mob/living/user)
+/datum/component/edible/proc/use_from_hand(obj/item/source, mob/living/M, mob/living/user)
+	SIGNAL_HANDLER
+
 	return TryToEat(M, user)
 
-/datum/component/edible/proc/TryToEatTurf(datum/source, mob/user)
-	return TryToEat(user, user)
+
+///Makes sure the thing hasn't been destroyed or fully eaten to prevent eating phantom edibles
+/datum/component/edible/proc/IsFoodGone(atom/owner, mob/living/feeder)
+	if(QDELETED(owner)|| !(IS_EDIBLE(owner)))
+		return TRUE
+	if(owner.reagents.total_volume)
+		return FALSE
+	return TRUE
 
 ///All the checks for the act of eating itself and
 /datum/component/edible/proc/TryToEat(mob/living/eater, mob/living/feeder)
+	set waitfor = FALSE // We might end up sleeping here, so we don't want to hold up anything
 
 	var/atom/owner = parent
 
 	if(feeder.a_intent == INTENT_HARM)
 		return
-	if(!owner.reagents.total_volume)//Shouldn't be needed but it checks to see if it has anything left in it.
-		to_chat(feeder, "<span class='warning'>None of [owner] left, oh no!</span>")
-		qdel(parent)
+
+	if(IsFoodGone(owner, feeder))
 		return
+
 	if(!CanConsume(eater, feeder))
 		return
 	var/fullness = eater.nutrition + 10 //The theoretical fullness of the person eating if they were to eat this
-	for(var/datum/reagent/consumable/C in eater.reagents.reagent_list) //we add the nutrition value of what we're currently digesting
-		fullness += C.nutriment_factor * C.volume / C.metabolization_rate
 
-	. = COMPONENT_ITEM_NO_ATTACK //Point of no return I suppose
+	. = COMPONENT_CANCEL_ATTACK_CHAIN //Point of no return I suppose
 
 	if(eater == feeder)//If you're eating it yourself.
 		if(!do_mob(feeder, eater, eat_time)) //Gotta pass the minimal eat time
+			return
+		if(IsFoodGone(owner, feeder))
 			return
 		var/eatverb = pick(eatverbs)
 		if(junkiness && eater.satiety < -150 && eater.nutrition > NUTRITION_LEVEL_STARVING + 50 && !HAS_TRAIT(eater, TRAIT_VORACIOUS))
@@ -133,34 +198,41 @@ Behavior that's still missing from this component that original food items had t
 			return
 		if(!do_mob(feeder, eater)) //Wait 3 seconds before you can feed
 			return
-
+		if(IsFoodGone(owner, feeder))
+			return
 		log_combat(feeder, eater, "fed", owner.reagents.log_list())
 		eater.visible_message("<span class='danger'>[feeder] forces [eater] to eat [parent]!</span>", \
 									"<span class='userdanger'>[feeder] forces you to eat [parent]!</span>")
 
 	TakeBite(eater, feeder)
 
+	//If we're not force-feeding, try take another bite
+	if(eater == feeder)
+		INVOKE_ASYNC(src, .proc/TryToEat, eater, feeder)
+
+
 ///This function lets the eater take a bite and transfers the reagents to the eater.
 /datum/component/edible/proc/TakeBite(mob/living/eater, mob/living/feeder)
 
 	var/atom/owner = parent
 
-	if(!owner.reagents)
+	if(!owner?.reagents)
 		return FALSE
 	if(eater.satiety > -200)
 		eater.satiety -= junkiness
 	playsound(eater.loc,'sound/items/eatfood.ogg', rand(10,50), TRUE)
 	if(owner.reagents.total_volume)
-		SEND_SIGNAL(parent, COMSIG_FOOD_EATEN, eater, feeder)
+		SEND_SIGNAL(parent, COMSIG_FOOD_EATEN, eater, feeder, bitecount, bite_consumption)
 		var/fraction = min(bite_consumption / owner.reagents.total_volume, 1)
-		owner.reagents.trans_to(eater, bite_consumption, transfered_by = feeder, method = INGEST)
+		owner.reagents.trans_to(eater, bite_consumption, transfered_by = feeder, methods = INGEST)
 		bitecount++
-		On_Consume(eater)
+		if(!owner.reagents.total_volume)
+			on_consume(eater, feeder)
 		checkLiked(fraction, eater)
 
 		//Invoke our after eat callback if it is valid
 		if(after_eat)
-			after_eat.Invoke(eater, feeder)
+			after_eat.Invoke(eater, feeder, bitecount)
 
 		return TRUE
 
@@ -181,57 +253,57 @@ Behavior that's still missing from this component that original food items had t
 	return TRUE
 
 ///Check foodtypes to see if we should send a moodlet
-/datum/component/edible/proc/checkLiked(var/fraction, mob/M)
+/datum/component/edible/proc/checkLiked(fraction, mob/eater)
 	if(last_check_time + 50 > world.time)
 		return FALSE
-	if(!ishuman(M))
+	if(!ishuman(eater))
 		return FALSE
-	var/mob/living/carbon/human/H = M
-	if(HAS_TRAIT(H, TRAIT_AGEUSIA) && foodtypes & H.dna.species.toxic_food)
-		to_chat(H, "<span class='warning'>You don't feel so good...</span>")
-		H.adjust_disgust(25 + 30 * fraction)
-	else
-		if(foodtypes & H.dna.species.toxic_food)
-			to_chat(H,"<span class='warning'>What the hell was that thing?!</span>")
-			H.adjust_disgust(25 + 30 * fraction)
-			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "toxic_food", /datum/mood_event/disgusting_food)
-		else if(foodtypes & H.dna.species.disliked_food)
-			to_chat(H,"<span class='notice'>That didn't taste very good...</span>")
-			H.adjust_disgust(11 + 15 * fraction)
-			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "gross_food", /datum/mood_event/gross_food)
-		else if(foodtypes & H.dna.species.liked_food)
-			to_chat(H,"<span class='notice'>I love this taste!</span>")
-			H.adjust_disgust(-5 + -2.5 * fraction)
-			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "fav_food", /datum/mood_event/favorite_food)
+	var/mob/living/carbon/human/human_eater = eater
+	var/obj/item/organ/tongue/tongue = human_eater.getorganslot(ORGAN_SLOT_TONGUE)
 	if((foodtypes & BREAKFAST) && world.time - SSticker.round_start_time < STOP_SERVING_BREAKFAST)
-		SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "breakfast", /datum/mood_event/breakfast)
+		SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "breakfast", /datum/mood_event/breakfast)
+	if(HAS_TRAIT(human_eater, TRAIT_AGEUSIA))
+		if(foodtypes & tongue.toxic_food)
+			to_chat(human_eater, "<span class='warning'>You don't feel so good...</span>")
+			human_eater.adjust_disgust(25 + 30 * fraction)
+	else
+		if(foodtypes & tongue.toxic_food)
+			to_chat(human_eater,"<span class='warning'>What the hell was that thing?!</span>")
+			human_eater.adjust_disgust(25 + 30 * fraction)
+			SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "toxic_food", /datum/mood_event/disgusting_food)
+		else if(foodtypes & tongue.disliked_food)
+			to_chat(human_eater,"<span class='notice'>That didn't taste very good...</span>")
+			human_eater.adjust_disgust(11 + 15 * fraction)
+			SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "gross_food", /datum/mood_event/gross_food)
+		else if(foodtypes & tongue.liked_food)
+			to_chat(human_eater,"<span class='notice'>I love this taste!</span>")
+			human_eater.adjust_disgust(-5 + -2.5 * fraction)
+			SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "fav_food", /datum/mood_event/favorite_food)
 	last_check_time = world.time
 
 ///Delete the item when it is fully eaten
-/datum/component/edible/proc/On_Consume(mob/living/eater)
+/datum/component/edible/proc/on_consume(mob/living/eater, mob/living/feeder)
+	SEND_SIGNAL(parent, COMSIG_FOOD_CONSUMED, eater, feeder)
 
-	var/atom/owner = parent
+	consume_callback?.Invoke(eater, feeder)
 
-	if(!eater)
-		return
-	if(!owner.reagents.total_volume)
-		qdel(parent)
+	to_chat(feeder, "<span class='warning'>There is nothing left of [parent], oh no!</span>")
+	qdel(parent)
 
 ///Ability to feed food to puppers
-/datum/component/edible/proc/UseByAnimal(datum/source, mob/user)
-
+/datum/component/edible/proc/use_by_animal(datum/source, mob/user)
+	SIGNAL_HANDLER
 	var/atom/owner = parent
 
 	if(!isdog(user))
 		return
 	var/mob/living/L = user
 	if(bitecount == 0 || prob(50))
-		L.emote("me", 1, "nibbles away at \the [parent]")
+		L.manual_emote("nibbles away at \the [parent].")
 	bitecount++
-	. = COMPONENT_ITEM_NO_ATTACK
+	. = COMPONENT_CANCEL_ATTACK_CHAIN
 	L.taste(owner.reagents) // why should carbons get all the fun?
 	if(bitecount >= 5)
-		var/sattisfaction_text = pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where \the [parent] was")
-		if(sattisfaction_text)
-			L.emote("me", 1, "[sattisfaction_text]")
+		var/satisfaction_text = pick("burps from enjoyment.", "yaps for more!", "woofs twice.", "looks at the area where \the [parent] was.")
+		L.manual_emote(satisfaction_text)
 		qdel(parent)
