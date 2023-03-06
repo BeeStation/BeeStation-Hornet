@@ -42,6 +42,10 @@
 #define COMSIG_MOVABLE_NEWTONIAN_MOVE "movable_newtonian_move"
 	#define COMPONENT_MOVABLE_NEWTONIAN_BLOCK (1<<0)
 
+/// from base of atom/movable/Process_Spacemove(): (movement_dir)
+#define COMSIG_MOVABLE_SPACEMOVE "spacemove"
+	#define COMSIG_MOVABLE_STOP_SPACEMOVE (1<<0)
+	
 ///from base of atom/experience_pressure_difference(): (pressure_difference, direction, pressure_resistance_prob_delta)
 #define COMSIG_MOVABLE_PRE_PRESSURE_PUSH "atom_pre_pressure_push"
 	///prevents pressure movement

@@ -98,6 +98,7 @@
 	icon_state = "[initial(icon_state)]-on"
 	if(ion_trail)
 		ion_trail.start()
+		RegisterSignal(user, COMSIG_MOVABLE_SPACEMOVE, .proc/spacemove_react)
 	if(full_speed)
 		known_user.add_movespeed_modifier(MOVESPEED_ID_JETPACK, priority=100, multiplicative_slowdown=-2, movetypes=FLOATING, conflict=MOVE_CONFLICT_JETPACK)
 
@@ -109,6 +110,7 @@
 	icon_state = initial(icon_state)
 	if(ion_trail)
 		ion_trail.stop()
+		UnregisterSignal(user, COMSIG_MOVABLE_SPACEMOVE)
 
 	known_user.remove_movespeed_modifier(MOVESPEED_ID_JETPACK)
 
