@@ -75,7 +75,7 @@
 /obj/machinery/door/window/Bumped(atom/movable/AM)
 	if(operating || !density)
 		return
-	if(!(ismob(AM)))
+	if(!ismob(AM))
 		if(ismecha(AM))
 			var/obj/mecha/mecha = AM
 			if(mecha.occupant && allowed(mecha.occupant))
@@ -83,7 +83,7 @@
 			else
 				do_animate("deny")
 		return
-	if(!(SSticker))
+	if(!SSticker)
 		return
 	var/mob/M = AM
 	if(M.restrained() || ((isdrone(M) || iscyborg(M)) && M.stat))
@@ -306,13 +306,21 @@
 		autoclose = FALSE
 
 /obj/machinery/door/window/try_to_crowbar(obj/item/I, mob/user)
-	if(!hasPower() || HAS_TRAIT(I, TRAIT_DOOR_PRYER))
-		if(density)
-			open(2)
+	if(density)
+		if(!HAS_TRAIT(I, TRAIT_DOOR_PRYER) && hasPower())
+			to_chat(user, "<span class='warning'>The windoor's motors resist your efforts to force it!</span>")
+			return
+		else if(!hasPower())
+			to_chat(user, "<span class='warning'>You begin forcing open \the [src], the motors don't resist...</span>")
+			if(!do_after(user, 1 SECONDS, TRUE, src))
+				return
 		else
-			close(2)
+			to_chat(user, "<span class='warning'>You begin forcing open \the [src]...</span>")
+			if(!do_after(user, 5 SECONDS, TRUE, src))
+				return
+		open(2)
 	else
-		to_chat(user, "<span class='warning'>The door's motors resist your efforts to force it!</span>")
+		close(2)
 
 /obj/machinery/door/window/do_animate(animation)
 	switch(animation)
