@@ -119,7 +119,7 @@
 	name = "ERT Medic - High Alert"
 
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	l_hand = /obj/item/storage/firstaid/advanced
+	l_hand = /obj/item/storage/firstaid/advanced/compact
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/gun/energy/pulse/pistol/loyalpin=1,

@@ -319,6 +319,12 @@
 	. = ..()
 	icon_state = pick("firstaid-advanced","firstaid-advancedalt")
 
+//Compact First Advanced kit
+/obj/item/storage/firstaid/advanced/compact
+	name = "compact advanced first aid kit"
+	desc = "A compact advanced first aid kit designed for treating severe injuries found in the field."
+	w_class = WEIGHT_CLASS_NORMAL //Intended to be used by ERTs or other uncommon roles
+
 //First Random kit
 /obj/item/storage/firstaid/random
 	name = "mystery medical kit"
