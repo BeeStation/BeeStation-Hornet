@@ -2,7 +2,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf
 	icon = 'icons/turf/floors.dmi'
-	level = 1
 
 	/// If this is TRUE, that means this floor is on top of plating so pipes and wires and stuff will appear under it... or something like that it's not entirely clear.
 	var/intact = 1
@@ -448,9 +447,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	..()
 	SSzfall.remove_openspace_inhabitant(exiting)
 
-/turf/proc/is_plasteel_floor()
-	return FALSE
-
 // A proc in case it needs to be recreated or badmins want to change the baseturfs
 /turf/proc/assemble_baseturfs(turf/fake_baseturf_type)
 	var/turf/current_target
@@ -501,29 +497,19 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
-		if(O.level == 1 && (O.flags_1 & INITIALIZED_1))
-			O.hide(src.intact)
+		if(O.flags_1 & INITIALIZED_1)
+			SEND_SIGNAL(O, COMSIG_OBJ_HIDE, intact)
 
 // override for space turfs, since they should never hide anything
 /turf/open/space/levelupdate()
 	for(var/obj/O in src)
-		if(O.level == 1 && (O.flags_1 & INITIALIZED_1))
-			O.hide(0)
+		return
 
 // Removes all signs of lattice on the pos of the turf -Donkieyo
 /turf/proc/RemoveLattice()
 	var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 	if(L && (L.flags_1 & INITIALIZED_1))
 		qdel(L)
-
-/turf/proc/phase_damage_creatures(damage,mob/U = null)//>Ninja Code. Hurts and knocks out creatures on this turf //NINJACODE
-	for(var/mob/living/M in src)
-		if(M==U)
-			continue//Will not harm U. Since null != M, can be excluded to kill everyone.
-		M.adjustBruteLoss(damage)
-		M.Unconscious(damage * 4)
-	for(var/obj/mecha/M in src)
-		M.take_damage(damage*2, BRUTE, "melee", 1)
 
 /turf/proc/Bless()
 	new /obj/effect/blessing(src)
@@ -566,8 +552,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/singularity_act()
 	if(intact)
 		for(var/obj/O in contents) //this is for deleting things like wires contained in the turf
-			if(O.level != 1)
-				continue
 			if(O.invisibility == INVISIBILITY_MAXIMUM)
 				O.singularity_act()
 	ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
@@ -589,19 +573,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	return
 
 /turf/contents_explosion(severity, target)
-	var/affecting_level
-	if(severity == 1)
-		affecting_level = 1
-	else if(is_shielded())
-		affecting_level = 3
-	else if(intact)
-		affecting_level = 2
-	else
-		affecting_level = 1
 
 	for(var/thing in contents)
 		var/atom/atom_thing = thing
-		if(!QDELETED(atom_thing) && atom_thing.level >= affecting_level)
+		if(!QDELETED(atom_thing))
 			if(ismovable(atom_thing))
 				var/atom/movable/movable_thing = atom_thing
 				if(!movable_thing.ex_check(explosion_id))
@@ -663,11 +638,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		acid_type = /obj/effect/acid/alien
 	var/has_acid_effect = FALSE
 	for(var/obj/O in src)
-		if(intact && O.level == 1) //hidden under the floor
-			continue
 		if(istype(O, acid_type))
 			var/obj/effect/acid/A = O
-			A.acid_level = min(A.level + acid_volume * acidpwr, 12000)//capping acid level to limit power of the acid
+			A.acid_level = min(acid_volume * acidpwr, 12000)//capping acid level to limit power of the acid
 			has_acid_effect = 1
 			continue
 		O.acid_act(acidpwr, acid_volume)
