@@ -1311,7 +1311,7 @@
 /obj/item/seeds/carrot,
 /obj/item/seeds/potato,
 /obj/item/seeds/ambrosia,
-/obj/item/seeds/poppy,
+/obj/item/seeds/flower/poppy,
 /obj/item/seeds/grape,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,

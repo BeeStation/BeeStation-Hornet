@@ -636,7 +636,7 @@
 "aeE" = (
 /obj/machinery/hydroponics/constructable,
 /obj/item/seeds/sunflower,
-/obj/item/seeds/poppy,
+/obj/item/seeds/flower/poppy,
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "aeF" = (
@@ -17703,7 +17703,7 @@
 "cjo" = (
 /obj/machinery/hydroponics/soil,
 /obj/machinery/light/small,
-/obj/item/seeds/poppy,
+/obj/item/seeds/flower/poppy,
 /turf/open/floor/grass,
 /area/hydroponics/garden/monastery)
 "cjp" = (
@@ -19199,7 +19199,7 @@
 /area/hydroponics/garden/monastery)
 "cvh" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/poppy,
+/obj/item/seeds/flower/poppy,
 /turf/open/floor/grass,
 /area/hydroponics/garden/monastery)
 "cvi" = (

@@ -62,7 +62,7 @@
 /area/template_noop)
 "i" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/poppy,
+/obj/item/seeds/flower/poppy,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,

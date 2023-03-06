@@ -46654,7 +46654,7 @@
 /area/security/detectives_office)
 "bwt" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/poppy,
+/obj/item/seeds/flower/poppy,
 /turf/open/floor/grass,
 /area/chapel/main)
 "bwu" = (
