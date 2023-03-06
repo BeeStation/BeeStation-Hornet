@@ -32,9 +32,6 @@
 	minbodytemp = 0
 	maxbodytemp = 1500
 
-/mob/living/simple_animal/hostile/retaliate/dolphin/Process_Spacemove(movement_dir = 0)
-	return TRUE
-
 /mob/living/simple_animal/hostile/retaliate/dolphin/AttackingTarget()
 	..()
 	if(ishuman(target))

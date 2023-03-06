@@ -48,18 +48,32 @@
 //////////////////////////////
 
 // /obj/effect/mine signals
-#define COMSIG_MINE_TRIGGERED "minegoboom"						///from [/obj/effect/mine/proc/triggermine]:
+#define COMSIG_MINE_TRIGGERED "minegoboom" ///from [/obj/effect/mine/proc/triggermine]:
 
 // /obj/item/modular_computer/tablet/pda signals
 /// Called on tablet (PDA) when the user changes the ringtone: (mob/living/user, new_ringtone)
 #define COMSIG_TABLET_CHANGE_RINGTONE "comsig_tablet_change_ringtone"
 	#define COMPONENT_STOP_RINGTONE_CHANGE (1<<0)
 
+// Jetpack things
+// Please kill me
+
+//called in /obj/item/tank/jetpack/proc/turn_on() : ()
+#define COMSIG_JETPACK_ACTIVATED "jetpack_activated"
+	#define JETPACK_ACTIVATION_FAILED (1<<0)
+//called in /obj/item/tank/jetpack/proc/turn_off() : ()
+#define COMSIG_JETPACK_DEACTIVATED "jetpack_deactivated"
+
+//called in /obj/item/organ/cyberimp/chest/thrusters/proc/toggle() : ()
+#define COMSIG_THRUSTER_ACTIVATED "jetmodule_activated"
+	#define THRUSTER_ACTIVATION_FAILED (1<<0)
+//called in /obj/item/organ/cyberimp/chest/thrusters/proc/toggle() : ()
+#define COMSIG_THRUSTER_DEACTIVATED "jetmodule_deactivated"
 
 // /obj/item/radio signals
-#define COMSIG_RADIO_NEW_FREQUENCY "radio_new_frequency"		//! called from base of /obj/item/radio/proc/set_frequency(): (list/args)
+#define COMSIG_RADIO_NEW_FREQUENCY "radio_new_frequency" //! called from base of /obj/item/radio/proc/set_frequency(): (list/args)
 #define COMSIG_RADIO_MESSAGE "radio_message"
 
 // /obj/item/pen signals
-#define COMSIG_PEN_ROTATED "pen_rotated"						//! called after rotation in /obj/item/pen/attack_self(): (rotation, mob/living/carbon/user)
+#define COMSIG_PEN_ROTATED "pen_rotated" //! called after rotation in /obj/item/pen/attack_self(): (rotation, mob/living/carbon/user)
 

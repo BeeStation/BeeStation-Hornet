@@ -144,7 +144,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		qdel(src)
 		qdel(other)
 
-/obj/effect/immovablerod/Process_Spacemove()
+/obj/effect/immovablerod/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /obj/effect/immovablerod/proc/penetrate(mob/living/L)

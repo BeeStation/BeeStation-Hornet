@@ -542,7 +542,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	if(edges.len) //If the graph is cyclic, that means that a shuttle is directly or indirectly landed ontop of itself. Cyclic shuttles have not moved from edges to .
 		CRASH("The towed shuttles of [src] is cyclic, a shuttle is ontop of itself!")
 
-/obj/docking_port/newtonian_move(direction, instant = FALSE) // Please don't spacedrift thanks
+/obj/docking_port/newtonian_move(direction, instant = FALSE, start_delay) // Please don't spacedrift thanks
 	return TRUE
 
 /obj/docking_port/mobile/Initialize(mapload)

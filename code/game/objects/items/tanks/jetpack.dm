@@ -12,7 +12,8 @@
 	var/on = FALSE
 	var/stabilizers = FALSE
 	var/full_speed = TRUE // If the jetpack will have a speedboost in space/nograv or not
-	var/datum/effect_system/trail_follow/ion/ion_trail
+	var/datum/callback/get_mover
+	var/datum/callback/check_on_move
 	var/use_ion_trail = TRUE
 	/// The user that this jetpack is expected to have
 	var/mob/known_user
@@ -20,12 +21,17 @@
 /obj/item/tank/jetpack/Initialize(mapload)
 	. = ..()
 	if(use_ion_trail)
-		ion_trail = new
-		ion_trail.set_up(src)
+		get_mover = CALLBACK(src, .proc/get_user)
+		check_on_move = CALLBACK(src, .proc/allow_thrust, 0.01)
+		refresh_jetpack()
 
 /obj/item/tank/jetpack/Destroy()
-	QDEL_NULL(ion_trail)
+	get_mover = null
+	check_on_move = null
 	return ..()
+
+/obj/item/tank/jetpack/proc/refresh_jetpack()
+	AddComponent(/datum/component/jetpack, stabilizers, COMSIG_JETPACK_ACTIVATED, COMSIG_JETPACK_DEACTIVATED, JETPACK_ACTIVATION_FAILED, get_mover, check_on_move, /datum/effect_system/trail_follow/ion)
 
 /obj/item/tank/jetpack/populate_gas()
 	if(gas_type)
@@ -36,11 +42,10 @@
 		cycle(user)
 	else if(istype(action, /datum/action/item_action/jetpack_stabilization))
 		if(on)
-			stabilizers = !stabilizers
+			set_stabilizers(!stabilizers)
 			to_chat(user, "<span class='notice'>You turn the jetpack stabilization [stabilizers ? "on" : "off"].</span>")
 	else
 		toggle_internals(user)
-
 
 /obj/item/tank/jetpack/proc/cycle(mob/user)
 	if(user.incapacitated())
@@ -91,54 +96,55 @@
 	UnregisterSignal(known_user, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(known_user, COMSIG_PARENT_QDELETING)
 
+/obj/item/tank/jetpack/proc/set_stabilizers(new_stabilizers)
+	if(new_stabilizers == stabilizers)
+		return
+	stabilizers = new_stabilizers
+	refresh_jetpack()
+
 /obj/item/tank/jetpack/proc/turn_on(mob/user)
-	if(!known_user)
+	if(SEND_SIGNAL(src, COMSIG_JETPACK_ACTIVATED) & JETPACK_ACTIVATION_FAILED)
 		return
 	on = TRUE
 	icon_state = "[initial(icon_state)]-on"
-	if(ion_trail)
-		ion_trail.start()
-		RegisterSignal(user, COMSIG_MOVABLE_SPACEMOVE, .proc/spacemove_react)
 	if(full_speed)
 		known_user.add_movespeed_modifier(MOVESPEED_ID_JETPACK, priority=100, multiplicative_slowdown=-2, movetypes=FLOATING, conflict=MOVE_CONFLICT_JETPACK)
 
 /obj/item/tank/jetpack/proc/turn_off(mob/user)
 	if(!known_user)
 		return
+	SEND_SIGNAL(src, COMSIG_JETPACK_DEACTIVATED)
 	on = FALSE
-	stabilizers = FALSE
+	set_stabilizers(FALSE)
 	icon_state = initial(icon_state)
-	if(ion_trail)
-		ion_trail.stop()
-		UnregisterSignal(user, COMSIG_MOVABLE_SPACEMOVE)
 
 	known_user.remove_movespeed_modifier(MOVESPEED_ID_JETPACK)
 
-/obj/item/tank/jetpack/proc/move_react(mob/user)
-	SIGNAL_HANDLER
-	if(on)
-		allow_thrust(THRUST_REQUIREMENT_SPACEMOVE, user)
-
-/obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user, use_fuel = TRUE)
+/obj/item/tank/jetpack/proc/allow_thrust(num, use_fuel = TRUE)
 	if(!on || !known_user)
 		return
 	if((num < 0.005 || num > THRUST_REQUIREMENT_GRAVITY * 0.5 || air_contents.total_moles() < num))
-		turn_off(user)
+		turn_off(get_user())
 		return
 
 	if(use_fuel)
 		assume_air_moles(air_contents, num)
+	else
+		return TRUE
 
-	return TRUE
+// Gives the jetpack component the user it expects
+/obj/item/tank/jetpack/proc/get_user()
+	if(!ismob(loc))
+		return null
+	return loc
 
 /obj/item/tank/jetpack/suicide_act(mob/user)
-	if (istype(user, /mob/living/carbon/human/))
-		var/mob/living/carbon/human/H = user
-		H.forcesay("WHAT THE FUCK IS CARBON DIOXIDE?")
-		H.visible_message("<span class='suicide'>[user] is suffocating [user.p_them()]self with [src]! It looks like [user.p_they()] didn't read what that jetpack says!</span>")
-		return (OXYLOSS)
-	else
-		..()
+	if (!istype(user, /mob/living/carbon/human))
+		return ..()
+	var/mob/living/carbon/human/suffocater = user
+	suffocater.say("WHAT THE FUCK IS CARBON DIOXIDE?")
+	suffocater.visible_message("<span class='suicide'>[user] is suffocating [user.p_them()]self with [src]! It looks like [user.p_they()] didn't read what that jetpack says!</span>"))
+	return (OXYLOSS)
 
 /obj/item/tank/jetpack/improvised
 	name = "improvised jetpack"
@@ -149,7 +155,10 @@
 	gas_type = null //it starts empty
 	full_speed = FALSE //moves at hardsuit jetpack speeds
 
-/obj/item/tank/jetpack/improvised/allow_thrust(num, mob/living/user, use_fuel = TRUE)
+/obj/item/tank/jetpack/improvised/allow_thrust(num, use_fuel = TRUE)
+	var/mob/user = get_user()
+	if(!user)
+		return FALSE
 	if(!on || !known_user)
 		return
 	if((num < 0.005 || THRUST_REQUIREMENT_GRAVITY * 0.5 || air_contents.total_moles() < num))

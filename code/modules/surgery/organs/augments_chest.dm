@@ -128,83 +128,95 @@
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 	w_class = WEIGHT_CLASS_NORMAL
 	var/on = FALSE
-	var/datum/effect_system/trail_follow/ion/ion_trail
+	var/datum/callback/get_mover
+	var/datum/callback/check_on_move
 
-/obj/item/organ/cyberimp/chest/thrusters/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/cyberimp/chest/thrusters/Initialize(mapload)
 	. = ..()
-	if(!ion_trail)
-		ion_trail = new
-	ion_trail.set_up(M)
+	get_mover = CALLBACK(src, .proc/get_user)
+	check_on_move = CALLBACK(src, .proc/allow_thrust, 0.01)
+	refresh_jetpack()
+
+/obj/item/organ/cyberimp/chest/thrusters/Destroy()
+	get_mover = null
+	check_on_move = null
+	return ..()
+
+/obj/item/organ/cyberimp/chest/thrusters/proc/refresh_jetpack()
+	AddComponent(/datum/component/jetpack, FALSE, COMSIG_THRUSTER_ACTIVATED, COMSIG_THRUSTER_DEACTIVATED, THRUSTER_ACTIVATION_FAILED, get_mover, check_on_move, /datum/effect_system/trail_follow/ion)
 
 /obj/item/organ/cyberimp/chest/thrusters/Remove(mob/living/carbon/M, special = 0)
 	if(on)
-		toggle(silent = TRUE)
+		deactivate(silent = TRUE)
 	..()
 
 /obj/item/organ/cyberimp/chest/thrusters/ui_action_click()
 	toggle()
 
 /obj/item/organ/cyberimp/chest/thrusters/proc/toggle(silent = FALSE)
-	if(!on)
-		if((organ_flags & ORGAN_FAILING))
-			if(!silent)
-				to_chat(owner, "<span class='warning'>Your thrusters set seems to be broken!</span>")
-			return 0
-		on = TRUE
-		if(allow_thrust(THRUST_REQUIREMENT_SPACEMOVE))
-			ion_trail.start()
-			RegisterSignal(owner, COMSIG_MOVABLE_MOVED, .proc/move_react)
-			owner.add_movespeed_modifier(MOVESPEED_ID_CYBER_THRUSTER, priority=100, multiplicative_slowdown=-2, movetypes=FLOATING, conflict=MOVE_CONFLICT_JETPACK)
-			if(!silent)
-				to_chat(owner, "<span class='notice'>You turn your thrusters set on.</span>")
-	else
-		ion_trail.stop()
-		UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
-		owner.remove_movespeed_modifier(MOVESPEED_ID_CYBER_THRUSTER)
-		if(!silent)
-			to_chat(owner, "<span class='notice'>You turn your thrusters set off.</span>")
-		on = FALSE
-	update_icon()
-
-/obj/item/organ/cyberimp/chest/thrusters/update_icon()
 	if(on)
-		icon_state = "imp_jetpack-on"
+		deactivate()
 	else
-		icon_state = "imp_jetpack"
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		activate()
 
-/obj/item/organ/cyberimp/chest/thrusters/proc/move_react()
-	SIGNAL_HANDLER
+/obj/item/organ/cyberimp/chest/thrusters/proc/activate(silent = FALSE)
+	if(on)
+		return
+	if(organ_flags & ORGAN_FAILING)
+		if(!silent)
+			to_chat(owner, "<span_class='warning'>Your thrusters set seems to be broken!</span>")
+		return
+	if(SEND_SIGNAL(src, COMSIG_THRUSTER_ACTIVATED) & THRUSTER_ACTIVATION_FAILED)
+		return
 
-	allow_thrust(THRUST_REQUIREMENT_SPACEMOVE)
+	on = TRUE
+	owner.add_movespeed_modifier(MOVESPEED_ID_CYBER_THRUSTER, priority=100, multiplicative_slowdown=-2, movetypes=FLOATING, conflict=MOVE_CONFLICT_JETPACK)
+	if(!silent)
+		to_chat(owner, "<span_class='notice'>You turn your thrusters set on.</span>")
+	update_appearance()
+
+/obj/item/organ/cyberimp/chest/thrusters/proc/deactivate(silent = FALSE)
+	if(!on)
+		return
+	SEND_SIGNAL(src, COMSIG_THRUSTER_DEACTIVATED)
+	owner.remove_movespeed_modifier(MOVESPEED_ID_CYBER_THRUSTER)
+	if(!silent)
+		to_chat(owner, "<span_class='notice'>You turn your thrusters set off.</span>")
+	on = FALSE
+	update_appearance()
+
+/obj/item/organ/cyberimp/chest/thrusters/update_icon_state()
+	icon_state = "[base_icon_state][on ? "-on" : null]"
+	return ..()
 
 /obj/item/organ/cyberimp/chest/thrusters/proc/allow_thrust(num, use_fuel = TRUE)
 	if(!on || !owner)
 		return 0
 
-	var/turf/T = get_turf(owner)
-	if(!T) // No more runtimes from being stuck in nullspace.
+	var/turf/owner_turf = get_turf(owner)
+	if(!owner_turf) // No more runtimes from being stuck in nullspace.
 		return 0
 	if(owner.is_flying() && owner.has_gravity())
 		return 0
 	// Priority 1: use air from environment.
-	var/datum/gas_mixture/environment = T.return_air()
+	var/datum/gas_mixture/environment = owner_turf.return_air()
 	if(environment && environment.return_pressure() > 30)
-		return 1
+		return TRUE
 
 	// Priority 2: use plasma from internal plasma storage.
 	// (just in case someone would ever use this implant system to make cyber-alien ops with jetpacks and taser arms)
-	if(owner.getPlasma() >= num*100)
+	if(owner.getPlasma() >= num * 100)
 		if(use_fuel)
-			owner.adjustPlasma(-num*100)
-		return 1
+			owner.adjustPlasma(-num * 100)
+		return TRUE
 
 	// Priority 3: use internals tank.
 	var/obj/item/tank/I = owner.internal
 	if(I && I.air_contents && I.air_contents.total_moles() >= num && use_fuel)
-		T.assume_air_moles(I.air_contents, num)
+		owner_turf.assume_air_moles(I.air_contents, num)
 
-	toggle(silent = TRUE)
-	return 0
+	deactivate(silent = TRUE)
+	return FALSE
+
+/obj/item/organ/cyberimp/chest/thrusters/proc/get_user()
+	return owner

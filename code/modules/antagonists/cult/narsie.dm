@@ -215,7 +215,7 @@
 		sound_to_playing_players('sound/machines/alarm.ogg')
 		addtimer(CALLBACK(GLOBAL_PROC, .proc/cult_ending_helper), 120)
 
-/obj/eldritch/narsie/Process_Spacemove()
+/obj/eldritch/narsie/Process_Spacemove(continuous_move = FALSE)
 	return clashing
 
 /proc/ending_helper()

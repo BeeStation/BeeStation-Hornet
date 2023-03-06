@@ -31,6 +31,7 @@
 		//OTHER//
 		/////////
 	/// The client's preferences
+	///Player preferences datum for the client
 	var/datum/preferences/prefs = null
 	var/list/keybindings[0]
 	var/movement_locked = FALSE
@@ -38,10 +39,13 @@
 	/// The last world.time that the client's mob turned
 	var/last_turn = 0
 
-	/// The next world.time this client is allowed to move
+	///Move delay of controlled mob, any keypresses inside this period will persist until the next proper move
 	var/move_delay = 0
+	///The visual delay to use for the current client.Move(), mostly used for making a client based move look like it came from some other slower source
+	var/visual_delay = 0
 
-	var/area			= null
+	///Current area of the controlled mob
+	var/area = null
 
 	var/buzz_playing = null
 		////////////
