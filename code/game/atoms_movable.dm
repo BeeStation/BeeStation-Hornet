@@ -640,7 +640,7 @@
 /atom/movable/proc/Process_Spacemove(movement_dir = 0)
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir) & COMSIG_MOVABLE_STOP_SPACEMOVE)
 		return TRUE
-		
+
 	if(has_gravity(src))
 		return 1
 
@@ -1071,6 +1071,8 @@
 
 /atom/movable/proc/can_be_pulled(user, grab_state, force)
 	if(src == user || !isturf(loc))
+		return FALSE
+	if(SEND_SIGNAL(src, COMSIG_ATOM_CAN_BE_PULLED, user) & COMSIG_ATOM_CANT_PULL)
 		return FALSE
 	if(anchored || throwing)
 		return FALSE

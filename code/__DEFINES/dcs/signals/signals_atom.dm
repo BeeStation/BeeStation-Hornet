@@ -93,6 +93,11 @@
 	#define COMSIG_ATOM_BLOCKS_BSA_BEAM 1
 ///! from base of atom/set_light(): (l_range, l_power, l_color)
 #define COMSIG_ATOM_SET_LIGHT "atom_set_light"
+///signal sent out by an atom when it checks if it can be pulled, for additional checks
+#define COMSIG_ATOM_CAN_BE_PULLED "movable_can_be_pulled"
+	#define COMSIG_ATOM_CANT_PULL (1 << 0)
+///signal sent out by an atom when it is no longer being pulled by something else
+#define COMSIG_ATOM_NO_LONGER_PULLED "movable_no_longer_pulled"
 ///! from base of atom/setDir(): (old_dir, new_dir)
 #define COMSIG_ATOM_DIR_CHANGE "atom_dir_change"
 ///! from base of atom/handle_atom_del(): (atom/deleted)
