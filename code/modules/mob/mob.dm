@@ -1145,7 +1145,7 @@
 		return FALSE
 
 	if(!has_light_nearby() && !has_nightvision())
-		to_chat(src, "span class='warning'>It's too dark in here to read!</span>")
+		to_chat(src, "<span class='warning'>It's too dark in here to read!</span>")
 		return FALSE
 
 	return TRUE
