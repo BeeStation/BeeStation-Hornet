@@ -31,6 +31,8 @@ Behavior that's still missing from this component that original food items had t
 	var/junkiness = 0
 	///Message to send when eating
 	var/list/eatverbs
+	///Callback to be ran before you eat something, so you can check if someone *can* eat it.
+	var/datum/callback/pre_eat
 	///Callback to be ran for when you take a bite of something
 	var/datum/callback/after_eat
 	///Callback to be ran for when you finish eating something
@@ -53,6 +55,7 @@ Behavior that's still missing from this component that original food items had t
 								list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"),
 								bite_consumption = 2,
 								junkiness,
+								datum/callback/pre_eat,
 								datum/callback/after_eat,
 								datum/callback/consume_callback)
 
@@ -72,13 +75,14 @@ Behavior that's still missing from this component that original food items had t
 	src.bite_consumption = bite_consumption
 	src.food_flags = food_flags
 	src.foodtypes = foodtypes
+	src.initial_reagents = initial_reagents
+	src.tastes = tastes
 	src.eat_time = eat_time
 	src.eatverbs = eatverbs
 	src.junkiness = junkiness
+	src.pre_eat = pre_eat
 	src.after_eat = after_eat
 	src.consume_callback = consume_callback
-	src.initial_reagents = initial_reagents
-	src.tastes = tastes
 
 	var/atom/owner = parent
 
@@ -101,6 +105,7 @@ Behavior that's still missing from this component that original food items had t
 	list/tastes,
 	list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"),
 	bite_consumption = 2,
+	datum/callback/pre_eat,
 	datum/callback/after_eat,
 	datum/callback/consume_callback
 	)
@@ -112,10 +117,12 @@ Behavior that's still missing from this component that original food items had t
 	src.eat_time = eat_time
 	src.eatverbs = eatverbs
 	src.junkiness = junkiness
+	src.pre_eat = pre_eat
 	src.after_eat = after_eat
 	src.consume_callback = consume_callback
 
 /datum/component/edible/Destroy(force, silent)
+	QDEL_NULL(pre_eat)
 	QDEL_NULL(after_eat)
 	QDEL_NULL(consume_callback)
 	return ..()
@@ -240,6 +247,8 @@ Behavior that's still missing from this component that original food items had t
 ///Checks whether or not the eater can actually consume the food
 /datum/component/edible/proc/CanConsume(mob/living/eater, mob/living/feeder)
 	if(!iscarbon(eater))
+		return FALSE
+	if(!pre_eat.Invoke(eater, feeder))
 		return FALSE
 	var/mob/living/carbon/C = eater
 	var/covered = ""

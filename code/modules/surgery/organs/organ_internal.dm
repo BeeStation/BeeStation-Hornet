@@ -33,7 +33,7 @@
 /obj/item/organ/Initialize()
 	. = ..()
 	if(organ_flags & ORGAN_EDIBLE)
-		AddComponent(/datum/component/edible, initial_reagents = food_reagents, foodtypes = RAW | MEAT | GROSS, after_eat = CALLBACK(src, .proc/OnEatFrom))
+		AddComponent(/datum/component/edible, initial_reagents = food_reagents, foodtypes = RAW | MEAT | GROSS, pre_eat = CALLBACK(src, .proc/pre_eat), after_eat = CALLBACK(src, .proc/on_eat_from))
 
 /obj/item/organ/proc/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE)
 	if(!iscarbon(M) || owner == M)
@@ -121,8 +121,12 @@
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/organ/proc/OnEatFrom(eater, feeder)
-	useable = FALSE //You can't use it anymore after eating it you spaztic
+// Put any "can we eat this" checks for edible organs here
+/obj/item/organ/proc/pre_eat(eater, feeder)
+	return TRUE
+
+/obj/item/organ/proc/on_eat_from(eater, feeder)
+	useable = FALSE //You bit it, no more using it
 
 /obj/item/organ/proc/check_for_surgery(mob/living/carbon/human/H)
 	for(var/datum/surgery/S in H.surgeries)

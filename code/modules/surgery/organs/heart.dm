@@ -54,7 +54,7 @@
 	update_icon()
 	return 1
 
-/obj/item/organ/heart/OnEatFrom(eater, feeder)
+/obj/item/organ/heart/on_eat_from(eater, feeder)
 	. = ..()
 	beating = FALSE
 	update_icon()
