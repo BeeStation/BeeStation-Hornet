@@ -1,5 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - bugfix: fixed the Operative explo assasination target only spawning with a hardsuit
-      helmet
