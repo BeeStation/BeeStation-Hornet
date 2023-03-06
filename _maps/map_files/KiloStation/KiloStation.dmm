@@ -5875,7 +5875,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/binary/pump/on/layer2{
 	dir = 8;
-	level = 1;
 	name = "Xenobiology Positive Pressure Distribution Pump"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
