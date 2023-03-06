@@ -42,6 +42,12 @@
 		if(brain)
 			to_chat(user, "<span class='warning'>There's already a brain in the MMI!</span>")
 			return
+		if(newbrain.decoy_override) //No MMI Test For You
+			to_chat(user, "<span class='warning'>There's a decent chance this is against the rules, admins have been notified and you're getting gibbed.</span>")
+			user.gib()
+			message_admins("[key_name(user)] was gibbed for trying to ling test someone with an MMI")
+			return
+
 		if(!newbrain.brainmob)
 			to_chat(user, "<span class='warning'>You aren't sure where this brain came from, but you're pretty sure it's a useless brain!</span>")
 			return
