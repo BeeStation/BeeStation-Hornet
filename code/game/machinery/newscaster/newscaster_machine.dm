@@ -950,6 +950,6 @@
 	icon_state = "newscaster"
 	custom_materials = list(/datum/material/iron=14000, /datum/material/glass=8000)
 	result_path = /obj/machinery/newscaster
-	pixel_shift = 30
+	pixel_shift = -32
 
 #undef ALERT_DELAY
