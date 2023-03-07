@@ -125,7 +125,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	var/antimagic_allowed = FALSE // If false, the spell cannot be cast while under the effect of antimagic
 	var/invocation = "HURP DURP" //what is uttered when the wizard casts the spell
 	var/invocation_emote_self = null
-	var/invocation_type = "none" //can be none, whisper, emote and shout
+	var/invocation_type = INVOCATION_NONE //can be none, whisper, emote and shout
 	var/range = 7 //the range of the spell; outer radius for aoe spells
 	var/message = "" //whatever it says to the guy affected by it
 	var/selection_type = "view" //can be "range" or "view"
@@ -672,7 +672,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	charge_max = 100
 	cooldown_min = 50
 	invocation = "Victus sano!"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	school = "restoration"
 	sound = 'sound/magic/staff_healing.ogg'
 

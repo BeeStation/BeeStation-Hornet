@@ -10,7 +10,7 @@
 	sound = 'sound/effects/magic.ogg'
 	cooldown_min = 300
 	invocation = "ZYAR INCANTUS"
-	invocation_type = "shout"
+	invocation_type = INVOCATION_SHOUT
 	clothes_req = FALSE
 	level_max = 0
 	action_icon_state = "spacetime"
