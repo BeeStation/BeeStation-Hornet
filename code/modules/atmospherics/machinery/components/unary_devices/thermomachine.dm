@@ -11,7 +11,9 @@
 	layer = OBJ_LAYER
 	circuit = /obj/item/circuitboard/machine/thermomachine
 
+	hide = TRUE
 
+	move_resist = MOVE_RESIST_DEFAULT
 
 	pipe_flags = PIPING_ONE_PER_TURF
 
@@ -32,7 +34,12 @@
 	. = ..()
 	initialize_directions = dir
 	RefreshParts()
-	update_icon()
+	update_appearance()
+
+/obj/machinery/atmospherics/components/binary/thermomachine/isConnectable()
+	if(!anchored || panel_open)
+		return FALSE
+	. = ..()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/proc/swap_function()
 	cooling = !cooling
@@ -86,8 +93,6 @@
 
 /obj/machinery/atmospherics/components/unary/thermomachine/update_icon_nopipes()
 	cut_overlays()
-	if(showpipe)
-		add_overlay(getpipeimage(icon, "scrub_cap", initialize_directions))
 
 /obj/machinery/atmospherics/components/unary/thermomachine/examine(mob/user)
 	. = ..()
@@ -143,10 +148,25 @@
 		return
 	return ..()
 
-/obj/machinery/atmospherics/components/unary/thermomachine/default_change_direction_wrench(mob/user, obj/item/I)
-	if(!..())
-		return FALSE
-	SetInitDirections()
+/obj/machinery/atmospherics/components/unary/thermomachine/thermomachine/wrench_act(mob/living/user, obj/item/tool)
+	return default_change_direction_wrench(user, tool)
+
+/obj/machinery/atmospherics/components/binary/thermomachine/proc/change_pipe_connection(disconnect)
+	if(disconnect)
+		disconnect_pipes()
+		return
+	connect_pipes()
+
+/obj/machinery/atmospherics/components/binary/thermomachine/proc/connect_pipes()
+	var/obj/machinery/atmospherics/node = nodes[1]
+	atmosinit()
+	node = nodes[1]
+	if(node)
+		node.atmosinit()
+		node.addMember(src)
+	SSair.add_to_rebuild_queue(src)
+
+/obj/machinery/atmospherics/components/binary/thermomachine/proc/disconnect_pipes()
 	var/obj/machinery/atmospherics/node = nodes[1]
 	if(node)
 		node.disconnect(src)
@@ -155,13 +175,22 @@
 	if(parents[1])
 		nullifyPipenet(parents[1])
 
-	atmosinit()
-	node = nodes[1]
-	if(node)
-		node.atmosinit()
-		node.addMember(src)
-	SSair.add_to_rebuild_queue(src)
-	return TRUE
+/obj/machinery/atmospherics/components/unary/thermomachine/proc/check_pipe_on_turf()
+	for(var/obj/machinery/atmospherics/device in get_turf(src))
+		if(device == src)
+			continue
+		if(device.piping_layer == piping_layer)
+			visible_message("<span class='warning'>A pipe is hogging the ports, remove the obstruction or change the machine piping layer.</span>")
+			return TRUE
+	return FALSE
+
+/obj/machinery/atmospherics/components/unary/thermomachine/multitool_act(mob/living/user, obj/item/multitool/multitool)
+	if(!istype(multitool))
+		return
+	if(panel_open && !anchored)
+		piping_layer = (piping_layer >= PIPING_LAYER_MAX) ? PIPING_LAYER_MIN : (piping_layer + 1)
+		to_chat(user, "<span class='notice'>You change the circuitboard to layer [piping_layer].</span>")
+		update_appearance()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/ui_status(mob/user)
 	if(interactive)
@@ -173,6 +202,8 @@
 	return GLOB.default_state
 
 /obj/machinery/atmospherics/components/unary/thermomachine/ui_interact(mob/user, datum/tgui/ui)
+	if(panel_open)
+		return
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ThermoMachine")
@@ -229,10 +260,13 @@
 		update_icon()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/CtrlClick(mob/living/user)
-	if(!can_interact(user))
+	if(!panel_open)
+		if(!can_interact(user))
+			return
+		on = !on
+		update_appearance()
 		return
-	on = !on
-	update_icon()
+	. = ..()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer
 	icon_state = "freezer"
