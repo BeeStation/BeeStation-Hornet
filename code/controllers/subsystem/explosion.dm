@@ -203,6 +203,8 @@ SUBSYSTEM_DEF(explosions)
 	var/cap_multiplier = SSmapping.level_trait(epicenter.z, ZTRAIT_BOMBCAP_MULTIPLIER)
 	if(isnull(cap_multiplier))
 		cap_multiplier = 1
+	if(isnull(cap_modifier))
+		cap_modifier = 1
 	cap_multiplier *= cap_modifier
 
 	if(!ignorecap)
@@ -407,7 +409,8 @@ SUBSYSTEM_DEF(explosions)
 	//Calculate above and below Zs
 	//Multi-z explosions only work on station levels.
 	if(explode_z)
-		var/max_z_range = max(devastation_range, heavy_impact_range, light_impact_range, flash_range, flame_range) / (MULTI_Z_DISTANCE + 1)
+		var/largest_range = max(devastation_range, heavy_impact_range, light_impact_range, flash_range, flame_range)
+		var/max_z_range = largest_range / (MULTI_Z_DISTANCE + 1)
 		var/list/z_list = get_zs_in_range(epicenter.z, max_z_range)
 		//Dont blow up our level again
 		z_list -= epicenter.z
@@ -416,7 +419,9 @@ SUBSYSTEM_DEF(explosions)
 			var/turf/T = locate(epicenter.x, epicenter.y, affecting_z)
 			if(!T)
 				continue
-			SSexplosions.explode(T,
+			if(largest_range - z_reduction <= 0) // explosion is size 0,0,0,0 - no need
+				continue
+			explode(T,
 				max(devastation_range - z_reduction, 0),
 				max(heavy_impact_range - z_reduction, 0),
 				max(light_impact_range - z_reduction, 0),
