@@ -78,54 +78,54 @@
 			machine.CONSOLE = src
 			return
 
-/obj/machinery/mineral/processing_unit_console/ui_interact(mob/user)
+/obj/machinery/mineral/processing_unit_console/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Smelter")
+		ui.open()
+		ui.set_autoupdate(TRUE) // Material amounts
+
+/obj/machinery/mineral/processing_unit_console/ui_data(mob/user)
 	. = ..()
+	var/list/data = list()
 	if(!machine)
 		return
 
-	var/dat = machine.get_machine_data()
+	data = machine.get_machine_data()
+	return data
 
-	var/datum/browser/popup = new(user, "processing", "Smelting Console", 300, 500)
-	popup.set_content(dat)
-	popup.open()
-
-/obj/machinery/mineral/processing_unit_console/Topic(href, href_list)
+/obj/machinery/mineral/processing_unit_console/ui_act(action, params)
 	if(..())
 		return
-	usr.set_machine(src)
-	add_fingerprint(usr)
+	switch(action)
+		if("Redeem")
+			if(!machine.stored_points)
+				to_chat(usr, "<span class='warning'>No points to claim.</span>")
+				return
 
-	if(href_list["material"])
-		var/datum/material/new_material = locate(href_list["material"])
-		if(istype(new_material))
-			machine.selected_material = new_material
-			machine.selected_alloy = null
+			var/mob/M = usr
+			var/obj/item/card/id/I = M.get_idcard(TRUE)
+			if(!I)
+				to_chat(usr, "<span class='warning'>No ID detected.</span>")
+				return
+			if(!I.registered_account)
+				to_chat(usr, "<span class='warning'>No bank account detected on the ID card.</span>")
+				return
+			I.registered_account.adjust_currency(ACCOUNT_CURRENCY_MINING, machine.stored_points)
+			machine.stored_points = 0
 
-	if(href_list["alloy"])
-		machine.selected_material = null
-		machine.selected_alloy = href_list["alloy"]
+		if("Toggle_on")
+			machine.toggle_on()
 
-	if(href_list["toggle_on"])
-		machine.toggle_on()
+		if("Material")
+			var/datum/material/new_material = locate(params["id"])
+			if(istype(new_material))
+				machine.selected_material = new_material
+				machine.selected_alloy = null
 
-	if(href_list["redeem"])
-		if(!machine.stored_points)
-			to_chat(usr, "<span class='warning'>No points to claim.</span>")
-			return
-
-		var/mob/M = usr
-		var/obj/item/card/id/I = M.get_idcard(TRUE)
-		if(!I)
-			to_chat(usr, "<span class='warning'>No ID detected.</span>")
-			return
-		if(!I.registered_account)
-			to_chat(usr, "<span class='warning'>No bank account detected on the ID card.</span>")
-			return
-		I.registered_account.adjust_currency(ACCOUNT_CURRENCY_MINING, machine.stored_points)
-		machine.stored_points = 0
-
-	updateUsrDialog()
-	return
+		if("Alloy")
+			machine.selected_material = null
+			machine.selected_alloy = params["id"]
 
 /obj/machinery/mineral/processing_unit_console/Destroy()
 	machine = null
@@ -177,47 +177,31 @@
 			stored_points += O.points * O.amount
 		materials.insert_item(O)
 		qdel(O)
-		if(CONSOLE)
-			CONSOLE.updateUsrDialog()
 
 /obj/machinery/mineral/processing_unit/proc/get_machine_data()
-	var/dat = "<b>Smelter control console</b><br><br>"
-
-	//On or off - on the console so we don't fail can_interact when doing Topic
-	dat += "Machine is currently <A href='?src=[REF(CONSOLE)];toggle_on=1'>[ on ? "On" : "Off"]</A>"
-	dat += "<br><br>"
+	var/list/data = list()
+	data["on"] = on
+	data["allowredeem"] = allow_point_redemption
 
 	//Points
 	if(allow_point_redemption)
-		dat += "Stored points: [stored_points] "
-		dat += "<A href='?src=[REF(CONSOLE)];redeem=1'><b>Redeem</b></A> "
-		dat += "<br><br>"
+		data["stored_points"] = stored_points
 
+	data["materials"] = list()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/datum/material/M in materials.materials)
 		var/amount = materials.materials[M]
-		dat += "<span class=\"res_name\">[M.name]: </span>[amount] cm&sup3;"
-		if (selected_material == M)
-			dat += " <i>Smelting</i>"
-		else
-			dat += " <A href='?src=[REF(CONSOLE)];material=[REF(M)]'><b>Not Smelting</b></A> "
-		dat += "<br>"
+		var/sheet_amount = amount / MINERAL_MATERIAL_AMOUNT
+		var/ref = REF(M)
+		data["materials"] += list(list("name" = M.name, "id" = ref, "amount" = sheet_amount, "smelting" = (selected_material == M)))
 
-	dat += "<br><br>"
-	dat += "<b>Smelt Alloys</b><br>"
+	data["alloys"] = list()
 
 	for(var/v in stored_research.researched_designs)
 		var/datum/design/D = SSresearch.techweb_design_by_id(v)
-		dat += "<span class=\"res_name\">[D.name] "
-		if (selected_alloy == D.id)
-			dat += " <i>Smelting</i>"
-		else
-			dat += " <A href='?src=[REF(CONSOLE)];alloy=[D.id]'><b>Not Smelting</b></A> "
-		dat += "<br>"
+		data["alloys"] += list(list("name" = D.name, "id" = D.id, "smelting" = (selected_alloy == D.id), "amount" = can_smelt(D)))
 
-	dat += "<br><br>"
-
-	return dat
+	return data
 
 /obj/machinery/mineral/processing_unit/pickup_item(datum/source, atom/movable/target, atom/oldLoc)
 	if(QDELETED(target))
@@ -238,9 +222,6 @@
 		else if(selected_alloy)
 			smelt_alloy(delta_time)
 
-
-		if(CONSOLE)
-			CONSOLE.updateUsrDialog()
 	else
 		end_processing()
 
