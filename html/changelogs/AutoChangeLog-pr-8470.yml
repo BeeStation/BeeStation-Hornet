@@ -1,0 +1,4 @@
+author: benbot16
+delete-after: true
+changes:
+  - bugfix: Fixes ghosts runtiming during icon updates.
