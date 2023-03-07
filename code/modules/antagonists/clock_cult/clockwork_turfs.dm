@@ -80,6 +80,14 @@
 /turf/closed/wall/clockwork/ratvar_act()
 	return 0
 
+/turf/closed/wall/clockwork/attack_animal(mob/living/simple_animal/M)
+	M.changeNext_move(CLICK_CD_MELEE)
+	M.do_attack_animation(src)
+	if(!M.environment_smash)
+		return
+	playsound(src, 'sound/effects/bang.ogg', 50, 1)
+	to_chat(M, "<span class='warning'>This wall is far too strong for you to destroy.</span>")
+
 /turf/closed/wall/clockwork/dismantle_wall(devastated=0, explode=0)
 	if(devastated)
 		devastate_wall()
