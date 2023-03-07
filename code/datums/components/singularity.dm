@@ -175,7 +175,9 @@
 	//Begin performing tickchecked enumeration
 	var/list/turfs_to_consume = spiral_range_turfs(grav_pull, parent)
 	turfs_to_eat = length(turfs_to_consume)
-	var/datum/enumerator/turf_enumerator = get_list_enumerator(turfs_to_consume)
+	// The foreach will delete things in this list, so we will use a dereferencing enumerator
+	// Turfs cannot be deleted, only modified so they cannot hard delete.
+	var/datum/enumerator/turf_enumerator = get_dereferencing_enumerator(turfs_to_consume)
 	SSenumeration.tickcheck(turf_enumerator.foreach(CALLBACK(src, .proc/consume_turf)))
 
 /datum/component/singularity/proc/consume_turf(turf/tile)
