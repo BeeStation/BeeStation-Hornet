@@ -502,15 +502,15 @@
 	button.moved = "6:157,4:-2"
 
 /datum/action/item_action/cult_dagger/Trigger()
-	for(var/obj/item/H in owner.held_items) //In case we were already holding another dagger
-		if(istype(H, /obj/item/melee/cultblade/dagger))
-			H.attack_self(owner)
-			return
-	var/obj/item/I = target
-	if(owner.can_equip(I, ITEM_SLOT_HANDS))
-		owner.temporarilyRemoveItemFromInventory(I)
-		owner.put_in_hands(I)
-		I.attack_self(owner)
+	for(var/obj/item/melee/cultblade/dagger/held_item in owner.held_items) // In case we were already holding a dagger
+		held_item.attack_self(owner)
+		return
+	var/obj/item/target_item = target
+	if(owner.can_equip(target_item, ITEM_SLOT_HANDS))
+		owner.temporarilyRemoveItemFromInventory(target_item)
+		owner.put_in_hands(target_item)
+		target_item.attack_self(owner)
+		return
 	else
 		if (owner.get_num_arms() <= 0)
 			to_chat(owner, "<span class='warning'>You don't have any usable hands!</span>")
