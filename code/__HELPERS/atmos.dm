@@ -383,8 +383,15 @@ B --><-- A
 			target_drifting = FALSE
 			target_loc = target.loc
 
-		if((!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc) \
-			|| (!(timed_action_flags& IGNORE_TARGET_LOC_CHANGE) && !target_drifting && target.loc != target_loc) \
-			|| (extra_checks && !extra_checks.Invoke()))
+		// Check for flags
+		if(!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc)
 			. = FALSE
+
+		if(!(timed_action_flags& IGNORE_TARGET_LOC_CHANGE) && !target_drifting && target.loc != target_loc)
+			. = FALSE
+
+		if(extra_checks && !extra_checks.Invoke())
+			. = FALSE
+
+		if(!.)
 			break

@@ -243,13 +243,23 @@ GLOBAL_LIST_EMPTY(species_list)
 			drifting = FALSE
 			user_loc = user.loc
 
-		if((!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc) \
-			|| (!(timed_action_flags & IGNORE_TARGET_LOC_CHANGE) && target.loc != target_loc) \
-			|| (!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding) \
-			|| (!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated()) \
-			|| (extra_checks && !extra_checks.Invoke()) \
-			)
+		// Check flags
+		if(!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc)
 			. = FALSE
+
+		if(!(timed_action_flags & IGNORE_TARGET_LOC_CHANGE) && target.loc != target_loc)
+			. = FALSE
+
+		if(!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding)
+			. = FALSE
+
+		if(!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated())
+			. = FALSE
+
+		if(extra_checks && !extra_checks.Invoke())
+			. = FALSE
+
+		if(!.)
 			break
 
 	if(progress)
@@ -318,23 +328,28 @@ GLOBAL_LIST_EMPTY(species_list)
 			drifting = FALSE
 			user_loc = user.loc
 
-		if((!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc) \
-			|| (!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding) \
-			|| (!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated()) \
-			|| (extra_checks && !extra_checks.Invoke()))
+		// Check flags
+		if(!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc)
 			. = FALSE
-			break
 
-		if(!(timed_action_flags & IGNORE_TARGET_LOC_CHANGE) \
-			&& !drifting && !QDELETED(target_loc) \
-			&& (QDELETED(target) || target_loc != target.loc) \
-			&& ((user_loc != target_loc || target_loc != user)) \
-			)
+		if(!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding)
 			. = FALSE
-			break
+
+		if(!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated())
+			. = FALSE
+
+		if(extra_checks && !extra_checks.Invoke())
+			. = FALSE
+
+		// If we have a target, we check for them moving here. We don't care about it if we're drifting, though
+		if(!(timed_action_flags & IGNORE_TARGET_LOC_CHANGE) && !drifting)
+			if(!QDELETED(target_loc) && (QDELETED(target) || target_loc != target.loc))
+				. = FALSE
 
 		if(target && !(timed_action_flags & IGNORE_TARGET_IN_DOAFTERS) && !(target in user.do_afters))
 			. = FALSE
+
+		if(!.)
 			break
 
 	if(progress)
