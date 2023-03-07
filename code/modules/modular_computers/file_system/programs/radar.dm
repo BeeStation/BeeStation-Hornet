@@ -75,8 +75,10 @@
 	switch(action)
 		if("selecttarget")
 			selected = params["ref"]
+			return TRUE
 		if("scan")
 			scan()
+			return TRUE
 
 /**
   *Updates tracking information of the selected target.

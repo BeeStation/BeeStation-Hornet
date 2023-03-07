@@ -42,8 +42,10 @@
 	if(!ui)
 		if(active_program)
 			ui = new(user, src, active_program.tgui_id, active_program.filedesc)
+			ui.set_autoupdate(TRUE)
 		else
 			ui = new(user, src, "NtosMain")
+			ui.set_autoupdate(TRUE)
 		ui.open()
 		return
 
