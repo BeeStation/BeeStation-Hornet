@@ -6,7 +6,7 @@
 	charge_max = 300
 	clothes_req = TRUE
 	invocation = "none"
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	range = -1
 	cooldown_min = 100 //50 deciseconds reduction per rank
 	include_user = TRUE

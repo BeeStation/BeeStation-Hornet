@@ -97,7 +97,7 @@
 	charge_max = 150
 	clothes_req = FALSE
 	invocation = "UN'LTD P'WAH"
-	invocation_type = "shout"
+	invocation_type = INVOCATION_SHOUT
 	cooldown_min = 50
 	base_icon_state = "lightning"
 	action_icon_state = "lightning0"
@@ -115,7 +115,7 @@
 	charge_max = 140
 	clothes_req = TRUE
 	invocation = "ONI SOMA"
-	invocation_type = "shout"
+	invocation_type = INVOCATION_SHOUT
 	range = 20
 	cooldown_min = 40 //10 deciseconds reduction per rank
 	projectile_type = /obj/item/projectile/magic/fireball
@@ -133,7 +133,7 @@
 	charge_max = 90
 	clothes_req = FALSE
 	invocation = "Sigi'lu M'Fan 'Tasia"
-	invocation_type = "shout"
+	invocation_type = INVOCATION_SHOUT
 	range = 40
 	cooldown_min = 30
 	projectile_amount = 5

@@ -1,6 +1,0 @@
-author: RKz, jlsnow301, Ghommie
-delete-after: true
-changes:
-  - code_imp: optimized some typecache list stuff, taught it how to use "as anything"
-      code
-  - code_imp: optimized 'for' loops
