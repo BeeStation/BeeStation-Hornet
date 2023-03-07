@@ -797,7 +797,8 @@
 		owner.update_overlays() */
 		//marked_underlay.pixel_x = -owner.pixel_x
 		//marked_underlay.pixel_y = -owner.pixel_y
-		owner.underlays += marked_underlay
+		//owner.underlays += marked_underlay
+		owner.add_overlay(marked_underlay)
 		owner.update_overlays()
 		return TRUE
 	return FALSE
