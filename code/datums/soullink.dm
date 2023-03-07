@@ -19,9 +19,6 @@
 	sharedSoullinks = null
 	return ..()
 
-///mob/living/rust_heretic_act()
-	//return TRUE
-
 //Keeps track of a Mob->Mob (potentially Player->Player) connection
 //Can be used to trigger actions on one party when events happen to another
 //Eg: shared deaths
