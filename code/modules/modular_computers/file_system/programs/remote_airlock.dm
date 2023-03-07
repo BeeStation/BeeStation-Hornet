@@ -44,6 +44,9 @@
 			var/obj/item/computer_hardware/hard_drive/drive = computer.all_components[MC_HDD]
 			if(istype(drive) && length(drive.controllable_airlocks))
 				all_controllable += drive.controllable_airlocks
+			drive = computer.all_components[MC_HDD_JOB]
+			if(istype(drive) && length(drive.controllable_airlocks))
+				all_controllable += drive.controllable_airlocks
 			for(var/obj/machinery/door/poddoor/airlock in GLOB.airlocks)
 				if(airlock.id == params["id"])
 					if(!(airlock.id in all_controllable))
