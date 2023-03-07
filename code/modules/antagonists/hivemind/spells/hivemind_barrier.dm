@@ -5,7 +5,7 @@
 	charge_max = 600
 	clothes_req = 0
 	human_req = 1
-	invocation_type = INVOCATION_NONE
+	invocation_type = "none"
 	action_icon = 'icons/mob/actions/actions_hive.dmi'
 	action_background_icon_state = "bg_hive"
 	action_icon_state = "forcewall"

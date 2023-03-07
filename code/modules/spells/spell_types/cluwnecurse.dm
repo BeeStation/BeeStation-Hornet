@@ -7,7 +7,7 @@
 	clothes_req = 1
 	stat_allowed = 0
 	invocation = "CLU WO'NIS CA'TE'BEST'IS MAXIMUS!"
-	invocation_type = INVOCATION_SHOUT
+	invocation_type = "shout"
 	range = 3
 	cooldown_min = 75
 	selection_type = "range"

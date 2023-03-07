@@ -3,7 +3,7 @@
 	human_req = FALSE
 	clothes_req = FALSE
 	antimagic_allowed = TRUE
-	invocation_type = INVOCATION_NONE
+	invocation_type = "none"
 
 /obj/effect/proc_holder/spell/targeted/guardian/proc/Finished()
 	charge_counter = 0

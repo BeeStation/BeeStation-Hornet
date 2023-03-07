@@ -5,7 +5,7 @@
 	charge_max = 100
 	clothes_req = FALSE
 	invocation = "FUKAN NOTHAN"
-	invocation_type = INVOCATION_SHOUT
+	invocation_type = "shout"
 	sound = 'sound/magic/forcewall.ogg'
 	action_icon_state = "shield"
 	range = -1

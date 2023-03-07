@@ -7,7 +7,7 @@
 	clothes_req = FALSE
 	antimagic_allowed = TRUE
 	invocation = "HO HO HO"
-	invocation_type = INVOCATION_SHOUT
+	invocation_type = "shout"
 	range = 3
 	cooldown_min = 50
 

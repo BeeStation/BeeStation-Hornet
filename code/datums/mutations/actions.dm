@@ -104,8 +104,6 @@
 	name = "Fire Breath"
 	desc = "You can breathe fire at a target."
 	school = "evocation"
-	invocation = ""
-	invocation_type = INVOCATION_NONE
 	charge_max = 600
 	clothes_req = FALSE
 	range = 20
@@ -165,7 +163,7 @@
 	clothes_req = FALSE
 	charge_max = 600
 	invocation = "DOOOOOOOOOOOOOOOOOOOOM!!!"
-	invocation_type = INVOCATION_SHOUT
+	invocation_type = "shout"
 	action_icon_state = "void_magnet"
 
 /obj/effect/proc_holder/spell/self/void/can_cast(mob/user = usr)

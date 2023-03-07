@@ -19,8 +19,7 @@
 /datum/clockcult/scripture/ark_activation/check_special_requirements(mob/user)
 	if(!..())
 		return FALSE
-	var/turf/location = get_turf(invoker)
-	if(!is_reebe(location.z))
+	if(!is_reebe(get_area(invoker)))
 		to_chat(invoker, "<span class='brass'>You need to be near the gateway to channel its energy!</span>")
 		return FALSE
 	return TRUE

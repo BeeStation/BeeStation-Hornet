@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/target_hive
 	panel = "Hivemind Abilities"
-	invocation_type = INVOCATION_NONE
+	invocation_type = "none"
 	selection_type = "range"
 	action_icon = 'icons/mob/actions/actions_hive.dmi'
 	action_background_icon_state = "bg_hive"

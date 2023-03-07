@@ -7,7 +7,7 @@
 	clothes_req = FALSE
 	stat_allowed = FALSE
 	invocation = "KN'A FTAGHU, PUCK 'BTHNK!"
-	invocation_type = INVOCATION_SHOUT
+	invocation_type = "shout"
 	range = 7
 	cooldown_min = 30
 	selection_type = "range"
