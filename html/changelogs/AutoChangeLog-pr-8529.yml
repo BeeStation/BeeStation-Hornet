@@ -1,0 +1,8 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - tweak: Hierophant and Colossus no longer dust their victims, instead gibbing them
+      so that there is hope for recovery.
+  - tweak: All miners falling to any megafauna now drop all their items (notably their
+      GPS) before being gibbed to improve their chances of being found and recovered
+      by others.
