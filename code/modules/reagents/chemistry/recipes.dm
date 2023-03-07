@@ -49,7 +49,7 @@
 				S = new mob_class(get_turf(holder.my_atom))//Spawn our specific mob_class
 			S.faction |= mob_faction
 			if(prob(50))
-				for(var/j = 1, j <= rand(1, 3), j++)
+				for(var/j in 1 to rand(1, 3))
 					step(S, pick(NORTH,SOUTH,EAST,WEST))
 
 ///Simulates a vortex that moves nearby movable atoms towards or away from the turf T. Range also determines the strength of the effect. High values cause nearby objects to be thrown.
