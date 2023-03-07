@@ -54,19 +54,20 @@
 	. = ..()
 	if(!(obj_flags & EMAGGED))
 		say("Recalibrating...")
-	
+
 /obj/machinery/elevator_interface/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Elevator", name)
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/elevator_interface/ui_data(mob/user)
 	var/list/data = list()
 	data["current_z"] = z+z_offset
 	data["available_levels"] = available_levels
+	data["in_transit"] = !!SSelevator_controller.elevator_group_timers[id]
 	return data
-
 
 /obj/machinery/elevator_interface/ui_act(action, list/params)
 	. = ..()
@@ -75,4 +76,4 @@
 	var/num = text2num(action)
 	if(isnum(num))
 		select_level(num-z_offset)
-		ui_update()
+	return TRUE
