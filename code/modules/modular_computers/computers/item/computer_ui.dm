@@ -113,11 +113,11 @@
 		data["disk_name"] = ssd.name
 
 		for(var/datum/computer_file/program/prog in ssd.stored_files)
-			var/running = FALSE
+			var/background_running = FALSE
 			if(prog in idle_threads)
-				running = TRUE
+				background_running = TRUE
 
-			data["disk_programs"] += list(list("name" = prog.filename, "desc" = prog.filedesc, "running" = running, "icon" = prog.program_icon, "alert" = prog.alert_pending))
+			data["disk_programs"] += list(list("name" = prog.filename, "desc" = prog.filedesc, "running" = background_running, "icon" = prog.program_icon, "alert" = prog.alert_pending))
 
 	data["removable_media"] = list()
 	if(all_components[MC_SDD])
@@ -132,11 +132,11 @@
 	data["programs"] = list()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
 	for(var/datum/computer_file/program/P in hard_drive.stored_files)
-		var/running = 0
+		var/background_running = FALSE
 		if(P in idle_threads)
-			running = 1
+			background_running = TRUE
 
-		data["programs"] += list(list("name" = P.filename, "desc" = P.filedesc, "running" = running, "icon" = P.program_icon, "alert" = P.alert_pending))
+		data["programs"] += list(list("name" = P.filename, "desc" = P.filedesc, "running" = background_running, "icon" = P.program_icon, "alert" = P.alert_pending))
 
 	data["has_light"] = has_light
 	data["light_on"] = light_on
@@ -163,10 +163,11 @@
 
 			idle_threads.Add(active_program)
 			active_program.program_state = PROGRAM_STATE_BACKGROUND // Should close any existing UIs
-
 			active_program = null
+			if(ismob(usr))
+				ui_interact(usr) // Re-open the UI on this computer. It should show the main screen now.
 			update_icon()
-
+			return TRUE
 		if("PC_killprogram")
 			var/prog = params["name"]
 			var/datum/computer_file/program/killed_program  = null
@@ -175,11 +176,11 @@
 
 			if(!istype(killed_program) || killed_program.program_state == PROGRAM_STATE_KILLED)
 				return
-
+			if(killed_program in idle_threads)
+				idle_threads.Remove(killed_program)
 			killed_program.kill_program(forced = TRUE)
 			to_chat(usr, "<span class='notice'>Program [killed_program.filename].[killed_program.filetype] with PID [rand(100,999)] has been killed.</span>")
 			return TRUE
-
 		if("PC_runprogram")
 			var/is_disk = params["is_disk"]
 			var/datum/computer_file/program/program
@@ -221,34 +222,39 @@
 						return
 					if(uninstall_component(portable_drive, usr, TRUE))
 						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+					return TRUE
 				if("job disk")
 					var/obj/item/computer_hardware/hard_drive/role/ssd = all_components[MC_HDD_JOB]
 					if(!ssd)
 						return
 					if(uninstall_component(ssd, usr, TRUE))
 						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+					return TRUE
 				if("intelliCard")
 					var/obj/item/computer_hardware/ai_slot/intelliholder = all_components[MC_AI]
 					if(!intelliholder)
 						return
 					if(intelliholder.try_eject(user))
 						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+					return TRUE
 				if("ID")
 					var/obj/item/computer_hardware/card_slot/cardholder = all_components[MC_CARD]
 					if(!cardholder)
 						return
 					if(cardholder.try_eject(user))
 						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+					return TRUE
 				if("secondary RFID card")
 					var/obj/item/computer_hardware/card_slot/cardholder = all_components[MC_CARD2]
 					if(!cardholder)
 						return
 					if(cardholder.try_eject(user))
 						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+					return TRUE
 		if("PC_Imprint_ID")
 			var/obj/item/computer_hardware/card_slot/cardholder = all_components[MC_CARD]
-			if(!cardholder)
-				return
+			if(!cardholder || !can_save_id)
+				return TRUE
 
 			saved_identification = cardholder.current_identification
 			saved_job = cardholder.current_job
@@ -257,10 +263,12 @@
 
 			playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
 			addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
+			return TRUE
 		if("PC_Toggle_Auto_Imprint")
 			saved_auto_imprint = !saved_auto_imprint
 			if(saved_auto_imprint)
 				on_id_insert()
+			return TRUE
 		if("PC_Pai_Interact")
 			if(!can_store_pai || !istype(stored_pai_card))
 				return
@@ -271,6 +279,7 @@
 				remove_pai()
 				to_chat(usr, "<span class='notice'>You remove the pAI from [src].</span>")
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+			return TRUE
 	if(active_program)
 		return active_program.ui_act(action, params, ui, state)
 
