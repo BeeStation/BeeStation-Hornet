@@ -1,6 +1,9 @@
 /*
  * Performs unchecked list enumeration.
  * Not protected against concurrent modification.
+ * Not protected against hard-deletes which can occur due to the tick-checked nature of enumerators.
+ * If you register something into a list, and that thing gets deleted before enumeration completes,
+ * then you will get a hard-delete.
  */
 /datum/enumerator/list
 	///The list we are enumerating over
