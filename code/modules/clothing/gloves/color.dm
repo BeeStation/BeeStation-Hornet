@@ -19,8 +19,7 @@
 
 /obj/item/clothing/gloves/color/black/dropped(mob/living/carbon/user)
 	..()
-	var/mob/living/carbon/C = user
-	if(C.gloves != src)
+	if(user.gloves != src)
 		return
 	if(user.mind?.assigned_role in GLOB.security_positions)
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_black_gloves")
@@ -35,8 +34,7 @@
 
 /obj/item/clothing/gloves/color/yellow/dropped(mob/living/carbon/user)
 	..()
-	var/mob/living/carbon/C = user
-	if(C.gloves != src)
+	if(user.gloves != src)
 		return
 	if(user.mind?.assigned_role == JOB_NAME_ASSISTANT)
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "assistant_insulated_gloves")

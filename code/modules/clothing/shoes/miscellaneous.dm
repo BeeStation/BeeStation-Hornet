@@ -99,8 +99,7 @@
 /obj/item/clothing/shoes/clown_shoes/dropped(mob/living/carbon/user)
 	..()
 	QDEL_NULL(waddle)
-	var/mob/living/carbon/C = user
-	if(C.shoes != src)
+	if(user.shoes != src)
 		return
 	if(user.mind && user.mind.assigned_role == JOB_NAME_CLOWN)
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "clownshoes")
