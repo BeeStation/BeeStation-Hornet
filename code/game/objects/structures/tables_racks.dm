@@ -704,7 +704,7 @@
 		return
 	building = TRUE
 	to_chat(user, "<span class='notice'>You start constructing a rack...</span>")
-	if(do_after(user, 50, target = user, progress=TRUE))
+	if(do_after(user, 50, target = user))
 		if(!user.temporarilyRemoveItemFromInventory(src))
 			return
 		var/obj/structure/rack/R = new /obj/structure/rack(user.loc)

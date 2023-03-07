@@ -93,7 +93,7 @@
 	var/A = get_turf(user)
 	to_chat(user, "<span class='danger'>You start drawing a rune...</span>")
 
-	if(do_after(user,30 SECONDS,FALSE,A))
+	if(do_after(user, 30 SECONDS, A, timed_action_flags = IGNORE_HELD_ITEM))
 		new /obj/effect/eldritch/big(A)
 
 ///Removes runes from the selected turf
