@@ -39,7 +39,6 @@ By design, d1 is the smallest direction and d2 is the highest
 	desc = "A flexible, superconducting insulated cable for heavy-duty power transfer."
 	icon = 'icons/obj/power_cond/cables.dmi'
 	icon_state = "0-1"
-	level = 1 //is underfloor
 	layer = WIRE_LAYER //Above hidden pipes, GAS_PIPE_HIDDEN_LAYER
 	anchored = TRUE
 	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
@@ -93,10 +92,9 @@ By design, d1 is the smallest direction and d2 is the highest
 	d1 = text2num(copytext(icon_state, 1, dash))
 	d2 = text2num(copytext(icon_state, dash + length(icon_state[dash])))
 
-	var/turf/T = get_turf(src)			// hide if turf is not intact
-	if(level==1)
-		hide(T.intact)
 	GLOB.cable_list += src //add it to the global cable list
+
+	AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
 
 	var/list/cable_colors = GLOB.cable_colors
 	cable_color = param_color || cable_color || pick(cable_colors)
@@ -126,13 +124,6 @@ By design, d1 is the smallest direction and d2 is the highest
 ///////////////////////////////////
 // General procedures
 ///////////////////////////////////
-
-//If underfloor, hide the cable
-/obj/structure/cable/hide(i)
-
-	if(level == 1 && isturf(loc))
-		invisibility = i ? INVISIBILITY_MAXIMUM : 0
-	update_icon()
 
 /obj/structure/cable/update_icon()
 	icon_state = "[d1]-[d2]"

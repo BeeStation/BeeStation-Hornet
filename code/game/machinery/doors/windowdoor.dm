@@ -13,7 +13,7 @@
 	visible = FALSE
 	flags_1 = ON_BORDER_1
 	opacity = FALSE
-	pass_flags_self = PASSGLASS
+	pass_flags_self = PASSTRANSPARENT
 	CanAtmosPass = ATMOS_PASS_PROC
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	network_id = NETWORK_DOOR_AIRLOCKS
@@ -132,7 +132,7 @@
 /obj/machinery/door/window/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
-	if(istype(leaving) && (leaving.pass_flags & PASSGLASS))
+	if(istype(leaving) && (leaving.pass_flags & PASSTRANSPARENT))
 		return
 
 	if(direction == dir && density)
