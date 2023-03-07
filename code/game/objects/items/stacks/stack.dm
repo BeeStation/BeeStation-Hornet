@@ -505,3 +505,6 @@
 /datum/stack_recipe_list/New(title, recipes)
 	src.title = title
 	src.recipes = recipes
+
+#undef STACK_CHECK_CARDINALS
+#undef STACK_CHECK_ADJACENT
