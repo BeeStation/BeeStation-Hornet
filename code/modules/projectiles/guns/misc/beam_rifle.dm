@@ -444,8 +444,6 @@
 			new /obj/effect/hotspot(T)
 	for(var/obj/O in range(aoe_structure_range, epicenter))
 		if(!isitem(O))
-			if(O.level == 1)	//Please don't break underfloor items!
-				continue
 			O.take_damage(aoe_structure_damage * get_damage_coeff(O), BURN, "laser", FALSE)
 
 /obj/item/projectile/beam/beam_rifle/prehit_pierce(atom/A)

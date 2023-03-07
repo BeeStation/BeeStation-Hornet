@@ -185,7 +185,7 @@
 		var/mob/living/carbon/C = occupant
 		if(C.type_of_meat)
 			// Someone changed component rating high enough so it requires negative amount of nutrients to create a meat slab
-			if(nutrient_to_meat < 0)
+			if(nutrient_to_meat <= 0) // Megaddd, please don't crash the server again
 				occupant.forceMove(drop_location())
 				occupant = null
 				explosion(loc, 0, 1, 2, 3, TRUE)

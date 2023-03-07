@@ -148,7 +148,7 @@
 	hal_impact_effect_wall = "impact_laser_wall"
 	hit_duration = 4
 	hit_duration_wall = 10
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+	pass_flags = PASSTABLE | PASSTRANSPARENT | PASSGRILLE
 
 /obj/item/projectile/hallucination/laser/hal_apply_effect()
 	hal_target.adjustStaminaLoss(20)
@@ -184,7 +184,7 @@
 	hal_impact_effect = "impact_laser_blue"
 	hal_impact_effect_wall = null
 	hit_duration = 4
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+	pass_flags = PASSTABLE | PASSTRANSPARENT | PASSGRILLE
 
 /obj/item/projectile/hallucination/disabler/hal_apply_effect()
 	hal_target.adjustStaminaLoss(25)

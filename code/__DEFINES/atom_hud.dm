@@ -70,6 +70,9 @@
 #define ANTAG_HUD_MORPH			33
 #define ANTAG_HUD_SWARMER		34
 #define ANTAG_HUD_PIRATE		35
+#define ANTAG_HUD_SPIDER		36
+#define ANTAG_HUD_VALENTINE		37
+#define ANTAG_HUD_HEARTBREAKER	38
 
 // Notification action types
 #define NOTIFY_JUMP "jump"
