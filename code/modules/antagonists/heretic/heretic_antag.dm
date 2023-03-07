@@ -668,7 +668,7 @@
 /datum/action/innate/hereticmenu
 	name = "Forbidden Knowledge"
 	desc = "Utilize your connection to the beyond to unlock new eldritch abilities"
-	icon_icon = 'icons/obj/eldritch.dmi'
+	icon_icon = 'icons/obj/heretic.dmi'
 	button_icon_state = "book_open"
 	background_icon_state = "bg_ecult"
 	var/datum/antagonist/heretic/ownerantag

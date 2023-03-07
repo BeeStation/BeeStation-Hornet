@@ -3,7 +3,7 @@
 	name = "carving knife"
 	desc = "A small knife made of cold steel, pure and perfect. Its sharpness can carve into plastitanium itself - \
 		but only few can evoke the dangers that lurk beneath reality."
-	icon = 'icons/obj/eldritch.dmi'
+	icon = 'icons/obj/heretic.dmi'
 	icon_state = "rune_carver"
 	flags_1 = CONDUCT_1
 	sharpness = IS_SHARP
@@ -165,7 +165,7 @@
 /obj/structure/trap/eldritch
 	name = "elder carving"
 	desc = "A collection of unknown symbols, they remind you of days long gone..."
-	icon = 'icons/obj/eldritch.dmi'
+	icon = 'icons/obj/heretic.dmi'
 	/// A tip displayed to heretics who examine the rune carver. Explains what the rune does.
 	var/carver_tip
 	/// Reference to trap owner mob

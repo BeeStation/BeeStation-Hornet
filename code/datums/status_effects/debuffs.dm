@@ -782,7 +782,7 @@
 	///underlay used to indicate that someone is marked
 	var/mutable_appearance/marked_underlay
 	///path for the underlay
-	var/effect_icon = 'icons/effects/eldritch.dmi'
+	var/effect_icon = 'icons/effects/heretic.dmi'
 	/// icon state for the underlay
 	var/effect_icon_state = "emark_RING_TEMPLATE"
 
@@ -1086,7 +1086,7 @@
 	. = ..()
 
 /datum/status_effect/cloudstruck/on_apply()
-	mob_overlay = mutable_appearance('icons/effects/eldritch.dmi', "cloud_swirl", ABOVE_MOB_LAYER)
+	mob_overlay = mutable_appearance('icons/effects/heretic.dmi', "cloud_swirl", ABOVE_MOB_LAYER)
 	owner.overlays += mob_overlay
 	owner.update_icon()
 	ADD_TRAIT(owner, TRAIT_BLIND, "cloudstruck")

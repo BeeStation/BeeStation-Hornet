@@ -116,7 +116,7 @@
 
 /obj/effect/visible_heretic_influence
 	name = "pierced reality"
-	icon = 'icons/effects/eldritch.dmi'
+	icon = 'icons/effects/heretic.dmi'
 	icon_state = "pierced_illusion"
 	anchored = TRUE
 	interaction_flags_atom = INTERACT_ATOM_NO_FINGERPRINT_ATTACK_HAND
@@ -127,7 +127,7 @@
 	. = ..()
 	addtimer(CALLBACK(src, .proc/show_presence), 15 SECONDS)
 
-	var/image/silicon_image = image('icons/effects/eldritch.dmi', src, null, OBJ_LAYER)
+	var/image/silicon_image = image('icons/effects/heretic.dmi', src, null, OBJ_LAYER)
 	silicon_image.override = TRUE
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "pierced_reality", silicon_image)
 
@@ -196,7 +196,7 @@
 
 /obj/effect/heretic_influence
 	name = "reality smash"
-	icon = 'icons/effects/eldritch.dmi'
+	icon = 'icons/effects/heretic.dmi'
 	anchored = TRUE
 	interaction_flags_atom = INTERACT_ATOM_NO_FINGERPRINT_ATTACK_HAND
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF

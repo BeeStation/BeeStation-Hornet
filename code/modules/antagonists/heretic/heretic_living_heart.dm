@@ -37,7 +37,7 @@
 	old_icon = organ_parent.icon
 	old_icon_state = organ_parent.icon_state
 
-	organ_parent.icon = 'icons/obj/eldritch.dmi'
+	organ_parent.icon = 'icons/obj/heretic.dmi'
 	organ_parent.icon_state = "living_heart"
 	action.UpdateButtonIcon()
 

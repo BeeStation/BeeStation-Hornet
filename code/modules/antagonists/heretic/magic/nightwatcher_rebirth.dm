@@ -35,6 +35,6 @@
 		human_user.adjustStaminaLoss(-10)
 
 /obj/effect/temp_visual/eldritch_smoke
-	icon = 'icons/effects/eldritch.dmi'
+	icon = 'icons/effects/heretic.dmi'
 	icon_state = "smoke"
 	duration = 10

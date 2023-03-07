@@ -1,6 +1,6 @@
 // Small visual effect imparted onto rusted things by rust heretics.
 /obj/effect/temp_visual/glowing_rune
-	icon = 'icons/effects/eldritch.dmi'
+	icon = 'icons/effects/heretic.dmi'
 	icon_state = "small_rune_1"
 	duration = 1 MINUTES
 	layer = LOW_SIGIL_LAYER

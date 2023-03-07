@@ -54,6 +54,6 @@
 	charge_max = 650
 
 /obj/effect/temp_visual/cleave
-	icon = 'icons/effects/eldritch.dmi'
+	icon = 'icons/effects/heretic.dmi'
 	icon_state = "cleave"
 	duration = 6

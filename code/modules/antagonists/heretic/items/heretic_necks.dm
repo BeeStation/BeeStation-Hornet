@@ -15,7 +15,7 @@
 /obj/item/clothing/neck/eldritch_amulet
 	name = "Warm Eldritch Medallion"
 	desc = "A strange medallion. Peering through the crystalline surface, the world around you melts away. You see your own beating heart, and the pulsing of a thousand others."
-	icon = 'icons/obj/eldritch.dmi'
+	icon = 'icons/obj/heretic.dmi'
 	icon_state = "eye_medalion"
 	w_class = WEIGHT_CLASS_SMALL
 	/// Clothing trait only applied to heretics.
