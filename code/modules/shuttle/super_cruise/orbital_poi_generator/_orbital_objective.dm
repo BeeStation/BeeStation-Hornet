@@ -49,7 +49,7 @@
 	completed = TRUE
 	//Handle payout
 	SSeconomy.distribute_funds(payout)
-	bound_bank_account.adjust_currency(ACCOUNT_CURRENCY_MINING, payout)
+	bound_bank_account.adjust_currency(ACCOUNT_CURRENCY_EXPLO, payout)
 	//Announcement
 	priority_announce("Central Command priority objective completed. [payout] credits have been \
 		distributed across departmental budgets. [payout] points have been distributed to exploration vendors.", "Central Command Report", SSstation.announcer.get_rand_report_sound())

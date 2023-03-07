@@ -51,6 +51,7 @@
 	unique_name = 1
 	gold_core_spawnable = HOSTILE_SPAWN
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	sentience_type = SENTIENCE_OTHER // not eligible for sentience potions
 	var/busy = SPIDER_IDLE // What a spider's doing
 	var/datum/action/innate/spider/lay_web/lay_web // Web action
 	var/obj/effect/proc_holder/wrap/lesser/lesserwrap // Wrap action
@@ -65,6 +66,7 @@
 	var/enriched_fed = 0
 	var/datum/action/innate/spider/lay_eggs/lay_eggs //the ability to lay eggs, granted to broodmothers
 	var/datum/team/spiders/spider_team = null //utilized by AI controlled broodmothers to pass antag team info onto their eggs without a mind
+	role = ROLE_SPIDER
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -82,7 +84,11 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/mind_initialize()
 	. = ..()
 	if(!mind.has_antag_datum(/datum/antagonist/spider))
-		mind.add_antag_datum(/datum/antagonist/spider)
+		var/datum/antagonist/spider/spooder = new
+		if(!spider_team)
+			spooder.create_team()
+			spider_team = spooder.spider_team
+		mind.add_antag_datum(spooder, spider_team)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Destroy()
 	QDEL_NULL(lay_web)
@@ -100,21 +106,6 @@
 	if(spider_antag.spider_team.directive)
 		log_game("[key_name(src)] took control of [name] with the objective: '[spider_antag.spider_team.directive]'.")
 	return TRUE
-
-/mob/living/simple_animal/hostile/poison/giant_spider/sentience_act(mob/user)
-	. = ..()
-	var/datum/team/spiders/spiders
-	for(var/datum/team/spiders/team in GLOB.antagonist_teams)
-		if(team.master == user)
-			spiders = team
-			break
-	if(!spiders)
-		if(spider_team)
-			spiders = spider_team //Spider was AI controlled and then taken over by a ghost, so we apply the stored team datum
-		else
-			spiders = new(null, user)
-	var/datum/antagonist/spider/spider_antag = mind.has_antag_datum(/datum/antagonist/spider)
-	spider_antag.set_spider_team(spiders)
 
 // Allows spiders to take damage slowdown. 2 max, but they don't start moving slower until under 75% health
 /mob/living/simple_animal/hostile/poison/giant_spider/updatehealth()
@@ -395,7 +386,7 @@ s
 	health = 35
 	melee_damage = 8
 	poison_per_bite = 8
-	web_speed = -1
+	onweb_speed = -1
 	move_to_delay = 2
 	poison_type = /datum/reagent/toxin/venom
 
@@ -607,11 +598,6 @@ s
 	if(..())
 		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
 			return FALSE
-		var/mob/living/simple_animal/hostile/poison/giant_spider/S = owner
-		var/datum/antagonist/spider/spider_antag = S.mind?.has_antag_datum(/datum/antagonist/spider)
-		if(spider_antag?.spider_team.directive)
-			to_chat(owner, "<span class='notice'>You already have a directive, you cannot change it!</span>")
-			return FALSE
 		return TRUE
 
 /datum/action/innate/spider/set_directive/Activate()
@@ -626,7 +612,6 @@ s
 	var/new_directive = stripped_input(S, "Enter the new directive", "Create directive")
 	if(new_directive)
 		spider_antag.spider_team.update_directives(new_directive)
-		message_admins("[ADMIN_LOOKUPFLW(owner)] set its directive to: '[new_directive]'.")
 		log_game("[key_name(owner)][spider_antag.spider_team.master ? " (master: [spider_antag.spider_team.master]" : ""] set its directive to: '[new_directive]'.")
 		S.lay_eggs.UpdateButtonIcon(TRUE)
 

@@ -185,24 +185,24 @@
 /proc/typecache_filter_list(list/atoms, list/typecache)
 	RETURN_TYPE(/list)
 	. = list()
-	for(var/atom/A as() in atoms)
-		if (typecache[A.type])
-			. += A
+	for(var/atom/atom_checked as anything in atoms)
+		if (typecache[atom_checked.type])
+			. += atom_checked
 
 /// returns a new list with only atoms that are NOT in typecache L
 /proc/typecache_filter_list_reverse(list/atoms, list/typecache)
 	RETURN_TYPE(/list)
 	. = list()
-	for(var/atom/A as() in atoms)
-		if(!typecache[A.type])
-			. += A
+	for(var/atom/atom_checked as anything in atoms)
+		if(!typecache[atom_checked.type])
+			. += atom_checked
 
 /// returns a new list with only atoms that are in typecache typecache_include but NOT in typecache_exclude
 /proc/typecache_filter_multi_list_exclusion(list/atoms, list/typecache_include, list/typecache_exclude)
 	. = list()
-	for(var/atom/A as() in atoms)
-		if(typecache_include[A.type] && !typecache_exclude[A.type])
-			. += A
+	for(var/atom/atom_checked as anything in atoms)
+		if(typecache_include[atom_checked.type] && !typecache_exclude[atom_checked.type])
+			. += atom_checked
 
 /// Like typesof() or subtypesof(), but returns a typecache instead of a list
 /proc/typecacheof(path, ignore_root_path, only_root_path = FALSE)
@@ -434,7 +434,7 @@
 	if(islist(wordlist))
 		var/max = min(wordlist.len,16)
 		var/bit = 1
-		for(var/i=1, i<=max, i++)
+		for(var/i in 1 to max)
 			if(bitfield & bit)
 				r += wordlist[i]
 			bit = bit << 1
@@ -499,7 +499,7 @@
 			return	//no need to move
 		fromIndex += len	//we want to shift left instead of right
 
-		for(var/i=0, i<distance, ++i)
+		for(var/i in 1 to distance)
 			L.Insert(fromIndex, null)
 			L.Swap(fromIndex, toIndex)
 			L.Cut(toIndex, toIndex+1)
@@ -507,7 +507,7 @@
 		if(fromIndex > toIndex)
 			fromIndex += len
 
-		for(var/i=0, i<len, ++i)
+		for(var/i in 1 to len)
 			L.Insert(toIndex, null)
 			L.Swap(fromIndex, toIndex)
 			L.Cut(fromIndex, fromIndex+1)
@@ -527,7 +527,7 @@
 		else
 			fromIndex += len
 
-		for(var/i=0, i<distance, ++i)
+		for(var/i in 1 to distance)
 			L.Insert(fromIndex, null)
 			L.Swap(fromIndex, toIndex)
 			L.Cut(toIndex, toIndex+1)
@@ -537,7 +537,7 @@
 			toIndex = fromIndex
 			fromIndex = a
 
-		for(var/i=0, i<len, ++i)
+		for(var/i in 1 to len)
 			L.Swap(fromIndex++, toIndex++)
 
 /// reverseList, but a range of the list specified
@@ -580,7 +580,7 @@
 	if(!islist(l))
 		return l
 	. = l.Copy()
-	for(var/i = 1 to l.len)
+	for(var/i in 1 to l.len)
 		var/key = .[i]
 		if(isnum_safe(key))
 			// numbers cannot ever be associative keys

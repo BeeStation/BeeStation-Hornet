@@ -24,6 +24,7 @@
 	for(var/datum/antagonist/spider/spider in spiders)
 		to_chat(spider.owner, "<span class='spiderlarge'>Your directives have been updated!</span>")
 		to_chat(spider.owner, "<span class='spiderlarge'>New directive: [directive]</span>")
+		spider.owner.store_memory("<b>Directive: [directive]</b>")
 
 /datum/team/spiders/proc/handle_master_qdel()
 	SIGNAL_HANDLER
@@ -48,10 +49,14 @@
 	show_to_ghosts = TRUE
 	var/datum/team/spiders/spider_team
 
-// Team handling, for when we have a bunch of different spiders with different directives.
 /datum/antagonist/spider/create_team(datum/team/spiders/new_team)
 	if(!new_team)
-		spider_team = new()
+		for(var/datum/antagonist/spider/spooder in GLOB.antagonists) 
+			if(!spooder.owner || !spooder.spider_team)
+				continue
+			spider_team = spooder.spider_team //if we can find any existing team, use that one
+			return
+		spider_team = new //otherwise we make a new team
 	else
 		if(!istype(new_team))
 			CRASH("Wrong spider team type provided to create_team")
@@ -65,8 +70,8 @@
 
 	// Alert our spider to its directives
 	if(spider_team.directive)
-		to_chat(owner, "<span class='spider'>You were left a directive! Follow it at all costs.</span>")
-		to_chat(owner, "<span class='spider'><b>[spider_team.directive]</b></span>")
+		to_chat(owner, "<span class='spiderlarge'>You were left a directive! Follow it at all costs.</span>")
+		to_chat(owner, "<span class='spiderlarge'><b>[spider_team.directive]</b></span>")
 		owner.store_memory("<b>Directive: [spider_team.directive]</b>")
 	else
 		to_chat(owner, "<span class='spider'>You do not have a directive. You'll need to set one before laying eggs.</span>")

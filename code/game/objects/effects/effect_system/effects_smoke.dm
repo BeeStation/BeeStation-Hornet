@@ -24,7 +24,7 @@
 	if(frames == 0)
 		frames = 1 //We will just assume that by 0 frames, the coder meant "during one frame".
 	var/step = alpha / frames
-	for(var/i = 0, i < frames, i++)
+	for(var/i in 1 to frames)
 		alpha -= step
 		if(alpha < 160)
 			set_opacity(0) //if we were blocking view, we aren't now because we're fading out
@@ -225,11 +225,9 @@
 		for(var/atom/movable/AM in T)
 			if(AM.type == src.type)
 				continue
-			if(T.intact && AM.level == 1) //hidden under the floor
-				continue
-			reagents.expose(AM, TOUCH, fraction)
+			reagents.reaction(AM, TOUCH, fraction)
 
-		reagents.expose(T, TOUCH, fraction)
+		reagents.reaction(T, TOUCH, fraction)
 		return 1
 
 /obj/effect/particle_effect/smoke/chem/smoke_mob(mob/living/carbon/M)
@@ -242,7 +240,7 @@
 		return 0
 	var/fraction = 1/initial(lifetime)
 	reagents.copy_to(C, fraction*reagents.total_volume)
-	reagents.expose(M, INGEST, fraction)
+	reagents.reaction(M, INGEST, fraction)
 	if(isapid(C))
 		C.SetSleeping(50) // Bees sleep when smoked
 	M.log_message("breathed in some smoke with reagents [english_list(reagents.reagent_list)]", LOG_ATTACK, null, FALSE) // Do not log globally b/c spam
