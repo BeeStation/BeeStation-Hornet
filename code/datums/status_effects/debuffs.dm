@@ -792,41 +792,24 @@
 
 /datum/status_effect/eldritch/on_apply()
 	if(owner.mob_size >= MOB_SIZE_HUMAN)
-		/*
-		RegisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS, .proc/update_owner_underlay)
-		owner.update_overlays() */
-		//marked_underlay.pixel_x = -owner.pixel_x
-		//marked_underlay.pixel_y = -owner.pixel_y
-		//owner.underlays += marked_underlay
 		owner.add_overlay(marked_underlay)
 		owner.update_overlays()
 		return TRUE
 	return FALSE
 
 /datum/status_effect/eldritch/on_remove()
-	//UnregisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS)
 	owner.update_overlays()
 	return ..()
 
 /datum/status_effect/eldritch/Destroy()
 	if(owner)
-		owner.underlays -= marked_underlay
+		owner.cut_overlay(marked_underlay)
 	QDEL_NULL(marked_underlay)
 	return ..()
 
 /datum/status_effect/eldritch/be_replaced()
 	owner.underlays -= marked_underlay //if this is being called, we should have an owner at this point.
 	..()
-
-/**
- * Signal proc for [COMSIG_ATOM_UPDATE_OVERLAYS].
- *
- * Adds the generated mark overlay to the afflicted.
- */
-/datum/status_effect/eldritch/proc/update_owner_underlay(atom/source, list/overlays)
-	SIGNAL_HANDLER
-
-	overlays += marked_underlay
 
 /**
   * What happens when this mark gets poppedd
