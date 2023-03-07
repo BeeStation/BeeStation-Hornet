@@ -370,6 +370,7 @@ B --><-- A
 	. = TRUE
 	while (world.time < endtime)
 		stoplag(1)
+
 		if(QDELETED(user) || QDELETED(target))
 			. = FALSE
 			break

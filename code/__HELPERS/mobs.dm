@@ -232,6 +232,10 @@ GLOBAL_LIST_EMPTY(species_list)
 	while(world.time < endtime)
 		stoplag(1)
 
+		if(QDELETED(user) || QDELETED(target))
+			. = FALSE
+			break
+
 		if(progress)
 			progbar.update(world.time - starttime)
 
@@ -239,8 +243,7 @@ GLOBAL_LIST_EMPTY(species_list)
 			drifting = FALSE
 			user_loc = user.loc
 
-		if(QDELETED(user) || QDELETED(target) \
-			|| (!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc) \
+		if((!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc) \
 			|| (!(timed_action_flags & IGNORE_TARGET_LOC_CHANGE) && target.loc != target_loc) \
 			|| (!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding) \
 			|| (!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated()) \
@@ -293,13 +296,20 @@ GLOBAL_LIST_EMPTY(species_list)
 
 	var/datum/progressbar/progbar
 	if(progress)
-		progbar = new(user, delay, target)
+		if(target) // the progress bar needs a target, so if we don't have one just pass it the user.
+			progbar = new(user, delay, target)
+		else
+			progbar = new(user, delay, user)
 
 	var/endtime = world.time + delay
 	var/starttime = world.time
 	. = TRUE
 	while(world.time < endtime)
 		stoplag(1)
+
+		if(QDELETED(user))
+			. = FALSE
+			break
 
 		if(progress)
 			progbar.update(world.time - starttime)
@@ -308,8 +318,7 @@ GLOBAL_LIST_EMPTY(species_list)
 			drifting = FALSE
 			user_loc = user.loc
 
-		if(QDELETED(user) \
-			|| (!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc) \
+		if((!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc) \
 			|| (!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding) \
 			|| (!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated()) \
 			|| (extra_checks && !extra_checks.Invoke()))
