@@ -204,7 +204,8 @@
 	. = ..()
 	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
 	if(istype(network_card))
-		network_card.long_range = TRUE
+		forget_component(network_card)
+		install_component(new /obj/item/computer_hardware/network_card/advanced/norelay)
 
 /obj/item/modular_computer/tablet/pda/chaplain
 	name = "chaplain PDA"
