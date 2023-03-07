@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - code_imp: Adds some new slightly safer enumerators (For when hard-del handling
+      is not performed).
