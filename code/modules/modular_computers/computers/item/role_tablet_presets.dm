@@ -200,6 +200,12 @@
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 
+/obj/item/modular_computer/tablet/pda/syndicate/Initialize(mapload)
+	. = ..()
+	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
+	if(istype(network_card))
+		network_card.long_range = TRUE
+
 /obj/item/modular_computer/tablet/pda/chaplain
 	name = "chaplain PDA"
 	icon_state = "pda-chaplain"
