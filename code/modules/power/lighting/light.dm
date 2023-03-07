@@ -207,7 +207,7 @@
 			switchcount++
 			if(rigged)
 				if(status == LIGHT_OK && trigger)
-					explode()
+					plasma_ignition(4)
 			else if( prob( min(60, (switchcount**2)*0.01) ) )
 				if(trigger)
 					burn_out()
@@ -324,7 +324,7 @@
 				qdel(L)
 
 				if(on && rigged)
-					explode()
+					plasma_ignition(4)
 			else
 				to_chat(user, "<span class='warning'>This type of light requires a [fitting]!</span>")
 
@@ -610,17 +610,6 @@
 /obj/machinery/light/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
 		break_light_tube()
-
-// explode the light
-
-/obj/machinery/light/proc/explode()
-	set waitfor = 0
-	var/turf/T = get_turf(src.loc)
-	break_light_tube()	// break it first to give a warning
-	sleep(2)
-	explosion(T, 0, 0, 2, 2)
-	sleep(1)
-	qdel(src)
 
 /obj/machinery/light/eminence_act(mob/living/simple_animal/eminence/eminence)
 	. = ..()
