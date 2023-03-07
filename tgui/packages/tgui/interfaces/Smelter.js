@@ -1,5 +1,5 @@
 import { toTitleCase } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
 import { Box, Button, Section, Table } from '../components';
 import { Window } from '../layouts';
 
@@ -76,10 +76,6 @@ export const Smelter = (props, context) => {
 
 const MaterialRow = (props, context) => {
   const { material, onRelease } = props;
-
-  const [
-    amount,
-  ] = useLocalState(context, "amount" + material.name, 1);
 
   const amountAvailable = Math.floor(material.amount);
   return (
