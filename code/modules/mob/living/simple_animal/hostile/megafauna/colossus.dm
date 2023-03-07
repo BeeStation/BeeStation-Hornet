@@ -281,11 +281,6 @@ Difficulty: Very Hard
 			shake_camera(M, 4, 3)
 	playsound(src, 'sound/magic/clockwork/narsie_attack.ogg', 200, 1)
 
-
-/mob/living/simple_animal/hostile/megafauna/colossus/devour(mob/living/L)
-	visible_message("<span class='colossus'>[src] disintegrates [L]!</span>")
-	L.dust()
-
 /obj/effect/temp_visual/at_shield
 	name = "anti-toolbox field"
 	desc = "A shimmering forcefield protecting the colossus."
