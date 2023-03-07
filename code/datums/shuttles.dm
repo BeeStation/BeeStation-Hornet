@@ -439,11 +439,6 @@
 		return TRUE
 	return FALSE
 
-/datum/map_template/shuttle/emergency/narnar/prerequisites_met()
-	if(SHUTTLE_UNLOCK_NARNAR in SSshuttle.shuttle_purchase_requirements_met)
-		return TRUE
-	return FALSE
-
 /datum/map_template/shuttle/emergency/pubby
 	suffix = "pubby"
 	name = "Pubby Station Emergency Shuttle"
