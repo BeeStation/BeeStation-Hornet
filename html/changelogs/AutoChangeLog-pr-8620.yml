@@ -1,0 +1,5 @@
+author: imsynthex
+delete-after: true
+changes:
+  - tweak: windoors are now twice as fast to open and close
+  - balance: jaws of life now work on windoors
