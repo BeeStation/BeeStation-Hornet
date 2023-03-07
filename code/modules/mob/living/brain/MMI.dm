@@ -42,12 +42,21 @@
 		if(brain)
 			to_chat(user, "<span class='warning'>There's already a brain in the MMI!</span>")
 			return
-		if(newbrain.decoy_override) //No MMI Test For You
-			to_chat(user, "<span class='warning'>There's a decent chance this is against the rules, admins have been notified and you're getting gibbed.</span>")
-			user.gib()
-			message_admins("[key_name(user)] was gibbed for trying to ling test someone with an MMI")
+		if(newbrain.decoy_override)
+			user.visible_message("<span class='warning'>[newbrain] contorts violently, whipping a sharp skewer through [user]'s head!</span>", "<span class='warning'>[newbrain] contorts violently, whipping a sharp skewer through your head!</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
+			to_chat(user, "<span class='userdanger'>Performing changeling tests with an MMI is not allowed on this server. Admins have been notified</span>")
+			message_admins("[key_name(user)] was removed from the round for trying to place a changeling brain into an MMI")
+			playsound(newbrain, 'sound/magic/demon_consume.ogg', 50, 1)
+			if(iscarbon(user))
+				var/mob/living/carbon/C = user
+				var/obj/item/bodypart/affecting
+				affecting = C.get_bodypart(BODY_ZONE_HEAD)
+				C.adjustOrganLoss(ORGAN_SLOT_BRAIN, 200)
+				affecting.receive_damage(150)
+			else //Failsafe, but should never almost never trigger
+				user.gib()
+			user.ghostize(FALSE) //Player is removed from the round permanently, even if they receive medical care.
 			return
-
 		if(!newbrain.brainmob)
 			to_chat(user, "<span class='warning'>You aren't sure where this brain came from, but you're pretty sure it's a useless brain!</span>")
 			return
