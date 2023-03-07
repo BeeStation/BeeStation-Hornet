@@ -132,7 +132,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "ace" = (
 /obj/effect/landmark/start/cook,
@@ -469,7 +469,7 @@
 /area/medical/cryo)
 "ajH" = (
 /obj/effect/landmark/carpspawn,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "akb" = (
 /obj/machinery/suit_storage_unit/exploration,
@@ -893,7 +893,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "atJ" = (
 /obj/structure/table/wood,
@@ -2219,7 +2219,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/fore)
 "aWY" = (
 /obj/machinery/door/airlock/wood,
@@ -2378,7 +2378,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/aft)
 "bar" = (
 /obj/machinery/holopad,
@@ -2862,7 +2862,7 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
 "bmJ" = (
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space)
 "bnB" = (
 /obj/effect/turf_decal/guideline/guideline_in/darkblue{
@@ -2987,7 +2987,7 @@
 /obj/structure/window/reinforced/spawner{
 	dir = 4
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "bqP" = (
 /obj/structure/disposalpipe/segment{
@@ -3632,7 +3632,7 @@
 "bBQ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/fore)
 "bCs" = (
 /obj/structure/cable/yellow{
@@ -3796,7 +3796,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/tracker,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "bFg" = (
 /obj/machinery/camera/autoname{
@@ -3924,7 +3924,7 @@
 	pixel_x = -96;
 	pixel_y = 34
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "bHj" = (
 /obj/structure/bed{
@@ -3978,7 +3978,7 @@
 /obj/structure/window/reinforced/spawner{
 	dir = 1
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "bHG" = (
 /obj/structure/railing{
@@ -4259,7 +4259,7 @@
 "bNo" = (
 /obj/structure/transit_tube,
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "bNs" = (
 /obj/machinery/door/airlock/command/glass{
@@ -4651,7 +4651,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/girder/displaced,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "bUu" = (
 /turf/closed/wall,
@@ -4806,7 +4806,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/fore)
 "bYF" = (
 /obj/effect/turf_decal/stripes/line{
@@ -5054,7 +5054,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/fore)
 "cdV" = (
 /obj/structure/cable/yellow{
@@ -5647,7 +5647,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "cqh" = (
 /obj/effect/turf_decal/bot,
@@ -6099,7 +6099,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "cww" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -6345,7 +6345,7 @@
 	id = "portsolar";
 	name = "Port Solar Array"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "cCf" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -6836,7 +6836,7 @@
 	dir = 4
 	},
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "cOA" = (
 /obj/structure/railing{
@@ -7052,7 +7052,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-4"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "cUv" = (
 /obj/structure/sign/poster/official/help_others,
@@ -7066,7 +7066,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "cUJ" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -7202,7 +7202,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "cXW" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
@@ -7931,12 +7931,12 @@
 "dmg" = (
 /obj/structure/lattice,
 /obj/item/stack/sheet/plasteel,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "dmm" = (
 /obj/structure/girder/reinforced,
 /obj/item/stack/sheet/plasteel,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "dmA" = (
 /obj/structure/table,
@@ -8101,7 +8101,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 1
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "drr" = (
 /turf/closed/wall,
@@ -8265,7 +8265,7 @@
 /area/medical/office)
 "dul" = (
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "dux" = (
 /obj/machinery/door/morgue{
@@ -8636,7 +8636,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "dBf" = (
 /mob/living/simple_animal/slime{
@@ -8851,7 +8851,7 @@
 /obj/structure/railing{
 	dir = 9
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "dGO" = (
 /obj/effect/decal/cleanable/dirt,
@@ -9253,7 +9253,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "dNS" = (
 /obj/effect/turf_decal/tile/dark_red/half/contrasted{
@@ -9304,7 +9304,7 @@
 /area/hallway/primary/central)
 "dPn" = (
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/aft)
 "dPp" = (
 /obj/effect/turf_decal/stripes/line{
@@ -9443,7 +9443,7 @@
 /area/chapel/main)
 "dTx" = (
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "dTD" = (
 /obj/machinery/door/airlock/grunge{
@@ -9733,7 +9733,7 @@
 	roundstart_template = /datum/map_template/shuttle/exploration;
 	width = 13
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space)
 "ecE" = (
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
@@ -9754,7 +9754,7 @@
 /area/hallway/primary/aft)
 "edg" = (
 /obj/structure/frame,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "edx" = (
 /obj/structure/closet/emcloset,
@@ -10196,7 +10196,7 @@
 /area/crew_quarters/heads/hop)
 "emk" = (
 /obj/structure/fans/tiny/invisible,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/shuttle/pod_1)
 "emv" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
@@ -10354,7 +10354,7 @@
 "erB" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "erD" = (
 /obj/structure/railing{
@@ -10470,7 +10470,7 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 5
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "esW" = (
 /obj/effect/turf_decal/stripes/line,
@@ -10728,7 +10728,7 @@
 	dir = 10
 	},
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "eyk" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
@@ -10913,7 +10913,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/marker_beacon,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "eDB" = (
 /obj/structure/sign/plaques/kiddie,
@@ -11169,7 +11169,7 @@
 "eIT" = (
 /obj/structure/lattice/catwalk,
 /obj/item/stack/cable_coil,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/aft)
 "eJb" = (
 /obj/structure/cable/yellow{
@@ -11259,7 +11259,7 @@
 "eKg" = (
 /obj/structure/lattice,
 /obj/item/stack/sheet/iron,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "eKh" = (
 /obj/effect/landmark/start/security_officer,
@@ -11488,7 +11488,7 @@
 	roundstart_template = /datum/map_template/shuttle/mining/large;
 	width = 7
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space)
 "eOj" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
@@ -11587,7 +11587,7 @@
 /obj/machinery/camera/autoname{
 	dir = 4
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/aft)
 "ePA" = (
 /obj/machinery/door/firedoor,
@@ -11935,11 +11935,11 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space)
 "eVc" = (
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/engine/engine_room)
 "eVf" = (
 /obj/structure/safe,
@@ -12615,7 +12615,7 @@
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "fhU" = (
 /obj/effect/turf_decal/stripes/line{
@@ -12683,14 +12683,14 @@
 	icon_state = "1-2"
 	},
 /obj/item/stack/rods,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "fjk" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "fjn" = (
 /obj/effect/turf_decal/siding/wood{
@@ -13028,7 +13028,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "fpr" = (
 /obj/machinery/vending/wardrobe/cargo_wardrobe,
@@ -13443,7 +13443,7 @@
 /area/medical/chemistry)
 "fzT" = (
 /obj/structure/railing,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "fAh" = (
 /obj/effect/turf_decal/stripes/line{
@@ -13496,7 +13496,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "fBe" = (
 /obj/structure/disposalpipe/segment{
@@ -13914,7 +13914,7 @@
 "fKb" = (
 /obj/structure/lattice,
 /obj/item/stack/rods,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "fKs" = (
 /obj/machinery/door/window/brigdoor/security/holding/northright{
@@ -13943,7 +13943,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/aft)
 "fLz" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
@@ -13991,7 +13991,7 @@
 	dir = 6
 	},
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "fMj" = (
 /obj/effect/turf_decal/tile/yellow{
@@ -14052,7 +14052,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "fND" = (
 /obj/effect/decal/cleanable/dirt,
@@ -14121,7 +14121,7 @@
 "fPQ" = (
 /obj/structure/lattice,
 /obj/structure/girder/displaced,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "fQd" = (
 /obj/structure/disposalpipe/segment{
@@ -14166,7 +14166,7 @@
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
 	dir = 5
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "fRn" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -14221,7 +14221,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/fore)
 "fSf" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -14387,7 +14387,7 @@
 /obj/structure/disposalpipe/junction{
 	dir = 1
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "fVA" = (
 /obj/machinery/vendor/exploration,
@@ -14622,7 +14622,7 @@
 /obj/structure/window/reinforced/spawner{
 	dir = 4
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "gap" = (
 /obj/machinery/vending/cigarette,
@@ -15695,7 +15695,7 @@
 /obj/structure/window/reinforced/spawner{
 	dir = 8
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "guH" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
@@ -16176,7 +16176,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/fore)
 "gEM" = (
 /obj/effect/landmark/start/roboticist,
@@ -16232,7 +16232,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/fore)
 "gGd" = (
 /obj/effect/landmark/blobstart,
@@ -16864,7 +16864,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "gSj" = (
 /obj/machinery/door/airlock/maintenance{
@@ -17199,7 +17199,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/aft)
 "haT" = (
 /obj/structure/disposalpipe/segment{
@@ -17401,7 +17401,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/solar_control,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "hdW" = (
 /turf/closed/wall,
@@ -17474,7 +17474,7 @@
 "hgv" = (
 /obj/structure/lattice/catwalk,
 /obj/item/stack/cable_coil,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/fore)
 "hgO" = (
 /turf/closed/wall,
@@ -17520,7 +17520,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/tracker,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/fore)
 "hhx" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -17604,7 +17604,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/aft)
 "hiJ" = (
 /obj/machinery/atmospherics/components/trinary/filter/flipped/critical{
@@ -18706,10 +18706,10 @@
 /obj/machinery/ai_slipper{
 	uses = 10
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "hFD" = (
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "hFQ" = (
 /obj/structure/table,
@@ -19351,7 +19351,7 @@
 /obj/machinery/power/tracker{
 	dir = 1
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/aft)
 "hTv" = (
 /obj/machinery/door/airlock/research/glass/incinerator/toxmix_interior,
@@ -20133,7 +20133,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/aft)
 "inf" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -20601,7 +20601,7 @@
 /turf/open/floor/plasteel,
 /area/maintenance/department/medical)
 "iwD" = (
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/shuttle/abandoned/cargo)
 "iwH" = (
 /turf/open/floor/plasteel/white/side{
@@ -20830,7 +20830,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space)
 "izh" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -22123,7 +22123,7 @@
 /obj/structure/window/reinforced/spawner{
 	dir = 8
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "iZj" = (
 /obj/effect/turf_decal/siding/wideplating/dark/end{
@@ -22207,7 +22207,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/fore)
 "jaN" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
@@ -22709,7 +22709,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /obj/structure/disposalpipe/segment,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "jlf" = (
 /obj/machinery/camera/autoname{
@@ -22941,7 +22941,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "joE" = (
 /obj/structure/sign/warning/electricshock{
@@ -22966,7 +22966,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "jpp" = (
 /obj/structure/cable/yellow{
@@ -23281,7 +23281,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "jwn" = (
 /obj/docking_port/stationary{
@@ -23292,7 +23292,7 @@
 	name = "Cargo Bay";
 	width = 12
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/shuttle/abandoned/cargo)
 "jwK" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
@@ -23380,13 +23380,13 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/aft)
 "jyO" = (
 /obj/structure/lattice,
 /obj/item/stack/rods,
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "jyW" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -23615,7 +23615,7 @@
 	width = 3
 	},
 /obj/structure/fans/tiny/invisible,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/shuttle/pod_1)
 "jFT" = (
 /turf/closed/wall,
@@ -24044,7 +24044,7 @@
 /area/security/prison)
 "jOQ" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "jPa" = (
 /obj/structure/chair/office{
@@ -24184,7 +24184,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "jSg" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
@@ -24399,7 +24399,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "jYw" = (
 /obj/machinery/door/airlock/public/glass{
@@ -24415,7 +24415,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "jYJ" = (
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
@@ -24447,7 +24447,7 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "jZI" = (
 /obj/machinery/button/door{
@@ -24509,7 +24509,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "kaA" = (
 /obj/structure/table/reinforced,
@@ -24643,7 +24643,7 @@
 	dir = 1
 	},
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "kcT" = (
 /obj/machinery/disposal/bin,
@@ -25006,7 +25006,7 @@
 /area/ai_monitored/turret_protected/aisat/foyer)
 "kio" = (
 /obj/structure/grille,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "kip" = (
 /obj/structure/table,
@@ -25164,7 +25164,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/aft)
 "kkZ" = (
 /obj/structure/disposalpipe/segment{
@@ -25225,14 +25225,14 @@
 /obj/structure/window/reinforced/spawner{
 	dir = 4
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "klM" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/aft)
 "klZ" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
@@ -25287,7 +25287,7 @@
 	dir = 5
 	},
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "knH" = (
 /obj/machinery/light{
@@ -25542,7 +25542,7 @@
 "ksz" = (
 /obj/structure/girder/reinforced,
 /obj/item/stack/sheet/plasteel,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/security/prison)
 "ksG" = (
 /obj/effect/turf_decal/guideline/guideline_in/neutral{
@@ -25618,7 +25618,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "kuB" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -26329,7 +26329,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/fore)
 "kFG" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -27021,7 +27021,7 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "kSE" = (
 /obj/structure/disposalpipe/segment{
@@ -27132,7 +27132,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "kVh" = (
 /obj/structure/cable/yellow{
@@ -27579,7 +27579,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/aft)
 "leI" = (
 /obj/structure/window/reinforced{
@@ -27866,7 +27866,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "llK" = (
 /obj/structure/disposalpipe/segment{
@@ -28060,7 +28060,7 @@
 /area/science/research)
 "lpR" = (
 /obj/effect/landmark/carpspawn,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space)
 "lpT" = (
 /obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
@@ -28463,7 +28463,7 @@
 	dir = 2;
 	network = list("aicore")
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space)
 "lAZ" = (
 /obj/effect/turf_decal/guideline/guideline_out/brown{
@@ -28695,11 +28695,11 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced/spawner,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "lGf" = (
 /obj/structure/girder/reinforced,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "lGo" = (
 /obj/structure/cable/yellow{
@@ -28836,7 +28836,7 @@
 "lHU" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/aft)
 "lHX" = (
 /obj/structure/chair/office/light{
@@ -28953,7 +28953,7 @@
 	name = "DeltaStation emergency evac bay";
 	width = 30
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space)
 "lLc" = (
 /obj/effect/turf_decal/stripes/line{
@@ -29053,7 +29053,7 @@
 "lMH" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/disposalpipe/segment,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "lMQ" = (
 /obj/effect/turf_decal/stripes/line,
@@ -29298,7 +29298,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "lSN" = (
 /obj/structure/rack,
@@ -29316,7 +29316,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "lTm" = (
 /obj/machinery/atmospherics/pipe/simple/dark/visible{
@@ -29567,11 +29567,11 @@
 	req_access_txt = "16"
 	},
 /obj/effect/landmark/start/ai/secondary,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "lYy" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "lYQ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -29662,7 +29662,7 @@
 	dir = 9
 	},
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "mbt" = (
 /obj/effect/turf_decal/guideline/guideline_in/neutral{
@@ -29687,7 +29687,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/aft)
 "mbT" = (
 /turf/closed/wall/r_wall,
@@ -29938,7 +29938,7 @@
 /obj/machinery/atmospherics/pipe/manifold/yellow/visible{
 	dir = 1
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "mlB" = (
 /obj/effect/landmark/blobstart,
@@ -30294,7 +30294,7 @@
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hop)
 "mrB" = (
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/shuttle/labor)
 "mrK" = (
 /obj/structure/filingcabinet{
@@ -30909,7 +30909,7 @@
 /obj/machinery/camera/autoname{
 	dir = 8
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/aft)
 "mEI" = (
 /obj/item/reagent_containers/spray/cleaner{
@@ -31179,7 +31179,7 @@
 /obj/item/cigbutt{
 	pixel_x = -9
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "mKp" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
@@ -31372,7 +31372,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "mNV" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted{
@@ -31849,7 +31849,7 @@
 /obj/machinery/power/solar_control{
 	dir = 1
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/aft)
 "mWR" = (
 /obj/structure/bookcase/random/fiction,
@@ -31928,7 +31928,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/aft)
 "mYx" = (
 /obj/machinery/light{
@@ -31969,7 +31969,7 @@
 	icon_state = "0-2"
 	},
 /obj/item/stack/cable_coil,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/fore)
 "mZT" = (
 /obj/effect/turf_decal/guideline/guideline_in/green,
@@ -32413,7 +32413,7 @@
 	dir = 5
 	},
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "ngI" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
@@ -33072,7 +33072,7 @@
 /obj/structure/lattice,
 /obj/item/stack/rods,
 /obj/item/stack/cable_coil,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "ntw" = (
 /obj/structure/chair/office{
@@ -33910,7 +33910,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "nNa" = (
 /turf/closed/wall/rust,
@@ -33970,7 +33970,7 @@
 "nNQ" = (
 /obj/structure/lattice,
 /obj/structure/frame,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "nOv" = (
 /obj/machinery/door/airlock/external{
@@ -34081,7 +34081,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "nRA" = (
 /obj/structure/disposalpipe/segment{
@@ -34413,7 +34413,7 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/yellow/visible,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "nXr" = (
 /obj/effect/turf_decal/bot,
@@ -34726,7 +34726,7 @@
 	icon_state = "4-8"
 	},
 /obj/item/stack/rods,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "oeM" = (
 /obj/structure/sign/warning/fire,
@@ -34924,7 +34924,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "oih" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -35171,7 +35171,7 @@
 	id = "portsolar";
 	name = "Port Solar Array"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "omR" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
@@ -35298,7 +35298,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "opT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -35485,7 +35485,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/aft)
 "oww" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
@@ -35510,7 +35510,7 @@
 "owX" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "oxy" = (
 /obj/structure/railing{
@@ -36007,7 +36007,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "oKf" = (
 /obj/effect/landmark/xeno_spawn,
@@ -36038,7 +36038,7 @@
 	},
 /area/science/mixing)
 "oKy" = (
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/shuttle/pod_1)
 "oKP" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -36056,7 +36056,7 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 10
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "oMn" = (
 /obj/item/radio/intercom{
@@ -36370,7 +36370,7 @@
 /obj/structure/railing/corner{
 	dir = 4
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space)
 "oRi" = (
 /obj/structure/closet/secure_closet/brig{
@@ -36439,7 +36439,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "oSS" = (
 /obj/effect/turf_decal/bot,
@@ -36460,7 +36460,7 @@
 	pixel_x = -8;
 	pixel_y = 23
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "oTN" = (
 /obj/structure/cable/yellow{
@@ -36530,7 +36530,7 @@
 	dir = 1
 	},
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "oVl" = (
 /obj/structure/cable/yellow{
@@ -36917,12 +36917,12 @@
 "pfi" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/aft)
 "pfl" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced/spawner,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "pft" = (
 /turf/open/floor/plasteel,
@@ -37392,7 +37392,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/tracker,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/aft)
 "ppD" = (
 /obj/effect/turf_decal/bot,
@@ -37476,7 +37476,7 @@
 /area/security/prison)
 "prX" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space)
 "psk" = (
 /obj/effect/turf_decal/stripes/line{
@@ -38049,7 +38049,7 @@
 /obj/machinery/camera/autoname{
 	dir = 1
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/security/armory)
 "pBx" = (
 /obj/machinery/disposal/bin,
@@ -38577,7 +38577,7 @@
 "pJc" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/fore)
 "pJd" = (
 /obj/structure/closet/crate/coffin,
@@ -39042,7 +39042,7 @@
 	roundstart_template = /datum/map_template/shuttle/labour/kilo;
 	width = 9
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/shuttle/labor)
 "pSU" = (
 /obj/machinery/computer/mech_bay_power_console{
@@ -39437,7 +39437,7 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/yellow/visible,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "qbT" = (
 /obj/structure/disposalpipe/segment{
@@ -39583,7 +39583,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/blood/gibs/old,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "qfB" = (
 /obj/structure/cable{
@@ -39623,7 +39623,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "qgY" = (
 /obj/structure/cable/yellow{
@@ -39822,7 +39822,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/aft)
 "qkV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -39979,7 +39979,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "qmY" = (
 /obj/effect/turf_decal/delivery,
@@ -40029,7 +40029,7 @@
 	dir = 4
 	},
 /obj/structure/cable,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "qnN" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -40466,7 +40466,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "qwQ" = (
 /obj/machinery/camera/motion{
@@ -40591,7 +40591,7 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "qAn" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -40670,7 +40670,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/aft)
 "qBV" = (
 /mob/living/simple_animal/bot/floorbot,
@@ -40686,7 +40686,7 @@
 "qCi" = (
 /obj/structure/lattice,
 /obj/item/stack/rods,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "qCp" = (
 /obj/structure/closet/secure_closet/injection,
@@ -40989,7 +40989,7 @@
 "qKJ" = (
 /obj/structure/shuttle/engine/hugeionengine,
 /obj/structure/shuttle/engine/hugeionafterburn,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space)
 "qLm" = (
 /mob/living/simple_animal/kalo{
@@ -41019,7 +41019,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/aft)
 "qLS" = (
 /obj/structure/cable/yellow{
@@ -41312,7 +41312,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "qQa" = (
 /obj/machinery/requests_console{
@@ -41587,7 +41587,7 @@
 /area/engine/engine_room)
 "qTk" = (
 /obj/effect/decal/cleanable/robot_debris/old,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space)
 "qTv" = (
 /obj/structure/sign/departments/minsky/security/security,
@@ -41764,7 +41764,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "qXa" = (
 /obj/structure/closet/emcloset,
@@ -41851,7 +41851,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/fore)
 "qZx" = (
 /obj/machinery/computer/security/telescreen/entertainment,
@@ -41860,7 +41860,7 @@
 "qZy" = (
 /obj/structure/transit_tube/crossing,
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "qZC" = (
 /obj/effect/turf_decal/tile/neutral/anticorner{
@@ -41884,7 +41884,7 @@
 /obj/structure/window/reinforced/spawner{
 	dir = 8
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "raa" = (
 /obj/structure/lattice/catwalk,
@@ -41895,7 +41895,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-4"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/fore)
 "rai" = (
 /obj/item/stack/sheet/plasteel,
@@ -42151,7 +42151,7 @@
 	width = 3
 	},
 /obj/structure/fans/tiny/invisible,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/shuttle/pod_1)
 "reE" = (
 /obj/effect/turf_decal/stripes/line{
@@ -42219,7 +42219,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "rgr" = (
 /obj/effect/turf_decal/stripes/line,
@@ -42262,7 +42262,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/fore)
 "rie" = (
 /obj/structure/chair/stool{
@@ -42588,7 +42588,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/aft)
 "rnv" = (
 /obj/effect/spawner/structure/window,
@@ -42691,7 +42691,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "rpE" = (
 /obj/docking_port/stationary{
@@ -42773,7 +42773,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "rsT" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -42841,7 +42841,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/engine_waste{
 	dir = 8
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/engine/engine_room)
 "ruv" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -43034,7 +43034,7 @@
 /area/maintenance/solars/port/aft)
 "rxH" = (
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/fore)
 "rxK" = (
 /turf/closed/wall/mineral/plastitanium,
@@ -43107,7 +43107,7 @@
 	name = "Ion 2";
 	network = list("ss13;Ion")
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "rzi" = (
 /obj/structure/railing{
@@ -43134,7 +43134,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "rzX" = (
 /obj/machinery/door/poddoor/preopen{
@@ -43526,7 +43526,7 @@
 "rKJ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "rKX" = (
 /obj/machinery/vending/coffee,
@@ -44875,7 +44875,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced/spawner,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "smA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -45215,7 +45215,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "sum" = (
 /obj/effect/turf_decal/guideline/guideline_in/darkblue{
@@ -45424,7 +45424,7 @@
 /area/engine/engine_room)
 "sxN" = (
 /obj/item/stack/rods,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space)
 "sxT" = (
 /obj/effect/turf_decal/stripes/line{
@@ -45474,7 +45474,7 @@
 /area/maintenance/department/science)
 "syU" = (
 /obj/item/stack/rods,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "syY" = (
 /obj/machinery/rnd/experimentor,
@@ -45497,7 +45497,7 @@
 /obj/structure/window/reinforced/spawner{
 	dir = 8
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "szA" = (
 /obj/item/trash/can{
@@ -45590,7 +45590,7 @@
 	network = list("aicore");
 	pixel_x = 21
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space)
 "sBW" = (
 /obj/machinery/light{
@@ -46405,14 +46405,14 @@
 	pixel_y = -1;
 	req_access_txt = "16"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "sVs" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/aft)
 "sVG" = (
 /obj/effect/turf_decal/bot,
@@ -46825,7 +46825,7 @@
 /area/security/checkpoint/medical)
 "tfM" = (
 /obj/effect/decal/cleanable/robot_debris/old,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "tfP" = (
 /obj/machinery/ore_silo,
@@ -47644,7 +47644,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "tvh" = (
 /obj/structure/sign/poster/official/high_class_martini,
@@ -48907,7 +48907,7 @@
 	dir = 8
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "tZA" = (
 /obj/structure/table,
@@ -49506,7 +49506,7 @@
 	name = "Ion 1";
 	network = list("ss13;Ion")
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "umV" = (
 /obj/effect/turf_decal/bot,
@@ -49971,7 +49971,7 @@
 	dir = 4
 	},
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "uzw" = (
 /obj/structure/cable/yellow{
@@ -50144,7 +50144,7 @@
 	},
 /obj/item/circuitboard/machine/smes,
 /obj/structure/frame,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "uDx" = (
 /obj/effect/turf_decal/loading_area{
@@ -50319,7 +50319,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/aft)
 "uHe" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -50357,14 +50357,14 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/fore)
 "uHD" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/aft)
 "uId" = (
 /obj/item/radio/intercom{
@@ -50467,7 +50467,7 @@
 /obj/structure/window/reinforced/spawner{
 	dir = 1
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "uJY" = (
 /obj/structure/cable/yellow{
@@ -50967,7 +50967,7 @@
 /obj/structure/window/reinforced/spawner{
 	dir = 8
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "uRu" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
@@ -51357,7 +51357,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "vaS" = (
 /obj/structure/cable/yellow{
@@ -51368,7 +51368,7 @@
 "vbg" = (
 /obj/structure/lattice,
 /obj/structure/railing,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "vbt" = (
 /obj/effect/turf_decal/tile/neutral/half{
@@ -51898,7 +51898,7 @@
 /turf/open/floor/plasteel/dark,
 /area/storage/primary)
 "vnH" = (
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "vnI" = (
 /obj/effect/turf_decal/caution/stand_clear,
@@ -52020,7 +52020,7 @@
 "vpA" = (
 /obj/structure/lattice,
 /obj/item/stack/cable_coil,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "vpZ" = (
 /obj/effect/landmark/start/medical_doctor,
@@ -52141,7 +52141,7 @@
 /area/engine/engine_room)
 "vsE" = (
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "vsT" = (
 /turf/open/floor/plasteel/dark,
@@ -52167,7 +52167,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "vtG" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
@@ -52695,7 +52695,7 @@
 	dir = 8
 	},
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "vEU" = (
 /obj/structure/table,
@@ -52825,7 +52825,7 @@
 /area/hallway/secondary/command)
 "vIu" = (
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/aft)
 "vIB" = (
 /obj/structure/mirror{
@@ -52908,7 +52908,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 8
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "vJZ" = (
 /obj/structure/table,
@@ -53052,7 +53052,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 1
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "vLL" = (
 /obj/structure/sign/departments/custodian,
@@ -53151,7 +53151,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/fore)
 "vMU" = (
 /obj/machinery/smartfridge{
@@ -53352,7 +53352,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/aft)
 "vRC" = (
 /obj/effect/landmark/start/botanist,
@@ -53744,7 +53744,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "vZb" = (
 /obj/structure/disposalpipe/segment{
@@ -53799,7 +53799,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "wam" = (
 /obj/effect/turf_decal/delivery,
@@ -53978,7 +53978,7 @@
 "wds" = (
 /obj/structure/lattice/catwalk,
 /obj/item/wrench,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "wdz" = (
 /obj/machinery/door/airlock/medical/glass{
@@ -54175,7 +54175,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "whN" = (
 /obj/structure/table/reinforced,
@@ -54304,7 +54304,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "wjM" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
@@ -54539,7 +54539,7 @@
 "wom" = (
 /obj/structure/chair/fancy/plastic,
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "won" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -55079,7 +55079,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/aft)
 "wAK" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -55358,7 +55358,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "wHa" = (
 /obj/structure/table/wood,
@@ -55525,7 +55525,7 @@
 /area/quartermaster/storage)
 "wKE" = (
 /obj/structure/railing,
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space)
 "wKH" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -55783,7 +55783,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/fore)
 "wQk" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -56094,7 +56094,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/aft)
 "wUC" = (
 /obj/structure/lattice/catwalk,
@@ -56298,7 +56298,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "wZg" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
@@ -56411,7 +56411,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/aft)
 "xcG" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
@@ -56554,7 +56554,7 @@
 	name = "Auxiliary Dock";
 	width = 18
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space)
 "xgc" = (
 /obj/structure/table/glass,
@@ -56621,7 +56621,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "xhH" = (
 /obj/machinery/computer/cargo/request,
@@ -56774,7 +56774,7 @@
 	name = "landing marker";
 	picked_color = "Burgundy"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "xkV" = (
 /obj/structure/bookcase/random/adult,
@@ -56911,7 +56911,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/fore)
 "xnv" = (
 /obj/effect/turf_decal/delivery,
@@ -56937,7 +56937,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/aft)
 "xoy" = (
 /obj/structure/cable/yellow{
@@ -57194,7 +57194,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/starboard/aft)
 "xwO" = (
 /obj/structure/cable/yellow{
@@ -57236,7 +57236,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/aft)
 "xxm" = (
 /turf/open/floor/plasteel/dark,
@@ -57370,7 +57370,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/space/nearstation)
 "xAH" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -57416,7 +57416,7 @@
 	pixel_x = 8;
 	pixel_y = 23
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/ai_monitored/turret_protected/ai)
 "xBD" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
@@ -57867,7 +57867,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/open/space/basic,
+/turf/open/openspace/airless,
 /area/solar/port/aft)
 "xMO" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted{
