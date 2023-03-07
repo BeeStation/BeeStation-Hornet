@@ -23,12 +23,10 @@
 
 /obj/item/reagent_containers/food/snacks/grown/flower/dropped(mob/living/carbon/user)
 	..()
-	if(ishuman(user))
-		var/mob/living/carbon/C = user
-		if(C.head != src)
-			return
-		else
-			SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
+	if(user.head != src)
+		return
+	else
+		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
 
 // Poppy
 /obj/item/seeds/flower/poppy
@@ -219,12 +217,10 @@
 
 /obj/item/grown/sunflower/dropped(mob/living/carbon/user)
 	..()
-	if(ishuman(user))
-		var/mob/living/carbon/C = user
-		if(C.head != src)
-			return
-		else
-			SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
+	if(user.head != src)
+		return
+	else
+		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
 
 
 /obj/item/grown/sunflower/attack(mob/M, mob/user)
@@ -328,9 +324,7 @@
 
 /obj/item/grown/novaflower/dropped(mob/living/carbon/user)
 	..()
-	if(ishuman(user))
-		var/mob/living/carbon/C = user
-		if(C.head != src)
-			return
-		else
-			SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
+	if(user.head != src)
+		return
+	else
+		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
