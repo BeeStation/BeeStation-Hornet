@@ -1,9 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - rscadd: Added a new craftable iteml - wall mirror frame
-  - imageadd: Added an icon for the wall mirror frame
-  - code_imp: Made the wall painting and photo frames and the fire extinguisher cabinet
-      use the proper code for wall frame pixel shifting
-  - bugfix: Fixed the Newscaster being placed in the opposite direction when using
-      a Newscaster wall frame
