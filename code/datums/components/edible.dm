@@ -148,7 +148,7 @@ Behavior that's still missing from this component that original food items had t
 
 
 ///Makes sure the thing hasn't been destroyed or fully eaten to prevent eating phantom edibles
-/datum/component/edible/proc/IsFoodGone(atom/owner, mob/living/feeder)
+/datum/component/edible/proc/is_food_gone(atom/owner, mob/living/feeder)
 	if(QDELETED(owner)|| !(IS_EDIBLE(owner)))
 		return TRUE
 	if(owner.reagents.total_volume)
@@ -164,10 +164,10 @@ Behavior that's still missing from this component that original food items had t
 	if(feeder.a_intent == INTENT_HARM)
 		return
 
-	if(IsFoodGone(owner, feeder))
+	if(is_food_gone(owner, feeder))
 		return
 
-	if(!CanConsume(eater, feeder))
+	if(!can_consume(eater, feeder))
 		return
 	var/fullness = eater.nutrition + 10 //The theoretical fullness of the person eating if they were to eat this
 
@@ -176,7 +176,7 @@ Behavior that's still missing from this component that original food items had t
 	if(eater == feeder)//If you're eating it yourself.
 		if(!do_mob(feeder, eater, eat_time)) //Gotta pass the minimal eat time
 			return
-		if(IsFoodGone(owner, feeder))
+		if(is_food_gone(owner, feeder))
 			return
 		var/eatverb = pick(eatverbs)
 		if(junkiness && eater.satiety < -150 && eater.nutrition > NUTRITION_LEVEL_STARVING + 50 && !HAS_TRAIT(eater, TRAIT_VORACIOUS))
@@ -206,13 +206,13 @@ Behavior that's still missing from this component that original food items had t
 			return
 		if(!do_mob(feeder, eater)) //Wait 3 seconds before you can feed
 			return
-		if(IsFoodGone(owner, feeder))
+		if(is_food_gone(owner, feeder))
 			return
 		log_combat(feeder, eater, "fed", owner.reagents.log_list())
 		eater.visible_message("<span class='danger'>[feeder] forces [eater] to eat [parent]!</span>", \
 									"<span class='userdanger'>[feeder] forces you to eat [parent]!</span>")
 
-	TakeBite(eater, feeder)
+	take_bite(eater, feeder)
 
 	//If we're not force-feeding, try take another bite
 	if(eater == feeder)
@@ -220,7 +220,7 @@ Behavior that's still missing from this component that original food items had t
 
 
 ///This function lets the eater take a bite and transfers the reagents to the eater.
-/datum/component/edible/proc/TakeBite(mob/living/eater, mob/living/feeder)
+/datum/component/edible/proc/take_bite(mob/living/eater, mob/living/feeder)
 
 	var/atom/owner = parent
 
@@ -232,11 +232,11 @@ Behavior that's still missing from this component that original food items had t
 	if(owner.reagents.total_volume)
 		SEND_SIGNAL(parent, COMSIG_FOOD_EATEN, eater, feeder, bitecount, bite_consumption)
 		var/fraction = min(bite_consumption / owner.reagents.total_volume, 1)
-		owner.reagents.trans_to(eater, bite_consumption, transfered_by = feeder, methods = INGEST)
+		owner.reagents.trans_to(eater, bite_consumption, transfered_by = feeder, method = INGEST)
 		bitecount++
 		if(!owner.reagents.total_volume)
 			on_consume(eater, feeder)
-		checkLiked(fraction, eater)
+		check_liked(fraction, eater)
 
 		//Invoke our after eat callback if it is valid
 		if(after_eat)
@@ -245,7 +245,7 @@ Behavior that's still missing from this component that original food items had t
 		return TRUE
 
 ///Checks whether or not the eater can actually consume the food
-/datum/component/edible/proc/CanConsume(mob/living/eater, mob/living/feeder)
+/datum/component/edible/proc/can_consume(mob/living/eater, mob/living/feeder)
 	if(!iscarbon(eater))
 		return FALSE
 	if(!pre_eat.Invoke(eater, feeder))
@@ -263,7 +263,7 @@ Behavior that's still missing from this component that original food items had t
 	return TRUE
 
 ///Check foodtypes to see if we should send a moodlet
-/datum/component/edible/proc/checkLiked(fraction, mob/eater)
+/datum/component/edible/proc/check_liked(fraction, mob/eater)
 	if(last_check_time + 50 > world.time)
 		return FALSE
 	if(!ishuman(eater))
