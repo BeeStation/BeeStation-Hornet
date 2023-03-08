@@ -33,6 +33,8 @@ Behavior that's still missing from this component that original food items had t
 	var/list/eatverbs
 	///Callback to be ran before you eat something, so you can check if someone *can* eat it.
 	var/datum/callback/pre_eat
+	///Callback to be ran before composting something, in case you don't want a piece of food to be compostable for some reason.
+	var/datum/callback/on_compost
 	///Callback to be ran for when you take a bite of something
 	var/datum/callback/after_eat
 	///Callback to be ran for when you finish eating something
@@ -56,6 +58,7 @@ Behavior that's still missing from this component that original food items had t
 								bite_consumption = 2,
 								junkiness,
 								datum/callback/pre_eat,
+								datum/callback/on_compost,
 								datum/callback/after_eat,
 								datum/callback/consume_callback)
 
@@ -64,6 +67,7 @@ Behavior that's still missing from this component that original food items had t
 
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/examine)
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_ANIMAL, .proc/use_by_animal)
+	RegisterSignal(parent, COMSIG_EDIBLE_ON_COMPOST, .proc/compost)
 
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, .proc/use_from_hand)
@@ -81,6 +85,7 @@ Behavior that's still missing from this component that original food items had t
 	src.eatverbs = eatverbs
 	src.junkiness = junkiness
 	src.pre_eat = pre_eat
+	src.on_compost = on_compost
 	src.after_eat = after_eat
 	src.consume_callback = consume_callback
 
@@ -106,6 +111,7 @@ Behavior that's still missing from this component that original food items had t
 	list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"),
 	bite_consumption = 2,
 	datum/callback/pre_eat,
+	datum/callback/on_compost,
 	datum/callback/after_eat,
 	datum/callback/consume_callback
 	)
@@ -118,11 +124,13 @@ Behavior that's still missing from this component that original food items had t
 	src.eatverbs = eatverbs
 	src.junkiness = junkiness
 	src.pre_eat = pre_eat
+	src.on_compost = on_compost
 	src.after_eat = after_eat
 	src.consume_callback = consume_callback
 
 /datum/component/edible/Destroy(force, silent)
 	QDEL_NULL(pre_eat)
+	QDEL_NULL(on_compost)
 	QDEL_NULL(after_eat)
 	QDEL_NULL(consume_callback)
 	return ..()
@@ -244,11 +252,17 @@ Behavior that's still missing from this component that original food items had t
 
 		return TRUE
 
+///Checks if we can compost something, and handles it
+/datum/component/edible/proc/compost(mob/living/user)
+	SIGNAL_HANDLER
+	if(on_compost && !on_compost.Invoke(user))
+		return COMPONENT_EDIBLE_BLOCK_COMPOST
+
 ///Checks whether or not the eater can actually consume the food
 /datum/component/edible/proc/can_consume(mob/living/eater, mob/living/feeder)
 	if(!iscarbon(eater))
 		return FALSE
-	if(!pre_eat.Invoke(eater, feeder))
+	if(pre_eat && !pre_eat.Invoke(eater, feeder))
 		return FALSE
 	var/mob/living/carbon/C = eater
 	var/covered = ""
