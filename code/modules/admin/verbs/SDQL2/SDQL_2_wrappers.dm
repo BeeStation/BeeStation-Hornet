@@ -1,4 +1,4 @@
-// Wrappers for BYOND default procs which can't directly be called by call().
+// Wrappers for BYOND default procs which can't directly be called by LIBCALL().
 
 /proc/_abs(A)
 	return abs(A)

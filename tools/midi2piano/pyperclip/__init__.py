@@ -42,7 +42,7 @@ CHECK_CMD = "where" if platform.system() == "Windows" else "which"
 
 
 def _executable_exists(name):
-    return subprocess.call([CHECK_CMD, name],
+    return subprocess.LIBCALL([CHECK_CMD, name],
                            stdout=subprocess.PIPE, stderr=subprocess.PIPE) == 0
 
 

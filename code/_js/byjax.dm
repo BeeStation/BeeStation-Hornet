@@ -2,7 +2,7 @@
 #define js_byjax {"
 
 function replaceContent() {
-	var args = Array.prototype.slice.call(arguments);
+	var args = Array.prototype.slice.LIBCALL(arguments);
 	var id = args\[0\];
 	var content = args\[1\];
 	var callback  = null;

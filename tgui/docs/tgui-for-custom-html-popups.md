@@ -256,7 +256,7 @@ Little known feature, but you can also get non-UI parameters on the client by us
 // Fetch URL of a server client is currently connected to
 Byond.winget(null, 'url').then((serverUrl) => {
   // Connect to this server
-  Byond.call(serverUrl);
+  Byond.LIBCALL(serverUrl);
   // Close our client because it is now connecting in background
   Byond.command('.quit');
 });
