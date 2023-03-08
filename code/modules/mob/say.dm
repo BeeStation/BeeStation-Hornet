@@ -127,6 +127,7 @@
 	message = copytext(message, customsaypos + messagetextpos)
 	if(!message)
 		mods[MODE_CUSTOM_SAY_ERASE_INPUT] = TRUE
+		mods[MODE_CUSTOM_SAY_EMOTE] = punctuate(mods[MODE_CUSTOM_SAY_EMOTE])
 		message = ""
 	return message
 
