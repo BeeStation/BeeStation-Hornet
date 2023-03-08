@@ -24,8 +24,8 @@
 	icon_aggro = "legionnaire"
 	icon_dead = "legionnaire_dead"
 	icon_gib = "syndicate_gib"
-	maxHealth = 800
-	health = 800
+	maxHealth = 400
+	health = 400
 	melee_damage = 30
 	attacktext = "slashes its arms at"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
@@ -216,8 +216,8 @@
 	icon_aggro = "legionnaire_head"
 	icon_dead = "legionnaire_dead"
 	icon_gib = "syndicate_gib"
-	maxHealth = 80
-	health = 80
+	maxHealth = 40
+	health = 40
 	melee_damage = 10
 	attacktext = "bites at"
 	attack_sound = 'sound/effects/curse1.ogg'
