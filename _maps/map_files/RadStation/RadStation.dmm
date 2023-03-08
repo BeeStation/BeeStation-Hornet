@@ -7873,6 +7873,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
+"dsy" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 3;
+	height = 10;
+	id = "mining_home";
+	name = "mining shuttle bay";
+	roundstart_template = /datum/map_template/shuttle/mining/rad;
+	width = 7
+	},
+/turf/open/space/basic,
+/area/space)
 "dsD" = (
 /obj/structure/railing,
 /obj/effect/turf_decal/siding/wideplating/dark,
@@ -48686,18 +48698,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
-"tUK" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 3;
-	height = 10;
-	id = "mining_home";
-	name = "mining shuttle bay";
-	roundstart_template = /datum/map_template/shuttle/mining/large;
-	width = 7
-	},
-/turf/open/space/basic,
-/area/space)
 "tUU" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
@@ -79831,7 +79831,7 @@ yeA
 yeA
 yeA
 yeA
-tUK
+dsy
 yeA
 yeA
 vJE
