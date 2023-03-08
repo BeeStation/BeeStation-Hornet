@@ -1082,7 +1082,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		/datum/objective/absorb,
 		/datum/objective/custom,
 		/datum/objective/custom/plus_murderbone
-	),/proc/cmp_typepaths_asc)
+	),GLOBAL_PROC_REF(cmp_typepaths_asc))
 
 	for(var/datum/objective/X as() in allowed_types)
 		GLOB.admin_objective_list[initial(X.name)] = X

@@ -48,7 +48,7 @@
 		incoming_orbiter.orbiting = src
 		// It is important to transfer the signals so we don't get locked to the new orbiter component for all time
 		newcomp.UnregisterSignal(incoming_orbiter, COMSIG_MOVABLE_MOVED)
-		RegisterSignal(incoming_orbiter, COMSIG_MOVABLE_MOVED, .proc/orbiter_move_react)
+		RegisterSignal(incoming_orbiter, COMSIG_MOVABLE_MOVED, PROC_REF(orbiter_move_react))
 	orbiters += newcomp.orbiters
 	newcomp.orbiters = null
 

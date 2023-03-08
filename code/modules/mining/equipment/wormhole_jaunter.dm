@@ -101,4 +101,4 @@
 			L.Paralyze(60)
 			if(ishuman(L))
 				shake_camera(L, 20, 1)
-				addtimer(CALLBACK(L, /mob/living/carbon.proc/vomit), 40)
+				addtimer(CALLBACK(L, /mob/living/carbonPROC_REF(vomit)), 40)

@@ -203,7 +203,7 @@
 		name = "\improper [get_area_name(area, TRUE)] APC"
 		set_machine_stat(machine_stat | MAINT)
 		update_appearance()
-		addtimer(CALLBACK(src, .proc/update), 5)
+		addtimer(CALLBACK(src, PROC_REF(update)), 5)
 		area.poweralert(FALSE, src)
 
 /obj/machinery/power/apc/proc/clear_previous_power_alarm(obj/source, area/A)

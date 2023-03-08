@@ -20,7 +20,7 @@
 	src.listener = listener
 
 	while(ismovable(target))
-		RegisterSignal(target, COMSIG_MOVABLE_MOVED, .proc/move_react)
+		RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(move_react))
 		target = target.loc
 
 /// Stops tracking

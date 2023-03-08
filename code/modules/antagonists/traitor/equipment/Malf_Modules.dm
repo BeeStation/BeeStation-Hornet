@@ -441,7 +441,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	minor_announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.","Network Alert:", TRUE)
 	to_chat(owner, "<span class='danger'>Lockdown initiated. Network reset in 90 seconds.</span>")
 	owner.log_message("activated malf module [name]", LOG_GAME)
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/minor_announce,
+	addtimer(CALLBACK(GLOBAL_PROC, PROC_REF(minor_announce),
 		"Automatic system reboot complete. Have a secure day.",
 		"Network reset:"), 900)
 
@@ -593,7 +593,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	attached_action.adjust_uses(-1)
 	target.audible_message("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [target]!</span>")
 	caller.log_message("activated malf module [name]", LOG_GAME)
-	addtimer(CALLBACK(attached_action, /datum/action/innate/ai/ranged/overload_machine.proc/detonate_machine, target), 50) //kaboom!
+	addtimer(CALLBACK(attached_action, /datum/action/innate/ai/ranged/overload_machinePROC_REF(detonate_machine), target), 50) //kaboom!
 	remove_ranged_ability("<span class='danger'>Overcharging machine...</span>")
 	return TRUE
 
@@ -644,7 +644,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	attached_action.adjust_uses(-1)
 	target.audible_message("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [target]!</span>")
 	caller.log_message("activated malf module [name]", LOG_GAME)
-	addtimer(CALLBACK(attached_action, /datum/action/innate/ai/ranged/override_machine.proc/animate_machine, target), 50) //kabeep!
+	addtimer(CALLBACK(attached_action, /datum/action/innate/ai/ranged/override_machinePROC_REF(animate_machine), target), 50) //kabeep!
 	remove_ranged_ability("<span class='danger'>Sending override signal...</span>")
 	return TRUE
 

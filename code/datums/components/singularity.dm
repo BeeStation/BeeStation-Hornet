@@ -178,7 +178,7 @@
 	// The foreach will delete things in this list, so we will use a dereferencing enumerator
 	// Turfs cannot be deleted, only modified so they cannot hard delete.
 	var/datum/enumerator/turf_enumerator = get_dereferencing_enumerator(turfs_to_consume)
-	SSenumeration.tickcheck(turf_enumerator.foreach(CALLBACK(src, .proc/consume_turf)))
+	SSenumeration.tickcheck(turf_enumerator.foreach(CALLBACK(src, PROC_REF(consume_turf))))
 
 /datum/component/singularity/proc/consume_turf(turf/tile)
 	var/dist_to_tile = get_dist(tile, parent)

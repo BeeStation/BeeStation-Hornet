@@ -160,7 +160,7 @@
 	I.alpha = 255
 	I.appearance_flags = RESET_ALPHA
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/heretics,"pierced_reality_heretics",I)
-	addtimer(CALLBACK(src,.proc/dissipate),40 SECONDS)
+	addtimer(CALLBACK(src,PROC_REF(dissipate)),40 SECONDS)
 
 ///Makes this obj appear out of nothing
 /obj/effect/broken_illusion/proc/show_presence()

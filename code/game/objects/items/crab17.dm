@@ -50,7 +50,7 @@
 	add_overlay("flaps")
 	add_overlay("hatch")
 	add_overlay("legs_retracted")
-	addtimer(CALLBACK(src, .proc/startUp), 50)
+	addtimer(CALLBACK(src, PROC_REF(startUp)), 50)
 	next_health_to_teleport = max_integrity - RUN_AWAY_THRESHOLD_HP
 	existing_machines++
 	. = ..()
@@ -186,7 +186,7 @@
 	for(var/M in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(M, src)
 		to_chat(M, "<span class='deadsay'>[link] [name] [total_credits_stolen ? "siphons total [total_credits_stolen] credits from [victim_count] bank accounts." : "tried to siphon bank accounts, but there're no victims."] location: [get_area(src)]</span>")
-	addtimer(CALLBACK(src, .proc/dump), 150) //Drain every 15 seconds
+	addtimer(CALLBACK(src, PROC_REF(dump)), 150) //Drain every 15 seconds
 
 /obj/structure/checkoutmachine/process()
 	var/anydir = pick(GLOB.cardinals)
