@@ -646,6 +646,10 @@
 	suffix = "large"
 	name = "mining shuttle (Large)"
 
+/datum/map_template/shuttle/mining/rad
+	suffix = "rad"
+	name = "mining shuttle (rad)"
+
 /datum/map_template/shuttle/science
 	port_id = "science"
 	suffix = "outpost"
