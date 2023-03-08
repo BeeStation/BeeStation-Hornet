@@ -1,6 +1,6 @@
 /obj/machinery/door/window
-	name = "interior door"
-	desc = "A strong door."
+	name = "windoor"
+	desc = "A thin door with translucent glass paneling."
 	icon = 'icons/obj/doors/windoor.dmi'
 	icon_state = "left"
 	layer = ABOVE_WINDOW_LAYER
@@ -17,6 +17,7 @@
 	CanAtmosPass = ATMOS_PASS_PROC
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	network_id = NETWORK_DOOR_AIRLOCKS
+	var/operationdelay = 5
 	var/obj/item/electronics/airlock/electronics = null
 	var/reinf = 0
 	var/shards = 2
@@ -72,9 +73,9 @@
 		close()
 
 /obj/machinery/door/window/Bumped(atom/movable/AM)
-	if( operating || !density )
+	if(operating || !density)
 		return
-	if (!( ismob(AM) ))
+	if(!ismob(AM))
 		if(ismecha(AM))
 			var/obj/mecha/mecha = AM
 			if(mecha.occupant && allowed(mecha.occupant))
@@ -82,7 +83,7 @@
 			else
 				do_animate("deny")
 		return
-	if (!( SSticker ))
+	if(!SSticker)
 		return
 	var/mob/M = AM
 	if(M.restrained() || ((isdrone(M) || iscyborg(M)) && M.stat))
@@ -90,7 +91,7 @@
 	bumpopen(M)
 
 /obj/machinery/door/window/bumpopen(mob/user)
-	if( operating || !density )
+	if(operating || !density)
 		return
 	add_fingerprint(user)
 	// Cutting WIRE_IDSCAN disables normal entry... or it would, if we could hack windowdoors.
@@ -140,7 +141,7 @@
 		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/machinery/door/window/open(forced=FALSE)
-	if (operating) //doors can still open when emag-disabled
+	if(operating) //doors can still open when emag-disabled
 		return 0
 	if(!forced)
 		if(!hasPower())
@@ -153,7 +154,7 @@
 	do_animate("opening")
 	playsound(src, 'sound/machines/windowdoor.ogg', 100, 1)
 	icon_state ="[base_state]open"
-	sleep(10)
+	sleep(operationdelay)
 
 	set_density(FALSE)
 	air_update_turf(1)
@@ -164,7 +165,7 @@
 	return 1
 
 /obj/machinery/door/window/close(forced=FALSE)
-	if (operating)
+	if(operating)
 		return 0
 	if(!forced)
 		if(!hasPower())
@@ -180,7 +181,7 @@
 	set_density(TRUE)
 	air_update_turf(1)
 	update_freelook_sight()
-	sleep(10)
+	sleep(operationdelay)
 
 	operating = FALSE
 	return 1
@@ -301,17 +302,25 @@
 	try_to_activate_door(null, user)
 
 /obj/machinery/door/window/try_to_activate_door(obj/item/I, mob/user)
-	if (..())
+	if(..())
 		autoclose = FALSE
 
 /obj/machinery/door/window/try_to_crowbar(obj/item/I, mob/user)
-	if(!hasPower())
-		if(density)
-			open(2)
+	if(density)
+		if(!HAS_TRAIT(I, TRAIT_DOOR_PRYER) && hasPower())
+			to_chat(user, "<span class='warning'>The windoor's motors resist your efforts to force it!</span>")
+			return
+		else if(!hasPower())
+			to_chat(user, "<span class='warning'>You begin forcing open \the [src], the motors don't resist...</span>")
+			if(!do_after(user, 1 SECONDS, TRUE, src))
+				return
 		else
-			close(2)
+			to_chat(user, "<span class='warning'>You begin forcing open \the [src]...</span>")
+			if(!do_after(user, 5 SECONDS, TRUE, src))
+				return
+		open(2)
 	else
-		to_chat(user, "<span class='warning'>The door's motors resist your efforts to force it!</span>")
+		close(2)
 
 /obj/machinery/door/window/do_animate(animation)
 	switch(animation)
@@ -382,6 +391,7 @@
 	max_integrity = 50
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100, "stamina" = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	operationdelay = 10
 	var/made_glow = FALSE
 
 /obj/machinery/door/window/clockwork/Initialize(mapload, set_dir)

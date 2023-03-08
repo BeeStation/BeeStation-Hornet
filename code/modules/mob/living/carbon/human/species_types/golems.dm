@@ -376,7 +376,7 @@
 	H.visible_message("<span class='danger'>[H] turns into a pile of sand!</span>")
 	for(var/obj/item/W in H)
 		H.dropItemToGround(W)
-	for(var/i=1, i <= rand(3,5), i++)
+	for(var/i in 1 to rand(3,5))
 		new /obj/item/stack/ore/glass(get_turf(H))
 	qdel(H)
 
@@ -408,7 +408,7 @@
 	H.visible_message("<span class='danger'>[H] shatters!</span>")
 	for(var/obj/item/W in H)
 		H.dropItemToGround(W)
-	for(var/i=1, i <= rand(3,5), i++)
+	for(var/i in 1 to rand(3,5))
 		new /obj/item/shard(get_turf(H))
 	qdel(H)
 
@@ -1128,7 +1128,7 @@
 	H.visible_message("<span class='danger'>[H] turns into a pile of snow!</span>")
 	for(var/obj/item/W in H)
 		H.dropItemToGround(W)
-	for(var/i=1, i <= rand(3,5), i++)
+	for(var/i in 1 to rand(3,5))
 		new /obj/item/stack/sheet/snow(get_turf(H))
 	new /obj/item/reagent_containers/food/snacks/grown/carrot(get_turf(H))
 	qdel(H)

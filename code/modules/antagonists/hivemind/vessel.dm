@@ -41,6 +41,7 @@
 	..()
 
 /datum/antagonist/hivevessel/on_removal()
+	remove_innate_effects()
 	owner.RemoveSpell(fist)
 	if(master)
 		to_chat(master.owner, "<span class='assimilator'>A figment of our consciousness snaps out, we have lost an awakened vessel!</span>")

@@ -4,7 +4,7 @@
 /obj/item/stack/ore
 	name = "rock"
 	desc = "A rather dull rock for a stone."
-	icon = 'icons/obj/stacks/ores.dmi'
+	icon = 'icons/obj/stacks/minerals.dmi'
 	icon_state = "ore"
 	item_state = "ore"
 	full_w_class = WEIGHT_CLASS_BULKY

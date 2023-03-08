@@ -136,7 +136,7 @@ Burning extracts:
 	var/list/turfs = list()
 	for(var/turf/open/T in RANGE_TURFS(1,user))
 		turfs += T
-	for(var/i = 0, i < amount, i++)
+	for(var/i in 1 to amount)
 		var/path = get_random_food()
 		var/obj/item/O = new path(pick(turfs))
 		O.reagents.add_reagent(/datum/reagent/toxin/slimejelly,5) //Oh god it burns
@@ -251,7 +251,7 @@ Burning extracts:
 		var/mob/living/simple_animal/S = create_random_mob(get_turf(user), HOSTILE_SPAWN)
 		S.faction |= "[REF(user)]"
 		if(prob(50))
-			for(var/j = 1, j <= rand(1, 3), j++)
+			for(var/j in 1 to rand(1, 3))
 				step(S, pick(NORTH,SOUTH,EAST,WEST))
 	..()
 
