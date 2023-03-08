@@ -13,10 +13,10 @@
 
 /datum/component/anti_artifact/Initialize(_charges = null, _blocks_self = TRUE, _chance = 100, _allowed_slots, datum/callback/_reaction, datum/callback/_expire)
 	if(isitem(parent))
-		RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/on_equip)
-		RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/on_drop)
+		RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
+		RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 	else if(ismob(parent))
-		RegisterSignal(parent, COMSIG_MOB_RECEIVE_ARTIFACT, .proc/protect)
+		RegisterSignal(parent, COMSIG_MOB_RECEIVE_ARTIFACT, PROC_REF(protect))
 	else
 		return COMPONENT_INCOMPATIBLE
 
@@ -33,7 +33,7 @@
 	if(!(allowed_slots & slot)) //Check that the slot is valid for anti-artifact
 		UnregisterSignal(equipper, COMSIG_MOB_RECEIVE_ARTIFACT)
 		return
-	RegisterSignal(equipper, COMSIG_MOB_RECEIVE_ARTIFACT, .proc/protect, TRUE)
+	RegisterSignal(equipper, COMSIG_MOB_RECEIVE_ARTIFACT, PROC_REF(protect), TRUE)
 
 /datum/component/anti_artifact/proc/on_drop(datum/source, mob/user)
 	SIGNAL_HANDLER

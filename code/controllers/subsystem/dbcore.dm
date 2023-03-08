@@ -197,9 +197,9 @@ SUBSYSTEM_DEF(dbcore)
 	for (var/thing in querys)
 		var/datum/DBQuery/query = thing
 		if (warn)
-			INVOKE_ASYNC(query, /datum/DBQuery.proc/warn_execute)
+			INVOKE_ASYNC(query, TYPE_PROC_REF(/datum/DBQuery, warn_execute))
 		else
-			INVOKE_ASYNC(query, /datum/DBQuery.proc/Execute)
+			INVOKE_ASYNC(query, TYPE_PROC_REF(/datum/DBQuery, Execute))
 
 	for (var/thing in querys)
 		var/datum/DBQuery/query = thing

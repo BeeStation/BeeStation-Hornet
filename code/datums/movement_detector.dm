@@ -49,7 +49,7 @@
 	if(tracked.loc != newturf)
 		var/atom/target = mover.loc
 		while(ismovable(target))
-			RegisterSignal(target, COMSIG_MOVABLE_MOVED, .proc/move_react, TRUE)
+			RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(move_react), TRUE)
 			target = target.loc
 
 	listener.Invoke(tracked, mover, oldloc, direction)

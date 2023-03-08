@@ -462,7 +462,7 @@ GLOBAL_LIST_INIT(sdql2_queries, GLOB.sdql2_queries || list())
 					ENABLE_BITFIELD(options, SDQL2_OPTION_DO_NOT_AUTOGC)
 
 /datum/SDQL2_query/proc/ARun()
-	INVOKE_ASYNC(src, .proc/Run)
+	INVOKE_ASYNC(src, PROC_REF(Run))
 
 /datum/SDQL2_query/proc/Run()
 	if(SDQL2_IS_RUNNING)

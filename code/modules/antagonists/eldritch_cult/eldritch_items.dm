@@ -35,7 +35,7 @@
 		UnregisterSignal(target.mind, COMSIG_MIND_CRYOED)
 	target = new_target?.current
 	if(target?.mind)
-		RegisterSignal(target.mind, COMSIG_MIND_CRYOED, .proc/on_target_cryo)
+		RegisterSignal(target.mind, COMSIG_MIND_CRYOED, PROC_REF(on_target_cryo))
 
 /obj/item/living_heart/proc/on_target_cryo()
 	SIGNAL_HANDLER

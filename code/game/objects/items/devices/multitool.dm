@@ -33,7 +33,7 @@
 	var/mode = 0
 
 /obj/item/multitool/Initialize(mapload)
-	RegisterSignal(src, COMSIG_PARENT_EXAMINE, .proc/on_examine)
+	RegisterSignal(src, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	return ..()
 
 /obj/item/multitool/Destroy()

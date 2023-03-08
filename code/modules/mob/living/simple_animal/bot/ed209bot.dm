@@ -172,7 +172,7 @@ Auto Patrol[]"},
 
 /mob/living/simple_animal/bot/ed209/proc/retaliate(mob/living/carbon/human/H)
 	var/judgment_criteria = judgment_criteria()
-	threatlevel = H.assess_threat(judgment_criteria, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
+	threatlevel = H.assess_threat(judgment_criteria, weaponcheck=CALLBACK(src, PROC_REF(check_for_weapons)))
 	threatlevel += 6
 	if(threatlevel >= 4)
 		target = H
@@ -224,7 +224,7 @@ Auto Patrol[]"},
 		var/threatlevel = 0
 		if(C.incapacitated())
 			continue
-		threatlevel = C.assess_threat(judgment_criteria, lasercolor, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
+		threatlevel = C.assess_threat(judgment_criteria, lasercolor, weaponcheck=CALLBACK(src, PROC_REF(check_for_weapons)))
 		//speak(C.real_name + text(": threat: []", threatlevel))
 		if(threatlevel < 4 )
 			continue
@@ -326,13 +326,13 @@ Auto Patrol[]"},
 	target = null
 	last_found = world.time
 	frustration = 0
-	INVOKE_ASYNC(src, .proc/handle_automated_action) //ensure bot quickly responds
+	INVOKE_ASYNC(src, PROC_REF(handle_automated_action)) //ensure bot quickly responds
 
 /mob/living/simple_animal/bot/ed209/proc/back_to_hunt()
 	anchored = FALSE
 	frustration = 0
 	mode = BOT_HUNT
-	INVOKE_ASYNC(src, .proc/handle_automated_action) //ensure bot quickly responds
+	INVOKE_ASYNC(src, PROC_REF(handle_automated_action)) //ensure bot quickly responds
 
 // look for a criminal in view of the bot
 
@@ -349,7 +349,7 @@ Auto Patrol[]"},
 		if((C.name == oldtarget_name) && (world.time < last_found + 100))
 			continue
 
-		threatlevel = C.assess_threat(judgment_criteria, lasercolor, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
+		threatlevel = C.assess_threat(judgment_criteria, lasercolor, weaponcheck=CALLBACK(src, PROC_REF(check_for_weapons)))
 
 		if(!threatlevel)
 			continue
@@ -506,7 +506,7 @@ Auto Patrol[]"},
 			icon_state = "[lasercolor]ed2090"
 			disabled = TRUE
 			target = null
-			addtimer(CALLBACK(src, .proc/reenable), 100)
+			addtimer(CALLBACK(src, PROC_REF(reenable)), 100)
 			return BULLET_ACT_HIT
 		else
 			. = ..()
@@ -559,7 +559,7 @@ Auto Patrol[]"},
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		var/judgment_criteria = judgment_criteria()
-		threat = H.assess_threat(judgment_criteria, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
+		threat = H.assess_threat(judgment_criteria, weaponcheck=CALLBACK(src, PROC_REF(check_for_weapons)))
 	log_combat(src,C,"stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
@@ -572,7 +572,7 @@ Auto Patrol[]"},
 	playsound(src, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
 						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
-	addtimer(CALLBACK(src, .proc/attempt_handcuff, C), 60)
+	addtimer(CALLBACK(src, PROC_REF(attempt_handcuff), C), 60)
 
 /mob/living/simple_animal/bot/ed209/proc/attempt_handcuff(mob/living/carbon/C)
 	if(!on || !Adjacent(C) || !isturf(C.loc) ) //if he's in a closet or not adjacent, we cancel cuffing.

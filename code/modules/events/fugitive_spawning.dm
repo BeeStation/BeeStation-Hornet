@@ -56,7 +56,7 @@
 //after spawning
 	playsound(src, 'sound/weapons/emitter.ogg', 50, 1)
 	new /obj/item/storage/toolbox/mechanical(landing_turf) //so they can actually escape maint
-	addtimer(CALLBACK(src, .proc/spawn_hunters), 10 MINUTES)
+	addtimer(CALLBACK(src, PROC_REF(spawn_hunters)), 10 MINUTES)
 	role_name = "fugitive hunter"
 	return SUCCESSFUL_SPAWN
 
@@ -69,7 +69,7 @@
 	player_mind.special_role = "Fugitive"
 	player_mind.add_antag_datum(/datum/antagonist/fugitive)
 	var/datum/antagonist/fugitive/fugitiveantag = player_mind.has_antag_datum(/datum/antagonist/fugitive)
-	INVOKE_ASYNC(fugitiveantag, /datum/antagonist/fugitive.proc/greet, backstory) //some fugitives have a sleep on their greet, so we don't want to stop the entire antag granting proc with fluff
+	INVOKE_ASYNC(fugitiveantag, TYPE_PROC_REF(/datum/antagonist/fugitive, greet), backstory) //some fugitives have a sleep on their greet, so we don't want to stop the entire antag granting proc with fluff
 
 	switch(backstory)
 		if("prisoner")

@@ -836,7 +836,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		SEND_SOUND(m, 'sound/misc/fuckywucky.ogg')
 		to_chat(m, "<img src='[SSassets.transport.get_asset_url("fuckywucky.png")]'>")
 
-	addtimer(CALLBACK(src, .proc/restore_fucky_wucky), 600)
+	addtimer(CALLBACK(src, PROC_REF(restore_fucky_wucky)), 600)
 
 /client/proc/restore_fucky_wucky()
 	add_verb(/client/proc/fucky_wucky)
@@ -994,7 +994,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/list/sorted = list()
 	for (var/source in per_source)
 		sorted += list(list("source" = source, "count" = per_source[source]))
-	sorted = sortTim(sorted, .proc/cmp_timer_data)
+	sorted = sortTim(sorted, PROC_REF(cmp_timer_data))
 
 	// Now that everything is sorted, compile them into an HTML output
 	var/output = "<table border='1'>"

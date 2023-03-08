@@ -66,7 +66,7 @@
 	var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	heretic_monster.set_owner(master)
 	atoms -= humie
-	RegisterSignal(humie,COMSIG_MOB_DEATH,.proc/remove_ghoul)
+	RegisterSignal(humie,COMSIG_MOB_DEATH,PROC_REF(remove_ghoul))
 	ghouls += humie
 
 /datum/eldritch_knowledge/flesh_ghoul/proc/remove_ghoul(datum/source)
@@ -116,7 +116,7 @@
 	log_game("[key_name_admin(human_target)] has become a ghoul, their master is [user.real_name]")
 	//we change it to true only after we know they passed all the checks
 	. = TRUE
-	RegisterSignal(human_target,COMSIG_MOB_DEATH, .proc/remove_ghoul)
+	RegisterSignal(human_target,COMSIG_MOB_DEATH, PROC_REF(remove_ghoul))
 	human_target.revive(full_heal = TRUE, admin_revive = TRUE)
 	ADD_TRAIT(human_target, TRAIT_NOSTAMCRIT, MAGIC_TRAIT)
 	ADD_TRAIT(human_target, TRAIT_NOLIMBDISABLE, MAGIC_TRAIT)

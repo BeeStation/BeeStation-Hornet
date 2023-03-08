@@ -48,7 +48,7 @@
 				return
 			Remove(owner)
 		owner = M
-		RegisterSignal(owner, COMSIG_PARENT_QDELETING, .proc/owner_deleted)
+		RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(owner_deleted))
 
 		//button id generation
 		var/counter = 0

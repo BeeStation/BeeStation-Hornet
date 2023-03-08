@@ -95,7 +95,7 @@
 			D.adjust_money(min(power_produced, 1))
 		if(istype(linked_techweb))
 			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, min(power_produced, 1)) // x4 coils = ~240/m point bonus for R&D
-		addtimer(CALLBACK(src, .proc/reset_shocked), 10)
+		addtimer(CALLBACK(src, PROC_REF(reset_shocked)), 10)
 		tesla_buckle_check(power)
 	else
 		..()
