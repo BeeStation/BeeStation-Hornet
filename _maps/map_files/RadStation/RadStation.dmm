@@ -4517,6 +4517,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
+"bYb" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 2;
+	height = 5;
+	id = "mining_home";
+	name = "mining shuttle bay";
+	roundstart_template = /datum/map_template/shuttle/mining/rad;
+	width = 7
+	},
+/turf/open/space/basic,
+/area/space)
 "bYk" = (
 /obj/machinery/processor,
 /turf/open/floor/plasteel/cafeteria,
@@ -7873,18 +7885,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
-"dsy" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 3;
-	height = 10;
-	id = "mining_home";
-	name = "mining shuttle bay";
-	roundstart_template = /datum/map_template/shuttle/mining/rad;
-	width = 7
-	},
-/turf/open/space/basic,
-/area/space)
 "dsD" = (
 /obj/structure/railing,
 /obj/effect/turf_decal/siding/wideplating/dark,
@@ -50096,14 +50096,6 @@
 /obj/effect/landmark/start/chemist,
 /turf/open/floor/plasteel/white,
 /area/medical/apothecary)
-"uAD" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/computer/shuttle_flight/mining{
-	dir = 1
-	},
-/obj/item/paper/fluff/jobs/mining/smelter_notice,
-/turf/open/floor/plasteel,
-/area/quartermaster/miningdock)
 "uAI" = (
 /obj/item/cigbutt,
 /obj/item/trash/can/food{
@@ -51885,6 +51877,15 @@
 /obj/structure/closet/crate/trashcart,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
+"vnh" = (
+/obj/effect/turf_decal/delivery,
+/obj/item/paper/fluff/jobs/mining/smelter_notice,
+/obj/machinery/computer/shuttle_flight/mining{
+	dir = 1;
+	req_access = null
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/miningdock)
 "vnE" = (
 /mob/living/simple_animal/kalo{
 	desc = "The Perma brig's cute grass snake.";
@@ -79831,7 +79832,7 @@ yeA
 yeA
 yeA
 yeA
-dsy
+bYb
 yeA
 yeA
 vJE
@@ -80347,7 +80348,7 @@ rTK
 eaI
 tyX
 ltZ
-uAD
+vnh
 vJE
 cxk
 cxk
