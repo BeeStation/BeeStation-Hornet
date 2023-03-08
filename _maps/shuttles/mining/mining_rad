@@ -1,0 +1,177 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"c" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/open/floor/plating/airless,
+/area/shuttle/mining)
+"d" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/shuttle/mining)
+"h" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/shuttle/mining)
+"l" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/plasteel/tech,
+/area/shuttle/mining)
+"o" = (
+/obj/structure/ore_box,
+/turf/open/floor/plasteel/tech/grid,
+/area/shuttle/mining)
+"p" = (
+/obj/machinery/door/airlock/survival_pod/glass,
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 3;
+	height = 5;
+	id = "mining";
+	name = "mining shuttle";
+	port_direction = 4;
+	width = 7
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/mining)
+"q" = (
+/obj/machinery/computer/shuttle_flight/mining,
+/turf/open/floor/plasteel/tech/grid,
+/area/shuttle/mining)
+"s" = (
+/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/area/shuttle/mining)
+"t" = (
+/turf/open/floor/plasteel/tech,
+/area/shuttle/mining)
+"w" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/plasteel/tech,
+/area/shuttle/mining)
+"C" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/shuttle/mining)
+"H" = (
+/obj/machinery/status_display/evac,
+/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/area/shuttle/mining)
+"I" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/emergency,
+/turf/open/floor/plasteel/tech,
+/area/shuttle/mining)
+"K" = (
+/turf/closed/wall/mineral/titanium/survival,
+/area/shuttle/mining)
+"R" = (
+/obj/structure/closet/crate,
+/obj/item/storage/pod{
+	pixel_x = -25;
+	unlocked = 1
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/shuttle/mining)
+"S" = (
+/obj/structure/table/reinforced,
+/obj/machinery/requests_console{
+	department = "Cargo Bay";
+	departmentType = 2;
+	pixel_x = 31;
+	pixel_y = -1
+	},
+/turf/open/floor/plasteel/tech,
+/area/shuttle/mining)
+"U" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/mining)
+"W" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/shuttle/mining)
+"X" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/turf/open/floor/plasteel/tech,
+/area/shuttle/mining)
+"Z" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/turf/open/floor/plasteel/tech,
+/area/shuttle/mining)
+
+(1,1,1) = {"
+U
+H
+h
+h
+h
+s
+K
+"}
+(2,1,1) = {"
+U
+I
+w
+l
+W
+R
+s
+"}
+(3,1,1) = {"
+U
+q
+t
+t
+W
+C
+c
+"}
+(4,1,1) = {"
+U
+S
+X
+Z
+W
+o
+s
+"}
+(5,1,1) = {"
+U
+s
+d
+d
+p
+s
+K
+"}
