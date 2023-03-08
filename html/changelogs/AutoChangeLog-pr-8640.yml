@@ -1,0 +1,4 @@
+author: Crossedfall
+delete-after: true
+changes:
+  - admin: The protected CID warning will now correctly show up for inherited entries
