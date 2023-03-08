@@ -734,14 +734,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
-"aoR" = (
-/obj/machinery/door/poddoor/shutters/window{
-	id = "explo_prep";
-	name = "Gear Shutters"
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/quartermaster/exploration_prep)
 "apC" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
@@ -17365,6 +17357,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmospherics_engine)
+"heV" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	id = "explo_prep";
+	name = "Gear Shutters"
+	},
+/turf/open/floor/plating,
+/area/quartermaster/exploration_prep)
 "hfc" = (
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/plasteel,
@@ -33853,13 +33853,6 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
-"nRD" = (
-/obj/machinery/smartfridge{
-	desc = "Mechanical parts storage.";
-	name = "Mechanical parts storage"
-	},
-/turf/closed/wall,
-/area/science/research)
 "nRR" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -34604,6 +34597,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/hydroponics)
+"oiC" = (
+/obj/machinery/smartfridge/sci{
+	name = "Science vender"
+	},
+/turf/closed/wall,
+/area/science/research)
 "oiD" = (
 /obj/structure/reflector/box/anchored{
 	dir = 8
@@ -81593,7 +81592,7 @@ cMW
 dAM
 kOc
 nLF
-rqR
+heV
 cvm
 smw
 shI
@@ -81850,7 +81849,7 @@ cMW
 lAf
 kOc
 xke
-rqR
+heV
 cvm
 smw
 shI
@@ -82362,7 +82361,7 @@ xdy
 dIm
 cMW
 cMW
-aoR
+heV
 cMW
 cMW
 iKl
@@ -83380,7 +83379,7 @@ fLQ
 aMd
 aZg
 aZg
-nRD
+oiC
 sxv
 tzF
 uls
