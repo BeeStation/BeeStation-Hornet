@@ -549,3 +549,20 @@
 		return TRUE
 	else
 		return FALSE
+
+// ----------------------------
+//  Sci smartfridge
+// ----------------------------
+/obj/machinery/smartfridge/sci
+	desc = "A smart storage vender for tech."
+
+/obj/machinery/smartfridge/sci/accept_check(obj/item/O)
+	if(istype(O, /obj/item/stock_parts/))
+		return TRUE
+	if(istype(O, /obj/item/disk/tech_disk/))
+		return TRUE
+	if(istype(O, /obj/item/circuit_component/))
+		return TRUE
+	if(istype(O, /obj/item/assembly/))
+		return TRUE
+	return FALSE
