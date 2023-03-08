@@ -8,7 +8,7 @@
 	dismemberment = 50
 	armour_penetration = 50
 	// Will penetrate but damage anything not a wall
-	projectile_piercing = PASSMOB | PASSMACHINE | PASSGLASS | PASSGRILLE | PASSDOORS | PASSFLAPS | PASSSTRUCTURE
+	projectile_piercing = PASSMOB | PASSMACHINE | PASSTRANSPARENT | PASSGRILLE | PASSDOORS | PASSFLAPS | PASSSTRUCTURE
 	var/breakthings = TRUE
 
 /obj/item/projectile/bullet/p50/on_hit(atom/target, blocked = 0)
