@@ -15,6 +15,10 @@
 	muzzle_type = /obj/effect/projectile/muzzle/stun
 	impact_type = /obj/effect/projectile/impact/stun
 
+/obj/item/projectile/energy/electrode/pass_glass
+		name = "beam-electrode"
+		pass_flags = PASSTABLE | PASSGRILLE | PASSTRANSPARENT
+
 /obj/item/projectile/energy/electrode/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(!ismob(target) || blocked >= 100) //Fully blocked by mob or collided with dense object - burst into sparks!
