@@ -21,9 +21,9 @@
 	name =".50 penetrator bullet"
 	icon_state = "gauss"
 	damage = 60
-	projectile_piercing = PASSMOB | PASSMACHINE | PASSGLASS | PASSGRILLE | PASSDOORS | PASSFLAPS | PASSSTRUCTURE
+	projectile_piercing = PASSMOB | PASSMACHINE | PASSTRANSPARENT | PASSGRILLE | PASSDOORS | PASSFLAPS | PASSSTRUCTURE
 	// Phase directly through everything else
-	projectile_phasing = (ALL & ~(PASSMOB | PASSMACHINE | PASSGLASS | PASSGRILLE | PASSDOORS | PASSFLAPS | PASSSTRUCTURE))
+	projectile_phasing = (ALL & ~(PASSMOB | PASSMACHINE | PASSTRANSPARENT | PASSGRILLE | PASSDOORS | PASSFLAPS | PASSSTRUCTURE))
 	dismemberment = 0 //It goes through you cleanly.
 	paralyze = 0
 	breakthings = FALSE
