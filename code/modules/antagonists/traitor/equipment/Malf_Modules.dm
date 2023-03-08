@@ -593,7 +593,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	attached_action.adjust_uses(-1)
 	target.audible_message("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [target]!</span>")
 	caller.log_message("activated malf module [name]", LOG_GAME)
-	addtimer(CALLBACK(attached_action, /datum/action/innate/ai/ranged/overload_machinePROC_REF(detonate_machine), target), 50) //kaboom!
+	addtimer(CALLBACK(attached_action, TYPE_PROC_REF(/datum/action/innate/ai/ranged/overload_machine, detonate_machine), target), 50) //kaboom!
 	remove_ranged_ability("<span class='danger'>Overcharging machine...</span>")
 	return TRUE
 
@@ -644,7 +644,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	attached_action.adjust_uses(-1)
 	target.audible_message("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [target]!</span>")
 	caller.log_message("activated malf module [name]", LOG_GAME)
-	addtimer(CALLBACK(attached_action, /datum/action/innate/ai/ranged/override_machinePROC_REF(animate_machine), target), 50) //kabeep!
+	addtimer(CALLBACK(attached_action, TYPE_PROC_REF(/datum/action/innate/ai/ranged/override_machine, animate_machine), target), 50) //kabeep!
 	remove_ranged_ability("<span class='danger'>Sending override signal...</span>")
 	return TRUE
 

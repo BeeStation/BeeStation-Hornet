@@ -78,7 +78,7 @@
 		return
 	//Do lasso/beam for style points
 	var/datum/beam/B = new(loc, C, time=1 SECONDS, beam_icon='icons/effects/beam.dmi', beam_icon_state="carp_lasso", btype=/obj/effect/ebeam)
-	INVOKE_ASYNC(B, /datum/beam/PROC_REF(Start))
+	INVOKE_ASYNC(B, TYPE_PROC_REF(/datum/beam, Start))
 	C.unbuckle_all_mobs()
 	mob_target = C
 	C.throw_at(get_turf(src), 9, 2, user, FALSE, force = 0)
