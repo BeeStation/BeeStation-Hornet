@@ -879,5 +879,7 @@
 			user.balloon_alert(user, "[parent] now picks up single item")
 
 /datum/component/storage/proc/animate_parent()
+	if(!animated)
+		return
 	animate(parent, time = 1.5, loop = 0, transform = matrix().Scale(1.11, 0.85))
 	animate(time = 2, transform = null)
