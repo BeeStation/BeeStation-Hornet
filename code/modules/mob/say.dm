@@ -112,21 +112,19 @@
  * Example
  * * "mutters| hello" will be marked as a custom say emote of "mutters" and the message will be "hello"
  * * and it will appear as Joe Average mutters, "hello"
- * * "screams|" will be marked as a custom say emote of "screams" and it will appear as Joe Average screams
+ * * "screams|" will be marked as a custom say emote of "screams" and it will appear as Joe Average screams.
  */
 /mob/proc/check_for_custom_say_emote(message, list/mods)
 	var/customsaypos = findtext(message, "|")
-	var/messagetextpos = 1
 	if(!customsaypos)
 		return message
-	if(findtext(message, " ", customsaypos + 1, customsaypos + 2))
-		messagetextpos = 2
 	if(is_banned_from(ckey, "Emote"))
-		return copytext(message, customsaypos + messagetextpos)
-	mods[MODE_CUSTOM_SAY_EMOTE] = lowertext(copytext_char(message, 1, customsaypos))
-	message = copytext(message, customsaypos + messagetextpos)
+		return copytext(message, customsaypos + 1)
+	mods[MODE_CUSTOM_SAY_EMOTE] = trim_right(lowertext(copytext_char(message, 1, customsaypos)))
+	message = trim_left(copytext(message, customsaypos + 1))
 	if(!message)
 		mods[MODE_CUSTOM_SAY_ERASE_INPUT] = TRUE
+		mods[MODE_CUSTOM_SAY_EMOTE] = punctuate(mods[MODE_CUSTOM_SAY_EMOTE])
 		message = ""
 	return message
 
