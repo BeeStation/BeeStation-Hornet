@@ -1,9 +1,0 @@
-author: tonty
-delete-after: true
-changes:
-  - bugfix: you can finally emote at the beginning of messages in dchat
-  - bugfix: custom say emotes properly punctuate over the radio
-  - bugfix: custom say emotes actually EMOTE NOW (can you believe it)
-  - bugfix: you can have spaces around the custom say separator without it looking
-      jank
-  - code_imp: text.dm has a punctuate proc now
