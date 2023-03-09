@@ -189,6 +189,7 @@
 		update_icon()
 		var/turf/T = get_turf(src)
 		T.visible_message("<span class='boldwarning'>[src] falls to a [roll] as the magic flare causes it to tip over! What a scam!!</span>")
+		sleep(1 SECONDS)
 	used = FALSE //we will at least give them a second roll though
 	. = ..()
 
