@@ -2,6 +2,9 @@
 	name = "computer"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "computer"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_COMPUTERS)
+	canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 300
