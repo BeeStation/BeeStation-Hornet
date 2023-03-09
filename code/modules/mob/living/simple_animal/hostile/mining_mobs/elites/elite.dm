@@ -62,7 +62,7 @@
 	return FALSE
 
 /*Basic setup for elite attacks, based on Whoneedspace's megafauna attack setup.
-While using this makes the system rely on OnFire, it still gives options for timers not tied to OnFire, and it makes using attacks consistent accross the board for player-controlled elites.*/
+While using this makes the system rely on OnFire, it still gives options for timers not tied to OnFire, and it makes using attacks consistent across the board for player-controlled elites.*/
 
 /datum/action/innate/elite_attack
 	name = "Elite Attack"

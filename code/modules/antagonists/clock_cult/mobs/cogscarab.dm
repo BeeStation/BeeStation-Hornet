@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	maxHealth = 30
 	faction = list("neutral", "silicon", "turret", "ratvar")
 	default_storage = /obj/item/storage/belt/utility/servant/drone
-	visualAppearence = CLOCKDRONE
+	visualAppearance = CLOCKDRONE
 	bubble_icon = "clock"
 	picked = TRUE
 	flavortext = "<span class=brass>You are a cogscarab, an intricate machine that has been granted sentient by Rat'var.<br>\

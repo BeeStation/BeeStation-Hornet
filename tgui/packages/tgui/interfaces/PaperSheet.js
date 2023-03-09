@@ -425,7 +425,7 @@ class PaperSheetEdit extends Component {
       out.field_counter = fielded_text.counter;
     }
     if (do_fields) {
-      // finaly we check all the form fields to see
+      // finally we check all the form fields to see
       // if any data was entered by the user and
       // if it was return the data and modify the text
       const final_processing = checkAllFields(
