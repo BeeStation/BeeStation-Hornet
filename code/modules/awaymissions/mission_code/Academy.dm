@@ -179,6 +179,9 @@
 /obj/item/dice/d20/fate/one_use
 	reusable = FALSE
 
+/obj/item/dice/d20/fate/one_use/slightly_rigged
+	sides = 19 //no wizard, everything else is still fair game
+
 /obj/item/dice/d20/fate/one_use/stealth
 	name = "d20"
 	desc = "A die with twenty sides. The preferred die to throw at the GM."
