@@ -399,7 +399,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	description = "Improves the power and health of all AI turrets. This effect is permanent."
 	cost = 30
 	upgrade = TRUE
-	unlock_text = "<span class='notice'>You establish a power diversion to your turrets, upgrading their health and damage.</span>"
+	unlock_text = "<span class='notice'>You rewrite the turrets' code, making the most use out of them. They are now fully repaired, EMP proof and their damage has been increased.</span>"
 	unlock_sound = 'sound/items/rped.ogg'
 
 /datum/AI_Module/large/upgrade_turrets/upgrade(mob/living/silicon/ai/AI)
