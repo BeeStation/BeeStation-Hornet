@@ -162,7 +162,7 @@
 				mods[RADIO_EXTENSION] = GLOB.department_radio_keys[key]
 				chop_to = length(key) + 2
 			else
-				continue
+				return message
 		else if(key == "," && !mods[LANGUAGE_EXTENSION])
 			for(var/ld in GLOB.all_languages)
 				var/datum/language/LD = ld
