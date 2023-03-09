@@ -65,12 +65,5 @@
 	visor_flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/clothing/mask/bandit_balaclava
-	name = "bandit balaclava"
-	desc = "Often worn by aspiring criminals and bandits."
-	icon_state = "bandit_balaclava"
-	item_state = "bandit_balaclava"
-	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-	visor_flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
-	w_class = WEIGHT_CLASS_SMALL
+
 
