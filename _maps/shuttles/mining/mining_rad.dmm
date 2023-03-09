@@ -9,6 +9,20 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/mining)
+"g" = (
+/obj/machinery/door/airlock/survival_pod/glass,
+/obj/structure/fans/tiny,
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 2;
+	height = 5;
+	id = "mining";
+	name = "mining shuttle";
+	port_direction = 4;
+	width = 7
+	},
+/turf/open/floor/plating,
+/area/shuttle/mining)
 "h" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional{
 	dir = 8
@@ -27,21 +41,6 @@
 "o" = (
 /obj/structure/ore_box,
 /turf/open/floor/plasteel/tech/grid,
-/area/shuttle/mining)
-"p" = (
-/obj/machinery/door/airlock/survival_pod/glass,
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 4;
-	dheight = 2;
-	height = 6;
-	width = 4;
-	id = "mining";
-	name = "mining shuttle";
-	port_direction = 4
-	},
-/obj/structure/fans/tiny,
-/turf/open/floor/plating,
 /area/shuttle/mining)
 "q" = (
 /obj/machinery/computer/shuttle_flight/mining,
@@ -172,7 +171,7 @@ U
 s
 d
 d
-p
+g
 s
 K
 "}

@@ -1528,6 +1528,18 @@
 /obj/structure/lattice,
 /turf/open/space,
 /area/space/nearstation)
+"aDO" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 2;
+	height = 10;
+	id = "mining_home";
+	name = "mining shuttle bay";
+	roundstart_template = /datum/map_template/shuttle/mining/rad;
+	width = 7
+	},
+/turf/open/space/basic,
+/area/space)
 "aEb" = (
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
@@ -4706,19 +4718,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
-"bYb" = (
-/obj/docking_port/stationary{
-	dheight = 2;
-	dir = 8;
-	dwidth = 4;
-	height = 6;
-	id = "mining_home";
-	name = "mining shuttle bay";
-	roundstart_template = /datum/map_template/shuttle/mining/rad;
-	width = 4
-	},
-/turf/open/space/basic,
-/area/space)
 "bYk" = (
 /obj/machinery/processor,
 /turf/open/floor/plasteel/cafeteria,
@@ -80333,7 +80332,7 @@ yeA
 yeA
 yeA
 yeA
-bYb
+aDO
 yeA
 yeA
 vJE
