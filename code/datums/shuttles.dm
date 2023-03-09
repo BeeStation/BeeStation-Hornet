@@ -648,7 +648,7 @@
 
 /datum/map_template/shuttle/mining/rad
 	suffix = "rad"
-	name = "mining shuttle (rad)"
+	name = "mining shuttle (Rad)"
 
 /datum/map_template/shuttle/science
 	port_id = "science"
