@@ -110,3 +110,10 @@
 #define ANNOUNCER_SHUTTLEDOCK		"announcer_shuttledock"
 #define ANNOUNCER_SHUTTLERECALLED	"announcer_shuttlerecalled"
 #define ANNOUNCER_SPANOMALIES		"announcer_spanomalies"
+
+// Music priority
+// Higher priority music plays over lower priority ones.
+// If a looping music is masked by a higher priority music, it will start playing once the higher priority ends if it hasn't been removed.
+
+#define MUSIC_PRIORITY_BUBBLEGUM 120
+#define MUSIC_PRIORITY_HEIROPHANT 150
