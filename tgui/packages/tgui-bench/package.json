@@ -4,7 +4,7 @@
   "version": "4.3.0",
   "dependencies": {
     "common": "workspace:*",
-    "fastify": "^4.14.0",
+    "fastify": "^4.14.1",
     "fastify-static": "^4.7.0",
     "inferno": "^8.0.6",
     "inferno-vnode-flags": "^8.0.6",

@@ -1,10 +1,12 @@
 import { createPopper, OptionsGeneric } from '@popperjs/core';
-import { Component, findDOMFromVNode, InfernoNode, render } from 'inferno';
+import { Component, findDOMFromVNode, render } from 'inferno';
+import type { Inferno } from 'inferno';
+import type { PropertiesHyphen } from 'csstype';
 
 type PopperProps = {
-  popperContent: InfernoNode;
+  popperContent: Inferno.InfernoNode;
   options?: Partial<OptionsGeneric<unknown>>;
-  additionalStyles?: CSSProperties;
+  additionalStyles?: PropertiesHyphen;
 };
 
 export class Popper extends Component<PopperProps> {
