@@ -1,14 +1,15 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/effect/turf_decal/siding/wood/corner{
-	dir = 1
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
 	},
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "b" = (
-/obj/structure/table/wood/bar,
-/obj/effect/turf_decal/siding/wood,
-/turf/open/floor/carpet/royalblue,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/open/floor/holofloor/dark,
 /area/template_noop)
 "c" = (
 /obj/structure/table/wood/bar,
@@ -37,23 +38,20 @@
 	},
 /area/template_noop)
 "f" = (
-/obj/effect/turf_decal/siding/wood/corner{
-	dir = 4
-	},
-/turf/open/floor/carpet/royalblue,
+/obj/structure/table/wood/bar,
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "g" = (
-/obj/structure/table/wood/bar,
 /obj/effect/turf_decal/siding/wood{
-	dir = 8
+	dir = 1;
+	layer = 1
 	},
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "h" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/turf/open/floor/carpet/blue,
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/holofloor/dark,
 /area/template_noop)
 "i" = (
 /obj/structure/table/wood/bar,
@@ -66,29 +64,35 @@
 	},
 /area/template_noop)
 "j" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 6
-	},
-/turf/open/floor/carpet/blue,
+/turf/open/floor/holofloor/dark,
 /area/template_noop)
 "k" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 10
+	dir = 4
 	},
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "l" = (
-/obj/structure/table/wood/bar,
-/obj/effect/turf_decal/siding/wood{
-	dir = 10
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925";
+	dir = 8
 	},
-/turf/open/floor/carpet/royalblue,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "m" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 5
+/obj/structure/table/wood/bar,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
 	},
-/turf/open/floor/carpet/royalblue,
+/obj/item/storage/box/matches{
+	pixel_x = -2;
+	pixel_y = 8
+	},
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "n" = (
 /obj/structure/table/wood/bar,
@@ -99,43 +103,41 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
-"o" = (
-/obj/effect/turf_decal/siding/wood,
-/turf/open/floor/carpet/blue,
-/area/template_noop)
 "p" = (
-/obj/structure/chair/fancy/comfy{
-	buildstackamount = 0;
-	color = "#742925"
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
 	},
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"q" = (
+/obj/structure/table/wood/bar,
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "r" = (
-/turf/open/floor/carpet/blue,
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "s" = (
-/obj/effect/turf_decal/siding/wood/corner{
-	dir = 8
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
 	},
-/turf/open/floor/carpet/blue,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "t" = (
 /obj/structure/table/wood/bar,
 /obj/effect/turf_decal/siding/wood{
-	dir = 6
-	},
-/turf/open/floor/carpet/royalblue,
-/area/template_noop)
-"u" = (
-/obj/structure/table/wood/bar,
-/obj/effect/turf_decal/siding/wood/corner{
 	dir = 8
 	},
-/obj/item/storage/box/matches{
-	pixel_x = -2;
-	pixel_y = 8
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"u" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
 	},
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/holofloor/dark,
 /area/template_noop)
 "v" = (
 /obj/structure/table/wood/bar,
@@ -145,6 +147,12 @@
 	dir = 9;
 	icon_state = "wood"
 	},
+/area/template_noop)
+"x" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/turf/open/floor/holofloor/dark,
 /area/template_noop)
 "y" = (
 /obj/structure/table/wood/bar,
@@ -156,11 +164,18 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
+"z" = (
+/obj/structure/table/wood/bar,
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
 "A" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 4
+	dir = 10
 	},
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/holofloor/dark,
 /area/template_noop)
 "B" = (
 /obj/machinery/newscaster{
@@ -174,24 +189,15 @@
 	},
 /area/template_noop)
 "C" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	layer = 1
-	},
-/turf/open/floor/carpet/royalblue,
-/area/template_noop)
-"D" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 10
-	},
-/turf/open/floor/carpet/blue,
+/obj/effect/turf_decal/siding/wood/corner,
+/turf/open/floor/holofloor/dark,
 /area/template_noop)
 "E" = (
 /obj/structure/table/wood/bar,
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
 	},
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "F" = (
 /obj/structure/table/wood/bar,
@@ -205,22 +211,25 @@
 	},
 /area/template_noop)
 "G" = (
-/obj/effect/turf_decal/siding/wood/corner,
-/turf/open/floor/carpet/blue,
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/turf/open/floor/holofloor/dark,
 /area/template_noop)
 "H" = (
-/obj/structure/table/wood/bar,
-/obj/effect/turf_decal/siding/wood/corner,
-/obj/item/storage/fancy/cigarettes/cigars/cohiba{
-	pixel_y = 8
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925";
+	dir = 8
 	},
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "I" = (
-/obj/structure/chair/fancy/comfy{
-	color = "#596479"
+/obj/structure/table/wood/bar,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
 	},
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "J" = (
 /obj/structure/bookcase/random,
@@ -230,23 +239,31 @@
 	},
 /area/template_noop)
 "K" = (
+/obj/structure/table/wood/bar,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "L" = (
-/obj/structure/table/wood/bar,
-/obj/effect/turf_decal/siding/wood/corner{
-	dir = 8
+/obj/structure/chair/fancy/comfy{
+	color = "#596479"
 	},
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"M" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "N" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925";
 	dir = 4
 	},
-/turf/open/floor/carpet/blue,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "O" = (
 /obj/machinery/bookbinder,
@@ -265,37 +282,34 @@
 	},
 /area/template_noop)
 "Q" = (
-/obj/structure/table/wood/bar,
-/obj/effect/turf_decal/siding/wood/corner,
-/turf/open/floor/carpet/royalblue,
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "R" = (
 /obj/structure/chair/fancy/comfy{
 	buildstackamount = 0;
-	color = "#742925";
-	dir = 4
+	color = "#742925"
 	},
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "S" = (
 /obj/structure/chair/fancy/comfy{
 	buildstackamount = 0;
 	color = "#742925";
-	dir = 8
+	dir = 4
 	},
-/turf/open/floor/carpet/royalblue,
-/area/template_noop)
-"T" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "U" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 9
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
 	},
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "V" = (
 /obj/structure/table/wood/bar,
@@ -324,26 +338,12 @@
 	},
 /area/template_noop)
 "Y" = (
-/obj/structure/chair/fancy/comfy{
-	buildstackamount = 0;
-	color = "#742925";
-	dir = 8
+/obj/structure/table/wood/bar,
+/obj/effect/turf_decal/siding/wood/corner,
+/obj/item/storage/fancy/cigarettes/cigars/cohiba{
+	pixel_y = 8
 	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/turf/open/floor/carpet/royalblue,
-/area/template_noop)
-"Z" = (
-/obj/structure/chair/fancy/comfy{
-	buildstackamount = 0;
-	color = "#742925";
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -361,85 +361,85 @@ P
 (2,1,1) = {"
 J
 X
-U
-T
-Z
-Z
-Z
-Z
-k
+M
+a
+S
+S
+S
+S
+r
 X
 "}
 (3,1,1) = {"
 W
-U
-a
-R
-Q
-E
-E
-E
-K
+M
+p
+N
+f
+I
+I
+I
+s
 d
 "}
 (4,1,1) = {"
 O
-C
-p
-H
-t
-r
-G
-N
+g
+R
+Y
+K
 j
+C
+b
+G
 i
 "}
 (5,1,1) = {"
 B
-C
-I
-b
-r
-r
-o
+g
+L
+q
+j
+j
+h
 c
 F
 y
 "}
 (6,1,1) = {"
 n
-C
-p
+g
+R
+m
+z
+j
+x
 u
-l
-r
-s
-h
-D
+A
 V
 "}
 (7,1,1) = {"
 W
-m
-f
-S
-L
-g
-g
-g
-k
+Q
+U
+H
+E
+t
+t
+t
+r
 d
 "}
 (8,1,1) = {"
 J
 X
-m
-A
-Y
-Y
-Y
-Y
-K
+Q
+k
+l
+l
+l
+l
+s
 X
 "}
 (9,1,1) = {"
