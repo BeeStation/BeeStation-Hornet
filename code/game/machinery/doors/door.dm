@@ -144,8 +144,8 @@
 	. = ..()
 	if(.)
 		return
-	// Snowflake handling for PASSGLASS.
-	if(istype(mover) && (mover.pass_flags & PASSGLASS))
+	// Snowflake handling for PASSTRANSPARENT.
+	if(istype(mover) && (mover.pass_flags & PASSTRANSPARENT))
 		return !opacity
 
 /// Helper method for bumpopen() and try_to_activate_door(). Don't override.
@@ -307,10 +307,10 @@
 	do_animate("opening")
 	set_opacity(0)
 	sleep(open_speed)
-	density = FALSE
+	set_density(FALSE)
 	sleep(open_speed)
 	layer = initial(layer)
-	update_icon()
+	update_appearance()
 	set_opacity(0)
 	operating = FALSE
 	air_update_turf(1)
@@ -337,9 +337,9 @@
 	do_animate("closing")
 	layer = closingLayer
 	if(air_tight)
-		density = TRUE
+		set_density(TRUE)
 	sleep(open_speed)
-	density = TRUE
+	set_density(TRUE)
 	sleep(open_speed)
 	update_icon()
 	if(visible && !glass)

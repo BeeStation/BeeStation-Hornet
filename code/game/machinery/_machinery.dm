@@ -125,7 +125,10 @@ Class Procs:
 	var/interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_SET_MACHINE
 	var/fair_market_price = 69
 	var/market_verb = "Customer"
-	var/payment_department = ACCOUNT_ENG
+	/// [Bitflag] the machine will be free when a bank holder has a specific bitflag
+	var/dept_req_for_free = ACCOUNT_ENG_BITFLAG
+	/// [Bitflag] the machine sends its profit to the corresponding department budget. if this is not specified, this will follow `dept_req_for_free` value.
+	var/seller_department
 
 	var/clickvol = 40	// sound volume played on succesful click
 	var/next_clicksound = 0	// value to compare with world.time for whether to play clicksound according to CLICKSOUND_INTERVAL
@@ -156,6 +159,9 @@ Class Procs:
 
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
+
+	if(!seller_department)
+		seller_department = dept_req_for_free
 
 /// Helper proc for telling a machine to start processing with the subsystem type that is located in its `subsystem_type` var.
 /obj/machinery/proc/begin_processing()
@@ -222,7 +228,7 @@ Class Procs:
 /obj/machinery/proc/open_machine(drop = TRUE)
 	SEND_SIGNAL(src, COMSIG_MACHINE_OPEN, drop)
 	state_open = TRUE
-	density = FALSE
+	set_density(FALSE)
 	if(drop)
 		dropContents()
 	update_icon()
@@ -246,7 +252,7 @@ Class Procs:
 /obj/machinery/proc/close_machine(atom/movable/target = null)
 	SEND_SIGNAL(src, COMSIG_MACHINE_CLOSE, target)
 	state_open = FALSE
-	density = TRUE
+	set_density(TRUE)
 	if(!target)
 		for(var/am in loc)
 			if (!(can_be_occupant(am)))
@@ -342,9 +348,14 @@ Class Procs:
 						say("[market_verb] NAP Violation: Unable to pay.")
 						nap_violation(occupant)
 						return FALSE
-					var/datum/bank_account/D = SSeconomy.get_dep_account(payment_department)
-					if(D && !D.is_nonstation_account())
-						D.adjust_money(fair_market_price)
+
+					// each department (seller_department) will earn the profit
+					if(fair_market_price && seller_department)
+						var/list/dept_list = SSeconomy.get_dept_id_by_bitflag(seller_department)
+						if(length(dept_list))
+							fair_market_price = round(fair_market_price/length(dept_list))
+							for(var/datum/bank_account/department/D in dept_list)
+								D.adjust_money(fair_market_price)
 			else
 				say("[market_verb] NAP Violation: No ID card found.")
 				nap_violation(occupant)
@@ -523,6 +534,21 @@ Class Procs:
 	if(can_be_unfasten_wrench(user, TRUE) != SUCCESSFUL_UNFASTEN) //if we aren't explicitly successful, cancel the fuck out
 		return FALSE
 	return TRUE
+
+// Power cell in hand replacement
+/obj/machinery/attackby(obj/item/C, mob/user)
+	if(istype(C, /obj/item/stock_parts/cell) && panel_open)
+		for(var/obj/item/P in component_parts)
+			if(istype(P,/obj/item/stock_parts/cell))
+				if(user.transferItemToLoc(C, src))
+					user.put_in_active_hand(P)
+					component_parts+=C
+					component_parts-=P
+					RefreshParts()
+					playsound(src, 'sound/surgery/taperecorder_close.ogg', 50, FALSE)
+					to_chat(user, "<span class='notice'>You replace [P.name] with [C.name].</span>")
+					return
+	..()
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	if(!istype(W))

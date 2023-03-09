@@ -188,7 +188,7 @@
 		var/matrix/TR = new
 		TR.Translate(0, 16)
 		TR.Multiply(new /matrix(s_dx, f_dx, 0, s_dy, f_dy, 0))
-		var/mutable_appearance/M = mutable_appearance(icon, "hologram-line", ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE)
+		var/mutable_appearance/M = mutable_appearance(icon, "hologram-line", FLOAT_LAYER, ABOVE_LIGHTING_PLANE)
 		M.transform = TR
 		add_overlay(M)
 
@@ -802,10 +802,8 @@
 	..()
 	update_icon()
 
-/obj/machinery/advanced_airlock_controller/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/advanced_airlock_controller/on_emag(mob/user)
+	..()
 	visible_message("<span class='warning'>Sparks fly out of [src]!</span>", "<span class='notice'>You emag [src], disabling its safeties.</span>")
 	playsound(src, "sparks", 50, 1)
 

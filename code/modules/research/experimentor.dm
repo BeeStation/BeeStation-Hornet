@@ -82,7 +82,6 @@
 		/obj/item/aicard,
 		/obj/item/storage/backpack/holding,
 		/obj/item/slime_extract,
-		/obj/item/onetankbomb,
 		/obj/item/transfer_valve))
 
 /obj/machinery/rnd/experimentor/RefreshParts()
@@ -176,7 +175,7 @@
 		usr << browse(null, "window=experimentor")
 		return
 	if(scantype == "search")
-		var/obj/machinery/computer/rdconsole/D = locate(/obj/machinery/computer/rdconsole) in oview(3,src)
+		var/obj/machinery/computer/rdconsole/D = locate(/obj/machinery/computer/rdconsole) in oview(5,src)
 		if(D)
 			linked_console = D
 	else if(scantype == "eject")

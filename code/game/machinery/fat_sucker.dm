@@ -185,7 +185,7 @@
 		var/mob/living/carbon/C = occupant
 		if(C.type_of_meat)
 			// Someone changed component rating high enough so it requires negative amount of nutrients to create a meat slab
-			if(nutrient_to_meat < 0)
+			if(nutrient_to_meat <= 0) // Megaddd, please don't crash the server again
 				occupant.forceMove(drop_location())
 				occupant = null
 				explosion(loc, 0, 1, 2, 3, TRUE)
@@ -220,10 +220,8 @@
 	if(default_deconstruction_crowbar(I))
 		return TRUE
 
-/obj/machinery/fat_sucker/emag_act(mob/living/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/fat_sucker/on_emag(mob/user)
+	..()
 	start_at = 100
 	stop_at = 0
 	to_chat(user, "<span class='notice'>You remove the access restrictions and lower the automatic ejection threshold!</span>")
-	obj_flags |= EMAGGED

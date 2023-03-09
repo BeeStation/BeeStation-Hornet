@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(all_wormholes) // So we can pick wormholes to teleport to
 	endWhen = rand(40, 80)
 
 /datum/round_event/wormholes/start()
-	for(var/i = 1, i <= number_of_wormholes, i++)
+	for(var/i in 1 to number_of_wormholes)
 		var/turf/T = get_random_station_turf()	//side effect - wormholes won't spawn in space
 		wormholes += new /obj/effect/portal/wormhole(T, null, 0, null, FALSE)
 
@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(all_wormholes) // So we can pick wormholes to teleport to
 		if(!(ismecha(M) && mech_sized))
 			return
 
-	if(ismovableatom(M))
+	if(ismovable(M))
 		if(GLOB.all_wormholes.len)
 			var/obj/effect/portal/wormhole/P = pick(GLOB.all_wormholes)
 			if(P && isturf(P.loc))

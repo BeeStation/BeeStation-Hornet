@@ -72,7 +72,7 @@
 /obj/structure/plasticflaps/CanAllowThrough(atom/movable/A, turf/T)
 	. = ..()
 
-	if(istype(A) && (A.pass_flags & PASSGLASS))
+	if(istype(A) && (A.pass_flags & PASSTRANSPARENT))
 		return prob(60)
 
 	var/obj/structure/bed/B = A

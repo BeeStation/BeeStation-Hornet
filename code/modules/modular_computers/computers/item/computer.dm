@@ -25,6 +25,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/device_theme = THEME_NTOS
 	/// Whether this device is allowed to change themes or not.
 	var/theme_locked = FALSE
+	/// If the theme should not be initialized from theme prefs (for custom job themes)
+	var/ignore_theme_pref = FALSE
 	/// List of themes for this device to allow.
 	var/list/allowed_themes
 	/// Color used for the Thinktronic Classic theme.
@@ -96,8 +98,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/can_store_pai = FALSE
 
 /obj/item/modular_computer/Initialize(mapload)
-	. = ..()
 	allowed_themes = GLOB.ntos_device_themes_default
+	. = ..()
 	START_PROCESSING(SSobj, src)
 	if(!physical)
 		physical = src
@@ -243,11 +245,14 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		if(response == "Yes")
 			turn_on(user)
 
-/obj/item/modular_computer/emag_act(mob/user)
+/obj/item/modular_computer/should_emag(mob/user)
 	if(!enabled)
 		to_chat(user, "<span class='warning'>You'd need to turn the [src] on first.</span>")
 		return FALSE
-	obj_flags |= EMAGGED //Mostly for consistancy purposes; the programs will do their own emag handling
+	return TRUE
+
+/obj/item/modular_computer/on_emag(mob/user)
+	..()
 	var/newemag = FALSE
 	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
 	for(var/datum/computer_file/program/app in drive.stored_files)

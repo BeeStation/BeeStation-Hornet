@@ -77,7 +77,7 @@
 		start_index = assigned_contracts.len + 1
 
 	// Generate contracts, and find the lowest paying.
-	for (var/i = 1; i <= to_generate.len; i++)
+	for(var/i in 1 to to_generate.len)
 		var/datum/syndicate_contract/contract_to_add = new(owner, assigned_targets, to_generate[i])
 		var/contract_payout_total = contract_to_add.contract.payout + contract_to_add.contract.payout_bonus
 
@@ -269,7 +269,7 @@
 			to_chat(user, "<span class='notice'>Your purchase materializes into your hands!</span>")
 		else
 			to_chat(user, "<span class='notice'>Your purchase materializes onto the floor.</span>")
-
+		log_uplink_purchase(user, item_to_create, "\improper contractor tablet")
 		return item_to_create
 	return TRUE
 

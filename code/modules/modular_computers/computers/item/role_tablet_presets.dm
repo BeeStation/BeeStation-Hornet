@@ -9,6 +9,7 @@
 	var/list/slip_victims = list()
 	init_ringtone = "honk"
 	device_theme = THEME_NTOS_CLOWN_PINK // Give the clown the best theme
+	ignore_theme_pref = TRUE
 
 /obj/item/modular_computer/tablet/pda/clown/ComponentInitialize()
 	. = ..()
@@ -269,5 +270,5 @@
 	name = "unlicensed PDA"
 	desc = "A shitty knockoff of a portable microcomputer by Thinktronic Systems, LTD. Complete with a cracked operating system."
 	note = "Error: Unlicensed software detected. Please contact your supervisor."
-	default_disk = /obj/item/computer_hardware/hard_drive/role/unlicensed
+	default_disk = /obj/item/computer_hardware/hard_drive/role/maint
 	icon_state = "pda-knockoff"

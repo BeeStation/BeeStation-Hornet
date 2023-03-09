@@ -238,7 +238,7 @@
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
 "aR" = (
-/obj/item/card/id/mining,
+/obj/item/card/id/golem,
 /obj/item/mining_scanner,
 /obj/item/flashlight/lantern,
 /obj/structure/closet{
@@ -261,7 +261,7 @@
 	anchored = 1;
 	name = "Mining equipment"
 	},
-/obj/item/card/id/mining,
+/obj/item/card/id/golem,
 /obj/item/mining_scanner,
 /obj/item/flashlight/lantern,
 /obj/item/pickaxe,
@@ -879,10 +879,6 @@
 /obj/item/storage/box/lights/mixed,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
-"cM" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
-/area/ruin/powered/golem_ship)
 "jC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
@@ -947,11 +943,11 @@ aC
 aR
 ab
 bd
-cM
-cM
-cM
-cM
-cM
+ac
+ac
+ac
+ac
+ac
 cd
 ab
 cl

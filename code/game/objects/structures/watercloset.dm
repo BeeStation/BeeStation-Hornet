@@ -403,19 +403,22 @@
 
 /obj/structure/curtain/proc/toggle()
 	open = !open
-	update_icon()
+
+	update_appearance()
 
 /obj/structure/curtain/update_icon()
 	if(!open)
 		icon_state = "[icon_type]-closed"
 		layer = WALL_OBJ_LAYER
-		density = TRUE
+		set_density(TRUE)
+		set_opacity(1)
 		open = FALSE
 
 	else
 		icon_state = "[icon_type]-open"
 		layer = SIGN_LAYER
-		density = FALSE
+		set_density(FALSE)
+		set_opacity(0)
 		open = TRUE
 
 /obj/structure/curtain/attackby(obj/item/W, mob/user)

@@ -116,6 +116,9 @@
 	bullet_bounce_sound = null
 	tiled_dirt = FALSE
 
+/turf/open/floor/holofloor/hyperspace/nograv/check_gravity()
+    return FALSE
+
 /turf/open/floor/holofloor/hyperspace/Initialize(mapload)
 	icon_state = "speedspace_ns_[(x + 5*y + (y%2+1)*7)%15+1]"
 	. = ..()
@@ -128,10 +131,12 @@
 	name = "carpet"
 	desc = "Electrically inviting."
 	icon = 'icons/turf/floors/carpet.dmi'
-	icon_state = "carpet"
+	icon_state = "carpet-255"
+	base_icon_state = "carpet"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_CARPET)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET)
 	floor_tile = /obj/item/stack/tile/carpet
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
 	bullet_bounce_sound = null
 	tiled_dirt = FALSE
 
@@ -142,7 +147,7 @@
 /turf/open/floor/holofloor/carpet/update_icon()
 	. = ..()
 	if(intact)
-		queue_smooth(src)
+		QUEUE_SMOOTH(src)
 
 /turf/open/floor/holofloor/wood
 	icon_state = "wood"

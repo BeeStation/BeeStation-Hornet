@@ -15,7 +15,7 @@
 	refill_canister = /obj/item/vending_refill/sustenance
 	default_price = 0
 	extra_price = 0
-	payment_department = NO_FREEBIES
+	dept_req_for_free = NO_FREEBIES
 
 /obj/item/vending_refill/sustenance
 	machine_name = "Sustenance Vendor"

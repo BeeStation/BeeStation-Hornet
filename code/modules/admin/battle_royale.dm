@@ -87,8 +87,8 @@ GLOBAL_LIST_INIT(battle_royale_good_loot, list(
 		/obj/item/melee/transforming/energy/sword,
 		/obj/item/dualsaber,
 		/obj/item/fireaxe,
-		/obj/item/stack/telecrystal/five,
-		/obj/item/stack/telecrystal/twenty,
+		/obj/item/stack/sheet/telecrystal/five,
+		/obj/item/stack/sheet/telecrystal/twenty,
 		/obj/item/clothing/suit/space/hardsuit/syndi
 	))
 
@@ -99,7 +99,7 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 		/obj/item/his_grace,
 		/obj/mecha/combat/marauder/mauler/loaded,
 		/obj/item/guardiancreator/tech,
-		/obj/item/mjollnir,
+		/obj/item/mjolnir,
 		/obj/item/pneumatic_cannon/pie/selfcharge,
 		/obj/item/uplink/nuclear
 	))

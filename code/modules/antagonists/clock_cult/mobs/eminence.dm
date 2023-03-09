@@ -1,5 +1,5 @@
 /mob/living/simple_animal/eminence
-	name = "\the Eminence"
+	name = "the Eminence"
 	desc = "A glowing ball of light."
 	icon = 'icons/effects/clockwork_effects.dmi'
 	icon_state = "eminence"
@@ -8,7 +8,7 @@
 	invisibility = INVISIBILITY_OBSERVER
 	health = INFINITY
 	maxHealth = INFINITY
-	layer = GHOST_LAYER
+	plane = GHOST_PLANE
 	healable = FALSE
 	spacewalk = TRUE
 	sight = SEE_SELF
@@ -148,7 +148,7 @@
 
 /obj/effect/proc_holder/spell/targeted/eminence
 	invocation = "none"
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	action_icon = 'icons/mob/actions/actions_clockcult.dmi'
 	action_icon_state = "ratvarian_spear"
 	action_background_icon_state = "bg_clock"

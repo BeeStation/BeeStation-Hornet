@@ -55,7 +55,7 @@
 	name = "holobarrier"
 	desc = "A short holographic barrier which can only be passed by walking."
 	icon_state = "holosign_sec"
-	pass_flags_self = PASSTABLE | PASSGRILLE | PASSGLASS | LETPASSTHROW
+	pass_flags_self = PASSTABLE | PASSGRILLE | PASSTRANSPARENT | LETPASSTHROW
 	density = TRUE
 	max_integrity = 20
 	var/allow_walk = 1 //can we pass through it on walk intent
@@ -95,6 +95,13 @@
 	alpha = 150
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_LIGHT_INSULATION
+
+/obj/structure/holosign/barrier/atmos/robust
+	name = "holo blast door"
+	desc = "A really robust holographic barrier resembling a blast door. Though it does not prevent solid objects from passing through, gas is kept out."
+	icon_state = "holo_blastlock"
+	max_integrity = 500
+
 
 /obj/structure/holosign/barrier/atmos/Initialize(mapload)
 	. = ..()
