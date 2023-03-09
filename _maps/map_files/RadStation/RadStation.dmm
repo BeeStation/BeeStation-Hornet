@@ -19131,6 +19131,27 @@
 	},
 /turf/open/floor/plasteel/tech,
 /area/engine/engine_room)
+"hwG" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
+/obj/item/dest_tagger{
+	pixel_x = -6;
+	pixel_y = 9
+	},
+/obj/item/dest_tagger{
+	pixel_x = -2;
+	pixel_y = 5
+	},
+/obj/item/paper/guides/recycler{
+	info = "<h2>New Assignment</h2> You have been assigned to the mail room, this important job involves delivering mail and packages to the crew, sorting trash, and sending the bounties to NT.<br><br>On the table you will find your destination tagger and wrapping paper. With these at your disposal anything can be send anywhere, all over the station! simply wrap a object directly, or place multiple objects in a: box, crate, or locker, and then wrap that. then pick the location you want to send it to on your tagger and then tag it! Once that's all done, simply place them on the conveyer and send them into the delivery chute to their destination!<br><br>Why not give it a go now, and send all of those creates in the warehouse to cargo for some extra cash!";
+	name = "paper - 'Disposals job instructions'";
+	pixel_x = 6;
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel/dark,
+/area/quartermaster/sorting)
 "hwQ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt,
@@ -54153,27 +54174,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
-"vfG" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/stripes{
-	dir = 4
-	},
-/obj/item/dest_tagger{
-	pixel_x = -6;
-	pixel_y = 9
-	},
-/obj/item/dest_tagger{
-	pixel_x = -2;
-	pixel_y = 5
-	},
-/obj/item/paper/guides/recycler{
-	info = "<h2>New Assignment</h2> You have been assigned to the mail room, this important job involves delivering mail and packages to the crew, sorting trash, and sending the bounties to NT.<br><br>On the table you will find your destination tagger and wrapping paper. With these at your disposal anything can be send anywhere, all over the station! simply wrap a object directly, or place multiple objects in a box, and then wrap that. then pick the location you want to send it to on your tagger and then tag it! Once that's all done, simply place them on the conveyer and send them into the delivery chute to their destination!<br><br>Why not give it a go now, and send all of those creates in the warehouse to cargo for some extra cash!";
-	name = "paper - 'Disposals job instructions'";
-	pixel_x = 6;
-	pixel_y = 2
-	},
-/turf/open/floor/plasteel/dark,
-/area/quartermaster/sorting)
 "vfR" = (
 /turf/open/floor/plasteel/grid/steel,
 /area/science/xenobiology)
@@ -86639,7 +86639,7 @@ waw
 frX
 ddX
 mcE
-vfG
+hwG
 lis
 hdp
 lBL
