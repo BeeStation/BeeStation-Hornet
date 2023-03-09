@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(liquids)
 	var/list/evaporation_queue = list()
 	var/evaporation_counter = 0 //Only process evaporation on intervals
 
-	var/list/singleton_immutables = list()
+	var/list/temperature_queue = list()
 
 	var/list/active_ocean_turfs = list()
 	var/list/ocean_turfs = list()
@@ -36,6 +36,12 @@ SUBSYSTEM_DEF(liquids)
 		for(var/turf/open/floor/plating/ocean/unvalidated_turf in unvalidated_oceans)
 			unvalidated_turf.assume_self()
 
+	if(!length(temperature_queue))
+		for(var/g in active_groups)
+			var/datum/liquid_group/LG = g
+			var/list/turfs = LG.fetch_temperature_queue()
+			temperature_queue += turfs
+
 	if(active_groups.len)
 		var/populate_evaporation = FALSE
 		if(!evaporation_queue.len)
@@ -45,10 +51,19 @@ SUBSYSTEM_DEF(liquids)
 
 			LG.process_cached_edges()
 			LG.process_group()
-			if(populate_evaporation && LG.expected_turf_height >= LIQUID_STATE_ANKLES)
-				for(var/turf/listed_turf in LG.members)
+			if(populate_evaporation && LG.expected_turf_height < LIQUID_STATE_ANKLES)
+				for(var/tur in LG.members)
+					var/turf/listed_turf = tur
 					evaporation_queue |= listed_turf
 		run_type = SSLIQUIDS_RUN_TYPE_EVAPORATION
+
+	if(temperature_queue.len)
+		for(var/tur in temperature_queue)
+			var/turf/open/temperature_turf = tur
+			temperature_queue -= temperature_turf
+			if(!temperature_turf.liquids)
+				continue
+			temperature_turf.liquids.liquid_group.act_on_queue(temperature_turf)
 
 	if(run_type == SSLIQUIDS_RUN_TYPE_EVAPORATION && !debug_evaporation)
 		run_type = SSLIQUIDS_RUN_TYPE_FIRE

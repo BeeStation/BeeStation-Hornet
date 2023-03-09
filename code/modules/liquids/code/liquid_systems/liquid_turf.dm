@@ -23,7 +23,7 @@
 			if(!T.liquids)
 				return
 
-/turf/proc/add_liquid_from_reagents(datum/reagents/giver, no_react = FALSE)
+/turf/proc/add_liquid_from_reagents(datum/reagents/giver, no_react = FALSE, chem_temp)
 	var/list/compiled_list = list()
 	for(var/r in giver.reagent_list)
 		var/datum/reagent/R = r
@@ -33,7 +33,7 @@
 		return
 	if(!liquids)
 		liquids = new(src)
-	liquids.liquid_group.add_reagents(liquids, compiled_list)
+	liquids.liquid_group.add_reagents(liquids, compiled_list, chem_temp)
 
 //More efficient than add_liquid for multiples
 /turf/proc/add_liquid_list(reagent_list, no_react = FALSE, chem_temp)

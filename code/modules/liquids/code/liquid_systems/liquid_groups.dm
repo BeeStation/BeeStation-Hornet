@@ -50,6 +50,8 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	var/list/cached_fire_spreads = list()
 	///list of old reagents
 	var/list/cached_reagent_list = list()
+	///cached temperature between turfs recalculated on group_process
+	var/cached_temperature_shift = 0
 
 ///NEW/DESTROY
 /datum/liquid_group/New(height, obj/effect/abstract/liquid_turf/created_liquid)
@@ -159,6 +161,14 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 		reagents.chem_temp = group_temperature
 
 	handle_visual_changes()
+
+
+	var/turf/open/open_turf = pick(members)
+	var/datum/gas_mixture/math_cache = open_turf.air
+
+	if(math_cache)
+		if(group_temperature != math_cache.return_temperature())
+			cached_temperature_shift =((math_cache.return_temperature() * math_cache.total_moles()) + ((group_temperature * total_reagent_volume) * 0.025)) / ((total_reagent_volume * 0.025) + math_cache.total_moles())
 
 	if(total_reagent_volume != reagents.total_volume || updated_total)
 		updated_total = FALSE
@@ -271,7 +281,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 		qdel(src)
 
 /datum/liquid_group/proc/remove_specific(obj/effect/abstract/liquid_turf/remover, amount, datum/reagent/reagent_type)
-	reagents.remove_reagent(reagent_type.type, amount, safety = TRUE)
+	reagents.remove_reagent(reagent_type.type, amount, no_react = TRUE)
 	if(remover)
 		check_liquid_removal(remover, amount)
 	updated_total = TRUE
@@ -294,15 +304,18 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 
 /datum/liquid_group/proc/add_reagents(obj/effect/abstract/liquid_turf/member, reagent_list, chem_temp)
 	reagents.add_reagent_list(reagent_list, no_react = TRUE)
-	handle_temperature(total_reagent_volume, chem_temp)
 
+	var/amount = 0
+	for(var/list_item in reagent_list)
+		amount += reagent_list[list_item]
+	handle_temperature(amount, chem_temp)
 	handle_visual_changes()
 	process_group()
 
 /datum/liquid_group/proc/add_reagent(obj/effect/abstract/liquid_turf/member, datum/reagent/reagent, amount, temperature)
 	reagents.add_reagent(reagent, amount, temperature, no_react = TRUE)
-	handle_temperature(total_reagent_volume, temperature)
 
+	handle_temperature(amount, temperature)
 	handle_visual_changes()
 	process_group()
 
@@ -341,13 +354,8 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	process_group()
 
 /datum/liquid_group/proc/handle_temperature(previous_reagents, temp)
-	var/old_thermal = previous_reagents * group_temperature
-	var/recieved_thermal = (total_reagent_volume - previous_reagents) * temp
-
-	if(!total_reagent_volume)
-		return
-
-	group_temperature = (recieved_thermal + old_thermal) / total_reagent_volume
+	var/baseline_temperature = ((total_reagent_volume * group_temperature) + (previous_reagents * temp)) / (total_reagent_volume + previous_reagents)
+	group_temperature = baseline_temperature
 	reagents.chem_temp = group_temperature
 
 /datum/liquid_group/proc/handle_visual_changes()
@@ -357,7 +365,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	if(GLOB.liquid_debug_colors)
 		new_color = color
 	else if(cached_reagent_list.len != reagents.reagent_list.len)
-		new_color = mix_color_from_reagents(reagents.reagent_list)
+		new_color = mix_color_from_reagent_list(reagents.reagent_list)
 		cached_reagent_list = list()
 		cached_reagent_list |= reagents.reagent_list
 
@@ -370,7 +378,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 		alpha_divisor += max((1 * R.volume), 1)
 
 	var/old_alpha = group_alpha
-	if(new_color == old_color && group_alpha == old_alpha)
+	if(new_color == old_color && group_alpha == old_alpha || !new_color)
 		return
 	group_alpha = clamp(round(alpha_setting / alpha_divisor, 1), 120, 255)
 	group_color = new_color
@@ -582,7 +590,8 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 		for(var/turf/adjacent_turf in get_adjacent_open_turfs(queued_turf))
 			if(!adjacent_turf.liquids || !members[adjacent_turf])
 				continue
-
+			if(!(adjacent_turf in queued_turf.atmos_adjacent_turfs)) //i hate that this is needed
+				continue
 			visited_length = length(previously_visited)
 			previously_visited["[adjacent_turf.liquids.x]_[adjacent_turf.liquids.y]"] = adjacent_turf.liquids
 			if(length(previously_visited) != visited_length)
@@ -705,7 +714,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	exposed_reagents.chem_temp = group_temperature
 
 	for(var/atom/movable/target_atom in members_turf)
-		exposed_reagents.reaction(target_atom, TOUCH)
+		exposed_reagents.reaction(target_atom, TOUCH, liquid = TRUE)
 	qdel(exposed_reagents)
 
 /datum/liquid_group/proc/expose_atom(atom/target, modifier = 0, method)
@@ -723,7 +732,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	if(modifier)
 		exposed_reagents.remove_any((exposed_reagents.total_volume * modifier))
 
-	exposed_reagents.reaction(target, method)
+	exposed_reagents.reaction(target, method, liquid = TRUE)
 
 /datum/liquid_group/proc/spread_liquid(turf/new_turf, turf/source_turf)
 	if(isclosedturf(new_turf) || !source_turf.atmos_adjacent_turfs)
@@ -803,4 +812,26 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 			if(isliving(target_atom) && prob(60))
 				var/mob/living/target_living = target_atom
 				target_living.Paralyze(6 SECONDS)
-				to_chat(target_living, "<span class='warning'>You are knocked down by the currents!</span>")
+				to_chat(target_living, span_danger("You are knocked down by the currents!"))
+
+/datum/liquid_group/proc/fetch_temperature_queue()
+	if(!cached_temperature_shift)
+		return list()
+
+	var/list/returned =  list()
+	for(var/tur in members)
+		var/turf/open/member = tur
+		returned |= member
+
+	return returned
+
+/datum/liquid_group/proc/act_on_queue(turf/member)
+	var/turf/open/member_open = member
+	var/datum/gas_mixture/gas = member_open.air
+	if(!gas)
+		return
+
+	if((cached_temperature_shift > group_temperature + 5) || cached_temperature_shift > gas.return_temperature() + 5 || gas.return_temperature() + 5  > cached_temperature_shift || group_temperature + 5 > cached_temperature_shift)
+		gas.set_temperature(cached_temperature_shift)
+		if(group_temperature != cached_temperature_shift)
+			group_temperature = cached_temperature_shift

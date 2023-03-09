@@ -166,7 +166,7 @@
 		if(isturf(target))
 			var/turf/T = target
 			if(istype(T, /turf/open))
-				T.add_liquid_from_reagents(reagents)
+				T.add_liquid_from_reagents(reagents, FALSE, reagents.chem_temp)
 			if(reagents.reagent_list.len && thrown_by)
 				log_combat(thrown_by, target, "splashed (thrown) [english_list(reagents.reagent_list)]", "in [AREACOORD(target)]")
 				log_game("[key_name(thrown_by)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] in [AREACOORD(target)].")
