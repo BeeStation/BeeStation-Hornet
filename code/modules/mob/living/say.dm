@@ -377,13 +377,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	return treat_message_min(message)
 
-/// Returns a string with proper punctuation if there is none.
-/proc/punctuate(message)
-	var/end = copytext(message, length(message))
-	if(!(end in list("!", ".", "?", ":", "\"", "-", "~")))
-		message += "."
-	return message
-
 /mob/proc/treat_message_min(message)
 	message = punctuate(message)
 	message = capitalize(message)
