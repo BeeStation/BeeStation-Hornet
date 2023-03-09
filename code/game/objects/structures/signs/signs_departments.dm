@@ -164,12 +164,12 @@
 
 /obj/structure/sign/departments/minsky/security/command
 	name = "Command Department"
-	desc = "A sign labelling the Command department of the station. Ask the helpful HOP for AA"
+	desc = "A sign labelling the Command department of the station. Ask the helpful HOP for AA."
 	icon_state = "minskyhead"
 
 /obj/structure/sign/departments/minsky/security/evac
-	name = "Evacuation lounge"
-	desc = "A sign labelling the evacuation lounge of the station. A watch ETA never arrives"
+	name = "Evacuation Lounge"
+	desc = "A sign labelling the evacuation lounge of the station. A watched ETA never arrives."
 	icon_state = "minskyevac"
 
 /obj/structure/sign/departments/minsky/supply/cargo

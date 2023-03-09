@@ -108,6 +108,11 @@
 	template_id = "holodeck_kitchen"
 	mappath = "_maps/templates/holodeck_kitchen.dmm"
 
+/datum/map_template/holodeck/meeting
+	name = "Holodeck - Meeting"
+	template_id = "meeting"
+	mappath = "_maps/holodeck/meeting.dmm"
+
 //bad evil no good programs
 
 /datum/map_template/holodeck/medicalsim

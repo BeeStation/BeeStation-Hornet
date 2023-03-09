@@ -557,6 +557,12 @@
 	desc = "A smart storage vender for tech."
 
 /obj/machinery/smartfridge/sci/accept_check(obj/item/O)
-	if(typecacheof(list(0, /obj/item/stock_parts, /obj/item/disk/tech_disk, /obj/item/circuit_component, /obj/item/assembly)))
+	if(istype(O, /obj/item/stock_parts))
+		return TRUE
+	if(istype(O, /obj/item/disk/tech_disk))
+		return TRUE
+	if(istype(O, /obj/item/circuit_component))
+		return TRUE
+	if(istype(O, /obj/item/assembly))
 		return TRUE
 	return FALSE

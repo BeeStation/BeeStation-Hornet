@@ -69,7 +69,7 @@
 
 /obj/structure/sign/warning/radiation_shelter
 	name = "\improper RADIATION SHELTER ZONE"
-	desc = "A sign alerting the user that this area is shelterd from radiation."
+	desc = "A sign alerting the user that this area is sheltered from radiation."
 	icon_state = "radiation_shelter"
 
 /obj/structure/sign/warning/radiation/rad_area
