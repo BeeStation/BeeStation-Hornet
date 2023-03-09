@@ -35,10 +35,10 @@
 	dwidth = 4;
 	dheight = 2;
 	height = 6;
+	width = 4;
 	id = "mining";
 	name = "mining shuttle";
-	port_direction = 4;
-	width = 4
+	port_direction = 4
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,

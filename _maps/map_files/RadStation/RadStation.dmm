@@ -4520,12 +4520,13 @@
 "bYb" = (
 /obj/docking_port/stationary{
 	dir = 8;
-	dwidth = 2;
-	height = 5;
+	dwidth = 4;
+	dheight = 2;
+	height = 6;
+	width = 4;
 	id = "mining_home";
 	name = "mining shuttle bay";
-	roundstart_template = /datum/map_template/shuttle/mining/rad;
-	width = 7
+	roundstart_template = /datum/map_template/shuttle/mining/rad
 	},
 /turf/open/space/basic,
 /area/space)
