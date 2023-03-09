@@ -3,7 +3,7 @@
 
 Vomiting
 
-	Very Very Noticable.
+	Very Very noticeable.
 	Decreases resistance.
 	Doesn't increase stage speed.
 	Little transmissibility.

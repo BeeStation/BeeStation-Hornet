@@ -559,7 +559,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
   * Toggles the computer's flashlight, if it has one.
   *
   * Called from ui_act(), does as the name implies.
-  * It is seperated from ui_act() to be overwritten as needed.
+  * It is separated from ui_act() to be overwritten as needed.
 */
 /obj/item/modular_computer/proc/toggle_flashlight()
 	if(!has_light)
@@ -575,7 +575,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
   * Sets the computer's light color, if it has a light.
   *
   * Called from ui_act(), this proc takes a color string and applies it.
-  * It is seperated from ui_act() to be overwritten as needed.
+  * It is separated from ui_act() to be overwritten as needed.
   * Arguments:
   ** color is the string that holds the color value that we should use. Proc auto-fails if this is null.
 */
