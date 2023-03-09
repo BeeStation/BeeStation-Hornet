@@ -115,6 +115,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	//we couldn't load character data so just randomize the character appearance + name
 	active_character = character_saves[1]
+	if(!active_character.pref_species)
+		var/datum/species/spath = GLOB.species_list[CONFIG_GET(string/default_species) || "human"]
+		active_character.pref_species = new spath
 	active_character.randomise()		//let's create a random character then - rather than a fat, bald and naked man.
 	active_character.real_name = active_character.pref_species.random_name(active_character.gender, TRUE)
 	if(!loaded_preferences_successfully)
