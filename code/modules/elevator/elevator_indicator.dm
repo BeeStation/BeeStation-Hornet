@@ -31,5 +31,5 @@
 	if(level_display)
 		cut_overlay(level_display)
 		QDEL_NULL(level_display)
-	level_display = mutable_appearance('icons/obj/elevator.dmi', "[icon_state]_[(preset_z || !z_destination ? z : z_destination) + z_offset]")
+	level_display = mutable_appearance('icons/obj/elevator.dmi', "[icon_state]_[(preset_z || !z_destination ? get_virtual_z_level() : z_destination) + z_offset]")
 	add_overlay(level_display)

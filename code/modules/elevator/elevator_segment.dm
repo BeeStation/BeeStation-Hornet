@@ -74,13 +74,14 @@
 			i.throw_at(trg, 8, 8)
 			i.Paralyze(8 SECONDS)
 			i.adjustBruteLoss(15)
+			i.AddElement(/datum/element/squish, 18 SECONDS)
 			playsound(i, 'sound/effects/blobattack.ogg', 40, TRUE)
 			playsound(i, 'sound/effects/splat.ogg', 50, TRUE)
 	//Loop through turf contents
 	for(var/atom/movable/i in T.contents)
 		if(is_type_in_typecache(i, move_blacklist))
 			continue
-		var/old_z = i.z //used for animation
+		var/old_z = i.get_virtual_z_level() //used for animation
 		i.forceMove(destination)
 		elevator_fx(i, old_z, z_destination, calltime)
 		//lock airlocks and setup a timer to undo them
@@ -90,15 +91,20 @@
 			INVOKE_ASYNC(A, /obj/machinery/door/airlock/.proc/close)
 			INVOKE_ASYNC(A, /obj/machinery/door/airlock/.proc/bolt)
 			addtimer(CALLBACK(src, .proc/unlock, A), calltime || 2 SECONDS)
-		if(crashing && isliving(i))
-			var/mob/living/L = i
-			L.Paralyze(3 SECONDS)
+		if(isliving(i))
+			addtimer(CALLBACK(src, .proc/stop_music, i), calltime || 2 SECONDS)
+			if(crashing)
+				var/mob/living/L = i
+				L.Paralyze(3 SECONDS)
 
 	elevator_fx(src, old_z_this, z_destination, calltime)
 
 /obj/structure/elevator_segment/proc/unlock(obj/machinery/door/airlock/A)
 	A.unbolt()
 	A.open()
+
+/obj/structure/elevator_segment/proc/stop_music(mob/living/L)
+	SEND_SOUND(L, sound(null))
 
 /obj/structure/elevator_segment/proc/elevator_fx(atom/target, input_z, z_destination, calltime, icon_size = 32)
 	//animate us too - color
