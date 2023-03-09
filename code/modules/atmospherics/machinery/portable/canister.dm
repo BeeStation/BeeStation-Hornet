@@ -71,8 +71,7 @@
 	/// Set's the can's target pressure value
 	var/datum/port/input/pressure
 
-/obj/item/circuit_component/canister_valve/Initialize()
-	. = ..()
+/obj/item/circuit_component/canister_valve/populate_ports()
 	toggle = add_input_port("Toggle", PORT_TYPE_SIGNAL)
 	pressure = add_input_port("Target Pressure", PORT_TYPE_NUMBER)
 

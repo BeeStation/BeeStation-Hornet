@@ -26,8 +26,7 @@
 	)
 	options_port = add_option_port("Operation", options)
 
-/obj/item/circuit_component/round/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/round/populate_ports()
 
 	input = add_input_port("Input", PORT_TYPE_NUMBER)
 

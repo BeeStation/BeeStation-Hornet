@@ -33,8 +33,7 @@
 	option_port = add_option_port("Options", index_options)
 
 
-/obj/item/circuit_component/indexer/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/indexer/populate_ports()
 	list_port = add_input_port("List", PORT_TYPE_LIST)
 	index_port = add_input_port("Index", PORT_TYPE_NUMBER)
 

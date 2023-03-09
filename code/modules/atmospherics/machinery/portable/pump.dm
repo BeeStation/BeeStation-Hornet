@@ -43,8 +43,7 @@
 
 	var/datum/port/input/target_pressure
 
-/obj/item/circuit_component/portable_pump/Initialize()
-	. = ..()
+/obj/item/circuit_component/portable_pump/populate_ports()
 	turn_on = add_input_port("Turn On", PORT_TYPE_SIGNAL)
 	turn_off = add_input_port("Turn Off", PORT_TYPE_SIGNAL)
 

@@ -38,8 +38,7 @@
 	var/datum/port/input/pulse_in
 	var/datum/port/output/pulse_out
 
-/obj/item/circuit_component/assembly/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/assembly/populate_ports()
 	pulse_in = add_input_port("Pulse", PORT_TYPE_SIGNAL)
 	pulse_out = add_output_port("Pulsed", PORT_TYPE_SIGNAL)
 

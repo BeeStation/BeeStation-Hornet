@@ -20,7 +20,7 @@ Its best use is to combine it with the bitwise component to put multiple boolean
 	//The bit that needs to be checked
 	var/datum/port/input/bit
 
-/obj/item/circuit_component/compare/bitflag/load_custom_ports()
+/obj/item/circuit_component/compare/bitflag/populate_custom_ports()
 	input = add_input_port("Input", PORT_TYPE_NUMBER)
 	bit = add_input_port("Bit", PORT_TYPE_NUMBER)
 

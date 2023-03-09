@@ -13,8 +13,7 @@
 
 
 
-/obj/item/circuit_component/arbitrary_input_amount/bitwise/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/arbitrary_input_amount/bitwise/populate_ports()
 	first_input_port = add_input_port("Input", PORT_TYPE_NUMBER)
 	second_input_port = add_input_port("Input", PORT_TYPE_NUMBER)
 

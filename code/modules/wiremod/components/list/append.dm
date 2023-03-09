@@ -16,8 +16,7 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
-/obj/item/circuit_component/append/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/append/populate_ports()
 	list_port = add_input_port("List", PORT_TYPE_LIST)
 	value_port = add_input_port("Value", PORT_TYPE_ANY)
 

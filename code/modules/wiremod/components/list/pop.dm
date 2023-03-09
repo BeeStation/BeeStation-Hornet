@@ -26,8 +26,7 @@
 	options_port = add_option_port("Mode", options, COMP_POP_POP)
 
 
-/obj/item/circuit_component/pop/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/pop/populate_ports()
 	list_port = add_input_port("List", PORT_TYPE_LIST)
 	output_list = add_output_port("New List", PORT_TYPE_LIST)
 	output_value = add_output_port("Value", PORT_TYPE_ANY)

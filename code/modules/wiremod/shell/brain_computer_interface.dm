@@ -56,6 +56,8 @@
 	if (!isnull(default_icon))
 		icon_options.set_input(default_icon)
 
+
+/obj/item/circuit_component/bci_action/populate_ports()
 	button_name = add_input_port("Name", PORT_TYPE_STRING)
 
 	signal = add_output_port("Signal", PORT_TYPE_SIGNAL)
