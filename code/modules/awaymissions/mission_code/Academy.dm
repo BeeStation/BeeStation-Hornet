@@ -185,6 +185,8 @@
 /obj/item/dice/d20/fate/one_use/slightly_rigged/effect(mob/living/carbon/human/user, roll)
 	if(roll == 20)
 		roll = roll(19)
+		result = roll
+		update_icon()
 		var/turf/T = get_turf(src)
 		T.visible_message("<span class='boldwarning'>[src] falls to a [roll] as the magic flare causes it to tip over! What a scam!!</span>")
 	used = FALSE //we will at least give them a second roll though
