@@ -200,6 +200,11 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(radio_return & NOPASS)
 		return TRUE
 
+	//now that the radio message is sent, if the custom say message was just an emote we return
+	if (message_mods[MODE_CUSTOM_SAY_ERASE_INPUT] && message_mods[MODE_CUSTOM_SAY_EMOTE])
+		emote("me", 1, message_mods[MODE_CUSTOM_SAY_EMOTE], TRUE)
+		return
+
 	//No screams in space, unless you're next to someone.
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/environment = T.return_air()
@@ -293,10 +298,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 					show_overhead_message_to += M
 			AM.Hear(rendered, src, message_language, message, , spans, message_mods)
 	if(length(show_overhead_message_to))
-		if(message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
-			create_chat_message(src, message_language, show_overhead_message_to, message_mods[MODE_CUSTOM_SAY_EMOTE], spans)
-		else
-			create_chat_message(src, message_language, show_overhead_message_to, message, spans)
+		create_chat_message(src, message_language, show_overhead_message_to, message, spans)
 	if(length(show_overhead_message_to_eavesdrop))
 		create_chat_message(src, message_language, show_overhead_message_to_eavesdrop, eavesdropping, spans)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_LIVING_SAY_SPECIAL, src, message)
@@ -376,10 +378,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	return treat_message_min(message)
 
 /mob/proc/treat_message_min(message)
-	var/end = copytext(message, length(message))
-	if(!(end in list("!", ".", "?", ":", "\"", "-", "~")))
-		message += "."
-
+	message = punctuate(message)
 	message = capitalize(message)
 	return message
 
