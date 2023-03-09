@@ -7,9 +7,9 @@
 	///What turf we'll throw under us when we kill daddy. If not set, we just use dad
 	var/turf/base_turf
 	///List of things we refuse to transport
-	var/static/list/move_blacklist = typecacheof(list(/atom/movable/lighting_object, /obj/structure/cable, /obj/structure/disposalpipe, /obj/machinery/atmospherics/pipe))
+	var/static/list/move_blacklist
 	///List of elevator music files
-	var/list/music_files = list('sound/effects/turbolift/elevatormusic.ogg', 'sound/effects/turbolift/elevator_loop.ogg')
+	var/list/music_files
 
 
 //Mapping preset - Primary Elevator
@@ -18,6 +18,9 @@
 	base_turf = /turf/open/floor/plasteel/elevatorshaft
 
 /obj/structure/elevator_segment/Initialize(mapload)
+	music_files = list('sound/effects/turbolift/elevatormusic.ogg', 'sound/effects/turbolift/elevator_loop.ogg')
+	move_blacklist = typecacheof(list(/atom/movable/lighting_object, /obj/structure/cable, /obj/structure/disposalpipe, /obj/machinery/atmospherics/pipe))
+
 	var/turf/T = get_turf(src)
 	//Technical vanity
 	density = T.density
