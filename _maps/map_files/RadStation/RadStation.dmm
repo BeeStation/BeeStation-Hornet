@@ -4940,19 +4940,6 @@
 /obj/item/gun/ballistic/shotgun/doublebarrel,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar)
-"ccw" = (
-/obj/effect/spawner/structure/window/reinforced/shutter{
-	id_tag = "cmoprivacy";
-	name = "CMO office shutters"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
-/turf/open/floor/plating,
-/area/crew_quarters/heads/cmo)
 "cdk" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -19373,6 +19360,12 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
+"hBm" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating,
+/area/medical/medbay/central)
 "hBs" = (
 /obj/machinery/door/airlock/public/glass{
 	id_tag = "gulagbolt1";
@@ -27420,16 +27413,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
-"kKN" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/effect/spawner/structure/window/reinforced/shutter{
-	id_tag = "quarantineshutters";
-	name = "Quarantine Shutters"
-	},
-/turf/open/floor/plating,
-/area/medical/medbay/central)
 "kLk" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -32383,6 +32366,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/department/medical/morgue)
+"mBt" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/door/poddoor/preopen{
+	id = "cmoprivacy";
+	name = "CMO Blast door"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/crew_quarters/heads/cmo)
 "mBv" = (
 /obj/item/trash/raisins,
 /obj/effect/decal/cleanable/glass,
@@ -34081,16 +34077,6 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plasteel/white,
 /area/science/research)
-"njT" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/effect/spawner/structure/window/reinforced/shutter{
-	id_tag = "quarantineshutters";
-	name = "Quarantine Shutters"
-	},
-/turf/open/floor/plating,
-/area/medical/medbay/central)
 "nkd" = (
 /obj/machinery/light{
 	dir = 8
@@ -37605,6 +37591,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/science)
+"oyF" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id = "quarantineshutters";
+	name = "Quarantine Shutters"
+	},
+/turf/open/floor/plating,
+/area/medical/medbay/central)
 "oyK" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	alpha = 180;
@@ -40137,6 +40134,10 @@
 /obj/structure/sign/poster/random,
 /turf/closed/wall,
 /area/crew_quarters/kitchen)
+"pyQ" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/medical/medbay/lobby)
 "pzh" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -50293,18 +50294,6 @@
 	},
 /turf/open/floor/plating,
 /area/security/checkpoint/auxiliary)
-"tBm" = (
-/obj/effect/spawner/structure/window/reinforced/shutter{
-	id_tag = "cmoprivacy";
-	name = "CMO office shutters"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plating,
-/area/crew_quarters/heads/cmo)
 "tBu" = (
 /obj/effect/landmark/start/botanist,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -52752,16 +52741,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
-"uCc" = (
-/obj/effect/spawner/structure/window/reinforced/shutter{
-	id_tag = "quarantineshutters";
-	name = "Quarantine Shutters"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plating,
-/area/medical/medbay/central)
 "uCz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -56288,6 +56267,20 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"wbB" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "cmoprivacy";
+	name = "CMO Blast door"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/crew_quarters/heads/cmo)
 "wbJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -57850,6 +57843,17 @@
 "wGM" = (
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/hop)
+"wGU" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id = "quarantineshutters";
+	name = "Quarantine Shutters"
+	},
+/turf/open/floor/plating,
+/area/medical/medbay/central)
 "wGY" = (
 /obj/machinery/atmospherics/components/binary/volume_pump{
 	dir = 1;
@@ -60687,13 +60691,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"xJN" = (
-/obj/effect/spawner/structure/window/reinforced/shutter{
-	id_tag = "quarantineshutters";
-	name = "Quarantine Shutters"
-	},
-/turf/open/floor/plating,
-/area/medical/medbay/lobby)
 "xJS" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted{
 	alpha = 180
@@ -95394,11 +95391,11 @@ eAC
 eAC
 eAC
 lmw
-xJN
+pyQ
 mEQ
 cxY
 jEV
-xJN
+pyQ
 lmw
 cKB
 cKB
@@ -97185,7 +97182,7 @@ xYu
 myK
 myK
 aAI
-uCc
+hBm
 kIk
 rPu
 qim
@@ -97442,7 +97439,7 @@ wCp
 wCp
 oGu
 bHx
-uCc
+hBm
 ffH
 rPu
 qim
@@ -100276,7 +100273,7 @@ eNX
 wSs
 rLB
 huf
-ccw
+wbB
 wkq
 xlQ
 svs
@@ -100533,7 +100530,7 @@ qIL
 pTy
 kGm
 sYB
-tBm
+mBt
 bCp
 nfD
 ljZ
@@ -103866,7 +103863,7 @@ vrT
 qPp
 gPv
 jda
-njT
+wGU
 cPb
 cPb
 cPb
@@ -104380,7 +104377,7 @@ two
 qPp
 mzx
 sVi
-kKN
+oyF
 fKs
 fKs
 fKs
