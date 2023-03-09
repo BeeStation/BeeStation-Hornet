@@ -8,6 +8,9 @@
 	var/turf/base_turf
 	///List of things we refuse to transport
 	var/static/list/move_blacklist = typecacheof(list(/atom/movable/lighting_object, /obj/structure/cable, /obj/structure/disposalpipe, /obj/machinery/atmospherics/pipe))
+	///List of elevator music files
+	var/list/music_files = list('sound/effects/turbolift/elevatormusic.ogg', 'sound/effects/turbolift/elevator_loop.ogg')
+
 
 //Mapping preset - Primary Elevator
 /obj/structure/elevator_segment/primary
@@ -38,6 +41,9 @@
 	RegisterSignal(SSelevator_controller, COMSIG_ELEVATOR_MOVE, .proc/travel)
 	//Register this for some animation stuff
 	SSelevator_controller.append_id(id, src)
+	//Music related
+	RegisterSignal(get_turf(src), COMSIG_ATOM_ENTERED, .proc/atom_enter)
+	RegisterSignal(get_turf(src), COMSIG_ATOM_EXITED, .proc/atom_exit)
 	//Now that we have smoothing shit, we can do this
 	return ..()
 
@@ -61,11 +67,15 @@
 		return
 	var/old_z_this = z //used for animation
 	var/turf/T = get_turf(src)
+	UnregisterSignal(T, COMSIG_ATOM_ENTERED)
+	UnregisterSignal(T, COMSIG_ATOM_EXITED)
 	//Move ourselves first
 	var/turf/destination = locate(x, y, z_destination)
 	if(!destination)
 		return
 	forceMove(destination)
+	RegisterSignal(get_turf(src), COMSIG_ATOM_ENTERED, .proc/atom_enter)
+	RegisterSignal(get_turf(src), COMSIG_ATOM_EXITED, .proc/atom_exit)
 	//Throw mobs out below us
 	for(var/mob/living/i in destination.contents)
 		//If it's a mob, throw it out of the way
@@ -91,11 +101,9 @@
 			INVOKE_ASYNC(A, /obj/machinery/door/airlock/.proc/close)
 			INVOKE_ASYNC(A, /obj/machinery/door/airlock/.proc/bolt)
 			addtimer(CALLBACK(src, .proc/unlock, A), calltime || 2 SECONDS)
-		if(isliving(i))
-			addtimer(CALLBACK(src, .proc/stop_music, i), calltime || 2 SECONDS)
-			if(crashing)
-				var/mob/living/L = i
-				L.Paralyze(3 SECONDS)
+		if(isliving(i) && crashing)
+			var/mob/living/L = i
+			L.Paralyze(3 SECONDS)
 
 	elevator_fx(src, old_z_this, z_destination, calltime)
 
@@ -103,8 +111,20 @@
 	A.unbolt()
 	A.open()
 
-/obj/structure/elevator_segment/proc/stop_music(mob/living/L)
-	SEND_SOUND(L, sound(null))
+/obj/structure/elevator_segment/proc/atom_exit(datum/source, atom/movable/gone, direction)
+	if(!isliving(gone))
+		return
+	var/mob/living/L = gone
+	var/turf/T = get_turf(L)
+	if(!(locate(/obj/structure/elevator_segment) in T))
+		L.stop_sound_channel(CHANNEL_ELEVATOR_MUSIC)
+
+/obj/structure/elevator_segment/proc/atom_enter(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	if(!isliving(arrived))
+		return
+	var/turf/T = get_turf(old_loc)
+	if(!(locate(/obj/structure/elevator_segment) in T))
+		SEND_SOUND(arrived, sound(pick(music_files), repeat = 0, wait = 0, channel = CHANNEL_ELEVATOR_MUSIC, volume = 45))
 
 /obj/structure/elevator_segment/proc/elevator_fx(atom/target, input_z, z_destination, calltime, icon_size = 32)
 	//animate us too - color

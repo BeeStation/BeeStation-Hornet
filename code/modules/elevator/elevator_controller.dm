@@ -8,9 +8,7 @@ SUBSYSTEM_DEF(elevator_controller)
 	var/list/elevator_group_positions = list()
 	///List of elevator group timers - stops them being spammed
 	var/list/elevator_group_timers = list()
-	//List of elevator music files
-	var/list/music_files = list('sound/effects/turbolift/elevatormusic.ogg', 'sound/effects/turbolift/elevator_loop.ogg')
-
+	
 /datum/controller/subsystem/elevator_controller/Initialize(start_timeofday)
 	. = ..()
 
@@ -53,8 +51,7 @@ SUBSYSTEM_DEF(elevator_controller)
 						crashing = TRUE
 	
 	if(S.get_virtual_z_level() != destination_z)
-		playsound(locate(S.x, S.y, destination_z), 'sound/effects/turbolift/turbolift.ogg', 45)
-		playsound(locate(S.x, S.y, destination_z), pick(music_files), 45)
+		playsound(S, 'sound/effects/turbolift/turbolift.ogg', 45)
 	SEND_SIGNAL(src, COMSIG_ELEVATOR_MOVE, id, destination_z, calltime, crashing)
 	return .
 

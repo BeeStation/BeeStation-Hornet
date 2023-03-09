@@ -26,7 +26,7 @@ map boxstation
 	votable
 endmap
 
-map metastation
+map multiz_debug
 	default
 	votable
 endmap
@@ -59,9 +59,5 @@ endmap
 #Debug Maps, you probably don't want these enabled.
 
 map runtimestation
-	disabled
-endmap
-
-map multiz_debug
 	disabled
 endmap
