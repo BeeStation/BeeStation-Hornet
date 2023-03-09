@@ -32,12 +32,13 @@
 /obj/machinery/door/airlock/survival_pod/glass,
 /obj/docking_port/mobile{
 	dir = 8;
-	dwidth = 3;
-	height = 5;
+	dwidth = 5;
+	dheight = 3;
+	height = 7;
 	id = "mining";
 	name = "mining shuttle";
 	port_direction = 4;
-	width = 7
+	width = 5
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
