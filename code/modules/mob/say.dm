@@ -152,9 +152,15 @@
 		else if(key == ";" && !mods[MODE_HEADSET] && stat == CONSCIOUS)
 			mods[MODE_HEADSET] = TRUE
 		else if((key in GLOB.department_radio_prefixes) && length(message) > length(key) + 1 && !mods[RADIO_EXTENSION])
-			mods[RADIO_KEY] = lowertext(message[1 + length(key)])
-			mods[RADIO_EXTENSION] = GLOB.department_radio_keys[mods[RADIO_KEY]]
-			chop_to = length(key) + 2
+			key = lowertext(message[1 + length(key)])
+			var/valid_extension = GLOB.department_radio_keys[key]
+			var/valid_say_mode = SSradio.saymodes[key]
+			if(valid_extension || valid_say_mode)
+				mods[RADIO_KEY] = key
+				mods[RADIO_EXTENSION] = GLOB.department_radio_keys[key]
+				chop_to = length(key) + 2
+			else
+				return message
 		else if(key == "," && !mods[LANGUAGE_EXTENSION])
 			for(var/ld in GLOB.all_languages)
 				var/datum/language/LD = ld
