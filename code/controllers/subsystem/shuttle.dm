@@ -25,7 +25,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/area/emergencyLastCallLoc
 	var/emergencyCallAmount = 0		//how many times the escape shuttle was called
 	var/emergencyNoEscape			//Hostile environment that prevents the shuttle from leaving after it has arrived
-	var/emergencyDelayArrival 		//Infestation that delays the shuttle arrival while contingency plans are put into place 
+	var/emergencyDelayArrival 		//Infestation that delays the shuttle arrival while contingency plans are put into place
 	var/emergencyNoRecall = FALSE
 	var/adminEmergencyNoRecall = FALSE
 	var/list/hostileEnvironments = list() //Things blocking escape shuttle from leaving
@@ -390,12 +390,12 @@ SUBSYSTEM_DEF(shuttle)
 	infestationActive = TRUE
 	emergencyNoRecall = TRUE
 	priority_announce("Xenomorph infestation detected: crisis shuttle protocols activated - jamming recall signals across all frequencies.")
-	play_soundtrack_music(/datum/soundtrack_song/bee/mind_crawler, only_station = TRUE)
+	play_soundtrack_music(/datum/soundtrack_song/bee/mind_crawler)
 	if(EMERGENCY_IDLE_OR_RECALLED)
 		emergency.request(null, set_coefficient=1) //If a shuttle wasn't already called, call one now, with 10 minute delay
 	else if(emergency.mode == SHUTTLE_CALL)
 		emergency.setTimer(10 MINUTES) //If shuttle was already in transit, delay the arrival time to 10 minutes
-		//If the emergency shuttle has already passed the point of no return before a queen existed, do not delay round for Xenomorphs - they spawned too late on a round that was already coming to an end. 
+		//If the emergency shuttle has already passed the point of no return before a queen existed, do not delay round for Xenomorphs - they spawned too late on a round that was already coming to an end.
 
 //try to move/request to dockHome if possible, otherwise dockAway. Mainly used for admin buttons
 /datum/controller/subsystem/shuttle/proc/toggleShuttle(shuttleId, dockHome, dockAway, timed)

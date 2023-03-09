@@ -806,6 +806,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'>[(toggles & PREFTOGGLE_SOUND_MIDI) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'>[(toggles & PREFTOGGLE_SOUND_LOBBY) ? "Enabled":"Disabled"]</a><br>"
+			dat += "<b>Play Game Soundtrack:</b> <a href='?_src_=prefs;preference=soundtrack'>[(toggles2 & PREFTOGGLE_2_SOUNDTRACK) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<b>See Pull Requests:</b> <a href='?_src_=prefs;preference=pull_requests'>[(chat_toggles & CHAT_PULLR) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<br>"
 
@@ -1883,6 +1884,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						user.client.playtitlemusic()
 					else
 						user.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+
+				if("soundtrack")
+					toggles2 ^= PREFTOGGLE_2_SOUNDTRACK
+					if((toggles2 & PREFTOGGLE_2_SOUNDTRACK))
+						user.play_current_soundtrack()
+					else
+						user.stop_sound_channel(CHANNEL_SOUNDTRACK)
 
 				if("ghost_ears")
 					chat_toggles ^= CHAT_GHOSTEARS

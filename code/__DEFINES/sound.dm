@@ -8,6 +8,7 @@
 #define CHANNEL_AMBIENT_EFFECTS 1018
 #define CHANNEL_AMBIENT_MUSIC 1017
 #define CHANNEL_BUZZ 1017
+#define CHANNEL_SOUNDTRACK 1016
 
 ///Default range of a sound.
 #define SOUND_RANGE 17
