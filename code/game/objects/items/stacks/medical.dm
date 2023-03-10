@@ -3,8 +3,7 @@
 /obj/item/stack/medical
 	name = "medical pack"
 	singular_name = "medical pack"
-
-	icon = 'icons/obj/stacks/miscelaneous.dmi'
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	amount = 12
 	max_amount = 12
 	w_class = WEIGHT_CLASS_TINY
