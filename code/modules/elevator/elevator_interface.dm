@@ -2,6 +2,7 @@
 	name = "elevator interface"
 	icon = 'icons/obj/elevator.dmi'
 	icon_state = "elevator_interface"
+	desc = "A control panel for the elevator."
 	density = FALSE
 	emag_toggleable = TRUE
 	//Helps us group elevator components

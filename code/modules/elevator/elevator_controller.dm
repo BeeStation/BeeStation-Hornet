@@ -8,9 +8,6 @@ SUBSYSTEM_DEF(elevator_controller)
 	var/list/elevator_group_positions = list()
 	///List of elevator group timers - stops them being spammed
 	var/list/elevator_group_timers = list()
-	
-/datum/controller/subsystem/elevator_controller/Initialize(start_timeofday)
-	. = ..()
 
 /datum/controller/subsystem/elevator_controller/proc/append_id(id, obj/structure/elevator_segment/EV)
 	//append positions
