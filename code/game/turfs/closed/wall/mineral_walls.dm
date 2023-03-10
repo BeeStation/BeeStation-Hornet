@@ -132,22 +132,19 @@
 
 /turf/closed/wall/mineral/plasma/attackby(obj/item/W, mob/user, params)
 	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
-		if(plasma_canignite())
+		if(plasma_ignition(6))
 			new /obj/structure/girder/displaced(loc)
-			plasma_ignition(6)
 	..()
 
 /turf/closed/wall/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)//Doesn't fucking work because walls don't interact with air :(
 	if(exposed_temperature > 300 && air.get_moles(GAS_O2) >= PLASMA_MINIMUM_OXYGEN_NEEDED)
-		if(plasma_canignite())
+		if(plasma_ignition(6))
 			new /obj/structure/girder/displaced(loc)
-			plasma_ignition(6)
 
 /turf/closed/wall/mineral/plasma/bullet_act(obj/item/projectile/Proj)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)
-		if(plasma_canignite())
+		if(plasma_ignition(6))
 			new /obj/structure/girder/displaced(loc)
-			plasma_ignition(6)
 	. = ..()
 
 /turf/closed/wall/mineral/wood

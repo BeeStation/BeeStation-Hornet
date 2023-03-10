@@ -262,17 +262,17 @@
 
 /obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, params)
 	if(W.is_hot() > 300)
-		if(plasma_canignite())
+		if(plasma_ignition(6, user))
 			new /obj/structure/girder/displaced(loc)
-			plasma_ignition(6, user)
+			
 	else
 		return ..()
 
 /obj/structure/falsewall/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300 && air.get_moles(GAS_O2) >= PLASMA_MINIMUM_OXYGEN_NEEDED)
-		if(plasma_canignite())
+		if(plasma_ignition(6))
 			new /obj/structure/girder/displaced(loc)
-			plasma_ignition(6)
+			
 
 /obj/structure/falsewall/plasma/bullet_act(obj/item/projectile/Proj)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)

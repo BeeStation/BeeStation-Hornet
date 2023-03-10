@@ -223,9 +223,8 @@
 
 /obj/machinery/door/airlock/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300 && air.get_moles(GAS_O2) >= PLASMA_MINIMUM_OXYGEN_NEEDED)
-		if(plasma_canignite())
+		if(plasma_ignition(6))
 			PlasmaBurn()
-			plasma_ignition(6)
 
 /obj/machinery/door/airlock/plasma/bullet_act(obj/item/projectile/Proj)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)
@@ -248,9 +247,8 @@
 
 /obj/machinery/door/airlock/plasma/attackby(obj/item/C, mob/user, params)
 	if(C.is_hot() > 300)//If the temperature of the object is over 300, then ignite
-		if(plasma_canignite())
+		if(plasma_ignition(6, user))
 			PlasmaBurn()
-			plasma_ignition(6, user)
 	else
 		return ..()
 

@@ -1635,10 +1635,3 @@
 		return TRUE
 	return FALSE
 
-// For use with atoms that need to verify an ignition will occur before actually igniting, such as for leaving broken scrap behind.
-/atom/proc/plasma_canignite()
-	var/turf/T = get_turf(src)
-	var/datum/gas_mixture/environment = T.return_air()
-	if(environment.get_moles(GAS_O2) >= PLASMA_MINIMUM_OXYGEN_NEEDED) //Flashpoint ignition can only occur with at least this much oxygen present
-		return TRUE
-	return FALSE
