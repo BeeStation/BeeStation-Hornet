@@ -6,7 +6,7 @@
 
 	var/path = root
 
-	for(var/i=0, i<max_iterations, i++)
+	for(var/i in 1 to max_iterations)
 		var/list/choices = flist(path)
 		if(path != root)
 			choices.Insert(1,"/")

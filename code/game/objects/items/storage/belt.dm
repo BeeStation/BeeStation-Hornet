@@ -303,6 +303,7 @@
 	desc = "Can hold security gear like handcuffs and flashes."
 	icon_state = "securitybelt"
 	item_state = "security"//Could likely use a better one.
+	worn_icon_state = "security"
 	content_overlays = TRUE
 
 /obj/item/storage/belt/security/ComponentInitialize()
