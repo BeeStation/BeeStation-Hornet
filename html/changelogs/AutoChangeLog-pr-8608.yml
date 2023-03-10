@@ -1,0 +1,5 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - rscadd: debug RPD is now unwrench upgraded
+  - bugfix: debug RPD can unwrench/repaint now
