@@ -8,9 +8,8 @@
 	var/turf/base_turf
 	///List of things we refuse to transport
 	var/static/list/move_blacklist
-	///List of elevator music files
+	///List of elevator music files - format : filepath = volume
 	var/list/music_files
-
 
 //Mapping preset - Primary Elevator
 /obj/structure/elevator_segment/primary
@@ -18,7 +17,7 @@
 	base_turf = /turf/open/floor/plasteel/elevatorshaft
 
 /obj/structure/elevator_segment/Initialize(mapload)
-	music_files = list('sound/effects/turbolift/elevatormusic.ogg', 'sound/effects/turbolift/elevator_loop.ogg')
+	music_files = list('sound/effects/turbolift/elevatormusic.ogg' = 45, 'sound/effects/turbolift/elevator_loop.ogg' = 25)
 	move_blacklist = typecacheof(list(/atom/movable/lighting_object, /obj/structure/cable, /obj/structure/disposalpipe, /obj/machinery/atmospherics/pipe))
 
 	var/turf/T = get_turf(src)
@@ -127,7 +126,8 @@
 		return
 	var/turf/T = get_turf(old_loc)
 	if(!(locate(/obj/structure/elevator_segment) in T))
-		SEND_SOUND(arrived, sound(pick(music_files), repeat = 0, wait = 0, channel = CHANNEL_ELEVATOR_MUSIC, volume = 45))
+		var/music = pick(music_files)
+		SEND_SOUND(arrived, sound(music, repeat = 1, wait = 0, channel = CHANNEL_ELEVATOR_MUSIC, volume = music_files[music]))
 
 /obj/structure/elevator_segment/proc/elevator_fx(atom/target, input_z, z_destination, calltime, icon_size = 32)
 	//animate us too - color
