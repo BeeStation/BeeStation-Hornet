@@ -779,8 +779,12 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		if(L.len)
 			var/obj/item/CHOSEN = pick(L)
 			if(istype(CHOSEN, /obj/item/dice/d20/fate))
-				var/obj/item/dice/d20/fate/newdie = new CHOSEN.type(T)
-				newdie.crystalrefresh() //Antag rollers begone
+				var/obj/item/dice/d20/fate/olddie = CHOSEN
+				var/obj/item/dice/d20/fate/newdie = new olddie.type(T)
+				if(olddie.sides == 19)
+					newdie.crystalrefresh(FALSE) //Antag rollers begone
+				else
+					newdie.crystalrefresh(TRUE)
 			else
 				new CHOSEN.type(T)
 			qdel(CHOSEN)
