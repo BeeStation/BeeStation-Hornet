@@ -26,6 +26,7 @@ export const NtosWindow = (props, context) => {
     PC_ntneticon,
     PC_apclinkicon,
     PC_stationtime,
+    PC_stationdate,
     PC_programheaders = [],
     PC_showexitprogram,
     PC_classic_color,
@@ -41,6 +42,15 @@ export const NtosWindow = (props, context) => {
         <div className="NtosWindow__header NtosHeader">
           <div className="NtosHeader__left">
             <Box inline bold mr={2}>
+              <Button
+                width="26px"
+                lineHeight="22px"
+                textAlign="left"
+                tooltip={PC_stationdate}
+                color="transparent"
+                icon="calendar"
+                tooltipPosition="bottom"
+              />
               {PC_stationtime}
             </Box>
             <Box inline italic mr={2} opacity={0.33}>
