@@ -180,6 +180,7 @@
 					continue
 	if(show_message)
 		playsound(user, "rustle", 50, TRUE)
+		STR.animate_parent()
 		if (box)
 			user.visible_message("<span class='notice'>[user] offloads the ores beneath [user.p_them()] into [box].</span>", \
 			"<span class='notice'>You offload the ores beneath you into your [box].</span>")

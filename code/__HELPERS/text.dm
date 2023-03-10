@@ -331,6 +331,13 @@
 		text = copytext_char(text, 1, max_length)
 	return trim_left(trim_right(text))
 
+/// Returns a string with proper punctuation if there is none.
+/proc/punctuate(message)
+	var/end = copytext(message, length(message))
+	if(!(end in list("!", ".", "?", ":", "\"", "-", "~")))
+		message += "."
+	return message
+	
 /// Returns a string with the first element of the string capitalized.
 /proc/capitalize(t)
 	. = t
