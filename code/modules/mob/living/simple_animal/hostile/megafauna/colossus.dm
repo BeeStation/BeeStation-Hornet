@@ -778,7 +778,11 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 					L += W
 		if(L.len)
 			var/obj/item/CHOSEN = pick(L)
-			new CHOSEN.type(T)
+			if(istype(CHOSEN, /obj/item/dice/d20/fate))
+				var/obj/item/dice/d20/fate/newdie = new CHOSEN.type(T)
+				newdie.crystalrefresh() //Antag rollers begone
+			else
+				new CHOSEN.type(T)
 			qdel(CHOSEN)
 
 /obj/machinery/anomalous_crystal/possessor //Allows you to bodyjack small animals, then exit them at your leisure, but you can only do this once per activation. Because they blow up. Also, if the bodyjacked animal dies, SO DO YOU.

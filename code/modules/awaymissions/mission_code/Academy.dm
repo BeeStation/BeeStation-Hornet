@@ -172,6 +172,10 @@
 	var/used = FALSE
 	var/roll_in_progress = FALSE
 
+/obj/item/dice/d20/fate/proc/crystalrefresh()
+	sides = 19
+	visible_message("<span class='danger'>The 20th face of the [src] falls off and crumbles to dust!</span>")
+
 /obj/item/dice/d20/fate/stealth
 	name = "d20"
 	desc = "A die with twenty sides. The preferred die to throw at the GM."
