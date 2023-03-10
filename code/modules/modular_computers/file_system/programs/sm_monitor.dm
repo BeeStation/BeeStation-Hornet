@@ -50,7 +50,7 @@
 	for(var/supermatter in supermatters)
 		clear_supermatter(supermatter)
 	supermatters = list()
-	var/turf/T = get_turf(ui_host())
+	var/turf/T = get_turf(computer.ui_host())
 	if(!T)
 		return
 	for(var/obj/machinery/power/supermatter_crystal/S in GLOB.machines)
@@ -118,7 +118,7 @@
 		computer.alert_call(src, "Crystal delamination in progress!")
 
 /datum/computer_file/program/supermatter_monitor/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 
 	if(istype(active))
 		var/turf/T = get_turf(active)
