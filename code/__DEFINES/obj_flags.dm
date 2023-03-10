@@ -32,6 +32,8 @@
 #define IMMUTABLE_SLOW			(1<<10) //! When players should not be able to change the slowdown of the item (Speed potions, etc)
 #define IN_STORAGE				(1<<11) //! is this item in the storage item, such as backpack? used for tooltips
 #define ILLEGAL					(1<<12)	//! this item unlocks illegal tech
+#define NO_PIXEL_RANDOM_DROP 	(1<<13) //if dropped, it wont have a randomized pixel_x/pixel_y
+#define WAS_THROWN				(1<<14) //if the item was thrown and shouldn't have the drop_item animation applied
 
 // Flags for the clothing_flags var on /obj/item/clothing
 
