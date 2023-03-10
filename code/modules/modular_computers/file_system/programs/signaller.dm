@@ -28,7 +28,7 @@
 	SSradio.remove_object(computer, signal_frequency)
 
 /datum/computer_file/program/signaller/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 	var/obj/item/computer_hardware/radio_card/sensor = computer?.get_modular_computer_part(MC_SIGNALLER)
 	if(sensor?.check_functionality())
 		data["frequency"] = signal_frequency
