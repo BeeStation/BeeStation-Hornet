@@ -1084,7 +1084,7 @@
 	glass_name = "glass of welder fuel"
 	glass_desc = "Unless you're an industrial tool, this is probably not safe for consumption."
 	process_flags = ORGANIC | SYNTHETIC
-
+	addiction_types = list(/datum/addiction/alcohol = 4)
 
 /datum/reagent/fuel/reaction_mob(mob/living/M, method=TOUCH, reac_volume)//Splashing people with welding fuel to make them easy to ignite!
 	if(method == TOUCH || method == VAPOR)
@@ -1103,6 +1103,7 @@
 	color = "#A5F0EE" // rgb: 165, 240, 238
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "sourness"
+	addiction_types = list(/datum/addiction/stimulants = 14)
 	reagent_weight = 0.6 //so it sprays further
 	var/toxic = FALSE //turn to true if someone drinks this, so it won't poison people who are simply getting sprayed down
 
@@ -1204,6 +1205,7 @@
 	color = "#C8A5DC" // rgb: 200, 165, 220A
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "numbness"
+	addiction_types = list(/datum/addiction/opiods = 10)
 
 /datum/reagent/impedrezene/on_mob_life(mob/living/carbon/M)
 	M.jitteriness = max(M.jitteriness-5,0)

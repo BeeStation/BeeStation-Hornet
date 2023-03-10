@@ -426,12 +426,12 @@ GENE SCANNER
 				message += "<span class='notice'>[round(R.volume, 0.001)] units of [R.name][R.overdosed == 1 ? "</span> - <span class='boldannounce'>OVERDOSING</span>" : ".</span>"]"
 		else
 			message += "<span class='notice'>Subject contains no reagents.</span>"
-		if(M.reagents.addiction_list.len)
-			message += "<span class='boldannounce'>Subject is addicted to the following reagents:</span>"
-			for(var/datum/reagent/R in M.reagents.addiction_list)
-				message += "<span class='alert'>[R.name]</span>"
+		if(LAZYLEN(M.mind.active_addictions))
+			message += "<span class='boldannounce ml-1'>Subject is addicted to the following types of drug:</span>"
+			for(var/datum/addiction/addiction_type as anything in M.mind.active_addictions)
+				message += "<span class='alert'>[initial(addiction_type.name)]</span>"
 		else
-			message += "<span class='notice'>Subject is not addicted to any reagents.</span>"
+			to_chat(user, "<span class='notice'>Subject is not addicted to any types of drugs.</span>")
 	if(to_chat)
 		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 	else
