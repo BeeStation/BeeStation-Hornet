@@ -17,7 +17,8 @@
 
 /obj/item/projectile/beam/disabler/pass_glass
 		name = "beam-disabler"
-		energy_drain = 45
+		damage = 50
+		damage_type = STAMINA
 		pass_flags = PASSTABLE | PASSGRILLE | PASSTRANSPARENT
 
 /obj/item/projectile/energy/electrode/on_hit(atom/target, blocked = FALSE)

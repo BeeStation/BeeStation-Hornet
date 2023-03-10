@@ -221,22 +221,22 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 /datum/AI_Module/large/nuke_station
 	module_name = "Doomsday Device"
 	mod_pick_name = "nukestation"
-	description = "Activate a weapon that will disintegrate all organic life on the station after a 450 second delay. Can only be used while on the station, will fail if your core is moved off station or destroyed."
+	description = "Activate the station's nuclear warhead that will disintegrate all organic life on the station after a 450 seconds delay. Can only be used while on the station, will fail if your core is moved off station or destroyed."
 	cost = 130
 	one_purchase = TRUE
 	power_type = /datum/action/innate/ai/nuke_station
-	unlock_text = "<span class='notice'>You slowly, carefully, establish a connection with the on-station self-destruct. You can now activate it at any time.</span>"
+	unlock_text = "<span class='notice'>You establish an encrypted connection with the on-station self-destruct terminal. You can now activate it at any time.</span>"
 
 /datum/action/innate/ai/nuke_station
 	name = "Doomsday Device"
-	desc = "Activates the doomsday device. This is not reversible."
+	desc = "Activates the Doomsday device. This is not reversible."
 	button_icon_state = "doomsday_device"
 	auto_use_uses = FALSE
 
 /datum/action/innate/ai/nuke_station/Activate()
 	var/turf/T = get_turf(owner)
 	if(!istype(T) || !is_station_level(T.z))
-		to_chat(owner, "<span class='warning'>You cannot activate the doomsday device while off-station!</span>")
+		to_chat(owner, "<span class='warning'>You cannot activate the Doomsday device while off-station!</span>")
 		return
 	if(alert(owner, "Send arming signal? (true = arm, false = cancel)", "purge_all_life()", "confirm = TRUE;", "confirm = FALSE;") != "confirm = TRUE;")
 		return
@@ -388,7 +388,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 			continue
 		to_chat(L, "<span class='userdanger'>The blast wave from [src] tears you atom from atom!</span>")
 		L.dust()
-	to_chat(world, "<B>The AI cleansed the station of life with the doomsday device!</B>")
+	to_chat(world, "<B>The AI cleansed the station of life with the Doomsday device!</B>")
 	SSticker.force_ending = 1
 
 
@@ -399,7 +399,8 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	description = "Improves the power and health of all AI turrets. This effect is permanent."
 	cost = 30
 	upgrade = TRUE
-	unlock_text = "<span class='notice'>You rewrite the turrets' code, making the most use out of them. They are now fully repaired, EMP proof and their damage has been increased. Furthermore, the stun projectiles go through glass.</span>"
+	unlock_text = "<span class='notice'>You rewrite the turrets' code, making the most use out of them. They are now fully repaired, EMP proof and their damage has been increased. \
+	Your stun projectiles turned into upgraded disabler shots.</span>"
 	unlock_sound = 'sound/items/rped.ogg'
 
 /datum/AI_Module/large/upgrade_turrets/upgrade(mob/living/silicon/ai/AI)
@@ -531,7 +532,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	one_purchase = TRUE
 	cost = 50
 	power_type = /datum/action/innate/ai/break_air_alarms
-	unlock_text = "<span class='notice'>You remove the safety overrides on all air alarms, but you leave the confirm prompts open. You can hit 'Yes' at any time... you bastard.</span>"
+	unlock_text = "<span class='notice'>You remove the safety overrides on all air alarms, but you leave the confirm prompts open.</span>"
 	unlock_sound = 'sound/effects/space_wind.ogg'
 
 /datum/action/innate/ai/break_air_alarms
