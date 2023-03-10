@@ -133,7 +133,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	saved_job = cardholder.current_job
 	update_id_display()
 	playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
-	addtimer(CALLBACK(GLOBAL_PROC, PROC_REF(playsound), src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
 
 /obj/item/modular_computer/Destroy()
 	kill_program(forced = TRUE)

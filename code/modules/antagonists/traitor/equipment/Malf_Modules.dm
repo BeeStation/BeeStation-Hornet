@@ -441,7 +441,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	minor_announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.","Network Alert:", TRUE)
 	to_chat(owner, "<span class='danger'>Lockdown initiated. Network reset in 90 seconds.</span>")
 	owner.log_message("activated malf module [name]", LOG_GAME)
-	addtimer(CALLBACK(GLOBAL_PROC, PROC_REF(minor_announce),
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(minor_announce),
 		"Automatic system reboot complete. Have a secure day.",
 		"Network reset:"), 900)
 

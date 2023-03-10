@@ -44,8 +44,8 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 		PIRATE_RESPONSE_PAY = "We'll pay.",
 		PIRATE_RESPONSE_NO_PAY = "No way.",
 	)
-	threat.answer_callback = CALLBACK(GLOBAL_PROC, PROC_REF(pirates_answered), threat, payoff, ship_name, initial_send_time, response_max_time)
-	addtimer(CALLBACK(GLOBAL_PROC, PROC_REF(spawn_pirates), threat, FALSE), response_max_time)
+	threat.answer_callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(pirates_answered), threat, payoff, ship_name, initial_send_time, response_max_time)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_pirates), threat, FALSE), response_max_time)
 	SScommunications.send_message(threat,unique = TRUE)
 
 /proc/pirates_answered(datum/comm_message/threat, payoff, ship_name, initial_send_time, response_max_time)

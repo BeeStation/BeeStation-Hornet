@@ -376,7 +376,7 @@
 /obj/anomaly/singularity/deadchat_controlled/Initialize(mapload, starting_energy)
 	. = ..()
 	AddComponent(/datum/component/deadchat_control, DEMOCRACY_MODE, list(
-	 "up" = CALLBACK(GLOBAL_PROC, PROC_REF(_step), src, NORTH),
-	 "down" = CALLBACK(GLOBAL_PROC, PROC_REF(_step), src, SOUTH),
-	 "left" = CALLBACK(GLOBAL_PROC, PROC_REF(_step), src, WEST),
-	 "right" = CALLBACK(GLOBAL_PROC, PROC_REF(_step), src, EAST)))
+	 "up" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, NORTH),
+	 "down" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, SOUTH),
+	 "left" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, WEST),
+	 "right" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, EAST)))
