@@ -161,16 +161,20 @@
 
 	else if(!CHECK_BITFIELD(I.item_flags, ABSTRACT) && !HAS_TRAIT(I, TRAIT_NODROP))
 		thrown_thing = I
-		dropItemToGround(I, silent = TRUE)
-
+		var/pacifist = FALSE
 		if(HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce)
+			pacifist = TRUE
+		else
+			I.item_flags |= WAS_THROWN
+		dropItemToGround(I, silent = TRUE)
+		if(pacifist)
 			to_chat(src, "<span class='notice'>You set [I] down gently on the ground.</span>")
 			return TRUE
 
 	if(thrown_thing)
 		visible_message("<span class='danger'>[src] throws [thrown_thing].</span>", \
 						"<span class='danger'>You throw [thrown_thing].</span>")
-		log_message("has thrown [thrown_thing]", LOG_ATTACK)
+		log_message("has thrown [I]", LOG_ATTACK)
 		newtonian_move(get_dir(target, src))
 		thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
 		return TRUE
@@ -184,7 +188,7 @@
 
 /mob/living/carbon/Topic(href, href_list)
 	..()
-	if(href_list["embedded_object"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
+	if(href_list["embedded_object"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
 		var/obj/item/bodypart/L = locate(href_list["embedded_limb"]) in bodyparts
 		if(!L)
 			return

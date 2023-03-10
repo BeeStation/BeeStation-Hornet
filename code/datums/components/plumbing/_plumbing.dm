@@ -7,9 +7,9 @@
 	var/use_overlays = TRUE
 	///Whether our tile is covered and we should hide our ducts
 	var/tile_covered = FALSE
-	///directions in wich we act as a supplier
+	///directions in which we act as a supplier
 	var/supply_connects
-	///direction in wich we act as a demander
+	///direction in which we act as a demander
 	var/demand_connects
 	///FALSE to pretty much just not exist in the plumbing world so we can be moved, TRUE to go plumbo mode
 	var/active = FALSE
@@ -214,7 +214,7 @@
 		demand_connects = new_demand_connects
 		supply_connects = new_supply_connects
 
-///Give the direction of a pipe, and it'll return wich direction it originally was when it's object pointed SOUTH
+///Give the direction of a pipe, and it'll return which direction it originally was when it's object pointed SOUTH
 /datum/component/plumbing/proc/get_original_direction(dir)
 	var/atom/movable/AM = parent
 	return turn(dir, dir2angle(AM.dir) - 180)

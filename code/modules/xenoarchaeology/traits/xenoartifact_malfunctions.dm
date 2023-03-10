@@ -166,7 +166,7 @@
 		return
 	//Twin setup
 	var/mob/living/simple_animal/hostile/twin/T = new(get_turf(X))
-	//Setup appearence for evil twin
+	//Setup appearance for evil twin
 	T.name = target.name
 	T.appearance = target.appearance
 	if(istype(target) && length(target.vis_contents))

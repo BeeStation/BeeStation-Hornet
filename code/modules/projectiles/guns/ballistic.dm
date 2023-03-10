@@ -207,7 +207,7 @@
 		if (insert_magazine(user, tac_load, FALSE))
 			to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src].")
 		else
-			to_chat(user, "<span class='warning'>You dropped the old [magazine_wording], but the new one doesn't fit. How embarassing.</span>")
+			to_chat(user, "<span class='warning'>You dropped the old [magazine_wording], but the new one doesn't fit. How embarrassing.</span>")
 			magazine = null
 	else
 		magazine = null
@@ -277,7 +277,7 @@
 	update_icon()
 
 /obj/item/gun/ballistic/AltClick(mob/user)
-	if (unique_reskin_icon && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
+	if (unique_reskin_icon && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
 		reskin_obj(user)
 		return
 	if(loc == user)

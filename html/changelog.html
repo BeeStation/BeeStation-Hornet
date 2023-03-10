@@ -56,7 +56,98 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">10 March 2023</h2>
+			<h3 class="author">Chirynnn updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Due to budget cuts, the Captain's Spare Safe has been downsized, and can now only fit IDs inside of it.</li>
+			</ul>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a squash animations when interacting with storage items</li>
+				<li class="rscadd">Added icons to the upgrades/trophies when examining a PKA or a PKC</li>
+				<li class="bugfix">fixed examining a PKC not displaying attached trophies</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">debug RPD is now unwrench upgraded</li>
+				<li class="bugfix">debug RPD can unwrench/repaint now</li>
+				<li class="rscadd">ghosts will now notice when a kudzu/vine is deployed.</li>
+			</ul>
+			<h3 class="author">LemonInTheDark, CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a visual effect for dropping items from your inventory or hands</li>
+				<li class="rscadd">Increased the animation time of the pickup effect, to make it less of a snapshot. Did some other things to it to hopefully make it look nicer</li>
+				<li class="rscadd">dropped items will now be randomly pixelshifted around</li>
+			</ul>
+			<h3 class="author">imsynthex updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="spellcheck">fixed around 350 common misspellings and typos</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed map and shuttle votes not properly reacting to votes.</li>
+				<li class="server">Update to Python 3.11.2, Node 18.14.2, Inferno 8, Typescript 4.9, Yarn 3.4</li>
+				<li class="rscadd">Added fallback species config option, for use when there is no database attached.</li>
+			</ul>
+
+			<h2 class="date">09 March 2023</h2>
+			<h3 class="author">tonty updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">you can finally emote at the beginning of messages in dchat</li>
+				<li class="bugfix">custom say emotes properly punctuate over the radio</li>
+				<li class="bugfix">custom say emotes actually EMOTE NOW (can you believe it)</li>
+				<li class="bugfix">you can have spaces around the custom say separator without it looking jank</li>
+				<li class="code_imp">text.dm has a punctuate proc now</li>
+				<li class="tweak">you can now put an ellipses at the beginning of your sentences</li>
+			</ul>
+
+			<h2 class="date">08 March 2023</h2>
+			<h3 class="author">Crossedfall updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">The protected CID warning will now correctly show up for inherited entries</li>
+			</ul>
+			<h3 class="author">timothymtorres ported by mystery3525 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Move defines to their local .dm files</li>
+				<li class="code_imp">Remove code/__DEFINES/misc.dm</li>
+				<li class="code_imp">Moved code/__DEFINES/research/anomalies.dm</li>
+				<li class="refactor">Adds some documentation to defines</li>
+			</ul>
+
 			<h2 class="date">07 March 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a new craftable iteml - wall mirror frame</li>
+				<li class="imageadd">Added an icon for the wall mirror frame</li>
+				<li class="code_imp">Made the wall painting and photo frames and the fire extinguisher cabinet use the proper code for wall frame pixel shifting</li>
+				<li class="bugfix">Fixed the Newscaster being placed in the opposite direction when using a Newscaster wall frame</li>
+				<li class="balance">Halved the health of Lavaland Elites</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Space carp will no longer attack cayeene</li>
+				<li class="code_imp">Adds some new slightly safer enumerators (For when hard-del handling is not performed).</li>
+			</ul>
+			<h3 class="author">RKz, JohnFulpWillard updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">new magic.dm, put magic shit there</li>
+				<li class="code_imp">invocation doesnt use strings anymore</li>
+				<li class="tweak">firebreath doesnt need the ability to speak</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Hierophant and Colossus no longer dust their victims, instead gibbing them so that there is hope for recovery.</li>
+				<li class="tweak">All miners falling to any megafauna now drop all their items (notably their GPS) before being gibbed to improve their chances of being found and recovered by others.</li>
+			</ul>
+			<h3 class="author">benbot16 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes ghosts runtiming during icon updates.</li>
+			</ul>
+			<h3 class="author">imsynthex updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">windoors are now twice as fast to open and close</li>
+				<li class="balance">jaws of life now work on windoors</li>
+			</ul>
 			<h3 class="author">itsmeow updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">Fixed MultiZ explosions and the GlowStation tachyon-doppler not working.</li>
@@ -64,6 +155,10 @@
 				<li class="bugfix">GlowStation: Fixed a radio implant sitting on a table, replaced with regular radio.</li>
 				<li class="bugfix">GlowStation: Fixed missing conveyor in cargo under the poddoor.</li>
 				<li class="rscadd">GlowStation: Extended the roof on explo and science shuttle docks so air doesn't leak out.</li>
+			</ul>
+			<h3 class="author">robbertapir updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">You can no longer create negative amounts of alloys in the ORM</li>
 			</ul>
 
 			<h2 class="date">06 March 2023</h2>
@@ -1140,28 +1235,6 @@
 			<h3 class="author">itsmeow updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="rscadd">Added more robust logging for admin supply pods.</li>
-			</ul>
-
-			<h2 class="date">06 January 2023</h2>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes animated title screens</li>
-			</ul>
-			<h3 class="author">RKz updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Depleted Uranium directional windows will now appear correctly.</li>
-			</ul>
-
-			<h2 class="date">05 January 2023</h2>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">It is now possible to view the results of polls (Except IRV).</li>
-			</ul>
-
-			<h2 class="date">04 January 2023</h2>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Title screens now support images that are any aspect ratio.</li>
 			</ul>
 		</div>
 

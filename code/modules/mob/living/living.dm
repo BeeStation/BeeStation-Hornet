@@ -53,7 +53,7 @@
 
 // The goal here:
 // 1 level: Your legs are mildly injured. Probably a bit slow
-// 2 levels: Your legs are broken, but you are still concious
+// 2 levels: Your legs are broken, but you are still conscious
 // 3+ levels: You ded/near ded
 /mob/living/proc/get_distributed_zimpact_damage(levels)
 	return (levels * 15) ** 1.4
@@ -1012,14 +1012,14 @@
 /mob/living/proc/harvest(mob/living/user) //used for extra objects etc. in butchering
 	return
 
-/mob/living/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/living/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	if(incapacitated())
 		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
 		return FALSE
 	if(be_close && !in_range(M, src))
 		to_chat(src, "<span class='warning'>You are too far away!</span>")
 		return FALSE
-	if(!no_dextery)
+	if(!no_dexterity)
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return FALSE
 	return TRUE

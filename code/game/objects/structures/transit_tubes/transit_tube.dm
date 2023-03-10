@@ -231,7 +231,7 @@
 /obj/structure/transit_tube/junction/init_tube_dirs()
 	switch(dir)
 		if(NORTH)
-			tube_dirs = list(NORTH, SOUTHEAST, SOUTHWEST)//ending with the prefered direction
+			tube_dirs = list(NORTH, SOUTHEAST, SOUTHWEST)//ending with the preferred direction
 		if(SOUTH)
 			tube_dirs = list(SOUTH, NORTHWEST, NORTHEAST)
 		if(EAST)
@@ -246,7 +246,7 @@
 /obj/structure/transit_tube/junction/flipped/init_tube_dirs()
 	switch(dir)
 		if(NORTH)
-			tube_dirs = list(NORTH, SOUTHWEST, SOUTHEAST)//ending with the prefered direction
+			tube_dirs = list(NORTH, SOUTHWEST, SOUTHEAST)//ending with the preferred direction
 		if(SOUTH)
 			tube_dirs = list(SOUTH, NORTHEAST, NORTHWEST)
 		if(EAST)
