@@ -539,10 +539,10 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
 	if(light_on)
-		to_chat(src, "<span class='notice'>You activate your light.</span>")
+		to_chat(src, "<span class='notice'>You deactivate your light.</span>")
 		set_light_on(FALSE)
 	else
-		to_chat(src, "<span class='notice'>You deactivate your light.</span>")
+		to_chat(src, "<span class='notice'>You activate your light.</span>")
 		set_light_on(TRUE)
 
 /mob/living/simple_animal/hostile/guardian/verb/show_detail()
