@@ -13,8 +13,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	var/obj/item/gun/energy/minigun/gun
 	var/armed = 0 //whether the gun is attached, 0 is attached, 1 is the gun is wielded.
-	var/overheat = 0
-	var/overheat_max = 80
 
 /obj/item/minigunpack/Initialize(mapload)
 	. = ..()
@@ -117,6 +115,8 @@
 	var/firing = FALSE
 	var/cooldown
 	var/last_fired
+	var/overheat = 0
+	var/overheat_max = 80 //8 second cooldown
 	var/obj/item/minigunpack/ammo_pack
 
 /obj/item/gun/energy/minigun/Initialize(mapload)
@@ -144,32 +144,37 @@
 		qdel(src)
 
 /obj/item/gun/energy/minigun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
-	if(ammo_pack && cooldown < world.time)
-		if(firing)
-			if(ammo_pack.overheat < ammo_pack.overheat_max)
-				playsound(get_turf(src), 'sound/weapons/heavyminigunstart.ogg', 40, 0, 0) //This just sounds much better to keep using than the actual firing sound. 
-				ammo_pack.overheat += 2
-				last_fired = world.time
-				addtimer(CALLBACK(src, .proc/check_firing,), 5) //Check to see if we have fired again yet and if not start the spin down.
-				..()
+	if(ammo_pack)
+		if(cooldown < world.time)
+			if(firing)
+				if(overheat < overheat_max)
+					playsound(get_turf(src), 'sound/weapons/heavyminigunstart.ogg', 40, 0, 0) //This just sounds much better to keep using than the actual firing sound. 
+					overheat += 2
+					last_fired = world.time
+					addtimer(CALLBACK(src, .proc/check_firing,), 5) //Check to see if we have fired again yet and if not start the spin down.
+					..()
+				else
+					to_chat(user, "<span class='warning'>[src]'s heat sensor locked the trigger to prevent lens damage.</span>")
+					shoot_with_empty_chamber(user)
+					stop_firing()
 			else
-				to_chat(user, "The gun's heat sensor locked the trigger to prevent lens damage.")
-				shoot_with_empty_chamber(user)
-				stop_firing()
+				start_firing()
 		else
-			start_firing()
+			to_chat(user, "<span class='warning'>[src] is not ready to fire again yet!</span>")
 	else
+		to_chat(user, "<span class='warning'>There is no power supply for [src]</span>")
 		return //don't process firing the gun if it's on cooldown or doesn't have an ammo pack somehow. 
 
 /obj/item/gun/energy/minigun/proc/stop_firing()
-	playsound(get_turf(src), 'sound/weapons/heavyminigunstop.ogg', 50, 0, 0)
-	cooldown = world.time + max(ammo_pack.overheat, 2 SECONDS) //2 to 8 seconds depending on how hot it was
-	ammo_pack.overheat = 0
+	if(overheat) //Don't spin down again or reset the cooldown unless it's still hot
+		playsound(get_turf(src), 'sound/weapons/heavyminigunstop.ogg', 50, 0, 0)
+		cooldown = world.time + max(overheat, 2 SECONDS) //2 to 8 seconds depending on how hot it was. At least 1.5 seconds is required to prevent overlapping conflicts with spinups and spindowns.
+		overheat = 0
 	firing = FALSE
 
 /obj/item/gun/energy/minigun/proc/start_firing()
 	playsound(get_turf(src), 'sound/weapons/heavyminigunstart.ogg', 40, 0, 0)
-	sleep(15) 
+	sleep(15) //Give some time for the spin-up to take place
 	firing = TRUE
 
 /obj/item/gun/energy/minigun/proc/check_firing()
@@ -178,7 +183,7 @@
 
 /obj/item/gun/energy/minigun/afterattack(atom/target, mob/living/user, flag, params)
 	if(!ammo_pack || ammo_pack.loc != user)
-		to_chat(user, "You need the backpack power source to fire the gun!")
+		to_chat(user, "<span class='warning'>You need the backpack power source to fire the gun!</span>")
 	. = ..()
 
 /obj/item/gun/energy/minigun/dropped(mob/living/user)
