@@ -1,0 +1,5 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added icons to the upgrades/trophies when examining a PKA or a PKC
+  - bugfix: fixed examining a PKC not displaying attached trophies
