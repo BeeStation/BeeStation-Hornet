@@ -1,0 +1,4 @@
+author: imsynthex
+delete-after: true
+changes:
+  - tweak: holoparasites' lights will now move smoothly
