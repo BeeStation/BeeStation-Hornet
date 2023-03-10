@@ -627,7 +627,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	if(!replay_mode)
 		return
 	if (!disk.record.entries.len) // check for zero entries such as photographs and no text recordings
-		return // and pretty much just display them statically untill manually stopped
+		return // and pretty much just display them statically until manually stopped
 	if(disk.record.entries.len < entry_number)
 		if(loop_mode)
 			entry_number = 1

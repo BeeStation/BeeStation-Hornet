@@ -177,7 +177,7 @@ If radio_freq is not null, the code will rely on the fact that the speaker is vi
 	GetJob()
 		Returns the job string variable of the virtual speaker.
 	GetTrack()
-		Returns wether the tracking href should be fake or not.
+		Returns whether the tracking href should be fake or not.
 	GetSource()
 		Returns the source of the virtual speaker.
 	GetRadio()

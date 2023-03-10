@@ -183,7 +183,7 @@
 			arm.dismember()
 			qdel(arm)
 		else
-			to_chat(human_user,"<span class='danger'>You pull your hand away from the hole as the eldritch energy flails trying to latch onto existance itself!</span>")
+			to_chat(human_user,"<span class='danger'>You pull your hand away from the hole as the eldritch energy flails trying to latch onto existence itself!</span>")
 
 /obj/effect/broken_illusion/attack_tk(mob/user)
 	if(!ishuman(user))
