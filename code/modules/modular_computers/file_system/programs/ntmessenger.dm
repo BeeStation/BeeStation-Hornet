@@ -92,11 +92,6 @@
 		usr << browse_rsc(img, deter_path) // funny random assignment for now, i'll make an actual key later
 		photo_path = deter_path
 
-/datum/computer_file/program/messenger/ui_state(mob/user)
-	if(istype(user, /mob/living/silicon))
-		return GLOB.reverse_contained_state
-	return GLOB.default_state
-
 /datum/computer_file/program/messenger/ui_assets(mob/user)
 	return list(
 		get_asset_datum(/datum/asset/spritesheet/chat),

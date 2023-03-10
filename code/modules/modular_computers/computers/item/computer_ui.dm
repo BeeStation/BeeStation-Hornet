@@ -59,6 +59,13 @@
 	if(old_open_ui != ui.interface)
 		update_static_data(user, ui) // forces a static UI update for the new UI
 		ui.send_assets() // sends any new asset datums from the new UI
+		if(active_program)
+			active_program.on_ui_create(user, ui)
+
+
+/obj/item/modular_computer/ui_close(mob/user, datum/tgui/tgui)
+	if(active_program)
+		active_program.on_ui_close(user, tgui)
 
 /obj/item/modular_computer/ui_assets(mob/user)
 	var/list/data = list()
