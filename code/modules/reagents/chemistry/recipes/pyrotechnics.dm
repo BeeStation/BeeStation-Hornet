@@ -218,7 +218,7 @@
 	goonchem_vortex(T, 1, range)
 
 /datum/chemical_reaction/sorium_vortex
-	name = "sorium_vortex"
+	name = "Sorium vortex"
 	id = "sorium_vortex"
 	required_reagents = list(/datum/reagent/sorium = 1)
 	required_temp = 474
@@ -318,7 +318,7 @@
 		holder.clear_reagents()
 
 /datum/chemical_reaction/smoke_powder_smoke
-	name = "smoke_powder_smoke"
+	name = "Smoke powder smoke"
 	id = "smoke_powder_smoke"
 	required_reagents = list(/datum/reagent/smoke_powder = 1)
 	required_temp = 374
@@ -352,7 +352,7 @@
 		C.soundbang_act(1, 100, rand(0, 5))
 
 /datum/chemical_reaction/sonic_powder_deafen
-	name = "sonic_powder_deafen"
+	name = "Sonic powder deafen"
 	id = "sonic_powder_deafen"
 	required_reagents = list(/datum/reagent/sonic_powder = 1)
 	required_temp = 374
@@ -364,7 +364,7 @@
 		C.soundbang_act(1, 100, rand(0, 5))
 
 /datum/chemical_reaction/phlogiston
-	name = "phlogiston"
+	name = "Phlogiston"
 	id = /datum/reagent/phlogiston
 	results = list(/datum/reagent/phlogiston = 3)
 	required_reagents = list(/datum/reagent/phosphorus = 1, /datum/reagent/toxin/acid = 1, /datum/reagent/stable_plasma = 1)
