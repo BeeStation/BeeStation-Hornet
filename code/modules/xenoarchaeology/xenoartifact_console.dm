@@ -38,11 +38,11 @@
 	var/obj/machinery/xenoartifact_inbox/linked_inbox
 	///List of linked machines for UI purposes
 	var/list/linked_machines = list()
-	///Which science server recieves points
+	///Which science server receives points
 	var/datum/techweb/linked_techweb
 	///Actually just a general list of items you've sold
 	var/list/sold_artifacts = list()
-	///Which department's budget recieves profit
+	///Which department's budget receives profit
 	var/datum/bank_account/budget
 	///Stability - lowers as people buy artifacts, stops spam buying
 	var/stability = 100

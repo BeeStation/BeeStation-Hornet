@@ -654,7 +654,7 @@
 	///The rate at which we move, between 0 and 1
 	var/x_rate = 1
 	var/y_rate = 1
-	//We store the signs of x and y seperately, because byond will round negative numbers down
+	//We store the signs of x and y separately, because byond will round negative numbers down
 	//So doing all our operations with absolute values then multiplying them is easier
 	var/x_sign = 0
 	var/y_sign = 0

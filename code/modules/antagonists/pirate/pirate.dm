@@ -23,7 +23,7 @@
 
 /datum/antagonist/pirate/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	//Give pirate appearence on hud (If they are not an antag already)
+	//Give pirate appearance on hud (If they are not an antag already)
 	var/datum/atom_hud/antag/piratehud = GLOB.huds[ANTAG_HUD_PIRATE]
 	piratehud.join_hud(owner.current)
 	if(!owner.antag_hud_icon_state)

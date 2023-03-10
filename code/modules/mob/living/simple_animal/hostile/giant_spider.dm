@@ -360,7 +360,7 @@ s
 			lay_eggs.Activate()
 	..()
 
-// Hunters are the most independant of the spiders, not relying on web and having a bit more damage and venom at the cost of health.
+// Hunters are the most independent of the spiders, not relying on web and having a bit more damage and venom at the cost of health.
 // They are intended to bring prey back from outside of the web.
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter
 	name = "hunter"

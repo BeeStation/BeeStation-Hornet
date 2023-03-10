@@ -9,7 +9,7 @@
 //This was originally created as a way to get adminspawned items to the station in an IC manner. It's evolved to contain a few more
 //features such as item removal, smiting, controllable delivery mobs, and more.
 
-//This works by creating a supplypod (refered to as temp_pod) in a special room in the centcom map.
+//This works by creating a supplypod (referred to as temp_pod) in a special room in the centcom map.
 //IMPORTANT: Even though we call it a supplypod for our purposes, it can take on the appearance and function of many other things: Eg. cruise missiles, boxes, or walking, living gondolas.
 //When the user launched the pod, items from special "bays" on the centcom map are taken and put into the supplypod
 

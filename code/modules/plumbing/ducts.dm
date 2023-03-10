@@ -13,7 +13,7 @@ All the important duct code:
 	var/dumb = FALSE
 	///wheter we allow our connects to be changed after initialization or not
 	var/lock_connects = FALSE
-	///our ductnet, wich tracks what we're connected to
+	///our ductnet, which tracks what we're connected to
 	var/datum/ductnet/duct
 	///amount we can transfer per process. note that the ductnet can carry as much as the lowest capacity duct
 	var/capacity = 10

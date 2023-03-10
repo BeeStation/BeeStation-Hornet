@@ -65,7 +65,7 @@
 	return TRUE
 
 /**
- * What happens once the recipe is succesfully finished
+ * What happens once the recipe is successfully finished
  *
  * By default this proc creates atoms from result_atoms list. Override this is you want something else to happen.
  */
