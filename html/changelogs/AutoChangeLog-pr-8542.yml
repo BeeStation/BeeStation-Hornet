@@ -1,0 +1,4 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - rscadd: ghosts will now notice when a kudzu/vine is deployed.
