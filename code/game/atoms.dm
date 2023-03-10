@@ -9,7 +9,6 @@
 	layer = TURF_LAYER
 	plane = GAME_PLANE
 	appearance_flags = TILE_BOUND
-	var/level = 2
 
 	/// pass_flags that we are. If any of this matches a pass_flag on a moving thing, by default, we let them through.
 	var/pass_flags_self = NONE
@@ -325,6 +324,8 @@
 		return TRUE
 	if(mover.throwing && (pass_flags_self & LETPASSTHROW))
 		return TRUE
+	if ((mover.pass_flags & PASSTRANSPARENT) && alpha < 255 && prob(100 - (alpha/2.55)))
+		return TRUE
 	return !density
 
 /**
@@ -620,7 +621,7 @@
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 /**
- * Updates the appearence of the icon
+ * Updates the appearance of the icon
  *
  * Mostly delegates to update_name, update_desc, and update_icon
  *
@@ -1554,6 +1555,14 @@
 
 		custom_material.on_applied(src, materials[custom_material] * multiplier, material_flags)
 		custom_materials[custom_material] += materials[custom_material] * multiplier
+
+///Setter for the `density` variable to append behavior related to its changing.
+/atom/proc/set_density(new_value)
+	SHOULD_CALL_PARENT(TRUE)
+	if(density == new_value)
+		return
+	. = density
+	density = new_value
 
 /**
   * Causes effects when the atom gets hit by a rust effect from heretics

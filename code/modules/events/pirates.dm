@@ -1,3 +1,11 @@
+GLOBAL_VAR_INIT(pirates_spawned, FALSE)
+
+// Pirates threat
+/// No way
+#define PIRATE_RESPONSE_NO_PAY "pirate_answer_no_pay"
+/// We'll pay
+#define PIRATE_RESPONSE_PAY "pirate_answer_pay"
+
 /datum/round_event_control/pirates
 	name = "Space Pirates"
 	typepath = /datum/round_event/pirates
@@ -14,9 +22,11 @@
 	return ..()
 
 /datum/round_event/pirates/start()
-	send_pirate_threat()
+	if(!GLOB.pirates_spawned)
+		send_pirate_threat()
 
 /proc/send_pirate_threat()
+	GLOB.pirates_spawned = TRUE
 	var/ship_name = "Space Privateers Association"
 	var/payoff_min = 20000
 	var/payoff = 0
@@ -61,7 +71,7 @@
 	if(!skip_answer_check && threat?.answered == PIRATE_RESPONSE_PAY)
 		return
 
-	var/list/candidates = pollGhostCandidates("Do you wish to be considered for pirate crew?", ROLE_TRAITOR)
+	var/list/candidates = pollGhostCandidates("Do you wish to be considered for pirate crew?", ROLE_SPACE_PIRATE)
 	shuffle_inplace(candidates)
 
 	var/datum/map_template/shuttle/pirate/default/ship = new
@@ -462,3 +472,6 @@
 /datum/export/pirate/holochip/get_cost(atom/movable/AM)
 	var/obj/item/holochip/H = AM
 	return H.credits
+
+#undef PIRATE_RESPONSE_NO_PAY
+#undef PIRATE_RESPONSE_PAY

@@ -116,7 +116,7 @@
 		door = "[base]_door"
 	else
 		door = FALSE
-	update_icon()
+	update_appearance()
 
 /obj/structure/closet/supplypod/proc/SetReverseIcon()
 	fin_mask = "bottomfin"
@@ -124,7 +124,7 @@
 		icon_state = GLOB.podstyles[style][POD_BASE] + "_reverse"
 	pixel_x = initial(pixel_x)
 	transform = matrix()
-	update_icon()
+	update_appearance()
 
 /obj/structure/closet/supplypod/proc/backToNonReverseIcon()
 	fin_mask = initial(fin_mask)
@@ -132,7 +132,7 @@
 		icon_state = GLOB.podstyles[style][POD_BASE]
 	pixel_x = initial(pixel_x)
 	transform = matrix()
-	update_icon()
+	update_appearance()
 
 /obj/structure/closet/supplypod/update_overlays()
 	. = ..()
@@ -227,7 +227,7 @@
 /obj/structure/closet/supplypod/proc/preOpen() //Called before the open_pod() proc. Handles anything that occurs right as the pod lands.
 	var/turf/turf_underneath = get_turf(src)
 	var/list/B = explosionSize //Mostly because B is more readable than explosionSize :p
-	density = TRUE //Density is originally false so the pod doesn't block anything while it's still falling through the air
+	set_density(TRUE) //Density is originally false so the pod doesn't block anything while it's still falling through the air
 	for (var/mob/living/target_living in turf_underneath)
 		if (iscarbon(target_living)) //If effectLimb is true (which means we pop limbs off when we hit people):
 			if (effectLimb)
@@ -318,7 +318,7 @@
 		playsound(get_turf(holder), leavingSound, soundVolume, FALSE, FALSE)
 	if (reversing) //If we're reversing, we call the close proc. This sends the pod back up to centcom
 		close(holder)
-	else if (bluespace) //If we're a bluespace pod, then delete ourselves (along with our holder, if a seperate holder exists)
+	else if (bluespace) //If we're a bluespace pod, then delete ourselves (along with our holder, if a separate holder exists)
 		deleteRubble()
 		if (!effectQuiet && style != STYLE_INVISIBLE && style != STYLE_SEETHROUGH)
 			do_sparks(5, TRUE, holder) //Create some sparks right before closing
@@ -414,18 +414,18 @@
 
 /obj/structure/closet/supplypod/setOpened() //Proc exists here, as well as in any atom that can assume the role of a "holder" of a supplypod. Check the open_pod() proc for more details
 	opened = TRUE
-	density = FALSE
-	update_icon()
+	set_density(FALSE)
+	update_appearance()
 
 /obj/structure/closet/supplypod/extractionpod/setOpened()
 	opened = TRUE
-	density = TRUE
-	update_icon()
+	set_density(TRUE)
+	update_appearance()
 
 /obj/structure/closet/supplypod/setClosed() //Ditto
 	opened = FALSE
-	density = TRUE
-	update_icon()
+	set_density(TRUE)
+	update_appearance()
 
 /obj/structure/closet/supplypod/proc/tryMakeRubble(turf/T) //Ditto
 	if (rubble_type == RUBBLE_NONE)
@@ -438,7 +438,7 @@
 		return
 	rubble = new /obj/effect/supplypod_rubble(T)
 	rubble.setStyle(rubble_type, src)
-	update_icon()
+	update_appearance()
 
 /obj/structure/closet/supplypod/Moved()
 	deleteRubble()
@@ -447,7 +447,7 @@
 /obj/structure/closet/supplypod/proc/deleteRubble()
 	rubble?.fadeAway()
 	rubble = null
-	update_icon()
+	update_appearance()
 
 /obj/structure/closet/supplypod/proc/addGlow()
 	if (GLOB.podstyles[style][POD_SHAPE] != POD_SHAPE_NORML)
@@ -485,7 +485,7 @@
 	icon = 'icons/obj/supplypods_32x32.dmi'
 	icon_state = "smoke"
 	desc = ""
-	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
+	layer = PROJECTILE_HIT_THRESHOLD_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	alpha = 0
 
@@ -510,7 +510,7 @@
 	name = "Debris"
 	desc = "A small crater of rubble. Closer inspection reveals the debris to be made primarily of space-grade metal fragments. You're pretty sure that this will disperse before too long."
 	icon = 'icons/obj/supplypods.dmi'
-	layer = PROJECTILE_HIT_THRESHHOLD_LAYER // We want this to go right below the layer of supplypods and supplypod_rubble's forground.
+	layer = PROJECTILE_HIT_THRESHOLD_LAYER // We want this to go right below the layer of supplypods and supplypod_rubble's forground.
 	icon_state = "rubble_bg"
 	anchored = TRUE
 	pixel_x = SUPPLYPOD_X_OFFSET
@@ -545,7 +545,7 @@
 	desc = ""
 	icon = 'icons/obj/supplypods_32x32.dmi'
 	icon_state = "LZ_Slider"
-	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
+	layer = PROJECTILE_HIT_THRESHOLD_LAYER
 
 /obj/effect/pod_landingzone_effect/Initialize(mapload, obj/structure/closet/supplypod/pod)
 	. = ..()
@@ -557,7 +557,7 @@
 	desc = "A holographic projection designating the landing zone of something. It's probably best to stand back."
 	icon = 'icons/obj/supplypods_32x32.dmi'
 	icon_state = "LZ"
-	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
+	layer = PROJECTILE_HIT_THRESHOLD_LAYER
 	light_range = 2
 	anchored = TRUE
 	alpha = 0
@@ -604,7 +604,7 @@
 
 /obj/effect/pod_landingzone/proc/beginLaunch(effectCircle) //Begin the animation for the pod falling. The effectCircle param determines whether the pod gets to come in from any descent angle
 	pod.addGlow()
-	pod.update_icon()
+	pod.update_appearance()
 	if (pod.style != STYLE_INVISIBLE)
 		pod.add_filter("motionblur",1,list("type"="motion_blur", "x"=0, "y"=3))
 	pod.forceMove(drop_location())

@@ -22,7 +22,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 ///////////////////////////////
 
 /proc/spawn_meteors(number = 10, list/meteortypes, z = 0)
-	for(var/i = 0; i < number; i++)
+	for(var/i in 1 to number)
 		spawn_meteor(meteortypes, z)
 
 /proc/spawn_meteor(list/meteortypes, z = 0)
@@ -254,6 +254,9 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 			var/dist = get_dist(M.loc, src.loc)
 			shake_camera(M, dist > 20 ? 2 : 4, dist > 20 ? 1 : 3)
 			M.playsound_local(src.loc, null, 50, 1, random_frequency, 10, S = meteor_sound)
+
+/obj/effect/meteor/has_gravity(turf/T)
+	return FALSE
 
 ///////////////////////
 //Meteor types

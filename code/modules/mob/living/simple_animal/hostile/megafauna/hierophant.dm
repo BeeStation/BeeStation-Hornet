@@ -340,13 +340,13 @@ Difficulty: Hard
 	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
 	SLEEP_CHECK_DEATH(1)
 	visible_message("<span class='hierophant_warning'>[src] fades out!</span>")
-	density = FALSE
+	set_density(FALSE)
 	SLEEP_CHECK_DEATH(2)
 	forceMove(T)
 	SLEEP_CHECK_DEATH(1)
 	animate(src, alpha = 255, time = 2, easing = EASE_IN) //fade IN
 	SLEEP_CHECK_DEATH(1)
-	density = TRUE
+	set_density(TRUE)
 	visible_message("<span class='hierophant_warning'>[src] fades in!</span>")
 	SLEEP_CHECK_DEATH(1) //at this point the blasts we made detonate
 	blinking = FALSE
@@ -411,15 +411,6 @@ Difficulty: Hard
 		hierophant_burst(null, get_turf(src), 10)
 		set_stat(CONSCIOUS) // deathgasp wont run if dead, stupid
 		..(force_grant = stored_nearby)
-
-/mob/living/simple_animal/hostile/megafauna/hierophant/devour(mob/living/L)
-	for(var/obj/item/W in L)
-		if(!L.dropItemToGround(W))
-			qdel(W)
-	visible_message("<span class='hierophant_warning'>\"[pick(kill_phrases)]\"</span>")
-	visible_message("<span class='hierophant_warning'>[src] annihilates [L]!</span>","<span class='userdanger'>You annihilate [L], restoring your health!</span>")
-	adjustHealth(-L.maxHealth*0.5)
-	L.dust()
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/CanAttack(atom/the_target)
 	. = ..()

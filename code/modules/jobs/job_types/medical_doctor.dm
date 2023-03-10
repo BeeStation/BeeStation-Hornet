@@ -7,7 +7,7 @@
 	total_positions = 5
 	spawn_positions = 3
 	selection_color = "#d4ebf2"
-	exp_requirements = 120
+	exp_requirements = MINUTES_REQUIRED_BASIC
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/medical_doctor
 
@@ -37,10 +37,10 @@
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/doctor
 	shoes = /obj/item/clothing/shoes/sneakers/white
-	suit =  /obj/item/clothing/suit/toggle/labcoat
+	suit =  /obj/item/clothing/suit/toggle/labcoat/med
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
-	l_hand = /obj/item/storage/firstaid/medical
-	suit_store = /obj/item/flashlight/pen
+	suit_store = /obj/item/storage/firstaid/medical
+	l_pocket = /obj/item/flashlight/pen
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med

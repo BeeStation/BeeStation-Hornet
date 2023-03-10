@@ -17,7 +17,7 @@
 	var/dist = get_dist(user.loc,target.loc)
 	var/dir = get_dir(user.loc,target.loc)
 	if(user.get_virtual_z_level() != target.get_virtual_z_level())
-		to_chat(user,"<span class='warning'>[target.real_name] is on another plane of existance!</span>")
+		to_chat(user,"<span class='warning'>[target.real_name] is on another plane of existence!</span>")
 	else
 		switch(dist)
 			if(0 to 15)
@@ -191,7 +191,7 @@
 	name = "ominous hood"
 	icon_state = "eldritch"
 	desc = "A torn, dust-caked hood. Strange eyes line the inside."
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	flash_protect = 1
 
@@ -216,12 +216,12 @@
 
 /obj/item/clothing/mask/void_mask
 	name = "Mask Of Madness"
-	desc = "Mask created from the suffering of existance, you can look down it's eyes, and notice something gazing back at you."
+	desc = "Mask created from the suffering of existence, you can look down it's eyes, and notice something gazing back at you."
 	icon_state = "mad_mask"
 	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
-	flags_inv = HIDEFACE|HIDEFACIALHAIR
+	flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 	///Who is wearing this
 	var/mob/living/carbon/human/local_user
 

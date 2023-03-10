@@ -158,7 +158,7 @@
 	msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
 
 	if(type)
-		if(type & MSG_VISUAL && eye_blind )//Vision related
+		if(type & MSG_VISUAL && is_blind() )//Vision related
 			if(!alt_msg)
 				return
 			else
@@ -171,7 +171,7 @@
 			else
 				msg = alt_msg
 				type = alt_type
-				if(type & MSG_VISUAL && eye_blind)
+				if(type & MSG_VISUAL && is_blind())
 					return
 	// voice muffling
 	if(stat == UNCONSCIOUS)
@@ -218,7 +218,7 @@
 		if(!msg)
 			continue
 
-		if(is_emote && M.should_show_chat_message(src, null, TRUE) && !is_blind(M))
+		if(is_emote && M.should_show_chat_message(src, null, TRUE) && !M.is_blind())
 			show_to += M
 
 		M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE)
@@ -743,7 +743,7 @@
 		unset_machine()
 		src << browse(null, t1)
 
-	if(href_list["item"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
+	if(href_list["item"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
 		var/slot = text2num(href_list["item"])
 		var/hand_index = text2num(href_list["hand_index"])
 		var/obj/item/what
@@ -813,7 +813,7 @@
   *
   * Conditions:
   * * client.last_turn > world.time
-  * * not dead or unconcious
+  * * not dead or unconscious
   * * not anchored
   * * no transform not set
   * * we are not restrained
@@ -930,10 +930,10 @@
 		return FALSE
 	var/turf/T = get_turf(src)
 	if(M.loc != T)
-		var/old_density = density
+		var/old_density = density //old and doesnt use set_density()
 		density = FALSE
 		var/can_step = step_towards(M, T)
-		density = old_density
+		density = old_density // Avoid changing density directly in normal circumstances, without the setter.
 		if(!can_step)
 			return FALSE
 	return ..()
@@ -974,7 +974,7 @@
 	return Adjacent(A)
 
 ///Can the mob use Topic to interact with machines
-/mob/proc/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/proc/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	return
 
 ///Can this mob use storage
@@ -1118,7 +1118,7 @@
 
 ///Can this mob read (is literate and not blind)
 /mob/proc/can_read(obj/O)
-	if(is_blind(src))
+	if(is_blind())
 		to_chat(src, "<span class='warning'>As you are trying to read [O], you suddenly feel very stupid!</span>")
 		return
 	if(!is_literate())

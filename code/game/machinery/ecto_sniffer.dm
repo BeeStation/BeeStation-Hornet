@@ -11,7 +11,7 @@
 	var/on = TRUE
 	///If this var set to false the ghosts will not be able interact with the machine, say if the machine is silently disabled by cutting the internal wire.
 	var/sensor_enabled = TRUE
-	///List of ckeys containing players who have recently activated the device, players on this list are prohibited from activating the device untill their residue decays.
+	///List of ckeys containing players who have recently activated the device, players on this list are prohibited from activating the device until their residue decays.
 	var/list/ectoplasmic_residues = list()
 
 /obj/machinery/ecto_sniffer/Initialize()

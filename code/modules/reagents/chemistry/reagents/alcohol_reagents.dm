@@ -23,7 +23,7 @@ In addition, severe effects won't always trigger unless the drink is poisonously
 All effects don't start immediately, but rather get worse over time; the rate is affected by the imbiber's alcohol tolerance
 
 0: Non-alcoholic
-1-10: Barely classifiable as alcohol - occassional slurring
+1-10: Barely classifiable as alcohol - occasional slurring
 11-20: Slight alcohol content - slurring
 21-30: Below average - imbiber begins to look slightly drunk
 31-40: Just below average - no unique effects
@@ -220,7 +220,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 	if(prob(5) && iscarbon(M))
 		var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
-		if(HAS_TRAIT(M, TRAIT_BLIND))
+		if(M.is_blind())
 			if(istype(eyes))
 				eyes.Remove(M)
 				eyes.forceMove(get_turf(M))

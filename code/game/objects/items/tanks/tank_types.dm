@@ -137,7 +137,9 @@
 /obj/item/tank/internals/plasmaman/belt/empty/populate_gas()
 	return
 
-
+/obj/item/tank/internals/plasmaman/belt/full/debug
+	name = "bluespace plasma internals belt tank"
+	volume = 30
 
 /*
  * Emergency Oxygen

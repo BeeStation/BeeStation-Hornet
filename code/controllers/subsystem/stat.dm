@@ -36,7 +36,7 @@ SUBSYSTEM_DEF(stat)
 		if (C)
 			var/mob/M = C.mob
 			if(M)
-				//Handle listed turfs seperately
+				//Handle listed turfs separately
 				if(sanitize(M.listed_turf?.name) == C.selected_stat_tab)
 					currentrun_listed += C
 				else

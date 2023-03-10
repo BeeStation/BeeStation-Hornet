@@ -14,7 +14,7 @@
 	CanAtmosPass = ATMOS_PASS_PROC
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
 	rad_flags = RAD_PROTECT_CONTENTS
-	pass_flags_self = PASSGLASS
+	pass_flags_self = PASSTRANSPARENT
 	var/ini_dir = null
 	var/state = WINDOW_OUT_OF_FRAME
 	var/reinf = FALSE
@@ -137,7 +137,7 @@
 /obj/structure/window/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
-	if (istype(leaving) && (leaving.pass_flags & PASSGLASS))
+	if (istype(leaving) && (leaving.pass_flags & PASSTRANSPARENT))
 		return
 
 	if (fulltile)
@@ -324,7 +324,7 @@
 	add_fingerprint(user)
 
 /obj/structure/window/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(1)
 	update_nearby_icons()
 	return ..()
@@ -343,7 +343,7 @@
 
 //This proc is used to update the icons of nearby windows.
 /obj/structure/window/proc/update_nearby_icons()
-	update_icon()
+	update_appearance()
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		QUEUE_SMOOTH_NEIGHBORS(src)
 
@@ -587,7 +587,6 @@
 	max_integrity = 200
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
-	level = 3
 	glass_amount = 2
 
 /obj/structure/window/reinforced/fulltile/unanchored
@@ -603,7 +602,6 @@
 	dir = FULLTILE_WINDOW_DIR
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
-	level = 3
 	glass_amount = 2
 
 /obj/structure/window/reinforced/fulltile/ice
@@ -615,7 +613,6 @@
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
 	max_integrity = 150
 	canSmoothWith = list(/obj/structure/window/fulltile, /obj/structure/window/reinforced/fulltile, /obj/structure/window/reinforced/tinted/fulltile, /obj/structure/window/plasma/fulltile, /obj/structure/window/plasma/reinforced/fulltile, /obj/structure/window/depleteduranium/fulltile)
-	level = 3
 	glass_amount = 2
 
 /obj/structure/window/shuttle
@@ -636,7 +633,6 @@
 	heat_resistance = 1600
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100, "stamina" = 0)
 	explosion_block = 3
-	level = 3
 	glass_type = /obj/item/stack/sheet/titaniumglass
 	glass_amount = 2
 	ricochet_chance_mod = 0.9
@@ -668,7 +664,6 @@
 	heat_resistance = 1600
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100, "stamina" = 0)
 	explosion_block = 3
-	level = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
 	glass_amount = 2
 
@@ -703,7 +698,7 @@
 
 /obj/structure/window/paperframe/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /obj/structure/window/paperframe/examine(mob/user)
 	. = ..()
@@ -725,11 +720,11 @@
 		user.visible_message("[user] knocks on [src].")
 		playsound(src, "pageturn", 50, 1)
 	else
-		take_damage(4,BRUTE,"melee", 0)
+		take_damage(4, BRUTE, "melee", 0)
 		playsound(src, hitsound, 50, 1)
 		if(!QDELETED(src))
 			user.visible_message("<span class='danger'>[user] tears a hole in [src].</span>")
-			update_icon()
+			update_appearance()
 
 /obj/structure/window/paperframe/update_icon()
 	if(obj_integrity < max_integrity)
@@ -756,10 +751,10 @@
 			qdel(W)
 			user.visible_message("[user] patches some of the holes in \the [src].")
 			if(obj_integrity == max_integrity)
-				update_icon()
+				update_appearance()
 			return
 	..()
-	update_icon()
+	update_appearance()
 
 /obj/structure/window/bronze
 	name = "brass window"
