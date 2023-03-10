@@ -693,6 +693,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
 	item_flags |= PICKED_UP
+	if(item_flags & WAS_THROWN)
+		item_flags &= ~WAS_THROWN
 	if(verbs && user.client)
 		user.client.add_verbs(verbs)
 	log_item(user, INVESTIGATE_VERB_PICKEDUP)
@@ -834,6 +836,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		throw_at(S,14,3, spin=0)
 	else
 		return
+
+/obj/item/on_exit_storage(datum/component/storage/concrete/master_storage)
+	. = ..()
+	var/atom/location = master_storage.real_location()
+	do_drop_animation(location)
 
 /obj/item/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(hit_atom && !QDELETED(hit_atom))
