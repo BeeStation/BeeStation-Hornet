@@ -703,13 +703,17 @@
 
 /obj/machinery/hydroponics/attackby(obj/item/O, mob/user, params)
 	//Called when mob user "attacks" it with object O
-	if(istype(O, /obj/item/reagent_containers) )  // Syringe stuff (and other reagent containers now too)
+	if(istype(O, /obj/item/reagent_containers) || IS_EDIBLE(O))  // Syringe stuff (and other reagent containers now too). Edibles also have reagents.
+		if(SEND_SIGNAL(O, COMSIG_EDIBLE_ON_COMPOST) & COMPONENT_EDIBLE_BLOCK_COMPOST)
+			to_chat(user, "<span class='warning'>You can't compost that!</span>")
+			return ..()
+
 		var/obj/item/reagent_containers/reagent_source = O
 
 		if(istype(reagent_source, /obj/item/reagent_containers/syringe))
 			var/obj/item/reagent_containers/syringe/syr = reagent_source
 			if(syr.mode != 1)
-				to_chat(user, "<span class='warning'>You can't get any extract out of this plant.</span>"		)
+				to_chat(user, "<span class='warning'>You can't get any extract out of this plant.</span>")
 				return
 
 		if(!reagent_source.reagents.total_volume)
@@ -722,7 +726,7 @@
 		var/irrigate = 0	//How am I supposed to irrigate pill contents?
 		var/transfer_amount
 
-		if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/reagent_containers/pill))
+		if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/reagent_containers/pill) || IS_EDIBLE(reagent_source))
 			if(istype(reagent_source, /obj/item/reagent_containers/food/snacks))
 				var/obj/item/reagent_containers/food/snacks/R = reagent_source
 				if (R.trash)
@@ -764,7 +768,7 @@
 			S.my_atom = H
 
 			reagent_source.reagents.trans_to(S,split, transfered_by = user)
-			if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/reagent_containers/pill))
+			if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/reagent_containers/pill) || IS_EDIBLE(reagent_source))
 				qdel(reagent_source)
 
 			H.applyChemicals(S, user)
