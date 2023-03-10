@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - server: Update to Python 3.11.2, Node 18.14.2, Inferno 8, Typescript 4.9, Yarn
-      3.4
