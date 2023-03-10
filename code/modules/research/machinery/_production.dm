@@ -20,6 +20,9 @@
 	var/search = null
 	var/selected_category = null
 
+	/// What color is this machine's stripe? Leave null to not have a stripe.
+	var/stripe_color = null
+
 	var/list/mob/viewing_mobs = list()
 
 	var/list/pending_research = list()  // only for examination
@@ -57,9 +60,21 @@
 			displayed += "..."
 		. += displayed.Join("\n")
 
+// Stuff for the stripe on the department machines
+/obj/machinery/rnd/production/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/screwdriver)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
+
 /obj/machinery/rnd/production/update_icon()
 	. = ..()
 	cut_overlays()
+	var/mutable_appearance/stripe = mutable_appearance('icons/obj/machines/research.dmi', "protolate_stripe")
+	stripe.color = stripe_color
+	if(!panel_open)
+		cut_overlays()
+		stripe.icon_state = "protolathe_stripe"
+	else stripe.icon_state = "protolathe_stripe_t"
+	add_overlay(stripe)
 	if(length(pending_research))
 		add_overlay("lathe-research")
 
@@ -370,5 +385,6 @@
 /obj/machinery/rnd/production/reset_busy()
 	. = ..()
 	SStgui.update_uis(src)
+
 
 #undef MAX_SENT
