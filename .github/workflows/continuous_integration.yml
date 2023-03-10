@@ -2,10 +2,10 @@ name: Run tests
 
 on:
   workflow_dispatch:
-  push:
-    paths-ignore:
-      - "html/changelogs/**"
-      - "html/changelog.html"
+#  push:
+#    paths-ignore:
+#      - "html/changelogs/**"
+#      - "html/changelog.html"
   pull_request:
     branches:
       - master
