@@ -228,8 +228,8 @@
 
 /obj/machinery/door/airlock/plasma/bullet_act(obj/item/projectile/Proj)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)
-		PlasmaBurn()
-		plasma_ignition(6, Proj?.firer)
+		if(plasma_ignition(6, Proj?.firer))
+			PlasmaBurn()
 	. = ..()
 
 /obj/machinery/door/airlock/plasma/proc/PlasmaBurn()
