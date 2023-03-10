@@ -269,15 +269,15 @@
 		return ..()
 
 /obj/structure/falsewall/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > 300 && air.get_moles(GAS_O2) >= PLASMA_MINIMUM_OXYGEN_NEEDED)
+	if(exposed_temperature > 300)
 		if(plasma_ignition(6))
 			new /obj/structure/girder/displaced(loc)
 			
 
 /obj/structure/falsewall/plasma/bullet_act(obj/item/projectile/Proj)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)
-		new /obj/structure/girder/displaced(loc)
-		plasma_ignition(6, Proj?.firer)
+		if(plasma_ignition(6, Proj?.firer))
+			new /obj/structure/girder/displaced(loc)
 	. = ..()
 
 /obj/structure/falsewall/bananium

@@ -222,7 +222,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_plasma
 
 /obj/machinery/door/airlock/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > 300 && air.get_moles(GAS_O2) >= PLASMA_MINIMUM_OXYGEN_NEEDED)
+	if(exposed_temperature > 300)
 		if(plasma_ignition(6))
 			PlasmaBurn()
 
