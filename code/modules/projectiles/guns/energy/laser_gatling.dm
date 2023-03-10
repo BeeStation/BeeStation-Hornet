@@ -112,11 +112,11 @@
 	fire_sound = 'sound/weapons/laser.ogg'
 	item_flags = NEEDS_PERMIT | SLOWS_WHILE_IN_HAND
 	full_auto = TRUE
-	var/firing = FALSE
 	var/cooldown
 	var/last_fired
-	var/overheat = 0
-	var/overheat_max = 80 //8 second cooldown
+	var/spin = 0
+	var/heat = 0
+	var/overheat = 80 //8 second cooldown
 	var/obj/item/minigunpack/ammo_pack
 
 /obj/item/gun/energy/minigun/Initialize(mapload)
@@ -146,19 +146,22 @@
 /obj/item/gun/energy/minigun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	if(ammo_pack)
 		if(cooldown < world.time)
-			if(firing)
-				if(overheat < overheat_max)
-					playsound(get_turf(src), 'sound/weapons/heavyminigunstart.ogg', 40, 0, 0) //This just sounds much better to keep using than the actual firing sound. 
-					overheat += 2
-					last_fired = world.time
-					addtimer(CALLBACK(src, .proc/check_firing,), 5) //Check to see if we have fired again yet and if not start the spin down.
-					..()
-				else
-					to_chat(user, "<span class='warning'>[src]'s heat sensor locked the trigger to prevent lens damage.</span>")
-					shoot_with_empty_chamber(user)
-					stop_firing()
-			else
-				start_firing()
+			if(heat >= overheat) //We've been firing too long, shut it down
+				to_chat(user, "<span class='warning'>[src]'s heat sensor locked the trigger to prevent lens damage.</span>")
+				shoot_with_empty_chamber(user)
+				stop_firing()
+			if(spin >= 12) //full rate of fire
+				fire_effect(TRUE)
+				..()
+			else if(spin >= 6 && spin % 2) //Starting to fire rounds
+				fire_effect(TRUE)
+				..()
+			else if(spin < 6 && spin % 2) //Just starting to spin, no rounds fired
+				fire_effect()
+			else if(spin >= 6) //Full spin sound between shots
+				fire_effect()
+			spin++
+			last_fired = world.time
 		else
 			to_chat(user, "<span class='warning'>[src] is not ready to fire again yet!</span>")
 	else
@@ -166,21 +169,21 @@
 		return //don't process firing the gun if it's on cooldown or doesn't have an ammo pack somehow. 
 
 /obj/item/gun/energy/minigun/proc/stop_firing()
-	if(overheat) //Don't spin down again or reset the cooldown unless it's still hot
+	if(heat) //Don't play the sound or apply cooldown unless it has actually fired at least once
 		playsound(get_turf(src), 'sound/weapons/heavyminigunstop.ogg', 50, 0, 0)
-		cooldown = world.time + max(overheat, 2 SECONDS) //2 to 8 seconds depending on how hot it was. At least 1.5 seconds is required to prevent overlapping conflicts with spinups and spindowns.
-		overheat = 0
-	firing = FALSE
-
-/obj/item/gun/energy/minigun/proc/start_firing()
-	playsound(get_turf(src), 'sound/weapons/heavyminigunstart.ogg', 40, 0, 0)
-	addtimer(CALLBACK(src, .proc/check_firing,), 2 SECONDS) //Check to ensure the gun actually started firing. Prevents players from priming the minigun
-	sleep(15) //Give some time for the spin-up to take place
-	firing = TRUE
+		cooldown = world.time + max(heat, 2 SECONDS) //2 to 8 seconds depending on how hot it was. At least 1.5 seconds is required to prevent overlapping conflicts with spinups and spindowns.
+		heat = 0
+	spin = 0
 
 /obj/item/gun/energy/minigun/proc/check_firing()
 	if(last_fired + 4 <= world.time)
 		stop_firing()
+
+/obj/item/gun/energy/minigun/proc/fire_effect(heating)
+	playsound(get_turf(src), 'sound/weapons/heavyminigunstart.ogg', 40, 0, 0)
+	addtimer(CALLBACK(src, .proc/check_firing,), 5)
+	if(heating)
+		heat += 2
 
 /obj/item/gun/energy/minigun/afterattack(atom/target, mob/living/user, flag, params)
 	if(!ammo_pack || ammo_pack.loc != user)
