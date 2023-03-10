@@ -182,7 +182,7 @@
 				to_chat(M, "<span class='notice'>Placing [G.display_name] in your hands!</span>")
 				continue
 
-			to_chat(M, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug. [G.display_name] has been placed at your feet.</span>")
+			to_chat(M, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack. [G.display_name] has been placed at your feet.</span>")
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 	if(head_announce)
