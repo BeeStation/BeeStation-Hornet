@@ -174,6 +174,7 @@
 
 /obj/item/gun/energy/minigun/proc/start_firing()
 	playsound(get_turf(src), 'sound/weapons/heavyminigunstart.ogg', 40, 0, 0)
+	addtimer(CALLBACK(src, .proc/check_firing,), 2 SECONDS) //Check to ensure the gun actually started firing. Prevents players from priming the minigun
 	sleep(15) //Give some time for the spin-up to take place
 	firing = TRUE
 
