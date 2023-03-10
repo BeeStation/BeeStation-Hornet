@@ -1,0 +1,4 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Fixed map and shuttle votes not properly reacting to votes.
