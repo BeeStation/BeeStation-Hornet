@@ -1,0 +1,7 @@
+author: Ghost, Benbot16
+delete-after: true
+changes:
+  - rscadd: Ports the edibility component.
+  - refactor: Organs don't turn into food objects when you eat them anymore, and they
+      take a small amount of time to eat. Taking a bite out of them still makes them
+      unusable.
