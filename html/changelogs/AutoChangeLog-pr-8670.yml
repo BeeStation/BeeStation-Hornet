@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: NT Bounty Hunter and SecurEye apps work again
-  - tweak: Added a cooldown to the bounty list printer in NT Bounty Hunter.
