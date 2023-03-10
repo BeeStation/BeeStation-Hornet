@@ -32,7 +32,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	if(GLOB.ratvar_risen)
 		return
 	destroyed = TRUE
-	hierophant_message("The Ark has been destroyed, Reebe is becomming unstable!", null, "<span class='large_brass'>")
+	hierophant_message("The Ark has been destroyed, Reebe is becoming unstable!", null, "<span class='large_brass'>")
 	for(var/mob/living/M in GLOB.player_list)
 		if(!is_reebe(M.z))
 			continue

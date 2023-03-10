@@ -277,7 +277,7 @@
 	to_chat(L, "<span class='brass'>The Eminence is summoning you...</span>")
 	L.visible_message("<span class='warning'>[L] flares briefly.</span>")
 	if(do_after(E, 70, target=L))
-		L.visible_message("<span class='warning'>[L] phases out of existance!</span>")
+		L.visible_message("<span class='warning'>[L] phases out of existence!</span>")
 		var/turf/T = get_turf(pick(GLOB.servant_spawns))
 		try_warp_servant(L, T, FALSE)
 		consume_cogs(E)

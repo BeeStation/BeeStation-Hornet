@@ -735,7 +735,7 @@
 	if(being_used || !ismob(M))
 		return
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER))
-		to_chat(user, "<span class='warning'>[src] seems to fizzle out of existance. Guess the universe is unable to support more intelligence right now.</span>")
+		to_chat(user, "<span class='warning'>[src] seems to fizzle out of existence. Guess the universe is unable to support more intelligence right now.</span>")
 		do_sparks(5, FALSE, get_turf(src))
 		qdel(src)
 		return
@@ -1008,7 +1008,7 @@
 
 /obj/item/slimepotion/slime/renaming
 	name = "renaming potion"
-	desc = "A potion that allows a self-aware being to change what name it subconciously presents to the world."
+	desc = "A potion that allows a self-aware being to change what name it subconsciously presents to the world."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potgreen"
 

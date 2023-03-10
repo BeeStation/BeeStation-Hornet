@@ -68,7 +68,7 @@
 /**
   * Sets up the signal listener for Supermatter delaminations.
   *
-  * Unregisters any old listners for SM delams, and then registers one for the SM refered
+  * Unregisters any old listners for SM delams, and then registers one for the SM referred
   * to in the `active` variable. This proc is also used with no active SM to simply clear
   * the signal and exit.
  */

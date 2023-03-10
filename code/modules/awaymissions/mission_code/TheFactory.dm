@@ -618,7 +618,7 @@
 	safety = FALSE
 
 /mob/living/simple_animal/hostile/zombie_suicide
-	name = "agressive corpse"
+	name = "aggressive corpse"
 	desc = "This corpse is holding a grenade without a pin in it..."
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "suicidezombie"

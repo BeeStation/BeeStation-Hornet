@@ -53,7 +53,7 @@
 
 // The goal here:
 // 1 level: Your legs are mildly injured. Probably a bit slow
-// 2 levels: Your legs are broken, but you are still concious
+// 2 levels: Your legs are broken, but you are still conscious
 // 3+ levels: You ded/near ded
 /mob/living/proc/get_distributed_zimpact_damage(levels)
 	return (levels * 15) ** 1.4

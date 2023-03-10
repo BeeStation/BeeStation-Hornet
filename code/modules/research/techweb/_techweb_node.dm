@@ -1,5 +1,5 @@
 
-//Techweb nodes are GLOBAL, there should only be one instance of them in the game. Persistant changes should never be made to them in-game.
+//Techweb nodes are GLOBAL, there should only be one instance of them in the game. Persistent changes should never be made to them in-game.
 //USE SSRESEARCH PROCS TO OBTAIN REFERENCES. DO NOT REFERENCE OUTSIDE OF SSRESEARCH OR YOU WILL FUCK UP GC.
 
 /datum/techweb_node

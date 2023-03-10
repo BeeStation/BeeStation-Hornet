@@ -185,11 +185,11 @@
 	level = 8
 	passive_message = "<span class='notice'>Your skin tingles.</span>"
 	prefixes = list("Healing ", "Minor ")
-	var/threshhold = 15
+	var/threshold = 15
 	var/scarcounter = 0
 
 	threshold_desc = "<b>Stage Speed 8:</b> Doubles healing speed.<br>\
-					  <b>Resistance 10:</b> Improves healing threshhold."
+					  <b>Resistance 10:</b> Improves healing threshold."
 
 /datum/symptom/heal/surface/Start(datum/disease/advance/A)
 	if(!..())
@@ -197,22 +197,22 @@
 	if(A.stage_rate >= 8) //stronger healing
 		power = 2
 	if(A.resistance >= 10)
-		threshhold = 30
+		threshold = 30
 
 /datum/symptom/heal/surface/Heal(mob/living/carbon/M, datum/disease/advance/A, actual_power)
 	var/healed = FALSE
 
-	if(M.getBruteLoss() && M.getBruteLoss() <= threshhold)
+	if(M.getBruteLoss() && M.getBruteLoss() <= threshold)
 		M.heal_overall_damage(power, required_status = BODYTYPE_ORGANIC)
 		healed = TRUE
 		scarcounter++
 
-	if(M.getFireLoss() && M.getFireLoss() <= threshhold)
+	if(M.getFireLoss() && M.getFireLoss() <= threshold)
 		M.heal_overall_damage(burn = power, required_status = BODYTYPE_ORGANIC)
 		healed = TRUE
 		scarcounter++
 
-	if(M.getToxLoss() && M.getToxLoss() <= threshhold)
+	if(M.getToxLoss() && M.getToxLoss() <= threshold)
 		M.adjustToxLoss(-power, FALSE, TRUE)
 
 	if(healed)
@@ -225,7 +225,7 @@
 
 
 /datum/symptom/heal/surface/passive_message_condition(mob/living/M)
-	return M.getBruteLoss() <= threshhold || M.getFireLoss() <= threshhold
+	return M.getBruteLoss() <= threshold || M.getFireLoss() <= threshold
 
 /datum/symptom/heal/metabolism
 	name = "Metabolic Boost"

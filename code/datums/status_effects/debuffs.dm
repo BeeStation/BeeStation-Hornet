@@ -162,7 +162,7 @@
 	if(do_after(owner, 35, null, owner))
 		if(isliving(owner))
 			var/mob/living/L = owner
-			to_chat(owner, "<span class='notice'>You succesfuly remove the durathread strand.</span>")
+			to_chat(owner, "<span class='notice'>You successfuly remove the durathread strand.</span>")
 			L.remove_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
 
 /datum/status_effect/syringe
@@ -215,7 +215,7 @@
 			var/obj/item/reagent_containers/syringe/syringe = syringestatus.syringe
 			to_chat(owner, "<span class='notice'>You begin carefully pulling the syringe out.</span>")
 			if(do_after(C, 20, null, owner))
-				to_chat(C, "<span class='notice'>You succesfuly remove the syringe.</span>")
+				to_chat(C, "<span class='notice'>You successfuly remove the syringe.</span>")
 				syringe.forceMove(C.loc)
 				C.put_in_hands(syringe)
 				qdel(syringestatus)

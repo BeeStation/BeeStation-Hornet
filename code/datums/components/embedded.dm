@@ -310,7 +310,7 @@
 			to_chat(victim, "<span class='danger'>[user] fails to remove [weapon] from your [limb.name].</span>")
 		return
 
-	//Removed succesfully
+	//Removed successfully
 	if(self_pluck)
 		to_chat(user, "<span class='notice'>You successfully remove [weapon] from your [limb.name].</span>")
 	else

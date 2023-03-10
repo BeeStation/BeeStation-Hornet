@@ -621,7 +621,7 @@
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 /**
- * Updates the appearence of the icon
+ * Updates the appearance of the icon
  *
  * Mostly delegates to update_name, update_desc, and update_icon
  *

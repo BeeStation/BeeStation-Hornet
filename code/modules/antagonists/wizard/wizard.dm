@@ -241,7 +241,7 @@
 					if(chosen_spell.spell_type == my_spell.type) // You don't learn the same spell
 						failsafe = TRUE
 						break
-					if(is_type_in_typecache(my_spell.type, chosen_spell.no_coexistance_typecache)) // You don't learn a spell that isn't compatible with another
+					if(is_type_in_typecache(my_spell.type, chosen_spell.no_coexistence_typecache)) // You don't learn a spell that isn't compatible with another
 						failsafe = TRUE
 						break
 				if(failsafe)

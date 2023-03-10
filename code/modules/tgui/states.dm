@@ -63,10 +63,10 @@
 	// Close UIs if mindless.
 	if(!client && !HAS_TRAIT(src, TRAIT_PRESERVE_UI_WITHOUT_CLIENT))
 		return UI_CLOSE
-	// Disable UIs if unconcious.
+	// Disable UIs if unconscious.
 	else if(stat)
 		return UI_DISABLED
-	// Update UIs if incapicitated but concious.
+	// Update UIs if incapicitated but conscious.
 	else if(incapacitated())
 		return UI_UPDATE
 	return UI_INTERACTIVE

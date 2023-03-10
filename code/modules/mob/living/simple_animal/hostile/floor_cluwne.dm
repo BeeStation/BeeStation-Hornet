@@ -204,7 +204,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 			qdel(cluwnehole)
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/proc/Appear()//handled in a seperate proc so floor cluwne doesn't appear before the animation finishes
+/mob/living/simple_animal/hostile/floor_cluwne/proc/Appear()//handled in a separate proc so floor cluwne doesn't appear before the animation finishes
 	invisibility = FALSE
 	density = TRUE
 

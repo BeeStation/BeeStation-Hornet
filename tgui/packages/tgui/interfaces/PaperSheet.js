@@ -377,7 +377,7 @@ class PaperSheetStamper extends Component {
 
 // ugh.  So have to turn this into a full
 // component too if I want to keep updates
-// low and keep the wierd flashing down
+// low and keep the weird flashing down
 class PaperSheetEdit extends Component {
   constructor(props, context) {
     super(props, context);
@@ -425,7 +425,7 @@ class PaperSheetEdit extends Component {
       out.field_counter = fielded_text.counter;
     }
     if (do_fields) {
-      // finaly we check all the form fields to see
+      // finally we check all the form fields to see
       // if any data was entered by the user and
       // if it was return the data and modify the text
       const final_processing = checkAllFields(
@@ -788,7 +788,7 @@ export const PaperSheet = (props, context) => {
     stamp_class,
     stamped,
   } = data;
-  // You might ask why?  Because Window/window content do wierd
+  // You might ask why?  Because Window/window content do weird
   // css stuff with white for some reason
   const backgroundColor = paper_color && paper_color !== "white"
     ? paper_color

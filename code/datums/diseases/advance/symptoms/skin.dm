@@ -75,7 +75,7 @@ BONUS
 //////////////////////////////////////
 Revitiligo
 
-	Slightly noticable.
+	Slightly noticeable.
 	Increases resistance.
 	Increases stage speed slightly.
 	Increases transmission.
@@ -450,7 +450,7 @@ Thresholds
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
-	
+
 	switch(A.stage)
 		if(2, 3)
 			var/buboes = (rand(1, 3) * power)
@@ -496,7 +496,7 @@ Thresholds
 		C.visible_message("<span class='warning'>[attack_text] bursts [popped] pustules on [source]'s body!</span>")
 		pustules -= popped
 
-		
+
 /datum/symptom/pustule/End(datum/disease/advance/A)
 	. = ..()
 	UnregisterSignal(A.affected_mob, COMSIG_HUMAN_ATTACKED)
@@ -514,7 +514,7 @@ Thresholds
 	if(istype(BB, /obj/item/projectile/pimple))
 		var/obj/item/projectile/pimple/P = BB
 		P.diseases = diseases
-	
+
 
 /obj/item/projectile/pimple
 	name = "high-velocity pustule"
@@ -523,7 +523,7 @@ Thresholds
 	speed = 5
 	damage_type = TOX
 	icon_state = "energy2"
-	flag = "bio" 
+	flag = "bio"
 	var/list/diseases
 
 /obj/item/projectile/pimple/on_hit(atom/target, blocked)

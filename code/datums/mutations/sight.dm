@@ -60,7 +60,7 @@
 //X-ray Vision lets you see through walls.
 /datum/mutation/thermal/x_ray
 	name = "X Ray Vision"
-	desc = "A strange genome that allows the user to see between the spaces of walls." //actual x-ray would mean you'd constantly be blasting rads, wich might be fun for later //hmb
+	desc = "A strange genome that allows the user to see between the spaces of walls." //actual x-ray would mean you'd constantly be blasting rads, which might be fun for later //hmb
 	text_gain_indication = "<span class='notice'>The walls suddenly disappear!</span>"
 	instability = 35
 	locked = TRUE

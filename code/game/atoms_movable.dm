@@ -519,7 +519,7 @@
 
 /**
  * `Uncross()` is a default BYOND proc that is called when something is *going*
- * to exit this atom's turf. It is prefered over `Uncrossed` when you want to
+ * to exit this atom's turf. It is preferred over `Uncrossed` when you want to
  * deny that movement, such as in the case of border objects, objects that allow
  * you to walk through them in any direction except the one they block
  * (think side windows).

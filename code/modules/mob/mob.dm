@@ -813,7 +813,7 @@
   *
   * Conditions:
   * * client.last_turn > world.time
-  * * not dead or unconcious
+  * * not dead or unconscious
   * * not anchored
   * * no transform not set
   * * we are not restrained

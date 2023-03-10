@@ -154,7 +154,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 /datum/component/team_monitor/proc/parent_moved()
 	SIGNAL_HANDLER
 
-	//Update our alt appearences
+	//Update our alt appearances
 	update_all_directions()
 
 //Updates the direction of the arrows for all atoms we are tracking

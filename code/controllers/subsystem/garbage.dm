@@ -163,7 +163,7 @@ SUBSYSTEM_DEF(garbage)
 		var/datum/D
 		D = locate(refID)
 
-		if (!D || D.gc_destroyed != GCd_at_time) // So if something else coincidently gets the same ref, it's not deleted by mistake
+		if (!D || D.gc_destroyed != GCd_at_time) // So if something else coincidentally gets the same ref, it's not deleted by mistake
 			++gcedlasttick
 			++totalgcs
 			pass_counts[level]++
