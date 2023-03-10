@@ -986,6 +986,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		MO.pixel_y = rand(-16,16)
 		MO.desc = "Looks like this was \an [src] some time ago."
 		..()
+		
 
 /obj/item/proc/microwave_act(obj/machinery/microwave/M)
 	SEND_SIGNAL(src, COMSIG_ITEM_MICROWAVE_ACT, M)
