@@ -179,6 +179,11 @@
 /obj/mecha/attackby(obj/item/W as obj, mob/user as mob, params)
 
 	if(istype(W, /obj/item/mmi))
+		var/obj/item/mmi/M = W
+		var/mob/living/brain/BM = M.brainmob
+		if(is_banned_from(BM.ckey, JOB_NAME_CYBORG) || BM.client.get_exp_living(TRUE) <= MINUTES_REQUIRED_BASIC)
+			to_chat(user, "<span class='warning'>This [M.name] is not compatible, try a different one!</span>")
+			return
 		if(mmi_move_inside(W,user))
 			to_chat(user, "[src]-[W] interface initialized successfully.")
 		else
