@@ -274,7 +274,7 @@
 							src.active1.fields["fingerprint"] = t1
 					if("gender")
 						if(active1)
-							var/t1 = input(usr, "Select gender", "Med. records", src.active1.fields["gender"]) as null|anything in list(MALE, FEMALE, PLURAL)
+							var/t1 = input(usr, "Select gender", "Med. records", src.active1.fields["gender"]) as null|anything in list(MALE, FEMALE, "other")
 							if(!canUseMedicalRecordsConsole(usr, t1, a1))
 								return
 							src.active1.fields["gender"] = capitalize(t1)
