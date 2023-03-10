@@ -189,7 +189,7 @@
 
 /datum/config_entry/flag/show_game_type_odds	//if set this allows players to see the odds of each roundtype on the get revision screen
 
-/datum/config_entry/string/default_species
+/datum/config_entry/string/fallback_default_species
 	config_entry_value = SPECIES_HUMAN
 
 /datum/config_entry/keyed_list/roundstart_races	//races you can play as from the get go.

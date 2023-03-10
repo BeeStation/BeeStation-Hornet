@@ -469,12 +469,12 @@ LAW_WEIGHT buildawall,0
 ## Attempting to upload laws past this point will fail unless the AI is reset
 SILICON_MAX_LAW_AMOUNT 12
 
-# Default Species
+# Fallback Default Species
 ##-------------------------------------------
 ## The default character slot species used as a fallback for when there is no database. You probably want this to be human.
-## Using "DEFAULT_SPECIES random" will just pick a random species
+## Using "FALLBACK_DEFAULT_SPECIES random" will just pick a random species
 
-DEFAULT_SPECIES human
+FALLBACK_DEFAULT_SPECIES human
 
 ## Roundstart Races
 ##-------------------------------------------------------------------------------------------
