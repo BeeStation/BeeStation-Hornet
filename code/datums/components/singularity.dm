@@ -51,7 +51,7 @@
 /datum/component/singularity/Initialize(
 	bsa_targetable = TRUE,
 	consume_range = 0,
-	consume_callback = CALLBACK(src, .proc/default_singularity_act),
+	consume_callback = CALLBACK(src, PROC_REF(default_singularity_act)),
 	admin_investigate_callback,
 	disregard_failed_movements = FALSE,
 	grav_pull = 4,
@@ -76,7 +76,7 @@
 		if(admin_investigate_callback)
 			src.admin_investigate_callback = admin_investigate_callback
 		else
-			src.admin_investigate_callback = CALLBACK(src, .proc/admin_investigate_setup)
+			src.admin_investigate_callback = CALLBACK(src, PROC_REF(admin_investigate_setup))
 
 /datum/component/singularity/RegisterWithParent()
 	START_PROCESSING(SSsinguloprocess, src)
@@ -85,21 +85,21 @@
 	parent.AddElement(/datum/element/forced_gravity, FALSE)
 
 	parent.AddElement(/datum/element/bsa_blocker)
-	RegisterSignal(parent, COMSIG_ATOM_BSA_BEAM, .proc/bluespace_reaction)
+	RegisterSignal(parent, COMSIG_ATOM_BSA_BEAM, PROC_REF(bluespace_reaction))
 
-	RegisterSignal(parent, COMSIG_ATOM_BLOB_ACT, .proc/block_blob)
+	RegisterSignal(parent, COMSIG_ATOM_BLOB_ACT, PROC_REF(block_blob))
 
 	RegisterSignal(parent, list(
 		COMSIG_ATOM_ATTACK_ANIMAL,
 		COMSIG_ATOM_ATTACK_HAND,
 		COMSIG_ATOM_ATTACK_PAW,
-	), .proc/consume_attack)
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/consume_attackby)
+	), PROC_REF(consume_attack))
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(consume_attackby))
 
-	RegisterSignal(parent, COMSIG_MOVABLE_PRE_MOVE, .proc/moved)
-	RegisterSignal(parent, COMSIG_ATOM_BUMPED, .proc/consume)
+	RegisterSignal(parent, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(moved))
+	RegisterSignal(parent, COMSIG_ATOM_BUMPED, PROC_REF(consume))
 
-	RegisterSignal(parent, COMSIG_ATOM_BULLET_ACT, .proc/consume_bullets)
+	RegisterSignal(parent, COMSIG_ATOM_BULLET_ACT, PROC_REF(consume_bullets))
 
 	if(notify_admins)
 		admin_investigate_callback?.Invoke()
@@ -178,7 +178,7 @@
 	// The foreach will delete things in this list, so we will use a dereferencing enumerator
 	// Turfs cannot be deleted, only modified so they cannot hard delete.
 	var/datum/enumerator/turf_enumerator = get_dereferencing_enumerator(turfs_to_consume)
-	SSenumeration.tickcheck(turf_enumerator.foreach(CALLBACK(src, .proc/consume_turf)))
+	SSenumeration.tickcheck(turf_enumerator.foreach(CALLBACK(src, PROC_REF(consume_turf))))
 
 /datum/component/singularity/proc/consume_turf(turf/tile)
 	var/dist_to_tile = get_dist(tile, parent)

@@ -153,7 +153,7 @@
 		UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
 	cell = new_cell
 	if(cell)
-		RegisterSignal(cell, COMSIG_PARENT_QDELETING, .proc/remove_cell)
+		RegisterSignal(cell, COMSIG_PARENT_QDELETING, PROC_REF(remove_cell))
 
 /obj/structure/light_construct/proc/remove_cell()
 	SIGNAL_HANDLER

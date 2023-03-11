@@ -109,7 +109,7 @@
 		qdel(src)
 		return
 	if(!mind.current || (mind.current && mind.current.stat == DEAD))
-		addtimer(CALLBACK(src, .proc/rise), respawn_time, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(rise)), respawn_time, TIMER_UNIQUE)
 
 /obj/item/lesserphylactery/proc/rise()
 	if(mind.current && mind.current.stat != DEAD)
