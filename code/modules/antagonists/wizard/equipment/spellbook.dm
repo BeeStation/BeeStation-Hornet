@@ -1,5 +1,3 @@
-#define WIZARD_WILDMAGIC_SPELLPOINT_MULTIPLIER 1.7
-
 /datum/spellbook_entry
 	var/name = "Entry Name"
 
@@ -12,11 +10,12 @@
 	var/obj/effect/proc_holder/spell/S = null //Since spellbooks can be used by only one person anyway we can track the actual spell
 	var/buy_word = "Learn"
 	var/limit //used to prevent a spellbook_entry from being bought more than X times with one wizard spellbook
-	var/list/no_coexistance_typecache //Used so you can't have specific spells together
+	var/list/no_coexistence_typecache //Used so you can't have specific spells together
+	var/no_random = FALSE // This is awful one to be a part of randomness - i.e.) soul tap
 
 /datum/spellbook_entry/New()
 	..()
-	no_coexistance_typecache = typecacheof(no_coexistance_typecache)
+	no_coexistence_typecache = typecacheof(no_coexistence_typecache)
 
 /datum/spellbook_entry/proc/IsAvailable() // For config prefs / gamemode restrictions - these are round applied
 	return TRUE
@@ -25,7 +24,7 @@
 	if(book.uses<cost || limit == 0)
 		return FALSE
 	for(var/spell in user.mind.spell_list)
-		if(is_type_in_typecache(spell, no_coexistance_typecache))
+		if(is_type_in_typecache(spell, no_coexistence_typecache))
 			return FALSE
 	return TRUE
 
@@ -215,6 +214,7 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/lichdom
 	category = "Defensive"
 	cost = 3
+	no_random = WIZARD_NORANDOM_WILDAPPRENTICE
 
 /datum/spellbook_entry/teslablast
 	name = "Tesla Blast"
@@ -232,12 +232,12 @@
 	name = "Lesser Summon Guns"
 	spell_type = /obj/effect/proc_holder/spell/targeted/infinite_guns/gun
 	cost = 3
-	no_coexistance_typecache = /obj/effect/proc_holder/spell/targeted/infinite_guns/arcane_barrage
+	no_coexistence_typecache = /obj/effect/proc_holder/spell/targeted/infinite_guns/arcane_barrage
 
 /datum/spellbook_entry/arcane_barrage
 	name = "Arcane Barrage"
 	spell_type = /obj/effect/proc_holder/spell/targeted/infinite_guns/arcane_barrage
-	no_coexistance_typecache = /obj/effect/proc_holder/spell/targeted/infinite_guns/gun
+	no_coexistence_typecache = /obj/effect/proc_holder/spell/targeted/infinite_guns/gun
 
 /datum/spellbook_entry/barnyard
 	name = "Barnyard Curse"
@@ -260,6 +260,7 @@
 	spell_type = /obj/effect/proc_holder/spell/self/tap
 	category = "Assistance"
 	cost = 1
+	no_random = WIZARD_NORANDOM_WILDAPPRENTICE
 
 /datum/spellbook_entry/spacetime_dist
 	name = "Spacetime Distortion"
@@ -423,7 +424,7 @@
 /datum/spellbook_entry/item/mjolnir
 	name = "Mjolnir"
 	desc = "A mighty hammer on loan from Thor, God of Thunder. It crackles with barely contained power."
-	item_path = /obj/item/mjollnir
+	item_path = /obj/item/mjolnir
 
 /datum/spellbook_entry/item/singularity_hammer
 	name = "Singularity Hammer"
@@ -811,5 +812,3 @@
 			tab = sanitize(href_list["page"])
 	attack_self(H)
 	return
-
-#undef WIZARD_WILDMAGIC_SPELLPOINT_MULTIPLIER

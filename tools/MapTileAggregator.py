@@ -51,7 +51,7 @@ path_dir_sets_reverse = {}
 for k, v in path_dir_sets.items():
     path_dir_sets_reverse[v] = path_dir_sets_reverse.get(v, []) + [k]
 
-# tile_side, unfortunately, is strewn accross our maps. it must die, and be converted into anticorners/halves
+# tile_side, unfortunately, is strewn across our maps. it must die, and be converted into anticorners/halves
 tile_side_map = {
     ("/tile_side", 1): {top_left, bottom_left},
     ("/tile_side", 2): {top_right, bottom_right},

@@ -73,7 +73,7 @@
 	if(Adjacent(target) && usr.Adjacent(target))
 		if(attached_tank && !mask_out)
 			usr.visible_message("<span class='warning'>[usr] attemps to attach the [src] to [target].</span>", "<span class='notice'>You attempt to attach the [src] to [target].</span>")
-			if(!do_after(usr, 70, TRUE, target))
+			if(!do_after(usr, 70, target))
 				return
 			if(!target.equip_to_appropriate_slot(attached_mask))
 				to_chat(usr, "<span class='warning'>You are unable to attach the [src] to [target]!</span>")
@@ -120,7 +120,7 @@
 		return
 	if(!mask_out)
 		visible_message("<span class='warning'>[user] attempts to detach the breath mask from [src].</span>", "<span class='notice'>You attempt to detach the breath mask from [src].</span>")
-		if(!do_after(user, 100, FALSE, src))
+		if(!do_after(user, 100, src, timed_action_flags = IGNORE_HELD_ITEM))
 			to_chat(user, "<span class='warning'>You fail to dettach the breath mask from [src]!</span>")
 			return
 		visible_message("<span class='warning'>[user] detaches the breath mask from [src].</span>", "<span class='notice'>You detach the breath mask from [src].</span>")

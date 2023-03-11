@@ -1,3 +1,8 @@
+//Luma coefficients suggested for HDTVs. If you change these, make sure they add up to 1.
+#define LUMA_R 0.213
+#define LUMA_G 0.715
+#define LUMA_B 0.072
+
 /matrix/proc/TurnTo(old_angle, new_angle)
 	. = new_angle - old_angle
 	Turn(.) //BYOND handles cases such as -270, 360, 540 etc. DOES NOT HANDLE 180 TURNS WELL, THEY TWEEN AND LOOK LIKE SHIT
@@ -213,3 +218,6 @@ round(cos_inv_third+sqrt3_sin, 0.001), round(cos_inv_third-sqrt3_sin, 0.001), ro
 		else
 			CRASH("Invalid/unsupported color format argument in color_to_full_rgba_matrix()")
 
+#undef LUMA_R
+#undef LUMA_G
+#undef LUMA_B

@@ -66,10 +66,10 @@
 	. = ..()
 	outputs = list()
 
-	RegisterSignal(parent, COMSIG_CLOCKWORK_SIGNAL_RECEIVED, .proc/trigger)
-	RegisterSignal(parent, COMSIG_ATOM_EMINENCE_ACT, .proc/trigger)	//The eminence can trigger traps too
-	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, .proc/clicked)
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/OnAttackBy)
+	RegisterSignal(parent, COMSIG_CLOCKWORK_SIGNAL_RECEIVED, PROC_REF(trigger))
+	RegisterSignal(parent, COMSIG_ATOM_EMINENCE_ACT, PROC_REF(trigger))	//The eminence can trigger traps too
+	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(clicked))
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
 
 /datum/component/clockwork_trap/proc/add_input(datum/component/clockwork_trap/input)
 	outputs |= input.parent

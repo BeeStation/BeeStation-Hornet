@@ -38,7 +38,7 @@
 				if(open)
 					GM.visible_message("<span class='danger'>[user] starts to give [GM] a swirlie!</span>", "<span class='userdanger'>[user] starts to give you a swirlie...</span>")
 					swirlie = GM
-					if(do_after(user, 30, 0, target = src))
+					if(do_after(user, 30, target = src, timed_action_flags = IGNORE_HELD_ITEM))
 						GM.visible_message("<span class='danger'>[user] gives [GM] a swirlie!</span>", "<span class='userdanger'>[user] gives you a swirlie!</span>", "<span class='italics'>You hear a toilet flushing.</span>")
 						if(iscarbon(GM))
 							var/mob/living/carbon/C = GM
@@ -239,7 +239,7 @@
 
 /obj/structure/sinkframe/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
 
 /obj/structure/sinkframe/proc/can_be_rotated(mob/user, rotation_type)
 	if(anchored)
@@ -345,7 +345,7 @@
 		O.acid_level = 0
 		create_reagents(5)
 		reagents.add_reagent(dispensedreagent, 5)
-		reagents.expose(O, TOUCH)
+		reagents.reaction(O, TOUCH)
 		user.visible_message("<span class='notice'>[user] washes [O] using [src].</span>", \
 							"<span class='notice'>You wash [O] using [src].</span>")
 		return 1

@@ -51,6 +51,7 @@
 	unique_name = 1
 	gold_core_spawnable = HOSTILE_SPAWN
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	sentience_type = SENTIENCE_OTHER // not eligible for sentience potions
 	var/busy = SPIDER_IDLE // What a spider's doing
 	var/datum/action/innate/spider/lay_web/lay_web // Web action
 	var/obj/effect/proc_holder/wrap/lesser/lesserwrap // Wrap action
@@ -65,12 +66,13 @@
 	var/enriched_fed = 0
 	var/datum/action/innate/spider/lay_eggs/lay_eggs //the ability to lay eggs, granted to broodmothers
 	var/datum/team/spiders/spider_team = null //utilized by AI controlled broodmothers to pass antag team info onto their eggs without a mind
+	role = ROLE_SPIDER
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	do_footstep = TRUE
 	discovery_points = 1000
-	gold_core_spawnable = NO_SPAWN  //Spiders are introduced to the rounds through two types of antagonists 
+	gold_core_spawnable = NO_SPAWN  //Spiders are introduced to the rounds through two types of antagonists
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Initialize(mapload)
 	. = ..()
@@ -82,7 +84,11 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/mind_initialize()
 	. = ..()
 	if(!mind.has_antag_datum(/datum/antagonist/spider))
-		mind.add_antag_datum(/datum/antagonist/spider)
+		var/datum/antagonist/spider/spooder = new
+		if(!spider_team)
+			spooder.create_team()
+			spider_team = spooder.spider_team
+		mind.add_antag_datum(spooder, spider_team)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Destroy()
 	QDEL_NULL(lay_web)
@@ -100,21 +106,6 @@
 	if(spider_antag.spider_team.directive)
 		log_game("[key_name(src)] took control of [name] with the objective: '[spider_antag.spider_team.directive]'.")
 	return TRUE
-
-/mob/living/simple_animal/hostile/poison/giant_spider/sentience_act(mob/user)
-	. = ..()
-	var/datum/team/spiders/spiders
-	for(var/datum/team/spiders/team in GLOB.antagonist_teams)
-		if(team.master == user)
-			spiders = team
-			break
-	if(!spiders)
-		if(spider_team)
-			spiders = spider_team //Spider was AI controlled and then taken over by a ghost, so we apply the stored team datum
-		else
-			spiders = new(null, user)
-	var/datum/antagonist/spider/spider_antag = mind.has_antag_datum(/datum/antagonist/spider)
-	spider_antag.set_spider_team(spiders)
 
 // Allows spiders to take damage slowdown. 2 max, but they don't start moving slower until under 75% health
 /mob/living/simple_animal/hostile/poison/giant_spider/updatehealth()
@@ -159,7 +150,7 @@
 						cocoon_target = O
 						busy = MOVING_TO_TARGET
 						Goto(O, move_to_delay)
-						addtimer(CALLBACK(src, .proc/GiveUp, O), 20 SECONDS)
+						addtimer(CALLBACK(src, PROC_REF(GiveUp), O), 20 SECONDS)
 		if(cocoon_target && get_dist(src, cocoon_target) <= 1)
 			cocoon()
 			GiveUp() //if something interrupts the attempt to cocoon, there is probably an enemy entity nearby and we need to reset
@@ -199,7 +190,7 @@
 					if(L.blood_volume >= BLOOD_VOLUME_BAD && !isipc(L)) //IPCs and drained mobs are not nourishing.
 						L.blood_volume = 0 //Remove all fluids from this mob so they are no longer nourishing.
 						health = maxHealth //heal up from feeding.
-						if(istype(L,/mob/living/carbon/human)) 
+						if(istype(L,/mob/living/carbon/human))
 							enriched_fed++ //it is a humanoid, and is very nourishing
 						else
 							fed++ //it is not a humanoid, but still has nourishment
@@ -305,7 +296,7 @@ s
 					heal_target = C
 					busy = MOVING_TO_TARGET
 					Goto(C, move_to_delay)
-					addtimer(CALLBACK(src, .proc/GiveUp), 20 SECONDS) //to prevent infinite chases
+					addtimer(CALLBACK(src, PROC_REF(GiveUp)), 20 SECONDS) //to prevent infinite chases
 		if(heal_target && get_dist(src, heal_target) <= 1)
 			UnarmedAttack(heal_target)
 			if(heal_target.health >= heal_target.maxHealth)
@@ -364,12 +355,12 @@ s
 				cocoon_target = C
 				busy = MOVING_TO_TARGET
 				Goto(C, move_to_delay)
-				addtimer(CALLBACK(src, .proc/GiveUp, C), 20 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(GiveUp), C), 20 SECONDS)
 		if(prob(10) && lay_eggs.IsAvailable()) //so eggs aren't always placed immediately and directly by corpses
 			lay_eggs.Activate()
 	..()
 
-// Hunters are the most independant of the spiders, not relying on web and having a bit more damage and venom at the cost of health.
+// Hunters are the most independent of the spiders, not relying on web and having a bit more damage and venom at the cost of health.
 // They are intended to bring prey back from outside of the web.
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter
 	name = "hunter"
@@ -384,7 +375,7 @@ s
 	move_to_delay = 3
 	speed = 0
 
-// Vipers are physically very weak and fragile, but also very fast and inject a lot of venom. 
+// Vipers are physically very weak and fragile, but also very fast and inject a lot of venom.
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper
 	name = "viper"
 	desc = "Furry and black, it makes you shudder to look at it. This one has effervescent purple eyes."
@@ -395,11 +386,11 @@ s
 	health = 35
 	melee_damage = 8
 	poison_per_bite = 8
-	web_speed = -1
+	onweb_speed = -1
 	move_to_delay = 2
 	poison_type = /datum/reagent/toxin/venom
 
-//Guards are really tanky brutes that rely on force more than venom but perform very poorly away from webs. 
+//Guards are really tanky brutes that rely on force more than venom but perform very poorly away from webs.
 /mob/living/simple_animal/hostile/poison/giant_spider/guard
 	name = "guard"
 	desc = "Furry and black, it makes you shudder to look at it. This one has abyssal red eyes."
@@ -409,7 +400,7 @@ s
 	maxHealth = 125
 	health = 125
 	melee_damage = 22
-	poison_per_bite = 1 //rely on brute force, but they're still spiders. 
+	poison_per_bite = 1 //rely on brute force, but they're still spiders.
 	obj_damage = 50
 	move_to_delay = 5
 	speed = 3
@@ -529,7 +520,7 @@ s
 		if(target_atom.anchored)
 			return
 		user.cocoon_target = target_atom
-		INVOKE_ASYNC(user, /mob/living/simple_animal/hostile/poison/giant_spider/.proc/cocoon)
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob/living/simple_animal/hostile/poison/giant_spider, cocoon))
 		remove_ranged_ability()
 		return TRUE
 
@@ -588,7 +579,7 @@ s
 					else if(spider.spider_team) //No? then it is probably a second generation broodmother that spawned for a lack of ghosts
 						new_cluster.spider_team = spider.spider_team //so we pass the team inherited directly via the previous broodmother
 					else //This is a first generation, non-sentient broodmother likely spawned by admins and laying eggs for the first time.
-						var/datum/team/spiders/spiders = new() 
+						var/datum/team/spiders/spiders = new()
 						spider.spider_team = spiders					//lets make sure her potentially sentient children are all on the same team
 						new_cluster.spider_team = spider.spider_team
 					new_cluster.faction = spider.faction.Copy()
@@ -607,11 +598,6 @@ s
 	if(..())
 		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother))
 			return FALSE
-		var/mob/living/simple_animal/hostile/poison/giant_spider/S = owner
-		var/datum/antagonist/spider/spider_antag = S.mind?.has_antag_datum(/datum/antagonist/spider)
-		if(spider_antag?.spider_team.directive)
-			to_chat(owner, "<span class='notice'>You already have a directive, you cannot change it!</span>")
-			return FALSE
 		return TRUE
 
 /datum/action/innate/spider/set_directive/Activate()
@@ -626,7 +612,6 @@ s
 	var/new_directive = stripped_input(S, "Enter the new directive", "Create directive")
 	if(new_directive)
 		spider_antag.spider_team.update_directives(new_directive)
-		message_admins("[ADMIN_LOOKUPFLW(owner)] set its directive to: '[new_directive]'.")
 		log_game("[key_name(owner)][spider_antag.spider_team.master ? " (master: [spider_antag.spider_team.master]" : ""] set its directive to: '[new_directive]'.")
 		S.lay_eggs.UpdateButtonIcon(TRUE)
 

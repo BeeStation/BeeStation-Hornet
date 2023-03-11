@@ -284,7 +284,7 @@
 		/obj/item/toy/cards/deck = 10,
 		/obj/item/clothing/glasses/sunglasses/advanced/big = 5,
 		/obj/item/book/manual/wiki/security_space_law = 5,
-		//Harrassing security has never been this fun
+		//Harassing security has never been this fun
 		/obj/item/megaphone = 3,
 	)
 

@@ -137,6 +137,12 @@
 	light_color = "#FF3333"
 	color = "#FF3333"
 
+/turf/open/floor/grass/fairy/orange
+	name = "orange fairygrass patch"
+	floor_tile = /obj/item/stack/tile/fairygrass/orange
+	light_color = "#FFA500"
+	color = "#FFA500"
+
 /turf/open/floor/grass/fairy/yellow
 	name = "yellow fairygrass patch"
 	floor_tile = /obj/item/stack/tile/fairygrass/yellow

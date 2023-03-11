@@ -37,7 +37,7 @@
 
 /datum/antagonist/xeno/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	//Give traitor appearence on hud (If they are not an antag already)
+	//Give traitor appearance on hud (If they are not an antag already)
 	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_XENOMORPH]
 	traitorhud.join_hud(owner.current)
 	if(!owner.antag_hud_icon_state)
