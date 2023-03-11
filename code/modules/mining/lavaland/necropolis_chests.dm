@@ -1174,7 +1174,7 @@
 				C.damage = 15
 				C.monster_damage_boost = FALSE
 				log_combat(user, target, "fired a chaser at", src)
-			INVOKE_ASYNC(src, .proc/cardinal_blasts, T, user)
+			INVOKE_ASYNC(src, PROC_REF(cardinal_blasts), T, user)
 			log_combat(user, target, "fired cardinal blast at", src)
 		else
 			to_chat(user, "<span class='warning'>That target is out of range!</span>" )
