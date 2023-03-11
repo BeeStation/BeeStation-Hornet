@@ -21,7 +21,7 @@
 /datum/component/clockwork_trap/pressure_sensor/Initialize()
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddComponent(/datum/component/connect_loc_behalf, parent, loc_connections)
 

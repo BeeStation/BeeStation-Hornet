@@ -11,7 +11,7 @@
 	clothes_req = FALSE
 	centcom_cancast = FALSE
 	invocation = "MINUS POTENS NECREM IMORTIUM!"
-	invocation_type = "shout"
+	invocation_type = INVOCATION_SHOUT
 	range = -1
 	level_max = 0 //cannot be improved
 	cooldown_min = 10
@@ -109,7 +109,7 @@
 		qdel(src)
 		return
 	if(!mind.current || (mind.current && mind.current.stat == DEAD))
-		addtimer(CALLBACK(src, .proc/rise), respawn_time, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(rise)), respawn_time, TIMER_UNIQUE)
 
 /obj/item/lesserphylactery/proc/rise()
 	if(mind.current && mind.current.stat != DEAD)

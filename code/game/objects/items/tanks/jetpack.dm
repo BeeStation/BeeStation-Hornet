@@ -77,8 +77,8 @@
 		on_user_add()
 
 /obj/item/tank/jetpack/proc/on_user_add()
-	RegisterSignal(known_user, COMSIG_MOVABLE_MOVED, .proc/move_react)
-	RegisterSignal(known_user, COMSIG_PARENT_QDELETING, .proc/lose_known_user)
+	RegisterSignal(known_user, COMSIG_MOVABLE_MOVED, PROC_REF(move_react))
+	RegisterSignal(known_user, COMSIG_PARENT_QDELETING, PROC_REF(lose_known_user))
 
 /obj/item/tank/jetpack/proc/lose_known_user()
 	SIGNAL_HANDLER
@@ -225,7 +225,7 @@
 /obj/item/tank/jetpack/combustion/on_user_add()
 	..()
 	on_user_dir_change(null, null, known_user.dir)
-	RegisterSignal(known_user, COMSIG_ATOM_DIR_CHANGE, .proc/on_user_dir_change)
+	RegisterSignal(known_user, COMSIG_ATOM_DIR_CHANGE, PROC_REF(on_user_dir_change))
 
 /obj/item/tank/jetpack/combustion/on_user_loss()
 	..()
@@ -325,7 +325,7 @@
 		if(tilt_timer)
 			deltimer(tilt_timer)
 		animate(known_user, transform = M, time = 2)
-		tilt_timer = addtimer(CALLBACK(src, .proc/reset_animation, known_user), 2, TIMER_STOPPABLE)
+		tilt_timer = addtimer(CALLBACK(src, PROC_REF(reset_animation), known_user), 2, TIMER_STOPPABLE)
 
 /obj/item/tank/jetpack/combustion/proc/reset_animation(mob/who)
 	animate(who, transform = null, time = 2)

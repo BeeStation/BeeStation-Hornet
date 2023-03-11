@@ -32,7 +32,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	if(GLOB.ratvar_risen)
 		return
 	destroyed = TRUE
-	hierophant_message("The Ark has been destroyed, Reebe is becomming unstable!", null, "<span class='large_brass'>")
+	hierophant_message("The Ark has been destroyed, Reebe is becoming unstable!", null, "<span class='large_brass'>")
 	for(var/mob/living/M in GLOB.player_list)
 		if(!is_reebe(M.z))
 			continue
@@ -49,7 +49,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	//Summon nar'sie
 	if(GLOB.narsie_breaching)
 		new /obj/eldritch/narsie(GLOB.narsie_arrival)
-	INVOKE_ASYNC(src, .proc/explode_reebe)
+	INVOKE_ASYNC(src, PROC_REF(explode_reebe))
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/explode_reebe()
 	for(var/i in 1 to 30)
@@ -108,15 +108,15 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	for(var/datum/mind/M in GLOB.servants_of_ratvar)
 		SEND_SOUND(M.current, s)
 		to_chat(M, "<span class='big_brass'>The Ark has been activated, you will be transported soon!</span>")
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/hierophant_message, "Invoke 'Clockwork Armaments' using your Clockwork Slab to get powerful armour and weapons.", "Nezbere", "nezbere", FALSE, FALSE), 10)
-	addtimer(CALLBACK(src, .proc/announce_gateway), 300)
-	addtimer(CALLBACK(src, .proc/recall_sound), 270)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(hierophant_message), "Invoke 'Clockwork Armaments' using your Clockwork Slab to get powerful armour and weapons.", "Nezbere", "nezbere", FALSE, FALSE), 10)
+	addtimer(CALLBACK(src, PROC_REF(announce_gateway)), 300)
+	addtimer(CALLBACK(src, PROC_REF(recall_sound)), 270)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/begin_mass_recall()
 	if(recalled)
 		return
-	INVOKE_ASYNC(src, .proc/recall_sound)
-	addtimer(CALLBACK(src, .proc/mass_recall), 30)
+	INVOKE_ASYNC(src, PROC_REF(recall_sound))
+	addtimer(CALLBACK(src, PROC_REF(mass_recall)), 30)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/recall_sound()
 	for(var/datum/mind/M in GLOB.servants_of_ratvar)
@@ -130,7 +130,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	set_security_level(SEC_LEVEL_DELTA)
 	mass_recall(TRUE)
 	var/grace_time = GLOB.narsie_breaching ? 0 : 1800
-	addtimer(CALLBACK(src, .proc/begin_assault), grace_time)
+	addtimer(CALLBACK(src, PROC_REF(begin_assault)), grace_time)
 	priority_announce("Massive [Gibberish("bluespace", 100)] anomaly detected on all frequencies. All crew are directed to \
 	@!$, [text2ratvar("PURGE ALL UNTRUTHS")] <&. the anomalies and destroy their source to prevent further damage to corporate property. This is \
 	not a drill.[grace_period ? " Estimated time of appearance: [grace_time/10] seconds. Use this time to prepare for an attack on [station_name()]." : ""]"\
@@ -164,12 +164,12 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	for(var/i in 1 to 100)
 		var/turf/T = get_random_station_turf()
 		GLOB.clockwork_portals += new /obj/effect/portal/wormhole/clockcult(T, null, 0, null, FALSE)
-	addtimer(CALLBACK(src, .proc/begin_activation), 2400)
+	addtimer(CALLBACK(src, PROC_REF(begin_activation)), 2400)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/begin_activation()
 	icon_state = "clockwork_gateway_active"
 	sound_to_playing_players(volume = 25, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_active.ogg', TRUE))
-	addtimer(CALLBACK(src, .proc/begin_ratvar_arrival), 2400)
+	addtimer(CALLBACK(src, PROC_REF(begin_ratvar_arrival)), 2400)
 	START_PROCESSING(SSobj, src)
 	phase_messages = list(
 		"<span class='warning'>You hear other-worldly sounds from the north.</span>",
@@ -181,7 +181,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/begin_ratvar_arrival()
 	sound_to_playing_players(volume = 30, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_closing.ogg', TRUE))
 	icon_state = "clockwork_gateway_closing"
-	addtimer(CALLBACK(src, .proc/ratvar_approaches), 1200)
+	addtimer(CALLBACK(src, PROC_REF(ratvar_approaches)), 1200)
 	phase_messages = list(
 		"<span class='warning'>You hear otherworldly sounds from the north.</span>",
 		"<span class='brass'>The Celestial Gateway is feeding into the bluespace rift!</span>",
@@ -235,7 +235,7 @@ GLOBAL_VAR(cult_ratvar)
 	singularity = WEAKREF(AddComponent(
 		/datum/component/singularity, \
 		bsa_targetable = FALSE, \
-		consume_callback = CALLBACK(src, .proc/consume), \
+		consume_callback = CALLBACK(src, PROC_REF(consume)), \
 		consume_range = RATVAR_CONSUME_RANGE, \
 		disregard_failed_movements = TRUE, \
 		grav_pull = RATVAR_GRAV_PULL, \
@@ -249,7 +249,7 @@ GLOBAL_VAR(cult_ratvar)
 	SEND_SOUND(world, 'sound/effects/ratvar_reveal.ogg')
 	to_chat(world, "<span class='ratvar'>The bluespace veil gives way to Ratvar, his light shall shine upon all mortals!</span>")
 	UnregisterSignal(src, COMSIG_ATOM_BSA_BEAM)
-	INVOKE_ASYNC(GLOBAL_PROC, /proc/trigger_clockcult_victory, src)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(trigger_clockcult_victory), src)
 	check_gods_battle()
 
 //tasty

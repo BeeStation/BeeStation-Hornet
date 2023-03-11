@@ -14,6 +14,8 @@
 	has_light = TRUE //LED flashlight!
 	comp_light_luminosity = 2.3 //Same as the PDA
 	interaction_flags_atom = INTERACT_ATOM_ALLOW_USER_LOCATION
+	can_save_id = TRUE
+	saved_auto_imprint = TRUE
 
 	var/has_variants = TRUE
 	var/finish_color = null
@@ -60,6 +62,7 @@
 			qdel(stored_paper)
 		stored_paper = paper.copy(src)
 		to_chat(user, "<span class='notice'>Paper scanned. Saved to PDA's notekeeper.</span>")
+		ui_update()
 	return TRUE
 
 /obj/item/modular_computer/tablet/attackby(obj/item/attacking_item, mob/user)

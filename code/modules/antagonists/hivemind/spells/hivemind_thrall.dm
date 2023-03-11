@@ -5,7 +5,7 @@
 	charge_max = 600
 	range = 1
 	max_targets = 0
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	clothes_req = 0
 	human_req = 1
 	action_icon = 'icons/mob/actions/actions_hive.dmi'
@@ -72,4 +72,5 @@
 	flash_color(user, flash_color="#800080", flash_time=10)
 	to_chat(user,"<span class='assimilator'>This vessel is now an extension of our will.</span>")
 	if(hivehost.dominant)
+		V.glow = hivehost.glow
 		target.add_overlay(hivehost.glow)

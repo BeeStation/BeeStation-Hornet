@@ -15,7 +15,7 @@ GLOBAL_DATUM_INIT(sortInstance, /datum/sortInstance, new())
 	var/list/L
 
 	//The comparator proc-reference
-	var/cmp = /proc/cmp_numeric_asc
+	var/cmp = GLOBAL_PROC_REF(cmp_numeric_asc)
 
 	//whether we are sorting list keys (0: L[i]) or associated values (1: L[L[i]])
 	var/associative = 0
@@ -388,7 +388,7 @@ GLOBAL_DATUM_INIT(sortInstance, /datum/sortInstance, new())
 			var/count1 = 0	//# of times in a row that first run won
 			var/count2 = 0	//	"	"	"	"	"	"  second run won
 
-			//do the straightfoward thin until one run starts winning consistently
+			//do the straightforward thin until one run starts winning consistently
 
 			do
 				//ASSERT(len1 > 1 && len2 > 0)
@@ -488,7 +488,7 @@ GLOBAL_DATUM_INIT(sortInstance, /datum/sortInstance, new())
 			var/count1 = 0	//# of times in a row that first run won
 			var/count2 = 0	//	"	"	"	"	"	"  second run won
 
-			//do the straightfoward thing until one run starts winning consistently
+			//do the straightforward thing until one run starts winning consistently
 			do
 				//ASSERT(len1 > 0 && len2 > 1)
 				if(call(cmp)(fetchElement(L,cursor2), fetchElement(L,cursor1)) < 0)

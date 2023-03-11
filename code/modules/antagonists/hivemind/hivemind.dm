@@ -92,15 +92,15 @@
 	var/datum/mind/M = C.mind
 	if(M)
 		hivemembers |= M
-		RegisterSignal(M, COMSIG_PARENT_QDELETING, .proc/handle_mind_deletion)
+		RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(handle_mind_deletion))
 		add_hive_overlay(C)
 		calc_size()
 
 	var/user_warning = "<span class='userdanger'>We have detected an enemy hivemind using our physical form as a vessel and have begun ejecting their mind! They will be alerted of our disappearance once we succeed!</span>"
 	if(IS_HIVEHOST(C))
 		var/eject_time = rand(1400,1600) //2.5 minutes +- 10 seconds
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, user_warning), rand(500,1300)) // If the host has assimilated an enemy hive host, alert the enemy before booting them from the hive after a short while
-		addtimer(CALLBACK(src, .proc/handle_ejection, C), eject_time)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), C, user_warning), rand(500,1300)) // If the host has assimilated an enemy hive host, alert the enemy before booting them from the hive after a short while
+		addtimer(CALLBACK(src, PROC_REF(handle_ejection), C), eject_time)
 
 /datum/antagonist/hivemind/proc/handle_mind_deletion(datum/mind/M)
 	SIGNAL_HANDLER

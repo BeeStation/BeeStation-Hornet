@@ -7,7 +7,7 @@
 	layer = ABOVE_MOB_LAYER
 	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_BRAIN
-	organ_flags = ORGAN_VITAL
+	organ_flags = ORGAN_VITAL|ORGAN_EDIBLE
 	attack_verb = list("attacked", "slapped", "whacked")
 
 	///The brain's organ variables are significantly more different than the other organs, with half the decay rate for balance reasons, and twice the maxHealth
@@ -69,10 +69,6 @@
 	if((!gc_destroyed || (owner && !owner.gc_destroyed)) && !no_id_transfer)
 		transfer_identity(C)
 	C.update_hair()
-
-/obj/item/organ/brain/prepare_eat(mob/living/carbon/human/H)
-	if(iszombie(H))//braaaaaains... otherwise, too important to eat.
-		..()
 
 /obj/item/organ/brain/setOrganDamage(d)
 	. = ..()
@@ -168,6 +164,16 @@
 	if(owner?.mind) //You aren't allowed to return to brains that don't exist
 		owner.mind.set_current(null)
 	return ..()
+
+// We really don't want people eating brains unless they're zombies.
+/obj/item/organ/brain/pre_eat(eater, feeder)
+	if(!iszombie(eater))
+		return FALSE
+	return TRUE
+
+// Ditto for composting
+/obj/item/organ/brain/pre_compost(user)
+	return FALSE
 
 /obj/item/organ/brain/on_life()
 	if(damage >= BRAIN_DAMAGE_DEATH) //rip
