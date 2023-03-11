@@ -49,7 +49,7 @@
 	icon_state = "[item_state]_open"
 	flick("[item_state]_opening", src)
 
-	addtimer(CALLBACK(src, .proc/close_animation), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(close_animation)), 5 SECONDS)
 
 /*
  * Plays a closing animation and resets the icon state.

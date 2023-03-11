@@ -111,7 +111,7 @@
 		balloon_alert(user, "Not full enough")
 		return TRUE
 
-	INVOKE_ASYNC(src, .proc/show_radial, user)
+	INVOKE_ASYNC(src, PROC_REF(show_radial), user)
 	return TRUE
 
 /*

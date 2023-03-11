@@ -216,8 +216,8 @@
 	H.notify_ghost_cloning("You have been repaired!")
 	H.grab_ghost()
 	H.dna.features["ipc_screen"] = "BSOD"
-	INVOKE_ASYNC(src, .proc/declare_revival, H)
-	
+	INVOKE_ASYNC(src, PROC_REF(declare_revival), H)
+
 	H.update_body()
 	return
 

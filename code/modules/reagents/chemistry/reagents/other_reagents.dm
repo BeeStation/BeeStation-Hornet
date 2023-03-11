@@ -2173,7 +2173,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	var/hands = 1
 	var/time = 2 / delta_time
 	while(hands < delta_time) //we already made a hand now so start from 1
-		LAZYADD(timer_ids, addtimer(CALLBACK(src, .proc/spawn_hands, owner), (time*hands) SECONDS, TIMER_STOPPABLE)) //keep track of all the timers we set up
+		LAZYADD(timer_ids, addtimer(CALLBACK(src, PROC_REF(spawn_hands), owner), (time*hands) SECONDS, TIMER_STOPPABLE)) //keep track of all the timers we set up
 		hands += time
 	return ..()
 
