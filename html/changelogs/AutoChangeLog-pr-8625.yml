@@ -1,0 +1,5 @@
+author: Tyranicranger4
+delete-after: true
+changes:
+  - rscadd: Added an engineering ERT team preset
+  - tweak: ERT members that have first-aid kits now have normal sized first-aid kits
