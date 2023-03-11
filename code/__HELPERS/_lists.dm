@@ -13,27 +13,46 @@
  * Misc
  */
 
+///Initialize the lazylist
 #define LAZYINITLIST(L) if (!L) { L = list(); }
+///If the provided list is empty, set it to null
 #define UNSETEMPTY(L) if (L && !length(L)) L = null
+///copies an input list if the list has entries
 #define LAZYCOPY(L) (L ? L.Copy() : list() )
+///Remove an item from the list, set the list to null if empty
 #define LAZYREMOVE(L, I) if(L) { L -= I; if(!length(L)) { L = null; } }
+///Add an item to the list, if the list is null it will initialize it
 #define LAZYADD(L, I) if(!L) { L = list(); } L += I;
+///Add an item to the list if not already present, if the list is null it will initialize it
 #define LAZYOR(L, I) if(!L) { L = list(); } L |= I;
+///Returns the key of the submitted item in the list
 #define LAZYFIND(L, V) L ? L.Find(V) : 0
+///returns L[I] if L exists and I is a valid index of L, runtimes if L is not a list
 #define LAZYACCESS(L, I) (L ? (isnum_safe(I) ? (I > 0 && I <= length(L) ? L[I] : null) : L[I]) : null)
+///Sets the item K to the value V, if the list is null it will initialize it
 #define LAZYSET(L, K, V) if(!L) { L = list(); } L[K] = V;
+///Returns the lenght of the list
 #define LAZYLEN(L) length(L) // should only be used for lazy lists. Using this with non-lazy lists is bad
 ///Sets a list to null
 #define LAZYNULL(L) L = null
-#define LAZYCLEARLIST(L) if(L) L.Cut()
-#define SANITIZE_LIST(L) ( islist(L) ? L : list() )
-#define reverseList(L) reverseRange(L.Copy())
+///Adds to the item K the value V, if the list is null it will initialize it
 #define LAZYADDASSOC(L, K, V) if(!L) { L = list(); } L[K] += V;
 ///This is used to add onto lazy assoc list when the value you're adding is a /list/. This one has extra safety over lazyaddassoc because the value could be null (and thus cant be used to += objects)
 #define LAZYADDASSOCLIST(L, K, V) if(!L) { L = list(); } L[K] += list(V);
+///Removes the value V from the item K, if the item K is empty will remove it from the list, if the list is empty will set the list to null
 #define LAZYREMOVEASSOC(L, K, V) if(L) { if(L[K]) { L[K] -= V; if(!length(L[K])) L -= K; } if(!length(L)) L = null; }
+///Accesses an associative list, returns null if nothing is found
 #define LAZYACCESSASSOC(L, I, K) L ? L[I] ? L[I][K] ? L[I][K] : null : null : null
+///Qdel every item in the list before setting the list to null
 #define QDEL_LAZYLIST(L) for(var/I in L) qdel(I); L = null;
+
+//These methods don't null the list
+/// Consider LAZYNULL instead
+#define LAZYCLEARLIST(L) if(L) L.Cut()
+///Returns the list if it's actually a valid list, otherwise will initialize it
+#define SANITIZE_LIST(L) ( islist(L) ? L : list() )
+#define reverseList(L) reverseRange(L.Copy())
+
 
 #define VARSET_FROM_LIST(L, V) if(L && L[#V]) V = L[#V]
 #define VARSET_FROM_LIST_IF(L, V, C...) if(L && L[#V] && (C)) V = L[#V]
@@ -198,7 +217,7 @@
 		if (typecache[atom_checked.type])
 			. += atom_checked
 
-/// returns a new list with only atoms that are NOT in typecache L
+/// returns a new list with only atoms that are NOT in typecache list
 /proc/typecache_filter_list_reverse(list/atoms, list/typecache)
 	RETURN_TYPE(/list)
 	. = list()
@@ -241,7 +260,10 @@
 						L[T] = TRUE
 		return L
 
-/// Removes any null entries from the list. Returns TRUE if the list had nulls, FALSE otherwise
+/**
+ * Removes any null entries from the list
+ * Returns TRUE if the list had nulls, FALSE otherwise
+**/
 /proc/listclearnulls(list/L)
 	var/start_len = L.len
 	var/list/N = new(start_len)
@@ -280,12 +302,14 @@
 		result = first ^ second
 	return result
 
-/**Picks a random element from a list based on a weighting system:
- 1. Adds up the total of weights for each element
- 2. Gets a number between 1 and that total
- 3. For each element in the list, subtracts its weighting from that number
- 4. If that makes the number 0 or less, return that element.
-*/
+/**
+ * Picks a random element from a list based on a weighting system:
+ * 1. Adds up the total of weights for each element
+ * 2. Gets a number between 1 and that total
+ * 3. For each element in the list, subtracts its weighting from that number
+ * 4. If that makes the number 0 or less, return that element.
+ * Will output null sometimes if you use decimals (e.g. 0.1 instead of 10) as rand() uses integers, not floats
+**/
 /proc/pickweight(list/L)
 	var/total = 0
 	var/item
@@ -301,8 +325,8 @@
 			return item
 
 	return null
-
-/proc/pickweightAllowZero(list/L) //The original pickweight proc will sometimes pick entries with zero weight.  I'm not sure if changing the original will break anything, so I left it be.
+///The original pickweight proc will sometimes pick entries with zero weight. I'm not sure if changing the original will break anything, so I left it be.
+/proc/pickweightAllowZero(list/L)
 	var/total = 0
 	var/item
 	for (item in L)
