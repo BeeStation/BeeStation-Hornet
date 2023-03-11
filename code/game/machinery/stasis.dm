@@ -12,8 +12,6 @@
 	active_power_usage = 500
 	fair_market_price = 10
 	dept_req_for_free = ACCOUNT_MED_BITFLAG
-	var/oxy_heal_coeff = 0
-	var/advanced = FALSE
 	var/stasis_enabled = TRUE
 	var/last_stasis_sound = FALSE
 	var/stasis_can_toggle = 0
@@ -38,25 +36,6 @@
 	. = ..()
 	. += "<span class='notice'>Alt-click to [stasis_enabled ? "turn off" : "turn on"] the machine.</span>"
 	. += "<span class='notice'>[src] is [op_computer ? "linked" : "<b>NOT</b> linked"] to an operating computer.</span>"
-
-/obj/machinery/stasis/RefreshParts()
-	var/initial_active_power_usage = initial(active_power_usage)
-	oxy_heal_coeff = 0
-	active_power_usage = initial_active_power_usage
-	advanced = TRUE
-	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
-		if (manipulator.rating < 4)
-			advanced = FALSE
-		var/rating = max(manipulator.rating - 1, 0)
-		if (rating)
-			oxy_heal_coeff += rating
-			active_power_usage += rating * 65
-	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
-		if (capacitor.rating < 4)
-			advanced = FALSE
-		var/rating = max(capacitor.rating - 1, 0)
-		if (rating)
-			active_power_usage = max(active_power_usage - (rating * 50), initial_active_power_usage)
 
 /obj/machinery/stasis/proc/play_power_sound()
 	var/_running = stasis_running()
@@ -150,17 +129,14 @@
 		occupant = null
 	update_icon()
 
-/obj/machinery/stasis/process(delta_time)
-	if(!( occupant && isliving(occupant) && check_nap_violations() ) )
+/obj/machinery/stasis/process()
+	if( !( occupant && isliving(occupant) && check_nap_violations() ) )
 		use_power = IDLE_POWER_USE
 		return
 	var/mob/living/L_occupant = occupant
 	if(stasis_running())
 		if(!L_occupant.IsInStasis())
 			chill_out(L_occupant)
-		if(oxy_heal_coeff && L_occupant.getOxyLoss() >= 95)
-			var/oxy_heal = -1.5 * oxy_heal_coeff
-			L_occupant.adjustOxyLoss(oxy_heal * delta_time)
 	else if(L_occupant.IsInStasis())
 		thaw_them(L_occupant)
 
