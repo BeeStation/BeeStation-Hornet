@@ -44,8 +44,8 @@ export type State = {
 };
 
 type Timers = {
-  channelDebounce: ({ mode: boolean }) => void;
-  forceDebounce: ({ channel: number, entry: string }) => void;
+  channelDebounce: (options: { mode: boolean }) => void;
+  forceDebounce: (options: { channel: number; entry: string }) => void;
   typingThrottle: () => void;
 };
 
