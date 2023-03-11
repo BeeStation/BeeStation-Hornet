@@ -1,5 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - bugfix: fixed the moodlets for wearing Clown Shoes, Black and Yellow gloves being
-      removed when you dropped a second pair
