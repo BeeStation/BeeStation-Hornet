@@ -272,7 +272,7 @@
 	var/turf/T = get_turf(A)
 	var/list/things = contents()
 	var/datum/progressbar/progress = new(M, length(things), T)
-	while (do_after(M, 10, TRUE, T, FALSE, CALLBACK(src, PROC_REF(mass_remove_from_storage), T, things, progress)))
+	while (do_after(M, 1 SECONDS, T, NONE, FALSE, CALLBACK(src, PROC_REF(mass_remove_from_storage), T, things, progress)))
 		stoplag(1)
 	qdel(progress)
 

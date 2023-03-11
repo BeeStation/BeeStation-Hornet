@@ -1451,7 +1451,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			user.visible_message("<span class='warning'>[user] starts stealing [target]'s shoes!</span>",
 								"<span class='warning'>You start stealing [target]'s shoes!</span>")
 			var/obj/item/I = target.shoes
-			if(do_after(user, I.strip_delay, TRUE, target, TRUE))
+			if(do_after(user, I.strip_delay, target))
 				target.dropItemToGround(I, TRUE)
 				user.put_in_hands(I)
 				user.visible_message("<span class='warning'>[user] stole your [I]!</span>",
