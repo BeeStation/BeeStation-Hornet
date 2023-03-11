@@ -31238,20 +31238,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/white,
 /area/science/lobby)
-"ltQ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_one_access_txt = "12;5;63"
-	},
-/obj/structure/lattice/catwalk/over,
-/turf/open/floor/plating,
-/area/maintenance/department/medical)
 "ltS" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -35772,26 +35758,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
-"mTj" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 6;
-	height = 6;
-	id = "science_station";
-	name = "science shuttle dock";
-	width = 9
-	},
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 5;
-	height = 7;
-	id = "exploration_home";
-	name = "Exploration Dock";
-	roundstart_template = /datum/map_template/shuttle/exploration;
-	width = 13
-	},
-/turf/open/space/basic,
-/area/space)
 "mTl" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
@@ -54821,9 +54787,6 @@
 	},
 /turf/open/floor/plasteel/stairs/left,
 /area/hallway/primary/central)
-"tXy" = (
-/turf/open/space/basic,
-/area/shuttle/abandoned/cargo)
 "tXJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/broken,
@@ -59199,6 +59162,26 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"vJn" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 5;
+	height = 7;
+	id = "exploration_home";
+	name = "Exploration Dock";
+	roundstart_template = /datum/map_template/shuttle/exploration/rad;
+	width = 13
+	},
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 6;
+	height = 6;
+	id = "science_station";
+	name = "science shuttle dock";
+	width = 9
+	},
+/turf/open/space/basic,
+/area/space)
 "vJq" = (
 /obj/machinery/computer/rdservercontrol,
 /obj/effect/turf_decal/bot,
@@ -82210,7 +82193,7 @@ yeA
 yeA
 yeA
 yeA
-fQL
+yeA
 gsA
 gsA
 jGx
@@ -84256,14 +84239,14 @@ yeA
 yeA
 yeA
 yeA
-gsA
-gsA
-ewB
-ewB
-gsA
-gsA
-gsA
-gsA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
 yeA
 yeA
 yeA
@@ -84508,22 +84491,22 @@ yeA
 yeA
 yeA
 yeA
-gsA
 yeA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-ewB
-ewB
-gsA
-gsA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
 yeA
 yeA
 gsA
@@ -84756,31 +84739,31 @@ yeA
 yeA
 yeA
 yeA
-gsA
-gsA
-gsA
 yeA
 yeA
 yeA
-gsA
-ewB
-ewB
-gsA
-ewB
-ewB
-ewB
-ewB
-gsA
-ewB
-ewB
-ewB
-ewB
-ewB
-gsA
-gsA
-gsA
-gsA
-gsA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
 fQL
 gsA
 jGx
@@ -85016,30 +84999,30 @@ gsA
 gsA
 ewB
 ewB
-gsA
 yeA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
-gsA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
 gsA
 yeA
 gsA
@@ -85274,29 +85257,29 @@ gsA
 gsA
 gsA
 gsA
-gsA
-gsA
-gsA
-ewB
-ewB
-ewB
-ewB
-gsA
-tXy
-tXy
-tXy
-tXy
-tXy
-tXy
-tXy
-tXy
-tXy
-tXy
-tXy
-gsA
-gsA
-gsA
-gsA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
 ewB
 yeA
 ewB
@@ -85533,27 +85516,27 @@ ewB
 ewB
 ewB
 ewB
-gsA
 yeA
 yeA
 yeA
 yeA
-tXy
-tXy
 yeA
 yeA
 yeA
-tXy
-tXy
-tXy
-tXy
-tXy
-tXy
-tXy
-tXy
-tXy
-gsA
-gsA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
 ewB
 yeA
 ewB
@@ -85795,12 +85778,6 @@ yeA
 yeA
 yeA
 yeA
-tXy
-yeA
-yeA
-yeA
-yeA
-tXy
 yeA
 yeA
 yeA
@@ -85808,7 +85785,13 @@ yeA
 yeA
 yeA
 yeA
-tXy
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
 yeA
 gsA
 gsA
@@ -86052,12 +86035,6 @@ yeA
 yeA
 yeA
 yeA
-tXy
-yeA
-yeA
-yeA
-yeA
-tXy
 yeA
 yeA
 yeA
@@ -86065,7 +86042,13 @@ yeA
 yeA
 yeA
 yeA
-tXy
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
 yeA
 gsA
 jGx
@@ -86309,12 +86292,6 @@ yeA
 yeA
 yeA
 yeA
-tXy
-yeA
-yeA
-yeA
-yeA
-tXy
 yeA
 yeA
 yeA
@@ -86322,7 +86299,13 @@ yeA
 yeA
 yeA
 yeA
-tXy
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
 gsA
 gsA
 gsA
@@ -86566,12 +86549,6 @@ hhW
 hhW
 hhW
 ttB
-tXy
-tXy
-yeA
-yeA
-yeA
-tXy
 yeA
 yeA
 yeA
@@ -86579,7 +86556,13 @@ yeA
 yeA
 yeA
 yeA
-tXy
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
 gsA
 gsA
 gsA
@@ -86823,20 +86806,20 @@ sJD
 cOk
 sJD
 wOl
-gsA
-tXy
-tXy
-tXy
-tXy
-tXy
-tXy
-mTj
-tXy
-tXy
-tXy
-tXy
-tXy
-tXy
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+vJn
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
 gsA
 gsA
 gsA
@@ -101215,7 +101198,7 @@ uAi
 itM
 cKB
 xCe
-ltQ
+jTS
 nKu
 nKu
 xCe
