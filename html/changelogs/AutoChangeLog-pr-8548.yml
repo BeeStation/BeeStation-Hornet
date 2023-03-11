@@ -1,0 +1,7 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added a new Orange Bioluminescence trait to the Extradimensional Orange
+  - rscadd: Added orange Fairygrass tiles
+  - rscadd: Added a new Colorful Reagent reaction to plants, which adds/swaps out
+      an existing bioluminescence trait
