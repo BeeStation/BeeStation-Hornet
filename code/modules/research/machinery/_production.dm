@@ -4,27 +4,33 @@
 	name = "technology fabricator"
 	desc = "Makes researched and prototype items with materials and energy."
 	layer = BELOW_OBJ_LAYER
-	var/consoleless_interface = FALSE			// Whether it can be used without a console.
-	var/efficiency_coeff = 1				// Materials needed / coeff = actual.
+	/// Whether it can be used without a console.
+	var/consoleless_interface = FALSE
+	/// Used for material distribution among other things.
+	var/efficiency_coeff = 1
 	var/list/categories = list()
 	var/datum/component/remote_materials/materials
 	var/allowed_department_flags = ALL
-	var/production_animation				// What's flick()'d on print.
+	/// What's flick()'d on print.
+	var/production_animation
 	var/allowed_buildtypes = NONE
 	var/list/datum/design/cached_designs
 	var/list/datum/design/matching_designs
-	var/department_tag = "Unidentified"			// Used for material distribution among other things.
+	/// Used for material distribution among other things.
+	var/department_tag = "Unidentified"
 	var/datum/techweb/stored_research
 	var/datum/techweb/host_research
 
 	var/search = null
 	var/selected_category = null
 
-	var/stripe_color = null	// What color is this machine's stripe? Leave null to not have a stripe.
+	/// What color is this machine's stripe? Leave null to not have a stripe.
+	var/stripe_color = null
 
 	var/list/mob/viewing_mobs = list()
 
-	var/list/pending_research = list()  // Only for examination
+	/// Only for examination
+	var/list/pending_research = list()
 
 /obj/machinery/rnd/production/Initialize(mapload)
 	. = ..()
