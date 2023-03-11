@@ -628,7 +628,7 @@ Difficulty: Hard
 		if(defuse && istype(loc, /turf/closed/mineral/gibtonite))
 			var/turf/closed/mineral/gibtonite/G = loc
 			G.defuse()
-	INVOKE_ASYNC(src, .proc/blast)
+	INVOKE_ASYNC(src, PROC_REF(blast))
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
