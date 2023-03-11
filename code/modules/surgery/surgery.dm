@@ -154,12 +154,18 @@
 
 	var/turf/T = get_turf(target)
 	var/obj/structure/table/optable/table = locate(/obj/structure/table/optable, T)
-	if(!table || !table.computer)
-		return FALSE
-	if(table.computer.machine_stat & (NOPOWER|BROKEN))
-		return FALSE
-	if(type in table.computer.advanced_surgeries)
-		return TRUE
+	if(table?.computer)
+		if(table.computer.machine_stat & (NOPOWER|BROKEN))
+			return FALSE
+		if(type in table.computer.advanced_surgeries)
+			return TRUE
+	var/obj/machinery/stasis/bed = locate(/obj/machinery/stasis, T)
+	if (bed?.advanced && bed?.op_computer)
+		if(bed.op_computer.machine_stat & (NOPOWER|BROKEN))
+			return FALSE
+		if(type in bed.op_computer.advanced_surgeries)
+			return TRUE
+	return FALSE
 
 /obj/item/disk/surgery
 	name = "Surgery Procedure Disk"
