@@ -16,16 +16,6 @@
 /obj/effect/turf_decal/box/white,
 /turf/open/floor/plasteel/tech,
 /area/shuttle/mining)
-"f" = (
-/obj/structure/closet/crate,
-/obj/item/storage/pod{
-	pixel_x = -25;
-	unlocked = 1
-	},
-/obj/structure/window/reinforced,
-/obj/effect/turf_decal/loading_area,
-/turf/open/floor/plasteel/tech/grid,
-/area/shuttle/mining)
 "h" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional{
 	dir = 8
@@ -45,12 +35,6 @@
 "j" = (
 /obj/structure/shuttle/engine/propulsion/left,
 /turf/open/floor/plating/airless,
-/area/shuttle/mining)
-"l" = (
-/obj/structure/ore_box,
-/obj/structure/window/reinforced,
-/obj/effect/turf_decal/loading_area,
-/turf/open/floor/plasteel/tech/grid,
 /area/shuttle/mining)
 "n" = (
 /obj/structure/table/reinforced,
@@ -93,6 +77,16 @@
 "D" = (
 /obj/effect/turf_decal/box,
 /turf/open/floor/plasteel/tech,
+/area/shuttle/mining)
+"E" = (
+/obj/structure/ore_box,
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/loading_area,
+/obj/item/shovel{
+	pixel_x = 4;
+	pixel_y = -1
+	},
+/turf/open/floor/plasteel/tech/grid,
 /area/shuttle/mining)
 "G" = (
 /obj/structure/shuttle/engine/propulsion/right,
@@ -147,6 +141,19 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/mining)
+"V" = (
+/obj/item/storage/pod{
+	pixel_x = -25;
+	unlocked = 1
+	},
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/loading_area,
+/obj/structure/closet/crate/miningcar{
+	pixel_x = 1;
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/shuttle/mining)
 "X" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -170,7 +177,7 @@ I
 e
 i
 X
-f
+V
 j
 "}
 (3,1,1) = {"
@@ -188,7 +195,7 @@ n
 O
 P
 X
-l
+E
 G
 "}
 (5,1,1) = {"
