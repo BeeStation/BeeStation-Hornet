@@ -1,0 +1,5 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Fixed the laser gatling gun's sounds and intended functionality. It is
+      still only available via admin spawn.
