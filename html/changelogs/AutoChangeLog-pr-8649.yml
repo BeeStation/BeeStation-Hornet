@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Fixed a runtime that caused message monitor PDA messages and admin PDA
+      messages to not be logged.
