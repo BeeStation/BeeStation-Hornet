@@ -99,7 +99,7 @@
 	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on weaving a cocoon...</span>", \
 	"<span class='notice'>You begin to focus on weaving a cocoon... (This will take [DisplayTimeText(COCOON_WEAVE_DELAY)] and you must hold still.)</span>")
 	H.adjustStaminaLoss(20, FALSE) //this is here to deter people from spamming it if they get interrupted
-	if(do_after(H, COCOON_WEAVE_DELAY, FALSE, H))
+	if(do_after(H, COCOON_WEAVE_DELAY, H, timed_action_flags = IGNORE_HELD_ITEM))
 		if(!ismoth(H))
 			to_chat(H, "<span class='warning'>You have lost your mandibles and cannot weave anymore!.</span>")
 			return
@@ -116,7 +116,7 @@
 		C.done_regenerating = FALSE
 		H.apply_status_effect(STATUS_EFFECT_COCOONED)
 		H.log_message("has finished weaving a cocoon.", LOG_GAME)
-		addtimer(CALLBACK(src, .proc/emerge, C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(emerge), C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 	else
 		to_chat(H, "<span class='warning'>You need to hold still in order to weave a cocoon!</span>")
 

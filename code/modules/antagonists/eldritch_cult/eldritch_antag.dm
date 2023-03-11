@@ -156,7 +156,7 @@
 
 /datum/antagonist/heretic/get_admin_commands()
 	. = ..()
-	.["Equip"] = CALLBACK(src,.proc/equip_cultist)
+	.["Equip"] = CALLBACK(src,PROC_REF(equip_cultist))
 
 /datum/antagonist/heretic/roundend_report()
 	var/list/parts = list()

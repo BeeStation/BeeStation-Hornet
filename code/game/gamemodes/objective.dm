@@ -107,7 +107,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		UnregisterSignal(target, COMSIG_MIND_CRYOED)
 	target = new_target
 	if(istype(target, /datum/mind))
-		RegisterSignal(target, COMSIG_MIND_CRYOED, .proc/on_target_cryo)
+		RegisterSignal(target, COMSIG_MIND_CRYOED, PROC_REF(on_target_cryo))
 		target.isAntagTarget = TRUE
 
 /datum/objective/proc/unset_target()
@@ -1082,7 +1082,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		/datum/objective/absorb,
 		/datum/objective/custom,
 		/datum/objective/custom/plus_murderbone
-	),/proc/cmp_typepaths_asc)
+	),GLOBAL_PROC_REF(cmp_typepaths_asc))
 
 	for(var/datum/objective/X as() in allowed_types)
 		GLOB.admin_objective_list[initial(X.name)] = X

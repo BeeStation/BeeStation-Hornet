@@ -96,7 +96,7 @@
 			aicamera.adjust_zoom(usr)
 		if("change_image")
 			var/atom/anchor = get_atom_on_turf(src)
-			var/newImage = show_radial_menu(usr, anchor, GLOB.pAI_faces_icons, custom_check = CALLBACK(src, .proc/check_radial_menu, anchor), radius = 40, require_near = TRUE)
+			var/newImage = show_radial_menu(usr, anchor, GLOB.pAI_faces_icons, custom_check = CALLBACK(src, PROC_REF(check_radial_menu), anchor), radius = 40, require_near = TRUE)
 			if(isnull(newImage))
 				card.emotion_icon = "null"
 			else
@@ -167,7 +167,7 @@
 			if(params["list"] == "security")
 				security_records = GLOB.data_core.get_security_records()
 			ui.send_full_update()
-			addtimer(CALLBACK(src, .proc/refresh_again), 3 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(refresh_again)), 3 SECONDS)
 		if("remote_signaler")
 			signaler.ui_interact(src)
 		if("security_hud")

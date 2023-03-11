@@ -72,11 +72,11 @@
 
 	//TODO OMINOUS MACHINE SOUNDS
 	set_busy(TRUE, "Initializing injection protocol...", "[initial(icon_state)]_raising")
-	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Analyzing host bio-structure...", "[initial(icon_state)]_active"), 20 * speed_coeff)
-	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Priming nanites...", "[initial(icon_state)]_active"), 40 * speed_coeff)
-	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Injecting...", "[initial(icon_state)]_active"), 70 * speed_coeff)
-	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Activating nanites...", "[initial(icon_state)]_falling"), 110 * speed_coeff)
-	addtimer(CALLBACK(src, .proc/complete_injection, locked_state), 130 * speed_coeff)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "Analyzing host bio-structure...", "[initial(icon_state)]_active"), 20 * speed_coeff)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "Priming nanites...", "[initial(icon_state)]_active"), 40 * speed_coeff)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "Injecting...", "[initial(icon_state)]_active"), 70 * speed_coeff)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "Activating nanites...", "[initial(icon_state)]_falling"), 110 * speed_coeff)
+	addtimer(CALLBACK(src, PROC_REF(complete_injection), locked_state),130)
 
 /obj/machinery/nanite_chamber/proc/complete_injection(locked_state)
 	//TODO MACHINE DING
@@ -99,11 +99,11 @@
 
 	//TODO OMINOUS MACHINE SOUNDS
 	set_busy(TRUE, "Initializing cleanup protocol...", "[initial(icon_state)]_raising")
-	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Analyzing host bio-structure...", "[initial(icon_state)]_active"), 20 * speed_coeff)
-	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Pinging nanites...", "[initial(icon_state)]_active"), 40 * speed_coeff)
-	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Initiating graceful self-destruct sequence...", "[initial(icon_state)]_active"), 70 * speed_coeff)
-	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Removing debris...", "[initial(icon_state)]_falling"), 110 * speed_coeff)
-	addtimer(CALLBACK(src, .proc/complete_removal, locked_state), 130 * speed_coeff)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "Analyzing host bio-structure...", "[initial(icon_state)]_active"), 20 * speed_coeff)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "Pinging nanites...", "[initial(icon_state)]_active"), 40 * speed_coeff)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "Initiating graceful self-destruct sequence...", "[initial(icon_state)]_active"), 70 * speed_coeff)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "Removing debris...", "[initial(icon_state)]_falling"), 110 * speed_coeff)
+	addtimer(CALLBACK(src, PROC_REF(complete_removal), locked_state), 130 * speed_coeff)
 
 /obj/machinery/nanite_chamber/proc/complete_removal(locked_state)
 	//TODO MACHINE DING

@@ -105,7 +105,7 @@
 		D.adjustStaminaLoss(20)
 		D.Stun(100)
 		restraining = TRUE
-		addtimer(CALLBACK(src, .proc/drop_restraining), 50, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(drop_restraining)), 50, TIMER_UNIQUE)
 	return TRUE
 
 /datum/martial_art/cqc/proc/Consecutive(mob/living/carbon/human/A, mob/living/carbon/human/D)

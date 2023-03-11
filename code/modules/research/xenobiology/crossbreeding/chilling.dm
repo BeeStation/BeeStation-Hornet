@@ -284,7 +284,7 @@ Chilling extracts:
 
 /obj/item/slimecross/chilling/oil/do_effect(mob/user)
 	user.visible_message("<span class='danger'>[src] begins to shake with muted intensity!</span>")
-	addtimer(CALLBACK(src, .proc/boom), 50)
+	addtimer(CALLBACK(src, PROC_REF(boom)), 50)
 
 /obj/item/slimecross/chilling/oil/proc/boom()
 	explosion(get_turf(src), -1, -1, 10, 0) //Large radius, but mostly light damage, and no flash.

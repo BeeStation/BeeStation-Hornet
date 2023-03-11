@@ -284,7 +284,7 @@
 		if(occupant)
 			mob_occupant.adjustFireLoss(rand(burn_damage, burn_damage * 1.5))
 			mob_occupant.emote("scream")
-		addtimer(CALLBACK(src, .proc/cook), 50)
+		addtimer(CALLBACK(src, PROC_REF(cook)), 50)
 	else
 		uv_cycles = initial(uv_cycles)
 		uv = FALSE
@@ -379,7 +379,7 @@
 	if(locked)
 		visible_message("<span class='notice'>You see [user] kicking against the doors of [src]!</span>", \
 			"<span class='notice'>You start kicking against the doors...</span>")
-		addtimer(CALLBACK(src, .proc/resist_open, user), 300)
+		addtimer(CALLBACK(src, PROC_REF(resist_open), user), 300)
 	else
 		open_machine()
 		dump_contents()

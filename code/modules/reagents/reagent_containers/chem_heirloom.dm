@@ -16,7 +16,7 @@
 	..()
 	volume = 0
 	update_icon()
-	roundend_callback = CALLBACK(src, .proc/unlock)
+	roundend_callback = CALLBACK(src, PROC_REF(unlock))
 	SSticker.OnRoundend(roundend_callback)
 	update_name() //Negative.dm will call this again if it adds the heirloom component.
 
