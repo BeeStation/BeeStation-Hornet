@@ -3,7 +3,7 @@
 
 /datum/component/enchantment/soul_tap/apply_effect(obj/item/target)
 	examine_description = "It has been blessed with the power of ripping the energy from target's souls and will heal the wielder when a target is struck."
-	RegisterSignal(target, COMSIG_ITEM_ATTACK, .proc/tap_soul)
+	RegisterSignal(target, COMSIG_ITEM_ATTACK, PROC_REF(tap_soul))
 
 /datum/component/enchantment/soul_tap/proc/tap_soul(datum/source, mob/living/target, mob/living/user)
 	if(!istype(target) || target.stat != CONSCIOUS)

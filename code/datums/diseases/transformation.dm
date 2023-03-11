@@ -308,7 +308,7 @@
 				to_chat(affected_mob, "<span class='danger'>You cough out a furball.</span>")
 
 /datum/disease/transformation/felinid/after_add()
-	RegisterSignal(affected_mob, COMSIG_MOB_SAY, .proc/handle_speech)
+	RegisterSignal(affected_mob, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/disease/transformation/felinid/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER

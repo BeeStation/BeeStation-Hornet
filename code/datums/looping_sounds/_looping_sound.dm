@@ -67,7 +67,7 @@
 /datum/looping_sound/proc/start_sound_loop()
 	loop_started = TRUE
 	sound_loop()
-	timerid = addtimer(CALLBACK(src, .proc/sound_loop, world.time), mid_length, TIMER_CLIENT_TIME | TIMER_STOPPABLE | TIMER_LOOP | TIMER_DELETE_ME, SSsound_loops)
+	timerid = addtimer(CALLBACK(src, PROC_REF(sound_loop), world.time), mid_length, TIMER_CLIENT_TIME | TIMER_STOPPABLE | TIMER_LOOP | TIMER_DELETE_ME, SSsound_loops)
 
 /datum/looping_sound/proc/sound_loop(starttime)
 	if(max_loops && world.time >= starttime + mid_length * max_loops)
@@ -95,7 +95,7 @@
 	if(start_sound && !skip_starting_sounds)
 		play(start_sound)
 		start_wait = start_length
-	timerid = addtimer(CALLBACK(src, .proc/start_sound_loop), start_wait, TIMER_CLIENT_TIME | TIMER_DELETE_ME | TIMER_STOPPABLE, SSsound_loops)
+	timerid = addtimer(CALLBACK(src, PROC_REF(start_sound_loop)), start_wait, TIMER_CLIENT_TIME | TIMER_DELETE_ME | TIMER_STOPPABLE, SSsound_loops)
 
 /datum/looping_sound/proc/on_stop()
 	if(end_sound && loop_started)
@@ -106,7 +106,7 @@
 		UnregisterSignal(parent, COMSIG_PARENT_QDELETING)
 	parent = new_parent
 	if(parent)
-		RegisterSignal(parent, COMSIG_PARENT_QDELETING, .proc/handle_parent_del)
+		RegisterSignal(parent, COMSIG_PARENT_QDELETING, PROC_REF(handle_parent_del))
 
 /datum/looping_sound/proc/handle_parent_del(datum/source)
 	SIGNAL_HANDLER

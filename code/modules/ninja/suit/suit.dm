@@ -85,7 +85,7 @@ Contents:
 
 /obj/item/clothing/suit/space/space_ninja/equipped(mob/user, slot)
 	. = ..()
-	RegisterSignal(user, COMSIG_PARENT_QDELETING, .proc/terminate)
+	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(terminate))
 
 /obj/item/clothing/suit/space/space_ninja/dropped(mob/user)
 	UnregisterSignal(user, COMSIG_PARENT_QDELETING)

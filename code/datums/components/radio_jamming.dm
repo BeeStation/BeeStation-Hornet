@@ -12,7 +12,7 @@
 	//Set the range
 	range = _range
 	intensity = _intensity
-	RegisterSignal(parent, COMSIG_TOGGLE_JAMMER, .proc/toggle)
+	RegisterSignal(parent, COMSIG_TOGGLE_JAMMER, PROC_REF(toggle))
 
 /datum/component/radio_jamming/Destroy(force, silent)
 	disable()

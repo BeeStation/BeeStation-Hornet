@@ -27,7 +27,7 @@
 	return 1
 
 /datum/computer_file/program/alarm_monitor/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 
 	data["alarms"] = list()
 	for(var/class in GLOB.alarms)

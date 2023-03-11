@@ -50,7 +50,7 @@
 
 /obj/item/bodybag/bluespace/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_ATOM_CANREACH, .proc/CanReachReact)
+	RegisterSignal(src, COMSIG_ATOM_CANREACH, PROC_REF(CanReachReact))
 
 /obj/item/bodybag/bluespace/examine(mob/user)
 	. = ..()

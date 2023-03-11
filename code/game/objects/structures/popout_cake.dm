@@ -50,7 +50,7 @@
 	else
 		user.visible_message("<span class='warning'>[user] starts stuffing [target] into [src]!</span>", "<span class= warning'>You start stuffing [target] into [src]!</span>")
 
-	if(do_after(user, 60, TRUE, src))
+	if(do_after(user, 60, src))
 		if(occupant)
 			to_chat(user, "<span class='warning'>There's already someone inside!</span>")
 			return
@@ -79,14 +79,14 @@
 		user.visible_message("<span class='notice'>[user] sticks the [W] inside [src] and stars fiddling around!</span>", \
 		"<span class='notice>You start to rewind the hidden mechanism inside [src] with [W].</span>")
 		W.play_tool_sound(src, 50)
-		if(do_after(user, 20, FALSE, target=src))
+		if(do_after(user, 20, target=src, timed_action_flags = IGNORE_HELD_ITEM))
 			used_string = FALSE
 			user.visible_message("<span class='notice'>After hearing a click from [src], [user] pulls the [W] outside.</span>", \
 		"<span class='notice>You successfully rewind the string inside [src]!</span>")
 			return FALSE
 	if(W.is_sharp())
 		user.visible_message("<span class= notice'>[user] begins cutting into [src] with [W]!</span>", "<span class='notice>You starts cutting [src] with [W]!</span>")
-		if(do_after(user, 60, FALSE, src))
+		if(do_after(user, 60, src, timed_action_flags = IGNORE_HELD_ITEM))
 			do_popout()
 			if(!strong_surprise)
 				for(var/i=1 to (amount_of_slices))
@@ -99,7 +99,7 @@
 			to_chat(user, "<span class='notice'>There's no space for [src] inside!</span>")
 		else
 			user.visible_message("<span class='notice'>[user] begins inserting [W] into [src]!</span>", "<span class='notice'>You begin inserting [W] into [src]!</span>")
-			if(do_after(user, 30, FALSE, src))
+			if(do_after(user, 30, src, timed_action_flags = IGNORE_HELD_ITEM))
 				strong_surprise = TRUE
 				user.visible_message("<span class='notice'>After some fiddling, [user] inserts [W] into [src]!</span>", "<span class='notice'>You attach [W] to the hidden mechanism inside!</span>")
 				qdel(W)

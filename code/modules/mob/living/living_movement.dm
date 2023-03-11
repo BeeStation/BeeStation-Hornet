@@ -145,7 +145,7 @@
 		animate(M, delay, pixel_y = upwards ? 32 : -32, transform = matrix() * 0.8)
 	zmoving = TRUE
 	if(!allow_movement)
-		if(!do_after(user, delay, FALSE, get_turf(user)))
+		if(!do_after(user, delay, get_turf(user), timed_action_flags = IGNORE_HELD_ITEM))
 			zmoving = FALSE
 			animate(user, 0, flags = ANIMATION_END_NOW)
 			user.pixel_y = 0
@@ -164,7 +164,7 @@
 		zmoving = FALSE
 		continue_travel_z(user, upwards ? UP : DOWN, bucklemobs_c)
 		return
-	addtimer(CALLBACK(src, .proc/continue_travel_z, user, upwards ? UP : DOWN, bucklemobs_c), delay)
+	addtimer(CALLBACK(src, PROC_REF(continue_travel_z), user, upwards ? UP : DOWN, bucklemobs_c), delay)
 
 /mob/living/proc/continue_travel_z(mob/user, dir, bucklemobs_c)
 	zmoving = FALSE

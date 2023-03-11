@@ -44,3 +44,6 @@
 
 ///Monkey recruit cooldown
 #define MONKEY_RECRUIT_COOLDOWN 1 MINUTES
+
+/// List of monkey_icons for clothing
+GLOBAL_LIST_EMPTY(monkey_icon_cache)

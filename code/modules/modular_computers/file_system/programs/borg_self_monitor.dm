@@ -31,7 +31,7 @@
 	return FALSE
 
 /datum/computer_file/program/borg_self_monitor/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 	if(!iscyborg(user))
 		return data
 	var/mob/living/silicon/robot/borgo = tablet.borgo
