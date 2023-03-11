@@ -234,7 +234,7 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 	GLOB.soundtrack_this_round |= song
 	GLOB.current_soundtrack = song
 	// Stop playing this soundtrack for everyone, and also prevent it from playing if the pref is toggled
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/stop_soundtrack_music), initial(song.length) + 1 SECONDS, TIMER_CLIENT_TIME)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(stop_soundtrack_music)), initial(song.length) + 1 SECONDS, TIMER_CLIENT_TIME)
 
 /mob/proc/play_current_soundtrack(volume = 80)
 	return !isnull(GLOB.current_soundtrack) ? play_soundtrack_music(GLOB.current_soundtrack, list(src), is_global = FALSE) : null
