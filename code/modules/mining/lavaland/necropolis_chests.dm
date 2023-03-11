@@ -21,8 +21,6 @@
 /obj/structure/closet/crate/necropolis/proc/try_spawn_loot(datum/source, obj/item/item, mob/user, params)
 	SIGNAL_HANDLER
 
-	if(istype(item, /obj/item/extraction_pack)) //while we don't want people beating up the crates, we do still want fultons to work
-		INVOKE_ASYNC(item, /obj/item.proc/afterattack, src, user, TRUE) 
 	if(!istype(item, /obj/item/skeleton_key) || spawned_loot)
 		return FALSE
 	spawned_loot = TRUE
@@ -65,7 +63,6 @@
 	if(..())
 		var/necropolis_loot = pickweight(necropolis_goodies.Copy())
 		new necropolis_loot(src)
-	return TRUE
 
 /obj/structure/closet/crate/necropolis/can_open(mob/living/user, force = FALSE)
 	if(!spawned_loot)
