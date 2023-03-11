@@ -3851,6 +3851,17 @@
 /obj/effect/spawner/structure/window/depleteduranium,
 /turf/open/floor/plating,
 /area/mine/storage)
+"Ct" = (
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 3;
+	height = 10;
+	id = "mining_away";
+	name = "lavaland mine";
+	width = 10
+	},
+/turf/open/floor/plating/lavaland,
+/area/lavaland/surface/outdoors)
 "Cw" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -4951,17 +4962,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/production)
-"JX" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 3;
-	height = 10;
-	id = "mining_away";
-	name = "lavaland mine";
-	width = 10
-	},
-/turf/open/floor/plating/lavaland,
-/area/lavaland/surface/outdoors)
 "JY" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
@@ -39111,7 +39111,7 @@ HA
 hb
 SX
 mO
-JX
+Ct
 rf
 rf
 rf

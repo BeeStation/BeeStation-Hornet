@@ -1,16 +1,109 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "MailConv"
 	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing/corner,
+/turf/open/floor/plasteel/dark,
 /area/shuttle/supply)
 "b" = (
-/turf/closed/wall/mineral/titanium,
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor{
+	id = "QMLoaddoor";
+	name = "Supply Dock Loading Door"
+	},
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "QMLoad2"
+	},
+/obj/structure/plasticflaps,
+/turf/open/floor/plasteel/sepia,
 /area/shuttle/supply)
 "c" = (
+/obj/machinery/conveyor{
+	id = "MailConv"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"d" = (
+/obj/structure/shuttle/engine/heater,
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/supply)
+"e" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/conveyor/inverted{
+	dir = 5;
+	id = "MailConv"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"f" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"g" = (
+/obj/machinery/conveyor{
+	id = "MailConv"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"h" = (
+/obj/structure/shuttle/engine/propulsion/burst/left,
+/turf/open/floor/plating/airless,
+/area/shuttle/supply)
+"i" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/plasteel/sepia,
+/area/shuttle/supply)
+"j" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 4;
+	pixel_x = 4
+	},
+/obj/effect/decal/cleanable/glass,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"k" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/effect/turf_decal/loading_area{
+	dir = 4;
+	pixel_x = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"l" = (
+/obj/machinery/conveyor{
+	dir = 5;
+	id = "QMLoad2"
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"m" = (
 /obj/machinery/light{
 	dir = 1
 	},
@@ -21,18 +114,127 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/supply)
-"d" = (
+"n" = (
+/turf/template_noop,
+/area/template_noop)
+"o" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/loading_area{
+	dir = 4;
+	pixel_x = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"q" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"r" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/loading_area{
+	dir = 4;
+	pixel_x = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"s" = (
 /obj/machinery/conveyor{
+	id = "MailConv"
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"t" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"u" = (
+/obj/structure/sign/warning/fire,
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/supply)
+"v" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
+/turf/open/floor/plasteel/sepia,
+/area/shuttle/supply)
+"w" = (
+/obj/machinery/conveyor{
+	dir = 1;
 	id = "MailConv"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/supply)
-"e" = (
+"x" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"y" = (
+/obj/structure/shuttle/engine/propulsion/burst/right,
+/turf/open/floor/plating/airless,
+/area/shuttle/supply)
+"z" = (
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "MailConv"
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"A" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Supply Shuttle Airlock";
+	req_access_txt = "31"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/supply)
+"B" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/supply)
-"f" = (
+"C" = (
+/obj/machinery/light,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "QMLoad2"
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"D" = (
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/supply)
+"E" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/oil/streak,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"F" = (
 /obj/machinery/light{
 	dir = 4
 	},
@@ -62,85 +264,7 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
-"g" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/poddoor{
-	id = "QMLoaddoor";
-	name = "Supply Dock Loading Door"
-	},
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "QMLoad2"
-	},
-/obj/structure/plasticflaps,
-/turf/open/floor/plasteel/sepia,
-/area/shuttle/supply)
-"h" = (
-/obj/structure/shuttle/engine/propulsion/burst/right,
-/turf/open/floor/plating/airless,
-/area/shuttle/supply)
-"i" = (
-/obj/structure/shuttle/engine/heater,
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/supply)
-"j" = (
-/obj/machinery/conveyor{
-	dir = 9;
-	id = "MailConv"
-	},
-/turf/open/floor/plasteel/dark,
-/area/shuttle/supply)
-"k" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/loading_area{
-	dir = 4;
-	pixel_x = 4
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/supply)
-"l" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Supply Shuttle Airlock";
-	req_access_txt = "31"
-	},
-/obj/docking_port/mobile/supply,
-/obj/structure/fans/tiny,
-/turf/open/floor/plating,
-/area/shuttle/supply)
-"m" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot,
-/obj/structure/railing/corner{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/supply)
-"n" = (
-/turf/closed/wall/mineral/plastitanium,
-/area/shuttle/supply)
-"o" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/shuttle/supply)
-"p" = (
-/obj/machinery/conveyor{
-	dir = 1;
-	id = "MailConv"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
-/area/shuttle/supply)
-"q" = (
-/obj/structure/shuttle/engine/propulsion/burst/left,
-/turf/open/floor/plating/airless,
-/area/shuttle/supply)
-"r" = (
+"G" = (
 /obj/machinery/light,
 /obj/machinery/conveyor{
 	id = "MailConv"
@@ -148,13 +272,25 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/supply)
-"s" = (
+"I" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
-"t" = (
+"J" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"K" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"L" = (
 /obj/machinery/conveyor_switch/oneway{
 	dir = 1;
 	id = "MailConv"
@@ -165,155 +301,6 @@
 	dir = 5
 	},
 /obj/structure/railing{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/supply)
-"u" = (
-/obj/machinery/conveyor{
-	dir = 1;
-	id = "QMLoad2"
-	},
-/turf/open/floor/plasteel/dark,
-/area/shuttle/supply)
-"v" = (
-/obj/machinery/conveyor{
-	dir = 5;
-	id = "QMLoad2"
-	},
-/turf/open/floor/plasteel/dark,
-/area/shuttle/supply)
-"w" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/effect/turf_decal/loading_area{
-	dir = 4;
-	pixel_x = 4
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/supply)
-"x" = (
-/turf/closed/wall/mineral/titanium/nodiagonal,
-/area/shuttle/supply)
-"z" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/oil/streak,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/structure/railing/corner{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/supply)
-"A" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/conveyor/inverted{
-	dir = 5;
-	id = "MailConv"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
-/area/shuttle/supply)
-"B" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/railing{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/supply)
-"C" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/plasteel/sepia,
-/area/shuttle/supply)
-"D" = (
-/obj/effect/turf_decal/loading_area{
-	dir = 4;
-	pixel_x = 4
-	},
-/obj/effect/decal/cleanable/glass,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/supply)
-"E" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "MailConv"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/railing/corner,
-/turf/open/floor/plasteel/dark,
-/area/shuttle/supply)
-"F" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner,
-/obj/structure/railing/corner,
-/turf/open/floor/plasteel,
-/area/shuttle/supply)
-"G" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/poddoor{
-	id = "QMLoaddoor2";
-	name = "Supply Dock Loading Door"
-	},
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "MailConv"
-	},
-/obj/structure/plasticflaps,
-/turf/open/floor/plasteel/sepia,
-/area/shuttle/supply)
-"H" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
-/area/shuttle/supply)
-"I" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Supply Shuttle Airlock";
-	req_access_txt = "31"
-	},
-/obj/structure/fans/tiny,
-/turf/open/floor/plating,
-/area/shuttle/supply)
-"J" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/loading_area{
-	dir = 4;
-	pixel_x = 4
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/supply)
-"K" = (
-/obj/machinery/conveyor{
-	id = "MailConv"
-	},
-/turf/open/floor/plasteel/dark,
-/area/shuttle/supply)
-"L" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -331,25 +318,20 @@
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "N" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"O" = (
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/machinery/conveyor{
-	dir = 8;
 	id = "MailConv"
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/supply)
-"O" = (
-/obj/machinery/light,
-/obj/machinery/conveyor{
-	dir = 1;
-	id = "QMLoad2"
-	},
-/turf/open/floor/plasteel/dark,
-/area/shuttle/supply)
 "P" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/supply)
-"Q" = (
 /obj/machinery/conveyor_switch/oneway{
 	dir = 8;
 	id = "QMLoad2";
@@ -363,155 +345,173 @@
 /obj/structure/railing,
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
-"R" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/stripes/end{
-	dir = 8
+"Q" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor{
+	id = "QMLoaddoor2";
+	name = "Supply Dock Loading Door"
 	},
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "MailConv"
+	},
+/obj/structure/plasticflaps,
 /turf/open/floor/plasteel/sepia,
 /area/shuttle/supply)
-"S" = (
-/obj/machinery/conveyor{
-	id = "MailConv"
+"R" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Supply Shuttle Airlock";
+	req_access_txt = "31"
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
+/obj/docking_port/mobile/supply,
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/supply)
+"S" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
 /area/shuttle/supply)
 "T" = (
-/turf/template_noop,
-/area/template_noop)
-"V" = (
-/obj/structure/sign/warning/fire,
-/turf/closed/wall/mineral/titanium,
-/area/shuttle/supply)
-"W" = (
-/obj/structure/shuttle/engine/propulsion,
-/turf/open/floor/plating/airless,
-/area/shuttle/supply)
-"X" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/conveyor{
-	id = "MailConv"
-	},
-/turf/open/floor/plasteel/dark,
-/area/shuttle/supply)
-"Y" = (
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
-/area/shuttle/supply)
-"Z" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
 /turf/open/floor/plasteel/sepia,
 /area/shuttle/supply)
+"U" = (
+/obj/machinery/conveyor{
+	dir = 9;
+	id = "MailConv"
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"V" = (
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "QMLoad2"
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"W" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/open/floor/plating/airless,
+/area/shuttle/supply)
+"X" = (
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/supply)
+"Y" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/supply)
+"Z" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner,
+/obj/structure/railing/corner,
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
 
 (1,1,1) = {"
-T
-b
-P
-P
-P
-P
-P
-P
-P
-P
-P
-x
 n
+X
+S
+S
+S
+S
+S
+S
+S
+S
+S
+Y
+D
 "}
 (2,1,1) = {"
-b
-x
-A
-d
-d
-K
 X
-K
-d
-S
-r
-V
-q
+Y
+e
+g
+g
+s
+O
+s
+g
+c
+G
+u
+h
 "}
 (3,1,1) = {"
-P
-R
-N
-D
+S
+v
+z
+j
+o
+o
+r
+o
+o
+r
 k
-k
-J
-k
-k
-J
-w
-i
+d
 W
 "}
 (4,1,1) = {"
-P
-C
-N
-L
-o
-Y
-Y
-Y
-Y
-o
-s
+S
 i
+z
+t
+N
+J
+J
+J
+J
+N
+I
+d
 W
 "}
 (5,1,1) = {"
-P
-Z
-E
-M
-B
-z
-Y
-F
-m
-H
+S
+T
 a
-i
+M
+f
+E
+J
+Z
+x
+q
+K
+d
 W
 "}
 (6,1,1) = {"
-b
-x
-c
-p
-j
-t
-f
-Q
-v
-u
-O
+X
+Y
+m
+w
+U
+L
+F
+P
+l
 V
-h
+C
+u
+y
 "}
 (7,1,1) = {"
-T
-b
-b
-b
-G
-I
-b
-l
-g
-e
-b
-x
 n
+X
+X
+X
+Q
+A
+X
+R
+b
+B
+X
+Y
+D
 "}
