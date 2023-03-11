@@ -181,7 +181,7 @@
 
 /obj/item/gun/energy/minigun/proc/fire_effect(heating)
 	playsound(get_turf(src), 'sound/weapons/heavyminigunstart.ogg', 40, 0, 0)
-	addtimer(CALLBACK(src, .proc/check_firing,), 5)
+	addtimer(CALLBACK(src, PROC_REF(check_firing),), 5)
 	if(heating)
 		current_heat += 2
 
