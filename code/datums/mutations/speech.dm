@@ -3,7 +3,7 @@
 
 /datum/mutation/nervousness
 	name = "Nervousness"
-	desc = "A hereditary mutation that characterized by its signature speech disorder."
+	desc = "A hereditary mutation characterized by its signature speech disorder."
 	quality = MINOR_NEGATIVE
 
 /datum/mutation/nervousness/on_life()
@@ -49,7 +49,7 @@
 
 /datum/mutation/smile
 	name = "Smile"
-	desc = "Hereditary mutation reminiscent of Bipolar Disorder. Characterized by a near constant state of mania and an apathy towards negative events."
+	desc = "Hereditary mutation reminiscent of Bipolar Disorder. Characterized by a near constant state of mania and an apathy towards negative stimuli."
 	quality = MINOR_NEGATIVE
 
 /datum/mutation/smile/on_acquiring(mob/living/carbon/owner)
