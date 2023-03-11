@@ -9,15 +9,15 @@
 
 	///How much input the artifact is getting from activator traits
 	var/charge = 0
-	///This isn't a requirement anymore. This just affects how effective the charge is 
-	var/charge_req 
+	///This isn't a requirement anymore. This just affects how effective the charge is
+	var/charge_req
 	///Processing type, used for tick
 	var/process_type
 	///List of targted entities for traits
-	var/list/true_target = list() 
+	var/list/true_target = list()
 
 	///Associated traits & colour
-	var/material 
+	var/material
 	///activation trait, minor 1, minor 2, minor 3, major, malfunction
 	var/list/traits = list()
 	///Internal list of unallowed traits
@@ -32,7 +32,7 @@
 	var/max_range = 1
 
 	//Used for signaler trait
-	var/code 
+	var/code
 	var/frequency
 	var/datum/radio_frequency/radio_connection
 
@@ -89,9 +89,9 @@
 		if(XENOA_URANIUM)
 			name = "uranium [name]"
 			blacklist_ref = GLOB.xenoa_uranium_blacklist
-			generate_traits(GLOB.xenoa_uranium_blacklist, TRUE) 
+			generate_traits(GLOB.xenoa_uranium_blacklist, TRUE)
 			if(!price)
-				price = pick(300, 500, 800) 
+				price = pick(300, 500, 800)
 			malfunction_mod = 5
 			extra_masks = pick(1)
 
@@ -163,7 +163,7 @@
 	..()
 
 /obj/item/xenoartifact/examine(mob/living/carbon/user)
-	. = ..()	
+	. = ..()
 	if(user.can_see_reagents()) //Not checking carbon throws a runtime concerning observers
 		. += "<span class='notice'>[special_desc]</span>"
 	if(isobserver(user))
@@ -182,7 +182,7 @@
 
 	if(isliving(loc) && touch_desc?.on_touch(src, user) && user.can_see_reagents())
 		balloon_alert(user, (initial(touch_desc.desc) ? initial(touch_desc.desc) : initial(touch_desc.label_name)), material)
-		
+
 	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
 	if(P?.safety && isliving(loc))
 		return
@@ -229,7 +229,7 @@
 		COOLDOWN_START(src, xenoa_cooldown, cooldown+cooldownmod)
 		if(prob(malfunction_chance) && traits.len < 7 + (material == XENOA_URANIUM ? 1 : 0)) //See if we pick up an malfunction
 			generate_malfunction_unique()
-			malfunction_chance = 0 //Lower chance after contracting 
+			malfunction_chance = 0 //Lower chance after contracting
 		else //otherwise increase chance.
 			malfunction_chance = min(malfunction_chance + malfunction_mod, 100)
 
@@ -252,9 +252,9 @@
 			if(!istype(M.get_item_by_slot(ITEM_SLOT_GLOVES), /obj/item/clothing/gloves/artifact_pinchers) && !istype(get_area(M), /area/science))
 				true_target |= list(M)
 		*/
-   
+
 		for(var/atom/M in true_target) //target loop, majors & malfunctions
-			if(get_dist(get_turf(src), get_turf(M)) <= max_range) 
+			if(get_dist(get_turf(src), get_turf(M)) <= max_range)
 				create_beam(M) //Indicator beam, points to target, M
 				for(var/datum/xenoartifact_trait/t as() in traits) //Major traits
 					if(!istype(t, /datum/xenoartifact_trait/minor))
@@ -309,7 +309,7 @@
 	new_trait = new new_trait //type converting doesn't work too well here but this should be fine.
 	blacklist += new_trait.blacklist_traits //Cant use initial() to access lists without bork'ing it
 	return new_trait
-	
+
 ///generates a malfunction respective to the artifact's type - don't use anywhere but for check_charge malfunctions
 /obj/item/xenoartifact/proc/generate_malfunction_unique(list/blacklist)
 	var/list/malfunctions = GLOB.xenoa_malfs.Copy()
@@ -342,7 +342,7 @@
 		if(H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
 			if(H.anti_artifact_check())
 				to_chat(target, "<span class='warning'>The [name] was unable to target you!</span>")
-				playsound(get_turf(target), 'sound/weapons/deflect.ogg', 25, TRUE) 
+				playsound(get_turf(target), 'sound/weapons/deflect.ogg', 25, TRUE)
 				return
 
 	if(isliving(target)) //handle pulling
@@ -350,7 +350,7 @@
 		. = M?.pulling ? M.pulling : M
 	else
 		. = target
-	RegisterSignal(., COMSIG_PARENT_QDELETING, .proc/on_target_del, TRUE)
+	RegisterSignal(., COMSIG_PARENT_QDELETING, PROC_REF(on_target_del), TRUE)
 	return
 
 ///Hard del handle
@@ -364,7 +364,7 @@
 		return
 	var/datum/beam/xenoa_beam/B = new((!isturf(loc) ? loc : src), target, time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam)
 	B.set_color(material)
-	INVOKE_ASYNC(B, /datum/beam/xenoa_beam.proc/Start)
+	INVOKE_ASYNC(B, TYPE_PROC_REF(/datum/beam/xenoa_beam, Start))
 
 ///Default template used to interface with activator signals.
 /obj/item/xenoartifact/proc/default_activate(chr, mob/user, atom/target)
@@ -408,7 +408,7 @@
 				process_type = null
 				return PROCESS_KILL
 		if(PROCESS_TYPE_TICK) //Clock-ing
-			playsound(get_turf(src), 'sound/effects/clock_tick.ogg', 50, TRUE) 
+			playsound(get_turf(src), 'sound/effects/clock_tick.ogg', 50, TRUE)
 			visible_message("<span class='danger' size='10'>The [name] ticks.</span>")
 			true_target = get_target_in_proximity(min(max_range, 5))
 			default_activate(25, null, null)
@@ -434,7 +434,7 @@
 	var/price
 
 /datum/component/xenoartifact_pricing/Initialize(...)
-	RegisterSignal(parent, XENOA_CHANGE_PRICE, .proc/update_price)
+	RegisterSignal(parent, XENOA_CHANGE_PRICE, PROC_REF(update_price))
 	..()
 
 /datum/component/xenoartifact_pricing/Destroy(force, silent)

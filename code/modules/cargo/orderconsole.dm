@@ -41,7 +41,7 @@
 		obj_flags |= EMAGGED
 	else
 		obj_flags &= ~EMAGGED
-	RegisterSignal(SSdcs, COMSIG_GLOB_RESUPPLY, .proc/update_static_ui)
+	RegisterSignal(SSdcs, COMSIG_GLOB_RESUPPLY, PROC_REF(update_static_ui))
 
 /obj/machinery/computer/cargo/Destroy()
 	QDEL_NULL(radio)

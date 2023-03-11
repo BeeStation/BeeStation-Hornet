@@ -49,7 +49,7 @@
 
 		playsound(user, 'sound/effects/pope_entry.ogg', 100)
 
-		if(!do_after(M, 50, needhand=FALSE, target=marked_item))
+		if(!do_after(M, 50, target=marked_item, timed_action_flags = IGNORE_HELD_ITEM))
 			to_chat(M, "<span class='warning'>Your soul snaps back to your body as you stop ensouling [marked_item]!</span>")
 			return
 
@@ -116,7 +116,7 @@
 		return
 
 	if(!mind.current || (mind.current && mind.current.stat == DEAD))
-		addtimer(CALLBACK(src, .proc/rise), respawn_time, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(rise)), respawn_time, TIMER_UNIQUE)
 
 /obj/item/phylactery/proc/rise()
 	if(mind.current && mind.current.stat != DEAD)
