@@ -63,7 +63,6 @@
 	if(..())
 		var/necropolis_loot = pickweight(necropolis_goodies.Copy())
 		new necropolis_loot(src)
-	return TRUE
 
 /obj/structure/closet/crate/necropolis/can_open(mob/living/user, force = FALSE)
 	if(!spawned_loot)
