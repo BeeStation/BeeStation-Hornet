@@ -56,7 +56,7 @@
 	. = ..()
 	var/datum/material/M = id_inserted
 	add_overlay("fab-load-[M.name]")
-	addtimer(CALLBACK(src, /atom/proc/cut_overlay, "fab-load-[M.name]"), 10)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, cut_overlay), "fab-load-[M.name]"), 10)
 
 /obj/machinery/modular_fabricator/exosuit_fab/set_default_sprite()
 	cut_overlay("fab-active")

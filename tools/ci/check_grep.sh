@@ -200,6 +200,14 @@ do
         fi
     fi
 done
+
+# Check for non-515 compatable .proc/ syntax
+if grep -P --exclude='__byond_version_compat.dm' '\.proc/' code/**/*.dm; then
+    echo
+    echo -e "${RED}ERROR: Outdated proc reference use detected in code, please use proc reference helpers.${NC}"
+    st=1
+fi;
+
 echo -e "${BLUE}Checking for missing newlines...${NC}"
 nl='
 '

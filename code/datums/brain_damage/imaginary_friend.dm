@@ -19,7 +19,7 @@
 		qdel(src)
 		return
 	if(!friend.client && friend_initialized)
-		addtimer(CALLBACK(src, .proc/reroll_friend), 600)
+		addtimer(CALLBACK(src, PROC_REF(reroll_friend)), 600)
 
 /datum/brain_trauma/special/imaginary_friend/on_death()
 	..()
@@ -101,10 +101,10 @@
 	hide.Grant(src)
 
 	// Update icon on turn
-	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, .proc/Show)
+	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(Show))
 
 	// Hear owner if they're out of range
-	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/owner_speech)
+	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(owner_speech))
 
 /mob/camera/imaginary_friend/Destroy()
 	qdel(join)
@@ -188,7 +188,7 @@
 	if (!owner_chat_map)
 		var/mutable_appearance/MA = mutable_appearance('icons/mob/talk.dmi', src, "default[say_test(message)]", FLY_LAYER)
 		MA.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, MA, list(owner.client), 30)
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), MA, list(owner.client), 30)
 
 	if(owner_chat_map || friend_chat_map)
 		var/list/hearers = list()
@@ -239,7 +239,7 @@
 	animate(arrow, pixel_x = (tile.x - our_tile.x) * world.icon_size + A.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + A.pixel_y, time = 1.7, easing = EASE_OUT)
 	owner?.client?.images += arrow
 	client?.images += arrow
-	addtimer(CALLBACK(src, .proc/remove_arrow, arrow, client, owner?.client), 2.5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(remove_arrow), arrow, client, owner?.client), 2.5 SECONDS)
 	return TRUE
 
 /mob/camera/imaginary_friend/proc/remove_arrow(image/arrow, client/client_1, client/client_2)

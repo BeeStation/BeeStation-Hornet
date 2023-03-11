@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(parallax)
 
 /datum/controller/subsystem/parallax/Initialize(start_timeofday)
 	. = ..()
-	RegisterSignal(SSdcs, COMSIG_GLOB_MOB_LOGGED_IN, .proc/on_mob_login)
+	RegisterSignal(SSdcs, COMSIG_GLOB_MOB_LOGGED_IN, PROC_REF(on_mob_login))
 	throttle_ghost_pop = CONFIG_GET(number/parallax_ghost_disable_pop)
 	throttle_all_pop = CONFIG_GET(number/parallax_disable_pop)
 
@@ -72,8 +72,8 @@ SUBSYSTEM_DEF(parallax)
 /datum/controller/subsystem/parallax/proc/on_mob_login(datum/source, mob/new_login)
 	SIGNAL_HANDLER
 	//Register the required signals
-	RegisterSignal(new_login, COMSIG_PARENT_MOVED_RELAY, .proc/on_mob_moved)
-	RegisterSignal(new_login, COMSIG_MOB_LOGOUT, .proc/on_mob_logout)
+	RegisterSignal(new_login, COMSIG_PARENT_MOVED_RELAY, PROC_REF(on_mob_moved))
+	RegisterSignal(new_login, COMSIG_MOB_LOGOUT, PROC_REF(on_mob_logout))
 
 /datum/controller/subsystem/parallax/proc/on_mob_logout(mob/source)
 	SIGNAL_HANDLER

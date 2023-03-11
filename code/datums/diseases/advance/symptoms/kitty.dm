@@ -30,7 +30,7 @@
 		mania = TRUE
 	if(A.transmission >= 4)
 		uwu = TRUE
-		RegisterSignal(A.affected_mob, COMSIG_MOB_SAY, .proc/handle_speech)
+		RegisterSignal(A.affected_mob, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/symptom/toxoplasmosis/Activate(datum/disease/advance/A)
 	if(!..())
@@ -76,7 +76,7 @@
 					var/mob/living/cat = findcat(M, !ears, !tail)
 					if(cat)
 						M.visible_message("<span class='warning'>[M] sits back, staring at [cat] with a manic gleam in their eyes.</span>", "<span class='hypnophrase'>You prepare to glomp on [cat]!</span>")
-						addtimer(CALLBACK(src, .proc/Pounce, cat, M), 20)
+						addtimer(CALLBACK(src, PROC_REF(Pounce), cat, M), 20)
 			else
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "toxoplasmosis", /datum/mood_event/feline_mania)
 		else if(findcat(M))

@@ -19,7 +19,7 @@
 
 /obj/structure/altar_of_gods/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/religious_tool, ALL, FALSE, CALLBACK(src, .proc/reflect_sect_in_icons))
+	AddComponent(/datum/component/religious_tool, ALL, FALSE, CALLBACK(src, PROC_REF(reflect_sect_in_icons)))
 
 /obj/structure/altar_of_gods/attack_hand(mob/living/user)
 	if(!Adjacent(user) || !user.pulling)
@@ -71,7 +71,7 @@
 
 /obj/structure/destructible/religion/nature_pylon
 	name = "Orb of Nature"
-	desc = "A floating crystal that slowly heals all plantlife and holy creatures. It can be bolted in place."
+	desc = "A floating crystal that slowly heals all plantlife and holy creatures. It can be anchored with a null rod."
 	icon_state = "nature_orb"
 	anchored = FALSE
 	light_range = 5
@@ -88,9 +88,12 @@
 
 /obj/structure/destructible/religion/nature_pylon/LateInitialize()
 	. = ..()
+	START_PROCESSING(SSobj, src)
 
 /obj/structure/destructible/religion/nature_pylon/Destroy()
+	STOP_PROCESSING(SSobj, src)
 	return ..()
+
 
 /obj/structure/destructible/religion/nature_pylon/process(delta_time)
 	if(last_heal <= world.time)
@@ -145,3 +148,17 @@
 				// Are we in space or something? No grass turfs or
 				// convertable turfs?
 				last_spread = world.time + spread_delay*2
+
+/obj/structure/destructible/religion/nature_pylon/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/nullrod))
+		if(user.mind?.holy_role == NONE)
+			to_chat(user, "<span class='warning'>Only the faithful may control the disposition of [src]!</span>")
+			return
+		anchored = !anchored
+		user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
+		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
+		user.do_attack_animation(src)
+		return
+	if(I.tool_behaviour == TOOL_WRENCH)
+		return
+	return ..()

@@ -207,7 +207,7 @@ class TicketMessages extends Component {
 
   scrollToBottom = () => {
     this.messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }
+  };
 
   render() {
     const { messages } = this.props;

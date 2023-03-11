@@ -242,17 +242,18 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	/// you can remove these through RPD
 	var/static/list/rpd_targets = typecacheof(list(
 			/obj/item/pipe,
+			/obj/item/pipe_meter,
 			/obj/structure/disposalconstruct,
 			/obj/structure/disposalpipe/broken,
 			/obj/structure/c_transit_tube,
 			/obj/structure/c_transit_tube_pod,
-			/obj/item/pipe_meter
 		))
 	/// you can attempt using RPD on these
 	var/static/list/rpd_whitelist = typecacheof(list(
 			/obj/structure/lattice,
 			/obj/structure/girder,
 			/obj/item/pipe,
+			/obj/item/pipe_meter,
 			/obj/structure/window,
 			/obj/structure/grille
 		))
@@ -285,7 +286,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 /obj/item/pipe_dispenser/equipped(mob/user, slot, initial)
 	. = ..()
 	if(slot == ITEM_SLOT_HANDS)
-		RegisterSignal(user, COMSIG_MOB_MOUSE_SCROLL_ON, .proc/mouse_wheeled)
+		RegisterSignal(user, COMSIG_MOB_MOUSE_SCROLL_ON, PROC_REF(mouse_wheeled))
 	else
 		UnregisterSignal(user, COMSIG_MOB_MOUSE_SCROLL_ON)
 
@@ -442,7 +443,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 		return ..()
 
 	// this shouldn't use early return because checking less condition is good
-	if(isturf(A) || is_type_in_typecache(A, rpd_targets) || is_type_in_typecache(A, rpd_whitelist))
+	if(isturf(A) || is_type_in_typecache(A, atmos_constructs) || is_type_in_typecache(A, rpd_targets) || is_type_in_typecache(A, rpd_whitelist))
 		if(proximity || ranged)
 			rpd_create(A, user)
 			return
@@ -460,9 +461,8 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 
 	//Unwrench pipe before we build one over/paint it, but only if we're not already running a do_after on it already to prevent a potential runtime.
 	if((mode & DESTROY_MODE) && (upgrade_flags & RPD_UPGRADE_UNWRENCH) && istype(attack_target, /obj/machinery/atmospherics) && !(attack_target in user.do_afters))
-		attack_target = attack_target.wrench_act(user, src)
-		if(attack_target == TRUE)
-			return
+		attack_target.wrench_act(user, src)
+		return
 
 	//make sure what we're clicking is valid for the current category
 	if(istype(attack_target, /obj/machinery/atmospherics) && ((mode & BUILD_MODE) && !(mode & PAINT_MODE))) //target turf if on buildmode so that it doesn't try painting a pipe you click on

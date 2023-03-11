@@ -6,7 +6,7 @@
 	selection_type = "view"
 	action_icon_state = "add"
 	range = 7
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	clothes_req = 0
 	max_targets = 1
 	var/ignore_mindshield = FALSE

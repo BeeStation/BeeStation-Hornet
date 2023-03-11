@@ -10017,7 +10017,7 @@
 "bbz" = (
 /obj/docking_port/stationary/random{
 	dir = 4;
-	id = "pod_lavaland4";
+	id = "pod_lavaland3";
 	name = "lavaland"
 	},
 /turf/open/space,
@@ -27883,7 +27883,6 @@
 	},
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 4;
-	level = 1;
 	name = "Xenobiology Positive Pressure Pump";
 	target_pressure = 500
 	},
