@@ -224,7 +224,7 @@
 	data["version"] = GLOB.game_version
 	data["mode"] = GLOB.master_mode
 	data["respawn"] = config ? !CONFIG_GET(flag/norespawn) : FALSE
-	data["enter"] = GLOB.enter_allowed
+	data["enter"] = !LAZYACCESS(SSlag_switch.measures, DISABLE_NON_OBSJOBS)
 	data["vote"] = CONFIG_GET(flag/allow_vote_mode)
 	data["ai"] = CONFIG_GET(flag/allow_ai)
 	data["host"] = world.host ? world.host : null

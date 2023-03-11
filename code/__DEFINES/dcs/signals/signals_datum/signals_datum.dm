@@ -73,6 +73,8 @@
 ///From base of datum/controller/subsystem/Initialize: (start_timeofday)
 #define COMSIG_SUBSYSTEM_POST_INITIALIZE "subsystem_post_initialize"
 
+#define COMSIG_GLOB_CLIENT_CONNECT "!client_connect"
+
 /// a weather event of some kind occured
 #define COMSIG_WEATHER_TELEGRAPH(event_type) "!weather_telegraph [event_type]"
 #define COMSIG_WEATHER_START(event_type) "!weather_start [event_type]"

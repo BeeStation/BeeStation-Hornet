@@ -293,6 +293,8 @@ Works together with spawning an observer, noted above.
 			stop_sound_channel(CHANNEL_HEARTBEAT) //Stop heartbeat sounds because You Are A Ghost Now
 			var/mob/dead/observer/ghost = new(src)	// Transfer safety to observer spawning proc.
 			SStgui.on_transfer(src, ghost) // Transfer NanoUIs.
+			if(mind.current.stat == DEAD && SSlag_switch.measures[DISABLE_DEAD_KEYLOOP])
+				to_chat(src, "<span class='warning'>To leave your body again use the Ghost verb.</span>")
 			ghost.can_reenter_corpse = can_reenter_corpse
 			ghost.key = key
 			return ghost
@@ -517,6 +519,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "View Range"
 	set desc = "Change your view range."
 
+	if(SSlag_switch.measures[DISABLE_GHOST_ZOOM_TRAY] && !client?.holder)
+		to_chat(usr, "<span class='notice'>That verb is currently globally disabled.</span>")
+		return
+
 	var/max_view = client.prefs.unlock_content ? GHOST_MAX_VIEW_RANGE_MEMBER : GHOST_MAX_VIEW_RANGE_DEFAULT
 	if(client.view_size.getView() == client.view_size.default)
 		var/list/views = list()
@@ -531,6 +537,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/verb/add_view_range(input as num)
 	set name = "Add View Range"
 	set hidden = TRUE
+	if(SSlag_switch.measures[DISABLE_GHOST_ZOOM_TRAY] && !client?.holder)
+		to_chat(usr, "<span class='boldannounce'>That verb is currently globally disabled.</span>")
+		return
+
 	var/max_view = client.prefs.unlock_content ? GHOST_MAX_VIEW_RANGE_MEMBER : GHOST_MAX_VIEW_RANGE_DEFAULT
 	if(input)
 		client.rescale_view(input, 0, ((max_view*2)+1) - 15)
@@ -935,6 +945,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set desc = "Toggles a view of sub-floor objects"
 
 	var/static/t_ray_view = FALSE
+	if(SSlag_switch.measures[DISABLE_GHOST_ZOOM_TRAY] && !client?.holder && !t_ray_view)
+		to_chat(usr, "<span class='boldannounce'>That verb is currently globally disabled.</span>")
+		return
 	t_ray_view = !t_ray_view
 
 	var/list/t_ray_images = list()

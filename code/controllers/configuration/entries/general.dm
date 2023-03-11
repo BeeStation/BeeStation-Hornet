@@ -304,6 +304,10 @@
 
 /datum/config_entry/flag/maprotation
 
+/datum/config_entry/number/auto_lag_switch_pop //Number of clients at which drastic lag mitigation measures kick in
+	config_entry_value = null
+	min_val = 0
+
 /datum/config_entry/flag/automapvote
 
 /datum/config_entry/number/automapvote_threshold

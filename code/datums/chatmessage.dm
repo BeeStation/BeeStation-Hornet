@@ -316,9 +316,10 @@
 	return ..()
 
 /proc/create_chat_message(atom/movable/speaker, datum/language/message_language, list/hearers, raw_message, list/spans, list/message_mods)
+	if(SSlag_switch.measures[DISABLE_RUNECHAT] && !HAS_TRAIT(speaker, TRAIT_BYPASS_MEASURES))
+		return
 	if(!length(hearers))
 		return
-
 	if(!islist(message_mods))
 		message_mods = list()
 

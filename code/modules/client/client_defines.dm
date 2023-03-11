@@ -24,6 +24,8 @@
 	/// Next tick to reset the total message counter
 	COOLDOWN_DECLARE(total_count_reset)
 	var/externalreplyamount = 0
+	///Tracks say() usage for ic/dchat while slowmode is enabled
+	COOLDOWN_DECLARE(say_slowmode)
 	var/cryo_warned = -3000//when was the last time we warned them about not cryoing without an ahelp, set to -5 minutes so that rounstart cryo still warns
 	var/staff_check_rate = 0 //when was the last time they checked online staff
 

@@ -268,6 +268,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_AI_BAGATTACK "bagattack" // This atom can ignore the "is on a turf" check for simple AI datum attacks, allowing them to attack from bags or lockers as long as any other conditions are met
 
 //quirk traits
+/// This mob overrides certain SSlag_switch measures with this special trait
+#define TRAIT_BYPASS_MEASURES "bypass_lagswitch_measures"
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 #define TRAIT_AGEUSIA			"ageusia"
 #define TRAIT_HEAVY_SLEEPER		"heavy_sleeper"
@@ -290,6 +292,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FRIENDLY			"friendly"
 #define TRAIT_GRABWEAKNESS		"grab_weakness"
 #define TRAIT_BRAIN_TUMOR		"brain_tumor"
+
 
 ///Trait applied to turfs when an atmos holosign is placed on them. It will stop firedoors from closing.
 #define TRAIT_FIREDOOR_STOP "firedoor_stop"

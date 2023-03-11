@@ -49,6 +49,10 @@
 /mob/proc/add_to_player_list()
 	SHOULD_CALL_PARENT(TRUE)
 	GLOB.player_list |= src
+	if(client.holder)
+		GLOB.keyloop_list |= src
+	else if(stat != DEAD || !SSlag_switch?.measures[DISABLE_DEAD_KEYLOOP])
+		GLOB.keyloop_list |= src
 	if(!SSticker?.mode)
 		return
 	if(stat == DEAD)
@@ -59,6 +63,7 @@
 ///Removes the mob reference from the list of all player-mobs, besides from either the of dead or alive player-mob lists, as appropriate. Called on Logout().
 /mob/proc/remove_from_player_list()
 	SHOULD_CALL_PARENT(TRUE)
+	GLOB.keyloop_list -= src
 	GLOB.player_list -= src
 	if(!SSticker?.mode)
 		return
