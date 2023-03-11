@@ -9258,8 +9258,8 @@ __metadata:
   resolution: "tgui-say@workspace:packages/tgui-say"
   dependencies:
     common: "workspace:*"
-    dompurify: ^2.3.1
-    inferno: ^7.4.8
+    dompurify: ^3.0.1
+    inferno: ^8.0.6
     tgui: "workspace:*"
     tgui-dev-server: "workspace:*"
     tgui-polyfill: "workspace:*"
