@@ -595,7 +595,7 @@
 /obj/structure/swarmer/trap/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -765,7 +765,7 @@
 
 /datum/antagonist/swarmer/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	//Give swarmer appearence on hud (If they are not an antag already)
+	//Give swarmer appearance on hud (If they are not an antag already)
 	var/datum/atom_hud/antag/swarmerhud = GLOB.huds[ANTAG_HUD_SWARMER]
 	swarmerhud.join_hud(owner.current)
 	if(!owner.antag_hud_icon_state)

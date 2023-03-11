@@ -32,6 +32,8 @@
 #define IMMUTABLE_SLOW			(1<<10) //! When players should not be able to change the slowdown of the item (Speed potions, etc)
 #define IN_STORAGE				(1<<11) //! is this item in the storage item, such as backpack? used for tooltips
 #define ILLEGAL					(1<<12)	//! this item unlocks illegal tech
+#define NO_PIXEL_RANDOM_DROP 	(1<<13) //if dropped, it wont have a randomized pixel_x/pixel_y
+#define WAS_THROWN				(1<<14) //if the item was thrown and shouldn't have the drop_item animation applied
 
 // Flags for the clothing_flags var on /obj/item/clothing
 
@@ -57,6 +59,7 @@
 #define ORGAN_FAILING			(1<<2)	//Failing organs perform damaging effects until replaced or fixed
 #define ORGAN_EXTERNAL			(1<<3)	//Was this organ implanted/inserted/etc, if true will not be removed during species change.
 #define ORGAN_VITAL				(1<<4)	//Currently only the brain
+#define ORGAN_EDIBLE			(1<<5)	//is a snack? :D
 
 /// Flags for the pod_flags var on /obj/structure/closet/supplypod
 

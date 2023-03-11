@@ -102,7 +102,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	if(!T)
 		CRASH("Fugitive Hunters (Created from fugitive event) found no turf to load in")
 	var/datum/map_generator/template_placer = ship.load(T)
-	template_placer.on_completion(CALLBACK(GLOBAL_PROC, /proc/announce_fugitive_spawns, ship, candidates, backstory))
+	template_placer.on_completion(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(announce_fugitive_spawns), ship, candidates, backstory))
 
 /proc/announce_fugitive_spawns(datum/map_template/shuttle/ship, list/candidates, datum/fugitive_type/hunter/backstory, datum/map_generator/map_generator, turf/T)
 	var/obj/effect/mob_spawn/human/fugitive_hunter/leader_spawn

@@ -123,7 +123,7 @@
 		var/extended_spawn = 0
 		if(DT_PROB(1, next_spawn))
 			extended_spawn = rand(5 MINUTES, 15 MINUTES)
-		addtimer(CALLBACK(src, .proc/spawn_anomaly, target_event_spawn, anomaly_to_spawn), current_spawn + extended_spawn)
+		addtimer(CALLBACK(src, PROC_REF(spawn_anomaly), target_event_spawn, anomaly_to_spawn), current_spawn + extended_spawn)
 		current_spawn += next_spawn
 
 /datum/supermatter_delamination/proc/spawn_anomaly(turf/location, type)

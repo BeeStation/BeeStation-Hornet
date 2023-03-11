@@ -105,8 +105,8 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 
 	attached_beacon = _attached_beacon
 
-	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/parent_equipped)
-	RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/parent_dequpped)
+	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(parent_equipped))
+	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(parent_dequpped))
 
 	get_matching_beacons()
 	add_tracker_hud(team_frequency, src)
@@ -154,7 +154,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 /datum/component/team_monitor/proc/parent_moved()
 	SIGNAL_HANDLER
 
-	//Update our alt appearences
+	//Update our alt appearances
 	update_all_directions()
 
 //Updates the direction of the arrows for all atoms we are tracking
@@ -232,7 +232,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	//Start processing to update in weird situations
 	START_PROCESSING(SSprocessing, src)
 	//Register parent signal
-	RegisterSignal(target, COMSIG_MOVABLE_MOVED, .proc/parent_moved)
+	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(parent_moved))
 	//Mob doesnt have a hud, dont add hud arrows
 	if(!target.hud_used)
 		return
@@ -385,11 +385,11 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 
 	//Register tracking signal
 	if(always_update)
-		RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/update_position)
+		RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(update_position))
 	else
 		//Reigster equipping signals
-		RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/parent_equipped)
-		RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/parent_dequpped)
+		RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(parent_equipped))
+		RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(parent_dequpped))
 
 	//Set our visibility on the tracking network
 	toggle_visibility(_visible)
@@ -436,7 +436,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	if(item.slot_flags & slot) //Was equipped to a valid slot for this item?
 		updating = equipper
 		toggle_visibility(TRUE)
-		RegisterSignal(updating, COMSIG_MOVABLE_MOVED, .proc/update_position)
+		RegisterSignal(updating, COMSIG_MOVABLE_MOVED, PROC_REF(update_position))
 	else
 		toggle_visibility(FALSE)
 		if(updating)

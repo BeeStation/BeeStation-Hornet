@@ -17,7 +17,7 @@
 
 /datum/antagonist/nightmare/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	//Give nightmare appearence on hud (If they are not an antag already)
+	//Give nightmare appearance on hud (If they are not an antag already)
 	var/datum/atom_hud/antag/nightmarehud = GLOB.huds[ANTAG_HUD_NIGHTMARE]
 	nightmarehud.join_hud(owner.current)
 	if(!owner.antag_hud_icon_state)

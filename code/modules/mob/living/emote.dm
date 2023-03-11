@@ -112,7 +112,7 @@
 	if(. && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.Togglewings())
-			addtimer(CALLBACK(H,/mob/living/carbon/human.proc/Togglewings), wing_time)
+			addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, Togglewings)), wing_time)
 
 /datum/emote/living/flap/aflap
 	key = "aflap"

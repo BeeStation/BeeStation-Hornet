@@ -97,7 +97,7 @@
 	charge_max = 150
 	clothes_req = FALSE
 	invocation = "UN'LTD P'WAH"
-	invocation_type = "shout"
+	invocation_type = INVOCATION_SHOUT
 	cooldown_min = 50
 	base_icon_state = "lightning"
 	action_icon_state = "lightning0"
@@ -115,7 +115,7 @@
 	charge_max = 140
 	clothes_req = TRUE
 	invocation = "ONI SOMA"
-	invocation_type = "shout"
+	invocation_type = INVOCATION_SHOUT
 	range = 20
 	cooldown_min = 40 //10 deciseconds reduction per rank
 	projectile_type = /obj/item/projectile/magic/fireball
@@ -133,7 +133,7 @@
 	charge_max = 90
 	clothes_req = FALSE
 	invocation = "Sigi'lu M'Fan 'Tasia"
-	invocation_type = "shout"
+	invocation_type = INVOCATION_SHOUT
 	range = 40
 	cooldown_min = 30
 	projectile_amount = 5
@@ -151,7 +151,7 @@
 
 /obj/effect/proc_holder/spell/aimed/spell_cards/on_activation(mob/M)
 	QDEL_NULL(lockon_component)
-	lockon_component = M.AddComponent(/datum/component/lockon_aiming, 5, typecacheof(list(/mob/living)), 1, null, CALLBACK(src, .proc/on_lockon_component))
+	lockon_component = M.AddComponent(/datum/component/lockon_aiming, 5, typecacheof(list(/mob/living)), 1, null, CALLBACK(src, PROC_REF(on_lockon_component)))
 
 /obj/effect/proc_holder/spell/aimed/spell_cards/proc/on_lockon_component(list/locked_weakrefs)
 	if(!length(locked_weakrefs))

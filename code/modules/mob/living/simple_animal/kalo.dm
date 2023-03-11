@@ -69,13 +69,13 @@
 
 					if(isturf(movement_target.loc) )
 						if(movement_target.bitecount == 0 || prob(50))
-							INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "nibbles on \the [movement_target]")
+							INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, "nibbles on \the [movement_target]")
 						movement_target.bitecount++
 						taste(movement_target.reagents)
 						turns_since_scan = 2
 						if(movement_target.bitecount >= 4)
 							if(prob(60))
-								INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "burps")
+								INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, "burps")
 							fully_heal()
 							qdel(movement_target)
 							turns_since_scan = 0
@@ -99,13 +99,13 @@
 						sleep(30) //take your time
 						if(B && Adjacent(B)) //make sure it's still there and we're still there
 							if(prob(60))
-								INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "licks up \the [B]")
+								INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, "licks up \the [B]")
 							qdel(B)
 							adjustBruteLoss(-5)
 							stop_automated_movement = 0
 
 		if(prob(1))
-			INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "pounces around!")
+			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, "pounces around!")
 			spawn(0)
 				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2)) //ian dance but longer
 					setDir(i)
@@ -116,9 +116,9 @@
 	if (M.a_intent == "help")
 		if(prob(20))
 			//yes lizards chirp I googled it it must be true
-			INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("chirps","squeaks"))
+			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("chirps","squeaks"))
 		turns_since_move = 0
 	else
 		if(prob(30))
 			//no likey that
-			INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "hisses!")
+			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, "hisses!")

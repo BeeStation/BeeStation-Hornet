@@ -67,14 +67,14 @@
 	if(removal_timer)
 		log_runtime("A doppelganger was set to be destroyed, but is already being destroyed!")
 		return
-	removal_timer = addtimer(CALLBACK(src, .proc/begin_fade_out), time, TIMER_UNIQUE)
+	removal_timer = addtimer(CALLBACK(src, PROC_REF(begin_fade_out)), time, TIMER_UNIQUE)
 
 /mob/living/simple_animal/hostile/illusion/doppelganger/proc/begin_fade_out()
 	if(QDELETED(src))
 		return
 	playsound(get_turf(src), 'sound/magic/timeparadox2.ogg', 20, TRUE, frequency = -1) //reverse!
 	animate(src, time=10, alpha=0)
-	addtimer(CALLBACK(src, .proc/end_fade_out), 10, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(end_fade_out)), 10, TIMER_UNIQUE)
 
 /mob/living/simple_animal/hostile/illusion/doppelganger/proc/end_fade_out()
 	if(!QDELETED(src))

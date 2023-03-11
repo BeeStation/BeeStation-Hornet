@@ -25,6 +25,7 @@
 	var/admins_warned = FALSE // stop spam, only warn the admins once that we are about to boom
 
 	var/obj/structure/cable/attached		// the attached cable
+	item_flags = NO_PIXEL_RANDOM_DROP
 
 /obj/item/powersink/update_icon()
 	icon_state = "powersink[mode == OPERATING]"

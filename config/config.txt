@@ -18,6 +18,8 @@ $include resources.txt
 $include interviews.txt
 # Performance stuff
 $include performance.txt
+# Server Policies/Rules
+$include policies.txt
 
 # You can use the @ character at the beginning of a config option to lock it from being edited in-game
 # Example usage:
@@ -150,7 +152,7 @@ LOG_VIRUS
 ## log ID changes
 LOG_ID
 
-## log crew manifest to seperate file
+## log crew manifest to separate file
 LOG_MANIFEST
 
 ## log job divide debugging information
