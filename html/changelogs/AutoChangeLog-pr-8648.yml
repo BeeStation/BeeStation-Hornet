@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - code_imp: Added preemptive compilation compatibility for BYOND 515. This does
+      not mean the game will work on 515, nor will clients be able to update.
