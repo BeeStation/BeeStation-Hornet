@@ -1,6 +1,0 @@
-author: '@DrDuckedGoose Code, @itsmeow UI, @qwertyquerty Sound'
-delete-after: true
-changes:
-  - rscadd: Added basic elevators, with control elements.
-  - tweak: Replaces the elevator on multi-z debug with new presets
-  - rscadd: Added elevator UI theme, with fancy elevator buttons.
