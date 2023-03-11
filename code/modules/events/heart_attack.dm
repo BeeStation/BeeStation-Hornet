@@ -16,7 +16,7 @@
 			heart_attack_contestants[H] = 1
 
 	if(LAZYLEN(heart_attack_contestants))
-		var/mob/living/carbon/human/winner = pickweight(heart_attack_contestants)
+		var/mob/living/carbon/human/winner = pick_weight(heart_attack_contestants)
 		var/datum/disease/D = new /datum/disease/heart_failure()
 		winner.ForceContractDisease(D, FALSE, TRUE)
 		announce_to_ghosts(winner)

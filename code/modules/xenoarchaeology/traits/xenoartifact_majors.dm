@@ -433,9 +433,9 @@
 	var/datum/gas/output
 
 /datum/xenoartifact_trait/major/gas/on_init(obj/item/xenoartifact/X)
-	input = pickweight(valid_inputs)
+	input = pick_weight(valid_inputs)
 	valid_outputs -= input //in the rare case the artifact wants to exhcange plasma for more plasma.
-	output = pickweight(valid_outputs)
+	output = pick_weight(valid_outputs)
 
 /datum/xenoartifact_trait/major/gas/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/analyzer))

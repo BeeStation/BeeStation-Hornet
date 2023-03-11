@@ -41,7 +41,7 @@
 	//Remove nearby dangers
 	for(var/mob/living/simple_animal/hostile/SA in range(10, created_human))
 		qdel(SA)
-	switch(pickweight(list("secretagentman" = 1, "dictator" = 1, "operative" = 1, "greytide" = 3, "funnyman" = 2)))
+	switch(pick_weight(list("secretagentman" = 1, "dictator" = 1, "operative" = 1, "greytide" = 3, "funnyman" = 2)))
 		if("secretagentman")
 			created_human.flavor_text = "On behalf of your Benefactors, you lead a life of danger - To everyone you meet, you stay a stranger. but you moved too much, took too many chances - \
 			Considering Nanotrasen's onto you, odds are you won't live to see tomorrow."

@@ -289,7 +289,7 @@
 			H.dust(TRUE)
 			spooky_scaries.Remove(X)
 			continue
-	listclearnulls(spooky_scaries)
+	list_clear_nulls(spooky_scaries)
 
 //Funny gimmick, skeletons always seem to wear roman/ancient armour
 /obj/item/necromantic_stone/proc/equip_roman_skeleton(mob/living/carbon/human/H)
@@ -353,7 +353,7 @@
 
 /obj/item/voodoo/attack_self(mob/user)
 	if(!target && possible.len)
-		target = input(user, "Select your victim!", "Voodoo") as null|anything in sortNames(possible)
+		target = input(user, "Select your victim!", "Voodoo") as null|anything in sort_names(possible)
 		return
 
 	if(user.zone_selected == BODY_ZONE_CHEST)

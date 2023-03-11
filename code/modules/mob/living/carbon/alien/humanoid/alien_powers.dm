@@ -86,7 +86,7 @@ Doesn't work on other aliens/AI.*/
 	var/list/options = list()
 	for(var/mob/living/L in oview(user))
 		options += L
-	var/mob/living/M = input("Select who to whisper to:","Whisper to?",null) as null|mob in sortNames(options)
+	var/mob/living/M = input("Select who to whisper to:","Whisper to?",null) as null|mob in sort_names(options)
 	if(!M)
 		return FALSE
 	var/msg = stripped_input(usr, "Message:", "Alien Whisper")
@@ -117,7 +117,7 @@ Doesn't work on other aliens/AI.*/
 	for(var/mob/living/carbon/A  in oview(user))
 		if(A.getorgan(/obj/item/organ/alien/plasmavessel))
 			aliens_around.Add(A)
-	var/mob/living/carbon/M = input("Select who to transfer to:","Transfer plasma to?",null) as mob in sortNames(aliens_around)
+	var/mob/living/carbon/M = input("Select who to transfer to:","Transfer plasma to?",null) as mob in sort_names(aliens_around)
 	if(!M)
 		return 0
 	var/amount = input("Amount:", "Transfer Plasma to [M]") as num

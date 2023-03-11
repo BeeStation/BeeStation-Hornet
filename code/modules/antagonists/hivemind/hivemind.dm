@@ -45,7 +45,7 @@
 
 
 /datum/antagonist/hivemind/proc/calc_size()
-	listclearnulls(hivemembers)
+	list_clear_nulls(hivemembers)
 	var/temp = 0
 	for(var/datum/mind/M in hivemembers)
 		if(M.current && M.current.stat != DEAD)

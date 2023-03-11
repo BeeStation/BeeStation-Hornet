@@ -30,7 +30,7 @@
             continue
         possibletemplates[candidate] = candidate.weight
     if(possibletemplates.len)
-        var/datum/map_template/random_room/template = pickweight(possibletemplates)
+        var/datum/map_template/random_room/template = pick_weight(possibletemplates)
         template.stock --
         template.weight = (template.weight / 2)
         if(template.stock <= 0)

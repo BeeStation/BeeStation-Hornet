@@ -2874,11 +2874,11 @@ proc name: mergeRecordLists (/proc/mergeRecordLists)
   src: null
   call stack:
 mergeRecordLists(/list (/list), /list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
 Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
 Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
 Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
@@ -2891,10 +2891,10 @@ proc name: mergeRecordLists (/proc/mergeRecordLists)
   src: null
   call stack:
 mergeRecordLists(null, /list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
 Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
 Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
 Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
@@ -2907,9 +2907,9 @@ proc name: mergeRecordLists (/proc/mergeRecordLists)
   src: null
   call stack:
 mergeRecordLists(null, /list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
 Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
 Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
 Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
@@ -2922,8 +2922,8 @@ proc name: mergeRecordLists (/proc/mergeRecordLists)
   src: null
   call stack:
 mergeRecordLists(null, /list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
 Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
 Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
 Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
@@ -2936,157 +2936,7 @@ proc name: mergeRecordLists (/proc/mergeRecordLists)
   src: null
   call stack:
 mergeRecordLists(null, /list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
-Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
-Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
-Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Return", /list (/list))
-Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Return", /list (/list), Security Records (/obj/machinery/computer/secure_data))
-runtime error: Cannot read null.fields
-proc name: mergeRecordLists (/proc/mergeRecordLists)
-  source file: helpers.dm,263
-  usr: Wintermute (/mob/living/silicon/ai)
-  src: null
-  call stack:
-mergeRecordLists(/list (/list), /list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
-Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
-Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
-Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list))
-Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list), Security Records (/obj/machinery/computer/secure_data))
-runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
-  source file: helpers.dm,260
-  usr: Wintermute (/mob/living/silicon/ai)
-  src: null
-  call stack:
-mergeRecordLists(null, /list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
-Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
-Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
-Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list))
-Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list), Security Records (/obj/machinery/computer/secure_data))
-runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
-  source file: helpers.dm,260
-  usr: Wintermute (/mob/living/silicon/ai)
-  src: null
-  call stack:
-mergeRecordLists(null, /list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
-Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
-Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
-Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list))
-Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list), Security Records (/obj/machinery/computer/secure_data))
-runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
-  source file: helpers.dm,260
-  usr: Wintermute (/mob/living/silicon/ai)
-  src: null
-  call stack:
-mergeRecordLists(null, /list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
-Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
-Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
-Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list))
-Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list), Security Records (/obj/machinery/computer/secure_data))
-runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
-  source file: helpers.dm,260
-  usr: Wintermute (/mob/living/silicon/ai)
-  src: null
-  call stack:
-mergeRecordLists(null, /list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
-Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
-Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
-Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list))
-Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list), Security Records (/obj/machinery/computer/secure_data))
-runtime error: Cannot read null.fields
-proc name: mergeRecordLists (/proc/mergeRecordLists)
-  source file: helpers.dm,263
-  usr: Wintermute (/mob/living/silicon/ai)
-  src: null
-  call stack:
-mergeRecordLists(/list (/list), /list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
-Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
-Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
-Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Return", /list (/list))
-Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Return", /list (/list), Security Records (/obj/machinery/computer/secure_data))
-runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
-  source file: helpers.dm,260
-  usr: Wintermute (/mob/living/silicon/ai)
-  src: null
-  call stack:
-mergeRecordLists(null, /list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
-Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
-Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
-Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Return", /list (/list))
-Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Return", /list (/list), Security Records (/obj/machinery/computer/secure_data))
-runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
-  source file: helpers.dm,260
-  usr: Wintermute (/mob/living/silicon/ai)
-  src: null
-  call stack:
-mergeRecordLists(null, /list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
-Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
-Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
-Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Return", /list (/list))
-Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Return", /list (/list), Security Records (/obj/machinery/computer/secure_data))
-runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
-  source file: helpers.dm,260
-  usr: Wintermute (/mob/living/silicon/ai)
-  src: null
-  call stack:
-mergeRecordLists(null, /list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
-Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
-Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
-Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Return", /list (/list))
-Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Return", /list (/list), Security Records (/obj/machinery/computer/secure_data))
-runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
-  source file: helpers.dm,260
-  usr: Wintermute (/mob/living/silicon/ai)
-  src: null
-  call stack:
-mergeRecordLists(null, /list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
 Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
 Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
 Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
@@ -3099,11 +2949,161 @@ proc name: mergeRecordLists (/proc/mergeRecordLists)
   src: null
   call stack:
 mergeRecordLists(/list (/list), /list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
+Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
+Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
+Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list))
+Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list), Security Records (/obj/machinery/computer/secure_data))
+runtime error: Cannot read null.len
+proc name: mergeRecordLists (/proc/mergeRecordLists)
+  source file: helpers.dm,260
+  usr: Wintermute (/mob/living/silicon/ai)
+  src: null
+  call stack:
+mergeRecordLists(null, /list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
+Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
+Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
+Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list))
+Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list), Security Records (/obj/machinery/computer/secure_data))
+runtime error: Cannot read null.len
+proc name: mergeRecordLists (/proc/mergeRecordLists)
+  source file: helpers.dm,260
+  usr: Wintermute (/mob/living/silicon/ai)
+  src: null
+  call stack:
+mergeRecordLists(null, /list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
+Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
+Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
+Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list))
+Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list), Security Records (/obj/machinery/computer/secure_data))
+runtime error: Cannot read null.len
+proc name: mergeRecordLists (/proc/mergeRecordLists)
+  source file: helpers.dm,260
+  usr: Wintermute (/mob/living/silicon/ai)
+  src: null
+  call stack:
+mergeRecordLists(null, /list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
+Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
+Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
+Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list))
+Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list), Security Records (/obj/machinery/computer/secure_data))
+runtime error: Cannot read null.len
+proc name: mergeRecordLists (/proc/mergeRecordLists)
+  source file: helpers.dm,260
+  usr: Wintermute (/mob/living/silicon/ai)
+  src: null
+  call stack:
+mergeRecordLists(null, /list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
+Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
+Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
+Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list))
+Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list), Security Records (/obj/machinery/computer/secure_data))
+runtime error: Cannot read null.fields
+proc name: mergeRecordLists (/proc/mergeRecordLists)
+  source file: helpers.dm,263
+  usr: Wintermute (/mob/living/silicon/ai)
+  src: null
+  call stack:
+mergeRecordLists(/list (/list), /list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
+Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
+Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
+Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Return", /list (/list))
+Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Return", /list (/list), Security Records (/obj/machinery/computer/secure_data))
+runtime error: Cannot read null.len
+proc name: mergeRecordLists (/proc/mergeRecordLists)
+  source file: helpers.dm,260
+  usr: Wintermute (/mob/living/silicon/ai)
+  src: null
+  call stack:
+mergeRecordLists(null, /list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
+Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
+Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
+Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Return", /list (/list))
+Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Return", /list (/list), Security Records (/obj/machinery/computer/secure_data))
+runtime error: Cannot read null.len
+proc name: mergeRecordLists (/proc/mergeRecordLists)
+  source file: helpers.dm,260
+  usr: Wintermute (/mob/living/silicon/ai)
+  src: null
+  call stack:
+mergeRecordLists(null, /list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
+Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
+Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
+Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Return", /list (/list))
+Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Return", /list (/list), Security Records (/obj/machinery/computer/secure_data))
+runtime error: Cannot read null.len
+proc name: mergeRecordLists (/proc/mergeRecordLists)
+  source file: helpers.dm,260
+  usr: Wintermute (/mob/living/silicon/ai)
+  src: null
+  call stack:
+mergeRecordLists(null, /list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
+Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
+Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
+Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Return", /list (/list))
+Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Return", /list (/list), Security Records (/obj/machinery/computer/secure_data))
+runtime error: Cannot read null.len
+proc name: mergeRecordLists (/proc/mergeRecordLists)
+  source file: helpers.dm,260
+  usr: Wintermute (/mob/living/silicon/ai)
+  src: null
+  call stack:
+mergeRecordLists(null, /list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
+Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
+Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
+Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Return", /list (/list))
+Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Return", /list (/list), Security Records (/obj/machinery/computer/secure_data))
+runtime error: Cannot read null.fields
+proc name: mergeRecordLists (/proc/mergeRecordLists)
+  source file: helpers.dm,263
+  usr: Wintermute (/mob/living/silicon/ai)
+  src: null
+  call stack:
+mergeRecordLists(/list (/list), /list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
 Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
 Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
 Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
@@ -3116,10 +3116,10 @@ proc name: mergeRecordLists (/proc/mergeRecordLists)
   src: null
   call stack:
 mergeRecordLists(null, /list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
-sortRecord(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
+sort_record(/list (/list), "name", 1)
 Security Records (/obj/machinery/computer/secure_data): attack hand(Wintermute (/mob/living/silicon/ai))
 Security Records (/obj/machinery/computer/secure_data): attack ai(Wintermute (/mob/living/silicon/ai))
 Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()

@@ -50,7 +50,7 @@
 			else
 				Lines += "[C.key] ([round(C.avgping, 1)]ms)"
 
-	for(var/line in sortList(Lines))
+	for(var/line in sort_list(Lines))
 		msg += "[line]\n"
 
 	msg += "<b>Total Players: [length(Lines)]</b>"

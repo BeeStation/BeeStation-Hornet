@@ -93,7 +93,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 /datum/controller/subsystem/processing/orbits/proc/get_event()
 	if(!event_probability)
 		return null
-	return pickweight(runnable_events)
+	return pick_weight(runnable_events)
 
 /datum/controller/subsystem/processing/orbits/proc/post_load_init()
 	for(var/map_key in orbital_maps)
@@ -158,7 +158,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	if(!length(possible_objectives))
 		priority_announce("Priority station objective received - Details transmitted to all available objective consoles. \
 			[GLOB.station_name] will have funds distributed upon objective completion.", "Central Command Report", SSstation.announcer.get_rand_report_sound())
-	var/chosen = pickweight(valid_objectives)
+	var/chosen = pick_weight(valid_objectives)
 	if(!chosen)
 		return
 	var/datum/orbital_objective/objective = new chosen()

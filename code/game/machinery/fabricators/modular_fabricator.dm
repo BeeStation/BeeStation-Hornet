@@ -340,7 +340,7 @@
 				for(var/i in SSmaterials.materials_by_category[used_material])
 					if(materials.materials[i] > 0)
 						list_to_show += i
-				used_material = input("Choose [used_material]", "Custom Material") as null|anything in sortList(list_to_show, GLOBAL_PROC_REF(cmp_typepaths_asc))
+				used_material = input("Choose [used_material]", "Custom Material") as null|anything in sort_list(list_to_show, GLOBAL_PROC_REF(cmp_typepaths_asc))
 				if(!used_material)
 					return //Didn't pick any material, so you can't build shit either.
 

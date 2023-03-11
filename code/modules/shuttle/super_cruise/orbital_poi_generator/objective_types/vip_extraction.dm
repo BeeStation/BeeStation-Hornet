@@ -42,7 +42,7 @@
 	for(var/mob/living/simple_animal/hostile/SA in range(10, created_human))
 		qdel(SA)
 	var/antag_elligable = FALSE
-	switch(pickweight(list("centcom_official" = 4, "greytide" = 3)))
+	switch(pick_weight(list("centcom_official" = 4, "greytide" = 3)))
 		if("centcom_official")
 			created_human.flavor_text = "You are a CentCom official onboard a badly damaged station. Making your way back to Space Station 13 to uncover the secrets you hold is \
 				your top priority as far as Nanotrasen is concerned, but surviving just one more day is all you can ask for."
