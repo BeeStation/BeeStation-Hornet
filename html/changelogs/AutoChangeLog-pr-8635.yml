@@ -1,4 +1,0 @@
-author: Rohesie, Benbot16
-delete-after: true
-changes:
-  - code_imp: Do_afters now support timed_action_flags.
