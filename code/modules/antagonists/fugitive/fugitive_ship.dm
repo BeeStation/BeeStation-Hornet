@@ -183,7 +183,7 @@
 		if("capture")
 			if(!chamber)
 				return
-			addtimer(CALLBACK(src, .proc/capture, usr), 5)
+			addtimer(CALLBACK(src, PROC_REF(capture), usr), 5)
 			return TRUE
 
 /obj/machinery/computer/fugitive_capture_computer/proc/scan_machinery()

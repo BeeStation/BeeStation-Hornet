@@ -67,7 +67,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	// Tools so they can actually escape maintenance
 	new /obj/item/storage/toolbox/mechanical(landing_turf)
 
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/spawn_hunters), 10 MINUTES)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_hunters)), 10 MINUTES)
 	return SUCCESSFUL_SPAWN
 
 /proc/gear_fugitive(index, mob/dead/selected, turf/landing_turf, datum/fugitive_type/backstory, leader = FALSE)
