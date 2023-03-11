@@ -678,6 +678,10 @@
 	suffix = "kilo"
 	name = "kilo exploration shuttle"
 
+/datum/map_template/shuttle/exploration/rad
+	suffix = "rad"
+	name = "rad exploration shuttle"
+
 /datum/map_template/shuttle/labour/delta
 	suffix = "delta"
 	name = "labour shuttle (Delta)"
