@@ -8,7 +8,7 @@
 	spawn_positions = 1
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
-	exp_requirements = 120
+	exp_requirements = MINUTES_REQUIRED_BASIC
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/brig_physician
 
@@ -41,8 +41,8 @@
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	suit = /obj/item/clothing/suit/hazardvest/brig_physician
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
-	suit_store = /obj/item/flashlight/seclite
-	l_hand = /obj/item/storage/firstaid/medical
+	suit_store = /obj/item/storage/firstaid/medical
+	l_pocket = /obj/item/flashlight/seclite
 	head = /obj/item/clothing/head/soft/sec/brig_physician
 
 	backpack = /obj/item/storage/backpack/medic

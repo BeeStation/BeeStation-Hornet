@@ -129,7 +129,7 @@
 	var/newcolor = color2hex(pick(10;"green", 5;"blue", 3;"red", 1;"purple"))
 	add_atom_colour(newcolor, FIXED_COLOUR_PRIORITY)
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -138,7 +138,7 @@
 
 	if(!ismob(AM))
 		return
-	INVOKE_ASYNC(src, .proc/put_in_crossers_hands, AM)
+	INVOKE_ASYNC(src, PROC_REF(put_in_crossers_hands), AM)
 
 /obj/item/rupee/proc/put_in_crossers_hands(mob/crosser)
 	if(crosser.put_in_hands(src))

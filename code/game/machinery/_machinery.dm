@@ -130,9 +130,9 @@ Class Procs:
 	/// [Bitflag] the machine sends its profit to the corresponding department budget. if this is not specified, this will follow `dept_req_for_free` value.
 	var/seller_department
 
-	var/clickvol = 40	// sound volume played on succesful click
+	var/clickvol = 40	// sound volume played on successful click
 	var/next_clicksound = 0	// value to compare with world.time for whether to play clicksound according to CLICKSOUND_INTERVAL
-	var/clicksound	// sound played on succesful interface use by a carbon lifeform
+	var/clicksound	// sound played on successful interface use by a carbon lifeform
 
 	// For storing and overriding ui id and dimensions
 	var/tgui_id // ID of TGUI interface
@@ -155,7 +155,7 @@ Class Procs:
 		begin_processing()
 
 	power_change()
-	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, .proc/power_change)
+	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(power_change))
 
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
@@ -214,7 +214,7 @@ Class Procs:
 		//Set the machine to be EMPed
 		machine_stat |= EMPED
 		//Reset EMP state in 120/60 seconds
-		addtimer(CALLBACK(src, .proc/emp_reset), (emp_disable_time / severity) + rand(-10, 10))
+		addtimer(CALLBACK(src, PROC_REF(emp_reset)), (emp_disable_time / severity) + rand(-10, 10))
 		//Update power
 		power_change()
 		new /obj/effect/temp_visual/emp(loc)
@@ -519,7 +519,7 @@ Class Procs:
 		I.play_tool_sound(src, 50)
 		var/prev_anchored = anchored
 		//as long as we're the same anchored state and we're either on a floor or are anchored, toggle our anchored state
-		if(I.use_tool(src, user, time, extra_checks = CALLBACK(src, .proc/unfasten_wrench_check, prev_anchored, user)))
+		if(I.use_tool(src, user, time, extra_checks = CALLBACK(src, PROC_REF(unfasten_wrench_check), prev_anchored, user)))
 			to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
 			setAnchored(!anchored)
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
@@ -534,6 +534,21 @@ Class Procs:
 	if(can_be_unfasten_wrench(user, TRUE) != SUCCESSFUL_UNFASTEN) //if we aren't explicitly successful, cancel the fuck out
 		return FALSE
 	return TRUE
+
+// Power cell in hand replacement
+/obj/machinery/attackby(obj/item/C, mob/user)
+	if(istype(C, /obj/item/stock_parts/cell) && panel_open)
+		for(var/obj/item/P in component_parts)
+			if(istype(P,/obj/item/stock_parts/cell))
+				if(user.transferItemToLoc(C, src))
+					user.put_in_active_hand(P)
+					component_parts+=C
+					component_parts-=P
+					RefreshParts()
+					playsound(src, 'sound/surgery/taperecorder_close.ogg', 50, FALSE)
+					to_chat(user, "<span class='notice'>You replace [P.name] with [C.name].</span>")
+					return
+	..()
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	if(!istype(W))

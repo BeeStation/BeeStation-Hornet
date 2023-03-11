@@ -52,7 +52,7 @@
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
 	linked_obj = _linked_obj
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, .proc/attack_self)
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(attack_self))
 
 /datum/component/recoverable/proc/attack_self(mob/user)
 	var/atom/movable/pA = parent

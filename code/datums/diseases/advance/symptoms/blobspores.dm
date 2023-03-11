@@ -68,7 +68,7 @@
 		return FALSE
 	var/mob/living/M = A.affected_mob
 	M.visible_message("<span class='danger'>[M] starts swelling grotesquely!</span>")
-	addtimer(CALLBACK(src, .proc/blob_the_mob, A, M), 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(blob_the_mob), A, M), 10 SECONDS)
 
 /datum/symptom/blobspores/proc/blob_the_mob(datum/disease/advance/A, mob/living/M)
 	if(!A || !M)

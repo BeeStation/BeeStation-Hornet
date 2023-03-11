@@ -1,3 +1,6 @@
+#define SYRINGE_DRAW 0
+#define SYRINGE_INJECT 1
+
 /obj/item/reagent_containers/syringe
 	name = "syringe"
 	desc = "A syringe that can hold up to 15 units."
@@ -187,7 +190,7 @@
 					L.log_message("injected themselves ([contained]) with [src.name]", LOG_ATTACK, color="orange")
 				transfer_diseases(L)
 			var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
-			reagents.expose(L, INJECT, fraction)
+			reagents.reaction(L, INJECT, fraction)
 			reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
 			balloon_alert(user, "You inject [amount_per_transfer_from_this]u.")
 			to_chat(user, "<span class='notice'>You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units.</span>")
@@ -360,3 +363,6 @@
 	icon_state = "crude_0"
 	base_icon_state = "crude"
 	volume = 5
+
+#undef SYRINGE_DRAW
+#undef SYRINGE_INJECT

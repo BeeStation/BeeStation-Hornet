@@ -144,7 +144,7 @@
 	"<span class='notice'>You begin to awaken the [src]...</span>")
 	awakening = TRUE
 	log_game("[key_name(user)] awakened a killer tomato at [AREACOORD(user)].")
-	addtimer(CALLBACK(src, .proc/make_killer_tomato), 30)
+	addtimer(CALLBACK(src, PROC_REF(make_killer_tomato)), 30)
 	
 /obj/item/reagent_containers/food/snacks/grown/tomato/killer/proc/make_killer_tomato()
 	if(!QDELETED(src))

@@ -126,7 +126,7 @@ SUBSYSTEM_DEF(zclear)
 //Temporarily stops a z from being wiped for 30 seconds.
 /datum/controller/subsystem/zclear/proc/temp_keep_z(z_level)
 	docking_levels |= z_level
-	addtimer(CALLBACK(src, .proc/unkeep_z, z_level), 2 MINUTES)
+	addtimer(CALLBACK(src, PROC_REF(unkeep_z), z_level), 2 MINUTES)
 
 /datum/controller/subsystem/zclear/proc/unkeep_z(z_level)
 	docking_levels -= z_level
@@ -142,7 +142,7 @@ SUBSYSTEM_DEF(zclear)
 		LAZYREMOVE(free_levels, picked_level)
 		//In 1 minute we will begine tracking when all mobs have left the z-level.
 		//Begin tracking. In the rare case that someone got into a free z-level then just allow them to float there with no ruins. Space is pretty empty you know.
-		addtimer(CALLBACK(src, .proc/begin_tracking, picked_level), 60 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(begin_tracking), picked_level), 60 SECONDS)
 		//Check if the z-level is actually free. (Someone might have drifted into the z-level.)
 		var/free = TRUE
 		for(var/mob/living/L in GLOB.player_list)
@@ -153,7 +153,7 @@ SUBSYSTEM_DEF(zclear)
 		if(free)
 			return picked_level
 	var/datum/space_level/picked_level = SSmapping.add_new_zlevel("Dynamic free level [LAZYLEN(free_levels)]", ZTRAITS_SPACE, orbital_body_type = null)
-	addtimer(CALLBACK(src, .proc/begin_tracking, picked_level), 60 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(begin_tracking), picked_level), 60 SECONDS)
 	message_admins("SSORBITS: Created a new dynamic free level ([LAZYLEN(free_levels)] now created) as none were available at the time.")
 	return picked_level
 
