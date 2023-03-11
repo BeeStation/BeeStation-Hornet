@@ -29,7 +29,7 @@
 
 	var/list/mob/viewing_mobs = list()
 
-	/// Only for examination
+	/// Only used for storing pending research for examine()
 	var/list/pending_research = list()
 
 /obj/machinery/rnd/production/Initialize(mapload)
@@ -79,7 +79,8 @@
 		if(!panel_open)
 			cut_overlays()
 			stripe.icon_state = "protolathe_stripe"
-		else stripe.icon_state = "protolathe_stripe_t"
+		else
+			stripe.icon_state = "protolathe_stripe_t"
 		add_overlay(stripe)
 	if(length(pending_research))
 		add_overlay("lathe-research")
