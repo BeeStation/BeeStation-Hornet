@@ -78,15 +78,15 @@
 		return
 	//Do lasso/beam for style points
 	var/datum/beam/B = new(loc, C, time=1 SECONDS, beam_icon='icons/effects/beam.dmi', beam_icon_state="carp_lasso", btype=/obj/effect/ebeam)
-	INVOKE_ASYNC(B, /datum/beam/.proc/Start)
+	INVOKE_ASYNC(B, TYPE_PROC_REF(/datum/beam, Start))
 	C.unbuckle_all_mobs()
 	mob_target = C
 	C.throw_at(get_turf(src), 9, 2, user, FALSE, force = 0)
 	C.transform = transform.Turn(180)
 	C.toggle_ai(AI_OFF)
-	RegisterSignal(C, COMSIG_PARENT_QDELETING, .proc/handle_hard_del)
+	RegisterSignal(C, COMSIG_PARENT_QDELETING, PROC_REF(handle_hard_del))
 	to_chat(user, "<span class='notice'>You lasso [C]!</span>")
-	timer = addtimer(CALLBACK(src, .proc/fail_ally), 6 SECONDS, TIMER_STOPPABLE) //after 6 seconds set the carp back
+	timer = addtimer(CALLBACK(src, PROC_REF(fail_ally)), 6 SECONDS, TIMER_STOPPABLE) //after 6 seconds set the carp back
 
 /obj/item/mob_lasso/proc/check_allowed(atom/target)
 	return ((!whitelist_mobs || is_type_in_typecache(target, whitelist_mobs)) && (!blacklist_mobs || !is_type_in_typecache(target, blacklist_mobs)))

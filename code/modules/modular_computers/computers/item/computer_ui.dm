@@ -271,7 +271,7 @@
 			update_id_display()
 
 			playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
-			addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
+			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
 			return TRUE
 		if("PC_Toggle_Auto_Imprint")
 			saved_auto_imprint = !saved_auto_imprint

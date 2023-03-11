@@ -71,7 +71,7 @@
 		return FALSE
 	if(action == "search")
 		SStgui.close_uis(src)
-		addtimer(CALLBACK(src, .proc/perform_research, usr, currentName), 0)
+		addtimer(CALLBACK(src, PROC_REF(perform_research), usr, currentName), 0)
 		currentName = ""
 		currentSection = PRE_TITLE
 		ui_update()

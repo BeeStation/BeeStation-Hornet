@@ -207,7 +207,7 @@
 	in_stealth = TRUE
 	owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
 	owner.alpha = 0
-	addtimer(CALLBACK(src, .proc/end_stealth, owner), stealth_time)
+	addtimer(CALLBACK(src, PROC_REF(end_stealth), owner), stealth_time)
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/stealth/proc/end_stealth(mob/living/carbon/human/owner)

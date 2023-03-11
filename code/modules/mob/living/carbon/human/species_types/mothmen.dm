@@ -116,7 +116,7 @@
 		C.done_regenerating = FALSE
 		H.apply_status_effect(STATUS_EFFECT_COCOONED)
 		H.log_message("has finished weaving a cocoon.", LOG_GAME)
-		addtimer(CALLBACK(src, .proc/emerge, C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(emerge), C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 	else
 		to_chat(H, "<span class='warning'>You need to hold still in order to weave a cocoon!</span>")
 

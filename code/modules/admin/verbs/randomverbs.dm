@@ -915,7 +915,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!holder)
 		return
 
-	var/weather_type = input("Choose a weather", "Weather")  as null|anything in sortList(subtypesof(/datum/weather), /proc/cmp_typepaths_asc)
+	var/weather_type = input("Choose a weather", "Weather")  as null|anything in sortList(subtypesof(/datum/weather), GLOBAL_PROC_REF(cmp_typepaths_asc))
 	if(!weather_type)
 		return
 
@@ -1156,17 +1156,17 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 		if(ADMIN_PUNISHMENT_DCHAT_ANARCHY)
 			target._AddComponent(list(/datum/component/deadchat_control, ANARCHY_MODE, list(
-			 "up" = CALLBACK(GLOBAL_PROC, .proc/_step, target, NORTH),
-			 "down" = CALLBACK(GLOBAL_PROC, .proc/_step, target, SOUTH),
-			 "left" = CALLBACK(GLOBAL_PROC, .proc/_step, target, WEST),
-			 "right" = CALLBACK(GLOBAL_PROC, .proc/_step, target, EAST)), 10))
+			 "up" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), target, NORTH),
+			 "down" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), target, SOUTH),
+			 "left" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), target, WEST),
+			 "right" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), target, EAST)), 10))
 
 		if(ADMIN_PUNISHMENT_DCHAT_DEMOCRACY)
 			target._AddComponent(list(/datum/component/deadchat_control, DEMOCRACY_MODE, list(
-			 "up" = CALLBACK(GLOBAL_PROC, .proc/_step, target, NORTH),
-			 "down" = CALLBACK(GLOBAL_PROC, .proc/_step, target, SOUTH),
-			 "left" = CALLBACK(GLOBAL_PROC, .proc/_step, target, WEST),
-			 "right" = CALLBACK(GLOBAL_PROC, .proc/_step, target, EAST)), 40))
+			 "up" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), target, NORTH),
+			 "down" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), target, SOUTH),
+			 "left" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), target, WEST),
+			 "right" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), target, EAST)), 40))
 
 		if(ADMIN_PUNISHMENT_FIREBALL)
 			new /obj/effect/temp_visual/target(get_turf(target))

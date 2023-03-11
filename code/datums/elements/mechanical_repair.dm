@@ -8,7 +8,7 @@
 	. = ..()
 	if(!ishuman(target))
 		return ELEMENT_INCOMPATIBLE
-	RegisterSignal(target, COMSIG_PARENT_ATTACKBY, .proc/try_repair)
+	RegisterSignal(target, COMSIG_PARENT_ATTACKBY, PROC_REF(try_repair))
 
 /datum/element/mechanical_repair/Detach(datum/source, ...)
 	. = ..()

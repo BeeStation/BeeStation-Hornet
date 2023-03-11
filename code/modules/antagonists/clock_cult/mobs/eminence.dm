@@ -318,7 +318,7 @@
 	for(var/datum/round_event_control/E in SSevents.control)
 		if(E.name == picked_event)
 			var/mob/living/simple_animal/eminence/eminence = user
-			INVOKE_ASYNC(eminence, /mob/living/simple_animal/eminence.proc/run_global_event, E)
+			INVOKE_ASYNC(eminence, TYPE_PROC_REF(/mob/living/simple_animal/eminence, run_global_event), E)
 			consume_cogs(user)
 			return
 	revert_cast(user)

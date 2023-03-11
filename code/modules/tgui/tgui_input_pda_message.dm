@@ -148,7 +148,7 @@
 			else if(choice in devices)
 				send_all = FALSE
 				target = devices[choice]
-				RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/target_deleting)
+				RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(target_deleting))
 			else
 				target = null
 				send_all = FALSE

@@ -42,12 +42,12 @@
 /obj/effect/stargazer_light/proc/open()
 	icon_state = "stargazer_opening"
 	cancel_timer()
-	active_timer = addtimer(CALLBACK(src, .proc/finish_opening), 2, TIMER_STOPPABLE | TIMER_UNIQUE)
+	active_timer = addtimer(CALLBACK(src, PROC_REF(finish_opening)), 2, TIMER_STOPPABLE | TIMER_UNIQUE)
 
 /obj/effect/stargazer_light/proc/close()
 	icon_state = "stargazer_closing"
 	cancel_timer()
-	active_timer = addtimer(CALLBACK(src, .proc/finish_closing), 2, TIMER_STOPPABLE | TIMER_UNIQUE)
+	active_timer = addtimer(CALLBACK(src, PROC_REF(finish_closing)), 2, TIMER_STOPPABLE | TIMER_UNIQUE)
 
 /obj/effect/stargazer_light/proc/cancel_timer()
 	if(active_timer)

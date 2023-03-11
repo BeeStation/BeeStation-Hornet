@@ -260,7 +260,7 @@
 					to_chat(user, "<span class='warning'>Your glow is already enhanced!</span>")
 					return
 				lum_species.update_glow(user, 5)
-				addtimer(CALLBACK(lum_species, /datum/species/jelly/luminescent.proc/update_glow, user, LUMINESCENT_DEFAULT_GLOW), 600)
+				addtimer(CALLBACK(lum_species, TYPE_PROC_REF(/datum/species/jelly/luminescent, update_glow), user, LUMINESCENT_DEFAULT_GLOW), 600)
 				to_chat(user, "<span class='notice'>You start glowing brighter.</span>")
 				return 60 SECONDS
 			else
@@ -483,7 +483,7 @@
 				return
 			to_chat(user, "<span class='notice'>You feel your skin harden and become more resistant.</span>")
 			species.armor += 25
-			addtimer(CALLBACK(src, .proc/reset_armor, species), 120 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(reset_armor), species), 120 SECONDS)
 			return 45 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
