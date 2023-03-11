@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 	src.client = client
 	owner_ckey = ckey(client.ckey)
 	window = new(client, id)
-	window.subscribe(src, .proc/on_message)
+	window.subscribe(src, PROC_REF(on_message))
 	GLOB.tgui_panels += src
 
 /datum/tgui_panel/Del()
@@ -64,7 +64,7 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 	request_telemetry()
 	// Send verbs
 	set_verb_infomation(client)
-	addtimer(CALLBACK(src, .proc/on_initialize_timed_out), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(on_initialize_timed_out)), 5 SECONDS)
 
 /**
  * private

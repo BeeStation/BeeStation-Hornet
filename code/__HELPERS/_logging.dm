@@ -204,9 +204,9 @@
 	if (CONFIG_GET(flag/log_job_debug))
 		WRITE_LOG(GLOB.world_job_debug_log, "JOB: [text]")
 
-/proc/log_href_exploit(atom/user)
-	WRITE_LOG(GLOB.href_exploit_attempt_log, "HREF: [key_name(user)] has potentially attempted an href exploit.")
-	message_admins("[key_name_admin(user)] has potentially attempted an href exploit.")
+/proc/log_href_exploit(atom/user, data = "")
+	WRITE_LOG(GLOB.href_exploit_attempt_log, "HREF: [key_name(user)] has potentially attempted an href exploit.[data]")
+	message_admins("[key_name_admin(user)] has potentially attempted an href exploit.[data]")
 
 /* Log to both DD and the logfile. */
 /proc/log_world(text)

@@ -105,6 +105,7 @@ Burning extracts:
 /obj/item/slimecross/burning/darkpurple
 	colour = "dark purple"
 	effect_desc = "Creates a cloud of plasma."
+	dangerous = TRUE
 
 /obj/item/slimecross/burning/darkpurple/do_effect(mob/user)
 	user.visible_message("<span class='danger'>[src] sublimates into a cloud of plasma!</span>")
@@ -135,7 +136,7 @@ Burning extracts:
 	var/list/turfs = list()
 	for(var/turf/open/T in RANGE_TURFS(1,user))
 		turfs += T
-	for(var/i = 0, i < amount, i++)
+	for(var/i in 1 to amount)
 		var/path = get_random_food()
 		var/obj/item/O = new path(pick(turfs))
 		O.reagents.add_reagent(/datum/reagent/toxin/slimejelly,5) //Oh god it burns
@@ -147,6 +148,7 @@ Burning extracts:
 /obj/item/slimecross/burning/bluespace
 	colour = "bluespace"
 	effect_desc = "Teleports anyone directly next to you."
+	dangerous = TRUE
 
 /obj/item/slimecross/burning/bluespace/do_effect(mob/user)
 	user.visible_message("<span class='danger'>[src] sparks, and lets off a shockwave of bluespace energy!</span>")
@@ -241,6 +243,7 @@ Burning extracts:
 /obj/item/slimecross/burning/gold
 	colour = "gold"
 	effect_desc = "Creates a gank squad of monsters that are friendly to the user."
+	dangerous = TRUE
 
 /obj/item/slimecross/burning/gold/do_effect(mob/user)
 	user.visible_message("<span class='danger'>[src] shudders violently, and summons an army for [user]!</span>")
@@ -248,7 +251,7 @@ Burning extracts:
 		var/mob/living/simple_animal/S = create_random_mob(get_turf(user), HOSTILE_SPAWN)
 		S.faction |= "[REF(user)]"
 		if(prob(50))
-			for(var/j = 1, j <= rand(1, 3), j++)
+			for(var/j in 1 to rand(1, 3))
 				step(S, pick(NORTH,SOUTH,EAST,WEST))
 	..()
 
@@ -258,7 +261,7 @@ Burning extracts:
 
 /obj/item/slimecross/burning/oil/do_effect(mob/user)
 	user.visible_message("<span class='danger'>[src] begins to shake with rapidly increasing force!</span>")
-	addtimer(CALLBACK(src, .proc/boom), 50)
+	addtimer(CALLBACK(src, PROC_REF(boom)), 50)
 
 /obj/item/slimecross/burning/oil/proc/boom()
 	explosion(get_turf(src), 2, 4, 4) //Same area as normal oils, but increased high-impact values by one each, then decreased light by 2.
@@ -301,6 +304,7 @@ Burning extracts:
 /obj/item/slimecross/burning/rainbow
 	colour = "rainbow"
 	effect_desc = "Creates the Rainbow Knife, a kitchen knife that deals random types of damage."
+	dangerous = TRUE
 
 /obj/item/slimecross/burning/rainbow/do_effect(mob/user)
 	user.visible_message("<span class='notice'>[src] flattens into a glowing rainbow blade.</span>")

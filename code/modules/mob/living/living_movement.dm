@@ -164,7 +164,7 @@
 		zmoving = FALSE
 		continue_travel_z(user, upwards ? UP : DOWN, bucklemobs_c)
 		return
-	addtimer(CALLBACK(src, .proc/continue_travel_z, user, upwards ? UP : DOWN, bucklemobs_c), delay)
+	addtimer(CALLBACK(src, PROC_REF(continue_travel_z), user, upwards ? UP : DOWN, bucklemobs_c), delay)
 
 /mob/living/proc/continue_travel_z(mob/user, dir, bucklemobs_c)
 	zmoving = FALSE

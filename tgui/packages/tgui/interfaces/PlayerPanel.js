@@ -201,7 +201,7 @@ class PlayerDetails extends Component {
       total += Object.keys(log).length;
     }
     return total;
-  }
+  };
 
   shouldComponentUpdate(new_props, new_state) {
     const {
@@ -547,7 +547,7 @@ class LogViewer extends Component {
       total += Object.keys(log).length;
     }
     return total;
-  }
+  };
 
   shouldComponentUpdate(new_props, new_state) {
     if (shallow_diff(this.state, new_state)) {
@@ -560,15 +560,15 @@ class LogViewer extends Component {
 
   setLogMode = (value) => {
     this.setState({ logMode: value });
-  }
+  };
 
   setHideLogKey = (value) => {
     this.setState({ hideLogKey: value });
-  }
+  };
 
   setClientLog = (value) => {
     this.setState({ clientLog: value });
-  }
+  };
 
   render() {
     const {

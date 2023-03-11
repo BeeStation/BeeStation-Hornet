@@ -26,7 +26,7 @@
 	singularity = WEAKREF(AddComponent(
 		/datum/component/singularity, \
 		bsa_targetable = FALSE, \
-		consume_callback = CALLBACK(src, .proc/consume), \
+		consume_callback = CALLBACK(src, PROC_REF(consume)), \
 		consume_range = NARSIE_CONSUME_RANGE, \
 		disregard_failed_movements = TRUE, \
 		grav_pull = NARSIE_GRAV_PULL, \
@@ -57,7 +57,7 @@
 		if(player.stat != DEAD && is_station_level(player.loc?.z) && !iscultist(player))
 			souls_needed[player] = TRUE
 	soul_goal = round(1 + LAZYLEN(souls_needed) * 0.75)
-	INVOKE_ASYNC(src, .proc/begin_the_end)
+	INVOKE_ASYNC(src, PROC_REF(begin_the_end))
 	check_gods_battle()
 
 /obj/eldritch/narsie/proc/greeting_message()
@@ -194,7 +194,7 @@
 /obj/eldritch/narsie/proc/narsie_spawn_animation()
 	setDir(SOUTH)
 	flick("narsie_spawn_anim", src)
-	addtimer(CALLBACK(src, .proc/narsie_spawn_animation_end), 3.5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(narsie_spawn_animation_end)), 3.5 SECONDS)
 
 /obj/eldritch/narsie/proc/narsie_spawn_animation_end()
 	var/datum/component/singularity/singularity_component = singularity.resolve()
@@ -213,7 +213,7 @@
 	if(resolved == FALSE)
 		resolved = TRUE
 		sound_to_playing_players('sound/machines/alarm.ogg')
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/cult_ending_helper), 120)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(cult_ending_helper)), 120)
 
 /obj/eldritch/narsie/Process_Spacemove()
 	return clashing
@@ -223,9 +223,9 @@
 
 /proc/cult_ending_helper(var/no_explosion = 0)
 	if(no_explosion)
-		Cinematic(CINEMATIC_CULT,world,CALLBACK(GLOBAL_PROC,/proc/ending_helper))
+		Cinematic(CINEMATIC_CULT,world,CALLBACK(GLOBAL_PROC,GLOBAL_PROC_REF(ending_helper)))
 	else
-		Cinematic(CINEMATIC_CULT_NUKE,world,CALLBACK(GLOBAL_PROC,/proc/ending_helper))
+		Cinematic(CINEMATIC_CULT_NUKE,world,CALLBACK(GLOBAL_PROC,GLOBAL_PROC_REF(ending_helper)))
 
 #undef NARSIE_CHANCE_TO_PICK_NEW_TARGET
 #undef NARSIE_CONSUME_RANGE

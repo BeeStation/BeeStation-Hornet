@@ -61,7 +61,7 @@ class Log extends Component {
     super(props);
   }
 
-  messagesEndRef = createRef()
+  messagesEndRef = createRef();
 
   componentDidMount() {
     this.scrollToBottom();
@@ -73,7 +73,7 @@ class Log extends Component {
   }
   scrollToBottom = () => {
     this.messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }
+  };
   render() {
     return (
       <Section
