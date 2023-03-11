@@ -21,7 +21,7 @@
 /obj/machinery/elevator_indicator/Initialize(mapload)
 	. = ..()
 	update_display(force = TRUE)
-	RegisterSignal(SSelevator_controller, COMSIG_ELEVATOR_MOVE, .proc/update_display)
+	RegisterSignal(SSelevator_controller, COMSIG_ELEVATOR_MOVE, PROC_REF(update_display))
 	if(standing)
 		var/mutable_appearance/M = mutable_appearance('icons/obj/elevator.dmi', "elevator_stand")
 		add_overlay(M)

@@ -31,7 +31,7 @@
 	base_icon_state = T.base_icon_state
 	layer = T.layer
 	plane = T.plane
-	RegisterSignal(T, COMSIG_ATOM_UPDATE_OVERLAYS, .proc/stage_one_copy)
+	RegisterSignal(T, COMSIG_ATOM_UPDATE_OVERLAYS,  PROC_REF(stage_one_copy))
 	//Smoothing
 	smoothing_flags = T.smoothing_flags
 	smoothing_groups = T.smoothing_groups
@@ -40,12 +40,12 @@
 	if(base_turf)
 		T.ChangeTurf(base_turf)
 	//Register to the SS so we can move with minimal overhead
-	RegisterSignal(SSelevator_controller, COMSIG_ELEVATOR_MOVE, .proc/travel)
+	RegisterSignal(SSelevator_controller, COMSIG_ELEVATOR_MOVE, PROC_REF(travel))
 	//Register this for some animation stuff
 	SSelevator_controller.append_id(id, src)
 	//Music related
-	RegisterSignal(get_turf(src), COMSIG_ATOM_ENTERED, .proc/atom_enter)
-	RegisterSignal(get_turf(src), COMSIG_ATOM_EXITED, .proc/atom_exit)
+	RegisterSignal(get_turf(src), COMSIG_ATOM_ENTERED, PROC_REF(atom_enter))
+	RegisterSignal(get_turf(src), COMSIG_ATOM_EXITED, PROC_REF(atom_exit))
 	//Now that we have smoothing shit, we can do this
 	return ..()
 
@@ -54,7 +54,7 @@
 
 	UnregisterSignal(source, COMSIG_ATOM_UPDATE_OVERLAYS)
 	//wack
-	addtimer(CALLBACK(src, .proc/stage_two_copy), 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(stage_two_copy)), 3 SECONDS)
 
 /obj/structure/elevator_segment/proc/stage_two_copy()
 	var/turf/T = get_turf(src)
@@ -76,8 +76,8 @@
 	if(!destination)
 		return
 	forceMove(destination)
-	RegisterSignal(get_turf(src), COMSIG_ATOM_ENTERED, .proc/atom_enter)
-	RegisterSignal(get_turf(src), COMSIG_ATOM_EXITED, .proc/atom_exit)
+	RegisterSignal(get_turf(src), COMSIG_ATOM_ENTERED, PROC_REF(atom_enter))
+	RegisterSignal(get_turf(src), COMSIG_ATOM_EXITED, PROC_REF(atom_exit))
 	//Throw mobs out below us
 	for(var/mob/living/i in destination.contents)
 		//If it's a mob, throw it out of the way
@@ -99,10 +99,10 @@
 		//lock airlocks and setup a timer to undo them
 		if(istype(i, /obj/machinery/door/airlock))
 			var/obj/machinery/door/airlock/A = i
-			INVOKE_ASYNC(A, /obj/machinery/door/airlock/.proc/unbolt)
-			INVOKE_ASYNC(A, /obj/machinery/door/airlock/.proc/close)
-			INVOKE_ASYNC(A, /obj/machinery/door/airlock/.proc/bolt)
-			addtimer(CALLBACK(src, .proc/unlock, A), calltime || 2 SECONDS)
+			INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/airlock, unbolt))
+			INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/airlock, close))
+			INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/airlock, bolt))
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/structure/elevator_segment, unlock), A), calltime || 2 SECONDS)
 		if(isliving(i) && crashing)
 			var/mob/living/L = i
 			L.Paralyze(3 SECONDS)

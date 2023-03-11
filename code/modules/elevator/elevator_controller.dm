@@ -29,7 +29,7 @@ SUBSYSTEM_DEF(elevator_controller)
 	
 /datum/controller/subsystem/elevator_controller/proc/move_elevator(id, destination_z, calltime, force)
 	. = TRUE
-	elevator_group_timers[id] = addtimer(CALLBACK(src, .proc/finish_timer, id), calltime || 2 SECONDS, TIMER_STOPPABLE)
+	elevator_group_timers[id] = addtimer(CALLBACK(src, PROC_REF(finish_timer), id), calltime || 2 SECONDS, TIMER_STOPPABLE)
 	//Loop through group ID, to assure there isn't anything blocking us
 	var/crashing = FALSE
 	var/obj/structure/elevator_segment/S = elevator_groups[id][1]
