@@ -205,7 +205,7 @@
 				access_log.Remove(access_log[1])
 			to_chat(user, "<span class='warning'>You begin forcing open \the [src], the motors whine...</span>")
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
-			if(!do_after(user, 10 SECONDS, TRUE, src))
+			if(!do_after(user, 10 SECONDS, src))
 				return
 		else
 			to_chat(user, "<span class='notice'>You begin forcing open \the [src], the motors don't resist...</span>")

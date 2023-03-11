@@ -99,7 +99,7 @@
 	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on weaving a cocoon...</span>", \
 	"<span class='notice'>You begin to focus on weaving a cocoon... (This will take [DisplayTimeText(COCOON_WEAVE_DELAY)] and you must hold still.)</span>")
 	H.adjustStaminaLoss(20, FALSE) //this is here to deter people from spamming it if they get interrupted
-	if(do_after(H, COCOON_WEAVE_DELAY, FALSE, H))
+	if(do_after(H, COCOON_WEAVE_DELAY, H, timed_action_flags = IGNORE_HELD_ITEM))
 		if(!ismoth(H))
 			to_chat(H, "<span class='warning'>You have lost your mandibles and cannot weave anymore!.</span>")
 			return

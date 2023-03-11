@@ -914,7 +914,7 @@
 						to_chat(user, "<span class='warning'>You need at least 2 iron sheets to reinforce [src].</span>")
 						return
 					to_chat(user, "<span class='notice'>You start reinforcing [src].</span>")
-					if(do_after(user, 20, TRUE, src))
+					if(do_after(user, 20, src))
 						if(!panel_open || !S.use(2))
 							return
 						user.visible_message("<span class='notice'>[user] reinforces \the [src] with iron.</span>",
@@ -928,7 +928,7 @@
 						to_chat(user, "<span class='warning'>You need at least 2 plasteel sheets to reinforce [src].</span>")
 						return
 					to_chat(user, "<span class='notice'>You start reinforcing [src].</span>")
-					if(do_after(user, 20, TRUE, src))
+					if(do_after(user, 20, src))
 						if(!panel_open || !S.use(2))
 							return
 						user.visible_message("<span class='notice'>[user] reinforces \the [src] with plasteel.</span>",
@@ -1091,7 +1091,7 @@
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
 			prying_so_hard = TRUE
 			to_chat(user, "<span class='warning'>You begin prying open the airlock...</span>")
-			if(do_after(user, time_to_open, TRUE, src))
+			if(do_after(user, time_to_open, src))
 				if(!open(2) && density)
 					to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
 			prying_so_hard = FALSE
@@ -1374,7 +1374,7 @@
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1)
 
 
-	if(do_after(user, time_to_open, TRUE, src))
+	if(do_after(user, time_to_open, src))
 		if(density && !open(2)) //The airlock is still closed, but something prevented it opening. (Another player noticed and bolted/welded the airlock in time!)
 			to_chat(user, "<span class='warning'>Despite your efforts, [src] managed to resist your attempts to open it!</span>")
 

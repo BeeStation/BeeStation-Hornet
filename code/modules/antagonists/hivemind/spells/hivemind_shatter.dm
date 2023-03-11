@@ -19,7 +19,7 @@
 		to_chat(target, "<span class='assimilator'>Powerful mental attacks strike out against us, our training allows us to barely overcome it.</span>")
 		return
 	if(HAS_TRAIT(target, TRAIT_MINDSHIELD))
-		if(!do_after(user,200,0))
+		if(!do_after(user,200, timed_action_flags = IGNORE_HELD_ITEM))
 			for(var/obj/item/implant/mindshield/M in target.implants)
 				to_chat(user, "<span class='notice'>We shatter their mental protections!</span>")
 				to_chat(target, "<span class='assimilator'>You feel a pang of pain course through your head!</span>")
