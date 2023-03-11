@@ -22,7 +22,7 @@
 	ADD_TRAIT(owner, TRAIT_NOSTAMCRIT, TRAIT_HULK)
 	ADD_TRAIT(owner, TRAIT_NOLIMBDISABLE, TRAIT_HULK)
 	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "hulk", /datum/mood_event/hulk)
-	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/handle_speech)
+	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	owner.update_body_parts()
 
 /datum/mutation/hulk/on_attack_hand(atom/target, proximity)

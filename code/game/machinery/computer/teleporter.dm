@@ -115,7 +115,7 @@
 			calibrating = TRUE
 			power_station.update_icon()
 			var/calibrationtime = 50 * (3 - power_station.teleporter_hub.accuracy)
-			addtimer(CALLBACK(src, .proc/calibrate), calibrationtime)
+			addtimer(CALLBACK(src, PROC_REF(calibrate)), calibrationtime)
 			. = TRUE
 
 /obj/machinery/computer/teleporter/proc/calibrate()

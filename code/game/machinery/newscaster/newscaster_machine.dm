@@ -225,7 +225,7 @@
 	data["editor"]["channelDesc"] = channel_desc
 	data["editor"]["channelLocked"] = channel_locked
 
-	//We send all the information about all messages in existance.
+	//We send all the information about all messages in existence.
 	data["messages"] = message_list
 	data["wanted"] = wanted_info
 
@@ -657,7 +657,7 @@
 			playsound(loc, 'sound/machines/twobeep_high.ogg', 75, TRUE)
 		alert = TRUE
 		update_overlays()
-		addtimer(CALLBACK(src, .proc/remove_alert), ALERT_DELAY, TIMER_UNIQUE|TIMER_OVERRIDE)
+		addtimer(CALLBACK(src, PROC_REF(remove_alert)), ALERT_DELAY, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 	else if(!channel && update_alert)
 		say("Attention! Wanted issue distributed!")

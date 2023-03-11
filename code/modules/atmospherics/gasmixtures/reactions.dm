@@ -9,7 +9,7 @@
 			continue
 		reaction = new r
 		. += reaction
-	sortTim(., /proc/cmp_gas_reactions)
+	sortTim(., GLOBAL_PROC_REF(cmp_gas_reactions))
 
 /proc/cmp_gas_reactions(list/datum/gas_reaction/a, list/datum/gas_reaction/b) // compares lists of reactions by the maximum priority contained within the list
 	if (!length(a) || !length(b))

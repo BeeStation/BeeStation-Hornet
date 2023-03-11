@@ -53,7 +53,7 @@
 
 // The goal here:
 // 1 level: Your legs are mildly injured. Probably a bit slow
-// 2 levels: Your legs are broken, but you are still concious
+// 2 levels: Your legs are broken, but you are still conscious
 // 3+ levels: You ded/near ded
 /mob/living/proc/get_distributed_zimpact_damage(levels)
 	return (levels * 15) ** 1.4
@@ -92,9 +92,9 @@
 			visible_message("<span class='warning'>[src] [pick("ran", "slammed")] into \the [A]!</span>")
 			apply_damage(5, BRUTE)
 			Paralyze(40)
-			addtimer(CALLBACK(src, .proc/can_bumpslam), 200)
+			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 200)
 		else
-			addtimer(CALLBACK(src, .proc/can_bumpslam), 50)
+			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 50)
 
 
 	if(ismob(A))

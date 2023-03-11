@@ -56,6 +56,87 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">11 March 2023</h2>
+			<h3 class="author">@DrDuckedGoose Code, @itsmeow UI, @qwertyquerty Sound updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added basic elevators, with control elements.</li>
+				<li class="tweak">Replaces the elevator on multi-z debug with new presets</li>
+				<li class="rscadd">Added elevator UI theme, with fancy elevator buttons.</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fultons work on necropolis chests again</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Added preemptive compilation compatibility for BYOND 515. This does not mean the game will work on 515, nor will clients be able to update.</li>
+			</ul>
+
+			<h2 class="date">10 March 2023</h2>
+			<h3 class="author">Chirynnn updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Due to budget cuts, the Captain's Spare Safe has been downsized, and can now only fit IDs inside of it.</li>
+			</ul>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a squash animations when interacting with storage items</li>
+				<li class="rscadd">Added icons to the upgrades/trophies when examining a PKA or a PKC</li>
+				<li class="bugfix">fixed examining a PKC not displaying attached trophies</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">debug RPD is now unwrench upgraded</li>
+				<li class="bugfix">debug RPD can unwrench/repaint now</li>
+				<li class="rscadd">ghosts will now notice when a kudzu/vine is deployed.</li>
+			</ul>
+			<h3 class="author">Ghost, Benbot16 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Ports the edibility component.</li>
+				<li class="refactor">Organs don't turn into food objects when you eat them anymore, and they take a small amount of time to eat. Taking a bite out of them still makes them unusable.</li>
+			</ul>
+			<h3 class="author">LemonInTheDark, CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a visual effect for dropping items from your inventory or hands</li>
+				<li class="rscadd">Increased the animation time of the pickup effect, to make it less of a snapshot. Did some other things to it to hopefully make it look nicer</li>
+				<li class="rscadd">dropped items will now be randomly pixelshifted around</li>
+			</ul>
+			<h3 class="author">PigeonVerde322, Wallem updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="imageadd">Departmental protolathes/techfabs have colored stripes to tell the departments apart.</li>
+			</ul>
+			<h3 class="author">imsynthex updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="spellcheck">fixed around 350 common misspellings and typos</li>
+				<li class="tweak">holoparasites' lights will now move smoothly</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed map and shuttle votes not properly reacting to votes.</li>
+				<li class="server">Update to Python 3.11.2, Node 18.14.2, Inferno 8, Typescript 4.9, Yarn 3.4</li>
+				<li class="rscadd">Added fallback species config option, for use when there is no database attached.</li>
+				<li class="tweak">ModPCs/Tablets/PDAs will now use the same window for all apps, reducing the lag between switching apps and preventing the window from jumping around the screen.</li>
+				<li class="rscadd">Added the IC date to the NtOS header.</li>
+				<li class="balance">Nukie PDAs can now connect to NTNet while off-station.</li>
+				<li class="bugfix">You can no longer imprint IDs onto ModPCs that don't support it.</li>
+				<li class="code_imp">Converted the IC year offset to a define.</li>
+				<li class="bugfix">Fixed a potential exploit where any airlock could be remotely controlled with the airlock control app.</li>
+				<li class="admin">Added more detail to some href exploit logs.</li>
+				<li class="tweak">Illiterate people can no longer use ModPCs.</li>
+				<li class="bugfix">NT Bounty Hunter and SecurEye apps work again</li>
+				<li class="tweak">Added a cooldown to the bounty list printer in NT Bounty Hunter.</li>
+			</ul>
+
+			<h2 class="date">09 March 2023</h2>
+			<h3 class="author">tonty updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">you can finally emote at the beginning of messages in dchat</li>
+				<li class="bugfix">custom say emotes properly punctuate over the radio</li>
+				<li class="bugfix">custom say emotes actually EMOTE NOW (can you believe it)</li>
+				<li class="bugfix">you can have spaces around the custom say separator without it looking jank</li>
+				<li class="code_imp">text.dm has a punctuate proc now</li>
+				<li class="tweak">you can now put an ellipses at the beginning of your sentences</li>
+			</ul>
+
 			<h2 class="date">08 March 2023</h2>
 			<h3 class="author">Crossedfall updated:</h3>
 			<ul class="changes bgimages16">
@@ -1176,30 +1257,6 @@
 			<h3 class="author">ike709 updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="tweak">Attempting to compile BeeStation in OpenDream now gives a better error message</li>
-			</ul>
-
-			<h2 class="date">07 January 2023</h2>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Removes an unused variable from the unit tests.</li>
-			</ul>
-			<h3 class="author">ike709 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed a runtime that broke titlescreens.</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added more robust logging for admin supply pods.</li>
-			</ul>
-
-			<h2 class="date">06 January 2023</h2>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes animated title screens</li>
-			</ul>
-			<h3 class="author">RKz updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Depleted Uranium directional windows will now appear correctly.</li>
 			</ul>
 		</div>
 

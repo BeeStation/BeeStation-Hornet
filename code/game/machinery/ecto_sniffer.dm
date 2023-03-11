@@ -11,7 +11,7 @@
 	var/on = TRUE
 	///If this var set to false the ghosts will not be able interact with the machine, say if the machine is silently disabled by cutting the internal wire.
 	var/sensor_enabled = TRUE
-	///List of ckeys containing players who have recently activated the device, players on this list are prohibited from activating the device untill their residue decays.
+	///List of ckeys containing players who have recently activated the device, players on this list are prohibited from activating the device until their residue decays.
 	var/list/ectoplasmic_residues = list()
 
 /obj/machinery/ecto_sniffer/Initialize()
@@ -39,7 +39,7 @@
 	if(activator?.ckey)
 		ectoplasmic_residues[activator.ckey] = TRUE
 		activator.log_message("activated an ecto sniffer", LOG_ATTACK)
-		addtimer(CALLBACK(src, .proc/clear_residue, activator.ckey), 30 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(clear_residue), activator.ckey), 30 SECONDS)
 
 /obj/machinery/ecto_sniffer/attack_hand(mob/living/user, list/modifiers)
 	. = ..()

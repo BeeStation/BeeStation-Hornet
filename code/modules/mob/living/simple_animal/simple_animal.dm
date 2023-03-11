@@ -357,7 +357,7 @@
 		drop_all_held_items()
 	if(!gibbed)
 		if(deathsound || deathmessage || !del_on_death)
-			INVOKE_ASYNC(src, /mob.proc/emote, "deathgasp")
+			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "deathgasp")
 	if(del_on_death)
 		..()
 		//Prevent infinite loops if the mob Destroy() is overridden in such

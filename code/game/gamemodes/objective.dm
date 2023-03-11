@@ -107,7 +107,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		UnregisterSignal(target, COMSIG_MIND_CRYOED)
 	target = new_target
 	if(istype(target, /datum/mind))
-		RegisterSignal(target, COMSIG_MIND_CRYOED, .proc/on_target_cryo)
+		RegisterSignal(target, COMSIG_MIND_CRYOED, PROC_REF(on_target_cryo))
 		target.isAntagTarget = TRUE
 
 /datum/objective/proc/unset_target()
@@ -126,7 +126,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/proc/find_target(list/dupe_search_range, list/blacklist)
 	if(!dupe_search_range)
 		dupe_search_range = get_owners()
-	var/list/prefered_targets = list()
+	var/list/preferred_targets = list()
 	var/list/possible_targets = list()
 	var/try_target_late_joiners = FALSE
 	var/owner_is_exploration_crew = FALSE
@@ -148,14 +148,14 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 		if(possible_target.assigned_role == JOB_NAME_EXPLORATIONCREW)
 			if(owner_is_exploration_crew)
-				prefered_targets += possible_target
+				preferred_targets += possible_target
 			else
 				//Reduced chance to get people off station
 				if(prob(70) && !owner_is_shaft_miner)
 					continue
 		else if(possible_target.assigned_role == JOB_NAME_SHAFTMINER)
 			if(owner_is_shaft_miner)
-				prefered_targets += possible_target
+				preferred_targets += possible_target
 			else
 				//Reduced chance to get people off station
 				if(prob(70) && !owner_is_exploration_crew)
@@ -169,9 +169,9 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 				possible_targets -= PT
 		if(!possible_targets.len)
 			possible_targets = all_possible_targets
-	//30% chance to go for a prefered target
-	if(prefered_targets.len > 0 && prob(30))
-		set_target(pick(prefered_targets))
+	//30% chance to go for a preferred target
+	if(preferred_targets.len > 0 && prob(30))
+		set_target(pick(preferred_targets))
 	else if(possible_targets.len > 0)
 		set_target(pick(possible_targets))
 	else
@@ -1082,7 +1082,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		/datum/objective/absorb,
 		/datum/objective/custom,
 		/datum/objective/custom/plus_murderbone
-	),/proc/cmp_typepaths_asc)
+	),GLOBAL_PROC_REF(cmp_typepaths_asc))
 
 	for(var/datum/objective/X as() in allowed_types)
 		GLOB.admin_objective_list[initial(X.name)] = X

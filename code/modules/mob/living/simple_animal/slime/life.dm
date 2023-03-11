@@ -435,7 +435,7 @@
 	if (to_say)
 		INVOKE_ASYNC(src, /atom/movable/proc/say, to_say)
 	else if(prob(1))
-		INVOKE_ASYNC(src, /mob.proc/emote, pick("bounce","sway","light","vibrate","jiggle"))
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), pick("bounce","sway","light","vibrate","jiggle"))
 	else
 		var/t = 10
 		var/slimes_near = 0

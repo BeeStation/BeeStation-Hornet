@@ -277,7 +277,7 @@
 	to_chat(L, "<span class='brass'>The Eminence is summoning you...</span>")
 	L.visible_message("<span class='warning'>[L] flares briefly.</span>")
 	if(do_after(E, 70, target=L))
-		L.visible_message("<span class='warning'>[L] phases out of existance!</span>")
+		L.visible_message("<span class='warning'>[L] phases out of existence!</span>")
 		var/turf/T = get_turf(pick(GLOB.servant_spawns))
 		try_warp_servant(L, T, FALSE)
 		consume_cogs(E)
@@ -318,7 +318,7 @@
 	for(var/datum/round_event_control/E in SSevents.control)
 		if(E.name == picked_event)
 			var/mob/living/simple_animal/eminence/eminence = user
-			INVOKE_ASYNC(eminence, /mob/living/simple_animal/eminence.proc/run_global_event, E)
+			INVOKE_ASYNC(eminence, TYPE_PROC_REF(/mob/living/simple_animal/eminence, run_global_event), E)
 			consume_cogs(user)
 			return
 	revert_cast(user)

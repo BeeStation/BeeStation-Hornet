@@ -24,7 +24,7 @@
 
 /datum/station_trait/New()
 	. = ..()
-	SSticker.OnRoundstart(CALLBACK(src, .proc/on_round_start))
+	SSticker.OnRoundstart(CALLBACK(src, PROC_REF(on_round_start)))
 	if(trait_processes)
 		START_PROCESSING(SSstation, src)
 	if(trait_to_give)
