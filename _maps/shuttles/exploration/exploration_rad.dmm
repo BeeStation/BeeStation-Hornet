@@ -103,26 +103,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"gT" = (
-/obj/machinery/door/airlock/external/glass{
-	autoclose = 0.1
-	},
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 5;
-	height = 7;
-	id = "exploration";
-	name = "Exploration Shuttle";
-	port_direction = 8;
-	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
-	width = 13
-	},
-/obj/structure/fans/tiny,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
 "js" = (
 /obj/structure/chair/stool/bar{
 	dir = 4
@@ -169,6 +149,14 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"rT" = (
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/airlock/shuttle/glass{
+	autoclose = 0.1
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
 "tu" = (
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -205,6 +193,26 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"zf" = (
+/obj/machinery/door/airlock/external/glass{
+	autoclose = 0.1
+	},
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 5;
+	height = 7;
+	id = "exploration";
+	name = "Exploration Shuttle";
+	port_direction = 8;
+	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
+	width = 13
+	},
+/obj/structure/fans/tiny,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "zr" = (
 /obj/structure/chair/fancy/shuttle{
@@ -405,7 +413,7 @@
 "Qe" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
-"Qo" = (
+"QO" = (
 /obj/machinery/door/firedoor/border_only,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -451,14 +459,6 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
-"WE" = (
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/airlock/shuttle/glass{
-	autoclose = 0.1
-	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/exploration)
 
 (1,1,1) = {"
 Qe
@@ -499,7 +499,7 @@ rN
 tu
 qF
 tu
-WE
+rT
 am
 gt
 JE
@@ -544,7 +544,7 @@ Ai
 bz
 SH
 CH
-Qo
+QO
 Sb
 aW
 JE
@@ -572,7 +572,7 @@ lq
 lq
 Qe
 Qe
-gT
+zf
 Tw
 Qe
 DI
