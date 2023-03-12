@@ -480,9 +480,10 @@
 				to_chat(user, "<span class='warning'>The cover is locked and cannot be opened!</span>")
 			else
 				to_chat(user, "<span class='notice'>You open the cover.</span>")
+				if(IsParalyzed() && (last_flashed + 5 SECONDS >= world.time)) //second half of this prevents someone from stunlocking via open/close spam
+					Paralyze(5 SECONDS)
 				opened = 1
-				update_icons()
-
+				update_icons()				
 	else if(istype(W, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
 		if(wiresexposed)
 			to_chat(user, "<span class='warning'>Close the cover first!</span>")
@@ -993,7 +994,6 @@
 /mob/living/silicon/robot/updatehealth()
 	..()
 	if(health < maxHealth*0.75) //Gradual break down of modules as more damage is sustained
-//		var/speedPenalty = ((maxHealth - health) / maxHealth) + 1 //Ranges from 0.7 to 1.7, but won't actually start working until 1.45
 		var/speedpenalty = (maxHealth - health) / 150
 		add_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN, override = TRUE, multiplicative_slowdown = speedpenalty, blacklisted_movetypes = FLOATING)
 		if(uneq_module(held_items[3]))
