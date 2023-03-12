@@ -204,16 +204,17 @@
 			max_amount = design.maxstack,
 			efficiency_affects = efficient_with(design.build_path),
 			materials = design.materials,
-			reagents = build_recipe_reagents(design.reagents_list),
+			reagents = build_recipe_reagents(design.reagents_list, design.reagents_constant),
 		)
 
-/obj/machinery/rnd/production/proc/build_recipe_reagents(var/list/reagents)
+/obj/machinery/rnd/production/proc/build_recipe_reagents(var/list/reagents, var/constant = TRUE)
 	var/list/L = list()
-
+	var/multiplier = 1
 	for(var/id in reagents)
 		L[id] = list(
 			name = CallMaterialName(id),
 			volume = reagents[id],
+			efficiency_reagent_affects = constant
 		)
 
 	return L
