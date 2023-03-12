@@ -1,9 +1,0 @@
-author: RKz
-delete-after: true
-changes:
-  - balance: removed all genetic printlines, you can't *feel* Swedish anymore. You
-      better trust that the Genetics Expert gave you something good.
-  - balance: removed most genetic stability messages, except for the penultimate and
-      final meltdown one.
-  - spellcheck: Made some mutations descriptions more consistent and immersive. Cleared
-      up terminology misuse.
