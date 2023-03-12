@@ -1,9 +1,5 @@
 #define CHEMICAL_QUANTISATION_LEVEL 0.0001 //stops floating point errors causing issues with checking reagent amounts
 
-#define REAGENTS_UI_MODE_LOOKUP 0
-#define REAGENTS_UI_MODE_REAGENT 1
-#define REAGENTS_UI_MODE_RECIPE 2
-
 /proc/build_chemical_reagent_list()
 	//Chemical Reagents - Initialises all /datum/reagent into a list indexed by reagent id
 
@@ -23,64 +19,27 @@
 	// For example:
 	// chemical_reaction_list[/datum/reagent/toxin/plasma] is a list of all reactions relating to plasma
 
-	//For chemical reaction list product index - indexes reactions based off the product reagent type - see get_recipe_from_reagent_product() in helpers
-	//For chemical reactions list lookup list - creates a bit list of info passed to the UI. This is saved to reduce lag from new windows opening, since it's a lot of data.
-
-
-
-
 	if(GLOB.chemical_reactions_list)
 		return
 
-
 	var/paths = subtypesof(/datum/chemical_reaction)
 	GLOB.chemical_reactions_list = list()
-	GLOB.chemical_reactions_list_reactant_index = list() //reagents to reaction list
-	GLOB.chemical_reactions_results_lookup_list = list() //UI glob
-	GLOB.chemical_reactions_list_product_index = list() //product to reaction list
 
 	for(var/path in paths)
+
 		var/datum/chemical_reaction/D = new path()
 		var/list/reaction_ids = list()
-		var/list/product_ids = list()
-		var/list/reagents = list()
-		var/list/product_names = list()
-		var/bitflags = D.reaction_tags
 
-		if(!D.required_reagents || !D.required_reagents.len) //Skip impossible reactions
-			continue
-		for(var/reaction in D.required_reagents)
-			reaction_ids += reaction
-			var/datum/reagent/reagent = find_reagent_object_from_type(reaction)
-			reagents += list(list("name" = reagent.name, "id" = reagent.type))
+		if(D.required_reagents && D.required_reagents.len)
+			for(var/reaction in D.required_reagents)
+				reaction_ids += reaction
 
-		for(var/product in D.results)
-			var/datum/reagent/reagent = find_reagent_object_from_type(product)
-			product_names += reagent.name
-			product_ids += product
-
-		var/product_name
-		if(!length(product_names))
-			var/list/names = splittext("[D.type]", "/")
-			product_name = names[names.len]
-		else
-			product_name = product_names[1]
-
-		// Create filters based on each reagent id in the required reagents list - this is specifically for finding reactions from product(reagent) ids/typepaths.
-		for(var/id in product_ids)
-			if(!GLOB.chemical_reactions_list_product_index[id])
-				GLOB.chemical_reactions_list_product_index[id] = list()
-			GLOB.chemical_reactions_list_product_index[id] += D
-
-		//Master list of ALL reactions that is used in the UI lookup table. This is expensive to make, and we don't want to lag the server by creating it on UI request, so it's cached to send to UIs instantly.
-		if(bitflags)
-			GLOB.chemical_reactions_results_lookup_list += list(list("name" = product_name, "id" = D.type, "bitflags" = bitflags, "reactants" = reagents))
-
-				// Create filters based on each reagent id in the required reagents list - this is used to speed up handle_reactions()
+		// Create filters based on each reagent id in the required reagents list
 		for(var/id in reaction_ids)
-			if(!GLOB.chemical_reactions_list_reactant_index[id])
-				GLOB.chemical_reactions_list_reactant_index[id] = list()
-			GLOB.chemical_reactions_list_reactant_index[id] += D
+			if(!GLOB.chemical_reactions_list[id])
+				GLOB.chemical_reactions_list[id] = list()
+			GLOB.chemical_reactions_list[id] += D
+			break // Don't bother adding ourselves to other reagent ids, it is redundant
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -91,20 +50,9 @@
 	var/atom/my_atom = null
 	var/chem_temp = 150
 	var/last_tick = 1
-	///cached list of reagents typepaths (not object references), this is a lazylist for optimisation
-	var/list/datum/reagent/previous_reagent_list
+	var/addiction_tick = 1
+	var/list/datum/reagent/addiction_list = new/list()
 	var/flags
-	///UI lookup stuff
-	///Keeps the id of the reaction displayed in the ui
-	var/ui_reaction_id = null
-	///Keeps the id of the reagent displayed in the ui
-	var/ui_reagent_id = null
-	///The bitflag of the currently selected tags in the ui
-	var/ui_tags_selected = NONE
-	///What index we're at if we have multiple reactions for a reagent product
-	var/ui_reaction_index = 1
-	///If we're syncing with the beaker - so return reactions that are actively happening
-	var/ui_beaker_sync = FALSE
 
 /datum/reagents/New(maximum=100, new_flags=0)
 	maximum_volume = maximum
@@ -141,349 +89,7 @@
 		//Using IDs because SOME chemicals (I'm looking at you, chlorhydrate-beer) have the same names as other chemicals.
 	return english_list(data)
 
-/////////////////////////////////////////////////////////////////////////////////
-///////////////////////////UI / REAGENTS LOOKUP CODE/////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////
-
-
-/datum/reagents/ui_interact(mob/user, datum/tgui/ui)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "Reagents", "Reaction search")
-		ui.status = UI_INTERACTIVE //How do I prevent a UI from autoclosing if not in LoS
-		ui_tags_selected = NONE //Resync with gui on open (gui expects no flags)
-		ui_reagent_id = null
-		ui_reaction_id = null
-		ui.open()
-
-
-/datum/reagents/ui_status(mob/user)
-	return UI_INTERACTIVE //please advise
-
-/datum/reagents/ui_state(mob/user)
-	return GLOB.physical_state
-
-/datum/reagents/proc/generate_possible_reactions()
-	var/list/cached_reagents = reagent_list
-	if(!cached_reagents)
-		return null
-	var/list/cached_reactions = list()
-	var/list/possible_reactions = list()
-	if(!length(cached_reagents))
-		return null
-	cached_reactions = GLOB.chemical_reactions_list_reactant_index
-	for(var/_reagent in cached_reagents)
-		var/datum/reagent/reagent = _reagent
-		for(var/_reaction in cached_reactions[reagent.type]) // Was a big list but now it should be smaller since we filtered it with our reagent id
-			var/datum/chemical_reaction/reaction = _reaction
-			if(!_reaction)
-				continue
-			if(!reaction.required_reagents)//Don't bring in empty ones
-				continue
-			var/list/cached_required_reagents = reaction.required_reagents
-			var/total_matching_reagents = 0
-			for(var/req_reagent in cached_required_reagents)
-				if(!has_reagent(req_reagent, (cached_required_reagents[req_reagent]*0.01)))
-					continue
-				total_matching_reagents++
-			if(total_matching_reagents >= reagent_list.len)
-				possible_reactions += reaction
-	return possible_reactions
-
-/datum/reagents/proc/parse_addictions(datum/reagent/reagent)
-	var/addict_text = list()
-	for(var/entry in reagent.addiction_types)
-		var/datum/addiction/ref = SSaddiction.all_addictions[entry]
-		switch(reagent.addiction_types[entry])
-			if(-INFINITY to 0)
-				continue
-			if(0 to 5)
-				addict_text += "Weak [ref.name]"
-			if(5 to 10)
-				addict_text += "[ref.name]"
-			if(10 to 20)
-				addict_text += "Strong [ref.name]"
-			if(20 to INFINITY)
-				addict_text += "Potent [ref.name]"
-	return addict_text
-
-/datum/reagents/ui_data(mob/user)
-	var/data = list()
-	data["selectedBitflags"] = ui_tags_selected
-	data["currentReagents"] = previous_reagent_list //This keeps the string of reagents that's updated when handle_reactions() is called
-	data["beakerSync"] = ui_beaker_sync
-	data["linkedBeaker"] = my_atom.name //To solidify the fact that the UI is linked to a beaker - not a machine.
-	//reagent lookup data
-	if(ui_reagent_id)
-		var/datum/reagent/reagent = find_reagent_object_from_type(ui_reagent_id)
-		if(!reagent)
-			to_chat(user, "Could not find reagent!")
-			ui_reagent_id = null
-		else
-			data["reagent_mode_reagent"] = list("name" = reagent.name, "id" = reagent.type, "desc" = reagent.description, "reagentCol" = reagent.color, "metaRate" = (reagent.metabolization_rate/2), "OD" = reagent.overdose_threshold)
-			data["reagent_mode_reagent"]["addictions"] = list()
-			data["reagent_mode_reagent"]["addictions"] = parse_addictions(reagent)
-
-
-	//reaction lookup data
-	if (ui_reaction_id)
-
-		var/datum/chemical_reaction/reaction = get_chemical_reaction(ui_reaction_id)
-		if(!reaction)
-			to_chat(user, "Could not find reaction!")
-			to_chat(user, "[ui_reaction_id]")
-			ui_reaction_id = null
-			return data
-		//Required holder
-		var/container_name
-		if(reaction.required_container)
-			var/list/names = splittext("[reaction.required_container]", "/")
-			container_name = "[names[names.len-1]] [names[names.len]]"
-			container_name = replacetext(container_name, "_", " ")
-
-		//Next, find the product
-		var/has_product = TRUE
-		//If we have no product, use the typepath to create a name for it
-		if(!length(reaction.results))
-			has_product = FALSE
-			var/list/names = splittext("[reaction.type]", "/")
-			var/product_name = names[names.len]
-			data["reagent_mode_recipe"] = list("name" = product_name, "id" = reaction.type, "hasProduct" = has_product, "reagentCol" = "#FFFFFF", "tempMin" = reaction.required_temp, "reqContainer" = container_name, "subReactLen" = 1, "subReactIndex" = 1)
-
-		//If we do have a product then we find it
-		else
-			//Find out if we have multiple reactions for the same product
-			var/datum/reagent/primary_reagent = find_reagent_object_from_type(reaction.results[1])//We use the first product - though it might be worth changing this
-			//If we're syncing from the beaker
-			var/list/sub_reactions = list()
-			sub_reactions = get_recipe_from_reagent_product(primary_reagent.type)
-			var/sub_reaction_length = length(sub_reactions)
-			var/i = 1
-			for(var/datum/chemical_reaction/sub_reaction in sub_reactions)
-				if(sub_reaction.type == reaction.type)
-					ui_reaction_index = i //update our index
-					break
-				i += 1
-			data["reagent_mode_recipe"] = list("name" = primary_reagent.name, "id" = reaction.id, "hasProduct" = has_product, "reagentCol" = primary_reagent.color, "tempMin" = reaction.required_temp, "reqContainer" = container_name, "subReactLen" = sub_reaction_length, "subReactIndex" = ui_reaction_index)
-
-		//Results sweep
-		var/has_reagent = "default"
-		for(var/_reagent in reaction.results)
-			var/datum/reagent/reagent = find_reagent_object_from_type(_reagent)
-			if(has_reagent(_reagent))
-				has_reagent = "green"
-			data["reagent_mode_recipe"]["products"] += list(list("name" = reagent.name, "id" = reagent.type, "ratio" = reaction.results[reagent.type], "hasReagentCol" = has_reagent))
-
-		//Reactant sweep
-		for(var/_reagent in reaction.required_reagents)
-			var/datum/reagent/reagent = find_reagent_object_from_type(_reagent)
-			var/color_r = "default" //If the holder is missing the reagent, it's displayed in orange
-			if(has_reagent(reagent.type))
-				color_r = "green" //It's green if it's present
-			var/tooltip
-			var/tooltip_bool = FALSE
-			var/list/sub_reactions = get_recipe_from_reagent_product(reagent.type)
-			//Get sub reaction possibilities, but ignore ones that need a specific holder atom
-			var/sub_index = 0
-			for(var/datum/chemical_reaction/sub_reaction as anything in sub_reactions)
-				if(sub_reaction.required_container)//So we don't have slime reactions confusing things
-					sub_index++
-					continue
-				sub_index++
-				break
-			if(sub_index)
-				var/datum/chemical_reaction/sub_reaction = sub_reactions[sub_index]
-				//Subreactions sweep (if any)
-				for(var/_sub_reagent in sub_reaction.required_reagents)
-					var/datum/reagent/sub_reagent = find_reagent_object_from_type(_sub_reagent)
-					tooltip += "[sub_reaction.required_reagents[_sub_reagent]]u [sub_reagent.name]\n" //I forgot the better way of doing this - fix this after this works
-					tooltip_bool = TRUE
-			data["reagent_mode_recipe"]["reactants"] += list(list("name" = reagent.name, "id" = reagent.type, "ratio" = reaction.required_reagents[reagent.type], "color" = color_r, "tooltipBool" = tooltip_bool, "tooltip" = tooltip))
-
-		//Catalyst sweep
-		for(var/_reagent in reaction.required_catalysts)
-			var/datum/reagent/reagent = find_reagent_object_from_type(_reagent)
-			var/color_r = "default"
-			if(has_reagent(reagent.type))
-				color_r = "green"
-			var/tooltip
-			var/tooltip_bool = FALSE
-			var/list/sub_reactions = get_recipe_from_reagent_product(reagent.type)
-			if(length(sub_reactions))
-				var/datum/chemical_reaction/sub_reaction = sub_reactions[1]
-				//Subreactions sweep (if any)
-				for(var/_sub_reagent in sub_reaction.required_reagents)
-					var/datum/reagent/sub_reagent = find_reagent_object_from_type(_sub_reagent)
-					tooltip += "[sub_reaction.required_reagents[_sub_reagent]]u [sub_reagent.name]\n" //I forgot the better way of doing this - fix this after this works
-					tooltip_bool = TRUE
-			data["reagent_mode_recipe"]["catalysts"] += list(list("name" = reagent.name, "id" = reagent.type, "ratio" = reaction.required_catalysts[reagent.type], "color" = color_r, "tooltipBool" = tooltip_bool, "tooltip" = tooltip))
-		data["reagent_mode_recipe"]["isColdRecipe"] = reaction.is_cold_recipe
-
-	return data
-
-/datum/reagents/ui_static_data(mob/user)
-	var/data = list()
-	//Use GLOB list - saves processing
-	data["master_reaction_list"] = GLOB.chemical_reactions_results_lookup_list
-	data["bitflags"] = list()
-	data["bitflags"]["BRUTE"] = REACTION_TAG_BRUTE
-	data["bitflags"]["BURN"] = REACTION_TAG_BURN
-	data["bitflags"]["TOXIN"] = REACTION_TAG_TOXIN
-	data["bitflags"]["OXY"] = REACTION_TAG_OXY
-	data["bitflags"]["CLONE"] = REACTION_TAG_CLONE
-	data["bitflags"]["HEALING"] = REACTION_TAG_HEALING
-	data["bitflags"]["DAMAGING"] = REACTION_TAG_DAMAGING
-	data["bitflags"]["EXPLOSIVE"] = REACTION_TAG_EXPLOSIVE
-	data["bitflags"]["OTHER"] = REACTION_TAG_OTHER
-	data["bitflags"]["DANGEROUS"] = REACTION_TAG_DANGEROUS
-	data["bitflags"]["EASY"] = REACTION_TAG_EASY
-	data["bitflags"]["MODERATE"] = REACTION_TAG_MODERATE
-	data["bitflags"]["HARD"] = REACTION_TAG_HARD
-	data["bitflags"]["ORGAN"] = REACTION_TAG_ORGAN
-	data["bitflags"]["DRINK"] = REACTION_TAG_DRINK
-	data["bitflags"]["FOOD"] = REACTION_TAG_FOOD
-	data["bitflags"]["SLIME"] = REACTION_TAG_SLIME
-	data["bitflags"]["DRUG"] = REACTION_TAG_DRUG
-	data["bitflags"]["UNIQUE"] = REACTION_TAG_UNIQUE
-	data["bitflags"]["CHEMICAL"] = REACTION_TAG_CHEMICAL
-	data["bitflags"]["PLANT"] = REACTION_TAG_PLANT
-	data["bitflags"]["COMPETITIVE"] = REACTION_TAG_COMPETITIVE
-
-	return data
-
-/* Returns a reaction type by index from an input reagent type
-* i.e. the input reagent's associated reactions are found, and the index determines which one to return
-* If the index is out of range, it is set to 1
-*/
-/datum/reagents/proc/get_reaction_from_indexed_possibilities(path, index = null)
-	if(index)
-		ui_reaction_index = index
-	var/list/sub_reactions = get_recipe_from_reagent_product(path)
-	if(!length(sub_reactions))
-		to_chat(usr, "There is no recipe associated with this product.")
-		return FALSE
-	if(ui_reaction_index > length(sub_reactions))
-		ui_reaction_index = 1
-	var/datum/chemical_reaction/reaction = sub_reactions[ui_reaction_index]
-	return reaction.type
-
-/datum/reagents/ui_act(action, params)
-	. = ..()
-	if(.)
-		return
-	switch(action)
-		if("find_reagent_reaction")
-			ui_reaction_id = get_reaction_from_indexed_possibilities(text2path(params["id"]))
-			return TRUE
-		if("reagent_click")
-			ui_reagent_id = text2path(params["id"])
-			return TRUE
-		if("recipe_click")
-			ui_reaction_id = text2path(params["id"])
-			return TRUE
-		if("search_reagents")
-			var/input_reagent = (input("Enter the name of any reagent", "Input") as text|null)
-			input_reagent = get_reagent_type_from_product_string(input_reagent) //from string to type
-			var/datum/reagent/reagent = find_reagent_object_from_type(input_reagent)
-			if(!reagent)
-				to_chat(usr, "Could not find reagent!")
-				return FALSE
-			ui_reagent_id = reagent.type
-			return TRUE
-		if("search_recipe")
-			var/input_reagent = (input("Enter the name of product reagent", "Input") as text|null)
-			input_reagent = get_reagent_type_from_product_string(input_reagent) //from string to type
-			var/datum/reagent/reagent = find_reagent_object_from_type(input_reagent)
-			if(!reagent)
-				to_chat(usr, "Could not find product reagent!")
-				return
-			ui_reaction_id = get_reaction_from_indexed_possibilities(reagent.type)
-			return TRUE
-		if("increment_index")
-			ui_reaction_index += 1
-			if(!ui_beaker_sync)
-				ui_reaction_id = get_reaction_from_indexed_possibilities(get_reagent_type_from_product_string(params["id"]))
-			return TRUE
-		if("reduce_index")
-			if(ui_reaction_index == 1)
-				return
-			ui_reaction_index -= 1
-			if(!ui_beaker_sync)
-				ui_reaction_id = get_reaction_from_indexed_possibilities(get_reagent_type_from_product_string(params["id"]))
-			return TRUE
-		if("beaker_sync")
-			ui_beaker_sync = !ui_beaker_sync
-			return TRUE
-		if("toggle_tag_brute")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_BRUTE
-			return TRUE
-		if("toggle_tag_burn")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_BURN
-			return TRUE
-		if("toggle_tag_toxin")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_TOXIN
-			return TRUE
-		if("toggle_tag_oxy")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_OXY
-			return TRUE
-		if("toggle_tag_clone")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_CLONE
-			return TRUE
-		if("toggle_tag_healing")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_HEALING
-			return TRUE
-		if("toggle_tag_damaging")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_DAMAGING
-			return TRUE
-		if("toggle_tag_explosive")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_EXPLOSIVE
-			return TRUE
-		if("toggle_tag_other")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_OTHER
-			return TRUE
-		if("toggle_tag_easy")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_EASY
-			return TRUE
-		if("toggle_tag_moderate")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_MODERATE
-			return TRUE
-		if("toggle_tag_hard")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_HARD
-			return TRUE
-		if("toggle_tag_organ")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_ORGAN
-			return TRUE
-		if("toggle_tag_drink")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_DRINK
-			return TRUE
-		if("toggle_tag_food")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_FOOD
-			return TRUE
-		if("toggle_tag_dangerous")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_DANGEROUS
-			return TRUE
-		if("toggle_tag_slime")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_SLIME
-			return TRUE
-		if("toggle_tag_drug")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_DRUG
-			return TRUE
-		if("toggle_tag_unique")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_UNIQUE
-			return TRUE
-		if("toggle_tag_chemical")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_CHEMICAL
-			return TRUE
-		if("toggle_tag_plant")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_PLANT
-			return TRUE
-		if("toggle_tag_competitive")
-			ui_tags_selected = ui_tags_selected ^ REACTION_TAG_COMPETITIVE
-			return TRUE
-		if("update_ui")
-			return TRUE
-
-/datum/reagents/proc/remove_any(amount = 1, no_react = FALSE)
+/datum/reagents/proc/remove_any(amount = 1)
 	var/list/cached_reagents = reagent_list
 	var/total_transfered = 0
 	var/current_list_element = 1
@@ -506,8 +112,7 @@
 		total_transfered++
 		update_total()
 
-	if(!no_react)
-		handle_reactions()
+	handle_reactions()
 	return total_transfered
 
 /datum/reagents/proc/remove_all(amount = 1)
@@ -589,7 +194,7 @@
 		var/part = amount / src.total_volume
 		for(var/reagent in cached_reagents)
 			var/datum/reagent/T = reagent
-			if(remove_blacklisted && !T.can_synth)
+			if(remove_blacklisted && (T.chem_flags & CHEMICAL_NOT_SYNTH))
 				continue
 			var/transfer_amount = T.volume * part
 			if(preserve_data)
@@ -598,7 +203,7 @@
 			if(method)
 				R.react_single(T, target_atom, method, part, show_message)
 				T.on_transfer(target_atom, method, transfer_amount * multiplier)
-			remove_reagent(T.type, transfer_amount, no_react) //MONKESTATION EDIT CHANGE
+			remove_reagent(T.type, transfer_amount, no_react)
 			transfer_log[T.type] = transfer_amount
 	else
 		var/to_transfer = amount
@@ -606,7 +211,7 @@
 			if(!to_transfer)
 				break
 			var/datum/reagent/T = reagent
-			if(remove_blacklisted && !T.can_synth)
+			if(remove_blacklisted && (T.chem_flags & CHEMICAL_NOT_SYNTH))
 				continue
 			if(preserve_data)
 				trans_data = copy_data(T)
@@ -632,7 +237,7 @@
 		src.handle_reactions()
 	return amount
 
-/datum/reagents/proc/copy_to(obj/target, amount=1, multiplier=1, preserve_data=1, no_react=0) //MONKESTATION EDIT CHANGE
+/datum/reagents/proc/copy_to(obj/target, amount=1, multiplier=1, preserve_data=1, no_react=0)
 	var/list/cached_reagents = reagent_list
 	if(!target || !total_volume)
 		return
@@ -658,29 +263,10 @@
 		R.add_reagent(T.type, copy_amount * multiplier, trans_data, chem_temp)
 
 	src.update_total()
-	R.update_total()
-	//MONKESTATION EDIT CHANGE BEGIN
 	if(!no_react)
 		R.handle_reactions()
 		src.handle_reactions()
-	//MONKESTATION EDIT CHANGE END
 	return amount
-
-///Multiplies the reagents inside this holder by a specific amount
-/datum/reagents/proc/multiply_reagents(multiplier=1)
-	var/list/cached_reagents = reagent_list
-	if(!total_volume)
-		return
-	var/change = (multiplier - 1) //Get the % change
-	for(var/reagent in cached_reagents)
-		var/datum/reagent/T = reagent
-		if(change > 0)
-			add_reagent(T.type, T.volume * change)
-		else
-			remove_reagent(T.type, abs(T.volume * change)) //absolute value to prevent a double negative situation (removing -50% would be adding 50%)
-
-	update_total()
-	handle_reactions()
 
 /datum/reagents/proc/trans_id_to(obj/target, reagent, amount=1, preserve_data=1)//Not sure why this proc didn't exist before. It does now! /N
 	var/list/cached_reagents = reagent_list
@@ -714,6 +300,7 @@
 	if(C?.dna?.species && (NOREAGENTS in C.dna.species.species_traits))
 		return 0
 	var/list/cached_reagents = reagent_list
+	var/list/cached_addictions = addiction_list
 	if(C)
 		expose_temperature(C.bodytemperature, 0.25)
 	var/need_mob_update = 0
@@ -737,14 +324,45 @@
 						if(R.volume >= R.overdose_threshold && !R.overdosed)
 							R.overdosed = 1
 							need_mob_update += R.overdose_start(C)
-					for(var/addiction in R.addiction_types)
-						C.mind?.add_addiction_points(addiction, R.addiction_types[addiction] * REAGENTS_METABOLISM)
+					if(R.addiction_threshold)
+						if(R.volume >= R.addiction_threshold && !is_type_in_list(R, cached_addictions))
+							var/datum/reagent/new_reagent = new R.type()
+							cached_addictions.Add(new_reagent)
 					if(R.overdosed)
 						need_mob_update += R.overdose_process(C)
+					if(is_type_in_list(R,cached_addictions))
+						for(var/addiction in cached_addictions)
+							var/datum/reagent/A = addiction
+							if(istype(R, A))
+								A.addiction_stage = -15 // you're satisfied for a good while.
 				need_mob_update += R.on_mob_life(C)
 
+	if(can_overdose)
+		if(addiction_tick == 6)
+			addiction_tick = 1
+			for(var/addiction in cached_addictions)
+				var/datum/reagent/R = addiction
+				if(C && R)
+					R.addiction_stage++
+					switch(R.addiction_stage)
+						if(1 to 10)
+							need_mob_update += R.addiction_act_stage1(C)
+						if(10 to 20)
+							need_mob_update += R.addiction_act_stage2(C)
+						if(20 to 30)
+							need_mob_update += R.addiction_act_stage3(C)
+						if(30 to 40)
+							need_mob_update += R.addiction_act_stage4(C)
+						if(40 to INFINITY)
+							to_chat(C, "<span class='notice'>You feel like you've gotten over your need for [R.name].</span>")
+							SEND_SIGNAL(C, COMSIG_CLEAR_MOOD_EVENT, "[R.type]_overdose")
+							cached_addictions.Remove(R)
+						else
+							SEND_SIGNAL(C, COMSIG_CLEAR_MOOD_EVENT, "[R.type]_overdose")
+		addiction_tick++
 	if(C && need_mob_update) //some of the metabolized reagents had effects on the mob that requires some updates.
 		C.updatehealth()
+		C.update_mobility()
 		C.update_stamina()
 	update_total()
 
@@ -782,7 +400,7 @@
 		return //Yup, no reactions here. No siree.
 
 	var/list/cached_reagents = reagent_list
-	var/list/cached_reactions = GLOB.chemical_reactions_list_reactant_index
+	var/list/cached_reactions = GLOB.chemical_reactions_list
 	var/datum/cached_my_atom = my_atom
 
 	var/reaction_occurred = 0
@@ -966,7 +584,7 @@
 			can_process = TRUE
 	return can_process
 
-/datum/reagents/proc/reaction(atom/A, method = TOUCH, volume_modifier = 1, show_message = 1, liquid = FALSE, from_gas = 0)
+/datum/reagents/proc/reaction(atom/A, method = TOUCH, volume_modifier = 1, show_message = 1, obj/item/bodypart/affecting, liquid = FALSE)
 	var/react_type
 	if(isliving(A))
 		react_type = "LIVING"
@@ -993,9 +611,9 @@
 				if(method == VAPOR)
 					var/mob/living/L = A
 					touch_protection = L.get_permeability_protection()
-				R.reaction_mob(A, method, R.volume * volume_modifier, show_message, touch_protection)
+				R.reaction_mob(A, method, R.volume * volume_modifier, show_message, touch_protection, affecting)
 			if("TURF")
-				R.reaction_turf(A, R.volume * volume_modifier, show_message, from_gas)
+				R.reaction_turf(A, R.volume * volume_modifier, show_message)
 			if("OBJ")
 				R.reaction_obj(A, R.volume * volume_modifier, show_message)
 			if("LIQUID")
@@ -1007,7 +625,7 @@
 	return FALSE
 
 //Returns the average specific heat for all reagents currently in this holder.
-/datum/reagents/proc/heat_capacity()
+/datum/reagents/proc/specific_heat()
 	. = 0
 	var/cached_amount = total_volume		//cache amount
 	var/list/cached_reagents = reagent_list		//cache reagents
@@ -1016,7 +634,7 @@
 		. += R.specific_heat * (R.volume / cached_amount)
 
 /datum/reagents/proc/adjust_thermal_energy(J, min_temp = 2.7, max_temp = 1000)
-	var/S = heat_capacity()
+	var/S = specific_heat()
 	chem_temp = CLAMP(chem_temp + (J / (S * total_volume)), 2.7, 1000)
 
 /datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = 300, no_react = 0)
@@ -1084,16 +702,14 @@
 		handle_reactions()
 	return TRUE
 
-/datum/reagents/proc/add_reagent_list(list/list_reagents, list/data=null, no_react = FALSE) //MONKESTATION EDIT CHANGE Like add_reagent but you can enter a list. Format it like this: list(/datum/reagent/toxin = 10, "beer" = 15)
+/datum/reagents/proc/add_reagent_list(list/list_reagents, list/data=null, no_react = FALSE) // Like add_reagent but you can enter a list. Format it like this: list(/datum/reagent/toxin = 10, "beer" = 15)
 	for(var/r_id in list_reagents)
 		var/amt = list_reagents[r_id]
-	//MONKESTATION CHANGE BEGIN
 		add_reagent(r_id, amt, data, no_react = TRUE)
-	if(!no_react)
-		handle_reactions()
-	//MONKESTATION EDIT CHANGE END
+		if(!no_react)
+			handle_reactions()
 
-/datum/reagents/proc/remove_reagent(reagent, amount, safety = TRUE, no_react = FALSE)// MONKESTATION EDIT CHANGE Added a safety check for the trans_id_to
+/datum/reagents/proc/remove_reagent(reagent, amount, safety = TRUE)//Added a safety check for the trans_id_to
 
 	if(isnull(amount))
 		amount = 0
@@ -1115,7 +731,7 @@
 			amount = CLAMP(amount, 0, R.volume)
 			R.volume -= amount
 			update_total()
-			if(!safety)//So it does not handle reactions when it need not to //MONKESTATION EDIT CHANGE
+			if(!safety)//So it does not handle reactions when it need not to
 				handle_reactions()
 			if(my_atom)
 				my_atom.on_reagent_change(REM_REAGENT)
@@ -1288,13 +904,107 @@
 	reagents = new /datum/reagents(max_vol, flags)
 	reagents.my_atom = src
 
+/proc/get_random_reagent_id(var/flag_check, var/blacklist_flag = NONE, var/union = TRUE, var/return_as_list = FALSE)
+	/* This proc returns a random reagent ID based on given 'flag_check' which is used to check bitflag for each reagent.
+	 *--- arguments ---*
+		* flag_check
+			the method will return a random reagent id which has this flag.
+			if you want a single category - get_random_reagent_id(CHEMICAL_BASIC_ELEMENT)
+			if you want a multiple category - get_random_reagent_id(CHEMICAL_BASIC_ELEMENT|CHEMICAL_BASIC_DRINK|CHEMICAL_RNG_GENERAL)
+			(check defines at `code\__DEFINES\reagents.dm`)
+		* blacklist_flag
+			the method will remove random reagents from the possible list when they have this flag. default NONE(0)
+			same rule above
+			(uses chemical defines)
+		* union
+			default TRUE. if FALSE, the same item will be added to the possible list, making some reagent higher chance to spawn when a reagent is called more than once.
+			you will hardly use this though.
+			(Bicaridine, Bicardine, Bicaridine means 3x chance than normal.)
+		* return_as_list
+			default FALSE. if TRUE, the proc will return its list rather than pick a certain ID from the list. Useful when you're going to set blacklist yourself (or add)
 
-/proc/get_unrestricted_random_reagent_id()	// Returns a random reagent ID minus most foods and drinks
-	var/static/list/random_reagents = list()
-	if(!random_reagents.len)
-		for(var/thing  in subtypesof(/datum/reagent))
-			var/datum/reagent/R = thing
-			if(initial(R.random_unrestricted))
-				random_reagents += R
-	var/picked_reagent = pick(random_reagents)
-	return picked_reagent
+	 *--- How to add a new random reagent category ---*
+		1. add a new flag at 'code\__DEFINES\reagents.dm' and `var/list/chem_defines` below
+			i.e.) `#define CHEMICAL_SOMETHING_NEW (1<10)`
+		2. add a new static variable which is corresponding to the new flag.
+			i.e.) `var/static/list/random_reagents_xx = list() // CHEMICAL_SOMETHING_NEW`
+		3. add the new static variable to the 'random_reagent' list
+			then done! (of course, don't forget to turn on the new flag at each desired reagent)
+	*/
+
+
+	// ----below is a section you might want to edit for more chem RNGs----
+	var/static/list/chem_defines = list( // check `code/__DEFINES/reagents.dm`
+		CHEMICAL_NOT_SYNTH,     // (1<<0)
+		CHEMICAL_BASIC_ELEMENT, // (1<<1)
+		CHEMICAL_BASIC_DRINK,   // (1<<2)
+		CHEMICAL_RNG_GENERAL,   // (1<<3)
+		CHEMICAL_RNG_FUN,       // (1<<4)
+		CHEMICAL_RNG_BOTANY,    // (1<<5)
+		CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE,         // (1<<23) - goal_define starts at 23 and goes reversed.
+		CHEMICAL_GOAL_BOTANIST_HARVEST,     // (1<<22)
+		CHEMICAL_GOAL_BARTENDER_SERVING)    // (1<<21)
+	var/static/list/random_reagents_a = list()  // CHEMICAL_NOT_SYNTH
+	var/static/list/random_reagents_b = list()  // CHEMICAL_BASIC_ELEMENT
+	var/static/list/random_reagents_c = list()  // CHEMICAL_BASIC_DRINK
+	var/static/list/random_reagents_d = list()  // CHEMICAL_RNG_GENERAL
+	var/static/list/random_reagents_e = list()  // CHEMICAL_RNG_FUN
+	var/static/list/random_reagents_f = list()  // CHEMICAL_RNG_BOTANY
+	var/static/list/random_reagents_goal_a = list()  // CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	var/static/list/random_reagents_goal_b = list()  // CHEMICAL_GOAL_BOTANIST_HARVEST
+	var/static/list/random_reagents_goal_c = list()  // CHEMICAL_GOAL_BARTENDER_SERVING
+	var/static/list/random_reagent = list(
+		random_reagents_a,
+		random_reagents_b,
+		random_reagents_c,
+		random_reagents_d,
+		random_reagents_e,
+		random_reagents_f,
+		random_reagents_goal_a,
+		random_reagents_goal_b,
+		random_reagents_goal_c)
+	// ----above is a section you might want to edit for more chem RNGs----
+
+	// initialize random reagent static lists
+	if(!random_reagents_a.len)
+		for(var/thing in subtypesof(/datum/reagent))
+			var/i = 0
+			for(var/each_define in chem_defines)
+				i += 1
+				var/datum/reagent/R = thing
+				if(initial(R.chem_flags) & each_define)
+					random_reagent[i] += R
+
+	// returns a pick from a static before making a list - saving memory
+	var/j = 0
+	if(!blacklist_flag)
+		for(var/each_define in chem_defines)
+			j += 1
+			if(each_define == flag_check)
+				return (return_as_list ? random_reagent[j] : pick(random_reagent[j]))
+
+	// if flag_check has multiple bitflags, then we're going to make a possible list.
+	var/list/possible = list()
+	j = 0
+	for(var/each_define in chem_defines)
+		j += 1
+		if(each_define & flag_check)
+			if(union)
+				possible |= random_reagent[j]
+			else //concatenation
+				possible += random_reagent[j]
+
+	if(blacklist_flag)
+		j = 0
+		for(var/each_define in chem_defines)
+			j += 1
+			if(each_define & flag_check)
+				possible -= random_reagent[j]
+
+	return (return_as_list ? possible : pick(possible))
+
+/proc/get_chem_id(chem_name)
+	for(var/X in GLOB.chemical_reagents_list)
+		var/datum/reagent/R = GLOB.chemical_reagents_list[X]
+		if(ckey(chem_name) == ckey(lowertext(R.name)))
+			return X

@@ -136,7 +136,7 @@
 	if(!active)
 		return
 
-	STOP_PROCESSING(SSfluids, src)
+	STOP_PROCESSING(SSplumbing, src)
 
 	for(var/A in ducts)
 		var/datum/ductnet/D = ducts[A]
@@ -165,7 +165,7 @@
 			D.disconnect_duct()
 
 	if(demand_connects)
-		START_PROCESSING(SSfluids, src)
+		START_PROCESSING(SSplumbing, src)
 
 	for(var/D in GLOB.cardinals)
 
@@ -246,3 +246,7 @@
 /datum/component/plumbing/tank
 	demand_connects = WEST
 	supply_connects = EAST
+
+/datum/component/plumbing/manifold
+	demand_connects = NORTH
+	supply_connects = SOUTH

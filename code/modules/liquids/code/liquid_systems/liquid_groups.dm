@@ -281,7 +281,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 		qdel(src)
 
 /datum/liquid_group/proc/remove_specific(obj/effect/abstract/liquid_turf/remover, amount, datum/reagent/reagent_type)
-	reagents.remove_reagent(reagent_type.type, amount, no_react = TRUE)
+	reagents.remove_reagent(reagent_type.type, amount)
 	if(remover)
 		check_liquid_removal(remover, amount)
 	updated_total = TRUE
@@ -365,7 +365,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 	if(GLOB.liquid_debug_colors)
 		new_color = color
 	else if(cached_reagent_list.len != reagents.reagent_list.len)
-		new_color = mix_color_from_reagent_list(reagents.reagent_list)
+		new_color = mix_color_from_reagents(reagents.reagent_list)
 		cached_reagent_list = list()
 		cached_reagent_list |= reagents.reagent_list
 
@@ -812,7 +812,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 			if(isliving(target_atom) && prob(60))
 				var/mob/living/target_living = target_atom
 				target_living.Paralyze(6 SECONDS)
-				to_chat(target_living, span_danger("You are knocked down by the currents!"))
+				to_chat(target_living, "<span class='danger'>You are knocked down by the currents!</span>")
 
 /datum/liquid_group/proc/fetch_temperature_queue()
 	if(!cached_temperature_shift)
