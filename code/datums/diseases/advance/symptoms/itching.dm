@@ -3,7 +3,7 @@
 
 Itching
 
-	Not noticable or unnoticable.
+	Not noticeable or unnoticeable.
 	Resistant.
 	Increases stage speed.
 	Little transmissibility.

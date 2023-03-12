@@ -227,14 +227,6 @@
 		var/message
 		if(alert)
 			switch(stability)
-				if(70 to 90)
-					message = "<span class='warning'>You shiver.</span>"
-				if(60 to 69)
-					message = "<span class='warning'>You feel cold.</span>"
-				if(40 to 59)
-					message = "<span class='warning'>You feel sick.</span>"
-				if(20 to 39)
-					message = "<span class='warning'>It feels like your skin is moving.</span>"
 				if(1 to 19)
 					message = "<span class='warning'>You can feel your cells burning.</span>"
 				if(-INFINITY to 0)
@@ -650,12 +642,12 @@
 				spawn_gibs()
 				set_species(/datum/species/skeleton)
 				if(prob(90) && !QDELETED(src))
-					addtimer(CALLBACK(src, .proc/death), 30)
+					addtimer(CALLBACK(src, PROC_REF(death)), 30)
 					if(mind)
 						mind.hasSoul = FALSE
 			if(5)
 				to_chat(src, "<span class='phobia'>LOOK UP!</span>")
-				addtimer(CALLBACK(src, .proc/something_horrible_mindmelt), 30)
+				addtimer(CALLBACK(src, PROC_REF(something_horrible_mindmelt)), 30)
 
 
 /mob/living/carbon/proc/something_horrible_mindmelt()
@@ -666,4 +658,4 @@
 		eyes.Remove(src)
 		qdel(eyes)
 		visible_message("<span class='notice'>[src] looks up and their eyes melt away!</span>", "<span class='userdanger'>I understand now.</span>")
-		addtimer(CALLBACK(src, .proc/adjustOrganLoss, ORGAN_SLOT_BRAIN, 200), 20)
+		addtimer(CALLBACK(src, PROC_REF(adjustOrganLoss), ORGAN_SLOT_BRAIN, 200), 20)

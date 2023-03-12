@@ -3,7 +3,7 @@
 
 Sneezing
 
-	Very Noticable.
+	Very noticeable.
 	Increases resistance.
 	Doesn't increase stage speed.
 	Very transmissible.
@@ -51,4 +51,4 @@ Bonus
 		else
 			M.emote("sneeze")
 			if(infective && !(A.spread_flags & DISEASE_SPREAD_FALTERED))
-				addtimer(CALLBACK(A, /datum/disease/.proc/spread, 4), 20)
+				addtimer(CALLBACK(A, TYPE_PROC_REF(/datum/disease, spread), 4), 20)

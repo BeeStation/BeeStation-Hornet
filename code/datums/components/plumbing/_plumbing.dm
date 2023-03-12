@@ -7,9 +7,9 @@
 	var/use_overlays = TRUE
 	///Whether our tile is covered and we should hide our ducts
 	var/tile_covered = FALSE
-	///directions in wich we act as a supplier
+	///directions in which we act as a supplier
 	var/supply_connects
-	///direction in wich we act as a demander
+	///direction in which we act as a demander
 	var/demand_connects
 	///FALSE to pretty much just not exist in the plumbing world so we can be moved, TRUE to go plumbo mode
 	var/active = FALSE
@@ -26,15 +26,15 @@
 	reagents = AM.reagents
 	turn_connects = _turn_connects
 
-	RegisterSignal(parent, list(COMSIG_MOVABLE_MOVED,COMSIG_PARENT_PREQDELETED), .proc/disable)
-	RegisterSignal(parent, list(COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH), .proc/toggle_active)
-	RegisterSignal(parent, list(COMSIG_OBJ_HIDE), .proc/hide)
-	RegisterSignal(parent, list(COMSIG_ATOM_UPDATE_OVERLAYS), .proc/create_overlays) //create overlays also gets called after init (no idea by what it just happens)
+	RegisterSignal(parent, list(COMSIG_MOVABLE_MOVED,COMSIG_PARENT_PREQDELETED), PROC_REF(disable))
+	RegisterSignal(parent, list(COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH), PROC_REF(toggle_active))
+	RegisterSignal(parent, list(COMSIG_OBJ_HIDE), PROC_REF(hide))
+	RegisterSignal(parent, list(COMSIG_ATOM_UPDATE_OVERLAYS), PROC_REF(create_overlays)) //create overlays also gets called after init (no idea by what it just happens)
 
 	if(start)
 		//timer 0 so it can finish returning initialize, after which we're added to the parent.
 		//Only then can we tell the duct next to us they can connect, because only then is the component really added. this was a fun one
-		addtimer(CALLBACK(src, .proc/enable), 0)
+		addtimer(CALLBACK(src, PROC_REF(enable)), 0)
 
 /datum/component/plumbing/process()
 	if(!demand_connects || !reagents)		// This actually shouldn't happen, but better safe than sorry
@@ -214,7 +214,7 @@
 		demand_connects = new_demand_connects
 		supply_connects = new_supply_connects
 
-///Give the direction of a pipe, and it'll return wich direction it originally was when it's object pointed SOUTH
+///Give the direction of a pipe, and it'll return which direction it originally was when it's object pointed SOUTH
 /datum/component/plumbing/proc/get_original_direction(dir)
 	var/atom/movable/AM = parent
 	return turn(dir, dir2angle(AM.dir) - 180)

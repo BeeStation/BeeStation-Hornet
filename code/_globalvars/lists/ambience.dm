@@ -76,6 +76,12 @@ GLOBAL_LIST_INIT(mining_ambience,list(
 
 GLOBAL_LIST_INIT(medical_ambience,list('sound/ambience/ambinice.ogg'))
 
+GLOBAL_LIST_INIT(virology_ambience,list(
+	'sound/ambience/ambiviro.ogg',
+	'sound/ambience/ambiviro1.ogg',
+	'sound/ambience/ambiviro2.ogg',
+))
+
 GLOBAL_LIST_INIT(spooky_ambience,list(
 	'sound/ambience/ambimo1.ogg',
 	'sound/ambience/ambimo2.ogg',
@@ -92,6 +98,8 @@ GLOBAL_LIST_INIT(maint_ambience,list(
 	'sound/ambience/ambimaint4.ogg',
 	'sound/ambience/ambimaint5.ogg',
 	'sound/ambience/ambitech2.ogg',
+	'sound/ambience/maintambience.ogg',
+	'sound/voice/lowHiss1.ogg',
 	'sound/voice/lowHiss2.ogg',
 	'sound/voice/lowHiss3.ogg',
 	'sound/voice/lowHiss4.ogg',
@@ -161,6 +169,7 @@ GLOBAL_LIST_INIT(ambience_assoc,list(
 	AMBIENCE_REEBE = GLOB.reebe_ambience,
 	AMBIENCE_RUINS = GLOB.ruins_ambience,
 	AMBIENCE_SPOOKY = GLOB.spooky_ambience,
+	AMBIENCE_VIROLOGY = GLOB.virology_ambience,
 ))
 
 

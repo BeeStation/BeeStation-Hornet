@@ -3,8 +3,6 @@
 	var/desc = "A mutation."
 	var/locked
 	var/quality
-	var/text_gain_indication = ""
-	var/text_lose_indication = ""
 	var/static/list/visual_indicators = list()
 	var/obj/effect/proc_holder/spell/power
 	var/layer_used = MUTATIONS_LAYER //which mutation layer to use
@@ -44,7 +42,7 @@
 	. = ..()
 	class = class_
 	if(timer)
-		addtimer(CALLBACK(src, .proc/remove), timer)
+		addtimer(CALLBACK(src, PROC_REF(remove)), timer)
 		timed = TRUE
 	if(copymut && istype(copymut, /datum/mutation))
 		copy_mutation(copymut)
@@ -68,8 +66,6 @@
 	owner = C
 	dna = C.dna
 	dna.mutations += src
-	if(text_gain_indication)
-		to_chat(owner, text_gain_indication)
 	if(length(visual_indicators))
 		var/list/mut_overlay = list(get_visual_indicator())
 		if(owner.overlays_standing[layer_used])
@@ -80,8 +76,8 @@
 		owner.apply_overlay(layer_used)
 	grant_spell() //we do checks here so nothing about hulk getting magic
 	if(!modified && can_chromosome == CHROMOSOME_USED)
-		addtimer(CALLBACK(src, .proc/modify, 5)) //gonna want children calling ..() to run first
-	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, .proc/on_move)
+		addtimer(CALLBACK(src, PROC_REF(modify), 5)) //gonna want children calling ..() to run first
+	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
 /datum/mutation/proc/get_visual_indicator()
 	return
@@ -101,8 +97,6 @@
 
 /datum/mutation/proc/on_losing(mob/living/carbon/owner)
 	if(owner && istype(owner) && (owner.dna.mutations.Remove(src)))
-		if(text_lose_indication && owner.stat != DEAD)
-			to_chat(owner, text_lose_indication)
 		if(length(visual_indicators))
 			var/list/mut_overlay = list()
 			if(owner.overlays_standing[layer_used])

@@ -122,7 +122,7 @@
 				on = !on
 
 				if(on)
-					INVOKE_ASYNC(src, .proc/magnetic_process)
+					INVOKE_ASYNC(src, PROC_REF(magnetic_process))
 
 
 
