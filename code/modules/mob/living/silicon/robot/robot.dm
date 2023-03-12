@@ -675,7 +675,9 @@
 	if(stat != DEAD && !(IsUnconscious() || IsStun() || IsParalyzed() || low_power_mode)) //Not dead, not stunned.
 		if(!eye_lights)
 			eye_lights = new()
-		if(lamp_enabled)
+		if(last_flashed && last_flashed + 30 SECONDS >= world.time) //We want to make sure last_flashed isn't zero because otherwise roundstart borgs blink for 30 seconds
+			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_fl"
+		else if(lamp_enabled)
 			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_l"
 			eye_lights.color = lamp_color
 			eye_lights.plane = ABOVE_LIGHTING_PLANE //glowy eyes
