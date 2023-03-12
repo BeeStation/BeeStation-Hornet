@@ -1,6 +1,6 @@
 /datum/mutation/shock
 	name = "Shock Touch"
-	desc = "A mutation that allows the user to store accumulated bioelectric and static charge, and consciously discharge it upon others with no harm to themselves."
+	desc = "A mutation that allows the user to store accumulated bioelectric and static charge, consciously discharging it upon others with no harm to themselves."
 	quality = POSITIVE
 	locked = TRUE
 	difficulty = 16
