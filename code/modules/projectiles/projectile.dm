@@ -156,7 +156,7 @@
 	decayedRange = range
 
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -463,8 +463,12 @@
 	if(!ignore_loc && (loc != target.loc))
 		return FALSE
 	// if pass_flags match, pass through entirely - unless direct target is set.
-	if((target.pass_flags_self & pass_flags) && !direct_target)
-		return FALSE
+	if (!direct_target)
+		// Calling CanAllowThrough introduces side effects
+		if(target.pass_flags_self & pass_flags)
+			return FALSE
+		if ((pass_flags & PASSTRANSPARENT) && target.alpha < 255 && prob(100 - (target.alpha/2.55)))
+			return FALSE
 	if(!ignore_source_check && firer)
 		var/mob/M = firer
 		if((target == firer) || ((target == firer.loc) && ismecha(firer.loc)) || (target in firer.buckled_mobs) || (istype(M) && (M.buckled == target)))
@@ -474,7 +478,7 @@
 	if(!isliving(target))
 		if(isturf(target))		// non dense turfs
 			return FALSE
-		if(target.layer < PROJECTILE_HIT_THRESHHOLD_LAYER)
+		if(target.layer < PROJECTILE_HIT_THRESHOLD_LAYER)
 			return FALSE
 		else if(!direct_target)		// non dense objects do not get hit unless specifically clicked
 			return FALSE
@@ -661,7 +665,7 @@
 	last_projectile_move = world.time
 	fired = TRUE
 	if(hitscan)
-		INVOKE_ASYNC(src, .proc/process_hitscan)
+		INVOKE_ASYNC(src, PROC_REF(process_hitscan))
 	if(!(datum_flags & DF_ISPROCESSING))
 		START_PROCESSING(SSprojectiles, src)
 	pixel_move(1, FALSE)	//move it now!

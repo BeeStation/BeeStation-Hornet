@@ -14,7 +14,7 @@
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80, "stamina" = 40)
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
 	dog_fashion = null
@@ -254,7 +254,7 @@
 	AddComponent(/datum/component/effect_remover, \
 	success_feedback = "You disrupt the magic of %THEEFFECT with %THEWEAPON.", \
 	success_forcesay = "BEGONE FOUL MAGIKS!!", \
-	on_clear_callback = CALLBACK(src, .proc/on_cult_rune_removed), \
+	on_clear_callback = CALLBACK(src, PROC_REF(on_cult_rune_removed)), \
 	effects_we_clear = list(/obj/effect/rune, /obj/effect/eldritch))
 
 /obj/item/nullrod/suicide_act(mob/user)

@@ -657,7 +657,7 @@ What a mess.*/
 				var/counter = 1
 				while(active2.fields[text("com_[]", counter)])
 					counter++
-				active2.fields[text("com_[]", counter)] = text("Made by [] ([]) on [] [], []<BR>[]", src.authenticated, src.rank, station_time_timestamp(), time2text(world.realtime, "MMM DD"), GLOB.year_integer+540, t1)
+				active2.fields[text("com_[]", counter)] = text("Made by [] ([]) on [] [], []<BR>[]", src.authenticated, src.rank, station_time_timestamp(), time2text(world.realtime, "MMM DD"), GLOB.year_integer+YEAR_OFFSET, t1)
 
 			if("Delete Record (ALL)")
 				if(active1)
@@ -796,7 +796,9 @@ What a mess.*/
 							var/dw = w - 32
 							var/dh = w - 32
 							I.Crop(dw/2, dh/2, w - dw/2, h - dh/2)
-							active1.fields["photo_front"] = picture
+							var/obj/item/photo/new_photo = new
+							new_photo.picture = picture
+							active1.fields["photo_front"] = new_photo
 					if("print_photo_front")
 						if(active1.fields["photo_front"])
 							if(istype(active1.fields["photo_front"], /datum/picture))

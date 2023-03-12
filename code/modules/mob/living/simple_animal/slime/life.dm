@@ -5,6 +5,7 @@
 	var/monkey_bonus_damage = 2
 	var/attack_cooldown = 0
 	var/attack_cooldown_time = 20 //How long, in deciseconds, the cooldown of attacks is
+	role = ROLE_SENTIENCE
 
 /mob/living/simple_animal/slime/Life()
 	set invisibility = 0
@@ -434,7 +435,7 @@
 	if (to_say)
 		INVOKE_ASYNC(src, /atom/movable/proc/say, to_say)
 	else if(prob(1))
-		INVOKE_ASYNC(src, /mob.proc/emote, pick("bounce","sway","light","vibrate","jiggle"))
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), pick("bounce","sway","light","vibrate","jiggle"))
 	else
 		var/t = 10
 		var/slimes_near = 0

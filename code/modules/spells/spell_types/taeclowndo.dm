@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/targeted/conjure_item/summon_pie
 	name = "Summon Creampie"
 	desc = "A clown's weapon of choice.  Use this to summon a fresh pie, just waiting to acquaintain itself with someone's face."
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	include_user = 1
 	range = -1
 	clothes_req = 0
@@ -21,7 +21,7 @@
 	charge_max	= 100
 	cooldown_min = 100
 	clothes_req = 0
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	range = 7
 	selection_type = "view"
 	projectile_type = null

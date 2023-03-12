@@ -120,6 +120,13 @@
 	turf_type = /turf/open/floor/grass/fairy/red
 	color = "#FF3333"
 
+/obj/item/stack/tile/fairygrass/orange
+	name = "orange fairygrass tile"
+	singular_name = "orange fairygrass floor tile"
+	desc = "A patch of odd, glowing orange grass."
+	turf_type = /turf/open/floor/grass/fairy/orange
+	color = "#FFA500"
+
 /obj/item/stack/tile/fairygrass/yellow
 	name = "yellow fairygrass tile"
 	singular_name = "yellow fairygrass floor tile"

@@ -409,7 +409,7 @@
 		for(var/iter in 1 to 5 * power_multiplier)
 			for(var/V in listeners)
 				var/mob/living/L = V
-				addtimer(CALLBACK(GLOBAL_PROC, .proc/_step, L, direction? direction : pick(GLOB.cardinals)), 10 * (iter - 1))
+				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), L, direction? direction : pick(GLOB.cardinals)), 10 * (iter - 1))
 
 	//WALK
 	else if((findtext(message, walk_words)))
@@ -510,7 +510,7 @@
 		cooldown = COOLDOWN_MEME
 		for(var/V in listeners)
 			var/mob/living/L = V
-			addtimer(CALLBACK(L, /mob/living/.proc/emote, "dance"), 5 * i)
+			addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living, emote), "dance"), 5 * i)
 			i++
 
 	//JUMP
@@ -520,7 +520,7 @@
 			var/mob/living/L = V
 			if(prob(25))
 				addtimer(CALLBACK(L, /atom/movable/proc/say, "HOW HIGH?!!"), 5 * i)
-			addtimer(CALLBACK(L, /mob/living/.proc/emote, "jump"), 5 * i)
+			addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living, emote), "jump"), 5 * i)
 			i++
 
 	//SALUTE
@@ -528,7 +528,7 @@
 		cooldown = COOLDOWN_MEME
 		for(var/V in listeners)
 			var/mob/living/L = V
-			addtimer(CALLBACK(L, /mob/living/.proc/emote, "salute"), 5 * i)
+			addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living, emote), "salute"), 5 * i)
 			i++
 
 	//PLAY DEAD
@@ -536,7 +536,7 @@
 		cooldown = COOLDOWN_MEME
 		for(var/V in listeners)
 			var/mob/living/L = V
-			addtimer(CALLBACK(L, /mob/living/.proc/emote, "deathgasp"), 5 * i)
+			addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living, emote), "deathgasp"), 5 * i)
 			i++
 
 	//PLEASE CLAP
@@ -544,13 +544,13 @@
 		cooldown = COOLDOWN_MEME
 		for(var/V in listeners)
 			var/mob/living/L = V
-			addtimer(CALLBACK(L, /mob/living/.proc/emote, "clap"), 5 * i)
+			addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living, emote), "clap"), 5 * i)
 			i++
 
 	//HONK
 	else if((findtext(message, honk_words)))
 		cooldown = COOLDOWN_MEME
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, get_turf(user), 'sound/items/bikehorn.ogg', 300, 1), 25)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), get_turf(user), 'sound/items/bikehorn.ogg', 300, 1), 25)
 		if(user.mind?.assigned_role == JOB_NAME_CLOWN)
 			for(var/mob/living/carbon/C in listeners)
 				C.slip(140 * power_multiplier)

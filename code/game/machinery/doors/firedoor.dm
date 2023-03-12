@@ -88,7 +88,7 @@
 /obj/machinery/door/firedoor/power_change()
 	if(powered(power_channel))
 		set_machine_stat(machine_stat & ~NOPOWER)
-		INVOKE_ASYNC(src, .proc/latetoggle)
+		INVOKE_ASYNC(src, PROC_REF(latetoggle))
 	else
 		set_machine_stat(machine_stat | NOPOWER)
 
@@ -205,7 +205,7 @@
 				access_log.Remove(access_log[1])
 			to_chat(user, "<span class='warning'>You begin forcing open \the [src], the motors whine...</span>")
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
-			if(!do_after(user, 10 SECONDS, TRUE, src))
+			if(!do_after(user, 10 SECONDS, src))
 				return
 		else
 			to_chat(user, "<span class='notice'>You begin forcing open \the [src], the motors don't resist...</span>")
@@ -391,7 +391,7 @@
 	. = ..()
 
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXIT = .proc/on_exit,
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
 	)
 
 	AddElement(/datum/element/connect_loc, loc_connections)
@@ -746,7 +746,7 @@
 
 /obj/structure/firelock_frame/border/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
 
 /obj/structure/firelock_frame/border/proc/can_be_rotated(mob/user, rotation_type)
 	if (anchored)

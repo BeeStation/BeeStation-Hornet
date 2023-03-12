@@ -54,6 +54,7 @@
 
 /obj/item/storage/box/suitbox/ce/PopulateContents()
 	new /obj/item/clothing/under/rank/engineering/chief_engineer(src)
+	new /obj/item/clothing/under/rank/engineering/chief_engineer/skirt(src)
 	new /obj/item/clothing/head/beret/ce(src)
 	new /obj/item/clothing/head/hardhat/white(src)
 	new /obj/item/clothing/head/hardhat/weldhat/white(src)

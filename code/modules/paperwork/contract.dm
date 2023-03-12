@@ -241,7 +241,7 @@
 			user.visible_message("<span class='notice'>With a sudden blaze, [H] stands back up.</span>")
 			H.fakefire()
 			fulfillContract(H, 1)//Revival contracts are always signed in blood
-			addtimer(CALLBACK(H, /mob/living/carbon/human.proc/fakefireextinguish), 5, TIMER_UNIQUE)
+			addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, fakefireextinguish)), 5, TIMER_UNIQUE)
 		addtimer(CALLBACK(src, "resetcooldown"), 300, TIMER_UNIQUE)
 	else
 		..()

@@ -3,6 +3,7 @@
 // ********************************************************
 
 /obj/item/seeds
+	name = "seed"
 	icon = 'icons/obj/hydroponics/seeds.dmi'
 	icon_state = "seed"				// Unknown plant seed - these shouldn't exist in-game.
 	w_class = WEIGHT_CLASS_TINY
@@ -373,37 +374,6 @@
 			desc = input
 	..() // Fallthrough to item/attackby() so that bags can pick seeds up
 
-
-
-
-
-
-
-// Checks plants for broken tray icons. Use Advanced Proc Call to activate.
-// Maybe some day it would be used as unit test.
-/proc/check_plants_growth_stages_icons()
-	var/list/states = icon_states('icons/obj/hydroponics/growing.dmi')
-	states |= icon_states('icons/obj/hydroponics/growing_fruits.dmi')
-	states |= icon_states('icons/obj/hydroponics/growing_flowers.dmi')
-	states |= icon_states('icons/obj/hydroponics/growing_mushrooms.dmi')
-	states |= icon_states('icons/obj/hydroponics/growing_vegetables.dmi')
-	var/list/paths = typesof(/obj/item/seeds) - /obj/item/seeds - typesof(/obj/item/seeds/sample)
-
-	for(var/seedpath in paths)
-		var/obj/item/seeds/seed = new seedpath
-
-		for(var/i in 1 to seed.growthstages)
-			if("[seed.icon_grow][i]" in states)
-				continue
-			to_chat(world, "[seed.name] ([seed.type]) lacks the [seed.icon_grow][i] icon!")
-
-		if(!(seed.icon_dead in states))
-			to_chat(world, "[seed.name] ([seed.type]) lacks the [seed.icon_dead] icon!")
-
-		if(seed.icon_harvest) // mushrooms have no grown sprites, same for items with no product
-			if(!(seed.icon_harvest in states))
-				to_chat(world, "[seed.name] ([seed.type]) lacks the [seed.icon_harvest] icon!")
-
 /obj/item/seeds/proc/randomize_stats()
 	set_lifespan(rand(25, 60))
 	set_endurance(rand(15, 35))
@@ -434,6 +404,14 @@
 			genes += T
 		else
 			qdel(T)
+
+/obj/item/seeds/proc/add_random_glow()
+	var/static/glow_traits  = subtypesof(/datum/plant_gene/trait/glow) - /datum/plant_gene/trait/glow/shadow
+	var/random_trait = pick(glow_traits)
+	var/datum/plant_gene/trait/T = new random_trait
+	for(var/datum/plant_gene/trait/glow/R in genes) //Replaces the old color
+		genes -= R
+	genes += T
 
 /obj/item/seeds/proc/add_random_plant_type(normal_plant_chance = 75)
 	if(prob(normal_plant_chance))

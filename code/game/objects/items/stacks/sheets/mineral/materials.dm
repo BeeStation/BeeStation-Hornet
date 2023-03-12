@@ -209,7 +209,6 @@ Mineral Sheets
 /obj/item/stack/sheet/mineral/coal
 	name = "coal"
 	desc = "Someone's gotten on the naughty list."
-	icon = 'icons/obj/stacks/ores.dmi'
 	icon_state = "coal"
 	singular_name = "coal lump"
 	merge_type = /obj/item/stack/sheet/mineral/coal

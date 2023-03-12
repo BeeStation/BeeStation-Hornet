@@ -76,19 +76,19 @@
 	. = ..()
 	current_holder = user
 	if(current_holder)
-		addtimer(CALLBACK(current_holder, /mob/.proc/refresh_known_radio_channels), 2)
+		addtimer(CALLBACK(current_holder, TYPE_PROC_REF(/mob, refresh_known_radio_channels)), 2)
 
 /obj/item/radio/dropped(mob/user, silent)
 	. = ..()
 	if(current_holder)
-		addtimer(CALLBACK(current_holder, /mob/.proc/refresh_known_radio_channels), 2)
+		addtimer(CALLBACK(current_holder, TYPE_PROC_REF(/mob, refresh_known_radio_channels)), 2)
 	current_holder = null
 
 /obj/item/radio/equipped(mob/user, slot)
 	. = ..()
 	current_holder = user
 	if(current_holder)
-		addtimer(CALLBACK(current_holder, /mob/.proc/refresh_known_radio_channels), 2)
+		addtimer(CALLBACK(current_holder, TYPE_PROC_REF(/mob, refresh_known_radio_channels)), 2)
 
 /obj/item/radio/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] starts bouncing [src] off [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -255,7 +255,7 @@
 	if(!language)
 		language = M.get_selected_language()
 	SEND_SIGNAL(src, COMSIG_RADIO_MESSAGE, M, message, channel)
-	INVOKE_ASYNC(src, .proc/talk_into_impl, M, message, channel, spans.Copy(), language, message_mods)
+	INVOKE_ASYNC(src, PROC_REF(talk_into_impl), M, message, channel, spans.Copy(), language, message_mods)
 	return ITALICS | REDUCE_RANGE
 
 /obj/item/radio/proc/talk_into_impl(atom/movable/M, message, channel, list/spans, datum/language/language, list/message_mods)
@@ -327,7 +327,7 @@
 
 	// Non-subspace radios will check in a couple of seconds, and if the signal
 	// was never received, send a mundane broadcast (no headsets).
-	addtimer(CALLBACK(src, .proc/backup_transmission, signal), 20)
+	addtimer(CALLBACK(src, PROC_REF(backup_transmission), signal), 20)
 
 /obj/item/radio/proc/backup_transmission(datum/signal/subspace/vocal/signal)
 	var/turf/T = get_turf(src)
@@ -421,7 +421,7 @@
 	for (var/ch_name in channels)
 		channels[ch_name] = 0
 	on = FALSE
-	addtimer(CALLBACK(src, .proc/end_emp_effect, curremp), 200)
+	addtimer(CALLBACK(src, PROC_REF(end_emp_effect), curremp), 200)
 	current_holder?.refresh_known_radio_channels()
 
 /obj/item/radio/proc/end_emp_effect(curremp)

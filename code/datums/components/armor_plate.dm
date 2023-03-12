@@ -9,9 +9,9 @@
 	if(!isobj(parent))
 		return COMPONENT_INCOMPATIBLE
 
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/examine)
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/applyplate)
-	RegisterSignal(parent, COMSIG_PARENT_PREQDELETED, .proc/dropplates)
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(examine))
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(applyplate))
+	RegisterSignal(parent, COMSIG_PARENT_PREQDELETED, PROC_REF(dropplates))
 
 	if(_maxamount)
 		maxamount = _maxamount
