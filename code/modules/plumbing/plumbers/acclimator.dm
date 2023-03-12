@@ -11,7 +11,7 @@
 	icon_state = "acclimator"
 	buffer = 200
 
-	///towards wich temperature do we build?
+	///towards which temperature do we build?
 	var/target_temperature = 300
 	///I cant find a good name for this. Basically if target is 300, and this is 10, it will still target 300 but will start emptying itself at 290 and 310.
 	var/allowed_temperature_difference = 1

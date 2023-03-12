@@ -1,38 +1,48 @@
 /datum/component/plumbing/reaction_chamber
-	demand_connects = NORTH
-	supply_connects = SOUTH
+	demand_connects = WEST
+	supply_connects = EAST
 
-/datum/component/plumbing/reaction_chamber/Initialize(start=TRUE, _ducting_layer, _turn_connects=TRUE, datum/reagents/custom_receiver)
+/datum/component/plumbing/reaction_chamber/Initialize(start=TRUE, _turn_connects=TRUE)
 	. = ..()
 	if(!istype(parent, /obj/machinery/plumbing/reaction_chamber))
 		return COMPONENT_INCOMPATIBLE
 
-/datum/component/plumbing/reaction_chamber/can_give(amount, reagent, datum/ductnet/net)
+/datum/component/plumbing/reaction_chamber/can_give(amount, reagent)
 	. = ..()
-	var/obj/machinery/plumbing/reaction_chamber/reaction_chamber = parent
-	if(!. || !reaction_chamber.emptying)
+	var/obj/machinery/plumbing/reaction_chamber/RC = parent
+	if(!. || !RC.emptying)
 		return FALSE
 
 /datum/component/plumbing/reaction_chamber/send_request(dir)
-	var/obj/machinery/plumbing/reaction_chamber/chamber = parent
-	if(chamber.emptying)
+	var/obj/machinery/plumbing/reaction_chamber/RC = parent
+	if(RC.emptying || !LAZYLEN(RC.required_reagents))
 		return
-
-	for(var/required_reagent in chamber.required_reagents)
+	for(var/RT in RC.required_reagents)
 		var/has_reagent = FALSE
-		for(var/datum/reagent/containg_reagent as anything in reagents.reagent_list)
-			if(required_reagent == containg_reagent.type)
+		for(var/A in reagents.reagent_list)
+			var/datum/reagent/RD = A
+			if(RT == RD.type)
 				has_reagent = TRUE
-				if(containg_reagent.volume < chamber.required_reagents[required_reagent])
-					process_request(min(chamber.required_reagents[required_reagent] - containg_reagent.volume, MACHINE_REAGENT_TRANSFER) , required_reagent, dir)
+				if(RD.volume < RC.required_reagents[RT])
+					process_request(min(RC.required_reagents[RT] - RD.volume, MACHINE_REAGENT_TRANSFER) , RT, dir)
 					return
 		if(!has_reagent)
-			process_request(min(chamber.required_reagents[required_reagent], MACHINE_REAGENT_TRANSFER), required_reagent, dir)
+			process_request(min(RC.required_reagents[RT], MACHINE_REAGENT_TRANSFER), RT, dir)
 			return
 
 	reagents.flags &= ~NO_REACT
 	reagents.handle_reactions()
 
-	chamber.emptying = TRUE //If we move this up, it'll instantly get turned off since any reaction always sets the reagent_total to zero. Other option is make the reaction update
-	//everything for every chemical removed, wich isn't a good option either.
-	chamber.on_reagent_change(reagents) //We need to check it now, because some reactions leave nothing left.
+	RC.emptying = TRUE //If we move this up, it'll instantly get turned off since any reaction always sets the reagent_total to zero. Other option is make the reaction update
+	//everything for every chemical removed, which isn't a good option either.
+	RC.on_reagent_change() //We need to check it now, because some reactions leave nothing left.
+
+/datum/component/plumbing/reaction_chamber/can_give(amount, reagent, datum/ductnet/net)
+	. = ..()
+	var/obj/machinery/plumbing/reaction_chamber/RC = parent
+	if(!. || !RC.emptying)
+		return FALSE
+
+
+
+

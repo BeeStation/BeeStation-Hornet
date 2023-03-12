@@ -386,10 +386,10 @@
 /datum/status_effect/changeling/camoflague/on_apply()
 	if(!..())
 		return FALSE
-	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, .proc/slight_increase)
-	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMGE, .proc/large_increase)
-	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, .proc/large_increase)
-	RegisterSignal(owner, COMSIG_ATOM_BUMPED, .proc/slight_increase)
+	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(slight_increase))
+	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMGE, PROC_REF(large_increase))
+	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(large_increase))
+	RegisterSignal(owner, COMSIG_ATOM_BUMPED, PROC_REF(slight_increase))
 	return TRUE
 
 /datum/status_effect/changeling/camoflague/on_remove()

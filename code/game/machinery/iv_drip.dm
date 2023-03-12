@@ -239,7 +239,7 @@
 		return
 	if(user.is_holding_item_of_type(/obj/item/clothing/mask/breath) && can_convert)
 		visible_message("<span class='warning'>[user] attempts to attach the breath mask to [src].</span>", "<span class='notice'>You attempt to attach the breath mask to [src].</span>")
-		if(!do_after(user, 100, FALSE, src))
+		if(!do_after(user, 100, src, timed_action_flags = IGNORE_HELD_ITEM))
 			to_chat(user, "<span class='warning'>You fail to attach the breath mask to [src]!</span>")
 			return
 		var/item = user.is_holding_item_of_type(/obj/item/clothing/mask/breath)

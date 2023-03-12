@@ -152,6 +152,7 @@
 #define INIT_ORDER_MINOR_MAPPING	-40
 #define INIT_ORDER_PATH				-50
 #define INIT_ORDER_EXPLOSIONS		-69
+#define INIT_ORDER_ELEVATOR	  -70
 #define INIT_ORDER_CHAT				-150 //Should be last to ensure chat remains smooth during init.
 
 // Subsystem fire priority, from lowest to highest priority
@@ -233,6 +234,18 @@
 #define SSLIQUIDS_RUN_TYPE_EVAPORATION 4
 #define SSLIQUIDS_RUN_TYPE_FIRE 5
 #define SSLIQUIDS_RUN_TYPE_OCEAN 6
+
+//SSticker.current_state values
+/// Game is loading
+#define GAME_STATE_STARTUP 0
+/// Game is loaded and in pregame lobby
+#define GAME_STATE_PREGAME 1
+/// Game is attempting to start the round
+#define GAME_STATE_SETTING_UP 2
+/// Game has round in progress
+#define GAME_STATE_PLAYING 3
+/// Game has round finished
+#define GAME_STATE_FINISHED 4
 
 //! ## Overlays subsystem
 

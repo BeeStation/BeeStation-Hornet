@@ -35,7 +35,7 @@
 			"connections" = TGUI_TELEMETRY_MAX_CONNECTIONS,
 		),
 	))
-	addtimer(CALLBACK(src, .proc/handle_telemetry_timeout), TGUI_TELEMETRY_RESPONSE_WINDOW) // give [TGUI_TELEMETRY_RESPONSE_WINDOW] to send telemetry
+	addtimer(CALLBACK(src, PROC_REF(handle_telemetry_timeout)), TGUI_TELEMETRY_RESPONSE_WINDOW) // give [TGUI_TELEMETRY_RESPONSE_WINDOW] to send telemetry
 
 /**
  * private

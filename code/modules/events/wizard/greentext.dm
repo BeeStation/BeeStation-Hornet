@@ -35,7 +35,7 @@
 /obj/item/greentext/Initialize(mapload)
 	. = ..()
 	GLOB.poi_list |= src
-	roundend_callback = CALLBACK(src,.proc/check_winner)
+	roundend_callback = CALLBACK(src,PROC_REF(check_winner))
 	SSticker.OnRoundend(roundend_callback)
 
 /obj/item/greentext/equipped(mob/living/user as mob)
