@@ -750,6 +750,12 @@
 
 /obj/machinery/porta_turret/ai
 	faction = list("silicon")
+	var/emp_proofing = FALSE
+
+/obj/machinery/porta_turret/ai/emp_act(severity)
+	if(emp_proofing)
+		return
+	. = ..()
 
 /obj/machinery/porta_turret/ai/assess_perp(mob/living/carbon/human/perp)
 	return 10 //AI turrets shoot at everything not in their faction
