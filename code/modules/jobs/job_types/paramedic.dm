@@ -7,7 +7,7 @@
 	total_positions = 2
 	spawn_positions = 1
 	selection_color = "#d4ebf2"
-	exp_requirements = MINUTES_REQUIRED_BASIC
+	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/paramedic
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM,

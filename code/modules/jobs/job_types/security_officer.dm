@@ -9,7 +9,7 @@
 	spawn_positions = 5 //Handled in /datum/controller/occupations/proc/setup_officer_positions()
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
-	exp_requirements = MINUTES_REQUIRED_ADVANCED
+	exp_requirements = 840
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/security_officer
