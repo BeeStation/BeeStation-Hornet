@@ -16,6 +16,8 @@
 	var/braintype = "Cyborg"
 	var/obj/item/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
 	var/obj/item/mmi/mmi = null
+	///The last time this mob was flashed. Used for flash cooldowns
+	var/last_flashed = 0
 
 	var/shell = FALSE
 	var/deployed = FALSE
