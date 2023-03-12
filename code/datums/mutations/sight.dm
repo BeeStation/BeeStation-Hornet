@@ -65,7 +65,7 @@
 //Laser Eyes lets you shoot lasers from your eyes!
 /datum/mutation/laser_eyes
 	name = "Laser Eyes"
-	desc = "A mutation that reflects concentrated light back from the eyes at the user's command."
+	desc = "A mutation that allows for the reflection of concentrated light from the back of the eyes."
 	quality = POSITIVE
 	locked = TRUE
 	difficulty = 16
