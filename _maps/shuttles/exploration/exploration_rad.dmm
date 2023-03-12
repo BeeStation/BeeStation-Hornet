@@ -20,15 +20,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"aU" = (
-/obj/machinery/door/firedoor/border_only,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/shuttle/glass,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/exploration)
 "aW" = (
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 1
@@ -109,6 +100,26 @@
 "gQ" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"gT" = (
+/obj/machinery/door/airlock/external/glass{
+	autoclose = 0.1
+	},
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 5;
+	height = 7;
+	id = "exploration";
+	name = "Exploration Shuttle";
+	port_direction = 8;
+	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
+	width = 13
+	},
+/obj/structure/fans/tiny,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -349,22 +360,6 @@
 /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"Mk" = (
-/obj/structure/lattice/catwalk,
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
-/obj/machinery/shuttle/engine/plasma{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/shuttle/exploration)
 "Ml" = (
 /obj/machinery/power/apc/auto_name/east{
 	pixel_x = 24
@@ -410,6 +405,17 @@
 "Qe" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
+"Qo" = (
+/obj/machinery/door/firedoor/border_only,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/airlock/shuttle/glass{
+	autoclose = 0.1
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
 "Sb" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -438,12 +444,6 @@
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
-"Uc" = (
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/airlock/shuttle/glass,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/exploration)
 "UF" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/structure/cable/yellow{
@@ -451,23 +451,13 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
-"Vq" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 5;
-	height = 7;
-	id = "exploration";
-	name = "Exploration Shuttle";
-	port_direction = 8;
-	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
-	width = 13
+"WE" = (
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/airlock/shuttle/glass{
+	autoclose = 0.1
 	},
-/obj/structure/fans/tiny,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/mineral/plastitanium,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 
 (1,1,1) = {"
@@ -509,11 +499,11 @@ rN
 tu
 qF
 tu
-Uc
+WE
 am
 gt
 JE
-Mk
+lo
 "}
 (4,1,1) = {"
 Qe
@@ -554,7 +544,7 @@ Ai
 bz
 SH
 CH
-aU
+Qo
 Sb
 aW
 JE
@@ -582,7 +572,7 @@ lq
 lq
 Qe
 Qe
-Vq
+gT
 Tw
 Qe
 DI
