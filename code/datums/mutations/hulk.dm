@@ -5,7 +5,6 @@
 	quality = POSITIVE
 	locked = TRUE
 	difficulty = 16
-	text_gain_indication = "<span class='notice'>Your muscles hurt!</span>"
 	species_allowed = list(SPECIES_HUMAN) //no skeleton/lizard hulk
 	mobtypes_allowed = list(/mob/living/carbon/human)
 	health_req = 25
