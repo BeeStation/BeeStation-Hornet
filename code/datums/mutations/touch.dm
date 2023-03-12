@@ -1,11 +1,9 @@
 /datum/mutation/shock
 	name = "Shock Touch"
-	desc = "The affected can channel excess electricity through their hands without shocking themselves, allowing them to shock others."
+	desc = "A mutation that allows the user to store accumulated bioelectric and static charge, consciously discharging it upon others with no harm to themselves."
 	quality = POSITIVE
 	locked = TRUE
 	difficulty = 16
-	text_gain_indication = "<span class='notice'>You feel power flow through your hands.</span>"
-	text_lose_indication = "<span class='notice'>The energy in your hands subsides.</span>"
 	power = /obj/effect/proc_holder/spell/targeted/touch/shock
 	instability = 30
 	locked = TRUE
