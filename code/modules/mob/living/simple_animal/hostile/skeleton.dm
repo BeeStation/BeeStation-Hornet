@@ -26,7 +26,7 @@
 	stat_attack = UNCONSCIOUS
 	gold_core_spawnable = HOSTILE_SPAWN
 	faction = list("skeleton")
-	see_in_dark = NIGHTVISION_FOV_RANGE
+	see_in_dark = NIGHTVISION_RANGE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	deathmessage = "collapses into a pile of bones!"
 	del_on_death = TRUE

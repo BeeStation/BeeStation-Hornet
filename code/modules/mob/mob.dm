@@ -1118,7 +1118,7 @@
  * this does NOT check if the mob is missing it's eyeballs. Also see_in_dark is a BYOND mob var (that defaults to 2)
 **/
 /mob/proc/has_nightvision()
-	return see_in_dark >= NIGHTVISION_FOV_RANGE
+	return see_in_dark >= NIGHTVISION_RANGE
 
 /// Can this nerd read
 /mob/proc/is_literate()
@@ -1130,7 +1130,7 @@
  * Args:
  *  light_amount (optional) - A decimal amount between 1.0 through 0.0 (default is 0.2)
 **/
-/mob/proc/has_light_nearby(light_amount = LIGHTING_TILE_IS_DARK)
+/mob/proc/has_light_on_turf(light_amount = LIGHTING_TILE_IS_DARK)
 	var/turf/mob_location = get_turf(src)
 	return mob_location.get_lumcount() > light_amount
 
@@ -1144,7 +1144,7 @@
 		to_chat(src, "<span class='warning'>You try to read [O], but can't comprehend any of it.</span>")
 		return FALSE
 
-	if(!has_light_nearby() && !has_nightvision())
+	if(!has_light_on_turf() && !has_nightvision())
 		to_chat(src, "<span class='warning'>It's too dark in here to read!</span>")
 		return FALSE
 
