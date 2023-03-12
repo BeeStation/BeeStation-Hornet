@@ -24362,16 +24362,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/plating,
 /area/maintenance/department/security)
 "iPm" = (
