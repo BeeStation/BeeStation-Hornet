@@ -2954,7 +2954,7 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/central{
-	dynamic_lighting = 2;
+	dynamic_lighting = 1;
 	lighting_brightness_tube = 11;
 	lighting_colour_bulb = "#DDE6FF";
 	lighting_colour_night = "#DDE6FF";
@@ -12277,7 +12277,7 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/central{
-	dynamic_lighting = 2;
+	dynamic_lighting = 1;
 	lighting_brightness_tube = 11;
 	lighting_colour_bulb = "#DDE6FF";
 	lighting_colour_night = "#DDE6FF";
@@ -18900,7 +18900,7 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/central{
-	dynamic_lighting = 2;
+	dynamic_lighting = 1;
 	lighting_brightness_tube = 11;
 	lighting_colour_bulb = "#DDE6FF";
 	lighting_colour_night = "#DDE6FF";
@@ -23529,7 +23529,7 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/central{
-	dynamic_lighting = 2;
+	dynamic_lighting = 1;
 	lighting_brightness_tube = 11;
 	lighting_colour_bulb = "#DDE6FF";
 	lighting_colour_night = "#DDE6FF";
@@ -31756,7 +31756,7 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/central{
-	dynamic_lighting = 2;
+	dynamic_lighting = 1;
 	lighting_brightness_tube = 11;
 	lighting_colour_bulb = "#DDE6FF";
 	lighting_colour_night = "#DDE6FF";
@@ -34590,7 +34590,7 @@
 /obj/effect/turf_decal/siding/wideplating/dark,
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/central{
-	dynamic_lighting = 2;
+	dynamic_lighting = 1;
 	lighting_brightness_tube = 11;
 	lighting_colour_bulb = "#DDE6FF";
 	lighting_colour_night = "#DDE6FF";
@@ -35820,7 +35820,7 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/central{
-	dynamic_lighting = 2;
+	dynamic_lighting = 1;
 	lighting_brightness_tube = 11;
 	lighting_colour_bulb = "#DDE6FF";
 	lighting_colour_night = "#DDE6FF";
@@ -36838,7 +36838,7 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/central{
-	dynamic_lighting = 2;
+	dynamic_lighting = 1;
 	lighting_brightness_tube = 11;
 	lighting_colour_bulb = "#DDE6FF";
 	lighting_colour_night = "#DDE6FF";
@@ -40959,7 +40959,7 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/central{
-	dynamic_lighting = 2;
+	dynamic_lighting = 1;
 	lighting_brightness_tube = 11;
 	lighting_colour_bulb = "#DDE6FF";
 	lighting_colour_night = "#DDE6FF";
@@ -46829,7 +46829,7 @@
 /obj/effect/turf_decal/siding/wideplating/dark,
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/central{
-	dynamic_lighting = 2;
+	dynamic_lighting = 1;
 	lighting_brightness_tube = 11;
 	lighting_colour_bulb = "#DDE6FF";
 	lighting_colour_night = "#DDE6FF";
@@ -47743,7 +47743,7 @@
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer2,
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/central{
-	dynamic_lighting = 2;
+	dynamic_lighting = 1;
 	lighting_brightness_tube = 11;
 	lighting_colour_bulb = "#DDE6FF";
 	lighting_colour_night = "#DDE6FF";
@@ -50081,7 +50081,7 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/central{
-	dynamic_lighting = 2;
+	dynamic_lighting = 1;
 	lighting_brightness_tube = 11;
 	lighting_colour_bulb = "#DDE6FF";
 	lighting_colour_night = "#DDE6FF";
@@ -51932,7 +51932,7 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/central{
-	dynamic_lighting = 2;
+	dynamic_lighting = 1;
 	lighting_brightness_tube = 11;
 	lighting_colour_bulb = "#DDE6FF";
 	lighting_colour_night = "#DDE6FF";
@@ -55764,7 +55764,7 @@
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/central{
-	dynamic_lighting = 2;
+	dynamic_lighting = 1;
 	lighting_brightness_tube = 11;
 	lighting_colour_bulb = "#DDE6FF";
 	lighting_colour_night = "#DDE6FF";
@@ -57702,7 +57702,7 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/central{
-	dynamic_lighting = 2;
+	dynamic_lighting = 1;
 	lighting_brightness_tube = 11;
 	lighting_colour_bulb = "#DDE6FF";
 	lighting_colour_night = "#DDE6FF";
@@ -58520,7 +58520,7 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/central{
-	dynamic_lighting = 2;
+	dynamic_lighting = 1;
 	lighting_brightness_tube = 11;
 	lighting_colour_bulb = "#DDE6FF";
 	lighting_colour_night = "#DDE6FF";
