@@ -178,11 +178,11 @@
 			ui_update()
 			if(allowed(usr))
 				say("Credentials successfully verified, commencing extraction.")
-				src.timerid = addtimer(CALLBACK(src, .proc/extraction,usr), 300, TIMER_STOPPABLE)
+				src.timerid = addtimer(CALLBACK(src, PROC_REF(extraction),usr), 300, TIMER_STOPPABLE)
 			else
 				var/message = "ALERT: UNAUTHORIZED UPLOAD KEY EXTRACTION AT [get_area_name(loc, TRUE)]"
 				radio.talk_into(src, message, radio_channel)
-				src.timerid = addtimer(CALLBACK(src, .proc/extraction,usr), 600, TIMER_STOPPABLE)
+				src.timerid = addtimer(CALLBACK(src, PROC_REF(extraction),usr), 600, TIMER_STOPPABLE)
 
 
 

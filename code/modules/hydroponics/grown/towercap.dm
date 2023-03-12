@@ -16,6 +16,7 @@
 	icon_dead = "towercap-dead"
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
 	mutatelist = list(/obj/item/seeds/tower/steel)
+	reagents_add = list(/datum/reagent/carbon = 0.5)
 
 /obj/item/seeds/tower/steel
 	name = "pack of steel-cap mycelium"
@@ -25,6 +26,7 @@
 	plantname = "Steel Caps"
 	product = /obj/item/grown/log/steel
 	mutatelist = list()
+	reagents_add = list(/datum/reagent/iron = 0.2)
 	rarity = 20
 
 
@@ -41,7 +43,7 @@
 	throw_speed = 2
 	throw_range = 3
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
-	var/plank_type = /obj/item/stack/sheet/mineral/wood
+	var/plank_type = /obj/item/stack/sheet/wood
 	var/plank_name = "wooden planks"
 	var/static/list/accepted = typecacheof(list(/obj/item/reagent_containers/food/snacks/grown/tobacco,
 	/obj/item/reagent_containers/food/snacks/grown/tea,
@@ -119,7 +121,7 @@
 	name = "bamboo log"
 	desc = "A long and resistant bamboo log."
 	icon_state = "bamboo"
-	plank_type = /obj/item/stack/sheet/mineral/bamboo
+	plank_type = /obj/item/stack/sheet/bamboo
 	plank_name = "bamboo sticks"
 	discovery_points = 300
 
@@ -181,7 +183,7 @@
 /obj/structure/bonfire/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddComponent(/datum/element/connect_loc, loc_connections)
 

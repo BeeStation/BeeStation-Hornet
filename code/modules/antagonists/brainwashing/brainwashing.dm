@@ -62,7 +62,7 @@
 
 /datum/antagonist/brainwashed/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	//Give traitor appearence on hud (If they are not an antag already)
+	//Give traitor appearance on hud (If they are not an antag already)
 	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_BRAINWASHED]
 	traitorhud.join_hud(owner.current)
 	if(!owner.antag_hud_icon_state)
@@ -88,7 +88,7 @@
 			log_objective(C, objective, admin)
 	while(alert(admin,"Add another objective?","More Brainwashing","Yes","No") == "Yes")
 
-	if(alert(admin,"Confirm Brainwashing?","Are you sure?","Yes","No") == "No")
+	if(alert(admin,"Confirm Brainwashing?","Are you sure?","Yes","No") != "Yes")
 		return
 
 	if(!LAZYLEN(objectives))

@@ -67,7 +67,7 @@
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
 	if(red_alert_access)
-		RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, .proc/handle_alert)
+		RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, PROC_REF(handle_alert))
 
 /obj/machinery/door/proc/handle_alert(datum/source, new_alert)
 	SIGNAL_HANDLER
@@ -144,8 +144,8 @@
 	. = ..()
 	if(.)
 		return
-	// Snowflake handling for PASSGLASS.
-	if(istype(mover) && (mover.pass_flags & PASSGLASS))
+	// Snowflake handling for PASSTRANSPARENT.
+	if(istype(mover) && (mover.pass_flags & PASSTRANSPARENT))
 		return !opacity
 
 /// Helper method for bumpopen() and try_to_activate_door(). Don't override.
@@ -265,12 +265,12 @@
 	if (. & EMP_PROTECT_SELF)
 		return
 	if(prob(20/severity) && (istype(src, /obj/machinery/door/airlock) || istype(src, /obj/machinery/door/window)) )
-		INVOKE_ASYNC(src, .proc/open)
+		INVOKE_ASYNC(src, PROC_REF(open))
 	if(prob(severity*10 - 20))
 		if(secondsElectrified == MACHINE_NOT_ELECTRIFIED)
 			secondsElectrified = MACHINE_ELECTRIFIED_PERMANENT
 			LAZYADD(shockedby, "\[[time_stamp()]\]EM Pulse")
-			addtimer(CALLBACK(src, .proc/unelectrify), 300)
+			addtimer(CALLBACK(src, PROC_REF(unelectrify)), 300)
 
 /obj/machinery/door/proc/unelectrify()
 	secondsElectrified = MACHINE_NOT_ELECTRIFIED
@@ -307,10 +307,10 @@
 	do_animate("opening")
 	set_opacity(0)
 	sleep(open_speed)
-	density = FALSE
+	set_density(FALSE)
 	sleep(open_speed)
 	layer = initial(layer)
-	update_icon()
+	update_appearance()
 	set_opacity(0)
 	operating = FALSE
 	air_update_turf(1)
@@ -337,9 +337,9 @@
 	do_animate("closing")
 	layer = closingLayer
 	if(air_tight)
-		density = TRUE
+		set_density(TRUE)
 	sleep(open_speed)
-	density = TRUE
+	set_density(TRUE)
 	sleep(open_speed)
 	update_icon()
 	if(visible && !glass)
@@ -389,7 +389,7 @@
 		close()
 
 /obj/machinery/door/proc/autoclose_in(wait)
-	addtimer(CALLBACK(src, .proc/autoclose), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, PROC_REF(autoclose)), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
 
 /// Is the ID Scan wire cut, or has the AI disabled it?
 /// This has a variety of non-uniform effects - it doesn't simply grant access.

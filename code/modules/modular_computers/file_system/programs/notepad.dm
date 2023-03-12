@@ -4,7 +4,9 @@
 	category = PROGRAM_CATEGORY_MISC
 	program_icon_state = "generic"
 	extended_desc = "Jot down your work-safe thoughts and what not."
-	size = 2
+	size = 0
+	undeletable = TRUE // It comes by default in PDAs, can't be downloaded, takes no space and should obviously not be able to be deleted.
+	available_on_ntnet = FALSE
 	tgui_id = "NtosNotepad"
 	program_icon = "book"
 	usage_flags = PROGRAM_TABLET
@@ -30,7 +32,7 @@
 
 
 /datum/computer_file/program/notepad/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 	var/obj/item/modular_computer/tablet/tablet = computer
 	if(!istype(tablet))
 		return data

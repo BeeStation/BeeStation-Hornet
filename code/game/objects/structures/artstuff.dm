@@ -241,6 +241,7 @@
 	flags_1 = NONE
 	icon_state = "frame-empty"
 	result_path = /obj/structure/sign/painting
+	pixel_shift = -32
 
 /obj/structure/sign/painting
 	name = "Painting"
@@ -258,11 +259,6 @@
 /obj/structure/sign/painting/Initialize(mapload, dir, building)
 	. = ..()
 	SSpersistence.painting_frames += src
-	if(dir)
-		setDir(dir)
-	if(building)
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -30 : 30)
-		pixel_y = (dir & 3)? (dir ==1 ? -30 : 30) : 0
 
 /obj/structure/sign/painting/Destroy()
 	. = ..()

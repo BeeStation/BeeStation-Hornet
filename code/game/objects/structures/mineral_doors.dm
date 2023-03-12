@@ -85,18 +85,18 @@
 
 /obj/structure/mineral_door/proc/Open()
 	isSwitchingStates = TRUE
-	playsound(src, openSound, 100, 1)
+	playsound(src, openSound, 100, TRUE)
 	set_opacity(FALSE)
 	flick("[initial(icon_state)]opening",src)
-	sleep(10)
-	density = FALSE
+	sleep(1 SECONDS)
+	set_density(FALSE)
 	door_opened = TRUE
 	air_update_turf(1)
-	update_icon()
+	update_appearance()
 	isSwitchingStates = FALSE
 
 	if(close_delay != -1)
-		addtimer(CALLBACK(src, .proc/Close), close_delay)
+		addtimer(CALLBACK(src, PROC_REF(Close)), close_delay)
 
 /obj/structure/mineral_door/proc/Close()
 	if(isSwitchingStates || !door_opened)
@@ -105,18 +105,19 @@
 	for(var/mob/living/L in T)
 		return
 	isSwitchingStates = TRUE
-	playsound(src, closeSound, 100, 1)
+	playsound(src, closeSound, 100, TRUE)
 	flick("[initial(icon_state)]closing",src)
-	sleep(10)
-	density = TRUE
+	sleep(1 SECONDS)
+	set_density(TRUE)
 	set_opacity(TRUE)
 	door_opened = FALSE
 	air_update_turf(1)
-	update_icon()
+	update_appearance()
 	isSwitchingStates = FALSE
 
 /obj/structure/mineral_door/update_icon()
 	icon_state = "[initial(icon_state)][door_opened ? "open":""]"
+	return ..()
 
 /obj/structure/mineral_door/attackby(obj/item/I, mob/user)
 	if(pickaxe_door(user, I))
@@ -279,7 +280,7 @@
 	icon_state = "wood"
 	openSound = 'sound/effects/doorcreaky.ogg'
 	closeSound = 'sound/effects/doorcreaky.ogg'
-	sheetType = /obj/item/stack/sheet/mineral/wood
+	sheetType = /obj/item/stack/sheet/wood
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
@@ -335,7 +336,7 @@
 
 	if((user.a_intent != INTENT_HARM) && istype(I, /obj/item/paper) && (obj_integrity < max_integrity))
 		user.visible_message("[user] starts to patch the holes in [src].", "<span class='notice'>You start patching some of the holes in [src]!</span>")
-		if(do_after(user, 20, TRUE, src))
+		if(do_after(user, 20, src))
 			obj_integrity = min(obj_integrity+4,max_integrity)
 			qdel(I)
 			user.visible_message("[user] patches some of the holes in [src].", "<span class='notice'>You patch some of the holes in [src]!</span>")

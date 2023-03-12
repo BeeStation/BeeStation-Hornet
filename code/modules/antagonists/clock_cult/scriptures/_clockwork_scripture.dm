@@ -69,7 +69,7 @@
 	if(recital_sound)
 		SEND_SOUND(invoker, recital_sound)
 	if(text_point < stop_at)
-		invokation_chant_timer = addtimer(CALLBACK(src, .proc/recite, text_point+1, wait_time, stop_at), wait_time, TIMER_STOPPABLE)
+		invokation_chant_timer = addtimer(CALLBACK(src, PROC_REF(recite), text_point+1, wait_time, stop_at), wait_time, TIMER_STOPPABLE)
 
 /datum/clockcult/scripture/proc/check_special_requirements(mob/user)
 	if(!invoker || !invoking_slab)
@@ -104,7 +104,7 @@
 		end_invoke()
 		return
 	recital()
-	if(do_after(M, invokation_time, target=M, extra_checks=CALLBACK(src, .proc/check_special_requirements, M)))
+	if(do_after(M, invokation_time, target=M, extra_checks=CALLBACK(src, PROC_REF(check_special_requirements), M)))
 		invoke()
 		to_chat(M, "<span class='brass'>You invoke [name].</span>")
 		if(end_on_invokation)
@@ -194,7 +194,7 @@
 	time_left --
 	loop_timer_id = null
 	if(time_left > 0)
-		loop_timer_id = addtimer(CALLBACK(src, .proc/count_down), 1, TIMER_STOPPABLE)
+		loop_timer_id = addtimer(CALLBACK(src, PROC_REF(count_down)), 1, TIMER_STOPPABLE)
 	else
 		end_invokation()
 

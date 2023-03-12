@@ -8,7 +8,7 @@
 	layer = LOW_ITEM_LAYER
 	anchored = TRUE
 	climbable = TRUE
-	pass_flags_self = PASSGLASS
+	pass_flags_self = PASSTRANSPARENT
 	var/tube_construction = /obj/structure/c_transit_tube
 	var/list/tube_dirs //list of directions this tube section can connect to.
 	var/exit_delay = 1
@@ -231,7 +231,7 @@
 /obj/structure/transit_tube/junction/init_tube_dirs()
 	switch(dir)
 		if(NORTH)
-			tube_dirs = list(NORTH, SOUTHEAST, SOUTHWEST)//ending with the prefered direction
+			tube_dirs = list(NORTH, SOUTHEAST, SOUTHWEST)//ending with the preferred direction
 		if(SOUTH)
 			tube_dirs = list(SOUTH, NORTHWEST, NORTHEAST)
 		if(EAST)
@@ -246,7 +246,7 @@
 /obj/structure/transit_tube/junction/flipped/init_tube_dirs()
 	switch(dir)
 		if(NORTH)
-			tube_dirs = list(NORTH, SOUTHWEST, SOUTHEAST)//ending with the prefered direction
+			tube_dirs = list(NORTH, SOUTHWEST, SOUTHEAST)//ending with the preferred direction
 		if(SOUTH)
 			tube_dirs = list(SOUTH, NORTHEAST, NORTHWEST)
 		if(EAST)

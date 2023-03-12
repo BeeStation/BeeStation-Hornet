@@ -27,7 +27,7 @@
 		if(M.buffer && istype(M.buffer, /obj/machinery/launchpad))
 			if(LAZYLEN(launchpads) < maximum_pads)
 				launchpads |= M.buffer
-				RegisterSignal(M.buffer, COMSIG_PARENT_QDELETING, .proc/launchpad_deleted)
+				RegisterSignal(M.buffer, COMSIG_PARENT_QDELETING, PROC_REF(launchpad_deleted))
 				M.buffer = null
 				ui_update()
 				to_chat(user, "<span class='notice'>You upload the data from the [W.name]'s buffer.</span>")
@@ -134,7 +134,7 @@
 			current_pad.display_name = new_name
 			. = TRUE
 		if("remove")
-			if(usr && alert(usr, "Are you sure?", "Unlink Launchpad", "I'm Sure", "Abort") != "Abort")
+			if(usr && alert(usr, "Are you sure?", "Unlink Launchpad", "I'm Sure", "Abort") == "I'm Sure")
 				launchpads -= current_pad
 				selected_id = null
 			. = TRUE

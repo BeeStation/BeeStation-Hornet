@@ -62,14 +62,14 @@
 	var/obj/item/card/id/user_id = card_slot?.stored_card
 
 	if(!user_id || !(ACCESS_CHANGE_IDS in user_id.access))
-		return
+		return TRUE
 
 	switch(action)
 		if("PRG_open_job")
 			var/edit_job_target = params["target"]
 			var/datum/job/j = SSjob.GetJob(edit_job_target)
 			if(!j || !can_open_job(j))
-				return
+				return TRUE
 			if(opened_positions[edit_job_target] >= 0)
 				GLOB.time_last_changed_position = world.time / 10
 			j.total_positions++
@@ -80,7 +80,7 @@
 			var/edit_job_target = params["target"]
 			var/datum/job/j = SSjob.GetJob(edit_job_target)
 			if(!j || !can_close_job(j))
-				return
+				return TRUE
 			//Allow instant closing without cooldown if a position has been opened before
 			if(opened_positions[edit_job_target] <= 0)
 				GLOB.time_last_changed_position = world.time / 10
@@ -92,9 +92,9 @@
 			var/priority_target = params["target"]
 			var/datum/job/j = SSjob.GetJob(priority_target)
 			if(!j)
-				return
+				return TRUE
 			if(j.total_positions <= j.current_positions)
-				return
+				return TRUE
 			if(j in SSjob.prioritized_jobs)
 				SSjob.prioritized_jobs -= j
 			else
@@ -107,7 +107,7 @@
 
 
 /datum/computer_file/program/job_management/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 
 	var/authed = FALSE
 	var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]

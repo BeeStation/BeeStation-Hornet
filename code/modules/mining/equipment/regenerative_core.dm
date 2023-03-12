@@ -34,7 +34,7 @@
 
 /obj/item/organ/regenerative_core/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/inert_check), 2400)
+	addtimer(CALLBACK(src, PROC_REF(inert_check)), 2400)
 
 /obj/item/organ/regenerative_core/proc/inert_check()
 	if(!preserved)
@@ -120,9 +120,6 @@
 		owner.visible_message("<span class='notice'>[src] rapidly decays as it's removed.</span>")
 		go_inert()
 	return ..()
-
-/obj/item/organ/regenerative_core/prepare_eat()
-	return null
 
 /*************************Legion core********************/
 /obj/item/organ/regenerative_core/legion

@@ -78,9 +78,9 @@
 	name = "\improper APLU MK-II \"Ripley\""
 	icon_state = "ripleymkii"
 	base_icon_state = "ripleymkii"
-	fast_pressure_step_in = 2 //step_in while in low pressure conditions
-	slow_pressure_step_in = 4 //step_in while in normal pressure conditions
-	step_in = 4
+	fast_pressure_step_in = 1.75 //step_in while in low pressure conditions
+	slow_pressure_step_in = 3 //step_in while in normal pressure conditions
+	step_in = 3
 	armor = list("melee" = 40, "bullet" = 20, "laser" = 10, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
 	wreckage = /obj/structure/mecha_wreckage/ripley/mkii
 	enclosed = TRUE

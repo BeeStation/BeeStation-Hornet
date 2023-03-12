@@ -44,13 +44,13 @@
 	return ..()
 
 /datum/component/cult_ritual_item/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, .proc/try_scribe_rune)
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK, .proc/try_purge_holywater)
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_OBJ, .proc/try_hit_object)
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_EFFECT, .proc/try_clear_rune)
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(try_scribe_rune))
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(try_purge_holywater))
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK_OBJ, PROC_REF(try_hit_object))
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK_EFFECT, PROC_REF(try_clear_rune))
 
 	if(examine_message)
-		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/on_examine)
+		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 
 /datum/component/cult_ritual_item/UnregisterFromParent()
 	UnregisterSignal(parent, list(
@@ -92,7 +92,7 @@
 		to_chat(user, "<span class='warning'>You are already drawing a rune.</span>")
 		return
 
-	INVOKE_ASYNC(src, .proc/start_scribe_rune, source, user)
+	INVOKE_ASYNC(src, PROC_REF(start_scribe_rune), source, user)
 
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
@@ -112,7 +112,7 @@
 	if(!target.reagents.get_reagent(/datum/reagent/water/holywater))
 		return
 
-	INVOKE_ASYNC(src, .proc/do_purge_holywater, user)
+	INVOKE_ASYNC(src, PROC_REF(do_purge_holywater), user)
 
 /*
  * Signal proc for [COMSIG_ITEM_ATTACK_OBJ].
@@ -125,11 +125,11 @@
 		return
 
 	if(istype(target, /obj/structure/girder/cult))
-		INVOKE_ASYNC(src, .proc/do_destroy_girder, target, cultist)
+		INVOKE_ASYNC(src, PROC_REF(do_destroy_girder), target, cultist)
 		return COMPONENT_NO_AFTERATTACK
 
 	if(istype(target, /obj/structure/destructible/cult))
-		INVOKE_ASYNC(src, .proc/do_unanchor_structure, target, cultist)
+		INVOKE_ASYNC(src, PROC_REF(do_unanchor_structure), target, cultist)
 		return COMPONENT_NO_AFTERATTACK
 
 /*
@@ -143,7 +143,7 @@
 		return
 
 	if(istype(target, /obj/effect/rune))
-		INVOKE_ASYNC(src, .proc/do_scrape_rune, target, cultist)
+		INVOKE_ASYNC(src, PROC_REF(do_scrape_rune), target, cultist)
 		return COMPONENT_NO_AFTERATTACK
 
 
@@ -348,7 +348,7 @@
 		to_chat(cultist, "<span class='cultlarge'>\"I am already here. There is no need to try to summon me now.\"</span>")
 		return FALSE
 	var/confirm_final = alert(cultist, "This is the FINAL step to summon Nar'Sie; it is a long, painful ritual and the crew will be alerted to your presence.", "Are you prepared for the final battle?", "My life for Nar'Sie!", "No")
-	if(confirm_final == "No")
+	if(confirm_final == "No" || !confirm_final)
 		to_chat(cultist, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
 		return
 	if(!check_if_in_ritual_site(cultist, cult_team))

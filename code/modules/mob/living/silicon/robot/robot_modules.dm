@@ -104,7 +104,7 @@
 			G.source = get_or_create_estorage(/datum/robot_energy_storage/metal)
 			G.glasource = get_or_create_estorage(/datum/robot_energy_storage/glass)
 
-		else if(istype(S, /obj/item/stack/tile/brass))
+		else if(istype(S, /obj/item/stack/sheet/brass))
 			S.cost = 500
 			S.source = get_or_create_estorage(/datum/robot_energy_storage/brass)
 
@@ -199,7 +199,7 @@
 	R.update_module_innate()
 	RM.rebuild_modules()
 	R.set_modularInterface_theme()
-	INVOKE_ASYNC(RM, .proc/do_transform_animation)
+	INVOKE_ASYNC(RM, PROC_REF(do_transform_animation))
 	qdel(src)
 	return RM
 
@@ -266,7 +266,7 @@
 		/obj/item/reagent_containers/borghypo/epi,
 		/obj/item/healthanalyzer,
 		/obj/item/borg/charger,
-		/obj/item/weldingtool/largetank/cyborg,
+		/obj/item/weldingtool/cyborg,
 		/obj/item/wrench/cyborg,
 		/obj/item/crowbar/cyborg,
 		/obj/item/stack/sheet/iron/cyborg,
@@ -285,7 +285,7 @@
 		/obj/item/clock_module/kindle,
 		/obj/item/clock_module/abstraction_crystal,
 		/obj/item/clockwork/replica_fabricator,
-		/obj/item/stack/tile/brass/cyborg,
+		/obj/item/stack/sheet/brass/cyborg,
 		/obj/item/clockwork/weapon/brass_spear)
 	moduleselect_icon = "standard"
 	hat_offset = -3
@@ -296,6 +296,7 @@
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/healthanalyzer,
 		/obj/item/borg/charger,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/reagent_containers/borghypo,
 		/obj/item/borg/apparatus/beaker,
 		/obj/item/reagent_containers/dropper,
@@ -334,7 +335,7 @@
 		/obj/item/construction/rcd/borg,
 		/obj/item/pipe_dispenser,
 		/obj/item/extinguisher,
-		/obj/item/weldingtool/largetank/cyborg,
+		/obj/item/weldingtool/cyborg,
 		/obj/item/screwdriver/cyborg,
 		/obj/item/wrench/cyborg,
 		/obj/item/crowbar/cyborg,
@@ -361,7 +362,7 @@
 		/obj/item/clock_module/stargazer,
 		/obj/item/clock_module/abstraction_crystal,
 		/obj/item/clockwork/replica_fabricator,
-		/obj/item/stack/tile/brass/cyborg)
+		/obj/item/stack/sheet/brass/cyborg)
 	cyborg_base_icon = "engineer"
 	moduleselect_icon = "engineer"
 	magpulsing = TRUE
@@ -374,6 +375,7 @@
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/melee/baton/loaded,
 		/obj/item/borg/charger,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/shield/riot/tele,
 		/obj/item/gun/energy/disabler/cyborg,
 		/obj/item/melee/transforming/energy/sword/cyborg,
@@ -394,6 +396,7 @@
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/melee/baton/loaded,
 		/obj/item/borg/charger,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/gun/energy/disabler/cyborg,
 		/obj/item/clothing/mask/gas/sechailer/cyborg,
 		/obj/item/extinguisher/mini)
@@ -430,6 +433,7 @@
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/cookiesynth,
 		/obj/item/borg/charger,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/harmalarm,
 		/obj/item/reagent_containers/borghypo/peace,
 		/obj/item/holosign_creator/cyborg,
@@ -462,6 +466,7 @@
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/soap/nanotrasen,
 		/obj/item/borg/charger,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/storage/bag/trash/cyborg,
 		/obj/item/melee/flyswatter,
 		/obj/item/extinguisher/mini,
@@ -504,6 +509,7 @@
 		/obj/item/bikehorn/airhorn,
 		/obj/item/paint/anycolor,
 		/obj/item/borg/charger,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/soap/nanotrasen,
 		/obj/item/pneumatic_cannon/pie/selfcharge/cyborg,
 		/obj/item/razor,					//killbait material
@@ -536,6 +542,7 @@
 		/obj/item/hand_labeler/borg,
 		/obj/item/razor,
 		/obj/item/borg/charger,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/rsf,
 		/obj/item/cookiesynth,
 		/obj/item/instrument/piano_synth,
@@ -571,7 +578,7 @@
 		"Kent" = image(icon = 'icons/mob/robots.dmi', icon_state = "kent"),
 		"Tophat" = image(icon = 'icons/mob/robots.dmi', icon_state = "tophat")
 	)
-	var/service_robot_icon = show_radial_menu(cyborg, cyborg, service_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_module), radius = 42, require_near = TRUE)
+	var/service_robot_icon = show_radial_menu(cyborg, cyborg, service_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), cyborg, old_module), radius = 42, require_near = TRUE)
 	switch(service_robot_icon)
 		if("Waitress")
 			cyborg_base_icon = "service_f"
@@ -610,7 +617,7 @@
 		/obj/item/shovel,
 		/obj/item/borg/charger,
 		/obj/item/crowbar/cyborg,
-		/obj/item/weldingtool/mini,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/extinguisher/mini,
 		/obj/item/storage/bag/sheetsnatcher/borg,
 		/obj/item/gun/energy/kinetic_accelerator/cyborg,
@@ -634,7 +641,7 @@
 		"Asteroid Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "minerOLD"),
 		"Spider Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "spidermin")
 	)
-	var/miner_robot_icon = show_radial_menu(cyborg, cyborg, miner_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_module), radius = 42, require_near = TRUE)
+	var/miner_robot_icon = show_radial_menu(cyborg, cyborg, miner_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), cyborg, old_module), radius = 42, require_near = TRUE)
 	switch(miner_robot_icon)
 		if("Lavaland Miner")
 			cyborg_base_icon = "miner"
@@ -665,6 +672,7 @@
 		/obj/item/gun/ballistic/revolver/grenadelauncher/cyborg,
 		/obj/item/card/emag,
 		/obj/item/borg/charger,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/crowbar/cyborg,
 		/obj/item/extinguisher/mini,
 		/obj/item/pinpointer/syndicate_cyborg)
@@ -692,6 +700,7 @@
 		/obj/item/healthanalyzer,
 		/obj/item/surgical_drapes,
 		/obj/item/borg/charger,
+		/obj/item/weldingtool/cyborg/mini,
 		/obj/item/retractor,
 		/obj/item/hemostat,
 		/obj/item/cautery,
@@ -721,7 +730,7 @@
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/borg/charger,
 		/obj/item/extinguisher,
-		/obj/item/weldingtool/largetank/cyborg,
+		/obj/item/weldingtool/cyborg,
 		/obj/item/screwdriver/nuke,
 		/obj/item/wrench/cyborg,
 		/obj/item/crowbar/cyborg,

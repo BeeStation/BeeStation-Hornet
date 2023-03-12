@@ -76,7 +76,7 @@
 	playsound(M, 'sound/effects/attackblob.ogg', 50, 1)
 
 	if(M.applied >= SLIME_EXTRACT_CROSSING_REQUIRED)
-		M.spawn_corecross()
+		M.spawn_corecross(user)
 
 /obj/item/slime_extract/grey
 	name = "grey slime extract"
@@ -260,7 +260,7 @@
 					to_chat(user, "<span class='warning'>Your glow is already enhanced!</span>")
 					return
 				lum_species.update_glow(user, 5)
-				addtimer(CALLBACK(lum_species, /datum/species/jelly/luminescent.proc/update_glow, user, LUMINESCENT_DEFAULT_GLOW), 600)
+				addtimer(CALLBACK(lum_species, TYPE_PROC_REF(/datum/species/jelly/luminescent, update_glow), user, LUMINESCENT_DEFAULT_GLOW), 600)
 				to_chat(user, "<span class='notice'>You start glowing brighter.</span>")
 				return 60 SECONDS
 			else
@@ -483,7 +483,7 @@
 				return
 			to_chat(user, "<span class='notice'>You feel your skin harden and become more resistant.</span>")
 			species.armor += 25
-			addtimer(CALLBACK(src, .proc/reset_armor, species), 120 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(reset_armor), species), 120 SECONDS)
 			return 45 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
@@ -735,7 +735,7 @@
 	if(being_used || !ismob(M))
 		return
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER))
-		to_chat(user, "<span class='warning'>[src] seems to fizzle out of existance. Guess the universe is unable to support more intelligence right now.</span>")
+		to_chat(user, "<span class='warning'>[src] seems to fizzle out of existence. Guess the universe is unable to support more intelligence right now.</span>")
 		do_sparks(5, FALSE, get_turf(src))
 		qdel(src)
 		return
@@ -758,7 +758,7 @@
 		var/mob/dead/observer/C = pick(candidates)
 		SM.key = C.key
 		SM.mind.enslave_mind_to_creator(user)
-		SM.sentience_act()
+		SM.sentience_act(user)
 		to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 		to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user.real_name] a great debt. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 		if(SM.flags_1 & HOLOGRAM_1) //Check to see if it's a holodeck creature
@@ -826,7 +826,7 @@
 
 	user.mind.transfer_to(SM)
 	SM.faction = user.faction.Copy()
-	SM.sentience_act() //Same deal here as with sentience
+	SM.sentience_act(user) //Same deal here as with sentience
 	user.death()
 	to_chat(SM, "<span class='notice'>In a quick flash, you feel your consciousness flow into [SM]!</span>")
 	to_chat(SM, "<span class='warning'>You are now [SM]. Your allegiances, alliances, and role is still the same as it was prior to consciousness transfer!</span>")
@@ -1008,7 +1008,7 @@
 
 /obj/item/slimepotion/slime/renaming
 	name = "renaming potion"
-	desc = "A potion that allows a self-aware being to change what name it subconciously presents to the world."
+	desc = "A potion that allows a self-aware being to change what name it subconsciously presents to the world."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potgreen"
 

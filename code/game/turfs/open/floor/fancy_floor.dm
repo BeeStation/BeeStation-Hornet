@@ -137,6 +137,12 @@
 	light_color = "#FF3333"
 	color = "#FF3333"
 
+/turf/open/floor/grass/fairy/orange
+	name = "orange fairygrass patch"
+	floor_tile = /obj/item/stack/tile/fairygrass/orange
+	light_color = "#FFA500"
+	color = "#FFA500"
+
 /turf/open/floor/grass/fairy/yellow
 	name = "yellow fairygrass patch"
 	floor_tile = /obj/item/stack/tile/fairygrass/yellow
@@ -179,7 +185,8 @@
 	icon = 'icons/turf/snow.dmi'
 	desc = "Looks cold."
 	icon_state = "snow"
-	ore_type = /obj/item/stack/sheet/mineral/snow
+	ore_type = /obj/item/stack/sheet/snow
+
 	planetary_atmos = TRUE
 	floor_tile = null
 	initial_gas_mix = FROZEN_ATMOS
