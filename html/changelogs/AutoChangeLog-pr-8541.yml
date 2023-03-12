@@ -1,0 +1,15 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - admin: Blackpowder and phlogiston now alert admins upon creation.
+  - code_imp: All objects made primarily or entirely of plasma now have their reactions
+      handled via atom/proc/plasma_ignition() instead of each having slight variations
+      of almost the same code defined individually.
+  - tweak: almost all objects made of plasma now react to being shot with lasers,
+      attacked with hot objects such as lit welders, and being exposed to flames.
+      This notably excludes plasma ore and plasma glass.
+  - tweak: Ground plasma in beakers now ignites when exposed to any heat increase
+      above ambient temperature. Chemists beware!
+  - balance: Plasma gas is no longer created as a byproduct of solid plasma burning
+      or spilling. Instead the various forms of solid plasma burn rapidly and brilliantly,
+      resulting in a small explosion with a bright flash and wide but brief flame.
