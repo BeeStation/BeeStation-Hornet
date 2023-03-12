@@ -2,7 +2,7 @@
  * All the different ruin part types.
  * Beacuse I couldn't figure out how to read every file in a directory
  * General rule for decent levels.
- *  - Peices that have only 1 connection should be of low weight
+ *  - Pieces that have only 1 connection should be of low weight
  *  - Hallway Ts and Xs should be of low weight if they don't have rooms attached
  *  - Straight hallways should have a middle weight
  *  - Interesting rooms with multiple connections should have a higher weight.
@@ -116,7 +116,7 @@
 /datum/map_template/ruin_part/singularity
 	file_name = "21x21_singularity"
 	weight = 3
-	max_occurances = 1
+	max_occurrences = 1
 
 /datum/map_template/ruin_part/maintroom
 	file_name = "9x5_maintroom"
@@ -141,12 +141,12 @@
 /datum/map_template/ruin_part/solars
 	file_name = "21x29_solars"
 	weight = 3
-	max_occurances = 2
+	max_occurrences = 2
 
 /datum/map_template/ruin_part/permbrig
 	file_name = "13x17_permabrig"
 	weight = 3
-	max_occurances = 2
+	max_occurrences = 2
 
 /datum/map_template/ruin_part/shotelroom
 	file_name = "13x13_shotelroom"
@@ -155,12 +155,12 @@
 /datum/map_template/ruin_part/supermattercontainment
 	file_name = "13x13_supermatter_containment"
 	weight = 4
-	max_occurances = 1
+	max_occurrences = 1
 
 /datum/map_template/ruin_part/gateway
 	file_name = "5x9_gateway"
 	weight = 1
-	max_occurances = 1
+	max_occurrences = 1
 
 /datum/map_template/ruin_part/shower
 	file_name = "5x5_shower"
@@ -183,7 +183,7 @@
 /datum/map_template/ruin_part/josito
 	file_name = "13x9_josito"
 	weight = 3
-	max_occurances = 1
+	max_occurrences = 1
 
 /datum/map_template/ruin_part/pizzaguard
 	file_name = "13x17_pizzaroom"
@@ -393,7 +393,7 @@
 /datum/map_template/ruin_part/chemlab
 	file_name = "9x9_chemlab"
 	weight = 3
-	max_occurances = 2
+	max_occurrences = 2
 
 /datum/map_template/ruin_part/lounge
 	file_name = "5x9_lounge"
@@ -403,24 +403,24 @@
 	file_name = "13x9_researchlab"
 	weight = 2
 	//Contains a research disk
-	max_occurances = 1
+	max_occurrences = 1
 
 /datum/map_template/ruin_part/hilberttest
 	file_name = "13x13_hilberttest"
 	weight = 5
 	loot_room = TRUE
-	max_occurances = 1
+	max_occurrences = 1
 
 /datum/map_template/ruin_part/ailab
 	file_name = "13x13_ai-lab"
 	weight = 5
 	loot_room = TRUE
-	max_occurances = 1
+	max_occurrences = 1
 
 /datum/map_template/ruin_part/cratestorage
 	file_name = "13x9_cratestorage"
 	weight = 3
-	max_occurances = 1
+	max_occurrences = 1
 
 /datum/map_template/ruin_part/medstorage
 	file_name = "9x13_medstorage"
@@ -433,17 +433,17 @@
 /datum/map_template/ruin_part/charliestation_mini
 	file_name = "17x17_charliecrew"
 	weight = 1
-	max_occurances = 1
+	max_occurrences = 1
 
 /datum/map_template/ruin_part/corgasteroid
 	file_name = "41x41_corgasteroid"
 	weight = 1
-	max_occurances = 1
+	max_occurrences = 1
 
 /datum/map_template/ruin_part/teleporter
 	file_name = "9x13_teleporter"
 	weight = 1
-	max_occurances = 1
+	max_occurrences = 1
 
 /datum/map_template/ruin_part/medicalroom
 	file_name = "13x9_medical"
@@ -464,7 +464,7 @@
 /datum/map_template/ruin_part/shuttledock_inside
 	file_name = "21x17_shuttledock"
 	weight = 4
-	max_occurances = 1
+	max_occurrences = 1
 
 /datum/map_template/ruin_part/syndicate_listening
 	file_name = "13x13_listening_base"
@@ -474,12 +474,12 @@
 /datum/map_template/ruin_part/shuttleconstructionbay
 	file_name = "25x21_shuttleconstructionbay"
 	weight = 5
-	max_occurances = 1 //Would be wacky if multiple of the same WIP shuttle showed up.
+	max_occurrences = 1 //Would be wacky if multiple of the same WIP shuttle showed up.
 
 /datum/map_template/ruin_part/vault
 	file_name = "9x13_vault"
 	weight = 2
-	max_occurances = 1
+	max_occurrences = 1
 
 /datum/map_template/ruin_part/pubbybridgehall
 	file_name = "17x9_pubbybridgehall"
@@ -488,7 +488,7 @@
 /datum/map_template/ruin_part/cloning
 	file_name = "9x5_cloning"
 	weight = 3
-	max_occurances = 1
+	max_occurrences = 1
 	loot_room = TRUE //Experimental cloner :flushed:
 
 /datum/map_template/ruin_part/cafe
@@ -498,4 +498,4 @@
 /datum/map_template/ruin_part/chapel
 	file_name = "13x17_chapel"
 	weight = 3
-	max_occurances = 1 //Multiple Nar'sie worshipping chaplain incidents would be wacky on one station.
+	max_occurrences = 1 //Multiple Nar'sie worshipping chaplain incidents would be wacky on one station.

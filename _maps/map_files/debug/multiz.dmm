@@ -1552,6 +1552,20 @@
 /obj/machinery/disposal/deliveryChute,
 /turf/open/floor/plating,
 /area/storage/primary)
+"kC" = (
+/obj/structure/elevator_segment/primary,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plasteel,
+/area/construction)
+"ll" = (
+/obj/structure/elevator_segment/primary,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plasteel,
+/area/construction)
 "ne" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -1590,12 +1604,17 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"oY" = (
+/obj/machinery/elevator_indicator{
+	id = "primary";
+	pixel_y = -24;
+	preset_z = 1
+	},
+/turf/open/floor/plasteel,
+/area/security)
 "pR" = (
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/captain)
-"qS" = (
-/turf/open/openspace,
-/area/shuttle/turbolift/shaft)
 "rr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1605,14 +1624,10 @@
 	},
 /area/bridge)
 "rS" = (
-/obj/machinery/turbolift_button{
-	pixel_y = -23;
-	shuttle_id = "turbolift_primary"
+/obj/machinery/elevator_interface/primary{
+	preset_z = 1;
+	pixel_y = -24
 	},
-/turf/open/floor/plasteel,
-/area/construction)
-"sG" = (
-/obj/machinery/door/airlock/turbolift,
 /turf/open/floor/plasteel,
 /area/construction)
 "ty" = (
@@ -1635,6 +1650,14 @@
 "vF" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/construction)
+"vN" = (
+/obj/machinery/elevator_indicator{
+	id = "primary";
+	pixel_y = -24;
+	preset_z = 1
 	},
 /turf/open/floor/plasteel,
 /area/construction)
@@ -1664,15 +1687,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/storage/primary)
-"Ao" = (
-/obj/docking_port/stationary/turbolift{
-	dwidth = 2;
-	height = 4;
-	id = "turbolift_primary";
-	width = 5
-	},
-/turf/open/openspace,
-/area/shuttle/turbolift/shaft)
 "Bm" = (
 /obj/machinery/light{
 	dir = 4
@@ -1698,6 +1712,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"CN" = (
+/obj/structure/elevator_segment/primary,
+/obj/machinery/light,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/plasteel,
+/area/construction)
 "Dm" = (
 /obj/machinery/light{
 	dir = 1
@@ -1705,18 +1727,25 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "DO" = (
-/turf/open/floor/plating,
-/area/shuttle/turbolift/shaft)
-"Ed" = (
-/turf/open/openspace,
+/obj/structure/elevator_segment/primary,
+/obj/machinery/elevator_interface/primary{
+	pixel_x = -24
+	},
+/obj/machinery/light,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/plasteel,
 /area/construction)
 "Ej" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/crew_quarters/heads/captain)
 "Eq" = (
-/obj/machinery/door/airlock/turbolift,
-/turf/open/floor/plating,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/public/glass,
+/obj/structure/elevator_segment/primary,
+/turf/open/floor/plasteel,
 /area/construction)
 "Fz" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -1725,6 +1754,13 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel,
 /area/security)
+"Gf" = (
+/obj/structure/elevator_segment/primary,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/construction)
 "Hg" = (
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -1732,6 +1768,14 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/ladder,
 /turf/open/floor/plasteel,
+/area/construction)
+"Hp" = (
+/obj/machinery/elevator_interface/primary{
+	preset_z = 1;
+	pixel_y = -24
+	},
+/obj/machinery/light,
+/turf/open/floor/plating,
 /area/construction)
 "HN" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
@@ -1817,10 +1861,24 @@
 /obj/machinery/light,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"NC" = (
+/obj/machinery/light,
+/obj/machinery/elevator_indicator{
+	id = "primary";
+	pixel_y = -24;
+	preset_z = 1
+	},
+/turf/open/floor/plating,
+/area/construction)
+"OE" = (
+/obj/structure/elevator_segment/primary,
+/obj/effect/turf_decal/plaque,
+/turf/open/floor/plasteel,
+/area/construction)
 "OJ" = (
-/obj/machinery/turbolift_button{
-	pixel_y = -23;
-	shuttle_id = "turbolift_primary"
+/obj/machinery/elevator_interface/primary{
+	preset_z = 1;
+	pixel_y = -24
 	},
 /turf/open/floor/plasteel,
 /area/security)
@@ -1837,12 +1895,17 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel,
 /area/security)
-"PB" = (
-/obj/docking_port/stationary/turbolift{
-	id = "turbolift_primary"
+"Pw" = (
+/obj/structure/elevator_segment/primary,
+/obj/machinery/elevator_indicator{
+	id = "primary";
+	pixel_x = -24
 	},
-/turf/open/openspace,
-/area/shuttle/turbolift/shaft)
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/construction)
 "PD" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
@@ -1854,10 +1917,6 @@
 /obj/structure/disposaloutlet,
 /turf/open/floor/plasteel,
 /area/storage/primary)
-"RP" = (
-/obj/machinery/door/airlock/turbolift,
-/turf/open/floor/plasteel,
-/area/security)
 "RU" = (
 /obj/structure/stairs,
 /turf/open/floor/plating,
@@ -1877,39 +1936,18 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel,
 /area/security)
-"Tg" = (
-/obj/machinery/turbolift_button{
-	pixel_y = -23;
-	shuttle_id = "turbolift_primary"
-	},
-/turf/open/floor/plating,
+"SI" = (
+/turf/open/openspace,
 /area/construction)
 "TU" = (
-/obj/docking_port/stationary/turbolift{
-	dwidth = 2;
-	height = 4;
-	id = "turbolift_primary";
-	roundstart_template = /datum/map_template/shuttle/turbolift/debug/primary;
-	width = 5
-	},
-/turf/open/floor/plating,
-/area/shuttle/turbolift/shaft)
+/obj/structure/elevator_segment/primary,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel,
+/area/construction)
 "Uc" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel,
 /area/security)
-"Vd" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/closed/wall/r_wall,
-/area/construction)
-"VL" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
-	},
-/turf/closed/wall/r_wall,
-/area/construction)
 "Wf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -1923,9 +1961,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/security)
-"WK" = (
-/obj/machinery/light,
-/turf/open/floor/plating,
+"WL" = (
+/obj/structure/elevator_segment/primary,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
 /area/construction)
 "Xm" = (
 /turf/open/floor/plasteel,
@@ -2793,12 +2834,12 @@ dn
 dn
 dn
 dn
+dn
+dn
+dn
+dL
 cN
-cN
-cN
-Vd
-cN
-ad
+af
 ad
 ac
 ab
@@ -2846,12 +2887,12 @@ dn
 dn
 dn
 dn
-WK
+dn
+NC
 cN
-DO
-DO
-DO
-DO
+cN
+cN
+cN
 ad
 ad
 ac
@@ -2901,10 +2942,10 @@ dn
 dn
 dn
 dn
+dn
 Eq
-DO
-DO
-DO
+kC
+Pw
 DO
 ad
 ad
@@ -2955,10 +2996,10 @@ dn
 dn
 dn
 dn
+dn
 Eq
-DO
-DO
-DO
+Gf
+OE
 TU
 ad
 ad
@@ -3009,11 +3050,11 @@ dn
 dn
 dn
 dn
+dn
 Eq
-DO
-DO
-DO
-DO
+ll
+WL
+CN
 ad
 ad
 ac
@@ -3062,12 +3103,12 @@ dn
 dn
 dn
 dn
-Tg
+dn
+Hp
 cN
-DO
-DO
-DO
-DO
+cN
+cN
+cN
 ad
 ad
 ac
@@ -3116,13 +3157,13 @@ dn
 dn
 dn
 dn
-WK
+dn
+dn
+dn
+dn
+dL
 cN
-cN
-cN
-Vd
-cN
-ad
+af
 ad
 ac
 ab
@@ -5602,12 +5643,12 @@ au
 au
 eL
 ep
+ep
+ep
+ep
+ep
 cN
-cN
-cN
-VL
-cN
-ad
+af
 ad
 au
 au
@@ -5656,11 +5697,11 @@ au
 au
 eL
 ep
+vN
 cN
-qS
-qS
-qS
-qS
+cN
+cN
+cN
 ad
 ad
 au
@@ -5707,14 +5748,14 @@ au
 au
 au
 au
-Ed
+au
 eL
 ep
-sG
-qS
-qS
-qS
-qS
+ep
+SI
+SI
+SI
+SI
 ad
 ad
 au
@@ -5764,11 +5805,11 @@ au
 au
 eL
 ep
-sG
-qS
-qS
-qS
-PB
+ep
+SI
+SI
+SI
+SI
 ad
 ad
 au
@@ -5818,11 +5859,11 @@ au
 au
 eL
 ep
-sG
-qS
-qS
-qS
-qS
+ep
+SI
+SI
+SI
+SI
 ad
 ad
 au
@@ -5871,12 +5912,12 @@ au
 au
 au
 eL
+ep
 rS
 cN
-qS
-qS
-qS
-qS
+cN
+cN
+cN
 ad
 ad
 au
@@ -5926,12 +5967,12 @@ au
 au
 eL
 ep
+ep
+ep
+ep
+ep
 cN
-cN
-cN
-VL
-cN
-ad
+af
 ad
 au
 au
@@ -8411,12 +8452,12 @@ au
 au
 Jz
 KR
-yz
-yz
-yz
-yz
-yz
-yz
+KR
+KR
+KR
+KR
+KR
+KR
 fn
 au
 au
@@ -8465,11 +8506,11 @@ au
 au
 Jz
 KR
+oY
 yz
-qS
-qS
-qS
-qS
+yz
+yz
+yz
 yz
 fn
 au
@@ -8519,11 +8560,11 @@ au
 au
 Jz
 KR
-RP
-qS
-qS
-qS
-qS
+KR
+au
+au
+au
+au
 yz
 fn
 au
@@ -8573,11 +8614,11 @@ au
 au
 Jz
 KR
-RP
-qS
-qS
-qS
-Ao
+KR
+au
+au
+au
+au
 yz
 fn
 au
@@ -8627,11 +8668,11 @@ au
 au
 Jz
 KR
-RP
-qS
-qS
-qS
-qS
+KR
+au
+au
+au
+au
 yz
 fn
 au
@@ -8680,12 +8721,12 @@ au
 au
 au
 Jz
+KR
 OJ
 yz
-qS
-qS
-qS
-qS
+yz
+yz
+yz
 yz
 fn
 au
@@ -8735,12 +8776,12 @@ au
 au
 Jz
 KR
-yz
-yz
-yz
-yz
-yz
-yz
+KR
+KR
+KR
+KR
+KR
+KR
 fn
 au
 au

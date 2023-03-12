@@ -56,7 +56,7 @@ SUBSYSTEM_DEF(vis_overlays)
 
 	if(!thing.managed_vis_overlays)
 		thing.managed_vis_overlays = list(overlay)
-		RegisterSignal(thing, COMSIG_ATOM_DIR_CHANGE, .proc/rotate_vis_overlay)
+		RegisterSignal(thing, COMSIG_ATOM_DIR_CHANGE, PROC_REF(rotate_vis_overlay))
 	else
 		thing.managed_vis_overlays += overlay
 

@@ -122,8 +122,8 @@
 	return TRUE
 
 /datum/xenoartifact_trait/minor/sentient/on_init(obj/item/xenoartifact/X)
-	addtimer(CALLBACK(src, .proc/get_canidate, X), 5 SECONDS)
-	RegisterSignal(X, COMSIG_PARENT_EXAMINE, .proc/handle_ghost, TRUE)
+	addtimer(CALLBACK(src, PROC_REF(get_canidate), X), 5 SECONDS)
+	RegisterSignal(X, COMSIG_PARENT_EXAMINE, PROC_REF(handle_ghost), TRUE)
 
 //Proc used to give access to ghosts when original player leaves
 /datum/xenoartifact_trait/minor/sentient/proc/handle_ghost(datum/source, mob/M, list/examine_text)
@@ -405,11 +405,11 @@
 
 /datum/xenoartifact_trait/minor/haunted/on_init(obj/item/xenoartifact/X)
 	controller = X._AddComponent(list(/datum/component/deadchat_control, "democracy", list(
-			 "up" = CALLBACK(src, .proc/haunted_step, X, NORTH),
-			 "down" = CALLBACK(src, .proc/haunted_step, X, SOUTH),
-			 "left" = CALLBACK(src, .proc/haunted_step, X, WEST),
-			 "right" = CALLBACK(src, .proc/haunted_step, X, EAST),
-			 "activate" = CALLBACK(src, .proc/activate_parent, X)), 10 SECONDS))
+			 "up" = CALLBACK(src, PROC_REF(haunted_step), X, NORTH),
+			 "down" = CALLBACK(src, PROC_REF(haunted_step), X, SOUTH),
+			 "left" = CALLBACK(src, PROC_REF(haunted_step), X, WEST),
+			 "right" = CALLBACK(src, PROC_REF(haunted_step), X, EAST),
+			 "activate" = CALLBACK(src, PROC_REF(activate_parent), X)), 10 SECONDS))
 
 /datum/xenoartifact_trait/minor/haunted/proc/haunted_step(obj/item/xenoartifact/ref, dir)
 	if(isliving(ref.loc)) //Make any mobs drop this before it moves
@@ -464,7 +464,7 @@
 	X.visible_message("<span class='warning'>[X] slips between dimensions!</span>")
 	confiscate = new(get_turf(X))
 	X.forceMove(confiscate)
-	addtimer(CALLBACK(src, .proc/comeback, X), X.charge*0.20 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(comeback), X), X.charge*0.20 SECONDS)
 
 /datum/xenoartifact_trait/minor/blink/proc/comeback(obj/item/xenoartifact/X)
 	X.visible_message("<span class='warning'>[X] slips between dimensions!</span>")

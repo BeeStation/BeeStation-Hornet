@@ -54,7 +54,7 @@
 	add_overlay("flaps")
 	add_overlay("hatch")
 	add_overlay("legs_retracted")
-	addtimer(CALLBACK(src, .proc/startUp), 50)
+	addtimer(CALLBACK(src, PROC_REF(startUp)), 50)
 	player_modifier = length(GLOB.player_list)
 	max_integrity = min(300+player_modifier*15, 600)
 	obj_integrity = max_integrity
@@ -216,7 +216,7 @@
 		next_health_to_teleport -= round(max_integrity/60)
 		take_damage(round(max_integrity/60)) // self-damage for self-destruction
 
-	addtimer(CALLBACK(src, .proc/dump), 150) //Drain every 15 seconds
+	addtimer(CALLBACK(src, PROC_REF(dump)), 150) //Drain every 15 seconds
 
 /obj/structure/checkoutmachine/process()
 	var/anydir = pick(GLOB.cardinals)
@@ -250,7 +250,7 @@
 	desc = "A holographic projection designating the landing zone of something. It's probably best to stand back."
 	icon = 'icons/mob/actions/actions_items.dmi'
 	icon_state = "sniper_zoom"
-	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
+	layer = PROJECTILE_HIT_THRESHOLD_LAYER
 	light_range = 2
 	var/obj/effect/dumpeetFall/DF
 	var/obj/structure/checkoutmachine/dump
@@ -262,7 +262,7 @@
 /obj/effect/dumpeetTarget/Initialize(mapload, user)
 	. = ..()
 	bogdanoff = user
-	addtimer(CALLBACK(src, .proc/startLaunch), 100)
+	addtimer(CALLBACK(src, PROC_REF(startLaunch)), 100)
 	sound_to_playing_players('sound/items/dump_it.ogg', 20)
 	deadchat_broadcast("<span class='deadsay'>Protocol CRAB-17 has been activated. A space-coin market has been launched at the station!</span>", turf_target = get_turf(src))
 
@@ -272,7 +272,7 @@
 	priority_announce("The spacecoin bubble has popped! Get to the credit deposit machine at [get_area(src)] and cash out before you lose all of your funds!", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = "CRAB-17 Protocol")
 	animate(DF, pixel_z = -8, time = 5, , easing = LINEAR_EASING)
 	playsound(src,  'sound/weapons/mortar_whistle.ogg', 70, 1, 6)
-	addtimer(CALLBACK(src, .proc/endLaunch), 5, TIMER_CLIENT_TIME) //Go onto the last step after a very short falling animation
+	addtimer(CALLBACK(src, PROC_REF(endLaunch)), 5, TIMER_CLIENT_TIME) //Go onto the last step after a very short falling animation
 
 
 

@@ -49,6 +49,9 @@
 
 	var/datum/action/item_action/storage_gather_mode/modeswitch_action
 
+	/// whether or not we should have those cute little animations
+	var/animated = TRUE
+
 	//Screen variables: Do not mess with these vars unless you know what you're doing. They're not defines so storage that isn't in the same location can be supported in the future.
 	var/screen_max_columns = 7							//These two determine maximum screen sizes.
 	var/screen_max_rows = INFINITY
@@ -67,40 +70,40 @@
 	closer = new(null, src)
 	orient2hud()
 
-	RegisterSignal(parent, COMSIG_CONTAINS_STORAGE, .proc/on_check)
-	RegisterSignal(parent, COMSIG_IS_STORAGE_LOCKED, .proc/check_locked)
-	RegisterSignal(parent, COMSIG_TRY_STORAGE_SHOW, .proc/signal_show_attempt)
-	RegisterSignal(parent, COMSIG_TRY_STORAGE_INSERT, .proc/signal_insertion_attempt)
-	RegisterSignal(parent, COMSIG_TRY_STORAGE_CAN_INSERT, .proc/signal_can_insert)
-	RegisterSignal(parent, COMSIG_TRY_STORAGE_TAKE_TYPE, .proc/signal_take_type)
-	RegisterSignal(parent, COMSIG_TRY_STORAGE_FILL_TYPE, .proc/signal_fill_type)
-	RegisterSignal(parent, COMSIG_TRY_STORAGE_SET_LOCKSTATE, .proc/set_locked)
-	RegisterSignal(parent, COMSIG_TRY_STORAGE_TAKE, .proc/signal_take_obj)
-	RegisterSignal(parent, COMSIG_TRY_STORAGE_QUICK_EMPTY, .proc/signal_quick_empty)
-	RegisterSignal(parent, COMSIG_TRY_STORAGE_HIDE_FROM, .proc/signal_hide_attempt)
-	RegisterSignal(parent, COMSIG_TRY_STORAGE_HIDE_ALL, .proc/close_all)
-	RegisterSignal(parent, COMSIG_TRY_STORAGE_RETURN_INVENTORY, .proc/signal_return_inv)
+	RegisterSignal(parent, COMSIG_CONTAINS_STORAGE, PROC_REF(on_check))
+	RegisterSignal(parent, COMSIG_IS_STORAGE_LOCKED, PROC_REF(check_locked))
+	RegisterSignal(parent, COMSIG_TRY_STORAGE_SHOW, PROC_REF(signal_show_attempt))
+	RegisterSignal(parent, COMSIG_TRY_STORAGE_INSERT, PROC_REF(signal_insertion_attempt))
+	RegisterSignal(parent, COMSIG_TRY_STORAGE_CAN_INSERT, PROC_REF(signal_can_insert))
+	RegisterSignal(parent, COMSIG_TRY_STORAGE_TAKE_TYPE, PROC_REF(signal_take_type))
+	RegisterSignal(parent, COMSIG_TRY_STORAGE_FILL_TYPE, PROC_REF(signal_fill_type))
+	RegisterSignal(parent, COMSIG_TRY_STORAGE_SET_LOCKSTATE, PROC_REF(set_locked))
+	RegisterSignal(parent, COMSIG_TRY_STORAGE_TAKE, PROC_REF(signal_take_obj))
+	RegisterSignal(parent, COMSIG_TRY_STORAGE_QUICK_EMPTY, PROC_REF(signal_quick_empty))
+	RegisterSignal(parent, COMSIG_TRY_STORAGE_HIDE_FROM, PROC_REF(signal_hide_attempt))
+	RegisterSignal(parent, COMSIG_TRY_STORAGE_HIDE_ALL, PROC_REF(close_all))
+	RegisterSignal(parent, COMSIG_TRY_STORAGE_RETURN_INVENTORY, PROC_REF(signal_return_inv))
 
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/attackby)
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(attackby))
 
-	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, .proc/on_attack_hand)
-	RegisterSignal(parent, COMSIG_ATOM_ATTACK_PAW, .proc/on_attack_hand)
-	RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, .proc/emp_act)
-	RegisterSignal(parent, COMSIG_ATOM_ATTACK_GHOST, .proc/show_to_ghost)
-	RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/refresh_mob_views)
-	RegisterSignal(parent, COMSIG_ATOM_EXITED, .proc/_remove_and_refresh)
-	RegisterSignal(parent, COMSIG_ATOM_CANREACH, .proc/canreach_react)
+	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACK_PAW, PROC_REF(on_attack_hand))
+	RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, PROC_REF(emp_act))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACK_GHOST, PROC_REF(show_to_ghost))
+	RegisterSignal(parent, COMSIG_ATOM_ENTERED, PROC_REF(refresh_mob_views))
+	RegisterSignal(parent, COMSIG_ATOM_EXITED, PROC_REF(_remove_and_refresh))
+	RegisterSignal(parent, COMSIG_ATOM_CANREACH, PROC_REF(canreach_react))
 
-	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACK, .proc/preattack_intercept)
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, .proc/attack_self)
-	RegisterSignal(parent, COMSIG_ITEM_PICKUP, .proc/signal_on_pickup)
+	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACK, PROC_REF(preattack_intercept))
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(attack_self))
+	RegisterSignal(parent, COMSIG_ITEM_PICKUP, PROC_REF(signal_on_pickup))
 
-	RegisterSignal(parent, COMSIG_MOVABLE_POST_THROW, .proc/close_all)
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/on_move)
+	RegisterSignal(parent, COMSIG_MOVABLE_POST_THROW, PROC_REF(close_all))
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
-	RegisterSignal(parent, COMSIG_CLICK_ALT, .proc/on_alt_click)
-	RegisterSignal(parent, COMSIG_MOUSEDROP_ONTO, .proc/mousedrop_onto)
-	RegisterSignal(parent, COMSIG_MOUSEDROPPED_ONTO, .proc/mousedrop_receive)
+	RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(on_alt_click))
+	RegisterSignal(parent, COMSIG_MOUSEDROP_ONTO, PROC_REF(mousedrop_onto))
+	RegisterSignal(parent, COMSIG_MOUSEDROPPED_ONTO, PROC_REF(mousedrop_receive))
 
 	update_actions()
 
@@ -120,7 +123,7 @@
 		return
 	var/obj/item/I = parent
 	modeswitch_action = new(I)
-	RegisterSignal(modeswitch_action, COMSIG_ACTION_TRIGGER, .proc/action_trigger)
+	RegisterSignal(modeswitch_action, COMSIG_ACTION_TRIGGER, PROC_REF(action_trigger))
 	if(I.item_flags & PICKED_UP)
 		var/mob/M = I.loc
 		if(!istype(M))
@@ -174,7 +177,7 @@
 		host.balloon_alert(M, "[host] is locked.")
 		return FALSE
 	if((M.get_active_held_item() == parent) && allow_quick_empty)
-		INVOKE_ASYNC(src, .proc/quick_empty, M)
+		INVOKE_ASYNC(src, PROC_REF(quick_empty), M)
 
 /datum/component/storage/proc/preattack_intercept(datum/source, obj/O, mob/M, params)
 	SIGNAL_HANDLER
@@ -193,7 +196,7 @@
 		return
 	if(!isturf(I.loc))
 		return
-	INVOKE_ASYNC(src, .proc/async_preattack_intercept, I, M)
+	INVOKE_ASYNC(src, PROC_REF(async_preattack_intercept), I, M)
 
 ///async functionality from preattack_intercept
 /datum/component/storage/proc/async_preattack_intercept(obj/item/attack_item, mob/pre_attack_mob)
@@ -208,10 +211,11 @@
 		return
 	var/datum/progressbar/progress = new(pre_attack_mob, len, attack_item.loc)
 	var/list/rejections = list()
-	while(do_after(pre_attack_mob, 1 SECONDS, parent, NONE, FALSE, CALLBACK(src, .proc/handle_mass_pickup, things, attack_item.loc, rejections, progress)))
+	while(do_after(pre_attack_mob, 1 SECONDS, parent, NONE, FALSE, CALLBACK(src, PROC_REF(handle_mass_pickup), things, attack_item.loc, rejections, progress)))
 		stoplag(1)
 	qdel(progress)
 	to_chat(pre_attack_mob, "<span class='notice'>You put everything you could [insert_preposition] [parent].</span>")
+	animate_parent()
 
 /datum/component/storage/proc/handle_mass_item_insertion(list/things, datum/component/storage/src_object, mob/user, datum/progressbar/progress)
 	var/atom/source_real_location = src_object.real_location()
@@ -268,7 +272,7 @@
 	var/turf/T = get_turf(A)
 	var/list/things = contents()
 	var/datum/progressbar/progress = new(M, length(things), T)
-	while (do_after(M, 10, TRUE, T, FALSE, CALLBACK(src, .proc/mass_remove_from_storage, T, things, progress)))
+	while (do_after(M, 1 SECONDS, T, NONE, FALSE, CALLBACK(src, PROC_REF(mass_remove_from_storage), T, things, progress)))
 		stoplag(1)
 	qdel(progress)
 
@@ -379,13 +383,14 @@
 				return FALSE
 	if(M.active_storage)
 		M.active_storage.hide_from(M)
+	animate_parent()
 	orient2hud()
 	M.client.screen |= boxes
 	M.client.screen |= closer
 	M.client.screen |= real_location.contents
 	M.set_active_storage(src)
 	LAZYOR(is_using, M)
-	RegisterSignal(M, COMSIG_PARENT_QDELETING, .proc/mob_deleted)
+	RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(mob_deleted))
 	return TRUE
 
 /datum/component/storage/proc/mob_deleted(datum/source)
@@ -404,6 +409,7 @@
 	M.client.screen -= boxes
 	M.client.screen -= closer
 	M.client.screen -= real_location.contents
+	animate_parent()
 	return TRUE
 
 /datum/component/storage/proc/close(mob/M)
@@ -561,7 +567,7 @@
 	if(over_object == M)
 		user_show_to_mob(M)
 	if(!istype(over_object, /atom/movable/screen))
-		INVOKE_ASYNC(src, .proc/dump_content_at, over_object, M)
+		INVOKE_ASYNC(src, PROC_REF(dump_content_at), over_object, M)
 		return
 	if(A.loc != M)
 		return
@@ -675,6 +681,7 @@
 		return
 	if(rustle_sound)
 		playsound(parent, "rustle", 50, 1, -5)
+	animate_parent()
 	for(var/mob/viewing as() in viewers(user))
 		if(M == viewing)
 			to_chat(usr, "<span class='notice'>You put [I] [insert_preposition]to [parent].</span>")
@@ -774,12 +781,12 @@
 		var/mob/living/carbon/human/H = user
 		if(H.l_store == A && !H.get_active_held_item())	//Prevents opening if it's in a pocket.
 			. = COMPONENT_NO_ATTACK_HAND
-			INVOKE_ASYNC(H, /mob.proc/put_in_hands, A)
+			INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, put_in_hands), A)
 			H.l_store = null
 			return
 		if(H.r_store == A && !H.get_active_held_item())
 			. = COMPONENT_NO_ATTACK_HAND
-			INVOKE_ASYNC(H, /mob.proc/put_in_hands, A)
+			INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, put_in_hands), A)
 			H.r_store = null
 			return
 
@@ -840,7 +847,7 @@
 	var/obj/item/to_remove = locate() in real_location()
 	if(!to_remove)
 		return COMPONENT_INTERCEPT_ALT
-	INVOKE_ASYNC(src, .proc/attempt_put_in_hands, to_remove, user)
+	INVOKE_ASYNC(src, PROC_REF(attempt_put_in_hands), to_remove, user)
 	return COMPONENT_INTERCEPT_ALT
 
 ///attempt to put an item from contents into the users hands
@@ -870,3 +877,12 @@
 			user.balloon_alert(user, "[parent] now picks up all items")
 		if(COLLECT_ONE)
 			user.balloon_alert(user, "[parent] now picks up single item")
+
+/datum/component/storage/proc/animate_parent()
+	if(!animated)
+		return
+	var/atom/parent_atom = parent
+	var/matrix/M = parent_atom.transform
+	var/matrix/old_M = parent_atom.transform
+	animate(parent, time = 1.5, loop = 0, transform = M.Scale(1.11, 0.85))
+	animate(time = 2, transform = old_M)

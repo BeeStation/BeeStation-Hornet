@@ -115,6 +115,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	//we couldn't load character data so just randomize the character appearance + name
 	active_character = character_saves[1]
+	var/fallback_default_species = CONFIG_GET(string/fallback_default_species)
+	if(!active_character.pref_species && fallback_default_species != "random")
+		var/datum/species/spath = GLOB.species_list[fallback_default_species || "human"]
+		active_character.pref_species = new spath
 	active_character.randomise()		//let's create a random character then - rather than a fat, bald and naked man.
 	active_character.real_name = active_character.pref_species.random_name(active_character.gender, TRUE)
 	if(!loaded_preferences_successfully)
@@ -916,7 +920,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 		var/datum/job/overflow = SSjob.GetJob(SSjob.overflow_role)
 
-		for(var/datum/job/job in sortList(SSjob.occupations, /proc/cmp_job_display_asc))
+		for(var/datum/job/job in sortList(SSjob.occupations, GLOBAL_PROC_REF(cmp_job_display_asc)))
 			if(job.gimmick) //Gimmick jobs run off of a single pref
 				continue
 			index += 1
@@ -1724,7 +1728,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("asaycolor")
 					var/new_asaycolor = input(user, "Choose your ASAY color:", "Game Preference",asaycolor) as color|null
 					if(new_asaycolor)
-						asaycolor = new_asaycolor
+						asaycolor = sanitize_ooccolor(new_asaycolor)
 
 				if("bag")
 					var/new_backbag = input(user, "Choose your character's style of bag:", "Character Preference")  as null|anything in GLOB.backbaglist

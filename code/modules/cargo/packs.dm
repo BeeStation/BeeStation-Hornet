@@ -22,7 +22,7 @@
 
 /datum/supply_pack/New()
 	. = ..()
-	//Randomise the starting supply to promote variation in purchases. Higher tendancy to have lower roundstart supply as it builds up over time.
+	//Randomise the starting supply to promote variation in purchases. Higher tendency to have lower roundstart supply as it builds up over time.
 	current_supply = rand(0, rand(1, max_supply))
 
 /datum/supply_pack/proc/generate(atom/A, datum/bank_account/paying_account)
@@ -2436,7 +2436,7 @@
 				anomalous_box_provided = TRUE
 				log_game("An anomalous pizza box was provided in a pizza crate at during cargo delivery")
 				if(prob(50))
-					addtimer(CALLBACK(src, .proc/anomalous_pizza_report), rand(300, 1800))
+					addtimer(CALLBACK(src, PROC_REF(anomalous_pizza_report)), rand(300, 1800))
 				else
 					message_admins("An anomalous pizza box was silently created with no command report in a pizza crate delivery.")
 				break
