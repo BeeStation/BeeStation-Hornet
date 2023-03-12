@@ -11,7 +11,7 @@
 	selection_color = "#ddddff"
 	req_admin_notify = 1
 	minimal_player_age = 10
-	exp_requirements = MINUTES_REQUIRED_INTERMEDIATE //They already need to qualify for a different head of staff before they start getting applicable experience
+	exp_requirements = 600
 	exp_type = EXP_TYPE_COMMAND
 	exp_type_department = EXP_TYPE_COMMAND
 

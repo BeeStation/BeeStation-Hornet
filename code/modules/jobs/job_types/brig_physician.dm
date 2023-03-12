@@ -8,7 +8,7 @@
 	spawn_positions = 1
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
-	exp_requirements = MINUTES_REQUIRED_BASIC
+	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/brig_physician
 

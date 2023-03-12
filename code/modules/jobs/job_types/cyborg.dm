@@ -9,7 +9,7 @@
 	supervisors = "your laws and the AI"	//Nodrak
 	selection_color = "#ddffdd"
 	minimal_player_age = 21
-	exp_requirements = MINUTES_REQUIRED_BASIC
+	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 	random_spawns_possible = FALSE
 
