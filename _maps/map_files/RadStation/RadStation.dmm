@@ -24369,9 +24369,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/structure/lattice/catwalk/over,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -40990,10 +40987,6 @@
 	name = "Security Maintenance";
 	req_one_access_txt = "63;38"
 	},
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Security Maintenance";
-	req_one_access_txt = "63;38"
-	},
 /turf/open/floor/plating,
 /area/maintenance/department/security)
 "oIs" = (
@@ -41540,12 +41533,6 @@
 /turf/open/floor/plasteel/tech,
 /area/engine/engine_room)
 "oQM" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	id_tag = "commissarydoor";
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/abandoned,
 /obj/machinery/door/airlock/maintenance_hatch{
 	id_tag = "commissarydoor";
 	name = "Maintenance Hatch";
@@ -57395,16 +57382,6 @@
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk/over,
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Security Maintenance";
-	req_one_access_txt = "63;38;41"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/maintenance/department/security)
 "uQd" = (
@@ -63684,27 +63661,6 @@
 /turf/open/floor/plasteel,
 /area/security/prison/shielded)
 "xgi" = (
-/obj/machinery/door/airlock/mining{
-	name = "Quartermaster's Office";
-	req_access_txt = "41"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
 /obj/machinery/door/airlock/mining{
 	name = "Quartermaster's Office";
 	req_access_txt = "41"
