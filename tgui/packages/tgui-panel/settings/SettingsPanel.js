@@ -7,7 +7,7 @@
 import { toFixed } from 'common/math';
 import { useLocalState } from 'tgui/backend';
 import { useDispatch, useSelector } from 'common/redux';
-import { Box, Button, ColorBox, Divider, Dropdown, Flex, Input, LabeledList, NumberInput, Section, Stack, Tabs, TextArea, Grid } from 'tgui/components';
+import { Box, Button, ColorBox, Divider, Dropdown, Flex, Input, LabeledList, NumberInput, Section, Stack, Tabs, TextArea } from 'tgui/components';
 import { ChatPageSettings } from '../chat';
 import { rebuildChat, saveChatToDisk } from '../chat/actions';
 import { THEMES } from '../themes';
@@ -23,13 +23,16 @@ export const SettingsPanel = (props, context) => {
       <Stack.Item>
         <Section fitted fill minHeight="8em">
           <Tabs vertical>
-            {SETTINGS_TABS.map(tab => (
+            {SETTINGS_TABS.map((tab) => (
               <Tabs.Tab
                 key={tab.id}
                 selected={tab.id === activeTab}
-                onClick={() => dispatch(changeSettingsTab({
-                  tabId: tab.id,
-                }))}>
+                onClick={() =>
+                  dispatch(
+                    changeSettingsTab({
+                      tabId: tab.id,
+                    })
+                  )}>
                 {tab.name}
               </Tabs.Tab>
             ))}
@@ -37,15 +40,9 @@ export const SettingsPanel = (props, context) => {
         </Section>
       </Stack.Item>
       <Stack.Item grow={1} basis={0}>
-        {activeTab === 'general' && (
-          <SettingsGeneral />
-        )}
-        {activeTab === 'chatPage' && (
-          <ChatPageSettings />
-        )}
-        {activeTab === 'textHighlight' && (
-          <TextHighlightSettings />
-        )}
+        {activeTab === 'general' && <SettingsGeneral />}
+        {activeTab === 'chatPage' && <ChatPageSettings />}
+        {activeTab === 'textHighlight' && <TextHighlightSettings />}
       </Stack.Item>
     </Stack>
   );
@@ -57,51 +54,60 @@ export const SettingsGeneral = (props, context) => {
     selectSettings
   );
   const dispatch = useDispatch(context);
-  const [freeFont, setFreeFont] = useLocalState(context, "freeFont", false);
+  const [freeFont, setFreeFont] = useLocalState(context, 'freeFont', false);
   return (
     <Section>
-      <Flex bold>
-        General Settings
-      </Flex>
-      <Divider />
       <LabeledList>
         <LabeledList.Item label="Theme">
           <Dropdown
             selected={theme}
             options={THEMES}
-            onSelected={value => dispatch(updateSettings({
-              theme: value,
-            }))} />
-        </LabeledList.Item>
-        <LabeledList.Item label="Font style">
-          {!freeFont && (
-            <Dropdown
-              selected={fontFamily}
-              options={FONTS}
-              onSelected={value => dispatch(updateSettings({
-                fontFamily: value,
-              }))} />
-          ) || (
-            <Input
-              value={fontFamily}
-              onChange={(e, value) => dispatch(updateSettings({
-                fontFamily: value,
-              }))}
-            />
-          )}
-        </LabeledList.Item>
-        <LabeledList.Item>
-          <Button
-            content="Custom font"
-            icon={freeFont? "lock-open" : "lock"}
-            color={freeFont? "good" : "bad"}
-            ml={1}
-            onClick={() => {
-              setFreeFont(!freeFont);
-            }}
+            onSelected={(value) =>
+              dispatch(
+                updateSettings({
+                  theme: value,
+                })
+            )}
           />
         </LabeledList.Item>
-        <LabeledList.Item label="High Contrast">
+        <LabeledList.Item label="Font style">
+          <Stack inline align="baseline">
+            <Stack.Item>
+              {(!freeFont && (
+                <Dropdown
+                  selected={fontFamily}
+                  options={FONTS}
+                  onSelected={(value) =>
+                    dispatch(
+                      updateSettings({
+                        fontFamily: value,
+                      })
+                  )}
+                />
+              )) || (
+                <Input
+                  value={fontFamily}
+                  onChange={(e, value) =>
+                    dispatch(
+                      updateSettings({
+                        fontFamily: value,
+                      })
+                  )}
+                />
+              )}
+            </Stack.Item>
+            <Stack.Item>
+              <Button
+                content="Custom font"
+                icon={freeFont ? 'lock-open' : 'lock'}
+                color={freeFont ? 'good' : 'bad'}
+                ml={1}
+                onClick={() => {
+                  setFreeFont(!freeFont);
+                }}
+              />
+            </Stack.Item>
+          </Stack>
         </LabeledList.Item>
         <LabeledList.Item label="Font size">
           <NumberInput
@@ -109,13 +115,17 @@ export const SettingsGeneral = (props, context) => {
             step={1}
             stepPixelSize={10}
             minValue={8}
-            maxValue={24}
+            maxValue={32}
             value={fontSize}
             unit="px"
-            format={value => toFixed(value)}
-            onChange={(e, value) => dispatch(updateSettings({
-              fontSize: value,
-            }))} />
+            format={(value) => toFixed(value)}
+            onChange={(e, value) =>
+              dispatch(
+                updateSettings({
+                  fontSize: value,
+                })
+            )}
+          />
         </LabeledList.Item>
         <LabeledList.Item label="Line height">
           <NumberInput
@@ -125,49 +135,17 @@ export const SettingsGeneral = (props, context) => {
             minValue={0.8}
             maxValue={5}
             value={lineHeight}
-            format={value => toFixed(value, 2)}
-            onDrag={(e, value) => dispatch(updateSettings({
-              lineHeight: value,
-            }))} />
+            format={(value) => toFixed(value, 2)}
+            onDrag={(e, value) =>
+              dispatch(
+                updateSettings({
+                  lineHeight: value,
+                })
+            )}
+          />
         </LabeledList.Item>
       </LabeledList>
-    </Section>
-  );
-};
-
-export const SettingsStat = (props, context) => {
-  const settings = useSettings(context);
-  const dispatch = useDispatch(context);
-  return (
-    <Section fill>
-      <Flex bold>
-        Stat Panel Settings
-      </Flex>
       <Divider />
-      <LabeledList>
-        <LabeledList.Item label="Tab Mode">
-          <Dropdown
-            selected={settings.statTabMode}
-            options={["Scroll", "Multiline"]}
-            onSelected={value => dispatch(updateSettings({
-              statTabMode: value,
-            }))} />
-        </LabeledList.Item>
-      </LabeledList>
-    </Section>
-  );
-};
-
-export const SettingsHighlight = (props, context) => {
-  const {
-    highlightText,
-    highlightColor,
-    matchWord,
-    matchCase,
-  } = useSelector(context, selectSettings);
-  const dispatch = useDispatch(context);
-  return (
-    <Section fill>
       <Button icon="save" onClick={() => dispatch(saveChatToDisk())}>
         Save chat log
       </Button>
@@ -187,27 +165,25 @@ const TextHighlightSettings = (props, context) => {
               key={i}
               id={id}
               mb={i + 1 === highlightSettings.length ? 0 : '10px'}
+            />
+          ))}
+          {highlightSettings.length < MAX_HIGHLIGHT_SETTINGS && (
+            <Flex.Item>
+              <Button
+                color="transparent"
+                icon="plus"
+                content="Add Highlight Setting"
+                onClick={() => {
+                  dispatch(addHighlightSetting());
+                }}
               />
-              ))}
-              {highlightSettings.length < MAX_HIGHLIGHT_SETTINGS && (
-                <Flex.Item>
-                  <Button
-                    color="transparent"
-                    icon="plus"
-                    content="Add Highlight Setting"
-                    onClick={() => {
-                      dispatch(addHighlightSetting());
-                    }}
-                  />
-                </Flex.Item>
-              )}
+            </Flex.Item>
+          )}
         </Flex>
-        </Section>
+      </Section>
       <Divider />
       <Box>
-        <Button
-          icon="check"
-          onClick={() => dispatch(rebuildChat())}>
+        <Button icon="check" onClick={() => dispatch(rebuildChat())}>
           Apply now
         </Button>
         <Box inline fontSize="0.9em" ml={1} color="label">
@@ -217,6 +193,7 @@ const TextHighlightSettings = (props, context) => {
     </Section>
   );
 };
+
 const TextHighlightSetting = (props, context) => {
   const { id, ...rest } = props;
   const highlightSettingById = useSelector(context, selectHighlightSettingById);
@@ -241,8 +218,7 @@ const TextHighlightSetting = (props, context) => {
                 removeHighlightSetting({
                   id: id,
                 })
-              )
-            }
+            )}
           />
         </Flex.Item>
         <Flex.Item>
@@ -257,8 +233,7 @@ const TextHighlightSetting = (props, context) => {
                   id: id,
                   highlightWholeMessage: !highlightWholeMessage,
                 })
-              )
-            }
+            )}
           />
         </Flex.Item>
         <Flex.Item>
@@ -273,8 +248,7 @@ const TextHighlightSetting = (props, context) => {
                   id: id,
                   matchWord: !matchWord,
                 })
-              )
-            }
+            )}
           />
         </Flex.Item>
         <Flex.Item>
@@ -288,8 +262,7 @@ const TextHighlightSetting = (props, context) => {
                   id: id,
                   matchCase: !matchCase,
                 })
-              )
-            }
+            )}
           />
         </Flex.Item>
         <Flex.Item shrink={0}>
@@ -305,8 +278,7 @@ const TextHighlightSetting = (props, context) => {
                   id: id,
                   highlightColor: value,
                 })
-              )
-            }
+            )}
           />
         </Flex.Item>
       </Flex>
@@ -320,8 +292,7 @@ const TextHighlightSetting = (props, context) => {
               id: id,
               highlightText: value,
             })
-          )
-        }
+        )}
       />
     </Flex.Item>
   );

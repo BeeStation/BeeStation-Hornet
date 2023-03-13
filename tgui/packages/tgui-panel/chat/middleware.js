@@ -115,11 +115,15 @@ export const chatMiddleware = store => {
     }
 
     if (
-      type === updateSettings.type ||
-      type === loadSettings.type ||
-      type === addHighlightSetting.type ||
-      type === removeHighlightSetting.type ||
-      type === updateHighlightSetting.type
+      type === updateSettings.type
+
+      || type === loadSettings.type
+
+      || type === addHighlightSetting.type
+
+      || type === removeHighlightSetting.type
+
+      || type === updateHighlightSetting.type
     ) {
       next(action);
       const settings = selectSettings(store.getState());

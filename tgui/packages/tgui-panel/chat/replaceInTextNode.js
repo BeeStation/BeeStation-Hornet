@@ -12,7 +12,7 @@ const regexParseNode = (params) => {
   const text = node.textContent;
   const textLength = text.length;
   let nodes;
-  let new_node
+  let new_node;
   let match;
   let lastIndex = 0;
   let fragment;
