@@ -5707,7 +5707,6 @@
 	pixel_x = 4;
 	pixel_y = -1
 	},
-/obj/item/folder/documents,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/virology)
 "cga" = (
@@ -25028,7 +25027,6 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 32
 	},
-/obj/item/folder/documents,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics)
 "iTq" = (
