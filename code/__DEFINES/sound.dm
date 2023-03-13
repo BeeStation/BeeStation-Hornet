@@ -113,3 +113,7 @@
 #define ANNOUNCER_SHUTTLEDOCK		"announcer_shuttledock"
 #define ANNOUNCER_SHUTTLERECALLED	"announcer_shuttlerecalled"
 #define ANNOUNCER_SPANOMALIES		"announcer_spanomalies"
+
+#define SOUNDTRACK_PLAY_RESPECT 0
+#define SOUNDTRACK_PLAY_ALL 1
+#define SOUNDTRACK_PLAY_ONLYSTATION 2

@@ -167,7 +167,7 @@
 	var/song_choice = input(usr, "Choose a song", "Song Choice", null) as null|anything in soundtracks
 	if(!ispath(song_choice, /datum/soundtrack_song))
 		return
-	play_soundtrack_music(song_choice, only_station = (station_only == "Station Only" ? 2 : 1))
+	play_soundtrack_music(song_choice, only_station = (station_only == "Station Only" ? SOUNDTRACK_PLAY_ONLYSTATION : SOUNDTRACK_PLAY_ALL))
 
 /client/proc/stop_sounds()
 	set category = "Debug"
