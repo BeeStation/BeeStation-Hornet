@@ -222,7 +222,6 @@
 	build_type = PROTOLATHE
 	materials = list(/datum/material/plastic = 200)
 	reagents_list = list(/datum/reagent/medicine/atropine = 10)
-	reagents_constant = FALSE
 	category = list("Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 

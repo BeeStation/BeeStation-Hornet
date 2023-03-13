@@ -185,7 +185,7 @@ const TechFabHeader = (props, context) => {
           title={"Reagents ("+reagents_label+")"}
           disabled={materials === null}
           buttons={<Button
-            content="Purge all" 
+            content="Purge all"
             onClick={() => act("disposeall")}
           />}>
           <Flex wrap="wrap" align="baseline">
@@ -224,7 +224,7 @@ const ConditionalTooltip = (props, context) => {
   {
     return children;
   }
-  
+
   return (
     <Tooltip {...rest}>
       {children}
@@ -316,7 +316,7 @@ const Recipe = (props, context) => {
                       className="TechFab__NumberButton"
                       content={"x"+amount}
                       disabled={amount>max}
-                      onClick={() => act("build", 
+                      onClick={() => act("build",
                         { "design_id": recipe.id, "amount": amount }
                       )}
                     />

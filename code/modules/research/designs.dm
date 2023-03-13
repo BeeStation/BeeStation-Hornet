@@ -31,7 +31,6 @@ other types of metals and chemistry for reagents).
 	var/list/make_reagents = list()			//Reagents produced. Format: "id" = amount. Currently only supported by the biogenerator.
 	var/list/category = null 			//Primarily used for Mech Fabricators, but can be used for anything
 	var/list/reagents_list = list()			//List of reagents. Format: "id" = amount.
-	var/reagents_constant = TRUE 			//Whether better parts reduce the cost of reagents needed
 	var/maxstack = 1
 	var/lathe_time_factor = 1			//How many times faster than normal is this to build on the protolathe
 	var/dangerous_construction = FALSE	//notify and log for admin investigations if this is printed.
