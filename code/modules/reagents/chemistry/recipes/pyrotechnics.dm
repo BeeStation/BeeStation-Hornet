@@ -94,7 +94,7 @@
 	required_temp = 320 //extremely volatile
 
 /datum/chemical_reaction/plasma/on_reaction(datum/reagents/holder, created_volume)
-	holder.my_atom.plasma_ignition(created_volume/30)
+	holder.my_atom.plasma_ignition(created_volume/30, reagent_reaction = TRUE)
 	holder.clear_reagents()
 
 /datum/chemical_reaction/blackpowder
