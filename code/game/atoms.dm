@@ -1630,6 +1630,8 @@
 		if(isturf(src))
 			var/turf/srcTurf = src
 			srcTurf.ScrapeAway() //Can't just qdel turfs
+		else if(src.reagents)
+			return TRUE
 		else
 			qdel(src)
 		return TRUE
