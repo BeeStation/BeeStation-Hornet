@@ -1,8 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - rscadd: Added a preference toggle for soundtrack music (Countdown, Mind Crawler,
-      etc)
-  - admin: Added an admin verb for playing soundtrack music.
-  - tweak: Un-silencing soundtrack music will now start playing the music again rather
-      than missing out entirely.
