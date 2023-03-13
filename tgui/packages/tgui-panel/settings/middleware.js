@@ -7,7 +7,7 @@
 import { storage } from 'common/storage';
 import { chatMiddleware } from '../chat';
 import { setClientTheme } from '../themes';
-import { loadSettings, updateSettings } from './actions';
+import { loadSettings, updateSettings, addHighlightSetting, removeHighlightSetting, updateHighlightSetting } from './actions';
 import { selectSettings } from './selectors';
 import { FONTS_DISABLED } from './constants';
 
@@ -37,7 +37,13 @@ export const settingsMiddleware = store => {
         store.dispatch(loadSettings(settings));
       });
     }
-    if (type === updateSettings.type || type === loadSettings.type) {
+    if (
+      type === updateSettings.type ||
+      type === loadSettings.type ||
+      type === addHighlightSetting.type ||
+      type === removeHighlightSetting.type ||
+      type === updateHighlightSetting.type
+    ) {
       // Set client theme
       const theme = payload?.theme;
       if (theme) {
