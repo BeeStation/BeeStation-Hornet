@@ -4,7 +4,7 @@
 	panel = "Hivemind Abilities"
 	charge_max = 30
 	range = 1
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	clothes_req = 0
 	max_targets = 1
 	action_icon = 'icons/mob/actions/actions_hive.dmi'
@@ -22,7 +22,7 @@
 
 
 	to_chat(user, "<span class='notice'>We begin probing [target.name]'s mind!</span>")
-	if(do_after(user,15,0,target))
+	if(do_after(user, 15, target, timed_action_flags = IGNORE_HELD_ITEM))
 		for(var/datum/antagonist/hivemind/enemy as() in GLOB.hivehosts)
 			var/datum/mind/M = enemy.owner
 			if(!M?.current)

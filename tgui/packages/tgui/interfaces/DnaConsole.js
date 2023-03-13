@@ -9,7 +9,7 @@ import { useBackend } from '../backend';
 import { Box, Button, Collapsible, Dimmer, Divider, Dropdown, Flex, Icon, LabeledList, NumberInput, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
-const SUBJECT_CONCIOUS = 0;
+const SUBJECT_CONSCIOUS = 0;
 const SUBJECT_SOFT_CRIT = 1;
 const SUBJECT_UNCONSCIOUS = 2;
 const SUBJECT_DEAD = 3;
@@ -179,7 +179,7 @@ const DnaScannerButtons = (props, context) => {
  */
 const SubjectStatus = (props, context) => {
   const { status } = props;
-  if (status === SUBJECT_CONCIOUS) {
+  if (status === SUBJECT_CONSCIOUS) {
     return (
       <Box inline color="good">Conscious</Box>
     );

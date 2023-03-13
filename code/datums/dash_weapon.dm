@@ -42,7 +42,7 @@
 			spot1.Beam(spot2,beam_effect,time=20)
 			current_charges--
 			owner.update_action_buttons_icon()
-			addtimer(CALLBACK(src, .proc/charge), charge_rate)
+			addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
 		else
 			to_chat(user, "<span class='warning'>You cannot dash here!</span>")
 

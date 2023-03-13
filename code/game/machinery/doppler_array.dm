@@ -20,12 +20,12 @@
 
 /obj/machinery/doppler_array/Initialize(mapload)
 	. = ..()
-	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, .proc/sense_explosion)
+	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, PROC_REF(sense_explosion))
 	printer_ready = world.time + PRINTER_TIMEOUT
 
 /obj/machinery/doppler_array/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE,null,null,CALLBACK(src,.proc/rot_message))
+	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE,null,null,CALLBACK(src,PROC_REF(rot_message)))
 
 /datum/data/tachyon_record
 	name = "Log Recording"
@@ -186,7 +186,7 @@
 
 	for(var/mob/living/carbon/human/H in oviewers(src))
 		if(H.client)
-			INVOKE_ASYNC(H.client, /client.proc/increase_score, /datum/award/score/bomb_score, H, orig_light_range)
+			INVOKE_ASYNC(H.client, TYPE_PROC_REF(/client, increase_score), /datum/award/score/bomb_score, H, orig_light_range)
 
 	return TRUE
 

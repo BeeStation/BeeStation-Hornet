@@ -15,11 +15,3 @@
 #define CHARCOAL_FONT "Candara"
 /// Font used when signing on paper.
 #define SIGNATURE_FONT "Segoe Script"
-
-//pda fonts
-#define MONO		"Monospaced"
-#define VT			"VT323"
-#define ORBITRON	"Orbitron"
-#define SHARE		"Share Tech Mono"
-
-GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))

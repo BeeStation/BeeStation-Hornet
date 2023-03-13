@@ -224,7 +224,7 @@
 	to_chat(usr, "<span class='notice'>Transcript printed.</span>")
 	var/obj/item/paper/transcript_paper = new /obj/item/paper(get_turf(src))
 	var/t1 = "<B>Transcript:</B><BR><BR>"
-	for(var/i = 1, mytape.storedinfo.len >= i, i++)
+	for(var/i in 1 to mytape.storedinfo.len)
 		t1 += "[mytape.storedinfo[i]]<BR>"
 	transcript_paper.add_raw_text(t1)
 	transcript_paper.name = "paper- 'Transcript'"

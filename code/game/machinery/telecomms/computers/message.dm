@@ -32,7 +32,7 @@
 	..()
 	ui_update()
 	do_sparks(5, FALSE, src)
-	addtimer(CALLBACK(src, .proc/after_emag), 10 * length(linked_server.decryptkey) SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(after_emag)), 10 * length(linked_server.decryptkey) SECONDS)
 
 /obj/machinery/computer/message_monitor/proc/after_emag()
 	// Print an "error" decryption key, leaving physical evidence of the hack.
@@ -74,7 +74,7 @@
 		authenticated = FALSE
 	linked_server = server
 	if(server)
-		RegisterSignal(server, COMSIG_PARENT_QDELETING, .proc/server_deleting)
+		RegisterSignal(server, COMSIG_PARENT_QDELETING, PROC_REF(server_deleting))
 	ui_update()
 
 /obj/machinery/computer/message_monitor/proc/server_deleting()
@@ -166,7 +166,7 @@
 			var/duration = 10 * length(linked_server.decryptkey) SECONDS
 			var/approx_duration = max(duration + rand(-20, 20), 1)
 			to_chat(S, "<span class='warning'>Brute-force decryption started. This will take approximately [DisplayTimeText(approx_duration, round_seconds_to = 10)].</span>")
-			addtimer(CALLBACK(src, .proc/finish_hack, S), duration)
+			addtimer(CALLBACK(src, PROC_REF(finish_hack), S), duration)
 			return TRUE
 		if("link")
 			var/list/message_servers = list()

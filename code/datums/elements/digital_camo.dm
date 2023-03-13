@@ -4,7 +4,7 @@
 
 /datum/element/digital_camo/New()
 	. = ..()
-	RegisterSignal(SSdcs, COMSIG_GLOB_MOB_LOGGED_IN, .proc/on_mob_login)
+	RegisterSignal(SSdcs, COMSIG_GLOB_MOB_LOGGED_IN, PROC_REF(on_mob_login))
 
 /datum/element/digital_camo/Destroy(force)
 	UnregisterSignal(SSdcs, COMSIG_GLOB_MOB_LOGGED_IN)
@@ -15,8 +15,8 @@
 	if(!isliving(target) || (target in attached_mobs))
 		return ELEMENT_INCOMPATIBLE
 	//Register signals to handle examinations and override track behaviour
-	RegisterSignal(target, COMSIG_PARENT_EXAMINE, .proc/on_examine)
-	RegisterSignal(target, COMSIG_LIVING_CAN_TRACK, .proc/can_track)
+	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(target, COMSIG_LIVING_CAN_TRACK, PROC_REF(can_track))
 	//Create an override image to make them invisible on the AI's screen
 	var/image/img = image(loc = target)
 	img.override = TRUE

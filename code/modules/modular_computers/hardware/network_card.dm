@@ -6,8 +6,11 @@
 	network_id = NETWORK_CARDS	// Network we are on
 	var/hardware_id = null	// Identification ID. Technically MAC address of this device. Can't be changed by user.
 	var/identification_string = "" 	// Identification string, technically nickname seen in the network. Can be set by user.
-	var/long_range = 0
-	var/ethernet = 0 // Hard-wired, therefore always on, ignores NTNet wireless checks.
+	/// If this works without being on the same zlevel, as long as there is a tcomms relay
+	var/long_range = FALSE
+	/// If this works without a tcomms relay on the zlevel (requires long_range)
+	var/ignore_relay = FALSE
+	var/ethernet = FALSE // Hard-wired, therefore always on, ignores NTNet wireless checks.
 	malfunction_probability = 1
 	device_type = MC_NET
 
@@ -43,7 +46,7 @@
 	if(ethernet) // Computer is connected via wired connection.
 		return 3
 
-	if(!SSnetworks.station_network || !SSnetworks.station_network.check_function(specific_action, get_virtual_z_level())) // NTNet is down and we are not connected via wired connection. No signal.
+	if(!SSnetworks.station_network || !SSnetworks.station_network.check_function(specific_action, get_virtual_z_level(), ignore_relay)) // NTNet is down and we are not connected via wired connection. No signal.
 		return 0
 
 	if(holder)
@@ -65,12 +68,17 @@
 /obj/item/computer_hardware/network_card/advanced
 	name = "advanced network card"
 	desc = "An advanced network card for usage with standard NTNet frequencies. Its transmitter is strong enough to connect even off-station."
-	long_range = 1
+	long_range = TRUE
 	power_usage = 100 // Better range but higher power usage.
 	icon_state = "radio"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/computer_hardware/network_card/advanced/norelay
+	name = "ultra-advanced network card"
+	desc = "An advanced network card for usage with standard NTNet frequencies. Its transmitter is strong enough to connect even off-station, even without a telecomms relay."
+	ignore_relay = TRUE
 
 /obj/item/computer_hardware/network_card/wired
 	name = "wired network card"

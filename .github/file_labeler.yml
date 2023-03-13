@@ -17,7 +17,7 @@ sprites:
 - icons/**/*.dmi
 
 sql:
-- SQL/**/*.sql
+- SQL/**/*
 
 tools:
 - tools/**/*
