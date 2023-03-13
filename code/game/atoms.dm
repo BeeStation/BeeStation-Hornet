@@ -1627,7 +1627,7 @@
 		//Regardless of power, whatever is burning will go up in a brilliant flash with at least a fizzle
 		playsound(T,'sound/magic/fireball.ogg', max(strength*20, 20), 1)
 		T.visible_message("<b><span class='userdanger'>[src] ignites in a brilliant flash!</span></b>") 
-		if(reagent_reaction)
+		if(reagent_reaction) // Don't qdel(src). It's a reaction inside of something (or someone) important.
 			return TRUE
 		else if(isturf(src))
 			var/turf/srcTurf = src
