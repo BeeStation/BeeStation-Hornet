@@ -35,16 +35,12 @@
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "e" = (
-/obj/machinery/light{
-	dir = 1
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/shuttle/glass{
+	autoclose = 0.1;
+	id_tag = "CargoAirlocks"
 	},
-/obj/machinery/conveyor/inverted{
-	dir = 5;
-	id = "MailConv"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/shuttle/supply)
 "f" = (
 /obj/effect/turf_decal/bot,
@@ -104,15 +100,8 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/supply)
 "m" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/conveyor/inverted{
-	dir = 6;
-	id = "MailConv"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
+/obj/structure/sign/warning/fire,
+/turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/supply)
 "n" = (
 /turf/template_noop,
@@ -125,6 +114,11 @@
 	dir = 4;
 	pixel_x = 4
 	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"p" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/holopad,
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "q" = (
@@ -161,8 +155,13 @@
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "u" = (
-/obj/structure/sign/warning/fire,
-/turf/closed/wall/mineral/titanium,
+/obj/docking_port/mobile/supply,
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/shuttle/glass{
+	autoclose = 0.1;
+	id_tag = "CargoAirlocks"
+	},
+/turf/open/floor/plating,
 /area/shuttle/supply)
 "v" = (
 /obj/structure/table/reinforced,
@@ -201,16 +200,24 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/supply)
 "A" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Supply Shuttle Airlock";
-	req_access_txt = "31"
+/obj/machinery/light{
+	dir = 1
 	},
-/obj/structure/fans/tiny,
-/turf/open/floor/plating,
+/obj/machinery/conveyor/inverted{
+	dir = 5;
+	id = "MailConv"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/newscaster{
+	pixel_y = 34
+	},
+/turf/open/floor/plasteel/dark,
 /area/shuttle/supply)
 "B" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/closed/wall/mineral/titanium,
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
 /area/shuttle/supply)
 "C" = (
 /obj/machinery/light,
@@ -242,7 +249,7 @@
 	id = "QMLoaddoor2";
 	layer = 4;
 	name = "Loading Doors";
-	pixel_x = 32;
+	pixel_x = 35;
 	pixel_y = 5;
 	req_access_txt = "31"
 	},
@@ -250,7 +257,7 @@
 	id = "QMLoaddoor";
 	layer = 4;
 	name = "Loading Doors";
-	pixel_x = 32;
+	pixel_x = 35;
 	pixel_y = -5;
 	req_access_txt = "31"
 	},
@@ -262,6 +269,21 @@
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 8
 	},
+/obj/machinery/button/door{
+	id = "CargoAirlocks";
+	name = "Shuttle Doors";
+	normaldoorcontrol = 1;
+	pixel_x = 24;
+	pixel_y = 5
+	},
+/obj/machinery/button/door{
+	id = "CargoAirlocks";
+	name = "Shuttle Doors lock";
+	normaldoorcontrol = 1;
+	pixel_x = 24;
+	pixel_y = -5;
+	specialfunctions = 4
+	},
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "G" = (
@@ -270,6 +292,19 @@
 	id = "MailConv"
 	},
 /obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"H" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/conveyor{
+	id = "MailConv"
+	},
+/obj/machinery/camera/autoname{
+	dir = 4;
+	network = list("ss13","cargo")
+	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/supply)
 "I" = (
@@ -322,15 +357,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
-"O" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/conveyor{
-	id = "MailConv"
-	},
-/turf/open/floor/plasteel/dark,
-/area/shuttle/supply)
 "P" = (
 /obj/machinery/conveyor_switch/oneway{
 	dir = 8;
@@ -359,13 +385,19 @@
 /turf/open/floor/plasteel/sepia,
 /area/shuttle/supply)
 "R" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Supply Shuttle Airlock";
-	req_access_txt = "31"
+/obj/machinery/light{
+	dir = 1
 	},
-/obj/docking_port/mobile/supply,
-/obj/structure/fans/tiny,
-/turf/open/floor/plating,
+/obj/machinery/conveyor/inverted{
+	dir = 6;
+	id = "MailConv"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/status_display/supply{
+	pixel_x = 1;
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/dark,
 /area/shuttle/supply)
 "S" = (
 /obj/effect/spawner/structure/window/shuttle,
@@ -417,7 +449,7 @@ S
 S
 S
 S
-S
+Y
 S
 S
 S
@@ -428,16 +460,16 @@ D
 (2,1,1) = {"
 X
 Y
-e
+A
 g
 g
 s
-O
+H
 s
 g
 c
 G
-u
+m
 h
 "}
 (3,1,1) = {"
@@ -462,7 +494,7 @@ z
 t
 N
 J
-J
+p
 J
 J
 N
@@ -488,7 +520,7 @@ W
 (6,1,1) = {"
 X
 Y
-m
+R
 w
 U
 L
@@ -497,21 +529,21 @@ P
 l
 V
 C
-u
+m
 y
 "}
 (7,1,1) = {"
 n
 X
-X
-X
+S
+S
 Q
-A
+e
 X
-R
+u
 b
 B
-X
+S
 Y
 D
 "}

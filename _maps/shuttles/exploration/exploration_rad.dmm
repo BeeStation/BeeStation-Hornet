@@ -368,7 +368,7 @@
 /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"Ml" = (
+"KT" = (
 /obj/machinery/power/apc/auto_name/east{
 	pixel_x = 24
 	},
@@ -377,6 +377,10 @@
 	},
 /obj/structure/table,
 /obj/machinery/recharger,
+/obj/machinery/camera/autoname{
+	dir = 8;
+	network = list("ss13","sci")
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "MY" = (
@@ -556,7 +560,7 @@ lq
 ao
 dI
 CQ
-Ml
+KT
 uG
 Fh
 lq
