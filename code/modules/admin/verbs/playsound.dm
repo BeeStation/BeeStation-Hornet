@@ -151,6 +151,24 @@
 	message_admins("[key_name_admin(src)] set the round end sound to [S]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Round End Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/play_soundtrack()
+	set category = "Fun"
+	set name = "Play Soundtrack Music"
+	set desc = "Choose a song to play from the available soundtrack."
+
+	var/station_only = alert(usr, "Play only on station?", "Station Setting", "Station Only", "All", "Cancel")
+	if(station_only == "Cancel" || station_only == null)
+		return
+	var/soundtracks = subtypesof(/datum/soundtrack_song)
+	for(var/datum/soundtrack_song/song as() in soundtracks)
+		if(initial(song.file) != null)
+			continue
+		soundtracks -= song
+	var/song_choice = input(usr, "Choose a song", "Song Choice", null) as null|anything in soundtracks
+	if(!ispath(song_choice, /datum/soundtrack_song))
+		return
+	play_soundtrack_music(song_choice, only_station = (station_only == "Station Only" ? SOUNDTRACK_PLAY_ONLYSTATION : SOUNDTRACK_PLAY_ALL))
+
 /client/proc/stop_sounds()
 	set category = "Debug"
 	set name = "Stop All Playing Sounds"
