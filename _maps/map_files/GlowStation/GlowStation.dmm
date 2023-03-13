@@ -29297,7 +29297,7 @@
 	},
 /obj/item/stamp/hos,
 /obj/item/paper/fluff{
-	info = "Remember that the Brig shuttle can dock with the southern PERMA";
+	default_raw_text = "Remember that the Brig shuttle can dock with the southern PERMA";
 	name = "Reminder"
 	},
 /turf/open/floor/wood,
