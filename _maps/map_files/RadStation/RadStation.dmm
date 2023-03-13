@@ -34008,48 +34008,6 @@
 "mou" = (
 /turf/open/floor/plasteel/dark,
 /area/science/misc_lab/range)
-"moE" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/light{
-	dir = 8;
-	light_color = "#e8eaff"
-	},
-/obj/machinery/camera/autoname{
-	dir = 4;
-	network = list("ss13","cargo")
-	},
-/obj/machinery/button/door{
-	id = "QMLoaddoor2";
-	layer = 4;
-	name = "Loading Doors";
-	pixel_x = -25;
-	pixel_y = 7;
-	req_access_txt = "31"
-	},
-/obj/machinery/button/door{
-	id = "QMLoaddoor";
-	layer = 4;
-	name = "Loading Doors";
-	pixel_x = -25;
-	pixel_y = -7;
-	req_access_txt = "31"
-	},
-/obj/machinery/computer/cargo{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	dir = 1;
-	pixel_x = -40;
-	pixel_y = -3
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/storage)
 "moP" = (
 /obj/machinery/door/airlock/command{
 	name = "Conference Room";
@@ -37156,6 +37114,22 @@
 "nnB" = (
 /turf/closed/wall,
 /area/science/robotics)
+"nnD" = (
+/obj/machinery/button/door{
+	id = "CargoAirlocks";
+	name = "Shuttle Doors";
+	normaldoorcontrol = 1;
+	pixel_y = 5
+	},
+/obj/machinery/button/door{
+	id = "CargoAirlocks";
+	name = "Shuttle Doors lock";
+	normaldoorcontrol = 1;
+	pixel_y = -4;
+	specialfunctions = 4
+	},
+/turf/closed/wall,
+/area/quartermaster/storage)
 "nnI" = (
 /obj/machinery/door/airlock/external{
 	name = "Arrival Shuttle Airlock"
@@ -53474,6 +53448,48 @@
 	},
 /turf/open/floor/plating,
 /area/science/research)
+"tmw" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
+	},
+/obj/machinery/camera/autoname{
+	dir = 4;
+	network = list("ss13","cargo")
+	},
+/obj/machinery/button/door{
+	id = "QMLoaddoor2";
+	layer = 4;
+	name = "Loading Doors";
+	pixel_x = -25;
+	pixel_y = 4;
+	req_access_txt = "31"
+	},
+/obj/machinery/button/door{
+	id = "QMLoaddoor";
+	layer = 4;
+	name = "Loading Doors";
+	pixel_x = -25;
+	pixel_y = -5;
+	req_access_txt = "31"
+	},
+/obj/machinery/computer/cargo{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_x = -40;
+	pixel_y = -3
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "tmB" = (
 /obj/structure/sign/poster/random,
 /turf/closed/wall,
@@ -88373,7 +88389,7 @@ aui
 aui
 bwT
 qKs
-krB
+nnD
 qKs
 uHY
 jah
@@ -88887,7 +88903,7 @@ mKI
 uql
 cfA
 xmU
-moE
+tmw
 ptJ
 uql
 cfA
