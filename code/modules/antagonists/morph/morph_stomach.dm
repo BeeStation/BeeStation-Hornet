@@ -115,6 +115,7 @@
 							I.pixel_y = rand(-10, 10)
 					morph.RemoveContents(L)
 					L.death(0)
+					L.apply_damage(50, BURN)
 					L.become_husk()
 					morph.adjustHealth(-(L.maxHealth / 2))
 					to_chat(morph, "<span class='danger'>You digest [L], restoring some health</span>")
