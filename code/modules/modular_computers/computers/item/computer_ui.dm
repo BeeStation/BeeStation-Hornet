@@ -16,7 +16,7 @@
 	)
 
 /obj/item/modular_computer/ui_interact(mob/user, datum/tgui/ui)
-	if(!enabled || !user.can_read(src) || !use_power())
+	if(!enabled || !user.is_literate() || !use_power())
 		if(ui)
 			ui.close()
 		return
