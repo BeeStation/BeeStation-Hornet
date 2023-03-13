@@ -49535,6 +49535,34 @@
 "rQd" = (
 /turf/closed/wall/r_wall/rust,
 /area/crew_quarters/heads/hor)
+"rQJ" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/paper/pamphlet/centcom/visitor_info{
+	info = "<b> XCC-P5831 Visitor Information </b><br>\ntGreetings, visitor, to  XCC-P5831! As you may know, this outpost was once \ntused as Nanotrasen's CENTRAL COMMAND STATION, organizing and coordinating company \ntprojects across the vastness of space. <br>\ntSince the completion of the much more efficient CC-A5831 on March 8, 2553, XCC-P5831 no longer \ntacts as NT's base of operations but still plays a very important role its corporate affairs; \ntserving as a supply and repair depot, as well as being host to its most important legal proceedings\nt and the thrilling pay-per-view broadcasts of <i>PLASTEEL CHEF</i> and <i>THUNDERDOME LIVE</i>.<br> \ntWe hope you enjoy your stay!";
+	pixel_x = -3;
+	pixel_y = 6
+	},
+/obj/item/paper/pamphlet/centcom/visitor_info{
+	info = "<b> XCC-P5831 Visitor Information </b><br>\ntGreetings, visitor, to  XCC-P5831! As you may know, this outpost was once \ntused as Nanotrasen's CENTRAL COMMAND STATION, organizing and coordinating company \ntprojects across the vastness of space. <br>\ntSince the completion of the much more efficient CC-A5831 on March 8, 2553, XCC-P5831 no longer \ntacts as NT's base of operations but still plays a very important role its corporate affairs; \ntserving as a supply and repair depot, as well as being host to its most important legal proceedings\nt and the thrilling pay-per-view broadcasts of <i>PLASTEEL CHEF</i> and <i>THUNDERDOME LIVE</i>.<br> \ntWe hope you enjoy your stay!";
+	pixel_x = 1;
+	pixel_y = 4
+	},
+/obj/item/paper/pamphlet/centcom/visitor_info{
+	info = "<b> XCC-P5831 Visitor Information </b><br>\ntGreetings, visitor, to  XCC-P5831! As you may know, this outpost was once \ntused as Nanotrasen's CENTRAL COMMAND STATION, organizing and coordinating company \ntprojects across the vastness of space. <br>\ntSince the completion of the much more efficient CC-A5831 on March 8, 2553, XCC-P5831 no longer \ntacts as NT's base of operations but still plays a very important role its corporate affairs; \ntserving as a supply and repair depot, as well as being host to its most important legal proceedings\nt and the thrilling pay-per-view broadcasts of <i>PLASTEEL CHEF</i> and <i>THUNDERDOME LIVE</i>.<br> \ntWe hope you enjoy your stay!";
+	pixel_x = 5;
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/dorms)
 "rQQ" = (
 /obj/structure/noticeboard{
 	dir = 8;
@@ -63547,30 +63575,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"wUz" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/structure/table,
-/obj/item/paper/pamphlet/centcom/visitor_info{
-	pixel_x = -3;
-	pixel_y = 5
-	},
-/obj/item/paper/pamphlet/centcom/visitor_info{
-	pixel_y = 3
-	},
-/obj/item/paper/pamphlet/centcom/visitor_info{
-	pixel_x = 3;
-	pixel_y = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/crew_quarters/dorms)
 "wUJ" = (
 /obj/machinery/door_timer{
 	id = "Cell 2";
@@ -109691,7 +109695,7 @@ oCe
 myq
 pgK
 rKV
-wUz
+rQJ
 kBd
 kBd
 gxP
