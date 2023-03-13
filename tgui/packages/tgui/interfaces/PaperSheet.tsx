@@ -245,7 +245,7 @@ class PaperSheetStamper extends Component<PaperSheetStamperProps> {
 }
 
 // Creates a full stamp div to render the given stamp to the preview.
-export const Stamp = (props, context): InfernoElement<HTMLDivElement> => {
+export const Stamp = (props, context) => {
   const { activeStamp, sprite, x, y, rotation, opacity, yOffset = 0 } = props;
   const stamp_transform = {
     'left': x + 'px',
