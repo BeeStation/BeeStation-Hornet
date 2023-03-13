@@ -106,7 +106,7 @@
 						dat += "<td><a href='?src=[REF(src)];field=show_photo_front'><img src=photo_front height=80 width=80 border=4></a></td>"
 						dat += "<td><a href='?src=[REF(src)];field=show_photo_side'><img src=photo_side height=80 width=80 border=4></a></td></tr>"
 						dat += "<tr><td>ID:</td><td>[active1.fields["id"]]</td></tr>"
-						dat += "<tr><td>Sex:</td><td><A href='?src=[REF(src)];field=sex'>&nbsp;[active1.fields["sex"]]&nbsp;</A></td></tr>"
+						dat += "<tr><td>Gender:</td><td><A href='?src=[REF(src)];field=gender'>&nbsp;[active1.fields["gender"]]&nbsp;</A></td></tr>"
 						dat += "<tr><td>Age:</td><td><A href='?src=[REF(src)];field=age'>&nbsp;[active1.fields["age"]]&nbsp;</A></td></tr>"
 						dat += "<tr><td>Species:</td><td><A href='?src=[REF(src)];field=species'>&nbsp;[active1.fields["species"]]&nbsp;</A></td></tr>"
 						dat += "<tr><td>Fingerprint:</td><td><A href='?src=[REF(src)];field=fingerprint'>&nbsp;[active1.fields["fingerprint"]]&nbsp;</A></td></tr>"
@@ -272,12 +272,12 @@
 							if(!canUseMedicalRecordsConsole(usr, t1, a1))
 								return
 							src.active1.fields["fingerprint"] = t1
-					if("sex")
+					if("gender")
 						if(active1)
-							if(src.active1.fields["sex"] == "Male")
-								src.active1.fields["sex"] = "Female"
-							else
-								src.active1.fields["sex"] = "Male"
+							var/t1 = input(usr, "Select gender", "Med. records", src.active1.fields["gender"]) as null|anything in list(MALE, FEMALE, "other")
+							if(!canUseMedicalRecordsConsole(usr, t1, a1))
+								return
+							src.active1.fields["gender"] = capitalize(t1)
 					if("age")
 						if(active1)
 							var/t1 = input("Please input age:", "Med. records", src.active1.fields["age"], null)  as num
@@ -468,7 +468,7 @@
 				var/counter = 1
 				while(src.active2.fields[text("com_[]", counter)])
 					counter++
-				src.active2.fields[text("com_[]", counter)] = text("Made by [] ([]) on [] [], []<BR>[]", src.authenticated, src.rank, station_time_timestamp(), time2text(world.realtime, "MMM DD"), GLOB.year_integer+540, t1)
+				src.active2.fields[text("com_[]", counter)] = text("Made by [] ([]) on [] [], []<BR>[]", src.authenticated, src.rank, station_time_timestamp(), time2text(world.realtime, "MMM DD"), GLOB.year_integer+YEAR_OFFSET, t1)
 
 			else if(href_list["del_c"])
 				if((istype(src.active2, /datum/data/record) && src.active2.fields[text("com_[]", href_list["del_c"])]))
@@ -505,7 +505,7 @@
 					var/obj/item/paper/P = new /obj/item/paper( src.loc )
 					P.info = "<CENTER><B>Medical Record - (MR-[GLOB.data_core.medicalPrintCount])</B></CENTER><BR>"
 					if(active1 in GLOB.data_core.general)
-						P.info += text("Name: [] ID: []<BR>\nSex: []<BR>\nAge: []<BR>", src.active1.fields["name"], src.active1.fields["id"], src.active1.fields["sex"], src.active1.fields["age"])
+						P.info += text("Name: [] ID: []<BR>\nGender: []<BR>\nAge: []<BR>", src.active1.fields["name"], src.active1.fields["id"], src.active1.fields["gender"], src.active1.fields["age"])
 						P.info += "\nSpecies: [active1.fields["species"]]<BR>"
 						P.info += text("\nFingerprint: []<BR>\nPhysical Status: []<BR>\nMental Status: []<BR>", src.active1.fields["fingerprint"], src.active1.fields["p_stat"], src.active1.fields["m_stat"])
 					else
@@ -534,9 +534,9 @@
 			if(prob(10/severity))
 				switch(rand(1,6))
 					if(1)
-						R.fields["name"] = random_unique_name(R.fields["sex"],1)
+						R.fields["name"] = random_unique_name(R.fields["gender"],1)
 					if(2)
-						R.fields["sex"]	= pick("Male", "Female")
+						R.fields["gender"]	= pick("Male", "Female", "Other")
 					if(3)
 						R.fields["age"] = rand(AGE_MIN, AGE_MAX)
 					if(4)

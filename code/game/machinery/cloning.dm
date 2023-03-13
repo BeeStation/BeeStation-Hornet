@@ -102,7 +102,7 @@
 	if (alert(user, "Are you sure you want to empty the cloning pod?", "Empty Reagent Storage:", "Yes", "No") != "Yes")
 		return
 	to_chat(user, "<span class='notice'>You empty \the [src]'s release valve onto the floor.</span>")
-	reagents.expose(user.loc)
+	reagents.reaction(user.loc)
 	src.reagents.clear_reagents()
 
 /obj/machinery/clonepod/attack_ai(mob/user)
@@ -216,7 +216,7 @@
 			if(G.suiciding) // The ghost came from a body that is suiciding.
 				return ERROR_SUICIDED_BODY
 		if(clonemind.damnation_type) //Can't clone the damned.
-			INVOKE_ASYNC(src, .proc/horrifyingsound)
+			INVOKE_ASYNC(src, PROC_REF(horrifyingsound))
 			mess = TRUE
 			icon_state = "pod_g"
 			update_icon()
@@ -515,6 +515,9 @@
 	if(grab_ghost_when == CLONER_MATURE_CLONE)
 		mob_occupant.grab_ghost()
 		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br><i>You feel like a new being.</i></span>")
+		var/postclonemessage = CONFIG_GET(string/policy_postclonetext)
+		if(postclonemessage)
+			to_chat(occupant, postclonemessage)
 		mob_occupant.flash_act()
 
 	if(move)

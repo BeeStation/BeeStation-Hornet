@@ -375,8 +375,8 @@
 		if((GLOB.cult_narsie.souls == GLOB.cult_narsie.soul_goal) && (GLOB.cult_narsie.resolved == FALSE))
 			GLOB.cult_narsie.resolved = TRUE
 			sound_to_playing_players('sound/machines/alarm.ogg')
-			addtimer(CALLBACK(GLOBAL_PROC, .proc/cult_ending_helper, 1), 120)
-			addtimer(CALLBACK(GLOBAL_PROC, .proc/ending_helper), 270)
+			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(cult_ending_helper), 1), 120)
+			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(ending_helper)), 270)
 	if(client)
 		makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, src, cultoverride = TRUE)
 	else
@@ -396,7 +396,7 @@
 /mob/living/proc/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash)
 	if(get_eye_protection() < intensity && (override_blindness_check || !is_blind()))
 		overlay_fullscreen("flash", type)
-		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), 25)
+		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
 		return TRUE
 	return FALSE
 
@@ -414,23 +414,6 @@
 		used_item = get_active_held_item()
 	..()
 	setMovetype(movement_type & ~FLOATING) // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
-
-/** Handles exposing a mob to reagents.
-  *
-  * If the methods include INGEST the mob tastes the reagents.
-  * If the methods include VAPOR it incorporates permiability protection.
-  */
-/mob/living/expose_reagents(list/reagents, datum/reagents/source, methods=TOUCH, volume_modifier=1, show_message=TRUE)
-	if((. = ..()) & COMPONENT_NO_EXPOSE_REAGENTS)
-		return
-
-	if(methods & INGEST)
-		taste(source)
-
-	var/touch_protection = (methods & VAPOR) ? get_permeability_protection() : 0
-	for(var/reagent in reagents)
-		var/datum/reagent/R = reagent
-		. |= R.expose_mob(src, methods, reagents[R], show_message, touch_protection)
 
 /mob/living/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 	if(istype(E) && diseases.len)

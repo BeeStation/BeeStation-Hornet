@@ -169,14 +169,14 @@
 
 		for(var/mob/living/simple_animal/mouse/M in get_turf(src))
 			if(!M.stat)
-				INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "splats \the [M]!")
+				INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, "splats \the [M]!")
 				M.splat()
 				movement_target = null
 				stop_automated_movement = 0
 				break
 		for(var/obj/item/toy/cattoy/T in get_turf(src))
 			if (T.cooldown < (world.time - 400))
-				INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "bats \the [T] around with its paw!")
+				INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, "bats \the [T] around with its paw!")
 				T.cooldown = world.time
 
 /mob/living/simple_animal/pet/cat/update_resting()
@@ -194,19 +194,19 @@
 		if(prob(3))
 			switch(rand(1, 3))
 				if (1)
-					INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
+					INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
 					set_resting(TRUE)
 				if (2)
-					INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
+					INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
 					set_resting(TRUE)
 					icon_state = "[icon_living]_sit"
 					collar_type = "[initial(collar_type)]_sit"
 				if (3)
 					if (resting)
-						INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("gets up and meows.", "walks around.", "stops resting."))
+						INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("gets up and meows.", "walks around.", "stops resting."))
 						set_resting(FALSE)
 					else
-						INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
+						INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
 
 	..()
 	if(next_scan_time <= world.time)

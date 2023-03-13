@@ -140,7 +140,7 @@
 			to_chat(src, "<span class='warning'>You begin to swallow [L] whole...</span>")
 			is_swallowing = TRUE
 			if(do_after(src, 3 SECONDS, target = L))
-				RegisterSignal(L, COMSIG_LIVING_REVIVE, .proc/living_revive)
+				RegisterSignal(L, COMSIG_LIVING_REVIVE, PROC_REF(living_revive))
 				if(eat(L))
 					adjustHealth(-L.maxHealth * 0.5)
 			is_swallowing = FALSE
@@ -277,7 +277,7 @@
 			if(D.density)
 				return
 		delayFire += 1.0
-		addtimer(CALLBACK(src, .proc/dragon_fire_line, T), delayFire)
+		addtimer(CALLBACK(src, PROC_REF(dragon_fire_line), T), delayFire)
 
 /**
   * What occurs on each tile to actually create the fire.
@@ -361,7 +361,7 @@
 /mob/living/simple_animal/hostile/space_dragon/proc/start_carp_speedboost(mob/living/target)
 	target.add_filter("anger_glow", 3, list("type" = "outline", "color" = "#ff330030", "size" = 2))
 	target.add_movespeed_modifier(MOVESPEED_ID_DRAGON_RAGE, multiplicative_slowdown = -0.5)
-	addtimer(CALLBACK(src, .proc/end_carp_speedboost, target), 8 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(end_carp_speedboost), target), 8 SECONDS)
 
 /**
  * Remove the speed boost from carps when hit by space dragon's flame breath
@@ -386,7 +386,7 @@
 /mob/living/simple_animal/hostile/space_dragon/proc/useGust(animate = TRUE)
 	if(animate)
 		animate(src, pixel_y = 20, time = 1 SECONDS)
-		addtimer(CALLBACK(src, .proc/useGust, FALSE), 1.2 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(useGust), FALSE), 1.2 SECONDS)
 		return
 	pixel_y = 0
 	if(!small_sprite.small)
@@ -405,7 +405,7 @@
 		var/throwtarget = get_edge_target_turf(target, dir_to_target)
 		candidate.safe_throw_at(throwtarget, 10, 1, src)
 		candidate.Paralyze(50)
-	addtimer(CALLBACK(src, .proc/reset_status), 4 + ((tiredness * tiredness_mult) / 10))
+	addtimer(CALLBACK(src, PROC_REF(reset_status)), 4 + ((tiredness * tiredness_mult) / 10))
 	tiredness = tiredness + (gust_tiredness * tiredness_mult)
 
 /mob/living/proc/carp_talk(message, shown_name = real_name)

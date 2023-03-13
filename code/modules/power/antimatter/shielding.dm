@@ -30,7 +30,7 @@
 
 /obj/machinery/am_shielding/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/controllerscan), 10)
+	addtimer(CALLBACK(src, PROC_REF(controllerscan)), 10)
 
 /obj/machinery/am_shielding/proc/overheat()
 	visible_message("<span class='danger'>[src] melts!</span>")
@@ -65,7 +65,7 @@
 
 	if(!control_unit)
 		if(!priorscan)
-			addtimer(CALLBACK(src, .proc/controllerscan, 1), 20)
+			addtimer(CALLBACK(src, PROC_REF(controllerscan), 1), 20)
 			return
 		collapse()
 

@@ -107,42 +107,19 @@
 
 /obj/structure/statue/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+		plasma_ignition(6)
 
 
 /obj/structure/statue/plasma/bullet_act(obj/item/projectile/Proj)
-	var/burn = FALSE
-	if(!(Proj.nodamage) && Proj.damage_type == BURN && !QDELETED(src))
-		burn = TRUE
-	if(burn)
-		var/turf/T = get_turf(src)
-		if(Proj.firer)
-			message_admins("Plasma statue ignited by [ADMIN_LOOKUPFLW(Proj.firer)] in [ADMIN_VERBOSEJMP(T)]")
-			log_game("Plasma statue ignited by [key_name(Proj.firer)] in [AREACOORD(T)]")
-		else
-			message_admins("Plasma statue ignited by [Proj]. No known firer, in [ADMIN_VERBOSEJMP(T)]")
-			log_game("Plasma statue ignited by [Proj] in [AREACOORD(T)]. No known firer.")
-		PlasmaBurn(2500)
+	if(!(Proj.nodamage) && Proj.damage_type == BURN)
+		plasma_ignition(6, Proj?.firer)
 	. = ..()
 
 /obj/structure/statue/plasma/attackby(obj/item/W, mob/user, params)
-	if(W.is_hot() > 300 && !QDELETED(src))//If the temperature of the object is over 300, then ignite
-		var/turf/T = get_turf(src)
-		message_admins("Plasma statue ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
-		log_game("Plasma statue ignited by [key_name(user)] in [AREACOORD(T)]")
-		ignite(W.is_hot())
+	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
+		plasma_ignition(6, user)
 	else
 		return ..()
-
-/obj/structure/statue/plasma/proc/PlasmaBurn(exposed_temperature)
-	if(QDELETED(src))
-		return
-	atmos_spawn_air("plasma=[oreAmount*10];TEMP=[exposed_temperature]")
-	deconstruct(FALSE)
-
-/obj/structure/statue/plasma/proc/ignite(exposed_temperature)
-	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
 
 //////////////////////gold///////////////////////////////////////
 

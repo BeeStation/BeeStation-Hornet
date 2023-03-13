@@ -35,19 +35,19 @@
 		return COMPONENT_INCOMPATIBLE
 
 
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/OnAttackBy)
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, .proc/interact)
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(interact))
 	if(istype(parent, /obj/item/implant))
-		RegisterSignal(parent, COMSIG_IMPLANT_ACTIVATED, .proc/implant_activation)
-		RegisterSignal(parent, COMSIG_IMPLANT_IMPLANTING, .proc/implanting)
-		RegisterSignal(parent, COMSIG_IMPLANT_OTHER, .proc/old_implant)
-		RegisterSignal(parent, COMSIG_IMPLANT_EXISTING_UPLINK, .proc/new_implant)
+		RegisterSignal(parent, COMSIG_IMPLANT_ACTIVATED, PROC_REF(implant_activation))
+		RegisterSignal(parent, COMSIG_IMPLANT_IMPLANTING, PROC_REF(implanting))
+		RegisterSignal(parent, COMSIG_IMPLANT_OTHER, PROC_REF(old_implant))
+		RegisterSignal(parent, COMSIG_IMPLANT_EXISTING_UPLINK, PROC_REF(new_implant))
 	else if(istype(parent, /obj/item/modular_computer/tablet))
-		RegisterSignal(parent, COMSIG_TABLET_CHANGE_RINGTONE, .proc/new_ringtone)
+		RegisterSignal(parent, COMSIG_TABLET_CHANGE_RINGTONE, PROC_REF(new_ringtone))
 	else if(istype(parent, /obj/item/radio))
-		RegisterSignal(parent, COMSIG_RADIO_MESSAGE, .proc/radio_message)
+		RegisterSignal(parent, COMSIG_RADIO_MESSAGE, PROC_REF(radio_message))
 	else if(istype(parent, /obj/item/pen))
-		RegisterSignal(parent, COMSIG_PEN_ROTATED, .proc/pen_rotation)
+		RegisterSignal(parent, COMSIG_PEN_ROTATED, PROC_REF(pen_rotation))
 
 	if(_owner)
 		owner = _owner
@@ -138,7 +138,7 @@
 	active = TRUE
 	update_items()
 	if(user)
-		INVOKE_ASYNC(src, .proc/ui_interact, user)
+		INVOKE_ASYNC(src, PROC_REF(ui_interact), user)
 	// an unlocked uplink blocks also opening the PDA or headset menu
 	return COMPONENT_NO_INTERACT
 

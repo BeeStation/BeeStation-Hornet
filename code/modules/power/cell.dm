@@ -80,7 +80,7 @@
 // use power from a cell
 /obj/item/stock_parts/cell/use(amount)
 	if(rigged && amount > 0)
-		explode()
+		plasma_ignition(4)
 		return 0
 	if(charge < amount)
 		return 0
@@ -92,7 +92,7 @@
 // recharge the cell
 /obj/item/stock_parts/cell/proc/give(amount)
 	if(rigged && amount > 0)
-		explode()
+		plasma_ignition(4)
 		return 0
 	if(maxcharge < amount)
 		amount = maxcharge

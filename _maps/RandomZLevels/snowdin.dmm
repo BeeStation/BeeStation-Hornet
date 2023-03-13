@@ -5879,7 +5879,7 @@
 	frequency = 1442;
 	name = "Toxins Supply Control";
 	output_tag = "snowdin_toxins_out";
-	sensors = list("snowdin_toxins" = "Tank")
+	sensors = list("snowdin_toxins"="Tank")
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -7868,21 +7868,6 @@
 	icon_state = "platingdmg1"
 	},
 /area/awaymission/snowdin/post/mining_dock)
-"xK" = (
-/obj/docking_port/stationary/turbolift{
-	deck = 2;
-	dir = 4;
-	dwidth = 3;
-	height = 6;
-	id = "snowdin_excavation";
-	name = "snowdin excavation top";
-	roundstart_template = /datum/map_template/shuttle/snowdin/excavation;
-	width = 6
-	},
-/turf/open/floor/plasteel/elevatorshaft{
-	initial_gas_mix = "o2=22;n2=82;TEMP=180"
-	},
-/area/awaymission/snowdin/cave)
 "xL" = (
 /obj/machinery/atmospherics/pipe/manifold/orange/visible{
 	dir = 8
@@ -7901,17 +7886,6 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/awaymission/snowdin/post/mining_dock)
-"xP" = (
-/obj/docking_port/stationary/turbolift{
-	dir = 4;
-	dwidth = 3;
-	height = 6;
-	id = "snowdin_excavation";
-	name = "snowdin excavation down";
-	width = 6
-	},
-/turf/open/floor/plasteel/elevatorshaft,
 /area/awaymission/snowdin/post/mining_dock)
 "xR" = (
 /obj/effect/light_emitter{
@@ -11369,19 +11343,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/mining_main)
-"Kn" = (
-/obj/docking_port/stationary/turbolift{
-	deck = 2;
-	dir = 4;
-	dwidth = 2;
-	height = 5;
-	id = "snowdin_mining";
-	name = "snowdin mining top";
-	roundstart_template = /datum/map_template/shuttle/snowdin/mining;
-	width = 5
-	},
-/turf/open/floor/plasteel/elevatorshaft,
-/area/awaymission/snowdin/post/mining_main)
 "Kp" = (
 /obj/machinery/holopad,
 /turf/open/floor/plating,
@@ -11401,17 +11362,6 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/awaymission/snowdin/post/mining_dock)
-"Kt" = (
-/obj/docking_port/stationary/turbolift{
-	dir = 4;
-	dwidth = 2;
-	height = 5;
-	id = "snowdin_mining";
-	name = "snowdin mining bottom";
-	width = 5
-	},
-/turf/open/floor/plasteel/elevatorshaft,
 /area/awaymission/snowdin/post/mining_dock)
 "Kv" = (
 /obj/machinery/power/terminal{
@@ -11603,11 +11553,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/turbolift_button{
-	floor_id = 1;
-	pixel_y = -26;
-	shuttle_id = "snowdin_excavation"
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/mining_dock)
@@ -11673,15 +11618,6 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/awaymission/snowdin/post/mining_dock)
-"LE" = (
-/obj/machinery/turbolift_button{
-	floor_id = 1;
-	pixel_x = -32;
-	pixel_y = 5;
-	shuttle_id = "snowdin_mining"
-	},
-/turf/open/floor/plating,
 /area/awaymission/snowdin/post/mining_dock)
 "LF" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -12717,18 +12653,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/dorm)
-"Re" = (
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 1
-	},
-/obj/machinery/turbolift_button{
-	floor_id = 2;
-	pixel_x = 32;
-	pixel_y = 5;
-	shuttle_id = "snowdin_excavation"
-	},
-/turf/open/floor/plating/snowed,
-/area/awaymission/snowdin/cave)
 "Ri" = (
 /obj/item/storage/firstaid{
 	empty = 1
@@ -12974,7 +12898,7 @@
 	frequency = 1442;
 	name = "Oxygen Supply Control";
 	output_tag = "snowdin_oxygen_out";
-	sensors = list("snowdin_oxygen" = "Tank")
+	sensors = list("snowdin_oxygen"="Tank")
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -13176,17 +13100,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/awaymission/snowdin/post)
-"Tx" = (
-/obj/machinery/turbolift_button{
-	floor_id = 2;
-	pixel_y = 36;
-	shuttle_id = "snowdin_mining"
-	},
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/snowdin/post/mining_main)
 "Tz" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -13935,7 +13848,7 @@
 	frequency = 1442;
 	name = "Nitrogen Supply Control";
 	output_tag = "snowdin_nitrogen_out";
-	sensors = list("snowdin_nitrogen" = "Tank")
+	sensors = list("snowdin_nitrogen"="Tank")
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -27802,7 +27715,7 @@ GP
 GP
 GP
 Go
-Tx
+Nf
 HW
 Gq
 Ql
@@ -28573,7 +28486,7 @@ Go
 xv
 JQ
 JQ
-Kn
+JQ
 JQ
 JQ
 ME
@@ -30521,7 +30434,7 @@ xa
 xl
 xl
 xl
-xK
+xl
 xl
 xl
 an
@@ -31552,7 +31465,7 @@ xl
 xl
 xl
 xl
-Re
+yp
 an
 ii
 ii
@@ -62242,7 +62155,7 @@ JF
 Ki
 wL
 GZ
-LE
+wL
 Gj
 wD
 bh
@@ -62754,7 +62667,7 @@ wE
 WX
 Ys
 Ys
-Kt
+Ys
 Ys
 Ys
 xw
@@ -65730,7 +65643,7 @@ ym
 Ys
 Ys
 Ys
-xP
+Ys
 Ys
 Ys
 yz

@@ -4,7 +4,7 @@
 
 Asphyxiation
 
-	Very very noticable.
+	Very very noticeable.
 	Decreases stage speed.
 	Decreases transmittablity.
 
