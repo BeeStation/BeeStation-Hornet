@@ -22,10 +22,10 @@
 	var/list/enemies = list()
 
 	to_chat(user, "<span class='notice'>We begin probing [target.name]'s mind!</span>")
-	if(do_after(user,50,0,target))
+	if(do_after(user, 50, target, timed_action_flags = IGNORE_HELD_ITEM))
 		if(!in_hive)
 			to_chat(user, "<span class='notice'>Their mind slowly opens up to us.</span>")
-			if(!do_after(user,75,0,target))
+			if(!do_after(user, 75, target, timed_action_flags = IGNORE_HELD_ITEM))
 				to_chat(user, "<span class='notice'>Our concentration has been broken!</span>")
 				revert_cast()
 				return

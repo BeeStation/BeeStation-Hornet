@@ -604,7 +604,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		unregister_target()
 	current_target = new_target
 	if (current_target)
-		RegisterSignal(current_target, COMSIG_PARENT_QDELETING, .proc/unregister_target)
+		RegisterSignal(current_target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_target))
 		START_PROCESSING(SSprocessing, src)
 
 /// Called when a target is deleted
@@ -676,7 +676,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	user.visible_message("<span class='notice'>[user] places down [src] and activates it.</span>", "<span class='notice'>You place down [src] and activate it.</span>")
 	user.dropItemToGround(src)
 	playsound(src, 'sound/machines/terminal_alert.ogg', 50)
-	addtimer(CALLBACK(src, .proc/try_spawn_machine), 30)
+	addtimer(CALLBACK(src, PROC_REF(try_spawn_machine)), 30)
 
 /obj/item/abductor_machine_beacon/proc/try_spawn_machine()
 	var/viable = FALSE
@@ -826,7 +826,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/structure/table/optable/abductor/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 

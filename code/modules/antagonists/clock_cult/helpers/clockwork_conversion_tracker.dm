@@ -60,7 +60,7 @@ GLOBAL_VAR_INIT(conversion_warning_stage, CONVERSION_WARNING_NONE)
 	for(var/datum/mind/M in GLOB.servants_of_ratvar)
 		SEND_SOUND(M.current, 'sound/magic/clockwork/scripture_tier_up.ogg')
 	hierophant_message("The Ark's many cogs suddenly whir to life, steam gushing out of its many crevices; it will open in 5 minutes!", null, "<span class='large_brass'>")
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/force_open_ark), 3000)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(force_open_ark)), 3000)
 	GLOB.ark_transport_triggered = TRUE
 	return TRUE
 

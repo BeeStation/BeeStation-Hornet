@@ -119,7 +119,8 @@
 					if(isalienadult(ass) || istype(ass, /mob/living/simple_animal/hostile/alien)) //Xenos have their own asses, thanks to Pybro.
 						temp_img = icon('icons/ass/assalien.png')
 					else if(ishuman(ass)) //Suit checks are in check_ass
-						temp_img = icon(ass.gender == FEMALE ? 'icons/ass/assfemale.png' : 'icons/ass/assmale.png')
+						var/mob/living/carbon/human/temporary = ass
+						temp_img = icon(temporary.dna.features["body_model"] == FEMALE ? 'icons/ass/assfemale.png' : 'icons/ass/assmale.png')
 					else if(isdrone(ass)) //Drones are hot
 						temp_img = icon('icons/ass/assdrone.png')
 					else
@@ -288,7 +289,7 @@
 			copy = null
 	updateUsrDialog()
 
-/obj/machinery/photocopier/proc/check_ass() //I'm not sure wether I made this proc because it's good form or because of the name.
+/obj/machinery/photocopier/proc/check_ass() //I'm not sure whether I made this proc because it's good form or because of the name.
 	if(!ass)
 		return 0
 	if(ass.loc != src.loc)

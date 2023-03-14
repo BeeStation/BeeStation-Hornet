@@ -64,12 +64,14 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	/// Number of total expansion bays this computer has available.
 	var/max_bays = 0
 
+	/// If we can imprint IDs on this device
+	var/can_save_id = FALSE
 	/// The currently imprinted ID.
 	var/saved_identification = null
 	/// The currently imprinted job.
 	var/saved_job = null
 	/// If the saved info should auto-update
-	var/saved_auto_imprint = TRUE
+	var/saved_auto_imprint = FALSE
 	/// The amount of honks. honk honk honk honk honk honkh onk honkhnoohnk
 	var/honk_amount = 0
 	/// Idle programs on background. They still receive process calls but can't be interacted with.
@@ -118,9 +120,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		id.UpdateDisplay()
 
 /obj/item/modular_computer/proc/on_id_insert()
+	ui_update()
 	var/obj/item/computer_hardware/card_slot/cardholder = all_components[MC_CARD]
 	// We shouldn't auto-imprint if ID modification is open.
-	if(!saved_auto_imprint || !cardholder || istype(active_program, /datum/computer_file/program/card_mod))
+	if(!can_save_id || !saved_auto_imprint || !cardholder || istype(active_program, /datum/computer_file/program/card_mod))
 		return
 	if(cardholder.current_identification == saved_identification && cardholder.current_job == saved_job)
 		return
@@ -130,7 +133,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	saved_job = cardholder.current_job
 	update_id_display()
 	playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
 
 /obj/item/modular_computer/Destroy()
 	kill_program(forced = TRUE)
@@ -262,10 +265,14 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			newemag = TRUE
 	if(newemag)
 		to_chat(user, "<span class='notice'>You swipe \the [src]. A console window momentarily fills the screen, with white text rapidly scrolling past.</span>")
+		kill_program(forced = TRUE, update = FALSE)
+
 		var/datum/computer_file/program/emag_console/emag_console = new(src)
 		emag_console.computer = src
 		emag_console.program_state = PROGRAM_STATE_ACTIVE
-		emag_console.ui_interact(user)
+		active_program = emag_console
+		ui_interact(user)
+		update_icon()
 		return TRUE
 	to_chat(user, "<span class='notice'>You swipe \the [src]. A console window fills the screen, but it quickly closes itself after only a few lines are written to it.</span>")
 	return FALSE
@@ -297,14 +304,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(obj_integrity <= integrity_failure)
 		add_overlay(mutable_appearance(init_icon, "bsod"))
 		add_overlay(mutable_appearance(init_icon, "broken"))
-
-
-// On-click handling. Turns on the computer if it's off and opens the GUI.
-/obj/item/modular_computer/interact(mob/user)
-	if(enabled)
-		ui_interact(user)
-	else
-		turn_on(user)
 
 /obj/item/modular_computer/proc/turn_on(mob/user, open_ui = TRUE)
 	if(enabled)
@@ -457,32 +456,34 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		if(3)
 			data["PC_ntneticon"] = "sig_lan.gif"
 
-	if(length(idle_threads))
-		var/list/program_headers = list()
-		for(var/I in idle_threads)
-			var/datum/computer_file/program/P = I
-			if(!P.ui_header)
-				continue
-			program_headers.Add(list(list(
-				"icon" = P.ui_header
-			)))
+	var/list/program_headers = list()
+	for(var/datum/computer_file/program/P as anything in idle_threads)
+		if(!P?.ui_header)
+			continue
+		program_headers.Add(list(list(
+			"icon" = P.ui_header
+		)))
 
-		data["PC_programheaders"] = program_headers
+	data["PC_programheaders"] = program_headers
 
 	data["PC_stationtime"] = station_time_timestamp()
+	data["PC_stationdate"] = "[time2text(world.realtime, "DDD, Month DD")], [GLOB.year_integer+YEAR_OFFSET]"
 	data["PC_hasheader"] = 1
 	data["PC_showexitprogram"] = active_program ? 1 : 0 // Hides "Exit Program" button on mainscreen
 	return data
 
 // Relays kill program request to currently active program. Use this to quit current program.
-/obj/item/modular_computer/proc/kill_program(forced = FALSE)
+/obj/item/modular_computer/proc/kill_program(forced = FALSE, update = TRUE)
 	if(active_program)
+		if(active_program in idle_threads)
+			idle_threads.Remove(active_program)
 		active_program.kill_program(forced)
 		active_program = null
-	var/mob/user = usr
-	if(user && istype(user))
-		ui_interact(user) // Re-open the UI on this computer. It should show the main screen now.
-	update_icon()
+	if(update)
+		var/mob/user = usr
+		if(user && istype(user))
+			ui_interact(user) // Re-open the UI on this computer. It should show the main screen now.
+		update_icon()
 
 /obj/item/modular_computer/proc/open_program(mob/user, datum/computer_file/program/program, in_background = FALSE)
 	if(program.computer != src)
@@ -503,7 +504,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			program.alert_pending = FALSE
 			idle_threads.Remove(program)
 			update_icon()
-			updateUsrDialog()
 			return TRUE
 	else if(program in idle_threads)
 		return TRUE
@@ -522,7 +522,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(!in_background)
 		active_program = program
 		program.alert_pending = FALSE
-		updateUsrDialog()
+		ui_interact(user)
 	else
 		program.program_state = PROGRAM_STATE_BACKGROUND
 		idle_threads.Add(program)
@@ -559,7 +559,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
   * Toggles the computer's flashlight, if it has one.
   *
   * Called from ui_act(), does as the name implies.
-  * It is seperated from ui_act() to be overwritten as needed.
+  * It is separated from ui_act() to be overwritten as needed.
 */
 /obj/item/modular_computer/proc/toggle_flashlight()
 	if(!has_light)
@@ -575,7 +575,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
   * Sets the computer's light color, if it has a light.
   *
   * Called from ui_act(), this proc takes a color string and applies it.
-  * It is seperated from ui_act() to be overwritten as needed.
+  * It is separated from ui_act() to be overwritten as needed.
   * Arguments:
   ** color is the string that holds the color value that we should use. Proc auto-fails if this is null.
 */
@@ -612,6 +612,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 	tool.play_tool_sound(user, volume=20)
 	uninstall_component(H, user, TRUE)
+	ui_update()
 	return
 
 /obj/item/modular_computer/attackby(obj/item/attacking_item, mob/user, params)
@@ -628,12 +629,14 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 				saved_image = pic.picture
 				messenger.ProcessPhoto()
 				to_chat(user, "<span class='notice'>You scan \the [pic] into \the [src]'s messenger.</span>")
+				ui_update()
 			return
 
 	// Insert items into the components
 	for(var/h in all_components)
 		var/obj/item/computer_hardware/H = all_components[h]
 		if(H.try_insert(attacking_item, user))
+			ui_update()
 			return
 
 	// Insert a pAI card
@@ -642,8 +645,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			return
 		stored_pai_card = attacking_item
 		// If the pAI moves out of the PDA, remove the reference.
-		RegisterSignal(stored_pai_card, COMSIG_MOVABLE_MOVED, .proc/stored_pai_moved)
-		RegisterSignal(stored_pai_card, COMSIG_PARENT_QDELETING, .proc/remove_pai)
+		RegisterSignal(stored_pai_card, COMSIG_MOVABLE_MOVED, PROC_REF(stored_pai_moved))
+		RegisterSignal(stored_pai_card, COMSIG_PARENT_QDELETING, PROC_REF(remove_pai))
 		to_chat(user, "<span class='notice'>You slot \the [attacking_item] into [src].</span>")
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 		update_icon()
@@ -653,6 +656,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(istype(inserted_hardware) && upgradable)
 		if(install_component(inserted_hardware, user))
 			inserted_hardware.on_inserted(user)
+			ui_update()
 			return
 
 	if(attacking_item.tool_behaviour == TOOL_WRENCH)

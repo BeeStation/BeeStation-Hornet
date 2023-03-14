@@ -3,7 +3,7 @@
 
 Hyphema (Eye bleeding)
 
-	Slightly noticable.
+	Slightly noticeable.
 	Lowers resistance tremendously.
 	Decreases stage speed tremendously.
 	Decreases transmittablity.
