@@ -126,6 +126,12 @@
 /obj/structure/rust_heretic_act()
 	take_damage(500, BRUTE, "melee", 1)
 
+/obj/structure/zap_act(power, zap_flags)
+	if(zap_flags & ZAP_OBJ_DAMAGE)
+		take_damage(power/8000, BURN, "energy")
+	power -= power/2000 //walls take a lot out of ya
+	. = ..()
+
 /// If you can climb WITHIN this structure, lattices for example. Used by z_transit (Move Upwards verb)
 /obj/structure/proc/can_climb_through()
 	return FALSE

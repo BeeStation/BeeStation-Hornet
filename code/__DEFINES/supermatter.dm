@@ -17,12 +17,19 @@
 #define POWERLOSS_INHIBITION_MOLE_THRESHOLD 20        //Higher == More moles of the gas are needed before the charge inertia chain reaction effect starts.        //Scales powerloss inhibition down until this amount of moles is reached
 #define POWERLOSS_INHIBITION_MOLE_BOOST_THRESHOLD 500  //bonus powerloss inhibition boost if this amount of moles is reached
 
-#define MOLE_PENALTY_THRESHOLD 1800           //Higher == Shard can absorb more moles before triggering the high mole penalties.
-#define MOLE_HEAT_PENALTY 350                 //Heat damage scales around this. Too hot setups with this amount of moles do regular damage, anything above and below is scaled
-#define POWER_PENALTY_THRESHOLD 5000          //Higher == Engine can generate more power before triggering the high power penalties.
-#define SEVERE_POWER_PENALTY_THRESHOLD 7000   //Same as above, but causes more dangerous effects
-#define CRITICAL_POWER_PENALTY_THRESHOLD 9000 //Even more dangerous effects, threshold for tesla delamination
-#define HEAT_PENALTY_THRESHOLD 40             //Higher == Crystal safe operational temperature is higher.
+//Higher == Shard can absorb more moles before triggering the high mole penalties.
+#define MOLE_PENALTY_THRESHOLD 1800
+//Heat damage scales around this. Too hot setups with this amount of moles do regular damage, anything above and below is scaled
+#define MOLE_HEAT_PENALTY 350
+//The cutoff on power properly doing damage, pulling shit around, and delamming into a tesla. Low chance of pyro anomalies, +2 bolts of electricity
+#define POWER_PENALTY_THRESHOLD 5000
+//+1 bolt of electricity, allows for gravitational anomalies, and higher chances of pyro anomalies
+#define SEVERE_POWER_PENALTY_THRESHOLD 7000
+//+1 bolt of electricity, threshold for tesla delamination
+#define CRITICAL_POWER_PENALTY_THRESHOLD 9000
+//Higher == Crystal safe operational temperature is higher.
+#define HEAT_PENALTY_THRESHOLD 40
+
 #define DAMAGE_HARDCAP 0.002
 #define DAMAGE_INCREASE_MULTIPLIER 0.25
 #define TRITIUM_RADIOACTIVITY_MODIFIER 3  //Higher == Crystal spews out more radiation

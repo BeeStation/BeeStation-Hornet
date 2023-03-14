@@ -79,7 +79,7 @@
 /datum/export/large/tesla_coil
 	cost = 450
 	unit_name = "tesla coil"
-	export_types = list(/obj/machinery/power/tesla_coil)
+	export_types = list(/obj/machinery/power/energy_accumulator/tesla_coil)
 
 /datum/export/large/pa
 	cost = 350
@@ -99,7 +99,7 @@
 /datum/export/large/grounding_rod
 	cost = 350
 	unit_name = "grounding rod"
-	export_types = list(/obj/machinery/power/grounding_rod)
+	export_types = list(/obj/machinery/power/energy_accumulator/grounding_rod)
 
 /datum/export/large/tesla_gen
 	cost = 4000
