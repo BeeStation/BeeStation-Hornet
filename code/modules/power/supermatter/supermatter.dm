@@ -93,6 +93,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 	var/moveable = FALSE
 
+	var/last_complete_process
+
 	/// cooldown tracker for accent sounds,
 	var/last_accent_sound = 0
 
@@ -304,6 +306,12 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			visible_message("<span class='warning'>[src] melts through [T]!</span>")
 		return
 
+	if(last_complete_process > SSair.last_complete_process) //Atmos has not been processed since the previous time the SM was. Abort.
+		power_changes = FALSE
+		return
+	else
+		power_changes = TRUE
+	
 	if(power)
 		soundloop.volume = CLAMP((50 + (power / 50)), 50, 100)
 	if(damage >= 300)
@@ -495,7 +503,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 		if(damage > explosion_point)
 			countdown()
-
+	
+	last_complete_process = world.time
 	return 1
 
 /obj/machinery/power/supermatter_crystal/bullet_act(obj/item/projectile/Proj)
