@@ -29,7 +29,7 @@
 
 /obj/machinery/plumbing/floor_pump/Initialize(mapload, bolt, layer)
 	. = ..()
-	RegisterSignal(src, list(COMSIG_OBJ_HIDE), .proc/on_hide)
+	RegisterSignal(src, list(COMSIG_OBJ_HIDE), PROC_REF(on_hide))
 
 /obj/machinery/plumbing/floor_pump/examine(mob/user)
 	. = ..()

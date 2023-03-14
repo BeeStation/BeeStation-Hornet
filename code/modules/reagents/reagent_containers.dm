@@ -41,11 +41,11 @@
 		label_name = name
 
 	add_initial_reagents()
-	AddElement(/datum/element/liquids_interaction, on_interaction_callback = /obj/item/reagent_containers/glass/beaker/.proc/attack_on_liquids_turf)
+	AddElement(/datum/element/liquids_interaction, on_interaction_callback = TYPE_PROC_REF(/obj/item/reagent_containers/glass/beaker, attack_on_liquids_turf))
 
 /obj/item/reagent_containers/Destroy()
 	. = ..()
-	RemoveElement(/datum/element/liquids_interaction, on_interaction_callback = /obj/item/reagent_containers/glass/beaker/.proc/attack_on_liquids_turf)
+	RemoveElement(/datum/element/liquids_interaction, on_interaction_callback = TYPE_PROC_REF(/obj/item/reagent_containers/glass/beaker, attack_on_liquids_turf))
 
 /obj/item/reagent_containers/proc/add_initial_reagents()
 	if(list_reagents)

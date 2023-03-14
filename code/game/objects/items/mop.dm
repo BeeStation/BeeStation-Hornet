@@ -24,11 +24,11 @@
 /obj/item/mop/Initialize(mapload)
 	. = ..()
 	create_reagents(mopcap)
-	AddElement(/datum/element/liquids_interaction, on_interaction_callback = /obj/item/mop/.proc/attack_on_liquids_turf)
+	AddElement(/datum/element/liquids_interaction, on_interaction_callback = TYPE_PROC_REF(/obj/item/mop, attack_on_liquids_turf))
 
 /obj/item/mop/Destroy()
 	. = ..()
-	RemoveElement(/datum/element/liquids_interaction, on_interaction_callback = /obj/item/mop/.proc/attack_on_liquids_turf)
+	RemoveElement(/datum/element/liquids_interaction, on_interaction_callback = TYPE_PROC_REF(/obj/item/mop, attack_on_liquids_turf))
 
 /obj/item/mop/proc/attack_on_liquids_turf(obj/item/mop/the_mop, turf/T, mob/user, obj/effect/abstract/liquid_turf/liquids)
 	if(!user.Adjacent(T))

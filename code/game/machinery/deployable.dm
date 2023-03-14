@@ -129,7 +129,7 @@
 
 /obj/structure/barricade/security/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/deploy), deploy_time)
+	addtimer(CALLBACK(src, PROC_REF(deploy)), deploy_time)
 	AddElement(/datum/element/liquids_height, 20)
 
 /obj/structure/barricade/security/Destroy()
