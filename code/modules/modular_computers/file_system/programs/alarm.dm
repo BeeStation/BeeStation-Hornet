@@ -20,7 +20,7 @@
 	//Or if we're on station. Otherwise, die.
 	var/list/allowed_areas = GLOB.the_station_areas + typesof(/area/mine)
 	listener = new(list(ALARM_ATMOS, ALARM_FIRE, ALARM_POWER), null, allowed_areas)
-	RegisterSignal(listener, list(COMSIG_ALARM_TRIGGERED, COMSIG_ALARM_CLEARED), .proc/update_alarm_display)
+	RegisterSignal(listener, list(COMSIG_ALARM_TRIGGERED, COMSIG_ALARM_CLEARED), PROC_REF(update_alarm_display))
 	return ..()
 
 /datum/computer_file/program/alarm_monitor/Destroy()
