@@ -256,7 +256,7 @@ GLOBAL_LIST_EMPTY(species_list)
 		if(!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding)
 			. = FALSE
 
-		if(!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated())
+		if(!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated(ignore_restraints = TRUE))
 			. = FALSE
 
 		if(extra_checks && !extra_checks.Invoke())
@@ -338,7 +338,7 @@ GLOBAL_LIST_EMPTY(species_list)
 		if(!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding)
 			. = FALSE
 
-		if(!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated())
+		if(!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated(ignore_restraints = (timed_action_flags & IGNORE_RESTRAINED)))
 			. = FALSE
 
 		if(extra_checks && !extra_checks.Invoke())
