@@ -1,3 +1,14 @@
+/obj/machinery/power/apc/proc/get_malf_status(mob/living/silicon/ai/malf)
+	if(istype(malf) || !malf.malf_picker)
+		return APC_AI_NO_MALF // User is shunted in this APC
+	if(malfai != (malf.parent || malf))
+		return APC_AI_NO_HACK // User is shunted in another APC
+	if(occupier == malf)
+		return APC_AI_HACK_SHUNT_HERE // APC hacked by user, and user is in its core.
+	if(istype(malf.loc, /obj/machinery/power/apc))
+		return APC_AI_HACK_SHUNT_ANOTHER // APC not hacked.
+	return APC_AI_HACK_NO_SHUNT // User is not a Malf AI
+
 /obj/machinery/power/apc/proc/malfhack(mob/living/silicon/ai/malf)
 	if(!istype(malf))
 		return
@@ -10,9 +21,9 @@
 	malf.malfhack = src
 	malf.malfhacking = addtimer(CALLBACK(malf, TYPE_PROC_REF(/mob/living/silicon/ai, malfhacked), src), 600, TIMER_STOPPABLE)
 
-	var/atom/movable/screen/alert/hackingapc/A
-	A = malf.throw_alert("hackingapc", /atom/movable/screen/alert/hackingapc)
-	A.target = src
+	var/atom/movable/screen/alert/hackingapc/hacking_apc
+	hacking_apc = malf.throw_alert("hackingapc", /atom/movable/screen/alert/hackingapc)
+	hacking_apc.target = src
 
 /obj/machinery/power/apc/proc/malfoccupy(mob/living/silicon/ai/malf)
 	if(!istype(malf))
@@ -45,34 +56,20 @@
 		return
 	if(occupier.parent && occupier.parent.stat != DEAD)
 		occupier.mind.transfer_to(occupier.parent)
-		occupier.parent.shunted = 0
+		occupier.parent.shunted = FALSE
 		occupier.parent.setOxyLoss(occupier.getOxyLoss())
 		occupier.parent.cancel_camera()
 		occupier.parent.remove_verb(/mob/living/silicon/ai/proc/corereturn)
 		qdel(occupier)
-	else
-		to_chat(occupier, "<span class='danger'>Primary core damaged, unable to return core processes.</span>")
-		if(forced)
-			occupier.forceMove(drop_location())
-			occupier.death()
-			occupier.gib()
-			for(var/obj/item/pinpointer/nuke/P in GLOB.pinpointer_list)
-				P.switch_mode_to(TRACK_NUKE_DISK) //Pinpointers go back to tracking the nuke disk
-				P.alert = FALSE
-
-/obj/machinery/power/apc/proc/get_malf_status(mob/living/silicon/ai/malf)
-	if(istype(malf) && malf.malf_picker)
-		if(malfai == (malf.parent || malf))
-			if(occupier == malf)
-				return 3 // 3 = User is shunted in this APC
-			else if(istype(malf.loc, /obj/machinery/power/apc))
-				return 4 // 4 = User is shunted in another APC
-			else
-				return 2 // 2 = APC hacked by user, and user is in its core.
-		else
-			return 1 // 1 = APC not hacked.
-	else
-		return 0 // 0 = User is not a Malf AI
+		return
+	to_chat(occupier, "<span class='danger'>Primary core damaged, unable to return core processes.</span>")
+	if(forced)
+		occupier.forceMove(drop_location())
+		occupier.death()
+		occupier.gib()
+		for(var/obj/item/pinpointer/nuke/P in GLOB.pinpointer_list)
+			P.switch_mode_to(TRACK_NUKE_DISK) //Pinpointers go back to tracking the nuke disk
+			P.alert = FALSE
 
 /obj/machinery/power/apc/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(card.AI)

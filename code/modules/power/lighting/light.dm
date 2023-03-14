@@ -121,7 +121,7 @@
 		nightshift_brightness = A.lighting_brightness_night
 
 	if(!mapload) //sync up nightshift lighting for player made lights
-		var/obj/machinery/power/apc/temp_apc = A.get_apc()
+		var/obj/machinery/power/apc/temp_apc = A.apc
 		nightshift_enabled = temp_apc?.nightshift_lights
 
 	if(start_with_cell && !no_emergency)
