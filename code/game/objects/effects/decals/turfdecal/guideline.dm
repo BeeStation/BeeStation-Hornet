@@ -61,6 +61,235 @@
 	color = "#[random_short_color()]"
 	. = ..()
 
+//guideline_half_in
+/obj/effect/turf_decal/guideline/guideline_half_in
+	name = "guideline half inward decal"
+	icon_state = "guideline_half_in"
+	layer = TURF_PLATING_DECAL_LAYER
+
+/obj/effect/turf_decal/guideline/guideline_half_in/Initialize(mapload)
+	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
+		color = "#[random_short_color()]"
+	. = ..()
+
+/obj/effect/turf_decal/guideline/guideline_half_in/blue
+	name = "blue in guideline"
+	color = "#52B4E9"
+
+/obj/effect/turf_decal/guideline/guideline_half_in/green
+	name = "green in guideline"
+	color = "#9FED58"
+
+/obj/effect/turf_decal/guideline/guideline_half_in/yellow
+	name = "yellow in guideline"
+	color = "#EFB341"
+
+/obj/effect/turf_decal/guideline/guideline_half_in/red
+	name = "red in guideline"
+	color = "#DE3A3A"
+
+/obj/effect/turf_decal/guideline/guideline_half_in/bar
+	name = "bar in guideline"
+	color = "#791500"
+	alpha = 130
+
+/obj/effect/turf_decal/guideline/guideline_half_in/purple
+	name = "purple in guideline"
+	color = "#D381C9"
+
+/obj/effect/turf_decal/guideline/guideline_half_in/brown
+	name = "brown in guideline"
+	color = "#A46106"
+
+/obj/effect/turf_decal/guideline/guideline_half_in/neutral
+	name = "neutral in guideline"
+	color = "#D4D4D4"
+	alpha = 50
+
+/obj/effect/turf_decal/guideline/guideline_half_in/darkblue
+	name = "dark blue in guideline"
+	color = "#334E6D"
+
+/obj/effect/turf_decal/guideline/guideline_half_in/random // so many colors
+	name = "colorful in guideline"
+	color = "#E300FF" //bright pink as default for mapping
+
+/obj/effect/turf_decal/guideline/guideline_half_in/random/Initialize(mapload)
+	color = "#[random_short_color()]"
+	. = ..()
+
+//guideline_half_ramp
+/obj/effect/turf_decal/guideline/guideline_half_ramp
+	name = "guideline half inward decal"
+	icon_state = "guideline_half_ramp"
+	layer = TURF_PLATING_DECAL_LAYER
+
+/obj/effect/turf_decal/guideline/guideline_half_ramp/Initialize(mapload)
+	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
+		color = "#[random_short_color()]"
+	. = ..()
+
+/obj/effect/turf_decal/guideline/guideline_half_ramp/blue
+	name = "blue in guideline"
+	color = "#52B4E9"
+
+/obj/effect/turf_decal/guideline/guideline_half_ramp/green
+	name = "green in guideline"
+	color = "#9FED58"
+
+/obj/effect/turf_decal/guideline/guideline_half_ramp/yellow
+	name = "yellow in guideline"
+	color = "#EFB341"
+
+/obj/effect/turf_decal/guideline/guideline_half_ramp/red
+	name = "red in guideline"
+	color = "#DE3A3A"
+
+/obj/effect/turf_decal/guideline/guideline_half_ramp/bar
+	name = "bar in guideline"
+	color = "#791500"
+	alpha = 130
+
+/obj/effect/turf_decal/guideline/guideline_half_ramp/purple
+	name = "purple in guideline"
+	color = "#D381C9"
+
+/obj/effect/turf_decal/guideline/guideline_half_ramp/brown
+	name = "brown in guideline"
+	color = "#A46106"
+
+/obj/effect/turf_decal/guideline/guideline_half_ramp/neutral
+	name = "neutral in guideline"
+	color = "#D4D4D4"
+	alpha = 50
+
+/obj/effect/turf_decal/guideline/guideline_half_ramp/darkblue
+	name = "dark blue in guideline"
+	color = "#334E6D"
+
+/obj/effect/turf_decal/guideline/guideline_half_ramp/random // so many colors
+	name = "colorful in guideline"
+	color = "#E300FF" //bright pink as default for mapping
+
+/obj/effect/turf_decal/guideline/guideline_half_ramp/random/Initialize(mapload)
+	color = "#[random_short_color()]"
+	. = ..()
+
+//guideline_ramp
+/obj/effect/turf_decal/guideline/guideline_ramp
+	name = "guideline half inward decal"
+	icon_state = "guideline_ramp"
+	layer = TURF_PLATING_DECAL_LAYER
+
+/obj/effect/turf_decal/guideline/guideline_ramp/Initialize(mapload)
+	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
+		color = "#[random_short_color()]"
+	. = ..()
+
+/obj/effect/turf_decal/guideline/guideline_ramp/blue
+	name = "blue in guideline"
+	color = "#52B4E9"
+
+/obj/effect/turf_decal/guideline/guideline_ramp/green
+	name = "green in guideline"
+	color = "#9FED58"
+
+/obj/effect/turf_decal/guideline/guideline_ramp/yellow
+	name = "yellow in guideline"
+	color = "#EFB341"
+
+/obj/effect/turf_decal/guideline/guideline_ramp/red
+	name = "red in guideline"
+	color = "#DE3A3A"
+
+/obj/effect/turf_decal/guideline/guideline_ramp/bar
+	name = "bar in guideline"
+	color = "#791500"
+	alpha = 130
+
+/obj/effect/turf_decal/guideline/guideline_ramp/purple
+	name = "purple in guideline"
+	color = "#D381C9"
+
+/obj/effect/turf_decal/guideline/guideline_ramp/brown
+	name = "brown in guideline"
+	color = "#A46106"
+
+/obj/effect/turf_decal/guideline/guideline_ramp/neutral
+	name = "neutral in guideline"
+	color = "#D4D4D4"
+	alpha = 50
+
+/obj/effect/turf_decal/guideline/guideline_ramp/darkblue
+	name = "dark blue in guideline"
+	color = "#334E6D"
+
+/obj/effect/turf_decal/guideline/guideline_ramp/random // so many colors
+	name = "colorful in guideline"
+	color = "#E300FF" //bright pink as default for mapping
+
+/obj/effect/turf_decal/guideline/guideline_ramp/random/Initialize(mapload)
+	color = "#[random_short_color()]"
+	. = ..()
+
+
+//guideline_half_mid
+/obj/effect/turf_decal/guideline/guideline_half_mid
+	name = "guideline outward decal"
+	icon_state = "guideline_half_mid"
+	layer = TURF_PLATING_DECAL_LAYER
+
+/obj/effect/turf_decal/guideline/guideline_half_mid/Initialize(mapload)
+	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
+		color = "#[random_short_color()]"
+	. = ..()
+
+/obj/effect/turf_decal/guideline/guideline_half_mid/blue
+	name = "blue mid guideline"
+	color = "#52B4E9"
+
+/obj/effect/turf_decal/guideline/guideline_half_mid/green
+	name = "green mid guideline"
+	color = "#9FED58"
+
+/obj/effect/turf_decal/guideline/guideline_half_mid/yellow
+	name = "yellow mid guideline"
+	color = "#EFB341"
+
+/obj/effect/turf_decal/guideline/guideline_half_mid/red
+	name = "red mid guideline"
+	color = "#DE3A3A"
+
+/obj/effect/turf_decal/guideline/guideline_half_mid/bar
+	name = "bar mid guideline"
+	color = "#791500"
+	alpha = 130
+
+/obj/effect/turf_decal/guideline/guideline_half_mid/purple
+	name = "purple mid guideline"
+	color = "#D381C9"
+
+/obj/effect/turf_decal/guideline/guideline_half_mid/brown
+	name = "brown mid guideline"
+	color = "#A46106"
+
+/obj/effect/turf_decal/guideline/guideline_half_mid/neutral
+	name = "neutral mid guideline"
+	color = "#D4D4D4"
+	alpha = 50
+
+/obj/effect/turf_decal/guideline/guideline_half_mid/darkblue
+	name = "dark blue mid guideline"
+	color = "#334E6D"
+
+/obj/effect/turf_decal/guideline/guideline_half_mid/random // so many colors
+	name = "colorful mid guideline"
+	color = "#E300FF" //bright pink as default for mapping
+
+/obj/effect/turf_decal/guideline/guideline_half_mid/random/Initialize(mapload)
+	color = "#[random_short_color()]"
+	. = ..()
+
 //guideline_mid
 /obj/effect/turf_decal/guideline/guideline_mid
 	name = "guideline outward decal"
@@ -115,6 +344,63 @@
 	color = "#E300FF" //bright pink as default for mapping
 
 /obj/effect/turf_decal/guideline/guideline_mid/random/Initialize(mapload)
+	color = "#[random_short_color()]"
+	. = ..()
+
+//guideline_half_out
+/obj/effect/turf_decal/guideline/guideline_half_out
+	name = "guideline outward decal"
+	icon_state = "guideline_half_out"
+	layer = TURF_PLATING_DECAL_LAYER
+
+/obj/effect/turf_decal/guideline/guideline_half_out/Initialize(mapload)
+	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
+		color = "#[random_short_color()]"
+	. = ..()
+
+/obj/effect/turf_decal/guideline/guideline_half_out/blue
+	name = "blue out guideline"
+	color = "#52B4E9"
+
+/obj/effect/turf_decal/guideline/guideline_half_out/green
+	name = "green out guideline"
+	color = "#9FED58"
+
+/obj/effect/turf_decal/guideline/guideline_half_out/yellow
+	name = "yellow out guideline"
+	color = "#EFB341"
+
+/obj/effect/turf_decal/guideline/guideline_half_out/red
+	name = "red out guideline"
+	color = "#DE3A3A"
+
+/obj/effect/turf_decal/guideline/guideline_half_out/bar
+	name = "bar out guideline"
+	color = "#791500"
+	alpha = 140
+
+/obj/effect/turf_decal/guideline/guideline_half_out/purple
+	name = "purple out guideline"
+	color = "#D381C9"
+
+/obj/effect/turf_decal/guideline/guideline_half_out/brown
+	name = "brown out guideline"
+	color = "#A46106"
+
+/obj/effect/turf_decal/guideline/guideline_half_out/darkblue
+	name = "dark blue out guideline"
+	color = "#334E6D"
+
+/obj/effect/turf_decal/guideline/guideline_half_out/neutral
+	name = "neutral out guideline"
+	color = "#D4D4D4"
+	alpha = 50
+
+/obj/effect/turf_decal/guideline/guideline_half_out/random // so many colors
+	name = "colorful out guideline"
+	color = "#E300FF" //bright pink as default for mapping
+
+/obj/effect/turf_decal/guideline/guideline_half_out/random/Initialize(mapload)
 	color = "#[random_short_color()]"
 	. = ..()
 
@@ -343,6 +629,63 @@
 	color = "#E300FF" //bright pink as default for mapping
 
 /obj/effect/turf_decal/guideline/guideline_out_alt/random/Initialize(mapload)
+	color = "#[random_short_color()]"
+	. = ..()
+
+//guideline_corner_alt
+/obj/effect/turf_decal/guideline/guideline_corner_alt
+	name = "guideline out decal alt"
+	icon_state = "guideline_corner_alt"
+	layer = TURF_PLATING_DECAL_LAYER
+
+/obj/effect/turf_decal/guideline/guideline_corner_alt/Initialize(mapload)
+	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
+		color = "#[random_short_color()]"
+	. = ..()
+
+/obj/effect/turf_decal/guideline/guideline_corner_alt/blue
+	name = "blue out alt guideline"
+	color = "#52B4E9"
+
+/obj/effect/turf_decal/guideline/guideline_corner_alt/green
+	name = "green out alt guideline"
+	color = "#9FED58"
+
+/obj/effect/turf_decal/guideline/guideline_corner_alt/yellow
+	name = "yellow out alt guideline"
+	color = "#EFB341"
+
+/obj/effect/turf_decal/guideline/guideline_corner_alt/red
+	name = "red out alt guideline"
+	color = "#DE3A3A"
+
+/obj/effect/turf_decal/guideline/guideline_corner_alt/bar
+	name = "bar out alt guideline"
+	color = "#791500"
+	alpha = 130
+
+/obj/effect/turf_decal/guideline/guideline_corner_alt/purple
+	name = "purple out alt guideline"
+	color = "#D381C9"
+
+/obj/effect/turf_decal/guideline/guideline_corner_alt/brown
+	name = "brown out alt guideline"
+	color = "#A46106"
+
+/obj/effect/turf_decal/guideline/guideline_corner_alt/neutral
+	name = "neutral out alt guideline"
+	color = "#D4D4D4"
+	alpha = 50
+
+/obj/effect/turf_decal/guideline/guideline_corner_alt/darkblue
+	name = "dark blue out alt guideline"
+	color = "#334E6D"
+
+/obj/effect/turf_decal/guideline/guideline_corner_alt/random // so many colors
+	name = "colorful out alt guideline"
+	color = "#E300FF" //bright pink as default for mapping
+
+/obj/effect/turf_decal/guideline/guideline_corner_alt/random/Initialize(mapload)
 	color = "#[random_short_color()]"
 	. = ..()
 
