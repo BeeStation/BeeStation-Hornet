@@ -1,0 +1,5 @@
+author: imsynthex
+delete-after: true
+changes:
+  - bugfix: the departmental protolathe/techfab stripe will no longer appear on circuit
+      imprinters or default protolathes/techfabs
