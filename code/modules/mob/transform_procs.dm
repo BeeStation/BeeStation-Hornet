@@ -318,7 +318,7 @@
 	if (tr_flags & TR_KEEPIMPLANTS)
 		for(var/X in implants)
 			var/obj/item/implant/IMP = X
-			stored_implants = IMP
+			stored_implants += IMP
 			IMP.removed(src, 1, 1)
 
 	var/list/missing_bodyparts_zones = get_missing_limbs()
@@ -457,7 +457,7 @@
 
 	O.a_intent = INTENT_HELP
 	if (tr_flags & TR_DEFAULTMSG)
-		to_chat(O, "<B>You are now a [original_species].</B>")
+		to_chat(O, "<B>You are now \a [original_species].</B>")
 
 	transfer_observers_to(O)
 
