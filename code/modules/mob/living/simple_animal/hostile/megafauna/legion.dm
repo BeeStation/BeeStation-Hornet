@@ -177,7 +177,7 @@ Difficulty: Medium
 	hitsound = 'sound/weapons/sear.ogg'
 	var/storm_type = /datum/weather/ash_storm
 	var/storm_cooldown = 0
-	var/static/list/allowed_areas = list(/area/lavaland/surface/outdoors)
+	var/static/list/allowed_areas = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/outdoors/explored)
 
 /obj/item/staff/storm/attack_self(mob/user)
 	if(storm_cooldown > world.time)
