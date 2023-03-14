@@ -110,7 +110,7 @@
 	if(!anchored || panel_open)
 		return ..()
 	obj_flags |= BEING_SHOCKED
-	addtimer(CALLBACK(src, .proc/reset_shocked), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(reset_shocked), 1 SECONDS))
 	flick("coilhit", src)
 	if(!(zap_flags & ZAP_GENERATES_POWER)) //Prevent infinite recursive power
 		return 0
@@ -143,7 +143,7 @@
 	if(!anchored || panel_open)
 		return ..()
 	obj_flags |= BEING_SHOCKED
-	addtimer(CALLBACK(src, .proc/reset_shocked), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(reset_shocked), 1 SECONDS))
 	flick("rpcoilhit", src)
 	if(!(zap_flags & ZAP_GENERATES_POWER)) //Prevent infinite recursive power
 		return 0
@@ -158,7 +158,7 @@
 		D.adjust_money(min(power_produced, 3))
 	if(istype(linked_techweb))
 		linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, min(power_produced, 3)) // x4 coils with a pulse per second or so = ~720/m point bonus for R&D
-		addtimer(CALLBACK(src, .proc/reset_shocked), 10)
+		addtimer(CALLBACK(src, PROC_REF(reset_shocked), 10))
 	zap_buckle_check(power)
 	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
 	tesla_zap(src, 5, power_produced, zap_flags)
