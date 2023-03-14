@@ -112,7 +112,7 @@
 			objectives += hijack_objective
 			log_objective(owner, hijack_objective.explanation_text)
 	else
-		var/list/assasination = list()
+		var/list/assassination = list()
 		var/list/protection = list()
 		for(var/i in 1 to 2)
 			if (prob(35))
@@ -126,7 +126,7 @@
 				A.owner = owner
 				var/list/owners = A.get_owners()
 				A.find_target(owners,protection)
-				assasination += A.target
+				assassination += A.target
 				objectives += A
 				log_objective(owner, A.explanation_text)
 		var/datum/objective/sacrifice_ecult/SE = new()

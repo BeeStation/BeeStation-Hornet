@@ -24,8 +24,8 @@
 	icon_aggro = "herald"
 	icon_dead = "herald_dying"
 	icon_gib = "syndicate_gib"
-	maxHealth = 800
-	health = 800
+	maxHealth = 400
+	health = 400
 	melee_damage = 20
 	attacktext = "preaches to"
 	attack_sound = 'sound/magic/clockwork/ratvar_attack.ogg'
@@ -189,8 +189,8 @@
 /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror
 	name = "herald's mirror"
 	desc = "This fiendish work of magic copies the herald's attacks.  Seems logical to smash it."
-	health = 60
-	maxHealth = 60
+	health = 30
+	maxHealth = 30
 	icon_state = "herald_mirror"
 	deathmessage = "shatters violently!"
 	deathsound = 'sound/effects/glassbr1.ogg'

@@ -50,8 +50,6 @@
 	var/atom/my_atom = null
 	var/chem_temp = 150
 	var/last_tick = 1
-	///cached list of reagents typepaths (not object references), this is a lazylist for optimisation
-	var/list/datum/reagent/previous_reagent_list
 	var/flags
 
 /datum/reagents/New(maximum=100, new_flags=0)

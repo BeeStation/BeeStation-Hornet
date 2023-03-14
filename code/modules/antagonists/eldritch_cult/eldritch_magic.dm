@@ -385,12 +385,10 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/fire_cascade/proc/fire_cascade(atom/centre,max_range)
 	playsound(get_turf(centre), 'sound/items/welder.ogg', 75, TRUE)
-	var/_range = 1
-	for(var/i = 0, i <= max_range,i++)
+	for(var/_range in 1 to max_range + 1)
 		for(var/turf/open/T in spiral_range_turfs(_range,centre))
 			new /obj/effect/hotspot(T)
 			T.hotspot_expose(700,50,1)
-		_range++
 		sleep(3)
 
 /obj/effect/proc_holder/spell/aoe_turf/fire_cascade/big
@@ -444,7 +442,7 @@
 /obj/effect/proc_holder/spell/targeted/worm_contract
 	name = "Force Contract"
 	desc = "Forces all the worm parts to collapse onto a single turf"
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
 	range = -1
@@ -565,7 +563,7 @@
 	charge_max = 300
 	clothes_req = FALSE
 	invocation = "PI'RC' TH' M'ND"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	range = 10
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "mansus_link"

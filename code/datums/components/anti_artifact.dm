@@ -1,7 +1,7 @@
 /datum/component/anti_artifact
 	///Amount of chances to block artifacts
 	var/charges = INFINITY
-	///Wether you can / cant target yourself
+	///Whether you can / cant target yourself
 	var/blocks_self = TRUE
 	///Allowed item slots
 	var/allowed_slots = ~ITEM_SLOT_BACKPACK

@@ -9,6 +9,7 @@
 	var/list/slip_victims = list()
 	init_ringtone = "honk"
 	device_theme = THEME_NTOS_CLOWN_PINK // Give the clown the best theme
+	ignore_theme_pref = TRUE
 
 /obj/item/modular_computer/tablet/pda/clown/ComponentInitialize()
 	. = ..()
@@ -198,6 +199,13 @@
 	detonatable = FALSE
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
+
+/obj/item/modular_computer/tablet/pda/syndicate/Initialize(mapload)
+	. = ..()
+	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
+	if(istype(network_card))
+		forget_component(network_card)
+		install_component(new /obj/item/computer_hardware/network_card/advanced/norelay)
 
 /obj/item/modular_computer/tablet/pda/chaplain
 	name = "chaplain PDA"

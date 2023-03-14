@@ -184,7 +184,7 @@
 /datum/action/item_action/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force)
 	if(button_icon && button_icon_state)
 		// If set, use the custom icon that we set instead
-		// of the item appearence
+		// of the item appearance
 		..()
 	else if((target && current_button.appearance_cache != target.appearance) || force) //replace with /ref comparison if this is not valid.
 		var/obj/item/I = target

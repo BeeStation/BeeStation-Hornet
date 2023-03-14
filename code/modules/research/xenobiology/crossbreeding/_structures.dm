@@ -11,7 +11,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	///Assoc list of affected mobs, the key is the mob while the value of the map is the amount of ticks spent inside of the zone.
 	var/list/affected_mobs = list()
-	///Used to determine wether we use view or range
+	///Used to determine whether we use view or range
 	var/range_type = "range"
 	///What color is it?
 	var/colour

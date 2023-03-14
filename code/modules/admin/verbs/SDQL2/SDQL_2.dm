@@ -950,8 +950,9 @@ GLOBAL_LIST_INIT(sdql2_queries, GLOB.sdql2_queries || list())
 /proc/SDQL_testout(list/query_tree, indent = 0)
 	var/static/whitespace = "&nbsp;&nbsp;&nbsp; "
 	var/spaces = ""
-	for(var/s = 0, s < indent, s++)
-		spaces += whitespace
+	if(indent > 0)
+		for(var/i in 1 to indent)
+			spaces += whitespace
 
 	for(var/item in query_tree)
 		if(istype(item, /list))

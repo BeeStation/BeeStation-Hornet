@@ -49,6 +49,9 @@
 
 	var/datum/action/item_action/storage_gather_mode/modeswitch_action
 
+	/// whether or not we should have those cute little animations
+	var/animated = TRUE
+
 	//Screen variables: Do not mess with these vars unless you know what you're doing. They're not defines so storage that isn't in the same location can be supported in the future.
 	var/screen_max_columns = 7							//These two determine maximum screen sizes.
 	var/screen_max_rows = INFINITY
@@ -212,6 +215,7 @@
 		stoplag(1)
 	qdel(progress)
 	to_chat(pre_attack_mob, "<span class='notice'>You put everything you could [insert_preposition] [parent].</span>")
+	animate_parent()
 
 /datum/component/storage/proc/handle_mass_item_insertion(list/things, datum/component/storage/src_object, mob/user, datum/progressbar/progress)
 	var/atom/source_real_location = src_object.real_location()
@@ -379,6 +383,7 @@
 				return FALSE
 	if(M.active_storage)
 		M.active_storage.hide_from(M)
+	animate_parent()
 	orient2hud()
 	M.client.screen |= boxes
 	M.client.screen |= closer
@@ -404,6 +409,7 @@
 	M.client.screen -= boxes
 	M.client.screen -= closer
 	M.client.screen -= real_location.contents
+	animate_parent()
 	return TRUE
 
 /datum/component/storage/proc/close(mob/M)
@@ -675,6 +681,7 @@
 		return
 	if(rustle_sound)
 		playsound(parent, "rustle", 50, 1, -5)
+	animate_parent()
 	for(var/mob/viewing as() in viewers(user))
 		if(M == viewing)
 			to_chat(usr, "<span class='notice'>You put [I] [insert_preposition]to [parent].</span>")
@@ -870,3 +877,12 @@
 			user.balloon_alert(user, "[parent] now picks up all items")
 		if(COLLECT_ONE)
 			user.balloon_alert(user, "[parent] now picks up single item")
+
+/datum/component/storage/proc/animate_parent()
+	if(!animated)
+		return
+	var/atom/parent_atom = parent
+	var/matrix/M = parent_atom.transform
+	var/matrix/old_M = parent_atom.transform
+	animate(parent, time = 1.5, loop = 0, transform = M.Scale(1.11, 0.85))
+	animate(time = 2, transform = old_M)

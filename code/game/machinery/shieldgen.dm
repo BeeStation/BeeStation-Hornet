@@ -464,7 +464,7 @@
 
 /obj/machinery/shieldwall/CanAllowThrough(atom/movable/mover, turf/target)
 	. = ..()
-	if(istype(mover) && (mover.pass_flags & PASSGLASS))
+	if(istype(mover) && (mover.pass_flags & PASSTRANSPARENT))
 		return prob(20)
 	else
 		if(istype(mover, /obj/item/projectile))

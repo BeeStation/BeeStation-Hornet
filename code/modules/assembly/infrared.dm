@@ -225,7 +225,7 @@
 	icon_state = "ibeam"
 	anchored = TRUE
 	density = FALSE
-	pass_flags = PASSTABLE|PASSGLASS|PASSGRILLE
+	pass_flags = PASSTABLE|PASSTRANSPARENT|PASSGRILLE
 	pass_flags_self = LETPASSTHROW
 	var/obj/item/assembly/infra/master
 

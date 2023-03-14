@@ -25,8 +25,8 @@
 	icon_aggro = "broodmother"
 	icon_dead = "egg_sac"
 	icon_gib = "syndicate_gib"
-	maxHealth = 800
-	health = 800
+	maxHealth = 400
+	health = 400
 	melee_damage = 30
 	armour_penetration = 30
 	attacktext = "beats down on"
@@ -164,8 +164,8 @@
 	icon_aggro = "goliath_baby"
 	icon_dead = "goliath_baby_dead"
 	icon_gib = "syndicate_gib"
-	maxHealth = 30
-	health = 30
+	maxHealth = 15
+	health = 15
 	melee_damage = 5
 	attacktext = "bashes against"
 	attack_sound = 'sound/weapons/punch1.ogg'

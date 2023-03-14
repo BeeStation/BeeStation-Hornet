@@ -70,7 +70,7 @@
 	trippy = FALSE
 	overdose_threshold=15
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
-	addiction_types = list(/datum/addiction/nicotine = 18) // 7.2 per 2 seconds
+	addiction_types = list(/datum/addiction/nicotine = 15) // 6 per 2 seconds
 
 /datum/reagent/drug/nicotine/on_mob_life(mob/living/carbon/M)
 	if(prob(1))
@@ -141,7 +141,6 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	overdose_threshold = 20
 	addiction_types = list(/datum/addiction/opiods = 18) //7.2 per 2 seconds
-
 
 /datum/reagent/drug/krokodil/on_mob_life(mob/living/carbon/M)
 	var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")

@@ -4,7 +4,7 @@
 	panel = "Hivemind Abilities"
 	charge_type = "charges"
 	charge_max = 1
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	clothes_req = 0
 	human_req = 1
 	action_icon = 'icons/mob/actions/actions_hive.dmi'
@@ -27,6 +27,9 @@
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='boldwarning'>You try to remember who you are...</span>"), 90)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='assimilator'>There is no you...</span>"), 110)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='bigassimilator'>...there is only us.</span>"), 130)
+		var/datum/antagonist/hivevessel/woke_vessel = IS_WOKEVESSEL(C)
+		if (woke_vessel)
+			woke_vessel.glow = hive.glow
 		addtimer(CALLBACK(C, /atom/proc/add_overlay, hive.glow), 150)
 
 	for(var/datum/antagonist/hivemind/enemy in GLOB.hivehosts)

@@ -22,7 +22,7 @@
 
 /obj/item/reagent_containers/glass/chem_heirloom/examine(mob/living/carbon/user)
 	//Add, then remove, reagent contents for examine.
-	. = ..() //This makes the text out of order, but it's hardly noticable
+	. = ..() //This makes the text out of order, but it's hardly noticeable
 	if(!locked)
 		return
 	var/smartguy

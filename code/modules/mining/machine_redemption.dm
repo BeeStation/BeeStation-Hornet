@@ -267,16 +267,16 @@
 				to_chat(usr, "<span class='warning'>No points to claim.</span>")
 				return
 
-			var/mob/M = usr
-			var/obj/item/card/id/I = M.get_idcard(TRUE)
-			if(!I)
+			var/mob/living/user = usr
+			var/obj/item/card/id/user_id_card = user.get_idcard(TRUE)
+			if(!user_id_card)
 				to_chat(usr, "<span class='warning'>No ID detected.</span>")
 				return
-			if(!I.registered_account)
+			if(!user_id_card.registered_account)
 				to_chat(usr, "<span class='warning'>No bank account detected on the ID card.</span>")
 				return
 
-			I.registered_account.adjust_currency(ACCOUNT_CURRENCY_MINING, stored_points)
+			user_id_card.registered_account.adjust_currency(ACCOUNT_CURRENCY_MINING, stored_points)
 			stored_points = 0
 			. = TRUE
 		if("Release")
@@ -340,9 +340,9 @@
 				return
 			var/alloy_id = params["id"]
 			var/datum/design/alloy = stored_research.isDesignResearchedID(alloy_id)
-			var/mob/M = usr
-			var/obj/item/card/id/I = M.get_idcard(TRUE)
-			if((check_access(I) || allowed(usr)) && alloy)
+			var/mob/living/user = usr
+			var/obj/item/card/id/user_id_card = user.get_idcard(TRUE)
+			if((check_access(user_id_card) || allowed(usr)) && alloy)
 				var/smelt_amount = can_smelt_alloy(alloy)
 				var/desired = 0
 				if (params["sheets"])
@@ -350,6 +350,8 @@
 				else
 					desired = input("How many sheets?", "How many sheets would you like to smelt?", 1) as null|num
 				var/amount = round(min(desired,50,smelt_amount))
+				if(amount < 1) //no negative mats
+					return
 				mat_container.use_materials(alloy.materials, amount)
 				materials.silo_log(src, "released", -amount, "sheets", alloy.materials)
 				var/output

@@ -81,7 +81,7 @@
 		return ..()
 
 /datum/computer_file/program/secureye/ui_data()
-	var/list/data = get_header_data()
+	var/list/data = list()
 	data["network"] = network
 	data["activeCamera"] = null
 	if(active_camera)

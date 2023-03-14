@@ -227,6 +227,11 @@
 				exited_dirs |= H.dir
 				update_icon()
 
+//Cache of bloody footprint images
+//Key:
+//"entered-[blood_state]-[dir_of_image]"
+//or: "exited-[blood_state]-[dir_of_image]"
+GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 
 /obj/effect/decal/cleanable/blood/footprints/update_icon()
 	cut_overlays()

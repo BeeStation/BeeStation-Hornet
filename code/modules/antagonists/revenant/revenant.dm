@@ -87,7 +87,7 @@
 	if(beacon)
 		qdel(beacon)
 
-/mob/living/simple_animal/revenant/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/living/simple_animal/revenant/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	return FALSE
 
 /mob/living/simple_animal/revenant/proc/random_revenant_name()
@@ -430,7 +430,7 @@
 			to_chat(src, "<span class='warning'>Holy energies block your path!</span>")
 			return
 	return TRUE
-  
+
 /mob/living/simple_animal/revenant/get_photo_description(obj/item/camera/camera)
 	return "You can also see a g-g-g-g-ghooooost of malice!"
 

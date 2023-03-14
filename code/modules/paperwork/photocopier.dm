@@ -288,7 +288,7 @@
 			copy = null
 	updateUsrDialog()
 
-/obj/machinery/photocopier/proc/check_ass() //I'm not sure wether I made this proc because it's good form or because of the name.
+/obj/machinery/photocopier/proc/check_ass() //I'm not sure whether I made this proc because it's good form or because of the name.
 	if(!ass)
 		return 0
 	if(ass.loc != src.loc)

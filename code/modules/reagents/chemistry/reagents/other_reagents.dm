@@ -1086,7 +1086,6 @@
 	process_flags = ORGANIC | SYNTHETIC
 	addiction_types = list(/datum/addiction/alcohol = 4) //so you like huffin fumes, eh? Wait... a-are you DRINKING THAT?!
 
-
 /datum/reagent/fuel/reaction_mob(mob/living/M, method=TOUCH, reac_volume)//Splashing people with welding fuel to make them easy to ignite!
 	if(method == TOUCH || method == VAPOR)
 		M.adjust_fire_stacks(reac_volume / 10)
@@ -1104,6 +1103,7 @@
 	color = "#A5F0EE" // rgb: 165, 240, 238
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "sourness"
+	addiction_types = list(/datum/addiction/stimulants = 14)
 	reagent_weight = 0.6 //so it sprays further
 	var/toxic = FALSE //turn to true if someone drinks this, so it won't poison people who are simply getting sprayed down
 
@@ -1205,6 +1205,7 @@
 	color = "#C8A5DC" // rgb: 200, 165, 220A
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "numbness"
+	addiction_types = list(/datum/addiction/opiods = 10)
 
 /datum/reagent/impedrezene/on_mob_life(mob/living/carbon/M)
 	M.jitteriness = max(M.jitteriness-5,0)
@@ -1386,7 +1387,7 @@
 /datum/reagent/stimulum/on_mob_life(mob/living/carbon/M)
 	M.adjustStaminaLoss(-2*REM, 0)
 	if(M.losebreath <= 10)
-		M.losebreath += min(current_cycle*0.05, 2) // gradually builds up suffocation, will not be noticable for several ticks but effects will linger afterwards
+		M.losebreath += min(current_cycle*0.05, 2) // gradually builds up suffocation, will not be noticeable for several ticks but effects will linger afterwards
 	if(M.losebreath > 2 && !warned)
 		M.visible_message("<span class='danger'>You feel like you can't breathe!</span>")
 		warned = TRUE
@@ -1614,7 +1615,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	chem_flags = CHEMICAL_GOAL_BARTENDER_SERVING // this is lame one to put random. at least good as bartender flavor.
-	taste_description = "carpet" // Your tounge feels furry.
+	taste_description = "carpet" // Your tongue feels furry.
 
 /datum/reagent/carpet/reaction_turf(turf/T, reac_volume)
 	if(isplatingturf(T) || istype(T, /turf/open/floor/plasteel))

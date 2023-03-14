@@ -80,6 +80,11 @@
 	/// your bank account id in your mind
 	var/account_id
 
+	///Assoc list of addiction values, key is the type of withdrawal (as singleton type), and the value is the amount of addiction points (as number)
+	var/list/addiction_points
+	///Assoc list of key active addictions and value amount of cycles that it has been active.
+	var/list/active_addictions
+
 /datum/mind/New(var/key)
 	src.key = key
 	soulOwner = src
@@ -87,13 +92,9 @@
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
-	if(islist(antag_datums))
-		for(var/i in antag_datums)
-			var/datum/antagonist/antag_datum = i
-			if(antag_datum.delete_on_mind_deletion)
-				qdel(i)
-		antag_datums = null
+	QDEL_LIST(antag_datums)
 	QDEL_NULL(language_holder)
+	soulOwner = null
 	set_current(null)
 	return ..()
 
@@ -779,7 +780,7 @@
 	var/datum/addiction/affected_addiction = SSaddiction.all_addictions[type]
 	return affected_addiction.on_gain_addiction_points(src)
 
-///Removes addiction points to the specified addiction
+///Adds addiction points to the specified addiction
 /datum/mind/proc/remove_addiction_points(type, amount)
 	LAZYSET(addiction_points, type, max(LAZYACCESS(addiction_points, type) - amount, 0))
 	var/datum/addiction/affected_addiction = SSaddiction.all_addictions[type]

@@ -1,5 +1,11 @@
 GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 
+// Pirates threat
+/// No way
+#define PIRATE_RESPONSE_NO_PAY "pirate_answer_no_pay"
+/// We'll pay
+#define PIRATE_RESPONSE_PAY "pirate_answer_pay"
+
 /datum/round_event_control/pirates
 	name = "Space Pirates"
 	typepath = /datum/round_event/pirates
@@ -466,3 +472,6 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 /datum/export/pirate/holochip/get_cost(atom/movable/AM)
 	var/obj/item/holochip/H = AM
 	return H.credits
+
+#undef PIRATE_RESPONSE_NO_PAY
+#undef PIRATE_RESPONSE_PAY

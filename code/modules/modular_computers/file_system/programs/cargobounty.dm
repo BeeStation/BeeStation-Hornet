@@ -27,7 +27,7 @@
 	. = ..()
 
 /datum/computer_file/program/bounty/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 
 	var/obj/item/computer_hardware/printer/printer
 	if(computer)

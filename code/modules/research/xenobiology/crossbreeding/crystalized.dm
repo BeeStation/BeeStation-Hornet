@@ -30,6 +30,7 @@
 /obj/item/slimecross/crystalline/orange
 	crystal_type = /obj/structure/slime_crystal/orange
 	colour = "orange"
+	dangerous = TRUE
 
 /obj/item/slimecross/crystalline/purple
 	crystal_type = /obj/structure/slime_crystal/purple
@@ -82,6 +83,7 @@
 /obj/item/slimecross/crystalline/green
 	crystal_type = /obj/structure/slime_crystal/green
 	colour = "green"
+	dangerous = TRUE
 
 /obj/item/slimecross/crystalline/pink
 	crystal_type = /obj/structure/slime_crystal/pink

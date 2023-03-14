@@ -70,7 +70,7 @@
 	break_connections()
 	return ..()
 
-///Lose connections and reset the merged powernet so it makes 2 new seperated ones
+///Lose connections and reset the merged powernet so it makes 2 new separated ones
 /obj/machinery/power/deck_relay/proc/break_connections()
 	if(above)
 		var/turf/above_deck_relay = get_turf(above)

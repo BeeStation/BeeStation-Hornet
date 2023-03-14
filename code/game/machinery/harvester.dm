@@ -11,7 +11,7 @@
 	light_color = LIGHT_COLOR_BLUE
 	var/interval = 20
 	var/harvesting = FALSE
-	var/list/operation_order = list() //Order of wich we harvest limbs.
+	var/list/operation_order = list() //Order of which we harvest limbs.
 	var/allow_clothing = FALSE
 	var/allow_living = FALSE
 

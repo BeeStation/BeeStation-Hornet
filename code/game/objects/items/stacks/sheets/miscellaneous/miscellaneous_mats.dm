@@ -1,5 +1,5 @@
 /**********************
-miscelaneous materials Sheets
+Miscellaneous material sheets
 	Contains:
 		- Wax (even if it's organic, shh)
 		- Sandbags
@@ -31,7 +31,7 @@ miscelaneous materials Sheets
 	name = "sandbags"
 	icon_state = "sandbags"
 	singular_name = "sandbag"
-	icon = 'icons/obj/stacks/miscelaneous.dmi'
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	layer = LOW_ITEM_LAYER
 	novariants = TRUE
 	merge_type = /obj/item/stack/sheet/sandbags
@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/emptysandbag
 	name = "empty sandbag"
 	desc = "A bag to be filled with sand, not to be used for slowing down shuttles."
-	icon = 'icons/obj/stacks/miscelaneous.dmi'
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "sandbags"
 	w_class = WEIGHT_CLASS_TINY
 
@@ -69,7 +69,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	name = "snow"
 	icon_state = "sheet-snow"
 	item_state = "sheet-snow"
-	icon = 'icons/obj/stacks/miscelaneous.dmi'
+	icon = 'icons/obj/stacks/minerals.dmi'
 	singular_name = "snow block"
 	force = 1
 	throwforce = 2
@@ -102,7 +102,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	name = "cardboard"
 	desc = "Large sheets of card, like boxes folded flat."
 	singular_name = "cardboard sheet"
-	icon = 'icons/obj/stacks/miscelaneous.dmi'
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "sheet-card"
 	item_state = "sheet-card"
 	resistance_flags = FLAMMABLE
