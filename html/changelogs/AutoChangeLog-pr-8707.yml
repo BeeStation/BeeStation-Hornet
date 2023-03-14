@@ -1,0 +1,5 @@
+author: benbot16
+delete-after: true
+changes:
+  - bugfix: Resisting while cuffed works again.
+  - bugfix: Fixes a couple do_after-related bugs.
