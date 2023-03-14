@@ -91,10 +91,10 @@
 	name = "Plasma Flash"
 	id = /datum/reagent/toxin/plasma
 	required_reagents = list(/datum/reagent/toxin/plasma = 1)
-	required_temp = 301 //extremely volatile
+	required_temp = 320 //extremely volatile
 
 /datum/chemical_reaction/plasma/on_reaction(datum/reagents/holder, created_volume)
-	holder.my_atom.plasma_ignition(created_volume/30)
+	holder.my_atom.plasma_ignition(created_volume/30, reagent_reaction = TRUE)
 	holder.clear_reagents()
 
 /datum/chemical_reaction/blackpowder

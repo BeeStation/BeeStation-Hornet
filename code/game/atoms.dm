@@ -1602,7 +1602,7 @@
 * Intended for use only with plasma that is ignited outside of some form of containment
 * Contained plasma ignitions (such as power cells or light fixtures) should explode with proper force
 */
-/atom/proc/plasma_ignition(strength, mob/user)
+/atom/proc/plasma_ignition(strength, mob/user, reagent_reaction)
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/environment = T.return_air()
 	if(environment.get_moles(GAS_O2) >= PLASMA_MINIMUM_OXYGEN_NEEDED) //Flashpoint ignition can only occur with at least this much oxygen present
@@ -1627,7 +1627,9 @@
 		//Regardless of power, whatever is burning will go up in a brilliant flash with at least a fizzle
 		playsound(T,'sound/magic/fireball.ogg', max(strength*20, 20), 1)
 		T.visible_message("<b><span class='userdanger'>[src] ignites in a brilliant flash!</span></b>") 
-		if(isturf(src))
+		if(reagent_reaction) // Don't qdel(src). It's a reaction inside of something (or someone) important.
+			return TRUE
+		else if(isturf(src))
 			var/turf/srcTurf = src
 			srcTurf.ScrapeAway() //Can't just qdel turfs
 		else
