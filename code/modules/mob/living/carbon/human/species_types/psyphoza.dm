@@ -259,7 +259,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	//Add overlay for highlighting
 	target.add_overlay(M)
 	overlays += list(target, M)
-	RegisterSignal(target, COMSIG_PARENT_QDELETING, pROC_REF(handle_target), TRUE)
+	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(handle_target), TRUE)
 
 //handle highlight object being deleted early
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_target(datum/source)
