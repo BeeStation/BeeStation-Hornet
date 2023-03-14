@@ -85,7 +85,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	return ..()
 
 /datum/reagent/consumable/ethanol/beer
-	name = "Beer"
+	name = "Strong Beer"
 	description = "An alcoholic beverage brewed since ancient times on Old Earth. Still popular today."
 	color = "#664300" // rgb: 102, 67, 0
 	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
