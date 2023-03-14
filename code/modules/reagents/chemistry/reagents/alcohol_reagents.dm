@@ -85,13 +85,14 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	return ..()
 
 /datum/reagent/consumable/ethanol/beer
-	name = "Strong Beer"
+	name = "Beer"
 	description = "An alcoholic beverage brewed since ancient times on Old Earth. Still popular today."
 	color = "#664300" // rgb: 102, 67, 0
 	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	boozepwr = 25
 	taste_description = "piss water"
+	glass_icon_state = "beerglass"
 	glass_name = "glass of beer"
 	glass_desc = "A freezing pint of beer."
 
