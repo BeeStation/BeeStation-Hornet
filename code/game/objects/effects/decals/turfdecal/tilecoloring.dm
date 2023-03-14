@@ -663,9 +663,9 @@
 	color = "#D4D4D4"
 	alpha = 50
 
-/obj/effect/turf_decal/neutral/white/corner_ramp
-	icon_state = "neutral_corner_ramp"
-	name = "white corner ramp"
+/obj/effect/turf_decal/tile/neutral/corner_ramp
+	icon_state = "tile_corner_ramp"
+	name = "neutral corner ramp"
 
 /obj/effect/turf_decal/tile/neutral/opposingcorners
 	icon_state = "tile_opposing_corners"
