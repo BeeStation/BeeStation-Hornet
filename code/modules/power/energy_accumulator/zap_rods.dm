@@ -153,11 +153,12 @@
 	var/power_removed = powernet ? power * input_power_multiplier : power
 	stored_energy += max(ZAP_TO_ENERGY(power_removed - TESLA_COIL_THRESHOLD), 0)
 	var/power_produced = max(power - power_removed, 0) //You get back the amount we didn't use
-	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_ENG_ID)
+	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_ENG_ID)//x4 coils give ~ 768 credits per minute
 	if(D)
-		D.adjust_money(min(power_produced, 3))
+		D.adjust_money(min(power_produced, 3)*2)
 	if(istype(linked_techweb))
-		linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, min(power_produced, 3)) // x4 coils with a pulse per second or so = ~720/m point bonus for R&D
+			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, min(power_produced, 3)*2)
+			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, min(power_produced, 3)*2) // x4 coils with a pulse per second or so = ~744/m point bonus for R&D
 		addtimer(CALLBACK(src, PROC_REF(reset_shocked), 10))
 	zap_buckle_check(power)
 	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
