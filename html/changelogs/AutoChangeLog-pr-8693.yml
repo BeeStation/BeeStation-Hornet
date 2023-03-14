@@ -1,0 +1,5 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Plasma ignition no longer calls qdel on reagent reactions, and its reaction
+      temperature was increased to account for normal human body temperatures.
