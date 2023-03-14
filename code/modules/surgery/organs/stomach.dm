@@ -251,7 +251,7 @@
 		var/message = input(owner, "What message would you like to imprint on the deposit?", "Deposit message:") as text|null
 		if(!message)
 			return
-		log_game("[key_name(owner)] as [owner] made a new spore deposit with the message '[message]'.")
+		owner.log_message("made a new spore deposit with the message '[message]'", TRUE)
 		message_admins("[key_name_admin(owner)] as [owner] made a new spore deposit with the message '[message]'. Located at [AREACOORD(owner)]")
 		deadchat_broadcast("[owner] made a new spore deposit with the message '[message]'. Located at [AREACOORD(owner)]", owner)
 		var/color = "#fff"
