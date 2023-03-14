@@ -59,6 +59,10 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	. = ..()
 	PH = locate(/datum/action/item_action/organ_action/psychic_highlight) in C.actions
 
+/datum/species/psyphoza/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	. = ..()
+	PH = null
+
 /datum/species/psyphoza/random_name(gender, unique, lastname, attempts)
 	var/num = rand(1, 9)
 	var/end
