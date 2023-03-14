@@ -51842,7 +51842,7 @@
 /turf/open/floor/wood,
 /area/library/lounge)
 "njt" = (
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /obj/machinery/camera{
 	c_tag = "Engineering - Secure Storage";
 	dir = 1;
@@ -88458,7 +88458,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/science/nanite)
 "whE" = (
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /turf/open/floor/plasteel/dark,
 /area/engine/engine_room)
 "whS" = (

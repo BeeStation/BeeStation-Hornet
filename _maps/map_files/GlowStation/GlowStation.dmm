@@ -63586,7 +63586,7 @@
 /turf/open/floor/plasteel/white,
 /area/security/checkpoint/science/research)
 "nse" = (
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
@@ -106079,7 +106079,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "wgw" = (
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /obj/machinery/camera{
 	c_tag = "Engineering - Secure Storage";
 	dir = 1;
