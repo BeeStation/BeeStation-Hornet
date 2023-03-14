@@ -17,7 +17,7 @@
 		return FALSE
 	if(..())
 		M.confused = max(M.confused, 12)
-		INVOKE_ASYNC(M, /mob.proc/emote, "cough")
+		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob, emote), "cough")
 		return TRUE
 
 /datum/effect_system/smoke_spread/confusing/changeling

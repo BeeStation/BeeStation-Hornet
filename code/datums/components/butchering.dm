@@ -20,14 +20,14 @@
 	if(_can_be_blunt)
 		can_be_blunt = _can_be_blunt
 	if(isitem(parent))
-		RegisterSignal(parent, COMSIG_ITEM_ATTACK, .proc/onItemAttack)
+		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(onItemAttack))
 
 /datum/component/butchering/proc/onItemAttack(obj/item/source, mob/living/M, mob/living/user)
 	SIGNAL_HANDLER
 
 	if(user.a_intent == INTENT_HARM && M.stat == DEAD && (M.butcher_results || M.guaranteed_butcher_results)) //can we butcher it?
 		if(butchering_enabled && (can_be_blunt || source.is_sharp()))
-			INVOKE_ASYNC(src, .proc/startButcher, source, M, user)
+			INVOKE_ASYNC(src, PROC_REF(startButcher), source, M, user)
 			return COMPONENT_ITEM_NO_ATTACK
 	if(user.a_intent == INTENT_GRAB && ishuman(M) && source.is_sharp())
 		var/mob/living/carbon/human/H = M
@@ -36,7 +36,7 @@
 							"<span class='danger'>Their neck has already been already cut, you can't make the bleeding any worse!")
 			return COMPONENT_ITEM_NO_ATTACK
 		if((H.health <= H.crit_threshold || (user.pulling == H && user.grab_state >= GRAB_NECK) || H.IsSleeping()) && user.zone_selected == BODY_ZONE_HEAD) // Only sleeping, neck grabbed, or crit, can be sliced.
-			INVOKE_ASYNC(src, .proc/startNeckSlice, source, H, user)
+			INVOKE_ASYNC(src, PROC_REF(startNeckSlice), source, H, user)
 			return COMPONENT_ITEM_NO_ATTACK
 
 /datum/component/butchering/proc/startButcher(obj/item/source, mob/living/M, mob/living/user)

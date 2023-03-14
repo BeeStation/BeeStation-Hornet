@@ -57,7 +57,7 @@
 #define BLASTDOOR_LAYER 2.65
 #define OPEN_DOOR_LAYER 2.7
 #define DOOR_HELPER_LAYER 2.71 //keep this above OPEN_DOOR_LAYER
-#define PROJECTILE_HIT_THRESHHOLD_LAYER 2.75 //projectiles won't hit objects at or below this layer if possible
+#define PROJECTILE_HIT_THRESHOLD_LAYER 2.75 //projectiles won't hit objects at or below this layer if possible
 #define TABLE_LAYER 2.8
 #define BELOW_OBJ_LAYER 2.9
 #define LOW_ITEM_LAYER 2.95
@@ -170,7 +170,7 @@
 #define RADIAL_LAYER 1000
 
 #define RADIAL_BACKGROUND_LAYER 0
-#define RADIAL_CONTENT_LAYER 1
+#define RADIAL_CONTENT_LAYER 1000
 
 #define SPLASHSCREEN_LAYER 27
 #define SPLASHSCREEN_RENDER_TARGET "SPLASHSCREEN_PLANE"

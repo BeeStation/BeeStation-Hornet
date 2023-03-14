@@ -188,7 +188,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/double_spiral()
 	SLEEP_CHECK_DEATH(10)
-	INVOKE_ASYNC(src, .proc/spiral_shoot, FALSE, 16)
+	INVOKE_ASYNC(src, PROC_REF(spiral_shoot), FALSE, 16)
 	spiral_shoot(FALSE, 8)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/final_attack() //not actually necessarily the final attack, but has a very long cooldown.
@@ -280,11 +280,6 @@ Difficulty: Very Hard
 			flash_color(M.client, "#C80000", 1)
 			shake_camera(M, 4, 3)
 	playsound(src, 'sound/magic/clockwork/narsie_attack.ogg', 200, 1)
-
-
-/mob/living/simple_animal/hostile/megafauna/colossus/devour(mob/living/L)
-	visible_message("<span class='colossus'>[src] disintegrates [L]!</span>")
-	L.dust()
 
 /obj/effect/temp_visual/at_shield
 	name = "anti-toolbox field"
@@ -857,7 +852,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	desc = "Exits the body you are possessing."
 	charge_max = 60
 	clothes_req = 0
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	max_targets = 1
 	range = -1
 	include_user = TRUE

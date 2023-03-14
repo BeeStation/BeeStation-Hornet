@@ -505,14 +505,6 @@
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 
-	if(cid_check && config.protected_cids.Find(player_cid))
-		if(alert(usr, "CID [player_cid] is listed as protected for the following reason: [config.protected_cids[player_cid]], Are you sure you want to restrict this CID? THIS WILL PROBABLY CATCH LEGITIMATE PLAYERS.", "Protected CID", "Yes", "No", "Cancel") != "Yes")
-			return
-		var/kn = key_name(usr)
-		//Log the shit out of this and scream bloody murder to anyone who will listen.
-		send2tgs("CID PROTECTION BYPASS", "[kn] Has overridden CID protection for a ban on CID [player_cid]!")
-		message_admins("<span class='danger'>[kn] Has overridden CID protection for a ban on CID [player_cid]!</span>")
-		log_admin_private("[kn] Has overridden CID protection for a ban on CID [player_cid]!")
 	if(redact && alert(usr, "You are about to issue a Suppressed ban, This will require direct database editing to revoke, ARE YOU SURE?", "Protected CID", "Yes", "No", "Cancel") != "Yes")
 		return
 	var/player_ckey = ckey(player_key)
@@ -540,6 +532,14 @@
 					qdel(query_create_ban_get_player)
 					return
 		qdel(query_create_ban_get_player)
+	if(cid_check && config.protected_cids.Find(player_cid))
+		if(alert(usr, "CID [player_cid] is listed as protected for the following reason: [config.protected_cids[player_cid]], Are you sure you want to restrict this CID? THIS WILL PROBABLY CATCH LEGITIMATE PLAYERS.", "Protected CID", "Yes", "No", "Cancel") != "Yes")
+			return
+		var/kn = key_name(usr)
+		//Log the shit out of this and scream bloody murder to anyone who will listen.
+		send2tgs("CID PROTECTION BYPASS", "[kn] Has overridden CID protection for a ban on CID [player_cid]!")
+		message_admins("<span class='danger'>[kn] Has overridden CID protection for a ban on CID [player_cid]!</span>")
+		log_admin_private("[kn] Has overridden CID protection for a ban on CID [player_cid]!")
 	var/admin_ckey = usr.client.ckey
 	if(applies_to_admins)
 		var/datum/DBQuery/query_check_adminban_count = SSdbcore.NewQuery({"

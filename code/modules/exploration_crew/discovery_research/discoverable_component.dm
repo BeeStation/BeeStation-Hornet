@@ -9,8 +9,8 @@
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/examine)
-	RegisterSignal(parent, COMSIG_CLICK, .proc/tryScan)
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(examine))
+	RegisterSignal(parent, COMSIG_CLICK, PROC_REF(tryScan))
 
 	point_reward = _point_reward
 	unique = _unique
@@ -21,7 +21,7 @@
 		return
 	var/mob/living/L = user
 	if(istype(L.get_active_held_item(), /obj/item/discovery_scanner))
-		INVOKE_ASYNC(L.get_active_held_item(), /obj/item/discovery_scanner.proc/begin_scanning, user, src)
+		INVOKE_ASYNC(L.get_active_held_item(), TYPE_PROC_REF(/obj/item/discovery_scanner, begin_scanning), user, src)
 
 /datum/component/discoverable/proc/examine(datum/source, mob/user, atom/thing)
 	SIGNAL_HANDLER

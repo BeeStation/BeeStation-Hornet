@@ -24,8 +24,8 @@
 /datum/component/aiming/Initialize(source)
 	if(!istype(parent, /obj/item))
 		return COMPONENT_INCOMPATIBLE
-	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/on_parent_equip)
-	RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/on_parent_unequip)
+	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_parent_equip))
+	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_parent_unequip))
 
 /datum/component/aiming/proc/aim(mob/user, mob/target)
 	if(QDELETED(user) || QDELETED(target)) // We lost the user or target somehow
@@ -44,13 +44,13 @@
 	new /obj/effect/temp_visual/aiming(get_turf(target))
 
 	// Register signals to alert our user if the target does something shifty.
-	RegisterSignal(target, COMSIG_MOB_EQUIPPED_ITEM, .proc/on_equip)
-	RegisterSignal(target, COMSIG_MOB_DROPPED_ITEM, .proc/on_drop)
-	RegisterSignal(src.target, COMSIG_LIVING_STATUS_PARALYZE, .proc/on_paralyze)
+	RegisterSignal(target, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(on_equip))
+	RegisterSignal(target, COMSIG_MOB_DROPPED_ITEM, PROC_REF(on_drop))
+	RegisterSignal(src.target, COMSIG_LIVING_STATUS_PARALYZE, PROC_REF(on_paralyze))
 
 	// Registers movement signals
-	RegisterSignal(src.user, COMSIG_MOVABLE_MOVED, .proc/on_move)
-	RegisterSignal(src.target, COMSIG_MOVABLE_MOVED, .proc/on_move)
+	RegisterSignal(src.user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
+	RegisterSignal(src.target, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
 	// Shows the radials to the aimer and target
 	aim_react(src.target)
@@ -66,7 +66,7 @@ Handles equipping/unequipping and pointing with the parent weapon.
 /datum/component/aiming/proc/on_parent_equip(datum/source, mob/equipper, slot)
 	SIGNAL_HANDLER
 	if(slot == ITEM_SLOT_HANDS)
-		RegisterSignal(equipper, COMSIG_MOB_POINTED, .proc/do_aim)
+		RegisterSignal(equipper, COMSIG_MOB_POINTED, PROC_REF(do_aim))
 		user = equipper
 	else // Putting a weapon into storage/direct storage equip by loadout
 		on_parent_unequip()
@@ -78,7 +78,7 @@ Handles equipping/unequipping and pointing with the parent weapon.
 		return
 	if(user.get_active_held_item() != parent) // We don't have the gun selected, abort
 		return
-	INVOKE_ASYNC(src, .proc/aim, user, target) // Start aiming
+	INVOKE_ASYNC(src, PROC_REF(aim), user, target) // Start aiming
 
 // Cleans up the user and stops aiming if we're aiming. Used for stowing/dropping a weapon
 /datum/component/aiming/proc/on_parent_unequip()
@@ -163,7 +163,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	if(choice_menu)
 		choice_menu.change_choices(options)
 		return
-	choice_menu = show_radial_menu_persistent(user, user, options, select_proc = CALLBACK(src, .proc/act))
+	choice_menu = show_radial_menu_persistent(user, user, options, select_proc = CALLBACK(src, PROC_REF(act)))
 
 /datum/component/aiming/proc/act(choice)
 	if(QDELETED(user) || QDELETED(target)) // We lost our user or target somehow, abort aiming
@@ -236,7 +236,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	var/list/options = list()
 	for(var/option in list(SURRENDER, IGNORE))
 		options[option] = image(icon = 'icons/effects/aiming.dmi', icon_state = option)
-	choice_menu_target = show_radial_menu_persistent(target, target, options, select_proc = CALLBACK(src, .proc/aim_react_act))
+	choice_menu_target = show_radial_menu_persistent(target, target, options, select_proc = CALLBACK(src, PROC_REF(aim_react_act)))
 
 /datum/component/aiming/proc/aim_react_act(choice)
 	if(choice == SURRENDER)

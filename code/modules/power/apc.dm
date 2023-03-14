@@ -1,10 +1,11 @@
 //update_state
-#define UPSTATE_CELL_IN		(1<<0)
+//Shifts 0/1/2 are used by UPSTATE_OPENED1 and UPSTATE_OPENED2 with a base shift of 0 (see _DEFINES/apc.dm)
 #define UPSTATE_MAINT		(1<<3)
 #define UPSTATE_BROKE		(1<<4)
 #define UPSTATE_BLUESCREEN	(1<<5)
 #define UPSTATE_WIREEXP		(1<<6)
 #define UPSTATE_ALLGOOD		(1<<7)
+#define UPSTATE_CELL_IN		(1<<8)
 
 #define APC_RESET_EMP "emp"
 
@@ -202,7 +203,7 @@
 		name = "\improper [get_area_name(area, TRUE)] APC"
 		set_machine_stat(machine_stat | MAINT)
 		update_appearance()
-		addtimer(CALLBACK(src, .proc/update), 5)
+		addtimer(CALLBACK(src, PROC_REF(update)), 5)
 		area.poweralert(FALSE, src)
 
 /obj/machinery/power/apc/proc/clear_previous_power_alarm(obj/source, area/A)
@@ -281,7 +282,7 @@
 
 	make_terminal()
 
-	addtimer(CALLBACK(src, .proc/update), 5)
+	addtimer(CALLBACK(src, PROC_REF(update)), 5)
 
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
@@ -341,7 +342,7 @@
 		icon_state = "apc0"
 		return ..()
 	if(update_state & (UPSTATE_OPENED1|UPSTATE_OPENED2))
-		var/basestate = "apc[cell ? 2 : 1]"
+		var/basestate = "apc[update_state & UPSTATE_CELL_IN ? 2 : 1]"
 		if(update_state & UPSTATE_OPENED1)
 			icon_state = (update_state & (UPSTATE_MAINT|UPSTATE_BROKE)) ? "apcmaint" : basestate
 		else if(update_state & UPSTATE_OPENED2)
@@ -1118,7 +1119,7 @@
 			for(var/obj/machinery/light/L in area)
 				if(!initial(L.no_emergency)) //If there was an override set on creation, keep that override
 					L.no_emergency = emergency_lights
-					INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
+					INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 				CHECK_TICK
 			. = TRUE
 
@@ -1150,7 +1151,7 @@
 		return
 	to_chat(malf, "Beginning override of APC systems. This takes some time, and you cannot perform other actions during the process.")
 	malf.malfhack = src
-	malf.malfhacking = addtimer(CALLBACK(malf, /mob/living/silicon/ai/.proc/malfhacked, src), 600, TIMER_STOPPABLE)
+	malf.malfhacking = addtimer(CALLBACK(malf, TYPE_PROC_REF(/mob/living/silicon/ai, malfhacked), src), 600, TIMER_STOPPABLE)
 
 	var/atom/movable/screen/alert/hackingapc/A
 	A = malf.throw_alert("hackingapc", /atom/movable/screen/alert/hackingapc)
@@ -1475,7 +1476,7 @@
 	environ = 0
 	update_appearance()
 	update()
-	addtimer(CALLBACK(src, .proc/reset, APC_RESET_EMP), 600)
+	addtimer(CALLBACK(src, PROC_REF(reset), APC_RESET_EMP), 600)
 
 /obj/machinery/power/apc/blob_act(obj/structure/blob/B)
 	set_broken()
@@ -1503,7 +1504,7 @@
 		return
 	if( cell && cell.charge>=20)
 		cell.use(20)
-		INVOKE_ASYNC(src, .proc/break_lights)
+		INVOKE_ASYNC(src, PROC_REF(break_lights))
 
 /obj/machinery/power/apc/proc/break_lights()
 	for(var/obj/machinery/light/L in area)

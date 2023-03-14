@@ -60,9 +60,6 @@
 #define FORCE_MAP "runtimestation"
 #endif
 
-//Update this whenever you need to take advantage of more recent byond features
-#define MIN_COMPILER_VERSION 514
-#define MIN_COMPILER_BUILD 1583
 //TODO Remove the SDMM check when it supports 1568
 #if !defined(SPACEMAN_DMM) && (DM_VERSION < MIN_COMPILER_VERSION || DM_BUILD < MIN_COMPILER_BUILD) && !defined(FASTDMM)
 //Don't forget to update this part

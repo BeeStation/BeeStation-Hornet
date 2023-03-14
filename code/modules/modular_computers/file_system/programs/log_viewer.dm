@@ -45,7 +45,7 @@
 			return TRUE
 
 /datum/computer_file/program/log_viewer/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 	if(!istype(computer))
 		return data
 	var/list/datum/computer_file/data/log_file/data_files = list()

@@ -162,6 +162,7 @@ Stabilized extracts:
 /obj/item/slimecross/stabilized/oil
 	colour = "oil"
 	effect_desc = "The owner will violently explode when they die while holding this extract."
+	dangerous = TRUE
 
 /obj/item/slimecross/stabilized/black
 	colour = "black"

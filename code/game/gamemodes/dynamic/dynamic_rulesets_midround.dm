@@ -496,7 +496,7 @@
 	required_enemies = list(1,1,1,1,0,0,0,0,0,0)
 	required_candidates = 1
 	weight = 4
-	cost = 9
+	cost = 11
 	minimum_players = 25
 	repeatable = TRUE
 	var/list/spawn_locs = list()
@@ -726,6 +726,7 @@
 	spider.key = applicant.key
 	if(fed)
 		spider.fed += 3
+		spider.lay_eggs.UpdateButtonIcon()
 		fed--
 	message_admins("[ADMIN_LOOKUPFLW(spider)] has been made into a spider by the midround ruleset.")
 	log_game("DYNAMIC: [key_name(spider)] was spawned as a spider by the midround ruleset.")

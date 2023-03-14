@@ -81,7 +81,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	use_power(500)
 	stored_matter += cube_production
 	addtimer(VARSET_CALLBACK(src, pixel_x, initial(pixel_x)))
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, user, "<span class='notice'>The machine now has [stored_matter] monkey\s worth of material stored.</span>"))
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), user, "<span class='notice'>The machine now has [stored_matter] monkey\s worth of material stored.</span>"))
 
 /obj/machinery/monkey_recycler/interact(mob/user)
 	if(stored_matter >= 1)
