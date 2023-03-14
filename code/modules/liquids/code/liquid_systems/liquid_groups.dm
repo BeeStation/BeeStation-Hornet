@@ -281,7 +281,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 		qdel(src)
 
 /datum/liquid_group/proc/remove_specific(obj/effect/abstract/liquid_turf/remover, amount, datum/reagent/reagent_type)
-	reagents.remove_reagent(reagent_type.type, amount)
+	reagents.remove_reagent(reagent_type.type, amount, TRUE)
 	if(remover)
 		check_liquid_removal(remover, amount)
 	updated_total = TRUE

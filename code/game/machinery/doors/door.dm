@@ -335,6 +335,7 @@
 	operating = TRUE
 
 	do_animate("closing")
+	
 	var/turf/open/open_turf = get_turf(src)
 	if(open_turf.liquids)
 		var/datum/liquid_group/turfs_group = open_turf.liquids.liquid_group
@@ -346,6 +347,7 @@
 			if(!isopenturf(direction_turf) || !direction_turf.liquids)
 				continue
 			turfs_group.check_edges(direction_turf)
+	
 	layer = closingLayer
 	if(air_tight)
 		set_density(TRUE)

@@ -89,7 +89,7 @@
 		//Using IDs because SOME chemicals (I'm looking at you, chlorhydrate-beer) have the same names as other chemicals.
 	return english_list(data)
 
-/datum/reagents/proc/remove_any(amount = 1)
+/datum/reagents/proc/remove_any(amount = 1, no_react = FALSE)
 	var/list/cached_reagents = reagent_list
 	var/total_transfered = 0
 	var/current_list_element = 1
@@ -112,7 +112,8 @@
 		total_transfered++
 		update_total()
 
-	handle_reactions()
+	if(!no_react)
+		handle_reactions()
 	return total_transfered
 
 /datum/reagents/proc/remove_all(amount = 1)

@@ -1266,6 +1266,7 @@
 			if(!isopenturf(direction_turf) || !direction_turf.liquids)
 				continue
 			turfs_group.check_edges(direction_turf)
+	
 	ui_update()
 	operating = TRUE
 	update_icon(AIRLOCK_CLOSING, 1)
