@@ -399,7 +399,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 /datum/action/change_psychic_auto/New(Target)
 	. = ..()
 	psychic_action = Target
-	RegisterSignal(psychic_action, COMSIG_PARENT_QDELETING, .proc/parent_destroy)
+	RegisterSignal(psychic_action, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
 
 /datum/action/change_psychic_auto/Destroy()
 	. = ..()
