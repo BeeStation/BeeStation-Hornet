@@ -152,8 +152,8 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 /datum/action/item_action/organ_action/psychic_highlight/Grant(mob/M)
 	. = ..()
 	//Register signal for TK highlights
-	RegisterSignal(M, COMSIG_MOB_ATTACK_RANGED, .proc/handle_ranged, TRUE)
-	RegisterSignal(M, COMSIG_MOB_ITEM_AFTERATTACK, .proc/handle_ranged, TRUE)
+	RegisterSignal(M, COMSIG_MOB_ATTACK_RANGED, PROC_REF(handle_ranged), TRUE)
+	RegisterSignal(M, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(handle_ranged), TRUE)
 	//Overlay used to highlight objects
 	M.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
 	//Add option to change visuals
@@ -164,7 +164,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	auto_action = new(src)
 	auto_action.Grant(M)
 	///Start auto timer
-	addtimer(CALLBACK(src, .proc/auto_sense), auto_cooldown)
+	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
 /datum/action/item_action/organ_action/psychic_highlight/IsAvailable()
 	if(has_cooldown_timer)
@@ -178,7 +178,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	ping_turf(get_turf(owner))
 	has_cooldown_timer = TRUE
 	UpdateButtonIcon()
-	addtimer(CALLBACK(src, .proc/finish_cooldown), cooldown + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
+	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
 
 /datum/action/item_action/organ_action/psychic_highlight/UpdateButtonIcon(status_only = FALSE, force = FALSE)
 	. = ..()
@@ -188,7 +188,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 /datum/action/item_action/organ_action/psychic_highlight/proc/auto_sense()
 	if(auto_sense)
 		Trigger()
-	addtimer(CALLBACK(src, .proc/auto_sense), auto_cooldown)
+	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/finish_cooldown()
 	has_cooldown_timer = FALSE
@@ -204,7 +204,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 		sight_flags = eyes?.sight_flags
 		//Register signal for losing our eyes
 		if(eyes)
-			RegisterSignal(eyes, COMSIG_PARENT_QDELETING, .proc/handle_eyes)
+			RegisterSignal(eyes, COMSIG_PARENT_QDELETING, PROC_REF(handle_eyes))
 
 	//handle eyes - make them xray so we can see all the things
 	eyes?.sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	//Setup timer to delete image
 	if(overlay_timer)
 		deltimer(overlay_timer)
-	overlay_timer = addtimer(CALLBACK(src, .proc/toggle_eyes_backwards), sense_time, TIMER_STOPPABLE)
+	overlay_timer = addtimer(CALLBACK(src, PROC_REF(toggle_eyes_backwards)), sense_time, TIMER_STOPPABLE)
 
 //Get a list of nearby things & run 'em through a typecache
 /datum/action/item_action/organ_action/psychic_highlight/proc/ping_turf(turf/T, size = sense_range)
@@ -259,7 +259,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	//Add overlay for highlighting
 	target.add_overlay(M)
 	overlays += list(target, M)
-	RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/handle_target, TRUE)
+	RegisterSignal(target, COMSIG_PARENT_QDELETING, pROC_REF(handle_target), TRUE)
 
 //handle highlight object being deleted early
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_target(datum/source)
@@ -297,7 +297,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 		ping_turf(T, 2)
 		has_cooldown_timer = TRUE
 		UpdateButtonIcon()
-		addtimer(CALLBACK(src, .proc/finish_cooldown), (cooldown/1.5) + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
+		addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), (cooldown/1.5) + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
 
 //Handles eyes being deleted
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_eyes()
@@ -370,7 +370,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 
 /datum/action/change_psychic_visual/New(Target)
 	. = ..()
-	RegisterSignal(psychic_overlay, COMSIG_PARENT_QDELETING, .proc/parent_destroy)
+	RegisterSignal(psychic_overlay, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
 
 /datum/action/change_psychic_visual/Destroy()
 	. = ..()

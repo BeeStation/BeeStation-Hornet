@@ -17,16 +17,16 @@
 /datum/component/blind_sense/New(list/raw_args)
 	. = ..()
 	//Register signal for sensing voices
-	RegisterSignal(SSdcs, COMSIG_GLOB_LIVING_SAY_SPECIAL, .proc/handle_hear)
+	RegisterSignal(SSdcs, COMSIG_GLOB_LIVING_SAY_SPECIAL, PROC_REF(handle_hear))
 	//Register signal for sensing sounds
-	RegisterSignal(SSdcs, COMSIG_GLOB_SOUND_PLAYED, .proc/handle_hear)
+	RegisterSignal(SSdcs, COMSIG_GLOB_SOUND_PLAYED, PROC_REF(handle_hear))
 	//typecast to access client
 	owner = parent
 	//Register ears for people with them - deaf people can't use this component
 	if(iscarbon(owner))
 		var/mob/living/carbon/C = owner
 		ears = locate(/obj/item/organ/ears) in C.internal_organs
-		RegisterSignal(ears, COMSIG_PARENT_QDELETING, .proc/handle_ears)
+		RegisterSignal(ears, COMSIG_PARENT_QDELETING, PROC_REF(handle_ears))
 
 /datum/component/blind_sense/RemoveComponent()
 	. = ..()
@@ -69,7 +69,7 @@
 	M.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	//Animate fade & delete
 	animate(M, alpha = 0, time = sense_time + 1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
-	addtimer(CALLBACK(src, .proc/handle_image, M), sense_time)
+	addtimer(CALLBACK(src, PROC_REF(handle_image), M), sense_time)
 
 	//Add image to client
 	owner.client?.images += M

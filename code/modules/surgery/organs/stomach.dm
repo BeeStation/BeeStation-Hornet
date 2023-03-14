@@ -262,7 +262,7 @@
 		to_chat(owner, "<span class='notice'>You create a deposit.</span>")
 	else
 		return
-	cooldown_timer = addtimer(CALLBACK(src, .proc/handle_timer), cooldown, TIMER_STOPPABLE)
+	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(handle_timer)), cooldown, TIMER_STOPPABLE)
 
 /datum/action/item_action/organ_action/place_spores/proc/handle_timer()
 	if(cooldown_timer)
