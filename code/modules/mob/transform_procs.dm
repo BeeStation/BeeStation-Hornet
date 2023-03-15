@@ -68,7 +68,7 @@
 
 	//move implants to new mob
 	if(tr_flags & TR_KEEPIMPLANTS)
-		for(var/obj/item/implant/IMP in implants)
+		for(var/obj/item/implant/IMP as anything in implants)
 			IMP.transfer_implant(src, O)
 
 	//re-add organs to new mob. this order prevents moving the mind to a brain at any point
@@ -216,8 +216,8 @@
 		O.radiation = radiation
 
 	//move implants to new mob
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/obj/item/implant/IMP in implants)
+	if(tr_flags & TR_KEEPIMPLANTS)
+		for(var/obj/item/implant/IMP as anything in implants)
 			IMP.transfer_implant(src, O)
 
 	//re-add organs to new mob. this order prevents moving the mind to a brain at any point
@@ -361,8 +361,8 @@
 		O.radiation = radiation
 
 	//move implants to new mob
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/obj/item/implant/IMP in implants)
+	if(tr_flags & TR_KEEPIMPLANTS)
+		for(var/obj/item/implant/IMP as anything in implants)
 			IMP.transfer_implant(src, O)
 
 	if(tr_flags & TR_KEEPORGANS)
