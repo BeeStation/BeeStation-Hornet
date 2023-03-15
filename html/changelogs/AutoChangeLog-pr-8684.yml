@@ -1,0 +1,4 @@
+author: LemonLimeSoda
+delete-after: true
+changes:
+  - balance: Morphs now husk digested corpses instead of deleting them outright
