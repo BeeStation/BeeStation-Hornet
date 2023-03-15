@@ -44,18 +44,12 @@
 /// Called by carbons after they connect the tank to their breathing apparatus.
 /obj/item/tank/proc/after_internals_opened(mob/living/carbon/carbon_target)
 	breathing_mob = carbon_target
-	RegisterSignal(carbon_target, COMSIG_MOB_GET_STATUS_TAB_ITEMS, PROC_REF(get_status_tab_item))
+	carbon_target.update_internals_hud_icon(1)
 
 /// Called by carbons after they disconnect the tank from their breathing apparatus.
 /obj/item/tank/proc/after_internals_closed(mob/living/carbon/carbon_target)
 	breathing_mob = null
-	UnregisterSignal(carbon_target, COMSIG_MOB_GET_STATUS_TAB_ITEMS)
-
-/obj/item/tank/proc/get_status_tab_item(mob/living/source, list/items)
-	SIGNAL_HANDLER
-	items += "Internal Atmosphere Info: [name]"
-	items += "Tank Pressure: [air_contents.return_pressure()] kPa"
-	items += "Distribution Pressure: [distribute_pressure] kPa"
+	carbon_target.update_internals_hud_icon(0)
 
 /// Attempts to toggle the mob's internals on or off using this tank. Returns TRUE if successful.
 /obj/item/tank/proc/toggle_internals(mob/living/carbon/mob_target)
