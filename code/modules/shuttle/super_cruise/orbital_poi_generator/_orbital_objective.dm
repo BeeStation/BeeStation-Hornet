@@ -8,11 +8,15 @@
 	var/id = 0
 	var/station_name
 	var/static/objective_num = 0
+	var/static/datum/bank_account/bound_bank_account = ACCOUNT_SCI_ID
 
 /datum/orbital_objective/New()
 	. = ..()
 	id = objective_num ++
 	station_name = new_station_name()
+
+	if(!istype(bound_bank_account))
+		bound_bank_account = SSeconomy.get_budget_account(bound_bank_account)
 
 /datum/orbital_objective/proc/on_assign(obj/machinery/computer/objective/objective_computer)
 	return
@@ -45,7 +49,7 @@
 	completed = TRUE
 	//Handle payout
 	SSeconomy.distribute_funds(payout)
-	GLOB.exploration_points += payout
+	bound_bank_account.adjust_currency(ACCOUNT_CURRENCY_EXPLO, payout)
 	//Announcement
 	priority_announce("Central Command priority objective completed. [payout] credits have been \
 		distributed across departmental budgets. [payout] points have been distributed to exploration vendors.", "Central Command Report", SSstation.announcer.get_rand_report_sound())

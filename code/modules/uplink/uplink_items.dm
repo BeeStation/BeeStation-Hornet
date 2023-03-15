@@ -317,7 +317,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/index = rand(1, 20)
 	starting_crate_value = index * 5
 	if(index == 1)
-		to_chat(user, "<span class='warning'><b>Incomming transmission from the syndicate.</b></span>")
+		to_chat(user, "<span class='warning'><b>Incoming transmission from the syndicate.</b></span>")
 		to_chat(user, "<span class='warning'>You feel an overwhelming sense of pride and accomplishment.</span>")
 		var/obj/item/clothing/mask/joy/funny_mask = new(get_turf(user))
 		ADD_TRAIT(funny_mask, TRAIT_NODROP, CURSED_ITEM_TRAIT)
@@ -2044,17 +2044,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5
 	restricted_roles = list(JOB_NAME_CLOWN)
 
-
-/datum/uplink_item/role_restricted/spider_injector
-	name = "Australicus Slime Mutator"
-	desc = "Crikey mate, it's been a wild travel from the Australicus sector but we've managed to get \
-			some special spider extract from the giant spiders down there. Use this injector on a gold slime core \
-			to create a few of the same type of spiders we found on the planets over there. They're a bit tame until you \
-			also give them a bit of sentience though."
-	item = /obj/item/reagent_containers/syringe/spider_extract
-	cost = 10
-	restricted_roles = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST)
-
 /datum/uplink_item/role_restricted/clowncar
 	name = "Clown Car"
 	desc = "The Clown Car is the ultimate transportation method for any worthy clown! \
@@ -2395,7 +2384,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/implants/deathrattle
 	name = "Box of Deathrattle Implants"
 	desc = "A collection of implants (and one reusable implanter) that should be injected into the team. When one of the team \
-	dies, all other implant holders recieve a mental message informing them of their teammates' name \
+	dies, all other implant holders receive a mental message informing them of their teammates' name \
 	and the location of their death. Unlike most implants, these are designed to be implanted \
 	in any creature, biological or mechanical."
 	item = /obj/item/storage/box/syndie_kit/imp_deathrattle

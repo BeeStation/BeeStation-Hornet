@@ -58,8 +58,6 @@ GENE SCANNER
 		return
 	var/list/t_ray_images = list()
 	for(var/obj/O in orange(distance, viewer) )
-		if(O.level != 1)
-			continue
 
 		if(O.invisibility == INVISIBILITY_MAXIMUM || HAS_TRAIT(O, TRAIT_T_RAY_VISIBLE))
 			var/image/I = new(loc = get_turf(O))
@@ -898,7 +896,7 @@ GENE SCANNER
 
 		ready = FALSE
 		icon_state = "[icon_state]_recharging"
-		addtimer(CALLBACK(src, .proc/recharge), cooldown, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(recharge)), cooldown, TIMER_UNIQUE)
 
 /obj/item/sequence_scanner/proc/recharge()
 	icon_state = initial(icon_state)
@@ -1039,7 +1037,7 @@ GENE SCANNER
 		symptomholder.Finalize()
 		symptomholder.Refresh()
 		to_chat(user, "<span class='warning'>You begin isolating [chosen].</span>")
-		if(do_after(user, (600 / (scanner.rating + 1)), target = AM))
+		if(do_after(user, (300 / (scanner.rating + 1)), target = AM))
 			create_culture(symptomholder, user, AM)
 	else
 		using = TRUE

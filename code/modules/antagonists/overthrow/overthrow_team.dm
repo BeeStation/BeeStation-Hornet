@@ -25,7 +25,7 @@
 	target.team = src
 	target.find_target()
 	objectives += target
-	addtimer(CALLBACK(src,.proc/update_objectives),OBJECTIVE_UPDATING_TIME,TIMER_UNIQUE)
+	addtimer(CALLBACK(src,PROC_REF(update_objectives)),OBJECTIVE_UPDATING_TIME,TIMER_UNIQUE)
 
 /datum/team/overthrow/proc/update_objectives()
 	var/datum/objective/overthrow/heads/heads_obj = locate() in objectives
@@ -40,4 +40,4 @@
 				O.objectives += heads_obj
 	heads_obj.find_targets()
 
-	addtimer(CALLBACK(src,.proc/update_objectives),OBJECTIVE_UPDATING_TIME,TIMER_UNIQUE)
+	addtimer(CALLBACK(src,PROC_REF(update_objectives)),OBJECTIVE_UPDATING_TIME,TIMER_UNIQUE)

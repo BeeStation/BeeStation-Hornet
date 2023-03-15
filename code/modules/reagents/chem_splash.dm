@@ -36,7 +36,7 @@
 
 		var/list/viewable = view(affected_range, epicenter)
 		var/list/accessible = list(epicenter)
-		for(var/i=1; i<=affected_range; i++)
+		for(var/i in 1 to affected_range)
 			var/list/turflist = RANGE_TURFS(i, epicenter) - RANGE_TURFS(i-1, epicenter)
 			for(var/turf/T as() in turflist)
 				if(!(get_dir(T,epicenter) in GLOB.cardinals) && (abs(T.x - epicenter.x) == abs(T.y - epicenter.y) ))
@@ -66,7 +66,7 @@
 		for(var/atom/A as() in reactable)
 			var/distance = max(1,get_dist(A, epicenter))
 			var/fraction = 0.5/(2 ** distance) //50/25/12/6... for a 200u splash, 25/12/6/3... for a 100u, 12/6/3/1 for a 50u
-			splash_holder.expose(A, TOUCH, fraction)
+			splash_holder.reaction(A, TOUCH, fraction)
 
 	qdel(splash_holder)
 	return 1

@@ -109,7 +109,7 @@ GLOBAL_LIST_INIT(emissive_color, EMISSIVE_COLOR)
 GLOBAL_LIST_INIT(em_block_color, EM_BLOCK_COLOR)
 /// A set of appearance flags applied to all emissive and emissive blocker overlays.
 #define EMISSIVE_APPEARANCE_FLAGS (KEEP_APART|KEEP_TOGETHER|RESET_COLOR|RESET_TRANSFORM)
-/// The color matrix used to mask out emissive blockers on the emissive plane. Alpha should default to zero, be solely dependent on the RGB value of [EMISSIVE_COLOR], and be independant of the RGB value of [EM_BLOCK_COLOR].
+/// The color matrix used to mask out emissive blockers on the emissive plane. Alpha should default to zero, be solely dependent on the RGB value of [EMISSIVE_COLOR], and be independent of the RGB value of [EM_BLOCK_COLOR].
 #define EM_MASK_MATRIX list(0,0,0,1/3, 0,0,0,1/3, 0,0,0,1/3, 0,0,0,0, 1,1,1,0)
 /// A globaly cached version of [EM_MASK_MATRIX] for quick access.
 GLOBAL_LIST_INIT(em_mask_matrix, EM_MASK_MATRIX)

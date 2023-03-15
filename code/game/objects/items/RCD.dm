@@ -165,7 +165,7 @@ RLD
 /obj/item/construction/proc/range_check(atom/A, mob/user)
 	if(A.z != user.z)
 		return
-	if(!(user in viewers(7, get_turf(A))))
+	if(!(user in viewers(7, get_turf(A))) && !(max_matter == INFINITY)) // debug tool has no max range
 		to_chat(user, "<span class='warning'>The \'Out of Range\' light on [src] blinks red.</span>")
 		return FALSE
 	else
@@ -257,7 +257,7 @@ RLD
 		"SOUTH" = image(icon = 'icons/mob/radial.dmi', icon_state = "csouth"),
 		"WEST" = image(icon = 'icons/mob/radial.dmi', icon_state = "cwest")
 		)
-	var/computerdirs = show_radial_menu(user, src, computer_dirs, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+	var/computerdirs = show_radial_menu(user, src, computer_dirs, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 	switch(computerdirs)
@@ -316,13 +316,13 @@ RLD
 		"External Maintenance" = get_airlock_image(/obj/machinery/door/airlock/maintenance/external/glass)
 	)
 
-	var/airlockcat = show_radial_menu(user, src, solid_or_glass_choices, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+	var/airlockcat = show_radial_menu(user, src, solid_or_glass_choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 	switch(airlockcat)
 		if("Solid")
 			if(advanced_airlock_setting == 1)
-				var/airlockpaint = show_radial_menu(user, src, solid_choices, radius = 42, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+				var/airlockpaint = show_radial_menu(user, src, solid_choices, radius = 42, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 				if(!check_menu(user))
 					return
 				switch(airlockpaint)
@@ -367,7 +367,7 @@ RLD
 
 		if("Glass")
 			if(advanced_airlock_setting == 1)
-				var/airlockpaint = show_radial_menu(user, src , glass_choices, radius = 42, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+				var/airlockpaint = show_radial_menu(user, src , glass_choices, radius = 42, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 				if(!check_menu(user))
 					return
 				switch(airlockpaint)
@@ -469,7 +469,7 @@ RLD
 		choices += list(
 			"Change Window Type" = image(icon = 'icons/mob/radial.dmi', icon_state = "windowtype")
 		)
-	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 	switch(choice)
@@ -523,7 +523,7 @@ RLD
 		buzz loudly!</b></span>","<span class='danger'><b>[src] begins \
 		vibrating violently!</b></span>")
 	// 5 seconds to get rid of it
-	addtimer(CALLBACK(src, .proc/detonate_pulse_explode), 50)
+	addtimer(CALLBACK(src, PROC_REF(detonate_pulse_explode)), 50)
 
 /obj/item/construction/rcd/proc/detonate_pulse_explode()
 	explosion(src, 0, 0, 3, 1, flame_range = 1)
@@ -606,16 +606,7 @@ RLD
 	ammoamt = 160
 
 
-/obj/item/construction/rcd/combat/admin
-	name = "admin RCD"
-	max_matter = INFINITY
-	matter = INFINITY
-	delay_mod = 0.1
-	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS
-
 // Ranged RCD
-
-
 /obj/item/construction/rcd/arcd
 	name = "advanced rapid-construction-device (ARCD)"
 	desc = "A prototype RCD with ranged capability and extended capacity. Reload with iron, plasteel, glass or compressed matter cartridges."
@@ -632,7 +623,7 @@ RLD
 	if(!range_check(A,user))
 		return
 	if(target_check(A,user))
-		user.Beam(A,icon_state="rped_upgrade",time=30)
+		user.Beam(A,icon_state="rped_upgrade",time=delay_mod*50)
 	rcd_create(A,user)
 
 /obj/item/construction/rcd/arcd/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
@@ -641,9 +632,6 @@ RLD
 		rcd_create(target, user)
 
 // RAPID LIGHTING DEVICE
-
-
-
 /obj/item/construction/rld
 	name = "Rapid Lighting Device (RLD)"
 	desc = "A device used to rapidly provide lighting sources to an area. Reload with iron, plasteel, glass or compressed matter cartridges."
@@ -676,7 +664,8 @@ RLD
 		..()
 
 /obj/item/construction/rld/update_icon()
-	icon_state = "rld-[round(matter/35)]"
+	// "infinite matter/35" from a debug tool will give a big number, but "rld-5" is the maximum
+	icon_state = "rld-[min(round(matter/35), 5)]"
 	..()
 
 
@@ -831,7 +820,7 @@ RLD
 				machinery_data["cost"][A] = initial(M.rcd_cost)
 				machinery_data["delay"][A] = initial(M.rcd_delay)
 
-	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 

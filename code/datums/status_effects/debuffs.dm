@@ -159,10 +159,10 @@
 	if(usr != owner)
 		return
 	to_chat(owner, "<span class='notice'>You attempt to remove the durathread strand from around your neck.</span>")
-	if(do_after(owner, 35, null, owner))
+	if(do_after(owner, 35, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
 		if(isliving(owner))
 			var/mob/living/L = owner
-			to_chat(owner, "<span class='notice'>You succesfuly remove the durathread strand.</span>")
+			to_chat(owner, "<span class='notice'>You successfuly remove the durathread strand.</span>")
 			L.remove_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
 
 /datum/status_effect/syringe
@@ -180,14 +180,14 @@
 /datum/status_effect/syringe/on_apply()
 	. = ..()
 	var/amount = syringe.initial_inject
-	syringe.reagents.expose(owner, INJECT)
+	syringe.reagents.reaction(owner, INJECT)
 	syringe.reagents.trans_to(owner, max(3.1, amount * injectmult))
 	owner.throw_alert("syringealert", /atom/movable/screen/alert/syringe)
 
 /datum/status_effect/syringe/tick()
 	. = ..()
 	var/amount = syringe.units_per_tick
-	syringe.reagents.expose(owner, INJECT, amount / 10)//so the slow drip-feed of reagents isn't exploited
+	syringe.reagents.reaction(owner, INJECT, amount / 10)//so the slow drip-feed of reagents isn't exploited
 	syringe.reagents.trans_to(owner, amount * injectmult)
 
 
@@ -214,7 +214,7 @@
 		if(istype(syringestatus, /datum/status_effect/syringe))
 			var/obj/item/reagent_containers/syringe/syringe = syringestatus.syringe
 			to_chat(owner, "<span class='notice'>You begin carefully pulling the syringe out.</span>")
-			if(do_after(C, 20, null, owner))
+			if(do_after(C, 20, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
 				to_chat(C, "<span class='notice'>You succesfuly remove the syringe.</span>")
 				syringe.forceMove(C.loc)
 				C.put_in_hands(syringe)
@@ -222,7 +222,7 @@
 			else
 				to_chat(C, "<span class='userdanger'>You screw up, and inject yourself with more chemicals by mistake!</span>")
 				var/amount = syringe.initial_inject
-				syringe.reagents.expose(C, INJECT)
+				syringe.reagents.reaction(C, INJECT)
 				syringe.reagents.trans_to(C, amount)
 				syringe.forceMove(C.loc)
 				qdel(syringestatus)
@@ -544,7 +544,7 @@
 /datum/status_effect/trance/on_apply()
 	if(!iscarbon(owner))
 		return FALSE
-	RegisterSignal(owner, COMSIG_MOVABLE_HEAR, .proc/hypnotize)
+	RegisterSignal(owner, COMSIG_MOVABLE_HEAR, PROC_REF(hypnotize))
 	ADD_TRAIT(owner, TRAIT_MUTE, "trance")
 	if(!owner.has_quirk(/datum/quirk/monochromatic))
 		owner.add_client_colour(/datum/client_colour/monochrome)
@@ -574,8 +574,8 @@
 		return
 	var/mob/living/carbon/C = owner
 	C.cure_trauma_type(/datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY) //clear previous hypnosis
-	addtimer(CALLBACK(C, /mob/living/carbon.proc/gain_trauma, /datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY, hearing_args[HEARING_RAW_MESSAGE]), 10)
-	addtimer(CALLBACK(C, /mob/living.proc/Stun, 60, TRUE, TRUE), 15) //Take some time to think about it
+	addtimer(CALLBACK(C, TYPE_PROC_REF(/mob/living/carbon, gain_trauma), /datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY, hearing_args[HEARING_RAW_MESSAGE]), 10)
+	addtimer(CALLBACK(C, TYPE_PROC_REF(/mob/living, Stun), 60, TRUE, TRUE), 15) //Take some time to think about it
 	qdel(src)
 
 /datum/status_effect/spasms

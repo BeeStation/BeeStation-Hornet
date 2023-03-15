@@ -30,7 +30,7 @@ Bonus
 	bodies = list("Heart")
 	var/heartattack = FALSE
 	threshold_desc = "<b>Transmission 10:</b> When the victim has a heart attack, their heart will pop right out of their chest, and attack!.<br>\
-					  <b>Stealth 2:</b> The disease is somewhat less noticable to the host."
+					  <b>Stealth 2:</b> The disease is somewhat less noticeable to the host."
 
 /datum/symptom/heartattack/severityset(datum/disease/advance/A)
 	. = ..()

@@ -238,7 +238,7 @@
 	if(!istype(G, /obj/item/grown/bananapeel) && (!G.reagents || !G.reagents.has_reagent(/datum/reagent/lube)))
 		stun_len /= 3
 
-	G.AddComponent(/datum/component/slippery, min(stun_len,140), NONE, CALLBACK(src, .proc/handle_slip, G))
+	G.AddComponent(/datum/component/slippery, min(stun_len,140), NONE, CALLBACK(src, PROC_REF(handle_slip), G))
 
 /datum/plant_gene/trait/slip/proc/handle_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/M)
 	for(var/datum/plant_gene/trait/T in G.seed.genes)
@@ -332,8 +332,13 @@
 	name = "Yellow Bioluminescence"
 	glow_color = "#FFFF66"
 
+/datum/plant_gene/trait/glow/orange
+	//because Yellow doesn't suit Engineering
+	name = "Orange Bioluminescence"
+	glow_color = "#D05800"
+
 /datum/plant_gene/trait/glow/green
-	//oh no, now I'm radioactive
+	//not a creative color
 	name = "Green Bioluminescence"
 	glow_color = "#99FF99"
 
@@ -460,7 +465,7 @@
 
 	var/injecting_amount = max(1, G.seed.potency*0.2) // Minimum of 1, max of 20
 	var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
-	G.reagents.expose(L, INJECT, fraction)
+	G.reagents.reaction(L, INJECT, fraction)
 	G.reagents.trans_to(L, injecting_amount)
 	to_chat(L, "<span class='danger'>You are pricked by [G]!</span>")
 	return TRUE

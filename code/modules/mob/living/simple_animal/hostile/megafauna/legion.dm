@@ -92,7 +92,7 @@ Difficulty: Medium
 	minimum_distance = 0
 	set_varspeed(0)
 	charging = TRUE
-	addtimer(CALLBACK(src, .proc/reset_charge), 50)
+	addtimer(CALLBACK(src, PROC_REF(reset_charge)), 50)
 
 /mob/living/simple_animal/hostile/megafauna/legion/GiveTarget(new_target)
 	. = ..()

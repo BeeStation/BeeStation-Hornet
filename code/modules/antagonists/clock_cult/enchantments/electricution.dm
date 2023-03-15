@@ -3,7 +3,7 @@
 
 /datum/component/enchantment/electricution/apply_effect(obj/item/target)
 	examine_description = "It has been blessed with the power of electricity and will shock targets."
-	RegisterSignal(target, COMSIG_ITEM_ATTACK, .proc/shock_target)
+	RegisterSignal(target, COMSIG_ITEM_ATTACK, PROC_REF(shock_target))
 
 /datum/component/enchantment/electricution/proc/shock_target(datum/source, atom/movable/target, mob/living/user)
 	user.Beam(target, icon_state="lightning[rand(1,12)]", time=2, maxdistance = 32)

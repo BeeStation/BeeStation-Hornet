@@ -4,6 +4,7 @@
 	icon = 'icons/mob/human.dmi'
 	icon_state = ""
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
+	COOLDOWN_DECLARE(special_emote_cooldown)
 
 /mob/living/carbon/human/Initialize(mapload)
 	add_verb(/mob/living/proc/mob_sleep)
@@ -29,12 +30,12 @@
 	. = ..()
 
 	AddComponent(/datum/component/personal_crafting)
-	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_blood)
+	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_blood))
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-	AddElement(/datum/element/strippable, GLOB.strippable_human_items, /mob/living/carbon/human/.proc/should_strip, GLOB.strippable_human_layout)
+	AddElement(/datum/element/strippable, GLOB.strippable_human_items, TYPE_PROC_REF(/mob/living/carbon/human, should_strip), GLOB.strippable_human_layout)
 	AddElement(/datum/element/mechanical_repair)
 
 /mob/living/carbon/human/proc/setup_human_dna()
@@ -133,13 +134,13 @@
 	var/mob/living/simple_animal/bot/mulebot/MB = AM
 	var/obj/vehicle/sealed/car/C = AM
 	if(istype(MB))
-		INVOKE_ASYNC(MB, /mob/living/simple_animal/bot/mulebot.proc/RunOver, src)
+		INVOKE_ASYNC(MB, TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, RunOver), src)
 	else if(istype(C))
-		INVOKE_ASYNC(C, /obj/vehicle/sealed/car.proc/RunOver, src)
+		INVOKE_ASYNC(C, TYPE_PROC_REF(/obj/vehicle/sealed/car, RunOver), src)
 	spreadFire(AM)
 
 /mob/living/carbon/human/Topic(href, href_list)
-	if(href_list["embedded_object"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
+	if(href_list["embedded_object"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
 		var/obj/item/bodypart/L = locate(href_list["embedded_limb"]) in bodyparts
 		if(!L)
 			return
@@ -394,7 +395,7 @@
 				var/counter = 1
 				while(R.fields[text("com_[]", counter)])
 					counter++
-				R.fields[text("com_[]", counter)] = text("Made by [] on [] [], []<BR>[]", allowed_access, station_time_timestamp(), time2text(world.realtime, "MMM DD"), GLOB.year_integer+540, t1)
+				R.fields[text("com_[]", counter)] = text("Made by [] on [] [], []<BR>[]", allowed_access, station_time_timestamp(), time2text(world.realtime, "MMM DD"), GLOB.year_integer+YEAR_OFFSET, t1)
 				to_chat(usr, "<span class='notice'>Successfully added comment.</span>")
 				return
 	..() //end of this massive fucking chain. TODO: make the hud chain not spooky.
@@ -528,12 +529,13 @@
 
 //Used for new human mobs created by cloning/goleming/podding
 /mob/living/carbon/human/proc/set_cloned_appearance()
-	if(gender == MALE)
+	if(dna.features["body_model"] == MALE)
 		facial_hair_style = "Full Beard"
 	else
 		facial_hair_style = "Shaved"
 	hair_style = pick("Bedhead", "Bedhead 2", "Bedhead 3")
 	underwear = "Nude"
+	socks = "Nude"
 	update_body()
 	update_hair()
 
@@ -626,7 +628,7 @@
 			electrocution_skeleton_anim = mutable_appearance(icon, "electrocuted_base")
 			electrocution_skeleton_anim.appearance_flags |= RESET_COLOR|KEEP_APART
 		add_overlay(electrocution_skeleton_anim)
-		addtimer(CALLBACK(src, .proc/end_electrocution_animation, electrocution_skeleton_anim), anim_duration)
+		addtimer(CALLBACK(src, PROC_REF(end_electrocution_animation), electrocution_skeleton_anim), anim_duration)
 
 	else //or just do a generic animation
 		flick_overlay_view(image(icon,src,"electrocuted_generic",ABOVE_MOB_LAYER), src, anim_duration)
@@ -635,7 +637,7 @@
 	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#000000")
 	cut_overlay(MA)
 
-/mob/living/carbon/human/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/living/carbon/human/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	if(!(mobility_flags & MOBILITY_UI))
 		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
 		return FALSE
@@ -963,7 +965,7 @@
 		//Joe Medic starts quickly/expertly lifting Grey Tider onto their back..
 		"<span class='notice'>[HAS_TRAIT(src, TRAIT_QUICKER_CARRY) ? "Using your gloves' nanochips, you" : "You"][skills_space] start to lift [target] onto your back[HAS_TRAIT(src, TRAIT_QUICK_CARRY) ? ", while assisted by the nanochips in your gloves..." : "..."]</span>")
 		//(Using your gloves' nanochips, you/You) ( /quickly/expertly) start to lift Grey Tider onto your back(, while assisted by the nanochips in your gloves../...)
-		if(do_after(src, carrydelay, TRUE, target))
+		if(do_after(src, carrydelay, target))
 			//Second check to make sure they're still valid to be carried
 			if(can_be_firemanned(target) && !incapacitated(FALSE, TRUE) && !target.buckled)
 				buckle_mob(target, TRUE, TRUE, 90, 1, 0)
@@ -1092,6 +1094,24 @@
 		src.emote("scream")
 	src.apply_damage(power, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
 	src.Paralyze(10 * power)
+
+/mob/living/carbon/human/proc/copy_features(var/datum/character_save/CS)
+	dna.features = CS.features
+	gender = CS.gender
+	age = CS.age
+	underwear = CS.underwear
+	underwear_color = CS.underwear_color
+	undershirt = CS.undershirt
+	socks = CS.socks
+	hair_style = CS.hair_style
+	hair_color = CS.hair_color
+	gradient_color = CS.gradient_color
+	gradient_style = CS.gradient_style
+	facial_hair_style = CS.facial_hair_style
+	facial_hair_color = CS.facial_hair_color
+	skin_tone = CS.skin_tone
+	eye_color = CS.eye_color
+	updateappearance(TRUE, TRUE, TRUE)
 
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey

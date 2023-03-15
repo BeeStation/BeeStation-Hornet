@@ -151,8 +151,8 @@
 
 /datum/antagonist/nukeop/get_admin_commands()
 	. = ..()
-	.["Send to base"] = CALLBACK(src,.proc/admin_send_to_base)
-	.["Tell code"] = CALLBACK(src,.proc/admin_tell_code)
+	.["Send to base"] = CALLBACK(src,PROC_REF(admin_send_to_base))
+	.["Tell code"] = CALLBACK(src,PROC_REF(admin_tell_code))
 
 /datum/antagonist/nukeop/proc/admin_send_to_base(mob/admin)
 	owner.current.forceMove(pick(GLOB.nukeop_start))
@@ -201,7 +201,7 @@
 	to_chat(owner, "<B>If you feel you are not up to this task, give your ID to another operative.</B>")
 	to_chat(owner, "<B>In your hand you will find a special item capable of triggering a greater challenge for your team. Examine it carefully and consult with your fellow operatives before activating it.</B>")
 	owner.announce_objectives()
-	addtimer(CALLBACK(src, .proc/nuketeam_name_assign), 1)
+	addtimer(CALLBACK(src, PROC_REF(nuketeam_name_assign)), 1)
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Nuclear Operative Team Leader",
 		"Destroy the station with a nuclear explosive by leading your team.")
 

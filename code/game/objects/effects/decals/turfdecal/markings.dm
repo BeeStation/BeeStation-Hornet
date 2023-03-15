@@ -463,3 +463,9 @@
 
 /obj/effect/turf_decal/numbers/two_nine
 	icon_state = "number_2-9"
+
+/obj/effect/turf_decal/techfloor
+	icon_state = "techfloor_edges"
+
+/obj/effect/turf_decal/techfloor/corners
+	icon_state = "techfloor_corners"

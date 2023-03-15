@@ -343,7 +343,7 @@
 	return data
 
 /datum/computer_file/program/card_mod/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 
 	data["station_name"] = station_name()
 

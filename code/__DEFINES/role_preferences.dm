@@ -2,7 +2,12 @@
 
 //Values for antag preferences, event roles, etc. unified here
 
+//Hour requirements before players can choose to be specific jobs
 
+#define MINUTES_REQUIRED_BASIC 120 			//For jobs that are easy to grief with, but not necessarily hard for new players
+#define MINUTES_REQUIRED_INTERMEDIATE 600 	//For jobs that require a more detailed understanding of either the game in general, or a specific department.
+#define MINUTES_REQUIRED_ADVANCED 900 		//For jobs that aren't command, but hold a similar level of importance to either their department or the round as a whole.
+#define MINUTES_REQUIRED_COMMAND 1200 		//For command positions, to be weighed against the relevant department
 
 //These are synced with the Database, if you change the values of the defines
 //then you MUST update the database!
@@ -50,6 +55,7 @@
 #define ROLE_SWARMER			"Swarmer"
 #define ROLE_MORPH				"Morph"
 #define ROLE_NIGHTMARE			"Nightmare"
+#define ROLE_SPACE_PIRATE		"Space Pirate"
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
@@ -86,7 +92,8 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_TERATOMA,
 	ROLE_MORPH,
 	ROLE_NIGHTMARE,
-	ROLE_SWARMER
+	ROLE_SWARMER,
+	ROLE_SPACE_PIRATE,
 ))
 
 //Job defines for what happens when you fail to qualify for any job during job selection
