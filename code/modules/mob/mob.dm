@@ -1135,7 +1135,7 @@
 	return mob_location.get_lumcount() > light_amount
 
 ///Can this mob read (is literate and not blind)
-/mob/proc/can_read(obj/O)
+/mob/proc/can_read(obj/O, mob/U)
 	if(is_blind())
 		to_chat(src, "<span class='warning'>You are blind and can't read anything!</span>")
 		return FALSE
@@ -1144,7 +1144,7 @@
 		to_chat(src, "<span class='warning'>You try to read [O], but can't comprehend any of it.</span>")
 		return FALSE
 
-	if(!has_light_on_turf() && !has_nightvision())
+	if(!has_light_on_turf() && !has_nightvision() && !HAS_TRAIT(U, TRAIT_NIGHT_VISION))
 		to_chat(src, "<span class='warning'>It's too dark in here to read!</span>")
 		return FALSE
 
