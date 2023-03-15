@@ -310,10 +310,11 @@
 				return 1
 			else
 				var/obj/item/clothing/mask/M = C.wear_mask
+				var/obj/item/clothing/head/Helm = C.head
 				if(M.mask_adjusted) // if mask on face but pushed down
 					M.adjustmask(C) // adjust it back
-				if( !(M.clothing_flags & MASKINTERNALS) )
-					to_chat(C, "<span class='warning'>You are not wearing an internals mask!</span>")
+				if( !(M.clothing_flags & MASKINTERNALS) && !(Helm.clothing_flags & HEADINTERNALS))
+					to_chat(C, "<span class='warning'>You are not wearing an internals mask or helmet!</span>")
 					return
 
 		var/obj/item/I = C.is_holding_item_of_type(/obj/item/tank)

@@ -44,12 +44,12 @@
 		M.update_inv_wear_mask()
 
 //Proc that moves gas/breath masks out of the way, disabling them and allowing pill/food consumption
-/obj/item/clothing/mask/proc/adjustmask(mob/living/user)
+/obj/item/clothing/mask/proc/adjustmask(mob/living/carbon/user)
 	if(user && user.incapacitated())
 		return
 	mask_adjusted = !mask_adjusted
 	if(!mask_adjusted)
-		src.icon_state = initial(icon_state)
+		icon_state = initial(icon_state)
 		gas_transfer_coefficient = initial(gas_transfer_coefficient)
 		permeability_coefficient = initial(permeability_coefficient)
 		clothing_flags |= visor_flags
@@ -67,12 +67,13 @@
 		flags_cover &= ~visor_flags_cover
 		if(adjusted_flags)
 			slot_flags = adjusted_flags
-	if(user)
-		if(iscarbon(user))
-			var/mob/living/carbon/U = user
-			if(U.wear_mask == src)
-				user.wear_mask_update(src, toggle_off = mask_adjusted)
-	user.update_action_buttons_icon() //when mask is adjusted out, we update all buttons icon so the user's potential internal tank correctly shows as off.
+	if(!istype(user))
+		return
+	if(user.wear_mask == src)
+		user.wear_mask_update(src, toggle_off = mask_adjusted)
+	if(loc == user)
+		// Update action button icon for adjusted mask, if someone is holding it.
+		user.update_action_buttons_icon() //when mask is adjusted out, we update all buttons icon so the user's potential internal tank correctly shows as off.
 
 /obj/item/clothing/mask/compile_monkey_icon()
 	//If the icon, for this type of item, is already made by something else, don't make it again
