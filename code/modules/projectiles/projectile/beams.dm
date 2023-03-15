@@ -86,6 +86,12 @@
 	muzzle_type = /obj/effect/projectile/muzzle/disabler
 	impact_type = /obj/effect/projectile/impact/disabler
 
+/obj/item/projectile/beam/disabler/pass_glass ///this is for the malf ai turret upgrade xdxdxd
+	name = "beam-disabler"
+	damage = 50
+	damage_type = STAMINA
+	pass_flags = PASSTABLE | PASSGRILLE | PASSTRANSPARENT
+
 /obj/item/projectile/beam/pulse
 	name = "pulse"
 	icon_state = "u_laser"
