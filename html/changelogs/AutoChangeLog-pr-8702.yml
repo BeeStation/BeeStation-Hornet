@@ -1,5 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: floodlights now check for power when built instead of only after being
-      unwrenched and re-wrenched
