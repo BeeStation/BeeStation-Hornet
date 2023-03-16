@@ -67,25 +67,30 @@
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet/Initialize(mapload)
 	. = ..()
 	linked_mobs = list()
+	var/datum/action/innate/hereticmob/change_sight_range/C = new()
+	C.Grant(src)
 	link_mob(src)
 
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet/Login()
 	. = ..()
 	client?.view_size.setTo(10)
 
-/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/verb/change_sight_range()
-	set category = "IC"
-	set name = "Sight Range"
-	set desc = "Change your sight range."
+/datum/action/innate/hereticmob/change_sight_range
+	name = "Change Sight Range"
+	desc = "Change your sight range."
+	icon_icon = 'icons/obj/items_and_weapons.dmi'
+	button_icon_state = "binoculars"
+	background_icon_state = "bg_ecult"
 
+/datum/action/innate/hereticmob/change_sight_range/Activate()
 	var/list/views = list()
 	for(var/i in 1 to 10)
 		views |= i
 	var/new_view = input("Choose your new view", "Modify view range", 0) as null|anything in views
 	if(new_view)
-		client.view_size.setTo(clamp(new_view, 1, 10))
+		usr.client.view_size.setTo(clamp(new_view, 1, 10))
 	else
-		client.view_size.setTo(10)
+		usr.client.view_size.setTo(10)
 
 /**
  * Link [linked_mob] to our mansus link, if possible.
