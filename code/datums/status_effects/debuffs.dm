@@ -902,26 +902,38 @@
 	if (human_owner.IsSleeping())
 		return
 	var/chance = rand(0,100)
+	var/message = "Coder did fucky wucky U w U"
 	switch(chance)
 		if(0 to 10)
+			message = "<span class='warning'>You feel a lump build up in your throat.</span>"
 			human_owner.vomit()
 		if(20 to 30)
+			message = "<span class='warning'>You feel feel very well.</span>"
 			human_owner.Dizzy(50)
 			human_owner.Jitter(50)
 		if(30 to 40)
+			message = "<span class='warning'>You feel a sharp sting in your side.</span>"
 			human_owner.adjustOrganLoss(ORGAN_SLOT_LIVER, 5)
 		if(40 to 50)
+			message = "<span class='warning'>You feel pricking around your heart.</span>"
 			human_owner.adjustOrganLoss(ORGAN_SLOT_HEART, 5, 90)
 		if(50 to 60)
+			message = "<span class='warning'>You feel your stomach churning.</span>"
 			human_owner.adjustOrganLoss(ORGAN_SLOT_STOMACH, 5)
 		if(60 to 70)
+			message = "<span class='warning'>Your eyes feel like they're on fire.</span>"
 			human_owner.adjustOrganLoss(ORGAN_SLOT_EYES, 10)
 		if(70 to 80)
+			message = "<span class='warning'>You hear ringing in your hears.</span>"
 			human_owner.adjustOrganLoss(ORGAN_SLOT_EARS, 10)
 		if(80 to 90)
+			message = "<span class='warning'>Your ribcage feels tighter.</span>"
 			human_owner.adjustOrganLoss(ORGAN_SLOT_LUNGS, 10)
 		if(90 to 100)
+			message = "<span class='warning'>You feel your skull pressing down on your brain.</span>"
 			human_owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 20, 190)
+	if(prob(33)) //so the victim isn't spammed with messages every 3 seconds
+		to_chat(H,message)
 
 /datum/status_effect/ghoul
 	id = "ghoul"
