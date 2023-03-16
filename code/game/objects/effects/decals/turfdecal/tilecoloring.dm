@@ -18,6 +18,10 @@
 	icon_state = "tile_corner_ramp"
 	name = "white corner ramp"
 
+/obj/effect/turf_decal/tile/white/corner_ramp_offset
+	icon_state = "tile_corner_ramp_offset"
+	name = "white corner ramp offset"
+
 /obj/effect/turf_decal/tile/white/opposingcorners //Two corners on opposite ends of each other (i.e. Top Right to Bottom Left). Allows for faster mapping and less complicated turf decal storage.
 	icon_state = "tile_opposing_corners"
 	name = "opposing white corners"
@@ -55,10 +59,10 @@
 	name = "white diagonal edge"
 
 /obj/effect/turf_decal/tile/white/anticorner_ramp
-	icon_state = "tile_anticorner_ramp"
+	icon_state = "anticorner_ramp"
 	name = "white anticorner ramp"
 
-/obj/effect/turf_decal/tile/white/tile_anticorner_ramp/contrasted
+/obj/effect/turf_decal/tile/white/anticorner_ramp/contrasted
 	icon_state = "tile_anticorner_contrasted_ramp"
 	name = "contrasted white anticorner ramp"
 
@@ -71,6 +75,10 @@
 /obj/effect/turf_decal/tile/blue/corner_ramp
 	icon_state = "tile_corner_ramp"
 	name = "blue corner ramp"
+
+/obj/effect/turf_decal/tile/blue/corner_ramp_offset
+	icon_state = "tile_corner_ramp_offset"
+	name = "blue corner ramp offset"
 
 /obj/effect/turf_decal/tile/blue/opposingcorners //Two corners on opposite ends of each other (i.e. Top Right to Bottom Left). Allows for faster mapping and less complicated turf decal storage.
 	icon_state = "tile_opposing_corners"
@@ -109,10 +117,10 @@
 	name = "blue diagonal edge"
 
 /obj/effect/turf_decal/tile/blue/anticorner_ramp
-	icon_state = "tile_anticorner_ramp"
+	icon_state = "anticorner_ramp"
 	name = "blue anticorner ramp"
 
-/obj/effect/turf_decal/tile/blue/tile_anticorner_ramp/contrasted
+/obj/effect/turf_decal/tile/blue/anticorner_ramp/contrasted
 	icon_state = "tile_anticorner_contrasted_ramp"
 	name = "contrasted blue anticorner ramp"
 
@@ -125,6 +133,10 @@
 /obj/effect/turf_decal/tile/dark_blue/corner_ramp
 	icon_state = "tile_corner_ramp"
 	name = "dark blue corner ramp"
+
+/obj/effect/turf_decal/tile/dark_blue/corner_ramp_offset
+	icon_state = "tile_corner_ramp_offset"
+	name = "dark blue corner ramp offset"
 
 /obj/effect/turf_decal/tile/dark_blue/opposingcorners
 	icon_state = "tile_opposing_corners"
@@ -163,10 +175,10 @@
 	name = "dark blue diagonal edge"
 
 /obj/effect/turf_decal/tile/dark_blue/anticorner_ramp
-	icon_state = "tile_anticorner_ramp"
+	icon_state = "anticorner_ramp"
 	name = "dark blue anticorner ramp"
 
-/obj/effect/turf_decal/tile/dark_blue/tile_anticorner_ramp/contrasted
+/obj/effect/turf_decal/tile/dark_blue/anticorner_ramp/contrasted
 	icon_state = "tile_anticorner_contrasted_ramp"
 	name = "contrasted dark blue anticorner ramp"
 
@@ -179,6 +191,10 @@
 /obj/effect/turf_decal/tile/black/corner_ramp
 	icon_state = "tile_corner_ramp"
 	name = "black corner ramp"
+
+/obj/effect/turf_decal/tile/black/corner_ramp_offset
+	icon_state = "tile_corner_ramp_offset"
+	name = "black corner ramp offset"
 
 /obj/effect/turf_decal/tile/black/opposingcorners
 	icon_state = "tile_opposing_corners"
@@ -217,10 +233,10 @@
 	name = "black diagonal edge"
 
 /obj/effect/turf_decal/tile/black/anticorner_ramp
-	icon_state = "tile_anticorner_ramp"
+	icon_state = "anticorner_ramp"
 	name = "black anticorner ramp"
 
-/obj/effect/turf_decal/tile/black/tile_anticorner_ramp/contrasted
+/obj/effect/turf_decal/tile/black/anticorner_ramp/contrasted
 	icon_state = "tile_anticorner_contrasted_ramp"
 	name = "contrasted black anticorner ramp"
 
@@ -233,6 +249,10 @@
 /obj/effect/turf_decal/tile/green/corner_ramp
 	icon_state = "tile_corner_ramp"
 	name = "green corner ramp"
+
+/obj/effect/turf_decal/tile/green/corner_ramp_offset
+	icon_state = "tile_corner_ramp_offset"
+	name = "green corner ramp offset"
 
 /obj/effect/turf_decal/tile/green/opposingcorners
 	icon_state = "tile_opposing_corners"
@@ -271,10 +291,10 @@
 	name = "green diagonal edge"
 
 /obj/effect/turf_decal/tile/green/anticorner_ramp
-	icon_state = "tile_anticorner_ramp"
+	icon_state = "anticorner_ramp"
 	name = "green anticorner ramp"
 
-/obj/effect/turf_decal/tile/green/tile_anticorner_ramp/contrasted
+/obj/effect/turf_decal/tile/green/anticorner_ramp/contrasted
 	icon_state = "tile_anticorner_contrasted_ramp"
 	name = "contrasted green anticorner ramp"
 
@@ -287,6 +307,10 @@
 /obj/effect/turf_decal/tile/dark_green/corner_ramp
 	icon_state = "tile_corner_ramp"
 	name = "dark green corner ramp"
+
+/obj/effect/turf_decal/tile/dark_green/corner_ramp_offset
+	icon_state = "tile_corner_ramp_offset"
+	name = "dark green corner ramp offset"
 
 /obj/effect/turf_decal/tile/dark_green/opposingcorners
 	icon_state = "tile_opposing_corners"
@@ -325,10 +349,10 @@
 	name = "dark green diagonal edge"
 
 /obj/effect/turf_decal/tile/dark_green/anticorner_ramp
-	icon_state = "tile_anticorner_ramp"
+	icon_state = "anticorner_ramp"
 	name = "dark green anticorner ramp"
 
-/obj/effect/turf_decal/tile/dark_green/tile_anticorner_ramp/contrasted
+/obj/effect/turf_decal/tile/dark_green/anticorner_ramp/contrasted
 	icon_state = "tile_anticorner_contrasted_ramp"
 	name = "contrasted dark green anticorner ramp"
 
@@ -341,6 +365,10 @@
 /obj/effect/turf_decal/tile/yellow/corner_ramp
 	icon_state = "tile_corner_ramp"
 	name = "yellow corner ramp"
+
+/obj/effect/turf_decal/tile/yellow/corner_ramp_offset
+	icon_state = "tile_corner_ramp_offset"
+	name = "yellow corner ramp offset"
 
 /obj/effect/turf_decal/tile/yellow/opposingcorners
 	icon_state = "tile_opposing_corners"
@@ -379,10 +407,10 @@
 	name = "yellow diagonal edge"
 
 /obj/effect/turf_decal/tile/yellow/anticorner_ramp
-	icon_state = "tile_anticorner_ramp"
+	icon_state = "anticorner_ramp"
 	name = "yellow anticorner ramp"
 
-/obj/effect/turf_decal/tile/yellow/tile_anticorner_ramp/contrasted
+/obj/effect/turf_decal/tile/yellow/anticorner_ramp/contrasted
 	icon_state = "tile_anticorner_contrasted_ramp"
 	name = "contrasted yellow anticorner ramp"
 
@@ -395,6 +423,10 @@
 /obj/effect/turf_decal/tile/red/corner_ramp
 	icon_state = "tile_corner_ramp"
 	name = "red corner ramp"
+
+/obj/effect/turf_decal/tile/red/corner_ramp_offset
+	icon_state = "tile_corner_ramp_offset"
+	name = "red corner ramp offset"
 
 /obj/effect/turf_decal/tile/red/opposingcorners
 	icon_state = "tile_opposing_corners"
@@ -433,10 +465,10 @@
 	name = "red diagonal edge"
 
 /obj/effect/turf_decal/tile/red/anticorner_ramp
-	icon_state = "tile_anticorner_ramp"
+	icon_state = "anticorner_ramp"
 	name = "red anticorner ramp"
 
-/obj/effect/turf_decal/tile/red/tile_anticorner_ramp/contrasted
+/obj/effect/turf_decal/tile/red/anticorner_ramp/contrasted
 	icon_state = "tile_anticorner_contrasted_ramp"
 	name = "contrasted red anticorner ramp"
 
@@ -449,6 +481,10 @@
 /obj/effect/turf_decal/tile/dark_red/corner_ramp
 	icon_state = "tile_corner_ramp"
 	name = "dark red corner ramp"
+
+/obj/effect/turf_decal/tile/dark_red/corner_ramp_offset
+	icon_state = "tile_corner_ramp_offset"
+	name = "dark red corner ramp_offset"
 
 /obj/effect/turf_decal/tile/dark_red/opposingcorners
 	icon_state = "tile_opposing_corners"
@@ -487,10 +523,10 @@
 	name = "dark red diagonal edge"
 
 /obj/effect/turf_decal/tile/dark_red/anticorner_ramp
-	icon_state = "tile_anticorner_ramp"
+	icon_state = "anticorner_ramp"
 	name = "dark red anticorner ramp"
 
-/obj/effect/turf_decal/tile/dark_red/tile_anticorner_ramp/contrasted
+/obj/effect/turf_decal/tile/dark_red/anticorner_ramp/contrasted
 	icon_state = "tile_anticorner_contrasted_ramp"
 	name = "contrasted dark red anticorner ramp"
 
@@ -504,6 +540,10 @@
 /obj/effect/turf_decal/tile/bar/corner_ramp
 	icon_state = "tile_corner_ramp"
 	name = "bar corner ramp"
+
+/obj/effect/turf_decal/tile/bar/corner_ramp_offset
+	icon_state = "tile_corner_ramp_offset"
+	name = "bar corner ramp_offset"
 
 /obj/effect/turf_decal/tile/bar/opposingcorners
 	icon_state = "tile_opposing_corners"
@@ -542,10 +582,10 @@
 	name = "bar diagonal edge"
 
 /obj/effect/turf_decal/tile/bar/anticorner_ramp
-	icon_state = "tile_anticorner_ramp"
+	icon_state = "anticorner_ramp"
 	name = "bar anticorner ramp"
 
-/obj/effect/turf_decal/tile/bar/tile_anticorner_ramp/contrasted
+/obj/effect/turf_decal/tile/bar/anticorner_ramp/contrasted
 	icon_state = "tile_anticorner_contrasted_ramp"
 	name = "contrasted bar anticorner ramp"
 
@@ -558,6 +598,10 @@
 /obj/effect/turf_decal/tile/purple/corner_ramp
 	icon_state = "tile_corner_ramp"
 	name = "purple corner ramp"
+
+/obj/effect/turf_decal/tile/purple/corner_ramp_offset
+	icon_state = "tile_corner_ramp_offset"
+	name = "purple corner ramp_offset"
 
 /obj/effect/turf_decal/tile/purple/opposingcorners
 	icon_state = "tile_opposing_corners"
@@ -596,10 +640,10 @@
 	name = "bar diagonal edge"
 
 /obj/effect/turf_decal/tile/purple/anticorner_ramp
-	icon_state = "tile_anticorner_ramp"
+	icon_state = "anticorner_ramp"
 	name = "purple anticorner ramp"
 
-/obj/effect/turf_decal/tile/purple/tile_anticorner_ramp/contrasted
+/obj/effect/turf_decal/tile/purple/anticorner_ramp/contrasted
 	icon_state = "tile_anticorner_contrasted_ramp"
 	name = "contrasted purple anticorner ramp"
 
@@ -612,6 +656,10 @@
 /obj/effect/turf_decal/tile/brown/corner_ramp
 	icon_state = "tile_corner_ramp"
 	name = "brown corner ramp"
+
+/obj/effect/turf_decal/tile/brown/corner_ramp_offset
+	icon_state = "tile_corner_ramp_offset"
+	name = "brown corner ramp_offset"
 
 /obj/effect/turf_decal/tile/brown/opposingcorners
 	icon_state = "tile_opposing_corners"
@@ -649,10 +697,10 @@
 	name = "brown diagonal edge"
 
 /obj/effect/turf_decal/tile/brown/anticorner_ramp
-	icon_state = "tile_anticorner_ramp"
+	icon_state = "anticorner_ramp"
 	name = "brown anticorner ramp"
 
-/obj/effect/turf_decal/tile/brown/tile_anticorner_ramp/contrasted
+/obj/effect/turf_decal/tile/brown/anticorner_ramp/contrasted
 	icon_state = "tile_anticorner_contrasted_ramp"
 	name = "contrasted brown anticorner ramp"
 
@@ -666,6 +714,10 @@
 /obj/effect/turf_decal/tile/neutral/corner_ramp
 	icon_state = "tile_corner_ramp"
 	name = "neutral corner ramp"
+
+/obj/effect/turf_decal/tile/neutral/corner_ramp_offset
+	icon_state = "tile_corner_ramp_offset"
+	name = "neutral corner ramp_offset"
 
 /obj/effect/turf_decal/tile/neutral/opposingcorners
 	icon_state = "tile_opposing_corners"
@@ -704,10 +756,10 @@
 	name = "neutral diagonal edge"
 
 /obj/effect/turf_decal/tile/neutral/anticorner_ramp
-	icon_state = "tile_anticorner_ramp"
+	icon_state = "anticorner_ramp"
 	name = "neutral anticorner ramp"
 
-/obj/effect/turf_decal/tile/neutral/tile_anticorner_ramp/contrasted
+/obj/effect/turf_decal/tile/neutral/anticorner_ramp/contrasted
 	icon_state = "tile_anticorner_contrasted_ramp"
 	name = "contrasted neutral anticorner ramp"
 
@@ -758,10 +810,10 @@
 	name = "dark diagonal edge"
 
 /obj/effect/turf_decal/tile/dark/anticorner_ramp
-	icon_state = "tile_anticorner_ramp"
+	icon_state = "anticorner_ramp"
 	name = "dark anticorner ramp"
 
-/obj/effect/turf_decal/tile/dark/tile_anticorner_ramp/contrasted
+/obj/effect/turf_decal/tile/dark/anticorner_ramp/contrasted
 	icon_state = "tile_anticorner_contrasted_ramp"
 	name = "contrasted dark anticorner ramp"
 
@@ -774,6 +826,10 @@
 /obj/effect/turf_decal/tile/random/corner_ramp
 	icon_state = "tile_corner_ramp"
 	name = "colorful corner ramp"
+
+/obj/effect/turf_decal/tile/random/corner_ramp_offset
+	icon_state = "tile_corner_ramp_offset"
+	name = "colorful corner ramp_offset"
 
 /obj/effect/turf_decal/tile/random/opposingcorners
 	icon_state = "tile_opposing_corners"
@@ -812,10 +868,10 @@
 	name = "colorful diagonal edge"
 
 /obj/effect/turf_decal/tile/random/anticorner_ramp
-	icon_state = "tile_anticorner_ramp"
+	icon_state = "anticorner_ramp"
 	name = "colorful anticorner ramp"
 
-/obj/effect/turf_decal/tile/random/tile_anticorner_ramp/contrasted
+/obj/effect/turf_decal/tile/random/anticorner_ramp/contrasted
 	icon_state = "tile_anticorner_contrasted_ramp"
 	name = "contrasted colorful anticorner ramp"
 
