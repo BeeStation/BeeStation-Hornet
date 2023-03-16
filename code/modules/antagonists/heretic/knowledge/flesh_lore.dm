@@ -233,12 +233,12 @@
 /datum/heretic_knowledge/flesh_mark/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
 
-	target.apply_status_effect(/datum/status_effect/eldritch/flesh)
+	target.apply_status_effect(/datum/status_effect/heretic_mark/flesh)
 
 /datum/heretic_knowledge/flesh_mark/proc/on_eldritch_blade(mob/living/user, mob/living/target)
 	SIGNAL_HANDLER
 
-	var/datum/status_effect/eldritch/mark = target.has_status_effect(/datum/status_effect/eldritch)
+	var/datum/status_effect/heretic_mark/mark = target.has_status_effect(/datum/status_effect/heretic_mark)
 	if(!istype(mark))
 		return
 

@@ -136,12 +136,12 @@
 /datum/heretic_knowledge/void_mark/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
 
-	target.apply_status_effect(/datum/status_effect/eldritch/void)
+	target.apply_status_effect(/datum/status_effect/heretic_mark/void)
 
 /datum/heretic_knowledge/void_mark/proc/on_eldritch_blade(mob/living/user, mob/living/target)
 	SIGNAL_HANDLER
 
-	var/datum/status_effect/eldritch/mark = target.has_status_effect(/datum/status_effect/eldritch)
+	var/datum/status_effect/heretic_mark/mark = target.has_status_effect(/datum/status_effect/heretic_mark)
 	if(!istype(mark))
 		return
 
@@ -195,7 +195,7 @@
 /datum/heretic_knowledge/void_blade_upgrade/proc/on_ranged_eldritch_blade(mob/living/user, mob/living/target)
 	SIGNAL_HANDLER
 
-	if(!target.has_status_effect(/datum/status_effect/eldritch))
+	if(!target.has_status_effect(/datum/status_effect/heretic_mark))
 		return
 
 	var/dir = angle2dir(dir2angle(get_dir(user, target)) + 180)

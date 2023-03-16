@@ -773,7 +773,7 @@
 
 	msg_stage++
 
-/datum/status_effect/eldritch
+/datum/status_effect/heretic_mark
 	id = "heretic_mark"
 	duration = 15 SECONDS
 	status_type = STATUS_EFFECT_REPLACE
@@ -786,28 +786,28 @@
 	/// icon state for the underlay
 	var/effect_icon_state = "emark_RING_TEMPLATE"
 
-/datum/status_effect/eldritch/on_creation(mob/living/new_owner, ...)
+/datum/status_effect/heretic_mark/on_creation(mob/living/new_owner, ...)
 	marked_underlay = mutable_appearance(effect_icon, effect_icon_state,BELOW_MOB_LAYER)
 	return ..()
 
-/datum/status_effect/eldritch/on_apply()
+/datum/status_effect/heretic_mark/on_apply()
 	if(owner.mob_size >= MOB_SIZE_HUMAN)
 		owner.add_overlay(marked_underlay)
 		owner.update_overlays()
 		return TRUE
 	return FALSE
 
-/datum/status_effect/eldritch/on_remove()
+/datum/status_effect/heretic_mark/on_remove()
 	owner.update_overlays()
 	return ..()
 
-/datum/status_effect/eldritch/Destroy()
+/datum/status_effect/heretic_mark/Destroy()
 	if(owner)
 		owner.cut_overlay(marked_underlay)
 	QDEL_NULL(marked_underlay)
 	return ..()
 
-/datum/status_effect/eldritch/be_replaced()
+/datum/status_effect/heretic_mark/be_replaced()
 	owner.underlays -= marked_underlay //if this is being called, we should have an owner at this point.
 	..()
 
@@ -816,34 +816,34 @@
   *
   * Adds actual functionality to each mark
   */
-/datum/status_effect/eldritch/proc/on_effect()
+/datum/status_effect/heretic_mark/proc/on_effect()
 	SHOULD_CALL_PARENT(TRUE)
 
 	playsound(owner, 'sound/magic/repulse.ogg', 75, TRUE)
 	qdel(src) //what happens when this is procced.
 
 //Each mark has diffrent effects when it is destroyed that combine with the mansus grasp effect.
-/datum/status_effect/eldritch/flesh
+/datum/status_effect/heretic_mark/flesh
 	effect_icon_state = "emark1"
 
-/datum/status_effect/eldritch/flesh/on_effect()
+/datum/status_effect/heretic_mark/flesh/on_effect()
 	if(!ishuman(owner))
 		return
 	var/mob/living/carbon/human/H = owner
 	H.bleed_rate += 5
 	return ..()
 
-/datum/status_effect/eldritch/ash
+/datum/status_effect/heretic_mark/ash
 	id = "ash_mark"
 	effect_icon_state = "emark2"
 	///Dictates how much damage and stamina loss this mark will cause.
 	var/repetitions = 1
 
-/datum/status_effect/eldritch/ash/on_creation(mob/living/new_owner, repetition = 5)
+/datum/status_effect/heretic_mark/ash/on_creation(mob/living/new_owner, repetition = 5)
 	. = ..()
 	src.repetitions = min(1,repetition)
 
-/datum/status_effect/eldritch/ash/on_effect()
+/datum/status_effect/heretic_mark/ash/on_effect()
 	if(iscarbon(owner))
 		var/mob/living/carbon/carbon_owner = owner
 		carbon_owner.adjustStaminaLoss(6 * repetitions)
@@ -855,10 +855,10 @@
 			break
 	return ..()
 
-/datum/status_effect/eldritch/rust
+/datum/status_effect/heretic_mark/rust
 	effect_icon_state = "emark3"
 
-/datum/status_effect/eldritch/rust/on_effect()
+/datum/status_effect/heretic_mark/rust/on_effect()
 	if(!iscarbon(owner))
 		return
 	if(iscarbon(owner))
@@ -1030,10 +1030,10 @@
 	desc = "You have a redgrub infection, and can't reproduce or grow! If you don't find a source of heat, you will die!"
 	icon_state = "grub"
 
-/datum/status_effect/eldritch/void
+/datum/status_effect/heretic_mark/void
 	effect_icon_state = "emark4"
 
-/datum/status_effect/eldritch/void/on_effect()
+/datum/status_effect/heretic_mark/void/on_effect()
 	var/turf/open/turfie = get_turf(owner)
 	turfie.TakeTemperature(-40)
 	owner.adjust_bodytemperature(-20)
