@@ -659,6 +659,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/datum/timedevent/density_timer
 	var/recharging = FALSE
 
+/obj/effect/rune/wall/Initialize(mapload, set_keyword)
+	. = ..()
+	GLOB.wall_runes += src
+
 /obj/effect/rune/wall/examine(mob/user)
 	. = ..()
 	if(density && iscultist(user))
@@ -666,6 +670,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			. += "<span class='cultitalic'>The air above this rune has hardened into a barrier that will last [DisplayTimeText(density_timer.timeToRun - world.time)].</span>"
 
 /obj/effect/rune/wall/Destroy()
+	GLOB.wall_runes -= src
 	return ..()
 
 /obj/effect/rune/wall/BlockThermalConductivity()
