@@ -1,0 +1,6 @@
+author: RKz, optimumtact, LemonInTheDark
+delete-after: true
+changes:
+  - bugfix: overlay subsystem cleans itself up when over 100 overlays are applied
+      to one thing
+  - tweak: it logs it too

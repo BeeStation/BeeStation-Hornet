@@ -163,6 +163,12 @@ Class Procs:
 	if(!seller_department)
 		seller_department = dept_req_for_free
 
+/obj/machinery/proc/set_occupant(atom/movable/new_occupant)
+	SHOULD_CALL_PARENT(TRUE)
+
+	SEND_SIGNAL(src, COMSIG_MACHINERY_SET_OCCUPANT, new_occupant)
+	occupant = new_occupant
+
 /// Helper proc for telling a machine to start processing with the subsystem type that is located in its `subsystem_type` var.
 /obj/machinery/proc/begin_processing()
 	var/datum/controller/subsystem/processing/subsystem = locate(subsystem_type) in Master.subsystems
@@ -244,7 +250,7 @@ Class Procs:
 		if(isliving(A))
 			var/mob/living/L = A
 			L.update_mobility()
-	occupant = null
+	set_occupant(null)
 
 /obj/machinery/proc/can_be_occupant(atom/movable/am)
 	return occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)
@@ -268,7 +274,7 @@ Class Procs:
 
 	var/mob/living/mobtarget = target
 	if(target && !target.has_buckled_mobs() && (!isliving(target) || !mobtarget.buckled))
-		occupant = target
+		set_occupant(target)
 		target.forceMove(src)
 	updateUsrDialog()
 	update_icon()
@@ -341,12 +347,12 @@ Class Procs:
 				var/datum/bank_account/insurance = I.registered_account
 				if(!insurance)
 					say("[market_verb] NAP Violation: No bank account found.")
-					nap_violation(occupant)
+					nap_violation(H)
 					return FALSE
 				else
 					if(!insurance.adjust_money(-fair_market_price))
 						say("[market_verb] NAP Violation: Unable to pay.")
-						nap_violation(occupant)
+						nap_violation(H)
 						return FALSE
 
 					// each department (seller_department) will earn the profit
@@ -358,7 +364,7 @@ Class Procs:
 								D.adjust_money(fair_market_price)
 			else
 				say("[market_verb] NAP Violation: No ID card found.")
-				nap_violation(occupant)
+				nap_violation(H)
 				return FALSE
 	return TRUE
 
@@ -467,12 +473,11 @@ Class Procs:
 		return TRUE
 
 /obj/machinery/contents_explosion(severity, target)
-	if(occupant)
-		occupant.ex_act(severity, target)
+	occupant?.ex_act(severity, target)
 
 /obj/machinery/handle_atom_del(atom/A)
 	if(A == occupant)
-		occupant = null
+		set_occupant(null)
 		update_icon()
 		updateUsrDialog()
 
@@ -646,7 +651,7 @@ Class Procs:
 /obj/machinery/Exited(atom/movable/gone, direction)
 	. = ..()
 	if (gone == occupant)
-		occupant = null
+		set_occupant(null)
 
 /obj/machinery/proc/adjust_item_drop_location(atom/movable/AM) // Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
 	var/md5 = rustg_hash_string(RUSTG_HASH_MD5, AM.name) // Oh, and it's deterministic too. A specific item will always drop from the same slot.
@@ -663,3 +668,10 @@ Class Procs:
 
 /obj/machinery/rust_heretic_act()
 	take_damage(500, BRUTE, "melee", 1)
+
+/obj/machinery/vv_edit_var(vname, vval)
+	if(vname == "occupant")
+		set_occupant(vval)
+		datum_flags |= DF_VAR_EDITED
+		return TRUE
+	return ..()
