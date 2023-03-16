@@ -5,6 +5,7 @@ GLOBAL_LIST(teleport_runes)
 /// Assoc list of every rune that can be drawn by ritual daggers. [rune_name] = [typepath]
 GLOBAL_LIST_INIT(rune_types, generate_cult_rune_types())
 GLOBAL_LIST_EMPTY(wall_runes)
+
 /// Returns an associated list of rune types. [rune.cultist_name] = [typepath]
 /proc/generate_cult_rune_types()
 	RETURN_TYPE(/list)
