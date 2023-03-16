@@ -126,18 +126,15 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 5
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple,
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple{
+	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/purple{
-	dir = 4;
-	pixel_x = -16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_edge_alt/purple{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
@@ -2810,14 +2807,13 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
 	},
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_corner_offset_tri/blue,
 /obj/effect/turf_decal/guideline/guideline_in_alt/blue{
 	dir = 1;
 	pixel_y = -16
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	dir = 1;
-	pixel_x = 13;
-	pixel_y = 1
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
@@ -3028,9 +3024,6 @@
 	alpha = 180;
 	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/yellow{
-	dir = 1
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -3047,6 +3040,10 @@
 	pixel_x = -15;
 	pixel_y = -15
 	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/yellow{
+	dir = 9
+	},
+/obj/effect/turf_decal/guideline/guideline_corner_tri/yellow,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "bcy" = (
@@ -3525,11 +3522,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/neutral{
-	alpha = 255;
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/neutral{
+	dir = 4;
+	alpha = 255
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -4685,6 +4680,27 @@
 /obj/item/storage/secure/briefcase,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hos)
+"bHn" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark_green/half/contrasted,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	alpha = 200;
+	color = "#267878";
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/guideline/guideline_half_edge/green{
+	dir = 1;
+	color = "#439C1E"
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/cafeteria)
 "bHp" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -4755,7 +4771,7 @@
 	},
 /obj/machinery/vending/wallmed{
 	pixel_y = -32;
-	products = list(/obj/item/stack/medical/gauze = 4, /obj/item/reagent_containers/hypospray/medipen = 3, /obj/item/reagent_containers/hypospray/medipen/dexalin = 3, /obj/item/reagent_containers/glass/bottle/epinephrine = 2, /obj/item/reagent_containers/glass/bottle/charcoal = 2)
+	products = list(/obj/item/stack/medical/gauze=4,/obj/item/reagent_containers/hypospray/medipen=3,/obj/item/reagent_containers/hypospray/medipen/dexalin=3,/obj/item/reagent_containers/glass/bottle/epinephrine=2,/obj/item/reagent_containers/glass/bottle/charcoal=2)
 	},
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
@@ -4785,6 +4801,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/effect/turf_decal/guideline/guideline_corner_tri/purple,
 /obj/effect/turf_decal/guideline/guideline_in_alt/purple{
 	dir = 1
 	},
@@ -5048,18 +5065,15 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	dir = 4;
-	pixel_x = -16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/red,
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 5
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red{
+	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -5350,19 +5364,15 @@
 "bRB" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/guideline/guideline_in_alt/yellow{
-	dir = 4;
-	pixel_x = -16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/yellow,
+/obj/effect/turf_decal/guideline/guideline_half_edge/yellow{
+	dir = 5
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/yellow{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_edge_alt/yellow{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/yellow{
-	dir = 2;
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_edge_tri/yellow{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -6451,18 +6461,15 @@
 /area/engine/engine_room)
 "ckB" = (
 /obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	dir = 4;
-	pixel_x = -16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 5
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_half_edge/red,
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red{
+	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -7480,10 +7487,8 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_corner_alt/red{
-	dir = 4;
-	pixel_x = 15;
-	pixel_y = 17
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/security/main{
@@ -8195,12 +8200,14 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/purple{
-	dir = 4;
-	pixel_x = -16
+/obj/effect/turf_decal/guideline/guideline_half_in/purple{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	pixel_y = -13
+/obj/effect/turf_decal/guideline/guideline_half_in/purple{
+	dir = 10
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 5
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
@@ -8428,18 +8435,15 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple,
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 5
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple{
+	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/purple{
-	dir = 4;
-	pixel_x = -16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_edge_alt/purple{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 9
@@ -8647,14 +8651,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/turf_decal/guideline/guideline_half_in/darkblue{
+	dir = 9
+	},
 /obj/effect/turf_decal/guideline/guideline_in_alt/darkblue{
 	dir = 4;
 	pixel_y = 16
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/darkblue{
-	dir = 1;
-	pixel_x = 13;
-	pixel_y = -15
 	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 4
@@ -8738,13 +8740,13 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/brown{
-	dir = 1;
-	pixel_x = -16
+/obj/effect/turf_decal/guideline/guideline_half_in/brown{
+	dir = 6
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/brown{
-	pixel_y = -8
+/obj/effect/turf_decal/guideline/guideline_half_edge/brown{
+	dir = 4
 	},
+/obj/effect/turf_decal/guideline/guideline_half_in/brown,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "cZe" = (
@@ -8755,18 +8757,12 @@
 /obj/item/kirbyplants/random{
 	pixel_y = 6
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/brown{
-	dir = 4;
-	pixel_x = -16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/brown,
+/obj/effect/turf_decal/guideline/guideline_half_edge/brown{
+	dir = 5
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/brown{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/brown{
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_edge_tri/brown{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -10770,14 +10766,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/effect/turf_decal/guideline/guideline_half_in/darkblue{
+	dir = 8
+	},
 /obj/effect/turf_decal/guideline/guideline_in_alt/darkblue{
 	dir = 1;
 	pixel_y = -16
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/darkblue{
-	dir = 1;
-	pixel_x = 13;
-	pixel_y = 1
 	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 4
@@ -11487,19 +11481,16 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	pixel_x = 16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 9
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	pixel_x = -16;
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red{
+	dir = 4
 	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red,
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "dVd" = (
@@ -11707,22 +11698,21 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "dXw" = (
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_x = -16;
-	pixel_y = 3
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = -15
-	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
 	dir = 8;
-	pixel_x = 16;
-	pixel_y = 16
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 6;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/blue{
+	dir = 4;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 1;
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -11749,18 +11739,14 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/neutral{
-	alpha = 255;
-	dir = 1;
-	pixel_x = 13;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_half_in/neutral{
+	alpha = 255
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/neutral{
-	alpha = 255;
-	pixel_x = -16;
-	pixel_y = -8
+/obj/effect/turf_decal/guideline/guideline_half_in/neutral{
+	dir = 9;
+	alpha = 255
 	},
-/obj/effect/turf_decal/guideline/guideline_corner_alt/neutral{
+/obj/effect/turf_decal/guideline/guideline_corner_tri/neutral{
 	alpha = 255
 	},
 /turf/open/floor/plasteel,
@@ -12028,15 +12014,11 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_corner_alt/red{
-	dir = 2;
-	pixel_x = -16;
-	pixel_y = -16
-	},
 /obj/structure/chair{
 	dir = 8
 	},
 /obj/machinery/airalarm/directional/north,
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red,
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "ebP" = (
@@ -12752,12 +12734,10 @@
 	alpha = 180;
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = -15
-	},
 /obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -13429,23 +13409,15 @@
 	sortType = 18
 	},
 /obj/effect/turf_decal/tile/dark_green/corner_ramp{
-	dir = 8;
-	pixel_x = -1
+	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/green{
-	color = "#439C1E";
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/green{
+	dir = 4;
+	color = "#439C1E"
 	},
-/obj/effect/turf_decal/guideline/guideline_half_ramp/green{
-	color = "#439C1E";
-	dir = 8;
-	pixel_x = -1
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/green{
-	color = "#439C1E";
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/green{
+	dir = 10;
+	color = "#439C1E"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/cafeteria)
@@ -13561,18 +13533,15 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 10
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -13767,15 +13736,17 @@
 	color = "#267878";
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_x = -16;
-	pixel_y = -13
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
+	dir = 10;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
+	dir = 1;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
 	dir = 8;
-	pixel_x = 16
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -14648,10 +14619,8 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	dir = 1;
-	pixel_x = 8;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -14827,21 +14796,16 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/guideline/guideline_half_out/green{
-	color = "#439C1E";
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_half_edge/green{
+	dir = 5;
+	color = "#439C1E"
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/green{
-	color = "#439C1E";
+/obj/effect/turf_decal/guideline/guideline_edge_alt/green{
 	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
+	color = "#439C1E"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/green{
-	color = "#439C1E";
-	dir = 4;
-	pixel_x = -16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/green{
+	color = "#439C1E"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/cafeteria)
@@ -14914,19 +14878,16 @@
 /turf/open/space/basic,
 /area/maintenance/disposal)
 "eYO" = (
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	pixel_x = -16;
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 9
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/purple{
-	pixel_x = 16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple{
+	dir = 4
 	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/purple,
 /turf/open/floor/plasteel/white/side{
 	dir = 6
 	},
@@ -16118,19 +16079,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/green{
-	dir = 8;
-	pixel_x = 16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/green{
+	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/green{
-	pixel_x = -16;
-	pixel_y = 3
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/green{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_half_edge/green{
+	dir = 6
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 5
@@ -16519,19 +16472,13 @@
 /obj/effect/turf_decal/tile/dark_green/half/contrasted{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/dark_green/corner_ramp{
-	dir = 1;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_half_in/green{
+	dir = 10;
+	color = "#439C1E"
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/green{
-	color = "#439C1E";
-	pixel_x = -16;
-	pixel_y = -13
-	},
-/obj/effect/turf_decal/guideline/guideline_half_ramp/green{
-	color = "#439C1E";
-	dir = 1;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_ramp/green{
+	dir = 6;
+	color = "#439C1E"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/cafeteria)
@@ -17615,14 +17562,11 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_corner_alt/purple{
-	dir = 8;
-	pixel_x = -17
+/obj/effect/turf_decal/guideline/guideline_corner_offset_tri/purple{
+	dir = 8
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 4
@@ -17772,19 +17716,14 @@
 	pixel_x = 6;
 	pixel_y = 7
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	dir = 8;
-	pixel_x = 16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 6
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	pixel_x = -16;
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 5
@@ -17876,19 +17815,17 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/guideline/guideline_in_alt/yellow{
-	dir = 8;
-	pixel_x = 16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/yellow{
+	dir = 6
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/yellow{
-	dir = 8;
-	pixel_x = 2
+/obj/effect/turf_decal/guideline/guideline_half_edge/yellow{
+	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/yellow{
-	dir = 4;
-	pixel_x = -1;
-	pixel_y = 25
+/obj/effect/turf_decal/guideline/guideline_edge_alt/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/yellow{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -18697,10 +18634,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_ramp/yellow{
-	dir = 8;
-	pixel_x = -17
-	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/yellow,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "ghC" = (
@@ -18923,20 +18857,17 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	dir = 8;
-	pixel_y = 16
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = 8;
-	pixel_y = -15
-	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_in/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 6
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
@@ -20418,7 +20349,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/yellow,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/yellow{
+	dir = 6
+	},
+/obj/effect/turf_decal/guideline/guideline_corner_tri/yellow{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "gOw" = (
@@ -21601,21 +21537,13 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/neutral{
-	alpha = 255;
-	pixel_x = 16;
-	pixel_y = -16
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/neutral{
-	alpha = 255;
-	pixel_x = -16;
-	pixel_y = -24
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/neutral{
-	alpha = 255;
+/obj/effect/turf_decal/guideline/guideline_half_edge/neutral{
 	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
+	alpha = 255
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/neutral{
+	dir = 9;
+	alpha = 255
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 6
@@ -21650,12 +21578,10 @@
 /area/crew_quarters/heads/hos)
 "hke" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/guideline/guideline_corner_alt/blue{
-	dir = 4;
-	pixel_x = 15;
-	pixel_y = 17
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "hki" = (
@@ -21877,19 +21803,14 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/brown{
-	dir = 8;
-	pixel_x = 16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/brown{
+	dir = 6
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/brown{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_half_edge/brown{
+	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/brown{
-	pixel_x = -16;
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_edge_tri/brown{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -22572,19 +22493,15 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/oil,
-/obj/effect/turf_decal/guideline/guideline_in_alt/yellow{
-	pixel_x = 16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/yellow{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/yellow{
-	dir = 8;
-	pixel_x = 2;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/yellow{
+	dir = 9
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/yellow{
-	dir = 4;
-	pixel_x = -1;
-	pixel_y = -2
+/obj/effect/turf_decal/guideline/guideline_edge_alt/yellow,
+/obj/effect/turf_decal/guideline/guideline_edge_tri/yellow{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -22699,15 +22616,15 @@
 	alpha = 180;
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/yellow/corner_ramp{
-	alpha = 180;
-	dir = 8;
-	pixel_x = 15
+/obj/effect/turf_decal/tile/yellow/corner_ramp_offset{
+	dir = 9;
+	alpha = 180
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/yellow{
-	dir = 8;
-	pixel_x = -9;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_in/yellow{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_ramp/yellow{
+	dir = 6
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -23455,12 +23372,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_corner_alt/blue{
-	dir = 8;
-	pixel_x = -17;
-	pixel_y = 16
-	},
 /obj/structure/bed/roller,
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 8
+	},
 /turf/open/floor/plasteel/white/side{
 	dir = 1
 	},
@@ -23656,19 +23571,17 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "hTx" = (
-/obj/effect/turf_decal/guideline/guideline_in_alt/purple{
-	dir = 8;
-	pixel_x = 16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 6
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	pixel_x = -16;
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/purple{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 5
@@ -23751,18 +23664,15 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/purple{
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 10
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/purple{
+	dir = 8
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 10
@@ -24114,17 +24024,13 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/green{
-	color = "#439C1E";
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_half_edge/green{
+	dir = 8;
+	color = "#439C1E"
 	},
-/obj/effect/turf_decal/guideline/guideline_corner_alt/green{
-	color = "#439C1E";
-	dir = 1;
-	pixel_x = 16;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_corner_offset_tri/green{
+	dir = 4;
+	color = "#439C1E"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/cafeteria)
@@ -24326,19 +24232,13 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 10
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	pixel_y = -24
-	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue,
 /turf/open/floor/plasteel/white/side{
 	dir = 10
 	},
@@ -24608,19 +24508,17 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/yellow{
-	dir = 8;
-	pixel_x = 16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/yellow{
+	dir = 6
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/yellow{
-	dir = 8;
-	pixel_x = 2
+/obj/effect/turf_decal/guideline/guideline_half_edge/yellow{
+	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/yellow{
-	dir = 4;
-	pixel_x = -1;
-	pixel_y = 25
+/obj/effect/turf_decal/guideline/guideline_edge_alt/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/yellow{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -25209,14 +25107,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/turf_decal/guideline/guideline_half_in/darkblue{
+	dir = 9
+	},
 /obj/effect/turf_decal/guideline/guideline_in_alt/darkblue{
 	dir = 4;
 	pixel_y = 16
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/darkblue{
-	dir = 1;
-	pixel_x = 13;
-	pixel_y = -15
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
@@ -25253,23 +25149,20 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	pixel_x = 16;
-	pixel_y = -16
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	pixel_x = -16;
-	pixel_y = -24
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
-	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 9
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "iyo" = (
@@ -26377,18 +26270,15 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 10
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -27619,21 +27509,20 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 4;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 10;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_edge_alt/blue{
+	dir = 8;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -27770,25 +27659,26 @@
 /turf/closed/wall,
 /area/bridge/meeting_room)
 "jvE" = (
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_y = -13
-	},
 /obj/effect/turf_decal/tile/blue{
 	alpha = 200;
 	color = "#267878";
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
-	dir = 8;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
+	dir = 1;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_corner_alt/blue{
-	color = "#267878";
-	dir = 4;
-	pixel_x = -1;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 6;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
+	dir = 5;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_corner_tri/blue{
+	dir = 1;
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -28115,10 +28005,8 @@
 /turf/open/floor/grass,
 /area/medical/sleeper)
 "jCR" = (
-/obj/effect/turf_decal/guideline/guideline_corner_alt/purple{
-	dir = 4;
-	pixel_x = 15;
-	pixel_y = 17
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white/corner{
 	dir = 4
@@ -28458,22 +28346,21 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_x = -16;
-	pixel_y = 3
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = -15
-	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
 	dir = 8;
-	pixel_x = 16;
-	pixel_y = 16
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 6;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/blue{
+	dir = 4;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 1;
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -28925,28 +28812,6 @@
 	},
 /turf/open/floor/plating,
 /area/security/prison)
-"jTx" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/dark_green/half/contrasted,
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	alpha = 200;
-	color = "#267878";
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/guideline/guideline_half_out/green{
-	color = "#439C1E";
-	pixel_x = -16;
-	pixel_y = -24
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/cafeteria)
 "jTQ" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 1
@@ -29090,18 +28955,15 @@
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/cmo)
 "jWc" = (
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 10
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/purple{
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/purple{
+	dir = 8
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 10
@@ -30356,15 +30218,16 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/green{
-	color = "#439C1E";
-	pixel_x = -16;
-	pixel_y = -8
+/obj/effect/turf_decal/guideline/guideline_half_in/green{
+	color = "#439C1E"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/green{
-	color = "#439C1E";
-	dir = 2;
-	pixel_x = 16
+/obj/effect/turf_decal/guideline/guideline_half_in/green{
+	dir = 6;
+	color = "#439C1E"
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/green{
+	dir = 9;
+	color = "#439C1E"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
@@ -31140,19 +31003,16 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "kHF" = (
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	pixel_x = -16;
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 9
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	pixel_x = 16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red{
+	dir = 4
 	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "kHK" = (
@@ -31324,21 +31184,20 @@
 /area/science/mixing)
 "kKA" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 4;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 10;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_edge_alt/blue{
+	dir = 8;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -31459,10 +31318,8 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/guideline/guideline_corner_alt/purple{
-	dir = 1;
-	pixel_x = 16;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white/corner,
 /area/science/research)
@@ -32237,10 +32094,8 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	dir = 1;
-	pixel_x = 13;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
+	dir = 9
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -32645,18 +32500,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	pixel_x = 16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 9
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	pixel_x = -16;
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 6
@@ -33194,19 +33045,15 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/yellow{
-	pixel_x = 16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/yellow{
+	dir = 9
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/yellow{
-	dir = 8;
-	pixel_x = 2;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/yellow{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/yellow{
-	dir = 4;
-	pixel_x = -1;
-	pixel_y = -2
+/obj/effect/turf_decal/guideline/guideline_edge_alt/yellow,
+/obj/effect/turf_decal/guideline/guideline_edge_tri/yellow{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -33404,14 +33251,17 @@
 	color = "#267878";
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_y = -13
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
+	dir = 1;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
-	dir = 4;
-	pixel_x = -16
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
+	dir = 10;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 5;
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -33515,18 +33365,15 @@
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 10
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/purple{
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/purple{
+	dir = 8
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 10
@@ -33554,21 +33401,20 @@
 	icon_state = "0-8"
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 5;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/blue{
 	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
-	dir = 4;
-	pixel_x = -16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 8;
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -34124,18 +33970,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	dir = 1;
-	pixel_x = 8;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_corner_tri/blue{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	pixel_y = -13
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_corner_alt/blue{
-	dir = 4;
-	pixel_x = -1;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
+	dir = 5
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/cryo)
@@ -35019,15 +34861,13 @@
 	color = "#FFFFFF";
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
@@ -35474,19 +35314,13 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 10
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	pixel_y = -24
-	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue,
 /turf/open/floor/plasteel/white/side{
 	dir = 10
 	},
@@ -35814,14 +35648,10 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "mmE" = (
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	pixel_x = -16;
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_corner_alt/purple{
-	dir = 2;
-	pixel_y = -16
-	},
+/obj/effect/turf_decal/guideline/guideline_corner_offset_tri/purple,
 /turf/open/floor/plasteel/dark,
 /area/science/shuttledock)
 "mmX" = (
@@ -35906,19 +35736,16 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	pixel_x = 16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 9
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	pixel_x = -16;
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red{
+	dir = 4
 	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "mod" = (
@@ -36224,19 +36051,16 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	pixel_x = -16;
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 9
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/purple{
-	pixel_x = 16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple{
+	dir = 4
 	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/purple,
 /turf/open/floor/plasteel/white/side{
 	dir = 6
 	},
@@ -36263,19 +36087,16 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	pixel_x = -16;
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/purple{
-	pixel_x = 16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 9
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple{
+	dir = 4
 	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/purple,
 /turf/open/floor/plasteel/white/side{
 	dir = 6
 	},
@@ -37251,7 +37072,7 @@
 /obj/item/reagent_containers/glass/bottle/mutagen{
 	amount_per_transfer_from_this = 2;
 	desc = "A small bottle, almost empty. Has the words drink me, you wont written on it";
-	list_reagents = list(/datum/reagent/toxin/mutagen = 5);
+	list_reagents = list(/datum/reagent/toxin/mutagen=5);
 	pixel_x = -6;
 	pixel_y = 1
 	},
@@ -37683,29 +37504,28 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "mQr" = (
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	dir = 8;
-	pixel_x = 16;
-	pixel_y = 16
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	pixel_x = -16;
-	pixel_y = 3
-	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	pixel_x = 16;
-	pixel_y = -16
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	pixel_x = -16;
-	pixel_y = -24
-	},
 /obj/item/radio/intercom{
 	pixel_x = -31;
 	pixel_y = -2
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 6
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -37734,10 +37554,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/guideline/guideline_half_out/green{
-	color = "#439C1E";
-	pixel_x = -16;
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_half_edge/green{
+	dir = 6;
+	color = "#439C1E"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/cafeteria)
@@ -38173,21 +37992,20 @@
 "mXN" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 5;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/blue{
 	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
-	dir = 4;
-	pixel_x = -16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 8;
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -38466,17 +38284,9 @@
 	},
 /obj/effect/decal/cleanable/vomit,
 /obj/item/kirbyplants/random,
-/obj/effect/turf_decal/guideline/guideline_half_out/green{
-	color = "#439C1E";
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/guideline/guideline_corner_alt/green{
-	color = "#439C1E";
-	dir = 4;
-	pixel_x = 15;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/green{
+	dir = 9;
+	color = "#439C1E"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/cafeteria)
@@ -38974,19 +38784,15 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/guideline/guideline_in_alt/yellow{
-	dir = 4;
-	pixel_x = -16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/yellow,
+/obj/effect/turf_decal/guideline/guideline_half_edge/yellow{
+	dir = 5
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/yellow{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_edge_alt/yellow{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/yellow{
-	dir = 2;
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_edge_tri/yellow{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -39417,7 +39223,7 @@
 /area/maintenance/department/engine)
 "nsH" = (
 /obj/machinery/smartfridge/sci{
-	initial_contents = list(/obj/item/stock_parts/capacitor = 2, /obj/item/stock_parts/manipulator = 2, /obj/item/stock_parts/micro_laser = 2, /obj/item/stock_parts/matter_bin = 2, /obj/item/stock_parts/scanning_module = 2);
+	initial_contents = list(/obj/item/stock_parts/capacitor=2,/obj/item/stock_parts/manipulator=2,/obj/item/stock_parts/micro_laser=2,/obj/item/stock_parts/matter_bin=2,/obj/item/stock_parts/scanning_module=2);
 	name = "Science vender"
 	},
 /turf/closed/wall,
@@ -39511,25 +39317,22 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	pixel_x = 16;
-	pixel_y = -16
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	pixel_x = -16;
-	pixel_y = -24
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
-	},
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 9
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "ntI" = (
@@ -40434,18 +40237,15 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 10
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -40596,19 +40396,17 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	dir = 8;
-	pixel_x = 16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	pixel_x = -16;
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 6
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -40632,6 +40430,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/decal/cleanable/generic,
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple{
+	dir = 8
+	},
 /turf/open/floor/plasteel/white/corner{
 	dir = 1
 	},
@@ -42083,12 +41884,10 @@
 /area/maintenance/department/science)
 "ome" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
-/obj/effect/turf_decal/guideline/guideline_corner_alt/red{
-	dir = 8;
-	pixel_x = -17;
-	pixel_y = 16
-	},
 /obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red{
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
@@ -42649,10 +42448,8 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 5
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
@@ -43220,17 +43017,20 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/purple{
-	dir = 8;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_in/purple{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	pixel_y = -13
+/obj/effect/turf_decal/guideline/guideline_corner_offset_tri/purple{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_corner_alt/purple{
-	dir = 4;
-	pixel_x = -1;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_in/purple{
+	dir = 5
+	},
+/obj/effect/turf_decal/guideline/guideline_corner_tri/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 6
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/shuttledock)
@@ -43322,19 +43122,17 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	dir = 8;
-	pixel_x = 16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	pixel_x = -16;
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 6
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -43962,21 +43760,20 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_x = -16;
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 9;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
 	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
-	pixel_x = 16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_edge_alt/blue{
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 4;
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -44114,21 +43911,20 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 5;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/blue{
 	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
-	dir = 4;
-	pixel_x = -16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 8;
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -44821,13 +44617,14 @@
 	alpha = 180
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/guideline/guideline_corner_alt/yellow{
-	dir = 1;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_in/yellow{
+	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/yellow{
-	dir = 8;
-	pixel_x = -14
+/obj/effect/turf_decal/guideline/guideline_half_in/yellow{
+	dir = 6
+	},
+/obj/effect/turf_decal/guideline/guideline_corner_tri/yellow{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -45788,8 +45585,11 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/yellow{
-	dir = 8
+/obj/effect/turf_decal/guideline/guideline_edge_alt/yellow{
+	dir = 5
+	},
+/obj/effect/turf_decal/guideline/guideline_corner_tri/yellow{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
@@ -45970,21 +45770,20 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 4;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 10;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_edge_alt/blue{
+	dir = 8;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -47182,18 +46981,21 @@
 	alpha = 200;
 	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_y = -8
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
+	dir = 6;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
-	pixel_y = -16
-	},
-/obj/effect/turf_decal/guideline/guideline_corner_alt/blue{
-	color = "#267878";
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
 	dir = 1;
-	pixel_y = 1
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
+	dir = 4;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_corner_tri/blue{
+	dir = 4;
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -48116,20 +47918,14 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_corner_alt/yellow{
-	dir = 4;
-	pixel_x = -1;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_in/yellow{
+	dir = 5
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/yellow{
-	dir = 8;
-	pixel_x = -14;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_in/yellow{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/yellow{
-	dir = 4;
-	pixel_x = 15;
-	pixel_y = 9
+/obj/effect/turf_decal/guideline/guideline_corner_tri/yellow{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
@@ -48467,16 +48263,19 @@
 	color = "#FFFFFF";
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/neutral{
-	alpha = 255;
-	color = "#D4D4D4";
-	dir = 8
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_corner_tri/neutral{
+	dir = 1;
+	alpha = 255
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/neutral{
+	dir = 5;
+	alpha = 255
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
@@ -48803,15 +48602,11 @@
 "qMu" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/dark_green/tile_anticorner_ramp/contrasted{
-	dir = 4;
-	pixel_x = -1;
-	pixel_y = 1
+	dir = 1
 	},
 /obj/effect/turf_decal/guideline/guideline_ramp/green{
-	color = "#439C1E";
-	dir = 4;
-	pixel_x = -1;
-	pixel_y = 1
+	dir = 1;
+	color = "#439C1E"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/cafeteria)
@@ -49078,10 +48873,8 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_corner_alt/red{
-	dir = 4;
-	pixel_x = 15;
-	pixel_y = 17
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -49305,6 +49098,9 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "qVt" = (
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple{
+	dir = 8
+	},
 /turf/open/floor/plasteel/white/side{
 	dir = 1
 	},
@@ -49511,12 +49307,12 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/computer/pandemic,
 /obj/machinery/vending/wallmed{
-	contraband = list(/obj/item/reagent_containers/glass/bottle/chloralhydrate = 1, /obj/item/storage/box/hug/medical = 1, /obj/item/reagent_containers/glass/bottle/random_virus = 1);
+	contraband = list(/obj/item/reagent_containers/glass/bottle/chloralhydrate=1,/obj/item/storage/box/hug/medical=1,/obj/item/reagent_containers/glass/bottle/random_virus=1);
 	name = "Upgraded NanoMed";
 	pixel_x = -1;
 	pixel_y = 32;
-	premium = list(/obj/item/storage/firstaid/regular = 3, /obj/item/storage/belt/medical = 3, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2, /obj/item/healthanalyzer = 2, /obj/item/wrench/medical = 1);
-	products = list(/obj/item/reagent_containers/syringe = 12, /obj/item/reagent_containers/dropper = 3, /obj/item/reagent_containers/medspray = 6, /obj/item/storage/pill_bottle = 6, /obj/item/reagent_containers/glass/bottle = 10, /obj/item/reagent_containers/spray/cleaner = 1, /obj/item/stack/medical/gauze = 8, /obj/item/reagent_containers/hypospray/medipen = 8, /obj/item/reagent_containers/hypospray/medipen/dexalin = 8, /obj/item/reagent_containers/glass/bottle/epinephrine = 4, /obj/item/reagent_containers/glass/bottle/charcoal = 4, /obj/item/reagent_containers/glass/bottle/salglu_solution = 4, /obj/item/reagent_containers/glass/bottle/tricordrazine = 1, /obj/item/reagent_containers/glass/bottle/spaceacillin = 1, /obj/item/reagent_containers/glass/bottle/morphine = 2, /obj/item/reagent_containers/glass/bottle/toxin = 4, /obj/item/reagent_containers/medspray/sterilizine = 4)
+	premium = list(/obj/item/storage/firstaid/regular=3,/obj/item/storage/belt/medical=3,/obj/item/sensor_device=2,/obj/item/pinpointer/crew=2,/obj/item/healthanalyzer=2,/obj/item/wrench/medical=1);
+	products = list(/obj/item/reagent_containers/syringe=12,/obj/item/reagent_containers/dropper=3,/obj/item/reagent_containers/medspray=6,/obj/item/storage/pill_bottle=6,/obj/item/reagent_containers/glass/bottle=10,/obj/item/reagent_containers/spray/cleaner=1,/obj/item/stack/medical/gauze=8,/obj/item/reagent_containers/hypospray/medipen=8,/obj/item/reagent_containers/hypospray/medipen/dexalin=8,/obj/item/reagent_containers/glass/bottle/epinephrine=4,/obj/item/reagent_containers/glass/bottle/charcoal=4,/obj/item/reagent_containers/glass/bottle/salglu_solution=4,/obj/item/reagent_containers/glass/bottle/tricordrazine=1,/obj/item/reagent_containers/glass/bottle/spaceacillin=1,/obj/item/reagent_containers/glass/bottle/morphine=2,/obj/item/reagent_containers/glass/bottle/toxin=4,/obj/item/reagent_containers/medspray/sterilizine=4)
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/virology)
@@ -49729,19 +49525,17 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	dir = 8;
-	pixel_x = 16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	pixel_x = -16;
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 6
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -50116,12 +49910,10 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
-/obj/effect/turf_decal/guideline/guideline_corner_alt/red{
-	dir = 8;
-	pixel_x = -17;
-	pixel_y = 16
-	},
 /obj/structure/chair/fancy/bench{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -50163,18 +49955,15 @@
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 5
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple,
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple{
+	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/purple{
-	dir = 4;
-	pixel_x = -16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_edge_alt/purple{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 9
@@ -51164,19 +50953,13 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 10
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	pixel_y = -24
-	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue,
 /turf/open/floor/plasteel/white/side{
 	dir = 10
 	},
@@ -51489,11 +51272,7 @@
 	pixel_y = 30;
 	receive_ore_updates = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_corner_alt/purple{
-	dir = 2;
-	pixel_x = -16;
-	pixel_y = -16
-	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple,
 /turf/open/floor/plasteel/white/side{
 	dir = 4
 	},
@@ -51544,21 +51323,20 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_x = -16;
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 9;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
 	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
-	pixel_x = 16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_edge_alt/blue{
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 4;
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -51999,17 +51777,15 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/effect/turf_decal/guideline/guideline_half_in/darkblue{
+	dir = 8
+	},
 /obj/effect/turf_decal/guideline/guideline_in_alt/darkblue{
 	dir = 1;
 	pixel_y = -16
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/darkblue{
-	dir = 1;
-	pixel_x = 13;
-	pixel_y = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
@@ -52355,12 +52131,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
-	},
 /obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 5
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "scB" = (
@@ -52447,15 +52221,16 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/tile/yellow/corner_ramp{
-	alpha = 180;
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -15
-	},
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	alpha = 180;
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow/corner_ramp_offset{
+	dir = 4;
+	alpha = 180
+	},
+/obj/effect/turf_decal/guideline/guideline_half_ramp/yellow{
+	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -52479,18 +52254,15 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple,
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 5
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple{
+	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/purple{
-	dir = 4;
-	pixel_x = -16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_edge_alt/purple{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 9
@@ -52794,20 +52566,20 @@
 	color = "#267878";
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_x = -16;
-	pixel_y = -13
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
+	dir = 10;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
-	dir = 4;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_corner_alt/blue{
-	color = "#267878";
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
 	dir = 8;
-	pixel_x = -1
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_corner_tri/blue{
+	dir = 8;
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -53322,11 +53094,11 @@
 	alpha = 180;
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/darkblue{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/guideline/guideline_in_alt/darkblue{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
@@ -53542,21 +53314,20 @@
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 4;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 10;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_edge_alt/blue{
+	dir = 8;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -54352,22 +54123,21 @@
 "sLA" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_y = 3
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
-	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
-	dir = 4;
-	pixel_x = -16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 5;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/blue{
+	dir = 1;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 8;
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -54731,14 +54501,8 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	dir = 8;
-	pixel_y = 16
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = 8;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_half_in/red{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
@@ -54841,22 +54605,21 @@
 /area/quartermaster/qm)
 "sSH" = (
 /obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_y = 3
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
-	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
-	dir = 4;
-	pixel_x = -16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 5;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/blue{
+	dir = 1;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 8;
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -54962,21 +54725,18 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -16
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	pixel_y = -24
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 10
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/security/main{
@@ -55147,14 +54907,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/darkblue{
-	dir = 8;
-	pixel_y = 16
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/darkblue{
-	dir = 1;
-	pixel_x = 8;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_half_in/darkblue{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 8
@@ -55213,19 +54967,16 @@
 /area/crew_quarters/heads/captain)
 "sZU" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	pixel_x = -16;
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 9
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/purple{
-	pixel_x = 16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple{
+	dir = 4
 	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/purple,
 /turf/open/floor/plasteel/white/side{
 	dir = 6
 	},
@@ -55706,22 +55457,21 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_x = -16;
-	pixel_y = 3
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = -15
-	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
 	dir = 8;
-	pixel_x = 16;
-	pixel_y = 16
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 6;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/blue{
+	dir = 4;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 1;
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -55844,19 +55594,13 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/brown{
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/brown{
+	dir = 10
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/brown{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/brown{
+	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/brown{
-	pixel_y = -24
-	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/brown,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "tkM" = (
@@ -55882,19 +55626,13 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/brown{
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/brown{
+	dir = 10
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/brown{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/brown{
+	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/brown{
-	pixel_y = -24
-	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/brown,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "tlq" = (
@@ -56054,6 +55792,23 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/teleporter)
+"tnj" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted{
+	alpha = 200;
+	color = "#267878"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/guideline/guideline_half_edge/green{
+	dir = 10;
+	color = "#439C1E"
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/cafeteria)
 "tnp" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
@@ -56066,18 +55821,14 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/brown{
-	pixel_x = 16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/brown{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/brown{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/brown{
+	dir = 9
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/brown{
-	pixel_x = -16;
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_edge_tri/brown{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -56195,10 +55946,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/guideline/guideline_corner_alt/blue{
-	dir = 8;
-	pixel_x = -17;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 8
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 4
@@ -57568,11 +57317,9 @@
 	color = "#439C1E";
 	pixel_y = -16
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/green{
-	color = "#439C1E";
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/green{
+	dir = 9;
+	color = "#439C1E"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/cafeteria)
@@ -57688,19 +57435,17 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	pixel_x = -16;
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 6
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/purple{
-	dir = 8;
-	pixel_x = 16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/purple{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 5
@@ -57835,10 +57580,8 @@
 	pixel_y = 34
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/guideline/guideline_corner_alt/purple{
-	dir = 1;
-	pixel_x = 16;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 8
@@ -58574,18 +58317,15 @@
 /turf/open/floor/plating,
 /area/hallway/primary/central)
 "ugX" = (
-/obj/effect/turf_decal/guideline/guideline_in_alt/purple{
-	dir = 4;
-	pixel_x = -16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple,
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 5
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple{
+	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_edge_alt/purple{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 9
@@ -59684,21 +59424,16 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/guideline/guideline_in_alt/yellow{
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/yellow{
+	dir = 10
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/yellow{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/yellow{
+	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/yellow{
-	dir = 4;
-	pixel_x = 15;
-	pixel_y = -2
+/obj/effect/turf_decal/guideline/guideline_edge_alt/yellow{
+	dir = 8
 	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/yellow,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "uAz" = (
@@ -59733,10 +59468,6 @@
 	},
 /obj/effect/turf_decal/guideline/guideline_in/yellow{
 	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/yellow{
-	dir = 2;
-	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -60214,23 +59945,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
-"uGQ" = (
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted{
-	alpha = 200;
-	color = "#267878"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/guideline/guideline_half_out/green{
-	color = "#439C1E";
-	pixel_y = -24
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel,
-/area/crew_quarters/cafeteria)
 "uHy" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -60611,19 +60325,16 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	pixel_x = -16;
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 9
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/purple{
-	pixel_x = 16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple{
+	dir = 4
 	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/purple,
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "uOG" = (
@@ -61267,17 +60978,18 @@
 	color = "#267878";
 	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_x = -16;
-	pixel_y = -8
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
-	dir = 1;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 10;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_corner_alt/blue{
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
+	dir = 9;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_corner_tri/blue{
 	color = "#267878"
 	},
 /turf/open/floor/plasteel,
@@ -61417,18 +61129,11 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	pixel_x = 16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 9
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	pixel_x = -16;
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 6
@@ -61885,13 +61590,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_in/red{
+	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = 8;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
@@ -62282,21 +61985,20 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_x = -16;
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 9;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
 	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
-	pixel_x = 16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_edge_alt/blue{
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 4;
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -62999,18 +62701,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	pixel_x = 16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 9
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	pixel_x = -16;
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 6
@@ -63385,18 +63083,15 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 5
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple,
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple{
+	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/purple{
-	dir = 4;
-	pixel_x = -16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_edge_alt/purple{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 9
@@ -63569,13 +63264,11 @@
 	icon_state = "2-8"
 	},
 /obj/effect/turf_decal/tile/yellow/tile_anticorner_ramp/contrasted{
-	alpha = 180;
 	dir = 8;
-	pixel_x = -1
+	alpha = 180
 	},
 /obj/effect/turf_decal/guideline/guideline_ramp/yellow{
-	dir = 8;
-	pixel_x = -1
+	dir = 8
 	},
 /turf/open/floor/plasteel{
 	dir = 8
@@ -64063,8 +63756,11 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/yellow{
-	dir = 4
+/obj/effect/turf_decal/guideline/guideline_edge_alt/yellow{
+	dir = 10
+	},
+/obj/effect/turf_decal/guideline/guideline_corner_tri/yellow{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
@@ -64406,12 +64102,10 @@
 /obj/effect/turf_decal/tile/blue/half{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/green{
-	pixel_y = 3
-	},
 /obj/effect/turf_decal/guideline/guideline_in/blue{
 	dir = 8
 	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/green,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "wbB" = (
@@ -64786,21 +64480,20 @@
 /area/vacant_room/commissary/commissary2)
 "wfX" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 5;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/blue{
 	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_y = 3
-	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
-	dir = 4;
-	pixel_x = -16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 8;
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -64822,18 +64515,12 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	dir = 4;
-	pixel_x = -16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue,
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 5
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 8
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 9
@@ -65550,8 +65237,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/yellow{
-	dir = 4
+/obj/effect/turf_decal/guideline/guideline_edge_alt/yellow{
+	dir = 10
+	},
+/obj/effect/turf_decal/guideline/guideline_corner_tri/yellow{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -66616,22 +66306,21 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_x = -16;
-	pixel_y = 3
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = -15
-	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
 	dir = 8;
-	pixel_x = 16;
-	pixel_y = 16
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 6;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/blue{
+	dir = 4;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 1;
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -67040,24 +66729,21 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -16
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	pixel_y = -24
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 10
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "wWE" = (
@@ -67333,17 +67019,14 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/yellow/corner_ramp{
-	alpha = 180;
-	dir = 1;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/yellow{
 	dir = 8;
-	pixel_x = 2
+	alpha = 180
 	},
-/obj/effect/turf_decal/guideline/guideline_ramp/yellow{
-	dir = 1;
-	pixel_y = 17
+/obj/effect/turf_decal/guideline/guideline_half_edge/yellow{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_half_ramp/yellow{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -67553,18 +67236,14 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	dir = 1;
-	pixel_x = 13;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_corner_tri/blue{
+	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	pixel_x = -16;
-	pixel_y = -13
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
+	dir = 10
 	},
-/obj/effect/turf_decal/guideline/guideline_corner_alt/blue{
-	dir = 8;
-	pixel_x = -1
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
+	dir = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/cryo)
@@ -67813,12 +67492,15 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/purple{
-	pixel_x = -16;
-	pixel_y = -8
+/obj/effect/turf_decal/guideline/guideline_half_in/purple,
+/obj/effect/turf_decal/guideline/guideline_corner_offset_tri/purple{
+	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/purple{
-	pixel_x = 16
+/obj/effect/turf_decal/guideline/guideline_half_in/purple{
+	dir = 6
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/purple{
+	dir = 9
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
@@ -67986,21 +67668,20 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 4;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	color = "#267878";
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 10;
+	color = "#267878"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	color = "#267878";
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_edge_alt/blue{
+	dir = 8;
+	color = "#267878"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	color = "#267878"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -68704,18 +68385,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	pixel_x = 16;
-	pixel_y = -16
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 9
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = 1
+/obj/effect/turf_decal/guideline/guideline_half_edge/blue{
+	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/blue{
-	pixel_x = -16;
-	pixel_y = -24
+/obj/effect/turf_decal/guideline/guideline_edge_tri/blue{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 6
@@ -69632,21 +69309,18 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	dir = 1;
-	pixel_x = -16;
-	pixel_y = -16
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	pixel_y = -24
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = 1
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 10
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -69716,12 +69390,11 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/blue/half,
-/obj/effect/turf_decal/guideline/guideline_half_out/green{
-	pixel_x = -16;
-	pixel_y = 3
-	},
 /obj/effect/turf_decal/guideline/guideline_in/blue{
 	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/green{
+	dir = 6
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -69793,18 +69466,12 @@
 	sortType = 3
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/guideline/guideline_in_alt/brown{
-	dir = 4;
-	pixel_x = -16;
-	pixel_y = 16
+/obj/effect/turf_decal/guideline/guideline_half_edge/brown,
+/obj/effect/turf_decal/guideline/guideline_half_edge/brown{
+	dir = 5
 	},
-/obj/effect/turf_decal/guideline/guideline_half_out/brown{
-	dir = 1;
-	pixel_x = -3;
-	pixel_y = -15
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/brown{
-	pixel_y = 3
+/obj/effect/turf_decal/guideline/guideline_edge_tri/brown{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -70732,10 +70399,8 @@
 /area/science/xenobiology)
 "yhG" = (
 /obj/effect/decal/cleanable/oil,
-/obj/effect/turf_decal/guideline/guideline_corner_alt/purple{
-	dir = 1;
-	pixel_x = 16;
-	pixel_y = -15
+/obj/effect/turf_decal/guideline/guideline_edge_tri/purple{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/science/lab)
@@ -70853,24 +70518,22 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/red{
-	dir = 8;
-	pixel_x = 16;
-	pixel_y = 16
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	pixel_x = -16;
-	pixel_y = 3
-	},
-/obj/effect/turf_decal/guideline/guideline_half_out/red{
-	dir = 1;
-	pixel_x = 24;
-	pixel_y = -15
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 6
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_tri/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
@@ -110882,9 +110545,9 @@ slx
 sKg
 uch
 aue
-uGQ
+tnj
 sHX
-jTx
+bHn
 fww
 mQz
 rFa
