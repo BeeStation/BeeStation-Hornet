@@ -216,7 +216,7 @@
 /datum/antagonist/heretic/proc/on_spell_cast(mob/living/source, obj/effect/proc_holder/spell/spell)
 	SIGNAL_HANDLER
 
-	// Heretic spells
+	// Non-Heretic spells, we don't care
 	if(!spell.requires_heretic_focus)
 		return
 
