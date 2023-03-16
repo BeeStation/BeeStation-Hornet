@@ -5,11 +5,11 @@
 	var/obj/item/clothing/head/hooded/hood
 	var/hoodtype = /obj/item/clothing/head/hooded/winterhood //so the chaplain hoodie or other hoodies can override this
 	///Alternative mode for hiding the hood, instead of storing the hood in the suit it qdels it, useful for when you deal with hooded suit with storage.
-	var/alternative_mode = FALSE
+	var/qdel_hood = FALSE
 
 /obj/item/clothing/suit/hooded/Initialize(mapload)
 	. = ..()
-	if(!alternative_mode)
+	if(!qdel_hood)
 		MakeHood()
 
 /obj/item/clothing/suit/hooded/Destroy()
@@ -44,8 +44,9 @@
 			H.transferItemToLoc(hood, src, TRUE)
 			H.update_inv_wear_suit()
 		else
-			hood.forceMove(src)
-		if(alternative_mode)
+			if(!qdel_hood)
+				hood.forceMove(src)
+		if(qdel_hood)
 			QDEL_NULL(hood)
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -67,10 +68,10 @@
 			to_chat(H, "<span class='warning'>You're already wearing something on your head!</span>")
 			return
 		else
-			if(alternative_mode)
+			if(qdel_hood)
 				MakeHood()
 			if(!H.equip_to_slot_if_possible(hood,ITEM_SLOT_HEAD,0,0,1))
-				if(alternative_mode)
+				if(qdel_hood)
 					RemoveHood()
 				return
 			suittoggled = TRUE
