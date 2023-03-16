@@ -152,7 +152,7 @@
 		else
 			C.fully_replace_character_name(C.real_name, replacementName)
 	if(give_objectives)
-		forge_primary_objectives()
+		forge_objectives()
 
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
 
@@ -327,7 +327,7 @@
 /**
  * Create our objectives for our heretic.
  */
-/datum/antagonist/heretic/proc/forge_primary_objectives()
+/datum/antagonist/heretic/proc/forge_objectives()
 	var/datum/objective/heretic_research/research_objective = new()
 	research_objective.owner = owner
 	objectives += research_objective
