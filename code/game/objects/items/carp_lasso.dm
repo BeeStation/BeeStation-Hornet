@@ -53,7 +53,7 @@
 		return
 	if(user.a_intent == INTENT_HELP && C == mob_target) //if trying to tie up previous target
 		to_chat(user, "<span class='notice'>You begin to untie [C]</span>")
-		if(proximity_flag && do_after(user, 2 SECONDS, FALSE, target))
+		if(proximity_flag && do_after(user, 2 SECONDS, target, timed_action_flags = IGNORE_HELD_ITEM))
 			user.faction |= "carpboy_[user]"
 			C.faction = list("neutral")
 			C.faction |= "carpboy_[user]"

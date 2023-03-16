@@ -56,6 +56,85 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">16 March 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Increased the duration of the vendor squash effect from 18 seconds to 80</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">floodlights now check for power when built instead of only after being unwrenched and re-wrenched</li>
+			</ul>
+
+			<h2 class="date">15 March 2023</h2>
+			<h3 class="author">LemonLimeSoda updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Morphs now husk digested corpses instead of deleting them outright</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Reagents with conflicting names have been adjusted to resolve an issue with plumbing reaction chambers</li>
+				<li class="bugfix">Beer poured into a glass will now display its special icon again instead of just a dark brown color in a normal shaped glass</li>
+			</ul>
+			<h3 class="author">benbot16 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Resisting while cuffed works again.</li>
+				<li class="bugfix">Fixes a couple do_after-related bugs.</li>
+			</ul>
+
+			<h2 class="date">14 March 2023</h2>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Plasma ignition no longer calls qdel on reagent reactions, and its reaction temperature was increased to account for normal human body temperatures.</li>
+			</ul>
+			<h3 class="author">imsynthex updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">the departmental protolathe/techfab stripe will no longer appear on circuit imprinters or default protolathes/techfabs</li>
+			</ul>
+
+			<h2 class="date">13 March 2023</h2>
+			<h3 class="author">Chirynnn updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">The Syndicate has improved their Malfunctioning AI turret upgrade, making them more powerful and deadly.</li>
+			</ul>
+			<h3 class="author">Shaps/Ryll, Wesoda25, Y0SH1M4S73R, Mothblocks, Ghommie updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">NT has updated its personnel policies and allowed for employees to register as gender neutral, with standard support for they/them pronouns.</li>
+				<li class="tweak">changed text on gender options to make them grammatically correct and visually pleasing</li>
+				<li class="spellcheck">Wound tending and people holding items in photographs have had their pronoun usage fixed.</li>
+				<li class="rscadd">Added M/F body preferences.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a preference toggle for soundtrack music (Countdown, Mind Crawler, etc)</li>
+				<li class="admin">Added an admin verb for playing soundtrack music.</li>
+				<li class="tweak">Un-silencing soundtrack music will now start playing the music again rather than missing out entirely.</li>
+			</ul>
+
+			<h2 class="date">12 March 2023</h2>
+			<h3 class="author">Crossedfall updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Undocumented role time requirement changes have been reverted</li>
+			</ul>
+			<h3 class="author">RKz updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">removed all genetic printlines, you can't *feel* Swedish anymore. You better trust that the Genetics Expert gave you something good.</li>
+				<li class="balance">removed most genetic stability messages, except for the penultimate and final meltdown one.</li>
+				<li class="spellcheck">Made some mutations descriptions more consistent and immersive. Cleared up terminology misuse.</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">Blackpowder and phlogiston now alert admins upon creation.</li>
+				<li class="code_imp">All objects made primarily or entirely of plasma now have their reactions handled via atom/proc/plasma_ignition() instead of each having slight variations of almost the same code defined individually.</li>
+				<li class="tweak">almost all objects made of plasma now react to being shot with lasers, attacked with hot objects such as lit welders, and being exposed to flames. This notably excludes plasma ore and plasma glass.</li>
+				<li class="tweak">Ground plasma in beakers now ignites when exposed to any heat increase above ambient temperature. Chemists beware!</li>
+				<li class="balance">Plasma gas is no longer created as a byproduct of solid plasma burning or spilling. Instead the various forms of solid plasma burn rapidly and brilliantly, resulting in a small explosion with a bright flash and wide but brief flame.</li>
+			</ul>
+			<h3 class="author">WrillWasTaken updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">halved the HP of glowshrooms and its variants</li>
+			</ul>
+
 			<h2 class="date">11 March 2023</h2>
 			<h3 class="author">@DrDuckedGoose Code, @itsmeow UI, @qwertyquerty Sound updated:</h3>
 			<ul class="changes bgimages16">
@@ -63,13 +142,32 @@
 				<li class="tweak">Replaces the elevator on multi-z debug with new presets</li>
 				<li class="rscadd">Added elevator UI theme, with fancy elevator buttons.</li>
 			</ul>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed the moodlets for wearing Clown Shoes, Black and Yellow gloves being removed when you dropped a second pair</li>
+				<li class="rscadd">Added a new Orange Bioluminescence trait to the Extradimensional Orange</li>
+				<li class="rscadd">Added orange Fairygrass tiles</li>
+				<li class="rscadd">Added a new Colorful Reagent reaction to plants, which adds/swaps out an existing bioluminescence trait</li>
+			</ul>
+			<h3 class="author">Rohesie, Benbot16 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Do_afters now support timed_action_flags.</li>
+			</ul>
 			<h3 class="author">Rukofamicom updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">fultons work on necropolis chests again</li>
+				<li class="bugfix">Fixed the laser gatling gun's sounds and intended functionality. It is still only available via admin spawn.</li>
+			</ul>
+			<h3 class="author">Tyranicranger4 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added an engineering ERT team preset</li>
+				<li class="tweak">ERT members that have first-aid kits now have normal sized first-aid kits</li>
 			</ul>
 			<h3 class="author">itsmeow updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="code_imp">Added preemptive compilation compatibility for BYOND 515. This does not mean the game will work on 515, nor will clients be able to update.</li>
+				<li class="bugfix">Fixed a runtime that caused message monitor PDA messages and admin PDA messages to not be logged.</li>
+				<li class="bugfix">Asay color is now properly sanitized from prefs menu.</li>
 			</ul>
 
 			<h2 class="date">10 March 2023</h2>
@@ -1221,42 +1319,6 @@
 				<li class="rscadd">Color coordinated mixer devices for atmos</li>
 				<li class="tweak">renamed mixer nodes to be less confusing and go along with new color changes</li>
 				<li class="imageadd">replaced regular mixers devices with colored coordinated red-blue ones</li>
-			</ul>
-
-			<h2 class="date">12 January 2023</h2>
-			<h3 class="author">DoctorSquishy, RKz updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Operating Computers placed NE,NW,SE,SW from operating tables can find the table now</li>
-			</ul>
-
-			<h2 class="date">10 January 2023</h2>
-			<h3 class="author">Dejaku51 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes phobia gain message not showing</li>
-			</ul>
-
-			<h2 class="date">09 January 2023</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added a confirmation for sending OOC messages mid-round if the user is able</li>
-			</ul>
-			<h3 class="author">benbot16 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Adds multi-Z trunks to pipe dispensers.</li>
-				<li class="imageadd">Adds construction sprites for multi-Z trunks.</li>
-			</ul>
-
-			<h2 class="date">08 January 2023</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">basic medicines (Bicaridine, Kelotane, Anti-toxin, Dexalin, Tricordrazine) are less effective over 20 damage ("if(prob(100/(2**(round(PLAYER_DAMAGE / 20 )))))") 100% chance to heal, but for every 20 damage you have, the chance is halved. (100% / 50% at 20 / 25% at 40 / 12.5% at 60).</li>
-				<li class="balance">Bicaridine/Kelotane/Anti-toxin heals 0.5 (brute/burn/toxin)</li>
-				<li class="balance">Dexalin heals 1.5 (oxy damage)</li>
-				<li class="balance">Tricordrazine heals 1 (4 types), metabolisation rate is 1.2u, max overdose is now 50u.</li>
-			</ul>
-			<h3 class="author">ike709 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Attempting to compile BeeStation in OpenDream now gives a better error message</li>
 			</ul>
 		</div>
 
