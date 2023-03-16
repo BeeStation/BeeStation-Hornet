@@ -933,7 +933,7 @@
 			message = "<span class='warning'>You feel your skull pressing down on your brain.</span>"
 			human_owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 20, 190)
 	if(prob(33)) //so the victim isn't spammed with messages every 3 seconds
-		to_chat(H,message)
+		to_chat(human_owner,message)
 
 /datum/status_effect/ghoul
 	id = "ghoul"
