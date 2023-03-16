@@ -11,22 +11,22 @@
 	var/mood_quirk = FALSE //if true, this quirk affects mood and is unavailable if moodlets are disabled
 	var/mob_trait //if applicable, apply and remove this mob trait
 	var/process = FALSE // Does this quirk use on_process()?
-	var/mob/living/quirk_holder
+	var/mob/living/quirk_target // The mob that will be affected by this quirk
 
 /datum/quirk/New(mob/living/quirk_mob, spawn_effects)
 	..()
 	if(!quirk_mob || (human_only && !ishuman(quirk_mob)) || quirk_mob.has_quirk(type))
 		qdel(src)
 		return
-	quirk_holder = quirk_mob
+	quirk_target = quirk_mob
 	SSquirks.quirk_objects += src
-	to_chat(quirk_holder, gain_text)
-	quirk_holder.roundstart_quirks += src
+	to_chat(quirk_target, gain_text)
+	quirk_target.roundstart_quirks += src
 	if(mob_trait)
-		ADD_TRAIT(quirk_holder, mob_trait, ROUNDSTART_TRAIT)
+		ADD_TRAIT(quirk_target, mob_trait, ROUNDSTART_TRAIT)
 	if(process)
 		START_PROCESSING(SSquirks, src)
-	RegisterSignal(quirk_holder, COMSIG_PARENT_QDELETING, PROC_REF(handle_parent_del))
+	RegisterSignal(quirk_target, COMSIG_PARENT_QDELETING, PROC_REF(handle_parent_del))
 	add()
 	if(spawn_effects)
 		on_spawn()
@@ -35,28 +35,28 @@
 /datum/quirk/Destroy()
 	if(process)
 		STOP_PROCESSING(SSquirks, src)
-	if(quirk_holder)
+	if(quirk_target)
 		remove()
-		UnregisterSignal(quirk_holder, COMSIG_PARENT_QDELETING)
-		if(!QDELETED(quirk_holder))
-			to_chat(quirk_holder, lose_text)
-		quirk_holder.roundstart_quirks -= src
+		UnregisterSignal(quirk_target, COMSIG_PARENT_QDELETING)
+		if(!QDELETED(quirk_target))
+			to_chat(quirk_target, lose_text)
+		quirk_target.roundstart_quirks -= src
 		if(mob_trait)
-			REMOVE_TRAIT(quirk_holder, mob_trait, ROUNDSTART_TRAIT)
-		quirk_holder = null
+			REMOVE_TRAIT(quirk_target, mob_trait, ROUNDSTART_TRAIT)
+		quirk_target = null
 	SSquirks.quirk_objects -= src
 	return ..()
 
 /datum/quirk/proc/transfer_mob(mob/living/to_mob)
-	quirk_holder.roundstart_quirks -= src
-	UnregisterSignal(quirk_holder, COMSIG_PARENT_QDELETING)
+	quirk_target.roundstart_quirks -= src
+	UnregisterSignal(quirk_target, COMSIG_PARENT_QDELETING)
 	to_mob.roundstart_quirks += src
 	if(mob_trait)
-		REMOVE_TRAIT(quirk_holder, mob_trait, ROUNDSTART_TRAIT)
+		REMOVE_TRAIT(quirk_target, mob_trait, ROUNDSTART_TRAIT)
 		ADD_TRAIT(to_mob, mob_trait, ROUNDSTART_TRAIT)
-	quirk_holder = to_mob
+	quirk_target = to_mob
 	on_transfer()
-	RegisterSignal(quirk_holder, COMSIG_PARENT_QDELETING, PROC_REF(handle_parent_del))
+	RegisterSignal(quirk_target, COMSIG_PARENT_QDELETING, PROC_REF(handle_parent_del))
 
 /datum/quirk/proc/add() //special "on add" effects
 /datum/quirk/proc/on_spawn() //these should only trigger when the character is being created for the first time, i.e. roundstart/latejoin
@@ -73,7 +73,7 @@
 	qdel(src)
 
 /datum/quirk/process(delta_time)
-	if(quirk_holder.stat == DEAD)
+	if(quirk_target.stat == DEAD)
 		return
 	on_process(delta_time)
 
@@ -126,7 +126,7 @@ Use this as a guideline
 	///These three are self-explanatory
 
 /datum/quirk/nearsighted/on_spawn()
-	var/mob/living/carbon/human/H = quirk_holder
+	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/clothing/glasses/regular/glasses = new(get_turf(H))
 	H.put_in_hands(glasses)
 	H.equip_to_slot(glasses, ITEM_SLOT_EYES)
