@@ -117,6 +117,7 @@
 #include "code\__DEFINES\networks.dm"
 #include "code\__DEFINES\obj_flags.dm"
 #include "code\__DEFINES\orbit_defines.dm"
+#include "code\__DEFINES\overlays.dm"
 #include "code\__DEFINES\pai.dm"
 #include "code\__DEFINES\particles.dm"
 #include "code\__DEFINES\pinpointers.dm"
