@@ -130,12 +130,16 @@
 	var/image/silicon_image = image('icons/effects/heretic.dmi', src, null, OBJ_LAYER)
 	silicon_image.override = TRUE
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "pierced_reality", silicon_image)
-
+	addtimer(CALLBACK(src,PROC_REF(dissipate)), 60 SECONDS)
 /*
  * Makes the influence fade in after 15 seconds.
  */
 /obj/effect/visible_heretic_influence/proc/show_presence()
 	animate(src, alpha = 255, time = 15 SECONDS)
+
+/obj/effect/visible_heretic_influence/proc/dissipate()
+	animate(src,alpha = 0,time = 15 SECONDS)
+	QDEL_IN(src, 15 SECONDS)
 
 /obj/effect/visible_heretic_influence/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
