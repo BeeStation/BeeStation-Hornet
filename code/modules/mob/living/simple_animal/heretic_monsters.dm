@@ -62,10 +62,11 @@
 	)
 
 	/// A assoc list of [mob/living ref] to [datum/action ref] - all the mobs linked to our mansus network.
-	var/list/mob/living/linked_mobs = list()
+	var/list/mob/living/linked_mobs = null
 
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet/Initialize(mapload)
 	. = ..()
+	linked_mobs = list()
 	link_mob(src)
 
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet/Login()
