@@ -36,7 +36,7 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 /// item has priority to check when entering or leaving
 #define ON_BORDER_1 (1<<4)
 ///Whether or not this atom shows screentips when hovered over
-//#define NO_SCREENTIPS_1 (1<<5)
+/*#define NO_SCREENTIPS_1 (1<<5) */
 /// Prevent clicking things below it on the same turf eg. doors/ fulltile windows
 #define PREVENT_CLICK_UNDER_1 (1<<6)
 ///specifies that this atom is a hologram that isnt real
@@ -52,12 +52,12 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 ///Tesla ignores this object completely
 #define TESLA_IGNORE_1 (1<<12)
 /// Should this object be paintable with very dark colors?
-#define ALLOW_DARK_PAINTS_1 (1<<14)
+/*#define ALLOW_DARK_PAINTS_1 (1<<14) */
 /// Should this object be unpaintable?
 #define UNPAINTABLE_1 (1<<15)
 /// Is the thing currently spinning?
-#define IS_SPINNING_1 (1<<16)
-//#define IS_ONTOP_1 (1<<17)
+/*#define IS_SPINNING_1 (1<<16) */
+/*#define IS_ONTOP_1 (1<<17) */
 /// Does the supermatter skip over this atom?
 #define SUPERMATTER_IGNORES_1 (1<<18)
 /// If a turf can be made dirty at roundstart. This is also used in areas.
@@ -67,7 +67,7 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 /// Can players recolor this in-game via vendors (and maybe more if support is added)?
 #define IS_PLAYER_COLORABLE_1 (1<<21)
 /// Whether or not this atom has contextual screentips when hovered OVER
-//#define HAS_CONTEXTUAL_SCREENTIPS_1 (1<<22)
+/*#define HAS_CONTEXTUAL_SCREENTIPS_1 (1<<22) */
 
 /// If the thing can reflect light (lasers/energy)
 #define RICOCHET_SHINY			(1<<0)
