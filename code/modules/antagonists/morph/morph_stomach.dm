@@ -97,6 +97,9 @@
 		var/mob/living/L = target
 		switch(action)
 			if("digest")
+				if(HAS_TRAIT(L, TRAIT_HUSK))
+					to_chat(morph, "<span class='warning'>[L] has already been stripped of all nutritional value!</span>")
+					return FALSE
 				if(morph.throwatom == L)
 					morph.throwatom = null
 				to_chat(morph, "<span class='danger'>You begin digesting [L]</span>")
@@ -111,7 +114,9 @@
 							I.pixel_x = rand(-10, 10)
 							I.pixel_y = rand(-10, 10)
 					morph.RemoveContents(L)
-					L.dust()
+					L.death(0)
+					L.apply_damage(50, BURN)
+					L.become_husk()
 					morph.adjustHealth(-(L.maxHealth / 2))
 					to_chat(morph, "<span class='danger'>You digest [L], restoring some health</span>")
 					playsound(morph, 'sound/effects/splat.ogg', 50, 1)

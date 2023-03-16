@@ -1428,55 +1428,55 @@
 		description = "\An [colorname] powder, used for coloring things [colorname]."
 
 /datum/reagent/colorful_reagent/powder/red
-	name = "Red Powder"
+	name = "Red Dye Powder"
 	colorname = "red"
 	color = "#DA0000" // red
 	random_color_list = list("#FC7474")
 
 /datum/reagent/colorful_reagent/powder/orange
-	name = "Orange Powder"
+	name = "Orange Dye Powder"
 	colorname = "orange"
 	color = "#FF9300" // orange
 	random_color_list = list("#FF9300")
 
 /datum/reagent/colorful_reagent/powder/yellow
-	name = "Yellow Powder"
+	name = "Yellow Dye Powder"
 	colorname = "yellow"
 	color = "#FFF200" // yellow
 	random_color_list = list("#FFF200")
 
 /datum/reagent/colorful_reagent/powder/green
-	name = "Green Powder"
+	name = "Green Dye Powder"
 	colorname = "green"
 	color = "#A8E61D" // green
 	random_color_list = list("#A8E61D")
 
 /datum/reagent/colorful_reagent/powder/blue
-	name = "Blue Powder"
+	name = "Blue Dye Powder"
 	colorname = "blue"
 	color = "#00B7EF" // blue
 	random_color_list = list("#00B7EF")
 
 /datum/reagent/colorful_reagent/powder/purple
-	name = "Purple Powder"
+	name = "Purple Dye Powder"
 	colorname = "purple"
 	color = "#DA00FF" // purple
 	random_color_list = list("#BD8FC4")
 
 /datum/reagent/colorful_reagent/powder/invisible
-	name = "Invisible Powder"
+	name = "Invisible Dye Powder"
 	colorname = "invisible"
 	color = "#FFFFFF00" // white + no alpha
 	random_color_list = list(null)	//because using the powder color turns things invisible
 
 /datum/reagent/colorful_reagent/powder/black
-	name = "Black Powder"
+	name = "Black Dye Powder"
 	colorname = "black"
 	color = "#1C1C1C" // not quite black
 	random_color_list = list("#404040")
 
 /datum/reagent/colorful_reagent/powder/white
-	name = "White Powder"
+	name = "White Dye Powder"
 	colorname = "white"
 	color = "#FFFFFF" // white
 	random_color_list = list("#FFFFFF") //doesn't actually change appearance at all

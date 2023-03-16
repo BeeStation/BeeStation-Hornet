@@ -429,7 +429,7 @@
 	if(safety)
 		if(timing)
 			set_security_level(previous_level)
-			stop_soundtrack_music()
+			stop_soundtrack_music(stop_playing = TRUE)
 			for(var/obj/item/pinpointer/nuke/syndicate/S in GLOB.pinpointer_list)
 				S.switch_mode_to(initial(S.mode))
 				S.alert = FALSE
@@ -452,12 +452,12 @@
 		set_security_level(SEC_LEVEL_DELTA)
 
 		if (proper_bomb) // Why does this exist
-			countdown_music = play_soundtrack_music(/datum/soundtrack_song/bee/countdown, only_station = TRUE)
+			countdown_music = play_soundtrack_music(/datum/soundtrack_song/bee/countdown)
 
 	else
 		detonation_timer = null
 		set_security_level(previous_level)
-		stop_soundtrack_music()
+		stop_soundtrack_music(stop_playing = TRUE)
 
 		for(var/obj/item/pinpointer/nuke/syndicate/S in GLOB.pinpointer_list)
 			S.switch_mode_to(initial(S.mode))

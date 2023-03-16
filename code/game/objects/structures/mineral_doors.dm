@@ -252,21 +252,19 @@
 	return
 
 /obj/structure/mineral_door/transparent/plasma/attackby(obj/item/W, mob/user, params)
-	if(W.is_hot())
-		var/turf/T = get_turf(src)
-		message_admins("Plasma mineral door ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
-		log_game("Plasma mineral door ignited by [key_name(user)] in [AREACOORD(T)]")
-		TemperatureAct()
+	if(W.is_hot() > 300)
+		plasma_ignition(6, user)
 	else
 		return ..()
 
 /obj/structure/mineral_door/transparent/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
-		TemperatureAct()
+		plasma_ignition(6)
 
-/obj/structure/mineral_door/transparent/plasma/proc/TemperatureAct()
-	atmos_spawn_air("plasma=500;TEMP=1000")
-	deconstruct(FALSE)
+/obj/structure/mineral_door/transparent/plasma/bullet_act(obj/item/projectile/Proj)
+	if(!(Proj.nodamage) && Proj.damage_type == BURN)
+		plasma_ignition(6, Proj?.firer)
+	. = ..()
 
 /obj/structure/mineral_door/transparent/diamond
 	name = "diamond door"

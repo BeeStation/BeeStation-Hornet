@@ -399,6 +399,11 @@
 /obj/machinery/hydroponics/proc/hardmutate()
 	mutate(4, 10, 2, 4, 50, 4, 10, 3)
 
+/obj/machinery/hydroponics/proc/glowmutate()
+	if(!myseed)
+		return
+	myseed.add_random_glow()
+
 
 /obj/machinery/hydroponics/proc/mutatespecie() // Mutagent produced a new plant!
 	if(!myseed || dead)
@@ -500,6 +505,10 @@
 		hardmutate()
 	else if(S.has_reagent(/datum/reagent/toxin/mutagen, 1) || S.has_reagent(/datum/reagent/uranium/radium, 2) || S.has_reagent(/datum/reagent/uranium, 2))
 		mutate()
+
+	//Bioluminescence only mutation
+	if(S.has_reagent(/datum/reagent/colorful_reagent, 1))
+		glowmutate()
 
 	// After handling the mutating, we now handle the damage from adding crude radioactives...
 	if(S.has_reagent(/datum/reagent/uranium, 1))

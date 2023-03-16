@@ -122,7 +122,8 @@
 		"insect_type" = pick(GLOB.insect_type_list),
 		"apid_antenna" = pick(GLOB.apid_antenna_list),
 		"apid_stripes" = pick(GLOB.apid_stripes_list),
-		"apid_headstripes" = pick(GLOB.apid_headstripes_list)
+		"apid_headstripes" = pick(GLOB.apid_headstripes_list),
+		"body_model" = MALE
 		)
 	)
 
@@ -148,8 +149,10 @@
 	for(var/i in 1 to attempts_to_find_unique_name)
 		if(gender==FEMALE)
 			. = capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
-		else
+		else if(gender==MALE)
 			. = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
+		else if(gender==PLURAL)
+			. = capitalize(pick(GLOB.first_names)) + " " + capitalize(pick(GLOB.last_names))
 
 		if(!findname(.))
 			break
@@ -253,7 +256,7 @@ GLOBAL_LIST_EMPTY(species_list)
 		if(!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding)
 			. = FALSE
 
-		if(!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated())
+		if(!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated(ignore_restraints = TRUE))
 			. = FALSE
 
 		if(extra_checks && !extra_checks.Invoke())
@@ -335,7 +338,7 @@ GLOBAL_LIST_EMPTY(species_list)
 		if(!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding)
 			. = FALSE
 
-		if(!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated())
+		if(!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated(ignore_restraints = (timed_action_flags & IGNORE_RESTRAINED)))
 			. = FALSE
 
 		if(extra_checks && !extra_checks.Invoke())
