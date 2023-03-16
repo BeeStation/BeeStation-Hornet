@@ -51,7 +51,7 @@
 	result_atoms = list(/obj/item/melee/sickly_blade/flesh)
 	limit = 3 // Bumped up so they can arm up their ghouls too.
 	cost = 1
-	route = PATH_FLESH
+	route = HERETIC_PATH_FLESH
 
 /datum/heretic_knowledge/limited_amount/base_flesh/on_research(mob/user)
 	. = ..()
@@ -73,7 +73,7 @@
 	next_knowledge = list(/datum/heretic_knowledge/limited_amount/flesh_ghoul)
 	limit = 1
 	cost = 1
-	route = PATH_FLESH
+	route = HERETIC_PATH_FLESH
 
 /datum/heretic_knowledge/limited_amount/flesh_grasp/on_gain(mob/user)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
@@ -147,7 +147,7 @@
 	)
 	limit = 2
 	cost = 1
-	route = PATH_FLESH
+	route = HERETIC_PATH_FLESH
 
 /datum/heretic_knowledge/limited_amount/flesh_ghoul/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	for(var/mob/living/carbon/human/body in atoms)
@@ -221,7 +221,7 @@
 		/datum/heretic_knowledge/void_mark,
 	)
 	cost = 2
-	route = PATH_FLESH
+	route = HERETIC_PATH_FLESH
 
 /datum/heretic_knowledge/flesh_mark/on_gain(mob/user)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
@@ -251,7 +251,7 @@
 		/datum/heretic_knowledge/knowledge_ritual/void,
 		/datum/heretic_knowledge/knowledge_ritual/rust,
 	)
-	route = PATH_FLESH
+	route = HERETIC_PATH_FLESH
 
 /datum/heretic_knowledge/summon/raw_prophet
 	name = "Raw Ritual"
@@ -273,7 +273,7 @@
 	)
 	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/raw_prophet
 	cost = 1
-	route = PATH_FLESH
+	route = HERETIC_PATH_FLESH
 
 /datum/heretic_knowledge/flesh_blade_upgrade
 	name = "Bleeding Steel"
@@ -287,7 +287,7 @@
 		/datum/heretic_knowledge/void_blade_upgrade,
 	)
 	cost = 2
-	route = PATH_FLESH
+	route = HERETIC_PATH_FLESH
 
 /datum/heretic_knowledge/flesh_blade_upgrade/on_gain(mob/user)
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
@@ -324,7 +324,7 @@
 	)
 	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/stalker
 	cost = 1
-	route = PATH_FLESH
+	route = HERETIC_PATH_FLESH
 
 /datum/heretic_knowledge/final/flesh_final
 	name = "Priest's Final Hymn"
@@ -340,7 +340,7 @@
 		Men of this world, hear me, for the time has come! The Marshal guides my army! \
 		Reality will bend to THE LORD OF THE NIGHT or be unraveled! WITNESS MY ASCENSION!"
 	required_atoms = list(/mob/living/carbon/human = 4)
-	route = PATH_FLESH
+	route = HERETIC_PATH_FLESH
 
 /datum/heretic_knowledge/final/flesh_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()

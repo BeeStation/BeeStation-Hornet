@@ -46,7 +46,7 @@
 	result_atoms = list(/obj/item/melee/sickly_blade/ash)
 	limit = 2
 	cost = 1
-	route = PATH_ASH
+	route = HERETIC_PATH_ASH
 
 /datum/heretic_knowledge/limited_amount/base_ash/on_research(mob/user)
 	. = ..()
@@ -60,7 +60,7 @@
 		Their lantern, expired to ash - their watch, absent."
 	next_knowledge = list(/datum/heretic_knowledge/spell/ash_passage)
 	cost = 1
-	route = PATH_ASH
+	route = HERETIC_PATH_ASH
 
 /datum/heretic_knowledge/ashen_grasp/on_gain(mob/user)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
@@ -93,7 +93,7 @@
 	)
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash
 	cost = 1
-	route = PATH_ASH
+	route = HERETIC_PATH_ASH
 
 /datum/heretic_knowledge/ash_mark
 	name = "Mark of Ash"
@@ -110,7 +110,7 @@
 		/datum/heretic_knowledge/void_mark,
 	)
 	cost = 2
-	route = PATH_ASH
+	route = HERETIC_PATH_ASH
 
 /datum/heretic_knowledge/ash_mark/on_gain(mob/user)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
@@ -144,7 +144,7 @@
 		/datum/heretic_knowledge/knowledge_ritual/void,
 		/datum/heretic_knowledge/knowledge_ritual/rust,
 	)
-	route = PATH_ASH
+	route = HERETIC_PATH_ASH
 
 /datum/heretic_knowledge/mad_mask
 	name = "Mask of Madness"
@@ -166,7 +166,7 @@
 	)
 	result_atoms = list(/obj/item/clothing/mask/madness_mask)
 	cost = 1
-	route = PATH_ASH
+	route = HERETIC_PATH_ASH
 
 /datum/heretic_knowledge/ash_blade_upgrade
 	name = "Fiery Blade"
@@ -180,7 +180,7 @@
 		/datum/heretic_knowledge/void_blade_upgrade,
 	)
 	cost = 2
-	route = PATH_ASH
+	route = HERETIC_PATH_ASH
 
 /datum/heretic_knowledge/ash_blade_upgrade/on_gain(mob/user)
 	. = ..()
@@ -213,7 +213,7 @@
 	)
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/fiery_rebirth
 	cost = 1
-	route = PATH_ASH
+	route = HERETIC_PATH_ASH
 
 /datum/heretic_knowledge/final/ash_final
 	name = "Ashlord's Rite"
@@ -226,7 +226,7 @@
 	gain_text = "The Watch is dead, the Nightwatcher burned with it. Yet his fire burns evermore, \
 		for the Nightwatcher brought forth the rite to mankind! His gaze continues, as now I am one with the flames, \
 		WITNESS MY ASCENSION, THE ASHY LANTERN BLAZES ONCE MORE!"
-	route = PATH_ASH
+	route = HERETIC_PATH_ASH
 	/// A static list of all traits we apply on ascension.
 	var/static/list/traits_to_apply = list(
 		TRAIT_RESISTHEAT,

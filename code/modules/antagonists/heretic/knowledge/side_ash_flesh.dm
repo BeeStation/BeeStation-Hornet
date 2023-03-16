@@ -15,7 +15,7 @@
 	)
 	result_atoms = list(/obj/item/clothing/neck/eldritch_amulet)
 	cost = 1
-	route = PATH_SIDE
+	route = HERETIC_PATH_SIDE
 
 /datum/heretic_knowledge/curse/paralysis
 	name = "Curse of Paralysis"
@@ -35,7 +35,7 @@
 	)
 	duration = 5 MINUTES
 	cost = 1
-	route = PATH_SIDE
+	route = HERETIC_PATH_SIDE
 
 /datum/heretic_knowledge/curse/paralysis/curse(mob/living/carbon/human/chosen_mob)
 	if(chosen_mob.get_num_legs() <= 0) // What're you gonna do, curse someone who already can't walk?
@@ -72,7 +72,7 @@
 		)
 	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/ash_spirit
 	cost = 1
-	route = PATH_SIDE
+	route = HERETIC_PATH_SIDE
 
 /datum/heretic_knowledge/summon/ashy/cleanup_atoms(list/selected_atoms)
 	var/obj/item/bodypart/head/ritual_head = locate() in selected_atoms

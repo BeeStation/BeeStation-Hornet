@@ -1,16 +1,16 @@
 // Heretic starting knowledge.
 
-/// Global list of all heretic knowledge that have route = PATH_START. List of PATHS.
+/// Global list of all heretic knowledge that have route = HERETIC_PATH_START. List of PATHS.
 GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 
 /**
  * Returns a list of all heretic knowledge TYPEPATHS
- * that have route set to PATH_START.
+ * that have route set to HERETIC_PATH_START.
  */
 /proc/initialize_starting_knowledge()
 	. = list()
 	for(var/datum/heretic_knowledge/knowledge as anything in subtypesof(/datum/heretic_knowledge))
-		if(initial(knowledge.route) == PATH_START)
+		if(initial(knowledge.route) == HERETIC_PATH_START)
 			. += knowledge
 
 /*
@@ -29,7 +29,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		)
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/mansus_grasp
 	cost = 0
-	route = PATH_START
+	route = HERETIC_PATH_START
 
 /**
  * The Living Heart heretic knowledge.
@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		/obj/item/reagent_containers/food/snacks/grown/poppy = 1,
 	)
 	cost = 0
-	route = PATH_START
+	route = HERETIC_PATH_START
 
 /datum/heretic_knowledge/living_heart/on_research(mob/user)
 	. = ..()
@@ -118,7 +118,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	)
 	result_atoms = list(/obj/item/clothing/neck/heretic_focus)
 	cost = 0
-	route = PATH_START
+	route = HERETIC_PATH_START
 
 /datum/heretic_knowledge/amber_focus/cleanup_atoms(list/selected_atoms)
 	var/obj/item/stack/sheet/glass/sheets = locate() in selected_atoms

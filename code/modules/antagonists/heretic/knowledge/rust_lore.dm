@@ -46,7 +46,7 @@
 	result_atoms = list(/obj/item/melee/sickly_blade/rust)
 	limit = 2
 	cost = 1
-	route = PATH_RUST
+	route = HERETIC_PATH_RUST
 
 /datum/heretic_knowledge/limited_amount/base_rust/on_research(mob/user)
 	. = ..()
@@ -60,7 +60,7 @@
 	gain_text = "On the ceiling of the Mansus, rust grows as moss does on a stone."
 	next_knowledge = list(/datum/heretic_knowledge/rust_regen)
 	cost = 1
-	route = PATH_RUST
+	route = HERETIC_PATH_RUST
 
 /datum/heretic_knowledge/rust_fist/on_gain(mob/user)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
@@ -84,7 +84,7 @@
 		/datum/heretic_knowledge/essence,
 	)
 	cost = 1
-	route = PATH_RUST
+	route = HERETIC_PATH_RUST
 
 /datum/heretic_knowledge/rust_regen/on_gain(mob/user)
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
@@ -140,7 +140,7 @@
 		/datum/heretic_knowledge/void_mark,
 	)
 	cost = 2
-	route = PATH_RUST
+	route = HERETIC_PATH_RUST
 
 /datum/heretic_knowledge/rust_mark/on_gain(mob/user)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
@@ -170,7 +170,7 @@
 		/datum/heretic_knowledge/knowledge_ritual/void,
 		/datum/heretic_knowledge/knowledge_ritual/flesh,
 	)
-	route = PATH_RUST
+	route = HERETIC_PATH_RUST
 
 /datum/heretic_knowledge/spell/area_conversion
 	name = "Aggressive Spread"
@@ -185,7 +185,7 @@
 	)
 	spell_to_add = /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
 	cost = 1
-	route = PATH_RUST
+	route = HERETIC_PATH_RUST
 
 /datum/heretic_knowledge/rust_blade_upgrade
 	name = "Toxic Blade"
@@ -199,7 +199,7 @@
 		/datum/heretic_knowledge/void_blade_upgrade,
 	)
 	cost = 2
-	route = PATH_RUST
+	route = HERETIC_PATH_RUST
 
 /datum/heretic_knowledge/rust_blade_upgrade/on_gain(mob/user)
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
@@ -227,7 +227,7 @@
 	)
 	spell_to_add = /obj/effect/proc_holder/spell/cone/staggered/entropic_plume
 	cost = 1
-	route = PATH_RUST
+	route = HERETIC_PATH_RUST
 
 /datum/heretic_knowledge/final/rust_final
 	name = "Rustbringer's Oath"
@@ -238,7 +238,7 @@
 		and becoming immune to many effects and dangers."
 	gain_text = "Champion of rust. Corruptor of steel. Fear the dark, for the RUSTBRINGER has come! \
 		The Blacksmith forges ahead! Rusted Hills, CALL MY NAME! WITNESS MY ASCENSION!"
-	route = PATH_RUST
+	route = HERETIC_PATH_RUST
 	/// If TRUE, then immunities are currently active.
 	var/immunities_active = FALSE
 	/// A typepath to an area that we must finish the ritual in.

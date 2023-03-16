@@ -82,12 +82,12 @@
 #define FACTION_HERETIC "heretics"
 
 // Heretic path defines.
-#define PATH_START "Start Path"
-#define PATH_SIDE "Side Path"
-#define PATH_ASH "Ash Path"
-#define PATH_RUST "Rust Path"
-#define PATH_FLESH "Flesh Path"
-#define PATH_VOID "Void Path"
+#define HERETIC_PATH_START "Heretic Start Path"
+#define HERETIC_PATH_SIDE "Heretic Side Path"
+#define HERETIC_PATH_ASH "Heretic Ash Path"
+#define HERETIC_PATH_RUST "Heretic Rust Path"
+#define HERETIC_PATH_FLESH "Heretic Flesh Path"
+#define HERETIC_PATH_VOID "Heretic Void Path"
 
 
 /// How much does it cost to reroll strains?

@@ -16,7 +16,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	name = "default heretic sacrifice landmark"
 	icon_state = "x"
 	/// What path this landmark is intended for.
-	var/for_heretic_path = PATH_START
+	var/for_heretic_path = HERETIC_PATH_START
 
 /obj/effect/landmark/heretic/Initialize()
 	. = ..()
@@ -28,19 +28,19 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 /obj/effect/landmark/heretic/ash
 	name = "ash heretic sacrifice landmark"
-	for_heretic_path = PATH_ASH
+	for_heretic_path = HERETIC_PATH_ASH
 
 /obj/effect/landmark/heretic/flesh
 	name = "flesh heretic sacrifice landmark"
-	for_heretic_path = PATH_FLESH
+	for_heretic_path = HERETIC_PATH_FLESH
 
 /obj/effect/landmark/heretic/void
 	name = "void heretic sacrifice landmark"
-	for_heretic_path = PATH_VOID
+	for_heretic_path = HERETIC_PATH_VOID
 
 /obj/effect/landmark/heretic/rust
 	name = "rust heretic sacrifice landmark"
-	for_heretic_path = PATH_RUST
+	for_heretic_path = HERETIC_PATH_RUST
 
 // A fluff signpost object that doesn't teleport you somewhere when you touch it.
 /obj/structure/no_effect_signpost

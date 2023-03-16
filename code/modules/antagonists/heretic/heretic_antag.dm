@@ -22,7 +22,7 @@
 	/// Whether we've ascended! (Completed one of the final rituals)
 	var/ascended = FALSE
 	/// The path our heretic has chosen. Mostly used for flavor.
-	var/heretic_path = PATH_START
+	var/heretic_path = HERETIC_PATH_START
 	/// A list of how many knowledge points this heretic CURRENTLY has. Used to research.
 	var/knowledge_points = 1
 	/// The time between gaining influence passively. The heretic gain +1 knowledge points every this duration of time.
@@ -48,12 +48,12 @@
 	var/list/data = list()
 
 	var/static/list/path_to_color = list(
-		PATH_START = "grey",
-		PATH_SIDE = "green",
-		PATH_RUST = "brown",
-		PATH_FLESH = "red",
-		PATH_ASH = "white",
-		PATH_VOID = "blue",
+		HERETIC_PATH_START = "grey",
+		HERETIC_PATH_SIDE = "green",
+		HERETIC_PATH_RUST = "brown",
+		HERETIC_PATH_FLESH = "red",
+		HERETIC_PATH_ASH = "white",
+		HERETIC_PATH_VOID = "blue",
 	)
 
 	data["charges"] = knowledge_points
@@ -611,7 +611,7 @@
 		// (All the main paths are (should be) the same length, so it doesn't matter.)
 		var/rust_paths_found = 0
 		for(var/datum/heretic_knowledge/knowledge as anything in subtypesof(/datum/heretic_knowledge))
-			if(initial(knowledge.route) == PATH_RUST)
+			if(initial(knowledge.route) == HERETIC_PATH_RUST)
 				rust_paths_found++
 
 		main_path_length = rust_paths_found

@@ -14,7 +14,7 @@
 		If you have no targets, stand on a transmutation rune and invoke it to aquire some."
 	required_atoms = list(/mob/living/carbon/human = 1)
 	cost = 0
-	route = PATH_START
+	route = HERETIC_PATH_START
 	/// Whether we've generated a heretic sacrifice z-level yet, from any heretic.
 	var/static/heretic_level_generated = FALSE
 	/// If TRUE, we skip the ritual when our target list is empty. Done to avoid locking up the heretic.

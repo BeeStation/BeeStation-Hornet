@@ -44,7 +44,7 @@
 	result_atoms = list(/obj/item/melee/sickly_blade/void)
 	limit = 2
 	cost = 1
-	route = PATH_VOID
+	route = HERETIC_PATH_VOID
 
 /datum/heretic_knowledge/limited_amount/base_void/on_research(mob/user)
 	. = ..()
@@ -68,7 +68,7 @@
 		They are quiet. This isn't the end of the mystery."
 	next_knowledge = list(/datum/heretic_knowledge/cold_snap)
 	cost = 1
-	route = PATH_VOID
+	route = HERETIC_PATH_VOID
 
 /datum/heretic_knowledge/void_grasp/on_gain(mob/user)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
@@ -101,7 +101,7 @@
 		/datum/heretic_knowledge/armor,
 	)
 	cost = 1
-	route = PATH_VOID
+	route = HERETIC_PATH_VOID
 
 /datum/heretic_knowledge/cold_snap/on_gain(mob/user)
 	ADD_TRAIT(user, TRAIT_RESISTCOLD, type)
@@ -124,7 +124,7 @@
 		/datum/heretic_knowledge/flesh_mark,
 	)
 	cost = 2
-	route = PATH_VOID
+	route = HERETIC_PATH_VOID
 
 /datum/heretic_knowledge/void_mark/on_gain(mob/user)
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
@@ -154,7 +154,7 @@
 		/datum/heretic_knowledge/knowledge_ritual/rust,
 		/datum/heretic_knowledge/knowledge_ritual/flesh,
 	)
-	route = PATH_RUST
+	route = HERETIC_PATH_RUST
 
 /datum/heretic_knowledge/spell/void_phase
 	name = "Void Phase"
@@ -170,7 +170,7 @@
 	)
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/void_phase
 	cost = 1
-	route = PATH_VOID
+	route = HERETIC_PATH_VOID
 
 /datum/heretic_knowledge/void_blade_upgrade
 	name = "Seeking blade"
@@ -183,7 +183,7 @@
 		/datum/heretic_knowledge/rust_blade_upgrade,
 	)
 	cost = 2
-	route = PATH_VOID
+	route = HERETIC_PATH_VOID
 
 
 /datum/heretic_knowledge/void_blade_upgrade/on_gain(mob/user)
@@ -219,7 +219,7 @@
 	)
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/void_pull
 	cost = 1
-	route = PATH_VOID
+	route = HERETIC_PATH_VOID
 
 /datum/heretic_knowledge/final/void_final
 	name = "Waltz at the End of Time"
@@ -231,7 +231,7 @@
 	gain_text = "The world falls into darkness. I stand in an empty plane, small flakes of ice fall from the sky. \
 		The Aristocrat stands before me, beckoning. We will play a waltz to the whispers of dying reality, \
 		as the world is destroyed before our eyes. The void will return all to nothing, WITNESS MY ASCENSION!"
-	route = PATH_VOID
+	route = HERETIC_PATH_VOID
 	///soundloop for the void theme
 	var/datum/looping_sound/void_loop/sound_loop
 	///Reference to the ongoing voidstrom that surrounds the heretic

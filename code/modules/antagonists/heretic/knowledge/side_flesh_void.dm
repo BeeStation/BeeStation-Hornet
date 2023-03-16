@@ -16,7 +16,7 @@
 	)
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/void)
 	cost = 1
-	route = PATH_SIDE
+	route = HERETIC_PATH_SIDE
 
 /datum/heretic_knowledge/rune_carver
 	name = "Carving Knife"
@@ -36,7 +36,7 @@
 	)
 	result_atoms = list(/obj/item/melee/rune_carver)
 	cost = 1
-	route = PATH_SIDE
+	route = HERETIC_PATH_SIDE
 
 /datum/heretic_knowledge/spell/blood_siphon
 	name = "Blood Siphon"
@@ -48,4 +48,4 @@
 	)
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/blood_siphon
 	cost = 1
-	route = PATH_SIDE
+	route = HERETIC_PATH_SIDE

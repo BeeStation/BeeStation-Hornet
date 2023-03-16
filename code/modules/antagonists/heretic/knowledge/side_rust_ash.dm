@@ -16,7 +16,7 @@
 	)
 	result_atoms = list(/obj/item/reagent_containers/glass/beaker/eldritch)
 	cost = 1
-	route = PATH_SIDE
+	route = HERETIC_PATH_SIDE
 
 /datum/heretic_knowledge/curse/corrosion
 	name = "Curse of Corrosion"
@@ -36,7 +36,7 @@
 	)
 	duration = 2 MINUTES
 	cost = 1
-	route = PATH_SIDE
+	route = HERETIC_PATH_SIDE
 
 /datum/heretic_knowledge/curse/corrosion/curse(mob/living/carbon/human/chosen_mob)
 	to_chat(chosen_mob, "<span class='danger'>You feel very ill.</span>")
@@ -58,4 +58,4 @@
 	)
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/cleave
 	cost = 1
-	route = PATH_SIDE
+	route = HERETIC_PATH_SIDE

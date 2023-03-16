@@ -12,7 +12,7 @@
 		/mob/living/carbon/human = 1,
 	)
 	cost = 1
-	route = PATH_SIDE
+	route = HERETIC_PATH_SIDE
 
 /datum/heretic_knowledge/reroll_targets/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	var/obj/item/organ/heart/our_heart = user.getorganslot(ORGAN_SLOT_HEART)
@@ -53,7 +53,7 @@
 	)
 	result_atoms = list(/obj/item/codex_cicatrix)
 	cost = 1
-	route = PATH_SIDE
+	route = HERETIC_PATH_SIDE
 
 /datum/heretic_knowledge/codex_cicatrix/cleanup_atoms(list/selected_atoms)
 	var/obj/item/stack/sheet/animalhide/hide = locate() in selected_atoms

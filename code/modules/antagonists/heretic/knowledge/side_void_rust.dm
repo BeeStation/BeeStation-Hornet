@@ -16,7 +16,7 @@
 	)
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch)
 	cost = 1
-	route = PATH_SIDE
+	route = HERETIC_PATH_SIDE
 
 /datum/heretic_knowledge/crucible
 	name = "Mawed Crucible"
@@ -34,7 +34,7 @@
 	)
 	result_atoms = list(/obj/structure/destructible/eldritch_crucible)
 	cost = 1
-	route = PATH_SIDE
+	route = HERETIC_PATH_SIDE
 
 /datum/heretic_knowledge/summon/rusty
 	name = "Rusted Ritual"
@@ -52,7 +52,7 @@
 	)
 	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/rust_spirit
 	cost = 1
-	route = PATH_SIDE
+	route = HERETIC_PATH_SIDE
 
 /datum/heretic_knowledge/summon/rusty/cleanup_atoms(list/selected_atoms)
 	var/obj/item/bodypart/head/ritual_head = locate() in selected_atoms
