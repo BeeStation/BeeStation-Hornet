@@ -543,7 +543,8 @@
 	description = "A mostly safe mutation toxin."
 	color = "#13BC5E" // rgb: 19, 188, 94
 	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	race = list(/datum/species/human,
+	race = list(/datum/species/oozeling/slime,
+						/datum/species/human,
 						/datum/species/human/felinid,
 						/datum/species/lizard,
 						/datum/species/fly,
