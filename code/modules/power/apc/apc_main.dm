@@ -89,7 +89,7 @@
 	///used for the Blackout malf module
 	var/overload = 1
 	///used for counting how many times it has been hit, used for Aliens at the moment
-	var/beenhit = 0 
+	var/beenhit = 0
 	///Reference to the shunted ai inside
 	var/mob/living/silicon/ai/occupier = null
 	///Is there an AI being transferred out of us?
@@ -118,9 +118,9 @@
 	var/obj/machinery/computer/apc_control/remote_control = null
 
 	//Clockcult - Has the reward for converting an APC been given?
-	var/clock_cog_rewarded = FALSE	
+	var/clock_cog_rewarded = FALSE
 	//Clockcult - The integration cog inserted inside of us
-	var/integration_cog = null		
+	var/integration_cog = null
 
 /obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
 	if (!req_access)
@@ -193,10 +193,10 @@
 		area.poweralert(FALSE, src)
 	if(occupier)
 		malfvacate(1)
-	qdel(wires)
-	wires = null
+	if(wires)
+		QDEL_NULL(wires)
 	if(cell)
-		qdel(cell)
+		QDEL_NULL(cell)
 	if(terminal)
 		disconnect_terminal()
 	. = ..()
