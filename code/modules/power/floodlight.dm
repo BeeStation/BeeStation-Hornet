@@ -51,6 +51,10 @@
 	var/setting = 1
 	light_power = 1.75
 
+/obj/machinery/power/floodlight/Initialize(mapload)
+	. = ..()
+	connect_to_network()
+	
 /obj/machinery/power/floodlight/process()
 	if(avail(active_power_usage))
 		add_load(active_power_usage)
