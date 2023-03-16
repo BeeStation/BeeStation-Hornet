@@ -6,7 +6,14 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	flash_protect = 2
-	clothing_traits = list(TRAIT_ALLOW_HERETIC_CASTING)
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/equipped(mob/user, slot)
+	..()
+	ADD_TRAIT(user, TRAIT_ALLOW_HERETIC_CASTING, CLOTHING_TRAIT)
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/dropped(mob/user)
+	..()
+	REMOVE_TRAIT(user, TRAIT_ALLOW_HERETIC_CASTING, CLOTHING_TRAIT)
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/examine(mob/user)
 	. = ..()
