@@ -144,7 +144,7 @@
 
 /datum/antagonist/heretic/on_gain()
 	if(isipc(owner.current))//Due to IPCs having a mechanical heart it messes with the living heart, so no IPC heretics for now
-		var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecaste
+		var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecast
 		C.set_species(/datum/species/human)
 		var/replacementName = random_unique_name(C.gender)
 		if(C.client.prefs.active_character.custom_names["human"])
