@@ -10,7 +10,6 @@
 	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,NOBLOOD)
 	hair_color = "mutcolor"
 	hair_alpha = 150
-	inherent_factions = list("slime")
 	var/datum/action/innate/split_body/slime_split
 	var/list/mob/living/carbon/bodies
 	var/datum/action/innate/swap_body/swap_body
@@ -309,7 +308,6 @@
 /datum/species/oozeling/luminescent
 	name = "Luminescent"
 	id = SPECIES_LUMINESCENT
-	inherent_factions = list("slime")
 	var/glow_intensity = LUMINESCENT_DEFAULT_GLOW
 	var/obj/effect/dummy/luminescent_glow/glow
 	var/obj/item/slime_extract/current_extract
@@ -486,7 +484,6 @@
 /datum/species/oozeling/stargazer
 	name = "Stargazer"
 	id = SPECIES_STARGAZER
-	inherent_factions = list("slime")
 	var/datum/action/innate/project_thought/project_thought
 	var/datum/action/innate/link_minds/link_minds
 	var/list/mob/living/linked_mobs = list()
