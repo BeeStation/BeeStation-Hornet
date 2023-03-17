@@ -996,7 +996,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	LAZYSET(human_mob.hallucination_screwydoll, specific_limb, severity)
 	human_mob.update_health_hud()
 
-	timer_id = addtimer(CALLBACK(src, .proc/cleanup), duration, TIMER_STOPPABLE)
+	timer_id = addtimer(CALLBACK(src, PROC_REF(cleanup)), duration, TIMER_STOPPABLE)
 
 ///Increments the severity of the damage seen on the doll
 /datum/hallucination/fake_health_doll/proc/increment_fake_damage()
