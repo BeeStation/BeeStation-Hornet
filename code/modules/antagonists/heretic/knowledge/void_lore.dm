@@ -136,7 +136,8 @@
 /datum/heretic_knowledge/void_mark/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
 
-	target.apply_status_effect(/datum/status_effect/heretic_mark/void)
+	if(istype(target, /mob/living))
+		target.apply_status_effect(/datum/status_effect/heretic_mark/void)
 
 /datum/heretic_knowledge/void_mark/proc/on_eldritch_blade(mob/living/user, mob/living/target)
 	SIGNAL_HANDLER
