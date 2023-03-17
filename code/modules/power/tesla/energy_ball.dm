@@ -23,7 +23,11 @@
 	appearance_flags = LONG_GLIDE
 	density = TRUE
 	plane = MASSIVE_OBJ_PLANE
-	light_range = 6
+	light_system = MOVABLE_LIGHT
+	light_range = 10
+	light_power = 10
+	light_color = "#5e5edd"
+	light_on = FALSE
 	move_resist = INFINITY
 	obj_flags = CAN_BE_HIT | DANGEROUS_POSSESSION
 	pixel_x = -32
@@ -48,7 +52,7 @@
 	START_PROCESSING(SSobj, src)
 
 	if (!is_miniball)
-		set_light(10, 10, "#5e5edd")
+		set_light_on(TRUE)
 
 		var/turf/spawned_turf = get_turf(src)
 		message_admins("A tesla has been created at [ADMIN_VERBOSEJMP(spawned_turf)].")
