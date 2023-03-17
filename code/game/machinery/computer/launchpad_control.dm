@@ -27,7 +27,7 @@
 		if(M.buffer && istype(M.buffer, /obj/machinery/launchpad))
 			if(LAZYLEN(launchpads) < maximum_pads)
 				launchpads |= M.buffer
-				RegisterSignal(M.buffer, COMSIG_PARENT_QDELETING, .proc/launchpad_deleted)
+				RegisterSignal(M.buffer, COMSIG_PARENT_QDELETING, PROC_REF(launchpad_deleted))
 				M.buffer = null
 				ui_update()
 				to_chat(user, "<span class='notice'>You upload the data from the [W.name]'s buffer.</span>")

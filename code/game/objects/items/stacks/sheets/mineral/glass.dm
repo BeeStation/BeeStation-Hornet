@@ -234,7 +234,7 @@
 	if (icon_prefix)
 		icon_state = "[icon_prefix][icon_state]"
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 

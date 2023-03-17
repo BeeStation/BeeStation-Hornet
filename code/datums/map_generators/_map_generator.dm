@@ -36,4 +36,4 @@
 	while (completion_callbacks.has_elements())
 		var/datum/callback/on_completion = completion_callbacks.dequeue()
 		on_completion.Invoke(arglist(arguments))
-	//to_chat(world, "<span class='announce'>[get_name()] completed and loaded succesfully.</span>")
+	//to_chat(world, "<span class='announce'>[get_name()] completed and loaded successfully.</span>")

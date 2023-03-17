@@ -54,7 +54,7 @@
 	X.max_range += 1
 	X.malfunction_mod = 0.5
 
-/datum/xenoartifact_trait/activator/clock/on_item(obj/item/xenoartifact/X, atom/user, atom/item) 
+/datum/xenoartifact_trait/activator/clock/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/clothing/neck/stethoscope))
 		to_chat(user, "<span class='info'>The [X.name] ticks deep from within.\n</span>")
 		return TRUE
@@ -71,7 +71,7 @@
 ///============
 /datum/xenoartifact_trait/activator/signal
 	label_name = "Signal"
-	label_desc = "Signal: The material recieves radio frequencies and reacts when a matching code is delivered."
+	label_desc = "Signal: The material receives radio frequencies and reacts when a matching code is delivered."
 	charge = 25
 	signals = list(XENOA_SIGNAL)
 	flags = BLUESPACE_TRAIT | URANIUM_TRAIT

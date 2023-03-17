@@ -1,5 +1,5 @@
 /**********************
-Cloth Sheets (a linen?)
+Various Cloths
 	Contains:
 		- Cloth
 		- Durathread cloth
