@@ -38,6 +38,7 @@
 	var/active = 0
 
 	var/memory
+	var/list/quirks = list()
 
 	var/assigned_role
 	var/special_role
@@ -128,9 +129,13 @@
 		current.transfer_observers_to(new_character)	//transfer anyone observing the old character to the new one
 	set_current(new_character)								//associate ourself with our new body
 	new_character.mind = src							//and associate our new body with ourself
+
+	for(var/datum/quirk/T as() in quirks) //Retarget all traits this mind has
+		T.transfer_mob(new_character)
 	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
 		var/datum/antagonist/A = a
 		A.on_body_transfer(old_current, current)
+
 	if(iscarbon(new_character))
 		var/mob/living/carbon/C = new_character
 		C.last_mind = src
@@ -808,3 +813,32 @@
 	..()
 	mind.assigned_role = ROLE_PAI
 	mind.special_role = ""
+
+// Quirk Procs //
+
+/datum/mind/proc/add_quirk(quirktype, spawn_effects) //separate proc due to the way these ones are handled
+	if(HAS_TRAIT(src, quirktype))
+		return
+	var/datum/quirk/T = quirktype
+	var/qname = initial(T.name)
+	if(!SSquirks || !SSquirks.quirks[qname])
+		return
+	new quirktype (src, current, spawn_effects)
+	return TRUE
+
+/datum/mind/proc/remove_quirk(quirktype)
+	for(var/datum/quirk/Q in quirks)
+		if(Q.type == quirktype)
+			qdel(Q)
+			return TRUE
+	return FALSE
+
+/datum/mind/proc/remove_all_quirks()
+	for(var/datum/quirk/Q in quirks)
+		qdel(Q)
+
+/datum/mind/proc/has_quirk(quirktype)
+	for(var/datum/quirk/Q in quirks)
+		if(Q.type == quirktype)
+			return TRUE
+	return FALSE
