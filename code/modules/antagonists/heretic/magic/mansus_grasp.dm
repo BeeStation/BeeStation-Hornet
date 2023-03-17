@@ -79,6 +79,8 @@
 		var/mob/living/carbon/carbon_hit = hit
 		carbon_hit.AdjustKnockdown(5 SECONDS)
 		carbon_hit.adjustStaminaLoss(80)
+		carbon_hit.adjustBruteLoss(10)
+		carbon_hit.silent = 3 SECONDS
 
 	use_charge(heretic)
 
