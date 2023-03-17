@@ -286,7 +286,9 @@ Behavior that's still missing from this component that original food items had t
 	var/obj/item/organ/tongue/tongue = human_eater.getorganslot(ORGAN_SLOT_TONGUE)
 	if((foodtypes & BREAKFAST) && world.time - SSticker.round_start_time < STOP_SERVING_BREAKFAST)
 		SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "breakfast", /datum/mood_event/breakfast)
-	if(foodtypes & tongue.disliked_food)
+	if(HAS_TRAIT(human_eater, TRAIT_AGEUSIA))
+		return
+	else if(foodtypes & tongue.disliked_food)
 		to_chat(human_eater,"<span class='notice'>That didn't taste very good...</span>")
 		human_eater.adjust_disgust(11 + 15 * fraction)
 		SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "gross_food", /datum/mood_event/gross_food)
