@@ -26,4 +26,4 @@
 	name = "Contained Tesla Ball"
 	description = "Station 24 is being overrun by hordes of angry Mothpeople. They are requesting the ultimate bug zapper."
 	reward = 75000 //requires 14k credits of purchases, not to mention cooperation with engineering/heads of staff to set up inside the cramped shuttle
-	wanted_types = list(/obj/anomaly/energy_ball)
+	wanted_types = list(/obj/energy_ball)

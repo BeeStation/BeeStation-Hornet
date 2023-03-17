@@ -76,7 +76,7 @@
 	message_admins("The Supermatter Crystal has created a singularity [ADMIN_JMP(created_singularity)].")
 
 /datum/supermatter_delamination/proc/call_tesla()
-	var/obj/anomaly/energy_ball/created_energy_ball = new(supermatter_turf, 200) //Gets us about 9 balls
+	var/obj/energy_ball/created_energy_ball = new(supermatter_turf, 200) //Gets us about 9 balls
 	call_explosion()
 	should_spawn_anomalies = FALSE
 	message_admins("The Supermatter Crystal has created an energy ball [ADMIN_JMP(created_energy_ball)].")

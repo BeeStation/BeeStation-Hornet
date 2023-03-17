@@ -128,7 +128,7 @@
 
 /datum/export/singulo/tesla //see above
 	unit_name = "energy ball"
-	export_types = list(/obj/anomaly/energy_ball)
+	export_types = list(/obj/energy_ball)
 
 /datum/export/singulo/tesla/total_printout(datum/export_report/ex, notes = TRUE)
 	. = ..()
