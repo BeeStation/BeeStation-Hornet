@@ -22,6 +22,7 @@
 	mutanteyes = /obj/item/organ/eyes/moth
 	mutantwings = /obj/item/organ/wings/moth
 	mutanttongue = /obj/item/organ/tongue/moth
+	mutantstomach = /obj/item/organ/stomach/moth
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/moth
 	inert_mutation = STRONGWINGS

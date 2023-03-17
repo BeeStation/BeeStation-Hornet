@@ -11,8 +11,7 @@
 	var/yell_mod = "yells"
 	var/exclaim_mod = "exclaims"
 	var/liked_food = JUNKFOOD | FRIED
-	var/disliked_food = GROSS | RAW
-	var/toxic_food = TOXIC
+	var/disliked_food = GROSS | RAW | TOXIC
 	var/taste_sensitivity = 15 // lower is more sensitive.
 	var/modifies_speech = FALSE
 	var/static/list/languages_possible_base = typecacheof(list(
@@ -207,8 +206,7 @@
 	say_mod = "buzzes"
 	taste_sensitivity = 5
 	liked_food = VEGETABLES | FRUIT
-	disliked_food = GROSS | DAIRY
-	toxic_food = MEAT | RAW
+	disliked_food = GROSS | DAIRY | MEAT | RAW
 
 /obj/item/organ/tongue/bone
 	name = "bone \"tongue\""
@@ -219,7 +217,6 @@
 	taste_sensitivity = 101 // skeletons cannot taste anything
 	modifies_speech = TRUE
 	liked_food = GROSS | MEAT | RAW
-	toxic_food = NONE
 	var/chattering = FALSE
 	var/phomeme_type = "sans"
 	var/list/phomeme_types = list("sans", "papyrus")
@@ -290,7 +287,6 @@
 	say_mod = "crackles"
 	attack_verb = list("shocked", "jolted", "zapped")
 	taste_sensitivity = 101 // Not a tongue, they can't taste shit
-	toxic_food = NONE
 
 /obj/item/organ/tongue/ethereal/Initialize(mapload)
 	. = ..()
@@ -331,7 +327,6 @@
 	ask_mod = "inquisitively blorbles"
 	yell_mod = "shrilly blorbles"
 	exclaim_mod = "loudly blorbles"
-	toxic_food = NONE
 	disliked_food = NONE
 
 /obj/item/organ/tongue/slime/Initialize(mapload)
@@ -344,8 +339,7 @@
 	say_mod = "flutters"
 	icon_state = "tonguemoth"
 	liked_food = VEGETABLES | DAIRY | CLOTH
-	disliked_food = FRUIT | GROSS
-	toxic_food = MEAT | RAW
+	disliked_food = FRUIT | GROSS | MEAT | RAW
 
 /obj/item/organ/tongue/teratoma
 	name = "malformed tongue"

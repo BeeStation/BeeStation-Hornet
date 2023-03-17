@@ -7,6 +7,8 @@
 	attack_verb = list("gored", "squished", "slapped", "digested")
 	desc = "Onaka ga suite imasu."
 
+	var/toxic_food = TOXIC
+
 	healing_factor = STANDARD_ORGAN_HEALING
 	decay_factor = STANDARD_ORGAN_DECAY
 
@@ -89,15 +91,33 @@
 	icon_state = "stomach-x" //xenomorph liver? It's just a black liver so it fits.
 	desc = "A mutant stomach designed to handle the unique diet of a flyperson."
 
+/obj/item/organ/stomach/moth
+	name = "mothic stomach"
+	desc = "A fairly standard herbivorous stomach, unable to digest meat."
+	toxic_food = TOXIC | MEAT
+
+/obj/item/organ/stomach/bee
+	name = "apid stomach"
+	desc = "An apid stomach, unable to process meat or raw foods."
+	toxic_food = MEAT | RAW
+
+/obj/item/organ/stomach/skeleton
+	name = "bone \"stomach\""
+	icon_state = "stomach-b"
+	desc = "A hollow piece of bone that skeletons use to store milk."
+	toxic_food = NONE
+
 /obj/item/organ/stomach/plasmaman
 	name = "digestive crystal"
 	icon_state = "stomach-p"
 	desc = "A strange crystal that is responsible for metabolizing the unseen energy force that feeds plasmamen."
+	toxic_food = NONE
 
 /obj/item/organ/stomach/battery
 	name = "implantable battery"
 	icon_state = "implant-power"
 	desc = "A battery that stores charge for species that run on electricity."
+	toxic_food = NONE
 	var/max_charge = 5000 //same as upgraded+ cell
 	var/charge = 5000
 
@@ -155,6 +175,7 @@
 	desc = "A micro-cell, for IPC use. Do not swallow."
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
+	toxic_food = NONE
 	max_charge = 2750 //50 nutrition from 250 charge
 	charge = 2750
 
@@ -172,6 +193,7 @@
 	desc = "A crystal-like organ that stores the electric charge of ethereals."
 	max_charge = 2500 //same as upgraded cell
 	charge = 2500
+	toxic_food = NONE
 
 /obj/item/organ/stomach/battery/ethereal/Insert(mob/living/carbon/M, special = 0)
 	RegisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_electrocute))
