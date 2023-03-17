@@ -185,8 +185,8 @@
 /datum/orbital_object/shuttle/proc/begin_dethrottle(target_z)
 	is_docking = TRUE
 	var/datum/space_level/space_level = SSmapping.get_level(target_z)
-	timer_id = addtimer(CALLBACK(src, .proc/unfreeze_shuttle), 3 MINUTES, TIMER_STOPPABLE)
-	RegisterSignal(space_level, COMSIG_SPACE_LEVEL_GENERATED, .proc/unfreeze_shuttle)
+	timer_id = addtimer(CALLBACK(src, PROC_REF(unfreeze_shuttle)), 3 MINUTES, TIMER_STOPPABLE)
+	RegisterSignal(space_level, COMSIG_SPACE_LEVEL_GENERATED, PROC_REF(unfreeze_shuttle))
 	//Check if its already generated afterwards due to asynchronous behaviours
 	if(!space_level.generating)
 		unfreeze_shuttle(space_level)

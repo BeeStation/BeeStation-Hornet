@@ -27,7 +27,7 @@
 
 /datum/shuttle_ai_pilot/proc/attach_to_shuttle(datum/shuttle_data/shuttle_data)
 	src.shuttle_data = shuttle_data
-	RegisterSignal(shuttle_data, COMSIG_PARENT_QDELETING, .proc/on_shuttle_data_deleted)
+	RegisterSignal(shuttle_data, COMSIG_PARENT_QDELETING, PROC_REF(on_shuttle_data_deleted))
 
 /datum/shuttle_ai_pilot/proc/on_shuttle_data_deleted(datum/source, force)
 	UnregisterSignal(shuttle_data, COMSIG_PARENT_QDELETING)

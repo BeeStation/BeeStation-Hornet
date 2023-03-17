@@ -136,8 +136,8 @@
 			continue
 		if(!isspaceturf(T))
 			mass ++
-		RegisterSignal(T, COMSIG_TURF_CHANGE, .proc/shuttle_turf_changed)
-		RegisterSignal(T, COMSIG_TURF_AFTER_SHUTTLE_MOVE, .proc/shuttle_turf_moved)
+		RegisterSignal(T, COMSIG_TURF_CHANGE, PROC_REF(shuttle_turf_changed))
+		RegisterSignal(T, COMSIG_TURF_AFTER_SHUTTLE_MOVE, PROC_REF(shuttle_turf_moved))
 		registered_turfs += T
 		//Register these turfs too!
 		if(!iswallturf(T) && !isfloorturf(T))
@@ -203,7 +203,7 @@
 				SEND_SOUND(C, 'sound/machines/alarm.ogg')
 				to_chat(C, "<span class='danger'>You hear a rumbling from the ship's reactor, it sounds like it's about to implode...</span>")
 		//Cause the big boom
-		addtimer(CALLBACK(src, .proc/destroy_ship, M), 140)
+		addtimer(CALLBACK(src, PROC_REF(destroy_ship), M), 140)
 
 /datum/shuttle_data/proc/destroy_ship(obj/docking_port/mobile/M)
 	set waitfor = FALSE
@@ -269,12 +269,12 @@
 ///Called when a shuttle turf is changed, for better or for worse
 /datum/shuttle_data/proc/shuttle_turf_moved(datum/source, turf/newturf)
 	///We are no longer caring about this turf, find out where we went to
-	UnregisterSignal(source, COMSIG_TURF_CHANGE, .proc/shuttle_turf_changed)
-	UnregisterSignal(source, COMSIG_TURF_AFTER_SHUTTLE_MOVE, .proc/shuttle_turf_moved)
+	UnregisterSignal(source, COMSIG_TURF_CHANGE, PROC_REF(shuttle_turf_changed))
+	UnregisterSignal(source, COMSIG_TURF_AFTER_SHUTTLE_MOVE, PROC_REF(shuttle_turf_moved))
 	registered_turfs -= source
 	///Relocate
-	RegisterSignal(newturf, COMSIG_TURF_CHANGE, .proc/shuttle_turf_changed)
-	RegisterSignal(newturf, COMSIG_TURF_AFTER_SHUTTLE_MOVE, .proc/shuttle_turf_moved)
+	RegisterSignal(newturf, COMSIG_TURF_CHANGE, PROC_REF(shuttle_turf_changed))
+	RegisterSignal(newturf, COMSIG_TURF_AFTER_SHUTTLE_MOVE, PROC_REF(shuttle_turf_moved))
 	registered_turfs += newturf
 
 //====================
@@ -286,7 +286,7 @@
 	if(weapon in shuttle_weapons)
 		return
 	shuttle_weapons += weapon
-	RegisterSignal(weapon, COMSIG_PARENT_QDELETING, .proc/on_weapon_qdel)
+	RegisterSignal(weapon, COMSIG_PARENT_QDELETING, PROC_REF(on_weapon_qdel))
 
 /// Called when a weapon is deleted
 /datum/shuttle_data/proc/on_weapon_qdel(obj/machinery/shuttle_weapon/weapon, force)
@@ -336,8 +336,8 @@
 		thrust += source.thrust
 		fuel_consumption += source.fuel_use
 	registered_engines += source
-	RegisterSignal(source, COMSIG_PARENT_QDELETING, .proc/on_thruster_qdel)
-	RegisterSignal(source, COMSIG_SHUTTLE_ENGINE_STATUS_CHANGE, .proc/on_thruster_state_change)
+	RegisterSignal(source, COMSIG_PARENT_QDELETING, PROC_REF(on_thruster_qdel))
+	RegisterSignal(source, COMSIG_SHUTTLE_ENGINE_STATUS_CHANGE, PROC_REF(on_thruster_state_change))
 
 /// Called when a thruster is deleted
 /datum/shuttle_data/proc/on_thruster_qdel(obj/machinery/shuttle/engine/source, force)
@@ -376,7 +376,7 @@
 	ai_pilot = pilot
 	ai_pilot.attach_to_shuttle(src)
 	if(ai_pilot)
-		RegisterSignal(ai_pilot, COMSIG_PARENT_QDELETING, .proc/on_pilot_deleted)
+		RegisterSignal(ai_pilot, COMSIG_PARENT_QDELETING, PROC_REF(on_pilot_deleted))
 
 ///private
 ///Signal handler that handles dereferencing the ai_pilot when it is deleted

@@ -43,7 +43,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	else
 		var/static/i = 0
 		shuttlePortId = "unlinked_shuttle_console_[i++]"
-	RegisterSignal(SSorbits, COMSIG_ORBITAL_BODY_CREATED, .proc/register_shuttle_object)
+	RegisterSignal(SSorbits, COMSIG_ORBITAL_BODY_CREATED, PROC_REF(register_shuttle_object))
 
 /obj/machinery/computer/shuttle_flight/proc/set_shuttle_id(new_id, stack_depth = 0)
 	if (stack_depth > 5)
@@ -64,7 +64,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		register_shuttle_object(null, SSorbits.assoc_shuttles[shuttleId])
 		registered = TRUE
 	else
-		addtimer(CALLBACK(src, .proc/set_shuttle_id, new_id, stack_depth + 1), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(set_shuttle_id), new_id, stack_depth + 1), 5 SECONDS)
 
 /obj/machinery/computer/shuttle_flight/Destroy()
 	. = ..()
@@ -96,7 +96,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	if(shuttleObject)
 		return
 	shuttleObject = body
-	RegisterSignal(shuttleObject, COMSIG_PARENT_QDELETING, .proc/unregister_shuttle_object)
+	RegisterSignal(shuttleObject, COMSIG_PARENT_QDELETING, PROC_REF(unregister_shuttle_object))
 
 /obj/machinery/computer/shuttle_flight/proc/unregister_shuttle_object(datum/source, force)
 	UnregisterSignal(shuttleObject, COMSIG_PARENT_QDELETING)

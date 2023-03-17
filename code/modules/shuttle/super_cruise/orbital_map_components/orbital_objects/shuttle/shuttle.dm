@@ -253,7 +253,7 @@
 	shuttle_data = SSorbits.get_shuttle_data(dock.id)
 	if (dock.hidden)
 		shuttle_data.stealth = TRUE
-	RegisterSignal(shuttle_data, COMSIG_PARENT_QDELETING, .proc/handle_shuttle_data_deletion)
+	RegisterSignal(shuttle_data, COMSIG_PARENT_QDELETING, PROC_REF(handle_shuttle_data_deletion))
 	//Stop processin the AI pilot (Flight mode)
 	if(shuttle_data.ai_pilot)
 		STOP_PROCESSING(SSorbits, shuttle_data.ai_pilot)

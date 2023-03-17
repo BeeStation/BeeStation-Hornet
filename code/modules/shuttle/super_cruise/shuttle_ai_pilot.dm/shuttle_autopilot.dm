@@ -53,7 +53,7 @@
 		UnregisterSignal(shuttleTarget, COMSIG_PARENT_QDELETING)
 	shuttleTarget = new_target
 	if(shuttleTarget)
-		RegisterSignal(shuttleTarget, COMSIG_PARENT_QDELETING, .proc/target_deleted)
+		RegisterSignal(shuttleTarget, COMSIG_PARENT_QDELETING, PROC_REF(target_deleted))
 
 /datum/shuttle_ai_pilot/autopilot/proc/target_deleted(datum/source, force)
 	shuttleTarget = null

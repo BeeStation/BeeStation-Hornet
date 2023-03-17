@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	//Add a cooldown to prevent spamming radio messages
 	if (world.time < distress_activated_at + 30 SECONDS)
 		//Trigger a radio message on the station
-		addtimer(src, CALLBACK(src, .proc/detect_signal), 20 SECONDS)
+		addtimer(src, CALLBACK(src, PROC_REF(detect_signal)), 20 SECONDS)
 		distress_activated_at = world.time
 	//Start Processing
 	START_PROCESSING(SSprocessing, src)

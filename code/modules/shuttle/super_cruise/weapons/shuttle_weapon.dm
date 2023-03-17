@@ -127,10 +127,10 @@
 		//Outgoing shots shouldn't hit our own ship because its easier
 		P.force_miss = TRUE
 		P.fire((dir2angle(dir) + angle_offset) % 360)
-		addtimer(CALLBACK(src, .proc/spawn_incoming_fire, P, current_target_turf, missed), flight_time)
+		addtimer(CALLBACK(src, PROC_REF(spawn_incoming_fire), P, current_target_turf, missed), flight_time)
 	//Multishot cannons
 	if(shots_left > 1)
-		addtimer(CALLBACK(src, .proc/fire, target, shots_left - 1, TRUE), shot_time)
+		addtimer(CALLBACK(src, PROC_REF(fire), target, shots_left - 1, TRUE), shot_time)
 
 /obj/machinery/shuttle_weapon/proc/spawn_incoming_fire(obj/item/projectile/P, atom/target, missed = FALSE)
 	if(QDELETED(P))
