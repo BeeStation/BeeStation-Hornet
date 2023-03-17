@@ -85,12 +85,12 @@
 
 /datum/map_generator/map_place/generate(...)
 	. = ..()
-	var/datum/space_level/space_level = SSmapping.get_level(center_z)
+	var/datum/space_level/space_level = SSmapping.get_level(z_offset)
 	space_level.start_generating()
 
 /datum/map_generator/map_place/complete()
 	. = ..()
-	var/datum/space_level/space_level = SSmapping.get_level(center_z)
+	var/datum/space_level/space_level = SSmapping.get_level(z_offset)
 	space_level.stop_generating()
 
 /datum/map_generator/map_place/execute_run()
