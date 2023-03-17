@@ -147,6 +147,13 @@ const GuideSection = () => {
           <span style={hereticRed}>Living Heart</span>.
         </Stack.Item>
         <Stack.Item>
+          - Create an item to use as a&nbsp;<span style={hereticYellow}>focus</span> for
+          your&nbsp;<span style={hereticGreen}>spells</span>. You start with the&nbsp;
+          <span style={hereticYellow}>Amber Focus</span> already researched,
+          but other&nbsp;<span style={hereticBlue}>knowledge</span> may also allow you to&nbsp;
+          <span style={hereticGreen}>transmutate</span> a new&nbsp;<span style={hereticYellow}>focus</span> item.
+        </Stack.Item>
+        <Stack.Item>
           - Accomplish all of your objectives to be able to learn
           the <span style={hereticYellow}>final ritual</span>. Complete
           the ritual to become all powerful!
@@ -325,7 +332,7 @@ export const AntagInfoHeretic = (props, context) => {
   return (
     <Window
       width={675}
-      height={575}>
+      height={600}>
       <Window.Content
         style={{
         // 'font-family': 'Times New Roman',
