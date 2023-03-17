@@ -42,7 +42,6 @@ SUBSYSTEM_DEF(mapping)
 	var/clearing_reserved_turfs = FALSE
 
 	// Z-manager stuff
-	var/station_start  // should only be used for maploading-related tasks
 	var/space_levels_so_far = 0
 	var/list/z_list
 	var/datum/space_level/transit
@@ -274,14 +273,6 @@ SUBSYSTEM_DEF(mapping)
 
 	// ensure we have space_level datums for compiled-in maps
 	InitializeDefaultZLevels()
-
-	// load the station
-	station_start = world.maxz + 1
-	INIT_ANNOUNCE("Loading [config.map_name]...")
-	LoadGroup(FailedZs, "Station", config.map_path, config.map_file, config.traits, ZTRAITS_STATION, orbital_body_type = /datum/orbital_object/z_linked/station)
-
-	LoadStationRoomTemplates()
-	LoadStationRooms()
 
 	if(SSdbcore.Connect())
 		var/datum/DBQuery/query_round_map_name = SSdbcore.NewQuery({"

@@ -78,7 +78,6 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/fix_say,
 	/client/proc/stabilize_atmos,
 	/client/proc/openTicketManager,
-	/client/proc/battle_royale,
 	/client/proc/delete_book,
 	/client/proc/cmd_admin_send_pda_msg,
 	)
