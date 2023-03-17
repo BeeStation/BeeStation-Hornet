@@ -92,9 +92,9 @@
 			visible_message("<span class='warning'>[src] [pick("ran", "slammed")] into \the [A]!</span>")
 			apply_damage(5, BRUTE)
 			Paralyze(40)
-			addtimer(CALLBACK(src, .proc/can_bumpslam), 200)
+			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 200)
 		else
-			addtimer(CALLBACK(src, .proc/can_bumpslam), 50)
+			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 50)
 
 
 	if(ismob(A))
@@ -222,7 +222,7 @@
 	if(len)
 		for(var/obj/item/I in held_items)
 			if(!length(holding))
-				holding += "They are holding \a [I]"
+				holding += "[p_they(TRUE)] [p_are()] holding \a [I]"
 			else if(held_items.Find(I) == len)
 				holding += ", and \a [I]."
 			else
@@ -1392,6 +1392,12 @@
 	if(is_servant_of_ratvar(src) && !iseminence(src))
 		eminence.selected_mob = src
 		to_chat(eminence, "<span class='brass'>You select [src].</span>")
+
+/mob/living/proc/set_gender(ngender = NEUTER, silent = FALSE, update_icon = TRUE, forced = FALSE)
+	if(forced)
+		gender = ngender
+		return TRUE
+	return FALSE
 
 #define LOOKING_DIRECTION_UP 1
 #define LOOKING_DIRECTION_NONE 0

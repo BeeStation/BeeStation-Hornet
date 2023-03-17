@@ -23,7 +23,7 @@
 	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE
 
-	RegisterSignal(target, COMSIG_MOUSEDROP_ONTO, .proc/mouse_drop_onto)
+	RegisterSignal(target, COMSIG_MOUSEDROP_ONTO, PROC_REF(mouse_drop_onto))
 
 	src.items = items
 	src.should_strip_proc_path = should_strip_proc_path
@@ -62,7 +62,7 @@
 		strip_menu = new(source, src)
 		LAZYSET(strip_menus, source, strip_menu)
 
-	INVOKE_ASYNC(strip_menu, /datum/.proc/ui_interact, user)
+	INVOKE_ASYNC(strip_menu, TYPE_PROC_REF(/datum, ui_interact), user)
 
 /datum/strippable_item_layout
 	/// The STRIPPABLE_ITEM_* key

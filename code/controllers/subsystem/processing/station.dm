@@ -99,7 +99,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 			continue
 		report += "[trait.get_report()]<BR><hr>"
 
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/print_command_report, report, "Central Command Divergency Report", FALSE), rand(REPORT_WAIT_TIME_MINIMUM, REPORT_WAIT_TIME_MAXIMUM))
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(print_command_report), report, "Central Command Divergency Report", FALSE), rand(REPORT_WAIT_TIME_MINIMUM, REPORT_WAIT_TIME_MAXIMUM))
 
 #undef REPORT_WAIT_TIME_MINIMUM
 #undef REPORT_WAIT_TIME_MAXIMUM

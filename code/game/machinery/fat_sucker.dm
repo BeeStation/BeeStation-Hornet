@@ -64,11 +64,11 @@
 		var/mob/living/L = occupant
 		if(!iscarbon(L) || HAS_TRAIT(L, TRAIT_POWERHUNGRY) || !(MOB_ORGANIC in L?.mob_biotypes))
 			occupant.forceMove(drop_location())
-			occupant = null
+			set_occupant(null)
 			return
 
 		to_chat(occupant, "<span class='notice'>You enter [src]</span>")
-		addtimer(CALLBACK(src, .proc/start_extracting), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(start_extracting)), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
 		update_icon()
 
 /obj/machinery/fat_sucker/open_machine(mob/user)
@@ -187,7 +187,7 @@
 			// Someone changed component rating high enough so it requires negative amount of nutrients to create a meat slab
 			if(nutrient_to_meat <= 0) // Megaddd, please don't crash the server again
 				occupant.forceMove(drop_location())
-				occupant = null
+				set_occupant(null)
 				explosion(loc, 0, 1, 2, 3, TRUE)
 				qdel(src)
 				return

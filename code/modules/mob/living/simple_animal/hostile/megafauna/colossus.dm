@@ -188,7 +188,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/double_spiral()
 	SLEEP_CHECK_DEATH(10)
-	INVOKE_ASYNC(src, .proc/spiral_shoot, FALSE, 16)
+	INVOKE_ASYNC(src, PROC_REF(spiral_shoot), FALSE, 16)
 	spiral_shoot(FALSE, 8)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/final_attack() //not actually necessarily the final attack, but has a very long cooldown.
@@ -759,7 +759,15 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	activation_method = ACTIVATE_TOUCH
 	cooldown_add = 50
 	activation_sound = 'sound/magic/timeparadox2.ogg'
-	var/static/list/banned_items_typecache = typecacheof(list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear, /obj/item/projectile, /obj/item/spellbook))
+	var/static/list/banned_items_typecache = typecacheof(list(
+		/obj/item/storage,
+		/obj/item/implant,
+		/obj/item/implanter,
+		/obj/item/disk/nuclear,
+		/obj/item/projectile,
+		/obj/item/spellbook,
+		/obj/item/dice/d20/fate
+	))
 
 /obj/machinery/anomalous_crystal/refresher/ActivationReaction(mob/user, method)
 	if(..())

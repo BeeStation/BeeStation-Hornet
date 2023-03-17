@@ -23,8 +23,8 @@
 /obj/structure/destructible/clockwork/sigil/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
-		COMSIG_ATOM_EXITED = .proc/on_exited,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+		COMSIG_ATOM_EXITED = PROC_REF(on_exited),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -47,7 +47,7 @@
 		return
 	do_sparks(5, TRUE, src)
 	animate(src, color=invokation_color, alpha=SIGIL_INVOKATION_ALPHA, effect_stand_time)
-	active_timer = addtimer(CALLBACK(src, .proc/apply_effects, AM), effect_stand_time, TIMER_UNIQUE | TIMER_STOPPABLE)
+	active_timer = addtimer(CALLBACK(src, PROC_REF(apply_effects), AM), effect_stand_time, TIMER_UNIQUE | TIMER_STOPPABLE)
 
 /obj/structure/destructible/clockwork/sigil/proc/on_exited(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
@@ -87,7 +87,7 @@
 	alpha = SIGIL_INVOKED_ALPHA
 	if(looping)
 		animate(src, transform=matrix(), color=invokation_color, alpha=SIGIL_INVOKATION_ALPHA, effect_stand_time)
-		active_timer = addtimer(CALLBACK(src, .proc/apply_effects, AM), effect_stand_time, TIMER_UNIQUE | TIMER_STOPPABLE)
+		active_timer = addtimer(CALLBACK(src, PROC_REF(apply_effects), AM), effect_stand_time, TIMER_UNIQUE | TIMER_STOPPABLE)
 	else
 		active_timer = null
 		currently_affecting = null
