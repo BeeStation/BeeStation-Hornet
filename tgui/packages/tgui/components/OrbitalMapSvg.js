@@ -66,9 +66,9 @@ export class OrbitalMapSvg extends Component {
         mapObject.velocity_x,
         mapObject.velocity_y,
         mapObject.radius,
-        mapObject.vel_mult,
         mapObject.created_at,
         mapObject.distress,
+        mapObject.vel_mult,
       );
     });
 
@@ -319,11 +319,11 @@ export class OrbitalMapSvg extends Component {
           <circle
             cx={(ourRenderableObject.position_x
               + xOffset
-              + ourRenderableObject.velocity_x * elapsed)
+              + ourRenderableObject.velocity_x * elapsed * ourRenderableObject.vel_mult)
               * zoomScale * mapDistanceScale}
             cy={(ourRenderableObject.position_y
               + yOffset
-              + ourRenderableObject.velocity_y * elapsed)
+              + ourRenderableObject.velocity_y * elapsed * ourRenderableObject.vel_mult)
               * zoomScale * mapDistanceScale}
             r={Math.max(5 * zoomScale, detection_range
               * zoomScale)}
@@ -586,7 +586,7 @@ class Shuttle extends RenderableObjectType {
     // wtf is this
     RenderableObjectType.prototype.onTick.call(
       this, name, position_x, position_y, velocity_x, velocity_y, radius,
-      vel_mult, created_at);
+      created_at, distress, vel_mult);
     // Set the position
     this.recordedTrack[this.recordedTrackLastIndex] = {
       x: this.position_x,
