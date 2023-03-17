@@ -87,7 +87,16 @@
 			pixel_y = 0
 			shocked_things.Cut(1, shocked_things.len / 1.3)
 			var/list/shocking_info = list()
-			tesla_zap(src, 3, TESLA_DEFAULT_POWER, shocked_targets = shocking_info)
+
+			//Main one can zap
+			//Tesla only zaps if the tick usage isn't over the limit.
+			if(!TICK_CHECK)
+				tesla_zap(src, 3, TESLA_DEFAULT_POWER, shocked_targets = shocking_info)
+			else
+				tesla_zap(src, 3, TESLA_DEFAULT_POWER, ZAP_DEFAULT_FLAGS)
+				pixel_x = -32
+				pixel_y = -32
+				return
 
 			pixel_x = -32
 			pixel_y = -32
