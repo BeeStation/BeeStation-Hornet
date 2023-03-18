@@ -23,7 +23,7 @@
 		else
 			. += "<span class='notice'>It seems [round(reagents.total_volume/volume*100)]% filled.</span>"
 
-/obj/item/reagent_containers/chem_bag/epinephrine
-	name = "epinephrine chemical bag"
-	label_name = "bag of epinephrine"
-	list_reagents = list(/datum/reagent/medicine/epinephrine = 200)
+/obj/item/reagent_containers/chem_bag/morphine
+	name = "morphine chemical bag"
+	label_name = "morphine"
+	list_reagents = list(/datum/reagent/medicine/morphine = 120)

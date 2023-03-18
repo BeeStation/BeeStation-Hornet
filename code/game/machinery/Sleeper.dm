@@ -21,11 +21,10 @@
 	var/max_vials = 6
 	var/list/inserted_vials = list()
 	var/list/roundstart_vials = list(
-		// example: /obj/item/reagent_containers/chem_bag/epinephrine
+		/obj/item/reagent_containers/chem_bag/morphine
 	)
 	var/list/roundstart_chems = list(
 		/datum/reagent/medicine/epinephrine,
-		/datum/reagent/medicine/morphine,
 		/datum/reagent/medicine/perfluorodecalin,
 		/datum/reagent/medicine/bicaridine,
 		/datum/reagent/medicine/kelotane,
@@ -43,6 +42,8 @@
 	. = ..()
 	occupant_typecache = GLOB.typecache_living
 	update_icon()
+	RefreshParts()
+
 	//Create roundstart chems
 	var/created_vials = 0
 	if (mapload)
@@ -340,7 +341,12 @@
 	controls_inside = TRUE
 	roundstart_vials = list()
 	roundstart_chems = list(
-		/datum/reagent/medicine/syndicate_nanites, /datum/reagent/medicine/oculine, /datum/reagent/medicine/inacusiate, /datum/reagent/medicine/mutadone, /datum/reagent/medicine/mannitol, /datum/reagent/medicine/omnizine
+		/datum/reagent/medicine/syndicate_nanites,
+		/datum/reagent/medicine/oculine,
+		/datum/reagent/medicine/inacusiate,
+		/datum/reagent/medicine/mutadone,
+		/datum/reagent/medicine/mannitol,
+		/datum/reagent/medicine/omnizine
 	)
 	roundstart_chem_default_size = 100 // syndi nanites are strong chem, so should be limited.
 	efficiency = 2.5
@@ -354,7 +360,14 @@
 	icon_state = "sleeper_clockwork"
 	enter_message = "<span class='bold inathneq_small'>You hear the gentle hum and click of machinery, and are lulled into a sense of peace.</span>"
 	roundstart_vials = list()
-	roundstart_chems = list(/datum/reagent/medicine/epinephrine, /datum/reagent/medicine/salbutamol, /datum/reagent/medicine/bicaridine, /datum/reagent/medicine/kelotane, /datum/reagent/medicine/oculine, /datum/reagent/medicine/inacusiate, /datum/reagent/medicine/mannitol)
+	roundstart_chems = list(
+		/datum/reagent/medicine/epinephrine,
+		/datum/reagent/medicine/salbutamol,
+		/datum/reagent/medicine/bicaridine,
+		/datum/reagent/medicine/kelotane,
+		/datum/reagent/medicine/oculine,
+		/datum/reagent/medicine/inacusiate,
+		/datum/reagent/medicine/mannitol)
 	roundstart_chem_default_size = 200
 	synthesizing = TRUE
 
