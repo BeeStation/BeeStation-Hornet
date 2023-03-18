@@ -248,7 +248,7 @@
 	exclusive_roles = list(JOB_NAME_AI)
 	required_enemies = list(3,3,2,2,2,1,1,1,1,0)
 	required_candidates = 1
-	minimum_players = 25
+	minimum_players = 30
 	weight = 2
 	cost = 13
 	required_type = /mob/living/silicon/ai
