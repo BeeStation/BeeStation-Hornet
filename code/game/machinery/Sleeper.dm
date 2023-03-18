@@ -62,6 +62,7 @@
 			beaker.reagents.add_reagent(default_chem, roundstart_chem_default_size) // 80u for default chems
 			beaker.reagents.add_reagent(/datum/reagent/medicine/salglu_solution, beaker.volume - beaker.reagents.total_volume) // the rest will be saline glucose
 			var/datum/reagent/main_reagent = beaker.reagents.reagent_list[1]
+			beaker.name = "[main_reagent.name] [beaker.name]"
 			beaker.label_name = main_reagent.name
 			inserted_vials += beaker
 			created_vials++
