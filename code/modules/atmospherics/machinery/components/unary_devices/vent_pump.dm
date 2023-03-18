@@ -166,10 +166,11 @@
 
 	var/area/vent_area = get_area(src)
 	if(!GLOB.air_vent_names[id_tag])
+		// If we do not have a name, assign one
 		name = "[assign_random_name()] [vent_area.name] Vent Pump" // matching case
 		GLOB.air_vent_names[id_tag] = name
 
-	A.air_vent_info[id_tag] = signal.data
+	vent_area.air_vent_info[id_tag] = signal.data
 
 	radio_connection.post_signal(src, signal, radio_filter_out)
 

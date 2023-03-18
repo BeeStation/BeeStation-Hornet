@@ -519,7 +519,7 @@
 					"set_external_pressure" = ONE_ATMOSPHERE
 				), signal_source)
 		if(AALARM_MODE_CONTAMINATED)
-			for(var/device_id in A.air_scrub_names)
+			for(var/device_id in A.air_scrub_info)
 				send_signal(device_id, list(
 					"power" = 1,
 					"set_filters" = list(
@@ -544,7 +544,7 @@
 					"set_external_pressure" = ONE_ATMOSPHERE
 				), signal_source)
 		if(AALARM_MODE_VENTING)
-			for(var/device_id in A.air_scrub_names)
+			for(var/device_id in A.air_scrub_info)
 				send_signal(device_id, list(
 					"power" = 1,
 					"widenet" = 0,
@@ -557,7 +557,7 @@
 					"set_external_pressure" = ONE_ATMOSPHERE*2
 				), signal_source)
 		if(AALARM_MODE_REFILL)
-			for(var/device_id in A.air_scrub_names)
+			for(var/device_id in A.air_scrub_info)
 				send_signal(device_id, list(
 					"power" = 1,
 					"set_filters" = list(GAS_CO2, GAS_BZ),
@@ -572,7 +572,7 @@
 				), signal_source)
 		if(AALARM_MODE_PANIC,
 			AALARM_MODE_REPLACEMENT)
-			for(var/device_id in A.air_scrub_names)
+			for(var/device_id in A.air_scrub_info)
 				send_signal(device_id, list(
 					"power" = 1,
 					"widenet" = 1,
@@ -583,7 +583,7 @@
 					"power" = 0
 				), signal_source)
 		if(AALARM_MODE_SIPHON)
-			for(var/device_id in A.air_scrub_names)
+			for(var/device_id in A.air_scrub_info)
 				send_signal(device_id, list(
 					"power" = 1,
 					"widenet" = 0,
@@ -595,7 +595,7 @@
 				), signal_source)
 
 		if(AALARM_MODE_OFF)
-			for(var/device_id in A.air_scrub_names)
+			for(var/device_id in A.air_scrub_info)
 				send_signal(device_id, list(
 					"power" = 0
 				), signal_source)
@@ -604,7 +604,7 @@
 					"power" = 0
 				), signal_source)
 		if(AALARM_MODE_FLOOD)
-			for(var/device_id in A.air_scrub_names)
+			for(var/device_id in A.air_scrub_info)
 				send_signal(device_id, list(
 					"power" = 0
 				), signal_source)
