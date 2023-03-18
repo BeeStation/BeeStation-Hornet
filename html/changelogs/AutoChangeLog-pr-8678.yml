@@ -1,4 +1,0 @@
-author: benbot16
-delete-after: true
-changes:
-  - code_imp: Removes do_mob() and do_atom()
