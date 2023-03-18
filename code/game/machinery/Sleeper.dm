@@ -21,7 +21,7 @@
 	var/max_vials = 6
 	var/list/inserted_vials = list()
 	var/list/roundstart_vials = list(
-		/obj/item/reagent_containers/chem_bag/epinephrine
+		// example: /obj/item/reagent_containers/chem_bag/epinephrine
 	)
 	var/list/roundstart_chems = list(
 		/datum/reagent/medicine/epinephrine,
