@@ -255,7 +255,7 @@
 	else
 		target.visible_message("<span class='warning'>[user] starts shoving [target] into [src]!</span>", "<span class='userdanger'>[user] starts shoving you into [src]!</span>")
 
-	if(do_mob(user, target, 30))
+	if(do_after(user, 30, target))
 		if(occupant || helmet || suit || storage)
 			return
 		if(target == user)
