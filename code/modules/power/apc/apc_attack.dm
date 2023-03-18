@@ -276,7 +276,6 @@
 	operating = FALSE
 	if(occupier)
 		malfvacate(1)
-	area.poweralert(FALSE, src)
 	update_appearance()
 	update()
 
