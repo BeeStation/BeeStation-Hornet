@@ -8,8 +8,8 @@ export const ChemPress = (props, context) => {
   const {
     pill_size,
     pill_name,
-    chosenPillStyle,
-    pillStyles = [],
+    chosen_pill_style,
+    pill_styles = [],
   } = data;
   return (
     <Window
@@ -38,12 +38,12 @@ export const ChemPress = (props, context) => {
                 onClick={() => act('change_pill_name')} />
             </LabeledList.Item>
             <LabeledList.Item label="Pill Style">
-              {pillStyles.map(each_style => (
+              {pill_styles.map(each_style => (
                 <Button
                   key={each_style.id}
                   width="30px"
                   height="16px"
-                  selected={each_style.id === chosenPillStyle}
+                  selected={each_style.id === chosen_pill_style}
                   textAlign="center"
                   color="transparent"
                   onClick={() => act('change_pill_style', { id: each_style.id })}>
