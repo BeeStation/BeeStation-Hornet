@@ -115,11 +115,11 @@
 	var/area/scrub_area = get_area(src)
 	if(!GLOB.air_scrub_names[id_tag])
 		// If we do not have a name, assign one
-		name = "[assign_random_name()] [scrub_area.name] Air Scrubber" // matching case
+		name = "\proper [scrub_area.name] air scrubber [assign_random_name()]"
 		GLOB.air_scrub_names[id_tag] = name
 
 	scrub_area.air_scrub_info[id_tag] = signal.data
-	
+
 	radio_connection.post_signal(src, signal, radio_filter_out)
 
 	return TRUE
