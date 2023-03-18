@@ -26,24 +26,25 @@
 	meteor_types = null
 	. = ..()
 
+/datum/orbital_object/meteor/explode()
+	qdel(src)
+
 /datum/orbital_object/meteor/process(delta_time)
 	if(!QDELETED(target))
-		end_x = target.position.x
-		end_y = target.position.y
+		end_x = target.position.GetX()
+		end_y = target.position.GetY()
 	var/current_tick = SSorbits.times_fired
 	var/tick_proportion = min((current_tick - start_tick) / (end_tick - start_tick), 1)
 	//stop when reached the target
 	if(tick_proportion == 1)
-		velocity.x = 0
-		velocity.y = 0
+		velocity.Set(0, 0)
 	var/current_x = (end_x * tick_proportion) + (start_x * (1 - tick_proportion))
 	var/current_y = (end_y * tick_proportion) + (start_y * (1 - tick_proportion))
 	//Set the velocity for better rendering
-	velocity.x = current_x - position.x
-	velocity.y = current_y - position.y
+	velocity.Set(current_x - position.GetX(), current_y - position.GetY())
 	. = ..()
 	MOVE_ORBITAL_BODY(src, current_x, current_y)
-	if(abs(position.x) > 10000 || abs(position.y) > 10000)
+	if(abs(position.GetX()) > 10000 || abs(position.GetY()) > 10000)
 		qdel(src)
 
 /datum/orbital_object/meteor/collision(datum/orbital_object/other)

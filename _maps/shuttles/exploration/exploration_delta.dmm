@@ -61,7 +61,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 8
 	},
@@ -108,10 +110,6 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 8
 	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"po" = (
-/obj/machinery/computer/crew,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "pG" = (
@@ -299,6 +297,10 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"Ja" = (
+/obj/machinery/computer/locator,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
 "KU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -375,7 +377,7 @@
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/shuttle/heater{
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
 	dir = 1
 	},
 /turf/open/floor/plating,
@@ -475,7 +477,7 @@ Vl
 "}
 (3,1,1) = {"
 oC
-po
+Ja
 ir
 Rp
 Hf

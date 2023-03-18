@@ -68,15 +68,6 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
-"t" = (
-/obj/structure/shuttle/engine/propulsion/right{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/transport)
 "u" = (
 /obj/structure/sign/warning/fire,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
@@ -104,10 +95,10 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/transport)
 "x" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/line{
+/obj/machinery/shuttle/engine/advanced{
 	dir = 8
 	},
 /turf/open/floor/plating/airless,
@@ -239,8 +230,8 @@
 
 (1,1,1) = {"
 a
-t
-t
+x
+x
 x
 a
 "}

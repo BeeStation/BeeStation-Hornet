@@ -88,7 +88,7 @@
 		var/list/to_add = list()
 		to_add += the_eye.placement_images
 		to_add += the_eye.placed_images
-		if(!shuttleObject.stealth)
+		if(!shuttleObject.is_stealth())
 			to_add += SSshuttle.hidden_shuttle_turf_images
 
 		user.client.images += to_add
@@ -122,7 +122,7 @@
 		var/list/to_remove = list()
 		to_remove += the_eye.placement_images
 		to_remove += the_eye.placed_images
-		if(!shuttleObject.stealth)
+		if(!shuttleObject.is_stealth())
 			to_remove += SSshuttle.hidden_shuttle_turf_images
 
 		user.client.images -= to_remove
@@ -198,11 +198,11 @@
 	switch(SSshuttle.moveShuttle(shuttleId, shuttlePortId, 1))
 		if(0)
 			remove_eye_control(usr)
-			QDEL_NULL(shuttleObject)
 			//Hold the shuttle in the docking position until ready.
 			M.setTimer(INFINITY)
+			shuttleObject.begin_dethrottle(M.z)
+			QDEL_NULL(shuttleObject)
 			say("Waiting for hyperspace lane...")
-			INVOKE_ASYNC(src, PROC_REF(unfreeze_shuttle), M, SSmapping.get_level(eyeobj.z))
 		if(1)
 			to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 		else
@@ -266,7 +266,7 @@
 	. = SHUTTLE_DOCKER_LANDING_CLEAR
 	// See if the turf is hidden from us
 	var/list/hidden_turf_info
-	if(!shuttleObject.stealth)
+	if(!shuttleObject.is_stealth())
 		hidden_turf_info = SSshuttle.hidden_shuttle_turfs[T]
 		if(hidden_turf_info)
 			. = SHUTTLE_DOCKER_BLOCKED_BY_HIDDEN_PORT
@@ -289,7 +289,7 @@
 			continue
 		if(port.delete_after) //Don't worry about it, we're landing on another ship, no ship will land on this port.
 			continue
-		var/port_hidden = !shuttleObject.stealth && port.hidden
+		var/port_hidden = !shuttleObject.is_stealth() && port.hidden
 		var/list/overlap = overlappers[port]
 		var/list/xs = overlap[1]
 		var/list/ys = overlap[2]
@@ -300,13 +300,14 @@
 				return SHUTTLE_DOCKER_BLOCKED
 
 /obj/machinery/computer/shuttle_flight/proc/update_hidden_docking_ports(list/remove_images, list/add_images)
-	if(!shuttleObject?.stealth && current_user && current_user.client)
+	var/datum/shuttle_data/located_data = SSorbits.get_shuttle_data(shuttleId)
+	if(!located_data?.stealth && current_user && current_user.client)
 		current_user.client.images -= remove_images
 		current_user.client.images += add_images
 
 /obj/machinery/computer/shuttle_flight/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
 	if(port && (shuttleId == initial(shuttleId) || override))
-		shuttleId = port.id
+		set_shuttle_id(port.id)
 		shuttlePortId = "[shuttleId]_custom"
 
 /mob/camera/ai_eye/remote/shuttle_docker

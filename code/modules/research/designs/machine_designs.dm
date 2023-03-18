@@ -10,6 +10,22 @@
 	category = list ("Shuttle Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/board/shuttle/engine/ion
+	name = "Machine Design (Ion Thruster Board)"
+	desc = "The circuit board for an ion thruster, a weak but electric driven engine."
+	id = "engine_ion"
+	build_path = /obj/item/circuitboard/machine/shuttle/engine/ion
+	category = list ("Shuttle Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/shuttle/engine/ion/burst
+	name = "Machine Design (Ion Burst Thruster Board)"
+	desc = "The circuit board for an ion burst thruster, a powerful but temporary thrust booster."
+	id = "engine_ion_burst"
+	build_path = /obj/item/circuitboard/machine/shuttle/engine/ion/burst
+	category = list ("Shuttle Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
+
 /datum/design/board/shuttle/engine/void
 	name = "Machine Design (Void Thruster Board)"
 	desc = "The circuit board for a void thruster."
@@ -23,6 +39,14 @@
 	desc = "The circuit board for an engine heater."
 	id = "engine_heater"
 	build_path = /obj/item/circuitboard/machine/shuttle/heater
+	category = list ("Shuttle Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/shuttle/engine/charger
+	name = "Machine Design (Ion Thruster Capacitor Bank Board)"
+	desc = "The circuit board for an engine capacitor bank."
+	id = "engine_capacitors"
+	build_path = /obj/item/circuitboard/machine/shuttle/capacitor_bank
 	category = list ("Shuttle Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 

@@ -74,16 +74,6 @@
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
-"mj" = (
-/obj/structure/table/reinforced,
-/obj/item/flashlight/lamp/green{
-	on = 0;
-	pixel_x = -3;
-	pixel_y = 8
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
 "nI" = (
 /obj/machinery/atmospherics/components/unary/plasma_refiner{
 	dir = 8
@@ -139,6 +129,15 @@
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
+"rJ" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/machinery/computer/locator,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
 "si" = (
 /obj/structure/sign/warning/fire,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
@@ -159,7 +158,7 @@
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/shuttle/heater{
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
 	dir = 1
 	},
 /turf/open/floor/plating,
@@ -176,7 +175,9 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "wn" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -339,6 +340,21 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
+"TK" = (
+/obj/structure/table/reinforced,
+/obj/item/flashlight/lamp/green{
+	on = 0;
+	pixel_x = -3;
+	pixel_y = 8
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/item/storage/box/donkpockets,
+/obj/item/storage/box/donkpockets/donkpockethonk{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
 "TQ" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -353,20 +369,6 @@
 	},
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/exploration)
-"TZ" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/item/storage/box/donkpockets,
-/obj/item/storage/box/donkpockets/donkpockethonk{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Uu" = (
 /obj/machinery/power/port_gen/pacman,
@@ -466,7 +468,7 @@ Vg
 "}
 (3,1,1) = {"
 AZ
-TZ
+rJ
 St
 St
 St
@@ -501,7 +503,7 @@ AZ
 nZ
 Mi
 SQ
-mj
+TK
 VA
 hW
 Ze

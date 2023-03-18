@@ -131,10 +131,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"fp" = (
-/obj/machinery/computer/rdconsole,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
 "fW" = (
 /obj/effect/turf_decal/siding/wideplating_new{
 	dir = 4
@@ -736,6 +732,10 @@
 /obj/machinery/door/window,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
+"NY" = (
+/obj/machinery/computer/locator,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
 "Oa" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -746,7 +746,7 @@
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/shuttle/heater{
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
 	dir = 1
 	},
 /turf/open/floor/plating,
@@ -1035,7 +1035,8 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/auto_name/north{
-	cell_type = /obj/item/stock_parts/cell/high
+	cell_type = /obj/item/stock_parts/cell/high;
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
@@ -1186,7 +1187,7 @@ Qv
 "}
 (7,1,1) = {"
 Om
-fp
+NY
 kV
 qX
 nG

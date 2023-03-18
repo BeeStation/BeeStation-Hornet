@@ -274,7 +274,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "mb" = (
-/obj/machinery/atmospherics/components/unary/shuttle/heater{
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
 	dir = 4
 	},
 /obj/structure/window/reinforced/survival_pod{
@@ -680,6 +680,13 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"JB" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/computer/locator{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
 "JG" = (
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 9
@@ -780,7 +787,8 @@
 	dir = 8
 	},
 /obj/machinery/power/apc/auto_name/east{
-	locked = 0
+	locked = 0;
+	pixel_x = 24
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium,
@@ -1346,7 +1354,7 @@ ZM
 jB
 jB
 Gb
-kH
+JB
 sD
 kH
 Vw

@@ -33,7 +33,7 @@
 
 /turf/open/space/transit/proc/throw_atom(atom/movable/AM, atom/OldLoc)
 	set waitfor = FALSE
-	if(!AM || istype(AM, /obj/docking_port) || istype(AM, /obj/effect/abstract))
+	if(!AM || istype(AM, /obj/docking_port) || istype(AM, /obj/effect/abstract) || istype(AM, /obj/item/projectile/bullet/shuttle))
 		return
 	if(AM.loc != src) 	// Multi-tile objects are "in" multiple locs but its loc is it's true placement.
 		return			// Don't move multi tile objects if their origin isn't in transit
@@ -65,10 +65,10 @@
 				else
 					//Interdiction (Its an empty z-level)
 					var/datum/orbital_object/z_linked/beacon/ruin/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/interdiction(
-						new /datum/orbital_vector(shuttleObj.position.x, shuttleObj.position.y)
+						new /datum/orbital_vector(shuttleObj.position.GetX(), shuttleObj.position.GetY())
 					)
 					z_linked.name = "Stranded [AM]"
-					z_linked.assign_z_level()
+					z_linked.assign_z_level(FALSE)
 					if(length(z_linked.linked_z_level))
 						_z = z_linked.linked_z_level[1].z_value
 	if(_z == 2)

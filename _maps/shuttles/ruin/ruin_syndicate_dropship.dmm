@@ -74,12 +74,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/caravan/syndicate3)
-"dZ" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/caravan/syndicate3)
 "ha" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -127,12 +121,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/pod/dark,
-/area/shuttle/caravan/syndicate3)
-"mJ" = (
-/obj/structure/shuttle/engine/propulsion/burst/left{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
 /area/shuttle/caravan/syndicate3)
 "nj" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -209,7 +197,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/caravan/syndicate3)
 "vQ" = (
-/obj/structure/shuttle/engine/propulsion/burst/right{
+/obj/machinery/shuttle/engine/advanced{
 	dir = 8
 	},
 /turf/open/floor/plating/airless,
@@ -493,11 +481,10 @@
 /area/shuttle/caravan/syndicate3)
 "Xq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/frame/computer{
-	anchored = 1;
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+/obj/machinery/computer/locator{
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
@@ -552,10 +539,10 @@
 
 (1,1,1) = {"
 Jv
-mJ
-dZ
-dZ
-dZ
+vQ
+vQ
+vQ
+vQ
 vQ
 Jv
 "}

@@ -51,6 +51,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/bridge)
 "ah" = (
+/obj/machinery/computer/locator,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/bridge)
 "ai" = (
@@ -780,9 +781,8 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/airlock)
 "bw" = (
-/obj/structure/shuttle/engine/propulsion,
 /obj/effect/turf_decal/stripes/box,
-/obj/effect/turf_decal/stripes/box,
+/obj/machinery/shuttle/engine/advanced,
 /turf/open/floor/plating,
 /area/shuttle/syndicate/medical)
 "bx" = (
@@ -848,9 +848,8 @@
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/armory)
 "bF" = (
-/obj/structure/shuttle/engine/propulsion,
 /obj/effect/turf_decal/stripes/box,
-/obj/effect/turf_decal/stripes/box,
+/obj/machinery/shuttle/engine/advanced,
 /turf/open/floor/plating,
 /area/shuttle/syndicate/armory)
 "bG" = (
@@ -1315,11 +1314,11 @@
 /turf/open/floor/plating,
 /area/shuttle/syndicate/medical)
 "cy" = (
-/obj/structure/shuttle/engine/propulsion,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/shuttle/engine/advanced,
 /turf/open/floor/plating,
 /area/shuttle/syndicate/medical)
 "cz" = (
@@ -1351,10 +1350,10 @@
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/medical)
 "cD" = (
-/obj/structure/shuttle/engine/large,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/machinery/shuttle/engine/advanced/large,
 /turf/open/floor/plating,
 /area/shuttle/syndicate/hallway)
 "cE" = (
@@ -1375,8 +1374,8 @@
 /turf/open/floor/plating,
 /area/shuttle/syndicate/armory)
 "cI" = (
-/obj/structure/shuttle/engine/large,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/shuttle/engine/advanced/large,
 /turf/open/floor/plating,
 /area/shuttle/syndicate/hallway)
 "cJ" = (
@@ -1392,7 +1391,7 @@
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/armory)
 "cL" = (
-/obj/structure/shuttle/engine/large,
+/obj/machinery/shuttle/engine/advanced/large,
 /turf/open/floor/plating,
 /area/shuttle/syndicate/medical)
 "cM" = (
@@ -1406,11 +1405,11 @@
 /turf/open/floor/plating,
 /area/shuttle/syndicate/hallway)
 "cO" = (
-/obj/structure/shuttle/engine/propulsion,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/shuttle/engine/advanced,
 /turf/open/floor/plating,
 /area/shuttle/syndicate/armory)
 "cP" = (
@@ -1430,7 +1429,7 @@
 /turf/open/floor/plating,
 /area/shuttle/syndicate/armory)
 "cS" = (
-/obj/structure/shuttle/engine/large,
+/obj/machinery/shuttle/engine/advanced/large,
 /turf/open/floor/plating,
 /area/shuttle/syndicate/armory)
 "cT" = (

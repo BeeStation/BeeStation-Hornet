@@ -2,7 +2,7 @@
 import { clamp } from 'common/math';
 import { Component } from 'inferno';
 
-const FPS = 20;
+const FPS = 10;
 // Scales the positions to make things on the map appear closer or further away.
 const mapDistanceScale = 1;
 
@@ -66,8 +66,9 @@ export class OrbitalMapSvg extends Component {
         mapObject.velocity_x,
         mapObject.velocity_y,
         mapObject.radius,
-        mapObject.vel_mult,
         mapObject.created_at,
+        mapObject.distress,
+        mapObject.vel_mult,
       );
     });
 
@@ -199,6 +200,7 @@ export class OrbitalMapSvg extends Component {
       yOffset,
       ourObject,
       interdiction_range = 0,
+      detection_range = 0,
       shuttleTargetX = 0,
       shuttleTargetY = 0,
       zoomScale,
@@ -313,6 +315,22 @@ export class OrbitalMapSvg extends Component {
             stroke-width="1"
             fill="url(#interdictionRange)" />
         )}
+        {(ourRenderableObject && detection_range > 0) && (
+          <circle
+            cx={(ourRenderableObject.position_x
+              + xOffset
+              + ourRenderableObject.velocity_x * elapsed * ourRenderableObject.vel_mult)
+              * zoomScale * mapDistanceScale}
+            cy={(ourRenderableObject.position_y
+              + yOffset
+              + ourRenderableObject.velocity_y * elapsed * ourRenderableObject.vel_mult)
+              * zoomScale * mapDistanceScale}
+            r={Math.max(5 * zoomScale, detection_range
+              * zoomScale)}
+            stroke="rgba(255, 255, 255, 0.3)"
+            stroke-width="1"
+            fill="rgba(255, 255, 255, 0.02)" />
+        )}
       </svg>
     );
 
@@ -336,6 +354,7 @@ class RenderableObjectType {
     this.velocity_y;
     this.radius;
     this.created_at;
+    this.distress;
     this.outlineColour = "#BBBBBB";
     this.outlineWidth = 1;
     this.fill = "rgba(0, 0, 0, 0)";
@@ -353,7 +372,7 @@ class RenderableObjectType {
   // Called every second
   // Updates the data
   onTick(name, position_x, position_y, velocity_x, velocity_y, radius,
-    vel_mult, created_at)
+    created_at, distress, vel_mult)
   {
     this.name = name;
     this.position_x = position_x;
@@ -362,6 +381,7 @@ class RenderableObjectType {
     this.velocity_y = velocity_y;
     this.radius = radius;
     this.created_at = created_at;
+    this.distress = distress;
     this.vel_mult = vel_mult;
   }
 
@@ -391,13 +411,6 @@ class RenderableObjectType {
     this.inBounds = outputXPosition < 250 && outputYPosition < 250
       && outputXPosition > -250 && outputYPosition > -250;
 
-    if (!this.inBounds)
-    {
-      outputRadius = 5 * zoomScale;
-      outputXPosition = clamp(outputXPosition, -250, 250);
-      outputYPosition = clamp(outputYPosition, -250, 250);
-    }
-
     let textXPos = clamp(outputXPosition, -250, 200);
     let textYPos = clamp(outputYPosition, -240, 250);
 
@@ -423,9 +436,9 @@ class RenderableObjectType {
         <text
           x={textXPos}
           y={textYPos}
-          fill={this.fontFill}
+          fill={this.distress ? "#ff0000" : this.fontFill}
           fontSize={Math.min(this.textSize * lockedZoomScale, 14)}>
-          {this.name}
+          {this.name}{this.distress ? " (DISTRESS)" : ""}
         </text>
       </>
     );
@@ -568,12 +581,12 @@ class Shuttle extends RenderableObjectType {
   // Called every updateTick
   // Record the path and update variables.
   onTick(name, position_x, position_y, velocity_x, velocity_y, radius,
-    vel_mult, created_at)
+    created_at, distress, vel_mult)
   {
     // wtf is this
     RenderableObjectType.prototype.onTick.call(
       this, name, position_x, position_y, velocity_x, velocity_y, radius,
-      vel_mult, created_at);
+      created_at, distress, vel_mult);
     // Set the position
     this.recordedTrack[this.recordedTrackLastIndex] = {
       x: this.position_x,
@@ -608,6 +621,7 @@ class Shuttle extends RenderableObjectType {
     // Zoom scale of the map
     zoomScale,
     lockedZoomScale,
+    distress,
   )
   {
 
@@ -695,9 +709,9 @@ class Shuttle extends RenderableObjectType {
         <text
           x={clamp(outputXPosition, -250, 200) + 5 * zoomScale}
           y={clamp(outputYPosition, -240, 250) + 15 * zoomScale}
-          fill={this.fontFill}
+          fill={this.distress ? "#ff0000" : this.fontFill}
           fontSize={Math.min(this.textSize * lockedZoomScale, 14)}>
-          {this.name}
+          {this.name}{this.distress ? " (DISTRESS)" : ""}
         </text>
         {(this.velocity_x || this.velocity_y) && (
           <text

@@ -485,7 +485,18 @@
 
 //Shuttles
 
+/obj/item/circuitboard/computer/navigation
+	name = "triangulation computer (Computer Board)"
+	icon_state = "science"
+	build_path = /obj/machinery/computer/locator
+
+/obj/item/circuitboard/computer/shuttle/weapons
+	name = "shuttle weapons control (Computer Board)"
+	icon_state = "security"
+	build_path = /obj/machinery/computer/weapons
+
 /obj/item/circuitboard/computer/shuttle
+	icon_state = "science"
 	var/hacked = FALSE
 
 /obj/item/circuitboard/computer/shuttle/attackby(obj/item/I, mob/user, params)

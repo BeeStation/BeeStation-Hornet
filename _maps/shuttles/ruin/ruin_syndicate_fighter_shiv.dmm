@@ -35,6 +35,12 @@
 "fp" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/caravan/syndicate1)
+"ih" = (
+/obj/machinery/shuttle_weapon/railgun{
+	dir = 4
+	},
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/caravan/syndicate1)
 "qx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -57,11 +63,10 @@
 	req_access = null;
 	req_access_txt = "150"
 	},
-/obj/machinery/computer/security{
-	dir = 1;
-	network = list("caravansyndicate1")
-	},
 /obj/structure/cable/yellow,
+/obj/machinery/computer/locator{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/caravan/syndicate1)
 "xg" = (
@@ -101,13 +106,11 @@
 	specialfunctions = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/frame/computer{
-	anchored = 1
-	},
+/obj/machinery/computer/weapons,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/caravan/syndicate1)
 "YP" = (
-/obj/structure/shuttle/engine/propulsion/burst{
+/obj/machinery/shuttle/engine/advanced{
 	dir = 8
 	},
 /turf/closed/wall/mineral/plastitanium,
@@ -153,9 +156,9 @@ YX
 fp
 YX
 Jv
-vD
+ih
 fh
-vD
+ih
 Jv
 YX
 fp

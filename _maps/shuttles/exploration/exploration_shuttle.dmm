@@ -158,6 +158,10 @@
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
+"w" = (
+/obj/machinery/computer/locator,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
 "x" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
@@ -257,7 +261,7 @@
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/shuttle/heater{
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
 	dir = 1
 	},
 /turf/open/floor/plating,
@@ -397,7 +401,7 @@ p
 "}
 (4,1,1) = {"
 R
-d
+w
 d
 S
 g

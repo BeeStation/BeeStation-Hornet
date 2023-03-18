@@ -1,9 +1,10 @@
 /datum/orbital_object/z_linked/beacon
 	name = "Unidentified Signal"
 	mass = 0
-	radius = 30
+	radius = 60
 	can_dock_anywhere = TRUE
 	render_mode = RENDER_MODE_BEACON
+	signal_range = 2000
 	//The attached event
 	var/datum/ruin_event/ruin_event
 
@@ -25,6 +26,7 @@
 
 /datum/orbital_object/z_linked/beacon/weak
 	name = "Weak Signal"
+	signal_range = 700
 
 //====================
 // Asteroids
@@ -33,22 +35,23 @@
 /datum/orbital_object/z_linked/beacon/ruin/asteroid
 	name = "Asteroid"
 	render_mode = RENDER_MODE_DEFAULT
+	signal_range = 0
 
 /datum/orbital_object/z_linked/beacon/ruinasteroid/New()
 	. = ..()
-	radius = rand(30, 70)
+	radius = rand(40, 160)
 
-/datum/orbital_object/z_linked/beacon/ruin/asteroid/assign_z_level()
+/datum/orbital_object/z_linked/beacon/ruin/asteroid/assign_z_level(quick_generation = FALSE)
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
 	SSorbits.assoc_z_levels["[assigned_space_level.z_value]"] = src
-	generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 120, rand(-0.5, 0), rand(40, 70))
+	generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, quick_generation ? 40 : 120, rand(-0.5, 0), rand(40, 70))
 
 /datum/orbital_object/z_linked/beacon/ruin/asteroid/post_map_setup()
 	//Orbit around the systems central gravitional body
 	//Pack closely together to make an asteriod belt.
 	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
-	set_orbitting_around_body(linked_map.center, 1200 + 20 * rand(-10, 10))
+	set_orbitting_around_body(linked_map.center, 3000 + 20 * rand(-50, 50))
 
 //====================
 // Regular Ruin Z-levels
@@ -56,6 +59,7 @@
 
 /datum/orbital_object/z_linked/beacon/ruin/spaceruin
 	name = "Unknown Signal"
+	signal_range = 2000
 
 /datum/orbital_object/z_linked/beacon/ruin/spaceruin/New()
 	. = ..()
@@ -65,7 +69,7 @@
 	. = ..()
 	SSorbits.ruin_levels --
 
-/datum/orbital_object/z_linked/beacon/ruin/spaceruin/assign_z_level()
+/datum/orbital_object/z_linked/beacon/ruin/spaceruin/assign_z_level(quick_generation = FALSE)
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
 	SSorbits.assoc_z_levels["[assigned_space_level.z_value]"] = src
@@ -90,11 +94,11 @@
 		linked_objective = null
 	. = ..()
 
-/datum/orbital_object/z_linked/beacon/ruin/proc/assign_z_level()
+/datum/orbital_object/z_linked/beacon/ruin/proc/assign_z_level(quick_generation = FALSE)
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
 	SSorbits.assoc_z_levels["[assigned_space_level.z_value]"] = src
-	generate_space_ruin(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 100, 100, linked_objective, null, ruin_event)
+	generate_space_ruin(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, quick_generation ? 30 : 50, quick_generation ? 30 : 50, linked_objective, null, ruin_event)
 
 /datum/orbital_object/z_linked/beacon/ruin/post_map_setup()
 	//Orbit around the systems sun
@@ -107,12 +111,13 @@
 /datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle
 	name = "Distress Beacon"
 	static_object = TRUE
+	signal_range = 0
 
-/datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle/assign_z_level()
+/datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle/assign_z_level(quick_generation = FALSE)
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
 	SSorbits.assoc_z_levels["[assigned_space_level.z_value]"] = src
-	generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 120, -0.4, 40)
+	generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, quick_generation ? 40 : 120, -0.4, 40)
 
 /datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle/post_map_setup()
 	return
@@ -123,8 +128,9 @@
 /datum/orbital_object/z_linked/beacon/ruin/interdiction
 	name = "Distress Beacon"
 	static_object = TRUE
+	signal_range = 0
 
-/datum/orbital_object/z_linked/beacon/ruin/interdiction/assign_z_level()
+/datum/orbital_object/z_linked/beacon/ruin/interdiction/assign_z_level(quick_generation = FALSE)
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
 	SSorbits.assoc_z_levels["[assigned_space_level.z_value]"] = src

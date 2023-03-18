@@ -140,7 +140,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
 "x" = (
-/obj/machinery/atmospherics/components/unary/shuttle/heater{
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
 	dir = 1
 	},
 /obj/effect/spawner/structure/window/plastitanium,

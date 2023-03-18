@@ -6,15 +6,22 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/mineral/titanium/blue,
-/area/shuttle/pod_1)
-"e" = (
-/obj/structure/shuttle/engine/propulsion/burst,
-/turf/closed/wall/mineral/titanium,
 /area/shuttle/pod_1)
 "h" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/chair/fancy/shuttle,
+/obj/machinery/power/smes/engineering{
+	charge = 1e+006
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "m" = (
@@ -36,28 +43,41 @@
 "p" = (
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/pod_1)
-"w" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
+"t" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/pod_1)
+"w" = (
 /obj/item/radio/intercom{
 	pixel_x = 30
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/power/engine_capacitor_bank{
+	dir = 1
+	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "y" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/structure/sign/poster/random{
 	pixel_x = -32
 	},
+/obj/machinery/power/engine_capacitor_bank{
+	dir = 1
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/pod_1)
+"C" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/table,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "D" = (
@@ -84,6 +104,9 @@
 	possible_destinations = "corg_north;corg_south";
 	shuttleId = "tram_corg"
 	},
+/obj/machinery/power/terminal{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "K" = (
@@ -99,12 +122,27 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/mineral/titanium/blue,
+/area/shuttle/pod_1)
+"P" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/mineral/titanium/white,
 /area/shuttle/pod_1)
 "S" = (
 /obj/structure/grille,
 /obj/structure/window/shuttle,
 /turf/open/floor/plating,
+/area/shuttle/pod_1)
+"U" = (
+/obj/machinery/shuttle/engine/ion{
+	dir = 1
+	},
+/turf/closed/wall/mineral/titanium,
 /area/shuttle/pod_1)
 "W" = (
 /obj/structure/chair/fancy/shuttle{
@@ -113,7 +151,16 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/mineral/titanium/blue,
+/area/shuttle/pod_1)
+"X" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/white,
 /area/shuttle/pod_1)
 
 (1,1,1) = {"
@@ -123,34 +170,34 @@ S
 K
 S
 K
-e
+K
 "}
 (2,1,1) = {"
 S
 h
-p
+P
 M
 c
 y
-K
+U
 "}
 (3,1,1) = {"
 S
 I
+X
 p
-p
-p
+t
 p
 m
 "}
 (4,1,1) = {"
 S
-h
+C
 p
 D
 W
 w
-K
+U
 "}
 (5,1,1) = {"
 E
@@ -159,5 +206,5 @@ S
 K
 S
 K
-e
+K
 "}

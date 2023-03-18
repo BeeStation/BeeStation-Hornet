@@ -24,9 +24,9 @@
 		var/area/area_instance = get_area(src)
 		var/obj/docking_port/mobile/port = locate(/obj/docking_port/mobile) in area_instance
 		if(port)
-			port.name = stripped_input(user, "Shuttle Name:", "Blueprint Editing", "", MAX_NAME_LEN)
+			SSorbits.update_shuttle_name(port.id, stripped_input(user, "Shuttle Name:", "Blueprint Editing", "", MAX_NAME_LEN))
 			if(!port.name)
-				port.name = "Unnamed shuttle"
+				SSorbits.update_shuttle_name(port.id, "Unnamed shuttle")
 		shuttle_named = TRUE
 	. = ..()
 

@@ -35,6 +35,7 @@
 /area/shuttle/syndicate/bridge)
 "ai" = (
 /obj/effect/turf_decal/bot_white,
+/obj/machinery/computer/locator,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/syndicate/bridge)
 "aj" = (
@@ -57,9 +58,9 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/syndicate/bridge)
 "ao" = (
-/obj/structure/chair/office{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8;
-	name = "tactical swivel chair"
+	name = "tactical chair"
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/syndicate/bridge)
@@ -67,10 +68,6 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/syndicate/bridge)
 "aq" = (
-/obj/structure/chair/office{
-	dir = 1;
-	name = "tactical swivel chair"
-	},
 /obj/machinery/button/door{
 	id = "syndieshutters";
 	name = "Cockpit View Control";
@@ -78,12 +75,16 @@
 	pixel_y = 32;
 	req_access_txt = "150"
 	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 1;
+	name = "tactical chair"
+	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/syndicate/bridge)
 "ar" = (
-/obj/structure/chair/office{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4;
-	name = "tactical swivel chair"
+	name = "tactical chair"
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/syndicate/bridge)
@@ -510,18 +511,8 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/syndicate/medical)
 "cv" = (
-/obj/structure/shuttle/engine/propulsion/left,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless,
-/area/shuttle/syndicate/hallway)
-"cw" = (
-/obj/structure/shuttle/engine/propulsion,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless,
-/area/shuttle/syndicate/hallway)
-"cx" = (
-/obj/structure/shuttle/engine/propulsion/right,
-/obj/effect/turf_decal/stripes/line,
+/obj/machinery/shuttle/engine/advanced,
 /turf/open/floor/plating/airless,
 /area/shuttle/syndicate/hallway)
 "cy" = (
@@ -533,33 +524,13 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/syndicate/armory)
 "cz" = (
-/obj/structure/shuttle/engine/propulsion/left,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless,
-/area/shuttle/syndicate/medical)
-"cA" = (
-/obj/structure/shuttle/engine/propulsion,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless,
-/area/shuttle/syndicate/medical)
-"cB" = (
-/obj/structure/shuttle/engine/propulsion/right,
-/obj/effect/turf_decal/stripes/line,
+/obj/machinery/shuttle/engine/advanced,
 /turf/open/floor/plating/airless,
 /area/shuttle/syndicate/medical)
 "cE" = (
-/obj/structure/shuttle/engine/propulsion/left,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless,
-/area/shuttle/syndicate/armory)
-"cF" = (
-/obj/structure/shuttle/engine/propulsion,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless,
-/area/shuttle/syndicate/armory)
-"cG" = (
-/obj/structure/shuttle/engine/propulsion/right,
-/obj/effect/turf_decal/stripes/line,
+/obj/machinery/shuttle/engine/advanced,
 /turf/open/floor/plating/airless,
 /area/shuttle/syndicate/armory)
 "dp" = (
@@ -1024,7 +995,7 @@ wK
 tW
 cp
 cu
-cA
+cz
 "}
 (4,1,1) = {"
 aa
@@ -1049,7 +1020,7 @@ yk
 Cs
 QY
 cu
-cB
+cz
 "}
 (5,1,1) = {"
 ab
@@ -1173,7 +1144,7 @@ bU
 Yv
 bo
 cr
-cw
+cv
 aa
 "}
 (10,1,1) = {"
@@ -1198,7 +1169,7 @@ bU
 Yv
 cl
 cr
-cx
+cv
 aa
 "}
 (11,1,1) = {"
@@ -1324,7 +1295,7 @@ nc
 Sc
 ct
 cy
-cF
+cE
 "}
 (16,1,1) = {"
 aa
@@ -1349,7 +1320,7 @@ wJ
 nS
 cs
 cy
-cG
+cE
 "}
 (17,1,1) = {"
 aa

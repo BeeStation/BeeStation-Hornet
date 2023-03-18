@@ -83,7 +83,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 		CRASH("Pirate event found no turf to load in")
 
 	var/datum/map_generator/template_placer = ship.load(T)
-	template_placer.on_completion(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(after_pirate_spawn), ship, candidates))
+	template_placer.on_completion(COMPLETION_PRIORITY_PREVIEW, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(after_pirate_spawn), ship, candidates))
 
 	priority_announce("Unidentified armed ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())
 

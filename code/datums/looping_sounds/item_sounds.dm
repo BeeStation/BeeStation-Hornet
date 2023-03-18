@@ -46,3 +46,8 @@
 	mid_sounds = list('sound/machines/beep.ogg')
 	mid_length = 60
 	volume = 10
+
+/datum/looping_sound/beacon
+	mid_sounds = list('sound/effects/beacon.ogg')
+	mid_length = 95
+	volume = 100

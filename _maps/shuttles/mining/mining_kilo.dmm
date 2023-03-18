@@ -101,13 +101,19 @@
 /area/shuttle/mining)
 "l" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/structure/shuttle/engine/heater,
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "m" = (
-/obj/structure/ore_box,
 /obj/machinery/light/small,
 /obj/effect/turf_decal/box,
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/item/wrench,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining)
 "n" = (
@@ -115,9 +121,21 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/mining)
 "o" = (
-/obj/structure/shuttle/engine/propulsion,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/shuttle/engine/plasma{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
+/area/shuttle/mining)
+"p" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+	dir = 10
+	},
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining)
 "r" = (
 /obj/effect/turf_decal/stripes/line,
@@ -166,6 +184,16 @@
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/mining)
+"W" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+	dir = 6
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/mining)
 
 (1,1,1) = {"
 a
@@ -190,7 +218,7 @@ b
 d
 w
 R
-g
+W
 l
 o
 "}
@@ -199,7 +227,7 @@ a
 e
 L
 r
-g
+p
 m
 n
 "}

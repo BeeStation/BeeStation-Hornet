@@ -1,0 +1,137 @@
+@use 'sass:color';
+@use '../base.scss';
+
+$color-background: rgba(0, 0, 0, 0.33) !default;
+
+.WeaponConsole__left {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 220px;
+  overflow-y: scroll;
+}
+
+.WeaponConsole__right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 220px;
+  right: 0;
+  background-color: $color-background;
+}
+
+.weaponConsole__alert {
+  border: solid 2px rgb(255, 127, 22);
+  background-color: black;
+  padding: 10px 4px;
+  text-align: center;
+  margin: 5px;
+  animation: warning_flash 1s infinite;
+}
+
+@keyframes warning_flash {
+  0% {border: solid 2px rgb(231, 219, 43);}
+  49% {border: solid 2px rgb(231, 219, 43);}
+  50% {border: solid 2px rgb(255, 127, 22);}
+  100% {border: solid 2px rgb(255, 127, 22);}
+}
+
+.WeaponConsole__map {
+  position: absolute;
+  top: 0px;
+  bottom: 142px;
+  left: 0;
+  right: 0;
+  // background-color: #00a;
+  margin: 6px;
+  text-align: center;
+
+  .NoticeBox {
+    margin-bottom: calc(50% - 140px);
+  }
+}
+
+.WeaponConsole__weaponlist {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.weaponConsole__weapon {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border: solid 2px rgb(255, 127, 22);
+  margin: 2px;
+  min-width: 130px;
+  max-width: 45%;
+  max-height: 70px;
+  font-size: smaller;
+}
+
+.weaponConsole__weapon.selected {
+  animation: selection_flash 2s;
+}
+
+@keyframes selection_flash {
+  0% {border: solid 2px white;}
+  100% {border: solid 2px rgb(255, 127, 22);}
+}
+
+.weaponConsole__flash_yellow {
+  animation: flash_yellow 1s infinite;
+}
+
+@keyframes flash_yellow {
+  0% {background-color: black;}
+  30% {background-color: black;}
+  31% {background-color: "#f5e553";}
+  100% {background-color: "#f5e553";}
+}
+
+.weaponConsole__flash {
+  animation: flash_red 1s infinite;
+}
+
+@keyframes flash_red {
+  0% {background-color: black;}
+  49% {background-color: black;}
+  51% {background-color: red;}
+  100% {background-color: red;}
+}
+
+.WeaponConsole__weaponpane {
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  right: 0;
+  height: 140px;
+  line-height: 24px;
+  margin: 4px 6px 0;
+  overflow-y: scroll;
+
+  // Fancy scrollbar
+  scrollbar-base-color: color.scale(
+    base.$color-bg,
+    $lightness: -25%);
+  scrollbar-face-color: color.scale(
+    base.$color-bg,
+    $lightness: 10%);
+  scrollbar-3dlight-color: color.scale(
+    base.$color-bg,
+    $lightness: 0%);
+  scrollbar-highlight-color: color.scale(
+    base.$color-bg,
+    $lightness: 0%);
+  scrollbar-track-color: color.scale(
+    base.$color-bg,
+    $lightness: -25%);
+  scrollbar-arrow-color: color.scale(
+    base.$color-bg,
+    $lightness: 50%);
+  scrollbar-shadow-color: color.scale(
+    base.$color-bg,
+    $lightness: 10%);
+}
+

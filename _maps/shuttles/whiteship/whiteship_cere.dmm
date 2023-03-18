@@ -6,7 +6,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned)
 "ad" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/shuttle/engine/advanced{
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
@@ -40,18 +40,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/abandoned)
-"aj" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 1
-	},
-/obj/structure/window/reinforced,
-/turf/open/floor/plating/airless,
-/area/shuttle/abandoned)
-"ak" = (
-/obj/structure/mecha_wreckage/ripley,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/mech_bay_recharge_floor,
-/area/shuttle/abandoned)
 "al" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -62,10 +50,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"an" = (
-/obj/effect/spawner/lootdrop/whiteship_cere_ripley,
-/turf/open/floor/mech_bay_recharge_floor,
 /area/shuttle/abandoned)
 "ao" = (
 /obj/machinery/computer/mech_bay_power_console{
@@ -90,32 +74,6 @@
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/abandoned)
-"as" = (
-/obj/effect/turf_decal/delivery{
-	dir = 1
-	},
-/obj/structure/closet/crate{
-	name = "spare equipment crate"
-	},
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/iron/fifty,
-/obj/effect/decal/cleanable/cobweb,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/abandoned)
-"at" = (
-/obj/effect/turf_decal/delivery{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/abandoned)
 "au" = (
 /obj/effect/turf_decal/delivery{
 	dir = 1
@@ -132,30 +90,6 @@
 	name = "spare equipment crate";
 	opened = 1
 	},
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/abandoned)
-"aw" = (
-/obj/effect/turf_decal/delivery{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/abandoned)
-"ax" = (
-/obj/effect/turf_decal/delivery{
-	dir = 1
-	},
-/obj/structure/closet/crate{
-	name = "spare equipment crate";
-	opened = 1
-	},
-/obj/item/pickaxe,
-/obj/item/pickaxe,
-/obj/item/storage/toolbox/emergency/old,
-/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/abandoned)
 "ay" = (
@@ -411,6 +345,224 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/abandoned)
+"gk" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"ip" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating,
+/area/shuttle/abandoned)
+"ir" = (
+/obj/effect/turf_decal/delivery{
+	dir = 1
+	},
+/obj/structure/closet/crate{
+	name = "spare equipment crate"
+	},
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/abandoned)
+"kh" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/abandoned)
+"ky" = (
+/obj/effect/turf_decal/delivery{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/abandoned)
+"mF" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow,
+/obj/machinery/power/smes/engineering{
+	charge = 1e+006
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"pN" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/abandoned)
+"sl" = (
+/obj/structure/window/reinforced,
+/obj/machinery/power/engine_capacitor_bank,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/abandoned)
+"ue" = (
+/obj/effect/turf_decal/delivery{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/abandoned)
+"vQ" = (
+/obj/effect/turf_decal/delivery{
+	dir = 1
+	},
+/obj/structure/closet/crate{
+	name = "spare equipment crate";
+	opened = 1
+	},
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/storage/toolbox/emergency/old,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/abandoned)
+"wO" = (
+/obj/structure/mecha_wreckage/ripley,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mech_bay_recharge_floor,
+/area/shuttle/abandoned)
+"xR" = (
+/obj/effect/turf_decal/delivery{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/closet/crate{
+	name = "spare equipment crate";
+	opened = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/abandoned)
+"yi" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/abandoned)
+"yv" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"DL" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/abandoned)
+"EW" = (
+/obj/structure/window/reinforced,
+/obj/machinery/power/engine_capacitor_bank,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/abandoned)
+"GV" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"HQ" = (
+/obj/effect/turf_decal/delivery{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/abandoned)
+"Jz" = (
+/obj/effect/spawner/lootdrop/whiteship_cere_ripley,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mech_bay_recharge_floor,
+/area/shuttle/abandoned)
+"NC" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/abandoned)
+"NW" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/abandoned)
+"PM" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/abandoned)
 
 (1,1,1) = {"
 aa
@@ -418,7 +570,7 @@ aa
 aa
 aa
 ad
-aj
+EW
 ay
 aF
 aF
@@ -433,10 +585,10 @@ aa
 (2,1,1) = {"
 aa
 ad
-aj
+EW
 ab
 ab
-ab
+kh
 ay
 ah
 ah
@@ -451,10 +603,10 @@ aa
 (3,1,1) = {"
 ab
 ab
+kh
 ab
 ab
-ab
-ab
+PM
 az
 aG
 aG
@@ -469,10 +621,10 @@ aa
 (4,1,1) = {"
 ab
 ae
-ak
+wO
 ao
 ab
-as
+ir
 aA
 am
 ah
@@ -487,10 +639,10 @@ aa
 (5,1,1) = {"
 ab
 af
-ag
+yi
 ag
 ab
-at
+ue
 aA
 am
 aG
@@ -505,10 +657,10 @@ ab
 (6,1,1) = {"
 ab
 ag
-al
+pN
 al
 aq
-au
+HQ
 aB
 am
 aG
@@ -523,13 +675,13 @@ ar
 (7,1,1) = {"
 bV
 ah
-am
-am
-ar
-ah
-ah
-am
-aG
+GV
+NC
+ip
+yv
+gk
+mF
+DL
 aG
 ar
 aR
@@ -541,10 +693,10 @@ ar
 (8,1,1) = {"
 ab
 ag
-ag
+yi
 ag
 aq
-av
+xR
 au
 aG
 aG
@@ -559,10 +711,10 @@ ar
 (9,1,1) = {"
 ab
 af
-ag
+yi
 ag
 ab
-aw
+ky
 aC
 am
 am
@@ -577,10 +729,10 @@ ab
 (10,1,1) = {"
 ab
 ai
-an
+Jz
 ap
 ab
-ax
+vQ
 aD
 am
 am
@@ -595,10 +747,10 @@ aa
 (11,1,1) = {"
 ab
 ab
+kh
 ab
 ab
-ab
-ab
+NW
 aE
 am
 aG
@@ -613,10 +765,10 @@ aa
 (12,1,1) = {"
 aa
 ad
-aj
+sl
 ab
 ab
-ab
+kh
 ay
 aG
 ah
@@ -634,7 +786,7 @@ aa
 aa
 aa
 ad
-aj
+sl
 ay
 aH
 aH

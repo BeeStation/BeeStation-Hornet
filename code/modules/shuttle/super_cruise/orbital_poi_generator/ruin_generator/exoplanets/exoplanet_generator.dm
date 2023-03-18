@@ -1,8 +1,8 @@
 /proc/generate_exoplanet(center_z)
 	var/datum/space_level/space_level = SSmapping.get_level(center_z)
-	space_level.generating = TRUE
+	space_level.start_generating()
 	_generate_exoplanet(center_z, new /datum/exoplanet_biome/lavaland)
-	space_level.generating = FALSE
+	space_level.stop_generating()
 
 /proc/_generate_exoplanet(center_z, datum/exoplanet_biome/biome)
 

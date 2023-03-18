@@ -6,9 +6,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned)
 "c" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 1
-	},
+/obj/machinery/shuttle/engine/void,
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned)
 "d" = (
@@ -24,8 +22,8 @@
 /turf/open/floor/plasteel,
 /area/shuttle/abandoned)
 "g" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
+/obj/machinery/shuttle/engine/void{
+	dir = 4
 	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned)
@@ -59,8 +57,8 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/abandoned)
 "k" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 4
+/obj/machinery/shuttle/engine/void{
+	dir = 8
 	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned)
@@ -107,7 +105,9 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/abandoned)
 "s" = (
-/obj/structure/shuttle/engine/propulsion/burst,
+/obj/machinery/shuttle/engine/void{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned)
 "v" = (

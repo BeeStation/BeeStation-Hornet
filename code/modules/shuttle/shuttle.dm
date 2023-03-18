@@ -366,10 +366,15 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 	var/shuttle_object_type = /datum/orbital_object/shuttle
 
+	/// If true, will assign the ID on load
 	var/dynamic_id = FALSE
+
+	/// If true, the shuttle will be deleted upon landing
+	var/delete_on_land = FALSE
 
 /obj/docking_port/mobile/proc/register()
 	SSshuttle.mobile |= src
+	SSorbits.register_shuttle(id)
 
 /obj/docking_port/mobile/Destroy(force)
 	if(force)
@@ -381,6 +386,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		towed_shuttles = null
 		underlying_turf_area = null
 		remove_ripples()
+		SSorbits.remove_shuttle(id)
 	. = ..()
 
 /obj/docking_port/mobile/is_in_shuttle_bounds(atom/A)
@@ -570,7 +576,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 			var/obj/machinery/computer/shuttle_flight/flight_computer = locate() in curT
 			if(!flight_computer)
 				continue
-			flight_computer.shuttleId = "[id]"
+			flight_computer.set_shuttle_id("[id]")
 			flight_computer.shuttlePortId = "[id]_custom"
 
 	//Find open dock here and set it as ours
@@ -678,6 +684,8 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 	if(mode == SHUTTLE_IGNITING && destination == S)
 		return TRUE
+
+	log_shuttle_movement("Shuttle [S.name] ([S.id]) was requested to move from [S] at [COORD(S)] to [destination] at [COORD(destination)]. Usr: [key_name_admin(usr)]")
 
 	switch(mode)
 		if(SHUTTLE_CALL)

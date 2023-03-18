@@ -377,6 +377,10 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		var/obj/machinery/door/firedoor/FD = door
 		FD.CalculateAffectingAreas()
 
+	//Recalculate shuttle health
+	var/datum/shuttle_data/shuttle_data = SSorbits.get_shuttle_data(linkedShuttleId)
+	shuttle_data.recalculate_integrity()
+
 	//Redraw highlights
 	reset_saved_area(FALSE)
 	return TRUE

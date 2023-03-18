@@ -26,7 +26,8 @@
 								"Subspace Telecomms",
 								"Research Machinery",
 								"Misc. Machinery",
-								"Circuitry"
+								"Circuitry",
+								"Shuttle Weapons",
 								)
 	console_link = FALSE
 	production_animation = "protolathe_n"

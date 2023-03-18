@@ -46,11 +46,14 @@
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "i" = (
-/obj/structure/closet/crate,
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/item/wrench,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "j" = (
-/obj/structure/shuttle/engine/heater,
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
@@ -61,6 +64,9 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "k" = (
@@ -68,11 +74,22 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "l" = (
-/obj/structure/shuttle/engine/propulsion/burst,
+/obj/machinery/shuttle/engine/plasma{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/mining)
 "q" = (
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/area/shuttle/mining)
+"y" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+	dir = 6
+	},
+/turf/open/floor/pod/light,
 /area/shuttle/mining)
 "F" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional{
@@ -88,6 +105,15 @@
 	dir = 1
 	},
 /turf/open/floor/pod/dark,
+/area/shuttle/mining)
+"S" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/purple/hidden{
+	dir = 10
+	},
+/turf/open/floor/pod/light,
 /area/shuttle/mining)
 "X" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional{
@@ -110,7 +136,7 @@ q
 c
 e
 g
-f
+y
 i
 q
 "}
@@ -119,7 +145,7 @@ b
 d
 Q
 K
-f
+S
 j
 l
 "}

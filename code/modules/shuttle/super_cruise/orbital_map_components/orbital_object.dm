@@ -21,14 +21,14 @@
 	var/maintain_orbit = FALSE
 	//The object in which we are trying to maintain a stable orbit around.
 	var/datum/orbital_object/target_orbital_body
-	//Are we invisible on the map?
-	var/stealth = FALSE
 	//Multiplier for velocity
 	var/velocity_multiplier = 1
 	//Do we ignore gravity?
 	var/ignore_gravity = FALSE
 	//Priority in the sorted list
 	var/priority = 0
+	//Are we emitting a detectable signal
+	var/signal_range = 0
 
 	//Delta time updates
 	//Ship translations are smooth so must use a delta time
@@ -58,15 +58,20 @@
 	//Add to this when you want THIS objects collision proc to be called.
 	var/collision_flags = NONE
 
+	//The color of the locator
+	var/locator_colour
+
 /datum/orbital_object/New(datum/orbital_vector/position, datum/orbital_vector/velocity, orbital_map_index)
 	if(orbital_map_index)
 		src.orbital_map_index = orbital_map_index
 	if(position)
 		src.position = position
+	else
+		src.position = new /datum/orbital_vector(0, 0)
 	if(velocity)
 		src.velocity = velocity
 	var/static/created_amount = 0
-	unique_id = "ObjID[++created_amount]"
+	unique_id = "[++created_amount]"
 	. = ..()
 	//Calculate relevant grav range
 	relevant_gravity_range = sqrt((mass * GRAVITATIONAL_CONSTANT) / MINIMUM_EFFECTIVE_GRAVITATIONAL_ACCEELRATION)
@@ -76,9 +81,13 @@
 	//Add to orbital map
 	var/datum/orbital_map/map = SSorbits.orbital_maps[src.orbital_map_index]
 	map.add_body(src)
+	//Send the creation signal
+	SEND_SIGNAL(SSorbits, COMSIG_ORBITAL_BODY_CREATED, src, map)
 	//If orbits has already setup, then post map setup
 	if(SSorbits.orbits_setup)
 		post_map_setup()
+	var/validFirstColours = list("8", "9", "A", "B", "C", "D", "E", "F")
+	locator_colour = "[pick(validFirstColours)][pick(GLOB.hex_characters)][pick(validFirstColours)][pick(GLOB.hex_characters)][pick(validFirstColours)][pick(GLOB.hex_characters)]"
 
 /datum/orbital_object/Destroy()
 	STOP_PROCESSING(SSorbits, src)
@@ -90,6 +99,9 @@
 			orbitting_bodies.target_orbital_body = null
 		orbitting_bodies.Cut()
 	. = ..()
+
+/datum/orbital_object/proc/is_distress()
+	return FALSE
 
 /datum/orbital_object/proc/explode()
 	return
@@ -121,7 +133,7 @@
 				continue
 			var/acceleration_amount = (GRAVITATIONAL_CONSTANT * gravitational_body.mass) / (distance * distance)
 			//Calculate acceleration direction
-			var/datum/orbital_vector/direction = new (gravitational_body.position.x - position.x, gravitational_body.position.y - position.y)
+			var/datum/orbital_vector/direction = new (gravitational_body.position.GetX() - position.GetX(), gravitational_body.position.GetY() - position.GetY())
 			direction.NormalizeSelf()
 			direction.ScaleSelf(acceleration_amount)
 			//Add on the gravitational acceleration
@@ -135,7 +147,7 @@
 	//Some objects may automatically thrust to maintain a stable orbit
 	if(maintain_orbit && target_orbital_body)
 		//Velocity should always be perpendicular to the planet
-		var/datum/orbital_vector/perpendicular_vector = new(position.y - target_orbital_body.position.y, target_orbital_body.position.x - position.x)
+		var/datum/orbital_vector/perpendicular_vector = new(position.GetY() - target_orbital_body.position.GetY(), target_orbital_body.position.GetX() - position.GetX())
 		//Calculate the relative velocity we should have
 		perpendicular_vector.NormalizeSelf()
 		perpendicular_vector.ScaleSelf(relative_velocity_required)
@@ -146,12 +158,14 @@
 	// MOVEMENT
 	//===================================
 	//Remember this
-	var/prev_x = position.x
-	var/prev_y = position.y
+	var/prev_x = position.GetX()
+	var/prev_y = position.GetY()
 
 	//Move the gravitational body.
-	var/datum/orbital_vector/vel_new = new(velocity.x * delta_time * velocity_multiplier, velocity.y * delta_time * velocity_multiplier)
+	var/datum/orbital_vector/vel_new = new(velocity.GetX() * delta_time * velocity_multiplier, velocity.GetY() * delta_time * velocity_multiplier)
+	position.protected = FALSE
 	position.AddSelf(vel_new)
+	position.protected = TRUE
 
 	//Oh we moved btw
 	parent_map.on_body_move(src, prev_x, prev_y)
@@ -163,8 +177,8 @@
 	LAZYCLEARLIST(colliding_with)
 
 	//Calculate our current position
-	var/section_x = round(position.x / ORBITAL_MAP_ZONE_SIZE)
-	var/section_y = round(position.y / ORBITAL_MAP_ZONE_SIZE)
+	var/section_x = round(position.GetX() / ORBITAL_MAP_ZONE_SIZE)
+	var/section_y = round(position.GetY() / ORBITAL_MAP_ZONE_SIZE)
 
 	var/position_key = "[section_x],[section_y]"
 	var/valid_side_key = "none"
@@ -173,8 +187,8 @@
 
 	var/dir_flags = NONE
 
-	var/segment_x = (position.x + abs(section_x) * ORBITAL_MAP_ZONE_SIZE) % ORBITAL_MAP_ZONE_SIZE
-	var/segment_y = (position.y + abs(section_y) * ORBITAL_MAP_ZONE_SIZE) % ORBITAL_MAP_ZONE_SIZE
+	var/segment_x = (position.GetX() + abs(section_x) * ORBITAL_MAP_ZONE_SIZE) % ORBITAL_MAP_ZONE_SIZE
+	var/segment_y = (position.GetY() + abs(section_y) * ORBITAL_MAP_ZONE_SIZE) % ORBITAL_MAP_ZONE_SIZE
 
 	if(segment_x < ORBITAL_MAP_ZONE_SIZE / 3)
 		valid_side_key = "[section_x - 1],[section_y]"
@@ -204,6 +218,8 @@
 
 	var/list/valid_objects = list()
 
+	valid_objects += parent_map.get_all_bodies()
+
 	//Only check nearby segments for collision objects
 	if(parent_map.collision_zone_bodies[position_key])
 		valid_objects += parent_map.collision_zone_bodies[position_key]
@@ -215,8 +231,8 @@
 		valid_objects += parent_map.collision_zone_bodies[valid_corner_key]
 
 	//Track our delta positional values for collision detection purposes
-	var/delta_x = position.x - prev_x
-	var/delta_y = position.y - prev_y
+	var/delta_x = position.GetX() - prev_x
+	var/delta_y = position.GetY() - prev_y
 
 	for(var/datum/orbital_object/object as() in valid_objects)
 		if(object == src)
@@ -232,6 +248,9 @@
 			if(object.static_object)
 				object.collision(src)
 			colliding = TRUE
+		//TODO:
+		//Refactor me to use the intersection of 2 lines with a set width.
+		//Please....
 		else if(!object.static_object)
 			//Vector collision.
 			//Note: We detect collisions that occursed in the current move rather than in the next.
@@ -241,16 +260,16 @@
 			//Must be between 0 and 1
 			var/other_x
 			var/other_y
-			var/other_delta_x = object.velocity.x
-			var/other_delta_y = object.velocity.y
+			var/other_delta_x = object.velocity.GetX()
+			var/other_delta_y = object.velocity.GetY()
 			if(object.last_update_tick == last_update_tick)
 				//They are on the same tick as us
-				other_x = object.position.x - other_delta_x
-				other_y = object.position.y - other_delta_y
+				other_x = object.position.GetX() - other_delta_x
+				other_y = object.position.GetY() - other_delta_y
 			else
 				//They are still on the previous tick
-				other_x = object.position.x
-				other_y = object.position.y
+				other_x = object.position.GetX()
+				other_y = object.position.GetY()
 			//ALRIGHT LETS DO THE CHECK
 			//Reassign variables for ease of read.
 			var/px = prev_x
@@ -261,8 +280,8 @@
 			var/py2 = other_y
 			var/vx2 = other_delta_x
 			var/vy2 = other_delta_y
-			//Both must be moving
-			if((vx || vy) && (vx2 || vy2))
+			//Both must be moving for this to work
+			if(vx && (vx2 || vy2))
 				//Collision between 2 vectors using simultaneous equations.
 				var/mu = (vx * py2 + vy * px - py * vx - vy * px2) / (vy * vx2 - vx * vy2)
 				var/lambda = (px2 + vx2 * mu - px) / vx
@@ -286,29 +305,33 @@
 /datum/orbital_object/proc/set_orbitting_around_body(datum/orbital_object/target_body, orbit_radius = 10, force = FALSE)
 	if(orbitting && !force)
 		return
-	var/prev_x = position.x
-	var/prev_y = position.y
+	var/prev_x = position.GetX()
+	var/prev_y = position.GetY()
 	orbitting = TRUE
 	//Calculates the required velocity for the object to orbit around the target body.
 	//Hopefully the planets gravity doesn't fuck with each other too hard.
 	//Set position
-	var/delta_x = -position.x
-	var/delta_y = -position.y
-	position.x = target_body.position.x + orbit_radius
-	position.y = target_body.position.y
-	delta_x += position.x
-	delta_y += position.y
+	var/delta_x = -position.GetX()
+	var/delta_y = -position.GetY()
+	//Set unsafely, as movement is handled at the bottom
+	position.SetUnsafely(target_body.position.GetX() + orbit_radius, target_body.position.GetY())
+	delta_x += position.GetX()
+	delta_y += position.GetY()
 	//Move all orbitting b()odies too.
 	if(orbitting_bodies)
 		for(var/datum/orbital_object/object in orbitting_bodies)
+			object.position.protected = FALSE
 			object.position.AddSelf(new /datum/orbital_vector(delta_x, delta_y))
+			object.position.protected = TRUE
 	//Set velocity
 	var/relative_velocity = sqrt((GRAVITATIONAL_CONSTANT * (target_body.mass + mass)) / orbit_radius)
-	velocity.x = target_body.velocity.x
-	velocity.y = target_body.velocity.y + relative_velocity
+	velocity.Set(target_body.velocity.GetX(), target_body.velocity.GetY() + relative_velocity)
 	//Set random angle
 	var/random_angle = rand(0, 360)	//Is cos and sin in radians?
+	//Janky unprotect
+	position.protected = FALSE
 	position.RotateSelf(random_angle)
+	position.protected = TRUE
 	velocity.RotateSelf(random_angle)
 	//Update target
 	target_orbital_body = target_body
@@ -320,3 +343,9 @@
 
 /datum/orbital_object/proc/post_map_setup()
 	return
+
+/datum/orbital_object/proc/get_locator_name()
+	return name
+
+/datum/orbital_object/proc/is_stealth()
+	return FALSE

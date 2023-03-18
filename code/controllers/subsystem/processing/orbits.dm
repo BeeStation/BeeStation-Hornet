@@ -51,6 +51,17 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//Ruin level count
 	var/ruin_levels = 0
 
+	//Assoc shuttle data
+	//Key: port_id
+	//Value: The shuttle data
+	var/list/assoc_shuttle_data = list()
+
+	//List of distress beacons by Z-Level
+	var/list/assoc_distress_beacons = list()
+
+	//shuttle weapons
+	var/list/shuttle_weapons = list()
+
 /datum/controller/subsystem/processing/orbits/Initialize(start_timeofday)
 	. = ..()
 	setup_event_list()
@@ -142,11 +153,6 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		for(var/datum/tgui/tgui as() in open_orbital_maps)
 			tgui.send_update()
 
-/mob/dead/observer/verb/open_orbit_ui()
-	set name = "View Orbits"
-	set category = "Ghost"
-	SSorbits.orbital_map_tgui.ui_interact(src)
-
 /datum/controller/subsystem/processing/orbits/proc/create_objective()
 	var/static/list/valid_objectives = list(
 		/datum/orbital_objective/recover_blackbox = 3,
@@ -179,10 +185,19 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	update_objective_computers()
 	return "Objective selected, good luck."
 
+//====================================
+// User Interfaces
+//====================================
+
 /datum/controller/subsystem/processing/orbits/proc/update_objective_computers()
 	for(var/obj/machinery/computer/objective/computer as() in GLOB.objective_computers)
 		for(var/M in computer.viewing_mobs)
 			computer.update_static_data(M)
+
+/mob/dead/observer/verb/open_orbit_ui()
+	set name = "View Orbits"
+	set category = "Ghost"
+	SSorbits.orbital_map_tgui.ui_interact(src)
 
 /*
  * Returns the base data of what is required for
@@ -203,33 +218,70 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		see_stealthed = FALSE,
 		//Our attached orbital object (Overrides stealth)
 		datum/orbital_object/attached_orbital_object = null,
+		//Our attached data
+		datum/shuttle_data/attached_data = null
 	)
 	var/data = list()
 	data["update_index"] = SSorbits.times_fired
 	data["map_objects"] = list()
+	//Locate shuttle data if we have one
+	data["detection_range"] = attached_data?.detection_range
 	//Fetch the active single instances
 	//Get the objects
-	for(var/zone in showing_map.collision_zone_bodies)
-		for(var/datum/orbital_object/object as() in showing_map.collision_zone_bodies[zone])
-			if(!object)
+	for(var/datum/orbital_object/object as() in showing_map.get_all_bodies())
+		if(!object)
+			continue
+		//we can't see it, unless we are stealth too
+		if(!see_stealthed && object.is_stealth())
+			continue
+		//Check visibility
+		var/distress = object.is_distress()
+		if(attached_orbital_object && !distress)
+			var/max_vis_distance = max(attached_data?.detection_range, object.signal_range)
+			//Quick Distance Check
+			if(attached_orbital_object.position.GetX() > object.position.GetX() + max_vis_distance\
+				|| attached_orbital_object.position.GetX() < object.position.GetX() - max_vis_distance\
+				|| attached_orbital_object.position.GetY() > object.position.GetY() + max_vis_distance\
+				|| attached_orbital_object.position.GetY() < object.position.GetY() - max_vis_distance)
 				continue
-			//we can't see it, unless we are stealth too
-			if(attached_orbital_object)
-				if(object != attached_orbital_object && (object.stealth && !attached_orbital_object.stealth))
-					continue
-			else if(!see_stealthed && object.stealth)
+			//Refined Distance Check
+			if(attached_orbital_object.position.DistanceTo(object.position) > max_vis_distance)
 				continue
-			//Transmit map data about non single-instanced objects.
-			data["map_objects"] += list(list(
-				"id" = object.unique_id,
-				"name" = object.name,
-				"position_x" = object.position.x,
-				"position_y" = object.position.y,
-				"velocity_x" = object.velocity.x,
-				"velocity_y" = object.velocity.y,
-				"radius" = object.radius,
-				"render_mode" = object.render_mode,
-				"priority" = object.priority,
-				"vel_mult" = object.velocity_multiplier,
-			))
+		//Transmit map data about non single-instanced objects.
+		data["map_objects"] += list(list(
+			"id" = object.unique_id,
+			"name" = object.name,
+			"position_x" = object.position.GetX(),
+			"position_y" = object.position.GetY(),
+			"velocity_x" = object.velocity.GetX(),
+			"velocity_y" = object.velocity.GetY(),
+			"radius" = object.radius,
+			"render_mode" = object.render_mode,
+			"priority" = object.priority,
+			"distress" = distress,
+			"vel_mult" = object.velocity_multiplier,
+		))
 	return data
+
+//====================================
+// Shuttle Data
+//====================================
+
+/datum/controller/subsystem/processing/orbits/proc/update_shuttle_name(port_id, name)
+	var/obj/docking_port/mobile/port = SSshuttle.getShuttle(port_id)
+	port.name = name
+	var/datum/shuttle_data/shuttle_data = get_shuttle_data(port_id)
+	shuttle_data.shuttle_name = name
+
+/datum/controller/subsystem/processing/orbits/proc/get_shuttle_data(port_id)
+	RETURN_TYPE(/datum/shuttle_data)
+	return assoc_shuttle_data[port_id]
+
+/datum/controller/subsystem/processing/orbits/proc/register_shuttle(port_id)
+	var/datum/shuttle_data/new_shuttle = new(port_id)
+	assoc_shuttle_data[port_id] = new_shuttle
+
+/datum/controller/subsystem/processing/orbits/proc/remove_shuttle(port_id)
+	var/datum/shuttle_data/shuttle = get_shuttle_data(port_id)
+	assoc_shuttle_data -= port_id
+	qdel(shuttle)
