@@ -222,7 +222,7 @@
 		if(target == user)
 			kidnaptime = 1 SECONDS
 		kidnapee.visible_message("<span class='warning'>[user] starts pulling [src] over [kidnapee]'s head!</span>", "<span class='userdanger'>[user] starts pulling [src] over your head!</span>")
-		if(do_mob(user, kidnapee, kidnaptime * kidnappingcoefficient))
+		if(do_after(user, kidnaptime * kidnappingcoefficient, kidnapee))
 			if(kidnapee == user)
 				kidnapee.drop_all_held_items()
 				if(HAS_TRAIT(src, TRAIT_NODROP))

@@ -107,7 +107,7 @@
 					target.visible_message("<span class='danger'>[user] is trying to take a blood sample from [target]!</span>", \
 									"<span class='userdanger'>[user] is trying to take a blood sample from you!</span>")
 					busy = TRUE
-					if(!do_mob(user, target, extra_checks=CALLBACK(L, /mob/living/proc/can_inject, user, TRUE)))
+					if(!do_after(user, target = target, extra_checks=CALLBACK(L, /mob/living/proc/can_inject, user, TRUE)))
 						busy = FALSE
 						return
 					if(reagents.total_volume >= reagents.maximum_volume)
@@ -164,7 +164,7 @@
 				if(user.a_intent == INTENT_HARM && iscarbon(L) && iscarbon(user))
 					L.visible_message("<span class='danger'>[user] lines a syringe up to [L]!", \
 							"<span class='userdanger'>[user] rears their arm back, ready to stab you with [src]</span>")
-					if(do_mob(user, L, 10))
+					if(do_after(user, 1 SECONDS, L))
 						var/mob/living/carbon/C = L
 						embed(C, 0.5)
 						log_combat(user, C, "injected (embedding)", src, addition="which had [contained]")
@@ -175,7 +175,7 @@
 				if(L != user)
 					L.visible_message("<span class='danger'>[user] is trying to inject [L]!</span>", \
 											"<span class='userdanger'>[user] is trying to inject you!</span>")
-					if(!do_mob(user, L, extra_checks=CALLBACK(L, /mob/living/proc/can_inject, user, TRUE)))
+					if(!do_after(user, target = L, extra_checks=CALLBACK(L, /mob/living/proc/can_inject, user, TRUE)))
 						return
 					if(!reagents.total_volume)
 						return

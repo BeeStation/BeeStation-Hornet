@@ -177,7 +177,7 @@
 					log_combat(user, src, "attempted to neck grab", addition="neck grab")
 				if(GRAB_NECK)
 					log_combat(user, src, "attempted to strangle", addition="kill grab")
-			if(!do_mob(user, src, grab_upgrade_time))
+			if(!do_after(user, grab_upgrade_time, src))
 				return 0
 			if(!user.pulling || user.pulling != src || user.grab_state != old_grab_state)
 				return 0
