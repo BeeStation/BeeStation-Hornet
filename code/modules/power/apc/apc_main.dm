@@ -117,6 +117,9 @@
 	///Reference to our remote control
 	var/obj/machinery/computer/apc_control/remote_control = null
 
+	///Represents a signel source of power alarms for this apc
+	var/datum/alarm_handler/alarm_manager
+
 	//Clockcult - Has the reward for converting an APC been given?
 	var/clock_cog_rewarded = FALSE
 	//Clockcult - The integration cog inserted inside of us
@@ -174,7 +177,7 @@
 		area.power_equip = FALSE
 		area.power_environ = FALSE
 		area.power_change()
-		QDEL_NULL(alarm_manager)
+	QDEL_NULL(alarm_manager)
 	if(occupier)
 		malfvacate(1)
 	qdel(wires)
