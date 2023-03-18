@@ -124,16 +124,16 @@
 	RUSTG_CALL(RUST_G, "dbp_generate")(seed, accuracy, stamp_size, world_size, lower_range, upper_range)
 
 
-#define rustg_dmi_strip_metadata(fname) RUSTG_CALL(RUST_G, "dmi_strip_metadata")(fname)
+#define rustg_dmi_strip_metadata(fname) RUSTG_CALL(RUST_G, "dmi_strip_metadata")("[fname]")
 #define rustg_dmi_create_png(path, width, height, data) RUSTG_CALL(RUST_G, "dmi_create_png")(path, width, height, data)
 #define rustg_dmi_resize_png(path, width, height, resizetype) RUSTG_CALL(RUST_G, "dmi_resize_png")(path, width, height, resizetype)
 
-#define rustg_file_read(fname) RUSTG_CALL(RUST_G, "file_read")(fname)
-#define rustg_file_exists(fname) RUSTG_CALL(RUST_G, "file_exists")(fname)
-#define rustg_file_write(text, fname) RUSTG_CALL(RUST_G, "file_write")(text, fname)
-#define rustg_file_append(text, fname) RUSTG_CALL(RUST_G, "file_append")(text, fname)
-#define rustg_file_get_line_count(fname) text2num(RUSTG_CALL(RUST_G, "file_get_line_count")(fname))
-#define rustg_file_seek_line(fname, line) RUSTG_CALL(RUST_G, "file_seek_line")(fname, "[line]")
+#define rustg_file_read(fname) RUSTG_CALL(RUST_G, "file_read")("[fname]")
+#define rustg_file_exists(fname) RUSTG_CALL(RUST_G, "file_exists")("[fname]")
+#define rustg_file_write(text, fname) RUSTG_CALL(RUST_G, "file_write")(text, "[fname]")
+#define rustg_file_append(text, fname) RUSTG_CALL(RUST_G, "file_append")(text, "[fname]")
+#define rustg_file_get_line_count(fname) text2num(RUSTG_CALL(RUST_G, "file_get_line_count")("[fname]"))
+#define rustg_file_seek_line(fname, line) RUSTG_CALL(RUST_G, "file_seek_line")("[fname]", "[line]")
 
 #ifdef RUSTG_OVERRIDE_BUILTINS
 	#define file2text(fname) rustg_file_read("[fname]")
@@ -144,7 +144,7 @@
 #define rustg_git_commit_date(rev) RUSTG_CALL(RUST_G, "rg_git_commit_date")(rev)
 
 #define rustg_hash_string(algorithm, text) RUSTG_CALL(RUST_G, "hash_string")(algorithm, text)
-#define rustg_hash_file(algorithm, fname) RUSTG_CALL(RUST_G, "hash_file")(algorithm, fname)
+#define rustg_hash_file(algorithm, fname) RUSTG_CALL(RUST_G, "hash_file")(algorithm, "[fname]")
 #define rustg_hash_generate_totp(seed) RUSTG_CALL(RUST_G, "generate_totp")(seed)
 #define rustg_hash_generate_totp_tolerance(seed, tolerance) RUSTG_CALL(RUST_G, "generate_totp_tolerance")(seed, tolerance)
 
@@ -175,7 +175,7 @@
 
 #define rustg_json_is_valid(text) (RUSTG_CALL(RUST_G, "json_is_valid")(text) == "true")
 
-#define rustg_log_write(fname, text, format) RUSTG_CALL(RUST_G, "log_write")(fname, text, format)
+#define rustg_log_write(fname, text, format) RUSTG_CALL(RUST_G, "log_write")("[fname]", text, format)
 /proc/rustg_log_close_all() return RUSTG_CALL(RUST_G, "log_close_all")()
 
 #define rustg_noise_get_at_coordinates(seed, x, y) RUSTG_CALL(RUST_G, "noise_get_at_coordinates")(seed, x, y)
