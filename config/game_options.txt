@@ -268,8 +268,7 @@ PROTECT_HEADS_FROM_ANTAGONIST
 ## If late-joining players have a chance to become a traitor/changeling
 ALLOW_LATEJOIN_ANTAGONISTS
 
-## The minimum amount of players for an malfunctioning AI to be rolled by a gamemode,
-## or for an ion storm to occur.
+## The minimum amount of players for malfunctioning AI to be occur.
 MALF_AI_MINIMUM_POP 30
 
 ## Incursion Rules
