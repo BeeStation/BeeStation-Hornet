@@ -208,7 +208,7 @@
 	suit = null
 	mask = null
 	storage = null
-	occupant = null
+	set_occupant(null)
 
 /obj/machinery/suit_storage_unit/proc/is_empty()
 	return isnull(helmet) && isnull(suit) && isnull(mask) && isnull(storage) && isnull(occupant)
@@ -281,7 +281,7 @@
 		uv = TRUE
 		locked = TRUE
 		update_icon()
-		if(occupant)
+		if(mob_occupant)
 			mob_occupant.adjustFireLoss(rand(burn_damage, burn_damage * 1.5))
 			mob_occupant.emote("scream")
 		addtimer(CALLBACK(src, PROC_REF(cook)), 50)
@@ -291,7 +291,7 @@
 		locked = FALSE
 		if(uv_super || (obj_flags & EMAGGED))
 			toasted = TRUE
-			if(occupant)
+			if(mob_occupant)
 				visible_message("<span class='warning'>[src]'s door creaks open with a loud whining noise. A foul stench and a cloud of smoke exit the chamber.</span>")
 				mob_occupant.radiation = 0 //The guy inside is toasted to a crisp, no need to leave him with the rads
 			else
@@ -308,7 +308,7 @@
 			// The wires get damaged too.
 			wires.cut_all()
 		if(!toasted) //Special toast check to prevent a double finishing message.
-			if(occupant)
+			if(mob_occupant)
 				visible_message("<span class='warning'>[src]'s door slides open, barraging you with the nauseating smell of charred flesh.</span>")
 				mob_occupant.radiation = 0
 			else
@@ -328,16 +328,16 @@
 		if(storage)
 			things_to_clear += storage
 			things_to_clear += storage.GetAllContents()
-		if(occupant)
-			things_to_clear += occupant
-			things_to_clear += occupant.GetAllContents()
+		if(mob_occupant)
+			things_to_clear += mob_occupant
+			things_to_clear += mob_occupant.GetAllContents()
 		for(var/atom/movable/AM in things_to_clear) //Scorches away blood and forensic evidence, although the SSU itself is unaffected
 			SEND_SIGNAL(AM, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRONG)
 			var/datum/component/radioactive/contamination = AM.GetComponent(/datum/component/radioactive)
 			if(contamination)
 				qdel(contamination)
 		open_machine(FALSE)
-		if(occupant)
+		if(mob_occupant)
 			dump_contents()
 
 /obj/machinery/suit_storage_unit/proc/shock(mob/user, prb)
