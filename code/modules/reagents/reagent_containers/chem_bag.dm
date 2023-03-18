@@ -25,5 +25,5 @@
 
 /obj/item/reagent_containers/chem_bag/epinephrine
 	name = "epinephrine chemical bag"
-	label_name = "epinephrine"
+	label_name = "bag of epinephrine"
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 200)

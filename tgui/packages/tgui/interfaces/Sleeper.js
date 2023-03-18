@@ -12,19 +12,6 @@ export const Sleeper = (props, context) => {
     occupied,
   } = data;
 
-  const preSortChems = data.chems || [];
-  const chems = preSortChems.sort((a, b) => {
-    const descA = a.name.toLowerCase();
-    const descB = b.name.toLowerCase();
-    if (descA < descB) {
-      return -1;
-    }
-    if (descA > descB) {
-      return 1;
-    }
-    return 0;
-  });
-
   const damageTypes = [
     {
       label: 'Brute',
@@ -121,7 +108,7 @@ export const Sleeper = (props, context) => {
               onClick={() => act('door')} />
           )}>
           <Table>
-            {chems.map(chem => (
+            {data.chems.map(chem => (
               <Table.Row
                 key={chem.id} >
                 <Table.Cell>

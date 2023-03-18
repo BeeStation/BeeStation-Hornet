@@ -20,6 +20,9 @@
 	var/controls_inside = FALSE
 	var/max_vials = 6
 	var/list/inserted_vials = list()
+	var/list/roundstart_vials = list(
+		/obj/item/reagent_containers/chem_bag/epinephrine
+	)
 	var/list/roundstart_chems = list(
 		/datum/reagent/medicine/epinephrine,
 		/datum/reagent/medicine/morphine,
@@ -28,6 +31,7 @@
 		/datum/reagent/medicine/kelotane,
 		/datum/reagent/medicine/antitoxin
 	)
+	var/roundstart_chem_default_size = 80
 	/// If true doesn't consume chems
 	var/synthesizing = FALSE
 	var/scrambled_chems = FALSE //Are chem buttons scrambled? used as a warning
@@ -40,11 +44,27 @@
 	occupant_typecache = GLOB.typecache_living
 	update_icon()
 	//Create roundstart chems
+	var/created_vials = 0
 	if (mapload)
+		// create pre-defined vials first and insert it into sleeper
+		for (var/each in roundstart_vials)
+			if(created_vials >= max_vials)
+				stack_trace("Sleeper attempts to create roundstart chems more than [max_vials]")
+				break
+			inserted_vials += new each
+			created_vials++
+		// and then chemical bag with a single chem will go into sleeper
 		for (var/datum/reagent/default_chem as() in roundstart_chems)
-			var/obj/item/reagent_containers/glass/bottle/beaker = new(null)
-			beaker.reagents.add_reagent(default_chem, beaker.volume)
+			if(created_vials >= max_vials)
+				stack_trace("Sleeper attempts to create roundstart chems more than [max_vials]")
+				break
+			var/obj/item/reagent_containers/chem_bag/beaker = new(null)
+			beaker.reagents.add_reagent(default_chem, roundstart_chem_default_size) // 80u for default chems
+			beaker.reagents.add_reagent(/datum/reagent/medicine/salglu_solution, beaker.volume - beaker.reagents.total_volume) // the rest will be saline glucose
+			var/datum/reagent/main_reagent = beaker.reagents.reagent_list[1]
+			beaker.label_name = main_reagent.name
 			inserted_vials += beaker
+			created_vials++
 
 /obj/machinery/sleeper/RefreshParts()
 	var/E
@@ -74,7 +94,9 @@
 		icon_state = initial(icon_state)
 
 /obj/machinery/sleeper/attackby(obj/item/I, mob/living/user, params)
-	if (istype(I, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
+	if ((istype(I, /obj/item/reagent_containers/glass) \
+		|| istype(I, /obj/item/reagent_containers/chem_bag)) \
+		&& user.a_intent != INTENT_HARM)
 		if (length(inserted_vials) >= max_vials)
 			to_chat(user, "<span class='warning'>[src] cannot hold any more!</span>")
 			return
@@ -208,16 +230,8 @@
 	//Display the names of the inserted vials
 	data["chems"] = list()
 	var/i = 1
-	for(var/obj/chem_vial as() in inserted_vials)
-		var/chem_name = chem_vial.name
-		if (!chem_vial.renamedByPlayer)
-			var/dominant_chemical = "Empty"
-			var/dominant_amount = 0
-			for(var/datum/reagent/reagent in chem_vial.reagents.reagent_list)
-				if (reagent.volume > dominant_amount)
-					dominant_amount = reagent.volume
-					dominant_chemical = reagent.name
-			chem_name = dominant_chemical
+	for(var/obj/item/reagent_containers/chem_vial as() in inserted_vials)
+		var/chem_name = chem_vial.renamedByPlayer ? chem_vial.name : chem_vial.label_name || chem_vial.name
 		data["chems"] += list(list("name" = chem_name, "id" = i, "allowed" = chem_allowed(i), "amount" = chem_vial.reagents?.total_volume || 0))
 		i++
 
@@ -323,9 +337,11 @@
 /obj/machinery/sleeper/syndie
 	icon_state = "sleeper_s"
 	controls_inside = TRUE
+	roundstart_vials = list()
 	roundstart_chems = list(
 		/datum/reagent/medicine/syndicate_nanites, /datum/reagent/medicine/oculine, /datum/reagent/medicine/inacusiate, /datum/reagent/medicine/mutadone, /datum/reagent/medicine/mannitol, /datum/reagent/medicine/omnizine
 	)
+	roundstart_chem_default_size = 100 // syndi nanites are strong chem, so should be limited.
 	efficiency = 2.5
 
 /obj/machinery/sleeper/syndie/fullupgrade
@@ -336,7 +352,9 @@
 	desc = "A large cryogenics unit built from brass. Its surface is pleasantly cool the touch."
 	icon_state = "sleeper_clockwork"
 	enter_message = "<span class='bold inathneq_small'>You hear the gentle hum and click of machinery, and are lulled into a sense of peace.</span>"
+	roundstart_vials = list()
 	roundstart_chems = list(/datum/reagent/medicine/epinephrine, /datum/reagent/medicine/salbutamol, /datum/reagent/medicine/bicaridine, /datum/reagent/medicine/kelotane, /datum/reagent/medicine/oculine, /datum/reagent/medicine/inacusiate, /datum/reagent/medicine/mannitol)
+	roundstart_chem_default_size = 200
 	synthesizing = TRUE
 
 /obj/machinery/sleeper/old
