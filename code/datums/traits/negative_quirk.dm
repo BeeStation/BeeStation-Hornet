@@ -43,6 +43,9 @@
 /datum/quirk/blindness/add()
 	quirk_target.become_blind(ROUNDSTART_TRAIT)
 
+/datum/quirk/blindness/remove()
+	quirk_target.cure_blind(ROUNDSTART_TRAIT)
+
 /datum/quirk/blindness/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/clothing/glasses/blindfold/white/B = new(get_turf(H))
@@ -88,7 +91,7 @@
 	)
 	where = H.equip_in_one_of_slots(P, slots, FALSE)
 
-/datum/quirk/brainproblems/post_add()
+/datum/quirk/brainproblems/post_spawn()
 	if(where)
 		to_chat(quirk_target, "<span class='boldnotice'>There is a bottle of mannitol [where]. You're going to need it.</span>")
 	else
@@ -134,7 +137,7 @@
 	if(is_species(H, /datum/species/moth) && prob(50))
 		heirloom_type = /obj/item/flashlight/lantern/heirloom_moth
 	else
-		switch(quirk_target.mind.assigned_role)
+		switch(quirk_holder.assigned_role)
 			//Service jobs
 			if(JOB_NAME_CLOWN)
 				heirloom_type = /obj/item/bikehorn/golden
@@ -221,7 +224,7 @@
 	)
 	where = H.equip_in_one_of_slots(heirloom, slots, FALSE) || "at your feet"
 
-/datum/quirk/family_heirloom/post_add()
+/datum/quirk/family_heirloom/post_spawn()
 	if(where == "in your backpack")
 		var/mob/living/carbon/human/H = quirk_target
 		SEND_SIGNAL(H.back, COMSIG_TRY_STORAGE_SHOW, H)
@@ -231,7 +234,7 @@
 	var/list/names = splittext(quirk_target.real_name, " ")
 	var/family_name = names[names.len]
 
-	heirloom.AddComponent(/datum/component/heirloom, quirk_target.mind, family_name)
+	heirloom.AddComponent(/datum/component/heirloom, quirk_holder, family_name)
 	if(istype(heirloom, /obj/item/reagent_containers/glass/chem_heirloom)) //Edge case for chem_heirloom. Solution to component not being present on init.
 		var/obj/item/reagent_containers/glass/chem_heirloom/H = heirloom
 		H.update_name()
@@ -243,12 +246,6 @@
 	else
 		SEND_SIGNAL(quirk_target, COMSIG_CLEAR_MOOD_EVENT, "family_heirloom")
 		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "family_heirloom_missing", /datum/mood_event/family_heirloom_missing)
-
-/datum/quirk/family_heirloom/clone_data()
-	return heirloom
-
-/datum/quirk/family_heirloom/on_clone(data)
-	heirloom = data
 
 /datum/quirk/frail
 	name = "Frail"
@@ -269,13 +266,13 @@
 
 /datum/quirk/foreigner/add()
 	var/mob/living/carbon/human/H = quirk_target
-	if(ishuman(H) && H.job != JOB_NAME_CURATOR)
+	if(quirk_holder.assigned_role != JOB_NAME_CURATOR)
 		H.add_blocked_language(/datum/language/common)
 		H.grant_language(/datum/language/uncommon)
 
 /datum/quirk/foreigner/remove()
 	var/mob/living/carbon/human/H = quirk_target
-	if(ishuman(H) && H.job != JOB_NAME_CURATOR)
+	if(quirk_holder.assigned_role != JOB_NAME_CURATOR)
 		H.remove_blocked_language(/datum/language/common)
 		H.remove_language(/datum/language/uncommon)
 
@@ -324,6 +321,9 @@
 /datum/quirk/nearsighted/add()
 	quirk_target.become_nearsighted(ROUNDSTART_TRAIT)
 
+/datum/quirk/nearsighted/remove()
+	quirk_target.cure_nearsighted(ROUNDSTART_TRAIT)
+
 /datum/quirk/nearsighted/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/clothing/glasses/regular/glasses = new(get_turf(H))
@@ -359,21 +359,14 @@
 	lose_text = "<span class='notice'>You think you can defend yourself again.</span>"
 	medical_record_text = "Patient is unusually pacifistic and cannot bring themselves to cause physical harm."
 
-/datum/quirk/paraplegic
+/datum/quirk/trauma/paraplegic
 	name = "Paraplegic"
 	desc = "Your legs do not function. Nothing will ever fix this. But hey, free wheelchair!"
 	value = -3
-	human_only = TRUE
-	gain_text = null // Handled by trauma.
-	lose_text = null
 	medical_record_text = "Patient has an untreatable impairment in motor function in the lower extremities."
+	trauma_type = /datum/brain_trauma/severe/paralysis/paraplegic/
 
-/datum/quirk/paraplegic/add()
-	var/datum/brain_trauma/severe/paralysis/paraplegic/T = new()
-	var/mob/living/carbon/human/H = quirk_target
-	H.gain_trauma(T, TRAUMA_RESILIENCE_ABSOLUTE)
-
-/datum/quirk/paraplegic/on_spawn()
+/datum/quirk/trauma/paraplegic/on_spawn()
 	if(quirk_target.buckled) // Handle late joins being buckled to arrival shuttle chairs.
 		quirk_target.buckled.unbuckle_mob(quirk_target)
 
@@ -435,7 +428,7 @@
 	qdel(old_part)
 	H.regenerate_icons()
 
-/datum/quirk/prosthetic_limb/post_add()
+/datum/quirk/prosthetic_limb/post_spawn()
 	to_chat(quirk_target, "<span class='boldannounce'>Your [slot_string] has been replaced with a surplus prosthetic. It is fragile and will easily come apart under duress. Additionally, \
 	you need to use a welding tool and cables to repair it, instead of bruise packs and ointment.</span>")
 
@@ -468,8 +461,8 @@
 /datum/quirk/insanity/proc/madness()
 	quirk_target.hallucination += rand(10, 25)
 
-/datum/quirk/insanity/post_add() //I don't /think/ we'll need this but for newbies who think "roleplay as insane" = "license to kill" it's probably a good thing to have
-	if(!quirk_target.mind || quirk_target.mind.special_role)
+/datum/quirk/insanity/post_spawn() //I don't /think/ we'll need this but for newbies who think "roleplay as insane" = "license to kill" it's probably a good thing to have
+	if(quirk_holder.special_role)
 		return
 	to_chat(quirk_target, "<span class='big bold info'>Please note that your dissociation syndrome does NOT give you the right to attack people or otherwise cause any interference to \
 	the round. You are not an antagonist, and the rules will treat you the same as other crewmembers.</span>")
@@ -553,7 +546,7 @@
 		where_accessory = H.equip_in_one_of_slots(accessory_instance, slots, FALSE) || "at your feet"
 	announce_drugs()
 
-/datum/quirk/junkie/post_add()
+/datum/quirk/junkie/post_spawn()
 	if(where_drug == "in your backpack" || where_accessory == "in your backpack")
 		var/mob/living/carbon/human/H = quirk_target
 		SEND_SIGNAL(H.back, COMSIG_TRY_STORAGE_SHOW, H)
@@ -635,7 +628,7 @@
 	var/mob/living/carbon/human/H = quirk_target
 	where_drink = H.equip_in_one_of_slots(drink_instance, slots, FALSE) || "at your feet"
 
-/datum/quirk/alcoholic/post_add()
+/datum/quirk/alcoholic/post_spawn()
 	to_chat(quirk_target, "<span class='boldnotice'>There is a small bottle of [drink_instance] [where_drink]. You only have a single bottle, might have to find some more...</span>")
 
 /datum/quirk/alcoholic/on_process()
@@ -677,19 +670,21 @@
 	lose_text = "<span class='notice'>Your mind finally feels calm.</span>"
 	medical_record_text = "Patient's mind is in a vulnerable state, and cannot recover from traumatic events."
 
-/datum/quirk/phobia
+/datum/quirk/trauma //Generic for quirks that apply a brain trauma
 	name = "Phobia"
 	desc = "Because of a traumatic event in your past you have developed a strong phobia."
 	value = -2
-	gain_text = "<span class='danger'>You start feeling an irrational fear of something.</span>"
-	lose_text = "<span class='notice'>You are no longer irrationally afraid.</span>"
+	gain_text = null // these are handled by the trauma itself
+	lose_text = null
 	medical_record_text = "Patient suffers from a deeply-rooted phobia."
+	var/datum/brain_trauma/trauma_type = /datum/brain_trauma/mild/phobia/
+	var/trauma
 
-/datum/quirk/phobia/add()
-	var/datum/brain_trauma/mild/phobia/T = new()
+/datum/quirk/trauma/add()
+	trauma = new trauma_type
 	var/mob/living/carbon/human/H = quirk_target
-	H.gain_trauma(T, TRAUMA_RESILIENCE_ABSOLUTE)
+	H.gain_trauma(trauma, TRAUMA_RESILIENCE_ABSOLUTE)
 
-/datum/quirk/phobia/remove()
+/datum/quirk/trauma/remove()
 	var/mob/living/carbon/human/H = quirk_target
-	H.cure_trauma_type(/datum/brain_trauma/mild/phobia, TRAUMA_RESILIENCE_ABSOLUTE)
+	H.cure_trauma_type(trauma, TRAUMA_RESILIENCE_ABSOLUTE)

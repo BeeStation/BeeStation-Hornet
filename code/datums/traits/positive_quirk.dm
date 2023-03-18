@@ -111,10 +111,11 @@
 	mob_trait = TRAIT_MULTILINGUAL
 	gain_text = "<span class='notice'>You have learned to understand an additional language.</span>"
 	lose_text = "<span class='danger'>You have forgotten how to understand a language.</span>"
+	var/datum/language/known_language
 
-/datum/quirk/multilingual/on_spawn()
+/datum/quirk/multilingual/proc/set_up_language()
 	var/mob/living/carbon/human/H = quirk_target
-	if(H.job == JOB_NAME_CURATOR)
+	if(quirk_holder.assigned_role == JOB_NAME_CURATOR)
 		return
 	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
 	var/list/languages_possible = T.languages_possible
@@ -123,9 +124,19 @@
 	languages_possible = languages_possible - H.language_holder.spoken_languages
 	languages_possible = languages_possible - H.language_holder.blocked_languages
 	if(length(languages_possible))
-		var/datum/language/random_language = pick(languages_possible)
-		H.grant_language(random_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
+		known_language = pick(languages_possible)
+		quirk_target.grant_language(known_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
 //Credit To Yowii/Yoworii/Yorii for a much more streamlined method of language library building
+
+/datum/quirk/multilingual/add()
+	if(known_language)
+		quirk_target.grant_language(known_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
+	else
+		set_up_language()
+
+/datum/quirk/multilingual/remove()
+	if(known_language)
+		quirk_target.remove_language(known_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
 
 /datum/quirk/night_vision
 	name = "Night Vision"
