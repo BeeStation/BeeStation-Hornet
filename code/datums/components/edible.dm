@@ -284,8 +284,11 @@ Behavior that's still missing from this component that original food items had t
 		return FALSE
 	var/mob/living/carbon/human/human_eater = eater
 	var/obj/item/organ/tongue/tongue = human_eater.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/stomach/stomach = human_eater.getorganslot(ORGAN_SLOT_STOMACH)
 	if((foodtypes & BREAKFAST) && world.time - SSticker.round_start_time < STOP_SERVING_BREAKFAST)
 		SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "breakfast", /datum/mood_event/breakfast)
+	if(foodtypes & stomach.toxic_food)
+		human_eater.reagents.add_reagent(/datum/reagent/toxin/bad_food, rand(1,10))
 	if(foodtypes & tongue.disliked_food & !HAS_TRAIT(human_eater, TRAIT_AGEUSIA))
 		to_chat(human_eater,"<span class='notice'>That didn't taste very good...</span>")
 		human_eater.adjust_disgust(11 + 15 * fraction)
