@@ -2,8 +2,13 @@
 	name = "Ion Storm"
 	typepath = /datum/round_event/ion_storm
 	weight = 15
-	min_players = 2
+	min_players = 0 // Handled by canSpawnEvent override
 	can_malf_fake_alert = TRUE
+
+/datum/round_event_control/ion_storm/canSpawnEvent(players_amt, gamemode)
+	. = ..()
+	if(players_amt < CONFIG_GET(number/malf_ai_minimum_pop))
+		return FALSE
 
 /datum/round_event/ion_storm
 	var/replaceLawsetChance = 25 //chance the AI's lawset is completely replaced with something else per config weights
