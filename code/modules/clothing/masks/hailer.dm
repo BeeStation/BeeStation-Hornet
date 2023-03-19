@@ -20,6 +20,10 @@
 	var/broken_hailer = 0
 	var/safety = TRUE
 
+/obj/item/clothing/mask/gas/sechailer/spacepol
+	name = "spacepol mask"
+	desc = "A standard issue gas mask with integrated 'Compli-o-nator 3000' device, created in cooperation with a certain megacorporation. Plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you tase them. Do not tamper with the device."
+
 /obj/item/clothing/mask/gas/sechailer/swat
 	name = "\improper SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000."

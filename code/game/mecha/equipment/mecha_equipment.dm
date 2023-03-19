@@ -48,7 +48,7 @@
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/try_attach_part(mob/user, obj/mecha/M)
-	if(!do_mob(user, M, 15))
+	if(!do_after(user, 15, M))
 		return FALSE
 	if(!can_attach(M))
 		to_chat(user, "<span class='warning'>You are unable to attach [src] to [M]!</span>")
