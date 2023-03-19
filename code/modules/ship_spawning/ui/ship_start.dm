@@ -10,6 +10,7 @@
 	var/datum/ship_lobby/lobby
 
 /datum/ship_start_selector/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
 		ui = new(user, src, "StartMenu")
 		ui.open()
@@ -24,6 +25,34 @@
 	var/list/data = list()
 	switch (state)
 		if (STATE_CREATE)
+			var/list/member_list = list()
+			for (var/client/C in lobby.members)
+				member_list += list(list(
+					"name" = C.ckey,
+					"job" = lobby.get_job_role(C),
+				))
+			data["lobby_id"] = lobby.lobby_id
+			data["lobby_member_list"] = member_list
+			data["lobby_can_join"] = lobby.can_join(user.client)
+			data["lobby_private"] = lobby.private_lobby
+			data["is_host"] = lobby.owner == user.client
+			data["lobby_name"] = lobby.get_name()
+			data["selected_ship"] = null
+			data["whitelist"] = lobby.whitelisted_ckeys
+			if (lobby.selected_ship)
+				var/list/ship_roles = list()
+				for (var/datum/job/job_type as() in lobby.selected_ship.job_roles)
+					var/count = lobby.selected_ship.job_roles[job_type]
+					ship_roles += list(list(
+						"job_name" = initial(job_type.title),
+						"used" = 0,
+						"amount" = count,
+					))
+				data["selected_ship"] = list(
+					"name" = lobby.selected_ship.spawned_template.name,
+					"cost" = lobby.selected_ship.template_cost,
+					"roles" = ship_roles,
+				)
 			return data
 		if (STATE_JOIN)
 			// The available lobbies
@@ -40,10 +69,15 @@
 			if (lobby)
 				var/list/member_list = list()
 				for (var/client/C in lobby.members)
-					member_list += C.ckey
+					member_list += list(list(
+						"name" = C.ckey,
+						"job" = null
+					))
 				data["selected_lobby"] = list(
+					"id" = lobby.lobby_id,
 					"member_list" = member_list,
-					"can_join" = lobby.can_join(user.client)
+					"can_join" = lobby.can_join(user.client),
+					"private" = lobby.private_lobby,
 				)
 
 	return data
@@ -56,6 +90,13 @@
 	switch (state)
 		// Create State
 		if (STATE_CREATE)
+			// Add the list of ships that can be selected
+			data["selectable_ships"] = list()
+			for (var/datum/starter_ship_template/starter_ship in SSship_spawning.starter_ships)
+				data["selectable_ships"] += list(list(
+					"name" = starter_ship.spawned_template.name,
+					"cost" = starter_ship.template_cost,
+				))
 			return data
 		// Join state
 		if (STATE_JOIN)
@@ -81,6 +122,16 @@
 			src.state = STATE_INITIAL
 			update_static_data(usr, ui)
 			return TRUE
+		if ("create_lobby")
+			// Leave the lobby if necessary
+			if (lobby)
+				lobby.member_leave(usr.client)
+				lobby = null
+			// Switch to the new state
+			src.state = STATE_CREATE
+			// Create a new lobby
+			lobby = new /datum/ship_lobby(usr.client)
+			update_static_data(usr, ui)
 
 	switch (src.state)
 		if (STATE_INITIAL)
@@ -89,12 +140,6 @@
 				if ("setup_character")
 					// Display the preference/character creator menu
 					usr.client.prefs.ShowChoices(usr)
-				if ("create_lobby")
-					// Switch to the new state
-					src.state = STATE_CREATE
-					// Create a new lobby
-					lobby = new /datum/ship_lobby(usr.client)
-					update_static_data(usr, ui)
 				if ("join_lobby")
 					// Switch to the new state
 					src.state = STATE_JOIN
@@ -123,14 +168,25 @@
 		if (STATE_CREATE)
 			switch(action)
 				//======= Create Ship Actions =======
-				if ("disband_crew")
-					return
 				if ("set_name")
-					return
+					// Name sanitation: State approved characters
+					// only.
+					var/name = reject_bad_name(params["name"], TRUE)
+					if (!name)
+						return FALSE
+					if (OOC_FILTER_CHECK(name))
+						tgui_alert(usr, "Banned words in ship name. Please check the server rules.", "Banned Name")
+						return FALSE
+					lobby.set_name(usr.client, name)
 				if ("set_ship")
-					return
+					var/ship_name = params["ship_id"]
+					for (var/datum/starter_ship_template/starter_ship in SSship_spawning.starter_ships)
+						if (starter_ship.spawned_template.name == ship_name)
+							lobby.set_ship(usr.client, starter_ship)
+							return TRUE
 				if ("set_privacy_mode")
-					return
+					var/new_private_mode = params["new_private"]
+					lobby.set_privacy_mode(usr.client, new_private_mode)
 				if ("kick_player")
 					return
 				if ("add_equipment")
@@ -142,7 +198,14 @@
 				if ("remove_whitelist")
 					return
 				if ("start_game")
-					return
+					lobby.try_start_game()
+				if ("set_job")
+					var/desired_job_role = params["job"]
+					lobby.set_job_role(usr.client, desired_job_role)
+				if ("whitelist")
+					lobby.whitelist_add(usr.client)
+				if ("dewhitelist")
+					lobby.whitelist_remote(usr.client)
 	return TRUE
 
 /datum/ship_start_selector/ui_assets(mob/user)

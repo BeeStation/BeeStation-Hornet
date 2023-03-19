@@ -337,7 +337,7 @@
 	if(!(end in list("!", ".", "?", ":", "\"", "-", "~")))
 		message += "."
 	return message
-	
+
 /// Returns a string with the first element of the string capitalized.
 /proc/capitalize(t)
 	. = t
