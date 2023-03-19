@@ -28,11 +28,13 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/honk
 	)
 
-/datum/job/clown/after_spawn(mob/living/carbon/human/H, mob/M)
+/datum/job/clown/after_spawn(mob/living/carbon/human/H, mob/M, latejoin = FALSE, client/preference_source)
 	. = ..()
 	if(!ishuman(H))
 		return
-	H.apply_pref_name(/datum/preference/name/clown, M.client)
+	if(!M.client)
+		return
+	H.apply_pref_name(/datum/preference/name/clown, preference_source)
 
 
 /datum/outfit/job/clown

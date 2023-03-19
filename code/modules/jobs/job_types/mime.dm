@@ -27,11 +27,13 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/mime
 	)
 
-/datum/job/mime/after_spawn(mob/living/carbon/human/H, mob/M)
+/datum/job/mime/after_spawn(mob/living/carbon/human/H, mob/M, latejoin = FALSE, client/preference_source)
 	. = ..()
 	if(!ishuman(H))
 		return
-	H.apply_pref_name(/datum/preference/name/mime, M.client)
+	if(!M.client)
+		return
+	H.apply_pref_name(/datum/preference/name/mime, preference_source)
 
 
 /datum/outfit/job/mime

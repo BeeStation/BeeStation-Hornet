@@ -43,12 +43,12 @@
 
 GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, SEC_DEPT_SCIENCE, SEC_DEPT_SUPPLY))
 
-/datum/job/security_officer/after_spawn(mob/living/carbon/human/H, mob/M)
+/datum/job/security_officer/after_spawn(mob/living/carbon/human/H, mob/M, latejoin = FALSE, client/preference_source)
 	. = ..()
 	// Assign department security
 	var/department
-	if(M?.client?.prefs)
-		department = M.client.prefs.read_character_preference(/datum/preference/choiced/security_department)
+	if(preference_source?.prefs)
+		department = preference_source.prefs.read_character_preference(/datum/preference/choiced/security_department)
 		if(!LAZYLEN(GLOB.available_depts) || department == "None")
 			return
 		else if(department in GLOB.available_depts)
@@ -115,6 +115,8 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 					continue
 				else
 					break
+	if(!M.client)
+		return
 	if(department)
 		to_chat(M, "<b>You have been assigned to [department]!</b>")
 	else

@@ -541,7 +541,7 @@ SUBSYSTEM_DEF(job)
 		if(wageslave.mind?.account_id)
 			living_mob.add_memory("Your account ID is [wageslave.mind.account_id].")
 	if(job && living_mob)
-		job.after_spawn(living_mob, M, joined_late) // note: this happens before the mob has a key! M will always have a client, living_mob might not.
+		job.after_spawn(living_mob, M, joined_late, M.client) // note: this happens before the mob has a key! M will always have a client, living_mob might not.
 
 	if(living_mob.mind && !living_mob.mind.crew_objectives.len)
 		give_crew_objective(living_mob.mind, M)

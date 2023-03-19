@@ -28,8 +28,10 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chaplain
 	)
 
-/datum/job/chaplain/after_spawn(mob/living/H, mob/M)
+/datum/job/chaplain/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source)
 	. = ..()
+	if(!M.client)
+		return
 
 	var/obj/item/storage/book/bible/booze/B = new
 
@@ -45,9 +47,8 @@
 		return
 	H.mind?.holy_role = HOLY_ROLE_HIGHPRIEST
 
-	var/client/player_client = H.client
-	var/new_religion = player_client?.prefs?.read_character_preference(/datum/preference/name/religion) || DEFAULT_RELIGION
-	var/new_deity = player_client?.prefs?.read_character_preference(/datum/preference/name/deity) || DEFAULT_DEITY
+	var/new_religion = preference_source?.prefs?.read_character_preference(/datum/preference/name/religion) || DEFAULT_RELIGION
+	var/new_deity = preference_source?.prefs?.read_character_preference(/datum/preference/name/deity) || DEFAULT_DEITY
 
 	B.deity_name = new_deity
 

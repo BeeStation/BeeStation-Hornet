@@ -24,7 +24,9 @@
 		CRASH("dynamic preview is unsupported")
 	return H.Robotize(FALSE, latejoin)
 
-/datum/job/cyborg/after_spawn(mob/living/silicon/robot/R, mob/M)
+/datum/job/cyborg/after_spawn(mob/living/silicon/robot/R, mob/M, latejoin = FALSE, client/preference_source)
+	if(!M.client)
+		return
 	R.updatename(M.client)
 	R.gender = NEUTER
 
