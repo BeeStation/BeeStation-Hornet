@@ -3667,8 +3667,7 @@
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 4;
 	name = "disposals";
-	sortType = null;
-	sortTypes = list(0,1)
+	sortTypes = list("0","1")
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
@@ -6008,7 +6007,7 @@
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 1;
 	name = "security";
-	sortType = 7
+	sortType = "7"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
@@ -6172,7 +6171,7 @@
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 1;
 	name = "dorms";
-	sortType = 26
+	sortType = "26"
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -6601,7 +6600,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/disposalpipe/sorting/mail{
-	sortType = 2
+	sortType = "2"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
@@ -11767,7 +11766,7 @@
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 8;
 	name = "Curator";
-	sortType = 16
+	sortType = "16"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -13439,7 +13438,7 @@
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 1;
 	name = "Theatre";
-	sortType = 18
+	sortType = "18"
 	},
 /obj/effect/turf_decal/tile/dark_green/corner_ramp{
 	dir = 4
@@ -14835,7 +14834,7 @@
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 1;
 	name = "Barman";
-	sortType = 19
+	sortType = "19"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -15890,8 +15889,7 @@
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 4;
 	name = "Medbay Junction";
-	sortType = null;
-	sortTypes = list(5)
+	sortType = "5"
 	},
 /obj/effect/turf_decal/guideline/guideline_in/yellow{
 	dir = 1
@@ -17302,8 +17300,7 @@
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 8;
 	name = "Medbay Junction";
-	sortType = null;
-	sortTypes = list(6)
+	sortType = "6"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -18030,7 +18027,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/sorting/mail{
-	sortType = 12
+	sortType = "12"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -20305,8 +20302,7 @@
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 8;
 	name = "Services";
-	sortType = null;
-	sortTypes = list(17,18,19,20,21,26)
+	sortTypes = list("17","18","19","20","21","26")
 	},
 /obj/effect/turf_decal/guideline/guideline_in/neutral{
 	alpha = 255;
@@ -23565,7 +23561,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/sorting/mail{
-	sortType = 25
+	sortType = "25"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -24944,7 +24940,7 @@
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 4;
 	name = "Xenobiology Junction";
-	sortType = 28
+	sortType = "28"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -25130,7 +25126,7 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 4;
-	sortType = 14
+	sortType = "14"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -28318,8 +28314,7 @@
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 1;
 	name = "HOS";
-	sortType = 8;
-	sortTypes = null
+	sortType = "8"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
@@ -28865,8 +28860,7 @@
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 4;
 	name = "Medbay Junction";
-	sortType = null;
-	sortTypes = list(11)
+	sortType = "11"
 	},
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal/guideline/guideline_edge/blue,
@@ -30232,7 +30226,7 @@
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 1;
 	name = "Hydro";
-	sortType = 21
+	sortType = "21"
 	},
 /obj/effect/landmark/start/assistant,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -33573,8 +33567,7 @@
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 4;
 	name = "sci shortcut";
-	sortType = null;
-	sortTypes = list(2,3,23,12,25,14,13)
+	sortTypes = list("2","3","23","12","25","14","13")
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
@@ -34342,8 +34335,7 @@
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 1;
 	name = "HOS";
-	sortType = 29;
-	sortTypes = list()
+	sortType = "29"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -39509,7 +39501,7 @@
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 1;
 	name = "Janie";
-	sortType = 22
+	sortType = "22"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -44095,8 +44087,7 @@
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 2;
 	name = "Medbay";
-	sortType = null;
-	sortTypes = list(9,10,11,27)
+	sortTypes = list("9","10","11","27")
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	alpha = 180
@@ -47415,7 +47406,7 @@
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 4;
 	name = "Medbay Junction";
-	sortType = 9
+	sortType = "9"
 	},
 /obj/effect/turf_decal/guideline/guideline_edge/green,
 /turf/open/floor/plasteel/white/side{
@@ -51619,7 +51610,7 @@
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 1;
 	name = "HOP";
-	sortType = 15
+	sortType = "15"
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -52593,7 +52584,7 @@
 "sng" = (
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 4;
-	sortType = 13
+	sortType = "13"
 	},
 /obj/effect/turf_decal/guideline/guideline_edge/purple,
 /turf/open/floor/plasteel/white/side{
@@ -54030,7 +54021,7 @@
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 4;
 	name = "Virology Junction";
-	sortType = 27
+	sortType = "27"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -57385,8 +57376,7 @@
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 2;
 	name = "Medbay";
-	sortType = null;
-	sortTypes = list(14,13)
+	sortTypes = list("14","13")
 	},
 /obj/machinery/holopad,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -57780,8 +57770,7 @@
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 4;
 	name = "Medbay";
-	sortType = 10;
-	sortTypes = list()
+	sortType = "10"
 	},
 /obj/effect/turf_decal/guideline/guideline_edge/green,
 /obj/effect/turf_decal/guideline/guideline_edge/blue{
@@ -58815,8 +58804,7 @@
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 4;
 	name = "Medbay Junction";
-	sortType = null;
-	sortTypes = list(4)
+	sortType = "4"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
@@ -59473,7 +59461,7 @@
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 1;
 	name = "Kitchen";
-	sortType = 20
+	sortType = "20"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -67733,7 +67721,7 @@
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 1;
 	name = "Kitchen";
-	sortType = 17
+	sortType = "17"
 	},
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/light{
@@ -69162,7 +69150,7 @@
 "xQu" = (
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 1;
-	sortType = 3
+	sortType = "3"
 	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/guideline/guideline_half_edge/brown,
