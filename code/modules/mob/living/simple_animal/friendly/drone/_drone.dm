@@ -54,7 +54,7 @@
 	held_items = list(null, null)
 	var/staticChoice = "static"
 	var/list/staticChoices = list("static", "blank", "letter", "animal")
-	var/picked = FALSE //Have we picked our visual appearence (+ colour if applicable)
+	var/picked = FALSE //Have we picked our visual appearance (+ colour if applicable)
 	var/colour = "grey"	//Stored drone color, so we can go back when unhacked.
 	var/list/drone_overlays[DRONE_TOTAL_LAYERS]
 	var/laws = \
@@ -67,7 +67,7 @@
 	var/obj/item/head
 	var/obj/item/default_storage = /obj/item/storage/backpack/duffelbag/drone //If this exists, it will spawn in internal storage
 	var/obj/item/default_hatmask //If this exists, it will spawn in the hat/mask slot if it can fit
-	var/visualAppearence = MAINTDRONE //What we appear as
+	var/visualAppearance = MAINTDRONE //What we appear as
 	var/hacked = FALSE //If we have laws to destroy the station
 	var/flavortext = \
 	"\n<big><span class='warning'>DO NOT INTERFERE WITH THE ROUND AS A DRONE OR YOU WILL BE DRONE BANNED</span></big>\n"+\
@@ -132,7 +132,7 @@
 		to_chat(src, "[flavortext]")
 
 	if(!picked)
-		pickVisualAppearence()
+		pickVisualAppearance()
 
 /mob/living/simple_animal/drone/auto_deadmin_on_login()
 	if(!client?.holder)

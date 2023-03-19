@@ -23,7 +23,7 @@ In addition, severe effects won't always trigger unless the drink is poisonously
 All effects don't start immediately, but rather get worse over time; the rate is affected by the imbiber's alcohol tolerance
 
 0: Non-alcoholic
-1-10: Barely classifiable as alcohol - occassional slurring
+1-10: Barely classifiable as alcohol - occasional slurring
 11-20: Slight alcohol content - slurring
 21-30: Below average - imbiber begins to look slightly drunk
 31-40: Just below average - no unique effects
@@ -92,6 +92,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	boozepwr = 25
 	taste_description = "piss water"
+	glass_icon_state = "beerglass"
 	glass_name = "glass of beer"
 	glass_desc = "A freezing pint of beer."
 
@@ -114,7 +115,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		M.become_nearsighted("ftliver")
 		shake_camera(M,15)
 		M.playsound_local(M.loc,"sound/effects/hyperspace_end.ogg",50)
-		addtimer(CALLBACK(src, .proc/Recover, M), 55)
+		addtimer(CALLBACK(src, PROC_REF(Recover), M), 55)
 	return ..()
 
 /datum/reagent/consumable/ethanol/ftliver/proc/Recover(mob/living/M)
@@ -2010,7 +2011,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 	var/minimum_name_percent = 0.35
 	name = ""
-	var/list/names_in_order = sortTim(names, /proc/cmp_numeric_dsc, TRUE)
+	var/list/names_in_order = sortTim(names, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
 	var/named = FALSE
 	for(var/fruit_name in names)
 		if(names[fruit_name] >= minimum_name_percent)

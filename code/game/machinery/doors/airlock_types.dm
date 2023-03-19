@@ -223,14 +223,16 @@
 
 /obj/machinery/door/airlock/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+		if(plasma_ignition(6))
+			PlasmaBurn()
 
-/obj/machinery/door/airlock/plasma/proc/ignite(exposed_temperature)
-	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+/obj/machinery/door/airlock/plasma/bullet_act(obj/item/projectile/Proj)
+	if(!(Proj.nodamage) && Proj.damage_type == BURN)
+		if(plasma_ignition(6, Proj?.firer))
+			PlasmaBurn()
+	. = ..()
 
-/obj/machinery/door/airlock/plasma/proc/PlasmaBurn(temperature)
-	atmos_spawn_air("plasma=500;TEMP=1000")
+/obj/machinery/door/airlock/plasma/proc/PlasmaBurn()
 	var/obj/structure/door_assembly/DA
 	DA = new /obj/structure/door_assembly(loc)
 	if(glass)
@@ -239,16 +241,14 @@
 		DA.heat_proof_finished = TRUE
 	DA.update_icon()
 	DA.update_name()
-	qdel(src)
 
 /obj/machinery/door/airlock/plasma/BlockThermalConductivity() //we don't stop the heat~
 	return 0
 
 /obj/machinery/door/airlock/plasma/attackby(obj/item/C, mob/user, params)
 	if(C.is_hot() > 300)//If the temperature of the object is over 300, then ignite
-		message_admins("Plasma airlock ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(src)]")
-		log_game("Plasma airlock ignited by [key_name(user)] in [AREACOORD(src)]")
-		ignite(C.is_hot())
+		if(plasma_ignition(6, user))
+			PlasmaBurn()
 	else
 		return ..()
 

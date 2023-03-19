@@ -51,11 +51,9 @@
 	radio.canhear_range = 0
 	radio.recalculateChannels()
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/Exited(atom/movable/AM, atom/newloc)
-	var/oldoccupant = occupant
-	. = ..() // Parent proc takes care of removing occupant if necessary
-	if (AM == oldoccupant)
-		update_icon()
+/obj/machinery/atmospherics/components/unary/cryo_cell/set_occupant(atom/movable/new_occupant)
+	. = ..()
+	update_icon()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/on_construction()
 	..(dir, dir)
@@ -168,7 +166,7 @@
 		occupant_overlay.pixel_y--
 	add_overlay(occupant_overlay)
 	add_overlay("cover-on")
-	addtimer(CALLBACK(src, .proc/run_anim, anim_up, occupant_overlay), 7, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(run_anim), anim_up, occupant_overlay), 7, TIMER_UNIQUE)
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/nap_violation(mob/violator)
 	open_machine()
@@ -247,8 +245,8 @@
 		var/cold_protection = 0
 		var/temperature_delta = air1.return_temperature() - mob_occupant.bodytemperature // The only semi-realistic thing here: share temperature between the cell and the occupant.
 
-		if(ishuman(occupant))
-			var/mob/living/carbon/human/H = occupant
+		if(ishuman(mob_occupant))
+			var/mob/living/carbon/human/H = mob_occupant
 			cold_protection = H.get_cold_protection(air1.return_temperature())
 
 		if(abs(temperature_delta) > 1)
@@ -280,7 +278,7 @@
 		if(isliving(M))
 			var/mob/living/L = M
 			L.update_mobility()
-	occupant = null
+	set_occupant(null)
 	flick("pod-open-anim", src)
 	..()
 

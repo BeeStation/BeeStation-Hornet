@@ -36,7 +36,7 @@
 			user.do_attack_animation(src)
 			if (user.name == master)
 				visible_message("<span class='notice'>Responding to its master's touch, [src] disengages its holochassis emitter, rapidly losing coherence.</span>")
-				addtimer(CALLBACK(src, .proc/fold_into_hand, user), 10)
+				addtimer(CALLBACK(src, PROC_REF(fold_into_hand), user), 10)
 			else
 				visible_message("<span class='danger'>[user] stomps on [src]!.</span>")
 				take_holo_damage(2)

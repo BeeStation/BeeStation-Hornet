@@ -369,8 +369,8 @@
 						if(STRB)
 							drop_threshold = STRB.max_items - bottle.contents.len
 							target_loc = bottle
-					for(var/i = 0; i < amount; i++)
-						if(i < drop_threshold)
+					for(var/i in 1 to amount)
+						if(i-1 < drop_threshold)
 							P = new/obj/item/reagent_containers/pill(target_loc)
 						else
 							P = new/obj/item/reagent_containers/pill(drop_location())
@@ -387,7 +387,7 @@
 					. = TRUE
 				if("patch")
 					var/obj/item/reagent_containers/pill/patch/P
-					for(var/i = 0; i < amount; i++)
+					for(var/i in 1 to amount)
 						P = new/obj/item/reagent_containers/pill/patch(drop_location())
 						P.name = trim("[name] patch")
 						P.label_name = trim(name)
@@ -397,7 +397,7 @@
 					. = TRUE
 				if("bottle")
 					var/obj/item/reagent_containers/glass/bottle/P
-					for(var/i = 0; i < amount; i++)
+					for(var/i in 1 to amount)
 						P = new/obj/item/reagent_containers/glass/bottle(drop_location())
 						P.name = trim("[name] bottle")
 						P.label_name = trim(name)
@@ -406,7 +406,7 @@
 					. = TRUE
 				if("bag")
 					var/obj/item/reagent_containers/chem_bag/P
-					for(var/i = 0; i < amount; i++)
+					for(var/i in 1 to amount)
 						P = new/obj/item/reagent_containers/chem_bag(drop_location())
 						P.name = trim("[name] chemical bag")
 						P.label_name = trim(name)
@@ -415,7 +415,7 @@
 					. = TRUE
 				if("condimentPack")
 					var/obj/item/reagent_containers/food/condiment/pack/P
-					for(var/i = 0; i < amount; i++)
+					for(var/i in 1 to amount)
 						P = new/obj/item/reagent_containers/food/condiment/pack(drop_location())
 						P.originalname = name
 						P.name = trim("[name] pack")
@@ -425,7 +425,7 @@
 					. = TRUE
 				if("condimentBottle")
 					var/obj/item/reagent_containers/food/condiment/P
-					for(var/i = 0; i < amount; i++)
+					for(var/i in 1 to amount)
 						P = new/obj/item/reagent_containers/food/condiment(drop_location())
 						P.originalname = name
 						P.name = trim("[name] bottle")

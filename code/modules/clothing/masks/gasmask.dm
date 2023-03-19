@@ -205,14 +205,6 @@
 	icon_state = "tiki_yalp"
 	actions_types = list()
 
-/obj/item/clothing/mask/gas/hunter
-	name = "bounty hunting mask"
-	desc = "A custom tactical mask with decals added."
-	icon_state = "hunter"
-	item_state = "hunter"
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	flags_inv = HIDEFACIALHAIR|HIDEFACE|HIDEEYES|HIDEEARS|HIDEHAIR|HIDESNOUT
-
 /obj/item/clothing/mask/gas/old
 	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of the older models."
 	icon_state = "gas_alt_old"

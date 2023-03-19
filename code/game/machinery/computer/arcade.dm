@@ -804,7 +804,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 						if(obj_flags & EMAGGED)
 							say("WEEWOO! WEEWOO! Spaceport security en route!")
 							playsound(src, 'sound/items/weeoo1.ogg', 100, FALSE)
-							for(var/i, i<=3, i++)
+							for(var/i in 1 to 3)
 								var/mob/living/simple_animal/hostile/syndicate/ranged/smg/orion/O = new/mob/living/simple_animal/hostile/syndicate/ranged/smg/orion(get_turf(src))
 								O.target = usr
 

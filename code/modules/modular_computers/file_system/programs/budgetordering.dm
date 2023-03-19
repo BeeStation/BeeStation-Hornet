@@ -48,8 +48,7 @@
 	return TRUE
 
 /datum/computer_file/program/budgetorders/ui_data(mob/user)
-	. = ..()
-	var/list/data = get_header_data()
+	var/list/data = list()
 	data["location"] = SSshuttle.supply.getStatusText()
 	var/datum/bank_account/buyer = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	var/obj/item/card/id/id_card = get_buyer_id(user)

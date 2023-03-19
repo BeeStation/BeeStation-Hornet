@@ -275,7 +275,7 @@
 	if(recharging)
 		return
 	if(charges < max_charges)
-		recharge_timer = addtimer(CALLBACK(src, .proc/recharge), recharge_time, TIMER_STOPPABLE)
+		recharge_timer = addtimer(CALLBACK(src, PROC_REF(recharge)), recharge_time, TIMER_STOPPABLE)
 		recharging = TRUE
 
 /obj/item/teleporter/proc/recharge()
