@@ -1874,9 +1874,6 @@
 /obj/effect/turf_decal/guideline/guideline_in/yellow{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 1
-	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "aGe" = (
@@ -2900,11 +2897,10 @@
 /obj/effect/turf_decal/guideline/guideline_half_in/blue{
 	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/blue{
-	dir = 1;
-	pixel_y = -16
-	},
 /obj/effect/turf_decal/guideline/guideline_tri/_offset/blue,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/_offset/blue{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "aYH" = (
@@ -3581,7 +3577,6 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
-/obj/machinery/light,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
@@ -4150,11 +4145,15 @@
 /turf/open/floor/plasteel/white,
 /area/science/robotics)
 "buH" = (
-/obj/machinery/newscaster{
-	pixel_y = 34
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
-/area/bridge)
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
 "buP" = (
 /obj/machinery/computer/card/minor/hos{
 	dir = 4
@@ -8742,12 +8741,11 @@
 /obj/effect/turf_decal/guideline/guideline_half_in/darkblue{
 	dir = 9
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/darkblue{
-	dir = 4;
-	pixel_y = 16
-	},
 /obj/effect/turf_decal/guideline/guideline_tri/_offset/darkblue{
 	dir = 9
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/_offset/darkblue{
+	dir = 10
 	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 4
@@ -8859,6 +8857,12 @@
 	},
 /obj/effect/turf_decal/guideline/guideline_tri/brown{
 	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_x = 32;
+	pixel_y = -3;
+	frequency = 134.7;
+	name = "Supply intercom"
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -10871,11 +10875,10 @@
 /obj/effect/turf_decal/guideline/guideline_half_in/darkblue{
 	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/darkblue{
-	dir = 1;
-	pixel_y = -16
-	},
 /obj/effect/turf_decal/guideline/guideline_tri/_offset/darkblue,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/_offset/darkblue{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 4
 	},
@@ -11145,7 +11148,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "MedbayFoyer";
 	name = "Medbay";
-	req_access_txt = "5"
+	req_one_access_txt = "5;63"
 	},
 /obj/effect/mapping_helpers/airlock/unres,
 /obj/machinery/door/firedoor,
@@ -11320,6 +11323,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/_offset/darkblue{
+	dir = 10
 	},
 /turf/open/floor/plating,
 /area/tcommsat/computer)
@@ -12213,6 +12219,9 @@
 	},
 /obj/machinery/camera/autoname{
 	network = list("ss13","security")
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
 	},
 /turf/open/floor/carpet/green,
 /area/security/courtroom)
@@ -13249,9 +13258,6 @@
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
 	},
 /obj/item/paper/guides/jobs/security/courtroom,
 /obj/machinery/recharger{
@@ -15459,7 +15465,7 @@
 "fgQ" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_one_access_txt = "12;63"
+	req_access_txt = "63
 	},
 /turf/open/floor/plating,
 /area/security/brig)
@@ -16869,6 +16875,12 @@
 	icon_state = "0-4"
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching Prison Wing holding areas.";
+	name = "security camera console";
+	network = list("ss13");
+	pixel_y = 31
+	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/science)
 "fDr" = (
@@ -17963,6 +17975,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/open/floor/wood,
 /area/security/courtroom)
@@ -20560,6 +20575,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/guideline/guideline_edge/red,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel,
 /area/security/main{
 	name = "Security Viewing Hall"
@@ -25049,12 +25067,11 @@
 /obj/effect/turf_decal/guideline/guideline_half_in/darkblue{
 	dir = 9
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/darkblue{
-	dir = 4;
-	pixel_y = 16
-	},
 /obj/effect/turf_decal/guideline/guideline_tri/_offset/darkblue{
 	dir = 9
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/_offset/darkblue{
+	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
@@ -25682,6 +25699,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
 /turf/open/floor/plasteel,
 /area/security/main{
@@ -27741,9 +27761,6 @@
 	pixel_y = 4
 	},
 /obj/effect/turf_decal/siding/wood,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
@@ -28287,7 +28304,7 @@
 	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
-	icon_state = "0-2"
+	icon_state = "4-8"
 	},
 /turf/open/floor/carpet/green,
 /area/security/courtroom)
@@ -29224,6 +29241,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
@@ -34158,9 +34178,6 @@
 /obj/effect/turf_decal/guideline/guideline_in/yellow{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 1
-	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "lOa" = (
@@ -34216,11 +34233,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/research{
-	id_tag = "ResearchExt";
-	name = "Research Division";
-	req_one_access_txt = "7;63"
-	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
 	},
@@ -34239,6 +34251,11 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/obj/machinery/door/airlock/research{
+	id_tag = "ResearchExt";
+	name = "Research Division";
+	req_one_access_txt = "7;63;29"
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
@@ -36379,7 +36396,7 @@
 /obj/machinery/door/airlock/research{
 	id_tag = "ResearchExt";
 	name = "Research Division";
-	req_one_access_txt = "7;63"
+	req_one_access_txt = "7;63;29"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
@@ -38798,6 +38815,11 @@
 "nnn" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
+	},
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_x = 1;
+	pixel_y = 23
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/aisat/foyer)
@@ -47026,9 +47048,6 @@
 	pixel_x = -30;
 	pixel_y = -4
 	},
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/structure/filingcabinet/security,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -48351,9 +48370,6 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/carpet/green,
 /area/security/courtroom)
 "qLh" = (
@@ -48786,7 +48802,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19"
+	req_access_txt = "20
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -50258,9 +50274,6 @@
 	color = "#DE3A3A"
 	},
 /obj/effect/turf_decal/delivery,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/door/window/southleft{
 	dir = 4;
 	name = "Court Hall";
@@ -50346,11 +50359,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "rCA" = (
-/obj/machinery/door/airlock/research{
-	id_tag = "ResearchExt";
-	name = "Research Division";
-	req_one_access_txt = "7;63"
-	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
@@ -50366,6 +50374,11 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/machinery/door/airlock/research{
+	id_tag = "ResearchExt";
+	name = "Research Division";
+	req_one_access_txt = "7;63;29"
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
@@ -51630,11 +51643,10 @@
 /obj/effect/turf_decal/guideline/guideline_half_in/darkblue{
 	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_in_alt/darkblue{
-	dir = 1;
-	pixel_y = -16
-	},
 /obj/effect/turf_decal/guideline/guideline_tri/_offset/darkblue,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/_offset/darkblue{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
 "rVX" = (
@@ -55969,6 +55981,12 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/button/door{
+	id = "qm_warehouse";
+	name = "Warehouse Door Control";
+	pixel_y = -32;
+	req_access_txt = "31"
+	},
 /turf/open/floor/plasteel/sepia,
 /area/quartermaster/warehouse)
 "tsK" = (
@@ -58697,7 +58715,7 @@
 /obj/machinery/door/airlock/research{
 	id_tag = "ResearchExt";
 	name = "Research Division";
-	req_one_access_txt = "7;63"
+	req_one_access_txt = "7;63;29"
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
@@ -60393,8 +60411,7 @@
 /area/library)
 "uTG" = (
 /obj/machinery/door/morgue{
-	name = "Confession Booth";
-	req_access_txt = "27"
+	name = "Confession Booth"
 	},
 /turf/open/floor/carpet/purple,
 /area/chapel/office)
@@ -62595,7 +62612,9 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "vFk" = (
-/obj/machinery/vending/boozeomat/all_access,
+/obj/machinery/vending/boozeomat/all_access{
+	req_access_txt = "4"
+	},
 /turf/closed/wall,
 /area/security/detectives_office)
 "vFp" = (
@@ -66921,12 +66940,6 @@
 	name = "Cargo Warehouse";
 	req_access_txt = "31"
 	},
-/obj/machinery/button/door{
-	id = "qm_warehouse";
-	name = "Warehouse Door Control";
-	pixel_y = -32;
-	req_access_txt = "31"
-	},
 /turf/open/floor/plasteel/sepia,
 /area/quartermaster/warehouse)
 "xeN" = (
@@ -67003,6 +67016,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel,
 /area/security/courtroom)
@@ -67624,10 +67640,13 @@
 /area/chapel/main)
 "xpk" = (
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "1-2"
 	},
-/turf/open/floor/wood,
-/area/security/courtroom)
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/security/warden)
 "xpt" = (
 /obj/machinery/atmospherics/pipe/simple/dark/visible,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
@@ -69250,6 +69269,9 @@
 /area/maintenance/department/medical)
 "xSt" = (
 /obj/structure/barricade/security,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/security)
 "xSH" = (
@@ -97667,7 +97689,7 @@ wdS
 nHI
 biU
 vFk
-mXL
+aJB
 aJB
 bwd
 jBw
@@ -97919,7 +97941,7 @@ hIi
 aGe
 wHT
 dZC
-usb
+buH
 usb
 fiv
 iPt
@@ -98934,7 +98956,7 @@ gJW
 uYx
 cXV
 unC
-vSg
+xpk
 vSg
 uKk
 vSg
@@ -99210,7 +99232,7 @@ icX
 kLz
 ntc
 alq
-xpk
+nUU
 nUU
 vfj
 dhn
@@ -101479,7 +101501,7 @@ qKq
 kch
 chJ
 gKh
-buH
+rrL
 rLl
 lnE
 vNT
