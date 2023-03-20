@@ -10,6 +10,7 @@ export const Sleeper = (props, context) => {
     open,
     occupant = {},
     occupied,
+    chems = {},
   } = data;
 
   const damageTypes = [
@@ -108,7 +109,7 @@ export const Sleeper = (props, context) => {
               onClick={() => act('door')} />
           )}>
           <Table>
-            {data.chems.map(chem => (
+            {chems.map(chem => (
               <Table.Row
                 key={chem.id} >
                 <Table.Cell>

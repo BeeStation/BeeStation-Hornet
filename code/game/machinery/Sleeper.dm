@@ -18,19 +18,22 @@
 	var/min_health = -25
 	var/list/available_chems
 	var/controls_inside = FALSE
+	/// the maximum amount of chem containers the sleeper can hold. Value can be changed by parts tier and RefreshParts()
 	var/max_vials = 6
+	/// the list of vials that are in the sleeper. Do not define anything here.
 	var/list/inserted_vials = list()
+	/// the list of roundstart vials - especially predefined chem bags. (Warning: be careful of heritance when you make subtypes)
 	var/list/roundstart_vials = list(
-		/obj/item/reagent_containers/chem_bag/morphine
+		/obj/item/reagent_containers/chem_bag/oxy_mix
 	)
+	/// the list of roundstart chems. It will be automatically filled into a chem bag. (Warning: be careful of heritance when you make subtypes)
 	var/list/roundstart_chems = list(
-		/datum/reagent/medicine/epinephrine,
-		/datum/reagent/medicine/perfluorodecalin,
-		/datum/reagent/medicine/bicaridine,
-		/datum/reagent/medicine/kelotane,
-		/datum/reagent/medicine/antitoxin
+		/datum/reagent/medicine/epinephrine = 80,
+		/datum/reagent/medicine/morphine = 80,
+		/datum/reagent/medicine/bicaridine = 80,
+		/datum/reagent/medicine/kelotane = 80,
+		/datum/reagent/medicine/antitoxin = 80
 	)
-	var/roundstart_chem_default_size = 80
 	/// If true doesn't consume chems
 	var/synthesizing = FALSE
 	var/scrambled_chems = FALSE //Are chem buttons scrambled? used as a warning
@@ -48,20 +51,25 @@
 	var/created_vials = 0
 	if (mapload)
 		// create pre-defined vials first and insert it into sleeper
-		for (var/each in roundstart_vials)
+		for (var/each_vial in roundstart_vials)
 			if(created_vials >= max_vials)
 				stack_trace("Sleeper attempts to create roundstart chems more than [max_vials]")
 				break
-			inserted_vials += new each
+			if(!ispath(each_vial, /obj/item/reagent_containers))
+				stack_trace("Sleeper attempts to create weird item inside of it: [each_vial]")
+				continue
+			inserted_vials += new each_vial
 			created_vials++
 		// and then chemical bag with a single chem will go into sleeper
-		for (var/datum/reagent/default_chem as() in roundstart_chems)
+		for (var/each_chem in roundstart_chems)
 			if(created_vials >= max_vials)
 				stack_trace("Sleeper attempts to create roundstart chems more than [max_vials]")
 				break
+			if(!ispath(each_chem, /datum/reagent))
+				stack_trace("Sleeper attempts to create not-chemical inside of it: [each_chem]")
+				continue
 			var/obj/item/reagent_containers/chem_bag/beaker = new(null)
-			beaker.reagents.add_reagent(default_chem, roundstart_chem_default_size) // 80u for default chems
-			beaker.reagents.add_reagent(/datum/reagent/medicine/salglu_solution, beaker.volume - beaker.reagents.total_volume) // the rest will be saline glucose
+			beaker.reagents.add_reagent(each_chem, roundstart_chems[each_chem])
 			var/datum/reagent/main_reagent = beaker.reagents.reagent_list[1]
 			beaker.name = "[main_reagent.name] [beaker.name]"
 			beaker.label_name = main_reagent.name
@@ -341,14 +349,13 @@
 	controls_inside = TRUE
 	roundstart_vials = list()
 	roundstart_chems = list(
-		/datum/reagent/medicine/syndicate_nanites,
-		/datum/reagent/medicine/oculine,
-		/datum/reagent/medicine/inacusiate,
-		/datum/reagent/medicine/mutadone,
-		/datum/reagent/medicine/mannitol,
-		/datum/reagent/medicine/omnizine
+		/datum/reagent/medicine/syndicate_nanites = 100,
+		/datum/reagent/medicine/omnizine = 100,
+		/datum/reagent/medicine/oculine = 100,
+		/datum/reagent/medicine/inacusiate = 100,
+		/datum/reagent/medicine/mannitol = 100,
+		/datum/reagent/medicine/mutadone = 100,
 	)
-	roundstart_chem_default_size = 100 // syndi nanites are strong chem, so should be limited.
 	efficiency = 2.5
 
 /obj/machinery/sleeper/syndie/fullupgrade
@@ -361,14 +368,13 @@
 	enter_message = "<span class='bold inathneq_small'>You hear the gentle hum and click of machinery, and are lulled into a sense of peace.</span>"
 	roundstart_vials = list()
 	roundstart_chems = list(
-		/datum/reagent/medicine/epinephrine,
-		/datum/reagent/medicine/salbutamol,
-		/datum/reagent/medicine/bicaridine,
-		/datum/reagent/medicine/kelotane,
-		/datum/reagent/medicine/oculine,
-		/datum/reagent/medicine/inacusiate,
-		/datum/reagent/medicine/mannitol)
-	roundstart_chem_default_size = 200
+		/datum/reagent/medicine/epinephrine = 200,
+		/datum/reagent/medicine/bicaridine = 200,
+		/datum/reagent/medicine/kelotane = 200,
+		/datum/reagent/medicine/salbutamol = 200,
+		/datum/reagent/medicine/oculine = 100,
+		/datum/reagent/medicine/inacusiate = 100,
+		/datum/reagent/medicine/mannitol = 100)
 	synthesizing = TRUE
 
 /obj/machinery/sleeper/old

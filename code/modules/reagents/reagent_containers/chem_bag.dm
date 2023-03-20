@@ -23,7 +23,14 @@
 		else
 			. += "<span class='notice'>It seems [round(reagents.total_volume/volume*100)]% filled.</span>"
 
-/obj/item/reagent_containers/chem_bag/morphine
-	name = "morphine chemical bag"
-	label_name = "morphine"
-	list_reagents = list(/datum/reagent/medicine/morphine = 120)
+// this is specifically made as an example for a sleeper feature that uses a chem bag at roundstart.
+/obj/item/reagent_containers/chem_bag/oxy_mix
+	name = "Quadra-oxymix Medicines Bag"
+	desc = "a small note on it says: Perfluorodecalin 70u, Dexalin 10u, Dexalin Plus 10u, Salbutamol 10u."
+	label_name = "Quadra-oxymix Medicines"
+	list_reagents = list(
+		/datum/reagent/medicine/perfluorodecalin = 70,
+		/datum/reagent/medicine/dexalin = 10,
+		/datum/reagent/medicine/dexalinp = 10,
+		/datum/reagent/medicine/salbutamol = 10
+		) // you are welcome to change the chem contents here
