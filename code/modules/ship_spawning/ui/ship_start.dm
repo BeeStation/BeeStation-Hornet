@@ -188,14 +188,16 @@
 					var/new_private_mode = params["new_private"]
 					lobby.set_privacy_mode(usr.client, new_private_mode)
 				if ("kick_player")
-					return
+					var/client/target = null
+					for (var/client/C in lobby.members)
+						if (C.ckey == params["ckey"])
+							target = C
+							break
+					if (target)
+						lobby.kick_player(usr.client, target)
 				if ("add_equipment")
 					return
 				if ("remove_equipment")
-					return
-				if ("add_whitelist")
-					return
-				if ("remove_whitelist")
 					return
 				if ("start_game")
 					lobby.try_start_game()

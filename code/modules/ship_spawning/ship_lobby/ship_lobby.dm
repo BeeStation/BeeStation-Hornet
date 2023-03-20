@@ -97,6 +97,10 @@
 	private_lobby = !!new_value
 
 /datum/ship_lobby/proc/kick_player(client/user, client/target)
+	if (!is_host(user))
+		return
+	member_leave(target)
+	tgui_alert_async(target, "You have been kicked from the lobby by [user.ckey].", "Kicked from lobby.")
 
 /datum/ship_lobby/proc/get_job_role(client/target)
 	if (lobby_state == LOBBY_MENU)
