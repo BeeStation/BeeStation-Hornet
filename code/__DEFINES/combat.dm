@@ -22,8 +22,10 @@
 
 /// Involves corrosive substances.
 #define ACID "acid"
-/// Involved in checking wether a disease can infect or spread. Also involved in xeno neurotoxin.
+/// Involved in checking if a disease can infect or spread. Also involved in xeno neurotoxin.
 #define BIO "bio"
+/// Involves ionizing radiation.
+#define RAD	"rad"
 /// Involves a shockwave, usually from an explosion.
 #define BOMB "bomb"
 /// Involves a solid projectile.
@@ -40,8 +42,11 @@
 #define MELEE "melee"
 /// Involves magic.
 #define MAGIC "magic"
+
+/*
 /// Involved in checking the likelihood of applying a wound to a mob.
 #define WOUND "wound"
+*/
 
 //bitflag damage defines used for suicide_act
 #define BRUTELOSS (1<<0)

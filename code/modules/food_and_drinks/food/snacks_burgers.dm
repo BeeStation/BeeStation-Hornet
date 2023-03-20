@@ -102,7 +102,7 @@
 	desc = "Smells caustic. Tastes like heresy."
 	icon_state = "xburger"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 6)
-	tastes = list("bun" = 4, "acid" = 4)
+	tastes = list("bun" = 4, ACID = 4)
 	foodtype = GRAIN | MEAT
 
 /obj/item/reagent_containers/food/snacks/burger/bearger
