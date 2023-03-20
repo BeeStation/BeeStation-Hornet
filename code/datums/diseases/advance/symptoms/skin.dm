@@ -523,7 +523,7 @@ Thresholds
 	speed = 5
 	damage_type = TOX
 	icon_state = "energy2"
-	flag = BIO
+	armor_flag = BIO
 	var/list/diseases
 
 /obj/item/projectile/pimple/on_hit(atom/target, blocked)

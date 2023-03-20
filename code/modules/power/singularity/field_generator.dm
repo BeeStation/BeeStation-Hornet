@@ -158,7 +158,7 @@ field_generator power level display
 		..()
 
 /obj/machinery/field/generator/bullet_act(obj/item/projectile/Proj)
-	if(Proj.flag != BULLET)
+	if(Proj.armor_flag != BULLET)
 		power = min(power + Proj.damage, field_generator_max_power)
 		check_power_level()
 	. = ..()
