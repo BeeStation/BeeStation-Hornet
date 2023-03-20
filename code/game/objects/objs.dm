@@ -248,7 +248,7 @@
 	if(machine)
 		unset_machine()
 	machine = O
-	RegisterSignal(O, COMSIG_PARENT_QDELETING, .proc/unset_machine)
+	RegisterSignal(O, COMSIG_PARENT_QDELETING, PROC_REF(unset_machine))
 	if(istype(O))
 		O.obj_flags |= IN_USE
 
@@ -368,7 +368,7 @@
 
 /obj/AltClick(mob/user)
 	. = ..()
-	if(unique_reskin_icon && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
+	if(unique_reskin_icon && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
 		reskin_obj(user)
 
 /obj/proc/reskin_obj(mob/M)

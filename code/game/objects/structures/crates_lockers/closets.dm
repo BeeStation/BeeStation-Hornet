@@ -44,7 +44,7 @@
 	var/door_anim_time = 2.0 // set to 0 to make the door not animate at all
 /obj/structure/closet/Initialize(mapload)
 	if(mapload && !opened)		// if closed, any item at the crate's loc is put in the contents
-		addtimer(CALLBACK(src, .proc/take_contents), 0)
+		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
 	. = ..()
 	update_icon()
 	PopulateContents()
@@ -107,7 +107,7 @@
 			animate(door_obj, transform = M, icon_state = door_state, layer = door_layer, time = world.tick_lag, flags = ANIMATION_END_NOW)
 		else
 			animate(transform = M, icon_state = door_state, layer = door_layer, time = world.tick_lag)
-	addtimer(CALLBACK(src,.proc/end_door_animation),door_anim_time,TIMER_UNIQUE|TIMER_OVERRIDE)
+	addtimer(CALLBACK(src,PROC_REF(end_door_animation)),door_anim_time,TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /obj/structure/closet/proc/end_door_animation()
 	is_animating_door = FALSE
@@ -354,7 +354,7 @@
 						"<span class='warning'>You [actuallyismob ? "try to " : ""]stuff [O] into [src].</span>", \
 						"<span class='italics'>You hear clanging.</span>")
 	if(actuallyismob)
-		if(do_mob(user, O, 4 SECONDS))
+		if(do_after(user, 4 SECONDS, O))
 			user.visible_message("<span class='notice'>[user] stuffs [O] into [src].</span>", \
 								"<span class='notice'>You stuff [O] into [src].</span>", \
 								"<span class='italics'>You hear a loud metal bang.</span>")

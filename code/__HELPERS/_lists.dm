@@ -5,6 +5,10 @@
  *			Sorting
  */
 
+// The highest number of "for()" loop iterations before infinite loop detection triggers
+// +1 for "while()" loops, for some reason
+#define INFINITE_LOOP_DETECTION_THRESHOLD 1048574
+
 /*
  * Misc
  */
@@ -30,6 +34,11 @@
 #define LAZYREMOVEASSOC(L, K, V) if(L) { if(L[K]) { L[K] -= V; if(!length(L[K])) L -= K; } if(!length(L)) L = null; }
 #define LAZYACCESSASSOC(L, I, K) L ? L[I] ? L[I][K] ? L[I][K] : null : null : null
 #define QDEL_LAZYLIST(L) for(var/I in L) qdel(I); L = null;
+
+#define VARSET_FROM_LIST(L, V) if(L && L[#V]) V = L[#V]
+#define VARSET_FROM_LIST_IF(L, V, C...) if(L && L[#V] && (C)) V = L[#V]
+#define VARSET_TO_LIST(L, V) if(L) L[#V] = V
+#define VARSET_TO_LIST_IF(L, V, C...) if(L && (C)) L[#V] = V
 
 /// Performs an insertion on the given lazy list with the given key and value. If the value already exists, a new one will not be made.
 #define LAZYORASSOCLIST(lazy_list, key, value) \
@@ -392,20 +401,20 @@
 
 /// for sorting clients or mobs by ckey
 /proc/sortKey(list/L, order=1)
-	return sortTim(L, order >= 0 ? /proc/cmp_ckey_asc : /proc/cmp_ckey_dsc)
+	return sortTim(L, order >= 0 ? GLOBAL_PROC_REF(cmp_ckey_asc) : GLOBAL_PROC_REF(cmp_ckey_dsc))
 
 /// Specifically for sorting record datums in a list.
 /proc/sortRecord(list/L, field = "name", order = 1)
 	GLOB.cmp_field = field
-	return sortTim(L, order >= 0 ? /proc/cmp_records_asc : /proc/cmp_records_dsc)
+	return sortTim(L, order >= 0 ? GLOBAL_PROC_REF(cmp_records_asc) : GLOBAL_PROC_REF(cmp_records_dsc))
 
 /// sorting any value in a list with any comparator
-/proc/sortList(list/L, cmp=/proc/cmp_text_asc)
+/proc/sortList(list/L, cmp=GLOBAL_PROC_REF(cmp_text_asc))
 	return sortTim(L.Copy(), cmp)
 
 /// uses sortList() but uses the var's name specifically. This should probably be using mergeAtom() instead
 /proc/sortNames(list/L, order=1)
-	return sortTim(L, order >= 0 ? /proc/cmp_name_asc : /proc/cmp_name_dsc)
+	return sortTim(L, order >= 0 ? GLOBAL_PROC_REF(cmp_name_asc) : GLOBAL_PROC_REF(cmp_name_dsc))
 
 //Mergesort: any value in a list, preserves key=value structure
 /proc/sortAssoc(var/list/L)
@@ -674,7 +683,7 @@
 	return TRUE
 
 ///sort any value in a list
-/proc/sort_list(list/list_to_sort, cmp=/proc/cmp_text_asc)
+/proc/sort_list(list/list_to_sort, cmp=GLOBAL_PROC_REF(cmp_text_asc))
 	return sortTim(list_to_sort.Copy(), cmp)
 
 ///Returns a list with items filtered from a list that can call callback

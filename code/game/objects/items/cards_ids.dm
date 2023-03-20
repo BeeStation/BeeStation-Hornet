@@ -384,7 +384,7 @@ update_label("John Doe", "Clowny")
 	access = list(ACCESS_HUNTERS)
 	hud_state = JOB_HUD_NOTCENTCOM
 
-/obj/item/card/id/silver/spacepol/bounty
+/obj/item/card/id/silver/bounty
 	name = "bounty hunter access card"
 	access = list(ACCESS_HUNTERS)
 	hud_state = JOB_HUD_UNKNOWN

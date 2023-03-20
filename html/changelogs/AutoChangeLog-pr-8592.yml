@@ -1,6 +1,0 @@
-author: RKz, JohnFulpWillard
-delete-after: true
-changes:
-  - code_imp: new magic.dm, put magic shit there
-  - code_imp: invocation doesnt use strings anymore
-  - tweak: firebreath doesnt need the ability to speak

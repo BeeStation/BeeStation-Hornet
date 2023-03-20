@@ -746,14 +746,6 @@
 	suffix = "syndicate_fighter_shiv"
 	name = "Syndicate Fighter"
 
- // Turbolifts
-/datum/map_template/shuttle/turbolift/debug/primary
-	prefix = "_maps/shuttles/turbolifts/"
-	port_id = "debug"
-	suffix = "primary"
-	name = "primary turbolift (multi-z debug)"
-	can_be_bought = FALSE
-
 /datum/map_template/shuttle/tram
 	port_id = "tram"
 	can_be_bought = FALSE

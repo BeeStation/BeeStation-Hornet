@@ -114,4 +114,4 @@
 	var/list/cone_turfs = cone_helper(get_turf(user), user.dir, cone_levels)
 	for(var/list/turf_list in cone_turfs)
 		level_counter++
-		addtimer(CALLBACK(src, .proc/do_cone_effects, turf_list, level_counter), 2 * level_counter)
+		addtimer(CALLBACK(src, PROC_REF(do_cone_effects), turf_list, level_counter), 2 * level_counter)

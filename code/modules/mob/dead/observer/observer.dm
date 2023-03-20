@@ -64,7 +64,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 /mob/dead/observer/Initialize(mapload)
 	set_invisibility(GLOB.observer_default_invisibility)
 
-	RegisterSignal(src, COMSIG_MOB_MOUSE_SCROLL_ON, .proc/mouse_wheeled)
+	RegisterSignal(src, COMSIG_MOB_MOUSE_SCROLL_ON, PROC_REF(mouse_wheeled))
 
 	add_verb(list(
 		/mob/dead/observer/proc/dead_tele,
@@ -167,7 +167,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	UnregisterSignal(src, COMSIG_MOB_MOUSE_SCROLL_ON)
 	// Update medhud on their body (soul departed?)
 	if(isliving(mind?.current))
-		addtimer(CALLBACK(mind.current, /mob/living.proc/med_hud_set_status), 1 SECONDS)
+		addtimer(CALLBACK(mind.current, TYPE_PROC_REF(/mob/living, med_hud_set_status)), 1 SECONDS)
 	if(data_huds_on)
 		remove_data_huds()
 	if(ai_hud_on)
@@ -193,14 +193,13 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 /*
  * This proc will update the icon of the ghost itself, with hair overlays, as well as the ghost image.
- * Please call update_icon(icon_state) from now on when you want to update the icon_state of the ghost,
+ * Please call update_icon(new_form = icon_state) from now on when you want to update the icon_state of the ghost,
  * or you might end up with hair on a sprite that's not supposed to get it.
  * Hair will always update its dir, so if your sprite has no dirs the haircut will go all over the place.
  * |- Ricotez
  */
-/mob/dead/observer/update_icon(new_form)
+/mob/dead/observer/update_icon(updates = ALL, new_form)
 	. = ..()
-
 	if(client) //We update our preferences in case they changed right before update_icon was called.
 		ghost_accs = client.prefs.ghost_accs
 		ghost_others = client.prefs.ghost_others
@@ -815,7 +814,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	update_icon()
 
-/mob/dead/observer/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/dead/observer/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	return IsAdminGhost(usr)
 
 /mob/dead/observer/is_literate()

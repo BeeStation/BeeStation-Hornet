@@ -2,8 +2,6 @@
 	name = "Telepathy"
 	desc = "A rare mutation that allows the user to telepathically communicate to others."
 	quality = POSITIVE
-	text_gain_indication = "<span class='notice'>You can hear your own voice echoing in your mind!</span>"
-	text_lose_indication = "<span class='notice'>You don't hear your mind echo anymore.</span>"
 	difficulty = 12
 	power = /obj/effect/proc_holder/spell/targeted/telepathy
 	instability = 10
@@ -15,8 +13,6 @@
 	desc = "Your sense of smell is comparable to that of a canine."
 	quality = POSITIVE
 	difficulty = 12
-	text_gain_indication = "<span class='notice'>Smells begin to make more sense...</span>"
-	text_lose_indication = "<span class='notice'>Your sense of smell goes back to normal.</span>"
 	power = /obj/effect/proc_holder/spell/targeted/olfaction
 	instability = 30
 	synchronizer_coeff = 1
@@ -86,8 +82,6 @@
 	quality = POSITIVE
 	difficulty = 12
 	locked = TRUE
-	text_gain_indication = "<span class='notice'>Your throat is burning!</span>"
-	text_lose_indication = "<span class='notice'>Your throat is cooling down.</span>"
 	power = /obj/effect/proc_holder/spell/aimed/firebreath
 	instability = 30
 	energy_coeff = 1
@@ -146,7 +140,6 @@
 	name = "Void Magnet"
 	desc = "A rare genome that attracts odd forces not usually observed."
 	quality = MINOR_NEGATIVE //upsides and downsides
-	text_gain_indication = "<span class='notice'>You feel a heavy, dull force just beyond the walls watching you.</span>"
 	instability = 30
 	power = /obj/effect/proc_holder/spell/self/void
 	energy_coeff = 1
@@ -181,7 +174,6 @@
 	name = "Autotomy"
 	desc = "Allows a creature to voluntary discard a random appendage."
 	quality = POSITIVE
-	text_gain_indication = "<span class='notice'>Your joints feel loose.</span>"
 	instability = 30
 	power = /obj/effect/proc_holder/spell/self/self_amputation
 
@@ -221,7 +213,6 @@
 	desc = "Allows an Ethereal to overload their skin to cause a bright flash."
 	quality = POSITIVE
 	locked = TRUE
-	text_gain_indication = "<span class='notice'>Your skin feels more crackly.</span>"
 	instability = 30
 	power = /obj/effect/proc_holder/spell/self/overload
 	species_allowed = list(SPECIES_ETHEREAL)
@@ -255,7 +246,6 @@
 	desc = "Allows an Oozeling to metabolize some of their blood into acid, concentrated on their hands."
 	quality = POSITIVE
 	locked = TRUE
-	text_gain_indication = "<span class='notice'>Your hands feel sore.</span>"
 	instability = 30
 	power = /obj/effect/proc_holder/spell/targeted/touch/acidooze
 	species_allowed = list(SPECIES_OOZELING)

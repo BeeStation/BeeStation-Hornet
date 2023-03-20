@@ -86,7 +86,7 @@
 #define ACCESS_SYNDICATE 150 //!General Syndicate Access. Includes Syndicate mechs and ruins.
 #define ACCESS_SYNDICATE_LEADER 151 //!Nuke Op Leader Access
 
-	//Independant Factions
+	//Independent Factions
 #define ACCESS_PIRATES 180 //! Pirate ship access
 #define ACCESS_HUNTERS 181 //! Bounty hunter access
 

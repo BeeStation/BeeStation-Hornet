@@ -176,7 +176,7 @@
 
 /datum/antagonist/wizard/get_admin_commands()
 	. = ..()
-	.["Send to Lair"] = CALLBACK(src,.proc/admin_send_to_lair)
+	.["Send to Lair"] = CALLBACK(src,PROC_REF(admin_send_to_lair))
 
 /datum/antagonist/wizard/proc/admin_send_to_lair(mob/admin)
 	owner.current.forceMove(pick(GLOB.wizardstart))
@@ -241,7 +241,7 @@
 					if(chosen_spell.spell_type == my_spell.type) // You don't learn the same spell
 						failsafe = TRUE
 						break
-					if(is_type_in_typecache(my_spell.type, chosen_spell.no_coexistance_typecache)) // You don't learn a spell that isn't compatible with another
+					if(is_type_in_typecache(my_spell.type, chosen_spell.no_coexistence_typecache)) // You don't learn a spell that isn't compatible with another
 						failsafe = TRUE
 						break
 				if(failsafe)
