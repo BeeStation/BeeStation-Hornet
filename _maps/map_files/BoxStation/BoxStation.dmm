@@ -26590,7 +26590,6 @@
 /turf/open/floor/plasteel,
 /area/security/courtroom)
 "gjc" = (
-/obj/item/kirbyplants/random,
 /obj/machinery/airalarm{
 	dir = 8;
 	pixel_x = 24
@@ -26598,6 +26597,7 @@
 /obj/machinery/computer/security/telescreen/vault{
 	pixel_y = 30
 	},
+/obj/machinery/photocopier,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "gjl" = (
