@@ -656,8 +656,9 @@
 		/obj/item/storage/firstaid,
 		/obj/item/storage/pill_bottle,
 		/obj/item/tank/internals/emergency_oxygen,
-		/obj/item/tank/internals/plasmaman
-		/obj/item/toy)
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy
+	)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 0, "acid" = 45, "stamina" = 0)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/medical
 
