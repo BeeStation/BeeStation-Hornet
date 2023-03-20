@@ -216,7 +216,7 @@
 
 	var/delay = 2
 	var/datum/move_loop/our_loop = SSmove_manager.move_towards_legacy(water, pick(targets), delay, timeout = delay * 4, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
-	RegisterSignal(our_loop, COMSIG_PARENT_QDELETING, .proc/water_finished_moving)
+	RegisterSignal(our_loop, COMSIG_PARENT_QDELETING, PROC_REF(water_finished_moving))
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/proc/water_finished_moving(datum/move_loop/has_target/source)
 	SIGNAL_HANDLER
@@ -360,7 +360,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/attach()
 	..()
-	event = chassis.events.addEvent("onMove", CALLBACK(src, .proc/layCable))
+	event = chassis.events.addEvent("onMove", CALLBACK(src, PROC_REF(layCable)))
 	return
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/detach()

@@ -28,7 +28,7 @@
 	halo = halo || mutable_appearance('icons/effects/effects.dmi', "electricity", EFFECTS_LAYER)
 	user.add_overlay(halo)
 	playsound(get_turf(user), Snd, 50, 0)
-	if(do_mob(user,user,100,1))
+	if(do_after(user, 10 SECONDS, timed_action_flags = UNINTERRUPTIBLE))
 		if(ready && cast_check(skipcharge=1))
 			choose_targets()
 		else

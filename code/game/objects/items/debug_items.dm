@@ -71,7 +71,7 @@
 		"Wire Brush" = image(icon = 'icons/obj/tools.dmi', icon_state = "wirebrush")
 	)
 
-	var/tool_result = show_radial_menu(user, src, tool_list, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+	var/tool_result = show_radial_menu(user, src, tool_list, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 	switch(tool_result)
@@ -149,6 +149,7 @@
 	destroy_speed = 0.1
 	paint_speed = 0.1
 	ranged = TRUE
+	upgrade_flags = RPD_UPGRADE_UNWRENCH
 
 /obj/item/spellbook/debug
 	name = "\improper Robehator's spell book"

@@ -130,9 +130,9 @@ Class Procs:
 	/// [Bitflag] the machine sends its profit to the corresponding department budget. if this is not specified, this will follow `dept_req_for_free` value.
 	var/seller_department
 
-	var/clickvol = 40	// sound volume played on succesful click
+	var/clickvol = 40	// sound volume played on successful click
 	var/next_clicksound = 0	// value to compare with world.time for whether to play clicksound according to CLICKSOUND_INTERVAL
-	var/clicksound	// sound played on succesful interface use by a carbon lifeform
+	var/clicksound	// sound played on successful interface use by a carbon lifeform
 
 	// For storing and overriding ui id and dimensions
 	var/tgui_id // ID of TGUI interface
@@ -155,13 +155,19 @@ Class Procs:
 		begin_processing()
 
 	power_change()
-	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, .proc/power_change)
+	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(power_change))
 
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
 
 	if(!seller_department)
 		seller_department = dept_req_for_free
+
+/obj/machinery/proc/set_occupant(atom/movable/new_occupant)
+	SHOULD_CALL_PARENT(TRUE)
+
+	SEND_SIGNAL(src, COMSIG_MACHINERY_SET_OCCUPANT, new_occupant)
+	occupant = new_occupant
 
 /// Helper proc for telling a machine to start processing with the subsystem type that is located in its `subsystem_type` var.
 /obj/machinery/proc/begin_processing()
@@ -214,7 +220,7 @@ Class Procs:
 		//Set the machine to be EMPed
 		machine_stat |= EMPED
 		//Reset EMP state in 120/60 seconds
-		addtimer(CALLBACK(src, .proc/emp_reset), (emp_disable_time / severity) + rand(-10, 10))
+		addtimer(CALLBACK(src, PROC_REF(emp_reset)), (emp_disable_time / severity) + rand(-10, 10))
 		//Update power
 		power_change()
 		new /obj/effect/temp_visual/emp(loc)
@@ -244,7 +250,7 @@ Class Procs:
 		if(isliving(A))
 			var/mob/living/L = A
 			L.update_mobility()
-	occupant = null
+	set_occupant(null)
 
 /obj/machinery/proc/can_be_occupant(atom/movable/am)
 	return occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)
@@ -268,7 +274,7 @@ Class Procs:
 
 	var/mob/living/mobtarget = target
 	if(target && !target.has_buckled_mobs() && (!isliving(target) || !mobtarget.buckled))
-		occupant = target
+		set_occupant(target)
 		target.forceMove(src)
 	updateUsrDialog()
 	update_icon()
@@ -341,12 +347,12 @@ Class Procs:
 				var/datum/bank_account/insurance = I.registered_account
 				if(!insurance)
 					say("[market_verb] NAP Violation: No bank account found.")
-					nap_violation(occupant)
+					nap_violation(H)
 					return FALSE
 				else
 					if(!insurance.adjust_money(-fair_market_price))
 						say("[market_verb] NAP Violation: Unable to pay.")
-						nap_violation(occupant)
+						nap_violation(H)
 						return FALSE
 
 					// each department (seller_department) will earn the profit
@@ -358,7 +364,7 @@ Class Procs:
 								D.adjust_money(fair_market_price)
 			else
 				say("[market_verb] NAP Violation: No ID card found.")
-				nap_violation(occupant)
+				nap_violation(H)
 				return FALSE
 	return TRUE
 
@@ -467,12 +473,11 @@ Class Procs:
 		return TRUE
 
 /obj/machinery/contents_explosion(severity, target)
-	if(occupant)
-		occupant.ex_act(severity, target)
+	occupant?.ex_act(severity, target)
 
 /obj/machinery/handle_atom_del(atom/A)
 	if(A == occupant)
-		occupant = null
+		set_occupant(null)
 		update_icon()
 		updateUsrDialog()
 
@@ -519,7 +524,7 @@ Class Procs:
 		I.play_tool_sound(src, 50)
 		var/prev_anchored = anchored
 		//as long as we're the same anchored state and we're either on a floor or are anchored, toggle our anchored state
-		if(I.use_tool(src, user, time, extra_checks = CALLBACK(src, .proc/unfasten_wrench_check, prev_anchored, user)))
+		if(I.use_tool(src, user, time, extra_checks = CALLBACK(src, PROC_REF(unfasten_wrench_check), prev_anchored, user)))
 			to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
 			setAnchored(!anchored)
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
@@ -645,7 +650,7 @@ Class Procs:
 /obj/machinery/Exited(atom/movable/gone, direction)
 	. = ..()
 	if (gone == occupant)
-		occupant = null
+		set_occupant(null)
 
 /obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
 	var/md5 = rustg_hash_string(RUSTG_HASH_MD5, AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.
@@ -662,3 +667,10 @@ Class Procs:
 
 /obj/machinery/rust_heretic_act()
 	take_damage(500, BRUTE, "melee", 1)
+
+/obj/machinery/vv_edit_var(vname, vval)
+	if(vname == "occupant")
+		set_occupant(vval)
+		datum_flags |= DF_VAR_EDITED
+		return TRUE
+	return ..()

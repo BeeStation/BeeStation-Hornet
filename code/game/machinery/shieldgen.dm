@@ -231,7 +231,7 @@
 
 /obj/machinery/shieldwallgen/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, .proc/block_singularity_if_active)
+	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, PROC_REF(block_singularity_if_active))
 
 /obj/machinery/shieldwallgen/xenobiologyaccess		//use in xenobiology containment
 	name = "xenobiology shield wall generator"
@@ -424,7 +424,7 @@
 	for(var/mob/living/L in get_turf(src))
 		visible_message("<span class='danger'>\The [src] is suddenly occupying the same space as \the [L]!</span>")
 		L.gib()
-	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, .proc/block_singularity)
+	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, PROC_REF(block_singularity))
 
 /obj/machinery/shieldwall/Destroy()
 	gen_primary = null

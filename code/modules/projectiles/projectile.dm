@@ -156,7 +156,7 @@
 	decayedRange = range
 
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -478,7 +478,7 @@
 	if(!isliving(target))
 		if(isturf(target))		// non dense turfs
 			return FALSE
-		if(target.layer < PROJECTILE_HIT_THRESHHOLD_LAYER)
+		if(target.layer < PROJECTILE_HIT_THRESHOLD_LAYER)
 			return FALSE
 		else if(!direct_target)		// non dense objects do not get hit unless specifically clicked
 			return FALSE
@@ -665,7 +665,7 @@
 	last_projectile_move = world.time
 	fired = TRUE
 	if(hitscan)
-		INVOKE_ASYNC(src, .proc/process_hitscan)
+		INVOKE_ASYNC(src, PROC_REF(process_hitscan))
 	if(!(datum_flags & DF_ISPROCESSING))
 		START_PROCESSING(SSprojectiles, src)
 	pixel_move(1, FALSE)	//move it now!

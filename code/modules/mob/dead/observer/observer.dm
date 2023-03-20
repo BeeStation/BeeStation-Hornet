@@ -64,7 +64,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 /mob/dead/observer/Initialize(mapload)
 	set_invisibility(GLOB.observer_default_invisibility)
 
-	RegisterSignal(src, COMSIG_MOB_MOUSE_SCROLL_ON, .proc/mouse_wheeled)
+	RegisterSignal(src, COMSIG_MOB_MOUSE_SCROLL_ON, PROC_REF(mouse_wheeled))
 
 	add_verb(list(
 		/mob/dead/observer/proc/dead_tele,
@@ -167,7 +167,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	UnregisterSignal(src, COMSIG_MOB_MOUSE_SCROLL_ON)
 	// Update medhud on their body (soul departed?)
 	if(isliving(mind?.current))
-		addtimer(CALLBACK(mind.current, /mob/living.proc/med_hud_set_status), 1 SECONDS)
+		addtimer(CALLBACK(mind.current, TYPE_PROC_REF(/mob/living, med_hud_set_status)), 1 SECONDS)
 	if(data_huds_on)
 		remove_data_huds()
 	if(ai_hud_on)

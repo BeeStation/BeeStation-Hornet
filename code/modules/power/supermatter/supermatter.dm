@@ -127,7 +127,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		GLOB.main_supermatter_engine = src
 
 	AddElement(/datum/element/bsa_blocker)
-	RegisterSignal(src, COMSIG_ATOM_BSA_BEAM, .proc/call_delamination_event)
+	RegisterSignal(src, COMSIG_ATOM_BSA_BEAM, PROC_REF(call_delamination_event))
 
 	soundloop = new(src, TRUE)
 
@@ -692,7 +692,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			if(!disengage_field_timer) //we really don't want to have more than 1 timer and causality field overlayer at once
 				update_icon()
 				radio.talk_into(src, "Anomalous object has breached containment, emergency causality field enganged to prevent reality destabilization.", engineering_channel)
-				disengage_field_timer = addtimer(CALLBACK(src, .proc/disengage_field), 5 SECONDS)
+				disengage_field_timer = addtimer(CALLBACK(src, PROC_REF(disengage_field)), 5 SECONDS)
 			return
 		if(!iseffect(AM))
 			var/suspicion = ""

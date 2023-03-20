@@ -53,12 +53,25 @@
 	var/parallax_movedir = 0
 
 	var/ambience_index = AMBIENCE_GENERIC
+	///Regular
 	var/list/ambientsounds
+	///super lower chance (0.5%) ambient sounds
+	var/list/rare_ambient_sounds
+	///Used to decide what the minimum time between ambience is
+	var/min_ambience_cooldown = 30 SECONDS
+	///Used to decide what the maximum time between ambience is
+	var/max_ambience_cooldown = 60 SECONDS
 
-	var/ambient_buzz = 'sound/ambience/shipambience.ogg' // Ambient buzz of the station, plays repeatedly, also IC
+	///Ambient buzz of the station, plays repeatedly, also IC
+	var/ambient_buzz = 'sound/ambience/shipambience.ogg'
+	///The volume of the ambient buzz
+	var/ambient_buzz_vol = 30
 
 	var/ambient_music_index
 	var/list/ambientmusic
+
+	///Used to decide what kind of reverb the area makes sound have
+	var/sound_environment = SOUND_ENVIRONMENT_NONE
 
 	flags_1 = CAN_BE_DIRTY_1
 
@@ -77,13 +90,6 @@
 	var/lighting_brightness_tube = 11
 	var/lighting_brightness_bulb = 6
 	var/lighting_brightness_night = 6
-
-	///Used to decide what the minimum time between ambience is
-	var/min_ambience_cooldown = 30 SECONDS
-	///Used to decide what the maximum time between ambience is
-	var/max_ambience_cooldown = 90 SECONDS
-	///Used to decide what kind of reverb the area makes sound have
-	var/sound_environment = SOUND_ENVIRONMENT_NONE
 
 	///Typepath to limit the areas (subtypes included) that atoms in this area can smooth with. Used for shuttles.
 	var/area/area_limited_icon_smoothing
@@ -137,7 +143,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		if (picked && is_station_level(picked.z))
 			GLOB.teleportlocs[AR.name] = AR
 
-	sortTim(GLOB.teleportlocs, /proc/cmp_text_asc)
+	sortTim(GLOB.teleportlocs, GLOBAL_PROC_REF(cmp_text_asc))
 
 /**
   * Called when an area loads
@@ -385,7 +391,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 				if(D.operating)
 					D.nextstate = opening ? FIREDOOR_OPEN : FIREDOOR_CLOSED
 				else if(!(D.density ^ opening))
-					INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/open : /obj/machinery/door/firedoor.proc/close))
+					INVOKE_ASYNC(D, (opening ? TYPE_PROC_REF(/obj/machinery/door/firedoor, open) : TYPE_PROC_REF(/obj/machinery/door/, close)))
 
 /**
   * Generate an firealarm alert for this area
@@ -500,7 +506,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		var/mob/living/silicon/SILICON = i
 		if(SILICON.triggerAlarm("Burglar", src, cameras, trigger))
 			//Cancel silicon alert after 1 minute
-			addtimer(CALLBACK(SILICON, /mob/living/silicon.proc/cancelAlarm,"Burglar",src,trigger), 600)
+			addtimer(CALLBACK(SILICON, TYPE_PROC_REF(/mob/living/silicon, cancelAlarm),"Burglar",src,trigger), 600)
 
 /**
   * Trigger the fire alarm visual affects in an area

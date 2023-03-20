@@ -816,3 +816,54 @@
 	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a Morph by the midround ruleset.")
 	log_game("DYNAMIC: [key_name(S)] was spawned as a Morph by the midround ruleset.")
 	return S
+
+//////////////////////////////////////////////
+//                                          //
+//           FUGITIVES  (GHOST)             //
+//                                          //
+//////////////////////////////////////////////
+/datum/dynamic_ruleset/midround/from_ghosts/fugitives
+	name = "Fugitives"
+	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
+	antag_flag = ROLE_FUGITIVE
+	required_type = /mob/dead/observer
+	required_candidates = 1
+	weight = 3
+	cost = 7
+	minimum_players = 20
+	minimum_round_time = 30 MINUTES
+	blocking_rules = list(/datum/dynamic_ruleset/roundstart/nuclear)
+	repeatable = FALSE
+	var/list/spawn_locs = list()
+
+/datum/dynamic_ruleset/midround/from_ghosts/fugitives/acceptable(population=0, threat=0)
+	if (!SSmapping.empty_space)
+		return FALSE
+	// if either exists already ABORT!!!
+	for(var/datum/team/fugitive/F in GLOB.antagonist_teams)
+		return FALSE
+	for(var/datum/team/fugitive_hunters/F in GLOB.antagonist_teams)
+		return FALSE
+	return ..()
+
+/datum/dynamic_ruleset/midround/from_ghosts/fugitives/ready(forced = FALSE)
+	if (!check_candidates())
+		return FALSE
+	return ..()
+
+/datum/dynamic_ruleset/midround/from_ghosts/fugitives/execute()
+	for(var/turf/X in GLOB.xeno_spawn)
+		if(istype(X.loc, /area/maintenance))
+			spawn_locs += X
+	if(!length(spawn_locs))
+		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations.")
+		return FALSE
+	return ..()
+
+/datum/dynamic_ruleset/midround/from_ghosts/fugitives/review_applications()
+	var/turf/landing_turf = pick(spawn_locs)
+	var/result = spawn_fugitives(landing_turf, candidates, list())
+	if(result == NOT_ENOUGH_PLAYERS)
+		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to not enough players.")
+		return FALSE
+	return TRUE

@@ -41,6 +41,21 @@
 		/obj/item/reagent_containers/hypospray/medipen = 2)
 	generate_items_inside(items_inside,src)
 
+//Compact First Aid kit
+/obj/item/storage/firstaid/compact
+	name = "compact first-aid kit"
+	desc = "A compact first aid kit designed for treating common injuries found in the field."
+	w_class = WEIGHT_CLASS_NORMAL //Intended to be used by ERTs or other uncommon roles
+
+/obj/item/storage/firstaid/compact/PopulateContents()
+	if(empty)
+		return
+	var/static/items_inside = list(
+		/obj/item/stack/medical/gauze = 1,
+		/obj/item/stack/medical/bruise_pack = 2,
+		/obj/item/stack/medical/ointment = 2,
+		/obj/item/reagent_containers/hypospray/medipen = 2)
+	generate_items_inside(items_inside,src)
 
 //First MD kit
 /obj/item/storage/firstaid/medical
@@ -303,6 +318,12 @@
 /obj/item/storage/firstaid/advanced/Initialize(mapload)
 	. = ..()
 	icon_state = pick("firstaid-advanced","firstaid-advancedalt")
+
+//Compact First Advanced kit
+/obj/item/storage/firstaid/advanced/compact
+	name = "compact advanced first aid kit"
+	desc = "A compact advanced first aid kit designed for treating severe injuries found in the field."
+	w_class = WEIGHT_CLASS_NORMAL //Intended to be used by ERTs or other uncommon roles
 
 //First Random kit
 /obj/item/storage/firstaid/random

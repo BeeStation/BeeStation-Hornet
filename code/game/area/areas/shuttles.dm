@@ -100,6 +100,7 @@
 /area/shuttle/hunter
 	name = "Hunter Shuttle"
 	static_lighting = FALSE
+	requires_power = TRUE
 	canSmoothWithAreas = /area/shuttle/hunter
 
 ////////////////////////////White Ship////////////////////////////

@@ -1,4 +1,4 @@
-#define INFINITE -1
+#define INFINITE_USES -1
 
 /obj/item/autosurgeon
 	name = "autosurgeon"
@@ -9,7 +9,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/list/obj/item/organ/storedorgan
 	var/organ_type = /obj/item/organ
-	var/uses = INFINITE
+	var/uses = INFINITE_USES
 	var/list/starting_organ
 
 /obj/item/autosurgeon/syndicate
@@ -40,7 +40,7 @@
 	playsound(get_turf(user), 'sound/weapons/circsawhit.ogg', 50, 1)
 	storedorgan = null
 	name = initial(name)
-	if(uses != INFINITE)
+	if(uses != INFINITE_USES)
 		uses--
 	if(!uses)
 		desc = "[initial(desc)] Looks like it's been used up."
@@ -77,7 +77,7 @@
 		to_chat(user, "<span class='notice'>You remove the [storedorgan] from [src].</span>")
 		I.play_tool_sound(src)
 		storedorgan = null
-		if(uses != INFINITE)
+		if(uses != INFINITE_USES)
 			uses--
 		if(!uses)
 			desc = "[initial(desc)] Looks like it's been used up."
@@ -116,3 +116,11 @@
 	desc = "A single use autosurgeon that contains an energy saw arm implant."
 	uses = 1
 	starting_organ = list(/obj/item/organ/cyberimp/arm/esaw)
+
+/obj/item/autosurgeon/hydraulic_blade
+	name = "autosurgeon (hydraulic blade arm)"
+	desc = "A single use autosurgeon that contains a retractable combat hydraulic armblade. A screwdriver can be used to remove it, but implants can't be placed back in."
+	uses = 1
+	starting_organ = list(/obj/item/organ/cyberimp/arm/hydraulic_blade)
+
+#undef INFINITE_USES

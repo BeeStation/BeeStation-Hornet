@@ -26,11 +26,11 @@
 		ADD_TRAIT(quirk_holder, mob_trait, ROUNDSTART_TRAIT)
 	if(process)
 		START_PROCESSING(SSquirks, src)
-	RegisterSignal(quirk_holder, COMSIG_PARENT_QDELETING, .proc/handle_parent_del)
+	RegisterSignal(quirk_holder, COMSIG_PARENT_QDELETING, PROC_REF(handle_parent_del))
 	add()
 	if(spawn_effects)
 		on_spawn()
-		addtimer(CALLBACK(src, .proc/post_add), 30)
+		addtimer(CALLBACK(src, PROC_REF(post_add)), 30)
 
 /datum/quirk/Destroy()
 	if(process)
@@ -56,7 +56,7 @@
 		ADD_TRAIT(to_mob, mob_trait, ROUNDSTART_TRAIT)
 	quirk_holder = to_mob
 	on_transfer()
-	RegisterSignal(quirk_holder, COMSIG_PARENT_QDELETING, .proc/handle_parent_del)
+	RegisterSignal(quirk_holder, COMSIG_PARENT_QDELETING, PROC_REF(handle_parent_del))
 
 /datum/quirk/proc/add() //special "on add" effects
 /datum/quirk/proc/on_spawn() //these should only trigger when the character is being created for the first time, i.e. roundstart/latejoin
