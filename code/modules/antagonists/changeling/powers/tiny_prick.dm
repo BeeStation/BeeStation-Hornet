@@ -98,18 +98,17 @@
 
 /datum/action/changeling/sting/transformation/sting_action(mob/user, mob/target)
 	log_combat(user, target, "stung", "transformation sting", " new identity is '[selected_dna.dna.real_name]'")
-	var/datum/dna/NewDNA = selected_dna.dna
+	var/datum/dna/new_dna = selected_dna.dna
 	if(ismonkey(target))
 		to_chat(user, "<span class='notice'>Our genes cry out as we sting [target.name]!</span>")
 
 	var/mob/living/carbon/C = target
 	. = TRUE
 	if(istype(C))
-		C.real_name = NewDNA.real_name
-		NewDNA.transfer_identity(C)
 		if(ismonkey(C))
-			C.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI)
-		C.updateappearance(mutcolor_update=1)
+			C = C.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI)
+		var/datum/status_effect/ling_transformation/previous_transformation = C.has_status_effect(/datum/status_effect/ling_transformation)
+		C.apply_status_effect(/datum/status_effect/ling_transformation, new_dna, previous_transformation ? previous_transformation.original_dna : null)
 
 
 /datum/action/changeling/sting/false_armblade
