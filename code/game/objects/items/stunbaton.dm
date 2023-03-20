@@ -176,7 +176,7 @@
 			return FALSE
 
 	var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.zone_selected))
-	var/armor_block = target.run_armor_check(affecting, "stamina")
+	var/armor_block = target.run_armor_check(affecting, STAMINA)
 	// L.adjustStaminaLoss(stunforce)
 	target.apply_damage(stunforce, STAMINA, affecting, armor_block)
 	target.apply_effect(EFFECT_STUTTER, stunforce)
