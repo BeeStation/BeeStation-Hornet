@@ -114,7 +114,7 @@
 /datum/job/proc/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source)
 	//do actions on H but send messages to M as the key may not have been transferred_yet
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, H, M, latejoin)
-	if(mind_traits)
+	if(mind_traits && H?.mind)
 		for(var/t in mind_traits)
 			ADD_TRAIT(H.mind, t, JOB_TRAIT)
 
