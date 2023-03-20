@@ -209,3 +209,31 @@
 	update_appearance()
 	update()
 	addtimer(CALLBACK(src, PROC_REF(reset), APC_RESET_EMP), 600)
+
+// part exchange act
+/obj/machinery/power/apc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
+	if(!istype(W))
+		return FALSE
+	if(!opened && !W.works_from_distance)
+		return FALSE
+	var/current_cell_rating = cell ? cell.get_part_rating() : -1
+	var/best_cell_rating = current_cell_rating
+	var/obj/item/stock_parts/cell/best_cell
+	for(var/C in W.contents)
+		var/obj/item/stock_parts/cell/cell = C
+		if (!cell || !istype(cell))
+			continue
+		var/cell_rating = cell.get_part_rating()
+		if (cell_rating > best_cell_rating || (cell_rating == best_cell_rating && cell.charge > best_cell.charge))
+			best_cell_rating = cell_rating
+			best_cell = cell
+	if (best_cell)
+		if (cell)
+			SEND_SIGNAL(W, COMSIG_TRY_STORAGE_INSERT, cell, null, null, TRUE)
+			to_chat(user, "<span class='notice'>[capitalize(cell.name)] replaced with [best_cell.name].</span>")
+		best_cell.forceMove(src)
+		var/amount_to_charge = min(best_cell.maxcharge - best_cell.charge, cell.charge)
+		if (cell.use(amount_to_charge))
+			best_cell.give(amount_to_charge)
+		cell = best_cell
+		W.play_rped_sound()

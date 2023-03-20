@@ -110,6 +110,7 @@ Class Procs:
 	var/wire_compatible = FALSE
 
 	var/list/component_parts = null //list of all the parts used to build it, if made from certain kinds of frames.
+	var/works_with_rped_anyways = FALSE //whether it has special RPED behavior despite not having component parts
 	var/panel_open = FALSE
 	var/state_open = FALSE
 	var/critical_machine = FALSE //If this machine is critical to station operation and should have the area be excempted from power failures.

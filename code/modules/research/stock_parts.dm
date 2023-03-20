@@ -15,7 +15,7 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	var/alt_sound = null
 
 /obj/item/storage/part_replacer/pre_attack(obj/machinery/T, mob/living/user, params)
-	if(!istype(T) || !T.component_parts)
+	if(!istype(T) || (!T.component_parts && !T.works_with_rped_anyways))
 		return ..()
 	if(user.Adjacent(T)) // no TK upgrading.
 		if(works_from_distance)
@@ -25,7 +25,7 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	return ..()
 
 /obj/item/storage/part_replacer/afterattack(obj/machinery/T, mob/living/user, adjacent, params)
-	if(adjacent || !istype(T) || !T.component_parts)
+	if(adjacent || !istype(T) || (!T.component_parts && !T.works_with_rped_anyways))
 		return ..()
 	if(works_from_distance)
 		user.Beam(T, icon_state = "rped_upgrade", time = 5)
