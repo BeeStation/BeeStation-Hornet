@@ -1073,10 +1073,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				colour = COLOR_BLUE_GRAY
 		else
 			colour = COLOR_BLUE_GRAY
-	add_filter("item_outline", 1, list(type="outline", size=1, color=colour))
+	add_filter(HOVER_OUTLINE_FILTER, 1, list(type="outline", size=1, color=colour))
 
 /obj/item/proc/remove_outline()
-	remove_filter("item_outline")
+	remove_filter(HOVER_OUTLINE_FILTER)
 
 // Called when a mob tries to use the item as a tool.
 // Handles most checks.
