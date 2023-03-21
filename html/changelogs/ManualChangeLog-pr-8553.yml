@@ -1,0 +1,4 @@
+author: Mothblocks,CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Pointing at something on yourself now shows the item.
