@@ -46,7 +46,7 @@
 	planetary_atmos = TRUE
 	desc = "Greener on the other side."
 	icon = 'icons/turf/floors.dmi'
-	icon_state = "junglegrass"
+	icon_state = "junglegrass1"
 
 /turf/open/floor/plating/grass/jungle/Initialize(mapload)
 	.=..()
