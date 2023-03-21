@@ -565,4 +565,8 @@
 		return TRUE
 	if(istype(O, /obj/item/assembly))
 		return TRUE
+	if(istype(O, /obj/item/circuitboard))
+		return TRUE
+	if(istype(O, /obj/item/mecha_parts))
+		return TRUE
 	return FALSE
