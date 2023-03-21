@@ -168,7 +168,7 @@
 			message_admins("Shuttle [shuttle_port_id] is dropping to a random location at [can_dock_with.name] due to running out of fuel/incorrect engine configuration. (EXPLOSION INCOMMING!!)")
 		//Create a new orbital waypoint to drop at
 		else
-			var/datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle/shuttle_location = new(new /datum/orbital_vector(position.GetX(), position.GetY()))
+			var/datum/orbital_object/z_linked/beacon/stranded_shuttle/shuttle_location = new(new /datum/orbital_vector(position.GetX(), position.GetY()))
 			shuttle_location.name = "Stranded [name]"
 			commence_docking(shuttle_location, TRUE, FALSE, TRUE)
 	//No more custom docking
@@ -284,7 +284,7 @@
 		return FALSE
 	SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE, "Interdictor activated, shuttle throttling down...")
 	//Create the site of interdiction
-	var/datum/orbital_object/z_linked/beacon/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/interdiction(
+	var/datum/orbital_object/z_linked/beacon/z_linked = new /datum/orbital_object/z_linked/beacon/interdiction(
 		new /datum/orbital_vector(position.GetX(), position.GetY())
 	)
 	z_linked.name = "Interdiction Site"

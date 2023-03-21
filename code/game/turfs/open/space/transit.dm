@@ -64,7 +64,7 @@
 					_z = shuttleObj.docking_target.linked_z_level[1].z_value
 				else
 					//Interdiction (Its an empty z-level)
-					var/datum/orbital_object/z_linked/beacon/ruin/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/interdiction(
+					var/datum/orbital_object/z_linked/beacon/interdiction/z_linked = new /datum/orbital_object/z_linked/beacon/interdiction(
 						new /datum/orbital_vector(shuttleObj.position.GetX(), shuttleObj.position.GetY())
 					)
 					z_linked.name = "Stranded [AM]"
