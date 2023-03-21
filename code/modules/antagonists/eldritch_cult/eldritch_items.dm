@@ -17,7 +17,7 @@
 	var/dist = get_dist(user.loc,target.loc)
 	var/dir = get_dir(user.loc,target.loc)
 	if(user.get_virtual_z_level() != target.get_virtual_z_level())
-		to_chat(user,"<span class='warning'>[target.real_name] is on another plane of existance!</span>")
+		to_chat(user,"<span class='warning'>[target.real_name] is on another plane of existence!</span>")
 	else
 		switch(dist)
 			if(0 to 15)
@@ -35,7 +35,7 @@
 		UnregisterSignal(target.mind, COMSIG_MIND_CRYOED)
 	target = new_target?.current
 	if(target?.mind)
-		RegisterSignal(target.mind, COMSIG_MIND_CRYOED, .proc/on_target_cryo)
+		RegisterSignal(target.mind, COMSIG_MIND_CRYOED, PROC_REF(on_target_cryo))
 
 /obj/item/living_heart/proc/on_target_cryo()
 	SIGNAL_HANDLER
@@ -216,7 +216,7 @@
 
 /obj/item/clothing/mask/void_mask
 	name = "Mask Of Madness"
-	desc = "Mask created from the suffering of existance, you can look down it's eyes, and notice something gazing back at you."
+	desc = "Mask created from the suffering of existence, you can look down it's eyes, and notice something gazing back at you."
 	icon_state = "mad_mask"
 	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = MASKCOVERSEYES

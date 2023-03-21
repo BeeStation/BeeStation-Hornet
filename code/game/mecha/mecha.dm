@@ -448,7 +448,7 @@
 		for(var/mob/M as() in hearers(7,src))
 			if(M.client)
 				speech_bubble_recipients.Add(M.client)
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, image('icons/mob/talk.dmi', src, "machine[say_test(raw_message)]",MOB_LAYER+1), speech_bubble_recipients, 30)
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), image('icons/mob/talk.dmi', src, "machine[say_test(raw_message)]",MOB_LAYER+1), speech_bubble_recipients, 30)
 
 /obj/mecha/on_emag(mob/user)
 	..()
@@ -622,6 +622,8 @@
 
 /obj/mecha/proc/mechstep(direction)
 	var/current_dir = dir
+	if(!isturf(get_step_multiz(src, direction))) // verify the turf we intend to step into is actually valid
+		direction = direction & ~(UP|DOWN)
 	var/result = step(src,direction)
 	if(strafe)
 		setDir(current_dir)
@@ -667,11 +669,11 @@
 		if(isobj(obstacle))
 			var/obj/O = obstacle
 			if(!O.anchored && O.move_resist <= move_force)
-				step(obstacle, dir)
+				step(obstacle, dir & ~(UP|DOWN))
 		else if(ismob(obstacle))
 			var/mob/M = obstacle
 			if(M.move_resist <= move_force)
-				step(obstacle, dir)
+				step(obstacle, dir & ~(UP|DOWN))
 
 
 

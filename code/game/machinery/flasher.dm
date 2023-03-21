@@ -117,7 +117,7 @@
 	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
 	flick("[base_state]_flash", src)
 	set_light_on(TRUE)
-	addtimer(CALLBACK(src, .proc/flash_end), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(flash_end)), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
 
 	last_flash = world.time
 	use_power(1000)

@@ -26,7 +26,7 @@
 
 /obj/structure/c_transit_tube/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_FLIP | ROTATION_VERBS,null,null,CALLBACK(src,.proc/after_rot))
+	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_FLIP | ROTATION_VERBS,null,null,CALLBACK(src,PROC_REF(after_rot)))
 
 /obj/structure/c_transit_tube/proc/after_rot(mob/user,rotation_type)
 	if(flipped_build_type && rotation_type == ROTATION_FLIP)
@@ -44,7 +44,7 @@
 		return
 	to_chat(user, "<span class='notice'>You start attaching the [name]...</span>")
 	add_fingerprint(user)
-	if(I.use_tool(src, user, 2 SECONDS, volume=50, extra_checks=CALLBACK(src, .proc/can_wrench_in_loc, user)))
+	if(I.use_tool(src, user, 2 SECONDS, volume=50, extra_checks=CALLBACK(src, PROC_REF(can_wrench_in_loc), user)))
 		to_chat(user, "<span class='notice'>You attach the [name].</span>")
 		var/obj/structure/transit_tube/R = new build_type(loc, dir)
 		transfer_fingerprints_to(R)

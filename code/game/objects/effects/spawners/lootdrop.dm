@@ -14,7 +14,7 @@
 		spawn_loot()
 		return INITIALIZE_HINT_QDEL
 	else
-		RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, .proc/late_spawn_loot)
+		RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, PROC_REF(late_spawn_loot))
 
 /obj/effect/spawner/lootdrop/proc/late_spawn_loot()
 	spawn_loot()

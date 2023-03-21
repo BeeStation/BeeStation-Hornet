@@ -559,3 +559,11 @@ Contains:
 
 /obj/item/clothing/suit/space/hardsuit/skinsuit/attackby(obj/item/I, mob/user, params)
 	return
+
+/obj/item/clothing/head/helmet/space/hunter
+	name = "bounty hunting helmet"
+	desc = "A custom tactical space helmet with decals added."
+	icon_state = "hunter"
+	item_state = "hunter"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 20)

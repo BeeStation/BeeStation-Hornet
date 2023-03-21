@@ -28,6 +28,7 @@
 		if(messenger.saved_identification == pda_input.name && messenger.saved_job == pda_input.job && (pda_input.send_all || messenger != pda_input.target))
 			ref = REF(messenger)
 			break
+	var/has_photo = !!pda_input.current_image
 	var/datum/signal/subspace/messaging/tablet_msg/signal = new(signal_source ? signal_source : server, list(
 		"name" = "[pda_input.name]",
 		"job" = "[pda_input.job]",
@@ -42,8 +43,9 @@
 	else
 		signal.send_to_receivers()
 	var/turf/source_turf = signal_source ? get_turf(signal_source) : null
-	usr.log_message("(PDA: [pda_input.name] | [usr.real_name]) sent \"[pda_input.text]\"[signal["photo"] ? " (Photo Attached)" : ""] to [signal.format_target()] via [signal_source ? "[signal_source] at [AREACOORD(source_turf)]" : "Admin UI"]", LOG_PDA)
-	message_admins("[key_name_admin(usr)][ADMIN_FLW(usr)] sent PDA message: \"[pda_input.text]\"[signal["photo"] ? " (Photo Attached)" : ""] to [signal.format_target()] via [signal_source ? "[signal_source] at [ADMIN_VERBOSEJMP(source_turf)]" : "Admin UI"]")
+	var/target_fmt = pda_input.send_all ? "Everyone" : signal.format_target()
+	usr.log_message("(PDA: [pda_input.name] | [usr.real_name]) sent \"[pda_input.text]\"[has_photo ? " (Photo Attached)" : ""] to [target_fmt] via [signal_source ? "[signal_source] at [AREACOORD(source_turf)]" : "Admin UI"]", LOG_PDA)
+	message_admins("[key_name_admin(usr)][ADMIN_FLW(usr)] sent PDA message: \"[pda_input.text]\"[has_photo ? " (Photo Attached)" : ""] to [target_fmt] via [signal_source ? "[signal_source] at [ADMIN_VERBOSEJMP(source_turf)]" : "Admin UI"]")
 	qdel(pda_input)
 
 /datum/tgui_input_pda_message
@@ -148,7 +150,7 @@
 			else if(choice in devices)
 				send_all = FALSE
 				target = devices[choice]
-				RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/target_deleting)
+				RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(target_deleting))
 			else
 				target = null
 				send_all = FALSE

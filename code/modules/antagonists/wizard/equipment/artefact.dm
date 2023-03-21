@@ -122,7 +122,7 @@
 	. = ..()
 	AddComponent(
 		/datum/component/singularity, \
-		consume_callback = CALLBACK(src, .proc/consume), \
+		consume_callback = CALLBACK(src, PROC_REF(consume)), \
 		consume_range = TEAR_IN_REALITY_CONSUME_RANGE, \
 		notify_admins = FALSE, \
 		roaming = FALSE, \
@@ -139,7 +139,7 @@
 		insaneinthemembrane.sanity = 0
 		for(var/lore in typesof(/datum/brain_trauma/severe))
 			C.gain_trauma(lore)
-		addtimer(CALLBACK(src, .proc/deranged, C), 100)
+		addtimer(CALLBACK(src, PROC_REF(deranged), C), 100)
 
 /obj/tear_in_reality/proc/deranged(mob/living/carbon/C)
 	if(!C || C.stat == DEAD)

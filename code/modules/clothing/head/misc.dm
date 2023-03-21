@@ -243,14 +243,6 @@
 	icon_state = "flat_cap"
 	item_state = "detective"
 
-/obj/item/clothing/head/hunter
-	name = "bounty hunting hat"
-	desc = "Ain't nobody gonna cheat the hangman in my town."
-	icon_state = "hunter"
-	item_state = "hunter"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 20)
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-
 /obj/item/clothing/head/cone
 	desc = "This cone is trying to warn you of something!"
 	name = "warning cone"
@@ -367,7 +359,7 @@
 /obj/item/clothing/head/frenchberet/equipped(mob/M, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
-		RegisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
+		RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	else
 		UnregisterSignal(M, COMSIG_MOB_SAY)
 

@@ -4,6 +4,7 @@
 	name = "alien embryo"
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "larva0_dead"
+	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/toxin/acid = 10)
 	var/stage = 0
 	COOLDOWN_DECLARE(next_stage_time)
 	var/bursting = FALSE
@@ -16,11 +17,6 @@
 		to_chat(finder, "It's grown quite large, and writhes slightly as you look at it.")
 		if(prob(10))
 			AttemptGrow(0)
-
-/obj/item/organ/body_egg/alien_embryo/prepare_eat()
-	var/obj/S = ..()
-	S.reagents.add_reagent(/datum/reagent/toxin/acid, 10)
-	return S
 
 /obj/item/organ/body_egg/alien_embryo/on_life()
 	. = ..()
@@ -73,7 +69,7 @@
 		additional_grow_time = min(additional_grow_time, 1 MINUTES)
 		COOLDOWN_START(src, next_stage_time, rand(30 SECONDS, 45 SECONDS) + additional_grow_time) // Somewhere from 2.5-3.5 minutes to fully grow
 		stage++
-		INVOKE_ASYNC(src, .proc/RefreshInfectionImage)
+		INVOKE_ASYNC(src, PROC_REF(RefreshInfectionImage))
 
 	if(stage == 5 && prob(50))
 		for(var/datum/surgery/S in owner.surgeries)

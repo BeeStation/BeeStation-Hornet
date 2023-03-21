@@ -118,8 +118,8 @@
 		var/speedbase = abs((4 SECONDS) / limbs_to_dismember.len)
 		for(bodypart in limbs_to_dismember)
 			i++
-			addtimer(CALLBACK(src, .proc/suicide_dismember, user, bodypart), speedbase * i)
-	addtimer(CALLBACK(src, .proc/manual_suicide, user), (5 SECONDS) * i)
+			addtimer(CALLBACK(src, PROC_REF(suicide_dismember), user, bodypart), speedbase * i)
+	addtimer(CALLBACK(src, PROC_REF(manual_suicide), user), (5 SECONDS) * i)
 	return MANUAL_SUICIDE
 
 /obj/item/melee/sabre/proc/suicide_dismember(mob/living/user, obj/item/bodypart/affecting)
@@ -397,9 +397,7 @@
 	add_fingerprint(user)
 
 //Contractor Baton
-/obj/item/melee/classic_baton/contractor_baton
-	name = "contractor baton"
-	desc = "A compact, specialised baton assigned to Syndicate contractors. Applies light electric shocks that can resonate with a specific targets brain frequency causing significant stunning effects."
+/obj/item/melee/classic_baton/retractible_stun
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "contractor_baton_0"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
@@ -429,16 +427,14 @@
 	force_off = 5
 	weight_class_on = WEIGHT_CLASS_NORMAL
 
-	var/datum/antagonist/traitor/owner_data = null
-
-/obj/item/melee/classic_baton/contractor_baton/get_wait_description()
+/obj/item/melee/classic_baton/retractible_stun/get_wait_description()
 	return "<span class='danger'>The baton is still charging!</span>"
 
-/obj/item/melee/classic_baton/contractor_baton/additional_effects_carbon(mob/living/target, mob/living/user)
-	target.Jitter(20)
-	target.stuttering += 20
+/obj/item/melee/classic_baton/retractible_stun/additional_effects_carbon(mob/living/target, mob/living/user)
+	target.Jitter(2 SECONDS)
+	target.stuttering += 2 SECONDS
 
-/obj/item/melee/classic_baton/contractor_baton/attack_self(mob/user)
+/obj/item/melee/classic_baton/retractible_stun/attack_self(mob/user)
 	on = !on
 	var/list/desc = get_on_description()
 
@@ -458,17 +454,23 @@
 		force = force_off
 		attack_verb = list("hit", "poked")
 
-	playsound(src.loc, on_sound, 50, 1)
+	playsound(src.loc, on_sound, 50, TRUE)
 	add_fingerprint(user)
 
-/obj/item/melee/classic_baton/contractor_baton/attack(mob/living/target, mob/living/user)
+/obj/item/melee/classic_baton/retractible_stun/proc/is_target(mob/living/target, mob/living/user)
+	return TRUE
+
+/obj/item/melee/classic_baton/retractible_stun/proc/check_disabled(mob/living/target, mob/living/user)
+	return FALSE
+
+/obj/item/melee/classic_baton/retractible_stun/attack(mob/living/target, mob/living/user)
 	if(!on)
 		return ..()
 
-	if(!owner_data || owner_data?.owner?.current != user)
+	if(check_disabled(target, user))
 		return ..()
 
-	var/is_target = owner_data.contractor_hub?.current_contract?.contract?.target == target.mind
+	var/is_target = is_target(target, user)
 
 	add_fingerprint(user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
@@ -525,12 +527,12 @@
 			if (stun_animation)
 				user.do_attack_animation(target)
 
-			playsound(get_turf(src), on_stun_sound, 75, 1, -1)
+			playsound(get_turf(src), on_stun_sound, 75, TRUE, -1)
 			if(is_target)
 				target.Knockdown(knockdown_time_carbon)
 				target.drop_all_held_items()
 				target.adjustStaminaLoss(stamina_damage)
-				if(target.confused < 6 SECONDS)
+				if(target_confusion > 0 && target.confused < 6 SECONDS)
 					target.confused = min(target.confused + target_confusion, 6 SECONDS)
 			else
 				target.Knockdown(knockdown_time_carbon)
@@ -552,13 +554,33 @@
 			if (wait_desc)
 				to_chat(user, wait_desc)
 
-/obj/item/melee/classic_baton/contractor_baton/pickup(mob/user)
+/obj/item/melee/classic_baton/retractible_stun/contractor_baton
+	name = "contractor baton"
+	desc = "A compact, specialised baton assigned to Syndicate contractors. Applies light electric shocks that can resonate with a specific target's brain frequency causing significant stunning effects."
+	var/datum/antagonist/traitor/owner_data = null
+
+/obj/item/melee/classic_baton/retractible_stun/contractor_baton/check_disabled(mob/living/target, mob/living/user)
+	return !owner_data || owner_data?.owner?.current != user
+
+/obj/item/melee/classic_baton/retractible_stun/contractor_baton/is_target(mob/living/target, mob/living/user)
+	return owner_data.contractor_hub?.current_contract?.contract?.target == target.mind
+
+/obj/item/melee/classic_baton/retractible_stun/contractor_baton/pickup(mob/user)
 	..()
 	if(!owner_data)
 		var/datum/antagonist/traitor/traitor_data = user.mind.has_antag_datum(/datum/antagonist/traitor)
 		if(traitor_data)
 			owner_data = traitor_data
-			to_chat(user, "<span class='notice'>[src] scans your genetic data as you pick it up, creating an uplink with the syndicate database. Attacking your current target will stun and mute them, however the baton is weak against non-targets.</span>")
+			to_chat(user, "<span class='notice'>[src] scans your genetic data as you pick it up, creating an uplink with the syndicate database. Attacking your current target will stun them, however the baton is weak against non-targets.</span>")
+
+/obj/item/melee/classic_baton/retractible_stun/bounty
+	name = "bounty hunter baton"
+	desc = "A compact, specialised retractible stun baton assigned to bounty hunters."
+	knockdown_time_carbon = (2 SECONDS)
+	stamina_damage_non_target = 60
+	stamina_damage_target = 60
+	stamina_damage = 60
+	target_confusion = 0
 
 // Supermatter Sword
 /obj/item/melee/supermatter_sword

@@ -248,7 +248,7 @@
 	if(machine)
 		unset_machine()
 	machine = O
-	RegisterSignal(O, COMSIG_PARENT_QDELETING, .proc/unset_machine)
+	RegisterSignal(O, COMSIG_PARENT_QDELETING, PROC_REF(unset_machine))
 	if(istype(O))
 		O.obj_flags |= IN_USE
 
