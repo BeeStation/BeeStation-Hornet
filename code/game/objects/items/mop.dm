@@ -27,8 +27,9 @@
 	AddElement(/datum/element/liquids_interaction, on_interaction_callback = TYPE_PROC_REF(/obj/item/mop, attack_on_liquids_turf))
 
 /obj/item/mop/Destroy()
-	. = ..()
+	GLOB.janitor_devices -= src
 	RemoveElement(/datum/element/liquids_interaction, on_interaction_callback = TYPE_PROC_REF(/obj/item/mop, attack_on_liquids_turf))
+	return ..()
 
 /obj/item/mop/proc/attack_on_liquids_turf(obj/item/mop/the_mop, turf/T, mob/user, obj/effect/abstract/liquid_turf/liquids)
 	if(!user.Adjacent(T))
@@ -93,13 +94,6 @@
 			to_chat(user, "<span class='notice'>You finish mopping.</span>")
 			clean(T)
 
-
-/obj/effect/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/mop) || istype(I, /obj/item/soap))
-		return
-	else
-		return ..()
-
 /obj/item/mop/examine(mob/user)
 	. = ..()
 	. += "<span class='info'><b>Alt-click</b> a bucket to wring out the fluids.</span>"
@@ -118,7 +112,7 @@
 	insertable = FALSE
 
 /obj/item/mop/advanced
-	desc = "The most advanced tool in a custodian's arsenal, complete with a condenser for self-wetting! Just think of all the viscera you will clean up with this! Due to the self-wetting technology, also comes equipped with a self drying mode toggle with ALT." //MONKESTATION EDIT
+	desc = "The most advanced tool in a custodian's arsenal, complete with a condenser for self-wetting! Just think of all the viscera you will clean up with this! Due to the self-wetting technology, also comes equipped with a self drying mode toggle with Alt."
 	name = "advanced mop"
 	mopcap = 100
 	icon_state = "advmop"
@@ -141,7 +135,7 @@
 
 /obj/item/mop/advanced/attack_self(mob/user)
 	if(drying_mode)
-		to_chat(user, "<span class = 'notice'> Please turn off drying mode before enabling the condenser.</span>")
+		to_chat(user, "<span class='notice'>Please turn off drying mode before enabling the condenser.</span>")
 		return
 	refill_enabled = !refill_enabled
 	to_chat(user, "<span class='notice'>You set the condenser switch to the '[refill_enabled ? "ON" : "OFF"]' position.</span>")

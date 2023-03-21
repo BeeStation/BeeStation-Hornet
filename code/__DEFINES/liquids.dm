@@ -80,3 +80,6 @@ GLOBAL_LIST_INIT(liquid_blacklist, list(
 	/datum/reagent/sorium,
 	/datum/reagent/liquid_dark_matter
 ))
+
+//Variables for floor height
+#define LIQUID_FLOOR_HEIGHT_POOL -30

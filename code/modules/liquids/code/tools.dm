@@ -33,7 +33,7 @@
 /client/proc/remove_liquid()
 	set name = "Remove Liquids"
 	set category = "Admin"
-	set desc = "Fixes air in specified radius."
+	set desc = "Removes liquids."
 	var/turf/epicenter = get_turf(mob)
 
 	var/range = input(usr, "Enter range:", "Range selection", 2) as num

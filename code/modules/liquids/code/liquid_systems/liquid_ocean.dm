@@ -43,7 +43,6 @@
 
 
 /turf/open/floor/plating/ocean
-	gender = PLURAL
 	name = "ocean sand"
 	baseturfs = /turf/open/floor/plating/ocean
 	icon = 'code/modules/liquids/icons/turf/seafloor.dmi'
@@ -159,7 +158,7 @@
 	SIGNAL_HANDLER
 
 	var/turf/T = source
-	if(isobserver(AM))
+	if(isobserver(AM) || iscameramob(AM))
 		return //ghosts, camera eyes, etc. don't make water splashy splashy
 	if(prob(30))
 		var/sound_to_play = pick(list(

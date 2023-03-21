@@ -173,3 +173,7 @@
 
 ///Plane master controller keys
 #define PLANE_MASTERS_GAME "plane_masters_game"
+
+///Layers for liquid effects
+
+#define LIQUID_EFFECT_LAYER 2.85

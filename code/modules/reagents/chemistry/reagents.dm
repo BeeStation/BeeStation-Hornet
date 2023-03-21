@@ -103,7 +103,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 		react_type = "TURF"
 	else if(isobj(A))
 		react_type = "OBJ"
-	else if(liquid == TRUE)
+	else if(liquid)
 		react_type = "LIQUID"
 	else
 		return

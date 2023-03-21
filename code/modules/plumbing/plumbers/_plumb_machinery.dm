@@ -105,6 +105,7 @@
 	desc = "A plumbing manifold for layers."
 	icon_state = "manifold"
 	density = FALSE
+
 /obj/machinery/plumbing/layer_manifold/Initialize(mapload, bolt, layer)
 	. = ..()
 

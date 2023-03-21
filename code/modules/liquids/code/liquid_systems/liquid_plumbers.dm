@@ -73,7 +73,7 @@
 	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
 		return
 	var/new_height = tgui_input_number(user,
-		"At what water level should the pump stop pumping from 0 to [LIQUID_HEIGHT_CONSIDER_FULL_TILE]? 0 disables.",
+		"At what water level should the pump stop pumping from 0 to [LIQUID_HEIGHT_CONSIDER_FULL_TILE]? Setting the level to 0 will disable the pump.",
 		"[src]",
 		default = height_regulator,
 		min_value = 0,
@@ -318,7 +318,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/plumbing/floor_pump/output/on/supply,
 	icon_state = "plumberer2"
 	has_ammobar = TRUE
 
-/obj/item/construction/plumbing/engineering/set_plumbing_designs()
+/obj/item/construction/plumbing/engineering/Initialize(mapload)
+	. = ..()
 	plumbing_design_types = list(
 		/obj/machinery/duct = 1,
 		/obj/machinery/plumbing/input = 5,

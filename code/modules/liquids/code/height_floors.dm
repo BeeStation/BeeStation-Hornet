@@ -26,8 +26,8 @@
 	base_icon_state = "pool_tile"
 	icon_state = "pool_tile"
 	smoothing_flags = NONE
-	liquid_height = -30
-	turf_height = -30
+	liquid_height = LIQUID_FLOOR_HEIGHT_POOL
+	turf_height = LIQUID_FLOOR_HEIGHT_POOL
 
 
 /turf/open/floor/iron/pool/rust_heretic_act()

@@ -88,7 +88,7 @@
 			overlay.plane = GAME_PLANE
 			overlay.layer = ABOVE_MOB_LAYER
 			underlay.plane = GAME_PLANE
-			underlay.layer = 2.85
+			underlay.layer = LIQUID_EFFECT_LAYER
 			add_overlay(overlay)
 			add_overlay(underlay)
 		if(LIQUID_STATE_WAIST)
@@ -97,7 +97,7 @@
 			overlay.plane = GAME_PLANE
 			overlay.layer = ABOVE_MOB_LAYER
 			underlay.plane = GAME_PLANE
-			underlay.layer = 2.85
+			underlay.layer = LIQUID_EFFECT_LAYER
 			add_overlay(overlay)
 			add_overlay(underlay)
 		if(LIQUID_STATE_SHOULDERS)
@@ -147,7 +147,7 @@
 	SIGNAL_HANDLER
 
 	var/turf/T = source
-	if(isobserver(AM))
+	if(isobserver(AM) || iscameramob(AM))
 		return //ghosts, camera eyes, etc. don't make water splashy splashy
 	if(liquid_group.group_overlay_state >= LIQUID_STATE_ANKLES)
 		if(prob(30))

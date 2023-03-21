@@ -88,9 +88,6 @@ STACKSIZE_MACRO(/obj/item/stack/sheet/mineral/copper)
 
 GLOBAL_LIST_INIT(titanium_recipes, list ( \
 	new/datum/stack_recipe("titanium tile", /obj/item/stack/tile/mineral/titanium, 1, 4, 20), \
-	new/datum/stack_recipe("pool floor tile", /obj/item/stack/tile/lowered/iron/pool, 1, 1, 4), \
-	new/datum/stack_recipe("lowered floor tile", /obj/item/stack/tile/lowered, 1, 1, 4), \
-	new/datum/stack_recipe("elevated floor tile", /obj/item/stack/tile/elevated, 1, 1, 4), \
 	))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/mineral/titanium)

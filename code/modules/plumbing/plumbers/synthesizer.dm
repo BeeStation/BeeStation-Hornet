@@ -12,6 +12,10 @@
 	var/static/list/possible_amounts = list(0,1,2,3,4,5)
 	///The reagent we are producing. We are a typepath, but are also typecast because there's several occations where we need to use initial.
 	var/datum/reagent/reagent_id = null
+	///The amount of reagent dispensable before requiring a refill from a compressed matter cartridge.
+	var/volume_left = 0
+	///The maximum amount of precursor in a synthesizer.
+	var/max_volume = 1000
 	///straight up copied from chem dispenser. Being a subtype would be extremely tedious and making it global would restrict potential subtypes using different dispensable_reagents
 	var/list/dispensable_reagents = list(
 		/datum/reagent/aluminium,
@@ -52,6 +56,37 @@
 		return
 	reagents.add_reagent(reagent_id, amount*delta_time*0.5)
 	use_power(active_power_usage * amount * delta_time * 0.5)
+	if(volume_left < amount) //Empty
+		return
+	reagents.add_reagent(reagent_id, amount*delta_time*0.5)
+	volume_left = max(volume_left - amount*delta_time*0.5, 0)
+
+/obj/machinery/plumbing/synthesizer/attackby(obj/item/O, mob/user, params)
+	if(!istype(O, /obj/item/rcd_ammo))
+		return ..()
+	var/obj/item/rcd_ammo/R = O
+	if(!R.ammoamt)
+		to_chat(user, "<span class='warning'>The [R.name] doesn't have any reagent left!</span>")
+		return ..()
+	var/added_volume = -volume_left //For the difference calculation
+	volume_left = min(volume_left+R.ammoamt*10, src.max_volume) //400 per cartridge
+	added_volume = added_volume+volume_left
+	R.ammoamt -= added_volume/10
+	if(R.ammoamt <= 0) //Emptied
+		to_chat(user, "<span class='notice'>You refill the chemical synthesizer with the [R.name], emptying it completely!</span>")
+		qdel(R)
+		return
+	if(added_volume == 0) //No change
+		to_chat(user, "<span class='notice'>The chemical synthesizer is full!</span>")
+		return
+	to_chat(user, "<span class='notice'>You refill the chemical synthesizer with the [R.name], leaving [R.ammoamt*10] units in it.</span>")
+
+/obj/machinery/plumbing/synthesizer/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>A display says it currently holds [volume_left] units of precursor before requiring a refill.</span>"
+
+/obj/machinery/plumbing/synthesizer/ui_state(mob/user)
+	return GLOB.default_state
 
 /obj/machinery/plumbing/synthesizer/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

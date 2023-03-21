@@ -13,7 +13,7 @@
 	var/list/vents  = list()
 	var/randomProbability = 1
 	var/reagentsAmount = 500
-	var/list/saferChems = list(/datum/reagent/water,/datum/reagent/carbon,/datum/reagent/consumable/flour,/datum/reagent/space_cleaner,/datum/reagent/consumable/nutriment,/datum/reagent/consumable/condensedcapsaicin,/datum/reagent/drug/mushroomhallucinogen,/datum/reagent/lube,/datum/reagent/glitter/pink,/datum/reagent/cryptobiolin,
+	var/static/list/saferChems = list(/datum/reagent/water,/datum/reagent/carbon,/datum/reagent/consumable/flour,/datum/reagent/space_cleaner,/datum/reagent/consumable/nutriment,/datum/reagent/consumable/condensedcapsaicin,/datum/reagent/drug/mushroomhallucinogen,/datum/reagent/lube,/datum/reagent/glitter/pink,/datum/reagent/cryptobiolin,
 						 /datum/reagent/toxin/plantbgone,/datum/reagent/blood,/datum/reagent/medicine/charcoal,/datum/reagent/drug/space_drugs,/datum/reagent/medicine/morphine,/datum/reagent/water/holywater,/datum/reagent/consumable/ethanol,/datum/reagent/consumable/cocoa/hot_cocoa,/datum/reagent/toxin/acid,/datum/reagent/toxin/mindbreaker,/datum/reagent/toxin/rotatium,/datum/reagent/bluespace,
 						 /datum/reagent/pax,/datum/reagent/consumable/laughter,/datum/reagent/concentrated_barbers_aid,/datum/reagent/colorful_reagent,/datum/reagent/peaceborg/confuse,/datum/reagent/peaceborg/tire,/datum/reagent/consumable/sodiumchloride,/datum/reagent/consumable/ethanol/beer,/datum/reagent/hair_dye,/datum/reagent/consumable/sugar,/datum/reagent/glitter/white,/datum/reagent/growthserum)
 	//needs to be chemid unit checked at some point
@@ -32,24 +32,25 @@
 
 /datum/round_event/vent_clog/start()
 	for(var/obj/machinery/atmospherics/components/unary/vent in vents)
-		if(prob(25))
-			var/turf/Spillzone = get_turf(vent)
-			if(Spillzone && Spillzone.loc)
-				var/datum/reagents/R = new/datum/reagents(10000)
-				R.my_atom = Spillzone
-				if (prob(randomProbability))
-					R.add_reagent(get_random_reagent_id(), reagentsAmount)
-				else
-					R.add_reagent(pick(saferChems), reagentsAmount)
+		if(!prob(25))
+			continue
+		var/turf/Spillzone = get_turf(vent)
+		if(Spillzone && Spillzone.loc)
+			var/datum/reagents/R = new/datum/reagents(10000)
+			R.my_atom = Spillzone
+			if (prob(randomProbability))
+				R.add_reagent(get_random_reagent_id(), reagentsAmount)
+			else
+				R.add_reagent(pick(saferChems), reagentsAmount)
 
-				Spillzone.add_liquid_from_reagents(R)
+			Spillzone.add_liquid_from_reagents(R)
 
 
-				var/cockroaches = prob(33) ? 3 : 0
-				while(cockroaches)
-					new /mob/living/simple_animal/cockroach(get_turf(vent))
-					cockroaches--
-			CHECK_TICK
+			var/cockroaches = prob(33) ? 3 : 0
+			while(cockroaches)
+				new /mob/living/simple_animal/cockroach(get_turf(vent))
+				cockroaches--
+		CHECK_TICK
 
 /datum/round_event_control/vent_clog/threatening
 	name = "Clogged Vents: Threatening"
