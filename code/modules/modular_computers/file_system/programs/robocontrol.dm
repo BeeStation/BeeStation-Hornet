@@ -18,8 +18,8 @@
 	var/list/current_access = list()
 
 /datum/computer_file/program/robocontrol/ui_data(mob/user)
-	var/list/data = get_header_data()
-	var/turf/current_turf = get_turf(ui_host())
+	var/list/data = list()
+	var/turf/current_turf = get_turf(computer.ui_host())
 	var/zlevel = current_turf.get_virtual_z_level()
 	var/list/botlist = list()
 	var/list/mulelist = list()
@@ -95,7 +95,7 @@
 				GLOB.data_core.manifest_modify(id_card.registered_name, id_card.assignment, id_card.hud_state)
 				card_slot.try_eject(current_user)
 			else
-				playsound(get_turf(ui_host()) , 'sound/machines/buzz-sigh.ogg', 25, FALSE)
+				playsound(get_turf(computer.ui_host()) , 'sound/machines/buzz-sigh.ogg', 25, FALSE)
 	if(!selected_bot)
 		return
 	var access_okay = TRUE

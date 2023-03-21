@@ -35,7 +35,7 @@
 
 /datum/antagonist/heartbreaker/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	//Give valentine appearence on hud (If they are not an antag already)
+	//Give valentine appearance on hud (If they are not an antag already)
 	var/datum/atom_hud/antag/valhud = GLOB.huds[ANTAG_HUD_HEARTBREAKER]
 	valhud.join_hud(owner.current)
 	if(!owner.antag_hud_icon_state)

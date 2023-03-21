@@ -752,7 +752,7 @@
 	results = list(/datum/reagent/mutationtoxin/skeleton = 5)
 	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/consumable/milk = 30, /datum/reagent/toxin/acid/fluacid = 30) //Because acid melts flesh off.
 
-///datum/chemical_reaction/mutationtoxin/zombie //No zombies untill holopara issue is fixed.
+///datum/chemical_reaction/mutationtoxin/zombie //No zombies until holopara issue is fixed.
 //	name = /datum/reagent/mutationtoxin/zombie
 //	id = /datum/reagent/mutationtoxin/zombie
 //	results = list(/datum/reagent/mutationtoxin/zombie = 1)

@@ -103,8 +103,8 @@
 		UnregisterSignal(scanner, COMSIG_MACHINE_CLOSE)
 
 	if(new_scanner)
-		RegisterSignal(new_scanner, COMSIG_MACHINE_OPEN, .proc/scanner_ui_update)
-		RegisterSignal(new_scanner, COMSIG_MACHINE_CLOSE, .proc/scanner_ui_update)
+		RegisterSignal(new_scanner, COMSIG_MACHINE_OPEN, PROC_REF(scanner_ui_update))
+		RegisterSignal(new_scanner, COMSIG_MACHINE_CLOSE, PROC_REF(scanner_ui_update))
 
 	scanner = new_scanner
 
@@ -361,7 +361,7 @@
 	say("Initiating scan...")
 	var/prev_locked = scanner.locked
 	scanner.locked = TRUE
-	addtimer(CALLBACK(src, .proc/finish_scan, scanner.occupant, user, prev_locked, body_only), 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(finish_scan), scanner.occupant, user, prev_locked, body_only), 2 SECONDS)
 	. = TRUE
 
 /obj/machinery/computer/cloning/proc/Toggle_autoprocess(mob/user)

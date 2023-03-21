@@ -105,7 +105,7 @@
 		D.adjustStaminaLoss(20)
 		D.Stun(100)
 		restraining = TRUE
-		addtimer(CALLBACK(src, .proc/drop_restraining), 50, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(drop_restraining)), 50, TIMER_UNIQUE)
 	return TRUE
 
 /datum/martial_art/cqc/proc/Consecutive(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -136,7 +136,7 @@
 		D.grabbedby(A, 1)
 		if(A.grab_state == GRAB_PASSIVE)
 			D.drop_all_held_items()
-			A.setGrabState(GRAB_AGGRESSIVE) //Instant agressive grab if on grab intent
+			A.setGrabState(GRAB_AGGRESSIVE) //Instant aggressive grab if on grab intent
 			log_combat(A, D, "grabbed", addition="aggressively")
 			D.visible_message("<span class='warning'>[A] violently grabs [D]!</span>", \
 								"<span class='userdanger'>[A] violently grabs you!</span>")

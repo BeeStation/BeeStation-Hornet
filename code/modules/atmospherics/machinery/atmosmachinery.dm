@@ -26,7 +26,7 @@
 	var/piping_layer = PIPING_LAYER_DEFAULT
 	var/pipe_flags = NONE
 
-	///This only works on pipes, because they have 1000 subtypes wich need to be visible and invisible under tiles, so we track this here
+	///This only works on pipes, because they have 1000 subtypes which need to be visible and invisible under tiles, so we track this here
 	var/hide = TRUE
 
 	var/static/list/iconsetids = list()

@@ -61,7 +61,7 @@
 			SendSignal("alert")
 
 /datum/computer_file/program/status/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 
 	data["upper"] = upper_text
 	data["lower"] = lower_text

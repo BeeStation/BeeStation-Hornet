@@ -92,7 +92,7 @@
 		/obj/item/clothing/neck/stripedbluescarf,
 	)
 
-	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, .proc/on_job_after_spawn)
+	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(on_job_after_spawn))
 
 /datum/station_trait/scarves/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/living_mob, mob/M, joined_late)
 	SIGNAL_HANDLER

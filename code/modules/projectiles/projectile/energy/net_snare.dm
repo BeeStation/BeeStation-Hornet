@@ -38,7 +38,7 @@
 		if(is_eligible(bea) && bea.nettingportal) //is it quick dragnet beacon?
 			teletarget = bea
 
-	addtimer(CALLBACK(src, .proc/pop, teletarget), 30)
+	addtimer(CALLBACK(src, PROC_REF(pop), teletarget), 30)
 
 /obj/effect/nettingportal/proc/is_eligible(atom/movable/AM)
 	//this code has to be ported in so it is not abused

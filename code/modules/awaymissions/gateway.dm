@@ -261,7 +261,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	name = "Confidential Correspondence, Pg 1"
 
 /obj/item/paper/fluff/itemnotice
-	info = "Notice: Over the last few weeks there have been increased reports of surplus, trash items such as wrappers being found in Bluespace Capsule Products. In the event this encampment has any such item, please dispose of them within a wastebin or the provided bonfire, especially if such items include frivolous, frankly embarassing things. We apologise for the inconvienence. Thank you. -- Nanotrasen BS Productions"
+	info = "Notice: Over the last few weeks there have been increased reports of surplus, trash items such as wrappers being found in Bluespace Capsule Products. In the event this encampment has any such item, please dispose of them within a wastebin or the provided bonfire, especially if such items include frivolous, frankly embarrassing things. We apologise for the inconvienence. Thank you. -- Nanotrasen BS Productions"
 	name = "Surplus Item Removal Notice"
 
 /obj/item/paper/fluff/encampmentwelcome

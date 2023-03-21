@@ -134,7 +134,7 @@
 		alarm_types_clear[type] += 1
 
 	if(!in_cooldown)
-		addtimer(CALLBACK(src, .proc/handle_alarms), 30) //3 second cooldown
+		addtimer(CALLBACK(src, PROC_REF(handle_alarms)), 30) //3 second cooldown
 
 /mob/living/silicon/proc/handle_alarms()
 	if(alarms_to_show.len < 5)
