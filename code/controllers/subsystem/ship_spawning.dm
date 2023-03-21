@@ -1,6 +1,7 @@
 SUBSYSTEM_DEF(ship_spawning)
 	name = "Ship Spawning"
 	flags = SS_NO_FIRE
+	init_order = INIT_ORDER_SHIP_SPAWNING
 
 	// List of starter ships
 	var/list/starter_ships = list()

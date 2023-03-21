@@ -108,6 +108,7 @@
 #define INIT_ORDER_PROFILER			101
 #define INIT_ORDER_TITLE			100
 #define INIT_ORDER_GARBAGE			99
+#define INIT_ORDER_SHIP_SPAWNING	98 // Early because it needs to be initialised in order to display ships
 #define INIT_ORDER_DBCORE			95
 #define INIT_ORDER_BLACKBOX			94
 #define INIT_ORDER_SERVER_MAINT		93
