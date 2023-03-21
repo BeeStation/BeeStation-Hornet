@@ -285,8 +285,9 @@
 	//SILENCE
 	else if((findtext(message, silence_words)))
 		cooldown = COOLDOWN_STUN
+		var/max_silent_time = 1 MINUTES
 		for(var/mob/living/carbon/C in listeners)
-			C.silent += (10 SECONDS * power_multiplier)
+			C.silent = min(C.silent + (10 SECONDS * power_multiplier), max_silent_time)
 
 	//HALLUCINATE
 	else if((findtext(message, hallucinate_words)))
