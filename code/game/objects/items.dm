@@ -484,7 +484,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(grav > STANDARD_GRAVITY)
 		var/grav_power = min(3,grav - STANDARD_GRAVITY)
 		to_chat(user,"<span class='notice'>You start picking up [src]...</span>")
-		if(!do_mob(user,src,30*grav_power))
+		if(!do_after(user, 30*grav_power, src))
 			return
 
 
@@ -1073,10 +1073,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				colour = COLOR_BLUE_GRAY
 		else
 			colour = COLOR_BLUE_GRAY
-	add_filter("item_outline", 1, list(type="outline", size=1, color=colour))
+	add_filter(HOVER_OUTLINE_FILTER, 1, list(type="outline", size=1, color=colour))
 
 /obj/item/proc/remove_outline()
-	remove_filter("item_outline")
+	remove_filter(HOVER_OUTLINE_FILTER)
 
 // Called when a mob tries to use the item as a tool.
 // Handles most checks.
@@ -1096,7 +1096,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/datum/callback/tool_check = CALLBACK(src, PROC_REF(tool_check_callback), user, amount, extra_checks)
 
 		if(ismob(target))
-			if(!do_mob(user, target, delay, extra_checks=tool_check))
+			if(!do_after(user, delay, target, extra_checks=tool_check))
 				return
 
 		else
