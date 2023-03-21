@@ -460,7 +460,7 @@
 /obj/item/painting_package/proc/generate_options(mob/living/M)
 	var/list/display_names = list()
 	for(var/list/entry in SSpersistence.paintings["library"])
-		if(entry["owner"] = M.ckey)
+		if(entry["owner"] == M.ckey)
 			display_names[entry["title"]] = entry["md5"]
 	if(!display_names.len)
 		return
@@ -477,15 +477,15 @@
 	for(var/canvas_type in typesof(/obj/item/canvas))
 		printed_canvas = canvas_type
 		if(initial(printed_canvas.width) == art_width && initial(printed_canvas.height) == art_height)
-			printed_canvas = new canvas_type(get_turf(computer.physical))
+			printed_canvas = new canvas_type(get_turf(src))
 			break
 	printed_canvas.fill_grid_from_icon(art_icon)
 	printed_canvas.generated_icon = art_icon
 	printed_canvas.icon_generated = TRUE
 	printed_canvas.finalized = TRUE
-	printed_canvas.painting_name = title
-	printed_canvas.author_ckey = author
-	printed_canvas.name = title
+//	printed_canvas.painting_name = title
+//	printed_canvas.author_ckey = author
+//	printed_canvas.name = title
 	printed_canvas.no_save = TRUE
 	printed_canvas.update_icon()
 
