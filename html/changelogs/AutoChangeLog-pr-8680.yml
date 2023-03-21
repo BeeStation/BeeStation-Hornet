@@ -1,0 +1,4 @@
+author: Crossedfall
+delete-after: true
+changes:
+  - server: Bumps rust-g to 1.2.0
