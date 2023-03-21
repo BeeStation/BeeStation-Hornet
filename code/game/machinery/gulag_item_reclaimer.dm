@@ -6,8 +6,8 @@
 	req_access = list(ACCESS_SECURITY) //REQACCESS TO ACCESS ALL STORED ITEMS
 	density = FALSE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 100
-	active_power_usage = 2500
+	idle_power_usage = 1000
+	active_power_usage = 25000
 	var/list/stored_items = list()
 	var/obj/machinery/gulag_teleporter/linked_teleporter
 

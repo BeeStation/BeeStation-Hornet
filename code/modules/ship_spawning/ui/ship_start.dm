@@ -118,6 +118,10 @@
 	if (!usr.client)
 		return
 
+	if (SSticker.current_state == GAME_STATE_STARTUP)
+		tgui_alert_async(usr, "Please wait, the game is still loading.", "Game loading")
+		return
+
 	// Global Actions
 	switch (action)
 		if ("return_main")

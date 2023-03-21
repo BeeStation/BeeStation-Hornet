@@ -4,7 +4,7 @@
 	desc = "A very complex router and transmitter capable of connecting electronic devices together. Looks fragile."
 	use_power = ACTIVE_POWER_USE
 	active_power_usage = 10000 //10kW, apropriate for machine that keeps massive cross-Zlevel wireless network operational. Used to be 20 but that actually drained the smes one round
-	idle_power_usage = 100
+	idle_power_usage = 1000
 	icon = 'icons/obj/machines/telecomms.dmi'
 	icon_state = "bus"
 	density = TRUE

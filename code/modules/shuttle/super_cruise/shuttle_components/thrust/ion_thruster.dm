@@ -128,7 +128,7 @@
 		return
 	//Consume power
 	var/surplus = max(powernet.avail - powernet.load, 0)
-	var/available_power = min(charge_rate * delta_time, surplus, maximum_stored_power - stored_power)
+	var/available_power = min(charge_rate * delta_time * 10, surplus, maximum_stored_power - stored_power)
 	if(available_power)
 		powernet.load += available_power
 		stored_power += available_power

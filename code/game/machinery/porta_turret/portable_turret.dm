@@ -13,8 +13,8 @@
 	density = TRUE
 	desc = "A covered turret that shoots at its enemies."
 	use_power = IDLE_POWER_USE				//this turret uses and requires power
-	idle_power_usage = 100		//when inactive, this turret takes up constant 50 Equipment power
-	active_power_usage = 600	//when active, this turret takes up constant 300 Equipment power
+	idle_power_usage = 10000		//when inactive, this turret takes up constant 50 Equipment power
+	active_power_usage = 60000	//when active, this turret takes up constant 300 Equipment power
 	req_access = list(ACCESS_SECURITY)
 	power_channel = AREA_USAGE_EQUIP	//drains power from the EQUIPMENT channel
 
@@ -45,7 +45,7 @@
 	var/lethal_projectile = null	//lethal mode projectile type
 	var/lethal_projectile_sound
 
-	var/reqpower = 500		//power needed per shot
+	var/reqpower = 10000		//power needed per shot
 	var/always_up = 0		//Will stay active
 	var/has_cover = 1		//Hides the cover
 

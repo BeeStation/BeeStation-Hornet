@@ -12,7 +12,7 @@
 	max_integrity = 250
 	icon = 'icons/obj/shuttle.dmi'
 	icon_state = "burst_plasma"
-	idle_power_usage = 150
+	idle_power_usage = 1500
 	circuit = /obj/item/circuitboard/machine/shuttle/engine
 	var/thrust = 0
 	var/fuel_use = 0

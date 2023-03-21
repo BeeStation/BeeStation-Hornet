@@ -14,8 +14,8 @@
 	icon_state = "photocopier"
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 30
-	active_power_usage = 200
+	idle_power_usage = 300
+	active_power_usage = 2000
 	power_channel = AREA_USAGE_EQUIP
 	max_integrity = 300
 	integrity_failure = 100

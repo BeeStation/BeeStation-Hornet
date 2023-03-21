@@ -21,7 +21,7 @@
 	icon_state = "slots1"
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 50
+	idle_power_usage = 1000
 	circuit = /obj/item/circuitboard/computer/slot_machine
 	var/money = 3000 //How much money it has CONSUMED
 	var/plays = 0

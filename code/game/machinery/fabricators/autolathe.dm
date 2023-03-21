@@ -4,8 +4,9 @@
 	icon_state = "autolathe"
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 100
+	// Very expensive, but still doable for smaller shuttles
+	idle_power_usage = 6000
+	active_power_usage = 20000
 	circuit = /obj/item/circuitboard/machine/autolathe
 
 	var/shocked = FALSE

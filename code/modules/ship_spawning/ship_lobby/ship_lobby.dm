@@ -119,7 +119,7 @@
 			return
 
 /datum/ship_lobby/proc/try_start_game(client/source)
-	if (!is_host(source) || lobby_state != LOBBY_MENU)
+	if (!is_host(source) || lobby_state != LOBBY_MENU || loading)
 		return
 	if (SSticker.current_state < GAME_STATE_PLAYING)
 		tgui_alert_async(source, "The game is not ready yet, please wait.", "Cannot start")
@@ -132,7 +132,7 @@
 		if (tgui_alert(source, "Some players do not have jobs, or cannot get their desired role. Do you want to start and assign random jobs to these players?", "Invalid Configuration", list("Start", "Cancel")) != "Start")
 			return
 	// Check to see if we can still start
-	if (!is_host(source))
+	if (!is_host(source) || lobby_state != LOBBY_MENU || loading)
 		return
 	if (!selected_ship)
 		tgui_alert_async(source, "You must selected a ship before you can start the game.", "Cannot start")

@@ -23,7 +23,7 @@
 	icon_state = "frame"
 	density = FALSE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
+	idle_power_usage = 800
 	layer = ABOVE_WINDOW_LAYER
 
 	maptext_height = 26

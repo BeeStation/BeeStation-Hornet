@@ -12,7 +12,7 @@
 	desc = "This machine is used to process large quantities of information."
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 30
+	idle_power_usage = 1500
 	circuit = /obj/item/circuitboard/machine/telecomms/processor
 	var/process_mode = 1 // 1 = Uncompress Signals, 0 = Compress Signals
 

@@ -6,7 +6,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0"
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 20
+	idle_power_usage = 2000
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_master
 

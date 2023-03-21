@@ -6,8 +6,8 @@
 	icon_state = "autolathe"
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 100
+	idle_power_usage = 1000
+	active_power_usage = 10000
 	layer = BELOW_OBJ_LAYER
 
 	var/operating = FALSE
@@ -383,8 +383,10 @@
 	if(!requested_design_id)
 		say("Queue processing completed.")
 		operating = FALSE
+		use_power = operating ? ACTIVE_POWER_USE : IDLE_POWER_USE
 		return
 	operating = TRUE
+	use_power = operating ? ACTIVE_POWER_USE : IDLE_POWER_USE
 	//Doubles as protection from bad things and makes sure we can still make the item.
 	being_built = stored_research.isDesignResearchedID(requested_design_id)
 	if(!being_built)
@@ -458,10 +460,12 @@
 	else
 		say("Insufficient materials, operation will proceed when sufficient materials are available.")
 		operating = FALSE
+		use_power = operating ? ACTIVE_POWER_USE : IDLE_POWER_USE
 		wants_operate = TRUE
 
 /obj/machinery/modular_fabricator/proc/restart_process()
 	operating = FALSE
+	use_power = operating ? ACTIVE_POWER_USE : IDLE_POWER_USE
 	wants_operate = FALSE
 	if(disabled)
 		return
@@ -473,6 +477,7 @@
 	//Stops the queue
 	if(disabled)
 		operating = FALSE
+		use_power = operating ? ACTIVE_POWER_USE : IDLE_POWER_USE
 		busy = FALSE
 		set_default_sprite()
 		// requeue the item
@@ -482,6 +487,7 @@
 	var/datum/component/material_container/materials = get_material_container()
 	if(!materials.has_materials(materials_used))
 		operating = FALSE
+		use_power = operating ? ACTIVE_POWER_USE : IDLE_POWER_USE
 		wants_operate = TRUE
 		busy = FALSE
 		set_default_sprite()

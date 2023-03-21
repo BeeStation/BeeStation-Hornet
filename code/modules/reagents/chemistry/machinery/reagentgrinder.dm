@@ -7,8 +7,8 @@
 	icon_state = "juicer1"
 	layer = BELOW_OBJ_LAYER
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 100
+	idle_power_usage = 500
+	active_power_usage = 1000
 	circuit = /obj/item/circuitboard/machine/reagentgrinder
 	pass_flags = PASSTABLE
 	resistance_flags = ACID_PROOF

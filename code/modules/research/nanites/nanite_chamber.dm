@@ -9,7 +9,7 @@
 	anchored = TRUE
 	density = TRUE
 	idle_power_usage = 300
-	active_power_usage = 1200
+	active_power_usage = 6000
 
 	var/locked = FALSE
 	var/breakout_time = 1200

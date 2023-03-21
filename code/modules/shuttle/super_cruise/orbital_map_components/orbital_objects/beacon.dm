@@ -56,7 +56,7 @@
 	//Orbit around the systems central gravitional body
 	//Pack closely together to make an asteriod belt.
 	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
-	set_orbitting_around_body(linked_map.center, 3000 + 20 * rand(-50, 50))
+	set_orbitting_around_body(linked_map.center, 4000 + rand(-2000, 2000))
 
 //====================
 // Regular Ruin Z-levels
@@ -88,6 +88,7 @@
 //====================
 //Stranded shuttles
 //====================
+
 /datum/orbital_object/z_linked/beacon/stranded_shuttle
 	name = "Distress Beacon"
 	static_object = TRUE
@@ -105,6 +106,7 @@
 //====================
 //Interdiction
 //====================
+
 /datum/orbital_object/z_linked/beacon/interdiction
 	name = "Distress Beacon"
 	static_object = TRUE

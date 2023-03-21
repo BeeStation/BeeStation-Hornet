@@ -11,8 +11,8 @@
 	icon_state = "limbgrower_idleoff"
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 100
+	idle_power_usage = 1000
+	active_power_usage = 10000
 	circuit = /obj/item/circuitboard/machine/limbgrower
 
 	var/operating = FALSE

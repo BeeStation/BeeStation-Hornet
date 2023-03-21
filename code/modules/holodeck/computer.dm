@@ -30,8 +30,8 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	name = "holodeck control console"
 	desc = "A computer used to control a nearby holodeck."
 	icon_screen = "holocontrol"
-	idle_power_usage = 10
-	active_power_usage = 50
+	idle_power_usage = 1000
+	active_power_usage = 5000
 
 	//new vars
 

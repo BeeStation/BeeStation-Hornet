@@ -49,8 +49,8 @@
 
 /obj/machinery/defibrillator_mount/process()
 	if(defib?.cell && defib.cell.charge < defib.cell.maxcharge && is_operational)
-		use_power(200)
-		defib.cell.give(180) //90% efficiency, a bit worse than the cell charger's 100%
+		use_power(2000)
+		defib.cell.give(180) //9% efficiency, a bit worse than the cell charger's 10%
 		update_icon()
 
 /obj/machinery/defibrillator_mount/update_icon()

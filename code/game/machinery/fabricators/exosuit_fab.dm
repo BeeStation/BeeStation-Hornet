@@ -5,8 +5,9 @@
 	desc = "An advanced machine containing many internal robotic arms which fabricate components for robots and exosuits."
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 20
-	active_power_usage = 5000
+	idle_power_usage = 10000
+	// 80kW
+	active_power_usage = 80000
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/machine/mechfab
 

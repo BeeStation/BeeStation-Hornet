@@ -47,7 +47,7 @@
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "aac"
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 4
+	idle_power_usage = 400
 	active_power_usage = 8
 	power_channel = AREA_USAGE_ENVIRON
 	req_access = list(ACCESS_ATMOSPHERICS)

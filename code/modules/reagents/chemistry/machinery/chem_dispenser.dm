@@ -18,7 +18,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "dispenser"
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 40
+	idle_power_usage = 4000
 	interaction_flags_machine = INTERACT_MACHINE_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OFFLINE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_dispenser
@@ -112,7 +112,7 @@
 			return
 		var/usedpower = cell.give(recharge_amount)
 		if(usedpower)
-			use_power(250*recharge_amount)
+			use_power(2500*recharge_amount)
 		recharge_counter = 0
 		return
 	recharge_counter += delta_time

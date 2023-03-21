@@ -15,8 +15,8 @@
 	circuit = /obj/item/circuitboard/machine/emitter
 
 	use_power = NO_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 600
+	idle_power_usage = 100
+	active_power_usage = 6000
 
 	var/icon_state_on = "emitter_+a"
 	var/icon_state_underpowered = "emitter_+u"

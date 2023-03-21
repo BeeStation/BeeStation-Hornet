@@ -1,13 +1,13 @@
 /datum/orbital_object/z_linked/lavaland
 	name = "Lavaland"
-	mass = 10000
-	radius = 200
+	mass = 50000
+	radius = 800
 	forced_docking = TRUE
 	static_object = TRUE
 	random_docking = TRUE
 	render_mode = RENDER_MODE_PLANET
 	priority = 90
-	signal_range = 10000
+	signal_range = 50000
 
 /datum/orbital_object/z_linked/lavaland/New()
 	. = ..()

@@ -34,8 +34,8 @@ Possible to do for anyone motivated enough:
 	layer = LOW_OBJ_LAYER
 	plane = FLOOR_PLANE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 100
+	idle_power_usage = 1000
+	active_power_usage = 4000
 	max_integrity = 300
 	armor = list("melee" = 50, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0, "stamina" = 0)
 	circuit = /obj/item/circuitboard/machine/holopad

@@ -4,8 +4,8 @@
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "qpad-idle"
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 200
-	active_power_usage = 5000
+	idle_power_usage = 50000
+	active_power_usage = 200000
 	obj_flags = CAN_BE_HIT | UNIQUE_RENAME
 	circuit = /obj/item/circuitboard/machine/quantumpad
 	var/teleport_cooldown = 400 //30 seconds base due to base parts

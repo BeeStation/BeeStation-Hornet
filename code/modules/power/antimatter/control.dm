@@ -6,8 +6,8 @@
 	anchored = FALSE
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 100
-	active_power_usage = 1000
+	idle_power_usage = 1000
+	active_power_usage = 10000
 
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT | INTERACT_ATOM_REQUIRES_ANCHORED
 

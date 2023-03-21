@@ -6,6 +6,8 @@
 	name = "R&D Device"
 	icon = 'icons/obj/machines/research.dmi'
 	density = TRUE
+	idle_power_usage = 8000
+	active_power_usage = 60000
 	use_power = IDLE_POWER_USE
 	var/busy = FALSE
 	var/hacked = FALSE
@@ -17,6 +19,7 @@
 
 /obj/machinery/rnd/proc/reset_busy()
 	busy = FALSE
+	use_power = IDLE_POWER_USE
 
 /obj/machinery/rnd/Initialize(mapload)
 	. = ..()
@@ -101,6 +104,6 @@
 	else
 		var/obj/item/stack/S = type_inserted
 		stack_name = initial(S.name)
-		use_power(min(1000, (amount_inserted / 100)))
+		use_power(min(10000, (amount_inserted / 100)))
 	add_overlay("protolathe_[stack_name]")
 	addtimer(CALLBACK(src, /atom/proc/cut_overlay, "protolathe_[stack_name]"), 10)

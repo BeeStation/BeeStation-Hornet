@@ -11,7 +11,7 @@
 	desc = "A device that uses station power to create points of magnetic energy."
 	layer = LOW_OBJ_LAYER
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 50
+	idle_power_usage = 1000
 
 	var/freq = FREQ_MAGNETS		// radio frequency
 	var/electricity_level = 1 // intensity of the magnetic pull
@@ -188,7 +188,7 @@
 	icon_state = "airlock_control_standby"
 	density = FALSE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 45
+	idle_power_usage = 4500
 	var/frequency = FREQ_MAGNETS
 	var/code = 0
 	var/list/magnets = list()

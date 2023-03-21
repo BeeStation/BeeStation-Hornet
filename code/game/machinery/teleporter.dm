@@ -8,8 +8,8 @@
 	desc = "It's the hub of a teleporting machine."
 	icon_state = "tele0"
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 3000
+	idle_power_usage = 1000
+	active_power_usage = 30000
 	circuit = /obj/item/circuitboard/machine/teleporter_hub
 	var/accuracy = 0
 	var/obj/machinery/teleport/station/power_station
@@ -116,8 +116,8 @@
 	desc = "The power control station for a bluespace teleporter. Used for toggling power, and can activate a test-fire to prevent malfunctions."
 	icon_state = "controller"
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 2000
+	idle_power_usage = 1000
+	active_power_usage = 20000
 	circuit = /obj/item/circuitboard/machine/teleporter_station
 	var/engaged = FALSE
 	var/obj/machinery/computer/teleporter/teleporter_console
@@ -215,10 +215,12 @@
 		engaged = !engaged
 		use_power(5000)
 		to_chat(user, "<span class='notice'>Teleporter [engaged ? "" : "dis"]engaged!</span>")
+		use_power = engaged ? ACTIVE_POWER_USE : IDLE_POWER_USE
 	else
 		teleporter_console.target_ref = null
 		to_chat(user, "<span class='alert'>No target detected.</span>")
 		engaged = FALSE
+		use_power = IDLE_POWER_USE
 	teleporter_hub.update_icon()
 	add_fingerprint(user)
 

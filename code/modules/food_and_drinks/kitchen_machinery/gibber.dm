@@ -5,8 +5,8 @@
 	icon_state = "grinder"
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 500
+	idle_power_usage = 2000
+	active_power_usage = 5000
 	circuit = /obj/item/circuitboard/machine/gibber
 
 	var/operating = FALSE //Is it on?

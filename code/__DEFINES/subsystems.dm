@@ -108,7 +108,6 @@
 #define INIT_ORDER_PROFILER			101
 #define INIT_ORDER_TITLE			100
 #define INIT_ORDER_GARBAGE			99
-#define INIT_ORDER_SHIP_SPAWNING	98 // Early because it needs to be initialised in order to display ships
 #define INIT_ORDER_DBCORE			95
 #define INIT_ORDER_BLACKBOX			94
 #define INIT_ORDER_SERVER_MAINT		93
@@ -130,6 +129,7 @@
 #define INIT_ORDER_AI_CONTROLLERS 	55 //So the controller can get the ref
 #define INIT_ORDER_TICKER			55
 #define INIT_ORDER_MAPPING			50
+#define INIT_ORDER_SHIP_SPAWNING	49 // Early because it needs to be initialised in order to display ships
 #define INIT_ORDER_TIMETRACK		47
 #define INIT_ORDER_NETWORKS			45
 #define INIT_ORDER_ECONOMY			40

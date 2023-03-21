@@ -44,8 +44,8 @@
 	density = TRUE
 	max_integrity = 100
 	integrity_failure = 80
-	idle_power_usage = 100
-	active_power_usage = 1000
+	idle_power_usage = 500
+	active_power_usage = 4000
 	var/list/light_setting_list = list(0, 5, 10, 15)
 	var/light_power_coefficient = 300
 	var/setting = 1
@@ -54,7 +54,7 @@
 /obj/machinery/power/floodlight/Initialize(mapload)
 	. = ..()
 	connect_to_network()
-	
+
 /obj/machinery/power/floodlight/process()
 	if(avail(active_power_usage))
 		add_load(active_power_usage)

@@ -4,8 +4,7 @@
 	icon = 'icons/obj/power.dmi'
 	icon_state = "ccharger"
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 60
+	idle_power_usage = 500
 	power_channel = AREA_USAGE_EQUIP
 	circuit = /obj/item/circuitboard/machine/cell_charger
 	pass_flags = PASSTABLE
@@ -125,7 +124,7 @@
 
 	if(charging.percent() >= 100)
 		return
-	use_power(charge_rate * delta_time)
+	use_power(charge_rate * delta_time * 10)
 	charging.give(charge_rate * delta_time)	//this is 2558, efficient batteries exist
 
 	update_icon()

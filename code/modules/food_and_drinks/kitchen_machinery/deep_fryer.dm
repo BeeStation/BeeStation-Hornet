@@ -30,7 +30,7 @@ God bless America.
 	icon_state = "fryer_off"
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
+	idle_power_usage = 2000
 	layer = BELOW_OBJ_LAYER
 	var/obj/item/reagent_containers/food/snacks/deepfryholder/frying	//What's being fried RIGHT NOW?
 	var/cook_time = 0

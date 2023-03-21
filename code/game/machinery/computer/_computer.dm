@@ -4,8 +4,8 @@
 	icon_state = "computer"
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 300
-	active_power_usage = 300
+	idle_power_usage = 1500
+	active_power_usage = 4000
 	max_integrity = 200
 	integrity_failure = 100
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 20, "stamina" = 0)

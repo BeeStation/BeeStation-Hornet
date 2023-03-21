@@ -142,7 +142,7 @@
 	needed_sheets -= round(needed_sheets)
 	if (sheet_left <= 0 && sheets > 0)
 		sheet_left = 1 - needed_sheets
-		sheets--
+		sheets--s
 
 	var/lower_limit = 56 + power_output * 10
 	var/upper_limit = 76 + power_output * 10

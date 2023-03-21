@@ -350,7 +350,7 @@
 	amount = CLAMP(amount, 1, 10)
 	for(var/M in D.materials)
 		power += round(D.materials[M] * amount / 35)
-	power = min(3000, power)
+	power = min(30000, power)
 	use_power(power)
 	var/coeff = efficient_with(D.build_path) ? efficiency_coeff : 1
 	var/list/efficient_mats = list()
@@ -368,6 +368,7 @@
 	for(var/R in D.reagents_list)
 		reagents.remove_reagent(R, D.reagents_list[R]*amount)
 	busy = TRUE
+	use_power = ACTIVE_POWER_USE
 	if(production_animation)
 		flick(production_animation, src)
 	var/timecoeff = D.lathe_time_factor / efficiency_coeff
