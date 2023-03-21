@@ -1,0 +1,4 @@
+author: itsmeow
+delete-after: true
+changes:
+  - rscadd: 'KiloStation: Added a PTech vendor to the HoP office.'
