@@ -30,3 +30,11 @@ SUBSYSTEM_DEF(ship_spawning)
 				return null
 			lobby.member_join(C)
 			return lobby
+
+/datum/controller/subsystem/ship_spawning/proc/spawn_ship(datum/map_template/shuttle/selected_ship)
+	var/datum/turf_reservation/reservation = SSmapping.RequestBlockReservation(selected_ship.width, selected_ship.height, SSmapping.transit.z_value, /datum/turf_reservation/transit)
+	if (!reservation)
+		CRASH("Failed to reserve an area for shuttle placement")
+	var/turf/BL = TURF_FROM_COORDS_LIST(reservation.bottom_left_coords)
+	// Create the docking port
+	return selected_ship.load(BL, FALSE, TRUE)

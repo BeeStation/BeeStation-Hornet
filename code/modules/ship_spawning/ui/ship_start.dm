@@ -23,13 +23,20 @@
 /// to track.
 /datum/ship_start_selector/ui_data(mob/user)
 	var/list/data = list()
+	// This should be a signal but cba
+	if (state == STATE_CREATE && !(user.client in lobby.members))
+		lobby = null
+		// Switch to the new state
+		src.state = STATE_INITIAL
+		update_static_data(usr)
 	switch (state)
 		if (STATE_CREATE)
 			var/list/member_list = list()
 			for (var/client/C in lobby.members)
+				var/datum/job/desired_job = lobby.get_job_role(C)
 				member_list += list(list(
 					"name" = C.ckey,
-					"job" = lobby.get_job_role(C),
+					"job" = initial(desired_job.title),
 				))
 			data["lobby_id"] = lobby.lobby_id
 			data["lobby_member_list"] = member_list
@@ -189,8 +196,9 @@
 					lobby.set_privacy_mode(usr.client, new_private_mode)
 				if ("kick_player")
 					var/client/target = null
+					var/desired_ckey = ckey(params["ckey"])
 					for (var/client/C in lobby.members)
-						if (C.ckey == params["ckey"])
+						if (C.ckey == desired_ckey)
 							target = C
 							break
 					if (target)
@@ -200,7 +208,7 @@
 				if ("remove_equipment")
 					return
 				if ("start_game")
-					lobby.try_start_game()
+					lobby.try_start_game(usr.client)
 				if ("set_job")
 					var/desired_job_role = params["job"]
 					lobby.set_job_role(usr.client, desired_job_role)

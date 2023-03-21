@@ -5,9 +5,14 @@
 	/// The amount of points that this template will cost
 	var/template_cost
 	/// The list of job roles available on this ship
+	/// There should be at least one spawn point for each
+	/// role, or players will spawn in random locations.
 	var/list/job_roles = list(
 		/datum/job/captain = 1,
-		/datum/job/assistant = 4,
+		/datum/job/medical_doctor = 2,
+		/datum/job/security_officer = 2,
+		/datum/job/station_engineer = 4,
+		/datum/job/assistant = INFINITY,
 	)
 
 /datum/starter_ship_template/New()

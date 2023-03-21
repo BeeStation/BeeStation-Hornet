@@ -132,7 +132,7 @@ const CreateLobby = (props, context) => {
                         disabled={!selected_ship}
                         options={selected_ship && selected_ship.roles.map(role => (
                           <option key={role.job_name}>
-                            {role.job_name} ({role.used}/{role.amount})
+                            {role.job_name} ({role.used}/{role.amount < 100 ? role.amount : "∞"})
                           </option>
                         ))}
                         onSelected={value => act('set_job', {
@@ -234,13 +234,16 @@ const PlayerList = (props, context) => {
           {is_host && (
             <Flex.Item shrink={0}>
               <Button
-                content="Kick" />
+                content="Kick"
+                onClick={() => act('kick_player', {
+                  ckey: member.name,
+                })} />
             </Flex.Item>
           )}
           <Flex.Item shrink={0}>
             <Box
               inline
-              className={`job-icon16x16 job-icon-hud${(member.job && member.job.toLowerCase()) || "no_id"}`}
+              className={`job-icon16x16 job-icon-hud${(member.job && member.job.toLowerCase().replace(" ", "")) || "no_id"}`}
               m="2px"
               ml="7px" />
           </Flex.Item>
@@ -362,7 +365,7 @@ const JoinLobby = (props, context) => {
                           <Flex.Item shrink={0}>
                             <Box
                               inline
-                              className={`job-icon16x16 job-icon-hud${member.job}`}
+                              className={`job-icon16x16 job-icon-hud${(member.job && member.job.toLowerCase().replace(" ", "")) || "no_id"}`}
                               m="5px" />
                           </Flex.Item>
                         </Flex>
