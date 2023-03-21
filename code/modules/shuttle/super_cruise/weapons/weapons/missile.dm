@@ -1,17 +1,20 @@
 //Centaur I
 
 /obj/machinery/shuttle_weapon/missile
-	name = "Centaur I Missile Launcher"
+	name = "mounted missile tubes"
 	frame_type = /obj/item/wallframe/shuttle_weapon/missile
-	projectile_type = /obj/item/projectile/bullet/shuttle/missile/mini
+	fired_caliber = "shuttle_missile"
 	cooldown = 180
-	innaccuracy = 1
+	innaccuracy = 6
 	strength_rating = 50
+	hit_chance = 30
+	miss_chance = 20
 
 /obj/item/wallframe/shuttle_weapon/missile
-	name = "Centaur I Mount"
+	name = "mounted missile tubes"
 	result_path = /obj/machinery/shuttle_weapon/missile
 
+/*
 //Centaur II
 
 /obj/machinery/shuttle_weapon/missile/tri
@@ -19,7 +22,7 @@
 	frame_type = /obj/item/wallframe/shuttle_weapon/missile/tri
 	projectile_type = /obj/item/projectile/bullet/shuttle/missile/mini
 	cooldown = 250
-	innaccuracy = 3
+	innaccuracy = 9
 	shots = 3
 	strength_rating = 95
 
@@ -34,7 +37,7 @@
 	frame_type = /obj/item/wallframe/shuttle_weapon/missile/breach
 	projectile_type = /obj/item/projectile/bullet/shuttle/missile/breach
 	cooldown = 220
-	innaccuracy = 2
+	innaccuracy = 5
 	strength_rating = 70
 
 /obj/item/wallframe/shuttle_weapon/missile/breach
@@ -48,7 +51,7 @@
 	frame_type = /obj/item/wallframe/shuttle_weapon/missile/fire
 	projectile_type = /obj/item/projectile/bullet/shuttle/missile/fire
 	cooldown = 200
-	innaccuracy = 3
+	innaccuracy = 4
 	strength_rating = 30
 
 /obj/item/wallframe/shuttle_weapon/missile/fire
@@ -74,4 +77,5 @@
 		"A class-5 anomaly weapon has been detected in a local sector. This weapon is capable of producing a gravitational singularity that will dsetroy everything in this sector. Destroy that weapon at all costs.",
 		"Nanotrasen Superweapons Division")
 	next_shot_world_time = world.time + 2 MINUTES
+*/
 */

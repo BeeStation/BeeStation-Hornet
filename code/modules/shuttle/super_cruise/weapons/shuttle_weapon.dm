@@ -9,7 +9,6 @@
 	icon_state = "syndie_lethal"
 	anchored = TRUE
 	var/frame_type
-	var/projectile_type = /obj/item/projectile/bullet/shuttle/beam/laser
 	var/flight_time = 10
 
 	var/shots = 1
@@ -20,11 +19,13 @@
 	var/fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
 	var/hit_chance = 60		//The chance that it will hit
-	var/miss_chance = 40	//The chance it will miss completely instead of hit nearby (60% hit | 24% hit nearby (inaccuracy) | 16% miss)
-	var/innaccuracy = 1		//The range that things will hit, if it doesn't get a perfect hit
+	var/miss_chance = 30	//The chance it will miss completely instead of hit nearby (60% hit | 24% hit nearby (inaccuracy) | 16% miss)
+	var/innaccuracy = 3		//The range that things will hit, if it doesn't get a perfect hit
 
 	var/turf/target_turf
 	var/next_shot_world_time = 0
+
+	var/power_per_shot = 1000
 
 	//For weapons that are side mounted (None after new sprites, but support is still here.)
 	var/side = WEAPON_SIDE_LEFT
@@ -44,6 +45,19 @@
 	//The angle offset to fire projectiles from
 	var/angle_offset = 0
 
+	/// The projectile type fired if we just fire them for free
+	//TODO: Make this a casing
+	var/casing_type = /obj/item/projectile/bullet/shuttle/beam/laser
+
+	/// If true, we can connect to and require an ammunition loader
+	var/requires_ammunition = FALSE
+	/// If we require ammunition, what calliber do we fire?
+	var/fired_caliber = ""
+	/// The type of the ammunition loader that we are allowed to connect to
+	var/ammo_loader_type = /obj/machinery/ammo_loader
+	/// The ammunition loader attached
+	var/obj/machinery/ammo_loader/ammunition_loader
+
 /obj/machinery/shuttle_weapon/Initialize(mapload, ndir = 0)
 	. = ..()
 	weapon_id = "[LAZYLEN(SSorbits.shuttle_weapons)]"
@@ -57,6 +71,8 @@
 
 /obj/machinery/shuttle_weapon/Destroy()
 	SSorbits.shuttle_weapons.Remove(weapon_id)
+	if (ammunition_loader)
+		ammunition_loader.attached_weapon = null
 	. = ..()
 
 /obj/machinery/shuttle_weapon/examine(mob/user)
@@ -114,6 +130,11 @@
 		return FALSE
 	if(!forced)
 		next_shot_world_time = world.time + cooldown
+	// Check power
+	if (!powered())
+		return
+	// Check ammunition
+	// Fire the shot
 	var/turf/current_target_turf = get_turf(target)
 	var/missed = FALSE
 	if(!prob(hit_chance))
@@ -121,13 +142,22 @@
 		if(prob(miss_chance))
 			missed = TRUE
 	playsound(loc, fire_sound, 75, 1)
+	use_power(power_per_shot)
 	for(var/i in 1 to simultaneous_shots)
 		//Spawn the projectile to make it look like its firing from your end
-		var/obj/item/projectile/bullet/shuttle/P = new projectile_type(get_offset_target_turf(get_turf(src), offset_turf_x, offset_turf_y))
-		//Outgoing shots shouldn't hit our own ship because its easier
-		P.force_miss = TRUE
-		P.fire((dir2angle(dir) + angle_offset) % 360)
-		addtimer(CALLBACK(src, PROC_REF(spawn_incoming_fire), P, current_target_turf, missed), flight_time)
+		var/obj/item/ammo_casing/fired_casing = get_fired_casing()
+		if (!fired_casing)
+			continue
+		fired_casing.forceMove(loc)
+		var/obj/item/projectile/bullet/shuttle/P = fired_casing.BB
+		if (P)
+			//Outgoing shots shouldn't hit our own ship because its easier
+			P.force_miss = TRUE
+			P.fire((dir2angle(dir) + angle_offset) % 360)
+			addtimer(CALLBACK(src, PROC_REF(spawn_incoming_fire), P, current_target_turf, missed), flight_time)
+		// Just lob the spent casing
+		fired_casing.forceMove(loc)
+		fired_casing.bounce_away(TRUE)
 	//Multishot cannons
 	if(shots_left > 1)
 		addtimer(CALLBACK(src, PROC_REF(fire), target, shots_left - 1, TRUE), shot_time)
@@ -135,8 +165,16 @@
 /obj/machinery/shuttle_weapon/proc/spawn_incoming_fire(obj/item/projectile/P, atom/target, missed = FALSE)
 	if(QDELETED(P))
 		return
-	qdel(P)
 	//Spawn the projectile to come in FTL style
-	fire_projectile_towards(target, projectile_type = projectile_type, missed = missed)
+	P.force_miss = FALSE
+	fire_projectile_towards(target, projectile = P, missed = missed)
 
-
+/obj/machinery/shuttle_weapon/proc/get_fired_casing()
+	RETURN_TYPE(/obj/item/ammo_casing)
+	// Instantiate a projectile
+	if (!requires_ammunition)
+		return new casing_type(loc)
+	// Try to fetch a bullet from the ammo loader
+	if (!ammunition_loader)
+		return null
+	return ammunition_loader.take_bullet(fired_caliber)

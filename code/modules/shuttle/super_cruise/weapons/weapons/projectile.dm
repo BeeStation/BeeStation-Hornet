@@ -3,7 +3,7 @@
 /obj/machinery/shuttle_weapon/point_defense
 	name = "Hades MKI Chaincannon"
 	frame_type = /obj/item/wallframe/shuttle_weapon/point_defense
-	projectile_type = /obj/item/projectile/bullet/shuttle/ballistic/point_defense
+	//projectile_type = /obj/item/projectile/bullet/shuttle/ballistic/point_defense
 	cooldown = 80
 	innaccuracy = 2
 	shots = 8
@@ -31,10 +31,10 @@
 /obj/machinery/shuttle_weapon/scatter
 	name = "Ares Scattershot"
 	frame_type = /obj/item/wallframe/shuttle_weapon/scatter
-	projectile_type = /obj/item/projectile/bullet/shuttle/ballistic/point_defense
+	//projectile_type = /obj/item/projectile/bullet/shuttle/ballistic/point_defense
 	cooldown = 90
 	simultaneous_shots = 8
-	miss_chance = 80
+	miss_chance = 40
 	hit_chance = 0
 	innaccuracy = 4
 	strength_rating = 10
@@ -48,12 +48,12 @@
 /obj/machinery/shuttle_weapon/railgun
 	name = "Zeus MKI Railgun"
 	frame_type = /obj/item/wallframe/shuttle_weapon/railgun
-	projectile_type = /obj/item/projectile/bullet/shuttle/ballistic/guass
+	//projectile_type = /obj/item/projectile/bullet/shuttle/ballistic/guass
 	cooldown = 160
-	innaccuracy = 1
+	innaccuracy = 3
 	strength_rating = 70
-	hit_chance = 80
-	miss_chance = 60
+	hit_chance = 40
+	miss_chance = 10
 
 /obj/item/wallframe/shuttle_weapon/railgun
 	name = "Zeus MKI Railgun Mount"
@@ -62,12 +62,12 @@
 /obj/machinery/shuttle_weapon/railgun/anti_crew
 	name = "Zeus MKII Anti-Personnel Railgun"
 	frame_type = /obj/item/wallframe/shuttle_weapon/railgun/anti_crew
-	projectile_type = /obj/item/projectile/bullet/shuttle/ballistic/guass/uranium
+	//projectile_type = /obj/item/projectile/bullet/shuttle/ballistic/guass/uranium
 	cooldown = 180
-	innaccuracy = 2
+	innaccuracy = 5
 	strength_rating = 90
-	hit_chance = 60
-	miss_chance = 80
+	hit_chance = 40
+	miss_chance = 10
 
 /obj/item/wallframe/shuttle_weapon/railgun/anti_crew
 	name = "Zeus MKII Anti-Personnel Railgun Mount"

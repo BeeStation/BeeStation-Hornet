@@ -5,7 +5,6 @@
 	armour_penetration = 100
 	dismemberment = 0
 	ricochets_max = 0
-	pass_flags = ALL
 	var/devastation = -1
 	var/heavy = -1
 	var/light_r = -1
@@ -14,9 +13,8 @@
 
 /obj/item/projectile/bullet/shuttle/missile/on_hit(atom/target, blocked = FALSE)
 	if(get_turf(target) != original && istype(target, /obj/structure/emergency_shield))
-		return FALSE
+		return BULLET_ACT_HIT
 	explosion(target, devastation, heavy, light_r, flash, 0, flame_range = fire)
-	qdel(src)
 	return BULLET_ACT_HIT
 
 /obj/item/projectile/bullet/shuttle/missile/breach
@@ -49,3 +47,12 @@
 		. += "It has a label on it that reads <b>'Caution: This missile is extremely underwhelming.'</b>"
 	else
 		. += "It has a small label on the side, but you are too far away to read it."
+
+/obj/item/projectile/bullet/shuttle/missile/emp
+	name = "emp missile"
+	desc = "An missile with an electromagnetic pulse payload."
+
+/obj/item/projectile/bullet/shuttle/missile/emp/on_hit(atom/target, blocked = FALSE)
+	// Pretty big EMP
+	empulse(src, 5, 8)
+	return BULLET_ACT_HIT

@@ -465,27 +465,6 @@
 	materials = list(/datum/material/iron = 30000, /datum/material/gold = 5000)
 	build_path = /obj/item/wallframe/shuttle_weapon/missile
 
-/datum/design/shuttle_weapon/tri_missile
-	name = "Centaur II Mount"
-	desc=  "Wall mounted pods containing tri-firing missiles, designed for use on shuttles."
-	id = "shuttle_tri_missile"
-	materials = list(/datum/material/iron = 50000, /datum/material/gold = 15000, /datum/material/diamond = 1000)
-	build_path = /obj/item/wallframe/shuttle_weapon/missile/tri
-
-/datum/design/shuttle_weapon/breach_missile
-	name = "Breaching Missile Mount"
-	desc=  "A wall mounted breaching missile launcher, designed for use on shuttles."
-	id = "shuttle_breach_missile"
-	materials = list(/datum/material/iron = 40000, /datum/material/gold = 10000, /datum/material/titanium = 5000)
-	build_path = /obj/item/wallframe/shuttle_weapon/missile/breach
-
-/datum/design/shuttle_weapon/fire_missile
-	name = "Inferno Missile Mount"
-	desc=  "A wall mounted incendiary missile launcher, designed for use on shuttles."
-	id = "shuttle_fire_missile"
-	materials = list(/datum/material/iron = 40000, /datum/material/gold = 10000, /datum/material/uranium = 5000)
-	build_path = /obj/item/wallframe/shuttle_weapon/missile/fire
-
 /datum/design/shuttle_weapon/point_defense_one
 	name = "Hades MKI Chaincannon Mount"
 	desc=  "A wall mounted automatic chain channon with limited capability to destroy hull, but extremely powerful at taking down crews and machinery. Designed for use on shuttles."

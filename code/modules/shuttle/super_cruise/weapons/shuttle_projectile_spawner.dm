@@ -1,4 +1,4 @@
-/proc/fire_projectile_towards(atom/target, spawn_distance = 5, projectile_type = /obj/item/projectile/beam/laser, missed = FALSE)
+/proc/fire_projectile_towards(atom/target, spawn_distance = 5, projectile = /obj/item/projectile/beam/laser, missed = FALSE)
 	var/angle = rand(0, 360)
 	var/sin_angle = sin(angle)
 	var/cos_angle = cos(angle)
@@ -17,7 +17,7 @@
 		else
 			break
 	//Create the projectile
-	var/obj/item/projectile/P = new projectile_type(spawn_turf)
+	var/obj/item/projectile/P = projectile
 	if(missed)
 		var/obj/item/projectile/bullet/shuttle/shuttle_proj = P
 		if(istype(shuttle_proj))

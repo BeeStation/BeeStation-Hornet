@@ -398,24 +398,6 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
-/datum/techweb_node/shuttle_tri_missiles
-	id = "shuttle_tri_missiles"
-	display_name = "Mounted Swarm Missile Technology"
-	description = "Research into mounting tri-shot missile launchers onto the side of moving things."
-	prereq_ids = list("shuttle_missiles")
-	design_ids = list("shuttle_tri_missile")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
-	export_price = 5000
-
-/datum/techweb_node/shuttle_specialized_missiles
-	id = "specialized_missiles"
-	display_name = "Specialized Missile Technology"
-	description = "Research into mounting specialized missile launchers onto the side of moving things."
-	prereq_ids = list("shuttle_missiles")
-	design_ids = list("shuttle_breach_missile", "shuttle_fire_missile")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
-	export_price = 5000
-
 /datum/techweb_node/shuttle_ballistics
 	id = "shuttle_ballistics"
 	display_name = "Shuttle Mounted Ballistics"

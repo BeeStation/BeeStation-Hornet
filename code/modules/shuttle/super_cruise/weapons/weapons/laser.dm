@@ -3,7 +3,7 @@
 /obj/machinery/shuttle_weapon/laser
 	name = "Mounted Laser Cannon"
 	frame_type = /obj/item/wallframe/shuttle_weapon/laser
-	projectile_type = /obj/item/projectile/bullet/shuttle/beam/laser
+	//projectile_type = /obj/item/projectile/bullet/shuttle/beam/laser
 	cooldown = 60
 	innaccuracy = 1
 	strength_rating = 10
