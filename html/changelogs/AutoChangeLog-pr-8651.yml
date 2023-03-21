@@ -1,7 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Mechs can no longer push objects and mobs through stairs onto another
-      z level.
-  - bugfix: Mechs can now push people who are standing at the top of stairs out of
-      the way.

@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - tweak: Blind people can now use ModPCs/PDAs again, this was caused by an oversight
-      in not allowing illiterate people to use PDAs.
