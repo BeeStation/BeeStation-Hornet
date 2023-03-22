@@ -45916,11 +45916,7 @@
 "buW" = (
 /obj/structure/bookcase/random/religion,
 /obj/effect/decal/cleanable/cobweb,
-/obj/structure/sign/barsign{
-	pixel_y = 32;
-	req_access = null;
-	req_access_txt = "25"
-	},
+/obj/machinery/barsign/directional/north,
 /turf/open/floor/plasteel/dark,
 /area/library)
 "buX" = (
