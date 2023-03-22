@@ -16,7 +16,16 @@ export const handleBackspaceDelete = function (this: Modal) {
   }
   if (!value?.length && radioPrefix) {
     this.fields.radioPrefix = '';
-    this.setState({ buttonContent: CHANNELS[channel] });
+    if (radioPrefix === ';') {
+      this.setState({
+        buttonContent: CHANNELS[0],
+        channel: 0,
+      });
+    } else {
+      this.setState({
+        buttonContent: CHANNELS[channel],
+      });
+    }
   }
   this.events.onSetSize(value?.length);
 };

@@ -2,11 +2,14 @@ import { handleArrowKeys } from './arrowKeys';
 import { handleBackspaceDelete } from './backspaceDelete';
 import { handleComponentMount } from './componentMount';
 import { handleComponentUpdate } from './componentUpdate';
-import { handleClick } from './click';
+import { handleClick, handleRightClick } from './click';
 import { handleEnter } from './enter';
 import { handleEscape } from './escape';
 import { handleForce } from './force';
-import { handleIncrementChannel } from './incrementChannel';
+import {
+  handleIncrementChannel,
+  handleDecrementChannel,
+} from './incrementChannel';
 import { handleInput } from './input';
 import { handleKeyDown } from './keyDown';
 import { handleRadioPrefix } from './radioPrefix';
@@ -20,17 +23,19 @@ import { Modal } from '../types';
  *
  * return -- object: events
  */
-export const eventHandlerMap = (parent: Modal): Modal["events"] => {
+export const eventHandlerMap = (parent: Modal): Modal['events'] => {
   return {
     onArrowKeys: handleArrowKeys.bind(parent),
     onBackspaceDelete: handleBackspaceDelete.bind(parent),
     onClick: handleClick.bind(parent),
     onComponentMount: handleComponentMount.bind(parent),
     onComponentUpdate: handleComponentUpdate.bind(parent),
+    onContextMenu: handleRightClick.bind(parent),
     onEnter: handleEnter.bind(parent),
     onEscape: handleEscape.bind(parent),
     onForce: handleForce.bind(parent),
     onIncrementChannel: handleIncrementChannel.bind(parent),
+    onDecrementChannel: handleDecrementChannel.bind(parent),
     onInput: handleInput.bind(parent),
     onKeyDown: handleKeyDown.bind(parent),
     onRadioPrefix: handleRadioPrefix.bind(parent),

@@ -7,3 +7,11 @@ import { Modal } from '../types';
 export const handleClick = function (this: Modal) {
   this.events.onIncrementChannel();
 };
+
+/**
+ * User right clicks the channel button.
+ * Simulates SHIFT+TAB.
+ */
+export const handleRightClick = function (this: Modal) {
+  this.events.onDecrementChannel();
+};

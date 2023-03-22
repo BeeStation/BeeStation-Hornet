@@ -42,7 +42,8 @@ export class TguiSay extends Component<{}, State> {
   }
 
   render() {
-    const { onClick, onEnter, onEscape, onKeyDown, onInput } = this.events;
+    const { onClick, onContextMenu, onEnter, onEscape, onKeyDown, onInput } =
+      this.events;
     const { innerRef, lightMode, maxLength, radioPrefix, value } = this.fields;
     const { buttonContent, channel, edited, size } = this.state;
     const theme = getTheme(lightMode, radioPrefix, channel);
@@ -64,6 +65,10 @@ export class TguiSay extends Component<{}, State> {
             <button
               className={getCss('button', theme)}
               onclick={onClick}
+              oncontextmenu={(e) => {
+                e.preventDefault();
+                onContextMenu();
+              }}
               type="submit">
               {buttonContent}
             </button>

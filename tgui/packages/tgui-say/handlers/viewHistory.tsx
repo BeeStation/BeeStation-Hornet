@@ -1,4 +1,4 @@
-import { CHANNELS } from '../constants';
+import { CHANNELS, RADIO_PREFIXES } from '../constants';
 import { getHistoryAt, getHistoryLength } from '../helpers';
 import { Modal } from '../types';
 
@@ -18,7 +18,8 @@ export const handleViewHistory = function (this: Modal) {
     this.fields.value = this.fields.tempHistory;
     this.fields.tempHistory = '';
     this.setState({
-      buttonContent: CHANNELS[channel],
+      buttonContent:
+        RADIO_PREFIXES[this.fields.radioPrefix]?.label || CHANNELS[channel],
       edited: true,
     });
   }

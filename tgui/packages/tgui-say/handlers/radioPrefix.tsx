@@ -1,4 +1,4 @@
-import { RADIO_PREFIXES } from '../constants';
+import { RADIO_PREFIXES, CHANNELS, NO_RADIO_CHANNELS } from '../constants';
 import { Modal } from '../types';
 
 /**
@@ -11,7 +11,19 @@ import { Modal } from '../types';
 export const handleRadioPrefix = function (this: Modal) {
   const { channel } = this.state;
   const { radioPrefix, value } = this.fields;
-  if (channel > 1 || !value || value.length < 3) {
+  if (NO_RADIO_CHANNELS.includes(CHANNELS[channel]) || !value || value.length < 1) {
+    return;
+  }
+  if (value.startsWith(';') && channel === 0) {
+    this.fields.value = value?.slice(1);
+    this.fields.radioPrefix = ';';
+    this.setState({
+      buttonContent: CHANNELS[1],
+      channel: 1,
+      edited: true,
+    });
+  }
+  if (value.length < 3) {
     return;
   }
   let nextPrefix = value?.slice(0, 3)?.toLowerCase();

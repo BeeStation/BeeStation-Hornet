@@ -1,4 +1,10 @@
-import { KEY_BACKSPACE, KEY_DELETE, KEY_DOWN, KEY_TAB, KEY_UP } from 'common/keycodes';
+import {
+  KEY_BACKSPACE,
+  KEY_DELETE,
+  KEY_DOWN,
+  KEY_TAB,
+  KEY_UP,
+} from 'common/keycodes';
 import { isAlphanumeric, getHistoryLength } from '../helpers';
 import { Modal } from '../types';
 
@@ -28,7 +34,11 @@ export const handleKeyDown = function (
   }
   if (event.keyCode === KEY_TAB) {
     event.preventDefault();
-    this.events.onIncrementChannel();
+    if (event.shiftKey) {
+      this.events.onDecrementChannel();
+    } else {
+      this.events.onIncrementChannel();
+    }
     return;
   }
   if (event.keyCode === KEY_DELETE || event.keyCode === KEY_BACKSPACE) {
