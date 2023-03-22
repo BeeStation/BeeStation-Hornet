@@ -4,7 +4,9 @@
 	var/name = "Test Quirk"
 	var/desc = "This is a test quirk."
 	var/value = 0
-	var/mob/living/restricted_type = /mob/living/carbon/human //specifies which mob subtype can use this trait
+	var/list/restricted_mobtypes = list(/mob/living/carbon/human) //specifies valid mobtypes, have a good reason to change this
+	var/list/restricted_species //specifies valid species, use /datum/species/ 
+	var/species_whitelist = TRUE //whether restricted_species is a whitelist or a blacklist
 	var/gain_text
 	var/lose_text
 	var/medical_record_text //This text will appear on medical records for the quirk. Not yet implemented
@@ -31,7 +33,7 @@
 		START_PROCESSING(SSquirks, src)
 	RegisterSignal(quirk_holder, COMSIG_PARENT_QDELETING, PROC_REF(handle_holder_del))
 	RegisterSignal(quirk_target, COMSIG_PARENT_QDELETING, PROC_REF(handle_mob_del))
-	if(!istype(quirk_target, restricted_type)) //we still want the quirk saved to the mind
+	if(!is_valid_quirk_target(quirk_target)) //at this point the quirk is saved to the mind
 		return
 
 	if(mob_trait)
@@ -61,7 +63,7 @@
 /* Don't use this, use the mind's transfer_to proc instead */
 /datum/quirk/proc/transfer_mob(mob/living/to_mob)
 	UnregisterSignal(quirk_target, COMSIG_PARENT_QDELETING)
-	if(istype(quirk_target, restricted_type))
+	if(is_valid_quirk_target(quirk_target))
 		if(mob_trait)
 			REMOVE_TRAIT(quirk_target, mob_trait, ROUNDSTART_TRAIT)
 		remove()
@@ -69,7 +71,7 @@
 	if(process)
 		START_PROCESSING(SSquirks, src)
 	RegisterSignal(quirk_target, COMSIG_PARENT_QDELETING, PROC_REF(handle_mob_del))
-	if(istype(quirk_target, restricted_type))
+	if(is_valid_quirk_target(quirk_target))
 		if(mob_trait)
 			ADD_TRAIT(to_mob, mob_trait, ROUNDSTART_TRAIT)
 		add()
@@ -96,9 +98,23 @@
 /datum/quirk/process(delta_time)
 	if(quirk_target.stat == DEAD)
 		return
-	if(!istype(quirk_target, restricted_type))
+	if(!is_valid_quirk_target(quirk_target))
 		return
 	on_process(delta_time)
+
+/datum/quirk/proc/is_valid_quirk_target(mob/living/M)
+	if(!is_type_in_list(M, restricted_mobtypes))
+		return
+	if(!restricted_species)
+		return TRUE
+	else
+		var/datum/dna/mob_dna = M.has_dna()
+		if(!mob_dna)
+			return
+		var/isvalid = is_type_in_list(mob_dna.species, restricted_species)
+		if(species_whitelist != isvalid)
+			return
+		return TRUE
 
 /datum/mind/proc/get_quirk_string(medical) //helper string. gets a string of all the quirks the mind has
 	var/list/dat = list()
