@@ -14,6 +14,7 @@
 		/datum/job/station_engineer = 4,
 		/datum/job/assistant = INFINITY,
 	)
+	var/description = ""
 
 /datum/starter_ship_template/New()
 	. = ..()

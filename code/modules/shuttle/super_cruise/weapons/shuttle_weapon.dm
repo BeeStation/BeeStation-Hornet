@@ -86,7 +86,7 @@
 /obj/machinery/shuttle_weapon/attackby(obj/item/I, mob/living/user, params)
 	if (istype(I, /obj/item/multitool))
 		var/datum/component/buffer/buff = I.GetComponent(/datum/component/buffer)
-		if (istype(buff.referenced_machine, /obj/machinery/ammo_loader))
+		if (buff && istype(buff.referenced_machine, /obj/machinery/ammo_loader))
 			var/obj/machinery/ammo_loader/weapon = buff.referenced_machine
 			try_link_to(user, weapon)
 			return

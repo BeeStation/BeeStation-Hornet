@@ -51,7 +51,7 @@
 /datum/ship_lobby/proc/can_join(client/C)
 	if (!private_lobby)
 		return TRUE
-	if (C in whitelisted_ckeys)
+	if (C.ckey in whitelisted_ckeys)
 		return TRUE
 	return FALSE
 

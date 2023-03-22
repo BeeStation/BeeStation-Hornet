@@ -55,7 +55,7 @@
 		return ..()
 	if (istype(I, /obj/item/multitool))
 		var/datum/component/buffer/buff = I.GetComponent(/datum/component/buffer)
-		if (istype(buff.referenced_machine, /obj/machinery/shuttle_weapon))
+		if (buff && istype(buff.referenced_machine, /obj/machinery/shuttle_weapon))
 			var/obj/machinery/shuttle_weapon/weapon = buff.referenced_machine
 			weapon.try_link_to(user, src)
 			return
@@ -102,6 +102,20 @@
 
 /obj/machinery/ammo_loader/proc/is_accepted(atom/movable/input)
 	return FALSE
+
+// ========================
+// Railgun Shell Loader
+// ========================
+
+/obj/machinery/ammo_loader/railgun
+	name = "railgun auto-loader"
+	desc = "An ammunition rack for loading rails into railguns. Can be connected to a single mounted weapon using a multitool."
+	slots = 5
+
+/obj/machinery/ammo_loader/railgun/is_accepted(obj/item/ammo_casing/rail)
+	if (!istype(rail))
+		return FALSE
+	return rail.caliber == "shuttle_railgun"
 
 // ========================
 // Box Ammo Loader

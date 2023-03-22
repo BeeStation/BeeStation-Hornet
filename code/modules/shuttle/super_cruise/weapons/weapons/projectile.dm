@@ -67,6 +67,9 @@
 	requires_ammunition = TRUE
 	fired_caliber = "shuttle_railgun"
 
+	requires_ammunition = TRUE
+	ammo_loader_type = /obj/machinery/ammo_loader/railgun
+
 /obj/item/wallframe/shuttle_weapon/railgun
 	name = "Zeus MKI Railgun Mount"
 	result_path = /obj/machinery/shuttle_weapon/railgun

@@ -8,6 +8,9 @@
 		/datum/job/assistant = INFINITY,
 	)
 	spawned_template = /datum/map_template/shuttle/ship/stringray
+	description = "The stringray is a high-tech Nanotrasen ship originally designed for emergency response operations. \
+		It comes equipped with 2 tri-lasers, a cell for captured prisoners and an well-stocked armoury. It has a small medbay \
+		and engineering bay which offer some basic functionality."
 
 /datum/map_template/shuttle/ship/stringray
 	name = "Stingray"

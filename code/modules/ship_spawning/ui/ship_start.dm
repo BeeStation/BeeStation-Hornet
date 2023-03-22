@@ -59,6 +59,7 @@
 					"name" = lobby.selected_ship.spawned_template.name,
 					"cost" = lobby.selected_ship.template_cost,
 					"roles" = ship_roles,
+					"description" = lobby.selected_ship.description,
 				)
 			return data
 		if (STATE_JOIN)
