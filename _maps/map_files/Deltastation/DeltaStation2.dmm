@@ -9119,7 +9119,7 @@
 /area/crew_quarters/theatre)
 "aVi" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/baguette,
+/obj/item/food/baguette,
 /obj/item/toy/crayon/spraycan/mimecan{
 	charges = 5
 	},

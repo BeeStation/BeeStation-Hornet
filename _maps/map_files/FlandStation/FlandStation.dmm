@@ -3480,7 +3480,7 @@
 /mob/living/simple_animal/mouse/gray,
 /obj/structure/lattice/catwalk,
 /obj/item/reagent_containers/food/snacks/store/cheesewheel,
-/obj/item/reagent_containers/food/snacks/breadslice/creamcheese,
+/obj/item/food/breadslice/creamcheese,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "aOs" = (
@@ -13395,7 +13395,7 @@
 /area/maintenance/solars/port/aft)
 "drR" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/spaghetti,
+/obj/item/food/spaghetti,
 /obj/item/reagent_containers/food/condiment/saltshaker{
 	pixel_x = 4;
 	pixel_y = 4

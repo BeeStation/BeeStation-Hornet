@@ -81,7 +81,7 @@
 /area/ruin/unpowered)
 "r" = (
 /obj/structure/table/wood/fancy/purple,
-/obj/item/reagent_containers/food/snacks/store/cake/chocolate,
+/obj/item/food/cake/chocolate,
 /obj/item/kitchen/knife,
 /turf/open/floor/carpet/orange,
 /area/ruin/unpowered)
