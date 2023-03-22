@@ -34392,7 +34392,7 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/grassybush,
-/obj/machinery/barsign,
+/obj/machinery/barsign/directional/north,
 /obj/machinery/door/window/southright{
 	base_state = "left";
 	icon_state = "left";
