@@ -627,9 +627,7 @@
 	pixel_x = -3;
 	pixel_y = 5
 	},
-/obj/structure/sign/barsign{
-	pixel_y = -32
-	},
+/obj/machinery/barsign/all_access/directional/south,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
@@ -7590,9 +7588,7 @@
 /turf/open/floor/carpet/black,
 /area/centcom/holding)
 "Fc" = (
-/obj/structure/sign/barsign{
-	pixel_y = 32
-	},
+/obj/machinery/barsign/all_access/directional/south,
 /obj/structure/chair/stool,
 /turf/open/floor/carpet/black,
 /area/centcom/holding)
@@ -9649,9 +9645,7 @@
 	pixel_y = 5
 	},
 /obj/structure/table/wood,
-/obj/structure/sign/barsign{
-	pixel_y = -32
-	},
+/obj/machinery/barsign/all_access/directional/north,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
@@ -11907,9 +11901,7 @@
 "Xr" = (
 /obj/structure/chair,
 /obj/effect/landmark/thunderdome/observe,
-/obj/structure/sign/barsign{
-	pixel_y = 32
-	},
+/obj/machinery/barsign/all_access/directional/north,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeobserve)

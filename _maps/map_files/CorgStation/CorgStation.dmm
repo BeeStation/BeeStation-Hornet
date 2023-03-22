@@ -7672,9 +7672,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "cjX" = (
-/obj/structure/sign/barsign{
-	pixel_y = 32
-	},
+/obj/machinery/barsign,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},

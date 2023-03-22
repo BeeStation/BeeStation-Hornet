@@ -7161,7 +7161,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "bby" = (
-/obj/structure/sign/barsign,
+/obj/machinery/barsign,
 /turf/closed/wall,
 /area/crew_quarters/bar)
 "bbz" = (

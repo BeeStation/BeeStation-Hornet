@@ -122,6 +122,7 @@ GLOBAL_LIST_INIT(WALLITEMS_INTERIOR, typecacheof(list(
 	/obj/machinery/power/apc,
 	/obj/machinery/airalarm,
 	/obj/item/radio/intercom,
+	/obj/machinery/barsign,
 	/obj/structure/extinguisher_cabinet,
 	/obj/structure/reagent_dispensers/peppertank,
 	/obj/machinery/status_display,

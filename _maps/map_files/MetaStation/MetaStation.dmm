@@ -47293,9 +47293,7 @@
 	dir = 4;
 	pixel_x = -26
 	},
-/obj/structure/sign/barsign{
-	pixel_y = 32
-	},
+/obj/machinery/barsign/directional/north,	
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "krD" = (

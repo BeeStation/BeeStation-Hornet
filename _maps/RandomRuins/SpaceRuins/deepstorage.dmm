@@ -3177,12 +3177,10 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/structure/sign/barsign{
-	pixel_y = 32
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/machinery/barsign/all_access/directional/north,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/deepstorage)

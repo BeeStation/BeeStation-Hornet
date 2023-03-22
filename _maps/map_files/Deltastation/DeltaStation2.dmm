@@ -6033,9 +6033,7 @@
 /area/crew_quarters/bar)
 "aEU" = (
 /obj/structure/table/wood,
-/obj/structure/sign/barsign{
-	pixel_y = 32
-	},
+/obj/machinery/barsign/directional/north,
 /obj/machinery/chem_dispenser/drinks,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar)

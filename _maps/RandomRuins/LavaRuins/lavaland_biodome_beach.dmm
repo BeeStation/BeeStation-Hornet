@@ -278,7 +278,7 @@
 /turf/open/floor/plating/beach/sand,
 /area/ruin/powered/beach)
 "bg" = (
-/obj/structure/sign/barsign,
+/obj/machinery/barsign/all_access,
 /turf/closed/wall/mineral/sandstone,
 /area/ruin/powered/beach)
 "bl" = (
