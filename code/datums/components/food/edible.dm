@@ -416,8 +416,11 @@ Behavior that's still missing from this component that original food items had t
 
 	on_consume?.Invoke(eater, feeder)
 
-	to_chat(feeder, "<span class='warning'>There is nothing left of [parent], oh no!</span>")
-	qdel(parent)
+	if(isturf(parent))
+		var/turf/T = parent
+		T.ScrapeAway(1, CHANGETURF_INHERIT_AIR)
+	else
+		qdel(parent)
 
 ///Ability to feed food to puppers
 /datum/component/edible/proc/use_by_animal(datum/source, mob/user)
