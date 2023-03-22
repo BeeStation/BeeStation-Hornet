@@ -5,21 +5,13 @@
 	icon_state = "empty"
 	req_access = list(ACCESS_BAR)
 	obj_integrity = 500
-	integrity_failure = 0.5
-	idle_power_usage = 15
+	integrity_failure = 250
+	armor = list("melee" = 20, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 0)
+	use_power = ACTIVE_POWER_USE
 	active_power_usage = 150
-	/// Selected barsign being used
+	idle_power_usage = 15
+	//Selected barsign being used
 	var/datum/barsign/chosen_sign
-	/// If barsign has a lighting mask
-	var/light_mask = FALSE
-
-/datum/armor/sign_barsign
-	melee = 20
-	bullet = 20
-	laser = 20
-	energy = 100
-	fire = 50
-	acid = 50
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/barsign, 32)
 
@@ -45,6 +37,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/barsign, 32)
 
 	return ..()
 
+/obj/machinery/barsign/power_change()
+    . = ..()
+    update_icon_state()
+
 /obj/machinery/barsign/update_desc()
 	. = ..()
 
@@ -61,7 +57,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/barsign, 32)
 /obj/machinery/barsign/update_overlays()
 	. = ..()
 
-	if(machine_stat & (NOPOWER|BROKEN))
+	if(!(machine_stat & (NOPOWER|BROKEN)))
 		return
 
 	if(chosen_sign && chosen_sign.light_mask)
@@ -69,7 +65,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/barsign, 32)
 
 /obj/machinery/barsign/update_appearance(updates=ALL)
 	. = ..()
-	if(machine_stat & (NOPOWER|BROKEN))
+	if(!(machine_stat & (NOPOWER|BROKEN)))
 		set_light(0)
 		return
 	if(chosen_sign && chosen_sign.neon_color)
@@ -83,9 +79,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/barsign, 32)
 
 /obj/machinery/barsign/obj_break(damage_flag)
 	. = ..()
-	if((machine_stat & BROKEN) && !(flags_1 & NODECONSTRUCT_1))
+	if((!(machine_stat & (NOPOWER|BROKEN))) && !(flags_1 & NODECONSTRUCT_1))
 		set_sign(new /datum/barsign/hiddensigns/signoff)
-
+ 
 /obj/machinery/barsign/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/iron(drop_location(), 2)
 	new /obj/item/stack/cable_coil(drop_location(), 2)
@@ -94,40 +90,39 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/barsign, 32)
 /obj/machinery/barsign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			playsound(src.loc, 'sound/effects/glasshit.ogg', 75, TRUE)
+			playsound(src.loc, 'sound/effects/glasshit.ogg', 75, 1)
 		if(BURN)
-			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
+			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
 /obj/machinery/barsign/attack_ai(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/barsign/attack_hand(mob/user, list/modifiers)
+/obj/machinery/barsign/attack_hand(mob/user)
 	. = ..()
 	if(.)
 		return
 	if(!allowed(user))
-		balloon_alert(user, "access denied!")
+		balloon_alert(user, "Access denied.")
 		return
-	if(machine_stat & (NOPOWER|BROKEN|EMPED))
-		balloon_alert(user, "controls are unresponsive!")
+	if((machine_stat & (NOPOWER|BROKEN)))
+		balloon_alert(user, "The controls are unresponsive!")
 		return
 	pick_sign(user)
 
 /obj/machinery/barsign/screwdriver_act(mob/living/user, obj/item/tool)
-	tool.play_tool_sound(src)
 	panel_open = !panel_open
 	if(panel_open)
-		balloon_alert(user, "panel opened")
+		balloon_alert(user, "You open the maintenance panel.")
 		set_sign(new /datum/barsign/hiddensigns/signoff)
 		return TOOL_ACT_TOOLTYPE_SUCCESS
 
-	balloon_alert(user, "panel closed")
+	balloon_alert(user, "You close the maintenance panel.")
 
-	if(machine_stat & (NOPOWER|BROKEN) || !chosen_sign)
+	if(!(machine_stat & (NOPOWER|BROKEN)) || !chosen_sign)
 		set_sign(new /datum/barsign/hiddensigns/signoff)
 	else
 		set_sign(chosen_sign)
-
+		
 	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/barsign/attackby(obj/item/I, mob/user)
@@ -135,21 +130,17 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/barsign, 32)
 		var/obj/item/stack/cable_coil/wire = I
 
 		if(obj_integrity >= max_integrity)
-			balloon_alert(user, "doesn't need repairs!")
+			balloon_alert(user, "This doesn't need repairs!")
 			return TRUE
 
 		if(!wire.use(2))
-			balloon_alert(user, "need two cables!")
+			balloon_alert(user, "It needs two cables!")
 			return TRUE
 
-		balloon_alert(user, "repaired")
+		balloon_alert(user, "Fully repaired")
 		obj_integrity = max_integrity
 		set_machine_stat(machine_stat & ~BROKEN)
 		update_appearance()
-		return TRUE
-
-	// if barsigns ever become a craftable or techweb wall mount then remove this
-	if(machine_stat & BROKEN)
 		return TRUE
 
 	return ..()
@@ -172,18 +163,14 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/barsign, 32)
 	set_sign(sign)
 
 /obj/machinery/barsign/use_emag(mob/user)
-	if(machine_stat & (NOPOWER|BROKEN|EMPED))
-		balloon_alert(user, "controls are unresponsive!")
-		return
-
-	balloon_alert(user, "illegal barsign loaded")
-	sleep(10 SECONDS)
-	set_sign(new /datum/barsign/hiddensigns/syndibarsign)
-
+	if(!(machine_stat & (NOPOWER|BROKEN)))
+		balloon_alert(user, "You load an illegal barsign into the memory buffer...")
+		sleep(10 SECONDS)
+		set_sign(new /datum/barsign/hiddensigns/syndibarsign)
 
 /obj/machinery/barsign/proc/pick_sign(mob/user)
-	var/picked_name = tgui_input_list(user, "Available Signage", "Bar Sign", sort_list(get_bar_names()))
-	if(isnull(picked_name))
+	var/picked_name = input(user, "Available Signage", "Bar Sign", name) as null|anything in sortList(get_bar_names())
+	if(!picked_name)
 		return
 	set_sign_by_name(picked_name)
 	SSblackbox.record_feedback("tally", "barsign_picked", 1, chosen_sign.type)
@@ -192,20 +179,15 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/barsign, 32)
 	var/list/names = list()
 	for(var/d in subtypesof(/datum/barsign))
 		var/datum/barsign/D = d
-		if(!initial(D.hidden))
+		if(initial(D.name) && !initial(D.hidden))
 			names += initial(D.name)
 	. = names
 
 /datum/barsign
-	/// User-visible name of the sign.
-	var/name
-	/// Icon state associated with this sign
-	var/icon
-	/// Description shown in the sign's examine text.
-	var/desc
-	/// Hidden from list of selectable options.
+	var/name = "Name"
+	var/icon = "Icon"
+	var/desc = "desc"
 	var/hidden = FALSE
-	/// Rename the area when this sign is selected.
 	var/rename_area = TRUE
 	/// If a barsign has a light mask for emission effects
 	var/light_mask = TRUE
@@ -275,7 +257,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/barsign, 32)
 /datum/barsign/slipperyshots
 	name = "Slippery Shots"
 	icon = "slipperyshots"
-	desc = "Slippery slope to drunkeness with our shots!"
+	desc = "Slippery slope to drunkness with our shots!"
 	neon_color = "#70DF00"
 
 /datum/barsign/thegreytide
@@ -287,7 +269,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/barsign, 32)
 /datum/barsign/honkednloaded
 	name = "Honked 'n' Loaded"
 	icon = "honkednloaded"
-	desc = "Honk."
+	desc = "Honk!"
 	neon_color = "#FF998A"
 
 /datum/barsign/thenest
@@ -386,13 +368,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/barsign, 32)
 	desc = "Drink till you puke and/or break the laws of reality!"
 	neon_color = "#00cc33"
 
-// Hidden signs list below this point
+//Hidden signs below this point
 
 /datum/barsign/hiddensigns
 	hidden = TRUE
 
 /datum/barsign/hiddensigns/empbarsign
-	name = "EMP'd"
+	name = null
 	icon = "empbarsign"
 	desc = "Something has gone very wrong."
 	rename_area = FALSE
@@ -404,7 +386,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/barsign, 32)
 	neon_color = "#ff0000"
 
 /datum/barsign/hiddensigns/signoff
-	name = "Off"
+	name = null
 	icon = "empty"
 	desc = "This sign doesn't seem to be on."
 	rename_area = FALSE
