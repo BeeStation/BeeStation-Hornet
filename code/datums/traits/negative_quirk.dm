@@ -502,7 +502,7 @@
 		dumb_thing = FALSE //only once per life
 		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "anxiety_dumb", /datum/mood_event/anxiety_dumb)
 		if(prob(1))
-			new/obj/item/reagent_containers/food/snacks/spaghetti/pastatomato(get_turf(H)) //now that's what I call spaghetti code
+			new/obj/item/food/spaghetti/pastatomato(get_turf(H)) //now that's what I call spaghetti code
 
 //If you want to make some kind of junkie variant, just extend this quirk.
 /datum/quirk/junkie
