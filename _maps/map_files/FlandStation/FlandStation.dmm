@@ -74191,10 +74191,6 @@
 /obj/machinery/airalarm{
 	pixel_y = 22
 	},
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/robotics/lab)
 "sPi" = (
@@ -74235,10 +74231,6 @@
 "sQn" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/rnd/production/circuit_imprinter,
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel/dark,
 /area/engine/storage_shared)
 "sQo" = (
@@ -87867,10 +87859,6 @@
 	dir = 1
 	},
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "was" = (

@@ -31163,10 +31163,6 @@
 	dir = 6
 	},
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "del" = (
@@ -82180,10 +82176,6 @@
 	dir = 4
 	},
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "sQX" = (
@@ -82670,10 +82662,6 @@
 /obj/machinery/rnd/production/circuit_imprinter,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
-	},
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
 	},
 /turf/open/floor/plasteel,
 /area/engine/storage_shared)

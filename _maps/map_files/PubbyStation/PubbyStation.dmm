@@ -12198,10 +12198,6 @@
 "bvy" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "bvz" = (
@@ -19882,10 +19878,6 @@
 /area/quartermaster/storage)
 "cCU" = (
 /obj/machinery/rnd/production/circuit_imprinter,
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "cCV" = (
@@ -25630,10 +25622,6 @@
 	pixel_x = -26
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "fDK" = (

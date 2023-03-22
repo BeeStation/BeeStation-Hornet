@@ -8627,10 +8627,6 @@
 	},
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
 /obj/effect/turf_decal/tile/purple/opposingcorners,
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "cCB" = (
@@ -24795,10 +24791,6 @@
 /obj/machinery/rnd/production/circuit_imprinter,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
-	},
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/storage_shared)
@@ -43766,8 +43758,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/components/binary/pump{
-	dir = 8;
-	name = "Turbine Waste to Thermoelectric Generator"
+	name = "Turbine Waste to Thermoelectric Generator";
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmospherics_engine)
@@ -53593,10 +53585,6 @@
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
-	},
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)

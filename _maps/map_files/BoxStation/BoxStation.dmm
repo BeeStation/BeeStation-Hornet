@@ -7924,10 +7924,6 @@
 	dir = 1
 	},
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
 "bhy" = (
@@ -8847,10 +8843,6 @@
 /area/science/lab)
 "bno" = (
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "bnp" = (
@@ -45558,10 +45550,6 @@
 /obj/machinery/rnd/production/circuit_imprinter,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
-	},
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
 	},
 /turf/open/floor/plasteel/checker,
 /area/engine/break_room)

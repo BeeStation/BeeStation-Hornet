@@ -13994,10 +13994,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "axq" = (
@@ -16718,10 +16714,6 @@
 	},
 /obj/machinery/status_display/evac{
 	pixel_x = 32
-	},
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
@@ -34710,10 +34702,6 @@
 	receive_ore_updates = 1
 	},
 /obj/structure/window/reinforced,
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "bdN" = (

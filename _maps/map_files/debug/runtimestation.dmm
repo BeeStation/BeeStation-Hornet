@@ -2869,10 +2869,6 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel,
 /area/science)
 "YI" = (

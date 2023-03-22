@@ -14308,7 +14308,8 @@
 /area/maintenance/starboard)
 "btv" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
-	dir = 8
+	dir = 8;
+	
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -18367,7 +18368,8 @@
 /area/engine/atmos)
 "bMj" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 8
+	dir = 8;
+	
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -23156,10 +23158,6 @@
 "cjZ" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "cka" = (
@@ -27449,10 +27447,6 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/rnd/production/circuit_imprinter/department/science,
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "cGY" = (
@@ -69526,10 +69520,6 @@
 /obj/machinery/rnd/production/circuit_imprinter,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
-	},
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
 	},
 /turf/open/floor/plasteel/dark/corner,
 /area/engine/storage_shared)

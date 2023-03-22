@@ -13784,10 +13784,6 @@
 	},
 /obj/effect/turf_decal/tile/yellow,
 /obj/machinery/rnd/production/circuit_imprinter/department,
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel/dark/corner{
 	dir = 1
 	},
@@ -20375,10 +20371,6 @@
 	name = "science camera";
 	network = list("ss13","rd")
 	},
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
 "evw" = (
@@ -22984,10 +22976,6 @@
 	pixel_x = 6;
 	pixel_y = -24;
 	req_access_txt = "7"
-	},
-/obj/item/reagent_containers/glass/beaker/large/sulacid{
-	pixel_x = 9;
-	pixel_y = 6
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/lab)
