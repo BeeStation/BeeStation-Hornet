@@ -1262,6 +1262,7 @@
 /obj/item/circuitboard/machine/processing_unit_console
 	name = "furnace console (Machine Board)"
 	build_path = /obj/machinery/mineral/processing_unit_console
+	req_components = list()
 
 
 //Misc

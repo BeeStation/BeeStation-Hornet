@@ -54,7 +54,7 @@
 	name = "production machine console"
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
-	density = TRUE
+	density = FALSE
 	circuit = /obj/item/circuitboard/machine/processing_unit_console
 	var/obj/machinery/mineral/processing_unit/machine = null
 	var/machinedir = EAST
@@ -68,6 +68,8 @@
 		machine = locate(/obj/machinery/mineral/processing_unit, get_step(src, machinedir))
 		if (machine)
 			machine.CONSOLE = src
+	if(!mapload)
+		handle_pixel_offset()
 
 // Only called if mappers set ID
 /obj/machinery/mineral/processing_unit_console/LateInitialize()
@@ -76,6 +78,25 @@
 			machine = PU
 			machine.CONSOLE = src
 			return
+
+/obj/machinery/mineral/processing_unit_console/AltClick()
+	if(anchored)
+		return ..()
+	setDir(turn(dir, 90))
+	handle_pixel_offset()
+
+/obj/machinery/mineral/processing_unit_console/proc/handle_pixel_offset()
+	pixel_x = 0
+	pixel_y = 0
+	switch(dir)
+		if(NORTH)
+			pixel_y = -30
+		if(SOUTH)
+			pixel_y = 30
+		if(EAST)
+			pixel_x = 30
+		if(WEST)
+			pixel_x = -30
 
 /obj/machinery/mineral/processing_unit_console/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -217,6 +238,17 @@
 	point_upgrade = point_upgrade_temp
 	smelt_amount = round(smelt_amount_temp, 1)
 
+/obj/machinery/mineral/processing_unit/AltClick(mob/living/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
+	if(panel_open)
+		input_dir = turn(input_dir, -90)
+		output_dir = turn(output_dir, -90)
+		to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
+		unregister_input_turf() // someone just rotated the input and output directions, unregister the old turf
+		register_input_turf() // register the new one
+		return TRUE
+
 /obj/machinery/mineral/processing_unit/attackby(obj/item/W, mob/user, params)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, W))
 		return
@@ -255,7 +287,7 @@
 		unload_mineral(O)
 	else
 		if(allow_point_redemption)
-			points += O.points * O.amount * point_upgrade
+			stored_points += O.points * O.amount * point_upgrade
 		materials.insert_item(O)
 		qdel(O)
 
