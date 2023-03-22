@@ -633,6 +633,7 @@
 #include "code\datums\components\crafting\recipes.dm"
 #include "code\datums\components\crafting\tailoring.dm"
 #include "code\datums\components\food\edible.dm"
+#include "code\datums\components\food\food_storage.dm"
 #include "code\datums\components\plumbing\_plumbing.dm"
 #include "code\datums\components\plumbing\chemical_acclimator.dm"
 #include "code\datums\components\plumbing\filter.dm"
