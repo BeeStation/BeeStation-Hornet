@@ -14,6 +14,7 @@ export const handleComponentMount = function (this: Modal) {
   Byond.subscribeTo('open', (data) => {
     const channel = CHANNELS.indexOf(data.channel) || 0;
     this.setState({ buttonContent: CHANNELS[channel], channel });
+    this.events.onRadioPrefix(); // process the current input, if there is any
     setTimeout(() => {
       this.fields.innerRef.current?.focus();
     }, 1);
