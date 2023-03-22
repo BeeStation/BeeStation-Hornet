@@ -42,8 +42,7 @@ export class TguiSay extends Component<{}, State> {
   }
 
   render() {
-    const { onClick, onContextMenu, onEnter, onEscape, onKeyDown, onInput } =
-      this.events;
+    const { onClick, onContextMenu, onEnter, onEscape, onKeyDown, onInput } = this.events;
     const { innerRef, lightMode, maxLength, radioPrefix, value } = this.fields;
     const { buttonContent, channel, edited, size } = this.state;
     const theme = getTheme(lightMode, radioPrefix, channel);
