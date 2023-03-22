@@ -114,29 +114,30 @@
 	var/datum/language/known_language
 
 /datum/quirk/multilingual/proc/set_up_language()
-	var/mob/living/carbon/human/H = quirk_target
+	var/datum/language_holder/LH = quirk_holder.get_language_holder()
 	if(quirk_holder.assigned_role == JOB_NAME_CURATOR)
 		return
-	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/T = quirk_target.getorganslot(ORGAN_SLOT_TONGUE)
 	var/list/languages_possible = T.languages_possible
 	languages_possible = languages_possible - typecacheof(/datum/language/codespeak) - typecacheof(/datum/language/narsie) - typecacheof(/datum/language/ratvar)
-	languages_possible = languages_possible - H.language_holder.understood_languages
-	languages_possible = languages_possible - H.language_holder.spoken_languages
-	languages_possible = languages_possible - H.language_holder.blocked_languages
+	languages_possible = languages_possible - LH.understood_languages
+	languages_possible = languages_possible - LH.spoken_languages
+	languages_possible = languages_possible - LH.blocked_languages
 	if(length(languages_possible))
 		known_language = pick(languages_possible)
-		quirk_target.grant_language(known_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
 //Credit To Yowii/Yoworii/Yorii for a much more streamlined method of language library building
 
 /datum/quirk/multilingual/add()
-	if(known_language)
-		quirk_target.grant_language(known_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
-	else
+	if(!known_language)
 		set_up_language()
+	var/datum/language_holder/LH = quirk_holder.get_language_holder()
+	LH.grant_language(known_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
 
 /datum/quirk/multilingual/remove()
-	if(known_language)
-		quirk_target.remove_language(known_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
+	if(!known_language)
+		return
+	var/datum/language_holder/LH = quirk_holder.get_language_holder()
+	LH.remove_language(known_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
 
 /datum/quirk/night_vision
 	name = "Night Vision"
