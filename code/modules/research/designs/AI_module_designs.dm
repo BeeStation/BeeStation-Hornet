@@ -6,7 +6,7 @@
 	name = "AI Design (AI Core)"
 	desc = "Allows for the construction of circuit boards used to build new AI cores."
 	id = "aicore"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/aicore
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE

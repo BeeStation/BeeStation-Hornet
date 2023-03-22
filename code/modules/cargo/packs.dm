@@ -1855,26 +1855,14 @@
 	access_budget = ACCESS_RESEARCH
 	crate_type = /obj/structure/closet/crate/science
 
-/datum/supply_pack/science/basicacid
-	name = "Basic circuit acid crate"
-	desc = "If you wish to print some circuits, this pack is for you! Contains three bottles of Sulphurc Acid to satisfy your machine construction needs."
-	cost = 500
-	max_supply = 6
-	access = ACCESS_ROBOTICS
-	contains = list(/obj/item/reagent_containers/glass/beaker/sulacid,
-					/obj/item/reagent_containers/glass/beaker/sulacid,
-					/obj/item/reagent_containers/glass/beaker/sulacid)
-	crate_name = "basic acid crate"
-
 /datum/supply_pack/science/advancedacid
-	name = "Advanced circuit acid crate"
-	desc = "If you wish to print some advanced circuits, this pack is definitely for you! Contains one bottle of Sulphuric Acid, one bottle of Fluorosulfuric Acid and one bottle of Ammonia to satisfy all your advanced machine construction needs."
+	name = "Advanced Circuit Acid Crate"
+	desc = "If you wish to print some advanced circuits, this pack is definitely for you! Contains two bottles of Fluorosulfuric Acid to satisfy all your advanced machine construction needs."
 	cost = 1500
-	max_supply = 3
+	max_supply = 2
 	access = ACCESS_ROBOTICS
-	contains = list(/obj/item/reagent_containers/glass/beaker/sulacid,
-					/obj/item/reagent_containers/glass/beaker/fluacid,
-					/obj/item/reagent_containers/glass/beaker/ammonia)
+	contains = list(/obj/item/reagent_containers/glass/beaker/fluacid,
+					/obj/item/reagent_containers/glass/beaker/fluacid,)
 	crate_name = "advanced acid crate"
 
 /datum/supply_pack/science/plasma

@@ -214,30 +214,11 @@
 /obj/item/reagent_containers/glass/beaker/synthflesh
 	list_reagents = list(/datum/reagent/medicine/synthflesh = 50)
 
-/obj/item/reagent_containers/glass/beaker/large/sulacid
-	name = "Large Sulphuric Acid bottle"
-	desc = "A large bottle of Sulphuric Acid, to be used in the creation of circuit boards."
-	icon_state = "bottle7"
-	list_reagents = list(/datum/reagent/toxin/acid = 100)
-
-/obj/item/reagent_containers/glass/beaker/sulacid
-	name = "Sulphuric Acid bottle"
-	desc = "A bottle of Sulphuric Acid, to be used in the creation of circuit boards."
-	icon_state = "bottle20"
-	list_reagents = list(/datum/reagent/toxin/acid = 50)
-
 /obj/item/reagent_containers/glass/beaker/fluacid
 	name = "Fluorosulfuric Acid bottle"
 	desc = "A bottle of Fluorosulfuric Acid, to be used in the creation of advanced circuit boards."
 	icon_state = "bottle4"
 	list_reagents = list(/datum/reagent/toxin/acid/fluacid = 50)
-
-/obj/item/reagent_containers/glass/beaker/ammonia
-	name = "Ammonia bottle"
-	desc = "A bottle of Ammonia, to be used in the creation of advanced circuit boards."
-	icon_state = "bottle12"
-	list_reagents = list(/datum/reagent/ammonia = 50)
-
 
 /obj/item/reagent_containers/glass/bucket
 	name = "bucket"
