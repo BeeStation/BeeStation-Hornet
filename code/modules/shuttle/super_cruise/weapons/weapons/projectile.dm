@@ -5,15 +5,20 @@
 	frame_type = /obj/item/wallframe/shuttle_weapon/point_defense
 	//projectile_type = /obj/item/projectile/bullet/shuttle/ballistic/point_defense
 	cooldown = 80
-	innaccuracy = 2
+	innaccuracy = 3
 	shots = 8
 	shot_time = 1
 	strength_rating = 5
+
+	requires_ammunition = TRUE
+	fired_caliber = "shuttle_chaingun"
+	ammo_loader_type = /obj/machinery/ammo_loader/ballistic
 
 /obj/item/wallframe/shuttle_weapon/point_defense
 	name = "Hadess MKI Chaincannon Mount"
 	result_path = /obj/machinery/shuttle_weapon/point_defense
 
+/*
 /obj/machinery/shuttle_weapon/point_defense/upgraded
 	name = "Hades MKII Chaincannon"
 	frame_type = /obj/item/wallframe/shuttle_weapon/point_defense/upgraded
@@ -25,6 +30,7 @@
 /obj/item/wallframe/shuttle_weapon/point_defense/upgraded
 	name = "Hadess MKII Chaincannon Mount"
 	result_path = /obj/machinery/shuttle_weapon/point_defense/upgraded
+*/
 
 //Scatter shot
 
@@ -38,6 +44,10 @@
 	hit_chance = 0
 	innaccuracy = 4
 	strength_rating = 10
+
+	requires_ammunition = TRUE
+	fired_caliber = "shuttle_flak"
+	ammo_loader_type = /obj/machinery/ammo_loader/ballistic
 
 /obj/item/wallframe/shuttle_weapon/scatter
 	name = "Ares Scattershot Mount"
@@ -54,11 +64,14 @@
 	strength_rating = 70
 	hit_chance = 40
 	miss_chance = 10
+	requires_ammunition = TRUE
+	fired_caliber = "shuttle_railgun"
 
 /obj/item/wallframe/shuttle_weapon/railgun
 	name = "Zeus MKI Railgun Mount"
 	result_path = /obj/machinery/shuttle_weapon/railgun
 
+/*
 /obj/machinery/shuttle_weapon/railgun/anti_crew
 	name = "Zeus MKII Anti-Personnel Railgun"
 	frame_type = /obj/item/wallframe/shuttle_weapon/railgun/anti_crew
@@ -72,3 +85,4 @@
 /obj/item/wallframe/shuttle_weapon/railgun/anti_crew
 	name = "Zeus MKII Anti-Personnel Railgun Mount"
 	result_path = /obj/machinery/shuttle_weapon/railgun/anti_crew
+*/

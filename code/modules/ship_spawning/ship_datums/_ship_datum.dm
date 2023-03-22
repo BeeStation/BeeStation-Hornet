@@ -23,3 +23,8 @@
 			spawned_template = template
 			return
 	spawned_template = null
+
+/datum/map_template/shuttle/ship
+	prefix = "_maps/shuttles/"
+	port_id = "ships"
+	can_be_bought = FALSE

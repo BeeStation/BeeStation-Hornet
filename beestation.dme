@@ -3418,7 +3418,7 @@
 #include "code\modules\ship_spawning\debug_verbs.dm"
 #include "code\modules\ship_spawning\_DEFINES\lobby_defines.dm"
 #include "code\modules\ship_spawning\ship_datums\_ship_datum.dm"
-#include "code\modules\ship_spawning\ship_datums\nanotrasen\nanotrasen_ships.dm"
+#include "code\modules\ship_spawning\ship_datums\nanotrasen\stingray.dm"
 #include "code\modules\ship_spawning\ship_lobby\ship_lobby.dm"
 #include "code\modules\ship_spawning\ui\ship_start.dm"
 #include "code\modules\shuttle\arrivals.dm"

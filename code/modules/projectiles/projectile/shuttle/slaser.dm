@@ -33,3 +33,9 @@
 	light_damage_factor = 0
 	heavy_damage_factor = 4
 	devestate_damage_factor = 8
+
+/obj/item/ammo_casing/caseless/laser/shuttle
+	projectile_type = /obj/item/projectile/bullet/shuttle/beam/laser
+
+/obj/item/ammo_casing/caseless/laser/shuttle/heavy
+	projectile_type = /obj/item/projectile/bullet/shuttle/beam/laser/heavy

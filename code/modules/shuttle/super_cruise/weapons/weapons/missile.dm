@@ -3,7 +3,9 @@
 /obj/machinery/shuttle_weapon/missile
 	name = "mounted missile tubes"
 	frame_type = /obj/item/wallframe/shuttle_weapon/missile
+	requires_ammunition = TRUE
 	fired_caliber = "shuttle_missile"
+	ammo_loader_type = /obj/machinery/ammo_loader/missile
 	cooldown = 180
 	innaccuracy = 6
 	strength_rating = 50

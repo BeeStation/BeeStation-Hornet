@@ -58,6 +58,9 @@
 	/// The ammunition loader attached
 	var/obj/machinery/ammo_loader/ammunition_loader
 
+	/// The linkup ID for auto-linking to ammo loaders
+	var/mapload_linkup_id = 0
+
 /obj/machinery/shuttle_weapon/Initialize(mapload, ndir = 0)
 	. = ..()
 	weapon_id = "[LAZYLEN(SSorbits.shuttle_weapons)]"
@@ -81,6 +84,15 @@
 	. += "It seems to be <b>welded</b> in place!"
 
 /obj/machinery/shuttle_weapon/attackby(obj/item/I, mob/living/user, params)
+	if (istype(I, /obj/item/multitool))
+		var/datum/component/buffer/buff = I.GetComponent(/datum/component/buffer)
+		if (istype(buff.referenced_machine, /obj/machinery/ammo_loader))
+			var/obj/machinery/ammo_loader/weapon = buff.referenced_machine
+			try_link_to(user, weapon)
+			return
+		I.AddComponent(/datum/component/buffer, src)
+		to_chat(user, "<span class='notice'>You add [src] to the buffer of [I].</span>")
+		return
 	if (I.tool_behaviour == TOOL_WRENCH && I.use_tool(src, user, 0, volume=50))
 		setDir(angle2dir(dir2angle(dir) + 90))
 		return
@@ -155,6 +167,10 @@
 			P.force_miss = TRUE
 			P.fire((dir2angle(dir) + angle_offset) % 360)
 			addtimer(CALLBACK(src, PROC_REF(spawn_incoming_fire), P, current_target_turf, missed), flight_time)
+		// This is very janky, but I don't have time to rework projectile casings
+		if (istype(fired_casing, /obj/item/ammo_casing/caseless))
+			qdel(fired_casing)
+			continue
 		// Just lob the spent casing
 		fired_casing.forceMove(loc)
 		fired_casing.bounce_away(TRUE)
@@ -162,7 +178,7 @@
 	if(shots_left > 1)
 		addtimer(CALLBACK(src, PROC_REF(fire), target, shots_left - 1, TRUE), shot_time)
 
-/obj/machinery/shuttle_weapon/proc/spawn_incoming_fire(obj/item/projectile/P, atom/target, missed = FALSE)
+/obj/machinery/shuttle_weapon/proc/spawn_incoming_fire(obj/item/projectile/bullet/shuttle/P, atom/target, missed = FALSE)
 	if(QDELETED(P))
 		return
 	//Spawn the projectile to come in FTL style
@@ -178,3 +194,11 @@
 	if (!ammunition_loader)
 		return null
 	return ammunition_loader.take_bullet(fired_caliber)
+
+/obj/machinery/shuttle_weapon/proc/try_link_to(mob/user, obj/machinery/ammo_loader/loader)
+	if (loader.type != ammo_loader_type)
+		var/obj/machinery/ammo_loader/loader_type = ammo_loader_type
+		to_chat(user, "<span class='notice'>You cannot connect [src] to [loader], it can only connect to [initial(loader_type.name)].</span>")
+		return
+	loader.attached_weapon = src
+	ammunition_loader = loader

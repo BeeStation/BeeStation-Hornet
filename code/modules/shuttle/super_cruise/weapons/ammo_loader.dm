@@ -8,6 +8,9 @@
 	/// The weapon attached to us
 	var/obj/machinery/shuttle_weapon/attached_weapon
 
+	/// The linkup ID for auto-linking to ammo loaders
+	var/mapload_linkup_id = 0
+
 /obj/machinery/ammo_loader/Destroy()
 	if (attached_weapon)
 		attached_weapon.ammunition_loader = null
@@ -47,8 +50,19 @@
 			usr.put_in_active_hand(thing)
 			return TRUE
 
-/obj/machinery/ammo_loader/attacked_by(obj/item/I, mob/living/user)
-	if (!is_accepted(I) || user.a_intent == INTENT_HARM)
+/obj/machinery/ammo_loader/attackby(obj/item/I, mob/user)
+	if (user.a_intent == INTENT_HARM)
+		return ..()
+	if (istype(I, /obj/item/multitool))
+		var/datum/component/buffer/buff = I.GetComponent(/datum/component/buffer)
+		if (istype(buff.referenced_machine, /obj/machinery/shuttle_weapon))
+			var/obj/machinery/shuttle_weapon/weapon = buff.referenced_machine
+			weapon.try_link_to(user, src)
+			return
+		I.AddComponent(/datum/component/buffer, src)
+		to_chat(user, "<span class='notice'>You add [src] to the buffer of [I].</span>")
+		return
+	if (!is_accepted(I))
 		return ..()
 	if (length(contents) >= slots)
 		to_chat(user, "<span class='warning'>[src] is full!</span>")
@@ -90,6 +104,20 @@
 	return FALSE
 
 // ========================
+// Box Ammo Loader
+// ========================
+
+/obj/machinery/ammo_loader/ballistic
+	name = "ballistic auto-loader"
+	desc = "An ammunition rack for loading ammo boxes into shuttle-mounted ballistic weapons. Can be connected to a single mounted weapon using a multitool."
+	slots = 2
+
+/obj/machinery/ammo_loader/ballistic/is_accepted(obj/item/ammo_box/box)
+	if (!istype(box))
+		return FALSE
+	return box.caliber == "shuttle_chaingun" || box.caliber == "shuttle_flak"
+
+// ========================
 // Missile Ammo Loader
 // ========================
 
@@ -103,3 +131,28 @@
 	if (!istype(missile))
 		return FALSE
 	return missile.caliber == "shuttle_missile"
+
+// ========================
+// Linkup
+// ========================
+
+/datum/component/buffer
+	dupe_mode = COMPONENT_DUPE_HIGHLANDER
+	var/referenced_machine
+
+/datum/component/buffer/Initialize(machine)
+	if (!referenced_machine)
+		return COMPONENT_INCOMPATIBLE
+	referenced_machine = machine
+	RegisterSignal(referenced_machine, COMSIG_PARENT_QDELETING, PROC_REF(unlink))
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(unlink_mob))
+
+/datum/component/buffer/proc/unlink_mob(datum/source, mob/user)
+	SIGNAL_HANDLER
+	if (istype(user))
+		to_chat(user, "<span class='notice'>You unlink [parent] from [referenced_machine].<span>")
+	qdel(src)
+
+/datum/component/buffer/proc/unlink()
+	SIGNAL_HANDLER
+	qdel(src)

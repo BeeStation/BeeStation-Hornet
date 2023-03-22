@@ -140,6 +140,10 @@
 	loading = TRUE
 	// Spawn the ship
 	var/datum/map_generator/map_place/placer = SSship_spawning.spawn_ship(selected_ship.spawned_template)
+	if (!placer)
+		tgui_alert_async(source, "Failed to load selected map, please file a GitHub issue or contact the Head Developer.", "Loading error")
+		loading = FALSE
+		return
 	// Give the clients their jobs, give bad clients a random job
 	placer.on_completion(COMPLETION_PRIORITY_PREVIEW, CALLBACK(src, PROC_REF(after_ship_spawned)))
 
@@ -189,7 +193,7 @@
 				// Yolospawn
 				selected_spawn_point = pick(turfs)
 		else
-			selected_spawn_point = pick(assoc_spawn_points[desired_job.title])
+			selected_spawn_point = pick(assoc_spawn_points[initial(desired_job.title)])
 		// Perform roundstart prefs loading
 		var/mob/living/carbon/human/created_character = new(selected_spawn_point)
 		player.prefs.active_character.copy_to(created_character)
@@ -198,6 +202,8 @@
 		var/datum/job/job_instance = SSjob.GetJob(initial(desired_job.title))
 		job_instance.equip(created_character)
 		created_character.key = player.key
+	// Set the name of the ship
+	M.name = ship_name
 	// Spawn and players that weren't spawned with randomised jobs
 	// If there are literally no job slots left, spawn as an assistant
 	// TODO

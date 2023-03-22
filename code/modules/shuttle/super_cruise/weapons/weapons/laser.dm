@@ -7,6 +7,9 @@
 	cooldown = 60
 	innaccuracy = 1
 	strength_rating = 10
+	casing_type = /obj/item/ammo_casing/caseless/laser/shuttle
+	// 15kW per shot (A lot, will drain APCs really fast)
+	power_per_shot = 15000
 
 /obj/item/wallframe/shuttle_weapon/laser
 	name = "Laser Cannon Mount"
@@ -33,8 +36,9 @@
 	frame_type = /obj/item/wallframe/shuttle_weapon/laser/triple/mark2
 	cooldown = 160
 	innaccuracy = 2
-	shots = 5
+	shots = 3
 	strength_rating = 45
+	casing_type = /obj/item/ammo_casing/caseless/laser/shuttle/heavy
 
 /obj/item/wallframe/shuttle_weapon/laser/triple/mark2
 	name = "Burst Laser MKII Mount"

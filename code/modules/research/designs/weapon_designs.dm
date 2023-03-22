@@ -472,13 +472,6 @@
 	materials = list(/datum/material/iron = 30000, /datum/material/glass = 10000)
 	build_path = /obj/item/wallframe/shuttle_weapon/point_defense
 
-/datum/design/shuttle_weapon/point_defense_two
-	name = "Hades MKII Chaincannon Mount"
-	desc=  "An upgraded version of the MKI Hades. While less accurate and slower to reload, it has a larger volley size. Designed for use on shuttles."
-	id = "shuttle_point_defense_upgraded"
-	materials = list(/datum/material/iron = 50000, /datum/material/glass = 15000, /datum/material/gold = 5000)
-	build_path = /obj/item/wallframe/shuttle_weapon/point_defense/upgraded
-
 /datum/design/shuttle_weapon/scatter_shot
 	name = "Ares Scattershot Mount"
 	desc=  "A powerful flak cannon that fires 8 projectiles at once. Designed for use on shuttles."
@@ -492,10 +485,3 @@
 	id = "shuttle_railgun"
 	materials = list(/datum/material/iron = 60000, /datum/material/glass = 20000, /datum/material/copper = 10000, /datum/material/diamond = 5000)
 	build_path = /obj/item/wallframe/shuttle_weapon/railgun
-
-/datum/design/shuttle_weapon/railgun_crew
-	name = "Zeus MKII Anti-Personnel Railgun Mount"
-	desc=  "A kinetic weapon that fired uranium coated magnetic rounds. Designed for long ranged precision shots. Designed for use on shuttles."
-	id = "shuttle_railgun_crew"
-	materials = list(/datum/material/iron = 60000, /datum/material/glass = 20000, /datum/material/copper = 10000, /datum/material/diamond = 5000, /datum/material/uranium = 5000)
-	build_path = /obj/item/wallframe/shuttle_weapon/railgun/anti_crew
