@@ -226,7 +226,7 @@
 			tastes = tastes,\
 			eatverbs = eatverbs,\
 			bite_consumption = bite_consumption,\
-			on_consume = CALLBACK(src, .proc/On_Consume))
+			on_consume = CALLBACK(src, PROC_REF(On_Consume)))
 
 
 /obj/item/food/deepfryholder/Initialize(mapload, obj/item/fried)

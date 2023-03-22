@@ -10,7 +10,7 @@
 	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE
 	src.trash = trash
-	RegisterSignal(target, COMSIG_FOOD_CONSUMED, .proc/generate_trash)
+	RegisterSignal(target, COMSIG_FOOD_CONSUMED, PROC_REF(generate_trash))
 
 /datum/element/food_trash/Detach(datum/target)
 	. = ..()
@@ -20,7 +20,7 @@
 	SIGNAL_HANDLER
 
 	///cringy signal_handler shouldnt be needed if you dont want to return but oh well
-	INVOKE_ASYNC(src, .proc/async_generate_trash, source)
+	INVOKE_ASYNC(src, PROC_REF(async_generate_trash), source)
 
 /datum/element/food_trash/proc/async_generate_trash(datum/source)
 
