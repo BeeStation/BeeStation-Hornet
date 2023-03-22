@@ -176,6 +176,13 @@ GLOBAL_LIST_EMPTY(unused_kill_targets)
 			steal_objective.find_target()
 			add_objective(steal_objective)
 
+/datum/antagonist/traitor/proc/get_existing_targets()
+	. = list()
+	for (var/O in objectives)
+		var/datum/objective/objective = O
+		if(objective.target)
+			. |= objective.target
+
 /datum/antagonist/traitor/proc/forge_kill_or_maroon_human_objective()
 	var/datum/objective/objective
 	if(prob(40))
@@ -183,14 +190,17 @@ GLOBAL_LIST_EMPTY(unused_kill_targets)
 	else
 		objective = new /datum/objective/assassinate
 	objective.owner = owner
-	if(LAZYLEN(GLOB.unused_protect_targets) && prob(55))
-		var/datum/mind/target = pick(GLOB.unused_protect_targets)
+	var/list/existing_targets = get_existing_targets()
+	var/list/unused_protect_targets = GLOB.unused_protect_targets.Copy()
+	unused_protect_targets -= existing_targets
+	if(LAZYLEN(unused_protect_targets) && prob(55))
+		var/datum/mind/target = pick(unused_protect_targets)
 		objective.target = target
 		objective.update_explanation_text()
 		if (prob(85))
 			GLOB.unused_protect_targets -= target
 	else
-		objective.find_target()
+		objective.find_target(blacklist = existing_targets)
 		if (objective.target)
 			GLOB.unused_kill_targets |= objective.target
 	add_objective(objective)
@@ -198,14 +208,17 @@ GLOBAL_LIST_EMPTY(unused_kill_targets)
 /datum/antagonist/traitor/proc/forge_protect_human_objective()
 	var/datum/objective/protect/escape/protect_objective = new
 	protect_objective.owner = owner
-	if(LAZYLEN(GLOB.unused_kill_targets) && prob(55))
-		var/datum/mind/target = pick(GLOB.unused_kill_targets)
+	var/list/existing_targets = get_existing_targets()
+	var/list/unused_kill_targets = GLOB.unused_kill_targets.Copy()
+	unused_kill_targets -= existing_targets
+	if(LAZYLEN(unused_kill_targets) && prob(55))
+		var/datum/mind/target = pick(unused_kill_targets)
 		protect_objective.target = target
 		protect_objective.update_explanation_text()
 		if (prob(85))
 			GLOB.unused_kill_targets -= target
 	else
-		protect_objective.find_target()
+		protect_objective.find_target(blacklist = existing_targets)
 		if (protect_objective.target)
 			GLOB.unused_protect_targets |= protect_objective.target
 	add_objective(protect_objective)
