@@ -15,6 +15,7 @@
 	slot_flags = ITEM_SLOT_HEAD
 	foodtypes = GRAIN
 	eat_time = 0.5 SECONDS
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/food/breadslice/Initialize()
 	. = ..()
@@ -27,6 +28,7 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 17)
 	tastes = list("bread" = 10)
 	foodtypes = GRAIN
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/food/bread/plain/Initialize()
 	. = ..()
@@ -42,7 +44,7 @@
 	name = "moldy bread slice"
 	desc = "Entire stations have been ripped apart over arguing whether this is still good to eat."
 	icon_state = "moldybreadslice"
-	food_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/mold = 10)
+	food_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	tastes = list("decaying fungus" = 1)
 	foodtypes = GROSS
 
@@ -187,16 +189,20 @@
 	desc = "Bon appetit!"
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "baguette"
-	inhand_icon_state = "baguette"
 	worn_icon_state = "baguette"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 3)
 	bite_consumption = 3
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
-	attack_verb_continuous = list("touche's")
-	attack_verb_simple = list("touche")
+	attack_verb = list("touche")
 	tastes = list("bread" = 1)
 	foodtypes = GRAIN
+
+/obj/item/food/baguette/mime
+	name = "French Baguette"
+	desc = "It would be a shame if it was consumed by someone unworthy..."
+	food_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 1, /datum/reagent/consumable/nothing = 2)
+	bite_consumption
 
 /obj/item/food/garlicbread
 	name = "garlic bread"
@@ -205,7 +211,7 @@
 	icon_state = "garlicbread"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 6, /datum/reagent/consumable/garlic = 2)
 	bite_consumption = 3
-	tastes = list("bread" = 1, "garlic" = 1, "butter" = 1)
+	tastes = list("bread" = 1, "garlic" = 2, "butter" = 1)
 	foodtypes = GRAIN
 
 /obj/item/food/deepfryholder
@@ -236,7 +242,6 @@
 	plane = initial(plane)
 	lefthand_file = fried.lefthand_file
 	righthand_file = fried.righthand_file
-	inhand_icon_state = fried.inhand_icon_state
 	desc = fried.desc
 	w_class = fried.w_class
 	slowdown = fried.slowdown
