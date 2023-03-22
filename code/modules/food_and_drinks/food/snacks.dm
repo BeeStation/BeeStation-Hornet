@@ -45,7 +45,6 @@ All foods are distributed among various categories. Use common sense.
 	var/eatverb
 	var/dried_type = null
 	var/dry = 0
-	var/dunk_amount = 10 // how much reagent is transferred per dunk
 	var/cooked_type = null  //for microwave cooking. path of the resulting item after microwaving
 	var/filling_color = "#FFFFFF" //color to use when added to custom food.
 	var/custom_food_type = null  //for food customizing. path of the custom food to create
@@ -55,6 +54,16 @@ All foods are distributed among various categories. Use common sense.
 	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
 
 	//Placeholder for effect that trigger on eating that aren't tied to reagents.
+
+/obj/item/reagent_containers/food/snacks/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ITEM_FRIED, PROC_REF(on_fried))
+
+
+/obj/item/reagent_containers/food/snacks/proc/on_fried(fry_object)
+	reagents.trans_to(fry_object, reagents.total_volume)
+	qdel()
+	return COMSIG_FRYING_HANDLED
 
 /obj/item/reagent_containers/food/snacks/add_initial_reagents()
 	if(tastes?.len)

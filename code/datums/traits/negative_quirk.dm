@@ -139,7 +139,7 @@
 			if(JOB_NAME_CLOWN)
 				heirloom_type = /obj/item/bikehorn/golden
 			if(JOB_NAME_MIME)
-				heirloom_type = /obj/item/reagent_containers/food/snacks/baguette/mime
+				heirloom_type = /obj/item/food/baguette/mime
 			if(JOB_NAME_JANITOR)
 				heirloom_type = pick(/obj/item/mop, /obj/item/clothing/suit/caution, /obj/item/reagent_containers/glass/bucket)
 			if(JOB_NAME_COOK)

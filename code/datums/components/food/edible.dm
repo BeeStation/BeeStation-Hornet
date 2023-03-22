@@ -38,7 +38,7 @@ Behavior that's still missing from this component that original food items had t
 	///Callback to be ran for when you take a bite of something
 	var/datum/callback/after_eat
 	///Callback to be ran for when you finish eating something
-	var/datum/callback/consume_callback
+	var/datum/callback/on_consume
 	///Last time we checked for food likes
 	var/last_check_time
 	///The initial reagents of this food when it is made
@@ -60,7 +60,7 @@ Behavior that's still missing from this component that original food items had t
 								datum/callback/pre_eat,
 								datum/callback/on_compost,
 								datum/callback/after_eat,
-								datum/callback/consume_callback)
+								datum/callback/on_consume)
 
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -71,6 +71,7 @@ Behavior that's still missing from this component that original food items had t
 
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(use_from_hand))
+		RegisterSignal(parent, COMSIG_ITEM_FRIED, PROC_REF(on_fried))
 
 		var/obj/item/item = parent
 		if (!item.grind_results)
@@ -87,7 +88,7 @@ Behavior that's still missing from this component that original food items had t
 	src.pre_eat = pre_eat
 	src.on_compost = on_compost
 	src.after_eat = after_eat
-	src.consume_callback = consume_callback
+	src.on_consume = on_consume
 
 	var/atom/owner = parent
 
@@ -113,7 +114,7 @@ Behavior that's still missing from this component that original food items had t
 	datum/callback/pre_eat,
 	datum/callback/on_compost,
 	datum/callback/after_eat,
-	datum/callback/consume_callback
+	datum/callback/on_consume
 	)
 
 	. = ..()
@@ -126,13 +127,13 @@ Behavior that's still missing from this component that original food items had t
 	src.pre_eat = pre_eat
 	src.on_compost = on_compost
 	src.after_eat = after_eat
-	src.consume_callback = consume_callback
+	src.on_consume = on_consume
 
 /datum/component/edible/Destroy(force, silent)
 	QDEL_NULL(pre_eat)
 	QDEL_NULL(on_compost)
 	QDEL_NULL(after_eat)
-	QDEL_NULL(consume_callback)
+	QDEL_NULL(on_consume)
 	return ..()
 
 /datum/component/edible/proc/examine(datum/source, mob/user, list/examine_list)
@@ -154,6 +155,12 @@ Behavior that's still missing from this component that original food items had t
 
 	return TryToEat(M, user)
 
+/datum/component/edible/proc/on_fried(fry_object)
+	SIGNAL_HANDLER
+	var/atom/our_atom = parent
+	our_atom.reagents.trans_to(fry_object, our_atom.reagents.total_volume)
+	qdel(our_atom)
+	return COMSIG_FRYING_HANDLED
 
 ///Makes sure the thing hasn't been destroyed or fully eaten to prevent eating phantom edibles
 /datum/component/edible/proc/is_food_gone(atom/owner, mob/living/feeder)
@@ -309,7 +316,7 @@ Behavior that's still missing from this component that original food items had t
 /datum/component/edible/proc/on_consume(mob/living/eater, mob/living/feeder)
 	SEND_SIGNAL(parent, COMSIG_FOOD_CONSUMED, eater, feeder)
 
-	consume_callback?.Invoke(eater, feeder)
+	on_consume?.Invoke(eater, feeder)
 
 	to_chat(feeder, "<span class='warning'>There is nothing left of [parent], oh no!</span>")
 	qdel(parent)
