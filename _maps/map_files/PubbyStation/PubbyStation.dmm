@@ -9599,7 +9599,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "bfr" = (
-/obj/structure/sign/barsign,
+/obj/machinery/barsign,
 /turf/closed/wall,
 /area/crew_quarters/bar)
 "bfs" = (
