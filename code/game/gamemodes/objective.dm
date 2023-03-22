@@ -382,7 +382,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/protect//The opposite of killing a dude.
 	name = "protect"
-	martyr_compatible = 1
+	martyr_compatible = TRUE
 	var/target_role_type = FALSE
 	var/human_check = TRUE
 
@@ -415,6 +415,19 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/protect/nonhuman
 	name = "protect nonhuman"
 	human_check = FALSE
+
+/datum/objective/protect/escape
+	name = "protect and escape safely"
+
+/datum/objective/protect/escape/check_completion()
+	return ..() && considered_escaped(target)
+
+/datum/objective/protect/escape/update_explanation_text()
+	if(target?.current)
+		explanation_text = "Protect [target.name], the [!target_role_type ? target.assigned_role : target.special_role], and ensure they escape on the shuttle or escape pod alive."
+	else
+		explanation_text = "Free Objective"
+
 
 /datum/objective/hijack
 	name = "hijack"

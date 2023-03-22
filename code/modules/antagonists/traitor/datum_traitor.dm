@@ -1,6 +1,11 @@
 #define TRAITOR_HUMAN "human"
 #define TRAITOR_AI	  "AI"
 
+/// Targets from traitor protect objectives, which probably haven't been used as a kill/maroon objective yet.
+GLOBAL_LIST_EMPTY(unused_protect_targets)
+/// Targets from traitor kill/maroon objectives, which probably haven't been used as a protect objective yet.
+GLOBAL_LIST_EMPTY(unused_kill_targets)
+
 /datum/antagonist/traitor
 	name = "Traitor"
 	roundend_category = "traitors"
@@ -155,16 +160,10 @@
 			destroy_objective.owner = owner
 			destroy_objective.find_target()
 			add_objective(destroy_objective)
-		else if(prob(30))
-			var/datum/objective/maroon/maroon_objective = new
-			maroon_objective.owner = owner
-			maroon_objective.find_target()
-			add_objective(maroon_objective)
+		else if (prob(50))
+			forge_protect_human_objective()
 		else
-			var/datum/objective/assassinate/kill_objective = new
-			kill_objective.owner = owner
-			kill_objective.find_target()
-			add_objective(kill_objective)
+			forge_kill_or_maroon_human_objective()
 	else
 		if(prob(15) && !(locate(/datum/objective/download) in objectives) && !(owner.assigned_role in list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST)))
 			var/datum/objective/download/download_objective = new
@@ -176,6 +175,40 @@
 			steal_objective.owner = owner
 			steal_objective.find_target()
 			add_objective(steal_objective)
+
+/datum/antagonist/traitor/proc/forge_kill_or_maroon_human_objective()
+	var/datum/objective/objective
+	if(prob(40))
+		objective = new /datum/objective/maroon
+	else
+		objective = new /datum/objective/assassinate
+	objective.owner = owner
+	if(LAZYLEN(GLOB.unused_protect_targets) && prob(55))
+		var/datum/mind/target = pick(GLOB.unused_protect_targets)
+		objective.target = target
+		objective.update_explanation_text()
+		if (prob(85))
+			GLOB.unused_protect_targets -= target
+	else
+		objective.find_target()
+		if (objective.target)
+			GLOB.unused_kill_targets |= objective.target
+	add_objective(objective)
+
+/datum/antagonist/traitor/proc/forge_protect_human_objective()
+	var/datum/objective/protect/escape/protect_objective = new
+	protect_objective.owner = owner
+	if(LAZYLEN(GLOB.unused_kill_targets) && prob(55))
+		var/datum/mind/target = pick(GLOB.unused_kill_targets)
+		protect_objective.target = target
+		protect_objective.update_explanation_text()
+		if (prob(85))
+			GLOB.unused_kill_targets -= target
+	else
+		protect_objective.find_target()
+		if (protect_objective.target)
+			GLOB.unused_protect_targets |= protect_objective.target
+	add_objective(protect_objective)
 
 /datum/antagonist/traitor/proc/forge_single_AI_objective()
 	.=1
