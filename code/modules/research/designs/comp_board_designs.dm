@@ -5,7 +5,6 @@
 	desc = "I promise this doesn't give you syndicate goodies!"
 	build_type = IMPRINTER
 	materials = list(/datum/material/glass = 1000, /datum/material/copper = 300)
-	reagents_list = list(/datum/reagent/toxin/acid = 10)
 
 /datum/design/board/arcade_battle
 	name = "Computer Design (Battle Arcade Machine)"
@@ -36,7 +35,7 @@
 	desc = "Allows for the construction of circuit boards used to build security camera computers."
 	id = "seccamera"
 	build_path = /obj/item/circuitboard/computer/security
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
@@ -61,7 +60,7 @@
 	desc = "Allows for the construction of circuit boards used to build an AI Upload Console."
 	id = "aiupload"
 	materials = list(/datum/material/glass = 1000, /datum/material/gold = 2000, /datum/material/copper = 300)
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/computer/aiupload
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -71,7 +70,7 @@
 	desc = "Allows for the construction of circuit boards used to build a Cyborg Upload Console."
 	id = "borgupload"
 	materials = list(/datum/material/glass = 1000, /datum/material/gold = 2000, /datum/material/copper = 300)
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/computer/borgupload
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -112,7 +111,7 @@
 	name = "Computer Design (Communications)"
 	desc = "Allows for the construction of circuit boards used to build a communications console."
 	id = "comconsole"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/computer/communications
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SECURITY				//Honestly should have a bridge techfab for this sometime.
@@ -121,7 +120,7 @@
 	name = "Computer Design (ID Console)"
 	desc = "Allows for the construction of circuit boards used to build an ID computer."
 	id = "idcardconsole"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/computer/card
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SECURITY				//Honestly should have a bridge techfab for this sometime.
@@ -162,7 +161,7 @@
 	name = "Computer Design (Robotics Control Console)"
 	desc = "Allows for the construction of circuit boards used to build a Robotics Control console."
 	id = "robocontrol"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/computer/robotics
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -203,7 +202,7 @@
 	name = "Computer Design (Exosuit Control Console)"
 	desc = "Allows for the construction of circuit boards used to build an exosuit control console."
 	id = "mechacontrol"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/computer/mecha_control
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -268,7 +267,7 @@
 	name = "Computer Design (Telecommunications Monitoring Console)"
 	desc = "Allows for the construction of circuit boards used to build a telecommunications monitor."
 	id = "comm_monitor"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/computer/comm_monitor
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
@@ -277,7 +276,7 @@
 	name = "Computer Design (Telecommunications Server Monitoring Console)"
 	desc = "Allows for the construction of circuit boards used to build a telecommunication server browser and monitor."
 	id = "comm_server"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/computer/comm_server
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
@@ -294,7 +293,7 @@
 	name = "Computer Design (AI Integrity Restorer)"
 	desc = "Allows for the construction of circuit boards used to build an AI Integrity Restorer."
 	id = "aifixer"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/computer/aifixer
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -311,7 +310,7 @@
 	name = "Computer Design (APC Control)"
 	desc = "Allows for the construction of circuit boards used to build a new APC control console."
 	id = "apc_control"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/computer/apc_control
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
@@ -336,7 +335,7 @@
 	name = "Computer Design (Advanced Camera Console)"
 	desc = "Allows for the construction of circuit boards used to build advanced camera consoles."
 	id = "advanced_camera"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/computer/advanced_camera
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY

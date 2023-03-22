@@ -38,7 +38,7 @@
 	name = "\"Gygax\" Central Control module"
 	desc = "Allows for the construction of a \"Gygax\" Central Control module."
 	id = "gygax_main"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/mecha/gygax/main
 	category = list("Exosuit Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -47,7 +47,7 @@
 	name = "\"Gygax\" Peripherals Control module"
 	desc = "Allows for the construction of a \"Gygax\" Peripheral Control module."
 	id = "gygax_peri"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/mecha/gygax/peripherals
 	category = list("Exosuit Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -56,7 +56,7 @@
 	name = "\"Gygax\" Weapons & Targeting Control module"
 	desc = "Allows for the construction of a \"Gygax\" Weapons & Targeting Control module."
 	id = "gygax_targ"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/mecha/gygax/targeting
 	category = list("Exosuit Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -65,7 +65,7 @@
 	name = "\"Durand\" Central Control module"
 	desc = "Allows for the construction of a \"Durand\" Central Control module."
 	id = "durand_main"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/mecha/durand/main
 	category = list("Exosuit Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -74,7 +74,7 @@
 	name = "\"Durand\" Peripherals Control module"
 	desc = "Allows for the construction of a \"Durand\" Peripheral Control module."
 	id = "durand_peri"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/mecha/durand/peripherals
 	category = list("Exosuit Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -83,7 +83,7 @@
 	name = "\"Durand\" Weapons & Targeting Control module"
 	desc = "Allows for the construction of a \"Durand\" Weapons & Targeting Control module."
 	id = "durand_targ"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/mecha/durand/targeting
 	category = list("Exosuit Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -92,7 +92,7 @@
 	name = "\"H.O.N.K\" Central Control module"
 	desc = "Allows for the construction of a \"H.O.N.K\" Central Control module."
 	id = "honker_main"
-	reagents_list = list(/datum/reagent/toxin/acid = 5, /datum/reagent/consumable/laughter = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5, /datum/reagent/consumable/laughter = 5)
 	build_path = /obj/item/circuitboard/mecha/honker/main
 	category = list("Exosuit Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -101,7 +101,7 @@
 	name = "\"H.O.N.K\" Peripherals Control module"
 	desc = "Allows for the construction of a \"H.O.N.K\" Peripheral Control module."
 	id = "honker_peri"
-	reagents_list = list(/datum/reagent/toxin/acid = 5, /datum/reagent/consumable/laughter = 5)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5, /datum/reagent/consumable/laughter = 5)
 	build_path = /obj/item/circuitboard/mecha/honker/peripherals
 	category = list("Exosuit Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -110,7 +110,7 @@
 	name = "\"H.O.N.K\" Weapons & Targeting Control module"
 	desc = "Allows for the construction of a \"H.O.N.K\" Weapons & Targeting Control module."
 	id = "honker_targ"
-	reagents_list = list(/datum/reagent/toxin/acid = 5, /datum/reagent/consumable/laughter = 5)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5, /datum/reagent/consumable/laughter = 5)
 	build_path = /obj/item/circuitboard/mecha/honker/targeting
 	category = list("Exosuit Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -120,7 +120,7 @@
 	desc = "Allows for the construction of a \"Phazon\" Central Control module."
 	id = "phazon_main"
 	materials = list(/datum/material/glass = 1000, /datum/material/bluespace = 100)
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/mecha/phazon/main
 	category = list("Exosuit Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -130,7 +130,7 @@
 	desc = "Allows for the construction of a \"Phazon\" Peripheral Control module."
 	id = "phazon_peri"
 	materials = list(/datum/material/glass = 1000, /datum/material/bluespace = 100)
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/mecha/phazon/peripherals
 	category = list("Exosuit Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -140,7 +140,7 @@
 	desc = "Allows for the construction of a \"Phazon\" Weapons & Targeting Control module."
 	id = "phazon_targ"
 	materials = list(/datum/material/glass = 1000, /datum/material/bluespace = 100)
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/mecha/phazon/targeting
 	category = list("Exosuit Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE

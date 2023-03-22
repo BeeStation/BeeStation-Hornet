@@ -126,7 +126,7 @@
 	name = "Machine Design (Teleportation Station Board)"
 	desc = "The circuit board for a teleportation station."
 	id = "tele_station"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/machine/teleporter_station
 	category = list ("Teleportation Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
@@ -135,7 +135,7 @@
 	name = "Machine Design (Teleportation Hub Board)"
 	desc = "The circuit board for a teleportation hub."
 	id = "tele_hub"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/machine/teleporter_hub
 	category = list ("Teleportation Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
@@ -144,7 +144,7 @@
 	name = "Machine Design (Quantum Pad Board)"
 	desc = "The circuit board for a quantum telepad."
 	id = "quantumpad"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/machine/quantumpad
 	category = list ("Teleportation Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
@@ -153,7 +153,7 @@
 	name = "Machine Design (Bluespace Launchpad Board)"
 	desc = "The circuit board for a bluespace Launchpad."
 	id = "launchpad"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/machine/launchpad
 	category = list ("Teleportation Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
@@ -162,7 +162,7 @@
 	name = "Machine Design (Bluespace Launchpad Console Board)"
 	desc = "The circuit board for a bluespace launchpad Console."
 	id = "launchpad_console"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/computer/launchpad_console
 	category = list ("Teleportation Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
@@ -171,7 +171,7 @@
 	name = "Computer Design (Teleporter Console)"
 	desc = "Allows for the construction of circuit boards used to build a teleporter control console."
 	id = "teleconsole"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/computer/teleporter
 	category = list("Teleportation Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
@@ -292,7 +292,7 @@
 	name = "Machine Design (Protolathe Board)"
 	desc = "The circuit board for a protolathe."
 	id = "protolathe"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/machine/protolathe
 	category = list("Research Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -301,7 +301,7 @@
 	name = "Machine Design (Circuit Imprinter Board)"
 	desc = "The circuit board for a circuit imprinter."
 	id = "circuit_imprinter"
-	reagents_list = list(/datum/reagent/toxin/acid = 3, /datum/reagent/toxin/acid/fluacid = 3, /datum/reagent/ammonia = 3)
+	reagents_list = list(/datum/reagent/toxin/acid/fluacid = 5)
 	build_path = /obj/item/circuitboard/machine/circuit_imprinter
 	category = list("Research Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
