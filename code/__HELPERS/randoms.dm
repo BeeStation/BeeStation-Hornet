@@ -2,8 +2,8 @@
 /proc/get_random_food()
 	var/list/blocked = list(/obj/item/food/bread,
 		/obj/item/food/breadslice,
-		/obj/item/reagent_containers/food/snacks/store/cake,
-		/obj/item/reagent_containers/food/snacks/cakeslice,
+		/obj/item/food/cake,
+		/obj/item/food/cakeslice,
 		/obj/item/reagent_containers/food/snacks/store,
 		/obj/item/reagent_containers/food/snacks/pie,
 		/obj/item/reagent_containers/food/snacks/kebab,

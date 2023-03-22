@@ -47,6 +47,8 @@ Behavior that's still missing from this component that original food items had t
 	var/volume
 	///The flavortext for taste
 	var/list/tastes
+	///The type of atom this creates when the object is microwaved.
+	var/microwaved_type
 
 /datum/component/edible/Initialize(list/initial_reagents,
 								food_flags = NONE,
@@ -56,6 +58,7 @@ Behavior that's still missing from this component that original food items had t
 								list/tastes,
 								list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"),
 								bite_consumption = 2,
+								microwaved_type,
 								junkiness,
 								datum/callback/pre_eat,
 								datum/callback/on_compost,
@@ -67,11 +70,15 @@ Behavior that's still missing from this component that original food items had t
 
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(examine))
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_ANIMAL, PROC_REF(use_by_animal))
+	RegisterSignal(parent, COMSIG_ATOM_CHECKPARTS, PROC_REF(on_craft))
+	RegisterSignal(parent, COMSIG_ATOM_CREATEDBY_PROCESSING, PROC_REF(on_processed))
+	RegisterSignal(parent, COMSIG_ITEM_MICROWAVE_COOKED, PROC_REF(on_microwave_cooked))
 	RegisterSignal(parent, COMSIG_EDIBLE_ON_COMPOST, PROC_REF(compost))
 
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(use_from_hand))
 		RegisterSignal(parent, COMSIG_ITEM_FRIED, PROC_REF(on_fried))
+		RegisterSignal(parent, COMSIG_ITEM_MICROWAVE_ACT, PROC_REF(on_microwaved))
 
 		var/obj/item/item = parent
 		if (!item.grind_results)
@@ -83,12 +90,15 @@ Behavior that's still missing from this component that original food items had t
 	src.initial_reagents = initial_reagents
 	src.tastes = tastes
 	src.eat_time = eat_time
-	src.eatverbs = eatverbs
+	src.eatverbs = string_list(eatverbs)
 	src.junkiness = junkiness
 	src.pre_eat = pre_eat
 	src.on_compost = on_compost
 	src.after_eat = after_eat
 	src.on_consume = on_consume
+	src.initial_reagents = string_assoc_list(initial_reagents)
+	src.tastes = string_assoc_list(tastes)
+	src.microwaved_type = microwaved_type
 
 	var/atom/owner = parent
 
@@ -161,6 +171,94 @@ Behavior that's still missing from this component that original food items had t
 	our_atom.reagents.trans_to(fry_object, our_atom.reagents.total_volume)
 	qdel(our_atom)
 	return COMSIG_FRYING_HANDLED
+
+///Called when food is created through processing (Usually this means it was sliced). We use this to pass the OG items reagents.
+/datum/component/edible/proc/on_processed(datum/source, atom/original_atom, list/chosen_processing_option)
+	SIGNAL_HANDLER
+
+	if(!original_atom.reagents)
+		return
+
+	var/atom/this_food = parent
+	var/reagents_for_slice = chosen_processing_option[TOOL_PROCESSING_AMOUNT]
+
+	this_food.create_reagents(volume) //Make sure we have a reagent container
+
+	original_atom.reagents.trans_to(this_food, reagents_for_slice)
+
+	if(original_atom.name != initial(original_atom.name))
+		this_food.name = "slice of [original_atom.name]"
+	if(original_atom.desc != initial(original_atom.desc))
+		this_food.desc = "[original_atom.desc]"
+
+///Called when food is crafted through a crafting recipe datum.
+/datum/component/edible/proc/on_craft(datum/source, list/parts_list, datum/crafting_recipe/food/recipe)
+	SIGNAL_HANDLER
+
+	var/atom/this_food = parent
+
+	this_food.reagents.clear_reagents()
+
+	for(var/obj/item/crafted_part in this_food.contents)
+		crafted_part.reagents?.trans_to(this_food.reagents, crafted_part.reagents.maximum_volume, CRAFTED_FOOD_INGREDIENT_REAGENT_MODIFIER)
+
+	var/list/objects_to_delete = list()
+
+	// Remove all non recipe objects from the contents
+	for(var/content_object in this_food.contents)
+		for(var/recipe_object in recipe.real_parts)
+			if(istype(content_object, recipe_object))
+				continue
+		objects_to_delete += content_object
+
+	QDEL_LIST(objects_to_delete)
+
+	for(var/r_id in initial_reagents)
+		var/amount = initial_reagents[r_id] * CRAFTED_FOOD_BASE_REAGENT_MODIFIER
+		if(r_id == /datum/reagent/consumable/nutriment || r_id == /datum/reagent/consumable/nutriment/vitamin)
+			this_food.reagents.add_reagent(r_id, amount, tastes)
+		else
+			this_food.reagents.add_reagent(r_id, amount)
+
+	SSblackbox.record_feedback("tally", "food_made", 1, type)
+
+/datum/component/edible/proc/on_microwaved(datum/source, obj/machinery/microwave/used_microwave)
+	SIGNAL_HANDLER
+
+	var/turf/parent_turf = get_turf(parent)
+
+	if(!microwaved_type)
+		new /obj/item/reagent_containers/food/snacks/badrecipe(parent_turf)
+		qdel(src)
+		return
+
+
+	var/obj/item/result
+
+	result = new microwaved_type(parent_turf)
+
+	var/efficiency = istype(used_microwave) ? used_microwave.efficiency : 1
+
+	SEND_SIGNAL(result, COMSIG_ITEM_MICROWAVE_COOKED, parent, efficiency)
+
+	SSblackbox.record_feedback("tally", "food_made", 1, result.type)
+
+///Corrects the reagents on the newly cooked food
+/datum/component/edible/proc/on_microwave_cooked(datum/source, obj/item/source_item, cooking_efficiency = 1)
+	SIGNAL_HANDLER
+
+	var/atom/this_food = parent
+
+	this_food.reagents.clear_reagents()
+
+	source_item.reagents?.trans_to(this_food, source_item.reagents.total_volume)
+
+	for(var/r_id in initial_reagents)
+		var/amount = initial_reagents[r_id] * cooking_efficiency * CRAFTED_FOOD_BASE_REAGENT_MODIFIER
+		if(r_id == /datum/reagent/consumable/nutriment || r_id == /datum/reagent/consumable/nutriment/vitamin)
+			this_food.reagents.add_reagent(r_id, amount, tastes)
+		else
+			this_food.reagents.add_reagent(r_id, amount)
 
 ///Makes sure the thing hasn't been destroyed or fully eaten to prevent eating phantom edibles
 /datum/component/edible/proc/is_food_gone(atom/owner, mob/living/feeder)
