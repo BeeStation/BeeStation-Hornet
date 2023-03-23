@@ -479,7 +479,7 @@
 
 /datum/asset/spritesheet/sheetmaterials/create_spritesheets()
 	InsertAll("", 'icons/obj/stacks/minerals.dmi')//figure to do a list here
-//	InsertAll("", 'icons/obj/stacks/miscelaneous.dmi')
+//	InsertAll("", 'icons/obj/stacks/miscellaneous.dmi')
 //	InsertAll("", 'icons/obj/stacks/organic.dmi')
 
 	// Special case to handle Bluespace Crystals

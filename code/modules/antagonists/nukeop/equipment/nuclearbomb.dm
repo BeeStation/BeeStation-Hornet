@@ -429,7 +429,7 @@
 	if(safety)
 		if(timing)
 			set_security_level(previous_level)
-			stop_soundtrack_music()
+			stop_soundtrack_music(stop_playing = TRUE)
 			for(var/obj/item/pinpointer/nuke/syndicate/S in GLOB.pinpointer_list)
 				S.switch_mode_to(initial(S.mode))
 				S.alert = FALSE
@@ -452,12 +452,12 @@
 		set_security_level(SEC_LEVEL_DELTA)
 
 		if (proper_bomb) // Why does this exist
-			countdown_music = play_soundtrack_music(/datum/soundtrack_song/bee/countdown, only_station = TRUE)
+			countdown_music = play_soundtrack_music(/datum/soundtrack_song/bee/countdown)
 
 	else
 		detonation_timer = null
 		set_security_level(previous_level)
-		stop_soundtrack_music()
+		stop_soundtrack_music(stop_playing = TRUE)
 
 		for(var/obj/item/pinpointer/nuke/syndicate/S in GLOB.pinpointer_list)
 			S.switch_mode_to(initial(S.mode))
@@ -496,7 +496,7 @@
 		sound_to_playing_players('sound/machines/alarm.ogg')
 	if(SSticker?.mode)
 		SSticker.roundend_check_paused = TRUE
-	addtimer(CALLBACK(src, .proc/actually_explode), 100)
+	addtimer(CALLBACK(src, PROC_REF(actually_explode)), 100)
 
 /obj/machinery/nuclearbomb/proc/actually_explode()
 	if(!core)
@@ -531,7 +531,7 @@
 
 /obj/machinery/nuclearbomb/proc/really_actually_explode(off_station)
 	Cinematic(get_cinematic_type(off_station),world,CALLBACK(SSticker,/datum/controller/subsystem/ticker/proc/station_explosion_detonation,src))
-	INVOKE_ASYNC(GLOBAL_PROC,.proc/KillEveryoneOnZLevel, get_virtual_z_level())
+	INVOKE_ASYNC(GLOBAL_PROC,PROC_REF(KillEveryoneOnZLevel), get_virtual_z_level())
 
 /obj/machinery/nuclearbomb/proc/get_cinematic_type(off_station)
 	if(off_station < 2)
@@ -576,10 +576,10 @@
 	if(is_station_level(bomb_location.z))
 		var/datum/round_event_control/beer_clog/beer_event = new()
 		beer_event.runEvent()
-		addtimer(CALLBACK(src, .proc/really_actually_explode), 110)
+		addtimer(CALLBACK(src, PROC_REF(really_actually_explode)), 110)
 	else
 		visible_message("<span class='notice'>[src] fizzes ominously.</span>")
-		addtimer(CALLBACK(src, .proc/fizzbuzz), 110)
+		addtimer(CALLBACK(src, PROC_REF(fizzbuzz)), 110)
 
 /obj/machinery/nuclearbomb/beer/proc/disarm()
 	detonation_timer = null
@@ -744,7 +744,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 	playsound(src, 'sound/machines/alarm.ogg', 50, -1, TRUE)
 	for(var/i in 1 to 100)
 		addtimer(CALLBACK(user, /atom/proc/add_atom_colour, (i % 2)? "#00FF00" : "#FF0000", ADMIN_COLOUR_PRIORITY), i)
-	addtimer(CALLBACK(src, .proc/manual_suicide, user), 101)
+	addtimer(CALLBACK(src, PROC_REF(manual_suicide), user), 101)
 	return MANUAL_SUICIDE
 
 /obj/item/disk/nuclear/proc/manual_suicide(mob/living/user)

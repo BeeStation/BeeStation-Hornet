@@ -85,7 +85,7 @@ Contents:
 
 /obj/item/clothing/suit/space/space_ninja/equipped(mob/user, slot)
 	. = ..()
-	RegisterSignal(user, COMSIG_PARENT_QDELETING, .proc/terminate)
+	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(terminate))
 
 /obj/item/clothing/suit/space/space_ninja/dropped(mob/user)
 	UnregisterSignal(user, COMSIG_PARENT_QDELETING)
@@ -144,7 +144,7 @@ Contents:
 	return TRUE
 
 /obj/item/clothing/suit/space/space_ninja/proc/lockIcons(mob/living/carbon/human/H)
-	icon_state = H.gender==FEMALE ? "s-ninjanf" : "s-ninjan"
+	icon_state = H.dna.features["body_model"] == FEMALE ? "s-ninjanf" : "s-ninjan"
 	H.gloves.icon_state = "s-ninjan"
 	H.gloves.item_state = "s-ninjan"
 

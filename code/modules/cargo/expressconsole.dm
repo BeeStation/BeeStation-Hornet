@@ -23,6 +23,7 @@
 /obj/machinery/computer/cargo/express/Initialize(mapload)
 	. = ..()
 	packin_up()
+	RegisterSignal(SSdcs, COMSIG_GLOB_RESUPPLY, /datum/proc/ui_update)
 
 /obj/machinery/computer/cargo/express/Destroy()
 	if(beacon)
@@ -55,8 +56,8 @@
 
 /obj/machinery/computer/cargo/express/proc/packin_up() // oh shit, I'm sorry
 	meme_pack_data = list() // sorry for what?
-	for(var/pack in SSshuttle.supply_packs) // our quartermaster taught us not to be ashamed of our supply packs
-		var/datum/supply_pack/P = SSshuttle.supply_packs[pack]  // specially since they're such a good price and all
+	for(var/pack in SSsupply.supply_packs) // our quartermaster taught us not to be ashamed of our supply packs
+		var/datum/supply_pack/P = SSsupply.supply_packs[pack]  // specially since they're such a good price and all
 		if(!meme_pack_data[P.group]) // yeah, I see that, your quartermaster gave you good advice
 			meme_pack_data[P.group] = list( // it gets cheaper when I return it
 				"name" = P.group, // mmhm
@@ -154,7 +155,7 @@
 			if(usingBeacon && !(beacon && (isturf(beacon.loc) || ismob(beacon.loc))))
 				return
 			var/id = text2path(params["id"])
-			var/datum/supply_pack/pack = SSshuttle.supply_packs[id]
+			var/datum/supply_pack/pack = SSsupply.supply_packs[id]
 			if(!istype(pack))
 				return
 			var/name = "*None Provided*"
@@ -175,7 +176,7 @@
 			if(D)
 				points_to_check = D.account_balance
 			if(!(obj_flags & EMAGGED))
-				if(SO.pack.get_cost() <= points_to_check)
+				if(SO.pack.get_cost() <= points_to_check && SO.pack.current_supply >= 0)
 					var/LZ
 					if (istype(beacon) && usingBeacon)//prioritize beacons over landing in cargobay
 						LZ = get_turf(beacon)
@@ -196,10 +197,12 @@
 						new /obj/effect/pod_landingzone(LZ, podType, SO)
 						COOLDOWN_START(src, order_cooldown, ORDER_COOLDOWN)
 						D.adjust_money(-SO.pack.get_cost())
+						SO.pack.current_supply --
+						SEND_GLOBAL_SIGNAL(COMSIG_GLOB_RESUPPLY)
 						. = TRUE
 						update_icon()
 			else
-				if(SO.pack.get_cost() * (0.72*MAX_EMAG_ROCKETS) <= points_to_check) // bulk discount :^)
+				if(SO.pack.get_cost() * (0.72*MAX_EMAG_ROCKETS) <= points_to_check && SO.pack.current_supply >= 0) // bulk discount :^)
 					landingzone = GLOB.areas_by_type[pick(GLOB.the_station_areas)]  //override default landing zone
 					for(var/turf/open/floor/T in landingzone.contents)
 						if(is_blocked_turf(T))
@@ -208,7 +211,8 @@
 						CHECK_TICK
 					if(empty_turfs && empty_turfs.len)
 						D.adjust_money(-(SO.pack.get_cost() * (0.72*MAX_EMAG_ROCKETS)))
-
+						SO.pack.current_supply --
+						SEND_GLOBAL_SIGNAL(COMSIG_GLOB_RESUPPLY)
 						SO.generateRequisition(get_turf(src))
 						for(var/i in 1 to MAX_EMAG_ROCKETS)
 							var/LZ = pick(empty_turfs)

@@ -1,7 +1,7 @@
 /obj/item/projectile/beam
 	name = "laser"
 	icon_state = "laser"
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+	pass_flags = PASSTABLE | PASSTRANSPARENT | PASSGRILLE
 	damage = 20
 	damage_type = BURN
 	hitsound = 'sound/weapons/sear.ogg'
@@ -64,7 +64,7 @@
 	irradiate = 300
 	range = 15
 	armour_penetration = 60
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS
+	pass_flags = PASSTABLE | PASSTRANSPARENT | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS
 
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	light_color = LIGHT_COLOR_GREEN
@@ -85,6 +85,12 @@
 	tracer_type = /obj/effect/projectile/tracer/disabler
 	muzzle_type = /obj/effect/projectile/muzzle/disabler
 	impact_type = /obj/effect/projectile/impact/disabler
+
+/obj/item/projectile/beam/disabler/pass_glass ///this is for the malf ai turret upgrade xdxdxd
+	name = "beam-disabler"
+	damage = 50
+	damage_type = STAMINA
+	pass_flags = PASSTABLE | PASSGRILLE | PASSTRANSPARENT
 
 /obj/item/projectile/beam/pulse
 	name = "pulse"

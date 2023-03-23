@@ -561,7 +561,7 @@
 
 /obj/item/storage/box/syndie_kit/mimesabrekit
 	name = "Baguette blade bundle"
-	desc = "Provides you with a hardly noticable blade hidden inside a baguette disguise."
+	desc = "Provides you with a hardly noticeable blade hidden inside a baguette disguise."
 
 /obj/item/storage/box/syndie_kit/mimesabrekit/PopulateContents()
 	new /obj/item/storage/belt/sabre/mime(src)

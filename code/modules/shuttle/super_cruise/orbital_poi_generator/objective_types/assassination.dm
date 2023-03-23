@@ -35,6 +35,7 @@
 /datum/orbital_objective/assassination/generate_objective_stuff(turf/chosen_turf)
 	var/mob/living/carbon/human/created_human = new(chosen_turf)
 	//Maybe polling ghosts would be better than the shintience code
+	created_human.role = ROLE_TRAITOR
 	created_human.set_playable()
 	created_human.mind_initialize()
 	//Remove nearby dangers
@@ -58,7 +59,7 @@
 			created_human.flavor_text = "You are a Syndicate operative employed by Cybersun Industries, currently scavenging for valuable resources in the wrecks of Nanotrasen Derelicts. \
 			However, upon being dropped off for your shift, the shuttle that flew you onboard was shot down by Nanotrasen's forces. You know it's only a matter of time before they find you..."
 			created_human.equipOutfit(/datum/outfit/vip_target/vip_operative)
-			suit_type = /obj/item/clothing/head/helmet/space/hardsuit/cybersun //On par with the explorer suit, nothing too wacky.
+			suit_type = /obj/item/clothing/suit/space/hardsuit/cybersun //On par with the explorer suit, nothing too wacky.
 			mask_type = /obj/item/clothing/mask/gas/syndicate
 		if("funnyman")
 			created_human.flavor_text = "Slip, slip, slip! Your PDA's brought a lot of laughs to this crew, but now that they're - and it's - gone, the Head Of Security's threats are \

@@ -15,6 +15,9 @@
 	now_fixed = "<span class='warning'>Your lungs seem to once again be able to hold air.</span>"
 	high_threshold_cleared = "<span class='info'>The constriction around your chest loosens as your breathing calms down.</span>"
 
+
+	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/medicine/salbutamol = 5)
+
 	//Breath damage
 
 	var/breathing_class = BREATH_OXY // can be a gas instead of a breathing class
@@ -321,10 +324,6 @@
 		failed = FALSE
 	return
 
-/obj/item/organ/lungs/prepare_eat()
-	var/obj/S = ..()
-	S.reagents.add_reagent(/datum/reagent/medicine/salbutamol, 5)
-	return S
 
 /obj/item/organ/lungs/plasmaman
 	name = "plasma filter"

@@ -32,12 +32,12 @@
 		var/reagentlist = pretty_string_from_reagent_list(reagents)
 		var/log_object = "containing [reagentlist]"
 		if(user.a_intent == INTENT_HARM && !C.is_mouth_covered())
-			reagents.expose(C, INGEST)
+			reagents.reaction(C, INGEST)
 			reagents.trans_to(C, reagents.total_volume, transfered_by = user)
 			C.visible_message("<span class='danger'>[user] has smothered \the [C] with \the [src]!</span>", "<span class='userdanger'>[user] has smothered you with \the [src]!</span>", "<span class='italics'>You hear some struggling and muffled cries of surprise.</span>")
 			log_combat(user, C, "smothered", src, log_object)
 		else
-			reagents.expose(C, TOUCH)
+			reagents.reaction(C, TOUCH)
 			reagents.clear_reagents()
 			C.visible_message("<span class='notice'>[user] has touched \the [C] with \the [src].</span>")
 			log_combat(user, C, "touched", src, log_object)

@@ -5,6 +5,12 @@
  * 		Recipe list datum
  */
 
+//stack recipe placement check types config
+/// checks if there is an object of the result type in any of the cardinal directions
+#define STACK_CHECK_CARDINALS "cardinals"
+/// checks if there is an object of the result type within one tile
+#define STACK_CHECK_ADJACENT "adjacent"
+
 /*
  * Stacks
  */
@@ -65,7 +71,7 @@
 	update_weight()
 	update_icon()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -376,7 +382,7 @@
 	SIGNAL_HANDLER
 
 	if(merge_check(O) && !O.throwing)
-		INVOKE_ASYNC(src, .proc/merge, O)
+		INVOKE_ASYNC(src, PROC_REF(merge), O)
 
 /obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(merge_check(AM))
@@ -499,3 +505,6 @@
 /datum/stack_recipe_list/New(title, recipes)
 	src.title = title
 	src.recipes = recipes
+
+#undef STACK_CHECK_CARDINALS
+#undef STACK_CHECK_ADJACENT

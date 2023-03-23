@@ -169,6 +169,21 @@
 		usr.client.buzz_playing = FALSE
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ship Ambience", "[usr.client.prefs.toggles & PREFTOGGLE_SOUND_SHIP_AMBIENCE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, I bet you read this comment expecting to see the same thing :^)
 
+/client/verb/toggle_soundtrack()
+	set name = "Hear/Silence Soundtrack"
+	set category = "Preferences"
+	set desc = "Hear Soundtrack Songs"
+	prefs.toggles2 ^= PREFTOGGLE_2_SOUNDTRACK
+	prefs.save_preferences()
+	if(prefs.toggles2 & PREFTOGGLE_2_SOUNDTRACK)
+		to_chat(usr, "You will now hear soundtrack songs.")
+		usr.play_current_soundtrack()
+	else
+		to_chat(usr, "You will no longer hear soundtrack songs.")
+		usr.stop_sound_channel(CHANNEL_SOUNDTRACK)
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Soundtrack", "[usr.client.prefs.toggles2 & PREFTOGGLE_2_SOUNDTRACK ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, I bet you read this comment expecting to see the same thing :^)
+
+
 /client/verb/toggle_announcement_sound()
 	set name = "Hear/Silence Announcements"
 	set category = "Preferences"
@@ -220,7 +235,7 @@ GLOBAL_LIST_INIT(ghost_forms, sortList(list("ghost","ghostking","ghostian2","ske
 		prefs.save_preferences()
 		if(isobserver(mob))
 			var/mob/dead/observer/O = mob
-			O.update_icon(new_form)
+			O.update_icon(new_form = new_form)
 
 GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOST_ORBIT_SQUARE,GHOST_ORBIT_HEXAGON,GHOST_ORBIT_PENTAGON))
 

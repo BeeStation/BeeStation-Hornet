@@ -43,7 +43,7 @@
 		playsound(loc, pick('sound/items/hypospray.ogg','sound/items/hypospray2.ogg'), 50, TRUE)
 
 		var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
-		reagents.expose(M, INJECT, fraction)
+		reagents.reaction(M, INJECT, fraction)
 		if(M.reagents)
 			var/trans = 0
 			if(!infinite)
@@ -66,7 +66,7 @@
 		return
 	if(isturf(usr.loc) && src.loc == usr)
 		to_chat(usr, "<span class='notice'>You empty \the [src] onto the floor.</span>")
-		reagents.expose(usr.loc)
+		reagents.reaction(usr.loc)
 		src.reagents.clear_reagents()
 
 /obj/item/reagent_containers/hypospray/CMO

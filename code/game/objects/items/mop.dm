@@ -35,7 +35,7 @@
 		for(var/obj/effect/O in A)
 			if(is_cleanable(O))
 				qdel(O)
-	reagents.expose(A, TOUCH, 10)	//Needed for proper floor wetting.
+	reagents.reaction(A, TOUCH, 10)	//Needed for proper floor wetting.
 	reagents.remove_any(1)			//reaction() doesn't use up the reagents
 
 
