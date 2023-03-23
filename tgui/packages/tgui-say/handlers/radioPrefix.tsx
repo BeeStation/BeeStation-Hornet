@@ -10,43 +10,55 @@ import { Modal } from '../types';
  */
 export const handleRadioPrefix = function (this: Modal) {
   const { channel } = this.state;
-  const { radioPrefix, value } = this.fields;
+  const { radioPrefix, showRadioPrefix, value } = this.fields;
   if (NO_RADIO_CHANNELS.includes(CHANNELS[channel])) {
     return;
   }
   if (!value || value.length < 1) {
     return;
   }
-  if (radioPrefix === ';') {
-    if (value.startsWith(';')) {
-      return;
-    } else {
-      this.fields.radioPrefix = '';
+  if (showRadioPrefix) {
+    if (radioPrefix === ';') {
+      if (value.startsWith(';')) {
+        return;
+      } else {
+        this.fields.radioPrefix = '';
+        this.setState({
+          buttonContent: CHANNELS[0],
+          channel: 0,
+          edited: true,
+        });
+        return;
+      }
+    } else if (value.startsWith(';') && channel === 0) {
+      this.fields.radioPrefix = ';';
       this.setState({
-        buttonContent: CHANNELS[0],
-        channel: 0,
+        buttonContent: CHANNELS[1],
+        channel: 1,
         edited: true,
       });
       return;
     }
   } else if (value.startsWith(';') && channel === 0) {
+    this.fields.value = value?.slice(1);
     this.fields.radioPrefix = ';';
     this.setState({
       buttonContent: CHANNELS[1],
       channel: 1,
       edited: true,
     });
-    return;
   }
   if (value.length < 3) {
-    this.fields.radioPrefix = '';
-    if (radioPrefix?.length > 0 && value.startsWith(radioPrefix.slice(0, 2))) {
-      this.fields.value = '';
+    if (showRadioPrefix) {
+      this.fields.radioPrefix = '';
+      if (radioPrefix?.length > 0 && value.startsWith(radioPrefix.slice(0, 2))) {
+        this.fields.value = '';
+      }
+      this.setState({
+        buttonContent: CHANNELS[channel],
+        edited: true,
+      });
     }
-    this.setState({
-      buttonContent: CHANNELS[channel],
-      edited: true,
-    });
     return;
   }
   let nextPrefix = value?.slice(0, 3)?.toLowerCase();
@@ -57,6 +69,9 @@ export const handleRadioPrefix = function (this: Modal) {
     return;
   }
   if (!RADIO_PREFIXES[nextPrefix]) {
+    if (!showRadioPrefix) {
+      return;
+    }
     this.fields.radioPrefix = '';
     if (radioPrefix?.length > 0 && value.startsWith(radioPrefix.slice(0, 2))) {
       this.fields.value = value.slice(2);
@@ -66,6 +81,9 @@ export const handleRadioPrefix = function (this: Modal) {
       edited: true,
     });
     return;
+  }
+  if (!showRadioPrefix) {
+    this.fields.value = value?.slice(3);
   }
   // Binary is a "secret" channel
   if (nextPrefix === ':b ') {

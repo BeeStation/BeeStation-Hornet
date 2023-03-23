@@ -78,6 +78,7 @@
 	winshow(client, "tgui_say", FALSE)
 	window.send_message("props", list(
 		lightMode = (client?.prefs?.toggles2 & PREFTOGGLE_2_SAY_LIGHT_THEME),
+		showRadioPrefix = (client?.prefs?.toggles2 & PREFTOGGLE_2_SAY_SHOW_PREFIX),
 		maxLength = max_length,
 	))
 	stop_thinking()

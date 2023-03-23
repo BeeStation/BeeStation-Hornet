@@ -32,6 +32,7 @@ type Fields = {
   historyCounter: number;
   innerRef: RefObject<HTMLInputElement>;
   lightMode: boolean;
+  showRadioPrefix: boolean;
   maxLength: number;
   radioPrefix: string;
   tempHistory: string;
