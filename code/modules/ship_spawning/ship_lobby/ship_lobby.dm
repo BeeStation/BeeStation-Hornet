@@ -209,7 +209,13 @@
 	// TODO
 	// Launch the ship into supercruise
 	// TODO: Start docked at a station?
-	M.enter_supercruise(new /datum/orbital_vector(rand(-10000, 10000), rand(-10000, 10000)))
+	//M.enter_supercruise(new /datum/orbital_vector(rand(-10000, 10000), rand(-10000, 10000)))
+	var/obj/docking_port/stationary/docking_port = SSship_spawning.get_spawn_point(NONE, M)
+	if (docking_port)
+		M.initiate_docking(docking_port)
+	else
+		// Enter at a random location
+		M.enter_supercruise(new /datum/orbital_vector(rand(-10000, 10000), rand(-10000, 10000)))
 
 /datum/ship_lobby/proc/get_invalid_clients()
 	var/list/bad_clients = list()

@@ -1,0 +1,4 @@
+
+#define FACTION_SYNDICATE (1<<0)
+#define FACTION_NANOTRASEN (1<<1)
+#define FACTION_INDEPENDANT (1<<2)

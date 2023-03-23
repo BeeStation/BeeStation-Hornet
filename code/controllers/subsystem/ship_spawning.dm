@@ -9,6 +9,8 @@ SUBSYSTEM_DEF(ship_spawning)
 	// Contains menu lobbies and game lobbies. Lobbies should be
 	// removed when the ship is destroyed.
 	var/list/game_lobbies = list()
+	// A list of spawn points that we can place shuttles at
+	var/list/spawn_points = list()
 
 /datum/controller/subsystem/ship_spawning/Initialize(start_timeofday)
 	. = ..()
@@ -39,3 +41,15 @@ SUBSYSTEM_DEF(ship_spawning)
 	var/turf/BL = TURF_FROM_COORDS_LIST(reservation.bottom_left_coords)
 	// Create the docking port
 	return selected_ship.load(BL, FALSE, TRUE)
+
+/datum/controller/subsystem/ship_spawning/proc/get_spawn_point(faction_tag, obj/docking_port/mobile/shuttle)
+	RETURN_TYPE(/obj/docking_port/stationary)
+	for (var/obj/docking_port/stationary/spawn_point/start in spawn_points)
+		if (!start.can_spawn_here(faction_tag))
+			continue
+		if (shuttle.canDock(start) != SHUTTLE_CAN_DOCK)
+			continue
+		// Looks good to me!
+		return start
+	// Could not locate a valid spawn point
+	return null
