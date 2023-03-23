@@ -1,5 +1,5 @@
 import { CHANNELS, RADIO_PREFIXES } from '../constants';
-import { windowLoad, windowOpen } from '../helpers';
+import { windowClose, windowLoad, windowOpen } from '../helpers';
 import { Modal } from '../types';
 
 /** Attach listeners, sets window size just in case */
@@ -23,6 +23,9 @@ export const handleComponentMount = function (this: Modal) {
       this.fields.innerRef.current?.focus();
     }, 1);
     windowOpen(CHANNELS[channel]);
+  });
+  Byond.subscribeTo('close', () => {
+    windowClose();
   });
   windowLoad();
 };

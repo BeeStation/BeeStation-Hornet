@@ -16,6 +16,16 @@
 	return "\".output tgui_say.browser:update [message]\""
 
 /**
+ * Creates a JSON encoded message to close TGUI say modals.
+ *
+ * Returns:
+ * string - A JSON encoded message to close the modal.
+ */
+/client/proc/tgui_say_create_close_command()
+	var/message = TGUI_CREATE_MESSAGE_EMPTY("close")
+	return "\".output tgui_say.browser:update [message]\""
+
+/**
  * The tgui say modal. This initializes an input window which hides until
  * the user presses one of the speech hotkeys. Once something is entered, it will
  * delegate the speech to the proper channel.
