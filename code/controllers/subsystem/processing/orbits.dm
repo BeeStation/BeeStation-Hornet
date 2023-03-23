@@ -229,3 +229,15 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	var/datum/shuttle_data/shuttle = get_shuttle_data(port_id)
 	assoc_shuttle_data -= port_id
 	qdel(shuttle)
+
+//====================================
+// Other
+//====================================
+
+/datum/controller/subsystem/processing/orbits/proc/get_associated_level(turf/place)
+	if (SSorbits.assoc_z_levels["[place.get_virtual_z_level()]"])
+		return SSorbits.assoc_z_levels["[place.get_virtual_z_level()]"]
+	var/area/shuttle/location = place.loc
+	if (istype(location) && location.mobile_port)
+		return SSorbits.assoc_shuttles[location.mobile_port.id]
+	return null

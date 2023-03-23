@@ -100,4 +100,3 @@
 	if (istype(O) && O.observetarget)
 		return
 	. = ..()
-
