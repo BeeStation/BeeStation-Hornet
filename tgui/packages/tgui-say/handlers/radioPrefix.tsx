@@ -11,29 +11,62 @@ import { Modal } from '../types';
 export const handleRadioPrefix = function (this: Modal) {
   const { channel } = this.state;
   const { radioPrefix, value } = this.fields;
-  if (NO_RADIO_CHANNELS.includes(CHANNELS[channel]) || !value || value.length < 1) {
+  if (NO_RADIO_CHANNELS.includes(CHANNELS[channel])) {
     return;
   }
-  if (value.startsWith(';') && channel === 0) {
-    this.fields.value = value?.slice(1);
+  if (!value || value.length < 1) {
+    return;
+  }
+  if (radioPrefix === ';') {
+    if (value.startsWith(';')) {
+      return;
+    } else {
+      this.fields.radioPrefix = '';
+      this.setState({
+        buttonContent: CHANNELS[0],
+        channel: 0,
+        edited: true,
+      });
+      return;
+    }
+  } else if (value.startsWith(';') && channel === 0) {
     this.fields.radioPrefix = ';';
     this.setState({
       buttonContent: CHANNELS[1],
       channel: 1,
       edited: true,
     });
+    return;
   }
   if (value.length < 3) {
+    this.fields.radioPrefix = '';
+    if (radioPrefix?.length > 0 && value.startsWith(radioPrefix.slice(0, 2))) {
+      this.fields.value = '';
+    }
+    this.setState({
+      buttonContent: CHANNELS[channel],
+      edited: true,
+    });
     return;
   }
   let nextPrefix = value?.slice(0, 3)?.toLowerCase();
   if (nextPrefix.startsWith('.')) {
     nextPrefix = nextPrefix.replace('.', ':');
   }
-  if (!RADIO_PREFIXES[nextPrefix] || radioPrefix === nextPrefix) {
+  if (radioPrefix === nextPrefix) {
     return;
   }
-  this.fields.value = value?.slice(3);
+  if (!RADIO_PREFIXES[nextPrefix]) {
+    this.fields.radioPrefix = '';
+    if (radioPrefix?.length > 0 && value.startsWith(radioPrefix.slice(0, 2))) {
+      this.fields.value = value.slice(2);
+    }
+    this.setState({
+      buttonContent: CHANNELS[channel],
+      edited: true,
+    });
+    return;
+  }
   // Binary is a "secret" channel
   if (nextPrefix === ':b ') {
     Byond.sendMessage('thinking', { mode: false });

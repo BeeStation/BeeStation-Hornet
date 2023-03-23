@@ -15,7 +15,8 @@ export const handleEnter = function (
     storeChat(value);
     Byond.sendMessage('entry', {
       channel: CHANNELS[channel],
-      entry: channel === 0 ? radioPrefix + value : value,
+      entry:
+        radioPrefix === ';' && value.startsWith(';') ? value.slice(1) : value,
     });
   }
   this.events.onReset();
