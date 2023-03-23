@@ -288,7 +288,7 @@ SUBSYSTEM_DEF(mapping)
 		LAZYADD(SSzclear.free_levels, add_new_zlevel("Empty Area [space_levels_so_far]", ZTRAITS_SPACE, orbital_body_type = null))
 
 	// Load statoin
-	LoadGroup(FailedZs, "Nanotrasen Base", "map_files/outposts", "outpost_nanotrasen.dmm", default_traits = ZTRAIT_STATION, orbital_body_type = /datum/orbital_object/z_linked/station)
+	LoadGroup(FailedZs, "Nanotrasen Base", "map_files/outposts", "outpost_nanotrasen.dmm", default_traits = ZTRAITS_STATION, orbital_body_type = /datum/orbital_object/z_linked/station)
 
 	// load mining
 	if(config.minetype == "lavaland")

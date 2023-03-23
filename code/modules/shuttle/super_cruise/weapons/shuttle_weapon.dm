@@ -133,15 +133,13 @@
 				pixel_y = offset_value
 			offset_turf_y = side
 
-/obj/machinery/shuttle_weapon/proc/fire(atom/target, shots_left = shots, forced = FALSE)
+/obj/machinery/shuttle_weapon/proc/fire(shuttleId, atom/target, shots_left = shots, forced = FALSE)
 	if(!target)
 		if(!target_turf)
 			return
 		target = target_turf
 	if(world.time < next_shot_world_time && !forced)
 		return FALSE
-	if(!forced)
-		next_shot_world_time = world.time + cooldown
 	// Check power
 	if (!powered())
 		return
@@ -155,6 +153,8 @@
 			missed = TRUE
 	playsound(loc, fire_sound, 75, 1)
 	use_power(power_per_shot)
+	if(!forced)
+		next_shot_world_time = world.time + cooldown
 	for(var/i in 1 to simultaneous_shots)
 		//Spawn the projectile to make it look like its firing from your end
 		var/obj/item/ammo_casing/fired_casing = get_fired_casing()
@@ -162,9 +162,11 @@
 			continue
 		fired_casing.forceMove(loc)
 		var/obj/item/projectile/bullet/shuttle/P = fired_casing.BB
+		fired_casing.BB = null
 		if (P)
 			//Outgoing shots shouldn't hit our own ship because its easier
-			P.force_miss = TRUE
+			P.is_outgoing = TRUE
+			P.fired_from_shuttle = shuttleId
 			P.fire((dir2angle(dir) + angle_offset) % 360)
 			addtimer(CALLBACK(src, PROC_REF(spawn_incoming_fire), P, current_target_turf, missed), flight_time)
 		// This is very janky, but I don't have time to rework projectile casings
@@ -176,13 +178,13 @@
 		fired_casing.bounce_away(TRUE)
 	//Multishot cannons
 	if(shots_left > 1)
-		addtimer(CALLBACK(src, PROC_REF(fire), target, shots_left - 1, TRUE), shot_time)
+		addtimer(CALLBACK(src, PROC_REF(fire), shuttleId, target, shots_left - 1, TRUE), shot_time)
 
 /obj/machinery/shuttle_weapon/proc/spawn_incoming_fire(obj/item/projectile/bullet/shuttle/P, atom/target, missed = FALSE)
 	if(QDELETED(P))
 		return
 	//Spawn the projectile to come in FTL style
-	P.force_miss = FALSE
+	P.is_outgoing = FALSE
 	fire_projectile_towards(target, projectile = P, missed = missed)
 
 /obj/machinery/shuttle_weapon/proc/get_fired_casing()
@@ -202,3 +204,4 @@
 		return
 	loader.attached_weapon = src
 	ammunition_loader = loader
+	to_chat(user, "<span class='notice'>You connect [src] to [loader]!</span>")

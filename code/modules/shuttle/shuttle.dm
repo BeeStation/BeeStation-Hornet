@@ -554,13 +554,14 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 /obj/docking_port/mobile/Initialize(mapload)
 	. = ..()
 
+	var/static/dynamic_id_num = 1
 	if(!id)
-		id = "[SSshuttle.mobile.len]"
+		id = "[dynamic_id_num++]"
 	else if(dynamic_id)
-		name = "[name] [SSshuttle.mobile.len]"
-		id = "[id][SSshuttle.mobile.len]"
+		name = "[name] [dynamic_id_num++]"
+		id = "[id][dynamic_id_num++]"
 	if(name == "shuttle")
-		name = "shuttle[SSshuttle.mobile.len]"
+		name = "shuttle[dynamic_id_num++]"
 
 	shuttle_areas = list()
 	var/list/all_turfs = return_ordered_turfs(x, y, z, dir)

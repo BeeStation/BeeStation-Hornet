@@ -83,6 +83,8 @@
 /datum/ship_lobby/proc/get_name()
 	if (lobby_state == LOBBY_MENU)
 		return ship_name
+	if (!shuttle)
+		return "ERROR"
 	return shuttle.shuttle_name
 
 /datum/ship_lobby/proc/set_ship(client/C, datum/starter_ship_template/starter_ship)
@@ -107,6 +109,8 @@
 /datum/ship_lobby/proc/get_job_role(client/target)
 	if (lobby_state == LOBBY_MENU)
 		return wanted_roles[target.ckey]
+	if (!target.mob.mind.assigned_role)
+		return "unknown"
 	return SSjob.GetJob(target.mob.mind.assigned_role)
 
 /datum/ship_lobby/proc/set_job_role(client/source, desired_role)
@@ -203,6 +207,11 @@
 		job_instance.equip(created_character)
 		created_character.key = player.key
 	// Set the name of the ship
+	// Check ship name
+	for (var/obj/docking_port/mobile/other_ship in SSshuttle.mobile)
+		if (other_ship.name == ship_name)
+			// Highly Mathemtical
+			ship_name = "[ship_name]'"
 	M.name = ship_name
 	// Spawn and players that weren't spawned with randomised jobs
 	// If there are literally no job slots left, spawn as an assistant

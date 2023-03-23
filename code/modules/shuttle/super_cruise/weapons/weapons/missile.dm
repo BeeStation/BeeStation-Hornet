@@ -10,7 +10,7 @@
 	innaccuracy = 6
 	strength_rating = 50
 	hit_chance = 30
-	miss_chance = 20
+	miss_chance = 0
 
 /obj/item/wallframe/shuttle_weapon/missile
 	name = "mounted missile tubes"

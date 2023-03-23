@@ -317,7 +317,7 @@
 		return
 	weapon.target_turf = T
 	//Fire
-	INVOKE_ASYNC(weapon, TYPE_PROC_REF(/obj/machinery/shuttle_weapon, fire))
+	INVOKE_ASYNC(weapon, TYPE_PROC_REF(/obj/machinery/shuttle_weapon, fire), shuttle_id)
 	to_chat(usr, "<span class='notice'>Weapon target selected successfully.</span>")
 
 /obj/machinery/computer/weapons/proc/get_attached_ship()

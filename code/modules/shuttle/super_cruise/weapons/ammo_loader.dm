@@ -155,7 +155,7 @@
 	var/referenced_machine
 
 /datum/component/buffer/Initialize(machine)
-	if (!referenced_machine)
+	if (!machine)
 		return COMPONENT_INCOMPATIBLE
 	referenced_machine = machine
 	RegisterSignal(referenced_machine, COMSIG_PARENT_QDELETING, PROC_REF(unlink))

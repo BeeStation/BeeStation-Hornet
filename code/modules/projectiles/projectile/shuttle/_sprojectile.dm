@@ -15,13 +15,14 @@
 
 	var/obj_damage = 0
 	var/miss = FALSE
-	var/force_miss = FALSE
+	var/is_outgoing = FALSE
 
-/obj/item/projectile/bullet/shuttle/can_hit_target(atom/target, direct_target, ignore_loc, cross_failed)
-	// Never hit targets if we missed
-	if (miss || force_miss)
-		return FALSE
-	. = ..()
+	var/fired_from_shuttle
+
+/obj/item/projectile/bullet/shuttle/prehit_pierce(atom/A)
+	if (miss || is_outgoing)
+		return PROJECTILE_PIERCE_PHASE
+	return ..()
 
 /obj/item/projectile/bullet/shuttle/on_hit(atom/target, blocked)
 	//Damage turfs
@@ -42,3 +43,55 @@
 		for(var/obj/object in T)
 			object.take_damage(damage)
 	return ..()
+
+/obj/item/projectile/bullet/shuttle/Range()
+	. = ..()
+	if (!is_outgoing)
+		return
+	var/area/shuttle/found_shuttle = get_area(src)
+	if (found_shuttle.mobile_port && found_shuttle.mobile_port.id != fired_from_shuttle)
+		// Go to nullspace
+		forceMove(null)
+
+/obj/item/projectile/bullet/shuttle/pixel_move(trajectory_multiplier, hitscanning = FALSE)
+	if(!loc || !trajectory)
+		return
+	last_projectile_move = world.time
+	if(!nondirectional_sprite && !hitscanning)
+		var/matrix/M = new
+		M.Turn(Angle)
+		transform = M
+	if(homing)
+		process_homing()
+	var/forcemoved = FALSE
+	for(var/i in 1 to SSprojectiles.global_iterations_per_move)
+		if(QDELETED(src))
+			return
+		trajectory.increment(trajectory_multiplier)
+		var/turf/T = trajectory.return_turf()
+		if(!istype(T))
+			//CHANGE: Go to nullspace
+			forceMove(null)
+			return
+		if(T.z != loc.z)
+			var/old = loc
+			before_z_change(loc, T)
+			trajectory_ignore_forcemove = TRUE
+			forceMove(T)
+			trajectory_ignore_forcemove = FALSE
+			after_z_change(old, loc)
+			if(!hitscanning)
+				pixel_x = trajectory.return_px()
+				pixel_y = trajectory.return_py()
+			forcemoved = TRUE
+			hitscan_last = loc
+		else if(T != loc)
+			step_towards(src, T)
+			hitscan_last = loc
+	if(QDELETED(src))
+		return
+	if(!hitscanning && !forcemoved)
+		pixel_x = trajectory.return_px() - trajectory.mpx * trajectory_multiplier * SSprojectiles.global_iterations_per_move
+		pixel_y = trajectory.return_py() - trajectory.mpy * trajectory_multiplier * SSprojectiles.global_iterations_per_move
+		animate(src, pixel_x = trajectory.return_px(), pixel_y = trajectory.return_py(), time = 1, flags = ANIMATION_END_NOW)
+	Range()

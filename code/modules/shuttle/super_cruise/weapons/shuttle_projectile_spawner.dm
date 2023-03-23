@@ -4,15 +4,21 @@
 	var/cos_angle = cos(angle)
 	//Step away continuously
 	var/turf/spawn_turf
-	var/area/initial_area = get_area(target)
+	var/area/shuttle/initial_area = get_area(target)
+	var/obj/docking_port/mobile/target_port = null
+	if (istype(initial_area))
+		target_port = initial_area.mobile_port
 	//Find the furthest away turf that won't conflict with another shuttle
 	for (var/i in spawn_distance to spawn_distance + 30)
-		var/x_pos = CLAMP(target.x + spawn_distance * sin_angle, 6, world.maxx - 6)
-		var/y_pos = CLAMP(target.y + spawn_distance * cos_angle, 6, world.maxy - 6)
+		var/x_pos = CLAMP(target.x + i * sin_angle, 6, world.maxx - 6)
+		var/y_pos = CLAMP(target.y + i * cos_angle, 6, world.maxy - 6)
 		var/turf/located = locate(x_pos, y_pos, target.z)
+		var/area/shuttle/located_area = located.loc
+		// Must set an initial value
 		if (!spawn_turf)
 			spawn_turf = located
-		else if(!istype(located, /turf/open/space/transit) || initial_area == get_area(located))
+		// If the turf isn't on a shuttle, or the shuttle is our shuttle, then we can be fired from here
+		else if(!istype(located_area) || istype(located_area, /area/shuttle/transit) || located_area.mobile_port == target_port)
 			spawn_turf = located
 		else
 			break
