@@ -15,22 +15,21 @@ export const handleRadioPrefix = function (this: Modal) {
     return;
   }
   if (!value || value.length < 1) {
+    if (showRadioPrefix && radioPrefix === ';') {
+      this.fields.radioPrefix = '';
+      this.setState({
+        buttonContent: CHANNELS[0],
+        channel: 0,
+        edited: true,
+      });
+    }
     return;
   }
   if (showRadioPrefix) {
-    if (radioPrefix === ';') {
-      if (value.startsWith(';')) {
-        return;
-      } else {
-        this.fields.radioPrefix = '';
-        this.setState({
-          buttonContent: CHANNELS[0],
-          channel: 0,
-          edited: true,
-        });
-        return;
-      }
-    } else if (value.startsWith(';') && channel === 0) {
+    if (radioPrefix === ';' && value.startsWith(';')) {
+      return;
+    }
+    if (radioPrefix !== ';' && value.startsWith(';') && channel === 0) {
       this.fields.radioPrefix = ';';
       this.setState({
         buttonContent: CHANNELS[1],
