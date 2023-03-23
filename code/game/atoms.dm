@@ -826,12 +826,6 @@
 		return FALSE
 	return add_blood_DNA(blood_dna)
 
-///wash cream off this object
-///
-///(for the love of space jesus please make this a component)
-/atom/proc/wash_cream()
-	return TRUE
-
 ///Is this atom in space
 /atom/proc/isinspace()
 	if(isspaceturf(get_turf(src)))
@@ -1555,6 +1549,11 @@
 
 		custom_material.on_applied(src, materials[custom_material] * multiplier, material_flags)
 		custom_materials[custom_material] += materials[custom_material] * multiplier
+
+/// Returns the indice in filters of the given filter name.
+/// If it is not found, returns null.
+/atom/proc/get_filter_index(name)
+	return filter_data?.Find(name)
 
 ///Setter for the `density` variable to append behavior related to its changing.
 /atom/proc/set_density(new_value)
