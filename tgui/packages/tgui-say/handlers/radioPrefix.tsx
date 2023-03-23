@@ -51,7 +51,8 @@ export const handleRadioPrefix = function (this: Modal) {
   if (value.length < 3) {
     if (showRadioPrefix) {
       this.fields.radioPrefix = '';
-      if (radioPrefix?.length > 0 && value.startsWith(radioPrefix.slice(0, 2))) {
+      let parsedValue = value.startsWith('.') ? value.replace('.', ':') : value;
+      if (radioPrefix?.length > 0 && parsedValue.startsWith(radioPrefix.slice(0, 2))) {
         this.fields.value = '';
       }
       this.setState({
@@ -73,7 +74,8 @@ export const handleRadioPrefix = function (this: Modal) {
       return;
     }
     this.fields.radioPrefix = '';
-    if (radioPrefix?.length > 0 && value.startsWith(radioPrefix.slice(0, 2))) {
+    let parsedValue = value.startsWith('.') ? value.replace('.', ':') : value;
+    if (radioPrefix?.length > 0 && parsedValue.startsWith(radioPrefix.slice(0, 2))) {
       this.fields.value = value.slice(2);
     }
     this.setState({
