@@ -228,6 +228,12 @@
 	sac_target.do_jitter_animation(100)
 	log_combat(heretic_mind.current, sac_target, "sacrificed")
 
+	if(sac_target.legcuffed)
+		sac_target.legcuffed.forceMove(sac_target.drop_location())
+		sac_target.legcuffed.dropped(sac_target)
+		sac_target.legcuffed = null
+		sac_target.update_inv_legcuffed()
+
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 100), SACRIFICE_SLEEP_DURATION * (1/3))
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 100), SACRIFICE_SLEEP_DURATION * (2/3))
 
