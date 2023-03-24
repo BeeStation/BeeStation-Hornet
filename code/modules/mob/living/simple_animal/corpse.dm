@@ -204,22 +204,6 @@
 	id = /obj/item/card/id
 	glasses = /obj/item/clothing/glasses/hud/health
 
-/obj/effect/mob_spawn/human/corpse/bee_terrorist
-	name = "BLF Operative"
-	outfit = /datum/outfit/bee_terrorist
-
-/datum/outfit/bee_terrorist
-	name = "BLF Operative"
-	uniform = /obj/item/clothing/under/color/yellow
-	suit = /obj/item/clothing/suit/hooded/bee_costume
-	shoes = /obj/item/clothing/shoes/sneakers/yellow
-	gloves = /obj/item/clothing/gloves/color/yellow
-	ears = /obj/item/radio/headset
-	belt = /obj/item/storage/belt/fannypack/yellow/bee_terrorist
-	id = /obj/item/card/id
-	l_pocket = /obj/item/paper/fluff/bee_objectives
-	mask = /obj/item/clothing/mask/rat/bee
-
 /obj/effect/mob_spawn/human/corpse/sniper
 	name = "Sniper"
 	outfit = /datum/outfit/sniper

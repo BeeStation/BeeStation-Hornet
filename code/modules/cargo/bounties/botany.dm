@@ -67,7 +67,7 @@
 	multiplier = 4 //hush money
 	bonus_desc = "Do not mention this shipment to security."
 	foodtype = "batch of \"muffins\""
-	
+
 /datum/bounty/item/botany/cannabis_white
 	name = "Lifeweed Leaves"
 	wanted_types = list(/obj/item/reagent_containers/food/snacks/grown/cannabis/white)
@@ -137,12 +137,6 @@
 	wanted_types = list(/obj/item/reagent_containers/food/snacks/grown/shell/eggy)
 	bonus_desc = "Not to be confused with eggplants."
 	multiplier = 2
-
-/datum/bounty/item/botany/kudzu
-	name = "Kudzu Pods"
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/grown/kudzupod)
-	bonus_desc = "Store in a dry, dark place."
-	multiplier = 4
 
 /datum/bounty/item/botany/watermelon
 	name = "Watermelons"
