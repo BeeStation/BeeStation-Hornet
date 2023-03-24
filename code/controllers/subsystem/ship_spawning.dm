@@ -20,6 +20,9 @@ SUBSYSTEM_DEF(ship_spawning)
 		// Create the starter ship if it isn't abstract
 		if (initial(type.spawned_template))
 			starter_ships += new template()
+	// Spawn this thing when we need
+	addtimer(CALLBACK(src, PROC_REF(spawn_nuclear_ship)), 30 MINUTES)
+	//spawn_nuclear_ship()
 
 /datum/controller/subsystem/ship_spawning/proc/get_lobby(lobby_id)
 	for (var/datum/ship_lobby/lobby in game_lobbies)
@@ -53,3 +56,10 @@ SUBSYSTEM_DEF(ship_spawning)
 		return start
 	// Could not locate a valid spawn point
 	return null
+
+/datum/controller/subsystem/ship_spawning/proc/spawn_nuclear_ship()
+	priority_announce("An ship owned by an unknown party suspected of carrying a nuclear weapon arming key has crashed on the surface of lavaland. Nanotrasen officials are scrambling to recover the nuclear authentication key before Syndicate terrorists can aquire this disk-like object.", "BREAKING NEWS")
+	var/datum/map_template/nuke_ship/nuke_ship = new()
+	var/lavaland_z = SSmapping.levels_by_trait(ZTRAIT_MINING)
+	var/turf/crash_turf = locate(128, 128, lavaland_z[1])
+	nuke_ship.load(crash_turf, TRUE)
