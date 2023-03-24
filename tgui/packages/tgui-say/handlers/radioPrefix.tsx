@@ -15,13 +15,20 @@ export const handleRadioPrefix = function (this: Modal) {
     return;
   }
   if (!value || value.length < 1) {
-    if (showRadioPrefix && radioPrefix === ';') {
+    if (showRadioPrefix && radioPrefix.length > 0) {
       this.fields.radioPrefix = '';
-      this.setState({
-        buttonContent: CHANNELS[0],
-        channel: 0,
-        edited: true,
-      });
+      if (radioPrefix === ';') {
+        this.setState({
+          buttonContent: CHANNELS[0],
+          channel: 0,
+          edited: true,
+        });
+      } else {
+        this.setState({
+          buttonContent: CHANNELS[channel],
+          edited: true,
+        });
+      }
     }
     return;
   }
