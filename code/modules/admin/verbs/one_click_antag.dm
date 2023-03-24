@@ -112,32 +112,6 @@
 	return FALSE
 
 /datum/admins/proc/makeRevs(maxCount = 3)
-
-	var/datum/game_mode/revolution/temp = new
-	if(CONFIG_GET(flag/protect_roles_from_antagonist))
-		temp.restricted_jobs += temp.protected_jobs
-
-	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		temp.restricted_jobs += JOB_NAME_ASSISTANT
-
-	var/list/mob/living/carbon/human/candidates = list()
-	var/mob/living/carbon/human/H = null
-
-	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
-		if(isReadytoRumble(applicant, ROLE_REV))
-			if(temp.age_check(applicant.client))
-				if(!(applicant.job in temp.restricted_jobs))
-					candidates += applicant
-
-	if(candidates.len)
-		var/numRevs = min(candidates.len, maxCount)
-
-		for(var/i = 0, i<numRevs, i++)
-			H = pick(candidates)
-			H.mind.make_Rev()
-			candidates.Remove(H)
-		return TRUE
-
 	return FALSE
 
 /datum/admins/proc/makeWizard()
@@ -231,16 +205,10 @@
 
 
 /datum/admins/proc/makeAliens()
-	var/datum/round_event/ghost_role/alien_infestation/E = new(FALSE)
-	E.spawncount = 3
-	// TODO The fact we have to do this rather than just have events start
-	// when we ask them to, is bad.
-	E.processing = TRUE
-	return TRUE
+	return FALSE
 
 /datum/admins/proc/makeSpaceNinja()
-	new /datum/round_event/ghost_role/ninja()
-	return 1
+	return FALSE
 
 // DEATH SQUADS
 /datum/admins/proc/makeDeathsquad()
@@ -424,9 +392,7 @@
 
 //Abductors
 /datum/admins/proc/makeAbductorTeam()
-	new /datum/round_event/ghost_role/abductor
-	return 1
+	return FALSE
 
 /datum/admins/proc/makeRevenant()
-	new /datum/round_event/ghost_role/revenant(TRUE, TRUE)
-	return 1
+	return FALSE

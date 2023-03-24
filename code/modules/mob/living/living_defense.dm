@@ -321,7 +321,7 @@
 			return TRUE
 
 /mob/living/ex_act(severity, target, origin)
-	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
+	if(origin)
 		return
 	..()
 

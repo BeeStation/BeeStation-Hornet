@@ -151,28 +151,3 @@
 		if(!(obj_flags & EMAGGED) && space_los(M))
 			Beam(get_turf(M),icon_state="sat_beam",time=5,maxdistance=kill_range)
 			qdel(M)
-
-/obj/machinery/satellite/meteor_shield/toggle(user)
-	if(!..(user))
-		return FALSE
-	if(obj_flags & EMAGGED)
-		if(active)
-			change_meteor_chance(2)
-		else
-			change_meteor_chance(0.5)
-
-/obj/machinery/satellite/meteor_shield/proc/change_meteor_chance(mod)
-	var/datum/round_event_control/E = locate(/datum/round_event_control/meteor_wave) in SSevents.control
-	if(E)
-		E.weight *= mod
-
-/obj/machinery/satellite/meteor_shield/Destroy()
-	. = ..()
-	if(active && (obj_flags & EMAGGED))
-		change_meteor_chance(0.5)
-
-/obj/machinery/satellite/meteor_shield/on_emag(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>You access the satellite's debug mode, increasing the chance of meteor strikes.</span>")
-	if(active)
-		change_meteor_chance(2)

@@ -1097,7 +1097,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		ADMIN_PUNISHMENT_LIGHTNING,
 		ADMIN_PUNISHMENT_PACIFISM,
 		ADMIN_PUNISHMENT_PUZZLE,
-		ADMIN_PUNISHMENT_ROD,
 		ADMIN_PUNISHMENT_SLEEP,
 		ADMIN_PUNISHMENT_SUPPLYPOD,
 		ADMIN_PUNISHMENT_SUPPLYPOD_QUICK,
@@ -1235,13 +1234,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if(!puzzle_imprison(target))
 				to_chat(usr,"<span class='warning'>Imprisonment failed!</span>")
 				return
-
-		if(ADMIN_PUNISHMENT_ROD)
-			var/turf/T = get_turf(target)
-			var/startside = pick(GLOB.cardinals)
-			var/turf/startT = spaceDebrisStartLoc(startside, T.z)
-			var/turf/endT = spaceDebrisFinishLoc(startside, T.z)
-			new /obj/effect/immovablerod(startT, endT,target)
 
 		if(ADMIN_PUNISHMENT_SLEEP)
 			target.visible_message("<span class='danger'>[target] faints in fear!</span>", "<span class='userdanger'>You inexplicably faint!</span>")

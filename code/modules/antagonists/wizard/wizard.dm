@@ -224,32 +224,6 @@
 			owner.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock(null))
 			owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/mind_transfer(null))
 			to_chat(owner, "<b>Your service has not gone unrewarded, however. Studying under [master.current.real_name], you have learned stealthy, robeless spells. You are able to cast knock and mindswap.</b>")
-		if(APPRENTICE_WILDMAGIC)
-			var/static/list/spell_entry
-			if(!spell_entry)
-				spell_entry = list()
-				for(var/datum/spellbook_entry/each_entry as() in subtypesof(/datum/spellbook_entry)-typesof(/datum/spellbook_entry/item)-typesof(/datum/spellbook_entry/summon))
-					spell_entry += new each_entry
-
-			var/spells_left = 2
-			while(spells_left)
-				var/failsafe = FALSE
-				var/datum/spellbook_entry/chosen_spell = pick(spell_entry)
-				if(chosen_spell.no_random)
-					continue
-				for(var/obj/effect/proc_holder/spell/my_spell in owner.spell_list)
-					if(chosen_spell.spell_type == my_spell.type) // You don't learn the same spell
-						failsafe = TRUE
-						break
-					if(is_type_in_typecache(my_spell.type, chosen_spell.no_coexistence_typecache)) // You don't learn a spell that isn't compatible with another
-						failsafe = TRUE
-						break
-				if(failsafe)
-					continue
-				var/obj/effect/proc_holder/spell/new_spell = chosen_spell.spell_type
-				owner.AddSpell(new new_spell(null))
-				spells_left--
-			to_chat(owner, "<b>Your service has not gone unrewarded, however. Studying under [master.current.real_name], you have learned special spells that aren't available to standard apprentices.</b>")
 
 /datum/antagonist/wizard/apprentice/create_objectives()
 	var/datum/objective/protect/new_objective = new /datum/objective/protect

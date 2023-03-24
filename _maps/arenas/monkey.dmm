@@ -20,26 +20,21 @@
 /area/tdome/arena)
 "f" = (
 /obj/structure/flora/tree/jungle/small,
-/obj/structure/spacevine,
 /turf/open/floor/grass,
 /area/tdome/arena)
 "g" = (
 /obj/structure/flora/ausbushes/sunnybush,
-/obj/structure/spacevine,
 /turf/open/floor/grass,
 /area/tdome/arena)
 "h" = (
-/obj/structure/spacevine,
 /turf/open/floor/grass,
 /area/tdome/arena)
 "i" = (
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/spacevine,
 /turf/open/floor/grass,
 /area/tdome/arena)
 "k" = (
 /obj/structure/flora/ausbushes/fernybush,
-/obj/structure/spacevine,
 /turf/open/floor/grass,
 /area/tdome/arena)
 "l" = (

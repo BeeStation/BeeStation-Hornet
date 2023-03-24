@@ -765,7 +765,6 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		/obj/item/implanter,
 		/obj/item/disk/nuclear,
 		/obj/item/projectile,
-		/obj/item/spellbook,
 		/obj/item/dice/d20/fate
 	))
 

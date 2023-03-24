@@ -57,45 +57,6 @@
 #define ROLE_NIGHTMARE			"Nightmare"
 #define ROLE_SPACE_PIRATE		"Space Pirate"
 
-//Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
-//The gamemode specific ones are just so the gamemodes can query whether a player is old enough
-//(in game days played) to play that role
-GLOBAL_LIST_INIT(special_roles, list(
-	ROLE_TRAITOR = /datum/game_mode/traitor,
-	ROLE_BROTHER = /datum/game_mode/traitor/bros,
-	ROLE_INCURSION = /datum/game_mode/incursion,
-	ROLE_EXCOMM = /datum/game_mode/incursion,
-	ROLE_OPERATIVE = /datum/game_mode/nuclear,
-	ROLE_CHANGELING = /datum/game_mode/changeling,
-	ROLE_WIZARD = /datum/game_mode/wizard,
-	ROLE_MALF,
-	ROLE_REV = /datum/game_mode/revolution,
-	ROLE_ALIEN,
-	ROLE_SPIDER,
-	ROLE_PAI,
-	ROLE_CULTIST = /datum/game_mode/cult,
-	ROLE_SERVANT_OF_RATVAR = /datum/game_mode/clockcult,
-	ROLE_BLOB,
-	ROLE_NINJA,
-	ROLE_OBSESSED,
-	ROLE_SPACE_DRAGON,
-	ROLE_REVENANT,
-	ROLE_ABDUCTOR,
-	ROLE_DEVIL = /datum/game_mode/devil,
-	ROLE_OVERTHROW = /datum/game_mode/overthrow,
-	ROLE_HIVE = /datum/game_mode/hivemind,
-	ROLE_INTERNAL_AFFAIRS = /datum/game_mode/traitor/internal_affairs,
-	ROLE_SENTIENCE,
-	ROLE_GANG = /datum/game_mode/gang,
-	ROLE_HOLOPARASITE,
-	ROLE_HERETIC = /datum/game_mode/heretics,
-	ROLE_TERATOMA,
-	ROLE_MORPH,
-	ROLE_NIGHTMARE,
-	ROLE_SWARMER,
-	ROLE_SPACE_PIRATE,
-))
-
 //Job defines for what happens when you fail to qualify for any job during job selection
 #define BEOVERFLOW 	1
 #define BERANDOMJOB 	2

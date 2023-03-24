@@ -97,8 +97,8 @@
 	data["away"] = SSshuttle.supply.getDockedId() == "supply_away"
 	data["self_paid"] = self_paid
 	data["docked"] = SSshuttle.supply.mode == SHUTTLE_IDLE
-	data["loan"] = !!SSshuttle.shuttle_loan
-	data["loan_dispatched"] = SSshuttle.shuttle_loan && SSshuttle.shuttle_loan.dispatched
+	data["loan"] = FALSE
+	data["loan_dispatched"] = FALSE
 	data["can_send"] = FALSE	//There is no situation where I want the app to be able to send the shuttle AWAY from the station, but conversely is fine.
 	data["can_approve_requests"] = can_approve_requests
 	data["app_cost"] = TRUE
@@ -153,22 +153,6 @@
 				computer.say("The supply shuttle has been called and will arrive in [SSshuttle.supply.timeLeft(600)] minutes.")
 				SSshuttle.moveShuttle("supply", "supply_home", TRUE)
 			. = TRUE
-		if("loan")
-			if(!SSshuttle.shuttle_loan)
-				return
-			if(SSshuttle.supplyBlocked)
-				computer.say(blockade_warning)
-				return
-			else if(SSshuttle.supply.mode != SHUTTLE_IDLE)
-				return
-			else if(SSshuttle.supply.getDockedId() != "supply_away")
-				return
-			else
-				SSshuttle.shuttle_loan.loan_shuttle()
-				computer.say("The supply shuttle has been loaned to CentCom.")
-				computer.investigate_log("[key_name(usr)] accepted a shuttle loan event.", INVESTIGATE_CARGO)
-				log_game("[key_name(usr)] accepted a shuttle loan event.")
-				. = TRUE
 		if("add")
 			var/id = text2path(params["id"])
 			var/datum/supply_pack/pack = SSsupply.supply_packs[id]

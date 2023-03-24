@@ -130,7 +130,7 @@
 	return BULLET_ACT_HIT
 
 /mob/living/simple_animal/ex_act(severity, target, origin)
-	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
+	if(origin)
 		return
 	..()
 	if(QDELETED(src))

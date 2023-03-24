@@ -215,10 +215,6 @@
 			return FALSE
 		if(FLASH_USE_BURNOUT)
 			burn_out()
-	if(is_head_revolutionary(user) && !burnt_out)
-		//Flash will drain to a minimum of 1 charge when used by a head rev.
-		if(bulb.charges_left < rand(2, initial(bulb.charges_left) - 1))
-			bulb.charges_left ++
 	last_trigger = world.time
 	playsound(src, 'sound/weapons/flash.ogg', 100, TRUE)
 	set_light_on(TRUE)
@@ -246,7 +242,6 @@
 		//No flash protection, blind and stun
 		if(M.flash_act(1, TRUE))
 			if(user)
-				terrible_conversion_proc(M, user)
 				visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
 				to_chat(user, "<span class='danger'>You blind [M] with the flash!</span>")
 				to_chat(M, "<span class='userdanger'>[user] blinds you with the flash!</span>")
@@ -320,21 +315,6 @@
 	if(!..())
 		return
 	AOE_flash()
-
-/obj/item/assembly/flash/proc/terrible_conversion_proc(mob/living/carbon/H, mob/user)
-	if(istype(H) && H.stat != DEAD)
-		if(user.mind)
-			var/datum/antagonist/rev/head/converter = user.mind.has_antag_datum(/datum/antagonist/rev/head)
-			if(!converter)
-				return
-			if(!H.client)
-				to_chat(user, "<span class='warning'>This mind is so vacant that it is not susceptible to influence!</span>")
-				return
-			if(H.stat != CONSCIOUS)
-				to_chat(user, "<span class='warning'>They must be conscious before you can convert [H.p_them()]!</span>")
-				return
-			if(!converter.add_revolutionary(H.mind))
-				to_chat(user, "<span class='warning'>This mind seems resistant to the flash!</span>")
 
 
 /obj/item/assembly/flash/cyborg

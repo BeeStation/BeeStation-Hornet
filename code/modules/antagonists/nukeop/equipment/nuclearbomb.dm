@@ -574,8 +574,6 @@
 		disarm()
 		return
 	if(is_station_level(bomb_location.z))
-		var/datum/round_event_control/beer_clog/beer_event = new()
-		beer_event.runEvent()
 		addtimer(CALLBACK(src, PROC_REF(really_actually_explode)), 110)
 	else
 		visible_message("<span class='notice'>[src] fizzes ominously.</span>")
@@ -667,48 +665,12 @@ This is here to make the tiles around the station mininuke change when it's arme
 	if(!fake)
 		GLOB.poi_list |= src
 		last_disk_move = world.time
-		START_PROCESSING(SSobj, src)
 
 /obj/item/disk/nuclear/ComponentInitialize()
 	. = ..()
 	if(!fake)
 		//Global teamfinder signal trackable on the synd frequency.
 		AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#ebeca1", TRUE, TRUE)
-
-/obj/item/disk/nuclear/process()
-	++process_tick
-	if(fake)
-		STOP_PROCESSING(SSobj, src)
-		CRASH("A fake nuke disk tried to call process(). Who the fuck and how the fuck")
-	var/turf/newturf = get_turf(src)
-	if(newturf && lastlocation == newturf)
-		/// How comfy is our disk?
-		var/disk_comfort_level = 0
-
-		//Go through and check for items that make disk comfy
-		for(var/comfort_item in loc)
-			if(istype(comfort_item, /obj/item/bedsheet) || istype(comfort_item, /obj/structure/bed))
-				disk_comfort_level++
-
-		if(COOLDOWN_FINISHED(src, weight_increase_cooldown) && last_disk_move < world.time - (5 MINUTES) && world.time > (30 MINUTES))
-			var/datum/round_event_control/operative/loneop = locate(/datum/round_event_control/operative) in SSevents.control
-			if(istype(loneop) && loneop.occurrences < loneop.max_occurrences)
-				loneop.weight += 5
-				COOLDOWN_START(src, weight_increase_cooldown, (5 MINUTES))
-				message_admins("[src] is stationary in [ADMIN_VERBOSEJMP(newturf)]. The weight of Lone Operative is now [loneop.weight].")
-				log_game("[src] is stationary for too long in [loc_name(newturf)], and has increased the weight of the Lone Operative event to [loneop.weight].")
-				if(disk_comfort_level >= 2 && (process_tick % 30) == 0)
-					visible_message("<span class='notice'>[src] sleeps soundly. Sleep tight, disky.</span>")
-
-	else
-		lastlocation = newturf
-		last_disk_move = world.time
-		var/datum/round_event_control/operative/loneop = locate(/datum/round_event_control/operative) in SSevents.control
-		if(istype(loneop) && loneop.occurrences < loneop.max_occurrences && prob(loneop.weight))
-			loneop.weight = max(loneop.weight - 1, 0)
-			if(loneop.weight % 5 == 0 && SSticker.totalPlayers > 1)
-				message_admins("[src] is on the move (currently in [ADMIN_VERBOSEJMP(newturf)]). The weight of Lone Operative is now [loneop.weight].")
-			log_game("[src] being on the move has reduced the weight of the Lone Operative event to [loneop.weight].")
 
 /obj/item/disk/nuclear/examine(mob/user)
 	. = ..()

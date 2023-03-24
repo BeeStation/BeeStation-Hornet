@@ -116,9 +116,8 @@
 
 /datum/nanite_program/mindshield/enable_passive_effect()
 	. = ..()
-	if(!host_mob.mind.has_antag_datum(/datum/antagonist/rev, TRUE)) //won't work if on a rev, to avoid having implanted revs.
-		ADD_TRAIT(host_mob, TRAIT_MINDSHIELD, "nanites")
-		host_mob.sec_hud_set_implants()
+	ADD_TRAIT(host_mob, TRAIT_MINDSHIELD, "nanites")
+	host_mob.sec_hud_set_implants()
 
 /datum/nanite_program/mindshield/disable_passive_effect()
 	. = ..()

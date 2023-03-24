@@ -404,10 +404,6 @@
 					mob.reagents.add_reagent(/datum/reagent/toxin/plasma, 5)
 		else
 			mob.adjustToxLoss(5)
-	for(var/obj/structure/spacevine/vine in T) //Fucking with botanists, the ability.
-		vine.add_atom_colour("#823abb", TEMPORARY_COLOUR_PRIORITY)
-		new /obj/effect/temp_visual/revenant(vine.loc)
-		QDEL_IN(vine, 10)
 	for(var/obj/structure/glowshroom/shroom in T)
 		shroom.add_atom_colour("#823abb", TEMPORARY_COLOUR_PRIORITY)
 		new /obj/effect/temp_visual/revenant(shroom.loc)

@@ -76,7 +76,6 @@
 #define ADMIN_PUNISHMENT_NUGGET "Nugget"
 #define ADMIN_PUNISHMENT_PACIFISM "Force Pacifism"
 #define ADMIN_PUNISHMENT_PUZZLE "Puzzle"
-#define ADMIN_PUNISHMENT_ROD "Immovable Rod"
 #define ADMIN_PUNISHMENT_SLEEP "Force Sleep"
 #define ADMIN_PUNISHMENT_STALKER "Give Stalker Trauma"
 #define ADMIN_PUNISHMENT_SUPPLYPOD "Supply Pod"

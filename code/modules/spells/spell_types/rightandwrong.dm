@@ -95,7 +95,6 @@ GLOBAL_LIST_INIT(summoned_magic_objectives, list(
 	/obj/item/melee/ghost_sword,
 	/obj/item/necromantic_stone,
 	/obj/item/scrying,
-	/obj/item/spellbook,
 	/obj/item/storage/belt/wands/full,
 	/obj/item/voodoo,
 	/obj/item/warpwhistle,

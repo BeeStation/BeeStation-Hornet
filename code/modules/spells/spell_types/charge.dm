@@ -33,11 +33,7 @@
 			charged_item = M
 			break
 		for(var/obj/item in hand_items)
-			if(istype(item, /obj/item/spellbook))
-				to_chat(L, "<span class='danger'>Glowing red letters appear on the front cover...</span>")
-				to_chat(L, "<span class='warning'>[pick("NICE TRY BUT NO!","CLEVER BUT NOT CLEVER ENOUGH!", "SUCH FLAGRANT CHEESING IS WHY WE ACCEPTED YOUR APPLICATION!", "CUTE! VERY CUTE!", "YOU DIDN'T THINK IT'D BE THAT EASY, DID YOU?")]</span>")
-				burnt_out = TRUE
-			else if(istype(item, /obj/item/book/granter/spell))
+			if(istype(item, /obj/item/book/granter/spell))
 				var/obj/item/book/granter/spell/I = item
 				if(!I.oneuse)
 					to_chat(L, "<span class='notice'>This book is infinite use and can't be recharged, yet the magic has improved the book somehow...</span>")

@@ -57,7 +57,6 @@
 #include "create_and_destroy.dm"
 #endif
 
-#include "dynamic_ruleset_sanity.dm"
 #include "enumerables.dm"
 #include "keybinding_init.dm"
 #include "reagent_id_typos.dm"

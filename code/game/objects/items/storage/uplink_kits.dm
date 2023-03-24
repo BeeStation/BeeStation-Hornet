@@ -182,15 +182,6 @@
 			new /obj/item/gun/energy/wormhole_projector(src) //mooorttyyyy
 			new /obj/item/gun/energy/decloner/unrestricted(src)
 
-		if("bee")
-			new /obj/item/paper/fluff/bee_objectives(src) // 0 tc (motivation)
-			new /obj/item/clothing/suit/hooded/bee_costume/syndie(src) // 0 tc
-			new /obj/item/clothing/mask/rat/bee(src) // 0 tc
-			new /obj/item/storage/belt/fannypack/yellow(src) // 0 tc
-			new /obj/item/storage/box/syndie_kit/bee_grenades(src) // 15 tc
-			new /obj/item/reagent_containers/glass/bottle/beesease(src) // 10 tc?
-			new /obj/item/gun/chem/bee(src) //priceless
-
 		if("mr_freeze")
 			new /obj/item/clothing/glasses/cold(src)
 			new /obj/item/clothing/gloves/color/black(src)

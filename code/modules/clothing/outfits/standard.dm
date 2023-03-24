@@ -324,18 +324,9 @@
 	ears = /obj/item/radio/headset
 	head = /obj/item/clothing/head/wizard
 	r_pocket = /obj/item/teleportation_scroll
-	r_hand = /obj/item/spellbook
 	l_hand = /obj/item/staff
 	back = /obj/item/storage/backpack
 	backpack_contents = list(/obj/item/storage/box=1)
-
-/datum/outfit/wizard/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
-		return
-
-	var/obj/item/spellbook/S = locate() in H.held_items
-	if(S)
-		S.owner = H
 
 /datum/outfit/wizard/apprentice
 	name = "Wizard Apprentice"
