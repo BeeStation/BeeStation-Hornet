@@ -127,6 +127,17 @@
 		selected_atoms -= sacrificed
 		qdel(sacrificed)
 
+		if(isstack(sacrificed))
+			var/obj/item/stack/sac_stack = sacrificed
+			var/how_much_to_use = 0
+			for(var/requirement in required_atoms)
+				if(istype(sacrificed, requirement))
+					how_much_to_use = required_atoms[requirement]
+					break
+
+			sac_stack.use(how_much_to_use)
+			continue
+
 /*
  * A knowledge subtype that grants the heretic a certain spell.
  */
@@ -208,7 +219,7 @@
 			compiled_list[human_to_check.real_name] = human_to_check
 
 	if(!length(compiled_list))
-		loc.balloon_alert(user, "No fingerprints found")
+		loc.balloon_alert(user, "Ritual failed, no fingerprints found")
 		return FALSE
 
 	var/chosen_mob = input(user, "Select the person you wish to curse", "Eldritch Curse") as null|anything in sortNames(compiled_list)
@@ -217,7 +228,7 @@
 
 	var/mob/living/carbon/human/to_curse = compiled_list[chosen_mob]
 	if(QDELETED(to_curse))
-		loc.balloon_alert(user, "Invalid choice")
+		loc.balloon_alert(user, "Ritual failed, invalid choice")
 		return FALSE
 
 	log_combat(user, to_curse, "cursed via heretic ritual", addition = "([name])")
