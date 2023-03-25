@@ -52,6 +52,6 @@
 	heavy_damage_factor = 9
 
 /obj/item/projectile/bullet/shuttle/ballistic/bullet/heavy/prehit_pierce(atom/A)
-	if (prob(70))
+	if (prob(70) && isturf(A))
 		return PROJECTILE_PIERCE_PHASE
 	return ..()
