@@ -33,7 +33,16 @@
 /turf/closed/wall,
 /area/science)
 "o" = (
-/obj/structure/closet/syndicate/resources/everything,
+/turf/open/floor/engine,
+/area/science)
+"s" = (
+/obj/machinery/computer/rdconsole{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/science)
+"t" = (
+/obj/machinery/rnd/production/circuit_imprinter,
 /turf/open/floor/plasteel,
 /area/science)
 "z" = (
@@ -44,6 +53,12 @@
 	},
 /turf/open/space/basic,
 /area/space)
+"D" = (
+/obj/machinery/computer/cargo/express{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/science)
 "E" = (
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
@@ -59,6 +74,10 @@
 /area/science)
 "J" = (
 /obj/machinery/modular_fabricator/autolathe,
+/turf/open/floor/plasteel,
+/area/science)
+"M" = (
+/obj/machinery/mineral/ore_redemption,
 /turf/open/floor/plasteel,
 /area/science)
 "N" = (
@@ -26686,11 +26705,11 @@ a
 a
 a
 k
-c
-c
-c
-c
-c
+o
+o
+o
+o
+o
 k
 a
 a
@@ -26942,13 +26961,13 @@ a
 a
 a
 a
-k
-c
-c
-c
-c
-c
-k
+F
+o
+o
+o
+o
+o
+F
 a
 a
 a
@@ -27199,13 +27218,13 @@ a
 a
 a
 a
-k
-c
-c
-c
-c
-U
-k
+F
+o
+o
+o
+o
+o
+F
 a
 a
 a
@@ -27456,13 +27475,13 @@ a
 a
 a
 a
-k
-c
-c
-c
-c
-c
-k
+F
+o
+o
+o
+o
+o
+F
 a
 a
 a
@@ -27714,11 +27733,11 @@ a
 a
 a
 k
-d
-c
-c
-c
-c
+o
+o
+o
+o
+o
 k
 a
 a
@@ -27973,7 +27992,7 @@ a
 k
 c
 c
-c
+D
 c
 c
 k
@@ -29003,7 +29022,7 @@ d
 c
 c
 c
-c
+s
 k
 a
 a
@@ -29260,7 +29279,7 @@ c
 c
 c
 c
-c
+t
 k
 a
 a
@@ -29772,7 +29791,7 @@ F
 k
 f
 i
-o
+c
 c
 U
 k
@@ -30286,7 +30305,7 @@ F
 k
 d
 c
-o
+c
 c
 c
 k
@@ -30802,7 +30821,7 @@ c
 c
 c
 c
-c
+M
 k
 a
 a
