@@ -3,6 +3,7 @@
 	desc = "An ammunition loader for shuttle mounted weaponry. Can be connected to a single mounted weapon with a multitool."
 	icon = 'icons/obj/shuttle_32x64.dmi'
 	icon_state = "ammo_loader"
+	density = TRUE
 	/// The amount of slots this loader has for ammunition crates
 	var/slots = 2
 	/// The weapon attached to us

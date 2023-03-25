@@ -370,6 +370,7 @@
 	design_ids = list("shuttle_laser", "computer_weapons")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 	export_price = 5000
+	starting_node = TRUE
 
 /datum/techweb_node/shuttle_weapons_lasers
 	id = "shuttle_lasers"
@@ -394,7 +395,7 @@
 	display_name = "Mounted Missile Launchers"
 	description = "Research into mounting missiles onto the side of moving things."
 	prereq_ids = list("shuttle_weapons", "adv_weaponry")
-	design_ids = list("shuttle_missile")
+	design_ids = list("shuttle_missile", "loader_missile")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
@@ -403,7 +404,7 @@
 	display_name = "Shuttle Mounted Ballistics"
 	description = "Research into simple, yet effective ballistic weapons for shuttles."
 	prereq_ids = list("shuttle_weapons")
-	design_ids = list("shuttle_point_defense", "shuttle_scatter_shot")
+	design_ids = list("shuttle_point_defense", "shuttle_scatter_shot", "loader_ballistic")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
@@ -412,7 +413,7 @@
 	display_name = "Shuttle Mounted Railguns"
 	description = "Combines the power of electromagnetism with the destructive power of iron, creating shuttle-mounted weapons capable of tearing through ships."
 	prereq_ids = list("shuttle_ballistics_better", "emp_super")
-	design_ids = list("shuttle_railgun")
+	design_ids = list("shuttle_railgun", "loader_railgun")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
 
