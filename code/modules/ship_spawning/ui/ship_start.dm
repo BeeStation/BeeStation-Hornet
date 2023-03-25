@@ -30,6 +30,8 @@
 		src.state = STATE_INITIAL
 		update_static_data(usr)
 	switch (state)
+		if (STATE_INITIAL)
+			data["is_admin"] = !!usr.client.holder
 		if (STATE_CREATE)
 			var/list/member_list = list()
 			for (var/client/C in lobby.members)
@@ -156,6 +158,13 @@
 					// Switch to the new state
 					src.state = STATE_JOIN
 					update_static_data(usr, ui)
+				if ("observe")
+					if (!usr.client.holder)
+						return FALSE
+					var/mob/dead/new_player/np = usr
+					if (!istype(np))
+						return FALSE
+					np.make_me_an_observer()
 		if (STATE_JOIN)
 			switch(action)
 				//======= Join Crew Actions =======

@@ -399,7 +399,10 @@ const JoinLobby = (props, context) => {
 };
 
 const StartMenuInitial = (props, context) => {
-  const { act } = useBackend(context);
+  const { act, data } = useBackend(context);
+  const {
+    is_admin = true,
+  } = data;
   return (
     <Window
       theme="generic"
@@ -410,27 +413,40 @@ const StartMenuInitial = (props, context) => {
         <Box width="100%" textAlign="center" fontSize="22px">Beestation Logo</Box>
         <Divider />
         <Stack vertical fill mt="10px" ml="15px" mr="15px">
-          <Stack.Item basis="25%">
+          <Stack.Item basis={is_admin ? "18%" : "25%"}>
             <Button
               content="Setup Character"
               width="100%"
+              icon="id-card-alt"
               fontSize="22px"
               onClick={() => act('setup_character')} />
           </Stack.Item>
-          <Stack.Item basis="25%">
+          <Stack.Item basis={is_admin ? "18%" : "25%"}>
             <Button
               content="Create Lobby"
               width="100%"
+              icon="user-plus"
               fontSize="22px"
               onClick={() => act('create_lobby')} />
           </Stack.Item>
-          <Stack.Item basis="25%">
+          <Stack.Item basis={is_admin ? "18%" : "25%"}>
             <Button
               content="Join Lobby"
               width="100%"
               fontSize="22px"
+              icon="users"
               onClick={() => act('join_lobby')} />
           </Stack.Item>
+          {is_admin && (
+            <Stack.Item basis={is_admin ? "18%" : "25%"}>
+              <Button
+                content="Observe"
+                icon="ghost"
+                width="100%"
+                fontSize="22px"
+                onClick={() => act('observe')} />
+            </Stack.Item>
+          )}
         </Stack>
       </Window.Content>
     </Window>
