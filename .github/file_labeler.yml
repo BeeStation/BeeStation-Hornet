@@ -1,5 +1,7 @@
 Administration:
 - code/modules/admin/**/*
+- code/**/*/logging.dm
+- code/**/*/_logging.dm
 
 Config Update:
 - config/**/*
