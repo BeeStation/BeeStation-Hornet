@@ -202,7 +202,7 @@
 		var/mob/living/carbon/human/created_character = new(selected_spawn_point)
 		player.prefs.active_character.copy_to(created_character)
 		created_character.dna.update_dna_identity()
-		// Spawmn the job role
+		// Spawn the job role
 		var/datum/job/job_instance = SSjob.GetJob(initial(desired_job.title))
 		job_instance.equip(created_character)
 		created_character.key = player.key
@@ -215,7 +215,40 @@
 	M.name = ship_name
 	// Spawn and players that weren't spawned with randomised jobs
 	// If there are literally no job slots left, spawn as an assistant
-	// TODO
+	for (var/client/player in unspawned_clients)
+		var/datum/job/desired_job = null
+		for (var/job_type in job_list)
+			desired_job = job_type
+			// Check if there are enough slots left
+			var/slots_left = job_list[desired_job]
+			if (slots_left <= 0)
+				unspawned_clients += player
+				continue
+			slots_left --
+			job_list[desired_job] = slots_left
+			break
+		if (!desired_job)
+			tgui_alert_async(player, "You were unable to be spawned!", "Could not spawn")
+			continue
+		// Spawn the player at a valid spawn point
+		var/turf/selected_spawn_point
+		if (!assoc_spawn_points[initial(desired_job.title)])
+			// Spawn at a random point
+			if (length(assoc_spawn_points))
+				selected_spawn_point = pick(pick(assoc_spawn_points))
+			else
+				// Yolospawn
+				selected_spawn_point = pick(turfs)
+		else
+			selected_spawn_point = pick(assoc_spawn_points[initial(desired_job.title)])
+		// Perform roundstart prefs loading
+		var/mob/living/carbon/human/created_character = new(selected_spawn_point)
+		player.prefs.active_character.copy_to(created_character)
+		created_character.dna.update_dna_identity()
+		// Spawn the job role
+		var/datum/job/job_instance = SSjob.GetJob(initial(desired_job.title))
+		job_instance.equip(created_character)
+		created_character.key = player.key
 	// Launch the ship into supercruise
 	// TODO: Start docked at a station?
 	//M.enter_supercruise(new /datum/orbital_vector(rand(-10000, 10000), rand(-10000, 10000)))
