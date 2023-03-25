@@ -29,6 +29,9 @@
 	// What job role each ckey wants
 	var/list/wanted_roles = list()
 
+	var/list/job_list
+	var/list/assoc_spawn_points
+
 	//=================
 	// Game Variables
 	// These variables are only relevant once
@@ -161,7 +164,7 @@
 	// players in lobbies are expected to agree on their job roles before starting
 	// this is just a failsafe for when that innevitably doesn't happen.
 	// List of job names to list of turfs
-	var/list/assoc_spawn_points = list()
+	assoc_spawn_points = list()
 	var/obj/docking_port/mobile/M
 	for(var/turf/place in turfs)
 		if (!M)
@@ -171,7 +174,7 @@
 				assoc_spawn_points[start_landmark.name] = list()
 			assoc_spawn_points[start_landmark.name] += place
 	// Keep track of the job list
-	var/list/job_list = selected_ship.job_roles.Copy()
+	job_list = selected_ship.job_roles.Copy()
 	var/list/unspawned_clients = list()
 	// Start player spawning procedures
 	for (var/client/player in members)
@@ -258,6 +261,39 @@
 	else
 		// Enter at a random location
 		M.enter_supercruise(new /datum/orbital_vector(rand(-10000, 10000), rand(-10000, 10000)))
+
+/datum/ship_lobby/proc/choose_job(client/user)
+	var/list/options = list()
+	for (var/datum/job/job_type as() in job_list)
+		var/amount_left = job_list[job_type]
+		if (amount_left)
+			options["[initial(job_type.title)] ([amount_left > 99 ? "Unlimited" : amount_left] slots)"] = job_type
+	var/selected_key = tgui_input_list(user, "Select the job to spawn as", "Select Job", options)
+	var/datum/job/selected_choice = options[selected_key]
+	if (!selected_choice)
+		return FALSE
+	// Check if there are enough slots left
+	var/slots_left = job_list[selected_choice]
+	if (slots_left <= 0)
+		return FALSE
+	slots_left --
+	job_list[selected_choice] = slots_left
+	// Spawn the player at a valid spawn point
+	var/turf/selected_spawn_point
+	if (!assoc_spawn_points[initial(selected_choice.title)])
+		// Spawn at a random point
+		selected_spawn_point = pick(pick(assoc_spawn_points))
+	else
+		selected_spawn_point = pick(assoc_spawn_points[initial(selected_choice.title)])
+	// Perform roundstart prefs loading
+	var/mob/living/carbon/human/created_character = new(selected_spawn_point)
+	user.prefs.active_character.copy_to(created_character)
+	created_character.dna.update_dna_identity()
+	// Spawn the job role
+	var/datum/job/job_instance = SSjob.GetJob(initial(selected_choice.title))
+	job_instance.equip(created_character)
+	created_character.key = user.key
+	return TRUE
 
 /datum/ship_lobby/proc/get_invalid_clients()
 	var/list/bad_clients = list()

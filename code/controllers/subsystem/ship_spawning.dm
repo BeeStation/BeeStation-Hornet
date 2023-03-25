@@ -34,6 +34,8 @@ SUBSYSTEM_DEF(ship_spawning)
 		if (lobby.lobby_id == lobby_id)
 			if (!lobby.can_join(C))
 				return null
+			if (lobby.lobby_state == LOBBY_GAME && !lobby.choose_job(C))
+				return null
 			lobby.member_join(C)
 			return lobby
 

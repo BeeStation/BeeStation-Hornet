@@ -181,9 +181,6 @@
 							// Change to the create state, so we can see the state of the lobby
 							src.state = STATE_CREATE
 							update_static_data(usr, ui)
-						else
-							// Join the game as a job
-							tgui_alert(usr, "Select job (Not implemented)", "Select job")
 					else
 						tgui_alert(usr, "Failed to join requested lobby, the lobby may be private or deleted.", "Join Failed")
 		if (STATE_CREATE)
