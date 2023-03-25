@@ -1,0 +1,7 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added pixelshifting to items that get mass dumped out of a storage item
+  - tweak: ghosts no longer cause the 'squash' storage animation when opening or closing
+      storage items
+  - tweak: plant pots no longer 'squash' when you put items inside of them
