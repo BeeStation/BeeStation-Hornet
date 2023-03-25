@@ -3,7 +3,7 @@
 /obj/machinery/shuttle_weapon/point_defense
 	name = "Hades MKI Chaincannon"
 	frame_type = /obj/item/wallframe/shuttle_weapon/point_defense
-	//projectile_type = /obj/item/projectile/bullet/shuttle/ballistic/point_defense
+	//projectile_type = /obj/item/projectile/bullet/shuttle/ballistic/bullet
 	cooldown = 80
 	innaccuracy = 3
 	shots = 8
@@ -37,7 +37,7 @@
 /obj/machinery/shuttle_weapon/scatter
 	name = "Ares Scattershot"
 	frame_type = /obj/item/wallframe/shuttle_weapon/scatter
-	//projectile_type = /obj/item/projectile/bullet/shuttle/ballistic/point_defense
+	//projectile_type = /obj/item/projectile/bullet/shuttle/ballistic/bullet
 	cooldown = 90
 	simultaneous_shots = 8
 	miss_chance = 40

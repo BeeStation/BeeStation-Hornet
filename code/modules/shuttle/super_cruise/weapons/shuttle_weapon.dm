@@ -200,8 +200,10 @@
 /obj/machinery/shuttle_weapon/proc/try_link_to(mob/user, obj/machinery/ammo_loader/loader)
 	if (loader.type != ammo_loader_type)
 		var/obj/machinery/ammo_loader/loader_type = ammo_loader_type
-		to_chat(user, "<span class='notice'>You cannot connect [src] to [loader], it can only connect to [initial(loader_type.name)].</span>")
+		if (user)
+			to_chat(user, "<span class='notice'>You cannot connect [src] to [loader], it can only connect to [initial(loader_type.name)].</span>")
 		return
 	loader.attached_weapon = src
 	ammunition_loader = loader
-	to_chat(user, "<span class='notice'>You connect [src] to [loader]!</span>")
+	if (user)
+		to_chat(user, "<span class='notice'>You connect [src] to [loader]!</span>")

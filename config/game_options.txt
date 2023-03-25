@@ -99,7 +99,7 @@ NO_INTERCEPT_REPORT
 ## Default probablity is 1, increase to make that mode more likely to be picked.
 ## Set to 0 to disable that mode.
 
-PROBABILITY DYNAMIC 1
+PROBABILITY DYNAMIC 0
 PROBABILITY TRAITOR 0
 PROBABILITY CULT 0
 PROBABILITY TRAITORCHAN 0
@@ -125,6 +125,7 @@ PROBABILITY EXTENDED 0
 
 ## You probably want to keep sandbox off by default for secret and random.
 PROBABILITY SANDBOX 0
+PROBABILITY EVENT 1
 
 ## Percent weight reductions for three of the most recent modes
 
@@ -500,7 +501,7 @@ ROUNDSTART_RACES plasmaman
 #ROUNDSTART_RACES adamantine_golem
 #ROUNDSTART_RACES diamond_golem
 #ROUNDSTART_RACES gold_golem
-#ROUNDSTART_RACES iron_golem
+ROUNDSTART_RACES iron_golem
 #ROUNDSTART_RACES jelly
 #ROUNDSTART_RACES plasma_golem
 #ROUNDSTART_RACES shadow
@@ -597,7 +598,7 @@ ARRIVALS_SHUTTLE_DOCK_WINDOW 55
 
 ## How many wirechewing rodents you want to spawn on exposed maintenane wires at the start of the round. You may wish to set this to 0 if you're testing powernets.
 
-MICE_ROUNDSTART 10
+MICE_ROUNDSTART 0
 
 ## If the percentage of players alive (doesn't count conversions) drops below this threshold the emergency shuttle will be forcefully called (provided it can be)
 #EMERGENCY_SHUTTLE_AUTOCALL_THRESHOLD 0.2
@@ -613,7 +614,7 @@ ROUNDSTART_TRAITS
 #DISABLE_HUMAN_MOOD
 
 ## Enable night shifts ##
-ENABLE_NIGHT_SHIFTS
+#ENABLE_NIGHT_SHIFTS
 
 ## Enable randomized shift start times##
 RANDOMIZE_SHIFT_TIME
@@ -622,7 +623,7 @@ RANDOMIZE_SHIFT_TIME
 #SHIFT_TIME_REALTIME
 
 ## Crew objectives
-ALLOW_CREW_OBJECTIVES
+#ALLOW_CREW_OBJECTIVES
 
 ## Mob spam prevention. The number of each mobtype that can be alive at once. Stops people from crashing the server with chickens/monkeycubes/slimes. Altering these values is recommended based on server hardware.
 MAX_CUBE_MONKEYS 100

@@ -15,7 +15,7 @@
 	ricochets_max = 50	//Honk!
 	ricochet_chance = 50
 	light_damage_factor = 0
-	heavy_damage_factor = 6
+	heavy_damage_factor = 3
 	var/ignore_ricochet_chance = 70
 
 /obj/item/projectile/bullet/shuttle/beam/Initialize()
@@ -31,8 +31,8 @@
 /obj/item/projectile/bullet/shuttle/beam/laser/heavy
 	damage = 65
 	light_damage_factor = 0
-	heavy_damage_factor = 4
-	devestate_damage_factor = 8
+	heavy_damage_factor = 1
+	devestate_damage_factor = 7
 
 /obj/item/ammo_casing/caseless/laser/shuttle
 	projectile_type = /obj/item/projectile/bullet/shuttle/beam/laser

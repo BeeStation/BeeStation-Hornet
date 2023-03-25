@@ -11,6 +11,25 @@
 	/// The linkup ID for auto-linking to ammo loaders
 	var/mapload_linkup_id = 0
 
+/obj/machinery/ammo_loader/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/ammo_loader/LateInitialize()
+	. = ..()
+	if (!mapload_linkup_id)
+		return
+	for (var/obj/machinery/shuttle_weapon/weapon in GLOB.machines)
+		if (weapon.ammunition_loader)
+			continue
+		if (!weapon.mapload_linkup_id)
+			continue
+		if (weapon.mapload_linkup_id != mapload_linkup_id)
+			continue
+		if (weapon.get_virtual_z_level() != get_virtual_z_level())
+			continue
+		weapon.try_link_to(null, src)
+
 /obj/machinery/ammo_loader/Destroy()
 	if (attached_weapon)
 		attached_weapon.ammunition_loader = null
@@ -73,10 +92,23 @@
 /obj/machinery/ammo_loader/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	ui_update()
+	update_appearance(UPDATE_ICON)
 
 /obj/machinery/ammo_loader/Exited(atom/movable/gone, direction)
 	. = ..()
 	ui_update()
+	update_appearance(UPDATE_ICON)
+
+/obj/machinery/ammo_loader/update_icon(updates)
+	. = ..()
+	cut_overlays()
+	var/index = 1
+	var/list/valid_icons = icon_states(icon)
+	for (var/atom/movable/thing in contents)
+		var/overlay_state = "[thing.icon_state][index]"
+		if (overlay_state in valid_icons)
+			add_overlay(icon(icon, overlay_state))
+		index ++
 
 /// Take a bullet with the desired caliber.
 /// Will return an ammo casing
@@ -117,6 +149,14 @@
 		return FALSE
 	return rail.caliber == "shuttle_railgun"
 
+/obj/item/circuitboard/machine/loader_railgun
+	name = "railgun auto-loader (Machine Board)"
+	icon_state = "security"
+	build_path = /obj/machinery/ammo_loader/railgun
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 2
+		)
+
 // ========================
 // Box Ammo Loader
 // ========================
@@ -125,11 +165,21 @@
 	name = "ballistic auto-loader"
 	desc = "An ammunition rack for loading ammo boxes into shuttle-mounted ballistic weapons. Can be connected to a single mounted weapon using a multitool."
 	slots = 2
+	icon = 'icons/obj/shuttle_weapons.dmi'
+	icon_state = "loader_box"
 
 /obj/machinery/ammo_loader/ballistic/is_accepted(obj/item/ammo_box/box)
 	if (!istype(box))
 		return FALSE
 	return box.caliber == "shuttle_chaingun" || box.caliber == "shuttle_flak"
+
+/obj/item/circuitboard/machine/loader_ballistic
+	name = "ballistic auto-loader (Machine Board)"
+	icon_state = "security"
+	build_path = /obj/machinery/ammo_loader/ballistic
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 2
+		)
 
 // ========================
 // Missile Ammo Loader
@@ -140,11 +190,21 @@
 	desc = "A missile rack auto-loader for shuttle mounted rocket pods. Can be connected to a single mounted weapon using a multitool."
 	// Holds individual missiles
 	slots = 5
+	icon = 'icons/obj/shuttle_weapons_large.dmi'
+	icon_state = "loader_missile"
 
 /obj/machinery/ammo_loader/missile/is_accepted(obj/item/ammo_casing/missile)
 	if (!istype(missile))
 		return FALSE
 	return missile.caliber == "shuttle_missile"
+
+/obj/item/circuitboard/machine/loader_missile
+	name = "missile auto-loader (Machine Board)"
+	icon_state = "security"
+	build_path = /obj/machinery/ammo_loader/missile
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 2
+		)
 
 // ========================
 // Linkup

@@ -39,9 +39,19 @@
 	slur = 50
 	knockdown = 80
 
-/obj/item/projectile/bullet/shuttle/ballistic/point_defense
-	name = "point defense round"
+/obj/item/projectile/bullet/shuttle/ballistic/bullet
+	name = "88mm round"
 	damage = 15
 	eyeblur = 0
 	light_damage_factor = 7
 	heavy_damage_factor = 10
+
+/obj/item/projectile/bullet/shuttle/ballistic/bullet/heavy
+	name = "88mm armour-peircing round"
+	light_damage_factor = 6
+	heavy_damage_factor = 9
+
+/obj/item/projectile/bullet/shuttle/ballistic/bullet/heavy/prehit_pierce(atom/A)
+	if (prob(70))
+		return PROJECTILE_PIERCE_PHASE
+	return ..()

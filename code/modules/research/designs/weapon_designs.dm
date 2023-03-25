@@ -434,6 +434,36 @@
 	category = list("Shuttle Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/board/loader_railgun
+	name = "Railgun Loader"
+	desc = "An ammunition loader for loading railgun shells."
+	id = "loader_railgun"
+	build_type = IMPRINTER
+	materials = list(/datum/material/iron = 25 * MINERAL_MATERIAL_AMOUNT, /datum/material/copper = 5 * MINERAL_MATERIAL_AMOUNT, /datum/material/diamond = 8 * MINERAL_MATERIAL_AMOUNT)
+	build_path = /obj/item/circuitboard/machine/loader_railgun
+	category = list("Shuttle Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/loader_ballistic
+	name = "Ballistic Ammo Box Loader"
+	desc = "An ammunition loader for loading ballistic ammunition boxes."
+	id = "loader_ballistic"
+	build_type = IMPRINTER
+	materials = list(/datum/material/iron = 15 * MINERAL_MATERIAL_AMOUNT, /datum/material/copper = 5 * MINERAL_MATERIAL_AMOUNT, /datum/material/gold = 5 * MINERAL_MATERIAL_AMOUNT)
+	build_path = /obj/item/circuitboard/machine/loader_ballistic
+	category = list("Shuttle Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/loader_missile
+	name = "Missile Ammo Box Loader"
+	desc = "An ammunition loader for loading missiles."
+	id = "loader_missile"
+	build_type = IMPRINTER
+	materials = list(/datum/material/iron = 20 * MINERAL_MATERIAL_AMOUNT, /datum/material/copper = 5 * MINERAL_MATERIAL_AMOUNT, /datum/material/gold = 20 * MINERAL_MATERIAL_AMOUNT)
+	build_path = /obj/item/circuitboard/machine/loader_missile
+	category = list("Shuttle Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
 /datum/design/shuttle_weapon
 	name = "Laser Cannon Mount"
 	desc = "A wall mounted laser cannon, designed for use on shuttles."

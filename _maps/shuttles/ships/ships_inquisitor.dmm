@@ -606,11 +606,11 @@
 	icon_state = "armory";
 	name = "armor locker"
 	},
-/obj/item/ammo_casing/caseless/centaur,
-/obj/item/ammo_casing/caseless/centaur,
-/obj/item/ammo_casing/caseless/centaur,
-/obj/item/ammo_casing/caseless/centaur/fire,
-/obj/item/ammo_casing/caseless/centaur/fire,
+/obj/item/ammo_casing/caseless/shuttle_missile,
+/obj/item/ammo_casing/caseless/shuttle_missile,
+/obj/item/ammo_casing/caseless/shuttle_missile,
+/obj/item/ammo_casing/caseless/shuttle_missile/fire,
+/obj/item/ammo_casing/caseless/shuttle_missile/fire,
 /turf/open/floor/plasteel/grid/steel,
 /area/shuttle/inquisitor/weapons)
 "pI" = (

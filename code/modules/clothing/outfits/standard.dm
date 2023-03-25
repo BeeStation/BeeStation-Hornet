@@ -20,7 +20,7 @@
 		/obj/item/debug/omnitool=1,\
 		/obj/item/xenoartifact_labeler/debug=1,\
 		/obj/item/debug/orb_of_power=1,\
-		/obj/item/gun/magic/staff/shuttle_missile=1
+		/obj/item/gun/magic/wand/shuttle_missile=1
 		)
 
 /datum/outfit/debug/pre_equip(mob/living/carbon/human/H, visualsOnly)
