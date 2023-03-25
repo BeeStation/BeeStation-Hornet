@@ -172,7 +172,7 @@
 		for (var/obj/effect/landmark/start/start_landmark in place)
 			if (!assoc_spawn_points[start_landmark.name])
 				assoc_spawn_points[start_landmark.name] = list()
-			assoc_spawn_points[start_landmark.name] += place
+			assoc_spawn_points[start_landmark.name] += start_landmark
 	// Keep track of the job list
 	job_list = selected_ship.job_roles.Copy()
 	var/list/unspawned_clients = list()
@@ -195,12 +195,12 @@
 		if (!assoc_spawn_points[initial(desired_job.title)])
 			// Spawn at a random point
 			if (length(assoc_spawn_points))
-				selected_spawn_point = pick(pick(assoc_spawn_points))
+				selected_spawn_point = get_turf(pick(pick(assoc_spawn_points)))
 			else
 				// Yolospawn
 				selected_spawn_point = pick(turfs)
 		else
-			selected_spawn_point = pick(assoc_spawn_points[initial(desired_job.title)])
+			selected_spawn_point = get_turf(pick(assoc_spawn_points[initial(desired_job.title)]))
 		// Perform roundstart prefs loading
 		var/mob/living/carbon/human/created_character = new(selected_spawn_point)
 		player.prefs.active_character.copy_to(created_character)
@@ -238,12 +238,12 @@
 		if (!assoc_spawn_points[initial(desired_job.title)])
 			// Spawn at a random point
 			if (length(assoc_spawn_points))
-				selected_spawn_point = pick(pick(assoc_spawn_points))
+				selected_spawn_point = get_turf(pick(pick(assoc_spawn_points)))
 			else
 				// Yolospawn
 				selected_spawn_point = pick(turfs)
 		else
-			selected_spawn_point = pick(assoc_spawn_points[initial(desired_job.title)])
+			selected_spawn_point = get_turf(pick(assoc_spawn_points[initial(desired_job.title)]))
 		// Perform roundstart prefs loading
 		var/mob/living/carbon/human/created_character = new(selected_spawn_point)
 		player.prefs.active_character.copy_to(created_character)
@@ -282,9 +282,9 @@
 	var/turf/selected_spawn_point
 	if (!assoc_spawn_points[initial(selected_choice.title)])
 		// Spawn at a random point
-		selected_spawn_point = pick(pick(assoc_spawn_points))
+		selected_spawn_point = get_turf(pick(pick(assoc_spawn_points)))
 	else
-		selected_spawn_point = pick(assoc_spawn_points[initial(selected_choice.title)])
+		selected_spawn_point = get_turf(pick(assoc_spawn_points[initial(selected_choice.title)]))
 	// Perform roundstart prefs loading
 	var/mob/living/carbon/human/created_character = new(selected_spawn_point)
 	user.prefs.active_character.copy_to(created_character)
