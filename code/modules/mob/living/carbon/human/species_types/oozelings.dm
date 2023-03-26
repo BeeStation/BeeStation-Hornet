@@ -214,7 +214,7 @@
 	)
 
 /datum/species/oozeling/get_laugh_sound(mob/living/carbon/user)
-	return user.gender == MALE ?	pick(
+	return user.gender == MALE ? pick(
 		'sound/voice/oozeling/manlaugh1.ogg',
 		'sound/voice/oozeling/manlaugh2.ogg',
 	) : 'sound/voice/oozeling/womanlaugh.ogg'
