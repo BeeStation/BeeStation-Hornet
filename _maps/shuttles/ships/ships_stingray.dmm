@@ -988,10 +988,6 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/item/trash/cheesie{
-	pixel_x = 14;
-	pixel_y = 12
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -1306,6 +1302,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/item/trash/cheesie{
+	pixel_x = 14;
+	pixel_y = 12
 	},
 /turf/open/floor/plasteel/tech,
 /area/shuttle/stingray/engineering)
@@ -1914,6 +1914,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/structure/chair/office/light{
+	dir = 8
+	},
 /turf/open/floor/plasteel/tech,
 /area/shuttle/stingray/engineering)
 "Oh" = (
@@ -2332,9 +2335,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/structure/chair/office/light{
-	dir = 8
-	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 26
 	},
@@ -2344,6 +2344,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/machinery/telecomms/ship,
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/stingray/engineering)
 "XF" = (
