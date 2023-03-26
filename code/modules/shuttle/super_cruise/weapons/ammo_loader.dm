@@ -165,7 +165,7 @@
 	icon = 'icons/obj/shuttle_weapons.dmi'
 	icon_state = "loader_charge"
 	// APC cells start with 2500 power, so this will drain it fast
-	var/power_per_shot = 30
+	var/power_per_shot = 60
 
 /obj/machinery/ammo_loader/laser/Initialize(mapload)
 	. = ..()
@@ -181,7 +181,7 @@
 	return new /obj/item/ammo_casing/caseless/laser/shuttle(loc)
 
 /obj/machinery/ammo_loader/laser/has_ammo(desired_caliber)
-	return is_operational
+	return is_operational && powered()
 
 /obj/item/circuitboard/machine/loader_laser
 	name = "laser charging unit (Machine Board)"

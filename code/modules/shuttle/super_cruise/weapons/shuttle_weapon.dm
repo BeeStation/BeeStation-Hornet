@@ -156,7 +156,7 @@
 		//Spawn the projectile to make it look like its firing from your end
 		var/obj/item/ammo_casing/fired_casing = get_fired_casing()
 		if (!fired_casing)
-			continue
+			return
 		fired_casing.forceMove(loc)
 		var/obj/item/projectile/bullet/shuttle/P = fired_casing.BB
 		fired_casing.BB = null
