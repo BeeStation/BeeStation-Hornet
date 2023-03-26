@@ -194,7 +194,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		//Transmit map data about non single-instanced objects.
 		data["map_objects"] += list(list(
 			"id" = object.unique_id,
-			"name" = object.name,
+			"name" = object.get_name(),
 			"position_x" = object.position.GetX(),
 			"position_y" = object.position.GetY(),
 			"velocity_x" = object.velocity.GetX(),

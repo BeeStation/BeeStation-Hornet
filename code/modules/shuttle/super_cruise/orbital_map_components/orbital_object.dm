@@ -347,5 +347,8 @@
 /datum/orbital_object/proc/get_locator_name()
 	return name
 
+/datum/orbital_object/proc/get_name()
+	return name
+
 /datum/orbital_object/proc/is_stealth()
 	return FALSE

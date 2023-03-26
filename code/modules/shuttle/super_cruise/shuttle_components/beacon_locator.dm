@@ -55,7 +55,9 @@
 		return
 	var/datum/orbital_map/current_map = SSorbits.orbital_maps[current_location.orbital_map_index]
 	.["selected_target"] = target_name
-	.["valid_targets"] = current_map.get_all_bodies()
+	.["valid_targets"] = list()
+	for (var/datum/orbital_object/object in current_map.get_all_bodies())
+		.["valid_targets"] += object.get_locator_name()
 	.["x"] = current_location.position.GetX()
 	.["y"] = current_location.position.GetY()
 
@@ -95,7 +97,7 @@
 			return
 		var/datum/orbital_map/current_map = SSorbits.orbital_maps[current_location.orbital_map_index]
 		for(var/datum/orbital_object/object as() in current_map.get_all_bodies())
-			if(object.name == params["target"])
+			if(object.get_locator_name() == params["target"])
 				//Set the new target
 				target_name = params["target"]
 				return TRUE
@@ -130,7 +132,7 @@
 	var/target_exists = FALSE
 	for(var/datum/orbital_object/body as() in location.get_all_bodies())
 		//Ping the target
-		if(body.name != target_name)
+		if(body.get_locator_name() != target_name)
 			continue
 		target_exists = TRUE
 		//Get the distance
@@ -157,7 +159,7 @@
 			// Check if we are near the actual target
 			for(var/datum/orbital_object/body as() in location.get_all_bodies())
 				//Ping the target
-				if(body.name != target_name)
+				if(body.get_locator_name() != target_name)
 					continue
 				var/delta_x = body.position.GetX() - start_ping.x
 				var/delta_y = body.position.GetY() - start_ping.y

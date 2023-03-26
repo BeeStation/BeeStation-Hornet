@@ -175,7 +175,7 @@
 			continue
 		var/list/other_ship = list(
 			id = ship_id,
-			name = ship.shuttle_name,
+			name = shuttle_object.get_name(),
 			health = ship.integrity_remaining,
 			maxHealth = ship.max_ship_integrity * ship.critical_proportion,
 			critical = ship.reactor_critical,

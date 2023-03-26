@@ -110,7 +110,7 @@
 	var/area/A = get_area(src)
 	if(istype(A, /area/shuttle))
 		var/area/shuttle/AS = A
-		ship_port = AS?.mobile_port.id
+		ship_port = AS.mobile_port?.id
 
 	become_hearing_sensitive(ROUNDSTART_TRAIT)
 
