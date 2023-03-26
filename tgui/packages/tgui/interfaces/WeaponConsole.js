@@ -165,20 +165,27 @@ export const ShipSearchContent = (props, context) => {
                   Integrity: {ship.health}
                 </ProgressBar>
                 <Divider />
-                {ship.is_hostile
+                {ship.aggro_state === "hostile"
                   ? (
                     <NoticeBox
                       textAlign="center"
                       color="red">
                       HOSTILE
                     </NoticeBox>
-                  ) : (
-                    <NoticeBox
-                      textAlign="center"
-                      color="green">
-                      Neutral
-                    </NoticeBox>
-                  )}
+                  ) : ship.aggro_state === "friendly"
+                    ? (
+                      <NoticeBox
+                        textAlign="center"
+                        color="green">
+                        Friendly
+                      </NoticeBox>
+                    ) : (
+                      <NoticeBox
+                        textAlign="center"
+                        color="yellow">
+                        Neutral
+                      </NoticeBox>
+                    )}
                 {ship.id === selectedShip
                   ? (
                     <NoticeBox

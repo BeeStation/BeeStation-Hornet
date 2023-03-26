@@ -237,7 +237,8 @@
 		if (other_ship.name == ship_name || other_ship.name == "[ship_name] [number]")
 			number++
 	// Highly Mathemtical
-	ship_name = "[ship_name] [number]"
+	if (number)
+		ship_name = "[ship_name] [number]"
 	M.name = ship_name
 	var/datum/shuttle_data/data = SSorbits.get_shuttle_data(M.id)
 	data.shuttle_name = ship_name
