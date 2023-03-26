@@ -130,7 +130,7 @@
 	if(istype(source,/obj/item/radio))
 		var/obj/item/radio/R = source
 		ship_port = R.ship_port
-	if(ship)
+	if(ship_port)
 		transmission_method = TRANSMISSION_SHIP
 
 /datum/signal/subspace/vocal/copy()
