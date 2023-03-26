@@ -480,7 +480,10 @@
 /area/shuttle/stingray/bridge)
 "jy" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 9
+	dir = 8
+	},
+/obj/machinery/ammo_loader/laser{
+	mapload_linkup_id = 2
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/stingray/armoury)
@@ -920,9 +923,6 @@
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 8
-	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/stingray/armoury)
 "td" = (
@@ -1324,7 +1324,8 @@
 /area/shuttle/stingray/central)
 "Ad" = (
 /obj/item/wallframe/shuttle_weapon/laser/triple{
-	dir = 4
+	dir = 4;
+	mapload_linkup_id = 2
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/stingray/bridge)
@@ -1494,11 +1495,16 @@
 /turf/open/floor/plasteel/ridged/steel,
 /area/shuttle/stingray/central)
 "CL" = (
-/obj/machinery/vending/security,
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/plasteel/tech/grid,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 9
+	},
+/obj/machinery/ammo_loader/laser{
+	mapload_linkup_id = 1
+	},
+/turf/open/floor/plasteel/dark,
 /area/shuttle/stingray/armoury)
 "CM" = (
 /obj/effect/turf_decal/tile/dark_green/opposingcorners,
@@ -1829,6 +1835,9 @@
 	pixel_x = -3
 	},
 /obj/structure/window/reinforced,
+/obj/item/gun/energy/ionrifle/carbine/pin{
+	pixel_y = 4
+	},
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/stingray/armoury)
 "LA" = (
@@ -2014,11 +2023,8 @@
 /turf/open/floor/plasteel/tech,
 /area/shuttle/stingray/engineering)
 "QG" = (
-/obj/structure/rack,
-/obj/item/gun/energy/ionrifle/carbine/pin{
-	pixel_y = 4
-	},
 /obj/structure/window/reinforced,
+/obj/machinery/vending/security,
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/stingray/armoury)
 "QP" = (
@@ -2038,6 +2044,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/stingray/security)
+"QU" = (
+/obj/item/wallframe/shuttle_weapon/laser/triple{
+	dir = 4;
+	mapload_linkup_id = 1
+	},
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/stingray/bridge)
 "QW" = (
 /obj/effect/turf_decal/box,
 /obj/structure/railing{
@@ -2746,8 +2759,8 @@ dE
 rQ
 Ze
 Ig
-sY
 CF
+sY
 Ns
 rQ
 ls
@@ -2917,7 +2930,7 @@ bC
 bC
 Ib
 Fi
-Ad
+QU
 Ce
 Ce
 Ce
