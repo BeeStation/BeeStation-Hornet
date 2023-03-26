@@ -62,7 +62,7 @@
 
 	switch (action)
 		if ("eject")
-			var/id = sanitize_integer(params["id"], min=1, max=INFINITY)
+			var/id = text2num(params["id"])
 			if (id <= 0 || id > length(contents))
 				return FALSE
 			var/atom/movable/thing = contents[id]
