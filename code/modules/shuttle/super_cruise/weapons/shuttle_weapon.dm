@@ -197,6 +197,15 @@
 		return null
 	return ammunition_loader.take_bullet(fired_caliber)
 
+/obj/machinery/shuttle_weapon/proc/has_ammo()
+	if (!requires_ammunition)
+		return TRUE
+	if (!ammunition_loader)
+		return FALSE
+	if (!ammunition_loader.has_ammo(fired_caliber))
+		return FALSE
+	return TRUE
+
 /obj/machinery/shuttle_weapon/proc/try_link_to(mob/user, obj/machinery/ammo_loader/loader)
 	if (loader.type != ammo_loader_type)
 		var/obj/machinery/ammo_loader/loader_type = ammo_loader_type
@@ -207,3 +216,12 @@
 	ammunition_loader = loader
 	if (user)
 		to_chat(user, "<span class='notice'>You connect [src] to [loader]!</span>")
+
+/obj/machinery/shuttle_weapon/proc/is_disabled()
+	if (!is_operational)
+		return TRUE
+	if (!powered())
+		return TRUE
+	if (!has_ammo())
+		return TRUE
+	return FALSE

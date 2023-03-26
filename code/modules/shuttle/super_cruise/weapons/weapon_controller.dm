@@ -150,6 +150,7 @@
 			cooldownLeft = max(weapon.next_shot_world_time - world.time, 0),
 			cooldown = weapon.cooldown,
 			inaccuracy = weapon.innaccuracy,
+			disabled = weapon.is_disabled(),
 		)
 		data["weapons"] += list(active_weapon)
 	data["in_flight"] = FALSE

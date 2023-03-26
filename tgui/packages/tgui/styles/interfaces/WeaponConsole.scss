@@ -79,6 +79,29 @@ $color-background: rgba(0, 0, 0, 0.33) !default;
   100% {border: solid 2px rgb(255, 127, 22);}
 }
 
+.weaponConsole__disabled {
+  background-color: #729cbe;
+  animation: flash_blue 1s infinite;
+  background-image: linear-gradient(
+    20deg,
+    #729cbe00,
+    #729cbe00 45%,
+    black 42%,
+    black 58%,
+    #729cbe00 55%,
+    #729cbe00 100%,
+  );
+}
+
+@keyframes flash_blue {
+  0% {background-color: #888888;}
+  25% {background-color: #888888;}
+  25% {background-color: #6bbcff;}
+  75% {background-color: #6bbcff;}
+  75% {background-color: #888888;}
+  100% {background-color: #888888;}
+}
+
 .weaponConsole__flash_yellow {
   animation: flash_yellow 1s infinite;
 }

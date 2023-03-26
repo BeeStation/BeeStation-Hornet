@@ -133,6 +133,24 @@
 	// Nothing found
 	return null
 
+/obj/machinery/ammo_loader/proc/has_ammo(desired_caliber)
+	// Check ammo boxes
+	for (var/obj/item/ammo_box/ammo_box in contents)
+		// Incorrect ammo box caliber
+		if (ammo_box.caliber != desired_caliber)
+			continue
+		// Try and take a bullet from the ammo box
+		if (ammo_box.stored_ammo.len)
+			return TRUE
+	// Check projectiles
+	for (var/obj/item/ammo_casing/casing in contents)
+		if (casing.caliber != desired_caliber)
+			continue
+		// Take the bullet from the casing
+		return TRUE
+	// Nothing found
+	return FALSE
+
 /obj/machinery/ammo_loader/proc/is_accepted(atom/movable/input)
 	return FALSE
 
