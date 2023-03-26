@@ -115,6 +115,8 @@
 	if(!attached_heater)
 		return
 	var/obj/machinery/atmospherics/components/unary/shuttle/engine_heater/shuttle_heater = attached_heater.resolve()
+	if (!shuttle_heater)
+		return
 	shuttle_heater.consumeFuel(amount * fuel_use)
 	update_efficiency()
 
@@ -122,6 +124,8 @@
 	if(!attached_heater)
 		return
 	var/obj/machinery/atmospherics/components/unary/shuttle/engine_heater/shuttle_heater = attached_heater.resolve()
+	if (!shuttle_heater)
+		return
 	if(cached_efficiency != shuttle_heater.get_gas_multiplier())
 		cached_efficiency = shuttle_heater.get_gas_multiplier()
 		if(!thruster_active)
@@ -135,6 +139,8 @@
 	if(!attached_heater)
 		return 0
 	var/obj/machinery/atmospherics/components/unary/shuttle/engine_heater/shuttle_heater = attached_heater.resolve()
+	if (!shuttle_heater)
+		return 0
 	return shuttle_heater.getFuelAmount()
 
 /obj/machinery/shuttle/engine/plasma/check_setup()

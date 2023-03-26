@@ -33,9 +33,9 @@
 		//Check if we are closed or not (Cave generation)
 		var/closed = text2num(generated_string[world.maxx * (T.y - 1) + T.x])
 		var/noise_at_coord = text2num(rustg_noise_get_at_coordinates("[seed]", "[T.x / perlin_noise_scale]", "[T.y / perlin_noise_scale]"))
-		var/plant_value = (distance / max_radius) + weight_offset + 0.3
-		var/rock_value = (distance / max_radius) + weight_offset + 0.1
-		var/sand_value = (distance / max_radius) + weight_offset
+		var/plant_value = (distance / max_radius) - weight_offset + 0.3
+		var/rock_value = (distance / max_radius) - weight_offset + 0.1
+		var/sand_value = (distance / max_radius) - weight_offset
 		if(noise_at_coord >= rock_value && closed)
 			T.ChangeTurf(/turf/closed/mineral/random, list(/turf/open/floor/plating/asteroid/airless), CHANGETURF_IGNORE_AIR)
 		else if(noise_at_coord >= sand_value)
