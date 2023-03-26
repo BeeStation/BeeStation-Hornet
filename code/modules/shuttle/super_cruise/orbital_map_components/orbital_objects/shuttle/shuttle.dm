@@ -170,7 +170,7 @@
 		else
 			var/datum/orbital_object/z_linked/beacon/stranded_shuttle/shuttle_location = new(new /datum/orbital_vector(position.GetX(), position.GetY()))
 			shuttle_location.name = "Stranded [name]"
-			commence_docking(shuttle_location, TRUE, FALSE, TRUE)
+			commence_docking(shuttle_location, TRUE, TRUE, TRUE)
 	//No more custom docking
 	docking_frozen = TRUE
 	if(!random_drop(docking_target.linked_z_level[1].z_value))

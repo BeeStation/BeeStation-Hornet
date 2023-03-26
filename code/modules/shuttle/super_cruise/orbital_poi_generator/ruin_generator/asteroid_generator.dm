@@ -48,7 +48,7 @@
 						/obj/structure/flora/ausbushes/fullgrass, /obj/structure/flora/ausbushes/ppflowers,
 						/obj/structure/flora/ausbushes/sparsegrass, /obj/structure/flora/ausbushes/ywflowers,
 						/obj/structure/flora/bush, /obj/structure/flora/junglebush, /obj/structure/flora/junglebush/b,
-						/obj/structure/flora/junglebush/c, /obj/structure/glowshroom/glowcap, /obj/structure/flora/ash/cap_shroom,
+						/obj/structure/flora/junglebush/c,
 						/obj/structure/flora/ash/stem_shroom, /obj/structure/flora/ash/cacti)
 					new plant_type(T)
 		CHECK_TICK
