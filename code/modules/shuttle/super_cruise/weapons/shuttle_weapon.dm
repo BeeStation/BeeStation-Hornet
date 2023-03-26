@@ -25,8 +25,6 @@
 	var/turf/target_turf
 	var/next_shot_world_time = 0
 
-	var/power_per_shot = 1000
-
 	//For weapons that are side mounted (None after new sprites, but support is still here.)
 	var/side = WEAPON_SIDE_LEFT
 	var/fire_from_source = TRUE
@@ -152,7 +150,6 @@
 		if(prob(miss_chance))
 			missed = TRUE
 	playsound(loc, fire_sound, 75, 1)
-	use_power(power_per_shot)
 	if(!forced)
 		next_shot_world_time = world.time + cooldown
 	for(var/i in 1 to simultaneous_shots)

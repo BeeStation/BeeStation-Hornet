@@ -8,8 +8,8 @@
 	innaccuracy = 1
 	strength_rating = 10
 	casing_type = /obj/item/ammo_casing/caseless/laser/shuttle
-	// 15kW per shot (A lot, will drain APCs really fast)
-	power_per_shot = 15000
+	requires_ammunition = TRUE
+	ammo_loader_type = /obj/machinery/ammo_loader/laser
 
 /obj/item/wallframe/shuttle_weapon/laser
 	name = "Laser Cannon Mount"
