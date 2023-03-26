@@ -10,6 +10,9 @@
 /datum/faction/proc/generate_faction_reward(amount)
 	return
 
+/datum/faction/proc/on_attacked_by(datum/faction/other)
+	hostile_faction_instances += other
+
 // !!! Checks how A should act towards B, rather than what B think of A !!!
 /proc/check_faction_alignment(datum/faction/A, datum/faction/B)
 	if ((B in A.hostile_faction_instances) || (A in B.hostile_faction_instances))

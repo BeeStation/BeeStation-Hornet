@@ -316,6 +316,10 @@
 		return
 	if(!(T in M.return_turfs()))
 		return
+	// Log that we just attempted an attack
+	var/datum/shuttle_data/data = SSorbits.get_shuttle_data(M.id)
+	var/datum/shuttle_data/our_data = SSorbits.get_shuttle_data(shuttle_id)
+	data.faction.on_attacked_by(our_data.faction)
 	weapon.target_turf = T
 	//Fire
 	INVOKE_ASYNC(weapon, TYPE_PROC_REF(/obj/machinery/shuttle_weapon, fire), shuttle_id)
