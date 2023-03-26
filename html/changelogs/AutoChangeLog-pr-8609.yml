@@ -1,6 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: changed some variable name better
-  - bugfix: fixed plumbing pill press, now you can choose pill shapes.
-  - bugfix: some pills will be displayed now (i.e. epi pills)
