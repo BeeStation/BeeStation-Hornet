@@ -99,23 +99,6 @@
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 9
 	},
-/obj/structure/table,
-/obj/machinery/computer/secure_data/laptop{
-	pixel_x = 9;
-	pixel_y = 4
-	},
-/obj/item/paper_bin{
-	pixel_x = -7;
-	pixel_y = 4
-	},
-/obj/item/clipboard{
-	pixel_x = -10;
-	pixel_y = 7
-	},
-/obj/item/pen{
-	pixel_x = -8;
-	pixel_y = 4
-	},
 /obj/machinery/button/door{
 	id = "minutemen_det_cargo";
 	name = "Cargo Shutters";
@@ -126,6 +109,9 @@
 	dir = 4;
 	pixel_x = -24;
 	pixel_y = 8
+	},
+/obj/machinery/ammo_loader/laser{
+	mapload_linkup_id = 2
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/shuttle/inquisitor/weapons)
@@ -247,18 +233,35 @@
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 6
 	},
-/obj/structure/rack,
-/obj/item/storage/bag/ore,
-/obj/item/storage/bag/ore,
-/obj/item/mining_scanner,
-/obj/item/mining_scanner,
-/obj/item/pickaxe/mini,
-/obj/item/pickaxe/mini,
 /obj/item/radio/intercom{
 	dir = 8;
 	pixel_x = 22
 	},
 /obj/machinery/light,
+/obj/structure/closet/secure_closet{
+	icon_state = "sec";
+	name = "equipment locker"
+	},
+/obj/item/grenade/flashbang{
+	pixel_y = -6
+	},
+/obj/item/grenade/flashbang{
+	pixel_y = -6
+	},
+/obj/item/reagent_containers/spray/pepper{
+	pixel_x = 3;
+	pixel_y = -4
+	},
+/obj/item/reagent_containers/spray/pepper{
+	pixel_x = 3;
+	pixel_y = -4
+	},
+/obj/item/clothing/glasses/hud/security/sunglasses,
+/obj/item/clothing/glasses/hud/security/sunglasses,
+/obj/item/clothing/glasses/hud/security/sunglasses/eyepatch,
+/obj/item/clothing/glasses/hud/security/sunglasses/eyepatch,
+/obj/item/melee/baton/loaded,
+/obj/item/melee/baton/loaded,
 /turf/open/floor/plasteel/grid/steel,
 /area/shuttle/inquisitor/weapons)
 "hm" = (
@@ -390,6 +393,12 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/item/mining_scanner,
+/obj/item/mining_scanner,
+/obj/item/storage/bag/ore,
+/obj/item/storage/bag/ore,
+/obj/item/pickaxe/mini,
+/obj/item/pickaxe/mini,
 /turf/open/floor/plasteel/grid/steel,
 /area/shuttle/inquisitor/weapons)
 "ki" = (
@@ -1282,7 +1291,8 @@
 /area/shuttle/inquisitor/engineering)
 "Gr" = (
 /obj/machinery/shuttle_weapon/laser/triple{
-	dir = 4
+	dir = 4;
+	mapload_linkup_id = 2
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/inquisitor/bridge)
@@ -1928,31 +1938,6 @@
 /turf/open/floor/wood,
 /area/shuttle/inquisitor/bridge)
 "XP" = (
-/obj/structure/closet/secure_closet{
-	icon_state = "sec";
-	name = "equipment locker"
-	},
-/obj/item/melee/baton,
-/obj/item/melee/baton,
-/obj/item/clothing/glasses/hud/security/sunglasses/eyepatch,
-/obj/item/clothing/glasses/hud/security/sunglasses/eyepatch,
-/obj/item/clothing/glasses/hud/security/sunglasses,
-/obj/item/clothing/glasses/hud/security/sunglasses,
-/obj/item/reagent_containers/spray/pepper{
-	pixel_x = 3;
-	pixel_y = -4
-	},
-/obj/item/reagent_containers/spray/pepper{
-	pixel_x = 8;
-	pixel_y = -4
-	},
-/obj/item/grenade/flashbang{
-	pixel_y = -6
-	},
-/obj/item/grenade/flashbang{
-	pixel_y = -6
-	},
-/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/tech,
 /area/shuttle/inquisitor/weapons)
 "XV" = (
@@ -2242,7 +2227,7 @@ fc
 xT
 NS
 MD
-XP
+Un
 GN
 OG
 MU
@@ -2260,7 +2245,7 @@ pM
 VB
 VP
 MD
-Un
+XP
 sD
 pF
 hf
