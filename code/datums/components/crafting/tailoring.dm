@@ -320,7 +320,7 @@
 
 /datum/crafting_recipe/sunflowercrown
 	name = "Sunflower Crown"
-	result = /obj/item/clothing/head/flowercrown/sunflower/
+	result = /obj/item/clothing/head/flowercrown/sunflower
 	time = 20
 	reqs = list(/obj/item/grown/sunflower = 5,
 				/obj/item/stack/cable_coil = 3)
