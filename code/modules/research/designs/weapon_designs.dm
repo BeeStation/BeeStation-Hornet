@@ -450,7 +450,7 @@
 	id = "loader_railgun"
 	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 25 * MINERAL_MATERIAL_AMOUNT, /datum/material/copper = 5 * MINERAL_MATERIAL_AMOUNT, /datum/material/diamond = 8 * MINERAL_MATERIAL_AMOUNT)
-	build_path = /obj/item/circuitboard/machine/laser
+	build_path = /obj/item/circuitboard/machine/loader_laser
 	category = list("Shuttle Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
