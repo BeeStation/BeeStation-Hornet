@@ -7,8 +7,10 @@
 	icon_state = "comm_server"
 	desc = "A compact machine used for localized subspace telecommunications processing."
 	density = TRUE
-	use_power = NO_POWER_USE
-	idle_power_usage = 0
+	use_power = ACTIVE_POWER_USE
+	idle_power_usage = 500
+	active_power_usage = 1000
+	emp_disable_time = 30 SECONDS
 	var/ship_port
 
 /obj/machinery/telecomms/ship/Initialize(mapload)
@@ -19,6 +21,9 @@
 		ship_port = AS.mobile_port.id
 
 /obj/machinery/telecomms/ship/receive_signal(datum/signal/subspace/signal)
+	// REquires power
+	if (!powered())
+		return
 	if(!istype(signal) || signal.transmission_method != TRANSMISSION_SHIP)  //receives ship messages only
 		return
 	if(!on || !is_freq_listening(signal))  // has to be on to receive messages

@@ -139,7 +139,7 @@ Class Procs:
 	var/ui_style // ID of custom TGUI style (optional)
 
 	/// Maximum time an EMP will disable this machine for
-	var/emp_disable_time = 2 MINUTES
+	var/emp_disable_time = 30 SECONDS
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)
