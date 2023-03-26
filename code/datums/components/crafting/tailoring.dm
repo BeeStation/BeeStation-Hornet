@@ -328,7 +328,7 @@
 
 /datum/crafting_recipe/poppycrown
 	name = "Poppy Crown"
-	result = /obj/item/clothing/head/flowercrown/poppy/
+	result = /obj/item/clothing/head/flowercrown/poppy
 	time = 20
 	reqs = list(/obj/item/reagent_containers/food/snacks/grown/flower/poppy = 5,
 				/obj/item/stack/cable_coil = 3)
