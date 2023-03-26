@@ -44,7 +44,7 @@
 	var/list/channels = list()  // Map from name (see communications.dm) to on/off. First entry is current department (:h).
 	var/list/secure_radio_connections
 	var/radio_silent = FALSE // If true, radio doesn't make sound effects (ie for Syndicate internal radio implants)
-	var/obj/docking_port/ship // Used for intraship comms
+	var/ship_port // Used for intraship comms
 
 /obj/item/radio/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] starts bouncing [src] off [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -110,7 +110,7 @@
 	var/area/A = get_area(src)
 	if(istype(A, /area/shuttle))
 		var/area/shuttle/AS = A
-		ship = AS?.mobile_port
+		ship_port = AS?.mobile_port.id
 
 	become_hearing_sensitive(ROUNDSTART_TRAIT)
 

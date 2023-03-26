@@ -9,21 +9,21 @@
 	density = TRUE
 	use_power = NO_POWER_USE
 	idle_power_usage = 0
-	var/obj/docking_port/ship
+	var/ship_port
 
 /obj/machinery/telecomms/ship/Initialize(mapload)
 	. = ..()
 	var/area/A = get_area(src)
 	if(istype(A, /area/shuttle))
 		var/area/shuttle/AS = A
-		ship = AS.mobile_port
+		ship_port = AS.mobile_port.id
 
 /obj/machinery/telecomms/ship/receive_signal(datum/signal/subspace/signal)
 	if(!istype(signal) || signal.transmission_method != TRANSMISSION_SHIP)  //receives ship messages only
 		return
 	if(!on || !is_freq_listening(signal))  // has to be on to receive messages
 		return
-	if (!(get_virtual_z_level() in signal.levels) && !(0 in signal.levels) && signal.ship == ship)  // has to be on the ship and the right level
+	if (!(get_virtual_z_level() in signal.levels) && !(0 in signal.levels) && signal.ship_port == ship_port)  // has to be on the ship and the right level
 		return
 
 	// Same as the all in one machine
@@ -38,8 +38,8 @@
 		var/area/A = get_area(src)
 		if(istype(A, /area/shuttle))
 			var/area/shuttle/AS = A
-			ship = AS.mobile_port
+			ship_port = AS.mobile_port.id
 	else if(istype(P, /obj/item/radio))
 		var/obj/item/radio/R = P
-		R.ship = ship
+		R.ship_port = ship_port
 	else ..()

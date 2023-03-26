@@ -59,7 +59,7 @@
 	var/server_type = /obj/machinery/telecomms/server
 	var/datum/signal/subspace/original
 	var/list/levels
-	var/obj/docking_port/ship
+	var/ship_port
 
 /datum/signal/subspace/New(data)
 	src.data = data || list()
@@ -69,7 +69,7 @@
 	copy.original = src
 	copy.source = source
 	copy.levels = levels
-	copy.ship = ship
+	copy.ship_port = ship_port
 	copy.frequency = frequency
 	copy.server_type = server_type
 	copy.transmission_method = transmission_method
@@ -129,7 +129,7 @@
 
 	if(istype(source,/obj/item/radio))
 		var/obj/item/radio/R = source
-		ship = R.ship
+		ship_port = R.ship_port
 	if(ship)
 		transmission_method = TRANSMISSION_SHIP
 
@@ -138,7 +138,7 @@
 	copy.original = src
 	copy.data = data.Copy()
 	copy.levels = levels
-	copy.ship = ship
+	copy.ship_port = ship_port
 	return copy
 
 // This is the meat function for making radios hear vocal transmissions.
@@ -183,7 +183,7 @@
 		if (TRANSMISSION_SHIP)
 			//Only radios from the same ship and on the same level
 			for(var/obj/item/radio/R in GLOB.all_radios["[frequency]"])
-				if(R.ship == ship && R.can_receive(frequency, levels))
+				if(R.ship_port == ship_port && R.can_receive(frequency, levels))
 					radios += R
 
 	// From the list of radios, find all mobs who can hear those.
