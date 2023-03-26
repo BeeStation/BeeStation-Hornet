@@ -7,7 +7,7 @@
 
 	idle_power_usage = 0
 	circuit = /obj/item/circuitboard/machine/shuttle/engine/ion
-	thrust = 60
+	thrust = 200
 	fuel_use = 0
 	cooldown = 45
 	var/usage_rate = 15

@@ -105,7 +105,7 @@
 
 	idle_power_usage = 0
 	circuit = /obj/item/circuitboard/machine/shuttle/engine/plasma
-	thrust = 120
+	thrust = 300
 	fuel_use = 0.12
 	cooldown = 45
 	var/datum/weakref/attached_heater
@@ -200,7 +200,7 @@
 	icon_state_closed = "burst_void"
 	icon_state_open = "burst_void_open"
 	circuit = /obj/item/circuitboard/machine/shuttle/engine/void
-	thrust = 150
+	thrust = 250
 	fuel_use = 0
 	needs_heater = FALSE
 	cooldown = 90

@@ -55,7 +55,7 @@ export const OrbitalMap = (props, context) => {
       if (element.name === trackedBody && !trackedObject)
       {
         trackedObject = element;
-        if (trackedBody !== map_objects[0].name)
+        if (trackedBody !== "None")
         {
           dynamicXOffset = trackedObject.position_x
            + trackedObject.velocity_x;
