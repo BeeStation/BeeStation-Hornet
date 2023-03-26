@@ -312,7 +312,7 @@
 
 /datum/crafting_recipe/rainbowbunchcrown
 	name = "Rainbow Flower Crown"
-	result = /obj/item/clothing/head/flowercrown/rainbowbunch/
+	result = /obj/item/clothing/head/flowercrown/rainbowbunch
 	time = 20
 	reqs = list(/obj/item/reagent_containers/food/snacks/grown/flower/rainbow = 5,
 				/obj/item/stack/cable_coil = 3)
