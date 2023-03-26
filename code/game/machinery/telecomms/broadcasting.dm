@@ -59,6 +59,7 @@
 	var/server_type = /obj/machinery/telecomms/server
 	var/datum/signal/subspace/original
 	var/list/levels
+	var/obj/docking_port/ship
 
 /datum/signal/subspace/New(data)
 	src.data = data || list()
@@ -68,6 +69,7 @@
 	copy.original = src
 	copy.source = source
 	copy.levels = levels
+	copy.ship = ship
 	copy.frequency = frequency
 	copy.server_type = server_type
 	copy.transmission_method = transmission_method
@@ -85,6 +87,8 @@
 		R.receive_signal(src)
 	for(var/obj/machinery/telecomms/allinone/R in GLOB.telecomms_list)
 		R.receive_signal(src)
+	for(var/obj/machinery/telecomms/ship/R in GLOB.telecomms_list)
+		R.receive_signal(src)
 
 /datum/signal/subspace/proc/broadcast()
 	set waitfor = FALSE
@@ -92,6 +96,7 @@
 // Vocal transmissions (i.e. using saycode).
 // Despite "subspace" in the name, these transmissions can also be RADIO
 // (intercoms and SBRs) or SUPERSPACE (CentCom).
+// And they can also be SHIP (shuttle) messages
 /datum/signal/subspace/vocal
 	var/atom/movable/virtualspeaker/virt
 	var/datum/language/language
@@ -122,11 +127,18 @@
 	var/turf/T = get_turf(source)
 	levels = list(T.get_virtual_z_level())
 
+	if(istype(source,/obj/item/radio))
+		var/obj/item/radio/R = source
+		ship = R.ship
+	if(ship)
+		transmission_method = TRANSMISSION_SHIP
+
 /datum/signal/subspace/vocal/copy()
 	var/datum/signal/subspace/vocal/copy = new(source, frequency, virt, language)
 	copy.original = src
 	copy.data = data.Copy()
 	copy.levels = levels
+	copy.ship = ship
 	return copy
 
 // This is the meat function for making radios hear vocal transmissions.
@@ -166,6 +178,12 @@
 			// Only radios which are independent
 			for(var/obj/item/radio/R in GLOB.all_radios["[frequency]"])
 				if(R.independent && R.can_receive(frequency, levels))
+					radios += R
+
+		if (TRANSMISSION_SHIP)
+			//Only radios from the same ship and on the same level
+			for(var/obj/item/radio/R in GLOB.all_radios["[frequency]"])
+				if(R.ship == ship && R.can_receive(frequency, levels))
 					radios += R
 
 	// From the list of radios, find all mobs who can hear those.
