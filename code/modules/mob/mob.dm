@@ -679,15 +679,15 @@
 	set name = "Respawn"
 	set category = "OOC"
 
-	if (CONFIG_GET(flag/norespawn))
-		return
 	if ((stat != DEAD || !( SSticker )))
 		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
 		return
 
 	log_game("[key_name(usr)] used abandon mob.")
 
-	to_chat(usr, "<span class='boldnotice'>Please roleplay correctly!</span>")
+	if (client.next_ghost_role_tick > world.time)
+		to_chat(src, "<span class='warning'>You have died recently, you must wait [(client.next_ghost_role_tick - world.time)/10] seconds until you can respawn.</span>")
+		return
 
 	if(!client)
 		log_game("[key_name(usr)] AM failed due to disconnect.")

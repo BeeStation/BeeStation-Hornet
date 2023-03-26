@@ -154,6 +154,29 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE)
 
+	addtimer(CALLBACK(src, PROC_REF(throw_respawn_alert)), CONFIG_GET(number/ghost_role_cooldown))
+
+/mob/dead/observer/proc/throw_respawn_alert()
+	var/atom/movable/screen/alert/notify_action/A = throw_alert("[REF(src)]_notify_action", /atom/movable/screen/alert/notify_action)
+	var/mutable_appearance/alert_overlay
+	if(A)
+		if(client.prefs && client.prefs.UI_style)
+			A.icon = ui_style2icon(client.prefs.UI_style)
+		A.name = "Respawn Available"
+		A.desc = "You are now able to respawn."
+		A.action = NOTIFY_ATTACK
+		A.target = src
+		if(!alert_overlay)
+			alert_overlay = new(src)
+		alert_overlay.layer = FLOAT_LAYER
+		alert_overlay.plane = FLOAT_PLANE
+		A.add_overlay(alert_overlay)
+
+/mob/dead/observer/attack_ghost(mob/dead/observer/user)
+	if (user != src)
+		return ..()
+	abandon_mob()
+
 /mob/dead/observer/get_photo_description(obj/item/camera/camera)
 	return "You can also see a g-g-g-g-ghooooost!"
 

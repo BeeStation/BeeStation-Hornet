@@ -28,10 +28,10 @@
 		lobby = null
 		// Switch to the new state
 		src.state = STATE_INITIAL
-		update_static_data(usr)
+		update_static_data(user)
 	switch (state)
 		if (STATE_INITIAL)
-			data["is_admin"] = !!usr.client.holder
+			data["is_admin"] = !!user.client.holder
 		if (STATE_CREATE)
 			var/list/member_list = list()
 			for (var/client/C in lobby.members)

@@ -32,6 +32,8 @@
 	var/list/job_list
 	var/list/assoc_spawn_points
 
+	var/living_users = 0
+
 	//=================
 	// Game Variables
 	// These variables are only relevant once
@@ -46,10 +48,26 @@
 	SSship_spawning.game_lobbies += src
 	var/static/global_lobby_id = 0
 	lobby_id = ++global_lobby_id
+	START_PROCESSING(SSship_spawning, src)
 
 /datum/ship_lobby/Destroy(force, ...)
 	SSship_spawning.game_lobbies -= src
+	STOP_PROCESSING(SSship_spawning, src)
 	. = ..()
+
+/datum/ship_lobby/process(delta_time)
+	if (lobby_state != LOBBY_GAME)
+		return
+	// Check if our members are alive
+	for (var/client/C in members)
+		if (C.mob.stat != DEAD)
+			return
+	// Everyone died, disband the lobby
+	on_lobby_eliminated()
+
+/datum/ship_lobby/proc/on_lobby_eliminated()
+	to_chat(members, "<span class='announce'>Everyone has died, the story of [ship_name] ends here...</span>")
+	qdel(src)
 
 /datum/ship_lobby/proc/can_join(client/C)
 	if (!private_lobby)
@@ -61,7 +79,7 @@
 /datum/ship_lobby/proc/member_join(client/C)
 	if (C)
 		members += C
-		to_chat(members, "<span class='announcement'>[C.ckey] has joined the lobby.</span>")
+		to_chat(members, "<span class='announce'>[C.ckey] has joined the lobby.</span>")
 
 /datum/ship_lobby/proc/member_leave(client/C)
 	members -= C
@@ -69,10 +87,10 @@
 		// Transfer host ownership
 		if (length(members) > 0)
 			owner = members[1]
-			to_chat(owner, "<span class='bold announcement'>You are now the host.</span>")
+			to_chat(owner, "<span class='greenannounce'>You are now the host.</span>")
 		else
 			qdel(src)
-	to_chat(members, "<span class='announcement'>[C.ckey] left the lobby.</span>")
+	to_chat(members, "<span class='announce'>[C.ckey] left the lobby.</span>")
 
 /// Is the provided client the host of the lobby?
 /datum/ship_lobby/proc/is_host(client/C)
