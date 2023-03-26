@@ -38,7 +38,7 @@
 	var/reactor_critical = FALSE
 	///How much damage can the ship sustain before exploding?
 	var/critical_proportion = SHIP_INTEGRITY_FACTOR_PLAYER
-	///The faction of this shuttle
+	///The faction instance of this shuttle
 	var/datum/faction/faction
 	///Fired upon these factions despite being allied with them. Any ships in that faction will fire upon this ship.
 	///FACTIONS THAT WE ARE ROGUE TO, NOT FACTIONS THAT ARE ROGUE TO US. ADDING TO LIST LIST DECLARES THIS SHIP AS HOSTILE TO THAT FACTION
@@ -66,6 +66,8 @@
 	var/obj/docking_port/mobile/attached_port = SSshuttle.getShuttle(port_id)
 	shuttle_name = attached_port.name
 	calculate_initial_stats()
+	if (!faction)
+		faction = new /datum/faction/independant
 
 /datum/shuttle_data/Destroy(force, ...)
 	unregister_turfs()

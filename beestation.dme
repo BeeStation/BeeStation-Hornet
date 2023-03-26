@@ -3398,6 +3398,7 @@
 #include "code\modules\shuttle\shuttle_creation\shuttle_creator_eye.dm"
 #include "code\modules\shuttle\shuttle_creation\shuttle_creator_overlay.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_supercruise.dm"
+#include "code\modules\shuttle\super_cruise\factions\faction.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\base.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_ai_pilot.dm\shuttle_ai_pilot.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_ai_pilot.dm\shuttle_autopilot.dm"
