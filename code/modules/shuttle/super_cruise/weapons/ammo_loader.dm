@@ -165,7 +165,11 @@
 	icon = 'icons/obj/shuttle_weapons.dmi'
 	icon_state = "loader_charge"
 	// APC cells start with 2500 power, so this will drain it fast
-	var/power_per_shot = 30 / GLOB.CELLRATE
+	var/power_per_shot = 30
+
+/obj/machinery/ammo_loader/laser/Initialize(mapload)
+	. = ..()
+	power_per_shot /= GLOB.CELLRATE
 
 /obj/machinery/ammo_loader/laser/is_accepted(obj/item/ammo_casing/rail)
 	return FALSE
