@@ -165,7 +165,7 @@ export const ShipSearchContent = (props, context) => {
                   Integrity: {ship.health}
                 </ProgressBar>
                 <Divider />
-                {ship.hostile
+                {ship.is_hostile
                   ? (
                     <NoticeBox
                       textAlign="center"

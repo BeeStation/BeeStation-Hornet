@@ -14,25 +14,25 @@
 	hostile_faction_instances += other
 
 // !!! Checks how A should act towards B, rather than what B think of A !!!
-/proc/check_faction_alignment(datum/faction/A, datum/faction/B)
-	if ((B in A.hostile_faction_instances) || (A in B.hostile_faction_instances))
+/datum/faction/proc/check_faction_alignment(datum/faction/B)
+	if ((B in hostile_faction_instances) || (src in B.hostile_faction_instances))
 		return FACTION_STATUS_HOSTILE
 	//Assume friendliness in faction, unless they are expplicitly hostile
-	if(A.type == B.type)
-		if(B.type in A.hostile_faction_types)
+	if(type == B.type)
+		if(B.type in hostile_faction_types)
 			return FACTION_STATUS_HOSTILE
 		else
 			return FACTION_STATUS_FRIENDLY
 	//If exact type is in any list, use that
-	if(B.type in A.friendly_faction_types)
+	if(B.type in friendly_faction_types)
 		return FACTION_STATUS_FRIENDLY
-	if(B.type in A.hostile_faction_types)
+	if(B.type in hostile_faction_types)
 		return FACTION_STATUS_HOSTILE
 	//Otherwise, try to find parent types in list
-	for(var/type in A.friendly_faction_types)
+	for(var/type in friendly_faction_types)
 		if(istype(B, type))
 			return FACTION_STATUS_FRIENDLY
-	for(var/type in A.hostile_faction_types)
+	for(var/type in hostile_faction_types)
 		if(istype(B, type))
 			return FACTION_STATUS_HOSTILE
 	return FACTION_STATUS_NEUTRAL

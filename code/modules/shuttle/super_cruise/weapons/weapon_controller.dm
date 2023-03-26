@@ -179,6 +179,7 @@
 			health = ship.integrity_remaining,
 			maxHealth = ship.max_ship_integrity * ship.critical_proportion,
 			critical = ship.reactor_critical,
+			is_hostile = our_ship.faction.check_faction_alignment(ship.faction),
 		)
 		data["ships"] += list(other_ship)
 	return data

@@ -228,12 +228,19 @@
 		job_instance.equip(created_character)
 		created_character.key = player.key
 	// Set the name of the ship
+	if (ship_name == initial(ship_name))
+		// Set a name, nerd
+		ship_name = selected_ship.spawned_template.name
 	// Check ship name
+	var/number = 0
 	for (var/obj/docking_port/mobile/other_ship in SSshuttle.mobile)
-		if (other_ship.name == ship_name)
-			// Highly Mathemtical
-			ship_name = "[ship_name]'"
+		if (other_ship.name == ship_name || other_ship.name == "[ship_name] [number]")
+			number++
+	// Highly Mathemtical
+	ship_name = "[ship_name] [number]"
 	M.name = ship_name
+	var/datum/shuttle_data/data = SSorbits.get_shuttle_data(M.id)
+	data.shuttle_name = ship_name
 	// Spawn and players that weren't spawned with randomised jobs
 	// If there are literally no job slots left, spawn as an assistant
 	for (var/client/player in unspawned_clients)
