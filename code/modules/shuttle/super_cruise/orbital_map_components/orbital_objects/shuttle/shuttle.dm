@@ -301,7 +301,7 @@
 	return TRUE
 
 /datum/orbital_object/shuttle/get_locator_name()
-	return "([shuttle_data.faction.tag]) Shuttle #[unique_id]"
+	return "([shuttle_data.faction.faction_tag]) Shuttle #[unique_id]"
 
 /datum/orbital_object/shuttle/is_stealth()
 	if (!shuttle_data)
@@ -309,4 +309,4 @@
 	return shuttle_data.stealth
 
 /datum/orbital_object/shuttle/get_name()
-	return "([shuttle_data.faction.tag]) [shuttle_data.shuttle_name]"
+	return "([shuttle_data.faction.faction_tag]) [shuttle_data.shuttle_name]"
