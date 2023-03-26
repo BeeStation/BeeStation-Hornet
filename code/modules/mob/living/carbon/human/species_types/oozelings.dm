@@ -196,3 +196,25 @@
 
 /datum/species/oozeling/get_sniff_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_SNIFF_SOUND(user)
+
+/datum/species/oozeling/get_scream_sound(mob/living/carbon/user)
+	if(prob(1))
+		return 'sound/voice/oozeling/wilhelm_scream.ogg'
+	return user.gender == MALE ? pick(
+		'sound/voice/oozeling/malescream_1.ogg',
+		'sound/voice/oozeling/malescream_2.ogg',
+		'sound/voice/oozeling/malescream_3.ogg',
+		'sound/voice/oozeling/malescream_4.ogg',
+		'sound/voice/oozeling/malescream_5.ogg',
+	) : pick(
+		'sound/voice/oozeling/femalescream_1.ogg',
+		'sound/voice/oozeling/femalescream_2.ogg',
+		'sound/voice/oozeling/femalescream_3.ogg',
+		'sound/voice/oozeling/femalescream_4.ogg',
+	)
+
+/datum/species/oozeling/get_laugh_sound(mob/living/carbon/user)
+	return user.gender == MALE ?	pick(
+		'sound/voice/oozeling/manlaugh1.ogg',
+		'sound/voice/oozeling/manlaugh2.ogg',
+	) : 'sound/voice/oozeling/womanlaugh.ogg'
