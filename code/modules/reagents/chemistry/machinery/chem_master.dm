@@ -31,12 +31,6 @@
 	var/saved_name = ""
 	var/saved_volume = 10
 
-
-	/// Currently selected pill style
-	var/chosen_pill_style = 1
-	/// List of available pill styles for UI
-	var/list/pill_styles
-
 /obj/machinery/chem_master/Initialize(mapload)
 	create_reagents(100)
 
