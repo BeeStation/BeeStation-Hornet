@@ -1,5 +1,6 @@
 
 /datum/starter_ship_template
+	var/faction_flags
 	/// The template that this ship will spawn
 	var/datum/map_template/shuttle/spawned_template
 	/// The amount of points that this template will cost

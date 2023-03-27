@@ -1,4 +1,5 @@
 /datum/starter_ship_template/inquisitor
+	faction_flags = FACTION_INDEPENDANT | FACTION_SYNDICATE | FACTION_NANOTRASEN
 	template_cost = 450
 	job_roles = list(
 		/datum/job/captain = 1,

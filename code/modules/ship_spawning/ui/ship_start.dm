@@ -44,6 +44,7 @@
 			data["lobby_member_list"] = member_list
 			data["lobby_can_join"] = lobby.can_join(user.client)
 			data["lobby_private"] = lobby.private_lobby
+			data["selected_faction"] = lobby.get_faction()
 			data["is_host"] = lobby.owner == user.client
 			data["lobby_name"] = lobby.get_name()
 			data["selected_ship"] = null
@@ -62,6 +63,7 @@
 					"cost" = lobby.selected_ship.template_cost,
 					"roles" = ship_roles,
 					"description" = lobby.selected_ship.description,
+					"faction_flags" = lobby.selected_ship.faction_flags,
 				)
 			return data
 		if (STATE_JOIN)
@@ -107,6 +109,11 @@
 					"name" = starter_ship.spawned_template.name,
 					"cost" = starter_ship.template_cost,
 				))
+			data["faction_flags"] = list(
+				"nanotrasen" = FACTION_NANOTRASEN,
+				"independant" = FACTION_INDEPENDANT,
+				"syndicate" = FACTION_SYNDICATE,
+			)
 			return data
 		// Join state
 		if (STATE_JOIN)
@@ -202,6 +209,9 @@
 						if (starter_ship.spawned_template.name == ship_name)
 							lobby.set_ship(usr.client, starter_ship)
 							return TRUE
+				if ("set_faction")
+					var/faction_flag = text2num(params["faction_flag"])
+					lobby.set_faction(usr.client, faction_flag)
 				if ("set_privacy_mode")
 					var/new_private_mode = params["new_private"]
 					lobby.set_privacy_mode(usr.client, new_private_mode)

@@ -28,6 +28,8 @@
 	var/datum/starter_ship_template/selected_ship
 	// What job role each ckey wants
 	var/list/wanted_roles = list()
+	// The faction that we desire to join
+	var/desired_faction = NONE
 
 	var/list/job_list
 	var/list/assoc_spawn_points
@@ -108,10 +110,24 @@
 		return "ERROR"
 	return shuttle.shuttle_name
 
+/datum/ship_lobby/proc/set_faction(client/C, desired_faction)
+	if (!is_host(C) || loading || lobby_state != LOBBY_MENU)
+		return
+	if (!selected_ship)
+		return
+	if (!(desired_faction & selected_ship.faction_flags))
+		return
+	// Verify
+	src.desired_faction = desired_faction
+
+/datum/ship_lobby/proc/get_faction()
+	return desired_faction
+
 /datum/ship_lobby/proc/set_ship(client/C, datum/starter_ship_template/starter_ship)
 	if (!is_host(C) || loading || lobby_state != LOBBY_MENU)
 		return
 	selected_ship = starter_ship
+	desired_faction = NONE
 
 /datum/ship_lobby/proc/get_ship()
 	return selected_ship

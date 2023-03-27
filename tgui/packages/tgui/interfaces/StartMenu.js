@@ -23,7 +23,8 @@ export const StartMenu = (props, context) => {
       theme="generic"
       width={280}
       height={100}
-      minHeight="200px">
+      minHeight="200px"
+      canClose={false}>
       <Window.Content>
         You are in a bugged state!
         <Button
@@ -46,6 +47,8 @@ const CreateLobby = (props, context) => {
     is_host = false,
     selectable_ships = [],
     selected_ship = null,
+    faction_flags = 0,
+    selected_faction = 0,
   } = data;
 
   const [
@@ -59,7 +62,8 @@ const CreateLobby = (props, context) => {
     <Window
       theme="generic"
       width={600}
-      height={480}>
+      height={480}
+      canClose={false}>
       <Window.Content>
         <Flex height="100%" direction="row">
           <Flex.Item basis="360px">
@@ -104,6 +108,23 @@ const CreateLobby = (props, context) => {
                           ship_id: value,
                         })}
                         selected={selected_ship && selected_ship.name} />
+                    </Flex.Item>
+                  </Flex>
+                  <Flex direction="row" m="5px">
+                    <Flex.Item shrink={0} basis="30%">
+                      Faction
+                    </Flex.Item>
+                    <Flex.Item grow={1}>
+                      <Dropdown
+                        width="100%"
+                        disabled={!is_host || !selected_ship}
+                        options={selected_ship && Object.keys(faction_flags)
+                          .filter(element => (faction_flags[element] & selected_ship.faction_flags) !== 0)}
+                        onSelected={value => act('set_faction', {
+                          faction_flag: faction_flags[value],
+                        })}
+                        displayText={Object.keys(faction_flags)
+                          .find(element => faction_flags[element] === selected_faction) || "None Selected"} />
                     </Flex.Item>
                   </Flex>
                   <Flex direction="row" m="5px">
@@ -264,7 +285,8 @@ const JoinLobby = (props, context) => {
       theme="generic"
       width={600}
       height={480}
-      minHeight="200px">
+      minHeight="200px"
+      canClose={false}>
       <Window.Content>
         <Flex direction="row" height="100%">
           <Flex.Item shrink={0} basis="200px">
@@ -408,7 +430,8 @@ const StartMenuInitial = (props, context) => {
       theme="generic"
       width={280}
       height={270}
-      minHeight="200px">
+      minHeight="200px"
+      canClose={false}>
       <Window.Content>
         <Box width="100%" textAlign="center" fontSize="22px">Beestation Logo</Box>
         <Divider />

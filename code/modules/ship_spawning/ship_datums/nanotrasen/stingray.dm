@@ -1,4 +1,5 @@
 /datum/starter_ship_template/stringray
+	faction_flags = FACTION_NANOTRASEN
 	template_cost = 800
 	job_roles = list(
 		/datum/job/captain = 1,
