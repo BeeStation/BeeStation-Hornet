@@ -1,8 +1,8 @@
-/mob/living/proc/Life(seconds, times_fired)
+/mob/living/proc/Life(delta_time, times_fired)
 	set waitfor = FALSE
 	set invisibility = 0
 
-	SEND_SIGNAL(src, COMSIG_LIVING_LIFE, seconds, times_fired)
+	SEND_SIGNAL(src, COMSIG_LIVING_LIFE, delta_time, times_fired)
 
 	if((movement_type & FLYING) && !(movement_type & FLOATING))	//TODO: Better floating
 		float(on = TRUE)
@@ -46,8 +46,8 @@
 			handle_high_gravity(gravity)
 
 		if(stat != DEAD)
-			handle_traits() // eye, ear, brain damages
-			handle_status_effects() //all special effects, stun, knockdown, jitteryness, hallucination, sleeping, etc
+			handle_traits(delta_time) // eye, ear, brain damages
+			handle_status_effects(delta_time) //all special effects, stun, knockdown, jitteryness, hallucination, sleeping, etc
 
 	handle_fire()
 
@@ -91,24 +91,24 @@
 	location.hotspot_expose(700, 50, 1)
 
 //this updates all special effects: knockdown, druggy, stuttering, etc..
-/mob/living/proc/handle_status_effects()
+/mob/living/proc/handle_status_effects(delta_time)
 	if(confused)
-		confused = max(0, confused - 1)
+		confused = max(0, confused - (1 * delta_time))
 
-/mob/living/proc/handle_traits()
+/mob/living/proc/handle_traits(delta_time)
 	//Eyes
 	if(eye_blind)			//blindness, heals slowly over time
 		if(!stat && !(HAS_TRAIT(src, TRAIT_BLIND)))
-			eye_blind = max(eye_blind-1,0)
+			eye_blind = max(eye_blind - delta_time, 0)
 			if(client && !eye_blind)
 				clear_alert("blind")
 				clear_fullscreen("blind")
 			//Prevents healing blurryness while blind from normal means
 			return
 		else
-			eye_blind = max(eye_blind-1,1)
+			eye_blind = max(eye_blind - delta_time, 1)
 	if(eye_blurry)			//blurry eyes heal slowly
-		eye_blurry = max(eye_blurry-1, 0)
+		eye_blurry = max(eye_blurry - delta_time, 0)
 		if(client)
 			update_eye_blur()
 
