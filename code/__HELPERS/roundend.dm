@@ -292,6 +292,10 @@
 
 	CHECK_TICK
 	SSdbcore.SetRoundEnd()
+
+	//Processes metacoin from art sales
+	SSpersistence.process_art_payouts()
+
 	//Collects persistence features
 	if(mode.allow_persistence_save)
 		SSpersistence.CollectData()
