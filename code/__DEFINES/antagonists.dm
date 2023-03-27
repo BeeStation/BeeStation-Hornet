@@ -98,3 +98,14 @@
 #define IS_HIVEHOST(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivemind))
 ///Checks if given mob is an awakened vessel
 #define IS_WOKEVESSEL(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivevessel))
+
+// Fugitive hunter types
+#define FUGITIVE_HUNTER_SPACE_POLICE "space_police"
+#define FUGITIVE_HUNTER_RUSSIAN "russian"
+#define FUGITIVE_HUNTER_BOUNTY "bounty"
+
+// Fugitive types
+#define FUGITIVE_PRISONER "prisoner"
+#define FUGITIVE_WALDO "waldo"
+#define FUGITIVE_CULT "cultist"
+#define FUGITIVE_SYNTH "synth"
