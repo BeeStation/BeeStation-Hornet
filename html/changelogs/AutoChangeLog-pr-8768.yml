@@ -1,0 +1,5 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: Status effects like mute, blindness, stutter, or drunkenness should be
+      less affected by lag now.
