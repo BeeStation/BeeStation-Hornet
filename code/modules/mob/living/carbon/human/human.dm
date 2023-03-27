@@ -526,12 +526,13 @@
 
 //Used for new human mobs created by cloning/goleming/podding
 /mob/living/carbon/human/proc/set_cloned_appearance()
-	if(gender == MALE)
+	if(dna.features["body_model"] == MALE)
 		facial_hair_style = "Full Beard"
 	else
 		facial_hair_style = "Shaved"
 	hair_style = pick("Bedhead", "Bedhead 2", "Bedhead 3")
 	underwear = "Nude"
+	socks = "Nude"
 	update_body()
 	update_hair()
 
@@ -560,7 +561,7 @@
 	if(C.cpr_time < world.time + 30)
 		visible_message("<span class='notice'>[src] is trying to perform CPR on [C.name]!</span>", \
 						"<span class='notice'>You try to perform CPR on [C.name]... Hold still!</span>")
-		if(!do_mob(src, C))
+		if(!do_after(src, target = C))
 			to_chat(src, "<span class='warning'>You fail to perform CPR on [C]!</span>")
 			return 0
 
@@ -606,12 +607,6 @@
 		if(bloody_hands)
 			bloody_hands = 0
 			update_inv_gloves()
-
-/mob/living/carbon/human/wash_cream()
-	if(creamed) //clean both to prevent a rare bug
-		cut_overlay(mutable_appearance('icons/effects/creampie.dmi', "creampie_lizard"))
-		cut_overlay(mutable_appearance('icons/effects/creampie.dmi', "creampie_human"))
-		creamed = FALSE
 
 //Turns a mob black, flashes a skeleton overlay
 //Just like a cartoon!
@@ -866,7 +861,7 @@
 		if(!src.is_busy && (src.zone_selected == BODY_ZONE_HEAD || src.zone_selected == BODY_ZONE_PRECISE_GROIN) && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP && !HAS_TRAIT(src, TRAIT_PACIFISM)) //all the stars align, time to curbstomp
 			src.is_busy = TRUE
 
-			if (!do_mob(src,T,25) || get_turf(src) != get_turf(T) || (T.mobility_flags & MOBILITY_STAND) || src.a_intent == INTENT_HELP || src == T) //wait 30ds and make sure the stars still align (Body zone check removed after PR #958)
+			if (!do_after(src, 2.5 SECONDS, T) || get_turf(src) != get_turf(T) || (T.mobility_flags & MOBILITY_STAND) || src.a_intent == INTENT_HELP || src == T) //wait 30ds and make sure the stars still align (Body zone check removed after PR #958)
 				src.is_busy = FALSE
 				return
 

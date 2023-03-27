@@ -7,7 +7,7 @@
 	total_positions = 2
 	spawn_positions = 2
 	selection_color = "#d4ebf2"
-	exp_requirements = MINUTES_REQUIRED_INTERMEDIATE
+	exp_requirements = 180
 	exp_type = EXP_TYPE_MEDICAL
 	exp_type_department = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/virologist

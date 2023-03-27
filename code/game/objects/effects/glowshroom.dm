@@ -56,8 +56,8 @@
 		myseed.adjust_production(rand(-3,6))
 		myseed.adjust_endurance(rand(-3,6))
 	delay = delay - myseed.production * 100 //So the delay goes DOWN with better stats instead of up. :I
-	obj_integrity = myseed.endurance
-	max_integrity = myseed.endurance
+	obj_integrity = round(myseed.endurance / 2)
+	max_integrity = round(myseed.endurance / 2)
 	var/datum/plant_gene/trait/glow/G = myseed.get_gene(/datum/plant_gene/trait/glow)
 	if(ispath(G)) // Seeds were ported to initialize so their genes are still typepaths here, luckily their initializer is smart enough to handle us doing this
 		myseed.genes -= G
