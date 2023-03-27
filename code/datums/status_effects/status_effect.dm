@@ -52,8 +52,8 @@
 		return
 	if(tick_interval < world.time)
 		var/actual_tick_interval = initial(tick_interval)
-		var/delta_time = (last_tick && actual_tick_interval) ? max((world.time - last_tick) / actual_tick_interval, 1) : 1
-		tick(delta_time)
+		var/tick_delta_time = (last_tick && actual_tick_interval) ? max((world.time - last_tick) / actual_tick_interval, 1) : 1
+		tick(tick_delta_time)
 		tick_interval = world.time + actual_tick_interval
 		last_tick = world.time
 	if(duration != -1 && duration < world.time)
