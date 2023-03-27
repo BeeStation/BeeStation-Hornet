@@ -288,7 +288,7 @@
 		cooldown = COOLDOWN_STUN
 		for(var/mob/living/carbon/C in listeners)
 			if(C.silent < VOICE_OF_GOD_MAX_SILENCE_TIME)
-				C.silent = min(C.silent + (10 SECONDS * power_multiplier), VOICE_OF_GOD_MAX_SILENCE_TIME)
+				C.silent = min(C.silent + (10 * power_multiplier), VOICE_OF_GOD_MAX_SILENCE_TIME)
 
 	//HALLUCINATE
 	else if((findtext(message, hallucinate_words)))
