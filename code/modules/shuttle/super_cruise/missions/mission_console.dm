@@ -56,5 +56,5 @@ GLOBAL_LIST_EMPTY(objective_computers)
 			for(var/datum/mission/objective in lead_faction.available_missions)
 				// Find the client's lobby
 				if(objective.id == obj_id)
-					say(objective.accept(usr.client.lobby))
+					objective.accept(usr.client.lobby)
 					return TRUE
