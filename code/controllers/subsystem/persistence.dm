@@ -17,6 +17,7 @@ SUBSYSTEM_DEF(persistence)
 	var/list/obj/structure/sign/painting/painting_frames = list()
 	var/list/obj/item/storage/photo_album/photo_albums
 	var/list/paintings = list()
+	var/list/pending_art_metacoin = list()
 
 /datum/controller/subsystem/persistence/Initialize()
 	LoadPoly()
@@ -322,6 +323,42 @@ SUBSYSTEM_DEF(persistence)
 
 	for(var/obj/structure/sign/painting/P in painting_frames)
 		P.load_persistent()
+
+	json_file = file("data/pending_art_metacoin.json")
+	if(fexists(json_file))
+		pending_art_metacoin = json_decode(file2text(json_file))
+
+	if(paintings && length(paintings["library"]) && !paintings["library"][1]["price"]) //this should only ever happen once - adding owner and price values to legacy paintings
+		message_admins("Legacy paintings detected, adding owner and price values")
+		log_game("Legacy paintings detected, adding owner and price values")
+		for(var/entry in paintings["library"])
+			entry["owner"] = entry["author"]
+			entry["price"] = 500
+
+/datum/controller/subsystem/persistence/proc/add_art_payout(var/key, var/amount)
+	if(!pending_art_metacoin[key])
+		pending_art_metacoin[key] = amount
+	else
+		pending_art_metacoin[key] += amount
+
+/datum/controller/subsystem/persistence/CanProcCall(procname) //dirty thieving admins
+	if(procname == "add_art_payout")
+		return FALSE
+	. = ..()
+
+/datum/controller/subsystem/persistence/vv_get_var(var_name)
+	if(var_name == "pending_art_metacoin")
+		return FALSE
+	. = ..()
+
+/datum/controller/subsystem/persistence/proc/process_art_payouts()
+	for(var/client/C in GLOB.clients)
+		if(pending_art_metacoin[C.ckey])
+			C.inc_metabalance(pending_art_metacoin[C.ckey], TRUE, "Art sales")
+			pending_art_metacoin -= C.ckey
+	var/json_file = file("data/pending_art_metacoin.json")
+	fdel(json_file)
+	WRITE_FILE(json_file, json_encode(pending_art_metacoin))
 
 /datum/controller/subsystem/persistence/proc/SavePaintings()
 	for(var/obj/structure/sign/painting/P in painting_frames)

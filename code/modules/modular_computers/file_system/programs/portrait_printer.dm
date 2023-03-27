@@ -57,7 +57,7 @@
 	var/folder = tab2key[params["tab"]]
 	var/list/current_list = SSpersistence.paintings[folder]
 	var/list/chosen_portrait = current_list[params["selected"]]
-	var/author = chosen_portrait["author"]
+	var/author = chosen_portrait["ckey"]
 	var/title = chosen_portrait["title"]
 	var/png = "data/paintings/[folder]/[chosen_portrait["md5"]].png"
 	var/icon/art_icon = new(png)
