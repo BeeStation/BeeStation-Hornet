@@ -29,11 +29,11 @@
 	var/datum/http_request/request = new()
 	request.prepare(RUSTG_HTTP_METHOD_POST, link, json_encode(list(
 		"content" = msg,
-		"allowed_mentions": {
-			"parse": allowed_types,
-			"users": allowed_users,
-			"roles": allowed_roles
-		}
+		"allowed_mentions" = list(
+			"parse" = allowed_types,
+			"users" = allowed_users,
+			"roles" = allowed_roles
+		)
 	)), list(
 		"Content-Type" = "application/json"
 	))
