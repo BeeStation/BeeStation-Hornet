@@ -55,6 +55,9 @@
 /datum/ship_lobby/Destroy(force, ...)
 	SSship_spawning.game_lobbies -= src
 	STOP_PROCESSING(SSship_spawning, src)
+	for (var/client/C in members)
+		if (C.lobby == src)
+			C.lobby = null
 	. = ..()
 
 /datum/ship_lobby/process(delta_time)
@@ -81,10 +84,13 @@
 /datum/ship_lobby/proc/member_join(client/C)
 	if (C)
 		members += C
+		C.lobby = src
 		to_chat(members, "<span class='announce'>[C.ckey] has joined the lobby.</span>")
 
 /datum/ship_lobby/proc/member_leave(client/C)
 	members -= C
+	if (C.lobby == src)
+		C.lobby = null
 	if (C == owner)
 		// Transfer host ownership
 		if (length(members) > 0)

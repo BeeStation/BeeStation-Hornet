@@ -431,7 +431,7 @@
 	build_type = IMPRINTER
 	materials = list(/datum/material/glass = 1000, /datum/material/copper = 300)
 	build_path = /obj/item/circuitboard/computer/shuttle/weapons
-	category = list("Shuttle Machinery")
+	category = list("Shuttle Weapons", "Shuttle Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/board/loader_railgun
@@ -441,7 +441,7 @@
 	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 15 * MINERAL_MATERIAL_AMOUNT, /datum/material/copper = 15 * MINERAL_MATERIAL_AMOUNT, /datum/material/crilium = 1 * MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/circuitboard/machine/loader_laser
-	category = list("Shuttle Machinery")
+	category = list("Shuttle Weapons", "Shuttle Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/board/loader_railgun
@@ -451,7 +451,7 @@
 	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 25 * MINERAL_MATERIAL_AMOUNT, /datum/material/copper = 5 * MINERAL_MATERIAL_AMOUNT, /datum/material/diamond = 8 * MINERAL_MATERIAL_AMOUNT, /datum/material/crilium = 3 * MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/circuitboard/machine/loader_railgun
-	category = list("Shuttle Machinery")
+	category = list("Shuttle Weapons", "Shuttle Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/board/loader_ballistic
@@ -461,7 +461,7 @@
 	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 15 * MINERAL_MATERIAL_AMOUNT, /datum/material/copper = 5 * MINERAL_MATERIAL_AMOUNT, /datum/material/gold = 5 * MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/circuitboard/machine/loader_ballistic
-	category = list("Shuttle Machinery")
+	category = list("Shuttle Weapons", "Shuttle Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/board/loader_missile
@@ -471,7 +471,7 @@
 	build_type = IMPRINTER
 	materials = list(/datum/material/iron = 20 * MINERAL_MATERIAL_AMOUNT, /datum/material/copper = 5 * MINERAL_MATERIAL_AMOUNT, /datum/material/gold = 20 * MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/circuitboard/machine/loader_missile
-	category = list("Shuttle Machinery")
+	category = list("Shuttle Weapons", "Shuttle Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/shuttle_weapon
@@ -490,6 +490,7 @@
 	id = "shuttle_laser_burst"
 	materials = list(/datum/material/iron = MINERAL_MATERIAL_AMOUNT * 20, /datum/material/glass = MINERAL_MATERIAL_AMOUNT * 15, /datum/material/gold = MINERAL_MATERIAL_AMOUNT * 5)
 	build_path = /obj/item/wallframe/shuttle_weapon/laser/triple
+	category = list("Shuttle Weapons")
 
 /datum/design/shuttle_weapon/laser_triple_mark2
 	name = "Burst Laser MKII Mount"
@@ -497,6 +498,7 @@
 	id = "shuttle_laser_burst_two"
 	materials = list(/datum/material/iron = MINERAL_MATERIAL_AMOUNT * 25, /datum/material/glass = MINERAL_MATERIAL_AMOUNT * 20, /datum/material/gold = MINERAL_MATERIAL_AMOUNT * 10, /datum/material/titanium = MINERAL_MATERIAL_AMOUNT * 5)
 	build_path = /obj/item/wallframe/shuttle_weapon/laser/triple/mark2
+	category = list("Shuttle Weapons")
 
 /datum/design/shuttle_weapon/missile
 	name = "Centaur I Mount"
@@ -504,6 +506,7 @@
 	id = "shuttle_missile"
 	materials = list(/datum/material/iron = MINERAL_MATERIAL_AMOUNT * 20, /datum/material/gold = MINERAL_MATERIAL_AMOUNT * 5)
 	build_path = /obj/item/wallframe/shuttle_weapon/missile
+	category = list("Shuttle Weapons")
 
 /datum/design/shuttle_weapon/point_defense_one
 	name = "Hades MKI Chaincannon Mount"
@@ -511,6 +514,7 @@
 	id = "shuttle_point_defense"
 	materials = list(/datum/material/iron = MINERAL_MATERIAL_AMOUNT * 15, /datum/material/glass = MINERAL_MATERIAL_AMOUNT * 10)
 	build_path = /obj/item/wallframe/shuttle_weapon/point_defense
+	category = list("Shuttle Weapons")
 
 /datum/design/shuttle_weapon/scatter_shot
 	name = "Ares Scattershot Mount"
@@ -518,6 +522,7 @@
 	id = "shuttle_scatter_shot"
 	materials = list(/datum/material/iron = MINERAL_MATERIAL_AMOUNT * 20, /datum/material/glass = MINERAL_MATERIAL_AMOUNT * 10)
 	build_path = /obj/item/wallframe/shuttle_weapon/scatter
+	category = list("Shuttle Weapons")
 
 /datum/design/shuttle_weapon/railgun
 	name = "Zeus MKI Railgun Mount"
@@ -525,6 +530,7 @@
 	id = "shuttle_railgun"
 	materials = list(/datum/material/iron = 35 * MINERAL_MATERIAL_AMOUNT, /datum/material/glass = 15 * MINERAL_MATERIAL_AMOUNT, /datum/material/copper = 30 * MINERAL_MATERIAL_AMOUNT, /datum/material/diamond = 3 * MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/wallframe/shuttle_weapon/railgun
+	category = list("Shuttle Weapons")
 
 //=======================================
 // Shuttle Weapon Ammo
@@ -538,6 +544,7 @@
 	build_path = /obj/item/ammo_box/chaingun
 	build_type = PROTOLATHE | AUTOLATHE
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_SCIENCE
+	category = list("Shuttle Weapons", "Security")
 
 /datum/design/shuttle_ammo_heavy
 	name = "Chaincannon Armor Peircing Ammo Box (Plasma)"
@@ -547,6 +554,7 @@
 	build_path = /obj/item/ammo_box/chaingun
 	build_type = PROTOLATHE | AUTOLATHE
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_SCIENCE
+	category = list("Shuttle Weapons", "Security")
 
 /datum/design/shuttle_missile
 	name = "Shuttle-Fired Missile"
@@ -556,6 +564,7 @@
 	build_path = /obj/item/ammo_casing/caseless/shuttle_missile
 	build_type = PROTOLATHE
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_SCIENCE
+	category = list("Shuttle Weapons", "Security")
 
 /datum/design/shuttle_missile/fire
 	name = "Shuttle-Fired Incendiary Missile"
@@ -565,6 +574,7 @@
 	build_path = /obj/item/ammo_casing/caseless/shuttle_missile/fire
 	build_type = PROTOLATHE
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_SCIENCE
+	category = list("Shuttle Weapons", "Security")
 
 /datum/design/shuttle_missile/emp
 	name = "Shuttle-Fired Electromagnetic Disruption Missile"
@@ -574,6 +584,7 @@
 	build_path = /obj/item/ammo_casing/caseless/shuttle_missile/emp
 	build_type = PROTOLATHE
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_SCIENCE
+	category = list("Shuttle Weapons", "Security")
 
 /datum/design/shuttle_missile/breach
 	name = "Shuttle-Fired Breaching Missile"
@@ -583,3 +594,4 @@
 	build_path = /obj/item/ammo_casing/caseless/shuttle_missile/breach
 	build_type = PROTOLATHE
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_SCIENCE
+	category = list("Shuttle Weapons", "Security")

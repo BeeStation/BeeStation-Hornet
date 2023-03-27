@@ -28,6 +28,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		/datum/material/titanium,
 		/datum/material/bluespace,
 		/datum/material/plastic,
+		/datum/material/crilium,
 		)
 	AddComponent(/datum/component/material_container, materials_list, INFINITY, allowed_types=/obj/item/stack, _disable_attackby=TRUE)
 

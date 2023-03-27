@@ -57,11 +57,17 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//shuttle weapons
 	var/list/shuttle_weapons = list()
 
+	// Singleton Faction Instances
+	var/list/lead_faction_instances = list()
+
 /datum/controller/subsystem/processing/orbits/Initialize(start_timeofday)
 	. = ..()
 	setup_event_list()
 	//Create the main orbital map.
 	orbital_maps[PRIMARY_ORBITAL_MAP] = new /datum/orbital_map()
+	// Create the lead faction instances
+	for (var/subtype in subtypesof(/datum/faction))
+		lead_faction_instances[subtype] = new subtype(TRUE)
 
 /datum/controller/subsystem/processing/orbits/Recover()
 	orbital_maps |= SSorbits.orbital_maps
@@ -232,6 +238,13 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	var/datum/shuttle_data/shuttle = get_shuttle_data(port_id)
 	assoc_shuttle_data -= port_id
 	qdel(shuttle)
+
+//====================================
+// Factions
+//====================================
+
+/datum/controller/subsystem/processing/orbits/proc/get_lead_faction(faction_type)
+	return lead_faction_instances[faction_type]
 
 //====================================
 // Other

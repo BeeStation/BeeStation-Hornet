@@ -6,6 +6,22 @@
 	// hostile.
 	var/list/hostile_faction_instances = list()
 	var/faction_tag = "DEV"
+	// ======== LEAD INSTANCE ========
+	var/is_lead_instance = FALSE
+	// List of missions that this facation is offering
+	var/list/available_missions = list()
+
+/datum/faction/New(lead_instance = FALSE)
+	. = ..()
+	is_lead_instance = lead_instance
+	if (is_lead_instance)
+		START_PROCESSING(SSorbits, src)
+
+/datum/faction/process(delta_time)
+	// Handle mission generation
+	if (length(available_missions) < 5 && DT_PROB(5, delta_time))
+		// Generate a new mission
+		available_missions += new /datum/mission/mining()
 
 /datum/faction/proc/generate_faction_reward(amount)
 	return

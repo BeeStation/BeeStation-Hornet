@@ -27,7 +27,7 @@
 		/datum/material/titanium,
 		/datum/material/diamond,
 		/datum/material/bananium,
-		/datum/material/plastic
+		/datum/material/plastic,
 	), MINERAL_MATERIAL_AMOUNT * 75, FALSE, /obj/item/stack)
 	chosen = getmaterialref(chosen)
 

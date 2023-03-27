@@ -66,3 +66,6 @@ PROCESSING_SUBSYSTEM_DEF(ship_spawning)
 	var/lavaland_z = SSmapping.levels_by_trait(ZTRAIT_MINING)
 	var/turf/crash_turf = locate(128, 128, lavaland_z[1])
 	nuke_ship.load(crash_turf, TRUE)
+
+/client
+	var/datum/ship_lobby/lobby

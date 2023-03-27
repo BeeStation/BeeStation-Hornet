@@ -68,6 +68,7 @@ handles linking back and forth.
 		/datum/material/titanium,
 		/datum/material/bluespace,
 		/datum/material/plastic,
+		/datum/material/crilium,
 		)
 
 	mat_container = parent.AddComponent(/datum/component/material_container, allowed_mats, local_size, allowed_types=/obj/item/stack)
