@@ -194,6 +194,8 @@
 	// Keep track of the job list
 	job_list = selected_ship.job_roles.Copy()
 	var/list/unspawned_clients = list()
+	var/mob/most_important_player
+	var/highest_importance = 0
 	// Start player spawning procedures
 	for (var/client/player in members)
 		var/datum/job/desired_job = wanted_roles[player.ckey]
@@ -227,6 +229,9 @@
 		var/datum/job/job_instance = SSjob.GetJob(initial(desired_job.title))
 		job_instance.equip(created_character)
 		created_character.key = player.key
+		if (job_instance.importance > highest_importance)
+			highest_importance = job_instance.importance
+			most_important_player = created_character
 	// Set the name of the ship
 	if (ship_name == initial(ship_name))
 		// Set a name, nerd
@@ -278,6 +283,12 @@
 		var/datum/job/job_instance = SSjob.GetJob(initial(desired_job.title))
 		job_instance.equip(created_character)
 		created_character.key = player.key
+		if (job_instance.importance > highest_importance)
+			highest_importance = job_instance.importance
+			most_important_player = created_character
+	// Give the budget card
+	var/obj/item/card/id/departmental_budget/shuttle/shuttle_budget = new (most_important_player.loc, M)
+	most_important_player.put_in_hands(shuttle_budget)
 	// Launch the ship into supercruise
 	// TODO: Start docked at a station?
 	//M.enter_supercruise(new /datum/orbital_vector(rand(-10000, 10000), rand(-10000, 10000)))

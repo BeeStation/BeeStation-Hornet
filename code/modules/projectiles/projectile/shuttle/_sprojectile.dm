@@ -3,6 +3,7 @@
 	name = "shuttle projectile"
 	desc = "A projectile fired from someone else"
 	icon_state = "84mm-hedp"
+	icon = 'icons/obj/shuttle_weapons.dmi'
 	movement_type = FLYING
 	range = 120
 	reflectable = NONE

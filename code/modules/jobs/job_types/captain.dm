@@ -34,6 +34,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/command
 	)
 
+	importance = 100
+
 /datum/job/captain/get_access()
 	return get_all_accesses()
 

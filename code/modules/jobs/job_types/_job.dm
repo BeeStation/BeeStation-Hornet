@@ -90,6 +90,8 @@
 	///RPG job names, for the memes
 	var/rpg_title
 
+	var/importance = 0
+
 
 /datum/job/New()
 	. = ..()

@@ -55,6 +55,15 @@ SUBSYSTEM_DEF(economy)
 	var/effective_mailcount = living_player_count()
 	mail_waiting += clamp(effective_mailcount, 1, MAX_MAIL_PER_MINUTE)
 
+/datum/controller/subsystem/economy/proc/create_budget_account(id, name, money)
+	var/datum/bank_account/department/D = new /datum/bank_account/department(money)
+	D.account_holder = name
+	D.department_id = id
+	D.department_bitflag = ACCOUNT_DYN_BITFLAG
+	D.budget_ratio = BUDGET_RATIO_TYPE_SINGLE
+	D.nonstation_account = TRUE
+	return D
+
 /datum/controller/subsystem/economy/proc/get_bank_account_by_id(target_id)
 	if(!length(bank_accounts))
 		return FALSE

@@ -872,6 +872,12 @@ update_label("John Doe", "Clowny")
 	SSeconomy.dep_cards -= src
 	return ..()
 
+/obj/item/card/id/departmental_budget/shuttle/Initialize(mapload, obj/docking_port/mobile/M)
+	SSeconomy.create_budget_account(M.id, M.name, 1000)
+	department_ID = M.id
+	department_name = M.name
+	return ..()
+
 /obj/item/card/id/departmental_budget/civ
 	department_ID = ACCOUNT_CIV_ID
 	department_name = ACCOUNT_CIV_NAME
