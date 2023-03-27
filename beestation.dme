@@ -3423,7 +3423,6 @@
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\shuttle\custom_shuttle.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\shuttle\shuttle.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\shuttle\shuttle_docking_helpers.dm"
-#include "code\modules\shuttle\super_cruise\orbital_poi_generator\objective_computer.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\loot\alien_artifact.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\loot\artifact_defenses.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\loot\research_disks.dm"
