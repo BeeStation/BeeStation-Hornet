@@ -116,7 +116,7 @@
 			"<span class='notice'>You struggle to break free from [src], exacerbating your wounds! (Stay still for two minutes.)</span>",\
 			"<span class='italics'>You hear a wet squishing noise..</span>")
 			M.adjustBruteLoss(30)
-			if(!do_after(M, 1200, target = src))
+			if(!do_after(M, 1200, target = src, timed_action_flags = IGNORE_RESTRAINED))
 				if(M && M.buckled)
 					to_chat(M, "<span class='warning'>You fail to free yourself!</span>")
 				return

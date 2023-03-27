@@ -22,6 +22,8 @@
 
 /datum/dynamic_ruleset/roundstart/traitor/pre_execute(population)
 	. = ..()
+	if (population < CONFIG_GET(number/malf_ai_minimum_pop))
+		restricted_roles |= JOB_NAME_AI
 	var/num_traitors = get_antag_cap(population) * (scaled_times + 1)
 	for (var/i = 1 to num_traitors)
 		if(candidates.len <= 0)

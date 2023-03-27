@@ -244,7 +244,8 @@
 			var/obj/item/I = X
 			owner.dropItemToGround(I, TRUE)
 
-	owner.wash_cream() //clean creampie overlay
+	//Remove the creampie overlay
+	qdel(owner.GetComponent(/datum/component/creamed))
 
 	//Handle dental implants
 	for(var/datum/action/item_action/hands_free/activate_pill/AP in owner.actions)

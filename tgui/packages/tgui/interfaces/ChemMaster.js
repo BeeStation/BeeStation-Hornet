@@ -291,21 +291,21 @@ const PackagingControls = ({ volume, packagingName }, context) => {
   ] = useSharedState(context, 'packAmount', 1);
   const {
     condi,
-    chosenPillStyle,
-    pillStyles = [],
-    chosenPatchStyle,
-    patchStyles = [],
+    chosen_pill_style,
+    pill_styles = [],
+    chosen_patch_style,
+    patch_styles = [],
   } = data;
   return (
     <LabeledList>
       {!condi && (
         <LabeledList.Item label="Pill type">
-          {pillStyles.map(each_style => (
+          {pill_styles.map(each_style => (
             <Button
               key={each_style.id}
               width="30px"
               height="16px"
-              selected={each_style.id === chosenPillStyle}
+              selected={each_style.id === chosen_pill_style}
               textAlign="center"
               color="transparent"
               onClick={() => act('pillStyle', { id: each_style.id })}>
@@ -334,12 +334,12 @@ const PackagingControls = ({ volume, packagingName }, context) => {
       )}
       {!condi && (
         <LabeledList.Item label="Patch type">
-          {patchStyles.map(each_style => (
+          {patch_styles.map(each_style => (
             <Button
               key={each_style.id}
               width="30px"
               height="25px"
-              selected={each_style.id === chosenPatchStyle}
+              selected={each_style.id === chosen_patch_style}
               textAlign="center"
               color="transparent"
               onClick={() => act('patchStyle', { id: each_style.id })}>
