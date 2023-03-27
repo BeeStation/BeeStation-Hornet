@@ -249,6 +249,13 @@
 		/obj/item/stack/ore/silver = 20, /obj/item/stack/ore/copper = 20, /obj/item/stack/ore/plasma = 30, /obj/item/stack/ore/bluespace_crystal = 1, /turf/closed/mineral/gibtonite/volcanic = 2,
 		/obj/item/stack/ore/iron = 95)
 
+/turf/closed/mineral/random/crilium
+	icon_state = "rock_highchance"
+	mineralSpawnChanceList = list(
+		/obj/item/stack/ore/crilium = 30,
+		/obj/item/stack/ore/uranium = 35, /obj/item/stack/ore/diamond = 30, /obj/item/stack/ore/gold = 45, /obj/item/stack/ore/titanium = 45,
+		/obj/item/stack/ore/silver = 50, /obj/item/stack/ore/copper = 50, /obj/item/stack/ore/plasma = 50, /obj/item/stack/ore/bluespace_crystal = 20)
+
 // Subtypes for mappers placing ores manually.
 
 /turf/closed/mineral/iron
@@ -276,6 +283,9 @@
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 	defer_change = 1
 
+/turf/closed/mineral/crilium
+	mineralType = /obj/item/stack/sheet/mineral/crilium
+	scan_state = "rock_Crilium"
 
 /turf/closed/mineral/diamond
 	mineralType = /obj/item/stack/ore/diamond

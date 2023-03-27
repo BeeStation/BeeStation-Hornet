@@ -395,7 +395,7 @@
 	display_name = "Mounted Missile Launchers"
 	description = "Research into mounting missiles onto the side of moving things."
 	prereq_ids = list("shuttle_weapons", "adv_weaponry")
-	design_ids = list("shuttle_missile", "loader_missile")
+	design_ids = list("shuttle_missile", "loader_missile", "shuttle_missile", "shuttle_missile_fire", "shuttle_missile_emp", "shuttle_missile_breach")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
@@ -404,9 +404,10 @@
 	display_name = "Shuttle Mounted Ballistics"
 	description = "Research into simple, yet effective ballistic weapons for shuttles."
 	prereq_ids = list("shuttle_weapons")
-	design_ids = list("shuttle_point_defense", "shuttle_scatter_shot", "loader_ballistic")
+	design_ids = list("shuttle_point_defense", "shuttle_scatter_shot", "loader_ballistic", "shuttle_chaingun", "shuttle_chaingun_heavy")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
+	starting_node = TRUE
 
 /datum/techweb_node/shuttle_magnetics
 	id = "shuttle_magnetics"

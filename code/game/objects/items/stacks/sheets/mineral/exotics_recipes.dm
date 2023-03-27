@@ -27,3 +27,7 @@ GLOBAL_LIST_INIT(abductor_recipes, list ( \
 	))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/mineral/abductor)
+
+/* Crilium */
+
+STACKSIZE_MACRO(/obj/item/stack/sheet/mineral/crilium)

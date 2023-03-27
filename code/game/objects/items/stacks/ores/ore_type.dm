@@ -210,3 +210,23 @@ STACKSIZE_MACRO(/obj/item/stack/ore/titanium)
 	singular_name = "slag chunk"
 
 STACKSIZE_MACRO(/obj/item/stack/ore/slag)
+
+/* Crilium ore */
+
+/obj/item/stack/ore/crilium
+	name = "crilium ore"
+	desc = "An extremely strnog material with anomalous properties that reacts in the precense of oxygen."
+	icon_state = "crilium_ore"
+	item_state = "crilium_ore"
+	singular_name = "crilium ore chunk"
+	points = 38
+	materials = list(/datum/material/crilium=MINERAL_MATERIAL_AMOUNT)
+	refined_type = /obj/item/stack/sheet/mineral/crilium
+	scan_state = "rock_Crilium"
+	spreadChance = 30
+
+/obj/item/stack/ore/crilium/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/crilium)
+
+STACKSIZE_MACRO(/obj/item/stack/ore/crilium)

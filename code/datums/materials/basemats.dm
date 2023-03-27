@@ -169,3 +169,21 @@
 	greyscale_colors = "#d95802"
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE)
 	sheet_type = /obj/item/stack/sheet/mineral/copper
+
+/datum/material/crilium
+	name = "crilium"
+	id = "crilium"
+	desc = "Crilium is an extremely strong stable alloy formed during certain unknown phenomenoms. It is known for its anomalous and unpredictable properties, particularly with the release of electromagnetic impulses. The intensity of its anomalous behaviours scale with the amount located in a particular area."
+	color = "#8fd3c0"
+	greyscale_colors = "#8fd3c0"
+	strength_modifier = 1.6
+	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE)
+	sheet_type = /obj/item/stack/sheet/mineral/crilium
+
+/datum/material/crilium/on_applied(atom/source, amount, material_flags)
+	. = ..()
+	source.AddComponent(/datum/component/crilium)
+
+/datum/material/crilium/on_removed(atom/source, material_flags)
+	. = ..()
+	qdel(source.GetComponent(/datum/component/crilium))

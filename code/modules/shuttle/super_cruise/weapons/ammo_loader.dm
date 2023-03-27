@@ -164,6 +164,7 @@
 	slots = 1
 	icon = 'icons/obj/shuttle_weapons.dmi'
 	icon_state = "loader_charge"
+	circuit = /obj/item/circuitboard/machine/loader_laser
 	// APC cells start with 2500 power, so this will drain it fast
 	var/power_per_shot = 60
 
@@ -189,7 +190,7 @@
 	build_path = /obj/machinery/ammo_loader/laser
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/stock_parts/capacitor = 3
+		/obj/item/stock_parts/capacitor = 3,
 		)
 
 // ========================
@@ -202,6 +203,7 @@
 	slots = 5
 	icon = 'icons/obj/shuttle_weapons.dmi'
 	icon_state = "loader_box"
+	circuit = /obj/item/circuitboard/machine/loader_railgun
 
 /obj/machinery/ammo_loader/railgun/is_accepted(obj/item/ammo_casing/rail)
 	if (!istype(rail))
@@ -226,6 +228,7 @@
 	slots = 2
 	icon = 'icons/obj/shuttle_weapons.dmi'
 	icon_state = "loader_box"
+	circuit = /obj/item/circuitboard/machine/loader_ballistic
 
 /obj/machinery/ammo_loader/ballistic/is_accepted(obj/item/ammo_box/box)
 	if (!istype(box))
@@ -251,6 +254,7 @@
 	slots = 5
 	icon = 'icons/obj/shuttle_weapons_large.dmi'
 	icon_state = "loader_missile"
+	circuit = /obj/item/circuitboard/machine/loader_missile
 
 /obj/machinery/ammo_loader/missile/is_accepted(obj/item/ammo_casing/missile)
 	if (!istype(missile))

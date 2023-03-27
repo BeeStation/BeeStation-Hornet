@@ -52,3 +52,24 @@ Exotic mineral Sheets
 /obj/item/stack/sheet/mineral/abductor/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.abductor_recipes
 	. = ..()
+
+/* Crilium */
+
+/obj/item/stack/sheet/mineral/crilium
+	name = "crilium"
+	icon_state = "sheet-crilium"
+	item_state = "sheet-crilium"
+	singular_name = "crilium bar"
+	force = 5
+	throwforce = 5
+	w_class = WEIGHT_CLASS_NORMAL
+	throw_speed = 1
+	throw_range = 3
+	sheettype = "crilium"
+	materials = list(/datum/material/crilium = MINERAL_MATERIAL_AMOUNT)
+	point_value = 280
+	merge_type = /obj/item/stack/sheet/mineral/crilium
+
+/obj/item/stack/sheet/mineral/crilium/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/crilium)

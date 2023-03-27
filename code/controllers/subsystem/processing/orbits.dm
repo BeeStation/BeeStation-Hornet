@@ -11,9 +11,9 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	var/datum/orbital_map_tgui/orbital_map_tgui = new()
 
 	// Space ruins will be non-persistent
-	var/initial_space_ruins = 6
+	var/initial_space_ruins = 8
 	// Scarce resources
-	var/initial_asteroids = 2
+	var/initial_asteroids = 3
 
 	var/orbits_setup = FALSE
 
@@ -108,7 +108,10 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		new /datum/orbital_object/z_linked/beacon/spaceruin()
 	//Create asteroid belt
 	for(var/i in 1 to initial_asteroids)
-		new /datum/orbital_object/z_linked/beacon/asteroid()
+		if (prob(15))
+			new /datum/orbital_object/z_linked/beacon/asteroid/crilium()
+		else
+			new /datum/orbital_object/z_linked/beacon/asteroid()
 
 /datum/controller/subsystem/processing/orbits/fire(resumed)
 	if(resumed)

@@ -58,13 +58,27 @@
 	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
 	set_orbitting_around_body(linked_map.center, 4000 + rand(-2000, 2000))
 
+/datum/orbital_object/z_linked/beacon/asteroid/crilium
+	name = "Asteroid (Crilium)"
+
+/datum/orbital_object/z_linked/beacon/asteroid/crilium/assign_z_level(quick_generation = FALSE)
+	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
+	linked_z_level = list(assigned_space_level)
+	SSorbits.assoc_z_levels["[assigned_space_level.z_value]"] = src
+	generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, quick_generation ? 40 : 70, rand(-0.3, 0), 25, /turf/closed/mineral/random/crilium)
+
+/datum/orbital_object/z_linked/beacon/asteroid/crilium/post_map_setup()
+	//Orbit around the systems central gravitional body
+	//Pack closely together to make an asteriod belt.
+	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
+	set_orbitting_around_body(linked_map.center, 14000 + rand(-4000, 4000))
+
 //====================
 // Regular Ruin Z-levels
 //====================
 
 /datum/orbital_object/z_linked/beacon/spaceruin
 	name = "Unknown Signal"
-	signal_range = 2000
 
 /datum/orbital_object/z_linked/beacon/spaceruin/New()
 	. = ..()
