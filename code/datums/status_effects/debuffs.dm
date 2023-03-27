@@ -1108,7 +1108,7 @@
 
 /datum/status_effect/ling_transformation/tick()
 	. = ..()
-	if (owner.reagents.has_reagent(/datum/reagent/medicine/mutadone))
+	if (owner.reagents.has_reagent(/datum/reagent/medicine/clonexadone))
 		charge_left -= 1
 		if (prob(4))
 			to_chat(owner, "<span class='notice'>You begin to feel slightly more like yourself...</span>")
