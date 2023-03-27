@@ -51,6 +51,11 @@ ROUND_END_COUNTDOWN 90
 #OOC_TGS_CHANNEL_TAG ooc
 #ADMINHELP_TGS_CHANNEL_TAG adminhelp
 
+## Webhook link to send OOC or adminhelps to via HTTP POST, using RUSTG.
+## This is overriden by TGS_CHANNEL_TAG above. Data is sent as a JSON payload: {"content": "[message]"}
+#OOC_WEBHOOK https://example.com/webhook/ooc
+#ADMINHELP_WEBHOOK https://example.com/webhook/adminhelp
+
 ## Comment this out if you want to use the SQL based admin system, the legacy system uses admins.txt.
 ## You need to set up your database to use the SQL based system.
 ## This flag is automatically enabled if SQL_ENABLED isn't
