@@ -3,27 +3,11 @@
 	desc = "An amber focusing glass that provides a link to the world beyond. The necklace seems to twitch, but only when you look at it from the corner of your eye."
 	icon_state = "eldritch_necklace"
 	w_class = WEIGHT_CLASS_SMALL
+	resistance_flags = FIRE_PROOF
 
-/obj/item/clothing/neck/heretic_focus/equipped(mob/user, slot)
-	..()
-	if(slot == ITEM_SLOT_NECK)
-		ADD_TRAIT(user, TRAIT_ALLOW_HERETIC_CASTING, CLOTHING_TRAIT)
-
-/obj/item/clothing/neck/heretic_focus/dropped(mob/user)
-	..()
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.wear_neck != src)
-			return
-		else
-			REMOVE_TRAIT(user, TRAIT_ALLOW_HERETIC_CASTING, CLOTHING_TRAIT)
-
-/obj/item/clothing/neck/heretic_focus/examine(mob/user)
+/obj/item/clothing/neck/heretic_focus/Initialize(mapload)
 	. = ..()
-	if(!IS_HERETIC(user))
-		return
-
-	. += "<span class='notice'>Allows you to cast advanced heretic spells when worn.</span>"
+	AddElement(/datum/element/heretic_focus)
 
 /obj/item/clothing/neck/eldritch_amulet
 	name = "Warm Eldritch Medallion"
@@ -33,6 +17,10 @@
 	w_class = WEIGHT_CLASS_SMALL
 	/// Clothing trait only applied to heretics.
 	var/heretic_only_trait = TRAIT_THERMAL_VISION
+
+/obj/item/clothing/neck/eldritch_amulet/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/heretic_focus)
 
 /obj/item/clothing/neck/eldritch_amulet/equipped(mob/user, slot)
 	. = ..()

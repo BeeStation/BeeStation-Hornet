@@ -15,12 +15,9 @@
 	..()
 	REMOVE_TRAIT(user, TRAIT_ALLOW_HERETIC_CASTING, CLOTHING_TRAIT)
 
-/obj/item/clothing/head/hooded/cult_hoodie/eldritch/examine(mob/user)
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/Initialize(mapload)
 	. = ..()
-	if(!IS_HERETIC(user))
-		return
-
-	. += "<span class='notice'>Allows you to cast heretic spells while the hood is up.</span>"
+	AddElement(/datum/element/heretic_focus)
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch
 	name = "ominous armor"
@@ -36,9 +33,10 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/examine(mob/user)
 	. = ..()
-	if(!IS_HERETIC(user))
+	if(qdel_hood)
 		return
 
+	// Our hood gains the heretic_focus element.
 	. += "<span class='notice'>Allows you to cast heretic spells while the hood is up.</span>"
 
 // Void cloak. Turns invisible with the hood up, lets you hide stuff.
@@ -61,24 +59,60 @@
 	flags_inv = NONE
 	// slightly worse than normal cult robes
 	armor = list(MELEE = 30, BULLET = 30, LASER = 30,ENERGY = 30, BOMB = 15, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 30)
+	body_parts_covered = CHEST|GROIN|ARMS
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/void_cloak
 	qdel_hood = TRUE
 
+/obj/item/clothing/suit/hooded/cultrobes/void/Initialize(mapload)
+	. = ..()
+	make_visible()
+
+/obj/item/clothing/suit/hooded/cultrobes/void/examine(mob/user)
+	. = ..()
+	if(!IS_HERETIC(user))
+		return
+	if(!qdel_hood)
+		return
+
+	// Let examiners know this works as a focus only if the hood is down
+	. += "<span class='notice'>Allows you to cast heretic spells while the hood is down.</span>"
+
 /obj/item/clothing/suit/hooded/cultrobes/void/RemoveHood()
-	var/mob/living/carbon/carbon_user = loc
-	to_chat(carbon_user, "<span class='notice'>The kaleidoscope of colors collapses around you, as the cloak shifts to visibility!</span>")
-	item_flags &= ~EXAMINE_SKIP
+	// This is before the hood actually goes down
+	// We only make it visible if the hood is being moved from up to down
+	if(qdel_hood)
+		make_visible()
 	return ..()
 
 /obj/item/clothing/suit/hooded/cultrobes/void/MakeHood()
-	if(!iscarbon(loc))
-		CRASH("[src] attempted to make a hood on a non-carbon thing: [loc]")
+	if(!isliving(loc))
+		CRASH("[src] attempted to make a hood on a non-living thing: [loc]")
 
-	var/mob/living/carbon/carbon_user = loc
-	if(IS_HERETIC_OR_MONSTER(carbon_user))
-		. = ..()
-		to_chat(carbon_user,"<span class='notice'>The light shifts around you making the cloak invisible!</span>")
-		item_flags |= EXAMINE_SKIP
+	var/mob/living/wearer = loc
+	if(!IS_HERETIC_OR_MONSTER(wearer))
+		loc.balloon_alert(loc, "you can't get the hood up!")
 		return
 
-	to_chat(carbon_user,"<span class='danger'>You can't force the hood onto your head!</span>")
+	// When we make the hood, that means we're going invisible
+	make_invisible()
+	return ..()
+
+/// Makes our cloak "invisible". Not the wearer, the cloak itself.
+/obj/item/clothing/suit/hooded/cultrobes/void/proc/make_invisible()
+	item_flags |= EXAMINE_SKIP
+	ADD_TRAIT(src, TRAIT_NO_STRIP, REF(src))
+	RemoveElement(/datum/element/heretic_focus)
+
+	if(isliving(loc))
+		loc.balloon_alert(loc, "cloak hidden")
+		loc.visible_message("<span class='notice'>Light shifts around [loc], making the cloak around them invisible!</span>")
+
+/// Makes our cloak "visible" again.
+/obj/item/clothing/suit/hooded/cultrobes/void/proc/make_visible()
+	item_flags &= ~EXAMINE_SKIP
+	REMOVE_TRAIT(src, TRAIT_NO_STRIP, REF(src))
+	AddElement(/datum/element/heretic_focus)
+
+	if(isliving(loc))
+		loc.balloon_alert(loc, "cloak revealed")
+		loc.visible_message("<span class=notice>A kaleidoscope of colours collapses around [loc], a cloak appearing suddenly around their person!</span>")

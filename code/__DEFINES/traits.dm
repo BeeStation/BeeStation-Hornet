@@ -271,6 +271,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ALLOW_HERETIC_CASTING "allow_heretic_casting"
 /// Designates a heart as a living heart for a heretic.
 #define TRAIT_LIVING_HEART "living_heart"
+/// Prevents stripping this equipment
+#define TRAIT_NO_STRIP "no_strip"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
@@ -408,3 +410,5 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SUIT_SENSORS "suit_sensors"
 ///Mob is tracked by nanites, and on glob suit sensors list
 #define TRAIT_NANITE_SENSORS "nanite_sensors"
+
+#define ELEMENT_TRAIT(source) "element_trait_[source]"
