@@ -30,6 +30,10 @@
 /// Send text via webhook, asynchronously. allowed_x arguments are lists of strings, bypassing restrictions on mentions, joined to the values in the config.
 /// sent as JSON via POST {"content": "[msg]", "allowed_mentions": {"parse": [...]}}
 /proc/send_webhook(link, msg, allowed_types = list(), allowed_users = list(), allowed_roles = list())
+	if(IsAdminAdvancedProcCall())
+		log_admin_private("send_webhook: Admin proc call blocked from [key_name(usr)]")
+		message_admins("send_webhook: Admin proc call blocked from [key_name(usr)]")
+		return
 	// It's up to the external source to escape this, Discord won't ping due to the allowed_mentions object
 	msg = html_decode(msg)
 	var/allowed_types_full = allowed_types | CONFIG_GET(str_list/webhook_allowed_mention_types)
