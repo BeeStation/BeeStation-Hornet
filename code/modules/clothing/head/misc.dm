@@ -6,7 +6,7 @@
 	desc = "It's good to be emperor."
 	item_state = "that"
 	flags_inv = NONE
-	armor = list("melee" = 30, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 30)
+	armor = list(MELEE = 30,  BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
 	strip_delay = 80
 	clothing_flags = SNUG_FIT // prevents bypassing the strip delay
 
@@ -300,7 +300,7 @@
 	name = "crown"
 	desc = "A crown fit for a king, a petty king maybe."
 	icon_state = "crown"
-	armor = list("melee" = 15, "bullet" = 0, "laser" = 0,"energy" = 15, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 40)
+	armor = list(MELEE = 15,  BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 40)
 	resistance_flags = FIRE_PROOF
 	dynamic_hair_suffix = ""
 
