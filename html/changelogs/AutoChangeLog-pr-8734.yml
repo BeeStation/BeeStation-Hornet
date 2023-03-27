@@ -1,5 +1,0 @@
-author: RKz, TemporalOroboros
-delete-after: true
-changes:
-  - code_imp: converts damage flag strings to defines
-  - code_imp: renamed "flag" in projectile code to "armor_flag"
