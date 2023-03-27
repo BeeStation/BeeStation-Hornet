@@ -5,8 +5,13 @@
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
 /datum/config_entry/str_list/webhook_allowed_mention_types
+	protection = CONFIG_ENTRY_LOCKED
+
 /datum/config_entry/str_list/webhook_allowed_mention_users
+	protection = CONFIG_ENTRY_LOCKED
+
 /datum/config_entry/str_list/webhook_allowed_mention_roles
+	protection = CONFIG_ENTRY_LOCKED
 
 /proc/sendooc2ext(var/msg)
 	var/ooc_webhook = CONFIG_GET(string/ooc_webhook)
