@@ -71,7 +71,8 @@
 			"name" = P.name,
 			"cost" = P.get_cost(),
 			"id" = pack,
-			"desc" = P.desc || P.name // If there is a description, use it. Otherwise use the pack's name.
+			"desc" = P.desc || P.name, // If there is a description, use it. Otherwise use the pack's name.
+			"supply" = P.current_supply
 		))
 
 

@@ -8,7 +8,6 @@
 #define POLL_IGNORE_DEFECTIVECLONE "defective_clone"
 #define POLL_IGNORE_DRONE "drone"
 #define POLL_IGNORE_EXPERIMENTAL_CLONE "experimental_clone"
-#define POLL_IGNORE_FUGITIVE "fugitive"
 #define POLL_IGNORE_GOLEM "golem"
 #define POLL_IGNORE_HOLOPARASITE "holoparasite"
 #define POLL_IGNORE_IMAGINARYFRIEND "imaginary_friend"
@@ -32,7 +31,6 @@ GLOBAL_LIST_INIT(poll_ignore_desc, list(
 	POLL_IGNORE_DEFECTIVECLONE = "Defective clone",
 	POLL_IGNORE_DRONE = "Drone shells",
 	POLL_IGNORE_EXPERIMENTAL_CLONE = "Experimental clone",
-	POLL_IGNORE_FUGITIVE = "Fugitive Hunter",
 	POLL_IGNORE_GOLEM = "Golems",
 	POLL_IGNORE_HOLOPARASITE = "Holoparasite",
 	POLL_IGNORE_IMAGINARYFRIEND = "Imaginary Friend",

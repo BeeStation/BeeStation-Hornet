@@ -141,6 +141,12 @@
 	helmet_type = /obj/item/clothing/head/radiation
 	storage_type = /obj/item/geiger_counter
 
+/obj/machinery/suit_storage_unit/bounty
+	name = "bounty suit storage unit"
+	helmet_type = /obj/item/clothing/head/helmet/space/hunter
+	suit_type = /obj/item/clothing/suit/space/hunter
+	mask_type = /obj/item/clothing/mask/breath
+
 /obj/machinery/suit_storage_unit/open
 	state_open = TRUE
 	density = FALSE
@@ -255,7 +261,7 @@
 	else
 		target.visible_message("<span class='warning'>[user] starts shoving [target] into [src]!</span>", "<span class='userdanger'>[user] starts shoving you into [src]!</span>")
 
-	if(do_mob(user, target, 30))
+	if(do_after(user, 30, target))
 		if(occupant || helmet || suit || storage)
 			return
 		if(target == user)
@@ -298,13 +304,13 @@
 				visible_message("<span class='warning'>[src]'s door creaks open with a loud whining noise. A cloud of foul black smoke escapes from its chamber.</span>")
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 50, TRUE)
 			if(helmet)
-				helmet.take_damage(burn_damage * 10,BURN,"fire")
+				helmet.take_damage(burn_damage * 10, BURN, FIRE)
 			if(suit)
-				suit.take_damage(burn_damage * 10,BURN,"fire")
+				suit.take_damage(burn_damage * 10, BURN, FIRE)
 			if(mask)
-				mask.take_damage(burn_damage * 10,BURN,"fire")
+				mask.take_damage(burn_damage * 10, BURN, FIRE)
 			if(storage)
-				storage.take_damage(burn_damage * 10,BURN,"fire")
+				storage.take_damage(burn_damage * 10, BURN, FIRE)
 			// The wires get damaged too.
 			wires.cut_all()
 		if(!toasted) //Special toast check to prevent a double finishing message.
