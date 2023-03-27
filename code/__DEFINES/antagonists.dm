@@ -89,6 +89,14 @@
 #define HERETIC_PATH_FLESH "Heretic Flesh Path"
 #define HERETIC_PATH_VOID "Heretic Void Path"
 
+/// Defines are used in /proc/has_living_heart() to report if the heretic has no heart period, no living heart, or has a living heart.
+#define HERETIC_NO_HEART_ORGAN -1
+#define HERETIC_NO_LIVING_HEART 0
+#define HERETIC_HAS_LIVING_HEART 1
+
+/// A define used in ritual priority for heretics.
+#define MAX_KNOWLEDGE_PRIORITY 100
+
 
 /// How much does it cost to reroll strains?
 #define BLOB_REROLL_COST 40

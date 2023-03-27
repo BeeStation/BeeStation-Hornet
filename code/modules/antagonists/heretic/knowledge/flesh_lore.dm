@@ -51,6 +51,7 @@
 	result_atoms = list(/obj/item/melee/sickly_blade/flesh)
 	limit = 3 // Bumped up so they can arm up their ghouls too.
 	cost = 1
+	priority = MAX_KNOWLEDGE_PRIORITY - 5
 	route = HERETIC_PATH_FLESH
 
 /datum/heretic_knowledge/limited_amount/base_flesh/on_research(mob/user)
@@ -156,6 +157,7 @@
 			atoms -= body
 
 	if(!(locate(/mob/living/carbon/human) in atoms))
+		loc.balloon_alert(user, "ritual failed, no valid body!")
 		return FALSE
 
 	return ..()

@@ -67,16 +67,6 @@
 	. = ..()
 	make_visible()
 
-/obj/item/clothing/suit/hooded/cultrobes/void/examine(mob/user)
-	. = ..()
-	if(!IS_HERETIC(user))
-		return
-	if(!qdel_hood)
-		return
-
-	// Let examiners know this works as a focus only if the hood is down
-	. += "<span class='notice'>Allows you to cast heretic spells while the hood is down.</span>"
-
 /obj/item/clothing/suit/hooded/cultrobes/void/RemoveHood()
 	// This is before the hood actually goes down
 	// We only make it visible if the hood is being moved from up to down

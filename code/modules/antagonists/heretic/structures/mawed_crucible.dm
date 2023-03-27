@@ -78,7 +78,7 @@
 
 	if(istype(weapon, /obj/item/organ))
 		var/obj/item/organ/consumed = weapon
-		if(consumed.status != ORGAN_ORGANIC)
+		if(consumed.status != ORGAN_ORGANIC || (consumed.organ_flags & ORGAN_SYNTHETIC))
 			balloon_alert(user, "Not organic")
 			return
 		if(consumed.organ_flags & ORGAN_VITAL) // Basically, don't eat organs like brains
