@@ -51,8 +51,9 @@
 		qdel(src)
 		return
 	if(tick_interval < world.time)
-		tick(last_tick != null ? max((world.time - last_tick) / tick_interval, 1) : 1)
-		tick_interval = world.time + initial(tick_interval)
+		var/actual_tick_interval = initial(tick_interval)
+		tick(last_tick != null ? max((world.time - last_tick) / actual_tick_interval, 1) : 1)
+		tick_interval = world.time + actual_tick_interval
 		last_tick = world.time
 	if(duration != -1 && duration < world.time)
 		qdel(src)
