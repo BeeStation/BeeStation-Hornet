@@ -1073,27 +1073,27 @@
 	var/charge_left
 
 /datum/status_effect/ling_transformation/on_creation(mob/living/new_owner, datum/dna/target_dna, datum/dna/original_dna)
-	if (!iscarbon(new_owner) || QDELETED(target_dna))
+	if(!iscarbon(new_owner) || QDELETED(target_dna))
 		qdel(src)
 		return
 	src.target_dna = new target_dna.type
 	target_dna.copy_dna(src.target_dna)
 	charge_left = rand(45, 90)
-	if (original_dna)
+	if(original_dna)
 		src.original_dna = new original_dna.type
 		original_dna.copy_dna(src.original_dna)
 	return ..()
 
 /datum/status_effect/ling_transformation/on_apply()
 	. = ..()
-	if (!target_dna)
+	if(!target_dna)
 		qdel(src)
 		return
 	var/mob/living/carbon/carbon_owner = owner
-	if (original_dna?.compare_dna(target_dna)) // Cleanly handle someone being transform stung back into their original identity
+	if(original_dna?.compare_dna(target_dna)) // Cleanly handle someone being transform stung back into their original identity
 		qdel(src)
 		return
-	else if (!original_dna)
+	else if(!original_dna)
 		original_dna = new carbon_owner.dna.type
 		carbon_owner.dna.copy_dna(original_dna)
 	apply_dna(target_dna)
@@ -1108,16 +1108,16 @@
 
 /datum/status_effect/ling_transformation/tick(delta_time)
 	. = ..()
-	if (owner.reagents.has_reagent(/datum/reagent/medicine/clonexadone))
+	if(owner.reagents.has_reagent(/datum/reagent/medicine/clonexadone))
 		charge_left -= delta_time
-		if (DT_PROB(4, delta_time))
+		if(DT_PROB(4, delta_time))
 			to_chat(owner, "<span class='notice'>You begin to feel slightly more like yourself...</span>")
-	if (charge_left <= 0)
+	if(charge_left <= 0)
 		qdel(src)
 
 /datum/status_effect/ling_transformation/proc/apply_dna(datum/dna/dna)
 	var/mob/living/carbon/carbon_owner = owner
-	if (!carbon_owner || !istype(carbon_owner))
+	if(!carbon_owner || !istype(carbon_owner))
 		return
 	dna.transfer_identity(carbon_owner, transfer_SE = TRUE)
 	carbon_owner.real_name = carbon_owner.dna.real_name
