@@ -195,7 +195,7 @@
 		SSblackbox.record_feedback("tally", "poking_data", 1, "Hit someone shortly after poking them")
 
 /mob/living/proc/check_for_accidental_attack()
-	addtimer(CALLBACK(src, .proc/record_accidental_attack, time_of_last_attack_dealt), 100, TIMER_OVERRIDE|TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(record_accidental_attack), time_of_last_attack_dealt), 100, TIMER_OVERRIDE|TIMER_UNIQUE)
 
 /mob/living/proc/record_accidental_attack(var/time)
 	if(time_of_last_attack_dealt == 0) // We haven't attacked at all
