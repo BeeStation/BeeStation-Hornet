@@ -413,7 +413,7 @@
 
 	switch(has_living_heart())
 		if(HERETIC_NO_LIVING_HEART)
-			.["Give Living Heart"] = CALLBACK(src, .proc/give_living_heart)
+			.["Give Living Heart"] = CALLBACK(src, PROC_REF(give_living_heart))
 		if(HERETIC_HAS_LIVING_HEART)
 			.["Add Heart Target (Marked Mob)"] = CALLBACK(src, PROC_REF(add_marked_as_target))
 			.["Remove Heart Target"] = CALLBACK(src, PROC_REF(remove_target))
