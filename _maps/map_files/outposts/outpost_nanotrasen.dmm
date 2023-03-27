@@ -45,14 +45,6 @@
 /obj/machinery/rnd/production/circuit_imprinter,
 /turf/open/floor/plasteel,
 /area/science)
-"z" = (
-/obj/docking_port/stationary/spawn_point{
-	width = 40;
-	dwidth = 20;
-	height = 40
-	},
-/turf/open/space/basic,
-/area/space)
 "D" = (
 /obj/machinery/computer/cargo/express{
 	dir = 4
@@ -85,6 +77,7 @@
 	width = 40;
 	dwidth = 20;
 	height = 40;
+	faction_allowed = 2;
 	dir = 2
 	},
 /turf/open/space/basic,
@@ -19762,7 +19755,7 @@ a
 a
 a
 a
-z
+N
 Q
 e
 Q
@@ -24902,7 +24895,7 @@ a
 a
 a
 a
-z
+N
 Q
 e
 Q
@@ -30042,7 +30035,7 @@ a
 a
 a
 a
-z
+N
 Q
 e
 Q
@@ -35182,7 +35175,7 @@ a
 a
 a
 a
-z
+N
 Q
 e
 Q
@@ -40322,7 +40315,7 @@ a
 a
 a
 a
-z
+a
 Q
 e
 Q

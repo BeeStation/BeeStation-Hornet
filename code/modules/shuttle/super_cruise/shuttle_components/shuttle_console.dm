@@ -249,7 +249,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		for(var/obj/docking_port/stationary/stationary_port as() in SSshuttle.stationary)
 			if(LAZYLEN(shuttleObject.docking_target.linked_z_level))
 				for(var/datum/space_level/level in shuttleObject.docking_target.linked_z_level)
-					if(stationary_port.z == level.z_value && (stationary_port.id in valid_docks))
+					if(stationary_port.z == level.z_value && our_port.canDock(stationary_port))
 						data["validDockingPorts"] += list(list(
 							"name" = stationary_port.name,
 							"id" = stationary_port.id,
