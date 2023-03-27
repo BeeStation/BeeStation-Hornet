@@ -30,12 +30,12 @@
 	. = ..()
 
 	AddComponent(/datum/component/personal_crafting)
-	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_blood)
+	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_blood))
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-	AddElement(/datum/element/strippable, GLOB.strippable_human_items, /mob/living/carbon/human/.proc/should_strip, GLOB.strippable_human_layout)
+	AddElement(/datum/element/strippable, GLOB.strippable_human_items, TYPE_PROC_REF(/mob/living/carbon/human, should_strip), GLOB.strippable_human_layout)
 	AddElement(/datum/element/mechanical_repair)
 
 /mob/living/carbon/human/proc/setup_human_dna()
@@ -134,9 +134,9 @@
 	var/mob/living/simple_animal/bot/mulebot/MB = AM
 	var/obj/vehicle/sealed/car/C = AM
 	if(istype(MB))
-		INVOKE_ASYNC(MB, /mob/living/simple_animal/bot/mulebot.proc/RunOver, src)
+		INVOKE_ASYNC(MB, TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, RunOver), src)
 	else if(istype(C))
-		INVOKE_ASYNC(C, /obj/vehicle/sealed/car.proc/RunOver, src)
+		INVOKE_ASYNC(C, TYPE_PROC_REF(/obj/vehicle/sealed/car, RunOver), src)
 	spreadFire(AM)
 
 /mob/living/carbon/human/Topic(href, href_list)
@@ -395,7 +395,7 @@
 				var/counter = 1
 				while(R.fields[text("com_[]", counter)])
 					counter++
-				R.fields[text("com_[]", counter)] = text("Made by [] on [] [], []<BR>[]", allowed_access, station_time_timestamp(), time2text(world.realtime, "MMM DD"), GLOB.year_integer+540, t1)
+				R.fields[text("com_[]", counter)] = text("Made by [] on [] [], []<BR>[]", allowed_access, station_time_timestamp(), time2text(world.realtime, "MMM DD"), GLOB.year_integer+YEAR_OFFSET, t1)
 				to_chat(usr, "<span class='notice'>Successfully added comment.</span>")
 				return
 	..() //end of this massive fucking chain. TODO: make the hud chain not spooky.
@@ -529,12 +529,13 @@
 
 //Used for new human mobs created by cloning/goleming/podding
 /mob/living/carbon/human/proc/set_cloned_appearance()
-	if(gender == MALE)
+	if(dna.features["body_model"] == MALE)
 		facial_hair_style = "Full Beard"
 	else
 		facial_hair_style = "Shaved"
 	hair_style = pick("Bedhead", "Bedhead 2", "Bedhead 3")
 	underwear = "Nude"
+	socks = "Nude"
 	update_body()
 	update_hair()
 
@@ -563,7 +564,7 @@
 	if(C.cpr_time < world.time + 30)
 		visible_message("<span class='notice'>[src] is trying to perform CPR on [C.name]!</span>", \
 						"<span class='notice'>You try to perform CPR on [C.name]... Hold still!</span>")
-		if(!do_mob(src, C))
+		if(!do_after(src, target = C))
 			to_chat(src, "<span class='warning'>You fail to perform CPR on [C]!</span>")
 			return 0
 
@@ -610,12 +611,6 @@
 			bloody_hands = 0
 			update_inv_gloves()
 
-/mob/living/carbon/human/wash_cream()
-	if(creamed) //clean both to prevent a rare bug
-		cut_overlay(mutable_appearance('icons/effects/creampie.dmi', "creampie_lizard"))
-		cut_overlay(mutable_appearance('icons/effects/creampie.dmi', "creampie_human"))
-		creamed = FALSE
-
 //Turns a mob black, flashes a skeleton overlay
 //Just like a cartoon!
 /mob/living/carbon/human/proc/electrocution_animation(anim_duration)
@@ -627,7 +622,7 @@
 			electrocution_skeleton_anim = mutable_appearance(icon, "electrocuted_base")
 			electrocution_skeleton_anim.appearance_flags |= RESET_COLOR|KEEP_APART
 		add_overlay(electrocution_skeleton_anim)
-		addtimer(CALLBACK(src, .proc/end_electrocution_animation, electrocution_skeleton_anim), anim_duration)
+		addtimer(CALLBACK(src, PROC_REF(end_electrocution_animation), electrocution_skeleton_anim), anim_duration)
 
 	else //or just do a generic animation
 		flick_overlay_view(image(icon,src,"electrocuted_generic",ABOVE_MOB_LAYER), src, anim_duration)
@@ -869,7 +864,7 @@
 		if(!src.is_busy && (src.zone_selected == BODY_ZONE_HEAD || src.zone_selected == BODY_ZONE_PRECISE_GROIN) && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP && !HAS_TRAIT(src, TRAIT_PACIFISM)) //all the stars align, time to curbstomp
 			src.is_busy = TRUE
 
-			if (!do_mob(src,T,25) || get_turf(src) != get_turf(T) || (T.mobility_flags & MOBILITY_STAND) || src.a_intent == INTENT_HELP || src == T) //wait 30ds and make sure the stars still align (Body zone check removed after PR #958)
+			if (!do_after(src, 2.5 SECONDS, T) || get_turf(src) != get_turf(T) || (T.mobility_flags & MOBILITY_STAND) || src.a_intent == INTENT_HELP || src == T) //wait 30ds and make sure the stars still align (Body zone check removed after PR #958)
 				src.is_busy = FALSE
 				return
 
@@ -964,7 +959,7 @@
 		//Joe Medic starts quickly/expertly lifting Grey Tider onto their back..
 		"<span class='notice'>[HAS_TRAIT(src, TRAIT_QUICKER_CARRY) ? "Using your gloves' nanochips, you" : "You"][skills_space] start to lift [target] onto your back[HAS_TRAIT(src, TRAIT_QUICK_CARRY) ? ", while assisted by the nanochips in your gloves..." : "..."]</span>")
 		//(Using your gloves' nanochips, you/You) ( /quickly/expertly) start to lift Grey Tider onto your back(, while assisted by the nanochips in your gloves../...)
-		if(do_after(src, carrydelay, TRUE, target))
+		if(do_after(src, carrydelay, target))
 			//Second check to make sure they're still valid to be carried
 			if(can_be_firemanned(target) && !incapacitated(FALSE, TRUE) && !target.buckled)
 				buckle_mob(target, TRUE, TRUE, 90, 1, 0)

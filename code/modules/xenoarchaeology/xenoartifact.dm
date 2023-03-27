@@ -351,7 +351,7 @@
 		. = M?.pulling ? M.pulling : M
 	else
 		. = target
-	RegisterSignal(., COMSIG_PARENT_QDELETING, .proc/on_target_del, TRUE)
+	RegisterSignal(., COMSIG_PARENT_QDELETING, PROC_REF(on_target_del), TRUE)
 	return
 
 ///Hard del handle
@@ -365,7 +365,7 @@
 		return
 	var/datum/beam/xenoa_beam/B = new((!isturf(loc) ? loc : src), target, time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam)
 	B.set_color(material)
-	INVOKE_ASYNC(B, /datum/beam/xenoa_beam.proc/Start)
+	INVOKE_ASYNC(B, TYPE_PROC_REF(/datum/beam/xenoa_beam, Start))
 
 ///Default template used to interface with activator signals.
 /obj/item/xenoartifact/proc/default_activate(chr, mob/user, atom/target)
@@ -435,7 +435,7 @@
 	var/price
 
 /datum/component/xenoartifact_pricing/Initialize(...)
-	RegisterSignal(parent, XENOA_CHANGE_PRICE, .proc/update_price)
+	RegisterSignal(parent, XENOA_CHANGE_PRICE, PROC_REF(update_price))
 	..()
 
 /datum/component/xenoartifact_pricing/Destroy(force, silent)

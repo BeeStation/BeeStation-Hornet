@@ -26,8 +26,8 @@
 
 	var/obj/item/radio/borg/radio = null //All silicons make use of this, with (p)AI's creating headsets
 
-	var/list/alarm_types_show = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
-	var/list/alarm_types_clear = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
+	var/list/alarm_types_show = list("Motion" = 0, FIRE = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
+	var/list/alarm_types_clear = list("Motion" = 0, FIRE = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
 
 	var/lawcheck[1]
 	var/ioncheck[1]
@@ -134,7 +134,7 @@
 		alarm_types_clear[type] += 1
 
 	if(!in_cooldown)
-		addtimer(CALLBACK(src, .proc/handle_alarms), 30) //3 second cooldown
+		addtimer(CALLBACK(src, PROC_REF(handle_alarms)), 30) //3 second cooldown
 
 /mob/living/silicon/proc/handle_alarms()
 	if(alarms_to_show.len < 5)

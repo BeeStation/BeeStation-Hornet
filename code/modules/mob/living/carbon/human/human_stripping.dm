@@ -236,7 +236,7 @@ GLOBAL_LIST_INIT(strippable_human_layout, list(
 
 	to_chat(user, "<span class='notice'>You try to [isnull(carbon_source.internal) ? "open": "close"] the valve on [source]'s [item.name]...</span>")
 
-	if(!do_mob(user, carbon_source, INTERNALS_TOGGLE_DELAY))
+	if(!do_after(user, INTERNALS_TOGGLE_DELAY, carbon_source))
 		return
 
 	if(carbon_source.internal)

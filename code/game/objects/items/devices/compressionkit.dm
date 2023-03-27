@@ -60,7 +60,7 @@
 		if(O.w_class > 1)
 			playsound(get_turf(src), 'sound/weapons/flash.ogg', 50, 1)
 			user.visible_message("<span class='warning'>[user] is compressing [O] with their bluespace compression kit!</span>")
-			if(do_mob(user, O, 40) && charges > 0 && O.w_class > 1)
+			if(do_after(user, 40, O) && charges > 0 && O.w_class > 1)
 				playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 50, 1)
 				sparks()
 				flash_lighting_fx(3, 3, LIGHT_COLOR_CYAN)

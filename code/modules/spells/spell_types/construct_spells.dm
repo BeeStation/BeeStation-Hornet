@@ -237,7 +237,7 @@
 	target.playsound_local(get_turf(target), 'sound/hallucinations/i_see_you1.ogg', 50, 1)
 	user.playsound_local(get_turf(user), 'sound/effects/ghost2.ogg', 50, 1)
 	target.become_blind(MAGIC_BLIND)
-	addtimer(CALLBACK(src, .proc/cure_blindness, target), 40)
+	addtimer(CALLBACK(src, PROC_REF(cure_blindness), target), 40)
 	target.adjust_bodytemperature(-200)
 
 /obj/effect/proc_holder/spell/targeted/abyssal_gaze/proc/cure_blindness(mob/living/L)
@@ -339,5 +339,5 @@
 	new /obj/effect/temp_visual/cult/sac(T)
 	for(var/obj/O in range(1, src))
 		if(O.density && !istype(O, /obj/structure/destructible/cult))
-			O.take_damage(90, BRUTE, "melee", 0)
+			O.take_damage(90, BRUTE, MELEE, 0)
 			new /obj/effect/temp_visual/cult/turf/floor(get_turf(O))

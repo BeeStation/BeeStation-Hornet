@@ -1,498 +1,1355 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/template_noop,
-/area/template_noop)
-"b" = (
-/turf/closed/wall,
-/area/shuttle/hunter)
-"c" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/hunter)
-"d" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/hunter)
-"e" = (
-/obj/machinery/portable_atmospherics/scrubber/huge,
-/turf/open/floor/plating,
-/area/shuttle/hunter)
-"f" = (
-/obj/machinery/power/smes,
-/turf/open/floor/plating,
-/area/shuttle/hunter)
-"g" = (
-/turf/open/floor/plating,
-/area/shuttle/hunter)
-"j" = (
-/obj/effect/turf_decal/bot,
+"ca" = (
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/shuttle/hunter)
-"k" = (
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
-"m" = (
-/obj/structure/reagent_dispensers/fueltank,
-/obj/item/weldingtool/largetank,
+"cI" = (
+/obj/effect/decal/cleanable/vomit/old,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/obj/effect/mob_spawn/human/fugitive_hunter{
+	dir = 8
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/shuttle/hunter)
+"cM" = (
+/turf/template_noop,
+/area/template_noop)
+"dn" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/food/egg_smudge,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_y = 32
+	},
+/turf/open/floor/wood{
+	icon_state = "wood-broken2"
+	},
+/area/shuttle/hunter)
+"ds" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/light,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/hunter)
+"dv" = (
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/arrows{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/item/pickaxe/mini,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/hunter)
+"ez" = (
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/hunter)
+"fd" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/sign/poster/contraband/lusty_xenomorph{
+	pixel_x = -32
+	},
+/obj/effect/mob_spawn/human/fugitive_hunter{
+	dir = 4
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/shuttle/hunter)
+"gc" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/thinplating/dark/corner,
+/turf/open/floor/plasteel/tech/grid,
+/area/shuttle/hunter)
+"gY" = (
+/obj/machinery/computer/fugitive_capture_computer{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 4
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/shuttle/hunter)
+"hn" = (
+/obj/effect/turf_decal/box/corners{
+	dir = 8
+	},
+/obj/structure/closet/crate/freezer/blood,
+/obj/item/storage/firstaid/regular{
+	pixel_y = -2
+	},
+/obj/item/healthanalyzer,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/hunter)
+"jP" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "181"
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/hunter)
+"kh" = (
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/arrows{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/hunter)
+"kA" = (
+/obj/structure/tank_dispenser,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
-"n" = (
+"li" = (
+/obj/effect/turf_decal/caution,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/hunter)
+"ly" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 6
+	},
+/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/airalarm/directional/north{
+	req_access = null;
+	req_access_txt = "181"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"lN" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/hunter)
+"my" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/item/reagent_containers/glass/bucket,
-/obj/item/mop,
 /obj/item/storage/bag/trash{
 	pixel_x = 6
 	},
+/obj/item/mop,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
-"o" = (
-/obj/effect/mob_spawn/human/fugitive/russian{
+"mH" = (
+/obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/hunter)
-"p" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate{
-	opened = 1
-	},
-/turf/open/floor/plating,
-/area/shuttle/hunter)
-"q" = (
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/hunter)
-"r" = (
-/obj/effect/turf_decal/arrows{
+/obj/machinery/atmospherics/components/unary/shuttle/heater{
 	dir = 4
 	},
+/obj/machinery/door/poddoor/preopen{
+	id = "russianhunter_windows"
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/hunter)
+"nn" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
-"s" = (
-/obj/structure/table,
-/obj/item/storage/fancy/cigarettes/cigars/cohiba{
-	pixel_y = 6
+"nu" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 9
 	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/hunter)
-"t" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/large{
-	icon_state = "crittercrate"
+/obj/effect/decal/cleanable/oil{
+	icon_state = "floor6"
 	},
-/turf/open/floor/plating,
-/area/shuttle/hunter)
-"u" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/hunter)
-"v" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/shuttle/hunter)
-"w" = (
-/obj/machinery/fugitive_capture,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/hunter)
-"x" = (
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plating,
-/area/shuttle/hunter)
-"y" = (
-/turf/template_noop,
-/area/shuttle/hunter)
-"z" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/hunter)
-"A" = (
-/obj/machinery/computer/shuttle_flight/hunter{
+/obj/structure/chair/foldable{
 	dir = 8
 	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"nz" = (
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/loot{
+	name = "emergency rations"
+	},
+/obj/item/reagent_containers/food/snacks/rationpack,
+/obj/item/reagent_containers/food/snacks/rationpack,
+/obj/item/reagent_containers/food/snacks/rationpack,
+/obj/item/reagent_containers/food/snacks/rationpack,
+/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/hunter)
+"nF" = (
+/obj/structure/noticeboard{
+	pixel_y = 32
+	},
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/item/flashlight/lamp{
+	pixel_x = -5;
+	pixel_y = 10
+	},
+/obj/item/ammo_box/n762{
+	pixel_x = 7
+	},
+/obj/item/gun/ballistic/revolver/nagant{
+	pixel_y = 1;
+	pixel_x = 5
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"oM" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/decal/cleanable/blood/old{
+	pixel_x = -9;
+	pixel_y = 11;
+	icon_state = "floor6-old"
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
-"B" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate{
-	opened = 1
+"pn" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/thinplating/dark,
+/obj/effect/decal/cleanable/plasma,
+/turf/open/floor/plasteel/tech/grid,
+/area/shuttle/hunter)
+"qh" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/hunter)
+"qp" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor{
+	id = "russian_bounty_cargo"
 	},
 /turf/open/floor/plating,
 /area/shuttle/hunter)
-"C" = (
+"rs" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/item/kirbyplants/dead{
+	desc = "A little bit of nature contained in a pot. It looks dead, and reeks of potato liquor.";
+	name = "potted plant"
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/hunter)
+"rC" = (
 /obj/machinery/computer/camera_advanced{
 	dir = 8
 	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/hunter)
-"D" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/hunter)
-"F" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/engineering{
-	icon_state = "engi_crateopen"
-	},
-/turf/open/floor/plating,
-/area/shuttle/hunter)
-"G" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
-"H" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate/coffin{
-	icon_state = "coffinopen"
-	},
-/turf/open/floor/plating,
-/area/shuttle/hunter)
-"I" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/mecha_wreckage/ripley,
-/turf/open/floor/plating,
-/area/shuttle/hunter)
-"J" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/hunter)
-"L" = (
-/obj/effect/mob_spawn/human/fugitive/russian{
+"sh" = (
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plating,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
-"M" = (
-/obj/machinery/door/airlock/security/glass{
+"si" = (
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 5
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/hunter)
+"sm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass{
+	pixel_x = -9;
+	pixel_y = 10
+	},
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 6
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/shuttle/hunter)
+"sq" = (
+/obj/effect/turf_decal/box/corners{
+	dir = 1
+	},
+/obj/structure/closet/crate/engineering,
+/obj/item/vending_refill/dinnerware,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/hunter)
+"sr" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/hunter)
+"sM" = (
+/obj/structure/guncase{
 	req_access_txt = "181"
 	},
+/obj/item/gun/ballistic/rifle/boltaction{
+	pixel_x = 2;
+	pixel_y = 7
+	},
+/obj/item/gun/ballistic/rifle/boltaction{
+	pixel_x = 2;
+	pixel_y = 7
+	},
+/obj/item/gun/ballistic/rifle/boltaction{
+	pixel_x = 2;
+	pixel_y = 7
+	},
+/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/sawn{
+	name = "\improper TOZ-1";
+	pixel_y = -7
+	},
+/obj/effect/decal/cleanable/robot_debris{
+	pixel_x = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/hunter)
+"tk" = (
+/obj/effect/decal/cleanable/blood/old{
+	pixel_y = 10
+	},
+/obj/machinery/light{
+	dir = 2
+	},
+/obj/effect/mob_spawn/human/fugitive_hunter/leader{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"tC" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/hunter)
+"tK" = (
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/button/door{
+	id = "russian_bounty_cargo";
+	name = "cargo shutters";
+	pixel_x = -22;
+	pixel_y = -9
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/hunter)
+"vy" = (
 /obj/structure/fans/tiny,
+/obj/machinery/door/poddoor{
+	id = "russian_bounty_cargo"
+	},
 /obj/docking_port/stationary{
-	dwidth = 11;
-	height = 16;
-	id = "pirateship_home";
+	dwidth = 14;
+	height = 12;
+	id = "huntership_home";
 	name = "Deep Space";
-	width = 17
+	width = 19
 	},
 /obj/docking_port/mobile{
-	dheight = 3;
-	dwidth = 3;
-	height = 13;
+	height = 12;
 	id = "huntership";
-	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
-	name = "hunter shuttle";
-	rechargeTime = 1800;
-	width = 15
+	name = "Ruskis Shuttle";
+	rechargeTime = 600;
+	width = 19;
+	dwidth = 14;
+	preferred_direction = 4;
+	port_direction = 4
 	},
-/turf/open/floor/mineral/plastitanium/red,
+/turf/open/floor/plating,
 /area/shuttle/hunter)
-"N" = (
-/obj/machinery/suit_storage_unit/standard_unit,
-/obj/effect/turf_decal/stripes/line,
+"vH" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/vomit/old,
+/obj/effect/decal/cleanable/cobweb,
+/turf/open/floor/wood,
+/area/shuttle/hunter)
+"vK" = (
+/obj/machinery/suit_storage_unit/pirate,
+/obj/effect/decal/cleanable/robot_debris,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/bot/right,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
-"O" = (
-/obj/machinery/door/airlock/security/glass{
+"wj" = (
+/obj/machinery/vending/sovietsoda,
+/obj/structure/railing{
+	dir = 4;
+	layer = 4.1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/open/floor/wood,
+/area/shuttle/hunter)
+"wQ" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/mineral/plastitanium{
+	icon_state = "plastitanium_dam4"
+	},
+/area/shuttle/hunter)
+"xq" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/structure/barricade/wooden/crude,
+/obj/machinery/door/airlock/grunge,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/hunter)
+"xy" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-6"
+	},
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/mineral/plastitanium{
+	icon_state = "plastitanium_dam3"
+	},
+/area/shuttle/hunter)
+"xP" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/hunter)
+"yi" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/obj/structure/railing{
+	dir = 4;
+	layer = 4.1
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"yl" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/door/airlock/grunge{
 	req_access_txt = "181"
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
-"Q" = (
-/obj/item/book/manual/ripley_build_and_repair,
+"yq" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/item/weldingtool/largetank,
+/obj/effect/turf_decal/delivery,
+/obj/structure/sign/poster/contraband/rebels_unite{
+	pixel_y = 32
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"yY" = (
+/obj/structure/table,
+/obj/item/storage/box/lethalshot{
+	pixel_x = 4;
+	pixel_y = -6
+	},
+/obj/item/storage/box/beanbag{
+	pixel_y = 8;
+	pixel_x = 4
+	},
+/obj/item/ammo_casing/shotgun/improvised{
+	pixel_x = -14;
+	pixel_y = 2
+	},
+/obj/item/ammo_casing/shotgun/improvised{
+	pixel_x = -9;
+	pixel_y = 3
+	},
+/obj/item/ammo_casing/shotgun/improvised{
+	pixel_x = -12;
+	pixel_y = 8
+	},
+/obj/item/ammo_casing/shotgun/improvised{
+	pixel_x = -10;
+	pixel_y = -4
+	},
+/obj/structure/sign/poster/contraband/syndicate_pistol{
+	pixel_x = 32
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/hunter)
+"zj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/caution,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"zA" = (
+/obj/machinery/power/port_gen/pacman,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/decal/cleanable/greenglow,
+/obj/effect/turf_decal/box,
+/obj/structure/sign/poster/contraband/atmosia_independence{
+	pixel_y = 32
+	},
+/obj/item/wrench,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"Al" = (
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/hunter)
+"At" = (
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/hunter)
+"AQ" = (
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
-"X" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/security/glass{
-	req_access_txt = "181"
+"AX" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/visible,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"Ca" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/obj/structure/railing{
+	dir = 8;
+	layer = 4.1
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"Ck" = (
+/obj/structure/railing{
+	dir = 2;
+	layer = 3.1
+	},
+/obj/structure/closet{
+	name = "mastercraft traditional russian clothes"
+	},
+/obj/item/clothing/head/ushanka,
+/obj/item/clothing/head/ushanka,
+/obj/item/clothing/head/ushanka,
+/obj/item/clothing/head/ushanka,
+/obj/item/clothing/under/pants/track,
+/obj/item/clothing/under/pants/track,
+/obj/item/clothing/under/pants/track,
+/obj/item/clothing/under/costume/soviet{
+	pixel_x = 2
+	},
+/obj/item/clothing/under/costume/soviet{
+	pixel_x = 2
+	},
+/obj/item/clothing/under/costume/soviet{
+	pixel_x = 2
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"Dg" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/wood{
+	icon_state = "wood-broken6"
+	},
+/area/shuttle/hunter)
+"Dv" = (
+/obj/structure/table,
+/obj/item/ammo_box/a762{
+	pixel_x = -4
+	},
+/obj/item/ammo_box/a762{
+	pixel_x = 1;
+	pixel_y = 6
+	},
+/obj/item/ammo_box/a762{
+	pixel_x = 4;
+	pixel_y = -1
+	},
+/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/sawn{
+	name = "\improper TOZ-1";
+	pixel_y = -4
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/hunter)
+"Ec" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/fugitive_capture,
+/obj/effect/turf_decal/siding/thinplating/dark/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating/dark,
+/turf/open/floor/plasteel/tech/grid,
+/area/shuttle/hunter)
+"ET" = (
+/obj/machinery/atmospherics/components/unary/plasma_refiner{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"FR" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/obj/machinery/pipedispenser,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"Hk" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/structure/railing{
+	dir = 4;
+	layer = 4.1
+	},
+/mob/living/simple_animal/bot/medbot{
+	name = "\improper Doctor Nikolay"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/hunter)
+"Hl" = (
+/obj/structure/railing{
+	dir = 8;
+	layer = 3.1
+	},
+/obj/structure/railing{
+	dir = 4;
+	layer = 3.1
+	},
+/turf/open/floor/plasteel/stairs,
+/area/shuttle/hunter)
+"HY" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
-"Y" = (
-/obj/machinery/suit_storage_unit/standard_unit,
+"ID" = (
+/turf/open/floor/plasteel/stairs{
+	dir = 1
+	},
+/area/shuttle/hunter)
+"Jc" = (
+/obj/structure/cable/yellow{
+	icon_state = "9-10"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/weldingtool{
+	pixel_x = 7;
+	pixel_y = 11
+	},
+/turf/open/floor/mineral/plastitanium{
+	icon_state = "plastitanium_dam4"
+	},
+/area/shuttle/hunter)
+"Jx" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/bottle/vodka{
+	pixel_x = 8;
+	pixel_y = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/newspaper{
+	pixel_x = -6;
+	pixel_y = 7
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/pinpointer/shuttle{
+	pixel_x = -3;
+	pixel_y = -2
+	},
+/turf/open/floor/wood,
+/area/shuttle/hunter)
+"JE" = (
+/obj/item/chair/wood,
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/wood{
+	icon_state = "wood-broken5"
+	},
+/area/shuttle/hunter)
+"Kh" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/visible,
+/obj/item/storage/toolbox/electrical,
+/obj/item/storage/belt/utility/full/engi,
+/obj/item/multitool{
+	pixel_x = 9
+	},
+/obj/item/clothing/glasses/welding{
+	pixel_y = 5
+	},
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"KB" = (
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/caution{
+	pixel_x = 11;
+	pixel_y = 9
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/hunter)
+"KU" = (
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/item/paper_bin{
+	pixel_x = 5
+	},
+/obj/item/pen/charcoal{
+	pixel_x = 5
+	},
+/obj/item/binoculars{
+	pixel_x = -8;
+	pixel_y = 6
+	},
+/obj/item/phone{
+	pixel_x = -6;
+	pixel_y = -4
+	},
+/obj/machinery/button/door{
+	id = "russianhunters_bridge";
+	name = "bridge shutters";
+	pixel_x = -9;
+	pixel_y = 23
+	},
+/obj/machinery/button/door{
+	id = "russianhunter_windows";
+	name = "window shutters";
+	pixel_x = -9;
+	pixel_y = 32
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"Ln" = (
+/obj/effect/turf_decal/box/corners,
+/obj/machinery/iv_drip,
+/obj/item/roller{
+	pixel_x = -10;
+	pixel_y = 14
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/hunter)
+"MC" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 10
+	},
+/obj/structure/rack,
+/obj/item/rack_parts{
+	pixel_x = 5;
+	pixel_y = 1
+	},
+/obj/item/rack_parts{
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/mineral/plasma/twenty,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"Nb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/obj/effect/mob_spawn/human/fugitive_hunter{
+	dir = 4
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/shuttle/hunter)
+"OG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/loading_area{
+	dir = 8;
+	pixel_x = -2
+	},
+/obj/effect/turf_decal/siding/thinplating/dark/end{
+	dir = 4
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/shuttle/hunter)
+"Pz" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/obj/structure/railing{
+	dir = 1;
+	layer = 3.1
+	},
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 1
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/shuttle/hunter)
+"PE" = (
+/obj/structure/table,
+/obj/item/clothing/suit/armor/vest/russian{
+	pixel_x = -7
+	},
+/obj/item/clothing/suit/armor/vest/russian{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/clothing/suit/armor/vest/russian{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/item/clothing/suit/armor/vest/russian_coat{
+	pixel_x = 7;
+	pixel_y = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/generic{
+	pixel_y = -7;
+	pixel_x = -9
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/hunter)
+"PK" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/auto_name/east{
+	cell_type = /obj/item/stock_parts/cell/high/plus;
+	req_access = list(181)
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/mineral/plastitanium{
+	icon_state = "plastitanium_dam2"
+	},
+/area/shuttle/hunter)
+"PO" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id = "russianhunters_bridge"
+	},
+/turf/open/floor/plating,
+/area/shuttle/hunter)
+"Qq" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"QV" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/obj/structure/railing{
+	dir = 4;
+	layer = 4.1
+	},
+/obj/machinery/airalarm/directional/south{
+	req_access = null;
+	req_access_txt = "181"
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"Re" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/barricade/wooden,
+/obj/machinery/door/poddoor/preopen{
+	id = "russianhunter_windows"
+	},
+/turf/open/floor/plating,
+/area/shuttle/hunter)
+"Rg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/bed/dogbed{
+	name = "Anatoly's bed"
+	},
+/mob/living/simple_animal/hostile/bear/russian/hunter{
+	name = "Anatoly";
+	desc = "Молодец! Who's a good boy?"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/hunter)
+"Ro" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/mob_spawn/human/fugitive_hunter{
+	dir = 8
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/shuttle/hunter)
+"Sk" = (
+/obj/structure/table,
+/obj/machinery/microwave{
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/snacks/meat/slab/bear{
+	pixel_y = 8;
+	pixel_x = 4
+	},
+/obj/item/reagent_containers/food/snacks/meat/slab/bear{
+	pixel_y = 1;
+	pixel_x = -3
+	},
+/obj/structure/railing{
+	dir = 4;
+	layer = 4.1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/turf/open/floor/wood,
+/area/shuttle/hunter)
+"SC" = (
+/obj/effect/turf_decal/box/corners{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/hunter)
+"TM" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-9"
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"Uh" = (
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/arrows{
+	dir = 8
+	},
+/obj/structure/mecha_wreckage/ripley,
+/obj/structure/sign/poster/contraband/bountyhunters{
+	pixel_x = 32
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/hunter)
+"Ul" = (
+/obj/item/reagent_containers/food/drinks/flask/gold{
+	list_reagents = list(/datum/reagent/consumable/ethanol/sbiten=30);
+	pixel_y = 8;
+	pixel_x = 4
+	},
+/obj/item/storage/fancy/cigarettes/cigars/cohiba{
+	pixel_y = 6
+	},
+/obj/item/lighter/greyscale{
+	pixel_y = 1
+	},
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"Um" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/hunter)
+"Uo" = (
+/obj/structure/railing{
+	dir = 2;
+	layer = 3.1
+	},
+/obj/structure/dresser,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"Uv" = (
+/obj/machinery/shuttle/engine/plasma{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/hunter)
+"UN" = (
+/obj/structure/table,
+/obj/item/toy/cards/deck/syndicate{
+	pixel_y = 8;
+	pixel_x = 2
+	},
+/obj/item/reagent_containers/food/drinks/bottle/vodka{
+	pixel_x = -8;
+	pixel_y = 11
+	},
+/obj/item/gun/ballistic/revolver/russian,
+/obj/item/kitchen/knife/hunting{
+	pixel_y = -1
+	},
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/wood,
+/area/shuttle/hunter)
+"UO" = (
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/hunter)
+"WR" = (
+/obj/machinery/light,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/hunter)
+"Xd" = (
+/obj/machinery/computer/shuttle_flight/hunter{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"XZ" = (
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/bot/right,
+/obj/effect/turf_decal/bot/left,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"Zy" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/hunter)
+"ZH" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/obj/structure/girder,
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/mineral/plastitanium{
+	icon_state = "plastitanium_dam5"
+	},
 /area/shuttle/hunter)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+cM
+cM
+cM
+cM
+Al
+Uv
+Uv
+Al
+cM
+cM
+cM
+cM
 "}
 (2,1,1) = {"
-a
-a
-a
-a
-a
-a
-b
-c
-c
-b
-a
-a
-a
-a
-a
-a
+cM
+cM
+Al
+Uv
+Al
+mH
+mH
+Al
+Uv
+Al
+cM
+cM
 "}
 (3,1,1) = {"
-a
-c
-c
-a
-b
-b
-b
-d
-d
-b
-b
-b
-a
-c
-c
-a
+cM
+UO
+Al
+mH
+Al
+FR
+Kh
+Al
+mH
+Al
+UO
+cM
 "}
 (4,1,1) = {"
-b
-d
-d
-b
-b
-p
-t
-x
-B
-B
-F
-b
-b
-d
-d
-b
+cM
+Al
+zA
+xy
+ZH
+nu
+MC
+Pz
+pn
+sM
+Al
+cM
 "}
 (5,1,1) = {"
-b
-e
-g
-b
-j
-q
-u
-q
-q
-u
-u
-H
-b
-g
-L
-b
+cM
+Al
+ly
+AX
+Jc
+TM
+Hl
+gc
+sm
+Dv
+Al
+cM
 "}
 (6,1,1) = {"
-b
-e
-g
-O
-k
-k
-k
-k
-k
-D
-k
-k
-O
-g
-L
-b
+cM
+Al
+ET
+XZ
+zj
+PK
+vK
+Al
+PE
+yY
+Al
+cM
 "}
 (7,1,1) = {"
-b
-f
-g
-b
-x
-k
-Y
-Y
-Y
-Y
-Q
-I
-b
-g
-L
-b
+cM
+UO
+Al
+Al
+jP
+Al
+Al
+Al
+Al
+Al
+Al
+cM
 "}
 (8,1,1) = {"
-b
-b
-b
-b
-b
-O
-b
-b
-b
-b
-O
-b
-b
-b
-b
-b
+cM
+cM
+Al
+kA
+Zy
+Al
+Ck
+fd
+Nb
+Al
+cM
+cM
 "}
 (9,1,1) = {"
-a
-b
-b
-b
-m
-k
-b
-y
-y
-b
-k
-N
-b
-b
-b
-a
+cM
+cM
+Re
+my
+qh
+yl
+ID
+li
+WR
+Al
+cM
+cM
 "}
 (10,1,1) = {"
-a
-a
-a
-X
-k
-k
-v
-y
-y
-v
-k
-k
-M
-a
-a
-a
+cM
+cM
+Al
+yq
+ds
+Al
+Uo
+cI
+Ro
+Al
+cM
+cM
 "}
 (11,1,1) = {"
-a
-a
-a
-b
-n
-r
-b
-y
-y
-b
-r
-J
-b
-a
-a
-a
+cM
+UO
+Al
+Al
+jP
+Al
+Al
+Al
+Al
+Al
+Al
+cM
 "}
 (12,1,1) = {"
-a
-a
-a
-b
-b
-O
-b
-b
-b
-b
-O
-b
-b
-a
-a
-a
+UO
+Al
+gY
+Ec
+xP
+rs
+Ca
+Al
+sq
+hn
+Al
+cM
 "}
 (13,1,1) = {"
-a
-a
-a
-b
-o
-k
-r
-z
-z
-k
-k
-o
-b
-a
-a
-a
+Al
+vH
+Dg
+OG
+sr
+oM
+yi
+Al
+SC
+Ln
+Al
+Al
 "}
 (14,1,1) = {"
-a
-a
-a
-b
-b
-s
-w
-A
-C
-q
-G
-b
-b
-a
-a
-a
+Al
+Jx
+UN
+Rg
+Um
+tC
+HY
+xq
+ez
+KB
+tK
+qp
 "}
 (15,1,1) = {"
-a
-a
-a
-a
-b
-b
-v
-v
-v
-v
-b
-b
-a
-a
-a
-a
+Al
+dn
+JE
+sh
+AQ
+ca
+Ca
+Al
+si
+nz
+At
+vy
+"}
+(16,1,1) = {"
+Al
+wj
+Sk
+Hk
+lN
+nn
+QV
+Al
+Uh
+dv
+kh
+qp
+"}
+(17,1,1) = {"
+UO
+Al
+Al
+nF
+wQ
+Qq
+tk
+Al
+Al
+Al
+Al
+Al
+"}
+(18,1,1) = {"
+cM
+UO
+Al
+KU
+rC
+Xd
+Ul
+Al
+UO
+cM
+cM
+cM
+"}
+(19,1,1) = {"
+cM
+cM
+UO
+PO
+PO
+PO
+PO
+UO
+cM
+cM
+cM
+cM
 "}

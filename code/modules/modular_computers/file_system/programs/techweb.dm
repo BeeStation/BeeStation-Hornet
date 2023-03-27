@@ -33,7 +33,7 @@
 
 // heavy data from this proc should be moved to static data when possible
 /datum/computer_file/program/science/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 	data += list(
 		"nodes" = list(),
 		"experiments" = list(),

@@ -7,7 +7,7 @@
 	dir_in = 1 //Facing North.
 	max_integrity = 400
 	deflect_chance = 20
-	armor = list("melee" = 40, "bullet" = 35, "laser" = 15, "energy" = 10, "bomb" = 20, "bio" = 0, "rad" = 50, "fire" = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 40,  BULLET = 35, LASER = 15, ENERGY = 10, BOMB = 20, BIO = 0, RAD = 50, FIRE = 100, ACID = 100, STAMINA = 0)
 	max_temperature = 30000
 	infra_luminosity = 8
 	force = 40
@@ -18,8 +18,8 @@
 /obj/mecha/combat/durand/Initialize(mapload)
 	. = ..()
 	shield = new /obj/durand_shield(loc, src, layer, dir)
-	RegisterSignal(src, COMSIG_MECHA_ACTION_ACTIVATE, .proc/relay)
-	RegisterSignal(src, COMSIG_PROJECTILE_PREHIT, .proc/prehit)
+	RegisterSignal(src, COMSIG_MECHA_ACTION_ACTIVATE, PROC_REF(relay))
+	RegisterSignal(src, COMSIG_PROJECTILE_PREHIT, PROC_REF(prehit))
 
 
 /obj/mecha/combat/durand/Destroy()
@@ -157,7 +157,7 @@ own integrity back to max. Shield is automatically dropped if we run out of powe
 	chassis = _chassis
 	layer = _layer
 	setDir(_dir)
-	RegisterSignal(src, COMSIG_MECHA_ACTION_ACTIVATE, .proc/activate)
+	RegisterSignal(src, COMSIG_MECHA_ACTION_ACTIVATE, PROC_REF(activate))
 
 
 /obj/durand_shield/Destroy()

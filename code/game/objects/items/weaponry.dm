@@ -12,7 +12,7 @@
 	throw_range = 7
 	attack_verb = list("banned")
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/banhammer/suicide_act(mob/user)
@@ -83,7 +83,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	sharpness = IS_SHARP
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/claymore/Initialize(mapload)
@@ -236,7 +236,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	block_level = 0
 	block_power = 30
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0)
 
 /obj/item/katana
 	name = "katana"
@@ -260,7 +260,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	sharpness = IS_SHARP
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/katana/cursed
@@ -925,7 +925,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		if(H.check_shields(src, breakforce))
 			return
 		else
-			var/def_check = H.getarmor(type = "melee")
+			var/def_check = H.getarmor(type = MELEE)
 			H.apply_damage(stamforce, STAMINA, blocked = def_check)
 	return ..()
 

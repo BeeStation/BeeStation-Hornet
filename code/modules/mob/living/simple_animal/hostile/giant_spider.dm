@@ -150,7 +150,7 @@
 						cocoon_target = O
 						busy = MOVING_TO_TARGET
 						Goto(O, move_to_delay)
-						addtimer(CALLBACK(src, .proc/GiveUp, O), 20 SECONDS)
+						addtimer(CALLBACK(src, PROC_REF(GiveUp), O), 20 SECONDS)
 		if(cocoon_target && get_dist(src, cocoon_target) <= 1)
 			cocoon()
 			GiveUp() //if something interrupts the attempt to cocoon, there is probably an enemy entity nearby and we need to reset
@@ -296,7 +296,7 @@ s
 					heal_target = C
 					busy = MOVING_TO_TARGET
 					Goto(C, move_to_delay)
-					addtimer(CALLBACK(src, .proc/GiveUp), 20 SECONDS) //to prevent infinite chases
+					addtimer(CALLBACK(src, PROC_REF(GiveUp)), 20 SECONDS) //to prevent infinite chases
 		if(heal_target && get_dist(src, heal_target) <= 1)
 			UnarmedAttack(heal_target)
 			if(heal_target.health >= heal_target.maxHealth)
@@ -355,7 +355,7 @@ s
 				cocoon_target = C
 				busy = MOVING_TO_TARGET
 				Goto(C, move_to_delay)
-				addtimer(CALLBACK(src, .proc/GiveUp, C), 20 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(GiveUp), C), 20 SECONDS)
 		if(prob(10) && lay_eggs.IsAvailable()) //so eggs aren't always placed immediately and directly by corpses
 			lay_eggs.Activate()
 	..()
@@ -520,7 +520,7 @@ s
 		if(target_atom.anchored)
 			return
 		user.cocoon_target = target_atom
-		INVOKE_ASYNC(user, /mob/living/simple_animal/hostile/poison/giant_spider/.proc/cocoon)
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob/living/simple_animal/hostile/poison/giant_spider, cocoon))
 		remove_ranged_ability()
 		return TRUE
 

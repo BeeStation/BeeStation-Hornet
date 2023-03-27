@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - rscadd: Added fallback species config option, for use when there is no database
-      attached.

@@ -254,9 +254,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		pickup(parent_robot)
 
 	if(!hitsound)
-		if(damtype == "fire")
+		if(damtype == BURN)
 			hitsound = 'sound/items/welder.ogg'
-		if(damtype == "brute")
+		if(damtype == BRUTE)
 			hitsound = "swing_hit"
 
 	if(LAZYLEN(embedding))
@@ -487,7 +487,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(grav > STANDARD_GRAVITY)
 		var/grav_power = min(3,grav - STANDARD_GRAVITY)
 		to_chat(user,"<span class='notice'>You start picking up [src]...</span>")
-		if(!do_mob(user,src,30*grav_power))
+		if(!do_after(user, 30*grav_power, src))
 			return
 
 
@@ -875,7 +875,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(HAS_TRAIT(src, TRAIT_NODROP))
 		return
 	thrownby = WEAKREF(thrower)
-	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
+	callback = CALLBACK(src, PROC_REF(after_throw), callback) //replace their callback with our own
 	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force, quickstart = quickstart)
 
 /obj/item/proc/after_throw(datum/callback/callback)
@@ -991,6 +991,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		..()
 
 /obj/item/proc/microwave_act(obj/machinery/microwave/M)
+	SEND_SIGNAL(src, COMSIG_ITEM_MICROWAVE_ACT, M)
 	if(istype(M) && M.dirty < 100)
 		M.dirty++
 
@@ -1046,7 +1047,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if((item_flags & PICKED_UP || item_flags & IN_STORAGE) && (usr.client.prefs.toggles2 & PREFTOGGLE_2_ENABLE_TIPS) && !QDELETED(src))
 		var/timedelay = usr.client.prefs.tip_delay/100
 		var/user = usr
-		tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
+		tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, user), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
 	var/mob/living/L = usr
 	if(istype(L) && L.incapacitated())
 		apply_outline(COLOR_RED_GRAY)
@@ -1075,10 +1076,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				colour = COLOR_BLUE_GRAY
 		else
 			colour = COLOR_BLUE_GRAY
-	add_filter("item_outline", 1, list(type="outline", size=1, color=colour))
+	add_filter(HOVER_OUTLINE_FILTER, 1, list(type="outline", size=1, color=colour))
 
 /obj/item/proc/remove_outline()
-	remove_filter("item_outline")
+	remove_filter(HOVER_OUTLINE_FILTER)
 
 // Called when a mob tries to use the item as a tool.
 // Handles most checks.
@@ -1095,10 +1096,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	if(delay)
 		// Create a callback with checks that would be called every tick by do_after.
-		var/datum/callback/tool_check = CALLBACK(src, .proc/tool_check_callback, user, amount, extra_checks)
+		var/datum/callback/tool_check = CALLBACK(src, PROC_REF(tool_check_callback), user, amount, extra_checks)
 
 		if(ismob(target))
-			if(!do_mob(user, target, delay, extra_checks=tool_check))
+			if(!do_after(user, delay, target, extra_checks=tool_check))
 				return
 
 		else
@@ -1186,15 +1187,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(QDELETED(src))
 		return
 	if(target == src)
-		take_damage(INFINITY, BRUTE, "bomb", 0)
+		take_damage(INFINITY, BRUTE, BOMB, 0)
 		return
 	switch(severity)
 		if(1)
-			take_damage(250, BRUTE, "bomb", 0)
+			take_damage(250, BRUTE, BOMB, 0)
 		if(2)
-			take_damage(75, BRUTE, "bomb", 0)
+			take_damage(75, BRUTE, BOMB, 0)
 		if(3)
-			take_damage(20, BRUTE, "bomb", 0)
+			take_damage(20, BRUTE, BOMB, 0)
 
 /obj/item/proc/get_armor_rating(d_type, mob/wearer)
 	return armor.getRating(d_type)

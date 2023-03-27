@@ -401,20 +401,20 @@
 
 /// for sorting clients or mobs by ckey
 /proc/sortKey(list/L, order=1)
-	return sortTim(L, order >= 0 ? /proc/cmp_ckey_asc : /proc/cmp_ckey_dsc)
+	return sortTim(L, order >= 0 ? GLOBAL_PROC_REF(cmp_ckey_asc) : GLOBAL_PROC_REF(cmp_ckey_dsc))
 
 /// Specifically for sorting record datums in a list.
 /proc/sortRecord(list/L, field = "name", order = 1)
 	GLOB.cmp_field = field
-	return sortTim(L, order >= 0 ? /proc/cmp_records_asc : /proc/cmp_records_dsc)
+	return sortTim(L, order >= 0 ? GLOBAL_PROC_REF(cmp_records_asc) : GLOBAL_PROC_REF(cmp_records_dsc))
 
 /// sorting any value in a list with any comparator
-/proc/sortList(list/L, cmp=/proc/cmp_text_asc)
+/proc/sortList(list/L, cmp=GLOBAL_PROC_REF(cmp_text_asc))
 	return sortTim(L.Copy(), cmp)
 
 /// uses sortList() but uses the var's name specifically. This should probably be using mergeAtom() instead
 /proc/sortNames(list/L, order=1)
-	return sortTim(L, order >= 0 ? /proc/cmp_name_asc : /proc/cmp_name_dsc)
+	return sortTim(L, order >= 0 ? GLOBAL_PROC_REF(cmp_name_asc) : GLOBAL_PROC_REF(cmp_name_dsc))
 
 //Mergesort: any value in a list, preserves key=value structure
 /proc/sortAssoc(var/list/L)
@@ -683,7 +683,7 @@
 	return TRUE
 
 ///sort any value in a list
-/proc/sort_list(list/list_to_sort, cmp=/proc/cmp_text_asc)
+/proc/sort_list(list/list_to_sort, cmp=GLOBAL_PROC_REF(cmp_text_asc))
 	return sortTim(list_to_sort.Copy(), cmp)
 
 ///Returns a list with items filtered from a list that can call callback
