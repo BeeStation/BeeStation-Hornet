@@ -751,4 +751,4 @@
     else
         discordmsg += "Nobody died!\n"
     discordmsg += "--------------------------------------\n"
-    sendooc2tgs(discordmsg)
+    sendooc2ext(discordmsg)

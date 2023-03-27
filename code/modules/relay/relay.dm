@@ -1,42 +1,39 @@
-/datum/config_entry/string/ooc_tgs_channel_tag
-/datum/config_entry/string/adminhelp_tgs_channel_tag
-
 /datum/config_entry/string/ooc_webhook
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
 /datum/config_entry/string/adminhelp_webhook
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
-/proc/sendooc2tgs(var/msg)
-	var/ooc_channel = CONFIG_GET(string/ooc_tgs_channel_tag)
-	if(!length(ooc_channel))
-		sendooc2tgs_webhook(msg)
-		return
-	send2chat(msg, ooc_channel)
+/datum/config_entry/str_list/webhook_allowed_mention_types
+/datum/config_entry/str_list/webhook_allowed_mention_users
+/datum/config_entry/str_list/webhook_allowed_mention_roles
 
-/proc/sendooc2tgs_webhook(var/msg)
+/proc/sendooc2ext(var/msg)
 	var/ooc_webhook = CONFIG_GET(string/ooc_webhook)
 	if(!length(ooc_webhook))
 		return
 	send_webhook(ooc_webhook, msg)
 
-/proc/sendadminhelp2tgs(var/msg)
-	var/adminhelp_channel = CONFIG_GET(string/adminhelp_tgs_channel_tag)
-	if(!length(adminhelp_channel))
-		sendadminhelp2tgs_webhook(msg)
-		return
-	send2chat(msg, adminhelp_channel)
-
-/proc/sendadminhelp2tgs_webhook(var/msg)
+/proc/sendadminhelp2ext(var/msg)
 	var/adminhelp_webhook = CONFIG_GET(string/adminhelp_webhook)
 	if(!length(adminhelp_webhook))
 		return
 	send_webhook(adminhelp_webhook, msg)
 
 /proc/send_webhook(var/link, var/msg)
+	// It's up to the external source to escape this, Discord won't ping due to the allowed_mentions object
+	msg = html_decode(msg)
+	var/allowed_types = CONFIG_GET(str_list/webhook_allowed_mention_types) || list()
+	var/allowed_users = CONFIG_GET(str_list/webhook_allowed_mention_users) || list()
+	var/allowed_roles = CONFIG_GET(str_list/webhook_allowed_mention_roles) || list()
 	var/datum/http_request/request = new()
 	request.prepare(RUSTG_HTTP_METHOD_POST, link, json_encode(list(
-		"content" = msg
+		"content" = msg,
+		"allowed_mentions": {
+			"parse": allowed_types,
+			"users": allowed_users,
+			"roles": allowed_roles
+		}
 	)), list(
 		"Content-Type" = "application/json"
 	))
