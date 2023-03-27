@@ -62,6 +62,7 @@ SUBSYSTEM_DEF(economy)
 	D.department_bitflag = ACCOUNT_DYN_BITFLAG
 	D.budget_ratio = BUDGET_RATIO_TYPE_SINGLE
 	D.nonstation_account = TRUE
+	budget_accounts += D
 	return D
 
 /datum/controller/subsystem/economy/proc/get_bank_account_by_id(target_id)
@@ -85,7 +86,7 @@ SUBSYSTEM_DEF(economy)
 				united_budget = D
 				break
 
-	var/static/list/budget_id_list = list()
+	var/list/budget_id_list = list()
 	if(!length(budget_id_list))
 		for(var/datum/bank_account/department/D in budget_accounts)
 			budget_id_list += list("[D.department_id]" = D)

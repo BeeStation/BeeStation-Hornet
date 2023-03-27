@@ -117,6 +117,8 @@
 		return
 	if (!(desired_faction & selected_ship.faction_flags))
 		return
+	if (bit_count(desired_faction) != 1)
+		return
 	// Verify
 	src.desired_faction = desired_faction
 
@@ -263,6 +265,11 @@
 	M.name = ship_name
 	var/datum/shuttle_data/data = SSorbits.get_shuttle_data(M.id)
 	data.shuttle_name = ship_name
+	// Check ship faction
+	if (!desired_faction)
+		desired_faction = (FACTION_INDEPENDANT & selected_ship.faction_flags) ? FACTION_INDEPENDANT : (FACTION_NANOTRASEN & selected_ship.faction_flags) ? FACTION_NANOTRASEN : FACTION_SYNDICATE
+	// Set the ships factoin
+	data.faction = get_new_faction_from_flag(desired_faction)
 	// Spawn and players that weren't spawned with randomised jobs
 	// If there are literally no job slots left, spawn as an assistant
 	for (var/client/player in unspawned_clients)
@@ -308,7 +315,7 @@
 	// Launch the ship into supercruise
 	// TODO: Start docked at a station?
 	//M.enter_supercruise(new /datum/orbital_vector(rand(-10000, 10000), rand(-10000, 10000)))
-	var/obj/docking_port/stationary/docking_port = SSship_spawning.get_spawn_point(NONE, M)
+	var/obj/docking_port/stationary/docking_port = SSship_spawning.get_spawn_point(desired_faction, M)
 	if (docking_port)
 		M.initiate_docking(docking_port)
 	else

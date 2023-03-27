@@ -37,6 +37,13 @@
 			return FACTION_STATUS_HOSTILE
 	return FACTION_STATUS_NEUTRAL
 
+/proc/get_new_faction_from_flag(faction_flag)
+	if (faction_flag & FACTION_NANOTRASEN)
+		return new /datum/faction/nanotrasen
+	if (faction_flag & FACTION_SYNDICATE)
+		return new /datum/faction/syndicate
+	return new /datum/faction/independant
+
 /datum/faction/independant
 	name = "Independant"
 	//Faction alignment (Starts only hostile to pirates but can become hostile to the syndicate.)

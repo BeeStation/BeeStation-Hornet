@@ -23,7 +23,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	//If doing unit tests we don't do none of that trait shit ya know?
 	#ifndef UNIT_TESTS
 	if(CONFIG_GET(flag/station_traits))
-		setup_traits()
+		//setup_traits()
 		prepare_report()
 	#endif
 

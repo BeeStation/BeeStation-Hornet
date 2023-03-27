@@ -164,6 +164,7 @@
 
 /datum/bank_account/department/New(budget)
 	account_balance = exclusive_budget_pool ? exclusive_budget_pool : budget
+
 /datum/bank_account/department/civilian
 	account_holder = ACCOUNT_CIV_NAME
 	department_id = ACCOUNT_CIV_ID
