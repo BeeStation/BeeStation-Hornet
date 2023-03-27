@@ -89,7 +89,7 @@
 	///used for the Blackout malf module
 	var/overload = 1
 	///used for counting how many times it has been hit, used for Aliens at the moment
-	var/beenhit = 0 
+	var/beenhit = 0
 	///Reference to the shunted ai inside
 	var/mob/living/silicon/ai/occupier = null
 	///Is there an AI being transferred out of us?
@@ -118,15 +118,15 @@
 	var/obj/machinery/computer/apc_control/remote_control = null
 
 	//Clockcult - Has the reward for converting an APC been given?
-	var/clock_cog_rewarded = FALSE	
+	var/clock_cog_rewarded = FALSE
 	//Clockcult - The integration cog inserted inside of us
-	var/integration_cog = null		
+	var/integration_cog = null
 
 /obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
 	if (!req_access)
 		req_access = list(ACCESS_ENGINE_EQUIP)
 	if (!armor)
-		armor = list("melee" = 20, "bullet" = 20, "laser" = 10, "energy" = 100, "bomb" = 30, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 50, "stamina" = 0)
+		armor = list(MELEE = 20,  BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, BIO = 100, RAD = 100, FIRE = 90, ACID = 50, STAMINA = 0)
 	..()
 	GLOB.apcs_list += src
 

@@ -298,7 +298,7 @@
 	var/a_incidence_s = abs(incidence_s)
 	if(a_incidence_s > 90 && a_incidence_s < 270)
 		return FALSE
-	if((P.flag in list("bullet", "bomb")) && P.ricochet_incidence_leeway)
+	if((P.armor_flag in list(BULLET, BOMB)) && P.ricochet_incidence_leeway)
 		if((a_incidence_s < 90 && a_incidence_s < 90 - P.ricochet_incidence_leeway) || (a_incidence_s > 270 && a_incidence_s -270 > P.ricochet_incidence_leeway))
 			return FALSE
 	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
@@ -1597,7 +1597,7 @@
 		ai_controller = new ai_controller(src)
 
 /*
-* Called when something made out of plasma is exposed to high temperatures. 
+* Called when something made out of plasma is exposed to high temperatures.
 * Intended for use only with plasma that is ignited outside of some form of containment
 * Contained plasma ignitions (such as power cells or light fixtures) should explode with proper force
 */
@@ -1606,7 +1606,7 @@
 	var/datum/gas_mixture/environment = T.return_air()
 	if(environment.get_moles(GAS_O2) >= PLASMA_MINIMUM_OXYGEN_NEEDED) //Flashpoint ignition can only occur with at least this much oxygen present
 		//no reason to alert admins or create an explosion if there's not enough power to actually make an explosion
-		if(strength > 1) 
+		if(strength > 1)
 			if(user)
 				message_admins("[src] ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
 				log_game("[src] ignited by [key_name(user)] in [AREACOORD(T)]")
@@ -1625,7 +1625,7 @@
 			new /obj/effect/hotspot(T)
 		//Regardless of power, whatever is burning will go up in a brilliant flash with at least a fizzle
 		playsound(T,'sound/magic/fireball.ogg', max(strength*20, 20), 1)
-		T.visible_message("<b><span class='userdanger'>[src] ignites in a brilliant flash!</span></b>") 
+		T.visible_message("<b><span class='userdanger'>[src] ignites in a brilliant flash!</span></b>")
 		if(reagent_reaction) // Don't qdel(src). It's a reaction inside of something (or someone) important.
 			return TRUE
 		else if(isturf(src))

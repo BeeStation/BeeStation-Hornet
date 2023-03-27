@@ -143,7 +143,7 @@
 	lefthand_file = null
 	righthand_file = null
 	block_power = 60
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 
 /obj/item/melee/sabre/mime/on_exit_storage(datum/component/storage/concrete/R)
 	var/obj/item/storage/belt/sabre/mime/M = R.real_location()
@@ -235,7 +235,7 @@
 /obj/item/melee/classic_baton/police/attack(mob/living/target, mob/living/user)
 	if(!on)
 		return ..()
-	var/def_check = target.getarmor(type = "melee")
+	var/def_check = target.getarmor(type = MELEE)
 
 	add_fingerprint(user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
@@ -739,7 +739,7 @@
 	target.visible_message("<span class='danger'>[user] knocks [target] off [target.p_their()] feet!</span>", "<span class='userdanger'>[user] yanks your legs out from under you!</span>")
 
 /obj/item/melee/curator_whip/proc/whip_lash(mob/living/user, mob/living/target)
-	if(target.getarmor(type = "melee") < 16)
+	if(target.getarmor(type = MELEE) < 16)
 		target.emote("scream")
 		target.visible_message("<span class='danger'>[user] whips [target]!</span>", "<span class='userdanger'>[user] whips you! It stings!</span>")
 
