@@ -229,7 +229,7 @@
 		var/turf/targetturf
 		for(var/i in 1 to 100) // teleporting across z-levels is painful
 			targetturf = get_safe_random_station_turfs()
-			if(targetturf.z == src.get_virtual_z_level())
+			if(targetturf.get_virtual_z_level() == src.get_virtual_z_level())
 				break
 		if(targetturf)
 			var/turf/message_turf = get_turf(src) // 'visible_message' from teleported mob will be visible after it's teleported...
