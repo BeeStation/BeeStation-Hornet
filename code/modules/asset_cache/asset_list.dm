@@ -89,7 +89,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/simple/send(client)
 	if(!client)
 		return FALSE
-	. = SSassets.transport.send_assets(client, assets)
+	SSassets.transport.send_assets(client, assets)
+	return TRUE
 
 /datum/asset/simple/get_url_mappings()
 	. = list()
@@ -219,10 +220,10 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	return ..()
 
 /datum/asset/spritesheet/send(client/client)
-	if(!client)
+	if (!client)
 		return FALSE
 	if (!name)
-		return
+		return FALSE
 
 	if (!should_refresh())
 		return send_from_cache(client)
