@@ -15,7 +15,8 @@
 There are a number of ways to download the source code. Some are described here, an alternative all-inclusive guide is also located at https://wiki.beestation13.com/view/Downloading_the_source_code
 
 Option 1:
-Follow this: https://wiki.beestation13.com/view/Setting_up_git
+Follow this: https://wiki.beestation13.com/view/Guide_to_git
+Clone the repository using `git clone`.
 
 Option 2: Download the source code as a zip by clicking the ZIP button in the
 code tab of https://github.com/beestation/beestation-hornet
@@ -133,9 +134,7 @@ To enable an away mission open `config/awaymissionconfig.txt` and uncomment one 
 
 The SQL backend requires a MariaDB server running 10.2 or later. MySQL is not supported but MariaDB is a drop in replacement for MySQL. SQL is required for the library, stats tracking, admin notes, and job-only bans, among other features, mostly related to server administration. Your server details go in `/config/dbconfig.txt`, and the SQL schema is in `/SQL/beestation_schema.sql`.
 
-More detailed setup instructions are located here: https://wiki.beestation13.com/view/Downloading_the_source_code#Setting_up_the_database
-
-If you are setting up a database for local testing use, you can find instructions here: https://github.com/BeeStation/BeeStation-Hornet/wiki/Local-Database-Setup
+More detailed setup instructions are located here: https://wiki.beestation13.com/view/Working_with_the_database#Database_Setup
 
 ## WEB/CDN RESOURCE DELIVERY
 
