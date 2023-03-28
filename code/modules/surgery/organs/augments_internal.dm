@@ -182,7 +182,7 @@
 			var/obj/item/disk/tech_disk/tech_disk = held_item
 			for(var/D in tech_disk.stored_research.researched_designs)
 				var/datum/design/surgery/surgery_design = SSresearch.techweb_design_by_id(D)
-				if(!istype(design))
+				if(!istype(surgery_design))
 					continue
 				if(!(surgery_design.surgery in old_advanced_surgeries))
 					surgeries_to_add |= surgery_design.surgery
