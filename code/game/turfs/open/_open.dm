@@ -45,7 +45,7 @@
 		else
 			M.visible_message("<span class='notice'>[user] is pulling [M] onto [src]", \
 								"<span class='notice'>You start pulling [M] onto [src].</span>")
-		if(do_mob(user, M, 2 SECONDS))
+		if(do_after(user, M, 2 SECONDS))
 			M.forceMove(src)
 		return
 	if(turf_height - T.turf_height <= -TURF_HEIGHT_BLOCK_THRESHOLD)
@@ -56,7 +56,7 @@
 		else
 			M.visible_message("<span class='notice'>[user] is lowering [M] down to [src]", \
 								"<span class='notice'>You start lowering [M] down to [src].</span>")
-		if(do_mob(user, M, 2 SECONDS))
+		if(do_after(user, M, 2 SECONDS))
 			M.forceMove(src)
 		return
 
