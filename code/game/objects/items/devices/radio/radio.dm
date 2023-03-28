@@ -56,7 +56,8 @@
 	frequency = add_radio(src, new_frequency)
 
 /obj/item/radio/proc/recalculateChannels()
-	channels = list()
+	channels = list()// Temporary thing to make all encryption keys listen to factions
+	channels[RADIO_CHANNEL_FACTION] = 1
 	translate_binary = FALSE
 	syndie = FALSE
 	independent = FALSE

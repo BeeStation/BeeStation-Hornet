@@ -1510,8 +1510,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/docking_port/mobile{
-	dheight = 11;
-	dwidth = 15;
+	dwidth = 11;
 	dynamic_id = 1;
 	height = 16;
 	id = "whiteship";

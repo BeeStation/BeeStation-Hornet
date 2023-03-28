@@ -289,7 +289,7 @@ SUBSYSTEM_DEF(mapping)
 
 	// Load statoin
 	LoadGroup(FailedZs, "Nanotrasen Base", "map_files/outposts", "outpost_nanotrasen.dmm", default_traits = ZTRAITS_STATION, orbital_body_type = /datum/orbital_object/z_linked/base/nanotrasen)
-	LoadGroup(FailedZs, "Syndicate Base", "map_files/outposts", "outpost_nanotrasen.dmm", default_traits = ZTRAITS_STATION, orbital_body_type = /datum/orbital_object/z_linked/base/syndicate)
+	LoadGroup(FailedZs, "Syndicate Base", "map_files/outposts", "DockStation_Syndicate.dmm", default_traits = ZTRAITS_STATION, orbital_body_type = /datum/orbital_object/z_linked/base/syndicate)
 
 	// load mining
 	if(config.minetype == "lavaland")

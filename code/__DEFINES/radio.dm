@@ -13,6 +13,10 @@
 #define RADIO_KEY_ENGINEERING "e"
 #define RADIO_TOKEN_ENGINEERING ":e"
 
+#define RADIO_CHANNEL_FACTION "Faction"
+#define RADIO_KEY_FACTION "f"
+#define RADIO_TOKEN_FACTION ":f"
+
 #define RADIO_CHANNEL_COMMAND "Command"
 #define RADIO_KEY_COMMAND "c"
 #define RADIO_TOKEN_COMMAND ":c"
@@ -72,6 +76,7 @@
 #define FREQ_ENGINEERING 1357  //! Engineering comms frequency, orange
 #define FREQ_SECURITY 1359  //! Security comms frequency, red
 #define FREQ_EXPLORATION 1361 //! Exploration comms frequency, cyan
+#define FREQ_FACTION 1363 //! Exploration comms frequency, cyan
 
 #define FREQ_STATUS_DISPLAYS 1435
 #define FREQ_ATMOS_ALARMS 1437  //! air alarms <-> alert computers
