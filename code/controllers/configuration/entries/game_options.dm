@@ -187,6 +187,10 @@
 	integer = FALSE
 	min_val = 0
 
+/datum/config_entry/number/malf_ai_minimum_pop	// minimum population for malf AI to occur.
+	config_entry_value = 30
+	min_val = 0
+
 /datum/config_entry/flag/show_game_type_odds	//if set this allows players to see the odds of each roundtype on the get revision screen
 
 /datum/config_entry/string/fallback_default_species
