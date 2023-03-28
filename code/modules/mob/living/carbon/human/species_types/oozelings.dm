@@ -167,6 +167,8 @@
 	return ..()
 
 /datum/species/oozeling/z_impact_damage(mob/living/carbon/human/H, turf/T, levels)
+	if (H.reagents.has_reagent(/datum/reagent/toxin/solidifying_ooze))
+		return ..()
 	// Splat!
 	H.visible_message("<span class='notice'>[H] hits the ground, flattening on impact!</span>",
 		"<span class='warning'>You fall [levels] level\s into [T]. Your body flattens upon landing!</span>")
