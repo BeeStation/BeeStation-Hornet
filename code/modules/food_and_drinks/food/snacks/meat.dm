@@ -226,7 +226,7 @@
 	filling_color = "#32CD32"
 	cooked_type = /obj/item/reagent_containers/food/snacks/meat/steak/xeno
 	slice_path = /obj/item/reagent_containers/food/snacks/meat/rawcutlet/xeno
-	tastes = list("meat" = 1, "acid" = 1)
+	tastes = list("meat" = 1, ACID = 1)
 	foodtype = RAW | MEAT
 
 /obj/item/reagent_containers/food/snacks/meat/slab/spider
@@ -375,7 +375,7 @@
 
 /obj/item/reagent_containers/food/snacks/meat/steak/xeno
 	name = "xeno steak"
-	tastes = list("meat" = 1, "acid" = 1)
+	tastes = list("meat" = 1, ACID = 1)
 
 /obj/item/reagent_containers/food/snacks/meat/steak/spider
 	name = "spider steak"
@@ -452,7 +452,7 @@
 /obj/item/reagent_containers/food/snacks/meat/rawcutlet/xeno
 	name = "raw xeno cutlet"
 	cooked_type = /obj/item/reagent_containers/food/snacks/meat/cutlet/xeno
-	tastes = list("meat" = 1, "acid" = 1)
+	tastes = list("meat" = 1, ACID = 1)
 
 /obj/item/reagent_containers/food/snacks/meat/rawcutlet/spider
 	name = "raw spider cutlet"
@@ -487,7 +487,7 @@
 
 /obj/item/reagent_containers/food/snacks/meat/rawcutlet/grub/initialize_cooked_food(obj/item/reagent_containers/food/snacks/S) //so the toxin and taste go away
 	if(reagents)
-		reagents.remove_all(3) 
+		reagents.remove_all(3)
 	..()
 	S.name = "redgrub rind"
 
@@ -521,7 +521,7 @@
 
 /obj/item/reagent_containers/food/snacks/meat/cutlet/xeno
 	name = "xeno cutlet"
-	tastes = list("meat" = 1, "acid" = 1)
+	tastes = list("meat" = 1, ACID = 1)
 
 /obj/item/reagent_containers/food/snacks/meat/cutlet/spider
 	name = "spider cutlet"
