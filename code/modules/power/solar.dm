@@ -27,6 +27,11 @@
 	. = ..()
 	Make(S)
 	connect_to_network()
+	// Initially connect all panels
+	search_for_connected()
+	if(connected_tracker && track == 2)
+		connected_tracker.set_angle(SSsun.angle)
+	set_panels(currentdir)
 
 /obj/machinery/power/solar/Destroy()
 	unset_control() //remove from control computer

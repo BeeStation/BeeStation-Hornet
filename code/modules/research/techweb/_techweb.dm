@@ -47,6 +47,14 @@
 			items_per_tier["[node.tech_tier]"] += 1
 		else
 			items_per_tier["[node.tech_tier]"] = 1
+	// Auto unlock everything that isn't hidden
+	for(var/i in SSresearch.techweb_nodes)
+		var/datum/techweb_node/TN = SSresearch.techweb_nodes[i]
+		if (!TN.hidden)
+			research_node(TN, TRUE, TRUE, FALSE)
+	for(var/i in SSresearch.point_types)
+		research_points[i] = INFINITY
+	hidden_nodes = list()
 	return ..()
 
 /datum/techweb/admin

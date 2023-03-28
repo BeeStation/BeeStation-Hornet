@@ -27,23 +27,17 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/table,
-/obj/item/stack/sheet/iron/fifty{
-	pixel_x = -1;
-	pixel_y = 1
-	},
-/obj/item/stack/sheet/mineral/plastitanium{
-	amount = 30
-	},
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 1;
-	pixel_y = -1
-	},
-/obj/item/circuitboard/machine/thermomachine,
-/obj/item/weldingtool/largetank,
-/obj/item/rcl/pre_loaded,
 /obj/machinery/firealarm/directional/east,
-/turf/open/floor/plasteel,
+/obj/machinery/power/solar_control{
+	dir = 8;
+	id = "portsolar";
+	name = "Port Quarter Solar Control";
+	track = 2
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
 "ap" = (
 /obj/machinery/firealarm/directional/south,
@@ -94,9 +88,11 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/hallway/primary/central)
 "aL" = (
-/obj/machinery/power/smes,
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
+	},
+/obj/machinery/power/smes{
+	charge = 3000000
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
@@ -529,11 +525,6 @@
 /obj/machinery/power/terminal,
 /obj/structure/cable{
 	icon_state = "1-8"
-	},
-/obj/machinery/power/solar_control{
-	dir = 8;
-	id = "portsolar";
-	name = "Port Quarter Solar Control"
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
@@ -1010,8 +1001,15 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/hallway/primary/aft)
 "jb" = (
+/obj/docking_port/stationary/spawn_point{
+	dir = 4;
+	width = 28;
+	dwidth = 8;
+	height = 30;
+	faction_allowed = 1
+	},
 /turf/open/space/basic,
-/area/hallway/primary/fore)
+/area/space)
 "jd" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -1368,15 +1366,8 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
 "mL" = (
-/obj/docking_port/stationary/spawn_point{
-	dir = 4;
-	width = 18;
-	dwidth = 8;
-	height = 40;
-	faction_allowed = 1
-	},
 /turf/open/space/basic,
-/area/space)
+/area/space/nearstation)
 "mR" = (
 /obj/machinery/suit_storage_unit/radsuit,
 /obj/machinery/light{
@@ -1907,7 +1898,7 @@
 /obj/docking_port/stationary/spawn_point{
 	dir = 8;
 	width = 28;
-	dwidth = 18;
+	dwidth = 8;
 	height = 40;
 	faction_allowed = 1
 	},
@@ -2539,12 +2530,14 @@
 /turf/open/space/basic,
 /area/solar/starboard/fore)
 "yJ" = (
-/obj/machinery/power/smes,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
+	},
+/obj/machinery/power/smes{
+	charge = 3000000
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
@@ -2706,14 +2699,13 @@
 /area/crew_quarters/bar)
 "zU" = (
 /obj/docking_port/stationary/spawn_point{
-	dir = 8;
-	width = 31;
-	dwidth = 19;
-	height = 15;
+	width = 15;
+	dwidth = 7;
+	height = 20;
 	faction_allowed = 1
 	},
 /turf/open/space/basic,
-/area/hallway/primary/aft)
+/area/space)
 "zX" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -2938,15 +2930,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
-"CO" = (
-/obj/docking_port/stationary/spawn_point{
-	width = 15;
-	dwidth = 7;
-	height = 20;
-	faction_allowed = 1
-	},
-/turf/open/space/basic,
-/area/space)
 "CP" = (
 /obj/structure/bed{
 	dir = 1
@@ -2975,6 +2958,9 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/bridge/meeting_room)
+"De" = (
+/turf/open/space/basic,
+/area/hallway/primary/aft)
 "Dg" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
 /obj/item/reagent_containers/food/condiment/enzyme,
@@ -3013,6 +2999,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/rnd/production/circuit_imprinter,
 /turf/open/floor/mineral/plastitanium,
 /area/storage/primary)
 "DB" = (
@@ -3380,7 +3367,6 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "GI" = (
-/obj/machinery/power/smes,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -3389,6 +3375,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
+	},
+/obj/machinery/power/smes{
+	charge = 3000000
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
@@ -3543,9 +3532,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/computer/rdconsole/production{
-	dir = 8
-	},
+/obj/machinery/rnd/production/protolathe/department/engineering,
 /turf/open/floor/mineral/plastitanium,
 /area/storage/primary)
 "IF" = (
@@ -4034,14 +4021,14 @@
 /area/maintenance/solars/starboard/aft)
 "MG" = (
 /obj/docking_port/stationary/spawn_point{
-	dir = 4;
+	dir = 8;
 	width = 31;
-	dwidth = 11;
-	height = 16;
+	dwidth = 19;
+	height = 15;
 	faction_allowed = 1
 	},
 /turf/open/space/basic,
-/area/hallway/primary/fore)
+/area/hallway/primary/aft)
 "MR" = (
 /turf/closed/wall/mineral/plastitanium/interior,
 /area/bridge)
@@ -4310,7 +4297,7 @@
 /area/maintenance/port/fore)
 "Qc" = (
 /turf/open/space/basic,
-/area/hallway/primary/aft)
+/area/hallway/primary/fore)
 "Qf" = (
 /turf/closed/wall/mineral/plastitanium/interior,
 /area/engine/atmos)
@@ -4321,13 +4308,13 @@
 "Qn" = (
 /obj/docking_port/stationary/spawn_point{
 	dir = 4;
-	width = 28;
-	dwidth = 8;
-	height = 30;
+	width = 31;
+	dwidth = 11;
+	height = 16;
 	faction_allowed = 1
 	},
 /turf/open/space/basic,
-/area/space)
+/area/hallway/primary/fore)
 "Qo" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -4560,8 +4547,15 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/hallway/primary/aft)
 "SP" = (
+/obj/docking_port/stationary/spawn_point{
+	dir = 8;
+	width = 28;
+	dwidth = 18;
+	height = 40;
+	faction_allowed = 1
+	},
 /turf/open/space/basic,
-/area/space/nearstation)
+/area/space)
 "ST" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -4645,7 +4639,7 @@
 /obj/machinery/airalarm{
 	pixel_y = 23
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
 "TA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -4768,7 +4762,9 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/bridge)
 "UR" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/smes{
+	charge = 3000000
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -5015,6 +5011,16 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
+"Xk" = (
+/obj/docking_port/stationary/spawn_point{
+	dir = 4;
+	width = 18;
+	dwidth = 8;
+	height = 40;
+	faction_allowed = 1
+	},
+/turf/open/space/basic,
+/area/space)
 "Xo" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -5058,15 +5064,9 @@
 /turf/open/floor/plating/airless,
 /area/engine/atmos)
 "XM" = (
-/obj/docking_port/stationary/spawn_point{
-	dir = 8;
-	width = 28;
-	dwidth = 8;
-	height = 40;
-	faction_allowed = 1
-	},
-/turf/open/space/basic,
-/area/space)
+/obj/machinery/gravity_generator/main/station/admin,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/port/fore)
 "XU" = (
 /obj/item/crowbar,
 /obj/structure/closet/toolcloset{
@@ -31768,15 +31768,15 @@ BE
 Oo
 bj
 Oo
-Km
+uw
 nt
-Km
+uw
 HZ
 aL
 Km
-BU
-BU
-BU
+WY
+WY
+WY
 AN
 Uu
 ht
@@ -32025,16 +32025,16 @@ vg
 Is
 fP
 Oo
-Km
+uw
 kb
-Km
+uw
 bV
 yJ
 Km
-BU
-BU
-BU
-BU
+WY
+WY
+XM
+Qa
 Uu
 Uu
 ht
@@ -32288,9 +32288,9 @@ gs
 IU
 GI
 Km
-BU
-BU
-BU
+WY
+WY
+WY
 Ma
 Ma
 Uu
@@ -32546,8 +32546,8 @@ fo
 UR
 Km
 Tx
-BU
-BU
+WY
+WY
 Ma
 mj
 dJ
@@ -32562,7 +32562,7 @@ Qw
 Qw
 Qw
 ht
-XM
+rx
 Qw
 Qw
 Qw
@@ -32581,7 +32581,7 @@ Qw
 Qw
 Qw
 ht
-rx
+SP
 Qw
 Qw
 Qw
@@ -32802,9 +32802,9 @@ Km
 Km
 Km
 Km
-BU
-BU
-BU
+WY
+WY
+WY
 Ma
 Jv
 BR
@@ -33059,9 +33059,9 @@ WY
 WY
 Xr
 Qa
-BU
-BU
-BU
+Qa
+Uk
+Qa
 Ma
 Ij
 BR
@@ -34873,30 +34873,30 @@ JD
 tf
 ZH
 ZH
-SP
-SP
-SP
-SP
-SP
-SP
-SP
-SP
-SP
-jb
-jb
-MG
-jb
-SP
-SP
-SP
-SP
-SP
-SP
-SP
-SP
-SP
-SP
-SP
+mL
+mL
+mL
+mL
+mL
+mL
+mL
+mL
+mL
+Qc
+Qc
+Qn
+Qc
+mL
+mL
+mL
+mL
+mL
+mL
+mL
+mL
+mL
+mL
+mL
 ht
 ht
 ht
@@ -35115,11 +35115,11 @@ GT
 Oo
 cf
 uF
-Qa
-Qa
+al
+al
 Uk
-Qa
-Qa
+al
+al
 nG
 gE
 gE
@@ -35372,11 +35372,11 @@ GT
 Oo
 cf
 uF
-Qa
+al
 BU
 BU
 BU
-Qa
+al
 gE
 gE
 gE
@@ -35609,7 +35609,7 @@ ht
 ht
 ht
 ht
-CO
+zU
 ph
 TY
 pU
@@ -35629,11 +35629,11 @@ GT
 Is
 cf
 uF
-Qa
+al
 BU
 BU
 BU
-Qa
+al
 GX
 hD
 hD
@@ -35886,11 +35886,11 @@ GT
 Oo
 cf
 uF
+al
+BU
+BU
+al
 Qa
-BU
-BU
-AN
-AN
 ip
 ip
 ip
@@ -36143,10 +36143,10 @@ Qf
 Oo
 cf
 uF
-Qa
+al
 BU
-AN
-AN
+al
+Qa
 ip
 ip
 Qw
@@ -36400,9 +36400,9 @@ RJ
 KQ
 GK
 uF
+al
+al
 Qa
-AN
-AN
 ip
 ip
 Qw
@@ -41777,7 +41777,7 @@ ht
 ht
 ht
 ht
-CO
+zU
 ph
 TY
 pU
@@ -42583,29 +42583,29 @@ bA
 vp
 Ej
 Ej
-SP
-SP
-SP
-SP
-SP
-SP
-SP
-SP
-SP
-Qc
-Qc
-zU
-Qc
-SP
-SP
-SP
-SP
-SP
-SP
-SP
-SP
-SP
-SP
+mL
+mL
+mL
+mL
+mL
+mL
+mL
+mL
+mL
+De
+De
+MG
+De
+mL
+mL
+mL
+mL
+mL
+mL
+mL
+mL
+mL
+mL
 rv
 ht
 ht
@@ -44897,7 +44897,7 @@ Qw
 Qw
 Qw
 Qw
-mL
+Xk
 ht
 Qw
 Qw
@@ -44916,7 +44916,7 @@ Qw
 Qw
 Qw
 Qw
-Qn
+jb
 ht
 Qw
 Qw
