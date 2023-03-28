@@ -136,6 +136,9 @@
 	if(!LAZYLEN(limbs_to_heal))
 		to_chat(H, "<span class='notice'>You feel intact enough as it is.</span>")
 		return
+	if(H.reagents.has_reagent(/datum/reagent/toxin/solidifying_ooze))
+		to_chat(H, "<span class='warning'>Your slime is too thick right now, you cannot regenerate!</span>")
+		return
 	to_chat(H, "<span class='notice'>You focus intently on your missing [limbs_to_heal.len >= 2 ? "limbs" : "limb"]...</span>")
 	if(H.blood_volume >= 80*limbs_to_heal.len+BLOOD_VOLUME_OKAY)
 		if(do_after(H, 60, target = H))
