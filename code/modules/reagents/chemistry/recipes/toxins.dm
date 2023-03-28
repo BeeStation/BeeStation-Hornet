@@ -119,3 +119,10 @@
 	results = list(/datum/reagent/toxin/bonehurtingjuice = 5)
 	required_reagents = list(/datum/reagent/toxin/mutagen = 1, /datum/reagent/toxin/itching_powder = 3, /datum/reagent/consumable/milk = 1)
 	mix_message = "<span class='danger'>The mixture suddenly becomes clear and looks a lot like water. You feel a strong urge to drink it.</span>"
+
+/datum/chemical_reaction/solidifying_ooze
+	name = "Solidifying Ooze"
+	id = /datum/reagent/toxin/solidifying_ooze
+	results = list(/datum/reagent/toxin/solidifying_ooze = 4)
+	required_reagents = list(/datum/reagent/water = 2, /datum/reagent/fluorosurfactant = 2, /datum/reagent/toxin/mutagen = 1, /datum/reagent/toxin/cyanide = 1)
+	mix_message = "<span class='danger'>The mixture becomes an eerie semi-solid ooze.</span>"

@@ -979,3 +979,47 @@
 	M.silent = max(M.silent, 3)
 	M.confused = max(M.confused, 3)
 	..()
+
+/datum/reagent/toxin/solidifying_ooze
+	name = "Solidifying Ooze" // needs a better name, ngl
+	description = "A toxic ooze that stabilizes the slime of oozelings, making them resistant to water, although it still feels unpleasant for them. Causes severe pain and damage to non-oozelings."
+	color = "#7a1783"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	toxpwr = 0
+	taste_description = "thick slime"
+	metabolization_rate = 0 // We handle metabolization specially.
+
+/datum/reagent/toxin/solidifying_ooze/on_mob_life(mob/living/carbon/M)
+	if(!ishuman(M))
+		return ..()
+	var/mob/living/carbon/human/user = M
+	if(isoozeling(user))
+		if(prob(10))
+			to_chat(user, "<span class='warning'>[pick("Your slime feels thick, making moving require much more effort!", "Your slime clumps up and drags on the floor, slowing you down.", "Your slime thickens and coagulates, resisting any movement.")]</span>")
+		var/stamina_loss = user.getStaminaLoss()
+		if(stamina_loss < 105 && prob(90))
+			user.setStaminaLoss(min(stamina_loss + rand(3, 9) * REM, 105))
+		if(prob(20))
+			user.Jitter(rand(5, 15) * REM)
+			user.blur_eyes(rand(3, 7) * REM)
+		if(holder.has_reagent(/datum/reagent/water, exact_type = FALSE))
+			if(prob(85))
+				user.adjustStaminaLoss(rand(3, 7) * REM)
+			else if(prob(10))
+				user.vomit(0, toxic = TRUE)
+			// Ensure 2.5x of the reagent is removed than normal
+			holder.remove_reagent(type, metabolization_rate * user.metabolism_efficiency * 2.5)
+		else
+			holder.remove_reagent(type, metabolization_rate * user.metabolism_efficiency)
+	else
+		if(prob(10))
+			user.emote("cough")
+			to_chat(user, "<span class='danger'>[pick("Your stomach hurts badly!", "It feels like your stomach's full of painful rocks!")]</span>")
+		else if(prob(10))
+			user.emote("scream")
+			user.visible_message("<span class='warning'>[user] clutches at their stomach in pain!</span>", "<span class='userdanger'>IT HURTS... SO... BAD!</span>")
+			user.Stun(rand(1 SECONDS, 5 SECONDS) * REM)
+		user.adjustOrganLoss(ORGAN_SLOT_STOMACH, rand(3, 7) * REM)
+		user.adjustStaminaLoss(rand(3, 7) * REM)
+		holder.remove_reagent(type, metabolization_rate * user.metabolism_efficiency * 0.5)
+	return ..()

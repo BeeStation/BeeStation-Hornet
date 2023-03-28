@@ -733,11 +733,11 @@
 
 	return FALSE
 
-/datum/reagents/proc/has_reagent(reagent, amount = -1, needs_metabolizing = FALSE)
+/datum/reagents/proc/has_reagent(reagent, amount = -1, needs_metabolizing = FALSE, exact_type = TRUE)
 	var/list/cached_reagents = reagent_list
 	for(var/_reagent in cached_reagents)
 		var/datum/reagent/R = _reagent
-		if (R.type == reagent)
+		if (exact_type ? R.type == reagent : istype(R, reagent))
 			if(!amount)
 				if(needs_metabolizing && !R.metabolizing)
 					return

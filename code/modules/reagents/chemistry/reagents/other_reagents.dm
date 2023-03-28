@@ -226,9 +226,12 @@
 		var/touch_mod = 0
 		if(method in list(TOUCH, VAPOR)) // No melting if you have skin protection
 			touch_mod = M.get_permeability_protection()
-		M.blood_volume = max(M.blood_volume - 30 * (1 - touch_mod), 0)
-		if(touch_mod < 0.9)
-			to_chat(M, "<span class='warning'>The water causes you to melt away!</span>")
+		if(!M.reagents.has_reagent(/datum/reagent/toxin/solidifying_ooze))
+			M.blood_volume = max(M.blood_volume - 30 * (1 - touch_mod), 0)
+			if(touch_mod < 0.9)
+				to_chat(M, "<span class='warning'>The water causes you to melt away!</span>")
+		else if(touch_mod < 0.9)
+			to_chat(M, "<span class='warning'>Your slime rapidly thickens, protecting you from the water!</span>")
 	if(method == TOUCH)
 		M.adjust_fire_stacks(-(reac_volume / 10))
 		M.ExtinguishMob()
