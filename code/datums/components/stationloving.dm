@@ -78,6 +78,10 @@
 	if(is_reserved_level(T.z))
 		if (is_type_in_typecache(A, allowed_shuttles))
 			return TRUE
+		// Whenever shuttles move, everything seems to be on a hyperspace tile temporarily,
+		// so we need this to stop it from teleporting off of allowed shuttles.
+		if (istype(T, /turf/open/space/transit))
+			return TRUE
 
 	return FALSE
 
