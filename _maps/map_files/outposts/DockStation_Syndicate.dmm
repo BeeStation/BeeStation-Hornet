@@ -189,26 +189,6 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/iron/fifty{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/iron/fifty{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/iron/fifty{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/iron/fifty{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/stack/rods/fifty,
-/obj/item/stack/rods/fifty,
-/obj/item/stack/rods/fifty,
-/obj/item/stack/rods/fifty,
 /obj/item/stack/rods/fifty,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -774,26 +754,6 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/iron/fifty{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/iron/fifty{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/iron/fifty{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/iron/fifty{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/stack/rods/fifty,
-/obj/item/stack/rods/fifty,
-/obj/item/stack/rods/fifty,
-/obj/item/stack/rods/fifty,
 /obj/item/stack/rods/fifty,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -827,26 +787,6 @@
 /area/crew_quarters/dorms)
 "hx" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/mineral/plastitanium{
-	amount = 30;
-	pixel_x = -4;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/mineral/plastitanium{
-	amount = 30;
-	pixel_x = -4;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/mineral/plastitanium{
-	amount = 30;
-	pixel_x = -4;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/mineral/plastitanium{
-	amount = 30;
-	pixel_x = -4;
-	pixel_y = 3
-	},
 /obj/item/stack/sheet/mineral/plastitanium{
 	amount = 30;
 	pixel_x = -4;
@@ -1003,9 +943,9 @@
 "jb" = (
 /obj/docking_port/stationary/spawn_point{
 	dir = 4;
-	width = 28;
+	width = 18;
 	dwidth = 8;
-	height = 30;
+	height = 40;
 	faction_allowed = 1
 	},
 /turf/open/space/basic,
@@ -1366,8 +1306,15 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
 "mL" = (
+/obj/docking_port/stationary/spawn_point{
+	dir = 4;
+	width = 31;
+	dwidth = 11;
+	height = 16;
+	faction_allowed = 1
+	},
 /turf/open/space/basic,
-/area/space/nearstation)
+/area/hallway/primary/fore)
 "mR" = (
 /obj/machinery/suit_storage_unit/radsuit,
 /obj/machinery/light{
@@ -1413,12 +1360,14 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/storage/primary)
 "nm" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/docking_port/stationary/spawn_point{
+	width = 15;
+	dwidth = 7;
+	height = 20;
+	faction_allowed = 1
 	},
-/turf/open/space,
-/area/solar/starboard/aft)
+/turf/open/space/basic,
+/area/space)
 "np" = (
 /obj/machinery/door/airlock/external{
 	name = "Labor Camp Shuttle Airlock";
@@ -1625,11 +1574,6 @@
 /area/storage/primary)
 "pc" = (
 /obj/structure/table/reinforced,
-/obj/item/construction/rcd/loaded,
-/obj/item/construction/rcd/loaded,
-/obj/item/construction/rcd/loaded,
-/obj/item/construction/rcd/loaded,
-/obj/item/construction/rcd/loaded,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -1749,10 +1693,7 @@
 /obj/item/storage/belt/utility/full,
 /obj/item/storage/belt/utility/full,
 /obj/item/storage/belt/utility/full,
-/obj/item/storage/belt/utility/full,
-/obj/item/storage/belt/utility/full,
 /obj/structure/table/reinforced,
-/obj/item/storage/belt/utility/full,
 /obj/item/clothing/glasses/meson,
 /obj/item/clothing/glasses/meson,
 /obj/item/clothing/glasses/meson,
@@ -1895,15 +1836,8 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "rx" = (
-/obj/docking_port/stationary/spawn_point{
-	dir = 8;
-	width = 28;
-	dwidth = 8;
-	height = 40;
-	faction_allowed = 1
-	},
 /turf/open/space/basic,
-/area/space)
+/area/space/nearstation)
 "ry" = (
 /obj/machinery/door/airlock/external{
 	req_access_txt = "150"
@@ -2415,18 +2349,13 @@
 "wY" = (
 /obj/structure/window/plastitanium,
 /obj/structure/grille,
-/turf/open/space/basic,
+/turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
 "xp" = (
 /turf/closed/wall/mineral/plastitanium/interior,
 /area/storage/primary)
 "xz" = (
 /obj/structure/table/reinforced,
-/obj/item/construction/rcd/loaded,
-/obj/item/construction/rcd/loaded,
-/obj/item/construction/rcd/loaded,
-/obj/item/construction/rcd/loaded,
-/obj/item/construction/rcd/loaded,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -2699,9 +2628,10 @@
 /area/crew_quarters/bar)
 "zU" = (
 /obj/docking_port/stationary/spawn_point{
-	width = 15;
-	dwidth = 7;
-	height = 20;
+	dir = 8;
+	width = 28;
+	dwidth = 8;
+	height = 40;
 	faction_allowed = 1
 	},
 /turf/open/space/basic,
@@ -2930,6 +2860,9 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
+"CO" = (
+/turf/open/space/basic,
+/area/hallway/primary/aft)
 "CP" = (
 /obj/structure/bed{
 	dir = 1
@@ -2959,8 +2892,15 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/bridge/meeting_room)
 "De" = (
+/obj/docking_port/stationary/spawn_point{
+	dir = 4;
+	width = 28;
+	dwidth = 8;
+	height = 30;
+	faction_allowed = 1
+	},
 /turf/open/space/basic,
-/area/hallway/primary/aft)
+/area/space)
 "Dg" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
 /obj/item/reagent_containers/food/condiment/enzyme,
@@ -3282,22 +3222,6 @@
 	pixel_x = 1;
 	pixel_y = -1
 	},
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 1;
-	pixel_y = -1
-	},
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 1;
-	pixel_y = -1
-	},
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 1;
-	pixel_y = -1
-	},
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 1;
-	pixel_y = -1
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -3433,10 +3357,6 @@
 "Hi" = (
 /obj/structure/table/reinforced,
 /obj/item/multitool,
-/obj/item/multitool,
-/obj/item/multitool,
-/obj/item/multitool,
-/obj/item/multitool,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -3458,9 +3378,6 @@
 /area/crew_quarters/dorms)
 "HS" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/box/lights/mixed,
-/obj/item/storage/box/lights/mixed,
-/obj/item/storage/box/lights/mixed,
 /obj/item/storage/box/lights/mixed,
 /obj/item/storage/box/lights/mixed,
 /obj/effect/turf_decal/stripes/line{
@@ -3532,7 +3449,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/rnd/production/protolathe/department/engineering,
+/obj/machinery/rnd/production/protolathe,
 /turf/open/floor/mineral/plastitanium,
 /area/storage/primary)
 "IF" = (
@@ -3878,12 +3795,15 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/hallway/primary/central)
 "LI" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/docking_port/stationary/spawn_point{
+	dir = 8;
+	width = 28;
+	dwidth = 18;
+	height = 40;
+	faction_allowed = 1
 	},
-/turf/open/space,
-/area/solar/starboard/fore)
+/turf/open/space/basic,
+/area/space)
 "LN" = (
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/aft)
@@ -4306,15 +4226,12 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "Qn" = (
-/obj/docking_port/stationary/spawn_point{
-	dir = 4;
-	width = 31;
-	dwidth = 11;
-	height = 16;
-	faction_allowed = 1
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
-/turf/open/space/basic,
-/area/hallway/primary/fore)
+/turf/open/space,
+/area/solar/starboard/fore)
 "Qo" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -4340,11 +4257,11 @@
 /turf/open/space/basic,
 /area/docking)
 "Qx" = (
-/obj/machinery/rnd/production/protolathe/department/engineering,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/machinery/rnd/production/protolathe,
 /turf/open/floor/mineral/plastitanium/red,
 /area/storage/primary)
 "QA" = (
@@ -4546,16 +4463,6 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/hallway/primary/aft)
-"SP" = (
-/obj/docking_port/stationary/spawn_point{
-	dir = 8;
-	width = 28;
-	dwidth = 18;
-	height = 40;
-	faction_allowed = 1
-	},
-/turf/open/space/basic,
-/area/space)
 "ST" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -4769,7 +4676,7 @@
 	icon_state = "0-8"
 	},
 /turf/open/floor/plating,
-/area/solar/starboard/aft)
+/area/maintenance/solars/starboard/fore)
 "UV" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 4
@@ -5012,15 +4919,9 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "Xk" = (
-/obj/docking_port/stationary/spawn_point{
-	dir = 4;
-	width = 18;
-	dwidth = 8;
-	height = 40;
-	faction_allowed = 1
-	},
-/turf/open/space/basic,
-/area/space)
+/obj/machinery/gravity_generator/main/station/admin,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/port/fore)
 "Xo" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -5064,9 +4965,12 @@
 /turf/open/floor/plating/airless,
 /area/engine/atmos)
 "XM" = (
-/obj/machinery/gravity_generator/main/station/admin,
-/turf/open/floor/plasteel/dark,
-/area/maintenance/port/fore)
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/space,
+/area/solar/starboard/aft)
 "XU" = (
 /obj/item/crowbar,
 /obj/structure/closet/toolcloset{
@@ -27656,9 +27560,9 @@ ht
 nf
 No
 No
-LI
+Qn
 Pb
-LI
+Qn
 cq
 cq
 nZ
@@ -28684,9 +28588,9 @@ nf
 No
 No
 No
-LI
+Qn
 Pb
-LI
+Qn
 cq
 cq
 cq
@@ -29712,9 +29616,9 @@ No
 No
 No
 No
-LI
+Qn
 Pb
-LI
+Qn
 cq
 cq
 cq
@@ -30740,9 +30644,9 @@ No
 No
 No
 No
-LI
+Qn
 Pb
-nm
+XM
 OY
 OY
 OY
@@ -32033,7 +31937,7 @@ yJ
 Km
 WY
 WY
-XM
+Xk
 Qa
 Uu
 Uu
@@ -32562,7 +32466,7 @@ Qw
 Qw
 Qw
 ht
-rx
+zU
 Qw
 Qw
 Qw
@@ -32581,7 +32485,7 @@ Qw
 Qw
 Qw
 ht
-SP
+LI
 Qw
 Qw
 Qw
@@ -34873,30 +34777,30 @@ JD
 tf
 ZH
 ZH
-mL
-mL
-mL
-mL
-mL
-mL
-mL
-mL
-mL
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 Qc
 Qc
-Qn
+mL
 Qc
-mL
-mL
-mL
-mL
-mL
-mL
-mL
-mL
-mL
-mL
-mL
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 ht
 ht
 ht
@@ -35609,7 +35513,7 @@ ht
 ht
 ht
 ht
-zU
+nm
 ph
 TY
 pU
@@ -41777,7 +41681,7 @@ ht
 ht
 ht
 ht
-zU
+nm
 ph
 TY
 pU
@@ -42583,29 +42487,29 @@ bA
 vp
 Ej
 Ej
-mL
-mL
-mL
-mL
-mL
-mL
-mL
-mL
-mL
-De
-De
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+CO
+CO
 MG
-De
-mL
-mL
-mL
-mL
-mL
-mL
-mL
-mL
-mL
-mL
+CO
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rv
 ht
 ht
@@ -44897,7 +44801,7 @@ Qw
 Qw
 Qw
 Qw
-Xk
+jb
 ht
 Qw
 Qw
@@ -44916,7 +44820,7 @@ Qw
 Qw
 Qw
 Qw
-jb
+De
 ht
 Qw
 Qw
@@ -46674,9 +46578,9 @@ KR
 KR
 KR
 KR
-nm
+XM
 oN
-nm
+XM
 WF
 WF
 WF
@@ -47702,9 +47606,9 @@ KR
 KR
 KR
 KR
-nm
+XM
 oN
-nm
+XM
 WF
 WF
 WF
@@ -48730,9 +48634,9 @@ aR
 KR
 KR
 KR
-nm
+XM
 oN
-nm
+XM
 WF
 WF
 WF
@@ -49758,9 +49662,9 @@ ht
 aR
 KR
 KR
-nm
+XM
 oN
-nm
+XM
 WF
 WF
 IF

@@ -43,6 +43,8 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/atom/movable/screen/throw_icon
 	var/atom/movable/screen/module_store_icon
 
+	var/atom/movable/screen/dock_allocation/dockallocationtime
+
 	var/list/static_inventory = list() //the screen objects which are static
 	var/list/toggleable_inventory = list() //the screen objects which can be hidden
 	var/list/atom/movable/screen/hotkeybuttons = list() //the buttons that can be used via hotkeys
@@ -115,6 +117,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	devilsouldisplay = null
 	lingstingdisplay = null
 	blobpwrdisplay = null
+	dockallocationtime = null
 	alien_plasma_display = null
 	alien_queen_finder = null
 

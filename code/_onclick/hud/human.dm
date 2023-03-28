@@ -336,6 +336,16 @@
 	lingstingdisplay.hud = src
 	infodisplay += lingstingdisplay
 
+	dockallocationtime = new /atom/movable/screen/dock_allocation(null, owner)
+	dockallocationtime.screen_loc = "CENTER:16,TOP:-28"
+	dockallocationtime.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	dockallocationtime.plane = ABOVE_HUD_PLANE
+	dockallocationtime.hud = src
+	dockallocationtime.maptext = "<span class='maptext center big'>Dock Allocation Time - 10:00</span>"
+	dockallocationtime.maptext_width = 512
+	dockallocationtime.maptext_x = -256
+	infodisplay += dockallocationtime
+
 	devilsouldisplay = new /atom/movable/screen/devil/soul_counter
 	devilsouldisplay.hud = src
 	infodisplay += devilsouldisplay

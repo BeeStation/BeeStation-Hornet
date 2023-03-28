@@ -85,7 +85,7 @@
 	CHECK_TICK
 
 	//Updating docked properties
-	new_dock.docked = src
+	new_dock.on_docked(src)
 	if(docked) //Shuttles don't have a dock when initially loaded
 		docked.docked = null
 	docked = new_dock

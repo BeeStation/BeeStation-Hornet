@@ -60,6 +60,9 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	// Singleton Faction Instances
 	var/list/lead_faction_instances = list()
 
+	// Dock allocations
+	var/list/dock_allocations = list()
+
 /datum/controller/subsystem/processing/orbits/Initialize(start_timeofday)
 	. = ..()
 	setup_event_list()
@@ -257,3 +260,6 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	if (istype(location) && location.mobile_port)
 		return SSorbits.assoc_shuttles[location.mobile_port.id]
 	return null
+
+/datum/controller/subsystem/processing/orbits/proc/get_allocation(mobile_id)
+	return dock_allocations[mobile_id]

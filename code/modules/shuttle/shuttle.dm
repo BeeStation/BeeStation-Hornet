@@ -277,6 +277,9 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	if(roundstart_template)
 		SSshuttle.action_load(roundstart_template, src)
 
+/obj/docking_port/stationary/proc/on_docked(obj/docking_port/mobile/docking)
+	docked = docking
+
 /obj/docking_port/stationary/transit
 	name = "In Transit"
 	var/datum/turf_reservation/reserved_area
@@ -583,7 +586,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	//Find open dock here and set it as ours
 	for(var/obj/docking_port/stationary/S in loc.contents)
 		if(!S.docked)
-			S.docked = src
+			S.on_docked(src)
 			docked = S
 			break
 
