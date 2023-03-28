@@ -175,7 +175,7 @@
 		if(istype(held_item, /obj/item/disk/surgery))
 			var/obj/item/disk/surgery/surgery_disk = held_item
 			for(var/surgery in surgery_disk.surgeries)
-				if(!(surgery in old_advanced_surgeries))
+				if(!(surgery in old_advanced_surgeries) && !(surgery in advanced_surgeries))
 					surgeries_to_add |= surgery
 					new_surgeries++
 		else if(istype(held_item, /obj/item/disk/tech_disk))
@@ -184,7 +184,7 @@
 				var/datum/design/surgery/surgery_design = SSresearch.techweb_design_by_id(D)
 				if(!istype(surgery_design))
 					continue
-				if(!(surgery_design.surgery in old_advanced_surgeries))
+				if(!(surgery_design.surgery in old_advanced_surgeries) && !(surgery_design.surgery in advanced_surgeries))
 					surgeries_to_add |= surgery_design.surgery
 					new_surgeries++
 		else
