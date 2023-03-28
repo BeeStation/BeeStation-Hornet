@@ -124,5 +124,5 @@
 	name = "Solidifying Ooze"
 	id = /datum/reagent/toxin/solidifying_ooze
 	results = list(/datum/reagent/toxin/solidifying_ooze = 4)
-	required_reagents = list(/datum/reagent/water = 2, /datum/reagent/fluorosurfactant = 2, /datum/reagent/toxin/mutagen = 1, /datum/reagent/toxin/cyanide = 1)
+	required_reagents = list(/datum/reagent/stabilizing_agent = 2, /datum/reagent/fluorosurfactant = 2, /datum/reagent/toxin/mutagen = 1, /datum/reagent/toxin/cyanide = 1)
 	mix_message = "<span class='danger'>The mixture becomes an eerie semi-solid ooze.</span>"
