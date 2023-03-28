@@ -16,7 +16,7 @@
 			"Unable to locate target port location.")
 		return
 	//Check for valid docks
-	if(!(target_port.id in valid_docks))
+	if(mobile_port.canDock(target_port))
 		SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE,
 			scramble_message_replace_chars("Critical Error: Invalid docking location"))
 		log_admin("[usr] (most likely) attempted to forge a target location through a tgui exploit through shuttle docking.")

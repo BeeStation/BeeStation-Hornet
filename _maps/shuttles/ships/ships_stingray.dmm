@@ -605,12 +605,6 @@
 /obj/item/ammo_box/magazine/m45{
 	pixel_x = 5
 	},
-/obj/item/ammo_box/magazine/m45{
-	pixel_x = 9
-	},
-/obj/item/ammo_box/magazine/m45{
-	pixel_x = 5
-	},
 /obj/item/ammo_box/magazine/wt550m9{
 	pixel_x = -5;
 	pixel_y = 1
@@ -618,6 +612,9 @@
 /obj/item/ammo_box/magazine/wt550m9{
 	pixel_x = -3;
 	pixel_y = -5
+	},
+/obj/item/ammo_box/magazine/m45{
+	pixel_x = 5
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/stingray/armoury)
@@ -1032,7 +1029,7 @@
 	layer = 3.1
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/suit_storage_unit/open,
+/obj/machinery/suit_storage_unit/security,
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/stingray/security)
 "ux" = (
@@ -1138,9 +1135,6 @@
 /obj/item/gun/ballistic/automatic/pistol/m1911{
 	pixel_x = 2;
 	pixel_y = 5
-	},
-/obj/item/gun/ballistic/automatic/pistol/m1911{
-	pixel_x = 5
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/stingray/armoury)
@@ -1831,9 +1825,6 @@
 "Lq" = (
 /obj/structure/rack,
 /obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/smgm9mm{
-	pixel_x = -3
-	},
 /obj/structure/window/reinforced,
 /obj/item/gun/energy/ionrifle/carbine/pin{
 	pixel_y = 4
@@ -2058,7 +2049,7 @@
 	layer = 3.1
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/suit_storage_unit/open,
+/obj/machinery/suit_storage_unit/security,
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/stingray/security)
 "Rj" = (
@@ -2377,6 +2368,9 @@
 	layer = 3.1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/pickaxe/mini,
+/obj/item/mining_scanner,
+/obj/structure/closet/crate,
 /turf/open/floor/plasteel/grid/steel,
 /area/shuttle/stingray/cargo)
 "Yg" = (

@@ -1013,10 +1013,10 @@
 /obj/structure/railing{
 	layer = 3.1
 	},
-/obj/machinery/suit_storage_unit/ert,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/box,
+/obj/machinery/suit_storage_unit/engine,
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/inquisitor/engineering)
 "xw" = (
@@ -1047,6 +1047,20 @@
 /obj/structure/closet/secure_closet/contraband/armory,
 /obj/effect/spawner/lootdrop/armory_contraband,
 /obj/effect/decal/cleanable/robot_debris,
+/obj/item/gun/ballistic/automatic/pistol/m1911{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/gun/ballistic/automatic/pistol/m1911{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/ammo_box/magazine/m45{
+	pixel_x = 5
+	},
+/obj/item/ammo_box/magazine/m45{
+	pixel_x = 5
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/inquisitor/lounge)
 "yw" = (
@@ -1316,9 +1330,10 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/shuttle/inquisitor/weapons)
 "GT" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 6
+/obj/structure/chair/wood{
+	dir = 4
 	},
+/obj/effect/turf_decal/siding/wood,
 /turf/open/floor/holofloor/wood,
 /area/shuttle/inquisitor/dorms)
 "HB" = (
@@ -1366,7 +1381,6 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood/corner,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
@@ -1662,11 +1676,11 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/inquisitor/dorms)
 "RE" = (
-/obj/effect/turf_decal/siding/wood/end{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "1-8"
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
 	},
 /turf/open/floor/holofloor/wood,
 /area/shuttle/inquisitor/dorms)
@@ -1906,11 +1920,12 @@
 /turf/open/floor/plating,
 /area/shuttle/inquisitor/engineering)
 "WV" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
+/obj/item/storage/firstaid/medical,
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
 	},
-/obj/machinery/modular_fabricator/autolathe,
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/holofloor/wood,
 /area/shuttle/inquisitor/dorms)
 "Xj" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
