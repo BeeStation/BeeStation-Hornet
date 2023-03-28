@@ -115,3 +115,6 @@
 			smoke.set_up(7, get_turf(vent), 7)
 			smoke.start()
 		CHECK_TICK
+
+/datum/round_event/vent_clog/end()
+	vents = list()

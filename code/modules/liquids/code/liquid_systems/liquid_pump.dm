@@ -1,5 +1,5 @@
 //Right now it's a structure that works off of magic, as it'd require an internal power source for what its supposed to do
-/obj/structure/liquid_pump
+/obj/machinery/liquid_pump
 	name = "portable liquid pump"
 	desc = "An industrial grade pump, capable of either siphoning or spewing liquids. Needs to be anchored first to work. Has a limited capacity internal storage."
 	icon = 'code/modules/liquids/icons/obj/structures/liquid_pump.dmi'
@@ -19,35 +19,35 @@
 	/// How fast does the pump work, in flat values. Flat values on top of percentages to help processing
 	var/pump_speed_flat = 20
 
-/obj/structure/liquid_pump/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/liquid_pump/wrench_act(mob/living/user, obj/item/I)
 	. = ..()
 	default_unfasten_wrench(user, I, 40)
 	if(!anchored && turned_on)
 		toggle_working()
 	return TRUE
 
-/obj/structure/liquid_pump/attack_hand(mob/user)
+/obj/machinery/liquid_pump/attack_hand(mob/user)
 	if(!anchored)
 		to_chat(user, "<span class='warning'>[src] needs to be anchored first!</span>")
 		return
 	to_chat(user, "<span class='notice'>You turn [src] [turned_on ? "off" : "on"].</span>")
 	toggle_working()
 
-/obj/structure/liquid_pump/AltClick(mob/living/user)
+/obj/machinery/liquid_pump/AltClick(mob/living/user)
 	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
 		return
 	to_chat(user, "<span class='notice'>You flick [src]'s spewing mode [spewing_mode ? "off" : "on"].</span>")
 	spewing_mode = !spewing_mode
 	update_icon()
 
-/obj/structure/liquid_pump/examine(mob/user)
+/obj/machinery/liquid_pump/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>It's anchor bolts are [anchored ? "down and secured" : "up"].</span>"
 	. += "<span class='notice'>It's currently [turned_on ? "ON" : "OFF"].</span>"
 	. += "<span class='notice'>It's mode currently is set to [spewing_mode ? "SPEWING" : "SIPHONING"]. (Alt-click to switch)</span>"
 	. += "<span class='notice'>The pressure gauge shows [reagents.total_volume]/[reagents.maximum_volume].</span>"
 
-/obj/structure/liquid_pump/process()
+/obj/machinery/liquid_pump/process()
 	if(!isturf(loc))
 		return
 	var/turf/T = loc
@@ -72,7 +72,7 @@
 		qdel(tempr)
 	return
 
-/obj/structure/liquid_pump/update_icon()
+/obj/machinery/liquid_pump/update_icon()
 	. = ..()
 	if(turned_on)
 		if(spewing_mode)
@@ -82,7 +82,7 @@
 	else
 		icon_state = "[initial(icon_state)]"
 
-/obj/structure/liquid_pump/proc/toggle_working()
+/obj/machinery/liquid_pump/proc/toggle_working()
 	if(turned_on)
 		STOP_PROCESSING(SSobj, src)
 	else
@@ -90,11 +90,11 @@
 	turned_on = !turned_on
 	update_icon()
 
-/obj/structure/liquid_pump/Initialize()
+/obj/machinery/liquid_pump/Initialize()
 	. = ..()
 	create_reagents(max_volume)
 
-/obj/structure/liquid_pump/Destroy()
+/obj/machinery/liquid_pump/Destroy()
 	if(turned_on)
 		STOP_PROCESSING(SSobj, src)
 	qdel(reagents)

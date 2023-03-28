@@ -147,7 +147,7 @@
 	SIGNAL_HANDLER
 
 	var/turf/T = source
-	if(isobserver(AM) || iscameramob(AM))
+	if(isobserver(AM) || !isliving(AM))
 		return //ghosts, camera eyes, etc. don't make water splashy splashy
 	if(liquid_group.group_overlay_state >= LIQUID_STATE_ANKLES)
 		if(prob(30))

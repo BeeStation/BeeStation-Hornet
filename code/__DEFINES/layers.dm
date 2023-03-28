@@ -90,6 +90,9 @@
 #define GASFIRE_LAYER 5.05
 #define RIPPLE_LAYER 5.1
 
+///Layers for liquid effects
+#define LIQUID_EFFECT_LAYER 2.85
+
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
 
 #define AREA_PLANE 60
@@ -173,7 +176,3 @@
 
 ///Plane master controller keys
 #define PLANE_MASTERS_GAME "plane_masters_game"
-
-///Layers for liquid effects
-
-#define LIQUID_EFFECT_LAYER 2.85

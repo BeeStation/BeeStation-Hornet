@@ -112,7 +112,7 @@
 	insertable = FALSE
 
 /obj/item/mop/advanced
-	desc = "The most advanced tool in a custodian's arsenal, complete with a condenser for self-wetting! Just think of all the viscera you will clean up with this! Due to the self-wetting technology, also comes equipped with a self drying mode toggle with Alt."
+	desc = "The most advanced tool in a custodian's arsenal, complete with a condenser for self-wetting! Just think of all the viscera you will clean up with this! Due to the self-wetting technology, also comes equipped with a self drying mode toggled with Alt."
 	name = "advanced mop"
 	mopcap = 100
 	icon_state = "advmop"
