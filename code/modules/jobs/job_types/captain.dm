@@ -50,9 +50,10 @@
 	gloves = /obj/item/clothing/gloves/color/captain
 	uniform =  /obj/item/clothing/under/rank/captain
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace
+	suit_store = /obj/item/gun/energy/laser/captain
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	head = /obj/item/clothing/head/caphat
-	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1, /obj/item/station_charter=1)
+	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1)
 
 	backpack = /obj/item/storage/backpack/captain
 	satchel = /obj/item/storage/backpack/satchel/cap
@@ -62,6 +63,30 @@
 	accessory = /obj/item/clothing/accessory/medal/gold/captain
 
 	chameleon_extras = list(/obj/item/gun/energy/e_gun, /obj/item/stamp/captain)
+
+/datum/job/captain/syndicate
+	outfit = /datum/outfit/job/captain/syndicate
+	title = "Syndicate Captain"
+	spawn_title = JOB_NAME_CAPTAIN
+	faction = ROLE_SYNDICATE
+	selection_color = "#9d4436"
+	department_head = list("Syndicate Command")
+
+/datum/outfit/job/captain/syndicate
+	name = "Syndicate Captain"
+	gloves = /obj/item/clothing/gloves/combat
+	uniform = /obj/item/clothing/under/syndicate
+	suit = /obj/item/clothing/suit/armor/vest/capcarapace/syndicate
+	suit_store = /obj/item/gun/ballistic/revolver/mateba
+	shoes = /obj/item/clothing/shoes/combat
+	head = /obj/item/clothing/head/HoS/syndicate
+	backpack_contents = list(/obj/item/ammo_box/a357=2)
+
+	backpack = /obj/item/storage/backpack/duffelbag/syndie
+	satchel = /obj/item/storage/backpack/duffelbag/syndie
+	duffelbag = /obj/item/storage/backpack/duffelbag/syndie
+
+	implants = list(/obj/item/implant/weapons_auth)
 
 /datum/outfit/job/captain/hardsuit
 	name = "Captain (Hardsuit)"

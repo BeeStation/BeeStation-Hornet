@@ -14,7 +14,7 @@
 		and engineering bay which offer some basic functionality."
 
 /datum/map_template/shuttle/ship/stringray
-	name = "Stingray"
+	name = "NTC Stingray"
 	suffix = "stingray"
 
 /area/shuttle/stingray

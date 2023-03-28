@@ -55,3 +55,14 @@ Assistant
 /datum/outfit/job/assistant
 	name = "Assistant"
 	id = /obj/item/card/id/job/assistant
+
+/datum/job/assistant/syndicate
+	title = "Syndicate Operative"
+	spawn_title = JOB_NAME_ASSISTANT
+	outfit = /datum/outfit/job/assistant/syndicate
+	faction = ROLE_SYNDICATE
+	selection_color = "#9d4436"
+
+/datum/outfit/job/assistant/syndicate/pre_equip(mob/living/carbon/human/H)
+	..()
+	uniform = /obj/item/clothing/under/syndicate

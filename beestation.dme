@@ -3366,6 +3366,7 @@
 #include "code\modules\ruins\spaceruin_code\whiteshipruin_box.dm"
 #include "code\modules\security_levels\keycard_authentication.dm"
 #include "code\modules\security_levels\security_levels.dm"
+#include "code\modules\ship_spawning\things.dm"
 #include "code\modules\ship_spawning\_DEFINES\factions.dm"
 #include "code\modules\ship_spawning\ship_datums\_ship_datum.dm"
 #include "code\modules\ship_spawning\ship_datums\independant\inquisitor.dm"

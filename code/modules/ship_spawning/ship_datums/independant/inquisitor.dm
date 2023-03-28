@@ -1,5 +1,5 @@
 /datum/starter_ship_template/inquisitor
-	faction_flags = FACTION_INDEPENDANT | FACTION_SYNDICATE | FACTION_NANOTRASEN
+	faction_flags = FACTION_INDEPENDANT
 	template_cost = 450
 	job_roles = list(
 		/datum/job/captain = 1,
@@ -10,9 +10,25 @@
 	spawned_template = /datum/map_template/shuttle/ship/inquisitor
 	description = ""
 
+/datum/starter_ship_template/inquisitor/syndicate
+	faction_flags = FACTION_SYNDICATE
+	template_cost = 450
+	job_roles = list(
+		/datum/job/captain/syndicate = 1,
+		/datum/job/security_officer/syndicate = 2,
+		/datum/job/station_engineer/syndicate = 3,
+		/datum/job/assistant/syndicate = INFINITY,
+	)
+	spawned_template = /datum/map_template/shuttle/ship/inquisitor/syndie
+	description = ""
+
 /datum/map_template/shuttle/ship/inquisitor
-	name = "Inquisitor"
+	name = "Inquisitor (IND)"
 	suffix = "inquisitor"
+
+/datum/map_template/shuttle/ship/inquisitor/syndie
+	name = "Inquisitor (SYN)"
+	suffix = "inquisitor_syndie"
 
 /area/shuttle/inquisitor
 	requires_power = TRUE

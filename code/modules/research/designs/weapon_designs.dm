@@ -559,7 +559,7 @@
 /datum/design/shuttle_missile
 	name = "Shuttle-Fired Missile"
 	desc=  "A small explosive missile, fired from a shuttle turret."
-	id = "shuttle_missile"
+	id = "shuttle_missile_projectile"
 	materials = list(/datum/material/iron = 5 * MINERAL_MATERIAL_AMOUNT, /datum/material/plasma = 8 * MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/ammo_casing/caseless/shuttle_missile
 	build_type = PROTOLATHE

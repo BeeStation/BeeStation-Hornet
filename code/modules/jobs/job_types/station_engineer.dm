@@ -49,6 +49,19 @@
 	box = /obj/item/storage/box/engineer
 	pda_slot = ITEM_SLOT_LPOCKET
 
+/datum/job/station_engineer/syndicate
+	title = "Syndicate Engineer"
+	spawn_title = JOB_NAME_STATIONENGINEER
+	outfit = /datum/outfit/job/engineer/syndicate
+	faction = ROLE_SYNDICATE
+	selection_color = "#9d4436"
+
+/datum/outfit/job/engineer/syndicate
+	gloves = /obj/item/clothing/gloves/combat
+	uniform = /obj/item/clothing/under/syndicate
+	shoes = /obj/item/clothing/shoes/combat
+	implants = list(/obj/item/implant/weapons_auth)
+
 /datum/outfit/job/engineer/gloved
 	name = "Station Engineer (Gloves)"
 	gloves = /obj/item/clothing/gloves/color/yellow

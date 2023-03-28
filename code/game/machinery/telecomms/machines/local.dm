@@ -37,12 +37,14 @@
 	if (signal.frequency == FREQ_FACTION && signal.ship_port && signal.ship_port == faction)
 		// Transmit a local signal
 		var/datum/signal/subspace/copied = signal.copy()
+		if (!ship_port)
+			// Switch to this so that it can reach everyone on the level, even if they have no ship
+			copied.transmission_method = TRANSMISSION_SUBSPACE
 		copied.levels = list(get_virtual_z_level())
 		copied.data["compression"] = 0
 		// Clean out spans
 		copied.data["spans"] = list()
 		copied.mark_done()
-		copied.ship_port = ship_port
 		copied.broadcast()
 		return
 	if (signal.data["dont_relay"])

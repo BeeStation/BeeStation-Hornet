@@ -147,6 +147,21 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	chameleon_extras = list(/obj/item/gun/energy/disabler, /obj/item/clothing/glasses/hud/security/sunglasses, /obj/item/clothing/head/helmet)
 	//The helmet is necessary because /obj/item/clothing/head/helmet/sec is overwritten in the chameleon list by the standard helmet, which has the same name and icon state
 
+/datum/job/security_officer/syndicate
+	title = "Syndicate Security Force"
+	spawn_title = JOB_NAME_SECURITYOFFICER
+	outfit = /datum/outfit/job/security_officer/syndicate
+	faction = ROLE_SYNDICATE
+	selection_color = "#9d4436"
+
+/datum/outfit/job/security_officer/syndicate
+	gloves = /obj/item/clothing/gloves/combat
+	uniform = /obj/item/clothing/under/syndicate
+	shoes = /obj/item/clothing/shoes/combat
+	suit_store = /obj/item/gun/ballistic/automatic/c20r
+	r_pocket = /obj/item/grenade/plastic/x4
+
+	implants = list(/obj/item/implant/weapons_auth)
 
 /obj/item/radio/headset/headset_sec/alt/department/Initialize(mapload)
 	. = ..()
