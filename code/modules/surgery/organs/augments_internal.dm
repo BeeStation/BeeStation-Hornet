@@ -187,6 +187,10 @@
 				if(!(surgery_design.surgery in old_advanced_surgeries) && !(surgery_design.surgery in advanced_surgeries))
 					surgeries_to_add |= surgery_design.surgery
 					new_surgeries++
+		else if(istype(held_item, /obj/item/disk/nuclear))
+			// funny joke message
+			to_chat(owner, "<span class='warning'>Do you <i>want</i> to explode? You can't get surgery data from \the [held_item]!</span>")
+			continue
 		else
 			continue
 		var/hand_name = owner.get_held_index_name(owner.get_held_index_of_item(held_item))
