@@ -898,6 +898,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/plasteel/grid/steel,
 /area/shuttle/stingray/cargo)
 "rQ" = (
@@ -1747,6 +1748,7 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
+/obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/stingray/cargo)
 "Jh" = (
@@ -2103,6 +2105,7 @@
 	pixel_x = -24
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/plasteel/grid/steel,
 /area/shuttle/stingray/cargo)
 "Sv" = (
