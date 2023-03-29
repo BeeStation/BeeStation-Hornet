@@ -81,6 +81,9 @@
 		// Whenever shuttles move, everything seems to be on a hyperspace tile temporarily,
 		// so we need this to stop it from teleporting off of allowed shuttles.
 		if (istype(T, /turf/open/space/transit))
+			// We still might be on a disallowed shuttle,
+			// so we need to check again in a second to make sure.
+			addtimer(CALLBACK(src, PROC_REF(check_in_bounds)), 1 SECONDS)
 			return TRUE
 
 	return FALSE
