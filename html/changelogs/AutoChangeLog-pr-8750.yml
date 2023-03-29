@@ -1,0 +1,4 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Re-aggregated Kilo's tile decals into single objects.
