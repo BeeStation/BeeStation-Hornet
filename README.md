@@ -132,7 +132,7 @@ To enable an away mission open `config/awaymissionconfig.txt` and uncomment one 
 
 ## SQL SETUP
 
-The SQL backend requires a MariaDB server running 10.2 or later. MySQL is not supported but MariaDB is a drop in replacement for MySQL. SQL is required for the library, stats tracking, admin notes, and job-only bans, among other features, mostly related to server administration. Your server details go in `/config/dbconfig.txt`, and the SQL schema is in `/SQL/beestation_schema.sql`.
+The SQL backend requires a MariaDB server running 10.2 or later. MySQL is not supported. The database is required for the library, stats tracking, admin notes, bans, and persistent characters/preferences. Your server details go in `/config/dbconfig.txt`, and the SQL schema is in `/SQL/beestation_schema.sql`.
 
 More detailed setup instructions are located here: https://wiki.beestation13.com/view/Working_with_the_database#Database_Setup
 
