@@ -6,8 +6,6 @@
 	. = ..()
 	START_PROCESSING(SSprocessing, src)
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(release_energy))
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(release_energy))
-	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(release_energy))
 	RegisterSignal(parent, COMSIG_MOVABLE_THROW_LANDED, PROC_REF(release_energy))
 	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(release_energy))
 	RegisterSignal(parent, COMSIG_PROJECTILE_PREHIT, PROC_REF(release_energy))
@@ -44,6 +42,6 @@
 		stored_energy = 0
 		time_alive = 0
 		return
-	explosion(parent_atom.loc, (stored_energy / 500000) * 6, (stored_energy / 500000) * 14, (stored_energy / 500000) * 20, (stored_energy / 500000) * 30)
+	explosion(parent_atom.loc, stored_energy < 400000 ? 0 : (stored_energy / 500000) * 6, (stored_energy / 500000) * 14, (stored_energy / 500000) * 20, (stored_energy / 500000) * 30)
 	stored_energy = 0
 	time_alive = 0
