@@ -231,3 +231,8 @@
 /// These are preferences that are supplementary for main features,
 /// such as hair color being affixed to hair.
 #define PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES "supplemental_features"
+
+//randomised elements
+#define RANDOM_ANTAG_ONLY 1
+#define RANDOM_DISABLED 2
+#define RANDOM_ENABLED 3

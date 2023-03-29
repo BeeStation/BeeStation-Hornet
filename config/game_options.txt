@@ -530,12 +530,9 @@ ROUNDSTART_RACES plasmaman
 
 ##-------------------------------------------------------------------------------------------
 
-<<<<<<< HEAD
 ## Uncomment to give players the choice of joining as a human with mutant bodyparts before they join the game
 JOIN_WITH_MUTANT_HUMANS
 
-=======
->>>>>>> 5a4c87a9fc3 (tgui Preferences Menu + total rewrite of the preferences backend (#61313))
 ##Overflow job. Default is assistant
 OVERFLOW_JOB Assistant
 

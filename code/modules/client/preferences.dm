@@ -74,12 +74,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	/// A list of instantiated middleware
 	var/list/datum/preference_middleware/middleware = list()
 
-	/// The savefile relating to core preferences, PREFERENCE_PLAYER
-	var/savefile/game_savefile
-
-	/// The savefile relating to character preferences, PREFERENCE_CHARACTER
-	var/savefile/character_savefile
-
 	/// A list of keys that have been updated since the last save.
 	var/list/recently_updated_keys = list()
 
@@ -102,22 +96,22 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	for (var/middleware_type in subtypesof(/datum/preference_middleware))
 		middleware += new middleware_type(src)
 
-	if(istype(C))
-		if(!IsGuestKey(C.key))
-			load_path(C.ckey)
-			unlock_content = !!C.IsByondMember()
-			if(unlock_content)
-				max_save_slots = 8
 
-	// give them default keybinds and update their movement keys
-	key_bindings = deepCopyList(GLOB.default_hotkeys)
-	key_bindings_by_key = get_key_bindings_by_key(key_bindings)
+	if(istype(C))
+		if(!IS_GUEST_KEY(C.key))
+			unlock_content = C.IsByondMember()
+			if(unlock_content)
+				set_max_character_slots(8)
+		else if(!length(key_bindings)) // Guests need default keybinds
+			key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
+
 	randomise = get_default_randomization()
 
-	var/loaded_preferences_successfully = load_preferences()
+	var/loaded_preferences_successfully = load_from_database()
 	if(loaded_preferences_successfully)
-		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
-			set_max_character_slots(max_usable_slots + 1)
+		// TODO tgui-prefs
+		/*if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
+			set_max_character_slots(max_usable_slots + 1)*/
 		if(load_characters()) // inside this proc is a disgusting SQL query
 			var/datum/character_save/target_save = character_saves[default_slot]
 			if(target_save && !target_save.slot_locked)
@@ -127,13 +121,19 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			return
 
 	//we couldn't load character data so just randomize the character appearance + name
-	randomise_appearance_prefs() //let's create a random character then - rather than a fat, bald and naked man.
-
-	C?.set_macros()
-
+	active_character = character_saves[1]
+	var/fallback_default_species = CONFIG_GET(string/fallback_default_species)
+	if(!active_character.pref_species && fallback_default_species != "random")
+		var/datum/species/spath = GLOB.species_list[fallback_default_species || "human"]
+		active_character.pref_species = new spath
+	active_character.randomise()		//let's create a random character then - rather than a fat, bald and naked man.
+	active_character.real_name = active_character.pref_species.random_name(active_character.gender, TRUE)
 	if(!loaded_preferences_successfully)
 		save_preferences()
-	save_character() //let's save this new random character so it doesn't keep generating new ones.
+	save_character(C)		//let's save this new random character so it doesn't keep generating new ones.
+
+/datum/preferences/proc/save_character(client/C)
+	active_character.save(C)
 
 /datum/preferences/ui_interact(mob/user, datum/tgui/ui)
 	// If you leave and come back, re-register the character preview
@@ -215,14 +215,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	switch (action)
 		if ("change_slot")
-			// Save existing character
-			save_character()
-
-			// SAFETY: `load_character` performs sanitization the slot number
-			if (!load_character(params["slot"]))
-				tainted_character_profiles = TRUE
-				randomise_appearance_prefs()
-				save_character()
+			var/numerical_slot = text2num(params["slot"])
+			var/datum/character_save/CS = character_saves[numerical_slot]
+			if(!CS || CS.slot_locked)
+				return
+			active_character = CS
+			default_slot = numerical_slot
+			tainted_character_profiles = TRUE
+			// If its fresh, randomise & save it
+			if(!CS.from_db)
+				CS.randomise()
+				CS.save(user.client)
 
 			for (var/datum/preference_middleware/preference_middleware as anything in middleware)
 				preference_middleware.on_new_character(usr)
@@ -294,7 +297,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	return FALSE
 
 /datum/preferences/ui_close(mob/user)
-	save_character()
+	save_character(user.client)
 	save_preferences()
 	QDEL_NULL(character_preview_view)
 
@@ -428,17 +431,14 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 /datum/preferences/proc/create_character_profiles()
 	var/list/profiles = list()
 
-	var/savefile/savefile = new(path)
-	for (var/index in 1 to max_save_slots)
+	for(var/index in 1 to TRUE_MAX_SAVE_SLOTS)
 		// It won't be updated in the savefile yet, so just read the name directly
 		if (index == default_slot)
 			profiles += read_preference(/datum/preference/name/real_name)
 			continue
 
-		savefile.cd = "/character[index]"
-
-		var/name
-		READ_FILE(savefile["real_name"], name)
+		// TODO tgui-prefs
+		var/name = "testing"
 
 		if (isnull(name))
 			profiles += null
@@ -505,8 +505,9 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 /datum/preferences/proc/should_be_random_hardcore(datum/job/job, datum/mind/mind)
 	if(!read_preference(/datum/preference/toggle/random_hardcore))
 		return FALSE
-	if(job.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND) //No command staff
-		return FALSE
+	// TODO tgui-prefs
+	//if(job.department_flag & DEPARTMENT_BITFLAG_COMMAND) //No command staff
+	//	return FALSE
 	for(var/datum/antagonist/antag as anything in mind.antag_datums)
 		if(antag.get_team()) //No team antags
 			return FALSE

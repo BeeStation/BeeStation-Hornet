@@ -307,33 +307,8 @@
 	var/obj/item/uplink_loc
 	var/implant = FALSE
 
-<<<<<<< HEAD
-	if(traitor_mob.client?.prefs)
-		switch(traitor_mob.client.prefs.active_character.uplink_spawn_loc)
-			if(UPLINK_PDA)
-				uplink_loc = PDA
-				if(!uplink_loc)
-					uplink_loc = R
-				if(!uplink_loc)
-					uplink_loc = P
-			if(UPLINK_RADIO)
-				if(HAS_TRAIT(traitor_mob, TRAIT_MUTE))  // cant speak code into headset
-					to_chat(traitor_mob, "Using a radio uplink would be impossible with your muteness! Equipping PDA Uplink..")
-					uplink_loc = PDA
-					if(!uplink_loc)
-						uplink_loc = R
-					if(!uplink_loc)
-						uplink_loc = P
-				else
-					uplink_loc = R
-					if(!uplink_loc)
-						uplink_loc = PDA
-					if(!uplink_loc)
-						uplink_loc = P
-			if(UPLINK_PEN)
-=======
 	var/uplink_spawn_location = traitor_mob.client?.prefs?.read_preference(/datum/preference/choiced/uplink_location)
-	switch (uplink_spawn_location)
+	switch(uplink_spawn_location)
 		if(UPLINK_PDA)
 			uplink_loc = PDA
 			if(!uplink_loc)
@@ -341,12 +316,21 @@
 			if(!uplink_loc)
 				uplink_loc = P
 		if(UPLINK_RADIO)
-			uplink_loc = R
-			if(!uplink_loc)
+			if(HAS_TRAIT(traitor_mob, TRAIT_MUTE))  // cant speak code into headset
+				to_chat(traitor_mob, "Using a radio uplink would be impossible with your muteness! Equipping PDA Uplink..")
 				uplink_loc = PDA
-			if(!uplink_loc)
->>>>>>> 5a4c87a9fc3 (tgui Preferences Menu + total rewrite of the preferences backend (#61313))
-				uplink_loc = P
+				if(!uplink_loc)
+					uplink_loc = R
+				if(!uplink_loc)
+					uplink_loc = P
+			else
+				uplink_loc = R
+				if(!uplink_loc)
+					uplink_loc = PDA
+				if(!uplink_loc)
+					uplink_loc = P
+		if(UPLINK_PEN)
+			uplink_loc = P
 		if(UPLINK_PEN)
 			uplink_loc = P
 		if(UPLINK_IMPLANT)

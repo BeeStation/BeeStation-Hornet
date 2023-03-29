@@ -607,13 +607,6 @@
 
 	return parts.Join("<br>")
 
-<<<<<<< HEAD
-/datum/antagonist/changeling/antag_listing_name()
-	return ..() + "([changelingID])"
-
-/datum/antagonist/changeling/xenobio/antag_listing_name()
-	return ..() + "(Xenobio)"
-
 /datum/antagonist/changeling/get_preview_icon()
 	var/icon/final_icon = render_preview_outfit(/datum/outfit/changeling)
 	var/icon/split_icon = render_preview_outfit(/datum/outfit/job/engineer)

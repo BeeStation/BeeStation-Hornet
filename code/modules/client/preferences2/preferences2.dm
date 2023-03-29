@@ -61,59 +61,59 @@
 	READPREF_INT(chat_toggles, PREFERENCE_TAG_CHAT_TOGGLES)
 	READPREF_INT(toggles, PREFERENCE_TAG_TOGGLES)
 	READPREF_INT(toggles2, PREFERENCE_TAG_TOGGLES2)
-	READPREF_INT(clientfps, PREFERENCE_TAG_CLIENTFPS)
+	/*READPREF_INT(clientfps, PREFERENCE_TAG_CLIENTFPS)
 	READPREF_INT(parallax, PREFERENCE_TAG_PARALLAX)
 	READPREF_INT(pixel_size, PREFERENCE_TAG_PIXELSIZE)
 	READPREF_INT(tip_delay, PREFERENCE_TAG_TIP_DELAY)
 
-	READPREF_RAW(asaycolor, PREFERENCE_TAG_ASAY_COLOUR)
+	READPREF_RAW(asaycolor, PREFERENCE_TAG_ASAY_COLOUR)*/
 	READPREF_RAW(ooccolor, PREFERENCE_TAG_OOC_COLOUR)
 	READPREF_RAW(lastchangelog, PREFERENCE_TAG_LAST_CL)
-	READPREF_RAW(UI_style, PREFERENCE_TAG_UI_STYLE)
+	/*READPREF_RAW(UI_style, PREFERENCE_TAG_UI_STYLE)
 	READPREF_RAW(outline_color, PREFERENCE_TAG_OUTLINE_COLOUR)
 	READPREF_RAW(see_balloon_alerts, PREFERENCE_TAG_BALLOON_ALERTS)
-	READPREF_RAW(scaling_method, PREFERENCE_TAG_SCALING_METHOD)
+	READPREF_RAW(scaling_method, PREFERENCE_TAG_SCALING_METHOD)*/
 	READPREF_RAW(ghost_form, PREFERENCE_TAG_GHOST_FORM)
-	READPREF_RAW(ghost_orbit, PREFERENCE_TAG_GHOST_ORBIT)
+	/*READPREF_RAW(ghost_orbit, PREFERENCE_TAG_GHOST_ORBIT)
 	READPREF_RAW(ghost_accs, PREFERENCE_TAG_GHOST_ACCS)
 	READPREF_RAW(ghost_others, PREFERENCE_TAG_GHOST_OTHERS)
 	READPREF_RAW(pda_theme, PREFERENCE_TAG_PDA_THEME)
 	READPREF_RAW(pda_color, PREFERENCE_TAG_PDA_COLOUR)
 	READPREF_RAW(pai_name, PREFERENCE_TAG_PAI_NAME)
 	READPREF_RAW(pai_description, PREFERENCE_TAG_PAI_DESCRIPTION)
-	READPREF_RAW(pai_comment, PREFERENCE_TAG_PAI_COMMENT)
+	READPREF_RAW(pai_comment, PREFERENCE_TAG_PAI_COMMENT)*/
 
 	READPREF_JSONDEC(ignoring, PREFERENCE_TAG_IGNORING)
 	READPREF_JSONDEC(key_bindings, PREFERENCE_TAG_KEYBINDS)
-	READPREF_JSONDEC(purchased_gear, PREFERENCE_TAG_PURCHASED_GEAR)
+	//READPREF_JSONDEC(purchased_gear, PREFERENCE_TAG_PURCHASED_GEAR)
 	READPREF_JSONDEC(be_special, PREFERENCE_TAG_BE_SPECIAL)
 
 	//Sanitize
-	asaycolor		= sanitize_ooccolor(sanitize_hexcolor(asaycolor, 6, TRUE, initial(asaycolor)))
-	ooccolor		= sanitize_ooccolor(sanitize_hexcolor(ooccolor, 6, TRUE, initial(ooccolor)))
+	//asaycolor		= sanitize_ooccolor(sanitize_hexcolor(asaycolor, 6, TRUE, initial(asaycolor)))
+	//ooccolor		= sanitize_ooccolor(sanitize_hexcolor(ooccolor, 6, TRUE, initial(ooccolor)))
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
-	UI_style		= sanitize_inlist(UI_style, GLOB.available_ui_styles, GLOB.available_ui_styles[1])
+	//UI_style		= sanitize_inlist(UI_style, GLOB.available_ui_styles, GLOB.available_ui_styles[1])
 
 	default_slot	= sanitize_integer(default_slot, TRUE, TRUE_MAX_SAVE_SLOTS, initial(default_slot))
 	toggles			= sanitize_integer(toggles, FALSE, INFINITY, initial(toggles)) // yes
 	toggles2		= sanitize_integer(toggles2, FALSE, INFINITY, initial(toggles2))
-	clientfps		= sanitize_integer(clientfps, FALSE, 1000, FALSE)
-	parallax		= sanitize_integer(parallax, PARALLAX_INSANE, PARALLAX_DISABLE, null)
+	//clientfps		= sanitize_integer(clientfps, FALSE, 1000, FALSE)
+	//parallax		= sanitize_integer(parallax, PARALLAX_INSANE, PARALLAX_DISABLE, null)
 
-	pixel_size		= sanitize_float(pixel_size, PIXEL_SCALING_AUTO, PIXEL_SCALING_3X, 0.5, initial(pixel_size))
-	scaling_method  = sanitize_text(scaling_method, initial(scaling_method))
+	//pixel_size		= sanitize_float(pixel_size, PIXEL_SCALING_AUTO, PIXEL_SCALING_3X, 0.5, initial(pixel_size))
+	//scaling_method  = sanitize_text(scaling_method, initial(scaling_method))
 	ghost_form		= sanitize_inlist(ghost_form, GLOB.ghost_forms, initial(ghost_form))
-	ghost_orbit 	= sanitize_inlist(ghost_orbit, GLOB.ghost_orbits, initial(ghost_orbit))
-	ghost_accs		= sanitize_inlist(ghost_accs, GLOB.ghost_accs_options, GHOST_ACCS_DEFAULT_OPTION)
-	ghost_others	= sanitize_inlist(ghost_others, GLOB.ghost_others_options, GHOST_OTHERS_DEFAULT_OPTION)
+	//ghost_orbit 	= sanitize_inlist(ghost_orbit, GLOB.ghost_orbits, initial(ghost_orbit))
+	//ghost_accs		= sanitize_inlist(ghost_accs, GLOB.ghost_accs_options, GHOST_ACCS_DEFAULT_OPTION)
+	//ghost_others	= sanitize_inlist(ghost_others, GLOB.ghost_others_options, GHOST_OTHERS_DEFAULT_OPTION)
 	be_special		= SANITIZE_LIST(be_special)
 
-	pda_theme		= sanitize_inlist(pda_theme, GLOB.ntos_device_themes_default_content, initial(pda_theme))
-	pda_color		= sanitize_hexcolor(pda_color, 6, TRUE, initial(pda_color))
+	//pda_theme		= sanitize_inlist(pda_theme, GLOB.ntos_device_themes_default_content, initial(pda_theme))
+	//pda_color		= sanitize_hexcolor(pda_color, 6, TRUE, initial(pda_color))
 
-	pai_name		= sanitize_text(pai_name, initial(pai_name))
-	pai_description	= sanitize_text(pai_description, initial(pai_description))
-	pai_comment		= sanitize_text(pai_comment, initial(pai_comment))
+	//pai_name		= sanitize_text(pai_name, initial(pai_name))
+	//pai_description	= sanitize_text(pai_description, initial(pai_description))
+	//pai_comment		= sanitize_text(pai_comment, initial(pai_comment))
 
 	key_bindings 	= sanitize_islist(key_bindings, deep_copy_list(GLOB.keybinding_list_by_key))
 	if (!length(key_bindings))
@@ -137,8 +137,8 @@
 		if(any_changed)
 			save_keybinds()
 
-	if(!purchased_gear)
-		purchased_gear = list()
+	//if(!purchased_gear)
+	//	purchased_gear = list()
 
 	return TRUE
 
@@ -170,31 +170,31 @@
 	PREP_WRITEPREF_RAW(chat_toggles, PREFERENCE_TAG_CHAT_TOGGLES)
 	PREP_WRITEPREF_RAW(toggles, PREFERENCE_TAG_TOGGLES)
 	PREP_WRITEPREF_RAW(toggles2, PREFERENCE_TAG_TOGGLES2)
-	PREP_WRITEPREF_RAW(clientfps, PREFERENCE_TAG_CLIENTFPS)
+	/*PREP_WRITEPREF_RAW(clientfps, PREFERENCE_TAG_CLIENTFPS)
 	PREP_WRITEPREF_RAW(parallax, PREFERENCE_TAG_PARALLAX)
 	PREP_WRITEPREF_RAW(pixel_size, PREFERENCE_TAG_PIXELSIZE)
 	PREP_WRITEPREF_RAW(tip_delay, PREFERENCE_TAG_TIP_DELAY)
 	PREP_WRITEPREF_RAW(pda_theme, PREFERENCE_TAG_PDA_THEME)
-	PREP_WRITEPREF_RAW(pda_color, PREFERENCE_TAG_PDA_COLOUR)
+	PREP_WRITEPREF_RAW(pda_color, PREFERENCE_TAG_PDA_COLOUR)*/
 
-	PREP_WRITEPREF_RAW(asaycolor, PREFERENCE_TAG_ASAY_COLOUR)
-	PREP_WRITEPREF_RAW(ooccolor, PREFERENCE_TAG_OOC_COLOUR)
+	//PREP_WRITEPREF_RAW(asaycolor, PREFERENCE_TAG_ASAY_COLOUR)
+	//PREP_WRITEPREF_RAW(ooccolor, PREFERENCE_TAG_OOC_COLOUR)
 	PREP_WRITEPREF_RAW(lastchangelog, PREFERENCE_TAG_LAST_CL)
-	PREP_WRITEPREF_RAW(UI_style, PREFERENCE_TAG_UI_STYLE)
+	/*PREP_WRITEPREF_RAW(UI_style, PREFERENCE_TAG_UI_STYLE)
 	PREP_WRITEPREF_RAW(outline_color, PREFERENCE_TAG_OUTLINE_COLOUR)
 	PREP_WRITEPREF_RAW(see_balloon_alerts, PREFERENCE_TAG_BALLOON_ALERTS)
-	PREP_WRITEPREF_RAW(scaling_method, PREFERENCE_TAG_SCALING_METHOD)
+	PREP_WRITEPREF_RAW(scaling_method, PREFERENCE_TAG_SCALING_METHOD)*/
 	PREP_WRITEPREF_RAW(ghost_form, PREFERENCE_TAG_GHOST_FORM)
-	PREP_WRITEPREF_RAW(ghost_orbit, PREFERENCE_TAG_GHOST_ORBIT)
+	/*PREP_WRITEPREF_RAW(ghost_orbit, PREFERENCE_TAG_GHOST_ORBIT)
 	PREP_WRITEPREF_RAW(ghost_accs, PREFERENCE_TAG_GHOST_ACCS)
 	PREP_WRITEPREF_RAW(ghost_others, PREFERENCE_TAG_GHOST_OTHERS)
 	PREP_WRITEPREF_RAW(pai_name, PREFERENCE_TAG_PAI_NAME)
 	PREP_WRITEPREF_RAW(pai_description, PREFERENCE_TAG_PAI_DESCRIPTION)
-	PREP_WRITEPREF_RAW(pai_comment, PREFERENCE_TAG_PAI_COMMENT)
+	PREP_WRITEPREF_RAW(pai_comment, PREFERENCE_TAG_PAI_COMMENT)*/
 
 	PREP_WRITEPREF_JSONENC(ignoring, PREFERENCE_TAG_IGNORING)
 	PREP_WRITEPREF_JSONENC(key_bindings, PREFERENCE_TAG_KEYBINDS)
-	PREP_WRITEPREF_JSONENC(purchased_gear, PREFERENCE_TAG_PURCHASED_GEAR)
+	//PREP_WRITEPREF_JSONENC(purchased_gear, PREFERENCE_TAG_PURCHASED_GEAR)
 	PREP_WRITEPREF_JSONENC(be_special, PREFERENCE_TAG_BE_SPECIAL)
 
 	// QuerySelect can execute many queries at once. That name is dumb but w/e

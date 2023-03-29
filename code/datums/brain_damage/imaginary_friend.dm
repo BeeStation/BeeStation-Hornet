@@ -174,15 +174,8 @@
 
 	friend_talk(message)
 
-<<<<<<< HEAD
 /mob/camera/imaginary_friend/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mode)
 	to_chat(src, compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mode))
-=======
-/mob/camera/imaginary_friend/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
-	if (client?.prefs.read_preference(/datum/preference/toggle/enable_runechat) && (client.prefs.read_preference(/datum/preference/toggle/enable_runechat_non_mobs) || ismob(speaker)))
-		create_chat_message(speaker, message_language, raw_message, spans)
-	to_chat(src, compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mods))
->>>>>>> 5a4c87a9fc3 (tgui Preferences Menu + total rewrite of the preferences backend (#61313))
 
 /mob/camera/imaginary_friend/proc/friend_talk(message)
 	message = treat_message_min(trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN)))
@@ -193,8 +186,8 @@
 	src.log_talk(message, LOG_SAY, tag="imaginary friend")
 
 	// Display message
-	var/owner_chat_map = owner.client?.prefs.toggles & (PREFTOGGLE_RUNECHAT_GLOBAL | PREFTOGGLE_RUNECHAT_NONMOBS)
-	var/friend_chat_map = client?.prefs.toggles & (PREFTOGGLE_RUNECHAT_GLOBAL | PREFTOGGLE_RUNECHAT_NONMOBS)
+	var/owner_chat_map = owner.client?.prefs.read_preference(/datum/preference/toggle/enable_runechat) && owner.client.prefs.read_preference(/datum/preference/toggle/enable_runechat_non_mobs)
+	var/friend_chat_map = client?.prefs.read_preference(/datum/preference/toggle/enable_runechat) && client.prefs.read_preference(/datum/preference/toggle/enable_runechat_non_mobs)
 	if (!owner_chat_map)
 		var/mutable_appearance/MA = mutable_appearance('icons/mob/talk.dmi', src, "default[say_test(message)]", FLY_LAYER)
 		MA.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA

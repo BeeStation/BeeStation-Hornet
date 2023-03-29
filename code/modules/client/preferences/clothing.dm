@@ -1,5 +1,5 @@
 /proc/generate_values_for_underwear(list/accessory_list, list/icons, color)
-	var/icon/lower_half = icon('icons/blanks/32x32.dmi', "nothing")
+	var/icon/lower_half = icon('icons/effects/effects.dmi', "nothing")
 
 	for (var/icon in icons)
 		lower_half.Blend(icon('icons/mob/human_parts_greyscale.dmi', icon), ICON_OVERLAY)
@@ -51,7 +51,7 @@
 	return values
 
 /datum/preference/choiced/backpack/apply_to_human(mob/living/carbon/human/target, value)
-	target.backpack = value
+	target.backbag = value
 
 /// Jumpsuit preference
 /datum/preference/choiced/jumpsuit
