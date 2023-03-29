@@ -95,7 +95,7 @@
 
 /obj/item/storage/box/suitbox/dropped(mob/living/user)
 	..()
-	addtimer(CALLBACK(src, .proc/box_check, user), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(box_check), user), 1 SECONDS)
 	// character's contents are checked too earlier than when it supposed to be done, making you perma-slow down.
 
 /obj/item/storage/box/suitbox/proc/box_check(mob/living/user)
@@ -939,6 +939,16 @@
 /obj/item/storage/box/breacherslug/PopulateContents()
 	for(var/i in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/breacher(src)
+
+/obj/item/storage/box/incapacitateshot
+	name = "box of incapacitating shotgun shots"
+	desc = "A box full of incapacitating shots, designed for shotguns."
+	icon_state = "incapacitateshot_box"
+	illustration = null
+
+/obj/item/storage/box/incapacitateshot/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/incapacitate(src)
 
 /obj/item/storage/box/actionfigure
 	name = "box of action figures"

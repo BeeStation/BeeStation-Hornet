@@ -32,7 +32,7 @@ particles like bonfires.
 		if(burst_mode)
 			remove_emitter(particle_key, TRUE)
 		else
-			addtimer(CALLBACK(src, .proc/remove_emitter, particle_key), lifespan)
+			addtimer(CALLBACK(src, PROC_REF(remove_emitter), particle_key), lifespan)
 
 /atom/proc/remove_emitter(particle_key, burst_mode = FALSE)
 	if(!particle_key)
@@ -43,7 +43,7 @@ particles like bonfires.
 	var/obj/emitter/removed_emitter = master_holder.emitters[particle_key]
 	if(!burst_mode)
 		removed_emitter.particles.spawning = 0 //this way it gracefully dies out instead
-	addtimer(CALLBACK(src, .proc/handle_deletion, particle_key), removed_emitter.particles.lifespan)
+	addtimer(CALLBACK(src, PROC_REF(handle_deletion), particle_key), removed_emitter.particles.lifespan)
 
 /atom/proc/handle_deletion(particle_key)
 	var/obj/emitter/removed_emitter = master_holder.emitters[particle_key]

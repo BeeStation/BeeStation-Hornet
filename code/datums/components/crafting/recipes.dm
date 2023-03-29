@@ -1151,3 +1151,11 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
 	category = CAT_STRUCTURE
 	dangerous_craft = TRUE
+
+/datum/crafting_recipe/mirror
+	name = "Wall Mirror Frame"
+	result = /obj/item/wallframe/mirror
+	time = 4 SECONDS
+	reqs = list(/obj/item/stack/sheet/mineral/silver = 1, /obj/item/stack/sheet/glass = 2)
+	tools = list(TOOL_WRENCH)
+	category = CAT_STRUCTURE

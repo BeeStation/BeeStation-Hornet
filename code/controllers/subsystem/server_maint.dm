@@ -8,6 +8,11 @@ SUBSYSTEM_DEF(server_maint)
 	init_order = INIT_ORDER_SERVER_MAINT
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	var/list/currentrun
+	///Associated list of list names to lists to clear of nulls
+	var/list/lists_to_clear
+	///Delay between list clearings in ticks
+	var/delay = 5
+	var/cleanup_ticker = 0
 
 /datum/controller/subsystem/server_maint/PreInit()
 	world.hub_password = "" //quickly! before the hubbies see us.
@@ -15,6 +20,15 @@ SUBSYSTEM_DEF(server_maint)
 /datum/controller/subsystem/server_maint/Initialize(timeofday)
 	if (CONFIG_GET(flag/hub))
 		world.update_hub_visibility(TRUE)
+	//Keep in mind, because of how delay works adding a list here makes each list take wait * delay more time to clear
+	//Do it for stuff that's properly important, and shouldn't have null checks inside its other uses
+	lists_to_clear = list(
+		"player_list" = GLOB.player_list,
+		"mob_list" = GLOB.mob_list,
+		"alive_mob_list" = GLOB.alive_mob_list,
+		"suicided_mob_list" = GLOB.suicided_mob_list,
+		"dead_mob_list" = GLOB.dead_mob_list,
+	)
 	return ..()
 
 /datum/controller/subsystem/server_maint/fire(resumed = FALSE)
@@ -22,6 +36,19 @@ SUBSYSTEM_DEF(server_maint)
 		if(listclearnulls(GLOB.clients))
 			log_world("Found a null in clients list!")
 		src.currentrun = GLOB.clients.Copy()
+
+	var/position_in_loop = (cleanup_ticker / delay) + 1  //Index at 1, thanks byond
+
+	if(!(position_in_loop % 1)) //If it's a whole number
+		var/listname = lists_to_clear[position_in_loop]
+		if(listclearnulls(lists_to_clear[listname]))
+			log_world("Found a null in [listname]!")
+
+	cleanup_ticker++
+
+	var/amount_to_work = length(lists_to_clear)
+	if(cleanup_ticker >= amount_to_work * delay) //If we've already done a loop, reset
+		cleanup_ticker = 0
 
 	var/list/currentrun = src.currentrun
 	var/round_started = SSticker.HasRoundStarted()

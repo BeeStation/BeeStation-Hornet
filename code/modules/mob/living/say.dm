@@ -200,6 +200,11 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(radio_return & NOPASS)
 		return TRUE
 
+	//now that the radio message is sent, if the custom say message was just an emote we return
+	if (message_mods[MODE_CUSTOM_SAY_ERASE_INPUT] && message_mods[MODE_CUSTOM_SAY_EMOTE])
+		emote("me", 1, message_mods[MODE_CUSTOM_SAY_EMOTE], TRUE)
+		return
+
 	//No screams in space, unless you're next to someone.
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/environment = T.return_air()
@@ -232,7 +237,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		avoid_highlight = src == speaker
 
 	if(speaker != src)
-		if(!radio_freq) //These checks have to be seperate, else people talking on the radio will make "You can't hear yourself!" appear when hearing people over the radio while deaf.
+		if(!radio_freq) //These checks have to be separate, else people talking on the radio will make "You can't hear yourself!" appear when hearing people over the radio while deaf.
 			deaf_message = "<span class='name'>[speaker]</span> [speaker.verb_say] something but you cannot hear [speaker.p_them()]."
 			deaf_type = 1
 	else
@@ -293,10 +298,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 					show_overhead_message_to += M
 			AM.Hear(rendered, src, message_language, message, , spans, message_mods)
 	if(length(show_overhead_message_to))
-		if(message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
-			create_chat_message(src, message_language, show_overhead_message_to, message_mods[MODE_CUSTOM_SAY_EMOTE], spans)
-		else
-			create_chat_message(src, message_language, show_overhead_message_to, message, spans)
+		create_chat_message(src, message_language, show_overhead_message_to, message, spans)
 	if(length(show_overhead_message_to_eavesdrop))
 		create_chat_message(src, message_language, show_overhead_message_to_eavesdrop, eavesdropping, spans)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_LIVING_SAY_SPECIAL, src, message)
@@ -308,7 +310,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			speech_bubble_recipients.Add(M.client)
 	var/image/I = image('icons/mob/talk.dmi', src, "[bubble_type][say_test(message)]", FLY_LAYER)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-	INVOKE_ASYNC(GLOBAL_PROC, /.proc/animate_speechbubble, I, speech_bubble_recipients, 30)
+	INVOKE_ASYNC(GLOBAL_PROC, TYPE_PROC_REF(/, animate_speechbubble), I, speech_bubble_recipients, 30)
 
 /proc/animate_speechbubble(image/I, list/show_to, duration)
 	var/matrix/M = matrix()
@@ -376,10 +378,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	return treat_message_min(message)
 
 /mob/proc/treat_message_min(message)
-	var/end = copytext(message, length(message))
-	if(!(end in list("!", ".", "?", ":", "\"", "-", "~")))
-		message += "."
-
+	message = punctuate(message)
 	message = capitalize(message)
 	return message
 

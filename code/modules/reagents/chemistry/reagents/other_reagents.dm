@@ -138,7 +138,7 @@
 			new_corgi.place_on_head(hat,null,FALSE)
 	H = new(new_corgi,src,L)
 	//Restore after this time
-	addtimer(CALLBACK(src, .proc/restore, L), 5 * (volume / metabolization_rate))
+	addtimer(CALLBACK(src, PROC_REF(restore), L), 5 * (volume / metabolization_rate))
 
 /datum/reagent/corgium/proc/restore(mob/living/L)
 	//The mob was qdeleted by an explosion or something
@@ -1159,7 +1159,6 @@
 				if(H.shoes)
 					if(SEND_SIGNAL(H.shoes, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD))
 						H.update_inv_shoes()
-				H.wash_cream()
 			SEND_SIGNAL(M, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
 	else if(method == INGEST || method == INJECT) //why the fuck did you drink space cleaner you fucking buffoon
 		toxic = TRUE
@@ -1384,7 +1383,7 @@
 /datum/reagent/stimulum/on_mob_life(mob/living/carbon/M)
 	M.adjustStaminaLoss(-2*REM, 0)
 	if(M.losebreath <= 10)
-		M.losebreath += min(current_cycle*0.05, 2) // gradually builds up suffocation, will not be noticable for several ticks but effects will linger afterwards
+		M.losebreath += min(current_cycle*0.05, 2) // gradually builds up suffocation, will not be noticeable for several ticks but effects will linger afterwards
 	if(M.losebreath > 2 && !warned)
 		M.visible_message("<span class='danger'>You feel like you can't breathe!</span>")
 		warned = TRUE
@@ -1428,55 +1427,55 @@
 		description = "\An [colorname] powder, used for coloring things [colorname]."
 
 /datum/reagent/colorful_reagent/powder/red
-	name = "Red Powder"
+	name = "Red Dye Powder"
 	colorname = "red"
 	color = "#DA0000" // red
 	random_color_list = list("#FC7474")
 
 /datum/reagent/colorful_reagent/powder/orange
-	name = "Orange Powder"
+	name = "Orange Dye Powder"
 	colorname = "orange"
 	color = "#FF9300" // orange
 	random_color_list = list("#FF9300")
 
 /datum/reagent/colorful_reagent/powder/yellow
-	name = "Yellow Powder"
+	name = "Yellow Dye Powder"
 	colorname = "yellow"
 	color = "#FFF200" // yellow
 	random_color_list = list("#FFF200")
 
 /datum/reagent/colorful_reagent/powder/green
-	name = "Green Powder"
+	name = "Green Dye Powder"
 	colorname = "green"
 	color = "#A8E61D" // green
 	random_color_list = list("#A8E61D")
 
 /datum/reagent/colorful_reagent/powder/blue
-	name = "Blue Powder"
+	name = "Blue Dye Powder"
 	colorname = "blue"
 	color = "#00B7EF" // blue
 	random_color_list = list("#00B7EF")
 
 /datum/reagent/colorful_reagent/powder/purple
-	name = "Purple Powder"
+	name = "Purple Dye Powder"
 	colorname = "purple"
 	color = "#DA00FF" // purple
 	random_color_list = list("#BD8FC4")
 
 /datum/reagent/colorful_reagent/powder/invisible
-	name = "Invisible Powder"
+	name = "Invisible Dye Powder"
 	colorname = "invisible"
 	color = "#FFFFFF00" // white + no alpha
 	random_color_list = list(null)	//because using the powder color turns things invisible
 
 /datum/reagent/colorful_reagent/powder/black
-	name = "Black Powder"
+	name = "Black Dye Powder"
 	colorname = "black"
 	color = "#1C1C1C" // not quite black
 	random_color_list = list("#404040")
 
 /datum/reagent/colorful_reagent/powder/white
-	name = "White Powder"
+	name = "White Dye Powder"
 	colorname = "white"
 	color = "#FFFFFF" // white
 	random_color_list = list("#FFFFFF") //doesn't actually change appearance at all
@@ -1612,7 +1611,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	chem_flags = CHEMICAL_GOAL_BARTENDER_SERVING // this is lame one to put random. at least good as bartender flavor.
-	taste_description = "carpet" // Your tounge feels furry.
+	taste_description = "carpet" // Your tongue feels furry.
 
 /datum/reagent/carpet/reaction_turf(turf/T, reac_volume)
 	if(isplatingturf(T) || istype(T, /turf/open/floor/plasteel))

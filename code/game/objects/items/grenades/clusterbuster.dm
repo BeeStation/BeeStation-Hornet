@@ -60,7 +60,7 @@
 	var/steps = rand(1,4)
 	for(var/i in 1 to steps)
 		step_away(src,loc)
-	addtimer(CALLBACK(src, .proc/prime), rand(15,60))
+	addtimer(CALLBACK(src, PROC_REF(prime)), rand(15,60))
 
 /obj/item/grenade/clusterbuster/segment/prime(mob/living/lanced_by)
 	if(dud_flags)

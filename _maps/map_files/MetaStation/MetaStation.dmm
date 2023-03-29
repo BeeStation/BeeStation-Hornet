@@ -14306,13 +14306,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
-"btv" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
-	dir = 8;
-	level = 2
-	},
-/turf/open/floor/plasteel,
-/area/engine/atmos)
 "btx" = (
 /obj/effect/landmark/event_spawn,
 /obj/effect/turf_decal/tile/yellow{
@@ -15547,6 +15540,25 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"byZ" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/machinery/button/massdriver{
+	id = "chapelgun";
+	name = "Chapel Mass Driver";
+	pixel_x = -4;
+	pixel_y = -26
+	},
+/obj/structure/table/wood,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/chapel/main)
 "bza" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -18364,13 +18376,6 @@
 /area/engine/atmos)
 "bMi" = (
 /obj/machinery/atmospherics/pipe/manifold4w/general/visible,
-/turf/open/floor/plasteel,
-/area/engine/atmos)
-"bMj" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 8;
-	level = 2
-	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bMl" = (
@@ -25699,6 +25704,13 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/dark,
 /area/science/nanite)
+"cxI" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
+	dir = 8;
+	
+	},
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "cxJ" = (
 /obj/item/radio/intercom{
 	pixel_x = 29
@@ -28897,31 +28909,6 @@
 /obj/structure/table/wood,
 /turf/open/floor/carpet/green,
 /area/chapel/main)
-"cPE" = (
-/obj/structure/sign/plaques/kiddie/badger{
-	pixel_y = 32
-	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
-	pixel_y = 2
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/table/wood,
-/turf/open/floor/carpet/green,
-/area/chapel/main)
 "cPF" = (
 /obj/structure/noticeboard{
 	desc = "A memorial wall for pinning up momentos";
@@ -29272,19 +29259,6 @@
 /turf/open/floor/plasteel/chapel{
 	dir = 1
 	},
-/area/chapel/main)
-"cRE" = (
-/obj/machinery/hydroponics/soil{
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/plasteel/cult,
 /area/chapel/main)
 "cRF" = (
 /obj/machinery/door/morgue{
@@ -31908,25 +31882,6 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"dsC" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/machinery/button/massdriver{
-	id = "chapelgun";
-	name = "Chapel Mass Driver";
-	pixel_x = -4;
-	pixel_y = -26
-	},
-/obj/structure/table/wood,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/chapel/main)
 "dsI" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	dir = 4
@@ -55427,6 +55382,19 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"oda" = (
+/obj/machinery/hydroponics/soil{
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cult,
+/area/chapel/main)
 "odl" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted,
@@ -61147,26 +61115,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
-"qFh" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
-	pixel_y = 2
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/chapel/main)
 "qFm" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -64614,6 +64562,31 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"scD" = (
+/obj/structure/sign/plaques/kiddie/badger{
+	pixel_y = 32
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+	pixel_y = 2
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/turf/open/floor/carpet/green,
+/area/chapel/main)
 "scT" = (
 /obj/machinery/door/poddoor{
 	id = "toxinsdriver";
@@ -68744,6 +68717,26 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
+"tXX" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+	pixel_y = 2
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/chapel/main)
 "tYe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -74109,16 +74102,6 @@
 	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
-"wwQ" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/chapel/main)
 "wxc" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
@@ -75444,6 +75427,13 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
+"wZj" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 8;
+	
+	},
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "wZs" = (
 /obj/structure/noticeboard{
 	pixel_y = 32
@@ -76715,6 +76705,16 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"xAX" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/chapel/main)
 "xAY" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Chapel Maintenance";
@@ -98456,7 +98456,7 @@ cPB
 cPZ
 cQT
 cMI
-cRE
+oda
 cPA
 aaa
 aaa
@@ -99480,7 +99480,7 @@ cNv
 cOd
 cOG
 cLa
-cPE
+scD
 tBk
 vUb
 cOP
@@ -99998,7 +99998,7 @@ cMI
 qGl
 cMI
 cRl
-dsC
+byZ
 cMI
 aaa
 aaa
@@ -101788,7 +101788,7 @@ bTs
 avr
 wRZ
 cMI
-qFh
+tXX
 cOm
 cOk
 cOR
@@ -102302,7 +102302,7 @@ bTs
 avr
 lVj
 cMI
-wwQ
+xAX
 cNG
 cOm
 cON
@@ -119741,7 +119741,7 @@ bUz
 bVH
 bXh
 brZ
-btv
+cxI
 htu
 ccR
 ceg
@@ -122053,7 +122053,7 @@ bTl
 bUF
 bCi
 bXo
-bMj
+wZj
 bZI
 mny
 ccQ

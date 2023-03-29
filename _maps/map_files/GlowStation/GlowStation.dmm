@@ -210,6 +210,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engineering/hallway)
+"abI" = (
+/obj/structure/table,
+/obj/item/clothing/head/flowercrown/lily,
+/obj/machinery/newscaster{
+	pixel_y = 31
+	},
+/turf/open/floor/plasteel/dark,
+/area/hydroponics/garden/monastery)
 "abL" = (
 /obj/structure/chair/wood/normal{
 	dir = 8
@@ -7685,16 +7693,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
-"bEM" = (
-/obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/head/flowercrown/lily,
-/obj/item/clothing/under/costume/maid,
-/obj/item/flashlight/lantern,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/carpet/orange,
-/area/crew_quarters/dorms)
 "bES" = (
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating/asteroid/snow,
@@ -11147,6 +11145,22 @@
 "csu" = (
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/dorms)
+"csz" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/flower/geranium{
+	pixel_x = 9;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/geranium{
+	pixel_x = 6;
+	pixel_y = -5
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
+	pixel_x = -5;
+	pixel_y = 11
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "csC" = (
 /obj/structure/lattice/catwalk/over,
 /obj/structure/railing{
@@ -11439,15 +11453,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/engineering)
-"cwH" = (
-/obj/machinery/camera{
-	c_tag = "Medbay - hallway central";
-	dir = 5;
-	name = "medbay camera";
-	network = list("ss13","medbay")
-	},
-/turf/closed/wall,
-/area/medical/surgery)
 "cwJ" = (
 /obj/effect/turf_decal/trimline/neutral/filled/warning{
 	dir = 1
@@ -23423,6 +23428,10 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/cmo)
+"fcP" = (
+/obj/machinery/doppler_array/research/science,
+/turf/open/floor/plasteel/grid/steel,
+/area/science/misc_lab)
 "fcT" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
@@ -23505,6 +23514,22 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
+"fdV" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+	pixel_x = 1;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+	pixel_x = -6;
+	pixel_y = -1
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+	pixel_x = 7;
+	pixel_y = -1
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "fdW" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -31126,33 +31151,6 @@
 	},
 /turf/open/openspace,
 /area/engine/atmospherics_engine)
-"gGk" = (
-/obj/structure/table/wood,
-/obj/item/clothing/head/flowercrown/sunflower{
-	pixel_y = -1
-	},
-/obj/item/clothing/head/flowercrown/poppy{
-	pixel_y = 9
-	},
-/obj/item/clothing/head/flowercrown/lily{
-	pixel_y = 1
-	},
-/obj/item/radio/intercom{
-	name = "station intercom up";
-	pixel_y = 24
-	},
-/obj/machinery/camera{
-	c_tag = "Theatre - Central";
-	name = "service camera"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/open/floor/carpet/purple,
-/area/crew_quarters/theatre)
 "gGt" = (
 /obj/structure/reagent_dispensers/cooking_oil,
 /obj/machinery/camera{
@@ -44009,14 +44007,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/central)
-"jly" = (
-/obj/structure/table,
-/obj/item/clothing/head/flowercrown/lily,
-/obj/machinery/newscaster{
-	pixel_y = 31
-	},
-/turf/open/floor/plasteel/dark,
-/area/hydroponics/garden/monastery)
 "jlF" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -48436,12 +48426,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/grid/steel,
 /area/quartermaster/exploration_prep)
-"khO" = (
-/obj/machinery/doppler_array/research/science{
-	dir = 8
-	},
-/turf/open/floor/plasteel/grid/steel,
-/area/science/misc_lab)
 "khP" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -54240,6 +54224,16 @@
 "lrX" = (
 /turf/open/floor/plating/asteroid/snow,
 /area/space/nearstation)
+"lsc" = (
+/obj/structure/closet/secure_closet/personal/cabinet,
+/obj/item/clothing/head/flowercrown/lily,
+/obj/item/clothing/under/costume/maid,
+/obj/item/flashlight/lantern,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/carpet/orange,
+/area/crew_quarters/dorms)
 "lsf" = (
 /obj/structure/railing{
 	dir = 4
@@ -54993,6 +54987,18 @@
 /obj/item/book/granter/spell/smoke/lesser,
 /turf/open/floor/carpet,
 /area/chapel/office)
+"lBA" = (
+/obj/machinery/door/poddoor{
+	id = "QMLoadingDoor";
+	name = "Supply Dock Loading Door"
+	},
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "QMLoading";
+	name = "Loading Ramp"
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "lBF" = (
 /obj/machinery/computer/arcade,
 /obj/machinery/light{
@@ -59024,26 +59030,6 @@
 /obj/structure/sign/warning/cold,
 /turf/closed/wall/r_wall,
 /area/maintenance/disposal/incinerator)
-"mqv" = (
-/obj/structure/table/wood,
-/obj/machinery/light{
-	dir = 8;
-	light_color = "#e8eaff"
-	},
-/obj/item/reagent_containers/food/snacks/grown/flower/lily{
-	pixel_x = 1;
-	pixel_y = 10
-	},
-/obj/item/reagent_containers/food/snacks/grown/flower/lily{
-	pixel_x = 10;
-	pixel_y = -5
-	},
-/obj/item/reagent_containers/food/snacks/grown/flower/lily{
-	pixel_x = -6;
-	pixel_y = -4
-	},
-/turf/open/floor/plasteel/dark,
-/area/chapel/main/monastery)
 "mqy" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -63731,22 +63717,6 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/misc_lab)
-"ntz" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
-	pixel_x = 1;
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
-	pixel_x = -6;
-	pixel_y = -1
-	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
-	pixel_x = 7;
-	pixel_y = -1
-	},
-/turf/open/floor/plasteel/dark,
-/area/chapel/main/monastery)
 "ntA" = (
 /obj/structure/railing{
 	dir = 8
@@ -74424,6 +74394,33 @@
 /obj/machinery/vending/cigarette,
 /turf/open/floor/wood,
 /area/crew_quarters/locker)
+"pDM" = (
+/obj/structure/table/wood,
+/obj/item/clothing/head/flowercrown/sunflower{
+	pixel_y = -1
+	},
+/obj/item/clothing/head/flowercrown/poppy{
+	pixel_y = 9
+	},
+/obj/item/clothing/head/flowercrown/lily{
+	pixel_y = 1
+	},
+/obj/item/radio/intercom{
+	name = "station intercom up";
+	pixel_y = 24
+	},
+/obj/machinery/camera{
+	c_tag = "Theatre - Central";
+	name = "service camera"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/theatre)
 "pEb" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
@@ -75837,6 +75834,26 @@
 	},
 /turf/open/floor/wood,
 /area/security/detectives_office)
+"pST" = (
+/obj/structure/table/wood,
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/lily{
+	pixel_x = 1;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/lily{
+	pixel_x = 10;
+	pixel_y = -5
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/lily{
+	pixel_x = -6;
+	pixel_y = -4
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "pSY" = (
 /obj/structure/table/wood,
 /obj/structure/cable/yellow{
@@ -78249,15 +78266,6 @@
 /obj/structure/marker_beacon,
 /turf/open/openspace/cold,
 /area/maintenance/fore)
-"qsB" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/railing{
-	dir = 6
-	},
-/obj/structure/table,
-/obj/item/implant/radio,
-/turf/open/openspace/cold,
-/area/iceland)
 "qsN" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
@@ -98809,6 +98817,17 @@
 	},
 /turf/open/floor/plasteel/dark/side,
 /area/hallway/primary/aft)
+"uEC" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/railing{
+	dir = 6
+	},
+/obj/structure/table,
+/obj/item/radio{
+	pixel_y = 5
+	},
+/turf/open/openspace/cold,
+/area/iceland)
 "uEE" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -105794,22 +105813,6 @@
 /obj/structure/tank_dispenser/oxygen,
 /turf/open/openspace/cold,
 /area/engine/atmospherics_engine)
-"wdp" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/geranium{
-	pixel_x = 9;
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/food/snacks/grown/flower/geranium{
-	pixel_x = 6;
-	pixel_y = -5
-	},
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
-	pixel_x = -5;
-	pixel_y = 11
-	},
-/turf/open/floor/plasteel/dark,
-/area/chapel/main/monastery)
 "wdr" = (
 /obj/machinery/airalarm{
 	dir = 4;
@@ -106096,13 +106099,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/storage)
-"wgE" = (
-/obj/machinery/door/poddoor{
-	id = "QMLoadingDoor";
-	name = "Supply Dock Loading Door"
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/storage)
 "wgF" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
@@ -205155,7 +205151,7 @@ hjc
 aYx
 jzE
 jzE
-wgE
+lBA
 jQT
 dcZ
 hqG
@@ -217821,7 +217817,7 @@ eyt
 pWG
 dGf
 qIH
-khO
+fcP
 vhA
 pUy
 mjo
@@ -273290,7 +273286,7 @@ eAy
 iCC
 kjj
 nkK
-bEM
+lsc
 gBg
 nkK
 iuF
@@ -292327,7 +292323,7 @@ qdG
 rBH
 sBH
 wQU
-jly
+abI
 dzN
 sCa
 quv
@@ -293090,8 +293086,8 @@ lty
 rVL
 lty
 hdC
-mqv
-wdp
+pST
+csz
 xiV
 ecH
 mPw
@@ -293348,7 +293344,7 @@ lMf
 lty
 rHY
 lty
-ntz
+fdV
 xiV
 mKW
 lMd
@@ -348825,7 +348821,7 @@ noJ
 npL
 gdp
 mfT
-gGk
+pDM
 uRW
 kGQ
 pYI
@@ -357094,7 +357090,7 @@ jQJ
 vjS
 hFk
 eRZ
-cwH
+kDW
 lqn
 prm
 iXC
@@ -362219,7 +362215,7 @@ noJ
 noJ
 npL
 buO
-qsB
+uEC
 npL
 noJ
 noJ
@@ -408779,8 +408775,8 @@ kUk
 kUk
 hjc
 hjc
-noJ
-noJ
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -409035,10 +409031,10 @@ kUk
 hjc
 hjc
 hjc
-noJ
-noJ
-noJ
-noJ
+hjc
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -409289,14 +409285,14 @@ kUk
 kUk
 kUk
 kUk
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
+kUk
+kUk
+kUk
+kUk
+kUk
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -409546,14 +409542,14 @@ kUk
 kUk
 kUk
 hjc
-npL
-npL
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
+kUk
+kUk
+kUk
+kUk
+kUk
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -409803,14 +409799,14 @@ hjc
 kUk
 hjc
 hjc
-npL
-npL
-npL
-noJ
-noJ
-noJ
-noJ
-noJ
+kUk
+kUk
+kUk
+kUk
+kUk
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -410060,14 +410056,14 @@ hjc
 hjc
 hjc
 hjc
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
+kUk
+kUk
+kUk
+kUk
+kUk
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -410317,14 +410313,14 @@ hjc
 kUk
 kUk
 hjc
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
+kUk
+kUk
+kUk
+kUk
+kUk
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -410574,14 +410570,14 @@ hjc
 kUk
 kUk
 kUk
-npL
-npL
-npL
-noJ
-noJ
-noJ
-noJ
-noJ
+kUk
+kUk
+kUk
+kUk
+kUk
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -410831,14 +410827,14 @@ kUk
 kUk
 kUk
 kUk
-npL
-npL
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
+kUk
+kUk
+kUk
+kUk
+kUk
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -411088,14 +411084,14 @@ kUk
 kUk
 hjc
 kUk
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
+kUk
+kUk
+kUk
+kUk
+kUk
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -411345,14 +411341,14 @@ kUk
 hjc
 hjc
 hjc
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
+kUk
+kUk
+kUk
+kUk
+kUk
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -411606,9 +411602,9 @@ hjc
 hjc
 hjc
 hjc
-noJ
-noJ
-noJ
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -411864,7 +411860,7 @@ hjc
 hjc
 hjc
 hjc
-noJ
+hjc
 noJ
 noJ
 noJ
@@ -413660,8 +413656,8 @@ kUk
 kUk
 kUk
 hjc
-noJ
-noJ
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -413917,9 +413913,9 @@ kUk
 kUk
 kUk
 hjc
+hjc
+hjc
 npL
-npL
-noJ
 noJ
 noJ
 noJ
@@ -414175,7 +414171,7 @@ kUk
 hjc
 hjc
 hjc
-npL
+hjc
 npL
 npL
 kcY
@@ -414431,10 +414427,10 @@ kUk
 kUk
 hjc
 hjc
+hjc
+hjc
+noJ
 npL
-noJ
-noJ
-noJ
 noJ
 noJ
 noJ
@@ -414688,10 +414684,10 @@ kUk
 kUk
 hjc
 hjc
+hjc
+hjc
 npL
-noJ
-noJ
-noJ
+npL
 noJ
 noJ
 noJ
@@ -414945,9 +414941,9 @@ kUk
 kUk
 hjc
 hjc
+hjc
+hjc
 xPY
-noJ
-noJ
 noJ
 noJ
 noJ
@@ -415202,10 +415198,10 @@ kUk
 kUk
 hjc
 hjc
+hjc
+hjc
 npL
-noJ
-noJ
-noJ
+npL
 noJ
 noJ
 noJ
@@ -415459,10 +415455,10 @@ kUk
 kUk
 hjc
 hjc
+hjc
+hjc
+noJ
 npL
-noJ
-noJ
-noJ
 noJ
 noJ
 noJ
@@ -415717,7 +415713,7 @@ kUk
 hjc
 hjc
 hjc
-npL
+hjc
 npL
 npL
 kcY
@@ -415973,9 +415969,9 @@ kUk
 kUk
 hjc
 hjc
+hjc
+hjc
 npL
-npL
-noJ
 noJ
 noJ
 noJ
@@ -416230,8 +416226,8 @@ kUk
 kUk
 hjc
 hjc
-noJ
-noJ
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -416487,8 +416483,8 @@ kUk
 kUk
 hjc
 hjc
-noJ
-noJ
+hjc
+hjc
 noJ
 noJ
 noJ

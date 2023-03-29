@@ -38,7 +38,7 @@ export const NtosRecords = (props, context) => {
                 record.name
                   + " " + record.rank
                   + " " + record.species
-                  + " " + record.sex
+                  + " " + record.gender
                   + " " + record.age
                   + " " + record.fingerprint
               )
@@ -50,7 +50,7 @@ export const NtosRecords = (props, context) => {
             <br />
             Rank: {record.rank}<br />
             Species: {record.species}<br />
-            Sex: {record.sex}<br />
+            Gender: {record.gender}<br />
             Age: {record.age}<br />
             Fingerprint: {record.fingerprint}<br />
             <br />
@@ -65,7 +65,7 @@ export const NtosRecords = (props, context) => {
                 record.name
                   + " " + record.rank
                   + " " + record.species
-                  + " " + record.sex
+                  + " " + record.gender
                   + " " + record.age
                   + " " + record.fingerprint
                   + " " + record.bloodtype
@@ -80,7 +80,7 @@ export const NtosRecords = (props, context) => {
             <br />
             Rank: {record.rank}<br />
             Species: {record.species}<br />
-            Sex: {record.sex}<br />
+            Gender: {record.gender}<br />
             Age: {record.age}<br />
             DNA: {record.b_dna}<br />
             <br />

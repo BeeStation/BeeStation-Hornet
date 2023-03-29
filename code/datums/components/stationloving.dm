@@ -7,11 +7,11 @@
 /datum/component/stationloving/Initialize(inform_admins = FALSE, allow_death = FALSE)
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
-	RegisterSignal(parent, list(COMSIG_MOVABLE_Z_CHANGED), .proc/check_in_bounds)
-	RegisterSignal(parent, list(COMSIG_MOVABLE_SECLUDED_LOCATION), .proc/relocate)
-	RegisterSignal(parent, list(COMSIG_PARENT_PREQDELETED), .proc/check_deletion)
-	RegisterSignal(parent, list(COMSIG_ITEM_IMBUE_SOUL), .proc/check_soul_imbue)
-	RegisterSignal(parent, list(COMSIG_ITEM_MARK_RETRIEVAL), .proc/check_mark_retrieval)
+	RegisterSignal(parent, list(COMSIG_MOVABLE_Z_CHANGED), PROC_REF(check_in_bounds))
+	RegisterSignal(parent, list(COMSIG_MOVABLE_SECLUDED_LOCATION), PROC_REF(relocate))
+	RegisterSignal(parent, list(COMSIG_PARENT_PREQDELETED), PROC_REF(check_deletion))
+	RegisterSignal(parent, list(COMSIG_ITEM_IMBUE_SOUL), PROC_REF(check_soul_imbue))
+	RegisterSignal(parent, list(COMSIG_ITEM_MARK_RETRIEVAL), PROC_REF(check_mark_retrieval))
 	src.inform_admins = inform_admins
 	src.allow_death = allow_death
 	check_in_bounds() // Just in case something is being created outside of station/centcom
