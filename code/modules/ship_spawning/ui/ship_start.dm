@@ -38,7 +38,7 @@
 				var/datum/job/desired_job = lobby.get_job_role(C)
 				member_list += list(list(
 					"name" = C.ckey,
-					"job" = initial(desired_job.title),
+					"job" = initial(desired_job.spawn_title) || initial(desired_job.title),
 				))
 			data["lobby_id"] = lobby.lobby_id
 			data["lobby_member_list"] = member_list

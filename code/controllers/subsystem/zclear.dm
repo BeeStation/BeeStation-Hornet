@@ -147,7 +147,7 @@ SUBSYSTEM_DEF(zclear)
 				break
 		if(free)
 			return picked_level
-	var/datum/space_level/picked_level = SSmapping.add_new_zlevel("Dynamic free level [LAZYLEN(free_levels)]", ZTRAITS_SPACE, orbital_body_type = null)
+	var/datum/space_level/picked_level = SSmapping.add_new_zlevel("Dynamic free level [LAZYLEN(free_levels)]", ZTRAITS_SPACE, orbital_body_type = null, initialise=TRUE)
 	addtimer(CALLBACK(src, PROC_REF(begin_tracking), picked_level), 60 SECONDS)
 	message_admins("SSORBITS: Created a new dynamic free level ([world.maxz] z-levels now exist) as none were available at the time.")
 	return picked_level
