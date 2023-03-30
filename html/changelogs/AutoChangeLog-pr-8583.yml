@@ -1,0 +1,5 @@
+author: RKz, tastyfish
+delete-after: true
+changes:
+  - tweak: status displays scroll much more smoothly, and aren't as much unreadable
+      trash anymore
