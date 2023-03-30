@@ -209,7 +209,8 @@
 	// List of job names to list of turfs
 	assoc_spawn_points = list()
 	var/obj/docking_port/mobile/M = shuttle_reference.value
-	for(var/turf/place in M.return_turfs())
+	var/list/shuttle_turfs = M.return_turfs()
+	for(var/turf/place in shuttle_turfs)
 		for (var/obj/effect/landmark/start/start_landmark in place)
 			if (!assoc_spawn_points[start_landmark.name])
 				assoc_spawn_points[start_landmark.name] = list()
@@ -241,7 +242,7 @@
 				selected_spawn_point = get_turf(pick(pick(assoc_spawn_points)))
 			else
 				// Yolospawn
-				selected_spawn_point = pick(turfs)
+				selected_spawn_point = pick(shuttle_turfs)
 		else
 			selected_spawn_point = get_turf(pick(assoc_spawn_points[initial(desired_job.spawn_title) || initial(desired_job.title)]))
 		// Perform roundstart prefs loading
@@ -294,13 +295,13 @@
 			continue
 		// Spawn the player at a valid spawn point
 		var/turf/selected_spawn_point
-		if (!assoc_spawn_points[initial(desired_job.title)])
+		if (!assoc_spawn_points[initial(desired_job.spawn_title) || initial(desired_job.title)])
 			// Spawn at a random point
 			if (length(assoc_spawn_points))
 				selected_spawn_point = get_turf(pick(pick(assoc_spawn_points)))
 			else
 				// Yolospawn
-				selected_spawn_point = pick(turfs)
+				selected_spawn_point = pick(shuttle_turfs)
 		else
 			selected_spawn_point = get_turf(pick(assoc_spawn_points[initial(desired_job.spawn_title) || initial(desired_job.title)]))
 		// Perform roundstart prefs loading
@@ -308,7 +309,7 @@
 		player.prefs.active_character.copy_to(created_character)
 		created_character.dna.update_dna_identity()
 		// Spawn the job role
-		var/datum/job/job_instance = SSjob.GetJob(initial(desired_job.spawn_title) || initial(desired_job.title))
+		var/datum/job/job_instance = SSjob.GetJob(initial(desired_job.title))
 		job_instance.equip(created_character)
 		created_character.key = player.key
 		if (job_instance.importance > highest_importance)

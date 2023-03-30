@@ -365,6 +365,8 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	//The virtual Z-value this shuttle is at
 	var/current_z
 
+	var/is_moving = FALSE
+
 	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
 
 	var/shuttle_object_type = /datum/orbital_object/shuttle
@@ -604,11 +606,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 /obj/docking_port/mobile/proc/linkup(datum/map_template/shuttle/template, obj/docking_port/stationary/dock)
 	var/list/static/shuttle_id = list()
 	var/idnum = ++shuttle_id[template]
-	if(idnum > 1)
-		if(id == initial(id))
-			id = "[id][idnum]"
-		if(name == initial(name))
-			name = "[name] [idnum]"
 	for(var/place in shuttle_areas)
 		var/area/area = place
 		area.connect_to_shuttle(src, dock, idnum, FALSE)

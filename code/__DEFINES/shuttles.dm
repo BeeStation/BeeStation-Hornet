@@ -60,6 +60,7 @@
 #define DOCKING_AREA_EMPTY			(1<<2)
 #define DOCKING_NULL_DESTINATION	(1<<3)
 #define DOCKING_NULL_SOURCE			(1<<4)
+#define DOCKING_ALREADY_DOCKING		(1<<5)
 
 //Docking turf movements
 #define MOVE_TURF 1

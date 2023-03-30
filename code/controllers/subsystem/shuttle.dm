@@ -98,7 +98,7 @@ SUBSYSTEM_DEF(shuttle)
 		// code will be running a lot.
 		var/obj/docking_port/mobile/owner = T.owner
 		if(owner)
-			var/idle = owner.mode == SHUTTLE_IDLE
+			var/idle = owner.mode == SHUTTLE_IDLE && !owner.is_moving
 			var/not_centcom_evac = owner.launch_status == NOLAUNCH
 			var/not_in_use = (!T.docked)
 			if(idle && not_centcom_evac && not_in_use)
