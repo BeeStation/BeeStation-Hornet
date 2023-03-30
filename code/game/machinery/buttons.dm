@@ -181,6 +181,10 @@
 	..()
 	update_icon()
 
+/obj/machinery/button/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override)
+	. = ..()
+	id = "[id]@[port.id]"
+	setup_device()
 
 /obj/machinery/button/door
 	name = "door button"

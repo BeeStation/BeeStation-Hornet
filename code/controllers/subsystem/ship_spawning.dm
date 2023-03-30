@@ -49,7 +49,7 @@ PROCESSING_SUBSYSTEM_DEF(ship_spawning)
 	return selected_ship.load(BL, FALSE, TRUE)
 
 /datum/controller/subsystem/processing/ship_spawning/proc/get_spawn_point(faction_tag, obj/docking_port/mobile/shuttle)
-	RETURN_TYPE(/obj/docking_port/stationary)
+	RETURN_TYPE(/obj/docking_port/stationary/spawn_point)
 	for (var/obj/docking_port/stationary/spawn_point/start in spawn_points)
 		if (!start.can_spawn_here(faction_tag))
 			continue

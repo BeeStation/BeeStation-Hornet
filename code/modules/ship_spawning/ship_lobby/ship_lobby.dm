@@ -188,18 +188,19 @@
 		return
 	loading = TRUE
 	// Spawn the ship
-	var/datum/map_generator/map_place/placer = SSship_spawning.spawn_ship(selected_ship.spawned_template)
+	var/datum/variable_ref/shuttle_ref = new()
+	var/datum/map_generator/map_place/placer = SSshuttle.action_load(selected_ship.spawned_template, null, shuttle_ref)
 	if (!placer)
 		tgui_alert_async(source, "Failed to load selected map, please file a GitHub issue or contact the Head Developer.", "Loading error")
 		loading = FALSE
 		return
 	// Give the clients their jobs, give bad clients a random job
-	placer.on_completion(COMPLETION_PRIORITY_PREVIEW, CALLBACK(src, PROC_REF(after_ship_spawned)))
+	placer.on_completion(COMPLETION_PRIORITY_PREVIEW, CALLBACK(src, PROC_REF(after_ship_spawned), shuttle_ref))
 
-/datum/ship_lobby/proc/after_ship_spawned(datum/map_generator/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, register = TRUE, list/turfs)
+/datum/ship_lobby/proc/after_ship_spawned(datum/variable_ref/shuttle_reference, datum/map_generator/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, register = TRUE, list/turfs)
 	loading = FALSE
 	lobby_state = LOBBY_GAME
-	// Locate all the player spawns and put the players in them
+	// Locate all the player spawns and put the players \in them
 	// Any player that doesn't have a job, or has their job role filled
 	// will get a random role assigned at the end of job assignation.
 	// The order in which players get randomly re-assigned is undefined,
@@ -207,10 +208,8 @@
 	// this is just a failsafe for when that innevitably doesn't happen.
 	// List of job names to list of turfs
 	assoc_spawn_points = list()
-	var/obj/docking_port/mobile/M
-	for(var/turf/place in turfs)
-		if (!M)
-			M = locate(/obj/docking_port/mobile) in place
+	var/obj/docking_port/mobile/M = shuttle_reference.value
+	for(var/turf/place in M.return_turfs())
 		for (var/obj/effect/landmark/start/start_landmark in place)
 			if (!assoc_spawn_points[start_landmark.name])
 				assoc_spawn_points[start_landmark.name] = list()
@@ -318,15 +317,12 @@
 	// Give the budget card
 	var/obj/item/card/id/departmental_budget/shuttle/shuttle_budget = new (most_important_player.loc, M)
 	most_important_player.put_in_hands(shuttle_budget)
-	// Launch the ship into supercruise
-	// TODO: Start docked at a station?
-	//M.enter_supercruise(new /datum/orbital_vector(rand(-10000, 10000), rand(-10000, 10000)))
-	var/obj/docking_port/stationary/docking_port = SSship_spawning.get_spawn_point(desired_faction, M)
+	// Get the ship spawn point
+	var/obj/docking_port/stationary/spawn_point/docking_port = SSship_spawning.get_spawn_point(desired_faction, M)
 	if (docking_port)
 		M.initiate_docking(docking_port)
 	else
-		// Enter at a random location
-		M.enter_supercruise(new /datum/orbital_vector(rand(-10000, 10000), rand(-10000, 10000)))
+		M.enter_supercruise(new /datum/orbital_vector(rand(-8000, 8000), rand(-8000, 8000)))
 
 /datum/ship_lobby/proc/choose_job(client/user)
 	var/list/options = list()
