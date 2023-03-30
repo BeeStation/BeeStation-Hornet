@@ -21,20 +21,20 @@
 		preference.is_valid(list(1, 2, 3))
 
 /// Requires all preferences to have a valid, unique savefile_identifier.
-/datum/unit_test/preferences_valid_savefile_key
+/datum/unit_test/preferences_valid_db_key
 
-/datum/unit_test/preferences_valid_savefile_key/Run()
-	var/list/known_savefile_keys = list()
+/datum/unit_test/preferences_valid_db_key/Run()
+	var/list/known_db_keys = list()
 
 	for (var/preference_type in GLOB.preference_entries)
 		var/datum/preference/preference = GLOB.preference_entries[preference_type]
-		if (!istext(preference.savefile_key))
-			Fail("[preference_type] has an invalid savefile_key.")
+		if (!istext(preference.db_key))
+			Fail("[preference_type] has an invalid db_key.")
 
-		if (preference.savefile_key in known_savefile_keys)
-			Fail("[preference_type] has a non-unique savefile_key `[preference.savefile_key]`!")
+		if (preference.db_key in known_db_keys)
+			Fail("[preference_type] has a non-unique db_key `[preference.db_key]`!")
 
-		known_savefile_keys += preference.savefile_key
+		known_db_keys += preference.db_key
 
 /// Requires all main features have a main_feature_name
 /datum/unit_test/preferences_valid_main_feature_name

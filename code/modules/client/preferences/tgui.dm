@@ -1,6 +1,6 @@
 /datum/preference/toggle/tgui_fancy
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
-	savefile_key = "tgui_fancy"
+	db_key = "tgui_fancy"
 	savefile_identifier = PREFERENCE_PLAYER
 
 /datum/preference/toggle/tgui_fancy/apply_to_client(client/client, value)
@@ -10,7 +10,7 @@
 
 /datum/preference/toggle/tgui_lock
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
-	savefile_key = "tgui_lock"
+	db_key = "tgui_lock"
 	savefile_identifier = PREFERENCE_PLAYER
 	default_value = FALSE
 

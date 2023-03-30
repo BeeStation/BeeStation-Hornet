@@ -1,7 +1,7 @@
 /// The scaling method to show the world in, e.g. nearest neighbor
 /datum/preference/choiced/scaling_method
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
-	savefile_key = "scaling_method"
+	db_key = "scaling_method"
 	savefile_identifier = PREFERENCE_PLAYER
 
 /datum/preference/choiced/scaling_method/create_default_value()

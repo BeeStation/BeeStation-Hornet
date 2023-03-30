@@ -1,5 +1,5 @@
 /datum/preference/choiced/ethereal_color
-	savefile_key = "feature_ethcolor"
+	db_key = "feature_ethcolor"
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Ethereal color"

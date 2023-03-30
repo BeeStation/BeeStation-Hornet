@@ -39,7 +39,7 @@
 
 /// Returns the key that will be used in the spritesheet for a given value.
 /datum/preference/proc/get_spritesheet_key(value)
-	return "[savefile_key]___[sanitize_css_class_name(value)]"
+	return "[db_key]___[sanitize_css_class_name(value)]"
 
 /// Sends information needed for shared details on individual preferences
 /datum/asset/json/preferences
@@ -60,6 +60,6 @@
 		var/datum/preference/preference_entry = GLOB.preference_entries[preference_type]
 		var/data = preference_entry.compile_constant_data()
 		if (!isnull(data))
-			preference_data[preference_entry.savefile_key] = data
+			preference_data[preference_entry.db_key] = data
 
 	return preference_data

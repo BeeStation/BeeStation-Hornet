@@ -1,6 +1,6 @@
 /datum/preference/toggle/enable_screentips
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
-	savefile_key = "screentip_pref"
+	db_key = "screentip_pref"
 	savefile_identifier = PREFERENCE_PLAYER
 
 /datum/preference/toggle/enable_screentips/apply_to_client(client/client, value)
@@ -8,7 +8,7 @@
 
 /datum/preference/color/screentip_color
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
-	savefile_key = "screentip_color"
+	db_key = "screentip_color"
 	savefile_identifier = PREFERENCE_PLAYER
 
 /datum/preference/color/screentip_color/apply_to_client(client/client, value)

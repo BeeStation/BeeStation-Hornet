@@ -1,6 +1,6 @@
 /datum/preference/color/asay_color
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
-	savefile_key = "asaycolor"
+	db_key = "asaycolor"
 	savefile_identifier = PREFERENCE_PLAYER
 
 /datum/preference/color/asay_color/create_default_value()
@@ -15,7 +15,7 @@
 /// What outfit to equip when spawning as a briefing officer for an ERT
 /datum/preference/choiced/brief_outfit
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
-	savefile_key = "brief_outfit"
+	db_key = "brief_outfit"
 	savefile_identifier = PREFERENCE_PLAYER
 
 /datum/preference/choiced/brief_outfit/deserialize(input, datum/preferences/preferences)

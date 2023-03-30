@@ -331,7 +331,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		var/value = read_preference(preference.type)
 		var/data = preference.compile_ui_data(user, value)
 
-		preferences[preference.category][preference.savefile_key] = data
+		preferences[preference.category][preference.db_key] = data
 
 	for (var/datum/preference_middleware/preference_middleware as anything in middleware)
 		var/list/append_character_preferences = preference_middleware.get_character_preferences(user)

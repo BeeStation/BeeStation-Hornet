@@ -1,7 +1,7 @@
 /datum/preference/choiced/body_type
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
 	priority = PREFERENCE_PRIORITY_BODY_TYPE
-	savefile_key = "body_type"
+	db_key = "body_type"
 	savefile_identifier = PREFERENCE_CHARACTER
 
 /datum/preference/choiced/body_type/init_possible_values()

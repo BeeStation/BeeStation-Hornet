@@ -26,7 +26,7 @@
 
 /// Backpack preference
 /datum/preference/choiced/backpack
-	savefile_key = "backpack"
+	db_key = "backpack"
 	savefile_identifier = PREFERENCE_CHARACTER
 	main_feature_name = "Backpack"
 	category = PREFERENCE_CATEGORY_CLOTHING
@@ -55,7 +55,7 @@
 
 /// Jumpsuit preference
 /datum/preference/choiced/jumpsuit
-	savefile_key = "jumpsuit_style"
+	db_key = "jumpsuit_style"
 	savefile_identifier = PREFERENCE_CHARACTER
 	main_feature_name = "Jumpsuit"
 	category = PREFERENCE_CATEGORY_CLOTHING
@@ -74,7 +74,7 @@
 
 /// Socks preference
 /datum/preference/choiced/socks
-	savefile_key = "socks"
+	db_key = "socks"
 	savefile_identifier = PREFERENCE_CHARACTER
 	main_feature_name = "Socks"
 	category = PREFERENCE_CATEGORY_CLOTHING
@@ -88,7 +88,7 @@
 
 /// Undershirt preference
 /datum/preference/choiced/undershirt
-	savefile_key = "undershirt"
+	db_key = "undershirt"
 	savefile_identifier = PREFERENCE_CHARACTER
 	main_feature_name = "Undershirt"
 	category = PREFERENCE_CATEGORY_CLOTHING
@@ -123,7 +123,7 @@
 
 /// Underwear preference
 /datum/preference/choiced/underwear
-	savefile_key = "underwear"
+	db_key = "underwear"
 	savefile_identifier = PREFERENCE_CHARACTER
 	main_feature_name = "Underwear"
 	category = PREFERENCE_CATEGORY_CLOTHING

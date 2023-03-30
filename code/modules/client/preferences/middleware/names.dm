@@ -15,7 +15,7 @@
 		if (!istype(name_preference))
 			continue
 
-		types[name_preference.savefile_key] = list(
+		types[name_preference.db_key] = list(
 			"can_randomize" = name_preference.is_randomizable(),
 			"explanation" = name_preference.explanation,
 			"group" = name_preference.group,
@@ -44,7 +44,7 @@
 			continue
 
 		if (istype(highest_priority_job, name_preference.relevant_job))
-			return name_preference.savefile_key
+			return name_preference.db_key
 
 	return "real_name"
 

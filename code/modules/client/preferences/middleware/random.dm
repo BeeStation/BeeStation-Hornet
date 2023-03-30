@@ -18,7 +18,7 @@
 		if (!preference.is_randomizable())
 			continue
 
-		randomizable += preference.savefile_key
+		randomizable += preference.db_key
 
 	return list(
 		"randomizable" = randomizable,
@@ -60,7 +60,7 @@
 	if (!preference.is_randomizable())
 		return FALSE
 
-	var/requested_randomization = randomise[preference.savefile_key]
+	var/requested_randomization = randomise[preference.db_key]
 
 	if (istype(preference, /datum/preference/name))
 		requested_randomization = read_preference(/datum/preference/choiced/random_name)

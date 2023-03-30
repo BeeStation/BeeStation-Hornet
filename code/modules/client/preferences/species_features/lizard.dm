@@ -28,7 +28,7 @@
 	return values
 
 /datum/preference/choiced/lizard_body_markings
-	savefile_key = "feature_lizard_body_markings"
+	db_key = "feature_lizard_body_markings"
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Body markings"
@@ -66,7 +66,7 @@
 	target.dna.features["body_markings"] = value
 
 /datum/preference/choiced/lizard_frills
-	savefile_key = "feature_lizard_frills"
+	db_key = "feature_lizard_frills"
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Frills"
@@ -79,7 +79,7 @@
 	target.dna.features["frills"] = value
 
 /datum/preference/choiced/lizard_horns
-	savefile_key = "feature_lizard_horns"
+	db_key = "feature_lizard_horns"
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Horns"
@@ -92,7 +92,7 @@
 	target.dna.features["horns"] = value
 
 /datum/preference/choiced/lizard_legs
-	savefile_key = "feature_lizard_legs"
+	db_key = "feature_lizard_legs"
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	relevant_mutant_bodypart = "legs"
@@ -104,7 +104,7 @@
 	target.dna.features["legs"] = value
 
 /datum/preference/choiced/lizard_snout
-	savefile_key = "feature_lizard_snout"
+	db_key = "feature_lizard_snout"
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Snout"
@@ -117,7 +117,7 @@
 	target.dna.features["snout"] = value
 
 /datum/preference/choiced/lizard_spines
-	savefile_key = "feature_lizard_spines"
+	db_key = "feature_lizard_spines"
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	relevant_mutant_bodypart = "spines"
@@ -129,7 +129,7 @@
 	target.dna.features["spines"] = value
 
 /datum/preference/choiced/lizard_tail
-	savefile_key = "feature_lizard_tail"
+	db_key = "feature_lizard_tail"
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	relevant_mutant_bodypart = "tail_lizard"

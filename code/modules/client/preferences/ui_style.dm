@@ -2,7 +2,7 @@
 /datum/preference/choiced/ui_style
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	savefile_identifier = PREFERENCE_PLAYER
-	savefile_key = "UI_style"
+	db_key = "UI_style"
 	should_generate_icons = TRUE
 
 /datum/preference/choiced/ui_style/init_possible_values()

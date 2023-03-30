@@ -1,5 +1,5 @@
 /datum/preference/choiced/tail_human
-	savefile_key = "feature_human_tail"
+	db_key = "feature_human_tail"
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	can_randomize = FALSE
@@ -16,7 +16,7 @@
 	return initial(tail.name)
 
 /datum/preference/choiced/ears
-	savefile_key = "feature_human_ears"
+	db_key = "feature_human_ears"
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	can_randomize = FALSE

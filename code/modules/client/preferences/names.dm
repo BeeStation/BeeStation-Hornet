@@ -37,7 +37,7 @@
 	explanation = "Name"
 	// The `_` makes it first in ABC order.
 	group = "_real_name"
-	savefile_key = "real_name"
+	db_key = "real_name"
 
 /datum/preference/name/real_name/apply_to_human(mob/living/carbon/human/target, value)
 	target.real_name = value
@@ -69,7 +69,7 @@
 /datum/preference/name/backup_human
 	explanation = "Backup human name"
 	group = "backup_human"
-	savefile_key = "human_name"
+	db_key = "human_name"
 
 /datum/preference/name/backup_human/create_informed_default_value(datum/preferences/preferences)
 	var/gender = preferences.read_preference(/datum/preference/choiced/gender)
@@ -77,7 +77,7 @@
 	return random_unique_name(gender)
 
 /datum/preference/name/clown
-	savefile_key = "clown_name"
+	db_key = "clown_name"
 
 	explanation = "Clown name"
 	group = "fun"
@@ -87,7 +87,7 @@
 	return pick(GLOB.clown_names)
 
 /datum/preference/name/mime
-	savefile_key = "mime_name"
+	db_key = "mime_name"
 
 	explanation = "Mime name"
 	group = "fun"
@@ -97,7 +97,7 @@
 	return pick(GLOB.mime_names)
 
 /datum/preference/name/cyborg
-	savefile_key = "cyborg_name"
+	db_key = "cyborg_name"
 
 	allow_numbers = TRUE
 	can_randomize = FALSE
@@ -110,7 +110,7 @@
 	return DEFAULT_CYBORG_NAME
 
 /datum/preference/name/ai
-	savefile_key = "ai_name"
+	db_key = "ai_name"
 
 	allow_numbers = TRUE
 	explanation = "AI name"
@@ -121,7 +121,7 @@
 	return pick(GLOB.ai_names)
 
 /datum/preference/name/religion
-	savefile_key = "religion_name"
+	db_key = "religion_name"
 
 	allow_numbers = TRUE
 
@@ -132,7 +132,7 @@
 	return pick(GLOB.religion_names)
 
 /datum/preference/name/deity
-	savefile_key = "deity_name"
+	db_key = "deity_name"
 
 	allow_numbers = TRUE
 	can_randomize = FALSE
@@ -144,7 +144,7 @@
 	return DEFAULT_DEITY
 
 /datum/preference/name/bible
-	savefile_key = "bible_name"
+	db_key = "bible_name"
 
 	allow_numbers = TRUE
 	can_randomize = FALSE

@@ -1,6 +1,6 @@
 /datum/preference/numeric/age
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
-	savefile_key = "age"
+	db_key = "age"
 	savefile_identifier = PREFERENCE_CHARACTER
 
 	minimum = AGE_MIN

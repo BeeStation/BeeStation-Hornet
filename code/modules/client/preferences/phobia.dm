@@ -1,6 +1,6 @@
 /datum/preference/choiced/phobia
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
-	savefile_key = "phobia"
+	db_key = "phobia"
 	savefile_identifier = PREFERENCE_CHARACTER
 
 /datum/preference/choiced/phobia/init_possible_values()

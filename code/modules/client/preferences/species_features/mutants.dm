@@ -1,5 +1,5 @@
 /datum/preference/color_legacy/mutant_color
-	savefile_key = "feature_mcolor"
+	db_key = "feature_mcolor"
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	relevant_species_trait = MUTCOLORS

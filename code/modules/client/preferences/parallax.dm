@@ -1,6 +1,6 @@
 /// Determines parallax, "fancy space"
 /datum/preference/choiced/parallax
-	savefile_key = "parallax"
+	db_key = "parallax"
 	savefile_identifier = PREFERENCE_PLAYER
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 

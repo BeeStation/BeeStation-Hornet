@@ -1,5 +1,5 @@
 /datum/preference/choiced/jobless_role
-	savefile_key = "joblessrole"
+	db_key = "joblessrole"
 	savefile_identifier = PREFERENCE_PLAYER
 
 /datum/preference/choiced/jobless_role/create_default_value()

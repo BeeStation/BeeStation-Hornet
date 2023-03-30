@@ -2,5 +2,5 @@
 /datum/preference/toggle/darkened_flash
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	default_value = FALSE
-	savefile_key = "darkened_flash"
+	db_key = "darkened_flash"
 	savefile_identifier = PREFERENCE_PLAYER

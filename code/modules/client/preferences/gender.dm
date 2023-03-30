@@ -1,7 +1,7 @@
 /// Gender preference
 /datum/preference/choiced/gender
 	savefile_identifier = PREFERENCE_CHARACTER
-	savefile_key = "gender"
+	db_key = "gender"
 	priority = PREFERENCE_PRIORITY_GENDER
 
 /datum/preference/choiced/gender/init_possible_values()

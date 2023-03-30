@@ -1,5 +1,5 @@
 /datum/preference/color_legacy/underwear_color
-	savefile_key = "underwear_color"
+	db_key = "underwear_color"
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 

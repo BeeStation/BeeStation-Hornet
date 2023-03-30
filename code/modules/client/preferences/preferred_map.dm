@@ -1,7 +1,7 @@
 /// During map rotation, this will help determine the chosen map.
 /datum/preference/choiced/preferred_map
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
-	savefile_key = "preferred_map"
+	db_key = "preferred_map"
 	savefile_identifier = PREFERENCE_PLAYER
 
 /datum/preference/choiced/preferred_map/init_possible_values()

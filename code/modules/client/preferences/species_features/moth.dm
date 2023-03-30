@@ -1,5 +1,5 @@
 /datum/preference/choiced/moth_antennae
-	savefile_key = "feature_moth_antennae"
+	db_key = "feature_moth_antennae"
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Antennae"
@@ -27,7 +27,7 @@
 	target.dna.features["moth_antennae"] = value
 
 /datum/preference/choiced/moth_markings
-	savefile_key = "feature_moth_markings"
+	db_key = "feature_moth_markings"
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Body markings"
@@ -79,7 +79,7 @@
 	target.dna.features["moth_markings"] = value
 
 /datum/preference/choiced/moth_wings
-	savefile_key = "feature_moth_wings"
+	db_key = "feature_moth_wings"
 	savefile_identifier = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Moth wings"

@@ -28,7 +28,7 @@
 /// An assoc list list of types to instantiated `/datum/preference` instances
 GLOBAL_LIST_INIT(preference_entries, init_preference_entries())
 
-/// An assoc list of preference entries by their `savefile_key`
+/// An assoc list of preference entries by their `db_key`
 GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /proc/init_preference_entries()
@@ -44,7 +44,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	for (var/datum/preference/preference_type as anything in subtypesof(/datum/preference))
 		if (initial(preference_type.abstract_type) == preference_type)
 			continue
-		output[initial(preference_type.savefile_key)] = GLOB.preference_entries[preference_type]
+		output[initial(preference_type.db_key)] = GLOB.preference_entries[preference_type]
 	return output
 
 /// Returns a flat list of preferences in order of their priority
@@ -65,7 +65,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// The key inside the savefile to use.
 	/// This is also sent to the UI.
 	/// Once you pick this, don't change it.
-	var/savefile_key
+	var/db_key
 
 	/// The category of preference, for use by the PreferencesMenu.
 	/// This isn't used for anything other than as a key for UI data.
@@ -155,7 +155,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	var/value
 
 	if (!isnull(savefile))
-		READ_FILE(savefile[savefile_key], value)
+		READ_FILE(savefile[db_key], value)
 
 	if (isnull(value))
 		return null
@@ -172,7 +172,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 		return FALSE
 
 	if (!isnull(savefile))
-		WRITE_FILE(savefile[savefile_key], serialize(value))
+		WRITE_FILE(savefile[db_key], serialize(value))
 
 	return TRUE
 
@@ -306,7 +306,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 		var/species_type = preferences.read_preference(/datum/preference/choiced/species)
 
 		var/datum/species/species = new species_type
-		if (!(savefile_key in species.get_features()))
+		if (!(db_key in species.get_features()))
 			return FALSE
 
 	if (!should_show_on_page(preferences.current_window))

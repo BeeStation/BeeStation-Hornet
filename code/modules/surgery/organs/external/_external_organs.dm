@@ -18,7 +18,7 @@
 	///Defines what kind of 'organ' we're looking at. Sprites have names like 'm_firemoth_mothwings'. 'mothwings' would then be feature_key
 	var/feature_key = ""
 
-	/// The savefile_key of the preference this relates to. Used for the preferences UI.
+	/// The db_key of the preference this relates to. Used for the preferences UI.
 	var/preference
 
 	///Sprite datum we use to draw on the bodypart

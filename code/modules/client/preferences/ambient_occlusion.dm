@@ -1,7 +1,7 @@
 /// Whether or not to toggle ambient occlusion, the shadows around people
 /datum/preference/toggle/ambient_occlusion
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
-	savefile_key = "ambientocclusion"
+	db_key = "ambientocclusion"
 	savefile_identifier = PREFERENCE_PLAYER
 
 /datum/preference/toggle/ambient_occlusion/apply_to_client(client/client, value)
