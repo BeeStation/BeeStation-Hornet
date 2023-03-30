@@ -24,7 +24,7 @@
 
 /datum/preference/color_legacy/eye_color
 	db_key = "eye_color"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	relevant_species_trait = EYECOLOR
 
@@ -42,7 +42,7 @@
 
 /datum/preference/choiced/facial_hairstyle
 	db_key = "facial_style_name"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Facial hair"
 	should_generate_icons = TRUE
@@ -63,7 +63,7 @@
 
 /datum/preference/color_legacy/facial_hair_color
 	db_key = "facial_hair_color"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	relevant_species_trait = FACEHAIR
 
@@ -72,7 +72,7 @@
 
 /datum/preference/color_legacy/hair_color
 	db_key = "hair_color"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	relevant_species_trait = HAIR
 
@@ -81,7 +81,7 @@
 
 /datum/preference/choiced/hairstyle
 	db_key = "hairstyle_name"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Hairstyle"
 	should_generate_icons = TRUE

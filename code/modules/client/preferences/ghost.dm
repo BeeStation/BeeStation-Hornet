@@ -1,7 +1,7 @@
 /// Determines what accessories your ghost will look like they have.
 /datum/preference/choiced/ghost_accessories
 	db_key = "ghost_accs"
-	savefile_identifier = PREFERENCE_PLAYER
+	preference_type = PREFERENCE_PLAYER
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 
 /datum/preference/choiced/ghost_accessories/init_possible_values()
@@ -36,7 +36,7 @@
 /// Determines the appearance of your ghost to others, when you are a BYOND member
 /datum/preference/choiced/ghost_form
 	db_key = "ghost_form"
-	savefile_identifier = PREFERENCE_PLAYER
+	preference_type = PREFERENCE_PLAYER
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	should_generate_icons = TRUE
 
@@ -101,7 +101,7 @@
 /// Toggles the HUD for ghosts
 /datum/preference/toggle/ghost_hud
 	db_key = "ghost_hud"
-	savefile_identifier = PREFERENCE_PLAYER
+	preference_type = PREFERENCE_PLAYER
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 
 /datum/preference/toggle/ghost_hud/apply_to_client(client/client, value)
@@ -111,7 +111,7 @@
 /// Determines what ghosts orbiting look like to you.
 /datum/preference/choiced/ghost_orbit
 	db_key = "ghost_orbit"
-	savefile_identifier = PREFERENCE_PLAYER
+	preference_type = PREFERENCE_PLAYER
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 
 /datum/preference/choiced/ghost_orbit/init_possible_values()
@@ -136,7 +136,7 @@
 /// Determines how to show other ghosts
 /datum/preference/choiced/ghost_others
 	db_key = "ghost_others"
-	savefile_identifier = PREFERENCE_PLAYER
+	preference_type = PREFERENCE_PLAYER
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 
 /datum/preference/choiced/ghost_others/init_possible_values()
@@ -174,5 +174,5 @@
 /// Whether or not ghosts can examine things by clicking on them.
 /datum/preference/toggle/inquisitive_ghost
 	db_key = "inquisitive_ghost"
-	savefile_identifier = PREFERENCE_PLAYER
+	preference_type = PREFERENCE_PLAYER
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES

@@ -2,7 +2,7 @@
 /datum/preference/color/ooc_color
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	db_key = "ooccolor"
-	savefile_identifier = PREFERENCE_PLAYER
+	preference_type = PREFERENCE_PLAYER
 
 /datum/preference/color/ooc_color/create_default_value()
 	return "#c43b23"

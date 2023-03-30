@@ -2,7 +2,7 @@
 /datum/preference/choiced/security_department
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
 	can_randomize = FALSE
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	db_key = "prefered_security_department"
 
 // This is what that #warn wants you to remove :)

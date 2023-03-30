@@ -29,7 +29,7 @@
 
 /datum/preference/choiced/lizard_body_markings
 	db_key = "feature_lizard_body_markings"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Body markings"
 	should_generate_icons = TRUE
@@ -67,7 +67,7 @@
 
 /datum/preference/choiced/lizard_frills
 	db_key = "feature_lizard_frills"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Frills"
 	should_generate_icons = TRUE
@@ -80,7 +80,7 @@
 
 /datum/preference/choiced/lizard_horns
 	db_key = "feature_lizard_horns"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Horns"
 	should_generate_icons = TRUE
@@ -93,7 +93,7 @@
 
 /datum/preference/choiced/lizard_legs
 	db_key = "feature_lizard_legs"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	relevant_mutant_bodypart = "legs"
 
@@ -105,7 +105,7 @@
 
 /datum/preference/choiced/lizard_snout
 	db_key = "feature_lizard_snout"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Snout"
 	should_generate_icons = TRUE
@@ -118,7 +118,7 @@
 
 /datum/preference/choiced/lizard_spines
 	db_key = "feature_lizard_spines"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	relevant_mutant_bodypart = "spines"
 
@@ -130,7 +130,7 @@
 
 /datum/preference/choiced/lizard_tail
 	db_key = "feature_lizard_tail"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	relevant_mutant_bodypart = "tail_lizard"
 

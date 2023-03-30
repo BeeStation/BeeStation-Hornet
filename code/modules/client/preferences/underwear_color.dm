@@ -1,6 +1,6 @@
 /datum/preference/color_legacy/underwear_color
 	db_key = "underwear_color"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 
 /datum/preference/color_legacy/underwear_color/apply_to_human(mob/living/carbon/human/target, value)

@@ -1,7 +1,7 @@
 /datum/preference/numeric/fps
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	db_key = "clientfps"
-	savefile_identifier = PREFERENCE_PLAYER
+	preference_type = PREFERENCE_PLAYER
 
 	minimum = -1
 	maximum = 240

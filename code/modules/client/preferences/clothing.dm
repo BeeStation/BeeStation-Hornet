@@ -27,7 +27,7 @@
 /// Backpack preference
 /datum/preference/choiced/backpack
 	db_key = "backpack"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	main_feature_name = "Backpack"
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE
@@ -56,7 +56,7 @@
 /// Jumpsuit preference
 /datum/preference/choiced/jumpsuit
 	db_key = "jumpsuit_style"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	main_feature_name = "Jumpsuit"
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE
@@ -75,7 +75,7 @@
 /// Socks preference
 /datum/preference/choiced/socks
 	db_key = "socks"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	main_feature_name = "Socks"
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE
@@ -89,7 +89,7 @@
 /// Undershirt preference
 /datum/preference/choiced/undershirt
 	db_key = "undershirt"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	main_feature_name = "Undershirt"
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE
@@ -124,7 +124,7 @@
 /// Underwear preference
 /datum/preference/choiced/underwear
 	db_key = "underwear"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	main_feature_name = "Underwear"
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE

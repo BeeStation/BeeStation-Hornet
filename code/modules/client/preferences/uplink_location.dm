@@ -1,6 +1,6 @@
 /datum/preference/choiced/uplink_location
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	db_key = "uplink_loc"
 	can_randomize = FALSE
 

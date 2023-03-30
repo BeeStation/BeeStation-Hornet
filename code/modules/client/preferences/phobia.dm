@@ -1,7 +1,7 @@
 /datum/preference/choiced/phobia
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	db_key = "phobia"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 
 /datum/preference/choiced/phobia/init_possible_values()
 	return GLOB.phobia_types

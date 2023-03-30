@@ -2,4 +2,4 @@
 /datum/preference/toggle/broadcast_login_logout
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	db_key = "broadcast_login_logout"
-	savefile_identifier = PREFERENCE_PLAYER
+	preference_type = PREFERENCE_PLAYER

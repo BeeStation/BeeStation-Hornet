@@ -1,6 +1,6 @@
 /datum/preference/choiced/skin_tone
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	db_key = "skin_tone"
 
 /datum/preference/choiced/skin_tone/init_possible_values()

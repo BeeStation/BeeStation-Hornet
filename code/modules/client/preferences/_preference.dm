@@ -78,7 +78,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// What savefile should this preference be read from?
 	/// Valid values are PREFERENCE_CHARACTER and PREFERENCE_PLAYER.
 	/// See the documentation in [code/__DEFINES/preferences.dm].
-	var/savefile_identifier
+	var/preference_type
 
 	/// The priority of when to apply this preference.
 	/// Used for when you need to rely on another preference.
@@ -145,7 +145,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /// Returns whether or not a preference can be randomized.
 /datum/preference/proc/is_randomizable()
 	SHOULD_NOT_OVERRIDE(TRUE)
-	return savefile_identifier == PREFERENCE_CHARACTER && can_randomize
+	return preference_type == PREFERENCE_CHARACTER && can_randomize
 
 /// Given a savefile, return either the saved data or an acceptable default.
 /// This will write to the savefile if a value was not found with the new value.
@@ -177,7 +177,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	return TRUE
 
 /// Apply this preference onto the given client.
-/// Called when the savefile_identifier == PREFERENCE_PLAYER.
+/// Called when the preference_type == PREFERENCE_PLAYER.
 /datum/preference/proc/apply_to_client(client/client, value)
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_CALL_PARENT(FALSE)
@@ -191,20 +191,20 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /// Apply this preference onto the given human.
 /// Must be overriden by subtypes.
-/// Called when the savefile_identifier == PREFERENCE_CHARACTER.
+/// Called when the preference_type == PREFERENCE_CHARACTER.
 /datum/preference/proc/apply_to_human(mob/living/carbon/human/target, value)
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_CALL_PARENT(FALSE)
 	CRASH("`apply_to_human()` was not implemented for [type]!")
 
 /// Returns which savefile to use for a given savefile identifier
-/datum/preferences/proc/get_savefile_for_savefile_identifier(savefile_identifier)
+/datum/preferences/proc/get_savefile_for_preference_type(preference_type)
 	RETURN_TYPE(/savefile)
 
 	if (!parent)
 		return null
 
-	switch (savefile_identifier)
+	switch (preference_type)
 		if (PREFERENCE_CHARACTER)
 			return character_savefile
 		if (PREFERENCE_PLAYER)
@@ -213,7 +213,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 				game_savefile.cd = "/"
 			return game_savefile
 		else
-			CRASH("Unknown savefile identifier [savefile_identifier]")
+			CRASH("Unknown savefile identifier [preference_type]")
 
 /// Read a /datum/preference type and return its value.
 /// This will write to the savefile if a value was not found with the new value.
@@ -232,7 +232,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	if (preference_type in value_cache)
 		return value_cache[preference_type]
 
-	var/value = preference_entry.read(get_savefile_for_savefile_identifier(preference_entry.savefile_identifier), src)
+	var/value = preference_entry.read(get_savefile_for_preference_type(preference_entry.preference_type), src)
 	if (isnull(value))
 		value = preference_entry.create_informed_default_value(src)
 		if (write_preference(preference_entry, value))
@@ -246,7 +246,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /// Returns TRUE for a successful preference application.
 /// Returns FALSE if it is invalid.
 /datum/preferences/proc/write_preference(datum/preference/preference, preference_value)
-	var/savefile = get_savefile_for_savefile_identifier(preference.savefile_identifier)
+	var/savefile = get_savefile_for_preference_type(preference.preference_type)
 	var/new_value = preference.deserialize(preference_value, src)
 	var/success = preference.write(savefile, new_value)
 	if (success)
@@ -269,7 +269,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	recently_updated_keys |= preference.type
 	value_cache[preference.type] = new_value
 
-	if (preference.savefile_identifier == PREFERENCE_PLAYER)
+	if (preference.preference_type == PREFERENCE_PLAYER)
 		preference.apply_to_client_updated(parent, read_preference(preference.type))
 	else
 		character_preview_view?.update_body()
@@ -318,7 +318,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /// appear.
 /datum/preference/proc/should_show_on_page(preference_tab)
 	var/is_on_character_page = preference_tab == PREFERENCE_TAB_CHARACTER_PREFERENCES
-	var/is_character_preference = savefile_identifier == PREFERENCE_CHARACTER
+	var/is_character_preference = preference_type == PREFERENCE_CHARACTER
 	return is_on_character_page == is_character_preference
 
 /// A preference that is a choice of one option among a fixed set.

@@ -2,7 +2,7 @@
 /datum/preference/choiced/preferred_map
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	db_key = "preferred_map"
-	savefile_identifier = PREFERENCE_PLAYER
+	preference_type = PREFERENCE_PLAYER
 
 /datum/preference/choiced/preferred_map/init_possible_values()
 	var/list/maps = list()

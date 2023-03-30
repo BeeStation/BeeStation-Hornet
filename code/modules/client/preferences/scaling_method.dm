@@ -2,7 +2,7 @@
 /datum/preference/choiced/scaling_method
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	db_key = "scaling_method"
-	savefile_identifier = PREFERENCE_PLAYER
+	preference_type = PREFERENCE_PLAYER
 
 /datum/preference/choiced/scaling_method/create_default_value()
 	return SCALING_METHOD_DISTORT

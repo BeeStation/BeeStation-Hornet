@@ -1,6 +1,6 @@
 /datum/preference/choiced/tail_human
 	db_key = "feature_human_tail"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	can_randomize = FALSE
 	relevant_mutant_bodypart = "tail_human"
@@ -17,7 +17,7 @@
 
 /datum/preference/choiced/ears
 	db_key = "feature_human_ears"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	can_randomize = FALSE
 	relevant_mutant_bodypart = "ears"

@@ -3,7 +3,7 @@
 /// If true, it allows the user to get a cool looking roundstart cloak.
 /datum/preference/toggle/playtime_reward_cloak
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	db_key = "playtime_reward_cloak"
 
 /datum/preference/toggle/playtime_reward_cloak/is_accessible(datum/preferences/preferences)

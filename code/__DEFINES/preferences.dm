@@ -197,7 +197,7 @@
 // True value of max save slots (3 is default, 8 is byond member, +1 to either if you have the extra slot loadout entry). Potential max is 9
 #define TRUE_MAX_SAVE_SLOTS 9
 
-// Values for /datum/preference/savefile_identifier
+// Values for /datum/preference/preference_type
 /// This preference is character specific.
 #define PREFERENCE_CHARACTER "character"
 /// This preference is account specific.

@@ -2,7 +2,7 @@
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
 	priority = PREFERENCE_PRIORITY_BODY_TYPE
 	db_key = "body_type"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 
 /datum/preference/choiced/body_type/init_possible_values()
 	return list(MALE, FEMALE)

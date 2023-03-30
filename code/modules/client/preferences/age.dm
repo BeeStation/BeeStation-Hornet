@@ -1,7 +1,7 @@
 /datum/preference/numeric/age
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
 	db_key = "age"
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 
 	minimum = AGE_MIN
 	maximum = AGE_MAX

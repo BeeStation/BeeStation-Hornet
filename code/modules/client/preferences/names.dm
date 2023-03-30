@@ -2,7 +2,7 @@
 /datum/preference/name
 	category = "names"
 	priority = PREFERENCE_PRIORITY_NAMES
-	savefile_identifier = PREFERENCE_CHARACTER
+	preference_type = PREFERENCE_CHARACTER
 	abstract_type = /datum/preference/name
 
 	/// The display name when showing on the "other names" panel

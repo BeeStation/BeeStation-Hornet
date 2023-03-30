@@ -1,7 +1,7 @@
 /datum/preference/color/asay_color
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	db_key = "asaycolor"
-	savefile_identifier = PREFERENCE_PLAYER
+	preference_type = PREFERENCE_PLAYER
 
 /datum/preference/color/asay_color/create_default_value()
 	return DEFAULT_ASAY_COLOR
@@ -16,7 +16,7 @@
 /datum/preference/choiced/brief_outfit
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	db_key = "brief_outfit"
-	savefile_identifier = PREFERENCE_PLAYER
+	preference_type = PREFERENCE_PLAYER
 
 /datum/preference/choiced/brief_outfit/deserialize(input, datum/preferences/preferences)
 	var/path = text2path(input)

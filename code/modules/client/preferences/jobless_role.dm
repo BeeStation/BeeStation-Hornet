@@ -1,6 +1,6 @@
 /datum/preference/choiced/jobless_role
 	db_key = "joblessrole"
-	savefile_identifier = PREFERENCE_PLAYER
+	preference_type = PREFERENCE_PLAYER
 
 /datum/preference/choiced/jobless_role/create_default_value()
 	return BERANDOMJOB

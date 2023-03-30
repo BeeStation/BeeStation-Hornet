@@ -2,7 +2,7 @@
 /datum/preference/toggle/ambient_occlusion
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	db_key = "ambientocclusion"
-	savefile_identifier = PREFERENCE_PLAYER
+	preference_type = PREFERENCE_PLAYER
 
 /datum/preference/toggle/ambient_occlusion/apply_to_client(client/client, value)
 	var/atom/movable/screen/plane_master/game_world/plane_master = locate() in client?.screen
