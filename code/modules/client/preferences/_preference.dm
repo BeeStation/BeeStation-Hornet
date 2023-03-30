@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /// Represents an individual preference.
 /datum/preference
-	/// The key inside the savefile to use.
+	/// The key inside the database to use.
 	/// This is also sent to the UI.
 	/// Once you pick this, don't change it.
 	var/db_key
@@ -75,7 +75,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// Do not instantiate if type matches this.
 	var/abstract_type = /datum/preference
 
-	/// What savefile should this preference be read from?
+	/// What location should this preference be read from?
 	/// Valid values are PREFERENCE_CHARACTER and PREFERENCE_PLAYER.
 	/// See the documentation in [code/__DEFINES/preferences.dm].
 	var/preference_type
@@ -104,7 +104,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /// Called on the saved input when retrieving.
 /// Also called by the value sent from the user through UI. Do not trust it.
-/// Input is the value inside the savefile, output is to tell other code
+/// Input is the value inside the database, output is to tell other code
 /// what the value is.
 /// This is useful either for more optimal data saving or for migrating
 /// older data.
@@ -116,21 +116,23 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	CRASH("`deserialize()` was not implemented on [type]!")
 
 /// Called on the input while saving.
-/// Input is the current value, output is what to save in the savefile.
+/// Input is the current value, output is what to save in the database.
+/// For PREFERENCE_PLAYER, this will be to a string, for PREFERENCE_CHARACTER, it varies
 /datum/preference/proc/serialize(input)
 	SHOULD_NOT_SLEEP(TRUE)
 	return input
 
 /// Produce a default, potentially random value for when no value for this
-/// preference is found in the savefile.
+/// preference is found in the database.
 /// Either this or create_informed_default_value must be overriden by subtypes.
+/// For PREFERENCE_PLAYER, this will be from a string, for PREFERENCE_CHARACTER, it varies
 /datum/preference/proc/create_default_value()
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_CALL_PARENT(FALSE)
 	CRASH("`create_default_value()` was not implemented on [type]!")
 
 /// Produce a default, potentially random value for when no value for this
-/// preference is found in the savefile.
+/// preference is found in the database.
 /// Unlike create_default_value(), will provide the preferences object if you
 /// need to use it.
 /// If not overriden, will call create_default_value() instead.
@@ -147,32 +149,55 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	SHOULD_NOT_OVERRIDE(TRUE)
 	return preference_type == PREFERENCE_CHARACTER && can_randomize
 
-/// Given a savefile, return either the saved data or an acceptable default.
-/// This will write to the savefile if a value was not found with the new value.
-/datum/preference/proc/read(savefile/savefile, datum/preferences/preferences)
+/// Given a ckey, return either the saved data or an acceptable default.
+/// This will write to the database if a value was not found with the new value.
+/datum/preference/proc/read(ckey, datum/preferences/preferences, slot)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	var/value
 
-	if (!isnull(savefile))
-		READ_FILE(savefile[db_key], value)
+	if(SSdbcore.IsConnected())
+		var/datum/DBQuery/Q
+		if(preference_type == PREFERENCE_CHARACTER)
+			Q = SSdbcore.NewQuery(
+				"SELECT slot, :ptag FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot",
+				list("ckey" = ckey, "slot" = slot, "ptag" = db_key)
+			)
+		else
+			Q = SSdbcore.NewQuery(
+				"SELECT CAST(preference_tag AS CHAR) AS ptag, preference_value FROM [format_table_name("preferences")] WHERE ckey=:ckey AND ptag=:ptag",
+				list("ckey" = ckey, "ptag" = db_key)
+			)
+		if(!Q.warn_execute())
+			qdel(Q)
+			return
+		if(Q.NextRow())
+			value = Q.item[2]
+		qdel(Q)
 
 	if (isnull(value))
 		return null
 	else
 		return deserialize(value, preferences)
 
-/// Given a savefile, writes the inputted value.
+/// Given a ckey, writes the inputted value to the database
 /// Returns TRUE for a successful application.
 /// Return FALSE if it is invalid.
-/datum/preference/proc/write(savefile/savefile, value)
+/datum/preference/proc/write(ckey, value, slot)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	if (!is_valid(value))
 		return FALSE
 
-	if (!isnull(savefile))
-		WRITE_FILE(savefile[db_key], serialize(value))
+	if(SSdbcore.IsConnected())
+		var/serialized_value = serialize(value)
+		var/datum/DBQuery/Q
+		if(preference_type == PREFERENCE_CHARACTER)
+			Q = SSdbcore.NewQuery("REPLACE INTO [format_table_name("characters")] (ckey, slot, :ptag) VALUES (:ckey, :slot, :pvalue)", list("ckey" = ckey, "slot" = slot, "ptag" = db_key, "pvalue" = serialized_value))
+		else
+			Q = SSdbcore.NewQuery("INSERT INTO [format_table_name("preferences")] (ckey, preference_tag, preference_value) VALUES (:ckey, :ptag, :pvalue) ON DUPLICATE KEY UPDATE preference_value=:pvalue2", list("ckey" = ckey, "ptag" = db_key, "pvalue" = serialized_value, "pvalue2" = serialized_value))
+		if(!Q.Execute(async = TRUE))
+			qdel(Q)
 
 	return TRUE
 
@@ -197,24 +222,6 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	SHOULD_CALL_PARENT(FALSE)
 	CRASH("`apply_to_human()` was not implemented for [type]!")
 
-/// Returns which savefile to use for a given savefile identifier
-/datum/preferences/proc/get_savefile_for_preference_type(preference_type)
-	RETURN_TYPE(/savefile)
-
-	if (!parent)
-		return null
-
-	switch (preference_type)
-		if (PREFERENCE_CHARACTER)
-			return character_savefile
-		if (PREFERENCE_PLAYER)
-			if (!game_savefile)
-				game_savefile = new /savefile(path)
-				game_savefile.cd = "/"
-			return game_savefile
-		else
-			CRASH("Unknown savefile identifier [preference_type]")
-
 /// Read a /datum/preference type and return its value.
 /// This will write to the savefile if a value was not found with the new value.
 /datum/preferences/proc/read_preference(preference_type)
@@ -232,7 +239,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	if (preference_type in value_cache)
 		return value_cache[preference_type]
 
-	var/value = preference_entry.read(get_savefile_for_preference_type(preference_entry.preference_type), src)
+	var/value = preference_entry.read(parent.ckey, src)
 	if (isnull(value))
 		value = preference_entry.create_informed_default_value(src)
 		if (write_preference(preference_entry, value))
@@ -246,9 +253,8 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /// Returns TRUE for a successful preference application.
 /// Returns FALSE if it is invalid.
 /datum/preferences/proc/write_preference(datum/preference/preference, preference_value)
-	var/savefile = get_savefile_for_preference_type(preference.preference_type)
 	var/new_value = preference.deserialize(preference_value, src)
-	var/success = preference.write(savefile, new_value)
+	var/success = preference.write(parent.ckey, new_value, selected_slot)
 	if (success)
 		value_cache[preference.type] = new_value
 	return success
@@ -261,7 +267,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 		return FALSE
 
 	var/new_value = preference.deserialize(preference_value, src)
-	var/success = preference.write(null, new_value)
+	var/success = preference.write(null, new_value, null)
 
 	if (!success)
 		return FALSE

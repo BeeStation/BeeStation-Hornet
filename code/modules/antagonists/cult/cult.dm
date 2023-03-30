@@ -474,7 +474,7 @@
 	name = "Cultist (Preview only)"
 
 	uniform = /obj/item/clothing/under/color/black
-	suit = /obj/item/clothing/suit/hooded/cultrobes/alt
+	suit = /obj/item/clothing/suit/hooded/cultrobes
 	shoes = /obj/item/clothing/shoes/cult/alt
 	r_hand = /obj/item/melee/blood_magic/stun
 

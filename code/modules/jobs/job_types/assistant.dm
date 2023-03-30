@@ -56,7 +56,7 @@ Assistant
 		uniform = /obj/item/clothing/under/color/jumpskirt/grey
 
 /datum/outfit/job/assistant/consistent
-	name = "[JOB_NAME_ASSISTANT] - Always Grey"
+	name = "Assistant - Always Grey"
 
 /datum/outfit/job/assistant/consistent/pre_equip(mob/living/carbon/human/H)
 	..()

@@ -26,7 +26,7 @@
 
 /// Backpack preference
 /datum/preference/choiced/backpack
-	db_key = "backpack"
+	db_key = "backbag"
 	preference_type = PREFERENCE_CHARACTER
 	main_feature_name = "Backpack"
 	category = PREFERENCE_CATEGORY_CLOTHING

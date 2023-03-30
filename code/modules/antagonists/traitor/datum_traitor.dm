@@ -433,10 +433,10 @@
 	name = "Traitor (Preview only)"
 
 	uniform = /obj/item/clothing/under/color/grey
-	suit = /obj/item/clothing/suit/hooded/ablative
+	suit = /obj/item/clothing/suit/hooded/hoodie/black
 	gloves = /obj/item/clothing/gloves/color/yellow
 	mask = /obj/item/clothing/mask/gas
-	l_hand = /obj/item/melee/energy/sword
+	l_hand = /obj/item/melee/transforming/energy/sword
 	r_hand = /obj/item/gun/energy/kinetic_accelerator/crossbow
 
 /datum/outfit/traitor/post_equip(mob/living/carbon/human/H, visualsOnly)

@@ -16,7 +16,7 @@ GLOBAL_LIST_EMPTY_TYPED(singularities, /datum/component/singularity)				    //li
 GLOBAL_LIST_EMPTY(uploads_list)						//list of all silicon uploads
 
 GLOBAL_LIST(chemical_reactions_list)				//list of all /datum/chemical_reaction datums. Used during chemical reactions
-GLOBAL_LIST_INIT(chemical_reagents_list, init_chemical_reagent_list())				//list of all /datum/reagent datums indexed by reagent id. Used by chemistry stuff
+GLOBAL_LIST(chemical_reagents_list) //list of all /datum/reagent datums indexed by reagent id. Used by chemistry stuff
 GLOBAL_LIST_EMPTY(tech_list)					//list of all /datum/tech datums indexed by id.
 GLOBAL_LIST_EMPTY(surgeries_list)				//list of all surgeries by name, associated with their path.
 GLOBAL_LIST_EMPTY(crafting_recipes)				//list of all table craft recipes

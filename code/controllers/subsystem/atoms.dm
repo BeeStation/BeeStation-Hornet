@@ -20,6 +20,9 @@ SUBSYSTEM_DEF(atoms)
 	///initAtom() adds the atom its creating to this list iff InitializeAtoms() has been given a list to populate as an argument
 	var/list/created_atoms
 
+	/// Atoms that will be deleted once the subsystem is initialized
+	var/list/queued_deletions = list()
+
 	#ifdef PROFILE_MAPLOAD_INIT_ATOM
 	var/list/mapload_init_times = list()
 	#endif
@@ -76,6 +79,12 @@ SUBSYSTEM_DEF(atoms)
 	if(created_atoms)
 		atoms_to_return += created_atoms
 		created_atoms = null
+
+	for (var/queued_deletion in queued_deletions)
+		qdel(queued_deletion)
+
+	testing("[queued_deletions.len] atoms were queued for deletion.")
+	queued_deletions.Cut()
 
 #ifdef PROFILE_MAPLOAD_INIT_ATOM
 	rustg_file_write(json_encode(mapload_init_times), "[GLOB.log_directory]/init_times.json")

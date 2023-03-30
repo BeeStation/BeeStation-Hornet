@@ -12,11 +12,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/last_ip
 	var/last_id
 
-	/// List of all character saves, with list index being slot ID
-	var/list/datum/character_save/character_saves = list()
-	/// Active character, ref to an item in that list
-	var/datum/character_save/active_character
-
 	//game-preferences
 	var/lastchangelog = "" //Saved changlog filesize to detect if there was a change
 
@@ -90,50 +85,42 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	value_cache = null
 	return ..()
 
-/datum/preferences/New(client/C)
-	parent = C
+/datum/preferences/New(client/parent)
+	src.parent = parent
 
 	for (var/middleware_type in subtypesof(/datum/preference_middleware))
 		middleware += new middleware_type(src)
 
+	if(IS_CLIENT_OR_MOCK(parent))
+		load_and_save = !is_guest_key(parent.key)
+		load_path(parent.ckey)
+		if(load_and_save && !fexists(path))
+			try_savefile_type_migration()
+		unlock_content = !!parent.IsByondMember()
+		if(unlock_content)
+			max_save_slots = 8
+	else
+		CRASH("attempted to create a preferences datum without a client or mock!")
+	load_database()
 
-	if(istype(C))
-		if(!IS_GUEST_KEY(C.key))
-			unlock_content = C.IsByondMember()
-			if(unlock_content)
-				set_max_character_slots(8)
-		else if(!length(key_bindings)) // Guests need default keybinds
-			key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
-
+	// give them default keybinds and update their movement keys
+	key_bindings = deep_copy_list(GLOB.default_hotkeys)
+	key_bindings_by_key = get_key_bindings_by_key(key_bindings)
 	randomise = get_default_randomization()
 
-	var/loaded_preferences_successfully = load_from_database()
+	var/loaded_preferences_successfully = load_preferences()
 	if(loaded_preferences_successfully)
-		// TODO tgui-prefs
-		/*if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
-			set_max_character_slots(max_usable_slots + 1)*/
-		if(load_characters()) // inside this proc is a disgusting SQL query
-			var/datum/character_save/target_save = character_saves[default_slot]
-			if(target_save && !target_save.slot_locked)
-				active_character = target_save
-			else
-				active_character = character_saves[1] // Default to first if unavailable
+		if(load_character())
 			return
-
 	//we couldn't load character data so just randomize the character appearance + name
-	active_character = character_saves[1]
-	var/fallback_default_species = CONFIG_GET(string/fallback_default_species)
-	if(!active_character.pref_species && fallback_default_species != "random")
-		var/datum/species/spath = GLOB.species_list[fallback_default_species || "human"]
-		active_character.pref_species = new spath
-	active_character.randomise()		//let's create a random character then - rather than a fat, bald and naked man.
-	active_character.real_name = active_character.pref_species.random_name(active_character.gender, TRUE)
+	randomise_appearance_prefs() //let's create a random character then - rather than a fat, bald and naked man.
+	if(parent)
+		apply_all_client_preferences()
+		parent.set_macros()
+
 	if(!loaded_preferences_successfully)
 		save_preferences()
-	save_character(C)		//let's save this new random character so it doesn't keep generating new ones.
-
-/datum/preferences/proc/save_character(client/C)
-	active_character.save(C)
+	save_character() //let's save this new random character so it doesn't keep generating new ones.
 
 /datum/preferences/ui_interact(mob/user, datum/tgui/ui)
 	// If you leave and come back, re-register the character preview
@@ -215,17 +202,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	switch (action)
 		if ("change_slot")
-			var/numerical_slot = text2num(params["slot"])
-			var/datum/character_save/CS = character_saves[numerical_slot]
-			if(!CS || CS.slot_locked)
-				return
-			active_character = CS
-			default_slot = numerical_slot
-			tainted_character_profiles = TRUE
-			// If its fresh, randomise & save it
-			if(!CS.from_db)
-				CS.randomise()
-				CS.save(user.client)
+			// Save existing character
+			save_character()
+
+			// SAFETY: `load_character` performs sanitization the slot number
+			if (!load_character(params["slot"]))
+				tainted_character_profiles = TRUE
+				randomise_appearance_prefs()
+				save_character()
 
 			for (var/datum/preference_middleware/preference_middleware as anything in middleware)
 				preference_middleware.on_new_character(usr)
@@ -345,6 +329,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				preferences[category] = append_character_preferences[category]
 
 	return preferences
+
+/// Applies all PREFERENCE_PLAYER preferences
+/datum/preferences/proc/apply_all_client_preferences()
+	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
+		if (preference.prefence_type != PREFERENCE_PLAYER)
+			continue
+
+		value_cache -= preference.type
+		preference.apply_to_client(parent, read_preference(preference.type))
 
 // This is necessary because you can open the set preferences menu before
 // the atoms SS is done loading.

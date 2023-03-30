@@ -271,8 +271,9 @@
 
 /datum/outfit/gangster
 	name = "Gangster (Preview only)"
-	uniform = /obj/item/clothing/under/suit/henchmen
-	back = /obj/item/storage/backpack/henchmen
+	// TODO TGUI-prefs
+	uniform = /obj/item/clothing/under/suit/black
+	back = /obj/item/storage/backpack/clown
 
 #define INFLUENCE_SWAG 2
 #define INFLUENCE_TERRITORY 0
