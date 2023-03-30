@@ -56,7 +56,7 @@
 			if (!TN.hidden && !(TN in researched_nodes))
 				research_node(TN, TRUE, TRUE, FALSE)
 				processing = TRUE
-	for(var/i in SSresearch.point_types)I 
+	for(var/i in SSresearch.point_types)
 		research_points[i] = INFINITY
 	hidden_nodes = list()
 	return ..()

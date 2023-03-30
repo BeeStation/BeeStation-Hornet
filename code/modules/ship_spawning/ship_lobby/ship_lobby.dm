@@ -236,7 +236,7 @@
 		job_list[desired_job] = slots_left
 		// Spawn the player at a valid spawn point
 		var/turf/selected_spawn_point
-		if (!assoc_spawn_points[initial(desired_job.spawn_title)])
+		if (!assoc_spawn_points[initial(desired_job.spawn_title) || initial(desired_job.title)])
 			// Spawn at a random point
 			if (length(assoc_spawn_points))
 				selected_spawn_point = get_turf(pick(pick(assoc_spawn_points)))
@@ -244,7 +244,7 @@
 				// Yolospawn
 				selected_spawn_point = pick(turfs)
 		else
-			selected_spawn_point = get_turf(pick(assoc_spawn_points[initial(desired_job.spawn_title)]))
+			selected_spawn_point = get_turf(pick(assoc_spawn_points[initial(desired_job.spawn_title) || initial(desired_job.title)]))
 		// Perform roundstart prefs loading
 		var/mob/living/carbon/human/created_character = new(selected_spawn_point)
 		player.prefs.active_character.copy_to(created_character)
@@ -303,13 +303,13 @@
 				// Yolospawn
 				selected_spawn_point = pick(turfs)
 		else
-			selected_spawn_point = get_turf(pick(assoc_spawn_points[initial(desired_job.spawn_title)]))
+			selected_spawn_point = get_turf(pick(assoc_spawn_points[initial(desired_job.spawn_title) || initial(desired_job.title)]))
 		// Perform roundstart prefs loading
 		var/mob/living/carbon/human/created_character = new(selected_spawn_point)
 		player.prefs.active_character.copy_to(created_character)
 		created_character.dna.update_dna_identity()
 		// Spawn the job role
-		var/datum/job/job_instance = SSjob.GetJob(initial(desired_job.spawn_title))
+		var/datum/job/job_instance = SSjob.GetJob(initial(desired_job.spawn_title) || initial(desired_job.title))
 		job_instance.equip(created_character)
 		created_character.key = player.key
 		if (job_instance.importance > highest_importance)
