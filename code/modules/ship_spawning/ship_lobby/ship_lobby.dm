@@ -219,7 +219,7 @@
 	job_list = selected_ship.job_roles.Copy()
 	var/list/unspawned_clients = list()
 	var/mob/most_important_player
-	var/highest_importance = 0
+	var/highest_importance = -1
 	// Start player spawning procedures
 	for (var/client/player in members)
 		var/datum/job/desired_job = wanted_roles[player.ckey]
@@ -316,8 +316,9 @@
 			highest_importance = job_instance.importance
 			most_important_player = created_character
 	// Give the budget card
-	var/obj/item/card/id/departmental_budget/shuttle/shuttle_budget = new (most_important_player.loc, M)
-	most_important_player.put_in_hands(shuttle_budget)
+	if (most_important_player)
+		var/obj/item/card/id/departmental_budget/shuttle/shuttle_budget = new (most_important_player.loc, M)
+		most_important_player.put_in_hands(shuttle_budget)
 	// Get the ship spawn point
 	var/obj/docking_port/stationary/spawn_point/docking_port = SSship_spawning.get_spawn_point(desired_faction, M)
 	if (docking_port)

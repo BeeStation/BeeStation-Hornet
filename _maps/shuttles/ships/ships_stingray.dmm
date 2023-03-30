@@ -1343,18 +1343,7 @@
 /area/shuttle/stingray/armoury)
 "AE" = (
 /obj/effect/turf_decal/tile/dark_green/opposingcorners,
-/obj/structure/rack,
-/obj/item/roller{
-	pixel_x = -5
-	},
-/obj/item/roller{
-	pixel_x = -5;
-	pixel_y = 5
-	},
-/obj/item/roller{
-	pixel_x = -5;
-	pixel_y = 10
-	},
+/obj/machinery/vending/medical,
 /turf/open/floor/plasteel/white,
 /area/shuttle/stingray/central)
 "AG" = (
@@ -1822,6 +1811,7 @@
 /obj/structure/railing{
 	layer = 4.1
 	},
+/obj/item/storage/firstaid/medical,
 /turf/open/floor/plasteel/white,
 /area/shuttle/stingray/central)
 "Lq" = (

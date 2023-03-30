@@ -419,6 +419,9 @@
 /obj/structure/cable{
 	icon_state = "2-9"
 	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /turf/open/floor/plasteel,
 /area/shuttle/inquisitor/lounge)
 "mL" = (
@@ -1051,6 +1054,9 @@
 /obj/structure/cable{
 	icon_state = "5-8"
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plasteel,
 /area/shuttle/inquisitor/lounge)
 "Cf" = (
@@ -1460,6 +1466,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "1-10"
+	},
+/obj/structure/cable{
+	icon_state = "1-6"
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/inquisitor/lounge)

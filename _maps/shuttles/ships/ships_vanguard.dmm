@@ -1,0 +1,665 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aQ" = (
+/obj/machinery/shuttle_weapon/railgun{
+	mapload_linkup_id = 1
+	},
+/turf/closed/wall/r_wall/syndicate,
+/area/shuttle/vanguard)
+"dN" = (
+/obj/machinery/door/airlock/hatch,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/vanguard)
+"eQ" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/shuttle/vanguard)
+"gn" = (
+/turf/closed/wall/r_wall/syndicate/nodiagonal,
+/area/shuttle/vanguard)
+"gQ" = (
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/pod/dark,
+/area/shuttle/vanguard)
+"hi" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating,
+/area/shuttle/vanguard)
+"hX" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/sheet/mineral/plastitanium{
+	amount = 30
+	},
+/obj/item/stack/cable_coil/red,
+/obj/item/assembly/prox_sensor{
+	desc = "Used for scanning and alerting when someone enters a certain proximity. This one is slightly shifted to the left.";
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = -3
+	},
+/obj/item/flashlight/seclite{
+	pixel_y = -10
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"jt" = (
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/vanguard)
+"jQ" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"jV" = (
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1
+	},
+/obj/machinery/power/engine_capacitor_bank{
+	dir = 1
+	},
+/obj/structure/cable,
+/turf/open/floor/plating,
+/area/shuttle/vanguard)
+"kq" = (
+/obj/structure/table/reinforced,
+/obj/item/paper_bin{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/item/pen{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/item/taperecorder{
+	pixel_x = -7;
+	pixel_y = -1
+	},
+/obj/machinery/button/door{
+	id = "syndie_scout_windows";
+	name = "Window Shutters";
+	pixel_x = 28
+	},
+/obj/effect/turf_decal/stripes,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"kO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/vanguard)
+"kR" = (
+/obj/effect/turf_decal/stripes,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"li" = (
+/obj/machinery/computer/shuttle_flight/custom_shuttle,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"lX" = (
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"nc" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/vanguard)
+"oe" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp{
+	pixel_x = -1;
+	pixel_y = 6
+	},
+/obj/item/toy/figure/wizard{
+	pixel_x = 7;
+	pixel_y = -4
+	},
+/obj/item/storage/pill_bottle/stimulant,
+/turf/open/floor/carpet/black,
+/area/shuttle/vanguard)
+"on" = (
+/obj/structure/closet/syndicate/nuclear,
+/obj/effect/turf_decal/delivery,
+/obj/item/mining_scanner,
+/obj/item/mining_scanner,
+/obj/item/gun/energy/kinetic_accelerator,
+/obj/item/gun/energy/kinetic_accelerator,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"rp" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"rU" = (
+/obj/machinery/computer/locator,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"yO" = (
+/turf/open/floor/pod/dark,
+/area/shuttle/vanguard)
+"Ck" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"CH" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/vanguard)
+"CW" = (
+/obj/machinery/power/port_gen/pacman{
+	anchored = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"DW" = (
+/obj/machinery/computer/weapons,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"Ez" = (
+/turf/template_noop,
+/area/space)
+"Fa" = (
+/obj/machinery/door/airlock/hatch,
+/turf/open/floor/carpet/black,
+/area/shuttle/vanguard)
+"FZ" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/stripes/corner,
+/obj/machinery/suit_storage_unit/syndicate,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/pod/dark,
+/area/shuttle/vanguard)
+"Hi" = (
+/turf/closed/wall/r_wall/syndicate,
+/area/shuttle/vanguard)
+"HK" = (
+/obj/structure/toilet{
+	pixel_y = 13
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/shuttle/vanguard)
+"HN" = (
+/obj/machinery/door/airlock/hatch,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/vanguard)
+"HR" = (
+/turf/open/floor/carpet/black,
+/area/shuttle/vanguard)
+"IY" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"Jn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"JF" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/closed/wall/r_wall/syndicate/nodiagonal,
+/area/shuttle/vanguard)
+"JJ" = (
+/obj/structure/bed/pod,
+/obj/item/bedsheet/black,
+/turf/open/floor/carpet/black,
+/area/shuttle/vanguard)
+"JX" = (
+/obj/structure/table/reinforced,
+/obj/item/stock_parts/cell/high/plus{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/storage/toolbox/syndicate{
+	pixel_x = -2;
+	pixel_y = 1
+	},
+/obj/machinery/cell_charger,
+/obj/item/multitool,
+/obj/item/extinguisher/mini{
+	pixel_x = 9
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"KB" = (
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/pod/dark,
+/area/shuttle/vanguard)
+"Lc" = (
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
+/obj/machinery/ammo_loader/railgun{
+	dir = 8;
+	mapload_linkup_id = 1
+	},
+/turf/open/floor/pod/dark,
+/area/shuttle/vanguard)
+"LK" = (
+/obj/machinery/shuttle/engine/ion{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/vanguard)
+"MO" = (
+/obj/machinery/button/door{
+	id = "syndie_scout_windows";
+	name = "Window Shutters";
+	pixel_x = -6;
+	pixel_y = 27
+	},
+/obj/machinery/suit_storage_unit/syndicate,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/pod/dark,
+/area/shuttle/vanguard)
+"MP" = (
+/obj/structure/table/reinforced,
+/obj/item/gun/ballistic/automatic/ar,
+/obj/item/ammo_box/magazine/m556,
+/obj/item/ammo_box/magazine/m556{
+	pixel_x = 3;
+	pixel_y = 6
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"Nv" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1;
+	name = "tactical chair"
+	},
+/obj/effect/turf_decal/stripes,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"Pa" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/docking_port/mobile{
+	dir = 4;
+	width = 14;
+	height = 11;
+	dwidth = 4;
+	name = "Vanguard";
+	id = "vanguard"
+	},
+/turf/open/floor/plating,
+/area/shuttle/vanguard)
+"PG" = (
+/obj/structure/table/reinforced,
+/obj/item/grenade/syndieminibomb{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/grenade/syndieminibomb{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/storage/firstaid/tactical{
+	pixel_x = 8;
+	pixel_y = -5
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/item/shield/energy,
+/obj/item/melee/transforming/energy/sword/saber/red,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"PK" = (
+/obj/structure/tank_dispenser/oxygen,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"PY" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/vanguard)
+"QB" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/mineral/plastitanium{
+	amount = 20
+	},
+/obj/item/storage/box/lights/bulbs,
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 20
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 20
+	},
+/obj/effect/turf_decal/box,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"QE" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/oil{
+	pixel_x = -5;
+	pixel_y = -7
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"RZ" = (
+/obj/machinery/door/airlock/hatch,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/vanguard)
+"Sr" = (
+/obj/machinery/mineral/ore_redemption{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"SA" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/tank_dispenser/oxygen,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/vanguard)
+"Ub" = (
+/obj/machinery/power/apc/auto_name/north,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+"Ur" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
+/obj/structure/mirror{
+	pixel_x = -26
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plasteel/showroomfloor,
+/area/shuttle/vanguard)
+"Vb" = (
+/obj/machinery/door/poddoor/shutters{
+	id = "syndie_scout_windows";
+	name = "blast shutters"
+	},
+/obj/effect/spawner/structure/window/plastitanium,
+/turf/open/floor/plating,
+/area/shuttle/vanguard)
+"Zx" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/vanguard)
+"ZR" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/modular_fabricator/autolathe,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/vanguard)
+
+(1,1,1) = {"
+Ez
+Hi
+Hi
+Hi
+Pa
+Hi
+Hi
+Ez
+Ez
+Ez
+Ez
+Ez
+Ez
+Ez
+"}
+(2,1,1) = {"
+Hi
+gn
+oe
+gn
+hi
+jV
+LK
+Ez
+Ez
+Ez
+Ez
+Ez
+Ez
+Ez
+"}
+(3,1,1) = {"
+aQ
+JJ
+HR
+gn
+eQ
+gn
+gn
+gn
+gn
+gn
+gn
+Hi
+Ez
+Ez
+"}
+(4,1,1) = {"
+Hi
+gn
+Fa
+gn
+PY
+gn
+HK
+Ur
+gn
+CW
+Ck
+gn
+Hi
+Hi
+"}
+(5,1,1) = {"
+Vb
+DW
+kR
+Sr
+Zx
+gn
+gn
+HN
+gn
+gn
+IY
+JX
+jV
+LK
+"}
+(6,1,1) = {"
+Vb
+li
+Nv
+Jn
+nc
+RZ
+kO
+CH
+CH
+dN
+QE
+hX
+jV
+LK
+"}
+(7,1,1) = {"
+Vb
+rU
+kq
+jt
+SA
+gn
+MO
+gQ
+yO
+gn
+Ub
+QB
+jV
+LK
+"}
+(8,1,1) = {"
+Hi
+gn
+gn
+HN
+JF
+gn
+FZ
+KB
+Lc
+gn
+PK
+gn
+Hi
+Hi
+"}
+(9,1,1) = {"
+Hi
+on
+jQ
+lX
+rp
+gn
+gn
+Vb
+Vb
+gn
+gn
+Hi
+Ez
+Ez
+"}
+(10,1,1) = {"
+Hi
+gn
+ZR
+MP
+PG
+jV
+LK
+Ez
+Ez
+Ez
+Ez
+Ez
+Ez
+Ez
+"}
+(11,1,1) = {"
+Ez
+Hi
+Hi
+Hi
+Hi
+Hi
+Hi
+Ez
+Ez
+Ez
+Ez
+Ez
+Ez
+Ez
+"}

@@ -201,8 +201,8 @@
 	name = "railgun auto-loader"
 	desc = "An ammunition rack for loading rails into railguns. Can be connected to a single mounted weapon using a multitool."
 	slots = 5
-	icon = 'icons/obj/shuttle_weapons.dmi'
-	icon_state = "loader_box"
+	icon = 'icons/obj/shuttle_weapons_large.dmi'
+	icon_state = "loader_railgun"
 	circuit = /obj/item/circuitboard/machine/loader_railgun
 
 /obj/machinery/ammo_loader/railgun/is_accepted(obj/item/ammo_casing/rail)
