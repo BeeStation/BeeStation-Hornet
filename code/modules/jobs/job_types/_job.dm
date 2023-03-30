@@ -223,6 +223,9 @@
 	dormant_disease_check(H)
 
 /datum/job/proc/get_access()
+	if(GLOB.magical_access)
+		return get_all_accesses_magically()
+
 	if(!config)	//Needed for robots.
 		return src.minimal_access.Copy()
 

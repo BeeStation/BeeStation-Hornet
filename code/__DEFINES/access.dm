@@ -114,3 +114,21 @@
 #define ACCESS_MECH_SECURITY 302
 #define ACCESS_MECH_SCIENCE 303
 #define ACCESS_MECH_ENGINE 304
+
+
+// Enabled by a wizard ritual - everyone gets AA magically.
+GLOBAL_VAR_INIT(magical_access, FALSE)
+// Accesses that GLOB.magical_access can not bypass. Even if the magical access exists during a round, it can't bypass these special accesses.
+GLOBAL_LIST_INIT(antimagical_accesses, list(
+	ACCESS_CENT_GENERAL = 1,
+	ACCESS_CENT_THUNDER = 1,
+	ACCESS_CENT_SPECOPS = 1,
+	ACCESS_CENT_MEDICAL = 1,
+	ACCESS_CENT_LIVING = 1,
+	ACCESS_CENT_STORAGE = 1,
+	ACCESS_CENT_TELEPORTER = 1,
+	ACCESS_CENT_CAPTAIN = 1,
+	ACCESS_CENT_BAR = 1
+))
+// CC stuff is basically admin stuff, so that these shouldn't be bypassed.
+// This means magical access will bypass cult, syndi, or some special antag accesses!

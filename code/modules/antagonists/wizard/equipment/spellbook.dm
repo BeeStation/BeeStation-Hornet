@@ -591,7 +591,6 @@
 	playsound(user, 'sound/magic/mandswap.ogg', 50, 1)
 	return TRUE
 
-GLOBAL_VAR_INIT(magical_access, FALSE)
 /datum/spellbook_entry/summon/magical_access
 	name = "Advent Ritual of Saint Anarchismea"
 	desc = "Summons the spirit of Saint Anarchismea's onto the station. Access requirement of all electronic devices \
