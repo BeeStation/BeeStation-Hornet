@@ -279,10 +279,10 @@
 /obj/machinery/power/solar_control/Initialize(mapload)
 	. = ..()
 	connect_to_network()
-	return INITIALIZE_HINT_LATELOAD
+	// This is bad code but I have no time to make it nice.
+	addtimer(CALLBACK(src, PROC_REF(try_connect_to_panels)), 20 SECONDS)
 
-/obj/machinery/power/solar_control/LateInitialize()
-	. = ..()
+/obj/machinery/power/solar_control/proc/try_connect_to_panels()
 	// Initially connect all panels
 	search_for_connected()
 	if(connected_tracker && track == 2)
