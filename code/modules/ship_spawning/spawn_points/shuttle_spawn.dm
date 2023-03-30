@@ -18,3 +18,4 @@
 
 /obj/docking_port/stationary/spawn_point/on_docked(obj/docking_port/mobile/docked)
 	current_allocation = new /datum/dock_allocation_tracker(docked.id, src)
+	return ..()
