@@ -19,6 +19,9 @@
 
 /datum/dock_allocation_tracker/process(delta_time)
 	time_left -= delta_time * 10
+	if (point.docked == null)
+		qdel(src)
+		return PROCESS_KILL
 	if (time_left < 0)
 		expire()
 		return PROCESS_KILL

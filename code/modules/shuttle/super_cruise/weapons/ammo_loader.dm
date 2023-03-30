@@ -45,7 +45,7 @@
 /obj/machinery/ammo_loader/ui_data(mob/user)
 	var/list/data = list()
 	data["loaded"] = list()
-	var/id = 0
+	var/id = 1
 	for (var/atom/movable/thing in contents)
 		var/obj/item/ammo_box/ammo_box = thing
 		data["loaded"] += list(list(
