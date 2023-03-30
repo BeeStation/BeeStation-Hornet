@@ -80,6 +80,12 @@
 
 /obj/machinery/fat_sucker/container_resist(mob/living/user)
 	if(!free_exit || state_open)
+		if(GLOB.magical_access)
+			free_exit = TRUE
+			user.visible_message("<span class='warning'>[user] magically broke out of [src]!</span>", \
+				"<span class='notice'>You magically break out of [src]!</span>")
+			open_machine()
+			return
 		to_chat(user, "<span class='notice'>The emergency release is not responding! You start pushing against the hull!</span>")
 		user.changeNext_move(CLICK_CD_BREAKOUT)
 		user.last_special = world.time + CLICK_CD_BREAKOUT

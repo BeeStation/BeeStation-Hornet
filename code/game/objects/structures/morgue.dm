@@ -110,6 +110,12 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	if(!locked)
 		open()
 		return
+	if(GLOB.magical_access)
+		locked = FALSE
+		user.visible_message("<span class='warning'>[user] magically broke out of [src]!</span>", \
+			"<span class='notice'>You magically break out of [src]!</span>")
+		open()
+		return
 	user.changeNext_move(CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
 	user.visible_message(null, \

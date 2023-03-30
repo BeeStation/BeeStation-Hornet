@@ -109,6 +109,10 @@
 	. = ..()
 	if(.)
 		return
+	if(!open && GLOB.magical_access)
+		open = TRUE
+		to_chat(user, "<span class='caution'>You magically open the [name].</span>")
+		return
 	if(open || broken)
 		if(fireaxe)
 			user.put_in_hands(fireaxe)

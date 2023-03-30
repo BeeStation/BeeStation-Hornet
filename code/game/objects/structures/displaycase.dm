@@ -314,6 +314,13 @@
 	GLOB.trophy_cases -= src
 	return ..()
 
+/obj/structure/displaycase/trophy/attack_hand(mob/user)
+	if(is_locked && GLOB.magical_access)
+		is_locked = FALSE
+		to_chat(user, "<span class='notice'>You magically unlock the case.</span>")
+		return
+	..()
+
 /obj/structure/displaycase/trophy/attackby(obj/item/W, mob/living/user, params)
 
 	if(!user.Adjacent(src)) //no TK museology
@@ -323,7 +330,7 @@
 	if(W.tool_behaviour == TOOL_WELDER && !broken)
 		return ..()
 
-	if(user.is_holding_item_of_type(/obj/item/key/displaycase))
+	if(user.is_holding_item_of_type(/obj/item/key/displaycase) || GLOB.magical_access)
 		if(added_roundstart)
 			is_locked = !is_locked
 			to_chat(user, "<span class='notice'>You [!is_locked ? "un" : ""]lock the case.</span>")

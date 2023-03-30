@@ -21,7 +21,7 @@
 		for(var/buck in buckled_mobs) //breaking a nest releases all the buckled mobs, because the nest isn't holding them down anymore
 			var/mob/living/M = buck
 
-			if(user.getorgan(/obj/item/organ/alien/plasmavessel))
+			if(user.getorgan(/obj/item/organ/alien/plasmavessel) || GLOB.magical_access)
 				unbuckle_mob(M)
 				add_fingerprint(user)
 				return

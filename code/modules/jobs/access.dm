@@ -66,8 +66,10 @@
 // Check if an item has access to this object
 /obj/proc/check_access(obj/item/I)
 	if(GLOB.magical_access)
-		if(!(obj_flags & MAGICAL_ACCESS_PROTECTED) && !(is_centcom_level(src.z))) // CC stuff is protected from magical access
-			return TRUE
+		if(check_antimagic_access())
+			return check_access_list(I ? I.GetAccess() : null)
+		if(!(is_centcom_level(src.z))) // CC stuff is protected from magical access
+			return TRUE // otherwise, always allowed
 	return check_access_list(I ? I.GetAccess() : null)
 
 /obj/proc/check_access_list(list/access_list)
@@ -92,6 +94,25 @@
 				return TRUE
 		return FALSE
 	return TRUE
+
+/obj/proc/check_antimagic_access()
+	for(var/each_req in req_access)
+		if(!each_req)
+			continue
+		if(GLOB.antimagical_accesses["[each_req]"])
+			return TRUE
+	for(var/each_req in req_one_access)
+		if(!each_req)
+			continue
+		if(GLOB.antimagical_accesses["[each_req]"])
+			return TRUE
+	if(istype(src, /obj/mecha))
+		var/obj/mecha/mech = src
+		for(var/each_req in mech.operation_req_access)
+			if(!each_req)
+				continue
+			if(GLOB.antimagical_accesses["[each_req]"])
+				return TRUE
 
 /*
  * Checks if this packet can access this device
@@ -160,8 +181,10 @@
 	            ACCESS_VAULT, ACCESS_MINING_STATION, ACCESS_XENOBIOLOGY, ACCESS_CE, ACCESS_HOP, ACCESS_HOS, ACCESS_RC_ANNOUNCE,
 	            ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_MINERAL_STOREROOM, ACCESS_MINISAT, ACCESS_NETWORK, ACCESS_CLONING, ACCESS_RD_SERVER)
 
+/// returns All Accesses with more accesses - occured during a wizard round
 /proc/get_all_accesses_magically()
-	return get_all_accesses()+ACCESS_SYNDICATE+ACCESS_BLOODCULT+ACCESS_CLOCKCULT
+	return shuffle_inplace(get_all_accesses()+ACCESS_SYNDICATE+ACCESS_BLOODCULT+ACCESS_CLOCKCULT)
+	// For the shuffle, a code line in `_job.dm` says this is needed to make NTNet passkeys less predictable. I don't know why we need this.
 
 /proc/get_all_centcom_access()
 	return list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE, ACCESS_CENT_TELEPORTER, ACCESS_CENT_CAPTAIN, ACCESS_CENT_BAR)

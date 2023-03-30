@@ -77,10 +77,16 @@ It is possible to destroy the net by the occupant or someone else.
 	new /obj/effect/temp_visual/dir_setting/ninja/phase(affecting.drop_location(), affecting.dir)
 
 /obj/structure/energy_net/attack_paw(mob/user)
+	if(GLOB.magical_access) // ninja hates wizard
+		return attack_hand(user)
 	return attack_hand()
 
 /obj/structure/energy_net/user_buckle_mob(mob/living/M, mob/living/user, check_loc = TRUE)
 	return//We only want our target to be buckled
 
 /obj/structure/energy_net/user_unbuckle_mob(mob/living/buckled_mob, mob/living/user)
+	if(GLOB.magical_access) // ninja hates wizard 2
+		. = ..()
+		qdel(src)
+		return
 	return//The net must be destroyed to free the target

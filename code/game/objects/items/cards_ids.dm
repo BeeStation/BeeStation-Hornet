@@ -147,7 +147,6 @@
 /obj/item/card/id/proc/grant_magical_access()
 	var/static/list/target_access = get_all_accesses_magically() // This is how MAGIC works
 	access |= target_access // length copy is bad when your card has CC access. use `|=` to handle special access.
-	shuffle_inplace(access) // a code line in `_job.dm` says this is needed to make NTNet passkeys less predictable. I don't know why we need this.
 
 /obj/item/card/id/attack_self(mob/user)
 	if(Adjacent(user))

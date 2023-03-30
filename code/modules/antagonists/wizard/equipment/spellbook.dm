@@ -607,12 +607,17 @@
 	message_admins("[ADMIN_LOOKUPFLW(user)] cast 'Advent Ritual of Saint Anarchismea' and everyone gets AA from now.")
 	log_game("[key_name(user)] cast 'Advent Ritual of Saint Anarchismea' and everyone gets AA from now.")
 	GLOB.magical_access = TRUE
+	trigger()
 
+	return TRUE
+
+/datum/spellbook_entry/summon/magical_access/proc/trigger()
+	set waitfor = 0 // we don't want this to be a source of lag
 	for(var/obj/item/card/id/I in GLOB.id_cards)
 		I.grant_magical_access()
 	for(var/mob/living/H in GLOB.player_list)
 		to_chat(H, "<span class='nicegreen'>You feel a holy spirit's blessing... You feel you can go anywhere you want to go.</span>")
-	return TRUE
+
 
 /datum/spellbook_entry/summon/wild_magic
 	name = "Wild Magic Manipulation"

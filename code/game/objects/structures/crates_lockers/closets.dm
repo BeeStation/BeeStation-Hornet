@@ -436,6 +436,14 @@
 		open()
 		return
 
+	if(GLOB.magical_access)
+		locked = FALSE
+		welded = FALSE
+		user.visible_message("<span class='warning'>[user] magically broke out of [src]!</span>", \
+			"<span class='notice'>You magically break out of [src]!</span>")
+		bust_open()
+		return
+
 	//okay, so the closet is either welded or locked... resist!!!
 	user.changeNext_move(CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT

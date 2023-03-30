@@ -223,9 +223,6 @@
 	dormant_disease_check(H)
 
 /datum/job/proc/get_access()
-	if(GLOB.magical_access)
-		return get_all_accesses_magically()
-
 	if(!config)	//Needed for robots.
 		return src.minimal_access.Copy()
 
@@ -329,10 +326,11 @@
 
 	var/obj/item/card/id/C = H.wear_id
 	if(istype(C))
-		C.access = J.get_access()
-		if(GLOB.magical_access) // don't move this to latejoin code.
+		if(!GLOB.magical_access)
+			C.access = J.get_access()
+			shuffle_inplace(C.access) // Shuffle access list to make NTNet passkeys less predictable
+		else // if magical_access is active on a wiz round, your ID card gets AA!
 			C.grant_magical_access()
-		shuffle_inplace(C.access) // Shuffle access list to make NTNet passkeys less predictable
 		C.registered_name = H.real_name
 		C.assignment = J.title
 		C.set_hud_icon_on_spawn(J.title)

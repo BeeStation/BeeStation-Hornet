@@ -67,6 +67,15 @@
 
 /obj/item/storage/secure/attack_self(mob/user)
 	var/locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
+	if(GLOB.magical_access)
+		locked = !locked
+		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, locked)
+		to_chat(user, "<span class='notice'>You magically [locked ? "lock" : "unlock"] the [src].</span>")
+		cut_overlays()
+		if(!locked)
+			add_overlay(icon_opened)
+		return
+
 	user.set_machine(src)
 	var/dat = text("<TT><B>[]</B><BR>\n\nLock Status: []",src, (locked ? "LOCKED" : "UNLOCKED"))
 	var/message = "Code"
