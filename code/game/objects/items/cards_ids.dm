@@ -122,13 +122,12 @@
 
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
-	if(mapload)
-		if(access_txt)
+	if(mapload && access_txt)
 			access = text2access(access_txt)
-		var/area/A = get_area(src)
-		if(istype(A, /area/shuttle))
-			var/area/shuttle/AS = A
-			ship_port = AS.mobile_port?.id
+	var/area/A = get_area(src)
+	if(istype(A, /area/shuttle))
+		var/area/shuttle/AS = A
+		ship_port = AS.mobile_port?.id
 
 /obj/item/card/id/Destroy()
 	if (registered_account)
