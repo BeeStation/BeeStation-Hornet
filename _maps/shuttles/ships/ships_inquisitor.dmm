@@ -414,6 +414,7 @@
 /area/shuttle/inquisitor/bridge)
 "hQ" = (
 /obj/machinery/airalarm/directional/south,
+/obj/effect/landmark/start/security_officer,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/inquisitor/lounge)
 "hX" = (
@@ -554,6 +555,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
 	},
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/inquisitor/dorms)
 "ol" = (
@@ -876,6 +878,11 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/inquisitor/engineering)
+"zt" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/landmark/start/security_officer,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/inquisitor/lounge)
 "zU" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
@@ -1189,6 +1196,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/start/captain,
 /turf/open/floor/wood,
 /area/shuttle/inquisitor/bridge)
 "GQ" = (
@@ -1231,6 +1239,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/plasteel,
 /area/shuttle/inquisitor/weapons)
 "Hs" = (
@@ -1371,6 +1380,7 @@
 	dir = 4
 	},
 /obj/structure/chair/fancy/shuttle,
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/plasteel,
 /area/shuttle/inquisitor/lounge)
 "Ld" = (
@@ -1440,6 +1450,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/start/security_officer,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/inquisitor/lounge)
 "MX" = (
@@ -1611,6 +1622,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/plasteel,
 /area/shuttle/inquisitor/lounge)
 "Qr" = (
@@ -1645,6 +1657,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/machinery/firealarm/directional/west,
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/wood,
 /area/shuttle/inquisitor/dorms)
 "RA" = (
@@ -1721,6 +1734,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/inquisitor/lounge)
 "TH" = (
@@ -2205,7 +2219,7 @@ du
 Hs
 PL
 oJ
-yX
+zt
 PL
 CH
 Pp
