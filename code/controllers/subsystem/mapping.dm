@@ -287,6 +287,8 @@ SUBSYSTEM_DEF(mapping)
 		++space_levels_so_far
 		LAZYADD(SSzclear.free_levels, add_new_zlevel("Empty Area [space_levels_so_far]", ZTRAITS_SPACE, orbital_body_type = null))
 
+	LoadStationRooms()
+
 	// Load statoin
 	LoadGroup(FailedZs, "Nanotrasen Base", "map_files/outposts", "outpost_nanotrasen.dmm", default_traits = ZTRAITS_STATION, orbital_body_type = /datum/orbital_object/z_linked/base/nanotrasen)
 	LoadGroup(FailedZs, "Syndicate Base", "map_files/outposts", "DockStation_Syndicate.dmm", default_traits = ZTRAITS_STATION, orbital_body_type = /datum/orbital_object/z_linked/base/syndicate)

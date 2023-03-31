@@ -1318,9 +1318,9 @@
 /turf/open/floor/plasteel,
 /area/shuttle/stingray/central)
 "Ad" = (
-/obj/item/wallframe/shuttle_weapon/laser/triple{
+/obj/machinery/shuttle_weapon/laser/triple{
 	dir = 4;
-	mapload_linkup_id = 2
+	mapload_linkup_id = 1
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/stingray/bridge)
@@ -2028,12 +2028,12 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/stingray/security)
 "QU" = (
-/obj/item/wallframe/shuttle_weapon/laser/triple{
+/obj/machinery/shuttle_weapon/laser/triple{
 	dir = 4;
-	mapload_linkup_id = 1
+	mapload_linkup_id = 2
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
-/area/shuttle/stingray/bridge)
+/area/shuttle/stingray/central)
 "QW" = (
 /obj/effect/turf_decal/box,
 /obj/structure/railing{
@@ -2916,14 +2916,14 @@ bC
 bC
 bC
 Ib
+Ad
+Fi
+Ce
+Ce
+Ce
+Ce
 Fi
 QU
-Ce
-Ce
-Ce
-Ce
-Ad
-dE
 dE
 PQ
 bC

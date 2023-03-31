@@ -3404,6 +3404,7 @@
 #include "code\modules\shuttle\shuttle_creation\shuttle_creator_console.dm"
 #include "code\modules\shuttle\shuttle_creation\shuttle_creator_eye.dm"
 #include "code\modules\shuttle\shuttle_creation\shuttle_creator_overlay.dm"
+#include "code\modules\shuttle\super_cruise\debug_verbs.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_supercruise.dm"
 #include "code\modules\shuttle\super_cruise\factions\faction.dm"
 #include "code\modules\shuttle\super_cruise\missions\mining_mission.dm"

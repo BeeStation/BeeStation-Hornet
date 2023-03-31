@@ -250,6 +250,37 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	return lead_faction_instances[faction_type]
 
 //====================================
+// Ship Spawning
+//====================================
+
+/datum/controller/subsystem/processing/orbits/proc/spawn_ship(datum/map_template/shuttle/ship/selected_ship, ship_faction, ship_ai)
+	var/datum/turf_reservation/preview_reservation = SSmapping.RequestBlockReservation(selected_ship.width, selected_ship.height, SSmapping.transit.z_value, /datum/turf_reservation/transit)
+	if(!preview_reservation)
+		CRASH("failed to reserve an area for shuttle template loading")
+
+	// Spawn the ship
+	var/datum/variable_ref/shuttle_ref = new()
+	var/datum/map_generator/map_place/placer = SSshuttle.action_load(selected_ship, null, shuttle_ref)
+	if (!placer)
+		tgui_alert_async(usr, "Failed to load selected map, please file a GitHub issue or contact the Head Developer.", "Loading error")
+		return
+	// Give the clients their jobs, give bad clients a random job
+	placer.on_completion(COMPLETION_PRIORITY_PREVIEW, CALLBACK(src, PROC_REF(grant_ai), shuttle_ref, ship_faction, ship_ai))
+
+/datum/controller/subsystem/processing/orbits/proc/grant_ai(datum/variable_ref/shuttle_ref, faction_instance, ship_ai)
+	var/obj/docking_port/mobile/M = shuttle_ref.value
+	// Magically wrench in everything
+	var/obj/item/wrench/w = new()
+	for (var/turf/T in M.return_turfs())
+		for (var/obj/machinery/portable_atmospherics/pa)
+			pa.attackby(w, usr)
+	qdel(w)
+	//Give the ship some AI
+	var/datum/shuttle_data/located_shuttle = SSorbits.get_shuttle_data(M.id)
+	located_shuttle.faction = faction_instance
+	located_shuttle.set_pilot(ship_ai)
+
+//====================================
 // Other
 //====================================
 

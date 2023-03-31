@@ -43,13 +43,13 @@
 	name = "88mm round"
 	damage = 15
 	eyeblur = 0
-	light_damage_factor = 7
-	heavy_damage_factor = 10
+	light_damage_factor = 3
+	heavy_damage_factor = 6
 
 /obj/item/projectile/bullet/shuttle/ballistic/bullet/heavy
 	name = "88mm armour-peircing round"
-	light_damage_factor = 6
-	heavy_damage_factor = 9
+	light_damage_factor = 3
+	heavy_damage_factor = 6
 
 /obj/item/projectile/bullet/shuttle/ballistic/bullet/heavy/prehit_pierce(atom/A)
 	if (prob(70) && isturf(A))
