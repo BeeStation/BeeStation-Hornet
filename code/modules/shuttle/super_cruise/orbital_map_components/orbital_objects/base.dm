@@ -17,7 +17,7 @@
 /datum/orbital_object/z_linked/base/post_map_setup()
 	//Orbit around the system center
 	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
-	set_orbitting_around_body(linked_map.center, 7000)
+	set_orbitting_around_body(linked_map.center, rand(4000, 10000))
 
 /datum/orbital_object/z_linked/base/syndicate
 	name = "Syndicate Hideout"
