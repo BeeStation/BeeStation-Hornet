@@ -52,7 +52,7 @@
 		L.Immobilize(1.5 SECONDS)
 	if(ismecha(AM))
 		var/obj/mecha/mech = AM
-		mech.step_restricted += 1 SECONDS //unlike the above, this one stacks based on number of webs
+		mech.step_restricted += 1 SECONDS //unlike the above, this one stacks based on number of webs. Punch the webs to destroy them you dolt.
 		if(mech.occupant && !mech.step_restricted)
 			to_chat(mech.occupant, "<span class='danger'>\the [mech] gets stuck in \the [src]!</span>")
 
