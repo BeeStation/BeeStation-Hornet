@@ -18,14 +18,14 @@
 	var/ooc_webhook = CONFIG_GET(string/ooc_webhook)
 	if(!length(ooc_webhook))
 		return
-	send_webhook(ooc_webhook, msg)
+	send_webhook(ooc_webhook, msg, allowed_types = allowed_types, allowed_users = allowed_users, allowed_roles = allowed_roles)
 
 /// Send adminhelp via webhook. allowed_x arguments are lists of strings, bypassing restrictions on mentions, joined to the values in the config.
 /proc/sendadminhelp2ext(msg, list/allowed_types = list(), list/allowed_users = list(), list/allowed_roles = list())
 	var/adminhelp_webhook = CONFIG_GET(string/adminhelp_webhook)
 	if(!length(adminhelp_webhook))
 		return
-	send_webhook(adminhelp_webhook, msg)
+	send_webhook(adminhelp_webhook, msg, allowed_types = allowed_types, allowed_users = allowed_users, allowed_roles = allowed_roles)
 
 /// Send text via webhook, asynchronously. allowed_x arguments are lists of strings, bypassing restrictions on mentions, joined to the values in the config.
 /// sent as JSON via POST {"content": "[msg]", "allowed_mentions": {"parse": [...]}}
