@@ -49,7 +49,7 @@ from reality if anybody finds out."
 	parent = null
 
 /atom/movable/screen/ship_intro/process(delta_time)
-	steps += 3
+	steps += 5
 	var/display_text = copytext(full_text, 1, steps)
 	maptext = "<span class='maptext center big'>[display_text]</span>"
 	maptext_y = 0
