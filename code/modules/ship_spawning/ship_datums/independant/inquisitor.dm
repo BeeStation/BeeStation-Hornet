@@ -1,5 +1,5 @@
 /datum/starter_ship_template/inquisitor
-	faction_flags = FACTION_INDEPENDANT
+	faction_flags = FACTION_INDEPENDANT | FACTION_NANOTRASEN
 	template_cost = 450
 	job_roles = list(
 		/datum/job/captain = 1,
@@ -23,11 +23,11 @@
 	description = ""
 
 /datum/map_template/shuttle/ship/inquisitor
-	name = "Inquisitor (IND)"
+	name = "NTC Inquisitor"
 	suffix = "inquisitor"
 
 /datum/map_template/shuttle/ship/inquisitor/syndie
-	name = "Inquisitor (SYN)"
+	name = "SYN Inquisitor"
 	suffix = "inquisitor_syndie"
 
 /area/shuttle/inquisitor
