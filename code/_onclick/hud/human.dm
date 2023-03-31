@@ -346,6 +346,13 @@
 	dockallocationtime.maptext_x = -256
 	infodisplay += dockallocationtime
 
+	ship_intro = new /atom/movable/screen/ship_intro(null, owner)
+	ship_intro.screen_loc = "CENTER:16,TOP:-42"
+	ship_intro.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	ship_intro.plane = ABOVE_HUD_PLANE
+	ship_intro.hud = src
+	infodisplay += ship_intro
+
 	devilsouldisplay = new /atom/movable/screen/devil/soul_counter
 	devilsouldisplay.hud = src
 	infodisplay += devilsouldisplay

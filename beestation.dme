@@ -3377,6 +3377,7 @@
 #include "code\modules\ship_spawning\spawn_points\shuttle_spawn.dm"
 #include "code\modules\ship_spawning\templates\template_nuke_ship.dm"
 #include "code\modules\ship_spawning\ui\dock_allocation.dm"
+#include "code\modules\ship_spawning\ui\ship_intro.dm"
 #include "code\modules\ship_spawning\ui\ship_start.dm"
 #include "code\modules\shuttle\arrivals.dm"
 #include "code\modules\shuttle\assault_pod.dm"

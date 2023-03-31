@@ -24,6 +24,26 @@
 /obj/effect/turf_decal/bot/right,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/inquisitor/engineering)
+"aL" = (
+/obj/effect/turf_decal/siding/wood/end{
+	dir = 8
+	},
+/obj/structure/closet/secure_closet/hos,
+/obj/item/camera/detective,
+/obj/machinery/firealarm/directional/west,
+/turf/open/floor/wood,
+/area/shuttle/inquisitor/bridge)
+"aN" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/inquisitor/engineering)
 "aT" = (
 /obj/structure/sign/warning/docking{
 	desc = "A warning sign which reads 'MONKEY AREA '.";
@@ -34,32 +54,29 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/inquisitor/engineering)
-"bh" = (
-/obj/item/clothing/accessory/armband/engine,
-/obj/item/clothing/suit/hazardvest,
-/obj/item/clothing/head/hardhat/dblue,
-/obj/item/radio/headset/headset_eng,
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/storage/backpack/industrial,
-/obj/item/clothing/shoes/workboots,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 10
+"bl" = (
+/obj/item/kirbyplants{
+	icon_state = "plant-10"
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plasteel/grimy,
+/area/shuttle/inquisitor/lounge)
+"bF" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 10
+	dir = 1
 	},
-/obj/structure/closet{
-	icon_state = "eng_secure"
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/techmaint,
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2,
+/turf/open/floor/plasteel/tech/grid,
 /area/shuttle/inquisitor/engineering)
-"bG" = (
-/obj/machinery/computer/weapons{
-	dir = 8
-	},
-/turf/open/floor/plasteel/tech,
-/area/shuttle/inquisitor/bridge)
 "bK" = (
 /obj/effect/turf_decal/siding/white,
 /obj/effect/turf_decal/siding/white/corner{
@@ -77,35 +94,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/inquisitor/lounge)
-"cH" = (
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 8
+"cw" = (
+/obj/effect/turf_decal/siding/wood/end{
+	dir = 1
 	},
-/obj/structure/closet/crate/internals,
-/obj/item/clothing/suit/space/eva,
-/obj/item/clothing/suit/space/eva,
-/obj/item/tank/internals/emergency_oxygen/engi{
-	pixel_x = -4;
-	pixel_y = -4
+/obj/structure/dresser,
+/obj/item/radio/intercom{
+	pixel_y = 21
 	},
-/obj/item/tank/internals/emergency_oxygen/engi{
-	pixel_x = -4;
-	pixel_y = -4
-	},
-/obj/item/clothing/head/helmet/space/eva,
-/obj/item/clothing/head/helmet/space/eva,
-/obj/machinery/power/apc/auto_name/west,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/item/mining_scanner,
-/obj/item/mining_scanner,
-/obj/item/storage/bag/ore,
-/obj/item/storage/bag/ore,
-/obj/item/pickaxe/mini,
-/obj/item/pickaxe/mini,
-/turf/open/floor/plasteel/grid/steel,
-/area/shuttle/inquisitor/weapons)
+/obj/machinery/firealarm/directional/west,
+/turf/open/floor/holofloor/wood,
+/area/shuttle/inquisitor/dorms)
 "cK" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -130,38 +129,22 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/shuttle/inquisitor/weapons)
-"dg" = (
-/obj/structure/table/reinforced,
-/obj/machinery/microwave{
-	pixel_y = 2
+"eN" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
 	},
-/obj/structure/railing/corner{
-	dir = 4
+/obj/structure/cable{
+	icon_state = "0-2"
 	},
-/obj/effect/spawner/lootdrop/donkpockets,
-/obj/effect/spawner/lootdrop/donkpockets,
-/turf/open/floor/plasteel/dark,
-/area/shuttle/inquisitor/lounge)
-"dk" = (
-/obj/effect/turf_decal/siding/wood/end{
-	dir = 1
+/obj/machinery/button/door{
+	id = "minutemen_det_windows";
+	name = "Window Shutters";
+	pixel_x = -32;
+	pixel_y = 1
 	},
-/turf/open/floor/wood,
+/turf/open/floor/plasteel/tech,
 /area/shuttle/inquisitor/bridge)
-"eA" = (
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/turf/open/floor/plasteel/tech/grid,
-/area/shuttle/inquisitor/engineering)
-"eP" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = 22
-	},
-/turf/open/floor/plasteel/grimy,
-/area/shuttle/inquisitor/lounge)
 "fB" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/pill_bottle/dice{
@@ -194,28 +177,25 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/inquisitor/engineering)
-"gg" = (
-/obj/machinery/computer/secure_data{
+"fZ" = (
+/obj/structure/window/plastitanium,
+/obj/machinery/door/poddoor{
+	id = "minutemen_det_windows"
+	},
+/turf/open/floor/plating,
+/area/shuttle/inquisitor/dorms)
+"gk" = (
+/obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/structure/railing,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 23;
-	pixel_y = 9
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
-/area/shuttle/inquisitor/lounge)
-"go" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/door/airlock/grunge{
-	id_tag = "Cabin_1";
-	name = "Cabin";
-	req_access_txt = "58"
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
 	},
-/turf/open/floor/plasteel,
-/area/shuttle/inquisitor/bridge)
+/turf/open/floor/plasteel/tech/grid,
+/area/shuttle/inquisitor/engineering)
 "gy" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -269,21 +249,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/red,
 /area/shuttle/inquisitor/bridge)
-"ht" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/obj/machinery/power/apc/auto_name/north,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/button/door{
-	dir = 4;
-	id = "minutemen_det_windows";
-	name = "Window Shutters";
-	pixel_x = -22;
-	pixel_y = 10
-	},
-/turf/open/floor/plasteel/tech,
-/area/shuttle/inquisitor/bridge)
 "hG" = (
 /obj/machinery/atmospherics/pipe/manifold/purple/visible,
 /obj/effect/turf_decal/stripes/line{
@@ -333,6 +298,13 @@
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/inquisitor/engineering)
+"iW" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/inquisitor/engineering)
 "jh" = (
 /obj/effect/turf_decal/siding/thinplating/dark/corner{
 	dir = 4
@@ -370,12 +342,30 @@
 "ki" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/inquisitor/weapons)
+"kn" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plasteel/grimy,
+/area/shuttle/inquisitor/lounge)
 "ko" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 10
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/shuttle/inquisitor/weapons)
+"kr" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = 32;
+	pixel_y = -3
+	},
+/turf/open/floor/plasteel/grimy,
+/area/shuttle/inquisitor/lounge)
 "kw" = (
 /obj/structure/sign/warning/docking,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
@@ -383,18 +373,46 @@
 "kL" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/inquisitor/bridge)
-"lj" = (
-/obj/machinery/airalarm/directional/east,
-/turf/open/floor/plasteel/grimy,
-/area/shuttle/inquisitor/lounge)
 "ll" = (
 /obj/effect/turf_decal/siding/thinplating/dark/corner,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/grid/steel,
 /area/shuttle/inquisitor/weapons)
+"lm" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/door/airlock/wood,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/plasteel,
+/area/shuttle/inquisitor/dorms)
 "lx" = (
 /turf/template_noop,
 /area/template_noop)
+"lE" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/white,
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
+/obj/machinery/door/airlock/hatch,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/plasteel,
+/area/shuttle/inquisitor/lounge)
 "ma" = (
 /obj/structure/table_frame/wood,
 /obj/effect/decal/cleanable/ash,
@@ -408,41 +426,26 @@
 /obj/structure/fireplace,
 /turf/open/floor/holofloor/wood,
 /area/shuttle/inquisitor/lounge)
-"mA" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 4
+"mF" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/window/plastitanium,
+/obj/machinery/door/poddoor{
+	id = "minutemen_det_windows"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 10
-	},
+/turf/open/floor/plating,
+/area/shuttle/inquisitor/engineering)
+"mR" = (
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	icon_state = "2-9"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/inquisitor/lounge)
-"mL" = (
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 1
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
-	icon_state = "8-10"
-	},
-/obj/effect/landmark/start/security_officer,
-/turf/open/floor/plasteel/grid/steel,
-/area/shuttle/inquisitor/weapons)
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
+/turf/open/floor/plasteel,
+/area/shuttle/inquisitor/lounge)
 "mZ" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -478,24 +481,23 @@
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/inquisitor/lounge)
 "ni" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 5
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 5
+	dir = 10
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable{
-	icon_state = "4-9"
+	icon_state = "2-8"
 	},
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/inquisitor/engineering)
-"nm" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
+/turf/open/floor/plasteel/grimy,
+/area/shuttle/inquisitor/lounge)
+"nT" = (
+/obj/structure/bookcase/random/fiction,
+/obj/machinery/light{
+	dir = 8
 	},
-/turf/open/floor/plasteel/tech/grid,
-/area/shuttle/inquisitor/engineering)
+/turf/open/floor/plasteel/grimy,
+/area/shuttle/inquisitor/lounge)
 "ol" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -521,6 +523,25 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/inquisitor/lounge)
+"oG" = (
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/shuttle/inquisitor/weapons)
 "pj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/oil{
@@ -528,28 +549,6 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/inquisitor/engineering)
-"px" = (
-/obj/machinery/power/smes/engineering,
-/obj/structure/cable{
-	icon_state = "0-10"
-	},
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/inquisitor/engineering)
-"pB" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/machinery/door/airlock/highsecurity{
-	name = "Bridge"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/inquisitor/bridge)
 "pF" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/radio/intercom{
@@ -579,13 +578,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/inquisitor/lounge)
-"qj" = (
-/obj/structure/bed/dogbed/cayenne,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/plasteel/grimy,
-/area/shuttle/inquisitor/lounge)
 "qk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
@@ -612,14 +604,6 @@
 	},
 /turf/open/floor/holofloor/wood,
 /area/shuttle/inquisitor/dorms)
-"qU" = (
-/obj/machinery/door/poddoor{
-	id = "minutecop_bridge"
-	},
-/obj/structure/window/plastitanium,
-/obj/structure/grille,
-/turf/open/floor/plating,
-/area/shuttle/inquisitor/dorms)
 "rl" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
@@ -627,12 +611,57 @@
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /obj/item/kirbyplants/random,
 /turf/open/floor/holofloor/wood,
+/area/shuttle/inquisitor/lounge)
+"rr" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/plasteel/grid/steel,
+/area/shuttle/inquisitor/weapons)
+"rG" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/trash/popcorn{
+	pixel_x = -4;
+	pixel_y = 11
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/grimy,
+/area/shuttle/inquisitor/lounge)
+"rM" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 10
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 10
+	},
+/turf/open/floor/plasteel,
 /area/shuttle/inquisitor/lounge)
 "sf" = (
 /obj/machinery/shuttle_weapon/point_defense{
@@ -641,23 +670,6 @@
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/inquisitor/bridge)
-"st" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/thinplating/dark,
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 1
-	},
-/obj/machinery/door/airlock/hatch,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/inquisitor/weapons)
 "sy" = (
 /obj/structure/curtain,
 /obj/item/soap,
@@ -676,42 +688,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood,
 /area/shuttle/inquisitor/bridge)
-"tv" = (
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 9
-	},
-/obj/machinery/button/door{
-	id = "minutemen_det_cargo";
-	name = "Cargo Shutters";
-	pixel_x = -8;
-	pixel_y = 23
-	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -24;
-	pixel_y = 8
-	},
-/obj/machinery/ammo_loader/ballistic{
-	mapload_linkup_id = 2
-	},
-/turf/open/floor/plasteel/grid/steel,
-/area/shuttle/inquisitor/weapons)
-"tw" = (
-/obj/machinery/vending/tool,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -24;
-	pixel_y = -10
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/inquisitor/engineering)
 "tJ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
@@ -723,23 +699,6 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/inquisitor/engineering)
-"tM" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/white,
-/obj/effect/turf_decal/siding/white{
-	dir = 1
-	},
-/obj/machinery/door/airlock/hatch,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/inquisitor/lounge)
 "tQ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/carpet/grimy,
@@ -756,6 +715,21 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/shuttle/inquisitor/lounge)
+"tX" = (
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 9
+	},
+/obj/machinery/button/door{
+	id = "minutemen_det_cargo";
+	name = "Cargo Shutters";
+	pixel_y = 32
+	},
+/obj/machinery/ammo_loader/ballistic{
+	mapload_linkup_id = 2
+	},
+/obj/machinery/firealarm/directional/west,
+/turf/open/floor/plasteel/grid/steel,
+/area/shuttle/inquisitor/weapons)
 "ub" = (
 /obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 1;
@@ -773,14 +747,20 @@
 /obj/effect/turf_decal/bot/left,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/inquisitor/engineering)
+"ul" = (
+/obj/effect/turf_decal/siding/white,
+/turf/open/floor/plasteel,
+/area/shuttle/inquisitor/lounge)
 "uq" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/inquisitor/dorms)
-"us" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/station_engineer,
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/inquisitor/engineering)
+"uz" = (
+/obj/machinery/airalarm/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/grimy,
+/area/shuttle/inquisitor/lounge)
 "uF" = (
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
@@ -816,20 +796,52 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/inquisitor/engineering)
-"vh" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/grimy,
-/area/shuttle/inquisitor/lounge)
 "vQ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/rockvault,
 /area/shuttle/inquisitor/dorms)
+"vY" = (
+/obj/structure/cable/yellow,
+/obj/machinery/power/terminal{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/inquisitor/engineering)
+"wa" = (
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 8
+	},
+/obj/structure/closet/crate/internals,
+/obj/item/clothing/suit/space/eva,
+/obj/item/clothing/suit/space/eva,
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = -4;
+	pixel_y = -4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = -4;
+	pixel_y = -4
+	},
+/obj/item/clothing/head/helmet/space/eva,
+/obj/item/clothing/head/helmet/space/eva,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
+/obj/item/mining_scanner,
+/obj/item/mining_scanner,
+/obj/item/storage/bag/ore,
+/obj/item/storage/bag/ore,
+/obj/item/pickaxe/mini,
+/obj/item/pickaxe/mini,
+/obj/structure/cable,
+/turf/open/floor/plasteel/grid/steel,
+/area/shuttle/inquisitor/weapons)
 "wj" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -846,32 +858,18 @@
 	},
 /turf/open/floor/holofloor/wood,
 /area/shuttle/inquisitor/dorms)
-"wx" = (
-/obj/effect/turf_decal/siding/wood/end{
-	dir = 1
-	},
-/obj/structure/dresser,
-/obj/item/radio/intercom{
-	pixel_y = 21
-	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -24;
-	pixel_y = -10
-	},
-/turf/open/floor/holofloor/wood,
-/area/shuttle/inquisitor/dorms)
 "wM" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/inquisitor/lounge)
-"wN" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-6"
+"xx" = (
+/obj/machinery/computer/weapons{
+	dir = 8
 	},
-/turf/open/floor/plasteel/grimy,
-/area/shuttle/inquisitor/lounge)
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/open/floor/plasteel/tech,
+/area/shuttle/inquisitor/bridge)
 "xW" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/blood/old,
@@ -882,6 +880,17 @@
 	icon_state = "wood-broken3"
 	},
 /area/shuttle/inquisitor/bridge)
+"xY" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 8
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/machinery/firealarm/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/inquisitor/lounge)
 "yd" = (
 /obj/machinery/shuttle_weapon/missile{
 	dir = 4;
@@ -889,6 +898,14 @@
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/inquisitor/dorms)
+"yj" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/grimy,
+/area/shuttle/inquisitor/lounge)
 "yp" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -898,37 +915,86 @@
 	},
 /turf/open/floor/holofloor/wood,
 /area/shuttle/inquisitor/dorms)
-"yu" = (
-/obj/machinery/door/poddoor{
-	id = "minutecop_bridge"
+"yx" = (
+/obj/item/clothing/accessory/armband/engine,
+/obj/item/clothing/suit/hazardvest,
+/obj/item/clothing/head/hardhat/dblue,
+/obj/item/radio/headset/headset_eng,
+/obj/item/clothing/gloves/color/yellow,
+/obj/item/storage/backpack/industrial,
+/obj/item/clothing/shoes/workboots,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 10
 	},
-/obj/structure/window/plastitanium,
-/obj/structure/grille,
-/turf/open/floor/plating,
-/area/shuttle/inquisitor/lounge)
-"yS" = (
-/turf/closed/wall/mineral/plastitanium,
-/area/shuttle/inquisitor/dorms)
-"zm" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 10
+	},
+/obj/structure/closet{
+	icon_state = "eng_secure"
+	},
+/obj/effect/turf_decal/bot,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/inquisitor/engineering)
+"yG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/machinery/door/airlock/wood,
+/obj/machinery/door/airlock/highsecurity{
+	name = "Bridge"
+	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
-/area/shuttle/inquisitor/dorms)
-"zF" = (
+/area/shuttle/inquisitor/bridge)
+"yK" = (
+/obj/machinery/vending/tool,
 /obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/computer/locator,
-/turf/open/floor/plasteel/tech,
-/area/shuttle/inquisitor/bridge)
+/obj/effect/turf_decal/bot,
+/obj/machinery/firealarm/directional/west,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/inquisitor/engineering)
+"yP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/station_engineer,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/inquisitor/engineering)
+"yS" = (
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/inquisitor/dorms)
+"zD" = (
+/obj/structure/bed,
+/obj/item/bedsheet/dorms,
+/obj/machinery/airalarm/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/carpet/royalblue,
+/area/shuttle/inquisitor/dorms)
+"zN" = (
+/obj/machinery/vending/cola/red,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/inquisitor/lounge)
 "zQ" = (
 /obj/structure/railing{
 	layer = 3.1
@@ -938,29 +1004,6 @@
 /obj/effect/turf_decal/box,
 /obj/machinery/suit_storage_unit/syndicate,
 /turf/open/floor/plasteel/tech/grid,
-/area/shuttle/inquisitor/engineering)
-"Ap" = (
-/obj/structure/rack,
-/obj/machinery/airalarm/directional/north,
-/obj/item/storage/toolbox/electrical{
-	pixel_x = -4;
-	pixel_y = 5
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/belt/utility/full/engi,
-/obj/item/clothing/glasses/welding{
-	pixel_y = 5
-	},
-/obj/item/multitool{
-	pixel_x = 9
-	},
-/obj/effect/decal/cleanable/oil{
-	icon_state = "gib7"
-	},
-/turf/open/floor/plasteel/techmaint,
 /area/shuttle/inquisitor/engineering)
 "AB" = (
 /obj/structure/bookcase,
@@ -992,6 +1035,18 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/inquisitor/lounge)
+"AP" = (
+/obj/effect/turf_decal/siding/white/corner{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/turf/open/floor/plasteel,
+/area/shuttle/inquisitor/lounge)
 "AV" = (
 /obj/structure/table/wood,
 /obj/item/phone{
@@ -1013,23 +1068,6 @@
 "Bk" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/inquisitor/engineering)
-"Bv" = (
-/obj/effect/turf_decal/siding/white,
-/obj/effect/turf_decal/siding/white/corner{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "5-8"
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/inquisitor/lounge)
 "Bw" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1042,27 +1080,41 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/layer4,
 /turf/open/floor/plating/airless,
 /area/shuttle/inquisitor/engineering)
-"Cc" = (
-/obj/effect/turf_decal/siding/white/corner{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "5-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/inquisitor/lounge)
 "Cf" = (
 /obj/machinery/washing_machine,
 /turf/open/floor/plasteel/rockvault,
 /area/shuttle/inquisitor/dorms)
+"Cz" = (
+/obj/structure/table/reinforced,
+/obj/item/paper_bin{
+	pixel_x = -8;
+	pixel_y = 4
+	},
+/obj/item/pen/fountain/captain{
+	pixel_x = -6;
+	pixel_y = 5
+	},
+/obj/item/folder/blue{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/stamp/captain{
+	pixel_x = -8;
+	pixel_y = 12
+	},
+/obj/item/stamp/head_of_personnel{
+	pixel_x = -10;
+	pixel_y = 10
+	},
+/obj/item/newspaper,
+/obj/item/reagent_containers/food/drinks/britcup{
+	pixel_x = 15;
+	pixel_y = -1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light,
+/turf/open/floor/plasteel/tech,
+/area/shuttle/inquisitor/bridge)
 "CB" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/vending/wardrobe/det_wardrobe,
@@ -1071,8 +1123,11 @@
 	},
 /area/shuttle/inquisitor/bridge)
 "CK" = (
-/obj/structure/bookcase/random/fiction,
-/turf/open/floor/plasteel/grimy,
+/obj/effect/turf_decal/siding/white{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
 /area/shuttle/inquisitor/lounge)
 "CQ" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1085,23 +1140,19 @@
 /obj/structure/curtain/bounty,
 /turf/open/floor/plasteel/rockvault,
 /area/shuttle/inquisitor/dorms)
-"CV" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/inquisitor/engineering)
 "Di" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/carpet/grimy,
 /area/shuttle/inquisitor/lounge)
+"Dj" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/atmospherics/pipe/layer_manifold,
+/turf/open/floor/plasteel/tech/grid,
+/area/shuttle/inquisitor/engineering)
 "Dq" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1123,6 +1174,16 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/inquisitor/engineering)
+"DS" = (
+/obj/machinery/vending/snack,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/button/door{
+	id = "minutemen_det_windows";
+	name = "Window Shutters";
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/inquisitor/lounge)
 "DV" = (
 /obj/structure/sink{
 	dir = 4;
@@ -1133,49 +1194,63 @@
 	},
 /turf/open/floor/plasteel/rockvault,
 /area/shuttle/inquisitor/dorms)
-"Eq" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 10
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/inquisitor/lounge)
-"Ey" = (
-/obj/effect/turf_decal/siding/white{
+"Em" = (
+/obj/effect/turf_decal/siding/thinplating/dark/corner{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/obj/item/radio/intercom{
-	dir = 4;
-	pixel_x = -27;
-	pixel_y = -12
-	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -24;
-	pixel_y = 8
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/inquisitor/lounge)
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/stack/sheet/sandbags/twenty,
+/turf/open/floor/plasteel/grid/steel,
+/area/shuttle/inquisitor/weapons)
 "EA" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/holofloor/wood,
 /area/shuttle/inquisitor/lounge)
-"Fa" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
+"EB" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/door/airlock/grunge{
+	id_tag = "Cabin_1";
+	name = "Cabin";
+	req_access_txt = "58"
 	},
-/turf/open/floor/plasteel/stairs{
+/obj/machinery/door/firedoor,
+/turf/open/floor/plasteel,
+/area/shuttle/inquisitor/bridge)
+"EN" = (
+/obj/effect/turf_decal/siding/white/corner{
 	dir = 1
 	},
-/area/shuttle/inquisitor/engineering)
-"Gr" = (
-/obj/machinery/door/poddoor{
-	id = "minutecop_bridge"
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
 	},
-/obj/structure/window/plastitanium,
-/turf/open/floor/plating,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/siding/white/corner{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/inquisitor/lounge)
+"EZ" = (
+/obj/structure/bed/dogbed/cayenne,
+/turf/open/floor/plasteel/grimy,
+/area/shuttle/inquisitor/lounge)
+"Fv" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 5
+	},
+/obj/item/kirbyplants/random,
+/obj/machinery/airalarm/directional/east,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plasteel,
 /area/shuttle/inquisitor/lounge)
 "Hj" = (
 /obj/structure/fans/tiny,
@@ -1194,12 +1269,47 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/inquisitor/weapons)
+"Hw" = (
+/obj/machinery/door/poddoor{
+	id = "minutemen_det_windows"
+	},
+/obj/structure/window/plastitanium,
+/turf/open/floor/plating,
+/area/shuttle/inquisitor/lounge)
 "Hz" = (
 /obj/structure/table/reinforced,
 /obj/item/shuttle_creator,
 /obj/item/toy/plush/beeplushie,
 /turf/open/floor/plasteel/tech,
 /area/shuttle/inquisitor/bridge)
+"HD" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel/grimy,
+/area/shuttle/inquisitor/lounge)
+"HF" = (
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/landmark/start/security_officer,
+/turf/open/floor/plasteel/grid/steel,
+/area/shuttle/inquisitor/weapons)
 "HG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
@@ -1225,23 +1335,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/inquisitor/lounge)
-"HX" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/trash/popcorn{
-	pixel_x = -4;
-	pixel_y = 11
-	},
-/obj/structure/cable{
-	icon_state = "1-6"
-	},
-/turf/open/floor/plasteel/grimy,
-/area/shuttle/inquisitor/lounge)
-"Ib" = (
-/obj/structure/bed,
-/obj/item/bedsheet/dorms,
-/obj/machinery/airalarm/directional/north,
-/turf/open/floor/carpet/royalblue,
-/area/shuttle/inquisitor/dorms)
 "If" = (
 /obj/structure/railing{
 	dir = 4
@@ -1261,6 +1354,16 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/tech,
 /area/shuttle/inquisitor/bridge)
+"Im" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/inquisitor/engineering)
 "Ir" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 5
@@ -1276,45 +1379,21 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/inquisitor/lounge)
-"Iv" = (
+"IB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/machinery/door/airlock/maintenance_hatch,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel/grid/steel,
-/area/shuttle/inquisitor/weapons)
-"IL" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "4-9"
-	},
-/turf/open/floor/plasteel/grimy,
-/area/shuttle/inquisitor/lounge)
-"IY" = (
-/obj/machinery/vending/snack,
-/obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/button/door{
-	id = "minutemen_det_windows";
-	name = "Window Shutters";
-	pixel_x = -10;
-	pixel_y = 22
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
-/area/shuttle/inquisitor/lounge)
+/turf/open/floor/plasteel/stairs{
+	dir = 1
+	},
+/area/shuttle/inquisitor/engineering)
 "Jq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wood,
@@ -1361,14 +1440,6 @@
 /obj/item/melee/baton/loaded,
 /turf/open/floor/plasteel/grid/steel,
 /area/shuttle/inquisitor/weapons)
-"Jz" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/obj/structure/cable/yellow,
-/obj/machinery/power/terminal{
-	dir = 4
-	},
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/inquisitor/engineering)
 "JC" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 1
@@ -1415,6 +1486,19 @@
 /obj/structure/table/wood,
 /turf/open/floor/holofloor/wood,
 /area/shuttle/inquisitor/lounge)
+"JS" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/shuttle/inquisitor/engineering)
 "JZ" = (
 /turf/open/floor/plasteel/grimy,
 /area/shuttle/inquisitor/lounge)
@@ -1434,59 +1518,27 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/shuttle/inquisitor/lounge)
-"Kg" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/inquisitor/lounge)
-"Kk" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 10
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable{
-	icon_state = "2-9"
-	},
-/turf/open/floor/plasteel/grimy,
-/area/shuttle/inquisitor/lounge)
-"KE" = (
-/obj/effect/turf_decal/siding/white/corner{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-10"
-	},
-/obj/structure/cable{
-	icon_state = "1-6"
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/inquisitor/lounge)
 "Lb" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
 /area/shuttle/inquisitor/bridge)
-"LE" = (
-/obj/machinery/door/poddoor{
-	id = "minutecop_bridge"
+"Ld" = (
+/obj/machinery/power/smes/engineering,
+/obj/structure/cable{
+	icon_state = "0-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/window/plastitanium,
-/obj/structure/grille,
-/turf/open/floor/plating,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/inquisitor/engineering)
+"Lf" = (
+/obj/machinery/computer/secure_data{
+	dir = 1
+	},
+/obj/structure/railing,
+/obj/machinery/firealarm/directional/east,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/inquisitor/lounge)
 "Mw" = (
 /obj/structure/window/reinforced/survival_pod{
 	dir = 4
@@ -1506,6 +1558,15 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/inquisitor/engineering)
+"Ni" = (
+/obj/effect/turf_decal/siding/wood/end{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/shuttle/inquisitor/bridge)
 "Nl" = (
 /obj/machinery/computer/med_data{
 	dir = 1
@@ -1520,7 +1581,9 @@
 /obj/structure/bed,
 /obj/item/bedsheet/dorms,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -1536,19 +1599,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/inquisitor/engineering)
-"Om" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
-/obj/structure/cable{
-	icon_state = "5-8"
-	},
-/obj/structure/cable{
-	icon_state = "6-8"
-	},
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/inquisitor/engineering)
 "Ow" = (
@@ -1569,16 +1619,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/rockvault,
 /area/shuttle/inquisitor/dorms)
-"Pf" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/purple/visible,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/inquisitor/engineering)
 "Pg" = (
 /obj/structure/closet{
 	name = "Evidence Closet 2"
@@ -1643,22 +1683,150 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/carpet/red,
 /area/shuttle/inquisitor/bridge)
-"Ro" = (
-/obj/effect/turf_decal/siding/white{
-	dir = 5
+"QY" = (
+/obj/structure/rack,
+/obj/machinery/airalarm/directional/north,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = -4;
+	pixel_y = 5
 	},
-/obj/item/kirbyplants/random,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 10
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 3;
+	pixel_y = 3
 	},
-/obj/machinery/airalarm/directional/east,
-/obj/machinery/power/apc/auto_name/north,
-/obj/structure/cable{
-	icon_state = "0-10"
+/obj/item/storage/belt/utility/full/engi,
+/obj/item/clothing/glasses/welding{
+	pixel_y = 5
 	},
-/turf/open/floor/plasteel,
+/obj/item/multitool{
+	pixel_x = 9
+	},
+/obj/effect/decal/cleanable/oil{
+	icon_state = "gib7"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/inquisitor/engineering)
+"Rg" = (
+/obj/structure/table/reinforced,
+/obj/machinery/microwave{
+	pixel_y = 2
+	},
+/obj/effect/spawner/lootdrop/donkpockets,
+/obj/effect/spawner/lootdrop/donkpockets,
+/turf/open/floor/plasteel/dark,
 /area/shuttle/inquisitor/lounge)
-"RO" = (
+"RE" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/thinplating/dark,
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 1
+	},
+/obj/machinery/door/airlock/hatch,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/plasteel,
+/area/shuttle/inquisitor/weapons)
+"Sf" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/inquisitor/lounge)
+"Sl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/chair/fancy/corp,
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/holofloor/wood,
+/area/shuttle/inquisitor/lounge)
+"Su" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/chair/fancy/comfy{
+	dir = 1
+	},
+/obj/effect/landmark/start/captain,
+/turf/open/floor/carpet/red,
+/area/shuttle/inquisitor/bridge)
+"Td" = (
+/obj/structure/chair/office{
+	dir = 1
+	},
+/turf/open/floor/plasteel/grimy,
+/area/shuttle/inquisitor/lounge)
+"Ty" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/inquisitor/engineering)
+"TX" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor{
+	id = "minutemen_det_cargo";
+	name = "cargo bay blast door"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/shuttle/inquisitor/weapons)
+"UE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/oil{
+	icon_state = "streak5"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/inquisitor/engineering)
+"Vy" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/holofloor/wood,
+/area/shuttle/inquisitor/dorms)
+"VN" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/shuttle/inquisitor/bridge)
+"Wc" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/glass{
+	pixel_x = -9;
+	pixel_y = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 4
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/inquisitor/engineering)
+"Wd" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
 	pixel_x = 6
@@ -1682,126 +1850,11 @@
 	pixel_x = 23;
 	pixel_y = 10
 	},
+/obj/structure/railing{
+	dir = 8
+	},
 /turf/open/floor/plasteel/tech,
 /area/shuttle/inquisitor/bridge)
-"RR" = (
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel/grid/steel,
-/area/shuttle/inquisitor/weapons)
-"Sf" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/inquisitor/lounge)
-"Sl" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/siding/wood/corner{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/chair/fancy/corp,
-/obj/effect/landmark/start/assistant,
-/turf/open/floor/holofloor/wood,
-/area/shuttle/inquisitor/lounge)
-"Sq" = (
-/obj/effect/turf_decal/siding/wood/end{
-	dir = 8
-	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -26;
-	pixel_y = -6
-	},
-/obj/structure/closet/secure_closet/hos,
-/obj/item/camera/detective,
-/turf/open/floor/wood,
-/area/shuttle/inquisitor/bridge)
-"Su" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/chair/fancy/comfy{
-	dir = 1
-	},
-/obj/effect/landmark/start/captain,
-/turf/open/floor/carpet/red,
-/area/shuttle/inquisitor/bridge)
-"Td" = (
-/obj/structure/chair/office{
-	dir = 1
-	},
-/turf/open/floor/plasteel/grimy,
-/area/shuttle/inquisitor/lounge)
-"TU" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/structure/fans/tiny,
-/turf/open/floor/plasteel/tech/grid,
-/area/shuttle/inquisitor/engineering)
-"TX" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/poddoor{
-	id = "minutemen_det_cargo";
-	name = "cargo bay blast door"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/shuttle/inquisitor/weapons)
-"Vy" = (
-/obj/structure/chair/wood{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/wood,
-/turf/open/floor/holofloor/wood,
-/area/shuttle/inquisitor/dorms)
-"VA" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
-/turf/open/floor/plasteel/grimy,
-/area/shuttle/inquisitor/lounge)
-"VN" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/greenglow,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/shuttle/inquisitor/bridge)
-"VY" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "5-8"
-	},
-/turf/open/floor/plasteel/grid/steel,
-/area/shuttle/inquisitor/weapons)
-"Wc" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/glass{
-	pixel_x = -9;
-	pixel_y = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 4
-	},
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/inquisitor/engineering)
 "Wh" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
@@ -1809,7 +1862,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/item/wrench{
 	pixel_x = 2;
 	pixel_y = -6
@@ -1833,61 +1888,25 @@
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/inquisitor/engineering)
 "WV" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin{
-	pixel_x = -8;
-	pixel_y = 4
-	},
-/obj/item/pen/fountain/captain{
-	pixel_x = -6;
-	pixel_y = 5
-	},
-/obj/item/folder/blue{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/stamp/captain{
-	pixel_x = -8;
-	pixel_y = 12
-	},
-/obj/item/stamp/head_of_personnel{
-	pixel_x = -10;
-	pixel_y = 10
-	},
-/obj/item/newspaper,
-/obj/item/reagent_containers/food/drinks/britcup{
-	pixel_x = 15;
-	pixel_y = -1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/tech,
-/area/shuttle/inquisitor/bridge)
-"Xf" = (
-/obj/effect/turf_decal/siding/thinplating/dark/corner{
+/obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/barricade/sandbags,
-/turf/open/floor/plasteel/grid/steel,
-/area/shuttle/inquisitor/weapons)
-"Xq" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/oil{
-	icon_state = "streak5"
+/obj/machinery/computer/locator,
+/obj/machinery/firealarm/directional/north,
+/turf/open/floor/plasteel/tech,
+/area/shuttle/inquisitor/bridge)
+"Xx" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 5
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
 	},
-/turf/open/floor/plasteel/dark,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/inquisitor/engineering)
-"XD" = (
-/obj/machinery/vending/cola/red,
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
-/area/shuttle/inquisitor/lounge)
 "XP" = (
 /turf/open/floor/plasteel/tech,
 /area/shuttle/inquisitor/weapons)
@@ -2017,10 +2036,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/plasteel/tech,
 /area/shuttle/inquisitor/bridge)
-"YW" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
-/area/shuttle/inquisitor/engineering)
 "Zd" = (
 /obj/structure/table/reinforced,
 /obj/machinery/computer/secure_data/laptop{
@@ -2042,6 +2057,28 @@
 	},
 /turf/open/floor/plasteel/tech,
 /area/shuttle/inquisitor/weapons)
+"ZD" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/shuttle/inquisitor/weapons)
+"ZM" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 10
+	},
+/obj/machinery/button/door{
+	id = "minutemen_det_windows";
+	name = "Window Shutters";
+	pixel_y = -32
+	},
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = -30;
+	pixel_y = -3
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/inquisitor/lounge)
 
 (1,1,1) = {"
 lx
@@ -2086,7 +2123,7 @@ lx
 ax
 iR
 ax
-tw
+yK
 qk
 hG
 WQ
@@ -2104,7 +2141,7 @@ lx
 ax
 Mw
 ax
-Ap
+QY
 Wc
 Mz
 ol
@@ -2119,13 +2156,13 @@ lx
 lx
 lx
 BY
-LE
+mF
 Dq
 Oj
 pP
 Bw
 tJ
-Pf
+iW
 Wh
 ub
 ax
@@ -2143,8 +2180,8 @@ ax
 aK
 fH
 ax
-us
-CV
+yP
+aN
 jx
 ax
 Bk
@@ -2154,15 +2191,15 @@ lx
 (7,1,1) = {"
 lx
 lx
-TU
-eA
-eA
-nm
-YW
-Xq
-Fa
-Jz
-Om
+Dj
+bF
+gk
+JS
+Im
+UE
+IB
+vY
+Ty
 pj
 zQ
 ax
@@ -2179,9 +2216,9 @@ kw
 Ds
 uM
 ax
-px
-bh
-ni
+Ld
+yx
+Xx
 zQ
 ax
 lx
@@ -2199,7 +2236,7 @@ Yb
 Yb
 Yb
 PJ
-Iv
+rr
 PJ
 PJ
 ki
@@ -2211,14 +2248,14 @@ Yb
 JD
 Yu
 Td
-CK
+nT
 na
 Sf
 Pg
 Yb
-tv
-RR
-cH
+tX
+oG
+wa
 YH
 PJ
 PJ
@@ -2228,16 +2265,16 @@ Yb
 rl
 Sl
 Jq
-HX
-vh
+rG
+bl
 AK
 gI
 Qh
 Yb
 gz
 jh
-VY
-Xf
+ZD
+Em
 ko
 TX
 "}
@@ -2247,13 +2284,13 @@ mp
 PB
 EA
 JZ
-Kk
-wN
-VA
+ni
+yj
+kn
 Nl
 Yb
 Zv
-mL
+HF
 cK
 ll
 hP
@@ -2264,11 +2301,11 @@ Yb
 Yb
 mZ
 YJ
-qj
-lj
-eP
-IL
-gg
+EZ
+uz
+kr
+HD
+Lf
 Yb
 XP
 cN
@@ -2285,11 +2322,11 @@ Yb
 Yb
 Yb
 Yb
-tM
+lE
 Yb
 Yb
 PJ
-st
+RE
 PJ
 PJ
 ki
@@ -2298,17 +2335,17 @@ lx
 (15,1,1) = {"
 lx
 lx
-yu
-dg
+Hw
+Rg
 pF
 CQ
 Di
 JC
-Kg
+CK
 pQ
-Ey
-Bv
-Yb
+xY
+EN
+ZM
 Yb
 lx
 lx
@@ -2317,17 +2354,17 @@ lx
 lx
 lx
 Yb
-IY
+DS
 Kd
 at
 tQ
 Ir
 oo
 HU
-KE
-Cc
-Eq
-Gr
+AP
+mR
+ul
+Hw
 lx
 lx
 "}
@@ -2335,15 +2372,15 @@ lx
 lx
 lx
 Yb
-XD
+zN
 fB
 tT
 Zo
 Zo
-pB
+yG
 Zo
-Ro
-mA
+Fv
+rM
 bK
 Yb
 lx
@@ -2357,12 +2394,12 @@ Zo
 Zo
 Zo
 Zo
-ht
+eN
 iI
 Zo
 uq
 uq
-zm
+lm
 uq
 yS
 lx
@@ -2372,14 +2409,14 @@ lx
 Zo
 hn
 AV
-Sq
+aL
 Zo
-zF
+WV
 YV
 wj
 Zd
 uq
-wx
+cw
 uF
 hU
 uq
@@ -2391,34 +2428,34 @@ Zo
 QM
 Su
 sA
-go
+EB
 XR
 Il
 HG
-WV
+Cz
 uq
-Ib
+zD
 qo
 Vy
-qU
+fZ
 lx
 "}
 (21,1,1) = {"
 lx
 Zo
 If
-dk
+Ni
 AD
 Zo
-RO
-bG
+Wd
+xx
 gX
 Hz
 uq
 NC
 yp
 wu
-qU
+fZ
 lx
 "}
 (22,1,1) = {"

@@ -44,6 +44,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/atom/movable/screen/module_store_icon
 
 	var/atom/movable/screen/dock_allocation/dockallocationtime
+	var/atom/movable/screen/ship_intro/ship_intro
 
 	var/list/static_inventory = list() //the screen objects which are static
 	var/list/toggleable_inventory = list() //the screen objects which can be hidden
