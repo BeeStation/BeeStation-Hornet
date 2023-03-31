@@ -198,7 +198,7 @@
 
 /datum/antagonist/rev/head/proc/make_assistant_icon(hairstyle)
 	var/mob/living/carbon/human/dummy/consistent/assistant = new
-	assistant.hairstyle = hairstyle
+	assistant.hair_style = hairstyle
 	assistant.update_hair()
 
 	var/icon/assistant_icon = render_preview_outfit(/datum/outfit/job/assistant/consistent, assistant)

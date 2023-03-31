@@ -3,19 +3,22 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences
 	var/client/parent
 
-	var/default_slot = 1				//Holder so it doesn't default to slot 1, rather the last one used
-	// TREAT THIS VAR AS PRIVATE. USE set_max_character_slots() PLEASE
-	var/max_usable_slots = 3
+	/// Ensures that we always load the last used save, QOL
+	var/default_slot = 1
+	/// The maximum number of slots we're allowed to contain
+	var/max_save_slots = 3
 
-	//non-preference stuff
-	var/muted = 0
+	/// Bitflags for communications that are muted
+	var/muted = NONE
+	/// Last IP that this client has connected from
 	var/last_ip
+	/// Last CID that this client has connected from
 	var/last_id
 
-	//game-preferences
-	var/lastchangelog = "" //Saved changlog filesize to detect if there was a change
+	/// Cached changelog size, to detect new changelogs since last join
+	var/lastchangelog = ""
 
-	//Antag preferences
+	/// List of ROLE_X that the client wants to be eligible for
 	var/list/be_special = list() //Special role selection
 
 	/// Custom keybindings. Map of keybind names to keyboard inputs.
@@ -73,8 +76,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/list/recently_updated_keys = list()
 
 	/// A cache of preference entries to values.
-	/// Used to avoid expensive READ_FILE every time a preference is retrieved.
-	var/value_cache = list()
+	/// Used to avoid expensive database query every time a preference is retrieved.
+	var/list/value_cache = list()
 
 	/// If set to TRUE, will update character_profiles on the next ui_data tick.
 	var/tainted_character_profiles = FALSE
@@ -91,29 +94,28 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	for (var/middleware_type in subtypesof(/datum/preference_middleware))
 		middleware += new middleware_type(src)
 
-	if(IS_CLIENT_OR_MOCK(parent))
-		load_and_save = !is_guest_key(parent.key)
-		load_path(parent.ckey)
-		if(load_and_save && !fexists(path))
-			try_savefile_type_migration()
-		unlock_content = !!parent.IsByondMember()
-		if(unlock_content)
-			max_save_slots = 8
+	if(istype(parent))
+		if(!IS_GUEST_KEY(parent.key))
+			unlock_content = !!parent.IsByondMember()
+			if(unlock_content)
+				max_save_slots = 8
 	else
-		CRASH("attempted to create a preferences datum without a client or mock!")
-	load_database()
+		CRASH("attempted to create a preferences datum without a client!")
 
 	// give them default keybinds and update their movement keys
-	key_bindings = deep_copy_list(GLOB.default_hotkeys)
-	key_bindings_by_key = get_key_bindings_by_key(key_bindings)
-	randomise = get_default_randomization()
+	//key_bindings = GLOB.default_hotkeys.Copy()
+	//key_bindings_by_key = get_key_bindings_by_key(key_bindings)
+	//randomise = get_default_randomization()
 
 	var/loaded_preferences_successfully = load_preferences()
 	if(loaded_preferences_successfully)
+		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
+			set_max_character_slots(max_usable_slots + 1)
 		if(load_character())
 			return
+	// TODO tgui-prefs implement fallback species
 	//we couldn't load character data so just randomize the character appearance + name
-	randomise_appearance_prefs() //let's create a random character then - rather than a fat, bald and naked man.
+	//randomise_appearance_prefs() //let's create a random character then - rather than a fat, bald and naked man.
 	if(parent)
 		apply_all_client_preferences()
 		parent.set_macros()
@@ -208,7 +210,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			// SAFETY: `load_character` performs sanitization the slot number
 			if (!load_character(params["slot"]))
 				tainted_character_profiles = TRUE
-				randomise_appearance_prefs()
+				//randomise_appearance_prefs()
 				save_character()
 
 			for (var/datum/preference_middleware/preference_middleware as anything in middleware)
@@ -330,12 +332,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	return preferences
 
-/// Applies all PREFERENCE_PLAYER preferences
+/// Applies all PREFERENCE_PLAYER preferences, ignoring cached values
 /datum/preferences/proc/apply_all_client_preferences()
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
-		if (preference.prefence_type != PREFERENCE_PLAYER)
+		if (preference.preference_type != PREFERENCE_PLAYER)
 			continue
 
+		// Remove the cached value
 		value_cache -= preference.type
 		preference.apply_to_client(parent, read_preference(preference.type))
 
@@ -455,25 +458,28 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 	return TRUE
 
 /datum/preferences/proc/GetQuirkBalance()
-	var/bal = 0
-	for(var/V in active_character.all_quirks)
+	/*var/bal = 0
+	for(var/V in all_quirks)
 		var/datum/quirk/T = SSquirks.quirks[V]
 		bal -= initial(T.value)
-	return bal
+	return bal*/
+	return 0
 
 /datum/preferences/proc/GetPositiveQuirkCount()
-	. = 0
-	for(var/q in active_character.all_quirks)
+	/*. = 0
+	for(var/q in all_quirks)
 		if(SSquirks.quirk_points[q] > 0)
-			.++
+			.++*/
+	return 0
 
 /datum/preferences/proc/validate_quirks()
-	if(GetQuirkBalance() < 0)
-		all_quirks = list()
+	//if(GetQuirkBalance() < 0)
+	//	all_quirks = list()
+	return
 
 /// Sanitizes the preferences, applies the randomization prefs, and then applies the preference to the human mob.
 /datum/preferences/proc/safe_transfer_prefs_to(mob/living/carbon/human/character, icon_updates = TRUE, is_antag = FALSE)
-	apply_character_randomization_prefs(is_antag)
+	//apply_character_randomization_prefs(is_antag)
 	apply_prefs_to(character, icon_updates)
 
 /// Applies the given preferences to a human mob.

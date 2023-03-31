@@ -106,7 +106,8 @@
 
 	if(!ishuman(H))
 		return
-	var/mob/living/carbon/human/human = H
+	// TODO tgui-prefs
+	/*var/mob/living/carbon/human/human = H
 	var/list/gear_leftovers = list()
 	if(M.client && LAZYLEN(M.client.prefs.active_character.equipped_gear))
 		for(var/gear in M.client.prefs.active_character.equipped_gear)
@@ -169,7 +170,7 @@
 				continue
 
 			to_chat(M, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
-			qdel(item)
+			qdel(item)*/
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 	if(head_announce)
@@ -390,48 +391,32 @@
 		scandisease.visibility_flags |= HIDDEN_SCANNER
 		H.ForceContractDisease(scandisease)
 
-/// Spawns the mob to be played as, taking into account preferences and the desired spawn point.
-/datum/job/proc/get_spawn_mob(client/player_client, atom/spawn_point)
-	var/mob/living/spawn_instance
-	if(ispath(spawn_type, /mob/living/silicon/ai))
-		// This is unfortunately necessary because of snowflake AI init code. To be refactored.
-		spawn_instance = new spawn_type(get_turf(spawn_point), null, player_client.mob)
-	else
-		spawn_instance = new spawn_type(player_client.mob.loc)
-		spawn_point.JoinPlayerHere(spawn_instance, TRUE)
-	spawn_instance.apply_prefs_job(player_client, src)
-	if(!player_client)
-		qdel(spawn_instance)
-		return // Disconnected while checking for the appearance ban.
-	return spawn_instance
-
-
 /// Applies the preference options to the spawning mob, taking the job into account. Assumes the client has the proper mind.
 /mob/living/proc/apply_prefs_job(client/player_client, datum/job/job)
 
-
+// TODO tgui-prefs
 /mob/living/carbon/human/apply_prefs_job(client/player_client, datum/job/job)
-	var/fully_randomize = GLOB.current_anonymous_theme || player_client.prefs.should_be_random_hardcore(job, player_client.mob.mind) || is_banned_from(player_client.ckey, "Appearance")
+	var/fully_randomize = /*GLOB.current_anonymous_theme ||*/ player_client.prefs.should_be_random_hardcore(job, player_client.mob.mind) || is_banned_from(player_client.ckey, "Appearance")
 	if(!player_client)
 		return // Disconnected while checking for the appearance ban.
 
-	var/require_human = CONFIG_GET(flag/enforce_human_authority) && (job.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND)
+	var/require_human = FALSE//CONFIG_GET(flag/enforce_human_authority) && (job.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND)
 
 	if(fully_randomize)
-		if(require_human)
+		/*if(require_human)
 			player_client.prefs.randomise_appearance_prefs(~RANDOMIZE_SPECIES)
 		else
-			player_client.prefs.randomise_appearance_prefs()
+			player_client.prefs.randomise_appearance_prefs()*/
 
 		player_client.prefs.apply_prefs_to(src)
 
 		if (require_human)
 			set_species(/datum/species/human)
 
-		if(GLOB.current_anonymous_theme)
-			fully_replace_character_name(null, GLOB.current_anonymous_theme.anonymous_name(src))
+		//if(GLOB.current_anonymous_theme)
+		//	fully_replace_character_name(null, GLOB.current_anonymous_theme.anonymous_name(src))
 	else
-		var/is_antag = (player_client.mob.mind in GLOB.pre_setup_antags)
+		var/is_antag = FALSE//(player_client.mob.mind in GLOB.pre_setup_antags)
 		if(require_human)
 			player_client.prefs.randomise["species"] = FALSE
 		player_client.prefs.safe_transfer_prefs_to(src, TRUE, is_antag)
@@ -445,21 +430,22 @@
 			real_name = species.random_name(gender, TRUE)
 	dna.update_dna_identity()
 
-
+// TODO tgui-prefs
 /mob/living/silicon/ai/apply_prefs_job(client/player_client, datum/job/job)
-	if(GLOB.current_anonymous_theme)
-		fully_replace_character_name(real_name, GLOB.current_anonymous_theme.anonymous_ai_name(TRUE))
-		return
+	//if(GLOB.current_anonymous_theme)
+	//	fully_replace_character_name(real_name, GLOB.current_anonymous_theme.anonymous_ai_name(TRUE))
+	//	return
 	apply_pref_name(/datum/preference/name/ai, player_client) // This proc already checks if the player is appearance banned.
 	set_core_display_icon(null, player_client)
 
-
+// TODO tgui-prefs
 /mob/living/silicon/robot/apply_prefs_job(client/player_client, datum/job/job)
 	if(mmi)
 		var/organic_name
-		if(GLOB.current_anonymous_theme)
-			organic_name = GLOB.current_anonymous_theme.anonymous_name(src)
-		else if(player_client.prefs.read_preference(/datum/preference/choiced/random_name) == RANDOM_ENABLED || CONFIG_GET(flag/force_random_names) || is_banned_from(player_client.ckey, "Appearance"))
+		//if(GLOB.current_anonymous_theme)
+		//	organic_name = GLOB.current_anonymous_theme.anonymous_name(src)
+		/*else if below */
+		if(player_client.prefs.read_preference(/datum/preference/choiced/random_name) == RANDOM_ENABLED || CONFIG_GET(flag/force_random_names) || is_banned_from(player_client.ckey, "Appearance"))
 			if(!player_client)
 				return // Disconnected while checking the appearance ban.
 
@@ -478,5 +464,5 @@
 			mmi.brainmob.real_name = organic_name //the name of the brain inside the cyborg is the robotized human's name.
 			mmi.brainmob.name = organic_name
 	// If this checks fails, then the name will have been handled during initialization.
-	if(!GLOB.current_anonymous_theme && player_client.prefs.read_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME)
-		apply_pref_name(/datum/preference/name/cyborg, player_client)
+	//if(!GLOB.current_anonymous_theme && player_client.prefs.read_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME)
+	//	apply_pref_name(/datum/preference/name/cyborg, player_client)

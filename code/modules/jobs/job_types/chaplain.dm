@@ -43,6 +43,7 @@
 		return
 	H.mind?.holy_role = HOLY_ROLE_HIGHPRIEST
 
+	var/client/player_client = H.client
 	var/new_religion = player_client?.prefs?.read_preference(/datum/preference/name/religion) || DEFAULT_RELIGION
 	var/new_deity = player_client?.prefs?.read_preference(/datum/preference/name/deity) || DEFAULT_DEITY
 

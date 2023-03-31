@@ -54,11 +54,11 @@
 
 /obj/item/circuit_component/light/input_received(datum/port/input/port)
 	. = ..()
-	brightness.set_value(clamp(brightness.value || 0, 0, max_power))
-	red.set_value(clamp(red.value, 0, 255))
-	blue.set_value(clamp(blue.value, 0, 255))
-	green.set_value(clamp(green.value, 0, 255))
-	var/list/hsl = rgb2num(rgb(red.value || 0, green.value || 0, blue.value || 0), COLORSPACE_HSL)
+	brightness.set_input(clamp(brightness.input_value || 0, 0, max_power))
+	red.set_input(clamp(red.input_value, 0, 255))
+	blue.set_input(clamp(blue.input_value, 0, 255))
+	green.set_input(clamp(green.input_value, 0, 255))
+	var/list/hsl = rgb2num(rgb(red.input_value || 0, green.input_value || 0, blue.input_value || 0), COLORSPACE_HSL)
 	shell_light_color = rgb(hsl[1], hsl[2], max(min_lightness, hsl[3]), space=COLORSPACE_HSL)
 	if(.)
 		return

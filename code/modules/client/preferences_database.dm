@@ -1,16 +1,3 @@
-
-
-
-/datum/preferences/proc/load_path(ckey, filename="preferences.json")
-	if(!ckey || !load_and_save)
-		return
-	path = "data/player_saves/[ckey[1]]/[ckey]/[filename]"
-
-/datum/preferences/proc/load_savefile()
-	if(load_and_save && !path)
-		CRASH("Attempted to load savefile without first loading a path!")
-	savefile = new /datum/json_savefile(load_and_save ? path : null)
-
 /datum/preferences/proc/load_preferences()
 	apply_all_client_preferences()
 

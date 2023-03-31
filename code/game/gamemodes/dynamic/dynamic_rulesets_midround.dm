@@ -184,7 +184,11 @@
 	name = "Syndicate Sleeper Agent"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
 	antag_datum = /datum/antagonist/traitor
+<<<<<<< HEAD
 	role_preference = /datum/role_preference/midround_living/traitor
+=======
+	antag_flag = ROLE_TRAITOR
+>>>>>>> 9f075c09c0b (Compile fixes)
 	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	restricted_roles = list(JOB_NAME_CYBORG, JOB_NAME_AI, "Positronic Brain")
 	required_candidates = 1
@@ -239,7 +243,11 @@
 	name = "Malfunctioning AI"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/traitor
+<<<<<<< HEAD
 	role_preference = /datum/role_preference/midround_living/malfunctioning_ai
+=======
+	antag_flag = ROLE_MALF
+>>>>>>> 9f075c09c0b (Compile fixes)
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_SCIENTIST, JOB_NAME_CHEMIST, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFENGINEER)
 	exclusive_roles = list(JOB_NAME_AI)
 	required_enemies = list(3,3,2,2,2,1,1,1,1,0)
@@ -300,7 +308,11 @@
 	name = "Wizard"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/wizard
+<<<<<<< HEAD
 	role_preference = /datum/role_preference/midround_ghost/wizard
+=======
+	antag_flag = ROLE_WIZARD
+>>>>>>> 9f075c09c0b (Compile fixes)
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_RESEARCHDIRECTOR) //RD doesn't believe in magic
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
@@ -331,7 +343,11 @@
 /datum/dynamic_ruleset/midround/from_ghosts/nuclear
 	name = "Nuclear Assault"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
+<<<<<<< HEAD
 	role_preference = /datum/role_preference/midround_ghost/nuclear_operative
+=======
+	antag_flag = ROLE_OPERATIVE
+>>>>>>> 9f075c09c0b (Compile fixes)
 	antag_datum = /datum/antagonist/nukeop
 	enemy_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(3,3,2,2,2,2,1,1,0,0)

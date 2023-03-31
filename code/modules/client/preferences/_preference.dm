@@ -223,7 +223,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	CRASH("`apply_to_human()` was not implemented for [type]!")
 
 /// Read a /datum/preference type and return its value.
-/// This will write to the savefile if a value was not found with the new value.
+/// This will write to the database with the default value if a value was not found.
 /datum/preferences/proc/read_preference(preference_type)
 	var/datum/preference/preference_entry = GLOB.preference_entries[preference_type]
 	if (isnull(preference_entry))
@@ -440,13 +440,13 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	abstract_type = /datum/preference/color
 
 /datum/preference/color/deserialize(input, datum/preferences/preferences)
-	return sanitize_color(input)
+	return input//TODO tgui-prefs sanitize_color(input)
 
 /datum/preference/color/create_default_value()
 	return random_color()
 
 /datum/preference/color/is_valid(value)
-	return findtext(value, GLOB.is_color)
+	return TRUE //TODO tgui-prefs
 
 /// Takes an assoc list of names to /datum/sprite_accessory and returns a value
 /// fit for `/datum/preference/init_possible_values()`

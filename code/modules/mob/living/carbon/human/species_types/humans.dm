@@ -44,6 +44,6 @@
 	return SPECIES_DEFAULT_SNIFF_SOUND(user)
 
 /datum/species/human/prepare_human_for_preview(mob/living/carbon/human/human)
-	human.hairstyle = "Business Hair"
+	human.hair_style = "Business Hair"
 	human.hair_color = "b96" // brown
 	human.update_hair()

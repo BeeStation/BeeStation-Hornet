@@ -129,7 +129,7 @@
 	group = "religion"
 
 /datum/preference/name/religion/create_default_value()
-	return pick(GLOB.religion_names)
+	return DEFAULT_RELIGION
 
 /datum/preference/name/deity
 	db_key = "deity_name"

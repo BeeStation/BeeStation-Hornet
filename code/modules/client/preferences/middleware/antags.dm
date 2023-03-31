@@ -84,12 +84,12 @@
 		if (isnull(antag_flag))
 			continue
 
-		var/days_needed = preferences.parent?.get_remaining_days(
-			GLOB.special_roles[antag_flag_override || antag_flag]
-		)
+		//TODO tgui-prefs var/days_needed = preferences.parent?.get_remaining_days(
+		//	GLOB.special_roles[antag_flag_override || antag_flag]
+		//)
 
-		if (days_needed > 0)
-			antag_days_left[serialize_antag_name(antag_flag)] = days_needed
+		//if (days_needed > 0)
+		//	antag_days_left[serialize_antag_name(antag_flag)] = days_needed
 
 	return antag_days_left
 

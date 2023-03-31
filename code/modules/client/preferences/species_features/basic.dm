@@ -49,10 +49,10 @@
 	relevant_species_trait = FACEHAIR
 
 /datum/preference/choiced/facial_hairstyle/init_possible_values()
-	return generate_possible_values_for_sprite_accessories_on_head(GLOB.facial_hairstyles_list)
+	return generate_possible_values_for_sprite_accessories_on_head(GLOB.facial_hair_styles_list)
 
 /datum/preference/choiced/facial_hairstyle/apply_to_human(mob/living/carbon/human/target, value)
-	target.facial_hairstyle = value
+	target.facial_hair_style = value
 
 /datum/preference/choiced/facial_hairstyle/compile_constant_data()
 	var/list/data = ..()
@@ -88,10 +88,10 @@
 	relevant_species_trait = HAIR
 
 /datum/preference/choiced/hairstyle/init_possible_values()
-	return generate_possible_values_for_sprite_accessories_on_head(GLOB.hairstyles_list)
+	return generate_possible_values_for_sprite_accessories_on_head(GLOB.hair_styles_list)
 
 /datum/preference/choiced/hairstyle/apply_to_human(mob/living/carbon/human/target, value)
-	target.hairstyle = value
+	target.hair_style = value
 
 /datum/preference/choiced/hairstyle/compile_constant_data()
 	var/list/data = ..()

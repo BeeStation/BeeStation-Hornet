@@ -17,10 +17,11 @@
 		return FALSE
 	if(!user.client)
 		return FALSE
-	user.client.prefs.pai_name = name
-	user.client.prefs.pai_description = description
-	user.client.prefs.pai_comment = comments
-	user.client.prefs.save_preferences()
+	//TODO tgui-prefs
+	//user.client.prefs.pai_name = name
+	//user.client.prefs.pai_description = description
+	//user.client.prefs.pai_comment = comments
+	//user.client.prefs.save_preferences()
 	to_chat(usr, "<span class='boldnotice'>You have saved pAI information.</span>")
 	return TRUE
 
@@ -34,7 +35,8 @@
 
 	if(!user.client)
 		return FALSE
-	name = user.client.prefs.pai_name
-	description = user.client.prefs.pai_description
-	comments = user.client.prefs.pai_comment
+	//TODO tgui-prefs
+	//name = user.client.prefs.pai_name
+	//description = user.client.prefs.pai_description
+	//comments = user.client.prefs.pai_comment
 	return TRUE

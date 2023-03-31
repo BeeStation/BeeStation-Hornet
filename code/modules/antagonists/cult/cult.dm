@@ -6,6 +6,7 @@
 	antagpanel_category = "Cult"
 	antag_moodlet = /datum/mood_event/cult
 	preview_outfit = /datum/outfit/cultist
+	var/datum/action/innate/cult/comm/communion = new
 	var/datum/action/innate/cult/mastervote/vote = new
 	var/datum/action/innate/cult/blood_magic/magic = new
 	banning_key = BAN_ROLE_CULTIST
@@ -79,7 +80,7 @@
 	icon.Crop(-15, -15, 48, 48)
 
 	var/obj/item/melee/cultblade/longsword = new
-	icon.Blend(icon(longsword.lefthand_file, longsword.inhand_icon_state), ICON_OVERLAY)
+	icon.Blend(icon(longsword.lefthand_file, longsword.icon_state), ICON_OVERLAY)
 	qdel(longsword)
 
 	// Move the guy back to the bottom left, 32x32.

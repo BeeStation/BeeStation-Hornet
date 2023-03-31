@@ -21,7 +21,7 @@
 /datum/preference/choiced/species/init_possible_values()
 	var/list/values = list()
 
-	for (var/species_id in get_selectable_species())
+	for (var/species_id in GLOB.roundstart_races)
 		values += GLOB.species_list[species_id]
 
 	return values
@@ -34,7 +34,7 @@
 
 	var/list/food_flags = FOOD_FLAGS
 
-	for (var/species_id in get_selectable_species())
+	for (var/species_id in GLOB.roundstart_races)
 		var/species_type = GLOB.species_list[species_id]
 		var/datum/species/species = new species_type
 
@@ -42,9 +42,9 @@
 
 		if (!(TRAIT_NOHUNGER in species.inherent_traits))
 			diet = list(
-				"liked_food" = bitfield2list(species.liked_food, food_flags),
-				"disliked_food" = bitfield2list(species.disliked_food, food_flags),
-				"toxic_food" = bitfield2list(species.toxic_food, food_flags),
+				"liked_food" = bitfield2list(initial(species.mutanttongue.liked_food), food_flags),
+				"disliked_food" = bitfield2list(initial(species.mutanttongue.disliked_food), food_flags),
+				"toxic_food" = bitfield2list(initial(species.mutanttongue.toxic_food), food_flags),
 			)
 
 		data[species_id] = list(
@@ -54,7 +54,7 @@
 			"use_skintones" = species.use_skintones,
 			"sexes" = species.sexes,
 
-			"enabled_features" = species.get_features(),
+			"enabled_features" = list()//TODO tgui-prefs species.get_features(),
 		) + diet
 
 	return data

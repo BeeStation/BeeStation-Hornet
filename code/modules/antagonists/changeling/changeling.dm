@@ -348,10 +348,11 @@
 	if(isipc(C))
 		C.set_species(/datum/species/human)
 		var/replacementName = random_unique_name(C.gender)
-		if(C.client.prefs.active_character.custom_names["human"])
-			C.fully_replace_character_name(C.real_name, C.client.prefs.active_character.custom_names["human"])
-		else
-			C.fully_replace_character_name(C.real_name, replacementName)
+		//TODO tgui-prefs
+		//if(C.client.prefs.active_character.custom_names["human"])
+		//	C.fully_replace_character_name(C.real_name, C.client.prefs.active_character.custom_names["human"])
+		//else
+		C.fully_replace_character_name(C.real_name, replacementName)
 		for(var/datum/data/record/E in GLOB.data_core.general)
 			if(E.fields["name"] == C.real_name)
 				E.fields["species"] = "\improper Human"
@@ -608,7 +609,8 @@
 	return parts.Join("<br>")
 
 /datum/antagonist/changeling/get_preview_icon()
-	var/icon/final_icon = render_preview_outfit(/datum/outfit/changeling)
+	// TODO tgui-prefs
+	var/icon/final_icon = render_preview_outfit(/datum/outfit/ashwalker) // <---
 	var/icon/split_icon = render_preview_outfit(/datum/outfit/job/engineer)
 
 	final_icon.Shift(WEST, world.icon_size / 2)
