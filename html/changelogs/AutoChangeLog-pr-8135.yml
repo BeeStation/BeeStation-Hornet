@@ -1,0 +1,5 @@
+author: Bobbanz1, cacogen, ShizCalev, Hatterhat
+delete-after: true
+changes:
+  - tweak: Can use BSRPED to add components to machine frames at a distance
+  - tweak: RPEDs now drop their lowest part tier first when quick-emptied (used inhand).
