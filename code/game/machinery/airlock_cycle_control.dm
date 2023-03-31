@@ -826,6 +826,11 @@
 /obj/machinery/door/airlock/Initialize(mapload)
 	. = ..()
 	update_aac_docked()
+	var/area/A = get_area(src)
+	if(istype(A, /area/shuttle))
+		var/area/shuttle/AS = A
+		req_ship_access = AS.mobile_port?.id
+
 /obj/machinery/door/airlock/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()

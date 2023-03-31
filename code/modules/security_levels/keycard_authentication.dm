@@ -28,6 +28,10 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 /obj/machinery/keycard_auth/Initialize(mapload)
 	. = ..()
 	ev = GLOB.keycard_events.addEvent("triggerEvent", CALLBACK(src, PROC_REF(triggerEvent)))
+	var/area/A = get_area(src)
+	if(istype(A, /area/shuttle))
+		var/area/shuttle/AS = A
+		req_ship_access = AS.mobile_port?.id
 
 /obj/machinery/keycard_auth/Destroy()
 	GLOB.keycard_events.clearEvent("triggerEvent", ev)

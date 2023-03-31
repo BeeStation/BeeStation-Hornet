@@ -35,6 +35,11 @@
 		GLOB.deliverybeacons += src
 		GLOB.deliverybeacontags += location
 
+	var/area/A = get_area(src)
+	if(istype(A, /area/shuttle))
+		var/area/shuttle/AS = A
+		req_ship_access = AS.mobile_port?.id
+
 /obj/machinery/navbeacon/Destroy()
 	if (GLOB.navbeacons["[z]"])
 		GLOB.navbeacons["[z]"] -= src //Remove from beacon list, if in one.

@@ -41,7 +41,10 @@
 		else
 			board.one_access = 1
 			board.accesses = req_one_access
-
+		var/area/A = get_area(src)
+		if(istype(A, /area/shuttle))
+			var/area/shuttle/AS = A
+			req_ship_access = AS.mobile_port?.id
 
 /obj/machinery/button/update_icon()
 	cut_overlays()

@@ -89,7 +89,7 @@
 	///used for the Blackout malf module
 	var/overload = 1
 	///used for counting how many times it has been hit, used for Aliens at the moment
-	var/beenhit = 0 
+	var/beenhit = 0
 	///Reference to the shunted ai inside
 	var/mob/living/silicon/ai/occupier = null
 	///Is there an AI being transferred out of us?
@@ -118,9 +118,9 @@
 	var/obj/machinery/computer/apc_control/remote_control = null
 
 	//Clockcult - Has the reward for converting an APC been given?
-	var/clock_cog_rewarded = FALSE	
+	var/clock_cog_rewarded = FALSE
 	//Clockcult - The integration cog inserted inside of us
-	var/integration_cog = null		
+	var/integration_cog = null
 
 /obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
 	if (!req_access)
@@ -227,6 +227,10 @@
 			stack_trace("Bad areastring path for [src], [areastring]")
 	else if(isarea(A) && areastring == null)
 		area = A
+
+	if(istype(area, /area/shuttle))
+		var/area/shuttle/AS = A
+		req_ship_access = AS.mobile_port?.id
 
 	if(auto_name)
 		name = "\improper [get_area_name(area, TRUE)] APC"

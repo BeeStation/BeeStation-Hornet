@@ -70,10 +70,6 @@
 	unbolted = add_output_port("Unbolted", PORT_TYPE_SIGNAL)
 	user_port = add_output_port("User", PORT_TYPE_ATOM)
 	trigger_port = add_output_port("Triggered", PORT_TYPE_SIGNAL)
-	var/area/A = get_area(src)
-	if(istype(A, /area/shuttle))
-		var/area/shuttle/AS = A
-		req_ship_access = AS.mobile_port?.id
 
 /obj/item/circuit_component/airlock/Destroy()
 	bolt = null

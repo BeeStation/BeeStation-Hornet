@@ -162,6 +162,12 @@
 
 	bot_core = new bot_core_type(src)
 
+	var/area/A = get_area(src)
+	if(istype(A, /area/shuttle))
+		var/area/shuttle/AS = A
+		bot_core.req_ship_access = AS.mobile_port?.id
+	access_card.ship_port = bot_core.req_ship_access
+
 	//Adds bot to the diagnostic HUD system
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)

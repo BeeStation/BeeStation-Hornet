@@ -117,6 +117,10 @@ const SCANNER_GATE_ROUTES = {
     title: 'Scanner Mode: Nanites',
     component: () => ScannerGateNanites,
   },
+  Ship: {
+    title: 'Scanner Mode: Ship',
+    component: () => ScannerGateShip,
+  },
 };
 
 const ScannerGateControl = (props, context) => {
@@ -322,6 +326,20 @@ const ScannerGateNanites = (props, context) => {
               })} />
           </LabeledList.Item>
         </LabeledList>
+      </Box>
+      <ScannerGateMode />
+    </>
+  );
+};
+
+const ScannerGateShip = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { reverse } = data;
+  return (
+    <>
+      <Box mb={2}>
+        Trigger if the person scanned {reverse ? 'is not' : 'is'}
+        {' '}a member of your ship.
       </Box>
       <ScannerGateMode />
     </>

@@ -56,6 +56,14 @@
 		"caution" = /obj/machinery/portable_atmospherics/canister,
 	)
 
+/obj/machinery/portable_atmospherics/canister/Initialize(mapload)
+	. = ..()
+	if(mapload)
+		var/area/A = get_area(src)
+		if(istype(A, /area/shuttle))
+			var/area/shuttle/AS = A
+			req_ship_access = AS.mobile_port?.id
+
 /obj/machinery/portable_atmospherics/canister/interact(mob/user)
 	if(!allowed(user))
 		to_chat(user, "<span class='warning'>Error - Unauthorized User</span>")
