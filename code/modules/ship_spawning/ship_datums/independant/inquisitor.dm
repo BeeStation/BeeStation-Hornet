@@ -5,6 +5,7 @@
 		/datum/job/captain = 1,
 		/datum/job/security_officer = 2,
 		/datum/job/station_engineer = 3,
+		/datum/job/shaft_miner = 2,
 		/datum/job/assistant = INFINITY,
 	)
 	spawned_template = /datum/map_template/shuttle/ship/inquisitor
