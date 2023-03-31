@@ -15,7 +15,7 @@
 	buckle_lying = FALSE
 	buckle_requires_restraints = TRUE
 
-	var/power_gen = 1000 // Enough to power a single APC. 4000 output with T4 capacitor.
+	var/power_gen = 10000 // Enough to power a single APC. 4000 output with T4 capacitor.
 
 	var/irradiate = TRUE // RTGs irradiate surroundings, but only when panel is open.
 
