@@ -228,9 +228,6 @@
 	else if(isarea(A) && areastring == null)
 		area = A
 
-	if(istype(area, /area/shuttle))
-		var/area/shuttle/AS = A
-		req_ship_access = AS.mobile_port?.id
 
 	if(auto_name)
 		name = "\improper [get_area_name(area, TRUE)] APC"
@@ -240,6 +237,10 @@
 	make_terminal()
 
 	addtimer(CALLBACK(src, PROC_REF(update)), 5)
+
+/obj/machinery/power/apc/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+	..()
+	req_ship_access = port.id
 
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()

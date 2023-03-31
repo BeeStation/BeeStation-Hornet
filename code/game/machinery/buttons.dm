@@ -42,12 +42,6 @@
 			board.one_access = 1
 			board.accesses = req_one_access
 
-	if(!mapload)
-		var/area/A = get_area(src)
-		if(istype(A, /area/shuttle))
-			var/area/shuttle/AS = A
-			req_ship_access = AS.mobile_port?.id
-
 /obj/machinery/button/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
 	..()
 	if(req_access.len || req_one_access.len)

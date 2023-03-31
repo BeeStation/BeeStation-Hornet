@@ -56,13 +56,10 @@
 		"caution" = /obj/machinery/portable_atmospherics/canister,
 	)
 
-/obj/machinery/portable_atmospherics/canister/Initialize(mapload)
-	. = ..()
-	if(mapload)
-		var/area/A = get_area(src)
-		if(istype(A, /area/shuttle))
-			var/area/shuttle/AS = A
-			req_ship_access = AS.mobile_port?.id
+/obj/machinery/portable_atmospherics/canister/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+	..()
+	if(restricted)
+		req_ship_access = port.id
 
 /obj/machinery/portable_atmospherics/canister/interact(mob/user)
 	if(!allowed(user))

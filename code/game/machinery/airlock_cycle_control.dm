@@ -126,11 +126,6 @@
 	scan_on_late_init = mapload
 	if(mapload && (. != INITIALIZE_HINT_QDEL))
 		return INITIALIZE_HINT_LATELOAD
-	if(!mapload)
-		var/area/A = get_area(src)
-		if(istype(A,/area/shuttle))
-			var/area/shuttle/AS = A
-			req_ship_access = AS.mobile_port?.id
 
 /obj/machinery/advanced_airlock_controller/LateInitialize(mapload)
 	. = ..()

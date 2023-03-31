@@ -47,14 +47,19 @@
 	if(mapload)		// if closed, any item at the crate's loc is put in the contents
 		if(!opened)
 			addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
-		if(secure)
-			var/area/A = get_area(src)
-			if(istype(A, /area/shuttle))
-				var/area/shuttle/AS = A
-				req_ship_access = AS.mobile_port?.id
+	if(secure && !mapload)
+		var/area/A = get_area(src)
+		if(istype(A, /area/shuttle))
+			var/area/shuttle/AS = A
+			req_ship_access = AS.mobile_port?.id
 	. = ..()
 	update_icon()
 	PopulateContents()
+
+/obj/structure/closet/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+	..()
+	if(secure)
+		req_ship_access = port.id
 
 //USE THIS TO FILL IT, NOT INITIALIZE OR NEW
 /obj/structure/closet/proc/PopulateContents()

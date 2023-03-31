@@ -71,7 +71,7 @@
 	if(!target_dept && (ACCESS_CHANGE_IDS in id_card.access))
 		minor = FALSE
 		authenticated = TRUE
-		if(ACCESS_CAPTAIN in id_card.access && id_card.ship_port)
+		if((ACCESS_CAPTAIN in id_card.access) && id_card.ship_port)
 			ship_port = id_card.GetShipAccess()
 		update_static_data(user)
 		return TRUE

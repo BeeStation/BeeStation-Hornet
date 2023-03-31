@@ -18,6 +18,9 @@
 		var/area/shuttle/AS = A
 		req_ship_access = AS.mobile_port?.id
 
+/obj/item/storage/lockbox/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+	..()
+	req_ship_access = port.id
 
 /obj/item/storage/lockbox/ComponentInitialize()
 	. = ..()

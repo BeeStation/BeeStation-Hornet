@@ -71,7 +71,7 @@ export const NtosCardContent = (props, context) => {
                 act(authenticated ? 'PRG_logout' : 'PRG_authenticate');
               }} />
             <Button
-              icon="shuttle-space"
+              icon="rocket"
               content="Set ship"
               disabled={!ship || !has_id}
               onClick={() => act('PRG_setship')}
