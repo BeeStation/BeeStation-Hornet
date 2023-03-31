@@ -444,7 +444,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/tank_dispenser/oxygen,
+/obj/machinery/telecomms/ship,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/vanguard)
 "Ub" = (
