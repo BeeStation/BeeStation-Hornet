@@ -556,6 +556,26 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_SCIENCE
 	category = list("Shuttle Weapons", "Security")
 
+/datum/design/shuttle_railgun
+	name = "Railgun Shell"
+	desc=  "A single magnetically driven railgun shell with a devestating penetrating power."
+	id = "shuttle_railgun_shell"
+	materials = list(/datum/material/iron = 15 * MINERAL_MATERIAL_AMOUNT)
+	build_path = /obj/item/ammo_casing/shuttle_railgun
+	build_type = PROTOLATHE | AUTOLATHE
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_SCIENCE
+	category = list("Shuttle Weapons", "Security")
+
+/datum/design/shuttle_railgun
+	name = "Uranium-Tipped Railgun Shell"
+	desc=  "A single magnetically driven railgun shell tipped with uranium."
+	id = "shuttle_railgun_uranium"
+	materials = list(/datum/material/iron = 15 * MINERAL_MATERIAL_AMOUNT, /datum/material/uranium = 4 * MINERAL_MATERIAL_AMOUNT)
+	build_path = /obj/item/ammo_casing/shuttle_railgun/uranium
+	build_type = PROTOLATHE | AUTOLATHE
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_SCIENCE
+	category = list("Shuttle Weapons", "Security")
+
 /datum/design/shuttle_missile
 	name = "Shuttle-Fired Missile"
 	desc=  "A small explosive missile, fired from a shuttle turret."

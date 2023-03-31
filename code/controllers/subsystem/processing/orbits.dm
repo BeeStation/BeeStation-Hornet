@@ -272,7 +272,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	// Magically wrench in everything
 	var/obj/item/wrench/w = new()
 	for (var/turf/T in M.return_turfs())
-		for (var/obj/machinery/portable_atmospherics/pa)
+		for (var/obj/machinery/portable_atmospherics/pa in T)
 			pa.attackby(w, usr)
 	qdel(w)
 	//Give the ship some AI

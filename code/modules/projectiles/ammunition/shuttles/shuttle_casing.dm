@@ -16,6 +16,22 @@
 	caliber = "shuttle_chaingun"
 	projectile_type = /obj/item/projectile/bullet/shuttle/ballistic/bullet/heavy
 
+/obj/item/ammo_casing/shuttle_railgun
+	name = "\improper Railgun Shell"
+	desc = "A shell that contains a magnetically driven railgun shell."
+	caliber = "shuttle_railgun"
+	icon_state = "rg"
+	icon = 'icons/obj/shuttle_weapons.dmi'
+	projectile_type = /obj/item/projectile/bullet/shuttle/ballistic/guass
+
+/obj/item/ammo_casing/shuttle_railgun/uranium
+	name = "\improper Uranium-tipped Railgun Shell"
+	desc = "A shell that contains a magnetically driven railgun shell."
+	caliber = "shuttle_railgun"
+	icon_state = "rgu"
+	icon = 'icons/obj/shuttle_weapons.dmi'
+	projectile_type = /obj/item/projectile/bullet/shuttle/ballistic/guass/uranium
+
 /obj/item/ammo_casing/caseless/shuttle_missile
 	name = "\improper Centaur missile"
 	desc = "A long-ranged inter-ship missile with an explosive payload."
@@ -63,4 +79,3 @@
 	caliber = "shuttle_missile"
 	icon_state = "missile_emp"
 	projectile_type = /obj/item/projectile/bullet/shuttle/missile/emp
-

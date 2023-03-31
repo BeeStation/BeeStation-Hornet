@@ -16,6 +16,8 @@
 /obj/item/projectile/bullet/shuttle/ballistic/guass
 	icon_state = "guassstrong"
 	name = "guass round"
+	icon = 'icons/obj/shuttle_weapons.dmi'
+	icon_state = "rail"
 	damage = 50
 	armour_penetration = 40
 	projectile_piercing = ALL
@@ -34,6 +36,7 @@
 /obj/item/projectile/bullet/shuttle/ballistic/guass/uranium
 	icon_state = "gaussradioactive"
 	name = "uranium-coated guass round"
+	icon_state = "railu"
 	irradiate = 200
 	damage = 80
 	slur = 50

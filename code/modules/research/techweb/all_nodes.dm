@@ -414,7 +414,7 @@
 	display_name = "Shuttle Mounted Railguns"
 	description = "Combines the power of electromagnetism with the destructive power of iron, creating shuttle-mounted weapons capable of tearing through ships."
 	prereq_ids = list("shuttle_ballistics_better", "emp_super")
-	design_ids = list("shuttle_railgun", "loader_railgun")
+	design_ids = list("shuttle_railgun", "loader_railgun", "shuttle_railgun_shell", "shuttle_railgun_uranium")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
 
