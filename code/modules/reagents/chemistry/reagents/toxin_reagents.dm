@@ -485,7 +485,7 @@
 		for(var/datum/component/nanites/N in M.datum_components)
 			for(var/X in N.programs)
 				var/datum/nanite_program/NP = X
-				NP.software_error() //Completely scrambles and destroys nanites
+				NP.software_error(5) //all programs are overwritten with /glitch which does no harm, but gradually drains nanites. 
 	..()
 
 /datum/reagent/toxin/fentanyl
