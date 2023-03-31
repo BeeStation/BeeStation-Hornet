@@ -14,6 +14,9 @@
 /obj/machinery/door/airlock/shell/check_access(obj/item/I)
 	return FALSE
 
+/obj/machinery/door/airlock/shell/check_access_ship(obj/item/I)
+	return FALSE
+
 /obj/item/circuit_component/airlock
 	display_name = "Airlock"
 	display_desc = "The general interface with an airlock. Includes general statuses of the airlock"
@@ -67,6 +70,10 @@
 	unbolted = add_output_port("Unbolted", PORT_TYPE_SIGNAL)
 	user_port = add_output_port("User", PORT_TYPE_ATOM)
 	trigger_port = add_output_port("Triggered", PORT_TYPE_SIGNAL)
+	var/area/A = get_area(src)
+	if(istype(A, /area/shuttle))
+		var/area/shuttle/AS = A
+		req_ship_access = AS.mobile_port?.id
 
 /obj/item/circuit_component/airlock/Destroy()
 	bolt = null

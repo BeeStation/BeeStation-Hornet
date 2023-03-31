@@ -110,6 +110,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/list/access = list()
+	var/ship_port // The ship this card has access to
 	var/registered_name// The name registered_name on the card
 	var/assignment
 	var/hud_state = JOB_HUD_UNKNOWN
@@ -121,8 +122,13 @@
 
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
-	if(mapload && access_txt)
-		access = text2access(access_txt)
+	if(mapload)
+		if(access_txt)
+			access = text2access(access_txt)
+		var/area/A = get_area(src)
+		if(istype(A, /area/shuttle))
+			var/area/shuttle/AS = A
+			ship_port = AS.mobile_port?.id
 
 /obj/item/card/id/Destroy()
 	if (registered_account)
@@ -338,6 +344,9 @@
 
 /obj/item/card/id/RemoveID()
 	return src
+
+/obj/item/card/id/GetShipAccess()
+	return ship_port
 
 /*
 Usage:
@@ -779,6 +788,9 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/paper/GetAccess()
 	return list()
+
+/obj/item/card/id/paper/GetShipAccess()
+	return
 
 /obj/item/card/id/paper/update_label(newname, newjob)
 	if(newname || newjob)

@@ -3,7 +3,7 @@
 ///Note that this will return FALSE when passed null, unless the door doesn't require any access.
 /obj/proc/allowed(mob/M)
 	//check if it doesn't require any access at all
-	if(src.check_access(null))
+	if(src.check_access(null) && src.check_access_ship(null))
 		return TRUE
 	if(issilicon(M))
 		var/mob/living/silicon/S = M
@@ -16,16 +16,16 @@
 	else if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		//if they are holding or wearing a card that has access, that works
-		if(check_access(H.get_active_held_item()) || src.check_access(H.wear_id))
+		if((check_access(H.get_active_held_item()) || src.check_access(H.wear_id)) && (check_access_ship(H.get_active_held_item()) || src.check_access_ship(H.wear_id)))
 			return TRUE
 	else if(ismonkey(M) || isalienadult(M))
 		var/mob/living/carbon/george = M
 		//they can only hold things :(
-		if(check_access(george.get_active_held_item()))
+		if(check_access(george.get_active_held_item()) && check_access_ship(george.get_active_held_item()))
 			return TRUE
 	else if(isanimal(M))
 		var/mob/living/simple_animal/A = M
-		if(check_access(A.get_active_held_item()) || check_access(A.access_card))
+		if((check_access(A.get_active_held_item()) || check_access(A.access_card)) && (check_access_ship(A.get_active_held_item()) || check_access_ship(A.access_card)))
 			return TRUE
 	return FALSE
 
@@ -413,3 +413,16 @@
 	if(I_hud)
 		return I_hud
 	return "unknown"
+
+/*
+	Access for different ships using supercruise
+*/
+
+/obj/proc/check_access_ship(obj/item/I)
+	if(!req_ship_access)
+		return TRUE
+	else if(req_ship_access != I.GetShipAccess())
+		return FALSE
+
+/obj/item/proc/GetShipAccess()
+	return null

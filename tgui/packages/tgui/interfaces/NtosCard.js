@@ -29,6 +29,7 @@ export const NtosCardContent = (props, context) => {
     have_printer,
     have_id_slot,
     id_name,
+    ship,
   } = data;
   const [
     selectedDepartment,
@@ -69,6 +70,12 @@ export const NtosCardContent = (props, context) => {
               onClick={() => {
                 act(authenticated ? 'PRG_logout' : 'PRG_authenticate');
               }} />
+            <Button
+              icon="shuttle-space"
+              content="Set ship"
+              disabled={!ship || !has_id}
+              onClick={() => act('PRG_setship')}
+            />
           </>
         )}>
         <Button

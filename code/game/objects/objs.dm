@@ -34,6 +34,7 @@
 	var/req_access_txt = "0"
 	var/list/req_one_access
 	var/req_one_access_txt = "0"
+	var/req_ship_access
 	/// Custom fire overlay icon
 	var/custom_fire_overlay
 

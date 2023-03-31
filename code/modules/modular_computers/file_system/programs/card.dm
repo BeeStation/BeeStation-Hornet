@@ -23,6 +23,7 @@
 	var/is_centcom = FALSE
 	var/minor = FALSE
 	var/authenticated = FALSE
+	var/ship_port
 	var/list/region_access
 	var/list/head_subordinates
 	///Which departments this computer has access to. Defined as access regions. null = all departments
@@ -30,6 +31,7 @@
 
 	//For some reason everything was exploding if this was static.
 	var/list/sub_managers
+
 
 /datum/computer_file/program/card_mod/New(obj/item/modular_computer/comp)
 	. = ..()
@@ -69,6 +71,8 @@
 	if(!target_dept && (ACCESS_CHANGE_IDS in id_card.access))
 		minor = FALSE
 		authenticated = TRUE
+		if(ACCESS_CAPTAIN in id_card.access && id_card.ship_port)
+			ship_port = id_card.GetShipAccess()
 		update_static_data(user)
 		return TRUE
 
@@ -283,14 +287,25 @@
 			log_id("[key_name(usr)] removed [region] regional access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
-
+		if("PRG_setship")
+			if(!authenticated || !ship_port)
+				return
+			target_id_card.ship_port = ship_port
+			var/ship_name = SSshuttle.getShuttle(ship_port)?.name
+			log_id("[key_name(usr)] added [ship_name]'s access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+			return TRUE
 
 
 /datum/computer_file/program/card_mod/ui_static_data(mob/user)
 	var/list/data = list()
-	data["station_name"] = station_name()
+	var/ship_name
+	if(ship_port)
+		ship_name = SSshuttle.getShuttle(ship_port)?.name
+	data["station_name"] = ship_port ? ship_name : station_name()
 	data["centcom_access"] = is_centcom
 	data["minor"] = target_dept || minor ? TRUE : FALSE
+	data["ship"] = ship_port
 
 	var/list/departments = target_dept
 	if(is_centcom)

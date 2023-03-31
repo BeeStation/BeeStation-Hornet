@@ -154,6 +154,7 @@ SUBSYSTEM_DEF(shuttle)
 	emergencyNoRecall = FALSE
 
 /datum/controller/subsystem/shuttle/proc/getShuttle(id)
+	RETURN_TYPE(/obj/docking_port/mobile)
 	for(var/obj/docking_port/mobile/M in mobile)
 		if(M.id == id)
 			return M

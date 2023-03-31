@@ -29,6 +29,9 @@
 		total_access |= card_slot2.stored_card.GetAccess()
 	return total_access
 
+/obj/item/computer_hardware/card_slot/GetShipAccess()
+	return stored_card?.GetShipAccess()
+
 /obj/item/computer_hardware/card_slot/GetID()
 	if(stored_card)
 		return stored_card
