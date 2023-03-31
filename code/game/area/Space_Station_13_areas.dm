@@ -132,7 +132,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	min_ambience_cooldown = 20 SECONDS
 	max_ambience_cooldown = 35 SECONDS
 	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
-	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
+	area_flags = BLOBS_ALLOWED
 	mood_bonus = -1
 	mood_message = "<span class='warning'>It's kind of cramped in here!\n</span>"
 	// assistants are associated with maints, jani closet is in maints, engis have to go into maints often
@@ -216,7 +216,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/department/science/xenobiology
 	name = "Xenobiology Maintenance"
 	icon_state = "xenomaint"
-	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | XENOBIOLOGY_COMPATIBLE
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | XENOBIOLOGY_COMPATIBLE
 
 
 //Maintenance - Generic
@@ -559,7 +559,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/dorms
 	name = "Dormitories"
 	icon_state = "dorms"
-	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
+	area_flags = VALID_TERRITORY | BLOBS_ALLOWED
 	mood_bonus = 3
 	mood_message = "<span class='nicegreen'>There's no place like the dorms!\n</span>"
 
@@ -798,7 +798,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/engine/atmospherics_engine
 	name = "Atmospherics Engine"
 	icon_state = "atmos_engine"
-	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
+	area_flags = BLOBS_ALLOWED
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 
@@ -814,7 +814,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/engine/supermatter
 	name = "Supermatter Engine"
 	icon_state = "engine_sm_room"
-	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
+	area_flags = BLOBS_ALLOWED
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 
@@ -851,7 +851,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/solar
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
-	area_flags = UNIQUE_AREA
 	flags_1 = NONE
 	ambience_index = AMBIENCE_ENGI
 	sound_environment = SOUND_AREA_SPACE
@@ -1361,7 +1360,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/science/test_area
 	name = "Toxins Test Area"
-	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
+	area_flags = BLOBS_ALLOWED
 	icon_state = "tox_test"
 
 /area/science/mixing
@@ -1371,7 +1370,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/science/mixing/chamber
 	name = "Toxins Mixing Chamber"
-	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
+	area_flags = BLOBS_ALLOWED
 	icon_state = "tox_mix_chamber"
 
 /area/science/misc_lab
@@ -1439,7 +1438,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/storage/tcom
 	name = "Telecomms Storage"
-	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
+	area_flags = BLOBS_ALLOWED
 	icon_state = "green"
 
 /area/storage/eva
