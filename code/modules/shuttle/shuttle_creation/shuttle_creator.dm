@@ -10,22 +10,23 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 //============ Shuttle Creator Object ============
 /obj/item/shuttle_creator
 	name = "Rapid Shuttle Designator"
+	desc = "A device used to define the area required for custom ships. Uses bluespace crystals to create bluespace-capable ships."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rsd"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	desc = "A device used to define the area required for custom ships. Uses bluespace crystals to create bluespace-capable ships."
 	density = FALSE
 	anchored = FALSE
 	flags_1 = CONDUCT_1
 	item_flags = NOBLUDGEON
+	slot_flags = ITEM_SLOT_BELT
 	force = 0
 	throwforce = 8
 	throw_speed = 3
 	throw_range = 5
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_TINY
 	req_access_txt = "11"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 	var/ready = TRUE
 	//pre-designation
@@ -34,7 +35,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	//During designation
 	var/overwritten_area = /area/space
 	var/list/loggedTurfs = list()
-	var/area/loggedOldArea
+	var/list/loggedOldArea = list()
 	var/area/shuttle/recorded_shuttle_area
 	var/datum/shuttle_creator_overlay_holder/overlay_holder
 	//After designation
@@ -256,7 +257,11 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	port.linkup(new_shuttle, stationary_port)
 
 	//Update doors
-	var/list/firedoors = loggedOldArea.firedoors
+	var/list/firedoors = list()
+	for(var/area/oldArea in loggedOldArea)
+		if(!islist(oldArea.firedoors))
+			continue
+		firedoors |= oldArea.firedoors
 	for(var/door in firedoors)
 		var/obj/machinery/door/firedoor/FD = door
 		FD.CalculateAffectingAreas()
@@ -363,7 +368,11 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 			continue
 		port.add_turf(T, recorded_shuttle_area)
 
-	var/list/firedoors = loggedOldArea.firedoors
+	var/list/firedoors = list()
+	for(var/area/oldArea in loggedOldArea)
+		if(!islist(oldArea.firedoors))
+			continue
+		firedoors |= oldArea.firedoors
 	for(var/door in firedoors)
 		var/obj/machinery/door/firedoor/FD = door
 		FD.CalculateAffectingAreas()
@@ -409,6 +418,9 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 			continue
 		if(towed_shuttles && istype(place) && towed_shuttles[place.mobile_port]) //prevent recursive stacking
 			to_chat(usr, "<span class='warning'>Warning, shuttle must not use any material connected to a docked shuttle. Your shuttle is currenly overlapping with [place.mobile_port.name].</span>")
+			return FALSE
+		if(istype(place) && place.mobile_port?.undockable) //Can't make a shuttle on something we can't dock on
+			to_chat(usr, "<span class='warning'>Warning, [place.mobile_port.name] is preventing designation in this region.</span>")
 			return FALSE
 		if(!istype(t,/turf/open/floor/dock/drydock)) //Drydocks bypass the area check, but not the recursion check
 			var/static/list/drydock_types = typesof(/turf/open/floor/dock/drydock)
@@ -466,7 +478,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	if(!check_area(list(T)))
 		return FALSE
 	loggedTurfs |= T
-	loggedOldArea = get_area(T)
+	loggedOldArea |= get_area(T)
 	overlay_holder.highlight_turf(T)
 
 /obj/item/shuttle_creator/proc/add_saved_area(mob/user)
@@ -476,7 +488,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	var/list/turfs = detect_room(get_turf(user), area_or_turf_fail_types)
 	if(!check_area(turfs))
 		return FALSE
-	loggedOldArea = get_area(get_turf(user))
+	loggedOldArea |= get_area(get_turf(user)) //This is disgusting and I hate it
 	loggedTurfs |= turfs
 	overlay_holder.highlight_area(turfs)
 	//TODO READD THIS SHIT: icon_state = "rsd_used"
@@ -490,16 +502,22 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		to_chat(usr, "<span class='warning'>You cannot undesignate the exterior airlock.</span>")
 		return
 	loggedTurfs -= T
-	if(are_turfs_connected())
-		loggedOldArea = get_area(T)
-		overlay_holder.unhighlight_turf(T)
-	else
+	if(!are_turfs_connected())
 		to_chat(usr, "<span class='warning'>Caution, removing this turf would split the shuttle.</span>")
 		loggedTurfs |= T
+		return
+	var/new_area
+	if(linkedShuttleId)
+		var/obj/docking_port/mobile/port = SSshuttle.getShuttle(linkedShuttleId)
+		new_area = port.underlying_turf_area[T]
+	if(new_area)
+		loggedOldArea |= new_area
+	overlay_holder.unhighlight_turf(T)
 
 /obj/item/shuttle_creator/proc/reset_saved_area(loud = TRUE)
 	overlay_holder.clear_highlights()
 	loggedTurfs.Cut()
+	loggedOldArea.Cut()
 
 	//Rebuild the highlights on our shuttle
 	var/obj/docking_port/mobile/port
@@ -509,6 +527,8 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		for(var/turf/T in port.underlying_turf_area)
 			loggedTurfs |= T
 			overlay_holder.create_hightlight(T, T == recorded_origin)
+		for(var/area/A in port.shuttle_areas)
+			loggedOldArea |= A //Can't directly
 	if(loud)
 		to_chat(usr, "<span class='notice'>You reset the area buffer on the [src].</span>")
 

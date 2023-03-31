@@ -1,3 +1,9 @@
+/obj/item/modular_computer/interact(mob/user)
+	if(enabled)
+		ui_interact(user)
+	else
+		turn_on(user)
+
 // Operates TGUI
 
 /obj/item/modular_computer/ui_state(mob/user)
@@ -10,27 +16,16 @@
 	)
 
 /obj/item/modular_computer/ui_interact(mob/user, datum/tgui/ui)
-	if(!enabled)
+	if(!enabled || !user.is_literate() || !use_power())
 		if(ui)
 			ui.close()
-		return FALSE
-	if(!use_power())
-		if(ui)
-			ui.close()
-		return FALSE
+		return
 
 	// Robots don't really need to see the screen, their wireless connection works as long as computer is on.
 	if(!screen_on && !issilicon(user))
 		if(ui)
 			ui.close()
 		return FALSE
-
-	// If we have an active program switch to it now.
-	if(active_program)
-		if(ui) // This is the main laptop screen. Since we are switching to program's UI close it for now.
-			ui.close()
-		active_program.ui_interact(user)
-		return
 
 	// We are still here, that means there is no program loaded. Load the BIOS/ROM/OS/whatever you want to call it.
 	// This screen simply lists available programs and user may select them.
@@ -44,15 +39,54 @@
 		playsound(src, 'sound/items/bikehorn.ogg', 30, TRUE)
 
 	ui = SStgui.try_update_ui(user, src, ui)
-	if (!ui)
-		ui = new(user, src, "NtosMain")
-		ui.set_autoupdate(TRUE)
-		if(ui.open())
-			ui.send_asset(get_asset_datum(/datum/asset/simple/headers))
+	if(!ui)
+		if(active_program)
+			ui = new(user, src, active_program.tgui_id, active_program.filedesc)
+			ui.set_autoupdate(TRUE)
+		else
+			ui = new(user, src, "NtosMain")
+			ui.set_autoupdate(TRUE)
+		ui.open()
+		return
+
+	var/old_open_ui = ui.interface
+	if(active_program)
+		ui.interface = active_program.tgui_id
+		ui.title = active_program.filedesc
+	else
+		ui.interface = "NtosMain"
+	//opened a new UI
+	if(old_open_ui != ui.interface)
+		update_static_data(user, ui) // forces a static UI update for the new UI
+		ui.send_assets() // sends any new asset datums from the new UI
+		if(active_program)
+			active_program.on_ui_create(user, ui)
+
+
+/obj/item/modular_computer/ui_close(mob/user, datum/tgui/tgui)
+	if(active_program)
+		active_program.on_ui_close(user, tgui)
+
+/obj/item/modular_computer/ui_assets(mob/user)
+	var/list/data = list()
+	data += get_asset_datum(/datum/asset/simple/headers)
+	if(active_program)
+		data += active_program.ui_assets(user)
+	return data
+
+/obj/item/modular_computer/ui_static_data(mob/user)
+	. = ..()
+	var/list/data = list()
+	if(active_program)
+		data += active_program.ui_static_data(user)
+		return data
+	return data
 
 /obj/item/modular_computer/ui_data(mob/user)
 	var/list/data = get_header_data()
-	data["device_theme"] = device_theme
+	if(active_program)
+		data += active_program.ui_data(user)
+		return data
 	data["login"] = list()
 
 	data["disk"] = null
@@ -88,11 +122,11 @@
 		data["disk_name"] = ssd.name
 
 		for(var/datum/computer_file/program/prog in ssd.stored_files)
-			var/running = FALSE
+			var/background_running = FALSE
 			if(prog in idle_threads)
-				running = TRUE
+				background_running = TRUE
 
-			data["disk_programs"] += list(list("name" = prog.filename, "desc" = prog.filedesc, "running" = running, "icon" = prog.program_icon, "alert" = prog.alert_pending))
+			data["disk_programs"] += list(list("name" = prog.filename, "desc" = prog.filedesc, "running" = background_running, "icon" = prog.program_icon, "alert" = prog.alert_pending))
 
 	data["removable_media"] = list()
 	if(all_components[MC_SDD])
@@ -107,20 +141,19 @@
 	data["programs"] = list()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
 	for(var/datum/computer_file/program/P in hard_drive.stored_files)
-		var/running = 0
+		var/background_running = FALSE
 		if(P in idle_threads)
-			running = 1
+			background_running = TRUE
 
-		data["programs"] += list(list("name" = P.filename, "desc" = P.filedesc, "running" = running, "icon" = P.program_icon, "alert" = P.alert_pending))
+		data["programs"] += list(list("name" = P.filename, "desc" = P.filedesc, "running" = background_running, "icon" = P.program_icon, "alert" = P.alert_pending))
 
 	data["has_light"] = has_light
 	data["light_on"] = light_on
 	data["comp_light_color"] = comp_light_color
 	return data
 
-
 // Handles user's GUI input
-/obj/item/modular_computer/ui_act(action, params)
+/obj/item/modular_computer/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 	if(device_theme == THEME_THINKTRONIC)
@@ -134,32 +167,29 @@
 			shutdown_computer()
 			return TRUE
 		if("PC_minimize")
-			var/mob/user = usr
 			if(!active_program || !all_components[MC_CPU])
 				return
 
 			idle_threads.Add(active_program)
 			active_program.program_state = PROGRAM_STATE_BACKGROUND // Should close any existing UIs
-
 			active_program = null
+			if(ismob(usr))
+				ui_interact(usr) // Re-open the UI on this computer. It should show the main screen now.
 			update_icon()
-			if(user && istype(user))
-				ui_interact(user) // Re-open the UI on this computer. It should show the main screen now.
-
+			return TRUE
 		if("PC_killprogram")
 			var/prog = params["name"]
-			var/datum/computer_file/program/P = null
-			var/mob/user = usr
+			var/datum/computer_file/program/killed_program  = null
 			if(hard_drive)
-				P = hard_drive.find_file_by_name(prog)
+				killed_program  = hard_drive.find_file_by_name(prog)
 
-			if(!istype(P) || P.program_state == PROGRAM_STATE_KILLED)
+			if(!istype(killed_program) || killed_program.program_state == PROGRAM_STATE_KILLED)
 				return
-
-			P.kill_program(forced = TRUE)
-			to_chat(user, "<span class='notice'>Program [P.filename].[P.filetype] with PID [rand(100,999)] has been killed.</span>")
+			if(killed_program in idle_threads)
+				idle_threads.Remove(killed_program)
+			killed_program.kill_program(forced = TRUE)
+			to_chat(usr, "<span class='notice'>Program [killed_program.filename].[killed_program.filetype] with PID [rand(100,999)] has been killed.</span>")
 			return TRUE
-
 		if("PC_runprogram")
 			var/is_disk = params["is_disk"]
 			var/datum/computer_file/program/program
@@ -201,34 +231,39 @@
 						return
 					if(uninstall_component(portable_drive, usr, TRUE))
 						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+					return TRUE
 				if("job disk")
 					var/obj/item/computer_hardware/hard_drive/role/ssd = all_components[MC_HDD_JOB]
 					if(!ssd)
 						return
 					if(uninstall_component(ssd, usr, TRUE))
 						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+					return TRUE
 				if("intelliCard")
 					var/obj/item/computer_hardware/ai_slot/intelliholder = all_components[MC_AI]
 					if(!intelliholder)
 						return
 					if(intelliholder.try_eject(user))
 						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+					return TRUE
 				if("ID")
 					var/obj/item/computer_hardware/card_slot/cardholder = all_components[MC_CARD]
 					if(!cardholder)
 						return
 					if(cardholder.try_eject(user))
 						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+					return TRUE
 				if("secondary RFID card")
 					var/obj/item/computer_hardware/card_slot/cardholder = all_components[MC_CARD2]
 					if(!cardholder)
 						return
 					if(cardholder.try_eject(user))
 						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+					return TRUE
 		if("PC_Imprint_ID")
 			var/obj/item/computer_hardware/card_slot/cardholder = all_components[MC_CARD]
-			if(!cardholder)
-				return
+			if(!cardholder || !can_save_id)
+				return TRUE
 
 			saved_identification = cardholder.current_identification
 			saved_job = cardholder.current_job
@@ -236,11 +271,13 @@
 			update_id_display()
 
 			playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
-			addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
+			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
+			return TRUE
 		if("PC_Toggle_Auto_Imprint")
 			saved_auto_imprint = !saved_auto_imprint
 			if(saved_auto_imprint)
 				on_id_insert()
+			return TRUE
 		if("PC_Pai_Interact")
 			if(!can_store_pai || !istype(stored_pai_card))
 				return
@@ -251,8 +288,9 @@
 				remove_pai()
 				to_chat(usr, "<span class='notice'>You remove the pAI from [src].</span>")
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
-		else
-			return
+			return TRUE
+	if(active_program)
+		return active_program.ui_act(action, params, ui, state)
 
 /obj/item/modular_computer/ui_host()
 	if(physical)

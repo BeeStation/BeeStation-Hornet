@@ -5,6 +5,7 @@
 	var/list/mob/living/buckled_mobs = null //list()
 	var/max_buckled_mobs = 1
 	var/buckle_prevents_pull = FALSE
+	var/can_be_unanchored = FALSE
 
 //Interaction
 /atom/movable/attack_hand(mob/living/user)
@@ -201,7 +202,7 @@
 		M.visible_message("<span class='warning'>[user] starts buckling [M] to [src]!</span>",\
 			"<span class='userdanger'>[user] starts buckling you to [src]!</span>",\
 			"<span class='hear'>You hear metal clanking.</span>")
-		if(!do_after(user, 2 SECONDS, TRUE, M))
+		if(!do_after(user, 2 SECONDS, M))
 			return FALSE
 
 		// Sanity check before we attempt to buckle. Is everything still in a kosher state for buckling after the 3 seconds have elapsed?

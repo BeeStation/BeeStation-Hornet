@@ -47,7 +47,7 @@
 
 	var/saved_screen //for saving the screen when they die
 	var/datum/action/innate/change_screen/change_screen
-	
+
 	speak_no_tongue = FALSE  // who stole my soundblaster?! (-candy/etherware)
 
 /datum/species/ipc/random_name(gender, unique, lastname, attempts)
@@ -91,7 +91,7 @@
 	saved_screen = C.dna.features["ipc_screen"]
 	C.dna.features["ipc_screen"] = "BSOD"
 	C.update_body()
-	addtimer(CALLBACK(src, .proc/post_death, C), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(post_death), C), 5 SECONDS)
 
 /datum/species/ipc/proc/post_death(mob/living/carbon/C)
 	if(C.stat < DEAD)

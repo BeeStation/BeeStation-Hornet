@@ -17,6 +17,8 @@ GLOBAL_LIST_EMPTY(request_list)
 	var/author = ""
 	///What is the job of the author?
 	var/author_job = ""
+	///What is the account of the author?
+	var/datum/bank_account/author_account
 	///Body of the full-size article to the feed channel.
 	var/body =""
 	///In station time, at what time was the author's messages censored and blocked from viewing.
@@ -199,10 +201,11 @@ GLOBAL_LIST_EMPTY(request_list)
 		newChannel.channel_ID = hardset_channel
 	network_channels += newChannel
 
-/datum/feed_network/proc/submit_article(msg, author, channel_name, datum/picture/picture, adminMessage = FALSE, allow_comments = TRUE, update_alert = TRUE, author_job = "")
+/datum/feed_network/proc/submit_article(msg, author, channel_name, datum/picture/picture, adminMessage = FALSE, allow_comments = TRUE, update_alert = TRUE, author_job = "", author_account = null)
 	var/datum/feed_message/newMsg = new /datum/feed_message
 	newMsg.author = author
 	newMsg.author_job = author_job
+	newMsg.author_account = author_account
 	newMsg.body = msg
 	newMsg.time_stamp = "[station_time_timestamp()]"
 	newMsg.is_admin_message = adminMessage

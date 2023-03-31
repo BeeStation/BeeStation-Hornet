@@ -1,6 +1,6 @@
 /obj/machinery/atmospherics/components/unary/plasma_refiner
 	name = "plasma refinery"
-	desc = "A refinery that burns plasma sheets into plasma gas."
+	desc = "A refinery that burns plasma sheets into plasma gas. Can also create plasma sheets, albeit inefficiently."
 	icon_state = "plasma_refinery"
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/plasma_refiner
@@ -31,6 +31,19 @@
 	if(default_deconstruction_crowbar(W))
 		return
 
+	. = ..()
+
+/obj/machinery/atmospherics/components/unary/plasma_refiner/AltClick(mob/living/user)
+	var/datum/gas_mixture/air_contents = airs[1]
+	var/plasmoles = air_contents.get_moles(GAS_PLASMA)
+	if(!air_contents)
+		return
+	if(plasmoles >= 100)
+		var/obj/item/stack/sheet/mineral/plasma/P = new(src.loc, 1)
+		air_contents.adjust_moles(GAS_PLASMA, -100)
+		say("100 moles of plasma consumed. A sheet of [P.name] has been created.")
+	else
+		say("Insufficient plasma. At least 100 moles of plasma are required. There are currently [plasmoles] moles of plasma.")
 	. = ..()
 
 /obj/machinery/atmospherics/components/unary/plasma_refiner/RefreshParts()

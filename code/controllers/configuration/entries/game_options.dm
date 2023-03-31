@@ -187,7 +187,14 @@
 	integer = FALSE
 	min_val = 0
 
+/datum/config_entry/number/malf_ai_minimum_pop	// minimum population for malf AI to occur.
+	config_entry_value = 30
+	min_val = 0
+
 /datum/config_entry/flag/show_game_type_odds	//if set this allows players to see the odds of each roundtype on the get revision screen
+
+/datum/config_entry/string/fallback_default_species
+	config_entry_value = SPECIES_HUMAN
 
 /datum/config_entry/keyed_list/roundstart_races	//races you can play as from the get go.
 	key_mode = KEY_MODE_TEXT
@@ -241,6 +248,8 @@
 /datum/config_entry/flag/revival_pod_plants
 
 /datum/config_entry/flag/revival_cloning
+
+/datum/config_entry/flag/post_revival_message
 
 /datum/config_entry/number/revival_brain_life
 	config_entry_value = -1

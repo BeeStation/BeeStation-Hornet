@@ -287,9 +287,15 @@ effective or pretty fucking useless.
 /obj/item/jammer/attack_self(mob/user)
 	SEND_SIGNAL(src, COMSIG_TOGGLE_JAMMER, user, FALSE)
 
-/atom/proc/is_jammed()
+///Checks if an atom is jammed by a radio jammer
+///Parameters:
+/// - Protection level: The amount of protection that the atom has. See jamming_defines.dm
+/atom/proc/is_jammed(protection_level)
 	var/turf/position = get_turf(src)
 	for(var/datum/component/radio_jamming/jammer as anything in GLOB.active_jammers)
+		//Check to see if the jammer is strong enough to block this signal
+		if (protection_level > jammer.intensity)
+			continue
 		var/turf/jammer_turf = get_turf(jammer.parent)
 		if(position?.get_virtual_z_level() == jammer_turf.get_virtual_z_level() && (get_dist(position, jammer_turf) <= jammer.range))
 			return TRUE

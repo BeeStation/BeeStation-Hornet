@@ -3,7 +3,6 @@
 #define PAYCHECK_ASSISTANT 10
 #define PAYCHECK_MINIMAL 10
 #define PAYCHECK_EASY 15
-#define PAYCHECK_MEDIUM_BY_HALF 20 // currently geneticist only (they are in med and sci both)
 #define PAYCHECK_MEDIUM 40
 #define PAYCHECK_HARD 70
 #define PAYCHECK_COMMAND_NT   20 // given from nanotrasen to heads
@@ -44,6 +43,9 @@
 #define ACCOUNT_VIP_NAME "Nanotrasen VIP Expense Account Budget"
 #define ACCOUNT_NEET_ID "Welfare"
 #define ACCOUNT_NEET_NAME "Space Nations Welfare"
+#define ACCOUNT_GOLEM_ID "Golem"
+#define ACCOUNT_GOLEM_NAME "Shared Mining Account"
+
 
 #define ACCOUNT_ALL_NAME "United Station Budget" // for negative station trait - united budget
 
@@ -65,3 +67,8 @@
 #define MAX_MAIL_PER_MINUTE 3
 /// Probability of using letters of envelope sprites on all letters.
 #define FULL_CRATE_LETTER_ODDS 70
+
+
+/// used for custom_currency
+#define ACCOUNT_CURRENCY_MINING "mining points"
+#define ACCOUNT_CURRENCY_EXPLO "exploration points"

@@ -41,6 +41,7 @@
 #define LOG_VIRUS			(1 << 16)
 #define LOG_CLONING			(1 << 17)
 #define LOG_ID				(1 << 18)
+#define LOG_RADIO_EMOTE		(1 << 19)
 
 //Individual logging panel pages
 #define INDIVIDUAL_ATTACK_LOG		(LOG_ATTACK)

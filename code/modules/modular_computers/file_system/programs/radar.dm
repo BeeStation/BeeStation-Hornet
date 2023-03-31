@@ -49,7 +49,7 @@
 	)
 
 /datum/computer_file/program/radar/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 	// PDAs should not have full radar capabilities
 	data["full_capability"] = !istype(computer, /obj/item/modular_computer/tablet/pda)
 	data["selected"] = selected
@@ -75,8 +75,10 @@
 	switch(action)
 		if("selecttarget")
 			selected = params["ref"]
+			return TRUE
 		if("scan")
 			scan()
+			return TRUE
 
 /**
   *Updates tracking information of the selected target.
@@ -252,12 +254,12 @@
 		return FALSE
 	if(..())
 		if(HAS_TRAIT(humanoid, TRAIT_NANITE_SENSORS))
-			if(humanoid.is_jammed())
+			if(humanoid.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK))
 				return FALSE
 			return TRUE
 		if(istype(humanoid.w_uniform, /obj/item/clothing/under))
 			var/obj/item/clothing/under/uniform = humanoid.w_uniform
-			if(uniform.is_jammed())
+			if(uniform.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK))
 				return FALSE
 			if(uniform.has_sensor && uniform.sensor_mode >= SENSOR_COORDS) // Suit sensors must be on maximum
 				return TRUE

@@ -5,12 +5,18 @@
  * 		Recipe list datum
  */
 
+//stack recipe placement check types config
+/// checks if there is an object of the result type in any of the cardinal directions
+#define STACK_CHECK_CARDINALS "cardinals"
+/// checks if there is an object of the result type within one tile
+#define STACK_CHECK_ADJACENT "adjacent"
+
 /*
  * Stacks
  */
 
 /obj/item/stack
-	icon = 'icons/obj/stack_objects.dmi'
+	icon = 'icons/obj/stacks/minerals.dmi'
 	gender = PLURAL
 	///The list recipes you can make with the stack
 	var/list/datum/stack_recipe/recipes
@@ -21,7 +27,7 @@
 	///also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
 	var/max_amount = 50
 	///It's TRUE if module is used by a cyborg, and uses its storage
-	var/is_cyborg = FALSE 
+	var/is_cyborg = FALSE
 	///Holder var for the cyborg energy source
 	var/datum/robot_energy_storage/source
 	///How much energy from storage it costs
@@ -65,7 +71,7 @@
 	update_weight()
 	update_icon()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -376,7 +382,7 @@
 	SIGNAL_HANDLER
 
 	if(merge_check(O) && !O.throwing)
-		INVOKE_ASYNC(src, .proc/merge, O)
+		INVOKE_ASYNC(src, PROC_REF(merge), O)
 
 /obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(merge_check(AM))
@@ -499,3 +505,6 @@
 /datum/stack_recipe_list/New(title, recipes)
 	src.title = title
 	src.recipes = recipes
+
+#undef STACK_CHECK_CARDINALS
+#undef STACK_CHECK_ADJACENT

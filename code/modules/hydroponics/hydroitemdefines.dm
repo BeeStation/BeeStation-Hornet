@@ -9,6 +9,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT
+	belt_icon_state = "plant_analyzer"
 	materials = list(/datum/material/iron=30, /datum/material/glass=20)
 
 // *************************************

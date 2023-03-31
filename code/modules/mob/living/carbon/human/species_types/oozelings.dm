@@ -165,3 +165,34 @@
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	return ..()
+
+/datum/species/oozeling/z_impact_damage(mob/living/carbon/human/H, turf/T, levels)
+	// Splat!
+	H.visible_message("<span class='notice'>[H] hits the ground, flattening on impact!</span>",
+		"<span class='warning'>You fall [levels] level\s into [T]. Your body flattens upon landing!</span>")
+	H.Paralyze(levels * 8 SECONDS)
+	var/amount_total = H.get_distributed_zimpact_damage(levels) * 0.45
+	H.adjustBruteLoss(amount_total)
+	playsound(H, 'sound/effects/blobattack.ogg', 40, TRUE)
+	playsound(H, 'sound/effects/splat.ogg', 50, TRUE)
+	H.AddElement(/datum/element/squish, levels * 15 SECONDS)
+	// SPLAT!
+	// 5: 25%, 4: 16%, 3: 9%
+	if(levels >= 3 && prob(min((levels ** 2), 50)))
+		H.gib()
+		return
+
+/datum/species/oozeling/get_cough_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_COUGH_SOUND(user)
+
+/datum/species/oozeling/get_gasp_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_GASP_SOUND(user)
+
+/datum/species/oozeling/get_sigh_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SIGH_SOUND(user)
+
+/datum/species/oozeling/get_sneeze_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNEEZE_SOUND(user)
+
+/datum/species/oozeling/get_sniff_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNIFF_SOUND(user)

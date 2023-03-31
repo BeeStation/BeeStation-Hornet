@@ -18,10 +18,18 @@
 	var/creation_time = 0 //time to create a holosign in deciseconds.
 	var/holosign_type = /obj/structure/holosign/wetsign
 	var/holocreator_busy = FALSE //to prevent placing multiple holo barriers at once
+	var/ranged = FALSE
+
+/obj/item/holosign_creator/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/openspace_item_click_handler)
+
+/obj/item/holosign_creator/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+	afterattack(target, user, proximity_flag)
 
 /obj/item/holosign_creator/afterattack(atom/target, mob/user, flag)
 	. = ..()
-	if(flag)
+	if(flag || ranged)
 		if(!check_allowed_items(target, 1))
 			return
 		var/turf/T = get_turf(target)

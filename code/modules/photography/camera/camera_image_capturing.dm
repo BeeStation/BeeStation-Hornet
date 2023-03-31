@@ -7,7 +7,7 @@
 		loc = location
 		appearance = A.appearance
 		dir = A.dir
-		if(ismovableatom(A))
+		if(ismovable(A))
 			var/atom/movable/AM = A
 			_step_x = AM.step_x
 			_step_y = AM.step_y
@@ -33,7 +33,7 @@
 				images += new /image/photo(newT, T.loc)
 			for(var/i in T.contents)
 				var/atom/A = i
-				if(!A.invisibility || (see_ghosts && isobserver(A)))
+				if(!A.invisibility || (see_ghosts && can_camera_see_atom(A)))
 					images += new /image/photo(newT, A)
 		skip_normal = TRUE
 		wipe_images = TRUE
@@ -45,7 +45,7 @@
 			images += new /image/photo(T.loc, T)
 			for(var/atom/movable/A in T)
 				if(A.invisibility)
-					if(!(see_ghosts && isobserver(A)))
+					if(!(see_ghosts && can_camera_see_atom(A)))
 						continue
 				images += new /image/photo(A.loc, A)
 			CHECK_TICK

@@ -104,3 +104,17 @@
 /obj/item/paper/fluff/stations/lavaland/orm_notice
 	name = "URGENT!"
 	info = "A hastily written note has been scribbled here... <br><br> Please use the ore redemption machine in the cargo office for smelting. PLEASE! <br><br>--The Research Staff"
+
+//////////// GlowStation
+/obj/item/paper/fluff/stations/glowstation/vault
+	name = "paper- 'Vault Memo'"
+	info = "<h1>Notice</h1>\
+	<p>FROM: Department of Nuclear Accounting<br>\
+	TO: All whom it may apply</p>\
+	<br>\
+	<p>The station's nuclear self destruct device and any local classified documentation may be found at the station's nuclear site.</p>\
+	<br>\
+	<p>The site is located north of engineering on deck 1, and can be accessed via the command staircase on the northern side of the command hallway on the 5th floor.</p>\
+	<br>\
+	<p>signed: <strong><em>Kevin Firewind</em></strong></p>\
+	<p>Glory to Nanotrasen</p>"

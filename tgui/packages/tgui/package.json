@@ -5,12 +5,13 @@
   "dependencies": {
     "@popperjs/core": "^2.9.3",
     "common": "workspace:*",
-    "dateformat": "^4.5.1",
-    "dompurify": "^2.3.1",
-    "inferno": "^7.4.8",
-    "inferno-vnode-flags": "^7.4.8",
+    "csstype": "^3.1.1",
+    "dateformat": "^5.0.3",
+    "dompurify": "^3.0.1",
+    "inferno": "^8.0.6",
+    "inferno-vnode-flags": "^8.0.6",
     "js-yaml": "^4.1.0",
-    "marked": "^4.0.10",
+    "marked": "^4.2.12",
     "tgui-dev-server": "workspace:*",
     "tgui-polyfill": "workspace:*"
   }

@@ -251,7 +251,11 @@
 		G.fields["fingerprint"]	= rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)
 		G.fields["p_stat"]		= "Active"
 		G.fields["m_stat"]		= "Stable"
-		G.fields["sex"]			= H.gender
+		switch(H.gender)
+			if(MALE, FEMALE)
+				G.fields["gender"] = capitalize(H.gender)
+			if(PLURAL)
+				G.fields["gender"] = "Other"
 		G.fields["photo_front"]	= photo_front
 		G.fields["photo_side"]	= photo_side
 		general += G
@@ -289,7 +293,11 @@
 		L.fields["name"]		= H.real_name
 		L.fields["rank"] 		= H.mind.assigned_role
 		L.fields["age"]			= H.age
-		L.fields["sex"]			= H.gender
+		switch(H.gender)
+			if(MALE, FEMALE)
+				L.fields["gender"] = capitalize(H.gender)
+			if(PLURAL)
+				L.fields["gender"] = "Other"
 		L.fields["blood_type"]	= H.dna.blood_type
 		L.fields["b_dna"]		= H.dna.unique_enzymes
 		L.fields["identity"]	= H.dna.uni_identity
@@ -300,11 +308,59 @@
 		locked += L
 	return
 
-/datum/datacore/proc/get_id_photo(mob/living/carbon/human/H, client/C, show_directions = list(SOUTH))
+/**
+ * Supporing proc for getting general records
+ * and using them as pAI ui data. This gets
+ * medical information - or what I would deem
+ * medical information - and sends it as a list.
+ *
+ * @return - list(general_records_out)
+ */
+/datum/datacore/proc/get_general_records()
+	if(!GLOB.data_core.general)
+		return list()
+	/// The array of records
+	var/list/general_records_out = list()
+	for(var/datum/data/record/gen_record as anything in GLOB.data_core.general)
+		/// The object containing the crew info
+		var/list/crew_record = list()
+		crew_record["ref"] = REF(gen_record)
+		crew_record["name"] = gen_record.fields["name"]
+		crew_record["physical_health"] = gen_record.fields["p_stat"]
+		crew_record["mental_health"] = gen_record.fields["m_stat"]
+		general_records_out += list(crew_record)
+	return general_records_out
+
+/**
+ * Supporing proc for getting secrurity records
+ * and using them as pAI ui data. Sends it as a
+ * list.
+ *
+ * @return - list(security_records_out)
+ */
+/datum/datacore/proc/get_security_records()
+	if(!GLOB.data_core.security)
+		return list()
+	/// The array of records
+	var/list/security_records_out = list()
+	for(var/datum/data/record/sec_record as anything in GLOB.data_core.security)
+		/// The object containing the crew info
+		var/list/crew_record = list()
+		crew_record["ref"] = REF(sec_record)
+		crew_record["name"] = sec_record.fields["name"]
+		crew_record["status"] = sec_record.fields["criminal"] // wanted status
+		crew_record["crimes"] = length(sec_record.fields["crim"])
+		security_records_out += list(crew_record)
+	return security_records_out
+
+/datum/datacore/proc/get_id_photo(mob/living/carbon/human/H, client/C, show_directions = list(SOUTH), humanoverride = FALSE)
 	var/datum/job/J = SSjob.GetJob(H.mind.assigned_role)
 	var/datum/character_save/CS
 	if(!C)
 		C = H.client
 	if(C)
 		CS = C.prefs.active_character
+		if(humanoverride)
+			CS.pref_species = new /datum/species/human
+			H.copy_features(CS)
 	return get_flat_human_icon(null, J, CS, DUMMY_HUMAN_SLOT_MANIFEST, show_directions)

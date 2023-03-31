@@ -10,7 +10,7 @@ env:
   browser: true
   node: true
 plugins:
-  - radar
+  - sonarjs
   - react
 settings:
   react:
@@ -313,7 +313,8 @@ rules:
     imports: always-multiline,
     exports: always-multiline,
     functions: only-multiline, ## Optional on functions
-  }]
+    }
+  ]
   ## Enforce consistent spacing before and after commas
   comma-spacing: [error, { before: false, after: true }]
   ## Enforce consistent comma style
@@ -375,7 +376,8 @@ rules:
     ignoreUrls: true,
     ignoreRegExpLiterals: true,
     ignoreStrings: true,
-  }]
+    }
+  ]
   ## Enforce a maximum number of lines per file
   # max-lines: error
   ## Enforce a maximum number of line of code in a function
@@ -484,7 +486,8 @@ rules:
     anonymous: always,
     named: never,
     asyncArrow: always,
-  }]
+    }
+  ]
   ## Enforce consistent spacing inside parentheses
   space-in-parens: [error, never]
   ## Require spacing around infix operators
@@ -688,7 +691,8 @@ rules:
     ## NOTE: Not really sure about enforcing this one
     selfClosing: false,
     nonEmpty: after-props,
-  }]
+    }
+  ]
   ## Validate closing tag location in JSX (fixable)
   react/jsx-closing-tag-location: error
   ## Enforce or disallow newlines inside of curly braces in JSX attributes and
@@ -708,7 +712,8 @@ rules:
   ## Validate JSX indentation (fixable)
   react/jsx-indent: [error, 2, {
     checkAttributes: true,
-  }]
+    }
+  ]
   ## Validate props indentation in JSX (fixable)
   react/jsx-indent-props: [error, 2]
   ## Validate JSX has key prop when in array or iterator

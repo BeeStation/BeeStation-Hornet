@@ -24,6 +24,10 @@
 #define START_PROCESSING(Processor, Datum) if (!(Datum.datum_flags & DF_ISPROCESSING)) {Datum.datum_flags |= DF_ISPROCESSING;Processor.processing += Datum}
 #define STOP_PROCESSING(Processor, Datum) Datum.datum_flags &= ~DF_ISPROCESSING;Processor.processing -= Datum
 
+//some arbitrary defines to be used by self-pruning global lists. (see master_controller)
+/// Used to trigger object removal from a processing list
+#define PROCESS_KILL 26
+
 //! SubSystem flags (Please design any new flags so that the default is off, to make adding flags to subsystems easier)
 
 /// subsystem does not initialize.
@@ -96,3 +100,6 @@
 	ss_id="processing_[#X]";\
 }\
 /datum/controller/subsystem/processing/##X
+
+//If the MC goes for longer than 5 seconds, provide a warning for investigation
+#define MASTER_CONTROLLER_DELAY_WARN_TIME 2 SECONDS

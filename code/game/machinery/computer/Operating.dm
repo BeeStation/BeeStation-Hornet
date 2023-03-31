@@ -49,7 +49,7 @@
 		advanced_surgeries |= D.surgery
 
 /obj/machinery/computer/operating/proc/find_table()
-	for(var/direction in GLOB.cardinals)
+	for(var/direction in GLOB.alldirs)
 		table = locate(/obj/structure/table/optable) in get_step(src, direction)
 		if(table)
 			table.computer = src

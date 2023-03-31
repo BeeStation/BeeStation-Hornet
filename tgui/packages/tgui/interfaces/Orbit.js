@@ -56,7 +56,7 @@ const BasicSection = (props, context) => {
 
 const OrbitedButton = (props, context) => {
   const { act } = useBackend(context);
-  const { color, thing } = props;
+  const { color, thing, job } = props;
 
   return (
     <Button
@@ -64,6 +64,12 @@ const OrbitedButton = (props, context) => {
       onClick={() => act("orbit", {
         ref: thing.ref,
       })}>
+      {job && (
+        <Box inline
+          ml={1}
+          style={{ "transform": "translateY(2.5px)" }}
+          className={`job-icon16x16 job-icon-${job}`} />
+      )}
       {thing.name}
       {thing.orbiters && (
         <Box inline ml={1}>
@@ -154,6 +160,7 @@ export const Orbit = (props, context) => {
                       key={antag.name}
                       color="bad"
                       thing={antag}
+                      job={antag.role_icon}
                     />
                   ))}
               </Section>
@@ -169,7 +176,8 @@ export const Orbit = (props, context) => {
               <OrbitedButton
                 key={thing.name}
                 color="good"
-                thing={thing} />
+                thing={thing}
+                job={thing.role_icon} />
             ))}
         </Section>
 

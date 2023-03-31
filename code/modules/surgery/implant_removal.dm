@@ -10,6 +10,7 @@
 	implements = list(TOOL_HEMOSTAT = 100, TOOL_CROWBAR = 65)
 	time = 64
 	var/obj/item/implant/I = null
+	success_sound = 'sound/surgery/hemostat1.ogg'
 
 /datum/surgery_step/extract_implant/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	for(var/obj/item/O in target.implants)

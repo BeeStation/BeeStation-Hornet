@@ -3,7 +3,7 @@
 	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "x2"
 	anchored = TRUE
-	layer = MID_LANDMARK_LAYER
+	layer = TURF_LAYER
 	invisibility = INVISIBILITY_ABSTRACT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
@@ -312,6 +312,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 
 /obj/effect/landmark/start/new_player/Initialize(mapload)
 	..()
+	if (SStitle.newplayer_start_loc)
+		forceMove(SStitle.newplayer_start_loc)
 	GLOB.newplayer_start += loc
 	return INITIALIZE_HINT_QDEL
 
@@ -454,7 +456,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/event_spawn
 	name = "generic event spawn"
 	icon_state = "generic_event"
-	layer = HIGH_LANDMARK_LAYER
+	layer = OBJ_LAYER
 
 
 /obj/effect/landmark/event_spawn/Initialize(mapload)
