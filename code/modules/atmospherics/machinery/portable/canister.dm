@@ -325,7 +325,7 @@
 		timing = FALSE
 
 	if (is_station_level(z))
-		if (air_contents.get_moles(/datum/gas/plasma) > 1 || air_contents.return_temperature() > 500 || air_contents.get_moles(/datum/gas/tritium) > 1 || air_contents.get_moles(/datum/gas/nitrous_oxide) > 1)
+		if (air_contents.get_moles(GAS_PLASMA) > 1 || air_contents.return_temperature() > 500 || air_contents.get_moles(GAS_TRITIUM) > 1 || air_contents.get_moles(GAS_NITROUS) > 1)
 			valve_open = FALSE
 			update_icon()
 			message_admins("A canister was automatically closed at [ADMIN_JMP(src)] because it is on a station and could be griefey.")

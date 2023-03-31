@@ -13,7 +13,7 @@
 	var/delay = 12000
 	var/floor = 0
 	var/generation = 1
-	var/spreadIntoAdjacentChance = 60
+	var/spreadIntoAdjacentChance = 0
 	var/obj/item/seeds/myseed = /obj/item/seeds/glowshroom
 	var/static/list/blacklisted_glowshroom_turfs = typecacheof(list(
 	/turf/open/lava,
