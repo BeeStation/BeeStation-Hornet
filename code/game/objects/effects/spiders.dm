@@ -13,6 +13,12 @@
 	if(damage_type == BURN)//the stickiness of the web mutes all attack sounds except fire damage type
 		playsound(loc, 'sound/items/welder.ogg', 100, 1)
 
+/obj/structure/spider/attackby(obj/item/I, mob/living/user, params)
+	if(I.damtype != BURN)
+		if(prob(35))
+			user.transferItemToLoc(I, drop_location())
+			to_chat(user, "<span class='danger'>The [I] gets stuck in \the [src]!</span>")
+	return ..()
 
 /obj/structure/spider/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(damage_flag == MELEE)
@@ -32,18 +38,22 @@
 	if(prob(50))
 		icon_state = "stickyweb2"
 	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/spider/stickyweb/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+	if(isliving(AM) && !istype(AM, /mob/living/simple_animal/hostile/poison/giant_spider))
+		var/mob/living/L = AM
+		if(!L.IsImmobilized()) //Don't spam the shit out of them if they're being dragged by a spider
+			to_chat(L, "<span class='danger'>You get stuck in \the [src] for a moment.</span>")
+		L.Immobilize(1.5 SECONDS)
 
 /obj/structure/spider/stickyweb/CanAllowThrough(atom/movable/mover, turf/target)
 	. = ..()
-	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider))
-		return TRUE
-	else if(isliving(mover))
-		if(istype(mover.pulledby, /mob/living/simple_animal/hostile/poison/giant_spider))
-			return TRUE
-		if(prob(50))
-			to_chat(mover, "<span class='danger'>You get stuck in \the [src] for a moment.</span>")
-			return FALSE
-	else if(istype(mover, /obj/item/projectile))
+	if(istype(mover, /obj/item/projectile))
 		return prob(30)
 
 /obj/structure/spider/eggcluster
