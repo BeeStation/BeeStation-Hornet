@@ -123,7 +123,7 @@
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
 	if(mapload && access_txt)
-			access = text2access(access_txt)
+		access = text2access(access_txt)
 	var/area/A = get_area(src)
 	if(istype(A, /area/shuttle))
 		var/area/shuttle/AS = A
