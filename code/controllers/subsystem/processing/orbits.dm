@@ -116,6 +116,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	for(var/i in 1 to initial_space_ruins)
 		new /datum/orbital_object/z_linked/beacon/spaceruin()
 	//Create asteroid belt
+	new /datum/orbital_object/z_linked/beacon/asteroid/crilium()
 	for(var/i in 1 to initial_asteroids)
 		if (prob(15))
 			new /datum/orbital_object/z_linked/beacon/asteroid/crilium()
