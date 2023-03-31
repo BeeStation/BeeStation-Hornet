@@ -182,6 +182,10 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/vanguard)
 "yO" = (
+/obj/machinery/ammo_loader/railgun{
+	dir = 8;
+	mapload_linkup_id = 1
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/vanguard)
 "Ck" = (
@@ -308,10 +312,6 @@
 "Lc" = (
 /obj/effect/turf_decal/stripes{
 	dir = 4
-	},
-/obj/machinery/ammo_loader/railgun{
-	dir = 8;
-	mapload_linkup_id = 1
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/vanguard)

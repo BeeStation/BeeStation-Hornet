@@ -10,7 +10,7 @@
 	icon_state = "glowshroom" //replaced in New
 	layer = ABOVE_NORMAL_TURF_LAYER
 	max_integrity = 30
-	var/delay = 1200
+	var/delay = 12000
 	var/floor = 0
 	var/generation = 1
 	var/spreadIntoAdjacentChance = 60
