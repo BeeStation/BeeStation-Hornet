@@ -473,13 +473,18 @@
 	toxpwr = 0.5
 
 /datum/reagent/toxin/spidervenom/on_mob_life(mob/living/carbon/M)
-	if(M.getStaminaLoss() <= 70)				//Should not stamcrit under most conditions, but will greatly slow down given some time.
-		M.adjustStaminaLoss((volume * 0.75) * REM, 0)
-	if(current_cycle > 10 && prob(current_cycle + (volume * 0.3))) 	//The longer it is in your system and the more of it you have the more frequently you drop
+	if(M.getStaminaLoss() <= 70)				//Will never stamcrit
+		M.adjustStaminaLoss(min(volume * 1.5, 15) * REM, 0)
+	if(prob(current_cycle + (volume * 0.3))) 	//The longer it is in your system and the more of it you have the more frequently you drop
 		M.Paralyze(3 SECONDS, 0)
 		toxpwr += 0.1							//The venom gets stronger until completely purged.
 	if(holder.has_reagent(/datum/reagent/medicine/calomel) || holder.has_reagent(/datum/reagent/medicine/pen_acid) || holder.has_reagent(/datum/reagent/medicine/charcoal))
-		current_cycle += 5						// Prevents using purgatives while in combat
+		current_cycle += 10						// Prevents using purgatives while in combat
+	if(SEND_SIGNAL(M, COMSIG_HAS_NANITES))
+		for(var/datum/component/nanites/N in M.datum_components)
+			for(var/X in N.programs)
+				var/datum/nanite_program/NP = X
+				NP.software_error() //Completely scrambles and destroys nanites
 	..()
 
 /datum/reagent/toxin/fentanyl
