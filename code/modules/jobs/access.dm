@@ -421,6 +421,8 @@
 /obj/proc/check_access_ship(obj/item/I)
 	if(!req_ship_access)
 		return TRUE
+	else if(!I)
+		return FALSE
 	else if(req_ship_access != I.GetShipAccess())
 		return FALSE
 

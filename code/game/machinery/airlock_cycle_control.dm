@@ -126,6 +126,11 @@
 	scan_on_late_init = mapload
 	if(mapload && (. != INITIALIZE_HINT_QDEL))
 		return INITIALIZE_HINT_LATELOAD
+	if(!mapload)
+		var/area/A = get_area(src)
+		if(istype(A,/area/shuttle))
+			var/area/shuttle/AS = A
+			req_ship_access = AS.mobile_port?.id
 
 /obj/machinery/advanced_airlock_controller/LateInitialize(mapload)
 	. = ..()
@@ -137,6 +142,10 @@
 			var/obj/machinery/door/airlock/airlock = A
 			if(airlock.density && (cyclestate == AIRLOCK_CYCLESTATE_CLOSED || (airlocks[A] && cyclestate == AIRLOCK_CYCLESTATE_INOPEN) || (!airlocks[A] && cyclestate == AIRLOCK_CYCLESTATE_OUTOPEN)))
 				airlock.bolt()
+
+/obj/machinery/advanced_airlock_controller/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+	..()
+	req_ship_access = port.id
 
 /obj/machinery/advanced_airlock_controller/update_icon(use_hash = FALSE)
 	var/turf/location = get_turf(src)
@@ -826,10 +835,6 @@
 /obj/machinery/door/airlock/Initialize(mapload)
 	. = ..()
 	update_aac_docked()
-	var/area/A = get_area(src)
-	if(istype(A, /area/shuttle))
-		var/area/shuttle/AS = A
-		req_ship_access = AS.mobile_port?.id
 
 /obj/machinery/door/airlock/Destroy()
 	var/turf/T = get_turf(src)

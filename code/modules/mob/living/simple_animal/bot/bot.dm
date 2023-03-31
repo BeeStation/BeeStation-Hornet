@@ -162,11 +162,12 @@
 
 	bot_core = new bot_core_type(src)
 
-	var/area/A = get_area(src)
-	if(istype(A, /area/shuttle))
-		var/area/shuttle/AS = A
-		bot_core.req_ship_access = AS.mobile_port?.id
-	access_card.ship_port = bot_core.req_ship_access
+	if(!mapload)
+		var/area/A = get_area(src)
+		if(istype(A, /area/shuttle))
+			var/area/shuttle/AS = A
+			bot_core.req_ship_access = AS.mobile_port?.id
+			access_card.ship_port = bot_core.req_ship_access
 
 	//Adds bot to the diagnostic HUD system
 	prepare_huds()
@@ -185,6 +186,11 @@
 		path_hud.add_hud_to(src)
 	RegisterSignal(src, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
 	RegisterSignal(src, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
+
+/obj/machinery/advanced_airlock_controller/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+	..()
+	access_card.ship_port = port.id
+	bot_core.req_ship_access = port.id
 
 /mob/living/simple_animal/bot/update_mobility()
 	. = ..()

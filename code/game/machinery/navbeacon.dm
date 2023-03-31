@@ -35,10 +35,15 @@
 		GLOB.deliverybeacons += src
 		GLOB.deliverybeacontags += location
 
-	var/area/A = get_area(src)
-	if(istype(A, /area/shuttle))
-		var/area/shuttle/AS = A
-		req_ship_access = AS.mobile_port?.id
+	if(!mapload)
+		var/area/A = get_area(src)
+		if(istype(A, /area/shuttle))
+			var/area/shuttle/AS = A
+			req_ship_access = AS.mobile_port?.id
+
+/obj/machinery/advanced_airlock_controller/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+	..()
+	req_ship_access = port.id
 
 /obj/machinery/navbeacon/Destroy()
 	if (GLOB.navbeacons["[z]"])
