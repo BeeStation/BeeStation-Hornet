@@ -362,7 +362,8 @@
 	height = 11;
 	dwidth = 4;
 	name = "Vanguard";
-	id = "vanguard"
+	id = "vanguard";
+	dynamic_id = 1
 	},
 /turf/open/floor/plating,
 /area/shuttle/vanguard)
