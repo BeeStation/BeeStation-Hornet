@@ -14,14 +14,14 @@
 	protection = CONFIG_ENTRY_LOCKED
 
 /// Send OOC via webhook. allowed_x arguments are lists of strings, bypassing restrictions on mentions, joined to the values in the config.
-/proc/sendooc2ext(msg, allowed_types = list(), allowed_users = list(), allowed_roles = list())
+/proc/sendooc2ext(msg, list/allowed_types = list(), list/allowed_users = list(), list/allowed_roles = list())
 	var/ooc_webhook = CONFIG_GET(string/ooc_webhook)
 	if(!length(ooc_webhook))
 		return
 	send_webhook(ooc_webhook, msg)
 
 /// Send adminhelp via webhook. allowed_x arguments are lists of strings, bypassing restrictions on mentions, joined to the values in the config.
-/proc/sendadminhelp2ext(msg, allowed_types = list(), allowed_users = list(), allowed_roles = list())
+/proc/sendadminhelp2ext(msg, list/allowed_types = list(), list/allowed_users = list(), list/allowed_roles = list())
 	var/adminhelp_webhook = CONFIG_GET(string/adminhelp_webhook)
 	if(!length(adminhelp_webhook))
 		return
@@ -29,7 +29,7 @@
 
 /// Send text via webhook, asynchronously. allowed_x arguments are lists of strings, bypassing restrictions on mentions, joined to the values in the config.
 /// sent as JSON via POST {"content": "[msg]", "allowed_mentions": {"parse": [...]}}
-/proc/send_webhook(link, msg, allowed_types = list(), allowed_users = list(), allowed_roles = list())
+/proc/send_webhook(link, msg, list/allowed_types = list(), list/allowed_users = list(), list/allowed_roles = list())
 	if(IsAdminAdvancedProcCall())
 		log_admin_private("send_webhook: Admin proc call blocked from [key_name(usr)]")
 		message_admins("send_webhook: Admin proc call blocked from [key_name(usr)]")
