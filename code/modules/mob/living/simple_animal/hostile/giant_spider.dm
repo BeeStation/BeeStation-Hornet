@@ -232,15 +232,15 @@ s
 		stop_automated_movement = FALSE
 		SSmove_manager.stop_looping(src)
 
-// Tarantulas are the balanced generalist of the spider family: Moderate stats all around.
-/mob/living/simple_animal/hostile/poison/giant_spider/tarantula
-	name = "tarantula"
+// Net casters are the balanced generalist of the spider family: Moderate stats all around, and a ranged knockdown to assist others
+/mob/living/simple_animal/hostile/poison/giant_spider/netcaster
+	name = "net caster"
 	obj_damage = 35
 	speed = 0.5
 	onweb_speed = 0
 	var/obj/effect/proc_holder/spider/throw_web/spidernet
 
-/mob/living/simple_animal/hostile/poison/giant_spider/tarantula/Initialize(mapload)
+/mob/living/simple_animal/hostile/poison/giant_spider/netcaster/Initialize(mapload)
 	. = ..()
 	spidernet = new
 	AddAbility(spidernet)

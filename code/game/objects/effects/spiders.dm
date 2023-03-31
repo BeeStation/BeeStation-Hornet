@@ -82,12 +82,12 @@
 	var/list/mob/living/potential_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/guard,
 								/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
 								/mob/living/simple_animal/hostile/poison/giant_spider/nurse,
-								/mob/living/simple_animal/hostile/poison/giant_spider/tarantula)
+								/mob/living/simple_animal/hostile/poison/giant_spider/netcaster)
 	// The types of spiders the egg sac produces when we proc an enriched spawn
 	var/list/mob/living/potential_enriched_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/guard,
 								/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
 								/mob/living/simple_animal/hostile/poison/giant_spider/nurse,
-								/mob/living/simple_animal/hostile/poison/giant_spider/tarantula,
+								/mob/living/simple_animal/hostile/poison/giant_spider/netcaster,
 								/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,
 								/mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
 
@@ -240,8 +240,8 @@
 /obj/structure/spider/spiderling/viper
 	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper
 
-/obj/structure/spider/spiderling/tarantula
-	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/tarantula
+/obj/structure/spider/spiderling/netcaster
+	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/netcaster
 
 /obj/structure/spider/spiderling/Bump(atom/user)
 	if(istype(user, /obj/structure/table))
@@ -311,7 +311,7 @@
 		if(amount_grown >= 100)
 			if(!grow_as)
 				if(prob(3))
-					grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider/tarantula, /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
+					grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider/netcaster, /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
 				else
 					grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider, /mob/living/simple_animal/hostile/poison/giant_spider/hunter, /mob/living/simple_animal/hostile/poison/giant_spider/nurse)
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(src.loc)
