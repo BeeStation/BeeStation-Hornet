@@ -425,6 +425,7 @@
 		return FALSE
 	else if(req_ship_access != I.GetShipAccess())
 		return FALSE
+	return TRUE
 
 /obj/item/proc/GetShipAccess()
 	return null

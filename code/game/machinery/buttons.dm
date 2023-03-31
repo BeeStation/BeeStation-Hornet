@@ -48,9 +48,9 @@
 			var/area/shuttle/AS = A
 			req_ship_access = AS.mobile_port?.id
 
-/obj/machinery/advanced_airlock_controller/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+/obj/machinery/button/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
 	..()
-	if(req_accss.len || req_one_access.len)
+	if(req_access.len || req_one_access.len)
 		req_ship_access = port.id
 
 /obj/machinery/button/update_icon()
