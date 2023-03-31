@@ -61,7 +61,8 @@
 
 /obj/machinery/shuttle_weapon/Initialize(mapload, ndir = 0)
 	. = ..()
-	weapon_id = "[LAZYLEN(SSorbits.shuttle_weapons)]"
+	var/static/global_weapon_count = 0
+	weapon_id = "[global_weapon_count++]"
 	SSorbits.shuttle_weapons[weapon_id] = src
 	set_directional_offset(ndir || dir, TRUE)
 	//Check our area
