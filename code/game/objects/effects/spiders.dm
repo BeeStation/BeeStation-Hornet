@@ -50,6 +50,11 @@
 		if(!L.IsImmobilized()) //Don't spam the shit out of them if they're being dragged by a spider
 			to_chat(L, "<span class='danger'>You get stuck in \the [src] for a moment.</span>")
 		L.Immobilize(1.5 SECONDS)
+	if(ismecha(AM))
+		var/obj/mecha/mech = AM
+		mech.step_restricted += 1 SECONDS //unlike the above, this one stacks based on number of webs
+		if(mech.occupant && !mech.step_restricted)
+			to_chat(mech.occupant, "<span class='danger'>\the [mech] gets stuck in \the [src]!</span>")
 
 /obj/structure/spider/stickyweb/CanAllowThrough(atom/movable/mover, turf/target)
 	. = ..()
