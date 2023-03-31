@@ -297,7 +297,12 @@
 /datum/component/overlay_lighting/proc/set_power(atom/source, new_power)
 	set_lum_power(new_power >= 0 ? 0.5 : -0.5)
 	set_alpha = min(230, (abs(new_power) * 120) + 30)
+	// We need to do this in order to trigger byond to update the overlay
+	if(overlay_lighting_flags & LIGHTING_ON)
+		current_holder.underlays -= visible_mask
 	visible_mask.alpha = set_alpha
+	if(overlay_lighting_flags & LIGHTING_ON)
+		current_holder.underlays += visible_mask
 
 
 ///Changes the light's color, pretty straightforward.
