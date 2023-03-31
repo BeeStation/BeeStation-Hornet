@@ -381,14 +381,14 @@ s
 	move_to_delay = 3
 	speed = 0
 
-/mob/living/simple_animal/hostile/poison/giant_spider/Life(delta_time)
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/Life(delta_time)
 	. = ..()
 	if(alpha > 70)
 		alpha -= delta_time * 10 //about 18 seconds to best invisibility
-	else
+	if(alpha < 70)
 		alpha = 70
 
-/mob/living/simple_animal/hostile/poison/giant_spider/Moved(atom/oldloc, dir)
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/Moved(atom/oldloc, dir)
 	. = ..()
 	alpha = initial(alpha)
 
@@ -551,9 +551,9 @@ s
 	name = "Throw web"
 	panel = "Spider"
 	desc = "Throw a sticky web at potential prey to immobilize them temporarily"
-	ranged_mousepointer = 'icons/effects/wrap_target.dmi' //SPIDERICONS
+	ranged_mousepointer = 'icons/effects/throwweb_target.dmi'
 	action_icon = 'icons/mob/actions/actions_animal.dmi'
-	action_icon_state = "wrap_0" //SPIDERICONS
+	action_icon_state = "throw_web_0"
 	action_background_icon_state = "bg_alien"
 
 /obj/effect/proc_holder/spider/throw_web/activate(mob/living/user)
@@ -579,7 +579,7 @@ s
 			to_chat(spider, "<span class='warning'>You're already spinning a web!</span>")
 
 /obj/effect/proc_holder/spider/throw_web/update_icon()
-	action.button_icon_state = "wrap_[active]"
+	action.button_icon_state = "throw_web_[active]"
 	action.UpdateButtonIcon()
 
 /obj/effect/proc_holder/spider/throw_web/InterceptClickOn(mob/living/caller, params, atom/target)

@@ -1,6 +1,6 @@
 /obj/item/projectile/bullet/spidernet
 	name = "sticky webbing"
-	icon_state = "net" //SPIDERICONS
+	icon_state = "spidernet"
 	damage = 0
 
 /obj/item/projectile/bullet/spidernet/on_hit(atom/target, blocked = FALSE)

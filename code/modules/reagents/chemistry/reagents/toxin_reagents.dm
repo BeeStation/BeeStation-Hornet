@@ -481,6 +481,7 @@
 	if(holder.has_reagent(/datum/reagent/medicine/calomel) || holder.has_reagent(/datum/reagent/medicine/pen_acid) || holder.has_reagent(/datum/reagent/medicine/charcoal))
 		current_cycle += 10						// Prevents using purgatives while in combat
 	if(SEND_SIGNAL(M, COMSIG_HAS_NANITES))
+		SEND_SIGNAL(M, COMSIG_NANITE_ADJUST_VOLUME, -20) //drain the nanites
 		for(var/datum/component/nanites/N in M.datum_components)
 			for(var/X in N.programs)
 				var/datum/nanite_program/NP = X
