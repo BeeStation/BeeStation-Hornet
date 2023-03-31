@@ -71,6 +71,10 @@
 
 /datum/shuttle_data/Destroy(force, ...)
 	unregister_turfs()
+	for (var/weapon in shuttle_weapons)
+		on_weapon_qdel(weapon)
+	for (var/engine in registered_engines)
+		on_thruster_qdel(engine)
 	. = ..()
 	log_shuttle("Shuttle data [shuttle_name] ([port_id]) was deleted.")
 
