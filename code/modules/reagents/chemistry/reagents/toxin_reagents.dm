@@ -475,7 +475,7 @@
 /datum/reagent/toxin/spidervenom/on_mob_life(mob/living/carbon/M)
 	if(M.getStaminaLoss() <= 70)				//Will never stamcrit
 		M.adjustStaminaLoss(min(volume * 1.5, 15) * REM, 0)
-	if(prob(current_cycle + (volume * 0.3))) 	//The longer it is in your system and the more of it you have the more frequently you drop
+	if(current_cycle >= 4 && prob(current_cycle + (volume * 0.3))) 	//The longer it is in your system and the more of it you have the more frequently you drop
 		M.Paralyze(3 SECONDS, 0)
 		toxpwr += 0.1							//The venom gets stronger until completely purged.
 	if(holder.has_reagent(/datum/reagent/medicine/calomel) || holder.has_reagent(/datum/reagent/medicine/pen_acid) || holder.has_reagent(/datum/reagent/medicine/charcoal))
