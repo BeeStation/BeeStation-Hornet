@@ -1,5 +1,10 @@
 /proc/fire_projectile_towards(atom/target, spawn_distance = 5, projectile = /obj/item/projectile/beam/laser, missed = FALSE)
+	var/area/shuttle/shuttle_area = get_area(target)
 	var/angle = rand(0, 360)
+	if (istype(shuttle_area))
+		var/obj/docking_port/mobile/shuttle = shuttle_area.mobile_port
+		var/turf/center_turf = shuttle.return_center_turf()
+		angle = get_angle(center_turf, target)
 	var/sin_angle = sin(angle)
 	var/cos_angle = cos(angle)
 	//Step away continuously

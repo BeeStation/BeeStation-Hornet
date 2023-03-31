@@ -147,6 +147,9 @@
 	var/missed = FALSE
 	if(!prob(hit_chance))
 		current_target_turf = locate(target.x + rand(-innaccuracy, innaccuracy), target.y + rand(-innaccuracy, innaccuracy), target.z)
+		// You get lucky this time
+		if (!istype(current_target_turf.loc, /area/shuttle))
+			current_target_turf = get_turf(target)
 		if(prob(miss_chance))
 			missed = TRUE
 	playsound(loc, fire_sound, 75, 1)

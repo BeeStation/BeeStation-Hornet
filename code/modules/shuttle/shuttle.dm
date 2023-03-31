@@ -159,6 +159,13 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	var/turf/T1 = locate(L[3],L[4],z)
 	return block(T0,T1)
 
+//returns the center turf
+/obj/docking_port/proc/return_center_turf()
+	var/list/L = return_coords()
+	var/x1 = CEILING((L[1] + L[3]) * 0.5, 1)
+	var/y1 = CEILING((L[2] + L[4]) * 0.5, 1)
+	return locate(x1, y1, z)
+
 //returns turfs within our projected rectangle in a specific order.
 //this ensures that turfs are copied over in the same order, regardless of any rotation
 /obj/docking_port/proc/return_ordered_turfs(_x, _y, _z, _dir)
