@@ -172,6 +172,7 @@
 		to_chat(user, "<span class='warning'>You cannot link \the [multitool.buffer] to \the [src].</span>")
 		return
 	var/obj/machinery/stasis/new_stasis_bed = multitool.buffer
+	balloon_alert(user, "linked to \the [new_stasis_bed]")
 	if(sbed)
 		sbed.op_computer = null
 	new_stasis_bed.op_computer = src

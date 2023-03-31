@@ -158,6 +158,7 @@
 		return
 	multitool.buffer = src
 	to_chat(user, "<span class='notice'>You store the linking data of \the [src] in \the [multitool]'s buffer. Use it on an operating computer to complete linking.</span>")
+	balloon_alert(user, "saved in buffer")
 
 /obj/machinery/stasis/nap_violation(mob/violator)
 	unbuckle_mob(violator, TRUE)
