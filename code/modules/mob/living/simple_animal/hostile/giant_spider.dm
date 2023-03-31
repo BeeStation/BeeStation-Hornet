@@ -253,8 +253,8 @@ s
 	icon_living = "nurse"
 	icon_dead = "nurse_dead"
 	gender = FEMALE
-	maxHealth = 60
-	health = 60
+	maxHealth = 45
+	health = 45
 	melee_damage = 10
 	poison_per_bite = 3
 	speed = 1
@@ -278,13 +278,13 @@ s
 	if(!istype(target, /mob/living/simple_animal/hostile/poison/giant_spider))
 		return ..()
 	var/mob/living/simple_animal/hostile/poison/giant_spider/hurt_spider = target
-	if(hurt_spider == src)
-		to_chat(src, "<span class='warning'>You don't have the dexerity to wrap your own wounds.</span>")
-		return
 	if(hurt_spider.health >= hurt_spider.maxHealth)
 		to_chat(src, "<span class='warning'>You can't find any wounds to wrap up.</span>")
 		return ..() // IFF is handled in parent
-	visible_message("<span class='notice'>[src] begins wrapping the wounds of [hurt_spider].</span>","<span class='notice'>You begin wrapping the wounds of [hurt_spider].</span>")
+	if(hurt_spider == src)
+		visible_message("<span class='notice'>[src] begins wrapping their wounds.</span>","<span class='notice'>You begin wrapping your wounds.</span>")
+	else
+		visible_message("<span class='notice'>[src] begins wrapping the wounds of [hurt_spider].</span>","<span class='notice'>You begin wrapping the wounds of [hurt_spider].</span>")
 	is_busy = TRUE
 	if(do_after(src, 20, target = hurt_spider))
 		hurt_spider.heal_overall_damage(20)
