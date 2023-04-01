@@ -2,7 +2,7 @@
 #define COOLDOWN_DAMAGE 1 MINUTES
 #define COOLDOWN_MEME 30 SECONDS
 #define COOLDOWN_NONE 10 SECONDS
-#define VOICE_OF_GOD_MAX_SILENCE_TIME 1 MINUTES
+#define VOICE_OF_GOD_MAX_SILENCE_TIME 60
 
 /obj/item/organ/vocal_cords //organs that are activated through speech with the :x/MODE_KEY_VOCALCORDS channel
 	name = "vocal cords"
@@ -288,7 +288,7 @@
 		cooldown = COOLDOWN_STUN
 		for(var/mob/living/carbon/C in listeners)
 			if(C.silent < VOICE_OF_GOD_MAX_SILENCE_TIME)
-				C.silent = min(C.silent + (10 SECONDS * power_multiplier), VOICE_OF_GOD_MAX_SILENCE_TIME)
+				C.silent = min(C.silent + (10 * power_multiplier), VOICE_OF_GOD_MAX_SILENCE_TIME)
 
 	//HALLUCINATE
 	else if((findtext(message, hallucinate_words)))

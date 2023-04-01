@@ -143,7 +143,7 @@ Class Procs:
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)
-		armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0)
+		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0)
 	. = ..()
 	GLOB.machines += src
 
@@ -403,7 +403,7 @@ Class Procs:
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 		user.visible_message("<span class='danger'>[user.name] smashes against \the [src.name] with its paws.</span>", null, null, COMBAT_MESSAGE_RANGE)
-		take_damage(4, BRUTE, "melee", 1)
+		take_damage(4, BRUTE, MELEE, 1)
 
 /obj/machinery/attack_robot(mob/user)
 	if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON) && !IsAdminGhost(user))
@@ -482,7 +482,7 @@ Class Procs:
 		updateUsrDialog()
 
 /obj/machinery/run_obj_armor(damage_amount, damage_type, damage_flag = NONE, attack_dir)
-	if(damage_flag == "melee" && damage_amount < damage_deflection)
+	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return 0
 	return ..()
 
@@ -643,7 +643,7 @@ Class Procs:
 	if(prob(85) && (tesla_flags & TESLA_MACHINE_EXPLOSIVE))
 		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, smoke = FALSE)
 	if(tesla_flags & TESLA_OBJ_DAMAGE)
-		take_damage(power/2000, BURN, "energy")
+		take_damage(power/2000, BURN, ENERGY)
 		if(prob(40))
 			emp_act(EMP_LIGHT)
 
@@ -666,7 +666,7 @@ Class Procs:
 		playsound(src, custom_clicksound, clickvol)
 
 /obj/machinery/rust_heretic_act()
-	take_damage(500, BRUTE, "melee", 1)
+	take_damage(500, BRUTE, MELEE, 1)
 
 /obj/machinery/vv_edit_var(vname, vval)
 	if(vname == "occupant")
