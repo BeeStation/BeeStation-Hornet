@@ -101,7 +101,7 @@
 #define DATA_HUD_PLANE 15
 
 //---------- LIGHTING -------------
-///Normal 1 per turf dynamic lighting objects
+///Normal 1 per turf dynamic lighting underlays
 #define LIGHTING_PLANE 100
 
 ///Lighting objects that are "free floating"
