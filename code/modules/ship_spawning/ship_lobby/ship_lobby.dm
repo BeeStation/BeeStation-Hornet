@@ -344,11 +344,11 @@
 	job_list[selected_choice] = slots_left
 	// Spawn the player at a valid spawn point
 	var/turf/selected_spawn_point
-	if (!assoc_spawn_points[initial(selected_choice.title)])
+	if (!assoc_spawn_points[initial(desired_job.spawn_title) || initial(desired_job.title)])
 		// Spawn at a random point
 		selected_spawn_point = get_turf(pick(pick(assoc_spawn_points)))
 	else
-		selected_spawn_point = get_turf(pick(assoc_spawn_points[initial(selected_choice.title)]))
+		selected_spawn_point = get_turf(pick(assoc_spawn_points[initial(desired_job.spawn_title) || initial(desired_job.title)]))
 	// Perform roundstart prefs loading
 	var/mob/living/carbon/human/created_character = new(selected_spawn_point)
 	user.prefs.active_character.copy_to(created_character)

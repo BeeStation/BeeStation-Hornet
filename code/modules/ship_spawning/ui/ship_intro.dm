@@ -3,6 +3,7 @@
 	maptext_width = 512
 	maptext_height = 512
 	maptext_x = -256
+	var/did_move = 5
 	var/static/list/displayed_clients = list()
 	var/steps = 0
 	var/full_text = "ERROR"
@@ -12,7 +13,9 @@
 	. = ..()
 	if (parent.client in displayed_clients)
 		return
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(client_moved))
 	displayed_clients += parent.client
+
 	full_text = "Welcome to BeeSHIP<s>ion</s>.\n\
 \n\
 You are %NAME%.\n\
@@ -44,12 +47,15 @@ from reality if anybody finds out."
 	src.parent = parent
 	full_text = replacetext(full_text, "%NAME%", parent.name)
 
+/atom/movable/screen/ship_intro/proc/client_moved()
+	did_move --
+
 /atom/movable/screen/ship_intro/Destroy()
 	. = ..()
 	parent = null
 
 /atom/movable/screen/ship_intro/process(delta_time)
-	steps += 5
+	steps += did_move <= 0 ? 30 : 5
 	var/display_text = copytext(full_text, 1, steps)
 	maptext = "<span class='maptext center big'>[display_text]</span>"
 	maptext_y = 0
