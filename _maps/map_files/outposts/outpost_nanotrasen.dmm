@@ -12399,7 +12399,9 @@
 /area/hallway/primary/fore)
 "Ve" = (
 /obj/machinery/power/smes{
-	charge = 3000000
+	charge = 30000000;
+	output_level = 200000;
+	capacity = 30000000
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
