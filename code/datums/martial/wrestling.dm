@@ -364,15 +364,15 @@
 	var/turf/ST = null
 	var/falling = 0
 
-	for (var/obj/O in oview(1, A))
-		if(O.density)
-			if (O == D)
-				continue
-			if (O.opacity)
-				continue
-			else
+	for (var/turf/T in oview(1, A))
+		if (IS_OPAQUE_TURF(T))
+			continue
+		for (var/obj/O in T)
+			if(O.density)
+				if (O == D)
+					continue
 				surface = O
-				ST = get_turf(O)
+				ST = T
 				break
 
 	if (surface && (ST && isturf(ST)))
