@@ -4932,7 +4932,8 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/smes{
-	charge = 5e+006
+	charge = 5e+006;
+	output_level = 200000
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/solars/starboard/fore)
@@ -7002,7 +7003,8 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/smes{
-	charge = 5e+006
+	charge = 5e+006;
+	output_level = 200000
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/solars/starboard/fore)
@@ -9319,7 +9321,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/power/smes{
-	charge = 5e+006
+	charge = 5e+006;
+	output_level = 200000
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/solars/starboard/fore)
@@ -10248,7 +10251,8 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/smes{
-	charge = 5e+006
+	charge = 5e+006;
+	output_level = 200000
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/solars/starboard/fore)
@@ -16403,7 +16407,8 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/smes{
-	charge = 5e+006
+	charge = 5e+006;
+	output_level = 200000
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/solars/starboard/fore)
