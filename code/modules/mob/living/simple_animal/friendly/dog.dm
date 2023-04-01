@@ -375,6 +375,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	var/memory_saved = FALSE
 	var/saved_head //path
 	worn_slot_flags = ITEM_SLOT_HEAD
+	color = "green"
 
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/Initialize(mapload)
