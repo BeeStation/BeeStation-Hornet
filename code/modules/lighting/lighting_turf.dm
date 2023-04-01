@@ -4,7 +4,8 @@
 
 	var/tmp/lighting_corners_initialised = FALSE
 
-	var/tmp/atom/movable/lighting_object/lighting_object // Our lighting object.
+	/// Our lighting object.
+	var/tmp/datum/lighting_object/lighting_object
 	///Lighting Corner datums.
 	var/tmp/datum/lighting_corner/lighting_corner_NE
 	var/tmp/datum/lighting_corner/lighting_corner_SE
@@ -33,7 +34,7 @@
 	if (!IS_DYNAMIC_LIGHTING(A) && !light_sources)
 		return
 
-	new/atom/movable/lighting_object(src)
+	new/datum/lighting_object(src)
 
 // Used to get a scaled lumcount.
 /turf/proc/get_lumcount(var/minlum = 0, var/maxlum = 1)

@@ -14,16 +14,21 @@
 	var/turf/master_SW
 	var/turf/master_NW
 
+	//"raw" color values, changed by update_lumcount()
 	var/lum_r = 0
 	var/lum_g = 0
 	var/lum_b = 0
 
-	var/needs_update = FALSE
-
+	//true color values, guaranteed to be between 0 and 1
 	var/cache_r  = LIGHTING_SOFT_THRESHOLD
 	var/cache_g  = LIGHTING_SOFT_THRESHOLD
 	var/cache_b  = LIGHTING_SOFT_THRESHOLD
-	var/cache_mx = 0
+
+	///the maximum of lum_r, lum_g, and lum_b. if this is > 1 then the three cached color values are divided by this
+	var/largest_color_luminosity = 0
+
+	///whether we are to be added to SSlighting's corners_queue list for an update
+	var/needs_update = FALSE
 
 /datum/lighting_corner/New(var/turf/new_turf, var/diagonal)
 	. = ..()
@@ -100,13 +105,13 @@
 	var/lum_r = src.lum_r
 	var/lum_g = src.lum_g
 	var/lum_b = src.lum_b
-	var/mx = max(lum_r, lum_g, lum_b) // Scale it so one of them is the strongest lum, if it is above 1.
+	var/largest_color_luminosity  = max(lum_r, lum_g, lum_b) // Scale it so one of them is the strongest lum, if it is above 1.
 	. = 1 // factor
-	if (mx > 1)
-		. = 1 / mx
+	if (largest_color_luminosity  > 1)
+		. = 1 / largest_color_luminosity
 
 	#if LIGHTING_SOFT_THRESHOLD != 0
-	else if (mx < LIGHTING_SOFT_THRESHOLD)
+	else if (largest_color_luminosity  < LIGHTING_SOFT_THRESHOLD)
 		. = 0 // 0 means soft lighting.
 
 	cache_r  = round(lum_r * ., LIGHTING_ROUND_VALUE) || LIGHTING_SOFT_THRESHOLD
@@ -117,9 +122,9 @@
 	cache_g  = round(lum_g * ., LIGHTING_ROUND_VALUE)
 	cache_b  = round(lum_b * ., LIGHTING_ROUND_VALUE)
 	#endif
-	cache_mx = round(mx, LIGHTING_ROUND_VALUE)
+	src.largest_color_luminosity = round(largest_color_luminosity , LIGHTING_ROUND_VALUE)
 
-	var/atom/movable/lighting_object/lighting_object = master_NE?.lighting_object
+	var/datum/lighting_object/lighting_object = master_NE?.lighting_object
 	if (lighting_object && !lighting_object.needs_update)
 		lighting_object.needs_update = TRUE
 		SSlighting.objects_queue += lighting_object
