@@ -1,5 +1,0 @@
-author: covertcorvid
-delete-after: true
-changes:
-  - bugfix: fixed a runtime caused by the April Fool's event initializing before the
-      jobs subsystem
