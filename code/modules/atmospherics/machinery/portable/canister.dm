@@ -329,7 +329,7 @@
 		valve_open = !valve_open
 		timing = FALSE
 
-	if (is_station_level(z))
+	if (is_station_level(z) && valve_open)
 		if (air_contents.get_moles(GAS_PLASMA) > 1 || air_contents.return_temperature() > 500 || air_contents.get_moles(GAS_TRITIUM) > 1 || air_contents.get_moles(GAS_NITROUS) > 1)
 			valve_open = FALSE
 			update_icon()
