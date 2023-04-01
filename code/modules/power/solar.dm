@@ -285,6 +285,7 @@
 /obj/machinery/power/solar_control/proc/try_connect_to_panels()
 	// Initially connect all panels
 	search_for_connected()
+	track == 2
 	if(connected_tracker && track == 2)
 		connected_tracker.set_angle(SSsun.angle)
 	if(powernet)
