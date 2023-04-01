@@ -72,6 +72,8 @@
 		if(EMISSIVE_BLOCK_UNIQUE)
 			render_target = ref(src)
 			em_block = new(src, render_target)
+	if(opacity)
+		AddElement(/datum/element/light_blocking)
 
 	QDEL_NULL(em_block)
 
@@ -485,6 +487,10 @@
 			CanAtmosPass = ATMOS_PASS_YES
 			air_update_turf(TRUE)
 		loc.handle_atom_del(src)
+
+	if(opacity)
+		RemoveElement(/datum/element/light_blocking)
+
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
 	moveToNullspace()
