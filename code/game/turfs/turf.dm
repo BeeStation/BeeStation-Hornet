@@ -46,6 +46,23 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	///Lumcount added by sources other than lighting datum objects, such as the overlay lighting component.
 	var/dynamic_lumcount = 0
 
+	var/dynamic_lighting = TRUE
+
+	var/tmp/lighting_corners_initialised = FALSE
+
+	///Our lighting object.
+	var/tmp/datum/lighting_object/lighting_object
+	///Lighting Corner datums.
+	var/tmp/datum/lighting_corner/lighting_corner_NE
+	var/tmp/datum/lighting_corner/lighting_corner_SE
+	var/tmp/datum/lighting_corner/lighting_corner_SW
+	var/tmp/datum/lighting_corner/lighting_corner_NW
+
+	///Which directions does this turf block the vision of, taking into account both the turf's opacity and the movable opacity_sources.
+	var/directional_opacity = NONE
+	///Lazylist of movable atoms providing opacity sources.
+	var/list/atom/movable/opacity_sources
+
 	/// Should we used the smooth tiled dirt decal or not
 	var/tiled_dirt = FALSE
 
@@ -111,7 +128,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, UP)
 
 	if (opacity)
-		has_opaque_atom = TRUE
+		directional_opacity = ALL_CARDINALS
 
 	ComponentInitialize()
 	if(isopenturf(src))
@@ -418,13 +435,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		mover.Bump(firstbump)
 		return (mover.movement_type & PHASING)
 	return TRUE
-
-/turf/Entered(atom/movable/arrived, direction)
-	..()
-	// If an opaque movable atom moves around we need to potentially update visibility.
-	if (arrived.opacity)
-		has_opaque_atom = TRUE // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
-		reconsider_lights()
 
 /turf/open/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	..()
