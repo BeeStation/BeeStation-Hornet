@@ -206,7 +206,7 @@ It is made out of the same material as the station's Black Box and is designed t
 There appears to be a small amount of surface corrosion. It doesn't look like it could withstand much of an explosion. \
 It remains quite flush against the wall, and there only seems to be enough room to fit something as slim as an ID card."
 	can_hack_open = FALSE
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 70, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70);
+	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 70, BIO = 100, RAD = 100, FIRE = 80, ACID = 70);
 	max_integrity = 300
 	color = "#ffdd33"
 
@@ -224,4 +224,4 @@ It remains quite flush against the wall, and there only seems to be enough room 
 	new /obj/item/card/id/captains_spare(src)
 
 /obj/item/storage/secure/safe/caps_spare/rust_heretic_act()
-	take_damage(damage_amount = 100, damage_type = BRUTE, damage_flag = "melee", armour_penetration = 100)
+	take_damage(damage_amount = 100, damage_type = BRUTE, damage_flag = MELEE, armour_penetration = 100)

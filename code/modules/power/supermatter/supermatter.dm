@@ -504,7 +504,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		return FALSE
 	if(!istype(Proj.firer, /obj/machinery/power/emitter) && power_changes)
 		investigate_log("has been hit by [Proj] fired by [key_name(Proj.firer)]", INVESTIGATE_ENGINES)
-	if(Proj.flag != "bullet")
+	if(Proj.armor_flag != BULLET)
 		if(power_changes) //This needs to be here I swear
 			power += Proj.damage * config_bullet_energy
 			if(!has_been_powered)

@@ -62,7 +62,7 @@
 	return pressure
 
 
-/mob/living/carbon/human/handle_traits()
+/mob/living/carbon/human/handle_traits(delta_time)
 	if (getOrganLoss(ORGAN_SLOT_BRAIN) >= 60)
 		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "brain_damage", /datum/mood_event/brain_damage)
 	else
@@ -70,14 +70,14 @@
 
 	if(eye_blind)			//blindness, heals slowly over time
 		if(HAS_TRAIT_FROM(src, TRAIT_BLIND, EYES_COVERED)) //covering your eyes heals blurry eyes faster
-			adjust_blindness(-3)
+			adjust_blindness(-3 * delta_time)
 		else
-			adjust_blindness(-1)
+			adjust_blindness(-delta_time)
 		//If you have blindness from a trait, heal blurryness too, otherwise return and ignore that.
 		if(!(HAS_TRAIT(src, TRAIT_BLIND)))
 			return
 	if(eye_blurry)			//blurry eyes heal slowly
-		adjust_blurriness(-1)
+		adjust_blurriness(-delta_time)
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
 	if(!dna || !dna.species.handle_mutations_and_radiation(src))

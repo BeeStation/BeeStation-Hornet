@@ -500,7 +500,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	if(istype(P, /obj/item/projectile/magic))
 		ActivationReaction(P.firer, ACTIVATE_MAGIC, P.damage_type)
 		return
-	ActivationReaction(P.firer, P.flag, P.damage_type)
+	ActivationReaction(P.firer, P.armor_flag, P.damage_type)
 
 /obj/machinery/anomalous_crystal/proc/ActivationReaction(mob/user, method, damtype)
 	if(world.time < last_use_timer)

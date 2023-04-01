@@ -27,7 +27,7 @@
 	flags_1 = CONDUCT_1
 	attack_verb = list("attacked", "stabbed", "poked")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, STAMINA = 0)
 	var/datum/reagent/forkload //used to eat omelette
 
 /obj/item/kitchen/fork/suicide_act(mob/living/carbon/user)
@@ -85,7 +85,7 @@
 	materials = list(/datum/material/iron=12000)
 	attack_verb = list("slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	sharpness = IS_SHARP_ACCURATE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 0)
 	var/bayonet = FALSE	//Can this be attached to a gun?
 	custom_price = 30
 
@@ -215,7 +215,7 @@
 	throwforce = 12//fuck git
 	materials = list()
 	attack_verb = list("shanked", "shivved")
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 
 // Shank - Makeshift weapon that can embed on throw
 /obj/item/kitchen/knife/shank
