@@ -223,7 +223,7 @@
 			"<span class='notice'>You nuzzle [target_mob.name]!</span>", null, COMBAT_MESSAGE_RANGE)
 		return
 	return ..()
-s
+
 /mob/living/simple_animal/hostile/poison/giant_spider/proc/GiveUp()
 	if(busy == MOVING_TO_TARGET)
 		cocoon_target = null
@@ -380,17 +380,6 @@ s
 	poison_per_bite = 5
 	move_to_delay = 3
 	speed = 0
-
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/Life(delta_time)
-	. = ..()
-	if(alpha > 70)
-		alpha -= delta_time * 10 //about 18 seconds to best invisibility
-	if(alpha < 70)
-		alpha = 70
-
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/Moved(atom/oldloc, dir)
-	. = ..()
-	alpha = initial(alpha)
 
 // Vipers are physically very weak and fragile, but also very fast and inject a lot of venom.
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper
