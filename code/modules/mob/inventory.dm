@@ -154,7 +154,14 @@
 		hand += " #[num]"
 	return hand.Join()
 
-
+/mob/proc/get_inventory_slot_name(obj/item/item)
+	var/held_index = get_held_index_of_item(item)
+	if(held_index)
+		return get_held_index_name(held_index)
+	for(var/slot in GLOB.slot_names)
+		var/slot_name = GLOB.slot_names[slot]
+		if(get_item_by_slot(text2num(slot)) == item)
+			return slot_name
 
 //Returns if a certain item can be equipped to a certain slot.
 // Currently invalid for two-handed items - call obj/item/mob_can_equip() instead.

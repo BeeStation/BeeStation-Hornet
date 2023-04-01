@@ -49,3 +49,26 @@ GLOBAL_LIST_INIT(markup_tags, list("_"  = list("<i>", "</i>"),
 //Should be in the form of "((\\W|^)@)(\[^@\]*)(@(\\W|$)), "g"", where @ is the appropriate tag from markup_tags
 GLOBAL_LIST_INIT(markup_regex, list("_"  = new /regex("((\\W|^)_)(\[^_\]*)(_(\\W|$))", "g"),
 									"**" = new /regex("((\\W|^)\\*\\*)(\[^\\*\\*\]*)(\\*\\*(\\W|$))", "g")))
+
+GLOBAL_LIST_INIT(slot_names, list(
+	"[ITEM_SLOT_OCLOTHING]" = "suit",
+	"[ITEM_SLOT_ICLOTHING]" = "uniform",
+	"[ITEM_SLOT_GLOVES]" = "gloves",
+	"[ITEM_SLOT_EYES]" = "eyes",
+	"[ITEM_SLOT_EARS]" = "ears",
+	"[ITEM_SLOT_MASK]" = "mouth",
+	"[ITEM_SLOT_HEAD]" = "head",
+	"[ITEM_SLOT_FEET]" = "feet",
+	"[ITEM_SLOT_ID]" = "id",
+	"[ITEM_SLOT_BELT]" = "belt",
+	"[ITEM_SLOT_BACK]" = "back",
+	"[ITEM_SLOT_DEX_STORAGE]" = "dex storage",
+	"[ITEM_SLOT_NECK]" = "neck",
+	"[ITEM_SLOT_HANDS]" = "hands",
+	"[ITEM_SLOT_BACKPACK]" = "backpack",
+	"[ITEM_SLOT_SUITSTORE]" = "suit storage",
+	"[ITEM_SLOT_LPOCKET]" = "left pocket",
+	"[ITEM_SLOT_RPOCKET]" = "right pocket",
+	"[ITEM_SLOT_HANDCUFFED]" = "handcuffs",
+	"[ITEM_SLOT_LEGCUFFED]" = "legcuffs"
+))

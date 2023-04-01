@@ -218,6 +218,9 @@ world
 //Dummy mob reserve slots
 #define DUMMY_HUMAN_SLOT_PREFERENCES "dummy_preference_preview"
 #define DUMMY_HUMAN_SLOT_ADMIN "admintools"
+#define DUMMY_HUMAN_SLOT_MANIFEST "dummy_manifest_generation"
+#define DUMMY_HUMAN_SLOT_OUTFIT "dummy_outfit_icon_generation"
+#define DUMMY_HUMAN_SLOT_CHAMELEON_PRESET "dummy_chameleon_preset"
 
 	// Multiply all alpha values by this float
 /icon/proc/ChangeOpacity(opacity = 1)

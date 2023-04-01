@@ -424,20 +424,9 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/clothing/glasses/thermal/syndi/Initialize(mapload)
+/obj/item/clothing/glasses/thermal/syndi/ComponentInitialize()
 	. = ..()
-	chameleon_action = new(src)
-	chameleon_action.chameleon_type = /obj/item/clothing/glasses
-	chameleon_action.chameleon_name = "Glasses"
-	chameleon_action.chameleon_blacklist = typecacheof(/obj/item/clothing/glasses/changeling, only_root_path = TRUE)
-	chameleon_action.initialize_disguises()
-
-/obj/item/clothing/glasses/thermal/syndi/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	chameleon_action.emp_randomise()
-
+	AddComponent(/datum/component/chameleon, "Thermal Glasses", /obj/item/clothing/glasses, typecacheof(list(/obj/item/clothing/glasses/changeling), only_root_path = TRUE))
 /obj/item/clothing/glasses/thermal/monocle
 	name = "thermoncle"
 	desc = "Never before has seeing through walls felt so gentlepersonly."

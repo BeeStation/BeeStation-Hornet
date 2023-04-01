@@ -407,14 +407,10 @@ update_label("John Doe", "Clowny")
 	hud_state = JOB_HUD_SYNDICATE
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
 
-	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/card/id/syndicate/Initialize(mapload)
+/obj/item/card/id/syndicate/ComponentInitialize()
 	. = ..()
-	chameleon_action = new(src)
-	chameleon_action.chameleon_type = /obj/item/card/id
-	chameleon_action.chameleon_name = "ID Card"
-	chameleon_action.chameleon_blacklist = typecacheof(list(
+	AddComponent(/datum/component/chameleon, "ID", /obj/item/card/id, typecacheof(list(
 		/obj/item/card,
 		/obj/item/card/data,
 		/obj/item/card/data/full_color,
@@ -443,8 +439,7 @@ update_label("John Doe", "Clowny")
 		/obj/item/card/id/away/deep_storage,
 		/obj/item/card/id/changeling,
 		/obj/item/card/id/golem,
-		/obj/item/card/id/pass), only_root_path = TRUE)
-	chameleon_action.initialize_disguises()
+		/obj/item/card/id/pass), only_root_path = TRUE), anyone)
 
 /obj/item/card/id/syndicate/afterattack(obj/item/O, mob/user, proximity)
 	if(!proximity)
@@ -523,13 +518,6 @@ update_label("John Doe", "Clowny")
 			return
 	return ..()
 
-
-/obj/item/card/id/syndicate/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	chameleon_action.emp_randomise()
-
 // broken chameleon agent card
 /obj/item/card/id/syndicate/broken
 	access = list() // their access is even broken
@@ -537,9 +525,10 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/syndicate/broken/afterattack(obj/item/O, mob/user, proximity)
 	return
 
-/obj/item/card/id/syndicate/broken/Initialize(mapload)
+/obj/item/card/id/syndicate/broken/ComponentInitialize()
 	. = ..()
-	chameleon_action.emp_randomise(INFINITY)
+	var/datum/component/chameleon/chameleon = GetComponent(/datum/component/chameleon)
+	chameleon.emp_randomize(INFINITY)
 
 /obj/item/card/id/syndicate/anyone
 	anyone = TRUE
