@@ -11,7 +11,7 @@
 /proc/sanitize_float(number, min=0, max=1, accuracy=0.1, default=0)
 	if(isnum_safe(number))
 		number = round(number, accuracy)
-		if(min <= number && number <= max)
+		if(round(min, accuracy) <= number && number <= round(max, accuracy))
 			return number
 	return default
 
