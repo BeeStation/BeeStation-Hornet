@@ -380,15 +380,15 @@ SUBSYSTEM_DEF(air)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/obj/machinery/Machinery = currentrun[currentrun.len]
+		var/obj/machinery/current_machinery = currentrun[currentrun.len]
 		currentrun.len--
-		if(!Machinery)
-			atmos_machinery -= Machinery
+		if(!current_machinery)
+			atmos_machinery -= current_machinery
 		// Prevents uninitalized atmos machinery from processing.
-		if (!(Machinery.flags_1 & INITIALIZED_1))
+		if (!(current_machinery.flags_1 & INITIALIZED_1))
 			continue
-		if(Machinery.process_atmos() == PROCESS_KILL)
-			stop_processing_machine(Machinery)
+		if(current_machinery.process_atmos() == PROCESS_KILL)
+			stop_processing_machine(current_machinery)
 		if(MC_TICK_CHECK)
 			return
 
@@ -399,15 +399,15 @@ SUBSYSTEM_DEF(air)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/obj/machinery/Machinery = currentrun[currentrun.len]
+		var/obj/machinery/current_machinery = currentrun[currentrun.len]
 		currentrun.len--
 		// Prevents uninitalized atmos machinery from processing.
-		if (!(Machinery.flags_1 & INITIALIZED_1))
+		if (!(current_machinery.flags_1 & INITIALIZED_1))
 			continue
-		if(!Machinery)
-			atmos_air_machinery -= Machinery
-		if(Machinery.process_atmos(seconds) == PROCESS_KILL)
-			stop_processing_machine(Machinery)
+		if(!current_machinery)
+			atmos_air_machinery -= current_machinery
+		if(current_machinery.process_atmos(seconds) == PROCESS_KILL)
+			stop_processing_machine(current_machinery)
 		if(MC_TICK_CHECK)
 			return
 
