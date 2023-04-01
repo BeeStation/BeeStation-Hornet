@@ -1099,7 +1099,14 @@
 **/
 /mob/proc/has_light_on_turf(light_amount = LIGHTING_TILE_IS_DARK)
 	var/turf/mob_location = get_turf(src)
-	return mob_location.get_lumcount() > light_amount
+	var/area/mob_area = get_area(src)
+
+	if(mob_location.get_lumcount() > light_amount)
+		return TRUE
+	else if(!mob_area.static_lighting)
+		return TRUE
+
+	return FALSE
 
 ///Can this mob read (is literate and not blind)
 /mob/proc/can_read(obj/O, mob/U)
