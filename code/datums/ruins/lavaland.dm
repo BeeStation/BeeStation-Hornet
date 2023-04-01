@@ -4,7 +4,7 @@
 	prefix = "_maps/RandomRuins/LavaRuins/"
 
 /datum/map_template/ruin/lavaland/biodome
-	cost = 5
+	cost = 15
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/lavaland/biodome/beach
@@ -74,7 +74,7 @@
 	name = "Animal Hospital"
 	id = "animal-hospital"
 	description = "An ancient animal hospital, its true purpose long forgotten. The doctors awaken with a singular purpose: heal the dying, sick, and injured habitants of the wasteland around them."
-	cost = 5
+	cost = 15
 	suffix = "lavaland_surface_animal_hospital.dmm"
 	allow_duplicates = FALSE
 
@@ -198,7 +198,7 @@
 	description = "A place of shelter for a lone hermit, scraping by to live another day."
 	suffix = "lavaland_surface_hermit.dmm"
 	allow_duplicates = FALSE
-	cost = 10
+	cost = 15
 
 /datum/map_template/ruin/lavaland/swarmer_boss
 	name = "Crashed Shuttle"
@@ -222,7 +222,7 @@
 	description = "Mystery to be solved."
 	suffix = "lavaland_surface_puzzle.dmm"
 	cost = 5
-  
+
 /datum/map_template/ruin/lavaland/elite_tumor
 	name = "Pulsating Tumor"
 	id = "tumor"
