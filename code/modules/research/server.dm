@@ -52,6 +52,11 @@
 	// The +10 is so the sparks work
 	RefreshParts()
 
+	var/area/A = get_area(src)
+	if(istype(A, /area/shuttle))
+		var/area/shuttle/AS = A
+		req_ship_access = AS.mobile_port?.id
+
 /obj/machinery/rnd/server/Destroy()
 	SSresearch.servers -= src
 	return ..()

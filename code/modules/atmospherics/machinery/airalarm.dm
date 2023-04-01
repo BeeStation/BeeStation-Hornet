@@ -211,6 +211,10 @@
 	set_frequency(frequency)
 	GLOB.zclear_atoms += src
 
+/obj/machinery/airalarm/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+	..()
+	req_ship_access = port.id
+
 /obj/machinery/airalarm/Destroy()
 	SSradio.remove_object(src, frequency)
 	qdel(wires)

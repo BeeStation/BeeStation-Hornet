@@ -56,6 +56,11 @@
 		"caution" = /obj/machinery/portable_atmospherics/canister,
 	)
 
+/obj/machinery/portable_atmospherics/canister/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+	..()
+	if(restricted)
+		req_ship_access = port.id
+
 /obj/machinery/portable_atmospherics/canister/interact(mob/user)
 	if(!allowed(user))
 		to_chat(user, "<span class='warning'>Error - Unauthorized User</span>")

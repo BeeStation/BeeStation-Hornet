@@ -29,11 +29,14 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 	. = ..()
 	ev = GLOB.keycard_events.addEvent("triggerEvent", CALLBACK(src, PROC_REF(triggerEvent)))
 
+/obj/machinery/keycard_auth/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+	..()
+	req_ship_access = port.id
+
 /obj/machinery/keycard_auth/Destroy()
 	GLOB.keycard_events.clearEvent("triggerEvent", ev)
 	QDEL_NULL(ev)
 	return ..()
-
 
 /obj/machinery/keycard_auth/ui_state(mob/user)
 	return GLOB.physical_state

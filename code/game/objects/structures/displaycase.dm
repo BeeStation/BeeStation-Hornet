@@ -41,6 +41,10 @@
 		showpiece = new start_showpiece_type (src)
 	update_icon()
 
+/obj/structure/displaycase/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+	..()
+	req_ship_access = port.id
+
 /obj/structure/displaycase/vv_edit_var(vname, vval)
 	. = ..()
 	if(vname in list(NAMEOF(src, open), NAMEOF(src, showpiece), NAMEOF(src, custom_glass_overlay)))

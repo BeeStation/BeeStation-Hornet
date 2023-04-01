@@ -17,6 +17,11 @@
 	radio.subspace_transmission = TRUE
 	radio.canhear_range = 0
 	radio.recalculateChannels()
+	if(!mapload)
+		var/area/A = get_area(src)
+		if(istype(A, /area/shuttle))
+			var/area/shuttle/AS = A
+			req_ship_access = AS.mobile_port?.id
 
 /obj/machinery/computer/robotics/Destroy()
 	QDEL_NULL(radio)

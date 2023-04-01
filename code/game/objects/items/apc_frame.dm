@@ -57,6 +57,11 @@
 
 /obj/item/wallframe/proc/after_attach(var/obj/O)
 	transfer_fingerprints_to(O)
+	if(O.req_access || O.req_access_txt)
+		var/area/A = get_area(src)
+		if(istype(A, /area/shuttle))
+			var/area/shuttle/AS = A
+			O.req_ship_access = AS.mobile_port?.id
 
 /obj/item/wallframe/attackby(obj/item/W, mob/user, params)
 	..()

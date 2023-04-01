@@ -11,6 +11,17 @@
 	var/open = FALSE
 	base_icon_state = "lockbox"
 
+/obj/item/storage/lockbox/Initialize(mapload)
+	. = ..()
+	var/area/A = get_area(src)
+	if(istype(A, /area/shuttle))
+		var/area/shuttle/AS = A
+		req_ship_access = AS.mobile_port?.id
+
+/obj/item/storage/lockbox/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+	..()
+	req_ship_access = port.id
+
 /obj/item/storage/lockbox/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)

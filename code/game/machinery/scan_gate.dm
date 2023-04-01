@@ -6,6 +6,7 @@
 #define SCANGATE_WANTED			"Wanted"
 #define SCANGATE_SPECIES		"Species"
 #define SCANGATE_NUTRITION		"Nutrition"
+#define SCANGATE_SHIP			"Ship"
 
 #define SCANGATE_HUMAN			"human"
 #define SCANGATE_LIZARD			"lizard"
@@ -77,6 +78,7 @@
 			if(allowed(user))
 				locked = FALSE
 				req_access = list()
+				req_ship_access = null
 				to_chat(user, "<span class='notice'>You unlock [src].</span>")
 				//Update to viewers
 				ui_update()
@@ -84,6 +86,7 @@
 			to_chat(user, "<span class='notice'>You lock [src] with [W].</span>")
 			var/list/access = W.GetAccess()
 			req_access = access
+			req_ship_access = W.GetShipAccess()
 			locked = TRUE
 			//Update to viewers
 			ui_update()
@@ -167,6 +170,11 @@
 				if(H.nutrition <= detect_nutrition && detect_nutrition == NUTRITION_LEVEL_STARVING)
 					beep = TRUE
 				if(H.nutrition >= detect_nutrition && detect_nutrition == NUTRITION_LEVEL_FAT)
+					beep = TRUE
+		if(SCANGATE_SHIP)
+			if(M.get_idcard())
+				var/obj/item/card/id/ID = M.get_idcard()
+				if(ID.GetShipAccess() == req_ship_access)
 					beep = TRUE
 
 	if(reverse)

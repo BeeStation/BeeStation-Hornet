@@ -14,6 +14,9 @@
 /obj/machinery/door/airlock/shell/check_access(obj/item/I)
 	return FALSE
 
+/obj/machinery/door/airlock/shell/check_access_ship(obj/item/I)
+	return FALSE
+
 /obj/item/circuit_component/airlock
 	display_name = "Airlock"
 	display_desc = "The general interface with an airlock. Includes general statuses of the airlock"

@@ -42,6 +42,10 @@
 			board.one_access = 1
 			board.accesses = req_one_access
 
+/obj/machinery/button/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+	..()
+	if(req_access.len || req_one_access.len)
+		req_ship_access = port.id
 
 /obj/machinery/button/update_icon()
 	cut_overlays()

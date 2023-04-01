@@ -138,6 +138,10 @@
 			if(airlock.density && (cyclestate == AIRLOCK_CYCLESTATE_CLOSED || (airlocks[A] && cyclestate == AIRLOCK_CYCLESTATE_INOPEN) || (!airlocks[A] && cyclestate == AIRLOCK_CYCLESTATE_OUTOPEN)))
 				airlock.bolt()
 
+/obj/machinery/advanced_airlock_controller/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+	..()
+	req_ship_access = port.id
+
 /obj/machinery/advanced_airlock_controller/update_icon(use_hash = FALSE)
 	var/turf/location = get_turf(src)
 	if(!location)
@@ -826,6 +830,7 @@
 /obj/machinery/door/airlock/Initialize(mapload)
 	. = ..()
 	update_aac_docked()
+
 /obj/machinery/door/airlock/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()

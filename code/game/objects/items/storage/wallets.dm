@@ -94,6 +94,9 @@
 	else
 		return ..()
 
+/obj/item/storage/wallet/GetShipAccess()
+	return front_id?.GetShipAccess()
+
 /obj/item/storage/wallet/random
 	icon_state = "random_wallet"
 

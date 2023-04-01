@@ -42,12 +42,24 @@
 	var/door_anim_angle = 136
 	var/door_hinge = -6.5
 	var/door_anim_time = 2.0 // set to 0 to make the door not animate at all
+
 /obj/structure/closet/Initialize(mapload)
-	if(mapload && !opened)		// if closed, any item at the crate's loc is put in the contents
-		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
+	if(mapload)		// if closed, any item at the crate's loc is put in the contents
+		if(!opened)
+			addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
+	if(secure && !mapload)
+		var/area/A = get_area(src)
+		if(istype(A, /area/shuttle))
+			var/area/shuttle/AS = A
+			req_ship_access = AS.mobile_port?.id
 	. = ..()
 	update_icon()
 	PopulateContents()
+
+/obj/structure/closet/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+	..()
+	if(secure)
+		req_ship_access = port.id
 
 //USE THIS TO FILL IT, NOT INITIALIZE OR NEW
 /obj/structure/closet/proc/PopulateContents()

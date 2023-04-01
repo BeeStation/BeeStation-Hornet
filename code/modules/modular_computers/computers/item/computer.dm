@@ -191,6 +191,11 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return card_slot.GetAccess()
 	return ..()
 
+/obj/item/modular_computer/GetShipAccess()
+	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
+	if(card_slot)
+		return card_slot.GetShipAccess()
+
 /obj/item/modular_computer/GetID()
 	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
 	if(card_slot)

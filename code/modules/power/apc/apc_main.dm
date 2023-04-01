@@ -89,7 +89,7 @@
 	///used for the Blackout malf module
 	var/overload = 1
 	///used for counting how many times it has been hit, used for Aliens at the moment
-	var/beenhit = 0 
+	var/beenhit = 0
 	///Reference to the shunted ai inside
 	var/mob/living/silicon/ai/occupier = null
 	///Is there an AI being transferred out of us?
@@ -118,9 +118,9 @@
 	var/obj/machinery/computer/apc_control/remote_control = null
 
 	//Clockcult - Has the reward for converting an APC been given?
-	var/clock_cog_rewarded = FALSE	
+	var/clock_cog_rewarded = FALSE
 	//Clockcult - The integration cog inserted inside of us
-	var/integration_cog = null		
+	var/integration_cog = null
 
 /obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
 	if (!req_access)
@@ -228,6 +228,7 @@
 	else if(isarea(A) && areastring == null)
 		area = A
 
+
 	if(auto_name)
 		name = "\improper [get_area_name(area, TRUE)] APC"
 
@@ -236,6 +237,10 @@
 	make_terminal()
 
 	addtimer(CALLBACK(src, PROC_REF(update)), 5)
+
+/obj/machinery/power/apc/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+	..()
+	req_ship_access = port.id
 
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
