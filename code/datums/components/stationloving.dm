@@ -40,10 +40,10 @@
 	// move the disc, so ghosts remain orbiting it even if it's "destroyed"
 	return targetturf
 
-/datum/component/stationloving/proc/check_in_bounds()
+/datum/component/stationloving/proc/check_in_bounds(is_retrying = FALSE)
 	SIGNAL_HANDLER
 
-	if(in_bounds())
+	if(in_bounds(is_retrying))
 		return
 	else
 		var/turf/currentturf = get_turf(src)
@@ -62,7 +62,7 @@
 
 	return COMPONENT_BLOCK_MARK_RETRIEVAL
 
-/datum/component/stationloving/proc/in_bounds()
+/datum/component/stationloving/proc/in_bounds(is_retrying = FALSE)
 	var/static/list/allowed_shuttles = typecacheof(list(/area/shuttle/syndicate, /area/shuttle/escape, /area/shuttle/pod_1, /area/shuttle/pod_2, /area/shuttle/pod_3, /area/shuttle/pod_4))
 	var/static/list/disallowed_centcom_areas = typecacheof(list(/area/abductor_ship, /area/awaymission/errorroom))
 	var/turf/T = get_turf(parent)
@@ -80,10 +80,10 @@
 			return TRUE
 		// Whenever shuttles move, everything seems to be on a hyperspace tile temporarily,
 		// so we need this to stop it from teleporting off of allowed shuttles.
-		if (istype(T, /turf/open/space/transit))
+		if (!is_retrying && istype(T, /turf/open/space/transit))
 			// We still might be on a disallowed shuttle,
 			// so we need to check again in a second to make sure.
-			addtimer(CALLBACK(src, PROC_REF(check_in_bounds)), 1 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(check_in_bounds), TRUE), 1 SECONDS)
 			return TRUE
 
 	return FALSE
