@@ -54,6 +54,14 @@
 		"stimulum" = /obj/machinery/portable_atmospherics/canister/stimulum,
 		"pluoxium" = /obj/machinery/portable_atmospherics/canister/pluoxium,
 		"caution" = /obj/machinery/portable_atmospherics/canister,
+		/*"miasma" = /obj/machinery/portable_atmospherics/canister/miasma,*/
+		"hydrogen" = /obj/machinery/portable_atmospherics/canister/hydrogen,
+		"freon" = /obj/machinery/portable_atmospherics/canister/freon,
+		"healium" = /obj/machinery/portable_atmospherics/canister/healium,
+		"pluonium" = /obj/machinery/portable_atmospherics/canister/pluonium,
+		"zauker" = /obj/machinery/portable_atmospherics/canister/zauker,
+		"halon" = /obj/machinery/portable_atmospherics/canister/halon,
+		"hexane" = /obj/machinery/portable_atmospherics/canister/hexane
 	)
 
 /obj/machinery/portable_atmospherics/canister/interact(mob/user)
@@ -146,6 +154,21 @@
 	greyscale_config = /datum/greyscale_config/canister/hazard
 	greyscale_colors = "#3fcd40#000000"
 
+/obj/machinery/portable_atmospherics/canister/freon
+	name = "freon canister"
+	desc = "Freon. Endothermic absorber of heat"
+	greyscale_colors = "#c6c0b5#000000"
+	gas_type = GAS_FREON
+	filled = 1
+
+/obj/machinery/portable_atmospherics/canister/hydrogen
+	name = "hydrogen canister"
+	desc = "Hydrogen, highly flammable"
+	icon_state = "grey"
+	gas_type = GAS_H2
+	greyscale_config = /datum/greyscale_config/canister/hazard
+	greyscale_colors = "#c6c0b5#000000"
+
 /obj/machinery/portable_atmospherics/canister/water_vapor
 	name = "water vapor canister"
 	desc = "Water Vapor. We get it, you vape."
@@ -154,6 +177,45 @@
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
 	greyscale_colors = "#4c4e4d#f7d5d3"
 
+/obj/machinery/portable_atmospherics/canister/healium
+	name = "Healium canister"
+	desc = "Healium, causes deep sleep"
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#4c4e4d#f7d5d3"
+	gas_type = GAS_HEALIUM
+	filled = 1
+
+/obj/machinery/portable_atmospherics/canister/halon
+	name = "Halon canister"
+	desc = "Halon, remove oxygen from high temperature fires and cool down the area"
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#4c4e4d#f7d5d3"
+	gas_type = GAS_HALON
+	filled = 1
+
+/obj/machinery/portable_atmospherics/canister/hexane
+	name = "Hexane canister"
+	desc = "hexane, highly flammable"
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#4c4e4d#f7d5d3"
+	gas_type = GAS_HEXANE
+	filled = 1
+
+/obj/machinery/portable_atmospherics/canister/pluonium
+	name = "Pluonium canister"
+	desc = "Pluonium, react differently with various gases"
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#4c4e4d#f7d5d3"
+	gas_type = GAS_PLUONIUM
+	filled = 1
+
+/obj/machinery/portable_atmospherics/canister/zauker
+	name = "Zauker canister"
+	desc = "Zauker, highly toxic"
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#4c4e4d#f7d5d3"
+	gas_type = GAS_ZAUKER
+	filled = 1
 
 /obj/machinery/portable_atmospherics/canister/proc/get_time_left()
 	if(timing)

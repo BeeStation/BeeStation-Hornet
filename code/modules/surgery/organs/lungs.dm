@@ -260,6 +260,65 @@
 			H.reagents.add_reagent(/datum/reagent/nitryl,1)
 
 		breath.adjust_moles(GAS_NITRYL, -gas_breathed)
+	// Freon
+		var/freon_pp = PP(breath,GAS_FREON)
+		if (prob(freon_pp))
+			to_chat(H, span_alert("Your mouth feels like it's burning!"))
+		if (freon_pp >40)
+			H.emote("gasp")
+			H.adjustFireLoss(15)
+			if (prob(freon_pp/2))
+				to_chat(H, span_alert("Your throat closes up!"))
+				H.silent = max(H.silent, 3)
+		else
+			H.adjustFireLoss(freon_pp/4)
+		gas_breathed = breath.get_moles(GAS_FREON)
+		if (gas_breathed > gas_stimulation_min)
+			H.reagents.add_reagent(/datum/reagent/freon,1)
+
+		breath.adjust_moles(GAS_FREON, -gas_breathed)
+
+	// Healium
+		var/healium_pp = PP(breath,GAS_HEALIUM)
+		if(healium_pp > SA_sleep_min)
+			var/existing = H.reagents.get_reagent_amount(/datum/reagent/healium)
+			H.reagents.add_reagent(/datum/reagent/healium,max(0, 1- existing))
+			H.adjustFireLoss(-7)
+			H.adjustToxLoss(-5)
+			H.adjustBruteLoss(-5)
+		gas_breathed = breath.get_moles(GAS_HEALIUM)
+		breath.adjust_moles(GAS_HEALIUM, -gas_breathed)
+
+	// Pluonium
+		// Inert
+
+	// Zauker
+		var/zauker_pp = PP(breath,GAS_ZAUKER)
+		if(zauker_pp > safe_breath_max)
+			H.adjustBruteLoss(25)
+			H.adjustOxyLoss(5)
+			H.adjustFireLoss(8)
+			H.adjustToxLoss(8)
+		gas_breathed = breath.get_moles(GAS_ZAUKER)
+		breath.adjust_moles(GAS_ZAUKER, -gas_breathed)
+
+	// Halon
+		gas_breathed = breath.get_moles(GAS_HALON)
+		if(gas_breathed > gas_stimulation_min)
+			H.adjustOxyLoss(5)
+			var/existing = H.reagents.get_reagent_amount(/datum/reagent/halon)
+			H.reagents.add_reagent(/datum/reagent/halon,max(0, 1 - existing))
+		gas_breathed = breath.get_moles(GAS_HALON)
+		breath.adjust_moles(GAS_HALON, -gas_breathed)
+
+	// Hexane
+		gas_breathed = breath.get_moles(GAS_HEXANE)
+		if(gas_breathed > gas_stimulation_min)
+			H.hallucination += 50
+			H.reagents.add_reagent(/datum/reagent/hexane,5)
+			if(prob(33))
+				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3, 150)
+		breath.adjust_moles(GAS_HEXANE, -gas_breathed)
 
 	// Stimulum
 		gas_breathed = PP(breath,GAS_STIMULUM)

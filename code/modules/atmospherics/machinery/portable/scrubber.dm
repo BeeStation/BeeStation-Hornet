@@ -11,7 +11,23 @@
 	var/overpressure_m = 80
 	volume = 1000
 
-	var/list/scrubbing = list(GAS_PLASMA, GAS_CO2, GAS_NITROUS, GAS_BZ, GAS_NITRYL, GAS_TRITIUM, GAS_HYPERNOB, GAS_H2O)
+	var/list/scrubbing = list(	GAS_PLASMA,
+								GAS_CO2,
+								GAS_NITROUS,
+								GAS_BZ,
+								GAS_NITRYL,
+								GAS_TRITIUM,
+								GAS_HYPERNOB,
+								GAS_H2O,
+								GAS_H2,
+								GAS_FREON,
+								GAS_HEALIUM,
+								GAS_PLUONIUM,
+								GAS_HALON,
+								GAS_ZAUKER,
+								GAS_HEXANE,
+								GAS_DILITHIUM
+							)
 
 /obj/machinery/portable_atmospherics/scrubber/Destroy()
 	var/turf/T = get_turf(src)

@@ -126,6 +126,31 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	else
 		. = ..()
 
+/* Atmos */
+/obj/item/stack/ammonia_crystals
+	name = "Ammonia Crystals"
+	singular_name = "Ammonia Crystal"
+	icon = 'icons/obj/stack_objects.dmi'
+	icon_state = "ammonia_crystal"
+	w_class = WEIGHT_CLASS_TINY
+	resistance_flags = FLAMMABLE
+	max_amount = 50
+	grind_results = list(/datum/reagent/ammonia = 10)
+
+/obj/item/stack/sheet/hot_ice
+	name = "hot ice"
+	icon_state = "hot-ice"
+	item_state = "hot-ice"
+	singular_name = "hot ice"
+	icon = 'icons/obj/stack_objects.dmi'
+	custom_materials = list(/datum/material/hot_ice=MINERAL_MATERIAL_AMOUNT)
+	grind_results = list(/datum/reagent/toxin/plasma = 200)
+	materials = list(/datum/material/hot_ice = MINERAL_MATERIAL_AMOUNT)
+
+/obj/item/stack/sheet/hot_ice/suicide_act(mob/living/carbon/user)
+	user.visible_message("<span class='suicide'>[user] begins licking \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	return FIRELOSS//dont you kids know that stuff is toxic?
+
 /* capitalisium and stalinium*/
 
 /obj/item/stack/sheet/capitalisium

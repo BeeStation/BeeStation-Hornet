@@ -55,6 +55,8 @@
 	moles_visible = MOLES_GAS_VISIBLE
 	fusion_power = 8
 	breath_reagent = /datum/reagent/water
+	heat_penalty = 12
+	transmit_modifier = 2
 	enthalpy = -241800 // FIRE_HYDROGEN_ENERGY_RELEASED is actually what this was supposed to be
 
 /datum/gas/hypernoblium
@@ -126,3 +128,71 @@
 	oxidation_temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST * 1000 // it is VERY stable
 	oxidation_rate = 8
 	enthalpy = -50000 // but it reduces the heat output a bit
+
+/datum/gas/hydrogen
+	id = GAS_H2
+	specific_heat = 15
+	name = "Hydrogen"
+	gas_overlay = "hydrogen"
+	fusion_power = 1
+	powermix = 1
+	heat_penalty = 2
+	transmit_modifier = 30
+
+/datum/gas/freon
+	id = GAS_FREON
+	specific_heat = 300
+	name = "Freon"
+	gas_overlay = "freon"
+	moles_visible = MOLES_GAS_VISIBLE *30
+	fusion_power = -5
+	heat_penalty = -10
+
+/datum/gas/dilithium // Main point is that this helps fusion occur at a significantly lower temperature than normal
+	id = GAS_DILITHIUM
+	specific_heat = 55
+	name = "Dilithium"
+	fusion_power = 1
+
+/datum/gas/healium
+	id = GAS_HEALIUM
+	specific_heat = 10
+	name = "Healium"
+	gas_overlay = "healium"
+	moles_visible = MOLES_GAS_VISIBLE
+	heat_penalty = 4
+	transmit_modifier = 2.4
+
+/datum/gas/pluonium
+	id = GAS_PLUONIUM
+	specific_heat = 30
+	name = "Pluonium"
+	flags = GAS_FLAG_DANGEROUS
+	gas_overlay = "pluonium"
+	moles_visible = MOLES_GAS_VISIBLE
+	heat_resistance = 5
+	transmit_modifier = 15
+
+/datum/gas/halon
+	id = GAS_HALON
+	specific_heat = 175
+	name = "Halon"
+	flags = GAS_FLAG_DANGEROUS
+	gas_overlay = "halon"
+	moles_visible = MOLES_GAS_VISIBLE
+
+/datum/gas/zauker
+	id = GAS_ZAUKER
+	specific_heat = 350
+	name = "Zauker"
+	flags = GAS_FLAG_DANGEROUS
+	gas_overlay = "zauker"
+	moles_visible = MOLES_GAS_VISIBLE
+
+/datum/gas/hexane
+	id = GAS_HEXANE
+	specific_heat = 5
+	name = "Hexane"
+	flags = GAS_FLAG_DANGEROUS
+	gas_overlay = "hexane"
+	moles_visible = MOLES_GAS_VISIBLE

@@ -70,7 +70,6 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-
 /obj/item/clothing/head/helmet/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/flashlight/seclite))
 		var/obj/item/flashlight/seclite/S = I
@@ -415,3 +414,11 @@
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	armor = list(MELEE = 25,  BULLET = 20, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 50, RAD = 20, FIRE = -10, ACID = 50, STAMINA = 20)
+
+/obj/item/clothing/head/helmet/elder_atmosian
+	name = "Elder Atmosian Helmet"
+	desc = "A superb helmet made with the thoughest and rarest materials available to man."
+	icon_state = "knight_greyscale"
+	armor = list(MELEE = 25, BULLET = 10, LASER = 30, ENERGY = 30, BOMB = 85, BIO = 10, RAD = 100, FIRE = 65, ACID = 40)
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH

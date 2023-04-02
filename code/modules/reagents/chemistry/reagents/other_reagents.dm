@@ -1056,6 +1056,13 @@
 /mob/living/proc/bluespace_shuffle()
 	do_teleport(src, get_turf(src), 5, asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
 
+/datum/reagent/dilithium
+	name = "Dilithium Dust"
+	description = "A dust composed of microscopic dilithium crystals, with heretofore unknown properties."
+	reagent_state = SOLID
+	color = "#ff32be"
+	taste_description = "Earl Grey hot"
+
 /datum/reagent/aluminium
 	name = "Aluminium"
 	description = "A silvery white and ductile member of the boron group of chemical elements."
@@ -1405,6 +1412,91 @@
 /datum/reagent/nitryl/on_mob_end_metabolize(mob/living/L)
 	L.remove_movespeed_modifier(type)
 	..()
+
+/datum/reagent/freon
+	name = "Freon"
+	description = "A powerful heat adsorbant."
+	reagent_state = GAS
+	metabolization_rate = REAGENTS_METABOLISM * 0.5 // Because stimulum/nitryl/freon/hypernoblium are handled through gas breathing, metabolism must be lower for breathcode to keep up
+	color = "90560B"
+	taste_description = "burning"
+/datum/reagent/freon/on_mob_metabolize(mob/living/L)
+	. = ..()
+	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=1.6, blacklisted_movetypes=(FLYING|FLOATING))
+/datum/reagent/freon/on_mob_end_metabolize(mob/living/L)
+	L.remove_movespeed_modifier(type)
+	return ..()
+/datum/reagent/hypernoblium
+	name = "Hyper-Noblium"
+	description = "A suppressive gas that stops gas reactions on those who inhale it."
+	reagent_state = GAS
+	metabolization_rate = REAGENTS_METABOLISM * 0.5 // Because stimulum/nitryl/freon/hyper-nob are handled through gas breathing, metabolism must be lower for breathcode to keep up
+	color = "90560B"
+	taste_description = "searingly cold"
+/datum/reagent/hypernoblium/on_mob_metabolize(mob/living/L)
+	. = ..()
+	if(isplasmaman(L))
+		ADD_TRAIT(L, TRAIT_NOFIRE, type)
+/datum/reagent/hypernoblium/on_mob_end_metabolize(mob/living/L)
+	if(isplasmaman(L))
+		REMOVE_TRAIT(L, TRAIT_NOFIRE, type)
+	return ..()
+
+/datum/reagent/healium
+	name = "Healium"
+	description = "A Powerful sleeping agent with healing properties."
+	reagent_state = GAS
+	metabolization_rate = REAGENTS_METABOLISM * 0.5
+	color = "90560B"
+	taste_description = "rubbery"
+
+/datum/reagent/healium/on_mob_life(mob/living/L, delta_time, times_fired)
+	. = ..()
+	L.adjustFireLoss(-2 * REM * delta_time, FALSE)
+	L.adjustToxLoss(-5 * REM * delta_time, FALSE)
+	L.adjustBruteLoss(-2 * REM * delta_time, FALSE)
+
+/datum/reagent/healium/on_mob_metabolize(mob/living/L)
+	. = ..()
+	L.SetSleeping(100 SECONDS)
+
+/datum/reagent/healium/on_mob_end_metabolize(mob/living/L)
+	L.SetSleeping(1 SECONDS)
+	return ..()
+
+/datum/reagent/halon
+	name = "Halon"
+	description = "A firefighter gas that removes oxygen and cools down an area."
+	reagent_state = GAS
+	metabolization_rate = REAGENTS_METABOLISM * 0.5
+	color = "90560B"
+	taste_description = "minty"
+
+/datum/reagent/halon/on_mob_metabolize(mob/living/L)
+	. = ..()
+	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=1.8, blacklisted_movetypes=(FLYING|FLOATING))
+	ADD_TRAIT(L, TRAIT_RESISTHEAT, type)
+
+/datum/reagent/halon/on_mob_end_metabolize(mob/living/L)
+	L.remove_movespeed_modifier(type)
+	REMOVE_TRAIT(L, TRAIT_RESISTHEAT, type)
+	return ..()
+
+/datum/reagent/hexane
+	name = "Hexane"
+	description = "A filtering gas, don't breathe it if you suffer from brain conditions."
+	reagent_state = GAS
+	metabolization_rate = REAGENTS_METABOLISM * 0.5
+	color = "90560B"
+	taste_description = "fresh"
+
+/datum/reagent/hexane/on_mob_metabolize(mob/living/L)
+	. = ..()
+	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=1.8, blacklisted_movetypes=(FLYING|FLOATING))
+
+/datum/reagent/hexane/on_mob_end_metabolize(mob/living/L)
+	L.remove_movespeed_modifier(type)
+	return ..()
 
 /////////////////////////Colorful Powder////////////////////////////
 //For colouring in /proc/mix_color_from_reagents

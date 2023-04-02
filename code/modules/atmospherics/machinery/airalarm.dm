@@ -106,38 +106,48 @@
 
 /obj/machinery/airalarm/server // No checks here.
 	TLV = list(
-		"pressure"					= new/datum/tlv/no_checks,
-		"temperature"				= new/datum/tlv/no_checks,
-		GAS_O2			= new/datum/tlv/no_checks,
-		GAS_N2			= new/datum/tlv/no_checks,
+		"pressure" = new/datum/tlv/no_checks,
+		"temperature" = new/datum/tlv/no_checks,
+		GAS_O2 = new/datum/tlv/no_checks,
+		GAS_N2 = new/datum/tlv/no_checks,
 		GAS_CO2	= new/datum/tlv/no_checks,
-		GAS_PLASMA			= new/datum/tlv/no_checks,
+		GAS_PLASMA = new/datum/tlv/no_checks,
 		GAS_NITROUS	= new/datum/tlv/no_checks,
-		GAS_BZ				= new/datum/tlv/no_checks,
-		GAS_HYPERNOB		= new/datum/tlv/no_checks,
-		GAS_H2O		= new/datum/tlv/no_checks,
-		GAS_TRITIUM			= new/datum/tlv/no_checks,
-		GAS_STIMULUM			= new/datum/tlv/no_checks,
-		GAS_NITRYL			= new/datum/tlv/no_checks,
-		GAS_PLUOXIUM			= new/datum/tlv/no_checks
+		GAS_BZ = new/datum/tlv/no_checks,
+		GAS_HYPERNOB = new/datum/tlv/no_checks,
+		GAS_H2O = new/datum/tlv/no_checks,
+		GAS_TRITIUM	= new/datum/tlv/no_checks,
+		GAS_STIMULUM = new/datum/tlv/no_checks,
+		GAS_NITRYL = new/datum/tlv/no_checks,
+		GAS_PLUOXIUM = new/datum/tlv/no_checks,
+		GAS_H2 = new/datum/tlv/no_checks,
+		GAS_FREON = new/datum/tlv/no_checks,
 	)
 
 /obj/machinery/airalarm/kitchen_cold_room // Kitchen cold rooms start off at -20°C or 253.15 K.
 	TLV = list(
-		"pressure"					= new/datum/tlv(ONE_ATMOSPHERE * 0.8, ONE_ATMOSPHERE*  0.9, ONE_ATMOSPHERE * 1.1, ONE_ATMOSPHERE * 1.2), // kPa
-		"temperature"				= new/datum/tlv(T0C-273.15, T0C-80, T0C-10, T0C+10),
-		GAS_O2			= new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
-		GAS_N2			= new/datum/tlv(-1, -1, 1000, 1000),
+		"pressure" = new/datum/tlv(ONE_ATMOSPHERE * 0.8, ONE_ATMOSPHERE*  0.9, ONE_ATMOSPHERE * 1.1, ONE_ATMOSPHERE * 1.2), // kPa
+		"temperature" = new/datum/tlv(T0C-273.15, T0C-80, T0C-10, T0C+10),
+		GAS_O2 = new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
+		GAS_N2 = new/datum/tlv(-1, -1, 1000, 1000),
 		GAS_CO2	= new/datum/tlv(-1, -1, 5, 10),
-		GAS_PLASMA			= new/datum/tlv/dangerous,
+		GAS_PLASMA = new/datum/tlv/dangerous,
 		GAS_NITROUS	= new/datum/tlv/dangerous,
-		GAS_BZ				= new/datum/tlv/dangerous,
-		GAS_HYPERNOB		= new/datum/tlv(-1, -1, 1000, 1000), // Hyper-Noblium is inert and nontoxic
-		GAS_H2O		= new/datum/tlv/dangerous,
-		GAS_TRITIUM			= new/datum/tlv/dangerous,
-		GAS_STIMULUM			= new/datum/tlv/dangerous,
-		GAS_NITRYL			= new/datum/tlv/dangerous,
-		GAS_PLUOXIUM			= new/datum/tlv(-1, -1, 1000, 1000) // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
+		GAS_BZ = new/datum/tlv/dangerous,
+		GAS_HYPERNOB = new/datum/tlv(-1, -1, 1000, 1000), // Hyper-Noblium is inert and nontoxic
+		GAS_H2O	= new/datum/tlv/dangerous,
+		GAS_TRITIUM = new/datum/tlv/dangerous,
+		GAS_STIMULUM = new/datum/tlv/dangerous,
+		GAS_NITRYL = new/datum/tlv/dangerous,
+		GAS_PLUOXIUM = new/datum/tlv(-1, -1, 1000, 1000), // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
+		GAS_H2 = new/datum/tlv/dangerous,
+		GAS_FREON = new/datum/tlv/dangerous,
+		GAS_HEALIUM	= new/datum/tlv/dangerous,
+		GAS_PLUONIUM = new/datum/tlv/dangerous,
+		GAS_ZAUKER = new/datum/tlv/dangerous,
+		GAS_HALON = new/datum/tlv/dangerous,
+		GAS_HEXANE = new/datum/tlv/dangerous,
+		GAS_DILITHIUM = new/datum/tlv/dangerous
 	)
 
 /obj/machinery/airalarm/unlocked
@@ -534,7 +544,15 @@
 						GAS_TRITIUM,
 						GAS_BZ,
 						GAS_STIMULUM,
-						GAS_PLUOXIUM
+						GAS_PLUOXIUM,
+						GAS_H2,
+						GAS_FREON,
+						GAS_HEALIUM,
+						GAS_PLUONIUM,
+						GAS_ZAUKER,
+						GAS_HALON,
+						GAS_HEXANE,
+						GAS_DILITHIUM
 					),
 					"scrubbing" = 1,
 					"widenet" = 1

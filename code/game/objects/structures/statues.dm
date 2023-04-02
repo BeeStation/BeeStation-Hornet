@@ -276,3 +276,12 @@
 	max_integrity = 400
 	icon_state = "dimas"
 	oreAmount = 10 //dimas b dense
+
+///////////Elder Atmosian///////////////////////////////////////////
+
+/obj/structure/statue/elder_atmosian
+	name = "Elder Atmosian"
+	desc = "A statue of an Elder Atmosian, capable of bending the laws of thermodynamics to their will"
+	icon_state = "eng"
+	material_drop_type = /obj/item/stack/sheet/mineral/metal_hydrogen
+	max_integrity = 1000

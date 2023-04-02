@@ -691,3 +691,21 @@
 	build_path = /obj/item/circuitboard/machine/suit_storage_unit
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 	category = list ("Misc. Machinery")
+
+/datum/design/board/electrolyzer
+	name = "Machine Design (Electrolyzer Board)"
+	desc = "The circuit board for an electrolyzer."
+	id = "electrolyzer"
+	build_path = /obj/item/circuitboard/machine/electrolyzer
+	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/crystallizer
+	name = "Machine Design (Crystallizer)"
+	desc = "The circuit board for a crystallizer."
+	id = "crystallizer"
+	build_path = /obj/item/circuitboard/machine/crystallizer
+	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+

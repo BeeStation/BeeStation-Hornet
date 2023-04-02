@@ -304,3 +304,12 @@
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	armor = list(MELEE = 25,  BULLET = 20, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 50, RAD = 20, FIRE = -10, ACID = 50, STAMINA = 30)
+
+/obj/item/clothing/suit/armor/elder_atmosian
+	name = "Elder Atmosian Armor"
+	desc = "A superb armor made with the thoughest and rarest materials avaiable to man."
+	icon_state = "knight_grey"
+	armor = list(MELEE = 25, BULLET = 25, LASER = 30, ENERGY = 30, BOMB = 85, BIO = 10, RAD = 100, FIRE = 65, ACID = 40, STAMINA = 50)
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS

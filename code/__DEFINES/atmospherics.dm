@@ -43,9 +43,22 @@
 #define FIRE_MINIMUM_TEMPERATURE_TO_EXIST	(100+T0C)
 #define FIRE_SPREAD_RADIOSITY_SCALE			0.85
 #define FIRE_GROWTH_RATE					40000	//For small fires
+///plasma
 #define PLASMA_MINIMUM_BURN_TEMPERATURE		(100+T0C)
 #define PLASMA_UPPER_TEMPERATURE			(1370+T0C)
 #define PLASMA_OXYGEN_FULLBURN				10
+///hydrogen
+#define HYDROGEN_MINIMUM_BURN_TEMPERATURE	(100+T0C)
+#define HYDROGEN_UPPER_TEMPERATURE			(1370+T0C)
+#define HYDROGEN_OXYGEN_FULLBURN			10
+//Cold Fire (this is used only for the freon-o2 reaction, there is no fire still)
+#define COLD_FIRE_MAXIMUM_TEMPERATURE_TO_SPREAD	263 //fire will spread if the temperature is -10 °C
+#define COLD_FIRE_MAXIMUM_TEMPERATURE_TO_EXIST	273 //fire will start if the temperature is 0 °C
+#define COLD_FIRE_SPREAD_RADIOSITY_SCALE		0.95
+#define COLD_FIRE_GROWTH_RATE					40000
+#define FREON_MAXIMUM_BURN_TEMPERATURE			293
+#define FREON_LOWER_TEMPERATURE					30 //minimum temperature allowed for the burn to go, we would have negative pressure otherwise
+#define FREON_OXYGEN_FULLBURN					10
 
 //GASES
 #define MIN_TOXIC_GAS_DAMAGE				1
@@ -283,9 +296,24 @@
 #define GAS_BZ					"bz"
 #define GAS_STIMULUM			"stim"
 #define GAS_PLUOXIUM			"pluox"
+/*#define GAS_MIASMA "miasma"*/
+#define GAS_H2					"hydrogen"
+#define GAS_FREON				"freon"
+#define GAS_HEALIUM				"healium"
+#define GAS_PLUONIUM			"pluonium"
+#define GAS_HALON				"halon"
+#define GAS_ZAUKER				"zauker"
+#define GAS_HEXANE				"hexane"
+#define GAS_DILITHIUM			"dilithium"
 
 #define GAS_FLAG_DANGEROUS		(1<<0)
 #define GAS_FLAG_BREATH_PROC	(1<<1)
+
+//COLD FUSION DEFINES
+/// This is the minimum possible required temperature that dilithium can lower fusion to.
+#define FUSION_TEMPERATURE_THRESHOLD_MINIMUM 425
+/// Affects how much Dilithium is required to get the required fusion temperature down to FUSION_TEMPERATURE_THRESHOLD_MINIMUM
+#define DILITHIUM_LAMBDA 0.0087
 
 //HELPERS
 #define PIPING_LAYER_SHIFT(T, PipingLayer) \
