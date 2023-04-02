@@ -16,6 +16,9 @@
 
 /turf/open/CanPass(atom/movable/A, turf/T)
 	if(isliving(A))
+		var/datum/component/swimming/S = A.GetComponent(/datum/component/swimming) //If you're swimming around, you don't really want to stop swimming just like that do you?
+		if(S)
+			return FALSE //If you're swimming, you can't swim into a regular turf, y'dig?
 		var/turf/AT = get_turf(A)
 		if(AT && AT.turf_height - turf_height <= -TURF_HEIGHT_BLOCK_THRESHOLD)
 			return FALSE
@@ -23,7 +26,7 @@
 
 /turf/open/Exit(atom/movable/mover, atom/newloc)
 	. = ..()
-	if(. && isliving(mover) && mover.has_gravity() && isturf(newloc) && can_zFall())
+	if(. && isliving(mover) && mover.has_gravity() && isturf(newloc) && mover.can_zFall())
 		var/mob/living/L = mover
 		var/turf/T = get_turf(newloc)
 		if(T && T.turf_height - turf_height <= -TURF_HEIGHT_BLOCK_THRESHOLD)

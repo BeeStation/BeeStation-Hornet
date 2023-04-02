@@ -40,12 +40,6 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 		qdel(water_overlay)
 	. = ..()
 
-/turf/open/CanPass(atom/movable/mover, turf/target)
-	var/datum/component/swimming/S = mover.GetComponent(/datum/component/swimming) //If you're swimming around, you don't really want to stop swimming just like that do you?
-	if(S)
-		return FALSE //If you're swimming, you can't swim into a regular turf, y'dig?
-	. = ..()
-
 /turf/open/indestructible/sound/pool/CanPass(atom/movable/mover, turf/target)
 	var/datum/component/swimming/S = mover.GetComponent(/datum/component/swimming) //You can't get in the pool unless you're swimming.
 	return (isliving(mover)) ? S : ..() //So you can do stuff like throw beach balls around the pool!

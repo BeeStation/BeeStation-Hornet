@@ -101,7 +101,7 @@ SUBSYSTEM_DEF(liquids)
 	if(run_type == SSLIQUIDS_RUN_TYPE_OCEAN)
 		ocean_counter++
 		if(ocean_counter >= REQUIRED_OCEAN_PROCESSES)
-			for(var/turf/open/floor/plating/ocean/active_ocean in currentrun_active_ocean_turfs)
+			for(var/turf/open/floor/plating/ocean/active_ocean as() in currentrun_active_ocean_turfs)
 				if(MC_TICK_CHECK)
 					return
 				active_ocean.process_turf()
