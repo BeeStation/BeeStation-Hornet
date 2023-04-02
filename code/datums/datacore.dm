@@ -16,15 +16,60 @@
 	var/list/fields = list()
 
 /datum/data/record/Destroy()
-	if(src in GLOB.data_core.medical)
-		GLOB.data_core.medical -= src
-	if(src in GLOB.data_core.security)
-		GLOB.data_core.security -= src
-	if(src in GLOB.data_core.general)
-		GLOB.data_core.general -= src
-	if(src in GLOB.data_core.locked)
-		GLOB.data_core.locked -= src
+	GLOB.data_core.medical -= src
+	GLOB.data_core.security -= src
+	GLOB.data_core.general -= src
+	GLOB.data_core.locked -= src
 	. = ..()
+
+/// A helper proc to get the front photo of a character from the record.
+/// Handles calling `get_photo()`, read its documentation for more information.
+/datum/data/record/proc/get_front_photo()
+	return get_photo("photo_front", SOUTH)
+
+/// A helper proc to get the side photo of a character from the record.
+/// Handles calling `get_photo()`, read its documentation for more information.
+/datum/data/record/proc/get_side_photo()
+	return get_photo("photo_side", WEST)
+
+/**
+ * You shouldn't be calling this directly, use `get_front_photo()` or `get_side_photo()`
+ * instead.
+ *
+ * This is the proc that handles either fetching (if it was already generated before) or
+ * generating (if it wasn't) the specified photo from the specified record. This is only
+ * intended to be used by records that used to try to access `fields["photo_front"]` or
+ * `fields["photo_side"]`, and will return an empty icon if there isn't any of the necessary
+ * fields.
+ *
+ * Arguments:
+ * * field_name - The name of the key in the `fields` list, of the record itself.
+ * * orientation - The direction in which you want the character appearance to be rotated
+ * in the outputed photo.
+ *
+ * Returns an empty `/icon` if there was no `character_appearance` entry in the `fields` list,
+ * returns the generated/cached photo otherwise.
+ */
+/datum/data/record/proc/get_photo(field_name, orientation)
+	if(fields[field_name])
+		return fields[field_name]
+
+	if(!fields["character_appearance"])
+		return new /icon()
+
+	var/mutable_appearance/character_appearance = fields["character_appearance"]
+	character_appearance.setDir(orientation)
+
+	var/icon/picture_image = getFlatIcon(character_appearance)
+
+	var/datum/picture/picture = new
+	picture.picture_name = "[fields["name"]]"
+	picture.picture_desc = "This is [fields["name"]]."
+	picture.picture_image = picture_image
+
+	var/obj/item/photo/photo = new(null, picture)
+	fields[field_name] = photo
+	return photo
 
 /datum/data/crime
 	name = "crime"
@@ -224,17 +269,9 @@
 
 		var/static/record_id_num = 1001
 		var/id = num2hex(record_id_num++,6)
-		var/image = get_id_photo(H, show_directions)
-		var/datum/picture/pf = new
-		var/datum/picture/ps = new
-		pf.picture_name = "[H]"
-		ps.picture_name = "[H]"
-		pf.picture_desc = "This is [H]."
-		ps.picture_desc = "This is [H]."
-		pf.picture_image = icon(image, dir = SOUTH)
-		ps.picture_image = icon(image, dir = WEST)
-		var/obj/item/photo/photo_front = new(null, pf)
-		var/obj/item/photo/photo_side = new(null, ps)
+		// We need to compile the overlays now, otherwise we're basically copying an empty icon.
+		COMPILE_OVERLAYS(H)
+		var/mutable_appearance/character_appearance = new(H.appearance)
 
 		//These records should ~really~ be merged or something
 		//General Record

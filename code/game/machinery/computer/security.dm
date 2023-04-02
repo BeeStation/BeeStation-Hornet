@@ -340,12 +340,14 @@
 				if(3)
 					dat += "<font size='4'><b>Security Record</b></font><br>"
 					if(istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1))
-						if(istype(active1.fields["photo_front"], /datum/picture))
-							var/datum/picture/P1 = active1.fields["photo_front"]
-							user << browse_rsc(P1.picture_image, "photo_front")
-						if(istype(active1.fields["photo_side"], /datum/picture))
-							var/datum/picture/P2 = active1.fields["photo_side"]
-							user << browse_rsc(P2.picture_image, "photo_side")
+						var/front_photo = active1.get_front_photo()
+						if(istype(front_photo, /datum/picture))
+							var/datum/picture/photo_front = front_photo
+							user << browse_rsc(photo_front.picture_image, "photo_front")
+						var/side_photo = active1.get_side_photo()
+						if(istype(side_photo, /datum/picture))
+							var/datum/picture/photo_side = side_photo
+							user << browse_rsc(photo_side.picture_image, "photo_side")
 						dat += {"<table><tr><td><table>
 						<tr><td>Name:</td><td><A href='?src=[REF(src)];choice=Edit Field;field=name'>&nbsp;[active1.fields["name"]]&nbsp;</A></td></tr>
 						<tr><td>ID:</td><td><A href='?src=[REF(src)];choice=Edit Field;field=id'>&nbsp;[active1.fields["id"]]&nbsp;</A></td></tr>
@@ -357,10 +359,10 @@
 						<tr><td>Physical Status:</td><td>&nbsp;[active1.fields["p_stat"]]&nbsp;</td></tr>
 						<tr><td>Mental Status:</td><td>&nbsp;[active1.fields["m_stat"]]&nbsp;</td></tr>
 						</table></td>
-						<td><table><td align = center><img src=photo_front height=80 width=80 border=4><br>
+						<td><table><td align = center><img src=photo_front height=96 width=96 border=4 style="-ms-interpolation-mode:nearest-neighbor"><br>
 						<a href='?src=[REF(src)];choice=Edit Field;field=print_photo_front'>Print photo</a><br>
 						<a href='?src=[REF(src)];choice=Edit Field;field=upd_photo_front'>Update front photo</a></td>
-						<td align = center><img src=photo_side height=80 width=80 border=4><br>
+						<td align = center><img src=photo_side height=96 width=96 border=4 style="-ms-interpolation-mode:nearest-neighbor"><br>
 						<a href='?src=[REF(src)];choice=Edit Field;field=print_photo_side'>Print photo</a><br>
 						<a href='?src=[REF(src)];choice=Edit Field;field=upd_photo_side'>Update side photo</a></td></table>
 						</td></tr></table></td></tr></table>"}
@@ -611,7 +613,7 @@ What a mess.*/
 
 								sleep(30)
 								if((istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1)))//make sure the record still exists.
-									var/obj/item/photo/photo = active1.fields["photo_front"]
+									var/obj/item/photo/photo = active1.get_front_photo()
 									new /obj/item/poster/wanted(loc, photo.picture.picture_image, wanted_name, info, headerText)
 							printing = 0
 			if("Print Missing")
@@ -629,7 +631,7 @@ What a mess.*/
 								playsound(loc, 'sound/items/poster_being_created.ogg', 100, 1)
 								sleep(30)
 								if((istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1)))//make sure the record still exists.
-									var/obj/item/photo/photo = active1.fields["photo_front"]
+									var/obj/item/photo/photo = active1.get_front_photo()
 									new /obj/item/poster/wanted/missing(loc, photo.picture.picture_image, missing_name, info, headerText)
 							printing = 0
 
