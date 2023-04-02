@@ -130,7 +130,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/ammonia_crystals
 	name = "Ammonia Crystals"
 	singular_name = "Ammonia Crystal"
-	icon = 'icons/obj/stack_objects.dmi'
+	icon = 'icons/obj/stacks/minerals.dmi'
 	icon_state = "ammonia_crystal"
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
@@ -142,7 +142,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	icon_state = "hot-ice"
 	item_state = "hot-ice"
 	singular_name = "hot ice"
-	icon = 'icons/obj/stack_objects.dmi'
+	icon = 'icons/obj/stacks/minerals.dmi'
 	custom_materials = list(/datum/material/hot_ice=MINERAL_MATERIAL_AMOUNT)
 	grind_results = list(/datum/reagent/toxin/plasma = 200)
 	materials = list(/datum/material/hot_ice = MINERAL_MATERIAL_AMOUNT)

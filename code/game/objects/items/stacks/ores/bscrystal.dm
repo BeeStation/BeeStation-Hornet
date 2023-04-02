@@ -79,7 +79,7 @@ STACKSIZE_MACRO(/obj/item/stack/ore/bluespace_crystal/refined)
 /obj/item/stack/ore/dilithium_crystal
 	name = "dilithium crystal"
 	desc = "A glowing dilithium crystal. It looks very delicate."
-	icon = 'monkestation/icons/obj/telescience.dmi'
+	icon = 'icons/obj/telescience.dmi'
 	icon_state = "dilithium_crystal"
 	item_state = "dilithium_polycrystal"
 	singular_name = "dilithium crystal"
