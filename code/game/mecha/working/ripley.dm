@@ -11,7 +11,7 @@
 	max_integrity = 200
 	lights_power = 7
 	deflect_chance = 15
-	armor = list("melee" = 40, "bullet" = 20, "laser" = 10, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 20, "fire" = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 40,  BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 20, FIRE = 100, ACID = 100, STAMINA = 0)
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
 	internals_req_access = list(ACCESS_MECH_ENGINE, ACCESS_MECH_SCIENCE, ACCESS_MECH_MINING)
@@ -70,7 +70,7 @@
 
 /obj/mecha/working/ripley/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/armor_plate,3,/obj/item/stack/sheet/animalhide/goliath_hide,list("melee" = 10, "bullet" = 5, "laser" = 5))
+	AddComponent(/datum/component/armor_plate,3,/obj/item/stack/sheet/animalhide/goliath_hide,list(MELEE = 10,  BULLET = 5, LASER = 5))
 
 
 /obj/mecha/working/ripley/mkii
@@ -81,7 +81,7 @@
 	fast_pressure_step_in = 1.75 //step_in while in low pressure conditions
 	slow_pressure_step_in = 3 //step_in while in normal pressure conditions
 	step_in = 3
-	armor = list("melee" = 40, "bullet" = 20, "laser" = 10, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 40,  BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
 	wreckage = /obj/structure/mecha_wreckage/ripley/mkii
 	enclosed = TRUE
 	enter_delay = 40
@@ -101,7 +101,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	rad_flags = RAD_PROTECT_CONTENTS
 	lights_power = 7
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 60, "bio" = 0, "rad" = 70, "fire" = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 40,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, BIO = 0, RAD = 70, FIRE = 100, ACID = 100, STAMINA = 0)
 	max_equip = 5 // More armor, less tools
 	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
 	enclosed = TRUE

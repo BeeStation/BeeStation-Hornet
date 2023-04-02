@@ -273,6 +273,7 @@
 	maxcharge = 10000
 	materials = list(/datum/material/glass=60)
 	chargerate = 1500
+	rating = 1
 
 /obj/item/stock_parts/cell/high/plus
 	name = "high-capacity power cell+"
@@ -292,6 +293,7 @@
 	maxcharge = 20000
 	materials = list(/datum/material/glass=300)
 	chargerate = 2000
+	rating = 2
 
 /obj/item/stock_parts/cell/super/empty/Initialize(mapload)
 	. = ..()
@@ -304,6 +306,7 @@
 	maxcharge = 30000
 	materials = list(/datum/material/glass=400)
 	chargerate = 3000
+	rating = 3
 
 /obj/item/stock_parts/cell/hyper/empty/Initialize(mapload)
 	. = ..()
@@ -317,6 +320,7 @@
 	maxcharge = 40000
 	materials = list(/datum/material/glass=600)
 	chargerate = 4000
+	rating = 4
 
 /obj/item/stock_parts/cell/bluespace/empty/Initialize(mapload)
 	. = ..()

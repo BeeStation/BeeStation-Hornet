@@ -52,7 +52,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	verb_exclaim = "beeps"
 	max_integrity = 300
 	integrity_failure = 100
-	armor = list("melee" = 20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0)
+	armor = list(MELEE = 20,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0)
 	circuit = /obj/item/circuitboard/machine/vendor
 	clicksound = 'sound/machines/pda_button1.ogg'
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG

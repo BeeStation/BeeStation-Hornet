@@ -1500,7 +1500,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			log_combat(user, target, "attempted to punch")
 			return FALSE
 
-		var/armor_block = target.run_armor_check(affecting, "melee")
+		var/armor_block = target.run_armor_check(affecting, MELEE)
 
 		playsound(target.loc, user.dna.species.attack_sound, 25, 1, -1)
 
@@ -1701,7 +1701,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	hit_area = parse_zone(affecting.body_zone)
 	var/def_zone = affecting.body_zone
 
-	var/armor_block = H.run_armor_check(affecting, "melee", "<span class='notice'>Your armor has protected your [hit_area]!</span>", "<span class='warning'>Your armor has softened a hit to your [hit_area]!</span>",I.armour_penetration)
+	var/armor_block = H.run_armor_check(affecting, MELEE, "<span class='notice'>Your armor has protected your [hit_area]!</span>", "<span class='warning'>Your armor has softened a hit to your [hit_area]!</span>",I.armour_penetration)
 	armor_block = min(90,armor_block) //cap damage reduction at 90%
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 
