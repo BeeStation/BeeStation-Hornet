@@ -263,12 +263,12 @@
 	// Freon
 		var/freon_pp = PP(breath,GAS_FREON)
 		if (prob(freon_pp))
-			to_chat(H, span_alert("Your mouth feels like it's burning!"))
+			to_chat(H, "<span class='alert'>Your mouth feels like it's burning!</span>")
 		if (freon_pp >40)
 			H.emote("gasp")
 			H.adjustFireLoss(15)
 			if (prob(freon_pp/2))
-				to_chat(H, span_alert("Your throat closes up!"))
+				to_chat(H, "<span class='alert'>Your throat closes up!</span>")
 				H.silent = max(H.silent, 3)
 		else
 			H.adjustFireLoss(freon_pp/4)

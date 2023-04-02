@@ -127,13 +127,19 @@
 		cell = I
 		I.add_fingerprint(usr)
 
-		user.visible_message(span_notice("\The [user] inserts a power cell into \the [src]."), span_notice("You insert the power cell into \the [src]."))
+		user.visible_message(
+							"<span class='notice'>\The [user] inserts a power cell into \the [src].</span>",
+							"<span class='notice'>You insert the power cell into \the [src].</span>"
+							)
 		SStgui.update_uis(src)
 
 		return
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		panel_open = !panel_open
-		user.visible_message(span_notice("\The [user] [panel_open ? "opens" : "closes"] the hatch on \the [src]."), span_notice("You [panel_open ? "open" : "close"] the hatch on \the [src]."))
+		user.visible_message(
+							"<span class='notice'>\The [user] [panel_open ? "opens" : "closes"] the hatch on \the [src].</span>",
+							"<span class='notice'>You [panel_open ? "open" : "close"] the hatch on \the [src].</span>"
+							)
 		update_icon()
 		return
 	if(default_deconstruction_crowbar(I))
@@ -166,7 +172,10 @@
 		if("power")
 			on = !on
 			mode = ELECTROLYZER_MODE_STANDBY
-			usr.visible_message(span_notice("[usr] switches [on ? "on" : "off"] \the [src]."), span_notice("You switch [on ? "on" : "off"] \the [src]."))
+			usr.visible_message(
+								"<span class='notice'>[usr] switches [on ? "on" : "off"] \the [src].</span>",
+								"<span class='notice'>You switch [on ? "on" : "off"] \the [src].</span>"
+								)
 			update_icon()
 			if (on)
 				SSair.atmos_air_machinery += src
