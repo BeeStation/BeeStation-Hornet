@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(GAS_O2, GAS_N2, GAS_CO2, GA
 	var/list/enthalpies = list()
 	var/list/fire_products = list()
 	var/list/fire_burn_rates = list()
-
+	var/list/supermatter = list()
 
 /datum/gas
 	var/id = ""
@@ -55,6 +55,12 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(GAS_O2, GAS_N2, GAS_CO2, GA
 	var/list/fire_products = null // what results when this gas is burned (oxidizer or fuel); null for none
 	var/enthalpy = 0 // how much energy is released per mole of fuel burned
 	var/fire_burn_rate = 1 // how many moles are burned per product released
+	var/powermix = 0 // how much this gas contributes to the supermatter's powermix ratio
+	var/heat_penalty = 0 // heat and waste penalty from having the supermatter crystal surrounded by this gas; negative numbers reduce
+	var/transmit_modifier = 0 // bonus to supermatter power generation (multiplicative, since it's % based, and divided by 10)
+	var/radioactivity_modifier = 0 // improves effect of transmit modifiers, must be from -10 to 10
+	var/heat_resistance = 0 // makes the crystal more resistant against heat damage.
+	var/powerloss_inhibition = 0 // Reduces how much power the supermatter loses each tick
 
 /datum/gas/proc/breath(partial_pressure, light_threshold, heavy_threshold, moles, mob/living/carbon/C, obj/item/organ/lungs/lungs)
 	// This is only called on gases with the GAS_FLAG_BREATH_PROC flag. When possible, do NOT use this--
@@ -101,11 +107,20 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(GAS_O2, GAS_N2, GAS_CO2, GA
 				fire_products[g] = gas.fire_products
 			enthalpies[g] = gas.enthalpy
 
+		add_supermatter_properties(gas)
 		_auxtools_register_gas(gas)
 
 /proc/finalize_gas_refs()
 
 /datum/auxgm/New()
+	src.supermatter[HEAT_PENALTY] = list()
+	src.supermatter[TRANSMIT_MODIFIER] = list()
+	src.supermatter[RADIOACTIVITY_MODIFIER] = list()
+	src.supermatter[HEAT_RESISTANCE] = list()
+	src.supermatter[POWERLOSS_INHIBITION] = list()
+	src.supermatter[POWER_MIX] = list()
+	src.supermatter[ALL_SUPERMATTER_GASES] = list()
+
 	for(var/gas_path in subtypesof(/datum/gas))
 		var/datum/gas/gas = new gas_path
 		add_gas(gas)
