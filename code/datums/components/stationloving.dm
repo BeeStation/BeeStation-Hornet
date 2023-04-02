@@ -7,7 +7,7 @@
 /datum/component/stationloving/Initialize(inform_admins = FALSE, allow_death = FALSE)
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
-	RegisterSignal(parent, list(COMSIG_MOVABLE_Z_CHANGED), PROC_REF(check_in_bounds))
+	RegisterSignal(parent, list(COMSIG_MOVABLE_Z_CHANGED), PROC_REF(z_check))
 	RegisterSignal(parent, list(COMSIG_MOVABLE_SECLUDED_LOCATION), PROC_REF(relocate))
 	RegisterSignal(parent, list(COMSIG_PARENT_PREQDELETED), PROC_REF(check_deletion))
 	RegisterSignal(parent, list(COMSIG_ITEM_IMBUE_SOUL), PROC_REF(check_soul_imbue))
@@ -40,9 +40,11 @@
 	// move the disc, so ghosts remain orbiting it even if it's "destroyed"
 	return targetturf
 
-/datum/component/stationloving/proc/check_in_bounds(is_retrying = FALSE)
+/datum/component/stationloving/proc/z_check(datum/source, old_z, new_z)
 	SIGNAL_HANDLER
+	check_in_bounds()
 
+/datum/component/stationloving/proc/check_in_bounds(is_retrying = FALSE)
 	if(in_bounds(is_retrying))
 		return
 	else
