@@ -130,7 +130,7 @@
 		if(N.new_character)
 			log_manifest(N.ckey,N.new_character.mind,N.new_character)
 		if(ishuman(N.new_character))
-			manifest_inject(N.new_character, N.client)
+			manifest_inject(N.new_character)
 		CHECK_TICK
 
 /datum/datacore/proc/manifest_modify(name, assignment, hudstate)
@@ -210,7 +210,7 @@
 	return dat
 
 
-/datum/datacore/proc/manifest_inject(mob/living/carbon/human/H, client/C)
+/datum/datacore/proc/manifest_inject(mob/living/carbon/human/H)
 	set waitfor = FALSE
 	var/static/list/show_directions = list(SOUTH, WEST)
 	if(H.mind && (H.mind.assigned_role != H.mind.special_role))
@@ -224,9 +224,7 @@
 
 		var/static/record_id_num = 1001
 		var/id = num2hex(record_id_num++,6)
-		if(!C)
-			C = H.client
-		var/image = get_id_photo(H, C, show_directions)
+		var/image = get_id_photo(H, show_directions)
 		var/datum/picture/pf = new
 		var/datum/picture/ps = new
 		pf.picture_name = "[H]"
@@ -256,8 +254,7 @@
 				G.fields["gender"] = capitalize(H.gender)
 			if(PLURAL)
 				G.fields["gender"] = "Other"
-		G.fields["photo_front"]	= photo_front
-		G.fields["photo_side"]	= photo_side
+		G.fields["character_appearance"] = character_appearance
 		general += G
 
 		//Medical Record
@@ -303,7 +300,7 @@
 		L.fields["identity"]	= H.dna.uni_identity
 		L.fields["species"]		= H.dna.species.type
 		L.fields["features"]	= H.dna.features
-		L.fields["image"]		= image
+		L.fields["character_appearance"] = character_appearance
 		L.fields["mindref"]		= H.mind
 		locked += L
 	return
@@ -353,14 +350,5 @@
 		security_records_out += list(crew_record)
 	return security_records_out
 
-/datum/datacore/proc/get_id_photo(mob/living/carbon/human/H, client/C, show_directions = list(SOUTH), humanoverride = FALSE)
-	var/datum/job/J = SSjob.GetJob(H.mind.assigned_role)
-	var/datum/character_save/CS
-	if(!C)
-		C = H.client
-	if(C)
-		CS = C.prefs.active_character
-		if(humanoverride)
-			CS.pref_species = new /datum/species/human
-			H.copy_features(CS)
-	return get_flat_human_icon(null, J, CS, DUMMY_HUMAN_SLOT_MANIFEST, show_directions)
+/datum/datacore/proc/get_id_photo(mob/living/carbon/human/human, show_directions = list(SOUTH))
+	return get_flat_existing_human_icon(human, show_directions)
