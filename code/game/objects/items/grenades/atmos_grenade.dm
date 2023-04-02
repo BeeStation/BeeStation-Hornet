@@ -16,7 +16,7 @@
 	active = TRUE
 	icon_state = initial(icon_state) + "_active"
 	playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', volume, TRUE)
-	addtimer(CALLBACK(src, .proc/prime), isnull(delayoverride)? det_time : delayoverride)
+	addtimer(CALLBACK(src, PROC_REF(prime)), isnull(delayoverride)? det_time : delayoverride)
 
 /obj/item/grenade/gas_crystal/healium_crystal
 	name = "Healium crystal"
