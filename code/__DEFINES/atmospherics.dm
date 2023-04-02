@@ -287,6 +287,15 @@
 #define GAS_FLAG_DANGEROUS		(1<<0)
 #define GAS_FLAG_BREATH_PROC	(1<<1)
 
+//SUPERMATTER DEFINES
+#define HEAT_PENALTY "heat penalties"
+#define TRANSMIT_MODIFIER "transmit"
+#define RADIOACTIVITY_MODIFIER "radioactivity"
+#define HEAT_RESISTANCE "heat resistance"
+#define POWERLOSS_INHIBITION "powerloss inhibition"
+#define ALL_SUPERMATTER_GASES "gases we care about"
+#define POWER_MIX "gas powermix"
+
 //HELPERS
 #define PIPING_LAYER_SHIFT(T, PipingLayer) \
 	if(T.dir & (NORTH|SOUTH)) {									\

@@ -128,4 +128,4 @@
 	var/obj/machinery/power/supermatter_crystal/S = target_sm.resolve()
 	if(!S)
 		return ..()
-	return (S.get_integrity_percent() > target_amount) || ..()
+	return (S.get_integrity() > target_amount) || ..()
