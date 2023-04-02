@@ -499,7 +499,7 @@
 	var/mob/living/carbon/human/new_character = new//The mob being spawned.
 	SSjob.SendToLateJoin(new_character)
 
-	G_found.client.prefs.active_character.copy_to(new_character)
+	// TODO tgui-prefs G_found.client.prefs.active_character.copy_to(new_character)
 	new_character.dna.update_dna_identity()
 	new_character.key = G_found.key
 

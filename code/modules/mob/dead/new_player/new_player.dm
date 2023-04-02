@@ -446,14 +446,15 @@
 	spawning = TRUE
 	close_spawn_windows()
 
-	var/mob/living/carbon/human/H = new(loc)
+	//var/mob/living/carbon/human/H = new(loc)
 
 	var/frn = CONFIG_GET(flag/force_random_names)
 	if(!frn)
 		frn = is_banned_from(ckey, "Appearance")
 		if(QDELETED(src))
 			return
-	if(frn)
+	// TODO tgui-prefs
+/*	if(frn)
 		client.prefs.active_character.randomise()
 		client.prefs.active_character.real_name = client.prefs.active_character.pref_species.random_name(gender,1)
 	client.prefs.active_character.copy_to(H)
@@ -470,7 +471,7 @@
 	new_character = .
 	if(transfer_after)
 		transfer_character()
-
+*/
 /mob/dead/new_player/proc/transfer_character()
 	. = new_character
 	if(.)
@@ -518,7 +519,7 @@
 	var/has_antags = FALSE
 	if(client.prefs.be_special.len > 0)
 		has_antags = TRUE
-	if(!length(client.prefs.active_character.job_preferences))
+	if(!length(client.prefs.job_preferences))
 		if(!ineligible_for_roles)
 			to_chat(src, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
 		ineligible_for_roles = TRUE

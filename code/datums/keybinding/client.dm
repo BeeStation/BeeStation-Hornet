@@ -62,4 +62,5 @@
 	winset(user, "mapwindow.map", "zoom=[PIXEL_SCALING_4X]")
 
 /datum/keybinding/client/zoomin/up(client/user)
-	winset(user, "mapwindow.map", "zoom=[user.prefs.pixel_size]")
+	// TODO tgui-prefs
+	//winset(user, "mapwindow.map", "zoom=[user.prefs.pixel_size]")

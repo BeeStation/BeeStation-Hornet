@@ -2,7 +2,8 @@
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	db_key = "phobia"
 	preference_type = PREFERENCE_CHARACTER
-
+// TODO tgui-prefs
+/*
 /datum/preference/choiced/phobia/init_possible_values()
 	return GLOB.phobia_types
 
@@ -14,3 +15,4 @@
 
 /datum/preference/choiced/phobia/apply_to_human(mob/living/carbon/human/target, value)
 	return
+*/

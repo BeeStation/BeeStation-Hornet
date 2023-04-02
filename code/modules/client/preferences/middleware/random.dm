@@ -76,9 +76,11 @@
 /// Given randomization flags, will return whether or not this preference should be randomized.
 /datum/preference/proc/included_in_randomization_flags(randomize_flags)
 	return TRUE
-
+// TODO tgui_prefs
+/*
 /datum/preference/name/included_in_randomization_flags(randomize_flags)
 	return !!(randomize_flags & RANDOMIZE_NAME)
 
 /datum/preference/choiced/species/included_in_randomization_flags(randomize_flags)
 	return !!(randomize_flags & RANDOMIZE_SPECIES)
+*/

@@ -388,9 +388,9 @@
 	return security_records_out
 
 /datum/datacore/proc/get_id_photo(mob/living/carbon/human/H, client/C, show_directions = list(SOUTH), humanoverride = FALSE)
-	var/datum/job/J = SSjob.GetJob(H.mind.assigned_role)
 	// TODO tgui-prefs
-	/*var/datum/character_save/CS
+	/*var/datum/job/J = SSjob.GetJob(H.mind.assigned_role)
+	var/datum/character_save/CS
 	if(!C)
 		C = H.client
 	if(C)

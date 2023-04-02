@@ -7,6 +7,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/default_slot = 1
 	/// The maximum number of slots we're allowed to contain
 	var/max_save_slots = 3
+	/// The current active character slot
+	var/selected_slot = 1
 
 	/// Bitflags for communications that are muted
 	var/muted = NONE
@@ -109,8 +111,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/loaded_preferences_successfully = load_preferences()
 	if(loaded_preferences_successfully)
-		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
-			set_max_character_slots(max_usable_slots + 1)
+		// TODO tgui-prefs
+		//if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
+		//	set_max_character_slots(max_usable_slots + 1)
 		if(load_character())
 			return
 	// TODO tgui-prefs implement fallback species
@@ -176,7 +179,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	data["character_profiles"] = create_character_profiles()
 
 	data["character_preview_view"] = character_preview_view.assigned_map
-	data["overflow_role"] = SSjob.GetJobType(SSjob.overflow_role).title
+	data["overflow_role"] = SSjob.GetJob(SSjob.overflow_role).title
 	data["window"] = current_window
 
 	data["content_unlocked"] = unlock_content
@@ -396,7 +399,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 		create_body()
 	else
 		body.wipe_state()
-	appearance = preferences.render_new_preview_appearance(body)
+	// TODO tgui-prefs appearance = preferences.render_new_preview_appearance(body)
 
 /atom/movable/screen/character_preview_view/proc/create_body()
 	QDEL_NULL(body)

@@ -285,15 +285,17 @@
 		return FALSE
 	if (!target.client?.prefs.read_preference(/datum/preference/toggle/enable_runechat_non_mobs))
 		return FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.read_preference(/datum/preference/toggle/see_rc_emotes))
-		return FALSE
+	// TODO tgui-prefs
+	//if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.read_preference(/datum/preference/toggle/see_rc_emotes))
+	//	return FALSE
 	return TRUE
 
 /mob/runechat_prefs_check(mob/target, visible_message_flags = NONE)
 	if(!target.client?.prefs.read_preference(/datum/preference/toggle/enable_runechat))
 		return FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.read_preference(/datum/preference/toggle/see_rc_emotes))
-		return FALSE
+	// TODO tgui-prefs
+	/*if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.read_preference(/datum/preference/toggle/see_rc_emotes))
+		return FALSE*/
 	return TRUE
 
 ///Get the item on the mob in the storage slot identified by the id passed in

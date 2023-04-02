@@ -8,10 +8,10 @@
 	return COLOR_OLIVE
 
 /// The visual style of a PDA
-/datum/preference/choiced/pda_style
+/datum/preference/choiced/pda_theme
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
-	db_key = "pda_style"
+	db_key = "pda_theme"
 	preference_type = PREFERENCE_PLAYER
 
-/datum/preference/choiced/pda_style/init_possible_values()
-	return GLOB.pda_styles
+/datum/preference/choiced/pda_theme/init_possible_values()
+	return GLOB.ntos_device_themes_default

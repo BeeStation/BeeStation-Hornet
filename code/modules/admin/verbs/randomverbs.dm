@@ -431,14 +431,16 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.gender = record_found.fields["gender"]
 		new_character.age = record_found.fields["age"]
 		new_character.hardset_dna(record_found.fields["identity"], record_found.fields["enzymes"], record_found.fields["name"], record_found.fields["blood_type"], new record_found.fields["species"], record_found.fields["features"], null)
-	else
+	//else
+		// TODO tgui-prefs
+		/*
 		var/datum/character_save/CS = new()
 		CS.randomise()
 		CS.pref_species.random_name(CS.gender, TRUE)
 		CS.copy_to(new_character)
-		new_character.dna.update_dna_identity()
+		new_character.dna.update_dna_identity()*/
 
-	new_character.name = new_character.real_name
+	//new_character.name = new_character.real_name
 
 	if(G_found.mind && !G_found.mind.active)
 		G_found.mind.transfer_to(new_character)	//be careful when doing stuff like this! I've already checked the mind isn't in use
@@ -1373,15 +1375,15 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	if(!C.set_db_player_flags())
 		to_chat(usr, "<span class='danger'>ERROR: Unable read player flags from database. Please check logs.</span>")
-	var/dbflags = C.prefs.db_flags
+	// TODO tgui-prefs var/dbflags = C.prefs.db_flags
 	var/newstate = FALSE
 
-	//TODO tgui-prefs if(dbflags & DB_FLAG_EXEMPT || C.prefs.job_exempt)
-	//TODO tgui-prefs 	newstate = FALSE
-	//TODO tgui-prefs else
-	//TODO tgui-prefs 	newstate = TRUE
+	//if(dbflags & DB_FLAG_EXEMPT || C.prefs.job_exempt)
+	//	newstate = FALSE
+	//else
+	//	newstate = TRUE
 
-	//TODO tgui-prefs C.prefs.job_exempt = newstate
+	//C.prefs.job_exempt = newstate
 
 	if(C.update_flag_db(DB_FLAG_EXEMPT, newstate))
 		to_chat(usr, "<span class='danger'>ERROR: Unable to update player flags. Please check logs.</span>")

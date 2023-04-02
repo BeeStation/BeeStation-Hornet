@@ -1045,7 +1045,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/MouseEntered(location, control, params)
 	if((item_flags & PICKED_UP || item_flags & IN_STORAGE) && usr.client.prefs.read_preference(/datum/preference/toggle/enable_tooltips) && !QDELETED(src))
-		var/timedelay = usr.client.prefs.tip_delay/100
+		var/timedelay = usr.client.prefs.read_preference(/datum/preference/numeric/tooltip_delay)/100
 		var/user = usr
 		tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, user), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
 	var/mob/living/L = usr
@@ -1069,10 +1069,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(!usr.client?.prefs?.read_preference(/datum/preference/toggle/item_outlines))
 		return
 	if(!colour)
-		if(usr.client)
-			colour = usr.client.prefs.outline_color
-			if(!colour)
-				colour = COLOR_BLUE_GRAY
+		if(usr?.client?.prefs)
+			colour = usr.client.prefs.read_preference(/datum/preference/color/outline_color)
 		else
 			colour = COLOR_BLUE_GRAY
 	add_filter(HOVER_OUTLINE_FILTER, 1, list(type="outline", size=1, color=colour))

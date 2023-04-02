@@ -79,9 +79,10 @@
 			body = mind.current
 	if(!body)
 		body = new mob_type(T)
-		var/mob/ghostie = mind.get_ghost(TRUE)
+		// TODO tgui-prefs
+		/*var/mob/ghostie = mind.get_ghost(TRUE)
 		if(ghostie.client?.prefs)
-			ghostie.client.prefs.active_character.copy_to(body)
+			ghostie.client.prefs.active_character.copy_to(body)*/
 		mind.transfer_to(body)
 	else
 		body.forceMove(T)

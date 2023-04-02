@@ -6,7 +6,8 @@
 
 /datum/preference/choiced/body_type/init_possible_values()
 	return list(MALE, FEMALE)
-
+// TODO tgui-prefs
+/*
 /datum/preference/choiced/body_type/apply_to_human(mob/living/carbon/human/target, value)
 	if (target.gender != MALE && target.gender != FEMALE)
 		target.body_type = value
@@ -19,3 +20,4 @@
 
 	var/gender = preferences.read_preference(/datum/preference/choiced/gender)
 	return gender != MALE && gender != FEMALE
+*/

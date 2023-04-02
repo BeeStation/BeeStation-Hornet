@@ -37,7 +37,7 @@
 /datum/preference/choiced/moth_markings/init_possible_values()
 	var/list/values = list()
 
-	var/icon/moth_body = icon('icons/blanks/32x32.dmi', "nothing")
+	var/icon/moth_body = icon('icons/effects/effects.dmi', "nothing")
 
 	moth_body.Blend(icon('icons/mob/moth_wings.dmi', "m_moth_wings_plain_BEHIND"), ICON_OVERLAY)
 

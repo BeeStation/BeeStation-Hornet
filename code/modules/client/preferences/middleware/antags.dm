@@ -79,7 +79,7 @@
 
 	for (var/datum/dynamic_ruleset/dynamic_ruleset as anything in subtypesof(/datum/dynamic_ruleset))
 		var/antag_flag = initial(dynamic_ruleset.antag_flag)
-		var/antag_flag_override = initial(dynamic_ruleset.antag_flag_override)
+		// var/antag_flag_override = initial(dynamic_ruleset.antag_flag_override)
 
 		if (isnull(antag_flag))
 			continue

@@ -440,7 +440,6 @@
 	r_hand = /obj/item/gun/energy/kinetic_accelerator/crossbow
 
 /datum/outfit/traitor/post_equip(mob/living/carbon/human/H, visualsOnly)
-	var/obj/item/melee/energy/sword/sword = locate() in H.held_items
-	sword.icon_state = "e_sword_on_red"
-	sword.worn_icon_state = "e_sword_on_red"
+	var/obj/item/melee/transforming/energy/sword/sword = locate() in H.held_items
+	sword.icon_state = "swordred"
 	H.update_inv_hands()

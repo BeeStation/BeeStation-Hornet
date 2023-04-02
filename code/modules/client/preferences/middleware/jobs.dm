@@ -15,7 +15,7 @@
 	if (isnull(job))
 		return FALSE
 
-	if (job.faction != FACTION_STATION)
+	if (job.faction != "Station")
 		return FALSE
 
 	if (!preferences.set_job_preference_level(job, level))
@@ -50,7 +50,8 @@
 
 	var/list/job_days_left = list()
 	var/list/job_required_experience = list()
-
+// TODO tgui_prefs
+/*
 	for (var/datum/job/job as anything in SSjob.all_occupations)
 		var/required_playtime_remaining = job.required_playtime_remaining(user.client)
 		if (required_playtime_remaining)
@@ -63,7 +64,7 @@
 
 		if (!job.player_old_enough(user.client))
 			job_days_left[job.title] = job.available_in_days(user.client)
-
+*/
 	if (job_days_left.len)
 		data["job_days_left"] = job_days_left
 
@@ -74,9 +75,9 @@
 
 /datum/preference_middleware/jobs/proc/get_job_bans(mob/user)
 	var/list/data = list()
-
-	for (var/datum/job/job as anything in SSjob.all_occupations)
-		if (is_banned_from(user.client?.ckey, job.title))
-			data += job.title
+// TODO tgui-prefs
+	//for (var/datum/job/job as anything in SSjob.all_occupations)
+	//	if (is_banned_from(user.client?.ckey, job.title))
+	//		data += job.title
 
 	return data

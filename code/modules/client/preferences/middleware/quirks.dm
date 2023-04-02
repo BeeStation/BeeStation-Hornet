@@ -1,4 +1,5 @@
 /// Middleware to handle quirks
+/*
 /datum/preference_middleware/quirks
 	var/tainted = FALSE
 
@@ -25,7 +26,9 @@
 		data["selected_quirks"] = get_selected_quirks()
 
 	return data
-
+*/
+// TODO tgui-prefs
+/*
 /datum/preference_middleware/quirks/get_constant_data()
 	var/list/quirk_info = list()
 
@@ -87,3 +90,4 @@
 		selected_quirks += sanitize_css_class_name(quirk)
 
 	return selected_quirks
+*/

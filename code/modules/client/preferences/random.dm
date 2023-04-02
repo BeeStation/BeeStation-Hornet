@@ -27,12 +27,14 @@
 /datum/preference/toggle/random_hardcore/apply_to_human(mob/living/carbon/human/target, value)
 	return
 
+// TODO tgui-prefs
+/*
 /datum/preference/toggle/random_hardcore/is_accessible(datum/preferences/preferences)
 	if (!..(preferences))
 		return FALSE
 
 	return preferences.parent.get_exp_living(pure_numeric = TRUE) >= PLAYTIME_HARDCORE_RANDOM
-
+*/
 /datum/preference/choiced/random_name
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
 	db_key = "random_name"
