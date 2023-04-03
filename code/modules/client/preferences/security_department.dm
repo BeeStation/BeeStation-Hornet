@@ -3,7 +3,7 @@
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
 	can_randomize = FALSE
 	preference_type = PREFERENCE_CHARACTER
-	db_key = "prefered_security_department"
+	db_key = "preferred_security_department"
 
 // This is what that #warn wants you to remove :)
 /datum/preference/choiced/security_department/deserialize(input, datum/preferences/preferences)

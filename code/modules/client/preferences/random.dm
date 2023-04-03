@@ -1,6 +1,6 @@
 /datum/preference/choiced/random_body
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
-	db_key = "random_body"
+	db_key = "body_is_always_random"
 	preference_type = PREFERENCE_CHARACTER
 	can_randomize = FALSE
 
@@ -37,7 +37,7 @@
 */
 /datum/preference/choiced/random_name
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
-	db_key = "random_name"
+	db_key = "name_is_always_random"
 	preference_type = PREFERENCE_CHARACTER
 	can_randomize = FALSE
 

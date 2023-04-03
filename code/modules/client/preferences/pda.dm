@@ -13,5 +13,17 @@
 	db_key = "pda_theme"
 	preference_type = PREFERENCE_PLAYER
 
+/datum/preference/choiced/pda_theme/deserialize(input, datum/preferences/preferences)
+	for(var/key in GLOB.ntos_device_themes_default) // if only there was a associative list flip proc that I could locate. Unfortunately, I could not locate one.
+		if(GLOB.ntos_device_themes_default[key] == input)
+			return key
+	return "NtOS Default"
+
+/datum/preference/choiced/pda_theme/serialize(input)
+	return GLOB.ntos_device_themes_default[sanitize_inlist(input, GLOB.ntos_device_themes_default, "NtOS Default")]
+
+/datum/preference/choiced/pda_theme/create_default_value()
+	return THEME_NTOS
+
 /datum/preference/choiced/pda_theme/init_possible_values()
-	return GLOB.ntos_device_themes_default
+	return GLOB.ntos_device_themes_default_content

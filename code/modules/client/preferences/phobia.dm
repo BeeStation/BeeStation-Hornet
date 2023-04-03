@@ -1,10 +1,11 @@
-/datum/preference/choiced/phobia
+/*/datum/preference/choiced/phobia
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	db_key = "phobia"
 	preference_type = PREFERENCE_CHARACTER
 
 /datum/preference/choiced/phobia/init_possible_values()
 	return list()
+*/
 
 // TODO tgui-prefs
 /*

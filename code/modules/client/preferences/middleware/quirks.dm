@@ -34,7 +34,7 @@
 		var/datum/quirk/quirk = SSquirks.quirks[quirk_name]
 		quirk_info[sanitize_css_class_name(quirk_name)] = list(
 			"description" = initial(quirk.desc),
-			"icon" = null /* TODO tgui-prefs */,
+			"icon" = "" /* TODO tgui-prefs */,
 			"name" = quirk_name,
 			"value" = initial(quirk.value),
 		)

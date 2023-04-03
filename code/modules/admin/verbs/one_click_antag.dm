@@ -379,7 +379,7 @@
 
 				//Spawn the body
 				var/mob/living/carbon/human/ERTOperative = new ertemplate.mobtype(spawnloc)
-				//TODO tgui-prefs chosen_candidate.client.prefs.active_character.copy_to(ERTOperative)
+				chosen_candidate.client.prefs.apply_prefs_to(ERTOperative)
 				ERTOperative.key = chosen_candidate.key
 				log_objective(ERTOperative, missionobj.explanation_text)
 

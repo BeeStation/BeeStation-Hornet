@@ -431,16 +431,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.gender = record_found.fields["gender"]
 		new_character.age = record_found.fields["age"]
 		new_character.hardset_dna(record_found.fields["identity"], record_found.fields["enzymes"], record_found.fields["name"], record_found.fields["blood_type"], new record_found.fields["species"], record_found.fields["features"], null)
-	//else
-		// TODO tgui-prefs
-		/*
-		var/datum/character_save/CS = new()
-		CS.randomise()
-		CS.pref_species.random_name(CS.gender, TRUE)
-		CS.copy_to(new_character)
-		new_character.dna.update_dna_identity()*/
+	else
+		// TODO tguip-test
+		randomize_human(new_character)
+		new_character.real_name = new_character.dna.species.random_name(new_character.gender, TRUE)
+		new_character.name = new_character.real_name
+		new_character.dna.update_dna_identity()
 
-	//new_character.name = new_character.real_name
+	new_character.name = new_character.real_name
 
 	if(G_found.mind && !G_found.mind.active)
 		G_found.mind.transfer_to(new_character)	//be careful when doing stuff like this! I've already checked the mind isn't in use
