@@ -91,6 +91,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	update_move_direction()
 	LAZYADD(GLOB.conveyors_by_id[id], src)
+	update_icon()
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/conveyor/LateInitialize()
@@ -100,7 +101,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 /obj/machinery/conveyor/Destroy()
 	set_operating(FALSE)
 	LAZYREMOVE(GLOB.conveyors_by_id[id], src)
-	. = ..()
+	return ..()
 
 /obj/machinery/conveyor/vv_edit_var(var_name, var_value)
 	if (var_name == NAMEOF(src, id))
@@ -132,7 +133,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		if(QDELETED(valid))
 			continue
 		neighbors["[direction]"] = TRUE
-		valid.neighbors["[turn(direction, 180)]"] = TRUE
+		valid.neighbors["[DIRFLIP(direction)]"] = TRUE
 		RegisterSignal(valid, COMSIG_MOVABLE_MOVED, PROC_REF(nearby_belt_changed), override=TRUE)
 		RegisterSignal(valid, COMSIG_PARENT_QDELETING, PROC_REF(nearby_belt_changed), override=TRUE)
 		valid.RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(nearby_belt_changed), override=TRUE)
@@ -200,10 +201,10 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	if(operating == new_value)
 		return
 	operating = new_value
-	update_icon_state()
+	update_icon()
 	update_move_direction()
 	//If we ever turn off, disable moveloops
-	if(!operating)
+	if(operating == CONVEYOR_OFF)
 		for(var/atom/movable/movable in get_turf(src))
 			stop_conveying(movable)
 
@@ -552,4 +553,8 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 /obj/item/paper/guides/conveyor
 	name = "paper- 'Nano-it-up U-build series, #9: Build your very own conveyor belt, in SPACE'"
 	info = "<h1>Congratulations!</h1><p>You are now the proud owner of the best conveyor set available for space mail order! We at Nano-it-up know you love to prepare your own structures without wasting time, so we have devised a special streamlined assembly procedure that puts all other mail-order products to shame!</p><p>Firstly, you need to link the conveyor switch assembly to each of the conveyor belt assemblies. After doing so, you simply need to install the belt assemblies onto the floor, et voila, belt built. Our special Nano-it-up smart switch will detected any linked assemblies as far as the eye can see! This convenience, you can only have it when you Nano-it-up. Stay nano!</p>"
-#undef MAX_CONVEYOR_ITEMS_MOVE
+
+#undef CONVEYOR_DELAY
+#undef CONVEYOR_BACKWARDS
+#undef CONVEYOR_OFF
+#undef CONVEYOR_FORWARD
