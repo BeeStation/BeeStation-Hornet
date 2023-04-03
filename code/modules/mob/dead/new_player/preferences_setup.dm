@@ -21,7 +21,7 @@
 		if (should_randomize(preference, antag_override))
 			write_preference(preference, preference.create_random_value(src))
 
-// TODO tgui_prefs
+// TODO tgui-prefs
 
 ///Setup the random hardcore quirks and give the character the new score prize.
 /datum/preferences/proc/hardcore_random_setup(mob/living/carbon/human/character)
@@ -34,7 +34,7 @@
  * Returns the new value to be gained with this setup, plus the previously earned score.
  **/
 /datum/preferences/proc/select_hardcore_quirks()
-// TODO tgui_prefs
+// TODO tgui-prefs
 /*	. = 0
 
 	var/quirk_budget = rand(8, 35)
@@ -106,7 +106,7 @@
 
 	if(preview_job)
 		mannequin.job = preview_job.title
-		// TODO tgui_prefs mannequin.dress_up_as_job(preview_job, TRUE)
+		// TODO tgui-prefs mannequin.dress_up_as_job(preview_job, TRUE)
 
 	COMPILE_OVERLAYS(mannequin)
 	return mannequin.appearance

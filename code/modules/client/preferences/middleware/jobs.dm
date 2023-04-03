@@ -50,7 +50,7 @@
 
 	var/list/job_days_left = list()
 	var/list/job_required_experience = list()
-// TODO tgui_prefs
+// TODO tgui-prefs
 /*
 	for (var/datum/job/job as anything in SSjob.all_occupations)
 		var/required_playtime_remaining = job.required_playtime_remaining(user.client)

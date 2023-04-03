@@ -1,5 +1,5 @@
 /// Middleware to handle quirks
-/*
+
 /datum/preference_middleware/quirks
 	var/tainted = FALSE
 
@@ -26,9 +26,7 @@
 		data["selected_quirks"] = get_selected_quirks()
 
 	return data
-*/
-// TODO tgui-prefs
-/*
+
 /datum/preference_middleware/quirks/get_constant_data()
 	var/list/quirk_info = list()
 
@@ -36,7 +34,7 @@
 		var/datum/quirk/quirk = SSquirks.quirks[quirk_name]
 		quirk_info[sanitize_css_class_name(quirk_name)] = list(
 			"description" = initial(quirk.desc),
-			"icon" = initial(quirk.icon),
+			"icon" = null /* TODO tgui-prefs */,
 			"name" = quirk_name,
 			"value" = initial(quirk.value),
 		)
@@ -54,12 +52,12 @@
 	var/quirk_name = params["quirk"]
 
 	var/list/new_quirks = preferences.all_quirks | quirk_name
-	if (SSquirks.filter_invalid_quirks(new_quirks) != new_quirks)
+	/*if (SSquirks.filter_invalid_quirks(new_quirks) != new_quirks)
 		// If the client is sending an invalid give_quirk, that means that
 		// something went wrong with the client prediction, so we should
 		// catch it back up to speed.
 		preferences.update_static_data(user)
-		return TRUE
+		return TRUE*/
 
 	preferences.all_quirks = new_quirks
 
@@ -69,7 +67,7 @@
 	var/quirk_name = params["quirk"]
 
 	var/list/new_quirks = preferences.all_quirks - quirk_name
-	if ( \
+	/*if ( \
 		!(quirk_name in preferences.all_quirks) \
 		|| SSquirks.filter_invalid_quirks(new_quirks) != new_quirks \
 	)
@@ -77,7 +75,7 @@
 		// something went wrong with the client prediction, so we should
 		// catch it back up to speed.
 		preferences.update_static_data(user)
-		return TRUE
+		return TRUE*/
 
 	preferences.all_quirks = new_quirks
 
@@ -90,4 +88,3 @@
 		selected_quirks += sanitize_css_class_name(quirk)
 
 	return selected_quirks
-*/

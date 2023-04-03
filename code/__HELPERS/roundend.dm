@@ -292,7 +292,6 @@
 
 	CHECK_TICK
 	SSdbcore.SetRoundEnd()
-
 	//Collects persistence features
 	if(mode.allow_persistence_save)
 		SSpersistence.CollectData()

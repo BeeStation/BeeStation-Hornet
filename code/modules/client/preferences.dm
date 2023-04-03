@@ -118,7 +118,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			return
 	// TODO tgui-prefs implement fallback species
 	//we couldn't load character data so just randomize the character appearance + name
-	//randomise_appearance_prefs() //let's create a random character then - rather than a fat, bald and naked man.
+	randomise_appearance_prefs() //let's create a random character then - rather than a fat, bald and naked man.
 	if(parent)
 		apply_all_client_preferences()
 		parent.set_macros()
@@ -399,7 +399,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 		create_body()
 	else
 		body.wipe_state()
-	// TODO tgui-prefs appearance = preferences.render_new_preview_appearance(body)
+	appearance = preferences.render_new_preview_appearance(body)
 
 /atom/movable/screen/character_preview_view/proc/create_body()
 	QDEL_NULL(body)
@@ -431,13 +431,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 	var/list/profiles = list()
 
 	for(var/index in 1 to TRUE_MAX_SAVE_SLOTS)
-		// It won't be updated in the savefile yet, so just read the name directly
-		if (index == default_slot)
-			profiles += read_preference(/datum/preference/name/real_name)
-			continue
-
-		// TODO tgui-prefs
-		var/name = "testing"
+		var/name = read_preference(/datum/preference/name/real_name, index)
 
 		if (isnull(name))
 			profiles += null
@@ -507,9 +501,8 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 /datum/preferences/proc/should_be_random_hardcore(datum/job/job, datum/mind/mind)
 	if(!read_preference(/datum/preference/toggle/random_hardcore))
 		return FALSE
-	// TODO tgui-prefs
-	//if(job.department_flag & DEPARTMENT_BITFLAG_COMMAND) //No command staff
-	//	return FALSE
+	if(job.departments & DEPT_BITFLAG_COM) //No command staff
+		return FALSE
 	for(var/datum/antagonist/antag as anything in mind.antag_datums)
 		if(antag.get_team()) //No team antags
 			return FALSE

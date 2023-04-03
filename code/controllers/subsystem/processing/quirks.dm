@@ -37,11 +37,9 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 		quirk_points[initial(T.name)] = initial(T.value)
 
 /datum/controller/subsystem/processing/quirks/proc/AssignQuirks(datum/mind/user, client/cli, spawn_effects)
-// TODO tgui-prefs
-/*
 	var/bad_quirk_checker = 0
 	var/list/bad_quirks = list()
-	for(var/V in cli.prefs.active_character.all_quirks)
+	for(var/V in cli.prefs.all_quirks)
 		var/datum/quirk/Q = quirks[V]
 		if(Q)
 			user.add_quirk(Q, spawn_effects)
@@ -50,7 +48,6 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 			stack_trace("Invalid quirk \"[V]\" in client [cli.ckey] preferences. the game has reset their quirks automatically.")
 			bad_quirks += V
 	if(bad_quirk_checker > 0 || length(bad_quirks)) // negative & zero value = calculation good / positive quirk value = something's wrong
-		cli.prefs.active_character.all_quirks = list()
-		cli.prefs.active_character.save(cli)
+		cli.prefs.all_quirks = list()
+		//TODO tgui-prefs write_preference()
 		client_alert(cli, "You have one or more outdated quirks[length(bad_quirks) ? ": [english_list(bad_quirks)]" : ""]. Your eligible quirks are kept at this round, but your character preference has been reset. Please review them at any time.", "Oh, no!")
-*/

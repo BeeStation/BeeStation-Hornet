@@ -55,18 +55,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/list/atom/movable/plane_master_controller/plane_master_controllers = list()
 	var/list/team_finder_arrows = list()
 
-	/// Whether or not screentips are enabled.
-	/// This is updated by the preference for cheaper reads than would be
-	/// had with a proc call, especially on one of the hottest procs in the
-	/// game (MouseEntered).
-	var/screentips_enabled = TRUE
-
-	/// The color to use for the screentips.
-	/// This is updated by the preference for cheaper reads than would be
-	/// had with a proc call, especially on one of the hottest procs in the
-	/// game (MouseEntered).
-	var/screentip_color
-
 	var/atom/movable/screen/movable/action_button/hide_toggle/hide_actions_toggle
 	var/action_buttons_hidden = FALSE
 
