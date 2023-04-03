@@ -23,7 +23,7 @@
 	return GLOB.ntos_device_themes_default[sanitize_inlist(input, GLOB.ntos_device_themes_default, "NtOS Default")]
 
 /datum/preference/choiced/pda_theme/create_default_value()
-	return THEME_NTOS
+	return "NtOS Default"
 
 /datum/preference/choiced/pda_theme/init_possible_values()
 	return GLOB.ntos_device_themes_default_content

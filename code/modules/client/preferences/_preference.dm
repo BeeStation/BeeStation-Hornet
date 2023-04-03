@@ -237,7 +237,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 		CRASH("Preference type `[preference_type]` is invalid! [extra_info]")
 
-	if ((isnull(slot) || slot == selected_slot) && preference_type in value_cache)
+	if ((isnull(slot) || slot == selected_slot) && (preference_type in value_cache))
 		return value_cache[preference_type]
 
 	var/value = preference_entry.read(parent.ckey, src, !isnull(slot) ? slot : selected_slot)
