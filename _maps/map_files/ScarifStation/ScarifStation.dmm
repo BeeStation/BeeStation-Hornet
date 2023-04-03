@@ -9,21 +9,9 @@
 	name = "Scarif ocean";
 	color = "#425df5"
 	})
-"d" = (
+"f" = (
 /turf/open/floor/plating/beach/coastline_t{
-	dir = 8
-	},
-/area/iceland{
-	CanAtmosPass = -1;
-	CanAtmosPassVertical = -1;
-	mood_bonus = 1;
-	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
-	name = "Scarif beach";
-	color = "#e6da8c"
-	})
-"g" = (
-/turf/open/floor/plating/beach/coastline_t{
-	dir = 9
+	dir = 10
 	},
 /area/iceland{
 	CanAtmosPass = -1;
@@ -34,91 +22,6 @@
 	color = "#e6da8c"
 	})
 "h" = (
-/turf/open/floor/plating/beach/coastline_t{
-	dir = 10
-	},
-/area/iceland{
-	CanAtmosPass = -1;
-	CanAtmosPassVertical = -1;
-	mood_bonus = 1;
-	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
-	name = "Scarif beach";
-	color = "#e6da8c"
-	})
-"m" = (
-/turf/open/floor/plating/beach/coastline_t{
-	dir = 1
-	},
-/area/iceland{
-	CanAtmosPass = -1;
-	CanAtmosPassVertical = -1;
-	mood_bonus = 1;
-	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
-	name = "Scarif beach";
-	color = "#e6da8c"
-	})
-"o" = (
-/turf/open/floor/plating/beach/coastline_t{
-	dir = 5
-	},
-/area/iceland{
-	CanAtmosPass = -1;
-	CanAtmosPassVertical = -1;
-	mood_bonus = 1;
-	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
-	name = "Scarif beach";
-	color = "#e6da8c"
-	})
-"r" = (
-/turf/open/floor/plating/beach/coastline_b{
-	dir = 10
-	},
-/area/iceland{
-	CanAtmosPass = -1;
-	CanAtmosPassVertical = -1;
-	mood_bonus = 1;
-	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
-	name = "Scarif ocean";
-	color = "#425df5"
-	})
-"A" = (
-/turf/open/floor/plating/beach/coastline_b{
-	dir = 4;
-	density = 1
-	},
-/area/iceland{
-	CanAtmosPass = -1;
-	CanAtmosPassVertical = -1;
-	mood_bonus = 1;
-	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
-	name = "Scarif ocean";
-	color = "#425df5"
-	})
-"D" = (
-/turf/open/floor/plating/beach/coastline_b{
-	dir = 6
-	},
-/area/iceland{
-	CanAtmosPass = -1;
-	CanAtmosPassVertical = -1;
-	mood_bonus = 1;
-	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
-	name = "Scarif ocean";
-	color = "#425df5"
-	})
-"I" = (
-/turf/open/floor/plating/beach/coastline_t{
-	dir = 6
-	},
-/area/iceland{
-	CanAtmosPass = -1;
-	CanAtmosPassVertical = -1;
-	mood_bonus = 1;
-	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
-	name = "Scarif beach";
-	color = "#e6da8c"
-	})
-"L" = (
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 8;
 	density = 1
@@ -131,7 +34,64 @@
 	name = "Scarif ocean";
 	color = "#425df5"
 	})
-"O" = (
+"j" = (
+/turf/open/floor/plating/beach/coastline_t{
+	dir = 4
+	},
+/area/iceland{
+	CanAtmosPass = -1;
+	CanAtmosPassVertical = -1;
+	mood_bonus = 1;
+	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
+	name = "Scarif beach";
+	color = "#e6da8c"
+	})
+"l" = (
+/turf/open/floor/plating/beach/coastline_t{
+	dir = 5
+	},
+/area/iceland{
+	CanAtmosPass = -1;
+	CanAtmosPassVertical = -1;
+	mood_bonus = 1;
+	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
+	name = "Scarif beach";
+	color = "#e6da8c"
+	})
+"r" = (
+/turf/open/floor/plating/beach/coastline_t{
+	dir = 9
+	},
+/area/iceland{
+	CanAtmosPass = -1;
+	CanAtmosPassVertical = -1;
+	mood_bonus = 1;
+	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
+	name = "Scarif beach";
+	color = "#e6da8c"
+	})
+"v" = (
+/turf/open/floor/plating/beach/coastline_b{
+	dir = 10
+	},
+/area/iceland{
+	CanAtmosPass = -1;
+	CanAtmosPassVertical = -1;
+	mood_bonus = 1;
+	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
+	name = "Scarif ocean";
+	color = "#425df5"
+	})
+"w" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 3;
+	height = 15;
+	id = "arrivals_stationary";
+	name = "arrivals";
+	roundstart_template = /datum/map_template/shuttle/arrival/box;
+	width = 7
+	},
 /turf/open/floor/plating/beach/sand{
 	initial_gas_mix = "o2=2644;n2=10580;TEMP=293.15"
 	},
@@ -143,7 +103,31 @@
 	name = "Scarif beach";
 	color = "#e6da8c"
 	})
-"Q" = (
+"z" = (
+/turf/open/floor/plating/beach/coastline_t{
+	dir = 1
+	},
+/area/iceland{
+	CanAtmosPass = -1;
+	CanAtmosPassVertical = -1;
+	mood_bonus = 1;
+	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
+	name = "Scarif beach";
+	color = "#e6da8c"
+	})
+"A" = (
+/turf/open/floor/plating/beach/coastline_b{
+	dir = 9
+	},
+/area/iceland{
+	CanAtmosPass = -1;
+	CanAtmosPassVertical = -1;
+	mood_bonus = 1;
+	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
+	name = "Scarif ocean";
+	color = "#425df5"
+	})
+"E" = (
 /obj/effect/landmark/arena/start,
 /obj/effect/landmark/observer_start,
 /obj/effect/landmark/start/assistant,
@@ -159,8 +143,9 @@
 	name = "Scarif beach";
 	color = "#e6da8c"
 	})
-"S" = (
+"G" = (
 /turf/open/floor/plating/beach/coastline_b{
+	dir = 1;
 	density = 1
 	},
 /area/iceland{
@@ -171,9 +156,86 @@
 	name = "Scarif ocean";
 	color = "#425df5"
 	})
-"T" = (
+"H" = (
+/turf/open/floor/plating/beach/coastline_t,
+/area/iceland{
+	CanAtmosPass = -1;
+	CanAtmosPassVertical = -1;
+	mood_bonus = 1;
+	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
+	name = "Scarif beach";
+	color = "#e6da8c"
+	})
+"I" = (
+/obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 4;
+	height = 7;
+	id = "supply_home";
+	name = "Cargo Bay";
+	width = 12
+	},
+/turf/open/floor/plating/beach/sand{
+	initial_gas_mix = "o2=2644;n2=10580;TEMP=293.15"
+	},
+/area/iceland{
+	CanAtmosPass = -1;
+	CanAtmosPassVertical = -1;
+	mood_bonus = 1;
+	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
+	name = "Scarif beach";
+	color = "#e6da8c"
+	})
+"J" = (
 /turf/open/floor/plating/beach/coastline_b{
-	dir = 1;
+	dir = 6
+	},
+/area/iceland{
+	CanAtmosPass = -1;
+	CanAtmosPassVertical = -1;
+	mood_bonus = 1;
+	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
+	name = "Scarif ocean";
+	color = "#425df5"
+	})
+"M" = (
+/turf/open/floor/plating/beach/coastline_t{
+	dir = 8
+	},
+/area/iceland{
+	CanAtmosPass = -1;
+	CanAtmosPassVertical = -1;
+	mood_bonus = 1;
+	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
+	name = "Scarif beach";
+	color = "#e6da8c"
+	})
+"O" = (
+/turf/open/floor/plating/beach/sand{
+	initial_gas_mix = "o2=2644;n2=10580;TEMP=293.15"
+	},
+/area/iceland{
+	CanAtmosPass = -1;
+	CanAtmosPassVertical = -1;
+	mood_bonus = 1;
+	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
+	name = "Scarif beach";
+	color = "#e6da8c"
+	})
+"Q" = (
+/turf/open/floor/plating/beach/coastline_b{
+	dir = 5
+	},
+/area/iceland{
+	CanAtmosPass = -1;
+	CanAtmosPassVertical = -1;
+	mood_bonus = 1;
+	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
+	name = "Scarif ocean";
+	color = "#425df5"
+	})
+"S" = (
+/turf/open/floor/plating/beach/coastline_b{
 	density = 1
 	},
 /area/iceland{
@@ -188,19 +250,9 @@
 /turf/open/space/basic,
 /area/space)
 "V" = (
-/turf/open/floor/plating/beach/coastline_b{
-	dir = 5
+/turf/open/floor/plating/beach/coastline_t{
+	dir = 6
 	},
-/area/iceland{
-	CanAtmosPass = -1;
-	CanAtmosPassVertical = -1;
-	mood_bonus = 1;
-	mood_message = "<span class='nicegreen'>The sound of the waves calms you\n</span>";
-	name = "Scarif ocean";
-	color = "#425df5"
-	})
-"W" = (
-/turf/open/floor/plating/beach/coastline_t,
 /area/iceland{
 	CanAtmosPass = -1;
 	CanAtmosPassVertical = -1;
@@ -209,9 +261,10 @@
 	name = "Scarif beach";
 	color = "#e6da8c"
 	})
-"X" = (
+"W" = (
 /turf/open/floor/plating/beach/coastline_b{
-	dir = 9
+	dir = 4;
+	density = 1
 	},
 /area/iceland{
 	CanAtmosPass = -1;
@@ -221,9 +274,18 @@
 	name = "Scarif ocean";
 	color = "#425df5"
 	})
-"Z" = (
-/turf/open/floor/plating/beach/coastline_t{
-	dir = 4
+"Y" = (
+/obj/docking_port/stationary{
+	dheight = 0;
+	dir = 2;
+	dwidth = 9;
+	height = 25;
+	id = "emergency_home";
+	name = "Runtimestation emergency evac bay";
+	width = 29
+	},
+/turf/open/floor/plating/beach/sand{
+	initial_gas_mix = "o2=2644;n2=10580;TEMP=293.15"
 	},
 /area/iceland{
 	CanAtmosPass = -1;
@@ -157625,55 +157687,55 @@ a
 a
 a
 a
-X
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-r
+A
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+v
 a
 a
 a
@@ -157882,54 +157944,54 @@ a
 a
 a
 a
-T
-X
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-r
+G
+A
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+v
 S
 a
 a
@@ -158139,53 +158201,53 @@ a
 a
 a
 a
-T
-T
-X
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-L
-r
+G
+G
+A
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+v
 S
 S
 a
@@ -158396,52 +158458,52 @@ a
 a
 a
 a
-T
-T
-T
-g
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-h
+G
+G
+G
+r
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+f
 S
 S
 S
@@ -158653,10 +158715,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -158698,7 +158760,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -158910,10 +158972,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -158955,7 +159017,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -159167,10 +159229,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -159212,7 +159274,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -159424,10 +159486,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -159469,7 +159531,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -159681,10 +159743,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -159726,7 +159788,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -159938,10 +160000,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -159983,7 +160045,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -160195,10 +160257,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -160240,7 +160302,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -160452,10 +160514,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -160497,7 +160559,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -160709,10 +160771,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -160754,7 +160816,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -160966,10 +161028,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -161011,7 +161073,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -161223,10 +161285,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -161268,7 +161330,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -161480,10 +161542,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -161525,7 +161587,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -161737,10 +161799,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -161782,7 +161844,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -161994,10 +162056,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -162039,7 +162101,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -162251,10 +162313,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -162296,7 +162358,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -162508,10 +162570,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -162553,7 +162615,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -162765,10 +162827,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -162810,7 +162872,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -163022,10 +163084,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -163067,7 +163129,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -163279,10 +163341,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -163324,7 +163386,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -163536,10 +163598,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -163561,7 +163623,13 @@ O
 O
 O
 O
-Q
+E
+O
+O
+O
+O
+O
+Y
 O
 O
 O
@@ -163575,13 +163643,7 @@ O
 O
 O
 O
-O
-O
-O
-O
-O
-O
-W
+H
 S
 S
 S
@@ -163793,10 +163855,22 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
+O
+O
+O
+O
+O
+O
+O
+O
+O
+O
+O
+w
 O
 O
 O
@@ -163826,19 +163900,7 @@ O
 O
 O
 O
-O
-O
-O
-O
-O
-O
-O
-O
-O
-O
-O
-O
-W
+H
 S
 S
 S
@@ -164050,10 +164112,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -164095,7 +164157,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -164307,10 +164369,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -164352,7 +164414,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -164564,10 +164626,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -164609,7 +164671,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -164821,10 +164883,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -164866,7 +164928,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -165078,10 +165140,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -165123,7 +165185,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -165335,10 +165397,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -165380,7 +165442,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -165592,10 +165654,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -165637,7 +165699,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -165849,10 +165911,28 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
+O
+O
+O
+O
+O
+O
+O
+O
+O
+O
+O
+O
+O
+O
+O
+O
+O
+I
 O
 O
 O
@@ -165876,25 +165956,7 @@ O
 O
 O
 O
-O
-O
-O
-O
-O
-O
-O
-O
-O
-O
-O
-O
-O
-O
-O
-O
-O
-O
-W
+H
 S
 S
 S
@@ -166106,10 +166168,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -166151,7 +166213,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -166363,10 +166425,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -166408,7 +166470,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -166620,10 +166682,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -166665,7 +166727,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -166877,10 +166939,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -166922,7 +166984,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -167134,10 +167196,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -167179,7 +167241,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -167391,10 +167453,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -167436,7 +167498,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -167648,10 +167710,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -167693,7 +167755,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -167905,10 +167967,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -167950,7 +168012,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -168162,10 +168224,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -168207,7 +168269,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -168419,10 +168481,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -168464,7 +168526,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -168676,10 +168738,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -168721,7 +168783,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -168933,10 +168995,10 @@ a
 a
 a
 a
-T
-T
-T
-m
+G
+G
+G
+z
 O
 O
 O
@@ -168978,7 +169040,7 @@ O
 O
 O
 O
-W
+H
 S
 S
 S
@@ -169190,52 +169252,52 @@ a
 a
 a
 a
-T
-T
-T
-o
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-I
+G
+G
+G
+l
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+V
 S
 S
 S
@@ -169447,53 +169509,53 @@ a
 a
 a
 a
-T
-T
-V
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-D
+G
+G
+Q
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+J
 S
 S
 a
@@ -169704,54 +169766,54 @@ a
 a
 a
 a
-T
-V
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-D
+G
+Q
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+J
 S
 a
 a
@@ -169961,55 +170023,55 @@ a
 a
 a
 a
-V
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-A
-D
+Q
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+J
 a
 a
 a
