@@ -1,0 +1,12 @@
+{
+    "map_name": "Scarif Station",
+    "map_link": "ScarifStation",
+    "map_path": "map_files/ScarifStation",
+    "map_file": "ScarifStation.dmm",
+    "shuttles": {
+	    "cargo": "cargo_fland",
+	    "ferry": "ferry_fland",
+	    "whiteship": "whiteship_fland",
+	    "emergency": "emergency_fland"
+    }
+}
