@@ -580,7 +580,7 @@
 			. += "<u>It is made out of [M.name]</u>."
 	if(reagents)
 		if((reagents.flags & TRANSPARENT) || HAS_TRAIT(user, TRAIT_BYPASS_REAGENTHIDE))
-			if(!(reagents.flags & TRANSPARENT) && (HAS_TRAIT(user, TRAIT_BYPASS_REAGENTHIDE))
+			if(!(reagents.flags & TRANSPARENT) && HAS_TRAIT(user, TRAIT_BYPASS_REAGENTHIDE))
 				. += "This is not transparent, but you can check what it contains."
 			. += "It contains:"
 			if(length(reagents.reagent_list))
