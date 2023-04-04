@@ -390,7 +390,7 @@
 		to_chat(src, "<span class='warning'>You can't orbit while you're revealed!</span>")
 		return
 	if(!Adjacent(A))
-		to_chat(src, "<span class='warning'>You can orbit things that are only next to you!</span>")
+		to_chat(src, "<span class='warning'>You can only orbit things that are next to you!</span>")
 		return
 	if(notransform || inhibited || !incorporeal_move_check(A))
 		return
