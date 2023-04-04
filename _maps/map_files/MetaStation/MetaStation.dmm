@@ -14229,7 +14229,7 @@
 /area/maintenance/starboard)
 "btv" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
-	dir = 8;
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -18237,7 +18237,7 @@
 /area/engine/atmos)
 "bMj" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 8;
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -65892,7 +65892,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel,
+/turf/closed/wall/r_wall,
 /area/ai_monitored/storage/eva)
 "sJc" = (
 /obj/machinery/door/airlock/security/glass{
@@ -117066,7 +117066,7 @@ aeS
 aeS
 aeS
 aeS
-aeS
+aWw
 bhQ
 xPx
 oBW
@@ -117323,7 +117323,7 @@ pui
 lBx
 tyV
 mZR
-aeS
+aWw
 bhO
 uRt
 pgQ
@@ -117580,7 +117580,7 @@ aZD
 aAi
 bcF
 aqb
-aeS
+aWw
 joK
 wxT
 pyc
@@ -117837,7 +117837,7 @@ xez
 eAZ
 xQR
 pCj
-aeS
+aWw
 qDP
 bjE
 lKM
@@ -118094,7 +118094,7 @@ cpU
 vFz
 eWg
 sRo
-aeS
+aWw
 dzN
 nde
 wPX
