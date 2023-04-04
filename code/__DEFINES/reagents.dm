@@ -35,7 +35,8 @@
 #define THRESHOLD_UNHUSK 50 //Health treshold for synthflesh and rezadone to unhusk someone
 
 #define CHEM_INCLUDES_LOCKED_REAGENT_TO_TOTAL (1<<0)
-#define CHEM_TRANSFERS_LOCKED_REAGENT (1<<1)
+#define CHEM_TRANSFERS_LOCKED_REAGENT_FIRST (1<<1)
+#define CHEM_TRANSFERS_LOCKED_REAGENT_LATER (1<<2)
 
 // synthesizable part - can this reagent be synthesized? (for example: odysseus syringe gun)
 #define CHEMICAL_NOT_DEFINED   (1<<0)  // identical to CHEMICAL_NOT_SYNTH, but it is good to label when you are not sure which flag you should set on it, or something that shouldn't exist in the game. - i.e) medicine parent type
