@@ -29,6 +29,8 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/list/data
 	var/current_cycle = 0
 	var/volume = 0									//pretend this is moles
+	/// amount of reagent that you can't remove by any method (i.e. vomit)
+	var/locked_volume = 0
 	var/color = "#000000" // rgb: 0, 0, 0
 	var/chem_flags = CHEMICAL_NOT_DEFINED   // default = I am not sure this shit + CHEMICAL_NOT_SYNTH
 	var/metabolization_rate = REAGENTS_METABOLISM //how fast the reagent is metabolized by the mob

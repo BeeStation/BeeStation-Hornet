@@ -703,7 +703,7 @@
 		var/amt = list_reagents[r_id]
 		add_reagent(r_id, amt, data)
 
-/datum/reagents/proc/remove_reagent(reagent, amount, safety)//Added a safety check for the trans_id_to
+/datum/reagents/proc/remove_reagent(reagent, amount, safety, including_locked_volume=TRUE)//Added a safety check for the trans_id_to
 
 	if(isnull(amount))
 		amount = 0
@@ -722,8 +722,16 @@
 		if (R.type == reagent)
 			//clamp the removal amount to be between current reagent amount
 			//and zero, to prevent removing more than the holder has stored
-			amount = CLAMP(amount, 0, R.volume)
-			R.volume -= amount
+			if(including_locked_volume)
+				amount = CLAMP(amount, 0, R.volume)
+				R.volume -= amount
+				if(R.locked_volume > R.volume)
+					R.locked_volume = R.volume
+			else
+				var/availability = R.volume - R.locked_volume
+				if(availability)
+					amount = CLAMP(amount, 0, availability)
+					R.volume -= amount
 			update_total()
 			if(!safety)//So it does not handle reactions when it need not to
 				handle_reactions()
@@ -751,6 +759,23 @@
 					return
 
 	return
+
+/datum/reagents/proc/set_reagent_locked(reagent, amount=-1)
+	//amount=-1 will make fully locked
+	var/list/cached_reagents = reagent_list
+
+	for(var/A in cached_reagents)
+		var/datum/reagent/R = A
+		if (R.type == reagent)
+			if(amount<0)
+				R.locked_volume = R.volume
+				return TRUE
+			else
+				amount = CLAMP(amount, 0, R.volume)
+				R.locked_volume = amount
+				return TRUE
+
+	return FALSE
 
 /datum/reagents/proc/get_reagent_amount(reagent)
 	var/list/cached_reagents = reagent_list

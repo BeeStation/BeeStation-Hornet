@@ -281,7 +281,8 @@
 	list_reagents = list(get_random_reagent_id(CHEMICAL_RNG_FUN) = rand(10,50))
 	. = ..()
 	name = pick(names)
-
+	for(var/datum/reagent/each_reagent in reagents.reagent_list)
+		each_reagent.locked_volume = each_reagent.volume
 
 /obj/item/reagent_containers/pill/floorpill/examine(mob/user)
 	. = ..()
