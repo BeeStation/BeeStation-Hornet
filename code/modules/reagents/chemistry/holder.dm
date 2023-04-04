@@ -163,7 +163,7 @@
 
 	return master
 
-/datum/reagents/proc/trans_to(obj/target, amount = 1, multiplier = 1, preserve_data = TRUE, no_react = FALSE, mob/transfered_by, remove_blacklisted = FALSE, method = null, show_message = TRUE, round_robin = FALSE)
+/datum/reagents/proc/trans_to(obj/target, amount = 1, multiplier = 1, preserve_data = TRUE, no_react = FALSE, mob/transfered_by, remove_blacklisted = FALSE, method = null, show_message = TRUE, round_robin = FALSE, locked_reagent_handles=CHEM_INCLUDES_LOCKED_REAGENT_TO_TOTAL|CHEM_TRANSFERS_LOCKED_REAGENT)
 	//if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
 	//if round_robin=TRUE, so transfer 5 from 15 water, 15 sugar and 15 plasma becomes 10, 15, 15 instead of 13.3333, 13.3333 13.3333. Good if you hate floating point errors
 	var/list/cached_reagents = reagent_list
@@ -187,43 +187,87 @@
 		target_atom.add_hiddenprint(transfered_by) //log prints so admins can figure out who touched it last.
 		log_combat(transfered_by, target_atom, "transferred reagents ([log_list()]) from [my_atom] to")
 
-	amount = min(min(amount, src.total_volume), R.maximum_volume-R.total_volume)
+	if(locked_reagent_handles & CHEM_INCLUDES_LOCKED_REAGENT_TO_TOTAL)
+		amount = min(min(amount, src.total_volume), R.maximum_volume-R.total_volume)
+	else
+		var/total_locked_volume = 0
+		for(var/datum/reagent/single_reagent in reagent_list)
+			total_locked_volume += single_reagent.locked_volume
+		amount = min(min(amount, src.total_volume-total_locked_volume), R.maximum_volume-(R.total_volume-total_locked_volume))
 	var/trans_data = null
 	var/transfer_log = list()
+
 	if(!round_robin)
 		var/part = amount / src.total_volume
 		for(var/reagent in cached_reagents)
 			var/datum/reagent/T = reagent
 			if(remove_blacklisted && (T.chem_flags & CHEMICAL_NOT_SYNTH))
 				continue
-			var/transfer_amount = T.volume * part
+
+			// variables that need to be calculated
+			var/transfer_amount = 0
+			var/locked_amount_base = 0 // as long as flags exist, we'll transfer locked_volume in reagents
+			var/locked_amount_duped = 0 // we'll get duplicated amount. usually 0
+
+			// calculate transferable amount by flags
+			if(locked_reagent_handles & CHEM_INCLUDES_LOCKED_REAGENT_TO_TOTAL)
+				transfer_amount = T.volume * part
+				if(!(locked_reagent_handles & CHEM_TRANSFERS_LOCKED_REAGENT))
+					transfer_amount -= T.locked_volume
+				else
+					locked_amount_base = min(T.locked_volume, transfer_amount)
+			else
+				transfer_amount = (T.volume-T.locked_volume) * part
+			if(!transfer_amount)
+				continue
+			locked_amount_duped = (transfer_amount * multiplier) - transfer_amount
+			// calculation done
+
 			if(preserve_data)
 				trans_data = copy_data(T)
-			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1) //we only handle reaction after every reagent has been transfered.
+
+			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1, locks_volume=locked_amount_base+locked_amount_duped)
+
+			//we only handle reaction after every reagent has been transfered.
 			if(method)
 				R.react_single(T, target_atom, method, part, show_message)
 				T.on_transfer(target_atom, method, transfer_amount * multiplier)
-			remove_reagent(T.type, transfer_amount)
+			remove_reagent(T.type, transfer_amount, removes_locked_reagent_amount=locked_amount_base)
 			transfer_log[T.type] = transfer_amount
 	else
-		var/to_transfer = amount
 		for(var/reagent in cached_reagents)
-			if(!to_transfer)
+			if(!amount)
 				break
 			var/datum/reagent/T = reagent
 			if(remove_blacklisted && (T.chem_flags & CHEMICAL_NOT_SYNTH))
 				continue
+
+			// variables that need to be calculated
+			var/transfer_amount = 0
+			var/locked_amount_base = 0 // as long as flags exist, we'll transfer locked_volume in reagents
+			var/locked_amount_duped = 0 // we'll get duplicated amount. usually 0
+
+			// calculate transferable amount by flags
+			if((locked_reagent_handles & CHEM_INCLUDES_LOCKED_REAGENT_TO_TOTAL) \
+					&& (locked_reagent_handles & CHEM_TRANSFERS_LOCKED_REAGENT))
+				transfer_amount = min(amount, T.volume)
+				locked_amount_base = transfer_amount
+			else
+				transfer_amount = min(amount, T.volume-T.locked_volume)
+			if(!transfer_amount)
+				continue
+			locked_amount_duped = (transfer_amount * multiplier) - transfer_amount
+			// calculation done
+
 			if(preserve_data)
 				trans_data = copy_data(T)
-			var/transfer_amount = amount
-			if(amount > T.volume)
-				transfer_amount = T.volume
-			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1)
-			to_transfer = max(to_transfer - transfer_amount , 0)
+
+			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1, locks_volume=locked_amount_base+locked_amount_duped)
+
 			if(method)
 				R.react_single(T, target_atom, method, transfer_amount, show_message)
 				T.on_transfer(target_atom, method, transfer_amount * multiplier)
-			remove_reagent(T.type, transfer_amount)
+			remove_reagent(T.type, transfer_amount, removes_locked_reagent_amount=locked_amount_base)
 			transfer_log[T.type] = transfer_amount
 
 	if(transfered_by && target_atom)
@@ -633,7 +677,7 @@
 	var/S = specific_heat()
 	chem_temp = CLAMP(chem_temp + (J / (S * total_volume)), 2.7, 1000)
 
-/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = 300, no_react = 0)
+/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = 300, no_react = 0, locks_volume = 0)
 	if(!isnum_safe(amount) || !amount)
 		return FALSE
 
@@ -672,6 +716,8 @@
 		var/datum/reagent/R = A
 		if (R.type == reagent)
 			R.volume += amount
+			if(locks_volume)
+				R.locked_volume += locks_volume
 			update_total()
 			if(my_atom)
 				my_atom.on_reagent_change(ADD_REAGENT)
@@ -685,6 +731,8 @@
 	cached_reagents += R
 	R.holder = src
 	R.volume = amount
+	if(locks_volume)
+		R.locked_volume += locks_volume
 	if(data)
 		R.data = data
 		R.on_new(data)
@@ -703,7 +751,7 @@
 		var/amt = list_reagents[r_id]
 		add_reagent(r_id, amt, data)
 
-/datum/reagents/proc/remove_reagent(reagent, amount, safety, including_locked_volume=TRUE)//Added a safety check for the trans_id_to
+/datum/reagents/proc/remove_reagent(reagent, amount, safety, removes_locked_reagent_amount=0)//Added a safety check for the trans_id_to
 
 	if(isnull(amount))
 		amount = 0
@@ -722,16 +770,12 @@
 		if (R.type == reagent)
 			//clamp the removal amount to be between current reagent amount
 			//and zero, to prevent removing more than the holder has stored
-			if(including_locked_volume)
-				amount = CLAMP(amount, 0, R.volume)
-				R.volume -= amount
-				if(R.locked_volume > R.volume)
-					R.locked_volume = R.volume
-			else
-				var/availability = R.volume - R.locked_volume
-				if(availability)
-					amount = CLAMP(amount, 0, availability)
-					R.volume -= amount
+			amount = CLAMP(amount, 0, R.volume)
+			R.volume -= amount
+			if(removes_locked_reagent_amount)
+				R.locked_volume -= removes_locked_reagent_amount
+			else if(R.locked_volume > R.volume)
+				R.locked_volume = R.volume
 			update_total()
 			if(!safety)//So it does not handle reactions when it need not to
 				handle_reactions()
@@ -759,23 +803,6 @@
 					return
 
 	return
-
-/datum/reagents/proc/set_reagent_locked(reagent, amount=-1)
-	//amount=-1 will make fully locked
-	var/list/cached_reagents = reagent_list
-
-	for(var/A in cached_reagents)
-		var/datum/reagent/R = A
-		if (R.type == reagent)
-			if(amount<0)
-				R.locked_volume = R.volume
-				return TRUE
-			else
-				amount = CLAMP(amount, 0, R.volume)
-				R.locked_volume = amount
-				return TRUE
-
-	return FALSE
 
 /datum/reagents/proc/get_reagent_amount(reagent)
 	var/list/cached_reagents = reagent_list

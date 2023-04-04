@@ -579,13 +579,15 @@
 			var/datum/material/M = i
 			. += "<u>It is made out of [M.name]</u>."
 	if(reagents)
-		if(reagents.flags & TRANSPARENT)
+		if((reagents.flags & TRANSPARENT) || HAS_TRAIT(user, TRAIT_BYPASS_REAGENTHIDE))
+			if(!(reagents.flags & TRANSPARENT) && (HAS_TRAIT(user, TRAIT_BYPASS_REAGENTHIDE))
+				. += "This is not transparent, but you can check what it contains."
 			. += "It contains:"
 			if(length(reagents.reagent_list))
 				//-------- Reagent checks ---------
 				if(user.can_see_reagents()) //Show each individual reagent
 					for(var/datum/reagent/R in reagents.reagent_list)
-						. += "[R.volume] units of [R.name]"
+						. += "[R.volume] units of [R.name][(HAS_TRAIT(user, TRAIT_BYPASS_REAGENTHIDE) && R.locked_volume) ? " (Locked: [R.locked_volume]u)" : ""]"
 				else //Otherwise, just show the total volume
 					var/total_volume = 0
 					for(var/datum/reagent/R in reagents.reagent_list)
