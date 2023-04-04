@@ -34,6 +34,7 @@
 #define MIMEDRINK_SILENCE_DURATION 30  //ends up being 60 seconds given 1 tick every 2 seconds
 #define THRESHOLD_UNHUSK 50 //Health treshold for synthflesh and rezadone to unhusk someone
 
+// defines that how a proc handles locked reagent
 #define CHEM_INCLUDES_LOCKED_REAGENT_TO_TOTAL (1<<0)
 #define CHEM_TRANSFERS_LOCKED_REAGENT_FIRST (1<<1)
 #define CHEM_TRANSFERS_LOCKED_REAGENT_LATER (1<<2)

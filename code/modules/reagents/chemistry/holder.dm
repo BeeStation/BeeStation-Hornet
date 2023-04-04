@@ -220,13 +220,13 @@
 				transfer_amount = (T.volume-T.locked_volume) * part
 			if(!transfer_amount)
 				continue
-			locked_amount_duped = (transfer_amount * multiplier) - transfer_amount
 			// calculation done
 
 			if(preserve_data)
 				trans_data = copy_data(T)
 
-			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1, locks_volume=locked_amount_base+locked_amount_duped)
+			// `((transfer_amount * multiplier) - transfer_amount)` is amount of duplicated reagent
+			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1, locks_volume=locked_amount_base+((transfer_amount * multiplier) - transfer_amount))
 
 			//we only handle reaction after every reagent has been transfered.
 			if(method)
@@ -245,7 +245,6 @@
 			// variables that need to be calculated
 			var/transfer_amount = 0
 			var/locked_amount_base = 0 // as long as flags exist, we'll transfer locked_volume in reagents
-			var/locked_amount_duped = 0 // we'll get duplicated amount. usually 0
 
 			// calculate transferable amount by flags
 			if(locked_reagent_handles & CHEM_INCLUDES_LOCKED_REAGENT_TO_TOTAL)
@@ -258,13 +257,12 @@
 				transfer_amount = min(amount, T.volume-T.locked_volume)
 			if(!transfer_amount)
 				continue
-			locked_amount_duped = (transfer_amount * multiplier) - transfer_amount
 			// calculation done
 
 			if(preserve_data)
 				trans_data = copy_data(T)
 
-			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1, locks_volume=locked_amount_base+locked_amount_duped)
+			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1, locks_volume=locked_amount_base+((transfer_amount * multiplier) - transfer_amount))
 
 			if(method)
 				R.react_single(T, target_atom, method, transfer_amount, show_message)
