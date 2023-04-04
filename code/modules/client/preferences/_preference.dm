@@ -102,6 +102,9 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// will show the feature as selectable.
 	var/relevant_species_trait = null
 
+	/// If this requires create_informed_default_value
+	var/informed = FALSE
+
 /// Called on the saved input when retrieving.
 /// Also called by the value sent from the user through UI. Do not trust it.
 /// Input is the value inside the database, output is to tell other code
@@ -149,58 +152,6 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	SHOULD_NOT_OVERRIDE(TRUE)
 	return preference_type == PREFERENCE_CHARACTER && can_randomize
 
-/// Given a ckey, return either the saved data or an acceptable default.
-/// This will write to the database if a value was not found with the new value.
-/datum/preference/proc/read(ckey, datum/preferences/preferences, slot)
-	SHOULD_NOT_OVERRIDE(TRUE)
-
-	var/value
-
-	if(SSdbcore.IsConnected())
-		var/datum/DBQuery/Q
-		if(preference_type == PREFERENCE_CHARACTER)
-			Q = SSdbcore.NewQuery(
-				"SELECT slot, :ptag FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot",
-				list("ckey" = ckey, "slot" = slot, "ptag" = db_key)
-			)
-		else
-			Q = SSdbcore.NewQuery(
-				"SELECT CAST(preference_tag AS CHAR) AS ptag, preference_value FROM [format_table_name("preferences")] WHERE ckey=:ckey AND ptag=:ptag",
-				list("ckey" = ckey, "ptag" = db_key)
-			)
-		if(!Q.warn_execute())
-			qdel(Q)
-			return
-		if(Q.NextRow())
-			value = Q.item[2]
-		qdel(Q)
-
-	if (isnull(value))
-		return null
-	else
-		return deserialize(value, preferences)
-
-/// Given a ckey, writes the inputted value to the database
-/// Returns TRUE for a successful application.
-/// Return FALSE if it is invalid.
-/datum/preference/proc/write(ckey, value, slot)
-	SHOULD_NOT_OVERRIDE(TRUE)
-
-	if (!is_valid(value))
-		return FALSE
-
-	if(SSdbcore.IsConnected())
-		var/serialized_value = serialize(value)
-		var/datum/DBQuery/Q
-		if(preference_type == PREFERENCE_CHARACTER)
-			Q = SSdbcore.NewQuery("REPLACE INTO [format_table_name("characters")] (ckey, slot, :ptag) VALUES (:ckey, :slot, :pvalue)", list("ckey" = ckey, "slot" = slot, "ptag" = db_key, "pvalue" = serialized_value))
-		else
-			Q = SSdbcore.NewQuery("INSERT INTO [format_table_name("preferences")] (ckey, preference_tag, preference_value) VALUES (:ckey, :ptag, :pvalue) ON DUPLICATE KEY UPDATE preference_value=:pvalue2", list("ckey" = ckey, "ptag" = db_key, "pvalue" = serialized_value, "pvalue2" = serialized_value))
-		if(!Q.Execute(async = TRUE))
-			qdel(Q)
-
-	return TRUE
-
 /// Apply this preference onto the given client.
 /// Called when the preference_type == PREFERENCE_PLAYER.
 /datum/preference/proc/apply_to_client(client/client, value)
@@ -222,11 +173,15 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	SHOULD_CALL_PARENT(FALSE)
 	CRASH("`apply_to_human()` was not implemented for [type]!")
 
-/// Read a /datum/preference type and return its value.
-/// This will write to the database with the default value if a value was not found.
-/// Specifying a slot will query the database directly, only do this if absolutely necessary
-/datum/preferences/proc/read_preference(preference_type, slot = null)
-	var/datum/preference/preference_entry = GLOB.preference_entries[preference_type]
+/datum/preferences/proc/get_preference_holder(datum/preference/preference_entry)
+	RETURN_TYPE(/datum/preferences_holder)
+	if(preference_entry.preference_type == PREFERENCE_CHARACTER)
+		return character_data
+	return player_data
+
+/// Read a /datum/preference type and return its value, only using cached values and queueing any necessary writes.
+/datum/preferences/proc/read_preference(preference_typepath)
+	var/datum/preference/preference_entry = GLOB.preference_entries[preference_typepath]
 	if (isnull(preference_entry))
 		var/extra_info = ""
 
@@ -235,46 +190,61 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 		if (!isnull(Master.current_initializing_subsystem))
 			extra_info = "Info was attempted to be retrieved while [Master.current_initializing_subsystem] was initializing."
 
-		CRASH("Preference type `[preference_type]` is invalid! [extra_info]")
+		CRASH("Preference type `[preference_typepath]` is invalid! [extra_info]")
+	return get_preference_holder(preference_entry).read_preference(src, preference_entry)
 
-	if ((isnull(slot) || slot == selected_slot) && (preference_type in value_cache))
-		return value_cache[preference_type]
+/// Read a /datum/preference type and return its value, only using cached values and queueing any necessary writes.
+/// Only works for player preferences.
+/datum/preferences/proc/read_player_preference(preference_typepath)
+	var/datum/preference/preference_entry = GLOB.preference_entries[preference_typepath]
+	if (isnull(preference_entry))
+		var/extra_info = ""
 
-	var/value = preference_entry.read(parent.ckey, src, !isnull(slot) ? slot : selected_slot)
-	if (isnull(value))
-		value = preference_entry.create_informed_default_value(src)
-		if (write_preference(preference_entry, value))
-			return value
-		else
-			CRASH("Couldn't write the default value for [preference_type] (received [value])")
-	value_cache[preference_type] = value
-	return value
+		// Current initializing subsystem is important to know because it might be a problem with
+		// things running pre-assets-initialization.
+		if (!isnull(Master.current_initializing_subsystem))
+			extra_info = "Info was attempted to be retrieved while [Master.current_initializing_subsystem] was initializing."
+
+		CRASH("Preference type `[preference_typepath]` is invalid! [extra_info]")
+
+	if (preference_entry.preference_type == PREFERENCE_CHARACTER)
+		CRASH("read_player_preference called on PREFERENCE_CHARACTER type preference [preference_typepath].")
+
+	return player_data.read_preference(src, preference_entry)
+
+/// Read a /datum/preference type and return its value, only using cached values and queueing any necessary writes.
+/// Only works for character preferences.
+/datum/preferences/proc/read_character_preference(preference_typepath)
+	var/datum/preference/preference_entry = GLOB.preference_entries[preference_typepath]
+	if (isnull(preference_entry))
+		var/extra_info = ""
+
+		// Current initializing subsystem is important to know because it might be a problem with
+		// things running pre-assets-initialization.
+		if (!isnull(Master.current_initializing_subsystem))
+			extra_info = "Info was attempted to be retrieved while [Master.current_initializing_subsystem] was initializing."
+
+		CRASH("Preference type `[preference_typepath]` is invalid! [extra_info]")
+
+	if (preference_entry.preference_type == PREFERENCE_PLAYER)
+		CRASH("read_character_preference called on PREFERENCE_PLAYER type preference [preference_typepath].")
+
+	return character_data.read_preference(src, preference_entry)
 
 /// Set a /datum/preference entry.
 /// Returns TRUE for a successful preference application.
 /// Returns FALSE if it is invalid.
 /datum/preferences/proc/write_preference(datum/preference/preference, preference_value)
-	var/new_value = preference.deserialize(preference_value, src)
-	var/success = preference.write(parent.ckey, new_value, selected_slot)
-	if (success)
-		value_cache[preference.type] = new_value
-	return success
+	return get_preference_holder(preference).write_preference(src, preference, preference_value)
 
-/// Will perform an update on the preference, but not write to the savefile.
+/// Will perform a write on the preference and update the relevant locations.
 /// This will, for instance, update the character preference view.
 /// Performs sanity checks.
 /datum/preferences/proc/update_preference(datum/preference/preference, preference_value)
 	if (!preference.is_accessible(src))
 		return FALSE
 
-	var/new_value = preference.deserialize(preference_value, src)
-	var/success = preference.write(null, new_value, null)
-
-	if (!success)
-		return FALSE
-
-	recently_updated_keys |= preference.type
-	value_cache[preference.type] = new_value
+	write_preference(preference, preference_value)
 
 	if (preference.preference_type == PREFERENCE_PLAYER)
 		preference.apply_to_client_updated(parent, read_preference(preference.type))
@@ -310,7 +280,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	SHOULD_NOT_SLEEP(TRUE)
 
 //	if (!isnull(relevant_mutant_bodypart) || !isnull(relevant_species_trait))
-//		var/species_type = preferences.read_preference(/datum/preference/choiced/species)
+//		var/species_type = preferences.read_character_preference(/datum/preference/choiced/species)
 
 //		var/datum/species/species = new species_type
 // TODO tgui-prefs 		if (!(db_key in species.get_features()))

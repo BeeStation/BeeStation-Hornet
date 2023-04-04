@@ -202,8 +202,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	. = ..()
 
 	if(client) //We update our preferences in case they changed right before update_appearance was called.
-		ghost_accs = client.prefs.read_preference(/datum/preference/choiced/ghost_accessories)
-		ghost_others = client.prefs.read_preference(/datum/preference/choiced/ghost_others)
+		ghost_accs = client.prefs.read_player_preference(/datum/preference/choiced/ghost_accessories)
+		ghost_others = client.prefs.read_player_preference(/datum/preference/choiced/ghost_others)
 
 	if(hair_overlay)
 		cut_overlay(hair_overlay)
@@ -398,7 +398,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(source)
 			var/atom/movable/screen/alert/A = throw_alert("[REF(source)]_notify_cloning", /atom/movable/screen/alert/notify_cloning)
 			if(A)
-				var/ui_style = client?.prefs?.read_preference(/datum/preference/choiced/ui_style)
+				var/ui_style = client?.prefs?.read_player_preference(/datum/preference/choiced/ui_style)
 				if(ui_style)
 					A.icon = ui_style2icon(ui_style)
 				A.desc = message
@@ -585,7 +585,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/update_sight()
 	if(client)
-		ghost_others = client.prefs.read_preference(/datum/preference/choiced/ghost_others) //A quick update just in case this setting was changed right before calling the proc
+		ghost_others = client.prefs.read_player_preference(/datum/preference/choiced/ghost_others) //A quick update just in case this setting was changed right before calling the proc
 
 	if (!ghostvision)
 		see_invisible = SEE_INVISIBLE_LIVING
@@ -613,7 +613,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				client.images -= GLOB.ghost_images_default
 			if(GHOST_OTHERS_SIMPLE)
 				client.images -= GLOB.ghost_images_simple
-	lastsetting = client.prefs.read_preference(/datum/preference/choiced/ghost_others)
+	lastsetting = client.prefs.read_player_preference(/datum/preference/choiced/ghost_others)
 	if(!ghostvision)
 		return
 	if(lastsetting != GHOST_OTHERS_THEIR_SETTING)
@@ -793,7 +793,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	set_ghost_appearance()
 	if(client?.prefs)
-		var/real_name = client.prefs.read_preference(/datum/preference/name/real_name)
+		var/real_name = client.prefs.read_character_preference(/datum/preference/name/real_name)
 		deadchat_name = real_name
 		if(mind)
 			mind.ghostname = real_name
@@ -809,16 +809,16 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	//if(client.prefs.active_character.be_random_body)
 	//	client.prefs.active_character.randomise(gender)
 
-	var/species_type = client.prefs.read_preference(/datum/preference/choiced/species)
+	var/species_type = client.prefs.read_character_preference(/datum/preference/choiced/species)
 	var/datum/species/species = new species_type
 
 	if(HAIR in species.species_traits)
-		hair_style = client.prefs.read_preference(/datum/preference/choiced/hairstyle)
-		hair_color = brighten_color(client.prefs.read_preference(/datum/preference/color_legacy/hair_color))
+		hair_style = client.prefs.read_character_preference(/datum/preference/choiced/hairstyle)
+		hair_color = brighten_color(client.prefs.read_character_preference(/datum/preference/color_legacy/hair_color))
 
 	if(FACEHAIR in species.species_traits)
-		facial_hair_style = client.prefs.read_preference(/datum/preference/choiced/facial_hairstyle)
-		facial_hair_color = brighten_color(client.prefs.read_preference(/datum/preference/color_legacy/facial_hair_color))
+		facial_hair_style = client.prefs.read_character_preference(/datum/preference/choiced/facial_hairstyle)
+		facial_hair_color = brighten_color(client.prefs.read_character_preference(/datum/preference/color_legacy/facial_hair_color))
 
 	qdel(species)
 

@@ -5,8 +5,8 @@ import { RandomizationButton } from "../../RandomizationButton";
 import { useRandomToggleState } from "../../useRandomToggleState";
 import { CheckboxInput, Feature, FeatureToggle } from "./base";
 
-export const random_body: Feature<RandomSetting> = {
-  name: "Random body",
+export const body_is_always_random: Feature<RandomSetting> = {
+  name: 'Random body',
   component: (props, context) => {
     const [randomToggle, setRandomToggle] = useRandomToggleState(context);
 
@@ -19,35 +19,30 @@ export const random_body: Feature<RandomSetting> = {
           />
         </Stack.Item>
 
-        {
-          randomToggle
-            ? (
-              <>
-                <Stack.Item>
-                  <Button color="green" onClick={() => {
-                    props.act("randomize_character");
-                    setRandomToggle(false);
-                  }}>
-                    Randomize
-                  </Button>
-                </Stack.Item>
+        {randomToggle ? (
+          <>
+            <Stack.Item>
+              <Button
+                color="green"
+                onClick={() => {
+                  props.act('randomize_character');
+                  setRandomToggle(false);
+                }}>
+                Randomize
+              </Button>
+            </Stack.Item>
 
-                <Stack.Item>
-                  <Button color="red" onClick={() => setRandomToggle(false)}>
-                    Cancel
-                  </Button>
-                </Stack.Item>
-              </>
-            )
-            : (
-              <Stack.Item>
-                <Button onClick={() => setRandomToggle(true)}>
-                  Randomize
-                </Button>
-              </Stack.Item>
-            )
-        }
-
+            <Stack.Item>
+              <Button color="red" onClick={() => setRandomToggle(false)}>
+                Cancel
+              </Button>
+            </Stack.Item>
+          </>
+        ) : (
+          <Stack.Item>
+            <Button onClick={() => setRandomToggle(true)}>Randomize</Button>
+          </Stack.Item>
+        )}
       </Stack>
     );
   },
@@ -58,7 +53,7 @@ export const random_hardcore: FeatureToggle = {
   component: CheckboxInput,
 };
 
-export const random_name: Feature<RandomSetting> = {
+export const name_is_always_random: Feature<RandomSetting> = {
   name: "Random name",
   component: (props, context) => {
     return (

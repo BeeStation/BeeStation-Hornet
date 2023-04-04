@@ -429,7 +429,7 @@ export const MainPage = (props: {
       ];
 
       const randomBodyEnabled
-        = (data.character_preferences.non_contextual.random_body
+        = (data.character_preferences.non_contextual.body_is_always_random
             !== RandomSetting.Disabled)
           || randomToggleEnabled;
 
@@ -472,7 +472,7 @@ export const MainPage = (props: {
       } else {
         // We can't use random_name/is_accessible because the
         // server doesn't know whether the random toggle is on.
-        delete nonContextualPreferences["random_name"];
+        delete nonContextualPreferences['name_is_always_random'];
       }
 
       return (

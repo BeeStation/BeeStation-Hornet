@@ -429,7 +429,7 @@
 			if(source)
 				var/atom/movable/screen/alert/notify_action/A = O.throw_alert("[REF(source)]_notify_action", /atom/movable/screen/alert/notify_action)
 				if(A)
-					var/ui_style = O.client?.prefs?.read_preference(/datum/preference/choiced/ui_style)
+					var/ui_style = O.client?.prefs?.read_player_preference(/datum/preference/choiced/ui_style)
 					if(ui_style)
 						A.icon = ui_style2icon(ui_style)
 					if (header)

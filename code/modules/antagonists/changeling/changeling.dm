@@ -347,7 +347,7 @@
 	var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecaste
 	if(isipc(C))
 		C.set_species(/datum/species/human)
-		C.fully_replace_character_name(C.real_name, C.client.prefs.read_preference(/datum/preference/name/backup_human))
+		C.fully_replace_character_name(C.real_name, C.client.prefs.read_character_preference(/datum/preference/name/backup_human))
 		for(var/datum/data/record/E in GLOB.data_core.general)
 			if(E.fields["name"] == C.real_name)
 				E.fields["species"] = "\improper Human"

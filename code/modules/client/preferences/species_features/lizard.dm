@@ -1,4 +1,4 @@
-/proc/generate_lizard_side_shots(list/sprite_accessories, key, include_snout = TRUE)
+/*/proc/generate_lizard_side_shots(list/sprite_accessories, key, include_snout = TRUE)
 	var/list/values = list()
 
 	var/icon/lizard = icon('icons/mob/human_parts_greyscale.dmi', "lizard_head_m", EAST)
@@ -139,3 +139,4 @@
 
 /datum/preference/choiced/lizard_tail/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["tail_lizard"] = value
+*/

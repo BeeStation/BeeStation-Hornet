@@ -26,10 +26,10 @@
 	winset(chief, "mapwindow.map", "zoom=0")
 
 /datum/viewData/proc/resetFormat()
-	winset(chief, "mapwindow.map", "zoom=[chief.prefs.read_preference(/datum/preference/numeric/pixel_size)]")
+	winset(chief, "mapwindow.map", "zoom=[chief.prefs.read_player_preference(/datum/preference/numeric/pixel_size)]")
 
 /datum/viewData/proc/setZoomMode()
-	winset(chief, "mapwindow.map", "zoom-mode=[chief.prefs.read_preference(/datum/preference/choiced/scaling_method)]")
+	winset(chief, "mapwindow.map", "zoom-mode=[chief.prefs.read_player_preference(/datum/preference/choiced/scaling_method)]")
 
 /datum/viewData/proc/isZooming()
 	return (width || height)

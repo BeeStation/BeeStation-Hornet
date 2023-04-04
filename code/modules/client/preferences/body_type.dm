@@ -17,5 +17,5 @@
 	if (!..(preferences))
 		return FALSE
 
-	var/gender = preferences.read_preference(/datum/preference/choiced/gender)
+	var/gender = preferences.read_character_preference(/datum/preference/choiced/gender)
 	return gender != MALE && gender != FEMALE

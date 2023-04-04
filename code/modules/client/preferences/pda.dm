@@ -15,8 +15,8 @@
 
 /datum/preference/choiced/pda_theme/deserialize(input, datum/preferences/preferences)
 	for(var/key in GLOB.ntos_device_themes_default) // if only there was a associative list flip proc that I could locate. Unfortunately, I could not locate one.
-		if(GLOB.ntos_device_themes_default[key] == input)
-			return key
+		if(GLOB.ntos_device_themes_default[key] == input || key == input)
+			return input
 	return "NtOS Default"
 
 /datum/preference/choiced/pda_theme/serialize(input)
@@ -26,4 +26,4 @@
 	return "NtOS Default"
 
 /datum/preference/choiced/pda_theme/init_possible_values()
-	return GLOB.ntos_device_themes_default_content
+	return GLOB.ntos_device_themes_default

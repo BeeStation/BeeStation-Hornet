@@ -1,90 +1,145 @@
-/datum/preference_character
-	// Meta Vars //
+/// A cache for character preferences data
+/datum/preferences_holder/preferences_character
 	/// INT: Slot number. Used for internal tracking. The slot number also correspnds to the number of slots in the characters list
 	var/slot_number = 0
-	/// BOOL: Is this slot locked, likely due to not having enough character slots available
-	var/slot_locked = FALSE
-	/// STRING: The name of the character.
-	var/real_name
-	/// BOOL: If the name should be randomized
-	var/be_random_name = FALSE
-	/// BOOL: If the body should be randomized
-	var/be_random_body = FALSE
-	/// ENUM: The gender of the character
-	var/gender = MALE
-	/// INT: How old the character is
-	var/age = 30
-	/// STRING: What underwear type the character should use
-	var/underwear = "Nude"
-	/// STRING: The color of the underwear
-	var/underwear_color = "000"
-	/// STRING: What undershirt type the character should use
-	var/undershirt = "Nude"
-	/// STRING: What socks type the character should use
-	var/socks = "Nude"
-	/// STRING: (Plasmaman) What helmet type the character should spawn with
-	var/helmet_style = HELMET_DEFAULT
-	/// STRING: What backpack style the character should spawn with
-	var/backbag = DBACKPACK
-	/// STRING: What jumpsuit style the character should spawn with (suit/skirt)
-	var/jumpsuit_style = PREF_SUIT
-	/// STRING: What hair style the character should use
-	var/hair_style = "Bald"
-	/// STRING: What hair color the character should use
-	var/hair_color = "000"
-	/// STRING: What hair gradient color the character should use
-	var/gradient_color = "000"
-	/// STRING: What hair gradient style the character should use
-	var/gradient_style = "None"
-	/// STRING: What facial hair style the character should use
-	var/facial_hair_style = "Shaved"
-	/// STRING: What facial hair color the character should use
-	var/facial_hair_color = "000"
-	/// STRING: What skin tone the character should use
-	var/skin_tone = "caucasian1"
-	/// STRING: What eye color the character should use
-	var/eye_color = "000"
-	/// /datum/species: What species datum the character should spawn as
-	var/datum/species/pref_species
-	/// list: A relational list of features the character should spawn with, used for species specific data.
-	var/list/features = list(
-						"body_size" = "Normal",
-						"mcolor" = "FFF",
-						"ethcolor" = "9c3030",
-						"tail_lizard" = "Smooth",
-						"tail_human" = "None",
-						"snout" = "Round",
-						"horns" = "None",
-						"ears" = "None",
-						"wings" = "None",
-						"frills" = "None",
-						"spines" = "None",
-						"body_markings" = "None",
-						"legs" = "Normal Legs",
-						"moth_wings" = "Plain",
-						"moth_antennae" = "Plain",
-						"moth_markings" = "None",
-						"ipc_screen" = "Blue",
-						"ipc_antenna" = "None",
-						"ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)",
-						"insect_type" = "Common Fly",
-						"apid_antenna" = "Curled",
-						"apid_stripes" = "Thick",
-						"apid_headstripes" = "Thick",
-						"body_model" = MALE
-					)
-	/// list: A relational list of special name types to name values
-	var/list/custom_names = list()
-	/// STRING: What AI core display should be used
-	var/preferred_ai_core_display = "Blue"
-	/// STRING: What security department assignment is preferred
-	var/preferred_security_department = SEC_DEPT_RANDOM
-	/// list: List of all selected quirks
-	var/list/all_quirks = list()
-	var/list/job_preferences = list()
-	/// list: List of all selected loadout equipment
-	var/list/equipped_gear = list()
-	/// STRING: What to do when the job you select is not available
-	var/joblessrole = BERANDOMJOB  //defaults to 1 for fewer assistants
-	/// STRING: Where your uplink should spawn as traitor
-	var/uplink_spawn_loc = UPLINK_PDA
+	/// List of column names to be queried
+	var/static/list/column_names
+
+/// Block varedits to column_names
+/datum/preferences_holder/preferences_character/vv_edit_var(var_name, var_value)
+	if(var_name == NAMEOF_STATIC(src, column_names))
+		return FALSE
+	return ..()
+
+/// Initialize the data cache with default values
+/datum/preferences_holder/preferences_character/New(datum/preferences/prefs, slot)
+	slot_number = slot
+	if(!length(column_names))
+		column_names = get_column_names()
+	..(prefs)
+
+/datum/preferences_holder/preferences_character/proc/load_from_database(datum/preferences/prefs)
+	if(!query_data(prefs)) // Query direct, otherwise create informed defaults
+		for (var/preference_type in GLOB.preference_entries)
+			var/datum/preference/preference = GLOB.preference_entries[preference_type]
+			if (preference.preference_type != pref_type)
+				continue
+			preference_data[preference.db_key] = preference.deserialize(preference.create_informed_default_value(prefs), prefs)
+
+/datum/preferences_holder/preferences_character/proc/query_data(datum/preferences/prefs)
+	if(!SSdbcore.IsConnected())
+		// TODO tgui-prefs write informed default or random value
+		return FALSE
+	var/list/values
+	var/datum/DBQuery/Q = SSdbcore.NewQuery(
+		"SELECT [db_column_list(column_names)] FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot",
+		list("ckey" = prefs.parent.ckey, "slot" = slot_number)
+	)
+	if(!Q.warn_execute())
+		qdel(Q)
+		return FALSE
+	if(Q.NextRow())
+		values = Q.item
+		if(!length(values)) // There is no character
+			return FALSE
+	else
+		return FALSE
+	qdel(Q)
+	if(length(values) != length(column_names))
+		CRASH("Error querying character data: the returned value length is greater than the number of columns requested.")
+	for(var/index in 1 to length(values))
+		var/db_key = column_names[index]
+		var/datum/preference/preference = GLOB.preference_entries_by_key[db_key]
+		if(!istype(preference))
+			CRASH("Could not find preference with db_key [db_key] when querying database.")
+		preference_data[db_key] = preference.deserialize(values[index], prefs)
+	return TRUE
+
+/datum/preferences_holder/preferences_character/proc/write_to_database(datum/preferences/prefs)
+	write_data(prefs)
+	dirty_prefs.Cut() // clear all dirty preferences
+
+/datum/preferences_holder/preferences_character/proc/write_data(datum/preferences/prefs)
+	if(!SSdbcore.IsConnected() || IS_GUEST_KEY(prefs.parent.ckey))
+		return FALSE
+	var/list/column_names_short = list()
+	var/list/new_data = list()
+	for(var/db_key in dirty_prefs)
+		if(!(db_key in preference_data))
+			CRASH("Invalid db_key found in dirty preferences list: [db_key].")
+		var/datum/preference/preference = GLOB.preference_entries_by_key[db_key]
+		if(!istype(preference))
+			CRASH("Could not find preference with db_key [db_key] when writing to database.")
+		new_data[db_key] = preference.serialize(preference_data[db_key])
+		var/column_name = clean_column_name(preference)
+		if(length(column_name))
+			column_names_short += column_name
+	if(!length(column_names_short)) // nothing to update
+		return TRUE
+	new_data["ckey"] = prefs.parent.ckey
+	new_data["slot"] = slot_number
+	var/datum/DBQuery/Q = SSdbcore.NewQuery(
+		"INSERT INTO [format_table_name("characters")] (ckey, slot, [db_column_list(column_names_short)]) VALUES (:ckey, :slot, [db_column_list(column_names_short, TRUE)]) ON DUPLICATE KEY UPDATE [db_column_values(column_names_short)]", new_data
+	)
+	var/success = Q.warn_execute()
+	if(!success)
+		to_chat(usr, "<span class='boldannounce'>Failed to save your character. Please inform the server operator.</span>")
+	qdel(Q)
+	return success
+
+/datum/preferences_holder/preferences_character/proc/get_column_names()
+	var/list/result = list()
+	for (var/preference_type in GLOB.preference_entries)
+		var/datum/preference/preference = GLOB.preference_entries[preference_type]
+		if (preference.preference_type != PREFERENCE_CHARACTER)
+			continue
+		// IMPORTANT: use of initial evades varedits. Filter to only alphanumeric and underscores
+		var/column_name = clean_column_name(preference)
+		if(length(column_name))
+			result += column_name
+	if(!length(result))
+		CRASH("Something is very wrong, /datum/prefence_character/proc/get_column_names() returned a zero length list.")
+	return result
+
+/datum/preferences_holder/preferences_character/proc/clean_column_name(datum/preference/preference)
+	var/column_name = reject_bad_text(initial(preference.db_key), max_length = 64, ascii_only = TRUE, alphanumeric_only = TRUE, underscore_allowed = TRUE)
+	if(!length(column_name) || findtext(column_name, " ") || column_name != preference.db_key)
+		CRASH("Invalid or possibly modified column name: '[column_name]' for db_key '[preference.db_key]'! Something bad is going on.")
+	return column_name
+
+/// Minimized copy of english_list because I don't want someone breaking this very important function later on
+/datum/preferences_holder/preferences_character/proc/db_column_list(list/input, colon = FALSE)
+	var/total = length(input)
+	switch(total)
+		if (0)
+			return ""
+		if (1)
+			return "[colon ? ":" : ""][input[1]]"
+		if (2)
+			return "[colon ? ":" : ""][input[1]], [colon ? ":" : ""][input[2]]"
+		else
+			var/output = ""
+			var/index = 1
+			while (index < total)
+				output += "[colon ? ":" : ""][input[index]], "
+				index++
+
+			return "[output][colon ? ":" : ""][input[index]]"
+
+/datum/preferences_holder/preferences_character/proc/db_column_values(list/input)
+	var/total = length(input)
+	switch(total)
+		if (0)
+			return ""
+		if (1)
+			return "[input[1]]=VALUES([input[1]])"
+		if (2)
+			return "[input[1]]=VALUES([input[1]]), [input[2]]=VALUES([input[2]])"
+		else
+			var/output = ""
+			var/index = 1
+			while (index < total)
+				output += "[input[index]]=VALUES([input[index]]),"
+				index++
+
+			return "[output][input[index]]=VALUES([input[index]])"

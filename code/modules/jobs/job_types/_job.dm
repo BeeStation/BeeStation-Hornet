@@ -200,7 +200,7 @@
 	if(CONFIG_GET(flag/enforce_human_authority) && (title in GLOB.command_positions))
 		if(H.dna.species.id != SPECIES_HUMAN)
 			H.set_species(/datum/species/human)
-			H.apply_pref_name("human", preference_source)
+			H.apply_pref_name(/datum/preference/name/backup_human, preference_source)
 	if(!visualsOnly)
 		var/datum/bank_account/bank_account = new(H.real_name, src)
 		bank_account.payday(STARTING_PAYCHECKS, TRUE)
@@ -396,7 +396,7 @@
 
 // TODO tgui-prefs
 /mob/living/carbon/human/apply_prefs_job(client/player_client, datum/job/job)
-	var/fully_randomize = /*GLOB.current_anonymous_theme ||*/ player_client.prefs.should_be_random_hardcore(job, player_client.mob.mind) || is_banned_from(player_client.ckey, "Appearance")
+	var/fully_randomize = is_banned_from(player_client.ckey, "Appearance")
 	if(!player_client)
 		return // Disconnected while checking for the appearance ban.
 
@@ -423,10 +423,10 @@
 		if (require_human)
 			set_species(/datum/species/human)
 		if(CONFIG_GET(flag/force_random_names))
-			var/species_type = player_client.prefs.read_preference(/datum/preference/choiced/species)
+			var/species_type = player_client.prefs.read_character_preference(/datum/preference/choiced/species)
 			var/datum/species/species = new species_type
 
-			var/gender = player_client.prefs.read_preference(/datum/preference/choiced/gender)
+			var/gender = player_client.prefs.read_character_preference(/datum/preference/choiced/gender)
 			real_name = species.random_name(gender, TRUE)
 	dna.update_dna_identity()
 
@@ -445,17 +445,17 @@
 		//if(GLOB.current_anonymous_theme)
 		//	organic_name = GLOB.current_anonymous_theme.anonymous_name(src)
 		/*else if below */
-		if(player_client.prefs.read_preference(/datum/preference/choiced/random_name) == RANDOM_ENABLED || CONFIG_GET(flag/force_random_names) || is_banned_from(player_client.ckey, "Appearance"))
+		if(player_client.prefs.read_character_preference(/datum/preference/choiced/random_name) == RANDOM_ENABLED || CONFIG_GET(flag/force_random_names) || is_banned_from(player_client.ckey, "Appearance"))
 			if(!player_client)
 				return // Disconnected while checking the appearance ban.
 
-			var/species_type = player_client.prefs.read_preference(/datum/preference/choiced/species)
+			var/species_type = player_client.prefs.read_character_preference(/datum/preference/choiced/species)
 			var/datum/species/species = new species_type
-			organic_name = species.random_name(player_client.prefs.read_preference(/datum/preference/choiced/gender), TRUE)
+			organic_name = species.random_name(player_client.prefs.read_character_preference(/datum/preference/choiced/gender), TRUE)
 		else
 			if(!player_client)
 				return // Disconnected while checking the appearance ban.
-			organic_name = player_client.prefs.read_preference(/datum/preference/name/real_name)
+			organic_name = player_client.prefs.read_character_preference(/datum/preference/name/real_name)
 
 		mmi.name = "[initial(mmi.name)]: [organic_name]"
 		if(mmi.brain)
@@ -464,5 +464,5 @@
 			mmi.brainmob.real_name = organic_name //the name of the brain inside the cyborg is the robotized human's name.
 			mmi.brainmob.name = organic_name
 	// If this checks fails, then the name will have been handled during initialization.
-	//if(!GLOB.current_anonymous_theme && player_client.prefs.read_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME)
+	//if(!GLOB.current_anonymous_theme && player_client.prefs.read_character_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME)
 	//	apply_pref_name(/datum/preference/name/cyborg, player_client)

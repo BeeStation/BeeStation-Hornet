@@ -3,13 +3,13 @@ import { Feature, FeatureColorInput, FeatureDropdownInput } from "../base";
 export const pda_color: Feature<string> = {
   name: "PDA color",
   category: "GAMEPLAY",
-  description: "The background color of your PDA.",
+  description: "The background color of your PDA when using the Thinktronic Classic theme.",
   component: FeatureColorInput,
 };
 
-export const pda_style: Feature<string> = {
-  name: "PDA style",
+export const pda_theme: Feature<string> = {
+  name: "PDA theme",
   category: "GAMEPLAY",
-  description: "The style of your equipped PDA. Changes font.",
+  description: "The theme of your equipped PDA. Changes the NtOS look in Settings.",
   component: FeatureDropdownInput,
 };

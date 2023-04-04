@@ -9,6 +9,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/max_save_slots = 3
 	/// The current active character slot
 	var/selected_slot = 1
+	/// Cache for the current active character slot
+	var/datum/preferences_holder/preferences_character/character_data
+	/// Cache for player datumized preferences
+	var/datum/preferences_holder/preferences_player/player_data
 
 	/// Bitflags for communications that are muted
 	var/muted = NONE
@@ -59,12 +63,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/action_buttons_screen_locs = list()
 
-	///Someone thought we were nice! We get a little heart in OOC until we join the server past the below time (we can keep it until the end of the round otherwise)
-	var/hearted
-	///If we have a hearted commendations, we honor it every time the player loads preferences until this time has been passed
-	var/hearted_until
-	/// If we have persistent scars enabled
-	var/persistent_scars = TRUE
 	///What outfit typepaths we've favorited in the SelectEquipment menu
 	var/list/favorite_outfits = list()
 
@@ -77,17 +75,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	/// A list of keys that have been updated since the last save.
 	var/list/recently_updated_keys = list()
 
-	/// A cache of preference entries to values.
-	/// Used to avoid expensive database query every time a preference is retrieved.
-	var/list/value_cache = list()
-
 	/// If set to TRUE, will update character_profiles on the next ui_data tick.
 	var/tainted_character_profiles = FALSE
 
 /datum/preferences/Destroy(force, ...)
 	QDEL_NULL(character_preview_view)
 	QDEL_LIST(middleware)
-	value_cache = null
+	QDEL_NULL(character_data)
+	QDEL_NULL(player_data)
 	return ..()
 
 /datum/preferences/New(client/parent)
@@ -120,7 +115,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	//we couldn't load character data so just randomize the character appearance + name
 	randomise_appearance_prefs() //let's create a random character then - rather than a fat, bald and naked man.
 	if(parent)
-		apply_all_client_preferences()
+		//apply_all_client_preferences()
 		parent.set_macros()
 
 	if(!loaded_preferences_successfully)
@@ -335,15 +330,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	return preferences
 
-/// Applies all PREFERENCE_PLAYER preferences, ignoring cached values
+/// Applies all PREFERENCE_PLAYER preferences immediately
 /datum/preferences/proc/apply_all_client_preferences()
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
 		if (preference.preference_type != PREFERENCE_PLAYER)
 			continue
-
-		// Remove the cached value
-		value_cache -= preference.type
-		preference.apply_to_client(parent, read_preference(preference.type))
+		preference.apply_to_client(parent, read_player_preference(preference.type))
 
 // This is necessary because you can open the set preferences menu before
 // the atoms SS is done loading.
@@ -487,7 +479,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 		if (preference.preference_type != PREFERENCE_CHARACTER)
 			continue
 
-		preference.apply_to_human(character, read_preference(preference.type))
+		preference.apply_to_human(character, read_character_preference(preference.type))
 
 	character.dna.real_name = character.real_name
 
@@ -495,18 +487,6 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 		character.update_body()
 		character.update_hair()
 		character.update_body_parts()
-
-
-/// Returns whether the parent mob should have the random hardcore settings enabled. Assumes it has a mind.
-/datum/preferences/proc/should_be_random_hardcore(datum/job/job, datum/mind/mind)
-	if(!read_preference(/datum/preference/toggle/random_hardcore))
-		return FALSE
-	if(job.departments & DEPT_BITFLAG_COM) //No command staff
-		return FALSE
-	for(var/datum/antagonist/antag as anything in mind.antag_datums)
-		if(antag.get_team()) //No team antags
-			return FALSE
-	return TRUE
 
 /// Inverts the key_bindings list such that it can be used for key_bindings_by_key
 /datum/preferences/proc/get_key_bindings_by_key(list/key_bindings)

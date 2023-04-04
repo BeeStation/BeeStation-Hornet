@@ -32,5 +32,5 @@
 	if (!..(preferences))
 		return FALSE
 
-	var/datum/species/species_type = preferences.read_preference(/datum/preference/choiced/species)
+	var/datum/species/species_type = preferences.read_character_preference(/datum/preference/choiced/species)
 	return initial(species_type.use_skintones)

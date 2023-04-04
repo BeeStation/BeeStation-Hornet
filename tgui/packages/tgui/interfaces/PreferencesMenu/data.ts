@@ -101,7 +101,7 @@ export type PreferencesMenuData = {
     features: Record<string, string>;
     game_preferences: Record<string, unknown>;
     non_contextual: {
-      random_body: RandomSetting,
+      body_is_always_random: RandomSetting,
       [otherKey: string]: unknown;
     };
     secondary_features: Record<string, unknown>;

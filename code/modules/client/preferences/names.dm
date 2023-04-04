@@ -38,14 +38,15 @@
 	// The `_` makes it first in ABC order.
 	group = "_real_name"
 	db_key = "real_name"
+	informed = TRUE
 
 /datum/preference/name/real_name/apply_to_human(mob/living/carbon/human/target, value)
 	target.real_name = value
 	target.name = value
 
 /datum/preference/name/real_name/create_informed_default_value(datum/preferences/preferences)
-	var/species_type = preferences.read_preference(/datum/preference/choiced/species)
-	var/gender = preferences.read_preference(/datum/preference/choiced/gender)
+	var/species_type = preferences.read_character_preference(/datum/preference/choiced/species)
+	var/gender = preferences.read_character_preference(/datum/preference/choiced/gender)
 
 	var/datum/species/species = new species_type
 
@@ -56,7 +57,7 @@
 	if (!input)
 		return input
 
-	if (CONFIG_GET(flag/humans_need_surnames) && preferences.read_preference(/datum/preference/choiced/species) == /datum/species/human)
+	if (CONFIG_GET(flag/humans_need_surnames) && preferences.read_character_preference(/datum/preference/choiced/species) == /datum/species/human)
 		var/first_space = findtext(input, " ")
 		if(!first_space) //we need a surname
 			input += " [pick(GLOB.last_names)]"
@@ -70,9 +71,10 @@
 	explanation = "Backup human name"
 	group = "backup_human"
 	db_key = "human_name"
+	informed = TRUE
 
 /datum/preference/name/backup_human/create_informed_default_value(datum/preferences/preferences)
-	var/gender = preferences.read_preference(/datum/preference/choiced/gender)
+	var/gender = preferences.read_character_preference(/datum/preference/choiced/gender)
 
 	return random_unique_name(gender)
 

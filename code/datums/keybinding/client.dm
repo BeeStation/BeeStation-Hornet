@@ -62,4 +62,4 @@
 	winset(user, "mapwindow.map", "zoom=[PIXEL_SCALING_4X]")
 
 /datum/keybinding/client/zoomin/up(client/user)
-	winset(user, "mapwindow.map", "zoom=[user.prefs.read_preference(/datum/preference/numeric/pixel_size)]")
+	winset(user, "mapwindow.map", "zoom=[user.prefs.read_player_preference(/datum/preference/numeric/pixel_size)]")

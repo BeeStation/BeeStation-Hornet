@@ -99,7 +99,7 @@
 			usr.client.prefs.action_buttons_screen_locs["[name]_[id]"] = locked ? moved : null
 		return TRUE
 	if(modifiers["alt"])
-		var/buttons_locked = usr.client.prefs.read_preference(/datum/preference/toggle/buttons_locked)
+		var/buttons_locked = usr.client.prefs.read_player_preference(/datum/preference/toggle/buttons_locked)
 		for(var/V in usr.actions)
 			var/datum/action/A = V
 			var/atom/movable/screen/movable/action_button/B = A.button

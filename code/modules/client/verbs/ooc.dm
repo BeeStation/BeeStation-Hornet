@@ -76,7 +76,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	mob.log_talk(raw_msg, LOG_OOC)
 
 	var/keyname = key
-	var/ooccolor = prefs.read_preference(/datum/preference/color/ooc_color)
+	var/ooccolor = prefs.read_player_preference(/datum/preference/color/ooc_color)
 	if(prefs.unlock_content)
 		if(prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC)
 			keyname = "<font color='[ooccolor ? ooccolor : GLOB.normal_ooc_colour]'>[icon2html('icons/member_content.dmi', world, "blag")][keyname]</font>"

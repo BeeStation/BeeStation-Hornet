@@ -245,7 +245,7 @@ GLOBAL_LIST_EMPTY(species_list)
  *
  * Checks that `user` does not move, change hands, get stunned, etc. for the
  * given `delay`. Returns `TRUE` on success or `FALSE` on failure.
- * 
+ *
  * Arguments:
  * * user - the primary "user" of the do_after.
  * * delay - how long the do_after takes. Defaults to 3 SECONDS.
@@ -710,7 +710,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	while(loop && safety < 5)
 		if(!safety && !banned)
-			newname = C?.prefs?.read_preference(preference_type)
+			newname = C?.prefs?.read_player_preference(preference_type)
 		else
 			var/datum/preference/preference = GLOB.preference_entries[preference_type]
 			newname = preference.create_informed_default_value(C.prefs)

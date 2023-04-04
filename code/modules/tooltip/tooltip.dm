@@ -108,7 +108,7 @@ Notes:
 /proc/openToolTip(mob/user = null, atom/movable/tip_src = null, params = null,title = "",content = "",theme = "")
 	if(istype(user))
 		if(user.client && user.client.tooltips)
-			var/ui_style = user.client?.prefs?.read_preference(/datum/preference/choiced/ui_style)
+			var/ui_style = user.client?.prefs?.read_player_preference(/datum/preference/choiced/ui_style)
 			if(!theme && ui_style)
 				theme = lowertext(ui_style)
 			if(!theme)

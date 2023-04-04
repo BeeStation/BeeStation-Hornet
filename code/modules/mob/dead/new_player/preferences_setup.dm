@@ -9,7 +9,7 @@
 
 /// Randomizes the character according to preferences.
 /datum/preferences/proc/apply_character_randomization_prefs(antag_override = FALSE)
-	switch (read_preference(/datum/preference/choiced/random_body))
+	switch (read_character_preference(/datum/preference/choiced/random_body))
 		if (RANDOM_ANTAG_ONLY)
 			if (!antag_override)
 				return
@@ -97,7 +97,7 @@
 	if(preview_job)
 		// Silicons only need a very basic preview since there is no customization for them.
 		if (istype(preview_job,/datum/job/ai))
-			return image('icons/mob/ai.dmi', icon_state = resolve_ai_icon(read_preference(/datum/preference/choiced/ai_core_display)), dir = SOUTH)
+			return image('icons/mob/ai.dmi', icon_state = resolve_ai_icon(read_character_preference(/datum/preference/choiced/ai_core_display)), dir = SOUTH)
 		if (istype(preview_job,/datum/job/cyborg))
 			return image('icons/mob/robots.dmi', icon_state = "robot", dir = SOUTH)
 

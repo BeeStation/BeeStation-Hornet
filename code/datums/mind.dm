@@ -307,7 +307,7 @@
 	var/obj/item/uplink_loc
 	var/implant = FALSE
 
-	var/uplink_spawn_location = traitor_mob.client?.prefs?.read_preference(/datum/preference/choiced/uplink_location)
+	var/uplink_spawn_location = traitor_mob.client?.prefs?.read_character_preference(/datum/preference/choiced/uplink_location)
 	switch(uplink_spawn_location)
 		if(UPLINK_PDA)
 			uplink_loc = PDA

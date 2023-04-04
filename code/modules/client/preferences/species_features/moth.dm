@@ -1,4 +1,4 @@
-/datum/preference/choiced/moth_antennae
+/*/datum/preference/choiced/moth_antennae
 	db_key = "feature_moth_antennae"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
@@ -100,3 +100,4 @@
 
 /datum/preference/choiced/moth_wings/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["moth_wings"] = value
+*/

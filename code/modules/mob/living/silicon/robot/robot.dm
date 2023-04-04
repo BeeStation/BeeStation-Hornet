@@ -285,7 +285,7 @@
 	var/changed_name = ""
 	if(custom_name)
 		changed_name = custom_name
-	if(changed_name == "" && C && C.prefs.read_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME)
+	if(changed_name == "" && C && C.prefs.read_character_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME)
 		if(apply_pref_name(/datum/preference/name/cyborg, C))
 			return //built in camera handled in proc
 	if(!changed_name)

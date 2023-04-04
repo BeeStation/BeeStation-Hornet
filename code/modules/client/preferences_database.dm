@@ -1,5 +1,8 @@
 /datum/preferences/proc/load_preferences()
+	player_data = new(src)
+	player_data.load_from_database(src)
 	apply_all_client_preferences()
+
 
 	/* //general preferences
 	lastchangelog = savefile.get_entry("lastchangelog", lastchangelog)
@@ -42,8 +45,8 @@
 	return TRUE
 
 /datum/preferences/proc/save_preferences()
-
-	for (var/preference_type in GLOB.preference_entries)
+	player_data.write_to_database(src)
+	/*for (var/preference_type in GLOB.preference_entries)
 		var/datum/preference/preference = GLOB.preference_entries[preference_type]
 		if (preference.preference_type != PREFERENCE_PLAYER)
 			continue
@@ -53,8 +56,8 @@
 
 		recently_updated_keys -= preference.type
 
-		if (preference_type in value_cache)
-			write_preference(preference, preference.serialize(value_cache[preference_type]))
+		if (preference_type in player_preference_cache)
+			write_preference(preference, preference.serialize(player_preference_cache[preference.db_key]))*/
 
 /* 	savefile.set_entry("lastchangelog", lastchangelog)
 	savefile.set_entry("be_special", be_special)
@@ -69,21 +72,14 @@
 	return TRUE
 
 /datum/preferences/proc/load_character(slot)
-	SHOULD_NOT_SLEEP(TRUE)
 	if(!slot)
 		slot = default_slot
 	slot = sanitize_integer(slot, 1, max_save_slots, initial(default_slot))
 	if(slot != default_slot)
 		default_slot = slot
 
-	// Read everything into cache
-	for (var/preference_type in GLOB.preference_entries)
-		var/datum/preference/preference = GLOB.preference_entries[preference_type]
-		if (preference.preference_type != PREFERENCE_CHARACTER)
-			continue
-
-		value_cache -= preference_type
-		read_preference(preference_type)
+	character_data = new(src, slot)
+	character_data.load_from_database(src)
 
 /* 	//Character
 	randomise = save_data?["randomise"]
@@ -115,9 +111,9 @@
 	return TRUE
 
 /datum/preferences/proc/save_character()
-	SHOULD_NOT_SLEEP(TRUE)
+	character_data.write_to_database(src)
 
-	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
+	/*for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
 		if (preference.preference_type != PREFERENCE_CHARACTER)
 			continue
 
@@ -126,8 +122,8 @@
 
 		recently_updated_keys -= preference.type
 
-		if (preference.type in value_cache)
-			write_preference(preference, preference.serialize(value_cache[preference.type]))
+		if (preference.type in player_preference_cache)
+			write_preference(preference, preference.serialize(player_preference_cache[preference.type]))*/
 
 /* 	//Character
 	save_data["randomise"] = randomise
@@ -138,4 +134,50 @@
 	//Quirks
 	save_data["all_quirks"] = all_quirks */
 
+	return TRUE
+
+/datum/preferences_holder
+	/// A map of db_key -> value. Data type varies.
+	var/list/preference_data
+	/// A list of preference db_keys that require writing
+	var/list/dirty_prefs
+	/// Preference type to parse
+	var/pref_type
+
+/datum/preferences_holder/New(datum/preferences/prefs)
+	preference_data = list()
+	dirty_prefs = list()
+	// Read everything into cache
+	for (var/preference_type in GLOB.preference_entries)
+		var/datum/preference/preference = GLOB.preference_entries[preference_type]
+		if (preference.preference_type != pref_type || preference.informed)
+			continue
+
+		// we can't use informed values here. The name will get populated manually
+		preference_data[preference.db_key] = preference.deserialize(preference.create_default_value(), prefs)
+
+/datum/preferences_holder/proc/read_preference(datum/preferences/preferences, datum/preference/preference)
+	SHOULD_NOT_SLEEP(TRUE)
+	var/value = read_raw(preferences, preference)
+	if (isnull(value))
+		value = preference.create_informed_default_value(preferences)
+		if (write_preference(preferences, preference, value))
+			return value
+		else
+			CRASH("Couldn't write the default value for [preference.type] (received [value])")
+	return value
+
+/datum/preferences_holder/proc/read_raw(datum/preferences/preferences, datum/preference/preference)
+	var/value = preference_data[preference.db_key]
+	if (isnull(value))
+		return null
+	else
+		return preference.deserialize(value, preferences)
+
+/datum/preferences_holder/proc/write_preference(datum/preferences/preferences, datum/preference/preference, value)
+	var/new_value = preference.deserialize(value, preferences)
+	if (!preference.is_valid(new_value))
+		return FALSE
+	preference_data[preference.db_key] = new_value
+	dirty_prefs |= preference.db_key
 	return TRUE

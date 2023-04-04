@@ -99,3 +99,33 @@
 	data[SUPPLEMENTAL_FEATURE_KEY] = "hair_color"
 
 	return data
+
+/datum/preference/color_legacy/gradient_color
+	db_key = "gradient_color"
+	preference_type = PREFERENCE_CHARACTER
+	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
+	relevant_species_trait = HAIR
+
+/datum/preference/color_legacy/gradient_color/apply_to_human(mob/living/carbon/human/target, value)
+	target.gradient_color = value
+
+/datum/preference/choiced/gradient_style
+	db_key = "gradient_style"
+	preference_type = PREFERENCE_CHARACTER
+	category = PREFERENCE_CATEGORY_FEATURES
+	main_feature_name = "Gradient Style"
+	should_generate_icons = TRUE
+	relevant_species_trait = HAIR
+
+/datum/preference/choiced/gradient_style/init_possible_values()
+	return generate_possible_values_for_sprite_accessories_on_head(GLOB.hair_gradients_list)
+
+/datum/preference/choiced/gradient_style/apply_to_human(mob/living/carbon/human/target, value)
+	target.gradient_style = value
+
+/datum/preference/choiced/gradient_style/compile_constant_data()
+	var/list/data = ..()
+
+	data[SUPPLEMENTAL_FEATURE_KEY] = "gradient_color"
+
+	return data

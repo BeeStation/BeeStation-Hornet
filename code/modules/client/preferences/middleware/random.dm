@@ -63,7 +63,7 @@
 	var/requested_randomization = randomise[preference.db_key]
 
 	if (istype(preference, /datum/preference/name))
-		requested_randomization = read_preference(/datum/preference/choiced/random_name)
+		requested_randomization = read_character_preference(/datum/preference/choiced/random_name)
 
 	switch (requested_randomization)
 		if (RANDOM_ENABLED)

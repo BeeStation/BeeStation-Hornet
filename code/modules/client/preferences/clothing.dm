@@ -139,7 +139,7 @@
 	if (!..(preferences))
 		return FALSE
 
-	var/species_type = preferences.read_preference(/datum/preference/choiced/species)
+	var/species_type = preferences.read_character_preference(/datum/preference/choiced/species)
 	var/datum/species/species = new species_type
 	return !(NO_UNDERWEAR in species.species_traits)
 

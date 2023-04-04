@@ -1,3 +1,4 @@
+// TODO tgui-prefs
 /client/verb/setup_character()
 	set name = "Game Preferences"
 	set category = "Preferences"
