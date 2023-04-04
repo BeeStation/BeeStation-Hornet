@@ -251,7 +251,11 @@
 		G.fields["fingerprint"]	= rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)
 		G.fields["p_stat"]		= "Active"
 		G.fields["m_stat"]		= "Stable"
-		G.fields["sex"]			= H.gender
+		switch(H.gender)
+			if(MALE, FEMALE)
+				G.fields["gender"] = capitalize(H.gender)
+			if(PLURAL)
+				G.fields["gender"] = "Other"
 		G.fields["photo_front"]	= photo_front
 		G.fields["photo_side"]	= photo_side
 		general += G
@@ -289,7 +293,11 @@
 		L.fields["name"]		= H.real_name
 		L.fields["rank"] 		= H.mind.assigned_role
 		L.fields["age"]			= H.age
-		L.fields["sex"]			= H.gender
+		switch(H.gender)
+			if(MALE, FEMALE)
+				L.fields["gender"] = capitalize(H.gender)
+			if(PLURAL)
+				L.fields["gender"] = "Other"
 		L.fields["blood_type"]	= H.dna.blood_type
 		L.fields["b_dna"]		= H.dna.unique_enzymes
 		L.fields["identity"]	= H.dna.uni_identity

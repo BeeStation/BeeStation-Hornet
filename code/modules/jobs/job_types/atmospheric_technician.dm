@@ -7,7 +7,7 @@
 	total_positions = 3
 	spawn_positions = 2
 	selection_color = "#fff5cc"
-	exp_requirements = MINUTES_REQUIRED_BASIC
+	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/atmospheric_technician
