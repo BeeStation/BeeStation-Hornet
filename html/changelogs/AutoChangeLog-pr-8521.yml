@@ -1,6 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - rscadd: Made the jumpsuits in the beecoin store change into jumpskirts depending
-      on the active character preference
-  - rscadd: Added a unique description to jumpskirts

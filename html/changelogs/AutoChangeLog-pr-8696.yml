@@ -1,5 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - tweak: Made the monkified mutation restore you to your original species rather
-      than always human when deactivated.
