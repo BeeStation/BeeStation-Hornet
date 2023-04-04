@@ -207,7 +207,6 @@
 			// variables that need to be calculated
 			var/transfer_amount = 0
 			var/locked_amount_base = 0 // as long as flags exist, we'll transfer locked_volume in reagents
-			var/locked_amount_duped = 0 // we'll get duplicated amount. usually 0
 
 			// calculate transferable amount by flags
 			if(locked_reagent_handles & CHEM_INCLUDES_LOCKED_REAGENT_TO_TOTAL)
