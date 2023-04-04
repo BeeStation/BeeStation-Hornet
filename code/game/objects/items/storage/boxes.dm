@@ -940,6 +940,16 @@
 	for(var/i in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/breacher(src)
 
+/obj/item/storage/box/incapacitateshot
+	name = "box of incapacitating shotgun shots"
+	desc = "A box full of incapacitating shots, designed for shotguns."
+	icon_state = "incapacitateshot_box"
+	illustration = null
+
+/obj/item/storage/box/incapacitateshot/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/incapacitate(src)
+
 /obj/item/storage/box/actionfigure
 	name = "box of action figures"
 	desc = "The latest set of collectable action figures."

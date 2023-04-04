@@ -60,7 +60,8 @@
 						"insect_type" = "Common Fly",
 						"apid_antenna" = "Curled",
 						"apid_stripes" = "Thick",
-						"apid_headstripes" = "Thick"
+						"apid_headstripes" = "Thick",
+						"body_model" = MALE
 					)
 	var/list/custom_names = list()
 	var/preferred_ai_core_display = "Blue"
@@ -185,16 +186,11 @@
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
 	be_random_body	= sanitize_integer(be_random_body, 0, 1, initial(be_random_body))
 
-	if(gender == MALE)
-		hair_style = sanitize_inlist(hair_style, GLOB.hair_styles_male_list)
-		facial_hair_style = sanitize_inlist(facial_hair_style, GLOB.facial_hair_styles_male_list)
-		underwear = sanitize_inlist(underwear, GLOB.underwear_m)
-		undershirt = sanitize_inlist(undershirt, GLOB.undershirt_m)
-	else
-		hair_style = sanitize_inlist(hair_style, GLOB.hair_styles_female_list)
-		facial_hair_style = sanitize_inlist(facial_hair_style, GLOB.facial_hair_styles_female_list)
-		underwear = sanitize_inlist(underwear, GLOB.underwear_f)
-		undershirt = sanitize_inlist(undershirt, GLOB.undershirt_f)
+	hair_style = sanitize_inlist(hair_style, GLOB.hair_styles_list)
+	facial_hair_style = sanitize_inlist(facial_hair_style, GLOB.facial_hair_styles_list)
+	underwear = sanitize_inlist(underwear, GLOB.underwear_list)
+	undershirt = sanitize_inlist(undershirt, GLOB.undershirt_list)
+	features["body_model"] = sanitize_gender(features["body_model"], FALSE, FALSE, gender == FEMALE ? FEMALE : MALE)
 	socks = sanitize_inlist(socks, GLOB.socks_list)
 	age = sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
 	hair_color = sanitize_hexcolor(hair_color, 3, 0)
@@ -269,6 +265,8 @@
 		var/datum/species/spath = GLOB.species_list[pick(GLOB.roundstart_races)]
 		pref_species = new spath
 	features = random_features()
+	if(gender)
+		features["body_model"] = pick(MALE,FEMALE)
 	age = rand(AGE_MIN,AGE_MAX)
 
 /datum/character_save/proc/update_preview_icon(client/parent)

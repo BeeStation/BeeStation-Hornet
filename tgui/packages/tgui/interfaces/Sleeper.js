@@ -10,20 +10,8 @@ export const Sleeper = (props, context) => {
     open,
     occupant = {},
     occupied,
+    chems = {},
   } = data;
-
-  const preSortChems = data.chems || [];
-  const chems = preSortChems.sort((a, b) => {
-    const descA = a.name.toLowerCase();
-    const descB = b.name.toLowerCase();
-    if (descA < descB) {
-      return -1;
-    }
-    if (descA > descB) {
-      return 1;
-    }
-    return 0;
-  });
 
   const damageTypes = [
     {

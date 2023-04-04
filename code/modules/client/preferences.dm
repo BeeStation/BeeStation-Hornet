@@ -181,7 +181,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<a href='?_src_=prefs;preference=name;task=input'>[active_character.real_name]</a><BR>"
 
 			if(!(AGENDER in active_character.pref_species.species_traits))
-				dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender'>[active_character.gender == MALE ? "Male" : "Female"]</a><BR>"
+				var/dispGender
+				if(active_character.gender == MALE)
+					dispGender = "Male"
+				else if(active_character.gender == FEMALE)
+					dispGender = "Female"
+				else
+					dispGender = "Other"
+				dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender'>[dispGender]</a><BR>"
+				if(active_character.gender == PLURAL || active_character.gender == NEUTER)
+					dat += "<b>Body Model:</b><a href='?_src_=prefs;preference=body_model'>[active_character.features["body_model"] == MALE ? "Masculine" : "Feminine"]</a><BR>"
 			dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[active_character.age]</a><BR>"
 
 			dat += "<b>Special Names:</b><BR>"
@@ -784,7 +793,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				var/datum/gear/G = LC.gear[gear_id]
 				var/ticked = (G.id in active_character.equipped_gear)
 
-				dat += "<tr style='vertical-align:top;'><td width=15%>[G.display_name]\n"
+				if(active_character.jumpsuit_style == PREF_SKIRT && !isnull(G.skirt_display_name))
+					dat += "<tr style='vertical-align:top;'><td width=15%>[G.skirt_display_name]\n"
+				else
+					dat += "<tr style='vertical-align:top;'><td width=15%>[G.display_name]\n"
 				var/donator = G.sort_category == "Donator" // purchase box and cost coloumns doesn't appear on donator items
 				if(G.id in purchased_gear)
 					if(G.sort_category == "OOC")
@@ -800,7 +812,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					for(var/role in G.allowed_roles)
 						dat += role + ",	 "
 					dat += "</font>"
-				dat += "</td><td><font size=2><i>[G.description]</i></font></td></tr>"
+				if(active_character.jumpsuit_style == PREF_SKIRT && !isnull(G.skirt_path))
+					dat += "</td><td><font size=2><i>[G.skirt_description]</i></font></td></tr>"
+				else
+					dat += "</td><td><font size=2><i>[G.description]</i></font></td></tr>"
 			dat += "</table>"
 
 		if(3) //OOC Preferences
@@ -810,6 +825,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'>[(toggles & PREFTOGGLE_SOUND_MIDI) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'>[(toggles & PREFTOGGLE_SOUND_LOBBY) ? "Enabled":"Disabled"]</a><br>"
+			dat += "<b>Play Game Soundtrack:</b> <a href='?_src_=prefs;preference=soundtrack'>[(toggles2 & PREFTOGGLE_2_SOUNDTRACK) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<b>See Pull Requests:</b> <a href='?_src_=prefs;preference=pull_requests'>[(chat_toggles & CHAT_PULLR) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<br>"
 
@@ -1432,12 +1448,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					var/new_hair = input(user, "Choose your character's hair colour:", "Character Preference","#" + active_character.hair_color) as color|null
 					if(new_hair)
 						active_character.hair_color = sanitize_hexcolor(new_hair)
+
 				if("hair_style")
-					var/new_hair_style
-					if(active_character.gender == MALE)
-						new_hair_style = input(user, "Choose your character's hair style:", "Character Preference")  as null|anything in GLOB.hair_styles_male_list
-					else
-						new_hair_style = input(user, "Choose your character's hair style:", "Character Preference")  as null|anything in GLOB.hair_styles_female_list
+					var/new_hair_style = tgui_input_list(user, "Choose your character's hair style:", "Character Preference", GLOB.hair_styles_list, active_character.hair_style)
 					if(new_hair_style)
 						active_character.hair_style = new_hair_style
 
@@ -1453,16 +1466,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						active_character.gradient_color = sanitize_hexcolor(new_hair_gradient)
 
 				if("next_hair_style")
-					if(active_character.gender == MALE)
-						active_character.hair_style = next_list_item(active_character.hair_style, GLOB.hair_styles_male_list)
-					else
-						active_character.hair_style = next_list_item(active_character.hair_style, GLOB.hair_styles_female_list)
+					active_character.hair_style = next_list_item(active_character.hair_style, GLOB.hair_styles_list)
 
 				if("previous_hair_style")
-					if(active_character.gender == MALE)
-						active_character.hair_style = previous_list_item(active_character.hair_style, GLOB.hair_styles_male_list)
-					else
-						active_character.hair_style = previous_list_item(active_character.hair_style, GLOB.hair_styles_female_list)
+					active_character.hair_style = previous_list_item(active_character.hair_style, GLOB.hair_styles_list)
 
 				if("next_gradient_style")
 					active_character.gradient_style = next_list_item(active_character.gradient_style, GLOB.hair_gradients_list)
@@ -1476,32 +1483,18 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						active_character.facial_hair_color = sanitize_hexcolor(new_facial)
 
 				if("facial_hair_style")
-					var/new_facial_hair_style
-					if(active_character.gender == MALE)
-						new_facial_hair_style = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in GLOB.facial_hair_styles_male_list
-					else
-						new_facial_hair_style = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in GLOB.facial_hair_styles_female_list
+					var/new_facial_hair_style = tgui_input_list(user, "Choose your character's facial-hair style:", "Character Preference", GLOB.facial_hair_styles_list, active_character.facial_hair_style)
 					if(new_facial_hair_style)
 						active_character.facial_hair_style = new_facial_hair_style
 
 				if("next_facehair_style")
-					if (active_character.gender == MALE)
-						active_character.facial_hair_style = next_list_item(active_character.facial_hair_style, GLOB.facial_hair_styles_male_list)
-					else
-						active_character.facial_hair_style = next_list_item(active_character.facial_hair_style, GLOB.facial_hair_styles_female_list)
+					active_character.facial_hair_style = next_list_item(active_character.facial_hair_style, GLOB.facial_hair_styles_list)
 
 				if("previous_facehair_style")
-					if (active_character.gender == MALE)
-						active_character.facial_hair_style = previous_list_item(active_character.facial_hair_style, GLOB.facial_hair_styles_male_list)
-					else
-						active_character.facial_hair_style = previous_list_item(active_character.facial_hair_style, GLOB.facial_hair_styles_female_list)
+					active_character.facial_hair_style = previous_list_item(active_character.facial_hair_style, GLOB.facial_hair_styles_list)
 
 				if("underwear")
-					var/new_underwear
-					if(active_character.gender == MALE)
-						new_underwear = input(user, "Choose your character's underwear:", "Character Preference")  as null|anything in GLOB.underwear_m
-					else
-						new_underwear = input(user, "Choose your character's underwear:", "Character Preference")  as null|anything in GLOB.underwear_f
+					var/new_underwear = tgui_input_list(user, "Choose your character's underwear:", "Character Preference", GLOB.underwear_list, active_character.underwear)
 					if(new_underwear)
 						active_character.underwear = new_underwear
 
@@ -1511,17 +1504,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						active_character.underwear_color = sanitize_hexcolor(new_underwear_color)
 
 				if("undershirt")
-					var/new_undershirt
-					if(active_character.gender == MALE)
-						new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in GLOB.undershirt_m
-					else
-						new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in GLOB.undershirt_f
+					var/new_undershirt = tgui_input_list(user, "Choose your character's undershirt:", "Character Preference", GLOB.undershirt_list, active_character.undershirt)
 					if(new_undershirt)
 						active_character.undershirt = new_undershirt
 
 				if("socks")
 					var/new_socks
-					new_socks = input(user, "Choose your character's socks:", "Character Preference") as null|anything in GLOB.socks_list
+					new_socks = tgui_input_list(user, "Choose your character's socks:", "Character Preference", GLOB.socks_list, active_character.socks)
 					if(new_socks)
 						active_character.socks = new_socks
 
@@ -1805,16 +1794,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(unlock_content)
 						toggles ^= PREFTOGGLE_MEMBER_PUBLIC
 				if("gender")
-					if(active_character.gender == MALE)
-						active_character.gender = FEMALE
-					else
-						active_character.gender = MALE
-					active_character.underwear = random_underwear(active_character.gender)
-					active_character.undershirt = random_undershirt(active_character.gender)
-					active_character.socks = random_socks()
-					active_character.facial_hair_style = random_facial_hair_style(active_character.gender)
-					active_character.hair_style = random_hair_style(active_character.gender)
-
+					var/list/friendlyGenders = list("Male" = "male", "Female" = "female", "Other" = "plural")
+					var/pickedGender = input(user, "Choose your gender.", "Character Preference", active_character.gender) as null|anything in friendlyGenders
+					if(pickedGender && friendlyGenders[pickedGender] != active_character.gender)
+						switch(friendlyGenders[pickedGender])
+							if("plural")
+								active_character.features["body_model"] = pick(MALE, FEMALE)
+							else
+								active_character.features["body_model"] = friendlyGenders[pickedGender]
+						active_character.gender = friendlyGenders[pickedGender]
+				if("body_model")
+					active_character.features["body_model"] = active_character.features["body_model"] == MALE ? FEMALE : MALE
 				if("hotkeys")
 					toggles2 ^= PREFTOGGLE_2_HOTKEYS
 					if(toggles2 & PREFTOGGLE_2_HOTKEYS)
@@ -1887,6 +1877,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						user.client.playtitlemusic()
 					else
 						user.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+
+				if("soundtrack")
+					toggles2 ^= PREFTOGGLE_2_SOUNDTRACK
+					if((toggles2 & PREFTOGGLE_2_SOUNDTRACK))
+						user.play_current_soundtrack()
+					else
+						user.stop_sound_channel(CHANNEL_SOUNDTRACK)
 
 				if("ghost_ears")
 					chat_toggles ^= CHAT_GHOSTEARS
