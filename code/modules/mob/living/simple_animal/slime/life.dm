@@ -133,14 +133,14 @@
 	temp_change = (temperature - current)
 	return temp_change
 
-/mob/living/simple_animal/slime/handle_status_effects()
+/mob/living/simple_animal/slime/handle_status_effects(delta_time)
 	..()
-	if(prob(30) && !stat)
+	if(DT_PROB(30, delta_time) && !stat)
 		var/heal = 1
 		if(transformeffects & SLIME_EFFECT_PURPLE)
 			heal += 0.5
 		adjustBruteLoss(-heal)
-	if((transformeffects & SLIME_EFFECT_RAINBOW) && prob(5))
+	if((transformeffects & SLIME_EFFECT_RAINBOW) && DT_PROB(5, delta_time))
 		random_colour()
 
 /mob/living/simple_animal/slime/proc/handle_feeding()
