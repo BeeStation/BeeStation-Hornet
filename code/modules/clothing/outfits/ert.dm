@@ -100,7 +100,7 @@
 	glasses = /obj/item/clothing/glasses/hud/health
 	back = /obj/item/storage/backpack/ert/medical
 	belt = /obj/item/storage/belt/medical/ert
-	l_hand = /obj/item/storage/firstaid/regular
+	l_hand = /obj/item/storage/firstaid/compact
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/reagent_containers/hypospray/combat=1,
 		/obj/item/melee/baton/loaded=1)
@@ -119,7 +119,7 @@
 	name = "ERT Medic - High Alert"
 
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	l_hand = /obj/item/storage/firstaid/advanced
+	l_hand = /obj/item/storage/firstaid/advanced/compact
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/gun/energy/pulse/pistol/loyalpin=1,
@@ -135,7 +135,7 @@
 	back = /obj/item/storage/backpack/ert/engineer
 	belt = /obj/item/storage/belt/utility/full
 	l_pocket = /obj/item/rcd_ammo/large
-	l_hand = /obj/item/storage/firstaid/regular
+	l_hand = /obj/item/storage/firstaid/compact
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/construction/rcd/loaded=1,
@@ -453,7 +453,7 @@
 
 	backpack_contents = list(/obj/item/storage/box=1,\
 		/obj/item/ammo_box/a357=1,\
-		/obj/item/storage/firstaid/regular=1,\
+		/obj/item/storage/firstaid/compact=1,\
 		/obj/item/storage/box/flashbangs=1,\
 		/obj/item/flashlight=1,\
 		/obj/item/grenade/plastic/x4=1)
@@ -484,7 +484,7 @@
 	head = /obj/item/clothing/head/helmet/space/beret
 	backpack_contents = list(/obj/item/aiModule/core/full/deathsquad=1,\
 		/obj/item/ammo_box/a357=1,\
-		/obj/item/storage/firstaid/regular=1,\
+		/obj/item/storage/firstaid/compact=1,\
 		/obj/item/storage/box/flashbangs=1,\
 		/obj/item/flashlight=1,\
 		/obj/item/grenade/plastic/x4=1,

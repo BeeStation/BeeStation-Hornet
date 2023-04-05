@@ -541,7 +541,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			C.visible_message("<span class='danger'>[src] is trying to tend the wounds of [patient]!</span>", \
 				"<span class='userdanger'>[src] is trying to tend your wounds!</span>")
 
-			if(do_mob(src, patient, 20)) //Slightly faster than default tend wounds, but does less HPS
+			if(do_after(src, 2 SECONDS, patient)) //Slightly faster than default tend wounds, but does less HPS
 				if((get_dist(src, patient) <= 1) && (on) && assess_patient(patient))
 					var/healies = heal_amount
 					var/obj/item/storage/firstaid/FA = firstaid

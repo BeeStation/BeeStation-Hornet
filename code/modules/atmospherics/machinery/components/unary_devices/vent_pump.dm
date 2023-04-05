@@ -14,9 +14,9 @@
 	use_power = IDLE_POWER_USE
 	can_unwrench = TRUE
 	welded = FALSE
-	level = 1
 	layer = GAS_SCRUBBER_LAYER
 	shift_underlay_only = FALSE
+	hide = TRUE
 
 	interacts_with_air = TRUE
 
@@ -156,7 +156,7 @@
 		"device" = "VP",
 		"timestamp" = world.time,
 		"power" = on,
-		"direction" = pump_direction ? "release" : "siphon",
+		"direction" = pump_direction,
 		"checks" = pressure_checks,
 		"internal" = internal_pressure_bound,
 		"external" = external_pressure_bound,

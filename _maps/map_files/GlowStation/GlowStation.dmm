@@ -2762,10 +2762,7 @@
 /area/engine/atmos)
 "aFD" = (
 /obj/machinery/holopad{
-	layer = 3;
-	level = 2.5;
-	pixel_x = 16;
-	plane = -1
+	pixel_x = 16
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -4508,10 +4505,7 @@
 /area/hallway/upper/primary/port)
 "aXF" = (
 /obj/machinery/holopad{
-	layer = 3;
-	level = 2.5;
-	pixel_x = 16;
-	plane = -1
+	pixel_x = 16
 	},
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel,
@@ -11439,15 +11433,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/engineering)
-"cwH" = (
-/obj/machinery/camera{
-	c_tag = "Medbay - hallway central";
-	dir = 5;
-	name = "medbay camera";
-	network = list("ss13","medbay")
-	},
-/turf/closed/wall,
-/area/medical/surgery)
 "cwJ" = (
 /obj/effect/turf_decal/trimline/neutral/filled/warning{
 	dir = 1
@@ -48437,9 +48422,7 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/quartermaster/exploration_prep)
 "khO" = (
-/obj/machinery/doppler_array/research/science{
-	dir = 8
-	},
+/obj/machinery/doppler_array/research/science,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/misc_lab)
 "khP" = (
@@ -54891,11 +54874,7 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/hop)
 "lzV" = (
-/obj/machinery/holopad{
-	layer = 3;
-	level = 2.5;
-	plane = -1
-	},
+/obj/machinery/holopad,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
@@ -56278,10 +56257,7 @@
 /area/medical/medbay/central)
 "lOJ" = (
 /obj/machinery/holopad{
-	layer = 3;
-	level = 2.5;
-	pixel_x = 16;
-	plane = -1
+	pixel_x = 16
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
@@ -78255,7 +78231,9 @@
 	dir = 6
 	},
 /obj/structure/table,
-/obj/item/implant/radio,
+/obj/item/radio{
+	pixel_y = 5
+	},
 /turf/open/openspace/cold,
 /area/iceland)
 "qsN" = (
@@ -78786,11 +78764,8 @@
 /area/iceland/shaded)
 "qyP" = (
 /obj/machinery/holopad{
-	layer = 3;
-	level = 2.5;
 	pixel_x = 16;
-	pixel_y = -16;
-	plane = -1
+	pixel_y = -16
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -104129,10 +104104,7 @@
 /area/maintenance/department/bridge)
 "vLc" = (
 /obj/machinery/holopad{
-	layer = 3;
-	level = 2.5;
-	pixel_x = 16;
-	plane = -1
+	pixel_x = 16
 	},
 /obj/effect/turf_decal/trimline/blue/filled/warning{
 	dir = 1
@@ -106100,6 +106072,11 @@
 /obj/machinery/door/poddoor{
 	id = "QMLoadingDoor";
 	name = "Supply Dock Loading Door"
+	},
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "QMLoading";
+	name = "Loading Ramp"
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -115223,7 +115200,6 @@
 /area/crew_quarters/dorms/upper)
 "yin" = (
 /obj/structure/sign/warning/fire{
-	level = 3;
 	pixel_y = -1
 	},
 /obj/effect/decal/cleanable/blood/gibs/bubblegum{
@@ -357094,7 +357070,7 @@ jQJ
 vjS
 hFk
 eRZ
-cwH
+kDW
 lqn
 prm
 iXC
@@ -408779,8 +408755,8 @@ kUk
 kUk
 hjc
 hjc
-noJ
-noJ
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -409035,10 +409011,10 @@ kUk
 hjc
 hjc
 hjc
-noJ
-noJ
-noJ
-noJ
+hjc
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -409289,14 +409265,14 @@ kUk
 kUk
 kUk
 kUk
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
+kUk
+kUk
+kUk
+kUk
+kUk
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -409546,14 +409522,14 @@ kUk
 kUk
 kUk
 hjc
-npL
-npL
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
+kUk
+kUk
+kUk
+kUk
+kUk
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -409803,14 +409779,14 @@ hjc
 kUk
 hjc
 hjc
-npL
-npL
-npL
-noJ
-noJ
-noJ
-noJ
-noJ
+kUk
+kUk
+kUk
+kUk
+kUk
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -410060,14 +410036,14 @@ hjc
 hjc
 hjc
 hjc
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
+kUk
+kUk
+kUk
+kUk
+kUk
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -410317,14 +410293,14 @@ hjc
 kUk
 kUk
 hjc
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
+kUk
+kUk
+kUk
+kUk
+kUk
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -410574,14 +410550,14 @@ hjc
 kUk
 kUk
 kUk
-npL
-npL
-npL
-noJ
-noJ
-noJ
-noJ
-noJ
+kUk
+kUk
+kUk
+kUk
+kUk
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -410831,14 +410807,14 @@ kUk
 kUk
 kUk
 kUk
-npL
-npL
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
+kUk
+kUk
+kUk
+kUk
+kUk
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -411088,14 +411064,14 @@ kUk
 kUk
 hjc
 kUk
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
+kUk
+kUk
+kUk
+kUk
+kUk
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -411345,14 +411321,14 @@ kUk
 hjc
 hjc
 hjc
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
-noJ
+kUk
+kUk
+kUk
+kUk
+kUk
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -411606,9 +411582,9 @@ hjc
 hjc
 hjc
 hjc
-noJ
-noJ
-noJ
+hjc
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -411864,7 +411840,7 @@ hjc
 hjc
 hjc
 hjc
-noJ
+hjc
 noJ
 noJ
 noJ
@@ -413660,8 +413636,8 @@ kUk
 kUk
 kUk
 hjc
-noJ
-noJ
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -413917,9 +413893,9 @@ kUk
 kUk
 kUk
 hjc
+hjc
+hjc
 npL
-npL
-noJ
 noJ
 noJ
 noJ
@@ -414175,7 +414151,7 @@ kUk
 hjc
 hjc
 hjc
-npL
+hjc
 npL
 npL
 kcY
@@ -414431,10 +414407,10 @@ kUk
 kUk
 hjc
 hjc
+hjc
+hjc
+noJ
 npL
-noJ
-noJ
-noJ
 noJ
 noJ
 noJ
@@ -414688,10 +414664,10 @@ kUk
 kUk
 hjc
 hjc
+hjc
+hjc
 npL
-noJ
-noJ
-noJ
+npL
 noJ
 noJ
 noJ
@@ -414945,9 +414921,9 @@ kUk
 kUk
 hjc
 hjc
+hjc
+hjc
 xPY
-noJ
-noJ
 noJ
 noJ
 noJ
@@ -415202,10 +415178,10 @@ kUk
 kUk
 hjc
 hjc
+hjc
+hjc
 npL
-noJ
-noJ
-noJ
+npL
 noJ
 noJ
 noJ
@@ -415459,10 +415435,10 @@ kUk
 kUk
 hjc
 hjc
+hjc
+hjc
+noJ
 npL
-noJ
-noJ
-noJ
 noJ
 noJ
 noJ
@@ -415717,7 +415693,7 @@ kUk
 hjc
 hjc
 hjc
-npL
+hjc
 npL
 npL
 kcY
@@ -415973,9 +415949,9 @@ kUk
 kUk
 hjc
 hjc
+hjc
+hjc
 npL
-npL
-noJ
 noJ
 noJ
 noJ
@@ -416230,8 +416206,8 @@ kUk
 kUk
 hjc
 hjc
-noJ
-noJ
+hjc
+hjc
 noJ
 noJ
 noJ
@@ -416487,8 +416463,8 @@ kUk
 kUk
 hjc
 hjc
-noJ
-noJ
+hjc
+hjc
 noJ
 noJ
 noJ

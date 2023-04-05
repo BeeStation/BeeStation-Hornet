@@ -123,6 +123,9 @@
 		"<span class='userdanger'>You feast on [L], restoring your health!</span>")
 	if(!is_station_level(z) || client) //NPC monsters won't heal while on station
 		adjustBruteLoss(-L.maxHealth/2)
+	for(var/obj/item/W in L)
+		if(!L.dropItemToGround(W))
+			qdel(W)
 	L.gib()
 	return TRUE
 

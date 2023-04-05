@@ -334,7 +334,7 @@
 									ROLE_SERVANT_OF_RATVAR,
 									ROLE_OVERTHROW, ROLE_REV, ROLE_REVENANT,
 									ROLE_REV_HEAD, ROLE_SYNDICATE,
-									ROLE_TRAITOR, ROLE_WIZARD, ROLE_HIVE, ROLE_GANG, ROLE_TERATOMA, ROLE_NIGHTMARE, ROLE_SPIDER, ROLE_MORPH, ROLE_SWARMER, ROLE_SPACE_PIRATE)) //ROLE_REV_HEAD is excluded from this because rev jobbans are handled by ROLE_REV
+									ROLE_TRAITOR, ROLE_WIZARD, ROLE_HIVE, ROLE_GANG, ROLE_TERATOMA, ROLE_NIGHTMARE, ROLE_SPIDER, ROLE_MORPH, ROLE_SWARMER, ROLE_SPACE_PIRATE, ROLE_FUGITIVE, ROLE_FUGITIVE_HUNTER)) //ROLE_REV_HEAD is excluded from this because rev jobbans are handled by ROLE_REV
 		for(var/department in long_job_lists)
 			output += "<div class='column'><label class='rolegroup long [ckey(department)]'><input type='checkbox' name='[department]' class='hidden' [(usr.client.prefs.toggles2 & PREFTOGGLE_2_FANCY_TGUI) ? " onClick='toggle_checkboxes(this, \"_com\")'" : ""]>[department]</label><div class='content'>"
 			break_counter = 0
@@ -505,14 +505,6 @@
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 
-	if(cid_check && config.protected_cids.Find(player_cid))
-		if(alert(usr, "CID [player_cid] is listed as protected for the following reason: [config.protected_cids[player_cid]], Are you sure you want to restrict this CID? THIS WILL PROBABLY CATCH LEGITIMATE PLAYERS.", "Protected CID", "Yes", "No", "Cancel") != "Yes")
-			return
-		var/kn = key_name(usr)
-		//Log the shit out of this and scream bloody murder to anyone who will listen.
-		send2tgs("CID PROTECTION BYPASS", "[kn] Has overridden CID protection for a ban on CID [player_cid]!")
-		message_admins("<span class='danger'>[kn] Has overridden CID protection for a ban on CID [player_cid]!</span>")
-		log_admin_private("[kn] Has overridden CID protection for a ban on CID [player_cid]!")
 	if(redact && alert(usr, "You are about to issue a Suppressed ban, This will require direct database editing to revoke, ARE YOU SURE?", "Protected CID", "Yes", "No", "Cancel") != "Yes")
 		return
 	var/player_ckey = ckey(player_key)
@@ -540,6 +532,14 @@
 					qdel(query_create_ban_get_player)
 					return
 		qdel(query_create_ban_get_player)
+	if(cid_check && config.protected_cids.Find(player_cid))
+		if(alert(usr, "CID [player_cid] is listed as protected for the following reason: [config.protected_cids[player_cid]], Are you sure you want to restrict this CID? THIS WILL PROBABLY CATCH LEGITIMATE PLAYERS.", "Protected CID", "Yes", "No", "Cancel") != "Yes")
+			return
+		var/kn = key_name(usr)
+		//Log the shit out of this and scream bloody murder to anyone who will listen.
+		send2tgs("CID PROTECTION BYPASS", "[kn] Has overridden CID protection for a ban on CID [player_cid]!")
+		message_admins("<span class='danger'>[kn] Has overridden CID protection for a ban on CID [player_cid]!</span>")
+		log_admin_private("[kn] Has overridden CID protection for a ban on CID [player_cid]!")
 	var/admin_ckey = usr.client.ckey
 	if(applies_to_admins)
 		var/datum/DBQuery/query_check_adminban_count = SSdbcore.NewQuery({"

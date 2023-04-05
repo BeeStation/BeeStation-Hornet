@@ -76,9 +76,9 @@
 					return
 				if(A.id_scan_hacked() || A.check_access(null))
 					if(A.density)
-						INVOKE_ASYNC(A, /obj/machinery/door/airlock.proc/open)
+						INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/airlock, open))
 					else
-						INVOKE_ASYNC(A, /obj/machinery/door/airlock.proc/close)
+						INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/airlock, close))
 			if(WIRE_BOLTS) // Pulse to toggle bolts
 				if(!A.locked)
 					A.bolt()
@@ -96,7 +96,7 @@
 					A.aiControlDisabled = 1
 				else if(A.aiControlDisabled == -1)
 					A.aiControlDisabled = 2
-				addtimer(CALLBACK(A, /obj/machinery/door/airlock.proc/reset_ai_wire), 1 SECONDS)
+				addtimer(CALLBACK(A, TYPE_PROC_REF(/obj/machinery/door/airlock, reset_ai_wire)), 1 SECONDS)
 			if(WIRE_SHOCK) // Pulse to shock the door for 10 ticks.
 				if(!A.secondsElectrified)
 					A.set_electrified(MACHINE_DEFAULT_ELECTRIFY_TIME, usr)
