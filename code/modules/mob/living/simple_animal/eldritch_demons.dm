@@ -333,7 +333,7 @@
         icon_state = "rust_walker_s"
     update_icon()
 
-/mob/living/simple_animal/hostile/eldritch/rust_spirit/Moved()
+/mob/living/simple_animal/hostile/eldritch/rust_spirit/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	playsound(src, 'sound/effects/footstep/rustystep1.ogg', 100, TRUE)
 

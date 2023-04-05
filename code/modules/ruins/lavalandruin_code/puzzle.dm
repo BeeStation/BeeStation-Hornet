@@ -241,9 +241,10 @@
 		animate(src, pixel_x=rand(-5,5), pixel_y=rand(-2,2), time=1)
 	QDEL_IN(src,COLLAPSE_DURATION)
 
-/obj/structure/puzzle_element/Moved()
+/obj/structure/puzzle_element/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
-	source.validate()
+	if(source)
+		source.validate()
 
 //Admin abuse version so you can pick the icon before it sets up
 /obj/effect/sliding_puzzle/admin

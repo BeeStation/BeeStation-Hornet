@@ -475,7 +475,7 @@
 	var/is_invoker = TRUE
 	gender = FEMALE	//it's canon if the toy is
 
-/obj/item/toy/plush/narplush/Moved()
+/obj/item/toy/plush/narplush/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	var/obj/item/toy/plush/plushvar/P = locate() in range(1, src)
 	if(P && istype(P.loc, /turf/open) && !P.clash_target && !clashing)

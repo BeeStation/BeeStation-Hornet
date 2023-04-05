@@ -289,7 +289,7 @@
 	var/atom/old_loc = loc
 	move_stacks++
 	loc = new_loc
-	Moved(old_loc)
+	Moved(old_loc, direction, TRUE, momentum_change = FALSE)
 
 ////////////////////////////////////////
 // Here's where we rewrite how byond handles movement except slightly different

@@ -548,7 +548,7 @@
 			backup.last_pushoff = world.time
 			step_silent = TRUE
 			if(return_drivers())
-				to_chat(occupants, "[icon2html(src, occupants)]["<span class='info'>The [src] push off [backup] to propel yourself.</span>")]"
+				to_chat(occupants, "[icon2html(src, occupants)]["<span class='info'>The [src] push off [backup] to propel yourself.</span>"]")
 		return TRUE
 
 	if(active_thrusters?.thrust(movement_dir))

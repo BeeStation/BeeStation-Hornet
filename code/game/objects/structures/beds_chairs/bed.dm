@@ -94,7 +94,7 @@
 	icon_state = "up"
 	M.pixel_y = initial(M.pixel_y)
 
-/obj/structure/bed/roller/Moved()
+/obj/structure/bed/roller/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(has_gravity())
 		playsound(src, 'sound/effects/roll.ogg', 100, 1)

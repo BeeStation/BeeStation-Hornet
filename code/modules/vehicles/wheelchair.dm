@@ -53,7 +53,7 @@
 	//if that made no sense this simply makes the wheelchair speed change along with movement speed delay
 	D.vehicle_move_delay = round(1.5 * delay_multiplier) / clamp(user.get_num_arms(), arms_required, 2)
 
-/obj/vehicle/ridden/wheelchair/Moved()
+/obj/vehicle/ridden/wheelchair/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	cut_overlays()
 	playsound(src, 'sound/effects/roll.ogg', 75, 1)

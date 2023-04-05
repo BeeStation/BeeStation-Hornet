@@ -402,10 +402,12 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 				continue
 			var/atom/movable/thing = i
 			if(!thing.Cross(mover))
-				if(QDELETED(mover))		//Mover deleted from Cross/CanPass, do not proceed.
+				if(QDELETED(mover)) //deleted from Cross() (CanPass is pure so it cant delete, Cross shouldnt be doing this either though, but it can happen)
 					return FALSE
 				if((mover.movement_type & PHASING))
 					mover.Bump(thing)
+					if(QDELETED(mover)) //deleted from Bump()
+						return FALSE
 					continue
 				else
 					if(!firstbump || ((thing.layer > firstbump.layer || thing.flags_1 & ON_BORDER_1) && !(firstbump.flags_1 & ON_BORDER_1)))

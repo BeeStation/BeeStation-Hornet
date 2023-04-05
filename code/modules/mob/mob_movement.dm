@@ -121,7 +121,8 @@
 
 	//We are now going to move
 	var/add_delay = mob.movement_delay()
-	mob.set_glide_size(DELAY_TO_GLIDE_SIZE(add_delay * (((direct & 3) && (direct & 12)) ? 1.414214 : 1))) // set it now in case of pulled objects
+	var/new_glide_size = DELAY_TO_GLIDE_SIZE(add_delay * ( (NSCOMPONENT(direct) && EWCOMPONENT(direct)) ? SQRT_2 : 1 ) )
+	mob.set_glide_size(new_glide_size) // set it now in case of pulled objects
 	if(old_move_delay + (add_delay*MOVEMENT_DELAY_BUFFER_DELTA) + MOVEMENT_DELAY_BUFFER > world.time)
 		move_delay = old_move_delay
 	else
@@ -148,15 +149,22 @@
 	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
 		add_delay *= 1.414214 // sqrt(2)
 
+	var/after_glide = 0
 	if(visual_delay)
-		mob.set_glide_size(visual_delay)
+		after_glide = visual_delay
 	else
-		mob.set_glide_size(DELAY_TO_GLIDE_SIZE(add_delay))
+		after_glide = DELAY_TO_GLIDE_SIZE(add_delay)
+
+	mob.set_glide_size(after_glide)
 
 	move_delay += add_delay
 	if(.) // If mob is null here, we deserve the runtime
 		if(mob.throwing)
 			mob.throwing.finalize(FALSE)
+
+		// At this point we've moved the client's attached mob. This is one of the only ways to guess that a move was done
+		// as a result of player input and not because they were pulled or any other magic.
+		SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_MOVED)
 
 	var/atom/movable/P = mob.pulling
 	if(P && !ismob(P) && P.density)
@@ -168,21 +176,21 @@
   * Called by client/Move()
   */
 /client/proc/Process_Grab()
-	if(mob.pulledby)
-		if((mob.pulledby == mob.pulling) && (mob.pulledby.grab_state == GRAB_PASSIVE))			//Don't autoresist passive grabs if we're grabbing them too.
-			return
-		if(mob.incapacitated(ignore_restraints = 1))
-			move_delay = world.time + 10
-			return TRUE
-		else if(mob.restrained(ignore_grab = 1))
-			move_delay = world.time + 10
-			to_chat(src, "<span class='warning'>You're restrained! You can't move!</span>")
-			return TRUE
-		else if(mob.pulledby.grab_state == GRAB_AGGRESSIVE)
-			move_delay = world.time + 10
-			return TRUE
-		else
-			return mob.resist_grab(1)
+	if(!mob.pulledby)
+		return FALSE
+	if((mob.pulledby == mob.pulling) && (mob.pulledby.grab_state == GRAB_PASSIVE)) //Don't autoresist passive grabs if we're grabbing them too.
+		return FALSE
+	if(mob.incapacitated(ignore_restraints = 1))
+		move_delay = world.time + 10
+		return TRUE
+	else if(mob.restrained(ignore_grab = 1))
+		move_delay = world.time + 10
+		to_chat(src, "<span class='warning'>You're restrained! You can't move!</span>")
+		return TRUE
+	else if(mob.pulledby.grab_state == GRAB_AGGRESSIVE)
+		move_delay = world.time + 10
+		return TRUE
+	return mob.resist_grab(TRUE)
 
 /**
   * Allows mobs to ignore density and phase through objects

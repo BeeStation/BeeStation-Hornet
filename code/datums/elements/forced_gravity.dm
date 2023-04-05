@@ -4,7 +4,7 @@
 	var/gravity
 	var/ignore_space
 
-/datum/element/forced_gravity/Attach(datum/target, gravity=1, ignore_space=FALSE)
+/datum/element/forced_gravity/Attach(datum/target, gravity = 1, ignore_space=FALSE)
 	. = ..()
 	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE

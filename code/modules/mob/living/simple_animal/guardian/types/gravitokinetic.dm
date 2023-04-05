@@ -40,7 +40,7 @@
 		for(var/i in gravito_targets)
 		remove_gravity(i)
 
-/mob/living/simple_animal/hostile/guardian/gravitokinetic/Moved(oldLoc, dir)
+/mob/living/simple_animal/hostile/guardian/gravitokinetic/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	for(var/i in gravito_targets)
 		if(get_dist(src, i) > gravity_power_range)
