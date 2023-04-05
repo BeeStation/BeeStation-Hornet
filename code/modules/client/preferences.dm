@@ -100,7 +100,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if(unlock_content)
 				set_max_character_slots(8)
 		else if(!length(key_bindings)) // Guests need default keybinds
-			key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
+			key_bindings = deep_copy_list(GLOB.keybinding_list_by_key)
 	var/loaded_preferences_successfully = load_from_database()
 	if(loaded_preferences_successfully)
 		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
@@ -936,7 +936,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 		var/datum/job/overflow = SSjob.GetJob(SSjob.overflow_role)
 
-		for(var/datum/job/job in sortList(SSjob.occupations, GLOBAL_PROC_REF(cmp_job_display_asc)))
+		for(var/datum/job/job in sort_list(SSjob.occupations, GLOBAL_PROC_REF(cmp_job_display_asc)))
 			if(job.gimmick) //Gimmick jobs run off of a single pref
 				continue
 			index += 1
@@ -1760,7 +1760,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							friendlyname += " (disabled)"
 						maplist[friendlyname] = VM.map_name
 					maplist[default] = null
-					var/pickedmap = input(user, "Choose your preferred map. This will be used to help weight random map selection.", "Character Preference")  as null|anything in sortList(maplist)
+					var/pickedmap = input(user, "Choose your preferred map. This will be used to help weight random map selection.", "Character Preference")  as null|anything in sort_list(maplist)
 					if (pickedmap)
 						preferred_map = maplist[pickedmap]
 
@@ -2037,7 +2037,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(old_key && (old_key in key_bindings))
 						key_bindings[old_key] -= kb_name
 					key_bindings[full_key] += list(kb_name)
-					key_bindings[full_key] = sortList(key_bindings[full_key])
+					key_bindings[full_key] = sort_list(key_bindings[full_key])
 
 					save_preferences()
 					user << browse(null, "window=capturekeypress")
@@ -2048,7 +2048,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					user << browse(null, "window=keybindings")
 
 				if("keybindings_reset")
-					key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
+					key_bindings = deep_copy_list(GLOB.keybinding_list_by_key)
 					save_preferences()
 					ShowKeybindings(user)
 					return

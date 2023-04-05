@@ -36,7 +36,7 @@
 	if(!SSdbcore.IsConnected())
 		// TODO - Loading of sane defaults
 		if (!length(key_bindings))
-			key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
+			key_bindings = deep_copy_list(GLOB.keybinding_list_by_key)
 
 		return
 
@@ -115,9 +115,9 @@
 	pai_description	= sanitize_text(pai_description, initial(pai_description))
 	pai_comment		= sanitize_text(pai_comment, initial(pai_comment))
 
-	key_bindings 	= sanitize_islist(key_bindings, deepCopyList(GLOB.keybinding_list_by_key))
+	key_bindings 	= sanitize_islist(key_bindings, deep_copy_list(GLOB.keybinding_list_by_key))
 	if (!length(key_bindings))
-		key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
+		key_bindings = deep_copy_list(GLOB.keybinding_list_by_key)
 	else
 		var/any_changed = FALSE
 		for(var/key_name in GLOB.keybindings_by_name)
