@@ -158,7 +158,7 @@
 			machine.smelt_amount_limit = CLAMP(text2num(params["amount"]), 1, 100)
 
 /obj/machinery/mineral/processing_unit_console/Destroy()
-	machine = null
+	machine.console = null
 	return ..()
 
 /obj/machinery/mineral/processing_unit_console/attackby(obj/item/W, mob/user, params)
