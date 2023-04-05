@@ -303,7 +303,7 @@
 	owner.add_stun_absorption("bloody bastard sword", duration, 2, "doesn't even flinch as the sword's power courses through them!", "You shrug off the stun!", " glowing with a blazing red aura!")
 	owner.spin(duration,1)
 	animate(owner, color = oldcolor, time = duration, easing = EASE_IN)
-	addtimer(CALLBACK(owner, /atom/proc/update_atom_colour), duration)
+	addtimer(CALLBACK(owner, TYPE_PROC_REF(/atom, update_atom_colour)), duration)
 	playsound(owner, 'sound/weapons/fwoosh.ogg', 75, 0)
 	return ..()
 
@@ -386,10 +386,10 @@
 /datum/status_effect/changeling/camoflague/on_apply()
 	if(!..())
 		return FALSE
-	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, .proc/slight_increase)
-	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMGE, .proc/large_increase)
-	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, .proc/large_increase)
-	RegisterSignal(owner, COMSIG_ATOM_BUMPED, .proc/slight_increase)
+	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(slight_increase))
+	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMGE, PROC_REF(large_increase))
+	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(large_increase))
+	RegisterSignal(owner, COMSIG_ATOM_BUMPED, PROC_REF(slight_increase))
 	return TRUE
 
 /datum/status_effect/changeling/camoflague/on_remove()

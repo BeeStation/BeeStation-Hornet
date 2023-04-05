@@ -4,7 +4,7 @@
 
 	charge_max = 20
 	invocation = "none"
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	action_icon = 'icons/mob/actions/actions_clockcult.dmi'
 	action_icon_state = "ratvarian_spear"
 	action_background_icon_state = "bg_clock"

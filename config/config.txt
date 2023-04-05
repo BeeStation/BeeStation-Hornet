@@ -152,7 +152,7 @@ LOG_VIRUS
 ## log ID changes
 LOG_ID
 
-## log crew manifest to seperate file
+## log crew manifest to separate file
 LOG_MANIFEST
 
 ## log job divide debugging information
@@ -173,6 +173,9 @@ LOG_MANIFEST
 
 ## Log all timers on timer auto reset
 # LOG_TIMERS_ON_BUCKET_RESET
+
+## log speech indicators
+LOG_SPEECH_INDICATORS
 
 ##Log camera pictures - Must have picture logging enabled
 PICTURE_LOGGING_CAMERA

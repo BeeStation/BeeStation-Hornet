@@ -37,7 +37,7 @@ Possible to do for anyone motivated enough:
 	idle_power_usage = 5
 	active_power_usage = 100
 	max_integrity = 300
-	armor = list("melee" = 50, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 50,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0, STAMINA = 0)
 	circuit = /obj/item/circuitboard/machine/holopad
 	var/list/masters //List of living mobs that use the holopad
 	var/list/holorays //Holoray-mob link.
@@ -273,7 +273,7 @@ Possible to do for anyone motivated enough:
 					LAZYADD(callnames[A], I)
 			callnames -= get_area(src)
 
-			var/result = input(usr, "Choose an area to call", "Holocall") as null|anything in sortNames(callnames)
+			var/result = input(usr, "Choose an area to call", "Holocall") as null|anything in sort_names(callnames)
 			if(QDELETED(usr) || !result || outgoing_call)
 				return
 
@@ -627,7 +627,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	if(!replay_mode)
 		return
 	if (!disk.record.entries.len) // check for zero entries such as photographs and no text recordings
-		return // and pretty much just display them statically untill manually stopped
+		return // and pretty much just display them statically until manually stopped
 	if(disk.record.entries.len < entry_number)
 		if(loop_mode)
 			entry_number = 1
@@ -644,7 +644,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		if(HOLORECORD_SOUND)
 			playsound(src,entry[2],50,1)
 		if(HOLORECORD_DELAY)
-			addtimer(CALLBACK(src,.proc/replay_entry,entry_number+1),entry[2])
+			addtimer(CALLBACK(src,PROC_REF(replay_entry),entry_number+1),entry[2])
 			return
 		if(HOLORECORD_LANGUAGE)
 			var/datum/language_holder/holder = replay_holo.get_language_holder()

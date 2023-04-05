@@ -13,7 +13,7 @@
 	max_integrity = 300
 	integrity_failure = 100
 	move_resist = INFINITY
-	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 10, "acid" = 70, "stamina" = 0)
+	armor = list(MELEE = 20,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 10, ACID = 70, STAMINA = 0)
 	var/datum/team/gang/gang
 	var/operating = FALSE	//false=standby or broken, true=takeover
 	var/warned = FALSE	//if this device has set off the warning at <3 minutes yet
@@ -40,7 +40,7 @@
 	return ..()
 
 /obj/machinery/dominator/emp_act(severity)
-	take_damage(100, BURN, "energy", 0)
+	take_damage(100, BURN, ENERGY, 0)
 	..()
 
 /obj/machinery/dominator/hulk_damage()

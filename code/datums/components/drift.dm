@@ -185,7 +185,7 @@
 	block_inputs_until = world.time + glide_for
 	QDEL_IN(src, glide_for + 1)
 	qdel(drifting_loop)
-	RegisterSignal(parent, COMSIG_MOB_CLIENT_PRE_MOVE, .proc/allow_final_movement)
+	RegisterSignal(parent, COMSIG_MOB_CLIENT_PRE_MOVE, PROC_REF(allow_final_movement))
 
 /datum/component/drift/proc/allow_final_movement(datum/source)
 	// Some things want to allow movement out of spacedrift, we should let them

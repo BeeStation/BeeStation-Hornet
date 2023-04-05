@@ -220,7 +220,7 @@
 
 	H.notransform = TRUE
 
-	if(do_after(owner, delay=60, needhand=FALSE, target=owner, progress=TRUE))
+	if(do_after(owner, delay=60, target=owner, progress=TRUE, timed_action_flags = IGNORE_HELD_ITEM))
 		if(H.blood_volume >= BLOOD_VOLUME_SLIME_SPLIT)
 			make_dupe()
 		else
@@ -740,7 +740,7 @@
 	var/list/options = list()
 	for(var/mob/living/Ms in oview(H))
 		options += Ms
-	var/mob/living/M = input("Select who to send your message to:","Send thought to?",null) as null|mob in sortNames(options)
+	var/mob/living/M = input("Select who to send your message to:","Send thought to?",null) as null|mob in sort_names(options)
 	if(!M)
 		return
 

@@ -11,7 +11,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	///Assoc list of affected mobs, the key is the mob while the value of the map is the amount of ticks spent inside of the zone.
 	var/list/affected_mobs = list()
-	///Used to determine wether we use view or range
+	///Used to determine whether we use view or range
 	var/range_type = "range"
 	///What color is it?
 	var/colour
@@ -373,7 +373,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 	animate(src, transform = M, time = 120 SECONDS)
 
-	addtimer(CALLBACK(src, .proc/stage_growth), 120 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(stage_growth)), 120 SECONDS)
 
 /obj/structure/cerulean_slime_crystal/Destroy()
 	if(stage > 3)
@@ -428,7 +428,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	for(var/turf/T as() in RANGE_TURFS(4,src))
 		T.add_atom_colour(pick(color_list), FIXED_COLOUR_PRIORITY)
 
-	addtimer(CALLBACK(src,.proc/change_colour),rand(0.75 SECONDS,1.25 SECONDS))
+	addtimer(CALLBACK(src,PROC_REF(change_colour)),rand(0.75 SECONDS,1.25 SECONDS))
 
 /obj/structure/slime_crystal/red
 	colour = "red"

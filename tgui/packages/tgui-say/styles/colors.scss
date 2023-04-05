@@ -1,0 +1,78 @@
+@use 'sass:color';
+@use 'sass:map';
+
+$background: black;
+$button: #161616;
+$lightMode: #ffffff;
+$lightBorder: #616161;
+$lightButton: #bbbbbb;
+$lightHover: #eaeaea;
+
+////////////////////////////////////////////////
+// Normal chat colors
+$say: #c1fffc;
+$radio: #1ecc43;
+$me: #74a1e4;
+$ooc: #e64100;
+$looc: #fafa3b;
+
+////////////////////////////////////////////////
+// Subchannel chat colors
+$ai: #d65d95;
+$binary: #1eff44;
+$centcom: #2681a5;
+$command: #746bff;
+$engi: #f37746;
+$exploration: #5bd4a6;
+$hive: #855d85;
+$medical: #57b8f0;
+$science: #c68cfa;
+$security: #dd3535;
+$syndicate: #8f4a4b;
+$service: #6ca729;
+$supply: #b88646;
+$uplink: #830a0a;
+$holo: #d61b5a;
+$intercom: #56bd03;
+$left: #4c0675;
+$right: #4c0675;
+
+$_channel_map: (
+  'say': $say,
+  'radio': $radio,
+  'me': $me,
+  'ooc': $ooc,
+  'looc': $looc,
+
+  'ai': $ai,
+  'binary': $binary,
+  'centcom': $centcom,
+  'command': $command,
+  'engi': $engi,
+  'exploration': $exploration,
+  'hive': $hive,
+  'medical': $medical,
+  'science': $science,
+  'security': $security,
+  'syndicate': $syndicate,
+  'service': $service,
+  'supply': $supply,
+  'uplink': $uplink,
+  'left': $left,
+  'right': $right,
+  'holo': $holo,
+  'intercom': $intercom,
+);
+
+$channel_keys: map.keys($_channel_map) !default;
+
+$channel-map: ();
+
+@each $channel in $channel_keys {
+  $channel-map: map-merge(
+    $channel-map,
+    (
+      $channel: map.get($_channel_map, $channel),
+    )
+  );
+}

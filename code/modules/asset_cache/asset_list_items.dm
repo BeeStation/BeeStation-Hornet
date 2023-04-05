@@ -14,6 +14,14 @@
 		"tgui-panel.bundle.css" = file("tgui/public/tgui-panel.bundle.css"),
 	)
 
+//For development purposes only
+/datum/asset/simple/tgui_say
+	keep_local_name = TRUE
+	assets = list(
+		"tgui-say.bundle.js" = file("tgui/public/tgui-say.bundle.js"),
+		"tgui-say.bundle.css" = file("tgui/public/tgui-say.bundle.css"),
+	)
+
 /datum/asset/simple/headers
 	assets = list(
 		"alarm_green.gif" = 'icons/program_icons/alarm_green.gif',
@@ -484,7 +492,7 @@
 
 /datum/asset/spritesheet/sheetmaterials/register()
 	InsertAll("", 'icons/obj/stacks/minerals.dmi')//figure to do a list here
-//	InsertAll("", 'icons/obj/stacks/miscelaneous.dmi')
+//	InsertAll("", 'icons/obj/stacks/miscellaneous.dmi')
 //	InsertAll("", 'icons/obj/stacks/organic.dmi')
 
 	// Special case to handle Bluespace Crystals

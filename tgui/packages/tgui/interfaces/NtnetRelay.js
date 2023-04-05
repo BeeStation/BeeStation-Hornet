@@ -47,7 +47,7 @@ export const NtnetRelay = (props, context) => {
               <Box>
                 This system is suffering temporary outage due to overflow
                 of traffic buffers. Until buffered traffic is processed,
-                all further requests will be dropped. Frequent occurences
+                all further requests will be dropped. Frequent occurrences
                 of this error may indicate insufficient hardware capacity
                 of your network. Please contact your network planning
                 department for instructions on how to resolve this issue.
