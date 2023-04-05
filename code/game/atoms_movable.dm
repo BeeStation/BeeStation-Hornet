@@ -279,7 +279,6 @@
 		var/mob/buckled_mob = m
 		buckled_mob.set_glide_size(target)
 
-
 /**
  * meant for movement with zero side effects. only use for objects that are supposed to move "invisibly" (like camera mobs or ghosts)
  * if you want something to move onto a tile with a beartrap or recycler or tripmine or mouse without that object knowing about it at all, use this
@@ -287,7 +286,7 @@
  */
 /atom/movable/proc/abstract_move(atom/new_loc)
 	var/atom/old_loc = loc
-	move_stacks++
+	var/direction = get_dir(old_loc, new_loc)
 	loc = new_loc
 	Moved(old_loc, direction, TRUE, momentum_change = FALSE)
 
@@ -302,6 +301,7 @@
 
 	if(!direction)
 		direction = get_dir(src, newloc)
+
 	setDir(direction)
 
 	var/is_multi_tile_object = bound_width > 32 || bound_height > 32
@@ -468,12 +468,13 @@
 //Called after a successful Move(). By this point, we've alrefady moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
-	if(OldLoc)
-		var/turf/old_turf = get_turf(OldLoc)
+
+	if(old_loc)
+		var/turf/old_turf = get_turf(old_loc)
 		var/turf/new_turf = get_turf(src)
 		if(old_turf && new_turf && old_turf.z != new_turf.z)
 			onTransitZ(old_turf.z, new_turf.z)
-	if (!inertia_moving)
+	if (!inertia_moving && momentum_change)
 		newtonian_move(movement_dir)
 	// If we ain't moving diagonally right now, update our parallax
 	// We don't do this all the time because diag movements should trigger one call to this, not two
@@ -490,6 +491,11 @@
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
 
+	if(old_loc)
+		SEND_SIGNAL(old_loc, COMSIG_ATOM_ABSTRACT_EXITED, src, movement_dir)
+	if(loc)
+		SEND_SIGNAL(loc, COMSIG_ATOM_ABSTRACT_ENTERED, src, old_loc, old_locs)
+		
 	return TRUE
 
 /atom/movable/Destroy(force)
