@@ -163,7 +163,7 @@
 
 	return master
 
-/datum/reagents/proc/trans_to(obj/target, amount = 1, multiplier = 1, preserve_data = TRUE, no_react = FALSE, mob/transfered_by, remove_blacklisted = FALSE, method = null, show_message = TRUE, round_robin = FALSE, locked_reagent_handles=CHEM_INCLUDES_LOCKED_REAGENT_TO_TOTAL|CHEM_TRANSFERS_LOCKED_REAGENT_FIRST)
+/datum/reagents/proc/trans_to(obj/target, amount = 1, multiplier = 1, preserve_data = TRUE, no_react = FALSE, mob/transfered_by, remove_blacklisted = FALSE, method = null, show_message = TRUE, round_robin = FALSE, locked_reagent_handles=CHEM_INCLUDES_LOCKED_REAGENT_TO_TOTAL|CHEM_TRANSFERS_LOCKED_REAGENT_LATER)
 	//if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
 	//if round_robin=TRUE, so transfer 5 from 15 water, 15 sugar and 15 plasma becomes 10, 15, 15 instead of 13.3333, 13.3333 13.3333. Good if you hate floating point errors
 	var/list/cached_reagents = reagent_list
@@ -187,18 +187,18 @@
 		target_atom.add_hiddenprint(transfered_by) //log prints so admins can figure out who touched it last.
 		log_combat(transfered_by, target_atom, "transferred reagents ([log_list()]) from [my_atom] to")
 
+	var/total_locked_volume = 0
 	if(locked_reagent_handles & CHEM_INCLUDES_LOCKED_REAGENT_TO_TOTAL)
 		amount = min(min(amount, src.total_volume), R.maximum_volume-R.total_volume)
 	else
-		var/total_locked_volume = 0
 		for(var/datum/reagent/single_reagent in reagent_list)
 			total_locked_volume += single_reagent.locked_volume
-		amount = min(min(amount, src.total_volume-total_locked_volume), R.maximum_volume-(R.total_volume-total_locked_volume))
+		amount = min(min(amount, src.total_volume-total_locked_volume), R.maximum_volume-total_locked_volume)
 	var/trans_data = null
 	var/transfer_log = list()
 
 	if(!round_robin)
-		var/part = amount / src.total_volume
+		var/part = amount / (src.total_volume - total_locked_volume)
 		for(var/reagent in cached_reagents)
 			var/datum/reagent/T = reagent
 			if(remove_blacklisted && (T.chem_flags & CHEMICAL_NOT_SYNTH))
@@ -211,10 +211,14 @@
 			// calculate transferable amount by flags
 			if(locked_reagent_handles & CHEM_INCLUDES_LOCKED_REAGENT_TO_TOTAL)
 				transfer_amount = T.volume * part
-				if(locked_reagent_handles & CHEM_TRANSFERS_LOCKED_REAGENT_FIRST)
+				if(locked_reagent_handles & CHEM_TRANSFERS_LOCKED_REAGENT_LATER)
+					locked_amount_base = T.volume-T.locked_volume>=transfer_amount ? 0 : transfer_amount-(T.volume-T.locked_volume)
+				else if(locked_reagent_handles & CHEM_TRANSFERS_LOCKED_REAGENT_FIRST)
 					locked_amount_base = min(T.locked_volume, transfer_amount)
-				else if(locked_reagent_handles & CHEM_TRANSFERS_LOCKED_REAGENT_LATER)
-					locked_amount_base = T.locked_volume-T.volume>=transfer_amount ? 0 : transfer_amount-(T.volume-T.locked_volume)
+				else if(locked_reagent_handles & CHEM_TRANSFERS_LOCKED_REAGENT_PARTICALLY && T.locked_volume)
+					locked_amount_base = (T.volume/transfer_amount)*T.locked_volume
+				else if(locked_reagent_handles & CHEM_TRANSFERS_LOCKED_REAGENT_PARTICALLY_VOMIT && T.locked_volume)
+					locked_amount_base = (T.volume/transfer_amount)*T.locked_volume/100
 			else
 				transfer_amount = (T.volume-T.locked_volume) * part
 			if(!transfer_amount)
@@ -248,10 +252,14 @@
 			// calculate transferable amount by flags
 			if(locked_reagent_handles & CHEM_INCLUDES_LOCKED_REAGENT_TO_TOTAL)
 				transfer_amount = min(amount, T.volume)
-				if(locked_reagent_handles & CHEM_TRANSFERS_LOCKED_REAGENT_FIRST)
+				if(locked_reagent_handles & CHEM_TRANSFERS_LOCKED_REAGENT_LATER)
+					locked_amount_base = T.volume-T.locked_volume>=transfer_amount ? 0 : transfer_amount-(T.volume-T.locked_volume)
+				else if(locked_reagent_handles & CHEM_TRANSFERS_LOCKED_REAGENT_FIRST)
 					locked_amount_base = min(T.locked_volume, transfer_amount)
-				else if(locked_reagent_handles & CHEM_TRANSFERS_LOCKED_REAGENT_LATER)
-					locked_amount_base = T.locked_volume-T.volume>=transfer_amount ? 0 : transfer_amount-(T.volume-T.locked_volume)
+				else if(locked_reagent_handles & CHEM_TRANSFERS_LOCKED_REAGENT_PARTICALLY && T.locked_volume)
+					locked_amount_base = (T.volume/transfer_amount)*T.locked_volume
+				else if(locked_reagent_handles & CHEM_TRANSFERS_LOCKED_REAGENT_PARTICALLY_VOMIT && T.locked_volume)
+					locked_amount_base = (T.volume/transfer_amount)*T.locked_volume/100
 			else
 				transfer_amount = min(amount, T.volume-T.locked_volume)
 			if(!transfer_amount)

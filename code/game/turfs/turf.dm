@@ -699,7 +699,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			clear_reagents_to_vomit_pool(C,V)
 
 /proc/clear_reagents_to_vomit_pool(mob/living/carbon/M, obj/effect/decal/cleanable/vomit/V)
-	M.reagents.trans_to(V, M.reagents.total_volume / 10, transfered_by = M, locked_reagent_handles=NONE)
+	M.reagents.trans_to(V, M.reagents.total_volume / 10, transfered_by = M, locked_reagent_handles=CHEM_INCLUDES_LOCKED_REAGENT_TO_TOTAL|CHEM_TRANSFERS_LOCKED_REAGENT_PARTICALLY_VOMIT)
 	for(var/datum/reagent/R in M.reagents.reagent_list)                //clears the stomach of anything that might be digested as food
 		if(istype(R, /datum/reagent/consumable))
 			var/datum/reagent/consumable/nutri_check = R

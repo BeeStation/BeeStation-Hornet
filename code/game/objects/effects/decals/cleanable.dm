@@ -44,8 +44,10 @@
 			if(W.reagents.total_volume >= W.reagents.maximum_volume)
 				to_chat(user, "<span class='notice'>[W] is full!</span>")
 				return
-			to_chat(user, "<span class='notice'>You scoop up [src] into [W]!</span>")
-			reagents.trans_to(W, reagents.total_volume, transfered_by = user)
+			if(reagents.trans_to(W, reagents.total_volume, transfered_by = user, locked_reagent_handles=NONE))
+				to_chat(user, "<span class='notice'>You scoop up [src] into [W]!</span>")
+			else
+				to_chat(user, "<span class='notice'>[src] is too thick to scoop up!</span>")
 			if(!reagents.total_volume) //scooped up all of it
 				qdel(src)
 				return
