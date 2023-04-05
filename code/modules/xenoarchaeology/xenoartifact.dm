@@ -65,7 +65,7 @@
 	blacklist_ref = GLOB.xenoa_bluespace_blacklist
 	material = difficulty //Difficulty is set, in most cases
 	if(!material)
-		material = pickweight(list(XENOA_BLUESPACE = 8, XENOA_PLASMA = 5, XENOA_URANIUM = 3, XENOA_BANANIUM = 1)) //Maint artifacts and similar situations
+		material = pick_weight(list(XENOA_BLUESPACE = 8, XENOA_PLASMA = 5, XENOA_URANIUM = 3, XENOA_BANANIUM = 1)) //Maint artifacts and similar situations
 
 	var/price
 	var/extra_masks = 0
@@ -303,7 +303,7 @@
 	if(selection.len < 1)
 		log_game("An impossible event has occured. [src] has failed to generate any traits!")
 		return
-	new_trait = pickweight(selection)
+	new_trait = pick_weight(selection)
 	blacklist += new_trait //Add chosen trait to blacklist
 	traits += new new_trait
 	new_trait = new new_trait //type converting doesn't work too well here but this should be fine.

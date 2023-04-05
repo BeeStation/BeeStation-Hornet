@@ -108,7 +108,7 @@
 			var/datum/species/S = speciestype
 			if(initial(S.changesource_flags) & MIRROR_MAGIC)
 				choosable_races += initial(S.id)
-		choosable_races = sortList(choosable_races)
+		choosable_races = sort_list(choosable_races)
 
 /obj/structure/mirror/magic/lesser/Initialize(mapload)
 	choosable_races = GLOB.roundstart_races.Copy()

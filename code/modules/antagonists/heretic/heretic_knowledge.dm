@@ -218,7 +218,7 @@
 	fingerprints = list()
 	for(var/atom/requirements as anything in atoms)
 		fingerprints[requirements.return_fingerprints()] = 1
-	listclearnulls(fingerprints)
+	list_clear_nulls(fingerprints)
 
 	// No fingerprints? No ritual
 	if(!length(fingerprints))
@@ -243,7 +243,7 @@
 		loc.balloon_alert(user, "Ritual failed, no fingerprints found")
 		return FALSE
 
-	var/chosen_mob = input(user, "Select the person you wish to curse", "Eldritch Curse") as null|anything in sortNames(compiled_list)
+	var/chosen_mob = input(user, "Select the person you wish to curse", "Eldritch Curse") as null|anything in sort_list(compiled_list, GLOBAL_PROC_REF(cmp_mob_realname_dsc))
 	if(isnull(chosen_mob))
 		return FALSE
 

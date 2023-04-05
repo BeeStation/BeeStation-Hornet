@@ -1,0 +1,5 @@
+author: RKz, Ghilker
+delete-after: true
+changes:
+  - code_imp: organized _list.dm with documentation
+  - code_imp: updated proc names to use snake cases
