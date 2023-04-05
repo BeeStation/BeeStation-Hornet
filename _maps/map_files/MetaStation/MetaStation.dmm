@@ -23734,7 +23734,7 @@
 /area/aisat)
 "cne" = (
 /obj/machinery/igniter{
-	id = "Incinerator"
+	id = "atmos_incinerator_igniter"
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -25706,8 +25706,7 @@
 /area/science/nanite)
 "cxI" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -75429,8 +75428,7 @@
 /area/crew_quarters/heads/cmo)
 "wZj" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
