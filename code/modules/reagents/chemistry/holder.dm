@@ -193,7 +193,7 @@
 	else
 		for(var/datum/reagent/single_reagent in reagent_list)
 			total_locked_volume += single_reagent.locked_volume
-		amount = min(min(amount, src.total_volume-total_locked_volume), R.maximum_volume-total_locked_volume)
+		amount = min(min(amount, src.total_volume-total_locked_volume), R.maximum_volume-(R.total_volume-total_locked_volume))
 	var/trans_data = null
 	var/transfer_log = list()
 
