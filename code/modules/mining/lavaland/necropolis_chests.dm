@@ -39,7 +39,7 @@
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
 
-/obj/structure/closet/crate/necropolis/tendril/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot - MAY REPLACE WITH pickweight(loot)
+/obj/structure/closet/crate/necropolis/tendril/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot - MAY REPLACE WITH pick_weight(loot)
 	var/static/list/necropolis_goodies = list(	//weights to be defined later on, for now they're all the same
 		/obj/item/clothing/glasses/godeye									= 5,
 		/obj/item/pickaxe/diamond											= 5,
@@ -61,7 +61,7 @@
 	)
 
 	if(..())
-		var/necropolis_loot = pickweight(necropolis_goodies.Copy())
+		var/necropolis_loot = pick_weight(necropolis_goodies.Copy())
 		new necropolis_loot(src)
 
 /obj/structure/closet/crate/necropolis/can_open(mob/living/user, force = FALSE)
@@ -1059,7 +1059,7 @@
 		var/mob/living/L = I
 		da_list[L.real_name] = L
 
-	var/choice = input(user,"Who do you want dead?","Choose Your Victim") as null|anything in sortNames(da_list)
+	var/choice = input(user,"Who do you want dead?","Choose Your Victim") as null|anything in sort_names(da_list)
 
 	choice = da_list[choice]
 

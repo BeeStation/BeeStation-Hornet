@@ -3,7 +3,7 @@
 	desc = "A strong, brass suit worn by the soldiers of the Ratvarian armies."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cuirass"
-	armor = list("melee" = 50, "bullet" = 60, "laser" = 30, "energy" = 80, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 60)
+	armor = list(MELEE = 50,  BULLET = 60, LASER = 30, ENERGY = 80, BOMB = 80, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 60)
 	slowdown = 0.6
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
@@ -33,14 +33,14 @@
 	icon_state = "clockwork_cuirass_speed"
 	slowdown = -0.3
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list("melee" = 40, "bullet" = 40, "laser" = 10, "energy" = -20, "bomb" = 60, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 30)
+	armor = list(MELEE = 40,  BULLET = 40, LASER = 10, ENERGY = -20, BOMB = 60, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 30)
 
 /obj/item/clothing/suit/clockwork/cloak
 	name = "shrouding cloak"
 	desc = "A faltering cloak that bends light around it, distorting the user's appearance, making it hard to see them with the naked eye. However, it provides very little protection."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cloak"
-	armor = list("melee" = 10, "bullet" = 60, "laser" = 40, "energy" = 20, "bomb" = 40, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 20)
+	armor = list(MELEE = 10,  BULLET = 60, LASER = 40, ENERGY = 20, BOMB = 40, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 20)
 	slowdown = 0.4
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/shroud_active = FALSE
@@ -136,7 +136,7 @@
 	desc = "A strong, brass helmet worn by the soldiers of the Ratvarian armies. Includes an integrated light-dimmer for flash protection, as well as occult-grade muffling for factory based environments."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_helmet"
-	armor = list("melee" = 50, "bullet" = 60, "laser" = 30, "energy" = 80, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 60)
+	armor = list(MELEE = 50,  BULLET = 60, LASER = 30, ENERGY = 80, BOMB = 80, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 60)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
 	flash_protect = 1
@@ -161,4 +161,4 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 0)

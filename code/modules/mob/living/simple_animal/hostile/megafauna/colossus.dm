@@ -500,7 +500,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	if(istype(P, /obj/item/projectile/magic))
 		ActivationReaction(P.firer, ACTIVATE_MAGIC, P.damage_type)
 		return
-	ActivationReaction(P.firer, P.flag, P.damage_type)
+	ActivationReaction(P.firer, P.armor_flag, P.damage_type)
 
 /obj/machinery/anomalous_crystal/proc/ActivationReaction(mob/user, method, damtype)
 	if(world.time < last_use_timer)
@@ -759,7 +759,15 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	activation_method = ACTIVATE_TOUCH
 	cooldown_add = 50
 	activation_sound = 'sound/magic/timeparadox2.ogg'
-	var/static/list/banned_items_typecache = typecacheof(list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear, /obj/item/projectile, /obj/item/spellbook))
+	var/static/list/banned_items_typecache = typecacheof(list(
+		/obj/item/storage,
+		/obj/item/implant,
+		/obj/item/implanter,
+		/obj/item/disk/nuclear,
+		/obj/item/projectile,
+		/obj/item/spellbook,
+		/obj/item/dice/d20/fate
+	))
 
 /obj/machinery/anomalous_crystal/refresher/ActivationReaction(mob/user, method)
 	if(..())
