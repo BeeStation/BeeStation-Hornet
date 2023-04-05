@@ -100,7 +100,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if(unlock_content)
 				set_max_character_slots(8)
 		else if(!length(key_bindings)) // Guests need default keybinds
-			key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
+			key_bindings = deep_copy_list(GLOB.keybinding_list_by_key)
 	var/loaded_preferences_successfully = load_from_database()
 	if(loaded_preferences_successfully)
 		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
@@ -793,7 +793,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				var/datum/gear/G = LC.gear[gear_id]
 				var/ticked = (G.id in active_character.equipped_gear)
 
-				dat += "<tr style='vertical-align:top;'><td width=15%>[G.display_name]\n"
+				if(active_character.jumpsuit_style == PREF_SKIRT && !isnull(G.skirt_display_name))
+					dat += "<tr style='vertical-align:top;'><td width=15%>[G.skirt_display_name]\n"
+				else
+					dat += "<tr style='vertical-align:top;'><td width=15%>[G.display_name]\n"
 				var/donator = G.sort_category == "Donator" // purchase box and cost coloumns doesn't appear on donator items
 				if(G.id in purchased_gear)
 					if(G.sort_category == "OOC")
@@ -809,7 +812,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					for(var/role in G.allowed_roles)
 						dat += role + ",	 "
 					dat += "</font>"
-				dat += "</td><td><font size=2><i>[G.description]</i></font></td></tr>"
+				if(active_character.jumpsuit_style == PREF_SKIRT && !isnull(G.skirt_path))
+					dat += "</td><td><font size=2><i>[G.skirt_description]</i></font></td></tr>"
+				else
+					dat += "</td><td><font size=2><i>[G.description]</i></font></td></tr>"
 			dat += "</table>"
 
 		if(3) //OOC Preferences
@@ -930,7 +936,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 		var/datum/job/overflow = SSjob.GetJob(SSjob.overflow_role)
 
-		for(var/datum/job/job in sortList(SSjob.occupations, GLOBAL_PROC_REF(cmp_job_display_asc)))
+		for(var/datum/job/job in sort_list(SSjob.occupations, GLOBAL_PROC_REF(cmp_job_display_asc)))
 			if(job.gimmick) //Gimmick jobs run off of a single pref
 				continue
 			index += 1
@@ -1754,7 +1760,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							friendlyname += " (disabled)"
 						maplist[friendlyname] = VM.map_name
 					maplist[default] = null
-					var/pickedmap = input(user, "Choose your preferred map. This will be used to help weight random map selection.", "Character Preference")  as null|anything in sortList(maplist)
+					var/pickedmap = input(user, "Choose your preferred map. This will be used to help weight random map selection.", "Character Preference")  as null|anything in sort_list(maplist)
 					if (pickedmap)
 						preferred_map = maplist[pickedmap]
 
@@ -2031,7 +2037,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(old_key && (old_key in key_bindings))
 						key_bindings[old_key] -= kb_name
 					key_bindings[full_key] += list(kb_name)
-					key_bindings[full_key] = sortList(key_bindings[full_key])
+					key_bindings[full_key] = sort_list(key_bindings[full_key])
 
 					save_preferences()
 					user << browse(null, "window=capturekeypress")
@@ -2042,7 +2048,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					user << browse(null, "window=keybindings")
 
 				if("keybindings_reset")
-					key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
+					key_bindings = deep_copy_list(GLOB.keybinding_list_by_key)
 					save_preferences()
 					ShowKeybindings(user)
 					return

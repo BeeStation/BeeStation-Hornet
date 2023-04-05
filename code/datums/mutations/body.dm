@@ -166,15 +166,17 @@
 	mobtypes_allowed = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	locked = TRUE //Species specific, keep out of actual gene pool
 	mutadone_proof = TRUE
+	var/original_species = /datum/species/human
 
 /datum/mutation/race/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
-	. = owner.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI)
+	original_species = owner.dna.species
+	. = owner.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, FALSE, original_species)
 
 /datum/mutation/race/on_losing(mob/living/carbon/monkey/owner)
 	if(owner && ismonkey(owner) && owner.stat != DEAD && !..())
-		. = owner.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI)
+		. = owner.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, original_species)
 
 /datum/mutation/glow
 	name = "Glowy"
