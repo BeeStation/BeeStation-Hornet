@@ -1,0 +1,4 @@
+author: Wisemonster
+delete-after: true
+changes:
+  - bugfix: Fixes the ignitor switch by the atmos turbine on Metastation
