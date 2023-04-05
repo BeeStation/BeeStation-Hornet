@@ -1,5 +1,0 @@
-author: RKz, WarlockD
-delete-after: true
-changes:
-  - rscadd: added directional function to vents in the Air Alarm control. Choose to
-      Pressurize or Siphon gas!
