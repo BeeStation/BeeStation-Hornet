@@ -67,7 +67,7 @@
 	else
 		machine = locate(/obj/machinery/mineral/processing_unit, get_step(src, machinedir))
 		if (machine)
-			machine.CONSOLE = src
+			machine.console = src
 	if(!mapload)
 		handle_pixel_offset()
 
@@ -76,8 +76,12 @@
 	for(var/obj/machinery/mineral/processing_unit/PU in GLOB.machines)
 		if(PU.link_id == link_id)
 			machine = PU
-			machine.CONSOLE = src
+			machine.console = src
 			return
+
+/obj/machinery/mineral/processing_unit_console/Destroy()
+	machine.console = null
+	return ..()
 
 /obj/machinery/mineral/processing_unit_console/AltClick()
 	if(anchored)
@@ -178,7 +182,7 @@
 				return
 			to_chat(user, "<font color = #666633>-% Successfully linked [P.buffer] with [src] %-</font color>")
 			machine = P.buffer
-			machine.CONSOLE = src
+			machine.console = src
 		else
 			P.buffer = src
 			to_chat(user, "<font color = #666633>-% Successfully stored [REF(P.buffer)] [P.buffer.name] in buffer %-</font color>")
@@ -197,7 +201,7 @@
 	density = TRUE
 	needs_item_input = TRUE
 	circuit = /obj/item/circuitboard/machine/processing_unit
-	var/obj/machinery/mineral/processing_unit_console/CONSOLE = null
+	var/obj/machinery/mineral/processing_unit_console/console = null
 	var/on = FALSE
 	var/datum/material/selected_material = null
 	var/selected_alloy = null
@@ -222,9 +226,9 @@
 	selected_material = getmaterialref(/datum/material/iron)
 
 /obj/machinery/mineral/processing_unit/Destroy()
-	if(CONSOLE)
-		SStgui.close_uis(CONSOLE)
-	CONSOLE = null
+	if(console)
+		SStgui.close_uis(console)
+	console = null
 	QDEL_NULL(stored_research)
 	return ..()
 
@@ -269,8 +273,8 @@
 				to_chat(user, "<font color = #666633>-% Cannot link machines across power zones. %-</font color>")
 				return
 			to_chat(user, "<font color = #666633>-% Successfully linked [P.buffer] with [src] %-</font color>")
-			CONSOLE = P.buffer
-			CONSOLE.machine = src
+			console = P.buffer
+			console.machine = src
 		else
 			P.buffer = src
 			to_chat(user, "<font color = #666633>-% Successfully stored [REF(P.buffer)] [P.buffer.name] in buffer %-</font color>")
