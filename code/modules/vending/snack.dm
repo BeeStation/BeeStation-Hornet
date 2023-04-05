@@ -86,7 +86,7 @@
 		dish_quants[S.name]++
 	else
 		dish_quants[S.name] = 1
-	sortList(dish_quants)
+	sort_list(dish_quants)
 
 /obj/machinery/vending/snack/random
 	name = "\improper Random Snackies"
