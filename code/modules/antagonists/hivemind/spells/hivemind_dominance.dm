@@ -30,7 +30,7 @@
 		var/datum/antagonist/hivevessel/woke_vessel = IS_WOKEVESSEL(C)
 		if (woke_vessel)
 			woke_vessel.glow = hive.glow
-		addtimer(CALLBACK(C, /atom/proc/add_overlay, hive.glow), 150)
+		addtimer(CALLBACK(C, TYPE_PROC_REF(/atom, add_overlay), hive.glow), 150)
 
 	for(var/datum/antagonist/hivemind/enemy in GLOB.hivehosts)
 		if(enemy.owner)
