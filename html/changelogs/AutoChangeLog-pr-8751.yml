@@ -1,0 +1,6 @@
+author: WrillWasTaken
+delete-after: true
+changes:
+  - tweak: Sanity constantly moves towards a neutral state.
+  - tweak: Sanity change speed from mood is no longer capped. Extremely low moods
+      will make you go insane extremely fast, and vice versa.
