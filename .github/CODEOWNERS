@@ -36,7 +36,6 @@ Dockerfile @crossedfall
 /code/modules/admin/verbs/adminhelp.dm @itsmeow
 /code/modules/admin/verbs/mentorhelp.dm @itsmeow
 /code/modules/admin/player_panel.dm @itsmeow
-/code/modules/antagonists/fugitive/ @itsmeow
 /code/modules/tgui/ @itsmeow
 /code/modules/tgui_input/ @itsmeow
 /code/modules/tgui_panel/ @itsmeow
