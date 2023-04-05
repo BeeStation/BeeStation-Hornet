@@ -30,23 +30,22 @@
 	if(!isnull(render_relay_plane))
 		relay_render_to_plane(mymob, render_relay_plane)
 
-///Things rendered on "openspace"; holes in multi-z
-/atom/movable/screen/plane_master/openspace_backdrop
-	name = "open space backdrop plane master"
-	plane = OPENSPACE_BACKDROP_PLANE
-	appearance_flags = PLANE_MASTER
-	blend_mode = BLEND_MULTIPLY
-	alpha = 255
-/atom/movable/screen/plane_master/openspace
-	name = "open space plane master"
-	plane = OPENSPACE_PLANE
-	appearance_flags = PLANE_MASTER
+GLOBAL_LIST_INIT(shared_plane_masters, create_shared_plane_masters())
 
-/atom/movable/screen/plane_master/openspace/Initialize(mapload)
-	. = ..()
-	add_filter("first_stage_openspace", 1, drop_shadow_filter(color = "#04080FAA", size = -10))
-	add_filter("second_stage_openspace", 2, drop_shadow_filter(color = "#04080FAA", size = -15))
-	add_filter("third_stage_openspace", 3, drop_shadow_filter(color = "#04080FAA", size = -20))
+/proc/create_shared_plane_masters()
+	. = list()
+	for(var/i in 0 to ZMIMIC_MAX_DEPTH)
+		. += new /atom/movable/screen/plane_master/shared/zmimic(null, ZMIMIC_MAX_PLANE - i)
+
+/atom/movable/screen/plane_master/shared/zmimic
+	name = "zmimic plane master"
+
+/atom/movable/screen/plane_master/shared/zmimic/Initialize(mapload, _plane)
+	plane = _plane
+	blend_mode = BLEND_OVERLAY
+	appearance_flags = PLANE_MASTER
+	name = "zmimic [_plane] plane master"
+	return ..()
 
 ///Contains just the floor
 /atom/movable/screen/plane_master/floor

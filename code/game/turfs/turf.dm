@@ -98,17 +98,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 
+	if (z_flags & Z_MIMIC_BELOW)
+		setup_zmimic(mapload)
+
 	if (light_power && light_range)
 		update_light()
-
-	var/turf/T = SSmapping.get_turf_above(src)
-	if(T)
-		T.multiz_turf_new(src, DOWN)
-		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, DOWN)
-	T = SSmapping.get_turf_below(src)
-	if(T)
-		T.multiz_turf_new(src, UP)
-		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, UP)
 
 	if (opacity)
 		has_opaque_atom = TRUE
@@ -137,12 +131,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(!changing_turf)
 		stack_trace("Incorrect turf deletion")
 	changing_turf = FALSE
-	var/turf/T = SSmapping.get_turf_above(src)
-	if(T)
-		T.multiz_turf_del(src, DOWN)
-	T = SSmapping.get_turf_below(src)
-	if(T)
-		T.multiz_turf_del(src, UP)
+	if (z_flags & Z_MIMIC_BELOW)
+		cleanup_zmimic()
 	if(force)
 		..()
 		//this will completely wipe turf state
@@ -241,10 +231,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		user.forceMove(target)
 	if(istype(AM) && user.Adjacent(AM))
 		user.start_pulling(AM)
-
-/turf/proc/multiz_turf_del(turf/T, dir)
-
-/turf/proc/multiz_turf_new(turf/T, dir)
 
 /// Returns TRUE if the turf cannot be moved onto
 /proc/is_blocked_turf(turf/T, exclude_mobs)

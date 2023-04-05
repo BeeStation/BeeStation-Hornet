@@ -470,6 +470,17 @@
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
 
+	// Z-Mimic hook
+	if (bound_overlay)
+		var/turf/new_turf = get_turf(src)
+		// The overlay will handle cleaning itself up on non-openspace turfs.
+		if (istype(new_turf))
+			bound_overlay.forceMove(get_step(src, UP))
+			if (bound_overlay && dir != bound_overlay.dir)
+				bound_overlay.setDir(dir)
+		else	// Not a turf, so we need to destroy immediately instead of waiting for the destruction timer to proc.
+			qdel(bound_overlay)
+
 	return TRUE
 
 /atom/movable/Destroy(force)
@@ -500,6 +511,9 @@
 		if(!QDELETED(move_packet))
 			qdel(move_packet)
 		move_packet = null
+
+	if (bound_overlay)
+		QDEL_NULL(bound_overlay)
 
 	LAZYCLEARLIST(important_recursive_contents)
 

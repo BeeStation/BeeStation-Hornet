@@ -7,7 +7,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_CATWALK)
-	obj_flags = CAN_BE_HIT | BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
+	z_flags = Z_BLOCK_OUT_DOWN | Z_BLOCK_IN_UP
 	//Negates the effect of space and openspace.
 	//Shouldn't be placed above anything else.
 	FASTDMM_PROP(\

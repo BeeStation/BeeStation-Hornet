@@ -574,6 +574,10 @@
 	if(desc)
 		. += desc
 
+	if(user.z != z) // Z-mimic
+		var/diff = abs(user.z - z)
+		. += "<span class='bold notice'>[p_theyre(TRUE)] [diff] level\s below you.</span>"
+
 	if(custom_materials)
 		for(var/i in custom_materials)
 			var/datum/material/M = i

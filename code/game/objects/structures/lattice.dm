@@ -15,7 +15,7 @@
 	plane = FLOOR_PLANE
 	var/number_of_rods = 1
 	//	flags = CONDUCT_1
-	obj_flags = CAN_BE_HIT | BLOCK_Z_OUT_DOWN
+	z_flags = Z_BLOCK_OUT_DOWN
 
 /obj/structure/lattice/examine(mob/user)
 	. = ..()

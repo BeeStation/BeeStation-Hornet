@@ -312,6 +312,9 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 
 	QUEUE_SMOOTH_NEIGHBORS(src)
 
+	if (above)
+		above.update_mimic()
+
 	HandleTurfChange(src)
 
 /turf/open/AfterChange(flags)
