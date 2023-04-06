@@ -23,7 +23,7 @@ Regenerative extracts:
 	if(H.stat == DEAD)
 		to_chat(user, "<span class='warning'>[src] will not work on the dead!</span>")
 		return
-	if(!do_mob(user, H, 50))
+	if(!do_after(user, 5 SECONDS, H))
 		to_chat(user, "<span class='notice'>You need to hold still to apply [src]!")
 		return
 	if(H != user)

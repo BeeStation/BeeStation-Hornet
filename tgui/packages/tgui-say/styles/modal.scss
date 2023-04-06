@@ -1,0 +1,86 @@
+@use 'sass:color';
+@use './colors.scss';
+
+.modal {
+  background-color: colors.$background;
+  display: flex;
+  flex-direction: column;
+  max-width: 231px;
+  width: 100%;
+}
+
+.modal-lightMode {
+  @extend .modal;
+  background-color: colors.$lightMode;
+  .top-border {
+    background-color: colors.$lightBorder;
+    top: 0px;
+    height: 1px;
+    left: 0px;
+    position: absolute;
+    right: 0px;
+    z-index: 999;
+  }
+  .left-border {
+    background-color: colors.$lightBorder;
+    top: 0px;
+    bottom: 0px;
+    width: 1px;
+    left: 0px;
+    position: absolute;
+    z-index: 1000;
+  }
+  .right-border {
+    background-color: colors.$lightBorder;
+    top: 0px;
+    bottom: 0px;
+    width: 1px;
+    right: 0px;
+    position: absolute;
+    z-index: 1000;
+  }
+  .bottom-border {
+    background-color: colors.$lightBorder;
+    bottom: 0px;
+    height: 1px;
+    left: 0px;
+    position: absolute;
+    right: 0px;
+    z-index: 999;
+  }
+}
+
+.modal__content {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  padding: 5px;
+}
+
+/** Window sizes */
+.modal-30 {
+  height: 30px;
+}
+
+.modal-50 {
+  height: 50px;
+}
+
+.modal-70 {
+  height: 70px;
+}
+
+@each $channel, $color in colors.$channel-map {
+  .modal-#{$channel} {
+    border-image: linear-gradient(
+        30deg,
+        adjust-hue($color, 15deg),
+        darken($color, 20%),
+        darken(adjust-hue($color, 15deg), 10%)
+      )
+      1;
+    border-width: 1px;
+    border-image-width: 1px;
+    border-style: solid;
+  }
+}
