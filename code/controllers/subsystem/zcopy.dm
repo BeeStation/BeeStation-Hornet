@@ -3,9 +3,9 @@
  */
 
 /// The multiplication factor for openturf shadower darkness. Lighting will be multiplied by this.
-#define SHADOWER_DARKENING_FACTOR 0.6
+#define SHADOWER_DARKENING_FACTOR 0.8
 /// The above, but as an RGB string for lighting-less turfs.
-#define SHADOWER_DARKENING_COLOR "#999999"
+#define SHADOWER_DARKENING_COLOR "#CCCCCC"
 #define READ_BASETURF(T) (islist(T.baseturfs) ? T.baseturfs[length(T.baseturfs)] : T.baseturfs)
 
 SUBSYSTEM_DEF(zcopy)
