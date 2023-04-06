@@ -1,3 +1,6 @@
+#define STANDARD "standard"
+#define CRITICAL "critical"
+
 // robot_upgrades.dm
 // Contains various borg upgrades.
 
@@ -331,7 +334,7 @@
 	/// world.time of next repair
 	var/next_repair = 0
 	/// Minimum time between repairs
-	var/mode = "standard"
+	var/mode = STANDARD
 	var/repair_cooldown = 10 SECONDS
 	var/msg_cooldown = 0
 	var/on = FALSE
@@ -414,13 +417,13 @@
 			return
 
 		if(cyborg.health < cyborg.maxHealth)
-			if(cyborg.health < cyborg.maxHealth / 2 && mode == "standard")
-				mode = "critical"
+			if(cyborg.health < cyborg.maxHealth / 2 && mode == STANDARD)
+				mode = CRITICAL
 				to_chat(cyborg, "<span class='notice'>[src] now operating in <span class='boldnotice'>[mode]</span> mode.</span>")
 				repair_amount = initial(repair_amount) * 2
 				powercost = initial(repair_amount) * 3
-			else if (cyborg.health >= cyborg.maxHealth / 2 && mode == "critical")
-				mode = "standard"
+			else if (cyborg.health >= cyborg.maxHealth / 2 && mode == CRITICAL)
+				mode = STANDARD
 				to_chat(cyborg, "<span class='notice'>[src] now operating in <span class='boldnotice'>[mode]</span> mode.</span>")
 				repair_amount = initial(repair_amount)
 				powercost = initial(powercost)
@@ -865,3 +868,6 @@
 		/obj/item/crowbar/cyborg,
 		/obj/item/dance_trance,
 	)
+
+#undef STANDARD
+#undef CRITICAL
