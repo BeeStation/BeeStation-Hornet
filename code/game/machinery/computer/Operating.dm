@@ -172,6 +172,9 @@
 		to_chat(user, "<span class='warning'>You cannot link \the [multitool.buffer] to \the [src].</span>")
 		return
 	var/obj/machinery/stasis/new_stasis_bed = multitool.buffer
+	if(get_dist(src, new_stasis_bed) > 3)
+		to_chat(user, "<span class='warning'>\The [src] is too far away from \the [new_stasis_bed] to link!</span>")
+		return
 	balloon_alert(user, "linked to \the [new_stasis_bed]")
 	if(sbed)
 		sbed.op_computer = null
