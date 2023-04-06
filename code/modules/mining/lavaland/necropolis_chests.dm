@@ -1119,7 +1119,8 @@
 	force = 5 //Melee attacks also invoke a 15 burn damage AoE, for a total of 20 damage
 	attack_verb = list("clubbed", "beat", "pummeled")
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
-	actions_types = list(/datum/action/item_action/vortex_recall)
+	actions_types = list(/datum/action/item_action/vortex_recall, /datum/action/item_action/toggle_unfriendly_fire)
+	var/power = 15 //Damage of the magic tiles
 	var/cooldown_time = 20 //how long the cooldown between non-melee ranged attacks is
 	var/chaser_cooldown = 81 //how long the cooldown between firing chasers at mobs is
 	var/chaser_timer = 0 //what our current chaser cooldown is
@@ -1128,7 +1129,7 @@
 	var/blast_range = 13 //how long the cardinal blast's walls are
 	var/obj/effect/hierophant/beacon //the associated beacon we teleport to
 	var/teleporting = FALSE //if we ARE teleporting
-	var/friendly_fire_check = TRUE //if the blasts we make will consider our faction against the faction of hit targets
+	var/friendly_fire_check = FALSE //if the blasts we make will consider our faction against the faction of hit targets
 
 /obj/item/hierophant_club/examine(mob/user)
 	. = ..()
@@ -1151,6 +1152,11 @@
 
 /obj/item/hierophant_club/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
+	if(!is_mining_level(user.z))
+		power = 5
+		to_chat(user, "<span class='warning'>[name] is too far from the source of its power!</span>")
+	else
+		power = 15
 	if(user.mind.martial_art.no_guns)
 		to_chat(user, "<span class='warning'>To use this weapon would bring dishonor to the clan.</span>")
 		return
@@ -1160,7 +1166,7 @@
 	calculate_anger_mod(user)
 	timer = world.time + cooldown_time
 	if(proximity_flag)
-		INVOKE_ASYNC(src, PROC_REF(aoe_burst), T, user)
+		INVOKE_ASYNC(src, PROC_REF(aoe_burst), T, user, power)
 		log_combat(user, target, "fired 3x3 blast at", src)
 	else
 		if(ismineralturf(target) && get_dist(user, target) < 6) //target is minerals, we can hit it(even if we can't see it)
@@ -1171,7 +1177,7 @@
 			if(isliving(target) && chaser_timer <= world.time) //living and chasers off cooldown? fire one!
 				chaser_timer = world.time + chaser_cooldown
 				var/obj/effect/temp_visual/hierophant/chaser/C = new(get_turf(target), user, target, chaser_speed, friendly_fire_check)
-				C.damage = 15
+				C.damage = power
 				C.monster_damage_boost = FALSE
 				log_combat(user, target, "fired a chaser at", src)
 			INVOKE_ASYNC(src, PROC_REF(cardinal_blasts), T, user)
@@ -1208,6 +1214,10 @@
 	update_icon()
 
 /obj/item/hierophant_club/ui_action_click(mob/user, action)
+	if(istype(action, /datum/action/item_action/toggle_unfriendly_fire)) //toggle friendly fire...
+		friendly_fire_check = !friendly_fire_check
+		to_chat(user, "<span class='warning'>You toggle friendly fire [friendly_fire_check ? "off":"on"]!</span>")
+		return
 	if(timer > world.time)
 		return
 	if(!user.is_holding(src)) //you need to hold the staff to teleport
@@ -1359,7 +1369,7 @@
 		previousturf = J
 		J = get_step(previousturf, dir)
 
-/obj/item/hierophant_club/proc/aoe_burst(turf/T, mob/living/user) //make a 3x3 blast around a target
+/obj/item/hierophant_club/proc/aoe_burst(turf/T, mob/living/user, power = 15) //make a 3x3 blast around a target
 	if(!T)
 		return
 	new /obj/effect/temp_visual/hierophant/telegraph(T, user)
@@ -1367,7 +1377,7 @@
 	sleep(2)
 	for(var/t in RANGE_TURFS(1, T))
 		var/obj/effect/temp_visual/hierophant/blast/B = new(t, user, friendly_fire_check)
-		B.damage = 15 //keeps monster damage boost due to lower damage
+		B.damage = power
 
 /obj/structure/closet/crate/necropolis/tendril/puzzle
 	name = "puzzling chest"
