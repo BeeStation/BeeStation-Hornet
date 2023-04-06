@@ -665,7 +665,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					if(!istype(src, /obj/machinery/computer/card/centcom)) // station level
 						jobdatum = SSjob.GetJob(t1)
 						if(!jobdatum)
-							to_chat(usr, "<span class='error'>No log exists for this job.</span>")
+							to_chat(usr, "<span class='warning'>No log exists for this job.</span>")
 							stack_trace("bad job string '[t1]' is given through HoP console by '[ckey(usr)]'")
 							updateUsrDialog()
 							return
