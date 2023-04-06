@@ -195,22 +195,22 @@
 	return TRUE
 
 /mob/proc/do_jump_animation()
-	set waitfor = 0
-	animate(src, 0.3 SECONDS, pixel_y = 16, transform = matrix() * 0.9, easing = QUAD_EASING)
-	sleep(0.3 SECONDS)
-	animate(src, 0.1 SECONDS, pixel_y = 0, transform = matrix(), easing = QUAD_EASING)
+	set waitfor = FALSE
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(do_jump_animation_on), src)
 	// Z-Mimic: copy jump animation
-	for(var/atom/movable/bound_overlay as anything in get_associated_mimics()
-		do_jump_animation(bound_overlay)
+	for(var/atom/movable/bound_overlay as anything in get_associated_mimics())
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(do_jump_animation_on), bound_overlay)
+	addtimer(CALLBACK(src, PROC_REF(after_jump_animation)), 0.4 SECONDS)
 
-/proc/do_jump_animation(atom/target)
-	set waitfor = 0
+/mob/proc/after_jump_animation()
+	return
+
+/proc/do_jump_animation_on(atom/movable/target)
 	animate(target, 0.3 SECONDS, pixel_y = 16, transform = matrix() * 0.9, easing = QUAD_EASING)
 	sleep(0.3 SECONDS)
 	animate(target, 0.1 SECONDS, pixel_y = 0, transform = matrix(), easing = QUAD_EASING)
 
-/mob/living/carbon/do_jump_animation()
-	..()
+/mob/living/carbon/after_jump_animation()
 	reset_lying_transform()
 	UPDATE_OO_IF_PRESENT
 

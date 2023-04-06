@@ -129,10 +129,11 @@ SUBSYSTEM_DEF(overlays)
 	for (var/overlay in (islist(old_overlays) ? old_overlays : list(old_overlays)))
 		if(!overlay)
 			continue
+		var/image/new_overlay
 		if (istext(overlay))
-			new_overlays += iconstate2appearance(icon, overlay)
+			new_overlay = iconstate2appearance(icon, overlay)
 		else if(isicon(overlay))
-			new_overlays += icon2appearance(overlay)
+			new_overlay = icon2appearance(overlay)
 		else
 			if(isloc(overlay))
 				var/atom/A = overlay
@@ -142,8 +143,10 @@ SUBSYSTEM_DEF(overlays)
 			if(!ispath(overlay))
 				var/image/I = overlay
 				appearance_bro.dir = I.dir
-			new_overlays += appearance_bro.appearance
-		ZM_AUTOMANGLE(new_overlays[new_overlays.len - 1])
+			new_overlay = appearance_bro.appearance
+		if(new_overlay)
+			new_overlays += new_overlay
+			ZM_AUTOMANGLE(new_overlay)
 	return new_overlays
 
 #define NOT_QUEUED_ALREADY (!(flags_1 & OVERLAY_QUEUED_1))
