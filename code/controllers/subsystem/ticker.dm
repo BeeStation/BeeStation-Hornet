@@ -447,7 +447,7 @@ SUBSYSTEM_DEF(ticker)
 							spare_id_candidates += N
 			SSjob.EquipRank(N, player.mind.get_job(), FALSE)
 			if(CONFIG_GET(flag/roundstart_traits) && ishuman(N.new_character))
-				SSquirks.AssignQuirks(N.new_character, N.client, TRUE)
+				SSquirks.AssignQuirks(player.mind, N.client, TRUE)
 		CHECK_TICK
 	if(length(spare_id_candidates))			//No captain, time to choose acting captain
 		if(!enforce_coc)
@@ -662,10 +662,6 @@ SUBSYSTEM_DEF(ticker)
 		GLOB.master_mode = "extended"
 	log_game("Master mode is '[GLOB.master_mode]'")
 	log_config("Master mode is '[GLOB.master_mode]'")
-
-/// Returns if either the master mode or the forced secret ruleset matches the mode name.
-/datum/controller/subsystem/ticker/proc/is_mode(mode_name)
-	return GLOB.master_mode == mode_name || GLOB.secret_force_mode == mode_name
 
 /datum/controller/subsystem/ticker/proc/SetRoundEndSound(the_sound)
 	set waitfor = FALSE

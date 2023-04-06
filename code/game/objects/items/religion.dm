@@ -299,6 +299,7 @@
 	icon_state = "godstaff-red"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
+	item_flags = ISWEAPON
 	var/conversion_color = "#ffffff"
 	var/staffcooldown = 0
 	var/staffwait = 30

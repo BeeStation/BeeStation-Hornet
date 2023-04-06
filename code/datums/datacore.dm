@@ -16,15 +16,60 @@
 	var/list/fields = list()
 
 /datum/data/record/Destroy()
-	if(src in GLOB.data_core.medical)
-		GLOB.data_core.medical -= src
-	if(src in GLOB.data_core.security)
-		GLOB.data_core.security -= src
-	if(src in GLOB.data_core.general)
-		GLOB.data_core.general -= src
-	if(src in GLOB.data_core.locked)
-		GLOB.data_core.locked -= src
+	GLOB.data_core.medical -= src
+	GLOB.data_core.security -= src
+	GLOB.data_core.general -= src
+	GLOB.data_core.locked -= src
 	. = ..()
+
+/// A helper proc to get the front photo of a character from the record.
+/// Handles calling `get_photo()`, read its documentation for more information.
+/datum/data/record/proc/get_front_photo()
+	return get_photo("photo_front", SOUTH)
+
+/// A helper proc to get the side photo of a character from the record.
+/// Handles calling `get_photo()`, read its documentation for more information.
+/datum/data/record/proc/get_side_photo()
+	return get_photo("photo_side", WEST)
+
+/**
+ * You shouldn't be calling this directly, use `get_front_photo()` or `get_side_photo()`
+ * instead.
+ *
+ * This is the proc that handles either fetching (if it was already generated before) or
+ * generating (if it wasn't) the specified photo from the specified record. This is only
+ * intended to be used by records that used to try to access `fields["photo_front"]` or
+ * `fields["photo_side"]`, and will return an empty icon if there isn't any of the necessary
+ * fields.
+ *
+ * Arguments:
+ * * field_name - The name of the key in the `fields` list, of the record itself.
+ * * orientation - The direction in which you want the character appearance to be rotated
+ * in the outputed photo.
+ *
+ * Returns an empty `/icon` if there was no `character_appearance` entry in the `fields` list,
+ * returns the generated/cached photo otherwise.
+ */
+/datum/data/record/proc/get_photo(field_name, orientation)
+	if(fields[field_name])
+		return fields[field_name]
+
+	if(!fields["character_appearance"])
+		return new /icon()
+
+	var/mutable_appearance/character_appearance = fields["character_appearance"]
+	character_appearance.setDir(orientation)
+
+	var/icon/picture_image = getFlatIcon(character_appearance)
+
+	var/datum/picture/picture = new
+	picture.picture_name = "[fields["name"]]"
+	picture.picture_desc = "This is [fields["name"]]."
+	picture.picture_image = picture_image
+
+	var/obj/item/photo/photo = new(null, picture)
+	fields[field_name] = photo
+	return photo
 
 /datum/data/crime
 	name = "crime"
@@ -130,7 +175,7 @@
 		if(N.new_character)
 			log_manifest(N.ckey,N.new_character.mind,N.new_character)
 		if(ishuman(N.new_character))
-			manifest_inject(N.new_character, N.client)
+			manifest_inject(N.new_character)
 		CHECK_TICK
 
 /datum/datacore/proc/manifest_modify(name, assignment, hudstate)
@@ -210,7 +255,7 @@
 	return dat
 
 
-/datum/datacore/proc/manifest_inject(mob/living/carbon/human/H, client/C)
+/datum/datacore/proc/manifest_inject(mob/living/carbon/human/H)
 	set waitfor = FALSE
 	var/static/list/show_directions = list(SOUTH, WEST)
 
@@ -354,17 +399,5 @@
 		security_records_out += list(crew_record)
 	return security_records_out
 
-/datum/datacore/proc/get_id_photo(mob/living/carbon/human/H, client/C, show_directions = list(SOUTH), humanoverride = FALSE)
-	var/job_holder = H.mind?.get_job()
-	var/datum/job/J
-	if(job_holder)
-		J = SSjob.GetJob(job_holder)
-	var/datum/character_save/CS
-	if(!C)
-		C = H.client
-	if(C)
-		CS = C.prefs.active_character
-		if(humanoverride)
-			CS.pref_species = new /datum/species/human
-			H.copy_features(CS)
-	return get_flat_human_icon(null, J, CS, DUMMY_HUMAN_SLOT_MANIFEST, show_directions)
+/datum/datacore/proc/get_id_photo(mob/living/carbon/human/human, show_directions = list(SOUTH))
+	return get_flat_existing_human_icon(human, show_directions)

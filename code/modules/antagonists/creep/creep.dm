@@ -55,11 +55,7 @@
 	kill.set_target(obsessionmind)
 	var/datum/quirk/family_heirloom/family_heirloom
 
-	for(var/datum/quirk/quirky in obsessionmind.current.roundstart_quirks)
-		if(istype(quirky, /datum/quirk/family_heirloom))
-			family_heirloom = quirky
-			break
-	if(family_heirloom)//oh, they have an heirloom? Well you know we have to steal that.
+	if(obsessionmind.has_quirk(family_heirloom))//oh, they have an heirloom? Well you know we have to steal that.
 		objectives_left += "heirloom"
 
 	if(obsessionmind.get_display_station_role() && !obsessionmind.has_job(JOB_KEY_CAPTAIN))
