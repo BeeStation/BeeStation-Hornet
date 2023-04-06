@@ -21,6 +21,7 @@
 		for (var/turf/T in src)
 			if (IS_DYNAMIC_LIGHTING(T))
 				T.lighting_build_overlay()
+			T.update_above()
 
 	else
 		if(lighting_overlay)
@@ -30,6 +31,7 @@
 		for (var/turf/T in src)
 			if (T.lighting_object)
 				T.lighting_clear_overlay()
+			T.update_above()
 
 	return TRUE
 

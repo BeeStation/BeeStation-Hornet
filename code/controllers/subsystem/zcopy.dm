@@ -290,6 +290,11 @@ SUBSYSTEM_DEF(zcopy)
 			T.opacity = FALSE
 			//T.underlays = underlay_copy
 			T.plane = t_target
+			var/area/A = T.loc
+			if(!IS_DYNAMIC_LIGHTING(A))
+				T.shadower.icon_state = "transparent"
+			else
+				T.shadower.icon_state = "dark"
 		else
 			// Some openturfs have icons, so we can't overwrite their appearance.
 			if (!T.below.mimic_proxy)
