@@ -115,8 +115,7 @@
 
 /datum/quirk/multilingual/proc/set_up_language()
 	var/datum/language_holder/LH = quirk_holder.get_language_holder()
-	var/mob/living/carbon/human/H = quirk_holder
-	if(H?.mind.has_job(JOB_KEY_CURATOR))
+	if(quirk_holder?.has_job(JOB_KEY_CURATOR))
 		return
 	var/obj/item/organ/tongue/T = quirk_target.getorganslot(ORGAN_SLOT_TONGUE)
 	var/list/languages_possible = T.languages_possible

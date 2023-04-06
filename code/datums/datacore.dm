@@ -270,19 +270,9 @@
 
 	var/static/record_id_num = 1001
 	var/id = num2hex(record_id_num++,6)
-	if(!C)
-		C = H.client
-	var/image = get_id_photo(H, C, show_directions)
-	var/datum/picture/pf = new
-	var/datum/picture/ps = new
-	pf.picture_name = "[H]"
-	ps.picture_name = "[H]"
-	pf.picture_desc = "This is [H]."
-	ps.picture_desc = "This is [H]."
-	pf.picture_image = icon(image, dir = SOUTH)
-	ps.picture_image = icon(image, dir = WEST)
-	var/obj/item/photo/photo_front = new(null, pf)
-	var/obj/item/photo/photo_side = new(null, ps)
+	// We need to compile the overlays now, otherwise we're basically copying an empty icon.
+	COMPILE_OVERLAYS(H)
+	var/mutable_appearance/character_appearance = new(H.appearance)
 
 	//These records should ~really~ be merged or something
 	//General Record
@@ -302,8 +292,8 @@
 			G.fields["gender"] = capitalize(H.gender)
 		if(PLURAL)
 			G.fields["gender"] = "Other"
-	G.fields["photo_front"]	= photo_front
-	G.fields["photo_side"]	= photo_side
+	G.fields["character_appearance"] = character_appearance
+
 	general += G
 
 	//Medical Record
@@ -349,7 +339,7 @@
 	L.fields["identity"]	= H.dna.uni_identity
 	L.fields["species"]		= H.dna.species.type
 	L.fields["features"]	= H.dna.features
-	L.fields["image"]		= image
+	L.fields["character_appearance"] = character_appearance
 	L.fields["mindref"]		= H.mind
 	locked += L
 	return

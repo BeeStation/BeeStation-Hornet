@@ -137,7 +137,7 @@
 	if(is_species(H, /datum/species/moth) && prob(50))
 		heirloom_type = /obj/item/flashlight/lantern/heirloom_moth
 	else
-		switch(quirk_holder.mind.get_job())
+		switch(quirk_holder.get_job())
 			//Service jobs
 			if(JOB_KEY_CLOWN)
 				heirloom_type = /obj/item/bikehorn/golden
@@ -265,18 +265,18 @@
 	medical_record_text = "Patient does not speak Galactic Common and may require an interpreter."
 
 /datum/quirk/foreigner/add()
-	var/mob/living/carbon/human/H = quirk_holder
-	if(H.mind.has_job(JOB_KEY_CURATOR)) // early return for curator type gimmick jobs
+	var/mob/living/carbon/human/H = quirk_target
+	if(quirk_holder.has_job(JOB_KEY_CURATOR)) // early return for curator type gimmick jobs
 		return
-		H.add_blocked_language(/datum/language/common)
-		H.grant_language(/datum/language/uncommon)
+	H.add_blocked_language(/datum/language/common)
+	H.grant_language(/datum/language/uncommon)
 
 /datum/quirk/foreigner/remove()
-	var/mob/living/carbon/human/H = quirk_holder
-	if(H.mind.has_job(JOB_KEY_CURATOR)) // early return for curator type gimmick jobs
+	var/mob/living/carbon/human/H = quirk_target
+	if(quirk_holder.has_job(JOB_KEY_CURATOR)) // early return for curator type gimmick jobs
 		return
-		H.remove_blocked_language(/datum/language/common)
-		H.remove_language(/datum/language/uncommon)
+	H.remove_blocked_language(/datum/language/common)
+	H.remove_language(/datum/language/uncommon)
 
 /datum/quirk/heavy_sleeper
 	name = "Heavy Sleeper"
@@ -464,7 +464,7 @@
 	quirk_target.hallucination += rand(10, 25)
 
 /datum/quirk/insanity/post_spawn() //I don't /think/ we'll need this but for newbies who think "roleplay as insane" = "license to kill" it's probably a good thing to have
-	if(quirk_holder.mind?.get_special_role())
+	if(quirk_holder?.get_special_role())
 		return
 	to_chat(quirk_target, "<span class='big bold info'>Please note that your dissociation syndrome does NOT give you the right to attack people or otherwise cause any interference to \
 	the round. You are not an antagonist, and the rules will treat you the same as other crewmembers.</span>")
