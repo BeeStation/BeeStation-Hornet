@@ -23,6 +23,7 @@
 	if(changed)
 		animate(src, transform = ntransform, time = (lying_prev == 0 || !lying) ? 2 : 0, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
 		setMovetype(movement_type & ~FLOATING)  // If we were without gravity, the bouncing animation got stopped, so we make sure we restart it in next life().
+	UPDATE_OO_IF_PRESENT
 
 /mob/living/carbon
 	var/list/overlays_standing[TOTAL_LAYERS]
@@ -160,7 +161,7 @@
 	if(head)
 		overlays_standing[HEAD_LAYER] = head.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head.dmi')
 		update_hud_head(head)
-		
+
 	apply_overlay(HEAD_LAYER)
 
 /mob/living/carbon/update_inv_handcuffed()

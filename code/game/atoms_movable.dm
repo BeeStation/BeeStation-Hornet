@@ -79,6 +79,9 @@
 		stop_pulling()
 	if(light_system == MOVABLE_LIGHT)
 		AddComponent(/datum/component/overlay_lighting)
+	if(isturf(loc))
+		var/turf/T = loc
+		T.update_above() // Z-Mimic
 
 
 /atom/movable/proc/update_emissive_block()
@@ -472,9 +475,8 @@
 
 	// Z-Mimic hook
 	if (bound_overlay)
-		var/turf/new_turf = get_turf(src)
 		// The overlay will handle cleaning itself up on non-openspace turfs.
-		if (istype(new_turf))
+		if (isturf(loc))
 			bound_overlay.forceMove(get_step(src, UP))
 			if (bound_overlay && dir != bound_overlay.dir)
 				bound_overlay.setDir(dir)
@@ -486,6 +488,8 @@
 /atom/movable/Destroy(force)
 	QDEL_NULL(proximity_monitor)
 	QDEL_NULL(language_holder)
+	if(bound_overlay)
+		QDEL_NULL(bound_overlay)
 
 	unbuckle_all_mobs(force=1)
 
@@ -511,9 +515,6 @@
 		if(!QDELETED(move_packet))
 			qdel(move_packet)
 		move_packet = null
-
-	if (bound_overlay)
-		QDEL_NULL(bound_overlay)
 
 	LAZYCLEARLIST(important_recursive_contents)
 

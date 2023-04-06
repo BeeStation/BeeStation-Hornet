@@ -14,6 +14,7 @@
 	light_range = 1
 	light_power = 0.5
 	light_on = TRUE
+	zmm_flags = ZMM_MANGLE_PLANES
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
 	var/clockwork = FALSE

@@ -199,10 +199,20 @@
 	animate(src, 0.3 SECONDS, pixel_y = 16, transform = matrix() * 0.9, easing = QUAD_EASING)
 	sleep(0.3 SECONDS)
 	animate(src, 0.1 SECONDS, pixel_y = 0, transform = matrix(), easing = QUAD_EASING)
+	// Z-Mimic: copy jump animation
+	for(var/atom/movable/bound_overlay as anything in get_associated_mimics()
+		do_jump_animation(bound_overlay)
+
+/proc/do_jump_animation(atom/target)
+	set waitfor = 0
+	animate(target, 0.3 SECONDS, pixel_y = 16, transform = matrix() * 0.9, easing = QUAD_EASING)
+	sleep(0.3 SECONDS)
+	animate(target, 0.1 SECONDS, pixel_y = 0, transform = matrix(), easing = QUAD_EASING)
 
 /mob/living/carbon/do_jump_animation()
 	..()
 	reset_lying_transform()
+	UPDATE_OO_IF_PRESENT
 
 /mob/living/carbon/proc/reset_lying_transform()
 	var/lying_prev_temp = lying_prev

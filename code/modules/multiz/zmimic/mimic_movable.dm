@@ -104,8 +104,8 @@
 
 /atom/movable/openspace/multiplier/proc/copy_lighting(atom/movable/lighting_object/LO)
 	ASSERT(LO != null)
-	// Underlay lighting stuff, if it gets ported
-	//appearance = LO.current_underlay
+	// Underlay lighting stuff, if it gets ported: appearance = LO.current_underlay
+	appearance = LO
 	layer = MIMICKED_LIGHTING_LAYER
 	plane = ZMIMIC_MAX_PLANE
 	blend_mode = BLEND_MULTIPLY

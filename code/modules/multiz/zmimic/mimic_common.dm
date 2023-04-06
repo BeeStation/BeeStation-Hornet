@@ -15,6 +15,7 @@
 	if(above)
 		update_above()
 
-/atom/movable/update_appearance(updates)
+/turf/update_icon(updates)
 	. = ..()
-	UPDATE_OO_IF_PRESENT
+	if(above)
+		update_above()

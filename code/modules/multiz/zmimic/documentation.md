@@ -21,7 +21,7 @@
 
 -   TURF_IS_MIMICKING(turf or any)
     -   value: bool - if the passed turf is z-mimic enabled
--   movable/get_above_oo()
+-   movable/get_associated_mimics()
     -   return: list of movables
     -   get a list of every openspace mimic that's copying this atom for things like animate()
 
@@ -40,14 +40,18 @@
 
 -   turf/z_flags
     -   bitfield
-        -   ZM_MIMIC_BELOW: copy below atoms
-        -   ZM_MIMIC_OVERWRITE: z-mimic can overwrite this turf's appearance
-        -   ZM_ALLOW_LIGHTING: lighting should pass through this turf
-        -   ZM_NO_OCCLUDE: don't block clicking on below atoms if not OVERWRITE
+        -   Z_MIMIC_BELOW: Should this turf mimic the below turf?
+        -   Z_MIMIC_OVERWRITE: If this turf is mimicking, overwrite its appearance instead of using a mimic object. This is faster, but means the turf cannot have its own appearance.
+        -   Z_MIMIC_NO_AO: Bypass turf AO and only apply Z-AO. You probably want this on visually-empty z-turfs (like openspace).
+        -   Z_MIMIC_NO_OCCLUDE: If we're a non-OVERWRITE z-turf, allow clickthrough of this turf.
+        -   Z_MIMIC_BASETURF: Fake-copy baseturf instead of below turf.
 -   atom/movable/z_flags
     -   bitfield
         -   ZMM_IGNORE: Do not copy this atom. Atoms with INVISIBILITY_ABSTRACT are automatically not copied.
         -   ZMM_MANGLE_PLANES: Scan this atom's overlays and monkeypatch explicit plane sets. Fixes emissive overlays shining through floors, but expensive -- use only if necessary.
+        -   ZMM_LOOKAHEAD: Look one turf ahead and one turf back when considering z-turfs that might be seeing this atom. Respects dir. Cheap, but not free.
+        -   ZMM_LOOKBESIDE: Look one turf to the left and right when considering z-turfs that might be seeing this atom. Respects dir. Cheap, but not free.
+        -   ZMM_AUTOMANGLE: Behaves the same as ZMM_MANGLE_PLANES, but is automatically applied by SSoverlays. Do not manually use.
 
 # Implementation details
 

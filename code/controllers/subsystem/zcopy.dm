@@ -321,16 +321,15 @@ SUBSYSTEM_DEF(zcopy)
 		else if (T.below.mimic_above_copy)
 			QDEL_NULL(T.below.mimic_above_copy)
 
-		// Handle below atoms.
-
-		if (T.below.lighting_object)
-			T.shadower.copy_lighting(T.below.lighting_object)
-
 		// Add everything below us to the update queue.
 		for (var/thing in T.below)
 			var/atom/movable/object = thing
 			if (QDELETED(object) || (object.zmm_flags & ZMM_IGNORE) || object.loc != T.below || object.invisibility == INVISIBILITY_ABSTRACT)
 				// Don't queue deleted stuff, stuff that's not visible, blacklisted stuff, or stuff that's centered on another tile but intersects ours.
+				continue
+
+			if(istype(object, /atom/movable/lighting_object))
+				T.shadower.copy_lighting(T.below.lighting_object)
 				continue
 
 			if (!object.bound_overlay)	// Generate a new overlay if the atom doesn't already have one.
@@ -449,7 +448,7 @@ SUBSYSTEM_DEF(zcopy)
 		OO.queued = 0
 
 		// If an atom has explicit plane sets on its overlays/underlays, we need to replace the appearance so they can be mangled to work with our planing.
-		if (OO.zmm_flags & ZMM_MANGLE_PLANES)
+		if (OO.zmm_flags & (ZMM_MANGLE_PLANES | ZMM_AUTOMANGLE))
 			var/new_appearance = fixup_appearance_planes(OO.appearance)
 			if (new_appearance)
 				OO.appearance = new_appearance
@@ -667,14 +666,15 @@ var/list/zmimic_fixed_planes = list(
 	for (var/atom/movable/openspace/O in T)
 		found_oo += O
 
-	if (T.shadower.overlays.len)
-		for (var/overlay in T.shadower.overlays)
-			var/atom/movable/openspace/debug/D = new
-			D.appearance = overlay
-			if (D.plane < -10000)	// FLOAT_PLANE
-				D.plane = T.shadower.plane
-			found_oo += D
-			temp_objects += D
+	if(T.shadower)
+		if (T.shadower.overlays.len)
+			for (var/overlay in T.shadower.overlays)
+				var/atom/movable/openspace/debug/D = new
+				D.appearance = overlay
+				if (D.plane < -10000)	// FLOAT_PLANE
+					D.plane = T.shadower.plane
+				found_oo += D
+				temp_objects += D
 
 	sortTim(found_oo, /proc/cmp_atom_layer_asc)
 
