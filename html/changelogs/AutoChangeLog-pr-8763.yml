@@ -1,7 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - server: OOC Discord is now handled via direct RUSTG webhook calls, rather than
-      a proxy server.
-  - bugfix: OOC Roundend messages will no longer send out of order.
-  - bugfix: OOC messages will no longer send apostrophes as `&#39;` and <> as `&lt;&gt;`
