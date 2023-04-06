@@ -1164,7 +1164,7 @@
 	if(!T || timer > world.time)
 		return
 	calculate_anger_mod(user)
-	timer = world.time + cooldown_time
+	timer = world.time + CLICK_CD_MELEE //by default, melee attacks only cause melee blasts, and have an accordingly short cooldown
 	if(proximity_flag)
 		INVOKE_ASYNC(src, PROC_REF(aoe_burst), T, user, power)
 		log_combat(user, target, "fired 3x3 blast at", src)
