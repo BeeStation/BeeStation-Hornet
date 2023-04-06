@@ -1,9 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - tweak: Pacifists now always non-harmfully poke people instead of being unable
-      to hit others at all
-  - tweak: Non-weapon items now non-harmfully poke the living things you click on
-      help intent
-  - rscadd: added a line of text to the description of items that will poke people
-      on help intent

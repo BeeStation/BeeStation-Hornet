@@ -1,4 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - admin: Game Panel will now properly allow you to inject dynamic midrounds.
