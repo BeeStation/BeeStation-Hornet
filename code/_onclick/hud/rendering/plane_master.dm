@@ -39,13 +39,9 @@
 
 /atom/movable/screen/plane_master/floor/backdrop(mob/mymob)
 	. = ..()
-	remove_filter("first_stage_openspace")
-	remove_filter("second_stage_openspace")
-	remove_filter("third_stage_openspace")
+	remove_filter("openspace_shadow")
 	if(istype(mymob) && (mymob.client?.prefs?.toggles2 & PREFTOGGLE_2_AMBIENT_OCCLUSION))
-		add_filter("first_stage_openspace", 1, drop_shadow_filter(color = "#04080FAA", size = 10))
-		add_filter("second_stage_openspace", 2, drop_shadow_filter(color = "#04080FAA", size = 15))
-		add_filter("third_stage_openspace", 3, drop_shadow_filter(color = "#04080FAA", size = 20))
+		add_filter("openspace_shadow", 1, drop_shadow_filter(color = "#04080FAA", size = 10))
 
 ///Contains most things in the game world
 /atom/movable/screen/plane_master/game_world
