@@ -299,8 +299,8 @@
 			R.flash_act(affect_silicon = 1, type = /atom/movable/screen/fullscreen/flash/static)
 			user.visible_message("<span class='disarm'>[user] overloads [R]'s sensors with the flash!</span>", "<span class='danger'>You overload [R]'s sensors with the flash!</span>")
 		else
-			user.visible_message("<span class='disarm'>[user] attempts to overload [R]'s sensors with the flash, but it has no effect!</span>", "<span class='danger'>You attempt to overload [R]'s sensors with the flash, but they have already been overloaded recently!</span>")
-			return FALSE
+			R.flash_act(affect_silicon = 1, type = /atom/movable/screen/fullscreen/flash/static)
+			user.visible_message("<span class='disarm'>[user] attempts to overload [R]'s sensors with the flash, but it doesn't seem to work!</span>", "<span class='danger'>You attempt to overload [R]'s sensors with the flash, but they have already been overloaded recently!</span>")
 		return TRUE
 
 	user.visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>", "<span class='warning'>You fail to blind [M] with the flash!</span>")
