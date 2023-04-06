@@ -594,7 +594,7 @@
 /datum/spellbook_entry/summon/magical_access
 	name = "Advent Ritual of Saint Anarchismea"
 	desc = "Summons the spirit of Saint Anarchismea's onto the station. Access requirement of all electronic devices \
-		on the station will be bypassed magically, and all ID cards will be blessed with unlimited freedom of passage."
+		on the station will be bypassed magically, and you and all ID cards will be blessed with unlimited freedom of passage."
 	cost = 2
 	ritual_invocation = "ALADAL DESINARI ODORI'IN IDO'LEX IVLAROYE VOR ANARCHIDMEA OVOR'E SJIENYLE"
 
@@ -604,8 +604,8 @@
 
 	to_chat(user, "<span class='notice'>You have summoned Saint Anarcismea!</span>")
 	playsound(user, 'sound/magic/forcewall.ogg', 50, 1)
-	message_admins("[ADMIN_LOOKUPFLW(user)] cast 'Advent Ritual of Saint Anarchismea' and everyone gets AA from now.")
-	log_game("[key_name(user)] cast 'Advent Ritual of Saint Anarchismea' and everyone gets AA from now.")
+	message_admins("[ADMIN_LOOKUPFLW(user)] cast 'Advent Ritual of Saint Anarchismea' and everyone gets AA from now, and will not be cuffed.")
+	log_game("[key_name(user)] cast 'Advent Ritual of Saint Anarchismea' and everyone gets AA from now, and will not be cuffed.")
 	GLOB.magical_access = TRUE
 	trigger()
 
