@@ -612,7 +612,6 @@
 	return TRUE
 
 /datum/spellbook_entry/summon/magical_access/proc/trigger()
-	set waitfor = 0 // we don't want this to be a source of lag
 	for(var/obj/item/card/id/I in GLOB.id_cards)
 		I.grant_magical_access()
 	for(var/mob/living/H in GLOB.player_list)

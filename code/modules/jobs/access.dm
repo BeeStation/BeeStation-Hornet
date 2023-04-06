@@ -106,14 +106,6 @@
 			continue
 		if(GLOB.antimagical_accesses["[each_req]"])
 			return TRUE
-	if(istype(src, /obj/mecha))
-		var/obj/mecha/mech = src
-		for(var/each_req in mech.operation_req_access)
-			if(!each_req)
-				continue
-			if(GLOB.antimagical_accesses["[each_req]"])
-				return TRUE
-
 /*
  * Checks if this packet can access this device
  *
