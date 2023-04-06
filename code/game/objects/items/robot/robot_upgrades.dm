@@ -1,5 +1,5 @@
-#define STANDARD "standard"
-#define CRITICAL "critical"
+#define STANDARD "standard" //repair module is operating in standard repair mode
+#define CRITICAL "critical" //repair module is operating in critical repair mode
 
 // robot_upgrades.dm
 // Contains various borg upgrades.
