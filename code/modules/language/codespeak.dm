@@ -35,6 +35,7 @@
 	desc = "The book's cover reads: \"Codespeak(tm) - Secure your communication with metaphors so elaborate, they seem randomly generated!\""
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book2"
+	item_flags = ISWEAPON
 	var/charges = 1
 
 /obj/item/codespeak_manual/attack_self(mob/living/user)
