@@ -1,9 +1,8 @@
 #define TRANSFORMATION_DURATION 22
 
-/mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), skip_animation = FALSE)
+/mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), skip_animation = FALSE, original_species = /datum/species/human)
 	if (notransform || transformation_timer)
 		return
-
 	var/list/stored_implants = list()
 
 	if (tr_flags & TR_KEEPIMPLANTS)
@@ -50,6 +49,11 @@
 	O.set_species(/datum/species/monkey)
 	O.dna.set_se(TRUE, GET_INITIALIZED_MUTATION(RACEMUT))
 	O.updateappearance(icon_update=0)
+
+	//store original species
+	for(var/datum/mutation/race/M in O.dna.mutations)
+		M.original_species = original_species
+		break //Can't be more than one monkified in a DNA set so, no need to continue the loop
 
 	if(suiciding)
 		O.set_suicide(suiciding)
@@ -304,7 +308,7 @@
 //////////////////////////           Humanize               //////////////////////////////
 //Could probably be merged with monkeyize but other transformations got their own procs, too
 
-/mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI))
+/mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), original_species = /datum/species/human)
 	if (notransform || transformation_timer)
 		return
 
@@ -348,7 +352,6 @@
 		if(C.anchored)
 			continue
 		O.equip_to_appropriate_slot(C)
-
 	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
 	O.dna.set_se(FALSE, GET_INITIALIZED_MUTATION(RACEMUT))
 	//Reset offsets to match human settings, in-case they have been changed
@@ -449,12 +452,12 @@
 	if(O.dna.species && !istype(O.dna.species, /datum/species/monkey))
 		O.set_species(O.dna.species)
 	else
-		O.set_species(/datum/species/human)
+		O.set_species(original_species)
 
 
 	O.a_intent = INTENT_HELP
 	if (tr_flags & TR_DEFAULTMSG)
-		to_chat(O, "<B>You are now a human.</B>")
+		to_chat(O, "<B>You are now \a [original_species].</B>")
 
 	transfer_observers_to(O)
 
@@ -581,7 +584,7 @@
 	if(reproduce)
 		var/number = pick(14;2,3,4)	//reproduce (has a small chance of producing 3 or 4 offspring)
 		var/list/babies = list()
-		for(var/i=1,i<=number,i++)
+		for(var/i in 1 to number)
 			var/mob/living/simple_animal/slime/M = new/mob/living/simple_animal/slime(loc)
 			M.set_nutrition(round(nutrition/number))
 			step_away(M,src)
@@ -646,7 +649,7 @@
 /mob/living/carbon/human/Animalize()
 
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
-	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in sortList(mobtypes, /proc/cmp_typepaths_asc)
+	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in sort_list(mobtypes, GLOBAL_PROC_REF(cmp_typepaths_asc))
 
 	if(!mobpath)
 		to_chat(usr, "<span class='danger'>Sorry but this mob type is currently unavailable.</span>")
@@ -667,7 +670,7 @@
 
 /mob/proc/Animalize()
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
-	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in sortList(mobtypes, /proc/cmp_typepaths_asc)
+	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in sort_list(mobtypes, GLOBAL_PROC_REF(cmp_typepaths_asc))
 
 	if(!mobpath)
 		to_chat(usr, "<span class='danger'>Sorry but this mob type is currently unavailable.</span>")

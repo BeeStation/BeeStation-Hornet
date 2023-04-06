@@ -127,7 +127,7 @@ All foods are distributed among various categories. Use common sense.
 										"<span class='warning'>[user] cannot force any more of [src] down your throat!</span>")
 					return FALSE
 
-				if(!do_mob(user, M))
+				if(!do_after(user, target = M))
 					return
 				log_combat(user, M, "fed", reagents.log_list())
 				M.visible_message("<span class='danger'>[user] forces [M] to eat [src]!</span>", \
@@ -144,7 +144,7 @@ All foods are distributed among various categories. Use common sense.
 			if(reagents.total_volume)
 				SEND_SIGNAL(src, COMSIG_FOOD_EATEN, M, user)
 				var/fraction = min(bitesize / reagents.total_volume, 1)
-				reagents.expose(M, INGEST, fraction)
+				reagents.reaction(M, INGEST, fraction)
 				reagents.trans_to(M, bitesize, transfered_by = user)
 				bitecount++
 				On_Consume(M)

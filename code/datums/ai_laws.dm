@@ -296,7 +296,7 @@
 	var/datum/ai_laws/lawtype
 	var/list/law_weights = CONFIG_GET(keyed_list/law_weight)
 	while(!lawtype && law_weights.len)
-		var/possible_id = pickweightAllowZero(law_weights)
+		var/possible_id = pick_weight_allow_zero(law_weights)
 		lawtype = lawid_to_type(possible_id)
 		if(!lawtype)
 			law_weights -= possible_id
@@ -325,7 +325,7 @@
 	if(inherent.len && (LAW_INHERENT in groups))
 		law_amount += inherent.len
 	if(supplied.len && (LAW_SUPPLIED in groups))
-		for(var/index = 1, index <= supplied.len, index++)
+		for(var/index in 1 to supplied.len)
 			var/law = supplied[index]
 			if(length(law) > 0)
 				law_amount++
@@ -374,7 +374,7 @@
 		replaceable_groups[LAW_INHERENT] = inherent.len
 	if(supplied.len && (LAW_SUPPLIED in groups))
 		replaceable_groups[LAW_SUPPLIED] = supplied.len
-	var/picked_group = pickweight(replaceable_groups)
+	var/picked_group = pick_weight(replaceable_groups)
 	switch(picked_group)
 		if(LAW_ZEROTH)
 			. = zeroth
@@ -410,13 +410,13 @@
 				laws += law
 
 	if(ion.len && (LAW_ION in groups))
-		for(var/i = 1, i <= ion.len, i++)
+		for(var/i in 1 to ion.len)
 			ion[i] = pick_n_take(laws)
 	if(hacked.len && (LAW_HACKED in groups))
-		for(var/i = 1, i <= hacked.len, i++)
+		for(var/i in 1 to hacked.len)
 			hacked[i] = pick_n_take(laws)
 	if(inherent.len && (LAW_INHERENT in groups))
-		for(var/i = 1, i <= inherent.len, i++)
+		for(var/i in 1 to inherent.len)
 			inherent[i] = pick_n_take(laws)
 	if(supplied.len && (LAW_SUPPLIED in groups))
 		var/i = 1
@@ -435,7 +435,7 @@
 		inherent -= .
 		return
 	var/list/supplied_laws = list()
-	for(var/index = 1, index <= supplied.len, index++)
+	for(var/index in 1 to supplied.len)
 		var/law = supplied[index]
 		if(length(law) > 0)
 			supplied_laws += index //storing the law number instead of the law

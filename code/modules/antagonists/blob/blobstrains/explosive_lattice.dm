@@ -12,9 +12,9 @@
 	reagent = /datum/reagent/blob/explosive_lattice
 
 /datum/blobstrain/reagent/explosive_lattice/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag)
-	if(damage_flag == "bomb")
+	if(damage_flag == BOMB)
 		return 0
-	else if(damage_flag != "melee" && damage_flag != "bullet" && damage_flag != "laser")
+	else if(damage_flag != MELEE && damage_flag != BULLET && damage_flag != LASER)
 		return damage * 1.5
 	return ..()
 
@@ -24,7 +24,7 @@
 	color = "#8B2500"
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 
-/datum/reagent/blob/explosive_lattice/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
+/datum/reagent/blob/explosive_lattice/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
 	var/initial_volume = reac_volume
 	reac_volume = ..()
 	if(reac_volume >= 10) //if it's not a spore cloud, bad time incoming

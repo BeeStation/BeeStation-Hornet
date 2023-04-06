@@ -4,25 +4,33 @@
 	name = "technology fabricator"
 	desc = "Makes researched and prototype items with materials and energy."
 	layer = BELOW_OBJ_LAYER
-	var/consoleless_interface = FALSE			//Whether it can be used without a console.
-	var/efficiency_coeff = 1				//Materials needed / coeff = actual.
+	/// Whether it can be used without a console.
+	var/consoleless_interface = FALSE
+	/// Used for material distribution among other things.
+	var/efficiency_coeff = 1
 	var/list/categories = list()
 	var/datum/component/remote_materials/materials
 	var/allowed_department_flags = ALL
-	var/production_animation				//What's flick()'d on print.
+	/// What's flick()'d on print.
+	var/production_animation
 	var/allowed_buildtypes = NONE
 	var/list/datum/design/cached_designs
 	var/list/datum/design/matching_designs
-	var/department_tag = "Unidentified"			//used for material distribution among other things.
+	/// Used for material distribution among other things.
+	var/department_tag = "Unidentified"
 	var/datum/techweb/stored_research
 	var/datum/techweb/host_research
 
 	var/search = null
 	var/selected_category = null
 
+	/// What color is this machine's stripe? Leave null to not have a stripe.
+	var/stripe_color = null
+
 	var/list/mob/viewing_mobs = list()
 
-	var/list/pending_research = list()  // only for examination
+	/// Only used for storing pending research for examine()
+	var/list/pending_research = list()
 
 /obj/machinery/rnd/production/Initialize(mapload)
 	. = ..()
@@ -34,9 +42,9 @@
 	update_research()
 	materials = AddComponent(/datum/component/remote_materials, "lathe", mapload)
 	RefreshParts()
-	RegisterSignal(src, COMSIG_MATERIAL_CONTAINER_CHANGED, .proc/on_materials_changed)
-	RegisterSignal(src, COMSIG_REMOTE_MATERIALS_CHANGED, .proc/on_materials_changed)
-	RegisterSignal(SSdcs, COMSIG_GLOB_NEW_RESEARCH, .proc/alert_research)
+	RegisterSignal(src, COMSIG_MATERIAL_CONTAINER_CHANGED, PROC_REF(on_materials_changed))
+	RegisterSignal(src, COMSIG_REMOTE_MATERIALS_CHANGED, PROC_REF(on_materials_changed))
+	RegisterSignal(SSdcs, COMSIG_GLOB_NEW_RESEARCH, PROC_REF(alert_research))
 
 /obj/machinery/rnd/production/Destroy()
 	materials = null
@@ -57,9 +65,23 @@
 			displayed += "..."
 		. += displayed.Join("\n")
 
+// Stuff for the stripe on the department machines
+/obj/machinery/rnd/production/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/screwdriver)
+	. = ..()
+	update_icon()
+
 /obj/machinery/rnd/production/update_icon()
 	. = ..()
 	cut_overlays()
+	if(stripe_color)
+		var/mutable_appearance/stripe = mutable_appearance('icons/obj/machines/research.dmi', "protolate_stripe")
+		stripe.color = stripe_color
+		if(!panel_open)
+			cut_overlays()
+			stripe.icon_state = "protolathe_stripe"
+		else
+			stripe.icon_state = "protolathe_stripe_t"
+		add_overlay(stripe)
 	if(length(pending_research))
 		add_overlay("lathe-research")
 
@@ -349,8 +371,8 @@
 	if(production_animation)
 		flick(production_animation, src)
 	var/timecoeff = D.lathe_time_factor / efficiency_coeff
-	addtimer(CALLBACK(src, .proc/reset_busy), (30 * timecoeff * amount) ** 0.5)
-	addtimer(CALLBACK(src, .proc/do_print, D.build_path, amount, efficient_mats, D.dangerous_construction), (32 * timecoeff * amount) ** 0.8)
+	addtimer(CALLBACK(src, PROC_REF(reset_busy)), (30 * timecoeff * amount) ** 0.5)
+	addtimer(CALLBACK(src, PROC_REF(do_print), D.build_path, amount, efficient_mats, D.dangerous_construction), (32 * timecoeff * amount) ** 0.8)
 	return TRUE
 
 /obj/machinery/rnd/production/proc/eject_sheets(eject_sheet, eject_amt)
@@ -370,5 +392,6 @@
 /obj/machinery/rnd/production/reset_busy()
 	. = ..()
 	SStgui.update_uis(src)
+
 
 #undef MAX_SENT

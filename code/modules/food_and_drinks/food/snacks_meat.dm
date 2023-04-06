@@ -33,7 +33,7 @@
 	name = "imitation carp fillet"
 	desc = "Almost just like the real thing, kinda."
 
-/obj/item/reagent_containers/food/snacks/carpmeat/icantbeliveitsnotcarp
+/obj/item/reagent_containers/food/snacks/carpmeat/icantbelieveitsnotcarp
 	name = "fish fillet"
 	desc = "A fillet of unspecified fish meat."
 	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 2) //No carpotoxin

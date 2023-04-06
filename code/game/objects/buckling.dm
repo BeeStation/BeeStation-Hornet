@@ -14,7 +14,7 @@
 		return
 	if(can_buckle && has_buckled_mobs())
 		if(buckled_mobs.len > 1)
-			var/unbuckled = input(user, "Who do you wish to unbuckle?","Unbuckle Who?") as null|mob in sortNames(buckled_mobs)
+			var/unbuckled = input(user, "Who do you wish to unbuckle?","Unbuckle Who?") as null|mob in sort_names(buckled_mobs)
 			if(user_unbuckle_mob(unbuckled,user))
 				return 1
 		else
@@ -202,7 +202,7 @@
 		M.visible_message("<span class='warning'>[user] starts buckling [M] to [src]!</span>",\
 			"<span class='userdanger'>[user] starts buckling you to [src]!</span>",\
 			"<span class='hear'>You hear metal clanking.</span>")
-		if(!do_after(user, 2 SECONDS, TRUE, M))
+		if(!do_after(user, 2 SECONDS, M))
 			return FALSE
 
 		// Sanity check before we attempt to buckle. Is everything still in a kosher state for buckling after the 3 seconds have elapsed?

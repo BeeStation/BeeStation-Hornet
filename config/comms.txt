@@ -6,8 +6,8 @@
 ## playing - get count of currently ingame players
 ## announce - announce PR open/close to the server
 ## ahelp - manage tickets for the current round
-## comms_console - allows for incomming IC messages (cross-server)
-## news_report - allows for incomming IC news reports (cross-server)
+## comms_console - allows for incoming IC messages (cross-server)
+## news_report - allows for incoming IC news reports (cross-server)
 ## adminmsg - send an admin PM to key
 ## namecheck - search for matching connected players
 ## adminwho - get active admins

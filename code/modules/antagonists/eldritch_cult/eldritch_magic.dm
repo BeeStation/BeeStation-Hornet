@@ -93,7 +93,7 @@
 	var/A = get_turf(user)
 	to_chat(user, "<span class='danger'>You start drawing a rune...</span>")
 
-	if(do_after(user,30 SECONDS,FALSE,A))
+	if(do_after(user, 30 SECONDS, A, timed_action_flags = IGNORE_HELD_ITEM))
 		new /obj/effect/eldritch/big(A)
 
 ///Removes runes from the selected turf
@@ -294,15 +294,15 @@
 	for(var/X in targets)
 		var/T
 		T = line_target(-25, range, X, user)
-		INVOKE_ASYNC(src, .proc/fire_line, user,T)
+		INVOKE_ASYNC(src, PROC_REF(fire_line), user,T)
 		T = line_target(10, range, X, user)
-		INVOKE_ASYNC(src, .proc/fire_line, user,T)
+		INVOKE_ASYNC(src, PROC_REF(fire_line), user,T)
 		T = line_target(0, range, X, user)
-		INVOKE_ASYNC(src, .proc/fire_line, user,T)
+		INVOKE_ASYNC(src, PROC_REF(fire_line), user,T)
 		T = line_target(-10, range, X, user)
-		INVOKE_ASYNC(src, .proc/fire_line, user,T)
+		INVOKE_ASYNC(src, PROC_REF(fire_line), user,T)
 		T = line_target(25, range, X, user)
-		INVOKE_ASYNC(src, .proc/fire_line, user,T)
+		INVOKE_ASYNC(src, PROC_REF(fire_line), user,T)
 	return ..()
 
 /obj/effect/proc_holder/spell/pointed/ash_final/proc/line_target(offset, range, atom/at , atom/user)
@@ -340,7 +340,7 @@
 			if(M in hit_list)
 				continue
 			hit_list += M
-			M.take_damage(45, BURN, "melee", 1)
+			M.take_damage(45, BURN, MELEE, 1)
 		sleep(1.5)
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/eldritch
@@ -381,16 +381,14 @@
 	action_background_icon_state = "bg_ecult"
 
 /obj/effect/proc_holder/spell/aoe_turf/fire_cascade/cast(list/targets, mob/user = usr)
-	INVOKE_ASYNC(src, .proc/fire_cascade, user,range)
+	INVOKE_ASYNC(src, PROC_REF(fire_cascade), user,range)
 
 /obj/effect/proc_holder/spell/aoe_turf/fire_cascade/proc/fire_cascade(atom/centre,max_range)
 	playsound(get_turf(centre), 'sound/items/welder.ogg', 75, TRUE)
-	var/_range = 1
-	for(var/i = 0, i <= max_range,i++)
+	for(var/_range in 1 to max_range + 1)
 		for(var/turf/open/T in spiral_range_turfs(_range,centre))
 			new /obj/effect/hotspot(T)
 			T.hotspot_expose(700,50,1)
-		_range++
 		sleep(3)
 
 /obj/effect/proc_holder/spell/aoe_turf/fire_cascade/big
@@ -425,7 +423,7 @@
 	. = ..()
 	current_user = user
 	has_fire_ring = TRUE
-	addtimer(CALLBACK(src, .proc/remove, user), duration, TIMER_OVERRIDE|TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(remove), user), duration, TIMER_OVERRIDE|TIMER_UNIQUE)
 
 /obj/effect/proc_holder/spell/targeted/fire_sworn/proc/remove()
 	has_fire_ring = FALSE
@@ -444,7 +442,7 @@
 /obj/effect/proc_holder/spell/targeted/worm_contract
 	name = "Force Contract"
 	desc = "Forces all the worm parts to collapse onto a single turf"
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
 	range = -1
@@ -565,7 +563,7 @@
 	charge_max = 300
 	clothes_req = FALSE
 	invocation = "PI'RC' TH' M'ND"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	range = 10
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "mansus_link"

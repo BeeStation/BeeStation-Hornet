@@ -6,7 +6,7 @@
 	var/list/gravito_targets = list()
 
 /datum/guardian_ability/major/gravity/Apply()
-	RegisterSignal(guardian, COMSIG_MOVABLE_MOVED, .proc/recheck_distances)
+	RegisterSignal(guardian, COMSIG_MOVABLE_MOVED, PROC_REF(recheck_distances))
 
 /datum/guardian_ability/major/gravity/Remove()
 	UnregisterSignal(guardian, COMSIG_MOVABLE_MOVED)
@@ -40,7 +40,7 @@
 		add_gravity(T, 4)
 
 /datum/guardian_ability/major/gravity/proc/add_gravity(atom/A, new_gravity = 2)
-	RegisterSignal(A, COMSIG_MOVABLE_MOVED, .proc/__distance_check)
+	RegisterSignal(A, COMSIG_MOVABLE_MOVED, PROC_REF(__distance_check))
 	A.AddElement(/datum/element/forced_gravity, new_gravity)
 	gravito_targets[A] = new_gravity
 	playsound(src, 'sound/effects/gravhit.ogg', 100, TRUE)

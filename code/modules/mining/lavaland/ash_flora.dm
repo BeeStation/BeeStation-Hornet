@@ -3,7 +3,7 @@
 
 /obj/structure/flora/ash
 	gender = PLURAL
-	layer = PROJECTILE_HIT_THRESHHOLD_LAYER //sporangiums up don't shoot
+	layer = PROJECTILE_HIT_THRESHOLD_LAYER //sporangiums up don't shoot
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "l_mushroom"
 	name = "large mushrooms"
@@ -51,7 +51,7 @@
 	name = harvested_name
 	desc = harvested_desc
 	harvested = TRUE
-	addtimer(CALLBACK(src, .proc/regrow), rand(regrowth_time_low, regrowth_time_high))
+	addtimer(CALLBACK(src, PROC_REF(regrow)), rand(regrowth_time_low, regrowth_time_high))
 	return 1
 
 /obj/structure/flora/ash/proc/regrow()

@@ -136,7 +136,7 @@
 	if(client)
 		apply_pref_name("ai",client)
 
-	INVOKE_ASYNC(src, .proc/set_core_display_icon)
+	INVOKE_ASYNC(src, PROC_REF(set_core_display_icon))
 
 
 	holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"default"))
@@ -694,7 +694,7 @@
 			for(var/i in C.network)
 				cameralist[i] = i
 	var/old_network = network
-	network = input(U, "Which network would you like to view?") as null|anything in sortList(cameralist)
+	network = input(U, "Which network would you like to view?") as null|anything in sort_list(cameralist)
 	if(ai_tracking_target)
 		ai_stop_tracking()
 	if(!U.eyeobj)
@@ -727,7 +727,7 @@
 	if(incapacitated())
 		return
 	var/list/ai_emotions = list("Very Happy", "Happy", "Neutral", "Unsure", "Confused", "Sad", "BSOD", "Blank", "Problems?", "Awesome", "Facepalm", "Thinking", "Friend Computer", "Dorfy", "Blue Glow", "Red Glow")
-	var/emote = input("Please, select a status!", "AI Status", null, null) in sortList(ai_emotions)
+	var/emote = input("Please, select a status!", "AI Status", null, null) in sort_list(ai_emotions)
 	for (var/each in GLOB.ai_status_displays) //change status of displays
 		var/obj/machinery/status_display/ai/M = each
 		M.emotion = emote
@@ -759,7 +759,7 @@
 				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["image"]//Pull names, rank, and image.
 
 			if(personnel_list.len)
-				input = input("Select a crew member:") as null|anything in sortList(personnel_list)
+				input = input("Select a crew member:") as null|anything in sort_list(personnel_list)
 				var/icon/character_icon = personnel_list[input]
 				if(character_icon)
 					qdel(holo_icon)//Clear old icon so we're not storing it in memory.
@@ -784,7 +784,7 @@
 			"spider" = 'icons/mob/animal.dmi'
 			)
 
-			input = input("Please select a hologram:") as null|anything in sortList(icon_list)
+			input = input("Please select a hologram:") as null|anything in sort_list(icon_list)
 			if(input)
 				qdel(holo_icon)
 				switch(input)
@@ -804,7 +804,7 @@
 				"horror" = 'icons/mob/ai.dmi'
 				)
 
-			input = input("Please select a hologram:") as null|anything in sortList(icon_list)
+			input = input("Please select a hologram:") as null|anything in sort_list(icon_list)
 			if(input)
 				qdel(holo_icon)
 				switch(input)
@@ -917,7 +917,7 @@
 		return TRUE
 	return ..()
 
-/mob/living/silicon/ai/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/living/silicon/ai/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	if(control_disabled || incapacitated())
 		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
 		return FALSE
@@ -1027,7 +1027,8 @@
 		apc.malfhack = TRUE
 		apc.locked = TRUE
 		apc.coverlocked = TRUE
-
+		var/turf/T = get_turf(apc)
+		log_message("hacked APC [apc] at [AREACOORD(T)] (NEW PROCESSING: [malf_picker.processing_time])", LOG_GAME)
 		playsound(get_turf(src), 'sound/machines/ding.ogg', 50, 1, ignore_walls = FALSE)
 		to_chat(src, "Hack complete. \The [apc] is now under your exclusive control.")
 		apc.update_appearance()
@@ -1053,7 +1054,7 @@
 		to_chat(src, "No usable AI shell beacons detected.")
 
 	if(!target || !(target in possible)) //If the AI is looking for a new shell, or its pre-selected shell is no longer valid
-		target = input(src, "Which body to control?") as null|anything in sortNames(possible)
+		target = input(src, "Which body to control?") as null|anything in sort_names(possible)
 
 	if (!target || target.stat || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)) || (target.ratvar && !is_servant_of_ratvar(src)))
 		return

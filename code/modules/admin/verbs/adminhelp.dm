@@ -176,7 +176,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 
 /datum/help_ticket/admin/TimeoutVerb()
 	initiator.remove_verb(/client/verb/adminhelp)
-	initiator.adminhelptimerid = addtimer(CALLBACK(initiator, /client/proc/giveadminhelpverb), 1200, TIMER_STOPPABLE)
+	initiator.adminhelptimerid = addtimer(CALLBACK(initiator, TYPE_PROC_REF(/client, giveadminhelpverb)), 1200, TIMER_STOPPABLE)
 
 /datum/help_ticket/admin/get_ticket_additional_data(mob/user, list/data)
 	data["antag_status"] = "None"
@@ -257,7 +257,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 		Claim(silent = TRUE)
 
 	if(initiator)
-		addtimer(CALLBACK(initiator, /client/proc/giveadminhelpverb), 5 SECONDS)
+		addtimer(CALLBACK(initiator, TYPE_PROC_REF(/client,giveadminhelpverb)), 5 SECONDS)
 		SEND_SOUND(initiator, sound(reply_sound))
 		resolve_message(status = "marked as IC Issue!", message = "\A [handling_name] has handled your ticket and has determined that the issue you are facing is an in-character issue and does not require [handling_name] intervention at this time.<br />\
 		For further resolution, you should pursue options that are in character, such as filing a report with security or a head of staff.<br />\
@@ -334,7 +334,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 
 /datum/help_ticket/admin/Resolve(key_name = key_name_ticket(usr), silent = FALSE)
 	..()
-	addtimer(CALLBACK(initiator, /client/proc/giveadminhelpverb), 5 SECONDS)
+	addtimer(CALLBACK(initiator, TYPE_PROC_REF(/client, giveadminhelpverb)), 5 SECONDS)
 	if(!bwoink)
 		discordsendmsg("ahelp", "Ticket #[id] resolved by [key_name(usr, include_link = FALSE)]")
 

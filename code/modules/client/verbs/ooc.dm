@@ -112,6 +112,10 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 			discordsendmsg("ooc", "[discord_ooc_tag](OOC) **[sayer]:** [msg]")
 		if(CHAT_TYPE_DEADCHAT) // don't send these until a round is finished
 			if(SSticker.current_state == GAME_STATE_FINISHED)
+				var/regex/R = regex("<span class=' '>(\[\\s\\S.\]+)</span>\"")
+				if(!R.Find(msg))
+					return
+				msg = R.group[1] // wipes some bad dchat format
 				discordsendmsg("ooc", "[discord_ooc_tag](Dead) **[sayer]:** [msg]")
 
 /proc/toggle_ooc(toggle = null)
@@ -243,7 +247,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 			choices["[C.mob]([displayed_choicename])"] = C
 		else
 			choices[displayed_choicename] = C
-	choices = sortList(choices)
+	choices = sort_list(choices)
 	var/selection = input("Please, select a player!", "Ignore", null, null) as null|anything in choices
 	if(!selection || !(selection in choices))
 		return

@@ -94,7 +94,7 @@
 			advance_diseases += P
 	var/replace_num = advance_diseases.len + 1 - DISEASE_LIMIT //amount of diseases that need to be removed to fit this one
 	if(replace_num > 0)
-		sortTim(advance_diseases, /proc/cmp_advdisease_resistance_asc)
+		sortTim(advance_diseases, GLOBAL_PROC_REF(cmp_advdisease_resistance_asc))
 		for(var/i in 1 to replace_num)
 			var/datum/disease/advance/competition = advance_diseases[i]
 			if(transmission > (competition.resistance * 2))
@@ -106,7 +106,7 @@
 
 /datum/disease/advance/after_add()
 	if(affected_mob)
-		RegisterSignal(affected_mob, COMSIG_MOB_DEATH, .proc/on_mob_death)
+		RegisterSignal(affected_mob, COMSIG_MOB_DEATH, PROC_REF(on_mob_death))
 
 /datum/disease/advance/proc/on_mob_death()
 	SIGNAL_HANDLER
@@ -409,7 +409,7 @@
 				L += "[S.id]N"
 			else
 				L += S.id
-		L = sortList(L) // Sort the list so it doesn't matter which order the symptoms are in.
+		L = sort_list(L) // Sort the list so it doesn't matter which order the symptoms are in.
 		var/result = jointext(L, ":")
 		id = result
 	return id
@@ -503,7 +503,7 @@
 	symptoms += SSdisease.list_symptoms.Copy()
 	do
 		if(user)
-			var/symptom = input(user, "Choose a symptom to add ([i] remaining)", "Choose a Symptom") in sortList(symptoms, /proc/cmp_typepaths_asc)
+			var/symptom = input(user, "Choose a symptom to add ([i] remaining)", "Choose a Symptom") in sort_list(symptoms, GLOBAL_PROC_REF(cmp_typepaths_asc))
 			if(isnull(symptom))
 				return
 			else if(istext(symptom))

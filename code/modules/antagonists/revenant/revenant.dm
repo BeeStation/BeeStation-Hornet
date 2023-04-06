@@ -87,7 +87,7 @@
 	if(beacon)
 		qdel(beacon)
 
-/mob/living/simple_animal/revenant/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/living/simple_animal/revenant/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	return FALSE
 
 /mob/living/simple_animal/revenant/proc/random_revenant_name()
@@ -207,7 +207,7 @@
 		adjustBruteLoss(25) //hella effective
 		inhibited = TRUE
 		update_action_buttons_icon()
-		addtimer(CALLBACK(src, .proc/reset_inhibit), 30)
+		addtimer(CALLBACK(src, PROC_REF(reset_inhibit)), 30)
 
 /mob/living/simple_animal/revenant/proc/reset_inhibit()
 	inhibited = FALSE
@@ -428,9 +428,13 @@
 			to_chat(src, "<span class='warning'>Holy energies block your path!</span>")
 			return
 	return TRUE
-  
+
 /mob/living/simple_animal/revenant/get_photo_description(obj/item/camera/camera)
 	return "You can also see a g-g-g-g-ghooooost of malice!"
+
+/mob/living/simple_animal/revenant/set_resting(rest, silent = TRUE)
+	to_chat(src, "<span class='warning'>You are too restless to rest now!</span>")
+	return FALSE
 
 //reforming
 /obj/item/ectoplasm/revenant
@@ -447,7 +451,7 @@
 
 /obj/item/ectoplasm/revenant/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/try_reform), 600)
+	addtimer(CALLBACK(src, PROC_REF(try_reform)), 600)
 
 /obj/item/ectoplasm/revenant/proc/scatter()
 	qdel(src)

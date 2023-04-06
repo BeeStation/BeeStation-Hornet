@@ -264,6 +264,11 @@
 				return
 
 			if(is_banned_from(BM.ckey, JOB_KEY_CYBORG) || QDELETED(src) || QDELETED(BM) || QDELETED(user) || QDELETED(M) || !Adjacent(user))
+			if(is_banned_from(BM.ckey, JOB_NAME_CYBORG) || BM.client.get_exp_living(TRUE) <= MINUTES_REQUIRED_BASIC)
+				to_chat(user, "<span class='warning'>This [M.name] is not compatible, try a different one!</span>")
+				return
+			
+			if(QDELETED(src) || QDELETED(BM) || QDELETED(user) || !Adjacent(user))
 				if(!QDELETED(M))
 					to_chat(user, "<span class='warning'>This [M.name] does not seem to fit!</span>")
 				return

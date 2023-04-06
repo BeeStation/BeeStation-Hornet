@@ -11,7 +11,6 @@ GLOBAL_LIST(admin_antag_list)
 	var/silent = FALSE							//Silent will prevent the gain/lose texts to show
 	var/can_coexist_with_others = TRUE			//Whether or not the person will be able to have more than one datum
 	var/list/typecache_datum_blacklist = list()	//List of datums this type can't coexist with
-	var/delete_on_mind_deletion = TRUE
 	var/antag_role_type = ROLE_KEY_UNDEFINED_ANTAG_ROLE
 	var/antag_major_bancheck_type = BANCHECK_ROLE_MAJOR_ANTAGONIST
 	var/give_objectives = TRUE //Should the default objectives be generated?

@@ -23,6 +23,35 @@
 	else
 		to_chat(user, "<span class='notice'>ERROR: Could not find device.</span>")
 
+/obj/item/computer_hardware/hard_drive/role/virus/clown/process_pre_attack(atom/target, mob/living/user, params)
+	// only run if we're inside a computer
+	if(!istype(loc, /obj/item/modular_computer))
+		return ..()
+	if(!ismachinery(target))
+		return TRUE
+	var/obj/machinery/target_machine = target
+	if(!target_machine.panel_open && !istype(target, /obj/machinery/computer))
+		return TRUE
+	if(!charges)
+		to_chat(user, "<span class='notice'>[src] beeps: 'Out of charge. Please insert a new cartridge.'</span>")
+		return TRUE
+	if(target.GetComponent(/datum/component/sound_player))
+		to_chat(user, "<span class='notice'>[src] beeps: 'Virus already present on client, aborting.'</span>")
+		return TRUE
+	to_chat(user, "<span class='notice'>You upload the virus to [target]!</span>")
+	var/list/sig_list
+	if(istype(target, /obj/machinery/door/airlock))
+		sig_list = list(COMSIG_AIRLOCK_OPEN, COMSIG_AIRLOCK_CLOSE)
+	else
+		sig_list = list(COMSIG_ATOM_ATTACK_HAND)
+	charges--
+	target.AddComponent(
+		/datum/component/sound_player, \
+		uses = rand(30,50), \
+		signal_list = sig_list, \
+	)
+	return FALSE
+
 /obj/item/computer_hardware/hard_drive/role/virus/mime
 	name = "\improper sound of silence disk"
 

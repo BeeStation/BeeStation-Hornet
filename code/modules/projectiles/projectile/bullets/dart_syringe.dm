@@ -19,7 +19,7 @@
 					syringe.embed(M)
 					return BULLET_ACT_HIT
 				else
-					reagents.expose(M, INJECT)
+					reagents.reaction(M, INJECT)
 					reagents.trans_to(M, reagents.total_volume)
 					return BULLET_ACT_HIT
 			else
@@ -49,7 +49,7 @@
 	name = "bee"
 	icon_state = "bee"
 	damage = 1
-	flag = "melee"
+	armor_flag = MELEE
 	piercing = TRUE
 
 /obj/item/projectile/bullet/dart/bee/on_hit(atom/target, blocked)

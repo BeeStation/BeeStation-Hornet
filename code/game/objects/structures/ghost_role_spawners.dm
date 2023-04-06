@@ -149,6 +149,7 @@
 		important_info = "Serve [creator], and assist [creator.p_them()] in completing [creator.p_their()] goals at any cost."
 		owner = creator
 		spawner_special_role_name = "Servant Golem"
+		id = null // just in case (because adamantine golems get id card on their spawn)
 
 
 /obj/effect/mob_spawn/human/golem/special(mob/living/new_spawn, name)
@@ -174,6 +175,14 @@
 				H.fully_replace_character_name(null, H.dna.species.random_name())
 		else
 			H.fully_replace_character_name(null, name)
+	if(has_owner)
+		new_spawn.mind.assigned_role = "Servant Golem"
+	else
+		new_spawn.mind.assigned_role = "Free Golem"
+		var/obj/item/card/id/I = new_spawn.get_idcard()
+		if(I)
+			I.registered_name = new_spawn.name
+			I.update_label()
 
 /obj/effect/mob_spawn/human/golem/attack_hand(mob/user)
 	. = ..()
@@ -198,7 +207,6 @@
 	mob_name = "a servant golem"
 	use_cooldown = FALSE
 
-
 /obj/effect/mob_spawn/human/golem/adamantine
 	name = "dust-caked free golem shell"
 	desc = "A humanoid shape, empty, lifeless, and full of potential."
@@ -206,6 +214,7 @@
 	can_transfer = FALSE
 	mob_species = /datum/species/golem/adamantine
 	use_cooldown = TRUE	//Only the roundstart free golems are
+	id = /obj/item/card/id/golem/spawner
 
 //Malfunctioning cryostasis sleepers: Spawns in makeshift shelters in lavaland. Ghosts become hermits with knowledge of how they got to where they are now.
 /obj/effect/mob_spawn/human/hermit
@@ -403,7 +412,7 @@
 		id.update_label()
 	else
 		to_chat(L, "<span class='userdanger'>Your owner is already dead!  You will soon perish.</span>")
-		addtimer(CALLBACK(L, /mob.proc/dust, 150)) //Give em a few seconds as a mercy.
+		addtimer(CALLBACK(L, TYPE_PROC_REF(/mob, dust), 150)) //Give em a few seconds as a mercy.
 
 /datum/outfit/demonic_friend
 	name = "Demonic Friend"

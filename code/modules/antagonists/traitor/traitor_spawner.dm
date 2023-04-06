@@ -23,7 +23,7 @@
 	probability = 60
 
 /datum/special_role/traitor/add_antag_status_to(datum/mind/M)
-	addtimer(CALLBACK(src, .proc/reveal_antag_status, M), rand(10,100))
+	addtimer(CALLBACK(src, PROC_REF(reveal_antag_status), M), rand(10,100))
 
 /datum/special_role/traitor/proc/reveal_antag_status(datum/mind/M)
 	var/datum/antagonist/special/A = M.add_antag_datum(new attached_antag_datum())

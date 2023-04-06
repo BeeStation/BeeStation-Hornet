@@ -5,7 +5,7 @@
 	damage_type = OXY
 	nodamage = TRUE
 	armour_penetration = 100
-	flag = "magic"
+	armor_flag = MAGIC
 	martial_arts_no_deflect = TRUE
 
 /obj/item/projectile/magic/death
@@ -286,12 +286,9 @@
 
 	to_chat(new_mob, "<span class='warning'>Your form morphs into that of a [randomize].</span>")
 
-	var/poly_msg = CONFIG_GET(keyed_list/policy)["polymorph"]
+	var/poly_msg = CONFIG_GET(string/policy_polymorph)
 	if(poly_msg)
 		to_chat(new_mob, poly_msg)
-
-	if((istype(new_mob, /mob/living/silicon/robot/modules/syndicate) || istype(new_mob, /mob/living/carbon/alien/humanoid) || istype(new_mob, /mob/living/simple_animal/hostile)))
-		to_chat(new_mob, "<span class='userdanger'>Despite taking the form of an antagonistic being, you have the same mind as before your transformation. Your loyalties and interests remain the same. Unless you were turned into a shade, or were previously an antagonist, this is not a pass to go antagonize the station.</span>")
 
 	M.transfer_observers_to(new_mob)
 
@@ -348,7 +345,7 @@
 	icon_state = "lavastaff"
 	damage = 15
 	damage_type = BURN
-	flag = "magic"
+	armor_flag = MAGIC
 	dismemberment = 50
 	nodamage = FALSE
 	martial_arts_no_deflect = FALSE
@@ -369,7 +366,7 @@
 	damage_type = BURN
 	nodamage = FALSE
 	armour_penetration = 0
-	flag = "magic"
+	armor_flag = MAGIC
 	hitsound = 'sound/weapons/barragespellhit.ogg'
 	martial_arts_no_deflect = FALSE
 
@@ -387,7 +384,7 @@
 	name = "locker bolt"
 	icon_state = "locker"
 	nodamage = TRUE
-	flag = "magic"
+	armor_flag = MAGIC
 	martial_arts_no_deflect = FALSE
 	var/weld = TRUE
 	var/created = FALSE //prevents creation of more then one locker if it has multiple hits
@@ -433,15 +430,15 @@
 
 /obj/structure/closet/decay/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/locker_magic_timer), 5)
+	addtimer(CALLBACK(src, PROC_REF(locker_magic_timer)), 5)
 
 /obj/structure/closet/decay/proc/locker_magic_timer()
 	if(welded)
-		addtimer(CALLBACK(src, .proc/bust_open), 5 MINUTES)
+		addtimer(CALLBACK(src, PROC_REF(bust_open)), 5 MINUTES)
 		icon_state = magic_icon
 		update_icon()
 	else
-		addtimer(CALLBACK(src, .proc/decay), 15 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(decay)), 15 SECONDS)
 
 /obj/structure/closet/decay/after_weld(weld_state)
 	if(weld_state)
@@ -449,7 +446,7 @@
 
 /obj/structure/closet/decay/proc/decay()
 	animate(src, alpha = 0, time = 30)
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/qdel, src), 30)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 30)
 
 /obj/structure/closet/decay/open(mob/living/user)
 	. = ..()
@@ -457,12 +454,12 @@
 		if(icon_state == magic_icon) //check if we used the magic icon at all before giving it the lesser magic icon
 			unmagify()
 		else
-			addtimer(CALLBACK(src, .proc/decay), 15 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(decay)), 15 SECONDS)
 
 /obj/structure/closet/decay/proc/unmagify()
 	icon_state = weakened_icon
 	update_icon()
-	addtimer(CALLBACK(src, .proc/decay), 15 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(decay)), 15 SECONDS)
 
 /obj/item/projectile/magic/flying
 	name = "bolt of flying"
@@ -629,7 +626,7 @@
 	damage_type = BURN
 	nodamage = FALSE
 	speed = 0.3
-	flag = "magic"
+	armor_flag = MAGIC
 
 	var/tesla_power = 20000
 	var/tesla_range = 15
@@ -712,7 +709,7 @@
 			return BULLET_ACT_BLOCK
 	var/turf/T = get_turf(target)
 	for(var/i=0, i<50, i+=10)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/explosion, T, -1, exp_heavy, exp_light, exp_flash, FALSE, FALSE, FALSE, TRUE), i)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(explosion), T, -1, exp_heavy, exp_light, exp_flash, FALSE, FALSE, FALSE, TRUE), i)
 
 //still magic related, but a different path
 
@@ -724,4 +721,4 @@
 	nodamage = FALSE
 	armour_penetration = 100
 	temperature = 50
-	flag = "magic"
+	armor_flag = MAGIC

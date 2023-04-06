@@ -206,7 +206,7 @@
 		roll_in_progress = TRUE
 		var/turf/T = get_turf(src)
 		T.visible_message("<span class='userdanger'>[src] flares briefly.</span>")
-		addtimer(CALLBACK(src, .proc/effect, user, .), 1 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(effect), user, .), 1 SECONDS)
 
 /obj/item/dice/d20/fate/equipped(mob/user, slot)
 	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
@@ -360,7 +360,7 @@
 	charge_max = 100
 	clothes_req = 0
 	invocation = "JE VES"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	range = -1
 	level_max = 0 //cannot be improved
 	cooldown_min = 100

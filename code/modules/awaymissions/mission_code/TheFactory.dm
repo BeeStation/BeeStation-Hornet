@@ -533,7 +533,7 @@
 		playsound(src, chosen_sound, 50, FALSE)
 	if(health < maxHealth)
 		playsound(src, 'sound/machines/beep.ogg', 80, FALSE)
-		addtimer(CALLBACK(src, .proc/death), 200)
+		addtimer(CALLBACK(src, PROC_REF(death)), 200)
 
 /mob/living/simple_animal/hostile/psycho/trap/AttackingTarget()
 	var/list/possible_sounds = list('sound/creatures/psychhead.ogg','sound/creatures/psychhead2.ogg')
@@ -600,7 +600,7 @@
 	if(!(simple_mob_flags & SILENCE_RANGED_MESSAGE))
 		visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
 	if(rapid > 1)
-		var/datum/callback/cb = CALLBACK(src, .proc/Shoot, A)
+		var/datum/callback/cb = CALLBACK(src, PROC_REF(Shoot), A)
 		for(var/i in 1 to rapid)
 			addtimer(cb, (i - 1)*rapid_fire_delay)
 	else
@@ -618,7 +618,7 @@
 	safety = FALSE
 
 /mob/living/simple_animal/hostile/zombie_suicide
-	name = "agressive corpse"
+	name = "aggressive corpse"
 	desc = "This corpse is holding a grenade without a pin in it..."
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "suicidezombie"
@@ -659,7 +659,7 @@
 		var/chosen_sound = pick(possible_sounds)
 		playsound(get_turf(src), chosen_sound, 50, TRUE, 0)
 		visible_message("<span class='danger'>[src] primes the grenade!.</span>")
-		addtimer(CALLBACK(src, .proc/prime), det_time)
+		addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
 
 /mob/living/simple_animal/hostile/zombie_suicide/proc/prime()
 	explosion(src,0, 2, 3, flame_range = 3)
@@ -776,7 +776,7 @@
 	move_to_delay = 20
 	ranged_cooldown = 300
 	ranged_cooldown_time = 300
-	INVOKE_ASYNC(src, .proc/explosion, src.loc, 0, 3, 4, null, null, FALSE, 2)
+	INVOKE_ASYNC(src, PROC_REF(explosion), src.loc, 0, 3, 4, null, null, FALSE, 2)
 	..()
 
 //GUNS//

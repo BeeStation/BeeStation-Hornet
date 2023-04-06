@@ -175,7 +175,7 @@
 				Targets[H] = CLAMP(healthdiff,1,12)
 	if(!Targets.len)//sanity check
 		return
-	return pickweight(Targets)//Pick the remaining targets (if any) at random
+	return pick_weight(Targets)//Pick the remaining targets (if any) at random
 
 /mob/living/simple_animal/hostile/cat_butcherer/death(gibbed)
 	if(LAZYLEN(victims) >= 5)

@@ -33,7 +33,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	outdoors = TRUE
 	ambience_index = null
 	ambient_music_index = AMBIENCE_SPACE
-	ambient_buzz = null
+	ambient_buzz = null //Space is deafeningly quiet
 	sound_environment = SOUND_AREA_SPACE
 
 /area/space/nearstation
@@ -115,6 +115,22 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/maintenance
 	ambience_index = AMBIENCE_MAINT
+	ambient_buzz = 'sound/ambience/source_corridor2.ogg'
+	ambient_buzz_vol = 20
+	rare_ambient_sounds = list(
+		'sound/machines/airlock.ogg',
+		'sound/effects/snap.ogg',
+		'sound/effects/clownstep1.ogg',
+		'sound/effects/clownstep2.ogg',
+		'sound/items/welder.ogg',
+		'sound/items/welder2.ogg',
+		'sound/items/crowbar.ogg',
+		'sound/items/deconstruct.ogg',
+		'sound/ambience/source_holehit3.ogg',
+		'sound/ambience/cavesound3.ogg',
+	)
+	min_ambience_cooldown = 20 SECONDS
+	max_ambience_cooldown = 35 SECONDS
 	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	mood_bonus = -1
@@ -1001,6 +1017,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/medical/virology
 	name = "Virology"
 	icon_state = "virology"
+	ambience_index = AMBIENCE_VIROLOGY
 	flags_1 = NONE
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
 

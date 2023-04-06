@@ -267,7 +267,7 @@
 	. = ..()
 	to_chat(src, playstyle_string)
 	// sometimes the datum is not added for a bit
-	addtimer(CALLBACK(src, .proc/notify_non_antag), 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(notify_non_antag)), 3 SECONDS)
 
 /mob/living/simple_animal/hostile/morph/proc/notify_non_antag()
 	if(!mind.has_antag_datum(/datum/antagonist/morph))
