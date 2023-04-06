@@ -480,7 +480,7 @@
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
 	icon_state = "twindow" //what what, hon hon
-	opacity = 1
+	opacity = TRUE
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"
 	icon_state = "twindow"

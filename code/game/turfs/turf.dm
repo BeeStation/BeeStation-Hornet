@@ -6,6 +6,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	/// If this is TRUE, that means this floor is on top of plating so pipes and wires and stuff will appear under it... or something like that it's not entirely clear.
 	var/intact = 1
 
+	luminosity = 1
+
 	// baseturfs can be either a list or a single turf type.
 	// In class definition like here it should always be a single type.
 	// A list will be created in initialization that figures out the baseturf's baseturf etc.
@@ -54,7 +56,23 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	///the holodeck can load onto this turf if TRUE
 	var/holodeck_compatible = FALSE
 
+	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
+
+	var/dynamic_lighting = TRUE
+
+	var/tmp/lighting_corners_initialised = FALSE
+
+	///List of light sources affecting this turf.
+	var/tmp/list/datum/light_source/affecting_lights
+	///Our lighting object.
+	var/tmp/atom/movable/lighting_object/lighting_object
+	var/tmp/list/datum/lighting_corner/corners
+
+	///Which directions does this turf block the vision of, taking into account both the turf's opacity and the movable opacity_sources.
+	var/directional_opacity = NONE
+	///Lazylist of movable atoms providing opacity sources.
+	var/list/atom/movable/opacity_sources
 
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
@@ -111,7 +129,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, UP)
 
 	if (opacity)
-		has_opaque_atom = TRUE
+		directional_opacity = ALL_CARDINALS
 
 	ComponentInitialize()
 	if(isopenturf(src))
@@ -418,13 +436,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		mover.Bump(firstbump)
 		return (mover.movement_type & PHASING)
 	return TRUE
-
-/turf/Entered(atom/movable/arrived, direction)
-	..()
-	// If an opaque movable atom moves around we need to potentially update visibility.
-	if (arrived.opacity)
-		has_opaque_atom = TRUE // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
-		reconsider_lights()
 
 /turf/open/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	..()
