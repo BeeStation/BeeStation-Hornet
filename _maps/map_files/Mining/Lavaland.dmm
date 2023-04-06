@@ -109,6 +109,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/mineral/processing_unit_console{
+	pixel_x = 30
+	},
 /turf/open/floor/noslip/standard,
 /area/mine/laborcamp)
 "aT" = (
@@ -867,10 +870,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/mine/production)
-"gh" = (
-/obj/machinery/mineral/processing_unit_console,
-/turf/closed/wall,
-/area/mine/laborcamp)
 "gl" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/item/kirbyplants/random,
@@ -31906,7 +31905,7 @@ np
 DF
 aw
 rw
-gh
+rw
 rw
 wB
 rw
