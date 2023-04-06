@@ -774,6 +774,8 @@
 	if(href_list[VV_HK_MOD_QUIRKS])
 		if(!check_rights(R_SPAWN))
 			return
+		if(!mind)
+			return
 
 		var/list/options = list("Clear"="Clear")
 		for(var/x in subtypesof(/datum/quirk))
@@ -784,14 +786,14 @@
 		var/result = input(usr, "Choose quirk to add/remove","Quirk Mod") as null|anything in options
 		if(result)
 			if(result == "Clear")
-				for(var/datum/quirk/q in roundstart_quirks)
-					remove_quirk(q.type)
+				for(var/datum/quirk/q in mind.quirks)
+					mind.remove_quirk(q.type)
 			else
 				var/T = options[result]
 				if(has_quirk(T))
-					remove_quirk(T)
+					mind.remove_quirk(T)
 				else
-					add_quirk(T,TRUE)
+					mind.add_quirk(T,TRUE)
 	if(href_list[VV_HK_MAKE_MONKEY])
 		if(!check_rights(R_SPAWN))
 			return
