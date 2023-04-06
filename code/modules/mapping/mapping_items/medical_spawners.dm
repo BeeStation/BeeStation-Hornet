@@ -1,8 +1,8 @@
 /obj/effect/spawner/lootdrop/job_scale/medical
 	jobs = list(
-		JOB_NAME_CHIEFMEDICALOFFICER,
-		JOB_NAME_MEDICALDOCTOR,
-		JOB_NAME_PARAMEDIC,
+		JOB_KEY_CHIEFMEDICALOFFICER,
+		JOB_KEY_MEDICALDOCTOR,
+		JOB_KEY_PARAMEDIC,
 	)
 
 /obj/effect/spawner/lootdrop/job_scale/medical/medkits

@@ -165,7 +165,7 @@
 			kill_objective.find_target()
 			add_objective(kill_objective)
 	else
-		if(prob(15) && !(locate(/datum/objective/download) in objectives) && !owner.has_job(GLOB.science_positions+JOB_KEY_GENETICIST))
+		if(prob(15) && !(locate(/datum/objective/download) in objectives) && !owner.has_job(GLOB.science_positions))
 			var/datum/objective/download/download_objective = new
 			download_objective.owner = owner
 			download_objective.gen_amount_goal()
@@ -205,7 +205,7 @@
 			.=2
 
 /datum/antagonist/traitor/greet()
-	to_chat(owner.current, "<span class='alertsyndie'>You are the [owner.get_special_role()].</span>")
+	to_chat(owner.current, "<span class='alertsyndie'>You are the [owner.get_display_special_role()].</span>")
 	owner.announce_objectives()
 	if(should_give_codewords)
 		give_codewords()

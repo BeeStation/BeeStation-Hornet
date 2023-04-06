@@ -221,13 +221,13 @@
 
 /// ------------- role -------------------
 /// Sets a mind's role
-/datum/mind/proc/set_role(role_key)
+/datum/mind/proc/set_special_role(role_key)
 	if(!role_key)
 		CRASH("role key is missing: [role_key]")
 	_set_role(RLPK_HOLDER_SPECIAL_ROLES, role_key)
 
 /// Removes a specific role in a mind
-/datum/mind/proc/remove_role(role_key)
+/datum/mind/proc/remove_special_role(role_key)
 	if(!role_key)
 		CRASH("role key is missing: [role_key]")
 	if(!mind_roles[RLPK_HOLDER_SPECIAL_ROLES][role_key])
@@ -237,11 +237,11 @@
 		mind_roles -= mind_roles[RLPK_DISPLAY_SPECIAL_ROLE]
 
 /// returns a mind's primary role, or all roles
-/datum/mind/proc/get_role(as_list=FALSE)
+/datum/mind/proc/get_special_role(as_list=FALSE)
 	return _get_role(RLPK_HOLDER_SPECIAL_ROLES, as_list)
 
 /// Checks a mind has a single role, or listed roles. (role_key can be non-list and list both)
-/datum/mind/proc/has_role(list/role_key)
+/datum/mind/proc/has_special_role(list/role_key)
 	if(!role_key)
 		return
 	return _has_role(RLPK_HOLDER_SPECIAL_ROLES, role_key)
@@ -249,30 +249,31 @@
 //-------------------------------------------------------------------
 /// -------------- Aesthetic displaying mind titles -----------------
 /// Sets a mind's station role
-/datum/mind/proc/set_station_role(job_string)
+/datum/mind/proc/set_display_station_role(job_string)
 	if(!job_string)
 		CRASH("[job_string] is null")
 	mind_roles[RLPK_DISPLAY_STATION_ROLE] = job_string
 
-/// Gets a mind's station role
-/datum/mind/proc/get_station_role(always_true=FALSE)
+/// Gets a mind's station role (as string). Only returns job strings as long as they're a station member. Use `get_job()` if you need their job. This is useful when you need to check if they're crew, since non-crews(like wiz, syndi ops) wouldn't have `set_display_station_role()`
+/datum/mind/proc/get_display_station_role(always_true=FALSE)
 	if(always_true) // no null value return
 		return mind_roles[RLPK_DISPLAY_STATION_ROLE] || JOB_UNASSIGNED
 	return mind_roles[RLPK_DISPLAY_STATION_ROLE] // can return null
 
 /// Sets a mind's special role (not station)
-/datum/mind/proc/set_special_role(role_string)
+/datum/mind/proc/set_display_special_role(role_string)
 	if(!role_string)
 		CRASH("[role_string] is null")
 	mind_roles[RLPK_DISPLAY_SPECIAL_ROLE] = role_string
 
-/// Gets a mind's special role (not station)
-/datum/mind/proc/get_special_role(always_true=FALSE)
+/// Gets a mind's special role (not station). It returns strings, not their real
+/datum/mind/proc/get_display_special_role(always_true=FALSE)
 	if(always_true) // no null value return
 		return mind_roles[RLPK_DISPLAY_SPECIAL_ROLE] || "None"
 	return mind_roles[RLPK_DISPLAY_SPECIAL_ROLE] // can return null
 
-//-------------------------------------------------------------------------------
+// --------------------------------------------
+/// used to initialise a crew's job system - setting their job, and setting their displaying-job-name. This should be typically called by once per person, and non-crews(like wiz, syndi ops) shouldn't have this.
 /datum/mind/proc/assign_station_role(datum/job/J)
 	if(!J)
 		return
@@ -288,18 +289,19 @@
 	if(length(J.list_of_job_keys_to_mob_mind))
 		for(var/each_key in J.list_of_job_keys_to_mob_mind)
 			set_job(each_key)
-	set_station_role(J.get_title())
+	set_display_station_role(J.get_title())
 
+/// used to initlaise an antagonist's special role status, setting their roles, and setting their displaying-special-role-name
 /datum/mind/proc/assign_special_role(role_key, role_title=null)
 	if(!role_key)
 		CRASH("role_string is null")
-	set_role(role_key)
-	var/current_role = get_special_role()
+	set_special_role(role_key)
+	var/current_role = get_display_special_role()
 	if(!role_title)
 		role_title = role_key
 	if(current_role)
 		role_title = "[current_role], [role_title]" // so you can be like "traitor, changeling, operative, wizard"
-	set_special_role(role_title)
+	set_display_special_role(role_title)
 //-------------------------------------------------------------------------------
 
 
@@ -522,7 +524,7 @@
 	creator.faction |= current.faction
 
 	var/mob/living/carbon/C = creator
-	if(creator.mind?.get_special_role() || (istype(C) && C.last_mind?.get_special_role()))
+	if(creator.mind?.get_display_special_role() || (istype(C) && C.last_mind?.get_display_special_role()))
 		message_admins("[ADMIN_LOOKUPFLW(current)] has been created by [ADMIN_LOOKUPFLW(creator)], an antagonist.")
 		to_chat(current, "<span class='userdanger'>Despite your creator's current allegiances, your true master remains [creator.real_name]. If their loyalties change, so do yours. This will never change unless your creator's body is destroyed.</span>")
 
@@ -575,13 +577,15 @@
 			return
 		A.admin_remove(usr)
 
-	if (href_list["role_edit"]) // Note by Evildragon: This should change multiple jobs. currently disabled because it can cause unwanted behavior. should refactor someday.
+	if (href_list["role_edit"]) // TO-DO: makes it toggle multiple job flags
+		to_chat(src, "<span class='warning'>Currently disabled. Will be implemented in the future after job refactor PR is stably merged.</span>")
 		return
-		/*var/new_role = input("Select new role", "Assigned role", get_station_role()) as null|anything in sortList(get_all_jobs())
-		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in sort_list(get_all_jobs())
+		/*  // Note by Evildragon: This should change multiple jobs. currently disabled because it can cause unwanted behavior. should refactor someday.
+		var/new_role = input("Select new role", "Assigned role", get_display_station_role()) as null|anything in sortList(get_all_jobs())
 		if (!new_role)
 			return
-		set_station_role(new_role)*/
+		set_display_station_role(new_role)
+		*/
 
 	else if (href_list["memory_edit"])
 		var/new_memo = stripped_multiline_input(usr, "Write new memory", "Memory", memory, MAX_MESSAGE_LEN)

@@ -166,7 +166,7 @@
 			if(!authenticated)
 				return
 			if(minor)
-				if(!(target_id_card.assignment in head_subordinates) && target_id_card.assignment != JOB_NAME_ASSISTANT)
+				if(!(target_id_card.assignment in head_subordinates) && !(get_job_cross_keyname(JOB_KEY_ASSISTANT, TRUE)[target_id_card.assignment]))
 					return
 
 			target_id_card.access -= get_all_centcom_access() + get_all_accesses()

@@ -93,34 +93,30 @@
 
 /datum/brain_trauma/special/obsessed/proc/find_obsession()
 	var/list/possible_targets = list()
-	for(var/mob/living/Player in GLOB.player_list)
+	for(var/mob/living/each_player in GLOB.player_list)
 		// these conditions are to filter mobs that isn't good for obssession.
 		// prevents crewmembers falling in love with nuke ops they never met, or with monkey, silicon, sentient corgi or weird mobs
 		// ------
 		// putting all conditions into a single if line is difficult to read...
-		if(!Player.mind)
+		if(!each_player.mind)
 			continue
-		if(Player.stat == DEAD)
+		if(each_player.stat == DEAD)
 			continue
-		if(isbrain(Player))
+		if(!ishuman(each_player)) // non-human isn't good for this...
 			continue
-		if(!ishuman(Player)) // non-human isn't good for this...
+		if(!each_player.client)
 			continue
-		if(isnewplayer(Player))
+		if(each_player == owner) // don't self-obssession
 			continue
-		if(!Player.client)
-			continue
-		if(Player == owner) // don't self-obssession
-			continue
-		if(!Player.mind.get_station_role()) // not original crew, but they can be a victim if their name is in datacore...
+		if(!each_player.mind.get_display_station_role()) // not original crew, but they can be a victim if their name is in datacore...
 			var/datum/data/record/D
-			if(Player.get_visible_name() != "Unknown")
-				D = find_record("name", Player.get_visible_name(), GLOB.data_core.general) // [1st try] key by "visible name"
-			if(!D && (Player.get_visible_name() != Player.real_name))
-				D = find_record("name", Player.real_name, GLOB.data_core.general) // [2nd try] key by "real name"
+			if(each_player.get_visible_name() != "Unknown")
+				D = find_record("name", each_player.get_visible_name(), GLOB.data_core.general) // [1st try] key by "visible name"
+			if(!D && (each_player.get_visible_name() != each_player.real_name))
+				D = find_record("name", each_player.real_name, GLOB.data_core.general) // [2nd try] key by "real name"
 			if(!D)
-				D = find_record("name", Player.mind.name, GLOB.data_core.general) // [3rd try] key by "mind name"
-			if(!D)
-				return
-		possible_targets += Player
+				D = find_record("name", each_player.mind.name, GLOB.data_core.general) // [3rd try] key by "mind name"
+			if(!D) // they're not in datacore, so they've must not whom you've ever seen.
+				continue
+		possible_targets += each_player
 	return length(possible_targets) ? pick(possible_targets) : FALSE

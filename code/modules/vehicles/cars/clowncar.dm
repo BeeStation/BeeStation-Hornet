@@ -29,24 +29,17 @@
 	if(!M.mind)
 		add_control_flags(M, VEHICLE_CONTROL_KIDNAPPED)
 		return
-	if(M.mind.has_role(JOB_KEY_CLOWN))
+	if(M.mind.has_job(JOB_KEY_CLOWN))
 		is_clown = TRUE
 	else
-		if(M.mind.get_special_role() == "Laughter Demon") // ...yes, they too.
+		if(M.mind.get_display_special_role() == "Laughter Demon") // ...yes, they too.
 			is_clown = TRUE
 	if(!is_clown)
 		add_control_flags(M, VEHICLE_CONTROL_KIDNAPPED)
 		return
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.mind?.assigned_role == JOB_NAME_CLOWN) //Ensures only clowns can drive the car. (Including more at once)
-			add_control_flags(H, VEHICLE_CONTROL_DRIVE|VEHICLE_CONTROL_PERMISSION)
-			RegisterSignal(H, COMSIG_MOB_CLICKON, PROC_REF(FireCannon))
-			return
-	add_control_flags(M, VEHICLE_CONTROL_KIDNAPPED)
 
 	add_control_flags(M, VEHICLE_CONTROL_DRIVE|VEHICLE_CONTROL_PERMISSION)
-	RegisterSignal(M, COMSIG_MOB_CLICKON, .proc/FireCannon)
+	RegisterSignal(M, COMSIG_MOB_CLICKON, PROC_REF(FireCannon))
 
 /obj/vehicle/sealed/car/clowncar/mob_forced_enter(mob/M, silent = FALSE)
 	. = ..()

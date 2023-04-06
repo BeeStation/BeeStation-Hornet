@@ -34,7 +34,7 @@
 	. = ..()
 
 	owner.set_job(job)
-	owner.set_special_role("[antag_role_type] [role]")
+	owner.set_display_special_role("[antag_role_type] [role]")
 
 /datum/antagonist/ert/get_team()
 	return ert_team
@@ -108,7 +108,7 @@
 	owner.holy_role = HOLY_ROLE_PRIEST
 
 /datum/antagonist/ert/chaplain
-	role = JOB_NAME_CHAPLAIN
+	role = "Chaplain"
 	job = JOB_KEY_CHAPLAIN
 	outfit = /datum/outfit/ert/chaplain
 
@@ -127,7 +127,7 @@
 	owner.holy_role = HOLY_ROLE_PRIEST
 
 /datum/antagonist/ert/janitor
-	role = JOB_NAME_JANITOR
+	role = "Janitor "
 	job = JOB_KEY_JANITOR
 	outfit = /datum/outfit/ert/janitor
 

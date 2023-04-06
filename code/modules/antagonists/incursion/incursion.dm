@@ -174,7 +174,7 @@
 					generate_traitor_kill_objective(restricted_jobs)
 					return
 				var/datum/mind/selected = pick(current_heads)
-				if(selected.get_special_role())
+				if(selected.get_display_special_role())
 					generate_traitor_kill_objective(restricted_jobs)
 					return
 				killchosen.set_target(selected)

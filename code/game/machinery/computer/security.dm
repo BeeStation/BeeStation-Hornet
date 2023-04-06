@@ -901,13 +901,18 @@ What a mess.*/
 							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=released'>Discharged</a></li>"
 							temp += "</ul>"
 					if("rank")
-						var/list/L = list( JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CAPTAIN, JOB_NAME_AI, JOB_CENTCOM_CENTRAL_COMMAND) // this should use NAME because 'rank' var uses actual name than job key
+						var/static/list/valid_ranks
+						if(!valid_ranks)
+							var/ranks_to_add = list()
+							for(var/each in list(JOB_KEY_HEADOFPERSONNEL, JOB_KEY_CAPTAIN, JOB_KEY_AI, JOB_CENTCOM_CENTRAL_COMMAND))
+								ranks_to_add += get_job_cross_keyname(each, TRUE)
+
 						//This was so silly before the change. Now it actually works without beating your head against the keyboard. /N
-						if((istype(active1, /datum/data/record) && L.Find(rank)))
+						if((istype(active1, /datum/data/record) && valid_ranks.Find(rank)))
 							temp = "<h5>Rank:</h5>"
 							temp += "<ul>"
-							for(var/rank in get_all_jobs())
-								temp += "<li><a href='?src=[REF(src)];choice=Change Rank;rank=[rank]'>[rank]</a></li>"
+							for(var/each_job in get_all_jobs())
+								temp += "<li><a href='?src=[REF(src)];choice=Change Rank;rank=[get_job_cross_keyname(each_job)]'>[get_job_cross_keyname(each_job)]</a></li>"
 							temp += "</ul>"
 						else
 							alert(usr, "You do not have the required rank to do this!")
@@ -918,8 +923,9 @@ What a mess.*/
 					if("Change Rank")
 						if(active1)
 							active1.fields["rank"] = strip_html(href_list["rank"])
-							if(href_list["rank"] in get_all_jobs())
-								active1.fields["real_rank"] = href_list["real_rank"]
+							for(var/each_rank in get_all_jobs())
+								if(get_job_cross_keyname(each_rank) == href_list["rank"])
+									active1.fields["real_rank"] = href_list["real_rank"]
 
 					if("Change Criminal Status")
 						if(active2)

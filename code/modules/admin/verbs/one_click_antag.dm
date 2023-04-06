@@ -28,7 +28,7 @@
 	popup.open()
 
 /datum/admins/proc/isReadytoRumble(mob/living/carbon/human/applicant, targetrole, onstation = TRUE, conscious = TRUE)
-	if(applicant.mind.get_special_role())
+	if(applicant.mind.get_display_special_role())
 		return FALSE
 	if(!(targetrole in applicant.client.prefs.be_special))
 		return FALSE

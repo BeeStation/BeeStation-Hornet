@@ -291,7 +291,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	if(GLOB.announcement_systems.len)
 		var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
-		if(mob_occupant.mind.has_job(list(JOB_KEY_CAPTAIN,JOB_KEY_CAPTAIN)))
+		if(mob_occupant.mind.has_job(JOB_KEY_CAPTAIN))
 			minor_announce("[JOB_NAME_CAPTAIN] [mob_occupant.real_name] has entered cryogenic storage.")
 		else
 			announcer.announce("CRYOSTORAGE", mob_occupant.real_name, announce_rank, list())
@@ -398,10 +398,10 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	to_chat(target, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
 	name = "[name] ([occupant.name])"
 	if((world.time - SSticker.round_start_time) < 5 MINUTES)
-		message_admins("<span class='danger'>[key_name_admin(target)], the [target.mind.get_station_role()] entered a stasis pod. (<A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a></span>)")
+		message_admins("<span class='danger'>[key_name_admin(target)], the [target.mind.get_display_station_role()] entered a stasis pod. (<A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a></span>)")
 	else
-		message_admins("[key_name_admin(target)], the [target.mind.get_station_role()] entered a stasis pod. (<A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-	log_admin("<span class='notice'>[key_name(target)], the [target.mind.get_station_role()] entered a stasis pod.</span>")
+		message_admins("[key_name_admin(target)], the [target.mind.get_display_station_role()] entered a stasis pod. (<A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+	log_admin("<span class='notice'>[key_name(target)], the [target.mind.get_display_station_role()] entered a stasis pod.</span>")
 	add_fingerprint(target)
 
 //Attacks/effects.

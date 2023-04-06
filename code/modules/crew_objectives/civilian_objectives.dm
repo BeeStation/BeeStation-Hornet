@@ -307,6 +307,10 @@
 	explanation_text = "Have a non-assistant ID registered to you at the end of the shift."
 	jobs = JOB_KEY_ASSISTANT
 
+/datum/objective/crew/promotion/update_explanation_text()
+	. = ..()
+	explanation_text = "Have a non-[JOB_NAME_ASSISTANT] ID registered to you at the end of the shift."
+
 /datum/objective/crew/promotion/check_completion()
 	if(..())
 		return TRUE
@@ -316,7 +320,9 @@
 	var/obj/item/card/id/theID = H.get_idcard()
 	if(!istype(theID))
 		return FALSE
-	if(!(H.get_assignment() == JOB_NAME_ASSISTANT) && !(H.get_assignment() == "No id") && !(H.get_assignment() == "No job"))
+	// shouldn't be JOB_KEY since you should
+	var/current_assignment = H.get_assignment()
+	if(!(current_assignment in get_job_cross_keyname(JOB_KEY_ASSISTANT, TRUE)+list("No id", "No job", JOB_UNASSIGNED, "Unknown")))
 		return TRUE
 	if(theID.hud_state != JOB_HUD_ASSISTANT) // non-assistant HUD counts too
 		return TRUE

@@ -71,9 +71,9 @@
 
 /datum/symptom/pierrot/End(datum/disease/advance/A)
 	..()
+	REMOVE_TRAIT(A.affected_mob, TRAIT_CLUMSY, DISEASE_TRAIT)
 	if(!clown_mob)
 		to_chat(A.affected_mob, "<span class='notice'>You feel less dumb.</span>")
-		REMOVE_TRAIT(A.affected_mob, TRAIT_CLUMSY, DISEASE_TRAIT)
 	if(ishuman(A.affected_mob))
 		var/mob/living/carbon/human/M = A.affected_mob
 		if(istype(M.wear_mask, /obj/item/clothing/mask/gas/clown_hat))

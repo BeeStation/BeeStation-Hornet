@@ -167,9 +167,9 @@
 /obj/item/mail/proc/initialize_for_recipient(datum/mind/recipient)
 	switch(rand(1,5))
 		if(5)
-			name = "[initial(name)] critical to [recipient.name] ([recipient.get_station_role()])"
+			name = "[initial(name)] critical to [recipient.name] ([recipient.get_display_station_role()])"
 		else
-			name = "[initial(name)] for [recipient.name] ([recipient.get_station_role()])"
+			name = "[initial(name)] for [recipient.name] ([recipient.get_display_station_role()])"
 	recipient_ref = WEAKREF(recipient)
 
 	//Recipients
@@ -180,7 +180,7 @@
 	var/list/danger_goodies = hazard_goodies
 
 	//Load the job the player have
-	if(recipient?.get_station_role())  // only station crews have this role
+	if(recipient?.get_display_station_role())  // only station crews have this role
 		var/datum/job/this_job = SSjob.GetJob(recipient.get_job())
 		if(this_job)
 			if(!length(this_job.mail_goodies))
@@ -201,7 +201,7 @@
 		var/atom/movable/target_atom = new target_good(src)
 		body.log_message("[key_name(body)] received [target_atom.name] in the mail ([target_good])", LOG_GAME)
 		if(target_atom.type in danger_goodies)
-			message_admins("<span class='adminnotice'><b><font color=orange>DANGEROUS ITEM RECIEVED:</font></b>[ADMIN_LOOKUPFLW(body)] received [target_atom.name] in the mail ([target_good]) as a [recipient.get_station_role()]</span>")
+			message_admins("<span class='adminnotice'><b><font color=orange>DANGEROUS ITEM RECIEVED:</font></b>[ADMIN_LOOKUPFLW(body)] received [target_atom.name] in the mail ([target_good]) as a [recipient.get_display_station_role()]</span>")
 
 	return TRUE
 
@@ -270,7 +270,7 @@
 
 	for(var/mob/living/carbon/human/human in GLOB.player_list)
 		// Skip wizards, nuke ops, cyborgs and dead people; Centcom does not send them mail
-		if(human.stat == DEAD || !human.mind || !human.mind?.get_station_role())
+		if(human.stat == DEAD || !human.mind || !human.mind?.get_display_station_role())
 			continue
 
 		mail_recipients += human.mind

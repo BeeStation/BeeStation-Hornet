@@ -868,7 +868,7 @@
 							if(!ai_found && isAI(found))
 								ai_found = 1
 							var/is_antag = 0
-							if(found.mind?.get_special_role())
+							if(found.mind?.get_display_special_role())
 								is_antag = 1
 							founds[++founds.len] = list("name" = found.name,
 								            "real_name" = found.real_name,

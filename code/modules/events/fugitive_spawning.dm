@@ -9,10 +9,9 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	earliest_start = 30 MINUTES //deadchat sink, lets not even consider it early on.
 	gamemode_blacklist = list("nuclear")
 	cannot_spawn_after_shuttlecall = TRUE
-
 /datum/round_event/ghost_role/fugitives
 	minimum_required = 1
-	role_name = ROLE_FUGITIVE
+	role_name = ROLE_KEY_FUGITIVE_RUNNER
 	fakeable = FALSE
 
 /datum/round_event/ghost_role/fugitives/spawn_role()
@@ -28,23 +27,16 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 		message_admins("No valid spawn locations found, aborting...")
 		return MAP_ERROR
 	var/turf/landing_turf = pick(possible_spawns)
-	var/list/candidates = get_candidates(ROLE_FUGITIVE, null, ROLE_FUGITIVE)
+	var/list/candidates = get_candidates(ROLE_KEY_FUGITIVE_RUNNER, null, ROLE_KEY_FUGITIVE_RUNNER)
 	var/result = spawn_fugitives(landing_turf, candidates, spawned_mobs)
 	if(result != SUCCESSFUL_SPAWN)
 		return result
 	// Switch the round event to "hunter" mode
-	role_name = ROLE_FUGITIVE_HUNTER
+	role_name = ROLE_KEY_FUGITIVE_CHASER
 	return SUCCESSFUL_SPAWN
 
 /proc/spawn_fugitives(turf/landing_turf, list/candidates, list/spawned_mobs)
 	var/list/possible_backstories = list()
-	var/list/candidates = get_candidates(ROLE_KEY_TRAITOR, null, ROLE_KEY_TRAITOR)
-	if(candidates.len >= 1) //solo refugees
-		if(prob(30))
-			possible_backstories.Add("waldo") //less common as it comes with magicks and is kind of immershun shattering
-	if(candidates.len >= 4)//group refugees
-		possible_backstories.Add("prisoner", "cultist", "synth")
-	if(!possible_backstories.len)
 	for(var/type_key as() in GLOB.fugitive_types)
 		var/datum/fugitive_type/F = GLOB.fugitive_types[type_key]
 		if(length(candidates) > F.max_amount)
@@ -82,11 +74,6 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	player_mind.active = TRUE
 	var/mob/living/carbon/human/S = new(landing_turf)
 	player_mind.transfer_to(S)
-	player_mind.add_antag_datum(/datum/antagonist/fugitive)
-	var/datum/antagonist/fugitive/fugitiveantag = player_mind.has_antag_datum(/datum/antagonist/fugitive)
-	INVOKE_ASYNC(fugitiveantag, /datum/antagonist/fugitive.proc/greet, backstory) //some fugitives have a sleep on their greet, so we don't want to stop the entire antag granting proc with fluff
-	player_mind.assigned_role = ROLE_FUGITIVE
-	player_mind.special_role = ROLE_FUGITIVE
 	var/datum/antagonist/fugitive/A = new()
 	A.backstory = backstory
 	player_mind.add_antag_datum(A)
@@ -103,7 +90,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 /proc/spawn_hunters()
 	set waitfor = FALSE
 	var/datum/fugitive_type/hunter/backstory = GLOB.hunter_types[admin_select_backstory(GLOB.hunter_types)]
-	var/list/candidates = pollGhostCandidates("The Fugitive Hunters are looking for a [backstory.name]. Would you like to be considered for this role?", ROLE_FUGITIVE_HUNTER)
+	var/list/candidates = pollGhostCandidates("The Fugitive Hunters are looking for a [backstory.name]. Would you like to be considered for this role?", ROLE_KEY_FUGITIVE_CHASER)
 	var/datum/map_template/shuttle/ship = new backstory.ship_type
 	var/x = rand(TRANSITIONEDGE,world.maxx - TRANSITIONEDGE - ship.width)
 	var/y = rand(TRANSITIONEDGE,world.maxy - TRANSITIONEDGE - ship.height)

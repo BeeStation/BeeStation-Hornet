@@ -627,7 +627,7 @@
 	if(diseasesource)
 		if(ishuman(diseasesource))
 			var/mob/living/carbon/human/H = diseasesource
-			var/job_string = H.mind?.get_station_role() || "Jobless"
+			var/job_string = H.mind?.get_display_station_role() || "Debtor"
 			var/prefix_temp = pick("[H.first_name()]'s", "[H.name]'s", "[job_string]'s", "[H.dna.species]'s")
 			prefix_temp = replacetext(prefix_temp, "s's", "s'") // grammar
 			prefixes += prefix_temp

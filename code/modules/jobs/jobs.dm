@@ -126,12 +126,12 @@ GLOBAL_LIST_INIT(exp_specialmap, list(
 		ROLE_KEY_LAVALAND_DOCTOR,
 		ROLE_KEY_LAVALAND_LIFEBRINGER,
 		ROLE_KEY_BEACH_BUM,
-		ROLE_KEY_GOLEMS,
+		ROLE_KEY_GOLEM,
 		ROLE_KEY_EXPERIMENTAL_CLONE,
 		ROLE_KEY_EXPLORATION_VIP,
 		ROLE_KEY_MAROONED_CREW,
-		ROLE_KEY_FUGITIVE,
-		ROLE_KEY_FUGITIVE_HUNTER,
+		ROLE_KEY_FUGITIVE_RUNNER,
+		ROLE_KEY_FUGITIVE_CHASER,
 		ROLE_KEY_DRONE,
 		//ROLE_KEY_UNDEAD, // I am not certain if it's a thing even
 		ROLE_KEY_LIVING_LEGEND
@@ -146,8 +146,8 @@ GLOBAL_LIST_INIT(exp_specialmap, list(
 		"Space Bartender",   // same above
 		"Skeleton",          // merged into ROLE_KEY_UNDEAD
 		"Zombie",            // merged into ROLE_KEY_UNDEAD
-		"Servant Golem",     // merged into ROLE_KEY_GOLEMS
-		"Free Golem",        // merged into ROLE_KEY_GOLEMS
+		"Servant Golem",     // merged into ROLE_KEY_GOLEM
+		"Free Golem",        // merged into ROLE_KEY_GOLEM
 		"Ancient Crew",      // used nowhere...? or merged into ROLE_KEY_MAROONED_CREW
 		"Hermit",            // Merged into ROLE_KEY_MAROONED_CREW
 		"Space Doctor",      // used nowhere

@@ -105,7 +105,7 @@
 	if(!SSticker?.mode)
 		return
 	SSticker.mode.current_players[CURRENT_LIVING_PLAYERS] |= src
-	if(mind && (mind.get_special_role() || length(mind.antag_datums)))
+	if(mind && (mind.get_display_special_role() || length(mind.antag_datums)))
 		add_to_current_living_antags()
 
 ///Removes the mob reference from the list of living player-mobs. If the mob is an antag, it removes it from the list of living antag player-mobs.

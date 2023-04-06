@@ -119,6 +119,6 @@
 		return client.holder.auto_deadmin()
 	if(mind.has_antag_datum(/datum/antagonist) && (CONFIG_GET(flag/auto_deadmin_antagonists) || client.prefs?.toggles & PREFTOGGLE_DEADMIN_ANTAGONIST))
 		return client.holder.auto_deadmin()
-	if(mind.get_station_role())
+	if(mind.get_display_station_role())
 		return SSjob.handle_auto_deadmin_roles(client, mind.get_job())
 

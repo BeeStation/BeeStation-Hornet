@@ -366,14 +366,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	if(G_found.mind && !G_found.mind.active)	//mind isn't currently in use by someone/something
 		//Check if they were an alien
-		if(G_found.mind.has_role(ROLE_KEY_XENOMORPH))
+		if(G_found.mind.has_special_role(ROLE_KEY_XENOMORPH))
 			if(alert("This character appears to have been an alien. Would you like to respawn them as such?",,"Yes","No")=="Yes")
 				var/turf/T
 				if(GLOB.xeno_spawn.len)
 					T = pick(GLOB.xeno_spawn)
 
 				var/mob/living/carbon/alien/new_xeno
-				switch(G_found.mind.get_special_role())//If they have a mind, we can determine which caste they were.
+				switch(G_found.mind.get_display_special_role())//If they have a mind, we can determine which caste they were.
 				// note: this is not currently working, and never worked before
 					if("Hunter")
 						new_xeno = new /mob/living/carbon/alien/humanoid/hunter(T)
@@ -458,15 +458,15 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/admin = key_name_admin(src)
 	var/player_key = G_found.key
 
-	if(new_character.mind.has_role(ROLE_KEY_WIZARD))
+	if(new_character.mind.has_special_role(ROLE_KEY_WIZARD))
 		new_character.forceMove(pick(GLOB.wizardstart))
 		var/datum/antagonist/wizard/A = new_character.mind.has_antag_datum(/datum/antagonist/wizard,TRUE)
 		A.equip_wizard()
-	else if(new_character.mind.has_role(list(ROLE_KEY_OPERATIVE)))
+	else if(new_character.mind.has_special_role(list(ROLE_KEY_OPERATIVE)))
 		new_character.forceMove(pick(GLOB.nukeop_start))
 		var/datum/antagonist/nukeop/N = new_character.mind.has_antag_datum(/datum/antagonist/nukeop,TRUE)
 		N.equip_op()
-	else if(new_character.mind.has_role(ROLE_KEY_NINJA))
+	else if(new_character.mind.has_special_role(ROLE_KEY_NINJA))
 		var/list/ninja_spawn = list()
 		for(var/obj/effect/landmark/carpspawn/L in GLOB.landmarks_list)
 			ninja_spawn += L
@@ -499,7 +499,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				GLOB.data_core.manifest_inject(new_character)
 
 			if(alert(new_character,"Would you like an active AI to announce this character?",,"No","Yes")=="Yes")
-				AnnounceArrival(new_character, new_character.mind.get_station_role())
+				AnnounceArrival(new_character, new_character.mind.get_display_station_role())
 
 	var/msg = "<span class='adminnotice'>[admin] has respawned [player_key] as [new_character.real_name].</span>"
 	message_admins(msg)

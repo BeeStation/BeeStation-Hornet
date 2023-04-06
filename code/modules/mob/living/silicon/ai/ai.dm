@@ -116,7 +116,7 @@
 
 	if(target_ai.mind)
 		target_ai.mind.transfer_to(src)
-		if(mind.get_special_role()) // I don't get why this IF check exists
+		if(mind.get_display_special_role()) // I don't get why this IF check exists
 			mind.store_memory("As an AI, you must obey your silicon laws above all else. Your objectives will consider you to be dead.")
 			to_chat(src, "<span class='userdanger'>You have been installed as an AI!</span>")
 			to_chat(src, "<span class='danger'>You must obey your silicon laws above all else. Your objectives will consider you to be dead.</span>")
@@ -375,7 +375,7 @@
 
 	if(GLOB.announcement_systems.len)
 		var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
-		announcer.announce("AIWIPE", real_name, mind.get_station_role(), list())
+		announcer.announce("AIWIPE", real_name, mind.get_display_station_role(), list())
 
 	SSjob.FreeRole(mind.get_job())
 

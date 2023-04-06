@@ -46,7 +46,7 @@
 			continue
 		if(H.stat == DEAD)
 			continue
-		if(!H.mind.get_station_role()) // only station crews will be eligible for this
+		if(!H.mind.get_display_station_role()) // only station crews will be eligible for this
 			continue
 		if(H.mind.has_job(protected_jobs))
 			continue

@@ -550,7 +550,7 @@
 	deadchat_broadcast(message, follow_target = character, message_type=DEADCHAT_ARRIVALRATTLE)
 	if((!GLOB.announcement_systems.len) || (!character.mind))
 		return
-	if(character.mind.has_job(JOB_KEY_CYBORG) || !character.mind.get_station_role())
+	if(character.mind.has_job(JOB_KEY_CYBORG) || !character.mind.get_display_station_role())
 		return
 
 	var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)

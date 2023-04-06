@@ -971,7 +971,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		var/datum/job/overflow = SSjob.GetJob(SSjob.overflow_role)
 
 		for(var/datum/job/job in sort_list(SSjob.occupations, GLOBAL_PROC_REF(cmp_job_display_asc)))
-		for(var/datum/job/job in sortList(SSjob.occupations, /proc/cmp_job_display_asc))
 			index += 1
 			if(!(job.job_bitflags & JOB_BITFLAG_SELECTABLE))
 				continue

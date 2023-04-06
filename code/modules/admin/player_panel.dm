@@ -47,16 +47,16 @@
 			if(iscarbon(player))
 				if(ishuman(player))
 					var/mob/living/carbon/human/tracked_human = player
-					data_entry["job"] = player.mind.get_station_role()
+					data_entry["job"] = player.mind.get_display_station_role()
 					var/obj/item/card/id/I = tracked_human.wear_id?.GetID()
 					if (I)
-						data_entry["job"] = I.assignment ? I.assignment : player.mind.get_station_role()
+						data_entry["job"] = I.assignment ? I.assignment : player.mind?.get_display_station_role() || "Null"
 						if(GLOB.crewmonitor.jobs[I.hud_state] != null)
 							data_entry["ijob"] = GLOB.crewmonitor.jobs[I.hud_state]
 				else
 					data_entry["job"] = initial(player.name) // get the name of their mob type
 			else if(issilicon(player))
-				data_entry["job"] = player.mind.get_station_role()
+				data_entry["job"] = player.mind.get_display_station_role()
 			else
 				data_entry["job"] = initial(player.name)
 		else if(isnewplayer(player))

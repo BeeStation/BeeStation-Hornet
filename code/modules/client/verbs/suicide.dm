@@ -246,9 +246,9 @@
 		message_admins("[key_name(src)] committed suicide at [AREACOORD(src)] as [src.type].")
 
 /mob/living/carbon/human/suicide_log()
-	log_game("[key_name(src)] (job: [src.mind.get_station_role() || "None"]) committed suicide at [AREACOORD(src)].")
+	log_game("[key_name(src)] (job: [src.mind.get_display_station_role() || "None"]) committed suicide at [AREACOORD(src)].")
 	if(CONFIG_GET(flag/restricted_suicide))
-		message_admins("[key_name(src)] (job: [src.mind.get_station_role() || "None"]) committed suicide at [AREACOORD(src)].")
+		message_admins("[key_name(src)] (job: [src.mind.get_display_station_role() || "None"]) committed suicide at [AREACOORD(src)].")
 
 /mob/living/proc/canSuicide()
 	switch(stat)
@@ -274,8 +274,8 @@
 		if(world.time < (SSticker.round_start_time + (15 MINUTES)))
 			var/timeleft = ((SSticker.round_start_time + (15 MINUTES)) - world.time)
 			to_chat(src, "<span class='boldannounce'>Committing suicide at the start of the round is not allowed. Time until suicide is possible: [DisplayTimeText(timeleft)].</span>")
-			if(src.mind.get_station_role())
-				message_admins("[key_name(src)] (job: [src.mind.get_station_role()]) attempted to commit suicide at [AREACOORD(src)]. Time until suicide is possible: [DisplayTimeText(timeleft)].")
+			if(src.mind.get_display_station_role())
+				message_admins("[key_name(src)] (job: [src.mind.get_display_station_role()]) attempted to commit suicide at [AREACOORD(src)]. Time until suicide is possible: [DisplayTimeText(timeleft)].")
 			return
 
 	return TRUE

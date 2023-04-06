@@ -43,7 +43,7 @@
 					var/mob/living/carbon/human/H = L
 					category = "humans"
 					if(H.mind)
-						mob_data["job"] = H.mind.get_station_role()
+						mob_data["job"] = H.mind.get_display_station_role()
 					else
 						mob_data["job"] = "Unknown"
 					mob_data["species"] = H.dna.species.name
@@ -595,22 +595,22 @@
 	if(I)
 		if(I.registered_name == mind.name) // card must be yours
 			custom_title = I.assignment // get the custom title
-		if(custom_title == mind.get_station_role()) // non-custom title, lame
+		if(custom_title == mind.get_display_station_role()) // non-custom title, lame
 			custom_title = null
 	if(!custom_title) // still no custom title? it seems you don't have a ID card
 		var/datum/data/record/R = find_record("name", mind.name, GLOB.data_core.general)
 		if(R)
 			custom_title = R.fields["rank"] // get a custom title from datacore
-		if(custom_title == mind.get_station_role()) // lame...
+		if(custom_title == mind.get_display_station_role()) // lame...
 			return
 
 	if(custom_title)
 		return "[newline ? "<br/>" : " "](as [custom_title])" // i.e. " (as Plague Doctor)"
 
 /proc/printplayer(datum/mind/ply, fleecheck)
-	var/jobtext = ply.get_station_role()
+	var/jobtext = ply.get_display_station_role()
 	if(!jobtext)
-		jobtext = ply.get_special_role()
+		jobtext = ply.get_display_special_role()
 	if(!jobtext)
 		jobtext = JOB_UNASSIGNED
 	jobtext = " the <b>[jobtext]</b>"

@@ -429,7 +429,7 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/mob/dead/new_player/N in GLOB.player_list)
 		var/mob/living/carbon/human/player = N.new_character
-		if(istype(player) && player.mind && player.mind.get_station_role())
+		if(istype(player) && player.mind?.get_display_station_role())
 			if(player.mind.has_job(JOB_KEY_CAPTAIN))
 				captainless = FALSE
 				spare_id_candidates += N

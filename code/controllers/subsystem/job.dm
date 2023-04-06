@@ -91,7 +91,7 @@ SUBSYSTEM_DEF(job)
 
 		if(job.job_bitflags & JOB_BITFLAG_GIMMICK) // if a gimmick job has a slot, set it to selectable
 			if(job.total_positions || job.spawn_positions)
-				job_bitflags |= JOB_BITFLAG_SELECTABLE
+				job.job_bitflags |= JOB_BITFLAG_SELECTABLE
 
 		occupations += job
 		// Key is job path. gimmick job path is prioritised if it exists.
@@ -324,7 +324,7 @@ SUBSYSTEM_DEF(job)
 
 	//Get the players who are ready
 	for(var/mob/dead/new_player/player in GLOB.player_list)
-		if(player.ready == PLAYER_READY_TO_PLAY && player.mind && !player.mind.get_station_role())
+		if(player.ready == PLAYER_READY_TO_PLAY && player.mind && !player.mind.get_display_station_role())
 			if(!player.check_preferences())
 				player.ready = PLAYER_NOT_READY
 			else
@@ -540,7 +540,7 @@ SUBSYSTEM_DEF(job)
 			log_world("Couldn't find a round start spawn point for [job_key]")
 			SendToLateJoin(living_mob)
 
-	var/displaying_job_title = living_mob.mind.get_station_role()
+	var/displaying_job_title = living_mob.mind.get_display_station_role()
 	to_chat(M, "<b>You are the [displaying_job_title].</b>")
 	if(job)
 		var/new_mob = job.equip(living_mob, null, null, joined_late , null, M.client)
@@ -622,10 +622,6 @@ SUBSYSTEM_DEF(job)
 		if(jobs.Find(jobstext))
 			J.total_positions = text2num(jobs.group[1])
 			J.spawn_positions = text2num(jobs.group[2])
-		jobs = new("[J.get_jkey(FALSE)]=(-1|\\d+),(-1|\\d+)")
-		if(jobs.Find(jobstext))
-			J.total_positions = text2num(jobs.group[1])
-			J.spawn_positions = text2num(jobs.group[2])
 		else
 			log_runtime("Error in /datum/controller/subsystem/job/proc/LoadJobs: Failed to locate job of job path [J.get_jkey()] in jobs.txt")
 
@@ -658,12 +654,12 @@ SUBSYSTEM_DEF(job)
 					low++
 				else
 					never++
-		SSblackbox.record_feedback("nested tally", "job_preferences", high, list("[job.get_title()]", "high"))
-		SSblackbox.record_feedback("nested tally", "job_preferences", medium, list("[job.get_title()]", "medium"))
-		SSblackbox.record_feedback("nested tally", "job_preferences", low, list("[job.get_title()]", "low"))
-		SSblackbox.record_feedback("nested tally", "job_preferences", never, list("[job.get_title()]", "never"))
-		SSblackbox.record_feedback("nested tally", "job_preferences", banned, list("[job.get_title()]", "banned"))
-		SSblackbox.record_feedback("nested tally", "job_preferences", young, list("[job.get_title()]", "young"))
+		SSblackbox.record_feedback("nested tally", "job_preferences", high, list("[job.get_jkey()]", "high"))
+		SSblackbox.record_feedback("nested tally", "job_preferences", medium, list("[job.get_jkey()]", "medium"))
+		SSblackbox.record_feedback("nested tally", "job_preferences", low, list("[job.get_jkey()]", "low"))
+		SSblackbox.record_feedback("nested tally", "job_preferences", never, list("[job.get_jkey()]", "never"))
+		SSblackbox.record_feedback("nested tally", "job_preferences", banned, list("[job.get_jkey()]", "banned"))
+		SSblackbox.record_feedback("nested tally", "job_preferences", young, list("[job.get_jkey()]", "young"))
 
 /datum/controller/subsystem/job/proc/PopcapReached()
 	var/hpc = CONFIG_GET(number/hard_popcap)
@@ -675,7 +671,7 @@ SUBSYSTEM_DEF(job)
 	return 0
 
 /datum/controller/subsystem/job/proc/RejectPlayer(mob/dead/new_player/player)
-	if(player.mind && player.mind.get_special_role())
+	if(player.mind?.get_display_special_role())
 		return
 	if(PopcapReached() && !IS_PATRON(player.ckey))
 		JobDebug("Popcap overflow Check observer located, Player: [player]")
@@ -784,7 +780,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/get_living_heads()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.alive_mob_list)
-		if(player.stat != DEAD && player.mind && player.mind.has_job(GLOB.command_positions))
+		if(player.stat != DEAD && player.mind?.has_job(GLOB.command_positions))
 			. |= player.mind
 
 
@@ -795,7 +791,7 @@ SUBSYSTEM_DEF(job)
 	. = list()
 	for(var/i in GLOB.mob_list)
 		var/mob/player = i
-		if(player.mind && player.mind.has_job(GLOB.command_positions))
+		if(player.mind?.has_job(GLOB.command_positions))
 			. |= player.mind
 
 //////////////////////////////////////////////
@@ -804,7 +800,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/get_living_sec()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.carbon_list)
-		if(player.stat != DEAD && player.mind && player.mind.has_job(GLOB.security_positions))
+		if(player.stat != DEAD && player.mind?.has_job(GLOB.security_positions))
 			. |= player.mind
 
 ////////////////////////////////////////
@@ -813,7 +809,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/get_all_sec()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.carbon_list)
-		if(player.mind && player.mind.has_job(GLOB.security_positions))
+		if(player.mind?.has_job(GLOB.security_positions))
 			. |= player.mind
 
 /datum/controller/subsystem/job/proc/JobDebug(message)

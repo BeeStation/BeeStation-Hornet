@@ -133,7 +133,7 @@
 
 	if(locked)
 		return
-	if(!non_traitor_allowed && !user.mind.get_special_role())
+	if(!non_traitor_allowed && !user.mind.has_antag_datum(/datum/antagonist))
 		return
 	active = TRUE
 	update_items()
@@ -245,7 +245,7 @@
 		U.limited_stock -= 1
 
 	SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(U.name)]", "[U.cost]"))
-	log_game("[initial(U.name)] purchased by [user.ckey]/[user.name] the [user.mind.get_station_role()] for [U.cost] TC, [telecrystals] TC remaining.")
+	log_game("[initial(U.name)] purchased by [user.ckey]/[user.name] the [user.mind.get_display_station_role()][user.mind.get_display_station_role(TRUE)]/[user.mind.get_display_special_role(TRUE)] for [U.cost] TC, [telecrystals] TC remaining.")
 	return TRUE
 
 // Implant signal responses

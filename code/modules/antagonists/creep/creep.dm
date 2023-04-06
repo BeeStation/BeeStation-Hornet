@@ -62,7 +62,7 @@
 	if(family_heirloom)//oh, they have an heirloom? Well you know we have to steal that.
 		objectives_left += "heirloom"
 
-	if(obsessionmind.get_station_role() && !obsessionmind.has_job(JOB_KEY_CAPTAIN))
+	if(obsessionmind.get_display_station_role() && !obsessionmind.has_job(JOB_KEY_CAPTAIN))
 		objectives_left += "jealous"//if they have no coworkers, jealousy will pick someone else on the station. this will never be a free objective, nice.
 
 	for(var/i in 1 to 3)
@@ -149,7 +149,7 @@
 /datum/objective/assassinate/obsessed/update_explanation_text()
 	..()
 	if(target && target.current)
-		explanation_text = "Murder [target.name], the [!target_role_type ? target.get_station_role() : target.get_special_role()]."
+		explanation_text = "Murder [target.name], the [!target_role_type ? target.get_display_station_role() : target.get_display_special_role()]."
 	else
 		message_admins("WARNING! [ADMIN_LOOKUPFLW(owner)] obsessed objectives forged without an obsession!")
 		explanation_text = "Free Objective"
@@ -170,7 +170,7 @@
 		explanation_text = "Free Objective"
 
 /datum/objective/assassinate/jealous/find_target(list/dupe_search_range, list/blacklist)//returning null = free objective
-	if(!obsession?.get_station_role()) // they might not be our crew
+	if(!obsession?.get_display_station_role()) // they might not be our crew
 		set_target(null)
 		update_explanation_text()
 		return
@@ -195,7 +195,7 @@
 		update_explanation_text()
 		return
 	for(var/datum/mind/possible_target as() in get_crewmember_minds())
-		if(!possible_target.get_station_role() || possible_target == obsession || possible_target.has_antag_datum(/datum/antagonist/obsessed) || (possible_target in blacklist))
+		if(!possible_target.get_display_station_role() || possible_target == obsession || possible_target.has_antag_datum(/datum/antagonist/obsessed) || (possible_target in blacklist))
 			continue //the jealousy target has to have a job, and not be the obsession or obsessed.
 		all_coworkers += possible_target
 		if(possible_target.has_job(chosen_department))

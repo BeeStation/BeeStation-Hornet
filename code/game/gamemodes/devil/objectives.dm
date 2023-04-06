@@ -78,7 +78,7 @@
 
 /datum/objective/devil/buy_target/update_explanation_text()
 	if(target)
-		explanation_text = "Purchase and retain the soul of [target.name], the [target.get_station_role()]."
+		explanation_text = "Purchase and retain the soul of [target.name], the [target.get_display_station_role()]."
 	else
 		explanation_text = "Free objective."
 
@@ -93,7 +93,7 @@
 
 /datum/objective/devil/outsell/update_explanation_text()
 	var/datum/antagonist/devil/opponent = target.has_antag_datum(/datum/antagonist/devil)
-	explanation_text = "Purchase and retain control over more souls than [opponent.truename], known to mortals as [target.name], the [target.get_special_role()]."
+	explanation_text = "Purchase and retain control over more souls than [opponent.truename], known to mortals as [target.name], the [target.get_display_station_role()]."
 
 /datum/objective/devil/outsell/check_completion()
 	var/selfcount = 0

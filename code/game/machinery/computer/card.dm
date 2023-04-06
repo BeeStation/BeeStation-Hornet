@@ -394,7 +394,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(job == "Custom")
 				jobs_all += "<br/>"
 			// these will make some separation for the department.
-			jobs_all += "<a href='?src=[REF(src)];choice=assign;assign_target=[job]'>[replacetext(job, " ", "&nbsp")]</a> " //make sure there isn't a line break in the middle of a job
+			jobs_all += "<a href='?src=[REF(src)];choice=assign;assign_target=[job]'>[replacetext(get_job_cross_keyname(job), " ", "&nbsp")]</a> " //make sure there isn't a line break in the middle of a job
 
 
 		var/body
@@ -704,7 +704,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				update_modify_manifest()
 
 		if ("demote")
-			if(inserted_modify_id.assignment in head_subordinates || inserted_modify_id.assignment == JOB_NAME_ASSISTANT)
+			if(inserted_modify_id.assignment in head_subordinates || (get_job_cross_keyname(JOB_KEY_ASSISTANT, TRUE)[inserted_modify_id.assignment]))
 				inserted_modify_id.assignment = JOB_DEMOTED
 				log_id("[key_name(usr)] demoted [inserted_modify_id], unassigning the card without affecting access, using [inserted_scan_id] at [AREACOORD(usr)].")
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)

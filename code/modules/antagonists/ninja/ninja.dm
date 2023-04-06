@@ -35,7 +35,7 @@
 	for(var/datum/mind/M in SSticker.minds)
 		if(M.current && M.current.stat != DEAD)
 			if(ishuman(M.current))
-				if(M.get_special_role())
+				if(M.get_display_special_role())
 					possible_targets[M] = 0						//bad-guy (actually having special role doesn't mean they're bad guy always, but let's use common sense)
 				else if(M.has_job(GLOB.command_positions))
 					possible_targets[M] = 1						//good-guy
@@ -65,7 +65,7 @@
 				var/datum/objective/assassinate/O = new /datum/objective/assassinate()
 				O.owner = owner
 				O.set_target(M)
-				O.explanation_text = "Slay \the [M.current.real_name], the [M.get_station_role()]."
+				O.explanation_text = "Slay \the [M.current.real_name], the [M.get_display_station_role()]."
 				objectives += O
 				log_objective(owner, O.explanation_text)
 			if(4)	//capture

@@ -263,11 +263,10 @@
 				to_chat(user, "<span class='warning'>The MMI indicates that the brain is damaged!</span>")
 				return
 
-			if(is_banned_from(BM.ckey, JOB_KEY_CYBORG) || QDELETED(src) || QDELETED(BM) || QDELETED(user) || QDELETED(M) || !Adjacent(user))
-			if(is_banned_from(BM.ckey, JOB_NAME_CYBORG) || BM.client.get_exp_living(TRUE) <= MINUTES_REQUIRED_BASIC)
+			if(is_banned_from(BM.ckey, JOB_KEY_CYBORG) || BM.client.get_exp_living(TRUE) <= MINUTES_REQUIRED_BASIC)
 				to_chat(user, "<span class='warning'>This [M.name] is not compatible, try a different one!</span>")
 				return
-			
+
 			if(QDELETED(src) || QDELETED(BM) || QDELETED(user) || !Adjacent(user))
 				if(!QDELETED(M))
 					to_chat(user, "<span class='warning'>This [M.name] does not seem to fit!</span>")
@@ -317,7 +316,7 @@
 
 			BM.mind.transfer_to(O)
 
-			if(O.mind?.get_special_role())
+			if(O.mind?.get_display_special_role())
 				O.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
 				to_chat(O, "<span class='userdanger'>You have been robotized!</span>")
 				to_chat(O, "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>")

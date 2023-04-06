@@ -45,7 +45,7 @@
 		restricted_jobs += GLOB.command_positions
 
 	if(num_players() < CONFIG_GET(number/malf_ai_minimum_pop))
-		restricted_jobs += JOB_NAME_AI
+		restricted_jobs += JOB_KEY_AI
 
 	var/num_traitors = 1
 

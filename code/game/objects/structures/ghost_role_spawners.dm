@@ -117,7 +117,7 @@
 	name = "inert free golem shell"
 	desc = "A humanoid shape, empty, lifeless, and full of potential."
 	mob_name = "a free golem"
-	spawner_special_role = ROLE_KEY_GOLEMS
+	spawner_special_role = ROLE_KEY_GOLEM
 	spawner_special_role_name = "Free Golem"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "construct"
@@ -175,10 +175,7 @@
 				H.fully_replace_character_name(null, H.dna.species.random_name())
 		else
 			H.fully_replace_character_name(null, name)
-	if(has_owner)
-		new_spawn.mind.assigned_role = "Servant Golem"
-	else
-		new_spawn.mind.assigned_role = "Free Golem"
+	if(!has_owner)
 		var/obj/item/card/id/I = new_spawn.get_idcard()
 		if(I)
 			I.registered_name = new_spawn.name
@@ -378,7 +375,7 @@
 	death = FALSE
 	roundstart = FALSE
 	random = TRUE
-	id_title = "SuperFriend" // this is not a real job in current codebase. change this later too.
+	id_title = "SuperFriend" // TO-DO: this is not a real job in current codebase. change this later too.
 	id_access = "assistant"
 	var/obj/effect/proc_holder/spell/targeted/summon_friend/spell
 	var/datum/mind/owner

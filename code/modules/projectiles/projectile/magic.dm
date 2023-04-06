@@ -579,10 +579,10 @@
 /obj/item/projectile/magic/wipe/proc/possession_test(var/mob/living/carbon/M)
 	var/datum/brain_trauma/special/imaginary_friend/trapped_owner/trauma = M.gain_trauma(/datum/brain_trauma/special/imaginary_friend/trapped_owner)
 	var/poll_message = "Do you want to play as [M.mind.name]?"
-	if(M.mind?.get_station_role())
-		poll_message = "[poll_message] Job:[M.mind.get_station_role()]."
-	if(M.mind?.get_special_role())
-		poll_message = "[poll_message] Status:[M.mind.get_special_role()]."
+	if(M.mind?.get_display_station_role())
+		poll_message = "[poll_message] Job:[M.mind.get_display_station_role()]."
+	if(M.mind?.get_display_special_role())
+		poll_message = "[poll_message] Status:[M.mind.get_display_special_role()]."
 	else if(M.mind)
 		var/datum/antagonist/A = M.mind.has_antag_datum(/datum/antagonist/)
 		if(A)

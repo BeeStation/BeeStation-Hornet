@@ -20,7 +20,7 @@
 			if(!(antag_flag in P.client.prefs.be_special) || is_banned_from(P.ckey, list(BANCHECK_ROLE_MAJOR_ANTAGONIST, antag_flag)))
 				candidates.Remove(P)
 				continue
-		if (P.mind.get_role())
+		if (P.mind.get_special_role()) // NOTE (maybe TO-DO): this can disable all midround antag validation during valentine, or something else
 			candidates.Remove(P) // if they're speical already, they might not be eligible for being more speical
 			continue
 		if (P.mind.has_job(restricted_roles)) // Does their job allow for it?

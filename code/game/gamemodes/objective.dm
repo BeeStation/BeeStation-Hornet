@@ -197,7 +197,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		if(is_valid_target(possible_target))
 			var/is_role = FALSE
 			if(role_type)
-				if(possible_target.has_role(role))
+				if(possible_target.has_special_role(role))
 					is_role = TRUE
 			else
 				if(possible_target.has_job(role))
@@ -266,7 +266,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/assassinate/update_explanation_text()
 	..()
 	if(target && target.current)
-		explanation_text = "Assassinate [target.name], the [!target_role_type ? target.get_station_role() : target.get_station_role()]."
+		explanation_text = "Assassinate [target.name], the [!target_role_type ? target.get_display_station_role() : target.get_display_special_role()]."
 	else
 		explanation_text = "Free Objective"
 
@@ -279,7 +279,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/assassinate/incursion/update_explanation_text()
 	..()
 	if(target && target.current)
-		explanation_text = "[target.name], the [!target_role_type ? target.get_station_role() : target.get_station_role()] has been declared an ex-communicate of the syndicate. Eliminate them."
+		explanation_text = "[target.name], the [!target_role_type ? target.get_display_station_role() : target.get_display_special_role()] has been declared an ex-communicate of the syndicate. Eliminate them."
 	else
 		explanation_text = "Free Objective"
 
@@ -310,7 +310,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/mutiny/update_explanation_text()
 	..()
 	if(target && target.current)
-		explanation_text = "Assassinate or exile [target.name], the [!target_role_type ? target.get_station_role() : target.get_station_role()]."
+		explanation_text = "Assassinate or exile [target.name], the [!target_role_type ? target.get_display_station_role() : target.get_display_station_role()]."
 	else
 		explanation_text = "Free Objective"
 
@@ -340,7 +340,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/maroon/update_explanation_text()
 	if(target && target.current)
-		explanation_text = "Prevent [target.name], the [!target_role_type ? target.get_station_role() : target.get_station_role()], from escaping alive."
+		explanation_text = "Prevent [target.name], the [!target_role_type ? target.get_display_station_role() : target.get_display_station_role()], from escaping alive."
 	else
 		explanation_text = "Free Objective"
 
@@ -373,7 +373,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/debrain/update_explanation_text()
 	..()
 	if(target && target.current)
-		explanation_text = "Steal the brain of [target.name], the [!target_role_type ? target.get_station_role() : target.get_special_role()]."
+		explanation_text = "Steal the brain of [target.name], the [!target_role_type ? target.get_display_station_role() : target.get_display_special_role()]."
 	else
 		explanation_text = "Free Objective"
 
@@ -405,7 +405,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/protect/update_explanation_text()
 	..()
 	if(target && target.current)
-		explanation_text = "Protect [target.name], the [!target_role_type ? target.get_station_role() : target.get_special_role()]."
+		explanation_text = "Protect [target.name], the [!target_role_type ? target.get_display_station_role() : target.get_display_special_role()]."
 	else
 		explanation_text = "Free Objective"
 
@@ -584,7 +584,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/escape/escape_with_identity/update_explanation_text()
 	if(target && target.current)
 		target_real_name = target.current.real_name
-		explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.get_station_role()]"
+		explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.get_display_station_role()]"
 		var/mob/living/carbon/human/H
 		if(ishuman(target.current))
 			H = target.current
@@ -762,14 +762,14 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		targetinfo = new/datum/objective_item/unique/docs_blue
 	else if(faction == FACTION_BLUE)
 		targetinfo = new/datum/objective_item/unique/docs_red
-	explanation_text = "Acquire [targetinfo.name] held by [target.current.real_name], the [target.get_station_role()] and syndicate agent"
+	explanation_text = "Acquire [targetinfo.name] held by [target.current.real_name], the [target.get_display_station_role()] and syndicate agent"
 	steal_target = targetinfo.targetitem
 
 
 /datum/objective/steal/exchange/update_explanation_text()
 	..()
 	if(target && target.current)
-		explanation_text = "Acquire [targetinfo.name] held by [target.name], the [target.get_station_role()] and syndicate agent"
+		explanation_text = "Acquire [targetinfo.name] held by [target.name], the [target.get_display_station_role()] and syndicate agent"
 	else
 		explanation_text = "Free Objective"
 

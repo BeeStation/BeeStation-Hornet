@@ -156,14 +156,14 @@ GLOBAL_PROTECT(exp_to_update)
 			if(announce_changes)
 				to_chat(src,"<span class='notice'>You got: [minutes] Living EXP!</span>")
 
-			if(mob.mind.get_station_role()) // having station role means a crew - valid to have playtime
+			if(mob.mind.get_display_station_role()) // having station role means a crew - valid to have playtime
 				var/datum/job/J = SSjob.GetJob(mob.mind.get_job())
 				if(J)
 					play_records[J.get_jkey()] += minutes
 					if(announce_changes)
 						to_chat(src,"<span class='notice'>You got: [minutes] [J.get_jkey()] EXP!</span>")
-			if(length(mob.mind.get_role(TRUE))) // it gives all special type playtime as long as they have
-				for(var/each_role in mob.mind.get_role(TRUE))
+			if(length(mob.mind.get_special_role(TRUE))) // it gives all special type playtime as long as they have
+				for(var/each_role in mob.mind.get_special_role(TRUE))
 					if(!(each_role in GLOB.exp_specialmap[EXP_TYPE_ANTAG] + GLOB.exp_specialmap[EXP_TYPE_SPECIAL]))
 						continue
 					play_records[each_role] += minutes

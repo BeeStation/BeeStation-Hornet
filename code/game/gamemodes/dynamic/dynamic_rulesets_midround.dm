@@ -63,7 +63,7 @@
 				trimmed_list.Remove(M)
 				continue
 		if (M.mind)
-			if (restrict_ghost_roles && (M.mind.get_special_role() in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])) // Are they playing a ghost role?
+			if (restrict_ghost_roles && (M.mind.get_display_special_role() in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])) // Are they playing a ghost role?
 				trimmed_list.Remove(M)
 				continue
 			if (M.mind.has_job(restricted_roles)) // Does their job allow it?
@@ -214,7 +214,7 @@
 		if(is_centcom_level(player.z))
 			candidates -= player // We don't autotator people in CentCom
 			continue
-		if(player.mind && (player.mind.get_special_role() || length(player.mind.antag_datums)))
+		if(player.mind && (player.mind.get_display_special_role() || length(player.mind.antag_datums)))
 			candidates -= player // We don't autotator people with roles already
 
 /datum/dynamic_ruleset/midround/autotraitor/ready(forced = FALSE)
@@ -271,7 +271,7 @@
 		if(is_centcom_level(player.z))
 			candidates -= player
 			continue
-		if(player.mind && (player.mind.get_special_role() || length(player.mind.antag_datums)))
+		if(player.mind && (player.mind.get_display_special_role() || length(player.mind.antag_datums)))
 			candidates -= player
 
 /datum/dynamic_ruleset/midround/malf/ready(forced = FALSE)
@@ -669,7 +669,7 @@
 			|| candidate.mind.has_antag_datum(/datum/antagonist/obsessed) \
 			|| candidate.stat == DEAD \
 			|| !(ROLE_KEY_OBSESSED in candidate.client?.prefs?.be_special) \
-			|| !candidate.mind.get_station_role() \
+			|| !candidate.mind.get_display_station_role() \
 			|| candidate.mind.has_job(GLOB.nonhuman_positions) \
 		)
 			candidates -= candidate
@@ -827,7 +827,7 @@
 /datum/dynamic_ruleset/midround/from_ghosts/fugitives
 	name = "Fugitives"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
-	antag_flag = ROLE_FUGITIVE
+	antag_flag = ROLE_KEY_FUGITIVE_RUNNER
 	required_type = /mob/dead/observer
 	required_candidates = 1
 	weight = 3

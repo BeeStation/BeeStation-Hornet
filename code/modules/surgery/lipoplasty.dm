@@ -56,7 +56,7 @@
 	newmeat.name = "fatty meat"
 	newmeat.desc = "Extremely fatty tissue taken from a patient."
 	newmeat.subjectname = H.real_name
-	newmeat.subjectjob = H.mind?.get_station_role() || "Jobless"
+	newmeat.subjectjob = H.mind?.get_display_station_role() || "Jobless"
 	newmeat.reagents.add_reagent (/datum/reagent/consumable/nutriment, (removednutriment / 15)) //To balance with nutriment_factor of nutriment
 	newmeat.forceMove(target.loc)
 	return 1

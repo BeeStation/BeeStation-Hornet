@@ -203,7 +203,7 @@
 			found_string = L.first_name()
 
 		else if(L.mind)
-			var/string = L.mind.get_station_role()
+			var/string = L.mind.get_display_station_role()
 			if(string)
 				if(findtext(message, string, 1, length(string) + 1))
 					specific_listeners += L //focus on those with the specified job
@@ -556,7 +556,7 @@
 	else if((findtext(message, honk_words)))
 		cooldown = COOLDOWN_MEME
 		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), get_turf(user), 'sound/items/bikehorn.ogg', 300, 1), 25)
-		if(user.mind?.assigned_role == JOB_NAME_CLOWN)
+		if(user.mind?.has_job(JOB_KEY_CLOWN))
 			for(var/mob/living/carbon/C in listeners)
 				C.slip(140 * power_multiplier)
 			cooldown = COOLDOWN_MEME

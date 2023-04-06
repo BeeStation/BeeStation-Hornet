@@ -1,5 +1,6 @@
 //Each lists stores ckeys for "Never for this round" option category
 
+
 #define POLL_IGNORE_ALIEN_LARVA "alien_larva"
 #define POLL_IGNORE_ASHWALKER "ashwalker"
 #define POLL_IGNORE_CLOCKWORK "clockwork"
@@ -23,6 +24,7 @@
 #define POLL_IGNORE_SWARMER "swarmer"
 #define POLL_IGNORE_SYNDICATE "syndicate"
 
+// TO-DO: align with `role_preference.dm`
 GLOBAL_LIST_INIT(poll_ignore_desc, list(
 	POLL_IGNORE_ALIEN_LARVA = "Xenomorph larva",
 	POLL_IGNORE_SYNDICATE = "Syndicate",
@@ -51,9 +53,9 @@ GLOBAL_LIST_INIT(poll_ignore_desc, list(
 	POLL_IGNORE_SPLITPERSONALITY = "Split Personality",
 	POLL_IGNORE_CONTRACTOR_SUPPORT = "Contractor Support Unit",
 	POLL_IGNORE_PAI = ROLE_KEY_PAI,
-	POLL_IGNORE_EXPERIMENTAL_CLONE = ROLE_KEY_EXPERIMENTAL_CLONE
+	POLL_IGNORE_EXPERIMENTAL_CLONE = ROLE_KEY_EXPERIMENTAL_CLONE,
 	POLL_IGNORE_SWARMER = "Swarmer shells",
-	POLL_IGNORE_SYNDICATE = "Syndicate",
+	POLL_IGNORE_SYNDICATE = "Syndicate"
 ))
 GLOBAL_LIST_INIT(poll_ignore, init_poll_ignore())
 

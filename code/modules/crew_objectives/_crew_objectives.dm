@@ -8,7 +8,7 @@
 		return
 	if(!crewMind)
 		return
-	if(!crewMind.current || crewMind.get_special_role())
+	if(!crewMind.current || crewMind.get_display_special_role())
 		return
 	var/list/valid_objs = crew_obj_jobs["[crewMind.get_job()]"]
 	if(!length(valid_objs))

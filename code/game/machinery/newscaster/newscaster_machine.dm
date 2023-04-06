@@ -144,7 +144,7 @@
 		data["user"]["authenticated"] = TRUE
 		data["user"]["silicon"] = TRUE
 		data["user"]["name"] = user.name
-		data["user"]["job"] = user.mind.get_station_role()
+		data["user"]["job"] = user.mind.get_display_station_role()
 		data["security_mode"] = !ispAI(user)
 	else
 		data["user"]["name"] = "Unknown"
@@ -736,7 +736,7 @@
 		creating_comment = FALSE
 		return TRUE
 	var/datum/feed_comment/new_feed_comment = new/datum/feed_comment
-	var/author_text = issilicon(usr) ? "[usr.name] ([usr.mind.get_station_role()])" : "[account.account_holder] ([account.account_job?.get_title()])"
+	var/author_text = issilicon(usr) ? "[usr.name] ([usr.mind.get_display_station_role()])" : "[account.account_holder] ([account.account_job?.get_title()])"
 	new_feed_comment.author = author_text
 	new_feed_comment.body = comment_text
 	new_feed_comment.time_stamp = station_time_timestamp()
@@ -814,7 +814,7 @@
 		return TRUE
 	if(temp_message)
 		feed_channel_message = temp_message
-	GLOB.news_network.submit_article("<font face=\"[PEN_FONT]\">[parsemarkdown(feed_channel_message, usr)]</font>", usr_name, current_channel.channel_name, send_photo_data(), adminMessage = FALSE, allow_comments = TRUE, author_job = issilicon(usr) ? usr.mind.get_station_role() : account.account_job.get_title(), author_account = account)
+	GLOB.news_network.submit_article("<font face=\"[PEN_FONT]\">[parsemarkdown(feed_channel_message, usr)]</font>", usr_name, current_channel.channel_name, send_photo_data(), adminMessage = FALSE, allow_comments = TRUE, author_job = issilicon(usr) ? usr.mind.get_display_station_role() : account.account_job.get_title(), author_account = account)
 	SSblackbox.record_feedback("amount", "newscaster_stories", 1)
 	feed_channel_message = ""
 	current_image = null

@@ -785,7 +785,7 @@
 	if(!ishuman(H))
 		return TRUE
 
-	if(H.mind.get_special_role() == ROLE_TITLE_APPRENTICE)
+	if(H.mind.get_display_special_role() == ROLE_TITLE_APPRENTICE)
 		temp = "If you got caught sneaking a peek from your teacher's spellbook, you'd likely be expelled from the Wizard Academy. Better not."
 		return
 
@@ -799,7 +799,7 @@
 					if(E.limit)
 						E.limit--
 					uses -= E.cost
-					log_game("[initial(E.name)] purchased by [H.ckey]/[H.name] the [H.mind.get_station_role(TRUE)] for [E.cost] SP, [uses] SP remaining.")
+					log_game("[initial(E.name)] purchased by [H.ckey]/[H.name] the [H.mind.get_display_station_role(TRUE)] for [E.cost] SP, [uses] SP remaining.")
 		else if(href_list["refund"])
 			E = entries[text2num(href_list["refund"])]
 			if(E?.refundable)

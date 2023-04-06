@@ -14,7 +14,7 @@
 			continue
 		if(H.stat == DEAD)
 			continue
-		if(H.mind.get_station_role()) // if they have no station role then they might be not a crew you would meet never
+		if(H.mind.get_display_station_role()) // if they have no station role then they might be not a crew you would meet never
 			continue
 		if(H.mind.has_antag_datum(/datum/antagonist/obsessed))
 			continue

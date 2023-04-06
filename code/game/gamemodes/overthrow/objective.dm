@@ -134,7 +134,7 @@
 
 /datum/objective/overthrow/target/update_explanation_text()
 	if(target)
-		explanation_text = "Work with your team to convert, exile or kill [target.name], the [target.get_station_role()]. Converting to your team will give you more points, whereas killing will give you the least. Syndicates don't want to stir up too many troubles."
+		explanation_text = "Work with your team to convert, exile or kill [target.name], the [target.get_display_station_role()]. Converting to your team will give you more points, whereas killing will give you the least. Syndicates don't want to stir up too many troubles."
 	else
 		explanation_text = "Nothing."
 

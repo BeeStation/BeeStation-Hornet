@@ -65,24 +65,6 @@
 
 /obj/machinery/vendor/ui_data(mob/user)
 	. = list()
-	var/mob/living/carbon/human/H
-	var/obj/item/card/id/C
-	.["user"] = null
-	if(ishuman(user))
-		H = user
-		C = H.get_idcard(TRUE)
-		if(C)
-			.["user"] = list()
-			.["user"]["points"] = get_points(C)
-			if(C.registered_account)
-				.["user"]["name"] = C.registered_account.account_holder
-				var/datum/data/record/R = find_record("name", C.registered_account.account_holder, GLOB.data_core.general)
-				if(R)
-					.["user"]["job"] = R.fields["rank"]
-				else if(C.registered_account.account_job)
-					.["user"]["job"] = C.registered_account.account_job.get_title()
-				else
-					.["user"]["job"] = "No Job"
 	var/datum/bank_account/target_account = bound_bank_account
 	.["user"] = list()
 	.["user"]["name"] = "Unknown"
@@ -112,7 +94,7 @@
 			else if(id_card.assignment)
 				.["user"]["job"] = id_card.assignment
 			else if(id_card.registered_account?.account_job)
-				.["user"]["job"] = id_card.registered_account.account_job.title
+				.["user"]["job"] = id_card.registered_account.account_job.get_title()
 
 	else if(isobserver(user)) // let ghosts see explo points
 		if(target_account)

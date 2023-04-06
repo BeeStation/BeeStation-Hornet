@@ -41,7 +41,7 @@
 	for(var/mob/living/carbon/human/H in GLOB.carbon_list)
 		if(H.mind)
 			var/datum/mind/M = H.mind
-			if(M.get_station_role() && !(M.has_antag_datum(/datum/antagonist)))
+			if(M.get_display_station_role() && !(M.has_antag_datum(/datum/antagonist)))
 				if(M.has_job(jobs_to_revolt))
 					citizens += H
 					M.add_antag_datum(/datum/antagonist/separatist,nation)

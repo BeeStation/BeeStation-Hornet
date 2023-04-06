@@ -358,10 +358,10 @@
 			return FALSE
 		else if(isAI(M))
 			var/mob/living/silicon/ai/A = M
-			if(A.laws && A.laws.zeroth && A.mind && A.mind.get_special_role())
+			if(A.laws && A.laws.zeroth && A.mind && A.mind.get_display_special_role())
 				return TRUE
 		return FALSE
-	if(M.mind && M.mind.get_special_role())//If they have a mind and special role, they are some type of traitor or antagonist.
+	if(M.mind && M.mind.get_display_special_role())//If they have a mind and special role, they are some type of traitor or antagonist.
 		switch(SSticker.mode.config_tag)
 			if("revolution")
 				if(is_revolutionary(M))
@@ -491,10 +491,10 @@
 		poll_message = "Do you want to play as [M.real_name]?"
 	else
 		poll_message = "Do you want to play as [M.mind.name]?[M.mind.name != M.name ? " (Disguised as [M.name])" : ""]<br/>"
-	if(M.mind && M.mind.get_station_role())
-		poll_message += " Job:[M.mind.get_station_role()]."
-	if(M.mind && M.mind.get_special_role())
-		poll_message += " Status:[M.mind.get_special_role()]."
+	if(M.mind && M.mind.get_display_station_role())
+		poll_message += " Job:[M.mind.get_display_station_role()]."
+	if(M.mind && M.mind.get_display_special_role())
+		poll_message += " Status:[M.mind.get_display_special_role()]."
 	else if(M.mind)
 		var/datum/antagonist/A = M.mind.has_antag_datum(/datum/antagonist/)
 		if(A)

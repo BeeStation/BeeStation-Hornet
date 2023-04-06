@@ -18,7 +18,7 @@
 
 	//Job + antagonist
 	if(M.mind)
-		special_role_description = "Role: <b>[M.mind.get_station_role(TRUE)]</b>; Antagonist: <font color='red'><b>[M.mind.get_special_role(TRUE)]</b></font>"
+		special_role_description = "Role: <b>[M.mind.get_display_station_role(TRUE)]</b>; Antagonist: <font color='red'><b>[M.mind.get_display_special_role(TRUE)]</b></font>"
 	else
 		special_role_description = "Role: <i>Mind datum missing</i> Antagonist: <i>Mind datum missing</i>"
 

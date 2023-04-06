@@ -68,7 +68,7 @@
 
 /datum/objective/hivemind/awaken/update_explanation_text()
 	if(target && target.current)
-		explanation_text = "Turn [target.name], the [!target_role_type ? target.get_station_role(TRUE) : target.get_special_role(TRUE)], into an awakened vessel."
+		explanation_text = "Turn [target.name], the [!target_role_type ? target.get_display_station_role(TRUE) : target.get_display_special_role(TRUE)], into an awakened vessel."
 	else
 		explanation_text = "Free Objective"
 

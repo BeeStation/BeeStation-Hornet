@@ -1,8 +1,8 @@
 /obj/effect/spawner/lootdrop/job_scale/armoury
 	jobs = list(
-		JOB_NAME_SECURITYOFFICER,
-		JOB_NAME_WARDEN,
-		JOB_NAME_HEADOFSECURITY
+		JOB_KEY_SECURITYOFFICER,
+		JOB_KEY_WARDEN,
+		JOB_KEY_HEADOFSECURITY
 	)
 
 /obj/effect/spawner/lootdrop/job_scale/armoury/energy_gun

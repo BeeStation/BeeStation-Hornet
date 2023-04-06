@@ -1,9 +1,8 @@
 /datum/antagonist/fugitive
 	name = "Fugitive"
-	antag_role_type = ROLE_KEY_FUGITIVE
+	antag_role_type = ROLE_KEY_FUGITIVE_RUNNER
 	antag_major_bancheck_type = null
 	roundend_category = "Fugitive"
-	job_rank = ROLE_FUGITIVE
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Fugitives"
 	show_to_ghosts = TRUE

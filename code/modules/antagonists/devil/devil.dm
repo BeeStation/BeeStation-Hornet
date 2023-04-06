@@ -89,7 +89,6 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	antag_role_type = ROLE_KEY_DEVIL
 	roundend_category = "devils"
 	antagpanel_category = "Devil"
-	delete_on_mind_deletion = FALSE
 	show_to_ghosts = TRUE
 	var/obligation
 	var/ban

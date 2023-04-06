@@ -154,7 +154,7 @@
 	var/sourcejob
 	if(ishuman(occupant))
 		var/mob/living/carbon/human/gibee = occupant
-		sourcejob = gibee.mind?.get_station_role() || "Jobless"
+		sourcejob = gibee.mind?.get_display_station_role() || "Jobless"
 	var/sourcenutriment = mob_occupant.nutrition / 15
 	var/gibtype = /obj/effect/decal/cleanable/blood/gibs
 	var/typeofmeat = /obj/item/reagent_containers/food/snacks/meat/slab/human
