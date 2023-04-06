@@ -11,6 +11,7 @@
 	appearance_flags = LONG_GLIDE
 	density = TRUE
 	plane = MASSIVE_OBJ_PLANE
+	zmm_flags = ZMM_WIDE_LOAD
 	light_range = 6
 	move_resist = INFINITY
 	obj_flags = CAN_BE_HIT | DANGEROUS_POSSESSION

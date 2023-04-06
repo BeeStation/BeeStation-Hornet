@@ -54,6 +54,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug_mapping, list(
 	/client/proc/place_ruin,
 	/client/proc/test_tgui_inputs,
 	/client/proc/analyze_openturf,
+	/client/proc/update_all_openturf,
 ))
 GLOBAL_PROTECT(admin_verbs_debug_mapping)
 

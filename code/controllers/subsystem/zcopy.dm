@@ -602,13 +602,11 @@ SUBSYSTEM_DEF(zcopy)
 	var/turf/parent
 	var/computed_depth
 
-var/list/zmimic_fixed_planes = list(
-	"0" = "World plane (Non-Z)",
-	"-15" = "Cloaked plane (Non-Z)",
-	"-25" = "Mob plane (Non-Z)",
-	"-35" = "Object plane (Non-Z)",
-	"-45" = "Turf plane (Non-Z)"
-)
+/client/proc/update_all_openturf()
+	set name = "Update all openturfs"
+	set desc = "Forces all Z-Mimics to update immediately."
+	set category = "Debug"
+	SSzcopy.update_all()
 
 /client/proc/analyze_openturf(turf/T)
 	set name = "Analyze Openturf"
@@ -617,6 +615,14 @@ var/list/zmimic_fixed_planes = list(
 
 	if (!check_rights(R_DEBUG))
 		return
+
+	var/static/list/zmimic_fixed_planes
+	if(!length(zmimic_fixed_planes))
+		zmimic_fixed_planes = list(
+			"[MASSIVE_OBJ_PLANE]" = "Massive object plane (Non-Z)",
+			"[GAME_PLANE]" = "Game plane (Non-Z)",
+			"[FLOOR_PLANE]" = "floor plane (Non-Z)"
+		)
 
 	var/real_update_count = 0
 	var/claimed_update_count = T.z_queued

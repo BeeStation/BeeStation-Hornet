@@ -80,8 +80,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	hand_slots = list()
 
 	for(var/mytype in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/rendering_plate)
-		if(ispath(mytype, /atom/movable/screen/plane_master/shared))
-			continue
 		var/atom/movable/screen/plane_master/instance = new mytype()
 		plane_masters["[instance.plane]"] = instance
 		instance.backdrop(mymob)
@@ -229,10 +227,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	// Plane masters are always shown to OUR mob, never to observers
 	for(var/thing in plane_masters)
 		var/atom/movable/screen/plane_master/PM = plane_masters[thing]
-		PM.backdrop(mymob)
-		mymob.client.screen += PM
-
-	for(var/atom/movable/screen/plane_master/shared/PM as anything in GLOB.shared_plane_masters)
 		PM.backdrop(mymob)
 		mymob.client.screen += PM
 

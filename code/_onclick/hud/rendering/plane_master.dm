@@ -30,23 +30,6 @@
 	if(!isnull(render_relay_plane))
 		relay_render_to_plane(mymob, render_relay_plane)
 
-GLOBAL_LIST_INIT(shared_plane_masters, create_shared_plane_masters())
-
-/proc/create_shared_plane_masters()
-	. = list()
-	for(var/i in 0 to ZMIMIC_MAX_DEPTH)
-		. += new /atom/movable/screen/plane_master/shared/zmimic(null, ZMIMIC_MAX_PLANE - i)
-
-/atom/movable/screen/plane_master/shared/zmimic
-	name = "zmimic plane master"
-
-/atom/movable/screen/plane_master/shared/zmimic/Initialize(mapload, _plane)
-	plane = _plane
-	blend_mode = BLEND_OVERLAY
-	appearance_flags = PLANE_MASTER
-	name = "zmimic [_plane] plane master"
-	return ..()
-
 ///Contains just the floor
 /atom/movable/screen/plane_master/floor
 	name = "floor plane master"

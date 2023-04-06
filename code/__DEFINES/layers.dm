@@ -18,8 +18,6 @@
 /// The maxiumum number of planes deep we'll go before we just dump everything on the same plane.
 #define ZMIMIC_MAX_DEPTH 10
 
-#define OVER_OPENSPACE_PLANE -8
-
 #define FLOOR_PLANE -7
 #define GAME_PLANE -4
 
