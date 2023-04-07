@@ -101,6 +101,7 @@
 	var/cam_prev
 
 	var/atom/movable/screen/ai/modpc/interfaceButton
+	var/obj/effect/overlay/holo_pad_hologram/ai_hologram
 
 /mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
 	default_access_list = get_all_accesses()

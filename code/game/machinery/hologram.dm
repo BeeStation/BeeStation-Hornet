@@ -388,6 +388,11 @@ Possible to do for anyone motivated enough:
 		var/obj/effect/overlay/holo_pad_hologram/Hologram = new(loc)//Spawn a blank effect at the location.
 		if(AI)
 			Hologram.icon = AI.holo_icon
+			Hologram.verb_say = AI.verb_say
+			Hologram.verb_ask = AI.verb_ask
+			Hologram.verb_exclaim = AI.verb_exclaim
+			Hologram.verb_yell = AI.verb_yell
+			Hologram.speech_span = AI.speech_span
 		else	//make it like real life
 			Hologram.icon = user.icon
 			Hologram.icon_state = user.icon_state
@@ -417,7 +422,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	. = ..()
 	if(speaker && LAZYLEN(masters) && !radio_freq)//Master is mostly a safety in case lag hits or something. Radio_freq so AIs dont hear holopad stuff through radios.
 		for(var/mob/living/silicon/ai/master in masters)
-			if(masters[master] && speaker != master)
+			if(masters[master] && speaker != master && masters[master] != master.ai_hologram)
 				master.relay_speech(message, speaker, message_language, raw_message, radio_freq, spans, message_mods)
 
 	for(var/I in holo_calls)
@@ -458,6 +463,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	var/mob/living/silicon/ai/AI = user
 	if(istype(AI))
 		AI.current = src
+		AI.ai_hologram = h
 	SetLightsAndPower()
 	update_holoray(user, get_turf(loc))
 	return TRUE
@@ -471,6 +477,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	var/mob/living/silicon/ai/AI = user
 	if(istype(AI) && AI.current == src)
 		AI.current = null
+		AI.ai_hologram = null
 	LAZYREMOVE(masters, user) // Discard AI from the list of those who use holopad
 	qdel(holorays[user])
 	LAZYREMOVE(holorays, user)

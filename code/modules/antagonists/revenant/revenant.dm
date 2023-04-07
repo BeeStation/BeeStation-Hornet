@@ -175,6 +175,8 @@
 	return //we use no hud
 
 /mob/living/simple_animal/revenant/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+	if(!incorporeal_move)
+		return ..()
 	if(!message)
 		return
 	if(CHAT_FILTER_CHECK(message))
