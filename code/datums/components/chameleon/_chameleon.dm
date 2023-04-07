@@ -63,7 +63,7 @@
 
 /datum/component/chameleon/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
-	if(can_use(user))
+	if(isobserver(user) || can_use(user))
 		examine_list += "<span class='boldnotice'>It has a hidden panel, revealing a mechanism for changing its appearance!</span>"
 
 /datum/component/chameleon/proc/can_use(mob/living/user)
