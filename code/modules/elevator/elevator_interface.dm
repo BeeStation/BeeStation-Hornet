@@ -23,6 +23,11 @@
 	id = "primary"
 	available_levels = list(1, 2, 3)
 
+// Glowstation
+/obj/machinery/elevator_interface/secure
+	id = "secure"
+	available_levels = list(1, 2, 5)
+
 /obj/machinery/elevator_interface/Initialize(mapload)
 	. = ..()
 	if(standing)
@@ -37,10 +42,10 @@
 /obj/machinery/elevator_interface/proc/select_level(level)
 	if(!powered() || SSelevator_controller.elevator_group_timers[id])
 		if(powered())
-			say("Unable to call elevator...")
+			say("Elevator is currently moving, please wait.")
 		return
 	var/destination = preset_z ? get_virtual_z_level() : level + z_offset
-	if(!(destination in available_levels))
+	if(!((destination - 1) in available_levels)) // available_levels is shifted by 1, since centcom is z1
 		return
 	destination -= preset_z ? 0 : z_offset
 	if(!destination || (destination == get_virtual_z_level() && !preset_z))
