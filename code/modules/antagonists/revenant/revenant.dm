@@ -50,6 +50,7 @@
 	hud_possible = list(ANTAG_HUD)
 	hud_type = /datum/hud/revenant
 
+	chat_color = "#9A5ACB"
 	mobchatspan = "revenminor"
 
 	var/essence = 75 //The resource, and health, of revenants.
@@ -82,6 +83,7 @@
 	check_rev_teleport() // they're spawned in non-station for some reason...
 	random_revenant_name()
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
+	grant_all_languages(TRUE, FALSE, FALSE, LANGUAGE_REVENANT) // rev can understand every langauge
 
 /mob/living/simple_animal/revenant/onTransitZ(old_z, new_z)
 	. = ..()
@@ -175,10 +177,12 @@
 	return //we use no hud
 
 /mob/living/simple_animal/revenant/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
-	if(!incorporeal_move)
-		return ..()
 	if(!message)
 		return
+	if(!incorporeal_move)
+		message = "...[message]"
+		return ..()
+
 	if(CHAT_FILTER_CHECK(message))
 		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
 		return
