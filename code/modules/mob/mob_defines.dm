@@ -229,3 +229,4 @@
   
 	///the list of channels that you can hear
 	var/list/known_channels
+	
