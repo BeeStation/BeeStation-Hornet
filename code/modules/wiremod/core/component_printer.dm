@@ -18,6 +18,143 @@
 
 /obj/machinery/modular_fabricator/component_printer/crowbar_act(mob/living/user, obj/item/tool)
 
+	techweb = SSresearch.science_tech
+
+	for (var/researched_design_id in techweb.researched_designs)
+		var/datum/design/design = SSresearch.techweb_design_by_id(researched_design_id)
+		if (!(design.build_type & COMPONENT_PRINTER) || !ispath(design.build_path, /obj/item/circuit_component))
+			continue
+
+		current_unlocked_designs[design.build_path] = design.id
+
+	RegisterSignal(techweb, COMSIG_TECHWEB_ADD_DESIGN, .proc/on_research)
+	RegisterSignal(techweb, COMSIG_TECHWEB_REMOVE_DESIGN, .proc/on_removed)
+
+	materials = AddComponent( \
+		/datum/component/remote_materials, \
+		"component_printer", \
+		mapload, \
+		mat_container_flags = BREAKDOWN_FLAGS_LATHE, \
+	)
+
+/obj/machinery/component_printer/proc/on_research(datum/source, datum/design/added_design, custom)
+	SIGNAL_HANDLER
+	if (!(added_design.build_type & COMPONENT_PRINTER) || !ispath(added_design.build_path, /obj/item/circuit_component))
+		return
+	current_unlocked_designs[added_design.build_path] = added_design.id
+
+/obj/machinery/component_printer/proc/on_removed(datum/source, datum/design/added_design, custom)
+	SIGNAL_HANDLER
+	if (!(added_design.build_type & COMPONENT_PRINTER) || !ispath(added_design.build_path, /obj/item/circuit_component))
+		return
+	current_unlocked_designs -= added_design.build_path
+
+
+/obj/machinery/component_printer/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "ComponentPrinter", name)
+		ui.open()
+
+/obj/machinery/component_printer/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/sheetmaterials)
+	)
+
+/obj/machinery/component_printer/proc/print_component(typepath)
+	var/design_id = current_unlocked_designs[typepath]
+
+	var/datum/design/design = SSresearch.techweb_design_by_id(design_id)
+	if (!(design.build_type & COMPONENT_PRINTER))
+		return
+
+	if (materials.on_hold())
+		return
+
+	if (!materials.mat_container?.has_materials(design.materials))
+		return
+
+	materials.mat_container.use_materials(design.materials)
+	materials.silo_log(src, "printed", -1, design.name, design.materials)
+	return new design.build_path(drop_location())
+
+/obj/machinery/component_printer/ui_act(action, list/params)
+	. = ..()
+	if (.)
+		return
+
+	switch (action)
+		if ("print")
+			var/design_id = params["designId"]
+			if (!techweb.researched_designs[design_id])
+				return TRUE
+
+			var/datum/design/design = SSresearch.techweb_design_by_id(design_id)
+			if (!(design.build_type & COMPONENT_PRINTER))
+				return TRUE
+
+			if (materials.on_hold())
+				say("Mineral access is on hold, please contact the quartermaster.")
+				return TRUE
+
+			if (!materials.mat_container?.has_materials(design.materials))
+				say("Not enough materials.")
+				return TRUE
+
+			balloon_alert_to_viewers("printed [design.name]")
+			materials.mat_container?.use_materials(design.materials)
+			materials.silo_log(src, "printed", -1, design.name, design.materials)
+			var/atom/printed_design = new design.build_path(drop_location())
+			printed_design.pixel_x = rand(-5, 5)
+			printed_design.pixel_y = rand(-5, 5)
+		if ("remove_mat")
+			var/datum/material/material = locate(params["ref"])
+			var/amount = text2num(params["amount"])
+
+			if (!amount)
+				return TRUE
+
+			// SAFETY: eject_sheets checks for valid mats
+			materials.eject_sheets(material, amount)
+
+	return TRUE
+
+/obj/machinery/component_printer/ui_data(mob/user)
+	var/list/data = list()
+	data["materials"] = materials.mat_container.ui_data()
+	return data
+
+/obj/machinery/component_printer/ui_static_data(mob/user)
+	var/list/data = list()
+
+	var/list/designs = list()
+
+	// for (var/datum/design/component/component_design_type as anything in subtypesof(/datum/design/component))
+	for (var/researched_design_id in techweb.researched_designs)
+		var/datum/design/design = SSresearch.techweb_design_by_id(researched_design_id)
+		if (!(design.build_type & COMPONENT_PRINTER))
+			continue
+
+		designs[researched_design_id] = list(
+			"name" = design.name,
+			"description" = design.desc,
+			"materials" = get_material_cost_data(design.materials),
+			"categories" = design.category,
+		)
+
+	data["designs"] = designs
+
+	return data
+
+/obj/machinery/component_printer/attackby(obj/item/weapon, mob/living/user, params)
+	if(istype(weapon, /obj/item/integrated_circuit) && !user.combat_mode)
+		var/obj/item/integrated_circuit/circuit = weapon
+		circuit.linked_component_printer = WEAKREF(src)
+		balloon_alert(user, "successfully linked to the integrated circuit")
+		return
+	return ..()
+
+/obj/machinery/component_printer/crowbar_act(mob/living/user, obj/item/tool)
 	if(..())
 		return TRUE
 	return default_deconstruction_crowbar(tool)
@@ -102,6 +239,7 @@
 
 			balloon_alert_to_viewers("printed [design["name"]]")
 			new build_path(drop_location())
+
 
 	return TRUE
 
@@ -188,8 +326,20 @@
 	addtimer(CALLBACK(src, .proc/finish_module_print, design), 1.6 SECONDS)
 
 /obj/machinery/module_duplicator/proc/finish_module_print(list/design)
-	var/obj/item/circuit_component/module/module = new(drop_location())
-	module.load_data_from_list(design["dupe_data"])
+	var/atom/movable/created_atom
+	if(design["integrated_circuit"])
+		var/obj/item/integrated_circuit/circuit = new(drop_location())
+		var/list/errors = list()
+		circuit.load_circuit_data(design["dupe_data"], errors)
+		if(length(errors))
+			stack_trace("Error loading user saved circuit [errors.Join(", ")].")
+		created_atom = circuit
+	else
+		var/obj/item/circuit_component/module/module = new(drop_location())
+		module.load_data_from_list(design["dupe_data"])
+		created_atom = module
+	created_atom.pixel_x = rand(-5, 5)
+	created_atom.pixel_y = rand(-5, 5)
 
 /obj/machinery/module_duplicator/attackby(obj/item/weapon, mob/user, params)
 	if(!istype(weapon, /obj/item/circuit_component/module))

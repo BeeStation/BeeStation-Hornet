@@ -354,14 +354,14 @@
 /obj/machinery/bci_implanter/proc/set_busy(status, working_icon)
 	busy = status
 	busy_icon_state = working_icon
-	update_icon()
 	update_icon_state()
+	update_overlays()
 
 /obj/machinery/bci_implanter/update_icon_state()
 	if (occupant)
-		icon_state = busy ? busy_icon_state : "[initial(icon_state)]_occupied"
+		icon_state = busy ? busy_icon_state : "bci_implanter_occupied"
 		return ..()
-	icon_state = "[initial(icon_state)][state_open ? "_open" : null]"
+	icon_state = "bci_implanter[state_open ? "_open" : null]"
 	return ..()
 
 /obj/machinery/bci_implanter/update_overlays()
