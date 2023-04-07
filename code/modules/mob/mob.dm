@@ -1243,23 +1243,24 @@
 /mob/proc/refresh_known_radio_channels()
 	known_channels = list() // reset first
 	for(var/obj/item/radio/mob_radio in src.get_contents())
-		if(mob_radio.listening) // if not turned off, you shouldn't be eligible for this.
-			if(istype(mob_radio, /obj/item/radio/headset)) // only headset has 2nd keyslot
-				if(!iscarbon(src)) // if a non-carbon somehow has a headset, it will cause runtime.
-					stack_trace("a non-carbon mob has a headset [mob_radio].") // If a mob is fine to have headset, remove this runtime, nor a mob having headset is wrong.
-					continue
-				var/mob/living/carbon/carbon = src
-				var/obj/item/radio/headset/headset_on_ears = mob_radio // only headset has `keyslot2` variable
-				if(headset_on_ears == carbon.ears) // this must be worn by you, not in your inventory.
-					known_channels["[headset_on_ears.frequency]"] = TRUE
-					for(var/K in headset_on_ears.keyslot?.channels)
-						known_channels["[GLOB.radiochannels[K]]"] = TRUE
-					for(var/K in headset_on_ears.keyslot2?.channels)
-						known_channels["[GLOB.radiochannels[K]]"] = TRUE
-			else
-				known_channels["[mob_radio.frequency]"] = TRUE
-				for(var/K in mob_radio.keyslot?.channels)
+		if(!mob_radio.listening) // if not turned off, you shouldn't be eligible for this.
+			continue
+		if(istype(mob_radio, /obj/item/radio/headset)) // only headset has 2nd keyslot
+			if(!iscarbon(src)) // if a non-carbon somehow has a headset, it will cause runtime.
+				stack_trace("a non-carbon mob has a headset [mob_radio].") // If a mob is fine to have headset, remove this runtime, nor a mob having headset is wrong.
+				continue
+			var/mob/living/carbon/carbon = src
+			var/obj/item/radio/headset/headset_on_ears = mob_radio // only headset has `keyslot2` variable
+			if(headset_on_ears == carbon.ears) // this must be worn by you, not in your inventory.
+				known_channels["[headset_on_ears.frequency]"] = TRUE
+				for(var/K in headset_on_ears.keyslot?.channels)
 					known_channels["[GLOB.radiochannels[K]]"] = TRUE
+				for(var/K in headset_on_ears.keyslot2?.channels)
+					known_channels["[GLOB.radiochannels[K]]"] = TRUE
+		else
+			known_channels["[mob_radio.frequency]"] = TRUE
+			for(var/K in mob_radio.keyslot?.channels)
+				known_channels["[GLOB.radiochannels[K]]"] = TRUE
 
 /mob/living/refresh_known_radio_channels()
 	..()
