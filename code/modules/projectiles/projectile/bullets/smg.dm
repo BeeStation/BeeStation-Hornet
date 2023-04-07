@@ -24,5 +24,5 @@
 /obj/item/projectile/bullet/c46x30mm_rubber
 	name = "4.6x30mm rubber bullet"
 	damage_type = STAMINA
-	flag = "stamina"
+	armor_flag = STAMINA
 	damage = 20

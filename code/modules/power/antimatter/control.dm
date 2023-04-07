@@ -133,7 +133,7 @@
 
 /obj/machinery/power/am_control_unit/bullet_act(obj/item/projectile/Proj)
 	. = ..()
-	if(Proj.flag != "bullet")
+	if(Proj.armor_flag != BULLET)
 		stability -= Proj.force
 		check_stability()
 

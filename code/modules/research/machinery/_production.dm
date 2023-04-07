@@ -31,6 +31,7 @@
 
 	/// Only used for storing pending research for examine()
 	var/list/pending_research = list()
+	var/base_storage = 75000
 
 /obj/machinery/rnd/production/Initialize(mapload)
 	. = ..()
@@ -281,7 +282,7 @@
 	if(materials)
 		var/total_storage = 0
 		for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-			total_storage += M.rating * 75000
+			total_storage += M.rating * base_storage
 		materials.set_local_size(total_storage)
 	var/total_rating = 1.2
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)

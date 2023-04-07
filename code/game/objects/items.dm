@@ -221,6 +221,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	///Icon for monkey
 	var/icon/monkey_icon
 
+
 /obj/item/Initialize(mapload)
 
 	materials =	typelist("materials", materials)
@@ -253,9 +254,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		pickup(parent_robot)
 
 	if(!hitsound)
-		if(damtype == "fire")
+		if(damtype == BURN)
 			hitsound = 'sound/items/welder.ogg'
-		if(damtype == "brute")
+		if(damtype == BRUTE)
 			hitsound = "swing_hit"
 
 	if(LAZYLEN(embedding))
@@ -361,6 +362,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			. += "[src] is made of cold-resistant materials."
 		if(resistance_flags & FIRE_PROOF)
 			. += "[src] is made of fire-retardant materials."
+	if(!(item_flags & NOBLUDGEON) && !(item_flags & ISWEAPON) && force != 0)
+		. += "<span class='notice'>You'll have to apply a <b>conscious effort</b> to harm someone with [src].</span>"
 	if(block_level || block_upgrade_walk)
 		if(block_upgrade_walk == 1 && !block_level)
 			. += "While walking, [src] can block attacks in a <b>narrow</b> arc."
@@ -1073,10 +1076,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				colour = COLOR_BLUE_GRAY
 		else
 			colour = COLOR_BLUE_GRAY
-	add_filter("item_outline", 1, list(type="outline", size=1, color=colour))
+	add_filter(HOVER_OUTLINE_FILTER, 1, list(type="outline", size=1, color=colour))
 
 /obj/item/proc/remove_outline()
-	remove_filter("item_outline")
+	remove_filter(HOVER_OUTLINE_FILTER)
 
 // Called when a mob tries to use the item as a tool.
 // Handles most checks.
@@ -1184,15 +1187,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(QDELETED(src))
 		return
 	if(target == src)
-		take_damage(INFINITY, BRUTE, "bomb", 0)
+		take_damage(INFINITY, BRUTE, BOMB, 0)
 		return
 	switch(severity)
 		if(1)
-			take_damage(250, BRUTE, "bomb", 0)
+			take_damage(250, BRUTE, BOMB, 0)
 		if(2)
-			take_damage(75, BRUTE, "bomb", 0)
+			take_damage(75, BRUTE, BOMB, 0)
 		if(3)
-			take_damage(20, BRUTE, "bomb", 0)
+			take_damage(20, BRUTE, BOMB, 0)
 
 /obj/item/proc/get_armor_rating(d_type, mob/wearer)
 	return armor.getRating(d_type)

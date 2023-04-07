@@ -1,3 +1,11 @@
+/mob/living
+	///Used for tracking poking data
+	var/time_of_last_poke = 0
+	///Used for tracking accidental attacks
+	var/time_of_last_attack_dealt = 0
+	///Used for tracking accidental attacks
+	var/time_of_last_attack_recieved = 0
+
 /mob/living/Initialize(mapload)
 	. = ..()
 	if(unique_name)
@@ -1048,7 +1056,7 @@
 
 	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
 
-	var/blocked = getarmor(null, "rad")
+	var/blocked = getarmor(null, RAD)
 
 	if(amount > RAD_BURN_THRESHOLD)
 		apply_damage((amount-RAD_BURN_THRESHOLD)/RAD_BURN_THRESHOLD, BURN, null, blocked)

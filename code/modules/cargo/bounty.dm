@@ -50,7 +50,7 @@ GLOBAL_LIST_EMPTY(bounties_list)
 		setup_bounties()
 
 	var/list/matched_one = FALSE
-	for(var/thing in reverseRange(AM.GetAllContents()))
+	for(var/thing in reverse_range(AM.GetAllContents()))
 		var/matched_this = FALSE
 		for(var/datum/bounty/B in GLOB.bounties_list)
 			if(B.applies_to(thing))
