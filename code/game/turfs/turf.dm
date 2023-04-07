@@ -2,11 +2,11 @@ GLOBAL_LIST_EMPTY(station_turfs)
 GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf
 	icon = 'icons/turf/floors.dmi'
+	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
+	luminosity = 1
 
 	/// If this is TRUE, that means this floor is on top of plating so pipes and wires and stuff will appear under it... or something like that it's not entirely clear.
 	var/intact = 1
-
-	luminosity = 1
 
 	// baseturfs can be either a list or a single turf type.
 	// In class definition like here it should always be a single type.
@@ -51,8 +51,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	/// Should we used the smooth tiled dirt decal or not
 	var/tiled_dirt = FALSE
 
-	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
-
 	///the holodeck can load onto this turf if TRUE
 	var/holodeck_compatible = FALSE
 
@@ -63,11 +61,14 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 	var/tmp/lighting_corners_initialised = FALSE
 
-	///List of light sources affecting this turf.
-	var/tmp/list/datum/light_source/affecting_lights
 	///Our lighting object.
 	var/tmp/atom/movable/lighting_object/lighting_object
 	var/tmp/list/datum/lighting_corner/corners
+	///Lighting Corner datums.
+	var/tmp/datum/lighting_corner/lighting_corner_NE
+	var/tmp/datum/lighting_corner/lighting_corner_SE
+	var/tmp/datum/lighting_corner/lighting_corner_SW
+	var/tmp/datum/lighting_corner/lighting_corner_NW
 
 	///Which directions does this turf block the vision of, taking into account both the turf's opacity and the movable opacity_sources.
 	var/directional_opacity = NONE

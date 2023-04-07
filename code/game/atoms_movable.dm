@@ -506,9 +506,9 @@
 		if(!QDELETED(move_packet))
 			qdel(move_packet)
 		move_packet = null
-
+/*
 	LAZYCLEARLIST(client_mobs_in_contents)
-
+*/
 	. = ..()
 
 	for(var/movable_content in contents)
