@@ -17,6 +17,7 @@
 	var/stasis = FALSE
 	mob_biotypes = list(MOB_SPIRIT)
 	incorporeal_move = INCORPOREAL_MOVE_JAUNT
+	see_invisible = SEE_INVISIBLE_OBSERVER
 	invisibility = INVISIBILITY_REVENANT
 	health = INFINITY //Revenants don't use health, they use essence instead
 	maxHealth = INFINITY
@@ -391,6 +392,9 @@
 		return
 	if(!Adjacent(A))
 		to_chat(src, "<span class='warning'>You can only orbit things that are next to you!</span>")
+		return
+	if(isobserver(A) || isrevenant(A) || istype(A, /mob/living/simple_animal/eminence))
+		to_chat(src, "<span class='warning'>You can't orbit a ghost!</span>")
 		return
 	if(notransform || inhibited || !incorporeal_move_check(A))
 		return
