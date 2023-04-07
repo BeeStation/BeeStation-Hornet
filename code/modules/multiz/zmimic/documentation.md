@@ -43,7 +43,7 @@ MultiZ Lighting is only tangentially related to Z-Mimic, however it works by sim
 
 ### Ambient Occlusion
 
-Adding ambient occlusion to game objects is current done through a client plane master filter adding drop shadow to all objects. Z-Mimic was not designed with this in mind, as planes are used for ordering and not effects, and thus does not support it natively, unless subsystem AO is used. This means any objects rendered via Z-mimic will lack any ambient occlusion. This also means that openspace edges will not render darker at the edges, like they previously did. However, a workaround has been made. A drop_shadow added to FLOOR_PLANE means that any edges on the floor plane (openspace) will render a shadow, functionally recreating the drop shadow. However, this may have a negative impact on client performance.
+Adding ambient occlusion to game objects is current done through a client plane master filter adding drop shadow to all objects. Z-Mimic was not designed with this in mind, as planes are used for ordering and not effects, and thus does not support it natively, unless overlay AO is used. This means any objects rendered via Z-mimic will lack any ambient occlusion. This also means that openspace edges will not render darker at the edges, like they previously did. However, a workaround has been made. A drop_shadow added to FLOOR_PLANE means that any edges on the floor plane (openspace) will render a shadow, functionally recreating the drop shadow. However, this may have a negative impact on client performance.
 
 ## Types
 
@@ -108,8 +108,7 @@ Adding ambient occlusion to game objects is current done through a client plane 
     -   bitfield
         -   Z_MIMIC_BELOW: Should this turf mimic the below turf?
         -   Z_MIMIC_OVERWRITE: If this turf is mimicking, overwrite its appearance instead of using a mimic object. This is faster, but means the turf cannot have its own appearance.
-        -   Z_MIMIC_NO_AO: Bypass turf AO and only apply Z-AO. You probably want this on visually-empty z-turfs (like openspace).
-        -   Z_MIMIC_NO_OCCLUDE: If we're a non-OVERWRITE z-turf, allow clickthrough of this turf.
+        -   Z_MIMIC_NO_OCCLUDE: If we're a non-OVERWRITE z-turf, allow clickthrough of this turf. OVERWRITE turfs will have clickthrough by default.
         -   Z_MIMIC_BASETURF: Fake-copy baseturf instead of below turf.
 -   atom/movable/z_flags
     -   bitfield
