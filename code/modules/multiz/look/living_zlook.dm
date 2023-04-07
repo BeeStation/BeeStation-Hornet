@@ -34,7 +34,7 @@
 	if(update_looking_move(automatic))
 		visible_message("<span class='notice'>[src] looks [look_str].</span>", "<span class='notice'>You look [look_str].</span>")
 
-/// Called by /mob/living/Move()
+/// Called by /mob/living/Moved(), checks if we can continue looking
 /mob/living/proc/update_looking_move(automatic = FALSE)
 	// Try looking the attempted direction now that we've moved
 	if(attempt_looking_direction != LOOKING_DIRECTION_NONE && looking_direction == LOOKING_DIRECTION_NONE)

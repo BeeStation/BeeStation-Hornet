@@ -1,6 +1,3 @@
-/mob/living
-	var/zmoving = FALSE
-
 /mob/living/Moved()
 	. = ..()
 	update_turf_movespeed(loc)

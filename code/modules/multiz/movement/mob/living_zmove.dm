@@ -6,6 +6,9 @@
 #define MOVETYPE_FLOAT 4
 #define MOVETYPE_JAUNT 5
 
+/// If we are currently attempting to move up or down
+/mob/living/var/zmoving = FALSE
+
 /// Returns a movement type that is allowed, given a source and target turf.
 /// pre_move controls if things like fuel are consumed for jetpacks.
 /mob/living/canZMove(dir, turf/source, turf/target, pre_move = TRUE)
