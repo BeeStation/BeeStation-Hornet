@@ -63,7 +63,5 @@ GLOBAL_LIST_INIT(z_defines, list(
 
 /*
 On ZMM_AUTOMANGLE:
-	So, it's possible for both normal and priority overlays to contain mangle targets.
-	Tracking them separately means that the logic in SSoverlays can avoid additional iterations of overlays.
-	They're also separate from ZMM_MANGLE_PLANES so SSoverlays doesn't disable mangling on a manually flagged atom.
+	It's separate from ZMM_MANGLE_PLANES so SSoverlays doesn't disable mangling on a manually flagged atom.
 */
