@@ -16,6 +16,9 @@
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_ASSISTANT)
 
+	list_of_job_keys_to_mob_mind = list(PAYCHECK_ASSISTANT)
+	// their nature is assistant. They'll have two jobs(barber, assistant) in their mind role.
+
 	rpg_title = "Scissorhands"
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
