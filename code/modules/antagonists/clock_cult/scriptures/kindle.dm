@@ -30,7 +30,7 @@
 		M.mob_light(_color = LIGHT_COLOR_HOLY_MAGIC, _range = 2, _duration = 100)
 		var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
 		M.add_overlay(forbearance)
-		addtimer(CALLBACK(M, /atom/proc/cut_overlay, forbearance), 100)
+		addtimer(CALLBACK(M, TYPE_PROC_REF(/atom, cut_overlay), forbearance), 100)
 		M.visible_message("<span class='warning'>[M] stares blankly, as a field of energy flows around them.</span>", \
 									   "<span class='userdanger'>You feel a slight shock as a wave of energy flows past you.</span>")
 		playsound(invoker, 'sound/magic/mm_hit.ogg', 50, TRUE)

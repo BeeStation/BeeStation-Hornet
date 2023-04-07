@@ -2,6 +2,12 @@
 
 //say based modes like binary are in living/say.dm
 
+// ------------------------------------------------------------------------------------
+//
+// If you update these PLEASE update [[tgui\packages\tgui-say\constants\index.tsx]]
+//
+// ------------------------------------------------------------------------------------
+
 #define RADIO_CHANNEL_COMMON "Common"
 #define RADIO_KEY_COMMON ";"
 

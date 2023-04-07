@@ -43,11 +43,13 @@ You can of course, as always, ask for help on our discord.
 
 In addition to VSCode, several other tools exist to make your life easier.
 
-* Git client - [GitKraken](https://www.gitkraken.com/)
+* Git client - [GitKraken](https://www.gitkraken.com/) or [Command line (recommended)](https://git-scm.com/downloads)
+    * See [Guide to git](https://wiki.beestation13.com/view/Guide_to_git) for more detailed information
 * Code editing - [VSCode](https://code.visualstudio.com/) (NOT THE SAME AS VISUAL STUDIO)
 * VSCode Extensions - You will be prompted to install this recommended extension automatically: [Goonstation Extension Pack](https://marketplace.visualstudio.com/items?itemName=Goonstation.goonstation-extpack)
 * Map editing - [StrongDMM](https://github.com/SpaiR/StrongDMM) or [FastDMM2](https://fastdmm2.ss13.io/). Dream Maker works but requires additional steps for SS13 that these automate.
 * Icon editing - Dream Maker or your image editor of choice. Any PNG can be imported into Dream Maker.
+* Database - MariaDB: [Setup guide](https://wiki.beestation13.com/view/Working_with_the_database#Database_Setup)
 
 ## 4. Code Standards
 There are a variety of ways you can write valid DM code. However, BeeStation is not as lenient. Maintaining good code standards is important for performance and readability reasons. You can find details about our code standards [here](https://github.com/BeeStation/BeeStation-Hornet/wiki/Code-Standards).

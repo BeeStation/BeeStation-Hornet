@@ -187,7 +187,7 @@
 	icon_state = "sunflower"
 	lefthand_file = 'icons/mob/inhands/weapons/plants_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/plants_righthand.dmi'
-	damtype = "fire"
+	damtype = BURN
 	force = 0
 	slot_flags = ITEM_SLOT_HEAD
 	throwforce = 0
@@ -248,7 +248,7 @@
 	icon_state = "novaflower"
 	lefthand_file = 'icons/mob/inhands/weapons/plants_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/plants_righthand.dmi'
-	damtype = "fire"
+	damtype = BURN
 	force = 0
 	slot_flags = ITEM_SLOT_HEAD
 	throwforce = 0
