@@ -2,7 +2,7 @@
 
 ## How it works
 
-Rather than adding the turf below to the turf above's vis_contents, are previously done, Z-mimic takes a slightly more involved approach in the name of reducing potential maptick and vis_contents use.
+Rather than adding the turf below to the turf above's vis_contents, as previously done, Z-mimic takes a slightly more involved approach in the name of reducing potential maptick and vis_contents use.
 
 Z-Mimic picks up on the appearance of the turf below it, copies it, and tells any atoms on the turfs below to also copy themselves up, making use of the `bound_overlay` var. This shadower copies the icon, direction, and name of the object it is mimicing. The ordering of all of these object and turf appearances is then handled using a set of planes, and the default layer applied to the object. Each z-level is assigned its own plane, and all objects on that z-level are added to the plane, so that each z-level renders in the correct order comparatively. The layers allow things like tables to render in the correct order (their default layers).
 
