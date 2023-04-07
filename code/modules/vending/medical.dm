@@ -17,7 +17,7 @@
 					/obj/item/reagent_containers/hypospray/medipen/dexalin = 8,
 					/obj/item/reagent_containers/glass/bottle/epinephrine = 4,
 					/obj/item/reagent_containers/glass/bottle/charcoal = 4,
-					/obj/item/reagent_containers/glass/bottle/salglu_solution = 20,
+					/obj/item/reagent_containers/glass/bottle/salglu_solution = 4,
 					/obj/item/reagent_containers/glass/bottle/tricordrazine = 1,
 					/obj/item/reagent_containers/glass/bottle/spaceacillin = 1,
 					/obj/item/reagent_containers/glass/bottle/morphine = 2,

@@ -166,4 +166,4 @@
 	if(prob(60))
 		reagents.add_reagent(/datum/reagent/consumable/cream, rand(2, 5))
 	if(prob(45))
-		reagents.add_reagent(/datum/reagent/medicine/salglu_solution, rand(7,5))
+		reagents.add_reagent(/datum/reagent/medicine/salglu_solution, rand(2,5))
