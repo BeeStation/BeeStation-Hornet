@@ -117,7 +117,6 @@
 			translate_binary = TRUE
 		if(keyslot.syndie)
 			syndie = TRUE
-			canhear_range = RADIO_HEARING_RANGE_STEALTHY
 		if(keyslot.independent)
 			independent = TRUE
 		if(keyslot.amplification)

@@ -351,7 +351,6 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 			translate_binary = TRUE
 		if(keyslot2.syndie)
 			syndie = TRUE
-			canhear_range = RADIO_HEARING_RANGE_STEALTHY
 		if (keyslot2.independent)
 			independent = TRUE
 		if (keyslot2.amplification)
