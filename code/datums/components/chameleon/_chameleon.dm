@@ -39,9 +39,10 @@
 	RegisterSignal(parent, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_PICKUP), PROC_REF(on_equip))
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 	RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 
 /datum/component/chameleon/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_PICKUP, COMSIG_ITEM_DROPPED, COMSIG_ATOM_EMP_ACT))
+	UnregisterSignal(parent, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_PICKUP, COMSIG_ITEM_DROPPED, COMSIG_ATOM_EMP_ACT, COMSIG_PARENT_EXAMINE))
 
 /datum/component/chameleon/process()
 	random_look()
@@ -59,6 +60,11 @@
 /datum/component/chameleon/proc/on_emp(datum/source, severity)
 	SIGNAL_HANDLER
 	emp_randomize()
+
+/datum/component/chameleon/proc/on_examine(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+	if(can_use(user))
+		examine_list += "<span class='boldnotice'>It has a hidden panel, revealing a mechanism for changing its appearance!</span>"
 
 /datum/component/chameleon/proc/can_use(mob/living/user)
 	. = anyone_can_use
