@@ -29,7 +29,7 @@
 	var/spawner_special_role
 	var/spawner_special_role_name // basically 'name' variable is the special role name, but use this when you want different title
 	var/show_flavour = TRUE
-	var/banType = list(BANCHECK_ROLE_MAJOR_GHOSTSPAWN) // basically checks ghost ban, and spawner_special_role is added to this as well
+	var/bancheck_list = list(BANCHECK_ROLE_MAJOR_GHOSTSPAWN) // basically checks ghost ban, and spawner_special_role is added to this as well
 	var/ghost_usable = TRUE
 	var/use_cooldown = FALSE
 
@@ -40,10 +40,10 @@
 	if(!uses)
 		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
 		return
-	if(!user?.client.canGhostRole(banType, use_cooldown, flags_1))
+	if(!user?.client.canGhostRole(bancheck_list, use_cooldown, flags_1))
 		return
 	if(QDELETED(src) || QDELETED(user))
-		return	
+		return
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(ghost_role != "Yes" || !loc)
 		return
@@ -59,8 +59,8 @@
 		LAZYADD(GLOB.mob_spawners[name], src)
 		SSmobs.update_spawners()
 	if(spawner_special_role in GLOB.midround_antag_list) // if the role is in the antag list, prob you should bancheck that too
-		banType |= BANCHECK_ROLE_MAJOR_ANTAGONIST
-	banType |= spawner_special_role
+		bancheck_list |= BANCHECK_ROLE_MAJOR_ANTAGONIST
+	bancheck_list |= spawner_special_role
 
 /obj/effect/mob_spawn/Destroy()
 	GLOB.poi_list -= src
