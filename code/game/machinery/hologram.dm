@@ -422,8 +422,9 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	. = ..()
 	if(speaker && LAZYLEN(masters) && !radio_freq)//Master is mostly a safety in case lag hits or something. Radio_freq so AIs dont hear holopad stuff through radios.
 		for(var/mob/living/silicon/ai/master in masters)
-			if(masters[master] && speaker != master && masters[master] != master.ai_hologram)
-				master.relay_speech(message, speaker, message_language, raw_message, radio_freq, spans, message_mods)
+			if(master == speaker || master.ai_hologram == speaker)
+				continue
+			master.relay_holocall(message, speaker, message_language, raw_message, radio_freq, spans, message_mods)
 
 	for(var/I in holo_calls)
 		var/datum/holocall/HC = I

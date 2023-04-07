@@ -37,7 +37,17 @@
 
 	if(!QDELETED(ai_hologram))
 		ai_hologram.say(message, language = language)
-		to_chat(src, "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> <span class='message robot'>\"[message]\"</span></span></i>")
+		src.log_talk(message, LOG_SAY, tag="Hologram in [AREACOORD(ai_hologram)]")
+		message = "<span class='robot'>[say_emphasis(lang_treat(src, language, message))]</span>"
+		message = "<span class='holocall'><b>\[Holocall\] <span class='name'>[real_name]</span></b> [message]</span>"
+		to_chat(src, message)
+
+		for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
+			if(!(each_ghost.client.prefs.toggles & CHAT_GHOSTRADIO))
+				continue
+			var/follow_link = FOLLOW_LINK(each_ghost, ai_hologram)
+			message = "[follow_link] [message]"
+			to_chat(each_ghost, message)
 	else
 		to_chat(src, "No holopad connected.")
 

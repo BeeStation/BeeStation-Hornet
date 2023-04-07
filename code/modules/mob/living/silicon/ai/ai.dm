@@ -881,6 +881,31 @@
 
 	show_message(rendered, 2)
 
+/mob/living/silicon/ai/proc/relay_holocall(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
+	var/treated_message = "<span class='message'>[say_emphasis(lang_treat(speaker, message_language, raw_message, spans, message_mods))]</span>"
+	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
+	var/hrefpart = "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
+	var/jobpart = "Unknown"
+
+	if (ishuman(speaker))
+		var/mob/living/carbon/human/S = speaker
+		if(S.wear_id)
+			var/obj/item/card/id/I = S.wear_id.GetID()
+			if(I)
+				jobpart = "[I.assignment]"
+
+	var/rendered = "<span class='holocall'><b>\[Holocall\] <span class='name'>[hrefpart][namepart] ([jobpart])</a></span></b> [treated_message]</span>"
+	show_message(rendered, 2)
+
+	// renders message for ghosts
+	rendered = "<span class='holocall'><b>\[Holocall\] <span class='name'>[speaker.GetVoice()]</span></b> [treated_message]</span>"
+	for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
+		if(!(each_ghost.client.prefs.toggles & CHAT_GHOSTRADIO))
+			continue
+		var/follow_link = FOLLOW_LINK(each_ghost, speaker)
+		to_chat(each_ghost, "[follow_link] [rendered]")
+
+
 /mob/living/silicon/ai/fully_replace_character_name(oldname,newname)
 	..()
 	if(oldname != real_name)
