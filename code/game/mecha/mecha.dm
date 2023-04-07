@@ -235,7 +235,7 @@
 			continue
 		if(GLOB.antimagical_accesses["[each_req]"])
 			return TRUE
-
+	return FALSE
 
 
 ////////////////////////
