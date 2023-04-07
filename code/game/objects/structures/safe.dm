@@ -104,7 +104,7 @@ FLOOR SAFES
 		canhear = TRUE
 
 	if(href_list["open"])
-		if(check_unlocked() || GLOB.magical_access)
+		if(check_unlocked())
 			to_chat(user, "<span class='notice'>You [open ? "close" : "open"] [src].</span>")
 			open = !open
 			update_icon()

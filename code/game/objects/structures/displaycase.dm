@@ -135,7 +135,7 @@
 		if(open)	//You do not require access to close a case, only to open it.
 			to_chat(user,  "<span class='notice'>You close [src].</span>")
 			toggle_lock(user)
-		else if((security_level_locked > GLOB.security_level || !allowed(user)) && !GLOB.magical_access) // Blue alert allows you to open, or AA bless should exist
+		else if((security_level_locked > GLOB.security_level || !allowed(user))) // Blue alert allows you to open
 			to_chat(user,  "<span class='alert'>Access denied.</span>")
 		else
 			to_chat(user,  "<span class='notice'>You open [src].</span>")
@@ -315,7 +315,7 @@
 	return ..()
 
 /obj/structure/displaycase/trophy/attack_hand(mob/user)
-	if(is_locked && GLOB.magical_access)
+	if(is_locked)
 		is_locked = FALSE
 		to_chat(user, "<span class='notice'>You magically unlock the case.</span>")
 		return
@@ -330,7 +330,7 @@
 	if(W.tool_behaviour == TOOL_WELDER && !broken)
 		return ..()
 
-	if(user.is_holding_item_of_type(/obj/item/key/displaycase) || GLOB.magical_access)
+	if(user.is_holding_item_of_type(/obj/item/key/displaycase))
 		if(added_roundstart)
 			is_locked = !is_locked
 			to_chat(user, "<span class='notice'>You [!is_locked ? "un" : ""]lock the case.</span>")

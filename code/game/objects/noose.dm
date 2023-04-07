@@ -56,22 +56,6 @@
 
 /obj/structure/chair/noose/user_unbuckle_mob(mob/living/M,mob/living/user)
 	if(has_buckled_mobs())
-		if(GLOB.magical_access)
-			if(M != user)
-				user.visible_message("<span class='notice'>[user] magically unties the noose over [M]'s neck!</span>")
-				to_chat(user,"<span class='notice'>You magically untie the noose over [M]'s neck!</span>")
-			else
-				M.visible_message("<span class='warning'>[M] magically unties the noose over their neck!</span>")
-				to_chat(M,"<span class='notice'>You magically untie the noose over your neck!</span>")
-			M.Knockdown(10)
-			unbuckle_all_mobs(force=1)
-			M.pixel_z = initial(M.pixel_z)
-			pixel_z = initial(pixel_z)
-			M.pixel_x = initial(M.pixel_x)
-			pixel_x = initial(pixel_x)
-			add_fingerprint(user)
-			return
-
 		if(M != user)
 			user.visible_message("<span class='notice'>[user] begins to untie the noose over [M]'s neck...</span>")
 			to_chat(user, "<span class='notice'>You begin to untie the noose over [M]'s neck...</span>")

@@ -158,12 +158,6 @@
 	. = ..()
 	if(usr != owner)
 		return
-	if(GLOB.magical_access)
-		if(isliving(owner))
-			var/mob/living/L = owner
-			to_chat(owner, "<span class='notice'>You magically remove the durathread strand.</span>")
-			L.remove_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
-			return
 	to_chat(owner, "<span class='notice'>You attempt to remove the durathread strand from around your neck.</span>")
 	if(do_after(owner, 35, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
 		if(isliving(owner))

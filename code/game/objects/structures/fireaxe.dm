@@ -109,7 +109,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!open && GLOB.magical_access)
+	if(!open)
 		open = TRUE
 		to_chat(user, "<span class='caution'>You magically open the [name].</span>")
 		return

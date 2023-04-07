@@ -118,15 +118,6 @@
 		container_resist(user)
 
 /obj/item/pet_carrier/container_resist(mob/living/user)
-	if(GLOB.magical_access)
-		loc.visible_message("<span class='warning'>[user] shoves out of	[src]!</span>", null, null, null, user)
-		to_chat(user, "<span class='notice'>You shove open [src]'s door against the lock's resistance and fall out!</span>")
-		locked = FALSE
-		open = TRUE
-		update_icon()
-		remove_occupant(user)
-		return
-
 	user.changeNext_move(CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
 	if(user.mob_size <= MOB_SIZE_SMALL)

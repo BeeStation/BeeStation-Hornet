@@ -98,10 +98,6 @@
 /obj/structure/kitchenspike/user_unbuckle_mob(mob/living/buckled_mob, mob/living/carbon/human/user)
 	if(buckled_mob)
 		var/mob/living/M = buckled_mob
-		if(GLOB.magical_access)
-			release_mob(M)
-			return
-
 		if(M != user)
 			M.visible_message(\
 				"[user] tries to pull [M] free of [src]!",\

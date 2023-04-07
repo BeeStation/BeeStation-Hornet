@@ -263,10 +263,6 @@
 
 
 /mob/living/carbon/proc/cuff_resist(obj/item/I, breakouttime = 600, cuff_break = 0)
-	if(GLOB.magical_access)
-		clear_cuffs(I, FALSE)
-		return
-
 	if(I.item_flags & BEING_REMOVED)
 		to_chat(src, "<span class='warning'>You're already attempting to remove [I]!</span>")
 		return
@@ -329,12 +325,8 @@
 /mob/living/carbon/proc/clear_cuffs(obj/item/I, cuff_break)
 	if(!I.loc || buckled)
 		return
-	if(!GLOB.magical_access)
-		visible_message("<span class='danger'>[src] manages to [cuff_break ? "break" : "remove"] [I]!</span>")
-		to_chat(src, "<span class='notice'>You successfully [cuff_break ? "break" : "remove"] [I].</span>")
-	else
-		visible_message("<span class='danger'>[src] magically manages to [cuff_break ? "break" : "remove"] [I]!</span>")
-		to_chat(src, "<span class='notice'>You magically [cuff_break ? "break" : "remove"] [I].</span>")
+	visible_message("<span class='danger'>[src] manages to [cuff_break ? "break" : "remove"] [I]!</span>")
+	to_chat(src, "<span class='notice'>You successfully [cuff_break ? "break" : "remove"] [I].</span>")
 
 	if(cuff_break)
 		. = !((I == handcuffed) || (I == legcuffed))
