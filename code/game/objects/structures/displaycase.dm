@@ -9,7 +9,6 @@
 	armor = list("melee" = 30, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 100, "stamina" = 0)
 	max_integrity = 200
 	integrity_failure = 25
-	obj_flags = CAN_BE_HIT
 	var/obj/item/showpiece = null
 	///This allows for showpieces that can only hold items if they're the same istype as this.
 	var/obj/item/showpiece_type = null
@@ -135,7 +134,7 @@
 		if(open)	//You do not require access to close a case, only to open it.
 			to_chat(user,  "<span class='notice'>You close [src].</span>")
 			toggle_lock(user)
-		else if((security_level_locked > GLOB.security_level || !allowed(user))) // Blue alert allows you to open
+		else if((security_level_locked > GLOB.security_level || !allowed(user)))
 			to_chat(user,  "<span class='alert'>Access denied.</span>")
 		else
 			to_chat(user,  "<span class='notice'>You open [src].</span>")
@@ -313,13 +312,6 @@
 /obj/structure/displaycase/trophy/Destroy()
 	GLOB.trophy_cases -= src
 	return ..()
-
-/obj/structure/displaycase/trophy/attack_hand(mob/user)
-	if(is_locked)
-		is_locked = FALSE
-		to_chat(user, "<span class='notice'>You magically unlock the case.</span>")
-		return
-	..()
 
 /obj/structure/displaycase/trophy/attackby(obj/item/W, mob/living/user, params)
 

@@ -28,6 +28,7 @@
 	to_chat(user, "<span class='notice'>You disable the magic lock with the [item].</span>")
 	return TRUE
 
+
 /obj/effect/spawner/mail/maintloot
 	name = "\improper Random maintenance loot spawner"
 /obj/effect/spawner/mail/maintloot/Initialize()

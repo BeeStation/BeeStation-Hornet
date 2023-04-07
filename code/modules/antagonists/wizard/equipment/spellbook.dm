@@ -594,7 +594,7 @@
 /datum/spellbook_entry/summon/magical_access
 	name = "Advent Ritual of Saint Anarchismea"
 	desc = "Summons the spirit of Saint Anarchismea's onto the station. Access requirement of all electronic devices \
-		on the station will be bypassed magically, and you and all ID cards will be blessed with unlimited freedom of passage."
+		on the station will be bypassed magically, and you and all ID cards will be blessed with unlimited AA."
 	cost = 2
 	ritual_invocation = "ALADAL DESINARI ODORI'IN IDO'LEX IVLAROYE VOR ANARCHIDMEA OVOR'E SJIENYLE"
 

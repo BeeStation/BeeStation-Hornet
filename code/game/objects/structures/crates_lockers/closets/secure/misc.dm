@@ -3,7 +3,6 @@
 	desc = "A storage unit containing equipment for an Emergency Response Team Commander."
 	req_access = list(ACCESS_CENT_CAPTAIN)
 	icon_state = "cap"
-	obj_flags = CAN_BE_HIT
 
 /obj/structure/closet/secure_closet/ertCom/PopulateContents()
 	..()
@@ -25,7 +24,6 @@
 	desc = "A storage unit containing equipment for an Emergency Response Team Security Officer."
 	req_access = list(ACCESS_CENT_SPECOPS)
 	icon_state = "hos"
-	obj_flags = CAN_BE_HIT
 
 /obj/structure/closet/secure_closet/ertSec/PopulateContents()
 	..()
@@ -40,7 +38,6 @@
 	desc = "A storage unit containing equipment for an Emergency Response Team Medical Officer."
 	req_access = list(ACCESS_CENT_MEDICAL)
 	icon_state = "cmo"
-	obj_flags = CAN_BE_HIT
 
 /obj/structure/closet/secure_closet/ertMed/PopulateContents()
 	..()
@@ -57,7 +54,6 @@
 	desc = "A storage unit containing equipment for an Emergency Response Team Engineer."
 	req_access = list(ACCESS_CENT_STORAGE)
 	icon_state = "ce"
-	obj_flags = CAN_BE_HIT
 
 /obj/structure/closet/secure_closet/ertEngi/PopulateContents()
 	..()
