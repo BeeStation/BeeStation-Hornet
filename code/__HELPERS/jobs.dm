@@ -67,9 +67,9 @@
 	if(returns_pair)
 		var/pair = job_key_n_name[return_value]
 		if(return_value != pair)
-			return list(return_value=1, pair=1)
+			return list(return_value, pair)
 		else
-			return list(return_value=1)
+			return list(return_value)
 	return return_value
 
 // This proc is only used in `PDApainter.dm`, but for better readability, it's declared as global proc and stored here.

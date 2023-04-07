@@ -704,7 +704,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				update_modify_manifest()
 
 		if ("demote")
-			if(inserted_modify_id.assignment in head_subordinates || (get_job_cross_keyname(JOB_KEY_ASSISTANT, TRUE)[inserted_modify_id.assignment]))
+			if(inserted_modify_id.assignment in head_subordinates || inserted_modify_id.assignment in get_job_cross_keyname(JOB_KEY_ASSISTANT, TRUE))
 				inserted_modify_id.assignment = JOB_DEMOTED
 				log_id("[key_name(usr)] demoted [inserted_modify_id], unassigning the card without affecting access, using [inserted_scan_id] at [AREACOORD(usr)].")
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
