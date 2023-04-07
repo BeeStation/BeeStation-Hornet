@@ -594,7 +594,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 
 		if (1) // Game Preferences
-			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
+			dat += "<table><tr>"
+			// left box
+			dat += "<td width='340px' height='300px' valign='top'>"
 			dat += "<h2>General Settings</h2>"
 			dat += "<b>UI Style:</b> <a href='?_src_=prefs;task=input;preference=ui'>[UI_style]</a><br>"
 			dat += "<b>Outline:</b> <a href='?_src_=prefs;preference=outline_enabled'>[toggles & PREFTOGGLE_OUTLINE_ENABLED ? "Enabled" : "Disabled"]</a><br>"
@@ -647,7 +649,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<br>"
 
 			dat += "<b>Income Updates:</b> <a href='?_src_=prefs;preference=income_pings'>[(chat_toggles & CHAT_BANKCARD) ? "Allowed" : "Muted"]</a><br>"
+			dat += "</td>" // left box closed
 
+			// right box
+			dat += "<td width='400px' height='300px' valign='top'>"
 			dat += "<h2>TGUI Settings</h2>"
 			dat += "<b>Monitor Lock:</b> <a href='?_src_=prefs;preference=tgui_lock'>[(toggles2 & PREFTOGGLE_2_LOCKED_TGUI) ? "Primary" : "All"]</a><br>"
 			dat += "<b>Window Style:</b> <a href='?_src_=prefs;preference=tgui_fancy'>[(toggles2 & PREFTOGGLE_2_FANCY_TGUI) ? "Fancy (Borderless)" : "System Window"]</a><br>"
@@ -712,11 +717,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(CONFIG_GET(flag/preference_map_voting))
 					dat += "<b>Preferred Map:</b> <a href='?_src_=prefs;preference=preferred_map;task=input'>[p_map]</a><br>"
 
-			dat += "</td></tr><tr><td> </td></tr>" // i hate myself for this
+			dat += "</td>"
+			// right box closed
+
+			dat += "</tr> <tr><td> </td></tr>" // i hate myself for this - a line from past
 			dat += "<tr><td colspan='2' width='100%'><center><a style='font-size: 18px;' href='?_src_=prefs;preference=keybindings_menu'>Customize Keybinds</a></center></td></tr>"
 			dat += "</table>"
 
-		if(4) // antag prefs window
+		if(4) // antagonist preferences window
 			dat += "<table><tr>"
 			// <first left box>
 			dat += "<td width='400px' height='300px' valign='top'>"
@@ -752,6 +760,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					else
 						dat += "<b>Be [capitalize(each_role)]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[each_role]'>[(each_role in be_special) ? "Enabled" : "Disabled"]</a><br>"
 			dat += "</td>"
+			// left box closed
 
 			// <secont right box>
 			// --------------------------------------------
@@ -769,9 +778,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					else
 						dat += "<b>Be [capitalize(each_role)]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[each_role]'>[(each_role in be_special) ? "Enabled" : "Disabled"]</a><br>"
 			dat += "</td>"
+			// right box closed
 
 			dat += "</tr></table>"
-
 			dat += "<b>Midround Antagonist:</b> <a href='?_src_=prefs;preference=allow_midround_antag'>[(toggles & PREFTOGGLE_MIDROUND_ANTAG) ? "Enabled" : "Disabled"]</a><br>"
 
 		if(2) //Loadout
@@ -998,10 +1007,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			HTML += "<tr bgcolor='[job.selection_color]'><td width='60%' align='right'>"
 			var/rank = job.get_title()
-			var/jop_key = job.get_jkey()
+			var/job_key = job.get_jkey()
 			lastJob = job
-			if(is_banned_from(user.ckey, jop_key))
-				HTML += "<font color=red>[rank]</font></td><td><a href='?_src_=prefs;bancheck=[jop_key]'> BANNED</a></td></tr>"
+			if(is_banned_from(user.ckey, job_key))
+				HTML += "<font color=red>[rank]</font></td><td><a href='?_src_=prefs;bancheck=[job_key]'> BANNED</a></td></tr>"
 				continue
 			var/required_playtime_remaining = job.required_playtime_remaining(user.client)
 			if(required_playtime_remaining)
@@ -1011,10 +1020,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				var/available_in_days = job.available_in_days(user.client)
 				HTML += "<font color=red>[rank]</font></td><td><font color=red> \[IN [(available_in_days)] DAYS\]</font></td></tr>"
 				continue
-			if((active_character.job_preferences[overflow] == JP_LOW) && (rank != SSjob.overflow_role) && !is_banned_from(user.ckey, SSjob.overflow_role))
+			if((active_character.job_preferences[overflow] == JP_LOW) && (job_key != SSjob.overflow_role) && !is_banned_from(user.ckey, SSjob.overflow_role))
 				HTML += "<font color=orange>[rank]</font></td><td></td></tr>"
 				continue
-			if((jop_key in GLOB.command_positions) || (jop_key == JOB_KEY_AI))//Bold head jobs
+			if((job_key in GLOB.command_positions) || (job_key == JOB_KEY_AI))//Bold head jobs
 				HTML += "<b><span class='dark'>[rank]</span></b>"
 			else
 				HTML += "<span class='dark'>[rank]</span>"
@@ -1026,7 +1035,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			var/prefUpperLevel = -1 // level to assign on left click
 			var/prefLowerLevel = -1 // level to assign on right click
 
-			switch(active_character.job_preferences[jop_key])
+			switch(active_character.job_preferences[job_key])
 				if(JP_HIGH)
 					prefLevelLabel = "High"
 					prefLevelColor = "slateblue"
@@ -1048,9 +1057,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					prefUpperLevel = 3
 					prefLowerLevel = 1
 
-			HTML += "<a class='white' href='?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[rank]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[rank]\");'>"
+			HTML += "<a class='white' href='?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[job_key]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[rank]\");'>"
 
-			if(rank == SSjob.overflow_role)//Overflow is special
+			if(job_key == SSjob.overflow_role)//Overflow is special
 				if(active_character.job_preferences[overflow.get_jkey()] == JP_LOW)
 					HTML += "<font color=green>Yes</font>"
 				else

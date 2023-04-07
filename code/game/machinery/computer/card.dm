@@ -376,9 +376,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		header += "<hr>"
 
 		var/jobs_all = ""
-		var/list/alljobs = list(JOB_UNASSIGNED)
-		alljobs += (istype(src, /obj/machinery/computer/card/centcom)? get_all_centcom_jobs() : get_all_jobs()) + "Custom"
+		var/list/alljobs = list("Custom", JOB_UNASSIGNED)
+		alljobs += (istype(src, /obj/machinery/computer/card/centcom)? get_all_centcom_jobs() : get_all_jobs())
 		for(var/job in alljobs)
+			if(job in list("Custom", JOB_UNASSIGNED))
+				jobs_all += "<a href='?src=[REF(src)];choice=assign;assign_target=[job]'>[replacetext(job, " ", "&nbsp")]</a> "
+				continue
 			if(job == JOB_KEY_ASSISTANT)
 				jobs_all += "<br/>* Service: "
 			if(job == JOB_KEY_QUARTERMASTER)
@@ -391,10 +394,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				jobs_all += "<br/>* Medical: "
 			if(job == JOB_KEY_HEADOFSECURITY)
 				jobs_all += "<br/>* Security: "
-			if(job == "Custom")
-				jobs_all += "<br/>"
 			// these will make some separation for the department.
-			jobs_all += "<a href='?src=[REF(src)];choice=assign;assign_target=[job]'>[replacetext(get_job_cross_keyname(job), " ", "&nbsp")]</a> " //make sure there isn't a line break in the middle of a job
+			jobs_all += "<a href='?src=[REF(src)];choice=assign;assign_target=[job]'>[replacetext(SSjob.get_current_jobname(job), " ", "&nbsp")]</a> " //make sure there isn't a line break in the middle of a job
 
 
 		var/body
@@ -437,7 +438,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				jobs += "<b>Assignment:</b> [target_rank] (<a href='?src=[REF(src)];choice=demote'>Demote</a>)</span>"
 
 			var/banking = ""
-			banking += "<b>Department active & Bank account status:</b>"
+			banking += "<br/><b>Department active & Bank account status:</b>"
 			banking += "<table border='1' cellspacing='1' cellpadding='0'>"
 			// Department active status
 			banking += "<tr>"
@@ -704,7 +705,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				update_modify_manifest()
 
 		if ("demote")
-			if(inserted_modify_id.assignment in head_subordinates || (inserted_modify_id.assignment in get_job_cross_keyname(JOB_KEY_ASSISTANT, TRUE)))
+			if(inserted_modify_id.assignment in head_subordinates || (inserted_modify_id.assignment in SSjob.get_current_jobname(JOB_KEY_ASSISTANT, TRUE)))
 				inserted_modify_id.assignment = JOB_DEMOTED
 				log_id("[key_name(usr)] demoted [inserted_modify_id], unassigning the card without affecting access, using [inserted_scan_id] at [AREACOORD(usr)].")
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)

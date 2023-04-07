@@ -16,8 +16,8 @@
 		if (title && length(title) > 0)
 			announcement += "<br><h2 class='alert'>[html_encode(title)]</h2>"
 	else if(type == JOB_KEY_CAPTAIN)
-		announcement += "<h1 class='alert'>[JOB_NAME_CAPTAIN] Announces</h1>"
-		GLOB.news_network.submit_article(html_encode(text), "[JOB_NAME_CAPTAIN]'s Announcement", "Station Announcements", null)
+		announcement += "<h1 class='alert'>[SSjob.get_current_jobname(JOB_KEY_CAPTAIN)] Announces</h1>"
+		GLOB.news_network.submit_article(html_encode(text), "[SSjob.get_current_jobname(JOB_KEY_CAPTAIN)]'s Announcement", "Station Announcements", null)
 
 	else
 		if(!sender_override)

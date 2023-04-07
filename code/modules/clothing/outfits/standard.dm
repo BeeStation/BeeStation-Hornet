@@ -399,7 +399,7 @@
 		return
 
 	var/obj/item/card/id/W = H.wear_id
-	W.assignment = JOB_NAME_ASSISTANT
+	W.assignment = SSjob.get_current_jobname(JOB_KEY_ASSISTANT)
 	W.registered_name = H.real_name
 	W.update_label()
 

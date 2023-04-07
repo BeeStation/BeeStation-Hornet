@@ -309,7 +309,7 @@
 
 /datum/objective/crew/promotion/update_explanation_text()
 	. = ..()
-	explanation_text = "Have a non-[JOB_NAME_ASSISTANT] ID registered to you at the end of the shift."
+	explanation_text = "Have a non-[SSjob.get_current_jobname(JOB_KEY_ASSISTANT)] ID registered to you at the end of the shift."
 
 /datum/objective/crew/promotion/check_completion()
 	if(..())
@@ -324,7 +324,7 @@
 	var/current_assignment = H.get_assignment()
 	if(!current_assignment)
 		return FALSE
-	if(!(current_assignment in get_job_cross_keyname(JOB_KEY_ASSISTANT, TRUE)+list("No id", "No job", JOB_UNASSIGNED)))
+	if(!(current_assignment in SSjob.get_current_jobname(JOB_KEY_ASSISTANT, TRUE)+list("No id", "No job", JOB_UNASSIGNED)))
 		return TRUE
 	if(theID.hud_state != JOB_HUD_ASSISTANT) // non-assistant HUD counts too
 		return TRUE

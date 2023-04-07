@@ -4,6 +4,9 @@
 	icon_screen = "security"
 	icon_keyboard = "security_key"
 	req_one_access = list(ACCESS_SEC_RECORDS)
+	/// If you have ACCESS_CHANGE_IDS, you can edit ranks in a console
+	var/allowed_to_edit = FALSE
+
 	circuit = /obj/item/circuitboard/computer/secure_data
 	var/rank = null
 	var/screen = null
@@ -483,6 +486,7 @@ What a mess.*/
 				screen = null
 				active1 = null
 				active2 = null
+				allowed_to_edit = FALSE
 				playsound(src, 'sound/machines/terminal_off.ogg', 50, FALSE)
 
 			if("Log In")
@@ -492,19 +496,22 @@ What a mess.*/
 					active1 = null
 					active2 = null
 					authenticated = M.name
-					rank = JOB_NAME_AI
+					rank = SSjob.get_current_jobname(JOB_KEY_AI)
 					screen = 1
 				else if(IsAdminGhost(M))
 					active1 = null
 					active2 = null
 					authenticated = M.client.holder.admin_signature
 					rank = JOB_CENTCOM_CENTRAL_COMMAND
+					allowed_to_edit = TRUE
 					screen = 1
 				else if(I && check_access(I))
 					active1 = null
 					active2 = null
 					authenticated = I.registered_name
 					rank = I.assignment
+					if(ACCESS_CHANGE_IDS in I.access)
+						allowed_to_edit = TRUE
 					screen = 1
 				else
 					to_chat(usr, "<span class='danger'>Unauthorized Access.</span>")
@@ -902,22 +909,16 @@ What a mess.*/
 							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=paroled'>Paroled</a></li>"
 							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=released'>Discharged</a></li>"
 							temp += "</ul>"
-					if("rank")
-						var/static/list/valid_ranks
-						if(!valid_ranks)
-							var/ranks_to_add = list()
-							for(var/each in list(JOB_KEY_HEADOFPERSONNEL, JOB_KEY_CAPTAIN, JOB_KEY_AI, JOB_CENTCOM_CENTRAL_COMMAND))
-								ranks_to_add += get_job_cross_keyname(each, TRUE)
-
-						//This was so silly before the change. Now it actually works without beating your head against the keyboard. /N
-						if((istype(active1, /datum/data/record) && valid_ranks.Find(rank)))
+					if("rank") // This code is bad practice from past, but not right time to fix it. TO-DO: allow it to edit someone's job by input box like how HoP console does
+						if(istype(active1, /datum/data/record) && allowed_to_edit)
 							temp = "<h5>Rank:</h5>"
 							temp += "<ul>"
 							for(var/each_job in get_all_jobs())
-								temp += "<li><a href='?src=[REF(src)];choice=Change Rank;rank=[get_job_cross_keyname(each_job)]'>[get_job_cross_keyname(each_job)]</a></li>"
+								var/jobstring = SSjob.get_current_jobname(each_job)
+								temp += "<li><a href='?src=[REF(src)];choice=Change Rank;rank=[jobstring]'>[jobstring]</a></li>"
 							temp += "</ul>"
 						else
-							alert(usr, "You do not have the required rank to do this!")
+							alert(usr, "You do not have the required access to do this!")
 //TEMPORARY MENU FUNCTIONS
 			else//To properly clear as per clear screen.
 				temp=null
@@ -926,7 +927,7 @@ What a mess.*/
 						if(active1)
 							active1.fields["rank"] = strip_html(href_list["rank"])
 							for(var/each_rank in get_all_jobs())
-								if(get_job_cross_keyname(each_rank) == href_list["rank"])
+								if(SSjob.get_current_jobname(each_rank) == href_list["rank"])
 									active1.fields["real_rank"] = href_list["real_rank"]
 
 					if("Change Criminal Status")

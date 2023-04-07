@@ -216,7 +216,7 @@
 				active1 = null
 				active2 = null
 				authenticated = 1
-				rank = JOB_NAME_AI
+				rank = SSjob.get_current_jobname(JOB_KEY_AI)
 				screen = 1
 			else if(IsAdminGhost(M))
 				active1 = null

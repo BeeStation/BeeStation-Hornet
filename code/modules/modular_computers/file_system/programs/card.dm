@@ -166,7 +166,7 @@
 			if(!authenticated)
 				return
 			if(minor)
-				if(!(target_id_card.assignment in head_subordinates) && !(target_id_card.assignment in get_job_cross_keyname(JOB_KEY_ASSISTANT, TRUE)))
+				if(!(target_id_card.assignment in head_subordinates) && !(target_id_card.assignment in SSjob.get_current_jobname(JOB_KEY_ASSISTANT, TRUE)))
 					return
 
 			target_id_card.access -= get_all_centcom_access() + get_all_accesses()
@@ -312,7 +312,7 @@
 			if(minor && !(job in head_subordinates))
 				continue
 			department_jobs += list(list(
-				"display_name" = replacetext(job, "&nbsp", " "),
+				"display_name" = replacetext(SSjob.get_current_jobname(job), "&nbsp", " "),
 				"job" = job
 			))
 		if(length(department_jobs))

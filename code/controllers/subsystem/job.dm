@@ -108,16 +108,16 @@ SUBSYSTEM_DEF(job)
 	if(length(available_gimmicks))
 		to_chat(world, "<span class='boldnotice'>Available gimmick jobs: [english_list(available_gimmicks)]</span>")
 
-/datum/controller/subsystem/job/proc/GetJob(job_string)
-	if(!job_string)
+/datum/controller/subsystem/job/proc/GetJob(job_key)
+	if(!job_key)
 		CRASH("proc has taken no 'job_string'")
-	if(job_string == JOB_UNASSIGNED)
+	if(job_key == JOB_UNASSIGNED)
 		return FALSE
 	if(!occupations.len)
 		SetupOccupations()
-	if(!name_occupations[job_string])
-		CRASH("job name [job_string] is not valid")
-	return name_occupations[job_string]
+	if(!name_occupations[job_key])
+		CRASH("job name [job_key] is not valid")
+	return name_occupations[job_key]
 
 /datum/controller/subsystem/job/proc/GetJobType(jobtype)
 	if(!jobtype)
@@ -128,17 +128,38 @@ SUBSYSTEM_DEF(job)
 		CRASH("job type [jobtype] is not valid")
 	return type_occupations[jobtype]
 
-/datum/controller/subsystem/job/proc/GetJobActiveDepartment(job_string)
-	if(!job_string)
+/datum/controller/subsystem/job/proc/GetJobActiveDepartment(job_key)
+	if(!job_key)
 		CRASH("proc has taken no 'job_string'")
-	if(job_string == JOB_UNASSIGNED)
+	if(job_key == JOB_UNASSIGNED)
 		return NONE
 	if(!occupations.len)
 		SetupOccupations()
-	if(!name_occupations[job_string])
-		CRASH("job name [job_string] is not valid")
-	var/datum/job/J = name_occupations[job_string]
+	if(!name_occupations[job_key])
+		CRASH("job key [job_key] is not valid")
+	var/datum/job/J = name_occupations[job_key]
 	return J.departments
+
+/// returns a job's current title
+/datum/controller/subsystem/job/proc/get_current_jobname(job_key, returns_pair=FALSE)
+	if(!job_key)
+		CRASH("The proc has taken a null value")
+
+	var/datum/job/job = GetJob(job_key)
+	if(!job)
+		stack_trace("[job_key] is not a valid job key")
+		return job_key
+	var/current_job_name = job.get_title()
+
+	if(!returns_pair)
+		return current_job_name
+
+	if(job.get_jkey() == current_job_name)
+		return list(current_job_name)
+
+	// job_key != job_title. We're running custom job names
+	return list(job.get_jkey(), current_job_name)
+
 
 /datum/controller/subsystem/job/proc/AssignRole(mob/dead/new_player/player, job_key, latejoin = FALSE)
 	JobDebug("Running AR, Player: [player], Rank: [job_key], LJ: [latejoin]")

@@ -187,7 +187,7 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 								new_name += pick(GLOB.last_names)
 								. += new_name
 					if(2)
-						. += get_job_cross_keyname(pick(get_all_jobs()))//Returns a job. get_job_cross_keyname() changes job name.
+						. += SSjob.get_current_jobname(pick(get_all_jobs()))//Returns a job. get_current_jobname() changes job name.
 				safety -= 1
 			if(2)
 				switch(rand(1,3))//Food, drinks, or things. Only selectable once.

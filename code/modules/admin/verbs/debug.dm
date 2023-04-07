@@ -198,7 +198,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			id = new /obj/item/card/id/gold(H.loc)
 			id.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
 			id.registered_name = H.real_name
-			id.assignment = JOB_NAME_CAPTAIN
+			id.assignment = SSjob.get_current_jobname(JOB_KEY_CAPTAIN)
 			id.update_label()
 
 			if(worn)
