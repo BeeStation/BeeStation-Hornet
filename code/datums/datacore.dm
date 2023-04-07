@@ -327,7 +327,7 @@
 	var/datum/data/record/L = new()
 	L.fields["id"]			= rustg_hash_string(RUSTG_HASH_MD5, "[H.real_name][job_key]")	//surely this should just be id, like the others?
 	L.fields["name"]		= H.real_name
-	L.fields["rank"] 		= job_key
+	L.fields["rank"] 		= "[job_key][assignment!=job_key?"([assignment])":""]"
 	L.fields["age"]			= H.age
 	switch(H.gender)
 		if(MALE, FEMALE)

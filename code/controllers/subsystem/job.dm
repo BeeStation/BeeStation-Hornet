@@ -96,8 +96,6 @@ SUBSYSTEM_DEF(job)
 		occupations += job
 		// Key is job path. gimmick job path is prioritised if it exists.
 		name_occupations["[job.get_jkey()]"] = job
-		if(job.get_jkey() != job.get_title()) // in case that title is customised for some reason (i.e. medieval theme titles in code), this will do failsafe.
-			name_occupations["[job.get_title()]"] = job
 		type_occupations[J] = job
 
 	return 1
@@ -179,7 +177,7 @@ SUBSYSTEM_DEF(job)
 	JobDebug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
 	var/list/candidates = list()
 	for(var/mob/dead/new_player/player in unassigned)
-		if(QDELETED(player) || (is_banned_from(player.ckey, list(job.get_jkey(), job.get_jkey(FALSE)))))
+		if(QDELETED(player) || (is_banned_from(player.ckey, job.get_jobkeys_for_bancheck())))
 			JobDebug("FOC isbanned failed, Player: [player]")
 			continue
 		if(!job.player_old_enough(player.client))
@@ -191,7 +189,7 @@ SUBSYSTEM_DEF(job)
 		if(flag && (!(flag in player.client.prefs.be_special)))
 			JobDebug("FOC flag failed, Player: [player], Flag: [flag], ")
 			continue
-		if(player.mind && ((job.get_jkey() in player.mind.restricted_roles) || (job.get_jkey(FALSE) in player.mind.restricted_roles)))
+		if(player.mind && ((job.get_jkey() in player.mind.restricted_roles)))
 			JobDebug("FOC incompatible with antagonist role, Player: [player]")
 			continue
 		if(player.client.prefs.active_character.job_preferences[job.get_jkey()] == level)
@@ -216,8 +214,8 @@ SUBSYSTEM_DEF(job)
 			JobDebug("GRJ isbanned failed, Player deleted")
 			break
 
-		if(is_banned_from(player.ckey, list(job.get_jkey(), job.get_jkey(FALSE))))
-			JobDebug("GRJ isbanned failed, Player: [player], Job:[job.get_jkey()][job.get_jkey()!=job.get_jkey(FALSE) ? " (possibly banned [job.get_jkey(FALSE)])" : ""]")
+		if(is_banned_from(player.ckey, job.get_jobkeys_for_bancheck()))
+			JobDebug("GRJ isbanned failed, Player: [player], Job:[english_list(job.get_jobkeys_for_bancheck())]")
 			continue
 
 		if(!job.player_old_enough(player.client))
@@ -397,8 +395,8 @@ SUBSYSTEM_DEF(job)
 				if(!job)
 					continue
 
-				if(is_banned_from(player.ckey, list(job.get_jkey(), job.get_jkey(FALSE))))
-					JobDebug("DO isbanned failed, Player: [player], Job:[job.get_jkey()][job.get_jkey()!=job.get_jkey(FALSE) ? " (possibly banned [job.get_jkey(FALSE)])" : ""]")
+				if(is_banned_from(player.ckey, job.get_jobkeys_for_bancheck()))
+					JobDebug("DO isbanned failed, Player: [player], Job:[english_list(job.get_jobkeys_for_bancheck())]")
 					continue
 
 				if(QDELETED(player))
@@ -514,16 +512,11 @@ SUBSYSTEM_DEF(job)
 			S = pick(GLOB.jobspawn_overrides[job_key])
 		else
 			var/spawn_successful = FALSE
-			var/max_attempt = job.job_bitflags & JOB_BITFLAG_GIMMICK ? 2 : 1
-			for(var/i in 1 to max_attempt)
+			var/attempts = 1 + job.is_gimmick() // if a job is gimmick, we'll check their spawn twice, in their job, and in their origin job
+			while(attempts--)
+				var/checks_original_path = ( attempts ? FALSE : TRUE )
 				for(var/obj/effect/landmark/start/sloc in GLOB.start_landmarks_list)
-					if(sloc.name != job.get_jkey(!(i-1))) // !(1-1)=1 / !(2-1)=0
-						// about this 'if' check
-						// gimmick job tries to find its own spawn location at first attempt.
-						// if they have no spawn location, it uses its basic job location instead, at second attempt.
-						// i.e.) psychiatrist has its spawn location in their maint office
-						//		 if they don't have it somehow, they'll be spawned on medical doctor spawn loc
-
+					if(sloc.name != job.get_jkey(checks_original_path))
 						S = sloc // so we can revert to spawning them on top of eachother if something goes wrong
 						continue // ↑↑↑ this comment is ancient. I don't get what this means
 					if(locate(/mob/living) in sloc.loc)
@@ -532,7 +525,7 @@ SUBSYSTEM_DEF(job)
 					sloc.used = TRUE
 					spawn_successful = TRUE
 					break
-				if(spawn_successful)
+				if(spawn_successful) // if a gimmick job finds its spawn location, no need for an additional attempt
 					break
 		if(S)
 			S.JoinPlayerHere(living_mob, FALSE)

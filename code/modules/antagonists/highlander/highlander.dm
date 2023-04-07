@@ -1,6 +1,6 @@
 /datum/antagonist/highlander
 	name = "highlander"
-	antag_role_type = null
+	antag_role_type = ROLE_KEY_HIGHLANDER
 	var/obj/item/claymore/highlander/sword
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
@@ -58,7 +58,7 @@
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
 	W.access += get_all_centcom_access()
-	W.assignment = "Highlander"
+	W.assignment = ROLE_KEY_HIGHLANDER
 	W.registered_name = H.real_name
 	ADD_TRAIT(W, TRAIT_NODROP, HIGHLANDER)
 	W.update_label(H.real_name)

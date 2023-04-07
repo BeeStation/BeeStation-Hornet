@@ -104,11 +104,14 @@
 /datum/job/New()
 	. = ..()
 
-/datum/job/proc/get_title(gimmick=TRUE)
-	return gimmick ? (g_jtitle || jtitle) : jtitle
+/datum/job/proc/get_title(returns_origin=FALSE)
+	return returns_origin ? jtitle : (g_jtitle || jtitle)
 
-/datum/job/proc/get_jkey(gimmick=TRUE)
-	return gimmick ? (g_jkey || jkey) : jkey
+/datum/job/proc/get_jkey(returns_origin=FALSE)
+	return returns_origin ? jkey : (g_jkey || jkey)
+
+/datum/job/proc/get_jobkeys_for_bancheck()
+	return g_jkey ? list(jkey, g_jkey) : list(jkey)
 
 //Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 //H is usually a human unless an /equip override transformed it
@@ -207,6 +210,9 @@
 		if(job_bitflags & JOB_BITFLAG_GIMMICK)
 			job_bitflags &= ~JOB_BITFLAG_SELECTABLE
 
+/// returns TRUE if a job is gimmick. simple proc.
+/datum/job/proc/is_gimmick()
+	return job_bitflags & JOB_BITFLAG_GIMMICK
 
 /datum/job/proc/GetAntagRep()
 	if(CONFIG_GET(flag/equal_job_weight))

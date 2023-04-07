@@ -427,8 +427,8 @@
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper_s"
 	outfit = /datum/outfit/syndicate_empty
-	spawner_special_role = ROLE_KEY_EXT_SYNDI_AGENT	//I know this is really dumb, but Syndicate operative is nuke ops
-											// Evildragon: I don't get this comment ↑
+	spawner_special_role = ROLE_KEY_EXT_SYNDI_AGENT
+	spawner_special_role_name = "Space Syndicate"
 
 /datum/outfit/syndicate_empty
 	name = "Syndicate Operative Empty"

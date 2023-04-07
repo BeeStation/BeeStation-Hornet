@@ -53,6 +53,8 @@
 #define ROLE_KEY_SWARMER         "Swarmer"
 #define ROLE_KEY_SPIDER	         "Spider"
 #define ROLE_KEY_SANTA           "Santa"
+#define ROLE_KEY_VALENTINE_HATER "Heartbreaker" // this is not in GLOB role list since it's quite seasonal
+#define ROLE_KEY_HIGHLANDER      "Highlander" // this is not in GLOB role list since it's not for standard games
 
 #define ROLE_KEY_UNDEFINED_ANTAG_ROLE "Undefined Antagonist Role" // default for all antag datum
 

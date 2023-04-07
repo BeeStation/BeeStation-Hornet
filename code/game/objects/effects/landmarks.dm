@@ -33,6 +33,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon_state = "x"
 	anchored = TRUE
 	layer = MOB_LAYER
+	var/landmark_jobkey
 	var/jobspawn_override = FALSE
 	var/delete_after_roundstart = TRUE
 	var/used = FALSE
@@ -58,7 +59,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 // START LANDMARKS FOLLOW. Don't change the names unless
 // you are refactoring shitty landmark code.
 /obj/effect/landmark/start/assistant
-	name = "Assistant"
+	name = JOB_KEY_ASSISTANT
 	icon_state = "Assistant"
 
 /obj/effect/landmark/start/assistant/override
@@ -66,135 +67,135 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	delete_after_roundstart = FALSE
 
 /obj/effect/landmark/start/janitor
-	name = "Janitor"
+	name = JOB_KEY_JANITOR
 	icon_state = "Janitor"
 
 /obj/effect/landmark/start/cargo_technician
-	name = "Cargo Technician"
+	name = JOB_KEY_CARGOTECHNICIAN
 	icon_state = "Cargo Technician"
 
 /obj/effect/landmark/start/bartender
-	name = "Bartender"
+	name = JOB_KEY_BARTENDER
 	icon_state = "Bartender"
 
 /obj/effect/landmark/start/clown
-	name = "Clown"
+	name = JOB_KEY_CLOWN
 	icon_state = "Clown"
 
 /obj/effect/landmark/start/mime
-	name = "Mime"
+	name = JOB_KEY_MIME
 	icon_state = "Mime"
 
 /obj/effect/landmark/start/quartermaster
-	name = "Quartermaster"
+	name = JOB_KEY_QUARTERMASTER
 	icon_state = "Quartermaster"
 
 /obj/effect/landmark/start/atmospheric_technician
-	name = "Atmospheric Technician"
+	name = JOB_KEY_ATMOSPHERICTECHNICIAN
 	icon_state = "Atmospheric Technician"
 
 /obj/effect/landmark/start/cook
-	name = "Cook"
+	name = JOB_KEY_COOK
 	icon_state = "Cook"
 
 /obj/effect/landmark/start/shaft_miner
-	name = "Shaft Miner"
+	name = JOB_KEY_SHAFTMINER
 	icon_state = "Shaft Miner"
 
 /obj/effect/landmark/start/exploration
-	name = "Exploration Crew"
+	name = JOB_KEY_EXPLORATIONCREW
 	icon_state = "Exploration Crew"
 
 /obj/effect/landmark/start/security_officer
-	name = "Security Officer"
+	name = JOB_KEY_SECURITYOFFICER
 	icon_state = "Security Officer"
 
 /obj/effect/landmark/start/botanist
-	name = "Botanist"
+	name = JOB_KEY_BOTANIST
 	icon_state = "Botanist"
 
 /obj/effect/landmark/start/head_of_security
-	name = "Head of Security"
+	name = JOB_KEY_HEADOFSECURITY
 	icon_state = "Head of Security"
 
 /obj/effect/landmark/start/captain
-	name = "Captain"
+	name = JOB_KEY_CAPTAIN
 	icon_state = "Captain"
 
 /obj/effect/landmark/start/detective
-	name = "Detective"
+	name = JOB_KEY_DETECTIVE
 	icon_state = "Detective"
 
 /obj/effect/landmark/start/warden
-	name = "Warden"
+	name = JOB_KEY_WARDEN
 	icon_state = "Warden"
 
 /obj/effect/landmark/start/chief_engineer
-	name = "Chief Engineer"
+	name = JOB_KEY_CHIEFENGINEER
 	icon_state = "Chief Engineer"
 
 /obj/effect/landmark/start/head_of_personnel
-	name = "Head of Personnel"
+	name = JOB_KEY_HEADOFPERSONNEL
 	icon_state = "Head of Personnel"
 
 /obj/effect/landmark/start/librarian
-	name = "Curator"
+	name = JOB_KEY_CURATOR
 	icon_state = "Curator"
 
 /obj/effect/landmark/start/lawyer
-	name = "Lawyer"
+	name = JOB_KEY_LAWYER
 	icon_state = "Lawyer"
 
 /obj/effect/landmark/start/station_engineer
-	name = "Station Engineer"
+	name = JOB_KEY_STATIONENGINEER
 	icon_state = "Station Engineer"
 
 /obj/effect/landmark/start/medical_doctor
-	name = "Medical Doctor"
+	name = JOB_KEY_MEDICALDOCTOR
 	icon_state = "Medical Doctor"
 
 /obj/effect/landmark/start/paramedic
-	name = "Paramedic"
+	name = JOB_KEY_PARAMEDIC
 	icon_state = "Medical Doctor"
 
 /obj/effect/landmark/start/scientist
-	name = "Scientist"
+	name = JOB_KEY_SCIENTIST
 	icon_state = "Scientist"
 
 /obj/effect/landmark/start/chemist
-	name = "Chemist"
+	name = JOB_KEY_CHEMIST
 	icon_state = "Chemist"
 
 /obj/effect/landmark/start/roboticist
-	name = "Roboticist"
+	name = JOB_KEY_ROBOTICIST
 	icon_state = "Roboticist"
 
 /obj/effect/landmark/start/research_director
-	name = "Research Director"
+	name = JOB_KEY_RESEARCHDIRECTOR
 	icon_state = "Research Director"
 
 /obj/effect/landmark/start/geneticist
-	name = "Geneticist"
+	name = JOB_KEY_GENETICIST
 	icon_state = "Geneticist"
 
 /obj/effect/landmark/start/chief_medical_officer
-	name = "Chief Medical Officer"
+	name = JOB_KEY_CHIEFMEDICALOFFICER
 	icon_state = "Chief Medical Officer"
 
 /obj/effect/landmark/start/virologist
-	name = "Virologist"
+	name = JOB_KEY_VIROLOGIST
 	icon_state = "Virologist"
 
 /obj/effect/landmark/start/chaplain
-	name = "Chaplain"
+	name = JOB_KEY_CHAPLAIN
 	icon_state = "Chaplain"
 
 /obj/effect/landmark/start/cyborg
-	name = "Cyborg"
+	name = JOB_KEY_CYBORG
 	icon_state = "Cyborg"
 
 /obj/effect/landmark/start/ai
-	name = "AI"
+	name = JOB_KEY_AI
 	icon_state = "AI"
 	delete_after_roundstart = FALSE
 	var/primary_ai = TRUE
@@ -217,34 +218,28 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/randommaint
 	name = "maintjobstart"
 	icon_state = "x3"
-	var/job = JOB_UNASSIGNED //put the title of the job here.
 
 /obj/effect/landmark/start/randommaint/New() //automatically opens up a job slot when the job's spawner loads in
 	..()
-	var/datum/job/J = SSjob.GetJob(job)
+	var/datum/job/J = SSjob.GetJob(name)
 	J.total_positions += 1
 	J.spawn_positions += 1
 	J.job_bitflags |= JOB_BITFLAG_SELECTABLE
 
 /obj/effect/landmark/start/randommaint/backalley_doc
-	name = JOB_NAME_BARBER
-	job = JOB_KEY_BARBER
+	name = JOB_KEY_BARBER
 
 /obj/effect/landmark/start/randommaint/magician
-	name = JOB_NAME_STAGEMAGICIAN
-	job = JOB_KEY_STAGEMAGICIAN
+	name = JOB_KEY_STAGEMAGICIAN
 
 /obj/effect/landmark/start/randommaint/psychiatrist
-	name = JOB_NAME_PSYCHIATRIST
-	job = JOB_KEY_PSYCHIATRIST
+	name = JOB_KEY_PSYCHIATRIST
 
 /obj/effect/landmark/start/randommaint/vip
-	name = JOB_NAME_VIP
-	job = JOB_KEY_VIP
+	name = JOB_KEY_VIP
 
 /obj/effect/landmark/start/randommaint/experiment
 	name = "Experiment"
-	job = "Experiment"
 
 //Department Security spawns
 

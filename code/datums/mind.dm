@@ -40,10 +40,13 @@
 	var/memory
 	var/list/quirks = list()
 
+	/// Documentation is in `_DEFINES\jobs.dm`
 	var/mind_roles = list(
 		RLPK_HOLDER_JOBS = list(),
 		RLPK_HOLDER_SPECIAL_ROLES = list()
-	) // list of jobs, special jobs.
+		// RLPK_DISPLAY_STATION_ROLE = "Your station job title"
+		// RLPK_DISPLAY_SPECIAL_ROLE = "Your special role name"
+	) // list of jobs, special roles.
 	var/list/restricted_roles = list()
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
 
@@ -277,6 +280,9 @@
 		return mind_roles[RLPK_DISPLAY_SPECIAL_ROLE] || "None"
 	return mind_roles[RLPK_DISPLAY_SPECIAL_ROLE] // can return null
 
+/// returns any eligible displaying role name for roundend reports
+/datum/mind/proc/get_display_role_for_report()
+	return get_display_station_role() || get_display_special_role() || JOB_UNASSIGNED
 // --------------------------------------------
 /// used to initialise a crew's job system - setting their job, and setting their displaying-job-name. This should be typically called by once per person, and non-crews(like wiz, syndi ops) shouldn't have this.
 /datum/mind/proc/assign_station_role(datum/job/J)

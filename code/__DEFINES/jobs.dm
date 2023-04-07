@@ -13,17 +13,19 @@
 		mind_roles[RLPK_HOLDER_JOBS] // Your jobs. The top one is mostly prioritised
 		mind_roles[RLPK_HOLDER_SPECIAL_ROLES] // Your 'special' roles
 
-	// I.e.
+	// Example:
 		"Chaplain of Honkmother" job will be like this
 
+	```
 		mind_roles[RLPK_DISPLAY_STATION_ROLE] = "Chaplain of Honkmother"
-		mind_roles[RLPK_HOLDER_JOBS][JOB_KEY_CLOWNCHAP] = TRUE // top one
-		mind_roles[RLPK_HOLDER_JOBS][JOB_KEY_CLOWN] = TRUE
-		mind_roles[RLPK_HOLDER_JOBS][JOB_KEY_CHAPLAIN] = TRUE
+		mind_roles[RLPK_HOLDER_JOBS][JOB_KEY_CLOWNCHAP] = JOB_KEY_CLOWNCHAP // top one
+		mind_roles[RLPK_HOLDER_JOBS][JOB_KEY_CLOWN] = JOB_KEY_CLOWN
+		mind_roles[RLPK_HOLDER_JOBS][JOB_KEY_CHAPLAIN] = JOB_KEY_CHAPLAIN
 
 		mind_roles[RLPK_DISPLAY_SPECIAL_ROLE] = "Traitor, Changeling"
-		mind_roles[RLPK_HOLDER_SPECIAL_ROLES][ROLE_KEY_TRAITOR] = TRUE // and you are a traitor!
-		mind_roles[RLPK_HOLDER_SPECIAL_ROLES][ROLE_KEY_CHANGELING] = TRUE // and maybe ling too!
+		mind_roles[RLPK_HOLDER_SPECIAL_ROLES][ROLE_KEY_TRAITOR] = ROLE_KEY_TRAITOR // and you are a traitor!
+		mind_roles[RLPK_HOLDER_SPECIAL_ROLES][ROLE_KEY_CHANGELING] = ROLE_KEY_CHANGELING // and maybe ling too!
+	```
 */
 
 // used in job_bitflags

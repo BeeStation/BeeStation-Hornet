@@ -608,12 +608,7 @@
 		return "[newline ? "<br/>" : " "](as [custom_title])" // i.e. " (as Plague Doctor)"
 
 /proc/printplayer(datum/mind/ply, fleecheck)
-	var/jobtext = ply.get_display_station_role()
-	if(!jobtext)
-		jobtext = ply.get_display_special_role()
-	if(!jobtext)
-		jobtext = JOB_UNASSIGNED
-	jobtext = " the <b>[jobtext]</b>"
+	var/jobtext = " the <b>[ply.get_display_role_for_report()]</b>"
 	var/jobtext_custom = get_custom_title_from_id(ply) // support the custom job title to the roundend report
 
 	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext][jobtext_custom] and"

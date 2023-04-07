@@ -147,7 +147,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/claymore/highlander/attack(mob/living/target, mob/living/user)
 	. = ..()
-	if(!QDELETED(target) && iscarbon(target) && target.stat == DEAD && target.mind?.get_display_special_role() == "highlander") // TO-DO, highlander as define
+	if(!QDELETED(target) && iscarbon(target) && target.stat == DEAD && target.mind?.has_special_role(ROLE_KEY_HIGHLANDER))
 		user.fully_heal() //STEAL THE LIFE OF OUR FALLEN FOES
 		add_notch(user)
 		target.visible_message("<span class='warning'>[target] crumbles to dust beneath [user]'s blows!</span>", "<span class='userdanger'>As you fall, your body crumbles to dust!</span>")
@@ -157,7 +157,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	var/closest_victim
 	var/closest_distance = 255
 	for(var/mob/living/carbon/human/H in GLOB.player_list - user)
-		if(H.client && H.mind.get_display_special_role() == "highlander" && (!closest_victim || get_dist(user, closest_victim) < closest_distance))
+		if(H.client && H.mind.has_special_role(ROLE_KEY_HIGHLANDER) && (!closest_victim || get_dist(user, closest_victim) < closest_distance))
 			closest_victim = H
 	if(!closest_victim)
 		to_chat(user, "<span class='warning'>[src] thrums for a moment and falls dark. Perhaps there's nobody nearby.</span>")
