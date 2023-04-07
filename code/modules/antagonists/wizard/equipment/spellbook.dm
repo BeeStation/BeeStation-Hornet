@@ -604,8 +604,8 @@
 
 	to_chat(user, "<span class='notice'>You have summoned Saint Anarcismea!</span>")
 	playsound(user, 'sound/magic/forcewall.ogg', 50, 1)
-	message_admins("[ADMIN_LOOKUPFLW(user)] cast 'Advent Ritual of Saint Anarchismea' and everyone gets AA from now, and will not be cuffed.")
-	log_game("[key_name(user)] cast 'Advent Ritual of Saint Anarchismea' and everyone gets AA from now, and will not be cuffed.")
+	message_admins("[ADMIN_LOOKUPFLW(user)] cast 'Advent Ritual of Saint Anarchismea' and everyone gets AA from now.")
+	log_game("[key_name(user)] cast 'Advent Ritual of Saint Anarchismea' and everyone gets AA from now.")
 	GLOB.magical_access = TRUE
 	trigger()
 
