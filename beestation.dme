@@ -2974,6 +2974,7 @@
 #include "code\modules\modular_computers\hardware\virus_disk.dm"
 #include "code\modules\modular_computers\NTNet\NTNRC\conversation.dm"
 #include "code\modules\multiz\turf_multiz.dm"
+#include "code\modules\multiz\look\living_zlook.dm"
 #include "code\modules\multiz\movement\atom\atom_zfall.dm"
 #include "code\modules\multiz\movement\atom\atom_zmove.dm"
 #include "code\modules\multiz\movement\mob\carbon_zfall.dm"
