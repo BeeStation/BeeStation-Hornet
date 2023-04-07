@@ -281,8 +281,10 @@
 	return mind_roles[RLPK_DISPLAY_SPECIAL_ROLE] // can return null
 
 /// returns any eligible displaying role name for roundend reports
-/datum/mind/proc/get_display_role_for_report()
-	return get_display_station_role() || get_display_special_role() || JOB_UNASSIGNED
+/datum/mind/proc/get_display_role_for_report(returns_both=FALSE)
+	if(!returns_both)
+		return get_display_station_role() || get_display_special_role() || JOB_UNASSIGNED
+	return "[get_display_station_role(TRUE)] \\ [get_display_special_role(TRUE)]"
 // --------------------------------------------
 /// used to initialise a crew's job system - setting their job, and setting their displaying-job-name. This should be typically called by once per person, and non-crews(like wiz, syndi ops) shouldn't have this.
 /datum/mind/proc/assign_station_role(datum/job/J)
