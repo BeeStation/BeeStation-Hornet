@@ -1050,7 +1050,7 @@
 /* End language procs */
 
 
-//Returns an atom's power cell, if it has one. Overload for individual items.
+///Returns an atom's power cell, if it has one. Overload for individual items.
 /atom/movable/proc/get_cell()
 	return
 

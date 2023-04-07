@@ -66,13 +66,6 @@
 	if(stored_dna)
 		stored_dna.real_name = real_name
 
-/mob/living/brain/ClickOn(atom/A, params)
-	..()
-	if(container)
-		var/obj/mecha/M = container.mecha
-		if(istype(M))
-			return M.click_action(A,src,params)
-
 /mob/living/brain/forceMove(atom/destination)
 	if(container)
 		return container.forceMove(destination)
@@ -93,7 +86,7 @@
 	if(!container)
 		return
 	if (container.mecha)
-		var/obj/mecha/M = container.mecha
+		var/obj/vehicle/sealed/mecha/M = container.mecha
 		if(M.mouse_pointer)
 			client.mouse_pointer_icon = M.mouse_pointer
 	if (client && ranged_ability && ranged_ability.ranged_mousepointer)
