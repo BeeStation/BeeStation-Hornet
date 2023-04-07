@@ -30,9 +30,8 @@
 
 #define Z_MIMIC_BELOW      (1 << 4)	//! Should this turf mimic the below turf?
 #define Z_MIMIC_OVERWRITE  (1 << 5)	//! If this turf is mimicking, overwrite its appearance instead of using a mimic object. This is faster, but means the turf cannot have its own appearance.
-#define Z_MIMIC_NO_AO      (1 << 6)	//! Bypass turf AO and only apply Z-AO. You probably want this on visually-empty z-turfs (like openspace).
-#define Z_MIMIC_NO_OCCLUDE (1 << 7)	//! If we're a non-OVERWRITE z-turf, allow clickthrough of this turf.
-#define Z_MIMIC_BASETURF   (1 << 8)	//! Fake-copy baseturf instead of below turf.
+#define Z_MIMIC_NO_OCCLUDE (1 << 6)	//! If we're a non-OVERWRITE z-turf, allow clickthrough of this turf.
+#define Z_MIMIC_BASETURF   (1 << 7)	//! Fake-copy baseturf instead of below turf.
 
 GLOBAL_LIST_INIT(z_defines, list(
 	"Z_BLOCK_IN_UP",
@@ -42,7 +41,6 @@ GLOBAL_LIST_INIT(z_defines, list(
 
 	"Z_MIMIC_BELOW",
 	"Z_MIMIC_OVERWRITE",
-	"Z_MIMIC_NO_AO",
 	"Z_MIMIC_NO_OCCLUDE",
 	"Z_MIMIC_BASETURF"
 ))
