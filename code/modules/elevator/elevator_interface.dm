@@ -83,5 +83,5 @@
 		return
 	var/num = text2num(action)
 	if(isnum(num))
-		select_level(num-z_offset)
+		select_level(num)
 	return TRUE
