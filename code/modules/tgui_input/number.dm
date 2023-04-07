@@ -25,9 +25,9 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	//if(!user.client.prefs.read_preference(/datum/preference/toggle/tgui_input))
-	//	var/input_number = input(user, message, title, default) as null|num
-	//	return clamp(round_value ? round(input_number) : input_number, min_value, max_value)
+	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
+		var/input_number = input(user, message, title, default) as null|num
+		return clamp(round_value ? round(input_number) : input_number, min_value, max_value)
 	var/datum/tgui_input_number/number_input = new(user, message, title, default, max_value, min_value, timeout, round_value)
 	number_input.ui_interact(user)
 	number_input.wait()
@@ -61,9 +61,9 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	//if(!user.client.prefs.read_preference(/datum/preference/toggle/tgui_input))
-	//	var/input_number = input(user, message, title, default) as null|num
-	//	return clamp(round_value ? round(input_number) : input_number, min_value, max_value)
+	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
+		var/input_number = input(user, message, title, default) as null|num
+		return clamp(round_value ? round(input_number) : input_number, min_value, max_value)
 	var/datum/tgui_input_number/async/number_input = new(user, message, title, default, max_value, min_value, callback, timeout, round_value)
 	number_input.ui_interact(user)
 
@@ -150,8 +150,12 @@
 	.["message"] = message
 	.["min_value"] = min_value
 	.["preferences"] = list()
-	.["preferences"]["large_buttons"] = TRUE//user.client.prefs.read_preference(/datum/preference/toggle/tgui_input_large)
-	.["preferences"]["swapped_buttons"] = TRUE//user.client.prefs.read_preference(/datum/preference/toggle/tgui_input_swapped)
+	if(!user.client || !user.client.prefs)
+		.["preferences"]["large_buttons"] = TRUE
+		.["preferences"]["swapped_buttons"] = TRUE
+	else
+		.["preferences"]["large_buttons"] = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_BIG_BUTTONS)
+		.["preferences"]["swapped_buttons"] = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_SWITCHED_BUTTONS)
 	.["title"] = title
 	if(timeout)
 		.["timeout"] = CLAMP01((timeout - (world.time - start_time) - 1 SECONDS) / (timeout - 1 SECONDS))
@@ -179,7 +183,7 @@
 			return TRUE
 
 /datum/tgui_input_number/proc/set_entry(entry)
-		src.entry = entry
+	src.entry = entry
 
 /**
  * # async tgui_input_number

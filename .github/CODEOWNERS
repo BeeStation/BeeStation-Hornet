@@ -1,14 +1,18 @@
 # This list auto requests reviews from the specified org members
+
 # when a PR that modifies the file in question is opened
+
 # This list is alphabetized by User -> Filename KEEP IT THAT WAY
+
 # In the event that multiple org members are to be informed of changes
+
 # to the same file or dir, add them to the end under Multiple Owners
 
 # crossedfall
 
 .dockerignore @crossedfall
 .github @crossedfall
-/code/_compile_options.dm @crossedfall
+/code/\_compile_options.dm @crossedfall
 /code/modules/tgs @crossedfall
 dependencies.sh @crossedfall
 Dockerfile @crossedfall
@@ -21,14 +25,28 @@ Dockerfile @crossedfall
 /code/game/machinery/shuttle @powerfulbacon
 /code/modules/shuttle/super_cruise @powerfulbacon
 /code/modules/shuttle/shuttle_creation @powerfulbacon
-/_maps/map_files/CorgStation @powerfulbacon
+/\_maps/map_files/CorgStation @powerfulbacon
 
 # pestoverde322
 
-/_maps @pestoverde322
+/\_maps @pestoverde322
 
 # itsmeow
 
 /code/game/gamemodes/dynamic @itsmeow
 /code/modules/modular_computers @itsmeow
+/tools/MapTileAggregator.py @itsmeow
+/code/modules/admin/player_panel.dm @itsmeow
+/code/modules/tgui/ @itsmeow
+/code/modules/tgui_input/ @itsmeow
+/code/modules/tgui_panel/ @itsmeow
+/tgui/ @itsmeow
+/tgui/packages/tgui/interfaces/PlayerPanel.js @itsmeow
 /code/modules/multiz @itsmeow
+
+# itsmeow (explicitly disowned)
+
+/tgui/packages/tgui/interfaces/
+/tgui/packages/tgui/styles/interfaces/
+/tgui/packages/tgui-panel/styles/tgchat/chat-dark.scss
+/tgui/packages/tgui-panel/styles/tgchat/chat-light.scss
