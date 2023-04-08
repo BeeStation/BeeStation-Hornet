@@ -1,5 +1,0 @@
-author: ss13-beebot
-delete-after: true
-changes:
-  - code_imp: DMAPI bumped to 6.3.1
-  - bugfix: TGS chat commands no longer runtime
