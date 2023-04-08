@@ -61,6 +61,7 @@ Key procs
 		var/datum/mind/M = owner
 		if(M.current)
 			update_atom_languages(M.current)
+	grant_language(/datum/language/metalanguage, understood=TRUE, spoken=FALSE, source=LANGUAGE_MIND) // Gets metalanguage that you can only understand
 	get_selected_language()
 
 /datum/language_holder/Destroy()
@@ -84,6 +85,8 @@ Key procs
 /// Grants every language to understood and spoken, and gives omnitongue.
 /datum/language_holder/proc/grant_all_languages(understood = TRUE, spoken = TRUE, grant_omnitongue = TRUE, source = LANGUAGE_MIND)
 	for(var/language in GLOB.all_languages)
+		if(language == /datum/language/metalanguage)
+			continue // metalanguage shouldn't be given by this method
 		grant_language(language, understood, spoken, source)
 	if(grant_omnitongue)	// Overrides tongue limitations.
 		omnitongue = TRUE
@@ -112,6 +115,8 @@ Key procs
 /// Removes every language and optionally sets omnitongue false. If a non default source is supplied, only removes that source.
 /datum/language_holder/proc/remove_all_languages(source = LANGUAGE_ALL, remove_omnitongue = FALSE)
 	for(var/language in GLOB.all_languages)
+		if(language == /datum/language/metalanguage) // this language is important. Don't remove it by remove_all
+			continue
 		remove_language(language, TRUE, TRUE, source)
 	if(remove_omnitongue)
 		omnitongue = FALSE

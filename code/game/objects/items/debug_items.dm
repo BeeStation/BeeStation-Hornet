@@ -295,6 +295,7 @@
 	for(var/each in traits_to_give)
 		ADD_TRAIT(user, each, "debug")
 	user.grant_all_languages(TRUE, TRUE, TRUE, "debug")
+	user.grant_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
 	user.update_sight()
 	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	hud.add_hud_to(user)
@@ -312,6 +313,7 @@
 	for(var/each in traits_to_give)
 		REMOVE_TRAIT(user, each, "debug")
 	user.remove_all_languages("debug")
+	user.remove_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
 	user.update_sight()
 
 	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]

@@ -122,6 +122,7 @@
 	leave.Grant(src)
 
 	grant_all_languages()
+	grant_language(/datum/language/metalanguage)
 
 /mob/camera/imaginary_friend/mrat/proc/add_kick_action()
 	kick = new

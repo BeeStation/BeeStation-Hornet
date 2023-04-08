@@ -28,15 +28,18 @@
 	var/icon_state = "popcorn"
 
 /datum/language/proc/display_icon(atom/movable/hearer)
+	if(flags & LANGUAGE_ALWAYS_SHOW_ICON_TO_GHOSTS && isobserver(hearer))
+		return TRUE
+
 	var/understands = hearer.has_language(src.type)
-	if(flags & LANGUAGE_HIDE_ICON_IF_UNDERSTOOD && understands)
+	if(understands && flags & LANGUAGE_HIDE_ICON_IF_YOU_UNDERSTAND)
 		return FALSE
 	if(!understands)
-		if(flags & LANGUAGE_ALWAYS_SHOW_ICON_IF_NOT_UNDERSTOOD)
+		if(flags & LANGUAGE_ALWAYS_SHOW_ICON_IF_YOU_DO_NOT_UNDERSTAND)
 			return TRUE
 		if(!HAS_TRAIT(hearer, TRAIT_LINGUIST))
 			return FALSE
-		else if(flags & LANGUAGE_HIDE_ICON_IF_NOT_UNDERSTOOD_WITH_LINGUIST_TRAIT)
+		else if(flags & LANGUAGE_HIDE_ICON_IF_YOU_SHOULD_NOT_RECOGNISE_WITH_LINGUIST_TRAIT)
 			return FALSE
 	return TRUE
 

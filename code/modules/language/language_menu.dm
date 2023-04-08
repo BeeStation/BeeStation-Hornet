@@ -43,6 +43,10 @@
 			L["can_speak"] = AM.can_speak_language(language)
 			L["can_understand"] = AM.has_language(language)
 
+		if(lang == /datum/language/metalanguage) // metalanguage is only visible when you can speak that
+			if(!AM.can_speak_language(language) && !(check_rights_for(user.client, R_ADMIN) || isobserver(AM)))
+				continue
+
 		data["languages"] += list(L)
 
 	if(check_rights_for(user.client, R_ADMIN) || isobserver(AM))
