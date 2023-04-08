@@ -1,0 +1,5 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: Stationloving objects, such as the nuclear authentication disk, can now
+      be properly taken onto allowed shuttles (emergency shuttle, nukie shuttle).
