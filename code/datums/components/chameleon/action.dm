@@ -216,15 +216,7 @@
 	var/asset_name = SANITIZE_FILENAME("outfit_[replacetext(replacetext("[outfit_path]", "/datum/outfit/job", ""), "/", "-")].png")
 	if(SSassets.cache[asset_name])
 		return asset_name
-	var/mob/living/carbon/human/dummy/mannequin = generate_or_wait_for_human_dummy(DUMMY_HUMAN_SLOT_OUTFIT)
-	for(var/I in mannequin.get_equipped_items(TRUE))
-		qdel(I)
-	mannequin.set_species(/datum/species/human, TRUE)
-	mannequin.setDir(SOUTH)
-	mannequin.equipOutfit(outfit_path, TRUE)
-	COMPILE_OVERLAYS(mannequin)
-	var/asset = fcopy_rsc(getFlatIcon(mannequin, no_anim = TRUE))
-	unset_busy_human_dummy(DUMMY_HUMAN_SLOT_OUTFIT)
+	var/asset = fcopy_rsc(get_flat_human_icon(asset_name, dummy_key=DUMMY_HUMAN_SLOT_OUTFIT, showDirs=list(SOUTH), outfit_override=outfit_path))
 	if(!asset)
 		return
 	if(!SSassets.transport.register_asset(asset_name, asset))

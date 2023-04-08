@@ -13,10 +13,12 @@
 	var/anyone_can_use = TRUE
 	/// The typepath that is currently being disguised as.
 	var/current_disguise
+	/// A callback to run whenever the disguise is changed, with the arguments (datum/component/chameleon/source, old_disguise_path, new_disguise_path)
+	var/datum/callback/on_disguise
 	///	Whenever the EMP effect will end.
 	COOLDOWN_DECLARE(emp_timer)
 
-/datum/component/chameleon/Initialize(original_name, base_disguise_path, list/disguise_blacklist, anyone_can_use, list/extra_actions)
+/datum/component/chameleon/Initialize(original_name, base_disguise_path, list/disguise_blacklist, anyone_can_use, list/extra_actions, datum/callback/on_disguise)
 	if((!src.base_disguise_path && (!base_disguise_path || !ispath(base_disguise_path, /obj/item))) || (original_name && !istext(original_name)))
 		return COMPONENT_INCOMPATIBLE
 	if(original_name)
@@ -33,6 +35,8 @@
 		src.anyone_can_use = anyone_can_use
 	if(extra_actions && LAZYLEN(extra_actions))
 		src.extra_actions = extra_actions
+	if(on_disguise && istype(on_disguise))
+		src.on_disguise = on_disguise
 	setup_disguises()
 
 /datum/component/chameleon/RegisterWithParent()
@@ -94,6 +98,7 @@
 			var/obj/item/failed_disguise = disguise_path
 			to_chat(user, "<span class='warning'>The Chameleon [original_name] cannot disguise as '[initial(failed_disguise.name)] ([initial(failed_disguise.icon_state)])'.</span>")
 		return
+	var/old_disguise_path = current_disguise
 	var/obj/item/picked_item = disguise_path
 	var/obj/item/chameleon_item = parent
 	chameleon_item.worn_icon = initial(picked_item.worn_icon)
@@ -127,6 +132,7 @@
 		chameleon_item.name = initial(picked_item.name)
 	chameleon_item.update_slot_icon()
 	current_disguise = disguise_path
+	on_disguise?.Invoke(src, old_disguise_path, disguise_path)
 
 /datum/component/chameleon/proc/setup_disguises()
 	disguise_paths.Cut()

@@ -68,7 +68,41 @@ BROKEN_SUBTYPE(/obj/item/clothing/under/chameleon)
 
 /obj/item/clothing/suit/chameleon/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/chameleon/suit)
+	AddComponent(/datum/component/chameleon/suit, on_disguise=CALLBACK(src, PROC_REF(on_disguise)))
+
+/obj/item/clothing/suit/chameleon/proc/on_disguise(datum/component/chameleon/suit/source, old_disguise_path, new_disguise_path)
+	if(ispath(new_disguise_path, /obj/item/clothing/suit/toggle))
+		verbs |= /obj/item/clothing/suit/chameleon/proc/toggle_suit_style
+	else
+		verbs -= /obj/item/clothing/suit/chameleon/proc/toggle_suit_style
+
+/obj/item/clothing/suit/chameleon/proc/toggle_suit_style()
+	set name = "Toggle Suit Style"
+	set category = "Object"
+	set src in usr
+
+	if(!can_use(usr))
+		return FALSE
+
+	var/datum/component/chameleon/chameleon = GetComponent(/datum/component/chameleon)
+	if(!chameleon || !chameleon.current_disguise || !ispath(chameleon.current_disguise, /obj/item/clothing/suit/toggle))
+		return FALSE
+	var/obj/item/clothing/suit/toggle/toggle_suit = chameleon.current_disguise
+	to_chat(usr, "<span class='notice'>You toggle [src]'s [initial(toggle_suit.togglename)].</span>")
+	if(suittoggled)
+		icon_state = "[initial(toggle_suit.icon_state)]"
+		if(worn_icon_state)
+			worn_icon_state = "[initial(toggle_suit.icon_state)]"
+		suittoggled = FALSE
+	else
+		icon_state = "[initial(toggle_suit.icon_state)]_t"
+		if(worn_icon_state)
+			worn_icon_state = "[initial(toggle_suit.icon_state)]_t"
+		suittoggled = TRUE
+	usr.update_inv_wear_suit()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
 
 BROKEN_SUBTYPE(/obj/item/clothing/suit/chameleon)
 
