@@ -881,6 +881,8 @@
 
 	show_message(rendered, 2)
 
+// modified version of `relay_speech()` proc, but for better chat through holopad.
+/// makes a better chat format for AI when AI takes
 /mob/living/silicon/ai/proc/relay_holocall(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	var/treated_message = "<span class='message'>[say_emphasis(lang_treat(speaker, message_language, raw_message, spans, message_mods))]</span>"
 	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"

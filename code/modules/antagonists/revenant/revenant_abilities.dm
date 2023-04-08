@@ -229,7 +229,7 @@
 		create_chat_message(user, // this creates runechat, so that they can communicate better
 			message_language = M.get_random_understood_language(), // this is tricky, but there's no better way to make a runechat
 			hearers = hearer_list, // only you and your target sees the runechat (+ghosts)
-			raw_message = "<span class='[notice]'>...[msg]</span>")
+			raw_message = "...[msg]")
 		for(var/ded in GLOB.dead_mob_list)
 			if(!isobserver(ded))
 				continue
