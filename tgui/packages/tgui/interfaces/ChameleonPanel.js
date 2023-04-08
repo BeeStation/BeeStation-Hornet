@@ -2,7 +2,6 @@ import { classes } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
 import { resolveAsset } from '../assets';
 import { Window } from '../layouts';
-import { createLogger } from '../logging';
 import {
   Button,
   Stack,
@@ -10,11 +9,9 @@ import {
   Input,
   LabeledList,
   Tabs,
+  Tooltip,
 } from '../components';
 import { createSearch } from 'common/string';
-
-const logger = createLogger('ChameleonPanel');
-logger.info('hello');
 
 export const ChameleonPanel = (_, context) => {
   const { act, data } = useBackend(context);
@@ -140,22 +137,30 @@ const OutfitsCompact = (props, context) => {
       {outfits.map((outfit, _) => {
         const outfit_icon = icons['outfits'][outfit.type];
         return (
-          <LabeledList.Item label={outfit.name} key={outfit.type}>
-            <Button
-              onClick={() => act('equip_outfit', { outfit: outfit.type })}>
-              {!!outfit_icon && (
-                <img
-                  src={resolveAsset(outfit_icon)}
-                  style={{
-                    'vertical-align': 'middle',
-                    'horizontal-align': 'middle',
-                    'width': '64px',
-                    'height': '64px',
-                  }}
-                />
-              )}
-              Disguise
-            </Button>
+          <LabeledList.Item
+            label={outfit.name}
+            key={outfit.type}
+            className="candystripe">
+            <Tooltip
+              content={
+                !!outfit_icon && (
+                  <img
+                    src={resolveAsset(outfit_icon)}
+                    style={{
+                      'vertical-align': 'middle',
+                      'horizontal-align': 'middle',
+                      'width': '64px',
+                      'height': '64px',
+                    }}
+                  />
+                )
+              }
+              position="left">
+              <Button
+                onClick={() => act('equip_outfit', { outfit: outfit.type })}>
+                Disguise
+              </Button>
+            </Tooltip>
           </LabeledList.Item>
         );
       })}
@@ -203,13 +208,13 @@ const PresetsPanel = (_, context) => {
 
 const Presets = (_, context) => {
   const { data } = useBackend(context);
-  const { outfits } = data;
+  const { presets } = data;
   return <> </>;
 };
 
 const PresetsCompact = (_, context) => {
   const { data } = useBackend(context);
-  const { outfits } = data;
+  const { presets } = data;
   return <> </>;
 };
 
@@ -235,24 +240,37 @@ const DisguisePanel = (_, context) => {
       : selectedChameleon.disguises
     : [];
   return (
-    <Stack fill>
-      <Stack.Item>
-        <DisguiseItems />
-      </Stack.Item>
-      <Stack.Item grow>
-        {(!!compact && (
-          <DisguisesCompact
-            selectedChameleon={selectedChameleon}
-            disguises={disguises}
+    <Section
+      title="Disguises"
+      buttons={
+        <>
+          Search
+          <Input
+            value={searchText}
+            onInput={(_, value) => setSearchText(value)}
+            mx={1}
           />
-        )) || (
-          <Disguises
-            selectedChameleon={selectedChameleon}
-            disguises={disguises}
-          />
-        )}
-      </Stack.Item>
-    </Stack>
+        </>
+      }>
+      <Stack fill>
+        <Stack.Item>
+          <DisguiseItems />
+        </Stack.Item>
+        <Stack.Item grow>
+          {(!!compact && (
+            <DisguisesCompact
+              selectedChameleon={selectedChameleon}
+              disguises={disguises}
+            />
+          )) || (
+            <Disguises
+              selectedChameleon={selectedChameleon}
+              disguises={disguises}
+            />
+          )}
+        </Stack.Item>
+      </Stack>
+    </Section>
   );
 };
 
@@ -290,7 +308,7 @@ const DisguiseItems = (_, context) => {
 
 const Disguises = (props, context) => {
   const { disguises, selectedChameleon } = props;
-  const { act, data } = useBackend(context);
+  const { act } = useBackend(context);
   return (disguises || []).map((disguise, _) => {
     const disguise_icon = disguise.type
       .replace('/obj/item/', '')
@@ -321,7 +339,7 @@ const Disguises = (props, context) => {
 
 const DisguisesCompact = (props, context) => {
   const { disguises, selectedChameleon } = props;
-  const { act, data } = useBackend(context);
+  const { act } = useBackend(context);
   return (
     <LabeledList>
       {(disguises || []).map((disguise, _) => {
@@ -331,26 +349,32 @@ const DisguisesCompact = (props, context) => {
         return (
           <LabeledList.Item
             label={`${disguise.name} (${disguise.icon_name})`}
-            key={disguise.type}>
-            <Button
-              selected={selectedChameleon.current_disguise === disguise.type}
-              onClick={() =>
-                act('disguise', {
-                  ref: selectedChameleon.ref,
-                  type: disguise.type,
-                })
-              }>
-              <span
-                className={classes(['chameleon64x64', disguise_icon])}
-                style={{
-                  'vertical-align': 'middle',
-                  'horizontal-align': 'middle',
-                }}
-              />
-              {selectedChameleon.current_disguise === disguise.type
-                ? 'Disguised'
-                : 'Disguise'}
-            </Button>
+            key={disguise.type}
+            className="candystripe">
+            <Tooltip
+              content={
+                <span
+                  className={classes(['chameleon64x64', disguise_icon])}
+                  style={{
+                    'vertical-align': 'middle',
+                    'horizontal-align': 'middle',
+                  }}
+                />
+              }
+              position="left">
+              <Button
+                selected={selectedChameleon.current_disguise === disguise.type}
+                onClick={() =>
+                  act('disguise', {
+                    ref: selectedChameleon.ref,
+                    type: disguise.type,
+                  })
+                }>
+                {selectedChameleon.current_disguise === disguise.type
+                  ? 'Disguised'
+                  : 'Disguise'}
+              </Button>
+            </Tooltip>
           </LabeledList.Item>
         );
       })}
