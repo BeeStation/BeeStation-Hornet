@@ -5,8 +5,8 @@
 /datum/bounty/item/mech/ship(obj/O)
 	if(!applies_to(O))
 		return
-	if(istype(O, /obj/mecha))
-		var/obj/mecha/M = O
+	if(istype(O, /obj/vehicle/sealed/mecha))
+		var/obj/vehicle/sealed/mecha/M = O
 		M.wreckage = null // So the mech doesn't explode.
 	..()
 

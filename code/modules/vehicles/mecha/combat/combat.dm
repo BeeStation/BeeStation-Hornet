@@ -1,4 +1,4 @@
-/obj/mecha/combat
+/obj/vehicle/sealed/mecha/combat
 	force = 30
 	internals_req_access = list(ACCESS_MECH_SCIENCE, ACCESS_MECH_SECURITY)
 	internal_damage_threshold = 50
@@ -7,6 +7,6 @@
 	destruction_sleep_duration = 40
 	exit_delay = 40
 
-/obj/mecha/combat/restore_equipment()
+/obj/vehicle/sealed/mecha/combat/restore_equipment()
 	mouse_pointer = 'icons/mecha/mecha_mouse.dmi'
 	. = ..()

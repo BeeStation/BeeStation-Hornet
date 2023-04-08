@@ -39,7 +39,7 @@
 	var/alarms = list("Motion"=list(), "Fire"=list(), "Atmosphere"=list(), "Power"=list(), "Camera"=list(), "Burglar"=list())
 	var/datum/weakref/alerts_popup = null
 	var/icon/holo_icon //Default is assigned when AI is created.
-	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
+	var/obj/vehicle/sealed/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
 	var/radio_enabled = TRUE //Determins if a carded AI can speak with its built in radio or not.
 	radiomod = ";" //AIs will, by default, state their laws on the internal radio.
 	var/obj/item/multitool/aiMulti
@@ -504,7 +504,7 @@
 		return
 
 	if (href_list["ai_take_control"]) //Mech domination
-		var/obj/mecha/M = locate(href_list["ai_take_control"]) in GLOB.mechas_list
+		var/obj/vehicle/sealed/mecha/M = locate(href_list["ai_take_control"]) in GLOB.mechas_list
 		if (!M)
 			return
 

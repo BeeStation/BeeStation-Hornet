@@ -1,23 +1,22 @@
-/obj/mecha/combat/honker
+/obj/vehicle/sealed/mecha/combat/honker
 	desc = "Produced by \"Tyranny of Honk, INC\", this exosuit is designed as heavy clown-support. Used to spread the fun and joy of life. HONK!"
 	name = "\improper H.O.N.K"
 	icon_state = "honker"
 	base_icon_state = "honker"
-	step_in = 3
+	movedelay = 3
 	max_integrity = 140
 	deflect_chance = 60
 	internal_damage_threshold = 60
 	armor = list(MELEE = -20,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
 	max_temperature = 25000
-	infra_luminosity = 5
 	operation_req_access = list(ACCESS_THEATRE)
 	internals_req_access = list(ACCESS_MECH_SCIENCE, ACCESS_THEATRE)
 	wreckage = /obj/structure/mecha_wreckage/honker
-	add_req_access = 0
+	mecha_flags = CANSTRAFE | IS_ENCLOSED | HAS_LIGHTS
 	max_equip = 3
 	var/squeak = 0
 
-/obj/mecha/combat/honker/get_stats_part()
+/obj/vehicle/sealed/mecha/combat/honker/get_stats_part(mob/user)
 	var/integrity = obj_integrity/max_integrity*100
 	var/cell_charge = get_charge()
 	var/datum/gas_mixture/int_tank_air = internal_tank.return_air()
@@ -36,7 +35,7 @@
 						<b>AirHONK temperature: </b>[tank_temperature]&deg;K|[tank_temperature - T0C]&deg;C<br>
 						<b>HONK pressure: </b>[cabin_pressure>WARNING_HIGH_PRESSURE ? "<font color='red'>[cabin_pressure]</font>": cabin_pressure]kPa<br>
 						<b>HONK temperature: </b> [return_temperature()]&deg;K|[return_temperature() - T0C]&deg;C<br>
-						<b>Lights: </b>[lights?"on":"off"]<br>
+						<b>Lights: </b>[mecha_flags & LIGHTS_ON?"on":"off"]<br>
 						[dna_lock?"<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[dna_lock]</span> \[<a href='?src=[REF(src)];reset_dna=1'>Reset</a>\]<br>":null]
 					"}
 	return output
@@ -84,7 +83,7 @@
 						</head>
 						<body>
 						<div id='content'>
-						[src.get_stats_part()]
+						[src.get_stats_part(user)]
 						</div>
 						<div id='eq_list'>
 						[src.get_equipment_list()]
@@ -98,7 +97,7 @@
 					 "}
 	return output
 
-/obj/mecha/combat/honker/get_commands()
+/obj/vehicle/sealed/mecha/combat/honker/get_commands()
 	var/output = {"<div class='wr'>
 						<div class='header'>Sounds of HONK:</div>
 						<div class='links'>
@@ -122,8 +121,8 @@
 	return output
 
 
-/obj/mecha/combat/honker/get_equipment_list()
-	if(!equipment.len)
+/obj/vehicle/sealed/mecha/combat/honker/get_equipment_list()
+	if(!LAZYLEN(equipment))
 		return
 	var/output = "<b>Honk-ON-Systems:</b><div style=\"margin-left: 15px;\">"
 	for(var/obj/item/mecha_parts/mecha_equipment/MT in equipment)
@@ -131,19 +130,12 @@
 	output += "</div>"
 	return output
 
+/obj/vehicle/sealed/mecha/combat/honker/play_stepsound()
+	if(squeak)
+		playsound(src, "clownstep", 70, 1)
+	squeak = !squeak
 
-
-/obj/mecha/combat/honker/mechstep(direction)
-	var/result = step(src,direction)
-	if(result)
-		if(!squeak)
-			playsound(src, "clownstep", 70, 1)
-			squeak = 1
-		else
-			squeak = 0
-	return result
-
-/obj/mecha/combat/honker/Topic(href, href_list)
+/obj/vehicle/sealed/mecha/combat/honker/Topic(href, href_list)
 	..()
 	if (href_list["play_sound"])
 		switch(href_list["play_sound"])

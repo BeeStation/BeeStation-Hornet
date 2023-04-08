@@ -483,7 +483,7 @@
 /obj/effect/CanEnterDisposals()
 	return
 
-/obj/mecha/CanEnterDisposals()
+/obj/vehicle/sealed/mecha/CanEnterDisposals()
 	return
 
 /obj/structure/spacevine/CanEnterDisposals()

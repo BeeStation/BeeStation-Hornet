@@ -450,10 +450,12 @@
 						targets += C
 		for(var/A in GLOB.mechas_list)
 			if((get_dist(A, T) < scan_range) && can_see(T, A, scan_range))
-				var/obj/mecha/Mech = A
-				if(Mech.occupant && !in_faction(Mech.occupant)) //If there is a user and they're not in our faction
-					if(assess_perp(Mech.occupant) >= 4)
-						targets += Mech
+				var/obj/vehicle/sealed/mecha/mech = A
+			for(var/O in mech.occupants)
+				var/mob/living/occupant = O
+				if(!in_faction(occupant)) //If there is a user and they're not in our faction
+					if(assess_perp(occupant) >= 4)
+						targets += mech
 
 		if(check_anomalies && GLOB.blobs.len && (mode == TURRET_LETHAL))
 			for(var/obj/structure/blob/B in view(scan_range, T))

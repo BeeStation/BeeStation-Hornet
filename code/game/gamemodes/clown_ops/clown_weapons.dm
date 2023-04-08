@@ -281,7 +281,7 @@
 			return TRUE
 	return FALSE
 
-/obj/mecha/combat/honker/dark
+/obj/vehicle/sealed/mecha/combat/honker/dark
 	desc = "Produced by \"Tyranny of Honk, INC\", this exosuit is designed as heavy clown-support. This one has been painted black for maximum fun. HONK!"
 	name = "\improper Dark H.O.N.K"
 	icon_state = "darkhonker"

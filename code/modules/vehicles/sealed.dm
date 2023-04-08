@@ -33,15 +33,18 @@
 /obj/vehicle/sealed/proc/mob_try_enter(mob/M)
 	if(!istype(M))
 		return FALSE
-	if(occupant_amount() >= max_occupants)
-		return FALSE
 	if(do_after(M, get_enter_delay(M), src, progress = TRUE, timed_action_flags = IGNORE_HELD_ITEM))
 		mob_enter(M)
 		return TRUE
 	return FALSE
 
+/// returns enter do_after delay for the given mob in ticks
 /obj/vehicle/sealed/proc/get_enter_delay(mob/M)
 	return enter_delay
+
+///Extra checks to perform during the do_after to enter the vehicle
+/obj/vehicle/sealed/proc/enter_checks(mob/M)
+	return occupant_amount() < max_occupants
 
 /obj/vehicle/sealed/proc/mob_enter(mob/M, silent = FALSE)
 	if(!istype(M))
@@ -59,7 +62,8 @@
 	if(!istype(M))
 		return FALSE
 	remove_occupant(M)
-	M.forceMove(exit_location(M))
+	if(!isAI(M))//This is the ONE mob we dont want to be moved to the vehicle that should be handeled when used
+		M.forceMove(exit_location(M))
 	if(randomstep)
 		var/turf/target_turf = get_step(exit_location(M), pick(GLOB.cardinals))
 		M.throw_at(target_turf, 5, 10)
