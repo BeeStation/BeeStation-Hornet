@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - refactor: overlay lighting now uses underlays instead of vis contents
