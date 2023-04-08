@@ -1,11 +1,36 @@
-/proc/list_chameleon_disguises(base_disguise_path, disguise_blacklist = list())
+/proc/atom_icon_hash(atom_instance_or_path)
+	var/atom_path
+	if(ispath(atom_instance_or_path) && ispath(atom_instance_or_path, /atom))
+		atom_path = atom_instance_or_path
+	else if(isatom(atom_instance_or_path))
+		var/atom/atom_instance = atom_instance_or_path
+		atom_path = atom_instance.type
+	else
+		CRASH("invalid thing [atom_instance_or_path] passed to atom_icon_hash, it should be a type or instance of /atom")
+	var/atom/atom = atom_instance_or_path
+	var/list/parts = list()
+	if(initial(atom.icon))
+		parts += "[initial(atom.icon)]"
+	if(initial(atom.icon_state))
+		parts += "[initial(atom.icon_state)]"
+	if(initial(atom.greyscale_colors))
+		parts += "[initial(atom.greyscale_colors)]"
+	return md5(parts.Join("~"))
+
+/proc/list_chameleon_disguises(base_disguise_path, disguise_blacklist = list(), hide_duplicates = TRUE)
 	. = list()
+	var/list/used_hashes = list()
 	for(var/path in typesof(base_disguise_path))
 		if(!path || !ispath(path, /obj/item) || is_type_in_typecache(path, disguise_blacklist))
 			continue
 		var/obj/item/base_disguise = path
 		if((initial(base_disguise.item_flags) & ABSTRACT) || !initial(base_disguise.icon_state))
 			continue
+		if(hide_duplicates)
+			var/icon_hash = atom_icon_hash(path)
+			if(icon_hash in used_hashes)
+				continue
+			used_hashes += icon_hash
 		. += path
 
 /proc/generate_human_outfit_icon(outfit_path)
