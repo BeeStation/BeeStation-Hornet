@@ -245,6 +245,10 @@
 	spidernet = new
 	AddAbility(spidernet)
 
+/mob/living/simple_animal/hostile/poison/giant_spider/netcaster/Destroy()
+	. = ..()
+	RemoveAbility(spidernet)
+
 // Nurses heal other spiders and maintain the core of the nest.
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
 	name = "nurse"
@@ -554,7 +558,7 @@
 		if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
 			return
 		var/mob/living/simple_animal/hostile/poison/giant_spider/spider = user
-		
+
 		if(spider.busy != SPINNING_WEB)
 			spider.busy = SPINNING_WEB
 			spider.visible_message("<span class='notice'>[spider] begins to secrete a sticky substance.</span>","<span class='notice'>You begin to prepare a net from webbing.</span>")
