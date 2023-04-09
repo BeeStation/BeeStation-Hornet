@@ -214,17 +214,6 @@
 			else
 				if(minor && !(target in head_subordinates))
 					return
-				var/list/new_access = list()
-				if(is_centcom)
-					new_access = get_centcom_access(target)
-				else
-					var/datum/job/job
-					for(var/datum/job/J in SSjob.occupations)
-						if(J.get_jkey() == target)
-							job = J
-							break
-					if(!job)
-						to_chat(user, "<span class='warning'>No class exists for this job: [target].</span>")
 				var/datum/job/jobdatum
 				if(!is_centcom) // station level
 					jobdatum = SSjob.GetJob(target)
