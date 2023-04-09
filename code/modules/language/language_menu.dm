@@ -87,16 +87,19 @@
 
 	switch(action)
 		if("select_default")
-			if(language_datum == /datum/language/metalanguage && \
-					language_holder.selected_language == /datum/language/metalanguage && \
-					!HAS_TRAIT(user, TRAIT_METALANGUAGE_KEY_ALLOWED) && \
-					!check_rights_for(user.client, R_ADMIN))
-				var/no = alert(user, "You're giving up your power to speak in a powerful language that everyone understands. Do you really wish to do that?", "WARNING!", "Yes", "No")
-				if(no == "No")
-					return
-			if(language_datum && AM.can_speak_language(language_datum))
-				language_holder.selected_language = language_datum
-				. = TRUE
+			if(language_datum)
+				// they're changing their language to something else from metalanguage. It must be mistake.
+				if(language_datum != /datum/language/metalanguage && \
+						language_holder.selected_language == /datum/language/metalanguage && \
+						!HAS_TRAIT(user, TRAIT_METALANGUAGE_KEY_ALLOWED) && \
+						!check_rights_for(user.client, R_ADMIN))
+					var/no = alert(user, "You're giving up your power to speak in a powerful language that everyone understands. Do you really wish to do that?", "WARNING!", "Yes", "No")
+					if(no == "No")
+						return
+
+				if(AM.can_speak_language(language_datum))
+					language_holder.selected_language = language_datum
+					. = TRUE
 		if("grant_language")
 			if((is_admin || isobserver(AM)) && language_datum)
 				var/list/choices = list("Only Spoken", "Only Understood", "Both")
