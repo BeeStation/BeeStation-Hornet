@@ -344,6 +344,7 @@
 	letmetalkpls.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/broodmother/Destroy()
+	RemoveAbility(wrap)
 	QDEL_NULL(lay_eggs)
 	QDEL_NULL(set_directive)
 	QDEL_NULL(letmetalkpls)
@@ -553,6 +554,7 @@
 		if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
 			return
 		var/mob/living/simple_animal/hostile/poison/giant_spider/spider = user
+		
 		if(spider.busy != SPINNING_WEB)
 			spider.busy = SPINNING_WEB
 			spider.visible_message("<span class='notice'>[spider] begins to secrete a sticky substance.</span>","<span class='notice'>You begin to prepare a net from webbing.</span>")
