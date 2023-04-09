@@ -10,6 +10,14 @@ In any query remember to add a prefix to the table names if you use one.
 
 -----------------------------------------------------
 
+Version 6.1-TGUISAY - 16 March 2023 by itsmeow - Minor update, enable TGUI Say preferences for existing users
+
+UPDATE SS13_preferences SET preference_value = preference_value | (1<<14) | (1<<15) | (1<<16) | (1<<17) WHERE preference_tag = 2;
+
+-----------------------------------------------------
+
+-----------------------------------------------------
+
 Version 6.1-SOUNDTRACK - 11 March 2023 by itsmeow - Minor update, enable soundtrack pref for existing users
 
 UPDATE SS13_preferences SET preference_value = preference_value | (1<<13) WHERE preference_tag = 2;

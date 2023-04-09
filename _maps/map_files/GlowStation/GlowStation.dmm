@@ -2762,10 +2762,7 @@
 /area/engine/atmos)
 "aFD" = (
 /obj/machinery/holopad{
-	layer = 3;
-	level = 2.5;
-	pixel_x = 16;
-	plane = -1
+	pixel_x = 16
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -4508,10 +4505,7 @@
 /area/hallway/upper/primary/port)
 "aXF" = (
 /obj/machinery/holopad{
-	layer = 3;
-	level = 2.5;
-	pixel_x = 16;
-	plane = -1
+	pixel_x = 16
 	},
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel,
@@ -54880,11 +54874,7 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/hop)
 "lzV" = (
-/obj/machinery/holopad{
-	layer = 3;
-	level = 2.5;
-	plane = -1
-	},
+/obj/machinery/holopad,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
@@ -56267,10 +56257,7 @@
 /area/medical/medbay/central)
 "lOJ" = (
 /obj/machinery/holopad{
-	layer = 3;
-	level = 2.5;
-	pixel_x = 16;
-	plane = -1
+	pixel_x = 16
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
@@ -78777,11 +78764,8 @@
 /area/iceland/shaded)
 "qyP" = (
 /obj/machinery/holopad{
-	layer = 3;
-	level = 2.5;
 	pixel_x = 16;
-	pixel_y = -16;
-	plane = -1
+	pixel_y = -16
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -104120,10 +104104,7 @@
 /area/maintenance/department/bridge)
 "vLc" = (
 /obj/machinery/holopad{
-	layer = 3;
-	level = 2.5;
-	pixel_x = 16;
-	plane = -1
+	pixel_x = 16
 	},
 /obj/effect/turf_decal/trimline/blue/filled/warning{
 	dir = 1
@@ -115219,7 +115200,6 @@
 /area/crew_quarters/dorms/upper)
 "yin" = (
 /obj/structure/sign/warning/fire{
-	level = 3;
 	pixel_y = -1
 	},
 /obj/effect/decal/cleanable/blood/gibs/bubblegum{
