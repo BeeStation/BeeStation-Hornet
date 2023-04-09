@@ -208,6 +208,10 @@
 		if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			to_chat(user, "<span class='warning'>It appears the target's mind is ironclad! No getting a message in there!</span>")
 			return
+		if(M.anti_magic_check(magic_check, holy_check)) //hear no evil
+			to_chat(user, "<span class='[boldnotice]'>Something is blocking your power into their mind!</span>")
+
+
 		var/msg = stripped_input(usr, "What do you wish to tell [M]?", null, "")
 		if(!msg)
 			charge_counter = charge_max
@@ -217,8 +221,6 @@
 			return
 		msg = user.treat_message_min(msg)
 		log_directed_talk(user, M, msg, LOG_SAY, "[name]")
-		if(M.anti_magic_check(magic_check, holy_check)) //hear no evil
-			to_chat(user, "<span class='[boldnotice]'>Something is blocking your power into their mind!</span>")
 
 		var/hearer_list = list()
 		for(var/mob/each_mob in GLOB.dead_mob_list+list(user, M))
