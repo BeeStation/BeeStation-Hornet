@@ -45,8 +45,8 @@
 			CHECK_TICK
 	sortTim(.["outfits"], GLOBAL_PROC_REF(cmp_list_name_asc))
 	if(l_user?.mind)
-		if(GLOB.user_chameleon_presets[l_user.mind])
-			var/list/user_presets = GLOB.user_chameleon_presets[l_user.mind]
+		var/list/user_presets = l_user.mind.chameleon_presets
+		if(LAZYLEN(user_presets))
 			for(var/preset_name in user_presets)
 				var/list/preset = user_presets[preset_name]
 				var/list/preset_contents = list()
@@ -101,9 +101,10 @@
 			"current_disguise" = "[chameleon.current_disguise]"
 		))
 		CHECK_TICK
-	if(user.mind && GLOB.user_chameleon_presets[user.mind])
-		for(var/preset_name in GLOB.user_chameleon_presets[user.mind])
-			var/list/raw_preset = GLOB.user_chameleon_presets[user.mind][preset_name]
+	if(LAZYLEN(user?.mind?.chameleon_presets))
+		var/list/user_presets = user.mind.chameleon_presets
+		for(var/preset_name in user_presets)
+			var/list/raw_preset = user_presets[preset_name]
 			var/list/preset = list()
 			for(var/slot in raw_preset)
 				var/slot_name = GLOB.slot_names[text2num(slot)] || "unknown slot"
@@ -131,6 +132,7 @@
 		return
 	if(!isliving(usr))
 		return FALSE
+	var/mob/living/user = usr
 	switch(action)
 		if("extra_action")
 			. = TRUE
@@ -139,12 +141,12 @@
 			if(!istext(ref) || !istext(action_name))
 				return FALSE
 			var/datum/component/chameleon/chameleon = locate(ref)
-			if(!chameleon || !istype(chameleon) || !chameleon?.can_use(usr))
+			if(!chameleon || !istype(chameleon) || !chameleon?.can_use(user))
 				return FALSE
 			var/datum/callback/callback = chameleon.extra_actions[action_name]
 			if(!callback)
 				return FALSE
-			callback.InvokeAsync(usr, chameleon)
+			callback.InvokeAsync(user, chameleon)
 		if("disguise")
 			. = TRUE
 			var/ref = params["ref"]
@@ -159,26 +161,26 @@
 			if(istext(ref))
 				chameleon = locate(ref)
 			else if(isnum(slot))
-				var/obj/item/slot_item = usr.get_item_by_slot(slot)
+				var/obj/item/slot_item = user.get_item_by_slot(slot)
 				chameleon = slot_item?.GetComponent(/datum/component/chameleon)
-			if(!chameleon || !istype(chameleon) || !chameleon?.can_use(usr) || !(disguise_path in chameleon.disguise_paths))
+			if(!chameleon || !istype(chameleon) || !chameleon?.can_use(user) || !(disguise_path in chameleon.disguise_paths))
 				return FALSE
-			chameleon.disguise(usr, disguise_path)
+			chameleon.disguise(user, disguise_path)
 		if("save_preset")
 			. = TRUE
-			save_preset(usr)
+			save_preset(user)
 		if("load_preset")
 			. = TRUE
 			var/preset = params["preset"]
-			if(!istext(preset) || !GLOB.user_chameleon_presets[usr.mind] || !GLOB.user_chameleon_presets[usr.mind][preset])
+			if(!istext(preset) || !LAZYLEN(user.mind?.chameleon_presets))
 				return FALSE
-			load_preset(usr, preset)
+			load_preset(user, preset)
 		if("delete_preset")
 			. = TRUE
 			var/preset = params["preset"]
-			if(!istext(preset) || !GLOB.user_chameleon_presets[usr.mind] || !GLOB.user_chameleon_presets[usr.mind][preset])
+			if(!istext(preset) || !LAZYLEN(user.mind?.chameleon_presets))
 				return FALSE
-			GLOB.user_chameleon_presets[usr.mind] -= preset
+			user.mind.chameleon_presets -= preset
 			to_chat(usr, "<span class='notice'>Your chameleon preset '[preset]' was deleted.</span>")
 		if("equip_outfit")
 			. = TRUE
@@ -224,12 +226,12 @@
 	return asset_name
 
 /datum/action/chameleon_panel/proc/get_preset_icon(datum/mind/user, preset_name)
-	if(!user || !istype(user) || !istext(preset_name) || !GLOB.user_chameleon_presets[user] || !GLOB.user_chameleon_presets[user][preset_name])
+	if(!user || !istype(user) || !istext(preset_name) || !LAZYLEN(user.chameleon_presets))
 		return
 	var/asset_name = SANITIZE_FILENAME("preset_[md5(REF(user))]_[md5(preset_name)].png")
 	if(SSassets.cache[asset_name])
 		return asset_name
-	var/list/preset = GLOB.user_chameleon_presets[user][preset_name]
+	var/list/preset = user.chameleon_presets[preset_name]
 	if(!LAZYLEN(preset))
 		return
 	var/mob/living/carbon/human/dummy/mannequin = generate_or_wait_for_human_dummy(DUMMY_HUMAN_SLOT_OUTFIT)
@@ -273,19 +275,18 @@
 	if(!LAZYLEN(preset))
 		to_chat(user, "<span class='warning'>Could not find any valid clothes to save to a new chameleon preset!</span>")
 		return
-	LAZYINITLIST(GLOB.user_chameleon_presets[user.mind])
 	var/suffix = 1
 	var/name
-	while(!name || GLOB.user_chameleon_presets[user.mind][name])
+	while(!name || (LAZYLEN(user.mind?.chameleon_presets) && user.mind.chameleon_presets[name]))
 		name = "New Preset #[suffix++]"
-	GLOB.user_chameleon_presets[user.mind][name] = preset
+	LAZYSET(user.mind.chameleon_presets, name, preset)
 	update_static_data(user)
 
 /datum/action/chameleon_panel/proc/load_preset(mob/living/user, preset_name)
 	. = TRUE
-	if(!user?.mind || !istype(user) || !istext(preset_name) || !GLOB.user_chameleon_presets[user.mind] || !GLOB.user_chameleon_presets[user.mind][preset_name])
+	if(!user?.mind || !istype(user) || !istext(preset_name) || !LAZYLEN(user.mind.chameleon_presets))
 		return FALSE
-	var/list/preset = GLOB.user_chameleon_presets[user.mind][preset_name]
+	var/list/preset = user.mind.chameleon_presets[preset_name]
 	for(var/slot in preset)
 		var/item = preset[slot]
 		if(!ispath(item) || !ispath(item, /obj/item))

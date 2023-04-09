@@ -48,5 +48,4 @@ GLOBAL_LIST_INIT(alarms, list(
 )) //all engineering alerts for station alert consoles and alarm manager
 
 GLOBAL_LIST_EMPTY(user_chameleon_actions)
-GLOBAL_LIST_EMPTY(user_chameleon_presets)
 GLOBAL_LIST_EMPTY(all_available_chameleon_types)
