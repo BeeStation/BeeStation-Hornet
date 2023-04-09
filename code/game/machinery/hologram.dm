@@ -424,7 +424,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		for(var/mob/living/silicon/ai/master in masters)
 			if(master == speaker || master.ai_hologram == speaker) // AI will not hear talks that are spoken from themselves
 				continue
-			master.relay_holocall(message, speaker, message_language, raw_message, radio_freq, spans, message_mods)
+			master.hear_holocall(message, speaker, message_language, raw_message, radio_freq, spans, message_mods)
 
 	for(var/I in holo_calls)
 		var/datum/holocall/HC = I
