@@ -47,14 +47,14 @@
 /obj/structure/displaycase/vv_edit_var(vname, vval)
 	. = ..()
 	if(vname in list(NAMEOF(src, open), NAMEOF(src, showpiece), NAMEOF(src, custom_glass_overlay)))
-		update_icon()
+		update_appearance()
 
 /obj/structure/displaycase/handle_atom_del(atom/A)
 	if(A == electronics)
 		electronics = null
 	if(A == showpiece)
 		showpiece = null
-		update_icon()
+		update_appearance()
 	return ..()
 
 /obj/structure/displaycase/Destroy()
@@ -78,7 +78,7 @@
 		return
 	showpiece.forceMove(drop_location())
 	showpiece = null
-	update_icon()
+	update_appearance()
 
 /obj/structure/displaycase/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	if(!shatter)
@@ -108,7 +108,7 @@
 			playsound(src, "shatter", 70, TRUE)
 		else
 			playsound(src, "sound/magic/summonitems_generic.ogg", 70, TRUE)
-		update_icon()
+		update_appearance()
 		trigger_alarm()
 
 ///Anti-theft alarm triggered when broken.
@@ -119,7 +119,7 @@
 	alarmed.burglaralert(src)
 
 	alarm_manager.send_alarm(ALARM_BURGLAR)
-	addtimer(CALLBACK(alarm_manager, /datum/alarm_handler/proc/clear_alarm, ALARM_BURGLAR), 1 MINUTES)
+	addtimer(CALLBACK(alarm_manager, TYPE_PROC_REF(/datum/alarm_handler, clear_alarm), ALARM_BURGLAR), 1 MINUTES)
 
 	playsound(src, 'sound/effects/alert.ogg', 50, TRUE)
 

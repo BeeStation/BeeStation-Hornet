@@ -179,18 +179,20 @@
 		area.power_change()
 	QDEL_NULL(alarm_manager)
 	if(occupier)
-		malfvacate(1)
-	qdel(wires)
-	wires = null
+		malfvacate(TRUE)
+	if(wires)
+		QDEL_NULL(wires)
 	if(cell)
-		qdel(cell)
+		QDEL_NULL(cell)
 	if(terminal)
 		disconnect_terminal()
+
 	. = ..()
 
 /obj/machinery/power/apc/handle_atom_del(atom/A)
 	if(A == cell)
 		cell = null
+		charging = APC_NOT_CHARGING
 		update_appearance()
 		updateUsrDialog()
 

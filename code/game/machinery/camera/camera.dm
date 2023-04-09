@@ -95,7 +95,8 @@
 	if(mapload && is_station_level(z) && prob(3) && !start_active)
 		toggle_cam()
 	else //this is handled by toggle_camera, so no need to update it twice.
-		update_icon()
+		update_appearance()
+
 	alarm_manager = new(src)
 
 /obj/machinery/camera/Destroy()

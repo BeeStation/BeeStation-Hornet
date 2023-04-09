@@ -435,7 +435,7 @@
 				post_alert(0)
 			. = TRUE
 	if(.)
-		update_icon()
+		update_appearance()
 
 
 /obj/machinery/airalarm/proc/reset(wire)
