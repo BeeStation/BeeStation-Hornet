@@ -12,6 +12,12 @@
 	// Then, we need to generate the actual icons.
 	for(var/item_path in disguises)
 		add_item(item_path)
+	// I like this better than hardcoding a list of all chameleon items.
+	for(var/item_path in subtypesof(/obj/item))
+		var/item_path_txt = "[item_path]"
+		if(!findtext(item_path_txt, "/chameleon") || findtext(item_path_txt, "/broken") || (item_path in disguises))
+			continue
+		add_item(item_path)
 	..()
 
 /datum/asset/spritesheet/chameleon/proc/add_item(item_path)
@@ -30,12 +36,6 @@
 		if (!isnull(color) && color != "#FFFFFF")
 			asset.Blend(color, ICON_MULTIPLY)
 	else
-		var/icon_states_string
-		for (var/an_icon_state in icon_states_list)
-			if (!icon_states_string)
-				icon_states_string = "[json_encode(an_icon_state)](\ref[an_icon_state])"
-			else
-				icon_states_string += ", [json_encode(an_icon_state)](\ref[an_icon_state])"
 		asset = icon('icons/turf/floors.dmi', "", dir=SOUTH, frame=1)
 	asset.Scale(asset.Width() * 2, asset.Height() * 2)
 	var/item_id = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
