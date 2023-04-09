@@ -35,6 +35,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	bloodcrawl = BLOODCRAWL_EAT
 	hardattacks = TRUE
+	var/list/consumed_mobs = list()
 	var/playstyle_string = "<span class='big bold'>You are a slaughter demon,</span><B> a terrible creature from another realm. You have a single desire: To kill.  \
 							You may use the \"Blood Crawl\" ability near blood pools to travel through them, appearing and disappearing from the station at will. \
 							Pulling a dead or unconscious mob while you enter a pool will pull them in with you, allowing you to feast and regain your health. \
@@ -55,6 +56,32 @@
 	AddSpell(bloodspell)
 	if(istype(loc, /obj/effect/dummy/phased_mob/slaughter))
 		bloodspell.phased = TRUE
+
+/mob/living/simple_animal/slaughter/Destroy()
+	release_victims()
+	return ..()
+
+/mob/living/simple_animal/slaughter/bloodcrawl_swallow(mob/living/victim)
+	if(consumed_mobs)
+		// Keep their corpse so rescue is possible
+		consumed_mobs += victim
+	else
+		// Be safe and just eject the corpse
+		victim.forceMove(get_turf(victim))
+		victim.exit_blood_effect()
+		victim.visible_message("[victim] falls out of the air, covered in blood, looking highly confused. And dead.")
+
+/mob/living/simple_animal/slaughter/proc/release_victims()
+	var/atom/drop = drop_location()
+	for(var/mob in consumed_mobs)
+		var/mob/living/victim = mob
+		if(!victim || !istype(victim))
+			continue
+		victim.forceMove(drop)
+		victim.visible_message("<span class='warning'>The corpse of [victim] violently flies out of the dying [src]!</span>")
+		if(isturf(drop))
+			var/turf/edge = get_edge_target_turf(drop, pick(GLOB.alldirs))
+			victim.throw_at(edge, 10, 3)
 
 /obj/effect/decal/cleanable/blood/innards
 	name = "pile of viscera"
@@ -131,9 +158,6 @@
 		prison of hugs."
 	loot = list(/mob/living/simple_animal/pet/cat/kitten{name = "Laughter"})
 
-	// Keep the people we hug!
-	var/list/consumed_mobs = list()
-
 	playstyle_string = "<span class='big bold'>You are a laughter \
 	demon,</span><B> a wonderful creature from another realm. You have a single \
 	desire: <span class='clowntext'>To hug and tickle.</span><BR>\
@@ -148,10 +172,6 @@
 	released and fully healed, because in the end it's just a jape, \
 	sibling!</B>"
 
-/mob/living/simple_animal/slaughter/laughter/Destroy()
-	release_friends()
-	. = ..()
-
 /mob/living/simple_animal/slaughter/laughter/ex_act(severity)
 	switch(severity)
 		if(1)
@@ -161,10 +181,9 @@
 		if(3)
 			adjustBruteLoss(30)
 
-/mob/living/simple_animal/slaughter/laughter/proc/release_friends()
+/mob/living/simple_animal/slaughter/laughter/release_victims()
 	if(!consumed_mobs)
 		return
-
 	for(var/mob/living/M in consumed_mobs)
 		if(!M)
 			continue
@@ -176,13 +195,3 @@
 			M.grab_ghost(force = TRUE)
 			playsound(T, feast_sound, 50, 1, -1)
 			to_chat(M, "<span class='clowntext'>You leave [src]'s warm embrace,	and feel ready to take on the world.</span>")
-
-/mob/living/simple_animal/slaughter/laughter/bloodcrawl_swallow(var/mob/living/victim)
-	if(consumed_mobs)
-		// Keep their corpse so rescue is possible
-		consumed_mobs += victim
-	else
-		// Be safe and just eject the corpse
-		victim.forceMove(get_turf(victim))
-		victim.exit_blood_effect()
-		victim.visible_message("[victim] falls out of the air, covered in blood, looking highly confused. And dead.")
