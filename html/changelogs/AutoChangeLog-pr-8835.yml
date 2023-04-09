@@ -1,0 +1,5 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: re-updating serverlink implants no longer wipes all disk surgeries off
+      them
