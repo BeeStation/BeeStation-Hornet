@@ -31,9 +31,8 @@
 /obj/machinery/atmospherics/components/unary/thermomachine/Initialize(mapload)
 	. = ..()
 	initialize_directions = dir
-	SSair.start_processing_machine(src) //initialize thermomachines to SSairs list of tickable machines
 	RefreshParts()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/proc/swap_function()
 	cooling = !cooling

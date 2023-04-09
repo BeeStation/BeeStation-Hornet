@@ -18,7 +18,7 @@
 	find_circs()
 	connect_to_network()
 	SSair.start_processing_machine(src)
-	update_icon()
+	update_appearance()
 	component_parts = list(new /obj/item/circuitboard/machine/generator)
 
 /obj/machinery/power/generator/examine()
