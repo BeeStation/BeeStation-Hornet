@@ -452,17 +452,9 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/load_syringe(obj/item/reagent_containers/syringe/S)
 	if(syringes.len<max_syringes)
-		if(get_dist(src,S) >= 2)
-			occupant_message("The syringe is too far away.")
-			return 0
-		for(var/obj/structure/D in S.loc)//Basic level check for structures in the way (Like grilles and windows)
-			if(!(D.CanPass(S,src.loc)))
-				occupant_message("Unable to load syringe.")
-				return 0
-		for(var/obj/machinery/door/D in S.loc)//Checks for doors
-			if(!(D.CanPass(S,src.loc)))
-				occupant_message("Unable to load syringe.")
-				return 0
+		if(!chassis.Adjacent(S))
+			occupant_message("Unable to load syringe")
+			return FALSE
 		S.reagents.trans_to(src, S.reagents.total_volume, transfered_by = chassis.occupant)
 		S.forceMove(src)
 		syringes += S
