@@ -470,7 +470,7 @@ Class Procs:
 	if(isturf(loc))
 		var/turf/machine_turf = loc
 		// We're spawning a frame before this machine is qdeleted, so we want to ignore it. We've also just spawned a new frame, so ignore that too.
-		if(machine_turf.is_blocked_turf(TRUE, source_atom = new_frame))
+		if(machine_turf.is_blocked_turf(TRUE, source_atom = new_frame, ignore_atoms = list(src)))
 			new_frame.deconstruct(disassembled)
 			return
 
