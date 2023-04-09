@@ -1,0 +1,6 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: ID manipulation console behaves better. It no longer strips unrelated
+      accesses.
+  - code_imp: slightly better access manipulation system
