@@ -650,7 +650,7 @@
 		if(!check_rights_for(usr.client, R_ADMIN))
 			to_chat(usr, "<span class='boldnotice'>Respawning in this server is disabled.</span>")
 			return
-		else if("Yes" == alert(src, "Do you want to use your admin privilege respawn? (Respawning is currently disabled)", "Options", "Yes", "No"))
+		else if("Yes" == alert(src, "Do you want to use your admin privilege to respawn? (Respawning is currently disabled)", "Options", "Yes", "No"))
 			log_game("[key_name(usr)] bypassed the respawn lock through the admin privilege.")
 		else
 			return
