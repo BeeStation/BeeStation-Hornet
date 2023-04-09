@@ -7,7 +7,7 @@
 /datum/component/stationloving/Initialize(inform_admins = FALSE, allow_death = FALSE)
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
-	RegisterSignal(parent, list(COMSIG_MOVABLE_Z_CHANGED), PROC_REF(check_in_bounds))
+	RegisterSignal(parent, list(COMSIG_MOVABLE_Z_CHANGED), PROC_REF(z_check))
 	RegisterSignal(parent, list(COMSIG_MOVABLE_SECLUDED_LOCATION), PROC_REF(relocate))
 	RegisterSignal(parent, list(COMSIG_PARENT_PREQDELETED), PROC_REF(check_deletion))
 	RegisterSignal(parent, list(COMSIG_ITEM_IMBUE_SOUL), PROC_REF(check_soul_imbue))
@@ -40,10 +40,12 @@
 	// move the disc, so ghosts remain orbiting it even if it's "destroyed"
 	return targetturf
 
-/datum/component/stationloving/proc/check_in_bounds()
+/datum/component/stationloving/proc/z_check(datum/source, old_z, new_z)
 	SIGNAL_HANDLER
+	check_in_bounds()
 
-	if(in_bounds())
+/datum/component/stationloving/proc/check_in_bounds(is_retrying = FALSE)
+	if(in_bounds(is_retrying))
 		return
 	else
 		var/turf/currentturf = get_turf(src)
@@ -62,7 +64,7 @@
 
 	return COMPONENT_BLOCK_MARK_RETRIEVAL
 
-/datum/component/stationloving/proc/in_bounds()
+/datum/component/stationloving/proc/in_bounds(is_retrying = FALSE)
 	var/static/list/allowed_shuttles = typecacheof(list(/area/shuttle/syndicate, /area/shuttle/escape, /area/shuttle/pod_1, /area/shuttle/pod_2, /area/shuttle/pod_3, /area/shuttle/pod_4))
 	var/static/list/disallowed_centcom_areas = typecacheof(list(/area/abductor_ship, /area/awaymission/errorroom))
 	var/turf/T = get_turf(parent)
@@ -77,6 +79,13 @@
 		return TRUE
 	if(is_reserved_level(T.z))
 		if (is_type_in_typecache(A, allowed_shuttles))
+			return TRUE
+		// Whenever shuttles move, everything seems to be on a hyperspace tile temporarily,
+		// so we need this to stop it from teleporting off of allowed shuttles.
+		if (!is_retrying && istype(T, /turf/open/space/transit))
+			// We still might be on a disallowed shuttle,
+			// so we need to check again in a second to make sure.
+			addtimer(CALLBACK(src, PROC_REF(check_in_bounds), TRUE), 1 SECONDS)
 			return TRUE
 
 	return FALSE
