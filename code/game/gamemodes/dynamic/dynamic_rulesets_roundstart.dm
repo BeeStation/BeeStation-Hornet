@@ -20,6 +20,11 @@
 	antag_cap = list("denominator" = 38)
 	var/autotraitor_cooldown = (15 MINUTES)
 
+/datum/dynamic_ruleset/roundstart/traitor/ready(population, forced = FALSE)
+	if(mode.check_lowpop_lowimpact_injection())
+		return FALSE
+	return ..()
+
 /datum/dynamic_ruleset/roundstart/traitor/pre_execute(population)
 	. = ..()
 	if (population < CONFIG_GET(number/malf_ai_minimum_pop))
@@ -55,6 +60,11 @@
 	antag_cap = 2	// Can pick 3 per team, but rare enough it doesn't matter.
 	var/list/datum/team/brother_team/pre_brother_teams = list()
 	var/const/min_team_size = 2
+
+/datum/dynamic_ruleset/roundstart/traitorbro/ready(population, forced = FALSE)
+	if(mode.check_lowpop_lowimpact_injection())
+		return FALSE
+	return ..()
 
 /datum/dynamic_ruleset/roundstart/traitorbro/pre_execute(population)
 	. = ..()
@@ -101,6 +111,11 @@
 	scaling_cost = 10
 	requirements = list(70,70,60,50,40,20,20,10,10,10)
 	antag_cap = list("denominator" = 29)
+
+/datum/dynamic_ruleset/roundstart/changeling/ready(population, forced = FALSE)
+	if(mode.check_lowpop_lowimpact_injection())
+		return FALSE
+	return ..()
 
 /datum/dynamic_ruleset/roundstart/changeling/pre_execute(population)
 	. = ..()
@@ -229,6 +244,8 @@
 	var/datum/team/cult/main_cult
 
 /datum/dynamic_ruleset/roundstart/bloodcult/ready(population, forced = FALSE)
+	if(mode.check_lowpop_lowimpact_injection())
+		return FALSE
 	required_candidates = get_antag_cap(population)
 	return ..()
 
@@ -285,6 +302,8 @@
 	var/datum/team/nuclear/nuke_team
 
 /datum/dynamic_ruleset/roundstart/nuclear/ready(population, forced = FALSE)
+	if(mode.check_lowpop_lowimpact_injection())
+		return FALSE
 	required_candidates = get_antag_cap(population)
 	return ..()
 
@@ -651,6 +670,8 @@
 	var/datum/team/incursion/incursion_team
 
 /datum/dynamic_ruleset/roundstart/incursion/ready(population, forced = FALSE)
+	if(mode.check_lowpop_lowimpact_injection())
+		return FALSE
 	required_candidates = CLAMP(get_antag_cap(population), CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
 	return ..()
 
