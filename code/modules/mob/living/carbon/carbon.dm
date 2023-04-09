@@ -455,7 +455,7 @@
 			if(T)
 				T.add_vomit_floor(src, VOMIT_TOXIC)//toxic barf looks different
 		T = get_step(T, dir)
-		if (is_blocked_turf(T))
+		if (T.is_blocked_turf())
 			break
 	return 1
 

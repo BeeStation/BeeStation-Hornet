@@ -246,15 +246,27 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 /turf/proc/multiz_turf_new(turf/T, dir)
 
-/// Returns TRUE if the turf cannot be moved onto
-/proc/is_blocked_turf(turf/T, exclude_mobs)
-	if(T.density)
-		return 1
-	for(var/i in T)
-		var/atom/A = i
-		if(A.density && (!exclude_mobs || !ismob(A)))
-			return 1
-	return 0
+/**
+ * Check whether the specified turf is blocked by something dense inside it.
+ *
+ * Returns TRUE if the turf is blocked, FALSE otherwise.
+ *
+ * Arguments:
+ * * exclude_mobs - If TRUE, ignores dense mobs on the turf.
+ * * source_atom - If you're checking if the turf an atom is on is blocked, this will let you exclude the atom from this check so it doesn't block itself with its own density.
+ */
+/turf/proc/is_blocked_turf(exclude_mobs, source_atom)
+	if(density)
+		return TRUE
+
+	for(var/atom/movable/movable_content as anything in contents)
+		if(movable_content == source_atom)
+			continue
+		// If the thing is dense AND we're including mobs or the thing isn't a mob AND if there's a source atom and
+		// it cannot pass through the thing on the turf, we consider the turf blocked.
+		if(movable_content.density && (!exclude_mobs || !ismob(movable_content)))
+			return TRUE
+	return FALSE
 
 /proc/is_anchored_dense_turf(turf/T) //like the older version of the above, fails only if also anchored
 	if(T.density)
