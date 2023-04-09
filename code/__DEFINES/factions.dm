@@ -1,4 +1,4 @@
-// note: uding defines in DMM is not valid. If you want to use custom faction, use 'dmm_handler' and check 'faction_change.dm'
+/// note: uding defines in DMM is not valid. If you want to use custom faction, use 'dmm_handler' and check 'faction_change.dm'
 
 /// Standard Factions
 #define FACTION_NEUTRAL "neutral"
