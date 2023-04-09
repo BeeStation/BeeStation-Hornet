@@ -188,7 +188,7 @@
 			if(!istext(outfit))
 				return FALSE
 			var/outfit_path = text2path(outfit)
-			if(!outfit_path || !ispath(outfit_path, /datum/outfit))
+			if(!ispath(outfit_path, /datum/outfit))
 				return FALSE
 			load_outfit(usr, outfit_path)
 		if("create_manual")
@@ -210,7 +210,7 @@
 	)
 
 /datum/action/chameleon_panel/proc/get_outfit_icon(outfit_path)
-	if(!outfit_path || !ispath(outfit_path))
+	if(!ispath(outfit_path))
 		return
 	var/datum/outfit/outfit = outfit_path
 	if(!initial(outfit.can_be_admin_equipped))
@@ -249,7 +249,7 @@
 	mannequin.setDir(SOUTH)
 	for(var/slot in preset)
 		var/item = preset[slot]
-		if(!ispath(item) || !ispath(item, /obj/item))
+		if(!ispath(item, /obj/item))
 			continue
 		mannequin.equip_to_slot_or_del(new item, slot)
 	COMPILE_OVERLAYS(mannequin)
@@ -297,10 +297,10 @@
 	var/list/preset = user.mind.chameleon_presets[preset_name]
 	for(var/slot in preset)
 		var/item = preset[slot]
-		if(!ispath(item) || !ispath(item, /obj/item))
+		if(!ispath(item, /obj/item))
 			continue
 		var/obj/item/slot_item = user.get_item_by_slot(slot)
-		if(!slot_item || !istype(slot_item))
+		if(!istype(slot_item))
 			continue
 		var/datum/component/chameleon/chameleon = slot_item.GetComponent(/datum/component/chameleon)
 		if(!chameleon?.can_use(user))
@@ -309,7 +309,7 @@
 
 /datum/action/chameleon_panel/proc/load_outfit(mob/living/user, outfit_path)
 	. = TRUE
-	if(!user || !istype(user) || !outfit_path || !ispath(outfit_path) || !ispath(outfit_path, /datum/outfit))
+	if(!istype(user) || !ispath(outfit_path, /datum/outfit))
 		return FALSE
 	var/datum/outfit/outfit = outfit_path
 	if(!initial(outfit.can_be_admin_equipped))
@@ -341,7 +341,7 @@
 
 /datum/action/chameleon_panel/proc/attempt_to_disguise_slot(mob/living/user, slot, disguise_path)
 	. = TRUE
-	if(!user || !istype(user) || !disguise_path || !ispath(disguise_path) || !ispath(disguise_path, /obj/item))
+	if(!istype(user) || !ispath(disguise_path, /obj/item))
 		return FALSE
 	var/obj/item/item_in_slot = user.get_item_by_slot(slot)
 	if(!item_in_slot || !istype(item_in_slot))

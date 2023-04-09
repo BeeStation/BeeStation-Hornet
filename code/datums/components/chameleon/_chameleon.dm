@@ -33,9 +33,9 @@
 		src.disguise_blacklist = list()
 	if(!isnull(anyone_can_use))
 		src.anyone_can_use = anyone_can_use
-	if(extra_actions && LAZYLEN(extra_actions))
+	if(LAZYLEN(extra_actions))
 		src.extra_actions = extra_actions
-	if(on_disguise && istype(on_disguise))
+	if(istype(on_disguise))
 		src.on_disguise = on_disguise
 	setup_disguises()
 
@@ -72,11 +72,11 @@
 
 /datum/component/chameleon/proc/can_use(mob/living/user)
 	. = anyone_can_use
-	if(!user || !istype(user))
+	if(!istype(user))
 		return FALSE
 	if(!(parent in user.contents))
 		return FALSE
-	if(HAS_TRAIT(user, TRAIT_CHAMELEON_USER) || (user.mind && HAS_TRAIT(user.mind, TRAIT_CHAMELEON_USER)))
+	if(HAS_TRAIT(user, TRAIT_CHAMELEON_USER) || HAS_TRAIT(user?.mind, TRAIT_CHAMELEON_USER))
 		return TRUE
 
 /datum/component/chameleon/proc/random_look()
@@ -90,7 +90,7 @@
 	START_PROCESSING(SSprocessing, src)
 
 /datum/component/chameleon/proc/disguise(mob/living/user, disguise_path)
-	if(!ispath(disguise_path) || !ispath(disguise_path, /obj/item))
+	if(!ispath(disguise_path, /obj/item))
 		stack_trace("[user ? key_name(user) : "null"] attempted to disguise using an invalid path: [disguise_path]")
 		return
 	if(!(disguise_path in disguise_paths))
@@ -141,7 +141,7 @@
 		GLOB.all_available_chameleon_types |= path
 
 /datum/component/chameleon/proc/setup_action(mob/living/user, include_self = TRUE)
-	if(!user || !istype(user))
+	if(!istype(user))
 		return
 	var/user_has_chameleon_panel = FALSE
 	for(var/O in user.contents)
