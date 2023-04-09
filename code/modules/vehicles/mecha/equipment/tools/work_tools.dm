@@ -36,38 +36,26 @@
 		return
 	if(!cargo_holder)
 		return
-	if(ismecha(target))
-		var/obj/vehicle/sealed/mecha/M = target
-		var/have_ammo
-		for(var/obj/item/mecha_ammo/box in cargo_holder.cargo)
-			if(istype(box, /obj/item/mecha_ammo) && box.rounds)
-				have_ammo = TRUE
-				if(M.ammo_resupply(box, source, TRUE))
-					return
-		if(have_ammo)
-			to_chat(source, "No further supplies can be provided to [M].")
-		else
-			to_chat(source, "No providable supplies found in cargo hold")
 
 	else if(isobj(target))
 		var/obj/clamptarget = target
 		if(istype(clamptarget, /obj/machinery/door/firedoor))
 			var/obj/machinery/door/firedoor/targetfiredoor = clamptarget
-			playsound(chassis, clampsound, 50, FALSE, -6)
+			/*playsound(chassis, clampsound, 50, FALSE, -6)*/
 			targetfiredoor.try_to_crowbar(src, source)
 			return
 		if(istype(clamptarget, /obj/machinery/door/airlock/))
 			var/obj/machinery/door/airlock/targetairlock = clamptarget
-			playsound(chassis, clampsound, 50, FALSE, -6)
+			/*playsound(chassis, clampsound, 50, FALSE, -6)*/
 			targetairlock.try_to_crowbar(src, source)
 			return
 		if(clamptarget.anchored)
-			to_chat(source, "[icon2html(src, source)][span_warning("[target] is firmly secured!")]")
+			to_chat(source, "[icon2html(src, source)]<span class='warning'>[target] is firmly secured!</span>")
 			return
 		if(LAZYLEN(cargo_holder.cargo) >= cargo_holder.cargo_capacity)
-			to_chat(source, "[icon2html(src, source)][span_warning("Not enough room in cargo compartment!")]")
+			to_chat(source, "[icon2html(src, source)]<span class='warning'>Not enough room in cargo compartment!</span>")
 			return
-		playsound(chassis, clampsound, 50, FALSE, -6)
+		/*playsound(chassis, clampsound, 50, FALSE, -6)*/
 		chassis.visible_message(span_notice("[chassis] lifts [target] and starts to load it into cargo compartment."))
 		clamptarget.set_anchored(TRUE)
 		if(!do_after_cooldown(target, source))
@@ -255,8 +243,6 @@
 			return 1
 	return 0
 
-
-
 /obj/item/mecha_parts/mecha_equipment/rcd
 	name = "mounted RCD"
 	desc = "An exosuit-mounted Rapid Construction Device."
@@ -275,10 +261,7 @@
 	GLOB.rcd_list -= src
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/rcd/action(atom/target)
-	if(istype(target, /turf/open/space/transit))//>implying these are ever made -Sieve
-		return
-
+/obj/item/mecha_parts/mecha_equipment/rcd/action(mob/source, atom/target, list/modifiers)
 	if(!isturf(target) && !istype(target, /obj/machinery/door/airlock))
 		target = get_turf(target)
 	if(!action_checks(target) || get_dist(chassis, target)>3)
@@ -354,7 +337,7 @@
 
 
 
-
+/*
 /obj/item/mecha_parts/mecha_equipment/cable_layer
 	name = "cable layer"
 	desc = "Equipment for engineering exosuits. Lays cable along the exosuit's path."
@@ -369,7 +352,7 @@
 	. = ..()
 	cable = new(src, 0)
 
-/obj/item/mecha_parts/mecha_equipment/cable_layer/can_attach(obj/mecha/working/M)
+/obj/item/mecha_parts/mecha_equipment/cable_layer/can_attach(obj/vehicle/sealed/mecha/working/M)
 	if(..())
 		if(istype(M))
 			return 1
@@ -489,6 +472,7 @@
 	//NC.mergeConnectedNetworksOnTurf()
 	last_piece = NC
 	return 1
+*/
 
 //Dunno where else to put this so shrug
 /obj/item/mecha_parts/mecha_equipment/ripleyupgrade
@@ -515,8 +499,8 @@
 		return FALSE
 	return TRUE
 
-/obj/item/mecha_parts/mecha_equipment/ripleyupgrade/attach(obj/mecha/M)
-	var/obj/mecha/working/ripley/mkii/N = new /obj/mecha/working/ripley/mkii(get_turf(M),1)
+/obj/item/mecha_parts/mecha_equipment/ripleyupgrade/attach(obj/vehicle/sealed/mecha/M)
+	var/obj/vehicle/sealed/mecha/working/ripley/mkii/N = new /obj/vehicle/sealed/mecha/working/ripley/mkii(get_turf(M),1)
 	if(!N)
 		return
 	QDEL_NULL(N.cell)

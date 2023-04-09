@@ -125,7 +125,7 @@
 				var/delay = 2
 				SSmove_manager.move_away(A, target, delay = delay, timeout = delay * dist, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 			var/turf/T = get_turf(target)
-			log_game("[key_name(chassis.occupant)] used a Gravitational Catapult repulse wave on [AREACOORD(T)]")
+			log_game("[key_name(chassis.occupants)] used a Gravitational Catapult repulse wave on [AREACOORD(T)]")
 			return TRUE
 
 

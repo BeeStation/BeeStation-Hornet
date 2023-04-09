@@ -451,11 +451,11 @@
 		for(var/A in GLOB.mechas_list)
 			if((get_dist(A, T) < scan_range) && can_see(T, A, scan_range))
 				var/obj/vehicle/sealed/mecha/mech = A
-			for(var/O in mech.occupants)
-				var/mob/living/occupant = O
-				if(!in_faction(occupant)) //If there is a user and they're not in our faction
-					if(assess_perp(occupant) >= 4)
-						targets += mech
+				for(var/O in mech.occupants)
+					var/mob/living/occupant = O
+					if(!in_faction(occupant)) //If there is a user and they're not in our faction
+						if(assess_perp(occupant) >= 4)
+							targets += mech
 
 		if(check_anomalies && GLOB.blobs.len && (mode == TURRET_LETHAL))
 			for(var/obj/structure/blob/B in view(scan_range, T))
@@ -507,7 +507,7 @@
 		cover.icon_state = "turretCover"
 	raised = 0
 	invisibility = 2
-	update_icon()
+	update_appearance()
 
 /obj/machinery/porta_turret/proc/assess_perp(mob/living/carbon/human/perp)
 	//if the turret has been attacked or is angry, target all non-sec people

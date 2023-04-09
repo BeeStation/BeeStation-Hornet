@@ -110,45 +110,46 @@
 	. = ..()
 
 
-/obj/vehicle/sealed/mecha/bullet_act(obj/projectile/Proj) //wrapper
-	if(!enclosed && LAZYLEN(occupants) && !(mecha_flags  & SILICON_PILOT) && !Proj.force_hit && (Proj.def_zone == BODY_ZONE_HEAD || Proj.def_zone == BODY_ZONE_CHEST)) //allows bullets to hit the pilot of open-canopy mechs
-		for(var/m in occupants)
-			var/mob/living/hitmob = m
-			hitmob.bullet_act(Proj) //If the sides are open, the occupant can be hit
+/obj/vehicle/sealed/mecha/bullet_act(obj/item/projectile/hitting_projectile, def_zone, piercing_hit) //wrapper
+	if(!enclosed && LAZYLEN(occupants) && !(mecha_flags  & SILICON_PILOT) && (hitting_projectile.def_zone == BODY_ZONE_HEAD || hitting_projectile.def_zone == BODY_ZONE_CHEST)) //allows bullets to hit the pilot of open-canopy mechs
+		for(var/mob/living/hitmob as anything in occupants)
+			hitmob.bullet_act(hitting_projectile, def_zone, piercing_hit) //If the sides are open, the occupant can be hit
 		return BULLET_ACT_HIT
-	log_message("Hit by projectile. Type: [Proj.name]([Proj.flag]).", LOG_MECHA, color="red")
-	. = ..()
+	log_message("Hit by projectile. Type: [hitting_projectile]([hitting_projectile.damage_type]).", LOG_MECHA, color="red")
+	return ..()
 
 /obj/vehicle/sealed/mecha/ex_act(severity, target)
 	log_message("Affected by explosion of severity: [severity].", LOG_MECHA, color="red")
 	if(prob(deflect_chance))
 		severity++
 		log_message("Armor saved, changing severity to [severity]", LOG_MECHA)
-	. = ..()
+	return ..()
 
 /obj/vehicle/sealed/mecha/contents_explosion(severity, target)
-	severity++
-	for(var/X in equipment)
-		var/obj/item/mecha_parts/mecha_equipment/ME = X
-		switch(severity)
-			if(EXPLODE_DEVASTATE)
-				SSexplosions.high_mov_atom += ME
-			if(EXPLODE_HEAVY)
-				SSexplosions.med_mov_atom += ME
-			if(EXPLODE_LIGHT)
-				SSexplosions.low_mov_atom += ME
-	for(var/Y in trackers)
-		var/obj/item/mecha_parts/mecha_tracking/MT = Y
-		switch(severity)
-			if(EXPLODE_DEVASTATE)
-				SSexplosions.high_mov_atom += MT
-			if(EXPLODE_HEAVY)
-				SSexplosions.med_mov_atom += MT
-			if(EXPLODE_LIGHT)
-				SSexplosions.low_mov_atom += MT
-	for(var/Z in occupants)
-		var/mob/living/occupant = Z
-		occupant.ex_act(severity,target)
+	severity--
+
+	switch(severity)
+		if(EXPLODE_DEVASTATE)
+			if(flat_equipment)
+				SSexplosions.high_mov_atom += flat_equipment
+			if(trackers)
+				SSexplosions.high_mov_atom += trackers
+			if(occupants)
+				SSexplosions.high_mov_atom += occupants
+		if(EXPLODE_HEAVY)
+			if(flat_equipment)
+				SSexplosions.med_mov_atom += flat_equipment
+			if(trackers)
+				SSexplosions.med_mov_atom += trackers
+			if(occupants)
+				SSexplosions.med_mov_atom += occupants
+		if(EXPLODE_LIGHT)
+			if(flat_equipment)
+				SSexplosions.low_mov_atom += flat_equipment
+			if(trackers)
+				SSexplosions.low_mov_atom += trackers
+			if(occupants)
+				SSexplosions.low_mov_atom += occupants
 
 /obj/vehicle/sealed/mecha/handle_atom_del(atom/A)
 	if(A in occupants)

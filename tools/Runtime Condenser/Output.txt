@@ -149,10 +149,10 @@ proc name: remove air (/turf/open/remove_air)
 
 The following runtime has occurred 2 time(s).
 runtime error: Cannot execute null.return pressure().
-proc name: update pressure (/obj/mecha/working/ripley/proc/update_pressure)
+proc name: update pressure (/obj/vehicle/sealed/mecha/working/ripley/proc/update_pressure)
   source file: ripley.dm,150
   usr: 0
-  src: the APLU \"Ripley\" (/obj/mecha/working/ripley)
+  src: the APLU \"Ripley\" (/obj/vehicle/sealed/mecha/working/ripley)
   src.loc: the floor (88,45,5) (/turf/open/floor/plasteel/freezer)
 
 
@@ -357,7 +357,7 @@ proc name: get fuel (/obj/item/weapon/weldingtool/proc/get_fuel)
 
 /obj/machinery/porta_turret_cover - 1 time(s).
 
-/obj/mecha/working/ripley - 1 time(s).
+/obj/vehicle/sealed/mecha/working/ripley - 1 time(s).
 
 /obj/machinery/portable_atmospherics/scrubber - 1 time(s).
 

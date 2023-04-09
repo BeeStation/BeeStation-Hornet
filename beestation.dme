@@ -3677,7 +3677,6 @@
 #include "code\modules\vehicles\mecha\mecha_parts.dm"
 #include "code\modules\vehicles\mecha\mecha_topic.dm"
 #include "code\modules\vehicles\mecha\mecha_wreckage.dm"
-#include "code\modules\vehicles\mecha\medical\medical.dm"
 #include "code\modules\vehicles\mecha\medical\odysseus.dm"
 #include "code\modules\vehicles\mecha\working\ripley.dm"
 #include "code\modules\vehicles\mecha\working\working.dm"

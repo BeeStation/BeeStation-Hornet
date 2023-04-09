@@ -295,8 +295,8 @@
 		return
 	set_bolt(TRUE)
 	playsound(src, boltDown, 30, 0, 3)
-	audible_message("<span class='italics'>You hear a click from the bottom of the door.</span>", null,  1)
-	update_icon()
+	audible_message("<span class='hear'>You hear a click from the bottom of the door.</span>", null,  1)
+	update_appearance()
 
 /obj/machinery/door/airlock/proc/set_bolt(should_bolt)
 	if(locked == should_bolt)
@@ -314,8 +314,8 @@
 		return
 	set_bolt(FALSE)
 	playsound(src,boltUp,30,0,3)
-	audible_message("<span class='italics'>You hear a click from the bottom of the door.</span>", null,  1)
-	update_icon()
+	audible_message("<span class='hear'>You hear a click from the bottom of the door.</span>", null,  1)
+	update_appearance()
 
 /obj/machinery/door/airlock/narsie_act()
 	var/turf/T = get_turf(src)
@@ -372,7 +372,7 @@
 	if(id_tag)
 		for(var/obj/machinery/doorButtons/D in GLOB.machines)
 			D.removeMe(src)
-	qdel(note)
+	QDEL_NULL(note)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.remove_from_hud(src)
 	return ..()
@@ -380,22 +380,22 @@
 /obj/machinery/door/airlock/handle_atom_del(atom/A)
 	if(A == note)
 		note = null
-		update_icon()
+		update_appearance()
 
 /obj/machinery/door/airlock/Bumped(atom/movable/AM)
 	if(operating || (obj_flags & EMAGGED))
 		return
 	if(ismecha(AM))
-		var/obj/mecha/mecha = AM
+		var/obj/vehicle/sealed/mecha/mecha = AM
 		if(density)
-			if(mecha.occupant)
-				if(world.time - mecha.occupant.last_bumped <= 10)
+			if(mecha.occupants)
+				if(world.time - mecha.occupants.last_bumped <= 10)
 					return
-				mecha.occupant.last_bumped = world.time
-			if(locked && (allowed(mecha.occupant) || check_access_list(mecha.operation_req_access)) && aac)
+				mecha.occupants.last_bumped = world.time
+			if(locked && (allowed(mecha.occupants) || check_access_list(mecha.operation_req_access)) && aac)
 				aac.request_from_door(src)
 				return
-			if(mecha.occupant && (src.allowed(mecha.occupant) || src.check_access_list(mecha.operation_req_access)))
+			if(mecha.occupants && (src.allowed(mecha.occupants) || src.check_access_list(mecha.operation_req_access)))
 				open()
 			else
 				do_animate("deny")

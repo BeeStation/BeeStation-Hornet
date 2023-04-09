@@ -706,7 +706,7 @@
 	)
 
 /datum/component/construction/mecha/honker
-	result = /obj/mecha/combat/honker
+	result = /obj/vehicle/sealed/mecha/combat/honker
 	steps = list(
 		list(
 			"key" = /obj/item/bikehorn
@@ -962,7 +962,7 @@
 	)
 
 /datum/component/construction/mecha/phazon
-	result = /obj/mecha/combat/phazon
+	result = /obj/vehicle/sealed/mecha/combat/phazon
 	base_icon = "phazon"
 
 	circuit_control = /obj/item/circuitboard/mecha/phazon/main

@@ -24,7 +24,7 @@
 		return
 	if(!chassis || !(owner in chassis.occupants))
 		return
-	chassis.container_resist_act(owner)
+	chassis.container_resist(owner)
 
 /datum/action/vehicle/sealed/mecha/mech_toggle_internals
 	name = "Toggle Internal Airtank Usage"
@@ -139,13 +139,6 @@
 
 //////////////////////////////////////// Specific Ability Actions  ///////////////////////////////////////////////
 //Need to be granted by the mech type, Not default abilities.
-
-/datum/action/vehicle/sealed/mecha/mech_defense_mode
-	name = "Toggle an energy shield that blocks all attacks from the faced direction at a heavy power cost."
-	button_icon_state = "mech_defense_mode_off"
-
-/datum/action/vehicle/sealed/mecha/mech_defense_mode/Trigger(forced_state = FALSE)
-	SEND_SIGNAL(chassis, COMSIG_MECHA_ACTION_TRIGGER, owner, args) //Signal sent to the mech, to be handed to the shield. See durand.dm for more details
 
 /datum/action/vehicle/sealed/mecha/mech_overload_mode
 	name = "Toggle leg actuators overload"

@@ -126,6 +126,13 @@ Expects a turf. Returns true if the attack should be blocked, false if not.*/
 	else
 		. = ..()
 
+/datum/action/vehicle/sealed/mecha/mech_defense_mode
+	name = "Toggle an energy shield that blocks all attacks from the faced direction at a heavy power cost."
+	button_icon_state = "mech_defense_mode_off"
+
+/datum/action/vehicle/sealed/mecha/mech_defense_mode/Trigger(forced_state = FALSE)
+	SEND_SIGNAL(chassis, COMSIG_MECHA_ACTION_TRIGGER, owner, args) //Signal sent to the mech, to be handed to the shield. See durand.dm for more details
+
 ////////////////////////////
 ///// Shield processing ////
 ////////////////////////////
@@ -193,9 +200,8 @@ own integrity back to max. Shield is automatically dropped if we run out of powe
 		return
 	switching = TRUE
 	chassis.defense_mode = !chassis.defense_mode
-	chassis.defense_action.button_icon_state = "mech_defense_mode_[chassis.defense_mode ? "on" : "off"]" //This is backwards because we haven't changed the var yet
 	if(!signal_args[1])
-		chassis.balloon_alert(chassis.occupant, "Shield [chassis.defense_mode ? "enabled" : "disabled"].")
+		chassis.balloon_alert(owner, "Shield [chassis.defense_mode ? "enabled" : "disabled"].")
 		chassis.log_message("User has toggled defense mode -- now [chassis.defense_mode ? "enabled" : "disabled"].", LOG_MECHA)
 	else
 		chassis.log_message("defense mode state changed -- now [chassis.defense_mode ? "enabled" : "disabled"].", LOG_MECHA)

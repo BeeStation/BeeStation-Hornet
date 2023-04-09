@@ -370,7 +370,7 @@
 		//add_blood doesn't work for borgs/xenos, but add_blood_floor does.
 		L.add_splatter_floor(location)
 		log_combat(src, L, "crushed")
-	for(var/obj/mecha/M in get_turf(src))
+	for(var/obj/vehicle/sealed/mecha/M in get_turf(src))
 		M.take_damage(DOOR_CRUSH_DAMAGE)
 		log_combat(src, M, "crushed")
 /obj/machinery/door/proc/autoclose()

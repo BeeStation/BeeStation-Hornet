@@ -40,7 +40,7 @@
 					"}
 	return output
 
-/obj/mecha/combat/honker/get_stats_html()
+/obj/vehicle/sealed/mecha/combat/honker/get_stats_html()
 	var/output = {"<html>
 						<head>
 						<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>

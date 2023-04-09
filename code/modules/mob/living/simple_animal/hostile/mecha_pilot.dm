@@ -50,7 +50,7 @@
 	icon_living = "nanotrasen"
 	icon_state = "nanotrasen"
 	faction = list("nanotrasen")
-	spawn_mecha_type = /obj/mecha/combat/marauder/loaded
+	spawn_mecha_type = /obj/vehicle/sealed/mecha/combat/marauder/loaded
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/no_mech/nanotrasen
 	name = "\improper Nanotrasen Mecha Pilot"

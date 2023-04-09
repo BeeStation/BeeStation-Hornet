@@ -34,7 +34,7 @@
 		collect_ore()
 	update_pressure()
 
-/obj/mecha/working/ripley/proc/collect_ore()
+/obj/vehicle/sealed/mecha/working/ripley/proc/collect_ore()
 	if(locate(/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp) in equipment)
 		var/obj/structure/ore_box/ore_box = locate(/obj/structure/ore_box) in cargo
 		if(ore_box)
@@ -63,9 +63,9 @@
 	if (C.amount)
 		cut_overlays()
 		if(C.amount < 3)
-			add_overlay(occupant ? "ripley-g" : "ripley-g-open")
+			add_overlay(occupants ? "ripley-g" : "ripley-g-open")
 		else
-			add_overlay(occupant ? "ripley-g-full" : "ripley-g-full-open")
+			add_overlay(occupants ? "ripley-g-full" : "ripley-g-full-open")
 
 /obj/vehicle/sealed/mecha/working/ripley/check_for_internal_damage(list/possible_int_damage, ignore_threshold = FALSE)
 	if (!enclosed)
@@ -73,7 +73,7 @@
 	. = ..()
 
 
-/o/obj/vehicle/sealed/mecha/working/ripley/Initialize(mapload)
+/obj/vehicle/sealed/mecha/working/ripley/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/armor_plate,3,/obj/item/stack/sheet/animalhide/goliath_hide,list(MELEE = 10,  BULLET = 5, LASER = 5))
 
