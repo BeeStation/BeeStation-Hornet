@@ -548,7 +548,7 @@
 /obj/effect/proc_holder/spider/throw_web/activate(mob/living/user)
 	var/message
 	if(active)
-		message = "<span class='notice'>You discard the webbing</span>"
+		message = "<span class='notice'>You discard the webbing.</span>"
 		remove_ranged_ability(message)
 	else
 		if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
