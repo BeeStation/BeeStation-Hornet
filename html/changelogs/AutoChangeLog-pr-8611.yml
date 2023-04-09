@@ -1,0 +1,9 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - code_imp: touched crab-17 code a little better. It'll be logged too.
+  - balance: crab-17 will teleport within the same z-level of it.
+  - balance: crab-17 will be less annoying when it's spawned lower than 20 population.
+      It's easy to kill and less teleport when there are less active players.
+  - balance: crab-17 will do damage to itself until it has only 25 HP (self-damage
+      won't let it teleporting). You still need to find it.
