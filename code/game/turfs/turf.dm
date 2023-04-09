@@ -268,8 +268,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		if((movable_content == source_atom) || (movable_content in ignore_atoms))
 			continue
 		// If the thing is dense AND we're including mobs or the thing isn't a mob AND if there's a source atom and
-		// it cannot pass through the thing on the turf, we consider the turf blocked.
+		// it cannot pass through the thing on the turf,  we consider the turf blocked.
 		if(movable_content.density && (!exclude_mobs || !ismob(movable_content)))
+			if(source_atom && atom_content.CanPass(source_atom, src))
+				continue
 			return TRUE
 	return FALSE
 
