@@ -123,6 +123,7 @@
 
 	grant_all_languages()
 	grant_language(/datum/language/metalanguage)
+	ADD_TRAIT(src, TRAIT_METALANGUAGE_KEY_ALLOWED, "mentor_rat")
 
 /mob/camera/imaginary_friend/mrat/proc/add_kick_action()
 	kick = new

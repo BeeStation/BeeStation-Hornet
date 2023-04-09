@@ -43,8 +43,8 @@
 			L["can_speak"] = AM.can_speak_language(language)
 			L["can_understand"] = AM.has_language(language)
 
-		if(lang == /datum/language/metalanguage) // metalanguage is only visible when you can speak that
-			if(!AM.can_speak_language(language) && !(check_rights_for(user.client, R_ADMIN) || isobserver(AM)))
+		if(lang == /datum/language/metalanguage) // metalanguage is only visible to admins
+			if(!(check_rights_for(user.client, R_ADMIN) || HAS_TRAIT(user, TRAIT_METALANGUAGE_KEY_ALLOWED)))
 				continue
 
 		data["languages"] += list(L)
@@ -87,6 +87,13 @@
 
 	switch(action)
 		if("select_default")
+			if(language_datum == /datum/language/metalanguage && \
+					language_holder.selected_language == /datum/language/metalanguage && \
+					!HAS_TRAIT(user, TRAIT_METALANGUAGE_KEY_ALLOWED) && \
+					!check_rights_for(user.client, R_ADMIN))
+				var/no = alert(user, "You're giving up your power to speak in a powerful language that everyone understands. Do you really wish to do that?", "WARNING!", "Yes", "No")
+				if(no == "No")
+					return
 			if(language_datum && AM.can_speak_language(language_datum))
 				language_holder.selected_language = language_datum
 				. = TRUE
@@ -105,6 +112,10 @@
 						spoken = TRUE
 						understood = TRUE
 				language_holder.grant_language(language_datum, understood, spoken)
+				if(spoken && language_datum == /datum/language/metalanguage)
+					var/yes = alert(user, "You have added speakable Metalanguage. Do you wish to give them a trait that they can use language key(,`) to say that? Otherwise, they'll have no way to say that, or, instead, you should set their default language to metalanguage.", "Give Metalangauge trait?", "Yes", "No")
+					if(yes == "Yes")
+						ADD_TRAIT(user, TRAIT_METALANGUAGE_KEY_ALLOWED, "lang_added_by_admin")
 				if(is_admin)
 					message_admins("[key_name_admin(user)] granted the [language_name] language to [key_name_admin(AM)].")
 					log_admin("[key_name(user)] granted the language [language_name] to [key_name(AM)].")
@@ -124,6 +135,8 @@
 						spoken = TRUE
 						understood = TRUE
 				language_holder.remove_language(language_datum, understood, spoken)
+				if(spoken && language_datum == /datum/language/metalanguage)
+					REMOVE_TRAIT(user, TRAIT_METALANGUAGE_KEY_ALLOWED, "lang_added_by_admin")
 				if(is_admin)
 					message_admins("[key_name_admin(user)] removed the [language_name] language to [key_name_admin(AM)].")
 					log_admin("[key_name(user)] removed the language [language_name] to [key_name(AM)].")
