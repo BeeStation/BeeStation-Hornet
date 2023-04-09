@@ -21,6 +21,7 @@
 /datum/language_menu/ui_data(mob/user)
 	var/list/data = list()
 
+	var/is_admin = check_rights_for(user.client, R_ADMIN)
 	var/atom/movable/AM = language_holder.get_atom()
 	if(isliving(AM))
 		data["is_living"] = TRUE
@@ -44,12 +45,12 @@
 			L["can_understand"] = AM.has_language(language)
 
 		if(lang == /datum/language/metalanguage) // metalanguage is only visible to admins
-			if(!(check_rights_for(user.client, R_ADMIN) || HAS_TRAIT(user, TRAIT_METALANGUAGE_KEY_ALLOWED)))
+			if(!(is_admin || HAS_TRAIT(user, TRAIT_METALANGUAGE_KEY_ALLOWED)))
 				continue
 
 		data["languages"] += list(L)
 
-	if(check_rights_for(user.client, R_ADMIN) || isobserver(AM))
+	if(is_admin || isobserver(AM))
 		data["admin_mode"] = TRUE
 		data["omnitongue"] = language_holder.omnitongue
 
@@ -89,10 +90,10 @@
 		if("select_default")
 			if(language_datum)
 				// they're changing their language to something else from metalanguage. It must be mistake.
-				if(language_datum != /datum/language/metalanguage && \
-						language_holder.selected_language == /datum/language/metalanguage && \
+				if(language_holder.selected_language == /datum/language/metalanguage && \
+						language_datum != /datum/language/metalanguage && \
 						!HAS_TRAIT(user, TRAIT_METALANGUAGE_KEY_ALLOWED) && \
-						!check_rights_for(user.client, R_ADMIN))
+						!is_admin)
 					var/no = alert(user, "You're giving up your power to speak in a powerful language that everyone understands. Do you really wish to do that?", "WARNING!", "Yes", "No")
 					if(no == "No")
 						return
