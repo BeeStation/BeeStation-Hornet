@@ -35,3 +35,6 @@
 		sleep(1)
 
 	log_info("Finished all conversions")
+
+/proc/log_info(txt)
+	world.log << "[txt]"
