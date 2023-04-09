@@ -457,7 +457,7 @@
 	dna_lock = null
 	equipment_disabled = TRUE
 	log_message("System emagged detected", LOG_MECHA, color="red")
-	addtimer(CALLBACK(src, /obj/mecha/proc/restore_equipment), 15 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/mecha, restore_equipment)), 15 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 ////////////////////////////
 ///// Action processing ////

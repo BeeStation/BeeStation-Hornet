@@ -6,6 +6,7 @@
 	name = "pneumatic cannon"
 	desc = "A gas-powered cannon that can fire any object loaded into it."
 	w_class = WEIGHT_CLASS_BULKY
+	item_flags = ISWEAPON
 	force = 8 //Very heavy
 	attack_verb = list("bludgeoned", "smashed", "beaten")
 	icon = 'icons/obj/pneumaticCannon.dmi'

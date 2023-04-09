@@ -525,7 +525,7 @@
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/suit/det_suit/grey = 1,
 					/obj/item/clothing/suit/det_suit/noir = 1,
-					/obj/item/clothing/head/fedora = 2,
+					/obj/item/clothing/head/fedora/det_hat/noir = 2,
 					/obj/item/clothing/gloves/color/black = 2,
 					/obj/item/clothing/gloves/color/latex = 2,
 					/obj/item/reagent_containers/food/drinks/flask/det = 2,
