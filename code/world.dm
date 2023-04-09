@@ -14,3 +14,7 @@
 #ifdef FIND_REF_NO_CHECK_TICK
 	loop_checks = FALSE
 #endif
+
+/// makes `world.log << txt` pretty.
+/proc/log_info(txt) // It should be here because of dme include order.
+	world.log << "[txt]"

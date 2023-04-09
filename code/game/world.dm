@@ -43,6 +43,15 @@ GLOBAL_VAR(restart_counter)
 
 	populate_gear_list()
 
+	// changes some configs because we don't want to be bothered
+#if defined(LOWMEMORYMODE) || defined(DEBUG) || defined(TESTING) || defined(UNIT_TESTS)
+	var/warning_message = "## WARNING: any of Low-memory/Debug/Testing/Unit_tests is defined in the code. Some configs are changed automatically(i.e. no-respawn)"
+	log_info(warning_message)
+	message_admins(warning_message)
+
+	CONFIG_SET(flag/norespawn, FALSE)
+#endif
+
 #ifndef USE_CUSTOM_ERROR_HANDLER
 	world.log = file("[GLOB.log_directory]/dd.log")
 #else
