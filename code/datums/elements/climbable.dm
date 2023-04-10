@@ -18,10 +18,10 @@
 	if(climb_stun)
 		src.climb_stun = climb_stun
 
-	RegisterSignal(target, COMSIG_ATOM_ATTACK_HAND, .proc/attack_hand)
-	RegisterSignal(target, COMSIG_PARENT_EXAMINE, .proc/on_examine)
-	RegisterSignal(target, COMSIG_MOUSEDROPPED_ONTO, .proc/mousedrop_receive)
-	RegisterSignal(target, COMSIG_ATOM_BUMPED, .proc/try_speedrun)
+	RegisterSignal(target, COMSIG_ATOM_ATTACK_HAND, PROC_REF(attack_hand))
+	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(target, COMSIG_MOUSEDROPPED_ONTO, PROC_REF(mousedrop_receive))
+	RegisterSignal(target, COMSIG_ATOM_BUMPED, PROC_REF(try_speedrun))
 
 /datum/element/climbable/Detach(datum/target, force)
 	UnregisterSignal(target, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_PARENT_EXAMINE, COMSIG_MOUSEDROPPED_ONTO, COMSIG_ATOM_BUMPED))
@@ -78,9 +78,9 @@
 
 
 /datum/element/climbable/proc/do_climb(atom/climbed_thing, mob/living/user)
-	climbed_thing.density = FALSE
+	climbed_thing.set_density(FALSE)
 	. = step(user, get_dir(user,climbed_thing.loc))
-	climbed_thing.density = TRUE
+	climbed_thing.set_density(TRUE)
 
 ///Handles climbing onto the atom when you click-drag
 /datum/element/climbable/proc/mousedrop_receive(atom/climbed_thing, atom/movable/dropped_atom, mob/user)
@@ -92,7 +92,7 @@
 			if (!animal.dextrous)
 				return
 		if(living_target.mobility_flags & MOBILITY_MOVE)
-			INVOKE_ASYNC(src, .proc/climb_structure, climbed_thing, living_target)
+			INVOKE_ASYNC(src, PROC_REF(climb_structure), climbed_thing, living_target)
 			return
 
 ///Tries to climb onto the target if the forced movement of the mob allows it
