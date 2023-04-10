@@ -97,6 +97,10 @@
 	button_icon_state = "vehicle_eject"
 	var/obj/vehicle/vehicle_target
 
+/datum/action/vehicle/Destroy()
+	vehicle_target = null
+	return ..()
+
 /datum/action/vehicle/sealed
 	var/obj/vehicle/sealed/vehicle_entered_target
 
