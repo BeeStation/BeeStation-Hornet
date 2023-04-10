@@ -389,9 +389,9 @@
 		var/obj/vehicle/sealed/mecha/mecha = AM
 		if(density)
 			if(mecha.occupants)
-				if(world.time - mecha.occupants.last_bumped <= 10)
+				if(world.time - mecha.last_bumped <= 10)
 					return
-				mecha.occupants.last_bumped = world.time
+				mecha.last_bumped = world.time
 			if(locked && (allowed(mecha.occupants) || check_access_list(mecha.operation_req_access)) && aac)
 				aac.request_from_door(src)
 				return

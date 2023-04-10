@@ -98,12 +98,6 @@
 	chassis.use_power(energy_drain)
 	return TRUE
 
-/obj/item/mecha_parts/mecha_equipment/proc/action(mob/source, atom/target, params)
-	TIMER_COOLDOWN_START(chassis, COOLDOWN_MECHA_EQUIPMENT, equip_cooldown)//Cooldown is on the MECH so people dont bypass it by switching equipment
-	send_byjax(chassis.occupants,"exosuit.browser","[REF(src)]",src.get_equip_info())
-	chassis.use_power(energy_drain)
-	return TRUE
-
 /obj/item/mecha_parts/mecha_equipment/proc/do_after_cooldown(atom/target, mob/user)
 	if(!chassis)
 		return
@@ -121,7 +115,7 @@
 	if(!chassis || 	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target)&chassis.dir))
 		return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/vehicle/sealed/mecha/M)
 	if(LAZYLEN(M.equipment)<M.max_equip)
 		return TRUE
 

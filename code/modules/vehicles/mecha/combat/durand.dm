@@ -71,7 +71,7 @@
 	SEND_SIGNAL(shield, COMSIG_MECHA_ACTION_TRIGGER, owner, signal_args)
 
 //Redirects projectiles to the shield if defense_check decides they should be blocked and returns true.
-/obj/vehicle/sealed/mecha/combat/durand/proc/prehit(obj/projectile/source, list/signal_args)
+/obj/vehicle/sealed/mecha/combat/durand/proc/prehit(obj/item/projectile/source, list/signal_args)
 	SIGNAL_HANDLER
 	if(defense_check(source.loc) && shield)
 		signal_args[2] = shield

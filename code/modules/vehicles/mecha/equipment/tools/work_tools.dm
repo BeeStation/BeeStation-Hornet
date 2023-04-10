@@ -56,14 +56,14 @@
 			to_chat(source, "[icon2html(src, source)]<span class='warning'>Not enough room in cargo compartment!</span>")
 			return
 		/*playsound(chassis, clampsound, 50, FALSE, -6)*/
-		chassis.visible_message(span_notice("[chassis] lifts [target] and starts to load it into cargo compartment."))
-		clamptarget.set_anchored(TRUE)
+		chassis.visible_message("[icon2html(src, source)]<span class='warning'>[chassis] lifts [target] and starts to load it into cargo compartment.</span>")
+		clamptarget.anchored = TRUE
 		if(!do_after_cooldown(target, source))
-			clamptarget.set_anchored(initial(clamptarget.anchored))
+			clamptarget.anchored = initial(clamptarget.anchored)
 			return
 		LAZYADD(cargo_holder.cargo, clamptarget)
 		clamptarget.forceMove(chassis)
-		clamptarget.set_anchored(FALSE)
+		clamptarget.anchored = FALSE
 		if(!cargo_holder.box && istype(clamptarget, /obj/structure/ore_box))
 			cargo_holder.box = clamptarget
 		to_chat(source, "[icon2html(src, source)][span_notice("[target] successfully loaded.")]")
