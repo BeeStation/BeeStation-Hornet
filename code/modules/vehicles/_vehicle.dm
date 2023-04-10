@@ -13,6 +13,7 @@
 	var/max_drivers = 1
 	var/movedelay = 2
 	var/lastmove = 0
+	var/last_bumped = 0
 	var/key_type
 	var/obj/item/key/inserted_key
 	var/key_type_exact = TRUE		//can subtypes work
