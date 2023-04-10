@@ -94,6 +94,11 @@
 	icon_state = "thunder"
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
+/area/tdome/arena_source
+	name = "Thunderdome Arena Template"
+	icon_state = "thunder"
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+
 /area/tdome/tdome1
 	name = "Thunderdome (Team 1)"
 	icon_state = "green"
