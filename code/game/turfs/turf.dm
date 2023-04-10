@@ -3,7 +3,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf
 	icon = 'icons/turf/floors.dmi'
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
-	luminosity = 1
 
 	/// If this is TRUE, that means this floor is on top of plating so pipes and wires and stuff will appear under it... or something like that it's not entirely clear.
 	var/intact = 1
@@ -56,24 +55,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
-
-	var/dynamic_lighting = TRUE
-
-	var/tmp/lighting_corners_initialised = FALSE
-
-	///Our lighting object.
-	var/tmp/atom/movable/lighting_object/lighting_object
-	var/tmp/list/datum/lighting_corner/corners
-	///Lighting Corner datums.
-	var/tmp/datum/lighting_corner/lighting_corner_NE
-	var/tmp/datum/lighting_corner/lighting_corner_SE
-	var/tmp/datum/lighting_corner/lighting_corner_SW
-	var/tmp/datum/lighting_corner/lighting_corner_NW
-
-	///Which directions does this turf block the vision of, taking into account both the turf's opacity and the movable opacity_sources.
-	var/directional_opacity = NONE
-	///Lazylist of movable atoms providing opacity sources.
-	var/list/atom/movable/opacity_sources
 
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
