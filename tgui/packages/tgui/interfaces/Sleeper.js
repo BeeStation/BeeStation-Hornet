@@ -10,7 +10,7 @@ export const Sleeper = (props, context) => {
     open,
     occupant = {},
     occupied,
-    chems = {},
+    chems = [],
   } = data;
 
   const damageTypes = [
