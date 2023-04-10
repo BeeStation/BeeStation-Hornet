@@ -110,7 +110,10 @@
 	proj_pass_rate = 20
 	pass_flags_self = LETPASSTHROW
 	bar_material = SAND
-	climbable = TRUE
+
+/obj/structure/barricade/sandbags/Initialize()
+	. = ..()
+	AddElement(/datum/element/climbable)
 
 /obj/structure/barricade/security
 	name = "security barrier"

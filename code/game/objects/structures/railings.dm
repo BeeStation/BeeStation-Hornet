@@ -5,7 +5,8 @@
 	icon_state = "railing"
 	density = TRUE
 	anchored = TRUE
-	climbable = TRUE
+
+	var/climbable = TRUE
 	///Initial direction of the railing.
 	var/ini_dir
 
@@ -17,6 +18,8 @@
 /obj/structure/railing/Initialize(mapload)
 	. = ..()
 	ini_dir = dir
+	if(climbable)
+		AddElement(/datum/element/climbable)
 
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS ,null,CALLBACK(src, PROC_REF(can_be_rotated)),CALLBACK(src, PROC_REF(after_rotation)))
 	init_connect_loc_element()
