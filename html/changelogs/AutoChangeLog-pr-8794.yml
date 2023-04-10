@@ -1,0 +1,6 @@
+author: imsynthex
+delete-after: true
+changes:
+  - balance: Beepsky now does 85 stamina damage a hit
+  - balance: It will now take 2 hits from beepsky to down an unarmored target and
+      beepsky's hits will now be softened by armor that protects from stamina damage
