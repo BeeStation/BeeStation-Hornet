@@ -17,7 +17,7 @@
 
 /datum/antagonist/morph/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	//Give morph appearence on hud (If they are not an antag already)
+	//Give morph appearance on hud (If they are not an antag already)
 	var/datum/atom_hud/antag/morphhud = GLOB.huds[ANTAG_HUD_MORPH]
 	morphhud.join_hud(owner.current)
 	if(!owner.antag_hud_icon_state)

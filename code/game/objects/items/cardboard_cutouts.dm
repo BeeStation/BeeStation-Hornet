@@ -85,10 +85,10 @@
 	if(crayon.is_capped)
 		to_chat(user, "<span class='warning'>Take the cap off first!</span>")
 		return
-	var/new_appearance = input(user, "Choose a new appearance for [src].", "26th Century Deception") as null|anything in sortList(possible_appearances)
+	var/new_appearance = input(user, "Choose a new appearance for [src].", "26th Century Deception") as null|anything in sort_list(possible_appearances)
 	if(!new_appearance || !crayon || !user.canUseTopic(src, BE_CLOSE))
 		return
-	if(!do_after(user, 10, FALSE, src, TRUE))
+	if(!do_after(user, 10, src, progress = TRUE))
 		return
 	user.visible_message("<span class='notice'>[user] gives [src] a new look.</span>", "<span class='notice'>Voila! You give [src] a new look.</span>")
 	crayon.use_charges(1)

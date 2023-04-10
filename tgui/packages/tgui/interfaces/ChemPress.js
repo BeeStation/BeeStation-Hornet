@@ -8,7 +8,7 @@ export const ChemPress = (props, context) => {
   const {
     pill_size,
     pill_name,
-    pill_style,
+    chosen_pill_style,
     pill_styles = [],
   } = data;
   return (
@@ -42,10 +42,11 @@ export const ChemPress = (props, context) => {
                 <Button
                   key={each_style.id}
                   width="30px"
-                  selected={each_style.id === pill_style}
+                  height="16px"
+                  selected={each_style.id === chosen_pill_style}
                   textAlign="center"
                   color="transparent"
-                  onClick={() => act('change_pill_style', { each_style: pill.id })}>
+                  onClick={() => act('change_pill_style', { id: each_style.id })}>
                   <Box mx={-1}
                     className={classes([
                       'medicine_containers22x22',

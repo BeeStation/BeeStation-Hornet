@@ -100,7 +100,7 @@
 			layer = ABOVE_MOB_LAYER
 	hal_target.client.images += blood
 	animate(blood, pixel_x = target_pixel_x, pixel_y = target_pixel_y, alpha = 0, time = 5)
-	addtimer(CALLBACK(src, .proc/cleanup_blood), 5)
+	addtimer(CALLBACK(src, PROC_REF(cleanup_blood)), 5)
 
 /obj/item/projectile/hallucination/proc/cleanup_blood(image/blood)
 	hal_target.client.images -= blood
@@ -171,12 +171,12 @@
 	if(hal_target.has_dna() && hal_target.dna.check_mutation(HULK))
 		hal_target.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced = "hulk")
 	else if((hal_target.status_flags & CANKNOCKDOWN) && !HAS_TRAIT(hal_target, TRAIT_STUNIMMUNE))
-		addtimer(CALLBACK(hal_target, /mob/living/carbon.proc/do_jitter_animation, 20), 5)
+		addtimer(CALLBACK(hal_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 20), 5)
 
 /obj/item/projectile/hallucination/disabler
 	name = "disabler beam"
 	damage_type = STAMINA
-	flag = "stamina"
+	armor_flag = STAMINA
 	hal_icon_state = "omnilaser"
 	hal_fire_sound = 'sound/weapons/taser2.ogg'
 	hal_hitsound = 'sound/weapons/tap.ogg'

@@ -47,10 +47,6 @@ LOBBY_COUNTDOWN 180
 ## Round End Time: This is the amount of time after the round ends that players have to murder death kill each other.
 ROUND_END_COUNTDOWN 90
 
-## Uncomment this if you want to use the Discord webhook handler
-#USING_DISCORD
-#DISCORD_WEBHOOK http://127.0.0.1:5000/api/
-
 ## Comment this out if you want to use the SQL based admin system, the legacy system uses admins.txt.
 ## You need to set up your database to use the SQL based system.
 ## This flag is automatically enabled if SQL_ENABLED isn't
@@ -152,7 +148,7 @@ LOG_VIRUS
 ## log ID changes
 LOG_ID
 
-## log crew manifest to seperate file
+## log crew manifest to separate file
 LOG_MANIFEST
 
 ## log job divide debugging information
@@ -173,6 +169,9 @@ LOG_MANIFEST
 
 ## Log all timers on timer auto reset
 # LOG_TIMERS_ON_BUCKET_RESET
+
+## log speech indicators
+LOG_SPEECH_INDICATORS
 
 ##Log camera pictures - Must have picture logging enabled
 PICTURE_LOGGING_CAMERA

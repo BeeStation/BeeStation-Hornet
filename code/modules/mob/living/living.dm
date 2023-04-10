@@ -1,3 +1,11 @@
+/mob/living
+	///Used for tracking poking data
+	var/time_of_last_poke = 0
+	///Used for tracking accidental attacks
+	var/time_of_last_attack_dealt = 0
+	///Used for tracking accidental attacks
+	var/time_of_last_attack_recieved = 0
+
 /mob/living/Initialize(mapload)
 	. = ..()
 	if(unique_name)
@@ -53,7 +61,7 @@
 
 // The goal here:
 // 1 level: Your legs are mildly injured. Probably a bit slow
-// 2 levels: Your legs are broken, but you are still concious
+// 2 levels: Your legs are broken, but you are still conscious
 // 3+ levels: You ded/near ded
 /mob/living/proc/get_distributed_zimpact_damage(levels)
 	return (levels * 15) ** 1.4
@@ -92,9 +100,9 @@
 			visible_message("<span class='warning'>[src] [pick("ran", "slammed")] into \the [A]!</span>")
 			apply_damage(5, BRUTE)
 			Paralyze(40)
-			addtimer(CALLBACK(src, .proc/can_bumpslam), 200)
+			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 200)
 		else
-			addtimer(CALLBACK(src, .proc/can_bumpslam), 50)
+			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 50)
 
 
 	if(ismob(A))
@@ -222,7 +230,7 @@
 	if(len)
 		for(var/obj/item/I in held_items)
 			if(!length(holding))
-				holding += "They are holding \a [I]"
+				holding += "[p_they(TRUE)] [p_are()] holding \a [I]"
 			else if(held_items.Find(I) == len)
 				holding += ", and \a [I]."
 			else
@@ -860,7 +868,7 @@
 	who.visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
 					"<span class='userdanger'>[src] tries to remove your [what.name].</span>")
 	what.add_fingerprint(src)
-	if(do_mob(src, who, what.strip_delay))
+	if(do_after(src, what.strip_delay, who))
 		if(what && Adjacent(who))
 			if(islist(where))
 				var/list/L = where
@@ -894,7 +902,7 @@
 
 		who.visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>", \
 					"<span class='notice'>[src] tries to put [what] on you.</span>")
-		if(do_mob(src, who, what.equip_delay_other))
+		if(do_after(src, what.equip_delay_other, who))
 			if(what && Adjacent(who) && what.mob_can_equip(who, src, final_where, TRUE, TRUE))
 				if(temporarilyRemoveItemFromInventory(what))
 					if(where_list)
@@ -968,14 +976,14 @@
 /mob/living/proc/harvest(mob/living/user) //used for extra objects etc. in butchering
 	return
 
-/mob/living/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/living/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	if(incapacitated())
 		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
 		return FALSE
 	if(be_close && !in_range(M, src))
 		to_chat(src, "<span class='warning'>You are too far away!</span>")
 		return FALSE
-	if(!no_dextery)
+	if(!no_dexterity)
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return FALSE
 	return TRUE
@@ -1048,7 +1056,7 @@
 
 	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
 
-	var/blocked = getarmor(null, "rad")
+	var/blocked = getarmor(null, RAD)
 
 	if(amount > RAD_BURN_THRESHOLD)
 		apply_damage((amount-RAD_BURN_THRESHOLD)/RAD_BURN_THRESHOLD, BURN, null, blocked)
@@ -1392,6 +1400,12 @@
 	if(is_servant_of_ratvar(src) && !iseminence(src))
 		eminence.selected_mob = src
 		to_chat(eminence, "<span class='brass'>You select [src].</span>")
+
+/mob/living/proc/set_gender(ngender = NEUTER, silent = FALSE, update_icon = TRUE, forced = FALSE)
+	if(forced)
+		gender = ngender
+		return TRUE
+	return FALSE
 
 #define LOOKING_DIRECTION_UP 1
 #define LOOKING_DIRECTION_NONE 0
