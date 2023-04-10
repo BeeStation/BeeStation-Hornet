@@ -69,7 +69,7 @@ export const Sleeper = (props, context) => {
                       value={occupant[type.type]}
                       minValue={0}
                       maxValue={occupant.maxHealth}
-                      color="bad" />
+                      color={occupant[type.type] === 0 ? "good" : "bad"} />
                   </LabeledList.Item>
                 ))}
                 <LabeledList.Item
