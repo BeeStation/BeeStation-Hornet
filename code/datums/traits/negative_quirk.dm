@@ -341,7 +341,7 @@
 	var/mob/living/carbon/human/H = quirk_target
 	if(H.dna.species.id in list("shadow", "nightmare"))
 		return //we're tied with the dark, so we don't get scared of it; don't cleanse outright to avoid cheese
-		
+
 	var/turf/holder_turf = get_turf(quirk_target)
 
 	var/lums = holder_turf.get_lumcount()
