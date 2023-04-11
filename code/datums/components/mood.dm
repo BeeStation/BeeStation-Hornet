@@ -8,6 +8,7 @@
 	var/mood_level = 5 //To track what stage of moodies they're on
 	var/sanity_level = 2 //To track what stage of sanity they're on
 	var/mood_modifier = 1 //Modifier to allow certain mobs to be less affected by moodlets
+	var/sanity_modifier = 0.05 //Multiplies sanity changes, lower values make sanity change slower.
 	var/list/datum/mood_event/mood_events = list()
 	var/insanity_effect = 0 //is the owner being punished for low mood? If so, how much?
 	var/atom/movable/screen/mood/screen_obj
@@ -174,25 +175,19 @@
 ///Called on SSmood process
 /datum/component/mood/process(delta_time)
 	var/mob/living/owner = parent
-	switch(mood_level)
-		if(1)
-			setSanity(sanity-0.3*delta_time)
-		if(2)
-			setSanity(sanity-0.15*delta_time)
-		if(3)
-			setSanity(sanity-0.1*delta_time)
-		if(4)
-			setSanity(sanity-0.05*delta_time, minimum=SANITY_UNSTABLE)
-		if(5)
-			setSanity(sanity+0.1, maximum=SANITY_NEUTRAL)
-		if(6)
-			setSanity(sanity+0.2*delta_time, maximum=SANITY_GREAT)
-		if(7)
-			setSanity(sanity+0.3*delta_time, maximum=SANITY_GREAT)
-		if(8)
-			setSanity(sanity+0.4*delta_time, maximum=SANITY_MAXIMUM)
-		if(9)
-			setSanity(sanity+0.6*delta_time, maximum=SANITY_MAXIMUM)
+	switch(sanity)
+		if(SANITY_GREAT-1 to INFINITY)
+			setSanity(sanity+sanity_modifier*delta_time*mood-0.4)
+		if(SANITY_NEUTRAL-1 to SANITY_GREAT-1)
+			setSanity(sanity+sanity_modifier*delta_time*mood-0.2)
+		if(SANITY_DISTURBED-1 to SANITY_NEUTRAL-1)
+			setSanity(sanity+sanity_modifier*delta_time*mood)
+		if(SANITY_UNSTABLE-1 to SANITY_DISTURBED-1)
+			setSanity(sanity+sanity_modifier*delta_time*mood+0.3)
+		if(SANITY_CRAZY-1 to SANITY_UNSTABLE-1)
+			setSanity(sanity+sanity_modifier*delta_time*mood+0.6)
+		if(SANITY_INSANE-1 to SANITY_CRAZY)
+			setSanity(sanity+sanity_modifier*delta_time*mood+0.9)
 	HandleNutrition(owner)
 
 /datum/component/mood/proc/setSanity(amount, minimum=SANITY_INSANE, maximum=SANITY_GREAT)

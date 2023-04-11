@@ -34,6 +34,7 @@
 #define ILLEGAL					(1<<12)	//! this item unlocks illegal tech
 #define NO_PIXEL_RANDOM_DROP 	(1<<13) //if dropped, it wont have a randomized pixel_x/pixel_y
 #define WAS_THROWN				(1<<14) //if the item was thrown and shouldn't have the drop_item animation applied
+#define ISWEAPON				(1<<15) //! If this item should hit living mobs when used on harm intent
 
 // Flags for the clothing_flags var on /obj/item/clothing
 

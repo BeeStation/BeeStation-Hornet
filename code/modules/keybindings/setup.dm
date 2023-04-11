@@ -37,6 +37,12 @@
 	erase_all_macros()
 
 	var/list/macro_sets = SSinput.macro_sets
+	var/use_tgui_say = !prefs || (prefs.toggles2 & PREFTOGGLE_2_TGUI_SAY)
+	var/say = use_tgui_say ? tgui_say_create_open_command(SAY_CHANNEL) : "\".winset \\\"command=\\\".start_typing say\\\";command=.init_say;saywindow.is-visible=true;saywindow.input.focus=true\\\"\""
+	var/me = use_tgui_say ? tgui_say_create_open_command(ME_CHANNEL) : "\".winset \\\"command=\\\".start_typing me\\\";command=.init_me;mewindow.is-visible=true;mewindow.input.focus=true\\\"\""
+	var/ooc = use_tgui_say ? tgui_say_create_open_command(OOC_CHANNEL) : "ooc"
+	var/radio = tgui_say_create_open_command(RADIO_CHANNEL)
+	var/looc = tgui_say_create_open_command(LOOC_CHANNEL)
 	for(var/i in 1 to macro_sets.len)
 		var/setname = macro_sets[i]
 		if(setname != "default")
@@ -46,6 +52,14 @@
 			var/key = macro_set[k]
 			var/command = macro_set[key]
 			winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[command]")
+		winset(src, "[setname]-say", "parent=[setname];name=T;command=[say]")
+		winset(src, "[setname]-me", "parent=[setname];name=M;command=[me]")
+		winset(src, "[setname]-ooc", "parent=[setname];name=O;command=[ooc]")
+		if(use_tgui_say)
+			winset(src, "[setname]-radio", "parent=[setname];name=Y;command=[radio]")
+			winset(src, "[setname]-looc", "parent=[setname];name=U;command=[looc]")
+			winset(src, "[setname]-close-tgui-say", "parent=[setname];name=Escape;command=[tgui_say_create_close_command()]")
+
 
 	if(prefs.toggles2 & PREFTOGGLE_2_HOTKEYS)
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=default")

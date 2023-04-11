@@ -1050,7 +1050,7 @@
 		to_chat(M, "<span class='warning'>You feel unstable...</span>")
 		M.Jitter(2)
 		current_cycle = 1
-		addtimer(CALLBACK(M, /mob/living/proc/bluespace_shuffle), 30)
+		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living, bluespace_shuffle)), 30)
 	..()
 
 /mob/living/proc/bluespace_shuffle()
