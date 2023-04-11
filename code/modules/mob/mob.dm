@@ -652,7 +652,6 @@
 			return
 		else if(alert(src, "Do you want to use your admin privilege to respawn? (Respawning is currently disabled)", "Options", "Yes", "No") != "Yes)
 		    return
-			log_game("[key_name(usr)] bypassed the respawn lock through the admin privilege.")
 		else
 			return
 
