@@ -990,13 +990,13 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 /datum/hallucination/fake_health_doll/New(mob/living/carbon/human/human_mob, forced = TRUE, specific_limb, severity, duration = 500)
 	. = ..()
 	if(!specific_limb)
-		specific_limb = pick(list(SCREWYDOLL_HEAD, SCREWYDOLL_CHEST, SCREWYDOLL_L_ARM, SCREWYDOLL_R_ARM, SCREWYDOLL_L_LEG, SCREWYDOLL_R_LEG))
+		specific_limb = pick(SCREWYDOLL_HEAD, SCREWYDOLL_CHEST, SCREWYDOLL_L_ARM, SCREWYDOLL_R_ARM, SCREWYDOLL_L_LEG, SCREWYDOLL_R_LEG)
 	if(!severity)
 		severity = rand(1, 5)
 	LAZYSET(human_mob.hallucination_screwydoll, specific_limb, severity)
 	human_mob.update_health_hud()
 
-	timer_id = addtimer(CALLBACK(src, .proc/cleanup), duration, TIMER_STOPPABLE)
+	timer_id = addtimer(CALLBACK(src, PROC_REF(cleanup)), duration, TIMER_STOPPABLE)
 
 ///Increments the severity of the damage seen on the doll
 /datum/hallucination/fake_health_doll/proc/increment_fake_damage()
@@ -1010,7 +1010,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 ///Adds a fake limb to the hallucination datum effect
 /datum/hallucination/fake_health_doll/proc/add_fake_limb(specific_limb, severity)
 	if(!specific_limb)
-		specific_limb = pick(list(SCREWYDOLL_HEAD, SCREWYDOLL_CHEST, SCREWYDOLL_L_ARM, SCREWYDOLL_R_ARM, SCREWYDOLL_L_LEG, SCREWYDOLL_R_LEG))
+		specific_limb = pick(SCREWYDOLL_HEAD, SCREWYDOLL_CHEST, SCREWYDOLL_L_ARM, SCREWYDOLL_R_ARM, SCREWYDOLL_L_LEG, SCREWYDOLL_R_LEG)
 	if(!severity)
 		severity = rand(1, 5)
 	var/mob/living/carbon/human/human_mob = target

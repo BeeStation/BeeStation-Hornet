@@ -119,7 +119,7 @@
 ///Makes you bleed harder
 #define STATUS_EFFECT_HIGHBLOODPRESSURE /datum/status_effect/high_blood_pressure
 
-/// makes you seize up. reminds me of this video https://www.youtube.com/watch?v=wvkHIZg_954
+///Makes you seize up
 #define STATUS_EFFECT_SEIZURE /datum/status_effect/seizure
 
 //---------//

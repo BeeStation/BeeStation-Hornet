@@ -616,7 +616,7 @@
 
 /datum/reagent/toxin/sodium_thiopental
 	name = "Sodium Thiopental"
-	description = "Sodium Thiopental induces heavy weakness in its target as well as unconsciousness."
+	description = "Sodium Thiopental induces heavy weakness in its target as well as unconsciousness. It can be used to treat Seizure Disorders."
 	silent_toxin = TRUE
 	reagent_state = LIQUID
 	color = "#6496FA"

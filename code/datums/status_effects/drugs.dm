@@ -41,7 +41,6 @@
 	id = "seizure"
 	tick_interval = -1
 	status_type = STATUS_EFFECT_UNIQUE
-	alert_type = /atom/movable/screen/alert/status_effect/seizure
 
 /datum/status_effect/seizure/on_apply()
 	if(!iscarbon(owner))
@@ -56,9 +55,4 @@
 								"You cant think straight...",
 								"You can't move your face properly anymore...")]</span>")
 	return TRUE
-
-/atom/movable/screen/alert/status_effect/seizure
-	name = "Seizure"
-	desc = "It would appear you are having a seisure right now"
-	icon_state = "paralysis"
 
