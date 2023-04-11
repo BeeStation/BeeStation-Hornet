@@ -61,16 +61,19 @@
 	id = "vapor"
 
 /datum/gas_reaction/water_vapor/init_reqs()
-	min_requirements = list(GAS_H2O = MOLES_GAS_VISIBLE)
+	min_requirements = list(
+		GAS_H2O = MOLES_GAS_VISIBLE,
+		"MAX_TEMP" = WATER_VAPOR_CONDENSATION_POINT,
+	)
 
 /datum/gas_reaction/water_vapor/react(datum/gas_mixture/air, datum/holder)
 	. = NO_REACTION
 	if(!isturf(holder))
 		return
-	
+
 	var/turf/open/location = holder
 	var/consumed = 0
-	switch(air.return_temperature)
+	switch(air.return_temperature())
 		if(-INFINITY to WATER_VAPOR_DEPOSITION_POINT)
 			if(location?.freeze_turf())
 				consumed = MOLES_GAS_VISIBLE
@@ -79,7 +82,7 @@
 			consumed = MOLES_GAS_VISIBLE
 
 	if(consumed)
-		air.GAS_H2O[MOLES] -= consumed
+		air.adjust_moles(GAS_H2O, -consumed)
 		SET_REACTION_RESULTS(consumed)
 		. = REACTING
 

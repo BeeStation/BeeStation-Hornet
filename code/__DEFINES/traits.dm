@@ -373,6 +373,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STARGAZER_TRAIT "stargazer"
 #define GUARDIAN_TRAIT	"guardian_trait"
 #define PARRY_TRAIT	"parry_trait"
+#define ELEMENT_TRAIT(source) "element_trait_[source]"
 #define LIGHTPINK_TRAIT "lightpinktrait"
 #define BATTLE_ROYALE_TRAIT "battleroyale_trait"
 #define MADE_UNCLONEABLE "made-uncloneable"
