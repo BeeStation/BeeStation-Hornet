@@ -4,6 +4,14 @@
  * @license MIT
  */
 
+type Gas = {
+  id: string;
+  path: string;
+  name: string;
+  label: string;
+  color: string;
+};
+
 // UI states, which are mirrored from the BYOND code.
 export const UI_INTERACTIVE = 2;
 export const UI_UPDATE = 1;
@@ -31,7 +39,12 @@ export const COLORS = {
     burn: '#e67e22',
     brute: '#e74c3c',
   },
-};
+  // reagent / chemistry related colours
+  reagent: {
+    acidicbuffer: '#fbc314',
+    basicbuffer: '#3853a4',
+  },
+} as const;
 
 // Colors defined in CSS
 export const CSS_COLORS = [
@@ -126,7 +139,7 @@ export const RADIO_CHANNELS = [
     freq: 1459,
     color: '#1ecc43',
   },
-];
+] as const;
 
 const GASES = [
   {
@@ -256,16 +269,39 @@ const GASES = [
     'label': 'Anti-Noblium',
     'color': 'maroon',
   },
-];
+] as const;
 
-export const getGasLabel = (gasId, fallbackValue) => {
-  const gasSearchString = String(gasId).toLowerCase();
+// Returns gas label based on gasId
+export const getGasLabel = (gasId: string, fallbackValue?: string) => {
+  const gasSearchString = gasId.toLowerCase();
   const gas = GASES.find((gas) => gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString);
-  return (gas && gas.label) || fallbackValue || gasId;
+  return gas?.label || fallbackValue || gasId;
 };
 
-export const getGasColor = (gasId) => {
-  const gasSearchString = String(gasId).toLowerCase();
+// Returns gas color based on gasId
+export const getGasColor = (gasId: string) => {
+  const gasSearchString = gasId.toLowerCase();
   const gas = GASES.find((gas) => gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString);
-  return gas && gas.color;
+  return gas?.color;
 };
+
+/*
+From https://github.com/tgstation/tgstation/pull/69240
+
+PLEASE enable the tests in constants.test.ts if you port this
+
+// Returns gas object based on gasId
+export const getGasFromId = (gasId: string): Gas | undefined => {
+  const gasSearchString = gasId.toLowerCase();
+  const gas = GASES.find(
+    (gas) =>
+      gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString
+  );
+  return gas;
+};
+
+// Returns gas object based on gasPath
+export const getGasFromPath = (gasPath: string): Gas | undefined => {
+  return GASES.find((gas) => gas.path === gasPath);
+};
+*/
