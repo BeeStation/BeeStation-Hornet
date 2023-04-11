@@ -129,6 +129,12 @@
 	/// Lazylist of all messages currently on this atom
 	var/list/chat_messages
 
+	///Default X pixel offset
+	var/base_pixel_x
+
+	///Default Y pixel offset
+	var/base_pixel_y
+
 	///LazyList of all balloon alerts currently on this atom
 	var/list/balloon_alerts
 
@@ -1597,6 +1603,24 @@
 /atom/proc/InitializeAIController()
 	if(ai_controller)
 		ai_controller = new ai_controller(src)
+
+///Setter for the "base_pixel_x" var to append behavior related to it's changing
+/atom/proc/set_base_pixel_x(var/new_value)
+	if(base_pixel_x == new_value)
+		return
+	. = base_pixel_x
+	base_pixel_x = new_value
+
+	pixel_x = pixel_x + base_pixel_x - .
+
+///Setter for the "base_pixel_y" var to append behavior related to it's changing
+/atom/proc/set_base_pixel_y(new_value)
+	if(base_pixel_y == new_value)
+		return
+	. = base_pixel_y
+	base_pixel_y = new_value
+
+	pixel_y = pixel_y + base_pixel_y - .
 
 /*
 * Called when something made out of plasma is exposed to high temperatures.

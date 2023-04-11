@@ -11,7 +11,9 @@
 	icon_state = "gondola"
 	icon_living = "gondola"
 	pixel_x = -16//2x2 sprite
+	base_pixel_x = -16
 	pixel_y = -5
+	base_pixel_y = -5
 	layer = TABLE_LAYER//so that deliveries dont appear underneath it
 	loot = list(/obj/effect/decal/cleanable/blood/gibs, /obj/item/stack/sheet/animalhide/gondola = 2, /obj/item/reagent_containers/food/snacks/meat/slab/gondola = 2)
 	//Gondolas aren't affected by cold.

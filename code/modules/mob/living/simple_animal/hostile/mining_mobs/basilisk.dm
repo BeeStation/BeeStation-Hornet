@@ -68,6 +68,7 @@
 	icon_aggro = "watcher"
 	icon_dead = "watcher_dead"
 	pixel_x = -10
+	base_pixel_x = -10
 	throw_message = "bounces harmlessly off of"
 	melee_damage = 15
 	attacktext = "impales"

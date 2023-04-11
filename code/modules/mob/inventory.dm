@@ -187,8 +187,8 @@
 		if(I.pulledby)
 			I.pulledby.stop_pulling()
 		update_inv_hands()
-		I.pixel_x = initial(I.pixel_x)
-		I.pixel_y = initial(I.pixel_y)
+		I.pixel_x = I.base_pixel_x
+		I.pixel_y = I.base_pixel_y
 		return hand_index || TRUE
 	return FALSE
 

@@ -101,10 +101,10 @@
 			contact_poison = null
 	..()
 
-/obj/item/paper/Initialize(mapload)
+/obj/item/paper/Initialize()
 	..()
-	pixel_y = rand(-8, 8)
-	pixel_x = rand(-9, 9)
+	pixel_y = base_pixel_y + rand(-8, 8)
+	pixel_x = base_pixel_x + rand(-9, 9)
 	return INITIALIZE_HINT_LATELOAD
 
 // Everyone forgets to call update_icon() after changing the info

@@ -92,7 +92,7 @@
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
 	set_density(TRUE)
 	icon_state = "up"
-	M.pixel_y = initial(M.pixel_y)
+	M.pixel_y = M.base_pixel_y
 
 /obj/structure/bed/roller/Moved()
 	. = ..()
@@ -102,8 +102,8 @@
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/M)
 	set_density(FALSE)
 	icon_state = "down"
-	M.pixel_x = M.get_standard_pixel_x_offset(M.lying)
-	M.pixel_y = M.get_standard_pixel_y_offset(M.lying)
+	M.pixel_x = M.base_pixel_x + M.get_standard_pixel_x_offset(M.lying)
+	M.pixel_y = M.base_pixel_y + M.get_standard_pixel_y_offset(M.lying)
 
 /obj/item/roller
 	name = "roller bed"

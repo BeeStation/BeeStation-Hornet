@@ -38,6 +38,7 @@ Difficulty: Medium
 	ranged = TRUE
 	ranged_cooldown_time = 16
 	pixel_x = -16
+	base_pixel_x = -16
 	loot = list(/obj/structure/closet/crate/necropolis/bdm)
 	wander = FALSE
 	del_on_death = TRUE

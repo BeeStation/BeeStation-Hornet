@@ -146,8 +146,8 @@
 		add_overlay(target.vis_contents)
 	alpha = max(alpha, 150)	//fucking chameleons
 	transform = initial(transform)
-	pixel_y = initial(pixel_y)
-	pixel_x = initial(pixel_x)
+	pixel_y = base_pixel_y
+	pixel_x = base_pixel_x
 	density = target.density
 
 	if(isliving(target))
