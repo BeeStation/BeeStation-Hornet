@@ -1,4 +1,5 @@
 //All defines used in reactions are located in ..\__DEFINES\reactions.dm
+#define SET_REACTION_RESULTS(amount) air.reaction_results[type] = amount
 
 /proc/init_gas_reactions()
 	. = list()
@@ -68,16 +69,19 @@
 		return
 	
 	var/turf/open/location = holder
+	var/consumed = 0
 	switch(air.return_temperature)
 		if(-INFINITY to WATER_VAPOR_DEPOSITION_POINT)
 			if(location?.freeze_turf())
-				SET_REACTION_RESULTS(0)
-			. = REACTING
+				consumed = MOLES_GAS_VISIBLE
 		if(WATER_VAPOR_DEPOSITION_POINT to WATER_VAPOR_CONDENSATION_POINT)
 			location.water_vapor_gas_act()
-			air.gases[/datum/gas/water_vapor][MOLES] -= MOLES_GAS_VISIBLE
-			SET_REACTION_RESULTS(MOLES_GAS_VISIBLE)
-			. = REACTING
+			consumed = MOLES_GAS_VISIBLE
+
+	if(consumed)
+		air.GAS_H2O[MOLES] -= consumed
+		SET_REACTION_RESULTS(consumed)
+		. = REACTING
 
 //tritium combustion: combustion of oxygen and tritium (treated as hydrocarbons). creates hotspots. exothermic
 /datum/gas_reaction/nitrous_decomp
