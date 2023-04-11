@@ -311,7 +311,7 @@
 /area/shuttle/exploration)
 "T" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "U" = (

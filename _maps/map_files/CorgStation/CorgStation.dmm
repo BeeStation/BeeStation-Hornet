@@ -456,7 +456,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/engine_room)
 "adh" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "adk" = (
@@ -2202,7 +2202,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/plasteel/dark,
 /area/engine/engine_room)
 "aBh" = (
@@ -2566,7 +2566,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "aEU" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -4714,7 +4714,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "bih" = (
@@ -4876,7 +4876,7 @@
 	dir = 1;
 	req_access_txt = "2"
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/tile/red/opposingcorners{
 	dir = 1
 	},
@@ -6687,7 +6687,7 @@
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "bRv" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -11662,7 +11662,7 @@
 /turf/open/floor/plasteel,
 /area/science/research)
 "dFg" = (
-/obj/machinery/atmospherics/miner/toxins,
+/obj/machinery/atmospherics/miner/plasma,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "dFj" = (
@@ -27584,7 +27584,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "iUk" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/toxin_output{
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/plasma_output{
 	dir = 4
 	},
 /turf/open/floor/engine/plasma,
@@ -31115,7 +31115,7 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "kff" = (
@@ -32336,7 +32336,7 @@
 /area/science/research)
 "kxB" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible,
-/obj/machinery/computer/atmos_control/tank/toxin_tank{
+/obj/machinery/computer/atmos_control/tank/plasma_tank{
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
@@ -32887,7 +32887,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "kGD" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
@@ -44713,7 +44713,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "oxS" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light{
 	dir = 4
@@ -58422,7 +58422,7 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/fitness/recreation)
 "sWJ" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxin_input{
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/plasma_input{
 	dir = 4
 	},
 /turf/open/floor/engine/plasma,
@@ -65186,7 +65186,7 @@
 /turf/closed/wall,
 /area/medical/genetics/cloning)
 "vmn" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/camera/autoname{
 	dir = 4
@@ -70124,7 +70124,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "wPN" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light_switch{
 	pixel_x = 1;
@@ -74365,7 +74365,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "yly" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/science/storage)

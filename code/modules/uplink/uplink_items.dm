@@ -425,7 +425,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			to get flying! All syndicate agents are advised to ignore the Nanotrasen labels on products. Space proof suits not included."
 	cost = 15	//There are multiple uses for the RCD and plasma canister, but both are easilly accessible for items that cost less than all of their TC.
 	contents = list(
-		/obj/machinery/portable_atmospherics/canister/toxins = 1,
+		/obj/machinery/portable_atmospherics/canister/plasma = 1,
 		/obj/item/construction/rcd/combat = 1,
 		/obj/item/rcd_ammo/large = 2,
 		/obj/item/shuttle_creator = 1,

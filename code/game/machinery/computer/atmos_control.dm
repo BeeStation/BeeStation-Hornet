@@ -13,9 +13,9 @@
 	var/frequency = FREQ_ATMOS_STORAGE
 	var/datum/radio_frequency/radio_connection
 
-/obj/machinery/air_sensor/atmos/toxin_tank
+/obj/machinery/air_sensor/atmos/plasma_tank
 	name = "plasma tank gas sensor"
-	id_tag = ATMOS_GAS_MONITOR_SENSOR_TOX
+	id_tag = ATMOS_GAS_MONITOR_SENSOR_PLASMA
 /obj/machinery/air_sensor/atmos/toxins_mixing_tank
 	name = "toxins mixing gas sensor"
 	id_tag = ATMOS_GAS_MONITOR_SENSOR_TOXINS_LAB
@@ -108,7 +108,7 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 		ATMOS_GAS_MONITOR_SENSOR_N2 = "Nitrogen Tank",
 		ATMOS_GAS_MONITOR_SENSOR_O2 = "Oxygen Tank",
 		ATMOS_GAS_MONITOR_SENSOR_CO2 = "Carbon Dioxide Tank",
-		ATMOS_GAS_MONITOR_SENSOR_TOX = "Plasma Tank",
+		ATMOS_GAS_MONITOR_SENSOR_PLASMA = "Plasma Tank",
 		ATMOS_GAS_MONITOR_SENSOR_N2O = "Nitrous Oxide Tank",
 		ATMOS_GAS_MONITOR_SENSOR_AIR = "Mixed Air Tank",
 		ATMOS_GAS_MONITOR_SENSOR_MIX = "Mix Tank",
@@ -202,12 +202,12 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 	sensors = list(ATMOS_GAS_MONITOR_SENSOR_O2 = "Oxygen Tank")
 	circuit = /obj/item/circuitboard/computer/atmos_control/tank/oxygen_tank
 
-/obj/machinery/computer/atmos_control/tank/toxin_tank
+/obj/machinery/computer/atmos_control/tank/plasma_tank
 	name = "Plasma Supply Control"
-	input_tag = ATMOS_GAS_MONITOR_INPUT_TOX
-	output_tag = ATMOS_GAS_MONITOR_OUTPUT_TOX
-	sensors = list(ATMOS_GAS_MONITOR_SENSOR_TOX = "Plasma Tank")
-	circuit = /obj/item/circuitboard/computer/atmos_control/tank/toxin_tank
+	input_tag = ATMOS_GAS_MONITOR_INPUT_PLASMA
+	output_tag = ATMOS_GAS_MONITOR_OUTPUT_PLASMA
+	sensors = list(ATMOS_GAS_MONITOR_SENSOR_PLASMA = "Plasma Tank")
+	circuit = /obj/item/circuitboard/computer/atmos_control/tank/plasma_tank
 
 /obj/machinery/computer/atmos_control/tank/air_tank
 	name = "Mixed Air Supply Control"
