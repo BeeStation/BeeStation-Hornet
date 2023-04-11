@@ -651,7 +651,7 @@
 			to_chat(usr, "<span class='boldnotice'>Respawning is disabled.</span>")
 			return
 		if(alert(src, "Do you want to use your admin privilege to respawn? (Respawning is currently disabled)", "Options", "Yes", "No") != "Yes")
-		    return
+			return
 
 	if ((stat != DEAD || !( SSticker )))
 		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
