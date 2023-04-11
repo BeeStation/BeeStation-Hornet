@@ -648,7 +648,7 @@
 
 	if (CONFIG_GET(flag/norespawn))
 		if(!check_rights_for(usr.client, R_ADMIN))
-			to_chat(usr, "<span class='boldnotice'>Respawning in this server is disabled.</span>")
+			to_chat(usr, "<span class='boldnotice'>Respawning is disabled.</span>")
 			return
 		else if(alert(src, "Do you want to use your admin privilege to respawn? (Respawning is currently disabled)", "Options", "Yes", "No") != "Yes)
 		    return
