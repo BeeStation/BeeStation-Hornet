@@ -55,7 +55,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 	integrity_failure = 50
 	max_integrity = 100
-	armor = list("melee" = 0, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 20, LASER = 20, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 0, ACID = 0, STAMINA = 0)
 
 	/// List of "connection ports" in this computer and the components with which they are plugged
 	var/list/all_components = list()
@@ -133,7 +133,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	saved_job = cardholder.current_job
 	update_id_display()
 	playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
 
 /obj/item/modular_computer/Destroy()
 	kill_program(forced = TRUE)
@@ -597,7 +597,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		var/obj/item/computer_hardware/H = all_components[h]
 		component_names.Add(H.name)
 
-	var/choice = input(user, "Which component do you want to uninstall?", "Computer maintenance", null) as null|anything in sortList(component_names)
+	var/choice = input(user, "Which component do you want to uninstall?", "Computer maintenance", null) as null|anything in sort_list(component_names)
 
 	if(!choice)
 		return
@@ -645,8 +645,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			return
 		stored_pai_card = attacking_item
 		// If the pAI moves out of the PDA, remove the reference.
-		RegisterSignal(stored_pai_card, COMSIG_MOVABLE_MOVED, .proc/stored_pai_moved)
-		RegisterSignal(stored_pai_card, COMSIG_PARENT_QDELETING, .proc/remove_pai)
+		RegisterSignal(stored_pai_card, COMSIG_MOVABLE_MOVED, PROC_REF(stored_pai_moved))
+		RegisterSignal(stored_pai_card, COMSIG_PARENT_QDELETING, PROC_REF(remove_pai))
 		to_chat(user, "<span class='notice'>You slot \the [attacking_item] into [src].</span>")
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 		update_icon()

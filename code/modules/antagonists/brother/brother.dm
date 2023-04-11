@@ -81,7 +81,7 @@
 			continue
 		candidates += L.mind
 
-	var/choice = input(admin,"Choose the blood brother.", "Brother") as null|anything in sortNames(candidates)
+	var/choice = input(admin,"Choose the blood brother.", "Brother") as null|anything in sort_names(candidates)
 	if(!choice)
 		return
 	var/datum/mind/bro = choice

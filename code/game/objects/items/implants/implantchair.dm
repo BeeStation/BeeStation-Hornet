@@ -35,12 +35,13 @@
 
 /obj/machinery/implantchair/ui_data()
 	var/list/data = list()
-	data["occupied"] = occupant ? 1 : 0
+	var/mob/living/mob_occupant = occupant
+
+	data["occupied"] = mob_occupant ? 1 : 0
 	data["open"] = state_open
 
 	data["occupant"] = list()
-	if(occupant)
-		var/mob/living/mob_occupant = occupant
+	if(mob_occupant)
 		data["occupant"]["name"] = mob_occupant.name
 		data["occupant"]["stat"] = mob_occupant.stat
 
@@ -62,7 +63,7 @@
 				open_machine()
 			. = TRUE
 		if("implant")
-			implant(occupant,usr)
+			implant(occupant, usr)
 			. = TRUE
 
 /obj/machinery/implantchair/proc/implant(mob/living/M,mob/user)
@@ -74,10 +75,10 @@
 		ready_implants--
 		if(!replenishing && auto_replenish)
 			replenishing = TRUE
-			addtimer(CALLBACK(src,.proc/replenish),replenish_cooldown)
+			addtimer(CALLBACK(src,PROC_REF(replenish)),replenish_cooldown)
 		if(injection_cooldown > 0)
 			ready = FALSE
-			addtimer(CALLBACK(src,.proc/set_ready),injection_cooldown)
+			addtimer(CALLBACK(src,PROC_REF(set_ready)),injection_cooldown)
 	else
 		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 25, 1)
 	update_icon()

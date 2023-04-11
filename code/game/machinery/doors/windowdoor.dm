@@ -9,7 +9,7 @@
 	var/base_state = "left"
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
-	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 20,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100, STAMINA = 0)
 	visible = FALSE
 	flags_1 = ON_BORDER_1
 	opacity = FALSE
@@ -40,11 +40,11 @@
 		debris += new /obj/item/stack/cable_coil(src, cable)
 
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXIT = .proc/on_exit,
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
 	)
 
 	AddElement(/datum/element/connect_loc, loc_connections)
-	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, .proc/ntnet_receive)
+	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
 
 /obj/machinery/door/window/Destroy()
 	set_density(FALSE)
@@ -224,7 +224,7 @@
 	operating = TRUE
 	flick("[base_state]spark", src)
 	playsound(src, "sparks", 75, 1)
-	addtimer(CALLBACK(src, .proc/after_emag), 6)
+	addtimer(CALLBACK(src, PROC_REF(after_emag)), 6)
 
 /obj/machinery/door/window/proc/after_emag()
 	if(QDELETED(src))
@@ -357,11 +357,11 @@
 				return
 
 			if(density)
-				INVOKE_ASYNC(src, .proc/open)
+				INVOKE_ASYNC(src, PROC_REF(open))
 			else
-				INVOKE_ASYNC(src, .proc/close)
+				INVOKE_ASYNC(src, PROC_REF(close))
 		if("touch")
-			INVOKE_ASYNC(src, .proc/open_and_close)
+			INVOKE_ASYNC(src, PROC_REF(open_and_close))
 
 /obj/machinery/door/window/brigdoor
 	name = "secure door"
@@ -389,7 +389,7 @@
 	shards = 0
 	rods = 0
 	max_integrity = 50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100, STAMINA = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	operationdelay = 10
 	var/made_glow = FALSE
@@ -427,7 +427,7 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 
 /obj/machinery/door/window/clockwork/ratvar_act()
 	return FALSE

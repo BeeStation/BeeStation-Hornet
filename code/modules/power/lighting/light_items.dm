@@ -69,7 +69,7 @@
 	. = ..()
 	update()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -122,6 +122,4 @@
 		status = LIGHT_BROKEN
 		force = 5
 		playsound(src.loc, 'sound/effects/glasshit.ogg', 75, 1)
-		if(rigged)
-			atmos_spawn_air("plasma=5") //5u of plasma are required to rig a light bulb/tube
 		update()

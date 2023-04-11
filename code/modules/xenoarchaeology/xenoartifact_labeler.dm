@@ -191,7 +191,7 @@
 				qdel(src)
 			return
 		add_sticker(target)
-		addtimer(CALLBACK(src, .proc/remove_sticker, target), 15 SECONDS, TIMER_STOPPABLE)
+		addtimer(CALLBACK(src, PROC_REF(remove_sticker), target), 15 SECONDS, TIMER_STOPPABLE)
 		return TRUE
 	else if(istype(target, /obj/item/xenoartifact))
 		var/obj/item/xenoartifact/xenoa_target = target

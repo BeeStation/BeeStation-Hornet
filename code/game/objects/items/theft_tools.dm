@@ -62,7 +62,7 @@
 	core = ncore
 	icon_state = "core_container_loaded"
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
-	addtimer(CALLBACK(src, .proc/seal), 50)
+	addtimer(CALLBACK(src, PROC_REF(seal)), 50)
 	return TRUE
 
 /obj/item/nuke_core_container/proc/seal()
@@ -182,7 +182,7 @@
 	T.icon_state = "supermatter_tongs"
 	icon_state = "core_container_loaded"
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
-	addtimer(CALLBACK(src, .proc/seal), 50)
+	addtimer(CALLBACK(src, PROC_REF(seal)), 50)
 	return TRUE
 
 /obj/item/nuke_core_container/supermatter/seal()
@@ -206,7 +206,7 @@
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "supermatter_scalpel"
 	toolspeed = 0.5
-	damtype = "fire"
+	damtype = BURN
 	usesound = 'sound/weapons/bladeslice.ogg'
 	var/usesLeft
 
@@ -220,7 +220,7 @@
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "supermatter_tongs"
 	toolspeed = 0.75
-	damtype = "fire"
+	damtype = BURN
 	var/obj/item/nuke_core/supermatter_sliver/sliver
 
 /obj/item/hemostat/supermatter/Destroy()

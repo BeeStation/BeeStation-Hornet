@@ -6,7 +6,7 @@
 	losebreath = 0
 
 	if(!gibbed)
-		INVOKE_ASYNC(src, .proc/emote, "deathgasp")
+		INVOKE_ASYNC(src, PROC_REF(emote), "deathgasp")
 
 	. = ..()
 

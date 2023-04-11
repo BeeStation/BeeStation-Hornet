@@ -30,7 +30,7 @@
 		phobia_type = new_phobia_type
 
 	if(!phobia_type)
-		phobia_type = pickweight(SStraumas.phobia_types)
+		phobia_type = pick_weight(SStraumas.phobia_types)
 
 	gain_text = "<span class='warning'>You start finding [phobia_type] very unnerving...</span>"
 	lose_text = "<span class='notice'>You no longer feel afraid of [phobia_type].</span>"

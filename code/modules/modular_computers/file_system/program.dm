@@ -188,3 +188,11 @@
 /// Set use_attack_obj = TRUE to receive proccalls from the parent computer.
 /datum/computer_file/program/proc/attack_obj(obj/target, mob/living/user)
 	return TRUE
+
+/// Called when the datum/tgui is initialized by the computer
+/datum/computer_file/program/proc/on_ui_create(mob/user, datum/tgui/ui)
+	return
+
+/// Called when ui_close is called on the computer while this program is active. Any behavior in this should also be in kill_program.
+/datum/computer_file/program/proc/on_ui_close(mob/user, datum/tgui/tgui)
+	return

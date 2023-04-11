@@ -65,12 +65,12 @@ Behavior that's still missing from this component that original food items had t
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/examine)
-	RegisterSignal(parent, COMSIG_ATOM_ATTACK_ANIMAL, .proc/use_by_animal)
-	RegisterSignal(parent, COMSIG_EDIBLE_ON_COMPOST, .proc/compost)
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(examine))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACK_ANIMAL, PROC_REF(use_by_animal))
+	RegisterSignal(parent, COMSIG_EDIBLE_ON_COMPOST, PROC_REF(compost))
 
 	if(isitem(parent))
-		RegisterSignal(parent, COMSIG_ITEM_ATTACK, .proc/use_from_hand)
+		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(use_from_hand))
 
 		var/obj/item/item = parent
 		if (!item.grind_results)
@@ -182,7 +182,7 @@ Behavior that's still missing from this component that original food items had t
 	. = COMPONENT_CANCEL_ATTACK_CHAIN //Point of no return I suppose
 
 	if(eater == feeder)//If you're eating it yourself.
-		if(!do_mob(feeder, eater, eat_time)) //Gotta pass the minimal eat time
+		if(!do_after(feeder, eat_time, eater)) //Gotta pass the minimal eat time
 			return
 		if(is_food_gone(owner, feeder))
 			return
@@ -212,7 +212,7 @@ Behavior that's still missing from this component that original food items had t
 			eater.visible_message("<span class='warning'>[feeder] cannot force any more of [parent] down [eater]'s throat!</span>", \
 									"<span class='warning'>[feeder] cannot force any more of [parent] down your throat!</span>")
 			return
-		if(!do_mob(feeder, eater)) //Wait 3 seconds before you can feed
+		if(!do_after(feeder, target = eater)) //Wait 3 seconds before you can feed
 			return
 		if(is_food_gone(owner, feeder))
 			return
@@ -224,7 +224,7 @@ Behavior that's still missing from this component that original food items had t
 
 	//If we're not force-feeding, try take another bite
 	if(eater == feeder)
-		INVOKE_ASYNC(src, .proc/TryToEat, eater, feeder)
+		INVOKE_ASYNC(src, PROC_REF(TryToEat), eater, feeder)
 
 
 ///This function lets the eater take a bite and transfers the reagents to the eater.

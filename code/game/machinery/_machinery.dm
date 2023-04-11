@@ -143,7 +143,7 @@ Class Procs:
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)
-		armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0)
+		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0)
 	. = ..()
 	GLOB.machines += src
 
@@ -155,13 +155,19 @@ Class Procs:
 		begin_processing()
 
 	power_change()
-	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, .proc/power_change)
+	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(power_change))
 
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
 
 	if(!seller_department)
 		seller_department = dept_req_for_free
+
+/obj/machinery/proc/set_occupant(atom/movable/new_occupant)
+	SHOULD_CALL_PARENT(TRUE)
+
+	SEND_SIGNAL(src, COMSIG_MACHINERY_SET_OCCUPANT, new_occupant)
+	occupant = new_occupant
 
 /// Helper proc for telling a machine to start processing with the subsystem type that is located in its `subsystem_type` var.
 /obj/machinery/proc/begin_processing()
@@ -214,7 +220,7 @@ Class Procs:
 		//Set the machine to be EMPed
 		machine_stat |= EMPED
 		//Reset EMP state in 120/60 seconds
-		addtimer(CALLBACK(src, .proc/emp_reset), (emp_disable_time / severity) + rand(-10, 10))
+		addtimer(CALLBACK(src, PROC_REF(emp_reset)), (emp_disable_time / severity) + rand(-10, 10))
 		//Update power
 		power_change()
 		new /obj/effect/temp_visual/emp(loc)
@@ -244,7 +250,7 @@ Class Procs:
 		if(isliving(A))
 			var/mob/living/L = A
 			L.update_mobility()
-	occupant = null
+	set_occupant(null)
 
 /obj/machinery/proc/can_be_occupant(atom/movable/am)
 	return occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)
@@ -268,7 +274,7 @@ Class Procs:
 
 	var/mob/living/mobtarget = target
 	if(target && !target.has_buckled_mobs() && (!isliving(target) || !mobtarget.buckled))
-		occupant = target
+		set_occupant(target)
 		target.forceMove(src)
 	updateUsrDialog()
 	update_icon()
@@ -341,12 +347,12 @@ Class Procs:
 				var/datum/bank_account/insurance = I.registered_account
 				if(!insurance)
 					say("[market_verb] NAP Violation: No bank account found.")
-					nap_violation(occupant)
+					nap_violation(H)
 					return FALSE
 				else
 					if(!insurance.adjust_money(-fair_market_price))
 						say("[market_verb] NAP Violation: Unable to pay.")
-						nap_violation(occupant)
+						nap_violation(H)
 						return FALSE
 
 					// each department (seller_department) will earn the profit
@@ -358,7 +364,7 @@ Class Procs:
 								D.adjust_money(fair_market_price)
 			else
 				say("[market_verb] NAP Violation: No ID card found.")
-				nap_violation(occupant)
+				nap_violation(H)
 				return FALSE
 	return TRUE
 
@@ -397,7 +403,7 @@ Class Procs:
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 		user.visible_message("<span class='danger'>[user.name] smashes against \the [src.name] with its paws.</span>", null, null, COMBAT_MESSAGE_RANGE)
-		take_damage(4, BRUTE, "melee", 1)
+		take_damage(4, BRUTE, MELEE, 1)
 
 /obj/machinery/attack_robot(mob/user)
 	if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON) && !IsAdminGhost(user))
@@ -467,17 +473,16 @@ Class Procs:
 		return TRUE
 
 /obj/machinery/contents_explosion(severity, target)
-	if(occupant)
-		occupant.ex_act(severity, target)
+	occupant?.ex_act(severity, target)
 
 /obj/machinery/handle_atom_del(atom/A)
 	if(A == occupant)
-		occupant = null
+		set_occupant(null)
 		update_icon()
 		updateUsrDialog()
 
 /obj/machinery/run_obj_armor(damage_amount, damage_type, damage_flag = NONE, attack_dir)
-	if(damage_flag == "melee" && damage_amount < damage_deflection)
+	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return 0
 	return ..()
 
@@ -519,7 +524,7 @@ Class Procs:
 		I.play_tool_sound(src, 50)
 		var/prev_anchored = anchored
 		//as long as we're the same anchored state and we're either on a floor or are anchored, toggle our anchored state
-		if(I.use_tool(src, user, time, extra_checks = CALLBACK(src, .proc/unfasten_wrench_check, prev_anchored, user)))
+		if(I.use_tool(src, user, time, extra_checks = CALLBACK(src, PROC_REF(unfasten_wrench_check), prev_anchored, user)))
 			to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
 			setAnchored(!anchored)
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
@@ -638,14 +643,14 @@ Class Procs:
 	if(prob(85) && (tesla_flags & TESLA_MACHINE_EXPLOSIVE))
 		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, smoke = FALSE)
 	if(tesla_flags & TESLA_OBJ_DAMAGE)
-		take_damage(power/2000, BURN, "energy")
+		take_damage(power/2000, BURN, ENERGY)
 		if(prob(40))
 			emp_act(EMP_LIGHT)
 
 /obj/machinery/Exited(atom/movable/gone, direction)
 	. = ..()
 	if (gone == occupant)
-		occupant = null
+		set_occupant(null)
 
 /obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
 	var/md5 = rustg_hash_string(RUSTG_HASH_MD5, AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.
@@ -661,4 +666,11 @@ Class Procs:
 		playsound(src, custom_clicksound, clickvol)
 
 /obj/machinery/rust_heretic_act()
-	take_damage(500, BRUTE, "melee", 1)
+	take_damage(500, BRUTE, MELEE, 1)
+
+/obj/machinery/vv_edit_var(vname, vval)
+	if(vname == "occupant")
+		set_occupant(vval)
+		datum_flags |= DF_VAR_EDITED
+		return TRUE
+	return ..()

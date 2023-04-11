@@ -33,11 +33,19 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		- Are the processes being called by Topic() particularly laggy?
 		- If so, is there any protection against somebody spam-clicking a link?
 	If you have any  questions about this stuff feel free to ask. ~Carn
+
+	the undocumented 4th argument is for ?[0x\ref] style topic links. hsrc is set to the reference and anything after the ] gets put into hsrc_command
 	*/
 
-/client/Topic(href, href_list, hsrc)
+/client/Topic(href, href_list, hsrc, hsrc_command)
 	if(!usr || usr != mob)	//stops us calling Topic for somebody else's client. Also helps prevent usr=null
 		return
+
+#ifndef TESTING
+	//disable the integrated byond vv in the client side debugging tools since it doesn't respect vv read protections
+	if (lowertext(hsrc_command) == "_debug")
+		return
+#endif
 
 	// asset_cache
 	var/asset_cache_job
@@ -204,8 +212,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	GLOB.clients += src
 	GLOB.directory[ckey] = src
 
-		// Instantiate tgui panel
-	tgui_panel = new(src)
+	// Instantiate tgui panel
+	tgui_panel = new(src, "browseroutput")
+
+	tgui_say = new(src, "tgui_say")
 
 	GLOB.ahelp_tickets.ClientLogin(src)
 	GLOB.mhelp_tickets.ClientLogin(src)
@@ -317,6 +327,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	// Initialize tgui panel
 	tgui_panel.Initialize()
+
+	tgui_say.initialize()
 
 	if(alert_mob_dupe_login)
 		spawn()
@@ -441,7 +453,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(GLOB.ckey_redirects.Find(ckey))
 		if(isnewplayer(mob))
 			to_chat(src, "<span class='redtext'>The server is full. You will be redirected to [CONFIG_GET(string/redirect_address)] in 10 seconds.</span>")
-			addtimer(CALLBACK(src, .proc/time_to_redirect), (10 SECONDS))
+			addtimer(CALLBACK(src, PROC_REF(time_to_redirect)), (10 SECONDS))
 		else
 			GLOB.ckey_redirects -= ckey
 
@@ -971,7 +983,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		src << browse('code/modules/asset_cache/validate_assets.html', "window=asset_cache_browser")
 		//Precache the client with all other assets slowly, so as to not block other browse() calls
 		if (CONFIG_GET(flag/asset_simple_preload))
-			addtimer(CALLBACK(SSassets.transport, /datum/asset_transport.proc/send_assets_slow, src, SSassets.transport.preload), 5 SECONDS)
+			addtimer(CALLBACK(SSassets.transport, TYPE_PROC_REF(/datum/asset_transport, send_assets_slow), src, SSassets.transport.preload), 5 SECONDS)
 		#if (PRELOAD_RSC == 0)
 		for (var/name in GLOB.vox_sounds)
 			var/file = GLOB.vox_sounds[name]
@@ -1064,7 +1076,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	set desc ="Get your ID for account verification."
 
 	remove_verb(/client/proc/show_account_identifier)
-	addtimer(CALLBACK(src, .proc/restore_account_identifier), 20) //Don't DoS DB queries, asshole
+	addtimer(CALLBACK(src, PROC_REF(restore_account_identifier)), 20) //Don't DoS DB queries, asshole
 
 	var/confirm = alert("Do NOT share the verification ID in the following popup. Understand?", "Important Warning", "Yes", "Cancel")
 	if(confirm != "Yes")
