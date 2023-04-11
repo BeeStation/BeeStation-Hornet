@@ -71,6 +71,7 @@
 
 /mob/living/simple_animal/revenant/Initialize(mapload)
 	. = ..()
+	// more rev abilities are in 'revenant_abilities.dm'
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision/revenant(null))
 	AddSpell(new /obj/effect/proc_holder/spell/self/revenant_phase_shift(null))
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/telepathy/revenant(null))
@@ -375,37 +376,6 @@
 	invisibility = INVISIBILITY_REVENANT
 	alpha=255
 	stasis = FALSE
-
-/mob/living/simple_animal/revenant/CtrlClickOn(atom/A)
-	if(incorporeal_move == INCORPOREAL_MOVE_JAUNT)
-		check_orbitable(A)
-		return
-	..()
-
-/mob/living/simple_animal/revenant/DblClickOn(atom/A, params)
-	check_orbitable(A)
-	..()
-
-/mob/living/simple_animal/revenant/proc/check_orbitable(atom/A)
-	if(revealed)
-		to_chat(src, "<span class='warning'>You can't orbit while you're revealed!</span>")
-		return
-	if(!Adjacent(A))
-		to_chat(src, "<span class='warning'>You can only orbit things that are next to you!</span>")
-		return
-	if(isobserver(A) || isrevenant(A) || istype(A, /mob/living/simple_animal/eminence))
-		to_chat(src, "<span class='warning'>You can't orbit a ghost!</span>")
-		return
-	if(notransform || inhibited || !incorporeal_move_check(A))
-		return
-	var/icon/I = icon(A.icon, A.icon_state, A.dir)
-	var/orbitsize = (I.Width()+I.Height())*0.5
-	orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
-	orbit(A, orbitsize)
-
-/mob/living/simple_animal/revenant/orbit(atom/target)
-	setDir(SOUTH) // reset dir so the right directional sprites show up
-	return ..()
 
 /mob/living/simple_animal/revenant/Moved(atom/OldLoc)
 	if(!orbiting) // only needed when orbiting

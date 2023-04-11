@@ -27,6 +27,66 @@
 			T.check_z_travel(src)
 
 
+
+// double-click or ctrl-click for two abilities
+/mob/living/simple_animal/revenant/CtrlClickOn(atom/A)
+	if(A==src)
+		teleport_to_station()
+		return
+	if(incorporeal_move == INCORPOREAL_MOVE_JAUNT)
+		check_orbitable(A)
+		return
+	..() // pull the thing
+
+/mob/living/simple_animal/revenant/DblClickOn(atom/A, params)
+	if(A==src)
+		teleport_to_station()
+	else
+		check_orbitable(A)
+	..()
+
+// on yourself: teleport to the station
+/mob/living/simple_animal/revenant/proc/teleport_to_station()
+	if(is_station_level(src.z))
+		to_chat(src, "<span class='revenwarning'>Recalling yourself to the station is only available when you're not in the station.</span>")
+		return
+	else
+		if(revealed)
+			to_chat(src, "<span class='revenwarning'>Recalling yourself to the station is only available when you're invisible.</span>")
+			return
+
+		to_chat(src, "<span class='revennotice'>You start to concentrate recalling yourself to the station.</span>")
+		if(do_after(src, 30) && !revealed)
+			var/turf/targetturf = get_safe_random_station_turfs()
+			if(!do_teleport(src, targetturf, 0, channel = TELEPORT_CHANNEL_CULT))
+				to_chat(src,  "<span class='revenwarning'>You have failed to recall yourself to the station... You should try again.</span>")
+			else
+				reveal(80)
+				stun(40)
+
+// on others: orbit them
+/mob/living/simple_animal/revenant/proc/check_orbitable(atom/A)
+	if(revealed)
+		to_chat(src, "<span class='revenwarning'>You can't orbit while you're revealed!</span>")
+		return
+	if(!Adjacent(A))
+		to_chat(src, "<span class='revenwarning'>You can only orbit things that are next to you!</span>")
+		return
+	if(isobserver(A) || isrevenant(A))
+		to_chat(src, "<span class='revenwarning'>You can't orbit a ghost!</span>")
+		return
+	if(notransform || inhibited || !incorporeal_move_check(A))
+		return
+	var/icon/I = icon(A.icon, A.icon_state, A.dir)
+	var/orbitsize = (I.Width()+I.Height())*0.5
+	orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
+	orbit(A, orbitsize)
+
+/mob/living/simple_animal/revenant/orbit(atom/target)
+	setDir(SOUTH) // reset dir so the right directional sprites show up
+	return ..()
+
+
 //Harvest; activated by clicking the target, will try to drain their essence.
 /mob/living/simple_animal/revenant/proc/Harvest(mob/living/carbon/human/target)
 	if(!castcheck(0))
@@ -110,6 +170,10 @@
 				to_chat(src, "<span class='revenwarning'>You are not close enough to siphon [target ? "[target]'s":"[target.p_their()]"] soul. The link has been broken.</span>")
 	draining = FALSE
 	essence_drained = 0
+
+// -------------------------------------------
+// ------------- action skills ---------------
+// -------------------------------------------
 
 //Toggle night vision: lets the revenant toggle its night vision
 /obj/effect/proc_holder/spell/targeted/night_vision/revenant
