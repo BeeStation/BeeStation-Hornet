@@ -63,14 +63,21 @@
 	min_requirements = list(GAS_H2O = MOLES_GAS_VISIBLE)
 
 /datum/gas_reaction/water_vapor/react(datum/gas_mixture/air, datum/holder)
-	var/turf/open/location = isturf(holder) ? holder : null
 	. = NO_REACTION
-	if (air.return_temperature() <= WATER_VAPOR_FREEZE)
-		if(location && location.freon_gas_act())
+	if(!isturf(holder))
+		return
+	
+	var/turf/open/location = holder
+	switch(air.return_temperature)
+		if(-INFINITY to WATER_VAPOR_DEPOSITION_POINT)
+			if(location?.freeze_turf())
+				SET_REACTION_RESULTS(0)
 			. = REACTING
-	else if(location && location.water_vapor_gas_act())
-		air.adjust_moles(GAS_H2O, -MOLES_GAS_VISIBLE)
-		. = REACTING
+		if(WATER_VAPOR_DEPOSITION_POINT to WATER_VAPOR_CONDENSATION_POINT)
+			location.water_vapor_gas_act()
+			air.gases[/datum/gas/water_vapor][MOLES] -= MOLES_GAS_VISIBLE
+			SET_REACTION_RESULTS(MOLES_GAS_VISIBLE)
+			. = REACTING
 
 //tritium combustion: combustion of oxygen and tritium (treated as hydrocarbons). creates hotspots. exothermic
 /datum/gas_reaction/nitrous_decomp
