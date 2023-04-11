@@ -4273,6 +4273,25 @@
 "bvR" = (
 /turf/closed/wall,
 /area/medical/storage)
+"bvX" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	alpha = 180;
+	dir = 2
+	},
+/obj/structure/closet/secure_closet/engineering_personal,
+/obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 28
+	},
+/obj/item/storage/fancy/candle_box{
+	name = "Ignis' candle pack";
+	pixel_x = -2;
+	pixel_y = 8
+	},
+/turf/open/floor/plasteel,
+/area/engine/storage)
 "bwd" = (
 /obj/effect/turf_decal/tile/dark_red/anticorner/contrasted{
 	dir = 8
@@ -9842,6 +9861,12 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/primary/port)
+"djl" = (
+/turf/closed/wall{
+	desc = "Try setting a bomb next to it. This may destroy the wall, allowing you access to the room on the other side.";
+	name = "Suspicious-Looking Wall"
+	},
+/area/security/courtroom)
 "djr" = (
 /obj/machinery/smartfridge{
 	name = "Sample Storage"
@@ -12121,20 +12146,6 @@
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary/commissary2)
-"dXo" = (
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/obj/structure/filingcabinet/chestdrawer,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
-/area/quartermaster/qm)
 "dXw" = (
 /obj/effect/turf_decal/guideline/guideline_half_edge/blue{
 	color = "#267878";
@@ -12244,18 +12255,6 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/security/prison)
-"dYh" = (
-/obj/structure/table/reinforced,
-/obj/item/book/fish_catalog{
-	pixel_x = 5;
-	pixel_y = 4
-	},
-/obj/item/storage/fish_case/random{
-	pixel_x = -4;
-	pixel_y = 1
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/qm)
 "dYv" = (
 /obj/effect/turf_decal/guideline/guideline_edge/purple{
 	dir = 1
@@ -24876,6 +24875,19 @@
 	},
 /turf/open/floor/plasteel/tech,
 /area/engine/atmos)
+"ifl" = (
+/obj/structure/table/reinforced,
+/obj/item/book/fish_catalog{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/item/storage/fish_case/random{
+	name = "Fisher's box";
+	pixel_x = -4;
+	pixel_y = 1
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/qm)
 "ifC" = (
 /turf/closed/wall/r_wall,
 /area/security/prison/shielded)
@@ -28439,6 +28451,20 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
+"jrO" = (
+/obj/effect/turf_decal/tile/brown/half/contrasted{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/effect/turf_decal/bot,
+/obj/structure/aquarium,
+/turf/open/floor/plasteel,
+/area/quartermaster/qm)
 "jrV" = (
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted{
 	alpha = 180;
@@ -44692,17 +44718,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
-"oRf" = (
-/obj/effect/turf_decal/siding/wideplating/dark{
-	dir = 6
-	},
-/obj/machinery/status_display/supply{
-	pixel_x = 33;
-	pixel_y = -1
-	},
-/obj/structure/aquarium,
-/turf/open/floor/carpet/orange,
-/area/quartermaster/qm)
 "oRY" = (
 /obj/machinery/atmospherics/miner/station/nitrogen,
 /turf/open/floor/engine/n2,
@@ -53784,23 +53799,6 @@
 /obj/structure/sign/warning/nosmoking/circle,
 /turf/closed/wall,
 /area/hydroponics)
-"sgz" = (
-/obj/structure/table/glass,
-/obj/item/storage/firstaid{
-	pixel_x = 3;
-	pixel_y = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/machinery/power/apc/auto_name/south{
-	pixel_y = -24
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/plasteel,
-/area/security/brig{
-	name = "Brig medbay"
-	})
 "sgA" = (
 /obj/machinery/door/airlock/security{
 	name = "Court Cell";
@@ -62437,6 +62435,17 @@
 /obj/structure/closet/secure_closet/miner,
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
+"uWe" = (
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 6
+	},
+/obj/machinery/status_display/supply{
+	pixel_x = 33;
+	pixel_y = -1
+	},
+/obj/structure/filingcabinet/chestdrawer,
+/turf/open/floor/carpet/orange,
+/area/quartermaster/qm)
 "uWf" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -63149,20 +63158,6 @@
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/captain/private)
-"vgQ" = (
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	alpha = 180;
-	dir = 2
-	},
-/obj/structure/closet/secure_closet/engineering_personal,
-/obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 28
-	},
-/turf/open/floor/plasteel,
-/area/engine/storage)
 "vgS" = (
 /obj/structure/curtain/bounty,
 /obj/effect/spawner/structure/window,
@@ -69004,6 +68999,23 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
+"xaK" = (
+/obj/structure/table/glass,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
+/obj/structure/cable/yellow,
+/obj/item/storage/firstaid/regular{
+	pixel_x = -5;
+	pixel_y = 4
+	},
+/turf/open/floor/plasteel,
+/area/security/brig{
+	name = "Brig medbay"
+	})
 "xaS" = (
 /obj/effect/turf_decal/guideline/guideline_in/red{
 	dir = 4
@@ -97200,7 +97212,7 @@ kxi
 uDS
 aJt
 tsh
-dXo
+jrO
 wAG
 ttt
 cwM
@@ -97714,7 +97726,7 @@ gKy
 cma
 ptg
 liP
-dYh
+ifl
 hJO
 ttt
 pqC
@@ -97944,7 +97956,7 @@ ayv
 xPA
 cuD
 ybx
-sgz
+xaK
 cpd
 nvT
 uGi
@@ -99000,7 +99012,7 @@ ttt
 pRf
 vGb
 ftb
-oRf
+uWe
 ttt
 pqC
 vbu
@@ -101045,7 +101057,7 @@ icX
 jgh
 ntc
 ntc
-ntc
+djl
 ntc
 cyy
 qpv
@@ -106261,7 +106273,7 @@ etr
 xwZ
 xyd
 vJx
-vgQ
+bvX
 rFN
 cNj
 nyb
