@@ -4,7 +4,7 @@ Assistant
 /datum/job/assistant
 	jkey = JOB_KEY_ASSISTANT
 	jtitle = JOB_NAME_ASSISTANT
-	job_bitflags = JOB_BITFLAG_SELECTABLE
+	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
 	supervisors = "absolutely everyone"
 	faction = FACTION_STATION
 	total_positions = 5

@@ -1,7 +1,7 @@
 /datum/job/cyborg
 	jkey = JOB_KEY_CYBORG
 	jtitle = JOB_NAME_CYBORG
-	job_bitflags = JOB_BITFLAG_SELECTABLE
+	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SILICON
 	faction = FACTION_STATION
 	total_positions = 0

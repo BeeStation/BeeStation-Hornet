@@ -13,20 +13,6 @@
 
 
 	var/change_position_cooldown = 30
-	//Jobs you cannot open new positions for
-	var/list/blacklisted = list(
-		JOB_KEY_AI,
-		JOB_KEY_ASSISTANT,
-		JOB_KEY_CYBORG,
-		JOB_KEY_CAPTAIN,
-		JOB_KEY_HEADOFPERSONNEL,
-		JOB_KEY_HEADOFSECURITY,
-		JOB_KEY_CHIEFENGINEER,
-		JOB_KEY_RESEARCHDIRECTOR,
-		JOB_KEY_CHIEFMEDICALOFFICER,
-		JOB_KEY_BRIGPHYSICIAN,
-		JOB_KEY_DEPUTY)
-
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
 	var/max_relative_positions = 30 //30%: Seems reasonable, limit of 6 @ 20 players
 
@@ -37,12 +23,11 @@
 /datum/computer_file/program/job_management/New()
 	..()
 	change_position_cooldown = CONFIG_GET(number/id_console_jobslot_delay)
-	for(var/datum/job/J in SSjob.occupations)
-		if(J.job_bitflags & JOB_BITFLAG_GIMMICK)
-			blacklisted += J.get_jkey()
 
 /datum/computer_file/program/job_management/proc/can_open_job(datum/job/job)
-	if(!(job?.get_jkey() in blacklisted))
+	if(!istype(job))
+		return FALSE
+	if(!(job.job_bitflags & JOB_BITFLAG_MANAGE_LOCKED))
 		if((job.total_positions <= length(GLOB.player_list) * (max_relative_positions / 100)))
 			var/delta = (world.time / 10) - GLOB.time_last_changed_position
 			if((change_position_cooldown < delta) || (opened_positions[job.get_jkey()] < 0))
@@ -50,7 +35,9 @@
 	return FALSE
 
 /datum/computer_file/program/job_management/proc/can_close_job(datum/job/job)
-	if(!(job?.get_jkey() in blacklisted))
+	if(!istype(job))
+		return FALSE
+	if(!(job.job_bitflags & JOB_BITFLAG_MANAGE_LOCKED))
 		if(job.total_positions > length(GLOB.player_list) * (max_relative_positions / 100))
 			var/delta = (world.time / 10) - GLOB.time_last_changed_position
 			if((change_position_cooldown < delta) || (opened_positions[job.get_jkey()] > 0))
@@ -123,7 +110,7 @@
 	var/list/pos = list()
 	for(var/j in SSjob.occupations)
 		var/datum/job/job = j
-		if(job.get_jkey() in blacklisted)
+		if(!job || (job.job_bitflags & JOB_BITFLAG_MANAGE_LOCKED))
 			continue
 
 		pos += list(list(

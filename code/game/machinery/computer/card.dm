@@ -29,19 +29,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	//if set to -1: No cooldown... probably a bad idea
 	//if set to 0: Not able to close "original" positions. You can only close positions that you have opened before
 	var/change_position_cooldown = 30
-	//Jobs you cannot open new positions for
-	var/list/blacklisted = list(
-		JOB_KEY_AI,
-		JOB_KEY_ASSISTANT,
-		JOB_KEY_CYBORG,
-		JOB_KEY_CAPTAIN,
-		JOB_KEY_HEADOFPERSONNEL,
-		JOB_KEY_HEADOFSECURITY,
-		JOB_KEY_CHIEFENGINEER,
-		JOB_KEY_RESEARCHDIRECTOR,
-		JOB_KEY_CHIEFMEDICALOFFICER,
-		JOB_KEY_BRIGPHYSICIAN,
-		JOB_KEY_DEPUTY)
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
 	var/max_relative_positions = 30 //30%: Seems reasonable, limit of 6 @ 20 players
@@ -60,9 +47,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/Initialize(mapload)
 	. = ..()
 	change_position_cooldown = CONFIG_GET(number/id_console_jobslot_delay)
-	for(var/datum/job/J in SSjob.occupations)
-		if(J.job_bitflags & JOB_BITFLAG_GIMMICK)
-			blacklisted += J.get_jkey()
 
 	// This determines which department payment list the console will show to you.
 	if(!target_dept)
@@ -125,32 +109,30 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		inserted_modify_id.forceMove(drop_location())
 		inserted_modify_id = null
 
-//Check if you can't open a new position for a certain job
-/obj/machinery/computer/card/proc/job_blacklisted(jobtitle)
-	return (jobtitle in blacklisted)
-
 //Logic check for Topic() if you can open the job
 /obj/machinery/computer/card/proc/can_open_job(datum/job/job)
-	if(job)
-		if(!job_blacklisted(job.get_jkey()))
-			if((job.total_positions <= GLOB.player_list.len * (max_relative_positions / 100)))
-				var/delta = (world.time / 10) - GLOB.time_last_changed_position
-				if((change_position_cooldown < delta) || (opened_positions[job.get_jkey()] < 0))
-					return 1
-				return -2
-			return -1
+	if(!istype(job))
+		return 0
+	if(!(job.job_bitflags & JOB_BITFLAG_MANAGE_LOCKED))
+		if((job.total_positions <= GLOB.player_list.len * (max_relative_positions / 100)))
+			var/delta = (world.time / 10) - GLOB.time_last_changed_position
+			if((change_position_cooldown < delta) || (opened_positions[job.get_jkey()] < 0))
+				return 1
+			return -2
+		return -1
 	return 0
 
 //Logic check for Topic() if you can close the job
 /obj/machinery/computer/card/proc/can_close_job(datum/job/job)
-	if(job)
-		if(!job_blacklisted(job.get_jkey()))
-			if(job.total_positions > job.current_positions)
-				var/delta = (world.time / 10) - GLOB.time_last_changed_position
-				if((change_position_cooldown < delta) || (opened_positions[job.get_jkey()] > 0))
-					return 1
-				return -2
-			return -1
+	if(!istype(job))
+		return 0
+	if(!(job.job_bitflags & JOB_BITFLAG_MANAGE_LOCKED))
+		if(job.total_positions > job.current_positions)
+			var/delta = (world.time / 10) - GLOB.time_last_changed_position
+			if((change_position_cooldown < delta) || (opened_positions[job.get_jkey()] > 0))
+				return 1
+			return -2
+		return -1
 	return 0
 
 /obj/machinery/computer/card/proc/id_insert(mob/user, obj/item/inserting_item, obj/item/target)
@@ -241,7 +223,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			ID = 0
 		for(var/datum/job/job in SSjob.occupations)
 			dat += "<tr>"
-			if(job.get_jkey() in blacklisted)
+			if(job.job_bitflags & JOB_BITFLAG_MANAGE_LOCKED)
 				continue
 			dat += "<td>[job.get_title()]</td>"
 			dat += "<td>[job.current_positions]/[job.total_positions]</td>"
@@ -711,7 +693,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				update_modify_manifest()
 
 		if ("demote")
-			if(inserted_modify_id.assignment in head_subordinates || (inserted_modify_id.assignment in SSjob.get_current_jobname(JOB_KEY_ASSISTANT, TRUE)))
+			if(inserted_modify_id.assignment in head_subordinates || (inserted_modify_id.assignment in list(SSjob.get_current_jobname(JOB_KEY_ASSISTANT), JOB_KEY_ASSISTANT)))
 				inserted_modify_id.assignment = JOB_DEMOTED
 				log_id("[key_name(usr)] demoted [inserted_modify_id], unassigning the card without affecting access, using [inserted_scan_id] at [AREACOORD(usr)].")
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)

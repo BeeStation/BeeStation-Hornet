@@ -100,13 +100,16 @@ SUBSYSTEM_DEF(job)
 
 	return 1
 
-/datum/controller/subsystem/job/proc/AnnounceGimmickJobs()
+/datum/controller/subsystem/job/proc/AnnounceGimmickJobs(target=null)
 	var/list/available_gimmicks = list()
 	for(var/datum/job/J in occupations)
-		if((J.job_bitflags & JOB_BITFLAG_SELECTABLE) && (J.job_bitflags & JOB_BITFLAG_GIMMICK))
+		if((J.job_bitflags & JOB_BITFLAG_SELECTABLE) && (J.job_bitflags & JOB_BITFLAG_GIMMICK) && J.)
 			available_gimmicks += J.get_title()
 	if(length(available_gimmicks))
-		to_chat(world, "<span class='boldnotice'>Available gimmick jobs: [english_list(available_gimmicks)]</span>")
+		if(!target)
+			to_chat(world, "<span class='boldnotice'>Available gimmick jobs: [english_list(available_gimmicks)]</span>")
+		else
+			to_chat(target, "<span class='boldnotice'>Available gimmick jobs: [english_list(available_gimmicks)]</span>")
 
 /datum/controller/subsystem/job/proc/GetJob(job_key)
 	if(!job_key)
@@ -141,7 +144,7 @@ SUBSYSTEM_DEF(job)
 	return J.departments
 
 /// returns a job's current title
-/datum/controller/subsystem/job/proc/get_current_jobname(job_key, returns_pair=FALSE)
+/datum/controller/subsystem/job/proc/get_current_jobname(job_key)
 	if(!job_key)
 		CRASH("The proc has taken a null value")
 
@@ -149,16 +152,8 @@ SUBSYSTEM_DEF(job)
 	if(!job)
 		stack_trace("[job_key] is not a valid job key")
 		return job_key
-	var/current_job_name = job.get_title()
 
-	if(!returns_pair)
-		return current_job_name
-
-	if(job.get_jkey() == current_job_name)
-		return list(current_job_name)
-
-	// job_key != job_title. We're running custom job names
-	return list(job.get_jkey(), current_job_name)
+	return job.get_title()
 
 
 /datum/controller/subsystem/job/proc/AssignRole(mob/dead/new_player/player, job_key, latejoin = FALSE)

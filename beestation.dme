@@ -72,7 +72,6 @@
 #include "code\__DEFINES\exosuit_fab.dm"
 #include "code\__DEFINES\explosions.dm"
 #include "code\__DEFINES\exports.dm"
-#include "code\__DEFINES\factions.dm"
 #include "code\__DEFINES\fastdmm2.dm"
 #include "code\__DEFINES\flags.dm"
 #include "code\__DEFINES\fonts.dm"

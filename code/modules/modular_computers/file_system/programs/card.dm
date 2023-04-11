@@ -166,7 +166,7 @@
 			if(!authenticated)
 				return
 			if(minor)
-				if(!(target_id_card.assignment in head_subordinates) && !(target_id_card.assignment in SSjob.get_current_jobname(JOB_KEY_ASSISTANT, TRUE)))
+				if(!(target_id_card.assignment in head_subordinates) && !(target_id_card.assignment in list(SSjob.get_current_jobname(JOB_KEY_ASSISTANT), JOB_KEY_ASSISTANT)))
 					return
 
 			target_id_card.access -= get_all_centcom_access() + get_all_accesses()

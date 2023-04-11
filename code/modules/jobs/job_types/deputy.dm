@@ -1,7 +1,7 @@
 /datum/job/deputy
 	jkey = JOB_KEY_DEPUTY
 	jtitle = JOB_NAME_DEPUTY
-	job_bitflags = JOB_BITFLAG_SELECTABLE
+	job_bitflags = JOB_BITFLAG_MANAGE_LOCKED
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
 	faction = FACTION_STATION

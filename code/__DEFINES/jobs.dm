@@ -30,7 +30,8 @@
 
 // used in job_bitflags
 #define JOB_BITFLAG_SELECTABLE (1<<0) // basically given to all 'standard' jobs (not gimmicks). if a gimmick job has with this flag, it will be shown in 'job pref' window and people can join a round with that job.
-#define JOB_BITFLAG_GIMMICK    (1<<1) // basically given to all gimmick jobs. this is alwo used to block HoP to touch the amount of a job
+#define JOB_BITFLAG_GIMMICK  (1<<1) // basically given to all gimmick jobs. this is alwo used to block HoP to touch the amount of a job
+#define JOB_BITFLAG_MANAGE_LOCKED (1<<2) // this flag blocks job manager control. given to heads and silicon job
 
 // return values for job selection results
 #define JOB_AVAILABLE 0

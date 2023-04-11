@@ -324,7 +324,7 @@
 	var/current_assignment = H.get_assignment()
 	if(!current_assignment)
 		return FALSE
-	if(!(current_assignment in SSjob.get_current_jobname(JOB_KEY_ASSISTANT, TRUE)+list("No id", "No job", JOB_UNASSIGNED)))
+	if(!(current_assignment in list("No id", "No job", JOB_UNASSIGNED, SSjob.get_current_jobname(JOB_KEY_ASSISTANT), JOB_KEY_ASSISTANT)))
 		return TRUE
 	if(theID.hud_state != JOB_HUD_ASSISTANT) // non-assistant HUD counts too
 		return TRUE

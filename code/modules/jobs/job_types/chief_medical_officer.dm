@@ -1,7 +1,7 @@
 /datum/job/chief_medical_officer
 	jkey = JOB_KEY_CHIEFMEDICALOFFICER
 	jtitle = JOB_NAME_CHIEFMEDICALOFFICER
-	job_bitflags = JOB_BITFLAG_SELECTABLE
+	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD

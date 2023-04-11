@@ -499,7 +499,7 @@
 		var/datum/antagonist/A = M.mind.has_antag_datum(/datum/antagonist/)
 		if(A)
 			poll_message += " Status:[A.name]."
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob(poll_message, ROLE_KEY_PAI, null, FALSE, 100, M)
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob(poll_message, null, null, FALSE, 100, M)
 
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)

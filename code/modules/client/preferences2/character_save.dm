@@ -240,6 +240,11 @@
 		if(job_preferences[j] != JP_LOW && job_preferences[j] != JP_MEDIUM && job_preferences[j] != JP_HIGH)
 			job_preferences -= j
 
+		// this automatically removes an invalid job from the pref list.
+		if(!SSjob.name_occupations[j]) // it should get a job by `SSjob.GetJob(j)` usually, but seeing runtime here is not necessary.
+			stack_trace("found an invalid job [j]: automatically removed from their preference.")
+			job_preferences -= j
+
 	all_quirks = SANITIZE_LIST(all_quirks)
 
 	return TRUE
@@ -277,7 +282,7 @@
 	var/highest_pref = 0
 	for(var/job in job_preferences)
 		var/datum/job/temp_job = SSjob.GetJob(job)
-		if(!(temp_job.job_bitflags & JOB_BITFLAG_SELECTABLE)) // this prevents a non-selectable gimmick job's outfit appears on your character pref window
+		if(!temp_job || !(temp_job.job_bitflags & JOB_BITFLAG_SELECTABLE)) // this prevents a non-selectable gimmick job's outfit appears on your character pref window
 			continue
 		if(job_preferences[job] > highest_pref)
 			previewJob = temp_job

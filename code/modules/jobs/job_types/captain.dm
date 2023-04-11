@@ -1,7 +1,7 @@
 /datum/job/captain
 	jkey = JOB_KEY_CAPTAIN
 	jtitle = JOB_NAME_CAPTAIN
-	job_bitflags = JOB_BITFLAG_SELECTABLE
+	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD|PREFTOGGLE_DEADMIN_POSITION_SECURITY
 	department_head = list("CentCom")
 	supervisors = "Nanotrasen officials and Space law"

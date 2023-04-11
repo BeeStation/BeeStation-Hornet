@@ -340,7 +340,7 @@
 		if(SSshuttle.arrivals)
 			SSshuttle.arrivals.QueueAnnounce(humanc, job_key)
 		else
-			AnnounceArrival(humanc, job_key)
+			AnnounceArrival(humanc, job.get_title())
 		AddEmploymentContract(humanc)
 		if(GLOB.highlander)
 			to_chat(humanc, "<span class='userdanger'><i>THERE CAN BE ONLY ONE!!!</i></span>")
