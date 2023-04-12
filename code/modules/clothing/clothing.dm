@@ -47,10 +47,6 @@
 
 	var/high_pressure_multiplier = 1
 	var/static/list/high_pressure_multiplier_types = list(MELEE, BULLET, LASER, ENERGY, BOMB)
-	///These are armor values that protect the wearer, taken from the clothing's armor datum. List updates on examine because it's currently only used to print armor ratings to chat in Topic().
-	var/list/armor_list = list()
-	///These are armor values that protect the clothing, taken from its armor datum. List updates on examine because it's currently only used to print armor ratings to chat in Topic().
-	var/list/durability_list = list()
 
 /obj/item/clothing/Initialize(mapload)
 	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
@@ -175,83 +171,46 @@
 	. = ..()
 
 	if(href_list["list_armor"])
-		if(length(armor_list))
-			armor_list.Cut()
-		if(armor.bio)
-			armor_list += list("TOXIN" = armor.bio)
-		if(armor.bomb)
-			armor_list += list("EXPLOSIVE" = armor.bomb)
-		if(armor.bullet)
-			armor_list += list("BULLET" = armor.bullet)
-		if(armor.energy)
-			armor_list += list("ENERGY" = armor.energy)
-		if(armor.laser)
-			armor_list += list("LASER" = armor.laser)
-		if(armor.magic)
-			armor_list += list("MAGIC" = armor.magic)
-		if(armor.melee)
-			armor_list += list(MELEE = armor.melee)
-		if(armor.rad)
-			armor_list += list("RADIATION" = armor.rad)
-		if(armor.stamina)
-			armor_list += list("STAMINA" = armor.stamina)
+		var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES</u></b>")
+		if(armor.bio || armor.bomb || armor.bullet || armor.energy || armor.laser || armor.melee)
+			readout += "\n<b>ARMOR (I-X)</b>"
+			if(armor.bio)
+				readout += "\nTOXIN [armor_to_protection_class(armor.bio)]"
+			if(armor.bomb)
+				readout += "\nEXPLOSIVE [armor_to_protection_class(armor.bomb)]"
+			if(armor.bullet)
+				readout += "\nBULLET [armor_to_protection_class(armor..bullet)]"
+			if(armor.energy)
+				readout += "\nENERGY [armor_to_protection_class(armor.energy)]"
+			if(armor.laser)
+				readout += "\nLASER [armor_to_protection_class(armor.laser)]"
+			if(armor.magic)
+				readout += "\nMAGIC [armor_to_protection_class(armor.magic)]"
+			if(armor.melee)
+				readout += "\nMELEE [armor_to_protection_class(armor.melee)]"
+			if(armor.rad)
+				readout += "\nRADIATION [armor_to_protection_class(armor.rad)]"
+			if(armor.stamina)
+				readout += "\nSTAMINA [armor_to_protection_class(armor.stamina)]"
+		if(armor.fire || armor.acid)
+			readout += "\n<b>DURABILITY (I-X)</b>"
+			if(armor.fire)
+				readout += "\nFIRE [armor_to_protection_class(armor.fire)]"
+			if(armor.acid)
+				readout += "\nACID [armor_to_protection_class(armor.acid)]"
 
-		if(length(durability_list))
-			durability_list.Cut()
-		if(armor.fire)
-			durability_list += list("FIRE" = armor.fire)
-		if(armor.acid)
-			durability_list += list("ACID" = armor.acid)
-		var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES (I-X)</u></b>")
-		if(length(armor_list))
-			readout += "\n<b>ARMOR</b>"
-			for(var/dam_type in armor_list)
-				var/armor_amount = armor_list[dam_type]
-				readout += "\n[dam_type] [armor_to_protection_class(armor_amount)]" //e.g. BOMB IV
-		if(length(durability_list))
-			readout += "\n<b>DURABILITY</b>"
-			for(var/dam_type in durability_list)
-				var/durability_amount = durability_list[dam_type]
-				readout += "\n[dam_type] [armor_to_protection_class(durability_amount)]" //e.g. FIRE II
-		if(!(length(armor_list) || length(durability_list)))
-			readout += "\n<b>NO PROTECTION</b>"
 		readout += "</span>"
 
 		to_chat(usr, "[readout.Join()]")
 
 /**
-  * Rounds armor_value to nearest 10, divides it by 10 and then expresses it in roman numerals up to 10
-  *
-  * Rounds armor_value to nearest 10, divides it by 10
-  * and then expresses it in roman numerals up to 10
   * Arguments:
   * * armor_value - Number we're converting
   */
 /obj/item/clothing/proc/armor_to_protection_class(armor_value)
-	armor_value = round(armor_value,10) / 10
-	switch (armor_value)
-		if(0)
-			. = "< I"
-		if(1)
-			. = "I"
-		if(2)
-			. = "II"
-		if(3)
-			. = "III"
-		if(4)
-			. = "IV"
-		if(5)
-			. = "V"
-		if(6)
-			. = "VI"
-		if(7)
-			. = "VII"
-		if(8)
-			. = "VIII"
-		if(9)
-			. = "IX"
-		if(10 to INFINITY)
-			. = "X"
+	if (armor_value < 0)
+		. = "-"
+	. += "\Roman[round(abs(armor_value), 10) / 10]"
 
 /obj/item/clothing/obj_break(damage_flag)
 	if(!damaged_clothes)
