@@ -135,6 +135,21 @@
 			. += "[src] offers the wearer robust protection from fire."
 	if(damaged_clothes)
 		. += "<span class='warning'>It looks damaged!</span>"
+
+	/* Bodypart wounds-related shit for when we eventually port https://github.com/tgstation/tgstation/pull/50558
+	*
+	for(var/zone in damage_by_parts)
+		var/pct_damage_part = damage_by_parts[zone] / limb_integrity * 100
+		var/zone_name = parse_zone(zone)
+		switch(pct_damage_part)
+			if(100 to INFINITY)
+				. += span_warning("<b>The [zone_name] is useless and requires mending!</b>")
+			if(60 to 99)
+				. += span_warning("The [zone_name] is heavily shredded!")
+			if(30 to 59)
+				. += span_danger("The [zone_name] is partially shredded.")
+	*/
+
 	var/datum/component/storage/pockets = GetComponent(/datum/component/storage)
 	if(pockets)
 		var/list/how_cool_are_your_threads = list("<span class='notice'>")
@@ -142,8 +157,10 @@
 			how_cool_are_your_threads += "[src]'s storage opens when clicked.\n"
 		else
 			how_cool_are_your_threads += "[src]'s storage opens when dragged to yourself.\n"
-		how_cool_are_your_threads += "[src] can store [pockets.max_items] item\s.\n"
-		how_cool_are_your_threads += "[src] can store items that are [weight_class_to_text(pockets.max_w_class)] or smaller.\n"
+		if (pockets.can_hold?.len) // If pocket type can hold anything, vs only specific items
+			how_cool_are_your_threads += "[src] can store [pockets.max_items] item\s.\n"
+		else
+			how_cool_are_your_threads += "[src] can store [pockets.max_items] item\s that are [weight_class_to_text(pockets.max_w_class)] or smaller.\n"
 		if(pockets.quickdraw)
 			how_cool_are_your_threads += "You can quickly remove an item from [src] using Alt-Click.\n"
 		if(pockets.silent)
@@ -151,7 +168,8 @@
 		how_cool_are_your_threads += "</span>"
 		. += how_cool_are_your_threads.Join()
 
-	. += "<span class='notice'>It has a <a href='?src=[REF(src)];list_armor=1'>tag</a> listing its protection classes.</span>"
+	if(armor.bio || armor.bomb || armor.bullet || armor.energy || armor.laser || armor.melee || armor.fire || armor.acid || armor.stamina)
+		. += "<span class='notice'>It has a <a href='?src=[REF(src)];list_armor=1'>tag</a> listing its protection classes.</span>"
 
 /obj/item/clothing/Topic(href, href_list)
 	. = ..()
