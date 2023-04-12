@@ -1,0 +1,4 @@
+author: Crossedfall
+delete-after: true
+changes:
+  - bugfix: TGUI say should work again
