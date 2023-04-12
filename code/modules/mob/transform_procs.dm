@@ -32,6 +32,9 @@
 
 	var/mob/living/carbon/monkey/O = new /mob/living/carbon/monkey( loc )
 
+	// Make it be able to be turned back into a human with mutadone
+	O.natural = FALSE
+	O.check_if_natural()
 	// hash the original name?
 	if(tr_flags & TR_HASHNAME)
 		O.name = "monkey ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"
@@ -45,7 +48,7 @@
 
 	//store original species
 	for(var/datum/mutation/race/M in O.dna.mutations)
-		M.original_species = original_species
+		M.orig_species = original_species
 		break //Can't be more than one monkified in a DNA set so, no need to continue the loop
 
 	if(suiciding)
