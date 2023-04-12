@@ -164,7 +164,7 @@
 		how_cool_are_your_threads += "</span>"
 		. += how_cool_are_your_threads.Join()
 
-	if(armor.bio || armor.bomb || armor.bullet || armor.energy || armor.laser || armor.melee || armor.fire || armor.acid || armor.stamina)
+	if(armor.bio || armor.bomb || armor.bullet || armor.energy || armor.laser || armor.melee || armor.fire || armor.acid || armor.stamina || (flags_cover & HEADCOVERSMOUTH))
 		. += "<span class='notice'>It has a <a href='?src=[REF(src)];list_armor=1'>tag</a> listing its protection classes.</span>"
 
 /obj/item/clothing/Topic(href, href_list)
@@ -172,14 +172,14 @@
 
 	if(href_list["list_armor"])
 		var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES</u></b>")
-		if(armor.bio || armor.bomb || armor.bullet || armor.energy || armor.laser || armor.melee)
+		if(armor.bio || armor.bomb || armor.bullet || armor.energy || armor.laser || armor.magic || armor.melee || armor.rad || armor.stamina)
 			readout += "\n<b>ARMOR (I-X)</b>"
 			if(armor.bio)
 				readout += "\nTOXIN [armor_to_protection_class(armor.bio)]"
 			if(armor.bomb)
 				readout += "\nEXPLOSIVE [armor_to_protection_class(armor.bomb)]"
 			if(armor.bullet)
-				readout += "\nBULLET [armor_to_protection_class(armor..bullet)]"
+				readout += "\nBULLET [armor_to_protection_class(armor.bullet)]"
 			if(armor.energy)
 				readout += "\nENERGY [armor_to_protection_class(armor.energy)]"
 			if(armor.laser)
@@ -198,15 +198,23 @@
 				readout += "\nFIRE [armor_to_protection_class(armor.fire)]"
 			if(armor.acid)
 				readout += "\nACID [armor_to_protection_class(armor.acid)]"
+		if(flags_cover & HEADCOVERSMOUTH)
+			readout += "\n<b>COVERAGE</b>"
+			readout += "\nIt will block Facehuggers."
+			/* We dont have the tooltips for this
+			readout += "<span class='tooltip'>Because this item is worn on the head and is covering the mouth, it will block facehugger proboscides, killing them</span>."
+			*/
 
 		readout += "</span>"
 
 		to_chat(usr, "[readout.Join()]")
 
 /**
-  * Arguments:
-  * * armor_value - Number we're converting
-  */
+ * Rounds armor_value down to the nearest 10, divides it by 10 and then converts it to Roman numerals.
+ *
+ * Arguments:
+ * * armor_value - Number we're converting
+ */
 /obj/item/clothing/proc/armor_to_protection_class(armor_value)
 	if (armor_value < 0)
 		. = "-"
@@ -229,17 +237,19 @@
 
 /obj/item/clothing/update_overlays()
 	. = ..()
-	if(damaged_clothes)
-		var/index = "[REF(initial(icon))]-[initial(icon_state)]"
-		var/static/list/damaged_clothes_icons = list()
-		var/icon/damaged_clothes_icon = damaged_clothes_icons[index]
-		if(!damaged_clothes_icon)
-			damaged_clothes_icon = icon(icon, icon_state, null, 1)
-			damaged_clothes_icon.Blend("#fff", ICON_ADD) 	//fills the icon_state with white (except where it's transparent)
-			damaged_clothes_icon.Blend(icon('icons/effects/item_damage.dmi', "itemdamaged"), ICON_MULTIPLY) //adds damage effect and the remaining white areas become transparant
-			damaged_clothes_icon = fcopy_rsc(damaged_clothes_icon)
-			damaged_clothes_icons[index] = damaged_clothes_icon
-		. += damaged_clothes_icon
+	if(!damaged_clothes)
+		return
+
+	var/index = "[REF(initial(icon))]-[initial(icon_state)]"
+	var/static/list/damaged_clothes_icons = list()
+	var/icon/damaged_clothes_icon = damaged_clothes_icons[index]
+	if(!damaged_clothes_icon)
+		damaged_clothes_icon = icon(icon, icon_state, null, 1)
+		damaged_clothes_icon.Blend("#fff", ICON_ADD) 	//fills the icon_state with white (except where it's transparent)
+		damaged_clothes_icon.Blend(icon('icons/effects/item_damage.dmi', "itemdamaged"), ICON_MULTIPLY) //adds damage effect and the remaining white areas become transparant
+		damaged_clothes_icon = fcopy_rsc(damaged_clothes_icon)
+		damaged_clothes_icons[index] = damaged_clothes_icon
+	. += damaged_clothes_icon
 
 
 /*
