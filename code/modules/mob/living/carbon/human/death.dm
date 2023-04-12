@@ -8,7 +8,7 @@
 		if(GIB_TYPE_ROBOTIC)
 			new /obj/effect/temp_visual/gib_animation(loc, "gibbed-r")
 
-/mob/living/carbon/human/dust(drop_items, force)
+/mob/living/carbon/human/dust(just_ash, drop_items, force)
 	death(TRUE)
 
 	if(drop_items)
