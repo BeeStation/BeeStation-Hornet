@@ -1,0 +1,7 @@
+author: Crossedfall
+delete-after: true
+changes:
+  - code_imp: Multikey warnings for clients and admins have been improved
+  - config: Converted the max recommended build for clients into a config entry
+  - config: Added a warning build config setting to lightly nudge clients using older
+      builds towards newer versions
