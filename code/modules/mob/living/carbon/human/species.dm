@@ -668,7 +668,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			var/datum/sprite_accessory/underwear/underwear = GLOB.underwear_list[H.underwear]
 			var/mutable_appearance/underwear_overlay
 			if(underwear)
-				if(H.dna.species.sexes && H.gender == FEMALE && (underwear.gender == MALE))
+				if(H.dna.species.sexes && H.dna.features["body_model"] == FEMALE && (underwear.gender == MALE))
 					underwear_overlay = wear_female_version(underwear.icon_state, underwear.icon, BODY_LAYER, FEMALE_UNIFORM_FULL)
 				else
 					underwear_overlay = mutable_appearance(underwear.icon, underwear.icon_state, -BODY_LAYER)
@@ -679,7 +679,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(H.undershirt)
 			var/datum/sprite_accessory/undershirt/undershirt = GLOB.undershirt_list[H.undershirt]
 			if(undershirt)
-				if(H.dna.species.sexes && H.gender == FEMALE)
+				if(H.dna.species.sexes && H.dna.features["body_model"] == FEMALE)
 					standing += wear_female_version(undershirt.icon_state, undershirt.icon, BODY_LAYER)
 				else
 					standing += mutable_appearance(undershirt.icon, undershirt.icon_state, -BODY_LAYER)
@@ -815,7 +815,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(!bodyparts_to_add)
 		return
 
-	var/g = (H.gender == FEMALE) ? "f" : "m"
+	var/g = (H.dna.features["body_model"] == FEMALE) ? "f" : "m"
 
 	for(var/layer in relevent_layers)
 		var/layertext = mutant_bodyparts_layertext(layer)
@@ -1500,7 +1500,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			log_combat(user, target, "attempted to punch")
 			return FALSE
 
-		var/armor_block = target.run_armor_check(affecting, "melee")
+		var/armor_block = target.run_armor_check(affecting, MELEE)
 
 		playsound(target.loc, user.dna.species.attack_sound, 25, 1, -1)
 
@@ -1516,10 +1516,14 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 		if(atk_verb == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
 			target.apply_damage(damage*1.5, attack_type, affecting, armor_block)
+			if((damage * 1.5) >= 9)
+				target.force_say()
 			log_combat(user, target, "kicked")
 		else//other attacks deal full raw damage + 1.5x in stamina damage
 			target.apply_damage(damage, attack_type, affecting, armor_block)
 			target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
+			if(damage >= 9)
+				target.force_say()
 			log_combat(user, target, "punched")
 
 /datum/species/proc/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
@@ -1637,7 +1641,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				if(target_held_item)
 					target.visible_message("<span class='danger'>[target.name]'s grip on \the [target_held_item] loosens!</span>",
 						"<span class='danger'>Your grip on \the [target_held_item] loosens!</span>", null, COMBAT_MESSAGE_RANGE)
-				addtimer(CALLBACK(target, /mob/living/carbon/human/proc/clear_shove_slowdown), SHOVE_SLOWDOWN_LENGTH)
+				addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon/human, clear_shove_slowdown)), SHOVE_SLOWDOWN_LENGTH)
 			else if(target_held_item)
 				target.dropItemToGround(target_held_item)
 				knocked_item = TRUE
@@ -1701,7 +1705,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	hit_area = parse_zone(affecting.body_zone)
 	var/def_zone = affecting.body_zone
 
-	var/armor_block = H.run_armor_check(affecting, "melee", "<span class='notice'>Your armor has protected your [hit_area]!</span>", "<span class='warning'>Your armor has softened a hit to your [hit_area]!</span>",I.armour_penetration)
+	var/armor_block = H.run_armor_check(affecting, MELEE, "<span class='notice'>Your armor has protected your [hit_area]!</span>", "<span class='warning'>Your armor has softened a hit to your [hit_area]!</span>",I.armour_penetration)
 	armor_block = min(90,armor_block) //cap damage reduction at 90%
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 
@@ -1766,7 +1770,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 						H.update_inv_w_uniform()
 
 		if(Iforce > 10 || Iforce >= 5 && prob(33))
-			H.forcesay(GLOB.hit_appends)	//forcesay checks stat already.
+			H.force_say(user)
 	return TRUE
 
 /datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE)

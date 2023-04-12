@@ -33,11 +33,19 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		- Are the processes being called by Topic() particularly laggy?
 		- If so, is there any protection against somebody spam-clicking a link?
 	If you have any  questions about this stuff feel free to ask. ~Carn
+
+	the undocumented 4th argument is for ?[0x\ref] style topic links. hsrc is set to the reference and anything after the ] gets put into hsrc_command
 	*/
 
-/client/Topic(href, href_list, hsrc)
+/client/Topic(href, href_list, hsrc, hsrc_command)
 	if(!usr || usr != mob)	//stops us calling Topic for somebody else's client. Also helps prevent usr=null
 		return
+
+#ifndef TESTING
+	//disable the integrated byond vv in the client side debugging tools since it doesn't respect vv read protections
+	if (lowertext(hsrc_command) == "_debug")
+		return
+#endif
 
 	// asset_cache
 	var/asset_cache_job
@@ -204,8 +212,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	GLOB.clients += src
 	GLOB.directory[ckey] = src
 
-		// Instantiate tgui panel
-	tgui_panel = new(src)
+	// Instantiate tgui panel
+	tgui_panel = new(src, "browseroutput")
+
+	tgui_say = new(src, "tgui_say")
 
 	GLOB.ahelp_tickets.ClientLogin(src)
 	GLOB.mhelp_tickets.ClientLogin(src)
@@ -317,6 +327,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	// Initialize tgui panel
 	tgui_panel.Initialize()
+
+	tgui_say.initialize()
 
 	if(alert_mob_dupe_login)
 		spawn()

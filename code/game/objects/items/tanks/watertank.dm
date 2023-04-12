@@ -12,7 +12,7 @@
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/toggle_mister)
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 
 	var/obj/item/noz
@@ -114,7 +114,7 @@
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(25,50,100)
 	volume = 500
-	item_flags = NOBLUDGEON | ABSTRACT  // don't put in storage
+	item_flags = NOBLUDGEON | ABSTRACT | ISWEAPON  // don't put in storage
 	slot_flags = 0
 
 	var/obj/item/watertank/tank
@@ -214,7 +214,7 @@
 	precision = 1
 	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE
-	item_flags = ABSTRACT  // don't put in storage
+	item_flags = ABSTRACT | ISWEAPON  // don't put in storage
 	var/obj/item/watertank/tank
 	var/nozzle_mode = 0
 	var/metal_synthesis_cooldown = 0

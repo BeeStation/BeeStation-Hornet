@@ -280,10 +280,6 @@
 		H.faction |= factions
 		remove_hivemember(H)
 
-		for(var/V in quirks)
-			var/datum/quirk/Q = new V(H)
-			Q.on_clone(quirks[V])
-
 		for(var/t in traumas)
 			var/datum/brain_trauma/BT = t
 			var/datum/brain_trauma/cloned_trauma = BT.on_clone()
@@ -403,7 +399,7 @@
 			log_cloning("[key_name(mob_occupant)] completed cloning cycle in [src] at [AREACOORD(src)].")
 
 	else if (!mob_occupant || mob_occupant.loc != src)
-		occupant = null
+		set_occupant(null)
 		if (!mess && !panel_open)
 			icon_state = "pod_0"
 		use_power(200)
@@ -528,7 +524,7 @@
 		qdel(fl)
 	unattached_flesh.Cut()
 
-	occupant = null
+	set_occupant(null)
 	clonemind = null
 
 // Guess they moved out on their own, remove any clone status effects
@@ -583,7 +579,7 @@
 
 /obj/machinery/clonepod/handle_atom_del(atom/A)
 	if(A == occupant)
-		occupant = null
+		set_occupant(null)
 		countdown.stop()
 
 /obj/machinery/clonepod/proc/horrifyingsound()

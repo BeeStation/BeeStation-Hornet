@@ -25,7 +25,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	/*if(!user.client.prefs.read_preference(/datum/preference/toggle/tgui_input))
+	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
 		if(encode)
 			if(multiline)
 				return stripped_multiline_input(user, message, title, default, max_length)
@@ -35,7 +35,7 @@
 			if(multiline)
 				return input(user, message, title, default) as message|null
 			else
-				return input(user, message, title, default) as text|null*/
+				return input(user, message, title, default) as text|null
 	var/datum/tgui_input_text/text_input = new(user, message, title, default, max_length, multiline, encode, timeout)
 	text_input.ui_interact(user)
 	text_input.wait()
@@ -67,7 +67,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	/*if(!user.client.prefs.read_preference(/datum/preference/toggle/tgui_input))
+	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
 		if(encode)
 			if(multiline)
 				return stripped_multiline_input(user, message, title, default, max_length)
@@ -77,7 +77,7 @@
 			if(multiline)
 				return input(user, message, title, default) as message|null
 			else
-				return input(user, message, title, default) as text|null*/
+				return input(user, message, title, default) as text|null
 	var/datum/tgui_input_text/async/text_input = new(user, message, title, default, max_length, multiline, encode, callback, timeout)
 	text_input.ui_interact(user)
 
@@ -154,8 +154,12 @@
 	.["multiline"] = multiline
 	.["placeholder"] = default // Default is a reserved keyword
 	.["preferences"] = list()
-	.["preferences"]["large_buttons"] = TRUE//user.client.prefs.read_preference(/datum/preference/toggle/tgui_input_large)
-	.["preferences"]["swapped_buttons"] = TRUE//user.client.prefs.read_preference(/datum/preference/toggle/tgui_input_swapped)
+	if(!user.client || !user.client.prefs)
+		.["preferences"]["large_buttons"] = TRUE
+		.["preferences"]["swapped_buttons"] = TRUE
+	else
+		.["preferences"]["large_buttons"] = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_BIG_BUTTONS)
+		.["preferences"]["swapped_buttons"] = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_SWITCHED_BUTTONS)
 	.["title"] = title
 	if(timeout)
 		.["timeout"] = CLAMP01((timeout - (world.time - start_time) - 1 SECONDS) / (timeout - 1 SECONDS))
