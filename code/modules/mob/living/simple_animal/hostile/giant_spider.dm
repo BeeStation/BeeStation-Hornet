@@ -3,7 +3,6 @@
 #define LAYING_EGGS 2
 #define MOVING_TO_TARGET 3
 #define SPINNING_COCOON 4
-#define MAX_WEBS_PER_TILE 3
 
 /mob/living/simple_animal/hostile/poison
 	mobchatspan = "researchdirector"
