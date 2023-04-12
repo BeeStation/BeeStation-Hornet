@@ -150,7 +150,7 @@
 
 	. = ..()
 	if (prob(mineralChance))
-		var/path = pickweight(mineralSpawnChanceList)
+		var/path = pick_weight(mineralSpawnChanceList)
 		if(ispath(path, /turf))
 			var/turf/T = ChangeTurf(path,null,CHANGETURF_IGNORE_AIR)
 

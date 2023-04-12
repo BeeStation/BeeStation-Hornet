@@ -22,8 +22,8 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	//if(!user.client.prefs.read_preference(/datum/preference/toggle/tgui_input))
-	//	return input(user, message, title) as null|anything in items
+	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
+		return input(user, message, title) as null|anything in items
 	var/datum/tgui_list_input/input = new(user, message, title, items, default, timeout)
 	input.ui_interact(user)
 	input.wait()
@@ -56,8 +56,8 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	//if(!user.client.prefs.read_preference(/datum/preference/toggle/tgui_input))
-	//	return input(user, message, title) as null|anything in items
+	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
+		return input(user, message, title) as null|anything in items
 	var/datum/tgui_list_input/async/input = new(user, message, title, items, default, callback, timeout)
 	input.ui_interact(user)
 
@@ -150,8 +150,12 @@
 	.["init_value"] = default || items[1]
 	.["message"] = message
 	.["preferences"] = list()
-	.["preferences"]["large_buttons"] = TRUE//user.client.prefs.read_preference(/datum/preference/toggle/tgui_input_large)
-	.["preferences"]["swapped_buttons"] = TRUE//user.client.prefs.read_preference(/datum/preference/toggle/tgui_input_swapped)
+	if(!user.client || !user.client.prefs)
+		.["preferences"]["large_buttons"] = TRUE
+		.["preferences"]["swapped_buttons"] = TRUE
+	else
+		.["preferences"]["large_buttons"] = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_BIG_BUTTONS)
+		.["preferences"]["swapped_buttons"] = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_SWITCHED_BUTTONS)
 	.["title"] = title
 	if(timeout)
 		.["timeout"] = clamp((timeout - (world.time - start_time) - 1 SECONDS) / (timeout - 1 SECONDS), 0, 1)
