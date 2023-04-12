@@ -91,6 +91,7 @@
 		mind.add_antag_datum(spooder, spider_team)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Destroy()
+	RemoveAbility(lesserwrap)
 	QDEL_NULL(lay_web)
 	GLOB.spidermobs -= src
 	return ..()
