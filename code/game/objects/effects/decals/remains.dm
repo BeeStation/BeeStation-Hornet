@@ -14,6 +14,7 @@
 	icon_state = "remains"
 
 /obj/effect/decal/remains/plasma
+	desc = "They look like... some sort of purple bone structure? They have a strange aura about them."
 	icon_state = "remainsplasma"
 
 /obj/effect/decal/remains/xeno
@@ -21,10 +22,11 @@
 	icon_state = "remainsxeno"
 
 /obj/effect/decal/remains/xeno/larva
+	desc = "They look like the remains of something... alien. Potential killed in the crib. They have a strange aura about them."
 	icon_state = "remainslarva"
 
 /obj/effect/decal/remains/robot
-	desc = "They look like the remains of something mechanical. They have a strange aura about them."
+	desc = "There are broken pistons and burnt wiring amongst the debris, it seems mechanical. They have a strange aura about them."
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "remainsrobot"
 

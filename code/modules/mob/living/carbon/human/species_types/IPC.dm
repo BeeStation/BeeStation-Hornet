@@ -29,7 +29,6 @@
 	staminamod = 0.8
 	siemens_coeff = 1.5
 	blood_color = "#000000"
-	remains_type = /obj/effect/decal/remains/robot
 	reagent_tag = PROCESS_SYNTHETIC
 	species_gibs = GIB_TYPE_ROBOTIC
 	attack_sound = 'sound/items/trayhit1.ogg'
@@ -45,6 +44,7 @@
 	species_r_arm = /obj/item/bodypart/r_arm/ipc
 	species_l_leg = /obj/item/bodypart/l_leg/ipc
 	species_r_leg = /obj/item/bodypart/r_leg/ipc
+	remains_type = /obj/effect/decal/remains/robot
 
 	var/saved_screen //for saving the screen when they die
 	var/datum/action/innate/change_screen/change_screen
