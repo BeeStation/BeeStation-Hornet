@@ -58,6 +58,9 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	var/list/species_whitelist //Only allow certain species to receive this gear
 	var/sort_category = "General"
 	var/subtype_path = /datum/gear //for skipping organizational subtypes (optional)
+	var/skirt_display_name
+	var/skirt_path = null
+	var/skirt_description
 
 /datum/gear/New()
 	..()
@@ -65,6 +68,9 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	if(!description)
 		var/obj/O = path
 		description = initial(O.desc)
+	if(!isnull(skirt_path))
+		var/obj/O = skirt_path
+		skirt_description = initial(O.desc)
 
 /datum/gear/proc/purchase(var/client/C) //Called when the gear is first purchased
 	return
@@ -77,7 +83,10 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	path = npath
 	location = nlocation
 
-/datum/gear/proc/spawn_item(location, metadata)
-	var/datum/gear_data/gd = new(path, location)
+/datum/gear/proc/spawn_item(location, metadata, skirt_pref)
+	var/item_path = path
+	if(skirt_pref == PREF_SKIRT && !isnull(skirt_path))
+		item_path = skirt_path
+	var/datum/gear_data/gd = new(item_path, location)
 	var/item = new gd.path(gd.location)
 	return item

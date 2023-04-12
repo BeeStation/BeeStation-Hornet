@@ -39,7 +39,7 @@
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
 
-/obj/structure/closet/crate/necropolis/tendril/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot - MAY REPLACE WITH pickweight(loot)
+/obj/structure/closet/crate/necropolis/tendril/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot - MAY REPLACE WITH pick_weight(loot)
 	var/static/list/necropolis_goodies = list(	//weights to be defined later on, for now they're all the same
 		/obj/item/clothing/glasses/godeye									= 5,
 		/obj/item/pickaxe/diamond											= 5,
@@ -61,7 +61,7 @@
 	)
 
 	if(..())
-		var/necropolis_loot = pickweight(necropolis_goodies.Copy())
+		var/necropolis_loot = pick_weight(necropolis_goodies.Copy())
 		new necropolis_loot(src)
 
 /obj/structure/closet/crate/necropolis/can_open(mob/living/user, force = FALSE)
@@ -403,7 +403,7 @@
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	fire_sound = 'sound/weapons/batonextend.ogg'
 	max_charges = 1
-	item_flags = NEEDS_PERMIT
+	item_flags = NEEDS_PERMIT | ISWEAPON
 	force = 15
 	attack_weight = 2
 
@@ -960,6 +960,7 @@
 	damtype = BURN
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hitsound = 'sound/weapons/sear.ogg'
+	item_flags = ISWEAPON
 	var/turf_type = /turf/open/lava/smooth
 	var/transform_string = "lava"
 	var/reset_turf_type = /turf/open/floor/plating/asteroid/basalt
@@ -1059,7 +1060,7 @@
 		var/mob/living/L = I
 		da_list[L.real_name] = L
 
-	var/choice = input(user,"Who do you want dead?","Choose Your Victim") as null|anything in sortNames(da_list)
+	var/choice = input(user,"Who do you want dead?","Choose Your Victim") as null|anything in sort_names(da_list)
 
 	choice = da_list[choice]
 

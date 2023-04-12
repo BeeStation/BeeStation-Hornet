@@ -169,6 +169,21 @@
 		usr.client.buzz_playing = FALSE
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ship Ambience", "[usr.client.prefs.toggles & PREFTOGGLE_SOUND_SHIP_AMBIENCE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, I bet you read this comment expecting to see the same thing :^)
 
+/client/verb/toggle_soundtrack()
+	set name = "Hear/Silence Soundtrack"
+	set category = "Preferences"
+	set desc = "Hear Soundtrack Songs"
+	prefs.toggles2 ^= PREFTOGGLE_2_SOUNDTRACK
+	prefs.save_preferences()
+	if(prefs.toggles2 & PREFTOGGLE_2_SOUNDTRACK)
+		to_chat(usr, "You will now hear soundtrack songs.")
+		usr.play_current_soundtrack()
+	else
+		to_chat(usr, "You will no longer hear soundtrack songs.")
+		usr.stop_sound_channel(CHANNEL_SOUNDTRACK)
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Soundtrack", "[usr.client.prefs.toggles2 & PREFTOGGLE_2_SOUNDTRACK ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, I bet you read this comment expecting to see the same thing :^)
+
+
 /client/verb/toggle_announcement_sound()
 	set name = "Hear/Silence Announcements"
 	set category = "Preferences"
@@ -204,7 +219,7 @@
 	to_chat(usr, "You will [(prefs.chat_toggles & CHAT_BANKCARD) ? "now" : "no longer"] be notified when you get paid.")
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Income Notifications", "[(prefs.chat_toggles & CHAT_BANKCARD) ? "Enabled" : "Disabled"]"))
 
-GLOBAL_LIST_INIT(ghost_forms, sortList(list("ghost","ghostking","ghostian2","skeleghost","ghost_red","ghost_black", \
+GLOBAL_LIST_INIT(ghost_forms, sort_list(list("ghost","ghostking","ghostian2","skeleghost","ghost_red","ghost_black", \
 							"ghost_blue","ghost_yellow","ghost_green","ghost_pink", \
 							"ghost_cyan","ghost_dblue","ghost_dred","ghost_dgreen", \
 							"ghost_dcyan","ghost_grey","ghost_dyellow","ghost_dpink", "ghost_purpleswirl","ghost_funkypurp","ghost_pinksherbert","ghost_blazeit",\

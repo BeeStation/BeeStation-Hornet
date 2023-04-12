@@ -36,7 +36,7 @@
 	var/mob/living/carbon/H = M
 	var/mob/living/simple_animal/hostile/guardian/G = M
 	user.visible_message("<span class='warning'>[user] prepares to stab [H] with \the [src]!</span>", "<span class='notice'>You raise \the [src] into the air.</span>")
-	if(do_mob(user, H, 5 SECONDS))
+	if(do_after(user, 5 SECONDS, H))
 		if(LAZYLEN(H.hasparasites()) || (H.mind && H.mind.has_antag_datum(/datum/antagonist/changeling)) || (isguardian(M) && (users[G] || G.requiem || G.transforming)))
 			H.visible_message("<span class='holoparasite'>\The [src] rejects [H]!</span>")
 			return
@@ -117,7 +117,7 @@
 	for(var/M in majors)
 		var/datum/guardian_ability/major/major = new M
 		major_weighted[major] = major.arrow_weight
-	var/datum/guardian_ability/major/major_ability = pickweight(major_weighted)
+	var/datum/guardian_ability/major/major_ability = pick_weight(major_weighted)
 	var/datum/guardian_stats/stats = new
 	stats.ability = major_ability
 	stats.ability.master_stats = stats

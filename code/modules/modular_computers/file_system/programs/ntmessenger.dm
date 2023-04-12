@@ -71,7 +71,7 @@
 	else
 		sortmode = GLOBAL_PROC_REF(cmp_pdaname_asc)
 
-	for(var/obj/item/modular_computer/P in sortList(GLOB.TabletMessengers, sortmode))
+	for(var/obj/item/modular_computer/P in sort_list(GLOB.TabletMessengers, sortmode))
 		var/obj/item/computer_hardware/hard_drive/drive = P.all_components[MC_HDD]
 		if(!drive)
 			continue
