@@ -23,7 +23,7 @@
 /mob/living/carbon/human/dust_animation()
 	// Animate them being dusted out of existence
 	var/obj/effect/dusting_anim/dust_effect = new(loc, src)
-	filters += filter(type = "displace", size = 256, render_source = "*snap\ref[src]")
+	filters += filter(type = "displace", size = 256, render_source = "*snap[REF(src)]")
 	animate(src, alpha = 0, time = 20, easing = (EASE_IN | SINE_EASING))
 
 	new dna.species.remains_type(get_turf(src))
