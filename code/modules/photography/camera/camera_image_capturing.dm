@@ -121,30 +121,10 @@
 					else // there's no way to get real orbit animation. faking orbit animation here.
 						var/ghost_rotated = rand(0, 360)
 						img.Turn(-ghost_rotated)
-						switch(ghost_rotated)
-							if(0 to 90)
-								ghost_rotated = round(ghost_rotated/3)
-								xo += (30-ghost_rotated)
-								yo += ghost_rotated
-
-							if(90 to 180)
-								ghost_rotated -= 90
-								ghost_rotated = round(ghost_rotated/3)
-								xo -= ghost_rotated
-								yo += (30-ghost_rotated)
-
-							if(180 to 270)
-								ghost_rotated -= 180
-								ghost_rotated = round(ghost_rotated/3)
-								xo -= (30-ghost_rotated)
-								yo -= ghost_rotated
-
-							if(270 to 360)
-								ghost_rotated -= 270
-								ghost_rotated = round(ghost_rotated/3)
-								xo += ghost_rotated
-								yo -= (30-ghost_rotated)
-						// I don't know math... it's closer enough to a circle
+						xo += round(cos(ghost_rotated)*25) // 25 pixels away from the centre
+						yo += round(sin(ghost_rotated)*25)
+						// put ghost images randomly scattered on a line of a circle
+						// credit to Aramix for the circle math
 
 				res.Blend(img, blendMode2iconMode(clone.blend_mode), xo, yo)
 			CHECK_TICK
