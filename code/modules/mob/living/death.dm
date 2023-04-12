@@ -36,11 +36,17 @@
 		buckled.unbuckle_mob(src, force = TRUE)
 
 	dust_animation()
-	spawn_dust(just_ash)
-	QDEL_IN(src,5) // since this is sometimes called in the middle of movement, allow half a second for movement to finish, ghosting to happen and animation to play. Looks much nicer and doesn't cause multiple runtimes.
+	QDEL_IN(src, 20)
 
-/mob/living/proc/dust_animation()
-	return
+/mob/living/proc/dust_animation(just_ash)
+	// Animate them being dusted out of existence
+	var/obj/effect/dusting_anim/dust_effect = new(loc, REF(src))
+	filters += filter(type = "displace", size = 256, render_source = "*snap[REF(src)]")
+	animate(src, alpha = 0, time = 20, easing = (EASE_IN | SINE_EASING))
+
+	spawn_dust()
+	QDEL_IN(dust_effect, 20)
+	return TRUE
 
 /mob/living/proc/spawn_dust(just_ash = FALSE)
 	new /obj/effect/decal/cleanable/ash(loc)
