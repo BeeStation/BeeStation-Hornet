@@ -214,11 +214,11 @@ const DisguisePanel = (_, context) => {
           grow
           title="Disguises"
           buttons={
-            <Flex>
+            <Stack>
               {!!selectedChameleon &&
                 selectedChameleon.extra_actions.map((action_name, _) => {
                   return (
-                    <Flex.Item key={action_name}>
+                    <Stack.Item key={action_name}>
                       <Button
                         onClick={() => {
                           act('extra_action', {
@@ -228,18 +228,18 @@ const DisguisePanel = (_, context) => {
                         }}>
                         {action_name}
                       </Button>
-                    </Flex.Item>
+                    </Stack.Item>
                   );
                 })}
-              <Flex.Item>
+              <Stack.Item>
                 Search
                 <Input
                   value={searchText}
                   onInput={(_, value) => setSearchText(value)}
                   mx={1}
                 />
-              </Flex.Item>
-            </Flex>
+              </Stack.Item>
+            </Stack>
           }>
           {(!!compact && (
             <DisguisesCompact
