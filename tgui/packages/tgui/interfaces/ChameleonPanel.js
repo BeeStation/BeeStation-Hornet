@@ -4,6 +4,7 @@ import { resolveAsset } from '../assets';
 import { Window } from '../layouts';
 import {
   Button,
+  Box,
   Stack,
   Section,
   Input,
@@ -55,6 +56,35 @@ export const ChameleonPanel = (_, context) => {
       </Window.Content>
     </Window>
   );
+};
+
+const ChameleonIcon = (props, _) => {
+  const { assetName, assetClass } = props;
+  if (assetName) {
+    return (
+      <img
+        src={resolveAsset(assetName)}
+        style={{
+          'vertical-align': 'middle',
+          'horizontal-align': 'middle',
+          'width': '64px',
+          'height': '64px',
+        }}
+      />
+    );
+  } else if (assetClass) {
+    return (
+      <span
+        className={classes(['chameleon64x64', assetClass])}
+        style={{
+          'vertical-align': 'middle',
+          'horizontal-align': 'middle',
+        }}
+      />
+    );
+  } else {
+    return <Box />;
+  }
 };
 
 const ChameleonPanelTabs = (_, context) => {
@@ -131,19 +161,7 @@ const OutfitsCompact = (props, context) => {
         <Flex.Item m={0.5}>{outfit.name}</Flex.Item>
         <Flex.Item m={0.5}>
           <Tooltip
-            content={
-              !!outfit_icon && (
-                <img
-                  src={resolveAsset(outfit_icon)}
-                  style={{
-                    'vertical-align': 'middle',
-                    'horizontal-align': 'middle',
-                    'width': '64px',
-                    'height': '64px',
-                  }}
-                />
-              )
-            }
+            content={<ChameleonIcon assetName={outfit_icon} />}
             position="left">
             <Button
               onClick={() => act('equip_outfit', { outfit: outfit.type })}>
@@ -167,18 +185,28 @@ const Outfits = (props, context) => {
         key={outfit.type}
         tooltip={outfit.name}
         onClick={() => act('equip_outfit', { outfit: outfit.type })}>
-        {!!outfit_icon && (
-          <img
-            src={resolveAsset(outfit_icon)}
-            style={{
-              'vertical-align': 'middle',
-              'horizontal-align': 'middle',
-              'width': '64px',
-              'height': '64px',
-            }}
-          />
-        )}
+        <ChameleonIcon assetName={outfit_icon} />
       </Button>
+    );
+  });
+};
+
+const ExtraActions = (props, context) => {
+  const { act } = useBackend(context);
+  const { actions, itemRef } = props;
+  return actions.map((action_name, _) => {
+    return (
+      <Stack.Item key={action_name}>
+        <Button
+          onClick={() => {
+            act('extra_action', {
+              ref: itemRef,
+              action: action_name,
+            });
+          }}>
+          {action_name}
+        </Button>
+      </Stack.Item>
     );
   });
 };
@@ -215,22 +243,12 @@ const DisguisePanel = (_, context) => {
           title="Disguises"
           buttons={
             <Stack>
-              {!!selectedChameleon &&
-                selectedChameleon.extra_actions.map((action_name, _) => {
-                  return (
-                    <Stack.Item key={action_name}>
-                      <Button
-                        onClick={() => {
-                          act('extra_action', {
-                            ref: selectedChameleon.ref,
-                            action: action_name,
-                          });
-                        }}>
-                        {action_name}
-                      </Button>
-                    </Stack.Item>
-                  );
-                })}
+              {!!selectedChameleon && (
+                <ExtraActions
+                  actions={selectedChameleon.extra_actions}
+                  itemRef={selectedChameleon.ref}
+                />
+              )}
               <Stack.Item>
                 Search
                 <Input
@@ -275,13 +293,7 @@ const DisguiseItems = (_, context) => {
               tooltip={disguise.name}
               selected={selected === disguise.ref}
               onClick={() => setSelected(disguise.ref)}>
-              <span
-                className={classes(['chameleon64x64', disguise_icon])}
-                style={{
-                  'vertical-align': 'middle',
-                  'horizontal-align': 'middle',
-                }}
-              />
+              <ChameleonIcon assetClass={disguise_icon} />
             </Button>
           </Stack.Item>
         );
@@ -309,13 +321,7 @@ const Disguises = (props, context) => {
             type: disguise.type,
           })
         }>
-        <span
-          className={classes(['chameleon64x64', disguise_icon])}
-          style={{
-            'vertical-align': 'middle',
-            'horizontal-align': 'middle',
-          }}
-        />
+        <ChameleonIcon assetClass={disguise_icon} />
       </Button>
     );
   });
@@ -335,15 +341,7 @@ const DisguisesCompact = (props, context) => {
         </Flex.Item>
         <Flex.Item m={0.5}>
           <Tooltip
-            content={
-              <span
-                className={classes(['chameleon64x64', disguise_icon])}
-                style={{
-                  'vertical-align': 'middle',
-                  'horizontal-align': 'middle',
-                }}
-              />
-            }
+            content={<ChameleonIcon assetClass={disguise_icon} />}
             position="left">
             <Button
               selected={selectedChameleon.current_disguise === disguise.type}
