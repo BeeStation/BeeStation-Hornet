@@ -10,7 +10,7 @@
 	/// An associative list (name = callback(mob/living/user, datum/component/chameleon/source)) of "extra actions" to present in the UI for this item.
 	var/list/extra_actions = list()
 	/// Whether anyone is allowed to use this chameleon item, or just specific people.
-	var/anyone_can_use = TRUE
+	var/anyone_can_use = FALSE
 	/// The typepath that is currently being disguised as.
 	var/current_disguise
 	/// A callback to run whenever the disguise is changed, with the arguments (mob/living/user, datum/component/chameleon/source, old_disguise_path, new_disguise_path)
