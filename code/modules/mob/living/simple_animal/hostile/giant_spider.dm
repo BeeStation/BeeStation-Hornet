@@ -553,22 +553,20 @@
 	var/message
 	if(active)
 		return
+	if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
+		return
+	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = user
+	if(spider.busy != SPINNING_WEB)
+		spider.busy = SPINNING_WEB
+		spider.visible_message("<span class='notice'>[spider] begins to secrete a sticky substance.</span>","<span class='notice'>You begin to prepare a net from webbing.</span>")
+		spider.stop_automated_movement = TRUE
+		if(do_after(spider, 40 * spider.web_speed, spider))
+			message = "<span class='notice'>You ready the completed net with your forelimbs. <B>Left-click to throw it at a target!</B></span>"
+			add_ranged_ability(user, message, TRUE)
+		spider.busy = SPIDER_IDLE
+		spider.stop_automated_movement = FALSE
 	else
-		if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
-			return
-		var/mob/living/simple_animal/hostile/poison/giant_spider/spider = user
-
-		if(spider.busy != SPINNING_WEB)
-			spider.busy = SPINNING_WEB
-			spider.visible_message("<span class='notice'>[spider] begins to secrete a sticky substance.</span>","<span class='notice'>You begin to prepare a net from webbing.</span>")
-			spider.stop_automated_movement = TRUE
-			if(do_after(spider, 40 * spider.web_speed, spider))
-				message = "<span class='notice'>You ready the completed net with your forelimbs. <B>Left-click to throw it at a target!</B></span>"
-				add_ranged_ability(user, message, TRUE)
-			spider.busy = SPIDER_IDLE
-			spider.stop_automated_movement = FALSE
-		else
-			to_chat(spider, "<span class='warning'>You're already spinning a web!</span>")
+		to_chat(spider, "<span class='warning'>You're already spinning a web!</span>")
 
 /obj/effect/proc_holder/spider/throw_web/update_icon()
 	action.button_icon_state = "throw_web_[active]"
