@@ -24,7 +24,8 @@
 
 #define TURF_FROM_COORDS_LIST(List) (locate(List[1], List[2], List[3]))
 
-
+///Okay so the ways these work is from ascending order.
+///For example "if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)" would mean, if you cant interact iteract with the underfloor directly, it will fire cuz its less than
 /// The pipes, disposals, and wires are hidden
 #define UNDERFLOOR_HIDDEN 0
 /// The pipes, disposals, and wires are visible but cannot be interacted with
