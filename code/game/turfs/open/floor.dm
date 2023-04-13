@@ -139,12 +139,11 @@
 /turf/open/floor/attackby(obj/item/object, mob/living/user, params)
 	if(!object || !user)
 		return TRUE
-	. = ..()
-	if(.)
+	if(..())
 		return 1
 	if(overfloor_placed && istype(object, /obj/item/stack/tile))
 		try_replace_tile(object, user, params)
-	return TRUE
+	return FALSE
 
 /turf/open/floor/crowbar_act(mob/living/user, obj/item/I)
 	if(overfloor_placed && pry_tile(I, user))
