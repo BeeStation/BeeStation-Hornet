@@ -77,10 +77,6 @@
 	/// your bank account id in your mind
 	var/account_id
 
-
-	/// Presets saved with chameleon clothing
-	var/list/chameleon_presets
-
 /datum/mind/New(var/key)
 	src.key = key
 	soulOwner = src

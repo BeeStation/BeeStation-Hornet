@@ -52,7 +52,6 @@ export const ChameleonPanel = (_, context) => {
         <ChameleonPanelTabs />
         {tab === 1 && <DisguisePanel />}
         {tab === 2 && <OutfitsPanel />}
-        {tab === 3 && <PresetsPanel />}
       </Window.Content>
     </Window>
   );
@@ -75,13 +74,6 @@ const ChameleonPanelTabs = (_, context) => {
         lineHeight="24px"
         onClick={() => setTab(2)}>
         Outfits
-      </Tabs.Tab>
-      <Tabs.Tab
-        icon="address-book"
-        selected={tab === 3}
-        lineHeight="24px"
-        onClick={() => setTab(3)}>
-        Custom Presets
       </Tabs.Tab>
     </Tabs>
   );
@@ -187,74 +179,6 @@ const Outfits = (props, context) => {
           />
         )}
       </Button>
-    );
-  });
-};
-
-const PresetsPanel = (_, context) => {
-  const { act } = useBackend(context);
-  const [compact] = useLocalState(context, 'compact', false);
-  return (
-    <Section
-      grow
-      title="Disguises"
-      buttons={
-        <Button
-          onClick={() => {
-            act('save_preset');
-          }}>
-          Create Preset
-        </Button>
-      }>
-      <Stack fill>
-        <Stack.Item grow>
-          {(compact && <PresetsCompact />) || <Presets />}
-        </Stack.Item>
-      </Stack>
-    </Section>
-  );
-};
-
-const Presets = (_, context) => {
-  const { data } = useBackend(context);
-  const { presets } = data;
-  return (presets || []).map((preset, _) => {});
-};
-
-const PresetsCompact = (_, context) => {
-  const { act, data } = useBackend(context);
-  const { presets } = data;
-  return (presets || []).map((preset, _) => {
-    const preset_icon = icons['presets'][preset.name];
-    return (
-      <Flex key={preset.name} justify="space-between" className="candystripe">
-        <Flex.Item m={0.5}>{preset.name}</Flex.Item>
-        <Flex.Item m={0.5}>
-          <Tooltip
-            position="left"
-            content={
-              !!preset_icon && (
-                <img
-                  src={resolveAsset(preset_icon)}
-                  style={{
-                    'vertical-align': 'middle',
-                    'horizontal-align': 'middle',
-                    'width': '64px',
-                    'height': '64px',
-                  }}
-                />
-              )
-            }>
-            <Button onClick={() => act('load_preset', { preset: preset.name })}>
-              Disguise
-            </Button>
-            <Button
-              onClick={() => act('delete_preset', { preset: preset.name })}>
-              Delete
-            </Button>
-          </Tooltip>
-        </Flex.Item>
-      </Flex>
     );
   });
 };

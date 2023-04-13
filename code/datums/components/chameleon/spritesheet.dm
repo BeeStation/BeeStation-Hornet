@@ -8,7 +8,7 @@
 		var/datum/component/chameleon/chameleon = chameleon_path
 		if(!initial(chameleon.base_disguise_path))
 			continue
-		disguises |= list_chameleon_disguises(initial(chameleon.base_disguise_path), initial(chameleon.disguise_blacklist), initial(chameleon.base_disguise_path))
+		disguises |= list_chameleon_disguises(initial(chameleon.base_disguise_path), initial(chameleon.disguise_blacklist), initial(chameleon.hide_duplicates))
 	// Then, we need to generate the actual icons.
 	for(var/item_path in disguises)
 		add_item(item_path)
