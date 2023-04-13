@@ -560,6 +560,7 @@
 		if(AIRLOCK_CLOSED, AIRLOCK_CLOSING, AIRLOCK_DENY)
 			last_used_state = "closed"
 
+/// returns the current shape of an airlock to render these in a photo
 /obj/machinery/door/airlock/proc/get_overlays_for_photo()
 	var/list/displaying_overlay = list()
 	displaying_overlay += get_airlock_overlay("[last_used_state]", icon)
