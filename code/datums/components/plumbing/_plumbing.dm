@@ -229,9 +229,9 @@
 		net.add_plumber(src, dir)
 		net.add_plumber(P, opposite_dir)
 
-/datum/component/plumbing/proc/hide(atom/movable/AM, intact)
+/datum/component/plumbing/proc/hide(atom/movable/AM, should_hide)
 
-	tile_covered = intact
+	tile_covered = should_hide
 	AM.update_appearance()
 
 ///has one pipe input that only takes, example is manual output pipe

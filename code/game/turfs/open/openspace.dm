@@ -18,17 +18,17 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	icon_state = "transparent"
 	baseturfs = /turf/open/openspace
 	CanAtmosPassVertical = ATMOS_PASS_YES
+	overfloor_placed = FALSE
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	allow_z_travel = TRUE
-
-	FASTDMM_PROP(\
-		pipe_astar_cost = 100\
-	)
 
 	//mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/can_cover_up = TRUE
 	var/can_build_on = TRUE
 
-	intact = 0
+	FASTDMM_PROP(\
+		pipe_astar_cost = 100\
+	)
 
 /turf/open/openspace/cold
 	initial_gas_mix = FROZEN_ATMOS
