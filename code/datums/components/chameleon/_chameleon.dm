@@ -7,18 +7,20 @@
 	var/list/disguise_blacklist
 	/// A normal list of paths of which disguises can be selected.
 	var/list/disguise_paths = list()
-	/// An associative list (name = callback) of "extra actions" to present in the UI for this item.
+	/// An associative list (name = callback(mob/living/user, datum/component/chameleon/source)) of "extra actions" to present in the UI for this item.
 	var/list/extra_actions = list()
 	/// Whether anyone is allowed to use this chameleon item, or just specific people.
 	var/anyone_can_use = TRUE
 	/// The typepath that is currently being disguised as.
 	var/current_disguise
-	/// A callback to run whenever the disguise is changed, with the arguments (datum/component/chameleon/source, old_disguise_path, new_disguise_path)
+	/// A callback to run whenever the disguise is changed, with the arguments (mob/living/user, datum/component/chameleon/source, old_disguise_path, new_disguise_path)
 	var/datum/callback/on_disguise
+	/// Whether to hide duplicates or not.
+	var/hide_duplicates = TRUE
 	///	Whenever the EMP effect will end.
 	COOLDOWN_DECLARE(emp_timer)
 
-/datum/component/chameleon/Initialize(original_name, base_disguise_path, list/disguise_blacklist, anyone_can_use, list/extra_actions, datum/callback/on_disguise)
+/datum/component/chameleon/Initialize(original_name, base_disguise_path, list/disguise_blacklist, anyone_can_use, hide_duplicates, list/extra_actions, datum/callback/on_disguise)
 	if((!src.base_disguise_path && (!base_disguise_path || !ispath(base_disguise_path, /obj/item))) || (original_name && !istext(original_name)))
 		return COMPONENT_INCOMPATIBLE
 	if(original_name)
@@ -33,6 +35,8 @@
 		src.disguise_blacklist = list()
 	if(!isnull(anyone_can_use))
 		src.anyone_can_use = anyone_can_use
+	if(!isnull(hide_duplicates))
+		src.hide_duplicates = hide_duplicates
 	if(LAZYLEN(extra_actions))
 		src.extra_actions = extra_actions
 	if(istype(on_disguise))
@@ -132,11 +136,11 @@
 		chameleon_item.name = initial(picked_item.name)
 	chameleon_item.update_slot_icon()
 	current_disguise = disguise_path
-	on_disguise?.Invoke(src, old_disguise_path, disguise_path)
+	on_disguise?.Invoke(user, src, old_disguise_path, disguise_path)
 
 /datum/component/chameleon/proc/setup_disguises()
 	disguise_paths.Cut()
-	for(var/path in list_chameleon_disguises(base_disguise_path, disguise_blacklist))
+	for(var/path in list_chameleon_disguises(base_disguise_path, disguise_blacklist, hide_duplicates))
 		disguise_paths += path
 		GLOB.all_available_chameleon_types |= path
 

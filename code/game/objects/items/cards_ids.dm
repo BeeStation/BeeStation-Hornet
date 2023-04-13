@@ -407,39 +407,14 @@ update_label("John Doe", "Clowny")
 	hud_state = JOB_HUD_SYNDICATE
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
 
-
 /obj/item/card/id/syndicate/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/chameleon, "ID", /obj/item/card/id, typecacheof(list(
-		/obj/item/card,
-		/obj/item/card/data,
-		/obj/item/card/data/full_color,
-		/obj/item/card/data/disk,
-		/obj/item/card/emag,
-		/obj/item/card/emag/bluespace,
-		/obj/item/card/emag/halloween,
-		/obj/item/card/emagfake,
-		/obj/item/card/id/pass/deputy,
-		/obj/item/card/id/pass/mining_access_card,
-		/obj/item/card/mining_point_card,
-		/obj/item/card/id,
-		/obj/item/card/id/prisoner/one,
-		/obj/item/card/id/prisoner/two,
-		/obj/item/card/id/prisoner/three,
-		/obj/item/card/id/prisoner/four,
-		/obj/item/card/id/prisoner/five,
-		/obj/item/card/id/prisoner/six,
-		/obj/item/card/id/prisoner/seven,
-		/obj/item/card/id/departmental_budget,
-		/obj/item/card/id/syndicate/anyone,
-		/obj/item/card/id/syndicate/nuke_leader,
-		/obj/item/card/id/syndicate/debug,
-		/obj/item/card/id/syndicate/broken,
-		/obj/item/card/id/away/old/apc,
-		/obj/item/card/id/away/deep_storage,
-		/obj/item/card/id/changeling,
-		/obj/item/card/id/golem,
-		/obj/item/card/id/pass), only_root_path = TRUE), anyone)
+	var/list/extra_actions = list(
+		"Forge Name" = CALLBACK(src, PROC_REF(change_name)),
+		"Forge Job" = CALLBACK(src, PROC_REF(change_job)),
+		"Change Account ID" = CALLBACK(src, PROC_REF(set_new_account)),
+	)
+	AddComponent(/datum/component/chameleon/id, extra_actions=extra_actions, anyone_can_use=anyone, on_disguise=CALLBACK(src, PROC_REF(on_disguise)))
 
 /obj/item/card/id/syndicate/afterattack(obj/item/O, mob/user, proximity)
 	if(!proximity)
@@ -451,6 +426,42 @@ update_label("John Doe", "Clowny")
 		if(isliving(user) && user.mind)
 			if(user.mind.special_role || anyone)
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over the ID, copying its access.</span>")
+
+/obj/item/card/id/syndicate/proc/change_name(mob/living/user)
+	var/input_name = tgui_input_text(user, "What name would you like to put on this card? Leave blank to randomise.", "Agent card name", registered_name ? registered_name : (ishuman(user) ? user.real_name : user.name), MAX_NAME_LEN)
+	input_name = reject_bad_name(input_name)
+	if(!input_name)
+		if(user.gender == MALE)
+			input_name = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
+		else if(user.gender == FEMALE)
+			input_name = "[pick(GLOB.first_names_female)] [pick(GLOB.last_names)]"
+		else
+			input_name = "[pick(GLOB.first_names)] [pick(GLOB.last_names)]"
+		to_chat(user, "<span class='notice'>No name given, using the random name '[input_name]'!</span>")
+	log_id("[key_name(user)] forged agent ID [src] name to '[input_name]' at [AREACOORD(user)].")
+	log_game("[key_name(user)] forged \the [initial(name)] name to '[input_name]' at [AREACOORD(user)].")
+	registered_name = input_name
+	update_label()
+	to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
+
+/obj/item/card/id/syndicate/proc/change_job(mob/living/user)
+	var/target_occupation = tgui_input_text(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", assignment, MAX_MESSAGE_LEN) // ternary operator means you keep custom title if your title is special(not in standard job titles). if that is in job title list, you just get new job title.
+	if(!target_occupation)
+		target_occupation = assignment ? assignment : "Assistant"
+		to_chat(user, "<span class='notice'>No occupation given, using '[target_occupation]' instead.</span>")
+	log_id("[key_name(user)] forged agent ID [src] occupation to '[target_occupation]' at [AREACOORD(user)].")
+	log_game("[key_name(user)] forged \the [initial(name)] occupation to '[target_occupation]' at [AREACOORD(user)].")
+	assignment = capitalize(target_occupation)
+	update_label()
+	to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
+
+/obj/item/card/id/syndicate/proc/on_disguise(mob/living/user, datum/component/chameleon/source, old_disguise_path, new_disguise_path)
+	var/obj/item/card/id/new_disguise = new_disguise_path
+	if(initial(new_disguise.hud_state))
+		hud_state = get_hud_by_jobname(initial(new_disguise.hud_state))
+	var/mob/living/carbon/human/h_user = user
+	if(istype(h_user))
+		h_user.sec_hud_set_ID()
 
 /obj/item/card/id/syndicate/attack_self(mob/user)
 	if(isliving(user) && user.mind)

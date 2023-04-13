@@ -27,7 +27,8 @@
 		"outfits" = list(),
 		"presets" = list(),
 		"icons" = list(
-			"outfits" = list()
+			"outfits" = list(),
+			"presets" = list()
 		)
 	)
 	var/list/assets_to_send = list()
@@ -63,6 +64,10 @@
 					"name" = preset_name,
 					"contents" = preset_contents
 				))
+				var/preset_asset = get_preset_icon(l_user.mind, preset_name)
+				if(preset_asset)
+					.["icons"]["presets"]["[preset_name]"] = SSassets.transport.get_asset_url(preset_asset)
+					assets_to_send += preset_asset
 				CHECK_TICK
 			sortTim(.["presets"], GLOBAL_PROC_REF(cmp_list_name_asc))
 	if(user.client && LAZYLEN(assets_to_send))
@@ -107,11 +112,11 @@
 			var/list/raw_preset = user_presets[preset_name]
 			var/list/preset = list()
 			for(var/slot in raw_preset)
-				var/slot_name = GLOB.slot_names[text2num(slot)] || "unknown slot"
+				var/slot_name = GLOB.slot_names[slot] || "unknown slot"
 				var/disguise_path = raw_preset[slot]
 				var/obj/item/disguise_item = disguise_path
 				preset += list(list(
-					"slot_id" = slot,
+					"slot_id" = text2num(slot),
 					"name" = slot_name,
 					"item_name" = "[initial(disguise_item.name)] ([initial(disguise_item.icon_state)])",
 					"item_type" = "[disguise_path]"
@@ -182,6 +187,14 @@
 				return FALSE
 			user.mind.chameleon_presets -= preset
 			to_chat(usr, "<span class='notice'>Your chameleon preset '[preset]' was deleted.</span>")
+		if("rename_preset")
+			. = TRUE
+			var/from_preset = params["from"]
+			var/to_preset = params["from"]
+			if(!istext(from_preset) || !istext(to_preset) || !LAZYLEN(user.mind?.chameleon_presets) || !user.mind.chameleon_presets[from_preset] || user.mind.chameleon_presets[to_preset])
+				return FALSE
+			user.mind.chameleon_presets[to_preset] = user.mind.chameleon_presets[from_preset]
+			user.mind.chameleon_presets -= from_preset
 		if("equip_outfit")
 			. = TRUE
 			var/outfit = params["outfit"]
@@ -215,7 +228,7 @@
 	var/datum/outfit/outfit = outfit_path
 	if(!initial(outfit.can_be_admin_equipped))
 		return
-	var/asset_name = SANITIZE_FILENAME("outfit_[replacetext(replacetext("[outfit_path]", "/datum/outfit/job", ""), "/", "-")].png")
+	var/asset_name = SANITIZE_FILENAME("outfit_[replacetext(replacetext("[outfit_path]", "/datum/outfit/job/", ""), "/", "-")].png")
 	if(SSassets.cache[asset_name])
 		return asset_name
 	var/mob/living/carbon/human/dummy/mannequin = generate_or_wait_for_human_dummy(DUMMY_HUMAN_SLOT_OUTFIT)
@@ -236,7 +249,7 @@
 /datum/action/chameleon_panel/proc/get_preset_icon(datum/mind/user, preset_name)
 	if(!user || !istype(user) || !istext(preset_name) || !LAZYLEN(user.chameleon_presets))
 		return
-	var/asset_name = SANITIZE_FILENAME("preset_[md5(REF(user))]_[md5(preset_name)].png")
+	var/asset_name = SANITIZE_FILENAME("preset_[rustg_hash_string(RUSTG_HASH_XXH64, REF(user))]_[rustg_hash_string(RUSTG_HASH_XXH64, preset_name)].png")
 	if(SSassets.cache[asset_name])
 		return asset_name
 	var/list/preset = user.chameleon_presets[preset_name]
@@ -267,7 +280,7 @@
 		ITEM_SLOT_MASK, ITEM_SLOT_HEAD, ITEM_SLOT_FEET, ITEM_SLOT_ID, ITEM_SLOT_BELT, ITEM_SLOT_BACK,
 		ITEM_SLOT_NECK
 	)
-	if(!user?.mind)
+	if(!istype(user) || !user?.mind)
 		return
 	var/list/preset = list()
 	for(var/slot in slots_to_save)
@@ -292,14 +305,14 @@
 
 /datum/action/chameleon_panel/proc/load_preset(mob/living/user, preset_name)
 	. = TRUE
-	if(!user?.mind || !istype(user) || !istext(preset_name) || !LAZYLEN(user.mind.chameleon_presets))
+	if(!istype(user) || !user.mind || !istext(preset_name) || !LAZYLEN(user.mind.chameleon_presets))
 		return FALSE
 	var/list/preset = user.mind.chameleon_presets[preset_name]
 	for(var/slot in preset)
 		var/item = preset[slot]
 		if(!ispath(item, /obj/item))
 			continue
-		var/obj/item/slot_item = user.get_item_by_slot(slot)
+		var/obj/item/slot_item = user.get_item_by_slot(text2num(slot))
 		if(!istype(slot_item))
 			continue
 		var/datum/component/chameleon/chameleon = slot_item.GetComponent(/datum/component/chameleon)
