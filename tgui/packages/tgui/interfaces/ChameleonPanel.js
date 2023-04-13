@@ -225,12 +225,26 @@ const PresetsCompact = (_, context) => {
   const { act, data } = useBackend(context);
   const { presets } = data;
   return (presets || []).map((preset, _) => {
-    // const preset_icon = icons['presets'][preset.name];
+    const preset_icon = icons['presets'][preset.name];
     return (
       <Flex key={preset.name} justify="space-between" className="candystripe">
         <Flex.Item m={0.5}>{preset.name}</Flex.Item>
         <Flex.Item m={0.5}>
-          <Tooltip position="left">
+          <Tooltip
+            position="left"
+            content={
+              !!preset_icon && (
+                <img
+                  src={resolveAsset(preset_icon)}
+                  style={{
+                    'vertical-align': 'middle',
+                    'horizontal-align': 'middle',
+                    'width': '64px',
+                    'height': '64px',
+                  }}
+                />
+              )
+            }>
             <Button onClick={() => act('load_preset', { preset: preset.name })}>
               Disguise
             </Button>
