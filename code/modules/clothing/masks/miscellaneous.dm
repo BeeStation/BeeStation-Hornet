@@ -96,6 +96,22 @@
 		to_chat(user, "<span class='notice'>Your emotion mask has now morphed into [choice]!</span>")
 		return 1
 
+// Subtypes just for the sake of chameleon clothing
+/obj/item/clothing/mask/joy/flushed
+	name = "flushed emotion mask"
+	icon_state = "flushed"
+
+/obj/item/clothing/mask/joy/pensive
+	name = "pensive emotion mask"
+	icon_state = "pensive"
+
+/obj/item/clothing/mask/joy/angry
+	name = "angry emotion mask"
+	icon_state = "angry"
+
+/obj/item/clothing/mask/joy/pleading
+	name = "pleading emotion mask"
+	icon_state = "pleading"
 
 /obj/item/clothing/mask/pig
 	name = "pig mask"
