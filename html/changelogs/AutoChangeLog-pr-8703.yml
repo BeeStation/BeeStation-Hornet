@@ -1,9 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - tweak: Mutadone now transforms non-naturally spawned or monkey cubed monkeys into
-      humans again
-  - bugfix: Fixed the race not being properly stored when transforming into a monkey/restored
-      from a monkey
-  - code_imp: added the 'natural' variable to monkeys which determines if they're
-      mutadone proof
