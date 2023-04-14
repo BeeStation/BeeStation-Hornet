@@ -1,0 +1,4 @@
+author: Wisemonster
+delete-after: true
+changes:
+  - bugfix: Swarmer catwalks are now visible.
