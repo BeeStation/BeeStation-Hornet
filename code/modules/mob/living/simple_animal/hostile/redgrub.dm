@@ -226,7 +226,7 @@
 		if(growthstage >= 3)
 			M.visible_message("<span class='danger'>the [src] begins burrowing into [M]!</span>", \
 						"<span class='userdanger'>[src] is trying to burrow into your cytoplasm!</span>")
-			if(M.can_inject(src) && do_mob(src, M, 15))
+			if(M.can_inject(src) && do_after(src, 15, M))
 				for(var/datum/disease/D in grubdisease)
 					if(D.spread_flags & DISEASE_SPREAD_FALTERED)
 						continue

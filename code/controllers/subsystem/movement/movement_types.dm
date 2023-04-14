@@ -29,7 +29,7 @@
 	src.controller = controller
 	src.extra_info = extra_info
 	if(extra_info)
-		RegisterSignal(extra_info, COMSIG_PARENT_QDELETING, .proc/info_deleted)
+		RegisterSignal(extra_info, COMSIG_PARENT_QDELETING, PROC_REF(info_deleted))
 	src.moving = moving
 	src.priority = priority
 	src.flags = flags
@@ -216,7 +216,7 @@
 	target = chasing
 
 	if(!isturf(target))
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/handle_no_target) //Don't do this for turfs, because we don't care
+		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(handle_no_target)) //Don't do this for turfs, because we don't care
 
 /datum/move_loop/has_target/compare_loops(datum/move_loop/loop_type, priority, flags, extra_info, delay, timeout, atom/chasing)
 	if(..() && chasing == target)
@@ -346,7 +346,7 @@
 	src.avoid = avoid
 	src.skip_first = skip_first
 	if(istype(id, /obj/item/card/id))
-		RegisterSignal(id, COMSIG_PARENT_QDELETING, .proc/handle_no_id) //I prefer erroring to harddels. If this breaks anything consider making id info into a datum or something
+		RegisterSignal(id, COMSIG_PARENT_QDELETING, PROC_REF(handle_no_id)) //I prefer erroring to harddels. If this breaks anything consider making id info into a datum or something
 
 /datum/move_loop/has_target/jps/compare_loops(datum/move_loop/loop_type, priority, flags, extra_info, delay, timeout, atom/chasing, repath_delay, max_path_length, minimum_distance, obj/item/card/id/id, simulated_only, turf/avoid, skip_first)
 	if(..() && repath_delay == src.repath_delay && max_path_length == src.max_path_length && minimum_distance == src.minimum_distance && id == src.id && simulated_only == src.simulated_only && avoid == src.avoid)
@@ -354,7 +354,7 @@
 
 /datum/move_loop/has_target/jps/start_loop()
 	. = ..()
-	INVOKE_ASYNC(src, .proc/recalculate_path)
+	INVOKE_ASYNC(src, PROC_REF(recalculate_path))
 
 /datum/move_loop/has_target/jps/Destroy()
 	id = null //Kill me
@@ -378,7 +378,7 @@
 /datum/move_loop/has_target/jps/move()
 	var/atom/movable/atom = moving
 	if(!length(movement_path))
-		INVOKE_ASYNC(src, .proc/recalculate_path)
+		INVOKE_ASYNC(src, PROC_REF(recalculate_path))
 		if(!length(movement_path))
 			return FALSE
 
@@ -394,7 +394,7 @@
 		movement_path.Cut(1,2)
 	else
 		if(get_dist(current_loc, next_step) > 1) //we check here if we are further away than 1 tile before we recalculate the path cause else we might just be able to try to move again next time
-			INVOKE_ASYNC(src, .proc/recalculate_path)
+			INVOKE_ASYNC(src, PROC_REF(recalculate_path))
 		return FALSE
 /**
  * Used for following jps defined paths.
@@ -491,7 +491,7 @@
 /datum/move_loop/has_target/jps/hostile/move()
 	var/atom/movable/atom = moving
 	if(!length(movement_path) || target_turf != get_turf(target))
-		INVOKE_ASYNC(src, .proc/recalculate_path)
+		INVOKE_ASYNC(src, PROC_REF(recalculate_path))
 		if(!length(movement_path))
 			return FALSE
 	var/turf/next_step = movement_path[1]
@@ -506,7 +506,7 @@
 		movement_path.Cut(1,2)
 	else
 		if(get_dist(current_loc, next_step) > 1) //we check here if we are further away than 1 tile before we recalculate the path cause else we might just be able to try to move again next time
-			INVOKE_ASYNC(src, .proc/recalculate_path)
+			INVOKE_ASYNC(src, PROC_REF(recalculate_path))
 		return FALSE
 
 /datum/move_loop/has_target/jps/hostile/Destroy()
@@ -654,7 +654,7 @@
 	///The rate at which we move, between 0 and 1
 	var/x_rate = 1
 	var/y_rate = 1
-	//We store the signs of x and y seperately, because byond will round negative numbers down
+	//We store the signs of x and y separately, because byond will round negative numbers down
 	//So doing all our operations with absolute values then multiplying them is easier
 	var/x_sign = 0
 	var/y_sign = 0
@@ -667,8 +667,8 @@
 
 	if(home)
 		if(ismovable(target))
-			RegisterSignal(target, COMSIG_MOVABLE_MOVED, .proc/update_slope) //If it can move, update your slope when it does
-		RegisterSignal(moving, COMSIG_MOVABLE_MOVED, .proc/handle_move)
+			RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(update_slope)) //If it can move, update your slope when it does
+		RegisterSignal(moving, COMSIG_MOVABLE_MOVED, PROC_REF(handle_move))
 	update_slope()
 
 /datum/move_loop/has_target/move_towards/Destroy()

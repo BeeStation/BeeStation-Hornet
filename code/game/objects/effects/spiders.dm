@@ -15,7 +15,7 @@
 
 
 /obj/structure/spider/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee")
+	if(damage_flag == MELEE)
 		switch(damage_type)
 			if(BURN)
 				damage_amount *= 2
@@ -56,7 +56,7 @@
 	var/enriched_spawns = 0
 	var/using_enriched_spawn = FALSE
 	// Probability (%) an egg cluster presenting enriched spawn choices
-	var/enriched_spawn_prob = 25 
+	var/enriched_spawn_prob = 25
 	// Team info
 	var/datum/team/spiders/spider_team
 	var/list/faction = list("spiders")
@@ -152,12 +152,12 @@
 	//if spider chosen is not in the basic spawn list, it is special
 	//turn off enriched spawns so only one special spider per proc activation
 	if(using_enriched_spawn)
-		if(!(spider_list[chosen_spider] in potential_spawns)) 
+		if(!(spider_list[chosen_spider] in potential_spawns))
 			using_enriched_spawn = FALSE
 	//Failsafe to prevent chosing special spider spawns after someone else has already chosen one
 	//Multiple players can be presented the dialogue box to choose enriched spawns at the same time
 	//and we don't want them choosing a special spider after the spawn has already been consumed
-	else if(!(spider_list[chosen_spider] in potential_spawns)) 
+	else if(!(spider_list[chosen_spider] in potential_spawns))
 		to_chat(user, "<span class='warning'>Special spawn already used by another player!</span>")
 		return FALSE
 	spawns_remaining--
@@ -194,7 +194,7 @@
 	desc = "It never stays still for long."
 	icon_state = "spiderling"
 	anchored = FALSE
-	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
+	layer = PROJECTILE_HIT_THRESHOLD_LAYER
 	max_integrity = 3
 	var/amount_grown = 0
 	var/grow_as = null

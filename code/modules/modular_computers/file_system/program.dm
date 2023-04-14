@@ -135,17 +135,6 @@
 	return FALSE
 
 /**
- * This attempts to retrieve header data for UIs.
- *
- * If implementing completely new device of different type than existing ones
- * always include the device here in this proc. This proc basically relays the request to whatever is running the program.
- **/
-/datum/computer_file/program/proc/get_header_data()
-	if(computer)
-		return computer.get_header_data()
-	return list()
-
-/**
  * Called on program startup.
  *
  * May be overridden to add extra logic. Remember to include ..() call. Return 1 on success, 0 on failure.
@@ -190,71 +179,6 @@
 		generate_network_log("Connection to [network_destination] closed.")
 	return 1
 
-/datum/computer_file/program/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/simple/headers),
-	)
-
-/datum/computer_file/program/ui_state(mob/user)
-	return GLOB.default_state
-
-/datum/computer_file/program/ui_interact(mob/user, datum/tgui/ui)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui && tgui_id)
-		ui = new(user, src, tgui_id, filedesc)
-		ui.set_autoupdate(TRUE)
-		if(ui.open())
-			ui.send_asset(get_asset_datum(/datum/asset/simple/headers))
-
-// CONVENTIONS, READ THIS WHEN CREATING NEW PROGRAM AND OVERRIDING THIS PROC:
-// Topic calls are automagically forwarded from NanoModule this program contains.
-// Calls beginning with "PRG_" are reserved for programs handling.
-// Calls beginning with "PC_" are reserved for computer handling (by whatever runs the program)
-// ALWAYS INCLUDE PARENT CALL ..() OR DIE IN FIRE.
-/datum/computer_file/program/ui_act(action,params,datum/tgui/ui)
-	if(..())
-		return TRUE
-	if(computer)
-		if(computer.device_theme == THEME_THINKTRONIC)
-			computer.send_select_sound()
-		switch(action)
-			if("PC_exit")
-				computer.kill_program()
-				ui.close()
-				return TRUE
-			if("PC_shutdown")
-				computer.shutdown_computer()
-				ui.close()
-				return TRUE
-			if("PC_minimize")
-				var/mob/user = usr
-				if(!computer.active_program || !computer.all_components[MC_CPU])
-					return
-
-				computer.idle_threads.Add(computer.active_program)
-				program_state = PROGRAM_STATE_BACKGROUND // Should close any existing UIs
-
-				computer.active_program = null
-				computer.update_icon()
-				ui.close()
-
-				if(user && istype(user))
-					computer.ui_interact(user) // Re-open the UI on this computer. It should show the main screen now.
-				return TRUE
-
-
-/datum/computer_file/program/ui_host()
-	if(computer)
-		if(computer.physical)
-			return computer.physical
-		return computer
-	return ..()
-
-/datum/computer_file/program/ui_status(mob/user)
-	if(program_state != PROGRAM_STATE_ACTIVE) // Our program was closed. Close the ui if it exists.
-		return UI_CLOSE
-	return ..()
-
 /// Return TRUE if nothing was processed. Return FALSE to prevent further actions running.
 /// Set use_attack = TRUE to receive proccalls from the parent computer.
 /datum/computer_file/program/proc/attack(atom/target, mob/living/user, params)
@@ -264,3 +188,11 @@
 /// Set use_attack_obj = TRUE to receive proccalls from the parent computer.
 /datum/computer_file/program/proc/attack_obj(obj/target, mob/living/user)
 	return TRUE
+
+/// Called when the datum/tgui is initialized by the computer
+/datum/computer_file/program/proc/on_ui_create(mob/user, datum/tgui/ui)
+	return
+
+/// Called when ui_close is called on the computer while this program is active. Any behavior in this should also be in kill_program.
+/datum/computer_file/program/proc/on_ui_close(mob/user, datum/tgui/tgui)
+	return

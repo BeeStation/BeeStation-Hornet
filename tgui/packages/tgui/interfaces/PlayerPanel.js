@@ -37,10 +37,10 @@ const TIMESTAMP_PARSE_REGEX = /^\[(\d+):(\d+):(\d+)\]/;
 
 const LOG_TYPES_REVERSE = {
   "Attack": [1],
-  "Say": [2, 4, 16],
+  "Say": [2, 4, 16, 1048576],
   "Comms": [32, 64, 128, 256],
   "OOC": [512, 1024],
-  "All": [1, 2, 4, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096],
+  "All": [1, 2, 4, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 1048576],
 };
 
 const LOG_TYPES_LIST = Object.keys(LOG_TYPES_REVERSE);
@@ -201,7 +201,7 @@ class PlayerDetails extends Component {
       total += Object.keys(log).length;
     }
     return total;
-  }
+  };
 
   shouldComponentUpdate(new_props, new_state) {
     const {
@@ -547,7 +547,7 @@ class LogViewer extends Component {
       total += Object.keys(log).length;
     }
     return total;
-  }
+  };
 
   shouldComponentUpdate(new_props, new_state) {
     if (shallow_diff(this.state, new_state)) {
@@ -560,15 +560,15 @@ class LogViewer extends Component {
 
   setLogMode = (value) => {
     this.setState({ logMode: value });
-  }
+  };
 
   setHideLogKey = (value) => {
     this.setState({ hideLogKey: value });
-  }
+  };
 
   setClientLog = (value) => {
     this.setState({ clientLog: value });
-  }
+  };
 
   render() {
     const {
