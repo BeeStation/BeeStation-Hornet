@@ -48,7 +48,7 @@
 
 	//store original species
 	for(var/datum/mutation/race/M in O.dna.mutations)
-		M.orig_species = original_species
+		M.original_species = original_species
 		break //Can't be more than one monkified in a DNA set so, no need to continue the loop
 
 	if(suiciding)
