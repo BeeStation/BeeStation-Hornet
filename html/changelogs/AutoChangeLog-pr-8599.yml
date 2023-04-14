@@ -1,0 +1,9 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added new positive moodlets for wearing flowers and flower crowns
+  - refactor: repathed grown flowers into /obj/item/reagent_containers/food/snacks/grown/flower/
+  - refactor: repathed flower seeds into /obj/item/seeds/flower/
+  - spellcheck: fixed a typo in the sunflower attack text
+  - tweak: Changed the heretic ritual text to reflect it accepting any flower, made
+      them accept Harebells and Rainbow Bunch flowers
