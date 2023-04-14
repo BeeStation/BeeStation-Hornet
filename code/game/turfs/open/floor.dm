@@ -133,7 +133,7 @@
 	var/old_dir = dir
 	var/turf/open/floor/W = ..()
 	W.setDir(old_dir)
-	W.update_icon()
+	W.update_appearance()
 	return W
 
 /turf/open/floor/attackby(obj/item/object, mob/living/user, params)
