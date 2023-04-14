@@ -1,4 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: Plumbing pipes now display properly on all plumbing machines.
