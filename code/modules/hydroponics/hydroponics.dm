@@ -369,7 +369,7 @@
 		if(14 to 15)
 			myseed = new /obj/item/seeds/nettle(src)
 		if(12 to 13)
-			myseed = new /obj/item/seeds/harebell(src)
+			myseed = new /obj/item/seeds/flower/harebell(src)
 		if(10 to 11)
 			myseed = new /obj/item/seeds/amanita(src)
 		if(8 to 9)
