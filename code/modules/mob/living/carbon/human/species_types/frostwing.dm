@@ -189,7 +189,7 @@
 	var/datum/component/tracking_beacon/beacon = H.GetComponent(/datum/component/tracking_beacon)
 	if(beacon)
 		beacon.toggle_visibility(TRUE)
-		addtimer(CALLBACK(beacon, /datum/component/tracking_beacon.proc/toggle_visibility, FALSE), 5 SECONDS)
+		addtimer(CALLBACK(beacon, TYPE_PROC_REF(/datum/component/tracking_beacon, toggle_visibility), FALSE), 5 SECONDS)
 	StartCooldown()
 	return TRUE
 
