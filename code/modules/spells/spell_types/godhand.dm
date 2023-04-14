@@ -9,7 +9,7 @@
 	righthand_file = 'icons/mob/inhands/misc/touchspell_righthand.dmi'
 	icon_state = "syndballoon"
 	item_state = null
-	item_flags = NEEDS_PERMIT | ABSTRACT | DROPDEL
+	item_flags = NEEDS_PERMIT | ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
 	force = 0
 	throwforce = 0

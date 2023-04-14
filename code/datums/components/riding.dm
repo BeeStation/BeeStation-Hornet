@@ -363,7 +363,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "offhand"
 	w_class = WEIGHT_CLASS_HUGE
-	item_flags = ABSTRACT | DROPDEL | NOBLUDGEON
+	item_flags = ABSTRACT | DROPDEL | NOBLUDGEON | ISWEAPON
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/mob/living/carbon/rider
 	var/mob/living/parent
