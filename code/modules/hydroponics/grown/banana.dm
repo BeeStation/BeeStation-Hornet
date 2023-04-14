@@ -69,7 +69,7 @@
 	plantname = "Mimana Tree"
 	product = /obj/item/reagent_containers/food/snacks/grown/banana/mime
 	growthstages = 4
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/banana/bananium)
 	reagents_add = list(/datum/reagent/consumable/nothing = 0.1, /datum/reagent/toxin/mutetoxin = 0.1, /datum/reagent/consumable/nutriment = 0.02)
 	rarity = 15
 
@@ -89,6 +89,44 @@
 	desc = "A mimana peel."
 	icon_state = "mimana_peel"
 	item_state = "mimana_peel"
+
+// Bananium banana - easy way to get bananium
+/obj/item/seeds/banana/bananium
+	name = "pack of bananium seeds"
+	desc = "Honk."
+	icon_state = "seed-banana-bananium"
+	species = "bananiumbanana"
+	icon_grow = "banana-grow"
+	plantname = "Bananium Tree"
+	product = null
+	maturation = 16
+	yield = 2
+	lifespan = 50
+	endurance = 30
+	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
+	icon_dead = "banana-dead"
+	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	mutatelist = list()
+	reagents_add = list()
+
+/obj/item/seeds/banana/bananium/harvest(mob/user)
+	var/obj/machinery/hydroponics/parent = loc
+	var/output_loc = parent.Adjacent(user) ? user.loc : parent.loc
+
+	var/amount_to_spawn = max(1, round((yield*parent.yieldmod)/2)) // 1 ~ 5 bananium per harvest (yield boostable)
+	for(var/i in 1 to amount_to_spawn)
+		new /obj/item/stack/sheet/mineral/bananium(output_loc)
+
+	// copied code from starthistle
+	var/seed_count = yield
+	if(prob(getYield() * 20))
+		seed_count++
+		for(var/i in 1 to seed_count)
+			var/obj/item/seeds/banana/bananium/harvestseeds = Copy()
+			harvestseeds.forceMove(output_loc)
+
+	parent.update_tray()
+
 
 // Bluespace Banana
 /obj/item/seeds/banana/bluespace
