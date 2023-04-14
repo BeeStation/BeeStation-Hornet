@@ -441,7 +441,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(GLOB.ckey_redirects.Find(ckey))
 		if(isnewplayer(mob))
 			to_chat(src, "<span class='redtext'>The server is full. You will be redirected to [CONFIG_GET(string/redirect_address)] in 10 seconds.</span>")
-			addtimer(CALLBACK(src, .proc/time_to_redirect), (10 SECONDS))
+			addtimer(CALLBACK(src, PROC_REF(time_to_redirect)), (10 SECONDS))
 		else
 			GLOB.ckey_redirects -= ckey
 
@@ -542,7 +542,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	GLOB.directory -= ckey
 	GLOB.clients -= src
 	GLOB.mentors -= src
-	SSambience.ambience_listening_clients -= src
+	SSambience.remove_ambience_client(src)
 	QDEL_LIST_ASSOC_VAL(char_render_holders)
 	Master.UpdateTickRate()
 	return ..()
@@ -922,6 +922,20 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	..()
 
+/client/proc/canGhostRole(role, use_cooldown = FALSE, spawned_by_admin)
+	if(!SSticker.HasRoundStarted())
+		return FALSE
+	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER) && !(spawned_by_admin & ADMIN_SPAWNED_1))
+		to_chat(src, "<span class='warning'>An admin has temporarily disabled non-admin ghost roles!</span>")
+		return FALSE
+	if(role && is_banned_from(key, role)) //role can be null, no reason to check for a roleban if there is no special role assigned
+		to_chat(src, "<span class='warning'>You are jobanned!</span>")
+		return FALSE
+	if(use_cooldown && next_ghost_role_tick > world.time)
+		to_chat(src, "<span class='warning'>You have died recently, you must wait [(next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner.</span>")
+		return FALSE
+	return TRUE
+
 /client/proc/add_verbs_from_config()
 	if (interviewee)
 		return
@@ -957,7 +971,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		src << browse('code/modules/asset_cache/validate_assets.html', "window=asset_cache_browser")
 		//Precache the client with all other assets slowly, so as to not block other browse() calls
 		if (CONFIG_GET(flag/asset_simple_preload))
-			addtimer(CALLBACK(SSassets.transport, /datum/asset_transport.proc/send_assets_slow, src, SSassets.transport.preload), 5 SECONDS)
+			addtimer(CALLBACK(SSassets.transport, TYPE_PROC_REF(/datum/asset_transport, send_assets_slow), src, SSassets.transport.preload), 5 SECONDS)
 		#if (PRELOAD_RSC == 0)
 		for (var/name in GLOB.vox_sounds)
 			var/file = GLOB.vox_sounds[name]
@@ -1022,7 +1036,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		for (var/plane_master_type in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
 			var/atom/movable/screen/plane_master/plane_master = new plane_master_type()
 			char_render_holders["plane_master-[plane_master.plane]"] = plane_master
-			plane_master.backdrop(mob)
 			screen |= plane_master
 			plane_master.screen_loc = "character_preview_map:0,CENTER"
 
@@ -1051,7 +1064,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	set desc ="Get your ID for account verification."
 
 	remove_verb(/client/proc/show_account_identifier)
-	addtimer(CALLBACK(src, .proc/restore_account_identifier), 20) //Don't DoS DB queries, asshole
+	addtimer(CALLBACK(src, PROC_REF(restore_account_identifier)), 20) //Don't DoS DB queries, asshole
 
 	var/confirm = alert("Do NOT share the verification ID in the following popup. Understand?", "Important Warning", "Yes", "Cancel")
 	if(confirm != "Yes")
@@ -1116,11 +1129,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /client/proc/update_ambience_pref()
 	if(prefs.toggles & PREFTOGGLE_SOUND_AMBIENCE)
-		if(SSambience.ambience_listening_clients[src] > world.time)
-			return // If already properly set we don't want to reset the timer.
-		SSambience.ambience_listening_clients[src] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.
+		SSambience.add_ambience_client(src)
 	else
-		SSambience.ambience_listening_clients -= src
+		SSambience.remove_ambience_client(src)
 
 /client/proc/give_award(achievement_type, mob/user)
 	return player_details.achievements.unlock(achievement_type, user)

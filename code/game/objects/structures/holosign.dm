@@ -55,7 +55,7 @@
 	name = "holobarrier"
 	desc = "A short holographic barrier which can only be passed by walking."
 	icon_state = "holosign_sec"
-	pass_flags_self = PASSTABLE | PASSGRILLE | PASSGLASS | LETPASSTHROW
+	pass_flags_self = PASSTABLE | PASSGRILLE | PASSTRANSPARENT | LETPASSTHROW
 	density = TRUE
 	max_integrity = 20
 	var/allow_walk = 1 //can we pass through it on walk intent
@@ -202,7 +202,7 @@
 			var/mob/living/M = user
 			M.electrocute_act(15,"Energy Barrier", safety=1)
 			shockcd = TRUE
-			addtimer(CALLBACK(src, .proc/cooldown), 5)
+			addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
 
 /obj/structure/holosign/barrier/cyborg/hacked/Bumped(atom/movable/AM)
 	if(shockcd)
@@ -214,4 +214,4 @@
 	var/mob/living/M = AM
 	M.electrocute_act(15,"Energy Barrier", safety=1)
 	shockcd = TRUE
-	addtimer(CALLBACK(src, .proc/cooldown), 5)
+	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)

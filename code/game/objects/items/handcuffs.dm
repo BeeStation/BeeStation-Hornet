@@ -57,7 +57,7 @@
 								"<span class='userdanger'>[user] is trying to put [src.name] on you!</span>")
 
 			playsound(loc, cuffsound, 30, 1, -2)
-			if(do_mob(user, C, 40) && (C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore()))
+			if(do_after(user, 4 SECONDS, C) && (C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore()))
 				if(iscyborg(user))
 					apply_cuffs(C, user, TRUE)
 				else
@@ -225,7 +225,7 @@
 	. = ..()
 	update_icon()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/spring_trap,
+		COMSIG_ATOM_ENTERED = PROC_REF(spring_trap),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -296,7 +296,7 @@
 
 /obj/item/restraints/legcuffs/beartrap/energy/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/dissipate), 100)
+	addtimer(CALLBACK(src, PROC_REF(dissipate)), 100)
 
 /obj/item/restraints/legcuffs/beartrap/energy/proc/dissipate()
 	if(!ismob(loc))

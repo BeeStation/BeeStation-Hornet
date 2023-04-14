@@ -49,6 +49,11 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isplatingturf(A) (istype(A, /turf/open/floor/plating))
 
+// Temporary, but the code needs a way to differentiate if transparent turfs are added in the future.
+#define istransparentturf(A) (istype(A, /turf/open/openspace))
+
+#define isopenspace(A) (istype(A, /turf/open/openspace))
+
 //Mobs
 #define isliving(A) (istype(A, /mob/living))
 
@@ -135,6 +140,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iscat(A) (istype(A, /mob/living/simple_animal/pet/cat))
 
 #define iscorgi(A) (istype(A, /mob/living/simple_animal/pet/dog/corgi))
+
+#define isdog(A) (istype(A, /mob/living/simple_animal/pet/dog))
 
 #define ishostile(A) (istype(A, /mob/living/simple_animal/hostile))
 
@@ -282,6 +289,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isblobmonster(O) (istype(O, /mob/living/simple_animal/hostile/blob))
 
 #define isshuttleturf(T) (length(T.baseturfs) && (/turf/baseturf_skipover/shuttle in T.baseturfs))
+
+#define IS_EDIBLE(O) (O.GetComponent(/datum/component/edible))
 
 /// isnum() returns TRUE for NaN. Also, NaN != NaN. Checkmate, BYOND.
 #define isnan(x) ( (x) != (x) )

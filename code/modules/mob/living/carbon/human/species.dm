@@ -229,6 +229,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		QDEL_NULL(tail)
 	if(should_have_tail && !tail)
 		tail = new mutanttail()
+		if(islizard(C))
+			var/obj/item/organ/tail/lizard/lizard_tail = tail
+			lizard_tail.tail_type = C.dna.features["tail_lizard"]
+			lizard_tail.spines = C.dna.features["spines"]
+			tail = lizard_tail
 		tail.Insert(C)
 
 	if(wings && (!should_have_wings || replace_current))
@@ -663,7 +668,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			var/datum/sprite_accessory/underwear/underwear = GLOB.underwear_list[H.underwear]
 			var/mutable_appearance/underwear_overlay
 			if(underwear)
-				if(H.dna.species.sexes && H.gender == FEMALE && (underwear.gender == MALE))
+				if(H.dna.species.sexes && H.dna.features["body_model"] == FEMALE && (underwear.gender == MALE))
 					underwear_overlay = wear_female_version(underwear.icon_state, underwear.icon, BODY_LAYER, FEMALE_UNIFORM_FULL)
 				else
 					underwear_overlay = mutable_appearance(underwear.icon, underwear.icon_state, -BODY_LAYER)
@@ -674,7 +679,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(H.undershirt)
 			var/datum/sprite_accessory/undershirt/undershirt = GLOB.undershirt_list[H.undershirt]
 			if(undershirt)
-				if(H.dna.species.sexes && H.gender == FEMALE)
+				if(H.dna.species.sexes && H.dna.features["body_model"] == FEMALE)
 					standing += wear_female_version(undershirt.icon_state, undershirt.icon, BODY_LAYER)
 				else
 					standing += mutable_appearance(undershirt.icon, undershirt.icon_state, -BODY_LAYER)
@@ -773,6 +778,13 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(!H.dna.features["ipc_antenna"] || H.dna.features["ipc_antenna"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
 			bodyparts_to_add -= "ipc_antenna"
 
+	if("apid_antenna" in mutant_bodyparts)
+		if(!H.dna.features["apid_antenna"] || H.dna.features["apid_antenna"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
+			bodyparts_to_add -= "apid_antenna"
+
+	if("apid_headstripe" in mutant_bodyparts)
+		if(!H.dna.features["apid_headstripe"] || H.dna.features["apid_headstripe"] == "None" || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || !HD)
+			bodyparts_to_add -= "apid_headstripe"
 
 	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
 	///Digi handling
@@ -803,7 +815,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(!bodyparts_to_add)
 		return
 
-	var/g = (H.gender == FEMALE) ? "f" : "m"
+	var/g = (H.dna.features["body_model"] == FEMALE) ? "f" : "m"
 
 	for(var/layer in relevent_layers)
 		var/layertext = mutant_bodyparts_layertext(layer)
@@ -863,6 +875,12 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					S = GLOB.ipc_chassis_list[H.dna.features["ipc_chassis"]]
 				if("insect_type")
 					S = GLOB.insect_type_list[H.dna.features["insect_type"]]
+				if("apid_antenna")
+					S = GLOB.apid_antenna_list[H.dna.features["apid_antenna"]]
+				if("apid_stripes")
+					S = GLOB.apid_stripes_list[H.dna.features["apid_stripes"]]
+				if("apid_headstripes")
+					S = GLOB.apid_headstripes_list[H.dna.features["apid_headstripes"]]
 			if(!S || S.icon_state == "none")
 				continue
 
@@ -1329,7 +1347,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(radiation > RAD_MOB_HAIRLOSS)
 		if(prob(15) && !(H.hair_style == "Bald") && (HAIR in species_traits))
 			to_chat(H, "<span class='danger'>Your hair starts to fall out in clumps.</span>")
-			addtimer(CALLBACK(src, .proc/go_bald, H), 50)
+			addtimer(CALLBACK(src, PROC_REF(go_bald), H), 50)
 
 /datum/species/proc/go_bald(mob/living/carbon/human/H)
 	if(QDELETED(H))	//may be called from a timer
@@ -1433,7 +1451,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			user.visible_message("<span class='warning'>[user] starts stealing [target]'s shoes!</span>",
 								"<span class='warning'>You start stealing [target]'s shoes!</span>")
 			var/obj/item/I = target.shoes
-			if(do_after(user, I.strip_delay, TRUE, target, TRUE))
+			if(do_after(user, I.strip_delay, target))
 				target.dropItemToGround(I, TRUE)
 				user.put_in_hands(I)
 				user.visible_message("<span class='warning'>[user] stole your [I]!</span>",
@@ -2102,7 +2120,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		buckled_obj.unbuckle_mob(H)
 		step(buckled_obj, olddir)
 	else
-		new /datum/forced_movement(H, get_ranged_target_turf(H, olddir, 4), 1, FALSE, CALLBACK(H, /mob/living/carbon/.proc/spin, 1, 1))
+		new /datum/forced_movement(H, get_ranged_target_turf(H, olddir, 4), 1, FALSE, CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon, spin), 1, 1))
 	return TRUE
 
 //UNSAFE PROC, should only be called through the Activate or other sources that check for CanFly
@@ -2165,6 +2183,30 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species/proc/get_harm_descriptors()
 	return
+
+/datum/species/proc/z_impact_damage(mob/living/carbon/human/H, turf/T, levels)
+	H.apply_general_zimpact_damage(T, levels)
+	if(levels < 2)
+		return
+	// SPLAT!
+	// 5: 50%, 4: 32%, 3: 18%
+	if(levels >= 3 && prob(min((levels ** 2) * 2, 50)))
+		H.gib()
+		return
+	// owie
+	// 5: 60%, 4: 45%, 3: 30%, 2: 15%
+	if(prob(min((levels - 1) * 15, 75)))
+		if(levels >= 3 && prob(25))
+			for(var/selected_part in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+				var/obj/item/bodypart/bp = H.get_bodypart(selected_part)
+				if(bp)
+					bp.dismember()
+			return
+		var/selected_part = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+		var/obj/item/bodypart/bp = H.get_bodypart(selected_part)
+		if(bp)
+			bp.dismember()
+			return
 
 /datum/species/proc/get_laugh_sound(mob/living/carbon/user)
 	return

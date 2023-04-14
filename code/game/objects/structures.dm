@@ -29,7 +29,13 @@
 	GLOB.cameranet.updateVisibility(src)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		QUEUE_SMOOTH_NEIGHBORS(src)
-	return ..()
+	var/turf/current_turf = loc
+	. = ..()
+	// Attempt zfalling for anything standing on this structure
+	if(!isopenspace(current_turf))
+		return
+	for(var/atom/movable/A in current_turf)
+		current_turf.try_start_zFall(A)
 
 /obj/structure/attack_hand(mob/user)
 	. = ..()
@@ -66,7 +72,8 @@
 /obj/structure/proc/do_climb(atom/movable/A)
 	if(climbable)
 		set_density(FALSE)
-		. = step(A,get_dir(A,src.loc))
+		var/step_dir = (get_turf(A) == get_turf(src)) ? dir : get_dir(A, src.loc)
+		. = step(A, step_dir)
 		set_density(TRUE)
 
 /obj/structure/proc/climb_structure(mob/living/user)
@@ -81,7 +88,7 @@
 	if(HAS_TRAIT(user, TRAIT_FREERUNNING)) //do you have any idea how fast I am???
 		adjusted_climb_time *= 0.8
 	structureclimber = user
-	if(do_mob(user, user, adjusted_climb_time))
+	if(do_after(user, adjusted_climb_time))
 		if(src.loc) //Checking if structure has been destroyed
 			if(do_climb(user))
 				user.visible_message("<span class='warning'>[user] climbs onto [src].</span>", \
@@ -118,3 +125,7 @@
 
 /obj/structure/rust_heretic_act()
 	take_damage(500, BRUTE, "melee", 1)
+
+/// If you can climb WITHIN this structure, lattices for example. Used by z_transit (Move Upwards verb)
+/obj/structure/proc/can_climb_through()
+	return FALSE

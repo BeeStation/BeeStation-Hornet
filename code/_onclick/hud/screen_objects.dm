@@ -154,10 +154,7 @@
 		icon_empty = icon_state
 
 	if(hud?.mymob && slot_id && icon_full)
-		if(hud.mymob.get_item_by_slot(slot_id))
-			icon_state = icon_full
-		else
-			icon_state = icon_empty
+		icon_state = hud.mymob.get_item_by_slot(slot_id) ? icon_full : icon_empty
 	return ..()
 
 /atom/movable/screen/inventory/proc/add_overlays()
@@ -187,14 +184,12 @@
 	var/static/mutable_appearance/blocked_overlay = mutable_appearance('icons/mob/screen_gen.dmi', "blocked")
 	var/held_index = 0
 
-/atom/movable/screen/inventory/hand/update_icon()
+/atom/movable/screen/inventory/hand/update_overlays()
 	. = ..()
 
 	if(!handcuff_overlay)
 		var/state = (!(held_index % 2)) ? "markus" : "gabrielle"
 		handcuff_overlay = mutable_appearance('icons/mob/screen_gen.dmi', state)
-
-	cut_overlay(list(handcuff_overlay, blocked_overlay, "hand_active"))
 
 	if(!hud?.mymob)
 		return
@@ -202,15 +197,14 @@
 	if(iscarbon(hud.mymob))
 		var/mob/living/carbon/C = hud.mymob
 		if(C.handcuffed)
-			add_overlay(handcuff_overlay)
+			. += handcuff_overlay
 
 		if(held_index)
 			if(!C.has_hand_for_held_index(held_index))
-				add_overlay(blocked_overlay)
+				. += blocked_overlay
 
 	if(held_index == hud.mymob.active_hand_index)
-		add_overlay("hand_active")
-
+		. += (held_index % 2) ? "lhandactive" : "rhandactive"
 
 /atom/movable/screen/inventory/hand/Click(location, control, params)
 	// At this point in client Click() code we have passed the 1/10 sec check and little else

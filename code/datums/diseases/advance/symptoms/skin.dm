@@ -75,7 +75,7 @@ BONUS
 //////////////////////////////////////
 Revitiligo
 
-	Slightly noticable.
+	Slightly noticeable.
 	Increases resistance.
 	Increases stage speed slightly.
 	Increases transmission.
@@ -297,7 +297,7 @@ BONUS
 		icon_state = "eggsac-sneaky"
 		sneaky_egg = sneaky
 	if(eggsplodes)
-		addtimer(CALLBACK(src, .proc/eggsplode), EGGSPLODE_DELAY)
+		addtimer(CALLBACK(src, PROC_REF(eggsplode)), EGGSPLODE_DELAY)
 	if(LAZYLEN(diseases))
 		AddComponent(/datum/component/infective, diseases)
 
@@ -443,14 +443,14 @@ Thresholds
 		shoot = TRUE
 	if(A.transmission >= 6)
 		power += 1
-	RegisterSignal(A.affected_mob, COMSIG_HUMAN_ATTACKED, .proc/pop_pustules)
+	RegisterSignal(A.affected_mob, COMSIG_HUMAN_ATTACKED, PROC_REF(pop_pustules))
 
 
 /datum/symptom/pustule/Activate(datum/disease/advance/A)
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
-	
+
 	switch(A.stage)
 		if(2, 3)
 			var/buboes = (rand(1, 3) * power)
@@ -496,7 +496,7 @@ Thresholds
 		C.visible_message("<span class='warning'>[attack_text] bursts [popped] pustules on [source]'s body!</span>")
 		pustules -= popped
 
-		
+
 /datum/symptom/pustule/End(datum/disease/advance/A)
 	. = ..()
 	UnregisterSignal(A.affected_mob, COMSIG_HUMAN_ATTACKED)
@@ -514,7 +514,7 @@ Thresholds
 	if(istype(BB, /obj/item/projectile/pimple))
 		var/obj/item/projectile/pimple/P = BB
 		P.diseases = diseases
-	
+
 
 /obj/item/projectile/pimple
 	name = "high-velocity pustule"
@@ -523,7 +523,7 @@ Thresholds
 	speed = 5
 	damage_type = TOX
 	icon_state = "energy2"
-	flag = "bio" 
+	flag = "bio"
 	var/list/diseases
 
 /obj/item/projectile/pimple/on_hit(atom/target, blocked)

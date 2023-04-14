@@ -198,7 +198,7 @@ Slimecrossing Items
 		to_chat(user, "<span class='warning'>The capture device only works on simple creatures.</span>")
 		return
 	if(M.mind)
-		INVOKE_ASYNC(src, .proc/offer_entry, M, user)
+		INVOKE_ASYNC(src, PROC_REF(offer_entry), M, user)
 		return
 	else
 		if(istype(M, /mob/living/simple_animal/hostile) && !("neutral" in M.faction))

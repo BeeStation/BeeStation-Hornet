@@ -37,6 +37,14 @@
 #define HONK_BOT			(1<<5)	//!  Honkbots & ED-Honks
 #define FIRE_BOT			(1<<6)  //!  Firebots
 
+//transfer_ai() defines. Main proc in ai_core.dm
+///Downloading AI to InteliCard
+#define AI_TRANS_TO_CARD 1
+///Uploading AI from InteliCard
+#define AI_TRANS_FROM_CARD 2
+///Malfunctioning AI hijacking mecha
+#define AI_MECH_HACK 3
+
 //AI notification defines
 #define		NEW_BORG     1
 #define		NEW_MODULE   2

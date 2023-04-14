@@ -138,7 +138,7 @@
 	if(client)
 		apply_pref_name("ai",client)
 
-	INVOKE_ASYNC(src, .proc/set_core_display_icon)
+	INVOKE_ASYNC(src, PROC_REF(set_core_display_icon))
 
 
 	holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"default"))
@@ -367,7 +367,7 @@
 		return
 
 	// Guard against misclicks, this isn't the sort of thing we want happening accidentally
-	if(alert("WARNING: This will immediately wipe your core and ghost you, removing your character from the round permanently (similar to cryo). Are you entirely sure you want to do this?",
+	if(alert("WARNING: This will immediately wipe your core and ghost you, removing your character from the round permanently (similar to cryo, so you should ahelp before doing so). Are you entirely sure you want to do this?",
 					"Wipe Core", "No", "No", "Yes") != "Yes")
 		return
 
@@ -919,7 +919,7 @@
 		return TRUE
 	return ..()
 
-/mob/living/silicon/ai/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/living/silicon/ai/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	if(control_disabled || incapacitated())
 		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
 		return FALSE
@@ -1029,7 +1029,8 @@
 		apc.malfhack = TRUE
 		apc.locked = TRUE
 		apc.coverlocked = TRUE
-
+		var/turf/T = get_turf(apc)
+		log_message("hacked APC [apc] at [AREACOORD(T)] (NEW PROCESSING: [malf_picker.processing_time])", LOG_GAME)
 		playsound(get_turf(src), 'sound/machines/ding.ogg', 50, 1, ignore_walls = FALSE)
 		to_chat(src, "Hack complete. \The [apc] is now under your exclusive control.")
 		apc.update_appearance()
@@ -1123,5 +1124,5 @@
 	if(.)
 		end_multicam()
 
-/mob/living/silicon/ai/zMove(dir, feedback = FALSE)
-	. = eyeobj.zMove(dir, feedback)
+/mob/living/silicon/ai/zMove(dir, feedback = FALSE, feedback_to = src)
+	. = eyeobj.zMove(dir, feedback, feedback_to)

@@ -14,15 +14,20 @@ export const MiningVendor = (props, context) => {
       height={600}>
       <Window.Content scrollable>
         <Section title="User">
-          {data.user && (
+          {((data.user.access_valid || data.user.observer) && (
             <Box>
               Welcome, <b>{data.user.name || "Unknown"}</b>,
               {' '}
               <b>{data.user.job || "Unemployed"}</b>!
               <br />
-              Your balance is <b>{data.user.points} mining points</b>.
+              Your balance is <b>{data.user.points} {data.user.currency_type}</b>.
             </Box>
-          ) || (
+          )) || ((data.user.card_found) && (
+            <Box color="light-gray">
+              No bank account in the card!<br />
+              Please contact your local HoP!
+            </Box>
+          )) || (
             <Box color="light-gray">
               No registered ID card!<br />
               Please contact your local HoP!
@@ -48,7 +53,8 @@ export const MiningVendor = (props, context) => {
                         'min-width': '95px',
                         'text-align': 'center',
                       }}
-                      disabled={!data.user
+                      disabled={!data.user.access_valid
+                        || data.user.observer
                         || product.price > data.user.points}
                       content={product.price + ' points'}
                       onClick={() => act('purchase', {

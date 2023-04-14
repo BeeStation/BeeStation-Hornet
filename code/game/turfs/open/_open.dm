@@ -20,7 +20,7 @@
 		AddComponent(/datum/component/wet_floor, wet, INFINITY, 0, INFINITY, TRUE)
 
 //direction is direction of travel of A
-/turf/open/zPassIn(atom/movable/A, direction, turf/source)
+/turf/open/zPassIn(atom/movable/A, direction, turf/source, falling = FALSE)
 	if(direction == DOWN)
 		for(var/obj/O in contents)
 			if(O.obj_flags & BLOCK_Z_IN_DOWN)
@@ -29,7 +29,7 @@
 	return FALSE
 
 //direction is direction of travel of A
-/turf/open/zPassOut(atom/movable/A, direction, turf/destination)
+/turf/open/zPassOut(atom/movable/A, direction, turf/destination, falling = FALSE)
 	if(direction == UP)
 		for(var/obj/O in contents)
 			if(O.obj_flags & BLOCK_Z_OUT_UP)

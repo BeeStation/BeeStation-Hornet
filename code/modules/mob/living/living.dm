@@ -51,13 +51,30 @@
 			buckled.unbuckle_mob(src)
 	return ..()
 
-/mob/living/proc/ZImpactDamage(turf/T, levels)
-	visible_message("<span class='danger'>[src] falls [levels] level[levels > 1 ? "s" : ""] into [T] with a sickening noise!</span>")
-	adjustBruteLoss((levels * 5) ** 1.5)
-	Knockdown(levels * 50)
+// The goal here:
+// 1 level: Your legs are mildly injured. Probably a bit slow
+// 2 levels: Your legs are broken, but you are still conscious
+// 3+ levels: You ded/near ded
+/mob/living/proc/get_distributed_zimpact_damage(levels)
+	return (levels * 15) ** 1.4
 
-/mob/living/proc/OpenCraftingMenu()
-	return
+/mob/living/proc/ZImpactDamage(turf/T, levels)
+	apply_general_zimpact_damage(T, levels)
+
+/mob/living/proc/apply_general_zimpact_damage(turf/T, levels)
+	visible_message("<span class='danger'>[src] falls [levels] level\s into [T] with a sickening noise!</span>")
+	var/amount_total = get_distributed_zimpact_damage(levels)
+	var/total_damage_percent_left = 1
+	var/obj/item/bodypart/left_leg = get_bodypart(BODY_ZONE_L_LEG)
+	var/obj/item/bodypart/right_leg = get_bodypart(BODY_ZONE_R_LEG)
+	if(left_leg && !left_leg.disabled)
+		total_damage_percent_left -= 0.45
+		apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_L_LEG)
+	if(right_leg && !right_leg.disabled)
+		total_damage_percent_left -= 0.45
+		apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_R_LEG)
+	adjustBruteLoss(amount_total * total_damage_percent_left)
+	Knockdown(levels * 50)
 
 /mob/living/proc/can_bumpslam()
 	REMOVE_MOB_PROPERTY(src, PROP_CANTBUMPSLAM, src.type)
@@ -75,9 +92,9 @@
 			visible_message("<span class='warning'>[src] [pick("ran", "slammed")] into \the [A]!</span>")
 			apply_damage(5, BRUTE)
 			Paralyze(40)
-			addtimer(CALLBACK(src, .proc/can_bumpslam), 200)
+			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 200)
 		else
-			addtimer(CALLBACK(src, .proc/can_bumpslam), 50)
+			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 50)
 
 
 	if(ismob(A))
@@ -205,7 +222,7 @@
 	if(len)
 		for(var/obj/item/I in held_items)
 			if(!length(holding))
-				holding += "They are holding \a [I]"
+				holding += "[p_they(TRUE)] [p_are()] holding \a [I]"
 			else if(held_items.Find(I) == len)
 				holding += ", and \a [I]."
 			else
@@ -843,7 +860,7 @@
 	who.visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
 					"<span class='userdanger'>[src] tries to remove your [what.name].</span>")
 	what.add_fingerprint(src)
-	if(do_mob(src, who, what.strip_delay))
+	if(do_after(src, what.strip_delay, who))
 		if(what && Adjacent(who))
 			if(islist(where))
 				var/list/L = where
@@ -877,7 +894,7 @@
 
 		who.visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>", \
 					"<span class='notice'>[src] tries to put [what] on you.</span>")
-		if(do_mob(src, who, what.equip_delay_other))
+		if(do_after(src, what.equip_delay_other, who))
 			if(what && Adjacent(who) && what.mob_can_equip(who, src, final_where, TRUE, TRUE))
 				if(temporarilyRemoveItemFromInventory(what))
 					if(where_list)
@@ -951,14 +968,14 @@
 /mob/living/proc/harvest(mob/living/user) //used for extra objects etc. in butchering
 	return
 
-/mob/living/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/living/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	if(incapacitated())
 		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
 		return FALSE
 	if(be_close && !in_range(M, src))
 		to_chat(src, "<span class='warning'>You are too far away!</span>")
 		return FALSE
-	if(!no_dextery)
+	if(!no_dexterity)
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return FALSE
 	return TRUE
@@ -1375,3 +1392,142 @@
 	if(is_servant_of_ratvar(src) && !iseminence(src))
 		eminence.selected_mob = src
 		to_chat(eminence, "<span class='brass'>You select [src].</span>")
+
+/mob/living/proc/set_gender(ngender = NEUTER, silent = FALSE, update_icon = TRUE, forced = FALSE)
+	if(forced)
+		gender = ngender
+		return TRUE
+	return FALSE
+
+#define LOOKING_DIRECTION_UP 1
+#define LOOKING_DIRECTION_NONE 0
+#define LOOKING_DIRECTION_DOWN -1
+
+/// The current direction the player is ACTUALLY looking, regardless of intent.
+/mob/living/var/looking_direction = LOOKING_DIRECTION_NONE
+/// The current direction the player is trying to look.
+/mob/living/var/attempt_looking_direction = LOOKING_DIRECTION_NONE
+
+///Checks if the user is incapacitated and cannot look up/down
+/mob/living/proc/can_look_direction()
+	return !(incapacitated(ignore_restraints = TRUE))
+
+/// Tell the mob to attempt to look this direction until it's set back to NONE
+/mob/living/proc/set_attempted_looking_direction(direction)
+	if(attempt_looking_direction == direction && direction != LOOKING_DIRECTION_NONE) // we are already trying to look this way, reset
+		set_attempted_looking_direction(LOOKING_DIRECTION_NONE)
+		return
+	attempt_looking_direction = direction
+	set_look_direction(attempt_looking_direction)
+
+/// Actually sets the looking direction, but it won't try to stay that way if we move out of range
+/mob/living/proc/set_look_direction(direction, automatic = FALSE)
+	// Handle none/failure
+	if(direction == LOOKING_DIRECTION_NONE || !can_look_direction(direction))
+		looking_direction = LOOKING_DIRECTION_NONE
+		reset_perspective()
+		return
+	// Automatic attempts should not trigger the cooldown
+	if(!automatic)
+		changeNext_move(CLICK_CD_LOOK_DIRECTION)
+	looking_direction = direction
+	var/look_str = direction == LOOKING_DIRECTION_UP ? "up" : "down"
+	if(update_looking_move(automatic))
+		visible_message("<span class='notice'>[src] looks [look_str].</span>", "<span class='notice'>You look [look_str].</span>")
+
+/// Called by /mob/living/Move()
+/mob/living/proc/update_looking_move(automatic = FALSE)
+	// Try looking the attempted direction now that we've moved
+	if(attempt_looking_direction != LOOKING_DIRECTION_NONE && looking_direction == LOOKING_DIRECTION_NONE)
+		set_look_direction(attempt_looking_direction, automatic = TRUE) // this won't loop recursively because looking_direction cannot be NONE above
+	// We can't try looking nowhere!
+	if(looking_direction == LOOKING_DIRECTION_NONE)
+		return FALSE
+	// Something changed, stop looking
+	if(!can_look_direction(looking_direction))
+		set_look_direction(LOOKING_DIRECTION_NONE)
+	// Update perspective
+	var/turf/base = find_visible_hole_in_direction(looking_direction)
+	if(!isturf(base))
+		if(!automatic)
+			to_chat(src, "<span class='warning'>You can't see through the [looking_direction == LOOKING_DIRECTION_UP ? "ceiling above" : "floor below"] you.</span>")
+		set_look_direction(LOOKING_DIRECTION_NONE)
+		return FALSE
+	reset_perspective(base)
+	return TRUE
+
+/mob/living/verb/look_up_short()
+	set name = "Look Up"
+	set category = "IC"
+	// you pressed the verb while holding a keybind, unlock!
+	attempt_looking_direction = LOOKING_DIRECTION_NONE
+	if(looking_direction == LOOKING_DIRECTION_UP)
+		set_look_direction(LOOKING_DIRECTION_NONE)
+		return
+	look_up()
+
+/**
+ * look_up Changes the perspective of the mob to any openspace turf above the mob
+ * lock: If it should continue to try looking even if there is no seethrough turf
+ */
+/mob/living/proc/look_up(lock = FALSE)
+	if(lock)
+		set_attempted_looking_direction(LOOKING_DIRECTION_UP)
+	else
+		set_look_direction(LOOKING_DIRECTION_UP)
+
+/mob/living/verb/look_down_short()
+	set name = "Look Down"
+	set category = "IC"
+	// you pressed the verb while holding a keybind, unlock!
+	attempt_looking_direction = LOOKING_DIRECTION_NONE
+	if(looking_direction == LOOKING_DIRECTION_DOWN)
+		set_look_direction(LOOKING_DIRECTION_NONE)
+		return
+	look_down()
+
+/**
+ * look_down Changes the perspective of the mob to any openspace turf below the mob
+ * lock: If it should continue to try looking even if there is no seethrough turf
+ */
+/mob/living/proc/look_down(lock = FALSE)
+	if(lock)
+		set_attempted_looking_direction(LOOKING_DIRECTION_DOWN)
+	else
+		set_look_direction(LOOKING_DIRECTION_DOWN)
+
+/// Helper, resets from looking up or down, and unlocks the view.
+/mob/living/proc/look_reset()
+	set_attempted_looking_direction(LOOKING_DIRECTION_NONE)
+
+/mob/living/proc/find_visible_hole_in_direction(direction)
+	// Our current z-level turf
+	var/turf/turf_base = get_turf(src)
+	// The target z-level turf
+	var/turf/turf_other = get_step_multiz(turf_base, direction == LOOKING_DIRECTION_UP ? UP : DOWN)
+	if(!turf_other) // There is nothing above/below
+		return FALSE
+	// This turf is the one we are looking through
+	var/turf/seethrough_turf = direction == LOOKING_DIRECTION_UP ? turf_other : turf_base
+	// The turf we should end up looking at.
+	var/turf/end_turf = turf_other
+	if(istransparentturf(seethrough_turf)) //There is no turf we can look through directly above/below us, look for nearby turfs
+		return end_turf
+	// Turf in front of you to try to look through before anything else
+	var/turf/seethrough_turf_front = get_step(seethrough_turf, dir)
+	if(istransparentturf(seethrough_turf_front))
+		return direction == LOOKING_DIRECTION_UP ? seethrough_turf_front : get_step_multiz(seethrough_turf_front, DOWN)
+	var/target_z = direction == LOOKING_DIRECTION_UP ? turf_other.z : z
+	var/list/checkturfs = block(locate(x-1,y-1,target_z),locate(x+1,y+1,target_z))-turf_base-turf_other
+	for(var/turf/checkhole in checkturfs)
+		if(istransparentturf(checkhole))
+			seethrough_turf = checkhole
+			end_turf = direction == LOOKING_DIRECTION_UP ? checkhole : get_step_multiz(checkhole, DOWN)
+			break
+	if(!istransparentturf(seethrough_turf))
+		return FALSE
+	return end_turf
+
+#undef LOOKING_DIRECTION_UP
+#undef LOOKING_DIRECTION_NONE
+#undef LOOKING_DIRECTION_DOWN

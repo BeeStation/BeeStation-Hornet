@@ -18,6 +18,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	throw_speed = 3
 	throw_range = 7
+	w_class = WEIGHT_CLASS_BULKY
 	var/skin_type = MEDBOT_SKIN_DEFAULT
 	var/empty = FALSE
 	var/damagetype_healed //defines damage type of the medkit. General ones stay null. Used for medibot healing bonuses
@@ -40,6 +41,21 @@
 		/obj/item/reagent_containers/hypospray/medipen = 2)
 	generate_items_inside(items_inside,src)
 
+//Compact First Aid kit
+/obj/item/storage/firstaid/compact
+	name = "compact first-aid kit"
+	desc = "A compact first aid kit designed for treating common injuries found in the field."
+	w_class = WEIGHT_CLASS_NORMAL //Intended to be used by ERTs or other uncommon roles
+
+/obj/item/storage/firstaid/compact/PopulateContents()
+	if(empty)
+		return
+	var/static/items_inside = list(
+		/obj/item/stack/medical/gauze = 1,
+		/obj/item/stack/medical/bruise_pack = 2,
+		/obj/item/stack/medical/ointment = 2,
+		/obj/item/reagent_containers/hypospray/medipen = 2)
+	generate_items_inside(items_inside,src)
 
 //First MD kit
 /obj/item/storage/firstaid/medical
@@ -303,6 +319,12 @@
 	. = ..()
 	icon_state = pick("firstaid-advanced","firstaid-advancedalt")
 
+//Compact First Advanced kit
+/obj/item/storage/firstaid/advanced/compact
+	name = "compact advanced first aid kit"
+	desc = "A compact advanced first aid kit designed for treating severe injuries found in the field."
+	w_class = WEIGHT_CLASS_NORMAL //Intended to be used by ERTs or other uncommon roles
+
 //First Random kit
 /obj/item/storage/firstaid/random
 	name = "mystery medical kit"
@@ -354,6 +376,7 @@
 	icon_state = "firstaid-combat"
 	item_state = "firstaid-combat"
 	skin_type = MEDBOT_SKIN_SYNDI
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/firstaid/tactical/Initialize(mapload)
 	. = ..()
@@ -408,7 +431,7 @@
 	name = "pill bottle"
 	desc = "It's an airtight container for storing medication."
 	icon_state = "pill_canister_0"
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medicine_containers.dmi'
 	item_state = "contsolid"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'

@@ -14,9 +14,9 @@
 	use_power = IDLE_POWER_USE
 	can_unwrench = TRUE
 	welded = FALSE
-	level = 1
 	layer = GAS_SCRUBBER_LAYER
 	shift_underlay_only = FALSE
+	hide = TRUE
 
 	interacts_with_air = TRUE
 
@@ -440,6 +440,14 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/air_output
 	name = "air mix tank output inlet"
 	id_tag = ATMOS_GAS_MONITOR_OUTPUT_AIR
+
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/toxins_waste_output
+	name = "toxins waste output inlet"
+	id_tag = ATMOS_GAS_MONITOR_OUTPUT_TOXINS_WASTE
+
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/sm_waste
+	name = "supermatter waste output inlet"
+	id_tag = ATMOS_GAS_MONITOR_OUTPUT_SM_WASTE
 
 #undef INT_BOUND
 #undef EXT_BOUND

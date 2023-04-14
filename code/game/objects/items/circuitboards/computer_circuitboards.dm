@@ -122,6 +122,14 @@
 	name = "incinerator air control (Computer Board)"
 	build_path = /obj/machinery/computer/atmos_control/tank/incinerator
 
+/obj/item/circuitboard/computer/atmos_control/tank/sm_waste
+	name = "supermatter waste control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/tank/sm_waste
+
+/obj/item/circuitboard/computer/atmos_control/tank/toxins_waste
+	name = "toxins waste control (Computer Board)"
+	build_path = /obj/machinery/computer/atmos_control/tank/toxins_waste_tank
+
 /obj/item/circuitboard/computer/auxillary_base
 	name = "auxillary base management console (Computer Board)"
 	icon_state = "engineering"

@@ -58,6 +58,7 @@
 	var/smile_color = "#FF0000"
 	var/smile_state = "envirohelm_smile"
 	var/visor_state = "enviro_visor"
+	var/lamp_functional = TRUE
 	var/obj/item/clothing/head/attached_hat
 	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_welding_screen/plasmaman)
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
@@ -107,6 +108,10 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/attackby(obj/item/item, mob/living/user)
 	. = ..()
+	if(istype(item, /obj/item/light/bulb) && !lamp_functional)
+		lamp_functional = TRUE
+		qdel(item)
+		to_chat(user, "<span class='notice'>You repair the broken headlamp!</span>")
 	if(istype(item, /obj/item/toy/crayon))
 		if(smile)
 			to_chat(user, "<span class='notice'>Seems like someone already drew something on the helmet's visor.</span>")
@@ -182,7 +187,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/ComponentInitialize()
 	. = ..()
-	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, .proc/wipe_that_smile_off_your_face)
+	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(wipe_that_smile_off_your_face))
 
 ///gets called when receiving the CLEAN_ACT signal from something, i.e soap or a shower. exists to remove any smiley faces drawn on the helmet.
 /obj/item/clothing/head/helmet/space/plasmaman/proc/wipe_that_smile_off_your_face()
@@ -195,7 +200,11 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/user)
 	helmet_on = !helmet_on
-
+	if(!lamp_functional)
+		to_chat(user, "<span class='notice'>Your helmet's torch is broken! You'll have to repair it with a lightbulb!</span>")
+		set_light_on(FALSE)
+		helmet_on = FALSE
+		return
 	if(helmet_on)
 		if(!up)
 			to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
@@ -209,6 +218,20 @@
 	update_icon()
 	user.update_inv_head() //So the mob overlay updates
 	update_button_icons(user)
+
+/obj/item/clothing/head/helmet/space/plasmaman/proc/smash_headlamp()
+	if(!lamp_functional)
+		return
+	if(!helmet_on)
+		return
+	set_light_on(FALSE)
+	helmet_on = FALSE
+	playsound(src, 'sound/effects/glass_step.ogg', 100)
+	to_chat(usr, "<span class='danger'>The [src]'s headlamp is smashed to pieces!</span>")
+	lamp_functional = FALSE
+	update_icon()
+	usr.update_inv_head() //So the mob overlay updates
+	update_button_icons(usr)
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_overlays()
 	cut_overlays()

@@ -42,7 +42,7 @@
 
 /obj/item/clothing/mask/fakemoustache/italian
 	name = "italian moustache"
-	desc = "Made from authentic Italian moustache hairs. Gives the wearer an irresistable urge to gesticulate wildly."
+	desc = "Made from authentic Italian moustache hairs. Gives the wearer an irresistible urge to gesticulate wildly."
 	modifies_speech = TRUE
 
 /obj/item/clothing/mask/fakemoustache/italian/handle_speech(datum/source, list/speech_args)
@@ -287,7 +287,7 @@
 			var/currentHandIndex = user.get_held_index_of_item(src)
 			user.transferItemToLoc(src, null)
 			user.put_in_hand(nk, currentHandIndex)
-			user.visible_message("<span class='notice'>You tie [src] up like a neckerchief.</span>", "<span class='notice'>[user] ties [src] up like a neckerchief.</span>")
+			user.visible_message("<span class='notice'>[user] ties [src] up like a neckerchief.</span>", "<span class='notice'>You tie [src] up like a neckerchief.</span>")
 			qdel(src)
 		else
 			to_chat(user, "<span class='warning'>You must be holding [src] in order to tie it!")

@@ -116,6 +116,9 @@
 	bullet_bounce_sound = null
 	tiled_dirt = FALSE
 
+/turf/open/floor/holofloor/hyperspace/nograv/check_gravity()
+    return FALSE
+
 /turf/open/floor/holofloor/hyperspace/Initialize(mapload)
 	icon_state = "speedspace_ns_[(x + 5*y + (y%2+1)*7)%15+1]"
 	. = ..()
@@ -139,7 +142,7 @@
 
 /turf/open/floor/holofloor/carpet/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, /atom/.proc/update_icon), 1)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1)
 
 /turf/open/floor/holofloor/carpet/update_icon()
 	. = ..()
