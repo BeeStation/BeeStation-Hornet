@@ -1,0 +1,10 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Sniper rifles now need to be chambered (Like a shotgun, one use to chamber)
+  - balance: Sniper rifles minimum fire delay decreased from 4s to 1.5s.
+  - balance: Sniper rifle ammo is now brought seperately from the magazine.
+  - balance: Added in explosive sniper rounsd.
+  - balance: Added in EMP sniper rounds.
+  - balance: Added in inferno sniper rounds.
+  - balance: Added in anti-matter sniper rounds.
