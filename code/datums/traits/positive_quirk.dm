@@ -16,12 +16,12 @@
 	mood_quirk = TRUE
 
 /datum/quirk/apathetic/add()
-	var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
+	var/datum/component/mood/mood = quirk_target.GetComponent(/datum/component/mood)
 	if(mood)
 		mood.mood_modifier -= 0.2
 
 /datum/quirk/apathetic/remove()
-	var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
+	var/datum/component/mood/mood = quirk_target.GetComponent(/datum/component/mood)
 	if(mood)
 		mood.mood_modifier += 0.2
 
@@ -69,7 +69,7 @@
 
 /datum/quirk/jolly/on_process(delta_time)
 	if(DT_PROB(0.05, delta_time))
-		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "jolly", /datum/mood_event/jolly)
+		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "jolly", /datum/mood_event/jolly)
 
 /datum/quirk/light_step
 	name = "Light Step"
@@ -88,7 +88,7 @@
 	lose_text = "<span class='danger'>You forget how musical instruments work.</span>"
 
 /datum/quirk/musician/on_spawn()
-	var/mob/living/carbon/human/H = quirk_holder
+	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/choice_beacon/music/B = new(get_turf(H))
 	var/list/slots = list (
 		"backpack" = ITEM_SLOT_BACKPACK,
@@ -111,21 +111,33 @@
 	mob_trait = TRAIT_MULTILINGUAL
 	gain_text = "<span class='notice'>You have learned to understand an additional language.</span>"
 	lose_text = "<span class='danger'>You have forgotten how to understand a language.</span>"
+	var/datum/language/known_language
 
-/datum/quirk/multilingual/on_spawn()
-	var/mob/living/carbon/human/H = quirk_holder
-	if(H.job == JOB_NAME_CURATOR)
+/datum/quirk/multilingual/proc/set_up_language()
+	var/datum/language_holder/LH = quirk_holder.get_language_holder()
+	if(quirk_holder.assigned_role == JOB_NAME_CURATOR)
 		return
-	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/T = quirk_target.getorganslot(ORGAN_SLOT_TONGUE)
 	var/list/languages_possible = T.languages_possible
 	languages_possible = languages_possible - typecacheof(/datum/language/codespeak) - typecacheof(/datum/language/narsie) - typecacheof(/datum/language/ratvar)
-	languages_possible = languages_possible - H.language_holder.understood_languages
-	languages_possible = languages_possible - H.language_holder.spoken_languages
-	languages_possible = languages_possible - H.language_holder.blocked_languages
+	languages_possible = languages_possible - LH.understood_languages
+	languages_possible = languages_possible - LH.spoken_languages
+	languages_possible = languages_possible - LH.blocked_languages
 	if(length(languages_possible))
-		var/datum/language/random_language = pick(languages_possible)
-		H.grant_language(random_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
+		known_language = pick(languages_possible)
 //Credit To Yowii/Yoworii/Yorii for a much more streamlined method of language library building
+
+/datum/quirk/multilingual/add()
+	if(!known_language)
+		set_up_language()
+	var/datum/language_holder/LH = quirk_holder.get_language_holder()
+	LH.grant_language(known_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
+
+/datum/quirk/multilingual/remove()
+	if(!known_language)
+		return
+	var/datum/language_holder/LH = quirk_holder.get_language_holder()
+	LH.remove_language(known_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
 
 /datum/quirk/night_vision
 	name = "Night Vision"
@@ -136,7 +148,7 @@
 	lose_text = "<span class='danger'>Everything seems a little darker.</span>"
 
 /datum/quirk/night_vision/on_spawn()
-	var/mob/living/carbon/human/H = quirk_holder
+	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/organ/eyes/eyes = H.getorgan(/obj/item/organ/eyes)
 	if(!eyes || eyes.lighting_alpha)
 		return
@@ -151,7 +163,7 @@
 	lose_text = "<span class='danger'>You forget how photo cameras work.</span>"
 
 /datum/quirk/photographer/on_spawn()
-	var/mob/living/carbon/human/H = quirk_holder
+	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/camera/spooky/camera = new(get_turf(H))
 	var/list/camera_slots = list (
 		"neck" = ITEM_SLOT_NECK,
@@ -185,20 +197,20 @@
 	process = TRUE
 
 /datum/quirk/spiritual/on_spawn()
-	var/mob/living/carbon/human/H = quirk_holder
+	var/mob/living/carbon/human/H = quirk_target
 	H.equip_to_slot_or_del(new /obj/item/storage/fancy/candle_box(H), ITEM_SLOT_BACKPACK)
 	H.equip_to_slot_or_del(new /obj/item/storage/box/matches(H), ITEM_SLOT_BACKPACK)
 
 /datum/quirk/spiritual/on_process()
 	var/comforted = FALSE
-	for(var/mob/living/carbon/human/H in oview(5, quirk_holder))
+	for(var/mob/living/carbon/human/H in oview(5, quirk_target))
 		if(H.mind?.holy_role && H.stat == CONSCIOUS)
 			comforted = TRUE
 			break
 	if(comforted)
-		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "religious_comfort", /datum/mood_event/religiously_comforted)
+		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "religious_comfort", /datum/mood_event/religiously_comforted)
 	else
-		SEND_SIGNAL(quirk_holder, COMSIG_CLEAR_MOOD_EVENT, "religious_comfort")
+		SEND_SIGNAL(quirk_target, COMSIG_CLEAR_MOOD_EVENT, "religious_comfort")
 
 /datum/quirk/tagger
 	name = "Tagger"
@@ -209,7 +221,7 @@
 	lose_text = "<span class='danger'>You forget how to tag walls properly.</span>"
 
 /datum/quirk/tagger/on_spawn()
-	var/mob/living/carbon/human/H = quirk_holder
+	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/toy/crayon/spraycan/spraycan = new(get_turf(H))
 	H.put_in_hands(spraycan)
 	H.equip_to_slot(spraycan, ITEM_SLOT_BACKPACK)
@@ -234,7 +246,7 @@
 	process = TRUE
 
 /datum/quirk/neet/on_spawn()
-	var/mob/living/carbon/human/H = quirk_holder
+	var/mob/living/carbon/human/H = quirk_target
 	var/datum/bank_account/D = H.get_bank_account()
 	if(!D) //if their current mob doesn't have a bank account, likely due to them being a special role (ie nuke op)
 		return

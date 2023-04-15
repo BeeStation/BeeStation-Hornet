@@ -12,6 +12,6 @@
 	var/startSide = pick(GLOB.cardinals)
 	var/turf/pickedstart = spaceDebrisStartLoc(startSide, z_value)
 	var/turf/pickedgoal = spaceDebrisFinishLoc(startSide, z_value)
-	var/Me = pickweight(GLOB.meteorsC)
+	var/Me = pick_weight(GLOB.meteorsC)
 	var/obj/effect/meteor/M = new Me(pickedstart, pickedgoal)
 	M.dest = pickedgoal

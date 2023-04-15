@@ -27871,23 +27871,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port)
-"cOJ" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/components/binary/pump/on{
-	dir = 4;
-	name = "Xenobiology Positive Pressure Pump";
-	target_pressure = 500
-	},
-/turf/open/floor/plasteel,
-/area/science/xenobiology)
 "cOK" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -29139,17 +29122,6 @@
 /obj/item/clothing/head/fedora,
 /obj/item/clothing/under/dress/redeveninggown,
 /obj/item/clothing/head/rabbitears,
-/turf/open/floor/plasteel/grimy,
-/area/crew_quarters/dorms)
-"cVb" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
-/obj/machinery/airalarm{
-	dir = 1;
-	pixel_y = -22
-	},
 /turf/open/floor/plasteel/grimy,
 /area/crew_quarters/dorms)
 "cVc" = (
@@ -38000,38 +37972,6 @@
 /obj/item/storage/fancy/candle_box,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
-"dUn" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/food/snacks/grown/poppy{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
-/turf/open/floor/plasteel/dark,
-/area/chapel/main)
-"dUr" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/harebell{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/food/snacks/grown/harebell{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
-/turf/open/floor/plasteel/dark,
-/area/chapel/main)
 "dUt" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -39934,15 +39874,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/solar/port/aft)
-"efX" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy/geranium{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
-/turf/open/floor/plasteel/grimy,
-/area/chapel/office)
 "efY" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/candle_box{
@@ -44028,6 +43959,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
+"fyR" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/flower/geranium{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/lily,
+/turf/open/floor/plasteel/grimy,
+/area/chapel/office)
 "fzo" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -52698,6 +52638,22 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/science/robotics/mechbay)
+"iBK" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/main)
 "iCw" = (
 /obj/machinery/clonepod/prefilled,
 /obj/structure/window/reinforced{
@@ -69508,6 +69464,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
+"ovp" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/flower/lily,
+/obj/item/reagent_containers/food/snacks/grown/flower/lily,
+/obj/item/reagent_containers/food/snacks/grown/flower/lily,
+/obj/machinery/airalarm{
+	dir = 1;
+	pixel_y = -22
+	},
+/turf/open/floor/plasteel/grimy,
+/area/crew_quarters/dorms)
 "ovq" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
@@ -74319,6 +74286,22 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/science/server)
+"qhi" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/main)
 "qhw" = (
 /obj/machinery/turretid{
 	icon_state = "control_stun";
@@ -85664,6 +85647,23 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/aisat)
+"uiR" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/binary/pump/on{
+	dir = 4;
+	name = "Xenobiology Positive Pressure Pump";
+	target_pressure = 500
+	},
+/turf/open/floor/plasteel,
+/area/science/xenobiology)
 "ujf" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -124318,7 +124318,7 @@ cwo
 tBD
 cMY
 cMZ
-cOJ
+uiR
 cNc
 cRT
 das
@@ -130545,7 +130545,7 @@ edn
 win
 eew
 efi
-efX
+fyR
 efg
 aad
 wiQ
@@ -131556,7 +131556,7 @@ dfm
 kWF
 dSE
 dTA
-dUn
+iBK
 uDX
 dVc
 dWO
@@ -132584,7 +132584,7 @@ cOR
 xeR
 dSI
 dTA
-dUr
+qhi
 uDX
 dVc
 dWN
@@ -150021,7 +150021,7 @@ cAw
 cPW
 cRv
 cTc
-cVb
+ovp
 cAw
 wxf
 wzE

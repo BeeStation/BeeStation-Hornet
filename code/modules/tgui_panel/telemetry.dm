@@ -146,9 +146,9 @@
 		var/msg = "[key_name(client)] has a banned account in connection history! (Matched: [first_found_ban["ckey"]], [first_found_ban["address"]], [first_found_ban["computer_id"]])"
 		message_admins(msg)
 		log_admin_private(msg)
-	all_ckeys = uniqueList(all_ckeys)
-	all_ips = uniqueList(all_ips)
-	all_cids = uniqueList(all_cids)
+	all_ckeys = unique_list(all_ckeys)
+	all_ips = unique_list(all_ips)
+	all_cids = unique_list(all_cids)
 	switch(length(all_ckeys))
 		if(2)
 			LAZYSET(telemetry_notices, TGUI_TELEM_CKEY_WARNING, "<span class='average'>KEY_COUNT|User has more than one CKEY in history.</span>")

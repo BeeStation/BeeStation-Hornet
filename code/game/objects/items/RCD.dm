@@ -588,6 +588,7 @@ RLD
 	max_matter = 500
 	matter = 500
 	canRturf = TRUE
+	item_flags = ISWEAPON
 
 /obj/item/rcd_ammo
 	name = "compressed matter cartridge"

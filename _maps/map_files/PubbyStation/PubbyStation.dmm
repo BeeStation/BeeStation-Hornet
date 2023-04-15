@@ -636,7 +636,7 @@
 "aeE" = (
 /obj/machinery/hydroponics/constructable,
 /obj/item/seeds/sunflower,
-/obj/item/seeds/poppy,
+/obj/item/seeds/flower/poppy,
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "aeF" = (
@@ -17655,7 +17655,7 @@
 /area/hydroponics/garden/monastery)
 "ciT" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/harebell,
+/obj/item/seeds/flower/harebell,
 /turf/open/floor/grass,
 /area/hydroponics/garden/monastery)
 "ciV" = (
@@ -17703,7 +17703,7 @@
 "cjo" = (
 /obj/machinery/hydroponics/soil,
 /obj/machinery/light/small,
-/obj/item/seeds/poppy,
+/obj/item/seeds/flower/poppy,
 /turf/open/floor/grass,
 /area/hydroponics/garden/monastery)
 "cjp" = (
@@ -18772,7 +18772,7 @@
 /area/chapel/office)
 "crx" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
 "cry" = (
@@ -18799,7 +18799,7 @@
 /area/maintenance/department/engine)
 "crH" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
 "crK" = (
@@ -19199,7 +19199,7 @@
 /area/hydroponics/garden/monastery)
 "cvh" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/poppy,
+/obj/item/seeds/flower/poppy,
 /turf/open/floor/grass,
 /area/hydroponics/garden/monastery)
 "cvi" = (
@@ -19376,8 +19376,8 @@
 /area/engine/engineering)
 "cww" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
 "cwx" = (

@@ -18331,7 +18331,7 @@
 /area/security/detectives_office)
 "bwt" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/poppy,
+/obj/item/seeds/flower/poppy,
 /turf/open/floor/grass,
 /area/chapel/main)
 "bwu" = (
@@ -79230,15 +79230,15 @@
 /area/medical/medbay/central)
 "tDf" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily{
+/obj/item/reagent_containers/food/snacks/grown/flower/lily{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy/geranium{
+/obj/item/reagent_containers/food/snacks/grown/flower/geranium{
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy,
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},

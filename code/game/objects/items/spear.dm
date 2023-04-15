@@ -7,6 +7,7 @@
 	desc = "A haphazardly-constructed yet still deadly weapon of ancient design."
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
+	item_flags = ISWEAPON
 	slot_flags = ITEM_SLOT_BACK
 	block_upgrade_walk = 1
 	throwforce = 20
