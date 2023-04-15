@@ -14,7 +14,7 @@
 	. = ..()
 	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#e7a3e4", TRUE, TRUE)
 	//After 15 minutes the tracking beacon turns off
-	addtimer(CALLBACK(src, .proc/signal_decay), 15 MINUTES)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(signal_decay)), 15 MINUTES)
 
 /obj/item/disk/tech_disk/research/proc/signal_decay()
 	var/datum/component/tracking_beacon/component = GetComponent(/datum/component/tracking_beacon)
