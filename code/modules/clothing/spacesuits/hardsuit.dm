@@ -347,6 +347,13 @@
 	. = ..()
 	AddComponent(/datum/component/team_monitor, EXPLORATION_TRACKING, -1)
 
+/obj/item/clothing/head/helmet/space/hardsuit/exploration/ui_action_click(mob/user, datum/action)
+	switch(action.type)
+		if(/datum/action/item_action/toggle_beacon_hud/explorer)
+			toggle_hud(user)
+			return
+	. = ..()
+
 /obj/item/clothing/suit/space/hardsuit/exploration
 	icon_state = "hardsuit-exploration"
 	name = "exploration hardsuit"
